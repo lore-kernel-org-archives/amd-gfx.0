@@ -4,38 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F6C6C00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 07:32:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23338C00140
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 07:32:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30F3B11254F;
-	Wed, 24 Aug 2022 07:32:48 +0000 (UTC)
-X-Greylist: delayed 2277 seconds by postgrey-1.36 at gabe;
- Tue, 23 Aug 2022 16:39:50 UTC
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [IPv6:2a01:488:42:1000:50ed:8234::])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6AE010EAFF
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 16:39:50 +0000 (UTC)
-Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1oQWLf-0008R5-2q; Tue, 23 Aug 2022 18:01:51 +0200
-Message-ID: <401cf9aa-3d6d-d038-e3d4-76f7a8a8c57d@leemhuis.info>
-Date: Tue, 23 Aug 2022 18:01:49 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AB66112906;
+	Wed, 24 Aug 2022 07:32:50 +0000 (UTC)
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [IPv6:2607:f8b0:4864:20::c2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2459110E0ED
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 17:04:16 +0000 (UTC)
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ a1-20020a4ab101000000b0044acf001f83so2525359ooo.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 10:04:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=TUg/MW+5uwqkPY+MLc70krjM60VBeEeGCfnySwldiwg=;
+ b=Yy1D2HftO+eOzV0Ic0suR8nmcNMTHLyik3FZY7MaTj4OFyv37SMhw+ej0wDA23ngLK
+ CwPEql8zfjyGvUi1VFcpICjJgqQarDgcFZR9hRz3/yVobuA7vkCOixudjUYpUjO9hnyc
+ VKoQIrnb47IwnDpZQRCOJ1H9GsWAFI62J/s+A9N+K7W4VLtyIV/px6P4JE1a83SnvVcY
+ /MmLgVj3fmUHPZnUiV3DQgvCSIAWGOWJ7gSZJ4CidRmYHVPEjauK54QtR5J0fE18VFKt
+ MBigCSfySQ4qcEKE9R4EMOLNaN2pbepP4uwpqVN+hsX+v6ihxoD3KNc5HX3dgdLm+Ko9
+ XKXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=TUg/MW+5uwqkPY+MLc70krjM60VBeEeGCfnySwldiwg=;
+ b=uzTEACfVrLJQQ4dvvcL3+1DEFzY3EGoQHrSD15jiRkvKgiA2QICBCK/F85/Us1RR9l
+ IdpuacTubGshvZ96HcInXsVDNdiOBf1l3VYeKqfXkI9tSaovSfC4AA4R5Wi9OTDnuG/u
+ R9DwOv1JIMXRtt38xHAWmSKgm4UyHQ5JidoGk+PR3KmwUvP9brmC5jt57gLIwvrfnBBZ
+ dUX6vhxOSPKj71Qa8L4YqFdxocdorXgpFMXwU6AIrhg+dsY9oWEhvIEdzUqX4P+L3bLV
+ 71tjR1jmuLEM/SUcab9IYn97wXVOuI62HAlszkY0ag+64dbXvm4wNpFHqHYmQAaIgKxK
+ juCg==
+X-Gm-Message-State: ACgBeo2QPuMbxO3u2Ye6rYcER9J2rC3eMpnIbYOnGttk4dPSeFIoYe2/
+ wj7bw9bTNHyIBRBa3w/Kg/5ScvpEhT83HG9VbPM=
+X-Google-Smtp-Source: AA6agR6XgQsau2DY6uzmKYWsDA7bVUlGQKf7jxT6ApzcWlbpOaCrokpE4iUclQ4NqT06TmpMl49uQQYc0O0JgDYZNgg=
+X-Received: by 2002:a4a:b607:0:b0:44a:f4e7:4808 with SMTP id
+ z7-20020a4ab607000000b0044af4e74808mr8239529oon.37.1661274255415; Tue, 23 Aug
+ 2022 10:04:15 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.0
+References: <20220819190725.GA2499154@bhelgaas>
+ <6aad506b-5324-649e-9700-7ceaaf7ef94b@amd.com>
+In-Reply-To: <6aad506b-5324-649e-9700-7ceaaf7ef94b@amd.com>
+From: Tom Seewald <tseewald@gmail.com>
+Date: Tue, 23 Aug 2022 12:04:04 -0500
+Message-ID: <CAARYdbhVwD1m1rAzbR=K60O=_A3wFsb1ya=zRV_bmF8s3Kb02A@mail.gmail.com>
 Subject: Re: [Bug 216373] New: Uncorrected errors reported for AMD GPU
- #forregzbot
-Content-Language: en-US
-References: <20220818203812.GA2381243@bhelgaas>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-To: regressions@lists.linux.dev
-In-Reply-To: <20220818203812.GA2381243@bhelgaas>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1661272790;
- f5ed6bd0; 
-X-HE-SMSGID: 1oQWLf-0008R5-2q
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 24 Aug 2022 07:32:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,110 +65,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-pci@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Cc: regressions@lists.linux.dev, David Airlie <airlied@linux.ie>,
+ linux-pci@vger.kernel.org, Xinhui Pan <Xinhui.Pan@amd.com>,
+ amd-gfx@lists.freedesktop.org, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Bjorn Helgaas <helgaas@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Stefan Roese <sr@denx.de>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-TWIMC: this mail is primarily send for documentation purposes and for
-regzbot, my Linux kernel regression tracking bot. These mails usually
-contain '#forregzbot' in the subject, to make them easy to spot and filter.
+On Sat, Aug 20, 2022 at 2:53 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
+>
+> Missed the remap part, the offset is here -
+>
+> https://elixir.bootlin.com/linux/v6.0-rc1/source/drivers/gpu/drm/amd/amdgpu/nv.c#L680
+>
+>
+> The trace is coming from *_flush_hdp.
+>
+> You may also check if *_remap_hdp_registers() is getting called. It is
+> done in nbio_vx_y files, most likely this one for your device -
+> https://elixir.bootlin.com/linux/v6.0-rc1/source/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c#L68
+>
+> Thanks,
+> Lijo
 
-[TLDR: I'm adding this regression report to the list of tracked
-regressions; all text from me you find below is based on a few templates
-paragraphs you might have encountered already already in similar form.]
+Hi Lijo,
 
-Hi, this is your Linux kernel regression tracker.
-
-On 18.08.22 22:38, Bjorn Helgaas wrote:
-> [Adding amdgpu folks]
-> 
-> On Wed, Aug 17, 2022 at 11:45:15PM +0000, bugzilla-daemon@kernel.org wrote:
->> https://bugzilla.kernel.org/show_bug.cgi?id=216373
->>
->>             Bug ID: 216373
->>            Summary: Uncorrected errors reported for AMD GPU
->>     Kernel Version: v6.0-rc1
->>         Regression: No
->> ...
-> 
-> I marked this as a regression in bugzilla.
-> 
->> Hardware:
->> CPU: Intel i7-12700K (Alder Lake)
->> GPU: AMD RX 6700 XT [1002:73df]
->> Motherboard: ASUS Prime Z690-A
->>
->> Problem:
->> After upgrading to v6.0-rc1 the kernel is now reporting uncorrected PCI errors
->> for my GPU.
-> 
-> Thank you very much for the report and for taking the trouble to
-> bisect it and test Kai-Heng's patch!
-> 
-> I suspect that booting with "pci=noaer" should be a temporary
-> workaround for this issue.  If it, can you add that to the bugzilla
-> for anybody else who trips over this?
-> 
->> I have bisected this issue to: [8795e182b02dc87e343c79e73af6b8b7f9c5e635]
->> PCI/portdrv: Don't disable AER reporting in get_port_device_capability()
->> Reverting that commit causes the errors to cease.
-> 
-> I suspect the errors still occur, but we just don't notice and log
-> them.
-> 
->> I have also tried Kai-Heng Feng's patch[1] which seems to resolve a similar
->> problem, but it did not fix my issue.
->>
->> [1]
->> https://lore.kernel.org/linux-pci/20220706123244.18056-1-kai.heng.feng@canonical.com/
->>
->> dmesg snippet:
->>
->> pcieport 0000:00:01.0: AER: Multiple Uncorrected (Non-Fatal) error received:
->> 0000:03:00.0
->> amdgpu 0000:03:00.0: PCIe Bus Error: severity=Uncorrected (Non-Fatal),
->> type=Transaction Layer, (Requester ID)
->> amdgpu 0000:03:00.0:   device [1002:73df] error status/mask=00100000/00000000
->> amdgpu 0000:03:00.0:    [20] UnsupReq               (First)
->> amdgpu 0000:03:00.0: AER:   TLP Header: 40000001 0000000f 95e7f000 00000000
-> 
-> I think the TLP header decodes to:
-> 
->   0x40000001 = 0100 0000 ... 0000 0001 binary
->   0x0000000f = 0000 0000 ... 0000 1111 binary
-> 
->   Fmt           010b                 3 DW header with data
->   Type          0000b  010 0 0000    MWr Memory Write Request
->   Length        00 0000 0001b        1 DW
->   Requester ID  0x0000               00:00.0
->   Tag           0x00
->   Last DW BE    0000b                must be zero for 1 DW write
->   First DW BE   1111b                all 4 bytes in DW enabled
->   Address       0x95e7f000
->   Data          0x00000000
-> 
-> So I think this is a 32-bit write of zero to PCI bus address
-> 0x95e7f000.
-> 
-> Your dmesg log says:
-> 
->   pci 0000:02:00.0: PCI bridge to [bus 03]
->   pci 0000:02:00.0:   bridge window [mem 0x95e00000-0x95ffffff]
->   pci 0000:03:00.0: reg 0x24: [mem 0x95e00000-0x95efffff]
->   [drm] register mmio base: 0x95E00000
-> 
-> So this looks like a write to the device's BAR 5.  I don't see a PCI
-> reason why this should fail.  Maybe there's some amdgpu reason?
-
-I'd like to add to the tracking to ensure it's not forgotten.
-
-#regzbot introduced: v5.19..v6.0-rc1 ^
-https://bugzilla.kernel.org/show_bug.cgi?id=216373
-#regzbot title: pci or amdgpu: Uncorrected errors reported for AMD GPU
-
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
-
-P.S.: As the Linux kernel's regression tracker I deal with a lot of
-reports and sometimes miss something important when writing mails like
-this. If that's the case here, don't hesitate to tell me in a public
-reply, it's in everyone's interest to set the public record straight.
+I would be happy to test any patches that you think would shed some
+light on this.
