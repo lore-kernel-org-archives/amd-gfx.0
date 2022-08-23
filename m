@@ -4,113 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26AF8C3F6B0
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 07:30:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97AC7C32792
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 09:59:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C755DB01E0;
-	Tue, 23 Aug 2022 07:30:28 +0000 (UTC)
-Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01on2117.outbound.protection.outlook.com [40.107.215.117])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD2C1AF32D;
- Tue, 23 Aug 2022 06:41:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H0Ckb+cz3qC6tsD8/TbERIbudGuBZk3F5EhlHr/2TccvRZQ+XFeg2XnpsmkRUcKUlCB3nZ231sCFg2og4Z/D6+s5Pea1cXoGl+g68HrmjRhwNAgLDQEF3ETLdpF1G+JZPBFTWZrvZgBsVs2s8kwLyNp2bKSBTLJ1ea00nqIP1rEkFCcKrn3vQ+tZdZ4+FZlECB7mKE1JkKFhfrydpqzV+LvTgHiqSE2dGWnTteFV+01u6cGgu/ub580jiXjwPY7llpowyhKB2xk1FZot8jX+5EebFBbdeI+P0MeC1jKhBeLPixb4NuGmAqUMMywBuj4IVL9r9v19h7BCuuiwaHAQNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yLAmHDTIj3rAamIyZ57Hfnvyte+Mzmk8LD35IIj5LQQ=;
- b=DSrVY88nXfVBhB/UCEh2vnhZEEBHbYHzaEWIvwBv3Mrlech8puBXN/DdIDap+5qTPOv/ux6PWEdAWgqyUoAFVj0ppQZabm/v5n/05PuuLRnU/5U0Mt/bc9BfmqHsFrogb2QF3K1U9/NxuhhMjM0gcmk+Q7DYuCNaeZpF/QprvnZPBfjuD9xxB8/1sCiYRl/hIxP5PIn40rDJ+oQ5YHWLLOSI2UqW0A/D6j/lDACrrmBEtFBNGsk5Bpqol4OPJEzZSwnQeNhTxGTgqvx7ZsXvd+1ucsieajWuz3hdTeRM1TUwYHwFrqkD46mPR7yytlG0Mo8v/0yrjrMEuioJKuUPEw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
- s=selector2-vivo0-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yLAmHDTIj3rAamIyZ57Hfnvyte+Mzmk8LD35IIj5LQQ=;
- b=bSxqqk+4NUfs3JaW8/FSEjeidXBs++PMO9JXajcerdax2g8Rp++Whl6Kii+6UtHXxIvtGt2GNsm4EyHtir3w9gsQXi/ZADkEPuzjpXYDJLT+drpK4AlbFEWs+KgOXMEAKltsYqD+Q3ORY7v2+odzxuTzgO+z79yV3vWJZrVtVMM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from PSAPR06MB4021.apcprd06.prod.outlook.com (2603:1096:301:37::11)
- by SL2PR06MB3193.apcprd06.prod.outlook.com (2603:1096:100:34::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.21; Tue, 23 Aug
- 2022 06:41:51 +0000
-Received: from PSAPR06MB4021.apcprd06.prod.outlook.com
- ([fe80::5c66:2101:a7ac:8df0]) by PSAPR06MB4021.apcprd06.prod.outlook.com
- ([fe80::5c66:2101:a7ac:8df0%9]) with mapi id 15.20.5546.023; Tue, 23 Aug 2022
- 06:41:51 +0000
-From: Bernard Zhao <bernard@vivo.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Michael Strauss <michael.strauss@amd.com>, Eric Yang <Eric.Yang2@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Nikola Cornij <nikola.cornij@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd: remove possible condition with no effect (if == else)
-Date: Mon, 22 Aug 2022 23:41:31 -0700
-Message-Id: <20220823064137.13726-1-bernard@vivo.com>
-X-Mailer: git-send-email 2.33.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TY2PR02CA0044.apcprd02.prod.outlook.com
- (2603:1096:404:a6::32) To PSAPR06MB4021.apcprd06.prod.outlook.com
- (2603:1096:301:37::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55C7EB2B9F;
+	Tue, 23 Aug 2022 09:59:36 +0000 (UTC)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90530B2B78
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 09:59:05 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id ce26so10643027ejb.11
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 02:59:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=SrmL7IQNsc6gTMJ/6MeOo9O8E7exVLgUx80xVRn4LKY=;
+ b=Ew3iedJdYRvWHtBFLPEL7WbTx+gRjuDw/L8r896qdVPt9WCQ+Wt2fjPT+Zvx5cmzM9
+ zdpVEjXjsCXmRIm3UFsvGdmp9h395B+YYwinqmwKZJRwovj2uMmqH+hBbJCu+7dZAsrv
+ LwNohotwIlcc4fe8boViN8HeeZ+tPjyQg1BY1eY0yyW5W9EBsoBnv+A3tutoLVsXL25X
+ kqCLBu83RYMMBld7FpJ7dLoqkldH9e+9DNbVQ3wcjgyqTAlzMXl4JHdjyOtH31elvcKe
+ 1W7gHwl09BvpP5UFoMmxRUuOxFfWx4qX/FnScC9pLoKkPh3yDY62TymhlbKrSAz96Y1i
+ 9b0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=SrmL7IQNsc6gTMJ/6MeOo9O8E7exVLgUx80xVRn4LKY=;
+ b=5UtoeZZ5+6r7/ie5nQ6S6n4ggvZkDtPlvoeX74nxm44oH15hjf1fi4HMLiWh9UVGhy
+ st7Be7Bas+LG/Ahbn7BMMUDxHXSZvr56JHodFBxpdzdVQAqhbyCE0ylhajWfq2HWe2y6
+ iMuD1LRxuwR64spCjcE55Fb2GfI8sLTRQU236HUsUlZ00uIPVNxQYylv3IaugnUe5oDY
+ NFQsIl+N6/r64ccJwo+z392FMknkujloGRTa6p213FzMdhEb8uLNEyopmqnGaUtVjjV6
+ J4LvptpVCsm5thwY2gpb4hfJBCKr7Z5AZmDklcIeXJMEhYFyNfOqAOhUdcB27dKN/ifU
+ JBXA==
+X-Gm-Message-State: ACgBeo34VziCdF1NF1rG9p9pXdLx4CTQcIkzFwlhQ3mEWdm++as4RA64
+ wrTRgATuaGPVbqmaDfzNtmloCeTHo3k=
+X-Google-Smtp-Source: AA6agR4soOcHTDgcjtCtpGpFT82lKgAWprP+Whm2gCA+uPKaLD9J116+Y+rJ9e69ZpGXWdzyfGWDWQ==
+X-Received: by 2002:a17:907:9606:b0:72f:826d:21b4 with SMTP id
+ gb6-20020a170907960600b0072f826d21b4mr15595511ejc.510.1661248743766; 
+ Tue, 23 Aug 2022 02:59:03 -0700 (PDT)
+Received: from [192.168.178.21] (p4fc20ad4.dip0.t-ipconnect.de.
+ [79.194.10.212]) by smtp.gmail.com with ESMTPSA id
+ 1-20020a170906210100b007307e7df83bsm7221948ejt.21.2022.08.23.02.59.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Aug 2022 02:59:03 -0700 (PDT)
+Message-ID: <e24582c4-aa29-ac6b-d148-d5a554c066d0@gmail.com>
+Date: Tue, 23 Aug 2022 11:59:02 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1e717a7b-e704-4ecb-39bb-08da84d28fbb
-X-MS-TrafficTypeDiagnostic: SL2PR06MB3193:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3ppVQq5Xcuh5HqE1W3krVn3fpAuz86IALcdCPFdYCVm10FK+/6hW1KuLuOuPe5r3BC1xwi1Jvo98a3sMUKpeNkNaGVVZ4tuOgXxYnfA1Cmz4xKy2lAUADyKWz/7H17bVQ5Ly7gla1Zk20azIp07dswzVEoAp6dUbPIyqlmgkdmyI6ENyojWDWXb6oSJyvTUXG00BtnUnfT3WwCAAkl1ZsKZH2Q2RfgYX130qLtzLi/2B8kLMi7p1r887e/TUpE+svEkdjqelC6Ej0nUlZV6QBZIWSw1DeLSqfL1iA1xB+79ZgU98jBdhmzwEa8Lg7wSTPTX5KdSznJAL083zlWNaQN0bY5YAcy7lmtbsJSdp1sEl3fyLZxFDj3S6jsd3UoZ7FcK9joPq3K6nZSBqk0XaiZaPOWkZlbznVWMifacEBxne97Zv2mBhJ1UwnWVsiaYsqiGP+0YgyDCf9z2W6YZx4MR3tJjyKnKbBHTWa6MfbDg3fZJtucgHDTMnRPXahMYGQ2HTun7q4RPUltHfKZLdRhuAw0yriKryRLboEoRKjVBzg1EJI9b+2dStgTv4RDFcbxISN/Ka/XcjG1h0dDC3+ycjy9YbstvQ0Peal0E4MbrcJb3PnSgqHxmMRGZi2Zu4/bl6j7q/4aNZ40w81oUOE29r8u5GufVnEcsLFej1Gy0Mefi3Ntp+zBciecByaHmwXo5OfObYnDdAsX7WzeCoPmMqiV87Uy68yCJLvu++hjMge/pCw5H9GKaJ4OLo62QMzYmFc+xWYeabBBosvdvH5Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PSAPR06MB4021.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(396003)(346002)(136003)(39860400002)(366004)(2616005)(1076003)(5660300002)(4744005)(4326008)(6486002)(6506007)(186003)(8676002)(7416002)(66946007)(66476007)(8936002)(66556008)(26005)(478600001)(83380400001)(107886003)(36756003)(6512007)(6666004)(52116002)(41300700001)(86362001)(110136005)(316002)(2906002)(921005)(38100700002)(38350700002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7kMPLtRZgFQ6vc4IVHT2RVCMLBHnkdzZdH1NQYxh9Zg9Hpd0ItdV+irwVAMt?=
- =?us-ascii?Q?6Q0CYs1vIlNme8uiP+uUchwSXNUo5+4zMNxL1UiONDwO9YMYL8Iizf5SDb7Z?=
- =?us-ascii?Q?8XGgnsPp5hfCyehvdKGjwZkvrRXqoLt/7xFTbCe7XX9l1wt9KIL1cjWUmWvj?=
- =?us-ascii?Q?xHfpvElnyFbroXE/iKTOAwQbRJ7n3D7/b62RS4VM3LNE5fwmS6kutatgRQUx?=
- =?us-ascii?Q?OOBen/vuqg4IyTKPU1FVx85a0xkrBUELM1vr7evf7gc47PGXQ6Q+E4NNOR9Z?=
- =?us-ascii?Q?/vlpKlU7xQcmRclDEFv7NiJ4hwslIsdRwnTe8n11iHojq9zP3iWW/IcnP9iO?=
- =?us-ascii?Q?qp6RdSk8s7KSIZWXkCPAtB6Uzw09ZNYy4WR5hm1l1kNvgVb8iPem1H2ClEm7?=
- =?us-ascii?Q?5ntG7HCa937fnwbizKuoga13ZOi6M7roFyedABtyXmRuDOPDBGE/W0nYw9wb?=
- =?us-ascii?Q?eUf+S9nKG+BcemnSMboWKabWpRSDt+xEAr5AEdh9goXqZby6F0YI/leiPjsY?=
- =?us-ascii?Q?xMZkQ0l7nokjECmuXcB3VmkL3V1RHFdCV8plBZfFYx6hNVMgcpJ1+rjNQUwv?=
- =?us-ascii?Q?CnbyZEIy40KMJvJLhENpEzlTXAXQjjrjuxu2a32AMSfXHXlewV1CEMh1FjLv?=
- =?us-ascii?Q?Rn2VdmfbltcX4mwlYSKXMRWKQth2WdpIvIVoU50lbBFO6HmMrvIZTH/Z1e4V?=
- =?us-ascii?Q?FROAcIjB0YbjbfcR9Vdz4B8zto8/ddHQNLHYMqBTnOmhS3jjALDtwShLRrNw?=
- =?us-ascii?Q?dWK4BfxJSsAKVbp66EJOIeBPGNO1UQKdH3UZiPzeWvmEsWr3HhcOO8Ffy8FN?=
- =?us-ascii?Q?O1li/BiueEvxPgPlSShZCnxAKCEKPZ5tFNcC6As/kpdqEh8XEhYcHC1JeoSr?=
- =?us-ascii?Q?x4E3sBzixo4k2sXOwGTsC0bVcsZODQZpBIWyk3eHOoyio4edm0vMYhVEZCBI?=
- =?us-ascii?Q?+DsoiWVxq0bvwV4R8tT1vh1s+btXJaVkPB4PVT977Qafb6yGyQm+64W0ZSlL?=
- =?us-ascii?Q?Letf82G78uCTSGRFibu4BufljfESBRAUaaQB6/YZp2qGGnJci4oRPnkYTsTk?=
- =?us-ascii?Q?xGpY+v898b2UAKfv3EXy78OwzbFVlzAAAmsug7nn6EvzMuQDrhHpCxKx0bE9?=
- =?us-ascii?Q?IvXcV7GJqoxkK4NSnnXTd/u9BY3+mKo9vpiOQsu/Jtx9v5rBtd4/9llErkfx?=
- =?us-ascii?Q?MABg65xpdFLyM3QzaXzgTxmAcvE5PCXnE45tQH+9rIFtYPfwBWhDNOOt1Lp2?=
- =?us-ascii?Q?NuRcrHyOq8SCfvMy0qalqNsWdHFv4KYyGCorRkoK0Ri6mEzhCB5OIhDyaAyV?=
- =?us-ascii?Q?+Y42FNc9s88h5DME1YTftw9sxMBnQdLDES7mv4o5X4DfKCR/ThUl8uDEV7c/?=
- =?us-ascii?Q?o7mT7WDfIdESXIgXbmk5N4L7nuEWIeZMJF/90ml6CnaM2P0G/wB+rvx9xRKY?=
- =?us-ascii?Q?2xrCmgKFeCUdEnKJOoLI+Ig7IVe/+EdO9qFE6LF1oFMaPvsvjQJDGk4oAUTJ?=
- =?us-ascii?Q?dRSSBv4oEMKsruRi53nVjV1MY318UzL+ZE+qZba61jfiUeUxqlAC+eFRt+ha?=
- =?us-ascii?Q?zzUcvSv3r8V+7/dwAyS29kfBAAcoXPG4oyE71cSq?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e717a7b-e704-4ecb-39bb-08da84d28fbb
-X-MS-Exchange-CrossTenant-AuthSource: PSAPR06MB4021.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2022 06:41:51.8424 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c2p921TSjtkxebFoDtlmwqNXEQBMX+28g8AEv3uKrIA2+7FMjzF9/0z8RtbY5pAzMNHiq0/g/9qOuTGYztsIfQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SL2PR06MB3193
-X-Mailman-Approved-At: Tue, 23 Aug 2022 07:29:12 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/amdgpu: Fix page table setup on Arcturus
+Content-Language: en-US
+To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220822155217.911506-1-mukul.joshi@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220822155217.911506-1-mukul.joshi@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,32 +72,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bernard Zhao <bernard@vivo.com>, zhaojunkui2008@126.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch fix cocci warning:
-drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c:1816:6-8:
-WARNING: possible condition with no effect (if == else).
+Am 22.08.22 um 17:52 schrieb Mukul Joshi:
+> When translate_further is enabled, page table depth needs to
+> be updated. This was missing on Arcturus MMHUB init. This was
+> causing address translations to fail for SDMA user-mode queues.
+>
+> Fixes: 2abf2573b1c69 ("drm/amdgpu: Enable translate_further to extend UTCL2 reach"
+> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 
-Signed-off-by: Bernard Zhao <bernard@vivo.com>
----
- drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c | 2 --
- 1 file changed, 2 deletions(-)
+Acked-by: Christian König <christian.koenig@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
-index 85f32206a766..dccc9794e6a2 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
-@@ -1813,8 +1813,6 @@ static bool dcn314_resource_construct(
- 
- 	if (dc->ctx->dce_environment == DCE_ENV_PRODUCTION_DRV)
- 		dc->debug = debug_defaults_drv;
--	else if (dc->ctx->dce_environment == DCE_ENV_FPGA_MAXIMUS)
--		dc->debug = debug_defaults_diags;
- 	else
- 		dc->debug = debug_defaults_diags;
- 	// Init the vm_helper
--- 
-2.33.1
+> ---
+>   drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c | 12 ++++++++++--
+>   1 file changed, 10 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+> index 6e0145b2b408..445cb06b9d26 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+> @@ -295,9 +295,17 @@ static void mmhub_v9_4_disable_identity_aperture(struct amdgpu_device *adev,
+>   static void mmhub_v9_4_setup_vmid_config(struct amdgpu_device *adev, int hubid)
+>   {
+>   	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_MMHUB_0];
+> +	unsigned int num_level, block_size;
+>   	uint32_t tmp;
+>   	int i;
+>   
+> +	num_level = adev->vm_manager.num_level;
+> +	block_size = adev->vm_manager.block_size;
+> +	if (adev->gmc.translate_further)
+> +		num_level -= 1;
+> +	else
+> +		block_size -= 9;
+> +
+>   	for (i = 0; i <= 14; i++) {
+>   		tmp = RREG32_SOC15_OFFSET(MMHUB, 0, mmVML2VC0_VM_CONTEXT1_CNTL,
+>   				hubid * MMHUB_INSTANCE_REGISTER_OFFSET + i);
+> @@ -305,7 +313,7 @@ static void mmhub_v9_4_setup_vmid_config(struct amdgpu_device *adev, int hubid)
+>   				    ENABLE_CONTEXT, 1);
+>   		tmp = REG_SET_FIELD(tmp, VML2VC0_VM_CONTEXT1_CNTL,
+>   				    PAGE_TABLE_DEPTH,
+> -				    adev->vm_manager.num_level);
+> +				    num_level);
+>   		tmp = REG_SET_FIELD(tmp, VML2VC0_VM_CONTEXT1_CNTL,
+>   				    RANGE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
+>   		tmp = REG_SET_FIELD(tmp, VML2VC0_VM_CONTEXT1_CNTL,
+> @@ -323,7 +331,7 @@ static void mmhub_v9_4_setup_vmid_config(struct amdgpu_device *adev, int hubid)
+>   				    EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
+>   		tmp = REG_SET_FIELD(tmp, VML2VC0_VM_CONTEXT1_CNTL,
+>   				    PAGE_TABLE_BLOCK_SIZE,
+> -				    adev->vm_manager.block_size - 9);
+> +				    block_size);
+>   		/* Send no-retry XNACK on fault to suppress VM fault storm. */
+>   		tmp = REG_SET_FIELD(tmp, VML2VC0_VM_CONTEXT1_CNTL,
+>   				    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
 
