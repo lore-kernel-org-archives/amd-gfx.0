@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 491AEC6498F
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:20:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC99CC28D13
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:20:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52838D8F4C;
-	Thu, 25 Aug 2022 07:19:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D917ED8F42;
+	Thu, 25 Aug 2022 07:19:08 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96DF68BAF9
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 12:17:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4512311AAE3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 12:16:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661343433;
+ s=mimecast20190719; t=1661343389;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nN4WATYtbc2Vngxl9g1chOmA69lp4le/9lX4HXc45WY=;
- b=RsKm5dHz4H7h7zhbuPqa24gui7JEJzjdmoMP7LPhhS9S8fFAjJS2CH+TceLToTmfsFRTih
- S6tSGW+Mwcl2FqOt8/elg5MGpXhuRKaIgEOcXveQkNk03vy7YQFeGNN0KXgZdl6JIS5gE8
- +UMtngGoOra7VRspm3Jj9g1B+nMFhyM=
+ bh=odfSBCZPzbhtIghrqB9jKxIVVOwBiMpifs1qKmZ4b0A=;
+ b=Q+av9p4Eq2+MN4lWU6uEpcBxA1xDe4WcMHoRhZ31nPc8+Ov393iGivKmianRvp+2yOlBPq
+ YAKVOVFs53rZZynuazaceorjlQU4TZqsSdFPewohYeARwE7x2GfN1EkwG2oYmeL8RfrM+V
+ ajRPqhG0mcs5IllFICda4vwxGzzd7kg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-356-vZO0hkiwNtK4e_KxvHsXPw-1; Wed, 24 Aug 2022 08:17:08 -0400
-X-MC-Unique: vZO0hkiwNtK4e_KxvHsXPw-1
+ us-mta-210-neY4vKq6OGKc_VqKz5e7Kg-1; Wed, 24 Aug 2022 08:16:18 -0400
+X-MC-Unique: neY4vKq6OGKc_VqKz5e7Kg-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD3EE8032F1;
- Wed, 24 Aug 2022 12:17:06 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A5624101A54E;
+ Wed, 24 Aug 2022 12:16:17 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.193.103])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 92894C15BB3;
- Wed, 24 Aug 2022 12:17:02 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B762FC15BB3;
+ Wed, 24 Aug 2022 12:16:13 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,16 +55,16 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v4 22/31] platform/x86: acer-wmi: Move backlight DMI quirks to
- acpi/video_detect.c
-Date: Wed, 24 Aug 2022 14:15:14 +0200
-Message-Id: <20220824121523.1291269-23-hdegoede@redhat.com>
+Subject: [PATCH v4 10/31] ACPI: video: Remove code to unregister acpi_video
+ backlight when a native backlight registers
+Date: Wed, 24 Aug 2022 14:15:02 +0200
+Message-Id: <20220824121523.1291269-11-hdegoede@redhat.com>
 In-Reply-To: <20220824121523.1291269-1-hdegoede@redhat.com>
 References: <20220824121523.1291269-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-X-Mailman-Approved-At: Thu, 25 Aug 2022 07:18:48 +0000
+X-Mailman-Approved-At: Thu, 25 Aug 2022 07:18:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,208 +85,107 @@ Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move the backlight DMI quirks to acpi/video_detect.c, so that
-the driver no longer needs to call acpi_video_set_dmi_backlight_type().
+Remove the code to unregister acpi_video backlight devices when
+a native backlight device gets registered later.
 
-acpi_video_set_dmi_backlight_type() is troublesome because it may end up
-getting called after other backlight drivers have already called
-acpi_video_get_backlight_type() resulting in the other drivers
-already being registered even though they should not.
-
-Note that even though the DMI quirk table name was video_vendor_dmi_table,
-5/6 quirks were actually quirks to use the GPU native backlight.
-
-These 5 quirks also had a callback in their dmi_system_id entry which
-disabled the acer-wmi vendor driver; and any DMI match resulted in:
-
-	acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
-
-which disabled the acpi_video driver, so only the native driver was left.
-The new entries for these 5/6 devices correctly marks these as needing
-the native backlight driver.
-
-Also note that other changes in this series change the native backlight
-drivers to no longer unconditionally register their backlight. Instead
-these drivers now do this check:
-
-	if (acpi_video_get_backlight_type(false) != acpi_backlight_native)
-		return 0; /* bail */
-
-which without this patch would have broken these 5/6 "special" quirks.
-
-Since I had to look at all the commits adding the quirks anyways, to make
-sure that I understood the code correctly, I've also added links to
-the various original bugzillas for these quirks to the new entries.
+Now that the acpi_video backlight device registration is a separate step
+which runs later, after the drm/kms driver is done setting up its own
+native backlight device, it is no longer necessary to monitor for a
+native (BACKLIGHT_RAW) device showing up later and to then unregister
+the acpi_video backlight device(s).
 
 Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/acpi/video_detect.c     | 53 ++++++++++++++++++++++++++
- drivers/platform/x86/acer-wmi.c | 66 ---------------------------------
- 2 files changed, 53 insertions(+), 66 deletions(-)
+ drivers/acpi/acpi_video.c   |  2 --
+ drivers/acpi/video_detect.c | 36 ------------------------------------
+ 2 files changed, 38 deletions(-)
 
+diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
+index 09dd86f86cf3..d1e41f30c004 100644
+--- a/drivers/acpi/acpi_video.c
++++ b/drivers/acpi/acpi_video.c
+@@ -94,7 +94,6 @@ static void acpi_video_bus_notify(struct acpi_device *device, u32 event);
+ static void acpi_video_bus_register_backlight_work(struct work_struct *ignored);
+ static DECLARE_DELAYED_WORK(video_bus_register_backlight_work,
+ 			    acpi_video_bus_register_backlight_work);
+-void acpi_video_detect_exit(void);
+ 
+ /*
+  * Indices in the _BCL method response: the first two items are special,
+@@ -2342,7 +2341,6 @@ static int __init acpi_video_init(void)
+ 
+ static void __exit acpi_video_exit(void)
+ {
+-	acpi_video_detect_exit();
+ 	acpi_video_unregister();
+ }
+ 
 diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-index 74e2087c8ff0..6a2523bc02ba 100644
+index 385eb49c763f..fb49b8f4523a 100644
 --- a/drivers/acpi/video_detect.c
 +++ b/drivers/acpi/video_detect.c
-@@ -149,6 +149,15 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
- 		DMI_MATCH(DMI_BOARD_NAME, "X360"),
- 		},
- 	},
-+	{
-+	 /* https://bugzilla.redhat.com/show_bug.cgi?id=1128309 */
-+	 .callback = video_detect_force_vendor,
-+	 /* Acer KAV80 */
-+	 .matches = {
-+		DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "KAV80"),
-+		},
-+	},
- 	{
- 	.callback = video_detect_force_vendor,
- 	/* Asus UL30VT */
-@@ -437,6 +446,41 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
- 		DMI_MATCH(DMI_BOARD_NAME, "JV50"),
- 		},
- 	},
-+	{
-+	 /* https://bugzilla.redhat.com/show_bug.cgi?id=1012674 */
-+	 .callback = video_detect_force_native,
-+	 /* Acer Aspire 5741 */
-+	 .matches = {
-+		DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "Aspire 5741"),
-+		},
-+	},
-+	{
-+	 /* https://bugzilla.kernel.org/show_bug.cgi?id=42993 */
-+	 .callback = video_detect_force_native,
-+	 /* Acer Aspire 5750 */
-+	 .matches = {
-+		DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "Aspire 5750"),
-+		},
-+	},
-+	{
-+	 /* https://bugzilla.kernel.org/show_bug.cgi?id=42833 */
-+	 .callback = video_detect_force_native,
-+	 /* Acer Extensa 5235 */
-+	 .matches = {
-+		DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "Extensa 5235"),
-+		},
-+	},
-+	{
-+	 .callback = video_detect_force_native,
-+	 /* Acer TravelMate 4750 */
-+	 .matches = {
-+		DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "TravelMate 4750"),
-+		},
-+	},
- 	{
- 	 /* https://bugzilla.kernel.org/show_bug.cgi?id=207835 */
- 	 .callback = video_detect_force_native,
-@@ -447,6 +491,15 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
- 		DMI_MATCH(DMI_BOARD_NAME, "BA51_MV"),
- 		},
- 	},
-+	{
-+	 /* https://bugzilla.kernel.org/show_bug.cgi?id=36322 */
-+	 .callback = video_detect_force_native,
-+	 /* Acer TravelMate 5760 */
-+	 .matches = {
-+		DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "TravelMate 5760"),
-+		},
-+	},
- 	{
- 	.callback = video_detect_force_native,
- 	/* ASUSTeK COMPUTER INC. GA401 */
-diff --git a/drivers/platform/x86/acer-wmi.c b/drivers/platform/x86/acer-wmi.c
-index e0230ea0cb7e..b933a5165edb 100644
---- a/drivers/platform/x86/acer-wmi.c
-+++ b/drivers/platform/x86/acer-wmi.c
-@@ -643,69 +643,6 @@ static const struct dmi_system_id non_acer_quirks[] __initconst = {
- 	{}
+@@ -38,10 +38,6 @@
+ 
+ void acpi_video_unregister_backlight(void);
+ 
+-static bool backlight_notifier_registered;
+-static struct notifier_block backlight_nb;
+-static struct work_struct backlight_notify_work;
+-
+ static enum acpi_backlight_type acpi_backlight_cmdline = acpi_backlight_undef;
+ static enum acpi_backlight_type acpi_backlight_dmi = acpi_backlight_undef;
+ 
+@@ -538,26 +534,6 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ 	{ },
  };
  
--static int __init
--video_set_backlight_video_vendor(const struct dmi_system_id *d)
+-/* This uses a workqueue to avoid various locking ordering issues */
+-static void acpi_video_backlight_notify_work(struct work_struct *work)
 -{
--	interface->capability &= ~ACER_CAP_BRIGHTNESS;
--	pr_info("Brightness must be controlled by generic video driver\n");
--	return 0;
+-	if (acpi_video_get_backlight_type() != acpi_backlight_video)
+-		acpi_video_unregister_backlight();
 -}
 -
--static const struct dmi_system_id video_vendor_dmi_table[] __initconst = {
--	{
--		.callback = video_set_backlight_video_vendor,
--		.ident = "Acer TravelMate 4750",
--		.matches = {
--			DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "TravelMate 4750"),
--		},
--	},
--	{
--		.callback = video_set_backlight_video_vendor,
--		.ident = "Acer Extensa 5235",
--		.matches = {
--			DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "Extensa 5235"),
--		},
--	},
--	{
--		.callback = video_set_backlight_video_vendor,
--		.ident = "Acer TravelMate 5760",
--		.matches = {
--			DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "TravelMate 5760"),
--		},
--	},
--	{
--		.callback = video_set_backlight_video_vendor,
--		.ident = "Acer Aspire 5750",
--		.matches = {
--			DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "Aspire 5750"),
--		},
--	},
--	{
--		.callback = video_set_backlight_video_vendor,
--		.ident = "Acer Aspire 5741",
--		.matches = {
--			DMI_MATCH(DMI_BOARD_VENDOR, "Acer"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "Aspire 5741"),
--		},
--	},
--	{
--		/*
--		 * Note no video_set_backlight_video_vendor, we must use the
--		 * acer interface, as there is no native backlight interface.
--		 */
--		.ident = "Acer KAV80",
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "KAV80"),
--		},
--	},
--	{}
--};
+-static int acpi_video_backlight_notify(struct notifier_block *nb,
+-				       unsigned long val, void *bd)
+-{
+-	struct backlight_device *backlight = bd;
 -
- /* Find which quirks are needed for a particular vendor/ model pair */
- static void __init find_quirks(void)
- {
-@@ -2477,9 +2414,6 @@ static int __init acer_wmi_init(void)
- 
- 	set_quirks();
- 
--	if (dmi_check_system(video_vendor_dmi_table))
--		acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
+-	/* A raw bl registering may change video -> native */
+-	if (backlight->props.type == BACKLIGHT_RAW &&
+-	    val == BACKLIGHT_REGISTERED)
+-		schedule_work(&backlight_notify_work);
 -
- 	if (acpi_video_get_backlight_type() != acpi_backlight_vendor)
- 		interface->capability &= ~ACER_CAP_BRIGHTNESS;
- 
+-	return NOTIFY_OK;
+-}
+-
+ /*
+  * Determine which type of backlight interface to use on this system,
+  * First check cmdline, then dmi quirks, then do autodetect.
+@@ -587,12 +563,6 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+ 		acpi_walk_namespace(ACPI_TYPE_DEVICE, ACPI_ROOT_OBJECT,
+ 				    ACPI_UINT32_MAX, find_video, NULL,
+ 				    &video_caps, NULL);
+-		INIT_WORK(&backlight_notify_work,
+-			  acpi_video_backlight_notify_work);
+-		backlight_nb.notifier_call = acpi_video_backlight_notify;
+-		backlight_nb.priority = 0;
+-		if (backlight_register_notifier(&backlight_nb) == 0)
+-			backlight_notifier_registered = true;
+ 		init_done = true;
+ 	}
+ 	if (native)
+@@ -639,9 +609,3 @@ void acpi_video_set_dmi_backlight_type(enum acpi_backlight_type type)
+ 		acpi_video_unregister_backlight();
+ }
+ EXPORT_SYMBOL(acpi_video_set_dmi_backlight_type);
+-
+-void __exit acpi_video_detect_exit(void)
+-{
+-	if (backlight_notifier_registered)
+-		backlight_unregister_notifier(&backlight_nb);
+-}
 -- 
 2.37.2
 
