@@ -4,87 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3AC3C00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 14:15:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28A13C00140
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 15:04:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47193112E93;
-	Wed, 24 Aug 2022 14:15:34 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFD1410EFB6;
- Wed, 24 Aug 2022 14:15:05 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id gb36so33767018ejc.10;
- Wed, 24 Aug 2022 07:15:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=3RY0kXIvgqIVojhkrE4Zwlr7wJlH94oU+XFloUi3XjI=;
- b=k433WZpJORtGGgjLBRUCWg89Ct3eMmhhzzPwfTl6//mc8KZmXsfUkvjXK2CPv2G6j9
- FW4/JFsVFe8WZ8qXfiG0G2WUSXJhVho/22M2ZvYonWllG8JjwTj6MhS+/biMgV4nO5Zr
- llPWeve491++YksKYHfxR6w08hbYD3Jv+FtIHtqkeqoTfLN6sUfa2AlD62I2SrAPThJb
- x/pSysLoKr056pSqqIrDP4Zf5umrg7az72DW3OYvoPJOZdkczmoNmarSqM1+dim8Vhiv
- BxZj98y4ZeYDVEzsmdne2xhUZzSQUjC7gSpIH2W4w1Iq4MHPRdAGpb04pB6x8cp2I0OU
- nIBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=3RY0kXIvgqIVojhkrE4Zwlr7wJlH94oU+XFloUi3XjI=;
- b=ZWrHq9vlfbCSdP3nmUlmaNMB+Gh/mzuSxr8gCgu316qK5f+rSNNnvr5wWK3dU8pnMa
- KrLeDsPMLD/dhgs2T8Jq1qcDfWz+xcDMTwQDyKU1nq7G9RCu3dsl9IPwMI2xjoo/VTkm
- GJyqVLTOdzPxqv0sKFEeYuZYfdRsXt8xEL2sBB6pOwK6WhCATFYRMvxsFPZKYP+gtGtz
- 7tzN8VjQjuV2jNKVwbDJ3C8ZNLs7AEq5O8wwCvJ4BMq9vbGakoWYftn8rsH8XmpK7fGE
- 8OVn7U17IugnBtAaPzT8/JOZvp/jEAF/LmxD0P451mkwh3/4dPf/UKXRYi01N3FR1Hnh
- spZg==
-X-Gm-Message-State: ACgBeo3DJ3H8V7WtuGYuBlgwFH9V4HEa+EtoFXifVHZ1WlR37XW3nx1z
- w1cNw7Alcw9kKflCU+aCgSE=
-X-Google-Smtp-Source: AA6agR5vl7eAC3d146n4WFT7uLsC77WQL4B00T85StELI9JlyPgaC5TszQICKao2kaYSaa7iVSFw9A==
-X-Received: by 2002:a17:907:7256:b0:73d:9c6b:35e2 with SMTP id
- ds22-20020a170907725600b0073d9c6b35e2mr2992627ejc.197.1661350503452; 
- Wed, 24 Aug 2022 07:15:03 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:62ca:57d9:b533:6057?
- ([2a02:908:1256:79a0:62ca:57d9:b533:6057])
- by smtp.gmail.com with ESMTPSA id
- m26-20020a056402051a00b004464c3de6dasm3147684edv.65.2022.08.24.07.15.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Aug 2022 07:15:02 -0700 (PDT)
-Message-ID: <79cf9887-64ad-9cfd-035a-4b6e41b864e0@gmail.com>
-Date: Wed, 24 Aug 2022 16:15:00 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6148110E987;
+	Wed, 24 Aug 2022 15:04:50 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2050.outbound.protection.outlook.com [40.107.92.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D74FF10EE53
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 15:04:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Oid7s9mTh+KwgXkz0XT7fKeDoCVr4POAVvU11RMZwMsev3NZZ7uhk9Vd2pxQFgs2Q10RhD/H2c1KoJdCQOrL1SW23Q/TdDR3oRpv/awWdnU2dtFR4O9KLa3XssdKAWm6zhnn2hz/Vy1jpiwgH4jgOHgWat3SGDpRwaJJ7VUQ5OpHLueldYhgMUhOd2ljt3tHNizgFPrTXg+UNiatZ6JFSAS7ZGwyrAXEFgDXvq5zbpesqMpc6tDo0YofIH72f74ZuuPFQPt4aJG6uVV0EVpmfuKqZVNwgqsOWM3goMjgjDgH85psq16xvdVDEUxZQNTcrhmvzCNJa1JGmcvdHPdVag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O/SPN7dvjBqUflOBRXzzAjJN9dayjiRPU1Wc2Yjp1w8=;
+ b=gvXKYuwNM+R0/5gDxyklCZFsySukrerwNwOgTUpLB19ljZkM5/HuLt3Xh+KJDLIzEHaljDxC1v/ArHgCFSeNQe9XSPZIUIy1dgItliHcsVUqEXOF6/JipFFI8hoPqmsTXp517JkWCpF5weRUsplT/ZfJAs7+2RzX7kdMmIIXZS5ni1CJlFSBxndHyYVoGGbN7l746iX327OEGSUP4vrg/mn3BXEsurDdUcvX+TPP/wFEbbvx+4JGm1VcL6YI4ukcvQoYxkfyfiMa+edg8VB5qi1L7MTaPFuvzOoou9DiGXzO9L4IT8PDPIEUYplGDmdpMYp1KvvrWGRUJzd9rYKY3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O/SPN7dvjBqUflOBRXzzAjJN9dayjiRPU1Wc2Yjp1w8=;
+ b=Seyd0JIkCtiOF+Vie704XJ5iwjBw0Njuz40imZUm5CYJVXlO+sKU+/hosPxKUXCdICTF45shF5JSZPoetQwtAj0G0eus0Sf2zhX93dLi8TsfQ8JL9MRIe+MUHGfJcqel3/CBhhVdDIoZISCrSyRj+Xg70v36utVHfLux9MQQHzk=
+Received: from BN9PR03CA0574.namprd03.prod.outlook.com (2603:10b6:408:10d::9)
+ by MWHPR12MB1519.namprd12.prod.outlook.com (2603:10b6:301:d::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.21; Wed, 24 Aug
+ 2022 15:04:22 +0000
+Received: from BN8NAM11FT010.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10d:cafe::f7) by BN9PR03CA0574.outlook.office365.com
+ (2603:10b6:408:10d::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15 via Frontend
+ Transport; Wed, 24 Aug 2022 15:04:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT010.mail.protection.outlook.com (10.13.177.53) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5566.15 via Frontend Transport; Wed, 24 Aug 2022 15:04:22 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Wed, 24 Aug 2022 10:04:19 -0500
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
+ <hawking.zhang@amd.com>, <kent.russell@amd.com>
+Subject: [PATCH] drm/amdgpu: disable FRU access on special SIENNA CICHLID card
+Date: Wed, 24 Aug 2022 23:03:51 +0800
+Message-ID: <20220824150351.247048-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v3 0/9] Move all drivers to a common dma-buf locking
- convention
-Content-Language: en-US
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
- <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>
-References: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 14fc19d7-62ea-455f-1056-08da85e1ed47
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1519:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: CFx6CepxsRJcT77a7UX1ET7R8/cO1slWbgCaaFHIlc8r5EMbnFe2tIsuQRprgzHfNCB2qakT7/Nqhj8NcFKk+TGW/4WHXP5oj7qfxKTRuyTYq8s3gla1XYLMzd5853oRUrLXZQ6UPrmNnVt2obvoA8dfHH3gUuurRxvEN96wxS4U8J8ONfoCQyR4zTTqnYYuZs5AhkbmEv+MZiHemXunDdLg9KGD8UlbkfT3Nkfk3hGslvvKaCh1xDmTHgKCyBnbwpD86mBqAdYUVg6qG5WAi6FoF31AV27p/k3vldB77hx4jkCQWeanuPa4n9+CFVFXf2V9ilBQBCKLuXxF/KYE15LlJKw50fkNCuMe7wN/3zAsZWwwuiB22DC50RN1pokzlllQbcjv8vQpHwTcuwYXOwMMImjJCYoiPOfebSLgpadmJM2yitU4kAjNv/QvBi7YpixkulHJ6Hv4PKS+aeeyCrpb2Mgu1i7polzJDbczpo5EkJUC2qd1KFxRDR9Rv79nTR54WFKJRj8bLsLSvMYfoVPrPg9GihjYCILpJsD4APF068zqYLJnMLHeUCzCridMBQx5qT9UqRVCFEUdXkLakCR2YtjBQVP4DZgFspFNKMWEC4wVgeU6L05Tf9mgYFsLKQUq72jTjwEBtdudaMYnlM3PLzzTrqvIIhSDqmHXu7Ocg9PXT7TGyykwic6Qt6vJU7i5zGwFrF3hfQcYtzpl+PiR5AD/HbIKKK3riieH9o6e2igKx5eAdmbX43lOAOYzuRjBieYnMi+2kKYk1laf77g6wc08AsGbbLuA2aNAifgAYq9on77uxaUkw9cdBX2Z1USop875E0e/y8v21sq7tQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(396003)(376002)(136003)(39860400002)(40470700004)(46966006)(36840700001)(81166007)(40460700003)(86362001)(82740400003)(36860700001)(356005)(316002)(110136005)(6636002)(2906002)(4326008)(82310400005)(70586007)(44832011)(8936002)(5660300002)(426003)(1076003)(40480700001)(16526019)(47076005)(70206006)(41300700001)(6666004)(8676002)(2616005)(7696005)(478600001)(26005)(36756003)(186003)(336012)(83380400001)(2101003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2022 15:04:22.0558 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14fc19d7-62ea-455f-1056-08da85e1ed47
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT010.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1519
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,117 +98,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
- dri-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, linux-media@vger.kernel.org
+Cc: Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Christian König <christian.koenig@amd.com> to patches #2-#4
+Below driver load error will be printed, not friendly to end user.
 
-Am 24.08.22 um 12:22 schrieb Dmitry Osipenko:
-> Hello,
->
-> This series moves all drivers to a dynamic dma-buf locking specification.
->  From now on all dma-buf importers are made responsible for holding
-> dma-buf's reservation lock around all operations performed over dma-bufs
-> in accordance to the locking specification. This allows us to utilize
-> reservation lock more broadly around kernel without fearing of a potential
-> deadlocks.
->
-> This patchset passes all i915 selftests. It was also tested using VirtIO,
-> Panfrost, Lima, Tegra, udmabuf, AMDGPU and Nouveau drivers. I tested cases
-> of display+GPU, display+V4L and GPU+V4L dma-buf sharing (where appropriate),
-> which covers majority of kernel drivers since rest of the drivers share
-> same or similar code paths.
->
-> Changelog:
->
-> v3: - Factored out dma_buf_mmap_unlocked() and attachment functions
->        into aseparate patches, like was suggested by Christian König.
->
->      - Corrected and factored out dma-buf locking documentation into
->        a separate patch, like was suggested by Christian König.
->
->      - Intel driver dropped the reservation locking fews days ago from
->        its BO-release code path, but we need that locking for the imported
->        GEMs because in the end that code path unmaps the imported GEM.
->        So I added back the locking needed by the imported GEMs, updating
->        the "dma-buf attachment locking specification" patch appropriately.
->
->      - Tested Nouveau+Intel dma-buf import/export combo.
->
->      - Tested udmabuf import to i915/Nouveau/AMDGPU.
->
->      - Fixed few places in Etnaviv, Panfrost and Lima drivers that I missed
->        to switch to locked dma-buf vmapping in the drm/gem: Take reservation
->        lock for vmap/vunmap operations" patch. In a result invalidated the
->        Christian's r-b that he gave to v2.
->
->      - Added locked dma-buf vmap/vunmap functions that are needed for fixing
->        vmappping of Etnaviv, Panfrost and Lima drivers mentioned above.
->        I actually had this change stashed for the drm-shmem shrinker patchset,
->        but then realized that it's already needed by the dma-buf patches.
->        Also improved my tests to better cover these code paths.
->
-> v2: - Changed locking specification to avoid problems with a cross-driver
->        ww locking, like was suggested by Christian König. Now the attach/detach
->        callbacks are invoked without the held lock and exporter should take the
->        lock.
->
->      - Added "locking convention" documentation that explains which dma-buf
->        functions and callbacks are locked/unlocked for importers and exporters,
->        which was requested by Christian König.
->
->      - Added ack from Tomasz Figa to the V4L patches that he gave to v1.
->
-> Dmitry Osipenko (9):
->    dma-buf: Add _unlocked postfix to function names
->    dma-buf: Add locked variant of dma_buf_vmap/vunmap()
->    drm/gem: Take reservation lock for vmap/vunmap operations
->    dma-buf: Move dma_buf_vmap/vunmap_unlocked() to dynamic locking
->      specification
->    dma-buf: Move dma_buf_mmap_unlocked() to dynamic locking specification
->    dma-buf: Move dma-buf attachment to dynamic locking specification
->    dma-buf: Document dynamic locking convention
->    media: videobuf2: Stop using internal dma-buf lock
->    dma-buf: Remove internal lock
->
->   Documentation/driver-api/dma-buf.rst          |   6 +
->   drivers/dma-buf/dma-buf.c                     | 276 ++++++++++++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |   4 +-
->   drivers/gpu/drm/armada/armada_gem.c           |  14 +-
->   drivers/gpu/drm/drm_client.c                  |   4 +-
->   drivers/gpu/drm/drm_gem.c                     |  24 ++
->   drivers/gpu/drm/drm_gem_dma_helper.c          |   6 +-
->   drivers/gpu/drm/drm_gem_framebuffer_helper.c  |   6 +-
->   drivers/gpu/drm/drm_gem_shmem_helper.c        |   2 +-
->   drivers/gpu/drm/drm_gem_ttm_helper.c          |   9 +-
->   drivers/gpu/drm/drm_prime.c                   |  12 +-
->   drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |   4 +-
->   drivers/gpu/drm/exynos/exynos_drm_gem.c       |   2 +-
->   drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |   6 +-
->   drivers/gpu/drm/i915/gem/i915_gem_object.c    |  12 +
->   .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |  20 +-
->   drivers/gpu/drm/lima/lima_sched.c             |   4 +-
->   drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c     |   8 +-
->   drivers/gpu/drm/panfrost/panfrost_dump.c      |   4 +-
->   drivers/gpu/drm/panfrost/panfrost_perfcnt.c   |   6 +-
->   drivers/gpu/drm/qxl/qxl_object.c              |  17 +-
->   drivers/gpu/drm/qxl/qxl_prime.c               |   4 +-
->   drivers/gpu/drm/tegra/gem.c                   |  27 +-
->   drivers/infiniband/core/umem_dmabuf.c         |  11 +-
->   .../common/videobuf2/videobuf2-dma-contig.c   |  26 +-
->   .../media/common/videobuf2/videobuf2-dma-sg.c |  23 +-
->   .../common/videobuf2/videobuf2-vmalloc.c      |  17 +-
->   .../platform/nvidia/tegra-vde/dmabuf-cache.c  |  12 +-
->   drivers/misc/fastrpc.c                        |  12 +-
->   drivers/xen/gntdev-dmabuf.c                   |  14 +-
->   include/drm/drm_gem.h                         |   3 +
->   include/linux/dma-buf.h                       |  57 ++--
->   32 files changed, 410 insertions(+), 242 deletions(-)
->
+amdgpu: ATOM BIOS: 113-D603GLXE-077
+[drm] FRU: Failed to get size field
+[drm:amdgpu_fru_get_product_info [amdgpu]] *ERROR* Failed to read FRU Manufacturer, ret:-5
+
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+index ecada5eadfe3..9d612b8745aa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+@@ -66,10 +66,15 @@ static bool is_fru_eeprom_supported(struct amdgpu_device *adev)
+ 		return true;
+ 	case CHIP_SIENNA_CICHLID:
+ 		if (strnstr(atom_ctx->vbios_version, "D603",
+-			    sizeof(atom_ctx->vbios_version)))
+-			return true;
+-		else
++		    sizeof(atom_ctx->vbios_version))) {
++			if (strnstr(atom_ctx->vbios_version, "D603GLXE",
++                            sizeof(atom_ctx->vbios_version)))
++				return false;
++			else
++				return true;
++		} else {
+ 			return false;
++		}
+ 	default:
+ 		return false;
+ 	}
+-- 
+2.25.1
 
