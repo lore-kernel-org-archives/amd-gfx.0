@@ -4,65 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B01AC32774
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:19:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F09AC04AA5
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:19:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2A8AD8F45;
-	Thu, 25 Aug 2022 07:19:03 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B43E111AAE3
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 12:16:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661343385;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=v18TLB6llBn21xZmtCkJxNxeUJMalL9uiv3Zdl8G6jE=;
- b=TJtk3NR7B7EtarP7Et3zh7Xptj9c97ZiMtrsZpQDmMDYYwHNrYoHIGWGp9CPZg6CIuMEo5
- mcCu691ocnArgdDGoCeqL+XHp6szxlDDVopN898gLW3eXUfhhqkhKx/CKsBYTKCIfplH2/
- L4iQpqDt4XSjUCj1OYVxbHPIsBdYBOE=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-204-KlunHvOzOR-vMnYGybvaHg-1; Wed, 24 Aug 2022 08:16:22 -0400
-X-MC-Unique: KlunHvOzOR-vMnYGybvaHg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AB24D8F3D;
+	Thu, 25 Aug 2022 07:19:01 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A04BE10E35A;
+ Wed, 24 Aug 2022 10:23:49 +0000 (UTC)
+Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF6EA294EDED;
- Wed, 24 Aug 2022 12:16:21 +0000 (UTC)
-Received: from localhost.localdomain (unknown [10.39.193.103])
- by smtp.corp.redhat.com (Postfix) with ESMTP id DEBCBC15BB3;
- Wed, 24 Aug 2022 12:16:17 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Ben Skeggs <bskeggs@redhat.com>,
-	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
-	Daniel Dadap <ddadap@nvidia.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v4 11/31] drm/i915: Call acpi_video_register_backlight() (v2)
-Date: Wed, 24 Aug 2022 14:15:03 +0200
-Message-Id: <20220824121523.1291269-12-hdegoede@redhat.com>
-In-Reply-To: <20220824121523.1291269-1-hdegoede@redhat.com>
-References: <20220824121523.1291269-1-hdegoede@redhat.com>
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 0F8CE6601E85;
+ Wed, 24 Aug 2022 11:23:46 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1661336628;
+ bh=yJhLmWLiZYSaVVYpgyXfxz7ssZGXeWsgtJLIcgiYQhg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=cR6l5P3hk+4DgOkFYE7b7ShOmufEVYIEoMuYmR+B9JRZEQsNkMZpX/Q4TdWCwG9bl
+ cFJfBE7LTAU/dulmS8UMBFoANSxxnSMIJmzKS6FB+hRhsCHkIdD0B1pRMHBxPKR0G7
+ r4WBQ7qlhYOt+yLYJUtQNXRlVSLGlIz4TAuMpuH3n8+Noir1uc2e4xAYEqI3am2nAQ
+ EHEZ2qLLS2EftDL48KSS7NszxIdF0Yhb3xzLozhcYxohDD0rJmR3jDIAnaMuxdqknf
+ t0ki3DbaaSr2wpBm5cBtA+ZWcRnEXaxdeDfx4giTF07TzpSUxfP2ECsMorl9Skhctm
+ /MrCMtEyAzCFQ==
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>
+Subject: [PATCH v3 4/9] dma-buf: Move dma_buf_vmap/vunmap_unlocked() to
+ dynamic locking specification
+Date: Wed, 24 Aug 2022 13:22:43 +0300
+Message-Id: <20220824102248.91964-5-dmitry.osipenko@collabora.com>
+X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
+References: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-Mailman-Approved-At: Thu, 25 Aug 2022 07:18:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,96 +76,89 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Len Brown <lenb@kernel.org>
+Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
+ dri-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On machins without an i915 opregion the acpi_video driver immediately
-probes the ACPI video bus and used to also immediately register
-acpi_video# backlight devices when supported.
+Move dma_buf_vmap/vunmap_unlocked() functions to the dynamic locking
+specification by taking the reservation lock. All the affected drivers
+were prepared to this change by a previous drm/gem patch.
 
-Once the drm/kms driver then loaded later and possibly registered
-a native backlight device then the drivers/acpi/video_detect.c code
-unregistered the acpi_video0 device to avoid there being 2 backlight
-devices (when acpi_video_get_backlight_type()==native).
-
-This means that userspace used to briefly see 2 devices and the
-disappearing of acpi_video0 after a brief time confuses the systemd
-backlight level save/restore code, see e.g.:
-https://bbs.archlinux.org/viewtopic.php?id=269920
-
-To fix this the ACPI video code has been modified to make backlight class
-device registration a separate step, relying on the drm/kms driver to
-ask for the acpi_video backlight registration after it is done setting up
-its native backlight device.
-
-Add a call to the new acpi_video_register_backlight() after the i915 calls
-acpi_video_register() (after setting up the i915 opregion) so that the
-acpi_video backlight devices get registered on systems where the i915
-native backlight device is not registered.
-
-Changes in v2:
--Only call acpi_video_register_backlight() when a panel is detected
-
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 8 ++++++++
- drivers/gpu/drm/i915/display/intel_panel.c   | 3 +++
- drivers/gpu/drm/i915/i915_drv.h              | 2 ++
- 3 files changed, 13 insertions(+)
+ drivers/dma-buf/dma-buf.c   | 8 ++++++++
+ drivers/gpu/drm/drm_prime.c | 4 ++--
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 6103b02c081f..2bb53efdb149 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -9088,6 +9088,14 @@ void intel_display_driver_register(struct drm_i915_private *i915)
- 	/* Must be done after probing outputs */
- 	intel_opregion_register(i915);
- 	acpi_video_register();
-+	/*
-+	 * Only call this if i915 is driving the internal panel. If the internal
-+	 * panel is not driven by i915 then another GPU driver may still register
-+	 * a native backlight driver later and this should only be called after
-+	 * any native backlights have been registered.
-+	 */
-+	if (i915->have_panel)
-+		acpi_video_register_backlight();
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 34173aafe6c9..f358af401360 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1398,6 +1398,8 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
+ 	if (WARN_ON(!dmabuf))
+ 		return -EINVAL;
  
- 	intel_audio_init(i915);
++	dma_resv_assert_held(dmabuf->resv);
++
+ 	if (!dmabuf->ops->vmap)
+ 		return -EINVAL;
  
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 237a40623dd7..4536c527f50c 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -646,8 +646,11 @@ intel_panel_mode_valid(struct intel_connector *connector,
- 
- int intel_panel_init(struct intel_connector *connector)
+@@ -1440,7 +1442,9 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
  {
-+	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct intel_panel *panel = &connector->panel;
+ 	int ret;
  
-+	dev_priv->have_panel = true;
++	dma_resv_lock(dmabuf->resv, NULL);
+ 	ret = dma_buf_vmap(dmabuf, map);
++	dma_resv_unlock(dmabuf->resv);
+ 
+ 	return ret;
+ }
+@@ -1456,6 +1460,8 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map)
+ 	if (WARN_ON(!dmabuf))
+ 		return;
+ 
++	dma_resv_assert_held(dmabuf->resv);
 +
- 	intel_backlight_init_funcs(panel);
+ 	BUG_ON(iosys_map_is_null(&dmabuf->vmap_ptr));
+ 	BUG_ON(dmabuf->vmapping_counter == 0);
+ 	BUG_ON(!iosys_map_is_equal(&dmabuf->vmap_ptr, map));
+@@ -1480,7 +1486,9 @@ void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
+ 	if (WARN_ON(!dmabuf))
+ 		return;
  
- 	drm_dbg_kms(connector->base.dev,
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 69ce6db6a7c1..14b0dcaf25c2 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -756,6 +756,8 @@ struct drm_i915_private {
++	dma_resv_lock(dmabuf->resv, NULL);
+ 	dma_buf_vunmap(dmabuf, map);
++	dma_resv_unlock(dmabuf->resv);
+ }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap_unlocked, DMA_BUF);
  
- 	bool ipc_enabled;
+diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+index 7a7710158880..e9b7d3fa67f1 100644
+--- a/drivers/gpu/drm/drm_prime.c
++++ b/drivers/gpu/drm/drm_prime.c
+@@ -682,7 +682,7 @@ int drm_gem_dmabuf_vmap(struct dma_buf *dma_buf, struct iosys_map *map)
+ {
+ 	struct drm_gem_object *obj = dma_buf->priv;
  
-+	bool have_panel;
-+
- 	struct intel_audio_private audio;
+-	return drm_gem_vmap_unlocked(obj, map);
++	return drm_gem_vmap(obj, map);
+ }
+ EXPORT_SYMBOL(drm_gem_dmabuf_vmap);
  
- 	struct i915_pmu pmu;
+@@ -698,7 +698,7 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map)
+ {
+ 	struct drm_gem_object *obj = dma_buf->priv;
+ 
+-	drm_gem_vunmap_unlocked(obj, map);
++	drm_gem_vunmap(obj, map);
+ }
+ EXPORT_SYMBOL(drm_gem_dmabuf_vunmap);
+ 
 -- 
 2.37.2
 
