@@ -4,60 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B04B0C00140
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 13:27:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B259C32793
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 14:01:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B12A310F324;
-	Wed, 24 Aug 2022 13:27:06 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFEB811AE1C;
- Wed, 24 Aug 2022 13:26:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661347613; x=1692883613;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=MlySsLPdoAztoxuUnioJVpj6nmnJAiB2GUXpz6LMYIs=;
- b=RY1plNbFNgJRjL8ia2wvt0G2iZlOvjhf94l2B+uh9Es80w21ZjZIbpl/
- HV26kxiP90QC6czJfzoCzZ2R0WpfPwuy0mz70RL1ynbKGYg/ZTsg1i9Mg
- JmVNqYb/FTi5wQKFv2HGE4mdSVLuFBg2PqdsxgdtB3YMEJpYiuNbqKaj6
- NFbAvyu5ebFGpjiNQeT0Umft3tayFfuHjUfWeg/HM1pH7MSdC51/fViJ7
- TDqkfnDAycSAxS5j1s+8yUcxh2q2kSGyrJvlPerfHIEdmUiixoGvEZKCg
- 6vGHrer5W/gZues5lbaaw8fMgNfigjO/uzq0ekH3a77nW1cI8K0f0XO1p A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="357938868"
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="357938868"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2022 06:26:50 -0700
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="670503413"
-Received: from zlim2-mobl.gar.corp.intel.com (HELO localhost) ([10.252.52.23])
- by fmsmga008-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2022 06:26:43 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>, Daniel Dadap
- <ddadap@nvidia.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Rafael J . Wysocki"
- <rafael@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>,
- Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>, Andy
- Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH v4 11/31] drm/i915: Call acpi_video_register_backlight()
- (v2)
-In-Reply-To: <7660855c-6307-a321-5250-cc8a51075bda@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220824121523.1291269-1-hdegoede@redhat.com>
- <20220824121523.1291269-12-hdegoede@redhat.com> <87y1vdizau.fsf@intel.com>
- <7660855c-6307-a321-5250-cc8a51075bda@redhat.com>
-Date: Wed, 24 Aug 2022 16:26:40 +0300
-Message-ID: <87sfllixgv.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A89DD10E2FB;
+	Wed, 24 Aug 2022 14:01:31 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2062.outbound.protection.outlook.com [40.107.92.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9002310E2FB;
+ Wed, 24 Aug 2022 14:01:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VQMAWHZtg+IA+pEEQFFgW59ZdIR0TfhjmM1khYXe9ENGoDPUTRk0ic5JG633kfrHAUJTMZCt794Hfcy0+NusifMN1U/jC71vmmZaWPxW9CoD0giexkNLLwW2KYoUMNUNEXjjjFHsgpdJlNxOqwU4Z/II1Hu6KIPeera3kf9FvjOaXciEXaBRVsFcrJGqIKQ8k2yfapOGxQ8q/ycgRYoIWRQBTxKCZkYMXCTcmFSxP4bY8Njc9OqcvVULwo4e/PpQuUeWN1s+5Es/cUmu9F5KriyX6yMg+gEYtDzsQgjo5wjNEdvJxc7BDPkV7KToJ1BU/gt7W75PbsfREVbG0bVoow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=a6tnmG1zTM4ApDA7S49avmJ7v1U8WXzdIdLD1/Us1WM=;
+ b=Z+mX29rP4QWE87xXy6mbqlLiO9MnFkvU45YZnwheLpZxxhTuA8MnZkQEAEorZCG6rX6EjYfGQcSy5fRcNrHIiKfuZs4Fya+I9IhPL3AHV95jXDg71ys0iri7q/sd3xoz6d5bpB8zhFA3SNqTwYZgf6Fiq3omz6ntBXHkxbuB1ZOu8TrIm0Xe9Qv9nsGY11Jpk5tSen8+pEVqPFT/miPEMfsg7s/T89e7zv5QfF4fJZ8FPijj0L+4QFW3sBFGHbm0bBwDlZIF6ltARuWUSGZLZrBBYHvxitdPRJow74gJY7CHkzLP5QHMQRg7S+i38X4PO15nUFdxqeOKP3EQOdRAoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a6tnmG1zTM4ApDA7S49avmJ7v1U8WXzdIdLD1/Us1WM=;
+ b=Hej0/obOVZj5Zx9l59hKRiN5loPORbM4VObM1YK/8TxN3iaV7Ok1cX+oATnXfK0H+BIStPLbpESFEtIhA11POXQt8+yFtLZq+qMnKbb+rQmKQOCMLy2p6rSuB8SemVsnHiTT8MFKQnRmYlxRxTw/2EM1WcQCLHkDWm3IdtDJ5Ec=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DM5PR12MB1305.namprd12.prod.outlook.com (2603:10b6:3:75::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Wed, 24 Aug
+ 2022 14:01:16 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::905:1701:3b51:7e39%2]) with mapi id 15.20.5546.024; Wed, 24 Aug 2022
+ 14:01:16 +0000
+Message-ID: <45dee40a-e1a9-2554-2af8-ea6b9dbbb161@amd.com>
+Date: Wed, 24 Aug 2022 16:01:06 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v3 5/9] dma-buf: Move dma_buf_mmap_unlocked() to dynamic
+ locking specification
+Content-Language: en-US
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>
+References: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
+ <20220824102248.91964-6-dmitry.osipenko@collabora.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20220824102248.91964-6-dmitry.osipenko@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS8PR04CA0152.eurprd04.prod.outlook.com
+ (2603:10a6:20b:331::7) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 18d244fd-891b-4415-1a87-08da85d91c9a
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1305:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RJaTX2fASYOjxVRoumKCysKPaCQ2jZtQEUNDWdjOd4mrDA+e6s/KEvNAP9D0IUojJex53LZ8aEJtokpzRaZw/RbDSCzyObI1NS/dtWMCpYC08fT798pKoWjAVQtLd1ZRNzKqHjhUygyGcsxijYeRbp2oapDtg5CBauxOwM+kHHAtCNxzE5P/9jAG2O3fb7nX1zgDFOgnMc1xrdZLnpEmq2Xan1xbY2g0Mqra6rBerU+v9InQ7I73ileczcG3YwdfAP844ktPdGojPYiwN+wSsLfmqkvWkPXTvBLQPtX0txDjka5YJlFtkkBoUG7PfdjaApj+e+F02y1morwp3VizTcAquRFswvk3PfqaiXzOPDlvWr/fPJ0+tz+XOiEVacXsY9ggwSdWMrKoptp7AptG9qMA8Hed3bTEwhnKJj6a1+rulBVOIux8u9LExplude3us20K7CKTXFpTJvixcJVmx87ydS2bb61YgV6ImQgq75JUcmxDRkaX3dJYR28CHXHC7EkFyYAtE7K86kSghuvFUAmeFZU0jveGIncfKEY/SCBMj3agJqoTK4+TfXM4veEAbYY8AYIvkmMH5oVHb7Es3xmU68tz+e/wbDlHxCE67CCO3q0F8T22pKkaAv0DT9P0lmX1vZf9EMmR+RrBdjjxeKiiObjnIoONsVF0fmrYzW2u5mTsr06z00m9uWi380slFnqEjOHWXuNd9tG+rWpDt/mgs7nRgakhaxcgfxnYEuc4imd0c4CEXmMJyExbmIVSqHLaHEThmpylV8Y882e9viggRQsOKvbS9dGXOdeXluZx1sWfkVO0tjRsBRe43fin
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(376002)(136003)(396003)(366004)(39860400002)(110136005)(66556008)(66476007)(8676002)(4326008)(316002)(66946007)(8936002)(5660300002)(7416002)(7406005)(2906002)(38100700002)(36756003)(86362001)(31696002)(921005)(41300700001)(6666004)(6512007)(6506007)(6486002)(66574015)(478600001)(83380400001)(2616005)(186003)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2YxM0JqT2p1azdnZEo5U1JJd0piSGtEYWZBU2NKb3I4TUgxSjgxY292bXpl?=
+ =?utf-8?B?MWpBZGFTWlJqZ3BuazUxY2RIc0g0VUQxZlNaQU9VZkNTeFQ0QUkreVBvcWRy?=
+ =?utf-8?B?dWhIRFpXN2ppRnhxWFBYQ3d3cDQ4VGxrY1BISXhUN21JWVVTdkxoaXFJSnk1?=
+ =?utf-8?B?ZHoxQ2NOMmpJaFh0clZiRHJIQnpmNEorYm5ZcGNmNGhTcEsvZzdRSXRqaHJH?=
+ =?utf-8?B?dlZQdGJpUm42dWIyZFA2WTArbTBSQ0pYUEhzeCs5MVdJcVFLYXBNWTN5Vm53?=
+ =?utf-8?B?djBBcGQ4RzZ6SkxkQXB1aWZ5OXpaa05QdkN2anFSWXBrQjBrcmdad3ZKN25O?=
+ =?utf-8?B?RUpBMWtURHZxdW1oZGhJeGlac2U3My9TZVM4eFFjSWxSUVJlQXZWSzY1R2Mr?=
+ =?utf-8?B?RDkvNHcxeWVrUElYWC9mWGhWMU5CejY4dmNBVFJiRHpHemNoQUI3aUtjLzBP?=
+ =?utf-8?B?K3RZb1FieUl6dmt4Nnp2RzQxdDUrRlp0Qk9IWENqU1NVa0pYRXVYOWpIVnBC?=
+ =?utf-8?B?bEZVeWVqVE1kb3dIcVBCRGtnSWJ4ZUt3R1JnSWJjL09kUWJHQlB0TjA1SVpI?=
+ =?utf-8?B?K3VucGJ6QncxK0hVS0FOMEsxeVlSYXBOYnFYSXdzOGVIcUo3MHlKcEpDTlB3?=
+ =?utf-8?B?dklLMzk0WjNqV0FZMGxla0g5cUZlb1FveS9oRWU4bk9jd0hoSWEzU1NMT1Jy?=
+ =?utf-8?B?TDk4TUJPVVA3TWxKUGV3dHkydzkvbk41a2RHN0NwN0h2RUFSWUxTak9halh5?=
+ =?utf-8?B?UTRqdk01bm1TSTNDeXE1enFmK2luS2xob1QySFNaZmRWZDA5NjJwTHUzalRR?=
+ =?utf-8?B?NE9udlBDcmFieFIreUhwQ1NkV280WWJFQVVBUkQ0emF5cHlUNVNzNUo2OStI?=
+ =?utf-8?B?YmF6K25GYS84aGxLMmhQVFVkRDBBS3lLdjhJc3dmVGc2OGFVdXF3MVczeisw?=
+ =?utf-8?B?bzVXaEljSUxTOXF5ZkRvSC9pZnRrTjlsSFZqVEFoWjRKeVBscDJXNUNzWXZk?=
+ =?utf-8?B?RzJuSFlKTHhjdy9UUVAwNEx6RzBndXdVa0pLTDEvQlVUTFJzdmUwRGxaelAz?=
+ =?utf-8?B?NVpvNS9BOWZIWGNzdWo4RDZRWU1nYkt5Zi9zS3owRHlWcU9VTFk2N3R1R05t?=
+ =?utf-8?B?TlVTRitabzYzUDJhTUtiTmpWeTRXUlFvcjg1QUdLenVLMUhsWXBCNXdtWmY1?=
+ =?utf-8?B?VHpmOU42dDEyVnA4eG5TRFMrcUdWeTVaaTRZRks0dzlSK0hQeTdtU1kvcG9T?=
+ =?utf-8?B?cjBybGdvL3VOZTlnUFF5YUY1NzZaZnZSZ0dSTjFwdDR2T3NvTkVmMXg0amNz?=
+ =?utf-8?B?RTJZK3hwaWxNekRhc05OcUQvd1Yzdjg0VXF6blZ2cFdwUDl4dVREVnZBbWNq?=
+ =?utf-8?B?MENENG1ISHJPa0hrYlV2SFU4L01KdHhFZDlHYmo2MjBYaVA0TndPOTkzdGx4?=
+ =?utf-8?B?bmFDRnhRNU9VbTJXdzJOaTBLSjZJZzBOUjB4TkJKNnpPR2dwTXRrR3JQTm81?=
+ =?utf-8?B?ZHR3bnVBb2k3RHdyMTRCckJWVWFacFB4V0VSZkc3UlJjVVZFcG1IdjJZZ3NP?=
+ =?utf-8?B?UnlNNU1Rc1ByRXhMQWJMdFMrMHVORlB4eTNKcmRRcmd2VWdyRFNSL09oVzI3?=
+ =?utf-8?B?TmsyVllTdlZUb3N0dUlPUkJRMVFaZEJVSUs0RU1MUnJITTh2U0pjc2tERG9n?=
+ =?utf-8?B?ck03VXFzMlVFYUdMNHUwTWJJdjZyUVlFTlNjMEMxSjV1S2NraXV0VC8vdnJr?=
+ =?utf-8?B?QlVJMHMvN1Z1NHk4MUNXa3NvU2pIMEsvVVdsN0t4bnRnZVk2RSsyM2hzVUZC?=
+ =?utf-8?B?dUZrTFJtdWdsTUtqNHRDdk55NEpkaW1OVm5EdFBzSldXWlNiRi9LVWRTSmRw?=
+ =?utf-8?B?SGZlM1Q0T2g1N0pWbUFWQkdvV0xIS1BQODYwNVhQbGdWOHdYeFJiVE1MbERD?=
+ =?utf-8?B?OHhma3EyaFVPMW1TTnQxenRwMkhpeFBtVis5SWo1a1dKSXFLWHJ5Zk1rOGlV?=
+ =?utf-8?B?UlN5VCszOXpCaEFqQWxoRTNrVkd0VE5qbkkxMjJLQStvbXgvd001NTA3dUwx?=
+ =?utf-8?B?Y2ZuTXlncVBCdVBUdGJyWVZGZk9RYzFaKzVVaVR1Nmpjb2ZpRVdoSklJak0z?=
+ =?utf-8?B?dFRvc3BBV3pEbU91U1NKNytLR1ZjMU9JZEZPRmlvRk53Um5oL2xYRTdUQUl1?=
+ =?utf-8?Q?OkHNpLdnTExpDKrMoqdy67Q3ZiZx7uLLUJzCPB6JirLX?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18d244fd-891b-4415-1a87-08da85d91c9a
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2022 14:01:16.3261 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yIgqr06rV9pGCDGmg1lDmtmR9+TYmrXu7b/z/1OIahmSG9RUbWlHBv8OYypGN5S4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1305
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,129 +148,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Len Brown <lenb@kernel.org>
+Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
+ dri-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 24 Aug 2022, Hans de Goede <hdegoede@redhat.com> wrote:
-> Hi,
->
-> On 8/24/22 14:47, Jani Nikula wrote:
->> On Wed, 24 Aug 2022, Hans de Goede <hdegoede@redhat.com> wrote:
->>> On machins without an i915 opregion the acpi_video driver immediately
->>> probes the ACPI video bus and used to also immediately register
->>> acpi_video# backlight devices when supported.
->>>
->>> Once the drm/kms driver then loaded later and possibly registered
->>> a native backlight device then the drivers/acpi/video_detect.c code
->>> unregistered the acpi_video0 device to avoid there being 2 backlight
->>> devices (when acpi_video_get_backlight_type()==native).
->>>
->>> This means that userspace used to briefly see 2 devices and the
->>> disappearing of acpi_video0 after a brief time confuses the systemd
->>> backlight level save/restore code, see e.g.:
->>> https://bbs.archlinux.org/viewtopic.php?id=269920
->>>
->>> To fix this the ACPI video code has been modified to make backlight class
->>> device registration a separate step, relying on the drm/kms driver to
->>> ask for the acpi_video backlight registration after it is done setting up
->>> its native backlight device.
->>>
->>> Add a call to the new acpi_video_register_backlight() after the i915 calls
->>> acpi_video_register() (after setting up the i915 opregion) so that the
->>> acpi_video backlight devices get registered on systems where the i915
->>> native backlight device is not registered.
->>>
->>> Changes in v2:
->>> -Only call acpi_video_register_backlight() when a panel is detected
->>>
->>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
->>> ---
->>>  drivers/gpu/drm/i915/display/intel_display.c | 8 ++++++++
->>>  drivers/gpu/drm/i915/display/intel_panel.c   | 3 +++
->>>  drivers/gpu/drm/i915/i915_drv.h              | 2 ++
->>>  3 files changed, 13 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
->>> index 6103b02c081f..2bb53efdb149 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_display.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_display.c
->>> @@ -9088,6 +9088,14 @@ void intel_display_driver_register(struct drm_i915_private *i915)
->>>  	/* Must be done after probing outputs */
->>>  	intel_opregion_register(i915);
->>>  	acpi_video_register();
->>> +	/*
->>> +	 * Only call this if i915 is driving the internal panel. If the internal
->>> +	 * panel is not driven by i915 then another GPU driver may still register
->>> +	 * a native backlight driver later and this should only be called after
->>> +	 * any native backlights have been registered.
->>> +	 */
->>> +	if (i915->have_panel)
->>> +		acpi_video_register_backlight();
->> 
->> Apologies for procrastinating the review.
->> 
->> Please let's not add new flags like have_panel to i915; we're trying to
->> clean it up instead.
->> 
->> The code here needs to iterate over the connectors to decide. Maybe
->> better abstracted a function.
->
-> So something like add a i915_have_panel() helper which iterates over all
-> the connectors and then of 1 of them is of the LVDS / eDP / DSI type
-> return true ?
+This should work, but I'm really wondering if this makes a difference 
+for somebody.
 
-Or abstract the acpi_video_register_backlight() calling in a function
-that does the loop and calls if necessary.
+Anyway the approach is fine with me: Acked-by: Christian König 
+<christian.koenig@amd.com>
 
-BR,
-Jani.
+Regards,
+Christian.
 
+Am 24.08.22 um 12:22 schrieb Dmitry Osipenko:
+> Move dma_buf_mmap_unlocked() function to the dynamic locking specification
+> by taking the reservation lock. Neither of the today's drivers take the
+> reservation lock within the mmap() callback, hence it's safe to enforce
+> the locking.
+>
+> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> ---
+>   drivers/dma-buf/dma-buf.c | 8 +++++++-
+>   1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index f358af401360..4556a12bd741 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -1348,6 +1348,8 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_end_cpu_access, DMA_BUF);
+>   int dma_buf_mmap_unlocked(struct dma_buf *dmabuf, struct vm_area_struct *vma,
+>   			  unsigned long pgoff)
+>   {
+> +	int ret;
+> +
+>   	if (WARN_ON(!dmabuf || !vma))
+>   		return -EINVAL;
+>   
+> @@ -1368,7 +1370,11 @@ int dma_buf_mmap_unlocked(struct dma_buf *dmabuf, struct vm_area_struct *vma,
+>   	vma_set_file(vma, dmabuf->file);
+>   	vma->vm_pgoff = pgoff;
+>   
+> -	return dmabuf->ops->mmap(dmabuf, vma);
+> +	dma_resv_lock(dmabuf->resv, NULL);
+> +	ret = dmabuf->ops->mmap(dmabuf, vma);
+> +	dma_resv_unlock(dmabuf->resv);
+> +
+> +	return ret;
+>   }
+>   EXPORT_SYMBOL_NS_GPL(dma_buf_mmap_unlocked, DMA_BUF);
+>   
 
->
-> Regards,
->
-> Hans
->
->
->
->>>  	intel_audio_init(i915);
->>>  
->>> diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
->>> index 237a40623dd7..4536c527f50c 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_panel.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_panel.c
->>> @@ -646,8 +646,11 @@ intel_panel_mode_valid(struct intel_connector *connector,
->>>  
->>>  int intel_panel_init(struct intel_connector *connector)
->>>  {
->>> +	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
->>>  	struct intel_panel *panel = &connector->panel;
->>>  
->>> +	dev_priv->have_panel = true;
->>> +
->>>  	intel_backlight_init_funcs(panel);
->>>  
->>>  	drm_dbg_kms(connector->base.dev,
->>> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
->>> index 69ce6db6a7c1..14b0dcaf25c2 100644
->>> --- a/drivers/gpu/drm/i915/i915_drv.h
->>> +++ b/drivers/gpu/drm/i915/i915_drv.h
->>> @@ -756,6 +756,8 @@ struct drm_i915_private {
->>>  
->>>  	bool ipc_enabled;
->>>  
->>> +	bool have_panel;
->>> +
->>>  	struct intel_audio_private audio;
->>>  
->>>  	struct i915_pmu pmu;
->> 
->
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
