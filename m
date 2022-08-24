@@ -4,97 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5E62C64991
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:20:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52320C28D13
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:21:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0939D8F74;
-	Thu, 25 Aug 2022 07:19:32 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3CAC14B6C4
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 11:08:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661339309;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=cGfpUpDxvFpN6r02THk4JBCx3yQFLweaGRDNLoZQA9o=;
- b=Wh17cc89dAKmI4/DJZ/IG2YMkLZHPG1Wa7ylZKsVjbT0k6OUQSceoxV/OPEXG0Iq6qKFX6
- 92G0ABI3ypPi/PRk89nbV3OP44jJj8gb0ZG1Sv2Bd2vPrB9UW8weGRs5rshaR8vrdb4yFe
- cChfzm+mAd7663Bjr0yFqJ2bO8KOKlU=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-427-wu5B5VGOMwaq35c1338kBA-1; Wed, 24 Aug 2022 07:08:29 -0400
-X-MC-Unique: wu5B5VGOMwaq35c1338kBA-1
-Received: by mail-ej1-f71.google.com with SMTP id
- gs35-20020a1709072d2300b00730e14fd76eso5063080ejc.15
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 04:08:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=cGfpUpDxvFpN6r02THk4JBCx3yQFLweaGRDNLoZQA9o=;
- b=NY4oVjFPctsvcFgCsTCpwysLwtOqCT1ZLbW9OnXoanNTjKQrNdVXMooAG+RwRJ3CI3
- T38MWu1XSjd7rl0ZFykzz+GnF6KoNpSumajLWRuwFNR8ZSk8D8rEzLeXncUCTv2eOcvU
- ROsRKTwduylvRXA4Yw1FK2BrYn9iyPg9herRuS0EhEfQ0U4fpj6DwLdI4gZ6qAF2K5AS
- rGGaw15y62rFIPrxfvRC6Srg4G2xrUnWoO10BQRtnnPg1ErMVlXBBMWxKvQ8Dh3bGA9m
- 75+tukoON/0Yui+mB+iRTRZADhdAIiPiX2NjQrNT7NRq+sM1hDaEMIodTZ1tmSCfpxz1
- nWnw==
-X-Gm-Message-State: ACgBeo00Ws+A0WgbwhgfAky1VzvPy14TWv2Ob7tqdmU/acNr7VDE6T6O
- 2wAt5MVb6HVOwa/qT0mtUdT4b4j/qYSboxkIh12VZFXZtX7ZoZITaYDQtNeNj682DkbfNNAcjmB
- GrDJodxcnoqkN/Az1AIYsFXxqYg==
-X-Received: by 2002:a05:6402:e98:b0:441:a982:45bc with SMTP id
- h24-20020a0564020e9800b00441a98245bcmr6950956eda.239.1661339306710; 
- Wed, 24 Aug 2022 04:08:26 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR6P/7PaITtSTdw1wLLBypj9uj/nk0N3QwkS9w0y+K1RLj+BScs0w2Xc3OndqaOvHU7KZQ6oZg==
-X-Received: by 2002:a05:6402:e98:b0:441:a982:45bc with SMTP id
- h24-20020a0564020e9800b00441a98245bcmr6950924eda.239.1661339306456; 
- Wed, 24 Aug 2022 04:08:26 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
- (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
- by smtp.gmail.com with ESMTPSA id
- kv22-20020a17090778d600b00730560156b0sm1047279ejc.50.2022.08.24.04.08.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Aug 2022 04:08:24 -0700 (PDT)
-Message-ID: <e56d7379-5f6f-9ae0-cd74-f570df990c1d@redhat.com>
-Date: Wed, 24 Aug 2022 13:08:23 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH v2 01/29] ACPI: video: Add
- acpi_video_backlight_use_native() helper
-To: Daniel Dadap <ddadap@nvidia.com>, Ben Skeggs <bskeggs@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB999D90BA;
+	Thu, 25 Aug 2022 07:21:05 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E122114AFC9;
+ Wed, 24 Aug 2022 10:23:44 +0000 (UTC)
+Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id C3F656601E80;
+ Wed, 24 Aug 2022 11:23:40 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1661336623;
+ bh=tUHHyjnssBHNcpdFjbIByyIscqilylx0IKM9xE8tryg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ceoEL7FsiDBYxIntDQ9bDXvbnt/JLKZ6AMCy6e0vpUbd0eFio/l1TwA6Ag7PXcf9Y
+ iX/rVcJCPx9VDhuWmiwxfPZKzz4jraaPIAfRL5MN97AezGKyrKqR1DM5AHCnYYMVnY
+ 4+JxGMztg2bC5m0rQOobLiL9MSGweRqmGo1R/a+QEtnMU28KmvKio+qg6QlNlmTQLf
+ Bpl/EwCBMN712kOzQL8jiLH5K3l5o/OVKwH5y7aj2Bd91r+oqHBYTTlxV/KRkXgncm
+ GZusfsLTHpZSU5qsu2LnqkOpylQIFjx/c0ebnzACDY0FwZn3P7vgoFpE0QKirqBgZT
+ rwUYIOLoRREvw==
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Xinhui <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
- Andy Shevchenko <andy@kernel.org>
-References: <20220712193910.439171-1-hdegoede@redhat.com>
- <20220712193910.439171-2-hdegoede@redhat.com>
- <641cb059-48f5-5f05-5ec2-610f1215391c@nvidia.com>
- <20e4ffcf-2a3a-e671-5f98-1602b78df3cb@nvidia.com>
- <331ebd23-d2a4-bb33-5462-b9bd3284ab69@redhat.com>
- <5cfb26a2-ec7b-578e-dc01-79776dc7e0c9@nvidia.com>
- <94c69af4-5a30-0b80-fce1-64d01858d79b@redhat.com>
- <98cb14c9-6b9a-9410-98e3-24c31950597d@nvidia.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <98cb14c9-6b9a-9410-98e3-24c31950597d@nvidia.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>
+Subject: [PATCH v3 2/9] dma-buf: Add locked variant of dma_buf_vmap/vunmap()
+Date: Wed, 24 Aug 2022 13:22:41 +0300
+Message-Id: <20220824102248.91964-3-dmitry.osipenko@collabora.com>
+X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
+References: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 25 Aug 2022 07:18:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -108,91 +76,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Len Brown <lenb@kernel.org>
+Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
+ dri-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Daniel,
+Add locked variant of dma_buf_vmap/vunmap() that will be utilized by
+DRM drivers once vmap/unmap functions will be moved to the new locking
+convention.
 
-On 8/17/22 22:18, Daniel Dadap wrote:
-> On 8/17/22 10:05 AM, Hans de Goede wrote:
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+---
+ drivers/dma-buf/dma-buf.c | 42 +++++++++++++++++++++++++++++++++++----
+ include/linux/dma-buf.h   |  2 ++
+ 2 files changed, 40 insertions(+), 4 deletions(-)
 
-<snip>
-
->>> One further potential difficulty that I anticipate is that not all dynamic mux systems use the EC backlight driver (or a similar, GPU-agnostic driver), and rather have whichever GPU happens to be connected at the time be responsible for the backlight. I had initially thought that supporting the EC backlight interface was a requirement for OEMs to implement dynamic mux support, but I recently learned this is not true in all cases. On Windows, this requires coordinating the backlight controls of the two GPU drivers across a mux switch, to load the state of the switched-away-from GPU and set it on the switched-to GPU. I imagine for these systems we may need to do some similar save/restore, probably managed by vga-switcheroo, but it would require having both GPU drivers register their own native backlight handlers (and possibly while one of them is not connected to the panel).
->> Right, systems where the backlight control basically gets muxed from one GPU to the other GPU together with the panel's video-data lines exist. Currently Linux already register both native GPU backlight handlers in this case. e.g. /sys/class/backlight/intel_backlight and /sys/class/backlight/nouveau_bl.
->>
->> Userspace (atleast GNOME) has code which checks which GPU is actually connected to the panel using the panel's drm connector's status on each GPU (only one of which should report connected) and then uses the backlight interface associated with the connected connector.
->>
->>> Dynamic mux switching isn't actually supported on Linux, yet, so we should be able to kick this particular can a little further down the road, but in the meantime we should probably start planning for how best to handle this sort of system under the "only one backlight handler per panel" model. Maybe the vga-switcheroo handler can register its own backlight handler, that then negotiates the actual backlight settings between the relevant GPU drivers, possibly through a new vga-switcheroo client callback. I'll have to think about this a bit more.
->> The "only one backlight handler per panel" model is actualy "only one backlight handler per panel"-connector since the new API uses drm properties on the drm connector object. With 2 GPUs both using their native backlight control there will be 2 connectors and userspace will/must use the one which is actually reporting that it is connected to the panel so this will work fine.
-> 
-> 
-> That is a useful distinction. Would it fall under userspace's reponsibility, then, to keep the brightness level synchronized across drm_connectors that share a panel via a mux when performing a switch?
-
-Yes typically the 2 different GPU drivers know nothing about the other GPU and I think it would be good to keep things that way. When switching userspace will see a disconnect on the panel connector on one GPU and then a connect on the connector on the other GPU at which point it knows that it should set the brightness on the now connected connector instead of on the old one.
-
-> I suppose it's a cleaner design to leave it up to userspace to select which backlight interface to manipulate.
-
-Ack.
-
-> That is a harder decision for userspace to make with the existing design, which doesn't cleanly map sysfs backlight interfaces to individual connectors, but if the UAPI is going to change to a drm_connector property, backlight interfaces are obviously strongly correlated with the connectors.
-
-Right.
-
->  I'm not sure how easy it is for userspace to solve the problem of maintaining consistent brightness levels across a mux switch for an OLED panel, where there really isn't a concept of a "backlight" to speak of, but I suppose it wouldn't be any easier to do that in the kernel (e.g. with vga-switcheroo).
-
-The OLED brightness is send over DP-aux to the panel AFAIK, so as long as both drivers export the raw range of the panel's setting and don't try to get smart and scale or whatever then their should be a 1:1 mapping. Ideally for something like this both drivers would be using some shared drm-helper code / library to talk to the backlight, thus guaranteeing that both drivers interpret the scale the same.
-
-
->> If anything the nvidia-wmi-ec-backlight case is a but more tricky, the "only one backlight handler per panel" thing is actually more of a "only one backlight handler per laptop" rule which is intended for (to be written) drm helpers for the new properties to be able to get the handler from the backlight class in the non native case by just taking the first registered backlight handler.
->>
->> This means that in a dual GPU setup with nvidia-wmi-ec-backlight both GPU's panel connector objects will have their brightness properties pointing to / proxying the same backlight class device. Userspace should really be only writing to the one which is actually connected though. I guess we could even enforce this
->> in the kernel and reject brightness property writes on unconnected connectors.
->>
->>>> Please let me know if the proposed solution works for you and
->>>> if you want me to make ACPI_VIDEO_REGISTER_BACKLIGHT_DELAY a
->>>> module-option for the next version.
->>>
->>> I do think it should be workable, apart from the concern I mentioned above about knowing when to set the module option to disable the ACPI video backlight driver.
->> Note the option does not disable the ACPI video backlight driver. It disables the acpi_video code timing out and deciding to go ahead and register its backlight itself (providing that at the moment of timeout acpi_video_get_backlight_type() returns acpi_backlight_video). Any code (e.g. the nvidia binary driver) can still call acpi_video_register_backlight() itself to try and register even if the timeout handling has been disabled.
->>
->> The idea is that without the timeout the probe order looks like this:
->>
->> 1. acpi_video initializes, does not register backlight
->> 2. GPU driver initalizes, it either registers a native backlight handler;
->>     or it calls acpi_video_register_backlight()
->> 3. acpi_video_register_backlight() runs (if called) and calls:
->>     acpi_video_get_backlight_type()
->> 4.1 if acpi_video_get_backlight_type() returns acpi_backlight_video
->>     /sys/class/backlight/acpi_video# is/are registered
->> 4.2 if acpi_video_get_backlight_type() returns somerthing else, e.g.
->>     acpi_backlight_nvidia_wmi_ec, acpi_video_register_backlight()
->>     does nothing
->>
->>
->> The timeout is to ensure that 3. still happens, even if
->> there is no native GPU driver, because of e.g.
->> nomodeset on the kernel cmdline.
->>
->> With the nvidia binary driver, that driver can call
->> acpi_video_register_backlight() if necessary so the timeout
->> is not necessary.
->>
->> I'm currently preparing v3 of this patchset. I'll modify the
->> patch introducing the timeout to make it configurable
->> (with 0 disabling it completely).
-> 
-> 
-> Okay. That clarification makes sense. Would it be reasonable to disable the timeout by default on systems with Win8 or later _OSI?
-
-Hmm, there are Win8 or later systems which actually need acpi_video because the other method(s) to control the backlight don't work (we have a list of quirks for those) and more importantly there are Win8 or later systems where the video bios tables say: "Don't use the GPU for backlight control". We do need the acpi_video_register_backlight() call to happen on both those cases eventually. Also this will lead to 2 different code-paths making things more complicated, so no I don't think that that is a good idea.
-
-Regards,
-
-Hans
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 452a6a1f1e60..34173aafe6c9 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1373,7 +1373,7 @@ int dma_buf_mmap_unlocked(struct dma_buf *dmabuf, struct vm_area_struct *vma,
+ EXPORT_SYMBOL_NS_GPL(dma_buf_mmap_unlocked, DMA_BUF);
+ 
+ /**
+- * dma_buf_vmap_unlocked - Create virtual mapping for the buffer object into kernel
++ * dma_buf_vmap - Create virtual mapping for the buffer object into kernel
+  * address space. Same restrictions as for vmap and friends apply.
+  * @dmabuf:	[in]	buffer to vmap
+  * @map:	[out]	returns the vmap pointer
+@@ -1388,7 +1388,7 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_mmap_unlocked, DMA_BUF);
+  *
+  * Returns 0 on success, or a negative errno code otherwise.
+  */
+-int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
++int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
+ {
+ 	struct iosys_map ptr;
+ 	int ret = 0;
+@@ -1424,14 +1424,34 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
+ 	mutex_unlock(&dmabuf->lock);
+ 	return ret;
+ }
++EXPORT_SYMBOL_NS_GPL(dma_buf_vmap, DMA_BUF);
++
++/**
++ * dma_buf_vmap_unlocked - Create virtual mapping for the buffer object into kernel
++ * address space. Same restrictions as for vmap and friends apply.
++ * @dmabuf:	[in]	buffer to vmap
++ * @map:	[out]	returns the vmap pointer
++ *
++ * Unlocked version of dma_buf_vmap()
++ *
++ * Returns 0 on success, or a negative errno code otherwise.
++ */
++int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
++{
++	int ret;
++
++	ret = dma_buf_vmap(dmabuf, map);
++
++	return ret;
++}
+ EXPORT_SYMBOL_NS_GPL(dma_buf_vmap_unlocked, DMA_BUF);
+ 
+ /**
+- * dma_buf_vunmap_unlocked - Unmap a vmap obtained by dma_buf_vmap.
++ * dma_buf_vunmap - Unmap a vmap obtained by dma_buf_vmap.
+  * @dmabuf:	[in]	buffer to vunmap
+  * @map:	[in]	vmap pointer to vunmap
+  */
+-void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
++void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map)
+ {
+ 	if (WARN_ON(!dmabuf))
+ 		return;
+@@ -1448,6 +1468,20 @@ void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
+ 	}
+ 	mutex_unlock(&dmabuf->lock);
+ }
++EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap, DMA_BUF);
++
++/**
++ * dma_buf_vunmap_unlocked - Unmap a vmap obtained by dma_buf_vmap.
++ * @dmabuf:	[in]	buffer to vunmap
++ * @map:	[in]	vmap pointer to vunmap
++ */
++void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
++{
++	if (WARN_ON(!dmabuf))
++		return;
++
++	dma_buf_vunmap(dmabuf, map);
++}
+ EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap_unlocked, DMA_BUF);
+ 
+ #ifdef CONFIG_DEBUG_FS
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index 9ab09569dec1..da2057569101 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -636,4 +636,6 @@ int dma_buf_mmap_unlocked(struct dma_buf *, struct vm_area_struct *,
+ 			  unsigned long);
+ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
+ void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
++int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map);
++void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map);
+ #endif /* __DMA_BUF_H__ */
+-- 
+2.37.2
 
