@@ -4,67 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3D26C04AA5
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:19:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0896AC28D13
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE7FD8F2E;
-	Thu, 25 Aug 2022 07:18:54 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C756110EA85
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 12:16:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661343400;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ExdwPf7bNKmYW/ELY8Z3mdkN/Wif1pdwMOooFmW67kM=;
- b=MdcfFTZaovrC/LwUfgy0yaAC3bdew2ZxTyLFdEDZ3eQzOn5GQvLJD8sOEoW1/wBZzBmEZT
- KRYeoaCWDZSL+hgsQi5A+iVQMoJjOKO7wElLAyGI1chCtDm9J7wgonY91onl8HCbYTh/Wn
- PvDle3WcE771y9L4AL5M4rmtJrSOFK8=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-171-8Uh5AffgMA-TzrRiXK-z6w-1; Wed, 24 Aug 2022 08:16:39 -0400
-X-MC-Unique: 8Uh5AffgMA-TzrRiXK-z6w-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by gabe.freedesktop.org (Postfix) with ESMTP id C63B5D8F29;
+	Thu, 25 Aug 2022 07:18:56 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA3C2B80BB;
+ Wed, 24 Aug 2022 15:49:34 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
+ [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D42FF18A01AF;
- Wed, 24 Aug 2022 12:16:37 +0000 (UTC)
-Received: from localhost.localdomain (unknown [10.39.193.103])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 1F929C15BBA;
- Wed, 24 Aug 2022 12:16:34 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Ben Skeggs <bskeggs@redhat.com>,
-	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
-	Daniel Dadap <ddadap@nvidia.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v4 15/31] platform/x86: nvidia-wmi-ec-backlight: Move fw
- interface definitions to a header (v2)
-Date: Wed, 24 Aug 2022 14:15:07 +0200
-Message-Id: <20220824121523.1291269-16-hdegoede@redhat.com>
-In-Reply-To: <20220824121523.1291269-1-hdegoede@redhat.com>
-References: <20220824121523.1291269-1-hdegoede@redhat.com>
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 003536601DAD;
+ Wed, 24 Aug 2022 16:49:30 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1661356173;
+ bh=vOJMhTQ7HzZBp0ZZo9K4hrXQVabXIso7oNLwG6hsKLo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=c6s4L7HIzhqXHIRjPO78mUx2njs0FTSDwh/if1G8GrYUXKIesr5TSuVpzCCXzCFaC
+ RQwFs9mzKIF/SoKOeW/iFsEtF2HNDrH0QYgFH8Bjb0EODV2gEnzbMJNa3D7Euz+aq1
+ ttSiIgN9lBknJRw6hrDsumfPw8z1mfE/u3dAN4OYGFY1SnY5ytLPSVBmnTh6lKyQde
+ YOUN/UNH4qT1TRrXxpbCLStfVkyl6+y4obXi9sfi44ZsbJWXBmSFG438Hbbw7Cm9FD
+ zamHCbpRiEHeEJEqGHwgMIgiFMUhzX7OjakAgX0Hfj9WgvOsPDRnfMMAi2GCcW6bPu
+ eS/kqb6U0BR1g==
+Message-ID: <25d6b7e7-bbcc-7613-42d1-13c2b9ab2937@collabora.com>
+Date: Wed, 24 Aug 2022 18:49:28 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [Linaro-mm-sig] [PATCH v3 6/9] dma-buf: Move dma-buf attachment
+ to dynamic locking specification
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>
+References: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
+ <20220824102248.91964-7-dmitry.osipenko@collabora.com>
+ <055c3c05-ac4c-430e-f2b9-08f000acf435@gmail.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <055c3c05-ac4c-430e-f2b9-08f000acf435@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-X-Mailman-Approved-At: Thu, 25 Aug 2022 07:18:47 +0000
+X-Mailman-Approved-At: Thu, 25 Aug 2022 07:18:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,213 +82,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Len Brown <lenb@kernel.org>
+Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
+ dri-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move the WMI interface definitions to a header, so that the definitions
-can be shared with drivers/acpi/video_detect.c .
+On 8/24/22 18:24, Christian König wrote:
+> Am 24.08.22 um 12:22 schrieb Dmitry Osipenko:
+>> Move dma-buf attachment API functions to the dynamic locking
+>> specification.
+>> The strict locking convention prevents deadlock situations for dma-buf
+>> importers and exporters.
+>>
+>> Previously, the "unlocked" versions of the attachment API functions
+>> weren't taking the reservation lock and this patch makes them to take
+>> the lock.
+>>
+>> Intel and AMD GPU drivers already were mapping the attached dma-bufs
+>> under
+>> the held lock during attachment, hence these drivers are updated to use
+>> the locked functions.
+>>
+>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>> ---
+>>   drivers/dma-buf/dma-buf.c                  | 115 ++++++++++++++-------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |   4 +-
+>>   drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c |   8 +-
+>>   drivers/gpu/drm/i915/gem/i915_gem_object.c |  12 +++
+>>   include/linux/dma-buf.h                    |  20 ++--
+>>   5 files changed, 110 insertions(+), 49 deletions(-)
+>>
+>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+>> index 4556a12bd741..f2a5a122da4a 100644
+>> --- a/drivers/dma-buf/dma-buf.c
+>> +++ b/drivers/dma-buf/dma-buf.c
+>> @@ -559,7 +559,7 @@ static struct file *dma_buf_getfile(struct dma_buf
+>> *dmabuf, int flags)
+>>    * 2. Userspace passes this file-descriptors to all drivers it wants
+>> this buffer
+>>    *    to share with: First the file descriptor is converted to a
+>> &dma_buf using
+>>    *    dma_buf_get(). Then the buffer is attached to the device using
+>> - *    dma_buf_attach().
+>> + *    dma_buf_attach_unlocked().
+> 
+> Now I get why this is confusing me so much.
+> 
+> The _unlocked postfix implies that there is another function which
+> should be called with the locks already held, but this is not the case
+> for attach/detach (because they always need to grab the lock themselves).
 
-Changes in v2:
-- Add missing Nvidia copyright header
-- Move WMI_BRIGHTNESS_GUID to nvidia-wmi-ec-backlight.h as well
+That's correct. The attach/detach ops of exporter can take the lock
+(like i915 exporter does it), hence importer must not grab the lock
+around dma_buf_attach() invocation.
 
-Suggested-by: Daniel Dadap <ddadap@nvidia.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- MAINTAINERS                                   |  1 +
- .../platform/x86/nvidia-wmi-ec-backlight.c    | 68 +----------------
- .../x86/nvidia-wmi-ec-backlight.h             | 76 +++++++++++++++++++
- 3 files changed, 78 insertions(+), 67 deletions(-)
- create mode 100644 include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h
+> So I suggest to drop the _unlocked postfix for the attach/detach
+> functions. Another step would then be to unify attach/detach with
+> dynamic_attach/dynamic_detach when both have the same locking convention
+> anyway.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9d7f64dc0efe..d6f6b96f51f7 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14527,6 +14527,7 @@ M:	Daniel Dadap <ddadap@nvidia.com>
- L:	platform-driver-x86@vger.kernel.org
- S:	Supported
- F:	drivers/platform/x86/nvidia-wmi-ec-backlight.c
-+F:	include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h
- 
- NVM EXPRESS DRIVER
- M:	Keith Busch <kbusch@kernel.org>
-diff --git a/drivers/platform/x86/nvidia-wmi-ec-backlight.c b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
-index 61e37194df70..be803e47eac0 100644
---- a/drivers/platform/x86/nvidia-wmi-ec-backlight.c
-+++ b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
-@@ -7,74 +7,10 @@
- #include <linux/backlight.h>
- #include <linux/mod_devicetable.h>
- #include <linux/module.h>
-+#include <linux/platform_data/x86/nvidia-wmi-ec-backlight.h>
- #include <linux/types.h>
- #include <linux/wmi.h>
- 
--/**
-- * enum wmi_brightness_method - WMI method IDs
-- * @WMI_BRIGHTNESS_METHOD_LEVEL:  Get/Set EC brightness level status
-- * @WMI_BRIGHTNESS_METHOD_SOURCE: Get/Set EC Brightness Source
-- */
--enum wmi_brightness_method {
--	WMI_BRIGHTNESS_METHOD_LEVEL = 1,
--	WMI_BRIGHTNESS_METHOD_SOURCE = 2,
--	WMI_BRIGHTNESS_METHOD_MAX
--};
--
--/**
-- * enum wmi_brightness_mode - Operation mode for WMI-wrapped method
-- * @WMI_BRIGHTNESS_MODE_GET:            Get the current brightness level/source.
-- * @WMI_BRIGHTNESS_MODE_SET:            Set the brightness level.
-- * @WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL:  Get the maximum brightness level. This
-- *                                      is only valid when the WMI method is
-- *                                      %WMI_BRIGHTNESS_METHOD_LEVEL.
-- */
--enum wmi_brightness_mode {
--	WMI_BRIGHTNESS_MODE_GET = 0,
--	WMI_BRIGHTNESS_MODE_SET = 1,
--	WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL = 2,
--	WMI_BRIGHTNESS_MODE_MAX
--};
--
--/**
-- * enum wmi_brightness_source - Backlight brightness control source selection
-- * @WMI_BRIGHTNESS_SOURCE_GPU: Backlight brightness is controlled by the GPU.
-- * @WMI_BRIGHTNESS_SOURCE_EC:  Backlight brightness is controlled by the
-- *                             system's Embedded Controller (EC).
-- * @WMI_BRIGHTNESS_SOURCE_AUX: Backlight brightness is controlled over the
-- *                             DisplayPort AUX channel.
-- */
--enum wmi_brightness_source {
--	WMI_BRIGHTNESS_SOURCE_GPU = 1,
--	WMI_BRIGHTNESS_SOURCE_EC = 2,
--	WMI_BRIGHTNESS_SOURCE_AUX = 3,
--	WMI_BRIGHTNESS_SOURCE_MAX
--};
--
--/**
-- * struct wmi_brightness_args - arguments for the WMI-wrapped ACPI method
-- * @mode:    Pass in an &enum wmi_brightness_mode value to select between
-- *           getting or setting a value.
-- * @val:     In parameter for value to set when using %WMI_BRIGHTNESS_MODE_SET
-- *           mode. Not used in conjunction with %WMI_BRIGHTNESS_MODE_GET or
-- *           %WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL mode.
-- * @ret:     Out parameter returning retrieved value when operating in
-- *           %WMI_BRIGHTNESS_MODE_GET or %WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL
-- *           mode. Not used in %WMI_BRIGHTNESS_MODE_SET mode.
-- * @ignored: Padding; not used. The ACPI method expects a 24 byte params struct.
-- *
-- * This is the parameters structure for the WmiBrightnessNotify ACPI method as
-- * wrapped by WMI. The value passed in to @val or returned by @ret will be a
-- * brightness value when the WMI method ID is %WMI_BRIGHTNESS_METHOD_LEVEL, or
-- * an &enum wmi_brightness_source value with %WMI_BRIGHTNESS_METHOD_SOURCE.
-- */
--struct wmi_brightness_args {
--	u32 mode;
--	u32 val;
--	u32 ret;
--	u32 ignored[3];
--};
--
- /**
-  * wmi_brightness_notify() - helper function for calling WMI-wrapped ACPI method
-  * @w:    Pointer to the struct wmi_device identified by %WMI_BRIGHTNESS_GUID
-@@ -191,8 +127,6 @@ static int nvidia_wmi_ec_backlight_probe(struct wmi_device *wdev, const void *ct
- 	return PTR_ERR_OR_ZERO(bdev);
- }
- 
--#define WMI_BRIGHTNESS_GUID "603E9613-EF25-4338-A3D0-C46177516DB7"
--
- static const struct wmi_device_id nvidia_wmi_ec_backlight_id_table[] = {
- 	{ .guid_string = WMI_BRIGHTNESS_GUID },
- 	{ }
-diff --git a/include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h b/include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h
-new file mode 100644
-index 000000000000..23d60130272c
---- /dev/null
-+++ b/include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h
-@@ -0,0 +1,76 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
-+ */
-+
-+#ifndef __PLATFORM_DATA_X86_NVIDIA_WMI_EC_BACKLIGHT_H
-+#define __PLATFORM_DATA_X86_NVIDIA_WMI_EC_BACKLIGHT_H
-+
-+#define WMI_BRIGHTNESS_GUID "603E9613-EF25-4338-A3D0-C46177516DB7"
-+
-+/**
-+ * enum wmi_brightness_method - WMI method IDs
-+ * @WMI_BRIGHTNESS_METHOD_LEVEL:  Get/Set EC brightness level status
-+ * @WMI_BRIGHTNESS_METHOD_SOURCE: Get/Set EC Brightness Source
-+ */
-+enum wmi_brightness_method {
-+	WMI_BRIGHTNESS_METHOD_LEVEL = 1,
-+	WMI_BRIGHTNESS_METHOD_SOURCE = 2,
-+	WMI_BRIGHTNESS_METHOD_MAX
-+};
-+
-+/**
-+ * enum wmi_brightness_mode - Operation mode for WMI-wrapped method
-+ * @WMI_BRIGHTNESS_MODE_GET:            Get the current brightness level/source.
-+ * @WMI_BRIGHTNESS_MODE_SET:            Set the brightness level.
-+ * @WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL:  Get the maximum brightness level. This
-+ *                                      is only valid when the WMI method is
-+ *                                      %WMI_BRIGHTNESS_METHOD_LEVEL.
-+ */
-+enum wmi_brightness_mode {
-+	WMI_BRIGHTNESS_MODE_GET = 0,
-+	WMI_BRIGHTNESS_MODE_SET = 1,
-+	WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL = 2,
-+	WMI_BRIGHTNESS_MODE_MAX
-+};
-+
-+/**
-+ * enum wmi_brightness_source - Backlight brightness control source selection
-+ * @WMI_BRIGHTNESS_SOURCE_GPU: Backlight brightness is controlled by the GPU.
-+ * @WMI_BRIGHTNESS_SOURCE_EC:  Backlight brightness is controlled by the
-+ *                             system's Embedded Controller (EC).
-+ * @WMI_BRIGHTNESS_SOURCE_AUX: Backlight brightness is controlled over the
-+ *                             DisplayPort AUX channel.
-+ */
-+enum wmi_brightness_source {
-+	WMI_BRIGHTNESS_SOURCE_GPU = 1,
-+	WMI_BRIGHTNESS_SOURCE_EC = 2,
-+	WMI_BRIGHTNESS_SOURCE_AUX = 3,
-+	WMI_BRIGHTNESS_SOURCE_MAX
-+};
-+
-+/**
-+ * struct wmi_brightness_args - arguments for the WMI-wrapped ACPI method
-+ * @mode:    Pass in an &enum wmi_brightness_mode value to select between
-+ *           getting or setting a value.
-+ * @val:     In parameter for value to set when using %WMI_BRIGHTNESS_MODE_SET
-+ *           mode. Not used in conjunction with %WMI_BRIGHTNESS_MODE_GET or
-+ *           %WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL mode.
-+ * @ret:     Out parameter returning retrieved value when operating in
-+ *           %WMI_BRIGHTNESS_MODE_GET or %WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL
-+ *           mode. Not used in %WMI_BRIGHTNESS_MODE_SET mode.
-+ * @ignored: Padding; not used. The ACPI method expects a 24 byte params struct.
-+ *
-+ * This is the parameters structure for the WmiBrightnessNotify ACPI method as
-+ * wrapped by WMI. The value passed in to @val or returned by @ret will be a
-+ * brightness value when the WMI method ID is %WMI_BRIGHTNESS_METHOD_LEVEL, or
-+ * an &enum wmi_brightness_source value with %WMI_BRIGHTNESS_METHOD_SOURCE.
-+ */
-+struct wmi_brightness_args {
-+	u32 mode;
-+	u32 val;
-+	u32 ret;
-+	u32 ignored[3];
-+};
-+
-+#endif
+It's not a problem to change the name, but it's unclear to me why we
+should do it. The _unlocked postfix tells importer that reservation must
+be unlocked and it must be unlocked in case of dma_buf_attach().
+
+Dropping the postfix will make dma_buf_attach() inconsistent with the
+rest of the _unlocked functions(?). Are you sure we need to rename it?
+
+> Sorry that this is going so much back and forth, it's really complicated
+> to keep all the stuff in my head at the moment :)
+
+Not a problem at all, I expected that it will take some time for this
+patchset to settle down.
+
 -- 
-2.37.2
-
+Best regards,
+Dmitry
