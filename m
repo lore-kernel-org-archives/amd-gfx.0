@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83313C04AA5
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:22:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7C40C28D13
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:22:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E145D90CF;
-	Thu, 25 Aug 2022 07:22:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34A5FD90B9;
+	Thu, 25 Aug 2022 07:22:06 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A34B2AFCB
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 12:16:21 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F87918B8CF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 12:17:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661343380;
+ s=mimecast20190719; t=1661343423;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Jpflnsf1s2EdItaJ8UhWHU/qVBOIocLHPCDePehRFbU=;
- b=f3p2Dz493MU3FqNZG+jf6GWKvpUKINr/fdfymWjbbcyq+WzQzs/850pwVCiJOsRkKXbwxM
- 2F2lVrgmld2Gd5deJjVlFULuB72/HBFED1TVAOMHxN3Iq9Qf92EYw3NoxRmn047onBIkmx
- UkPefjFBDQkVkOwRWhziHncuOPuKi1U=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=NeOiUam8i0iMUrZ+eJUZuSLppU1C5I8c24I/CR/8HBU=;
+ b=OiMbuzhhlJkcc7vvgUPjSq1hOm6+nlZ0CPeUaP/u+bvBXlgTwGkpE4Lr1vTht3iH9BUllQ
+ 48YDNcdMjBEZTMYiOMdr1EHicbG7AOOkhHo4Ie7fRpaO6t9wIcMYene/OYJbbYRLgXShEN
+ NLm7ulKsaI/9SolFwemFRg4EXebcxuU=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-403-FxIw9hxcM_eNafT-Lx606Q-1; Wed, 24 Aug 2022 08:16:14 -0400
-X-MC-Unique: FxIw9hxcM_eNafT-Lx606Q-1
+ us-mta-630-ZGPrk_hjPyG71iQXY5BJDw-1; Wed, 24 Aug 2022 08:16:55 -0400
+X-MC-Unique: ZGPrk_hjPyG71iQXY5BJDw-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7CD828032F6;
- Wed, 24 Aug 2022 12:16:13 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 244A4294EDED;
+ Wed, 24 Aug 2022 12:16:54 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.193.103])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A7708C15BB3;
- Wed, 24 Aug 2022 12:16:09 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 714A1C15BB3;
+ Wed, 24 Aug 2022 12:16:50 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,10 +55,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v4 09/31] ACPI: video: Make backlight class device
- registration a separate step (v2)
-Date: Wed, 24 Aug 2022 14:15:01 +0200
-Message-Id: <20220824121523.1291269-10-hdegoede@redhat.com>
+Subject: [PATCH v4 19/31] platform/x86: nvidia-wmi-ec-backlight: Use
+ acpi_video_get_backlight_type()
+Date: Wed, 24 Aug 2022 14:15:11 +0200
+Message-Id: <20220824121523.1291269-20-hdegoede@redhat.com>
 In-Reply-To: <20220824121523.1291269-1-hdegoede@redhat.com>
 References: <20220824121523.1291269-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -78,177 +78,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
  nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
  dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
  Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On x86/ACPI boards the acpi_video driver will usually initialize before
-the kms driver (except i915). This causes /sys/class/backlight/acpi_video0
-to show up and then the kms driver registers its own native backlight
-device after which the drivers/acpi/video_detect.c code unregisters
-the acpi_video0 device (when acpi_video_get_backlight_type()==native).
+Add an acpi_video_get_backlight_type() == acpi_backlight_nvidia_wmi_ec
+check. This will make nvidia-wmi-ec-backlight properly honor the user
+selecting a different backlight driver through the acpi_backlight=...
+kernel commandline option.
 
-This means that userspace briefly sees 2 devices and the disappearing of
-acpi_video0 after a brief time confuses the systemd backlight level
-save/restore code, see e.g.:
-https://bbs.archlinux.org/viewtopic.php?id=269920
+Since the auto-detect code check for nvidia-wmi-ec-backlight in
+drivers/acpi/video_detect.c already checks that the WMI advertised
+brightness-source is the embedded controller, this new check makes it
+unnecessary for nvidia_wmi_ec_backlight_probe() to check this itself.
 
-To fix this make backlight class device registration a separate step
-done by a new acpi_video_register_backlight() function. The intend is for
-this to be called by the drm/kms driver *after* it is done setting up its
-own native backlight device. So that acpi_video_get_backlight_type() knows
-if a native backlight will be available or not at acpi_video backlight
-registration time, avoiding the add + remove dance.
-
-Note the new acpi_video_register_backlight() function is also called from
-a delayed work to ensure that the acpi_video backlight devices does get
-registered if necessary even if there is no drm/kms driver or when it is
-disabled.
-
-Changes in v2:
-- Make register_backlight_delay a module parameter, mainly so that it can
-  be disabled by Nvidia binary driver users
-
-Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Suggested-by: Daniel Dadap <ddadap@nvidia.com>
+Reviewed-by: Daniel Dadap <ddadap@nvidia.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/acpi/acpi_video.c | 50 ++++++++++++++++++++++++++++++++++++---
- include/acpi/video.h      |  2 ++
- 2 files changed, 49 insertions(+), 3 deletions(-)
+ drivers/platform/x86/Kconfig                   |  1 +
+ drivers/platform/x86/nvidia-wmi-ec-backlight.c | 14 +++-----------
+ 2 files changed, 4 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
-index 8545bf94866f..09dd86f86cf3 100644
---- a/drivers/acpi/acpi_video.c
-+++ b/drivers/acpi/acpi_video.c
-@@ -73,6 +73,16 @@ module_param(device_id_scheme, bool, 0444);
- static int only_lcd = -1;
- module_param(only_lcd, int, 0444);
+diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
+index f2f98e942cf2..0cc5ac35fc57 100644
+--- a/drivers/platform/x86/Kconfig
++++ b/drivers/platform/x86/Kconfig
+@@ -93,6 +93,7 @@ config PEAQ_WMI
  
-+/*
-+ * Display probing is known to take up to 5 seconds, so delay the fallback
-+ * backlight registration by 5 seconds + 3 seconds for some extra margin.
-+ */
-+static int register_backlight_delay = 8;
-+module_param(register_backlight_delay, int, 0444);
-+MODULE_PARM_DESC(register_backlight_delay,
-+	"Delay in seconds before doing fallback (non GPU driver triggered) "
-+	"backlight registration, set to 0 to disable.");
-+
- static bool may_report_brightness_keys;
- static int register_count;
- static DEFINE_MUTEX(register_count_mutex);
-@@ -81,6 +91,9 @@ static LIST_HEAD(video_bus_head);
- static int acpi_video_bus_add(struct acpi_device *device);
- static int acpi_video_bus_remove(struct acpi_device *device);
- static void acpi_video_bus_notify(struct acpi_device *device, u32 event);
-+static void acpi_video_bus_register_backlight_work(struct work_struct *ignored);
-+static DECLARE_DELAYED_WORK(video_bus_register_backlight_work,
-+			    acpi_video_bus_register_backlight_work);
- void acpi_video_detect_exit(void);
+ config NVIDIA_WMI_EC_BACKLIGHT
+ 	tristate "EC Backlight Driver for Hybrid Graphics Notebook Systems"
++	depends on ACPI_VIDEO
+ 	depends on ACPI_WMI
+ 	depends on BACKLIGHT_CLASS_DEVICE
+ 	help
+diff --git a/drivers/platform/x86/nvidia-wmi-ec-backlight.c b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
+index be803e47eac0..baccdf658538 100644
+--- a/drivers/platform/x86/nvidia-wmi-ec-backlight.c
++++ b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
+@@ -10,6 +10,7 @@
+ #include <linux/platform_data/x86/nvidia-wmi-ec-backlight.h>
+ #include <linux/types.h>
+ #include <linux/wmi.h>
++#include <acpi/video.h>
  
- /*
-@@ -1859,8 +1872,6 @@ static int acpi_video_bus_register_backlight(struct acpi_video_bus *video)
- 	if (video->backlight_registered)
- 		return 0;
+ /**
+  * wmi_brightness_notify() - helper function for calling WMI-wrapped ACPI method
+@@ -87,19 +88,10 @@ static int nvidia_wmi_ec_backlight_probe(struct wmi_device *wdev, const void *ct
+ {
+ 	struct backlight_properties props = {};
+ 	struct backlight_device *bdev;
+-	u32 source;
+ 	int ret;
  
--	acpi_video_run_bcl_for_osi(video);
+-	ret = wmi_brightness_notify(wdev, WMI_BRIGHTNESS_METHOD_SOURCE,
+-	                           WMI_BRIGHTNESS_MODE_GET, &source);
+-	if (ret)
+-		return ret;
 -
- 	if (acpi_video_get_backlight_type() != acpi_backlight_video)
- 		return 0;
+-	/*
+-	 * This driver is only to be used when brightness control is handled
+-	 * by the EC; otherwise, the GPU driver(s) should control brightness.
+-	 */
+-	if (source != WMI_BRIGHTNESS_SOURCE_EC)
++	/* drivers/acpi/video_detect.c also checks that SOURCE == EC */
++	if (acpi_video_get_backlight_type() != acpi_backlight_nvidia_wmi_ec)
+ 		return -ENODEV;
  
-@@ -2086,7 +2097,11 @@ static int acpi_video_bus_add(struct acpi_device *device)
- 	list_add_tail(&video->entry, &video_bus_head);
- 	mutex_unlock(&video_list_lock);
- 
--	acpi_video_bus_register_backlight(video);
-+	/*
-+	 * The userspace visible backlight_device gets registered separately
-+	 * from acpi_video_register_backlight().
-+	 */
-+	acpi_video_run_bcl_for_osi(video);
- 	acpi_video_bus_add_notify_handler(video);
- 
- 	return 0;
-@@ -2125,6 +2140,11 @@ static int acpi_video_bus_remove(struct acpi_device *device)
- 	return 0;
- }
- 
-+static void acpi_video_bus_register_backlight_work(struct work_struct *ignored)
-+{
-+	acpi_video_register_backlight();
-+}
-+
- static int __init is_i740(struct pci_dev *dev)
- {
- 	if (dev->device == 0x00D1)
-@@ -2235,6 +2255,18 @@ int acpi_video_register(void)
- 	 */
- 	register_count = 1;
- 
-+	/*
-+	 * acpi_video_bus_add() skips registering the userspace visible
-+	 * backlight_device. The intend is for this to be registered by the
-+	 * drm/kms driver calling acpi_video_register_backlight() *after* it is
-+	 * done setting up its own native backlight device. The delayed work
-+	 * ensures that acpi_video_register_backlight() always gets called
-+	 * eventually, in case there is no drm/kms driver or it is disabled.
-+	 */
-+	if (register_backlight_delay)
-+		schedule_delayed_work(&video_bus_register_backlight_work,
-+				      register_backlight_delay * HZ);
-+
- leave:
- 	mutex_unlock(&register_count_mutex);
- 	return ret;
-@@ -2245,6 +2277,7 @@ void acpi_video_unregister(void)
- {
- 	mutex_lock(&register_count_mutex);
- 	if (register_count) {
-+		cancel_delayed_work_sync(&video_bus_register_backlight_work);
- 		acpi_bus_unregister_driver(&acpi_video_bus);
- 		register_count = 0;
- 		may_report_brightness_keys = false;
-@@ -2253,6 +2286,17 @@ void acpi_video_unregister(void)
- }
- EXPORT_SYMBOL(acpi_video_unregister);
- 
-+void acpi_video_register_backlight(void)
-+{
-+	struct acpi_video_bus *video;
-+
-+	mutex_lock(&video_list_lock);
-+	list_for_each_entry(video, &video_bus_head, entry)
-+		acpi_video_bus_register_backlight(video);
-+	mutex_unlock(&video_list_lock);
-+}
-+EXPORT_SYMBOL(acpi_video_register_backlight);
-+
- void acpi_video_unregister_backlight(void)
- {
- 	struct acpi_video_bus *video;
-diff --git a/include/acpi/video.h b/include/acpi/video.h
-index 4705e339c252..0625806d3bbd 100644
---- a/include/acpi/video.h
-+++ b/include/acpi/video.h
-@@ -53,6 +53,7 @@ enum acpi_backlight_type {
- #if IS_ENABLED(CONFIG_ACPI_VIDEO)
- extern int acpi_video_register(void);
- extern void acpi_video_unregister(void);
-+extern void acpi_video_register_backlight(void);
- extern int acpi_video_get_edid(struct acpi_device *device, int type,
- 			       int device_id, void **edid);
- extern enum acpi_backlight_type acpi_video_get_backlight_type(void);
-@@ -69,6 +70,7 @@ extern int acpi_video_get_levels(struct acpi_device *device,
- #else
- static inline int acpi_video_register(void) { return -ENODEV; }
- static inline void acpi_video_unregister(void) { return; }
-+static inline void acpi_video_register_backlight(void) { return; }
- static inline int acpi_video_get_edid(struct acpi_device *device, int type,
- 				      int device_id, void **edid)
- {
+ 	/*
 -- 
 2.37.2
 
