@@ -4,67 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A32C7C04AA5
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:20:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0A6AC28D13
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:20:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEC6BD8F35;
-	Thu, 25 Aug 2022 07:19:26 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76FF811BE30
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 12:16:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661343410;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VE9pvPAzjrHVXmz9RKnZkmNJ4tUOhjb5J/X48cd2x14=;
- b=FeeqwmhuJdQd43+8HEWGt5KDxF76N/PXRHEgI3z24mMGUfdd0d13s34PcOkUE3NPhtj+Pq
- 6siASS1Bl48FZ+m+Dc2wnvqAJxp4iLpeBFfUQNHBSkvXV5mEZKT8sCprQtENMtnWhBoMlj
- gQSsQsopmJkrBmQRzwyMVMPrL2Xyp9o=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-590-wvIWjtswNgKWklnVRVJznQ-1; Wed, 24 Aug 2022 08:16:47 -0400
-X-MC-Unique: wvIWjtswNgKWklnVRVJznQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45CF8D8FAC;
+	Thu, 25 Aug 2022 07:19:28 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95A94900BE;
+ Wed, 24 Aug 2022 15:03:48 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
+ [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 15CEC3C0D878;
- Wed, 24 Aug 2022 12:16:46 +0000 (UTC)
-Received: from localhost.localdomain (unknown [10.39.193.103])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 28D91C15BB3;
- Wed, 24 Aug 2022 12:16:42 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Ben Skeggs <bskeggs@redhat.com>,
-	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
-	Daniel Dadap <ddadap@nvidia.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v4 17/31] ACPI: video: Add Nvidia WMI EC brightness control
- detection (v3)
-Date: Wed, 24 Aug 2022 14:15:09 +0200
-Message-Id: <20220824121523.1291269-18-hdegoede@redhat.com>
-In-Reply-To: <20220824121523.1291269-1-hdegoede@redhat.com>
-References: <20220824121523.1291269-1-hdegoede@redhat.com>
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 7B8806601E8F;
+ Wed, 24 Aug 2022 16:03:44 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1661353426;
+ bh=ss7Re+WGJ6gPDf+07fuRLgmV2oF07ngUyzhkLngogMo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=oAR0YvOOYSafNUGMl1oNd0JDpIq3FDAHC3HSFM85TQLAtdUKWV9S7/KMulX1yzdJU
+ ynpYz4YtIeU371JqvKb8/c29/d8CPVp3PGsQrb8kJYYp7JpoSNHveANuXdDGoXqRHL
+ p9edkNfznNFe0vL1B7KsPf3EQ1iqD0q15Jh9BVqB7qaGinbAx23HtsmgAfze7Sezsa
+ 5eCHp4KjFs2i46CRc/qn7EZjWd/w/c9qg+8YOKS0kgwlBEA5uFkOiS4rzy8gfpu2eT
+ /NbO6kk31WXQ6hWLjRcZaGob2toZeqNH+aU5AQGrgKbdtAC0glWaondyOLmCNSr5lf
+ VJAAXcJe1ilqw==
+Message-ID: <4af793fd-eccc-ad70-65c3-de78dced71f0@collabora.com>
+Date: Wed, 24 Aug 2022 18:03:42 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH v3 6/9] dma-buf: Move dma-buf attachment to dynamic
+ locking specification
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>
+References: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
+ <20220824102248.91964-7-dmitry.osipenko@collabora.com>
+ <17181951-1b40-cd39-48df-58b43cad117d@amd.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <17181951-1b40-cd39-48df-58b43cad117d@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-X-Mailman-Approved-At: Thu, 25 Aug 2022 07:18:48 +0000
+X-Mailman-Approved-At: Thu, 25 Aug 2022 07:18:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,168 +80,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Len Brown <lenb@kernel.org>
+Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
+ dri-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On some new laptop designs a new Nvidia specific WMI interface is present
-which gives info about panel brightness control and may allow controlling
-the brightness through this interface when the embedded controller is used
-for brightness control.
+On 8/24/22 17:08, Christian König wrote:
+> Am 24.08.22 um 12:22 schrieb Dmitry Osipenko:
+>> Move dma-buf attachment API functions to the dynamic locking
+>> specification.
+>> The strict locking convention prevents deadlock situations for dma-buf
+>> importers and exporters.
+>>
+>> Previously, the "unlocked" versions of the attachment API functions
+>> weren't taking the reservation lock and this patch makes them to take
+>> the lock.
+> 
+> Didn't we concluded that we need to keep the attach and detach callbacks
+> without the lock and only move the map/unmap callbacks over?
+> 
+> Otherwise it won't be possible for drivers to lock multiple buffers if
+> they have to shuffle things around for a specific attachment.
 
-When this WMI interface is present and indicates that the EC is used,
-then this interface should be used for brightness control.
+We did conclude that. The attach/detach dma-buf ops are unlocked, but
+the map_dma_buf/unmap_dma_buf must be invoked under lock and
+dma_buf_dynamic_attach_unlocked() maps dma-buf if either importer or
+exporter can't handle the dynamic mapping [1].
 
-Changes in v2:
-- Use the new shared nvidia-wmi-ec-backlight.h header for the
-  WMI firmware API definitions
-- ACPI_VIDEO can now be enabled on non X86 too,
-  adjust the Kconfig changes to match this.
+[1]
+https://elixir.bootlin.com/linux/v6.0-rc2/source/drivers/dma-buf/dma-buf.c#L869
 
-Changes in v3:
-- Use WMI_BRIGHTNESS_GUID define
+Hence I re-arranged the dma_resv_lock() in
+dma_buf_dynamic_attach_unlocked() to move both pinning and mapping under
+the held lock.
 
-Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- drivers/acpi/Kconfig           |  1 +
- drivers/acpi/video_detect.c    | 37 ++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/gma500/Kconfig |  2 ++
- drivers/gpu/drm/i915/Kconfig   |  2 ++
- include/acpi/video.h           |  1 +
- 5 files changed, 43 insertions(+)
-
-diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig
-index 7802d8846a8d..44ad4b6bd234 100644
---- a/drivers/acpi/Kconfig
-+++ b/drivers/acpi/Kconfig
-@@ -212,6 +212,7 @@ config ACPI_VIDEO
- 	tristate "Video"
- 	depends on BACKLIGHT_CLASS_DEVICE
- 	depends on INPUT
-+	depends on ACPI_WMI || !X86
- 	select THERMAL
- 	help
- 	  This driver implements the ACPI Extensions For Display Adapters
-diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-index cc9d0d91e268..4dc7fb865083 100644
---- a/drivers/acpi/video_detect.c
-+++ b/drivers/acpi/video_detect.c
-@@ -32,6 +32,7 @@
- #include <linux/dmi.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-+#include <linux/platform_data/x86/nvidia-wmi-ec-backlight.h>
- #include <linux/types.h>
- #include <linux/workqueue.h>
- #include <acpi/video.h>
-@@ -75,6 +76,36 @@ find_video(acpi_handle handle, u32 lvl, void *context, void **rv)
- 	return AE_OK;
- }
- 
-+/* This depends on ACPI_WMI which is X86 only */
-+#ifdef CONFIG_X86
-+static bool nvidia_wmi_ec_supported(void)
-+{
-+	struct wmi_brightness_args args = {
-+		.mode = WMI_BRIGHTNESS_MODE_GET,
-+		.val = 0,
-+		.ret = 0,
-+	};
-+	struct acpi_buffer buf = { (acpi_size)sizeof(args), &args };
-+	acpi_status status;
-+
-+	status = wmi_evaluate_method(WMI_BRIGHTNESS_GUID, 0,
-+				     WMI_BRIGHTNESS_METHOD_SOURCE, &buf, &buf);
-+	if (ACPI_FAILURE(status))
-+		return false;
-+
-+	/*
-+	 * If brightness is handled by the EC then nvidia-wmi-ec-backlight
-+	 * should be used, else the GPU driver(s) should be used.
-+	 */
-+	return args.ret == WMI_BRIGHTNESS_SOURCE_EC;
-+}
-+#else
-+static bool nvidia_wmi_ec_supported(void)
-+{
-+	return false;
-+}
-+#endif
-+
- /* Force to use vendor driver when the ACPI device is known to be
-  * buggy */
- static int video_detect_force_vendor(const struct dmi_system_id *d)
-@@ -541,6 +572,7 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
- static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
- {
- 	static DEFINE_MUTEX(init_mutex);
-+	static bool nvidia_wmi_ec_present;
- 	static bool native_available;
- 	static bool init_done;
- 	static long video_caps;
-@@ -553,6 +585,7 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
- 		acpi_walk_namespace(ACPI_TYPE_DEVICE, ACPI_ROOT_OBJECT,
- 				    ACPI_UINT32_MAX, find_video, NULL,
- 				    &video_caps, NULL);
-+		nvidia_wmi_ec_present = nvidia_wmi_ec_supported();
- 		init_done = true;
- 	}
- 	if (native)
-@@ -570,6 +603,10 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
- 	if (acpi_backlight_dmi != acpi_backlight_undef)
- 		return acpi_backlight_dmi;
- 
-+	/* Special cases such as nvidia_wmi_ec and apple gmux. */
-+	if (nvidia_wmi_ec_present)
-+		return acpi_backlight_nvidia_wmi_ec;
-+
- 	/* On systems with ACPI video use either native or ACPI video. */
- 	if (video_caps & ACPI_VIDEO_BACKLIGHT) {
- 		/*
-diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
-index 0cff20265f97..807b989e3c77 100644
---- a/drivers/gpu/drm/gma500/Kconfig
-+++ b/drivers/gpu/drm/gma500/Kconfig
-@@ -7,6 +7,8 @@ config DRM_GMA500
- 	select ACPI_VIDEO if ACPI
- 	select BACKLIGHT_CLASS_DEVICE if ACPI
- 	select INPUT if ACPI
-+	select X86_PLATFORM_DEVICES if ACPI
-+	select ACPI_WMI if ACPI
- 	help
- 	  Say yes for an experimental 2D KMS framebuffer driver for the
- 	  Intel GMA500 (Poulsbo), Intel GMA600 (Moorestown/Oak Trail) and
-diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-index 7ae3b7d67fcf..3efce05d7b57 100644
---- a/drivers/gpu/drm/i915/Kconfig
-+++ b/drivers/gpu/drm/i915/Kconfig
-@@ -23,6 +23,8 @@ config DRM_I915
- 	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
- 	select BACKLIGHT_CLASS_DEVICE if ACPI
- 	select INPUT if ACPI
-+	select X86_PLATFORM_DEVICES if ACPI
-+	select ACPI_WMI if ACPI
- 	select ACPI_VIDEO if ACPI
- 	select ACPI_BUTTON if ACPI
- 	select SYNC_FILE
-diff --git a/include/acpi/video.h b/include/acpi/video.h
-index 0625806d3bbd..91578e77ac4e 100644
---- a/include/acpi/video.h
-+++ b/include/acpi/video.h
-@@ -48,6 +48,7 @@ enum acpi_backlight_type {
- 	acpi_backlight_video,
- 	acpi_backlight_vendor,
- 	acpi_backlight_native,
-+	acpi_backlight_nvidia_wmi_ec,
- };
- 
- #if IS_ENABLED(CONFIG_ACPI_VIDEO)
 -- 
-2.37.2
-
+Best regards,
+Dmitry
