@@ -4,92 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47633C32793
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 06:41:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43BC7C00140
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 07:32:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A826B10E64E;
-	Wed, 24 Aug 2022 06:41:21 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2050.outbound.protection.outlook.com [40.107.95.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5846610F291
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 06:40:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 128EE10FE5F;
+	Wed, 24 Aug 2022 07:32:45 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7FC610E0F5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 00:03:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Pm7nxkRiZTCuuuid2X/IQ8P8i0U7d7xTZeer82o8M8jY1B2llMZWxcPNO4lotjMRZohXgL2Rm7dFIqlwhQ5xXD17uMsylnidIscMGG17a5Tls6LnfOXl3/zaiNDg14OpTFEGZadPGRfFNMzhKIY4DdvyqJ+1q3ypp12+JjsjijoJWcAQS1VpEtuIMC9mGE3/PcVXM1TGG37qUZHSdehCFjWNHSkFxhmwUJqKremsSpsfik3fIKIvUw+3GePrd9ki9h9i33+mJrGDZ2Xl/lrZYTpx3rQ0r9KOqk/4ZhfyOqaaH3pYWLivexrxMMMjMz6DW+OUuWeGxERpCYpCUuynRw==
+ b=b9/6r2FQ3tv1kH+KkQ0002UODaKscRmh9Bla7FI/9xVj4AGeqALtKPmMHLwyz9IOua0rMWre+5ltJRov5UHRUobsz+iKDCKyMwdVvu8l6oJ3vwT1atk0wm5/Y0TTMfQ7SqmFFA/GcDZl/R+keGLTlagDykdP07Z66/AlvbVLKbGW278mBOwgltAoQ4UkLQkryd1uop35zDY6o1vecpO+RN64MHR0Y2RehIq2MgBb2zblplJCjpsLFxwqywGVg4V+GAUmtbQBGXAJG9QYOnsoEhxTgCQSnW/SuCTPSiHDtPlZiCjcpSRnQm3zuta9EYVu7oqmtLCAVYISU6w9dikNuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=almNryvPtsmieT6A6nf+4pFxjIp/dfPN+zz6hDdQ3o8=;
- b=QYvsAIHkFwXZpO2VVp1Gg8pmhSw9F0OXTjbLTauRYcy6u0K/I1GGxrolQY5tJIHHQvuySKwkGs8kplxrrIL68msxJipupLutnulVMsGxhYDhgtVmdEiMUrTkGv9oXAmyA+moCYSG3XkV/oDKZMd8h2bbgciV/1m+wYHfxuj9pnvlEJKnNIKPRpo8B61eIDT+J4INR3eeC/XMzzZ5oMpdPK5QBnhlb7qCG+k0JRlaUCRxCp1UmAtNFheT8Cb3dqVq6uzIXaUSxA5908fEbIBbU3/wa/WvBxSPje0LzcyHHCLPdJgakV7tUAwV+CG4VD4dl9Bh2TtTbdCNP5A94TK3Uw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=JaUH4+e/VcpFHVKnAbLFYbqSY32nk/kFTx1hA/QQG14=;
+ b=XM6wtESWILMK1nweYr8ASUbbo5OagPqopGwExmVRnxz/HI+ZbM7mPjR6Xj7Z7ZJ8NIa5xWWeVRU/E4n8R4rgQ6Ht6P+XyI3PoVeJHjdgWXPH+El/njOh6YGagv3cQdKn97STpAUnRazMqzlDDgUe78i43rBu80wNJrQkHek/1bU3t/pna0fuPmb67lAgeD0l21tREY5wU1fGqMsxnPJccRZTnfhB/MRGbn4846IsFZWo6tpb9yjZIai13uCAVaeFqIEy6KMUworw+TB1JXeFt9P8jn1ppJ7Pw5PjU8yq3g0EokmZ3GDb8jaWJ7Fyv32HrPOFZKWvb2+pMFVquTM45g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=almNryvPtsmieT6A6nf+4pFxjIp/dfPN+zz6hDdQ3o8=;
- b=KZQ5/PEAQx+u8fGmAnBGikfVsvZaIAoMuhiLV3e024l4uun3o9+cZ0q9+os9BbVDQD0NRS/j55sBfNWk0P/7IaaVn4Agpe1frU6jEMWFuneT7TOKND7nLKHQtfAas4EWC/Cwh4qIVLOvT+FmLL+rmU2AE/lddYs7h5DMCdX7Xh4=
-Received: from SJ0PR13CA0147.namprd13.prod.outlook.com (2603:10b6:a03:2c6::32)
- by BYAPR12MB3320.namprd12.prod.outlook.com (2603:10b6:a03:d7::30)
+ bh=JaUH4+e/VcpFHVKnAbLFYbqSY32nk/kFTx1hA/QQG14=;
+ b=jNTjeqq4TnpYF5erJDWjwvUDZZzt1LSZ7nC3Ha5gxSHYYW9ehb2LHmyjq0Y1ubD5XRGgEyrOcCkKGJ9CZYLE4LsGc3/yXtiF0ldjUcie58zThuJPoDql2k1SHpQzsgwZmQoi131xn+x/aNIcReiGn16PAlVu1uQyXb89v+4FdlbFi1Sf2+SytAKClSLTdZt9tzoA1H3soCij1ojC5A8+cmE8CAK8WcQ4a1shu3LaUTVs4gi4SDQovnl94fUM/tOOXQlzekCcXcac75BMyOzMLP5owRJuz7joVeMp6J5LpTo+88/wMwoQxEjfolZAWFyvuy/Q/gQ9j5QRorAi7p0ecQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN2PR12MB4192.namprd12.prod.outlook.com (2603:10b6:208:1d5::15)
+ by CH2PR12MB3880.namprd12.prod.outlook.com (2603:10b6:610:2b::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Wed, 24 Aug
- 2022 06:40:54 +0000
-Received: from CO1PEPF00001A5D.namprd05.prod.outlook.com
- (2603:10b6:a03:2c6:cafe::68) by SJ0PR13CA0147.outlook.office365.com
- (2603:10b6:a03:2c6::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.14 via Frontend
- Transport; Wed, 24 Aug 2022 06:40:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1PEPF00001A5D.mail.protection.outlook.com (10.167.241.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5566.13 via Frontend Transport; Wed, 24 Aug 2022 06:40:53 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 24 Aug
- 2022 01:40:52 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 24 Aug
- 2022 01:40:51 -0500
-Received: from prike-code-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Wed, 24 Aug 2022 01:40:50 -0500
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Fix isa version for the GC 10.3.7
-Date: Wed, 24 Aug 2022 14:40:48 +0800
-Message-ID: <20220824064048.2581639-1-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.25.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.21; Wed, 24 Aug
+ 2022 00:03:01 +0000
+Received: from MN2PR12MB4192.namprd12.prod.outlook.com
+ ([fe80::462:7fe:f04f:d0d5]) by MN2PR12MB4192.namprd12.prod.outlook.com
+ ([fe80::462:7fe:f04f:d0d5%8]) with mapi id 15.20.5546.022; Wed, 24 Aug 2022
+ 00:03:01 +0000
+Date: Tue, 23 Aug 2022 21:02:59 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Robin Murphy <robin.murphy@arm.com>
+Subject: Re: [REGRESSION 5.19.x] AMD HD-audio devices missing on 5.19
+Message-ID: <20220824000259.GA4090@nvidia.com>
+References: <874jy4cqok.wl-tiwai@suse.de> <20220823010021.GA5967@nvidia.com>
+ <87h723sdde.wl-tiwai@suse.de> <87ilmjqj1f.wl-tiwai@suse.de>
+ <20220823202824.GA4516@nvidia.com>
+ <478c4aba-897f-7e08-1df7-4e296538db9c@arm.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <478c4aba-897f-7e08-1df7-4e296538db9c@arm.com>
+X-ClientProxiedBy: YQBPR0101CA0219.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:67::16) To MN2PR12MB4192.namprd12.prod.outlook.com
+ (2603:10b6:208:1d5::15)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2ba31675-7d43-4210-1ace-08da859b977d
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3320:EE_
+X-MS-Office365-Filtering-Correlation-Id: 93fb510f-d5a2-4f80-88c3-08da85640256
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3880:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +8ht7WOI2dIe+ys1cuVsIF1tojQLCxGF+gm8gykrbC1L8c3b9UF2zW47ila8hkhvtbcf888jpjbxA+TghX1+ZZ8KOrZNR6VVX2yNU8S2JQqfvFFrjBbZQuUDT28VM4CUSbxRqyhq24xgFpMD3Yy1lDBUa0pT5c34DlzeYtn+Nv8ApM3FJrMcW9/1VSNZGqfFlPbHBufr2KSm4J5a/ZojcCwK2YokVn4fMp9lXvhsOohiTGNB8d31q+/5L/mKbQDhZ2AoVcWIkctNSpzBZ1Znw5SxoRiiHVBTST2Uqz02UvpD8YCw7bwaG4Vby9Fm+K/UTMX8BaJ7L8HuQMyAufYX9dYlxeVyJktbZmxTFUIOKs0YcFr33RRTdZUJ5J9dg8kzrgkxJIwz6zFUTHG2Rh7hb9nMVEmefA6pIFbkS+dFCz17bGMd7vet19qZhyeOQ1HNZtjs9Ik4S+FTRkepQY9KoDjPhgm2rY4wlbSZZITKn6OIzmwR45LE5W8gcAxr2czZLvo6kfTd5R8qg51zIxIlmCutrOr0MgjXRGKVxHiPo1ry6sF5Kit8bW+sLN3imHfWwS5Czg6dxpRUx09RQNKsy82um9rcHzEp1HA5Vk+9L1P3MbYaRnXrtmCSpX1Sz1+CNt+Za33aeM2KBzYCgM2ssSxSlqGzZ6YMldn2+dNV4yUciY1Z6IuTQw2dcCIoY1Df0g3GVnb3QmHDTCgf1VtxqCrfi0c5mJpUzyd845J+JEmyfYWVWys7VyiFc3t2xNqZhG4QJyT61PMd9IspT7msGxMb9yISvvrNvnz1EM1OpayGX/igYRyUptT4dJoFMLQq
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(346002)(396003)(376002)(136003)(40470700004)(46966006)(36840700001)(41300700001)(54906003)(6916009)(81166007)(336012)(40460700003)(186003)(82740400003)(83380400001)(26005)(316002)(36756003)(7696005)(478600001)(86362001)(40480700001)(82310400005)(8676002)(5660300002)(4326008)(70206006)(70586007)(2616005)(1076003)(356005)(2906002)(36860700001)(426003)(47076005)(4744005)(8936002)(36900700001);
+X-Microsoft-Antispam-Message-Info: 0fRMzB5GseNOn0rlDBUoZ9dQyr0FvCFwGmCyxh4aJkb7cGAnj62H6J7XQBDLuw70CFnBvr2ri7Sik6ksVJwyxs4HoBN3mc6PBZhSciUFhYBzvXfT9GLI6OSA63M1Ux2tlYIenGC3l/9Vygi6O6zOb/TLt3N4YCVD8p4o49JTfF/r7mDFKAfnOdPTCb9BzW3m1BVuDE/v/vL1cCPNrHj9E4ekF89LbM6/BafqgMr85MQHgwc3bDriro58wsDtxAin9hD4W3wzSyI7GZOK9i3v+RrJJL7YxC1p4Fu6nqcjqbE4QVCqfgwZ48JpB2UAN5VaVAv54jiecMmRzoSwcfw/To1YC2w+b4D7+m3Lfr99o8lpphkWeCa6TSmJvUS9brQmRPg7545D7OhFFR2fBjbHHM8Ws/mpBMxenOHO6/jX+MGd09grNfDYIz5ASTtmch1LLRJ61XBo7JemVqKLJjA0kQeMJh3pd2Izr6OuQYlLbe3aTjOhgioOCTsv7sTlzLxFqzWcMtS+HuQzks6S8g8ZUu9HwIFeL/7h9HfjJxjd+lSGRee7w4ajnRTD4P1cs6TUxzCTpFq0/EevMZjvnKx7n8ap1uLlHfRU8vazR2sDsWfI8vOYLDGimDmWEosUpAOCQYKcnl95UbLJuZ6LtpJ/3QxISdBYRb+Qu63C13BqLJI1oNNeuspzsrYaGS+hFCugoUddmckPIuGW61vHFUlchYazsKfalRGmB2zbGwoRjJHiirjw5mysmAlUsmNw+Os9P7IhxrmR6hs0lepwDtTm9XYmubKUhN4STL6MH8CCohQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(366004)(346002)(136003)(376002)(39860400002)(38100700002)(83380400001)(1076003)(54906003)(8676002)(66946007)(66476007)(66556008)(6916009)(316002)(2906002)(5660300002)(4326008)(8936002)(7416002)(186003)(2616005)(6506007)(6486002)(966005)(26005)(6512007)(478600001)(41300700001)(36756003)(86362001)(33656002);
  DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2022 06:40:53.1361 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ba31675-7d43-4210-1ace-08da859b977d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00001A5D.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3320
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Cvmh0X/IKSdJY36lgvi8rABhHItlLlr5QQ6hfi8U0MmUXF4sDy6NOU288bzX?=
+ =?us-ascii?Q?iWuLarKUH3iebsxG5oJBrafto5e2q9bAprysQhc7a+zZresf6blDKfslV9Q8?=
+ =?us-ascii?Q?kk4rvB5ksOfwUM6SaKmqBlp+39iJ30Kr5z7rv48kxg068tsk8sjSTLsNKMDk?=
+ =?us-ascii?Q?ygm0zcn6au9StPLWxx77/ffwODSs3vYoka0R0WQjuM4fnPkRz+5fXoFtAQcq?=
+ =?us-ascii?Q?4cJ6FUUgfFX8vuUXdHtBYCpNMes6wnfyqYZpMCSV6xs0CmSf/Zfv4bIJHFVn?=
+ =?us-ascii?Q?XiYY0mztQPAApuKapYVJeEKksoAj1VJberM3FF6JYfU4ofpTCb4T050z57B2?=
+ =?us-ascii?Q?ASwK1k2NS646/foGX65UkX4ntYyaK8/cnWI9yXiy1psSqiGaEvPkOHNgYP2I?=
+ =?us-ascii?Q?99CFm1UCCIUEWzLtbb695d5MACuO7cd3HkJsudDRKKW6fNLNWbIB1K/DAaoj?=
+ =?us-ascii?Q?TRnRQSdgyl/kvhxCsstw+r4ahymImUrCyznIx4BViPcknhIrztPbjcy0ZFU4?=
+ =?us-ascii?Q?UoyVxflZZSmKZBtrESkW9Y9Zi58EvBlqBdkD/cE7lOQqXbC9z3jGVaudEKPq?=
+ =?us-ascii?Q?UzAfZD27V7cEpChuHcWeRwJOW1/1HJ1/aoFrTEFYurb4SeRuaa9GQ0T0nGFm?=
+ =?us-ascii?Q?ja6aQFT+fR21BKz1Pq4W+EQrO08vdecxTxN5ARQI7lqCbhTYpVrokUhbiTxe?=
+ =?us-ascii?Q?BrseLOugcMrDFdkQImFVkHpxHHFYQ1rOdwUqzuRuDhu/LJQe7YdfROjM0utw?=
+ =?us-ascii?Q?U2G9Oervt+UUxnmTnLnguv4sgsFTmdsEDSbRQEsj76xNBV7/YSOwNQbTFqby?=
+ =?us-ascii?Q?sW9uPEQT5MDEwQsz5kfvp/asZDbbZVPbbRzx/9LjBGIqmgEnt/gJ21wAPH4w?=
+ =?us-ascii?Q?IkEoPMuFO53booM37hB00nDi6Y64bWJ5L9YHiXM+9CnRMWaAsgb9RwUOqJUu?=
+ =?us-ascii?Q?36B90DW/49h9boJ+bGaMZwieeMc0eaRIbKkgOnUhmasKMvF+PaKT2+4pInq5?=
+ =?us-ascii?Q?fmz8jYqgXOYmpsSZvPYn5Us912W1kR5p3+2vZcTFPF881scKRRhjK8hIFi28?=
+ =?us-ascii?Q?Du2OJZXDSf99t1GIgkAH8XfOYAXOrzV4tzPtfG3dpsG4ogxkd5iS0FYpOrAs?=
+ =?us-ascii?Q?xsJppzPUuVfdQrfujRtbQngsDCgexoqf1uyIwGTg17WuSGZCNeGBftkJgZ4d?=
+ =?us-ascii?Q?5bukqwovFHlCAOzGKuoRkmXNYkzlS+qmLGSaVnUs+09a2fNJW6Zx+698xSFf?=
+ =?us-ascii?Q?HlwfmxSz186f4w2QsX8AtI9UgV58GMjVkMAfiWTXq439tzz2qcMkXjhAq7DB?=
+ =?us-ascii?Q?2V9+/uF6Bzw8RcLpE0fnGHX0hyjHjqd03O1DJhX8YQigT6SjogAr2wzxPxTd?=
+ =?us-ascii?Q?8EgcAvYSRa54py7EZDEG154gy7rorDCDyXAX6EetBxTkwvi9taUq9nOqimP1?=
+ =?us-ascii?Q?AoPmAixXYkH8YY/bGMX0iGx/pQeIwrQUmMvC1O+CLX5sm3YWFOfrdkwEKC37?=
+ =?us-ascii?Q?gRw4Ju2CT2ZOPXxm1JtcLTFsYA2mNix2JJMu74VWb/EvUw5B1yZUrYLJZeqF?=
+ =?us-ascii?Q?g86nxfc0iF+laa8qUjLp+AqpsajbFNUfwJGj6odi?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93fb510f-d5a2-4f80-88c3-08da85640256
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2022 00:03:01.0670 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iFIXSnwtnG3kFdzKGnoY500bF3YQczLBksV/YeErNR6bdYAr6k+A8uRoJbvQO/bX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3880
+X-Mailman-Approved-At: Wed, 24 Aug 2022 07:32:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,32 +116,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Yifan1.Zhang@amd.com,
- Prike Liang <Prike.Liang@amd.com>, ray.huang@amd.com
+Cc: Joerg Roedel <jroedel@suse.de>, regressions@lists.linux.dev, Pan@nvidia.com,
+ Takashi Iwai <tiwai@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Eric Auger <eric.auger@redhat.com>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Lu Baolu <baolu.lu@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Correct the isa version for handling KFD test.
+On Tue, Aug 23, 2022 at 10:01:57PM +0100, Robin Murphy wrote:
 
-Fixes: 7c4f4f197e0c ("drm/amdkfd: Add GC 10.3.6 and 10.3.7 KFD definitions")
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> > diff --git a/drivers/iommu/amd/iommu_v2.c b/drivers/iommu/amd/iommu_v2.c
+> > index 696d5555be5794..6a1f02c62dffcc 100644
+> > --- a/drivers/iommu/amd/iommu_v2.c
+> > +++ b/drivers/iommu/amd/iommu_v2.c
+> > @@ -777,6 +777,8 @@ int amd_iommu_init_device(struct pci_dev *pdev, int pasids)
+> >   	if (dev_state->domain == NULL)
+> >   		goto out_free_states;
+> > +	/* See iommu_is_default_domain() */
+> > +	dev_state->domain->type = IOMMU_DOMAIN_IDENTITY;
+> >   	amd_iommu_domain_direct_map(dev_state->domain);
+> 
+> Same question as 6 months ago, apparently: allocating an unmanaged domain
+> with a pagetable then sucking out the pagetable is silly enough, but if
+> we're going to then also call it a proper identity domain, we should really
+> just allocate an identity domain directly; but then why not just enable_v2
+> on the identity domain that we know is already there courtesy of
+> def_domain_type?
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index fdad1415f8bd..5ebbeac61379 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -388,7 +388,7 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
- 				f2g = &gfx_v10_3_kfd2kgd;
- 			break;
- 		case IP_VERSION(10, 3, 7):
--			gfx_target_version = 100307;
-+			gfx_target_version = 100306;
- 			if (!vf)
- 				f2g = &gfx_v10_3_kfd2kgd;
- 			break;
--- 
-2.25.1
+Yeah, nobody who knows this code answered that question either..
 
+Looking at it a bit, I think this comment will start to be a problem:
+
+	/*
+	 * Save us all sanity checks whether devices already in the
+	 * domain support IOMMUv2. Just force that the domain has no
+	 * devices attached when it is switched into IOMMUv2 mode.
+	 */
+	ret = -EBUSY;
+	if (domain->dev_cnt > 0 || domain->flags & PD_IOMMUV2_MASK)
+		goto out;
+
+Beacuse we should have dev_cnt != 0 on the existing identity domain at
+this point - worse if the probe order is backwards the sound driver
+may even already be running when we reach this.
+
+Plus the challenge of undoing it when the PASID user goes away.
+
+Overall I can see how it is easier and more logical to transition
+between two domains. We already have good infrastructure for doing
+that.
+
+From a core perspective I don't have a real problem with iommu drivers
+using multiple iommu_domains to manage their internal operations, eg
+for different operating modes. But you are right that it should be
+cleaner and directly allocate the special domains it needs. This would
+be much more self-descriptive if it called a function 'allocate v2
+identity domain', for instance.
+
+I think it would also make sense for the core to provide some API to
+change the default domain (ie dma API domain) of a group, and that
+would be a more logical, and self explanatory, API for iommu drivers
+to use than attach/detach. ie:
+
+   iommu_change_default_domain(group, amd_identity_domain_v2):
+   iommu_change_default_domain(group, amd_identity_domain_v1):
+
+At least for this effort I wanted something simple enough to backport
+that maybe doesn't need to be an expert in the amd iommu to write..
+[I checked some more and the hack to change the type looks like it is
+OK on the free path, so maybe this even works]
+
+My general hope is that we can convince AMD to work on this once the
+generic PASID & PRI series lands, as this entire private path to the
+GPU driver and non-standard PASID handling all needs to be aligned
+with the upcoming core code. When doing that work it would make sense
+to tidy and modernize this better. I added a bunch of AMD people to
+this thread to that end. It sure would be good if AMD participated in
+that series since they are going to have to use it too.
+
+https://lore.kernel.org/linux-iommu/20220817012024.3251276-1-baolu.lu@linux.intel.com/
+
+Regards,
+Jason
