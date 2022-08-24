@@ -4,66 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93DF6C04AA5
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:20:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 380F6C32774
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 07:20:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1DB1D8F7A;
-	Thu, 25 Aug 2022 07:19:29 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC83012A433;
- Wed, 24 Aug 2022 10:24:14 +0000 (UTC)
-Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 48F6C6601E89;
- Wed, 24 Aug 2022 11:23:59 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661336641;
- bh=L+nOt3PDFpJyCENPQKDfuFe80wgZT5z7cwxh3RrG5qw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DLs9UpYoldhNB6W+XPnQ5M5X6LsDHvoxl56Aa4f5Z8BPbry3DgtbDbuSVPYX5CN6b
- 9H903JpaoZPjWxj4kemRlSF4DdmLiUglE0l7R7elEnUUbTexAJh9YoyF6hYUsYUqBf
- JccDgnSOnojfUk6MebhOdV5teSTdEmesjcILXFQi8yAggjFAK1Wyvw58PKLl29oIDe
- RuP3g0rlhDtkP6mhUPAvqowpA96GxS4pGdLdWGmCENPWB1xeHy6Sfgmk2jL2WdcQBy
- xquZBumyfM12n4i4ybYyKD5Vv8QSDIRF+UFnQ1eo/eVSWiVXtyMpXpvd5FzOFBnncv
- gE4R0ob1619oQ==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>
-Subject: [PATCH v3 9/9] dma-buf: Remove internal lock
-Date: Wed, 24 Aug 2022 13:22:48 +0300
-Message-Id: <20220824102248.91964-10-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
-References: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33036D8FAF;
+	Thu, 25 Aug 2022 07:19:30 +0000 (UTC)
+Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
+ [IPv6:2001:4860:4864:20::29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A75B610E71F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 14:45:53 +0000 (UTC)
+Received: by mail-oa1-x29.google.com with SMTP id
+ 586e51a60fabf-11d08d7ece2so14281623fac.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 07:45:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=xJW2jI96Zwcrvy+eTtY4zwb6R7KH49EInbBsysTbn04=;
+ b=VhZ1r9dZw+q80O6nYjGPVr3Ni0ZZ1y1ZdEbIemDT/Di6L0qxY/Ro2D2l+08GZvkmkm
+ ukKNV0tJ6aDz+zMJ1XKSVlUh6dnx//7R+ufQT0kH5YQ7laUchITugBQMDWGJ1NAIZ3Vd
+ ghRuDpnMAINyfbwg/aLX+/9jH2RlbDkUk7UuiG9MqBHkx6/VkB5uaIylZs4Jp7n55sau
+ wo3eS/AbWetL4ts1TRUXKjAeGnK6i3iV0OHPFplupPkUxwYXpbB+sUYVSyIQH9g2rlrC
+ 7grIxYeK4TwjZ7x6R7ABxXZheJ+50ruDEKqTf3iHjm2ho15RdQBmamCGbZAv8RzJJM5V
+ slqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=xJW2jI96Zwcrvy+eTtY4zwb6R7KH49EInbBsysTbn04=;
+ b=z2lA7rGjNOWj38IQ+VNAT26NlkNLFheoJ/igq7vdEe+BjtfGd80NZlXt+tZOYSLrkN
+ Dwk5g7o8FJhQqHc/7oplnVEGFNwys5TqP9nM8jwIOPw+k1dW+ZJXmAgHHvLbeMHY3Lrq
+ tDT2nYA72Jd1MHXYTOTEEre0oVucp13YA0pp6tqVol/1yqH3k5Rqf5y03eHtLaL9r3Bg
+ m8veYeDTsP/m51o0ccSZc2HyjGx8llZwpC2m/UFfWLzTI3Ml2Xh8OJ5ZdmvHE7XGe8Ez
+ rel0kLXqwZBNLDcooNH98o0mkSjUjBGCFiVGFvOXVmy4mK91XK+Gk2C3J8xs8wxV+yTM
+ p4SA==
+X-Gm-Message-State: ACgBeo339rtyfMYLW529JM8w9eI62GTx2FKWJKnuc89hCBkUOBpcpxgd
+ 179ywC48Q9QyxuRghYaGIC1rq6Oo2nZfFnOB/T4=
+X-Google-Smtp-Source: AA6agR66fkmkvlbzDo7a46+yk6fXL1KDXUmUWrF+QVrtdW+IrekthVSmJuG9nEr3Bc6wthKrZ+24RcujERHX4470XWs=
+X-Received: by 2002:a05:6870:5a4:b0:11d:37b3:ff54 with SMTP id
+ m36-20020a05687005a400b0011d37b3ff54mr3703850oap.172.1661352352883; Wed, 24
+ Aug 2022 07:45:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 25 Aug 2022 07:18:48 +0000
+References: <20220819190725.GA2499154@bhelgaas>
+ <6aad506b-5324-649e-9700-7ceaaf7ef94b@amd.com>
+ <CAARYdbhVwD1m1rAzbR=K60O=_A3wFsb1ya=zRV_bmF8s3Kb02A@mail.gmail.com>
+ <30671d88-85a1-0cdf-03db-3a77d6ef96e9@amd.com>
+In-Reply-To: <30671d88-85a1-0cdf-03db-3a77d6ef96e9@amd.com>
+From: Tom Seewald <tseewald@gmail.com>
+Date: Wed, 24 Aug 2022 09:45:41 -0500
+Message-ID: <CAARYdbhdR0v=V82WnQOGBNrcth8z6F_61SxG9OTzgNpgg3xx7A@mail.gmail.com>
+Subject: Re: [Bug 216373] New: Uncorrected errors reported for AMD GPU
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Thu, 25 Aug 2022 07:18:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,113 +67,23 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
- dri-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, linux-media@vger.kernel.org
+Cc: regressions@lists.linux.dev, David Airlie <airlied@linux.ie>,
+ linux-pci@vger.kernel.org, Xinhui Pan <Xinhui.Pan@amd.com>,
+ amd-gfx@lists.freedesktop.org, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Bjorn Helgaas <helgaas@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Stefan Roese <sr@denx.de>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The internal dma-buf lock isn't needed anymore because the updated
-locking specification claims that dma-buf reservation must be locked
-by importers, and thus, the internal data is already protected by the
-reservation lock. Remove the obsoleted internal lock.
+On Wed, Aug 24, 2022 at 12:11 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
+> Unfortunately, I don't have any NV platforms to test. Attached is an
+> 'untested-patch' based on your trace logs.
+>
+> Thanks,
+> Lijo
 
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
----
- drivers/dma-buf/dma-buf.c | 14 ++++----------
- include/linux/dma-buf.h   |  9 ---------
- 2 files changed, 4 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 696d132b02f4..a0406254f0ae 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -656,7 +656,6 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
- 
- 	dmabuf->file = file;
- 
--	mutex_init(&dmabuf->lock);
- 	INIT_LIST_HEAD(&dmabuf->attachments);
- 
- 	mutex_lock(&db_list.lock);
-@@ -1503,7 +1502,7 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_mmap_unlocked, DMA_BUF);
- int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
- {
- 	struct iosys_map ptr;
--	int ret = 0;
-+	int ret;
- 
- 	iosys_map_clear(map);
- 
-@@ -1515,28 +1514,25 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
- 	if (!dmabuf->ops->vmap)
- 		return -EINVAL;
- 
--	mutex_lock(&dmabuf->lock);
- 	if (dmabuf->vmapping_counter) {
- 		dmabuf->vmapping_counter++;
- 		BUG_ON(iosys_map_is_null(&dmabuf->vmap_ptr));
- 		*map = dmabuf->vmap_ptr;
--		goto out_unlock;
-+		return 0;
- 	}
- 
- 	BUG_ON(iosys_map_is_set(&dmabuf->vmap_ptr));
- 
- 	ret = dmabuf->ops->vmap(dmabuf, &ptr);
- 	if (WARN_ON_ONCE(ret))
--		goto out_unlock;
-+		return ret;
- 
- 	dmabuf->vmap_ptr = ptr;
- 	dmabuf->vmapping_counter = 1;
- 
- 	*map = dmabuf->vmap_ptr;
- 
--out_unlock:
--	mutex_unlock(&dmabuf->lock);
--	return ret;
-+	return 0;
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_vmap, DMA_BUF);
- 
-@@ -1578,13 +1574,11 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map)
- 	BUG_ON(dmabuf->vmapping_counter == 0);
- 	BUG_ON(!iosys_map_is_equal(&dmabuf->vmap_ptr, map));
- 
--	mutex_lock(&dmabuf->lock);
- 	if (--dmabuf->vmapping_counter == 0) {
- 		if (dmabuf->ops->vunmap)
- 			dmabuf->ops->vunmap(dmabuf, map);
- 		iosys_map_clear(&dmabuf->vmap_ptr);
- 	}
--	mutex_unlock(&dmabuf->lock);
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap, DMA_BUF);
- 
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index d48d534dc55c..aed6695bbb50 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -326,15 +326,6 @@ struct dma_buf {
- 	/** @ops: dma_buf_ops associated with this buffer object. */
- 	const struct dma_buf_ops *ops;
- 
--	/**
--	 * @lock:
--	 *
--	 * Used internally to serialize list manipulation, attach/detach and
--	 * vmap/unmap. Note that in many cases this is superseeded by
--	 * dma_resv_lock() on @resv.
--	 */
--	struct mutex lock;
--
- 	/**
- 	 * @vmapping_counter:
- 	 *
--- 
-2.37.2
-
+Thank you for the patch. It applied cleanly to v6.0-rc2 and after
+booting that kernel I no longer see any messages about PCI errors. I
+have uploaded a dmesg log to the bug report:
+https://bugzilla.kernel.org/attachment.cgi?id=301642
