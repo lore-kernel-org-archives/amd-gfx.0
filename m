@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14108C3F6B0
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:36:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D5D3C04AA5
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:36:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B30A0D08DC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 428EDD08CE;
 	Thu, 25 Aug 2022 01:35:40 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EE8514BC0E;
- Thu, 25 Aug 2022 01:35:03 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0486ED07BB;
+ Thu, 25 Aug 2022 01:35:15 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A07596192F;
- Thu, 25 Aug 2022 01:35:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F2EAC433D6;
- Thu, 25 Aug 2022 01:35:00 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3CE9DB826E2;
+ Thu, 25 Aug 2022 01:35:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2281EC433D7;
+ Thu, 25 Aug 2022 01:35:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661391302;
- bh=AfxeHYENXKeXG7Ysry6dHPJkfNRliR1orjZYCF16Zf4=;
+ s=k20201202; t=1661391313;
+ bh=zApxLZkGQgIiEAl0cKBA5wYfrmSWkqkobdRgh6WknAU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Az6bM170p+2jHZMLEQ1uAljy/RkBx+YttFvYzEY1NlEUDs3QOpd6NuRfIXAJy9Blj
- mrrMDFGY24zLwYKWLnpy/TUYGnq0GrBvIS2312KUGoafZZZwiBEM33Do902CBtxVFF
- nIRDpOc0UVqF/ddCnjJSbGz1khluJTVFNTSEJUAvG5kRZloNH5udxP3DzkcH4om9bM
- d7+ant8f3lXNnm4oQDQbXNPnMQHrylFOwrNuTvyp0mKC7FwMNk2pLLJfV8mn4cvzS9
- mWkJdgr++u5szEgCrE8PfKHtEnylKJDFoD2U6jAIP4fZkiKyeCm6PPN+6PluxNg28R
- hSkn4vCBtsNoQ==
+ b=ENkruvkYKuYRcNAvn2BDAIooTPZNil1Y13HAbmqXtnw9Bo+3fVZMOABEXjxeLRECq
+ Mdh2XbT8C3wvU2/6f5cWpWDYHirRQkFkK9slEHuQC7o6FxpwSKjw+KAy1Gol2L0YYg
+ 9IcBMcpx0O9t1ornS3AxfIkqHVsm5KrM00OMZXlK/0eMuPN+gVzuBhs7Nj8L6FKIpG
+ hs6uVyAI1lSHTRPUe2fVn9WHrsftylz1o7iq+Rn9hVpO0SZWw5UMZh1g/WVDRJjClp
+ /RlYbTNhd0EuIklDJhGfoavHbTL2BPMpBrKFyDIHo3GMDCJryfTl83R6Iu3wlyf5e5
+ N9yW+o9Owf8EA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 10/38] drm/amd/display: clear optc underflow
- before turn off odm clock
-Date: Wed, 24 Aug 2022 21:33:33 -0400
-Message-Id: <20220825013401.22096-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 12/38] drm/amd/pm: skip pptable override for
+ smu_v13_0_7
+Date: Wed, 24 Aug 2022 21:33:35 -0400
+Message-Id: <20220825013401.22096-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220825013401.22096-1-sashal@kernel.org>
 References: <20220825013401.22096-1-sashal@kernel.org>
@@ -55,54 +55,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Fudong Wang <Fudong.Wang@amd.com>, Sasha Levin <sashal@kernel.org>,
- Anson.Jacob@amd.com, Tom Chung <chiahsuan.chung@amd.com>, Charlene.Liu@amd.com,
- sunpeng.li@amd.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
- Daniel Wheeler <daniel.wheeler@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- isabbasso@riseup.net, harry.wentland@amd.com, christian.koenig@amd.com,
- oliver.logush@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, tim.huang@amd.com, lijo.lazar@amd.com,
+ airlied@linux.ie, Feifei Xu <Feifei.Xu@amd.com>,
+ dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com, tao.zhou1@amd.com,
+ amd-gfx@lists.freedesktop.org, mario.limonciello@amd.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com,
+ Kenneth Feng <kenneth.feng@amd.com>, christian.koenig@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Fudong Wang <Fudong.Wang@amd.com>
+From: Kenneth Feng <kenneth.feng@amd.com>
 
-[ Upstream commit b2a93490201300a749ad261b5c5d05cb50179c44 ]
+[ Upstream commit 4e64b529c5b04e7944b41de554ee686ecab00744 ]
 
-[Why]
-After ODM clock off, optc underflow bit will be kept there always and clear not work.
-We need to clear that before clock off.
+skip pptable override for smu_v13_0_7 secure boards only.
 
-[How]
-Clear that if have when clock off.
-
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Fudong Wang <Fudong.Wang@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Reviewed-by: Feifei Xu <Feifei.Xu@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-index b1671b00ce40..2349977b0abb 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-@@ -464,6 +464,11 @@ void optc1_enable_optc_clock(struct timing_generator *optc, bool enable)
- 				OTG_CLOCK_ON, 1,
- 				1, 1000);
- 	} else  {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index 5aa08c031f72..1d8a9e5b3cc0 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -203,6 +203,9 @@ int smu_v13_0_init_pptable_microcode(struct smu_context *smu)
+ 	if (!adev->scpm_enabled)
+ 		return 0;
+ 
++	if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 7))
++		return 0;
 +
-+		//last chance to clear underflow, otherwise, it will always there due to clock is off.
-+		if (optc->funcs->is_optc_underflow_occurred(optc) == true)
-+			optc->funcs->clear_optc_underflow(optc);
-+
- 		REG_UPDATE_2(OTG_CLOCK_CONTROL,
- 				OTG_CLOCK_GATE_DIS, 0,
- 				OTG_CLOCK_EN, 0);
+ 	/* override pptable_id from driver parameter */
+ 	if (amdgpu_smu_pptable_id >= 0) {
+ 		pptable_id = amdgpu_smu_pptable_id;
+@@ -210,13 +213,6 @@ int smu_v13_0_init_pptable_microcode(struct smu_context *smu)
+ 	} else {
+ 		pptable_id = smu->smu_table.boot_values.pp_table_id;
+ 
+-		if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 7) &&
+-			pptable_id == 3667)
+-			pptable_id = 36671;
+-
+-		if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 7) &&
+-			pptable_id == 3688)
+-			pptable_id = 36881;
+ 		/*
+ 		 * Temporary solution for SMU V13.0.0 with SCPM enabled:
+ 		 *   - use 36831 signed pptable when pp_table_id is 3683
 -- 
 2.35.1
 
