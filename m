@@ -4,42 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E64EDC3F6B0
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:40:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4338C48BE4
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:40:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B817DD0D10;
-	Thu, 25 Aug 2022 01:38:56 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABE6BD0E5B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BBA7D0EBF;
+	Thu, 25 Aug 2022 01:38:58 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 219C3D0E4A;
  Thu, 25 Aug 2022 01:38:47 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6CF7961AE1;
- Thu, 25 Aug 2022 01:38:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4639C433D7;
+ by ams.source.kernel.org (Postfix) with ESMTPS id AC6A2B826E1;
  Thu, 25 Aug 2022 01:38:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1866FC433C1;
+ Thu, 25 Aug 2022 01:38:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661391525;
- bh=GAU6auQnSBbeCmtNXr4ktFzRC9D15yCJgrdq7WfNEMI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rzC+HhYbjhoNjLNDTGcln0to5Uqo7rskAdCUtVTDocc4f9NQjE5d+h6fTZJlAmp/h
- Q7JIcn0Bj0jDgI8FTeV+nyg9yhJ7xuuL8vF3hyRvSCfDkOHFzX3ceGvNq9XwGoJSz6
- RyfiwLNC8NW2YC+01lQIJxi0YkyBt+RxWoHVcU7k8IxsUi8IYHvzGMOPPIFhkZ/PNG
- a8Mf56UlPYhSTPabTaqllQVsrxqPtTlFX4pH4aUVQxq3DbxBSsQNVyEwYmjPHY9cDK
- 7eGPTu/pzMtVvoL2HAYBsYFBu0Y9LpyjfmC+bhwYVnC44TnYe7Pi6M6QLPbJF2WGHr
- iVGwahM3lsjug==
+ s=k20201202; t=1661391521;
+ bh=Wn77s/k/IwPQtyfC+MST+dVTE5cEi1zofSx/M3vLpE0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=WTCcNh1glOFzumd2crAbmIcvZkten42gAm/cB3XavsTkocbXwTXIv4PfZScffRXTA
+ 7dd6MbvcHc4rHL7XpScpVSnp0mIjlnvpWw22pXFd6gfFPYzTuvhuJ1OKBl+0zrtsiR
+ cS5A7zKClDpAm8IxgGDdlWflfrmVsZqDlxo5mRoruzbGXFh/CQqyu1cCr3m97NI26n
+ GAwJY4+ALXqCDwQsAgistOvB6Lzov1FE6m0nQULMCbITOLIXIcdxa6uVhzJ7xgccAi
+ 8ZuP7dc+XzSWrzpmd7zomqJJRjzrRMNlnr6QnDnQUArLXnQARRMlOZH1Hp55FBS546
+ cvPN9p6F5l1NA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 02/11] drm/amd/display: For stereo keep
- "FLIP_ANY_FRAME"
-Date: Wed, 24 Aug 2022 21:38:23 -0400
-Message-Id: <20220825013836.23205-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 01/11] drm/amd/display: Avoid MPC infinite loop
+Date: Wed, 24 Aug 2022 21:38:22 -0400
+Message-Id: <20220825013836.23205-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220825013836.23205-1-sashal@kernel.org>
-References: <20220825013836.23205-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -55,49 +52,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Aric.Cyr@amd.com,
- Tom Chung <chiahsuan.chung@amd.com>, sunpeng.li@amd.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, airlied@linux.ie,
- Daniel Wheeler <daniel.wheeler@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
- daniel@ffwll.ch, Martin Leung <Martin.Leung@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
- christian.koenig@amd.com, joshua@froggi.es, bas@basnieuwenhuizen.nl
+Cc: Sasha Levin <sashal@kernel.org>, jiapeng.chong@linux.alibaba.com,
+ Aric Cyr <aric.cyr@amd.com>, chiahsuan.chung@amd.com,
+ Alex Hung <alex.hung@amd.com>, harry.wentland@amd.com, airlied@linux.ie,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
+ sunpeng.li@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, isabbasso@riseup.net,
+ Jun Lei <Jun.Lei@amd.com>, Josip Pavic <Josip.Pavic@amd.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <alvin.lee2@amd.com>
+From: Josip Pavic <Josip.Pavic@amd.com>
 
-[ Upstream commit 84ef99c728079dfd21d6bc70b4c3e4af20602b3c ]
+[ Upstream commit 8de297dc046c180651c0500f8611663ae1c3828a ]
 
-[Description]
-Observed in stereomode that programming FLIP_LEFT_EYE
-can cause hangs. Keep FLIP_ANY_FRAME in stereo mode so
-the surface flip can take place before left or right eye
+[why]
+In some cases MPC tree bottom pipe ends up point to itself.  This causes
+iterating from top to bottom to hang the system in an infinite loop.
 
-Reviewed-by: Martin Leung <Martin.Leung@amd.com>
-Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
+[how]
+When looping to next MPC bottom pipe, check that the pointer is not same
+as current to avoid infinite loop.
+
+Reviewed-by: Josip Pavic <Josip.Pavic@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Acked-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Aric Cyr <aric.cyr@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c | 6 ++++++
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c | 6 ++++++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
-index af462fe4260d..b0fd8859bd2f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
-@@ -86,7 +86,7 @@ bool hubp3_program_surface_flip_and_addr(
- 			VMID, address->vmid);
- 
- 	if (address->type == PLN_ADDR_TYPE_GRPH_STEREO) {
--		REG_UPDATE(DCSURF_FLIP_CONTROL, SURFACE_FLIP_MODE_FOR_STEREOSYNC, 0x1);
-+		REG_UPDATE(DCSURF_FLIP_CONTROL, SURFACE_FLIP_MODE_FOR_STEREOSYNC, 0);
- 		REG_UPDATE(DCSURF_FLIP_CONTROL, SURFACE_FLIP_IN_STEREOSYNC, 0x1);
- 
- 	} else {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c
+index 3fcd408e9103..855682590c1b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c
+@@ -125,6 +125,12 @@ struct mpcc *mpc1_get_mpcc_for_dpp(struct mpc_tree *tree, int dpp_id)
+ 	while (tmp_mpcc != NULL) {
+ 		if (tmp_mpcc->dpp_id == dpp_id)
+ 			return tmp_mpcc;
++
++		/* avoid circular linked list */
++		ASSERT(tmp_mpcc != tmp_mpcc->mpcc_bot);
++		if (tmp_mpcc == tmp_mpcc->mpcc_bot)
++			break;
++
+ 		tmp_mpcc = tmp_mpcc->mpcc_bot;
+ 	}
+ 	return NULL;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
+index 99cc095dc33c..a701ea56c0aa 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
+@@ -533,6 +533,12 @@ struct mpcc *mpc2_get_mpcc_for_dpp(struct mpc_tree *tree, int dpp_id)
+ 	while (tmp_mpcc != NULL) {
+ 		if (tmp_mpcc->dpp_id == 0xf || tmp_mpcc->dpp_id == dpp_id)
+ 			return tmp_mpcc;
++
++		/* avoid circular linked list */
++		ASSERT(tmp_mpcc != tmp_mpcc->mpcc_bot);
++		if (tmp_mpcc == tmp_mpcc->mpcc_bot)
++			break;
++
+ 		tmp_mpcc = tmp_mpcc->mpcc_bot;
+ 	}
+ 	return NULL;
 -- 
 2.35.1
 
