@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EA5DC64991
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:39:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80E3EC04AA5
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:40:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A25BD0D3C;
-	Thu, 25 Aug 2022 01:38:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F12C0D0E26;
+	Thu, 25 Aug 2022 01:38:43 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E26C7D0C9A;
- Thu, 25 Aug 2022 01:37:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13D93D0D30;
+ Thu, 25 Aug 2022 01:38:18 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 62A2FB826C8;
- Thu, 25 Aug 2022 01:37:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACC2AC433C1;
- Thu, 25 Aug 2022 01:37:54 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6F4B5B826E6;
+ Thu, 25 Aug 2022 01:38:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517DAC433C1;
+ Thu, 25 Aug 2022 01:38:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661391476;
- bh=zxO8bfETjic/S2MHBQJgIHT2PJSemZxfI1cwK8l6wlQ=;
+ s=k20201202; t=1661391496;
+ bh=v//aYBIXdkaUXOOcZU1q5cqml+QXhb56k97mh7RFJQk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VEDd/0br6nYkjuGLjCcLf1Sqz8nBYfQEYOkVPQcodPSaSQrRya9D2KiWQSaBcpswa
- 3BbvWrH05d3tck4rkg3V0pflNB/2QIJIIwWevWwl2ti9jECzdyLBcLUmwjxTMbCXgj
- CswyGQIPvfkPqPRAk3mj6KHlUAFXgKsTGYD8hQzmX6I91RIrEL8NE2flb2KbeHS44y
- Vzp5Nh88Rh6TKOV5sUH0Go/3c2nVYi0sWc1X4T71Fi5ZjLuZIlvaWvkumP7OC1aKvY
- Iy824txb1e7ROeu/ApOzKU9K4v1jKOtqz2Lqg5k1Imdkq45rNRLLbxKVb98jOObL/R
- 1/oMAYDurQimA==
+ b=l4baqSFL0+c/HT/egU5bmfkSYAvhp/RPPG34Dv7TYxz6J5lOAXZZRVvRDlM5Zoh2E
+ syPYMH84yh+p7RhpCxg7aGzauGWtPW970AV5HjeyVLpu3FEteIv6Z7gFaseqo0Y4RY
+ h4WkHpXMTsHNYG52fOebxyxAYvlNZr2wnItj9dzE3Pidd+Zpux/XGobjWmWlnZGsS4
+ Wu5Z5d85fIJNPYnZDyeaMHNHl7/YT9goy19sPXC09PB613mI/b/6u3/wo6l18QBGUh
+ YeY/SyAgkxdftIa53jrcW/QQFxAO1Hev20AaHV+GW79rvAltpLMu3FIG90YeeKtNdG
+ mcKf1awKnStHA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 11/20] drm/amd/pm: add missing ->fini_microcode
- interface for Sienna Cichlid
-Date: Wed, 24 Aug 2022 21:37:03 -0400
-Message-Id: <20220825013713.22656-11-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 14/20] drm/amd/display: avoid doing vm_init
+ multiple time
+Date: Wed, 24 Aug 2022 21:37:06 -0400
+Message-Id: <20220825013713.22656-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220825013713.22656-1-sashal@kernel.org>
 References: <20220825013713.22656-1-sashal@kernel.org>
@@ -55,42 +55,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, sathishkumar.sundararaju@amd.com,
- lijo.lazar@amd.com, guchun.chen@amd.com, airlied@linux.ie,
- danijel.slivka@amd.com, Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- luben.tuikov@amd.com, Mohammadzafar.ziya@amd.com,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Charlene Liu <Charlene.Liu@amd.com>,
+ Brian Chang <Brian.Chang@amd.com>, sunpeng.li@amd.com, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
+ Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Martin Leung <Martin.Leung@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, isabbasso@riseup.net,
+ harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Evan Quan <evan.quan@amd.com>
+From: Charlene Liu <Charlene.Liu@amd.com>
 
-[ Upstream commit 0a2d922a5618377cdf8fa476351362733ef55342 ]
+[ Upstream commit 5544a7b5a07480192eb5fd3536462faed2c21528 ]
 
-To avoid any potential memory leak.
+[why]
+this is to ensure that driver will not reprogram hvm_prefetch_req again if
+it is done.
 
-Signed-off-by: Evan Quan <evan.quan@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+Acked-by: Brian Chang <Brian.Chang@amd.com>
+Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 918d5c7c2328..79976921dc46 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -3915,6 +3915,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
- 	.dump_pptable = sienna_cichlid_dump_pptable,
- 	.init_microcode = smu_v11_0_init_microcode,
- 	.load_microcode = smu_v11_0_load_microcode,
-+	.fini_microcode = smu_v11_0_fini_microcode,
- 	.init_smc_tables = sienna_cichlid_init_smc_tables,
- 	.fini_smc_tables = smu_v11_0_fini_smc_tables,
- 	.init_power = smu_v11_0_init_power,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
+index 36044cb8ec83..1c0f56d8ba8b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
+@@ -67,9 +67,15 @@ static uint32_t convert_and_clamp(
+ void dcn21_dchvm_init(struct hubbub *hubbub)
+ {
+ 	struct dcn20_hubbub *hubbub1 = TO_DCN20_HUBBUB(hubbub);
+-	uint32_t riommu_active;
++	uint32_t riommu_active, prefetch_done;
+ 	int i;
+ 
++	REG_GET(DCHVM_RIOMMU_STAT0, HOSTVM_PREFETCH_DONE, &prefetch_done);
++
++	if (prefetch_done) {
++		hubbub->riommu_active = true;
++		return;
++	}
+ 	//Init DCHVM block
+ 	REG_UPDATE(DCHVM_CTRL0, HOSTVM_INIT_REQ, 1);
+ 
 -- 
 2.35.1
 
