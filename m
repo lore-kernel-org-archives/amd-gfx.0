@@ -4,92 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 975F2ECAAA2
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 02:51:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A42B1ECAAA3
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 07:07:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97A0410E10F;
-	Fri, 26 Aug 2022 02:51:36 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2077.outbound.protection.outlook.com [40.107.93.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9410810E10F
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Aug 2022 02:51:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C883410E653;
+	Fri, 26 Aug 2022 07:07:41 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6281010E37E;
+ Thu, 25 Aug 2022 22:12:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FPlbkrABqDSpx/TU+4IoRRTVWyIt0vL6OVLS7pPw4nJCwfjkwzB72O3oC2Zn3w++cEtGb7LWASylc1XNvpgRVFqsTTOdppOcDaNdq6xW9AiYNK0wPrvskBTX16Kpzx920lon8psKyHcgazfC2bJfXG3wrgV/keNSxakR2RsX7sKg9H1gly3MXor+k6rwkE86RErTIbbP9HsHb7igFS16bj+kJx6wFC0rO35xgIrfheZxk4R1O3LGOCYd5GALUALxBTeJPsyokR5jxMGJWMWFaxGiAFepQ1zfbedR68qZ6IaKvr27yOPdrFt48IH6lyEtnbCWtbKzInn54MWWyfUiQg==
+ b=bFu6OfJAm7kH9WAmnqf23d2OrSBWI+PqgTHrYDjSXZenZitbkd9lvM5PDasoFXcXRNn+xTFrZ3orq0vKtFII44oQdSgcYbRkaZAhLx+TZ3ToKN5kOaJIWIQf9vm7MzL0el3w3YC6UkuA+w1SSDyW3W7O5tJXK1Gkr0b4+1ktxImFM2FbQbB3TD2GHviGNpvaiQ69qUoTL5fHjcZbBAQ+gjIrYNdsWyMHIEKhT5zOgk033Xq2u7L/w7Ir/c2VeV7ukTnMBX80/wqgl511Hk6G2qmgr66aFgN5GmJyzGkb3+A/sfWd3fQZI/XMaaRTYGaxpINFcpFOFEXRwt/HJKzqhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1drTfQN6g2eaw9qDNKUM+opqpEZUJj0oOq9c+Yrq9F4=;
- b=bHfyuRrgWfFjjRkNvr3D2LMVDiNrucySQ+EVmuSvG47F7srrXd5XJJIvbvRNjjcEdlR6bgYHtkBScIo/hLTZf0cOZJLZh7yk6aFYVJx1t4KobyV63xNGxCuHoxeolLELhjb30DIb7DD2hOT9d0J5E4//WtIzJQTQS9NTVNhzAVB72daqrBSaab+J2c7uJpqTcgstsrky5hjuwEyqF1tN/SYpS6M7fuRnL7BCn20QXAO68B5mCALlvUeBi63JwaT8WWCGIXHdPTKYaMoXw+/dLWNzCIRaAuEFtgN1x0/LLjWKjxyVBiZY090Ps74t0EOKadJB9ECaH4s12w0HPQdpZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=KzOnNrMVb9n4jzdfZCm0d8X8JjCYqOUk5LdVrYVJfJw=;
+ b=bbhMZxBokki5bMZ3Ze+lKclCFeqbuEtYMLDSeRsLIK0xtJiX2fbHSo7VIQf7bdr3n9WkaNHcSyJVMIGFjuywAM7pA42EiS49DcGqF0u8gS5+NKEAMZccfNPUqYoaxiMk12ntW0PS2zSBNNSogZeb9vz3W7A34QD1UHzGHJ0sj/DPdI5E7qlvjLJfjh/KV9qdrxTD7l0f7kOiiAV+ol7fyqx/U43QO8DFdvLFXhBdOOMH5zy6ZGHTe0ZjZIvUepEPMJdMzOwyZcG5CIz59nQgWRtv21w05nVXQeusyvrl6fny5twWdQ3Ypt+Yv9hkTTCjIwiK9vZLE90tWceazsVDtw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1drTfQN6g2eaw9qDNKUM+opqpEZUJj0oOq9c+Yrq9F4=;
- b=lYamICVAJfiMWQ8CwpIFjLRZ+yROIKqv7ZizTCiVP72x9P1Q3Tkow+RaBrSNJm3qCzHoEJfVlPyFy4ukmLnLFv7zo4KiBTH8hVHtcGscvgz/UH29+BEgPtQMOXrSO1XmNjeXvAFtzxpGZ6LUCPBkZ7a0nKPGl39n5stNa2cdHJU=
-Received: from DS7PR03CA0043.namprd03.prod.outlook.com (2603:10b6:5:3b5::18)
- by DM4PR12MB5151.namprd12.prod.outlook.com (2603:10b6:5:392::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Fri, 26 Aug
- 2022 02:51:32 +0000
-Received: from DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b5:cafe::cf) by DS7PR03CA0043.outlook.office365.com
- (2603:10b6:5:3b5::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15 via Frontend
- Transport; Fri, 26 Aug 2022 02:51:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT008.mail.protection.outlook.com (10.13.172.85) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5566.15 via Frontend Transport; Fri, 26 Aug 2022 02:51:31 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 25 Aug
- 2022 21:51:30 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 25 Aug
- 2022 19:51:20 -0700
-Received: from yubiwang-dev-linux.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28
- via Frontend Transport; Thu, 25 Aug 2022 21:51:11 -0500
-From: YuBiao Wang <YuBiao.Wang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Fix use-after-free in amdgpu_cs_ioctl
-Date: Fri, 26 Aug 2022 10:48:53 +0800
-Message-ID: <20220826024853.3724997-1-YuBiao.Wang@amd.com>
-X-Mailer: git-send-email 2.25.1
+ bh=KzOnNrMVb9n4jzdfZCm0d8X8JjCYqOUk5LdVrYVJfJw=;
+ b=Zxxn5f0BLwp5dC1cJcxp2X17C70jnZL9rKtk/LPfs8WxAgl+5wo4ro84i/eFj+Pw6wUyeBoaRN4ZOfwSSiuG4J+UbWa6BimNGC4PAxvOZFYeCl0bhO6UbqkFMBIsznhKgOUvVOGRdVTG+v6LbXF5S2fchFeWpah1ONBe+RP+QjKyeZ/MDmPnwyfOXcS/qOAI5ScG1DBLA7l+wql7dx/zcrr6fbdCYZRtXauUCLujCJxvOlX8M0ysAdXZgFFow8ycCpfEPMu3YX5Bpa76UtlNYOYsCIrNeNILHg0za8AZYPuFmjTiDYPUq64K+muacWroxIgjuJhTDJUc0BvyzShpmQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB2763.namprd12.prod.outlook.com (2603:10b6:5:48::16) by
+ CH2PR12MB4277.namprd12.prod.outlook.com (2603:10b6:610:ae::23) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5546.18; Thu, 25 Aug 2022 22:12:02 +0000
+Received: from DM6PR12MB2763.namprd12.prod.outlook.com
+ ([fe80::6012:2e0d:2697:8b02]) by DM6PR12MB2763.namprd12.prod.outlook.com
+ ([fe80::6012:2e0d:2697:8b02%3]) with mapi id 15.20.5566.014; Thu, 25 Aug 2022
+ 22:12:02 +0000
+Subject: Re: [PATCH v5 15/31] platform/x86: nvidia-wmi-ec-backlight: Move fw
+ interface definitions to a header (v2)
+To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Xinhui <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>
+References: <20220825143726.269890-1-hdegoede@redhat.com>
+ <20220825143726.269890-16-hdegoede@redhat.com>
+From: Daniel Dadap <ddadap@nvidia.com>
+Message-ID: <4201ab83-a859-8533-b93b-88c012514590@nvidia.com>
+Date: Thu, 25 Aug 2022 17:11:57 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.1
+In-Reply-To: <20220825143726.269890-16-hdegoede@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: SN7PR18CA0024.namprd18.prod.outlook.com
+ (2603:10b6:806:f3::33) To DM6PR12MB2763.namprd12.prod.outlook.com
+ (2603:10b6:5:48::16)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4718368b-2241-4a0b-f1fa-08da870de1da
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5151:EE_
+X-MS-Office365-Filtering-Correlation-Id: b39267ba-849a-4989-1aaf-08da86e6d5fd
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4277:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LkezTXAygHGUfLBlkorwTkXZTahzJIT8mu6mSFiPPOouKP63yqnws5h9xMcFlmDAdq0c4SUN1Q3GSsPB7b8yq/V3roih+uFtyXYeEIttPMgzMYQiB+qBbpy9c3C3jqj+ORxEbtKW2npFsQbHFbxZUr1PW0b5X+wTJekGoUwPowbyDG/S+xwfK5wECr1CB7PFg2Uc7WfGYeP/hn10jCtDmxCjO0HOtmZ8F+HztWxitxkXPLRt1xnr4oePYdyYpNktSq6IEg/nZcCEpQtMQmptkditu2blLCizM8dSM9aGL2MLEJ8EUfJDflbIjFCi1o/vWBcHYYebE0xbIluSio9ZlSofCj1em8h9jFbIgMwBlJzpm0b16Znw0WHi5kdJQZgggOyTQaLGEbe2E+V0+A4B6flm5fTbbpiuPm0vgfwhxxUEJl2Y6tPUuMqQybM5RHQuJPdBjHVKFp5jDI0d9Dp+bFvXPsuSmzGIyYkpQc5k0M6K86tu2uorqYr4y1N2WnSDly441cXF6LHOVcNFZlshHyXvv0jbSSbKpx5vxrYf1+oXVYNotBVJ3+k4Ilc+rh59Yd+IZ6Ebi8jzlNsf5U9KGCRWoqcQ5MZPLJr2Os9BGNhvfZplVgkEIiztqKnQBbEtBm5fhj82A5A51a9GMmEVhmrRLhxGKZUYqstDS61mGqeCihydJLAqzIyrqFnUjUBbXtZZJRHfLmHWlrjKAEePm/YGtPaaJbVtgsOqRVH54ZsqWH66bMYo6zQUYo0yxGmiwFqIqnuXgIo1ScAoewYmAzB1zXkPEOLGFjwM2O18aQnZl0zvaJhhFatEoux+OmBS
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(39860400002)(376002)(136003)(346002)(36840700001)(46966006)(40470700004)(86362001)(426003)(83380400001)(478600001)(2906002)(7696005)(26005)(6666004)(40460700003)(186003)(1076003)(2616005)(8936002)(5660300002)(336012)(41300700001)(54906003)(82310400005)(316002)(356005)(82740400003)(6916009)(47076005)(36756003)(40480700001)(70206006)(70586007)(81166007)(36860700001)(4326008)(8676002)(36900700001);
+X-Microsoft-Antispam-Message-Info: saj/WwOupsgi6rU06sJ41tVGdIsFFaqjGAq+8EAu99mQoZcpw4El/+jMKqzpyEfZPxzdUNhFMyYUOkKrnVz2A/NPesi7PuR2q5CIT8nZ7Iq8ICQq2GB4VtoY5ONYrRg2WuHmgl7OAVtcJqGxgaAFu4KmKzcAWQNfwuNoK+Z3ofZIALogEL5tvU/rD3UiRB6R8LCsiwHps6/eA+8yy2w+J+Sz8SBPf+nQcLiPrnTg2P9H76ZpM2AU4R503Xl54NkJIwvRyMg8mEGr7JzK9mMFm58Un+lW0juYoNWW7Ajq5VRifQPJnw6uulRJGFk7x/2psmbOUQJZ8h2H82uslUnQZZp6kg2Vv5Nc0/IOeImwq5l5bvYigqcAiRLyrQj7Gc2OJIm1/15E1Ad77p6FLcfZG1Q1NujU14MNoU43xmy3b4QwhjJJziaHoxAYlNcZGVnAdMEXw8S06G7Nwu3+3WIJ0++nYQzcWTPINU2OvZt6j45CjXjSvdyoHW+jN0Lepz9kHh/vSzrCglhjqc9uFXlD6H/rU3HIHR+6T/8nYORQaR65wrWTSdLU2ZWXYxaGoQC5lkXlWZGhjXLY2cyBu9KkXhxbw5Qn9iVM8TouscllkdfGVfWUEMkD7B/MgBiQElLqseRQ/rjKZDZPhDKAatjZi1v1UVSLzC1MjSE8Zbq8qCXpV89VzXBqKDFrFzD0FKvhyT7yRviTN2mQqrudn6rP3txHItjYuiYHCJLDp6WZvcFoBGSgSrSKOcyCGHh9y7F5YKtGtWToRyR1TJz0cFtwIVhS66aFvhchRe9WJdEq0clP3X7cZGPSU3Bzq0BApVtz
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2763.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(136003)(346002)(376002)(39860400002)(366004)(38100700002)(6506007)(2616005)(6486002)(186003)(53546011)(36756003)(7416002)(5660300002)(6666004)(41300700001)(478600001)(2906002)(31686004)(8936002)(4326008)(110136005)(86362001)(31696002)(26005)(6512007)(83380400001)(66946007)(54906003)(316002)(66476007)(8676002)(66556008)(921005)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2022 02:51:31.8956 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4718368b-2241-4a0b-f1fa-08da870de1da
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5151
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V1JndmxLcEwyeGUvQ29kUENYdEFoM1NVVTdXTkRvK0J1VmJ3UlMxZ2R5KzBD?=
+ =?utf-8?B?aFV1akNkbkJ1OEJGT0RvaGFiS0lkNWRBdVBncTVVcXN2QTAxaDdXcDBNS3Jv?=
+ =?utf-8?B?Q1hkN1QwR2lEQU5YQ2FzVlRhZTQvSWhmMXpHaDBPN1BnT3JZbmkza2x2Mnhp?=
+ =?utf-8?B?cEUvclF4U2c3U3NoWFRMSXd4T2NQTzZOOGJDSkVMbjJXelc1UDNhdFBoSito?=
+ =?utf-8?B?NitHalVzdVNTVFMvTmhnQm9DR1hldkJMRGxVRUt1Y3pMNGMzbG5Rb1JVaEF3?=
+ =?utf-8?B?SC9KdjVZRldYaUY0QlFvUGV0eEIxK1VYT1c4TEhDcTVmdDFlYVhISnJrRjNT?=
+ =?utf-8?B?bk9LWXVvSnNzYUxIWlV3RmdqVW9CaFpnUnZjTjJSTlVrV1FRSC8wc3o1YkRv?=
+ =?utf-8?B?aXlzMmRJdnArdWJFK1ZoanRRQ0o0dy9xaU5lZm9PdlMwZUlkTExwNHdTcWMv?=
+ =?utf-8?B?Y2NkWDhVZGZQN2R4Y0FVZjZkUTNsY0tRNGlIREZlc0hHS1RzNXFUQXM5aWh2?=
+ =?utf-8?B?eHFqb2JoczN3Q1R2cDZCWFZhSWRFTmorTlVyQ2JITElyREhzVkhoL0lSazBW?=
+ =?utf-8?B?S0dHL3lnV0pvQ1NsSEdVdnJZUTc3RFF2djI3QXFFT2tOYVRuSW9wbFQ0QXRX?=
+ =?utf-8?B?aEwyaDlTanYxNG1sZDQ4aU1pQndBSzI1d0NaaXJSY2Jpdjg2NTZsUDNTSnRU?=
+ =?utf-8?B?UHh6SzgzNWFWeWRHblR3UVNNOUdVRTg0bEFXdGw2YVVnNmREeFErYkF1SmlM?=
+ =?utf-8?B?Yit6eDd5eXlmcjZXQWVGUHRzKytyai9GeGptMEMycGlINW9Bd3VyV0x1R24v?=
+ =?utf-8?B?UUNlZ0tSc2dlNDlocEtyWXJiNXZ1ZHI3OTdoU2tnTFhaNXo2K0U3emp3azF6?=
+ =?utf-8?B?SEdHZkRvZUd3Vkp2bkIvKzR0bWdKbWJwR0dnSVpFcGFQbDFLbE1QU2JWejZ5?=
+ =?utf-8?B?dGpydEZrV0NzVXFrTGwrSHkrak1mTEMzR3BtUmdiUFNHRllZMUJoM2lPdW5O?=
+ =?utf-8?B?Z0NQM1N1aEwvV3FuYUl0Y0V5ellhaE1ZUHR2TkRtRjROYmUxMDdhcldwVG5O?=
+ =?utf-8?B?THk5N3BQMkt4NkROVkVQTHJ2QkxlVys1cVE2clA1WTlrL0NrYWtoTWlKdWtN?=
+ =?utf-8?B?VVFEcUVXaUIzUkhxdkEvYy91ejZUTThLdnNRd1hydDliV2FXYmRFd2E4bXcx?=
+ =?utf-8?B?QUdybENFeExYMXl1ODR2ZzFOaWR3S0FDZ253QTlrV0FQTmFIaWxKanpva3FQ?=
+ =?utf-8?B?OWc0WUhiUEZQdTBFQzdsR0pWRHBRWnpuVGtJRVVyaC9Bc01uU0VlTVkraW0z?=
+ =?utf-8?B?ZWpjSXV2VUdaQmI2NnhsNU9xSk4rRmxqTmEvNm1iMC9MblFKTURoL2puU0V5?=
+ =?utf-8?B?bXlBKzhEKzhDMXpkcndoWnhkcWhnZHpKUTNhdHFkYkxFbTg0U3JiTEdiN1Z1?=
+ =?utf-8?B?WnByOUhWZTNMRFREL2RXR1dZZmswb1JuZVdPbUZHNWpja1JKa2FnNWp6a2hX?=
+ =?utf-8?B?ZERIMTRCY20xWnJSSytveXVrMmFaQ2w3Rmhzc0tLMDcvUStucGE5dE1oYmtP?=
+ =?utf-8?B?R3lCRjRlSlNwNDZQaC9ISFVvZlFzOVdOSHhjWHByNG0xd2QwdmM4Rzd0Qm1n?=
+ =?utf-8?B?ZFRuYTNkTzJvOHNHc2ttb2k1NlBJTVgrNkpkQXkwS2NxTWNIeVdDRmZkKzlu?=
+ =?utf-8?B?cVl0WDdsSXYzcFJEVVFmLzR0OERuUThHQ3RTbkpyWlJXajJyd2J0elZoSy96?=
+ =?utf-8?B?RVUyWDJaemRZclA1RTBSUUtyTXVTSVZVNUM4SHhMSE9nOFdtOE5aZjVlYUUz?=
+ =?utf-8?B?QmRzbXJ4SVBIQ3YwbzVFUXhoSldvNXFIbXl1V3h6bEpaYk1RRkhxcURhclRr?=
+ =?utf-8?B?dlVOOGZHOWxNN1pXaVo5K3lqZlZHaVMxZVE5YUthckw3NFI3UndYUzNYUC9F?=
+ =?utf-8?B?S2g3V1FXRnFvcGsrS2NOZnJGYmpkYnVBeVowcFBiYW4yVWx3ZndGY2FYZTJB?=
+ =?utf-8?B?bHdqdkJEcGdhWEhTV2MxMmVhMzRMR0M4T2pzYU1YNGZmbjUySEl3cTJ1akd4?=
+ =?utf-8?B?dHZvckNLUGFvUzhUK245Y2t0R21FNWhVVGt1a0pNREducHYrcE13OHNBclNV?=
+ =?utf-8?Q?zRv/VZp73D9P0G3XvGmp7k3NJ?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b39267ba-849a-4989-1aaf-08da86e6d5fd
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2763.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2022 22:12:01.9893 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ub5uaQeHeGxC12euUqn0YTi+X38/dm1f01Q4GFJiwTSRyPXKSoU6rNBVQIQtEhcSpPHHy29pXVefO6xivxi+6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4277
+X-Mailman-Approved-At: Fri, 26 Aug 2022 07:07:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,62 +140,215 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: YuBiao Wang <YuBiao.Wang@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
- Feifei Xu <Feifei.Xu@amd.com>, horace.chen@amd.com,
- Kevin Wang <Kevin1.Wang@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Monk
- Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
+ amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ linux-acpi@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@redhat.com>,
+ Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Thanks, Hans.
 
-This patch is reviewed by Andrey and Christian and pushed into bringup
-temp branch. It need to be cherry-picked to drm-next, too. Does anyone
-has any comments on this patch?
+Reviewed-by: Daniel Dadap <ddadap@nvidia.com>
 
-Thanks,
-Yubiao Wang
-
-
-[Why]
-In amdgpu_cs_ioctl, amdgpu_job_free could be performed ealier if there
-is -ERESTARTSYS error. In this case, job->hw_fence could be not
-initialized yet. Putting hw_fence during amdgpu_job_free could lead to a
-use-after-free warning.
-
-[How]
-Check if drm_sched_job_init is performed before job_free by checking
-s_fence.
-
-v2: Check hw_fence.ops instead since it could be NULL if fence is not
-initialized. Reverse the condition since !=NULL check is discouraged in
-kernel.
-
-Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
-Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 8f51adf3b329..1062b7ed74ec 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -162,7 +162,10 @@ void amdgpu_job_free(struct amdgpu_job *job)
- 	amdgpu_sync_free(&job->sync);
- 	amdgpu_sync_free(&job->sched_sync);
- 
--	dma_fence_put(&job->hw_fence);
-+	if (!job->hw_fence.ops)
-+		kfree(job);
-+	else
-+		dma_fence_put(&job->hw_fence);
- }
- 
- int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
--- 
-2.25.1
-
+On 8/25/22 9:37 AM, Hans de Goede wrote:
+> Move the WMI interface definitions to a header, so that the definitions
+> can be shared with drivers/acpi/video_detect.c .
+>
+> Changes in v2:
+> - Add missing Nvidia copyright header
+> - Move WMI_BRIGHTNESS_GUID to nvidia-wmi-ec-backlight.h as well
+>
+> Suggested-by: Daniel Dadap <ddadap@nvidia.com>
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> ---
+>   MAINTAINERS                                   |  1 +
+>   .../platform/x86/nvidia-wmi-ec-backlight.c    | 68 +----------------
+>   .../x86/nvidia-wmi-ec-backlight.h             | 76 +++++++++++++++++++
+>   3 files changed, 78 insertions(+), 67 deletions(-)
+>   create mode 100644 include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 9d7f64dc0efe..d6f6b96f51f7 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -14527,6 +14527,7 @@ M:	Daniel Dadap <ddadap@nvidia.com>
+>   L:	platform-driver-x86@vger.kernel.org
+>   S:	Supported
+>   F:	drivers/platform/x86/nvidia-wmi-ec-backlight.c
+> +F:	include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h
+>   
+>   NVM EXPRESS DRIVER
+>   M:	Keith Busch <kbusch@kernel.org>
+> diff --git a/drivers/platform/x86/nvidia-wmi-ec-backlight.c b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
+> index 61e37194df70..be803e47eac0 100644
+> --- a/drivers/platform/x86/nvidia-wmi-ec-backlight.c
+> +++ b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
+> @@ -7,74 +7,10 @@
+>   #include <linux/backlight.h>
+>   #include <linux/mod_devicetable.h>
+>   #include <linux/module.h>
+> +#include <linux/platform_data/x86/nvidia-wmi-ec-backlight.h>
+>   #include <linux/types.h>
+>   #include <linux/wmi.h>
+>   
+> -/**
+> - * enum wmi_brightness_method - WMI method IDs
+> - * @WMI_BRIGHTNESS_METHOD_LEVEL:  Get/Set EC brightness level status
+> - * @WMI_BRIGHTNESS_METHOD_SOURCE: Get/Set EC Brightness Source
+> - */
+> -enum wmi_brightness_method {
+> -	WMI_BRIGHTNESS_METHOD_LEVEL = 1,
+> -	WMI_BRIGHTNESS_METHOD_SOURCE = 2,
+> -	WMI_BRIGHTNESS_METHOD_MAX
+> -};
+> -
+> -/**
+> - * enum wmi_brightness_mode - Operation mode for WMI-wrapped method
+> - * @WMI_BRIGHTNESS_MODE_GET:            Get the current brightness level/source.
+> - * @WMI_BRIGHTNESS_MODE_SET:            Set the brightness level.
+> - * @WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL:  Get the maximum brightness level. This
+> - *                                      is only valid when the WMI method is
+> - *                                      %WMI_BRIGHTNESS_METHOD_LEVEL.
+> - */
+> -enum wmi_brightness_mode {
+> -	WMI_BRIGHTNESS_MODE_GET = 0,
+> -	WMI_BRIGHTNESS_MODE_SET = 1,
+> -	WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL = 2,
+> -	WMI_BRIGHTNESS_MODE_MAX
+> -};
+> -
+> -/**
+> - * enum wmi_brightness_source - Backlight brightness control source selection
+> - * @WMI_BRIGHTNESS_SOURCE_GPU: Backlight brightness is controlled by the GPU.
+> - * @WMI_BRIGHTNESS_SOURCE_EC:  Backlight brightness is controlled by the
+> - *                             system's Embedded Controller (EC).
+> - * @WMI_BRIGHTNESS_SOURCE_AUX: Backlight brightness is controlled over the
+> - *                             DisplayPort AUX channel.
+> - */
+> -enum wmi_brightness_source {
+> -	WMI_BRIGHTNESS_SOURCE_GPU = 1,
+> -	WMI_BRIGHTNESS_SOURCE_EC = 2,
+> -	WMI_BRIGHTNESS_SOURCE_AUX = 3,
+> -	WMI_BRIGHTNESS_SOURCE_MAX
+> -};
+> -
+> -/**
+> - * struct wmi_brightness_args - arguments for the WMI-wrapped ACPI method
+> - * @mode:    Pass in an &enum wmi_brightness_mode value to select between
+> - *           getting or setting a value.
+> - * @val:     In parameter for value to set when using %WMI_BRIGHTNESS_MODE_SET
+> - *           mode. Not used in conjunction with %WMI_BRIGHTNESS_MODE_GET or
+> - *           %WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL mode.
+> - * @ret:     Out parameter returning retrieved value when operating in
+> - *           %WMI_BRIGHTNESS_MODE_GET or %WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL
+> - *           mode. Not used in %WMI_BRIGHTNESS_MODE_SET mode.
+> - * @ignored: Padding; not used. The ACPI method expects a 24 byte params struct.
+> - *
+> - * This is the parameters structure for the WmiBrightnessNotify ACPI method as
+> - * wrapped by WMI. The value passed in to @val or returned by @ret will be a
+> - * brightness value when the WMI method ID is %WMI_BRIGHTNESS_METHOD_LEVEL, or
+> - * an &enum wmi_brightness_source value with %WMI_BRIGHTNESS_METHOD_SOURCE.
+> - */
+> -struct wmi_brightness_args {
+> -	u32 mode;
+> -	u32 val;
+> -	u32 ret;
+> -	u32 ignored[3];
+> -};
+> -
+>   /**
+>    * wmi_brightness_notify() - helper function for calling WMI-wrapped ACPI method
+>    * @w:    Pointer to the struct wmi_device identified by %WMI_BRIGHTNESS_GUID
+> @@ -191,8 +127,6 @@ static int nvidia_wmi_ec_backlight_probe(struct wmi_device *wdev, const void *ct
+>   	return PTR_ERR_OR_ZERO(bdev);
+>   }
+>   
+> -#define WMI_BRIGHTNESS_GUID "603E9613-EF25-4338-A3D0-C46177516DB7"
+> -
+>   static const struct wmi_device_id nvidia_wmi_ec_backlight_id_table[] = {
+>   	{ .guid_string = WMI_BRIGHTNESS_GUID },
+>   	{ }
+> diff --git a/include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h b/include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h
+> new file mode 100644
+> index 000000000000..23d60130272c
+> --- /dev/null
+> +++ b/include/linux/platform_data/x86/nvidia-wmi-ec-backlight.h
+> @@ -0,0 +1,76 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
+> + */
+> +
+> +#ifndef __PLATFORM_DATA_X86_NVIDIA_WMI_EC_BACKLIGHT_H
+> +#define __PLATFORM_DATA_X86_NVIDIA_WMI_EC_BACKLIGHT_H
+> +
+> +#define WMI_BRIGHTNESS_GUID "603E9613-EF25-4338-A3D0-C46177516DB7"
+> +
+> +/**
+> + * enum wmi_brightness_method - WMI method IDs
+> + * @WMI_BRIGHTNESS_METHOD_LEVEL:  Get/Set EC brightness level status
+> + * @WMI_BRIGHTNESS_METHOD_SOURCE: Get/Set EC Brightness Source
+> + */
+> +enum wmi_brightness_method {
+> +	WMI_BRIGHTNESS_METHOD_LEVEL = 1,
+> +	WMI_BRIGHTNESS_METHOD_SOURCE = 2,
+> +	WMI_BRIGHTNESS_METHOD_MAX
+> +};
+> +
+> +/**
+> + * enum wmi_brightness_mode - Operation mode for WMI-wrapped method
+> + * @WMI_BRIGHTNESS_MODE_GET:            Get the current brightness level/source.
+> + * @WMI_BRIGHTNESS_MODE_SET:            Set the brightness level.
+> + * @WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL:  Get the maximum brightness level. This
+> + *                                      is only valid when the WMI method is
+> + *                                      %WMI_BRIGHTNESS_METHOD_LEVEL.
+> + */
+> +enum wmi_brightness_mode {
+> +	WMI_BRIGHTNESS_MODE_GET = 0,
+> +	WMI_BRIGHTNESS_MODE_SET = 1,
+> +	WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL = 2,
+> +	WMI_BRIGHTNESS_MODE_MAX
+> +};
+> +
+> +/**
+> + * enum wmi_brightness_source - Backlight brightness control source selection
+> + * @WMI_BRIGHTNESS_SOURCE_GPU: Backlight brightness is controlled by the GPU.
+> + * @WMI_BRIGHTNESS_SOURCE_EC:  Backlight brightness is controlled by the
+> + *                             system's Embedded Controller (EC).
+> + * @WMI_BRIGHTNESS_SOURCE_AUX: Backlight brightness is controlled over the
+> + *                             DisplayPort AUX channel.
+> + */
+> +enum wmi_brightness_source {
+> +	WMI_BRIGHTNESS_SOURCE_GPU = 1,
+> +	WMI_BRIGHTNESS_SOURCE_EC = 2,
+> +	WMI_BRIGHTNESS_SOURCE_AUX = 3,
+> +	WMI_BRIGHTNESS_SOURCE_MAX
+> +};
+> +
+> +/**
+> + * struct wmi_brightness_args - arguments for the WMI-wrapped ACPI method
+> + * @mode:    Pass in an &enum wmi_brightness_mode value to select between
+> + *           getting or setting a value.
+> + * @val:     In parameter for value to set when using %WMI_BRIGHTNESS_MODE_SET
+> + *           mode. Not used in conjunction with %WMI_BRIGHTNESS_MODE_GET or
+> + *           %WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL mode.
+> + * @ret:     Out parameter returning retrieved value when operating in
+> + *           %WMI_BRIGHTNESS_MODE_GET or %WMI_BRIGHTNESS_MODE_GET_MAX_LEVEL
+> + *           mode. Not used in %WMI_BRIGHTNESS_MODE_SET mode.
+> + * @ignored: Padding; not used. The ACPI method expects a 24 byte params struct.
+> + *
+> + * This is the parameters structure for the WmiBrightnessNotify ACPI method as
+> + * wrapped by WMI. The value passed in to @val or returned by @ret will be a
+> + * brightness value when the WMI method ID is %WMI_BRIGHTNESS_METHOD_LEVEL, or
+> + * an &enum wmi_brightness_source value with %WMI_BRIGHTNESS_METHOD_SOURCE.
+> + */
+> +struct wmi_brightness_args {
+> +	u32 mode;
+> +	u32 val;
+> +	u32 ret;
+> +	u32 ignored[3];
+> +};
+> +
+> +#endif
