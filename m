@@ -4,54 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F170CECAA24
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 16:10:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04DE1ECAA27
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 17:48:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0DE310E456;
-	Thu, 25 Aug 2022 16:10:26 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45F7310E456;
- Thu, 25 Aug 2022 16:10:24 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-11ba6e79dd1so25455008fac.12; 
- Thu, 25 Aug 2022 09:10:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=Tg67a5ZgeqhuPMZYg/nl54FzBqCFxXTIGdWfFEYy1EE=;
- b=ROYRuJa9bi5ztQERSMgohHM+Vhzk9oqzNrGtvNhIXEMh+7PPU7qPG2n3Nx6dG8z6Jt
- 2CNcvnurCzJd0eukc9iGHE8lP2vk/MqMnrM1OWwvOORN/jhy3OOmcEIt0UlNnaWcaUBA
- jU/+7XIU4prxNBhnAjGR3nAIOzdXOhsu21RtUHpZg7xuHXaVzIr5iBK4zXSHe+I1p92H
- v0TmWj4Zm42PFAF5WnB/CPlk8KdjkStB2gptDoRBo7hIcHLwRQoymoXVjjzhgSqqIbzo
- XH4xYTo/vEUixFebnY2efjBI2ik0QL5lzsf22gOE65iozFN9EutZP1zIwuCaXTl7hKyp
- K4zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=Tg67a5ZgeqhuPMZYg/nl54FzBqCFxXTIGdWfFEYy1EE=;
- b=Yb1r9yJEPuhX+pQoWkEyIzWQpN/GgvM5p6H/9X/+Zi+sNSLWUo7KtEU0b7Z+kvyOjs
- DDzcTddL1qWeW5AsB2gPm0NqyYm2tmIi+2qsZ/cyGTaTsCAx9XFImN49burNoP1xWDpE
- XAzQrMTyp0oFYxAl7kiDHSnkHzH+nPVEaLtknC0F6k6kHMaSrQkq8Owk33emdwnJSfiK
- 0xBWCD6JU0nof4r+WPWQ7x70+gwhixPeu85AKDGjSo9jDSiVzIUWZBoBZ+YKDV2YbA0H
- gM1I4PxRMeSoq/gNN25fr8/nRK3U2HcMBPynMJea1EWZEKkwVDVqn915zIJtNW0NrBv1
- hARQ==
-X-Gm-Message-State: ACgBeo37uPOpxuR3vFa5G3w1H1NtFXrX+j6GBjf/HQkvPKO91jDIbLjC
- Lov/bC5n0F4VU3VIMR8vgFRc/JzoywkhWqMQQQc=
-X-Google-Smtp-Source: AA6agR6tplrzH6OYDlgo1Ou22r/z1pFuZkIVOBBMLCIJUDZd/kTwZndnKvRk8EC2ZFI/QHXVhK24lfhrMbu1mll1uKc=
-X-Received: by 2002:a05:6870:9a06:b0:11e:3d19:2614 with SMTP id
- fo6-20020a0568709a0600b0011e3d192614mr969158oab.96.1661443823611; Thu, 25 Aug
- 2022 09:10:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1ECB810E844;
+	Thu, 25 Aug 2022 17:48:53 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86BAB10E2E1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 17:48:49 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9BECA61CC2;
+ Thu, 25 Aug 2022 17:48:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D01A7C433D6;
+ Thu, 25 Aug 2022 17:48:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1661449728;
+ bh=MuO0G7kA4cdfTUAOgzrWCmVBOK+fExAHtWKQ1fba/FM=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=XNfU30dcGEujUTlo4b1cyYc5VAQijYBRJCYtibn4j6Dn/x1S4RJv91HAXJz2BhDET
+ UpClEATz25bH8nU2xmdLLjO7okVTmf9thb9exVYF8ZFyOj7ff7xMnhf8Gcy8qhgzKR
+ OUNVs9ikRDfz/EqApJ+Qn50J6CuCXGjSKPgB14JWqz5qG4r+Z3h4po0VuBdL8UzU7X
+ a9KtKw9xqkHHKxmAn8X4IbjRjmy23wZ3hrsOYUJbgjTwtYI5cfFI1O7PdPmlEgEYKB
+ WlQJ3OmzpNf8gode1DwpF6jqSR1KDyEgefgr5u09woXg0AxkW8rkUmNfRyBRAXtcdf
+ bYXW1reThzqKg==
+Date: Thu, 25 Aug 2022 12:48:45 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [Bug 216373] New: Uncorrected errors reported for AMD GPU
+Message-ID: <20220825174845.GA2857385@bhelgaas>
 MIME-Version: 1.0
-References: <20220823065001.16872-1-bernard@vivo.com>
-In-Reply-To: <20220823065001.16872-1-bernard@vivo.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 25 Aug 2022 12:10:12 -0400
-Message-ID: <CADnq5_MMGW4fxAt1oBxz1JcERjRRZ0YKDVWXfNNP2hE0TT69JQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: fix potential memory leak
-To: Bernard Zhao <bernard@vivo.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0444020d-e7e6-2fe9-e94e-413c8d3bab38@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,47 +50,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: zhaojunkui2008@126.com, Eric Yang <Eric.Yang2@amd.com>,
- Leo Li <sunpeng.li@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Melissa Wen <mwen@igalia.com>, David Airlie <airlied@linux.ie>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Michael Strauss <michael.strauss@amd.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Xinhui Pan <Xinhui.Pan@amd.com>, regressions@lists.linux.dev,
+ David Airlie <airlied@linux.ie>, linux-pci@vger.kernel.org, "Lazar,
+ Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org,
+ Tom Seewald <tseewald@gmail.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Stefan Roese <sr@denx.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 23, 2022 at 3:29 AM Bernard Zhao <bernard@vivo.com> wrote:
->
-> This patch fix potential memory leak (clk_src) when function run
-> into last return NULL.
->
-> Signed-off-by: Bernard Zhao <bernard@vivo.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
-> index 85f32206a766..76f263846c6b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
-> @@ -1715,6 +1715,7 @@ static struct clock_source *dcn30_clock_source_create(
->         }
->
->         BREAK_TO_DEBUGGER();
-> +       free(clk_src);
+On Thu, Aug 25, 2022 at 10:18:28AM +0200, Christian König wrote:
+> Am 25.08.22 um 09:54 schrieb Lazar, Lijo:
+> > On 8/25/2022 1:04 PM, Christian König wrote:
+> > > Am 25.08.22 um 08:40 schrieb Stefan Roese:
+> > > > On 24.08.22 16:45, Tom Seewald wrote:
+> > > > > On Wed, Aug 24, 2022 at 12:11 AM Lazar, Lijo
+> > > > > <lijo.lazar@amd.com> wrote:
+> > > > > > Unfortunately, I don't have any NV platforms to test. Attached is an
+> > > > > > 'untested-patch' based on your trace logs.
+> > > > > ...
+> > > > 
+> > > > I did not follow this thread in depth, but FWICT the bug is solved now
+> > > > with this patch. So is it correct, that the now fully enabled AER
+> > > > support in the PCI subsystem in v6.0 helped detecting a bug in the AMD
+> > > > GPU driver?
+> > > 
+> > > It looks like it, but I'm not 100% sure about the rational behind it.
+> > > 
+> > > Lijo can you explain more on this?
+> > 
+> > From the trace, during gmc hw_init it takes this route -
+> > 
+> > gart_enable -> amdgpu_gtt_mgr_recover -> amdgpu_gart_invalidate_tlb ->
+> > amdgpu_device_flush_hdp -> amdgpu_asic_flush_hdp (non-ring based HDP
+> > flush)
+> > 
+> > HDP flush is done using remapped offset which is MMIO_REG_HOLE_OFFSET
+> > (0x80000 - PAGE_SIZE)
+> > 
+> > WREG32_NO_KIQ((adev->rmmio_remap.reg_offset +
+> > KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+> > 
+> > However, the remapping is not yet done at this point. It's done at a
+> > later point during common block initialization. Access to the unmapped
+> > offset '(0x80000 - PAGE_SIZE)' seems to come back as unsupported request
+> > and reported through AER.
+> 
+> That's interesting behavior. So far AER always indicated some kind of
+> transmission error.
+> 
+> When that happens as well on unmapped areas of the MMIO BAR then we need to
+> keep that in mind.
 
-This should be kfree().  Fixed up locally.
+AER can log many different kinds of errors, some related to hardware
+issues and some related to software.
 
-Alex
+PCI writes are normally posted and get no response, so AER is the main
+way to find out about writes to unimplemented addresses.
 
->         return NULL;
->  }
->
-> --
-> 2.33.1
->
+Reads do get a response, of course, and reads to unimplemented
+addresses cause errors that most hardware turns into a ~0 data return
+(in addition to reporting via AER if enabled).
+
+Bjorn
