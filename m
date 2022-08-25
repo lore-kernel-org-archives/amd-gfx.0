@@ -4,93 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B890C28D13
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 13:05:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD36DC04AA5
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 13:06:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF0E10E205;
-	Thu, 25 Aug 2022 13:05:53 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC46D888D9
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 08:49:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661417381;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TlIztJfK8onvTK3+DzJfXtAMpstrtjDNQoMGfdoz0qA=;
- b=L7UElsRzW0sumFVLYxUtRXO8X+ZN6BWCdSrtcwjRjU57EE5oU2QUtWpaMXVIh05CHV9+vw
- L2CM72S/+o3oX96gxM7L8E0cBbRzLwz5X3rqmYUwgRqxXl1m/p08WAlKvuryhkuU+uzLMz
- DI6VB2Dp9gXfVptw94Hz6CXVH7zfTVs=
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-113-Qt-Ux8tRMZ2oQtwiOhACcg-1; Thu, 25 Aug 2022 04:49:40 -0400
-X-MC-Unique: Qt-Ux8tRMZ2oQtwiOhACcg-1
-Received: by mail-ed1-f70.google.com with SMTP id
- s3-20020a056402520300b00446f5068565so6015453edd.7
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 01:49:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=TlIztJfK8onvTK3+DzJfXtAMpstrtjDNQoMGfdoz0qA=;
- b=Gq5wAKcl1OpcZmmzbpLCN/Qafw9w+g1JaN6aSxAzLC4xWKXIANfZGeEeQxXQWD4CYD
- xrXZXhO3sFRvg3a59NxkNYGPRY3T61heYT1RFS2S7aAZqS58Mx6ZBbWjIVZijOFn5sVZ
- xdzc59naWwHCHxjnq+cWIYwguL0Jitxom/zJp3Urwp2y/bHsUtuc+enpjUcg+zcB2Wy0
- jwGsVGKjh1ixwqvPpB7oZLGpONQEklNKwDKzhbNtm/UP0zZBqJzVl2hEBVrrfyaT+rg4
- kRu5eMfZWI+p+lrQC9yed/ecR5/7ggBqzNfjlk0AhkrrbqMCeQjdAk1hcltMe6CEIaES
- Af6Q==
-X-Gm-Message-State: ACgBeo2d2IIR0G9uUmdP3SXoSBY68S7tY+omUnUCoE+dAL3z7cy5BL0y
- F1yAx79K3jwJsxCi1OalmslxUTabiZvWXDr4sAXxkZXkOUPhrVar2c+B44s/gJRYOW9Y/aBVhFJ
- Rk5iE0qdXgDUMReT0VqEQ6atHjg==
-X-Received: by 2002:a17:906:7944:b0:73c:838:ac3d with SMTP id
- l4-20020a170906794400b0073c0838ac3dmr1745847ejo.242.1661417379133; 
- Thu, 25 Aug 2022 01:49:39 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR5pbEVKcPNS8XdGhBhlI4Qh4gdOtxX9xAZ7HZNA3Q7artXVLzIVe+5/2OuT2ACRv46l/UJlbA==
-X-Received: by 2002:a17:906:7944:b0:73c:838:ac3d with SMTP id
- l4-20020a170906794400b0073c0838ac3dmr1745823ejo.242.1661417378882; 
- Thu, 25 Aug 2022 01:49:38 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
- (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
- by smtp.gmail.com with ESMTPSA id
- x2-20020aa7d382000000b00446473adeacsm4407020edq.82.2022.08.25.01.49.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Aug 2022 01:49:38 -0700 (PDT)
-Message-ID: <9f0a7d34-9d02-1775-0d04-d909c763ca7f@redhat.com>
-Date: Thu, 25 Aug 2022 10:49:37 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E91210E219;
+	Thu, 25 Aug 2022 13:05:56 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E80810E1ED;
+ Thu, 25 Aug 2022 12:55:39 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
+ [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 9EE1B6601DC3;
+ Thu, 25 Aug 2022 13:55:35 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1661432138;
+ bh=8ivHC7JnTHAfG9ihlha3bu++8MKRkyY9YpxvJiw/v5A=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=BnLPmjiVEH4pa5B6MTFbNKfs40dmMNj8CIx/RwT09kuxL5i/LtGW4LvAUtP+LtZLa
+ Ne3G7ntS5elIx2uEXOi9TM/I0PKayAcOV7qxsuqa6Ccrgvt1kT6jj8htyGtaa+XJ1S
+ ErdKSqnINd+JDnKk7nUfzPcWP1/J2h/idt9HUwWVkx0dUKbnibZ3AXJem/5plydRQT
+ mV3Zsl9bewPF12cslSAL4xvqRDDjsO1+ijRRqEbVewsqR2KqHrNE8dvKvveU/RwNOe
+ kpxwemh83WVAwbJwgBdo/DgYklBQrXXZMCkA9uRFEnT8uWm5NNZ+uMqETXuzY6cmoU
+ Tl/TsRTeVUs3A==
+Message-ID: <bb1e159b-26f3-a158-0263-9e6b9cef0174@collabora.com>
+Date: Thu, 25 Aug 2022 15:55:32 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.12.0
-Subject: Re: [PATCH v4 05/31] drm/nouveau: Don't register backlight when
- another backlight should be used (v2)
-To: Lyude Paul <lyude@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, Daniel Dadap <ddadap@nvidia.com>,
+Subject: Re: [Linaro-mm-sig] [PATCH v3 6/9] dma-buf: Move dma-buf attachment
+ to dynamic locking specification
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
- Andy Shevchenko <andy@kernel.org>
-References: <20220824121523.1291269-1-hdegoede@redhat.com>
- <20220824121523.1291269-6-hdegoede@redhat.com>
- <1463d0d38e97e5664dbc0b67a7a5620bb198bcce.camel@redhat.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <1463d0d38e97e5664dbc0b67a7a5620bb198bcce.camel@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>
+References: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
+ <20220824102248.91964-7-dmitry.osipenko@collabora.com>
+ <055c3c05-ac4c-430e-f2b9-08f000acf435@gmail.com>
+ <25d6b7e7-bbcc-7613-42d1-13c2b9ab2937@collabora.com>
+ <e7576ab7-ff1e-e6da-b0fd-0315f1b37ed1@amd.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <e7576ab7-ff1e-e6da-b0fd-0315f1b37ed1@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 25 Aug 2022 13:05:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,155 +83,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Len Brown <lenb@kernel.org>
+Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
+ dri-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Lyude,
-
-Thank you for the review.
-
-On 8/24/22 19:41, Lyude Paul wrote:
-> Just one tiny nitpick below:
-> 
-> On Wed, 2022-08-24 at 14:14 +0200, Hans de Goede wrote:
->> Before this commit when we want userspace to use the acpi_video backlight
->> device we register both the GPU's native backlight device and acpi_video's
->> firmware acpi_video# backlight device. This relies on userspace preferring
->> firmware type backlight devices over native ones.
+On 8/24/22 20:45, Christian König wrote:
+> Am 24.08.22 um 17:49 schrieb Dmitry Osipenko:
+>> On 8/24/22 18:24, Christian König wrote:
+>>> Am 24.08.22 um 12:22 schrieb Dmitry Osipenko:
+>>>> Move dma-buf attachment API functions to the dynamic locking
+>>>> specification.
+>>>> The strict locking convention prevents deadlock situations for dma-buf
+>>>> importers and exporters.
+>>>>
+>>>> Previously, the "unlocked" versions of the attachment API functions
+>>>> weren't taking the reservation lock and this patch makes them to take
+>>>> the lock.
+>>>>
+>>>> Intel and AMD GPU drivers already were mapping the attached dma-bufs
+>>>> under
+>>>> the held lock during attachment, hence these drivers are updated to use
+>>>> the locked functions.
+>>>>
+>>>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>>>> ---
+>>>>    drivers/dma-buf/dma-buf.c                  | 115
+>>>> ++++++++++++++-------
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |   4 +-
+>>>>    drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c |   8 +-
+>>>>    drivers/gpu/drm/i915/gem/i915_gem_object.c |  12 +++
+>>>>    include/linux/dma-buf.h                    |  20 ++--
+>>>>    5 files changed, 110 insertions(+), 49 deletions(-)
+>>>>
+>>>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+>>>> index 4556a12bd741..f2a5a122da4a 100644
+>>>> --- a/drivers/dma-buf/dma-buf.c
+>>>> +++ b/drivers/dma-buf/dma-buf.c
+>>>> @@ -559,7 +559,7 @@ static struct file *dma_buf_getfile(struct dma_buf
+>>>> *dmabuf, int flags)
+>>>>     * 2. Userspace passes this file-descriptors to all drivers it wants
+>>>> this buffer
+>>>>     *    to share with: First the file descriptor is converted to a
+>>>> &dma_buf using
+>>>>     *    dma_buf_get(). Then the buffer is attached to the device using
+>>>> - *    dma_buf_attach().
+>>>> + *    dma_buf_attach_unlocked().
+>>> Now I get why this is confusing me so much.
+>>>
+>>> The _unlocked postfix implies that there is another function which
+>>> should be called with the locks already held, but this is not the case
+>>> for attach/detach (because they always need to grab the lock
+>>> themselves).
+>> That's correct. The attach/detach ops of exporter can take the lock
+>> (like i915 exporter does it), hence importer must not grab the lock
+>> around dma_buf_attach() invocation.
 >>
->> Registering 2 backlight devices for a single display really is
->> undesirable, don't register the GPU's native backlight device when
->> another backlight device should be used.
+>>> So I suggest to drop the _unlocked postfix for the attach/detach
+>>> functions. Another step would then be to unify attach/detach with
+>>> dynamic_attach/dynamic_detach when both have the same locking convention
+>>> anyway.
+>> It's not a problem to change the name, but it's unclear to me why we
+>> should do it. The _unlocked postfix tells importer that reservation must
+>> be unlocked and it must be unlocked in case of dma_buf_attach().
 >>
->> Changes in v2:
->> - Add nouveau_acpi_video_backlight_use_native() wrapper to avoid unresolved
->>   symbol errors on non X86
->>
->> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
->> ---
->>  drivers/gpu/drm/nouveau/nouveau_acpi.c      | 5 +++++
->>  drivers/gpu/drm/nouveau/nouveau_acpi.h      | 2 ++
->>  drivers/gpu/drm/nouveau/nouveau_backlight.c | 6 ++++++
->>  3 files changed, 13 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/nouveau/nouveau_acpi.c b/drivers/gpu/drm/nouveau/nouveau_acpi.c
->> index 6140db756d06..1592c9cd7750 100644
->> --- a/drivers/gpu/drm/nouveau/nouveau_acpi.c
->> +++ b/drivers/gpu/drm/nouveau/nouveau_acpi.c
->> @@ -386,3 +386,8 @@ nouveau_acpi_edid(struct drm_device *dev, struct drm_connector *connector)
->>  
->>  	return kmemdup(edid, EDID_LENGTH, GFP_KERNEL);
->>  }
->> +
->> +bool nouveau_acpi_video_backlight_use_native(void)
->> +{
->> +	return acpi_video_backlight_use_native();
->> +}
->> diff --git a/drivers/gpu/drm/nouveau/nouveau_acpi.h b/drivers/gpu/drm/nouveau/nouveau_acpi.h
->> index 330f9b837066..3c666c30dfca 100644
->> --- a/drivers/gpu/drm/nouveau/nouveau_acpi.h
->> +++ b/drivers/gpu/drm/nouveau/nouveau_acpi.h
->> @@ -11,6 +11,7 @@ void nouveau_register_dsm_handler(void);
->>  void nouveau_unregister_dsm_handler(void);
->>  void nouveau_switcheroo_optimus_dsm(void);
->>  void *nouveau_acpi_edid(struct drm_device *, struct drm_connector *);
->> +bool nouveau_acpi_video_backlight_use_native(void);
->>  #else
->>  static inline bool nouveau_is_optimus(void) { return false; };
->>  static inline bool nouveau_is_v1_dsm(void) { return false; };
->> @@ -18,6 +19,7 @@ static inline void nouveau_register_dsm_handler(void) {}
->>  static inline void nouveau_unregister_dsm_handler(void) {}
->>  static inline void nouveau_switcheroo_optimus_dsm(void) {}
->>  static inline void *nouveau_acpi_edid(struct drm_device *dev, struct drm_connector *connector) { return NULL; }
->> +static inline bool nouveau_acpi_video_backlight_use_native(void) { return true; }
->>  #endif
->>  
->>  #endif
->> diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c b/drivers/gpu/drm/nouveau/nouveau_backlight.c
->> index a2141d3d9b1d..d2b8f8c13db4 100644
->> --- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
->> +++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
->> @@ -38,6 +38,7 @@
->>  #include "nouveau_reg.h"
->>  #include "nouveau_encoder.h"
->>  #include "nouveau_connector.h"
->> +#include "nouveau_acpi.h"
->>  
->>  static struct ida bl_ida;
->>  #define BL_NAME_SIZE 15 // 12 for name + 2 for digits + 1 for '\0'
->> @@ -405,6 +406,11 @@ nouveau_backlight_init(struct drm_connector *connector)
->>  		goto fail_alloc;
->>  	}
->>  
->> +	if (!nouveau_acpi_video_backlight_use_native()) {
->> +		NV_INFO(drm, "Skipping nv_backlight registration\n");
->> +		goto fail_alloc;
->> +	}
+>> Dropping the postfix will make dma_buf_attach() inconsistent with the
+>> rest of the _unlocked functions(?). Are you sure we need to rename it?
 > 
-> We should probably make this say something like "No native backlight
-> interface, using ACPI instead" instead. With that fixed
-
-But that would not be correct. If we get to this point then before
-the change we would continue with registering the native backlight
-interface.
-
-In other words, the native backlight interface is known to
-be available at this point so saying "No native backlight interface"
-would not be correct.
-
-The reason the registration is being skipped is because the
-drivers/acpi/video_detect.c heuristics (or DMI quirk or cmdline
-override) say that another method to control the backlight is
-preferred and we want to stop registering the native backlight
-alltogether in that case so that there is only
-1 /sys/class/backlight entry (on a 1 GPU 1 panel system).
-
-Also "using ACPI instead" is not correct, on older systems
-it might e.g. by a vendor specific control method such as
-the one from dell-laptop. And on newer systems it might
-e.g. be the new nvidia-wmi-ec-backlight driver instead.
-
-So you could say the log message is a bit vague on purpose
-because making it detailed would make it very long.
-
-The idea behind the log message is to have something to
-check for in dmesg if users start complaining about
-/sys/class/backlight/nouveau_bl disappearing.
-
-Normally users should not notice this, because indeed typically
-they will then also have an /sys/class/backlight/acpi_video0
-which is already preferred over the native one by userspace,
-so nothing should change for them.  But they could e.g.
-have scripts pointing directly at the native one, or
-some other special case.
-
-In those special cases having the log message to tell us why
-/sys/class/backlight/nv_backlight disappeared will help
-greatly with debugging.
-
-After writing all this I have not been able to come up
-with a better log message then the one from the original
-patch, so my proposal here is to just keep the log message
-as is. Is that ok?
-
-Regards,
-
-Hans
-
-
-
-
+> The idea of the postfix was to distinguish between two different
+> versions of the same function, e.g. dma_buf_vmap_unlocked() vs normal
+> dma_buf_vmap().
 > 
-> Reviewed-by: Lyude Paul <lyude@redhat.com>
-> 
->> +
->>  	if (!nouveau_get_backlight_name(backlight_name, bl)) {
->>  		NV_ERROR(drm, "Failed to retrieve a unique name for the backlight interface\n");
->>  		goto fail_alloc;
-> 
+> When we don't have those two types of the same function I don't think it
+> makes to much sense to keep that. We should just properly document which
+> functions expect what and that's what your documentation patch does.
 
+Thank you for the clarification. I'll change the names in v4 like you're
+suggesting, we can always improve naming later on if will be necessary.
+
+-- 
+Best regards,
+Dmitry
