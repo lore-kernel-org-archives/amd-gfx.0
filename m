@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10675C48BE4
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:39:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9436C3F6B0
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:39:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AB5CD0D36;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB682D0D39;
 	Thu, 25 Aug 2022 01:38:19 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA9B0D0B1B;
- Thu, 25 Aug 2022 01:37:41 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C411F12A174;
+ Thu, 25 Aug 2022 01:36:26 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4F5E5B826E6;
- Thu, 25 Aug 2022 01:37:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5E97C433C1;
- Thu, 25 Aug 2022 01:37:36 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C523E61A2D;
+ Thu, 25 Aug 2022 01:36:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1702EC433D7;
+ Thu, 25 Aug 2022 01:36:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661391459;
- bh=oZYVGgsaH2VFtB7OQwCBUSbZUvNKRGqOMHp98jOx8nE=;
+ s=k20201202; t=1661391385;
+ bh=uZjkReAqjgBhUeIjdkrARoS9pd0nnFeAmO+VjIOj7iU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZZ/e/vaU9Kp5DhrW1wWqdligfV7/WvMZup8Ko7Oj0R2LWLLHeaUEHXOxMPu9XdWwG
- 6eBu5tllLM5kyoo0ueK5HTryCO2COHBdrlp1+VSXyxNwoE9GIfZbxsq1gU/kP59+yb
- wOK79hkMG0PQBqQae8/gZboT87HU25e88Q8gPYEcNz7B6fUtMOyMPLub7L1xshd3NX
- oAOdym4lh4Ea8+hHB72mICdCHpz0gihCZ7/fCqyUgMmLawth4NDSaYGFv6mO+l8c58
- L1g4zJjOXkspyJ/0Vyw5F+i8Y9HVEG7dARq2M5iiDtGvQht8f3pAy48DypXeJ7Lwmw
- 3h73TO8Aq0htQ==
+ b=nU9yMpqzcwLgg6wfzHK9v5wWWkmiNS2POob5lavuIXkZgoJDt2LPu4g8ne7vW/Z46
+ Xxf3OVdLPLW+Ck/0JaawgtGE8wxuEWDBPyF5BOspQaHYrIKAvzMsmYyty4tKdHJU15
+ REh0hvSKwaa+T589S8q7LUBG+UQ3O6TtBmoLV2p3PuN2PLURYpc1HoK4MHdDa/AiDj
+ 83mKeHN1RmKw1KMPDYjOkiQogf4hZB/VIPX1of7tHPE2xJEXOkl1MsML1Tich1UM6y
+ W2Az9M1R4npCqif/2K+rk/ZMyekJ1jN/uiBlzlWDyDCfIwP88XS7h6i6133FvYd9qG
+ 2BYWC0p6p5nDg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 06/20] drm/amd/display: clear optc underflow
- before turn off odm clock
-Date: Wed, 24 Aug 2022 21:36:58 -0400
-Message-Id: <20220825013713.22656-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 25/38] drm/amdgpu: Increase tlb flush timeout for
+ sriov
+Date: Wed, 24 Aug 2022 21:33:48 -0400
+Message-Id: <20220825013401.22096-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220825013713.22656-1-sashal@kernel.org>
-References: <20220825013713.22656-1-sashal@kernel.org>
+In-Reply-To: <20220825013401.22096-1-sashal@kernel.org>
+References: <20220825013401.22096-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -55,54 +55,97 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Fudong Wang <Fudong.Wang@amd.com>, Sasha Levin <sashal@kernel.org>,
- Tom Chung <chiahsuan.chung@amd.com>, Charlene.Liu@amd.com, sunpeng.li@amd.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, HaoPing.Liu@amd.com, airlied@linux.ie,
- Daniel Wheeler <daniel.wheeler@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- isabbasso@riseup.net, Jun.Lei@amd.com, harry.wentland@amd.com,
- christian.koenig@amd.com, oliver.logush@amd.com
+Cc: Dusica Milinkovic <Dusica.Milinkovic@amd.com>, airlied@linux.ie,
+ tao.zhou1@amd.com, dri-devel@lists.freedesktop.org, Prike.Liang@amd.com,
+ ray.huang@amd.com, mario.limonciello@amd.com, Likun.Gao@amd.com,
+ victor.skvortsov@amd.com, Sasha Levin <sashal@kernel.org>, guchun.chen@amd.com,
+ amd-gfx@lists.freedesktop.org, Yuliang.Shi@amd.com, harry.wentland@amd.com,
+ andrey.grodzovsky@amd.com, evan.quan@amd.com,
+ Shaoyun Liu <shaoyun.liu@amd.com>, Jack.Xiao@amd.com, Xinhui.Pan@amd.com,
+ YiPeng.Chai@amd.com, daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
+ lang.yu@amd.com, christian.koenig@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Fudong Wang <Fudong.Wang@amd.com>
+From: Dusica Milinkovic <Dusica.Milinkovic@amd.com>
 
-[ Upstream commit b2a93490201300a749ad261b5c5d05cb50179c44 ]
+[ Upstream commit 373008bfc9cdb0f050258947fa5a095f0657e1bc ]
 
 [Why]
-After ODM clock off, optc underflow bit will be kept there always and clear not work.
-We need to clear that before clock off.
+During multi-vf executing benchmark (Luxmark) observed kiq error timeout.
+It happenes because all of VFs do the tlb invalidation at the same time.
+Although each VF has the invalidate register set, from hardware side
+the invalidate requests are queue to execute.
 
 [How]
-Clear that if have when clock off.
+In case of 12 VF increase timeout on 12*100ms
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Fudong Wang <Fudong.Wang@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Dusica Milinkovic <Dusica.Milinkovic@amd.com>
+Acked-by: Shaoyun Liu <shaoyun.liu@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h    | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 3 ++-
+ 3 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-index 37848f4577b1..92fee47278e5 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-@@ -480,6 +480,11 @@ void optc1_enable_optc_clock(struct timing_generator *optc, bool enable)
- 				OTG_CLOCK_ON, 1,
- 				1, 1000);
- 	} else  {
-+
-+		//last chance to clear underflow, otherwise, it will always there due to clock is off.
-+		if (optc->funcs->is_optc_underflow_occurred(optc) == true)
-+			optc->funcs->clear_optc_underflow(optc);
-+
- 		REG_UPDATE_2(OTG_CLOCK_CONTROL,
- 				OTG_CLOCK_GATE_DIS, 0,
- 				OTG_CLOCK_EN, 0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 30ce6bb6fa77..310754b1f670 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -313,7 +313,7 @@ enum amdgpu_kiq_irq {
+ 	AMDGPU_CP_KIQ_IRQ_DRIVER0 = 0,
+ 	AMDGPU_CP_KIQ_IRQ_LAST
+ };
+-
++#define SRIOV_USEC_TIMEOUT  1200000 /* wait 12 * 100ms for SRIOV */
+ #define MAX_KIQ_REG_WAIT       5000 /* in usecs, 5ms */
+ #define MAX_KIQ_REG_BAILOUT_INTERVAL   5 /* in msecs, 5ms */
+ #define MAX_KIQ_REG_TRY 1000
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 9077dfccaf3c..809408c8c79a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -416,6 +416,7 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 	uint32_t seq;
+ 	uint16_t queried_pasid;
+ 	bool ret;
++	u32 usec_timeout = amdgpu_sriov_vf(adev) ? SRIOV_USEC_TIMEOUT : adev->usec_timeout;
+ 	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
+ 	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
+ 
+@@ -434,7 +435,7 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 
+ 		amdgpu_ring_commit(ring);
+ 		spin_unlock(&adev->gfx.kiq.ring_lock);
+-		r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
++		r = amdgpu_fence_wait_polling(ring, seq, usec_timeout);
+ 		if (r < 1) {
+ 			dev_err(adev->dev, "wait for kiq fence error: %ld.\n", r);
+ 			return -ETIME;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 22761a3bb818..566c1243c051 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -896,6 +896,7 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 	uint32_t seq;
+ 	uint16_t queried_pasid;
+ 	bool ret;
++	u32 usec_timeout = amdgpu_sriov_vf(adev) ? SRIOV_USEC_TIMEOUT : adev->usec_timeout;
+ 	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
+ 	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
+ 
+@@ -935,7 +936,7 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 
+ 		amdgpu_ring_commit(ring);
+ 		spin_unlock(&adev->gfx.kiq.ring_lock);
+-		r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
++		r = amdgpu_fence_wait_polling(ring, seq, usec_timeout);
+ 		if (r < 1) {
+ 			dev_err(adev->dev, "wait for kiq fence error: %ld.\n", r);
+ 			up_read(&adev->reset_domain->sem);
 -- 
 2.35.1
 
