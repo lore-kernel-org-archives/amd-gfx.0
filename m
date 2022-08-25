@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01C38C676B3
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD32DC64E83
 	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 13:32:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E3E410E0C9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EC6210E0CC;
 	Thu, 25 Aug 2022 13:32:27 +0000 (UTC)
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F33BD10E023
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 13:31:47 +0000 (UTC)
-Received: by mail-ed1-x52c.google.com with SMTP id w10so13983053edc.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 06:31:47 -0700 (PDT)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E0FC10E042
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 13:31:56 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id u6so21066584eda.12
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 06:31:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=kBJ8MKPMTc/ljm1Je/dqVW7iOpGuBGK18C7LP1VWBRU=;
- b=Koffs4GCwTtX/oA7XxTkNLDQh/yjy+qEiLZXb5pct9dJjgwnt9q8coNrwtFscdPOOp
- IHSmydUtb+s7vEqRzZ+9ZIki4Ay17xb4DIrF7+eB4bSDC+X1Jls3wOLFJwiHldnK+Eyl
- /c6QDNjVRy6xq7spvQkGEkZpk1bnysd1kx3TLFebE93/9OPLbtAYKJqwmVGdhvId0oU9
- j6+dqnuX+6VvJMzj0D0AuHOaDMHJXte84SOQn7cdKdcBCY6QFXzeLYJGk8X80sqgpmvL
- BG5AhVnJEf2+86VCo6HR2zguYqnjfUWPGOE+fdJapEY7rq/fPH5G+gGhvX2te9y0PnvY
- frMg==
+ bh=QEEHOcVX9jcWEvEnHDVnuQFTANJGIJsGfJ2gHsBc/Ng=;
+ b=Nui2P8IA5tmUu9bnmVRb87Y8xCyO07/8IlXwk25uEltN8VZlddoTC+VJGjcLSTZtVz
+ f6hy069nF2WX4d8YhfNJQVotpdfCjI4pAmuQWey+nUwYLFI1VZGPcsTQmI44BU5DG11I
+ 8Cq3lVx/XctgpCrh3DSuf8v7C/Q/Jqre4p8t5E6mcTCJWvC9x7gmkDvvKTgDqh9i3eMh
+ LQqZKNjBBL3krEtsT9hvCMr8Pmdtlncm8TvUUZ9wFpk5Pzr6pjJbMaz7KnVEWx8URFxq
+ 2AkuFY8eY19pseQGemzZJGuQKnqDxl4AFCHtSs8+5kbYFsl2Qk/BIf9I8gM1Wm+VgOwG
+ SPBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=kBJ8MKPMTc/ljm1Je/dqVW7iOpGuBGK18C7LP1VWBRU=;
- b=cxQjZDnzIe2WWgmqXIKZb19e8IYiJ84g9dSqEngWugxvztbaqVHPAHYY8kA2QsIBz5
- 2uOfxwNVilQcr5JhNQuFMMCaUP6w8m2crGSeFXWaDdl48H8GlDd8UVgrZ+gN5XM06G77
- 2ysBnxHAjYluc8qyQakKW3q7QOEQ44fEydm79iqK+onD8Tal3YGMJ9Po9ATzqGQj173C
- gBi0DXga4HvK0MP8eYzM8yvjCpD1bsw5SzqTSqrTChzauSd92a9Spb1cLGhbaeEEyO1Y
- bWdJPb9ENC5SkgJONFr43nxyce7HHDA2Id+T4b3skngrzQOscWUTmokXVYk5udsZaSLD
- ih9g==
-X-Gm-Message-State: ACgBeo1GAeMwBh7boKSu5wATNTRebkYc7Cs1JXetlS7EjFl7lbKjBFMS
- 8B92AeTx6T1imb31ViEvweZqfediYpEMSw==
-X-Google-Smtp-Source: AA6agR5Q6E9V08VoErkE8LmF7INrUcJVnK5PHGbqMysuuhwP8D78WDVLR9QQg4sKIpJiml+cqEmtzA==
-X-Received: by 2002:aa7:d508:0:b0:445:dd73:4f6f with SMTP id
- y8-20020aa7d508000000b00445dd734f6fmr3223281edq.231.1661434306554; 
- Thu, 25 Aug 2022 06:31:46 -0700 (PDT)
+ bh=QEEHOcVX9jcWEvEnHDVnuQFTANJGIJsGfJ2gHsBc/Ng=;
+ b=dcMpYfBARn8t7U3CvQEXRxw/NNQW+hCHVdiP5424wPgHhP4HBp+4VHKw03x52omvFx
+ cIWjzbcQhwHG1OrH6MNQWS3t1WZCpZYz4EgaDTX9hxkMJ+tebW54jkiGSQNyDV2jIO/o
+ GlTOMxTfiD+oA0gFf9VDiOGktUBgWiQlPJtM2NRYwVkd2oQGNdDS8sOSOOCMeKw3p1Wv
+ p181tLv8khSh+v5xRekV7Pk+K4KvBo8KO3ELmTgNZgj3tr+pgBNU7v96nzAjkprVeibC
+ Y6MQMNWxPC2gELeiOQ6xAz0Nkcea9Wmh5uazcaX74yW6TCjZL8cCVSJa7iSJslmeaUD5
+ duHA==
+X-Gm-Message-State: ACgBeo0jyUABD7t4DHOx1n0apy+VnsHd5HArHUrzY4LKduuxiFXIDLZj
+ hiF76xMtsALCdGL8MO4HFiGqt5tdIEZZtg==
+X-Google-Smtp-Source: AA6agR4uNoxRJyHzsvp+qAZcRI4ZbSIuRvDeJrELtLNjloed+xwI/bl2e528Q/Lbm43gwf7rev+qHQ==
+X-Received: by 2002:a05:6402:1d4d:b0:447:67b:2631 with SMTP id
+ dz13-20020a0564021d4d00b00447067b2631mr3193062edb.243.1661434314390; 
+ Thu, 25 Aug 2022 06:31:54 -0700 (PDT)
 Received: from able.fritz.box (p4fc20ad4.dip0.t-ipconnect.de. [79.194.10.212])
  by smtp.gmail.com with ESMTPSA id
- o18-20020a509b12000000b004404e290e7esm4913471edi.77.2022.08.25.06.31.45
+ o18-20020a509b12000000b004404e290e7esm4913471edi.77.2022.08.25.06.31.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Aug 2022 06:31:46 -0700 (PDT)
+ Thu, 25 Aug 2022 06:31:53 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 01/11] drm/sched: move calling drm_sched_entity_select_rq
-Date: Thu, 25 Aug 2022 15:31:32 +0200
-Message-Id: <20220825133142.8272-2-christian.koenig@amd.com>
+Subject: [PATCH 07/11] drm/amdgpu: revert "fix limiting AV1 to the first
+ instance on VCN3"
+Date: Thu, 25 Aug 2022 15:31:38 +0200
+Message-Id: <20220825133142.8272-8-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220825133142.8272-1-christian.koenig@amd.com>
 References: <20220825133142.8272-1-christian.koenig@amd.com>
@@ -71,44 +72,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, timur.kristof@gmail.com,
- bas@basnieuwenhuizen.nl, Alexander.Deucher@amd.com,
+Cc: Alexander.Deucher@amd.com, bas@basnieuwenhuizen.nl, timur.kristof@gmail.com,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Trigger.Huang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We already discussed that the call to drm_sched_entity_select_rq() needs
-to move to drm_sched_job_arm() to be able to set a new scheduler list
-between _init() and _arm(). This was just not applied for some reason.
+This reverts commit 250195ff744f260c169f5427422b6f39c58cb883.
+
+The job should now be initialized when we reach the parser functions.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 68317d3a7a27..e0ab14e0fb6b 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -592,7 +592,6 @@ int drm_sched_job_init(struct drm_sched_job *job,
- 		       struct drm_sched_entity *entity,
- 		       void *owner)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 39405f0db824..3cabceee5f57 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -1761,21 +1761,23 @@ static const struct amdgpu_ring_funcs vcn_v3_0_dec_sw_ring_vm_funcs = {
+ 	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
+ };
+ 
+-static int vcn_v3_0_limit_sched(struct amdgpu_cs_parser *p)
++static int vcn_v3_0_limit_sched(struct amdgpu_cs_parser *p,
++				struct amdgpu_job *job)
  {
--	drm_sched_entity_select_rq(entity);
- 	if (!entity->rq)
- 		return -ENOENT;
+ 	struct drm_gpu_scheduler **scheds;
  
-@@ -628,7 +627,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
- 	struct drm_sched_entity *entity = job->entity;
+ 	/* The create msg must be in the first IB submitted */
+-	if (atomic_read(&p->entity->fence_seq))
++	if (atomic_read(&job->base.entity->fence_seq))
+ 		return -EINVAL;
  
- 	BUG_ON(!entity);
--
-+	drm_sched_entity_select_rq(entity);
- 	sched = entity->rq->sched;
+ 	scheds = p->adev->gpu_sched[AMDGPU_HW_IP_VCN_DEC]
+ 		[AMDGPU_RING_PRIO_DEFAULT].sched;
+-	drm_sched_entity_modify_sched(p->entity, scheds, 1);
++	drm_sched_entity_modify_sched(job->base.entity, scheds, 1);
+ 	return 0;
+ }
  
- 	job->sched = sched;
+-static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, uint64_t addr)
++static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
++			    uint64_t addr)
+ {
+ 	struct ttm_operation_ctx ctx = { false, false };
+ 	struct amdgpu_bo_va_mapping *map;
+@@ -1846,7 +1848,7 @@ static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, uint64_t addr)
+ 		if (create[0] == 0x7 || create[0] == 0x10 || create[0] == 0x11)
+ 			continue;
+ 
+-		r = vcn_v3_0_limit_sched(p);
++		r = vcn_v3_0_limit_sched(p, job);
+ 		if (r)
+ 			goto out;
+ 	}
+@@ -1860,7 +1862,7 @@ static int vcn_v3_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 					   struct amdgpu_job *job,
+ 					   struct amdgpu_ib *ib)
+ {
+-	struct amdgpu_ring *ring = to_amdgpu_ring(p->entity->rq->sched);
++	struct amdgpu_ring *ring = to_amdgpu_ring(job->base.sched);
+ 	uint32_t msg_lo = 0, msg_hi = 0;
+ 	unsigned i;
+ 	int r;
+@@ -1879,7 +1881,8 @@ static int vcn_v3_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 			msg_hi = val;
+ 		} else if (reg == PACKET0(p->adev->vcn.internal.cmd, 0) &&
+ 			   val == 0) {
+-			r = vcn_v3_0_dec_msg(p, ((u64)msg_hi) << 32 | msg_lo);
++			r = vcn_v3_0_dec_msg(p, job,
++					     ((u64)msg_hi) << 32 | msg_lo);
+ 			if (r)
+ 				return r;
+ 		}
 -- 
 2.25.1
 
