@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77B6DC28D13
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:44:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EC5BC64991
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:44:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CEF410E390;
-	Thu, 25 Aug 2022 14:44:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 647BA10E40A;
+	Thu, 25 Aug 2022 14:44:04 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE9410E3B3
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:38:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E8CB10E623
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:39:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661438298;
+ s=mimecast20190719; t=1661438360;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=U8Y7ncaElU+O3oGmewo0JDrY9FZX4397TBSNVEh71Ck=;
- b=FoCLVwOCguOs70RtfWfTzILnC9jKaTO3FiHx4wcemedvfhVka5VmVfXob4u4uO7h0qt0UA
- FQPT3VTP8BBvwYBdTKG4ATQgarwKa9/kWdoN7CWKjLXysoiBxaJpYxiEyKfz8YjxPMXdWh
- Kn6ajO7MygU/ZzdaRmRTnt8tT44ndLo=
+ bh=O8vOYnkiU2VpVJJrSie2Bpbws6unYJ4RX9V9UgH6EGU=;
+ b=QzIpREHRGY9FwQdHsKltFdF4my4FsOlNqBgS22045KBZ15TXNOAE2ctl6i45YJDDCHuBvw
+ iklkn0PZ5qCRy/WKPMu7pM3U5WA2OdRzV/dKoFAg2ExnZbFdZY5v7hyKCpMh4DFx1bgdyD
+ CB0zvJrAMzkLr7Brqw09Y75BsQgAF7c=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-624-wLOf_EwMM8OQXQyTdIyUUw-1; Thu, 25 Aug 2022 10:38:17 -0400
-X-MC-Unique: wLOf_EwMM8OQXQyTdIyUUw-1
+ us-mta-466-TLBuGYtiMf--WCTnLLf3aQ-1; Thu, 25 Aug 2022 10:39:17 -0400
+X-MC-Unique: TLBuGYtiMf--WCTnLLf3aQ-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
  [10.11.54.6])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4CC39802529;
- Thu, 25 Aug 2022 14:38:16 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E8D2803520;
+ Thu, 25 Aug 2022 14:39:16 +0000 (UTC)
 Received: from shalem.redhat.com (unknown [10.39.193.46])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 9BA0E2166B26;
- Thu, 25 Aug 2022 14:38:12 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id AFADA2166B26;
+ Thu, 25 Aug 2022 14:39:12 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,9 +55,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v5 11/31] drm/i915: Call acpi_video_register_backlight() (v3)
-Date: Thu, 25 Aug 2022 16:37:06 +0200
-Message-Id: <20220825143726.269890-12-hdegoede@redhat.com>
+Subject: [PATCH v5 26/31] platform/x86: samsung-laptop: Move
+ acpi_backlight=[vendor|native] quirks to ACPI video_detect.c
+Date: Thu, 25 Aug 2022 16:37:21 +0200
+Message-Id: <20220825143726.269890-27-hdegoede@redhat.com>
 In-Reply-To: <20220825143726.269890-1-hdegoede@redhat.com>
 References: <20220825143726.269890-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -76,127 +77,226 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-acpi@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@redhat.com>,
+ Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On machins without an i915 opregion the acpi_video driver immediately
-probes the ACPI video bus and used to also immediately register
-acpi_video# backlight devices when supported.
+acpi_video_set_dmi_backlight_type() is troublesome because it may end up
+getting called after other backlight drivers have already called
+acpi_video_get_backlight_type() resulting in the other drivers
+already being registered even though they should not.
 
-Once the drm/kms driver then loaded later and possibly registered
-a native backlight device then the drivers/acpi/video_detect.c code
-unregistered the acpi_video0 device to avoid there being 2 backlight
-devices (when acpi_video_get_backlight_type()==native).
+Move all the acpi_backlight=[vendor|native] quirks from samsung-laptop to
+drivers/acpi/video_detect.c .
 
-This means that userspace used to briefly see 2 devices and the
-disappearing of acpi_video0 after a brief time confuses the systemd
-backlight level save/restore code, see e.g.:
-https://bbs.archlinux.org/viewtopic.php?id=269920
+Note the X360 -> acpi_backlight=native quirk is not moved because that
+already was present in drivers/acpi/video_detect.c .
 
-To fix this the ACPI video code has been modified to make backlight class
-device registration a separate step, relying on the drm/kms driver to
-ask for the acpi_video backlight registration after it is done setting up
-its native backlight device.
-
-Add a call to the new acpi_video_register_backlight() after the i915 calls
-acpi_video_register() (after setting up the i915 opregion) so that the
-acpi_video backlight devices get registered on systems where the i915
-native backlight device is not registered.
-
-Changes in v2:
--Only call acpi_video_register_backlight() when a panel is detected
-
-Changes in v3:
--Add a new intel_acpi_video_register() helper which checks if a panel
- is present and then calls acpi_video_register_backlight()
-
+Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/i915/display/intel_acpi.c    | 27 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_acpi.h    |  3 +++
- drivers/gpu/drm/i915/display/intel_display.c |  2 +-
- 3 files changed, 31 insertions(+), 1 deletion(-)
+ drivers/acpi/video_detect.c           | 54 +++++++++++++++++
+ drivers/platform/x86/samsung-laptop.c | 87 ---------------------------
+ 2 files changed, 54 insertions(+), 87 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_acpi.c b/drivers/gpu/drm/i915/display/intel_acpi.c
-index e78430001f07..9df78e7caa2b 100644
---- a/drivers/gpu/drm/i915/display/intel_acpi.c
-+++ b/drivers/gpu/drm/i915/display/intel_acpi.c
-@@ -7,6 +7,7 @@
+diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+index a09089e7fada..3861d4121172 100644
+--- a/drivers/acpi/video_detect.c
++++ b/drivers/acpi/video_detect.c
+@@ -222,6 +222,33 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ 		DMI_MATCH(DMI_PRODUCT_NAME, "GB-BXBT-2807"),
+ 		},
+ 	},
++	{
++	 .callback = video_detect_force_vendor,
++	 /* Samsung N150/N210/N220 */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
++		DMI_MATCH(DMI_PRODUCT_NAME, "N150/N210/N220"),
++		DMI_MATCH(DMI_BOARD_NAME, "N150/N210/N220"),
++		},
++	},
++	{
++	 .callback = video_detect_force_vendor,
++	 /* Samsung NF110/NF210/NF310 */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
++		DMI_MATCH(DMI_PRODUCT_NAME, "NF110/NF210/NF310"),
++		DMI_MATCH(DMI_BOARD_NAME, "NF110/NF210/NF310"),
++		},
++	},
++	{
++	 .callback = video_detect_force_vendor,
++	 /* Samsung NC210 */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
++		DMI_MATCH(DMI_PRODUCT_NAME, "NC210/NC110"),
++		DMI_MATCH(DMI_BOARD_NAME, "NC210/NC110"),
++		},
++	},
+ 	{
+ 	.callback = video_detect_force_vendor,
+ 	/* Sony VPCEH3U1E */
+@@ -572,6 +599,33 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ 		DMI_MATCH(DMI_PRODUCT_NAME, "UX303UB"),
+ 		},
+ 	},
++	{
++	 .callback = video_detect_force_native,
++	 /* Samsung N150P */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
++		DMI_MATCH(DMI_PRODUCT_NAME, "N150P"),
++		DMI_MATCH(DMI_BOARD_NAME, "N150P"),
++		},
++	},
++	{
++	 .callback = video_detect_force_native,
++	 /* Samsung N145P/N250P/N260P */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
++		DMI_MATCH(DMI_PRODUCT_NAME, "N145P/N250P/N260P"),
++		DMI_MATCH(DMI_BOARD_NAME, "N145P/N250P/N260P"),
++		},
++	},
++	{
++	 .callback = video_detect_force_native,
++	 /* Samsung N250P */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
++		DMI_MATCH(DMI_PRODUCT_NAME, "N250P"),
++		DMI_MATCH(DMI_BOARD_NAME, "N250P"),
++		},
++	},
+ 	/*
+ 	 * Clevo NL5xRU and NL5xNU/TUXEDO Aura 15 Gen1 and Gen2 have both a
+ 	 * working native and video interface. However the default detection
+diff --git a/drivers/platform/x86/samsung-laptop.c b/drivers/platform/x86/samsung-laptop.c
+index c187dcdf82f0..cc30cf08f32d 100644
+--- a/drivers/platform/x86/samsung-laptop.c
++++ b/drivers/platform/x86/samsung-laptop.c
+@@ -356,23 +356,13 @@ struct samsung_laptop {
+ };
  
- #include <linux/pci.h>
- #include <linux/acpi.h>
-+#include <acpi/video.h>
+ struct samsung_quirks {
+-	bool broken_acpi_video;
+ 	bool four_kbd_backlight_levels;
+ 	bool enable_kbd_backlight;
+-	bool use_native_backlight;
+ 	bool lid_handling;
+ };
  
- #include "i915_drv.h"
- #include "intel_acpi.h"
-@@ -331,3 +332,29 @@ void intel_acpi_assign_connector_fwnodes(struct drm_i915_private *i915)
- 	 */
- 	fwnode_handle_put(fwnode);
- }
-+
-+void intel_acpi_video_register(struct drm_i915_private *i915)
-+{
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *connector;
-+
-+	acpi_video_register();
-+
-+	/*
-+	 * If i915 is driving an internal panel without registering its native
-+	 * backlight handler try to register the acpi_video backlight.
-+	 * For panels not driven by i915 another GPU driver may still register
-+	 * a native backlight later and acpi_video_register_backlight() should
-+	 * only be called after any native backlights have been registered.
-+	 */
-+	drm_connector_list_iter_begin(&i915->drm, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		struct intel_panel *panel = &to_intel_connector(connector)->panel;
-+
-+		if (panel->backlight.funcs && !panel->backlight.device) {
-+			acpi_video_register_backlight();
-+			break;
-+		}
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_acpi.h b/drivers/gpu/drm/i915/display/intel_acpi.h
-index 4a760a2baed9..6a0007452f95 100644
---- a/drivers/gpu/drm/i915/display/intel_acpi.h
-+++ b/drivers/gpu/drm/i915/display/intel_acpi.h
-@@ -14,6 +14,7 @@ void intel_unregister_dsm_handler(void);
- void intel_dsm_get_bios_data_funcs_supported(struct drm_i915_private *i915);
- void intel_acpi_device_id_update(struct drm_i915_private *i915);
- void intel_acpi_assign_connector_fwnodes(struct drm_i915_private *i915);
-+void intel_acpi_video_register(struct drm_i915_private *i915);
- #else
- static inline void intel_register_dsm_handler(void) { return; }
- static inline void intel_unregister_dsm_handler(void) { return; }
-@@ -23,6 +24,8 @@ static inline
- void intel_acpi_device_id_update(struct drm_i915_private *i915) { return; }
- static inline
- void intel_acpi_assign_connector_fwnodes(struct drm_i915_private *i915) { return; }
-+static inline
-+void intel_acpi_video_register(struct drm_i915_private *i915) { return; }
- #endif /* CONFIG_ACPI */
+ static struct samsung_quirks samsung_unknown = {};
  
- #endif /* __INTEL_ACPI_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 6103b02c081f..129a13375101 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -9087,7 +9087,7 @@ void intel_display_driver_register(struct drm_i915_private *i915)
+-static struct samsung_quirks samsung_broken_acpi_video = {
+-	.broken_acpi_video = true,
+-};
+-
+-static struct samsung_quirks samsung_use_native_backlight = {
+-	.use_native_backlight = true,
+-};
+-
+ static struct samsung_quirks samsung_np740u3e = {
+ 	.four_kbd_backlight_levels = true,
+ 	.enable_kbd_backlight = true,
+@@ -1540,76 +1530,6 @@ static const struct dmi_system_id samsung_dmi_table[] __initconst = {
+ 		},
+ 	},
+ 	/* Specific DMI ids for laptop with quirks */
+-	{
+-	 .callback = samsung_dmi_matched,
+-	 .ident = "N150P",
+-	 .matches = {
+-		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
+-		DMI_MATCH(DMI_PRODUCT_NAME, "N150P"),
+-		DMI_MATCH(DMI_BOARD_NAME, "N150P"),
+-		},
+-	 .driver_data = &samsung_use_native_backlight,
+-	},
+-	{
+-	 .callback = samsung_dmi_matched,
+-	 .ident = "N145P/N250P/N260P",
+-	 .matches = {
+-		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
+-		DMI_MATCH(DMI_PRODUCT_NAME, "N145P/N250P/N260P"),
+-		DMI_MATCH(DMI_BOARD_NAME, "N145P/N250P/N260P"),
+-		},
+-	 .driver_data = &samsung_use_native_backlight,
+-	},
+-	{
+-	 .callback = samsung_dmi_matched,
+-	 .ident = "N150/N210/N220",
+-	 .matches = {
+-		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
+-		DMI_MATCH(DMI_PRODUCT_NAME, "N150/N210/N220"),
+-		DMI_MATCH(DMI_BOARD_NAME, "N150/N210/N220"),
+-		},
+-	 .driver_data = &samsung_broken_acpi_video,
+-	},
+-	{
+-	 .callback = samsung_dmi_matched,
+-	 .ident = "NF110/NF210/NF310",
+-	 .matches = {
+-		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
+-		DMI_MATCH(DMI_PRODUCT_NAME, "NF110/NF210/NF310"),
+-		DMI_MATCH(DMI_BOARD_NAME, "NF110/NF210/NF310"),
+-		},
+-	 .driver_data = &samsung_broken_acpi_video,
+-	},
+-	{
+-	 .callback = samsung_dmi_matched,
+-	 .ident = "X360",
+-	 .matches = {
+-		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
+-		DMI_MATCH(DMI_PRODUCT_NAME, "X360"),
+-		DMI_MATCH(DMI_BOARD_NAME, "X360"),
+-		},
+-	 .driver_data = &samsung_broken_acpi_video,
+-	},
+-	{
+-	 .callback = samsung_dmi_matched,
+-	 .ident = "N250P",
+-	 .matches = {
+-		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
+-		DMI_MATCH(DMI_PRODUCT_NAME, "N250P"),
+-		DMI_MATCH(DMI_BOARD_NAME, "N250P"),
+-		},
+-	 .driver_data = &samsung_use_native_backlight,
+-	},
+-	{
+-	 .callback = samsung_dmi_matched,
+-	 .ident = "NC210",
+-	 .matches = {
+-		DMI_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
+-		DMI_MATCH(DMI_PRODUCT_NAME, "NC210/NC110"),
+-		DMI_MATCH(DMI_BOARD_NAME, "NC210/NC110"),
+-		},
+-	 .driver_data = &samsung_broken_acpi_video,
+-	},
+ 	{
+ 	 .callback = samsung_dmi_matched,
+ 	 .ident = "730U3E/740U3E",
+@@ -1654,15 +1574,8 @@ static int __init samsung_init(void)
+ 	samsung->handle_backlight = true;
+ 	samsung->quirks = quirks;
  
- 	/* Must be done after probing outputs */
- 	intel_opregion_register(i915);
--	acpi_video_register();
-+	intel_acpi_video_register(i915);
+-#ifdef CONFIG_ACPI
+-	if (samsung->quirks->broken_acpi_video)
+-		acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
+-	if (samsung->quirks->use_native_backlight)
+-		acpi_video_set_dmi_backlight_type(acpi_backlight_native);
+-
+ 	if (acpi_video_get_backlight_type() != acpi_backlight_vendor)
+ 		samsung->handle_backlight = false;
+-#endif
  
- 	intel_audio_init(i915);
- 
+ 	ret = samsung_platform_init(samsung);
+ 	if (ret)
 -- 
 2.37.2
 
