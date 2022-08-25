@@ -4,54 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5173DC28D13
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 13:22:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92F98C28D13
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 13:31:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7B210E32B;
-	Thu, 25 Aug 2022 13:22:32 +0000 (UTC)
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [IPv6:2607:f8b0:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECC7B10E382
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 13:22:27 +0000 (UTC)
-Received: by mail-oi1-x234.google.com with SMTP id w197so23236744oie.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 06:22:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE40C10E023;
+	Thu, 25 Aug 2022 13:31:51 +0000 (UTC)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C81CC10E023
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 13:31:46 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id u15so30891309ejt.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 06:31:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=AkrPfiAgm/Ei0CuNhGuvfcMfk1GMIQSZ0bQNF7DX8V0=;
- b=dnE0mSef96w5OJCzq+UtGFFq6WHL9BjGEv12WS5NhEek6lEzZ46D8gqKZl2+ix0rVy
- zdm5RpOLOhr1/tZBueGDCYJXfY36p9y6CGGhSNRyAn+MGynUp3Lz1e2VIGr1drnlQ70f
- 9Tpf02/skgu/Uk4j9exbsWDdP5u9wkixy0Qp7qbWmQB9V2jitVA80Yt31/21BKuzdnS4
- Gz9naaDZAr1rWi97fEFClsFQzn8TmZ0ehufLXDP6x52u6lsQo41HCahPb88Z7LhcKi66
- dDKGA2jjQvde8RVb6XN6bPjVIgnBnyvzJ67BlJ49EhrAIWZxTlEYeAGG1NuO/T0EgEEG
- hvDw==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=1k6N9WVq4G4AYtLMGBogrp7GQZ6/168vEGje62/Jb0s=;
+ b=H5f9Kr0MM0lbOJOHqOgccLNhF58NkGY9eple74snLNAREQihQTa5QkKQImcXIUfKu8
+ JF6Ly1GLbvkvo/eDPEh7JFDPHDHV6q4kOqLjjz305V1HC7vixv5yTYg21jKcOxARd6/3
+ kni7BMfvEngx1j+wsu7e8I5piLqWwrI9xC1k258fB3rvS8P1J0LRrjga3KGLOsXhpV3c
+ B2vkEB+Qmds/eDP5Log+OthPOaskYRVpEgxxw5INouL9/PGxEqF4f+uKi1n6FzxOBNSp
+ GfWHJPwqGJoqfYXdclHvk8bS5CIYlfS/8HbMqz6T3iMClbSTmF/4GlgfJREmqROodwVE
+ GgLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=AkrPfiAgm/Ei0CuNhGuvfcMfk1GMIQSZ0bQNF7DX8V0=;
- b=HikPJSlFO2S7acxgAzq370rLCLjQzL59Drs4uA5DYslqeC+RuqXPDYRuDy+TDXXPzS
- XXPGnzvZm0VY9M+6Dy5ozTP+xGodxDgyTl+raf2Xq0AC5sgjr58CZHaM3dKtcC6bTyE3
- 3xZBTZVXQe90t77INLJyxxYK6tQavF20bK2dRhZZdcMIRvwzOFVyrev4413jBCQ6mpvP
- Upu4D6qecx1G1svevKxdhLOnb6FWQCrq6yOXUY16S4iYgY8PdOOKOaXA5JgBdLvZYaIm
- OTrjENhqM6mbMNZ+N6N2hgUIxyqtolDosTgWLgs53tqdakQFA8vhJEEZWHwCT68efGGE
- bPlg==
-X-Gm-Message-State: ACgBeo3bR/hcpVE75UNKKsHhLqJzZsK4CkbiXXu/ZvXvE4BzG9QffOgM
- qhLUyj2Ns+Wo89h9FTYNiFUwXMJZWtjGwxXM9R4=
-X-Google-Smtp-Source: AA6agR6nq80wU6U+2IeoXOBSQK3F4yP6mKTf5OCCL7o2U5uiF3W1V7DbVzYi9FYpl+gleb5SeVj0Cvo0EzHnuQWh1dA=
-X-Received: by 2002:a05:6808:2187:b0:344:eccd:3fc5 with SMTP id
- be7-20020a056808218700b00344eccd3fc5mr5589853oib.46.1661433747098; Thu, 25
- Aug 2022 06:22:27 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=1k6N9WVq4G4AYtLMGBogrp7GQZ6/168vEGje62/Jb0s=;
+ b=AqPidsYHdozaCDncn10c0f8tpdudQBVEaZd3dRrpA34EWfrHcgy+og4nyC78Vv8Er1
+ R3kP6Eeo9XhOy+0qW4QIb01rHZ5wfVVEc4bxGl+JFr7m6fn+wW0cmJM/LGPoYt9M8wTk
+ FDdHUeETRBO7FtYTyUDU6TdeDd+LXRXsnyzgw152/Ss82peTz+mtLP5c7ny3k4dCOU5h
+ xHsKlKxooWxPj2XJtzFWisi33rzKEA8ir++atGv8Wd1ZM+BW3gS4WGvtmQsYs9auo6hF
+ U9D6grTdCMddZE4eEsZyTSOLOLIEM+Z1tFsz+97icHchMuQfWHnHobOI5pwyV1tH8Ue+
+ rG1Q==
+X-Gm-Message-State: ACgBeo19hx0G+QzzXWtGB3rIVazBcLGOayC49499mUwAEzJhKGXHsF28
+ weoAs0g2QpY9wwjNQ7ntK0465dCo9rI=
+X-Google-Smtp-Source: AA6agR6wJYWGLJA5/nJ8a/0gQpFVzNeW+Bs2STPXSPQ6EYsJlFTi3yJl8e38mdKowGK5pfGHVoB45w==
+X-Received: by 2002:a17:907:7214:b0:731:465d:a77c with SMTP id
+ dr20-20020a170907721400b00731465da77cmr2493670ejc.308.1661434305373; 
+ Thu, 25 Aug 2022 06:31:45 -0700 (PDT)
+Received: from able.fritz.box (p4fc20ad4.dip0.t-ipconnect.de. [79.194.10.212])
+ by smtp.gmail.com with ESMTPSA id
+ o18-20020a509b12000000b004404e290e7esm4913471edi.77.2022.08.25.06.31.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Aug 2022 06:31:44 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: Latest gang submit patches
+Date: Thu, 25 Aug 2022 15:31:31 +0200
+Message-Id: <20220825133142.8272-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220825085820.1228641-1-lijo.lazar@amd.com>
- <20220825085820.1228641-2-lijo.lazar@amd.com>
-In-Reply-To: <20220825085820.1228641-2-lijo.lazar@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 25 Aug 2022 09:22:15 -0400
-Message-ID: <CADnq5_NDpBBZnozvo7_X2BNqjZ=W3XkyHAQeVio2LLCJAwwFAQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Init VF's HDP flush reg offset early
-To: Lijo Lazar <lijo.lazar@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,279 +69,23 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org, tseewald@gmail.com,
- helgaas@kernel.org, Alexander.Deucher@amd.com, sr@denx.de,
- Christian.Koenig@amd.com, Hawking.Zhang@amd.com
+Cc: Alexander.Deucher@amd.com, bas@basnieuwenhuizen.nl, timur.kristof@gmail.com,
+ Trigger.Huang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Hi guys,
 
-On Thu, Aug 25, 2022 at 4:58 AM Lijo Lazar <lijo.lazar@amd.com> wrote:
->
-> Make sure the register offsets used for HDP flush in VF is
-> initialized early so that it works fine during any early HDP flush
-> sequence. For that, move the offset initialization to *_remap_hdp.
->
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
->  drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c     | 23 +++++++++++++--------
->  drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c     | 12 +++++++----
->  drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c     | 23 +++++++++++++--------
->  drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c     | 21 ++++++++++++-------
->  drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c     | 24 ++++++++++++++--------
->  drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c     | 23 +++++++++++++--------
->  7 files changed, 84 insertions(+), 44 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 53d753e94a71..c0bb2e9616c5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2382,7 +2382,7 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
->                          * to process space. This is needed for any early HDP
->                          * flush operation during gmc initialization.
->                          */
-> -                       if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
-> +                       if (adev->nbio.funcs->remap_hdp_registers)
->                                 adev->nbio.funcs->remap_hdp_registers(adev);
->
->                         r = adev->ip_blocks[i].version->funcs->hw_init((void *)adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-> index b465baa26762..20fa2c5ad510 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-> @@ -65,10 +65,21 @@
->
->  static void nbio_v2_3_remap_hdp_registers(struct amdgpu_device *adev)
->  {
-> -       WREG32_SOC15(NBIO, 0, mmREMAP_HDP_MEM_FLUSH_CNTL,
-> -               adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
-> -       WREG32_SOC15(NBIO, 0, mmREMAP_HDP_REG_FLUSH_CNTL,
-> -               adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
-> +       if (amdgpu_sriov_vf(adev))
-> +               adev->rmmio_remap.reg_offset =
-> +                       SOC15_REG_OFFSET(
-> +                               NBIO, 0,
-> +                               mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL)
-> +                       << 2;
-> +
-> +       if (!amdgpu_sriov_vf(adev)) {
-> +               WREG32_SOC15(NBIO, 0, mmREMAP_HDP_MEM_FLUSH_CNTL,
-> +                            adev->rmmio_remap.reg_offset +
-> +                                    KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
-> +               WREG32_SOC15(NBIO, 0, mmREMAP_HDP_REG_FLUSH_CNTL,
-> +                            adev->rmmio_remap.reg_offset +
-> +                                    KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
-> +       }
->  }
->
->  static u32 nbio_v2_3_get_rev_id(struct amdgpu_device *adev)
-> @@ -338,10 +349,6 @@ static void nbio_v2_3_init_registers(struct amdgpu_device *adev)
->
->         if (def != data)
->                 WREG32_PCIE(smnPCIE_CONFIG_CNTL, data);
-> -
-> -       if (amdgpu_sriov_vf(adev))
-> -               adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
-> -                       mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
->  }
->
->  #define NAVI10_PCIE__LC_L0S_INACTIVITY_DEFAULT         0x00000000 // off by default, no gains over L1
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-> index 982a89f841d5..e011d9856794 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-> @@ -30,10 +30,14 @@
->
->  static void nbio_v4_3_remap_hdp_registers(struct amdgpu_device *adev)
->  {
-> -       WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_MEM_FLUSH_CNTL,
-> -               adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
-> -       WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_REG_FLUSH_CNTL,
-> -               adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
-> +       if (!amdgpu_sriov_vf(adev)) {
-> +               WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_MEM_FLUSH_CNTL,
-> +                            adev->rmmio_remap.reg_offset +
-> +                                    KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
-> +               WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_REG_FLUSH_CNTL,
-> +                            adev->rmmio_remap.reg_offset +
-> +                                    KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
-> +       }
->  }
->
->  static u32 nbio_v4_3_get_rev_id(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-> index f7f6ddebd3e4..7536ca3fcd69 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-> @@ -55,10 +55,21 @@
->
->  static void nbio_v6_1_remap_hdp_registers(struct amdgpu_device *adev)
->  {
-> -       WREG32_SOC15(NBIO, 0, mmREMAP_HDP_MEM_FLUSH_CNTL,
-> -               adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
-> -       WREG32_SOC15(NBIO, 0, mmREMAP_HDP_REG_FLUSH_CNTL,
-> -               adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
-> +       if (amdgpu_sriov_vf(adev))
-> +               adev->rmmio_remap.reg_offset =
-> +                       SOC15_REG_OFFSET(
-> +                               NBIO, 0,
-> +                               mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL)
-> +                       << 2;
-> +
-> +       if (!amdgpu_sriov_vf(adev)) {
-> +               WREG32_SOC15(NBIO, 0, mmREMAP_HDP_MEM_FLUSH_CNTL,
-> +                            adev->rmmio_remap.reg_offset +
-> +                                    KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
-> +               WREG32_SOC15(NBIO, 0, mmREMAP_HDP_REG_FLUSH_CNTL,
-> +                            adev->rmmio_remap.reg_offset +
-> +                                    KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
-> +       }
->  }
->
->  static u32 nbio_v6_1_get_rev_id(struct amdgpu_device *adev)
-> @@ -276,10 +287,6 @@ static void nbio_v6_1_init_registers(struct amdgpu_device *adev)
->
->         if (def != data)
->                 WREG32_PCIE(smnPCIE_CI_CNTL, data);
-> -
-> -       if (amdgpu_sriov_vf(adev))
-> -               adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
-> -                       mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
->  }
->
->  static void nbio_v6_1_program_ltr(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-> index aa0326d00c72..6b4ac16a8466 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-> @@ -35,10 +35,20 @@
->
->  static void nbio_v7_0_remap_hdp_registers(struct amdgpu_device *adev)
->  {
-> -       WREG32_SOC15(NBIO, 0, mmREMAP_HDP_MEM_FLUSH_CNTL,
-> -               adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
-> -       WREG32_SOC15(NBIO, 0, mmREMAP_HDP_REG_FLUSH_CNTL,
-> -               adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
-> +       if (amdgpu_sriov_vf(adev))
-> +               adev->rmmio_remap.reg_offset =
-> +                       SOC15_REG_OFFSET(NBIO, 0,
-> +                                        mmHDP_MEM_COHERENCY_FLUSH_CNTL)
-> +                       << 2;
-> +
-> +       if (!amdgpu_sriov_vf(adev)) {
-> +               WREG32_SOC15(NBIO, 0, mmREMAP_HDP_MEM_FLUSH_CNTL,
-> +                            adev->rmmio_remap.reg_offset +
-> +                                    KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
-> +               WREG32_SOC15(NBIO, 0, mmREMAP_HDP_REG_FLUSH_CNTL,
-> +                            adev->rmmio_remap.reg_offset +
-> +                                    KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
-> +       }
->  }
->
->  static u32 nbio_v7_0_get_rev_id(struct amdgpu_device *adev)
-> @@ -273,9 +283,6 @@ const struct nbio_hdp_flush_reg nbio_v7_0_hdp_flush_reg = {
->
->  static void nbio_v7_0_init_registers(struct amdgpu_device *adev)
->  {
-> -       if (amdgpu_sriov_vf(adev))
-> -               adev->rmmio_remap.reg_offset =
-> -                       SOC15_REG_OFFSET(NBIO, 0, mmHDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
->  }
->
->  const struct amdgpu_nbio_funcs nbio_v7_0_funcs = {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-> index 31776b12e4c4..fb4be72eade7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-> @@ -49,10 +49,21 @@
->
->  static void nbio_v7_2_remap_hdp_registers(struct amdgpu_device *adev)
->  {
-> -       WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_MEM_FLUSH_CNTL,
-> -               adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
-> -       WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_REG_FLUSH_CNTL,
-> -               adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
-> +       if (amdgpu_sriov_vf(adev))
-> +               adev->rmmio_remap.reg_offset =
-> +                       SOC15_REG_OFFSET(
-> +                               NBIO, 0,
-> +                               regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL)
-> +                       << 2;
-> +
-> +       if (!amdgpu_sriov_vf(adev)) {
-> +               WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_MEM_FLUSH_CNTL,
-> +                            adev->rmmio_remap.reg_offset +
-> +                                    KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
-> +               WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_REG_FLUSH_CNTL,
-> +                            adev->rmmio_remap.reg_offset +
-> +                                    KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
-> +       }
->  }
->
->  static u32 nbio_v7_2_get_rev_id(struct amdgpu_device *adev)
-> @@ -369,6 +380,7 @@ const struct nbio_hdp_flush_reg nbio_v7_2_hdp_flush_reg = {
->  static void nbio_v7_2_init_registers(struct amdgpu_device *adev)
->  {
->         uint32_t def, data;
-> +
->         switch (adev->ip_versions[NBIO_HWIP][0]) {
->         case IP_VERSION(7, 2, 1):
->         case IP_VERSION(7, 3, 0):
-> @@ -393,10 +405,6 @@ static void nbio_v7_2_init_registers(struct amdgpu_device *adev)
->                         WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CONFIG_CNTL), data);
->                 break;
->         }
-> -
-> -       if (amdgpu_sriov_vf(adev))
-> -               adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
-> -                       regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
->  }
->
->  const struct amdgpu_nbio_funcs nbio_v7_2_funcs = {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-> index 11848d1e238b..3c11af99582f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-> @@ -101,10 +101,21 @@ static void nbio_v7_4_query_ras_error_count(struct amdgpu_device *adev,
->
->  static void nbio_v7_4_remap_hdp_registers(struct amdgpu_device *adev)
->  {
-> -       WREG32_SOC15(NBIO, 0, mmREMAP_HDP_MEM_FLUSH_CNTL,
-> -               adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
-> -       WREG32_SOC15(NBIO, 0, mmREMAP_HDP_REG_FLUSH_CNTL,
-> -               adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
-> +       if (amdgpu_sriov_vf(adev))
-> +               adev->rmmio_remap.reg_offset =
-> +                       SOC15_REG_OFFSET(
-> +                               NBIO, 0,
-> +                               mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL)
-> +                       << 2;
-> +
-> +       if (!amdgpu_sriov_vf(adev)) {
-> +               WREG32_SOC15(NBIO, 0, mmREMAP_HDP_MEM_FLUSH_CNTL,
-> +                            adev->rmmio_remap.reg_offset +
-> +                                    KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
-> +               WREG32_SOC15(NBIO, 0, mmREMAP_HDP_REG_FLUSH_CNTL,
-> +                            adev->rmmio_remap.reg_offset +
-> +                                    KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
-> +       }
->  }
->
->  static u32 nbio_v7_4_get_rev_id(struct amdgpu_device *adev)
-> @@ -343,10 +354,6 @@ static void nbio_v7_4_init_registers(struct amdgpu_device *adev)
->  {
->         uint32_t baco_cntl;
->
-> -       if (amdgpu_sriov_vf(adev))
-> -               adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
-> -                       mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
-> -
->         if (adev->ip_versions[NBIO_HWIP][0] == IP_VERSION(7, 4, 4) &&
->             !amdgpu_sriov_vf(adev)) {
->                 baco_cntl = RREG32_SOC15(NBIO, 0, mmBACO_CNTL);
-> --
-> 2.25.1
->
+so Trigger found another issues with this series which is now fixed.
+
+Patch #11 is just a shoot into the dark so far, could be that the VCN3/4
+problems are now solved. But could as well be that this needs more
+investigation.
+
+Bas still has a backtrace with this which I can't figure out why that is
+happening, but going to investigate further.
+
+Please review and comment,
+Christian.
+
+
