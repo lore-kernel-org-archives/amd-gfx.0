@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D7A6C64990
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:44:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5FB1C28D13
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:44:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E5A910E3A6;
-	Thu, 25 Aug 2022 14:44:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 596DD10E295;
+	Thu, 25 Aug 2022 14:44:02 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34C0A10E4D5
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:39:36 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FBF110E446
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:38:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661438375;
+ s=mimecast20190719; t=1661438323;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=NbidEuEmj0ip+acThUaZ1lCAqpjH/7g5iKO2PKg0/CQ=;
- b=N0+yTcnndohNhZTuQ8quqZiqWQH8V4n3hrg/SAX8xGOYHxz4LP59rjgJNABiCMVitduklP
- NnY/pA82R3oI8d2vcCZtE4nbVWFiiTJWVAAx85rf9VK2qQc6cOTFu4ot5Z/UP+DoLMv1Ey
- 8Co/ZltMpc2GQEmvXyLrSYUNbce50JM=
+ bh=mQ93MFygjHtn+pj1JiwZkpRA5Z7Viuv96I2pphNTU0o=;
+ b=L962hX0hIZyRH8CYezkT98lvypdPEqp+O5yuJm1T4gacOTBA7FLkoRWXUXa7dXjlDJpdxW
+ pvMf0Tdz9M+lcMUpRkYvLmqb30MgFMvv7p529cwgU/5AUztE/NirBMRZ3ZPf8NMErLybTf
+ 8CjGYfDPBpewtWwsBtsjPd3Mx/d2BOg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-489-7bohGBz7NumuyYWcGXRMjw-1; Thu, 25 Aug 2022 10:39:30 -0400
-X-MC-Unique: 7bohGBz7NumuyYWcGXRMjw-1
+ us-mta-146-Y9aOu4VIO323ITCLItn7kw-1; Thu, 25 Aug 2022 10:38:37 -0400
+X-MC-Unique: Y9aOu4VIO323ITCLItn7kw-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
  [10.11.54.6])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D2971811E76;
- Thu, 25 Aug 2022 14:39:28 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 57987185A7B2;
+ Thu, 25 Aug 2022 14:38:36 +0000 (UTC)
 Received: from shalem.redhat.com (unknown [10.39.193.46])
- by smtp.corp.redhat.com (Postfix) with ESMTP id CA3812166B29;
- Thu, 25 Aug 2022 14:39:24 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 46A5A2166B26;
+ Thu, 25 Aug 2022 14:38:32 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,10 +55,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v5 29/31] ACPI: video: Drop NL5x?U,
- PF4NU1F and PF5?U?? acpi_backlight=native quirks
-Date: Thu, 25 Aug 2022 16:37:24 +0200
-Message-Id: <20220825143726.269890-30-hdegoede@redhat.com>
+Subject: [PATCH v5 16/31] ACPI: video: Refactor
+ acpi_video_get_backlight_type() a bit
+Date: Thu, 25 Aug 2022 16:37:11 +0200
+Message-Id: <20220825143726.269890-17-hdegoede@redhat.com>
 In-Reply-To: <20220825143726.269890-1-hdegoede@redhat.com>
 References: <20220825143726.269890-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -76,8 +76,8 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Werner Sembach <wse@tuxedocomputers.com>, linux-acpi@vger.kernel.org,
- nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
+Cc: linux-acpi@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
  "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
  dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
  Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
@@ -86,129 +86,82 @@ Cc: Werner Sembach <wse@tuxedocomputers.com>, linux-acpi@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-acpi_backlight=native is the default for these, but as the comment
-explains the quirk was still necessary because even briefly registering
-the acpi_video0 backlight; and then unregistering it once the native
-driver showed up, was leading to issues.
+Refactor acpi_video_get_backlight_type() so that the heuristics /
+detection steps are stricly in order of descending precedence.
 
-After the "ACPI: video: Make backlight class device registration
-a separate step" patch from earlier in this patch-series, we no
-longer briefly register the acpi_video0 backlight on systems where
-the native driver should be used.
+Also move the comments describing the steps to when the various steps are
+actually done, to avoid the comments getting out of sync with the code.
 
-So this is no longer an issue an the quirks are no longer needed.
-
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=215683
-Tested-by: Werner Sembach <wse@tuxedocomputers.com>
 Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/acpi/video_detect.c | 92 +------------------------------------
- 1 file changed, 1 insertion(+), 91 deletions(-)
+ drivers/acpi/video_detect.c | 39 ++++++++++++++++++++++---------------
+ 1 file changed, 23 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-index af2833b57b8b..789d5913c178 100644
+index fb49b8f4523a..cc9d0d91e268 100644
 --- a/drivers/acpi/video_detect.c
 +++ b/drivers/acpi/video_detect.c
-@@ -609,97 +609,7 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
- 		DMI_MATCH(DMI_BOARD_NAME, "N250P"),
- 		},
- 	},
--	/*
--	 * Clevo NL5xRU and NL5xNU/TUXEDO Aura 15 Gen1 and Gen2 have both a
--	 * working native and video interface. However the default detection
--	 * mechanism first registers the video interface before unregistering
--	 * it again and switching to the native interface during boot. This
--	 * results in a dangling SBIOS request for backlight change for some
--	 * reason, causing the backlight to switch to ~2% once per boot on the
--	 * first power cord connect or disconnect event. Setting the native
--	 * interface explicitly circumvents this buggy behaviour, by avoiding
--	 * the unregistering process.
--	 */
--	{
--	.callback = video_detect_force_native,
--	.ident = "Clevo NL5xRU",
--	.matches = {
--		DMI_MATCH(DMI_BOARD_NAME, "NL5xRU"),
--		},
--	},
--	{
--	.callback = video_detect_force_native,
--	.ident = "Clevo NL5xRU",
--	.matches = {
--		DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
--		DMI_MATCH(DMI_BOARD_NAME, "AURA1501"),
--		},
--	},
--	{
--	.callback = video_detect_force_native,
--	.ident = "Clevo NL5xRU",
--	.matches = {
--		DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
--		DMI_MATCH(DMI_BOARD_NAME, "EDUBOOK1502"),
--		},
--	},
--	{
--	.callback = video_detect_force_native,
--	.ident = "Clevo NL5xNU",
--	.matches = {
--		DMI_MATCH(DMI_BOARD_NAME, "NL5xNU"),
--		},
--	},
--	/*
--	 * The TongFang PF5PU1G, PF4NU1F, PF5NU1G, and PF5LUXG/TUXEDO BA15 Gen10,
--	 * Pulse 14/15 Gen1, and Pulse 15 Gen2 have the same problem as the Clevo
--	 * NL5xRU and NL5xNU/TUXEDO Aura 15 Gen1 and Gen2. See the description
--	 * above.
--	 */
--	{
--	.callback = video_detect_force_native,
--	.ident = "TongFang PF5PU1G",
--	.matches = {
--		DMI_MATCH(DMI_BOARD_NAME, "PF5PU1G"),
--		},
--	},
--	{
--	.callback = video_detect_force_native,
--	.ident = "TongFang PF4NU1F",
--	.matches = {
--		DMI_MATCH(DMI_BOARD_NAME, "PF4NU1F"),
--		},
--	},
--	{
--	.callback = video_detect_force_native,
--	.ident = "TongFang PF4NU1F",
--	.matches = {
--		DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
--		DMI_MATCH(DMI_BOARD_NAME, "PULSE1401"),
--		},
--	},
--	{
--	.callback = video_detect_force_native,
--	.ident = "TongFang PF5NU1G",
--	.matches = {
--		DMI_MATCH(DMI_BOARD_NAME, "PF5NU1G"),
--		},
--	},
--	{
--	.callback = video_detect_force_native,
--	.ident = "TongFang PF5NU1G",
--	.matches = {
--		DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
--		DMI_MATCH(DMI_BOARD_NAME, "PULSE1501"),
--		},
--	},
--	{
--	.callback = video_detect_force_native,
--	.ident = "TongFang PF5LUXG",
--	.matches = {
--		DMI_MATCH(DMI_BOARD_NAME, "PF5LUXG"),
--		},
--	},
-+
- 	/*
- 	 * Desktops which falsely report a backlight and which our heuristics
- 	 * for this do not catch.
+@@ -537,16 +537,6 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ /*
+  * Determine which type of backlight interface to use on this system,
+  * First check cmdline, then dmi quirks, then do autodetect.
+- *
+- * The autodetect order is:
+- * 1) Is the acpi-video backlight interface supported ->
+- *  no, use a vendor interface
+- * 2) Is this a win8 "ready" BIOS and do we have a native interface ->
+- *  yes, use a native interface
+- * 3) Else use the acpi-video interface
+- *
+- * Arguably the native on win8 check should be done first, but that would
+- * be a behavior change, which may causes issues.
+  */
+ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+ {
+@@ -569,19 +559,36 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+ 		native_available = true;
+ 	mutex_unlock(&init_mutex);
+ 
++	/*
++	 * The below heuristics / detection steps are in order of descending
++	 * presedence. The commandline takes presedence over anything else.
++	 */
+ 	if (acpi_backlight_cmdline != acpi_backlight_undef)
+ 		return acpi_backlight_cmdline;
+ 
++	/* DMI quirks override any autodetection. */
+ 	if (acpi_backlight_dmi != acpi_backlight_undef)
+ 		return acpi_backlight_dmi;
+ 
+-	if (!(video_caps & ACPI_VIDEO_BACKLIGHT))
+-		return acpi_backlight_vendor;
+-
+-	if (acpi_osi_is_win8() && native_available)
+-		return acpi_backlight_native;
++	/* On systems with ACPI video use either native or ACPI video. */
++	if (video_caps & ACPI_VIDEO_BACKLIGHT) {
++		/*
++		 * Windows 8 and newer no longer use the ACPI video interface,
++		 * so it often does not work. If the ACPI tables are written
++		 * for win8 and native brightness ctl is available, use that.
++		 *
++		 * The native check deliberately is inside the if acpi-video
++		 * block on older devices without acpi-video support native
++		 * is usually not the best choice.
++		 */
++		if (acpi_osi_is_win8() && native_available)
++			return acpi_backlight_native;
++		else
++			return acpi_backlight_video;
++	}
+ 
+-	return acpi_backlight_video;
++	/* No ACPI video (old hw), use vendor specific fw methods. */
++	return acpi_backlight_vendor;
+ }
+ 
+ enum acpi_backlight_type acpi_video_get_backlight_type(void)
 -- 
 2.37.2
 
