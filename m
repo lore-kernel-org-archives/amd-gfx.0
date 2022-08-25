@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F653C04AA5
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:38:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8428FC04AA5
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:39:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6A7AD0BBF;
-	Thu, 25 Aug 2022 01:37:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9762AD0BDB;
+	Thu, 25 Aug 2022 01:37:32 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D10E5D08FB;
- Thu, 25 Aug 2022 01:36:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB85412BA07;
+ Thu, 25 Aug 2022 01:36:36 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0FE5A61AF5;
- Thu, 25 Aug 2022 01:36:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6048FC433C1;
- Thu, 25 Aug 2022 01:36:46 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2E38761AC0;
+ Thu, 25 Aug 2022 01:36:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F46DC433D6;
+ Thu, 25 Aug 2022 01:36:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661391407;
- bh=6y2CEd1u9Su1zaXFQgHgKgA4r6KSVGRWB5cN6xNdCrQ=;
+ s=k20201202; t=1661391395;
+ bh=XLti2z83tYygHF8SczBuJpgN/M6l3Ns3xwx5EIoSAZs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KgL+3avRMD+252eyhwzvEfcT1/J0wKtHdX4NVVumSyZXzgRVTfpIpUsm2MI4z2OvV
- p9NzNyhWA/PZdNULNf04pv8F+5Pn6M/bLZ6d2SjnVWmc2Z2io78sftmtLORWFTVrlJ
- 0rrkklS9kmTO0zKe2U3lXHEwA5ojrHzrr0daUYQE2aVlHJYTDTPe4h7ImHlrrR9GoA
- FAKHmoJnYF0Wds0xBeMcS6T/HbXc+eC33JhqVrCab6ZoMvPSrG8nWK7gyly7doiqa4
- I63HYfGrUdqnm/fWFXMUfUx2davw82ysd+oeIxRsUhFl8S1RDWW1q1LEPOIR+CwuqA
- tHxcMQe0JtF7Q==
+ b=NxRkzXCaUaYrlJabi2T4Qc/0276kd4LX8pWOq04KBiYApK3SNq+6slrF4+M/0uSbT
+ uZHely7AUQInA1O7Q3tI3mFvVkKyWKtoh4kcHdgiPUyhUxJ3NTeseEzNzd7rFN7eTd
+ iK3rFS9JTUyuH41s/C6QylKFsBPbybGYK8rxIuAFluIc5ZJKEplq3684MGDGOSIvAN
+ 0yBZn21+BMQrSb2SquVaQ2uugm/Pind0JErP4YFtzfGQTE9QqY3rqeap7fwMQHS0zC
+ KaLyhLTznQAEaLDBOOUDgMFP5w/0ARkSxnrXjyVuL/8UdEdh+m4gSid5VJfcRlkcq4
+ dp/lGiqyemURQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 29/38] drm/amdgpu: Add secure display TA load for
- Renoir
-Date: Wed, 24 Aug 2022 21:33:52 -0400
-Message-Id: <20220825013401.22096-29-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 27/38] drm/amd/display: avoid doing vm_init
+ multiple time
+Date: Wed, 24 Aug 2022 21:33:50 -0400
+Message-Id: <20220825013401.22096-27-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220825013401.22096-1-sashal@kernel.org>
 References: <20220825013401.22096-1-sashal@kernel.org>
@@ -55,49 +55,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie, Xinhui.Pan@amd.com,
- Shane Xiao <shane.xiao@amd.com>, amd-gfx@lists.freedesktop.org,
- Aaron Liu <aaron.liu@amd.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, candice.li@amd.com,
- john.clements@amd.com, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Charlene Liu <Charlene.Liu@amd.com>,
+ Brian Chang <Brian.Chang@amd.com>, sunpeng.li@amd.com, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
+ Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Martin Leung <Martin.Leung@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, isabbasso@riseup.net,
+ harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Shane Xiao <shane.xiao@amd.com>
+From: Charlene Liu <Charlene.Liu@amd.com>
 
-[ Upstream commit e42dfa66d59240afbdd8d4b47b87486db39504aa ]
+[ Upstream commit 5544a7b5a07480192eb5fd3536462faed2c21528 ]
 
-Add secure display TA load for Renoir
+[why]
+this is to ensure that driver will not reprogram hvm_prefetch_req again if
+it is done.
 
-Signed-off-by: Shane Xiao <shane.xiao@amd.com>
-Reviewed-by: Aaron Liu <aaron.liu@amd.com>
+Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+Acked-by: Brian Chang <Brian.Chang@amd.com>
+Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/psp_v12_0.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-index a2588200ea58..0b2ac418e4ac 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-@@ -101,6 +101,16 @@ static int psp_v12_0_init_microcode(struct psp_context *psp)
- 		adev->psp.dtm_context.context.bin_desc.start_addr =
- 			(uint8_t *)adev->psp.hdcp_context.context.bin_desc.start_addr +
- 			le32_to_cpu(ta_hdr->dtm.offset_bytes);
-+
-+		if (adev->apu_flags & AMD_APU_IS_RENOIR) {
-+			adev->psp.securedisplay_context.context.bin_desc.fw_version =
-+				le32_to_cpu(ta_hdr->securedisplay.fw_version);
-+			adev->psp.securedisplay_context.context.bin_desc.size_bytes =
-+				le32_to_cpu(ta_hdr->securedisplay.size_bytes);
-+			adev->psp.securedisplay_context.context.bin_desc.start_addr =
-+				(uint8_t *)adev->psp.hdcp_context.context.bin_desc.start_addr +
-+				le32_to_cpu(ta_hdr->securedisplay.offset_bytes);
-+		}
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
+index c5e200d09038..5752271f22df 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
+@@ -67,9 +67,15 @@ static uint32_t convert_and_clamp(
+ void dcn21_dchvm_init(struct hubbub *hubbub)
+ {
+ 	struct dcn20_hubbub *hubbub1 = TO_DCN20_HUBBUB(hubbub);
+-	uint32_t riommu_active;
++	uint32_t riommu_active, prefetch_done;
+ 	int i;
  
- 	return 0;
++	REG_GET(DCHVM_RIOMMU_STAT0, HOSTVM_PREFETCH_DONE, &prefetch_done);
++
++	if (prefetch_done) {
++		hubbub->riommu_active = true;
++		return;
++	}
+ 	//Init DCHVM block
+ 	REG_UPDATE(DCHVM_CTRL0, HOSTVM_INIT_REQ, 1);
+ 
 -- 
 2.35.1
 
