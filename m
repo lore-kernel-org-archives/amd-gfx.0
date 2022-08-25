@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FEF6C65C0D
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:44:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6817DC64990
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:44:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05EF210E1A1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B94110E27B;
 	Thu, 25 Aug 2022 14:44:02 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57D2710E5E2
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:39:19 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87FBF10E30B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:38:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661438358;
+ s=mimecast20190719; t=1661438338;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Y5AZRbtcocPlhsNgcUoq7owlZ1xT0HJ1/3Jh71n9qKs=;
- b=FZJmygKsA15Mo/gm3sczN3jGGdC+hgaq6CaOpAudVS47oPhwDxYX7K3afCoP8c+IJK4jcD
- Q0yftnSRQzb+Uypq0nN3qjwOvEbYPNRx2G5fVQVcU1e+7yWUkYDtlp/SWZesQnRhngwPw8
- BPOACB2pUh3ZUhWqr61whZr5Kt5AXPQ=
+ bh=YqEqzSG53aD58AoTXBk3s3SN9cZL717VoO9W1oD9K+k=;
+ b=EDkM3XMDlxpuoIqHEgA+J8uqSd9boxM+agdHVg2+xlWSlOljQFm46iDslFqj94eXOdDALT
+ hfA/152PS1S1BOfypBECC+VD72VTFxQZwi3gBJQlJJ58e91tBTJ42x/03KAX1sxBQoYhPQ
+ t84ti7Jl8mhaRWTcMHvKOJHT+hFpOBw=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-544-ev_2jaOwM46UeVYjSVouQA-1; Thu, 25 Aug 2022 10:39:13 -0400
-X-MC-Unique: ev_2jaOwM46UeVYjSVouQA-1
+ us-mta-581-A_UGX2UNP3SMZzAVsOMUuw-1; Thu, 25 Aug 2022 10:38:53 -0400
+X-MC-Unique: A_UGX2UNP3SMZzAVsOMUuw-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
  [10.11.54.6])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7AC02185A794;
- Thu, 25 Aug 2022 14:39:12 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3FF7380A0B9;
+ Thu, 25 Aug 2022 14:38:52 +0000 (UTC)
 Received: from shalem.redhat.com (unknown [10.39.193.46])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B08FC2166B26;
- Thu, 25 Aug 2022 14:39:08 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 845422166B26;
+ Thu, 25 Aug 2022 14:38:48 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,10 +55,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v5 25/31] platform/x86: asus-wmi: Move acpi_backlight=native
- quirks to ACPI video_detect.c
-Date: Thu, 25 Aug 2022 16:37:20 +0200
-Message-Id: <20220825143726.269890-26-hdegoede@redhat.com>
+Subject: [PATCH v5 20/31] platform/x86: apple-gmux: Stop calling acpi/video.h
+ functions
+Date: Thu, 25 Aug 2022 16:37:15 +0200
+Message-Id: <20220825143726.269890-21-hdegoede@redhat.com>
 In-Reply-To: <20220825143726.269890-1-hdegoede@redhat.com>
 References: <20220825143726.269890-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -77,111 +77,52 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-acpi@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@redhat.com>,
- Len Brown <lenb@kernel.org>
+ intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the asus-wmi quirk_entry.wmi_backlight_native quirk-flag, which
-called acpi_video_set_dmi_backlight_type(acpi_backlight_native) and replace
-it with acpi/video_detect.c video_detect_dmi_table[] entries using the
-video_detect_force_native callback.
+Now that acpi_video_get_backlight_type() has apple-gmux detection (using
+apple_gmux_present()), it is no longer necessary for the apple-gmux code
+to manually remove possibly conflicting drivers.
 
-acpi_video_set_dmi_backlight_type() is troublesome because it may end up
-getting called after other backlight drivers have already called
-acpi_video_get_backlight_type() resulting in the other drivers
-already being registered even though they should not.
+So remove the handling for this from the apple-gmux driver.
 
-Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/acpi/video_detect.c        |  8 ++++++++
- drivers/platform/x86/asus-nb-wmi.c | 14 --------------
- drivers/platform/x86/asus-wmi.c    |  3 ---
- drivers/platform/x86/asus-wmi.h    |  1 -
- 4 files changed, 8 insertions(+), 18 deletions(-)
+ drivers/platform/x86/apple-gmux.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-index d893313fe1a0..a09089e7fada 100644
---- a/drivers/acpi/video_detect.c
-+++ b/drivers/acpi/video_detect.c
-@@ -564,6 +564,14 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
- 		DMI_MATCH(DMI_PRODUCT_NAME, "GA503"),
- 		},
- 	},
-+	{
-+	 .callback = video_detect_force_native,
-+	 /* Asus UX303UB */
-+	 .matches = {
-+		DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "UX303UB"),
-+		},
-+	},
- 	/*
- 	 * Clevo NL5xRU and NL5xNU/TUXEDO Aura 15 Gen1 and Gen2 have both a
- 	 * working native and video interface. However the default detection
-diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-index 810a94557a85..bbfed85051ee 100644
---- a/drivers/platform/x86/asus-nb-wmi.c
-+++ b/drivers/platform/x86/asus-nb-wmi.c
-@@ -97,11 +97,6 @@ static struct quirk_entry quirk_asus_x200ca = {
- 	.wmi_backlight_set_devstate = true,
- };
+diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
+index ffe98a18440b..ca33df7ea550 100644
+--- a/drivers/platform/x86/apple-gmux.c
++++ b/drivers/platform/x86/apple-gmux.c
+@@ -21,7 +21,6 @@
+ #include <linux/delay.h>
+ #include <linux/pci.h>
+ #include <linux/vga_switcheroo.h>
+-#include <acpi/video.h>
+ #include <asm/io.h>
  
--static struct quirk_entry quirk_asus_ux303ub = {
--	.wmi_backlight_native = true,
--	.wmi_backlight_set_devstate = true,
--};
--
- static struct quirk_entry quirk_asus_x550lb = {
- 	.wmi_backlight_set_devstate = true,
- 	.xusb2pr = 0x01D9,
-@@ -372,15 +367,6 @@ static const struct dmi_system_id asus_quirks[] = {
- 		},
- 		.driver_data = &quirk_asus_x200ca,
- 	},
--	{
--		.callback = dmi_matched,
--		.ident = "ASUSTeK COMPUTER INC. UX303UB",
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
--			DMI_MATCH(DMI_PRODUCT_NAME, "UX303UB"),
--		},
--		.driver_data = &quirk_asus_ux303ub,
--	},
- 	{
- 		.callback = dmi_matched,
- 		.ident = "ASUSTeK COMPUTER INC. UX330UAK",
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index 5cf9d9aff164..434249ac47a5 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -3634,9 +3634,6 @@ static int asus_wmi_add(struct platform_device *pdev)
- 	if (asus->driver->quirks->wmi_force_als_set)
- 		asus_wmi_set_als();
+ /**
+@@ -694,7 +693,6 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 	 * backlight control and supports more levels than other options.
+ 	 * Disable the other backlight choices.
+ 	 */
+-	acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
+ 	apple_bl_unregister();
  
--	if (asus->driver->quirks->wmi_backlight_native)
--		acpi_video_set_dmi_backlight_type(acpi_backlight_native);
--
- 	if (asus->driver->quirks->xusb2pr)
- 		asus_wmi_set_xusb2pr(asus);
+ 	gmux_data->power_state = VGA_SWITCHEROO_ON;
+@@ -804,7 +802,6 @@ static void gmux_remove(struct pnp_dev *pnp)
+ 	apple_gmux_data = NULL;
+ 	kfree(gmux_data);
  
-diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
-index 30770e411301..f30252efe1db 100644
---- a/drivers/platform/x86/asus-wmi.h
-+++ b/drivers/platform/x86/asus-wmi.h
-@@ -29,7 +29,6 @@ struct quirk_entry {
- 	bool hotplug_wireless;
- 	bool scalar_panel_brightness;
- 	bool store_backlight_power;
--	bool wmi_backlight_native;
- 	bool wmi_backlight_set_devstate;
- 	bool wmi_force_als_set;
- 	bool use_kbd_dock_devid;
+-	acpi_video_register();
+ 	apple_bl_register();
+ }
+ 
 -- 
 2.37.2
 
