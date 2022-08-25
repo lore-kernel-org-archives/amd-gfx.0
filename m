@@ -4,56 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EAA5ECAA25
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 18:22:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF266ECAAA3
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 21:39:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24AC810E0A0;
-	Thu, 25 Aug 2022 18:22:30 +0000 (UTC)
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
- [IPv6:2001:4860:4864:20::36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D7F810E095;
- Thu, 25 Aug 2022 18:22:27 +0000 (UTC)
-Received: by mail-oa1-x36.google.com with SMTP id
- 586e51a60fabf-11cb3c811d9so24288610fac.1; 
- Thu, 25 Aug 2022 11:22:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D50EB10E337;
+	Thu, 25 Aug 2022 21:39:31 +0000 (UTC)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DA0110E322;
+ Thu, 25 Aug 2022 21:27:33 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id
+ k18-20020a05600c0b5200b003a5dab49d0bso3156433wmr.3; 
+ Thu, 25 Aug 2022 14:27:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=MGe3WpmXir6Ke6Ubn/rvyEt+IuTgTbmR2BcwTZxEuos=;
- b=ay81z9kuifVn+h4UdfbrMIDA14dtt9RZ8zv+D9rZ9QCc/wr66/okNM/hnmGJ8KaBLX
- gKu+qAsnIFzfv1ohz67mNbVSvhpROiPQp4GR09S8dHQBZsqO6eRO+eOPQM1LXpv73qFb
- ta4G05KLFpXGCR2J8dmXcqjMiVWNuy1svsXCcZop6EQdKGt+b53X0iRwlEHPL4yMaAyD
- KaZ9GZytXN+au5zzDNHIUpNuaM++X/hdiA0KGAj4SYxzE3fXXKfp3WNFtey4omNd6kC9
- mpzWP9M8ZRvORoPJNC289WjbIIHT8N9Q3VCEZ+H8zauMzmL2Rh13eJ1gd3HnxZSVlaci
- qlfA==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc;
+ bh=gVyA5Z8on1cy579HoV3noOGIo3WqfSZOmskPQryMgtM=;
+ b=eh/92dgXe0iyyY3sIgffq4zQH1CFGZMuz44bFe8eqZHrFui9w/sE6IF5yB6Fdl31m9
+ q/giSA6K9TF82r9Z7/3a4lVAFzW09wfSy/165AHuuX16K0vRUPKCGD88QxiQrmNNKFx/
+ PNqEaEBMyUErAL98l5VkqMECNhnqLIbgF9x4D6cHJgp36/cUymxzMzQQUJrrxSPR1sbt
+ tHiJVRpf39VhrJtrS58T4jfliailuywTFaV0Thv6p9mpo8wn9z+7N1sXsoBeOU89UV5s
+ QbzmqMrzJx9P96pqjjVEkAMxG/vEgHLJT3Oq/CqKdjvYxbHH4kMnlj0pz7TUi/E6SNFj
+ m1bQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=MGe3WpmXir6Ke6Ubn/rvyEt+IuTgTbmR2BcwTZxEuos=;
- b=xFpmwEb+JVahW4TXeNM/7Ti+h0UlymzomeoDET/U+z9xOIzIAmEa3ERdUcQrOJ+ub7
- 1gRDAGDr1qF6D9NuYN8f8CuoSpyxAZ7LUGJMKvvSrgJqt5a0b7xtvvMPWOuiXH2mKAHr
- uW959eUD0BQHOLKmku6/qwUhK1FQw3rwt81QITlb8VEJfBVs3tNPaETXI8pQeeNR9LPI
- zYIPaq8W/Ph1HOsw++9M2BOfHQQ7rL2oq+ixTftVSvGslsU9XFLIG4jBT4JBtfxerQTH
- tVWbLIA9I4lKRtkdjMgPADGpIJqqe8SlxoDRMvb5+FJoBBAY8sG435FXEuS9FHEw7GrH
- 9Ndw==
-X-Gm-Message-State: ACgBeo0kSRCKQgAv35BRJSO/Tv7oT48Y0YrunGzK07DjOX2q3ShIiBfo
- DE55xGTTGCaFx74RtijVROpJB2GSGdb+bth6MGQ=
-X-Google-Smtp-Source: AA6agR4PiMpS5zvDjJzh9SNmvRuEzLxk+3w7piJb+fuQZmrMsOnKR2PCDeQpWyrdrHwXwmRVQ5SS8n0LgAZ1BD7Y95I=
-X-Received: by 2002:a05:6870:3484:b0:11e:4465:3d9b with SMTP id
- n4-20020a056870348400b0011e44653d9bmr211969oah.46.1661451746692; Thu, 25 Aug
- 2022 11:22:26 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+ bh=gVyA5Z8on1cy579HoV3noOGIo3WqfSZOmskPQryMgtM=;
+ b=7MHXnOUInU67yVrwyAI7CH6PPdmHoGKAhmYITd2kdKNx0vu+n1xt7HdXIXc+IeHuyZ
+ NfDvBWXFOvEvnsJNF9PXIQkWGtfdsTmdj74iWJuR6qQkr6cub8vmC6SluUXuKDUj0n1M
+ WXlqSo9eiH5PmO8R2UARQWUaYi5iM6GT8jYt1y7E3JJz5LyfhmEb4oLH+5oub6M01D0h
+ bkzjZeDxmPpmePbU4Sj2/JEzydVlGJkXF+m8r4/1dlnXC81Qmi0L0uCT7d6FJDQKGpqj
+ 1pPURzOmJUB+jPK944mYi0emcUsewbZxyUCLbZPhLyw3IHNl4ztMe6OI2fFOV+x7J5tg
+ Q+pA==
+X-Gm-Message-State: ACgBeo204vrPLIz3k71sWnEvbyLDSZMft0hnazkZxBHPRL2QfxUZvrDJ
+ UhrTQBK8dsyEBxGqdXTpsqM=
+X-Google-Smtp-Source: AA6agR6cucYg/Du4YLrUO/NU1z88fXBAfmGuIRfE4Qrrqd+tO0lSZk3dovhgHxZZ4bK1jgQbd4MAWw==
+X-Received: by 2002:a05:600c:198e:b0:3a5:d4a2:8896 with SMTP id
+ t14-20020a05600c198e00b003a5d4a28896mr8967780wmq.140.1661462851646; 
+ Thu, 25 Aug 2022 14:27:31 -0700 (PDT)
+Received: from kista.localnet (82-149-1-172.dynamic.telemach.net.
+ [82.149.1.172]) by smtp.gmail.com with ESMTPSA id
+ k1-20020a5d6e81000000b0021e8d205705sm242110wrz.51.2022.08.25.14.27.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Aug 2022 14:27:31 -0700 (PDT)
+From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: linux-kernel@vger.kernel.org,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>
+Subject: Re: [PATCH] gpu: move from strlcpy with unused retval to strscpy
+Date: Thu, 25 Aug 2022 23:27:29 +0200
+Message-ID: <22761203.6Emhk5qWAg@kista>
+In-Reply-To: <20220818210008.6721-1-wsa+renesas@sang-engineering.com>
+References: <20220818210008.6721-1-wsa+renesas@sang-engineering.com>
 MIME-Version: 1.0
-References: <20220824150834.427572-1-contact@emersion.fr>
- <20220824150834.427572-5-contact@emersion.fr>
-In-Reply-To: <20220824150834.427572-5-contact@emersion.fr>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 25 Aug 2022 14:22:15 -0400
-Message-ID: <CADnq5_MX0Qh7v-Wy1nBhMEWT9bhmQn4W-2Wo97CZgKcby1Xc+w@mail.gmail.com>
-Subject: Re: [PATCH 4/4] amd/display: indicate support for atomic async
- page-flips on DCN
-To: Simon Ser <contact@emersion.fr>
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Thu, 25 Aug 2022 21:39:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,56 +71,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, amd-gfx@lists.freedesktop.org, mwen@igalia.com,
- dri-devel@lists.freedesktop.org, alexander.deucher@amd.com, hwentlan@amd.com,
- nicholas.kazlauskas@amd.com, joshua@froggi.es
+Cc: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Samuel Holland <samuel@sholland.org>,
+ Russell King <linux@armlinux.org.uk>, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
+ linux-sunxi@lists.linux.dev, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jonas Karlman <jonas@kwiboo.se>,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-mediatek@lists.infradead.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Evan Quan <evan.quan@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Sandy Huang <hjc@rock-chips.com>,
+ Robert Foss <robert.foss@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 24, 2022 at 11:09 AM Simon Ser <contact@emersion.fr> wrote:
->
-> amdgpu_dm_commit_planes already sets the flip_immediate flag for
-> async page-flips. This flag is used to set the UNP_FLIP_CONTROL
-> register. Thus, no additional change is required to handle async
-> page-flips with the atomic uAPI.
->
-> Note, async page-flips are still unsupported on DCE with the atomic
-> uAPI. The mode_set_base callbacks unconditionally set the
-> GRPH_SURFACE_UPDATE_H_RETRACE_EN field of the GRPH_FLIP_CONTROL
-> register to 0, which disables async page-flips.
+Dne =C4=8Detrtek, 18. avgust 2022 ob 23:00:07 CEST je Wolfram Sang napisal(=
+a):
+> Follow the advice of the below link and prefer 'strscpy' in this
+> subsystem. Conversion is 1:1 because the return value is not used.
+> Generated by a coccinelle script.
+>=20
+> Link:
+> https://lore.kernel.org/r/CAHk-=3DwgfRnXz0W3D37d01q3JFkr_i_uTL=3DV6A6G1oU=
+Zcprmk
+> nw@mail.gmail.com/ Signed-off-by: Wolfram Sang
+> <wsa+renesas@sang-engineering.com>
 
-Can you elaborate a bit on this? We don't use hsync flips at all, even
-in non-atomic, as far as I recall.  The hardware can also do immediate
-flips which take effect as soon as you update the base address
-register which is what we use for async updates today IIRC.
+Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-Alex
+Best regards,
+Jernej
 
->
-> Signed-off-by: Simon Ser <contact@emersion.fr>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: Joshua Ashton <joshua@froggi.es>
-> Cc: Melissa Wen <mwen@igalia.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Harry Wentland <hwentlan@amd.com>
-> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 > ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index ef816bf295eb..9ab01c58bedb 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3804,7 +3804,6 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
->         adev_to_drm(adev)->mode_config.prefer_shadow = 0;
->         /* indicates support for immediate flip */
->         adev_to_drm(adev)->mode_config.async_page_flip = true;
-> -       adev_to_drm(adev)->mode_config.atomic_async_page_flip_not_supported = true;
->
->         adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
->
-> --
-> 2.37.2
->
->
+>  drivers/gpu/drm/amd/amdgpu/atom.c                   | 2 +-
+>  drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c      | 2 +-
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c | 6 +++---
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c           | 2 +-
+>  drivers/gpu/drm/display/drm_dp_helper.c             | 2 +-
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c       | 2 +-
+>  drivers/gpu/drm/drm_mipi_dsi.c                      | 2 +-
+>  drivers/gpu/drm/i2c/tda998x_drv.c                   | 2 +-
+>  drivers/gpu/drm/i915/selftests/i915_perf.c          | 2 +-
+>  drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c             | 2 +-
+>  drivers/gpu/drm/radeon/radeon_atombios.c            | 4 ++--
+>  drivers/gpu/drm/radeon/radeon_combios.c             | 4 ++--
+>  drivers/gpu/drm/rockchip/inno_hdmi.c                | 2 +-
+>  drivers/gpu/drm/rockchip/rk3066_hdmi.c              | 2 +-
+>  drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c              | 2 +-
+>  15 files changed, 19 insertions(+), 19 deletions(-)
+
+
+
