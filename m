@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8428FC04AA5
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:39:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F23EC04AA5
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:39:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9762AD0BDB;
-	Thu, 25 Aug 2022 01:37:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FA95D0C7D;
+	Thu, 25 Aug 2022 01:37:58 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB85412BA07;
- Thu, 25 Aug 2022 01:36:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA9F4D0AD2;
+ Thu, 25 Aug 2022 01:36:17 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2E38761AC0;
- Thu, 25 Aug 2022 01:36:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F46DC433D6;
- Thu, 25 Aug 2022 01:36:32 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E088461ACA;
+ Thu, 25 Aug 2022 01:36:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7A9C433C1;
+ Thu, 25 Aug 2022 01:36:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661391395;
- bh=XLti2z83tYygHF8SczBuJpgN/M6l3Ns3xwx5EIoSAZs=;
+ s=k20201202; t=1661391376;
+ bh=YBZ+6laVo8W5ylXTJ55noRPKF3J+4Hs6X37uCv7HT50=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NxRkzXCaUaYrlJabi2T4Qc/0276kd4LX8pWOq04KBiYApK3SNq+6slrF4+M/0uSbT
- uZHely7AUQInA1O7Q3tI3mFvVkKyWKtoh4kcHdgiPUyhUxJ3NTeseEzNzd7rFN7eTd
- iK3rFS9JTUyuH41s/C6QylKFsBPbybGYK8rxIuAFluIc5ZJKEplq3684MGDGOSIvAN
- 0yBZn21+BMQrSb2SquVaQ2uugm/Pind0JErP4YFtzfGQTE9QqY3rqeap7fwMQHS0zC
- KaLyhLTznQAEaLDBOOUDgMFP5w/0ARkSxnrXjyVuL/8UdEdh+m4gSid5VJfcRlkcq4
- dp/lGiqyemURQ==
+ b=iIbD98dPiTAWxQ+NK9wrrGCtKuIyB+vyw09XITzCla4rX5I6HlKPHVMUNrT4lgQEB
+ WYZiKUGgv98Uf4Co4mMzkhVQdC37qIR2TvdTsqQH3rUfJQLOVSy83LT4zSSeKgVpKa
+ cSH7ImPgCXrwV45MyoVPMJh75fpmoueOvwfgUFOJ5ZPlCncHZ6ZsXlx3uPcvkhGY9e
+ lPms2OOcEZebQc1qjS7pCmQmsdB5HNPxyk2FmzkLPQul0LEKQz/NHo3HPIOrNzAsY5
+ a/L1yLIZRjS3TZ7/kH5v/L7jxH6+LV+FubrYzSLWmrE0ItB15zlpC3yAhE3ov2FvZD
+ pn51kCfVh3GTg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 27/38] drm/amd/display: avoid doing vm_init
- multiple time
-Date: Wed, 24 Aug 2022 21:33:50 -0400
-Message-Id: <20220825013401.22096-27-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 24/38] drm/amd/display: Fix pixel clock
+ programming
+Date: Wed, 24 Aug 2022 21:33:47 -0400
+Message-Id: <20220825013401.22096-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220825013401.22096-1-sashal@kernel.org>
 References: <20220825013401.22096-1-sashal@kernel.org>
@@ -55,55 +55,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Charlene Liu <Charlene.Liu@amd.com>,
- Brian Chang <Brian.Chang@amd.com>, sunpeng.li@amd.com, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
- Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Martin Leung <Martin.Leung@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, isabbasso@riseup.net,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: HaoPing.Liu@amd.com, Aric Cyr <Aric.Cyr@amd.com>, airlied@linux.ie,
+ dri-devel@lists.freedesktop.org, Sasha Levin <sashal@kernel.org>,
+ Brian Chang <Brian.Chang@amd.com>, baihaowen@meizu.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, alex.hung@amd.com,
+ michael.strauss@amd.com, harry.wentland@amd.com,
+ Ilya Bakoulin <Ilya.Bakoulin@amd.com>, Charlene.Liu@amd.com,
+ sunpeng.li@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Hansen.Dsouza@amd.com, dillon.varone@amd.com, David.Galiffi@amd.com,
+ Xinhui.Pan@amd.com, daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Charlene Liu <Charlene.Liu@amd.com>
+From: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
 
-[ Upstream commit 5544a7b5a07480192eb5fd3536462faed2c21528 ]
+[ Upstream commit 04fb918bf421b299feaee1006e82921d7d381f18 ]
 
-[why]
-this is to ensure that driver will not reprogram hvm_prefetch_req again if
-it is done.
+[Why]
+Some pixel clock values could cause HDMI TMDS SSCPs to be misaligned
+between different HDMI lanes when using YCbCr420 10-bit pixel format.
 
-Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+BIOS functions for transmitter/encoder control take pixel clock in kHz
+increments, whereas the function for setting the pixel clock is in 100Hz
+increments. Setting pixel clock to a value that is not on a kHz boundary
+will cause the issue.
+
+[How]
+Round pixel clock down to nearest kHz in 10/12-bpc cases.
+
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Brian Chang <Brian.Chang@amd.com>
-Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
+Signed-off-by: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
-index c5e200d09038..5752271f22df 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
-@@ -67,9 +67,15 @@ static uint32_t convert_and_clamp(
- void dcn21_dchvm_init(struct hubbub *hubbub)
- {
- 	struct dcn20_hubbub *hubbub1 = TO_DCN20_HUBBUB(hubbub);
--	uint32_t riommu_active;
-+	uint32_t riommu_active, prefetch_done;
- 	int i;
- 
-+	REG_GET(DCHVM_RIOMMU_STAT0, HOSTVM_PREFETCH_DONE, &prefetch_done);
-+
-+	if (prefetch_done) {
-+		hubbub->riommu_active = true;
-+		return;
-+	}
- 	//Init DCHVM block
- 	REG_UPDATE(DCHVM_CTRL0, HOSTVM_INIT_REQ, 1);
- 
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+index 845aa8a1027d..c4040adb88b0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -545,9 +545,11 @@ static void dce112_get_pix_clk_dividers_helper (
+ 		switch (pix_clk_params->color_depth) {
+ 		case COLOR_DEPTH_101010:
+ 			actual_pixel_clock_100hz = (actual_pixel_clock_100hz * 5) >> 2;
++			actual_pixel_clock_100hz -= actual_pixel_clock_100hz % 10;
+ 			break;
+ 		case COLOR_DEPTH_121212:
+ 			actual_pixel_clock_100hz = (actual_pixel_clock_100hz * 6) >> 2;
++			actual_pixel_clock_100hz -= actual_pixel_clock_100hz % 10;
+ 			break;
+ 		case COLOR_DEPTH_161616:
+ 			actual_pixel_clock_100hz = actual_pixel_clock_100hz * 2;
 -- 
 2.35.1
 
