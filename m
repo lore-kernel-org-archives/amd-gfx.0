@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA4FEC65C0D
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:44:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D7A6C64990
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:44:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B959710E42B;
-	Thu, 25 Aug 2022 14:44:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E5A910E3A6;
+	Thu, 25 Aug 2022 14:44:03 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BD4610E40A
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:38:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34C0A10E4D5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:39:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661438305;
+ s=mimecast20190719; t=1661438375;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fOeeyd28x6dVZNNKvHRTje8vmuWuBbVTEorOa1h0ALg=;
- b=MYYytxyXXt8iuU7avtQW4YdDpD12J0Ae6txvstJ60OhpO/HKEUD8pDTw8u1jRpZvZ5/0P1
- HB/QnO7XMXe+hpIEClHisE5gMJtedy4hsnSsvnynX0CQClhCCssn25+x4z2/3YG8TPGXEE
- QrU4mpggZ8Gq9V5Hkku7Fa1/oZxp8Mw=
+ bh=NbidEuEmj0ip+acThUaZ1lCAqpjH/7g5iKO2PKg0/CQ=;
+ b=N0+yTcnndohNhZTuQ8quqZiqWQH8V4n3hrg/SAX8xGOYHxz4LP59rjgJNABiCMVitduklP
+ NnY/pA82R3oI8d2vcCZtE4nbVWFiiTJWVAAx85rf9VK2qQc6cOTFu4ot5Z/UP+DoLMv1Ey
+ 8Co/ZltMpc2GQEmvXyLrSYUNbce50JM=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-373-asw7y-rjPoacBS83BOnxkA-1; Thu, 25 Aug 2022 10:38:23 -0400
-X-MC-Unique: asw7y-rjPoacBS83BOnxkA-1
+ us-mta-489-7bohGBz7NumuyYWcGXRMjw-1; Thu, 25 Aug 2022 10:39:30 -0400
+X-MC-Unique: 7bohGBz7NumuyYWcGXRMjw-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
  [10.11.54.6])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2CD0E804191;
- Thu, 25 Aug 2022 14:38:20 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D2971811E76;
+ Thu, 25 Aug 2022 14:39:28 +0000 (UTC)
 Received: from shalem.redhat.com (unknown [10.39.193.46])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 821822166B26;
- Thu, 25 Aug 2022 14:38:16 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id CA3812166B29;
+ Thu, 25 Aug 2022 14:39:24 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,10 +55,10 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v5 12/31] drm/nouveau: Register ACPI video backlight when
- nv_backlight registration fails (v2)
-Date: Thu, 25 Aug 2022 16:37:07 +0200
-Message-Id: <20220825143726.269890-13-hdegoede@redhat.com>
+Subject: [PATCH v5 29/31] ACPI: video: Drop NL5x?U,
+ PF4NU1F and PF5?U?? acpi_backlight=native quirks
+Date: Thu, 25 Aug 2022 16:37:24 +0200
+Message-Id: <20220825143726.269890-30-hdegoede@redhat.com>
 In-Reply-To: <20220825143726.269890-1-hdegoede@redhat.com>
 References: <20220825143726.269890-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -76,98 +76,139 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-acpi@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>
+Cc: Werner Sembach <wse@tuxedocomputers.com>, linux-acpi@vger.kernel.org,
+ nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@redhat.com>,
+ Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Typically the acpi_video driver will initialize before nouveau, which
-used to cause /sys/class/backlight/acpi_video0 to get registered and then
-nouveau would register its own nv_backlight device later. After which
-the drivers/acpi/video_detect.c code unregistered the acpi_video0 device
-to avoid there being 2 backlight devices.
+acpi_backlight=native is the default for these, but as the comment
+explains the quirk was still necessary because even briefly registering
+the acpi_video0 backlight; and then unregistering it once the native
+driver showed up, was leading to issues.
 
-This means that userspace used to briefly see 2 devices and the
-disappearing of acpi_video0 after a brief time confuses the systemd
-backlight level save/restore code, see e.g.:
-https://bbs.archlinux.org/viewtopic.php?id=269920
+After the "ACPI: video: Make backlight class device registration
+a separate step" patch from earlier in this patch-series, we no
+longer briefly register the acpi_video0 backlight on systems where
+the native driver should be used.
 
-To fix this the ACPI video code has been modified to make backlight class
-device registration a separate step, relying on the drm/kms driver to
-ask for the acpi_video backlight registration after it is done setting up
-its native backlight device.
+So this is no longer an issue an the quirks are no longer needed.
 
-Add a call to the new acpi_video_register_backlight() when native backlight
-device registration has failed / was skipped to ensure that there is a
-backlight device available before the drm_device gets registered with
-userspace.
-
-Changes in v2:
-- Add nouveau_acpi_video_register_backlight() wrapper to avoid unresolved
-  symbol errors on non X86
-
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=215683
+Tested-by: Werner Sembach <wse@tuxedocomputers.com>
+Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_acpi.c      | 5 +++++
- drivers/gpu/drm/nouveau/nouveau_acpi.h      | 2 ++
- drivers/gpu/drm/nouveau/nouveau_backlight.c | 7 +++++++
- 3 files changed, 14 insertions(+)
+ drivers/acpi/video_detect.c | 92 +------------------------------------
+ 1 file changed, 1 insertion(+), 91 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_acpi.c b/drivers/gpu/drm/nouveau/nouveau_acpi.c
-index 1592c9cd7750..8cf096f841a9 100644
---- a/drivers/gpu/drm/nouveau/nouveau_acpi.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_acpi.c
-@@ -391,3 +391,8 @@ bool nouveau_acpi_video_backlight_use_native(void)
- {
- 	return acpi_video_backlight_use_native();
- }
+diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+index af2833b57b8b..789d5913c178 100644
+--- a/drivers/acpi/video_detect.c
++++ b/drivers/acpi/video_detect.c
+@@ -609,97 +609,7 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ 		DMI_MATCH(DMI_BOARD_NAME, "N250P"),
+ 		},
+ 	},
+-	/*
+-	 * Clevo NL5xRU and NL5xNU/TUXEDO Aura 15 Gen1 and Gen2 have both a
+-	 * working native and video interface. However the default detection
+-	 * mechanism first registers the video interface before unregistering
+-	 * it again and switching to the native interface during boot. This
+-	 * results in a dangling SBIOS request for backlight change for some
+-	 * reason, causing the backlight to switch to ~2% once per boot on the
+-	 * first power cord connect or disconnect event. Setting the native
+-	 * interface explicitly circumvents this buggy behaviour, by avoiding
+-	 * the unregistering process.
+-	 */
+-	{
+-	.callback = video_detect_force_native,
+-	.ident = "Clevo NL5xRU",
+-	.matches = {
+-		DMI_MATCH(DMI_BOARD_NAME, "NL5xRU"),
+-		},
+-	},
+-	{
+-	.callback = video_detect_force_native,
+-	.ident = "Clevo NL5xRU",
+-	.matches = {
+-		DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
+-		DMI_MATCH(DMI_BOARD_NAME, "AURA1501"),
+-		},
+-	},
+-	{
+-	.callback = video_detect_force_native,
+-	.ident = "Clevo NL5xRU",
+-	.matches = {
+-		DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
+-		DMI_MATCH(DMI_BOARD_NAME, "EDUBOOK1502"),
+-		},
+-	},
+-	{
+-	.callback = video_detect_force_native,
+-	.ident = "Clevo NL5xNU",
+-	.matches = {
+-		DMI_MATCH(DMI_BOARD_NAME, "NL5xNU"),
+-		},
+-	},
+-	/*
+-	 * The TongFang PF5PU1G, PF4NU1F, PF5NU1G, and PF5LUXG/TUXEDO BA15 Gen10,
+-	 * Pulse 14/15 Gen1, and Pulse 15 Gen2 have the same problem as the Clevo
+-	 * NL5xRU and NL5xNU/TUXEDO Aura 15 Gen1 and Gen2. See the description
+-	 * above.
+-	 */
+-	{
+-	.callback = video_detect_force_native,
+-	.ident = "TongFang PF5PU1G",
+-	.matches = {
+-		DMI_MATCH(DMI_BOARD_NAME, "PF5PU1G"),
+-		},
+-	},
+-	{
+-	.callback = video_detect_force_native,
+-	.ident = "TongFang PF4NU1F",
+-	.matches = {
+-		DMI_MATCH(DMI_BOARD_NAME, "PF4NU1F"),
+-		},
+-	},
+-	{
+-	.callback = video_detect_force_native,
+-	.ident = "TongFang PF4NU1F",
+-	.matches = {
+-		DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
+-		DMI_MATCH(DMI_BOARD_NAME, "PULSE1401"),
+-		},
+-	},
+-	{
+-	.callback = video_detect_force_native,
+-	.ident = "TongFang PF5NU1G",
+-	.matches = {
+-		DMI_MATCH(DMI_BOARD_NAME, "PF5NU1G"),
+-		},
+-	},
+-	{
+-	.callback = video_detect_force_native,
+-	.ident = "TongFang PF5NU1G",
+-	.matches = {
+-		DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
+-		DMI_MATCH(DMI_BOARD_NAME, "PULSE1501"),
+-		},
+-	},
+-	{
+-	.callback = video_detect_force_native,
+-	.ident = "TongFang PF5LUXG",
+-	.matches = {
+-		DMI_MATCH(DMI_BOARD_NAME, "PF5LUXG"),
+-		},
+-	},
 +
-+void nouveau_acpi_video_register_backlight(void)
-+{
-+	acpi_video_register_backlight();
-+}
-diff --git a/drivers/gpu/drm/nouveau/nouveau_acpi.h b/drivers/gpu/drm/nouveau/nouveau_acpi.h
-index 3c666c30dfca..e39dd8b94b8b 100644
---- a/drivers/gpu/drm/nouveau/nouveau_acpi.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_acpi.h
-@@ -12,6 +12,7 @@ void nouveau_unregister_dsm_handler(void);
- void nouveau_switcheroo_optimus_dsm(void);
- void *nouveau_acpi_edid(struct drm_device *, struct drm_connector *);
- bool nouveau_acpi_video_backlight_use_native(void);
-+void nouveau_acpi_video_register_backlight(void);
- #else
- static inline bool nouveau_is_optimus(void) { return false; };
- static inline bool nouveau_is_v1_dsm(void) { return false; };
-@@ -20,6 +21,7 @@ static inline void nouveau_unregister_dsm_handler(void) {}
- static inline void nouveau_switcheroo_optimus_dsm(void) {}
- static inline void *nouveau_acpi_edid(struct drm_device *dev, struct drm_connector *connector) { return NULL; }
- static inline bool nouveau_acpi_video_backlight_use_native(void) { return true; }
-+static inline void nouveau_acpi_video_register_backlight(void) {}
- #endif
- 
- #endif
-diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-index d2b8f8c13db4..a614582779ca 100644
---- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-@@ -436,6 +436,13 @@ nouveau_backlight_init(struct drm_connector *connector)
- 
- fail_alloc:
- 	kfree(bl);
-+	/*
-+	 * If we get here we have an internal panel, but no nv_backlight,
-+	 * try registering an ACPI video backlight device instead.
-+	 */
-+	if (ret == 0)
-+		nouveau_acpi_video_register_backlight();
-+
- 	return ret;
- }
- 
+ 	/*
+ 	 * Desktops which falsely report a backlight and which our heuristics
+ 	 * for this do not catch.
 -- 
 2.37.2
 
