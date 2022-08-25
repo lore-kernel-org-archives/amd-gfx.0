@@ -4,57 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA65AC64990
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:26:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B02B3C64991
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:43:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1127110E34D;
-	Thu, 25 Aug 2022 14:26:40 +0000 (UTC)
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
- [IPv6:2001:4860:4864:20::36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A14C210E34D
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:26:35 +0000 (UTC)
-Received: by mail-oa1-x36.google.com with SMTP id
- 586e51a60fabf-f2a4c51c45so25084737fac.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 07:26:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc;
- bh=G/Ig1A5g72nhRrRqV5ATdqiwe9CwrLoOJ7z2TePHxb0=;
- b=BmnwDLY1w/sOfP7JbS/3HztWT2YW5idx8d9KWBJhtP1JlmV+Rtk/eUHKnm3gUSqkVO
- MW2T2MXU/tt0Lu5KK7pMW4EKB2+8IOlEzCYllk2oWrR9Rg6aUq8yNxS+ZKEtYIOwmr8f
- eNieCdN49D0jEExbcCzndLfUOeF9y9XgHI19UaohgwbsYg+p+Zqfk+mMNQ2vF8Y2YmgR
- R7JlQGJ7U8sbM2o9L6Iq1rsYHAgs9IXnmgFSAm8XOacwQeksv9ovXWPbWZ2/SDMLmHou
- 06V4GIVB3t1T3kq3axZwQaZOgRb2Z2rV8KxYlxwbJOw2by4lLHrnnH9MNyh6Iog8Og5i
- 8XjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
- bh=G/Ig1A5g72nhRrRqV5ATdqiwe9CwrLoOJ7z2TePHxb0=;
- b=5ht6+YTSI8y0Ujc8LPb09CbhvZbzVED2lHFmwCVLtnkc/+WwbK7GD5zvF29+w+ybvE
- C7Wm7GaUFAZBuGZDEFWOiK3PuDIzMQh6eUQqkbc5gXQ+zcfOXMCVQnii2MqA08N057r5
- kfHWugZJd2iMiW8lxzxbp4vgSEPj45p6i1oZcJNxO0c6PWQVk6oHqTIca5LMFasXLzEi
- Nv8hpojEsVrlC8XwJrzx/JMw3jeEHHk/wa0Jj43CTlsj1n72A9LePipzLJKwZ8euB3Sx
- B5TXdaON5iTKn/NR6m3PcnzneiaBxCUNdQ/rDIISsM7bJqXn+9kxlbQMAg5Uv7ISZO/3
- +fMQ==
-X-Gm-Message-State: ACgBeo1wPgx10nF3IvKOzxEMexRNGNcqdD7zKLvfSihYCEst2SCayv+x
- n/dFMM1neNQz2LuVBFv8vq0VG5zouEH1aiVzbsM=
-X-Google-Smtp-Source: AA6agR7XtQZmaBwEgbHmKwSfs0y8fBk/C/PY1sHn5Qk62HECx4Dkj042KfUumnjiLzK8Hy0H3AbiXlyXxNrjOl6Y6HQ=
-X-Received: by 2002:a05:6870:9a06:b0:11e:3d19:2614 with SMTP id
- fo6-20020a0568709a0600b0011e3d192614mr722754oab.96.1661437594739; Thu, 25 Aug
- 2022 07:26:34 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A301710E091;
+	Thu, 25 Aug 2022 14:43:54 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6CFA10E380
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:38:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1661438282;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=c7cbLrhybeXhTd6E0KCP79PiLRPmdaDHe09WAOWHr3I=;
+ b=Z0gGwtTryaL3/1xoavAwR0kB+tWbin0yiox+CL0NS17f7ItY4gK97sAbt3rkSadJ8kIuia
+ DwfEwRZyIx4XrRDOCNdzyTYm9u5slCyfeL9hwQR69gcliEcrSqvMloT/B+8HkP+mVg+FP2
+ ZzP+9iJd/zX/PNkjaN058er6vff2yUk=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-457-M9fot_y8OXeeP8P0dnL1Uw-1; Thu, 25 Aug 2022 10:38:00 -0400
+X-MC-Unique: M9fot_y8OXeeP8P0dnL1Uw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70D2285A59C;
+ Thu, 25 Aug 2022 14:37:59 +0000 (UTC)
+Received: from shalem.redhat.com (unknown [10.39.193.46])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 69B882166B26;
+ Thu, 25 Aug 2022 14:37:55 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Ben Skeggs <bskeggs@redhat.com>,
+	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
+	Daniel Dadap <ddadap@nvidia.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>
+Subject: [PATCH v5 07/31] ACPI: video: Remove acpi_video_bus from list before
+ tearing it down
+Date: Thu, 25 Aug 2022 16:37:02 +0200
+Message-Id: <20220825143726.269890-8-hdegoede@redhat.com>
+In-Reply-To: <20220825143726.269890-1-hdegoede@redhat.com>
+References: <20220825143726.269890-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-References: <20220825085820.1228641-1-lijo.lazar@amd.com>
- <CADnq5_McOZzSd+FmtKuLxjTpUD5X=_WrhwDyf_at-E6228T+RA@mail.gmail.com>
- <c552044e-f804-4853-9d61-2bb1338587f0@amd.com>
-In-Reply-To: <c552044e-f804-4853-9d61-2bb1338587f0@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 25 Aug 2022 10:26:23 -0400
-Message-ID: <CADnq5_PK0LtCa8_1rvO6PF_vHQcfa_-+V77sBmZUc6Ym0xgWPw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Move HDP remapping earlier during init
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Mailman-Approved-At: Thu, 25 Aug 2022 14:43:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,155 +76,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org, tseewald@gmail.com,
- helgaas@kernel.org, Alexander.Deucher@amd.com, sr@denx.de,
- Christian.Koenig@amd.com, Hawking.Zhang@amd.com
+Cc: linux-acpi@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ Hans de Goede <hdegoede@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@redhat.com>,
+ Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 25, 2022 at 10:22 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
->
->
->
-> On 8/25/2022 7:37 PM, Alex Deucher wrote:
-> > On Thu, Aug 25, 2022 at 4:58 AM Lijo Lazar <lijo.lazar@amd.com> wrote:
-> >>
-> >> HDP flush is used early in the init sequence as part of memory control=
-ler
-> >> block initialization. Hence remapping of HDP registers needed for flus=
-h
-> >> needs to happen earlier.
-> >>
-> >> This also fixes the AER error reported as Unsupported Request during
-> >> driver load.
-> >>
-> >> Link: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D216373&amp;data=3D05%7C01%7Cl=
-ijo.lazar%40amd.com%7Caeec5a5e8ec7402e546708da86a31e41%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637970332414985963%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
-iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C=
-&amp;sdata=3DEQuUjHTaVPSKZdCUhL6iI4EJ56UMhKTLl86uVpSL8AU%3D&amp;reserved=3D=
-0
-> >>
-> >> Reported-by: Tom Seewald <tseewald@gmail.com>
-> >> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 +++++++++
-> >>   drivers/gpu/drm/amd/amdgpu/nv.c            | 6 ------
-> >>   drivers/gpu/drm/amd/amdgpu/soc15.c         | 6 ------
-> >>   drivers/gpu/drm/amd/amdgpu/soc21.c         | 6 ------
-> >>   4 files changed, 9 insertions(+), 18 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_device.c
-> >> index ce7d117efdb5..53d753e94a71 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >> @@ -2376,6 +2376,15 @@ static int amdgpu_device_ip_init(struct amdgpu_=
-device *adev)
-> >>                                  DRM_ERROR("amdgpu_vram_scratch_init f=
-ailed %d\n", r);
-> >>                                  goto init_failed;
-> >>                          }
-> >> +
-> >> +                       /* remap HDP registers to a hole in mmio space=
-,
-> >> +                        * for the purpose of expose those registers
-> >> +                        * to process space. This is needed for any ea=
-rly HDP
-> >> +                        * flush operation during gmc initialization.
-> >> +                        */
-> >> +                       if (adev->nbio.funcs->remap_hdp_registers && !=
-amdgpu_sriov_vf(adev))
-> >> +                               adev->nbio.funcs->remap_hdp_registers(=
-adev);
-> >> +
-> >
-> > We probably also need this in ip_resume() as well to handle the
-> > suspend and resume case.  Thinking about this more, maybe it's easier
-> > to just track whether the remap has happened yet and use the old or
-> > new offset based on that.
->
-> If we can use the default offset without a remap, does it make sense to
-> remap? What about calling the same in ip_resume?
+Move the list_del removing an acpi_video_bus from video_bus_head
+on teardown to before the teardown is done, to avoid code iterating
+over the video_bus_head list seeing acpi_video_bus objects on there
+which are (partly) torn down already.
 
-The remap is necessary so that userspace drivers can access this to
-flush the HDP registers when they need to since normally it's in a
-non-accessible region of the MMIO space.  I'm fine with updating it in
-ip_resume as well.
+Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ drivers/acpi/acpi_video.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Alex
+diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
+index 5cbe2196176d..cde8ffa9f0b8 100644
+--- a/drivers/acpi/acpi_video.c
++++ b/drivers/acpi/acpi_video.c
+@@ -2111,14 +2111,14 @@ static int acpi_video_bus_remove(struct acpi_device *device)
+ 
+ 	video = acpi_driver_data(device);
+ 
+-	acpi_video_bus_remove_notify_handler(video);
+-	acpi_video_bus_unregister_backlight(video);
+-	acpi_video_bus_put_devices(video);
+-
+ 	mutex_lock(&video_list_lock);
+ 	list_del(&video->entry);
+ 	mutex_unlock(&video_list_lock);
+ 
++	acpi_video_bus_remove_notify_handler(video);
++	acpi_video_bus_unregister_backlight(video);
++	acpi_video_bus_put_devices(video);
++
+ 	kfree(video->attached_array);
+ 	kfree(video);
+ 
+-- 
+2.37.2
 
-
->
-> Thanks,
-> Lijo
->
-> >
-> > Alex
-> >
-> >
-> >>                          r =3D adev->ip_blocks[i].version->funcs->hw_i=
-nit((void *)adev);
-> >>                          if (r) {
-> >>                                  DRM_ERROR("hw_init %d failed %d\n", i=
-, r);
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amd=
-gpu/nv.c
-> >> index b3fba8dea63c..3ac7fef74277 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> >> @@ -1032,12 +1032,6 @@ static int nv_common_hw_init(void *handle)
-> >>          nv_program_aspm(adev);
-> >>          /* setup nbio registers */
-> >>          adev->nbio.funcs->init_registers(adev);
-> >> -       /* remap HDP registers to a hole in mmio space,
-> >> -        * for the purpose of expose those registers
-> >> -        * to process space
-> >> -        */
-> >> -       if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(=
-adev))
-> >> -               adev->nbio.funcs->remap_hdp_registers(adev);
-> >>          /* enable the doorbell aperture */
-> >>          nv_enable_doorbell_aperture(adev, true);
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/=
-amdgpu/soc15.c
-> >> index fde6154f2009..a0481e37d7cf 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> >> @@ -1240,12 +1240,6 @@ static int soc15_common_hw_init(void *handle)
-> >>          soc15_program_aspm(adev);
-> >>          /* setup nbio registers */
-> >>          adev->nbio.funcs->init_registers(adev);
-> >> -       /* remap HDP registers to a hole in mmio space,
-> >> -        * for the purpose of expose those registers
-> >> -        * to process space
-> >> -        */
-> >> -       if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(=
-adev))
-> >> -               adev->nbio.funcs->remap_hdp_registers(adev);
-> >>
-> >>          /* enable the doorbell aperture */
-> >>          soc15_enable_doorbell_aperture(adev, true);
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/=
-amdgpu/soc21.c
-> >> index 55284b24f113..16b447055102 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> >> @@ -660,12 +660,6 @@ static int soc21_common_hw_init(void *handle)
-> >>          soc21_program_aspm(adev);
-> >>          /* setup nbio registers */
-> >>          adev->nbio.funcs->init_registers(adev);
-> >> -       /* remap HDP registers to a hole in mmio space,
-> >> -        * for the purpose of expose those registers
-> >> -        * to process space
-> >> -        */
-> >> -       if (adev->nbio.funcs->remap_hdp_registers)
-> >> -               adev->nbio.funcs->remap_hdp_registers(adev);
-> >>          /* enable the doorbell aperture */
-> >>          soc21_enable_doorbell_aperture(adev, true);
-> >>
-> >> --
-> >> 2.25.1
-> >>
