@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9436C3F6B0
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:39:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B7A1C6498F
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:39:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB682D0D39;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8B4BD0D37;
 	Thu, 25 Aug 2022 01:38:19 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C411F12A174;
- Thu, 25 Aug 2022 01:36:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC43BD0C9A;
+ Thu, 25 Aug 2022 01:38:03 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C523E61A2D;
- Thu, 25 Aug 2022 01:36:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1702EC433D7;
- Thu, 25 Aug 2022 01:36:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8803061AF2;
+ Thu, 25 Aug 2022 01:38:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5673BC433D6;
+ Thu, 25 Aug 2022 01:37:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661391385;
- bh=uZjkReAqjgBhUeIjdkrARoS9pd0nnFeAmO+VjIOj7iU=;
+ s=k20201202; t=1661391481;
+ bh=CBbnhCg1r7UfbDv4vlNLCZTRgRNAqhTKzIzp++8xy9o=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nU9yMpqzcwLgg6wfzHK9v5wWWkmiNS2POob5lavuIXkZgoJDt2LPu4g8ne7vW/Z46
- Xxf3OVdLPLW+Ck/0JaawgtGE8wxuEWDBPyF5BOspQaHYrIKAvzMsmYyty4tKdHJU15
- REh0hvSKwaa+T589S8q7LUBG+UQ3O6TtBmoLV2p3PuN2PLURYpc1HoK4MHdDa/AiDj
- 83mKeHN1RmKw1KMPDYjOkiQogf4hZB/VIPX1of7tHPE2xJEXOkl1MsML1Tich1UM6y
- W2Az9M1R4npCqif/2K+rk/ZMyekJ1jN/uiBlzlWDyDCfIwP88XS7h6i6133FvYd9qG
- 2BYWC0p6p5nDg==
+ b=P7rKZ7frNNKdXyrsZm6rO7TqZfcVslFi+UTar901cRX6G0+ZGebzoFSt2aoOd/MmW
+ NLPBwv3TqSAhkpScV8bN0EO5wlXHRV6LXldSyp7DaXpEZVjXCnSIOOGby/D6rp9q5j
+ vxCVy/hs82XTykV/fdz3tcxeHe1mej3EsfaYVZg9mUFdR5m4L92DarsnIVAj8GCV15
+ G7Ud6TSqQxVzdWoqOq2mn4cRUHFk6zmXWbLGjH+a08CzcdcS7npuCPS8rIFUD/Dnie
+ p8Q7lqJyTst1W+s5LHkIDvljO8JfZOaqivsOckApAW/4eaE76pSPo9UhH1Kg9eXLEj
+ 4fITTfid/5x3A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 25/38] drm/amdgpu: Increase tlb flush timeout for
- sriov
-Date: Wed, 24 Aug 2022 21:33:48 -0400
-Message-Id: <20220825013401.22096-25-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 12/20] drm/amd/display: Fix pixel clock
+ programming
+Date: Wed, 24 Aug 2022 21:37:04 -0400
+Message-Id: <20220825013713.22656-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220825013401.22096-1-sashal@kernel.org>
-References: <20220825013401.22096-1-sashal@kernel.org>
+In-Reply-To: <20220825013713.22656-1-sashal@kernel.org>
+References: <20220825013713.22656-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -55,97 +55,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dusica Milinkovic <Dusica.Milinkovic@amd.com>, airlied@linux.ie,
- tao.zhou1@amd.com, dri-devel@lists.freedesktop.org, Prike.Liang@amd.com,
- ray.huang@amd.com, mario.limonciello@amd.com, Likun.Gao@amd.com,
- victor.skvortsov@amd.com, Sasha Levin <sashal@kernel.org>, guchun.chen@amd.com,
- amd-gfx@lists.freedesktop.org, Yuliang.Shi@amd.com, harry.wentland@amd.com,
- andrey.grodzovsky@amd.com, evan.quan@amd.com,
- Shaoyun Liu <shaoyun.liu@amd.com>, Jack.Xiao@amd.com, Xinhui.Pan@amd.com,
- YiPeng.Chai@amd.com, daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- lang.yu@amd.com, christian.koenig@amd.com, Hawking.Zhang@amd.com
+Cc: HaoPing.Liu@amd.com, Aric Cyr <Aric.Cyr@amd.com>, airlied@linux.ie,
+ dri-devel@lists.freedesktop.org, Sasha Levin <sashal@kernel.org>,
+ Brian Chang <Brian.Chang@amd.com>, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, alex.hung@amd.com, michael.strauss@amd.com,
+ harry.wentland@amd.com, Ilya Bakoulin <Ilya.Bakoulin@amd.com>,
+ Charlene.Liu@amd.com, sunpeng.li@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, dillon.varone@amd.com,
+ Hansen.Dsouza@amd.com, David.Galiffi@amd.com, Xinhui.Pan@amd.com,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dusica Milinkovic <Dusica.Milinkovic@amd.com>
+From: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
 
-[ Upstream commit 373008bfc9cdb0f050258947fa5a095f0657e1bc ]
+[ Upstream commit 04fb918bf421b299feaee1006e82921d7d381f18 ]
 
 [Why]
-During multi-vf executing benchmark (Luxmark) observed kiq error timeout.
-It happenes because all of VFs do the tlb invalidation at the same time.
-Although each VF has the invalidate register set, from hardware side
-the invalidate requests are queue to execute.
+Some pixel clock values could cause HDMI TMDS SSCPs to be misaligned
+between different HDMI lanes when using YCbCr420 10-bit pixel format.
+
+BIOS functions for transmitter/encoder control take pixel clock in kHz
+increments, whereas the function for setting the pixel clock is in 100Hz
+increments. Setting pixel clock to a value that is not on a kHz boundary
+will cause the issue.
 
 [How]
-In case of 12 VF increase timeout on 12*100ms
+Round pixel clock down to nearest kHz in 10/12-bpc cases.
 
-Signed-off-by: Dusica Milinkovic <Dusica.Milinkovic@amd.com>
-Acked-by: Shaoyun Liu <shaoyun.liu@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Acked-by: Brian Chang <Brian.Chang@amd.com>
+Signed-off-by: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h    | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 3 ++-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 3 ++-
- 3 files changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 30ce6bb6fa77..310754b1f670 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -313,7 +313,7 @@ enum amdgpu_kiq_irq {
- 	AMDGPU_CP_KIQ_IRQ_DRIVER0 = 0,
- 	AMDGPU_CP_KIQ_IRQ_LAST
- };
--
-+#define SRIOV_USEC_TIMEOUT  1200000 /* wait 12 * 100ms for SRIOV */
- #define MAX_KIQ_REG_WAIT       5000 /* in usecs, 5ms */
- #define MAX_KIQ_REG_BAILOUT_INTERVAL   5 /* in msecs, 5ms */
- #define MAX_KIQ_REG_TRY 1000
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 9077dfccaf3c..809408c8c79a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -416,6 +416,7 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- 	uint32_t seq;
- 	uint16_t queried_pasid;
- 	bool ret;
-+	u32 usec_timeout = amdgpu_sriov_vf(adev) ? SRIOV_USEC_TIMEOUT : adev->usec_timeout;
- 	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
- 	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
- 
-@@ -434,7 +435,7 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- 
- 		amdgpu_ring_commit(ring);
- 		spin_unlock(&adev->gfx.kiq.ring_lock);
--		r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
-+		r = amdgpu_fence_wait_polling(ring, seq, usec_timeout);
- 		if (r < 1) {
- 			dev_err(adev->dev, "wait for kiq fence error: %ld.\n", r);
- 			return -ETIME;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 22761a3bb818..566c1243c051 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -896,6 +896,7 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- 	uint32_t seq;
- 	uint16_t queried_pasid;
- 	bool ret;
-+	u32 usec_timeout = amdgpu_sriov_vf(adev) ? SRIOV_USEC_TIMEOUT : adev->usec_timeout;
- 	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
- 	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
- 
-@@ -935,7 +936,7 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- 
- 		amdgpu_ring_commit(ring);
- 		spin_unlock(&adev->gfx.kiq.ring_lock);
--		r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
-+		r = amdgpu_fence_wait_polling(ring, seq, usec_timeout);
- 		if (r < 1) {
- 			dev_err(adev->dev, "wait for kiq fence error: %ld.\n", r);
- 			up_read(&adev->reset_domain->sem);
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+index 054823d12403..5f1b735da506 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -545,9 +545,11 @@ static void dce112_get_pix_clk_dividers_helper (
+ 		switch (pix_clk_params->color_depth) {
+ 		case COLOR_DEPTH_101010:
+ 			actual_pixel_clock_100hz = (actual_pixel_clock_100hz * 5) >> 2;
++			actual_pixel_clock_100hz -= actual_pixel_clock_100hz % 10;
+ 			break;
+ 		case COLOR_DEPTH_121212:
+ 			actual_pixel_clock_100hz = (actual_pixel_clock_100hz * 6) >> 2;
++			actual_pixel_clock_100hz -= actual_pixel_clock_100hz % 10;
+ 			break;
+ 		case COLOR_DEPTH_161616:
+ 			actual_pixel_clock_100hz = actual_pixel_clock_100hz * 2;
 -- 
 2.35.1
 
