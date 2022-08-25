@@ -4,57 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92F98C28D13
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 13:31:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9634CC04AA5
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 13:31:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE40C10E023;
-	Thu, 25 Aug 2022 13:31:51 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C81CC10E023
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 13:31:46 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id u15so30891309ejt.6
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 06:31:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38E1C10E02C;
+	Thu, 25 Aug 2022 13:31:58 +0000 (UTC)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4916510E023
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 13:31:50 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id kk26so9874901ejc.11
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 06:31:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=1k6N9WVq4G4AYtLMGBogrp7GQZ6/168vEGje62/Jb0s=;
- b=H5f9Kr0MM0lbOJOHqOgccLNhF58NkGY9eple74snLNAREQihQTa5QkKQImcXIUfKu8
- JF6Ly1GLbvkvo/eDPEh7JFDPHDHV6q4kOqLjjz305V1HC7vixv5yTYg21jKcOxARd6/3
- kni7BMfvEngx1j+wsu7e8I5piLqWwrI9xC1k258fB3rvS8P1J0LRrjga3KGLOsXhpV3c
- B2vkEB+Qmds/eDP5Log+OthPOaskYRVpEgxxw5INouL9/PGxEqF4f+uKi1n6FzxOBNSp
- GfWHJPwqGJoqfYXdclHvk8bS5CIYlfS/8HbMqz6T3iMClbSTmF/4GlgfJREmqROodwVE
- GgLQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc;
+ bh=zSvHFbj8Jj/2GkiIIoYhX+QU8HIZGxASz4FTnsYcUx4=;
+ b=aVUIgbVZfz0595hfsFhoJXNBp91W2jeicy0lGr75OBm4B1IvpqIZ4SYQ6Vn/icxq/1
+ tkceBT3UZpRFgX222KiE6d+DWQgcLY5d038zM4AUmh+hHGT/D9L3xq+44lss+sovxRby
+ ktWNgAg8vUv2QfqAn31PH24enMAAXmX/ZDNPK0vLDeUyzKSda/a95UHSVsSduhkFmkig
+ ERp1q4ngYkga75Zjh42LiwyQw4idqopSAO6JNgr4MRH7+s1/z8vMPKGeURFKchBMgJme
+ WPXSllNeACazj9qYim3FZMqz0ru0NAJr8/dhnEfa7Q3fez4i7Qm0ANdEsXsG2G4OvI4S
+ qDNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc;
- bh=1k6N9WVq4G4AYtLMGBogrp7GQZ6/168vEGje62/Jb0s=;
- b=AqPidsYHdozaCDncn10c0f8tpdudQBVEaZd3dRrpA34EWfrHcgy+og4nyC78Vv8Er1
- R3kP6Eeo9XhOy+0qW4QIb01rHZ5wfVVEc4bxGl+JFr7m6fn+wW0cmJM/LGPoYt9M8wTk
- FDdHUeETRBO7FtYTyUDU6TdeDd+LXRXsnyzgw152/Ss82peTz+mtLP5c7ny3k4dCOU5h
- xHsKlKxooWxPj2XJtzFWisi33rzKEA8ir++atGv8Wd1ZM+BW3gS4WGvtmQsYs9auo6hF
- U9D6grTdCMddZE4eEsZyTSOLOLIEM+Z1tFsz+97icHchMuQfWHnHobOI5pwyV1tH8Ue+
- rG1Q==
-X-Gm-Message-State: ACgBeo19hx0G+QzzXWtGB3rIVazBcLGOayC49499mUwAEzJhKGXHsF28
- weoAs0g2QpY9wwjNQ7ntK0465dCo9rI=
-X-Google-Smtp-Source: AA6agR6wJYWGLJA5/nJ8a/0gQpFVzNeW+Bs2STPXSPQ6EYsJlFTi3yJl8e38mdKowGK5pfGHVoB45w==
-X-Received: by 2002:a17:907:7214:b0:731:465d:a77c with SMTP id
- dr20-20020a170907721400b00731465da77cmr2493670ejc.308.1661434305373; 
- Thu, 25 Aug 2022 06:31:45 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+ bh=zSvHFbj8Jj/2GkiIIoYhX+QU8HIZGxASz4FTnsYcUx4=;
+ b=u4lv+K+lJsLSMsUYBkaVRWb/pSsleGls2/ZS9PQUBSkGxPCKQfO+Fuo89B/DwCa9OF
+ wRWz44Fiy7qGj/h2p2zGGKMHgwS84dRHIV3t90Im0oMFopEZyLhVMtwVGa2yLCki2IeN
+ W47N272MBHZOIUVvGQAnTe6AuKJnASi58JXr+YWpVZgIPwLQF/2PRWF16zOOWYoZ9Jgt
+ 1U/hvlk7iJf2Ccgu6o95pFkra/aNJhMocVDjN5oWONaWCPQUItnO4AYkysqCyw5c6l8d
+ d9Ttvi40si7bUQJikjyZafDLKenaGsOjNfnaGsW4gVzu5i01coy9frE+8Y0WOFas/8fV
+ OANQ==
+X-Gm-Message-State: ACgBeo3y66BE5v1iOuYs514TC+rkycNtDobqpC7C057io2xrom9HYtnA
+ KesBjjg81Qw8AUeRZ/NhyNSKGKfypXAEvQ==
+X-Google-Smtp-Source: AA6agR4C0OCbMi2Kr3Qu6xh2BWywz+/JTcxhRwD0Nk3uffo1oPjduwokKd5M10/Xe0iKJePCCtydfQ==
+X-Received: by 2002:a17:906:98d4:b0:73d:7f33:98a8 with SMTP id
+ zd20-20020a17090698d400b0073d7f3398a8mr2485093ejb.90.1661434308855; 
+ Thu, 25 Aug 2022 06:31:48 -0700 (PDT)
 Received: from able.fritz.box (p4fc20ad4.dip0.t-ipconnect.de. [79.194.10.212])
  by smtp.gmail.com with ESMTPSA id
- o18-20020a509b12000000b004404e290e7esm4913471edi.77.2022.08.25.06.31.44
+ o18-20020a509b12000000b004404e290e7esm4913471edi.77.2022.08.25.06.31.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Aug 2022 06:31:44 -0700 (PDT)
+ Thu, 25 Aug 2022 06:31:48 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: Latest gang submit patches
-Date: Thu, 25 Aug 2022 15:31:31 +0200
-Message-Id: <20220825133142.8272-1-christian.koenig@amd.com>
+Subject: [PATCH 03/11] drm/amdgpu: use DMA_RESV_USAGE_BOOKKEEP
+Date: Thu, 25 Aug 2022 15:31:34 +0200
+Message-Id: <20220825133142.8272-4-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220825133142.8272-1-christian.koenig@amd.com>
+References: <20220825133142.8272-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -70,22 +72,46 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alexander.Deucher@amd.com, bas@basnieuwenhuizen.nl, timur.kristof@gmail.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Trigger.Huang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi guys,
+Use DMA_RESV_USAGE_BOOKKEEP for VM page table updates and KFD preemption fence.
 
-so Trigger found another issues with this series which is now fixed.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c      | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-Patch #11 is just a shoot into the dark so far, could be that the VCN3/4
-problems are now solved. But could as well be that this needs more
-investigation.
-
-Bas still has a backtrace with this which I can't figure out why that is
-happening, but going to investigate further.
-
-Please review and comment,
-Christian.
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index cbd593f7d553..85eb68ec692e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -297,7 +297,7 @@ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
+ 	 */
+ 	replacement = dma_fence_get_stub();
+ 	dma_resv_replace_fences(bo->tbo.base.resv, ef->base.context,
+-				replacement, DMA_RESV_USAGE_READ);
++				replacement, DMA_RESV_USAGE_BOOKKEEP);
+ 	dma_fence_put(replacement);
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 1fd3cbca20a2..03ec099d64e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -112,7 +112,8 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
+ 		swap(p->vm->last_unlocked, tmp);
+ 		dma_fence_put(tmp);
+ 	} else {
+-		amdgpu_bo_fence(p->vm->root.bo, f, true);
++		dma_resv_add_fence(p->vm->root.bo->tbo.base.resv, f,
++				   DMA_RESV_USAGE_BOOKKEEP);
+ 	}
+ 
+ 	if (fence && !p->immediate)
+-- 
+2.25.1
 
