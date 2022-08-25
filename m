@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 210E8C1B0E9
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 16:02:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F170CECAA24
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 16:10:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE7410E3B6;
-	Thu, 25 Aug 2022 16:02:09 +0000 (UTC)
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2D6510E2C7;
- Thu, 25 Aug 2022 16:02:05 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-11c4d7d4683so25449989fac.8; 
- Thu, 25 Aug 2022 09:02:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0DE310E456;
+	Thu, 25 Aug 2022 16:10:26 +0000 (UTC)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45F7310E456;
+ Thu, 25 Aug 2022 16:10:24 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-11ba6e79dd1so25455008fac.12; 
+ Thu, 25 Aug 2022 09:10:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc;
- bh=sNFG5s7LnC8XjcoTGJvLHOo5cpf+AMAvCpxCgUj2R30=;
- b=fWZaRka9wUl4/qnh2iE8plD6aPudPrd3NC1h7pM8MDzeR2jm77ODxKAJxd3h0XnE9+
- 5xhZi4dp6VjyYk3diQttP5OtSuRn+1qdMGKasRvT1BefIxQ/xW3iI82PCRYV2aYJr822
- l+6zFPnYaEgLoDMG2oWkfPCIb4focwG9dk56oSN2Za0eDsMw78jvZ9oTdoCXnBwUyG3o
- MFLuty8zPbMZQT6fkJGz+DYSh/Pj6vy/6X6XxXNh58SaYe7CiZf7JkXvehq/uGSZjjLY
- wHb0VmfbPjJ616zZYjc5NPYuFeD4bqzbO6T4+IwHdgqP+yajiSGuANzDbID+oTZyJypO
- FfjA==
+ bh=Tg67a5ZgeqhuPMZYg/nl54FzBqCFxXTIGdWfFEYy1EE=;
+ b=ROYRuJa9bi5ztQERSMgohHM+Vhzk9oqzNrGtvNhIXEMh+7PPU7qPG2n3Nx6dG8z6Jt
+ 2CNcvnurCzJd0eukc9iGHE8lP2vk/MqMnrM1OWwvOORN/jhy3OOmcEIt0UlNnaWcaUBA
+ jU/+7XIU4prxNBhnAjGR3nAIOzdXOhsu21RtUHpZg7xuHXaVzIr5iBK4zXSHe+I1p92H
+ v0TmWj4Zm42PFAF5WnB/CPlk8KdjkStB2gptDoRBo7hIcHLwRQoymoXVjjzhgSqqIbzo
+ XH4xYTo/vEUixFebnY2efjBI2ik0QL5lzsf22gOE65iozFN9EutZP1zIwuCaXTl7hKyp
+ K4zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc;
- bh=sNFG5s7LnC8XjcoTGJvLHOo5cpf+AMAvCpxCgUj2R30=;
- b=31tDlBqV43MJ/exIMZUZMKrvhHqdYFEWzvOJ6N57aHWZkWzyUGwjxcnnVCjad3E1IT
- /YfQL8vssDVWr9ElGgcVzN7fTArrQodMEIYt4XxFsQSielYleXXtxtw2mYzIo5CZLA73
- m4QazgNrNcT6R0ie3FQAlG7mK2wEmoEZsueuEwbUkD9fRuSEIikGeIWX0voe7cbE6/Aw
- wBSEXRdehNaWbwGCJT5YuFKX9VgGJtwEOT5eJHbMsLQVcMG4WZLBWDqei+/4D/L/61OR
- T05LgYL7xbrtOfxk1wuKmckSRzSvYVgmv/FLtja71oXnlf4YUEbLMHtCoZpb9k3/HBYW
- 9AXQ==
-X-Gm-Message-State: ACgBeo2KkyB2Na0fviTSrD+kjO1WaM88ikkLsySL2aYXDHnL8FMobH9i
- WJ4QIeHjr4JqzXCF8AkX0BDTqQIxjS/9TbhB0G0=
-X-Google-Smtp-Source: AA6agR7kiQ57XUkKXiAkkw2tu36haHCQjPWJKC0f16Gw0lXMggESritHc0IDxS7hh/vyn0Bw/EEhS9xLHMi8uy36klg=
+ bh=Tg67a5ZgeqhuPMZYg/nl54FzBqCFxXTIGdWfFEYy1EE=;
+ b=Yb1r9yJEPuhX+pQoWkEyIzWQpN/GgvM5p6H/9X/+Zi+sNSLWUo7KtEU0b7Z+kvyOjs
+ DDzcTddL1qWeW5AsB2gPm0NqyYm2tmIi+2qsZ/cyGTaTsCAx9XFImN49burNoP1xWDpE
+ XAzQrMTyp0oFYxAl7kiDHSnkHzH+nPVEaLtknC0F6k6kHMaSrQkq8Owk33emdwnJSfiK
+ 0xBWCD6JU0nof4r+WPWQ7x70+gwhixPeu85AKDGjSo9jDSiVzIUWZBoBZ+YKDV2YbA0H
+ gM1I4PxRMeSoq/gNN25fr8/nRK3U2HcMBPynMJea1EWZEKkwVDVqn915zIJtNW0NrBv1
+ hARQ==
+X-Gm-Message-State: ACgBeo37uPOpxuR3vFa5G3w1H1NtFXrX+j6GBjf/HQkvPKO91jDIbLjC
+ Lov/bC5n0F4VU3VIMR8vgFRc/JzoywkhWqMQQQc=
+X-Google-Smtp-Source: AA6agR6tplrzH6OYDlgo1Ou22r/z1pFuZkIVOBBMLCIJUDZd/kTwZndnKvRk8EC2ZFI/QHXVhK24lfhrMbu1mll1uKc=
 X-Received: by 2002:a05:6870:9a06:b0:11e:3d19:2614 with SMTP id
- fo6-20020a0568709a0600b0011e3d192614mr943043oab.96.1661443325104; Thu, 25 Aug
- 2022 09:02:05 -0700 (PDT)
+ fo6-20020a0568709a0600b0011e3d192614mr969158oab.96.1661443823611; Thu, 25 Aug
+ 2022 09:10:23 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220823064137.13726-1-bernard@vivo.com>
-In-Reply-To: <20220823064137.13726-1-bernard@vivo.com>
+References: <20220823065001.16872-1-bernard@vivo.com>
+In-Reply-To: <20220823065001.16872-1-bernard@vivo.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 25 Aug 2022 12:01:53 -0400
-Message-ID: <CADnq5_Ojb8U3gPckX3Ox3mkhQGTjusMOdneExcWZp_Zz8PTawQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: remove possible condition with no effect (if ==
- else)
+Date: Thu, 25 Aug 2022 12:10:12 -0400
+Message-ID: <CADnq5_MMGW4fxAt1oBxz1JcERjRRZ0YKDVWXfNNP2hE0TT69JQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: fix potential memory leak
 To: Bernard Zhao <bernard@vivo.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,40 +68,42 @@ Cc: zhaojunkui2008@126.com, Eric Yang <Eric.Yang2@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org,
  Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- David Airlie <airlied@linux.ie>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Michael Strauss <michael.strauss@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Nikola Cornij <nikola.cornij@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Melissa Wen <mwen@igalia.com>, David Airlie <airlied@linux.ie>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Michael Strauss <michael.strauss@amd.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
-
-On Tue, Aug 23, 2022 at 3:30 AM Bernard Zhao <bernard@vivo.com> wrote:
+On Tue, Aug 23, 2022 at 3:29 AM Bernard Zhao <bernard@vivo.com> wrote:
 >
-> This patch fix cocci warning:
-> drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c:1816:6-8:
-> WARNING: possible condition with no effect (if == else).
+> This patch fix potential memory leak (clk_src) when function run
+> into last return NULL.
 >
 > Signed-off-by: Bernard Zhao <bernard@vivo.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c | 2 --
->  1 file changed, 2 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
 > diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
-> index 85f32206a766..dccc9794e6a2 100644
+> index 85f32206a766..76f263846c6b 100644
 > --- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
 > +++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
-> @@ -1813,8 +1813,6 @@ static bool dcn314_resource_construct(
+> @@ -1715,6 +1715,7 @@ static struct clock_source *dcn30_clock_source_create(
+>         }
 >
->         if (dc->ctx->dce_environment == DCE_ENV_PRODUCTION_DRV)
->                 dc->debug = debug_defaults_drv;
-> -       else if (dc->ctx->dce_environment == DCE_ENV_FPGA_MAXIMUS)
-> -               dc->debug = debug_defaults_diags;
->         else
->                 dc->debug = debug_defaults_diags;
->         // Init the vm_helper
+>         BREAK_TO_DEBUGGER();
+> +       free(clk_src);
+
+This should be kfree().  Fixed up locally.
+
+Alex
+
+>         return NULL;
+>  }
+>
 > --
 > 2.33.1
 >
