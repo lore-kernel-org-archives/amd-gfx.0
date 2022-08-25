@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9199BC3F6B0
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:36:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21611C3F6B0
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:36:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F12ED0907;
-	Thu, 25 Aug 2022 01:35:43 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B08E2D07D8;
- Thu, 25 Aug 2022 01:35:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95D20D0914;
+	Thu, 25 Aug 2022 01:35:44 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5061C14B696;
+ Thu, 25 Aug 2022 01:35:00 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3DFE461ACA;
- Thu, 25 Aug 2022 01:35:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B234C433B5;
- Thu, 25 Aug 2022 01:35:14 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C9ED2B826DA;
+ Thu, 25 Aug 2022 01:34:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96C5C4347C;
+ Thu, 25 Aug 2022 01:34:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661391315;
- bh=qmw4u6COLTwvaLK+bLJshKnE190TMO7IZtcrz4O2igw=;
+ s=k20201202; t=1661391297;
+ bh=lUxI790MNcbkGJSK6krcvy3O2bLEsNoGnXLWxpg4Pt8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=d+hFIIz1e/hzqbEjAzwswWyOYgNvig8Zn7GXC3+kh3fK2s2Y+4hy4LRp0xNRur3/H
- EgHO+I/RgVu0RaJ4TFS82NuM3mbgWakWkpWmHiOtOVD8vaORucCLdGbniL5lx/PlOU
- /syfvW9qIfENz9JbLhIuk7aBZs+8y6bw6fJgm75bhubeSCw/4PJxEt34X2K6YK82p3
- tcG21AtTAtTVLixzOYXKw7owqt7XQKu5GxV0q8AyzHZjOyP4Q2JhUr/qYEYYuB/4fb
- p77dX4fLuavq+WeEdIRr3ChjKwwG2N6czGlVp0tkeJljmafKsZGrj+a78ny1U1s7Wq
- gkpkARFNFg6jg==
+ b=sqOpjxKosiiKCt1iHlLLkf9dciu3jeQhbusOhwp5TdxWo+liaePC+gysJl05ouvek
+ pKxSpgJyDGzPTyMd4UkSmFoTJeAxcbp8ecJetwFVDog4bwoMjGxXzD0BnhlnNkiAkw
+ hJMkeUjsY2cs2T22nb5woQXNJvO47yUfVKupKjGRUytnnKG3F7O2eG0q+hq76nUyL4
+ UVcOIwIKd07aq4nVRGHOazT9kMYMx2P9NNdILsZToRkbL7olPe9DZgrsO415nZSrLS
+ 1gXd+RWIb5g3CvH1aGDBHnwxwVpB25d7tcNJpojxVzM8d02emSGTBJFUF0scXoW6La
+ WczCxdQopHLUQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 13/38] drm/amdkfd: Handle restart of
- kfd_ioctl_wait_events
-Date: Wed, 24 Aug 2022 21:33:36 -0400
-Message-Id: <20220825013401.22096-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 09/38] drm/amd/display: For stereo keep
+ "FLIP_ANY_FRAME"
+Date: Wed, 24 Aug 2022 21:33:32 -0400
+Message-Id: <20220825013401.22096-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220825013401.22096-1-sashal@kernel.org>
 References: <20220825013401.22096-1-sashal@kernel.org>
@@ -55,133 +55,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Xiaogang Chen <Xiaogang.Chen@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, airlied@linux.ie,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Tom Chung <chiahsuan.chung@amd.com>,
+ sunpeng.li@amd.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ daniel@ffwll.ch, Martin Leung <Martin.Leung@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
+ christian.koenig@amd.com, joshua@froggi.es, Pavle.Kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Felix Kuehling <Felix.Kuehling@amd.com>
+From: Alvin Lee <alvin.lee2@amd.com>
 
-[ Upstream commit bea9a56afbc4b5a41ea579b8b0dc5e189b439504 ]
+[ Upstream commit 84ef99c728079dfd21d6bc70b4c3e4af20602b3c ]
 
-When kfd_ioctl_wait_events needs to restart due to a signal, we need to
-update the timeout to account for the time already elapsed. We also need
-to undo auto_reset of events that have signaled already, so that the
-restarted ioctl will be able to count those signals again.
+[Description]
+Observed in stereomode that programming FLIP_LEFT_EYE
+can cause hangs. Keep FLIP_ANY_FRAME in stereo mode so
+the surface flip can take place before left or right eye
 
-This fixes infinite hangs when kfd_ioctl_wait_events is interrupted by a
-signal.
-
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Reviewed-and-tested-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
+Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+Acked-by: Tom Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_events.c  | 24 ++++++++++++------------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  2 +-
- 3 files changed, 14 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 1c7016958d6d..bfca17ca399c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -814,7 +814,7 @@ static int kfd_ioctl_wait_events(struct file *filp, struct kfd_process *p,
- 	err = kfd_wait_on_events(p, args->num_events,
- 			(void __user *)args->events_ptr,
- 			(args->wait_for_all != 0),
--			args->timeout, &args->wait_result);
-+			&args->timeout, &args->wait_result);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
+index 6a4dcafb9bba..dc3e8df706b3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
+@@ -86,7 +86,7 @@ bool hubp3_program_surface_flip_and_addr(
+ 			VMID, address->vmid);
  
- 	return err;
- }
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index 4df9c36146ba..cbc20d779e5a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -895,7 +895,8 @@ static long user_timeout_to_jiffies(uint32_t user_timeout_ms)
- 	return msecs_to_jiffies(user_timeout_ms) + 1;
- }
+ 	if (address->type == PLN_ADDR_TYPE_GRPH_STEREO) {
+-		REG_UPDATE(DCSURF_FLIP_CONTROL, SURFACE_FLIP_MODE_FOR_STEREOSYNC, 0x1);
++		REG_UPDATE(DCSURF_FLIP_CONTROL, SURFACE_FLIP_MODE_FOR_STEREOSYNC, 0);
+ 		REG_UPDATE(DCSURF_FLIP_CONTROL, SURFACE_FLIP_IN_STEREOSYNC, 0x1);
  
--static void free_waiters(uint32_t num_events, struct kfd_event_waiter *waiters)
-+static void free_waiters(uint32_t num_events, struct kfd_event_waiter *waiters,
-+			 bool undo_auto_reset)
- {
- 	uint32_t i;
- 
-@@ -904,6 +905,9 @@ static void free_waiters(uint32_t num_events, struct kfd_event_waiter *waiters)
- 			spin_lock(&waiters[i].event->lock);
- 			remove_wait_queue(&waiters[i].event->wq,
- 					  &waiters[i].wait);
-+			if (undo_auto_reset && waiters[i].activated &&
-+			    waiters[i].event && waiters[i].event->auto_reset)
-+				set_event(waiters[i].event);
- 			spin_unlock(&waiters[i].event->lock);
- 		}
- 
-@@ -912,7 +916,7 @@ static void free_waiters(uint32_t num_events, struct kfd_event_waiter *waiters)
- 
- int kfd_wait_on_events(struct kfd_process *p,
- 		       uint32_t num_events, void __user *data,
--		       bool all, uint32_t user_timeout_ms,
-+		       bool all, uint32_t *user_timeout_ms,
- 		       uint32_t *wait_result)
- {
- 	struct kfd_event_data __user *events =
-@@ -921,7 +925,7 @@ int kfd_wait_on_events(struct kfd_process *p,
- 	int ret = 0;
- 
- 	struct kfd_event_waiter *event_waiters = NULL;
--	long timeout = user_timeout_to_jiffies(user_timeout_ms);
-+	long timeout = user_timeout_to_jiffies(*user_timeout_ms);
- 
- 	event_waiters = alloc_event_waiters(num_events);
- 	if (!event_waiters) {
-@@ -971,15 +975,11 @@ int kfd_wait_on_events(struct kfd_process *p,
- 		}
- 
- 		if (signal_pending(current)) {
--			/*
--			 * This is wrong when a nonzero, non-infinite timeout
--			 * is specified. We need to use
--			 * ERESTARTSYS_RESTARTBLOCK, but struct restart_block
--			 * contains a union with data for each user and it's
--			 * in generic kernel code that I don't want to
--			 * touch yet.
--			 */
- 			ret = -ERESTARTSYS;
-+			if (*user_timeout_ms != KFD_EVENT_TIMEOUT_IMMEDIATE &&
-+			    *user_timeout_ms != KFD_EVENT_TIMEOUT_INFINITE)
-+				*user_timeout_ms = jiffies_to_msecs(
-+					max(0l, timeout-1));
- 			break;
- 		}
- 
-@@ -1020,7 +1020,7 @@ int kfd_wait_on_events(struct kfd_process *p,
- 					       event_waiters, events);
- 
- out_unlock:
--	free_waiters(num_events, event_waiters);
-+	free_waiters(num_events, event_waiters, ret == -ERESTARTSYS);
- 	mutex_unlock(&p->event_mutex);
- out:
- 	if (ret)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 2585d6e61d42..c6eec54b8102 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1314,7 +1314,7 @@ void kfd_event_free_process(struct kfd_process *p);
- int kfd_event_mmap(struct kfd_process *process, struct vm_area_struct *vma);
- int kfd_wait_on_events(struct kfd_process *p,
- 		       uint32_t num_events, void __user *data,
--		       bool all, uint32_t user_timeout_ms,
-+		       bool all, uint32_t *user_timeout_ms,
- 		       uint32_t *wait_result);
- void kfd_signal_event_interrupt(u32 pasid, uint32_t partial_id,
- 				uint32_t valid_id_bits);
+ 	} else {
 -- 
 2.35.1
 
