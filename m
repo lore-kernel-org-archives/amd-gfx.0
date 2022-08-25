@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C528FC3F6B0
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:39:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10675C48BE4
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 01:39:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA810D0CF7;
-	Thu, 25 Aug 2022 01:38:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AB5CD0D36;
+	Thu, 25 Aug 2022 01:38:19 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB877D0BE8;
- Thu, 25 Aug 2022 01:37:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA9B0D0B1B;
+ Thu, 25 Aug 2022 01:37:41 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AB0C9B826C8;
- Thu, 25 Aug 2022 01:37:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35473C433C1;
- Thu, 25 Aug 2022 01:37:28 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4F5E5B826E6;
+ Thu, 25 Aug 2022 01:37:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5E97C433C1;
+ Thu, 25 Aug 2022 01:37:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661391450;
- bh=XFGhVs/LHdWs58uDFg8hQoy3JeWZ3/j6TuTHMImljLk=;
+ s=k20201202; t=1661391459;
+ bh=oZYVGgsaH2VFtB7OQwCBUSbZUvNKRGqOMHp98jOx8nE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=b68hAwoO0vGAS2DAHyvQdcqNDzXxydrNNS+nl2X7hMZfCmPzPbItUZh8zjt6UM861
- ePMREHICyunnULwuQWLq8lgAPKCkr/LqboYA9AqvPOF+LZbJ0A+s0FDpxncTT/SUcJ
- 1pJVk1qfb90MLcHl8Kjni4SXL+cp8fBs6qB0vBhJAaQUNtkdt8AFSVGIX+wB6fH3m+
- hXgFmrw0yUBuwPhUB+opLgkxdIoi84+o7liq2TR7fhZWc3u/+nPUWedxckQrNM37iR
- 7xssobIkB90SXRZLgMr08Z8lJD60i1NmjvGOHI7vMlCIzu8NadbyjULJ5yjf1TxihY
- BolBN9p2K0BWQ==
+ b=ZZ/e/vaU9Kp5DhrW1wWqdligfV7/WvMZup8Ko7Oj0R2LWLLHeaUEHXOxMPu9XdWwG
+ 6eBu5tllLM5kyoo0ueK5HTryCO2COHBdrlp1+VSXyxNwoE9GIfZbxsq1gU/kP59+yb
+ wOK79hkMG0PQBqQae8/gZboT87HU25e88Q8gPYEcNz7B6fUtMOyMPLub7L1xshd3NX
+ oAOdym4lh4Ea8+hHB72mICdCHpz0gihCZ7/fCqyUgMmLawth4NDSaYGFv6mO+l8c58
+ L1g4zJjOXkspyJ/0Vyw5F+i8Y9HVEG7dARq2M5iiDtGvQht8f3pAy48DypXeJ7Lwmw
+ 3h73TO8Aq0htQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 04/20] drm/amd/display: Fix HDMI VSIF V3
- incorrect issue
-Date: Wed, 24 Aug 2022 21:36:56 -0400
-Message-Id: <20220825013713.22656-4-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 06/20] drm/amd/display: clear optc underflow
+ before turn off odm clock
+Date: Wed, 24 Aug 2022 21:36:58 -0400
+Message-Id: <20220825013713.22656-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220825013713.22656-1-sashal@kernel.org>
 References: <20220825013713.22656-1-sashal@kernel.org>
@@ -55,87 +55,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: felipe.clark@amd.com, Aric.Cyr@amd.com, airlied@linux.ie,
- dri-devel@lists.freedesktop.org, Angus.Wang@amd.com,
- Anthony Koo <Anthony.Koo@amd.com>, Sasha Levin <sashal@kernel.org>,
- Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, Bing.Guo@amd.com,
- harry.wentland@amd.com, HaoPing.Liu@amd.com, sunpeng.li@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>, harry.vanzylldejong@amd.com,
- Leo Ma <hanghong.ma@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
- lv.ruyi@zte.com.cn, Xinhui.Pan@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: Fudong Wang <Fudong.Wang@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Tom Chung <chiahsuan.chung@amd.com>, Charlene.Liu@amd.com, sunpeng.li@amd.com,
+ dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, HaoPing.Liu@amd.com, airlied@linux.ie,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
+ isabbasso@riseup.net, Jun.Lei@amd.com, harry.wentland@amd.com,
+ christian.koenig@amd.com, oliver.logush@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Ma <hanghong.ma@amd.com>
+From: Fudong Wang <Fudong.Wang@amd.com>
 
-[ Upstream commit 0591183699fceeafb4c4141072d47775de83ecfb ]
+[ Upstream commit b2a93490201300a749ad261b5c5d05cb50179c44 ]
 
 [Why]
-Reported from customer the checksum in AMD VSIF V3 is incorrect and
-causing blank screen issue.
+After ODM clock off, optc underflow bit will be kept there always and clear not work.
+We need to clear that before clock off.
 
 [How]
-Fix the packet length issue on AMD HDMI VSIF V3.
+Clear that if have when clock off.
 
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
 Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Leo Ma <hanghong.ma@amd.com>
+Signed-off-by: Fudong Wang <Fudong.Wang@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/display/modules/freesync/freesync.c   | 15 +++------------
- 1 file changed, 3 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-index b99aa232bd8b..4bee6d018bfa 100644
---- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-+++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-@@ -567,10 +567,6 @@ static void build_vrr_infopacket_data_v1(const struct mod_vrr_params *vrr,
- 	 * Note: We should never go above the field rate of the mode timing set.
- 	 */
- 	infopacket->sb[8] = (unsigned char)((vrr->max_refresh_in_uhz + 500000) / 1000000);
--
--	/* FreeSync HDR */
--	infopacket->sb[9] = 0;
--	infopacket->sb[10] = 0;
- }
- 
- static void build_vrr_infopacket_data_v3(const struct mod_vrr_params *vrr,
-@@ -638,10 +634,6 @@ static void build_vrr_infopacket_data_v3(const struct mod_vrr_params *vrr,
- 
- 	/* PB16 : Reserved bits 7:1, FixedRate bit 0 */
- 	infopacket->sb[16] = (vrr->state == VRR_STATE_ACTIVE_FIXED) ? 1 : 0;
--
--	//FreeSync HDR
--	infopacket->sb[9] = 0;
--	infopacket->sb[10] = 0;
- }
- 
- static void build_vrr_infopacket_fs2_data(enum color_transfer_func app_tf,
-@@ -726,8 +718,7 @@ static void build_vrr_infopacket_header_v2(enum signal_type signal,
- 		/* HB2  = [Bits 7:5 = 0] [Bits 4:0 = Length = 0x09] */
- 		infopacket->hb2 = 0x09;
- 
--		*payload_size = 0x0A;
--
-+		*payload_size = 0x09;
- 	} else if (dc_is_dp_signal(signal)) {
- 
- 		/* HEADER */
-@@ -776,9 +767,9 @@ static void build_vrr_infopacket_header_v3(enum signal_type signal,
- 		infopacket->hb1 = version;
- 
- 		/* HB2  = [Bits 7:5 = 0] [Bits 4:0 = Length] */
--		*payload_size = 0x10;
--		infopacket->hb2 = *payload_size - 1; //-1 for checksum
-+		infopacket->hb2 = 0x10;
- 
-+		*payload_size = 0x10;
- 	} else if (dc_is_dp_signal(signal)) {
- 
- 		/* HEADER */
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
+index 37848f4577b1..92fee47278e5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
+@@ -480,6 +480,11 @@ void optc1_enable_optc_clock(struct timing_generator *optc, bool enable)
+ 				OTG_CLOCK_ON, 1,
+ 				1, 1000);
+ 	} else  {
++
++		//last chance to clear underflow, otherwise, it will always there due to clock is off.
++		if (optc->funcs->is_optc_underflow_occurred(optc) == true)
++			optc->funcs->clear_optc_underflow(optc);
++
+ 		REG_UPDATE_2(OTG_CLOCK_CONTROL,
+ 				OTG_CLOCK_GATE_DIS, 0,
+ 				OTG_CLOCK_EN, 0);
 -- 
 2.35.1
 
