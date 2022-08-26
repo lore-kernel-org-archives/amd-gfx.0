@@ -4,54 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2C4DECAAA3
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 22:35:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 975F2ECAAA2
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 02:51:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6422110E465;
-	Thu, 25 Aug 2022 22:34:51 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 401F210E461;
- Thu, 25 Aug 2022 22:34:47 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 037C7B82B2A;
- Thu, 25 Aug 2022 22:34:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E303DC433C1;
- Thu, 25 Aug 2022 22:34:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661466883;
- bh=9MvW1+ds+HiEDTMo8oSecKFR7fbv9XBzO14GO+DL/w0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=L+3k+Rr+gqFEuwpCpD5J9g7cWojXI6SNtH3GE0/cjZr93xjYYs4xoEsCjTr8tcwuI
- YJcg7gwIfkVmPglt+LB5IOSJN0dHDgH3eWRKAEzueq3nPYdJFEc4Ig+ru9UgEJDjFB
- n2DuNgIFAf7+KKwNLMOwtRklRBm6CQUaNdCNyr+koLZdv3FGNYbGn5aQD6BT6RzHho
- rSSh4k+TEgSoLKwTrVfKUu/iVU82FVM5loh/uRYFDM237M0jBCodHYrF9W2JcCHDhV
- au8CSYCJZZFwBP7W66PvRw1xb2RzcVzoz9rsEHf8eKsA4UK35zqqX5Gr/gBddngSPj
- ONgzRBCIya6Lg==
-Date: Thu, 25 Aug 2022 15:34:41 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Harry Wentland <harry.wentland@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: mainline build failure for x86_64 allmodconfig with clang
-Message-ID: <Ywf5ATPG7a/I0SLu@dev-arch.thelio-3990X>
-References: <YuwRyQYPCb1FD+mr@debian>
- <CAHk-=whptVSSZL=wSUQJdRBeVfS+Xy_K4anQ7eQOky7XUrXhUQ@mail.gmail.com>
- <CAK8P3a2bEaExue0OtNeLa2CVzBx-1dE9w2HZ2PAV5N8Ct9G=JQ@mail.gmail.com>
- <YuwvfsztWaHvquwC@dev-arch.thelio-3990X>
- <9fb73284-7572-5703-93d3-f83a43535baf@amd.com>
- <CAK8P3a3Fv=_+GV9r=k4jP72zZOjJowL-GOue-51EhyVDBaEfEw@mail.gmail.com>
- <Yu1bMqL5tsbq1ojj@dev-arch.thelio-3990X>
- <CAK8P3a3PAxkctN6AXOsoTBTFgwHhk7_OSYwJ4Rgk7Dbs+bc0Qw@mail.gmail.com>
- <Yv5h0rb3AgTZLVJv@dev-arch.thelio-3990X>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97A0410E10F;
+	Fri, 26 Aug 2022 02:51:36 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2077.outbound.protection.outlook.com [40.107.93.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9410810E10F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Aug 2022 02:51:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FPlbkrABqDSpx/TU+4IoRRTVWyIt0vL6OVLS7pPw4nJCwfjkwzB72O3oC2Zn3w++cEtGb7LWASylc1XNvpgRVFqsTTOdppOcDaNdq6xW9AiYNK0wPrvskBTX16Kpzx920lon8psKyHcgazfC2bJfXG3wrgV/keNSxakR2RsX7sKg9H1gly3MXor+k6rwkE86RErTIbbP9HsHb7igFS16bj+kJx6wFC0rO35xgIrfheZxk4R1O3LGOCYd5GALUALxBTeJPsyokR5jxMGJWMWFaxGiAFepQ1zfbedR68qZ6IaKvr27yOPdrFt48IH6lyEtnbCWtbKzInn54MWWyfUiQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1drTfQN6g2eaw9qDNKUM+opqpEZUJj0oOq9c+Yrq9F4=;
+ b=bHfyuRrgWfFjjRkNvr3D2LMVDiNrucySQ+EVmuSvG47F7srrXd5XJJIvbvRNjjcEdlR6bgYHtkBScIo/hLTZf0cOZJLZh7yk6aFYVJx1t4KobyV63xNGxCuHoxeolLELhjb30DIb7DD2hOT9d0J5E4//WtIzJQTQS9NTVNhzAVB72daqrBSaab+J2c7uJpqTcgstsrky5hjuwEyqF1tN/SYpS6M7fuRnL7BCn20QXAO68B5mCALlvUeBi63JwaT8WWCGIXHdPTKYaMoXw+/dLWNzCIRaAuEFtgN1x0/LLjWKjxyVBiZY090Ps74t0EOKadJB9ECaH4s12w0HPQdpZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1drTfQN6g2eaw9qDNKUM+opqpEZUJj0oOq9c+Yrq9F4=;
+ b=lYamICVAJfiMWQ8CwpIFjLRZ+yROIKqv7ZizTCiVP72x9P1Q3Tkow+RaBrSNJm3qCzHoEJfVlPyFy4ukmLnLFv7zo4KiBTH8hVHtcGscvgz/UH29+BEgPtQMOXrSO1XmNjeXvAFtzxpGZ6LUCPBkZ7a0nKPGl39n5stNa2cdHJU=
+Received: from DS7PR03CA0043.namprd03.prod.outlook.com (2603:10b6:5:3b5::18)
+ by DM4PR12MB5151.namprd12.prod.outlook.com (2603:10b6:5:392::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Fri, 26 Aug
+ 2022 02:51:32 +0000
+Received: from DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b5:cafe::cf) by DS7PR03CA0043.outlook.office365.com
+ (2603:10b6:5:3b5::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15 via Frontend
+ Transport; Fri, 26 Aug 2022 02:51:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT008.mail.protection.outlook.com (10.13.172.85) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5566.15 via Frontend Transport; Fri, 26 Aug 2022 02:51:31 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 25 Aug
+ 2022 21:51:30 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 25 Aug
+ 2022 19:51:20 -0700
+Received: from yubiwang-dev-linux.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28
+ via Frontend Transport; Thu, 25 Aug 2022 21:51:11 -0500
+From: YuBiao Wang <YuBiao.Wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Fix use-after-free in amdgpu_cs_ioctl
+Date: Fri, 26 Aug 2022 10:48:53 +0800
+Message-ID: <20220826024853.3724997-1-YuBiao.Wang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Yv5h0rb3AgTZLVJv@dev-arch.thelio-3990X>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4718368b-2241-4a0b-f1fa-08da870de1da
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5151:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: LkezTXAygHGUfLBlkorwTkXZTahzJIT8mu6mSFiPPOouKP63yqnws5h9xMcFlmDAdq0c4SUN1Q3GSsPB7b8yq/V3roih+uFtyXYeEIttPMgzMYQiB+qBbpy9c3C3jqj+ORxEbtKW2npFsQbHFbxZUr1PW0b5X+wTJekGoUwPowbyDG/S+xwfK5wECr1CB7PFg2Uc7WfGYeP/hn10jCtDmxCjO0HOtmZ8F+HztWxitxkXPLRt1xnr4oePYdyYpNktSq6IEg/nZcCEpQtMQmptkditu2blLCizM8dSM9aGL2MLEJ8EUfJDflbIjFCi1o/vWBcHYYebE0xbIluSio9ZlSofCj1em8h9jFbIgMwBlJzpm0b16Znw0WHi5kdJQZgggOyTQaLGEbe2E+V0+A4B6flm5fTbbpiuPm0vgfwhxxUEJl2Y6tPUuMqQybM5RHQuJPdBjHVKFp5jDI0d9Dp+bFvXPsuSmzGIyYkpQc5k0M6K86tu2uorqYr4y1N2WnSDly441cXF6LHOVcNFZlshHyXvv0jbSSbKpx5vxrYf1+oXVYNotBVJ3+k4Ilc+rh59Yd+IZ6Ebi8jzlNsf5U9KGCRWoqcQ5MZPLJr2Os9BGNhvfZplVgkEIiztqKnQBbEtBm5fhj82A5A51a9GMmEVhmrRLhxGKZUYqstDS61mGqeCihydJLAqzIyrqFnUjUBbXtZZJRHfLmHWlrjKAEePm/YGtPaaJbVtgsOqRVH54ZsqWH66bMYo6zQUYo0yxGmiwFqIqnuXgIo1ScAoewYmAzB1zXkPEOLGFjwM2O18aQnZl0zvaJhhFatEoux+OmBS
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(39860400002)(376002)(136003)(346002)(36840700001)(46966006)(40470700004)(86362001)(426003)(83380400001)(478600001)(2906002)(7696005)(26005)(6666004)(40460700003)(186003)(1076003)(2616005)(8936002)(5660300002)(336012)(41300700001)(54906003)(82310400005)(316002)(356005)(82740400003)(6916009)(47076005)(36756003)(40480700001)(70206006)(70586007)(81166007)(36860700001)(4326008)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2022 02:51:31.8956 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4718368b-2241-4a0b-f1fa-08da870de1da
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5151
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,162 +101,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@kernel.org>, David Airlie <airlied@linux.ie>,
- clang-built-linux <llvm@lists.linux.dev>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- "Sudip Mukherjee \(Codethink\)" <sudipm.mukherjee@gmail.com>
+Cc: YuBiao Wang <YuBiao.Wang@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
+ Feifei Xu <Feifei.Xu@amd.com>, horace.chen@amd.com,
+ Kevin Wang <Kevin1.Wang@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Monk
+ Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi AMD folks,
+Hello,
 
-Top posting because it might not have been obvious but I was looking for
-your feedback on this message (which can be viewed on lore.kernel.org if
-you do not have the original [1]) so that we can try to get this fixed
-in some way for 6.0/6.1. If my approach is not welcome, please consider
-suggesting another one or looking to see if this is something you all
-could look into.
+This patch is reviewed by Andrey and Christian and pushed into bringup
+temp branch. It need to be cherry-picked to drm-next, too. Does anyone
+has any comments on this patch?
 
-[1]: https://lore.kernel.org/Yv5h0rb3AgTZLVJv@dev-arch.thelio-3990X/
+Thanks,
+Yubiao Wang
 
-Cheers,
-Nathan
 
-On Thu, Aug 18, 2022 at 08:59:14AM -0700, Nathan Chancellor wrote:
-> Hi Arnd,
-> 
-> Doubling back around to this now since I think this is the only thing
-> breaking x86_64 allmodconfig with clang 11 through 15.
-> 
-> On Fri, Aug 05, 2022 at 09:32:13PM +0200, Arnd Bergmann wrote:
-> > On Fri, Aug 5, 2022 at 8:02 PM Nathan Chancellor <nathan@kernel.org> wrote:
-> > > On Fri, Aug 05, 2022 at 06:16:45PM +0200, Arnd Bergmann wrote:
-> > > > On Fri, Aug 5, 2022 at 5:32 PM Harry Wentland <harry.wentland@amd.com> wrote:
-> > > > While splitting out sub-functions can help reduce the maximum stack
-> > > > usage, it seems that in this case it makes the actual problem worse:
-> > > > I see 2168 bytes for the combined
-> > > > dml32_ModeSupportAndSystemConfigurationFull(), but marking
-> > > > mode_support_configuration() as noinline gives me 1992 bytes
-> > > > for the outer function plus 384 bytes for the inner one. So it does
-> > > > avoid the warning (barely), but not the problem that the warning tries
-> > > > to point out.
-> > >
-> > > I haven't had a chance to take a look at splitting things up yet, would
-> > > you recommend a different approach?
-> > 
-> > Splitting up large functions can help when you have large local variables
-> > that are used in different parts of the function, and the split gets the
-> > compiler to reuse stack locations.
-> > 
-> > I think in this particular function, the problem isn't actually local variables
-> > but either pushing variables on the stack for argument passing,
-> > or something that causes the compiler to run out of registers so it
-> > has to spill registers to the stack.
-> > 
-> > In either case, one has to actually look at the generated output
-> > and then try to rearrange the codes so this does not happen.
-> > 
-> > One thing to try would be to condense a function call like
-> > 
-> >                 dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport(
-> > 
-> > &v->dummy_vars.dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport,
-> >                         mode_lib->vba.USRRetrainingRequiredFinal,
-> >                         mode_lib->vba.UsesMALLForPStateChange,
-> > 
-> > mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb],
-> >                         mode_lib->vba.NumberOfActiveSurfaces,
-> >                         mode_lib->vba.MaxLineBufferLines,
-> >                         mode_lib->vba.LineBufferSizeFinal,
-> >                         mode_lib->vba.WritebackInterfaceBufferSize,
-> >                         mode_lib->vba.DCFCLK,
-> >                         mode_lib->vba.ReturnBW,
-> >                         mode_lib->vba.SynchronizeTimingsFinal,
-> > 
-> > mode_lib->vba.SynchronizeDRRDisplaysForUCLKPStateChangeFinal,
-> >                         mode_lib->vba.DRRDisplay,
-> >                         v->dpte_group_bytes,
-> >                         v->meta_row_height,
-> >                         v->meta_row_height_chroma,
-> > 
-> > v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters,
-> >                         mode_lib->vba.WritebackChunkSize,
-> >                         mode_lib->vba.SOCCLK,
-> >                         v->DCFCLKDeepSleep,
-> >                         mode_lib->vba.DETBufferSizeY,
-> >                         mode_lib->vba.DETBufferSizeC,
-> >                         mode_lib->vba.SwathHeightY,
-> >                         mode_lib->vba.SwathHeightC,
-> >                         mode_lib->vba.LBBitPerPixel,
-> >                         v->SwathWidthY,
-> >                         v->SwathWidthC,
-> >                         mode_lib->vba.HRatio,
-> >                         mode_lib->vba.HRatioChroma,
-> >                         mode_lib->vba.vtaps,
-> >                         mode_lib->vba.VTAPsChroma,
-> >                         mode_lib->vba.VRatio,
-> >                         mode_lib->vba.VRatioChroma,
-> >                         mode_lib->vba.HTotal,
-> >                         mode_lib->vba.VTotal,
-> >                         mode_lib->vba.VActive,
-> >                         mode_lib->vba.PixelClock,
-> >                         mode_lib->vba.BlendingAndTiming,
-> >                         .... /* more arguments */);
-> > 
-> > into calling conventions that take a pointer to 'mode_lib->vba' and another
-> > one to 'v', so these are no longer passed on the stack individually.
-> 
-> So I took a whack at reducing this function's number of parameters and
-> ended up with the attached patch. I basically just removed any
-> parameters that were identical between the two call sites and access them
-> through the vba pointer, as you suggested.
-> 
-> AMD folks, is this an acceptable approach? It didn't take a trivial
-> amount of time so I want to make sure this is okay before I do it to
-> more functions/files.
-> 
-> Due to the potential size of these changes, I am a little weary of them
-> going into 6.0; even though they should be a simple search and replace
-> for the most part, it might be nice for them to have some decent soak
-> time in -next. One solution would be to raise the warning limit for
-> these files on 6.0 so that allmodconfig does not ship broken then reduce
-> the limit for 6.1 once these patches have been applied.
-> 
-> Additionally, I took a look at the stack usage across all compilers that
-> the kernel supports and I thought it was kind of interesting that the
-> usage really jumps from GCC 7 to 8, which I am guessing is a result of
-> commit e8a170ff9a35 ("drm/amdgpu: enable -msse2 for GCC 7.1+ users").
-> GCC 8 allmodconfig actually errors now too:
-> 
-> https://lore.kernel.org/alpine.DEB.2.22.394.2208152006320.289321@ramsan.of.borg/
-> 
->           |-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
->           | dml30_ModeSupportAndSystemConfigurationFull() | dml31_ModeSupportAndSystemConfigurationFull() | dml32_ModeSupportAndSystemConfigurationFull() |
-> |---------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
-> | GCC 5   |                  1056 bytes                   |                   656 bytes                   |                  1040 bytes                   |
-> | GCC 6   |                  1024 bytes                   |                   672 bytes                   |                  1056 bytes                   |
-> | GCC 7   |                  1040 bytes                   |                   664 bytes                   |                  1056 bytes                   |
-> | GCC 8   |                  1760 bytes                   |                  1608 bytes                   |                  2144 bytes                   |
-> | GCC 9   |                  1664 bytes                   |                  1392 bytes                   |                  1960 bytes                   |
-> | GCC 10  |                  1648 bytes                   |                  1368 bytes                   |                  1952 bytes                   |
-> | GCC 11  |                  1680 bytes                   |                  1400 bytes                   |                  1952 bytes                   |
-> | GCC 12  |                  1680 bytes                   |                  1400 bytes                   |                  1984 bytes                   |
-> |---------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
-> | LLVM 11 |                  2104 bytes                   |                  2056 bytes                   |                  2120 bytes                   |
-> | LLVM 12 |                  2152 bytes                   |                  2200 bytes                   |                  2152 bytes                   |
-> | LLVM 13 |                  2216 bytes                   |                  2248 bytes                   |                  2168 bytes                   |
-> | LLVM 14 |                  2168 bytes                   |                  2184 bytes                   |                  2160 bytes                   |
-> | LLVM 15 |                  2216 bytes                   |                  2184 bytes                   |                  2160 bytes                   |
-> | LLVM 16 |                  2232 bytes                   |                  2216 bytes                   |                  2176 bytes                   |
-> |---------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
-> 
-> With the patch I have attached,
-> dml32_ModeSupportAndSystemConfigurationFull() drops from 2176 to 1944
-> for LLVM 16, which is obviously still not great but it at least avoids
-> the warning.
-> 
-> Cheers,
-> Nathan
+[Why]
+In amdgpu_cs_ioctl, amdgpu_job_free could be performed ealier if there
+is -ERESTARTSYS error. In this case, job->hw_fence could be not
+initialized yet. Putting hw_fence during amdgpu_job_free could lead to a
+use-after-free warning.
+
+[How]
+Check if drm_sched_job_init is performed before job_free by checking
+s_fence.
+
+v2: Check hw_fence.ops instead since it could be NULL if fence is not
+initialized. Reverse the condition since !=NULL check is discouraged in
+kernel.
+
+Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
+Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 8f51adf3b329..1062b7ed74ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -162,7 +162,10 @@ void amdgpu_job_free(struct amdgpu_job *job)
+ 	amdgpu_sync_free(&job->sync);
+ 	amdgpu_sync_free(&job->sched_sync);
+ 
+-	dma_fence_put(&job->hw_fence);
++	if (!job->hw_fence.ops)
++		kfree(job);
++	else
++		dma_fence_put(&job->hw_fence);
+ }
+ 
+ int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
+-- 
+2.25.1
+
