@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25795ECAAD4
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Aug 2022 02:50:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E52BECAAD4
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 Aug 2022 02:51:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A61810EB5C;
-	Sat, 27 Aug 2022 02:50:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1CC810EB5E;
+	Sat, 27 Aug 2022 02:50:58 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2053.outbound.protection.outlook.com [40.107.223.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3BDC10EB53
- for <amd-gfx@lists.freedesktop.org>; Sat, 27 Aug 2022 02:50:32 +0000 (UTC)
+ (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FECF10EB5E
+ for <amd-gfx@lists.freedesktop.org>; Sat, 27 Aug 2022 02:50:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HiaoyytLVaYEn79z9TYlGLFjchwg4NhJR6g5oi8WbVbxZVGn1SOSWxLLAiM/IaQ9b7eyTnnvF2wnK7FaoUv3JGSy+u38vzWURm9Xhoeiz1wNpejSWxfrAXEjEPJhzxY8dR84WvNuy2eZe9UXOIUxde/e4bbMb+klNuFzElPi1lFb9OJrdeU2EkfO5XS5aS7GWRqvpgweFAieHooUiKZMY1+JuFsEi68fcjFT37hReE7G6InabfDTny0BhrwilU/rK1P5nLRDiR7iDhkufHOT4jTzaWOSJy9SWEz1irNWPHBXzO6ldaa0VSJv2st8Syj8PT/9JV8X+FKxaqt6osR2RA==
+ b=SIxzMjt30duAQbziZQ92yWPZOTf8Lm9IvVpAa3rDOb4uqf88CVyEUHIfX2xakp0ippjYeCDHWIWo6iIOMxTby153P5ed7pngU/Wj1b+nYUmcQsNpg3d47Bxz2IZgquGMmzr4Isu3NlvmBgGCDao5qLoeOZzIb6q8JYTfVbkh9OxwSZG1tsvFIVzOESqBVXVBkIwZvBHmCH5sM3k0YdxRvE7TjMpBynhjrUTVXt6jLQ72sEIIThPIImtZn+U0vZFolP3fZbrL8GE9Re9+GhGTahlVOe6UvkBtTX1xQo04ijyRs7X78xHX1ole164Nbg4dbne7bk+3QGYuWPH5rQwnsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QO5SV1DgCDgr+6OJQ99v3z4Cc1p/CdOQ6xMOWDAQZpw=;
- b=R5nHZzvtnpvgHjQHZ7EZidAIkDtOYzQI44T5R4tFFn/TicBxSqztzzTNTJRFiO297fsEE6mCLo81zj+RIByGnYUO7AxUOpYYNGWAd9nUhYDPwzn829cDHnHCNeJi14zRRxOx3Tuu0+qRYQEDuLsWAozANLo57WB3sbACihIfj7UwdCb2NxUFC/UpbR/MEUV9Fg/sD5qok2812TUN2hQPzfIxNvY3Pzm6hawLPYcpOlLOLGLdmI9G0ZMp+EIXY80kSzeT6MXEack9XJ4pDDkbMbuyUMBrkHC1x4z1+jTOSNp5k0BTetjTB1ZEj7F2IAnItAV0e2rdH8YNJCmfuwH2tQ==
+ bh=bdA0v2m8dnQ5VuuuwbzQQemGFwm4B2amfkDg0ZVo3d4=;
+ b=Z57cqmWTqH5+jXg2oGQjEz2Z/8twx2CVaPXE1W7j+/fnf1GOsDF/RqaZHRHGTZpDrPk/sy1wEmWyb/D735OPhK0JZkGXt9rhi5HEpJQxCtvCH596GNeLO0U3b8Ge/H7YF0fz57MowLzZjbNynp8ZCYUH9mu12U9K5btxB0oQoI+r9vuxvcO4Adq3R8XIs4MeJhhuazI1ui5NYRx5CaXu7vovfbawCWzAKWG5TQsSU1kdov0Gs/37ohlB7/7GEi3r5IG+8sKLRJ0+bKhN51ZGgGgNeoZyBv/OtXafCZaAzzqMVLSkv3aPO5Zh6CwQuDraK8tbLDd6abhUfdA3f7+3iA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QO5SV1DgCDgr+6OJQ99v3z4Cc1p/CdOQ6xMOWDAQZpw=;
- b=TcreNT80/Kwmo76e7zEPSEJB3eQRaO8eEezOKTYQpe/1XQtHIw11Uysu/bBEpn3gWtywOi3nIOWibRXmrGVezIpaxCIuQvxu/Oj+lRDRi1rj33nVyBVgzVWD4EAUNkyhGPef9NWUodOydqOAT1JmofStolos6/X6r6+gwe+3WCY=
-Received: from DS7PR05CA0021.namprd05.prod.outlook.com (2603:10b6:5:3b9::26)
- by BN9PR12MB5227.namprd12.prod.outlook.com (2603:10b6:408:100::6) with
+ bh=bdA0v2m8dnQ5VuuuwbzQQemGFwm4B2amfkDg0ZVo3d4=;
+ b=OxIljvIF73MXytyI69bWLJvSo7/+bQ/b3esXoqqs/JmAg3JLMr5O0r5WUGnHxiIGoMAftW+aaY2Psi3PUOohXbsrMVKwW7P0GJAXL/VebTERzrc0IiXUIyPiNPF5tklhCcUngQNItH3iQNc9LALA0b1oHCko/30VRE5woi6EAYE=
+Received: from DS7PR05CA0007.namprd05.prod.outlook.com (2603:10b6:5:3b9::12)
+ by PH0PR12MB5645.namprd12.prod.outlook.com (2603:10b6:510:140::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Sat, 27 Aug
- 2022 02:50:30 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.19; Sat, 27 Aug
+ 2022 02:50:44 +0000
 Received: from CY4PEPF0000B8ED.namprd05.prod.outlook.com
- (2603:10b6:5:3b9:cafe::d0) by DS7PR05CA0021.outlook.office365.com
- (2603:10b6:5:3b9::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.4 via Frontend
- Transport; Sat, 27 Aug 2022 02:50:29 +0000
+ (2603:10b6:5:3b9:cafe::41) by DS7PR05CA0007.outlook.office365.com
+ (2603:10b6:5:3b9::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.3 via Frontend
+ Transport; Sat, 27 Aug 2022 02:50:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,20 +47,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
  CY4PEPF0000B8ED.mail.protection.outlook.com (10.167.241.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5566.14 via Frontend Transport; Sat, 27 Aug 2022 02:50:29 +0000
+ 15.20.5566.14 via Frontend Transport; Sat, 27 Aug 2022 02:50:44 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 26 Aug
- 2022 21:50:28 -0500
+ 2022 21:50:32 -0500
 Received: from brianchang-HP-EliteDesk-805-G6-Small-Form-Factor-PC.amd.com
  (10.180.168.240) by SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP
- Server id 15.1.2375.28 via Frontend Transport; Fri, 26 Aug 2022 21:50:24
+ Server id 15.1.2375.28 via Frontend Transport; Fri, 26 Aug 2022 21:50:29
  -0500
 From: brichang <Brian.Chang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 05/33] drm/amd/display: Fix OTG H timing reset for dcn314
-Date: Sat, 27 Aug 2022 06:50:25 +0800
-Message-ID: <20220826225053.1435588-6-Brian.Chang@amd.com>
+Subject: [PATCH 06/33] drm/amd/display: add dcn35 basic support
+Date: Sat, 27 Aug 2022 06:50:26 +0800
+Message-ID: <20220826225053.1435588-7-Brian.Chang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220826225053.1435588-1-Brian.Chang@amd.com>
 References: <20220826225053.1435588-1-Brian.Chang@amd.com>
@@ -69,26 +69,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4f21cf14-2a12-4f44-be22-08da87d6e738
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5227:EE_
+X-MS-Office365-Filtering-Correlation-Id: 032968d7-a6a6-49b6-c616-08da87d6efc7
+X-MS-TrafficTypeDiagnostic: PH0PR12MB5645:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pLrGx3fKlGe6wqVCjc+blppRbnXb9VkoVK+z2Zka3PLSjlymE14pv/5gcvbIC4jWJyUFK1pSjr4JU2YyN4qNrEqrgEgbYRSokHSjfPT2NggK1MYNKMOkg8ysW3TKvpFt5mcN9onARvMH+FcmBQcdHgmGNeAbwxxr3/cGYbteDiFtvbTwLxbxGXMZdUTvxelAmJue/m/PmwAWjC1AkFglX9Hlaokkxy8Px+77A30b6ivMdJT99+D5wDWJvQxLKI8o8DqMgeOCybscanuw3qFCkKhQhvaAVoDhxrAnhrzPavQJZGkfk0Tx2AKnxlFxM5rHgG0W0J019HG2Zz+BCIm4S0GAkQZpUuXPorynYvMz0c/8HqF9xNnV0tCx52CXY2AoK5YC10oeC6ftI+weiQMjeHAi0Xydymi90nxQe2US1TbnspT3LQhaQobHegfqVzmSCA2OHDdIqh7/gkVHieAC7C0iBLCBdaQHIy5VfSdcMyKBlSBYwvJVjkBhEGRKW8ZkpQWmLX5RrMWIDwYrSM/akSqyWGr4ebDUk97E3RDA7ymjltrzuuFPb+kNlZvHuhPqYuLnErDCYqIGj3DPTpkx+4IRNifAoilOelhgx9I9ZcWcoCcaM0sR9yMIypatCEQL4EdmiaGtdkcapqnnrOBcuJ/PGJ/hYhcdO+8mD/jLeflsgSWef6f76V9CXCzyXk+VXjrjuugX+0vqYEAdcXjkrQG75sTZ2Y8JDmkUZvy9GuS19eCgTdLbksdxVFGN2K+bq4+q4GhhELFII3WM2hc2pV1EHhtD66qqx+/bnO956Ag0SWeDsuyMY5NFlO/igL63BiO8TPvAAXG6R2C1ucn8CQ==
+X-Microsoft-Antispam-Message-Info: R2ImVKASGXB3nOeJuOjwl0nJmwyQu6X07DeNFwAjLCeIzgMQ8AeXF5y6AQ95bx96Xi+jM+RuDGaByXgeMIGlNtPnX8+sZ1V2ST1i1+J6TjLQHie3uUxi6xXeHkYb73IJ9CnsZ/lzk2kYbxKv/49C+tLMJkerp7iLQ0PdLJ3GD79b2uvq4M2IPVko134DwpwFuDl/x0TU54t1owXDQMP1FDKlZnLRdxTjOnD5l9ze+PirKFUAuhJaivXGm+SPVGLVC7G7PP7NyFi1Mdhqz69ulaJpwTXiPCcZgEppm5XG5P/tW+yjm29Fe8rUzYimrJvFB1bsQZwbMMtdC4tB4Bo7tWvzUpMrJwZP2OGmtvy6QKW4u4MhfeF0KxNTP+9NLjqOUpwGcCTF979wY9dYoW50Wk+jMmXWxBqmk2y8hWYJQ1RF5x0wkkCk7ckzeGA5pONffUmqBZYoTgv05Y5VLKVi9fw8SQWCIf6eObOWAnvB1wZEP00QVQWeAdg1PLxUcIqIFMFP7EdGDx8K1YxbzbN6KRoq4H/yhOxtBHQv7zYr5AJN2X4sWDA30uT6N5Uu+Z66sozHi+Jx0MjShyYG4R8KvL2D/KLsFPSNaFGDsL5GZvWtriFVZ3BU4yqXIwLw9Qy+kxz1Zq2nphrT6CdmbSwZfgic4O2G/ypgCF8Bc4c666IqLaGJ4Lp/YGvRQzlz29PqJx3Px8xJOmGIBCat7CoQO/PPN0bUNhiD4C7W5bgAUv57O8Eumj3GLCcPE1fUtw7UxfuqzpKQ6jL+WmZxtr3/IOhFFUfLhQFwz4f38iSwuxEyPu5pDhAFbxDK/36Ze2vK
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(39860400002)(376002)(396003)(136003)(40470700004)(36840700001)(46966006)(83380400001)(1076003)(82310400005)(47076005)(2616005)(5660300002)(4326008)(70206006)(70586007)(8676002)(2906002)(26005)(7696005)(36756003)(478600001)(40480700001)(336012)(186003)(426003)(41300700001)(8936002)(40460700003)(86362001)(36860700001)(6916009)(54906003)(82740400003)(356005)(81166007)(316002)(43062005)(36900700001);
+ SFS:(13230016)(4636009)(376002)(346002)(136003)(39860400002)(396003)(46966006)(40470700004)(36840700001)(41300700001)(6666004)(356005)(2906002)(81166007)(7696005)(54906003)(6916009)(86362001)(478600001)(40460700003)(4326008)(8676002)(70586007)(70206006)(316002)(5660300002)(8936002)(83380400001)(36860700001)(40480700001)(336012)(1076003)(186003)(426003)(47076005)(2616005)(36756003)(26005)(82310400005)(82740400003)(43062005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2022 02:50:29.7103 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f21cf14-2a12-4f44-be22-08da87d6e738
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2022 02:50:44.0694 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 032968d7-a6a6-49b6-c616-08da87d6efc7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000B8ED.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5227
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5645
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,47 +101,175 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
- Brian Chang <Brian.Chang@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Duncan Ma <duncan.ma@amd.com>, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+ Hansen Dsouza <hansen.dsouza@amd.com>, Brian Chang <Brian.Chang@amd.com>,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Duncan Ma <duncan.ma@amd.com>
+From: Charlene Liu <Charlene.Liu@amd.com>
 
-[Why]
-When ODM is enabled, H timing control register reset
-to 0. Div mode manual field get overwritten causing
-no display on certain modes for dcn314.
+[why]
+this is to add new dcn frame work
 
-[How]
-Use REG_UPDATE instead of REG_SET to set div_mode
-field.
-
-Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Reviewed-by: Hansen Dsouza <hansen.dsouza@amd.com>
 Acked-by: Brian Chang <Brian.Chang@amd.com>
-Signed-off-by: Duncan Ma <duncan.ma@amd.com>
+Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/display/dc/clk_mgr/Makefile.rej | 17 +++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dce/dce_abm.h    |  9 ++++++---
+ .../amd/display/dc/dcn10/dcn10_stream_encoder.h |  1 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dpp.h    |  3 ++-
+ .../dc/dcn31/dcn31_hpo_dp_link_encoder.h        | 10 ++++++++--
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h     |  3 ++-
+ drivers/gpu/drm/amd/display/include/dal_types.h |  1 +
+ 7 files changed, 37 insertions(+), 7 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile.rej
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
-index 0c7980266b85..38aa28ec6b13 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
-@@ -98,7 +98,8 @@ static void optc314_set_odm_combine(struct timing_generator *optc, int *opp_id,
- 	REG_UPDATE(OPTC_WIDTH_CONTROL,
- 			OPTC_SEGMENT_WIDTH, mpcc_hactive);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile.rej b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile.rej
+new file mode 100644
+index 000000000000..bfbfd67a7451
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile.rej
+@@ -0,0 +1,17 @@
++diff a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile	(rejected hunks)
++@@ -160,6 +160,15 @@ AMD_DAL_CLK_MGR_DCN32 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn32/,$(CLK_MGR_DC
++ 
++ AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN32)
++ 
+++
+++###############################################################################
+++# DCN35
+++###############################################################################
+++CLK_MGR_DCN35 = dcn35_smu.o dcn35_clk_mgr.o
+++
+++AMD_DAL_CLK_MGR_DCN35 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn35/,$(CLK_MGR_DCN35))
+++
+++AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN35)
++ ###############################################################################
++ # DCN3AG
++ ###############################################################################
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_abm.h b/drivers/gpu/drm/amd/display/dc/dce/dce_abm.h
+index e6c06325742a..a3c27cbb77c8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_abm.h
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_abm.h
+@@ -183,8 +183,7 @@
+ 	ABM_SF(DC_ABM1_HGLS_REG_READ_PROGRESS, \
+ 			ABM1_BL_REG_READ_MISSED_FRAME_CLEAR, mask_sh)
  
--	REG_SET(OTG_H_TIMING_CNTL, 0, OTG_H_TIMING_DIV_MODE, opp_cnt - 1);
-+	REG_UPDATE(OTG_H_TIMING_CNTL,
-+			OTG_H_TIMING_DIV_MODE, opp_cnt - 1);
- 	optc1->opp_count = opp_cnt;
- }
+-#define ABM_MASK_SH_LIST_DCN10(mask_sh) \
+-	ABM_COMMON_MASK_SH_LIST_DCE_COMMON_BASE(mask_sh), \
++#define ABM_MASK_SH_LIST_DCN10_COMMON(mask_sh) \
+ 	ABM_SF(ABM0_DC_ABM1_HG_MISC_CTRL, \
+ 			ABM1_HG_NUM_OF_BINS_SEL, mask_sh), \
+ 	ABM_SF(ABM0_DC_ABM1_HG_MISC_CTRL, \
+@@ -214,9 +213,13 @@
+ 	ABM_SF(ABM0_DC_ABM1_HGLS_REG_READ_PROGRESS, \
+ 			ABM1_BL_REG_READ_MISSED_FRAME_CLEAR, mask_sh)
+ 
+-#define ABM_MASK_SH_LIST_DCN20(mask_sh) ABM_MASK_SH_LIST_DCE110(mask_sh)
++#define ABM_MASK_SH_LIST_DCN10(mask_sh) \
++	ABM_COMMON_MASK_SH_LIST_DCE_COMMON_BASE(mask_sh), \
++	ABM_MASK_SH_LIST_DCN10_COMMON(mask_sh)
+ 
++#define ABM_MASK_SH_LIST_DCN20(mask_sh) ABM_MASK_SH_LIST_DCE110(mask_sh)
+ #define ABM_MASK_SH_LIST_DCN30(mask_sh) ABM_MASK_SH_LIST_DCN10(mask_sh)
++#define ABM_MASK_SH_LIST_DCN35(mask_sh) ABM_MASK_SH_LIST_DCN10_COMMON(mask_sh)
+ 
+ #define ABM_MASK_SH_LIST_DCN32(mask_sh) \
+ 	ABM_SF(ABM0_DC_ABM1_HG_MISC_CTRL, \
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.h
+index 9d5e2a7848dd..3f9582b4cc79 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.h
+@@ -188,6 +188,7 @@ struct dcn10_stream_enc_registers {
+ 	uint32_t HDMI_GENERIC_PACKET_CONTROL10;
+ 	uint32_t DIG_CLOCK_PATTERN;
+ 	uint32_t DIG_FIFO_CTRL0;
++	uint32_t DIG_FE_CLK_CNTL;
+ };
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.h
+index 6263408d71fc..815169e08e5b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.h
+@@ -172,7 +172,8 @@
+ 	SRI(CM_BLNDGAM_RAMB_START_SLOPE_CNTL_R, CM, id),\
+ 	SRI(CM_BLNDGAM_LUT_CONTROL, CM, id)
+ 
+-
++#define DPP_REG_LIST_DCN35(id)\
++	DPP_REG_LIST_DCN30_COMMON(id)
+ 
+ #define DPP_REG_LIST_SH_MASK_DCN30_COMMON(mask_sh)\
+ 	TF_SF(CM0_CM_MEM_PWR_STATUS, GAMCOR_MEM_PWR_STATE, mask_sh),\
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.h
+index e324e9b83136..51f5781325e8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.h
+@@ -104,7 +104,10 @@ struct dcn31_hpo_dp_link_encoder_registers {
+ 	uint32_t RDPCSTX_PHY_CNTL6[5];
+ };
+ 
+-#define DCN3_1_HPO_DP_LINK_ENC_MASK_SH_LIST(mask_sh)\
++#define DCN3_1_HPO_DP_LINK_ENC_RDPCSTX_MASK_SH_LIST(mask_sh)\
++	SE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL6, RDPCS_PHY_DPALT_DISABLE, mask_sh)
++
++#define DCN3_1_HPO_DP_LINK_ENC_COMMON_MASK_SH_LIST(mask_sh)\
+ 	SE_SF(DP_LINK_ENC0_DP_LINK_ENC_CLOCK_CONTROL, DP_LINK_ENC_CLOCK_EN, mask_sh),\
+ 	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_CONTROL, DPHY_RESET, mask_sh),\
+ 	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_CONTROL, DPHY_ENABLE, mask_sh),\
+@@ -126,11 +129,14 @@ struct dcn31_hpo_dp_link_encoder_registers {
+ 	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_TP_SQ_PULSE, TP_SQ_PULSE_WIDTH, mask_sh),\
+ 	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_SAT_VC0, SAT_STREAM_SOURCE, mask_sh),\
+ 	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_SAT_VC0, SAT_SLOT_COUNT, mask_sh),\
+-	SE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL6, RDPCS_PHY_DPALT_DISABLE, mask_sh),\
+ 	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_VC_RATE_CNTL0, STREAM_VC_RATE_X, mask_sh),\
+ 	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_VC_RATE_CNTL0, STREAM_VC_RATE_Y, mask_sh),\
+ 	SE_SF(DP_DPHY_SYM320_DP_DPHY_SYM32_SAT_UPDATE, SAT_UPDATE, mask_sh)
+ 
++#define DCN3_1_HPO_DP_LINK_ENC_MASK_SH_LIST(mask_sh)\
++	DCN3_1_HPO_DP_LINK_ENC_COMMON_MASK_SH_LIST(mask_sh),\
++	DCN3_1_HPO_DP_LINK_ENC_RDPCSTX_MASK_SH_LIST(mask_sh)\
++
+ #define DCN3_1_HPO_DP_LINK_ENC_REG_FIELD_LIST(type) \
+ 	type DP_LINK_ENC_CLOCK_EN;\
+ 	type DPHY_RESET;\
+diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+index ced176d17bae..840460ad0bf8 100644
+--- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+@@ -103,6 +103,7 @@ enum dmub_asic {
+ 	DMUB_ASIC_DCN316,
+ 	DMUB_ASIC_DCN32,
+ 	DMUB_ASIC_DCN321,
++
+ 	DMUB_ASIC_MAX,
+ };
+ 
+@@ -419,7 +420,7 @@ struct dmub_srv {
+ 	const struct dmub_srv_common_regs *regs;
+ 	const struct dmub_srv_dcn31_regs *regs_dcn31;
+ 	const struct dmub_srv_dcn32_regs *regs_dcn32;
+-
++    const struct dmub_srv_dcn35_regs *regs_dcn35;
+ 	struct dmub_srv_base_funcs funcs;
+ 	struct dmub_srv_hw_funcs hw_funcs;
+ 	struct dmub_rb inbox1_rb;
+diff --git a/drivers/gpu/drm/amd/display/include/dal_types.h b/drivers/gpu/drm/amd/display/include/dal_types.h
+index d2427cf1155f..97084958d845 100644
+--- a/drivers/gpu/drm/amd/display/include/dal_types.h
++++ b/drivers/gpu/drm/amd/display/include/dal_types.h
+@@ -62,6 +62,7 @@ enum dce_version {
+ 	DCN_VERSION_3_16,
+ 	DCN_VERSION_3_2,
+ 	DCN_VERSION_3_21,
++
+ 	DCN_VERSION_MAX
+ };
  
 -- 
 2.25.1
