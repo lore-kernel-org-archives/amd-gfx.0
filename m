@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A21FECAAD4
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Aug 2022 02:51:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76254ECAAD4
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 Aug 2022 02:51:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D64C510EB7A;
-	Sat, 27 Aug 2022 02:51:40 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2045.outbound.protection.outlook.com [40.107.237.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4A6710EB7A
- for <amd-gfx@lists.freedesktop.org>; Sat, 27 Aug 2022 02:51:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D563D10EB7D;
+	Sat, 27 Aug 2022 02:51:43 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2073.outbound.protection.outlook.com [40.107.243.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5979F10EB7A
+ for <amd-gfx@lists.freedesktop.org>; Sat, 27 Aug 2022 02:51:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DYAo5ycvwvhTx+1F1BVio1e74SuAnIDhJ4ypdYhCpiD+KmsyCBgUOgjqqwi18QqNVHjKBVUQr4cDtoFQtJlmr/Nxt9bWpvv69YLOVOQvDqNXDc9sAST7XSqP9agBX34YYS/MAdxLD2TYLnYJz3Xl+Yy2dnaAIC0pW2NZCjX2muFzXc6D3iIQKgncEjKZ2wAIgwhd/OjhUwZisWtQec+2DtECGc+xaOkEGXNl+/bNhsrTO7VA3QNqF2YQPA8yea/fAX/6foqav+d4k45JnRAjIrjPz6+txOXs3xeRlIGNtxSo0tOZQwjuyAPtn52Bg9nAwqW4k2tdaHIippITjrBt4w==
+ b=bv6T1R2yPSW3r1uBPXMWYywXCj5lkEVWp53JP495vtnSctjF2VJ10HMdjUu4AG623G+rC1iK0D+lP4i0orUEXc6CkhUocbMCfVZx1CPpwairvVlwbI3L8gmuC/4S3PpMjz641ajKHxxuxgNps0y4ZXQLgTIeQYTu8V3tJ6Dcy2vqQXd3x2W5EcgJmIZ1sP1P9QS5Pv2JzK7acttVv7PHspj0n4OOSHJvAyJN7uv5DXM6F/cPjkCkPPAY+hHwj7ACW3nnZmngiU9CXYcpLE7yoJX76HYeQwV65Kbty5/sw9GLck58YC1L7tfI2jiw9VBH5Q2oB67tVCZU7RtlaUUhcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UYmwB1aBrJ9NfTMu0TzeJ5aOk9I4gAft7OmXrbXLdBA=;
- b=dHpDlsD48otgZoe5Gx2njMqjI9YMbxelylzL5W/6dTXmmyMWWZvYFKfEHuap6yRJWHbC+xL11rRJoRls8n3Hx+awzebVqFurGj0R/SXws9gt1SHOtLc8QfROj1JFERRVBpIOWEWkV8Khs9XZT4WgeItQA0MgsHXdyYWB2K7UoR2RjUX2lIlwIEk+aqcPP8XjVHYixs6wDbivmlzHNiScJcgWRg8ekOQiODGGp3doKnVAJF5mZ+6MMmyPoe3VImXZp/DpkYlAsRG7emo228VgEtX3Iedj0w7WgPxpMceS1zKEiZv/JBQEdFkmQ7xglBfXzC9i8ZSJPN7DwuABmP+CKg==
+ bh=p/gQVZVLF3gZVRkdzZGcPMpn/QE6pQE8fS5GoJhET0w=;
+ b=i0R7vw1RfEibQ/xDlfx1zPVLB90IltnqBPCl1eE0rzwcAq9psHqXIpbqk8tH0XaMTjOXA1ALfgzhjYXDQa1SqkfYakErL3rZGWFUIUYyrNx63pIhtNm+9c8UyYQGAhC0B9WQXamtDC7wnZkRdKEnDQK0hzCkQ35mJ3pg2Ph31tVVZRo7NpeIe/g9HliK1VpqWg8p61F3B4/3zzX6ZChPzrvekisF7V5lgu8q61eIR+aM+BPgz/ZnU0xKsRl/3j6oI8RlimLJMMk0ASdBPe9X8/IcaMuOKDfgjDTA2lxnUYkXopj1AXR7WFW1Z/t+ArEcFyALyw7L8kqLkW8t4ud5xw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UYmwB1aBrJ9NfTMu0TzeJ5aOk9I4gAft7OmXrbXLdBA=;
- b=q42zPeAha0p0FY5i02s03ie+ouxoHGyrKBShwLorBxq4a6+T5BlAUP8wUtG6q9cWck8LtDpmn0V56k60IIaATojJUH4BZI65YahgOHYVR4RzZR8OK0FL53chkj7SYlvvDWPylfK7aDV5VQSK9U4hPADgwbeT3KxveVh1+hQkHhI=
-Received: from DS7PR05CA0008.namprd05.prod.outlook.com (2603:10b6:5:3b9::13)
- by BY5PR12MB4307.namprd12.prod.outlook.com (2603:10b6:a03:20c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Sat, 27 Aug
- 2022 02:51:31 +0000
-Received: from CY4PEPF0000B8ED.namprd05.prod.outlook.com
- (2603:10b6:5:3b9:cafe::7c) by DS7PR05CA0008.outlook.office365.com
- (2603:10b6:5:3b9::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.3 via Frontend
- Transport; Sat, 27 Aug 2022 02:51:31 +0000
+ bh=p/gQVZVLF3gZVRkdzZGcPMpn/QE6pQE8fS5GoJhET0w=;
+ b=x//gi3J/QxEm6Ek5KnYVeiqlun/rwFyVFzndyBvTIPjK4I08Ga1GB/aZiUrUFLDN4BksBL3fZ+bxCohLygwqodJ1CmuQ5C2ud0RzKXgWyAM60jY65WWIBigNXVMt7tU6OD6MGwLgQ4pjIHCHXrvab1cdx3sGRQOEv7nufYgRZ5k=
+Received: from DS7P222CA0018.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::33) by
+ MWHPR12MB1200.namprd12.prod.outlook.com (2603:10b6:300:9::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5566.15; Sat, 27 Aug 2022 02:51:34 +0000
+Received: from DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2e:cafe::df) by DS7P222CA0018.outlook.office365.com
+ (2603:10b6:8:2e::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15 via Frontend
+ Transport; Sat, 27 Aug 2022 02:51:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000B8ED.mail.protection.outlook.com (10.167.241.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5566.14 via Frontend Transport; Sat, 27 Aug 2022 02:51:31 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT053.mail.protection.outlook.com (10.13.173.74) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5566.15 via Frontend Transport; Sat, 27 Aug 2022 02:51:34 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 26 Aug
- 2022 21:51:30 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 21:51:34 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 26 Aug
- 2022 21:51:29 -0500
+ 2022 19:51:33 -0700
 Received: from brianchang-HP-EliteDesk-805-G6-Small-Form-Factor-PC.amd.com
  (10.180.168.240) by SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP
- Server id 15.1.2375.28 via Frontend Transport; Fri, 26 Aug 2022 21:51:25
+ Server id 15.1.2375.28 via Frontend Transport; Fri, 26 Aug 2022 21:51:30
  -0500
 From: brichang <Brian.Chang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 17/33] drm/amd/display: SubVP missing scaling case
-Date: Sat, 27 Aug 2022 06:50:37 +0800
-Message-ID: <20220826225053.1435588-18-Brian.Chang@amd.com>
+Subject: [PATCH 18/33] drm/amd/display: Refactor edp dsc codes.
+Date: Sat, 27 Aug 2022 06:50:38 +0800
+Message-ID: <20220826225053.1435588-19-Brian.Chang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220826225053.1435588-1-Brian.Chang@amd.com>
 References: <20220826225053.1435588-1-Brian.Chang@amd.com>
@@ -73,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dff44a25-d9a3-457c-fb30-08da87d70bc8
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4307:EE_
+X-MS-Office365-Filtering-Correlation-Id: f431ba69-9665-4c61-6ec9-08da87d70de8
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1200:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VoojHVNmRJ6eoHwgxhFxNFcgJKV5WzdI71j0/ZmafRdcqWjlyIdY1aG3Aembt58dgF9zgAhf1RZh6FwqxWkfSztgSg2iCNU2uEEF0jH1e2J/Lk3PYJTZ0GE39l1tNnVoAqeXWFwXFUEG977545oQbWJOhMrYaDXFxs5fBpW3olXehFAWSl3UxALlOCi+LNJCuq5vG2RFn2mOxOtHEeDuCT//ZPq8ieh8Jym/TM4JsGSI20ZMVWet8MZQz/sb3YKwl8RRF1pCCGEqxAA6jlcwb/poStDAFGLhSyW1KWJ6GHxXb8HBqDVma8e7hM1lAurPtn1ELnzQENrtl+eDb7OQBWnbMIvX9NFrNblMsqA47cLWOVIDdttMkcIC1pbNmwhHbZstGfhlZa/ipXy97fAYBqDWFfR2wkCwjsqWoEyn3RtkwwLJHwPqd+AB3WlNF77LA2R7khu3A0cXO5Lv6EtP4jacBBeK7YE2+dGpdEhKF8PoIuPyfCBYzpQGjFG2kd2FLR9jfx0dO3UML0XgRDc/mcltH/Bmf9I1jgPFuqcTtBL4LBrnUVJoDxrrL66VIRILthHV3GZ+UJ71kAAAcY8lNqj4PvzUhJgvRYieyfcIrHcmKoD5K7EHReqoWMnSLbq/ctgQvgOr7wYrp9pL7QNC/a6n7JnWpmbXN5B5jYp/1ISpGcO5kTQRkxXK7qfsay0lsHbHUjBucTi+mw1ezjNBdqgDaPO5PPcaX6TxzSMcIRniFthD1uMAyv6txrjNOQ1rtWGaWs5BNQ++MWs2VtNG2nodZbzq5u/76USSj4pSGC7Jk82YrGtbhTxvC7P3xEPZg+yq3K2+NWyM3FnSZ5dRsw==
+X-Microsoft-Antispam-Message-Info: IZh2X+SuRwKenm1nMmrslDCoJtLB8yVGO1HH7uubvAXK9/pxYQf2hNYz1pRFdaZHAf7Z4781mQUVh0PDmgzwRGh6Copi/111Bm3SfoaEtCAMzQeYGbi2l/gkpnhfxp6dpS5hJ0jAPCYM5ctAzTRs9lI27DFag5It87iGUdWT3Kt/hpN1lFOSYRIItbrkumM8Jo7ySEiVS5UajEXNSswIQBmhsFKmZhNxqwi7M8syyB3aEoKVH3/34rA3yHU8uVlT1iJ6+mnRqI9hc6lWE2Vr+U8bA7CjfWz6cDjoDNVqzmsuwpsRPtITMri5C6DzBIDLOBSH82ALBv+Vqi7BKqHHaH3AFtjW34MUUMv32TlTWTwqrx3m6J3QS9oqEiSLlTk9zuo6N1w0BPWL9K71u7XdMcaQ5smFu2mGqQCu3HIS7J9yHzmgn4sJWm3tM+9iESfEB8dAbEcdoQ+qrdcVuIyvuzK3xeO2zs/XKAycuDn7x+SpJB7WnhaazjwKrWzCQu1oICxibWOGFyKFAA9HhnEw8KdNEGo/u5dDR7gcuBZjNEdjFnW0MfE9QEmvT7fsctQWvArhxpvb/wEehSiBWpRmP+DTCQBneSzU2F8DUkepZyKay17YKSuyMJ4aiMGM4474uqXztpxIAbBAgMAebBkYpO/W6WWGj//Aw0jeZToRvpmJANFAaxPZ+lJi60X3H6wLl/nH2HKeSwlSQSZwa13vrlOrObmWxitHkvt/zxC/Z+tZkRY3sbrOptc0SXwmKiZ7Ts2K2BifVpStUUyz5CVkHxfhcACDkoVUs1e2H+q6zq/ApqZlDHT4uZ4CpVt5oOeU
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(376002)(346002)(39860400002)(136003)(46966006)(36840700001)(40470700004)(6666004)(478600001)(41300700001)(47076005)(7696005)(83380400001)(1076003)(426003)(82310400005)(2906002)(26005)(336012)(5660300002)(8936002)(40460700003)(54906003)(186003)(316002)(40480700001)(6916009)(2616005)(4326008)(8676002)(70206006)(70586007)(36756003)(82740400003)(86362001)(81166007)(356005)(36860700001)(43062005)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(346002)(39860400002)(136003)(396003)(40470700004)(36840700001)(46966006)(1076003)(2616005)(426003)(47076005)(5660300002)(82310400005)(70206006)(4326008)(8676002)(8936002)(41300700001)(36756003)(336012)(83380400001)(186003)(26005)(478600001)(7696005)(40480700001)(81166007)(356005)(40460700003)(82740400003)(86362001)(36860700001)(6916009)(54906003)(2906002)(316002)(70586007)(43062005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2022 02:51:31.0535 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dff44a25-d9a3-457c-fb30-08da87d70bc8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2022 02:51:34.6463 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f431ba69-9665-4c61-6ec9-08da87d70de8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000B8ED.namprd05.prod.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4307
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1200
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,83 +104,195 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Brian Chang <Brian.Chang@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- Nevenko Stupar <Nevenko.Stupar@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
- wayne.lin@amd.com, Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com,
+Cc: stylon.wang@amd.com, Ian Chen <ian.chen@amd.com>,
+ Mike Hsieh <mike.hsieh@amd.com>, Brian Chang <Brian.Chang@amd.com>,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Ian Chen <ian.chen@amd.com>
 
-[Description]
-For SubVP scaling case we have to combine
-the plane scaling and stream scaling.
+Refactor edp dsc codes.
 
-Use UCLK dummy p-state WM for FCLK WM set C
+We split out edp dsc config from "global" to "per-panel" config settings.
 
-[Description]
-For DCN32/321 program dummy UCLK P-state watermark into FCLK
-watermark set C register.
-
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
-Reviewed-by: Nevenko Stupar <Nevenko.Stupar@amd.com>
+Reviewed-by: Mike Hsieh <mike.hsieh@amd.com>
 Acked-by: Brian Chang <Brian.Chang@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Signed-off-by: Ian Chen <ian.chen@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c         | 10 ++++++++--
- drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c |  6 +++++-
- 2 files changed, 13 insertions(+), 3 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 ++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 19 +++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 10 +++++++++-
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  |  4 ++--
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 --
+ drivers/gpu/drm/amd/display/dc/dc_link.h      | 10 ++++++++++
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  7 ++++++-
+ 7 files changed, 48 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index 61dfe5358d1c..81aba1f51974 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -632,7 +632,7 @@ static void populate_subvp_cmd_pipe_info(struct dc *dc,
- 			&cmd->fw_assisted_mclk_switch_v2.config_data.pipe_data[cmd_pipe_index];
- 	struct dc_crtc_timing *main_timing = &subvp_pipe->stream->timing;
- 	struct dc_crtc_timing *phantom_timing = &subvp_pipe->stream->mall_stream_config.paired_stream->timing;
--	uint32_t out_num, out_den;
-+	uint32_t out_num_stream, out_den_stream, out_num_plane, out_den_plane, out_num, out_den;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 35b0d6a28726..62378f8694c0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1527,7 +1527,6 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
  
- 	pipe_data->mode = SUBVP;
- 	pipe_data->pipe_config.subvp_data.pix_clk_100hz = subvp_pipe->stream->timing.pix_clk_100hz;
-@@ -649,8 +649,14 @@ static void populate_subvp_cmd_pipe_info(struct dc *dc,
- 	/* Calculate the scaling factor from the src and dst height.
- 	 * e.g. If 3840x2160 being downscaled to 1920x1080, the scaling factor is 1/2.
- 	 * Reduce the fraction 1080/2160 = 1/2 for the "scaling factor"
-+	 *
-+	 * Make sure to combine stream and plane scaling together.
- 	 */
--	reduce_fraction(subvp_pipe->stream->src.height, subvp_pipe->stream->dst.height, &out_num, &out_den);
-+	reduce_fraction(subvp_pipe->stream->src.height, subvp_pipe->stream->dst.height,
-+			&out_num_stream, &out_den_stream);
-+	reduce_fraction(subvp_pipe->plane_state->src_rect.height, subvp_pipe->plane_state->dst_rect.height,
-+			&out_num_plane, &out_den_plane);
-+	reduce_fraction(out_num_stream * out_num_plane, out_den_stream * out_den_plane, &out_num, &out_den);
- 	pipe_data->pipe_config.subvp_data.scale_factor_numerator = out_num;
- 	pipe_data->pipe_config.subvp_data.scale_factor_denominator = out_den;
+ 	if (amdgpu_dc_debug_mask & DC_DISABLE_DSC) {
+ 		adev->dm.dc->debug.disable_dsc = true;
+-		adev->dm.dc->debug.disable_dsc_edp = true;
+ 	}
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-index e72213a20e75..23a661f541a5 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-@@ -1796,7 +1796,11 @@ void dcn32_calculate_wm_and_dlg_fpu(struct dc *dc, struct dc_state *context,
- 	context->bw_ctx.bw.dcn.watermarks.c.frac_urg_bw_nom = get_fraction_of_urgent_bandwidth(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
- 	context->bw_ctx.bw.dcn.watermarks.c.frac_urg_bw_flip = get_fraction_of_urgent_bandwidth_imm_flip(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
- 	context->bw_ctx.bw.dcn.watermarks.c.urgent_latency_ns = get_urgent_latency(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
--	context->bw_ctx.bw.dcn.watermarks.c.cstate_pstate.fclk_pstate_change_ns = get_fclk_watermark(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
-+	/* On DCN32/321, PMFW will set PSTATE_CHANGE_TYPE = 1 (FCLK) for UCLK dummy p-state.
-+	 * In this case we must program FCLK WM Set C to use the UCLK dummy p-state WM
-+	 * value.
-+	 */
-+	context->bw_ctx.bw.dcn.watermarks.c.cstate_pstate.fclk_pstate_change_ns = get_wm_dram_clock_change(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
- 	context->bw_ctx.bw.dcn.watermarks.c.usr_retraining_ns = get_usr_retraining_watermark(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
+ 	if (amdgpu_dc_debug_mask & DC_DISABLE_CLOCK_GATING)
+@@ -5627,7 +5626,8 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
+ 	dc_dsc_policy_set_enable_dsc_when_not_needed(
+ 		aconnector->dsc_settings.dsc_force_enable == DSC_CLK_FORCE_ENABLE);
  
- 	if ((!pstate_en) && (dc->clk_mgr->bw_params->wm_table.nv_entries[WM_C].valid)) {
+-	if (aconnector->dc_link && sink->sink_signal == SIGNAL_TYPE_EDP && !dc->debug.disable_dsc_edp &&
++	if (aconnector->dc_link && sink->sink_signal == SIGNAL_TYPE_EDP &&
++	    !aconnector->dc_link->panel_config.dsc.disable_dsc_edp &&
+ 	    dc->caps.edp_dsc_support && aconnector->dsc_settings.dsc_force_enable != DSC_CLK_FORCE_DISABLE) {
+ 
+ 		apply_dsc_policy_for_edp(aconnector, sink, stream, dsc_caps, max_dsc_target_bpp_limit_override);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index bd364d2cc4f7..0b7440b92c10 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -916,6 +916,25 @@ void dm_helpers_smu_timeout(struct dc_context *ctx, unsigned int msg_id, unsigne
+ 	//amdgpu_device_gpu_recover(dc_context->driver-context, NULL);
+ }
+ 
++void dm_helpers_init_panel_settings(
++	struct dc_context *ctx,
++	struct dc_panel_config *panel_config)
++{
++	// Feature DSC
++	panel_config->dsc.disable_dsc_edp = false;
++	panel_config->dsc.force_dsc_edp_policy = 0;
++}
++
++void dm_helpers_override_panel_settings(
++	struct dc_context *ctx,
++	struct dc_panel_config *panel_config)
++{
++	// Feature DSC
++	if (amdgpu_dc_debug_mask & DC_DISABLE_DSC) {
++		panel_config->dsc.disable_dsc_edp = true;
++	}
++}
++
+ void *dm_helpers_allocate_gpu_mem(
+ 		struct dc_context *ctx,
+ 		enum dc_gpu_mem_alloc_type type,
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 66d2ae7aacf5..74db87f3dc6f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -1311,6 +1311,14 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 				sink->edid_caps.audio_modes[i].sample_rate,
+ 				sink->edid_caps.audio_modes[i].sample_size);
+ 		}
++
++		if (link->connector_signal == SIGNAL_TYPE_EDP) {
++			// Init dc_panel_config
++			dm_helpers_init_panel_settings(dc_ctx, &link->panel_config);
++			// Override dc_panel_config if system has specific settings
++			dm_helpers_override_panel_settings(dc_ctx, &link->panel_config);
++		}
++
+ 	} else {
+ 		/* From Connected-to-Disconnected. */
+ 		link->type = dc_connection_none;
+@@ -4736,7 +4744,7 @@ bool dc_link_should_enable_fec(const struct dc_link *link)
+ 	else if (link->connector_signal == SIGNAL_TYPE_EDP
+ 			&& (link->dpcd_caps.dsc_caps.dsc_basic_caps.fields.
+ 			 dsc_support.DSC_SUPPORT == false
+-				|| link->dc->debug.disable_dsc_edp
++				|| link->panel_config.dsc.disable_dsc_edp
+ 				|| !link->dc->caps.edp_dsc_support))
+ 		force_disable = true;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 7e97265b76e8..11e13c45a338 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -3743,7 +3743,7 @@ static bool decide_edp_link_settings_with_dsc(struct dc_link *link,
+ 
+ 	unsigned int policy = 0;
+ 
+-	policy = link->ctx->dc->debug.force_dsc_edp_policy;
++	policy = link->panel_config.dsc.force_dsc_edp_policy;
+ 	if (max_link_rate == LINK_RATE_UNKNOWN)
+ 		max_link_rate = link->verified_link_cap.link_rate;
+ 	/*
+@@ -3909,7 +3909,7 @@ bool decide_link_settings(struct dc_stream_state *stream,
+ 		if (stream->timing.flags.DSC) {
+ 			enum dc_link_rate max_link_rate = LINK_RATE_UNKNOWN;
+ 
+-			if (link->ctx->dc->debug.force_dsc_edp_policy) {
++			if (link->panel_config.dsc.force_dsc_edp_policy) {
+ 				/* calculate link max link rate cap*/
+ 				struct dc_link_settings tmp_link_setting;
+ 				struct dc_crtc_timing tmp_timing = stream->timing;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index a53863bddee0..9cde9465f5ce 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -803,8 +803,6 @@ struct dc_debug_options {
+ 	bool validate_dml_output;
+ 	bool enable_dmcub_surface_flip;
+ 	bool usbc_combo_phy_reset_wa;
+-	bool disable_dsc_edp;
+-	unsigned int  force_dsc_edp_policy;
+ 	bool enable_dram_clock_change_one_display_vactive;
+ 	/* TODO - remove once tested */
+ 	bool legacy_dp2_lt;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
+index d1214944839f..43d250918fd0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_link.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
+@@ -113,6 +113,15 @@ struct psr_settings {
+ 	unsigned int psr_power_opt;
+ };
+ 
++/* To split out "global" and "per-panel" config settings.
++ * Add a struct dc_panel_config under dc_link
++ */
++struct dc_panel_config {
++	struct dsc {
++		bool disable_dsc_edp;
++		unsigned int force_dsc_edp_policy;
++	} dsc;
++};
+ /*
+  * A link contains one or more sinks and their connected status.
+  * The currently active signal type (HDMI, DP-SST, DP-MST) is also reported.
+@@ -233,6 +242,7 @@ struct dc_link {
+ 
+ 	struct gpio *hpd_gpio;
+ 	enum dc_link_fec_state fec_state;
++	struct dc_panel_config panel_config;
+ 	enum phy_state phy_state;
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
+index fb6a2d7b6470..6e4d3df0454e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
++++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
+@@ -171,7 +171,12 @@ void dm_helpers_smu_timeout(struct dc_context *ctx, unsigned int msg_id, unsigne
+ // 0x1 = Result_OK, 0xFE = Result_UnkmownCmd, 0x0 = Status_Busy
+ #define IS_SMU_TIMEOUT(result) \
+ 	(result == 0x0)
+-
++void dm_helpers_init_panel_settings(
++	struct dc_context *ctx,
++	struct dc_panel_config *config);
++void dm_helpers_override_panel_settings(
++	struct dc_context *ctx,
++	struct dc_panel_config *config);
+ int dm_helper_dmub_aux_transfer_sync(
+ 		struct dc_context *ctx,
+ 		const struct dc_link *link,
 -- 
 2.25.1
 
