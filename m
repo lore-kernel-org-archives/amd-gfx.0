@@ -4,55 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B097CECAAD6
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 20:41:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD811C0502E
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 21:35:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 798A310E402;
-	Fri, 26 Aug 2022 20:41:31 +0000 (UTC)
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5056F10E3F6;
- Fri, 26 Aug 2022 20:41:27 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-11c4d7d4683so3513778fac.8; 
- Fri, 26 Aug 2022 13:41:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=K/ePAycXqy51oFeXUt6JjGKkq1z8q/7xr7tRKH3+c5k=;
- b=obakSEJ4izX3iVZj3KOtetmevh8RAX2xSvFVa7lOs66USdVv4m+7jIkQj1Ee92YRzX
- vwdQC9/B3BhuefYfKDrm9t20eHKN0JvZbcXejyyvF1paXlrHa7K9Wjwgp7oKCM2jvMQG
- tKJBFGvX0TDPsP1Y8Meus7j6M++aQddvKd28Xm7kNzV8c39UusrUtqyaCZrF0TjA7sKO
- ZDm2gjuL77EL/lFb51mfkRWM5tyJwN5OaU0+A1uaIOGh1me6gckcgIhe0e18w4USDjqW
- Hv6ildtotiYcRQgWJTMDj1UsfIthh++fIZ7OAe/gIwNrxolE1eBJNegl5ScCqzJJBjfW
- 5eHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=K/ePAycXqy51oFeXUt6JjGKkq1z8q/7xr7tRKH3+c5k=;
- b=1sy8Yo7oy4mU+gVcuzttolh3RV++vJpluuYk9SiGKjQeRaUzfylpX6X55xEP8HHup6
- f08dtgwIsbrElEdGu6IBlE2BptjXZbsBLl7bg6OfwTc75iYK2uN/w7w4YWLfiUdMFXVd
- EH8h5kyei62Gc0q5EB/DS7n1SwdnGsnJmhGj9m1Y34/H5+hazZb49VhWSbhH62DA5Kvz
- TrEgS5IQ8bunicHaTX8PTIds1cfc6u0daTtzPlpdSMIRqncTmXh4ZQXGrL2jedNjxygP
- TdSHF4oUS3lm9joZyA76ysKfsQMWU7Hg6tkugqJlsAluQlABhQ3JV4hGnvJIDiEwo6XD
- XYdg==
-X-Gm-Message-State: ACgBeo1ZdnYHAtel8FRZyZIZpOFLXFx6YLJED3VsqMxcYyarbOHoXWv6
- 7c0rGxTrVt6sD2eizt6y7Ccx/iG9J92NBBtEJw0ncQku
-X-Google-Smtp-Source: AA6agR5p3NlrcAZYv3F09Emqjq7q5ADXiA7NQoyGpPUgZIrMlZUDjjJKMUTRMnsyxm2Jxr1CWDWn1fP7ntCneyFCZWk=
-X-Received: by 2002:a05:6870:3484:b0:11e:4465:3d9b with SMTP id
- n4-20020a056870348400b0011e44653d9bmr2878995oah.46.1661546486597; Fri, 26 Aug
- 2022 13:41:26 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0CD110E69C;
+	Fri, 26 Aug 2022 21:35:17 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E127E10E67A;
+ Fri, 26 Aug 2022 21:35:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1661549712; x=1693085712;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=vzjV6RnMuk1xiiGIvqKRgHvcl9T/Jk16mhcYH7c3r5Y=;
+ b=lkt7dh/vqHV+f5Kxct1ZMZ9sb53lUEgGijY2Jb5N7zEjoQ/OIPmoO8ma
+ JusoiZ7RJQzynuFOIJ+QCBBoY7rrd3ZVVWXRnVEhG12p4ywCwneXyhVvM
+ qyMOLuaWRgapGz5i6ittyNZT0zNDxA/nLa2m8mPh2HvEe3ZqvAFXhpB1K
+ nx3PBgjDblbMdEqayll4yZ7Q97/nldgS5+iIEe3+SxiYG9EOtXLigxxIi
+ x5OmXxfLz3ics87rIk5NU57vTzlMqsSUhf/fF9xj5h7IdNmS5QHwLt+Rm
+ 5FuaJxAV8Gu8cKZ0uBlk+q4z4VECg2EM+Ot1Gm0qJ7lbV2igNlZASTchU Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10451"; a="274350256"
+X-IronPort-AV: E=Sophos;i="5.93,266,1654585200"; d="scan'208";a="274350256"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2022 14:35:12 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,266,1654585200"; d="scan'208";a="606892807"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
+ by orsmga007.jf.intel.com with SMTP; 26 Aug 2022 14:35:08 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Sat, 27 Aug 2022 00:35:07 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH 02/11] drm/edid: Clarify why we only accept the "range limits
+ only" descriptor
+Date: Sat, 27 Aug 2022 00:34:52 +0300
+Message-Id: <20220826213501.31490-3-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220826213501.31490-1-ville.syrjala@linux.intel.com>
+References: <20220826213501.31490-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-References: <20220826085754.2296572-1-yangyingliang@huawei.com>
-In-Reply-To: <20220826085754.2296572-1-yangyingliang@huawei.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 26 Aug 2022 16:41:15 -0400
-Message-ID: <CADnq5_NomUqdzmoYcsPuOiFP9BCCiC=Vtt3AGiXqc=SmP6SODA@mail.gmail.com>
-Subject: Re: [PATCH -next] drm/amdgpu: add missing pci_disable_device() in
- amdgpu_pmops_runtime_resume()
-To: Yang Yingliang <yangyingliang@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,43 +58,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- pavan.ramayanam@amd.com
+Cc: Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Manasi Navare <manasi.d.navare@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Alex
+The current comment fails to clarify why we only accept
+the "range limits only" variant of the range descriptor.
+Reword it to make some actual sense.
 
-On Fri, Aug 26, 2022 at 4:50 AM Yang Yingliang <yangyingliang@huawei.com> wrote:
->
-> Add missing pci_disable_device() if amdgpu_device_resume() fails.
->
-> Fixes: 8e4d5d43cc6c ("drm/amdgpu: Handling of amdgpu_device_resume return value for graceful teardown")
-> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 429fcdf28836..de7144b06e93 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2563,8 +2563,11 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
->                 amdgpu_device_baco_exit(drm_dev);
->         }
->         ret = amdgpu_device_resume(drm_dev, false);
-> -       if (ret)
-> +       if (ret) {
-> +               if (amdgpu_device_supports_px(drm_dev))
-> +                       pci_disable_device(pdev);
->                 return ret;
-> +       }
->
->         if (amdgpu_device_supports_px(drm_dev))
->                 drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
-> --
-> 2.25.1
->
+Cc: Manasi Navare <manasi.d.navare@intel.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/drm_edid.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 4005dab6147d..ac662495635c 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6033,10 +6033,13 @@ void get_monitor_range(const struct detailed_timing *timing, void *c)
+ 		return;
+ 
+ 	/*
+-	 * Check for flag range limits only. If flag == 1 then
+-	 * no additional timing information provided.
+-	 * Default GTF, GTF Secondary curve and CVT are not
+-	 * supported
++	 * These limits are used to determine the VRR refresh
++	 * rate range. Only the "range limits only" variant
++	 * of the range descriptor seems to guarantee that
++	 * any and all timings are accepted by the sink, as
++	 * opposed to just timings conforming to the indicated
++	 * formula (GTF/GTF2/CVT). Thus other variants of the
++	 * range descriptor are not accepted here.
+ 	 */
+ 	if (range->flags != DRM_EDID_RANGE_LIMITS_ONLY_FLAG)
+ 		return;
+-- 
+2.35.1
+
