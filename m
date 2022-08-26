@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4152ECAAD4
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Aug 2022 02:52:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6215FECAAD4
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 Aug 2022 02:53:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0942210EB6D;
-	Sat, 27 Aug 2022 02:52:54 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2040.outbound.protection.outlook.com [40.107.96.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E38410EB92
- for <amd-gfx@lists.freedesktop.org>; Sat, 27 Aug 2022 02:52:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAD7010EB93;
+	Sat, 27 Aug 2022 02:53:00 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0255010EB92
+ for <amd-gfx@lists.freedesktop.org>; Sat, 27 Aug 2022 02:52:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OQV41sz4CPFGgNKjqMomug9VN/EkNMWPv3QtK3u/8BcetWHqeMm+nAbV5oV2vztsWoQ8pvSlCc6wSKXBhMjWl8a5lQUZvlWKjBHJvPRO2GamfKd8GxjGQHwLfKsMfkKNGCPlTCme3gwWS68fPtYAjYIWV/MTSHBoBu6wSpvhY1Kq6OFTHlSGN5RCSwrbsz2MO2CZpz8GVYgxFrF/qEMlV3XmkREiCfs++l3QvgKJNAWODtC+JSdAh55PeXhMDU3A6KeIURU5H9QfPlSq+TZg6SG/FuicYeSAGOMC7WRZKbmSPGoxIpsZC94w30iJUvhF0JnUagDSymeLvRa/U/K7sg==
+ b=g5xdxbST2mSDMJduWkvVow3bIBrVwAFhfy+QxfDiqPgwqcd10NnG2YdTSbmencIpcIUIbGIm73u6h43SuB+gIH9a0FMl2UWn+vCJZjlHzB+MNZAc8tbMmGMZtW5JCzcWon90weBAHgvGQaxNGpSW1E760R8OmEmcdzwFvSuPEol5n3j/NLxjJzDJSeFMIwz6SmJmoIXYxISkR8JwY18r4FSoKoREFu5AiBqeSwDzqLRr5I+0fSs6g50Jjj18yDfVDumfVn47b+ymdrSbhKhMUJIWbWRa3EaBFz/La2qtiDpKLLsWKlDi6q/j8zP8+BurzJllamBf7BVhQsxHWpRbHg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XM91BrkiXjIYw9Lji5E7KoqgZ89fim2nVV4XgehL0HY=;
- b=MVgaiGvBlanI9KkMDYZwmWchH2zQ+SZmRC8kCpoV7zsREG24zlTPo7W7hbugCGccBALyTensuleX1bEJuRkqQl+UGXGCYK76O5uDdY2UqWgUKQiFhFyVnJ6LdGWNzrAzC3Osas4RXsXk1x1Cv+fhElDh3qIFE1zHg/izrcgGt0T4LbW07x5icAsu049hNGjVAcONdWcPHX0ha09fPVD95Ckkm3le2HRNTGw3ILBVkRJhuJ7ADuYagvAtD2J9BtFTMcxDrZMdy2nMwvH1LLDk61ErGA1T0d5yc44w8QrczthRxxMBL2xH0JRMlFwgnIaY+vr+kCJ5aaJ1iTxppNiLEQ==
+ bh=6ZaMNhpbv6vRu6fi9Y776zcRmZDQYuTlhAwYNwecFdw=;
+ b=CDTHGcg/BiiJLRLSbAP1E5AvbH2Ew50JA2NZoJwF5Q0G68N+FgEOYFjxwP4cyKhNVsn/OkGad2cmLNDyiZuUeowBwOPxEx2z7oXzpcrntP4pdX3kG3v0iWgi6PilvtzS8ieQj5bkY/qSmIVamNnrEx6xBWVno1UR5RCKLalaTpkjD/ny5i2ljbg8GWP0BZohLb/XcyKWipqpnzfD8RNjbk0FbJjCGJ+GvMIdRjtFSjSy8NGvoJcsaVRxEhBqz1wG6wpP0HlD1dLEDu80nfxD4wtwzKTkLDKPTxoMuw/jeNQLg+YanWITQWgyWmafCtc4LD4raYUkDrcURG8h/iyfeA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XM91BrkiXjIYw9Lji5E7KoqgZ89fim2nVV4XgehL0HY=;
- b=Hq1ZJ/q08OVWQiYOi8y4ShYc6ICx89Fns+zYpX73uPtQaaiirJit+CPftrlwmcPJgxvdGUyTCqCyM1Grf4OCOceK/gbfLSaTnB12Qyj4fYM5dlLuPLC7eFhwgJGCuIjJa8ZadfNYWBtBp1HUJf33W5sVavjDTEM6apsDwU1jPwc=
-Received: from DS7PR03CA0003.namprd03.prod.outlook.com (2603:10b6:5:3b8::8) by
- BY5PR12MB4129.namprd12.prod.outlook.com (2603:10b6:a03:213::7) with
+ bh=6ZaMNhpbv6vRu6fi9Y776zcRmZDQYuTlhAwYNwecFdw=;
+ b=AspPMdauTsiWgLQacMz6knCiDhQSlM7fQQafzHqp7dGnaMCDBmBrHTzcVjN1BB0GVWTetCxcvH3eFvBgi5XElE9EbNHiXhu0kOcLFW1rlvy/MT3NfTaAbBh24ME34HFjOaQfkqLE2k2RaDYaGTWjzZiPXmTY3FMn3Fi+QLkxLPM=
+Received: from DM6PR10CA0005.namprd10.prod.outlook.com (2603:10b6:5:60::18) by
+ CH2PR12MB4940.namprd12.prod.outlook.com (2603:10b6:610:65::10) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5566.14; Sat, 27 Aug 2022 02:52:42 +0000
-Received: from DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b8:cafe::5) by DS7PR03CA0003.outlook.office365.com
- (2603:10b6:5:3b8::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.16 via Frontend
- Transport; Sat, 27 Aug 2022 02:52:41 +0000
+ 15.20.5566.15; Sat, 27 Aug 2022 02:52:51 +0000
+Received: from DM6NAM11FT107.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:60:cafe::e2) by DM6PR10CA0005.outlook.office365.com
+ (2603:10b6:5:60::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15 via Frontend
+ Transport; Sat, 27 Aug 2022 02:52:51 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT010.mail.protection.outlook.com (10.13.172.222) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT107.mail.protection.outlook.com (10.13.172.142) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5566.15 via Frontend Transport; Sat, 27 Aug 2022 02:52:41 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5566.15 via Frontend Transport; Sat, 27 Aug 2022 02:52:51 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 26 Aug
- 2022 21:52:41 -0500
+ 2022 21:52:50 -0500
 Received: from brianchang-HP-EliteDesk-805-G6-Small-Form-Factor-PC.amd.com
  (10.180.168.240) by SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP
- Server id 15.1.2375.28 via Frontend Transport; Fri, 26 Aug 2022 21:52:37
+ Server id 15.1.2375.28 via Frontend Transport; Fri, 26 Aug 2022 21:52:41
  -0500
 From: brichang <Brian.Chang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 28/33] drm/amd/display: 3.2.201
-Date: Sat, 27 Aug 2022 06:50:48 +0800
-Message-ID: <20220826225053.1435588-29-Brian.Chang@amd.com>
+Subject: [PATCH 29/33] drm/amd/display: Use correct plane for CAB cursor size
+ allocation
+Date: Sat, 27 Aug 2022 06:50:49 +0800
+Message-ID: <20220826225053.1435588-30-Brian.Chang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220826225053.1435588-1-Brian.Chang@amd.com>
 References: <20220826225053.1435588-1-Brian.Chang@amd.com>
@@ -69,26 +70,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7d148c89-38ab-4c0e-9522-08da87d735f6
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4129:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b05bd3f-2e03-4804-3938-08da87d73b6d
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4940:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ViC6wN17qh/RnsaxlBtAkv7MJZSv3zUDZcQN6qj/bPpDvbMKo63c6Dse1fEh7pOnC/Nc2lusAd8xOazvkB6QkjfXoIz/a3u9VPC8I7sbNEtVwuVqy2ln2dUJ92aHtNG2etXaaofUnkww16nK8JIEqGHRVVn358A7KmFOYifYNSDvKtYvVRJUKz2vOasTcpl5Hs4Kp9eaQkTI9i6gnZyq7q4W/W8+RLidtyD7X9i6La30i+XXq9X8LIkSGa/4lK21qUXzfWItNfnuEvV4lG34UVIn/RREI624hYEe3MURgUrmGGTojcRoCLZ6H2dA+TN/PM7yp6z2xoTjOzXubus8rXtr4YqqLTbQ5Bw6lcgHCO4WoxVP7B+A0xGONst1YUE4uWEDXHiw6EIRJGIbssz8xj+Z08Eperks9LgJSrHVxVSr2/eFZovJgfM+avvWqzvUth36h4J8p7Dia0Bn10+bTbY29IsUHSam+OXnRx8ngEQRuIIuY7v7wWSOpnsvvoW2uHym4yPWMg0FIVLlNEYj0A924+1apooC1w2KMwwMtRyW1IwE7HSJxgren1YsWREX4f+W3W2L8XNyk5VGPN750nSjChrqn7r4XYYtnLsZQ6SXmtvXlDrSVQn5wftJhUxphJkXwPxsIqOmEcsyNe8rsXCqL/uNNppegiSUpAkCul9FIviS9fP8S6uuJMptVko+iU5R91ciFNUUc+z5qPq8sIRA/WqlwUXX+j1npJi++SJ23woJ4XkonoHQS9vVSCaIeOehWtCYBkjG0djbF31/ixePbQDPa7unM1eR/917Cr3ExoTHpcL4Q5Z2Fx9Pxn8i30Hij5XhKH+pJAJF0Eyptw==
+X-Microsoft-Antispam-Message-Info: I1yL9ik62fDY9UixPdt9fyWZIbyAxJ1N2QdlfocjPOhsw/blp1VxGt8koXmi6eDPuXxg4dtZ/ja9tpzjbIcdYsDFdqbDbVS6nPSmRS0djzKQT/kXlaC0LNCVUBXa1GhxmuPmH6SiJVr7cUxr64uUAUXvyXjT/xUmMQiIpg9+yT5DJhgspNOg4v+3s3GJb9lDpENBld8oQ/9HIO92lSU2iRh5h3Wlz3Sqgd8gHWAOnG7ZBAaJAz59dnDo29+xKHqig7jRekEr8XJ4laY4ZY/gN5esY+rEuLVml5wvAeNA7JK7sirm1AQYfiwbXgBUd1b9pldizZ20nu3vpi/+ELsqStQCx3omZWJ8TLfXohYE1Icdh9Iv78FXHuJXsH1b0PO9NvmbDqLzyzkzhD1wwrQ/D5rhRfn4jmHXXJqqE2coWL0Ia9Dbp2N80uEFb6bQ4AT3t2PIeqTxk7zFiK+R6HcIosjLO6AsLf3zvFAIXllBioaUPuQzu+Pkm4+UkbDxSP9c/YVCah0vSMeyYuFW/iE7pUTYhmvvpaNTmUqFH6PEQi2uXoEBfrslPIrpYj1apDdm4O9HcVyWSXJNVo0neuatrx/304tz03/1bBVBAq5klK8p9bUR2BH4dJyu3VfsLZfF2Yj2azUo/IcMFw8RrvohINwRtC7Gl59dE8jP7mvPMRDXP+OKsG1Q/eZjxFeEGofyFgGg62gFGWfpZjBJPCKmCnbvSwxItBAA8sfPX/2JyV8rbDFpK1d2BvspO5hQNPrQLiQpccq1AJanqwuFengTH5vOBoSqi9pHfALnTQd83bUonG9/0qVAYlxx4eaEff4ATMF+GGofWTtWpHjMcZOtTg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(376002)(39860400002)(136003)(396003)(46966006)(40470700004)(36840700001)(2616005)(2906002)(336012)(186003)(83380400001)(47076005)(426003)(40480700001)(36860700001)(36756003)(81166007)(54906003)(6916009)(5660300002)(8936002)(1076003)(82310400005)(4744005)(82740400003)(26005)(6666004)(70586007)(70206006)(7696005)(4326008)(8676002)(41300700001)(86362001)(316002)(356005)(478600001)(40460700003)(43062005)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(346002)(136003)(39860400002)(396003)(40470700004)(46966006)(36840700001)(40480700001)(2616005)(70586007)(8676002)(316002)(8936002)(70206006)(4326008)(82740400003)(478600001)(40460700003)(54906003)(82310400005)(7696005)(2906002)(86362001)(426003)(83380400001)(26005)(356005)(36860700001)(1076003)(81166007)(186003)(36756003)(336012)(6916009)(5660300002)(41300700001)(47076005)(43062005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2022 02:52:41.8479 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d148c89-38ab-4c0e-9522-08da87d735f6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2022 02:52:51.0141 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b05bd3f-2e03-4804-3938-08da87d73b6d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT107.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4129
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4940
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,36 +101,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Brian Chang <Brian.Chang@amd.com>,
- Aric Cyr <aric.cyr@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Brian Chang <Brian.Chang@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <aric.cyr@amd.com>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-Reviewed-by: Aric Cyr <aric.cyr@amd.com>
+[Why&How]
+plane and stream variables used for cursor size allocation calculation
+were stale from previous iteration. Redo the iteration to find the
+correct cursor plane for the calculation.
+
+Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
 Acked-by: Brian Chang <Brian.Chang@amd.com>
-Signed-off-by: Aric Cyr <aric.cyr@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    | 32 ++++++++++++-------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 9cde9465f5ce..75dbc665f435 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -47,7 +47,7 @@ struct aux_payload;
- struct set_config_cmd_payload;
- struct dmub_notification;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+index 7717d00b60dc..8587b67fe824 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+@@ -295,8 +295,8 @@ static uint32_t dcn32_calculate_cab_allocation(struct dc *dc, struct dc_state *c
+ 		}
  
--#define DC_VER "3.2.200"
-+#define DC_VER "3.2.201"
+ 		// Include cursor size for CAB allocation
+-		for (i = 0; i < dc->res_pool->pipe_count; i++) {
+-			struct pipe_ctx *pipe = &ctx->res_ctx.pipe_ctx[i];
++		for (j = 0; j < dc->res_pool->pipe_count; j++) {
++			struct pipe_ctx *pipe = &ctx->res_ctx.pipe_ctx[j];
+ 			struct hubp *hubp = pipe->plane_res.hubp;
  
- #define MAX_SURFACES 3
- #define MAX_PLANES 6
+ 			if (pipe->stream && pipe->plane_state && hubp)
+@@ -339,15 +339,25 @@ static uint32_t dcn32_calculate_cab_allocation(struct dc *dc, struct dc_state *c
+ 	if (cache_lines_used % lines_per_way > 0)
+ 		num_ways++;
+ 
+-	if (stream->cursor_position.enable &&
+-	    !plane->address.grph.cursor_cache_addr.quad_part &&
+-	    cursor_size > 16384)
+-		/* Cursor caching is not supported since it won't be on the same line.
+-		 * So we need an extra line to accommodate it. With large cursors and a single 4k monitor
+-		 * this case triggers corruption. If we're at the edge, then dont trigger display refresh
+-		 * from MALL. We only need to cache cursor if its greater that 64x64 at 4 bpp.
+-		 */
+-		num_ways++;
++	for (i = 0; i < ctx->stream_count; i++) {
++		stream = ctx->streams[i];
++		for (j = 0; j < ctx->stream_status[i].plane_count; j++) {
++			plane = ctx->stream_status[i].plane_states[j];
++
++			if (stream->cursor_position.enable && plane &&
++				!plane->address.grph.cursor_cache_addr.quad_part &&
++				cursor_size > 16384) {
++				/* Cursor caching is not supported since it won't be on the same line.
++				 * So we need an extra line to accommodate it. With large cursors and a single 4k monitor
++				 * this case triggers corruption. If we're at the edge, then dont trigger display refresh
++				 * from MALL. We only need to cache cursor if its greater that 64x64 at 4 bpp.
++				 */
++				num_ways++;
++				/* We only expect one cursor plane */
++				break;
++			}
++		}
++	}
+ 
+ 	return num_ways;
+ }
 -- 
 2.25.1
 
