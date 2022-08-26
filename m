@@ -4,50 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DF68ECAAA3
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 08:19:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF567ECAAD4
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 14:31:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C3F310E160;
-	Fri, 26 Aug 2022 08:19:20 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96F5110E160;
- Fri, 26 Aug 2022 08:19:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661501956; x=1693037956;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=nXuqSIv5YEId+sK01ef5leX4DEms/2aThScg317HKnc=;
- b=RlbJppbDDUuqifDYOEKQ3MzPOal08JiU8tSA1cCVO3S6dvfcRHlWwhwM
- pd7SriPPJzMJ/JLbCrK5xn3GdRx9lmaqoI1s1TxoaGUF+0m8uU9pTG3oQ
- qb704rz3AB6kx7MgF2+Wk0vx1lqJn03UzPKvHOZJBmU4AUqAGPdyu+CK0
- Sr2fssx/x4v+VIyMB83gVolT1pipIRdaZKFuHEZV70yXb6QI1B9r0R4tK
- gKba5L3PMIvN3F07U433lITJ8xjXY0d1SF3KwIMFfSHf5Ay8YTbM1PGs1
- LjjBjCingRwcQrc1/XIA5//bkN1w80INUahfiy9QJI/GH1qcsoPZdRjnA Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10450"; a="292035538"
-X-IronPort-AV: E=Sophos;i="5.93,264,1654585200"; d="scan'208";a="292035538"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2022 01:19:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,264,1654585200"; d="scan'208";a="671372121"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga008.fm.intel.com with SMTP; 26 Aug 2022 01:19:12 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 26 Aug 2022 11:19:11 +0300
-Date: Fri, 26 Aug 2022 11:19:11 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Simon Ser <contact@emersion.fr>
-Subject: Re: [PATCH 3/4] drm: introduce DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP
-Message-ID: <YwiB/xQf6Z6ScU+Z@intel.com>
-References: <20220824150834.427572-1-contact@emersion.fr>
- <20220824150834.427572-4-contact@emersion.fr>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB64910E93F;
+	Fri, 26 Aug 2022 14:31:49 +0000 (UTC)
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [IPv6:2607:f8b0:4864:20::c2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C61C10E93F;
+ Fri, 26 Aug 2022 14:31:46 +0000 (UTC)
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ u3-20020a4ab5c3000000b0044b125e5d9eso301232ooo.12; 
+ Fri, 26 Aug 2022 07:31:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=ozDTceTfUzqIFpyT0YcSUK9TplSXxX9G3oavml2m3j4=;
+ b=MlmxpO+iBvw0GkojD3IajC7FwAea3Z4+dChqSX7MMC1gPHSTDD3uDn2GDhz4XmISOK
+ 3z0cXkAX0N93LG91xvrnQMJAug891CRdWbwFEeQi/1R3fBtAMfbd5GH05QdURjj9ZGrH
+ K3QivdQF9NBwEwus7jQmYS2KUjl97h6BJfQ9U8GCydz5QD1LQC+l6tAtc24HB0QK9bq6
+ 1XkDfj81aa80ybSjCdaajXwr6gPgNpEwCGy81wJg8FiBkQq5PO6KhjFGEvHZmFQpeTvI
+ M71BdGp0dqtziYGJVlzEwDYQR30M61M598G6QhX4GwYhYsSQbxsHbOv8cuy0S/lk+Yqq
+ Farg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=ozDTceTfUzqIFpyT0YcSUK9TplSXxX9G3oavml2m3j4=;
+ b=vKct0Ua9YX2EqL+z2Y9GtNv64GdfiL1XAA4eDTNY3rqZRbTWNFFGQE2teNak7kpWTn
+ HnfDcG1P6WxuTrHK34ORo13BzhxOLZfLL2d8+h/upBqM9p3rrIQmRQx8qybqx5vumtVt
+ EnopTdXF+VrgcWqUj+z2kb0UmfBbfc2AzNL2Url9AJv8Ka8OPXim3huPYwb3UlrbFh/Y
+ 1UX/xvOUFmoGGfRaW5DCs6AlYAiSLzbKhfTu9bj39txtK8aIIx1Sh8jF4GeedcKpClSl
+ tgrw//JOiWcQ8z7lsw+iZ7MIX+xF1d/JQKnw0Mr9FzqI4IdIzFk2QxfWuL+bQOhqVkS4
+ vmDA==
+X-Gm-Message-State: ACgBeo1a1h1bdW0bYATf6wfM18aoQ94OQm/mZc4U10kcxtsA2Ll8fUUy
+ 22nUZxcjjR6Uqro7FUukV+JdbHU8MR5QQcjsy84=
+X-Google-Smtp-Source: AA6agR6OTc8Q6hLSMcU85KNwKBqdNmESy8A+oSktMGR+afdi+apNZb18+AtL2ToJQ6vJJnhB63SgwQBw3XBFL3bEgNE=
+X-Received: by 2002:a4a:aa81:0:b0:44a:da30:274e with SMTP id
+ d1-20020a4aaa81000000b0044ada30274emr1330760oon.97.1661524305634; Fri, 26 Aug
+ 2022 07:31:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220824150834.427572-4-contact@emersion.fr>
-X-Patchwork-Hint: comment
+References: <YuwRyQYPCb1FD+mr@debian>
+ <CAHk-=whptVSSZL=wSUQJdRBeVfS+Xy_K4anQ7eQOky7XUrXhUQ@mail.gmail.com>
+ <CAK8P3a2bEaExue0OtNeLa2CVzBx-1dE9w2HZ2PAV5N8Ct9G=JQ@mail.gmail.com>
+ <YuwvfsztWaHvquwC@dev-arch.thelio-3990X>
+ <9fb73284-7572-5703-93d3-f83a43535baf@amd.com>
+ <CAK8P3a3Fv=_+GV9r=k4jP72zZOjJowL-GOue-51EhyVDBaEfEw@mail.gmail.com>
+ <Yu1bMqL5tsbq1ojj@dev-arch.thelio-3990X>
+ <CAK8P3a3PAxkctN6AXOsoTBTFgwHhk7_OSYwJ4Rgk7Dbs+bc0Qw@mail.gmail.com>
+ <Yv5h0rb3AgTZLVJv@dev-arch.thelio-3990X>
+ <Ywf5ATPG7a/I0SLu@dev-arch.thelio-3990X>
+In-Reply-To: <Ywf5ATPG7a/I0SLu@dev-arch.thelio-3990X>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 26 Aug 2022 10:31:34 -0400
+Message-ID: <CADnq5_NmsnsoJqB8HZ-JQ9B4B+5ZBQ0hM+T-NDSu8xyp5tUVcw@mail.gmail.com>
+Subject: Re: mainline build failure for x86_64 allmodconfig with clang
+To: Nathan Chancellor <nathan@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,105 +72,176 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, amd-gfx@lists.freedesktop.org, mwen@igalia.com,
- dri-devel@lists.freedesktop.org, alexander.deucher@amd.com, hwentlan@amd.com,
- nicholas.kazlauskas@amd.com, joshua@froggi.es
+Cc: Arnd Bergmann <arnd@kernel.org>, clang-built-linux <llvm@lists.linux.dev>,
+ David Airlie <airlied@linux.ie>,
+ Linus Torvalds <torvalds@linux-foundation.org>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "Sudip Mukherjee \(Codethink\)" <sudipm.mukherjee@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 24, 2022 at 03:08:55PM +0000, Simon Ser wrote:
-> This new kernel capability indicates whether async page-flips are
-> supported via the atomic uAPI. DRM clients can use it to check
-> for support before feeding DRM_MODE_PAGE_FLIP_ASYNC to the kernel.
+On Thu, Aug 25, 2022 at 6:34 PM Nathan Chancellor <nathan@kernel.org> wrote:
+>
+> Hi AMD folks,
+>
+> Top posting because it might not have been obvious but I was looking for
+> your feedback on this message (which can be viewed on lore.kernel.org if
+> you do not have the original [1]) so that we can try to get this fixed
+> in some way for 6.0/6.1. If my approach is not welcome, please consider
+> suggesting another one or looking to see if this is something you all
+> could look into.
 
-I think we'd need to clarify the semantics of the async flag
-for atomic commits.
+The patch looks good to me.  I was hoping Harry or Rodrigo could
+comment more since they are more familiar with this code and trying to
+keep it in sync with what we get from the hardware teams.
 
-Eg. on Intel hw only pure page flips are possible async, if you do
-anything else (change plane size/pos/scaling/etc.) you will need
-to do a sync update. Technically not even all page flips (from the
-uapi POV) might be possible as the exact scanout source address
-is specified via two registers, only one of which can be update
-async. So technically the two framebuffers might be laid out
-just slightly differently which could prevent an async flip.
-Also only some subset of planes actually support async flips.
+Alex
 
-And on hw where multiple planes support it on the same crtc, only one
-plane can do it at a time. Well, more accurately we can only select
-one plane at a time to give us the "flip done" interrupt. I guess
-if the user wants to async flip multiple planes at the same time
-we could do them serially as opposed to in parallel to make sure
-all the flips actually happened before we signal completion of the
-entire commit. Async flips of multiple planes probably won't
-happen atomically anyway so doing them serially seems fine.
 
-ATM in i915 we probably don't have sufficient state checks in
-place to catch all the restrictions, and instead in part we rely
-on the limited scope of the legacy async flip ioctl to make sure
-the operation doesn't attempt something the hw can't do.
-
-> Make it clear that DRM_CAP_ASYNC_PAGE_FLIP is for legacy uAPI only.
-> 
-> Signed-off-by: Simon Ser <contact@emersion.fr>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: Joshua Ashton <joshua@froggi.es>
-> Cc: Melissa Wen <mwen@igalia.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Harry Wentland <hwentlan@amd.com>
-> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> ---
->  drivers/gpu/drm/drm_ioctl.c |  5 +++++
->  include/uapi/drm/drm.h      | 10 +++++++++-
->  2 files changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-> index ca2a6e6101dc..5b1591e2b46c 100644
-> --- a/drivers/gpu/drm/drm_ioctl.c
-> +++ b/drivers/gpu/drm/drm_ioctl.c
-> @@ -302,6 +302,11 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
->  	case DRM_CAP_CRTC_IN_VBLANK_EVENT:
->  		req->value = 1;
->  		break;
-> +	case DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP:
-> +		req->value = drm_core_check_feature(dev, DRIVER_ATOMIC) &&
-> +			     dev->mode_config.async_page_flip &&
-> +			     !dev->mode_config.atomic_async_page_flip_not_supported;
-> +		break;
->  	default:
->  		return -EINVAL;
->  	}
-> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-> index 642808520d92..b1962628ecda 100644
-> --- a/include/uapi/drm/drm.h
-> +++ b/include/uapi/drm/drm.h
-> @@ -706,7 +706,8 @@ struct drm_gem_open {
->  /**
->   * DRM_CAP_ASYNC_PAGE_FLIP
->   *
-> - * If set to 1, the driver supports &DRM_MODE_PAGE_FLIP_ASYNC.
-> + * If set to 1, the driver supports &DRM_MODE_PAGE_FLIP_ASYNC for legacy
-> + * page-flips.
->   */
->  #define DRM_CAP_ASYNC_PAGE_FLIP		0x7
->  /**
-> @@ -767,6 +768,13 @@ struct drm_gem_open {
->   * Documentation/gpu/drm-mm.rst, section "DRM Sync Objects".
->   */
->  #define DRM_CAP_SYNCOBJ_TIMELINE	0x14
-> +/**
-> + * DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP
-> + *
-> + * If set to 1, the driver supports &DRM_MODE_PAGE_FLIP_ASYNC for atomic
-> + * commits.
-> + */
-> +#define DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP	0x15
->  
->  /* DRM_IOCTL_GET_CAP ioctl argument type */
->  struct drm_get_cap {
-> -- 
-> 2.37.2
-> 
-
--- 
-Ville Syrjälä
-Intel
+>
+> [1]: https://lore.kernel.org/Yv5h0rb3AgTZLVJv@dev-arch.thelio-3990X/
+>
+> Cheers,
+> Nathan
+>
+> On Thu, Aug 18, 2022 at 08:59:14AM -0700, Nathan Chancellor wrote:
+> > Hi Arnd,
+> >
+> > Doubling back around to this now since I think this is the only thing
+> > breaking x86_64 allmodconfig with clang 11 through 15.
+> >
+> > On Fri, Aug 05, 2022 at 09:32:13PM +0200, Arnd Bergmann wrote:
+> > > On Fri, Aug 5, 2022 at 8:02 PM Nathan Chancellor <nathan@kernel.org> wrote:
+> > > > On Fri, Aug 05, 2022 at 06:16:45PM +0200, Arnd Bergmann wrote:
+> > > > > On Fri, Aug 5, 2022 at 5:32 PM Harry Wentland <harry.wentland@amd.com> wrote:
+> > > > > While splitting out sub-functions can help reduce the maximum stack
+> > > > > usage, it seems that in this case it makes the actual problem worse:
+> > > > > I see 2168 bytes for the combined
+> > > > > dml32_ModeSupportAndSystemConfigurationFull(), but marking
+> > > > > mode_support_configuration() as noinline gives me 1992 bytes
+> > > > > for the outer function plus 384 bytes for the inner one. So it does
+> > > > > avoid the warning (barely), but not the problem that the warning tries
+> > > > > to point out.
+> > > >
+> > > > I haven't had a chance to take a look at splitting things up yet, would
+> > > > you recommend a different approach?
+> > >
+> > > Splitting up large functions can help when you have large local variables
+> > > that are used in different parts of the function, and the split gets the
+> > > compiler to reuse stack locations.
+> > >
+> > > I think in this particular function, the problem isn't actually local variables
+> > > but either pushing variables on the stack for argument passing,
+> > > or something that causes the compiler to run out of registers so it
+> > > has to spill registers to the stack.
+> > >
+> > > In either case, one has to actually look at the generated output
+> > > and then try to rearrange the codes so this does not happen.
+> > >
+> > > One thing to try would be to condense a function call like
+> > >
+> > >                 dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport(
+> > >
+> > > &v->dummy_vars.dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport,
+> > >                         mode_lib->vba.USRRetrainingRequiredFinal,
+> > >                         mode_lib->vba.UsesMALLForPStateChange,
+> > >
+> > > mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb],
+> > >                         mode_lib->vba.NumberOfActiveSurfaces,
+> > >                         mode_lib->vba.MaxLineBufferLines,
+> > >                         mode_lib->vba.LineBufferSizeFinal,
+> > >                         mode_lib->vba.WritebackInterfaceBufferSize,
+> > >                         mode_lib->vba.DCFCLK,
+> > >                         mode_lib->vba.ReturnBW,
+> > >                         mode_lib->vba.SynchronizeTimingsFinal,
+> > >
+> > > mode_lib->vba.SynchronizeDRRDisplaysForUCLKPStateChangeFinal,
+> > >                         mode_lib->vba.DRRDisplay,
+> > >                         v->dpte_group_bytes,
+> > >                         v->meta_row_height,
+> > >                         v->meta_row_height_chroma,
+> > >
+> > > v->dummy_vars.DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation.mmSOCParameters,
+> > >                         mode_lib->vba.WritebackChunkSize,
+> > >                         mode_lib->vba.SOCCLK,
+> > >                         v->DCFCLKDeepSleep,
+> > >                         mode_lib->vba.DETBufferSizeY,
+> > >                         mode_lib->vba.DETBufferSizeC,
+> > >                         mode_lib->vba.SwathHeightY,
+> > >                         mode_lib->vba.SwathHeightC,
+> > >                         mode_lib->vba.LBBitPerPixel,
+> > >                         v->SwathWidthY,
+> > >                         v->SwathWidthC,
+> > >                         mode_lib->vba.HRatio,
+> > >                         mode_lib->vba.HRatioChroma,
+> > >                         mode_lib->vba.vtaps,
+> > >                         mode_lib->vba.VTAPsChroma,
+> > >                         mode_lib->vba.VRatio,
+> > >                         mode_lib->vba.VRatioChroma,
+> > >                         mode_lib->vba.HTotal,
+> > >                         mode_lib->vba.VTotal,
+> > >                         mode_lib->vba.VActive,
+> > >                         mode_lib->vba.PixelClock,
+> > >                         mode_lib->vba.BlendingAndTiming,
+> > >                         .... /* more arguments */);
+> > >
+> > > into calling conventions that take a pointer to 'mode_lib->vba' and another
+> > > one to 'v', so these are no longer passed on the stack individually.
+> >
+> > So I took a whack at reducing this function's number of parameters and
+> > ended up with the attached patch. I basically just removed any
+> > parameters that were identical between the two call sites and access them
+> > through the vba pointer, as you suggested.
+> >
+> > AMD folks, is this an acceptable approach? It didn't take a trivial
+> > amount of time so I want to make sure this is okay before I do it to
+> > more functions/files.
+> >
+> > Due to the potential size of these changes, I am a little weary of them
+> > going into 6.0; even though they should be a simple search and replace
+> > for the most part, it might be nice for them to have some decent soak
+> > time in -next. One solution would be to raise the warning limit for
+> > these files on 6.0 so that allmodconfig does not ship broken then reduce
+> > the limit for 6.1 once these patches have been applied.
+> >
+> > Additionally, I took a look at the stack usage across all compilers that
+> > the kernel supports and I thought it was kind of interesting that the
+> > usage really jumps from GCC 7 to 8, which I am guessing is a result of
+> > commit e8a170ff9a35 ("drm/amdgpu: enable -msse2 for GCC 7.1+ users").
+> > GCC 8 allmodconfig actually errors now too:
+> >
+> > https://lore.kernel.org/alpine.DEB.2.22.394.2208152006320.289321@ramsan.of.borg/
+> >
+> >           |-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
+> >           | dml30_ModeSupportAndSystemConfigurationFull() | dml31_ModeSupportAndSystemConfigurationFull() | dml32_ModeSupportAndSystemConfigurationFull() |
+> > |---------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
+> > | GCC 5   |                  1056 bytes                   |                   656 bytes                   |                  1040 bytes                   |
+> > | GCC 6   |                  1024 bytes                   |                   672 bytes                   |                  1056 bytes                   |
+> > | GCC 7   |                  1040 bytes                   |                   664 bytes                   |                  1056 bytes                   |
+> > | GCC 8   |                  1760 bytes                   |                  1608 bytes                   |                  2144 bytes                   |
+> > | GCC 9   |                  1664 bytes                   |                  1392 bytes                   |                  1960 bytes                   |
+> > | GCC 10  |                  1648 bytes                   |                  1368 bytes                   |                  1952 bytes                   |
+> > | GCC 11  |                  1680 bytes                   |                  1400 bytes                   |                  1952 bytes                   |
+> > | GCC 12  |                  1680 bytes                   |                  1400 bytes                   |                  1984 bytes                   |
+> > |---------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
+> > | LLVM 11 |                  2104 bytes                   |                  2056 bytes                   |                  2120 bytes                   |
+> > | LLVM 12 |                  2152 bytes                   |                  2200 bytes                   |                  2152 bytes                   |
+> > | LLVM 13 |                  2216 bytes                   |                  2248 bytes                   |                  2168 bytes                   |
+> > | LLVM 14 |                  2168 bytes                   |                  2184 bytes                   |                  2160 bytes                   |
+> > | LLVM 15 |                  2216 bytes                   |                  2184 bytes                   |                  2160 bytes                   |
+> > | LLVM 16 |                  2232 bytes                   |                  2216 bytes                   |                  2176 bytes                   |
+> > |---------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
+> >
+> > With the patch I have attached,
+> > dml32_ModeSupportAndSystemConfigurationFull() drops from 2176 to 1944
+> > for LLVM 16, which is obviously still not great but it at least avoids
+> > the warning.
+> >
+> > Cheers,
+> > Nathan
