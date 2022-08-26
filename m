@@ -4,56 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 077FBECAAD2
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Aug 2022 12:36:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B68CECAAD2
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 Aug 2022 12:36:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9BC610E677;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E504410E697;
 	Sat, 27 Aug 2022 12:36:45 +0000 (UTC)
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0229B10E6C2;
- Fri, 26 Aug 2022 07:24:36 +0000 (UTC)
-Received: by mail-pj1-x102a.google.com with SMTP id
- x63-20020a17090a6c4500b001fabbf8debfso739833pjj.4; 
- Fri, 26 Aug 2022 00:24:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=YlkUnf3+W4a/WjCpnPyFQgyVY7X5ih8bJPCrzi0qPuo=;
- b=CIW0pGf/u/t99gjOXibOein6cCbSDOUW3AZ6CUaNlRXFkxOg/YJmkgdE6hqISHloQQ
- BAfXaQ/4GGoDH5jUlfb2pB5gCRSePQBZ4jbH4v3djEPpbcgRzwtbVXrXzs6TkKuBxWzl
- N71OqSLmZjNSjNbo+RusFj/7skLKORw8skk1kLDr850IX2oHuy3hPWmYpN5ZteSvfSFx
- +QMgWbJMM1ZFYf8I6yvmsrAjvTqpDaIFTFfHtuXMf0S7mHiWMW9+lOwIGD4f9JRZ0RyP
- +f9LjmSxQMmGKdAshFmwsq8ev5tZcXY36rr+b8f2rcqQ+KOyFatXJnwz5l+sUbKCuKYs
- 0KXg==
+Received: from mail-pj1-f66.google.com (mail-pj1-f66.google.com
+ [209.85.216.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B49710E766;
+ Fri, 26 Aug 2022 08:41:33 +0000 (UTC)
+Received: by mail-pj1-f66.google.com with SMTP id
+ w88-20020a17090a6be100b001fbb0f0b013so907406pjj.5; 
+ Fri, 26 Aug 2022 01:41:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc;
- bh=YlkUnf3+W4a/WjCpnPyFQgyVY7X5ih8bJPCrzi0qPuo=;
- b=3afdC60KfLuD8csctpRArMaQ26b6nDKHGpEH8pMusdT0ypsRcSjMA0kyg970DDKts/
- ZFqrRSOXE/uzIYcU5n95qAkeEgcXxqs54VKhxoq1phQSSLlhl6WrR+ogftlW7eiNicuD
- uWcQ3OtqmlfHg0y1h/yXsuacRZv6TG45quT9Yv5FZHrz1N1gZNgQwPAX3ztputgF7eNO
- ot569HLzy+YemK6PMO2a8N7DVlMz0RaqKGb51ARYvOoj+HZwUtMk2Pw5wSUIJKppw9Fo
- 6yQwRei2RxBZrw/peNH6hm59L5CsadNTf1PuwP2ARq/Uw7AMFiQti3jHKnufFZgg5X5l
- n/eQ==
-X-Gm-Message-State: ACgBeo2H/B5b0tamk9xTG0nLgWfidxXxVB2FJYGaKT9jP6qMLALmXov6
- h6AWTvLPruYLh1Wfi7qz69c=
-X-Google-Smtp-Source: AA6agR5HyqBo0oZgQZZq5UC/wOzHLibv7ZVIrS6bRpCelNOCiG5Rg5WRYYINvIpRdM12ePAv0ZNXOQ==
-X-Received: by 2002:a17:90a:5988:b0:1fd:6a33:abf with SMTP id
- l8-20020a17090a598800b001fd6a330abfmr715935pji.69.1661498676588; 
- Fri, 26 Aug 2022 00:24:36 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
+ bh=HIeIpyWVKIcmfqIV5lirkvwwNNDOVYt8bI+0hEb74pQ=;
+ b=DCG5UCppYuAnzeCBzX+YNkPGOGlHliULuc8rG7InIqeJxYSnfoWs/u7jYy7wUkF/L2
+ 7hbQRNTq6W+GpIySpjO3d7A15jPogE14HkSZXqpt5vW83awnpAUKjqRuO7BXeTcN9sQp
+ JEPL6bHNsutxllGgJufmTXIG4+eRsctBZIorKr7dnGqf+frYE5eLyw9vHiX2esR87z8n
+ gBSdW04OcjcUM+v60tnnq/s0AB9yUnHUovGyNFJroZsHQOZN8mNb2T+3ig/xbLP3cRiD
+ CrtHdlAUBW6k787ujYY9N3UTYDvCFefiq+hpgP4byF5yKsQLnaqF6hwDf8hqh8Dz0grt
+ JaXA==
+X-Gm-Message-State: ACgBeo0rrgycmmwHpT1aNNSATZ8De1st2mb2Z4YR5xoi+GUyqY/MBVdV
+ sYYThn8IXaEPwIvgVaYKJ31wTzdcBDqW
+X-Google-Smtp-Source: AA6agR7Xwb0bLnunGKQsV2loxRVQznyp5x72nqQRbT4GixsvoFpb2+hG9OudZfw7hw450gqkeA/meQ==
+X-Received: by 2002:a17:90b:1c0c:b0:1fb:6b2c:ca9f with SMTP id
+ oc12-20020a17090b1c0c00b001fb6b2cca9fmr3421599pjb.90.1661503292597; 
+ Fri, 26 Aug 2022 01:41:32 -0700 (PDT)
+Received: from localhost.localdomain ([156.146.53.107])
  by smtp.gmail.com with ESMTPSA id
- o186-20020a62cdc3000000b005289a50e4c2sm930463pfg.23.2022.08.26.00.24.33
+ n33-20020a17090a5aa400b001fb371c01bfsm1075740pji.37.2022.08.26.01.41.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Aug 2022 00:24:36 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: ye.xingchen@zte.com.cn
-To: alexander.deucher@amd.com
-Subject: [PATCH linux-next] drm/amdgpu: Remove the unneeded result variable
-Date: Fri, 26 Aug 2022 07:23:57 +0000
-Message-Id: <20220826072357.252676-1-ye.xingchen@zte.com.cn>
+ Fri, 26 Aug 2022 01:41:32 -0700 (PDT)
+From: sunliming <sunliming@kylinos.cn>
+To: Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch
+Subject: [PATCH] drm/amd/display: Fix variable dereferenced before check
+Date: Fri, 26 Aug 2022 16:41:21 +0800
+Message-Id: <20220826084121.94319-1-sunliming@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -69,44 +59,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack.Xiao@amd.com, guchun.chen@amd.com, airlied@linux.ie,
- Bokun.Zhang@amd.com, Zeal Robot <zealci@zte.com.cn>, Xinhui.Pan@amd.com,
- ricetons@gmail.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Prike.Liang@amd.com,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- ye xingchen <ye.xingchen@zte.com.cn>, christian.koenig@amd.com,
- Hawking.Zhang@amd.com
+Cc: kernel test robot <lkp@intel.com>, kelulanainsley@gmail.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ sunliming <sunliming@kylinos.cn>, amd-gfx@lists.freedesktop.org,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: ye xingchen <ye.xingchen@zte.com.cn>
+Fixes the following smatch warning:
 
-Return the value sdma_v5_2_start() directly instead of storing it in
-another redundant variable.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:311 dc_dmub_srv_p_state_delegate()
+warn: variable dereferenced before check 'dc' (see line 309)
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: sunliming <sunliming@kylinos.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 83c6ccaaa9e4..95689ef4be10 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -1413,12 +1413,9 @@ static int sdma_v5_2_sw_fini(void *handle)
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index 09b304507bad..ebf99e8f93e0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -323,11 +323,13 @@ bool dc_dmub_srv_p_state_delegate(struct dc *dc, bool should_manage_pstate, stru
+ 	struct dmub_cmd_fw_assisted_mclk_switch_config *config_data = &cmd.fw_assisted_mclk_switch.config_data;
+ 	int i = 0;
+ 	int ramp_up_num_steps = 1; // TODO: Ramp is currently disabled. Reenable it.
+-	uint8_t visual_confirm_enabled = dc->debug.visual_confirm == VISUAL_CONFIRM_FAMS;
++	uint8_t visual_confirm_enabled;
  
- static int sdma_v5_2_hw_init(void *handle)
- {
--	int r;
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	if (dc == NULL)
+ 		return false;
  
--	r = sdma_v5_2_start(adev);
--
--	return r;
-+	return sdma_v5_2_start(adev);
- }
- 
- static int sdma_v5_2_hw_fini(void *handle)
++	visual_confirm_enabled = dc->debug.visual_confirm == VISUAL_CONFIRM_FAMS;
++
+ 	// Format command.
+ 	cmd.fw_assisted_mclk_switch.header.type = DMUB_CMD__FW_ASSISTED_MCLK_SWITCH;
+ 	cmd.fw_assisted_mclk_switch.header.sub_type = DMUB_CMD__FAMS_SETUP_FW_CTRL;
 -- 
 2.25.1
+
