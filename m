@@ -4,133 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D583ECAAD5
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 19:24:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5330DECAAD2
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 19:30:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B16C510E0D4;
-	Mon, 29 Aug 2022 19:24:08 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2083.outbound.protection.outlook.com [40.107.92.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30AD110E35B;
- Mon, 29 Aug 2022 16:43:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E46AA10E171;
+	Mon, 29 Aug 2022 19:30:15 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2083.outbound.protection.outlook.com [40.107.96.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2F9510E171
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Aug 2022 19:30:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RDuEEABTmEk9/Ipjus+G3kdtLajthbtC2J748WdSE1bBwjZmMIo/wEXTaocwgkd4/aYcYl4r3YDn3XWr3u99TK6znVbim26ADq7k4zAOJdk0fQmUN4glvvDFSjT4wbN4NvrOkvtTOa6QQZ1G9hVck9l9KBECutvhi3fBK+K1dCO6YCt38kRGyk52FTl7aQdtDfA8ArvWJxCj8Ge/pjshDVZMfwv7bvCMAlo1vzNgdFD4rZd2KHKZZmwXIUAsIs2IPizGAiDRJdekVnHtEnyyLN0yEHEYCTvxtch/cHDZuB2HTlQA2cEPtX2ieZey5fZw8FVtMILu9UJgbQU+vT1/pA==
+ b=ihzUCrt2zuZ1tIz5P1CjeIhFOOgjcxzhiFO/Zpc2QkNkInzHeZj6Z1h8pvOxTZnvI2QRq62E2+n2KrbvVtQxqIzqzap+vfmMe3jXZX8EUFkScmauBC+Ym1nI+lQQcEVqd14vX14pTLbFL1sew0yuCiiWhM8EYMzfXzZk1dDhgJfvosJ2y3K/a3D6QKUF6gCrZ50m0qYD/JcEyNK3LCMmXH1AaW+pyl5Ksn4qQXLqHMllGh72ysDBh+c+td6C0B/267MUTTbUFuB3XKP7p4DXv5H3xHZIPMS16zSY7VD22Xiql47FQQZqtkqn4KAO4s7kzoTSKbGwvT5wcRduuUSByA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qxiIFm03xL3/GpsmJObPURCsl0wkRkVr5dhO7LU+SqI=;
- b=nm/fSuY4aCUV4+7TM3moKAcWYnavyqzc0h85XYU92r2l2Ig4q3AyJ6KF08nNYkRNlXX/tLjONkwbEMR2j06UcEhm0eTSuTcdSGmedFx9ZrSuA04+9i9a284zleC8drMD68DLd529lhnlB3F4HOy0H7T9EFVq7UT57tv/zd+3qAL/uHlDeQNKQoSiTBXZWetiHgjU+J/ew+3o51O/AX7kqjEUwuQ2C61LujegnOQ6KzYI/sed+o//TVQD9u7Bvc1F9xixIRLyccxavfg2J0PDUnsawzQdvYG0cF+CjrfrePePV5x7Yb1FjvVgHHB37yDF39AjpacEmjnmpHH1C47jzQ==
+ bh=Ew/bseunPAl7baxnt2HlnRzbaqoM1eKeLTqmN10ieIo=;
+ b=ZIlG5CdDEWqfUgVxuNAuwsLOT853f4iiyemOt3vLWpI9ta1cF5ZkDFlMlDfYF3FXo8+dXlNB9Tif8NLqvZ9Yij2pZe0qJTvMpK3Yqnw6Hn7LO+XiIfwg279IgSnHfvEEzVv3jXLx9AWAAFQFkFNa7KYjXnNAKNqRn/wZ9Py2IsXpJmhdPlFLe6HOgWqdrpcT97cFSI5vzNdig5oTMXZHjnL9aVAF0CEcH2IwXynx8U6X8cbm/CEArZKASJe8IrqPOWO6HTonnEEMzRMFLkVD6gZuCd1MxzP5zfMtctfGHEzCjl+4/UWK1+nxp0IMuy/X+XnLfrd02JZUNDA5SW9GSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qxiIFm03xL3/GpsmJObPURCsl0wkRkVr5dhO7LU+SqI=;
- b=J404ElQRoh+wYQMXNtmqgnFdOz8zwgSDWebnl506XoT5TPq3+yWMOXaIL4EjcQpfXc9nTPUMNSvPEQnn/lLgjgehhKpmWdJLQm+cg8cjbkdEMdROAshGP8jjv/7OUBw/J2M6rPYsOS0wYtBqZMJc6Dax9/ZMC584xi8D92BjFHD68Sbh7JVj5bHcTWmeH74rOzw22ovAnLHaCD1kJ1B/q6aww60tzoa5+Jhjpvn2SWW3vuEZLgWRl8mOBtLsTc+FYHY0lhYnI8wO/zqdZozEpFb1nfbsGD4878TF11s61oXmngKIIHaXZ502MaS1l6b3Pw2DN+0AE2X2992BzqUw/w==
+ bh=Ew/bseunPAl7baxnt2HlnRzbaqoM1eKeLTqmN10ieIo=;
+ b=1rIJlXfLwD3D1Foet78KKz3+CtUBUTX3PCGl+lhLdY4j0l4hhg9nctvufYcj+MnBBIFQR0E+7nokOgNLsGoOM0slyCF8aHiFCk9WG8GFnMrBkB+fCYuW0l7VF26vvjzEmmj6FkLrf69PGgRsjq5YWR4OhtDTn+s3g0Prkbh441Y=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB2763.namprd12.prod.outlook.com (2603:10b6:5:48::16) by
- BYAPR12MB2712.namprd12.prod.outlook.com (2603:10b6:a03:65::12) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5566.14; Mon, 29 Aug 2022 16:43:56 +0000
-Received: from DM6PR12MB2763.namprd12.prod.outlook.com
- ([fe80::6012:2e0d:2697:8b02]) by DM6PR12MB2763.namprd12.prod.outlook.com
- ([fe80::6012:2e0d:2697:8b02%3]) with mapi id 15.20.5566.021; Mon, 29 Aug 2022
- 16:43:56 +0000
-Message-ID: <d2661273-6854-2043-51c1-83f3513fb2c9@nvidia.com>
-Date: Mon, 29 Aug 2022 11:43:44 -0500
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by IA1PR12MB6066.namprd12.prod.outlook.com (2603:10b6:208:3ee::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.21; Mon, 29 Aug
+ 2022 19:30:09 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::406d:afb5:d2d7:8115]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::406d:afb5:d2d7:8115%6]) with mapi id 15.20.5566.021; Mon, 29 Aug 2022
+ 19:30:09 +0000
+Message-ID: <5d877fee-ec7a-0c17-c72f-ca3569a3ef8b@amd.com>
+Date: Mon, 29 Aug 2022 15:30:07 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH v5 17/31] ACPI: video: Add Nvidia WMI EC brightness
- control detection (v3)
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/amdkfd: Set pte_flags for actual BO location
 Content-Language: en-US
-To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Xinhui <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
- Andy Shevchenko <andy@kernel.org>
-References: <20220825143726.269890-1-hdegoede@redhat.com>
- <20220825143726.269890-18-hdegoede@redhat.com>
- <a4d786a2-f2a2-fec7-df9d-18418c583301@nvidia.com>
- <cbbaee7f-8ac3-0a37-9c71-3667e832a6ec@redhat.com>
-From: Daniel Dadap <ddadap@nvidia.com>
-In-Reply-To: <cbbaee7f-8ac3-0a37-9c71-3667e832a6ec@redhat.com>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20220826231654.335169-1-Felix.Kuehling@amd.com>
+ <2707c040-2b99-8c48-237d-45dee65e8833@gmail.com>
+ <09f808fb-908c-477e-5470-cdd75b539273@amd.com>
+ <b349a15b-7ac7-4358-bbc2-d5952a891448@gmail.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <b349a15b-7ac7-4358-bbc2-d5952a891448@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA9PR03CA0004.namprd03.prod.outlook.com
- (2603:10b6:806:20::9) To DM6PR12MB2763.namprd12.prod.outlook.com
- (2603:10b6:5:48::16)
+X-ClientProxiedBy: YT3PR01CA0057.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:82::27) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a88f17e2-f678-484f-6d53-08da89ddaa03
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2712:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57423953-1cf3-4835-bd44-08da89f4e292
+X-MS-TrafficTypeDiagnostic: IA1PR12MB6066:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: D7jd3aBES7j8Fkf+fzsLorQUsrGsALTN++H9Bi2gud3pDfVDtggiIPX6I1V52HBjmLgXqaDIFOkseuki2vRWmOoR4OgrK+9Vm7SRb4UlQ6/iVMpVatJfVLYh4agNDMpd3uuwmamCIAmRfhWEThMyarwBQw88Xra4+g8kd6mtvywc4gT5ZFA7SDJHUlAR/tTHDQg3r5Qt2ZRZWYdrcMUtwnBGJSX5xDX09yTDjKDc7BW2kkw+QyjTabPuUH1UmwSWinfKMoo+dDf/5g5/pIt6G7ttL+APPfV1x/uGwDuGXG04jyWO1bRrYi1lJYoyUHejpu4xPW/DY2/mIYhW6kB7KXOaW2Fhs6wEFrTpn+WyURmYdqtDd9KNN9ozUjqdOMZp4QBsi/EPtDJ8idsF3leXTAfZE3/NPk+dgLdtr72g2YDNZzhwwciMMmxcI1D3M/IfqaE2xLxJqhVBvTMaL3KP/sie0vUyjLqShMWtqiHGXGtN5zEH2Wckn0l03LTNja6/cXAqP/2gEb9z9NtjtgBYuNju4DjYJ6R3zWew2HW29XmC1TNhZ4GbMj3Wz1h5zewuadne2m4eHP9Rlq3WXUAXwv57Prf8zsGPCQptQXa2GNfuFpQCkySvLVuoGp8m/iFEo6SHTVofudJtap7bwIU49efjiqi7mcqM++cDY0t6mtwnKWE+pgDj5KnuKcJOamUqCvj/RFcl282XV30GBuIEIZ3j0UdB7OEKnwMSxhH63rDgLjaIQNt6wmrEF5TN4Uqs4YbigDzUiFvPxIqL3uzxqTgyeE04QS2AD2wXLpVzU4duwFYYNOTsp0sVRipgV8Wh
+X-Microsoft-Antispam-Message-Info: V6bhiRW31O3+kOjUrQVp5b8lOTrLGvO3LpWsQsB7h8spzBorgnWzqZlWf3zHh0fSxyfyMBm2ZOWdG1vBOVlOIbxMT6NKBdzYTKu421jsmZGBmY1qMbvfqY13k9iVoody1IH4UiECkgC2s0ztJDIfxYR1wdKAvOHlxYZxglHQaBCbc0gI1BqwPmvF2DWl6W8ATjHN4HQ0hthsjAZqt4MTSh71vIUSCEX7n3FH8Fes3lFbo6LY3rkeZ0SZo7ak+pDnRyRXP82josmYSQO4HJ2soVNG5P1Sl5cgjVulK1HeRLSHilQyKqPPzhEZ5HDTVLnDIekZ3DrYwMJVTblKUtKwcHgQFm7EQSG6EThrhVTdPpj3KWJ7S8C5FjAqLuhvR+9Tbt+zbZakGNzHTSj6fptwTAq+0N0lKteef3Js4Xf6fjfQwC2oVwrAIrLQBP7G+Hnx8rXQUHK1gr6jI4KTYs0hN63UwlTWxbk5A6AN5M0+XwibOsOpeSCRcco9a+TuhxvI4YkXydOsaa7zFS0bnDUjqtpXtFI0+XB19x8W4QRpoCT2shNbo71ZPuQiAH7teit/xwV99vxiVSxU99GwgUOEzDDLG9cXwkKEK2j4QyE5jvPKEz04+LkjXL+vHCqnYg/hDH6TCQZlZ6Rzd68XFcGT5A/xP0eAMT+DPOBqkDs+WMBTqAoJZb65M/vRmjVHsQot4PLPuGUghIuEExOJlp5opUNUpqgelwTRgX2t2qMqv8GlWm5Yu7drbaZbX1Wby6qa5Wli0VnPbHeC8ru6ANjfE8JNyezOr3F7JSD+r630+gw=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2763.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(366004)(136003)(396003)(39860400002)(346002)(376002)(6512007)(921005)(31686004)(110136005)(54906003)(38100700002)(36756003)(316002)(26005)(478600001)(31696002)(8936002)(6506007)(8676002)(6486002)(41300700001)(7416002)(66946007)(66556008)(6666004)(53546011)(86362001)(2906002)(186003)(83380400001)(4326008)(66476007)(5660300002)(2616005)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(39860400002)(366004)(346002)(136003)(376002)(316002)(6512007)(31686004)(66946007)(66476007)(66556008)(26005)(6506007)(38100700002)(36756003)(31696002)(86362001)(8936002)(44832011)(83380400001)(2616005)(66574015)(2906002)(5660300002)(186003)(8676002)(41300700001)(6486002)(478600001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UWlyRTRtQi9PMHArS05XZGloRlltQmdIVGVjdHNXUzhrRUxlZXM4Uzh6aWdw?=
- =?utf-8?B?UVZ5N3NYMWVXZVZ0Sjl0S1RzUG1aZUsyU3NGUEQvbkVnWXdud3d3NXVwOTZj?=
- =?utf-8?B?OHN1ZnNmc3dBNzFZamdNVVJCVjEzVUdxdFErN2lHWHQ3bEFkR29SR3p0Z1RY?=
- =?utf-8?B?SEpadFdGNU1CbzJrbWYyWEhqMnFtZGViQnhuamV0eWJnRlE4eFhDcnZFc3A3?=
- =?utf-8?B?eUNtSUFoZlYzTUhCSkN0dXVwR09VdDVEcUN3RlVsOFROc1V5QkhteGc3NWRx?=
- =?utf-8?B?WjlOdFF1MkZsa01oYTZraDB5WjBlK3U2RWJJMitERVhsTHdSR2FRWm0zYUtH?=
- =?utf-8?B?NjF2SWd3aGJRb0U3QkcyWHVOdlBzeFY5TWYrT3lzcGFMY0pRRU9RWHc5Rnk1?=
- =?utf-8?B?OU1OVGF2UTNhRnZqSjBnOHc5SnNVaVNsYUFZb0tsejJPbmZHSUxyUmxvSFRO?=
- =?utf-8?B?WEpxUWRlV3d4Y05najJPK3Bya2JWQUZxV2Q0d0dsdDY1YWRpeVNoeGJKU213?=
- =?utf-8?B?WGpvNEt4S2xVNXB0RTFpZjA3c2xhZmxqbmx4SitiZ0YxK0FldndaMEl4MzJY?=
- =?utf-8?B?VkRtV1dmeHJxalNGZk94Rk1LczM4RjV0QlZ6RkJqTkZHcUhiNEtvRnNlY1c5?=
- =?utf-8?B?M3RYZXFHZTlSNlZ1M0dSZjgxamtRYXBBSDkzRk1EUkFhRFphV3JOVEp1VUU1?=
- =?utf-8?B?MEdiWWY3QnJ6eGtZNW80Mk9Jb3ViejlMcE9oVW1iaVhxTkpRRWpSV01yRzQ4?=
- =?utf-8?B?SjVFTDdzNHVIeFFoWW1NczczZzM2Vlg5Q0VIZ0c1b3pXVXliMmpGTG93a3h4?=
- =?utf-8?B?YzBpdzBzSmV2UW1aRWM1ZityWHU1aUNLYTdVcVlYVi9LMHN6RER0dWgvYjhD?=
- =?utf-8?B?VmE2WVByQUt5UzRuVUlZQTEwaFFZTHNlcFlTS0RIUzNtT2hheXVkK011NXRB?=
- =?utf-8?B?SjgzY2xNdHZwVXR6OFo4SS9zVnBDMDh0ajRiQmRaNjJHbWt4ZThCcXV1bjdI?=
- =?utf-8?B?YlU3VGNRdHBxdDNUdi9FaVR4eXAvU1Y5MWVKcGVmdmZGa2JOUG1ZeHZ3UkZv?=
- =?utf-8?B?STNOVDFvbWphaXI4V2tIcFBwS2FCdkwwS044cXczbzZHR01ZM0VxM0FIV1N1?=
- =?utf-8?B?Y1g3ZXFQckUvalRIcWhwSk1PQ2dsUjFrallJOG42MHVORmRBMmdLZHNvSVIx?=
- =?utf-8?B?RUVNNllsZ0VWQWxQOXpSelV2SFMySVp2bXByUy82dFczbkpkY3BidTNVRndr?=
- =?utf-8?B?WDZIbldmWWRTTkpwWHFJaDR3aGlJQlBuZkNZd1VXVzNUS2VtakcrTWpuOTFu?=
- =?utf-8?B?cTU1TVQ1ZDNKRWQ2Q0J4WXNkdzUwa3dESEFqWnQ2Ym9KTi9MblFuVnQxVFJJ?=
- =?utf-8?B?RmIvWmtVTEk1VUFnL2poZm4veDk2Yjd0Y1RTVS8yU3N3T0h6WWZJcmsrV0lo?=
- =?utf-8?B?ZDkzVlM5N2tTdlFIRFVPVng0UzNmZ2tHT0ZEb0NINmVXOUhISTdkVWFzWnVo?=
- =?utf-8?B?YnVzQ1NOUWhWam1uVit5cmc3UXdzYXV4WStFVVk1RXZWaDQ4MjU3ekNpMTJB?=
- =?utf-8?B?Yk1zdE9RWFlMVXF4TTVUQTQ3TmxTVnlENit6NndndnJPZ2Y5aC96b2hlWCtw?=
- =?utf-8?B?eURtQWtzVGhhbFMrYU5vMGYzZ0d3QmtOZlY0dCtWUStrRDJwUWx6anlVRExu?=
- =?utf-8?B?YUFtT0xaNlNPS3hoYzlmRURqSVEveXhrZ1RweTJreVk2Yngzb2UvWFIzazFJ?=
- =?utf-8?B?Mk1uc2w2MTRGdHNDVHFHWGh6Z3NvQXg4d0ZlSGJmNUhWQ2N0cFdIU3JXa3VS?=
- =?utf-8?B?N0pyaG5WRFIxemtxQXZSaUwrZEYwQisvNnBBQ3VNcFJvNW1OQW10bWJuU2FH?=
- =?utf-8?B?MWgwckpORmNjcWhGTUNaSWc4M1RHZUtnWmFZVk12ck9ES1hNbExvRmtXZ1lZ?=
- =?utf-8?B?OUJUa0VmaFhNTW9jNGVnQm9QcWIrTTB4ajNHeVZ6MG1BZ2IwWmhOK1hxd0tP?=
- =?utf-8?B?UU4wVDB1ZDd0SFpNVkI2eXBUbFhqL09rTG9EckJKT0JYUXVMdm5zUTJoc25v?=
- =?utf-8?B?T1JGeXZJclYwdTVpRXRkR01rOWYvZjhSQjZoUzZzbWpxNjZBUXY2S3FQRmRQ?=
- =?utf-8?Q?v8KTKraVb049mLoe2559jNG8l?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a88f17e2-f678-484f-6d53-08da89ddaa03
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2763.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q1RFVTZQVVZaVVZWRFUyUVNiS3RIb0EwSW9RdFltaXcydWRZbEFMZG4xU1Fu?=
+ =?utf-8?B?d3VwMm5GK1NBYjJpMjl2R09OMklCNi95eEZuK2RKL0RRb3dpNkNPemo5R3BY?=
+ =?utf-8?B?Mi9RTlNJVUhocWt5Rm1aMm1QRGVFeUc3cGQ0d0czdkF1Z0thWmFyY2pMKzlx?=
+ =?utf-8?B?dUhZbzRpV1J4bytmV2VScEkydzNjOUpWMVBQWTFjY3VXQmxBQjNRYy9YL3Iv?=
+ =?utf-8?B?SG13b2I2WWhUMUd5VmJnWGJXYllYdDFRcjRWNEJOWWREL0xHZnpxeU5HL1dY?=
+ =?utf-8?B?cHBtZzRDbDBWdFRMNWxEbENWNG5BbG1ScEo0TmVzaUZIUmFwL2ZDVmxPazEr?=
+ =?utf-8?B?eUFmUlNnLzRuMzJMbnBJUDFlYjZ3VEcrZG1hMm95SVZvQVNXV0ZkN1NRbUxS?=
+ =?utf-8?B?OWF0Z1JTN1pZRHJVL293Y3RBTmVzMDl3MDJpcFBGVGdaV200UnNyZ3REM2Fs?=
+ =?utf-8?B?aC9uZU1hMEc2bU5WYkVTVkF4ZU5PdEVmR0ErQ0dpbG9hdE5QeUswQmhxdzh2?=
+ =?utf-8?B?bzlyOGcwM1c3d2R5K1JWTkRxL3d5UGlTY3FtWm5SYmw1QWhGQVRrWGRKa1ZH?=
+ =?utf-8?B?Szdocm1UY1ZFTzBuMHorNk1oc1hEUXdhZ3R1bEdwbGRZZzMxTE1EV3IvQk00?=
+ =?utf-8?B?SVNXM2Nuc1RQNWhUMGlpb05hbVNWSjcrZ2pGOEJjVjAzSjlBWE9XS1FiQWFH?=
+ =?utf-8?B?aXRlaUxZRDdOcXppSTRTWE9iNGhlSmJwNUJ5SzVhbXFMNEpldndaZ25Kbm0r?=
+ =?utf-8?B?V2gyU05TellwZEhnRktzWEZmYXpuRCtqa2I5WXh1OHRDTFRkdkpITHZYUkVu?=
+ =?utf-8?B?VmV1dkFId0ZYZ0N3ZzRVdlZSRzdNOUFCS3Rva0ZwTjQ4VlRjWjlSVnQwdFMv?=
+ =?utf-8?B?TXkwWHcvWC9zeTQ1Rys1YUdDTGZrczhBdXNJWFIzOFRFL3Q4cXZ3ZmZVZDdY?=
+ =?utf-8?B?dmNodkdRRTNhOVpSV0JqTmJlZ0ZFall5Mnh2ZGU0ajBndHMzbUZhdEk3aVZS?=
+ =?utf-8?B?WHRjV1dGdWsvY3lzQVlQVmNLOHcydWVyMTdqNnhMVHJNeXI1RUVRZDh4aC80?=
+ =?utf-8?B?bG4rRGNkd2M4TlJIL3J1UGx1TXNsdldST3JxWllWZFZUWVhEMDh3Y20wWXor?=
+ =?utf-8?B?a29ta3hpcTgrVGd0MjBkRmhqdnd4aVRlaDYya21EYkY4emFrNEtQT0pGc3lz?=
+ =?utf-8?B?ekVHaHNvUlRYYzlSRXUxMWNGMkxrUkVxTTJsZnJUcGFuVFBrcDNRZWkwTXdZ?=
+ =?utf-8?B?ZnRJZkNvTHlPVC83Q3dJaGhqQUdPN2xrTVlhbEd2YVNqRzJwWEN6SENyVy93?=
+ =?utf-8?B?VUhRSHNscjZPcFFaUGJHbitpdytHaERwN3BtZkYrN1R5cmN2bUxGZVZzMHMw?=
+ =?utf-8?B?eitWOGg0N0x0TThJSlJPVVcwWGpleTJKV1hKYk1iT1QvNEJNZEQ3M1h2OHlH?=
+ =?utf-8?B?UzY5TmNVZjJTUW1PNkM5N29pUFlkUCt1QzR0ZDlIckhSNFJNaGluelUwTG8w?=
+ =?utf-8?B?Y0NaUGJuRlB5TmZJZkNnQkEzbGxDK215OUFPNW9ZcmxQMG1nM0FyUWZ1Mnor?=
+ =?utf-8?B?TzR5akFqU0tWTkhUWTdFV2hYaGFFN0VlVzZaRkQrVVVWQm1qVUtVSlFiUm02?=
+ =?utf-8?B?ZVRFQzJJRVpSMjJsaHhWc0NCREgvMXRPQkc5alFyb3JoQzlBbVg4QWtMdk02?=
+ =?utf-8?B?QzBUcFBBQlN5c2RyQkdjZitGRHpVQmM1c2craFRVVU5Md21TVUE5YlBQcDl6?=
+ =?utf-8?B?NXpKdlIzQ1BZL2E2aWJRL1llajJvY2ZzUzNEQjRJSjN1bG9tS0RDam5odUQx?=
+ =?utf-8?B?U0RPYkZtSEFXMGQwc1JwNVI3cVFEYzZmeGJtaFdMV2RveDNZVTM5WktmazVj?=
+ =?utf-8?B?OWlLdyt3dFV5N0hueEl1OEJoQ2RYaTdzNlNSMktpRTdoK1hwNGtrdy82bzZn?=
+ =?utf-8?B?NjZRMkdyTzNCc2VVTlZxdTZxVkVRZm9jT2VMTUpZYjlzdVRHTTA0SG9HcHdK?=
+ =?utf-8?B?KzAyK3RqYmNacUVCNmhGV1hVL0p1Q3BzQlovQjd6eXo3MGlRbWJsbGtsZHpH?=
+ =?utf-8?B?R1NydFdkQkdvNWJnenp3aXVKcUIrOU5pMWRVL2MrRW93RHJwQUJTYWkxWXQr?=
+ =?utf-8?Q?E4ibTe0ylCV426UF4vFQBwIHI?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57423953-1cf3-4835-bd44-08da89f4e292
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2022 16:43:56.1819 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2022 19:30:09.4201 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RH0i/4qohglu5jIsVpDUKZhFqcRh5mHKHCjrMHB8VnUuDxJIrrEtYmd4E+9AZeSw2WB4gdPZAMS5TE5Hr1593A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2712
-X-Mailman-Approved-At: Mon, 29 Aug 2022 19:24:05 +0000
+X-MS-Exchange-CrossTenant-UserPrincipalName: X/s6OClBGEO/GzWXPB6FNzxyMzwM08uMjbXkknjjMTZw4kh2nRo/HyOjxvO5/zhaiGqWGWr9583xYZMUVnCbGQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6066
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,201 +127,171 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- linux-acpi@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@redhat.com>,
- Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 8/29/22 06:41, Hans de Goede wrote:
-> Hi,
->
-> On 8/26/22 00:21, Daniel Dadap wrote:
->> On 8/25/22 9:37 AM, Hans de Goede wrote:
->>> On some new laptop designs a new Nvidia specific WMI interface is present
->>> which gives info about panel brightness control and may allow controlling
->>> the brightness through this interface when the embedded controller is used
->>> for brightness control.
+Am 2022-08-29 um 14:59 schrieb Christian König:
+> Am 29.08.22 um 18:07 schrieb Felix Kuehling:
+>> Am 2022-08-29 um 11:38 schrieb Christian König:
+>>> Am 27.08.22 um 01:16 schrieb Felix Kuehling:
+>>>> BOs can be in a different location than was intended at allocation 
+>>>> time,
+>>>> for example when restoring fails after an eviction or BOs get 
+>>>> pinned in
+>>>> system memory. On some GPUs the MTYPE for coherent mappings depends on
+>>>> the actual memory location.
+>>>>
+>>>> Use the actual location to determine the pte_flags every time the page
+>>>> tables are updated.
 >>>
->>> When this WMI interface is present and indicates that the EC is used,
->>> then this interface should be used for brightness control.
->>>
->>> Changes in v2:
->>> - Use the new shared nvidia-wmi-ec-backlight.h header for the
->>>     WMI firmware API definitions
->>> - ACPI_VIDEO can now be enabled on non X86 too,
->>>     adjust the Kconfig changes to match this.
->>>
->>> Changes in v3:
->>> - Use WMI_BRIGHTNESS_GUID define
->>>
->>> Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
->>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
->>> ---
->>>    drivers/acpi/Kconfig           |  1 +
->>>    drivers/acpi/video_detect.c    | 37 ++++++++++++++++++++++++++++++++++
->>>    drivers/gpu/drm/gma500/Kconfig |  2 ++
->>>    drivers/gpu/drm/i915/Kconfig   |  2 ++
->>>    include/acpi/video.h           |  1 +
->>>    5 files changed, 43 insertions(+)
->>>
->>> diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig
->>> index 7802d8846a8d..44ad4b6bd234 100644
->>> --- a/drivers/acpi/Kconfig
->>> +++ b/drivers/acpi/Kconfig
->>> @@ -212,6 +212,7 @@ config ACPI_VIDEO
->>>        tristate "Video"
->>>        depends on BACKLIGHT_CLASS_DEVICE
->>>        depends on INPUT
->>> +    depends on ACPI_WMI || !X86
->>>        select THERMAL
->>>        help
->>>          This driver implements the ACPI Extensions For Display Adapters
->>> diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
->>> index cc9d0d91e268..4dc7fb865083 100644
->>> --- a/drivers/acpi/video_detect.c
->>> +++ b/drivers/acpi/video_detect.c
->>> @@ -32,6 +32,7 @@
->>>    #include <linux/dmi.h>
->>>    #include <linux/module.h>
->>>    #include <linux/pci.h>
->>> +#include <linux/platform_data/x86/nvidia-wmi-ec-backlight.h>
->>>    #include <linux/types.h>
->>>    #include <linux/workqueue.h>
->>>    #include <acpi/video.h>
->>> @@ -75,6 +76,36 @@ find_video(acpi_handle handle, u32 lvl, void *context, void **rv)
->>>        return AE_OK;
->>>    }
->>>    +/* This depends on ACPI_WMI which is X86 only */
->>> +#ifdef CONFIG_X86
+>>> For a workaround ok, but looks a bit awkward. Basically we need 
+>>> different MTYPE based on the location, right?
 >>
->> This could probably also provide the { return false; } stub which you have for non-x86 if the kernel is built without nvidia-wmi-ec-backight, e.g.:
->>
->> #if defined(CONFIG_X86) && (defined(CONFIG_NVIDIA_WMI_EC_BACKLIGHT) || defined(CONFIG_NVIDIA_WMI_EC_BACKLIGHT_MODULE))
->>
->> Although I suppose that would break things if somebody has a kernel that originally had NVIDIA_WMI_EC_BACKLIGHT=n in Kconfig, and then builds the nvidia-wmi-ec-backlight driver out-of-tree later. I don't know whether that's intended to be a supported use case, so I guess it is fine either way.
-> The video-detect code is about detecting what interface should be used.
-> So far it does this independently of the driver implementing that interface
-> actually being enabled or not.
+>> Yes. On Aldebaran and Arcturus we need different MTYPEs for 
+>> fine-grained coherence depending on the location.
 >
-> If someone has a system which needs the nvidia-wmi-ec-backlight driver,
-> but it is disabled then they / their distro should enable that driver,
-> rather then trying to fallback on e.g. acpi_video.
+> It would be much cleaner to have a better description how all this 
+> came to be in the mapping.
 >
-> Taking which drivers are enabled into account would both make
-> the code more complicated and would also explode the test matrix.
+> E.g. that we generate the flags in the VM code based on the 
+> requirements described in the mapping.
 >
-> All of this is already somewhat fragile, so lets not make it
-> extra complicated :)
+> Do we have time to clean this up thoughtfully?
+
+Currently we have two places in the KFD code that generates the mapping 
+flags. I was planning to eliminate the duplication. I think you're 
+suggesting moving it into the amdgpu_vm code instead. Unfortunately it's 
+somewhat GPU-specific. So you probably won't like this code in the 
+general amdgpu_vm code. Maybe the HW-specific part should be in gmc_v*.c.
+
+The requirements would include:
+
+  * Memory type and mapping (local, system, PCIe P2P, XGMI P2P)
+  * Memory model (coarse-grained or fine-grained coherence)
+
+Regards,
+   Felix
 
 
-That is fair.
-
-Reviewed-by: Daniel Dadap <ddadap@nvidia.com>
-
-
+>
 > Regards,
->
-> Hans
->
->
+> Christian.
 >
 >>
->>> +static bool nvidia_wmi_ec_supported(void)
->>> +{
->>> +    struct wmi_brightness_args args = {
->>> +        .mode = WMI_BRIGHTNESS_MODE_GET,
->>> +        .val = 0,
->>> +        .ret = 0,
->>> +    };
->>> +    struct acpi_buffer buf = { (acpi_size)sizeof(args), &args };
->>> +    acpi_status status;
->>> +
->>> +    status = wmi_evaluate_method(WMI_BRIGHTNESS_GUID, 0,
->>> +                     WMI_BRIGHTNESS_METHOD_SOURCE, &buf, &buf);
->>> +    if (ACPI_FAILURE(status))
->>> +        return false;
->>> +
->>> +    /*
->>> +     * If brightness is handled by the EC then nvidia-wmi-ec-backlight
->>> +     * should be used, else the GPU driver(s) should be used.
->>> +     */
->>> +    return args.ret == WMI_BRIGHTNESS_SOURCE_EC;
->>> +}
->>> +#else
->>> +static bool nvidia_wmi_ec_supported(void)
->>> +{
->>> +    return false;
->>> +}
->>> +#endif
->>> +
->>>    /* Force to use vendor driver when the ACPI device is known to be
->>>     * buggy */
->>>    static int video_detect_force_vendor(const struct dmi_system_id *d)
->>> @@ -541,6 +572,7 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
->>>    static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
->>>    {
->>>        static DEFINE_MUTEX(init_mutex);
->>> +    static bool nvidia_wmi_ec_present;
->>>        static bool native_available;
->>>        static bool init_done;
->>>        static long video_caps;
->>> @@ -553,6 +585,7 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
->>>            acpi_walk_namespace(ACPI_TYPE_DEVICE, ACPI_ROOT_OBJECT,
->>>                        ACPI_UINT32_MAX, find_video, NULL,
->>>                        &video_caps, NULL);
->>> +        nvidia_wmi_ec_present = nvidia_wmi_ec_supported();
->>>            init_done = true;
->>>        }
->>>        if (native)
->>> @@ -570,6 +603,10 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
->>>        if (acpi_backlight_dmi != acpi_backlight_undef)
->>>            return acpi_backlight_dmi;
->>>    +    /* Special cases such as nvidia_wmi_ec and apple gmux. */
->>> +    if (nvidia_wmi_ec_present)
->>> +        return acpi_backlight_nvidia_wmi_ec;
->>> +
->>>        /* On systems with ACPI video use either native or ACPI video. */
->>>        if (video_caps & ACPI_VIDEO_BACKLIGHT) {
->>>            /*
->>> diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
->>> index 0cff20265f97..807b989e3c77 100644
->>> --- a/drivers/gpu/drm/gma500/Kconfig
->>> +++ b/drivers/gpu/drm/gma500/Kconfig
->>> @@ -7,6 +7,8 @@ config DRM_GMA500
->>>        select ACPI_VIDEO if ACPI
->>>        select BACKLIGHT_CLASS_DEVICE if ACPI
->>>        select INPUT if ACPI
->>> +    select X86_PLATFORM_DEVICES if ACPI
->>> +    select ACPI_WMI if ACPI
->>>        help
->>>          Say yes for an experimental 2D KMS framebuffer driver for the
->>>          Intel GMA500 (Poulsbo), Intel GMA600 (Moorestown/Oak Trail) and
->>> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
->>> index 7ae3b7d67fcf..3efce05d7b57 100644
->>> --- a/drivers/gpu/drm/i915/Kconfig
->>> +++ b/drivers/gpu/drm/i915/Kconfig
->>> @@ -23,6 +23,8 @@ config DRM_I915
->>>        # but for select to work, need to select ACPI_VIDEO's dependencies, ick
->>>        select BACKLIGHT_CLASS_DEVICE if ACPI
->>>        select INPUT if ACPI
->>> +    select X86_PLATFORM_DEVICES if ACPI
->>> +    select ACPI_WMI if ACPI
->>>        select ACPI_VIDEO if ACPI
->>>        select ACPI_BUTTON if ACPI
->>>        select SYNC_FILE
->>> diff --git a/include/acpi/video.h b/include/acpi/video.h
->>> index 0625806d3bbd..91578e77ac4e 100644
->>> --- a/include/acpi/video.h
->>> +++ b/include/acpi/video.h
->>> @@ -48,6 +48,7 @@ enum acpi_backlight_type {
->>>        acpi_backlight_video,
->>>        acpi_backlight_vendor,
->>>        acpi_backlight_native,
->>> +    acpi_backlight_nvidia_wmi_ec,
->>>    };
->>>      #if IS_ENABLED(CONFIG_ACPI_VIDEO)
+>> Regards,
+>>   Felix
+>>
+>>
+>>>
+>>> Christian.
+>>>
+>>>>
+>>>> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>>>> ---
+>>>>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  9 ++++++++-
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 19 
+>>>> +++++++++++++++++++
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  1 +
+>>>>   3 files changed, 28 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>>> index cbd593f7d553..5dd89f5a032f 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>>> @@ -405,6 +405,7 @@ static int vm_update_pds(struct amdgpu_vm *vm, 
+>>>> struct amdgpu_sync *sync)
+>>>>   static uint64_t get_pte_flags(struct amdgpu_device *adev, struct 
+>>>> kgd_mem *mem)
+>>>>   {
+>>>>       struct amdgpu_device *bo_adev = 
+>>>> amdgpu_ttm_adev(mem->bo->tbo.bdev);
+>>>> +    bool is_vram = mem->bo->tbo.resource->mem_type == TTM_PL_VRAM;
+>>>>       bool coherent = mem->alloc_flags & 
+>>>> KFD_IOC_ALLOC_MEM_FLAGS_COHERENT;
+>>>>       bool uncached = mem->alloc_flags & 
+>>>> KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED;
+>>>>       uint32_t mapping_flags;
+>>>> @@ -420,7 +421,7 @@ static uint64_t get_pte_flags(struct 
+>>>> amdgpu_device *adev, struct kgd_mem *mem)
+>>>>       switch (adev->asic_type) {
+>>>>       case CHIP_ARCTURUS:
+>>>>       case CHIP_ALDEBARAN:
+>>>> -        if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
+>>>> +        if (is_vram) {
+>>>>               if (bo_adev == adev) {
+>>>>                   if (uncached)
+>>>>                       mapping_flags |= AMDGPU_VM_MTYPE_UC;
+>>>> @@ -1236,12 +1237,18 @@ static int update_gpuvm_pte(struct kgd_mem 
+>>>> *mem,
+>>>>   {
+>>>>       struct amdgpu_bo_va *bo_va = entry->bo_va;
+>>>>       struct amdgpu_device *adev = entry->adev;
+>>>> +    uint64_t pte_flags = get_pte_flags(adev, mem);
+>>>>       int ret;
+>>>>         ret = kfd_mem_dmamap_attachment(mem, entry);
+>>>>       if (ret)
+>>>>           return ret;
+>>>>   +    if (unlikely(entry->pte_flags != pte_flags)) {
+>>>> +        amdgpu_vm_bo_update_flags(bo_va, pte_flags);
+>>>> +        entry->pte_flags = pte_flags;
+>>>> +    }
+>>>> +
+>>>>       /* Update the page tables  */
+>>>>       ret = amdgpu_vm_bo_update(adev, bo_va, false);
+>>>>       if (ret) {
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>> index 59cac347baa3..954a40d5d828 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>> @@ -1862,6 +1862,25 @@ void amdgpu_vm_bo_invalidate(struct 
+>>>> amdgpu_device *adev,
+>>>>       }
+>>>>   }
+>>>>   +/**
+>>>> + * amdgpu_vm_bo_update_flags - Update mapping flags of invalid 
+>>>> mappings
+>>>> + *
+>>>> + * @bo_va: identifies the BO and VM
+>>>> + * @flags: new mapping flags
+>>>> + *
+>>>> + * The update is only applied to invalid mappings. This allows 
+>>>> updating the
+>>>> + * mapping flags after a migration to maintain the desired 
+>>>> coherence. The next
+>>>> + * call to amdgpu_vm_bo_update() will apply the new @flags to the 
+>>>> page table.
+>>>> + */
+>>>> +void amdgpu_vm_bo_update_flags(struct amdgpu_bo_va *bo_va,
+>>>> +                   uint64_t flags)
+>>>> +{
+>>>> +    struct amdgpu_bo_va_mapping *mapping;
+>>>> +
+>>>> +    list_for_each_entry(mapping, &bo_va->invalids, list)
+>>>> +        mapping->flags = flags;
+>>>> +}
+>>>> +
+>>>>   /**
+>>>>    * amdgpu_vm_get_block_size - calculate VM page table size as 
+>>>> power of two
+>>>>    *
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>> index 9ecb7f663e19..11793716cd8b 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>> @@ -413,6 +413,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device 
+>>>> *adev,
+>>>>   bool amdgpu_vm_evictable(struct amdgpu_bo *bo);
+>>>>   void amdgpu_vm_bo_invalidate(struct amdgpu_device *adev,
+>>>>                    struct amdgpu_bo *bo, bool evicted);
+>>>> +void amdgpu_vm_bo_update_flags(struct amdgpu_bo_va *bo_va, 
+>>>> uint64_t flags);
+>>>>   uint64_t amdgpu_vm_map_gart(const dma_addr_t *pages_addr, 
+>>>> uint64_t addr);
+>>>>   struct amdgpu_bo_va *amdgpu_vm_bo_find(struct amdgpu_vm *vm,
+>>>>                          struct amdgpu_bo *bo);
+>>>
+>
