@@ -4,31 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23D2CECAAD2
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:02:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7385ECAAD2
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:02:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C19410F1AC;
-	Mon, 29 Aug 2022 13:02:38 +0000 (UTC)
-Received: from out30-43.freemail.mail.aliyun.com
- (out30-43.freemail.mail.aliyun.com [115.124.30.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 653DF10EE24;
- Mon, 29 Aug 2022 08:36:36 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R851e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046059;
- MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0VNavQMt_1661762192; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VNavQMt_1661762192) by smtp.aliyun-inc.com;
- Mon, 29 Aug 2022 16:36:33 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH -next 2/4 RESEND] drm/amd/display: clean up some inconsistent
- indentings
-Date: Mon, 29 Aug 2022 16:36:25 +0800
-Message-Id: <20220829083627.12774-2-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
-In-Reply-To: <20220829083627.12774-1-yang.lee@linux.alibaba.com>
-References: <20220829083627.12774-1-yang.lee@linux.alibaba.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC9E10F1A6;
+	Mon, 29 Aug 2022 13:02:55 +0000 (UTC)
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [IPv6:2607:f8b0:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92A3210F181;
+ Mon, 29 Aug 2022 12:13:28 +0000 (UTC)
+Received: by mail-pl1-x62b.google.com with SMTP id jm11so7755866plb.13;
+ Mon, 29 Aug 2022 05:13:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=JDJaZLLijcqBMwlRc9kgfCyfcSIJN0CihduhDouY51s=;
+ b=OKJiyNZjYzCoT7bMy8Fdnn8lp2fbY6FWngivXh3cy7DsGqJ2TU5Yd04nM507M9L7Sa
+ JdIlrgCJqpSmw4d7jcvBzU5hVsQoDW6A7PbY+wYuPxkXN5l9Jz4IyQL9sFK9bIpwN3hv
+ pFoRhQ59kAqAWKSqXiWd8CJfGqK8iYLt8gTu6dJRQde2CjidsWrG3Nb+VgzZJ+Gt86SH
+ SSCKJq51P1bQlkvQfQu58LCW5Cv4QGBK+Yz48EVlmufxpY6XqUnsUTaPoiVnLIP7y9Bs
+ TVOPuYwqSMZ7jh72S0yC6F7bn3haIlljJP8Li6loaMalOVqESYT1BXMyljbzEWSDAA8P
+ 6/Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=JDJaZLLijcqBMwlRc9kgfCyfcSIJN0CihduhDouY51s=;
+ b=315HTnQ3/DySc0fBxA2AHpKE3i+CK5b9amlTyZZaII043EOcailGzRb9m81u2QBwba
+ nSqmqJ0fD0/sEa1l6UV+MlqAziV7aH1QeHhwZIkm/TF/eylmOduCwnCWavm9LsK9smq3
+ OGCuSTL8PYFGNfsd9bkvQCAGdU/64LcetcExbz8c4YerFNHjAHlh4XdWYjgRxvN/J75J
+ omvPe6WCXXe29KcAV1wAimowt7Yx7R47kzePhhRjEZDCG29CS6gvg89S78qy/99bcocj
+ mrVtpLS7/vhhTkJ9x12SSErj4P/2F2JXUCMvFhz0Wl7s4LDtw7UBQRFKInxBwAg7QQXf
+ 3aLg==
+X-Gm-Message-State: ACgBeo1MGRcdlVrjcxykABqfQke9+Qg7ApNVLBDxgAmhxPKLxM0+3LB+
+ A1OeFlzKMLj1/04vN5gM378=
+X-Google-Smtp-Source: AA6agR6SkSObjijf9vIjaEd3qEzGK9u8YDkKPh5wnfACtNxhBX00XhsdDyJPTQIos9p3nqAyKJH1fQ==
+X-Received: by 2002:a17:90b:17ce:b0:1f4:d068:5722 with SMTP id
+ me14-20020a17090b17ce00b001f4d0685722mr17863461pjb.28.1661775208159; 
+ Mon, 29 Aug 2022 05:13:28 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id
+ nt15-20020a17090b248f00b001fd84a8cfc6sm4504561pjb.39.2022.08.29.05.13.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Aug 2022 05:13:27 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: cui.jinpeng2@zte.com.cn
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, Anthony.Koo@amd.com, alex.hung@amd.com,
+ Roman.Li@amd.com, Yi-Ling.Chen2@amd.com, hanghong.ma@amd.com,
+ mwen@igalia.com, dingchen.zhang@amd.com
+Subject: [PATCH linux-next] drm/amd/display: remove redundant
+ vertical_line_start variable
+Date: Mon, 29 Aug 2022 12:13:20 +0000
+Message-Id: <20220829121320.267892-1-cui.jinpeng2@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 29 Aug 2022 13:02:32 +0000
@@ -43,50 +73,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, airlied@linux.ie,
- Yang Li <yang.lee@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, harry.wentland@amd.com, christian.koenig@amd.com
+Cc: dale.zhao@amd.com, Zeal Robot <zealci@zte.com.cn>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Jerry.Zuo@amd.com,
+ dri-devel@lists.freedesktop.org, isabbasso@riseup.net,
+ Jinpeng Cui <cui.jinpeng2@zte.com.cn>, agustin.gutierrez@amd.com,
+ Sungjoon.Kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The indentation of statements in the same curly bracket should be
-consistent.
+From: Jinpeng Cui <cui.jinpeng2@zte.com.cn>
 
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=1886
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+Return value from expression directly instead of
+taking this in another redundant variable.
+
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Jinpeng Cui <cui.jinpeng2@zte.com.cn>
 ---
- .../gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c  | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
-index c87091683b5d..7ebf25e87933 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
-@@ -518,13 +518,16 @@ void dcn321_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_p
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 37246e965457..8f4f1ea447a7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -3741,7 +3741,6 @@ int dcn10_get_vupdate_offset_from_vsync(struct pipe_ctx *pipe_ctx)
+ 	int vesa_sync_start;
+ 	int asic_blank_end;
+ 	int interlace_factor;
+-	int vertical_line_start;
  
- 			if (dc->ctx->dc_bios->funcs->get_soc_bb_info(dc->ctx->dc_bios, &bb_info) == BP_RESULT_OK) {
- 				if (bb_info.dram_clock_change_latency_100ns > 0)
--					dcn3_21_soc.dram_clock_change_latency_us = bb_info.dram_clock_change_latency_100ns * 10;
-+					dcn3_21_soc.dram_clock_change_latency_us =
-+						bb_info.dram_clock_change_latency_100ns * 10;
+ 	patched_crtc_timing = *dc_crtc_timing;
+ 	apply_front_porch_workaround(&patched_crtc_timing);
+@@ -3757,10 +3756,8 @@ int dcn10_get_vupdate_offset_from_vsync(struct pipe_ctx *pipe_ctx)
+ 			patched_crtc_timing.v_border_top)
+ 			* interlace_factor;
  
--			if (bb_info.dram_sr_enter_exit_latency_100ns > 0)
--				dcn3_21_soc.sr_enter_plus_exit_time_us = bb_info.dram_sr_enter_exit_latency_100ns * 10;
-+				if (bb_info.dram_sr_enter_exit_latency_100ns > 0)
-+					dcn3_21_soc.sr_enter_plus_exit_time_us =
-+						bb_info.dram_sr_enter_exit_latency_100ns * 10;
+-	vertical_line_start = asic_blank_end -
++	return asic_blank_end -
+ 			pipe_ctx->pipe_dlg_param.vstartup_start + 1;
+-
+-	return vertical_line_start;
+ }
  
--			if (bb_info.dram_sr_exit_latency_100ns > 0)
--				dcn3_21_soc.sr_exit_time_us = bb_info.dram_sr_exit_latency_100ns * 10;
-+				if (bb_info.dram_sr_exit_latency_100ns > 0)
-+					dcn3_21_soc.sr_exit_time_us =
-+						bb_info.dram_sr_exit_latency_100ns * 10;
- 			}
- 		}
- 
+ void dcn10_calc_vupdate_position(
 -- 
-2.20.1.7.g153144c
+2.25.1
 
