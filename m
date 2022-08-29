@@ -4,50 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DE3DECAAD2
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 08:59:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7693BECAAD4
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:02:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 180AA10F112;
-	Mon, 29 Aug 2022 08:59:18 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9671110F101;
- Mon, 29 Aug 2022 08:59:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661763553; x=1693299553;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=PfBjtqfIpcS8CoTv/YjLo/naSLWkJaJ3mxlPJQ6m0vY=;
- b=lY6SqbZrpj/zVK46D5vDP6sPaPSb/sp8FAnP2TLQouQUIQv4M1QmlF+H
- r+nolPJww1NiZcfmutijtXMyuceJ/T82q4rZpNeda+oJGCTNhU2+hqLGL
- TiFOQsOoYxMj+D7tpF3bDsPUP4V5nOs49xWAgaO5iY/BduE91scsrgLfk
- 8Xqn9bWlyRHOm/nCwOUAzqUruZiE1n/DtnwwcFXcyuH1p5mPtjWxdNvW9
- IOLGHHmgbSVRCh0MMeExRJZcr/7vvhkpEfMUw4cOQhM+B8NXy1X7eQNjD
- vAef13tIsI5rlCdIhGL6vQ4X2zI+IRdYfhv8w5m4G4R1DuXu1baeUwtOp Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10453"; a="274597172"
-X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="274597172"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2022 01:59:03 -0700
-X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="672303547"
-Received: from idecesar-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.53.198])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2022 01:59:00 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 05/11] drm/edid: Only parse VRR range for continuous
- frequency displays
-In-Reply-To: <20220826213501.31490-6-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220826213501.31490-1-ville.syrjala@linux.intel.com>
- <20220826213501.31490-6-ville.syrjala@linux.intel.com>
-Date: Mon, 29 Aug 2022 11:58:53 +0300
-Message-ID: <87wnarfmsy.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78B2F10E1B8;
+	Mon, 29 Aug 2022 13:02:34 +0000 (UTC)
+Received: from out30-133.freemail.mail.aliyun.com
+ (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4414210F0F1;
+ Mon, 29 Aug 2022 08:36:42 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045168;
+ MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
+ TI=SMTPD_---0VNavQOk_1661762197; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0VNavQOk_1661762197) by smtp.aliyun-inc.com;
+ Mon, 29 Aug 2022 16:36:37 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH -next 4/4 RESEND] drm/amd/display: clean up some inconsistent
+ indentings
+Date: Mon, 29 Aug 2022 16:36:27 +0800
+Message-Id: <20220829083627.12774-4-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
+In-Reply-To: <20220829083627.12774-1-yang.lee@linux.alibaba.com>
+References: <20220829083627.12774-1-yang.lee@linux.alibaba.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 29 Aug 2022 13:02:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,53 +43,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Manasi Navare <manasi.d.navare@intel.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: sunpeng.li@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, airlied@linux.ie,
+ Yang Li <yang.lee@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, 27 Aug 2022, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> Since we only use the parsed vrefresh range to determine
-> if VRR should be supported we should only accept continuous
-> frequency displays here.
->
-> Cc: Manasi Navare <manasi.d.navare@intel.com>
-> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Leo Li <sunpeng.li@amd.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+The indentation of statements in the same curly bracket should be
+consistent.
 
-Makes sense, at least for sane EDIDs. :p
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=1892
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+index 3b1c6603ae0c..c2d76cec29ba 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+@@ -641,9 +641,9 @@ bool dcn32_set_output_transfer_func(struct dc *dc,
+ 					stream->out_transfer_func,
+ 					&mpc->blender_params, false))
+ 				params = &mpc->blender_params;
+-		 /* there are no ROM LUTs in OUTGAM */
+-		if (stream->out_transfer_func->type == TF_TYPE_PREDEFINED)
+-			BREAK_TO_DEBUGGER();
++			/* there are no ROM LUTs in OUTGAM */
++			if (stream->out_transfer_func->type == TF_TYPE_PREDEFINED)
++				BREAK_TO_DEBUGGER();
+ 		}
+ 	}
+ 
+-- 
+2.20.1.7.g153144c
 
-> ---
->  drivers/gpu/drm/drm_edid.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index 856d304a1354..b459fdf12b58 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -6064,7 +6064,10 @@ static void drm_get_vrr_range(struct drm_connector=
- *connector,
->  		.drm_edid =3D drm_edid,
->  	};
->=20=20
-> -	if (!version_greater(drm_edid, 1, 1))
-> +	if (!version_greater(drm_edid, 1, 3))
-> +		return;
-> +
-> +	if (!(drm_edid->edid->features & DRM_EDID_FEATURE_CONTINUOUS_FREQ))
->  		return;
->=20=20
->  	drm_for_each_detailed_block(drm_edid, get_vrr_range, &closure);
-
---=20
-Jani Nikula, Intel Open Source Graphics Center
