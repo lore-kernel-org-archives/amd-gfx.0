@@ -4,64 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F964ECAAD2
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 15:38:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9764EECAAD2
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 16:02:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 440D910F401;
-	Mon, 29 Aug 2022 15:38:11 +0000 (UTC)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 672CA10F401
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Aug 2022 15:38:07 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id p16so13365655ejb.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Aug 2022 08:38:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=GEwyRCCYuoqNlJvmYKDre4sMifcMiaDMhbkv+zMvMis=;
- b=CSsVSCxJckYnWjBssQwEEuppQzaADRnAftqQUVHy6kBU88xwQqj+xHZli2uRyiQ3a/
- vvPXKLSK/maa2Pqb3DKhl2U8b16kJvHMYLaeyJKlcoHcCLOnv0wMDhifY/O/H+PhDMCT
- TfE3a9bOKLA0RQ6CEUjq+Jws0S2VE86R9oJ1AoNgzbzl0VJraIAVvWA5X/Re4vXQ5P0G
- 2NeHdCDRYbMhPAec3IEbEUHrVKrLapsD8mEr7Zi72UhaawHXSgNfz3vClkSjC5C5K5qM
- 88E4Rzq8HE0i+pEzHNd2pdlUa9aHmMAPdudVqLsxFcgycFGGDdzE9Xftjn5jr71/SJi2
- li8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=GEwyRCCYuoqNlJvmYKDre4sMifcMiaDMhbkv+zMvMis=;
- b=sFWMjgpZdlT8/hCkQ9PUDU8EAjVcvLyCCV/nPr9CKxjCSx/xfC+Wp+5pxVvKrDiHvl
- eFiIaQ9tIX+We2zx/3qtQV6l4th4y1ZqVg0f70UMsN6jQK0aYi4WYdZj4aI/YX4f044q
- Ok7+ZH/OyYOKxqJaO6cVyo1PakEXoLTOKrMDllOE9I3yT0bVT9+AA3p5y00FJ4QLQilQ
- CFYUKqFHbNQn9RrWGHn+nu55mdDD8srnmbpwQaLZBIvOCdkZ8jJqnHCJI9kaNhGIS4P3
- Ci1Fp6EGcJ2jBQHW4yajIQlsiPVgMNPVpc2cM0WYJbS5V0/Rtxryi5cGPlsioBG8k/e5
- dekQ==
-X-Gm-Message-State: ACgBeo35JDliYuvGJeXPQYWJyWnkgkKgkIoB0hzmoyFtqR6kAZsdo4zt
- qYG/gOQnFZ/gnzdcYk3HTT0=
-X-Google-Smtp-Source: AA6agR4RlOBhkqVuS0WzZCRfn3JINxWPlJv+3v6+B42lN4Yz/U1wIJV+tTwx82bYRBj6tAIMAKg2nw==
-X-Received: by 2002:a17:907:2bc7:b0:73d:d239:110b with SMTP id
- gv7-20020a1709072bc700b0073dd239110bmr13573177ejc.752.1661787485882; 
- Mon, 29 Aug 2022 08:38:05 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:3268:d71d:7f41:e0fa?
- ([2a02:908:1256:79a0:3268:d71d:7f41:e0fa])
- by smtp.gmail.com with ESMTPSA id
- ky17-20020a170907779100b0072b13ac9ca3sm1070835ejc.183.2022.08.29.08.38.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Aug 2022 08:38:04 -0700 (PDT)
-Message-ID: <2707c040-2b99-8c48-237d-45dee65e8833@gmail.com>
-Date: Mon, 29 Aug 2022 17:38:03 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 516F210E1E3;
+	Mon, 29 Aug 2022 16:02:03 +0000 (UTC)
+Received: from mail-4018.proton.ch (mail-4018.proton.ch [185.70.40.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8292010E1C9;
+ Mon, 29 Aug 2022 16:01:58 +0000 (UTC)
+Date: Mon, 29 Aug 2022 16:01:44 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail3; t=1661788915; x=1662048115;
+ bh=/Cv97LwSvECAAMjpB8VY1nPcGlJSFZCarof/Yl0xZZk=;
+ h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
+ References:Feedback-ID:From:To:Cc:Date:Subject:Reply-To:
+ Feedback-ID:Message-ID;
+ b=KNy9ce4elJi6IyXtjZGZre583E1Ie7ISdGN+kgrU4nSDWTfRgBAB8151bQz8PKyXa
+ gNDUnu71L8stloV7KCW/p47//hz5pIUEIQCdegu3pxlzYnX3wTYRVKoBbOGTtiOc+H
+ AM/QgwPBsWSicTNbJPPFoTgEZ7xpKLB2JnkHmNqABXDe9546WgbyT6gK9uoUr9Pi3H
+ ZJlq1HKKagzayVkEhXBiD9Q8z0+hO87N/+C7zu8jvrM/jJWNxEVBPhTCxpkMOwmx3P
+ kYhqNJFcXHSTM6uOUUcqhDaNyJ+rOT/cESklH5cC9E3f1LGWd74O+y5xU8Y9OmmFIq
+ e3pi+RMGHE1Aw==
+To: =?utf-8?Q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+From: Simon Ser <contact@emersion.fr>
+Subject: Re: [PATCH 3/4] drm: introduce DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP
+Message-ID: <mCt6wEhtsKHH_vfQEi0RwUQspNiKfFez4v8ZWlMW-sqZ5xaiUqMpRCF7na84A2nOLw5MA59fQ6IWddLCAg76XwWagCYMthzTLKLPQ9m0MfI=@emersion.fr>
+In-Reply-To: <YwiB/xQf6Z6ScU+Z@intel.com>
+References: <20220824150834.427572-1-contact@emersion.fr>
+ <20220824150834.427572-4-contact@emersion.fr> <YwiB/xQf6Z6ScU+Z@intel.com>
+Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] drm/amdkfd: Set pte_flags for actual BO location
-Content-Language: en-US
-To: Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220826231654.335169-1-Felix.Kuehling@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220826231654.335169-1-Felix.Kuehling@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,111 +47,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Simon Ser <contact@emersion.fr>
+Cc: daniel.vetter@ffwll.ch, amd-gfx@lists.freedesktop.org, mwen@igalia.com,
+ Pekka Paalanen <ppaalanen@gmail.com>, dri-devel@lists.freedesktop.org,
+ alexander.deucher@amd.com, hwentlan@amd.com, nicholas.kazlauskas@amd.com,
+ joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 27.08.22 um 01:16 schrieb Felix Kuehling:
-> BOs can be in a different location than was intended at allocation time,
-> for example when restoring fails after an eviction or BOs get pinned in
-> system memory. On some GPUs the MTYPE for coherent mappings depends on
-> the actual memory location.
->
-> Use the actual location to determine the pte_flags every time the page
-> tables are updated.
+On Friday, August 26th, 2022 at 10:19, Ville Syrj=C3=A4l=C3=A4 <ville.syrja=
+la@linux.intel.com> wrote:
 
-For a workaround ok, but looks a bit awkward. Basically we need 
-different MTYPE based on the location, right?
+> On Wed, Aug 24, 2022 at 03:08:55PM +0000, Simon Ser wrote:
+> > This new kernel capability indicates whether async page-flips are
+> > supported via the atomic uAPI. DRM clients can use it to check
+> > for support before feeding DRM_MODE_PAGE_FLIP_ASYNC to the kernel.
+>=20
+> I think we'd need to clarify the semantics of the async flag
+> for atomic commits.
+>=20
+> Eg. on Intel hw only pure page flips are possible async, if you do
+> anything else (change plane size/pos/scaling/etc.) you will need
+> to do a sync update. Technically not even all page flips (from the
+> uapi POV) might be possible as the exact scanout source address
+> is specified via two registers, only one of which can be update
+> async. So technically the two framebuffers might be laid out
+> just slightly differently which could prevent an async flip.
+> Also only some subset of planes actually support async flips.
 
-Christian.
+Also IIRC some format modifiers don't support async flip at all (CCS)?
 
->
-> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> ---
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  9 ++++++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 19 +++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  1 +
->   3 files changed, 28 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index cbd593f7d553..5dd89f5a032f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -405,6 +405,7 @@ static int vm_update_pds(struct amdgpu_vm *vm, struct amdgpu_sync *sync)
->   static uint64_t get_pte_flags(struct amdgpu_device *adev, struct kgd_mem *mem)
->   {
->   	struct amdgpu_device *bo_adev = amdgpu_ttm_adev(mem->bo->tbo.bdev);
-> +	bool is_vram = mem->bo->tbo.resource->mem_type == TTM_PL_VRAM;
->   	bool coherent = mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_COHERENT;
->   	bool uncached = mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED;
->   	uint32_t mapping_flags;
-> @@ -420,7 +421,7 @@ static uint64_t get_pte_flags(struct amdgpu_device *adev, struct kgd_mem *mem)
->   	switch (adev->asic_type) {
->   	case CHIP_ARCTURUS:
->   	case CHIP_ALDEBARAN:
-> -		if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
-> +		if (is_vram) {
->   			if (bo_adev == adev) {
->   				if (uncached)
->   					mapping_flags |= AMDGPU_VM_MTYPE_UC;
-> @@ -1236,12 +1237,18 @@ static int update_gpuvm_pte(struct kgd_mem *mem,
->   {
->   	struct amdgpu_bo_va *bo_va = entry->bo_va;
->   	struct amdgpu_device *adev = entry->adev;
-> +	uint64_t pte_flags = get_pte_flags(adev, mem);
->   	int ret;
->   
->   	ret = kfd_mem_dmamap_attachment(mem, entry);
->   	if (ret)
->   		return ret;
->   
-> +	if (unlikely(entry->pte_flags != pte_flags)) {
-> +		amdgpu_vm_bo_update_flags(bo_va, pte_flags);
-> +		entry->pte_flags = pte_flags;
-> +	}
-> +
->   	/* Update the page tables  */
->   	ret = amdgpu_vm_bo_update(adev, bo_va, false);
->   	if (ret) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 59cac347baa3..954a40d5d828 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1862,6 +1862,25 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_device *adev,
->   	}
->   }
->   
-> +/**
-> + * amdgpu_vm_bo_update_flags - Update mapping flags of invalid mappings
-> + *
-> + * @bo_va: identifies the BO and VM
-> + * @flags: new mapping flags
-> + *
-> + * The update is only applied to invalid mappings. This allows updating the
-> + * mapping flags after a migration to maintain the desired coherence. The next
-> + * call to amdgpu_vm_bo_update() will apply the new @flags to the page table.
-> + */
-> +void amdgpu_vm_bo_update_flags(struct amdgpu_bo_va *bo_va,
-> +			       uint64_t flags)
-> +{
-> +	struct amdgpu_bo_va_mapping *mapping;
-> +
-> +	list_for_each_entry(mapping, &bo_va->invalids, list)
-> +		mapping->flags = flags;
-> +}
-> +
->   /**
->    * amdgpu_vm_get_block_size - calculate VM page table size as power of two
->    *
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 9ecb7f663e19..11793716cd8b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -413,6 +413,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev,
->   bool amdgpu_vm_evictable(struct amdgpu_bo *bo);
->   void amdgpu_vm_bo_invalidate(struct amdgpu_device *adev,
->   			     struct amdgpu_bo *bo, bool evicted);
-> +void amdgpu_vm_bo_update_flags(struct amdgpu_bo_va *bo_va, uint64_t flags);
->   uint64_t amdgpu_vm_map_gart(const dma_addr_t *pages_addr, uint64_t addr);
->   struct amdgpu_bo_va *amdgpu_vm_bo_find(struct amdgpu_vm *vm,
->   				       struct amdgpu_bo *bo);
+> And on hw where multiple planes support it on the same crtc, only one
+> plane can do it at a time. Well, more accurately we can only select
+> one plane at a time to give us the "flip done" interrupt. I guess
+> if the user wants to async flip multiple planes at the same time
+> we could do them serially as opposed to in parallel to make sure
+> all the flips actually happened before we signal completion of the
+> entire commit. Async flips of multiple planes probably won't
+> happen atomically anyway so doing them serially seems fine.
+>=20
+> ATM in i915 we probably don't have sufficient state checks in
+> place to catch all the restrictions, and instead in part we rely
+> on the limited scope of the legacy async flip ioctl to make sure
+> the operation doesn't attempt something the hw can't do.
 
+Yeah, that makes sense.
+
+In the documentation patch discussion [1], it appears it's not clear what
+drivers should do when async flip isn't possible with the legacy uAPI.
+
+For the atomic uAPI, we need to pick on of these two approaches:
+
+1. Let the kernel fall back to a sync flip if async isn't possible. This
+   simplifies user-space, but then user-space has no reliable way to figure=
+ out
+   what really happened (sync or async?). That could be fixed with a new
+   read-only CRTC prop indicating whether the last flip was async or not.
+   However, maybe someone will come up in the future with user-space which
+   needs to only apply an update if async flip is possible, in which case t=
+his
+   approach falls short.
+2. Make the kernel return EINVAL if async flip isn't possible. This adds mo=
+re
+   complexity to user-space, but enables a more reliable and deterministic
+   uAPI. This is also more consistent with the rest of the existing atomic
+   uAPI.
+
+Note, current user-space would only need to opportunistically enable async
+flip. IOW, I think that for current user-space plans "async if possible,
+otherwise sync" is good enough. That behavior maps well to the Vulkan prese=
+nt
+modes as well (which says that "this mode *may* result in visible tearing",=
+ but
+doesn't guarantee it).
+
+Another possible shortcoming of the proposed new uAPI here is that user-spa=
+ce
+cannot submit a single atomic commit which updates multiple CRTCs, and
+individually select which CRTC does an async flip. This could be fixed with
+a "ASYNC_FLIP" CRTC prop which the kernel always resets to 0 on commit. I'm=
+ not
+sure we want/need to cross that bridge right now, it would be easy enough t=
+o
+add as a second step if some user-space would benefit from it.
+
+What do you think?
+
+[1]: https://lore.kernel.org/dri-devel/ASSNOUe9wtsXskZjVlf1X4pl53T7pVE0MfEz=
+kQ_h4cX0tjnF7e3cxpwGpRNPudmIHoRuW4kz_v1AeTpXgouLpTYcI8q-lPTzc1YMLR8JiJM=3D@=
+emersion.fr/
