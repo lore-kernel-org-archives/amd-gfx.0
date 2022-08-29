@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65E73ECAAD2
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 14:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B1FBECAAD5
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 14:31:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97C6410F317;
-	Mon, 29 Aug 2022 14:30:59 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2066.outbound.protection.outlook.com [40.107.93.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54F3E10F300
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Aug 2022 14:30:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5D0C10F2DD;
+	Mon, 29 Aug 2022 14:31:09 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2086.outbound.protection.outlook.com [40.107.223.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA7B810F2EE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Aug 2022 14:30:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fn1Th2fjbukxHbcnqq/oTYVV235blpU4VPSHLEkG8Dz8NM9/rUcUG3UQzPIGY4PgD4pOfG2f1BHBXRSCuBbgO8mxXMojMSwKfUdFCHAEwt664dA1Jgq57JodE+5Y+MIAaoLIIwYiY+O8oLxiY+nqvZa1Np7QCIO+bG+edWrsx9RhjLm3OzDxSVsYvSf3SW3cMPc98T60wzwK4diyhltXqk/efDAmvcn6MUc3Xn2UNxWBIUHt3tL43X8K2CXAsFdMQXPNTMp7hKJyKrQfcdQwxZYDqC8QQHMmv3OqXgrYEQK0aRgnTCy5Fmd5hYL0ODvmhq7yKNnx9AjH/2BX0wr3vg==
+ b=AAF4RRIatb2F+BE8dQEcSnkAChTbHp8ZOCsYYB4esJ25AkEnkIELU1OAFiypG/ig66ftXC+VUzQOWLBojGxNdsvWjVs6T9Ss30i1kNc/YF0FOvIadPRM6nIfZ00tWsRap+Pn0ssPBE7I4ZydDDvyBjxBUeYO/HYn/45YyLX6MV1qiiEGAAx8k5hluAA6B4LIKb6xpzer7D4MUBuN6bjXc/iLXJzaemMrK8XE7lOjtRbfnWUnHjOESY9U6saY1qvwT1BrLvGyTsinkZF2j9c2ph1IutFz0NgMWNUf26CtUe1vhgP4KtAnThnuEeAVZjZIsQ+GkINerxIo+q9mUBmnig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GTgMdkwfL6y+epxgaBYYTeebc/cCLAEWAJRFWTtmJ24=;
- b=Zln+mUORbWryXAttYQ0OWl9qbGjJOS28c5qjJLh7mRGpyNraBH+3YvUqiOf1BX5SWA/9hPh+nfZd8AAAGt+a0UpddGnpYeceJPUCRf39roFyRZQBGGZQLay3xPCs7j88XFwv/41I1b99VggAJ6uPUi3bCinolPNsFH/HGR2d5mSxlSDxhHSxFbNmEX9LmzU5M/EiYRGIBUkeRB4863dyd1hLbN4yPifFpYOQ0EvvbFxbKjonJ0Mau3SGqIi06eTktg+GxUpDukibOvNxK2Hlpn+IP4/vd1EJDV3knpCZxd4p8eYgpwRGmOeUbo2XBGLxp3yOuRUidvVN/eHO2NRkUw==
+ bh=XmRAoe7tlGU/jIv00ut4Zu62+3D7wrOF1bMgVJwomi0=;
+ b=T8+ycNvNMQoNwkLNtCVf2/td4Y+/jowPz3yX8fzWK6VPNGtQnSczfC/13+UmkDcsltsAQARz9Q56X2pmUV5jY8OGq+1DT2d41wH9fBP9p3K+8P3q+/wxZVpvzlv8R+Wxx0yokpQ9CmD0AQtGnyapqCqaMDXfBantEDRWG1z8uSIJNbx3CZhHI/izDwmPRUIy5E8yIf3rfLDhBsKG2yIAxYyQgbIW3c0opD5qVxM9a91AXuoTauaW7KTJavtk0Sl5mfvTXlO0/PzNprLEMtHeNU3Rydn4u+GZUswORMu6BiCXMUvTaSoFnj6JmRZ675cf9vkGbMZD5iOR6elXYKFC5g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GTgMdkwfL6y+epxgaBYYTeebc/cCLAEWAJRFWTtmJ24=;
- b=kj9TQznGLJLuVmKSBzsz3D9NZBJr6hk7rZpIT4wKUTSk0v8JP3vo85jmp97dZ81JxP6ijsGZi4KavlNlsTvPheNGWaR2CNiuN71W9bdOhS16CQm+xiq3IbiVV+jPqPMMIgtoQadauuG8pJHeg1IzXsW0YefBB5aWGgD60i+MeRI=
-Received: from MW4PR04CA0110.namprd04.prod.outlook.com (2603:10b6:303:83::25)
- by DS0PR12MB6461.namprd12.prod.outlook.com (2603:10b6:8:c7::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.21; Mon, 29 Aug
- 2022 14:30:49 +0000
-Received: from CO1NAM11FT112.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:83:cafe::42) by MW4PR04CA0110.outlook.office365.com
- (2603:10b6:303:83::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.19 via Frontend
- Transport; Mon, 29 Aug 2022 14:30:49 +0000
+ bh=XmRAoe7tlGU/jIv00ut4Zu62+3D7wrOF1bMgVJwomi0=;
+ b=vNDxXBvZ1gFDenKwn1Z31bauoBgajQSnBquPbajWojvM6ZsVlswyNG5P+KQNUDbzvR7qfUFPfIa0ws30OzjkDguzoWsKFc9HSPWFcRlp45XnBdqIszMjkWTfD4l7KjJ83ypq+wdHQmMd7J/Pemrd2Svr3b2B+5xTZrDK/YlbAmA=
+Received: from MW4PR04CA0316.namprd04.prod.outlook.com (2603:10b6:303:82::21)
+ by BYAPR12MB2773.namprd12.prod.outlook.com (2603:10b6:a03:72::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Mon, 29 Aug
+ 2022 14:30:47 +0000
+Received: from CO1NAM11FT100.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:82:cafe::46) by MW4PR04CA0316.outlook.office365.com
+ (2603:10b6:303:82::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15 via Frontend
+ Transport; Mon, 29 Aug 2022 14:30:47 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT112.mail.protection.outlook.com (10.13.174.213) with Microsoft SMTP
+ CO1NAM11FT100.mail.protection.outlook.com (10.13.175.133) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5566.15 via Frontend Transport; Mon, 29 Aug 2022 14:30:48 +0000
+ 15.20.5566.15 via Frontend Transport; Mon, 29 Aug 2022 14:30:47 +0000
 Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 29 Aug
- 2022 09:30:43 -0500
+ 2022 09:30:42 -0500
 From: Jonathan Kim <jonathan.kim@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/29] drm/amdgpu: add gfx9.4.1 hw debug mode enable and
- disable calls
-Date: Mon, 29 Aug 2022 10:30:04 -0400
-Message-ID: <20220829143026.1509027-8-jonathan.kim@amd.com>
+Subject: [PATCH 05/29] drm/amdgpu: setup hw debug registers on driver
+ initialization
+Date: Mon, 29 Aug 2022 10:30:02 -0400
+Message-ID: <20220829143026.1509027-6-jonathan.kim@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220829143026.1509027-1-jonathan.kim@amd.com>
 References: <20220829143026.1509027-1-jonathan.kim@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a965b025-dae8-4f64-9f53-08da89cb1179
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6461:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7f908d6-e408-4c06-00b6-08da89cb105d
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2773:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LFpSQvRM8XEQpeGZ5+LdqIfP+ywf9hCj7IWqGdwi2SD64QJbwPO1sSCZoSIOlZ29J2su98NXkNovpcx+5KkEn6lxzpfJoZEnwQZGb01CFDAo8DIr/DffsFcYYLX4Jo/9wdOESYpFPIkDQsgt58OntZQKehN+gD90jF93TnilIKytj08Rw36N2M2TaIc8qFEPlHeAMyMTdGnALUb1i7UgQ9Yl0pmiZ/Y1Mi2gExKSl3D9wTLIql86w95CZmLPTofhd9UcPf+gB6lUAr5bd/szuLb+RlmjIbH817fw1imvs+Tuv1Ec6xgqTWc8dRsbeySfkMS514aiTADbtpI6BZcDH3TcZaKOGIWlPNs8ITZqCA4MoL4NTD7e4VXpcqUNh26AN+ScoBPdif9ljOAgbgoaAu5iWgVoLe3TFt1YAKVbGurCb2ZKCORuDVslNos/r5PuwdhUwdFS84XTighFt4FMsJpvhfNC0xf1Dlcw8eaeQCpJi4Pbm1oRFPj98eWluSWdst67vsQPSXiXmXH7t2zGYODkpZUppswkG2b9D8E+AlIliisuOvnZnsDVc7LMsndS+mvSOVV8ibpYxWAiY8snOzWG4ZvWhcOSlP4ZhspgKbO4U8bb4uWvwu6guQvpZa0ABdj7lSIaECyWbFfXwKhTFEOU3+Ei3gs55rMg6wzmhrqoDrHLdO0m+l99ZVALnVqDUgc2tsBYPXhinTykAn5Hg4/zWqPMtc7bhDV1FJq40ecos6upH9RHVlTMHaY5CvWK9pmGXxM45ASAkhBC0WBuE7GMshVnuNhkfMTU8MAJaYghUdwGaAFBc+tHU/Dm1eZT
+X-Microsoft-Antispam-Message-Info: lErB8uAt1D21hSZeOjLzdGUMSkQBAbpz5tfY6RfZAe1oyg2IvjQMiBUe1Epd8nIjTBVUAzC+zK86HXuC8TSwR30YVxKJYpCYn8SmR1eA9l/Cu/FGICU/yBxCEk2mD8hPfFvur3vtt25lzovu1Sy0pLnL0jvohfG429rYr4SkTiQ3Np8azWsYk5fA9vbrcw4L3GvCQJu1otwmDYDSVtS6M7NDdm+sMqwk08fFkLiqVI8v5BYBBUkv/WzJnRTiOU7nULnjUYX0IInVAWCNQost3c7zO2MPNfcf89e7WthujUtwPJPlBhXqW15BXkPNTX4P3pA7OPne4o9o3/kmT67vinLrR+MQqztYNqu1a8oouQjZo0ZgG42wamCUI+BH+RyHPDNbnU1Ih6yUX3rWm/ml/G/wglxurgKcioT+m6EtXGx3o4XMvIvIA7k9eWEXqfr6845khva5Aq2Dvx7NT/rVhS74RVRw9RnbJSCg9l1my2PTE0yuWt8Bke7bXF5mDNRqkhXIENvU54TvjuS1t47nMbgUaIKOm3joPpaWfKCm5IoJdBRNXWEMM4DUPDMKZIuYpIKdgnL9Jg2HvVHZvU1+VAAXd5RLzIl9fZviMaN9o11FCx5csD5vKVKgHHQI8Bu+Jeggn+9WXNZpE9C8Kiqdr3d/FgrqcFWk3LmrkPG7/4ofsJIFsVrVO3aGXiSeNYumr+eSYrNpY3YYjpCgPd0WwnQcxJ4sRXLjW/cU9PlCb0iKDkkjhqFHNdJG/nVCg71Jg2bO8UBOS99i+N192lH4e32TJf+/eOgDMaHiUZE8o1E=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(396003)(39860400002)(136003)(346002)(36840700001)(40470700004)(46966006)(356005)(26005)(41300700001)(7696005)(6666004)(86362001)(82310400005)(478600001)(40460700003)(36860700001)(426003)(47076005)(16526019)(336012)(186003)(1076003)(81166007)(2616005)(83380400001)(82740400003)(44832011)(2906002)(40480700001)(70206006)(5660300002)(36756003)(4326008)(8936002)(8676002)(70586007)(316002)(54906003)(6916009)(36900700001);
+ SFS:(13230016)(4636009)(396003)(346002)(376002)(136003)(39860400002)(40470700004)(36840700001)(46966006)(7696005)(2616005)(1076003)(47076005)(186003)(336012)(426003)(16526019)(8936002)(40480700001)(5660300002)(30864003)(44832011)(2906002)(41300700001)(36756003)(86362001)(6666004)(26005)(478600001)(83380400001)(81166007)(36860700001)(40460700003)(82740400003)(356005)(82310400005)(6916009)(4326008)(54906003)(316002)(8676002)(70206006)(70586007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2022 14:30:48.9177 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a965b025-dae8-4f64-9f53-08da89cb1179
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2022 14:30:47.0368 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7f908d6-e408-4c06-00b6-08da89cb105d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT112.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT100.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6461
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2773
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,217 +104,310 @@ Cc: Felix.Kuehling@amd.com, Lancelot.Six@amd.com, Laurent.Morichetti@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On GFX9.4.1, the implicit wait count instruction on s_barrier is
-disabled by default in the driver during normal operation for
-performance requirements.
+Add missing debug trap registers references and initialize all debug
+registers on boot by clearing the hardware exception overrides and the
+wave allocation ID index.
 
-There is a hardware bug in GFX9.4.1 where if the implicit wait count
-instruction after an s_barrier instruction is disabled, any wave that
-hits an exception may step over the s_barrier when returning from the
-trap handler with the barrier logic having no ability to be
-aware of this, thereby causing other waves to wait at the barrier
-indefinitely resulting in a shader hang.  This bug has been corrected
-for GFX9.4.2 and onward.
+For debug devices that only support single process debugging, enable
+trap temporary setup by default.
 
-Since the debugger subscribes to hardware exceptions, in order to avoid
-this bug, the debugger must enable implicit wait count on s_barrier
-for a debug session and disable it on detach.
+Debug devices that support multi-process debugging require trap
+temporary setup to be disabled by default in order to satisfy microbench
+performance when in non-debug mode.
 
-In order to change this setting in the in the device global SQ_CONFIG
-register, the GFX pipeline must be idle.  GFX9.4.1 as a compute device
-will either dispatch work through the compute ring buffers used for
-image post processing or through the hardware scheduler by the KFD.
-
-Have the KGD suspend and drain the compute ring buffer, then suspend the
-hardware scheduler and block any future KFD process job requests before
-changing the implicit wait count setting.  Once set, resume all work.
+The debugger requires that TTMPs 6 & 7 save the dispatch ID to map
+waves onto dispatch during compute context inspection.
+In order to correctly this up, set the special reserved CP bit by default
+whenever the MQD is initailized.
 
 Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   3 +
- .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   | 105 +++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |   4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      |   2 +-
- 4 files changed, 110 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 26 +++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         | 30 ++++++++
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  5 ++
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  5 ++
+ .../include/asic_reg/gc/gc_10_1_0_offset.h    | 14 ++++
+ .../include/asic_reg/gc/gc_10_1_0_sh_mask.h   | 69 +++++++++++++++++++
+ .../include/asic_reg/gc/gc_10_3_0_offset.h    | 10 +++
+ .../include/asic_reg/gc/gc_10_3_0_sh_mask.h   |  4 ++
+ 8 files changed, 163 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 79bb6fd83094..ce53a0f9e0b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1036,6 +1036,9 @@ struct amdgpu_device {
- 	struct pci_saved_state          *pci_state;
- 	pci_channel_state_t		pci_channel_state;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 1a915edccb92..54765d5d7d3a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -5142,6 +5142,29 @@ static u32 gfx_v10_0_init_pa_sc_tile_steering_override(struct amdgpu_device *ade
  
-+	/* Track auto wait count on s_barrier settings */
-+	bool				barrier_has_auto_waitcnt;
+ #define DEFAULT_SH_MEM_BASES	(0x6000)
+ 
++static void gfx_v10_0_debug_trap_config_init(struct amdgpu_device *adev,
++				uint32_t first_vmid,
++				uint32_t last_vmid)
++{
++	uint32_t data;
++	uint32_t trap_config_vmid_mask = 0;
++	int i;
 +
- 	struct amdgpu_reset_control     *reset_cntl;
- 	uint32_t                        ip_versions[MAX_HWIP][HWIP_MAX_INSTANCE];
++	/* Calculate trap config vmid mask */
++	for (i = first_vmid; i < last_vmid; i++)
++		trap_config_vmid_mask |= (1 << i);
++
++	data = REG_SET_FIELD(0, SPI_GDBG_TRAP_CONFIG,
++			VMID_SEL, trap_config_vmid_mask);
++	data = REG_SET_FIELD(data, SPI_GDBG_TRAP_CONFIG,
++			TRAP_EN, 1);
++	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_CONFIG), data);
++	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK), 0);
++
++	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_DATA0), 0);
++	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_DATA1), 0);
++}
++
+ static void gfx_v10_0_init_compute_vmid(struct amdgpu_device *adev)
+ {
+ 	int i;
+@@ -5173,6 +5196,9 @@ static void gfx_v10_0_init_compute_vmid(struct amdgpu_device *adev)
+ 		WREG32_SOC15_OFFSET(GC, 0, mmGDS_GWS_VMID0, i, 0);
+ 		WREG32_SOC15_OFFSET(GC, 0, mmGDS_OA_VMID0, i, 0);
+ 	}
++
++	gfx_v10_0_debug_trap_config_init(adev, adev->vm_manager.first_kfd_vmid,
++					AMDGPU_NUM_VMID);
+ }
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-index 4191af5a3f13..13f02a0aa828 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-@@ -26,6 +26,7 @@
- #include "amdgpu.h"
- #include "amdgpu_amdkfd.h"
- #include "amdgpu_amdkfd_arcturus.h"
-+#include "amdgpu_reset.h"
- #include "sdma0/sdma0_4_2_2_offset.h"
- #include "sdma0/sdma0_4_2_2_sh_mask.h"
- #include "sdma1/sdma1_4_2_2_offset.h"
-@@ -48,6 +49,8 @@
- #include "amdgpu_amdkfd_gfx_v9.h"
- #include "gfxhub_v1_0.h"
- #include "mmhub_v9_4.h"
-+#include "gc/gc_9_0_offset.h"
-+#include "gc/gc_9_0_sh_mask.h"
+ static void gfx_v10_0_init_gds_vmid(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 7f187558220e..4e9cbbab0fef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -2515,6 +2515,29 @@ static void gfx_v9_0_setup_rb(struct amdgpu_device *adev)
+ 	adev->gfx.config.num_rbs = hweight32(active_rbs);
+ }
  
- #define HQD_N_REGS 56
- #define DUMP_REG(addr) do {				\
-@@ -276,6 +279,104 @@ int kgd_arcturus_hqd_sdma_destroy(struct amdgpu_device *adev, void *mqd,
++static void gfx_v9_0_debug_trap_config_init(struct amdgpu_device *adev,
++				uint32_t first_vmid,
++				uint32_t last_vmid)
++{
++	uint32_t data;
++	uint32_t trap_config_vmid_mask = 0;
++	int i;
++
++	/* Calculate trap config vmid mask */
++	for (i = first_vmid; i < last_vmid; i++)
++		trap_config_vmid_mask |= (1 << i);
++
++	data = REG_SET_FIELD(0, SPI_GDBG_TRAP_CONFIG,
++			VMID_SEL, trap_config_vmid_mask);
++	data = REG_SET_FIELD(data, SPI_GDBG_TRAP_CONFIG,
++			TRAP_EN, 1);
++	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_CONFIG), data);
++	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK), 0);
++
++	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_DATA0), 0);
++	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_DATA1), 0);
++}
++
+ #define DEFAULT_SH_MEM_BASES	(0x6000)
+ static void gfx_v9_0_init_compute_vmid(struct amdgpu_device *adev)
+ {
+@@ -4786,6 +4809,13 @@ static int gfx_v9_0_late_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
++	if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 2))
++		gfx_v9_4_2_debug_trap_config_init(adev,
++			adev->vm_manager.first_kfd_vmid, AMDGPU_NUM_VMID);
++	else
++		gfx_v9_0_debug_trap_config_init(adev,
++			adev->vm_manager.first_kfd_vmid, AMDGPU_NUM_VMID);
++
  	return 0;
  }
  
-+/*
-+ * Helper used to suspend/resume gfx pipe for image post process work to set
-+ * barrier behaviour.
-+ */
-+static int suspend_resume_compute_scheduler(struct amdgpu_device *adev, bool suspend)
-+{
-+	int i, r = 0;
-+
-+	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
-+		struct amdgpu_ring *ring = &adev->gfx.compute_ring[i];
-+
-+		if (!(ring && ring->sched.thread))
-+			continue;
-+
-+		/* stop secheduler and drain ring. */
-+		if (suspend) {
-+			drm_sched_stop(&ring->sched, NULL);
-+			r = amdgpu_fence_wait_empty(ring);
-+			if (r)
-+				goto out;
-+		} else {
-+			drm_sched_start(&ring->sched, false);
-+		}
-+	}
-+
-+out:
-+	/* return on resume or failure to drain rings. */
-+	if (!suspend || r)
-+		return r;
-+
-+	return amdgpu_device_ip_wait_for_idle(adev, GC_HWIP);
-+}
-+
-+static void set_barrier_auto_waitcnt(struct amdgpu_device *adev, bool enable_waitcnt)
-+{
-+	uint32_t data;
-+
-+	WRITE_ONCE(adev->barrier_has_auto_waitcnt, enable_waitcnt);
-+
-+	if (!down_read_trylock(&adev->reset_domain->sem))
-+		return;
-+
-+	amdgpu_amdkfd_suspend(adev, false);
-+
-+	if (suspend_resume_compute_scheduler(adev, true))
-+		goto out;
-+
-+	data = RREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_CONFIG));
-+	data = REG_SET_FIELD(data, SQ_CONFIG, DISABLE_BARRIER_WAITCNT,
-+						enable_waitcnt ? 0 : 1);
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_CONFIG), data);
-+
-+out:
-+	suspend_resume_compute_scheduler(adev, false);
-+
-+	amdgpu_amdkfd_resume(adev, false);
-+
-+	up_read(&adev->reset_domain->sem);
-+}
-+
-+static uint32_t kgd_arcturus_enable_debug_trap(struct amdgpu_device *adev,
-+				bool restore_dbg_registers,
-+				uint32_t vmid)
-+{
-+	mutex_lock(&adev->grbm_idx_mutex);
-+
-+	kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
-+
-+	set_barrier_auto_waitcnt(adev, true);
-+
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK), 0);
-+
-+	kgd_gfx_v9_set_wave_launch_stall(adev, vmid, false);
-+
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+
-+	return 0;
-+}
-+
-+static uint32_t kgd_arcturus_disable_debug_trap(struct amdgpu_device *adev,
-+					bool keep_trap_enabled,
-+					uint32_t vmid)
-+{
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+
-+	kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
-+
-+	set_barrier_auto_waitcnt(adev, false);
-+
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK), 0);
-+
-+	kgd_gfx_v9_set_wave_launch_stall(adev, vmid, false);
-+
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+
-+	return 0;
-+}
- const struct kfd2kgd_calls arcturus_kfd2kgd = {
- 	.program_sh_mem_settings = kgd_gfx_v9_program_sh_mem_settings,
- 	.set_pasid_vmid_mapping = kgd_gfx_v9_set_pasid_vmid_mapping,
-@@ -294,6 +395,8 @@ const struct kfd2kgd_calls arcturus_kfd2kgd = {
- 				kgd_gfx_v9_get_atc_vmid_pasid_mapping_info,
- 	.set_vm_context_page_table_base =
- 				kgd_gfx_v9_set_vm_context_page_table_base,
-+	.enable_debug_trap = kgd_arcturus_enable_debug_trap,
-+	.disable_debug_trap = kgd_arcturus_disable_debug_trap,
- 	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
--	.program_trap_handler_settings = kgd_gfx_v9_program_trap_handler_settings
-+	.program_trap_handler_settings = kgd_gfx_v9_program_trap_handler_settings,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 4e9cbbab0fef..8763fd1a7381 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2602,8 +2602,8 @@ static void gfx_v9_0_init_sq_config(struct amdgpu_device *adev)
- 	switch (adev->ip_versions[GC_HWIP][0]) {
- 	case IP_VERSION(9, 4, 1):
- 		tmp = RREG32_SOC15(GC, 0, mmSQ_CONFIG);
--		tmp = REG_SET_FIELD(tmp, SQ_CONFIG,
--					DISABLE_BARRIER_WAITCNT, 1);
-+		tmp = REG_SET_FIELD(tmp, SQ_CONFIG, DISABLE_BARRIER_WAITCNT,
-+				READ_ONCE(adev->barrier_has_auto_waitcnt) ? 0 : 1);
- 		WREG32_SOC15(GC, 0, mmSQ_CONFIG, tmp);
- 		break;
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 751b9f8972f3..9e2a0615647f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1951,7 +1951,7 @@ void kfd_suspend_all_processes(void)
- 	WARN(debug_evictions, "Evicting all processes");
- 	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
- 		cancel_delayed_work_sync(&p->eviction_work);
--		cancel_delayed_work_sync(&p->restore_work);
-+		flush_delayed_work(&p->restore_work);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+index d3e2b6a599a4..cb484ace17de 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+@@ -117,6 +117,11 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 			1 << CP_HQD_QUANTUM__QUANTUM_SCALE__SHIFT |
+ 			1 << CP_HQD_QUANTUM__QUANTUM_DURATION__SHIFT;
  
- 		if (kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_TRIGGER_SUSPEND))
- 			pr_err("Failed to suspend process 0x%x\n", p->pasid);
++	/* Set cp_hqd_hq_scheduler0 bit 14 to 1 to have the CP set up the
++	 * DISPATCH_PTR.  This is required for the kfd debugger
++	 */
++	m->cp_hqd_hq_scheduler0 = 1 << 14;
++
+ 	if (q->format == KFD_QUEUE_FORMAT_AQL) {
+ 		m->cp_hqd_aql_control =
+ 			1 << CP_HQD_AQL_CONTROL__CONTROL0__SHIFT;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index 0778e587a2d6..86f1cf090246 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -164,6 +164,11 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 			1 << CP_HQD_QUANTUM__QUANTUM_SCALE__SHIFT |
+ 			1 << CP_HQD_QUANTUM__QUANTUM_DURATION__SHIFT;
+ 
++	/* Set cp_hqd_hq_scheduler0 bit 14 to 1 to have the CP set up the
++	 * DISPATCH_PTR.  This is required for the kfd debugger
++	 */
++	m->cp_hqd_hq_status0 = 1 << 14;
++
+ 	if (q->format == KFD_QUEUE_FORMAT_AQL) {
+ 		m->cp_hqd_aql_control =
+ 			1 << CP_HQD_AQL_CONTROL__CONTROL0__SHIFT;
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
+index 18d34bbceebe..7d384f86bd67 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
+@@ -5190,6 +5190,20 @@
+ #define mmSPI_WCL_PIPE_PERCENT_CS6_BASE_IDX                                                            0
+ #define mmSPI_WCL_PIPE_PERCENT_CS7                                                                     0x1f70
+ #define mmSPI_WCL_PIPE_PERCENT_CS7_BASE_IDX                                                            0
++#define mmSPI_GDBG_WAVE_CNTL                                                                           0x1f71
++#define mmSPI_GDBG_WAVE_CNTL_BASE_IDX                                                                  0
++#define mmSPI_GDBG_TRAP_CONFIG                                                                         0x1f72
++#define mmSPI_GDBG_TRAP_CONFIG_BASE_IDX                                                                0
++#define mmSPI_GDBG_TRAP_MASK                                                                           0x1f73
++#define mmSPI_GDBG_TRAP_MASK_BASE_IDX                                                                  0
++#define mmSPI_GDBG_WAVE_CNTL2                                                                          0x1f74
++#define mmSPI_GDBG_WAVE_CNTL2_BASE_IDX                                                                 0
++#define mmSPI_GDBG_WAVE_CNTL3                                                                          0x1f75
++#define mmSPI_GDBG_WAVE_CNTL3_BASE_IDX                                                                 0
++#define mmSPI_GDBG_TRAP_DATA0                                                                          0x1f78
++#define mmSPI_GDBG_TRAP_DATA0_BASE_IDX                                                                 0
++#define mmSPI_GDBG_TRAP_DATA1                                                                          0x1f79
++#define mmSPI_GDBG_TRAP_DATA1_BASE_IDX                                                                 0
+ #define mmSPI_COMPUTE_QUEUE_RESET                                                                      0x1f7b
+ #define mmSPI_COMPUTE_QUEUE_RESET_BASE_IDX                                                             0
+ #define mmSPI_RESOURCE_RESERVE_CU_0                                                                    0x1f7c
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_sh_mask.h
+index 4127896ffcdf..08772ba845b0 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_sh_mask.h
+@@ -19646,6 +19646,75 @@
+ //SPI_WCL_PIPE_PERCENT_CS7
+ #define SPI_WCL_PIPE_PERCENT_CS7__VALUE__SHIFT                                                                0x0
+ #define SPI_WCL_PIPE_PERCENT_CS7__VALUE_MASK                                                                  0x7FL
++//SPI_GDBG_WAVE_CNTL
++#define SPI_GDBG_WAVE_CNTL__STALL_RA__SHIFT                                                                   0x0
++#define SPI_GDBG_WAVE_CNTL__STALL_VMID__SHIFT                                                                 0x1
++#define SPI_GDBG_WAVE_CNTL__STALL_RA_MASK                                                                     0x00000001L
++#define SPI_GDBG_WAVE_CNTL__STALL_VMID_MASK                                                                   0x0001FFFEL
++//SPI_GDBG_TRAP_CONFIG
++#define SPI_GDBG_TRAP_CONFIG__ME_SEL__SHIFT                                                                   0x0
++#define SPI_GDBG_TRAP_CONFIG__PIPE_SEL__SHIFT                                                                 0x2
++#define SPI_GDBG_TRAP_CONFIG__QUEUE_SEL__SHIFT                                                                0x4
++#define SPI_GDBG_TRAP_CONFIG__ME_MATCH__SHIFT                                                                 0x7
++#define SPI_GDBG_TRAP_CONFIG__PIPE_MATCH__SHIFT                                                               0x8
++#define SPI_GDBG_TRAP_CONFIG__QUEUE_MATCH__SHIFT                                                              0x9
++#define SPI_GDBG_TRAP_CONFIG__TRAP_EN__SHIFT                                                                  0xf
++#define SPI_GDBG_TRAP_CONFIG__VMID_SEL__SHIFT                                                                 0x10
++#define SPI_GDBG_TRAP_CONFIG__ME_SEL_MASK                                                                     0x00000003L
++#define SPI_GDBG_TRAP_CONFIG__PIPE_SEL_MASK                                                                   0x0000000CL
++#define SPI_GDBG_TRAP_CONFIG__QUEUE_SEL_MASK                                                                  0x00000070L
++#define SPI_GDBG_TRAP_CONFIG__ME_MATCH_MASK                                                                   0x00000080L
++#define SPI_GDBG_TRAP_CONFIG__PIPE_MATCH_MASK                                                                 0x00000100L
++#define SPI_GDBG_TRAP_CONFIG__QUEUE_MATCH_MASK                                                                0x00000200L
++#define SPI_GDBG_TRAP_CONFIG__TRAP_EN_MASK                                                                    0x00008000L
++#define SPI_GDBG_TRAP_CONFIG__VMID_SEL_MASK                                                                   0xFFFF0000L
++//SPI_GDBG_TRAP_MASK
++#define SPI_GDBG_TRAP_MASK__EXCP_EN__SHIFT                                                                    0x0
++#define SPI_GDBG_TRAP_MASK__REPLACE__SHIFT                                                                    0x9
++#define SPI_GDBG_TRAP_MASK__EXCP_EN_MASK                                                                      0x01FFL
++#define SPI_GDBG_TRAP_MASK__REPLACE_MASK                                                                      0x0200L
++//SPI_GDBG_WAVE_CNTL2
++#define SPI_GDBG_WAVE_CNTL2__VMID_MASK__SHIFT                                                                 0x0
++#define SPI_GDBG_WAVE_CNTL2__MODE__SHIFT                                                                      0x10
++#define SPI_GDBG_WAVE_CNTL2__VMID_MASK_MASK                                                                   0x0000FFFFL
++#define SPI_GDBG_WAVE_CNTL2__MODE_MASK                                                                        0x00030000L
++//SPI_GDBG_WAVE_CNTL3
++#define SPI_GDBG_WAVE_CNTL3__STALL_PS__SHIFT                                                                  0x0
++#define SPI_GDBG_WAVE_CNTL3__STALL_VS__SHIFT                                                                  0x1
++#define SPI_GDBG_WAVE_CNTL3__STALL_GS__SHIFT                                                                  0x2
++#define SPI_GDBG_WAVE_CNTL3__STALL_HS__SHIFT                                                                  0x3
++#define SPI_GDBG_WAVE_CNTL3__STALL_CSG__SHIFT                                                                 0x4
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS0__SHIFT                                                                 0x5
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS1__SHIFT                                                                 0x6
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS2__SHIFT                                                                 0x7
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS3__SHIFT                                                                 0x8
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS4__SHIFT                                                                 0x9
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS5__SHIFT                                                                 0xa
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS6__SHIFT                                                                 0xb
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS7__SHIFT                                                                 0xc
++#define SPI_GDBG_WAVE_CNTL3__STALL_DURATION__SHIFT                                                            0xd
++#define SPI_GDBG_WAVE_CNTL3__STALL_MULT__SHIFT                                                                0x1c
++#define SPI_GDBG_WAVE_CNTL3__STALL_PS_MASK                                                                    0x00000001L
++#define SPI_GDBG_WAVE_CNTL3__STALL_VS_MASK                                                                    0x00000002L
++#define SPI_GDBG_WAVE_CNTL3__STALL_GS_MASK                                                                    0x00000004L
++#define SPI_GDBG_WAVE_CNTL3__STALL_HS_MASK                                                                    0x00000008L
++#define SPI_GDBG_WAVE_CNTL3__STALL_CSG_MASK                                                                   0x00000010L
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS0_MASK                                                                   0x00000020L
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS1_MASK                                                                   0x00000040L
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS2_MASK                                                                   0x00000080L
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS3_MASK                                                                   0x00000100L
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS4_MASK                                                                   0x00000200L
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS5_MASK                                                                   0x00000400L
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS6_MASK                                                                   0x00000800L
++#define SPI_GDBG_WAVE_CNTL3__STALL_CS7_MASK                                                                   0x00001000L
++#define SPI_GDBG_WAVE_CNTL3__STALL_DURATION_MASK                                                              0x0FFFE000L
++#define SPI_GDBG_WAVE_CNTL3__STALL_MULT_MASK                                                                  0x10000000L
++//SPI_GDBG_TRAP_DATA0
++#define SPI_GDBG_TRAP_DATA0__DATA__SHIFT                                                                      0x0
++#define SPI_GDBG_TRAP_DATA0__DATA_MASK                                                                        0xFFFFFFFFL
++//SPI_GDBG_TRAP_DATA1
++#define SPI_GDBG_TRAP_DATA1__DATA__SHIFT                                                                      0x0
++#define SPI_GDBG_TRAP_DATA1__DATA_MASK                                                                        0xFFFFFFFFL
+ //SPI_COMPUTE_QUEUE_RESET
+ #define SPI_COMPUTE_QUEUE_RESET__RESET__SHIFT                                                                 0x0
+ #define SPI_COMPUTE_QUEUE_RESET__RESET_MASK                                                                   0x01L
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
+index 594bffce93a9..b7c1445b0bed 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
+@@ -26,6 +26,8 @@
+ #define mmSQ_DEBUG_STS_GLOBAL_BASE_IDX                                                                 0
+ #define mmSQ_DEBUG_STS_GLOBAL2                                                                         0x10B0
+ #define mmSQ_DEBUG_STS_GLOBAL2_BASE_IDX                                                                0
++#define mmSQ_DEBUG                                                                                     0x10B1
++#define mmSQ_DEBUG_BASE_IDX                                                                            0
+ 
+ // addressBlock: gc_sdma0_sdma0dec
+ // base address: 0x4980
+@@ -4849,10 +4851,18 @@
+ #define mmSPI_WCL_PIPE_PERCENT_CS3_BASE_IDX                                                            0
+ #define mmSPI_GDBG_WAVE_CNTL                                                                           0x1f71
+ #define mmSPI_GDBG_WAVE_CNTL_BASE_IDX                                                                  0
++#define mmSPI_GDBG_TRAP_CONFIG                                                                         0x1f72
++#define mmSPI_GDBG_TRAP_CONFIG_BASE_IDX                                                                0
+ #define mmSPI_GDBG_TRAP_MASK                                                                           0x1f73
+ #define mmSPI_GDBG_TRAP_MASK_BASE_IDX                                                                  0
+ #define mmSPI_GDBG_WAVE_CNTL2                                                                          0x1f74
+ #define mmSPI_GDBG_WAVE_CNTL2_BASE_IDX                                                                 0
++#define mmSPI_GDBG_WAVE_CNTL3                                                                          0x1f75
++#define mmSPI_GDBG_WAVE_CNTL3_BASE_IDX                                                                 0
++#define mmSPI_GDBG_TRAP_DATA0                                                                          0x1f78
++#define mmSPI_GDBG_TRAP_DATA0_BASE_IDX                                                                 0
++#define mmSPI_GDBG_TRAP_DATA1                                                                          0x1f79
++#define mmSPI_GDBG_TRAP_DATA1_BASE_IDX                                                                 0
+ #define mmSPI_COMPUTE_QUEUE_RESET                                                                      0x1f7b
+ #define mmSPI_COMPUTE_QUEUE_RESET_BASE_IDX                                                             0
+ #define mmSPI_RESOURCE_RESERVE_CU_0                                                                    0x1f7c
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_sh_mask.h
+index a827b0ff8905..30d67feba1a8 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_sh_mask.h
+@@ -46386,6 +46386,10 @@
+ 
+ 
+ // addressBlock: sqind
++//SQ_DEBUG
++#define SQ_DEBUG__SINGLE_MEMOP_MASK 0x00000001L
++#define SQ_DEBUG__SINGLE_MEMOP__SHIFT 0x00000000
++
+ //SQ_DEBUG_STS_GLOBAL
+ #define SQ_DEBUG_STS_GLOBAL2__FIFO_LEVEL_GFX0_MASK 0x000000ffL
+ #define SQ_DEBUG_STS_GLOBAL2__FIFO_LEVEL_GFX0__SHIFT 0x00000000
 -- 
 2.25.1
 
