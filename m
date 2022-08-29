@@ -4,58 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11635ECAAD4
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:02:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23D2CECAAD2
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:02:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FB9210EF41;
-	Mon, 29 Aug 2022 13:02:37 +0000 (UTC)
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [IPv6:2607:f8b0:4864:20::102f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4A5010F1A1;
- Mon, 29 Aug 2022 12:29:20 +0000 (UTC)
-Received: by mail-pj1-x102f.google.com with SMTP id
- w88-20020a17090a6be100b001fbb0f0b013so8371405pjj.5; 
- Mon, 29 Aug 2022 05:29:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=CQmPQiZbqJl3F1hmW3HEOlbIzS9LIPFvPFvLkS4xj3A=;
- b=OYKzSZaMCxX4OXsRl1egB+pH2XdaiGlHR5RdNXaCcpG2JWVN+/X1Gg4jhGTuCDsqS3
- xQieVSf1ZVHuHezy46Pz4X+r+auMgAbjBZQqJIJUUjOFGfo9M/1BecpJdnVqVzJcQR+D
- 5zpoqRsdzwxL0jC6akJ2u4RWY514EZfImXJpiUfHPxD8xYpSL7RelRug948NB8icEPdU
- h+9D5swl8uKtXhJfYIVoX01taLqe2M+7S8YYVOcxB2yXMSrKBBir5LhqjRq8b+spCs4S
- okHtMa1GHZFw9vgDHKKnENsXw1j2uNmLPbCla5eOLzm56Wev5V7DrzTS5rWp51z6BaUh
- Tbzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc;
- bh=CQmPQiZbqJl3F1hmW3HEOlbIzS9LIPFvPFvLkS4xj3A=;
- b=DudwB7LvJ7rjGWnEsnIPGrn/5ohX8bKsr3G7jh0KNXcMSG/9ia5BSJ474uApdJp8ir
- T19SByQzfWH/Y/MWOeZQ7G8a3mO1fH+KnfTrzSMlt9bFR1TGhCDGGy9znOBmseOGu/bv
- x8ibnFgRkzPZj8bH6qeu5G0JIVnevrLaZUQ1pp/2Wkt0qnqYflepNgafKnFWQq/VoNub
- Bz5BDnuU2taa8Z1pC5oZB4kQDJ8T+3+0xgfkRvKHM3+/gR5y+achBdQdeaYOCHhXPfeZ
- ENBKLa53NYjMAuxIo+0SOnpiVZ5BVzTfdTi1pEcIV+kbISNn8A2Q5dVKkr7MJQ23AVCA
- p4tA==
-X-Gm-Message-State: ACgBeo2gPWozElWdhs8Ys27Ar6f8/omF9225kexeITSD5YJnT3Eu6OS4
- GczbTZk9neYLu+l80bKBp94=
-X-Google-Smtp-Source: AA6agR4ERp49BkEJRZeAPhtidKBWr2tA9X2Jqu9y5S2+tKQ9seYBETGT092ViFsKvqltgF+DFoNh7A==
-X-Received: by 2002:a17:902:be16:b0:170:8ebf:204c with SMTP id
- r22-20020a170902be1600b001708ebf204cmr17047264pls.47.1661776160098; 
- Mon, 29 Aug 2022 05:29:20 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id
- b202-20020a621bd3000000b005377c854b50sm7109553pfb.1.2022.08.29.05.29.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Aug 2022 05:29:19 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: cui.jinpeng2@zte.com.cn
-To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com
-Subject: [PATCH linux-next] drm/amdkfd: remove redundant variables err and ret
-Date: Mon, 29 Aug 2022 12:29:14 +0000
-Message-Id: <20220829122914.268251-1-cui.jinpeng2@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C19410F1AC;
+	Mon, 29 Aug 2022 13:02:38 +0000 (UTC)
+Received: from out30-43.freemail.mail.aliyun.com
+ (out30-43.freemail.mail.aliyun.com [115.124.30.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 653DF10EE24;
+ Mon, 29 Aug 2022 08:36:36 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R851e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046059;
+ MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
+ TI=SMTPD_---0VNavQMt_1661762192; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0VNavQMt_1661762192) by smtp.aliyun-inc.com;
+ Mon, 29 Aug 2022 16:36:33 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH -next 2/4 RESEND] drm/amd/display: clean up some inconsistent
+ indentings
+Date: Mon, 29 Aug 2022 16:36:25 +0800
+Message-Id: <20220829083627.12774-2-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
+In-Reply-To: <20220829083627.12774-1-yang.lee@linux.alibaba.com>
+References: <20220829083627.12774-1-yang.lee@linux.alibaba.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 29 Aug 2022 13:02:32 +0000
@@ -70,66 +43,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, Zeal Robot <zealci@zte.com.cn>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
- Jinpeng Cui <cui.jinpeng2@zte.com.cn>
+Cc: sunpeng.li@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, airlied@linux.ie,
+ Yang Li <yang.lee@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jinpeng Cui <cui.jinpeng2@zte.com.cn>
+The indentation of statements in the same curly bracket should be
+consistent.
 
-Return value from kfd_wait_on_events() and io_remap_pfn_range() directly
-instead of taking this in another redundant variable.
-
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Jinpeng Cui <cui.jinpeng2@zte.com.cn>
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=1886
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+ .../gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c  | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 664e8b5d82c0..84da1a9ce37c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -876,14 +876,11 @@ static int kfd_ioctl_wait_events(struct file *filp, struct kfd_process *p,
- 				void *data)
- {
- 	struct kfd_ioctl_wait_events_args *args = data;
--	int err;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
+index c87091683b5d..7ebf25e87933 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
+@@ -518,13 +518,16 @@ void dcn321_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_p
  
--	err = kfd_wait_on_events(p, args->num_events,
-+	return kfd_wait_on_events(p, args->num_events,
- 			(void __user *)args->events_ptr,
- 			(args->wait_for_all != 0),
- 			&args->timeout, &args->wait_result);
--
--	return err;
- }
- static int kfd_ioctl_set_scratch_backing_va(struct file *filep,
- 					struct kfd_process *p, void *data)
-@@ -2860,7 +2857,6 @@ static int kfd_mmio_mmap(struct kfd_dev *dev, struct kfd_process *process,
- 		      struct vm_area_struct *vma)
- {
- 	phys_addr_t address;
--	int ret;
+ 			if (dc->ctx->dc_bios->funcs->get_soc_bb_info(dc->ctx->dc_bios, &bb_info) == BP_RESULT_OK) {
+ 				if (bb_info.dram_clock_change_latency_100ns > 0)
+-					dcn3_21_soc.dram_clock_change_latency_us = bb_info.dram_clock_change_latency_100ns * 10;
++					dcn3_21_soc.dram_clock_change_latency_us =
++						bb_info.dram_clock_change_latency_100ns * 10;
  
- 	if (vma->vm_end - vma->vm_start != PAGE_SIZE)
- 		return -EINVAL;
-@@ -2880,12 +2876,11 @@ static int kfd_mmio_mmap(struct kfd_dev *dev, struct kfd_process *process,
- 		 process->pasid, (unsigned long long) vma->vm_start,
- 		 address, vma->vm_flags, PAGE_SIZE);
+-			if (bb_info.dram_sr_enter_exit_latency_100ns > 0)
+-				dcn3_21_soc.sr_enter_plus_exit_time_us = bb_info.dram_sr_enter_exit_latency_100ns * 10;
++				if (bb_info.dram_sr_enter_exit_latency_100ns > 0)
++					dcn3_21_soc.sr_enter_plus_exit_time_us =
++						bb_info.dram_sr_enter_exit_latency_100ns * 10;
  
--	ret = io_remap_pfn_range(vma,
-+	return io_remap_pfn_range(vma,
- 				vma->vm_start,
- 				address >> PAGE_SHIFT,
- 				PAGE_SIZE,
- 				vma->vm_page_prot);
--	return ret;
- }
- 
+-			if (bb_info.dram_sr_exit_latency_100ns > 0)
+-				dcn3_21_soc.sr_exit_time_us = bb_info.dram_sr_exit_latency_100ns * 10;
++				if (bb_info.dram_sr_exit_latency_100ns > 0)
++					dcn3_21_soc.sr_exit_time_us =
++						bb_info.dram_sr_exit_latency_100ns * 10;
+ 			}
+ 		}
  
 -- 
-2.25.1
+2.20.1.7.g153144c
 
