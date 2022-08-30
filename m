@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ADDDECAAD1
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 17:26:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 911CEECAAA1
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 17:27:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CAEC10E2B8;
-	Tue, 30 Aug 2022 17:26:48 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57CE710E2B8;
- Tue, 30 Aug 2022 17:26:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4649210E2C4;
+	Tue, 30 Aug 2022 17:27:21 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1EBE10E2BE;
+ Tue, 30 Aug 2022 17:27:13 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D383F61782;
- Tue, 30 Aug 2022 17:26:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E0EC43140;
- Tue, 30 Aug 2022 17:26:41 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 38186B81D35;
+ Tue, 30 Aug 2022 17:27:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94EA2C433D7;
+ Tue, 30 Aug 2022 17:27:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661880402;
- bh=H1P1NwpBXrSvgn+FJ8rzFmWgOGTpyB2pK1CIh8lw4H0=;
+ s=k20201202; t=1661880430;
+ bh=b06b0l8kwYRi7e3XNh/w/6ReSmTYreK4a3sgVSKi4b4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=S8gkTZlI/bjzeR5ZclU4GtBqlhzhBLs3ufPra5kFmcF1CQSkwkFu4MMVGcll56ybc
- rhnwrUFIVFIuPTu/ETbflipRgvDNjE2Pv2cVyUtB5/4cJaSvLcu6MONu3D29L3bZDk
- Dk9lwIwBGqGGY69sFczYSnJIm61H0N5zqnun3HRvUhkIxAgRZM2J92MOeTrOJ+BDyO
- Y5cNFJlEbPIe6uRk1GhriRdWCx6emN14GzMjTnLYb9A8gQoroBxfc7tU0/hAQy7BOV
- Ha7CEBAPwlRVTTY6ttMMOXRdn60/H4iMfgajZpSyVtgZLg4CYbux40J0xTKVmNGGtR
- 9mca6e+07DfrQ==
+ b=mSvDIG2ASXI76XK48FS952DwVJpFa+9xdQz+2OWFde+KnRlJ5EiKBNb7OSzw+bv/4
+ EghNI81CNu6wT6WmqhGuXP9AYQjnRZTbyUIIxv3E2G9PUBJBjS7/i+c67u5OHRFfTF
+ DCuWN13cVKPg5mCE3UbCV2u3qSamtV5lhhC6KXew2cYwEmvRYVFMmhOpIPaxZiGNDw
+ 1WrGLeLuW9TE6X+NRYq5wBpmLt7K3WqVoJndNMm5aCXpI5ey2YGwfdstaSPaCvM2gx
+ KXKbZbl1xxbMr89GQ14rYUjRMPwGbD/jJSuvTXiGMh8xgpoAxZ12jHy8LnZt6ZwOS3
+ uhD2DkoG5EIxA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 3/8] drm/radeon: add a force flush to delay work
+Subject: [PATCH AUTOSEL 4.9 2/6] drm/radeon: add a force flush to delay work
  when radeon
-Date: Tue, 30 Aug 2022 13:26:26 -0400
-Message-Id: <20220830172631.581969-3-sashal@kernel.org>
+Date: Tue, 30 Aug 2022 13:27:02 -0400
+Message-Id: <20220830172706.582088-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220830172631.581969-1-sashal@kernel.org>
-References: <20220830172631.581969-1-sashal@kernel.org>
+In-Reply-To: <20220830172706.582088-1-sashal@kernel.org>
+References: <20220830172706.582088-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
@@ -117,10 +117,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 58488eac84627..906547b229a9a 100644
+index 82b01123c3868..227c4733de2ea 100644
 --- a/drivers/gpu/drm/radeon/radeon_device.c
 +++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1655,6 +1655,9 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
+@@ -1661,6 +1661,9 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
  		if (r) {
  			/* delay GPU reset to resume */
  			radeon_fence_driver_force_completion(rdev, i);
