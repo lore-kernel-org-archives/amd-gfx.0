@@ -4,46 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 911CEECAAA1
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 17:27:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B55BECAAA1
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 17:29:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4649210E2C4;
-	Tue, 30 Aug 2022 17:27:21 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1EBE10E2BE;
- Tue, 30 Aug 2022 17:27:13 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 38186B81D35;
- Tue, 30 Aug 2022 17:27:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94EA2C433D7;
- Tue, 30 Aug 2022 17:27:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661880430;
- bh=b06b0l8kwYRi7e3XNh/w/6ReSmTYreK4a3sgVSKi4b4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mSvDIG2ASXI76XK48FS952DwVJpFa+9xdQz+2OWFde+KnRlJ5EiKBNb7OSzw+bv/4
- EghNI81CNu6wT6WmqhGuXP9AYQjnRZTbyUIIxv3E2G9PUBJBjS7/i+c67u5OHRFfTF
- DCuWN13cVKPg5mCE3UbCV2u3qSamtV5lhhC6KXew2cYwEmvRYVFMmhOpIPaxZiGNDw
- 1WrGLeLuW9TE6X+NRYq5wBpmLt7K3WqVoJndNMm5aCXpI5ey2YGwfdstaSPaCvM2gx
- KXKbZbl1xxbMr89GQ14rYUjRMPwGbD/jJSuvTXiGMh8xgpoAxZ12jHy8LnZt6ZwOS3
- uhD2DkoG5EIxA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 2/6] drm/radeon: add a force flush to delay work
- when radeon
-Date: Tue, 30 Aug 2022 13:27:02 -0400
-Message-Id: <20220830172706.582088-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220830172706.582088-1-sashal@kernel.org>
-References: <20220830172706.582088-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CCD310E2CE;
+	Tue, 30 Aug 2022 17:29:18 +0000 (UTC)
+Received: from mail-4317.proton.ch (mail-4317.proton.ch [185.70.43.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 898A710E2CE;
+ Tue, 30 Aug 2022 17:29:12 +0000 (UTC)
+Date: Tue, 30 Aug 2022 17:29:01 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail3; t=1661880550; x=1662139750;
+ bh=NOspkeCyisteflDWfgfPp47h9Zxnl1e89Ifouu8WMi0=;
+ h=Date:To:From:Cc:Reply-To:Subject:Message-ID:Feedback-ID:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID;
+ b=NOjN1q7uC7m/78qMhm81hkpiwHEVcL+zEsQ7VxcgaTtA64I+Yu6CLtXyNX1gJYVBE
+ wgp07kwjkcBUHNCv1XWxPTcgxmUp4Y2Auvem4jSz+BvEZotSWV0/hBMUIJF4GT7n/a
+ 9/q95fEtcSnas4PYrbscDAhg/m+SfEc8YK6Tcpb1dVBsI65F1444tcZi4Ouf1dOWRW
+ DvGNMKfHrmj8lr8PfK/EEYc1Jhbgs6GqR37Iplef2bIjYrspQZU6IXuHRUQwnFfPw0
+ GZPbua7fHMjVZCXNJLBeUZ7gYrcAXNDwu+UarIXr4rkPUI7q1s7eU1eZam+ZmIFa3j
+ KWw9yEzL1nmHg==
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org
+From: Simon Ser <contact@emersion.fr>
+Subject: [PATCH v2 0/6] Add support for atomic async page-flips
+Message-ID: <20220830172851.269402-1-contact@emersion.fr>
+Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,81 +44,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie, Xinhui.Pan@amd.com,
- Zhenneng Li <lizhenneng@kylinos.cn>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Reply-To: Simon Ser <contact@emersion.fr>
+Cc: andrealmeid@igalia.com, daniel.vetter@ffwll.ch, mwen@igalia.com,
+ ville.syrjala@linux.intel.com, alexander.deucher@amd.com, hwentlan@amd.com,
+ nicholas.kazlauskas@amd.com, joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Zhenneng Li <lizhenneng@kylinos.cn>
+This series adds support for DRM_MODE_PAGE_FLIP_ASYNC for atomic
+commits, aka. "immediate flip" (which might result in tearing).
+The feature was only available via the legacy uAPI, however for
+gaming use-cases it may be desirable to enable it via the atomic
+uAPI too.
 
-[ Upstream commit f461950fdc374a3ada5a63c669d997de4600dffe ]
+- v1: https://patchwork.freedesktop.org/series/107683/
+- User-space patch: https://github.com/Plagman/gamescope/pull/595
+- IGT patch: https://patchwork.freedesktop.org/series/107681/
 
-Although radeon card fence and wait for gpu to finish processing current batch rings,
-there is still a corner case that radeon lockup work queue may not be fully flushed,
-and meanwhile the radeon_suspend_kms() function has called pci_set_power_state() to
-put device in D3hot state.
-Per PCI spec rev 4.0 on 5.3.1.4.1 D3hot State.
-> Configuration and Message requests are the only TLPs accepted by a Function in
-> the D3hot state. All other received Requests must be handled as Unsupported Requests,
-> and all received Completions may optionally be handled as Unexpected Completions.
-This issue will happen in following logs:
-Unable to handle kernel paging request at virtual address 00008800e0008010
-CPU 0 kworker/0:3(131): Oops 0
-pc = [<ffffffff811bea5c>]  ra = [<ffffffff81240844>]  ps = 0000 Tainted: G        W
-pc is at si_gpu_check_soft_reset+0x3c/0x240
-ra is at si_dma_is_lockup+0x34/0xd0
-v0 = 0000000000000000  t0 = fff08800e0008010  t1 = 0000000000010000
-t2 = 0000000000008010  t3 = fff00007e3c00000  t4 = fff00007e3c00258
-t5 = 000000000000ffff  t6 = 0000000000000001  t7 = fff00007ef078000
-s0 = fff00007e3c016e8  s1 = fff00007e3c00000  s2 = fff00007e3c00018
-s3 = fff00007e3c00000  s4 = fff00007fff59d80  s5 = 0000000000000000
-s6 = fff00007ef07bd98
-a0 = fff00007e3c00000  a1 = fff00007e3c016e8  a2 = 0000000000000008
-a3 = 0000000000000001  a4 = 8f5c28f5c28f5c29  a5 = ffffffff810f4338
-t8 = 0000000000000275  t9 = ffffffff809b66f8  t10 = ff6769c5d964b800
-t11= 000000000000b886  pv = ffffffff811bea20  at = 0000000000000000
-gp = ffffffff81d89690  sp = 00000000aa814126
-Disabling lock debugging due to kernel taint
-Trace:
-[<ffffffff81240844>] si_dma_is_lockup+0x34/0xd0
-[<ffffffff81119610>] radeon_fence_check_lockup+0xd0/0x290
-[<ffffffff80977010>] process_one_work+0x280/0x550
-[<ffffffff80977350>] worker_thread+0x70/0x7c0
-[<ffffffff80977410>] worker_thread+0x130/0x7c0
-[<ffffffff80982040>] kthread+0x200/0x210
-[<ffffffff809772e0>] worker_thread+0x0/0x7c0
-[<ffffffff80981f8c>] kthread+0x14c/0x210
-[<ffffffff80911658>] ret_from_kernel_thread+0x18/0x20
-[<ffffffff80981e40>] kthread+0x0/0x210
- Code: ad3e0008  43f0074a  ad7e0018  ad9e0020  8c3001e8  40230101
- <88210000> 4821ed21
-So force lockup work queue flush to fix this problem.
+Main changes in v2: add docs, fail atomic commit if async flip isn't
+possible.
 
-Acked-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/radeon/radeon_device.c | 3 +++
- 1 file changed, 3 insertions(+)
+Tested on an AMD Picasso iGPU.
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 82b01123c3868..227c4733de2ea 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1661,6 +1661,9 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
- 		if (r) {
- 			/* delay GPU reset to resume */
- 			radeon_fence_driver_force_completion(rdev, i);
-+		} else {
-+			/* finish executing delayed work */
-+			flush_delayed_work(&rdev->fence_drv[i].lockup_work);
- 		}
- 	}
- 
--- 
-2.35.1
+Simon Ser (6):
+  amd/display: only accept async flips for fast updates
+  drm: document DRM_MODE_PAGE_FLIP_ASYNC
+  drm: introduce drm_mode_config.atomic_async_page_flip_not_supported
+  drm: allow DRM_MODE_PAGE_FLIP_ASYNC for atomic commits
+  drm: introduce DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP
+  amd/display: indicate support for atomic async page-flips on DC
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++++++
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 10 +++++++
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |  1 +
+ drivers/gpu/drm/drm_atomic_uapi.c             | 28 +++++++++++++++++--
+ drivers/gpu/drm/drm_ioctl.c                   |  5 ++++
+ drivers/gpu/drm/i915/display/intel_display.c  |  1 +
+ drivers/gpu/drm/nouveau/nouveau_display.c     |  1 +
+ drivers/gpu/drm/vc4/vc4_kms.c                 |  1 +
+ include/drm/drm_mode_config.h                 | 11 ++++++++
+ include/uapi/drm/drm.h                        | 10 ++++++-
+ include/uapi/drm/drm_mode.h                   | 11 ++++++++
+ 11 files changed, 83 insertions(+), 4 deletions(-)
+
+--=20
+2.37.2
+
 
