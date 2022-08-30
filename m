@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA194ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 17:21:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBC19ECAAD8
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 17:22:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEFB410E25E;
-	Tue, 30 Aug 2022 17:21:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0045410E264;
+	Tue, 30 Aug 2022 17:22:08 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDB7910E25B;
- Tue, 30 Aug 2022 17:21:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6510410E265;
+ Tue, 30 Aug 2022 17:22:05 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 88F30B81D16;
- Tue, 30 Aug 2022 17:21:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0727C433C1;
- Tue, 30 Aug 2022 17:21:33 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0B19BB81D14;
+ Tue, 30 Aug 2022 17:22:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF742C433C1;
+ Tue, 30 Aug 2022 17:22:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661880095;
- bh=Yqxdf40p+eJDpXpCuGnwjuEkWmXRdjLdXOKmqXAAtIA=;
+ s=k20201202; t=1661880122;
+ bh=eNmdi/BoP7WYZz4B7PTE9g7lLo2eJ9DD+Kgpxwy77wE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=iDsW7Ueja1xJnsh96iUplKVxt1HT1/71Je8rNCfW82fLYUm+SmOe2vFKneZYJrCwq
- r6s/gQCtEueC5XjO1MSh/AShZU2mA0GEegjdGed1PqrZA+LFiiKd78oVJJScBX21Er
- yCUa4SVhh9rngdhjExD+msGOSyEXazsG+bJ9gP+zXf5no94EiUgX910p9A5W9NyexD
- xbevIPSCrIAa6z7bM/jMmQkW8SyXyveRbylQuHv+PgzXX0lIMkoLD2lWp3hW/sLkVg
- wdae3aMAxgsEKtcItWilYjdPhHvPRCGbWdnm2nA72G8aFd/Jbc5ml0k2IykArTf+1j
- gRafwwDc8XRaw==
+ b=PUlvtRKsFXUF/auB3zeLbs+sb67LC9t42d0/OKwxYomC/6YWv5cfZ0YXHMTW0IW8l
+ ROomTqVdSM76VU6LsjH00Qp0t9DKVOkgad22SsQz3+LH6G5bZvgI4FJXJQd5etmyG6
+ SjLc0+bMjY4TliGNVwE5y47L3fbc2B4DlepQSWCm6+2T/D9RElUpiE6Rw1vcoWaTFW
+ I+nJTSgA3J4XWUMtE5cYrfBdA0tPHMmy2eSYu/yQW/F3IK9pNAtw6c2ydr8DNdkOom
+ 3Xz2TJAXiuQqFVhzNfdZmQJax/bcm4dHedSr6kk7WV8ySdq6Zm1b+XwqIuzmxSV0PW
+ h2Avb9y3WkFRg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 33/33] drm/amdgpu: mmVM_L2_CNTL3 register not
- initialized correctly
-Date: Tue, 30 Aug 2022 13:18:24 -0400
-Message-Id: <20220830171825.580603-33-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 06/23] drm/amdgpu: Move psp_xgmi_terminate call
+ from amdgpu_xgmi_remove_device to psp_hw_fini
+Date: Tue, 30 Aug 2022 13:21:23 -0400
+Message-Id: <20220830172141.581086-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220830171825.580603-1-sashal@kernel.org>
-References: <20220830171825.580603-1-sashal@kernel.org>
+In-Reply-To: <20220830172141.581086-1-sashal@kernel.org>
+References: <20220830172141.581086-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -54,40 +54,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
- guchun.chen@amd.com, airlied@linux.ie, Qu Huang <jinsdb@126.com>,
- Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org, YiPeng.Chai@amd.com,
- mario.limonciello@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com,
- christian.koenig@amd.com, Hawking.Zhang@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, andrey.grodzovsky@amd.com,
+ tao.zhou1@amd.com, guchun.chen@amd.com, airlied@linux.ie, Bokun.Zhang@amd.com,
+ Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
+ YiPeng Chai <YiPeng.Chai@amd.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, bernard@vivo.com, Alex Deucher <alexander.deucher@amd.com>,
+ Likun.Gao@amd.com, candice.li@amd.com, john.clements@amd.com,
+ christian.koenig@amd.com, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Qu Huang <jinsdb@126.com>
+From: YiPeng Chai <YiPeng.Chai@amd.com>
 
-[ Upstream commit b8983d42524f10ac6bf35bbce6a7cc8e45f61e04 ]
+[ Upstream commit 9d705d7741ae70764f3d6d87e67fad3b5c30ffd0 ]
 
-The mmVM_L2_CNTL3 register is not assigned an initial value
+V1:
+The amdgpu_xgmi_remove_device function will send unload command
+to psp through psp ring to terminate xgmi, but psp ring has been
+destroyed in psp_hw_fini.
 
-Signed-off-by: Qu Huang <jinsdb@126.com>
+V2:
+1. Change the commit title.
+2. Restore amdgpu_xgmi_remove_device to its original calling location.
+   Move psp_xgmi_terminate call from amdgpu_xgmi_remove_device to
+   psp_hw_fini.
+
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  | 3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-index 3f44a099c52a4..3e51e773f92be 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-@@ -176,6 +176,7 @@ static void mmhub_v1_0_init_cache_regs(struct amdgpu_device *adev)
- 	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL2, INVALIDATE_L2_CACHE, 1);
- 	WREG32_SOC15(MMHUB, 0, mmVM_L2_CNTL2, tmp);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 57e9932d8a04e..5b41c29f3ed50 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -2729,6 +2729,9 @@ static int psp_hw_fini(void *handle)
+ 		psp_rap_terminate(psp);
+ 		psp_dtm_terminate(psp);
+ 		psp_hdcp_terminate(psp);
++
++		if (adev->gmc.xgmi.num_physical_nodes > 1)
++			psp_xgmi_terminate(psp);
+ 	}
  
-+	tmp = mmVM_L2_CNTL3_DEFAULT;
- 	if (adev->gmc.translate_further) {
- 		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL3, BANK_SELECT, 12);
- 		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL3,
+ 	psp_asd_unload(psp);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index a799e0b1ff736..ce0b9cb61f582 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -723,7 +723,7 @@ int amdgpu_xgmi_remove_device(struct amdgpu_device *adev)
+ 		amdgpu_put_xgmi_hive(hive);
+ 	}
+ 
+-	return psp_xgmi_terminate(&adev->psp);
++	return 0;
+ }
+ 
+ static int amdgpu_xgmi_ras_late_init(struct amdgpu_device *adev)
 -- 
 2.35.1
 
