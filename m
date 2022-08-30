@@ -4,91 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CE22ECAAD1
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 13:33:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3584ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 13:48:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 401EE10E0E0;
-	Tue, 30 Aug 2022 13:33:11 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2066.outbound.protection.outlook.com [40.107.212.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A95310E0D9
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 13:33:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FXR1v3itFp9wl0WJWoMzmU+SY3DgRbzyix8p0Oq90sCkb2RGeJGqWl906zqS/kA3wPK2pqAARxFhELhzIwn7nb2nL7JpDXKlU/ZxeqGaGJTXqiQ9NZOUAlwDCFy12uE4VPUVmf4o/fq7p3ZkYXmrIRBJb9P8i+66R6ylRWfXr8OtUXeiq4wFkC1PYj9lSKb1Fw9dgjO9x+jDNeYMVa3awe21vsO3nkyzxrmS/dwENjm5Ru0rvkU0wqLWP6EXMdvvL/zaDo1hsocRcY4rXMYmJKshzFKbDj4AqYVdzjmxK9HPwSL5W0nnarkVmm7hZcj73Fh0pUOeGwHY33dUlcEJdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LRmGF1gjDwbgCSTUOmD+NAzs47bJEkLdyMWOy5Wd7F0=;
- b=kzk6X1zOG4uSx9PlvWbVrpWDMvDv1gMvssN46orBDE5nc4QoCkA3ps4//UYdhXs+wwyQEM89wJPU1g76nr9GMDW7ZjsoaKcx0hun7GC77pcfjKQDHjQy0LuGkKYvc+QbhS17g3NbPXVme3JSZdCyUzqkYWKXczqWQAHVgbfFMERmJbXY5sudFHCyv89s0G98sGcsY0AHE+h8XFBdHpPecRpN3vKoDk8kM0aIg+z8PphaK9NTv91v6To4XrSRGX2PcfkgkuUl70l+OV3k6BQe1b2/1BhpKZj5ZACfGFNvgQftMkIm+uGX6Ky5J/AirQuHCddFIOYaI4FcPhkCF0mEgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LRmGF1gjDwbgCSTUOmD+NAzs47bJEkLdyMWOy5Wd7F0=;
- b=jU6FZKakcNV8k81cvvlw/Y1FvrpYS15oS4L3isWHZR/j/900AtPacymiYKPpC/L2ucvjO3E5NOQDGeXoSybFwfDFuD+kTlLsi4FOPAAVzOQwuzQa7Dz6piKE7R3gXR6e1OOEeeeaU45F80CqkPadaaraQt7vxZpif/jBvRxrckw=
-Received: from BL1PR13CA0302.namprd13.prod.outlook.com (2603:10b6:208:2c1::7)
- by CY4PR12MB1479.namprd12.prod.outlook.com (2603:10b6:910:d::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.19; Tue, 30 Aug
- 2022 13:32:59 +0000
-Received: from BL02EPF0000C406.namprd05.prod.outlook.com
- (2603:10b6:208:2c1:cafe::67) by BL1PR13CA0302.outlook.office365.com
- (2603:10b6:208:2c1::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.10 via Frontend
- Transport; Tue, 30 Aug 2022 13:32:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0000C406.mail.protection.outlook.com (10.167.241.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5588.7 via Frontend Transport; Tue, 30 Aug 2022 13:32:58 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 30 Aug
- 2022 08:32:49 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amd/display: fix documentation for
- amdgpu_dm_update_freesync_caps()
-Date: Tue, 30 Aug 2022 09:32:17 -0400
-Message-ID: <20220830133217.1770055-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20220830133217.1770055-1-alexander.deucher@amd.com>
-References: <20220830133217.1770055-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB0710E02C;
+	Tue, 30 Aug 2022 13:48:26 +0000 (UTC)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22E6B10E02C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 13:48:24 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ z22-20020a056830129600b0063711f456ceso8081040otp.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 06:48:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc;
+ bh=PvfjspqduObDzlGa7VmkiKnW5ThPPDax2LcXL1lI6jg=;
+ b=pQhSNIvcNgsdWa/iOphyH+ZQKYcwa066Vi2NvTvpHLSV1hydXpfYhQxKiAT2BGom5G
+ UVlPfTwH2EEp9F4NFwiXi3uHFJhF4w71BFxghE+6CJjZyM+8GCa+mFqkvVtRteKtExqx
+ HQ6idyZf1ZiuHgNp29aM+5w1m+APpK4eSNMG12dEc/xnQtmboY3hMuQYmde+tjjbWmPh
+ 3EF+iVSTY8zoH4v0JU9RnWfogkXki4djs5cLBz+PgfptGobtRVut1qWJSJ/0MZB+fuwH
+ WDfRb//8Z6tJA5hGMNGhBFF7lWYivcodAg4eYL7UvZA2x0vHCD5Tpc5C4oGHA+/zhn5O
+ Zvlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
+ bh=PvfjspqduObDzlGa7VmkiKnW5ThPPDax2LcXL1lI6jg=;
+ b=CZQ5NK9cQXTOuq0tT70vpOFrov1IDbhwGBc//7w9hhEmN0+Jm/jc3u2+sQA7YtmmYQ
+ /MxxGEkeppskGHpMQ5CCjCAVeIY2srNNQ7/sXvHZSujKOSBfxOfeKhHlXhU0FTUTnOwE
+ t4aOtbdWdG0pWdZg5APEQPmyfRJ7/3jSnNGqm159bVQqgcAGELepGOeVFzBCaYacEO5G
+ 7fZkwCYWzeNuxHFN8Jl47H7ckMFRiEMgVfQGnTULhUyKbW06nW+zS5yEIzhyviloxtd3
+ 9Q57BaUOyIuH9hMt0D7IFlo6AwLe192WLIi152VZnpC1YEzbmmGsas7TAj/HFtAdgnx+
+ vPjQ==
+X-Gm-Message-State: ACgBeo2Qag0EEdLa9oeXWT/NhGB2ltOIToVBVxqf/Dj1xSffrgO0VSDV
+ RoI0hRx5HU6fCXDdVlKKuRxHMARfrjo5aYmmDN0=
+X-Google-Smtp-Source: AA6agR4RD5t1gWtj/0bSorfzGNVgFzu+mFzsdz96Fs681IFYXNIBC2CFKTnF+A/C5ypR1oFH+1QIzJL4iJpVObAHxns=
+X-Received: by 2002:a9d:6ad7:0:b0:636:f76b:638a with SMTP id
+ m23-20020a9d6ad7000000b00636f76b638amr8753947otq.233.1661867303321; Tue, 30
+ Aug 2022 06:48:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7a8c1935-6bba-46eb-fcdb-08da8a8c2777
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1479:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: N9iq3YVx1zZgGMwmFPga2Dv5ZYk16W7rpWWt4B2bjRGrwbdFdKTckkZMNuX4+R7MKpBBZXfkMYaAVIjkyPTXyvcgogeVxHjYeNmjFyE8sy8maGd/8lKWTdyjWiK0guyNbZcI6twc7ocXZRTMYvDcIUunkkeyFfUMMnL3Jggn40IoANLDMq9uwRe2HirtRc70cDAA3rKJrjXWBcWEKr4wuRwIp/ZpyZHWuUi8r7ym2sNKLUzjg6uKco2b7vCMFJhtut8BZWAXrMMDFAbc9mcaFXLfU2hJ0Dgjo5T3Cv/zjbEbnDorDNB89y3hmDM0tPoUqNHGAIKHHynH8doiEPrjtUMKXQTrKFGHsWchDQcWCX0/veBa4t4gR56JKGBK7IkQvDTsZbjVTMeUlXvk2dhKTGdwYrS2k2iYWB0dxIZssjw0dYXZkHeYjSHzsVkzXXwM70H/D8chVDxkkiHdU1MTpDCNpPxaScDASa0cXwwDSaa14n0KaRnAh8B+rHVNYiaJyKqC1cu55rLewAMKI7ZXZnUrYpCfefDjv5xeulatnIj/p/g7z/Wd3InmNrNbdnDHnRBIdok+R4iRlUzrXaKFieO2u17zKVsPFoczPfdH5HOjb2Pf8dC2zIzlnzFUCexboL8ITWNu07cmldYYu5SvY99/QNa3YISxiCnW7E6eT++J/Oz5VD709gNGbKaJ1NwLU6ewaWlvRPiSRxGW0BkFX11lM0iWYpDD+e8TIGXfaZMQQ2uLik5NQVzmH3a2XFi1cdL6Jo3PD5Q1O90R8ryybXOShygxEc2TQGrIfhgwn3M=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(396003)(376002)(136003)(39860400002)(36840700001)(40470700004)(46966006)(7696005)(86362001)(6666004)(36756003)(26005)(336012)(1076003)(186003)(47076005)(426003)(478600001)(2616005)(41300700001)(83380400001)(16526019)(40460700003)(40480700001)(82310400005)(316002)(8676002)(70206006)(70586007)(54906003)(6916009)(4326008)(81166007)(356005)(8936002)(82740400003)(5660300002)(36860700001)(2906002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2022 13:32:58.7794 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a8c1935-6bba-46eb-fcdb-08da8a8c2777
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000C406.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1479
+References: <20220829081752.1258274-1-lijo.lazar@amd.com>
+ <CADnq5_O=3u1Z4kH_5A+UsynQ31Grh-=j=3+hPWo398kfMi411w@mail.gmail.com>
+ <3b2a9a8f-dedf-2781-0023-d6bd64f16d65@amd.com>
+In-Reply-To: <3b2a9a8f-dedf-2781-0023-d6bd64f16d65@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 30 Aug 2022 09:48:11 -0400
+Message-ID: <CADnq5_P0=+NNk2v_VOxyjOVSnY55SY=OX40xD5Bx6etspREnfA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] drm/amdgpu: Move HDP remapping earlier during init
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,36 +66,221 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Harry
- Wentland <harry.wentland@amd.com>
+Cc: Felix.Kuehling@amd.com, stable@vger.kernel.org, tseewald@gmail.com,
+ helgaas@kernel.org, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ sr@denx.de, Christian.Koenig@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Document missing parameter.
+On Tue, Aug 30, 2022 at 12:05 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
+>
+>
+>
+> On 8/29/2022 10:20 PM, Alex Deucher wrote:
+> > On Mon, Aug 29, 2022 at 4:18 AM Lijo Lazar <lijo.lazar@amd.com> wrote:
+> >>
+> >> HDP flush is used early in the init sequence as part of memory control=
+ler
+> >> block initialization. Hence remapping of HDP registers needed for flus=
+h
+> >> needs to happen earlier.
+> >>
+> >> This also fixes the Unsupported Request error reported through AER dur=
+ing
+> >> driver load. The error happens as a write happens to the remap offset
+> >> before real remapping is done.
+> >>
+> >> Link: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D216373&amp;data=3D05%7C01%7Cl=
+ijo.lazar%40amd.com%7C0882d00080124386814a08da89de9bcd%7C3dd8961fe4884e608e=
+11a82d994e183d%7C0%7C0%7C637973886457404198%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
+iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C=
+&amp;sdata=3DdC%2BCY22cfix1VCcQINrvNWI5XW%2BYV5lleJX3Ju9A6Iw%3D&amp;reserve=
+d=3D0
+> >>
+> >> The error was unnoticed before and got visible because of the commit
+> >> referenced below. This doesn't fix anything in the commit below, rathe=
+r
+> >> fixes the issue in amdgpu exposed by the commit. The reference is only
+> >> to associate this commit with below one so that both go together.
+> >>
+> >> Fixes: 8795e182b02d ("PCI/portdrv: Don't disable AER reporting in get_=
+port_device_capability()")
+> >>
+> >> Reported-by: Tom Seewald <tseewald@gmail.com>
+> >> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> >> Cc: stable@vger.kernel.org
+> >
+> > How about something like the attached patch rather than these two
+> > patches?  It's a bit bigger but seems cleaner and more defensive in my
+> > opinion.
+> >
+>
+> Whenever device goes to suspend/reset and then comes back, remap offset
+> has to be set back to 0 to make sure it doesn't use the wrong offset
+> when the register assumes default values again.
+>
+> To avoid the if-check in hdp_flush (which is more frequent), another way
+> is to initialize the remap offset to default offset during early init
+> and hw fini/suspend sequences. It won't be obvious (even with this
+> patch) as to when remap offset vs default offset is used though.
 
-Fixes: 8889a13f99e5 ("drm/amd/display: Add some extra kernel doc to amdgpu_dm")
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
- 1 file changed, 1 insertion(+)
+On resume, the common IP is resumed first so it will always be set.
+The only case that is a problem is init because we init GMC out of
+order.  We could init common before GMC in amdgpu_device_ip_init().  I
+think that should be fine, but I wasn't sure if there might be some
+fallout from that on certain cards.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 15d51d300b34..4e24b75efcfe 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9938,6 +9938,7 @@ static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
-  * amdgpu_dm_update_freesync_caps - Update Freesync capabilities
-  *
-  * @aconnector: Connector to query.
-+ * @edid: EDID from monitor
-  *
-  * Amdgpu supports Freesync in DP and HDMI displays, and it is required to keep
-  * track of some of the display information in the internal data struct used by
--- 
-2.37.1
+Alex
 
+>
+> Thanks,
+> Lijo
+>
+> > Alex
+> >
+> >> ---
+> >> v2:
+> >>          Take care of IP resume cases (Alex Deucher)
+> >>          Add NULL check to nbio.funcs to cover older (GFXv8) ASICs (Fe=
+lix Kuehling)
+> >>          Add more details in commit message and associate with AER pat=
+ch (Bjorn
+> >> Helgaas)
+> >>
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 24 ++++++++++++++++++++=
+++
+> >>   drivers/gpu/drm/amd/amdgpu/nv.c            |  6 ------
+> >>   drivers/gpu/drm/amd/amdgpu/soc15.c         |  6 ------
+> >>   drivers/gpu/drm/amd/amdgpu/soc21.c         |  6 ------
+> >>   4 files changed, 24 insertions(+), 18 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_device.c
+> >> index ce7d117efdb5..e420118769a5 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >> @@ -2334,6 +2334,26 @@ static int amdgpu_device_init_schedulers(struct=
+ amdgpu_device *adev)
+> >>          return 0;
+> >>   }
+> >>
+> >> +/**
+> >> + * amdgpu_device_prepare_ip - prepare IPs for hardware initialization
+> >> + *
+> >> + * @adev: amdgpu_device pointer
+> >> + *
+> >> + * Any common hardware initialization sequence that needs to be done =
+before
+> >> + * hw init of individual IPs is performed here. This is different fro=
+m the
+> >> + * 'common block' which initializes a set of IPs.
+> >> + */
+> >> +static void amdgpu_device_prepare_ip(struct amdgpu_device *adev)
+> >> +{
+> >> +       /* Remap HDP registers to a hole in mmio space, for the purpos=
+e
+> >> +        * of exposing those registers to process space. This needs to=
+ be
+> >> +        * done before hw init of ip blocks to take care of HDP flush
+> >> +        * operations through registers during hw_init.
+> >> +        */
+> >> +       if (adev->nbio.funcs && adev->nbio.funcs->remap_hdp_registers =
+&&
+> >> +           !amdgpu_sriov_vf(adev))
+> >> +               adev->nbio.funcs->remap_hdp_registers(adev);
+> >> +}
+> >>
+> >>   /**
+> >>    * amdgpu_device_ip_init - run init for hardware IPs
+> >> @@ -2376,6 +2396,8 @@ static int amdgpu_device_ip_init(struct amdgpu_d=
+evice *adev)
+> >>                                  DRM_ERROR("amdgpu_vram_scratch_init f=
+ailed %d\n", r);
+> >>                                  goto init_failed;
+> >>                          }
+> >> +
+> >> +                       amdgpu_device_prepare_ip(adev);
+> >>                          r =3D adev->ip_blocks[i].version->funcs->hw_i=
+nit((void *)adev);
+> >>                          if (r) {
+> >>                                  DRM_ERROR("hw_init %d failed %d\n", i=
+, r);
+> >> @@ -3058,6 +3080,7 @@ static int amdgpu_device_ip_reinit_early_sriov(s=
+truct amdgpu_device *adev)
+> >>                  AMD_IP_BLOCK_TYPE_IH,
+> >>          };
+> >>
+> >> +       amdgpu_device_prepare_ip(adev);
+> >>          for (i =3D 0; i < adev->num_ip_blocks; i++) {
+> >>                  int j;
+> >>                  struct amdgpu_ip_block *block;
+> >> @@ -3139,6 +3162,7 @@ static int amdgpu_device_ip_resume_phase1(struct=
+ amdgpu_device *adev)
+> >>   {
+> >>          int i, r;
+> >>
+> >> +       amdgpu_device_prepare_ip(adev);
+> >>          for (i =3D 0; i < adev->num_ip_blocks; i++) {
+> >>                  if (!adev->ip_blocks[i].status.valid || adev->ip_bloc=
+ks[i].status.hw)
+> >>                          continue;
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amd=
+gpu/nv.c
+> >> index b3fba8dea63c..3ac7fef74277 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+> >> @@ -1032,12 +1032,6 @@ static int nv_common_hw_init(void *handle)
+> >>          nv_program_aspm(adev);
+> >>          /* setup nbio registers */
+> >>          adev->nbio.funcs->init_registers(adev);
+> >> -       /* remap HDP registers to a hole in mmio space,
+> >> -        * for the purpose of expose those registers
+> >> -        * to process space
+> >> -        */
+> >> -       if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(=
+adev))
+> >> -               adev->nbio.funcs->remap_hdp_registers(adev);
+> >>          /* enable the doorbell aperture */
+> >>          nv_enable_doorbell_aperture(adev, true);
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/=
+amdgpu/soc15.c
+> >> index fde6154f2009..a0481e37d7cf 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> >> @@ -1240,12 +1240,6 @@ static int soc15_common_hw_init(void *handle)
+> >>          soc15_program_aspm(adev);
+> >>          /* setup nbio registers */
+> >>          adev->nbio.funcs->init_registers(adev);
+> >> -       /* remap HDP registers to a hole in mmio space,
+> >> -        * for the purpose of expose those registers
+> >> -        * to process space
+> >> -        */
+> >> -       if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(=
+adev))
+> >> -               adev->nbio.funcs->remap_hdp_registers(adev);
+> >>
+> >>          /* enable the doorbell aperture */
+> >>          soc15_enable_doorbell_aperture(adev, true);
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/=
+amdgpu/soc21.c
+> >> index 55284b24f113..16b447055102 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> >> @@ -660,12 +660,6 @@ static int soc21_common_hw_init(void *handle)
+> >>          soc21_program_aspm(adev);
+> >>          /* setup nbio registers */
+> >>          adev->nbio.funcs->init_registers(adev);
+> >> -       /* remap HDP registers to a hole in mmio space,
+> >> -        * for the purpose of expose those registers
+> >> -        * to process space
+> >> -        */
+> >> -       if (adev->nbio.funcs->remap_hdp_registers)
+> >> -               adev->nbio.funcs->remap_hdp_registers(adev);
+> >>          /* enable the doorbell aperture */
+> >>          soc21_enable_doorbell_aperture(adev, true);
+> >>
+> >> --
+> >> 2.25.1
+> >>
