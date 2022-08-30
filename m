@@ -4,121 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96248ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 15:41:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FEACECAAD8
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 16:06:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8ABD10E013;
-	Tue, 30 Aug 2022 15:41:22 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 618EC10E013
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 15:41:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0245D10E183;
+	Tue, 30 Aug 2022 16:06:43 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2077.outbound.protection.outlook.com [40.107.96.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3700210E177
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 16:06:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OEDgqEQO2nyx3Mu9HVsUVVIBt+PnfuyLF8Oixb+rWYKZ1dwiC4olFOA45cSKsn5TO3CGYm4tLVQB8QNwi4AMHgxc9r8NEsHNbtvR2YBhhg/LFQ6XXU3gNJcu8jhM/Srrqinsk6swmZ8o7hXFlIwJAydn/vlc3my7ziBuGFo5Vo11nFth0uRLrhAuE9avNrA0ehyd2U9IKAYpKpcLVu+lMKNY/sEzNk7AeZcZ/KkNyTpayRuCV+6Lse+qZGqn8W7xRMx6GgJ7d4k4be0GfqmkVH2WCY6uURryRHwQXsreUsmEt/uuWTGMj1cShgsQL7nOLQY/TxKKoZQ60APQzeQiuA==
+ b=P17ZTO1Q5DiOYwdQmWnGH42Iedq7T3HQN4baQw7vveGWCM9dMvSykoEaxWbqi0mveFAyggaK6s3sGkJnCpcEeSvVjKf62bldrzs64l1iSWfIoFa+Kh8k0OhQb51nMlveb2kl/Z4mxw5g+f69YaBo3i0UjSzmED4iF3M518VdpeBctr5jCpFNUBWHygrmb9P9xMziV2Tg/ApsbolFgm3xTGeDdDwT1FoBx6q0yQLgIUZFR4hHk1IfOoS2s1RyqT592oUcmkcyP48sY+bNeCOluPiWQjHAvNDqV5ts87jInIQ2aP1fk2e+q51jSwidAy4/gYiM2icMumhEZQ+ki8vEVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jiP4AOelmSO/Cogz14NNgY3rJfbS1G/qPz74TOCY6u4=;
- b=Xr3ni5l/F4SMaDer9cD6iuMtl68CBcYCaJHc5CBfza01ZxX6npS1U9QPQfhAUnCc3QX/geowQ/cmi5p1zzOsb8T5URmiX1KohdGs5rzxUPwKezAXbSIMZJAs3fLhWR0lQw9S6GPmbrig9Lwd9XcxUiuXgbY564bmLuijaAytT2yk/J8XqlcQObaHA8lJfbcJfGIBhFhbsAQ+bWk/VfKZgDZzdzref9mKtDryR8SUZRBTuCJqAmtDMimVDYPmxnQeNFEVEJvN/mF/bra9gMn26kjW1L6ybhjG2F4JI1cfbHw/lDpvzH8FUAqWm3pUI4kfyxLlaTg70p6vqlfihqThIg==
+ bh=Fy4luFZlWHY2rFNk0AwtVLid8A4Bl2BJsj7C+NSwnS8=;
+ b=NUpDLSX8A4WR6gk+YQRxmdDdJu1czxo1dzBSYD8ClZ05NgFxh72xCK75Mea545BBXCj9X97ClEvcyklmfyuYQAjtobUhC5+H2apRpUJQ5WmHsDX4fyTiuehzBPolv88bXZVpNOJMpdzWeOKbFuTzAnUyEFPYHElyREX3+dPdwWIlvqwGUOxC9lcIk+erE9sKcZpsnqQjBYOrSy/CTadLkOYRuVvhpUQeNTw1KP2j75BhIyRKiTqIai+WhNhAEZYBArFGMe4HB8HSv3zQCPIt0q/zlD5y3iEtOoWiSJWrpMsmeoRocHTg5XDOjhSl/r22tQzGdxOcOHclRfnRugp8ng==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jiP4AOelmSO/Cogz14NNgY3rJfbS1G/qPz74TOCY6u4=;
- b=tnHXczpyQzydEc8ZzBZhE5dTuhADLsvuDGvJPqt9VOo1bDHaWiN6KXP78A1VQ7/8X1oolxz9ySSNE+qilIl4GWDdonQs9PsXCcZagzgbDskAvuORRmrDlJsuiSCGHesFtSvg2ikm0uvuxMdmcgBjKfbSPpLODSzIpFK/8KY4hoI=
+ bh=Fy4luFZlWHY2rFNk0AwtVLid8A4Bl2BJsj7C+NSwnS8=;
+ b=1bl6mYGZE+w2LJBjREGpmzO97g7GaSUDUxdFxRVihJNaNb+vQQVwiHegGFjYk26TVfZ/041KGpp0Gao0TqCL9xeexCr32/ecqXecZPboEGYWDMeuvCM2YvtAD4WHx/+qVUL5FUDWZAXLLfSg0+oWL06nhiNV6ouudgp50koDIE0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by LV2PR12MB5920.namprd12.prod.outlook.com (2603:10b6:408:172::20)
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by IA1PR12MB6089.namprd12.prod.outlook.com (2603:10b6:208:3ef::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.21; Tue, 30 Aug
- 2022 15:41:17 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::406d:afb5:d2d7:8115]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::406d:afb5:d2d7:8115%6]) with mapi id 15.20.5566.021; Tue, 30 Aug 2022
- 15:41:16 +0000
-Message-ID: <d24789be-daf5-69cf-383f-611597eb1a0a@amd.com>
-Date: Tue, 30 Aug 2022 11:41:15 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] drm/amdkfd: Set pte_flags for actual BO location
+ 2022 16:06:37 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::2925:100a:f0b9:9ad8]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::2925:100a:f0b9:9ad8%3]) with mapi id 15.20.5588.010; Tue, 30 Aug 2022
+ 16:06:37 +0000
+Message-ID: <9ef0287a-e463-d440-58fe-0323a6eca94a@amd.com>
+Date: Tue, 30 Aug 2022 21:36:25 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH v2 1/2] drm/amdgpu: Move HDP remapping earlier during init
 Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220826231654.335169-1-Felix.Kuehling@amd.com>
- <2707c040-2b99-8c48-237d-45dee65e8833@gmail.com>
- <09f808fb-908c-477e-5470-cdd75b539273@amd.com>
- <b349a15b-7ac7-4358-bbc2-d5952a891448@gmail.com>
- <5d877fee-ec7a-0c17-c72f-ca3569a3ef8b@amd.com>
- <c5e6912f-215e-8c6d-8946-b2a9bebd8668@gmail.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <c5e6912f-215e-8c6d-8946-b2a9bebd8668@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <20220829081752.1258274-1-lijo.lazar@amd.com>
+ <CADnq5_O=3u1Z4kH_5A+UsynQ31Grh-=j=3+hPWo398kfMi411w@mail.gmail.com>
+ <3b2a9a8f-dedf-2781-0023-d6bd64f16d65@amd.com>
+ <CADnq5_P0=+NNk2v_VOxyjOVSnY55SY=OX40xD5Bx6etspREnfA@mail.gmail.com>
+ <1890aec6-a92d-e9b7-a782-fd6b0e8f8595@amd.com>
+ <CADnq5_Pkpe_-SH8Wh=_s6FXDFEWvO8rr5Ls2=Q4HRXy9+eSOBQ@mail.gmail.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <CADnq5_Pkpe_-SH8Wh=_s6FXDFEWvO8rr5Ls2=Q4HRXy9+eSOBQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR03CA0093.namprd03.prod.outlook.com
- (2603:10b6:208:32a::8) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0047.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:22::22) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0949f663-3a72-4090-6bcc-08da8a9e13c1
-X-MS-TrafficTypeDiagnostic: LV2PR12MB5920:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3613cff1-83c3-49d5-d880-08da8aa19deb
+X-MS-TrafficTypeDiagnostic: IA1PR12MB6089:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CzheESKJI3QQorpJ4MnHGrozzTT7m04mJQOE9iZCiL+Y+aoQ2mWOiafZi/9kkgiZIrHIJ1u1yz/YYot6Pu1QWf53Yj1Mt9SOp6pmeG6Dtn1LbbfT0Pz4y7VtARuBaMuJvShP9PQd5fl/9J03yFsclyNDUup1Umxn70IntRMVsx0RqHAA5iChLEvDM1lKqxPIJFwnrd1KQPTuBuSklyiBmVoFzuwMs0JFiucP8SEEy5ofsYOvU2jxFAUfugdtHgcxdwGHoeD7AVQfWiUTeW9skx0sIF1qgsWSKybHgGlSOMhGcNL1Fh2mQAWqb3JdeVg+FgfzPfCifGhfqRWwLBKoO5u3WRC9sMBuGccuVKzzdxAdX66auYVdjQ3IKnCMviQCXfmnVIPqLQuddUlJP4Ey5T+ABDKYGWnN6wPiPJdBqT1uwjsV3zUV/VkD911Py73qAAV6y/7kia3VGYNkta515zhzkizVLI5TcO8f5pnmzGS69GvfhuWuviBxUEqLGhTNlWB8txI85J4aVpauptkhG6zvKSSTEO4GY5zBuv2DOn7kO1Q2bJG3QGUwDNV0fusvWVgxMKE0v1zFNK2WpdVhfNlnckK4UMAMY0ttnM3Po4A/2r5SEx3QPJi2B4lr0NwyFiq1tHpqICkjn5Z0gakmXr61TbYMUt7EzE9XLlFbryzZAfITLkvqjEsn9Y1vp9fjO0V1BB2zBeZTCs6FmmrAqZ7HEuBFlG/hd3LQAnIkaFm1nq09NdBJcnlBil89ECgcQNvKWkCjSaANE74wk9FpE3oZrycD8lOvk8DHjp3EIZI=
+X-Microsoft-Antispam-Message-Info: txBB8Sz8AYtX6UJDqvRwLbJb20n9DjyO6UzJ5d9kFZ3LFJirYrkPyE/beo9asmj587F+Ni6IaMILBuAvY2nquud0FmeBe+dhQSVxfYQHsSsVTKaTNjO4UvMUb5uk4KQVTPo1d3o3V1sH2K8G8C+ARfgtW0h/Q2rUrWnoKHHASKsYa5SAcytST2Ocjkv+yPJ+Mp/iZY7NcKQP/8jyp2/mDUO2DmaexuhZBQm00hRW78E3vS+zBqiSz3s5EMTjOZmvJPeGgomN+MK5+ALovUE74lZDXqXWM68q5UwAkxpuVOrPQvj+Yj2B1ZehpUSPirs/CwHdgEFlbiPlsL20zfBcHFZr3qKnQBtuze/zbwHCV2ZsEBxOiGcZES1UG8L2+hTg3YyUskac3fGtlISZJECKd59KCuP/CKm5SFaHcERosxZMsO/Y0Zigj0C29lVUksdJLpdzTtnX+P7prg945WeNiclnqKkmnkdDBrTCBcfhEfpl9ALSeaTO1r0t/XXtIl9uqNioE8KqXQM7MAfrECobBPSRigpm0sjBeTRIBuobtXDo+ORnjZN60r0OmhKNxcTCgsy1YxyU27hzBmWkSMJJ5Yl5YX8j5/cdbLI2eRqw3Nu+An1zwb5BP1QBbhJyMwakGkHB0aPsvqLLn2SznE7rizj3nLTNPC3oiPsLj1sab3ZsYR73JtLHBWBDbqZJRDfmEVBPE8Spj5Fs5j4mJMhfku0L9rJgngItjWTwRedRE3LyiyXtEeaAFmSI/e98Fq2Nts1ADF4Uzd3xVBsX9qyBClVSWNOZhO+mHGthsMp80JzVhBT97Kbs82WyLyC6IiWJKqfV9CJ1eyphKGlISeMuaw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(39860400002)(376002)(346002)(366004)(136003)(66574015)(53546011)(6506007)(2906002)(44832011)(2616005)(36916002)(83380400001)(26005)(6512007)(186003)(38100700002)(31686004)(86362001)(8676002)(66946007)(31696002)(66476007)(66556008)(6486002)(316002)(36756003)(8936002)(5660300002)(41300700001)(478600001)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(346002)(366004)(376002)(39860400002)(396003)(36756003)(45080400002)(6916009)(38100700002)(316002)(31686004)(83380400001)(4326008)(66946007)(6486002)(478600001)(66476007)(966005)(66556008)(8676002)(41300700001)(5660300002)(8936002)(6506007)(26005)(6666004)(6512007)(53546011)(2906002)(2616005)(31696002)(86362001)(186003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?enpwbFFRd2ZWSnp5L1J1eXh0VHlMMUZ5bk4wc3RSb1pNOWNoZG9xZTJSZTYv?=
- =?utf-8?B?UGhsVnN2aXZXZnJ5b1ZuZHVkOTJCTW1zUDZPOFJBVEdZYm5SQ3NReFduazhm?=
- =?utf-8?B?MXRNbEsvRVBZMkx6ZExOZTMwdFFOSHUyd1dnUDM5WFZPYjB5SjlPeVRFTjhN?=
- =?utf-8?B?cEpQM0d3aDEwK0lhUHNKMzVtU25yd2FCZ3dMU3gxK3FQTENDRHVFOFVObGVz?=
- =?utf-8?B?YTV6TWs1cTc4NCt3T3JoYWpMdVpmLzhoL3VXZ053eVNLaytlMGw0YmJWUk1v?=
- =?utf-8?B?M1RXbWlySk5nYW5adEhMV1c4cU02OW83OXBYQXlmSE5YbCs1ek8remkyV2x6?=
- =?utf-8?B?ZlFKMy9KajNicGt3NHpKT1d3V0RSSUZqN09GK2RCY3F6bFVQa0hzUDVzSGEv?=
- =?utf-8?B?c2tIdkRDTGs2OEllNmhCVW80RUcrZ3doZm1XdzJVc0pmNDM3dnkraFBiUDBq?=
- =?utf-8?B?eDd1MmplRC9KMFg1NUU5OVVhSysvMHhPL3ZwakhIVG41MnZ6WmFocnBMRUVH?=
- =?utf-8?B?QktNLzJrREdJT3Y0Z1RFWnhBOE9BOUEzQVpvQ1F2cEZuSzBnTEtTdVlMNVY1?=
- =?utf-8?B?NnVFU0JjSElOV0RsZFlUS05lYjJHTG1DZVB2SlAyeUk0NEJPd1pqcGpRazdq?=
- =?utf-8?B?TkR1MlpVY29wQXN3M1dZdWNPTFNiL05UallxWEFxRWxocHo1UlJHZDRpZEVN?=
- =?utf-8?B?SVdoRHY2anNqY3Nya1NtY05FTE8zRzhvZjJkNFhDbVBwWm5NVlkxYlJwSWpD?=
- =?utf-8?B?MTZuREVNcHM1Q3B3eG1XakZld25SSW9HYlQyZHVCK1J1V2ZwSkdBMWVlRkx5?=
- =?utf-8?B?NzVKTllxZ0VDV0htcmt1SllhbUlDV2NhZUw1cXVlT2FwYk5lS0hoUnBjZWg1?=
- =?utf-8?B?RDBrUzRRSVRLMTF4em9vUHFRWmVrQjFhSlFoWFd2QmRmZUphNU1GVjBYelp5?=
- =?utf-8?B?MzM2eDNrY0drMHRDUGp6ald3bDAzaGZDQkhTbTRHMmpBTUlZUDYxUzQ3a2Ix?=
- =?utf-8?B?bXVYWEpuVHdFVlZjODByOU02SWdiSHNFankxdTcxVm4vWmxzVWhzaERxYnNt?=
- =?utf-8?B?YnRnZnNVeC9PbEt1UHpsL0FXYjRkODcxODc1dGVwTDJSRkkrYWFtRC9CdXZp?=
- =?utf-8?B?akk3VGMzSGxDVmNMdnU3amd5cFNNbEJSTmNoU2kzZ0VtTU1KS3R3NHZJZjNK?=
- =?utf-8?B?WlNualo3blhTRy9ka1RPVDQyeEQ5aEJ4WldKRThOUVhYeHdxK3BvRm5XWUox?=
- =?utf-8?B?aTRPeHhqNmdhV25pbEc3aEoweEp5L2lmSFBPbFNDY1VzTUJqNmF1alFEdkh0?=
- =?utf-8?B?bTgyY0grZDN3RFIrZ3FRL3RQUHVFMFdpQVRqcEV4aWJ4a1VUczA5S09nbDdl?=
- =?utf-8?B?ZThZZmdXcGpqNzlTWlVwRXJZT3I4VUd5MTNBM2xiaGhVY3BNT3Y3TTB6dXFm?=
- =?utf-8?B?cG4rLzBCd1Z6TGcxMWl0VFNtY0dVODl4VHM5NitqS1hzREdRYmFVcnlZR1Nu?=
- =?utf-8?B?M0dYV01FN2E5YmRKTUVabGZ2d3NGU3I5cFZTY2VpMWVzekFqcndQc2Y1LzVj?=
- =?utf-8?B?Z1VQUXBwSzlxSmNzVzViV2Z1M1lTd3RDK3VKNFY5MVFTKzdnYS8xZ0hGOTlH?=
- =?utf-8?B?TVZpc1pYOWphRXJiV0RiaWo4QlhrL2JpclB3SUh1OTllRCs0b1NPd0JmZURT?=
- =?utf-8?B?S0tjRXFqWG14cTVhVHA5U2RwNGQyZFA1LzNIeCtBdWF0bFBVT1BITG1selZ0?=
- =?utf-8?B?OWVMMC9COU13SFhzZ2h1SEJpM0Z0Tk4rcmZkKzkxZGtUNlhVcXE1YjFDT2dI?=
- =?utf-8?B?cWFrSVFHYmxqOTNMZ1Vxa1NBWkZpNFl1U05UR0k2SEs4R3RNUCtJRGEyOTBs?=
- =?utf-8?B?eDVwclZlUnM3S1EzY0k1aWtjN1h2TjBSVGZ5amk0SzJDVll1N2hhcW5ZVEU1?=
- =?utf-8?B?OEs5bm9NVUZqeldpOS9ZeHJuQmJrRVk5Zm54K0l4YUFjSFhlSVg2ak8zVzNl?=
- =?utf-8?B?cHJ4TW10bnNocUtwSnlSL1ZFT3VKTGxtOEFXQ2hvMlBZcmUrdUdQUFhkZ3V2?=
- =?utf-8?B?SGE5QXJJR0hBcFNPZ1dFNUp4cGcvVWcyK2JlMm91MmlQNUZtdExkNFd5WDlQ?=
- =?utf-8?Q?d0Q0jZnPL4B9ydUTC5priNF0/?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q0ExSklrc2orYXVmVkJMSUE5bEF2c1BrbC9Ydk1FeVpBY3dEVUZzK0Z2eXp4?=
+ =?utf-8?B?ZkZCdkk2Rk9GRmUyOXpYK0ZRUDA4Z3I5cktFV1RVM1hPOU10U1M1NzNOUHNa?=
+ =?utf-8?B?UmlRS3VpVDNYSk9BcHRaMnI4NWhWQ2VHbHNySmdZRmJ4QlJkUkJ2cUJNb01K?=
+ =?utf-8?B?OFlyTTFGYXg0NVlBc25pdXpIMnRzSVZyTlNhOFlCVDdZa2lyMGdGTTkrRHlK?=
+ =?utf-8?B?ak5RLzQ0NjBzUy9ua21Fbk1lMEREY0ZXamlBTXRNZFIzWHR5Y1o2em1nWXUz?=
+ =?utf-8?B?OGk0SXZnMkx4akhDd2Q0NnNWQVJ6NUMxSzJsWTNheXRDdjhrSFZJUDlRUEwr?=
+ =?utf-8?B?bVBRUU53RkpaU1J4aU1iZkVsbWlEUTk3Q09zbXljSnVPZGY3WkZGRmNldXIv?=
+ =?utf-8?B?b0FEODZ6c0Vjci80K3N5Tm1lOFZEeC8zWmlkSGp4M0ZQSWVDK2Q0c1lGelVu?=
+ =?utf-8?B?YmF3Z1ZtZWdaV0dwaWJCcDNZclZ2cXNVNzlySHYwODhUUDlXdTkrd3M2bDlG?=
+ =?utf-8?B?d1kyZklzZUh0Ni9NajUrOWNzeTg0cFNCbkVNU2tGNnhYa21GdFEyZExoN0VS?=
+ =?utf-8?B?ZXZZUG1sMDNqM1hqNk9ZdXhUTUk3VFpDWTNWbkJVMXU2VDdSdmgvbC80cDdO?=
+ =?utf-8?B?RzRHNy9CRk9yQlRTRXFCTEt3QStrU3E1TmJDN1A4RnpkRmkrcXpSYTUrK0VL?=
+ =?utf-8?B?UFhkNnJ1dEVtL2xtNU1UNThHYnVBdlNwL1JOTnRrQldCM01ZQlBhZnNpUkNq?=
+ =?utf-8?B?MDNwekpBVlFPRnNkS0tockhHZUwzNjcrYUEzQTMxVTByNlBKMEJYUVkrd3VD?=
+ =?utf-8?B?T2I5eGtPQkh5MldSRlZMRG9wVGIwaWx2QlpFQnBnajBtNnNvRWVGbjhwTW9D?=
+ =?utf-8?B?K1EzY0huOHh0QVVrajBpcHVsOUF6TlIwcmszSjUyY3ppOElYYkZVc0lOS2lW?=
+ =?utf-8?B?cG9yUGV5UHRSeFlmZFJMVG1MenlOeWhvUVdvVTZhMEorbytkYWtSdFJUcjFN?=
+ =?utf-8?B?U25oNGRlMnVsMXN2MVppL2Y1bGRaTUt5REN4c1MwcW1HR0tTbU1rWXNHVVFE?=
+ =?utf-8?B?ejIyK0R0SFRib0MwdHBNRC9zWno0OC9NbXlpTFE1eXVPVE9Qd2tJYVB6L0hk?=
+ =?utf-8?B?WjdQaXhQSHhXeklMMk01eXBMY1d1eVNDaTNJRkxMTGdqNUpZZk1EOUFMSCtw?=
+ =?utf-8?B?VCtHVHI3RXRINGdYcW9JSnF1cEVXUEdnLzlPT1NlSEFaZ3RyekdLUVIrdHVr?=
+ =?utf-8?B?eHVKVjFmRHRBWjlvZVg2cDFpRitBbEo2Y284d0Vkc2tFdUYyR2tqVnBoQWs4?=
+ =?utf-8?B?b285bkZuOXdNTWk3OVZDUVFoeEpCT1BRa2tMTEtKV3puWjluQkFJQmk3Kzla?=
+ =?utf-8?B?NU4xZ05heGpiNzRMZTZwUlAvWmd6dWdKelJ0b3dKUEJFeTZycVpydkk3NHlk?=
+ =?utf-8?B?bCt2VVgzeDNBb3VzRnJneHQ4QUpVSlJIQ2dFdEFCeVE3Rms3dFd0ZTJaOGs4?=
+ =?utf-8?B?QlJGSTBzdFZJZExvTEluUnA5ejhqUXNGOEdzU29WZTVubm50cGFrMmQ4YXVL?=
+ =?utf-8?B?UG1wdm9UbGdDODlteFo5cjJqMDFZRzJlb0thUnJ0L3RxVkl6MHFVUDN1Z1I3?=
+ =?utf-8?B?YkxERFlxRWlDRjdTS0hIVi9qL3Q4UTJyT3lvcExONkNSVS84T1RtU3FkSSt6?=
+ =?utf-8?B?NWxVWXFUL09PQXdwcm1aTERtZ1lYTjBaeGRLQ2k4UStnMENDMFQ2S3hNWUla?=
+ =?utf-8?B?S3JTOGw2UGY2U2VtMmJ5V1dnYmVkM2FMcExHUlVFSkRWT0Jvbk0rRmRlL2VR?=
+ =?utf-8?B?WkdEZExlZjl1OEJoWkhrajVrbmdMS2duNmY0QUx4RVdOUHFTV2c2U3Jkb0xz?=
+ =?utf-8?B?NG5nNGpYTnRBaXNDeERhWVhQOXBlenlnb0JBeUpBT2liNlB2Zms1aS8rSEx5?=
+ =?utf-8?B?RkV3aXRsSG14Y2hmeUNYejFJRGhCTXVkenJNUzQ4OVFKMkNRUHIxQ0pLY3VY?=
+ =?utf-8?B?MkNjbTZvOVVFcTZxNGRBV1hVRUQ3ZTNubVRoT0huWVJlNXBNVXZnMmhKRENJ?=
+ =?utf-8?B?bFhJazlwL0d5ZGZuUXlQaDRTZ1FwNDF6cDVRSEZvdFNpci9ZWUMvVmh0YVFP?=
+ =?utf-8?Q?zutTQT0aLz2ceQ7/sOyVkdpeE?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0949f663-3a72-4090-6bcc-08da8a9e13c1
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3613cff1-83c3-49d5-d880-08da8aa19deb
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2022 15:41:16.8817 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2022 16:06:37.3943 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NCTpaDAOwXvHR7Rk5FjtWw9e3OBTSb1EoOx4u7Ej0//FoMuKRzcwHsWgy9Yapkl30qhp6Cv9PjkYZjxn5+xv3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5920
+X-MS-Exchange-CrossTenant-UserPrincipalName: kzGRidThsqlA8EqXAG4HCDL3dsDiPTM8bjOmL8Qa8nvaerbGbVYI8t2b//4hGDye
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6089
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,209 +128,219 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Felix.Kuehling@amd.com, stable@vger.kernel.org, tseewald@gmail.com,
+ helgaas@kernel.org, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ sr@denx.de, Christian.Koenig@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-08-30 02:00, Christian König wrote:
-> Am 29.08.22 um 21:30 schrieb Felix Kuehling:
+
+
+On 8/30/2022 8:39 PM, Alex Deucher wrote:
+> On Tue, Aug 30, 2022 at 10:45 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
 >>
->> Am 2022-08-29 um 14:59 schrieb Christian König:
->>> Am 29.08.22 um 18:07 schrieb Felix Kuehling:
->>>> Am 2022-08-29 um 11:38 schrieb Christian König:
->>>>> Am 27.08.22 um 01:16 schrieb Felix Kuehling:
->>>>>> BOs can be in a different location than was intended at 
->>>>>> allocation time,
->>>>>> for example when restoring fails after an eviction or BOs get 
->>>>>> pinned in
->>>>>> system memory. On some GPUs the MTYPE for coherent mappings 
->>>>>> depends on
->>>>>> the actual memory location.
+>>
+>>
+>> On 8/30/2022 7:18 PM, Alex Deucher wrote:
+>>> On Tue, Aug 30, 2022 at 12:05 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 8/29/2022 10:20 PM, Alex Deucher wrote:
+>>>>> On Mon, Aug 29, 2022 at 4:18 AM Lijo Lazar <lijo.lazar@amd.com> wrote:
 >>>>>>
->>>>>> Use the actual location to determine the pte_flags every time the 
->>>>>> page
->>>>>> tables are updated.
->>>>>
->>>>> For a workaround ok, but looks a bit awkward. Basically we need 
->>>>> different MTYPE based on the location, right?
->>>>
->>>> Yes. On Aldebaran and Arcturus we need different MTYPEs for 
->>>> fine-grained coherence depending on the location.
->>>
->>> It would be much cleaner to have a better description how all this 
->>> came to be in the mapping.
->>>
->>> E.g. that we generate the flags in the VM code based on the 
->>> requirements described in the mapping.
->>>
->>> Do we have time to clean this up thoughtfully?
->>
->> Currently we have two places in the KFD code that generates the 
->> mapping flags. I was planning to eliminate the duplication. I think 
->> you're suggesting moving it into the amdgpu_vm code instead. 
->> Unfortunately it's somewhat GPU-specific. So you probably won't like 
->> this code in the general amdgpu_vm code. Maybe the HW-specific part 
->> should be in gmc_v*.c.
->
-> We have the gmc_v*_get_vm_pte() and gmc_v*_get_vm_pde() functions 
-> exactly for that.
->
->>
->> The requirements would include:
->>
->>  * Memory type and mapping (local, system, PCIe P2P, XGMI P2P)
->>  * Memory model (coarse-grained or fine-grained coherence)
->
-> Question is if any of this is a per BO or per mapping information?
-
-With XGMI, we are sharing the same BO between multiple GPUs. Local and 
-remote mappings of the same BO can be different. I think a per-BO 
-attribute to decide the memory model makes sense. Then the mapping code 
-needs to figure out the flags from the per-BO memory model and the type 
-of mapping on the fly. gmc_v*_get_vm_pte() seems to have all the 
-parameters necessary to figure this out.
-
-
->
-> For the gfx side we unfortunately have put the MTYPE into the mapping 
-> (which turned out to be a bad idea).
->
-> So as far as I understand it the MTYPE should rather be obtained from 
-> per buffer flags and the current placement, correct?
-
-Yes. I can work on a patch for that.
-
-Regards,
-   Felix
-
-
->
-> Regards,
-> Christian.
->
->>
->> Regards,
->>   Felix
->>
->>
->>>
->>> Regards,
->>> Christian.
->>>
->>>>
->>>> Regards,
->>>>   Felix
->>>>
->>>>
->>>>>
->>>>> Christian.
->>>>>
+>>>>>> HDP flush is used early in the init sequence as part of memory controller
+>>>>>> block initialization. Hence remapping of HDP registers needed for flush
+>>>>>> needs to happen earlier.
 >>>>>>
->>>>>> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>>>>>> This also fixes the Unsupported Request error reported through AER during
+>>>>>> driver load. The error happens as a write happens to the remap offset
+>>>>>> before real remapping is done.
+>>>>>>
+>>>>>> Link: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D216373&amp;data=05%7C01%7Clijo.lazar%40amd.com%7Cbe8781fe1b0c41d3bad408da8a99b3d8%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637974690005710507%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=98WWFEcwi2tzyf%2BxnYC%2FK3UcCE5mfXI00qfYGUpt2Sk%3D&amp;reserved=0
+>>>>>>
+>>>>>> The error was unnoticed before and got visible because of the commit
+>>>>>> referenced below. This doesn't fix anything in the commit below, rather
+>>>>>> fixes the issue in amdgpu exposed by the commit. The reference is only
+>>>>>> to associate this commit with below one so that both go together.
+>>>>>>
+>>>>>> Fixes: 8795e182b02d ("PCI/portdrv: Don't disable AER reporting in get_port_device_capability()")
+>>>>>>
+>>>>>> Reported-by: Tom Seewald <tseewald@gmail.com>
+>>>>>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+>>>>>> Cc: stable@vger.kernel.org
+>>>>>
+>>>>> How about something like the attached patch rather than these two
+>>>>> patches?  It's a bit bigger but seems cleaner and more defensive in my
+>>>>> opinion.
+>>>>>
+>>>>
+>>>> Whenever device goes to suspend/reset and then comes back, remap offset
+>>>> has to be set back to 0 to make sure it doesn't use the wrong offset
+>>>> when the register assumes default values again.
+>>>>
+>>>> To avoid the if-check in hdp_flush (which is more frequent), another way
+>>>> is to initialize the remap offset to default offset during early init
+>>>> and hw fini/suspend sequences. It won't be obvious (even with this
+>>>> patch) as to when remap offset vs default offset is used though.
+>>>
+>>> On resume, the common IP is resumed first so it will always be set.
+>>> The only case that is a problem is init because we init GMC out of
+>>> order.  We could init common before GMC in amdgpu_device_ip_init().  I
+>>> think that should be fine, but I wasn't sure if there might be some
+>>> fallout from that on certain cards.
+>>>
+>>
+>> There are other places where an IP order is forced like in
+>> amdgpu_device_ip_reinit_early_sriov(). This also may not affect this
+>> case as remapping is not done for VF.
+>>
+>> Agree that a better way is to have the common IP to be inited first.
+> 
+> How about these patches?
+> 
+
+Looks good to me. BTW, is nbio 7.7 for an APU (in which case hdp flush 
+is not expected to be used)?
+
+Thanks,
+Lijo
+
+> Alex
+> 
+> 
+>>
+>> Thanks,
+>> Lijo
+>>
+>>> Alex
+>>>
+>>>>
+>>>> Thanks,
+>>>> Lijo
+>>>>
+>>>>> Alex
+>>>>>
 >>>>>> ---
->>>>>>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  9 ++++++++-
->>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 19 
->>>>>> +++++++++++++++++++
->>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  1 +
->>>>>>   3 files changed, 28 insertions(+), 1 deletion(-)
+>>>>>> v2:
+>>>>>>            Take care of IP resume cases (Alex Deucher)
+>>>>>>            Add NULL check to nbio.funcs to cover older (GFXv8) ASICs (Felix Kuehling)
+>>>>>>            Add more details in commit message and associate with AER patch (Bjorn
+>>>>>> Helgaas)
 >>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c 
->>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>>>> index cbd593f7d553..5dd89f5a032f 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>>>> @@ -405,6 +405,7 @@ static int vm_update_pds(struct amdgpu_vm 
->>>>>> *vm, struct amdgpu_sync *sync)
->>>>>>   static uint64_t get_pte_flags(struct amdgpu_device *adev, 
->>>>>> struct kgd_mem *mem)
->>>>>>   {
->>>>>>       struct amdgpu_device *bo_adev = 
->>>>>> amdgpu_ttm_adev(mem->bo->tbo.bdev);
->>>>>> +    bool is_vram = mem->bo->tbo.resource->mem_type == TTM_PL_VRAM;
->>>>>>       bool coherent = mem->alloc_flags & 
->>>>>> KFD_IOC_ALLOC_MEM_FLAGS_COHERENT;
->>>>>>       bool uncached = mem->alloc_flags & 
->>>>>> KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED;
->>>>>>       uint32_t mapping_flags;
->>>>>> @@ -420,7 +421,7 @@ static uint64_t get_pte_flags(struct 
->>>>>> amdgpu_device *adev, struct kgd_mem *mem)
->>>>>>       switch (adev->asic_type) {
->>>>>>       case CHIP_ARCTURUS:
->>>>>>       case CHIP_ALDEBARAN:
->>>>>> -        if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
->>>>>> +        if (is_vram) {
->>>>>>               if (bo_adev == adev) {
->>>>>>                   if (uncached)
->>>>>>                       mapping_flags |= AMDGPU_VM_MTYPE_UC;
->>>>>> @@ -1236,12 +1237,18 @@ static int update_gpuvm_pte(struct 
->>>>>> kgd_mem *mem,
->>>>>>   {
->>>>>>       struct amdgpu_bo_va *bo_va = entry->bo_va;
->>>>>>       struct amdgpu_device *adev = entry->adev;
->>>>>> +    uint64_t pte_flags = get_pte_flags(adev, mem);
->>>>>>       int ret;
->>>>>>         ret = kfd_mem_dmamap_attachment(mem, entry);
->>>>>>       if (ret)
->>>>>>           return ret;
->>>>>>   +    if (unlikely(entry->pte_flags != pte_flags)) {
->>>>>> +        amdgpu_vm_bo_update_flags(bo_va, pte_flags);
->>>>>> +        entry->pte_flags = pte_flags;
->>>>>> +    }
->>>>>> +
->>>>>>       /* Update the page tables  */
->>>>>>       ret = amdgpu_vm_bo_update(adev, bo_va, false);
->>>>>>       if (ret) {
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
->>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>> index 59cac347baa3..954a40d5d828 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>> @@ -1862,6 +1862,25 @@ void amdgpu_vm_bo_invalidate(struct 
->>>>>> amdgpu_device *adev,
->>>>>>       }
->>>>>>   }
->>>>>>   +/**
->>>>>> + * amdgpu_vm_bo_update_flags - Update mapping flags of invalid 
->>>>>> mappings
+>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 24 ++++++++++++++++++++++
+>>>>>>     drivers/gpu/drm/amd/amdgpu/nv.c            |  6 ------
+>>>>>>     drivers/gpu/drm/amd/amdgpu/soc15.c         |  6 ------
+>>>>>>     drivers/gpu/drm/amd/amdgpu/soc21.c         |  6 ------
+>>>>>>     4 files changed, 24 insertions(+), 18 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>> index ce7d117efdb5..e420118769a5 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>> @@ -2334,6 +2334,26 @@ static int amdgpu_device_init_schedulers(struct amdgpu_device *adev)
+>>>>>>            return 0;
+>>>>>>     }
+>>>>>>
+>>>>>> +/**
+>>>>>> + * amdgpu_device_prepare_ip - prepare IPs for hardware initialization
 >>>>>> + *
->>>>>> + * @bo_va: identifies the BO and VM
->>>>>> + * @flags: new mapping flags
+>>>>>> + * @adev: amdgpu_device pointer
 >>>>>> + *
->>>>>> + * The update is only applied to invalid mappings. This allows 
->>>>>> updating the
->>>>>> + * mapping flags after a migration to maintain the desired 
->>>>>> coherence. The next
->>>>>> + * call to amdgpu_vm_bo_update() will apply the new @flags to 
->>>>>> the page table.
+>>>>>> + * Any common hardware initialization sequence that needs to be done before
+>>>>>> + * hw init of individual IPs is performed here. This is different from the
+>>>>>> + * 'common block' which initializes a set of IPs.
 >>>>>> + */
->>>>>> +void amdgpu_vm_bo_update_flags(struct amdgpu_bo_va *bo_va,
->>>>>> +                   uint64_t flags)
+>>>>>> +static void amdgpu_device_prepare_ip(struct amdgpu_device *adev)
 >>>>>> +{
->>>>>> +    struct amdgpu_bo_va_mapping *mapping;
->>>>>> +
->>>>>> +    list_for_each_entry(mapping, &bo_va->invalids, list)
->>>>>> +        mapping->flags = flags;
+>>>>>> +       /* Remap HDP registers to a hole in mmio space, for the purpose
+>>>>>> +        * of exposing those registers to process space. This needs to be
+>>>>>> +        * done before hw init of ip blocks to take care of HDP flush
+>>>>>> +        * operations through registers during hw_init.
+>>>>>> +        */
+>>>>>> +       if (adev->nbio.funcs && adev->nbio.funcs->remap_hdp_registers &&
+>>>>>> +           !amdgpu_sriov_vf(adev))
+>>>>>> +               adev->nbio.funcs->remap_hdp_registers(adev);
 >>>>>> +}
+>>>>>>
+>>>>>>     /**
+>>>>>>      * amdgpu_device_ip_init - run init for hardware IPs
+>>>>>> @@ -2376,6 +2396,8 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+>>>>>>                                    DRM_ERROR("amdgpu_vram_scratch_init failed %d\n", r);
+>>>>>>                                    goto init_failed;
+>>>>>>                            }
 >>>>>> +
->>>>>>   /**
->>>>>>    * amdgpu_vm_get_block_size - calculate VM page table size as 
->>>>>> power of two
->>>>>>    *
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
->>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>>>>> index 9ecb7f663e19..11793716cd8b 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>>>>> @@ -413,6 +413,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device 
->>>>>> *adev,
->>>>>>   bool amdgpu_vm_evictable(struct amdgpu_bo *bo);
->>>>>>   void amdgpu_vm_bo_invalidate(struct amdgpu_device *adev,
->>>>>>                    struct amdgpu_bo *bo, bool evicted);
->>>>>> +void amdgpu_vm_bo_update_flags(struct amdgpu_bo_va *bo_va, 
->>>>>> uint64_t flags);
->>>>>>   uint64_t amdgpu_vm_map_gart(const dma_addr_t *pages_addr, 
->>>>>> uint64_t addr);
->>>>>>   struct amdgpu_bo_va *amdgpu_vm_bo_find(struct amdgpu_vm *vm,
->>>>>>                          struct amdgpu_bo *bo);
->>>>>
->>>
->
+>>>>>> +                       amdgpu_device_prepare_ip(adev);
+>>>>>>                            r = adev->ip_blocks[i].version->funcs->hw_init((void *)adev);
+>>>>>>                            if (r) {
+>>>>>>                                    DRM_ERROR("hw_init %d failed %d\n", i, r);
+>>>>>> @@ -3058,6 +3080,7 @@ static int amdgpu_device_ip_reinit_early_sriov(struct amdgpu_device *adev)
+>>>>>>                    AMD_IP_BLOCK_TYPE_IH,
+>>>>>>            };
+>>>>>>
+>>>>>> +       amdgpu_device_prepare_ip(adev);
+>>>>>>            for (i = 0; i < adev->num_ip_blocks; i++) {
+>>>>>>                    int j;
+>>>>>>                    struct amdgpu_ip_block *block;
+>>>>>> @@ -3139,6 +3162,7 @@ static int amdgpu_device_ip_resume_phase1(struct amdgpu_device *adev)
+>>>>>>     {
+>>>>>>            int i, r;
+>>>>>>
+>>>>>> +       amdgpu_device_prepare_ip(adev);
+>>>>>>            for (i = 0; i < adev->num_ip_blocks; i++) {
+>>>>>>                    if (!adev->ip_blocks[i].status.valid || adev->ip_blocks[i].status.hw)
+>>>>>>                            continue;
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+>>>>>> index b3fba8dea63c..3ac7fef74277 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+>>>>>> @@ -1032,12 +1032,6 @@ static int nv_common_hw_init(void *handle)
+>>>>>>            nv_program_aspm(adev);
+>>>>>>            /* setup nbio registers */
+>>>>>>            adev->nbio.funcs->init_registers(adev);
+>>>>>> -       /* remap HDP registers to a hole in mmio space,
+>>>>>> -        * for the purpose of expose those registers
+>>>>>> -        * to process space
+>>>>>> -        */
+>>>>>> -       if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
+>>>>>> -               adev->nbio.funcs->remap_hdp_registers(adev);
+>>>>>>            /* enable the doorbell aperture */
+>>>>>>            nv_enable_doorbell_aperture(adev, true);
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>>>>> index fde6154f2009..a0481e37d7cf 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>>>>> @@ -1240,12 +1240,6 @@ static int soc15_common_hw_init(void *handle)
+>>>>>>            soc15_program_aspm(adev);
+>>>>>>            /* setup nbio registers */
+>>>>>>            adev->nbio.funcs->init_registers(adev);
+>>>>>> -       /* remap HDP registers to a hole in mmio space,
+>>>>>> -        * for the purpose of expose those registers
+>>>>>> -        * to process space
+>>>>>> -        */
+>>>>>> -       if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
+>>>>>> -               adev->nbio.funcs->remap_hdp_registers(adev);
+>>>>>>
+>>>>>>            /* enable the doorbell aperture */
+>>>>>>            soc15_enable_doorbell_aperture(adev, true);
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+>>>>>> index 55284b24f113..16b447055102 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+>>>>>> @@ -660,12 +660,6 @@ static int soc21_common_hw_init(void *handle)
+>>>>>>            soc21_program_aspm(adev);
+>>>>>>            /* setup nbio registers */
+>>>>>>            adev->nbio.funcs->init_registers(adev);
+>>>>>> -       /* remap HDP registers to a hole in mmio space,
+>>>>>> -        * for the purpose of expose those registers
+>>>>>> -        * to process space
+>>>>>> -        */
+>>>>>> -       if (adev->nbio.funcs->remap_hdp_registers)
+>>>>>> -               adev->nbio.funcs->remap_hdp_registers(adev);
+>>>>>>            /* enable the doorbell aperture */
+>>>>>>            soc21_enable_doorbell_aperture(adev, true);
+>>>>>>
+>>>>>> --
+>>>>>> 2.25.1
+>>>>>>
