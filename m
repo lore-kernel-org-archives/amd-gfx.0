@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 498ACECAAA1
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 17:26:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2DC6ECAAD1
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 17:26:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73F1210E299;
-	Tue, 30 Aug 2022 17:26:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54A5A10E2BB;
+	Tue, 30 Aug 2022 17:26:37 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71E2310E29C;
- Tue, 30 Aug 2022 17:25:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3463C10E2B8;
+ Tue, 30 Aug 2022 17:26:34 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1F23FB81D1D;
- Tue, 30 Aug 2022 17:25:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4CBEC433B5;
- Tue, 30 Aug 2022 17:25:52 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C95E6B81D30;
+ Tue, 30 Aug 2022 17:26:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B9C1C433C1;
+ Tue, 30 Aug 2022 17:26:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661880353;
- bh=HQHYkKIuu2m483r8bXGwDp3s7/RFPN6AGKU9oMAMuI0=;
+ s=k20201202; t=1661880390;
+ bh=JArKBCEL/uMuvvvG5tPJeSOSfdRI7vlyp45mKEbpU+U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HKXaHrVt/91G1UySVTNsmFFw13l3a/T1AspMCCOEMo/rSaHpw4ZFSI9LxWtICGKkN
- SxAbCSX3dGtCT6wjJJ9KejSDykRy/6+83b5QcgpwuaKFPkaUQSNleOzp7deRQjS0cH
- igq34q44syt3z1k5yvgVkuNOBAoHdDaeMoB+0x1nK8hZARx+elT5CWTOdvrMSjmuJL
- ZzCriiNQKan7iaZi3mLmEdIaFFIoJNVF/hlyWnNnnLtoimoHOyYnVpTTQZqtV8n//I
- BC0gps7JpoLBGhBEmVUDnMc2x8HYMkOHILv5kVVBUKzQVGYLFrTmXgYI/qtxa7w3y8
- +wCvdPwr/k8bg==
+ b=ea/+Yb4xiriJsepuMTMxq+BikTYi99vZ8CRJXdBIoTEu5+GVhdr6pPxeF26d0x8u8
+ yvw5jaceEQU77W8cPxdu0VMw66xRwR67JRQhM9EAy7jBEmYeyIzFKo2qVD518D2LPt
+ hAc3W3qAwceutz+cnOfUb5OPMKRvpjZaMpyN/2UjUnojgLHC5QDGtVfdQkUu7bwMAn
+ ejUH6iFmqK9YJCdJOKXf53nbl52fsDFTtQyJCfq2/bHqt1ljxeTtWIuHJGcjsBDh9t
+ QeMFoKp5X3uSZQvxunTRIFPagMcv1fOFX8QOVo6V+5KQRMrx8JQNoslDHxyeN6lZNV
+ kBgnSYIT+cnQw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 03/10] drm/radeon: add a force flush to delay
- work when radeon
-Date: Tue, 30 Aug 2022 13:25:34 -0400
-Message-Id: <20220830172541.581820-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 10/10] drm/amdgpu: mmVM_L2_CNTL3 register not
+ initialized correctly
+Date: Tue, 30 Aug 2022 13:25:41 -0400
+Message-Id: <20220830172541.581820-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220830172541.581820-1-sashal@kernel.org>
 References: <20220830172541.581820-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -55,81 +54,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie, Xinhui.Pan@amd.com,
- Zhenneng Li <lizhenneng@kylinos.cn>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
+ guchun.chen@amd.com, airlied@linux.ie, Qu Huang <jinsdb@126.com>,
+ Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org, YiPeng.Chai@amd.com,
+ mario.limonciello@amd.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com,
+ christian.koenig@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Zhenneng Li <lizhenneng@kylinos.cn>
+From: Qu Huang <jinsdb@126.com>
 
-[ Upstream commit f461950fdc374a3ada5a63c669d997de4600dffe ]
+[ Upstream commit b8983d42524f10ac6bf35bbce6a7cc8e45f61e04 ]
 
-Although radeon card fence and wait for gpu to finish processing current batch rings,
-there is still a corner case that radeon lockup work queue may not be fully flushed,
-and meanwhile the radeon_suspend_kms() function has called pci_set_power_state() to
-put device in D3hot state.
-Per PCI spec rev 4.0 on 5.3.1.4.1 D3hot State.
-> Configuration and Message requests are the only TLPs accepted by a Function in
-> the D3hot state. All other received Requests must be handled as Unsupported Requests,
-> and all received Completions may optionally be handled as Unexpected Completions.
-This issue will happen in following logs:
-Unable to handle kernel paging request at virtual address 00008800e0008010
-CPU 0 kworker/0:3(131): Oops 0
-pc = [<ffffffff811bea5c>]  ra = [<ffffffff81240844>]  ps = 0000 Tainted: G        W
-pc is at si_gpu_check_soft_reset+0x3c/0x240
-ra is at si_dma_is_lockup+0x34/0xd0
-v0 = 0000000000000000  t0 = fff08800e0008010  t1 = 0000000000010000
-t2 = 0000000000008010  t3 = fff00007e3c00000  t4 = fff00007e3c00258
-t5 = 000000000000ffff  t6 = 0000000000000001  t7 = fff00007ef078000
-s0 = fff00007e3c016e8  s1 = fff00007e3c00000  s2 = fff00007e3c00018
-s3 = fff00007e3c00000  s4 = fff00007fff59d80  s5 = 0000000000000000
-s6 = fff00007ef07bd98
-a0 = fff00007e3c00000  a1 = fff00007e3c016e8  a2 = 0000000000000008
-a3 = 0000000000000001  a4 = 8f5c28f5c28f5c29  a5 = ffffffff810f4338
-t8 = 0000000000000275  t9 = ffffffff809b66f8  t10 = ff6769c5d964b800
-t11= 000000000000b886  pv = ffffffff811bea20  at = 0000000000000000
-gp = ffffffff81d89690  sp = 00000000aa814126
-Disabling lock debugging due to kernel taint
-Trace:
-[<ffffffff81240844>] si_dma_is_lockup+0x34/0xd0
-[<ffffffff81119610>] radeon_fence_check_lockup+0xd0/0x290
-[<ffffffff80977010>] process_one_work+0x280/0x550
-[<ffffffff80977350>] worker_thread+0x70/0x7c0
-[<ffffffff80977410>] worker_thread+0x130/0x7c0
-[<ffffffff80982040>] kthread+0x200/0x210
-[<ffffffff809772e0>] worker_thread+0x0/0x7c0
-[<ffffffff80981f8c>] kthread+0x14c/0x210
-[<ffffffff80911658>] ret_from_kernel_thread+0x18/0x20
-[<ffffffff80981e40>] kthread+0x0/0x210
- Code: ad3e0008  43f0074a  ad7e0018  ad9e0020  8c3001e8  40230101
- <88210000> 4821ed21
-So force lockup work queue flush to fix this problem.
+The mmVM_L2_CNTL3 register is not assigned an initial value
 
-Acked-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
+Signed-off-by: Qu Huang <jinsdb@126.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/radeon/radeon_device.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 59c8a6647ff21..cc1c07963116c 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1625,6 +1625,9 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
- 		if (r) {
- 			/* delay GPU reset to resume */
- 			radeon_fence_driver_force_completion(rdev, i);
-+		} else {
-+			/* finish executing delayed work */
-+			flush_delayed_work(&rdev->fence_drv[i].lockup_work);
- 		}
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+index c963eec58c702..923bc097a00b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+@@ -155,6 +155,7 @@ static void mmhub_v1_0_init_cache_regs(struct amdgpu_device *adev)
+ 	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL2, INVALIDATE_L2_CACHE, 1);
+ 	WREG32_SOC15(MMHUB, 0, mmVM_L2_CNTL2, tmp);
  
++	tmp = mmVM_L2_CNTL3_DEFAULT;
+ 	if (adev->gmc.translate_further) {
+ 		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL3, BANK_SELECT, 12);
+ 		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL3,
 -- 
 2.35.1
 
