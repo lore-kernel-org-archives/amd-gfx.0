@@ -4,57 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3584ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 13:48:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29A28ECAAD4
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 14:06:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB0710E02C;
-	Tue, 30 Aug 2022 13:48:26 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22E6B10E02C
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 13:48:24 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- z22-20020a056830129600b0063711f456ceso8081040otp.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 06:48:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DA5010E04A;
+	Tue, 30 Aug 2022 14:06:25 +0000 (UTC)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60FF810E02D;
+ Tue, 30 Aug 2022 14:06:20 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ t8-20020a9d5908000000b0063b41908168so67148oth.8; 
+ Tue, 30 Aug 2022 07:06:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc;
- bh=PvfjspqduObDzlGa7VmkiKnW5ThPPDax2LcXL1lI6jg=;
- b=pQhSNIvcNgsdWa/iOphyH+ZQKYcwa066Vi2NvTvpHLSV1hydXpfYhQxKiAT2BGom5G
- UVlPfTwH2EEp9F4NFwiXi3uHFJhF4w71BFxghE+6CJjZyM+8GCa+mFqkvVtRteKtExqx
- HQ6idyZf1ZiuHgNp29aM+5w1m+APpK4eSNMG12dEc/xnQtmboY3hMuQYmde+tjjbWmPh
- 3EF+iVSTY8zoH4v0JU9RnWfogkXki4djs5cLBz+PgfptGobtRVut1qWJSJ/0MZB+fuwH
- WDfRb//8Z6tJA5hGMNGhBFF7lWYivcodAg4eYL7UvZA2x0vHCD5Tpc5C4oGHA+/zhn5O
- Zvlg==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=y3fQo2Q3lqRWYYWZ5VGbMuYgWpaQiSUdmI4Mq8INkBQ=;
+ b=Th7IuIUdewTPU3ylhrL9gvKnzMxRhIFg+TKreloC84Tatn41sVFzttkRDLXIzn1xBV
+ zZhZgeUpGUBAPpfTI7oT50TfRaeNmwQXop9++ZTIKzIyQ++RpICuPxiqlu8r7JkZRt2/
+ 5bwmqqJzQUJ3RBG1qkaKjlQVDxLb56YFbhr1lXfPs7N6McoJ9qGKRVYZSpZiT55ZA8Cj
+ cTbha88ZKJQw0+ZpBipHhRZFtPjicCwnoLsTmm6qyR/41snrq0aFu4KB9Pgc5V7EQnjJ
+ 0lGF2PkmlH1E4p6RfXTIQtTmb6xjo1yi+KcF41AMFwB3mcD1Pen4tippE0pih/6aTYXe
+ HUxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
- bh=PvfjspqduObDzlGa7VmkiKnW5ThPPDax2LcXL1lI6jg=;
- b=CZQ5NK9cQXTOuq0tT70vpOFrov1IDbhwGBc//7w9hhEmN0+Jm/jc3u2+sQA7YtmmYQ
- /MxxGEkeppskGHpMQ5CCjCAVeIY2srNNQ7/sXvHZSujKOSBfxOfeKhHlXhU0FTUTnOwE
- t4aOtbdWdG0pWdZg5APEQPmyfRJ7/3jSnNGqm159bVQqgcAGELepGOeVFzBCaYacEO5G
- 7fZkwCYWzeNuxHFN8Jl47H7ckMFRiEMgVfQGnTULhUyKbW06nW+zS5yEIzhyviloxtd3
- 9Q57BaUOyIuH9hMt0D7IFlo6AwLe192WLIi152VZnpC1YEzbmmGsas7TAj/HFtAdgnx+
- vPjQ==
-X-Gm-Message-State: ACgBeo2Qag0EEdLa9oeXWT/NhGB2ltOIToVBVxqf/Dj1xSffrgO0VSDV
- RoI0hRx5HU6fCXDdVlKKuRxHMARfrjo5aYmmDN0=
-X-Google-Smtp-Source: AA6agR4RD5t1gWtj/0bSorfzGNVgFzu+mFzsdz96Fs681IFYXNIBC2CFKTnF+A/C5ypR1oFH+1QIzJL4iJpVObAHxns=
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=y3fQo2Q3lqRWYYWZ5VGbMuYgWpaQiSUdmI4Mq8INkBQ=;
+ b=vnvTr+G4ZeUKB5beEml3uuJy7YfsChXC9kuDjar5MdPFadX0tVad8PPQasMobLQztu
+ RdUrTwXpWGgmjVH7p7OcoPH1mYbIJGOrNf195zYnHJHUx2MZNn9+ctBkj8HRTX/Ahlnq
+ iZ/43XDletmAmGGpd7Fp6LuuEWiCjhmiAAJVY3x1tx7vUCFPpKWjt3ukEoB49ARJVGxT
+ 6W5iIRZnp0e80ay5hmawdCg3fR3yk5IajGQ+DChCDssH7VL5nhJ6qOXrAuoAMx9tHq00
+ XyLszR7AbYPIRsBzevW2637eduU+VnSxePtaQB2t7hh8dWSkLe3mDij5ZY5K+buRFwFj
+ 4pog==
+X-Gm-Message-State: ACgBeo2OWNH0injVqHMWJ0UB3p8obi7mgCVHF8wRfnuGjFzuJvP+9x3w
+ QxB5bGYdNUlEhIKjItIu+YLTWTI7EqhDM7dwmY4=
+X-Google-Smtp-Source: AA6agR4hdFqyla262W8KfIT3yQBtoLxqzkiOgW/wCs0v4B39MmJ531AMDzUo7qk6nK5dvApLfaM3skCfFWdSaFu4lZg=
 X-Received: by 2002:a9d:6ad7:0:b0:636:f76b:638a with SMTP id
- m23-20020a9d6ad7000000b00636f76b638amr8753947otq.233.1661867303321; Tue, 30
- Aug 2022 06:48:23 -0700 (PDT)
+ m23-20020a9d6ad7000000b00636f76b638amr8792615otq.233.1661868379637; Tue, 30
+ Aug 2022 07:06:19 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220829081752.1258274-1-lijo.lazar@amd.com>
- <CADnq5_O=3u1Z4kH_5A+UsynQ31Grh-=j=3+hPWo398kfMi411w@mail.gmail.com>
- <3b2a9a8f-dedf-2781-0023-d6bd64f16d65@amd.com>
-In-Reply-To: <3b2a9a8f-dedf-2781-0023-d6bd64f16d65@amd.com>
+References: <20220824150834.427572-1-contact@emersion.fr>
+ <20220824150834.427572-5-contact@emersion.fr>
+ <CADnq5_MX0Qh7v-Wy1nBhMEWT9bhmQn4W-2Wo97CZgKcby1Xc+w@mail.gmail.com>
+ <A_ZL55UlxqGGQnHrxTxvFZMCn1HkWbIuaZvtrOnir7mO6YCY8hhyYwjwKjv79SEEBLqbosVtxx0rVeCTso1RktRjY3ECNyLssw77of_D2sM=@emersion.fr>
+ <CADnq5_NMHWGOdW5Gfr4wK6o5j7PnYKW57Gg6UbbUJfnONdHY1w@mail.gmail.com>
+ <2uZ8U_CJxQ9zlnv1lIRhMtwKYU-uuOuhzef2hbvONDPGN-t9Pm4fSejJNLm3ThkJIj1ZkDZwizu49Xactvx-ykn-0Rc23CzsBUXe3Xg_-XI=@emersion.fr>
+In-Reply-To: <2uZ8U_CJxQ9zlnv1lIRhMtwKYU-uuOuhzef2hbvONDPGN-t9Pm4fSejJNLm3ThkJIj1ZkDZwizu49Xactvx-ykn-0Rc23CzsBUXe3Xg_-XI=@emersion.fr>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 30 Aug 2022 09:48:11 -0400
-Message-ID: <CADnq5_P0=+NNk2v_VOxyjOVSnY55SY=OX40xD5Bx6etspREnfA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/amdgpu: Move HDP remapping earlier during init
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Date: Tue, 30 Aug 2022 10:06:08 -0400
+Message-ID: <CADnq5_PX_d0hsoTSLsyZpEHg9hu33x8LhyLOGFMZRo0WWdKPvw@mail.gmail.com>
+Subject: Re: [PATCH 4/4] amd/display: indicate support for atomic async
+ page-flips on DCN
+To: Simon Ser <contact@emersion.fr>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,221 +69,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, stable@vger.kernel.org, tseewald@gmail.com,
- helgaas@kernel.org, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- sr@denx.de, Christian.Koenig@amd.com, Hawking.Zhang@amd.com
+Cc: daniel.vetter@ffwll.ch, amd-gfx@lists.freedesktop.org, mwen@igalia.com,
+ dri-devel@lists.freedesktop.org, alexander.deucher@amd.com, hwentlan@amd.com,
+ nicholas.kazlauskas@amd.com, joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 30, 2022 at 12:05 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
+On Tue, Aug 30, 2022 at 3:08 AM Simon Ser <contact@emersion.fr> wrote:
 >
+> On Friday, August 26th, 2022 at 16:39, Alex Deucher <alexdeucher@gmail.com> wrote:
 >
->
-> On 8/29/2022 10:20 PM, Alex Deucher wrote:
-> > On Mon, Aug 29, 2022 at 4:18 AM Lijo Lazar <lijo.lazar@amd.com> wrote:
-> >>
-> >> HDP flush is used early in the init sequence as part of memory control=
-ler
-> >> block initialization. Hence remapping of HDP registers needed for flus=
-h
-> >> needs to happen earlier.
-> >>
-> >> This also fixes the Unsupported Request error reported through AER dur=
-ing
-> >> driver load. The error happens as a write happens to the remap offset
-> >> before real remapping is done.
-> >>
-> >> Link: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D216373&amp;data=3D05%7C01%7Cl=
-ijo.lazar%40amd.com%7C0882d00080124386814a08da89de9bcd%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637973886457404198%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
-iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C=
-&amp;sdata=3DdC%2BCY22cfix1VCcQINrvNWI5XW%2BYV5lleJX3Ju9A6Iw%3D&amp;reserve=
-d=3D0
-> >>
-> >> The error was unnoticed before and got visible because of the commit
-> >> referenced below. This doesn't fix anything in the commit below, rathe=
-r
-> >> fixes the issue in amdgpu exposed by the commit. The reference is only
-> >> to associate this commit with below one so that both go together.
-> >>
-> >> Fixes: 8795e182b02d ("PCI/portdrv: Don't disable AER reporting in get_=
-port_device_capability()")
-> >>
-> >> Reported-by: Tom Seewald <tseewald@gmail.com>
-> >> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> >> Cc: stable@vger.kernel.org
+> > On Fri, Aug 26, 2022 at 3:38 AM Simon Ser <contact@emersion.fr> wrote:
+> > >
+> > > On Thursday, August 25th, 2022 at 20:22, Alex Deucher <alexdeucher@gmail.com> wrote:
+> > >
+> > > > On Wed, Aug 24, 2022 at 11:09 AM Simon Ser contact@emersion.fr wrote:
+> > > >
+> > > > > amdgpu_dm_commit_planes already sets the flip_immediate flag for
+> > > > > async page-flips. This flag is used to set the UNP_FLIP_CONTROL
+> > > > > register. Thus, no additional change is required to handle async
+> > > > > page-flips with the atomic uAPI.
+> > > > >
+> > > > > Note, async page-flips are still unsupported on DCE with the atomic
+> > > > > uAPI. The mode_set_base callbacks unconditionally set the
+> > > > > GRPH_SURFACE_UPDATE_H_RETRACE_EN field of the GRPH_FLIP_CONTROL
+> > > > > register to 0, which disables async page-flips.
+> > > >
+> > > > Can you elaborate a bit on this? We don't use hsync flips at all, even
+> > > > in non-atomic, as far as I recall. The hardware can also do immediate
+> > > > flips which take effect as soon as you update the base address
+> > > > register which is what we use for async updates today IIRC.
+> > >
+> > > When user-space performs a page-flip with the legacy KMS uAPI on DCE
+> > > ASICs, amdgpu_display_crtc_page_flip_target() is called. This function
+> > > checks for the DRM_MODE_PAGE_FLIP_ASYNC flag, sets work->async, which
+> > > is then passed as an argument to adev->mode_info.funcs->page_flip() by
+> > > amdgpu_display_flip_work_func(). Looking at an implementation, for
+> > > instance dce_v10_0_page_flip(), the async flag is used to set that
+> > > GRPH_FLIP_CONTROL register:
+> > >
+> > >         /* flip at hsync for async, default is vsync */
+> > >         tmp = RREG32(mmGRPH_FLIP_CONTROL + amdgpu_crtc->crtc_offset);
+> > >         tmp = REG_SET_FIELD(tmp, GRPH_FLIP_CONTROL,
+> > >                             GRPH_SURFACE_UPDATE_H_RETRACE_EN, async ? 1 : 0);
+> > >         WREG32(mmGRPH_FLIP_CONTROL + amdgpu_crtc->crtc_offset, tmp);
+> > >
+> > > I don't know how the hardware works, but I assumed it would be
+> > > necessary to do the same in the atomic uAPI code-path as well. However
+> > > dce_v10_0_crtc_do_set_base() has this code block:
+> > >
+> > >         /* Make sure surface address is updated at vertical blank rather than
+> > >          * horizontal blank
+> > >          */
+> > >         tmp = RREG32(mmGRPH_FLIP_CONTROL + amdgpu_crtc->crtc_offset);
+> > >         tmp = REG_SET_FIELD(tmp, GRPH_FLIP_CONTROL,
+> > >                             GRPH_SURFACE_UPDATE_H_RETRACE_EN, 0);
+> > >         WREG32(mmGRPH_FLIP_CONTROL + amdgpu_crtc->crtc_offset, tmp);
+> > >
+> > > Which unconditionally sets that same register.
+> > >
+> > > Either way, it's not a very big deal for this patch series, DCE and DCN
+> > > are separate, DCE can be sorted out separately.
+> > >
+> > > Am I completely mistaken here?
 > >
-> > How about something like the attached patch rather than these two
-> > patches?  It's a bit bigger but seems cleaner and more defensive in my
-> > opinion.
+> > I checked the code and it looks like only DCE11 and newer support
+> > immediate flips.  E.g.,
 > >
+> >         /* flip immediate for async, default is vsync */
+> >         tmp = RREG32(mmGRPH_FLIP_CONTROL + amdgpu_crtc->crtc_offset);
+> >         tmp = REG_SET_FIELD(tmp, GRPH_FLIP_CONTROL,
+> >                             GRPH_SURFACE_UPDATE_IMMEDIATE_EN, async ? 1 : 0);
+> >
+> > in dce_v11_0.c.
+> >
+> > Either way, the non-DC display code is not atomic anyway, so I don't
+> > think this is an issue.  We still support async flips via the
+> > non-atomic API.  I agree this is not blocking for the patch series,
+> > just thinking out loud mostly.
 >
-> Whenever device goes to suspend/reset and then comes back, remap offset
-> has to be set back to 0 to make sure it doesn't use the wrong offset
-> when the register assumes default values again.
+> Michel pointed out that DC can drive both DCN and DCE. This was a
+> misunderstanding on my end, I thought DC could only drive DCN. I'll reword the
+> commit message to refer to DC instead of DCN.
 >
-> To avoid the if-check in hdp_flush (which is more frequent), another way
-> is to initialize the remap offset to default offset during early init
-> and hw fini/suspend sequences. It won't be obvious (even with this
-> patch) as to when remap offset vs default offset is used though.
+> This begs the question, should we bother to set the
+> atomic_async_page_flip_not_supported flag on non-atomic drivers? I've just
+> slapped the flag everywhere for simplicity's sake, but maybe it would make more
+> sense to just set it for atomic-capable drivers. Especially if the long-term
+> goal is to convert all atomic drivers to support async flips and eventually
+> remove atomic_async_page_flip_not_supported.
 
-On resume, the common IP is resumed first so it will always be set.
-The only case that is a problem is init because we init GMC out of
-order.  We could init common before GMC in amdgpu_device_ip_init().  I
-think that should be fine, but I wasn't sure if there might be some
-fallout from that on certain cards.
+yeah, I think we can drop the flag for non-atomic.  amdgpu at least
+already supports async flips.
+
+>
+> Thanks for the hint regarding DCE10. It sounds like it may be worthwhile to
+> unset drm_mode_config.async_page_flip on DCE10 and earlier, to indicate to
+> user-space that async page-flips are not supported on these ASICs? Right now it
+> seems like we indicate that we support them, and then ignore the ASYNC_FLIP
+> flag?
+
+Async flips work fine with the current code.  I think I did the
+initial implementation on DCE10.  We set
+GRPH_SURFACE_UPDATE_H_RETRACE_EN dynamically in dce_v10_0_page_flip()
+based on the type of flip selected.
 
 Alex
-
->
-> Thanks,
-> Lijo
->
-> > Alex
-> >
-> >> ---
-> >> v2:
-> >>          Take care of IP resume cases (Alex Deucher)
-> >>          Add NULL check to nbio.funcs to cover older (GFXv8) ASICs (Fe=
-lix Kuehling)
-> >>          Add more details in commit message and associate with AER pat=
-ch (Bjorn
-> >> Helgaas)
-> >>
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 24 ++++++++++++++++++++=
-++
-> >>   drivers/gpu/drm/amd/amdgpu/nv.c            |  6 ------
-> >>   drivers/gpu/drm/amd/amdgpu/soc15.c         |  6 ------
-> >>   drivers/gpu/drm/amd/amdgpu/soc21.c         |  6 ------
-> >>   4 files changed, 24 insertions(+), 18 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_device.c
-> >> index ce7d117efdb5..e420118769a5 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >> @@ -2334,6 +2334,26 @@ static int amdgpu_device_init_schedulers(struct=
- amdgpu_device *adev)
-> >>          return 0;
-> >>   }
-> >>
-> >> +/**
-> >> + * amdgpu_device_prepare_ip - prepare IPs for hardware initialization
-> >> + *
-> >> + * @adev: amdgpu_device pointer
-> >> + *
-> >> + * Any common hardware initialization sequence that needs to be done =
-before
-> >> + * hw init of individual IPs is performed here. This is different fro=
-m the
-> >> + * 'common block' which initializes a set of IPs.
-> >> + */
-> >> +static void amdgpu_device_prepare_ip(struct amdgpu_device *adev)
-> >> +{
-> >> +       /* Remap HDP registers to a hole in mmio space, for the purpos=
-e
-> >> +        * of exposing those registers to process space. This needs to=
- be
-> >> +        * done before hw init of ip blocks to take care of HDP flush
-> >> +        * operations through registers during hw_init.
-> >> +        */
-> >> +       if (adev->nbio.funcs && adev->nbio.funcs->remap_hdp_registers =
-&&
-> >> +           !amdgpu_sriov_vf(adev))
-> >> +               adev->nbio.funcs->remap_hdp_registers(adev);
-> >> +}
-> >>
-> >>   /**
-> >>    * amdgpu_device_ip_init - run init for hardware IPs
-> >> @@ -2376,6 +2396,8 @@ static int amdgpu_device_ip_init(struct amdgpu_d=
-evice *adev)
-> >>                                  DRM_ERROR("amdgpu_vram_scratch_init f=
-ailed %d\n", r);
-> >>                                  goto init_failed;
-> >>                          }
-> >> +
-> >> +                       amdgpu_device_prepare_ip(adev);
-> >>                          r =3D adev->ip_blocks[i].version->funcs->hw_i=
-nit((void *)adev);
-> >>                          if (r) {
-> >>                                  DRM_ERROR("hw_init %d failed %d\n", i=
-, r);
-> >> @@ -3058,6 +3080,7 @@ static int amdgpu_device_ip_reinit_early_sriov(s=
-truct amdgpu_device *adev)
-> >>                  AMD_IP_BLOCK_TYPE_IH,
-> >>          };
-> >>
-> >> +       amdgpu_device_prepare_ip(adev);
-> >>          for (i =3D 0; i < adev->num_ip_blocks; i++) {
-> >>                  int j;
-> >>                  struct amdgpu_ip_block *block;
-> >> @@ -3139,6 +3162,7 @@ static int amdgpu_device_ip_resume_phase1(struct=
- amdgpu_device *adev)
-> >>   {
-> >>          int i, r;
-> >>
-> >> +       amdgpu_device_prepare_ip(adev);
-> >>          for (i =3D 0; i < adev->num_ip_blocks; i++) {
-> >>                  if (!adev->ip_blocks[i].status.valid || adev->ip_bloc=
-ks[i].status.hw)
-> >>                          continue;
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amd=
-gpu/nv.c
-> >> index b3fba8dea63c..3ac7fef74277 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> >> @@ -1032,12 +1032,6 @@ static int nv_common_hw_init(void *handle)
-> >>          nv_program_aspm(adev);
-> >>          /* setup nbio registers */
-> >>          adev->nbio.funcs->init_registers(adev);
-> >> -       /* remap HDP registers to a hole in mmio space,
-> >> -        * for the purpose of expose those registers
-> >> -        * to process space
-> >> -        */
-> >> -       if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(=
-adev))
-> >> -               adev->nbio.funcs->remap_hdp_registers(adev);
-> >>          /* enable the doorbell aperture */
-> >>          nv_enable_doorbell_aperture(adev, true);
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/=
-amdgpu/soc15.c
-> >> index fde6154f2009..a0481e37d7cf 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> >> @@ -1240,12 +1240,6 @@ static int soc15_common_hw_init(void *handle)
-> >>          soc15_program_aspm(adev);
-> >>          /* setup nbio registers */
-> >>          adev->nbio.funcs->init_registers(adev);
-> >> -       /* remap HDP registers to a hole in mmio space,
-> >> -        * for the purpose of expose those registers
-> >> -        * to process space
-> >> -        */
-> >> -       if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(=
-adev))
-> >> -               adev->nbio.funcs->remap_hdp_registers(adev);
-> >>
-> >>          /* enable the doorbell aperture */
-> >>          soc15_enable_doorbell_aperture(adev, true);
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/=
-amdgpu/soc21.c
-> >> index 55284b24f113..16b447055102 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> >> @@ -660,12 +660,6 @@ static int soc21_common_hw_init(void *handle)
-> >>          soc21_program_aspm(adev);
-> >>          /* setup nbio registers */
-> >>          adev->nbio.funcs->init_registers(adev);
-> >> -       /* remap HDP registers to a hole in mmio space,
-> >> -        * for the purpose of expose those registers
-> >> -        * to process space
-> >> -        */
-> >> -       if (adev->nbio.funcs->remap_hdp_registers)
-> >> -               adev->nbio.funcs->remap_hdp_registers(adev);
-> >>          /* enable the doorbell aperture */
-> >>          soc21_enable_doorbell_aperture(adev, true);
-> >>
-> >> --
-> >> 2.25.1
-> >>
