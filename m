@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6969BECAAD8
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 18:41:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD3F0ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 18:41:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 430FC10E399;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB69710E39A;
 	Tue, 30 Aug 2022 18:40:51 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2062.outbound.protection.outlook.com [40.107.92.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD1810E376
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 18:40:38 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2079.outbound.protection.outlook.com [40.107.244.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07CB310E37B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 18:40:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KkTG7P2sDRNBWfpM8AJbJdxirT37Ed9rY2vRcupCMftgbdWHf6Eb7lK9jda0hrF8mlTFnijKixMGaoYpz0UM5S2gqtu0UiRyUKaIT/yzRti9mRmDyUsBq76o2SLBjJR2N4lRRkuotRp8nUBehvzcHGzQiRXVTlHnDMI+XTqzTUanCksSaecA+OElqIzJSAZMmDfX6CnPPPhu4p7KopL1ciDYBdZrbm1V8H1bS4mPn6d45V+dXtdvCu0MG7bsxMd7AcWiFxIwVb+YsXOzG8VrVfLv96V8JZ7K54dsb6xUT0twv6xanCIXar0pGN5mtFiXv1ffuwV50TqJ3wYh4eMh4g==
+ b=G/JwEY1ShRRMMSS4Qe2VeknisYzGft1TT+S5t50UinT9CRt/8oMyRjGLLMtArK50F+Rpl0DzLMlu7vVKWGnjcUjCOCcsvOj8X0Ljmng/NSIQiSLhIUbTAgV/2La5X8tCc8x2E0poUWU9Yr46EEa6uxvO8Z49BVhBZHJflk6qJXBDnUExCdQYz9fihcaKg9I64EBv3NXuOYfPrvr0ALr9inHanoKd8bnchhVnfHQU1qgolaY5pyPW9fFWegg96jqIs+nSl9MO7QNHp7v1mwEBacO5/ceilAle7sUFXZHdgD0LTaJ1gTsOi1womvWY6q54gZqG9ZQA9+5CkU9hMDnH/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wqEz/Ooxxcz7P76xI1mHi1GR1hJWtxKezaz79eIu4U0=;
- b=JVI4pTbHFlBOaq/MtajK6PlpnzzIjdHwiefPaK1TFct9+QCCAKlrTWxdcfBdG4+iOLVcC5S1G9UrlASO05zOvR9gTNFlK/s1k9m1mJDlqtjnG/5QHlYbna1R5z2bqEyyrfnjiM/QalE3lAqYx3dPbaU4JgnZgiRu83SiuH2Qv9kkPcdIsvDVMIMRza+UIFJ8Ak6qzhBggP4GtuciwdfdW7+F82QsFKwQGb3o25T1q4KW9HroCUhuJKAApQku7FHV8T+orVq1EzqsKeUzsRCKfudDI6jMmHafT318JMdIFY26cilcnYkWXt5s9qYi/l2RQ2AnJAeK/QocNCHgw84XWQ==
+ bh=0MWLkSvXqWSD33+rQsTqNyrLlQgU/b0yNb/Q5rQXWnM=;
+ b=EwgxHD7Vv1LwALb6dYklXeDR26L8oiKcdtLls9JyF/5W3Dr8JVg/6XtDKR1fmXUchBQtoRfYDTR7IZqTvoeJY40N+NEC4bLTPAIG1d5uocEJAu1UekhUXY4VjCLo7Bo384dwVSXOcKKuqoOUNO2ym0fqFTsDOVuZ0nRuUJnex4ElPxRwVe/aQJYmpqLTQpxxSXkYF3p3TXewJgrZCKno7zpdoh8j1Pdhiw6vK3cUR7d8+PkK3aK8O022Sz/QeRxoywaw4+Ic4EYevhCrXKUxBIavdXLwZ308xSVS4xe+uoewLxh0J97G3KXtLk0nU+ErHqBEy1h8we2qDnVt+iPJzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wqEz/Ooxxcz7P76xI1mHi1GR1hJWtxKezaz79eIu4U0=;
- b=vi2Gt1FBdD7naDQdubs3pQ2VWFtHEb2ODcbd7q7tlprj9Z6H/xZgxhAgv8sShWMua52P7YjwBVQ7wrsokxRK7M6s17DaU42EAt4WE4e/XmZ/5wkAvG0OaP7bOx/0zpkNHgxfQxRCyvNZosbeBPIDKXbDCUwJ3n4LMlAqCbP0NE0=
-Received: from DM6PR02CA0078.namprd02.prod.outlook.com (2603:10b6:5:1f4::19)
- by BY5PR12MB4902.namprd12.prod.outlook.com (2603:10b6:a03:1dd::9) with
+ bh=0MWLkSvXqWSD33+rQsTqNyrLlQgU/b0yNb/Q5rQXWnM=;
+ b=1ZSV22BhAvCdfMVSqwsa+Ae5H8Upbu5AsyBzv+ZZo+sHl+1PwoZYNtKpdkhtGU4wtZB8Y/YOTz+Q1qRCDP9ILEbSDSsjZ92Kt+PGWdNihxUyOZTcnwaVOzfHRRmP528HU/hWGgyHVhXJq96HqksjPFRlyR6eYDu3sd6c30rarfM=
+Received: from DM6PR02CA0050.namprd02.prod.outlook.com (2603:10b6:5:177::27)
+ by IA1PR12MB6411.namprd12.prod.outlook.com (2603:10b6:208:388::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Tue, 30 Aug
- 2022 18:40:30 +0000
-Received: from DM6NAM11FT113.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1f4:cafe::6b) by DM6PR02CA0078.outlook.office365.com
- (2603:10b6:5:1f4::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.21; Tue, 30 Aug
+ 2022 18:40:38 +0000
+Received: from DM6NAM11FT096.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:177:cafe::c0) by DM6PR02CA0050.outlook.office365.com
+ (2603:10b6:5:177::27) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15 via Frontend
- Transport; Tue, 30 Aug 2022 18:40:29 +0000
+ Transport; Tue, 30 Aug 2022 18:40:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT113.mail.protection.outlook.com (10.13.173.5) with Microsoft SMTP
+ DM6NAM11FT096.mail.protection.outlook.com (10.13.173.145) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5588.10 via Frontend Transport; Tue, 30 Aug 2022 18:40:29 +0000
+ 15.20.5588.10 via Frontend Transport; Tue, 30 Aug 2022 18:40:38 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 30 Aug
- 2022 13:40:27 -0500
+ 2022 13:40:34 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 05/19] drm/amdgpu: refine virtualization psp fw skip check
-Date: Tue, 30 Aug 2022 14:39:58 -0400
-Message-ID: <20220830184012.1825313-5-alexander.deucher@amd.com>
+Subject: [PATCH 19/19] drm/amdgpu/vcn: Add MMSCH v4_0 support for sriov
+Date: Tue, 30 Aug 2022 14:40:12 -0400
+Message-ID: <20220830184012.1825313-19-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220830184012.1825313-1-alexander.deucher@amd.com>
 References: <20220830184012.1825313-1-alexander.deucher@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d5194181-b2a6-49af-b4a8-08da8ab71d14
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4902:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3662591e-fb9e-4832-c71c-08da8ab7221e
+X-MS-TrafficTypeDiagnostic: IA1PR12MB6411:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kFMAAd+epzIz6Oyu77hCxmOG9QkCnAdfHJSXdP9Dd9IA7udpYB6nsRCW31gzaOa3c+n0fAkRWrS/sgdZJCvEmECmr4sC6t9j2zEDv/oh6dON1BuhFyqn50vB/Vc+u/vPttQ49b+0fLl1gwMm8L9vXKRzdJBBfeujZjTMXBIVsvjLkPghwDuRXskg3Mswu0iO2X4ASTDaIiXkB0X444QX9bYqbAxp80DpQYXa8RhWMy9oXZACnpIjU01lr3WIkGwbirpHsFcRidj0ngxWieJHY3rrHlLMyVK59HqjpNcULxTnL4RvELS0SWGKb6tEHwa1d/rDF5fUNeAxT17OdhyHEKwgXLj+mURib5A1oHrTPq+7KTYkk+UXCn6wsavHVzNiWDSFKYFjM0+kh/aEVGxvNS5qXpUArDdqP1v44WDXZy7w5KTvL+MqO8he33uJDwZFwH6OAhRfOYmOP/aIG1yxwt136H9V5rhqbegoimALbtQS41Gm/dmLbWIPAwuRG2deVQRYfQSRBttWoavgLtMV5NZtpMKHHPuu2BJY55+pO2wpo26ODCw5e6h88lNrdvLvH7uwGzeqbqZQEJu1SxQPY01PvUzQXZsnDWK3oG4Een/mNM0iQyJwVCrxwA1sDPsg0ss1DypwHLtdT5amigCr4QeK73KKL9NhBiC9RKDDb9rBd40EMBkxVCukhzM1Wqcr6FSRNCbrqp7xjw/2h9rfE5U7s8HIzt0L8xSZTwO6EqcGW4JxVOzWcOwaQdKvwWPO32/1WSbGFVzDJl0kV7VnSJXg5WfBCA5EYvy+NUWSF31B1eLDuFhPNrjiEYqt+oSv
+X-Microsoft-Antispam-Message-Info: wsajTx/xLyw8oIM6sx1o1+Vk9d7ndUDwJipdBP4r0VlWqVny1gTGIxL/MFNAVtURdz8ntP0Q2husO7tkpu+0w3XU5wwusdnBYbrpBZRkbCderlp5UK33DPpYud8fRa4YfrVKYVAe1/bNjj7IUTFHfQbp15krJin82uvaU6Vh9Y8cTEFseYMEAncaIpfaYcEAGLOWDUqdP6hhzyTZKAM+4k/Fb4T2yAXMEb3oJ7q0uEN+9HU6Vq8Z31HtkpK21AR0pX9XQj8pB8JF+TkuzgqKdp99jBeD+3xOYSX5q1EFyVTVUqJ/ZNUat9X//WZz43H6SP2hh9E9kakZ+7h5wd4GWf+aTLAIRkVJUxzE6NT2CRm7q4gP8njRzSb24B6go9B3fuumahl9qteahmqJTqBzJ/0IujXOFw0ei7P5GhUvEn4mcOEwXplYdF+KDskqu3HChA4MWvY5XwY1ztpXS2ug1B+kXyKJQyhsBvEjYO9AZVJgV46BVKNcEsAhXipLzLPqrH6bJNHrI8l0G9hljjbt+3LcouAU2CQxzL/mucjKHIZHweMHLwMnsqZq/pS8/FNc1NSg/E4bTUDxawpZpO58wqhFI7ZetD03AQGN9S3zAO7hgHg1Nwa18i6d+dannnpYIb+v2HD8U3bPmEYjjCZMj4aT/ZIbroJiTP2SKrGDRhuO7mNr0Fvs9Ny+aoVvBoVK+0+LFOzG9Jpv6d6eBvuMQ1/4PmuTtt9a/5BOciYTS9+5qsjK+O/J4tResXyVfRguQzz+azzXtbjkghvfIZOG0RjZtzOJfoyqX1l/cKAi7sCXObNULOt30eooM6wJlUVn
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(39860400002)(136003)(376002)(346002)(36840700001)(46966006)(40470700004)(36860700001)(356005)(40460700003)(82740400003)(40480700001)(86362001)(54906003)(81166007)(4326008)(82310400005)(8676002)(70206006)(70586007)(5660300002)(478600001)(8936002)(41300700001)(186003)(2616005)(316002)(6916009)(16526019)(336012)(1076003)(426003)(47076005)(2906002)(26005)(83380400001)(6666004)(7696005)(36756003)(36900700001);
+ SFS:(13230016)(4636009)(39860400002)(396003)(136003)(376002)(346002)(46966006)(36840700001)(40470700004)(1076003)(336012)(426003)(356005)(16526019)(36860700001)(186003)(2616005)(6916009)(83380400001)(2906002)(316002)(54906003)(4326008)(70586007)(70206006)(47076005)(5660300002)(8676002)(478600001)(26005)(7696005)(6666004)(8936002)(40460700003)(40480700001)(41300700001)(81166007)(82310400005)(36756003)(86362001)(82740400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2022 18:40:29.6953 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5194181-b2a6-49af-b4a8-08da8ab71d14
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2022 18:40:38.0718 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3662591e-fb9e-4832-c71c-08da8ab7221e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT113.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT096.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4902
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6411
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,117 +99,171 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Horace Chen <horace.chen@amd.com>,
+Cc: Alex Deucher <alexander.deucher@amd.com>, Jane Jian <Jane.Jian@amd.com>,
  Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Horace Chen <horace.chen@amd.com>
+From: Jane Jian <Jane.Jian@amd.com>
 
-SR-IOV may need to load different firmwares for different ASIC inside
-VF.
-So create a new function in amdgpu_virt to check whether FW load needs
-to be skipped.
+These structures are basically ported from MMSCH v3_0,
+besides, added RB and RB4 enablement flag to support
+unified queue
 
-Signed-off-by: Horace Chen <horace.chen@amd.com>
+Signed-off-by: Jane Jian <Jane.Jian@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  | 17 +++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 29 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |  2 ++
- 3 files changed, 34 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mmsch_v4_0.h | 140 ++++++++++++++++++++++++
+ 1 file changed, 140 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/mmsch_v4_0.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index b007371df59c..d00a9fe542bf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -340,11 +340,12 @@ static int psp_init_sriov_microcode(struct psp_context *psp)
- 		ret = psp_init_cap_microcode(psp, "aldebaran");
- 		ret &= psp_init_ta_microcode(psp, "aldebaran");
- 		break;
-+	case IP_VERSION(13, 0, 0):
-+		break;
- 	default:
- 		BUG();
- 		break;
- 	}
--
- 	return ret;
- }
- 
-@@ -2412,19 +2413,7 @@ static bool fw_load_skip_check(struct psp_context *psp,
- 		return true;
- 
- 	if (amdgpu_sriov_vf(psp->adev) &&
--	   (ucode->ucode_id == AMDGPU_UCODE_ID_SDMA0
--	    || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA1
--	    || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA2
--	    || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA3
--	    || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA4
--	    || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA5
--	    || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA6
--	    || ucode->ucode_id == AMDGPU_UCODE_ID_SDMA7
--	    || ucode->ucode_id == AMDGPU_UCODE_ID_RLC_G
--	    || ucode->ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_CNTL
--	    || ucode->ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_GPM_MEM
--	    || ucode->ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM
--	    || ucode->ucode_id == AMDGPU_UCODE_ID_SMC))
-+	    amdgpu_virt_fw_load_skip_check(psp->adev, ucode->ucode_id))
- 		/*skip ucode loading in SRIOV VF */
- 		return true;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 0707e4338e65..79f1e37caaec 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -809,6 +809,35 @@ enum amdgpu_sriov_vf_mode amdgpu_virt_get_sriov_vf_mode(struct amdgpu_device *ad
- 	return mode;
- }
- 
-+bool amdgpu_virt_fw_load_skip_check(struct amdgpu_device *adev, uint32_t ucode_id)
-+{
-+	/* this version doesn't support sriov autoload */
-+	if (adev->ip_versions[MP0_HWIP][0] == IP_VERSION(13, 0, 0)) {
-+		if (ucode_id == AMDGPU_UCODE_ID_VCN1 ||
-+		    ucode_id == AMDGPU_UCODE_ID_VCN)
-+			return false;
-+		else
-+			return true;
-+	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmsch_v4_0.h b/drivers/gpu/drm/amd/amdgpu/mmsch_v4_0.h
+new file mode 100644
+index 000000000000..f772bb499f3e
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/mmsch_v4_0.h
+@@ -0,0 +1,140 @@
++/*
++ * Copyright 2022 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
 +
-+	if (ucode_id == AMDGPU_UCODE_ID_SDMA0
-+	    || ucode_id == AMDGPU_UCODE_ID_SDMA1
-+	    || ucode_id == AMDGPU_UCODE_ID_SDMA2
-+	    || ucode_id == AMDGPU_UCODE_ID_SDMA3
-+	    || ucode_id == AMDGPU_UCODE_ID_SDMA4
-+	    || ucode_id == AMDGPU_UCODE_ID_SDMA5
-+	    || ucode_id == AMDGPU_UCODE_ID_SDMA6
-+	    || ucode_id == AMDGPU_UCODE_ID_SDMA7
-+	    || ucode_id == AMDGPU_UCODE_ID_RLC_G
-+	    || ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_CNTL
-+	    || ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_GPM_MEM
-+	    || ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM
-+	    || ucode_id == AMDGPU_UCODE_ID_SMC)
-+		return true;
++#ifndef __MMSCH_V4_0_H__
++#define __MMSCH_V4_0_H__
 +
-+	return false;
++#include "amdgpu_vcn.h"
++
++#define MMSCH_VERSION_MAJOR	4
++#define MMSCH_VERSION_MINOR	0
++#define MMSCH_VERSION	(MMSCH_VERSION_MAJOR << 16 | MMSCH_VERSION_MINOR)
++
++#define RB_ENABLED (1 << 0)
++#define RB4_ENABLED (1 << 1)
++#define MMSCH_DOORBELL_OFFSET 0x8
++
++#define MMSCH_VF_ENGINE_STATUS__PASS 0x1
++
++#define MMSCH_VF_MAILBOX_RESP__OK 0x1
++#define MMSCH_VF_MAILBOX_RESP__INCOMPLETE 0x2
++
++enum mmsch_v4_0_command_type {
++	MMSCH_COMMAND__DIRECT_REG_WRITE = 0,
++	MMSCH_COMMAND__DIRECT_REG_POLLING = 2,
++	MMSCH_COMMAND__DIRECT_REG_READ_MODIFY_WRITE = 3,
++	MMSCH_COMMAND__INDIRECT_REG_WRITE = 8,
++	MMSCH_COMMAND__END = 0xf
++};
++
++struct mmsch_v4_0_table_info {
++	uint32_t init_status;
++	uint32_t table_offset;
++	uint32_t table_size;
++};
++
++struct mmsch_v4_0_init_header {
++	uint32_t version;
++	uint32_t total_size;
++	struct mmsch_v4_0_table_info inst[AMDGPU_MAX_VCN_INSTANCES];
++	struct mmsch_v4_0_table_info jpegdec;
++};
++
++struct mmsch_v4_0_cmd_direct_reg_header {
++	uint32_t reg_offset   : 28;
++	uint32_t command_type : 4;
++};
++
++struct mmsch_v4_0_cmd_indirect_reg_header {
++	uint32_t reg_offset    : 20;
++	uint32_t reg_idx_space : 8;
++	uint32_t command_type  : 4;
++};
++
++struct mmsch_v4_0_cmd_direct_write {
++	struct mmsch_v4_0_cmd_direct_reg_header cmd_header;
++	uint32_t reg_value;
++};
++
++struct mmsch_v4_0_cmd_direct_read_modify_write {
++	struct mmsch_v4_0_cmd_direct_reg_header cmd_header;
++	uint32_t write_data;
++	uint32_t mask_value;
++};
++
++struct mmsch_v4_0_cmd_direct_polling {
++	struct mmsch_v4_0_cmd_direct_reg_header cmd_header;
++	uint32_t mask_value;
++	uint32_t wait_value;
++};
++
++struct mmsch_v4_0_cmd_end {
++	struct mmsch_v4_0_cmd_direct_reg_header cmd_header;
++};
++
++struct mmsch_v4_0_cmd_indirect_write {
++	struct mmsch_v4_0_cmd_indirect_reg_header cmd_header;
++	uint32_t reg_value;
++};
++
++#define MMSCH_V4_0_INSERT_DIRECT_RD_MOD_WT(reg, mask, data) { \
++	size = sizeof(struct mmsch_v4_0_cmd_direct_read_modify_write); \
++	size_dw = size / 4; \
++	direct_rd_mod_wt.cmd_header.reg_offset = reg; \
++	direct_rd_mod_wt.mask_value = mask; \
++	direct_rd_mod_wt.write_data = data; \
++	memcpy((void *)table_loc, &direct_rd_mod_wt, size); \
++	table_loc += size_dw; \
++	table_size += size_dw; \
 +}
 +
- void amdgpu_virt_update_sriov_video_codec(struct amdgpu_device *adev,
- 			struct amdgpu_video_codec_info *encode, uint32_t encode_array_size,
- 			struct amdgpu_video_codec_info *decode, uint32_t decode_array_size)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-index 239f232f9c02..cd6fce05978f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -343,4 +343,6 @@ void amdgpu_sriov_wreg(struct amdgpu_device *adev,
- 		       u32 acc_flags, u32 hwip);
- u32 amdgpu_sriov_rreg(struct amdgpu_device *adev,
- 		      u32 offset, u32 acc_flags, u32 hwip);
-+bool amdgpu_virt_fw_load_skip_check(struct amdgpu_device *adev,
-+			uint32_t ucode_id);
- #endif
++#define MMSCH_V4_0_INSERT_DIRECT_WT(reg, value) { \
++	size = sizeof(struct mmsch_v4_0_cmd_direct_write); \
++	size_dw = size / 4; \
++	direct_wt.cmd_header.reg_offset = reg; \
++	direct_wt.reg_value = value; \
++	memcpy((void *)table_loc, &direct_wt, size); \
++	table_loc += size_dw; \
++	table_size += size_dw; \
++}
++
++#define MMSCH_V4_0_INSERT_DIRECT_POLL(reg, mask, wait) { \
++	size = sizeof(struct mmsch_v4_0_cmd_direct_polling); \
++	size_dw = size / 4; \
++	direct_poll.cmd_header.reg_offset = reg; \
++	direct_poll.mask_value = mask; \
++	direct_poll.wait_value = wait; \
++	memcpy((void *)table_loc, &direct_poll, size); \
++	table_loc += size_dw; \
++	table_size += size_dw; \
++}
++
++#define MMSCH_V4_0_INSERT_END() { \
++	size = sizeof(struct mmsch_v4_0_cmd_end); \
++	size_dw = size / 4; \
++	memcpy((void *)table_loc, &end, size); \
++	table_loc += size_dw; \
++	table_size += size_dw; \
++}
++
++#endif
 -- 
 2.37.1
 
