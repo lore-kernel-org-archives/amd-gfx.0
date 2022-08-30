@@ -4,40 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44D8BC0502E
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 12:40:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CCD3C0502A
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 12:59:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E77210E0B0;
-	Tue, 30 Aug 2022 12:40:47 +0000 (UTC)
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AA1610E0D3
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 12:40:44 +0000 (UTC)
-Date: Tue, 30 Aug 2022 12:40:25 +0000
-Authentication-Results: mail-4321.protonmail.ch;
- dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
- header.b="b8+R0etH"
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE4BC10E0C4;
+	Tue, 30 Aug 2022 12:59:06 +0000 (UTC)
+Received: from mail-4317.proton.ch (mail-4317.proton.ch [185.70.43.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB6210E0BF;
+ Tue, 30 Aug 2022 12:58:59 +0000 (UTC)
+Date: Tue, 30 Aug 2022 12:58:49 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail3; t=1661863237; x=1662122437;
- bh=DDbZLxUGQM7NWlbvoEw0MpflTyUXJRXOoSiImLqawyc=;
+ s=protonmail3; t=1661864337; x=1662123537;
+ bh=JbJ8pny8WkXF+APpWNNDBSQ1nzirbBno8I1tYwCiudk=;
  h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
  References:Feedback-ID:From:To:Cc:Date:Subject:Reply-To:
  Feedback-ID:Message-ID;
- b=b8+R0etHiVQ47UyxJGAVTJwk9o0OKpH5QH5m3VAroVXPEJVxIbe5yHtaLrbN7CeGt
- 15Aygl6Gl82pSXfmr/puIzdZiKO7RkqjonUecglgsOW56xFjOkNuKc+ODGr88roUqW
- B4Ego5bM9RxWzqbl/bwQoI/p/t7YRgCucRRe2W3DZlrxp/9GuWKCExq1ZOSUfTUtVO
- tC8afGtIgOn0kUoO/nrI+4+n1YI2cHQo2sU83VGbsquJMDFhy+GPMWiXUuX8as58RF
- SgvfeDlJp96jf/2Sp8jCFtPwP1i3wP6/9D0vTSqqDtl1XhSBNQabYBwZgg+rauYFfD
- Oq/VT22C3UyTw==
-To: =?utf-8?Q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+ b=QHa5bdYVErtJQJIPVUSczJuIzaH2i8OleeuHTi6gw6EdDCltSbUhHW5bOJpKsnVIk
+ s3gQ48uLHseOE87Pi3SfGSEdD4bjYyL3uewjrHvB3viTMgBA2w7923nsVPUb1uzLbb
+ v/utRlVWaQeY9fzrpegr2w1uZMEPkcMiKXUr1JOYQI2qyE9sWv6ftIMlngnPYQ8plu
+ f4ketQ++kFLy/RAf+JuwZUsY/xLRLC8iBUqMYRwfQxOmjhgip3qZvmmWMPP3pc9L9k
+ 19PFpk7goWNft763nbO27GKZbqovX3rlnWpGi8h5Qrmdti/MTwtACAxY0yUVApu/rL
+ MnzWEiUvrCUxg==
+To: =?utf-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
 From: Simon Ser <contact@emersion.fr>
 Subject: Re: [PATCH 3/4] drm: introduce DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP
-Message-ID: <GuBTyEijVU0rrtfv9-VMzLYX-q8f4kGYQIEEngcvH-c5r1uYBQNJCeLEMpr7BTMrnUkpuJtNww5USab5xAAAHJShH5feJhuOnvyNkuxBulk=@emersion.fr>
-In-Reply-To: <Yw3lcjg0yQ+R1CUV@intel.com>
+Message-ID: <fuMqV8ApgDP5KbyvpvUtqTrigZjHfbW14uWyOuphpw8cSl39nUUWgtyTLbfC32BKFiKD-NcmydNkJQAZ9Q5nb0nz7gkiXth2HQyOsRI0Lj8=@emersion.fr>
+In-Reply-To: <f7465260-5f5b-44da-4119-7bae9c8e9c8d@mailbox.org>
 References: <20220824150834.427572-1-contact@emersion.fr>
  <20220824150834.427572-4-contact@emersion.fr> <YwiB/xQf6Z6ScU+Z@intel.com>
  <mCt6wEhtsKHH_vfQEi0RwUQspNiKfFez4v8ZWlMW-sqZ5xaiUqMpRCF7na84A2nOLw5MA59fQ6IWddLCAg76XwWagCYMthzTLKLPQ9m0MfI=@emersion.fr>
- <Yw3FdhzAst1RRPxy@intel.com> <20220830114010.3ea02874@eldfell>
- <Yw3lcjg0yQ+R1CUV@intel.com>
+ <f7465260-5f5b-44da-4119-7bae9c8e9c8d@mailbox.org>
 Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -54,32 +50,51 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: Simon Ser <contact@emersion.fr>
-Cc: daniel.vetter@ffwll.ch, amd-gfx@lists.freedesktop.org, mwen@igalia.com,
- Pekka Paalanen <ppaalanen@gmail.com>, dri-devel@lists.freedesktop.org,
- alexander.deucher@amd.com, hwentlan@amd.com, nicholas.kazlauskas@amd.com,
- joshua@froggi.es
+Cc: daniel.vetter@ffwll.ch, dri-devel@lists.freedesktop.org, mwen@igalia.com,
+ Pekka Paalanen <ppaalanen@gmail.com>, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com, joshua@froggi.es, hwentlan@amd.com,
+ nicholas.kazlauskas@amd.com,
+ =?utf-8?Q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, August 30th, 2022 at 12:24, Ville Syrj=C3=A4l=C3=A4 <ville.syrj=
-ala@linux.intel.com> wrote:
+(Oops, I replied to the wrong thread. Re-sending to the correct one.)
 
-> > > The current behaviour is to fall back to a blit if the async
-> > > flip fails. So you still get the same effective behaviour, just
-> > > not as efficient. I think that's a reasonable way to handle it.
+On Tuesday, August 30th, 2022 at 10:41, Michel D=C3=A4nzer <michel.daenzer@=
+mailbox.org> wrote:
+
+> > For the atomic uAPI, we need to pick on of these two approaches:
 > >
-> > That's purely an Xorg thing, right?
->=20
-> Yes.
->=20
-> >
-> > Should Wayland compositors implement the same thing is a good question.
->=20
-> Is the whole tear+wayland situation more or less up in the air still?
+> > 1. Let the kernel fall back to a sync flip if async isn't possible. Thi=
+s
+> >    simplifies user-space, but then user-space has no reliable way to fi=
+gure out
+> >    what really happened (sync or async?). That could be fixed with a ne=
+w
+> >    read-only CRTC prop indicating whether the last flip was async or no=
+t.
+> >    However, maybe someone will come up in the future with user-space wh=
+ich
+> >    needs to only apply an update if async flip is possible, in which ca=
+se this
+> >    approach falls short.
+>
+> The future is now. :)
+>
+> As I described in the documentation patch discussion, this approach would
+> make it tricky for a Wayland compositor to decide if it should use an asy=
+nc
+> commit (which needs to be done ASAP to serve the intended purpose) or not=
+ (in
+> which case the compositor may want to delay the commit as long as possibl=
+e
+> for minimal latency).
 
-The goal of the patches I'm sending is to allow Wayland compositors to requ=
-est
-tearing. We also have a WIP protocol extension for this [1].
+Ah right. If an async page-flip is not possible, then a Wayland compositor
+could want to wait the "last moment" before the next vblank to see if a mor=
+e
+up-to-date buffer is available.
 
-[1]: https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_reque=
-sts/65
+With that + Xorg usage, I think we have a rather solid case for failing asy=
+nc
+flips rather than silently falling back to vsync.
