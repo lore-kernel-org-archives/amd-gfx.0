@@ -4,53 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98D9DC0502A
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 10:25:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F31C3ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 12:06:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E632810E036;
-	Tue, 30 Aug 2022 10:24:59 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8704D10E03C;
- Tue, 30 Aug 2022 10:24:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661855095; x=1693391095;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=vc8EYhBabDVVrEr7edEFg8rZ/DE5ATRDpst+3e1qrn4=;
- b=Dl5U1lEKt/OSWBXenYdOSL/58f3rAsdc9W2Cjzs+L4+ObLvuj6HGOPvi
- nMfAQ24laT2JXYD0rLfGt7uFQJsMaeyuqFTQClU+LK46j78hESaGuMagV
- zUQ9RrSiww0WnXcJraXCl6z9Y/V7BZBu8m4ShwhBQwBR8VgYzk6A1niJ4
- MwgyvFyxSznRHOpHZmAA6Km76GmmZjtTRXwitO7JtAqPJD0Tcuof8hgd3
- Q+HZESWDTZZ5CscPtDRmJS1I2yicAFxsCGm9inHom5H/MBnyWcxWA7r+L
- 1v/m36ET8RURa1O7d9EfpusH2nDPDaUQKzqHsLVsqPZxKCyH6/cKhMzyp g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="292717210"
-X-IronPort-AV: E=Sophos;i="5.93,274,1654585200"; d="scan'208";a="292717210"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2022 03:24:55 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,274,1654585200"; d="scan'208";a="715251124"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga002.fm.intel.com with SMTP; 30 Aug 2022 03:24:51 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 30 Aug 2022 13:24:50 +0300
-Date: Tue, 30 Aug 2022 13:24:50 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Pekka Paalanen <ppaalanen@gmail.com>
-Subject: Re: [PATCH 3/4] drm: introduce DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP
-Message-ID: <Yw3lcjg0yQ+R1CUV@intel.com>
-References: <20220824150834.427572-1-contact@emersion.fr>
- <20220824150834.427572-4-contact@emersion.fr>
- <YwiB/xQf6Z6ScU+Z@intel.com>
- <mCt6wEhtsKHH_vfQEi0RwUQspNiKfFez4v8ZWlMW-sqZ5xaiUqMpRCF7na84A2nOLw5MA59fQ6IWddLCAg76XwWagCYMthzTLKLPQ9m0MfI=@emersion.fr>
- <Yw3FdhzAst1RRPxy@intel.com> <20220830114010.3ea02874@eldfell>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11E3F10E07E;
+	Tue, 30 Aug 2022 12:06:16 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B704810E07E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 12:06:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HPtZP4Vg0ZDI2xogVKriOxlHo5pCot5p2uigtToZGCRdI/lLVASviSSP9gh8ybp/vNmmjD9tHTe5u0OazJqRfJhdzOaH1kaEDSQFlg1RZCaTmT6lvfsbnpQNUgaajf6TM1GBVj781yjX4Nt2xy7LZGaqEmkEsxRWL6k3jh1+roziCdIZk0Tcx/VIHrjUOqwVmT4cgTVNpwhluyxGVmpDNr1nnPw70cNudd1XvT/JOhOd/sRQ2QCyQMW9z79z8aDzbKDgb3aO7f/DW41+UgyDkwf+p2qbVbhsq/Ywdq1bdyFegLd7/WMdqAxjY4ZU3H+/xNuIAZKUbe7VXNTRrnMxMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=raDul8X78qbIjA0G2kHfFdf+Mg/aQspWnFO/mXtcMf8=;
+ b=Nd5hPxtVT5DbiL+12FSvPbpgiC5dp6cR4oEIwvJscrJyShE5JuPJX/tXFwOnuzA5NHIar2ok0KFnVIjOyX0Nfzj90ZwJUim1y2eU6OGuvAJfKva3X3eeY4htdaAYa7lS2XbPtPPuX6KTl7I9m+DASsVigfeS7xqbituai9KxqzZ6jO8ECWImrSThEmde9pe2Wy58QpyEOQ4SOf95/gWsm+wh9TpIqi49YipHW7aw1OjW/nW5Ce1ur+nD1KqHBpuLtGNNl+il99A8vmHwXbGg60QvGAwo8DfEHd6XtcdoK1ObW1pGjwh6Pc3zufilt92kixsvYkgbeHqPFIpiK7o3kQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
+ is 165.204.84.17)
+ smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=raDul8X78qbIjA0G2kHfFdf+Mg/aQspWnFO/mXtcMf8=;
+ b=xyNy95mdESrB5Na2J3GwjEPtWy91SiO/a3CRUSgo8V6G5/jb9+MsPHsmLxk07UVTFa1zvmPnx343RCEqWJ/G1AWW9GbwtsFAprIYQjkDkTgTzKD7NlkM559bECziNFAhHj04N3hY+rimLFZnpK6wJigH0gdG/i6kkLcFkVNTRQA=
+Received: from BN9PR03CA0660.namprd03.prod.outlook.com (2603:10b6:408:13b::35)
+ by SN7PR12MB6888.namprd12.prod.outlook.com (2603:10b6:806:260::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.16; Tue, 30 Aug
+ 2022 12:06:10 +0000
+Received: from BN8NAM11FT021.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13b:cafe::86) by BN9PR03CA0660.outlook.office365.com
+ (2603:10b6:408:13b::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15 via Frontend
+ Transport; Tue, 30 Aug 2022 12:06:10 +0000
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=temperror action=none header.from=amd.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of amd.com: DNS Timeout)
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT021.mail.protection.outlook.com (10.13.177.114) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5566.15 via Frontend Transport; Tue, 30 Aug 2022 12:06:09 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 30 Aug
+ 2022 07:06:07 -0500
+From: Ma Jun <Jun.Ma2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amd/display: Remove redundant reference of the header file
+Date: Tue, 30 Aug 2022 20:05:53 +0800
+Message-ID: <20220830120553.1482014-1-Jun.Ma2@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220830114010.3ea02874@eldfell>
-X-Patchwork-Hint: comment
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 24cefd3a-d550-4206-796f-08da8a800670
+X-MS-TrafficTypeDiagnostic: SN7PR12MB6888:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xImAUAikI8fVNf0XNdMp4XeoYDPDho5CiP+3rJHftGQ27JPtVqjnAMtpsuRUZzeVHT3GE3r7DU9cyZtDk0MzADSHDIDy67GcK7/wLBgkD8eSS+7rpXOH9pPGb7J17KIJ604bQYCwS5YJphgYcmSxB7nsiuJIEmalxymkB9ory1QeYwTi33L2na6L7mnDtI8hJbT7462F2Uj02ImasAtMYnXxdJN+L+Rx10G37j3G0+s+33n1Qd0K2n2hzaGG2EVihtd3wFs7O+gRGiw7nLD2ba6PlPGVsAdzX60keUyyaP09Gy+gSsMMEmVXYxA/M8i3Zt1TB4vjBBz1UTGG4aGXaHZw5HTyZFp0N92Ery4iJSBJs1TBpGMVm9aulG/kx9sdS1h4L1Jb+c4aYsJEQY1xcQbAoJ8ju6FhSFjlJgMRQuvx+AnL8eGNhLBpm3gN9eq3vPZpgevsgyjya9+qbwi8tyqEbJPQLDd6nE8D0ttKo3CYFfkV+yT47uc+Tv9T3XIeruxHLTAa6lXc/V/2sMZGEV87yzz9t0eGLWECcUwSCf8EuYl+NVz+jMDWlDsE9vIviT3iVNByVb3iMaXpYqlO/dpOY/xCrOxJcyJW3WdjjKUwGD4ELdQpvixFQLl75jHvd41xAu7Gmn7dXUUQQE66MjAFcgHZlCNCbyS5rwyXzzQ/liQ1TPsC9E5+efwBjSfaqGJ5U8sBMvmgauz0AdJyt7+zn+F9+bEl1pIexDCX7qR8ZHmYoaIlh4D2nrE10dF91TEjDldEx9G6pKJxLVXGZnF9X7L8acaI4aS5YSBe4KjOCIFr76IT3s1YjVSXnS1BCSRdzXLXZbx387z6bGwaPw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(136003)(39860400002)(346002)(396003)(46966006)(40470700004)(36840700001)(4326008)(70206006)(8676002)(478600001)(110136005)(316002)(6636002)(54906003)(70586007)(40480700001)(82310400005)(40460700003)(8936002)(81166007)(2906002)(4744005)(356005)(5660300002)(36756003)(82740400003)(86362001)(7696005)(336012)(47076005)(16526019)(186003)(426003)(26005)(2616005)(6666004)(1076003)(83380400001)(36860700001)(41300700001)(63350400001)(63370400001)(2101003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2022 12:06:09.4202 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24cefd3a-d550-4206-796f-08da8a800670
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT021.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6888
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,176 +97,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Simon Ser <contact@emersion.fr>, amd-gfx@lists.freedesktop.org,
- mwen@igalia.com, dri-devel@lists.freedesktop.org, daniel.vetter@ffwll.ch,
- alexander.deucher@amd.com, hwentlan@amd.com, nicholas.kazlauskas@amd.com,
- joshua@froggi.es
+Cc: guchun.chen@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 30, 2022 at 11:40:10AM +0300, Pekka Paalanen wrote:
-> On Tue, 30 Aug 2022 11:08:22 +0300
-> Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
-> 
-> > On Mon, Aug 29, 2022 at 04:01:44PM +0000, Simon Ser wrote:
-> > > On Friday, August 26th, 2022 at 10:19, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
-> > >   
-> > > > On Wed, Aug 24, 2022 at 03:08:55PM +0000, Simon Ser wrote:  
-> > > > > This new kernel capability indicates whether async page-flips are
-> > > > > supported via the atomic uAPI. DRM clients can use it to check
-> > > > > for support before feeding DRM_MODE_PAGE_FLIP_ASYNC to the kernel.  
-> > > > 
-> > > > I think we'd need to clarify the semantics of the async flag
-> > > > for atomic commits.
-> > > > 
-> > > > Eg. on Intel hw only pure page flips are possible async, if you do
-> > > > anything else (change plane size/pos/scaling/etc.) you will need
-> > > > to do a sync update. Technically not even all page flips (from the
-> > > > uapi POV) might be possible as the exact scanout source address
-> > > > is specified via two registers, only one of which can be update
-> > > > async. So technically the two framebuffers might be laid out
-> > > > just slightly differently which could prevent an async flip.
-> > > > Also only some subset of planes actually support async flips.  
-> > > 
-> > > Also IIRC some format modifiers don't support async flip at all (CCS)?  
-> > 
-> > Yeah, that too. Also planar YUV formats aren't allowed.
-> > 
-> > >   
-> > > > And on hw where multiple planes support it on the same crtc, only one
-> > > > plane can do it at a time. Well, more accurately we can only select
-> > > > one plane at a time to give us the "flip done" interrupt. I guess
-> > > > if the user wants to async flip multiple planes at the same time
-> > > > we could do them serially as opposed to in parallel to make sure
-> > > > all the flips actually happened before we signal completion of the
-> > > > entire commit. Async flips of multiple planes probably won't
-> > > > happen atomically anyway so doing them serially seems fine.
-> > > > 
-> > > > ATM in i915 we probably don't have sufficient state checks in
-> > > > place to catch all the restrictions, and instead in part we rely
-> > > > on the limited scope of the legacy async flip ioctl to make sure
-> > > > the operation doesn't attempt something the hw can't do.  
-> > > 
-> > > Yeah, that makes sense.
-> > > 
-> > > In the documentation patch discussion [1], it appears it's not clear what
-> > > drivers should do when async flip isn't possible with the legacy uAPI.
-> > > 
-> > > For the atomic uAPI, we need to pick on of these two approaches:
-> > > 
-> > > 1. Let the kernel fall back to a sync flip if async isn't possible. This
-> > >    simplifies user-space, but then user-space has no reliable way to figure out
-> > >    what really happened (sync or async?). That could be fixed with a new
-> > >    read-only CRTC prop indicating whether the last flip was async or not.
-> > >    However, maybe someone will come up in the future with user-space which
-> > >    needs to only apply an update if async flip is possible, in which case this
-> > >    approach falls short.
-> 
-> There is the pageflip completion timestamp in the DRM event. If
-> userspace knows the phase and period of the scanout cycle, the
-> completion timestamp should tell quite reliably if the update was
-> tearing.
-> 
-> For the phase, one can query KMS for the last vblank timestamp. This
-> should work also for VRR I assume.
-> 
-> For the period, fixed-frequency video mode has it straight. VRR gives
-> only a range or a minimum period.
-> 
-> > > 2. Make the kernel return EINVAL if async flip isn't possible. This adds more
-> > >    complexity to user-space, but enables a more reliable and deterministic
-> > >    uAPI. This is also more consistent with the rest of the existing atomic
-> > >    uAPI.  
-> > 
-> > The current behaviour is somewhat a combination of the two. We return
-> > an error if async flip is not possible at all given the current state.
-> > 
-> > When async flip is possible we return success, but may still internally
-> > fall back to a sync flip for the first flip. That is required on some
-> > borked hardware that can't switch from sync flips to async flips without
-> > doing an extra sync flip. Also on some other hardware we intentionally
-> > fall back to a sync flip for the first async flip, so that we can
-> > reprogram some display FIFO stuff (aimed to make the subsequent async
-> > flips faster).
-> 
-> Oh, so userspace should expect to run async for long periods of time,
-> and not use async this frame, sync next, then async again depending on
-> per-frame timings.
-> 
-> That seems important to note.
+From: Ma Jun <majun@amd.com>
 
-Yeah, our hw can't really do the "tear if late, otherwise do a sync flip"
-behaviour. GLX_swap_control_tear I think was the glx extension for that.
+Remove redundant reference of the header file drm_gem_atomic_helper.h
 
-> 
-> It's almost like the async flag should be a KMS property instead of a
-> commit ioctl flag.
+Signed-off-by: Ma Jun <majun@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-I guess that would be one way to implement it.
-
-> 
-> > > Note, current user-space would only need to opportunistically enable async
-> > > flip. IOW, I think that for current user-space plans "async if possible,
-> > > otherwise sync" is good enough. That behavior maps well to the Vulkan present
-> > > modes as well (which says that "this mode *may* result in visible tearing", but
-> > > doesn't guarantee it).  
-> > 
-> > The current behaviour is to fall back to a blit if the async
-> > flip fails. So you still get the same effective behaviour, just
-> > not as efficient. I think that's a reasonable way to handle it.
-> 
-> That's purely an Xorg thing, right?
-
-Yes.
-
-> 
-> Should Wayland compositors implement the same thing is a good question.
-
-Is the whole tear+wayland situation more or less up in the air still?
-
-> 
-> > > Another possible shortcoming of the proposed new uAPI here is that user-space
-> > > cannot submit a single atomic commit which updates multiple CRTCs, and
-> > > individually select which CRTC does an async flip. This could be fixed with
-> 
-> I would think that you can just do per-CRTC atomic commits in that
-> case. You would do per-CRTC atomic commits anyway when the vblanks do
-> not coincide. I expect tearing updates to have unpredictable latency,
-> especially if they can silently fall back to sync flips, so doing
-> multi-CRTC async flips is not useful.
-> 
-> > > a "ASYNC_FLIP" CRTC prop which the kernel always resets to 0 on commit. I'm not
-> > > sure we want/need to cross that bridge right now, it would be easy enough to
-> > > add as a second step if some user-space would benefit from it.  
-> > 
-> > Technically it should really be per-plane since that is what does
-> > the flip. But I have a feeling that allowing a mix of async and
-> > sync in the same commit is just going to make everything more
-> > complicated without really helping anything (async flips won't
-> > happen atomically anyway with anything else).
-> > 
-> > One (crazy?) idea I had for the atomic api is that we could even
-> > reject most of the properties already on the uapi level before anyone
-> > gets to examine the final state. Ie. as soon as the atomic ioctl sees
-> > eg. a gamma LUT property change it would just immediately return
-> > an error if async flip is also requested.
-> 
-> I agree with these two paragraphs.
-> 
-> What about limiting async flag to atomic commits that update only a
-> single KMS plane (regardless of how many planes are active)? Maybe that
-> would be a good first step?
-
-Sure, that might help a bit. But I'm rather more worried about
-all the state that you can now include in the atomic commit but
-aren't actually allowed to change. Eg. probably all crtc/connector
-properties, and most plane properties. The legacy ioctl blocks most
-of that implicitly, but the atomic ioctl does not. Hence my idea
-about rejecting basically everything except the plane fb property
-changes already at the ioctl level. Would avoid that stuff
-leaking in by accident if the driver forgets to check absolutely
-everything.
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 5140d9c2bf3b..b4019c4661c4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -87,7 +87,6 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_vblank.h>
+ #include <drm/drm_audio_component.h>
+-#include <drm/drm_gem_atomic_helper.h>
+ 
+ #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
+ 
 -- 
-Ville Syrjälä
-Intel
+2.25.1
+
