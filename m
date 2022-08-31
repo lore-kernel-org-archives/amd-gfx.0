@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55EAAC0502A
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 15:44:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 249ACC0502C
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 15:44:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5354D10E45F;
-	Wed, 31 Aug 2022 15:43:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A13910E46A;
+	Wed, 31 Aug 2022 15:43:54 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 474E210E448;
- Wed, 31 Aug 2022 15:40:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D69710E446;
+ Wed, 31 Aug 2022 15:39:53 +0000 (UTC)
 Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 1817B6601F08;
- Wed, 31 Aug 2022 16:40:08 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 447B46601DEF;
+ Wed, 31 Aug 2022 16:39:49 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960411;
- bh=wM9CtxO7g+I2MDvrzT3LZe35Eb7d1xKXFtly+o9W8Ak=;
+ s=mail; t=1661960392;
+ bh=iqiuG6elCAPxC5quyUMlq7dtDwEk3iewWUdCPSj6Wh0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dnGv0uxhtNMBxsdvy3hH+pPM5/F2s6xH4ZhZcnNjO08lYkNBDqZm4iMB3nemHgWFB
- xB/nRvHipZ2WOZ5Kqpkf56IU/2D3DvGF8Ukp4zZCKoG7ndRQ+r8cINug8sgCQnMTH7
- saMR0YeItwmYev/7tzwNgcXa1oRjErFEjeAAZMZPlax5q8kI+a/wG7coEm1oVYHaeI
- Kw0kAckg2QNpLnwZqNiSOQmKc+EGEjXs1gswAZIvlxq/ggU62BRAwq838pQ6IwjI/9
- FK9xl6sHtEO4DnPpF7PMp4LzNmCD4DaNMXlGCvkAiyNSG8GlqH5e+cf1vhxAdtfnJB
- cCB0V24HbPT+A==
+ b=iwuMv9xLnfekm41TGBF3RPAoCqh5F5XUSOeklx7AUykOfmI/q1IknjpSNZ1sgwms9
+ FH+iKb1PjnddqXSDd3gPdc3S4x7qKBGbECxVttU2VoIDti22io9srpaLNYzL7JF2bK
+ H5NL/0KIRX3oSAiKn7bB1kLUQB0IZrieWB210PjgAQaf2toiXVnABV2bjYkkDFQCkQ
+ TYqjc1E0NRgYFEOJBIeZgC385lqCtTKP3vOTqiNSP82Rdl12QbWUPyq1Jvkm++oAwp
+ kG1w1Gq/JuMLvurW/hngpCwCbvox273LAkvCIiy0BwT2EkiZwLv9+iRcEqAVzc9mFq
+ UYHJWGpANzUug==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -63,15 +63,14 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>
-Subject: [PATCH v4 18/21] dma-buf: Move dma_buf_mmap() to dynamic locking
+Subject: [PATCH v4 12/21] xen/gntdev: Prepare to dynamic dma-buf locking
  specification
-Date: Wed, 31 Aug 2022 18:37:54 +0300
-Message-Id: <20220831153757.97381-19-dmitry.osipenko@collabora.com>
+Date: Wed, 31 Aug 2022 18:37:48 +0300
+Message-Id: <20220831153757.97381-13-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
 References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 31 Aug 2022 15:43:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -94,43 +93,47 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move dma_buf_mmap() function to the dynamic locking specification by
-taking the reservation lock. Neither of the today's drivers take the
-reservation lock within the mmap() callback, hence it's safe to enforce
-the locking.
+Prepare gntdev driver to the common dynamic dma-buf locking convention
+by starting to use the unlocked versions of dma-buf API functions.
 
-Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/dma-buf/dma-buf.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/xen/gntdev-dmabuf.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 8e928fe6e8df..d9130486cb8f 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1389,6 +1389,8 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_end_cpu_access, DMA_BUF);
- int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 		 unsigned long pgoff)
- {
-+	int ret;
-+
- 	if (WARN_ON(!dmabuf || !vma))
- 		return -EINVAL;
+diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+index 940e5e9e8a54..4440e626b797 100644
+--- a/drivers/xen/gntdev-dmabuf.c
++++ b/drivers/xen/gntdev-dmabuf.c
+@@ -600,7 +600,7 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
  
-@@ -1409,7 +1411,11 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 	vma_set_file(vma, dmabuf->file);
- 	vma->vm_pgoff = pgoff;
+ 	gntdev_dmabuf->u.imp.attach = attach;
  
--	return dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_lock(dmabuf->resv, NULL);
-+	ret = dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_unlock(dmabuf->resv);
-+
-+	return ret;
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_mmap, DMA_BUF);
+-	sgt = dma_buf_map_attachment(attach, DMA_BIDIRECTIONAL);
++	sgt = dma_buf_map_attachment_unlocked(attach, DMA_BIDIRECTIONAL);
+ 	if (IS_ERR(sgt)) {
+ 		ret = ERR_CAST(sgt);
+ 		goto fail_detach;
+@@ -658,7 +658,7 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
+ fail_end_access:
+ 	dmabuf_imp_end_foreign_access(gntdev_dmabuf->u.imp.refs, count);
+ fail_unmap:
+-	dma_buf_unmap_attachment(attach, sgt, DMA_BIDIRECTIONAL);
++	dma_buf_unmap_attachment_unlocked(attach, sgt, DMA_BIDIRECTIONAL);
+ fail_detach:
+ 	dma_buf_detach(dma_buf, attach);
+ fail_free_obj:
+@@ -708,8 +708,8 @@ static int dmabuf_imp_release(struct gntdev_dmabuf_priv *priv, u32 fd)
+ 	attach = gntdev_dmabuf->u.imp.attach;
  
+ 	if (gntdev_dmabuf->u.imp.sgt)
+-		dma_buf_unmap_attachment(attach, gntdev_dmabuf->u.imp.sgt,
+-					 DMA_BIDIRECTIONAL);
++		dma_buf_unmap_attachment_unlocked(attach, gntdev_dmabuf->u.imp.sgt,
++						  DMA_BIDIRECTIONAL);
+ 	dma_buf = attach->dmabuf;
+ 	dma_buf_detach(attach->dmabuf, attach);
+ 	dma_buf_put(dma_buf);
 -- 
 2.37.2
 
