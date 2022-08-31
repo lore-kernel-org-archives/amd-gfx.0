@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D65BEECAAD4
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 15:43:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11D5BC0502A
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 15:43:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26B0210E448;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B04610E451;
 	Wed, 31 Aug 2022 15:43:48 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D6F810E43B;
- Wed, 31 Aug 2022 15:40:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE8DD10E43B;
+ Wed, 31 Aug 2022 15:39:40 +0000 (UTC)
 Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id ECE2C6601DF6;
- Wed, 31 Aug 2022 16:40:04 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id A21166601E0C;
+ Wed, 31 Aug 2022 16:39:36 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960407;
- bh=tqdR/oZFKJHCKMAPiT2kfONL23uSAzfC/46PfISfXXw=;
+ s=mail; t=1661960379;
+ bh=16kdBcfHr7NkG/hMSbFPB8YZTdoa/W2Tj8HhA5UXTjs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Y0fbl/3rC8aDDsV0MV7a9HOp3kNjBbJX9SYbDtxmYtk8yjvc3rkHWo5M8ppTQpiKa
- ZzUliICistENhQk2agFlqmQiTp9XBNKykfoC0xrSjlabl/sYIiptJ55Vd9WhuB5sHF
- M0epvMhwyEmDbwWQB9RhA7iBFtTNh5z+Kg66Z9GjBDMpjKs7r06OoiiUn/FWcoOrZ7
- PuA498YAz+IjOVSyibs7Gaqf/MxVpZRU7bCAUqLOVJRCxTQXuEcSR+Uo1YTTXj70x5
- r85mxWtpRWHr89Anv7IJ3wzhus4eLyo4K7PY2M2YcPnS7HNoFcR7R4AzBZiWm3uVdY
- IqAW+I5pxeilA==
+ b=UQ9/cdc9B3s4E74+susWuLftZGOe9hoHZXOuaq+uKHebd6RqDfyD4uZOcZ4eUx/w6
+ 0CWyq9wSVVasfOGGb1i7nfu7JaNsgnu2zSvoueu9cL19deO3APZlqF1MBzSPEjn29Q
+ EznMZUc+FB2ASK7KrH8/KAgv6ow/jmw2BrOJvQlQ615ZEpeTCoLT2Uxw+oiLBzrn81
+ 73HYf45rrsxen1wE0Y02kHxy6s+Nm7us1Q42Xb6PlNiJKK5Ao4FAOmplut6xL3G0HS
+ bSZmmetHKal+nDQaOH2uxr+yK0az1imcvGD4DQm9eJnuzxZkvpI93AsB6WWNBN/UR3
+ U1FSriyFPCXhg==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -63,10 +63,10 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>
-Subject: [PATCH v4 17/21] dma-buf: Move dma_buf_map_attachment() to dynamic
- locking specification
-Date: Wed, 31 Aug 2022 18:37:53 +0300
-Message-Id: <20220831153757.97381-18-dmitry.osipenko@collabora.com>
+Subject: [PATCH v4 08/21] drm/tegra: Prepare to dynamic dma-buf locking
+ specification
+Date: Wed, 31 Aug 2022 18:37:44 +0300
+Message-Id: <20220831153757.97381-9-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
 References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
@@ -93,53 +93,84 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move dma-buf attachment mapping functions to the dynamic locking
-specification by asserting that the reservation lock is held.
+Prepare Tegra DRM driver to the common dynamic dma-buf locking convention
+by starting to use the unlocked versions of dma-buf API functions.
 
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/dma-buf/dma-buf.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/tegra/gem.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 073942bf5ae9..8e928fe6e8df 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1037,8 +1037,7 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
- 	if (WARN_ON(!attach || !attach->dmabuf))
- 		return ERR_PTR(-EINVAL);
+diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+index 81991090adcc..b09b8ab40ae4 100644
+--- a/drivers/gpu/drm/tegra/gem.c
++++ b/drivers/gpu/drm/tegra/gem.c
+@@ -84,7 +84,7 @@ static struct host1x_bo_mapping *tegra_bo_pin(struct device *dev, struct host1x_
+ 			goto free;
+ 		}
  
--	if (dma_buf_attachment_is_dynamic(attach))
--		dma_resv_assert_held(attach->dmabuf->resv);
-+	dma_resv_assert_held(attach->dmabuf->resv);
- 
- 	if (attach->sgt) {
- 		/*
-@@ -1053,7 +1052,6 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
- 	}
- 
- 	if (dma_buf_is_dynamic(attach->dmabuf)) {
--		dma_resv_assert_held(attach->dmabuf->resv);
- 		if (!IS_ENABLED(CONFIG_DMABUF_MOVE_NOTIFY)) {
- 			r = attach->dmabuf->ops->pin(attach);
- 			if (r)
-@@ -1142,15 +1140,11 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *attach,
- 	if (WARN_ON(!attach || !attach->dmabuf || !sg_table))
+-		map->sgt = dma_buf_map_attachment(map->attach, direction);
++		map->sgt = dma_buf_map_attachment_unlocked(map->attach, direction);
+ 		if (IS_ERR(map->sgt)) {
+ 			dma_buf_detach(buf, map->attach);
+ 			err = PTR_ERR(map->sgt);
+@@ -160,7 +160,8 @@ static struct host1x_bo_mapping *tegra_bo_pin(struct device *dev, struct host1x_
+ static void tegra_bo_unpin(struct host1x_bo_mapping *map)
+ {
+ 	if (map->attach) {
+-		dma_buf_unmap_attachment(map->attach, map->sgt, map->direction);
++		dma_buf_unmap_attachment_unlocked(map->attach, map->sgt,
++						  map->direction);
+ 		dma_buf_detach(map->attach->dmabuf, map->attach);
+ 	} else {
+ 		dma_unmap_sgtable(map->dev, map->sgt, map->direction, 0);
+@@ -181,7 +182,7 @@ static void *tegra_bo_mmap(struct host1x_bo *bo)
+ 	if (obj->vaddr) {
+ 		return obj->vaddr;
+ 	} else if (obj->gem.import_attach) {
+-		ret = dma_buf_vmap(obj->gem.import_attach->dmabuf, &map);
++		ret = dma_buf_vmap_unlocked(obj->gem.import_attach->dmabuf, &map);
+ 		return ret ? NULL : map.vaddr;
+ 	} else {
+ 		return vmap(obj->pages, obj->num_pages, VM_MAP,
+@@ -197,7 +198,7 @@ static void tegra_bo_munmap(struct host1x_bo *bo, void *addr)
+ 	if (obj->vaddr)
  		return;
+ 	else if (obj->gem.import_attach)
+-		dma_buf_vunmap(obj->gem.import_attach->dmabuf, &map);
++		dma_buf_vunmap_unlocked(obj->gem.import_attach->dmabuf, &map);
+ 	else
+ 		vunmap(addr);
+ }
+@@ -461,7 +462,7 @@ static struct tegra_bo *tegra_bo_import(struct drm_device *drm,
  
--	if (dma_buf_attachment_is_dynamic(attach))
--		dma_resv_assert_held(attach->dmabuf->resv);
-+	dma_resv_assert_held(attach->dmabuf->resv);
+ 	get_dma_buf(buf);
  
- 	if (attach->sgt == sg_table)
- 		return;
+-	bo->sgt = dma_buf_map_attachment(attach, DMA_TO_DEVICE);
++	bo->sgt = dma_buf_map_attachment_unlocked(attach, DMA_TO_DEVICE);
+ 	if (IS_ERR(bo->sgt)) {
+ 		err = PTR_ERR(bo->sgt);
+ 		goto detach;
+@@ -479,7 +480,7 @@ static struct tegra_bo *tegra_bo_import(struct drm_device *drm,
  
--	if (dma_buf_is_dynamic(attach->dmabuf))
--		dma_resv_assert_held(attach->dmabuf->resv);
--
- 	__unmap_dma_buf(attach, sg_table, direction);
+ detach:
+ 	if (!IS_ERR_OR_NULL(bo->sgt))
+-		dma_buf_unmap_attachment(attach, bo->sgt, DMA_TO_DEVICE);
++		dma_buf_unmap_attachment_unlocked(attach, bo->sgt, DMA_TO_DEVICE);
  
- 	if (dma_buf_is_dynamic(attach->dmabuf) &&
+ 	dma_buf_detach(buf, attach);
+ 	dma_buf_put(buf);
+@@ -508,8 +509,8 @@ void tegra_bo_free_object(struct drm_gem_object *gem)
+ 		tegra_bo_iommu_unmap(tegra, bo);
+ 
+ 	if (gem->import_attach) {
+-		dma_buf_unmap_attachment(gem->import_attach, bo->sgt,
+-					 DMA_TO_DEVICE);
++		dma_buf_unmap_attachment_unlocked(gem->import_attach, bo->sgt,
++						  DMA_TO_DEVICE);
+ 		drm_prime_gem_destroy(gem, NULL);
+ 	} else {
+ 		tegra_bo_free(gem->dev, bo);
 -- 
 2.37.2
 
