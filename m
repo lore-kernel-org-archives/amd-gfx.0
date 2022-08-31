@@ -4,32 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27C54ECAAD4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E811DECAAD1
 	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 15:43:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B006710E452;
-	Wed, 31 Aug 2022 15:43:48 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B6F810E43B;
- Wed, 31 Aug 2022 15:40:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 979C310E453;
+	Wed, 31 Aug 2022 15:43:49 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBEAF10E44D;
+ Wed, 31 Aug 2022 15:39:18 +0000 (UTC)
 Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 839826601E58;
- Wed, 31 Aug 2022 16:40:17 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 9C50866015A7;
+ Wed, 31 Aug 2022 16:39:14 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960420;
- bh=X6+cHdBcYoofQ/ea0HJ3XSrd+3wQc+6k4P4KoLaHXmw=;
+ s=mail; t=1661960357;
+ bh=mq+kKNWzsZPc/pkrHJnMglMwSZHTxBeTNMlcTvr2RPg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CvPSAXgoUaJptHhz6ntZ4HfZFNqNSVu8Uhx5gdFZizZ5wNTkZ2TXBgjmGArOrzTsI
- EX9IGJoD7YNYICqH7CJHWIxcjxFsSnNnZT5QCOBFfcaSmA0LimW8vw3n3ZyJC/PM1K
- bkSvcksN8TvjoiXsx4l+vd639Gt/kebvz9P5mKcxDq+5ZgvMnVu+arcqSEfMx4O1Y2
- j6iSkn4FYOTBtofQYDS0bqMvMZZLmuZhXl3t9SS9owkRGwdUJP3UqeSo4gWyidJtx6
- MNksLlFbKwY9PCs714XVdEo80iZJRuAetN/bj97toAQ7rh2a87KOpIqcsLtBCHPN0f
- UJs0gPbPXdJWg==
+ b=IbpT9B92ORuHHTOTdGcTYBd7AIS/+QWfCseHtdp0O+oQE1cgYTont1FrG7hZJSNuz
+ oUsF3ZGj1p2as0ZxQN+dQQFRpSL87SbdRdB1ju7mIM4y+5dziqZ3e5DaJweV7YuOE/
+ 1H320hsTsfF2G21JZ5DabpdmyJp9axAp7/fxwTkcYEovPsJBogm7F3Hd3eoDL/j9HE
+ rJltme0+96fSPLeXGlAUHMm6XssCRo6w8eziTcT6DzM1MpOWsRo/392sOmqFsbmF3c
+ A1py7rG+sPp7YAlUqD/27veLOxcAMqAStH7zkBrvbEuj59KSIjzMo6V7+p1IhljYvw
+ 7EMJP9wiDeBIA==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -64,9 +63,9 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>
-Subject: [PATCH v4 21/21] dma-buf: Remove obsoleted internal lock
-Date: Wed, 31 Aug 2022 18:37:57 +0300
-Message-Id: <20220831153757.97381-22-dmitry.osipenko@collabora.com>
+Subject: [PATCH v4 01/21] dma-buf: Add unlocked variant of vmapping functions
+Date: Wed, 31 Aug 2022 18:37:37 +0300
+Message-Id: <20220831153757.97381-2-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
 References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
@@ -94,105 +93,83 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The internal dma-buf lock isn't needed anymore because the updated
-locking specification claims that dma-buf reservation must be locked
-by importers, and thus, the internal data is already protected by the
-reservation lock. Remove the obsoleted internal lock.
+Add unlocked variant of dma_buf_vmap/vunmap() that will be utilized
+by drivers that don't take the reservation lock explicitly.
 
 Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/dma-buf/dma-buf.c | 14 ++++----------
- include/linux/dma-buf.h   |  9 ---------
- 2 files changed, 4 insertions(+), 19 deletions(-)
+ drivers/dma-buf/dma-buf.c | 38 ++++++++++++++++++++++++++++++++++++++
+ include/linux/dma-buf.h   |  2 ++
+ 2 files changed, 40 insertions(+)
 
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 97ce884fad76..772fdd9eeed8 100644
+index 1c912255c5d6..5e4459bb1a6f 100644
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -656,7 +656,6 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
- 
- 	dmabuf->file = file;
- 
--	mutex_init(&dmabuf->lock);
- 	INIT_LIST_HEAD(&dmabuf->attachments);
- 
- 	mutex_lock(&db_list.lock);
-@@ -1502,7 +1501,7 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_mmap, DMA_BUF);
- int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
- {
- 	struct iosys_map ptr;
--	int ret = 0;
-+	int ret;
- 
- 	iosys_map_clear(map);
- 
-@@ -1514,28 +1513,25 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
- 	if (!dmabuf->ops->vmap)
- 		return -EINVAL;
- 
--	mutex_lock(&dmabuf->lock);
- 	if (dmabuf->vmapping_counter) {
- 		dmabuf->vmapping_counter++;
- 		BUG_ON(iosys_map_is_null(&dmabuf->vmap_ptr));
- 		*map = dmabuf->vmap_ptr;
--		goto out_unlock;
-+		return 0;
- 	}
- 
- 	BUG_ON(iosys_map_is_set(&dmabuf->vmap_ptr));
- 
- 	ret = dmabuf->ops->vmap(dmabuf, &ptr);
- 	if (WARN_ON_ONCE(ret))
--		goto out_unlock;
-+		return ret;
- 
- 	dmabuf->vmap_ptr = ptr;
- 	dmabuf->vmapping_counter = 1;
- 
- 	*map = dmabuf->vmap_ptr;
- 
--out_unlock:
--	mutex_unlock(&dmabuf->lock);
--	return ret;
-+	return 0;
+@@ -1424,6 +1424,28 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
  }
  EXPORT_SYMBOL_NS_GPL(dma_buf_vmap, DMA_BUF);
  
-@@ -1577,13 +1573,11 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map)
- 	BUG_ON(dmabuf->vmapping_counter == 0);
- 	BUG_ON(!iosys_map_is_equal(&dmabuf->vmap_ptr, map));
- 
--	mutex_lock(&dmabuf->lock);
- 	if (--dmabuf->vmapping_counter == 0) {
- 		if (dmabuf->ops->vunmap)
- 			dmabuf->ops->vunmap(dmabuf, map);
- 		iosys_map_clear(&dmabuf->vmap_ptr);
- 	}
--	mutex_unlock(&dmabuf->lock);
++/**
++ * dma_buf_vmap_unlocked - Create virtual mapping for the buffer object into kernel
++ * address space. Same restrictions as for vmap and friends apply.
++ * @dmabuf:	[in]	buffer to vmap
++ * @map:	[out]	returns the vmap pointer
++ *
++ * Unlocked version of dma_buf_vmap()
++ *
++ * Returns 0 on success, or a negative errno code otherwise.
++ */
++int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
++{
++	int ret;
++
++	dma_resv_lock(dmabuf->resv, NULL);
++	ret = dma_buf_vmap(dmabuf, map);
++	dma_resv_unlock(dmabuf->resv);
++
++	return ret;
++}
++EXPORT_SYMBOL_NS_GPL(dma_buf_vmap_unlocked, DMA_BUF);
++
+ /**
+  * dma_buf_vunmap - Unmap a vmap obtained by dma_buf_vmap.
+  * @dmabuf:	[in]	buffer to vunmap
+@@ -1448,6 +1470,22 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map)
  }
  EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap, DMA_BUF);
  
++/**
++ * dma_buf_vunmap_unlocked - Unmap a vmap obtained by dma_buf_vmap.
++ * @dmabuf:	[in]	buffer to vunmap
++ * @map:	[in]	vmap pointer to vunmap
++ */
++void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
++{
++	if (WARN_ON(!dmabuf))
++		return;
++
++	dma_resv_lock(dmabuf->resv, NULL);
++	dma_buf_vunmap(dmabuf, map);
++	dma_resv_unlock(dmabuf->resv);
++}
++EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap_unlocked, DMA_BUF);
++
+ #ifdef CONFIG_DEBUG_FS
+ static int dma_buf_debug_show(struct seq_file *s, void *unused)
+ {
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index f11b5bbc2f37..6fa8d4e29719 100644
+index 71731796c8c3..8daa054dd7fe 100644
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
-@@ -326,15 +326,6 @@ struct dma_buf {
- 	/** @ops: dma_buf_ops associated with this buffer object. */
- 	const struct dma_buf_ops *ops;
- 
--	/**
--	 * @lock:
--	 *
--	 * Used internally to serialize list manipulation, attach/detach and
--	 * vmap/unmap. Note that in many cases this is superseeded by
--	 * dma_resv_lock() on @resv.
--	 */
--	struct mutex lock;
--
- 	/**
- 	 * @vmapping_counter:
- 	 *
+@@ -632,4 +632,6 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
+ 		 unsigned long);
+ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map);
+ void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map);
++int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
++void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
+ #endif /* __DMA_BUF_H__ */
 -- 
 2.37.2
 
