@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D07BECAAD4
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 15:43:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD3C9ECAAD1
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 15:43:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E11B210E454;
-	Wed, 31 Aug 2022 15:43:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2076D10E457;
+	Wed, 31 Aug 2022 15:43:50 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04A2F10E43B;
- Wed, 31 Aug 2022 15:39:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 762A110E43B;
+ Wed, 31 Aug 2022 15:39:56 +0000 (UTC)
 Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id E84C66601DF5;
- Wed, 31 Aug 2022 16:39:42 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 68D6C6601EBA;
+ Wed, 31 Aug 2022 16:39:52 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960385;
- bh=/oF5kgcekO75Xv0wAeHKpq3Pgp50WSiycM6oE7wSKRk=;
+ s=mail; t=1661960395;
+ bh=yuFPPZLpZu5HiT00pXyoIXNbNU+jh/z2zDqW9/uKf/o=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Sl51L1bR+Y9SxOT89Q/0nVkX+TLwDp7OcA2pgpm4I/3SumRue+tVnK1q3Vw+RbjOE
- Xl6atoNl+C31e92BVfqyqVAKhtHD6pK31qCu8j0Uno1FBRl+Xnj8l7hTvW36MZfXLi
- kMxfgy3gfal5jhWoFiCx8em30aMFpWCXq0oZzUxpaNj57iukLilYisYbjMXYFNRDzp
- tG9ew+QPiTBRtgqpD4xjf85rqFOoNtYODtXw+U5QgdYnxMPA+B0E74wOPuZ76PdATv
- levx+u2+qDHOjLZIoeA6U5Vu7faXHIfhzUMg9Cz0ga92kx/uZARd8jrxI2uVDGG2GD
- SZaDsJp2+o7cw==
+ b=N/B+b8bOYPtHEQfD37MFztmBLUQG1Fw59ElRW+eMzo5mBqnLPKKxtrTtpJ5b3A9Re
+ TeoegHw8MNPuFRGxmerjQaX0cftS5KdDOB9bjKMJkW1d9QrMiRYxurgsUEY8dMXDlV
+ gGytpQShxs12u0FLdR+l9TU5JAf3nC+nIGtzgJjObxtxJA5YlNZNeGstwA44tRjNIj
+ LGz6cxeSNsncUszPcRWjDRSIZufs697VuN6aMG7EXTUJzbo5FFMYbEhJO0nPtrwhaa
+ /H3pVyYysLeApxxArprlFRxS4YnCYkIqYz491f3i6b2n5C1Uoq4VSnPUybsmx9GWcd
+ Z+ig7XvygSbGA==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -64,10 +64,10 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>
-Subject: [PATCH v4 10/21] RDMA/umem: Prepare to dynamic dma-buf locking
+Subject: [PATCH v4 13/21] media: videobuf2: Prepare to dynamic dma-buf locking
  specification
-Date: Wed, 31 Aug 2022 18:37:46 +0300
-Message-Id: <20220831153757.97381-11-dmitry.osipenko@collabora.com>
+Date: Wed, 31 Aug 2022 18:37:49 +0300
+Message-Id: <20220831153757.97381-14-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
 References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
@@ -94,39 +94,128 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prepare InfiniBand drivers to the common dynamic dma-buf locking
+Prepare V4L2 memory allocators to the common dynamic dma-buf locking
 convention by starting to use the unlocked versions of dma-buf API
 functions.
 
+Acked-by: Tomasz Figa <tfiga@chromium.org>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/infiniband/core/umem_dmabuf.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/media/common/videobuf2/videobuf2-dma-contig.c | 11 ++++++-----
+ drivers/media/common/videobuf2/videobuf2-dma-sg.c     |  8 ++++----
+ drivers/media/common/videobuf2/videobuf2-vmalloc.c    |  6 +++---
+ 3 files changed, 13 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/infiniband/core/umem_dmabuf.c b/drivers/infiniband/core/umem_dmabuf.c
-index 04c04e6d24c3..43b26bc12288 100644
---- a/drivers/infiniband/core/umem_dmabuf.c
-+++ b/drivers/infiniband/core/umem_dmabuf.c
-@@ -26,7 +26,8 @@ int ib_umem_dmabuf_map_pages(struct ib_umem_dmabuf *umem_dmabuf)
- 	if (umem_dmabuf->sgt)
- 		goto wait_fence;
+diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+index 678b359717c4..79f4d8301fbb 100644
+--- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
++++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+@@ -101,7 +101,7 @@ static void *vb2_dc_vaddr(struct vb2_buffer *vb, void *buf_priv)
+ 	if (buf->db_attach) {
+ 		struct iosys_map map;
  
--	sgt = dma_buf_map_attachment(umem_dmabuf->attach, DMA_BIDIRECTIONAL);
-+	sgt = dma_buf_map_attachment_unlocked(umem_dmabuf->attach,
-+					      DMA_BIDIRECTIONAL);
- 	if (IS_ERR(sgt))
- 		return PTR_ERR(sgt);
+-		if (!dma_buf_vmap(buf->db_attach->dmabuf, &map))
++		if (!dma_buf_vmap_unlocked(buf->db_attach->dmabuf, &map))
+ 			buf->vaddr = map.vaddr;
  
-@@ -102,8 +103,8 @@ void ib_umem_dmabuf_unmap_pages(struct ib_umem_dmabuf *umem_dmabuf)
- 		umem_dmabuf->last_sg_trim = 0;
+ 		return buf->vaddr;
+@@ -711,7 +711,7 @@ static int vb2_dc_map_dmabuf(void *mem_priv)
  	}
  
--	dma_buf_unmap_attachment(umem_dmabuf->attach, umem_dmabuf->sgt,
--				 DMA_BIDIRECTIONAL);
-+	dma_buf_unmap_attachment_unlocked(umem_dmabuf->attach, umem_dmabuf->sgt,
-+					  DMA_BIDIRECTIONAL);
+ 	/* get the associated scatterlist for this buffer */
+-	sgt = dma_buf_map_attachment(buf->db_attach, buf->dma_dir);
++	sgt = dma_buf_map_attachment_unlocked(buf->db_attach, buf->dma_dir);
+ 	if (IS_ERR(sgt)) {
+ 		pr_err("Error getting dmabuf scatterlist\n");
+ 		return -EINVAL;
+@@ -722,7 +722,8 @@ static int vb2_dc_map_dmabuf(void *mem_priv)
+ 	if (contig_size < buf->size) {
+ 		pr_err("contiguous chunk is too small %lu/%lu\n",
+ 		       contig_size, buf->size);
+-		dma_buf_unmap_attachment(buf->db_attach, sgt, buf->dma_dir);
++		dma_buf_unmap_attachment_unlocked(buf->db_attach, sgt,
++						  buf->dma_dir);
+ 		return -EFAULT;
+ 	}
  
- 	umem_dmabuf->sgt = NULL;
+@@ -750,10 +751,10 @@ static void vb2_dc_unmap_dmabuf(void *mem_priv)
+ 	}
+ 
+ 	if (buf->vaddr) {
+-		dma_buf_vunmap(buf->db_attach->dmabuf, &map);
++		dma_buf_vunmap_unlocked(buf->db_attach->dmabuf, &map);
+ 		buf->vaddr = NULL;
+ 	}
+-	dma_buf_unmap_attachment(buf->db_attach, sgt, buf->dma_dir);
++	dma_buf_unmap_attachment_unlocked(buf->db_attach, sgt, buf->dma_dir);
+ 
+ 	buf->dma_addr = 0;
+ 	buf->dma_sgt = NULL;
+diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+index fa69158a65b1..36ecdea8d707 100644
+--- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
++++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+@@ -309,7 +309,7 @@ static void *vb2_dma_sg_vaddr(struct vb2_buffer *vb, void *buf_priv)
+ 
+ 	if (!buf->vaddr) {
+ 		if (buf->db_attach) {
+-			ret = dma_buf_vmap(buf->db_attach->dmabuf, &map);
++			ret = dma_buf_vmap_unlocked(buf->db_attach->dmabuf, &map);
+ 			buf->vaddr = ret ? NULL : map.vaddr;
+ 		} else {
+ 			buf->vaddr = vm_map_ram(buf->pages, buf->num_pages, -1);
+@@ -565,7 +565,7 @@ static int vb2_dma_sg_map_dmabuf(void *mem_priv)
+ 	}
+ 
+ 	/* get the associated scatterlist for this buffer */
+-	sgt = dma_buf_map_attachment(buf->db_attach, buf->dma_dir);
++	sgt = dma_buf_map_attachment_unlocked(buf->db_attach, buf->dma_dir);
+ 	if (IS_ERR(sgt)) {
+ 		pr_err("Error getting dmabuf scatterlist\n");
+ 		return -EINVAL;
+@@ -594,10 +594,10 @@ static void vb2_dma_sg_unmap_dmabuf(void *mem_priv)
+ 	}
+ 
+ 	if (buf->vaddr) {
+-		dma_buf_vunmap(buf->db_attach->dmabuf, &map);
++		dma_buf_vunmap_unlocked(buf->db_attach->dmabuf, &map);
+ 		buf->vaddr = NULL;
+ 	}
+-	dma_buf_unmap_attachment(buf->db_attach, sgt, buf->dma_dir);
++	dma_buf_unmap_attachment_unlocked(buf->db_attach, sgt, buf->dma_dir);
+ 
+ 	buf->dma_sgt = NULL;
+ }
+diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+index 948152f1596b..7831bf545874 100644
+--- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
++++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+@@ -376,7 +376,7 @@ static int vb2_vmalloc_map_dmabuf(void *mem_priv)
+ 	struct iosys_map map;
+ 	int ret;
+ 
+-	ret = dma_buf_vmap(buf->dbuf, &map);
++	ret = dma_buf_vmap_unlocked(buf->dbuf, &map);
+ 	if (ret)
+ 		return -EFAULT;
+ 	buf->vaddr = map.vaddr;
+@@ -389,7 +389,7 @@ static void vb2_vmalloc_unmap_dmabuf(void *mem_priv)
+ 	struct vb2_vmalloc_buf *buf = mem_priv;
+ 	struct iosys_map map = IOSYS_MAP_INIT_VADDR(buf->vaddr);
+ 
+-	dma_buf_vunmap(buf->dbuf, &map);
++	dma_buf_vunmap_unlocked(buf->dbuf, &map);
+ 	buf->vaddr = NULL;
+ }
+ 
+@@ -399,7 +399,7 @@ static void vb2_vmalloc_detach_dmabuf(void *mem_priv)
+ 	struct iosys_map map = IOSYS_MAP_INIT_VADDR(buf->vaddr);
+ 
+ 	if (buf->vaddr)
+-		dma_buf_vunmap(buf->dbuf, &map);
++		dma_buf_vunmap_unlocked(buf->dbuf, &map);
+ 
+ 	kfree(buf);
  }
 -- 
 2.37.2
