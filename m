@@ -4,43 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27BB4ECAAD1
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 07:28:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D35CCECAAD1
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 07:50:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E272110E212;
-	Wed, 31 Aug 2022 07:28:01 +0000 (UTC)
-Received: from gandalf.ozlabs.org (mail.ozlabs.org
- [IPv6:2404:9400:2221:ea00::3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74F1510E34A
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 23:37:03 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4MHNxh72DBz4x1J;
- Wed, 31 Aug 2022 09:36:56 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
- s=201702; t=1661902617;
- bh=hHoJRNkgJskuDqFVMFnPKFEtUwqf/41b/lXXmFXq2/s=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=h/l6fKnIoVnF9idoKrm088G3Fm1yYMALPPr1XJpz5vR6HJuBTbbUdEl43QjTwqfRw
- iGWUSoszrFRGZuklbOhFCbljlNPGMfFgRL/lNw0L42k/MWfsnii2k85Rfq5C3isqKD
- sDZKsf0R8T11zmICO/ir97/SWUaB4631E3RWiTi5UsC57+kMEk7nGHvZdtOySGbk90
- 10aYc9f1TyMsWzmagsQuSYw/KZvgKwmcjj8PwY82zF83H7S497lZhyaBe6jfDNXdEk
- AgMJzMMr0i1VGKKs7sFV90jj+xniaK/UsrUdt/2+oHrM55R5C1UlDaOeqHxl2hGU7p
- p1vxMJqKZlYnQ==
-Date: Wed, 31 Aug 2022 09:36:55 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH] drm/amd/display: fix documentation for
- amdgpu_dm_update_freesync_caps()
-Message-ID: <20220831093655.299c982d@canb.auug.org.au>
-In-Reply-To: <20220830215752.26536-1-alexander.deucher@amd.com>
-References: <20220830215752.26536-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A213F10E218;
+	Wed, 31 Aug 2022 07:50:23 +0000 (UTC)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6978F10E218;
+ Wed, 31 Aug 2022 07:50:20 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id m7so9866752lfq.8;
+ Wed, 31 Aug 2022 00:50:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date;
+ bh=PVVv6Ijo5X7bHT+aWBd16hu08aIIwrSDZ/C445vNba4=;
+ b=mSxDh5xfDTzioextED+TUTA0XtgSs6vQMCv9tSYx1udfw9Iig4KBCnezF0Z8hhnN99
+ gUzie+jgPx9keTFlMk6X6nR0FZKWFmVHO7lgteFok+l+1+AnqzJrSMNCa+W37O1T2V+M
+ xXxzfZoZiNg8a5tcmRk/GLYw+QMijhgOfvlQqicOKhk7YH7GXrMwEoPxNHdVpyD434Gr
+ IsSPRtmdxvlwpIdZRsIYCLbCFJiz0MesTFE4Hv5YJqlk5a8NDtA4YMA15uemrH7e3RiW
+ KKi+Ag/6aI26AXm9c7noQ+L7vJi9VLENIYsj7XavX/IzDv3820bI6CwJdRCpsDXa5hMr
+ OlqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date;
+ bh=PVVv6Ijo5X7bHT+aWBd16hu08aIIwrSDZ/C445vNba4=;
+ b=fln/X3ab821nmqlfjukBqluNHAWSJHaQzkvuUExeL3H8psynUBpYYmF4pTFeLkYVP8
+ q0NaPpcSdkRuxdCWgEWPISAdyeIRHhgHj4izS6OXilB3WgLxaWb44Xj41UvzaSUEpw3U
+ bl+zaz9jYnrtefKtfjjUnTEgtT6lcWyfsajkRfTLc6G0bF0kBaDUw37m+YwB2gze1UQf
+ xjtiN6b4M9faRWOdUOEPzCm7grGBwih6gicJA/9ZCeU40h+G34vdR1QTpDjSbkijxuyU
+ J1WcMAGAY3H55v8inOH6r4ZWQgio7/r/jw7mKbez2pbFafqacNm2gasVeLouQAR4nzXd
+ KWUA==
+X-Gm-Message-State: ACgBeo3IldWNX1/vqDwHS4ShIxUjFc2x54rQELedUhfy0X0HtXHz1//J
+ FP06deWSyoaYHIgxWiCL07A=
+X-Google-Smtp-Source: AA6agR5YLRBsfLgLV+h9snWty+bxn8l2wcLQBZhB4dTn9oUl6Bodlrml3u91/PXZzNLpS1Dk+JlTmg==
+X-Received: by 2002:a05:6512:e98:b0:492:cf3c:8860 with SMTP id
+ bi24-20020a0565120e9800b00492cf3c8860mr8644867lfb.603.1661932218578; 
+ Wed, 31 Aug 2022 00:50:18 -0700 (PDT)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ s22-20020a056512203600b0049472aa5186sm779738lfs.295.2022.08.31.00.50.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 31 Aug 2022 00:50:18 -0700 (PDT)
+Date: Wed, 31 Aug 2022 10:50:07 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Simon Ser <contact@emersion.fr>
+Subject: Re: [PATCH v2 4/6] drm: allow DRM_MODE_PAGE_FLIP_ASYNC for atomic
+ commits
+Message-ID: <20220831105007.69e4c3e0@eldfell>
+In-Reply-To: <20220830172851.269402-5-contact@emersion.fr>
+References: <20220830172851.269402-1-contact@emersion.fr>
+ <20220830172851.269402-5-contact@emersion.fr>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/_6LwBUAAitCnAwZwKeSXZok";
+Content-Type: multipart/signed; boundary="Sig_/ir6mu=Qydqg1FRLlg0vEf8d";
  protocol="application/pgp-signature"; micalg=pgp-sha256
-X-Mailman-Approved-At: Wed, 31 Aug 2022 07:27:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,55 +70,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: andrealmeid@igalia.com, daniel.vetter@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
+ mwen@igalia.com, dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ joshua@froggi.es, hwentlan@amd.com, nicholas.kazlauskas@amd.com,
+ ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/_6LwBUAAitCnAwZwKeSXZok
-Content-Type: text/plain; charset=US-ASCII
+--Sig_/ir6mu=Qydqg1FRLlg0vEf8d
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Alex,
+On Tue, 30 Aug 2022 17:29:35 +0000
+Simon Ser <contact@emersion.fr> wrote:
 
-On Tue, 30 Aug 2022 17:57:52 -0400 Alex Deucher <alexander.deucher@amd.com>=
- wrote:
->
-> Document missing parameter.
+> If the driver supports it, allow user-space to supply the
+> DRM_MODE_PAGE_FLIP_ASYNC flag to request an async page-flip.
+> Set drm_crtc_state.async_flip accordingly.
 >=20
-> Fixes: 8889a13f99e5 ("drm/amd/display: Add some extra kernel doc to amdgp=
-u_dm")
-> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
+> Document that drivers will reject atomic commits if an async
+> flip isn't possible. This allows user-space to fall back to
+> something else. For instance, Xorg falls back to a blit.
+> Another option is to wait as close to the next vblank as
+> possible before performing the page-flip to reduce latency.
+>=20
+> v2: document new uAPI
+>=20
+> Signed-off-by: Simon Ser <contact@emersion.fr>
+> Co-developed-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Cc: Joshua Ashton <joshua@froggi.es>
+> Cc: Melissa Wen <mwen@igalia.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Harry Wentland <hwentlan@amd.com>
+> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 > ---
->=20
-> v2: fix aconnector too.
->=20
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/drm_atomic_uapi.c | 28 +++++++++++++++++++++++++---
+>  include/uapi/drm/drm_mode.h       |  4 ++++
+>  2 files changed, 29 insertions(+), 3 deletions(-)
 
-Thanks, looks good.
+...
 
---=20
-Cheers,
-Stephen Rothwell
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index 86a292c3185a..cce1a1bea645 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -942,6 +942,10 @@ struct hdr_output_metadata {
+>   * Request that the page-flip is performed as soon as possible, ie. with=
+ no
+>   * delay due to waiting for vblank. This may cause tearing to be visible=
+ on
+>   * the screen.
+> + *
+> + * When used with atomic uAPI, the driver will return an error if the ha=
+rdware
+> + * doesn't support performing an asynchronous page-flip for this update.
+> + * User-space should handle this, e.g. by falling back to a regular page=
+-flip.
+>   */
+>  #define DRM_MODE_PAGE_FLIP_ASYNC 0x02
+>  #define DRM_MODE_PAGE_FLIP_TARGET_ABSOLUTE 0x4
 
---Sig_/_6LwBUAAitCnAwZwKeSXZok
+Hi Simon,
+
+recalling what Ville explained that enabling async flips might require
+one more sync flip first, how is that supposed to work?
+
+A TEST_ONLY commit is not allowed to change hardware state, and a
+failing real commit is not allowed to change hardware state either
+(right?), therefore a failing async flip cannot prepare the next flip
+to be async, meaning async will never work.
+
+
+Thanks,
+pq
+
+--Sig_/ir6mu=Qydqg1FRLlg0vEf8d
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmMOnxgACgkQAVBC80lX
-0GzLXwf7B/o0iE7tfxajJBIYsYTm+xrvw7oNb8rHGt+NT3aHEM/h29Vqg4SZXnx4
-kAoEc46SG+yhFTF6FlxyqWSi3KjcENKTFOJJBYh/gZamLN2/1NVXMOhlapMNo/Ei
-huIwXusPFEhmoXSupIduwCMq9jIVmopxgipT4xamQJgYCVADIVal5xYh3Y+6sZ/U
-lQSupXg3j8zg5zw32bS3AUXj6t5wM6gD180G+qni5N9p174X5LVue6tGNmdMAl+9
-iuYgN2gSmObSGjW4mtHTFPGTsaAp5wJ+Pa3nACTRRt8FC0yYGEGX9HX39+Mu7q59
-9m2XZaIJz/HAkHAu1K1BuTRAtScH+g==
-=lsp+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmMPEq8ACgkQI1/ltBGq
+qqcb/hAAjnciNpwLhqax42+2jsviI5tEK8B9cW7QW51eTO+c3hStURgE50+WNhNy
+CxJ4t6niSfNfw/MYMJkjfAE4vncgSTerxb/TA3ConOla5g4AT7kfYCxE6T1MM8Hq
+PFnMZLsLqzUokxnvjQDI5wMPVx78yk0oZfx9oXLEHBmUKP5q2uyJb3unAO49ZMV4
+yUWEQx7UfkB5Iyohxal5s7kzKMLFw6yL2jvIuh5mm3HzHBJDCU6Ccom1e4w9PyeP
+5RlXOC1C2pQH6eo7mapDe04d0wXrG2vVr0K+MLCJOcvYnfIw6cbxodttBCNXKUuV
+SRg2we+hDOEH0EUzR0PuGMHcRNdpH6kawFtR4bv4JiwnnzWOqRbnmQSSuZkzHglz
+QBhNx1g/zy3U8LmMV96yYX0q8Myk149VgqR+R5GazLStvoR31lSaE5jDAFVYe3JT
+U+fKq/9a0FrMSsqCli03UvI8DgWaps/Axjs9KvYoqz1IJINf33TIii2S0VcMB+Fa
+ABSGKQTOvtfyurGuOoYWGSYIO8ynVZwTLOTLLpHhsFjTGhLb6s9/2iOz1QK3jR6l
+l3cLeNcv4mGNKabZ13DBYfqAuizfCTcYRqsaGG9BZG6Fsr2v/stQxFgvuOCY9rjr
+DhAs3ILeslU27UFGkgZM4OtXszqH388kNVIyf+vULwx9fQAKj0w=
+=pHkz
 -----END PGP SIGNATURE-----
 
---Sig_/_6LwBUAAitCnAwZwKeSXZok--
+--Sig_/ir6mu=Qydqg1FRLlg0vEf8d--
