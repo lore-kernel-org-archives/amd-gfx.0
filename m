@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 249ACC0502C
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 15:44:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BAC9ECAAD1
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 15:44:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A13910E46A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95E9E10E46B;
 	Wed, 31 Aug 2022 15:43:54 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D69710E446;
- Wed, 31 Aug 2022 15:39:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63A8410E43B;
+ Wed, 31 Aug 2022 15:40:15 +0000 (UTC)
 Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 447B46601DEF;
- Wed, 31 Aug 2022 16:39:49 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 3F03A6601DEE;
+ Wed, 31 Aug 2022 16:40:11 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960392;
- bh=iqiuG6elCAPxC5quyUMlq7dtDwEk3iewWUdCPSj6Wh0=;
+ s=mail; t=1661960414;
+ bh=tOl8HnGHuspOaHfQ8kLvPjNpiAx+VJwtG1vjNitDsbY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=iwuMv9xLnfekm41TGBF3RPAoCqh5F5XUSOeklx7AUykOfmI/q1IknjpSNZ1sgwms9
- FH+iKb1PjnddqXSDd3gPdc3S4x7qKBGbECxVttU2VoIDti22io9srpaLNYzL7JF2bK
- H5NL/0KIRX3oSAiKn7bB1kLUQB0IZrieWB210PjgAQaf2toiXVnABV2bjYkkDFQCkQ
- TYqjc1E0NRgYFEOJBIeZgC385lqCtTKP3vOTqiNSP82Rdl12QbWUPyq1Jvkm++oAwp
- kG1w1Gq/JuMLvurW/hngpCwCbvox273LAkvCIiy0BwT2EkiZwLv9+iRcEqAVzc9mFq
- UYHJWGpANzUug==
+ b=kstPveCaJveRBMwtfiKH3ZEeiXoX62OYMZ2fGOLodxxp4RoJkGu4+wX+ZBBPsIclU
+ jC6BGy95i//NUiQnoMQ4erjBSYOBC8Ru++SGHiCT/9wRglO2GVJFcSugeKpeAWgkxM
+ 8JtLuUEtcNQZlNOXOMUPUT5Cj80Xq6sd33axeBXK+rmA+vwkNdDb0AUKjfB6EB3ptw
+ KaBaYu80d/FuWGBMzslNdWxVAePKz+26arVlSAG7NZLi+VvCqcjfUUarsJM71hn2Xo
+ jO/K0Hu5Ruk7Boo4ixyRth/yzAD1hmSV+/zWxE4Zq8LIZSxSuFlUqFURm8A50yCeS1
+ ycL3RR0VL1zYw==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -63,10 +63,9 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>
-Subject: [PATCH v4 12/21] xen/gntdev: Prepare to dynamic dma-buf locking
- specification
-Date: Wed, 31 Aug 2022 18:37:48 +0300
-Message-Id: <20220831153757.97381-13-dmitry.osipenko@collabora.com>
+Subject: [PATCH v4 19/21] dma-buf: Document dynamic locking convention
+Date: Wed, 31 Aug 2022 18:37:55 +0300
+Message-Id: <20220831153757.97381-20-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
 References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
@@ -93,47 +92,108 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prepare gntdev driver to the common dynamic dma-buf locking convention
-by starting to use the unlocked versions of dma-buf API functions.
+Add documentation for the dynamic locking convention. The documentation
+tells dma-buf API users when they should take the reservation lock and
+when not.
 
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/xen/gntdev-dmabuf.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ Documentation/driver-api/dma-buf.rst |  6 +++
+ drivers/dma-buf/dma-buf.c            | 64 ++++++++++++++++++++++++++++
+ 2 files changed, 70 insertions(+)
 
-diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
-index 940e5e9e8a54..4440e626b797 100644
---- a/drivers/xen/gntdev-dmabuf.c
-+++ b/drivers/xen/gntdev-dmabuf.c
-@@ -600,7 +600,7 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
+diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/driver-api/dma-buf.rst
+index 36a76cbe9095..622b8156d212 100644
+--- a/Documentation/driver-api/dma-buf.rst
++++ b/Documentation/driver-api/dma-buf.rst
+@@ -119,6 +119,12 @@ DMA Buffer ioctls
  
- 	gntdev_dmabuf->u.imp.attach = attach;
+ .. kernel-doc:: include/uapi/linux/dma-buf.h
  
--	sgt = dma_buf_map_attachment(attach, DMA_BIDIRECTIONAL);
-+	sgt = dma_buf_map_attachment_unlocked(attach, DMA_BIDIRECTIONAL);
- 	if (IS_ERR(sgt)) {
- 		ret = ERR_CAST(sgt);
- 		goto fail_detach;
-@@ -658,7 +658,7 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
- fail_end_access:
- 	dmabuf_imp_end_foreign_access(gntdev_dmabuf->u.imp.refs, count);
- fail_unmap:
--	dma_buf_unmap_attachment(attach, sgt, DMA_BIDIRECTIONAL);
-+	dma_buf_unmap_attachment_unlocked(attach, sgt, DMA_BIDIRECTIONAL);
- fail_detach:
- 	dma_buf_detach(dma_buf, attach);
- fail_free_obj:
-@@ -708,8 +708,8 @@ static int dmabuf_imp_release(struct gntdev_dmabuf_priv *priv, u32 fd)
- 	attach = gntdev_dmabuf->u.imp.attach;
++DMA-BUF locking convention
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++.. kernel-doc:: drivers/dma-buf/dma-buf.c
++   :doc: locking convention
++
+ Kernel Functions and Structures Reference
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
- 	if (gntdev_dmabuf->u.imp.sgt)
--		dma_buf_unmap_attachment(attach, gntdev_dmabuf->u.imp.sgt,
--					 DMA_BIDIRECTIONAL);
-+		dma_buf_unmap_attachment_unlocked(attach, gntdev_dmabuf->u.imp.sgt,
-+						  DMA_BIDIRECTIONAL);
- 	dma_buf = attach->dmabuf;
- 	dma_buf_detach(attach->dmabuf, attach);
- 	dma_buf_put(dma_buf);
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index d9130486cb8f..97ce884fad76 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -794,6 +794,70 @@ static struct sg_table * __map_dma_buf(struct dma_buf_attachment *attach,
+ 	return sg_table;
+ }
+ 
++/**
++ * DOC: locking convention
++ *
++ * In order to avoid deadlock situations between dma-buf exports and importers,
++ * all dma-buf API users must follow the common dma-buf locking convention.
++ *
++ * Convention for importers
++ *
++ * 1. Importers must hold the dma-buf reservation lock when calling these
++ *    functions:
++ *
++ *     - dma_buf_pin()
++ *     - dma_buf_unpin()
++ *     - dma_buf_map_attachment()
++ *     - dma_buf_unmap_attachment()
++ *     - dma_buf_vmap()
++ *     - dma_buf_vunmap()
++ *
++ * 2. Importers must not hold the dma-buf reservation lock when calling these
++ *    functions:
++ *
++ *     - dma_buf_attach()
++ *     - dma_buf_dynamic_attach()
++ *     - dma_buf_detach()
++ *     - dma_buf_export(
++ *     - dma_buf_fd()
++ *     - dma_buf_get()
++ *     - dma_buf_put()
++ *     - dma_buf_mmap()
++ *     - dma_buf_begin_cpu_access()
++ *     - dma_buf_end_cpu_access()
++ *     - dma_buf_map_attachment_unlocked()
++ *     - dma_buf_unmap_attachment_unlocked()
++ *     - dma_buf_vmap_unlocked()
++ *     - dma_buf_vunmap_unlocked()
++ *
++ * Convention for exporters
++ *
++ * 1. These &dma_buf_ops callbacks are invoked with unlocked dma-buf
++ *    reservation and exporter can take the lock:
++ *
++ *     - &dma_buf_ops.attach()
++ *     - &dma_buf_ops.detach()
++ *     - &dma_buf_ops.release()
++ *     - &dma_buf_ops.begin_cpu_access()
++ *     - &dma_buf_ops.end_cpu_access()
++ *
++ * 2. These &dma_buf_ops callbacks are invoked with locked dma-buf
++ *    reservation and exporter can't take the lock:
++ *
++ *     - &dma_buf_ops.pin()
++ *     - &dma_buf_ops.unpin()
++ *     - &dma_buf_ops.map_dma_buf()
++ *     - &dma_buf_ops.unmap_dma_buf()
++ *     - &dma_buf_ops.mmap()
++ *     - &dma_buf_ops.vmap()
++ *     - &dma_buf_ops.vunmap()
++ *
++ * 3. Exporters must hold the dma-buf reservation lock when calling these
++ *    functions:
++ *
++ *     - dma_buf_move_notify()
++ */
++
+ /**
+  * dma_buf_dynamic_attach - Add the device to dma_buf's attachments list
+  * @dmabuf:		[in]	buffer to attach device to.
 -- 
 2.37.2
 
