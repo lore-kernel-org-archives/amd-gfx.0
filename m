@@ -4,43 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18B50ECAAD8
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 20:08:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E43ACECAAD1
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 20:34:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BF3E10E082;
-	Wed, 31 Aug 2022 20:08:18 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B97310E082;
- Wed, 31 Aug 2022 20:08:14 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 74BA061957;
- Wed, 31 Aug 2022 20:08:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5457C433D6;
- Wed, 31 Aug 2022 20:08:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661976492;
- bh=zKMHNZ+XLBme4WkFy77n13v6pA/KXZ5Eql5mbdiwYIY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cLb7sXLuNwOZot0OZeBWG/0+l7IPTuYWZ3wBEg+BzhOwAA/0ZICj41rSVegYddNjv
- n42Mn2JRIyMPbLKqj3N4uO8pOqZJbV3ChRs+/dqGgs4KxenXScsNYhypbcVFj+rGE8
- AoBGY878hEQZwCF8o7USVP1MpLA5PI2UicNRTNbu3LsFwv2FozWXsRIyR1DhDuFPgW
- Hfwrl1TCvoWA68ZwccdQzWkXWv5l2dTksjFtdzHiWCDTmnN6Jd/M94lkIpbtbNxorI
- x6xXurY5CWW64KBR/AzYLLFgpPDUR7fMESwNCWjqTlmJwlVDfQpgllHJRWlXF/Veup
- BzsPHoHJjhXPQ==
-Date: Wed, 31 Aug 2022 13:08:10 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Nick Desaulniers <ndesaulniers@google.com>
-Subject: Re: [PATCH v2 3/5] Makefile.compiler: replace cc-ifversion with
- compiler-specific macros
-Message-ID: <Yw+/qjgveoN0q89t@dev-arch.thelio-3990X>
-References: <20220831184408.2778264-1-ndesaulniers@google.com>
- <20220831184408.2778264-4-ndesaulniers@google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DD6410E2BC;
+	Wed, 31 Aug 2022 20:34:05 +0000 (UTC)
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D466610E2C6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 Aug 2022 20:34:02 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id h5so19124454ejb.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 Aug 2022 13:34:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=BWCSto+d0Sdc3pu/dI6kfALxAxUh8nbvYhfQQse8Du4=;
+ b=UqbaQCMQ8Ir0eFvGxnTJYodezvei/7SOzMXpuyww0mYZ3xZ4NBiWOHcuGfUW3JFyx6
+ R9kOGei6YDc8ev/0UcWn+l1CYEt7H7an7s0unDOVanZTtppwMC/vEFfqNTie1tlekpiW
+ bNhtEh95IhzL1atWzqECkFsv0tRezF/kKuHKL6kf89H4D4OGlyxQJQ5gBmJQFqBH8xk/
+ T2ZZdn1ddK2rX1PgY25w1qd2Ae8olxOLVUy4GGw34dvLyCJT6IC86ek+E/DH3i0++g1n
+ LiF76NTYdlhO+1mG8Wr+gxS9znLiCMWDPcbk+zJZS7dFcMdp7u7kz7I8mbZ0iq+OS9Sz
+ M6bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=BWCSto+d0Sdc3pu/dI6kfALxAxUh8nbvYhfQQse8Du4=;
+ b=5DDciDUCssD0CuCmRGsLm2N+hEMSqVR0ng+kuuUqBesQNgCZD0hAvlT6L62tgd+ORV
+ Q/3nO7qQn2Wusn43kaDZobF+uZoJgcOyDtPq9z+ZTnMDjxM8Clu4fYfbXgE1gZAAskrd
+ jLLRrV7bRKgtpsaMIClrjQfGUpb7AxRMtwrraCTGzJfr3ROsYR7ub7733YEy/byL3tbS
+ 7tzQ98Wa/u5c/3gnYtnYEnMBdlATNbWxhCPSnosRpyFherSJtYtqqjfq+Rh9xvvEOa5p
+ ryvghONWCyPf17YJK3TgjVJWacpsXvxG8PD91sQtOc2fPVUoyh3bB1hgauAD0/ezuIMG
+ Mj+Q==
+X-Gm-Message-State: ACgBeo0uhEb3GUysL/5qjuEypCtLUaNcZT9/UP4t9auH04lmRpJ26DMo
+ HUJ/RefUxNPxOhPT79U/ZNmGEG2nbaIleZ4BD1efhg==
+X-Google-Smtp-Source: AA6agR7EtnTzAoLqrkdRQji8od/wdsUejedlsqe6yDsRzJ4GH4pBLANa9tDTlmIUZyZjCCW75+Y2PPCFUGpfNE6atE0=
+X-Received: by 2002:a17:907:7242:b0:741:770b:dfc6 with SMTP id
+ ds2-20020a170907724200b00741770bdfc6mr12548822ejc.203.1661978041297; Wed, 31
+ Aug 2022 13:34:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220831184408.2778264-4-ndesaulniers@google.com>
+References: <630fa8c5.moZxX4/JNtIfjYQO%lkp@intel.com>
+In-Reply-To: <630fa8c5.moZxX4/JNtIfjYQO%lkp@intel.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 31 Aug 2022 22:33:50 +0200
+Message-ID: <CACRpkdb8bEyNrc7_gN+Lt-W_um56YfhOAcXgqEXsToGpvswmKA@mail.gmail.com>
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 7fd22855300e693668c3397771b3a2b3948f827a
+To: kernel test robot <lkp@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,214 +63,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: x86@kernel.org, Michal Marek <michal.lkml@markovi.net>,
- dri-devel@lists.freedesktop.org, Fangrui Song <maskray@google.com>,
- linux-kbuild@vger.kernel.org, Tom Rix <trix@redhat.com>,
- Masahiro Yamada <masahiroy@kernel.org>, llvm@lists.linux.dev,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Bill Wendling <morbo@google.com>,
- Greg Thelen <gthelen@google.com>, Jonathan Corbet <corbet@lwn.net>,
- Dmitrii Bundin <dmitrii.bundin.a@gmail.com>,
- Alexey Alexandrov <aalexand@google.com>
+Cc: dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ amd-gfx@lists.freedesktop.org, Andrew Morton <akpm@linux-foundation.org>,
+ linux-wpan@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 31, 2022 at 11:44:06AM -0700, Nick Desaulniers wrote:
-> cc-ifversion is GCC specific. Replace it with compiler specific
-> variants. Update the users of cc-ifversion to use these new macros.
-> Provide a helper for checking compiler versions for GCC and Clang
-> simultaneously, that will be used in a follow up patch.
-> 
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: linux-doc@vger.kernel.org
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> Link: https://github.com/ClangBuiltLinux/linux/issues/350
-> Link: https://lore.kernel.org/llvm/CAGG=3QWSAUakO42kubrCap8fp-gm1ERJJAYXTnP1iHk_wrH=BQ@mail.gmail.com/
-> Suggested-by: Bill Wendling <morbo@google.com>
-> Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+On Wed, Aug 31, 2022 at 8:32 PM kernel test robot <lkp@intel.com> wrote:
 
-These are so much nicer. I find the name kind of awkward but the only
-thing I could come up with that sounded better was 'gcc-is-at-least' or
-'clang-is-at-least' and I don't really feel like painting sheds today,
-it's hot outside :)
+> |-- alpha-allyesconfig
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsb
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsl
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsw
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesb
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesl
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
+> |   `-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesw
+> |-- alpha-randconfig-r024-20220830
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsb
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsl
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsw
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesb
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesl
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
+> |   `-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesw
 
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+Fixed in this patch:
+https://lore.kernel.org/linux-arch/20220818092059.103884-1-linus.walleij@linaro.org/
 
-Some comments below.
+> |-- parisc-randconfig-r012-20220831
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsb
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsl
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsw
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesb
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesl
+> |   `-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesw
 
-> ---
-> Changes v1 -> v2:
-> * New patch.
-> 
->  Documentation/kbuild/makefiles.rst          | 44 +++++++++++++++------
->  Makefile                                    |  4 +-
->  drivers/gpu/drm/amd/display/dc/dml/Makefile | 12 ++----
->  scripts/Makefile.compiler                   | 15 +++++--
->  4 files changed, 49 insertions(+), 26 deletions(-)
-> 
-> diff --git a/Documentation/kbuild/makefiles.rst b/Documentation/kbuild/makefiles.rst
-> index 11a296e52d68..e46f5b45c422 100644
-> --- a/Documentation/kbuild/makefiles.rst
-> +++ b/Documentation/kbuild/makefiles.rst
-> @@ -682,22 +682,42 @@ more details, with real examples.
->  	In the above example, -Wno-unused-but-set-variable will be added to
->  	KBUILD_CFLAGS only if gcc really accepts it.
->  
-> -    cc-ifversion
-> -	cc-ifversion tests the version of $(CC) and equals the fourth parameter
-> -	if version expression is true, or the fifth (if given) if the version
-> -	expression is false.
-> +    gcc-min-version
-> +	gcc-min-version tests if the value of $(CONFIG_GCC_VERSION) is greater than
-> +	or equal to the provided value and evaluates to y if so.
->  
->  	Example::
->  
-> -		#fs/reiserfs/Makefile
-> -		ccflags-y := $(call cc-ifversion, -lt, 0402, -O1)
-> +		cflags-$(call gcc-min-version, 70100) := -foo
->  
-> -	In this example, ccflags-y will be assigned the value -O1 if the
-> -	$(CC) version is less than 4.2.
-> -	cc-ifversion takes all the shell operators:
-> -	-eq, -ne, -lt, -le, -gt, and -ge
-> -	The third parameter may be a text as in this example, but it may also
-> -	be an expanded variable or a macro.
-> +	In this example, cflags-y will be assigned the value -foo if $(CC) is gcc and
-> +	$(CONFIG_GCC_VERSION) is >= 7.1.
-> +
-> +    clang-min-version
-> +	clang-min-version tests if the value of $(CONFIG_CLANG_VERSION) is greater
-> +	than or equal to the provided value and evaluates to y if so.
-> +
-> +	Example::
-> +
-> +		cflags-$(call clang-min-version, 110000) := -foo
-> +
-> +	In this example, cflags-y will be assigned the value -foo if $(CC) is clang
-> +	and $(CONFIG_CLANG_VERSION) is >= 11.0.0.
-> +
-> +    cc-min-version
-> +	cc-min-version tests if the value of $(CONFIG_GCC_VERSION) is greater
-> +	than or equal to the first value provided, or if the value of
-> +	$(CONFIG_CLANG_VERSION) is greater than or equal to the second value
-> +	provided, and evaluates
-> +	to y if so.
-> +
-> +	Example::
-> +
-> +		cflags-$(call cc-min-version, 70100, 110000) := -foo
-> +
-> +	In this example, cflags-y will be assigned the value -foo if $(CC) is gcc and
-> +	$(CONFIG_GCC_VERSION) is >= 7.1, or if $(CC) is clang and
-> +	$(CONFIG_CLANG_VERSION) is >= 11.0.0.
->  
->      cc-cross-prefix
->  	cc-cross-prefix is used to check if there exists a $(CC) in path with
-> diff --git a/Makefile b/Makefile
-> index 952d354069a4..caa39ecb1136 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -972,7 +972,7 @@ ifdef CONFIG_CC_IS_GCC
->  KBUILD_CFLAGS += -Wno-maybe-uninitialized
->  endif
->  
-> -ifdef CONFIG_CC_IS_GCC
-> +ifeq ($(call gcc-min-version, 90100),y)
->  # The allocators already balk at large sizes, so silence the compiler
->  # warnings for bounds checks involving those possible values. While
->  # -Wno-alloc-size-larger-than would normally be used here, earlier versions
-> @@ -984,7 +984,7 @@ ifdef CONFIG_CC_IS_GCC
->  # ignored, continuing to default to PTRDIFF_MAX. So, left with no other
->  # choice, we must perform a versioned check to disable this warning.
->  # https://lore.kernel.org/lkml/20210824115859.187f272f@canb.auug.org.au
-> -KBUILD_CFLAGS += $(call cc-ifversion, -ge, 0901, -Wno-alloc-size-larger-than)
-> +KBUILD_CFLAGS += -Wno-alloc-size-larger-than
->  endif
+Working on this one!
 
-It might be interesting to move this up to where KBUILD_CFLAGS-y is used
-to make it:
+> |-- sparc-allyesconfig
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
+> |   `-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
+> |-- sparc-buildonly-randconfig-r005-20220830
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
+> |   `-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
+> |-- sparc64-buildonly-randconfig-r006-20220830
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
+> |   `-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
+> |-- sparc64-randconfig-c042-20220830
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
+> |   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
 
-  KBUILD_CFLAGS-$(call gcc-min-version, 90100) += -Wno-alloc-size-larger-than
+Fixed in this patch:
+https://lore.kernel.org/linux-arch/20220831195553.129866-1-linus.walleij@linaro.org/
 
-But the comment would have to come with so it probably isn't worth
-doing. Just throwing it out as an observation.
-
->  
->  # disable invalid "can't wrap" optimizations for signed / pointers
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index 86a3b5bfd699..d8ee4743b2e3 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -33,20 +33,14 @@ ifdef CONFIG_PPC64
->  dml_ccflags := -mhard-float -maltivec
->  endif
->  
-> -ifdef CONFIG_CC_IS_GCC
-> -ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-> -IS_OLD_GCC = 1
-> -endif
-> -endif
-> -
->  ifdef CONFIG_X86
-> -ifdef IS_OLD_GCC
-> +ifeq ($(call gcc-min-version, 70100),y)
-> +dml_ccflags += -msse2
-
-I think you just dropped '-msse2' for clang.
-
-I guess this wants to be:
-
-  ifeq ($(call cc-min-version, 70100, 110000),y)
-
-but it kind of feels bad to hardcode the kernel's minimum supported
-version of clang somewhere that is not super easy to grep for when we
-upgrade it (I guess I'll add cc-min-version to my list of things to look
-for, in addition to the Kconfig variables). Perhaps we should codify it
-in a place that can be used within make (using
-'scripts/min-tool-version.sh' even) so that we could do something like:
-
-  ifeq ($(call cc-min-version, 70100, $(MIN_CLANG_VERSION)),y)
-
-Up to you though.
-
-> +else
->  # Stack alignment mismatch, proceed with caution.
->  # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
->  # (8B stack alignment).
->  dml_ccflags += -mpreferred-stack-boundary=4
-> -else
-> -dml_ccflags += -msse2
->  endif
->  endif
->  
-> diff --git a/scripts/Makefile.compiler b/scripts/Makefile.compiler
-> index d1739f0d3ce3..13dade724fa3 100644
-> --- a/scripts/Makefile.compiler
-> +++ b/scripts/Makefile.compiler
-> @@ -61,9 +61,18 @@ cc-option-yn = $(call try-run,\
->  cc-disable-warning = $(call try-run,\
->  	$(CC) -Werror $(KBUILD_CPPFLAGS) $(KBUILD_CFLAGS) -W$(strip $(1)) -c -x c /dev/null -o "$$TMP",-Wno-$(strip $(1)))
->  
-> -# cc-ifversion
-> -# Usage:  EXTRA_CFLAGS += $(call cc-ifversion, -lt, 0402, -O1)
-> -cc-ifversion = $(shell [ $(CONFIG_GCC_VERSION)0 $(1) $(2)000 ] && echo $(3) || echo $(4))
-> +# gcc-min-version
-> +# Usage: cflags-$(call gcc-min-version, 70100) += -foo
-> +gcc-min-version = $(shell [ $(CONFIG_GCC_VERSION) -ge $(1) ] && echo y)
-> +
-> +# clang-min-version
-> +# Usage: cflags-$(call clang-min-version, 110000) += -foo
-> +clang-min-version = $(shell [ $(CONFIG_CLANG_VERSION) -ge $(1) ] && echo y)
-> +
-> +# cc-min-version
-> +# Usage: cflags-$(call cc-min-version, 701000, 110000)
-> +#                                      ^ GCC   ^ Clang
-> +cc-min-version = $(filter y, $(call gcc-min-version, $(1)), $(call clang-min-version, $(2)))
->  
->  # ld-option
->  # Usage: KBUILD_LDFLAGS += $(call ld-option, -X, -Y)
-> -- 
-> 2.37.2.672.g94769d06f0-goog
-> 
+Yours,
+Linus Walleij
