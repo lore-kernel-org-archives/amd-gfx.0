@@ -4,61 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D35CCECAAD1
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 07:50:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F25B4ECAAD1
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 08:05:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A213F10E218;
-	Wed, 31 Aug 2022 07:50:23 +0000 (UTC)
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6978F10E218;
- Wed, 31 Aug 2022 07:50:20 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id m7so9866752lfq.8;
- Wed, 31 Aug 2022 00:50:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 678C810E21A;
+	Wed, 31 Aug 2022 08:05:30 +0000 (UTC)
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36CC610E21A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 Aug 2022 08:05:29 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id y64so5482788ede.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 Aug 2022 01:05:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date;
- bh=PVVv6Ijo5X7bHT+aWBd16hu08aIIwrSDZ/C445vNba4=;
- b=mSxDh5xfDTzioextED+TUTA0XtgSs6vQMCv9tSYx1udfw9Iig4KBCnezF0Z8hhnN99
- gUzie+jgPx9keTFlMk6X6nR0FZKWFmVHO7lgteFok+l+1+AnqzJrSMNCa+W37O1T2V+M
- xXxzfZoZiNg8a5tcmRk/GLYw+QMijhgOfvlQqicOKhk7YH7GXrMwEoPxNHdVpyD434Gr
- IsSPRtmdxvlwpIdZRsIYCLbCFJiz0MesTFE4Hv5YJqlk5a8NDtA4YMA15uemrH7e3RiW
- KKi+Ag/6aI26AXm9c7noQ+L7vJi9VLENIYsj7XavX/IzDv3820bI6CwJdRCpsDXa5hMr
- OlqA==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=gLam/FTfbDQyrcki/vf3cOfz51E+6viNyByATv3cOK4=;
+ b=YFF43ga7S1lQNqBDhmrOe3Sx5GjAHtf/JmTnXaQeCuTEGxCQkphkkpvb8BQskVK56l
+ GeHjHZxeA0SIWrlujairmS8ewdTeJYIqpXb5Ghz9AKweI5hWkWI0C1EUMgfSLTvHwjZA
+ Djnc2dXndAs4xhPxwWBdYS2F5Qf5fjzjwZqWgpYYegskaZi2NZjhGp1TjCRmaGNFUNHv
+ 9OG1KL8hTPZUQ3ZEpcjRNX33NpMTGbItiLeV/nDp8IQAnsCIiUoCBnOSnWiVXP8QChgJ
+ du2GS4RxLu1C1Pdvq8VedDTTSQ2g6/aQwA4hmprBOS1bGeBhJZoz1x0CbU1TbaiJSkGS
+ MSPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date;
- bh=PVVv6Ijo5X7bHT+aWBd16hu08aIIwrSDZ/C445vNba4=;
- b=fln/X3ab821nmqlfjukBqluNHAWSJHaQzkvuUExeL3H8psynUBpYYmF4pTFeLkYVP8
- q0NaPpcSdkRuxdCWgEWPISAdyeIRHhgHj4izS6OXilB3WgLxaWb44Xj41UvzaSUEpw3U
- bl+zaz9jYnrtefKtfjjUnTEgtT6lcWyfsajkRfTLc6G0bF0kBaDUw37m+YwB2gze1UQf
- xjtiN6b4M9faRWOdUOEPzCm7grGBwih6gicJA/9ZCeU40h+G34vdR1QTpDjSbkijxuyU
- J1WcMAGAY3H55v8inOH6r4ZWQgio7/r/jw7mKbez2pbFafqacNm2gasVeLouQAR4nzXd
- KWUA==
-X-Gm-Message-State: ACgBeo3IldWNX1/vqDwHS4ShIxUjFc2x54rQELedUhfy0X0HtXHz1//J
- FP06deWSyoaYHIgxWiCL07A=
-X-Google-Smtp-Source: AA6agR5YLRBsfLgLV+h9snWty+bxn8l2wcLQBZhB4dTn9oUl6Bodlrml3u91/PXZzNLpS1Dk+JlTmg==
-X-Received: by 2002:a05:6512:e98:b0:492:cf3c:8860 with SMTP id
- bi24-20020a0565120e9800b00492cf3c8860mr8644867lfb.603.1661932218578; 
- Wed, 31 Aug 2022 00:50:18 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- s22-20020a056512203600b0049472aa5186sm779738lfs.295.2022.08.31.00.50.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 31 Aug 2022 00:50:18 -0700 (PDT)
-Date: Wed, 31 Aug 2022 10:50:07 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Simon Ser <contact@emersion.fr>
-Subject: Re: [PATCH v2 4/6] drm: allow DRM_MODE_PAGE_FLIP_ASYNC for atomic
- commits
-Message-ID: <20220831105007.69e4c3e0@eldfell>
-In-Reply-To: <20220830172851.269402-5-contact@emersion.fr>
-References: <20220830172851.269402-1-contact@emersion.fr>
- <20220830172851.269402-5-contact@emersion.fr>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=gLam/FTfbDQyrcki/vf3cOfz51E+6viNyByATv3cOK4=;
+ b=joRCvbsSnavQpx83eIHawtz2UiKIkLnOQyy3ul4DruCbKTHEvcO2IvNP36l3oX+fjc
+ r1Rf/QLBiExBurop6UEgIqtcrjoXBZ7Kg0zwCDadu8qrOkhqFMDA78atR/j+eWOakeMN
+ 8LNPEemPjz38O4VAgtth8LiCFMX46+amXBHlVEfT5hPoPOFM5CCsNHqsHa9HwZhyvflM
+ XqC7Y5KgeL6bfno1k/o9RKI2KljWANV1g6Oy3zBWNLefSp5BSJcUgibtd87p0TMIJe4l
+ RcDjTQiSwH9ObKD+YXPc67cqW+jlwadJBbNGMsBP0gAAXhHHNnfP3JaiPrWJAav6nvxc
+ xxGg==
+X-Gm-Message-State: ACgBeo33w+j5MDJ0r1ejLNNvdtKZH95Lf3YTOJfusB9F6imShKTaSvRY
+ 98xUdJwhkTB8dJCFdK4aBbQ=
+X-Google-Smtp-Source: AA6agR4PDlv2G82Hncmfz87s3HCzlnyduVmxL2muSaN7qOpQLKoRVnWcdXkzCGH/MFPl1LzMftBicQ==
+X-Received: by 2002:a05:6402:1f8c:b0:43e:8fab:76c with SMTP id
+ c12-20020a0564021f8c00b0043e8fab076cmr23352127edc.126.1661933127585; 
+ Wed, 31 Aug 2022 01:05:27 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:a72b:3a8d:212a:79d7?
+ ([2a02:908:1256:79a0:a72b:3a8d:212a:79d7])
+ by smtp.gmail.com with ESMTPSA id
+ d1-20020a170906304100b0073d8ad7feeasm6244491ejd.213.2022.08.31.01.05.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 31 Aug 2022 01:05:26 -0700 (PDT)
+Message-ID: <81d366af-f017-09c5-b2c1-40af888cf8a2@gmail.com>
+Date: Wed, 31 Aug 2022 10:05:25 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/ir6mu=Qydqg1FRLlg0vEf8d";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 01/19] drm/amdgpu: add CHIP_IP_DISCOVERY support for
+ virtualization
+Content-Language: en-US
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220830184012.1825313-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220830184012.1825313-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,103 +74,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: andrealmeid@igalia.com, daniel.vetter@ffwll.ch,
- amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
- mwen@igalia.com, dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
- joshua@froggi.es, hwentlan@amd.com, nicholas.kazlauskas@amd.com,
- ville.syrjala@linux.intel.com
+Cc: Horace Chen <horace.chen@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/ir6mu=Qydqg1FRLlg0vEf8d
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Am 30.08.22 um 20:39 schrieb Alex Deucher:
+> From: Horace Chen <horace.chen@amd.com>
+>
+> For further chips we will use CHIP_IP_DISCOVERY, so add this
+> support for virtualization
+>
+> Signed-off-by: Horace Chen <horace.chen@amd.com>
+> Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Tue, 30 Aug 2022 17:29:35 +0000
-Simon Ser <contact@emersion.fr> wrote:
+Acked-by: Christian König <christian.koenig@amd.com> for the entire series.
 
-> If the driver supports it, allow user-space to supply the
-> DRM_MODE_PAGE_FLIP_ASYNC flag to request an async page-flip.
-> Set drm_crtc_state.async_flip accordingly.
->=20
-> Document that drivers will reject atomic commits if an async
-> flip isn't possible. This allows user-space to fall back to
-> something else. For instance, Xorg falls back to a blit.
-> Another option is to wait as close to the next vblank as
-> possible before performing the page-flip to reduce latency.
->=20
-> v2: document new uAPI
->=20
-> Signed-off-by: Simon Ser <contact@emersion.fr>
-> Co-developed-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: Joshua Ashton <joshua@froggi.es>
-> Cc: Melissa Wen <mwen@igalia.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Harry Wentland <hwentlan@amd.com>
-> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 > ---
->  drivers/gpu/drm/drm_atomic_uapi.c | 28 +++++++++++++++++++++++++---
->  include/uapi/drm/drm_mode.h       |  4 ++++
->  2 files changed, 29 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 2 ++
+>   1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index 9be57389301b..0707e4338e65 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -707,6 +707,7 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+>   	case CHIP_SIENNA_CICHLID:
+>   	case CHIP_ARCTURUS:
+>   	case CHIP_ALDEBARAN:
+> +	case CHIP_IP_DISCOVERY:
+>   		reg = RREG32(mmRCC_IOV_FUNC_IDENTIFIER);
+>   		break;
+>   	default: /* other chip doesn't support SRIOV */
+> @@ -750,6 +751,7 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+>   		case CHIP_NAVI10:
+>   		case CHIP_NAVI12:
+>   		case CHIP_SIENNA_CICHLID:
+> +		case CHIP_IP_DISCOVERY:
+>   			nv_set_virt_ops(adev);
+>   			/* try send GPU_INIT_DATA request to host */
+>   			amdgpu_virt_request_init_data(adev);
 
-...
-
-> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> index 86a292c3185a..cce1a1bea645 100644
-> --- a/include/uapi/drm/drm_mode.h
-> +++ b/include/uapi/drm/drm_mode.h
-> @@ -942,6 +942,10 @@ struct hdr_output_metadata {
->   * Request that the page-flip is performed as soon as possible, ie. with=
- no
->   * delay due to waiting for vblank. This may cause tearing to be visible=
- on
->   * the screen.
-> + *
-> + * When used with atomic uAPI, the driver will return an error if the ha=
-rdware
-> + * doesn't support performing an asynchronous page-flip for this update.
-> + * User-space should handle this, e.g. by falling back to a regular page=
--flip.
->   */
->  #define DRM_MODE_PAGE_FLIP_ASYNC 0x02
->  #define DRM_MODE_PAGE_FLIP_TARGET_ABSOLUTE 0x4
-
-Hi Simon,
-
-recalling what Ville explained that enabling async flips might require
-one more sync flip first, how is that supposed to work?
-
-A TEST_ONLY commit is not allowed to change hardware state, and a
-failing real commit is not allowed to change hardware state either
-(right?), therefore a failing async flip cannot prepare the next flip
-to be async, meaning async will never work.
-
-
-Thanks,
-pq
-
---Sig_/ir6mu=Qydqg1FRLlg0vEf8d
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmMPEq8ACgkQI1/ltBGq
-qqcb/hAAjnciNpwLhqax42+2jsviI5tEK8B9cW7QW51eTO+c3hStURgE50+WNhNy
-CxJ4t6niSfNfw/MYMJkjfAE4vncgSTerxb/TA3ConOla5g4AT7kfYCxE6T1MM8Hq
-PFnMZLsLqzUokxnvjQDI5wMPVx78yk0oZfx9oXLEHBmUKP5q2uyJb3unAO49ZMV4
-yUWEQx7UfkB5Iyohxal5s7kzKMLFw6yL2jvIuh5mm3HzHBJDCU6Ccom1e4w9PyeP
-5RlXOC1C2pQH6eo7mapDe04d0wXrG2vVr0K+MLCJOcvYnfIw6cbxodttBCNXKUuV
-SRg2we+hDOEH0EUzR0PuGMHcRNdpH6kawFtR4bv4JiwnnzWOqRbnmQSSuZkzHglz
-QBhNx1g/zy3U8LmMV96yYX0q8Myk149VgqR+R5GazLStvoR31lSaE5jDAFVYe3JT
-U+fKq/9a0FrMSsqCli03UvI8DgWaps/Axjs9KvYoqz1IJINf33TIii2S0VcMB+Fa
-ABSGKQTOvtfyurGuOoYWGSYIO8ynVZwTLOTLLpHhsFjTGhLb6s9/2iOz1QK3jR6l
-l3cLeNcv4mGNKabZ13DBYfqAuizfCTcYRqsaGG9BZG6Fsr2v/stQxFgvuOCY9rjr
-DhAs3ILeslU27UFGkgZM4OtXszqH388kNVIyf+vULwx9fQAKj0w=
-=pHkz
------END PGP SIGNATURE-----
-
---Sig_/ir6mu=Qydqg1FRLlg0vEf8d--
