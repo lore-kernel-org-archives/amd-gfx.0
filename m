@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C27ECAAD1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D65BEECAAD4
 	for <amd-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 15:43:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E10F10E2B3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26B0210E448;
 	Wed, 31 Aug 2022 15:43:48 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B85310E43F;
- Wed, 31 Aug 2022 15:39:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D6F810E43B;
+ Wed, 31 Aug 2022 15:40:09 +0000 (UTC)
 Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 172376601EAC;
- Wed, 31 Aug 2022 16:39:46 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id ECE2C6601DF6;
+ Wed, 31 Aug 2022 16:40:04 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960389;
- bh=gdOsnqn+hkC/PYCc3SOTg9WbAqCE6tugxLVX0sLlB6k=;
+ s=mail; t=1661960407;
+ bh=tqdR/oZFKJHCKMAPiT2kfONL23uSAzfC/46PfISfXXw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WLF6bT+wDRofJAtDZk+i2VmH8A0ApZxbJPdBENc2WsfMj9DWX/4nsgRPP/X0h2cPc
- Q+z/ITW7+8jBiClYSOevkqmQMj5ZY4DTpwBrki3X+EQRNLP2wzw8WK7zREcI2bDSNX
- CD260pRQ/h3fXPMJUtuf2sIDljhle9yyNj7vamirWCHaWz+fe7J5lpxcHG6vWAGz9e
- L6hRXO87US7+C6URv9MmyZHsXIk5YtbmEYykRTw+ak23HugSPYn+3S1zv1CSdV5eSd
- YGI88Y9TXgnQiNuejbDWZszW0ZXlUt/kMba0/D//NaVvJm53xfBMrQT/MhpZ4I8oIk
- bkkBH5QjZiXmw==
+ b=Y0fbl/3rC8aDDsV0MV7a9HOp3kNjBbJX9SYbDtxmYtk8yjvc3rkHWo5M8ppTQpiKa
+ ZzUliICistENhQk2agFlqmQiTp9XBNKykfoC0xrSjlabl/sYIiptJ55Vd9WhuB5sHF
+ M0epvMhwyEmDbwWQB9RhA7iBFtTNh5z+Kg66Z9GjBDMpjKs7r06OoiiUn/FWcoOrZ7
+ PuA498YAz+IjOVSyibs7Gaqf/MxVpZRU7bCAUqLOVJRCxTQXuEcSR+Uo1YTTXj70x5
+ r85mxWtpRWHr89Anv7IJ3wzhus4eLyo4K7PY2M2YcPnS7HNoFcR7R4AzBZiWm3uVdY
+ IqAW+I5pxeilA==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -63,10 +63,10 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>
-Subject: [PATCH v4 11/21] misc: fastrpc: Prepare to dynamic dma-buf locking
- specification
-Date: Wed, 31 Aug 2022 18:37:47 +0300
-Message-Id: <20220831153757.97381-12-dmitry.osipenko@collabora.com>
+Subject: [PATCH v4 17/21] dma-buf: Move dma_buf_map_attachment() to dynamic
+ locking specification
+Date: Wed, 31 Aug 2022 18:37:53 +0300
+Message-Id: <20220831153757.97381-18-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
 References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
@@ -93,38 +93,53 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prepare fastrpc to the common dynamic dma-buf locking convention by
-starting to use the unlocked versions of dma-buf API functions.
+Move dma-buf attachment mapping functions to the dynamic locking
+specification by asserting that the reservation lock is held.
 
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/misc/fastrpc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/dma-buf/dma-buf.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 93ebd174d848..6fcfb2e9f7a7 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -310,8 +310,8 @@ static void fastrpc_free_map(struct kref *ref)
- 				return;
- 			}
- 		}
--		dma_buf_unmap_attachment(map->attach, map->table,
--					 DMA_BIDIRECTIONAL);
-+		dma_buf_unmap_attachment_unlocked(map->attach, map->table,
-+						  DMA_BIDIRECTIONAL);
- 		dma_buf_detach(map->buf, map->attach);
- 		dma_buf_put(map->buf);
- 	}
-@@ -726,7 +726,7 @@ static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
- 		goto attach_err;
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 073942bf5ae9..8e928fe6e8df 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1037,8 +1037,7 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
+ 	if (WARN_ON(!attach || !attach->dmabuf))
+ 		return ERR_PTR(-EINVAL);
+ 
+-	if (dma_buf_attachment_is_dynamic(attach))
+-		dma_resv_assert_held(attach->dmabuf->resv);
++	dma_resv_assert_held(attach->dmabuf->resv);
+ 
+ 	if (attach->sgt) {
+ 		/*
+@@ -1053,7 +1052,6 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
  	}
  
--	map->table = dma_buf_map_attachment(map->attach, DMA_BIDIRECTIONAL);
-+	map->table = dma_buf_map_attachment_unlocked(map->attach, DMA_BIDIRECTIONAL);
- 	if (IS_ERR(map->table)) {
- 		err = PTR_ERR(map->table);
- 		goto map_err;
+ 	if (dma_buf_is_dynamic(attach->dmabuf)) {
+-		dma_resv_assert_held(attach->dmabuf->resv);
+ 		if (!IS_ENABLED(CONFIG_DMABUF_MOVE_NOTIFY)) {
+ 			r = attach->dmabuf->ops->pin(attach);
+ 			if (r)
+@@ -1142,15 +1140,11 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *attach,
+ 	if (WARN_ON(!attach || !attach->dmabuf || !sg_table))
+ 		return;
+ 
+-	if (dma_buf_attachment_is_dynamic(attach))
+-		dma_resv_assert_held(attach->dmabuf->resv);
++	dma_resv_assert_held(attach->dmabuf->resv);
+ 
+ 	if (attach->sgt == sg_table)
+ 		return;
+ 
+-	if (dma_buf_is_dynamic(attach->dmabuf))
+-		dma_resv_assert_held(attach->dmabuf->resv);
+-
+ 	__unmap_dma_buf(attach, sg_table, direction);
+ 
+ 	if (dma_buf_is_dynamic(attach->dmabuf) &&
 -- 
 2.37.2
 
