@@ -4,53 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C3EDECAAD1
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 13:07:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08DB3ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 13:07:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6192110E70A;
-	Thu,  1 Sep 2022 13:06:53 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03EF810E566;
- Thu,  1 Sep 2022 10:44:50 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
- [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 7A7B86601E0A;
- Thu,  1 Sep 2022 11:44:45 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1662029088;
- bh=4/2i4aqnQm0eD8QgJbBg2gvDYzIG/ZG1bPLe6WFo/t0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=cLbqiE/dnqUzM66LeoPYWJt2ssxBDaSl7PG8koINMEoIuFiNO/S9FSirvSfstFJ7/
- +3XhwZuh6bULact7FUzNWp72rHVbpmo2vfjnT0bf8Qj3J1aisyK0iDijIGVuyPUkDB
- 689ZWSP7OUdwJ6ZIL39SHAz6ocxJBaJqGoDfR10OvPmQYhlYOeoFfhDQEJIIzPL5bM
- BWvpDwgsTAnxEDtdvqtdec6MQmmV7eYnMN7pOGy4F132JMmubuV2LOmiSr77PlVDIj
- IQxQiPZ80EOR+8X3A/Gd+GCivXKpjYEhlMm0HDBHJ+PEbywTNtlYeAJTvojNfYCGzX
- QegYZmzerNARQ==
-Message-ID: <213eb3d6-53aa-915e-9565-3209491feeee@collabora.com>
-Date: Thu, 1 Sep 2022 13:44:43 +0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id B320710E703;
+	Thu,  1 Sep 2022 13:06:52 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7F3710E6FE;
+ Thu,  1 Sep 2022 12:47:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1662036472; x=1693572472;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=P7+EOb28SCrvbMWVakEgd7P1bIQM3QwTx7kh0k1vIkM=;
+ b=X345A6OwvWRRM5fJpzFuOtbu7bX2fsMwEsKE+T+JMkfJYQWcq622Swgv
+ hAZ+NElyrzrBq3AHq4xnJxN/V66ly3i0PZYy3kQne4F6TlUywqkAX/uNp
+ ZPkL3rK1zfgMnEZ/5PDS8b6efX9K4TqcusOwWKTeSEqUNpJNW4unQ0+LG
+ cy5vHj1hLzDTEfUOpM2b8CZk2L6vQPCULHRdAe1stbMVR2sBqUzhfOLwn
+ gQRb1ItgJdbj354t43AkphALXzNbyEAv1BpgxGc75M7p51CXWXMRvkgXg
+ 3nafaEXhijmHTP4U/tWlZJJBdYQZZsSQGD0iwmvy2Hxu4LBZsT0kP+ZqV g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="295711834"
+X-IronPort-AV: E=Sophos;i="5.93,280,1654585200"; d="scan'208";a="295711834"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2022 05:47:49 -0700
+X-IronPort-AV: E=Sophos;i="5.93,280,1654585200"; d="scan'208";a="589485417"
+Received: from jnikula-mobl4.fi.intel.com (HELO localhost) ([10.237.66.142])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2022 05:47:46 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH 3/9] drm/radeon: convert to using is_hdmi and has_audio from
+ display info
+Date: Thu,  1 Sep 2022 15:47:05 +0300
+Message-Id: <162b5f76939f7baa5fdc8d692df421ca5661d4aa.1662036058.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1662036058.git.jani.nikula@intel.com>
+References: <cover.1662036058.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH v4 06/21] drm/i915: Prepare to dynamic dma-buf locking
- specification
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
- Chris Wilson <chris@chris-wilson.co.uk>
-References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
- <20220831153757.97381-7-dmitry.osipenko@collabora.com>
- <2463ccb0-6620-8760-fc06-532847835207@amd.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <2463ccb0-6620-8760-fc06-532847835207@amd.com>
 Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 01 Sep 2022 13:06:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -64,168 +58,227 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Gerd Hoffmann <kraxel@redhat.com>, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>, Daniel Stone <daniel@fooishbar.org>,
- Gustavo Padovan <gustavo.padovan@collabora.com>, Chia-I Wu <olvaffe@gmail.com>,
- linux-media@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Juergen Gross <jgross@suse.com>,
- David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
- Tomi Valkeinen <tomba@kernel.org>, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Rob Clark <robdclark@gmail.com>, Qiang Yu <yuq825@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>,
- Lucas Stach <l.stach@pengutronix.de>
+Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/1/22 09:45, Christian König wrote:
-> Am 31.08.22 um 17:37 schrieb Dmitry Osipenko:
->> Prepare i915 driver to the common dynamic dma-buf locking convention
->> by starting to use the unlocked versions of dma-buf API functions
->> and handling cases where importer now holds the reservation lock.
->>
->> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> 
-> Acked-by: Christian König <christian.koenig@amd.com>, but it's probably
-> best if somebody from the Intel guys take a look as well.
+Prefer the parsed results for is_hdmi and has_audio in display info over
+calling drm_detect_hdmi_monitor() and drm_detect_monitor_audio(),
+respectively.
 
-+ Chris Wilson, who touched locks of __i915_gem_free_objects() recently
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/radeon/atombios_encoders.c | 10 +++++-----
+ drivers/gpu/drm/radeon/evergreen_hdmi.c    |  5 ++---
+ drivers/gpu/drm/radeon/radeon_audio.c      |  6 +++---
+ drivers/gpu/drm/radeon/radeon_connectors.c | 12 ++++++------
+ drivers/gpu/drm/radeon/radeon_display.c    |  2 +-
+ drivers/gpu/drm/radeon/radeon_encoders.c   |  4 ++--
+ 6 files changed, 19 insertions(+), 20 deletions(-)
 
->> ---
->>   drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c       |  2 +-
->>   drivers/gpu/drm/i915/gem/i915_gem_object.c       | 12 ++++++++++++
->>   .../gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c | 16 ++++++++--------
->>   3 files changed, 21 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
->> b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
->> index f5062d0c6333..07eee1c09aaf 100644
->> --- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
->> +++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
->> @@ -72,7 +72,7 @@ static int i915_gem_dmabuf_vmap(struct dma_buf
->> *dma_buf,
->>       struct drm_i915_gem_object *obj = dma_buf_to_obj(dma_buf);
->>       void *vaddr;
->>   -    vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
->> +    vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
->>       if (IS_ERR(vaddr))
->>           return PTR_ERR(vaddr);
->>   diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c
->> b/drivers/gpu/drm/i915/gem/i915_gem_object.c
->> index 389e9f157ca5..7e2a9b02526c 100644
->> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
->> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
->> @@ -331,7 +331,19 @@ static void __i915_gem_free_objects(struct
->> drm_i915_private *i915,
->>               continue;
->>           }
->>   +        /*
->> +         * dma_buf_unmap_attachment() requires reservation to be
->> +         * locked. The imported GEM shouldn't share reservation lock,
->> +         * so it's safe to take the lock.
->> +         */
->> +        if (obj->base.import_attach)
->> +            i915_gem_object_lock(obj, NULL);
->> +
->>           __i915_gem_object_pages_fini(obj);
->> +
->> +        if (obj->base.import_attach)
->> +            i915_gem_object_unlock(obj);
->> +
->>           __i915_gem_free_object(obj);
->>             /* But keep the pointer alive for RCU-protected lookups */
->> diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
->> b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
->> index 62c61af77a42..9e3ed634aa0e 100644
->> --- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
->> +++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
->> @@ -213,7 +213,7 @@ static int igt_dmabuf_import_same_driver(struct
->> drm_i915_private *i915,
->>           goto out_import;
->>       }
->>   -    st = dma_buf_map_attachment(import_attach, DMA_BIDIRECTIONAL);
->> +    st = dma_buf_map_attachment_unlocked(import_attach,
->> DMA_BIDIRECTIONAL);
->>       if (IS_ERR(st)) {
->>           err = PTR_ERR(st);
->>           goto out_detach;
->> @@ -226,7 +226,7 @@ static int igt_dmabuf_import_same_driver(struct
->> drm_i915_private *i915,
->>           timeout = -ETIME;
->>       }
->>       err = timeout > 0 ? 0 : timeout;
->> -    dma_buf_unmap_attachment(import_attach, st, DMA_BIDIRECTIONAL);
->> +    dma_buf_unmap_attachment_unlocked(import_attach, st,
->> DMA_BIDIRECTIONAL);
->>   out_detach:
->>       dma_buf_detach(dmabuf, import_attach);
->>   out_import:
->> @@ -296,7 +296,7 @@ static int igt_dmabuf_import(void *arg)
->>           goto out_obj;
->>       }
->>   -    err = dma_buf_vmap(dmabuf, &map);
->> +    err = dma_buf_vmap_unlocked(dmabuf, &map);
->>       dma_map = err ? NULL : map.vaddr;
->>       if (!dma_map) {
->>           pr_err("dma_buf_vmap failed\n");
->> @@ -337,7 +337,7 @@ static int igt_dmabuf_import(void *arg)
->>         err = 0;
->>   out_dma_map:
->> -    dma_buf_vunmap(dmabuf, &map);
->> +    dma_buf_vunmap_unlocked(dmabuf, &map);
->>   out_obj:
->>       i915_gem_object_put(obj);
->>   out_dmabuf:
->> @@ -358,7 +358,7 @@ static int igt_dmabuf_import_ownership(void *arg)
->>       if (IS_ERR(dmabuf))
->>           return PTR_ERR(dmabuf);
->>   -    err = dma_buf_vmap(dmabuf, &map);
->> +    err = dma_buf_vmap_unlocked(dmabuf, &map);
->>       ptr = err ? NULL : map.vaddr;
->>       if (!ptr) {
->>           pr_err("dma_buf_vmap failed\n");
->> @@ -367,7 +367,7 @@ static int igt_dmabuf_import_ownership(void *arg)
->>       }
->>         memset(ptr, 0xc5, PAGE_SIZE);
->> -    dma_buf_vunmap(dmabuf, &map);
->> +    dma_buf_vunmap_unlocked(dmabuf, &map);
->>         obj = to_intel_bo(i915_gem_prime_import(&i915->drm, dmabuf));
->>       if (IS_ERR(obj)) {
->> @@ -418,7 +418,7 @@ static int igt_dmabuf_export_vmap(void *arg)
->>       }
->>       i915_gem_object_put(obj);
->>   -    err = dma_buf_vmap(dmabuf, &map);
->> +    err = dma_buf_vmap_unlocked(dmabuf, &map);
->>       ptr = err ? NULL : map.vaddr;
->>       if (!ptr) {
->>           pr_err("dma_buf_vmap failed\n");
->> @@ -435,7 +435,7 @@ static int igt_dmabuf_export_vmap(void *arg)
->>       memset(ptr, 0xc5, dmabuf->size);
->>         err = 0;
->> -    dma_buf_vunmap(dmabuf, &map);
->> +    dma_buf_vunmap_unlocked(dmabuf, &map);
->>   out:
->>       dma_buf_put(dmabuf);
->>       return err;
-> 
-
-
+diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
+index 0eae05dfb385..4f9a0b8327fe 100644
+--- a/drivers/gpu/drm/radeon/atombios_encoders.c
++++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+@@ -692,7 +692,7 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
+ 			if (radeon_connector->use_digital &&
+ 			    (radeon_connector->audio == RADEON_AUDIO_ENABLE))
+ 				return ATOM_ENCODER_MODE_HDMI;
+-			else if (drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
++			else if (connector->display_info.is_hdmi &&
+ 				 (radeon_connector->audio == RADEON_AUDIO_AUTO))
+ 				return ATOM_ENCODER_MODE_HDMI;
+ 			else if (radeon_connector->use_digital)
+@@ -711,7 +711,7 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
+ 		if (radeon_audio != 0) {
+ 			if (radeon_connector->audio == RADEON_AUDIO_ENABLE)
+ 				return ATOM_ENCODER_MODE_HDMI;
+-			else if (drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
++			else if (connector->display_info.is_hdmi &&
+ 				 (radeon_connector->audio == RADEON_AUDIO_AUTO))
+ 				return ATOM_ENCODER_MODE_HDMI;
+ 			else
+@@ -728,14 +728,14 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
+ 		if ((dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_DISPLAYPORT) ||
+ 		    (dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_eDP)) {
+ 			if (radeon_audio != 0 &&
+-			    drm_detect_monitor_audio(radeon_connector_edid(connector)) &&
++			    connector->display_info.has_audio &&
+ 			    ASIC_IS_DCE4(rdev) && !ASIC_IS_DCE5(rdev))
+ 				return ATOM_ENCODER_MODE_DP_AUDIO;
+ 			return ATOM_ENCODER_MODE_DP;
+ 		} else if (radeon_audio != 0) {
+ 			if (radeon_connector->audio == RADEON_AUDIO_ENABLE)
+ 				return ATOM_ENCODER_MODE_HDMI;
+-			else if (drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
++			else if (connector->display_info.is_hdmi &&
+ 				 (radeon_connector->audio == RADEON_AUDIO_AUTO))
+ 				return ATOM_ENCODER_MODE_HDMI;
+ 			else
+@@ -746,7 +746,7 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
+ 		break;
+ 	case DRM_MODE_CONNECTOR_eDP:
+ 		if (radeon_audio != 0 &&
+-		    drm_detect_monitor_audio(radeon_connector_edid(connector)) &&
++		    connector->display_info.has_audio &&
+ 		    ASIC_IS_DCE4(rdev) && !ASIC_IS_DCE5(rdev))
+ 			return ATOM_ENCODER_MODE_DP_AUDIO;
+ 		return ATOM_ENCODER_MODE_DP;
+diff --git a/drivers/gpu/drm/radeon/evergreen_hdmi.c b/drivers/gpu/drm/radeon/evergreen_hdmi.c
+index 5f3078f8ab95..134780283274 100644
+--- a/drivers/gpu/drm/radeon/evergreen_hdmi.c
++++ b/drivers/gpu/drm/radeon/evergreen_hdmi.c
+@@ -411,7 +411,7 @@ void evergreen_hdmi_enable(struct drm_encoder *encoder, bool enable)
+ 	if (enable) {
+ 		struct drm_connector *connector = radeon_get_connector_for_encoder(encoder);
+ 
+-		if (connector && drm_detect_monitor_audio(radeon_connector_edid(connector))) {
++		if (connector && connector->display_info.has_audio) {
+ 			WREG32(HDMI_INFOFRAME_CONTROL0 + dig->afmt->offset,
+ 			       HDMI_AVI_INFO_SEND | /* enable AVI info frames */
+ 			       HDMI_AVI_INFO_CONT | /* required for audio info values to be updated */
+@@ -449,8 +449,7 @@ void evergreen_dp_enable(struct drm_encoder *encoder, bool enable)
+ 	if (!dig || !dig->afmt)
+ 		return;
+ 
+-	if (enable && connector &&
+-	    drm_detect_monitor_audio(radeon_connector_edid(connector))) {
++	if (enable && connector && connector->display_info.has_audio) {
+ 		struct drm_connector *connector = radeon_get_connector_for_encoder(encoder);
+ 		struct radeon_connector *radeon_connector = to_radeon_connector(connector);
+ 		struct radeon_connector_atom_dig *dig_connector;
+diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/radeon/radeon_audio.c
+index 7c5e80d03fc9..b7be857a6091 100644
+--- a/drivers/gpu/drm/radeon/radeon_audio.c
++++ b/drivers/gpu/drm/radeon/radeon_audio.c
+@@ -403,7 +403,7 @@ void radeon_audio_detect(struct drm_connector *connector,
+ 			radeon_encoder->audio = rdev->audio.hdmi_funcs;
+ 		}
+ 
+-		if (drm_detect_monitor_audio(radeon_connector_edid(connector))) {
++		if (connector->display_info.has_audio) {
+ 			if (!dig->pin)
+ 				dig->pin = radeon_audio_get_pin(encoder);
+ 			radeon_audio_enable(rdev, dig->pin, 0xf);
+@@ -640,7 +640,7 @@ static void radeon_audio_hdmi_mode_set(struct drm_encoder *encoder,
+ 	if (!connector)
+ 		return;
+ 
+-	if (drm_detect_monitor_audio(radeon_connector_edid(connector))) {
++	if (connector->display_info.has_audio) {
+ 		radeon_audio_set_mute(encoder, true);
+ 
+ 		radeon_audio_write_speaker_allocation(encoder);
+@@ -680,7 +680,7 @@ static void radeon_audio_dp_mode_set(struct drm_encoder *encoder,
+ 	if (!connector)
+ 		return;
+ 
+-	if (drm_detect_monitor_audio(radeon_connector_edid(connector))) {
++	if (connector->display_info.has_audio) {
+ 		radeon_audio_write_speaker_allocation(encoder);
+ 		radeon_audio_write_sad_regs(encoder);
+ 		radeon_audio_write_latency_fields(encoder, mode);
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index f7431d224604..7af16602d349 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -109,7 +109,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
+ 	case DRM_MODE_CONNECTOR_DVII:
+ 	case DRM_MODE_CONNECTOR_HDMIB:
+ 		if (radeon_connector->use_digital) {
+-			if (drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++			if (connector->display_info.is_hdmi) {
+ 				if (connector->display_info.bpc)
+ 					bpc = connector->display_info.bpc;
+ 			}
+@@ -117,7 +117,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
+ 		break;
+ 	case DRM_MODE_CONNECTOR_DVID:
+ 	case DRM_MODE_CONNECTOR_HDMIA:
+-		if (drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++		if (connector->display_info.is_hdmi) {
+ 			if (connector->display_info.bpc)
+ 				bpc = connector->display_info.bpc;
+ 		}
+@@ -126,7 +126,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
+ 		dig_connector = radeon_connector->con_priv;
+ 		if ((dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_DISPLAYPORT) ||
+ 		    (dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_eDP) ||
+-		    drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++		    connector->display_info.is_hdmi) {
+ 			if (connector->display_info.bpc)
+ 				bpc = connector->display_info.bpc;
+ 		}
+@@ -150,7 +150,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
+ 		break;
+ 	}
+ 
+-	if (drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++	if (connector->display_info.is_hdmi) {
+ 		/* hdmi deep color only implemented on DCE4+ */
+ 		if ((bpc > 8) && !ASIC_IS_DCE4(rdev)) {
+ 			DRM_DEBUG("%s: HDMI deep color %d bpc unsupported. Using 8 bpc.\n",
+@@ -1479,7 +1479,7 @@ static enum drm_mode_status radeon_dvi_mode_valid(struct drm_connector *connecto
+ 		    (radeon_connector->connector_object_id == CONNECTOR_OBJECT_ID_DUAL_LINK_DVI_D) ||
+ 		    (radeon_connector->connector_object_id == CONNECTOR_OBJECT_ID_HDMI_TYPE_B))
+ 			return MODE_OK;
+-		else if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++		else if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
+ 			/* HDMI 1.3+ supports max clock of 340 Mhz */
+ 			if (mode->clock > 340000)
+ 				return MODE_CLOCK_HIGH;
+@@ -1775,7 +1775,7 @@ static enum drm_mode_status radeon_dp_mode_valid(struct drm_connector *connector
+ 		    (radeon_dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_eDP)) {
+ 			return radeon_dp_mode_valid_helper(connector, mode);
+ 		} else {
+-			if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++			if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
+ 				/* HDMI 1.3+ supports max clock of 340 Mhz */
+ 				if (mode->clock > 340000)
+ 					return MODE_CLOCK_HIGH;
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index ca5598ae8bfc..bcaea6f30021 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -1728,7 +1728,7 @@ bool radeon_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
+ 			    (!(mode->flags & DRM_MODE_FLAG_INTERLACE)) &&
+ 			    ((radeon_encoder->underscan_type == UNDERSCAN_ON) ||
+ 			     ((radeon_encoder->underscan_type == UNDERSCAN_AUTO) &&
+-			      drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
++			      connector->display_info.is_hdmi &&
+ 			      is_hdtv_mode(mode)))) {
+ 				if (radeon_encoder->underscan_hborder != 0)
+ 					radeon_crtc->h_border = radeon_encoder->underscan_hborder;
+diff --git a/drivers/gpu/drm/radeon/radeon_encoders.c b/drivers/gpu/drm/radeon/radeon_encoders.c
+index 35c535e48b8d..6f177f8e4b06 100644
+--- a/drivers/gpu/drm/radeon/radeon_encoders.c
++++ b/drivers/gpu/drm/radeon/radeon_encoders.c
+@@ -374,7 +374,7 @@ bool radeon_dig_monitor_is_duallink(struct drm_encoder *encoder,
+ 	case DRM_MODE_CONNECTOR_HDMIB:
+ 		if (radeon_connector->use_digital) {
+ 			/* HDMI 1.3 supports up to 340 Mhz over single link */
+-			if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++			if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
+ 				if (pixel_clock > 340000)
+ 					return true;
+ 				else
+@@ -396,7 +396,7 @@ bool radeon_dig_monitor_is_duallink(struct drm_encoder *encoder,
+ 			return false;
+ 		else {
+ 			/* HDMI 1.3 supports up to 340 Mhz over single link */
+-			if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
++			if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
+ 				if (pixel_clock > 340000)
+ 					return true;
+ 				else
 -- 
-Best regards,
-Dmitry
+2.34.1
+
