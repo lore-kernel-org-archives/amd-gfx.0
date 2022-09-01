@@ -4,88 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C285ECAAD3
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 07:31:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0935FECAAD3
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 07:46:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F58810E5B9;
-	Thu,  1 Sep 2022 07:31:13 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2084.outbound.protection.outlook.com [40.107.92.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A65CA10E5B9
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Sep 2022 07:31:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D926010E635;
+	Thu,  1 Sep 2022 07:46:30 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2071.outbound.protection.outlook.com [40.107.220.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94A7E10E5F8;
+ Thu,  1 Sep 2022 07:46:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l+yDU4rVKVH2mKif/R92of0HI83SeI+7nlRW/mD1lxNRc+mjhgxqb5mKWvTNHs1xCiDg19oFaa2B/PA9o4mHgo6uhZy3PxoHSQ6OFGhaqzGvJTPzXLQ57ddh8Er/p4TOS+aCISYtfvLFC8tLsf9PmXMZZs6fbBJhbxcHBat52O7BZYQg7loAvwwHwMlU01aZRZIM9RLi3OSxaZiZFr45FM6XLBJ56A47cs0HWpHEccDms72au9OdkoewGIaaAAEWLavh3sokooWeaOU0rXTrPrrLEAmLvmsXwyhiQ2awr0LBeRDoR7vZFpCFtp5cv+UANQkQ5rK3E1p/eAb7BudKDA==
+ b=JYF6CATeI+6DMfZ2tRRlKduD8WPzHMv6bSYyirIfsQu2hQSZuuCBYXLnNhIbQjuOSb1Zw04E5IKL1SFnAggA30jBLh8KBwl8wlGVdoszP5rOxkubv8msRT1fjJ6ZVON65L0rfqCqKsdf20VkOqEubVB4VEB8Z3jlknyg4JUAmgyMuwM2squqFyVPLFAp6OI3hn1P/z+cLnlMzVsTOW8Vf5L5K0cPnt8RXTKN9ukn6R06PhJ8jYbbVgFCZSKUiXokJibF6LIZGnUS9/vCpfgkyvTwj2XuMG8pIWd9MZwitYFAS8FjLjT2FO55Y0gG9bEm1DGcD8SmyLQSzCyR2Qegjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VrYdROL1PwlB97hYIYorYnpp0kpzXzjI6+WIXyEfjFc=;
- b=NkmA1lNnCeW6ZpH9v2ne+wq3dnJfMylcps4ayBqpUhxIH5I7RdRLIf/hHZET/jBYGdGCvw/JNAEccU7FgyRxxc8qy6ApB0c8FZCWZfcVe8EQFhHMdCE2IagHzSqm0qFtDpPZlhmILZJR9PhRmkc5soHjib7LQ+if4ZvM+ZvslnzYML+YL6AhRDEWwU8VHyX3BW5kJy1e7QhQDv3omJWzsOVvrdwTBU+85lupngIlM9gANZW/knib0eUNKiz0SyHMxH0kHX7qInCadgHZQ0yakE3UBjMmeocf9KZE3RT7r8cVCa4h5V8iVKMNzLUw3cT4g9ppLMAgJk0LA00S0n+hSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=OB6rZhHYcnVAQMefbqlbTnswcKBiw5jcMh1AY9IE3Tk=;
+ b=Od6Xl8ZThS84xk0Rk/lR52x3IgyukWM0sjhepRr10A5G3USqphH/eDF90x76pNUhNOV4Uwg2xty7SG+mTTLy/IPgKvQyBurw7Fa9G4XsCHtgtW37yaAicnyx4MKXXOKJVfOUhlVC4fjdPqzCf5UopwROC1cNsyq+gpt9HJHMgVzmgF/8hGI+SeJVyAh4tV973rXbd9SCXBslKxzCab1jqDIQmIrwBuhIrZ9E32wKG6FwOq/1/dT7SaQlMaORZS9UL7ZpiwxfBvBHV4aNpbbjpiRLjQydR/kIf3bXlh2wSWvZRN919MvtCU41m4DWM1xT2n4TMuog+4dbmxcNXJ3wSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VrYdROL1PwlB97hYIYorYnpp0kpzXzjI6+WIXyEfjFc=;
- b=1aK7Vc/MACuenJsjNuVyC0CZIw0snTSurCXYPzp44ywCmW9Nkz2eaCeRX7X8WRHK+5XTVqjI8ehbbMm+e4y3gJIfFsSDHRavjCjHnVaA527ZQganAmXKlTSKfnyl4t/z48k+0AmemFY31V+7pgoF1Gofxp4zuUpNdg3Qd+zQ3Zc=
-Received: from MW4PR04CA0216.namprd04.prod.outlook.com (2603:10b6:303:87::11)
- by MW4PR12MB7165.namprd12.prod.outlook.com (2603:10b6:303:21b::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Thu, 1 Sep
- 2022 07:31:08 +0000
-Received: from CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:87:cafe::5e) by MW4PR04CA0216.outlook.office365.com
- (2603:10b6:303:87::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15 via Frontend
- Transport; Thu, 1 Sep 2022 07:31:08 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT067.mail.protection.outlook.com (10.13.174.212) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5588.10 via Frontend Transport; Thu, 1 Sep 2022 07:31:08 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 1 Sep
- 2022 02:31:02 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Match GC 11.0.1 cache info to yellow carp
-Date: Thu, 1 Sep 2022 15:29:59 +0800
-Message-ID: <20220901072959.4085193-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.37.1
-MIME-Version: 1.0
+ bh=OB6rZhHYcnVAQMefbqlbTnswcKBiw5jcMh1AY9IE3Tk=;
+ b=oVczly8sePR3s3duE7P+4uNT72RxjAKYAKkF4EuQ6O/6i3gHPxpD8jkTRGoftXQCTtdREXCrQaJYEhVDUwyWuIPzEIItN4fjN61NFaZgMXKvb1CxEZsCO2rpwbW8Yo1VoLJKLr+aUdl0RdAfWar2vXo4/naHdzquJirUQ5n7UE8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DS0PR12MB6461.namprd12.prod.outlook.com (2603:10b6:8:c7::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.21; Thu, 1 Sep
+ 2022 07:46:21 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::4524:eda6:873a:8f94]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::4524:eda6:873a:8f94%7]) with mapi id 15.20.5588.012; Thu, 1 Sep 2022
+ 07:46:18 +0000
+Message-ID: <23cc241c-5710-895e-eb33-3f12ce8e865a@amd.com>
+Date: Thu, 1 Sep 2022 09:46:04 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v4 20/21] media: videobuf2: Stop using internal dma-buf
+ lock
+Content-Language: en-US
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>
+References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
+ <20220831153757.97381-21-dmitry.osipenko@collabora.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20220831153757.97381-21-dmitry.osipenko@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR0P281CA0062.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::23) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 337ef0d1-fe16-4b77-e063-08da8bebeff1
-X-MS-TrafficTypeDiagnostic: MW4PR12MB7165:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd114ec9-afa8-42d0-86bf-08da8bee0e0c
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6461:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dUCYErT7H2vH+Radf2LAyCopjl66ADOTm+qfIPid4Z2+7N+wYbfoOecZenAoHMt0hxQfj69N/0eTrRYs6hLdp7rHAihrFIR4Ly1jONntaI2HibxJQ/TLhBRfuKX0W5U26+rSdyv9H7+TksZJxS8nPqUbrb4t4VlrmS73np8uOiFqCLgpWB16enP3FbJjPM0Q3jdPPXosoMNQCeOY2YK73NYK6bgzyuznGyjBh1e9RTVmd0/EjzMVJUj2PYWf0yK/+rlrxxxgITNcZjW8o7eGEndhy4Q69Ia7TG4+Xf274pAonXYE2CotlCbg+xek7g3emmrp3rNM9FXe9j3L7wG5JnWgacbrqCOYZxkS9qQeDIAagD7oa2D8TBCtrQ0ujs1vLivGGv1YWuawSlS0yeMqMKFiavwO9oG6Do9NhVBP6ONMQxIcf3HVncgVz/eU1VTqqw1FeXxlXnp+PHs/XNawkNPgQJ2Y9gCevBbZkgBvgH8g6UMthtP6vrLXI0juS3fL7ipA61hEk3USL37PxidyIItXoMveuu+5ujiY11aCHo6J8zULm66TI2l1BxXGuGoQs56p0x7xxuzG2EbZlz6Djsk3Fv1laIm+YKwKgF6CICXihm8GieSKW65/ThQifubISxdCxEY8aH+PKtMyS9grOE9cqXYJO3q2GS9p+revXIOtvzVh+mN6NsjBWDkQ4u86QOQael0wpXLsKzsGOmh2hWNrlMey7C6otoOnS4Xkpr/Xn401s4szbxNX+jrPYxx4WP0o1Mx7LcGL+l9Y/og4A5WF425pXSOa5aG39G60bCegpBqVbat0nzdOT6iYsMbS
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(376002)(39860400002)(396003)(136003)(40470700004)(46966006)(36840700001)(316002)(426003)(8676002)(5660300002)(336012)(16526019)(1076003)(47076005)(186003)(83380400001)(2616005)(40480700001)(8936002)(70206006)(70586007)(36756003)(81166007)(356005)(2906002)(6916009)(478600001)(86362001)(7696005)(6666004)(4326008)(54906003)(41300700001)(40460700003)(36860700001)(26005)(82310400005)(82740400003)(36900700001);
+X-Microsoft-Antispam-Message-Info: HY7yeMjY4Da+bR91y3J01f9hYzkvgzrI9W1QEAGtrdocWAen0H+9fJbMmYFOX/CHE8Aij+4F3AIr9PJ92gFdHhtNJkb7oWCS6Z7o6DAMIQYeYzyca9gQUJse6tlrrOCfwATRkiPj5TIghVOOLkM7AEO6g3bnyQ+UXJ/hyO8UCS/8ZWk86ZjfWzEeKjRqfjndTDtMf5PaT6La6TgJzta6tWnafgcQFnc9+wvfZtk7MfCJvEhz42oinqObPNWX5pkIOnJPliScpUFgxGrmiLn3lK0sQhwX4JqiTG4SkrqobQ45KECtUIdge9b1e2h4cfDSI5CKe9mSajZJAgC4F0cR1IzX+saRoUO69tTZABH6mRQV1emvM75Q4fsW3e/PzwhDh96sbleurY1w+ONP8DCoKacd4iur6/ajnA542hCYo7iuBJfpA8tc+QKdLf1O1qbWvIbE5nV0KW9g2bGBqhq3bFe++urPvEb6pTLNZ7VQ6p3xJpf+L51/6UBCPjGbMplMcVSWuTdN5H8bnmUdz70iKdjWM8TON1k2vXkxmVeTQ1Qr0sfao7Xl+omVgcsyNJnA9qlVXpGrqrSIGp7LUYT7JDj1eiOgM3UXfSnOHHV0CkbRjOWhdHusT8RNpF/5eLVczQJYoSvGYYYzVPfu0wWP0nvSB8m9Jvilpag2wvud8T7AOtjX1oo522Xe6zdN9LdoDpt440ffN+WvN5rPygsbgrbC2P5N/Qq9BpoP838d4IMmwQJmP37G5J1ReMDci2Pop9suNfB4C2a6ItyZ4HnvXBjtkYPpK8i1+936I5FS0AjTPDhy3PCQgfrr1PGC0Moe
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(136003)(376002)(39860400002)(366004)(396003)(66476007)(38100700002)(186003)(2616005)(66574015)(4326008)(8936002)(66946007)(316002)(36756003)(83380400001)(7406005)(8676002)(110136005)(7416002)(31686004)(2906002)(66556008)(5660300002)(6512007)(6666004)(921005)(31696002)(86362001)(6506007)(41300700001)(478600001)(26005)(6486002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d3ZlczRPaGNOd3hRV2pOdVNnUnVoak1pV0FJWnpIanFSNThFWENtbWVmemxi?=
+ =?utf-8?B?Tk9tWkErK2ZuckVMZGp5NDVVZUpZcmxjVHJPSjF4QnhIWTBjT0NLYVIyS0or?=
+ =?utf-8?B?TEtLVWtxTDJjbDFUdFpsaHo1MUdiR1RzY05TR1NmNENJTGhVOHlFb0NaaVJZ?=
+ =?utf-8?B?YjNCK0ZnRjNya3ZvS0xkSGc4a1FHZTRZOERDVHlqZ3BYdDgrZ1pHMXVYckc3?=
+ =?utf-8?B?NmFITlVTcnR4bHRucDZVbVFxbFlEcytRTDRKWHpjZjVvY280a2dDS0VqbmdR?=
+ =?utf-8?B?OEhLSXc4OUYwWmUyanhRbVNqY0RPbU9ueUZDSEw0WVVGeHJiMWVoU05QTzNF?=
+ =?utf-8?B?eHZqSFBLU2RyaTJ4T09wT2FUdzlLRkpXbnBFYWZiYmk0ZFRqR3VLMjg5ZFkv?=
+ =?utf-8?B?alF6MHBuamp4a3htaG8xZUlmQ1lVTXhIcHB1STJXUWhoaXZ3bHBVNnFacTdt?=
+ =?utf-8?B?a0o0S2pYRVpqRUxtTExXU0Izbktya2xoZWdRaS9TZzdTNjhrTi8ram1lWEda?=
+ =?utf-8?B?TE5qM1R3M3pkcmxuMWlVZkpaU1p4L290Rk1lMDIyYURzUFNoZ0RRQm81aXd0?=
+ =?utf-8?B?WU5UV1lNNVNsYWRJQTd3MkVWSUxobE1RNnhYTHEwTExERzdUUndGQzlZRlJ6?=
+ =?utf-8?B?YVFPT0NlZ3VpT0RldFVFMjRISks0SFhqK2tSZ0dRYU9pMG5OMURxVHg2cm82?=
+ =?utf-8?B?WS84ZSt3cGpYYVA4ZGVNMVRoZXlYdnBTOEhvcEV0blVoQUF5dTZHalVIZlU4?=
+ =?utf-8?B?NVNWcEVpL0FWUlhSMExiU2xCRjlIZ2QrZUtOYmFIYnY0ZTE4L08yNjN6cnd6?=
+ =?utf-8?B?T0dLU0luMUg5NTd1NEF6WUlWQkFYNEs0dFpVR0xCVTAzTzNCZjFNYzBWeUVU?=
+ =?utf-8?B?U0MwcnQrRzEwMVovNFdiSEtHNmJSUE82bWt3bmxLa2ErY2hVLzFGMjV6T1lh?=
+ =?utf-8?B?cytLT3FjWU8zU2VHRE1qZ2NYdDJXaXhtOHhYN1VyRnVaZ01oNU1NS0t3MmJO?=
+ =?utf-8?B?MW5tTzNnV05YK3dtd1V0NDdSUmdPVUsyaHBYSzNLSkljMUprcWZRcWhxTnZ1?=
+ =?utf-8?B?TU9Ranh6TU1uR3dFR2wyVk8yTkVoTTZsQnBxTUtGV09GV25PbVdORi95cEww?=
+ =?utf-8?B?cklNYUZWYVluY2ZROUNYSXNEd2g4c3ZSblFIMktXUW5NZzFpL2NxbzJPQmhO?=
+ =?utf-8?B?NzltRHRGc1ZsRi9QU05IMWVsWld2cEphUUZabXFSY1F0MzUvSGx4UnlXc3Zt?=
+ =?utf-8?B?RUNnU3JpVHcvd3FVNXRCVzBTVVovRUZOVFA3MUIyalp6d1pGRTlTdSt3Qkp5?=
+ =?utf-8?B?MThuV2ZHSlJad2tzdVV4VDBZSTdmM0FLY3duVklRaEZHR0kzZXB1NjA4OTB6?=
+ =?utf-8?B?L0xSWHFqVDNlVXd6K0p1N3owUXFOejVpZmUwb1RjTmswanpjazF0MHNpc3hJ?=
+ =?utf-8?B?OXhwNCtvYzJ3RXlJcTNHZUdJZmVwNHhPblFibnBHekowem5rOGVtVmZ3Uld4?=
+ =?utf-8?B?MmpSWFFxa0xQUkxkZTBJSGM1c0FpTjZYcnJaSXVtRUlkUG0wS1VucFJETGdE?=
+ =?utf-8?B?UlVQangxQytoYlZpWVJsandpendCRW1ZY0pIdG1kTGM4ZzdjL1g1Ris1N0pj?=
+ =?utf-8?B?cWUvQk01MXJQOVRKNWdqcHFYdHRlL3ZsbTZYQllINFJTU2JXakNyVHBpeDQr?=
+ =?utf-8?B?bEpQSGNMNUJmRUNCaU9tdk5KYkp1UUJodFI1TURGN3Vqc2tMTTVOK1lqYysv?=
+ =?utf-8?B?Rll3dEpJTDJscWtNYk9rZmp6aDM2NDFrM1k1N256K0liQ3VNZjFvN1VrTzF3?=
+ =?utf-8?B?akY2d2doUVZKQU1mNVZmRmdzTEdESGQyN3F5QXlGVWlVMlpyUmFQUFc0SjJv?=
+ =?utf-8?B?bTNKM1BCZWNMYzBnR2JQdVBpaWV3a2tNQXVPdGRRdzJ2MTY5Y3A4ZEVIOTRh?=
+ =?utf-8?B?ZUkweHlwV1pPeDVNWk10Z0RTeEVsLzhuekt6MlZNSHF1UGV3bGEwSWRIYTRN?=
+ =?utf-8?B?eTJJa1VTU21CaTBSQ2FFU2JvU3F3NW84YXYyNmMzMFdmTkZPdWY5aEdKVWZT?=
+ =?utf-8?B?NkptSmxCTktvenVFMUN6RkdoRU1zRTJPUGg0c1JQMTQwdGUxM2M1ZkxocHZY?=
+ =?utf-8?Q?H1eB4HsNweQWCW0HB70BzFWI8?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2022 07:31:08.3653 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 337ef0d1-fe16-4b77-e063-08da8bebeff1
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd114ec9-afa8-42d0-86bf-08da8bee0e0c
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2022 07:46:18.5369 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7165
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pLxtFJx0qx+lCPScLqVYvHbiuZEbwwFcWElc/PZZ8hTRYZ0m2hwf5oPEikT89ypv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6461
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,37 +155,149 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Tim.Huang@amd.com, Xiaojian.Du@amd.com,
- Yifan Zhang <yifan1.zhang@amd.com>
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Current discovery table doesn't have cache info for GC 11.0.1, thus
-can't be parsed like other GC 11, this patch to match GC 11.0.1
-cache info to yellow carp
+Am 31.08.22 um 17:37 schrieb Dmitry Osipenko:
+> All drivers that use dma-bufs have been moved to the updated locking
+> specification and now dma-buf reservation is guaranteed to be locked
+> by importers during the mapping operations. There is no need to take
+> the internal dma-buf lock anymore. Remove locking from the videobuf2
+> memory allocators.
+>
+> Acked-by: Tomasz Figa <tfiga@chromium.org>
+> Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Acked-by: Christian König <christian.koenig@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 24b414cff3ec..1c500bfb0b28 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1516,11 +1516,11 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev,
- 		case IP_VERSION(10, 3, 3):
- 		case IP_VERSION(10, 3, 6): /* TODO: Double check these on production silicon */
- 		case IP_VERSION(10, 3, 7): /* TODO: Double check these on production silicon */
-+		case IP_VERSION(11, 0, 1): /* TODO: Double check these on production silicon */
- 			pcache_info = yellow_carp_cache_info;
- 			num_of_cache_types = ARRAY_SIZE(yellow_carp_cache_info);
- 			break;
- 		case IP_VERSION(11, 0, 0):
--		case IP_VERSION(11, 0, 1):
- 		case IP_VERSION(11, 0, 2):
- 		case IP_VERSION(11, 0, 3):
- 			pcache_info = cache_info;
--- 
-2.37.1
+> ---
+>   drivers/media/common/videobuf2/videobuf2-dma-contig.c | 11 +----------
+>   drivers/media/common/videobuf2/videobuf2-dma-sg.c     | 11 +----------
+>   drivers/media/common/videobuf2/videobuf2-vmalloc.c    | 11 +----------
+>   3 files changed, 3 insertions(+), 30 deletions(-)
+>
+> diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+> index 79f4d8301fbb..555bd40fa472 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+> @@ -382,18 +382,12 @@ static struct sg_table *vb2_dc_dmabuf_ops_map(
+>   	struct dma_buf_attachment *db_attach, enum dma_data_direction dma_dir)
+>   {
+>   	struct vb2_dc_attachment *attach = db_attach->priv;
+> -	/* stealing dmabuf mutex to serialize map/unmap operations */
+> -	struct mutex *lock = &db_attach->dmabuf->lock;
+>   	struct sg_table *sgt;
+>   
+> -	mutex_lock(lock);
+> -
+>   	sgt = &attach->sgt;
+>   	/* return previously mapped sg table */
+> -	if (attach->dma_dir == dma_dir) {
+> -		mutex_unlock(lock);
+> +	if (attach->dma_dir == dma_dir)
+>   		return sgt;
+> -	}
+>   
+>   	/* release any previous cache */
+>   	if (attach->dma_dir != DMA_NONE) {
+> @@ -409,14 +403,11 @@ static struct sg_table *vb2_dc_dmabuf_ops_map(
+>   	if (dma_map_sgtable(db_attach->dev, sgt, dma_dir,
+>   			    DMA_ATTR_SKIP_CPU_SYNC)) {
+>   		pr_err("failed to map scatterlist\n");
+> -		mutex_unlock(lock);
+>   		return ERR_PTR(-EIO);
+>   	}
+>   
+>   	attach->dma_dir = dma_dir;
+>   
+> -	mutex_unlock(lock);
+> -
+>   	return sgt;
+>   }
+>   
+> diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+> index 36ecdea8d707..36981a5b5c53 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+> @@ -424,18 +424,12 @@ static struct sg_table *vb2_dma_sg_dmabuf_ops_map(
+>   	struct dma_buf_attachment *db_attach, enum dma_data_direction dma_dir)
+>   {
+>   	struct vb2_dma_sg_attachment *attach = db_attach->priv;
+> -	/* stealing dmabuf mutex to serialize map/unmap operations */
+> -	struct mutex *lock = &db_attach->dmabuf->lock;
+>   	struct sg_table *sgt;
+>   
+> -	mutex_lock(lock);
+> -
+>   	sgt = &attach->sgt;
+>   	/* return previously mapped sg table */
+> -	if (attach->dma_dir == dma_dir) {
+> -		mutex_unlock(lock);
+> +	if (attach->dma_dir == dma_dir)
+>   		return sgt;
+> -	}
+>   
+>   	/* release any previous cache */
+>   	if (attach->dma_dir != DMA_NONE) {
+> @@ -446,14 +440,11 @@ static struct sg_table *vb2_dma_sg_dmabuf_ops_map(
+>   	/* mapping to the client with new direction */
+>   	if (dma_map_sgtable(db_attach->dev, sgt, dma_dir, 0)) {
+>   		pr_err("failed to map scatterlist\n");
+> -		mutex_unlock(lock);
+>   		return ERR_PTR(-EIO);
+>   	}
+>   
+>   	attach->dma_dir = dma_dir;
+>   
+> -	mutex_unlock(lock);
+> -
+>   	return sgt;
+>   }
+>   
+> diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+> index 7831bf545874..41db707e43a4 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+> @@ -267,18 +267,12 @@ static struct sg_table *vb2_vmalloc_dmabuf_ops_map(
+>   	struct dma_buf_attachment *db_attach, enum dma_data_direction dma_dir)
+>   {
+>   	struct vb2_vmalloc_attachment *attach = db_attach->priv;
+> -	/* stealing dmabuf mutex to serialize map/unmap operations */
+> -	struct mutex *lock = &db_attach->dmabuf->lock;
+>   	struct sg_table *sgt;
+>   
+> -	mutex_lock(lock);
+> -
+>   	sgt = &attach->sgt;
+>   	/* return previously mapped sg table */
+> -	if (attach->dma_dir == dma_dir) {
+> -		mutex_unlock(lock);
+> +	if (attach->dma_dir == dma_dir)
+>   		return sgt;
+> -	}
+>   
+>   	/* release any previous cache */
+>   	if (attach->dma_dir != DMA_NONE) {
+> @@ -289,14 +283,11 @@ static struct sg_table *vb2_vmalloc_dmabuf_ops_map(
+>   	/* mapping to the client with new direction */
+>   	if (dma_map_sgtable(db_attach->dev, sgt, dma_dir, 0)) {
+>   		pr_err("failed to map scatterlist\n");
+> -		mutex_unlock(lock);
+>   		return ERR_PTR(-EIO);
+>   	}
+>   
+>   	attach->dma_dir = dma_dir;
+>   
+> -	mutex_unlock(lock);
+> -
+>   	return sgt;
+>   }
+>   
 
