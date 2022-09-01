@@ -4,29 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C552C0502C
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 13:06:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7FB9ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 13:06:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61FBC10E555;
-	Thu,  1 Sep 2022 13:06:47 +0000 (UTC)
-Received: from out30-56.freemail.mail.aliyun.com
- (out30-56.freemail.mail.aliyun.com [115.124.30.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9F2E10E652;
- Thu,  1 Sep 2022 08:11:37 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046051;
- MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0VNzpRVY_1662019892; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VNzpRVY_1662019892) by smtp.aliyun-inc.com;
- Thu, 01 Sep 2022 16:11:33 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH -next] drm/amd/display: Simplify bool conversion
-Date: Thu,  1 Sep 2022 16:11:31 +0800
-Message-Id: <20220901081131.76486-1-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+	by gabe.freedesktop.org (Postfix) with ESMTP id 850BD10E677;
+	Thu,  1 Sep 2022 13:06:48 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5578E10E6F2;
+ Thu,  1 Sep 2022 12:47:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1662036453; x=1693572453;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=kWGME9fEdG3M8HkVb+YATaForw5QOx/3sgZwk3gITYM=;
+ b=oIdVX0buVrVLcIQLGd4rGBEeePi06vtqdKK7E2GuMTg6/rZy9i13UxQO
+ jauGumPD8/0ZFg7xIr6Rwvw4OZCJZxzqH/j+ojtLoFDpgToxfQSEVaI9H
+ n+zNE8Nyid6wdTUMtBpreddafZF7qRSMwo5tNdoJIpZWbBiF/1CK9ILyB
+ vSLyY0aC/hBpMnNS1xfL4Hbh+Mbqh4pero3UYpsUGTBrj1VUamdRmb1ha
+ 73cpslT+flTojCSSNZlBDpd2YO9RstmKyj5upDg5w19vrWkBanHWe85u8
+ d26GVO42LhSbLhSpG8E1w5hbnjiadjOBDza8oxvu/KHM9OkJG7iiCG+L9 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="282682897"
+X-IronPort-AV: E=Sophos;i="5.93,280,1654585200"; d="scan'208";a="282682897"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2022 05:47:32 -0700
+X-IronPort-AV: E=Sophos;i="5.93,280,1654585200"; d="scan'208";a="642318075"
+Received: from jnikula-mobl4.fi.intel.com (HELO localhost) ([10.237.66.142])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2022 05:47:26 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH 0/9] drm: convert to using is_hdmi and has_audio from display
+ info
+Date: Thu,  1 Sep 2022 15:47:02 +0300
+Message-Id: <cover.1662036058.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 01 Sep 2022 13:06:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -40,37 +56,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, airlied@linux.ie,
- Yang Li <yang.lee@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, harry.wentland@amd.com, christian.koenig@amd.com
+Cc: =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Karol Herbst <kherbst@redhat.com>, Jani Nikula <jani.nikula@intel.com>,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Sandy Huang <hjc@rock-chips.com>, amd-gfx@lists.freedesktop.org,
+ Russell King <linux@armlinux.org.uk>, Inki Dae <inki.dae@samsung.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ linux-tegra@vger.kernel.org, Alain Volmat <alain.volmat@foss.st.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Ben Skeggs <bskeggs@redhat.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The result of relational operation is Boolean, and the question mark
-expression is redundant.
+The low-hanging fruit of the drm todo item "Replace
+drm_detect_hdmi_monitor() with drm_display_info.is_hdmi", with has_audio
+changes on top.
 
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2027
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
----
- .../gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I'm afraid not all of these have been even build tested, let alone
+actually tested.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index dc501ee7d01a..e4fd540dec0f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -1873,7 +1873,7 @@ void dml32_CalculateSurfaceSizeInMall(
- 		if (UseMALLForStaticScreen[k] == dm_use_mall_static_screen_enable)
- 			TotalSurfaceSizeInMALL = TotalSurfaceSizeInMALL + SurfaceSizeInMALL[k];
- 	}
--	*ExceededMALLSize =  (TotalSurfaceSizeInMALL <= MALLAllocatedForDCN * 1024 * 1024 ? false : true);
-+	*ExceededMALLSize =  (TotalSurfaceSizeInMALL > MALLAllocatedForDCN * 1024 * 1024);
- } // CalculateSurfaceSizeInMall
- 
- void dml32_CalculateVMRowAndSwath(
+
+BR,
+Jani.
+
+
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com> 
+Cc: Sandy Huang <hjc@rock-chips.com>
+Cc: Heiko Stübner <heiko@sntech.de>
+Cc: Sandy Huang <hjc@rock-chips.com>
+Cc: Heiko Stübner <heiko@sntech.de>
+Cc: Alain Volmat <alain.volmat@foss.st.com>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
+Cc: Kyungmin Park <kyungmin.park@samsung.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>
+Cc: linux-tegra@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Ben Skeggs <bskeggs@redhat.com>
+Cc: Karol Herbst <kherbst@redhat.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: nouveau@lists.freedesktop.org
+
+Jani Nikula (9):
+  drm/edid: parse display info has_audio similar to is_hdmi
+  drm/nouveau: convert to using is_hdmi and has_audio from display info
+  drm/radeon: convert to using is_hdmi and has_audio from display info
+  drm/tegra: convert to using is_hdmi from display info
+  drm/exynos: convert to using is_hdmi from display info
+  drm/i2c/tda998x: convert to using has_audio from display_info
+  drm/sti/sti_hdmi: convert to using is_hdmi from display info
+  drm/rockchip: cdn-dp: call drm_connector_update_edid_property()
+    unconditionally
+  drm/rockchip: convert to using has_audio from display_info
+
+ drivers/gpu/drm/drm_edid.c                  |  6 ++++++
+ drivers/gpu/drm/exynos/exynos_hdmi.c        |  5 +++--
+ drivers/gpu/drm/i2c/tda998x_drv.c           |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c     |  8 ++++----
+ drivers/gpu/drm/nouveau/dispnv50/head.c     |  8 +-------
+ drivers/gpu/drm/nouveau/nouveau_connector.c |  2 +-
+ drivers/gpu/drm/radeon/atombios_encoders.c  | 10 +++++-----
+ drivers/gpu/drm/radeon/evergreen_hdmi.c     |  5 ++---
+ drivers/gpu/drm/radeon/radeon_audio.c       |  6 +++---
+ drivers/gpu/drm/radeon/radeon_connectors.c  | 12 ++++++------
+ drivers/gpu/drm/radeon/radeon_display.c     |  2 +-
+ drivers/gpu/drm/radeon/radeon_encoders.c    |  4 ++--
+ drivers/gpu/drm/rockchip/cdn-dp-core.c      |  7 +++----
+ drivers/gpu/drm/rockchip/inno_hdmi.c        |  3 ++-
+ drivers/gpu/drm/sti/sti_hdmi.c              | 11 ++++++-----
+ drivers/gpu/drm/sti/sti_hdmi.h              |  2 --
+ drivers/gpu/drm/tegra/hdmi.c                |  9 +--------
+ include/drm/drm_connector.h                 |  8 ++++++++
+ 18 files changed, 55 insertions(+), 55 deletions(-)
+
 -- 
-2.20.1.7.g153144c
+2.34.1
 
