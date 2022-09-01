@@ -4,48 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5519ECAAD3
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 13:06:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48E3CECAAD3
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 13:07:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1DA410E701;
-	Thu,  1 Sep 2022 13:06:51 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A300F10E6CA;
- Thu,  1 Sep 2022 10:41:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 575DD10E6FD;
+	Thu,  1 Sep 2022 13:06:52 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F9ED10E6D9;
+ Thu,  1 Sep 2022 10:47:17 +0000 (UTC)
 Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
  [109.252.119.13])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 0EC286601DF7;
- Thu,  1 Sep 2022 11:41:24 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 0F1A86601E0A;
+ Thu,  1 Sep 2022 11:47:13 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1662028888;
- bh=4gRwEeQrpCCNInUGu4Wkln9ZnVQKU6fbLc+GiIs/ids=;
+ s=mail; t=1662029236;
+ bh=601JQW1vRODbZW3nXgrYwKwIYLdatGO7bqQS64cjbC8=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=oAi2rxSwcnG0bXjo2QlMDHpLcITXazqjTc0dBalx+xOeHafTkvkjyLjXi6A6OOyur
- z7pbNTKLqD/VkqICHbjajAS8k3mrAX9GZO4wHzC1QonWNPPsB+Yz/xNrNkGHiYNqkW
- KkTeNffA7kOX5RP0brCKXhs5fgLYvkel3UkZEKV4IsG5BuPE8jfFljWb4zRoqwCW4G
- seQ5HIQoKzjXqwqMOZEyy+r7MpCNGUMFwnjvSCAObVKOgjJcGMutTDAsM5pfKtEEMm
- 0OqK6C+DTZS/pjJwK1O6NhqMYskfUmdtIsJv4b93vGTms4LgyHT3lMm/bHN76TIS0u
- g+wfJ91stbLBw==
-Message-ID: <b6d96128-7558-8111-71b0-5fe5502ddf4b@collabora.com>
-Date: Thu, 1 Sep 2022 13:41:21 +0300
+ b=gvIVOPIBzWZGuD6NygXzh1sohbyafn5m4zlspwSvOk7AqMsde4hQLAfTpZRLGT/Xg
+ tZCPVrVupNm/ycsQg0HqK9JAnd7gStXHbCQs/hnoLYCspCe/qIfCqS3tgCPNdjs6sS
+ 6ns55hsCsiGqdQjsubmEAVFEAIr1tWG+6jF0V0SgiLyirr7LqTX8z2z8vQEx25L7xu
+ 2xXzrL/ZUdOZB7ntAgCtSMwR/pQbOLBKNp236a2yKz2+EFYW2nQ4gkKtpamcIbbFgE
+ dA/wt53VbNU8A3PjajlEJ4BJ2/tgJLW7ng1Zhlr12NCwAZ4urG6dRbPgfbiRq0WfC9
+ 7rk9NN0l3hsgQ==
+Message-ID: <532eedc8-b468-4409-1887-8fff264a6486@collabora.com>
+Date: Thu, 1 Sep 2022 13:47:10 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.12.0
-Subject: Re: [PATCH v4 09/21] drm/etnaviv: Prepare to dynamic dma-buf locking
- specification
+Subject: Re: [PATCH v4 00/21] Move all drivers to a common dma-buf locking
+ convention
 Content-Language: en-US
 To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Russell King <linux@armlinux.org.uk>, Lucas Stach <l.stach@pengutronix.de>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>
 References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
- <20220831153757.97381-10-dmitry.osipenko@collabora.com>
- <641f372f-4a30-72bb-ec8b-4fd6ff825594@amd.com>
+ <8322099f-4ef3-6a5d-4a66-27c4b3329884@amd.com>
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <641f372f-4a30-72bb-ec8b-4fd6ff825594@amd.com>
+In-Reply-To: <8322099f-4ef3-6a5d-4a66-27c4b3329884@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 01 Sep 2022 13:06:44 +0000
@@ -60,77 +88,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Gerd Hoffmann <kraxel@redhat.com>, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
- Daniel Stone <daniel@fooishbar.org>,
- Gustavo Padovan <gustavo.padovan@collabora.com>, Chia-I Wu <olvaffe@gmail.com>,
- linux-media@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Juergen Gross <jgross@suse.com>,
- David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
- Tomi Valkeinen <tomba@kernel.org>, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Rob Clark <robdclark@gmail.com>, Qiang Yu <yuq825@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/1/22 09:50, Christian König wrote:
-> Am 31.08.22 um 17:37 schrieb Dmitry Osipenko:
->> Prepare Etnaviv driver to the common dynamic dma-buf locking convention
->> by starting to use the unlocked versions of dma-buf API functions.
->>
->> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Hello Christian,
+
+On 9/1/22 10:49, Christian König wrote:
+> Hi Dmitry,
 > 
-> Interesting, where is the matching vmap()?
-> 
-> Anyway, this patch is Acked-by: Christian König <christian.koenig@amd.com>
+> I've gone over this multiple times now and while it is still possible
+> that we missed something I think that this should land now.
 
-Etnaviv maps GEM only once and then unmaps it when GEM is destroyed. The
-dma-buf vmapping should happen under the reservation lock, hence only
-the release function needs to be changed to the unlocked variant.
+Thank you very much for the review!
 
-Lucas/Christian(Gmeiner), could you please check that I haven't missed
-anything?
+> The whole topic is just to complicated that we can 100% sure guarantee
+> that there isn't anything wrong with the locking, but lockdep and driver
+> testing should allow us to quickly find remaining issues.
 
->> ---
->>   drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
->> b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
->> index 3fa2da149639..7031db145a77 100644
->> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
->> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
->> @@ -65,7 +65,7 @@ static void etnaviv_gem_prime_release(struct
->> etnaviv_gem_object *etnaviv_obj)
->>       struct iosys_map map = IOSYS_MAP_INIT_VADDR(etnaviv_obj->vaddr);
->>         if (etnaviv_obj->vaddr)
->> -        dma_buf_vunmap(etnaviv_obj->base.import_attach->dmabuf, &map);
->> +       
->> dma_buf_vunmap_unlocked(etnaviv_obj->base.import_attach->dmabuf, &map);
->>         /* Don't drop the pages for imported dmabuf, as they are not
->>        * ours, just free the array we allocated:
-> 
+At least the most popular drivers should be okay. If anyone will find
+issue introduced by this series, then indeed shouldn't be a problem to
+fix it later on.
 
+> Do you have commit rights to drm-misc-next or should I push it?
+
+I got the drm-misc commit right two weeks ago, haven't pushed anything
+there yet. Please let me try to do the push. I'll let you know if any
+kind of help will be needed from you.
+
+I'll wait for more acks/r-bs and then do the push.
 
 -- 
 Best regards,
