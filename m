@@ -4,91 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E363CECAAD3
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 09:56:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC6BBC0502C
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 11:07:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B535410E675;
-	Thu,  1 Sep 2022 09:56:13 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2079.outbound.protection.outlook.com [40.107.220.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 547E010E673;
- Thu,  1 Sep 2022 09:56:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 893B810E699;
+	Thu,  1 Sep 2022 11:07:36 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2042.outbound.protection.outlook.com [40.107.212.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD39B10E5C4
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Sep 2022 11:07:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bRTGwSfxzCfn4Yfi+ObEuu4QoMiAQaHug0IpK2BzinEL7Nv7a8nWBsiOYy+Nxc62KsxscOR2eupXlZIidOrgJE8OnUco0pg4CzkZ2UVtuXFmHUZo21ND3Nom39Vwx8DVulrmsPdDlSG8PTDh4hiKf/IOkEzP1HZTZf8SXOiBt4ZZ0hvWCNPPbA5j4vecxRGyTFPhS7ijDvm/PZGO6BKC1J9RdtIxbbjMsIIebw8Ums4gLuTCEmsCiNHnV2VfiWmd1H1gsAvx1B6bmZ48pYZIdPpSrRE5BCZY1HGzrWxVebYx8UBs+eEdlivF00kEWwElJb1U0L3RpxyDQvLjrfS55g==
+ b=GFz3tCmts/a955NELWseRlHhJQaYyvybI60vjwv1AiwQjGH+qx3jx/3aJgG3ucviqnl/dvY+4hvprbun40PVaiETpPdw+9rpnnK/DWhYZOAZ7Lt+7J2OLVln4YEwoQad+7EvYKh7wdSc611sCRg0gcnjW8L0Si/AbcCNZ75Z9S4HkNPXUyLxMBl+Omg9mvGBmsUHbG7YW4+BFuWWrJ/zDpZpO4db55/j3PSlOyI7E2EWuWmzh52Qs0L7paygTNewdMV2YYQSIXod/qy5sD6LAekO5dk8jFMHmtaRc2SMlRCZF/tCMFqRQJDqRCVAa0FsxE/1o/i9cExNRDcmVG0Y5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oq/sWupacDq0pDiRREUCxvKvKE/KOQtXMSAwSCkCT0M=;
- b=Mn+rDmK6Ie+cPAuzQSLuXlf2q6Ic4YGbycyiV4MIJK2u5Srsg9VIzff5pp+TgP/5NUz/15n+5jgYeIcxXIwNjSHxb4Zk0PWHFO1fZWD05XW19+jqGS9BbkdIdw6D1xd0hNB678fV9LgB4b9SXG4YFUb3LBQYW91sdEzD5VjQR5hvkE0ViGF8Cdhdl14P/T8wEE2T6k5ZaA0bdsEIUdn6SIbP/4K1YlIQkb9akTA4WbmrS+fFT1lqRTX+vjoYttHt8pqu/Doh7r7Vys3h0nEiCtdujUc29IqPWear8ogZrbDSxmzeFJ4BEpWI0Tg0Xpha8QO+GGlpFP+sO0T5CQURrw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=2kdIoLCubjlXEedVfgRWSTNdHmExbMS5HcKcj93foyo=;
+ b=DO+JvH6FoMYBzIEOoTKmsHiUKnAEHG+9w1eBPJa2tsnqCOOKkAM82HR7CChoklW7qZhRTkccGuwvDtwFGa2LCAxYfbgxntl2UCvj1fWM8PJXtcpEYKAMXyh28IF6DgEejT2WmlyqFoYfNPrTsMP5MltZbce3o+hCRqUcvwuS8VnwrIyrLDFR44HOFX8griWvtnbvTtL1gm2tZJ82gocvkvIUb6xMhTj4aQaK25oKtK1GjK/y2vmkpU0gphmE17saVF78AoANSYk+cNC0Q/WuyuLC3PbtPHPaiUWZ8y9Mq+hL6qr5vBdvnnDsl5VLztw9ZNIifNWX4BiIl4ccH5oM/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oq/sWupacDq0pDiRREUCxvKvKE/KOQtXMSAwSCkCT0M=;
- b=t0JP1FF5emvE3pY5IifUB0bo5WO4J80UnEXdkAsRSiYTMoLt37I5XVYeFuzAqUp9yzqv2Xy5x5Fmf2pONy7/5Wdt4YtyUCWRExBdAcBQcRRhuB1VoHJeva9uiJISMh+r0eTAq9N4PqTrUKDWqblmltY5YdWEC8VWs1Ccn9HPIcY=
-Received: from MW4P221CA0003.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::8) by
- CY5PR12MB6406.namprd12.prod.outlook.com (2603:10b6:930:3d::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5588.10; Thu, 1 Sep 2022 09:56:06 +0000
-Received: from CO1NAM11FT108.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8b:cafe::4) by MW4P221CA0003.outlook.office365.com
- (2603:10b6:303:8b::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.12 via Frontend
- Transport; Thu, 1 Sep 2022 09:56:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT108.mail.protection.outlook.com (10.13.175.226) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5588.10 via Frontend Transport; Thu, 1 Sep 2022 09:56:06 +0000
-Received: from [10.65.149.18] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 1 Sep
- 2022 04:56:04 -0500
-Message-ID: <7d5f73db-7882-c333-c471-ee84e69e5c42@amd.com>
-Date: Thu, 1 Sep 2022 17:55:43 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.6.1
-Subject: Re: [PATCH] drm/ttm: update bulk move object of ghost BO
-To: ZhenGuo Yin <zhenguo.yin@amd.com>, <amd-gfx@lists.freedesktop.org>
-References: <20220901092946.2030744-1-zhenguo.yin@amd.com>
-From: JingWen Chen <jingwech@amd.com>
-In-Reply-To: <20220901092946.2030744-1-zhenguo.yin@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+ bh=2kdIoLCubjlXEedVfgRWSTNdHmExbMS5HcKcj93foyo=;
+ b=kuQ645TimVXvgEmI1wzxn1hVHu2mna4oRqugSSOPaCY5iknhWeuM+q3uHWSXFJewOtf+Z8/OB6X9XcEVobHd4zD+/Qel83hn01+F9ZTtJGKBji7Z4nnsylTL0nhbOmRr3gLZaM3+ATz98gBbNj+p17sGl/U2neHVg8rzMLjlx5I=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by MN0PR12MB6246.namprd12.prod.outlook.com (2603:10b6:208:3c2::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.10; Thu, 1 Sep
+ 2022 11:07:30 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::4524:eda6:873a:8f94]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::4524:eda6:873a:8f94%7]) with mapi id 15.20.5588.012; Thu, 1 Sep 2022
+ 11:07:30 +0000
+Message-ID: <1e3b5deb-48ae-ac30-8b34-671946a34bac@amd.com>
+Date: Thu, 1 Sep 2022 13:07:19 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/display: guard if clause
+Content-Language: en-US
+To: Asher Song <Asher.Song@amd.com>, amd-gfx@lists.freedesktop.org,
+ alvin.lee2@amd.com, jun.lei@amd.com, Guchun.Chen@amd.com
+References: <20220901091108.108103-1-Asher.Song@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20220901091108.108103-1-Asher.Song@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: AS9PR04CA0152.eurprd04.prod.outlook.com
+ (2603:10a6:20b:48a::26) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2a24d86a-a24c-4a9b-3eee-08da8c003047
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6406:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc7c2b81-4f9c-4a7f-9453-08da8c0a294b
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6246:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LKsndBg1Bz9G8XbJu8KioPr7tmtJ7KAJo29FuZ1Lj9vDZKQ32+63U9/oEBRfv6KjwKRdr7bR2MCmqMp25vSbtYV/0qydBgUrbkZ7UJJ+8Ghj1t1l+UCF8WJ+sEWs0ETmoEaF5/4JG+hYozAMWEDAi2qJ14PYRBa359ciFLZuD7cpfK5FoOL44fGM6RMTrtHwxCNIwO03xKjJ3ntQQMEPBCS85Jk6H0uFF95VZJd4h4feCSGwnUtiJw0bVKUppEQ/LITEdrixvxpi27C0CdcLTSA3qZoQyt/OhTeYbaoFGRipLr0FmBDsAx5bxItrGsPQvf9/QoL56WeIr8Snr95+5hWSa0wCVX0wAMMoI/QluY0n/G5OwUJRAOUBFWwzxwNG1dxC64Pu2NjF17cJTrIvkZhvDXgU/GTsrU1QK3Lbqomwds6MyzIYZ4cfXoO0cR3XmZlcj/wkimGlXHnysvom5pe5UWPueoPst1tAL79Uwoluub3MHCoMRjQDwdefikKpKk9lxIR6PWwPdwNHmmVO9Anl4fqFJI88wgbC0ql5eteMRGyV9R+TcCcwyZB18AlcV1hx+pLTZ7RcLP4YGnQuuEhUEhmLhAO/Ob36kcmNMxoZ/vci69znF8bmp6Nc3FSH5IP6j6AL9eDk0+TpQZBwwmIosNTogKBK0qjwVFTgJ77ZyD7oxNkH7cAqpv4LqkqJjQ9fBu6cZLlQZfDxvYn5vwl1vSjFcylYNNx0UqDGqDz6tYEy6CBzsqqwJuSAI1iwPGurmr+ZEAYrFL6Q2Rm4it2D/6XzIIA99+PN6IpIWl9p+JaY0hCcuorRsgrMgr64hNynfCJ1YlBj2OB3UVfejw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(39860400002)(376002)(396003)(136003)(36840700001)(46966006)(40470700004)(70586007)(450100002)(70206006)(53546011)(4326008)(8676002)(6666004)(16576012)(316002)(8936002)(36860700001)(40480700001)(26005)(478600001)(40460700003)(81166007)(110136005)(31696002)(54906003)(41300700001)(356005)(47076005)(336012)(82740400003)(16526019)(186003)(2616005)(2906002)(83380400001)(36756003)(82310400005)(31686004)(5660300002)(426003)(36900700001)(43740500002);
+X-Microsoft-Antispam-Message-Info: rgHf3YnCgcKWyZtzufqbOgNmuw+f1Z8tToOKriyx2yyeguEWrSiqXaG7dTlP09l/ej3CtRItKlKDCJ4bD3cqH0DBsOgXt7bo7VeiYBF+SrUcjS51wtrGFu5bXFHFSVEyc8caM9Up9dW9LlyI7FOLqTPwu1XS/xDwH8cFScQ85MpPQ2rSn2uFlup+taflRvUtxAxm2gcDD26HaxUH5W83tD8GKgCx9SgBmGxKCanO51If3MjkSX4yZZ+E6HdvwmrAATWLenh6VE38YpRHNrbRnGyfTSHY4JOR3yqipDCAl78SlJAhQ9uqvAcafukOJpoX1ERGUuyoXpOFbFpVxP8BU0zGt4Xy7hlCBzLr9hM8iGJJ6tiTiVGTFLYUnSVXpEX1k/DMQAZla+Bbw8R1Cs8MaWIGoqpSskxpfGW36uHUbUdC7wHd6FhIhWNWG7YL5GNFgBdVtak9GCS1zHkSm9NTBYuG5UWulC+H75ILibcviMm+E2uY9nahmpgJwHJWpB/EgvdEjWFdAPhG8iZQa9uVrjiqq/l7Olw62Tfqw5V7NDd1kOPz54RRFQeMG/kLAurVvpp92x/QQ4c1f2Ah5SGgIEBkvsqe3re5W7LwtmBdVS1Z/MIOb5NQ6z2NSxGbXgKDyoGKZJiFpQI0rInh3TKK9cEYbERPbhTJrQVKs6i3TXvQdgY/zXAt2gf0myK9uHl1QOupEhjJ2uPVPdBTVNDxJf4fGj3/WOJlzONVB2alWeFAXS+urwrpC1CttsA1x1EulIUqhINiM/YwhbicMFKBqsCoWKe52CF69QMJW9NN0yo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(346002)(376002)(396003)(366004)(136003)(36756003)(31686004)(6636002)(38100700002)(6512007)(6486002)(26005)(66556008)(66476007)(66946007)(8676002)(31696002)(478600001)(316002)(83380400001)(6506007)(2906002)(86362001)(186003)(2616005)(6666004)(41300700001)(8936002)(5660300002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dUo0cTl6TGJpOU1QSEZ1NUoyaW5lSnlKNFdpOTB0ckJ1SWhjRHFkMUZ1Sk5h?=
+ =?utf-8?B?N1oxd3EyNWZ4MEE4NW9oMDlzTDRxMzAwdmk5SmVoVEdoS1g5R1JYaVhsaW4z?=
+ =?utf-8?B?WWcyTE55Tnl4K2V4QnljU1l0WU9MSURMeWpWSUU2bURaWitXYjZNbGkrWC82?=
+ =?utf-8?B?ZnBiTktPWlJFY1d6NTJHbENnK1BWRmdmeHQwS0wvUjlmeGpqWTdnYkozNlhI?=
+ =?utf-8?B?azE0ZWlMdmwyUmNQM0duYURtaUVSOFltVXhEeEtnSTdVVk91VTdpYlMrb2Qr?=
+ =?utf-8?B?dkROcDBJVysyditpZmRoTGNTcWZlQm5Kekt0V00wWk93WG9HbGZRbkdoems3?=
+ =?utf-8?B?SzRRYzZHdFRuNUN0SS9IdjV6SnZCbzBYVUI5TENPUGI1NGpUNS9uMGFIRFli?=
+ =?utf-8?B?UDNsSjl2YWI2N29KK1NtamVOTWdKMnNzVFhkUkdKNjNYeTUzTWFxbzVQVEZW?=
+ =?utf-8?B?RWIzQVR0RE96ZlYvOFF0SnYxRjA3WEVabHB5SUtOdWgwdU9Xa3Jha2V0Q2tC?=
+ =?utf-8?B?bk8xZ21SV1B0a2lKRzlPRkt3eVUxUTFjOEEyNGJNb1VEeXYzWklZMVpvdXlq?=
+ =?utf-8?B?d3RtV2xxM2YxdWZYa3FEMDRwdzVMdjI3dWNsdTBqaUhId2dOSGJ5QVJoZ3p6?=
+ =?utf-8?B?Yy8vbzJSdmphemNWKzlBcGJBVzZBT0dicnI5UHFtV0NoVi9VUTYyenZBVHpm?=
+ =?utf-8?B?V0Z2eWgxREFpME9SVzB0SG9SVW5BUURPSjJ5d1NadC94VFVyMjFtandIN1dO?=
+ =?utf-8?B?R29INWFRNlZxTXNacEwyUE9iQUN3dTE3TEVYU0ZjS0ZabW0wVitSWkxsdXlp?=
+ =?utf-8?B?MzdnMHBNcDUzci9yTVI0MzA2NExZL2srNGkzbkhmV25wR2JZbXYrZ0M0dCs5?=
+ =?utf-8?B?c3BycytKL2FkWTNSQXZzV0thNlF3bEJVUFBvb3BodzVicUpLNlhyVk15NUZl?=
+ =?utf-8?B?ZElQNG1GNm9mTERuZEpuamxVUFJqVytGNE0xOXZyYUIrdHJxR2FraGIzZzFI?=
+ =?utf-8?B?dUVMOGtiQWVhZnNNRHdwR0tXblhaYTl3Y0ZxTE1QcDEvTXpBV3ZobzZVRjIz?=
+ =?utf-8?B?aUdlOHdWbUt0aFREUm9RbnE3Y3psQjRlZ2d6NG9KT2RzWjNoZWlXUFAyNlA0?=
+ =?utf-8?B?UjFqTmU3dkd4OGpad1FneFlrN1QxUDlYSUxXakNENWFKRk9xYkI2YU1pYlRu?=
+ =?utf-8?B?R2hsbEZxT0VXK3FWSWJPaHQ5dzRuN1BSSkFac1ZnajlYb3BOZ3QwbmR6bVdj?=
+ =?utf-8?B?MzhxcTBHM05WNzBteFl3RytaeUgvV0gwWVZXOS8zRDB6WllJS1hNTHRDYVRV?=
+ =?utf-8?B?QS9tWWQwbkw1NVlRNER6YS91QmhWZG1JcEdaT1ZsM1gxWjN2QVZWYVFRNEpT?=
+ =?utf-8?B?ejh1eGNseGltTGgyejVTODIwNlJFYmRtNzNydDVaUktGWlJiRUVLRlN0SmZh?=
+ =?utf-8?B?MmpNNER3Vi9UUmhZeHBOa1J4dWhIZzVCS0MyMC9aMitEZTdVT05uVHA2Tk4z?=
+ =?utf-8?B?Y0ZkSDNRK0k1aVBvVW5Ia0FENjNRWUs1M3FLYlpIYjZBTE9xWXcrREJocVFp?=
+ =?utf-8?B?TUQ2SnFjQzRWZm5BWEFEYUhQdytwd3EyVWE3MFVqcVNWb1dSOWEzbkxjSzY4?=
+ =?utf-8?B?WFBEZzVlMXlZV2RkU2lxUWhIOUk1dFcrTTZLblRaY3dPZ21BNVU1SnNlVWJD?=
+ =?utf-8?B?Ujlmb0ppMU5WNkhWbldxVVdRNGhkbUE0ZUVMSWpFSnV1T3lLK0xucGZac21Q?=
+ =?utf-8?B?YWMrNWQ2cE1sQ0w2OHY0SjlzR3FvcjZ4UG1yRUJaQXBmanM2U29YdUI5TThF?=
+ =?utf-8?B?VHRUTDFmQk9pNGEvd2gzQk93TmEzWEdEWWl1bUVqNXEvQzV1UUtOVTdDWnZI?=
+ =?utf-8?B?UmFBZTJZSTBJWEVTNEFCS2VsVHQ0V1ZSTDJBeTVDS2c2MzVSN3pkQTZjYmlN?=
+ =?utf-8?B?Q011MVR3MjJ2YjhiZUhOalNBRXR4RGhtdmRtRTZnR3VCaSt1UTZ4SHBRWHVY?=
+ =?utf-8?B?TVZDaHFkTkpnV2htS3J2SUZ0bE9jR3NJOUlESmJXQjhzd1g5TkhuUEF0NkxL?=
+ =?utf-8?B?QXFZWjRqQU1Rc2thSHVZeUZwejEzWTRmRTJmckhCSTQ5ZFo0ZWhvVzZ0eTMx?=
+ =?utf-8?Q?c7dRnSY6nnvP+rlWgIrnGuZEe?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2022 09:56:06.2492 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a24d86a-a24c-4a9b-3eee-08da8c003047
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc7c2b81-4f9c-4a7f-9453-08da8c0a294b
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2022 11:07:30.0320 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT108.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6406
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hG2MZNiDGomkzxywk6tqpQLZKghOcERernCZuelBtkLO4BLKKcq3FRwY6V4zEf/2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6246
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,48 +124,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jingwen.chen2@amd.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+Well please adjust the subject line, that should read something like 
+"drm/amd/display:..." or "drm/amdgpu:...".
 
-still need confirmation from Christian
-
-On 9/1/22 5:29 PM, ZhenGuo Yin wrote:
-> [Why]
-> Ghost BO is released with non-empty bulk move object. There is a
-> warning trace:
-> WARNING: CPU: 19 PID: 1582 at ttm/ttm_bo.c:366 ttm_bo_release+0x2e1/0x2f0 [amdttm]
-> Call Trace:
->   amddma_resv_reserve_fences+0x10d/0x1f0 [amdkcl]
->   amdttm_bo_put+0x28/0x30 [amdttm]
->   amdttm_bo_move_accel_cleanup+0x126/0x200 [amdttm]
->   amdgpu_bo_move+0x1a8/0x770 [amdgpu]
->   ttm_bo_handle_move_mem+0xb0/0x140 [amdttm]
->   amdttm_bo_validate+0xbf/0x100 [amdttm]
+Am 01.09.22 um 11:11 schrieb Asher Song:
+> To eliminate the following compiling error, guard if clause.
 >
-> [How]
-> The resource of ghost BO should be moved to LRU directly, instead of
-> using bulk move. The bulk move object of ghost BO should set to NULL
-> before function ttm_bo_move_to_lru_tail_unlocked.
+> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c: In function 'commit_planes_for_stream':
+> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:3521:2: error: this 'if' clause does not guard... [-Werror=misleading-indentation]
+> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:3523:3: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+> if (update_type != UPDATE_TYPE_FAST)
+> ^~
 >
-> Fixed:·5b951e487fd6bf5f·("drm/ttm:·fix·bulk·move·handling·v2")
-> Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
+> Signed-off-by: Asher Song <Asher.Song@amd.com>
 > ---
->  drivers/gpu/drm/ttm/ttm_bo_util.c | 1 +
->  1 file changed, 1 insertion(+)
+>   drivers/gpu/drm/amd/display/dc/core/dc.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> index 1cbfb00c1d65..a90bbbd91910 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> @@ -238,6 +238,7 @@ static int ttm_buffer_object_transfer(struct ttm_buffer_object *bo,
->  
->  	if (fbo->base.resource) {
->  		ttm_resource_set_bo(fbo->base.resource, &fbo->base);
-> +		ttm_bo_set_bulk_move(&fbo->base, NULL);
->  		bo->resource = NULL;
->  	}
->  
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index b49237390cce..66072ac1bb4f 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -3505,11 +3505,12 @@ static void commit_planes_for_stream(struct dc *dc,
+>   					top_pipe_to_program->stream_res.tg);
+>   		}
+>   
+> -	if (update_type != UPDATE_TYPE_FAST)
+> +	if (update_type != UPDATE_TYPE_FAST){
+>   		dc->hwss.post_unlock_program_front_end(dc, context);
+>   		if (update_type != UPDATE_TYPE_FAST)
+>   			if (dc->hwss.commit_subvp_config)
+>   				dc->hwss.commit_subvp_config(dc, context);
+> +	}
+
+That looks like a step into the right directly, but please re-read the code:
+
+if (update_type != UPDATE_TYPE_FAST) {
+....
+     if (update_type != UPDATE_TYPE_FAST)
+     ....
+}
+
+That's certainly still not correct.
+
+Regards,
+Christian.
+
+
+>   
+>   	/* Since phantom pipe programming is moved to post_unlock_program_front_end,
+>   	 * move the SubVP lock to after the phantom pipes have been setup
+
