@@ -4,30 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4159BC0502C
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 13:06:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5519ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 13:06:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04E8510E6F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1DA410E701;
 	Thu,  1 Sep 2022 13:06:51 +0000 (UTC)
-Received: from out30-45.freemail.mail.aliyun.com
- (out30-45.freemail.mail.aliyun.com [115.124.30.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A253E10E652;
- Thu,  1 Sep 2022 08:34:45 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R541e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045168;
- MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0VNztQRr_1662021280; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VNztQRr_1662021280) by smtp.aliyun-inc.com;
- Thu, 01 Sep 2022 16:34:41 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH -next] drm/amd/display: remove possible condition with no
- effect (if == else)
-Date: Thu,  1 Sep 2022 16:34:38 +0800
-Message-Id: <20220901083438.105561-1-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A300F10E6CA;
+ Thu,  1 Sep 2022 10:41:29 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
+ [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 0EC286601DF7;
+ Thu,  1 Sep 2022 11:41:24 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1662028888;
+ bh=4gRwEeQrpCCNInUGu4Wkln9ZnVQKU6fbLc+GiIs/ids=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=oAi2rxSwcnG0bXjo2QlMDHpLcITXazqjTc0dBalx+xOeHafTkvkjyLjXi6A6OOyur
+ z7pbNTKLqD/VkqICHbjajAS8k3mrAX9GZO4wHzC1QonWNPPsB+Yz/xNrNkGHiYNqkW
+ KkTeNffA7kOX5RP0brCKXhs5fgLYvkel3UkZEKV4IsG5BuPE8jfFljWb4zRoqwCW4G
+ seQ5HIQoKzjXqwqMOZEyy+r7MpCNGUMFwnjvSCAObVKOgjJcGMutTDAsM5pfKtEEMm
+ 0OqK6C+DTZS/pjJwK1O6NhqMYskfUmdtIsJv4b93vGTms4LgyHT3lMm/bHN76TIS0u
+ g+wfJ91stbLBw==
+Message-ID: <b6d96128-7558-8111-71b0-5fe5502ddf4b@collabora.com>
+Date: Thu, 1 Sep 2022 13:41:21 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH v4 09/21] drm/etnaviv: Prepare to dynamic dma-buf locking
+ specification
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Russell King <linux@armlinux.org.uk>, Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>
+References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
+ <20220831153757.97381-10-dmitry.osipenko@collabora.com>
+ <641f372f-4a30-72bb-ec8b-4fd6ff825594@amd.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <641f372f-4a30-72bb-ec8b-4fd6ff825594@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 01 Sep 2022 13:06:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -41,38 +60,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, airlied@linux.ie,
- Yang Li <yang.lee@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Gerd Hoffmann <kraxel@redhat.com>, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, Sumit Semwal <sumit.semwal@linaro.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>, Chia-I Wu <olvaffe@gmail.com>,
+ linux-media@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Juergen Gross <jgross@suse.com>,
+ David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
+ Tomi Valkeinen <tomba@kernel.org>, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Rob Clark <robdclark@gmail.com>, Qiang Yu <yuq825@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Conditional statements have no effect to next process.So remove it.
+On 9/1/22 09:50, Christian König wrote:
+> Am 31.08.22 um 17:37 schrieb Dmitry Osipenko:
+>> Prepare Etnaviv driver to the common dynamic dma-buf locking convention
+>> by starting to use the unlocked versions of dma-buf API functions.
+>>
+>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> 
+> Interesting, where is the matching vmap()?
+> 
+> Anyway, this patch is Acked-by: Christian König <christian.koenig@amd.com>
 
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2028
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
----
- .../drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c   | 4 ----
- 1 file changed, 4 deletions(-)
+Etnaviv maps GEM only once and then unmaps it when GEM is destroyed. The
+dma-buf vmapping should happen under the reservation lock, hence only
+the release function needs to be changed to the unlocked variant.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index e4fd540dec0f..8f1c0e12dd86 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -4663,10 +4663,6 @@ void dml32_CalculateMinAndMaxPrefetchMode(
- 	} else if (AllowForPStateChangeOrStutterInVBlankFinal == dm_prefetch_support_uclk_fclk_and_stutter) {
- 		*MinPrefetchMode = 0;
- 		*MaxPrefetchMode = 0;
--	} else if (AllowForPStateChangeOrStutterInVBlankFinal ==
--			dm_prefetch_support_uclk_fclk_and_stutter_if_possible) {
--		*MinPrefetchMode = 0;
--		*MaxPrefetchMode = 3;
- 	} else {
- 		*MinPrefetchMode = 0;
- 		*MaxPrefetchMode = 3;
+Lucas/Christian(Gmeiner), could you please check that I haven't missed
+anything?
+
+>> ---
+>>   drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+>> b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+>> index 3fa2da149639..7031db145a77 100644
+>> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+>> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+>> @@ -65,7 +65,7 @@ static void etnaviv_gem_prime_release(struct
+>> etnaviv_gem_object *etnaviv_obj)
+>>       struct iosys_map map = IOSYS_MAP_INIT_VADDR(etnaviv_obj->vaddr);
+>>         if (etnaviv_obj->vaddr)
+>> -        dma_buf_vunmap(etnaviv_obj->base.import_attach->dmabuf, &map);
+>> +       
+>> dma_buf_vunmap_unlocked(etnaviv_obj->base.import_attach->dmabuf, &map);
+>>         /* Don't drop the pages for imported dmabuf, as they are not
+>>        * ours, just free the array we allocated:
+> 
+
+
 -- 
-2.20.1.7.g153144c
-
+Best regards,
+Dmitry
