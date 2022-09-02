@@ -4,41 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEBD2C6FA86
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 938CCECAAA1
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0EFD10E1F2;
-	Mon,  5 Sep 2022 07:04:28 +0000 (UTC)
-Received: from m12-18.163.com (m12-18.163.com [220.181.12.18])
- by gabe.freedesktop.org (Postfix) with ESMTP id B24F710E295;
- Mon,  5 Sep 2022 00:55:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=z9nvn
- N5LMXDX8a7aP7btkSJDO5Ia4gaMEc/3ABW2E00=; b=FS6u3Ge7xHS2IfIB+2/4z
- 8u2tAV9kKJ37xsM2vPouNbmE1kRNxkCR9JzoHBVCUpmQqb8pNDaUxhCaolQqPEPD
- hqeAT8RC2I557koy2doGFXTb9AXtBtnuU4iwZyFK2Ec2Pq3nqgUoYfLpMtlWPwdS
- eUFKJrdpavAb3+HjZQ8XBU=
-Received: from f00160-VMware-Virtual-Platform.localdomain (unknown
- [1.203.67.201])
- by smtp14 (Coremail) with SMTP id EsCowAD3c1mQSBVjtUhLDw--.19175S4;
- Mon, 05 Sep 2022 08:54:51 +0800 (CST)
-From: Jingyu Wang <jingyuwang_vip@163.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, isabbasso@riseup.net,
- Rodrigo.Siqueira@amd.com
-Subject: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_atpx_handler.c
-Date: Mon,  5 Sep 2022 08:53:29 +0800
-Message-Id: <20220905005329.19501-1-jingyuwang_vip@163.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7190210E1F3;
+	Mon,  5 Sep 2022 07:04:29 +0000 (UTC)
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7661910E78A;
+ Fri,  2 Sep 2022 07:55:00 +0000 (UTC)
+Received: by mail-pl1-x636.google.com with SMTP id y1so1138504plb.2;
+ Fri, 02 Sep 2022 00:55:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=olRYQnYmrRIOGNSywKQ9G4nuley//Yo3uY1jFefZG7o=;
+ b=bhXeAh6NCcFpvJlv7XLzcG3X3zIgANLNUE4MmeQDW8WfdAahPXa8g0WRdHkW4TOqmC
+ yBd9xg/SSs0xMYBtSy4N4iQXPq17adhaIpZHsj0MmiDd0oOfQgPVdqtuIB9fx4NimvDe
+ ZInR8r6HJQuDDhInEdF23uSoUn5/vgxjMfJbq7dvhYAboZtF1Jo8al3BA+ZTnIEHotcQ
+ uUIrEfYfV6xDv6A4JqX837duDfoYhtPgj96kVrljzZlHKsddFfJ3nUhRs7h801RNIwHj
+ peX819TppTZqOAjYqpzhWZf46daEiiMfsy7swZZcJjOtYsWc2cXQCiG1cWNfUcA6n3gW
+ sc2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=olRYQnYmrRIOGNSywKQ9G4nuley//Yo3uY1jFefZG7o=;
+ b=tOZOX/1OjB3N+X33kElc/f8U+cxipAzcauxnd6uqmDgzvqyYhFu/vtFDRLS0/QEwM8
+ //XMySy9ejpEUgfd6ueeCLVfApz8sOuYsd4P1bTj9cSdavYDvi0FWFWtLhTMTQUwNgYO
+ lV/znLMCi7hzwLJMl2tjiF12Q+8Op1U9GsgZTLdE5KfM0RvWM1BwCH0u+3Uo40c8AgHC
+ hTphgbm5NUwqalXtH+WOiFKFqFI/zCKYNQ+Vi5CVFr1wJFu5T+DcDxhQg+1zpP+jHLdN
+ AL6hbOdNQc/nLTtsjYoXLZTGTq8ysmo8WA1r5KZHILkyzCUdmxo0WBKQDcNEMftuEivE
+ JXQA==
+X-Gm-Message-State: ACgBeo0K6RSgleCU1TJtq2JtwzRXmtbeNNOKSI8EC+u/Kk+xqlirM4Wj
+ Zb2cBS11O9GZp37wONcJOjo=
+X-Google-Smtp-Source: AA6agR4XOQ2iEpSSKN5Yz5XMLIr6LdDI5VoI9vYEvx9vlTdzzxag0lMZfhF1mY/cUxVhW5mba0hqjQ==
+X-Received: by 2002:a17:90b:1d89:b0:1f5:a59:46b1 with SMTP id
+ pf9-20020a17090b1d8900b001f50a5946b1mr3426825pjb.173.1662105300133; 
+ Fri, 02 Sep 2022 00:55:00 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id
+ u7-20020a170903124700b00170d34cf7f3sm922697plh.257.2022.09.02.00.54.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Sep 2022 00:54:59 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: zhang.songyi@zte.com.cn
+To: harry.wentland@amd.com
+Subject: [PATCH linux-next] drm/amd/display: Remove the unneeded result
+ variable
+Date: Fri,  2 Sep 2022 07:54:50 +0000
+Message-Id: <20220902075450.319982-1-zhang.songyi@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: EsCowAD3c1mQSBVjtUhLDw--.19175S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJF13CrWrCF17ArWkJFWrXwb_yoW5tF17pF
- WSgr97tr1rZw18AFykAr4DZF1Ykws7ZFyUG3yDZ34Y9w4UJr1rJ348ta4jyrn5CrW7CFsa
- vFZxXa45Aa9FyF7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEVc_7UUUUU=
-X-Originating-IP: [1.203.67.201]
-X-CM-SenderInfo: 5mlqw5xxzd0whbyl1qqrwthudrp/1tbiyRtzF2I66w2tygAAsv
 X-Mailman-Approved-At: Mon, 05 Sep 2022 07:04:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,109 +69,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jingyu Wang <jingyuwang_vip@163.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: sunpeng.li@amd.com, wenjing.liu@amd.com, Zeal Robot <zealci@zte.com.cn>,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, meenakshikumar.somasundaram@amd.com,
+ airlied@linux.ie, Jerry.Zuo@amd.com, zhang songyi <zhang.songyi@zte.com.cn>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ hanghong.ma@amd.com, Jun.Lei@amd.com, christian.koenig@amd.com,
+ Jimmy.Kizito@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix everything checkpatch.pl complained about in amdgpu_atpx_handler.c
+From: zhang songyi <zhang.songyi@zte.com.cn>
 
-Signed-off-by: Jingyu Wang <jingyuwang_vip@163.com>
+Return the enable_link_dp() directly instead of storing it in another
+redundant variable.
+
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: zhang songyi <zhang.songyi@zte.com.cn>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c  | 27 +++++++++++--------
- 1 file changed, 16 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
-index d6d986be906a..911d6a130ec5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
-@@ -74,24 +74,29 @@ struct atpx_mux {
- 	u16 mux;
- } __packed;
- 
--bool amdgpu_has_atpx(void) {
-+bool amdgpu_has_atpx(void)
-+{
- 	return amdgpu_atpx_priv.atpx_detected;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index f9b798b7933c..4ab27e231337 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -2077,11 +2077,7 @@ static enum dc_status enable_link_edp(
+ 		struct dc_state *state,
+ 		struct pipe_ctx *pipe_ctx)
+ {
+-	enum dc_status status;
+-
+-	status = enable_link_dp(state, pipe_ctx);
+-
+-	return status;
++	return enable_link_dp(state, pipe_ctx);
  }
  
--bool amdgpu_has_atpx_dgpu_power_cntl(void) {
-+bool amdgpu_has_atpx_dgpu_power_cntl(void)
-+{
- 	return amdgpu_atpx_priv.atpx.functions.power_cntl;
- }
- 
--bool amdgpu_is_atpx_hybrid(void) {
-+bool amdgpu_is_atpx_hybrid(void)
-+{
- 	return amdgpu_atpx_priv.atpx.is_hybrid;
- }
- 
--bool amdgpu_atpx_dgpu_req_power_for_displays(void) {
-+bool amdgpu_atpx_dgpu_req_power_for_displays(void)
-+{
- 	return amdgpu_atpx_priv.atpx.dgpu_req_power_for_displays;
- }
- 
- #if defined(CONFIG_ACPI)
--void *amdgpu_atpx_get_dhandle(void) {
-+void *amdgpu_atpx_get_dhandle(void)
-+{
- 	return amdgpu_atpx_priv.dhandle;
- }
- #endif
-@@ -134,7 +139,7 @@ static union acpi_object *amdgpu_atpx_call(acpi_handle handle, int function,
- 
- 	/* Fail only if calling the method fails and ATPX is supported */
- 	if (ACPI_FAILURE(status) && status != AE_NOT_FOUND) {
--		printk("failed to evaluate ATPX got %s\n",
-+		DRM_WARN("failed to evaluate ATPX got %s\n",
- 		       acpi_format_exception(status));
- 		kfree(buffer.pointer);
- 		return NULL;
-@@ -190,7 +195,7 @@ static int amdgpu_atpx_validate(struct amdgpu_atpx *atpx)
- 
- 		size = *(u16 *) info->buffer.pointer;
- 		if (size < 10) {
--			printk("ATPX buffer is too small: %zu\n", size);
-+			DRM_WARN("ATPX buffer is too small: %zu\n", size);
- 			kfree(info);
- 			return -EINVAL;
- 		}
-@@ -223,11 +228,11 @@ static int amdgpu_atpx_validate(struct amdgpu_atpx *atpx)
- 	atpx->is_hybrid = false;
- 	if (valid_bits & ATPX_MS_HYBRID_GFX_SUPPORTED) {
- 		if (amdgpu_atpx_priv.quirks & AMDGPU_PX_QUIRK_FORCE_ATPX) {
--			printk("ATPX Hybrid Graphics, forcing to ATPX\n");
-+			DRM_WARN("ATPX Hybrid Graphics, forcing to ATPX\n");
- 			atpx->functions.power_cntl = true;
- 			atpx->is_hybrid = false;
- 		} else {
--			printk("ATPX Hybrid Graphics\n");
-+			DRM_WARN("ATPX Hybrid Graphics\n");
- 			/*
- 			 * Disable legacy PM methods only when pcie port PM is usable,
- 			 * otherwise the device might fail to power off or power on.
-@@ -269,7 +274,7 @@ static int amdgpu_atpx_verify_interface(struct amdgpu_atpx *atpx)
- 
- 	size = *(u16 *) info->buffer.pointer;
- 	if (size < 8) {
--		printk("ATPX buffer is too small: %zu\n", size);
-+		DRM_WARN("ATPX buffer is too small: %zu\n", size);
- 		err = -EINVAL;
- 		goto out;
- 	}
-@@ -278,7 +283,7 @@ static int amdgpu_atpx_verify_interface(struct amdgpu_atpx *atpx)
- 	memcpy(&output, info->buffer.pointer, size);
- 
- 	/* TODO: check version? */
--	printk("ATPX version %u, functions 0x%08x\n",
-+	DRM_WARN("ATPX version %u, functions 0x%08x\n",
- 	       output.version, output.function_bits);
- 
- 	amdgpu_atpx_parse_functions(&atpx->functions, output.function_bits);
-
-base-commit: e47eb90a0a9ae20b82635b9b99a8d0979b757ad8
+ static enum dc_status enable_link_dp_mst(
 -- 
-2.34.1
+2.25.1
+
 
