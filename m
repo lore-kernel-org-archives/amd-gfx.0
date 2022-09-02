@@ -4,50 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE0F7C001B5
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 17:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A962ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 21:35:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B632D10E8AB;
-	Fri,  2 Sep 2022 17:27:36 +0000 (UTC)
-Received: from mail-ua1-x92a.google.com (mail-ua1-x92a.google.com
- [IPv6:2607:f8b0:4864:20::92a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5E5510E5BC
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Sep 2022 17:27:31 +0000 (UTC)
-Received: by mail-ua1-x92a.google.com with SMTP id d14so1046353ual.9
- for <amd-gfx@lists.freedesktop.org>; Fri, 02 Sep 2022 10:27:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date; bh=FDv+mOoFVdE6X2vHxWzO1IX25FkSudQZtzzmXfQSu/k=;
- b=naa6HxKypO7JaUCyifaqzHRanYmhh8oJxoJCK9FOcTYnSWzRMQKtmQU4s7fP01FPZs
- y8fEBeQrk9EciTcChoGi8dAHPfY1HezdKrz8wmlf4AEHH7041VIU2OCB4T1wd2W2Jg+j
- Q66Z3p8KOPoJFydM4hgCtk0AVGJnEOoZhJMKYMRPyl1m973E3UKCyzALD0Qt1X8BOY65
- m8HswCIcFfoFYbMtHGjelLqJ0NN6KUYMR/D77FnQ7ueWOZLlnytuohVDJcrm9sf8ktPr
- 2XYViZR/aEct6m9nu3avC2LDDTEwKUQc8B8IeXSRd0iwXpOxoVj3CqvwAp/qIEruoaI2
- OuoQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD4FC10E910;
+	Fri,  2 Sep 2022 21:35:08 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A27910E911
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Sep 2022 21:35:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1662154504;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8tLM/3lJtaAYsqKeYEGRVJvBSiRQW7/b6UjPp23Gpt8=;
+ b=eecIaoIdClM+KXOx0uIB/YIrNJ5+wAZ1Kles7Z2tKWklohoWWjo++g8Zq/7ThbaZ/PByuz
+ QeNxCvuQWHT/EEFQ/hjjiR60QuZOCBq0qSFYB4yCTDh1Y1WOHThzvD1b8tjHS/oPs8NYlt
+ VBzyWZaM9sNZwYTKP2xNlFschQ658P8=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-441-9e7PD-BpMg2GgEbAaAp1jQ-1; Fri, 02 Sep 2022 17:35:03 -0400
+X-MC-Unique: 9e7PD-BpMg2GgEbAaAp1jQ-1
+Received: by mail-qt1-f197.google.com with SMTP id
+ v5-20020ac873c5000000b003434ef0a8c7so2489411qtp.21
+ for <amd-gfx@lists.freedesktop.org>; Fri, 02 Sep 2022 14:35:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date;
- bh=FDv+mOoFVdE6X2vHxWzO1IX25FkSudQZtzzmXfQSu/k=;
- b=wmMAV/KUjhfOwufabVCWN5duxxnw6Kof/ge+lAAFqxZACzTksQi5Cqy16Gus5P9AGZ
- YpoNff4N6VHeeVDBi7P4cMtwtojYW1n17yIn6vj2dR1wowHNipn6Zolb/pkRHK5Ee+jT
- ZDBPGm6w7iCdtBN/wZ+T0dIH4iZPGqxhLUSX4ulRsgwpc544XRoMipw2EHlfCljSmEXS
- FOTjaZB/nakNHS8bVuK9BIBRpAa7DEM1KyK4L8hFaNfAWA97L0KRO3i/FVd9NfKY6BtF
- bZStAE+dkKlkteNYHuH11Nt6b+O/U/f4z2bN9P5V55szNMirZOqCc6ie63sQnbuEi2iC
- OopA==
-X-Gm-Message-State: ACgBeo2Xya/eV+bnf4dUDfCXPgtwGRvCId9Jf0LMeJHolMTyI4tq0cNV
- Ep2a6UNEmUkP7UAkVDKKV4U+L994/e5cvuPvnWkfhjn5GHs=
-X-Google-Smtp-Source: AA6agR4ccVlpv6pnoBLU6UIUXjIWy4z8F6CfVrSxIxZ6J9ve9BbgMw4B7J2WgeADCZZbms83UBNNI7SKi91GMBCJq84=
-X-Received: by 2002:ab0:2713:0:b0:391:50f7:88b5 with SMTP id
- s19-20020ab02713000000b0039150f788b5mr11140518uao.109.1662139650685; Fri, 02
- Sep 2022 10:27:30 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:user-agent:organization
+ :references:in-reply-to:date:cc:to:from:subject:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=8tLM/3lJtaAYsqKeYEGRVJvBSiRQW7/b6UjPp23Gpt8=;
+ b=2sRcgEZ7z16c4cE9FJCoIhUAp4qvCJzLMWEwVbwE/LKXAaDe5/EpD7DN1OgQA6VOOr
+ WK7l5W7pSwgtuq2b3IK0s76L4MOCCvj7Fe/MfCba8xaPpGyek9Zzydx5nEmOxRlozdkV
+ HFMC5xWzeovHy3oh3OPbXvlx6brRAOE5b6W1FIv+B2eNp5cXJ5iRv4i6X/gOiadBZRMM
+ zZR1N81RFzH3l+PcAZVO7q0ygQXGnfSLXjF0RRtnyfR5K6cCo7ORM304EV7vnIOa/+vz
+ ugNSDMOdz/hqQEvY+JAiiqzZ+ppfx4iOtWQE5StBLNvQRfHrmEUPXn2VBGq+qcBBc1Bl
+ ZCEA==
+X-Gm-Message-State: ACgBeo0puoAeBxgNfU9/YsKYfgEhDVxh+t2BjomOCLR6QMzwjck8SzhC
+ WdTixw2Mn6oZR0BGGtcin4AH07zzSV9YJnqPLB8pJFVgy4p1ODMMWos85tI1tyRenOcXDEEuNn4
+ hN+yuk+Yq5wSZIS09fks3M/NIJQ==
+X-Received: by 2002:ac8:5a55:0:b0:343:72f9:7053 with SMTP id
+ o21-20020ac85a55000000b0034372f97053mr29376151qta.518.1662154502986; 
+ Fri, 02 Sep 2022 14:35:02 -0700 (PDT)
+X-Google-Smtp-Source: AA6agR71MqC8+ulzndg1RInO2Lgus6TlkwKGDoiDVHA9iSaBYpFk7mer7xfBbfAfM9XAI4bEWzDHfA==
+X-Received: by 2002:ac8:5a55:0:b0:343:72f9:7053 with SMTP id
+ o21-20020ac85a55000000b0034372f97053mr29376127qta.518.1662154502700; 
+ Fri, 02 Sep 2022 14:35:02 -0700 (PDT)
+Received: from ?IPv6:2600:4040:5c48:e00:e786:1aff:4f5c:c549?
+ ([2600:4040:5c48:e00:e786:1aff:4f5c:c549])
+ by smtp.gmail.com with ESMTPSA id
+ s4-20020a05620a254400b006bacf4703c5sm2215158qko.111.2022.09.02.14.35.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Sep 2022 14:35:02 -0700 (PDT)
+Message-ID: <cde7369a1d078249244759662989427b1f853bdd.camel@redhat.com>
+Subject: Re: [PATCH] drm/dp: Avoid Reading DPCD_REV Before Native Aux Read
+From: Lyude Paul <lyude@redhat.com>
+To: Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Vetter <daniel@ffwll.ch>, Ville
+ Syrjala <ville.syrjala@linux.intel.com>, David Airlie <airlied@linux.ie>,
+ Alex Deucher <alexander.deucher@amd.com>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
+ <Rodrigo.Siqueira@amd.com>
+Date: Fri, 02 Sep 2022 17:35:00 -0400
+In-Reply-To: <20220831221321.748264-1-Jerry.Zuo@amd.com>
+References: <20220831221321.748264-1-Jerry.Zuo@amd.com>
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
 MIME-Version: 1.0
-From: Yury Zhuravlev <stalkerg@gmail.com>
-Date: Sat, 3 Sep 2022 02:24:54 +0900
-Message-ID: <CANiD2e857Jm-gFzr4jRxvw3AuDHJPfATRzmtZ3PipDwQOpYwvQ@mail.gmail.com>
-Subject: [PATCH] drm/amdgpu: getting fan speed pwm for vega10 properly
-To: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="000000000000725dd805e7b50b27"
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,108 +88,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000725dd805e7b50b27
-Content-Type: multipart/alternative; boundary="000000000000725dd505e7b50b25"
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
---000000000000725dd505e7b50b25
-Content-Type: text/plain; charset="UTF-8"
+On Wed, 2022-08-31 at 18:13 -0400, Fangzhi Zuo wrote:
+> The attempt to read DPCD_REV before any native aux read breaks
+> majority of DP2 compliance.
+> 
+> The spec. requires DP_SINK_STATUS to be polled for the reset status
+> DP_INTRA_HOP_AUX_REPLY_INDICATION during the clear training stage.
+> 
+> Polling DP_SINK_STATUS each time gets DPCD_REV read first
+> that makes non link training regsiter DPCD_REV get read
+> during UHBR link training. It violates DP2 compliance.
+> 
+> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
+> Cc: Lyude Paul <lyude@redhat.com>
+> Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+> ---
+>  drivers/gpu/drm/display/drm_dp_helper.c | 18 ------------------
+>  1 file changed, 18 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index e7c22c2ca90c..c7aa5bafa667 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -571,24 +571,6 @@ ssize_t drm_dp_dpcd_read(struct drm_dp_aux *aux, unsigned int offset,
+>  {
+>  	int ret;
+>  
+> -	/*
+> -	 * HP ZR24w corrupts the first DPCD access after entering power save
+> -	 * mode. Eg. on a read, the entire buffer will be filled with the same
+> -	 * byte. Do a throw away read to avoid corrupting anything we care
+> -	 * about. Afterwards things will work correctly until the monitor
+> -	 * gets woken up and subsequently re-enters power save mode.
+> -	 *
+> -	 * The user pressing any button on the monitor is enough to wake it
+> -	 * up, so there is no particularly good place to do the workaround.
+> -	 * We just have to do it before any DPCD access and hope that the
+> -	 * monitor doesn't power down exactly after the throw away read.
+> -	 */
+> -	if (!aux->is_remote) {
+> -		ret = drm_dp_dpcd_probe(aux, DP_DPCD_REV);
+> -		if (ret < 0)
+> -			return ret;
+> -	}
+> -
+>  	if (aux->is_remote)
+>  		ret = drm_dp_mst_dpcd_read(aux, offset, buffer, size);
+>  	else
 
-Hello,
+-- 
+Cheers,
+ Lyude Paul (she/her)
+ Software Engineer at Red Hat
 
-During the setup, the fan manager https://github.com/markusressel/fan2go I
-found that my Vega56 was not working correctly. This fan manager expects
-what read PWM value should be the same as you wrote before, but it's not
-the case. PWM value was volatile, and what is more critical, if I wrote
-200, after reading I saw ~70-100, which is very confusing.
-After that, I started reading the amdgpu driver, and how fan speed works,
-and I found what PWM value was calculated from RPM speed and not correct
-for my case (different BIOS or fan configuration?).
-Because it looked wrong, I started looking into different implementations
-and found that Vega20 used mmCG_FDO_CTRL1 and mmCG_THERMAL_STATUS registers
-to calculate the PWM value.
-I also checked how we set PWM for Vega10 and found the same registers.
-After that, I copy-pasted the function from Vega20 to Vega10, and it
-started working much better. It still has some fluctuation, but as I
-understand, this behavior is expected.
-
-I have no in-depth information about amdgpu, and the original function may
-have been for some reason (maybe for some broken BIOS?), but I suppose
-somebody forgot to backport this code after prototype implementation.
-
-It would be my first patch here. Sorry if I skipped some procedures, will
-be appreciated it if you help me.
-Also, sorry for the patch in the attachment, I have not been using any mail
-programs for the last six years, only web clients, and it's strange to do
-it nowadays (PRs much more common...).
-
-Regards,
-
---000000000000725dd505e7b50b25
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hello,<br><br>During the setup, the fan manager <a hr=
-ef=3D"https://github.com/markusressel/fan2go" target=3D"_blank">https://git=
-hub.com/markusressel/fan2go</a>
- I found that my Vega56 was not working correctly. This fan manager=20
-expects what read PWM value should be the same as you wrote before, but=20
-it&#39;s not the case. PWM value was volatile, and what is more critical, i=
-f
- I wrote 200, after reading I saw ~70-100, which is very confusing. <br>Aft=
-er
- that, I started reading the amdgpu driver, and how fan speed works, and
- I found what PWM value was calculated from RPM speed and not correct=20
-for my case (different BIOS or fan configuration?).<br>Because it looked
- wrong, I started looking into different implementations and found that=20
-Vega20 used mmCG_FDO_CTRL1 and mmCG_THERMAL_STATUS registers to=20
-calculate the PWM value.<br>I also checked how we set PWM for Vega10 and
- found the same registers. After that, I copy-pasted the function from=20
-Vega20 to Vega10, and it started working much better. It still has some=20
-fluctuation, but as I understand, this behavior is expected. <br><br>I=20
-have no in-depth information about amdgpu, and the original function may
- have been for some reason (maybe for some broken BIOS?), but I suppose=20
-somebody forgot to backport this code after prototype implementation. <br><=
-br>It would be my first patch here. Sorry if I skipped some procedures, wil=
-l be appreciated it if you help me. <br></div>Also, sorry for the patch in =
-the attachment, I have not been using any mail programs for the last six ye=
-ars, only web clients, and it&#39;s strange to do it nowadays (PRs much mor=
-e common...). <br><div><br>Regards,</div></div>
-
---000000000000725dd505e7b50b25--
-
---000000000000725dd805e7b50b27
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-getting-fan-speed-pwm-for-vega10-properly.patch"
-Content-Disposition: attachment; 
-	filename="0001-getting-fan-speed-pwm-for-vega10-properly.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_l7kqt3vq0>
-X-Attachment-Id: f_l7kqt3vq0
-
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vcG93ZXJwbGF5L2h3bWdyL3ZlZ2Ex
-MF90aGVybWFsLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3Bvd2VycGxheS9od21nci92ZWdh
-MTBfdGhlcm1hbC5jCmluZGV4IGRhZDNlMzc0MWE0ZS4uMTkwYWY3OWYzMjM2IDEwMDY0NAotLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3Bvd2VycGxheS9od21nci92ZWdhMTBfdGhlcm1hbC5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF90aGVy
-bWFsLmMKQEAgLTY3LDIyICs2NywyMSBAQCBpbnQgdmVnYTEwX2Zhbl9jdHJsX2dldF9mYW5fc3Bl
-ZWRfaW5mbyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAogaW50IHZlZ2ExMF9mYW5fY3RybF9nZXRf
-ZmFuX3NwZWVkX3B3bShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAogCQl1aW50MzJfdCAqc3BlZWQp
-CiB7Ci0JdWludDMyX3QgY3VycmVudF9ycG07Ci0JdWludDMyX3QgcGVyY2VudCA9IDA7Ci0KLQlp
-ZiAoaHdtZ3ItPnRoZXJtYWxfY29udHJvbGxlci5mYW5JbmZvLmJOb0ZhbikKLQkJcmV0dXJuIDA7
-CisJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBod21nci0+YWRldjsKKwl1aW50MzJfdCBk
-dXR5MTAwLCBkdXR5OworCXVpbnQ2NF90IHRtcDY0OwogCi0JaWYgKHZlZ2ExMF9nZXRfY3VycmVu
-dF9ycG0oaHdtZ3IsICZjdXJyZW50X3JwbSkpCi0JCXJldHVybiAtMTsKKwlkdXR5MTAwID0gUkVH
-X0dFVF9GSUVMRChSUkVHMzJfU09DMTUoVEhNLCAwLCBtbUNHX0ZET19DVFJMMSksCisJCQkJQ0df
-RkRPX0NUUkwxLCBGTUFYX0RVVFkxMDApOworCWR1dHkgPSBSRUdfR0VUX0ZJRUxEKFJSRUczMl9T
-T0MxNShUSE0sIDAsIG1tQ0dfVEhFUk1BTF9TVEFUVVMpLAorCQkJCUNHX1RIRVJNQUxfU1RBVFVT
-LCBGRE9fUFdNX0RVVFkpOwogCi0JaWYgKGh3bWdyLT50aGVybWFsX2NvbnRyb2xsZXIuCi0JCQlh
-ZHZhbmNlRmFuQ29udHJvbFBhcmFtZXRlcnMudXNNYXhGYW5SUE0gIT0gMCkKLQkJcGVyY2VudCA9
-IGN1cnJlbnRfcnBtICogMjU1IC8KLQkJCWh3bWdyLT50aGVybWFsX2NvbnRyb2xsZXIuCi0JCQlh
-ZHZhbmNlRmFuQ29udHJvbFBhcmFtZXRlcnMudXNNYXhGYW5SUE07CisJaWYgKCFkdXR5MTAwKQor
-CQlyZXR1cm4gLUVJTlZBTDsKIAotCSpzcGVlZCA9IE1JTihwZXJjZW50LCAyNTUpOworCXRtcDY0
-ID0gKHVpbnQ2NF90KWR1dHkgKiAyNTU7CisJZG9fZGl2KHRtcDY0LCBkdXR5MTAwKTsKKwkqc3Bl
-ZWQgPSBNSU4oKHVpbnQzMl90KXRtcDY0LCAyNTUpOwogCiAJcmV0dXJuIDA7CiB9Cg==
---000000000000725dd805e7b50b27--
