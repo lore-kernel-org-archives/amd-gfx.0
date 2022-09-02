@@ -4,50 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 537D8ECAAD5
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31306ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27CF010E1E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D44C810E1EA;
 	Mon,  5 Sep 2022 07:04:14 +0000 (UTC)
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Mon, 05 Sep 2022 03:28:21 UTC
-Received: from mailgw.kylinos.cn (unknown [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 040F610E038;
- Mon,  5 Sep 2022 03:28:20 +0000 (UTC)
-X-UUID: 7928ea5452b340daac7de128ff4adbd9-20220905
-X-CPASD-INFO: 0c6ebd3c5c40433cb3e84f0545c07c38@ebNwhY-WYZNhg3Z8g3Z-
- nYJklWhkklCEdm-
- DYGWTX1iVhH5xTV5uYFV9fWtVYV9dYVR6eGxQYmBgZFJ4i3-XblBgXoZgUZB3f6VwhZKSYw==
-X-CLOUD-ID: 0c6ebd3c5c40433cb3e84f0545c07c38
-X-CPASD-SUMMARY: SIP:-1, APTIP:-2.0, KEY:0.0, FROMBLOCK:1, OB:0.0, URL:-5,
- TVAL:186.
- 0, ESV:0.0, ECOM:-5.0, ML:0.0, FD:0.0, CUTS:314.0, IP:-2.0, MAL:-5.0, PHF:-5.0,
- PHC:-5
- .0, SPF:4.0, EDMS:-5, IPLABEL:4480.0, FROMTO:0, AD:0, FFOB:0.0, CFOB:0.0, SPC:0,
- SIG:-
- 5, AUF:0, DUF:3998, ACD:70, DCD:70, SL:0, EISP:0, AG:0, CFC:0.437, CFSR:0.047,
- UAT:0, RA
- F:0, IMG:-5.0, DFA:0, DTA:0, IBL:-2.0, ADI:-5, SBL:0, REDM:0, REIP:0, ESB:0,
- ATTNUM:0, E AF:0,CID:-5.0,VERSION:2.3.17
-X-CPASD-ID: 7928ea5452b340daac7de128ff4adbd9-20220905
-X-CPASD-BLOCK: 1000
-X-CPASD-STAGE: 1
-X-UUID: 7928ea5452b340daac7de128ff4adbd9-20220905
-X-User: zhongpei@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.169)] by mailgw
- (envelope-from <zhongpei@kylinos.cn>) (Generic MTA)
- with ESMTP id 1623344949; Mon, 05 Sep 2022 11:23:37 +0800
-From: zhongpei <zhongpei@kylinos.cn>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, zhongpei@kylinos.cn,
- isabbasso@riseup.net
-Subject: [PATCH] drm:Fix the blank screen problem of some 1920x1080 75Hz
- monitors using R520 graphics card
-Date: Mon,  5 Sep 2022 11:23:07 +0800
-Message-Id: <20220905032307.1519169-1-zhongpei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E023610E7D6
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Sep 2022 09:31:29 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id c7so1509620wrp.11
+ for <amd-gfx@lists.freedesktop.org>; Fri, 02 Sep 2022 02:31:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=1gh2cH8+/vu9+O44Ntzb/QjlvRTOJYihF+Y3Qm1SXrI=;
+ b=EVe1TJlwgwENLq9wjko+3+iqmTNZUI3JPuYAT7OKSM+R/epnoMEDtd8xg6TmEMxWx3
+ w3tho74vxXAPjBSsm4lYFUcgCWErhh5+d3jcpk70E6Cl1y+e5y1R2FlOY66Rl8+JeCwL
+ W3nltWTUG/K5D5uJwaOIEe1GS28g32m2+6rHL+rUQ9SE6SLcEMA41Q+pdYi3o3e/Gse3
+ vkzFGeV6Fodjv9QezhLGwOjQYvAKxf+B1t8jpSLVlaAcYGHcSmHNtUS1CA4d+v2e/F68
+ XWkTUJ18yNVic8+Sr4F0TOACzpTFk8RLS58xwLJ8vLbq0MIzXXHOSVbDexp4Q4m4S3zf
+ Pupw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=1gh2cH8+/vu9+O44Ntzb/QjlvRTOJYihF+Y3Qm1SXrI=;
+ b=R7G5MJwRxebMfb/Eyh1Ria67sJ3QnYW+X2FaRpB3xHGgamHhqJ+5KN5pdriLDEv7IA
+ UqzgKjHEThb5YwfcFhMkE4ngX/d2T98a4TPYcjsxyb1zlTCORKD3/hW6Om2OA34mpKVL
+ xXCUtV/2sJdIjDI992rUCJbrwe7AL+LDbDajByVrMzvyLCpqrRK2ZiH0Mgg5O6wKMyEn
+ GDu0G/ZVtf2yvk7AkG2N3ADR26EyCnqHrIunjaGc2yXNIxkXFn937vmoMvagSkPOW86a
+ rSRfueQ/VpZDinsXl4czaWhryQyzaRSAAwavFDJk9G02Io77Q/Ty9X1joeJQD3/cWAQC
+ T0ow==
+X-Gm-Message-State: ACgBeo2nLTb8X2JLvxGqlFB8v+2FgNe0/bCGqMRGN7xHIqwfNRvFvA7V
+ KDfrhIn6GFECd7cAGkWaQi1xzA==
+X-Google-Smtp-Source: AA6agR6YtQhQs9M+XpNrEr5ZjCr4K1ke8LjplN8/PGIGXMDtTqKLhIXAP+/GSYEqOabmcCpXMoNTwQ==
+X-Received: by 2002:a05:6000:184e:b0:226:e227:35e4 with SMTP id
+ c14-20020a056000184e00b00226e22735e4mr10140437wri.624.1662111088131; 
+ Fri, 02 Sep 2022 02:31:28 -0700 (PDT)
+Received: from [192.168.86.238]
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.googlemail.com with ESMTPSA id
+ d17-20020adffbd1000000b002253d865715sm1042629wrs.87.2022.09.02.02.31.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 02 Sep 2022 02:31:27 -0700 (PDT)
+Message-ID: <c2cd764e-ef70-4a7a-fe7d-aade5adb8057@linaro.org>
+Date: Fri, 2 Sep 2022 10:31:24 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v4 11/21] misc: fastrpc: Prepare to dynamic dma-buf
+ locking specification
+Content-Language: en-US
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>, Amol Maheshwari <amahesh@qti.qualcomm.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>
+References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
+ <20220831153757.97381-12-dmitry.osipenko@collabora.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20220831153757.97381-12-dmitry.osipenko@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 05 Sep 2022 07:04:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,155 +107,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We found that in the scenario of AMD R520 graphics card
-and some 1920x1080 monitors,when we switch the refresh rate
-of the monitor to 75Hz,the monitor will have a blank screen problem,
-and the restart cannot be restored.After testing, it is found that
-when we limit the maximum value of ref_div_max to 128,
-the problem can be solved.In order to keep the previous modification
-to be compatible with other monitors,we added a judgment
-when finding the minimum diff value in the loop of the
-amdgpu_pll_compute/radeon_compute_pll_avivo function.
-If no diff value of 0 is found when the maximum value of ref_div_max
-is limited to 100,continue to search when it is 128,
-and take the parameter with the smallest diff value.
-
-Signed-off-by: zhongpei <zhongpei@kylinos.cn>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c | 17 +++++++++++++----
- drivers/gpu/drm/radeon/radeon_display.c | 15 +++++++++++----
- 2 files changed, 24 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c
-index 0bb2466d539a..0c298faa0f94 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c
-@@ -84,12 +84,13 @@ static void amdgpu_pll_reduce_ratio(unsigned *nom, unsigned *den,
- static void amdgpu_pll_get_fb_ref_div(struct amdgpu_device *adev, unsigned int nom,
- 				      unsigned int den, unsigned int post_div,
- 				      unsigned int fb_div_max, unsigned int ref_div_max,
--				      unsigned int *fb_div, unsigned int *ref_div)
-+				      unsigned int ref_div_limit, unsigned int *fb_div,
-+				      unsigned int *ref_div)
- {
- 
- 	/* limit reference * post divider to a maximum */
- 	if (adev->family == AMDGPU_FAMILY_SI)
--		ref_div_max = min(100 / post_div, ref_div_max);
-+		ref_div_max = min(ref_div_limit / post_div, ref_div_max);
- 	else
- 		ref_div_max = min(128 / post_div, ref_div_max);
- 
-@@ -136,6 +137,7 @@ void amdgpu_pll_compute(struct amdgpu_device *adev,
- 	unsigned ref_div_min, ref_div_max, ref_div;
- 	unsigned post_div_best, diff_best;
- 	unsigned nom, den;
-+	unsigned ref_div_limit, ref_limit_best;
- 
- 	/* determine allowed feedback divider range */
- 	fb_div_min = pll->min_feedback_div;
-@@ -204,11 +206,12 @@ void amdgpu_pll_compute(struct amdgpu_device *adev,
- 	else
- 		post_div_best = post_div_max;
- 	diff_best = ~0;
-+	ref_div_limit = ref_limit_best = 100;
- 
- 	for (post_div = post_div_min; post_div <= post_div_max; ++post_div) {
- 		unsigned diff;
- 		amdgpu_pll_get_fb_ref_div(adev, nom, den, post_div, fb_div_max,
--					  ref_div_max, &fb_div, &ref_div);
-+					  ref_div_max, ref_div_limit, &fb_div, &ref_div);
- 		diff = abs(target_clock - (pll->reference_freq * fb_div) /
- 			(ref_div * post_div));
- 
-@@ -217,13 +220,19 @@ void amdgpu_pll_compute(struct amdgpu_device *adev,
- 
- 			post_div_best = post_div;
- 			diff_best = diff;
-+			ref_limit_best = ref_div_limit;
- 		}
-+		if (post_div >= post_div_max && diff_best != 0 && ref_div_limit != 128) {
-+			ref_div_limit = 128;
-+			post_div = post_div_min - 1;
-+		}
-+
- 	}
- 	post_div = post_div_best;
- 
- 	/* get the feedback and reference divider for the optimal value */
- 	amdgpu_pll_get_fb_ref_div(adev, nom, den, post_div, fb_div_max, ref_div_max,
--				  &fb_div, &ref_div);
-+				  ref_limit_best, &fb_div, &ref_div);
- 
- 	/* reduce the numbers to a simpler ratio once more */
- 	/* this also makes sure that the reference divider is large enough */
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index f12675e3d261..0fcbf45a68db 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -925,10 +925,10 @@ static void avivo_reduce_ratio(unsigned *nom, unsigned *den,
-  */
- static void avivo_get_fb_ref_div(unsigned nom, unsigned den, unsigned post_div,
- 				 unsigned fb_div_max, unsigned ref_div_max,
--				 unsigned *fb_div, unsigned *ref_div)
-+				 unsigned ref_div_limit, unsigned *fb_div, unsigned *ref_div)
- {
- 	/* limit reference * post divider to a maximum */
--	ref_div_max = max(min(100 / post_div, ref_div_max), 1u);
-+	ref_div_max = max(min(ref_div_limit / post_div, ref_div_max), 1u);
- 
- 	/* get matching reference and feedback divider */
- 	*ref_div = min(max(den/post_div, 1u), ref_div_max);
-@@ -971,6 +971,7 @@ void radeon_compute_pll_avivo(struct radeon_pll *pll,
- 	unsigned ref_div_min, ref_div_max, ref_div;
- 	unsigned post_div_best, diff_best;
- 	unsigned nom, den;
-+	unsigned ref_div_limit, ref_limit_best;
- 
- 	/* determine allowed feedback divider range */
- 	fb_div_min = pll->min_feedback_div;
-@@ -1042,11 +1043,12 @@ void radeon_compute_pll_avivo(struct radeon_pll *pll,
- 	else
- 		post_div_best = post_div_max;
- 	diff_best = ~0;
-+	ref_div_limit = ref_limit_best = 100;
- 
- 	for (post_div = post_div_min; post_div <= post_div_max; ++post_div) {
- 		unsigned diff;
- 		avivo_get_fb_ref_div(nom, den, post_div, fb_div_max,
--				     ref_div_max, &fb_div, &ref_div);
-+				     ref_div_max, ref_div_limit, &fb_div, &ref_div);
- 		diff = abs(target_clock - (pll->reference_freq * fb_div) /
- 			(ref_div * post_div));
- 
-@@ -1055,13 +1057,18 @@ void radeon_compute_pll_avivo(struct radeon_pll *pll,
- 
- 			post_div_best = post_div;
- 			diff_best = diff;
-+			ref_limit_best = ref_div_limit;
-+		}
-+		if (post_div >= post_div_max && diff_best != 0 && ref_div_limit != 128) {
-+			ref_div_limit = 128;
-+			post_div = post_div_min - 1;
- 		}
- 	}
- 	post_div = post_div_best;
- 
- 	/* get the feedback and reference divider for the optimal value */
- 	avivo_get_fb_ref_div(nom, den, post_div, fb_div_max, ref_div_max,
--			     &fb_div, &ref_div);
-+			     ref_limit_best, &fb_div, &ref_div);
- 
- 	/* reduce the numbers to a simpler ratio once more */
- 	/* this also makes sure that the reference divider is large enough */
--- 
-2.17.1
 
 
-No virus found
-		Checked by Hillstone Network AntiVirus
+On 31/08/2022 16:37, Dmitry Osipenko wrote:
+> Prepare fastrpc to the common dynamic dma-buf locking convention by
+> starting to use the unlocked versions of dma-buf API functions.
+> 
+> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> ---
+
+LGTM,
+
+Incase you plan to take it via another tree.
+
+Acked-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+
+
+--srini
+>   drivers/misc/fastrpc.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index 93ebd174d848..6fcfb2e9f7a7 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -310,8 +310,8 @@ static void fastrpc_free_map(struct kref *ref)
+>   				return;
+>   			}
+>   		}
+> -		dma_buf_unmap_attachment(map->attach, map->table,
+> -					 DMA_BIDIRECTIONAL);
+> +		dma_buf_unmap_attachment_unlocked(map->attach, map->table,
+> +						  DMA_BIDIRECTIONAL);
+>   		dma_buf_detach(map->buf, map->attach);
+>   		dma_buf_put(map->buf);
+>   	}
+> @@ -726,7 +726,7 @@ static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
+>   		goto attach_err;
+>   	}
+>   
+> -	map->table = dma_buf_map_attachment(map->attach, DMA_BIDIRECTIONAL);
+> +	map->table = dma_buf_map_attachment_unlocked(map->attach, DMA_BIDIRECTIONAL);
+>   	if (IS_ERR(map->table)) {
+>   		err = PTR_ERR(map->table);
+>   		goto map_err;
