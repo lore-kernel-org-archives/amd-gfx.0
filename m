@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79B5AC54EE9
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 07:36:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B96F4C38145
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 13:20:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 559BA10E792;
-	Fri,  2 Sep 2022 07:36:35 +0000 (UTC)
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1324F10E78A;
- Fri,  2 Sep 2022 07:33:25 +0000 (UTC)
-Received: by mail-pl1-x62a.google.com with SMTP id f24so1101117plr.1;
- Fri, 02 Sep 2022 00:33:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=FoP5SmxHDvhR5MMTOuBriKm/iqFz8ohbUwqXDgamLLk=;
- b=gF8tVsKd7Ez2eCBfvRC2B2SL5HnknuIJ6R7e2FCDHwsjA9fOrWh367rTYJgIjM8mtR
- acAABfdewhPTbtouDv/F7C3IQbmM33vDU6sCNEbUzMqshNrfje16PeTZ9Giy571iAnQE
- cb9ZRe8qWVcvq9WgAxIj2jVQiHYVnWlDwE24spqxIlpu8GQK0s9NKahjTlKDZEV5EKMD
- ZdkP8EuJyaA6wiEb+JKu3YIxwWeyIlHkk5EOYsvULHRWuaiRBOpT8+d2KYeDNn32nd0S
- lwltICqlvOlKyRV0uHeHW+StdMj8Zj2SK4WIsaF0mylZU0f8ASwalVcPR7ME0nAIPGBz
- Fm+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=FoP5SmxHDvhR5MMTOuBriKm/iqFz8ohbUwqXDgamLLk=;
- b=uyvwJUf2jAQa239RXc4da0gRtoGTyMcBAS/jwLZ5rclsTAQ8fwo7orWUjEs2kyO6Bq
- hagW0V5pw3nUyiMRcQwRIUVsef1AP2jFzqluoVuRO2NQt805jLDpgQFx0X8aT1o26yXA
- 2N+Eon5M3EYuyIbX0SmXzVrEWrd7XljOV/LD42kMiYWhFNp4hmahGIXHPcI3vPdWM9wb
- MGpApG2IqV79FFFfpkS2DqdDP9Nei2Rb9T0XgmjX+9ocBIs/VKuqE4HvTVwPV6a2paVD
- coaYcnmRpZsxx8xvN10pfHT7m806EIFFRjAhb8K0N783tmZ9ASxgUh9Mhn0xyRYadGGt
- Y82Q==
-X-Gm-Message-State: ACgBeo0VCasgWaB3o29KfukbyuV2lee5BWijfAl2PC2l8p2ZDw4UKgm5
- IRwFuRSy7y6oEsAD43AD1ew=
-X-Google-Smtp-Source: AA6agR6+XHZX67T+BoAgwjK44Hrl+fIrbkXTuWyVPr7aaZVbk0t2Z1gXtLYB7b5yiqDbVnygn8Jb6w==
-X-Received: by 2002:a17:90b:2704:b0:1fd:aaa9:6d0b with SMTP id
- px4-20020a17090b270400b001fdaaa96d0bmr3430674pjb.128.1662104004641; 
- Fri, 02 Sep 2022 00:33:24 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id
- h10-20020a170902680a00b0016d4f05eb95sm855797plk.272.2022.09.02.00.33.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Sep 2022 00:33:24 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: ye.xingchen@zte.com.cn
-To: alexander.deucher@amd.com
-Subject: [PATCH linux-next] drm/radeon: Remove the unneeded result variable
-Date: Fri,  2 Sep 2022 07:33:20 +0000
-Message-Id: <20220902073320.319673-1-ye.xingchen@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBB4210E83F;
+	Fri,  2 Sep 2022 13:20:46 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8E2F10E83B;
+ Fri,  2 Sep 2022 13:20:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1662124840; x=1693660840;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=/NRcLs2FH7Yj/TRPNvW19fp4y9VVTFA7hNnEtx6+aXw=;
+ b=CDIZFaQnDR8iY4WNVng2uF87OcVcLCiilr2XMzxnivar5v8zSw6VuxoR
+ +DJFOC0LW0cZxvYdGKXF1EsbfNn1UxFN3ABZ16PgQPKXlfVd0B573XPxk
+ 5ajTRqqShZxYkRmxzmr5PiNMpA0bOnjjlfHuJfeBidGC182rKoqJH5naD
+ fgQ5rhCwC1vWLm186xQH9XrPEdhh49Jfzlhe+yG72NCu7kE9LW9vVd2up
+ jxT+XPnoJTkBuTzDtk4GrDChyUll5ltzWLc8vXHSEqO4GW1lWY564FyiH
+ Fm2M6RzfXGuN6N5WyO1ccYOUfVbUI6qq9i7O2s20tNewlk8QP21QWH+9t g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="322137241"
+X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="322137241"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2022 06:20:39 -0700
+X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="674351857"
+Received: from svandene-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.55.245])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2022 06:20:32 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>, Daniel Dadap
+ <ddadap@nvidia.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>, Lukas Wunner
+ <lukas@wunner.de>, Mark Gross <markgross@kernel.org>, Andy Shevchenko
+ <andy@kernel.org>
+Subject: Re: [PATCH v5 11/31] drm/i915: Call acpi_video_register_backlight()
+ (v3)
+In-Reply-To: <20220825143726.269890-12-hdegoede@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220825143726.269890-1-hdegoede@redhat.com>
+ <20220825143726.269890-12-hdegoede@redhat.com>
+Date: Fri, 02 Sep 2022 16:20:21 +0300
+Message-ID: <87k06lewve.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 02 Sep 2022 07:36:30 +0000
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,43 +69,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, ye xingchen <ye.xingchen@zte.com.cn>,
- Zeal Robot <zealci@zte.com.cn>, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, christian.koenig@amd.com
+Cc: linux-acpi@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: ye xingchen <ye.xingchen@zte.com.cn>
+On Thu, 25 Aug 2022, Hans de Goede <hdegoede@redhat.com> wrote:
+> On machins without an i915 opregion the acpi_video driver immediately
+> probes the ACPI video bus and used to also immediately register
+> acpi_video# backlight devices when supported.
+>
+> Once the drm/kms driver then loaded later and possibly registered
+> a native backlight device then the drivers/acpi/video_detect.c code
+> unregistered the acpi_video0 device to avoid there being 2 backlight
+> devices (when acpi_video_get_backlight_type()==native).
+>
+> This means that userspace used to briefly see 2 devices and the
+> disappearing of acpi_video0 after a brief time confuses the systemd
+> backlight level save/restore code, see e.g.:
+> https://bbs.archlinux.org/viewtopic.php?id=269920
+>
+> To fix this the ACPI video code has been modified to make backlight class
+> device registration a separate step, relying on the drm/kms driver to
+> ask for the acpi_video backlight registration after it is done setting up
+> its native backlight device.
+>
+> Add a call to the new acpi_video_register_backlight() after the i915 calls
+> acpi_video_register() (after setting up the i915 opregion) so that the
+> acpi_video backlight devices get registered on systems where the i915
+> native backlight device is not registered.
+>
+> Changes in v2:
+> -Only call acpi_video_register_backlight() when a panel is detected
+>
+> Changes in v3:
+> -Add a new intel_acpi_video_register() helper which checks if a panel
+>  is present and then calls acpi_video_register_backlight()
+>
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 
-Return the value radeon_drm_ioctl() directly instead of storing it in
-another redundant variable.
+Apologies for the delay. I truly appreciate the effort you've put into
+this series, and I'm looking forward to seeing the next steps in drm!
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
----
- drivers/gpu/drm/radeon/radeon_drv.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index a28d5ceab628..6cbe1ab81aba 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -512,14 +512,11 @@ long radeon_drm_ioctl(struct file *filp,
- static long radeon_kms_compat_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
- {
- 	unsigned int nr = DRM_IOCTL_NR(cmd);
--	int ret;
- 
- 	if (nr < DRM_COMMAND_BASE)
- 		return drm_compat_ioctl(filp, cmd, arg);
- 
--	ret = radeon_drm_ioctl(filp, cmd, arg);
--
--	return ret;
-+	return radeon_drm_ioctl(filp, cmd, arg);
- }
- #endif
- 
+And ack for merging via whichever tree you think best.
+
+
+> ---
+>  drivers/gpu/drm/i915/display/intel_acpi.c    | 27 ++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_acpi.h    |  3 +++
+>  drivers/gpu/drm/i915/display/intel_display.c |  2 +-
+>  3 files changed, 31 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_acpi.c b/drivers/gpu/drm/i915/display/intel_acpi.c
+> index e78430001f07..9df78e7caa2b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_acpi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_acpi.c
+> @@ -7,6 +7,7 @@
+>  
+>  #include <linux/pci.h>
+>  #include <linux/acpi.h>
+> +#include <acpi/video.h>
+>  
+>  #include "i915_drv.h"
+>  #include "intel_acpi.h"
+> @@ -331,3 +332,29 @@ void intel_acpi_assign_connector_fwnodes(struct drm_i915_private *i915)
+>  	 */
+>  	fwnode_handle_put(fwnode);
+>  }
+> +
+> +void intel_acpi_video_register(struct drm_i915_private *i915)
+> +{
+> +	struct drm_connector_list_iter conn_iter;
+> +	struct drm_connector *connector;
+> +
+> +	acpi_video_register();
+> +
+> +	/*
+> +	 * If i915 is driving an internal panel without registering its native
+> +	 * backlight handler try to register the acpi_video backlight.
+> +	 * For panels not driven by i915 another GPU driver may still register
+> +	 * a native backlight later and acpi_video_register_backlight() should
+> +	 * only be called after any native backlights have been registered.
+> +	 */
+> +	drm_connector_list_iter_begin(&i915->drm, &conn_iter);
+> +	drm_for_each_connector_iter(connector, &conn_iter) {
+> +		struct intel_panel *panel = &to_intel_connector(connector)->panel;
+> +
+> +		if (panel->backlight.funcs && !panel->backlight.device) {
+> +			acpi_video_register_backlight();
+> +			break;
+> +		}
+> +	}
+> +	drm_connector_list_iter_end(&conn_iter);
+> +}
+> diff --git a/drivers/gpu/drm/i915/display/intel_acpi.h b/drivers/gpu/drm/i915/display/intel_acpi.h
+> index 4a760a2baed9..6a0007452f95 100644
+> --- a/drivers/gpu/drm/i915/display/intel_acpi.h
+> +++ b/drivers/gpu/drm/i915/display/intel_acpi.h
+> @@ -14,6 +14,7 @@ void intel_unregister_dsm_handler(void);
+>  void intel_dsm_get_bios_data_funcs_supported(struct drm_i915_private *i915);
+>  void intel_acpi_device_id_update(struct drm_i915_private *i915);
+>  void intel_acpi_assign_connector_fwnodes(struct drm_i915_private *i915);
+> +void intel_acpi_video_register(struct drm_i915_private *i915);
+>  #else
+>  static inline void intel_register_dsm_handler(void) { return; }
+>  static inline void intel_unregister_dsm_handler(void) { return; }
+> @@ -23,6 +24,8 @@ static inline
+>  void intel_acpi_device_id_update(struct drm_i915_private *i915) { return; }
+>  static inline
+>  void intel_acpi_assign_connector_fwnodes(struct drm_i915_private *i915) { return; }
+> +static inline
+> +void intel_acpi_video_register(struct drm_i915_private *i915) { return; }
+>  #endif /* CONFIG_ACPI */
+>  
+>  #endif /* __INTEL_ACPI_H__ */
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index 6103b02c081f..129a13375101 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -9087,7 +9087,7 @@ void intel_display_driver_register(struct drm_i915_private *i915)
+>  
+>  	/* Must be done after probing outputs */
+>  	intel_opregion_register(i915);
+> -	acpi_video_register();
+> +	intel_acpi_video_register(i915);
+>  
+>  	intel_audio_init(i915);
+
 -- 
-2.25.1
+Jani Nikula, Intel Open Source Graphics Center
