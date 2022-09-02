@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AA38ECAAD5
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 499D0C6FA86
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C283510E267;
-	Mon,  5 Sep 2022 07:04:46 +0000 (UTC)
-Received: from m12-12.163.com (m12-12.163.com [220.181.12.12])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0A82610E074;
- Sun,  4 Sep 2022 19:16:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=oec+S
- Ar3/a821J/02ocnsMHj9THCQ/CcC3l6okIm00E=; b=JzCtvo2Cqo9QlUJidGMz8
- z8CuQmNovpstYShSlxKmOuOHVd/EpcWndS5fD+7YrU0gqNKql7rFC1xWp+Fe4aUj
- WY1c8U6Mi1NeSaBHEVbuKSoJBLfw2SO8klipZEn7UO1Ha7KeT0z3UJ8aEj4yqaHv
- +5ZLtcLCJrfqabw6SQ8fXc=
-Received: from f00160-VMware-Virtual-Platform.localdomain (unknown
- [1.203.67.201])
- by smtp8 (Coremail) with SMTP id DMCowADXhx9E+RRjM1kxZA--.19845S4;
- Mon, 05 Sep 2022 03:15:31 +0800 (CST)
-From: Jingyu Wang <jingyuwang_vip@163.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, evan.quan@amd.com,
- mario.limonciello@amd.com, Felix.Kuehling@amd.com,
- andrey.grodzovsky@amd.com, olomon.chiu@amd.com
-Subject: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_drv.c
-Date: Mon,  5 Sep 2022 03:15:13 +0800
-Message-Id: <20220904191513.15159-1-jingyuwang_vip@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <4362da59f466d8c41c9a3ea91348266280b6a594>
-References: <4362da59f466d8c41c9a3ea91348266280b6a594>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA20D10E288;
+	Mon,  5 Sep 2022 07:04:47 +0000 (UTC)
+Received: from mail-vs1-xe2f.google.com (mail-vs1-xe2f.google.com
+ [IPv6:2607:f8b0:4864:20::e2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B8A810E874
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Sep 2022 15:29:59 +0000 (UTC)
+Received: by mail-vs1-xe2f.google.com with SMTP id b128so2415882vsc.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 02 Sep 2022 08:29:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date; bh=3WBfZBRxD2lj7twjbO+1SJCTIiVK+qortc9qhiiFJMk=;
+ b=NxOZ27EKRCXeq6+6f/1Jtoni4je3gOe06ufGVhyJrqgMQ0kt5VoWHNSQq+CKRadV6L
+ 5zaq39oaqROeU+PLXN3RkNZo5k2D4etdiJ6TnhQmrlSV3apWVxaf6XfJwijZk4jZze2/
+ qlNSOGZkOBQln3fLgXoYr5KM15clAmVr2hm5u+TQttx6fmU4cXNPKZrmS6xx0keBN0/M
+ WFcKTW4a+0x802oNw7eprw7vnXeFt7p2Nh33hziRffRhQQjCt2QS5Spk+2I9WKi47MLQ
+ N4zXRChpKW/Q3CfhWohm1lgYQj4GiyinGCRzkLxwz3xVCc/MDLErhvtl6ygpvCfceqfI
+ SXjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date;
+ bh=3WBfZBRxD2lj7twjbO+1SJCTIiVK+qortc9qhiiFJMk=;
+ b=wfwyfUASXMOTur7DUqFn77Y2XOiBS/fwLHgbmLk7n8jnwoDCIDhUfd7+MoLaCF2hs7
+ 34IRUEFMHrjzTsGx2q0tqAET0cbQp5K07L+Wc2r1+B2Ntnjdw5kRlCKw34UWADl+JZcE
+ Iyq5nIdLps5szX5b8qApKe0caGb75BT0W/Rd0Prjpq9A6Lb1wm5kNQYtgTUGFggSkANl
+ htd9R7lkimLIn8ZfeoI4TvKpPMZ6mydh3SEq2WHeQPHAh+Nb8ZR8XoXPil3KfSqlBlDf
+ AuKx1z4tDxejlBAd41icgKKBpbT5Lx7NQ4afS6Ev007xZLqX1epE44IV4r/vSKfKMy8e
+ E2TQ==
+X-Gm-Message-State: ACgBeo17gqaN3P69lYMHJRuGfEmZt6oNs5TYPyuA8WZgKiXE+AzraESw
+ RxN/gYJfziPXQLz9os8n63ne1TQ7Ev8q3Zm0yI8K+6yNkvA=
+X-Google-Smtp-Source: AA6agR66F48clRLNqVOCegByEm1Oh1tQsJOagRLhP178uNKQWyALviYOqc8rnE/aFrP+XbGMq36YCAnTCZzfHYmmHc0=
+X-Received: by 2002:a05:6102:662:b0:390:f5e4:9772 with SMTP id
+ z2-20020a056102066200b00390f5e49772mr7385761vsf.74.1662132598451; Fri, 02 Sep
+ 2022 08:29:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: DMCowADXhx9E+RRjM1kxZA--.19845S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Xry3Ar47tr1UXr4fAw4xJFb_yoW7AF43pF
- 4rCr97t3y8Zr47tryDJFn3Wr90ga48XrWxZ3yDZryjgwn7CFn5Ga18tF9YqFnrXrs3Cw4x
- JrykA39rWa4YkFJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pE6RRZUUUUU=
-X-Originating-IP: [1.203.67.201]
-X-CM-SenderInfo: 5mlqw5xxzd0whbyl1qqrwthudrp/1tbishNyF1UMWQR+bwAAsR
+From: Yury Zhuravlev <stalkerg@gmail.com>
+Date: Sat, 3 Sep 2022 00:27:24 +0900
+Message-ID: <CANiD2e9U=QXyYBOZLyTyqamtSJ3pyz45kZjEH04QbSpb=4miEg@mail.gmail.com>
+Subject: [PATCH] drm/amdgpu: getting fan speed pwm for vega10 properly
+To: amd-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="00000000000019b05d05e7b36761"
 X-Mailman-Approved-At: Mon, 05 Sep 2022 07:04:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,137 +60,140 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jingyu Wang <jingyuwang_vip@163.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix something checkpatch.pl complained about in amdgpu_drv.c
+--00000000000019b05d05e7b36761
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Jingyu Wang <jingyuwang_vip@163.com>
+Hello,
+
+During the setup, the fan manager https://github.com/markusressel/fan2go I
+found that my Vega56 was not working correctly. This fan manager expects
+what read PWM value should be the same as you wrote before, but it's not
+the case. PWM value was volatile, and what is more critical, if I wrote
+200, after reading I saw ~70-100, which is very confusing.
+After that, I started reading the amdgpu driver, and how fan speed works,
+and I found what PWM value was calculated from RPM speed and not correct
+for my case (different BIOS or fan configuration?).
+Because it looked wrong, I started looking into different implementations
+and found that Vega20 used mmCG_FDO_CTRL1 and mmCG_THERMAL_STATUS registers
+to calculate the PWM value.
+I also checked how we set PWM for Vega10 and found the same registers.
+After that, I copy-pasted the function from Vega20 to Vega10, and it
+started working much better. It still has some fluctuation, but as I
+understand, this behavior is expected.
+
+I have no in-depth information about amdgpu, and the original function may
+have been for some reason (maybe for some broken BIOS?), but I suppose
+somebody forgot to backport this code after prototype implementation.
+
+It would be my first patch here. Sorry if I skipped some procedures, will
+be appreciated it if you help me.
+
+Regards,
+
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 31 +++++++++++++------------
- 1 file changed, 16 insertions(+), 15 deletions(-)
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+index dad3e3741a4e..190af79f3236 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+@@ -67,22 +67,21 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr
+*hwmgr,
+ int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
+                uint32_t *speed)
+ {
+-       uint32_t current_rpm;
+-       uint32_t percent = 0;
+-
+-       if (hwmgr->thermal_controller.fanInfo.bNoFan)
+-               return 0;
++       struct amdgpu_device *adev = hwmgr->adev;
++       uint32_t duty100, duty;
++       uint64_t tmp64;
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index de7144b06e93..b50fd27fb6aa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1,3 +1,4 @@
-+// SPDX-License-Identifier: MIT
- /*
-  * Copyright 2000 VA Linux Systems, Inc., Sunnyvale, California.
-  * All Rights Reserved.
-@@ -140,8 +141,8 @@ uint amdgpu_pcie_lane_cap;
- u64 amdgpu_cg_mask = 0xffffffffffffffff;
- uint amdgpu_pg_mask = 0xffffffff;
- uint amdgpu_sdma_phase_quantum = 32;
--char *amdgpu_disable_cu = NULL;
--char *amdgpu_virtual_display = NULL;
-+char *amdgpu_disable_cu;
-+char *amdgpu_virtual_display;
- 
- /*
-  * OverDrive(bit 14) disabled by default
-@@ -502,7 +503,7 @@ module_param_named(virtual_display, amdgpu_virtual_display, charp, 0444);
-  * Set how much time allow a job hang and not drop it. The default is 0.
-  */
- MODULE_PARM_DESC(job_hang_limit, "how much time allow a job hang and not drop it (default 0)");
--module_param_named(job_hang_limit, amdgpu_job_hang_limit, int ,0444);
-+module_param_named(job_hang_limit, amdgpu_job_hang_limit, int, 0444);
- 
- /**
-  * DOC: lbpw (int)
-@@ -565,8 +566,8 @@ module_param_named(timeout_period, amdgpu_watchdog_timer.period, uint, 0644);
-  */
- #ifdef CONFIG_DRM_AMDGPU_SI
- 
--#if defined(CONFIG_DRM_RADEON) || defined(CONFIG_DRM_RADEON_MODULE)
--int amdgpu_si_support = 0;
-+#if IS_ENABLED(CONFIG_DRM_RADEON) || defined(CONFIG_DRM_RADEON_MODULE)
-+int amdgpu_si_support;
- MODULE_PARM_DESC(si_support, "SI support (1 = enabled, 0 = disabled (default))");
- #else
- int amdgpu_si_support = 1;
-@@ -584,8 +585,8 @@ module_param_named(si_support, amdgpu_si_support, int, 0444);
-  */
- #ifdef CONFIG_DRM_AMDGPU_CIK
- 
--#if defined(CONFIG_DRM_RADEON) || defined(CONFIG_DRM_RADEON_MODULE)
--int amdgpu_cik_support = 0;
-+#if IS_ENABLED(CONFIG_DRM_RADEON) || defined(CONFIG_DRM_RADEON_MODULE)
-+int amdgpu_cik_support;
- MODULE_PARM_DESC(cik_support, "CIK support (1 = enabled, 0 = disabled (default))");
- #else
- int amdgpu_cik_support = 1;
-@@ -772,9 +773,9 @@ module_param(hws_gws_support, bool, 0444);
- MODULE_PARM_DESC(hws_gws_support, "Assume MEC2 FW supports GWS barriers (false = rely on FW version check (Default), true = force supported)");
- 
- /**
--  * DOC: queue_preemption_timeout_ms (int)
--  * queue preemption timeout in ms (1 = Minimum, 9000 = default)
--  */
-+ * DOC: queue_preemption_timeout_ms (int)
-+ * queue preemption timeout in ms (1 = Minimum, 9000 = default)
-+ */
- int queue_preemption_timeout_ms = 9000;
- module_param(queue_preemption_timeout_ms, int, 0644);
- MODULE_PARM_DESC(queue_preemption_timeout_ms, "queue preemption timeout in ms (1 = Minimum, 9000 = default)");
-@@ -799,7 +800,7 @@ MODULE_PARM_DESC(no_system_mem_limit, "disable system memory limit (false = defa
-  * DOC: no_queue_eviction_on_vm_fault (int)
-  * If set, process queues will not be evicted on gpuvm fault. This is to keep the wavefront context for debugging (0 = queue eviction, 1 = no queue eviction). The default is 0 (queue eviction).
-  */
--int amdgpu_no_queue_eviction_on_vm_fault = 0;
-+int amdgpu_no_queue_eviction_on_vm_fault;
- MODULE_PARM_DESC(no_queue_eviction_on_vm_fault, "No queue eviction on VM fault (0 = queue eviction, 1 = no queue eviction)");
- module_param_named(no_queue_eviction_on_vm_fault, amdgpu_no_queue_eviction_on_vm_fault, int, 0444);
- #endif
-@@ -1609,7 +1610,7 @@ static const u16 amdgpu_unsupported_pciidlist[] = {
- };
- 
- static const struct pci_device_id pciidlist[] = {
--#ifdef  CONFIG_DRM_AMDGPU_SI
-+#ifdef CONFIG_DRM_AMDGPU_SI
- 	{0x1002, 0x6780, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
- 	{0x1002, 0x6784, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
- 	{0x1002, 0x6788, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
-@@ -2289,7 +2290,6 @@ static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work)
- 			amdgpu_amdkfd_device_init(adev);
- 		amdgpu_ttm_set_buffer_funcs_status(adev, true);
- 	}
--	return;
+-       if (vega10_get_current_rpm(hwmgr, &current_rpm))
+-               return -1;
++       duty100 = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL1),
++                               CG_FDO_CTRL1, FMAX_DUTY100);
++       duty = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_THERMAL_STATUS),
++                               CG_THERMAL_STATUS, FDO_PWM_DUTY);
+
+-       if (hwmgr->thermal_controller.
+-                       advanceFanControlParameters.usMaxFanRPM != 0)
+-               percent = current_rpm * 255 /
+-                       hwmgr->thermal_controller.
+-                       advanceFanControlParameters.usMaxFanRPM;
++       if (!duty100)
++               return -EINVAL;
+
+-       *speed = MIN(percent, 255);
++       tmp64 = (uint64_t)duty * 255;
++       do_div(tmp64, duty100);
++       *speed = MIN((uint32_t)tmp64, 255);
+
+        return 0;
  }
- 
- static int amdgpu_pmops_prepare(struct device *dev)
-@@ -2478,6 +2478,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	/* wait for all rings to drain before suspending */
- 	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
- 		struct amdgpu_ring *ring = adev->rings[i];
-+
- 		if (ring && ring->sched.ready) {
- 			ret = amdgpu_fence_wait_empty(ring);
- 			if (ret)
-@@ -2600,6 +2601,7 @@ long amdgpu_drm_ioctl(struct file *filp,
- 	struct drm_file *file_priv = filp->private_data;
- 	struct drm_device *dev;
- 	long ret;
-+
- 	dev = file_priv->minor->dev;
- 	ret = pm_runtime_get_sync(dev->dev);
- 	if (ret < 0)
-@@ -2664,9 +2666,8 @@ int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv)
- 	if (!filp)
- 		return -EINVAL;
- 
--	if (filp->f_op != &amdgpu_driver_kms_fops) {
-+	if (filp->f_op != &amdgpu_driver_kms_fops)
- 		return -EINVAL;
--	}
- 
- 	file = filp->private_data;
- 	*fpriv = file->driver_priv;
+--
 
-base-commit: e47eb90a0a9ae20b82635b9b99a8d0979b757ad8
--- 
-2.34.1
+--00000000000019b05d05e7b36761
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr">Hello,<br><br>During the setup, the fan manager <a href=3D=
+"https://github.com/markusressel/fan2go">https://github.com/markusressel/fa=
+n2go</a> I found that my Vega56 was not working correctly. This fan manager=
+ expects what read PWM value should be the same as you wrote before, but it=
+&#39;s not the case. PWM value was volatile, and what is more critical, if =
+I wrote 200, after reading I saw ~70-100, which is very confusing. <br>Afte=
+r that, I started reading the amdgpu driver, and how fan speed works, and I=
+ found what PWM value was calculated from RPM speed and not correct for my =
+case (different BIOS or fan configuration?).<br>Because it looked wrong, I =
+started looking into different implementations and found that Vega20 used m=
+mCG_FDO_CTRL1 and mmCG_THERMAL_STATUS registers to calculate the PWM value.=
+<br>I also checked how we set PWM for Vega10 and found the same registers. =
+After that, I copy-pasted the function from Vega20 to Vega10, and it starte=
+d working much better. It still has some fluctuation, but as I understand, =
+this behavior is expected. <br><br>I have no in-depth information about amd=
+gpu, and the original function may have been for some reason (maybe for som=
+e broken BIOS?), but I suppose somebody forgot to backport this code after =
+prototype implementation. <br><br>It would be my first patch here. Sorry if=
+ I skipped some procedures, will be appreciated it if you help me. <br><br>=
+Regards,<br><br>---<br>diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/=
+vega10_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c<=
+br>index dad3e3741a4e..190af79f3236 100644<br>--- a/drivers/gpu/drm/amd/pm/=
+powerplay/hwmgr/vega10_thermal.c<br>+++ b/drivers/gpu/drm/amd/pm/powerplay/=
+hwmgr/vega10_thermal.c<br>@@ -67,22 +67,21 @@ int vega10_fan_ctrl_get_fan_s=
+peed_info(struct pp_hwmgr *hwmgr,<br>=C2=A0int vega10_fan_ctrl_get_fan_spee=
+d_pwm(struct pp_hwmgr *hwmgr,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 uint32_t *speed)<br>=C2=A0{<br>- =C2=A0 =C2=A0 =C2=A0 uint32_=
+t current_rpm;<br>- =C2=A0 =C2=A0 =C2=A0 uint32_t percent =3D 0;<br>-<br>- =
+=C2=A0 =C2=A0 =C2=A0 if (hwmgr-&gt;thermal_controller.fanInfo.bNoFan)<br>- =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>+ =C2=A0 =C2=
+=A0 =C2=A0 struct amdgpu_device *adev =3D hwmgr-&gt;adev;<br>+ =C2=A0 =C2=
+=A0 =C2=A0 uint32_t duty100, duty;<br>+ =C2=A0 =C2=A0 =C2=A0 uint64_t tmp64=
+;<br>=C2=A0<br>- =C2=A0 =C2=A0 =C2=A0 if (vega10_get_current_rpm(hwmgr, &am=
+p;current_rpm))<br>- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 retur=
+n -1;<br>+ =C2=A0 =C2=A0 =C2=A0 duty100 =3D REG_GET_FIELD(RREG32_SOC15(THM,=
+ 0, mmCG_FDO_CTRL1),<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 CG_FDO_CTRL1, FMAX_=
+DUTY100);<br>+ =C2=A0 =C2=A0 =C2=A0 duty =3D REG_GET_FIELD(RREG32_SOC15(THM=
+, 0, mmCG_THERMAL_STATUS),<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 CG_THERMAL_S=
+TATUS, FDO_PWM_DUTY);<br>=C2=A0<br>- =C2=A0 =C2=A0 =C2=A0 if (hwmgr-&gt;the=
+rmal_controller.<br>- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 advanceFanControlParameters.usMaxFanRPM !=3D 0)<br=
+>- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 percent =3D current_rpm=
+ * 255 /<br>- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 hwmgr-&gt;thermal_controller.<br>- =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 advanceFanControlPa=
+rameters.usMaxFanRPM;<br>+ =C2=A0 =C2=A0 =C2=A0 if (!duty100)<br>+ =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EINVAL;<br>=C2=A0<br>- =
+=C2=A0 =C2=A0 =C2=A0 *speed =3D MIN(percent, 255);<br>+ =C2=A0 =C2=A0 =C2=
+=A0 tmp64 =3D (uint64_t)duty * 255;<br>+ =C2=A0 =C2=A0 =C2=A0 do_div(tmp64,=
+ duty100);<br>+ =C2=A0 =C2=A0 =C2=A0 *speed =3D MIN((uint32_t)tmp64, 255);<=
+br>=C2=A0<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>=C2=A0}<br>--<br></di=
+v>
+
+--00000000000019b05d05e7b36761--
