@@ -4,44 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90892ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 788F4C6FA86
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 685BD10E1DF;
-	Mon,  5 Sep 2022 07:04:15 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4030910E63B;
- Fri,  2 Sep 2022 13:10:26 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C5EAEB82A93;
- Fri,  2 Sep 2022 13:10:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8696C433D7;
- Fri,  2 Sep 2022 13:10:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1662124223;
- bh=gyQWuNAPc+74rM0aS1MSJ4QJ6RbXShDyHWLyEiqRoQU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CQKn+VJGtrWnpB6WqDuCC3FzieeagB+gNRGChxvz9oDHXXmx2mDyYRnP3ZpCGjJUE
- hl7HBTss0CYdoTojxOhXu5oOiQljkG7Ke505YsbMeEwg8Vji18MsaotJ9qLIt/nOCC
- QNKvcStOo+s3Syd2kweL/NO710tSkB+KG4AQs0tk=
-Date: Fri, 2 Sep 2022 15:10:20 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deuc her <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Xinhui.Pan@amd.com
-Subject: Re: [PATCH] drm/amd/display: fix memory leak when using
- debugfs_lookup()
-Message-ID: <YxIAvHOK7uNum9VI@kroah.com>
-References: <20220902130105.139138-1-gregkh@linuxfoundation.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 317FF10E1EF;
+	Mon,  5 Sep 2022 07:04:27 +0000 (UTC)
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [IPv6:2607:f8b0:4864:20::1033])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59AB610E7A1;
+ Fri,  2 Sep 2022 08:04:08 +0000 (UTC)
+Received: by mail-pj1-x1033.google.com with SMTP id
+ u1-20020a17090a410100b001fff314d14fso1399930pjf.5; 
+ Fri, 02 Sep 2022 01:04:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=xoQDghImqhS/6zj7SGq6Ohv76jgSNxfDTje/23luiDU=;
+ b=NnS+8SedQ4bz6H/oZQ1r2rl1gOu8h2hljraTclYGG0SXW4GsDCNk2TJNSSffzRM1zx
+ Yccpx43h5qtuL3gBQptoagxx1lNxQMdML75CvVHkf6ZEwq8cYcSgNWnGNSFLBczwd5Ga
+ ztKJ5126sthQ4MOk67HUBHslAqxzIB1Ig2yJd7BDiqJ38IfPilF69EPUl6evMArGMR8F
+ j5pKdcvmBFKHF/BhoU7iGtc+QAKR8mAn/j6UXYRJN4bCA+/8S9EAh/IndwCg1LRG+iPO
+ bq8qrbdsEwxOmMQmaLqUg3eqGQbM3oMbaKNrS72frXo+MD5iQIsd+f8mzYkYq/kdMUry
+ IWgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=xoQDghImqhS/6zj7SGq6Ohv76jgSNxfDTje/23luiDU=;
+ b=t6p0W93Hwls4B+LFvHeg205hjx6jZv96DQxOM87C0aWr9C0fh2itJ8c26SImhATDBD
+ XfTCbDBbm1yAhLPBbfAlPrsBMKy2UmIjkqV57Q/h4fKKbisU5X6qOD+AAXCpnr2eCcK4
+ ey00WK1CNLWeDCMR4BMKfTgBJfEoDLrAI70C6T6VzufecrlElUVFR2QU7FBHVwAWzwiF
+ mTb0G8mDfF1CdqPEv3FdwEQiL7vwBcxYf/ltS+lz4QEEEdUFGG945nHiXAYuTbfbvdGD
+ gjZP7FbqX+FUS0rmyM09f2os12JDQXx3x52cDm3X2n9pbATO0igN6C4d6gPqTmb9Dp2y
+ 10cQ==
+X-Gm-Message-State: ACgBeo3fS2lFAh7cO88kqcsHFoTfl4giMGwbqgR0g/M9FGBxksrPd4lF
+ GXEZkUWXrMvfNxCEHHt0Q3w=
+X-Google-Smtp-Source: AA6agR5s2iXThen35iy1rvWxabUcM2CsCsvtmeSug61sb89oguI2Y19eHb4TmPs1cyoyuERCO1hycg==
+X-Received: by 2002:a17:90a:174a:b0:1fd:f273:de03 with SMTP id
+ 10-20020a17090a174a00b001fdf273de03mr3546160pjm.188.1662105847930; 
+ Fri, 02 Sep 2022 01:04:07 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id
+ c201-20020a624ed2000000b00535bf24008asm975545pfb.207.2022.09.02.01.04.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Sep 2022 01:04:07 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: zhang.songyi@zte.com.cn
+To: alexander.deucher@amd.com
+Subject: [PATCH linux-next] drm/amdgpu: Remove the unneeded result variable
+Date: Fri,  2 Sep 2022 08:04:01 +0000
+Message-Id: <20220902080401.320050-1-zhang.songyi@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220902130105.139138-1-gregkh@linuxfoundation.org>
 X-Mailman-Approved-At: Mon, 05 Sep 2022 07:04:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,53 +69,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Leo Li <sunpeng.li@amd.com>, dri-devel@lists.freedesktop.org,
- Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
- Wenjing Liu <wenjing.liu@amd.com>, linux-kernel@vger.kernel.org,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- David Airlie <airlied@linux.ie>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- hersen wu <hersenxs.wu@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
- Sean Paul <seanpaul@chromium.org>, Yongzhi Liu <lyz_cs@pku.edu.cn>,
- Mikita Lipski <mikita.lipski@amd.com>,
- Thelford Williams <tdwilliamsiv@gmail.com>
+Cc: Jack.Xiao@amd.com, airlied@linux.ie, Zeal Robot <zealci@zte.com.cn>,
+ Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, ray.huang@amd.com, Stanley.Yang@amd.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, Likun.Gao@amd.com,
+ zhang.songyi@zte.com.cn, christian.koenig@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 02, 2022 at 03:01:05PM +0200, Greg Kroah-Hartman wrote:
-> When calling debugfs_lookup() the result must have dput() called on it,
-> otherwise the memory will leak over time.  Fix this up by properly
-> calling dput().
-> 
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Leo Li <sunpeng.li@amd.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: "Christian König" <christian.koenig@amd.com>
-> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-> Cc: David Airlie <airlied@linux.ie>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Wayne Lin <Wayne.Lin@amd.com>
-> Cc: hersen wu <hersenxs.wu@amd.com>
-> Cc: Wenjing Liu <wenjing.liu@amd.com>
-> Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-> Cc: Thelford Williams <tdwilliamsiv@gmail.com>
-> Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-> Cc: Yongzhi Liu <lyz_cs@pku.edu.cn>
-> Cc: Mikita Lipski <mikita.lipski@amd.com>
-> Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-> Cc: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
-> Cc: Sean Paul <seanpaul@chromium.org>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
+From: zhang songyi <zhang.songyi@zte.com.cn>
 
-Despite a zillion cc: items, I forgot to cc: stable on this.  Can the
-maintainer add that here, or do you all want me to resend it with that
-item added?
+Return the sdma_v6_0_start() directly instead of storing it in another
+redundant variable.
 
-thanks,
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: zhang songyi <zhang.songyi@zte.com.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-greg k-h
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+index 2bc1407e885e..2cc2d851b4eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+@@ -1373,12 +1373,9 @@ static int sdma_v6_0_sw_fini(void *handle)
+ 
+ static int sdma_v6_0_hw_init(void *handle)
+ {
+-	int r;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+-	r = sdma_v6_0_start(adev);
+-
+-	return r;
++	return sdma_v6_0_start(adev);
+ }
+ 
+ static int sdma_v6_0_hw_fini(void *handle)
+-- 
+2.25.1
+
+
