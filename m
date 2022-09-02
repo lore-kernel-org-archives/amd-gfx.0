@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0C5BECAAA1
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 07:36:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79B5AC54EE9
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 07:36:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF24D10E791;
-	Fri,  2 Sep 2022 07:36:34 +0000 (UTC)
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [IPv6:2607:f8b0:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B57810E78C;
- Fri,  2 Sep 2022 07:31:53 +0000 (UTC)
-Received: by mail-pf1-x436.google.com with SMTP id q15so1073471pfn.11;
- Fri, 02 Sep 2022 00:31:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 559BA10E792;
+	Fri,  2 Sep 2022 07:36:35 +0000 (UTC)
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1324F10E78A;
+ Fri,  2 Sep 2022 07:33:25 +0000 (UTC)
+Received: by mail-pl1-x62a.google.com with SMTP id f24so1101117plr.1;
+ Fri, 02 Sep 2022 00:33:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date;
- bh=P0R9Y+4dB3fRcttMdLXdxOe5yLYU2jvdRFUhiOX93Zg=;
- b=k5q1QbmCXfOYOV8VpYKWG61L3L9sU/bLkPdBZgWYlNidsibXAya40hV9tS883X2ZZN
- 3kA0r8itsawEx8lVa1Yiq+AF03dd8RXpnVKL+OJMnGX/67GF0t2vrbMc4NDTU9LsIe3K
- 7KV+hHa58XkhAOveOujHuYCOW2xIuToJkIWYY01/e9e/cFNsHRbz+GwDRcBVwKM49oA5
- k0Gt9mkOplHQyvGc3Syua+gD3nu0tb1xo8D4g73HuOTigBgdCnoVHCPQ5hKaDQk57Wjq
- vzrlDO4b6bIH5qSFT+SvcY6HasUNeGeiGxhYOxo5eYIYS0kyMjt+3JwhbBBPGjdxtRQe
- ShZw==
+ bh=FoP5SmxHDvhR5MMTOuBriKm/iqFz8ohbUwqXDgamLLk=;
+ b=gF8tVsKd7Ez2eCBfvRC2B2SL5HnknuIJ6R7e2FCDHwsjA9fOrWh367rTYJgIjM8mtR
+ acAABfdewhPTbtouDv/F7C3IQbmM33vDU6sCNEbUzMqshNrfje16PeTZ9Giy571iAnQE
+ cb9ZRe8qWVcvq9WgAxIj2jVQiHYVnWlDwE24spqxIlpu8GQK0s9NKahjTlKDZEV5EKMD
+ ZdkP8EuJyaA6wiEb+JKu3YIxwWeyIlHkk5EOYsvULHRWuaiRBOpT8+d2KYeDNn32nd0S
+ lwltICqlvOlKyRV0uHeHW+StdMj8Zj2SK4WIsaF0mylZU0f8ASwalVcPR7ME0nAIPGBz
+ Fm+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=P0R9Y+4dB3fRcttMdLXdxOe5yLYU2jvdRFUhiOX93Zg=;
- b=EmiM/Ls9kVFbIaV0laW4HpYf0jG+50w0rP9BZM3RylM1iYGoHI/K4WpEq7zchMv667
- vmprOHytsJsDMjVJQTXeRWHqcH9ETCbGh/xKNi1OnhOr+FymUOcpKKcW9Tv/99HicYup
- nAPJjh1CxOLysQ27TPvv+MWx3PbBHBWYOZdGDPMgUCA7G28fqbj920xuAlUFR/kpKC9J
- 8wL32ewlhYy6wYkibkTezPfKpQmIr46n7oXdNuX7Yxe5837Jcp3iQeRKGYFfP9ey1B9Q
- YU+wVta0R2gDYg1RP5VxUtxsraCOKz0MPX08B7lE6Tkd/ByHIM7hDFx5xgmjyVC+cP4f
- f4fQ==
-X-Gm-Message-State: ACgBeo2/JFUCY8X77nNCFCB9Kde/ztg/w9QrEk9dlZZYWZMfIXtFSgCx
- y6XMUITZOARc5k+5+84mNEM=
-X-Google-Smtp-Source: AA6agR4kjmE6UsN8xdYrbeqJT8QfxOodjebOdNs9GfnxcZXzmeDl2dIJ56PNgzA65XAn+2GX2uuwcg==
-X-Received: by 2002:a05:6a00:3406:b0:535:f76f:c971 with SMTP id
- cn6-20020a056a00340600b00535f76fc971mr35291353pfb.5.1662103913057; 
- Fri, 02 Sep 2022 00:31:53 -0700 (PDT)
+ bh=FoP5SmxHDvhR5MMTOuBriKm/iqFz8ohbUwqXDgamLLk=;
+ b=uyvwJUf2jAQa239RXc4da0gRtoGTyMcBAS/jwLZ5rclsTAQ8fwo7orWUjEs2kyO6Bq
+ hagW0V5pw3nUyiMRcQwRIUVsef1AP2jFzqluoVuRO2NQt805jLDpgQFx0X8aT1o26yXA
+ 2N+Eon5M3EYuyIbX0SmXzVrEWrd7XljOV/LD42kMiYWhFNp4hmahGIXHPcI3vPdWM9wb
+ MGpApG2IqV79FFFfpkS2DqdDP9Nei2Rb9T0XgmjX+9ocBIs/VKuqE4HvTVwPV6a2paVD
+ coaYcnmRpZsxx8xvN10pfHT7m806EIFFRjAhb8K0N783tmZ9ASxgUh9Mhn0xyRYadGGt
+ Y82Q==
+X-Gm-Message-State: ACgBeo0VCasgWaB3o29KfukbyuV2lee5BWijfAl2PC2l8p2ZDw4UKgm5
+ IRwFuRSy7y6oEsAD43AD1ew=
+X-Google-Smtp-Source: AA6agR6+XHZX67T+BoAgwjK44Hrl+fIrbkXTuWyVPr7aaZVbk0t2Z1gXtLYB7b5yiqDbVnygn8Jb6w==
+X-Received: by 2002:a17:90b:2704:b0:1fd:aaa9:6d0b with SMTP id
+ px4-20020a17090b270400b001fdaaa96d0bmr3430674pjb.128.1662104004641; 
+ Fri, 02 Sep 2022 00:33:24 -0700 (PDT)
 Received: from localhost.localdomain ([193.203.214.57])
  by smtp.gmail.com with ESMTPSA id
- e18-20020a656892000000b0041d6cda2d60sm738183pgt.66.2022.09.02.00.31.51
+ h10-20020a170902680a00b0016d4f05eb95sm855797plk.272.2022.09.02.00.33.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Sep 2022 00:31:52 -0700 (PDT)
+ Fri, 02 Sep 2022 00:33:24 -0700 (PDT)
 From: cgel.zte@gmail.com
 X-Google-Original-From: ye.xingchen@zte.com.cn
 To: alexander.deucher@amd.com
-Subject: [PATCH linux-next] drm/radeon/ci_dpm: Remove the unneeded result
- variable
-Date: Fri,  2 Sep 2022 07:31:48 +0000
-Message-Id: <20220902073148.319536-1-ye.xingchen@zte.com.cn>
+Subject: [PATCH linux-next] drm/radeon: Remove the unneeded result variable
+Date: Fri,  2 Sep 2022 07:33:20 +0000
+Message-Id: <20220902073320.319673-1-ye.xingchen@zte.com.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -78,38 +77,34 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: ye xingchen <ye.xingchen@zte.com.cn>
 
-Return the value ci_load_smc_ucode() directly instead of storing it in
+Return the value radeon_drm_ioctl() directly instead of storing it in
 another redundant variable.
 
 Reported-by: Zeal Robot <zealci@zte.com.cn>
 Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
 ---
- drivers/gpu/drm/radeon/ci_dpm.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/radeon/radeon_drv.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
-index ac006bed4743..8ef25ab305ae 100644
---- a/drivers/gpu/drm/radeon/ci_dpm.c
-+++ b/drivers/gpu/drm/radeon/ci_dpm.c
-@@ -2056,7 +2056,7 @@ static void ci_clear_vc(struct radeon_device *rdev)
- static int ci_upload_firmware(struct radeon_device *rdev)
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index a28d5ceab628..6cbe1ab81aba 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -512,14 +512,11 @@ long radeon_drm_ioctl(struct file *filp,
+ static long radeon_kms_compat_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
  {
- 	struct ci_power_info *pi = ci_get_pi(rdev);
--	int i, ret;
-+	int i;
+ 	unsigned int nr = DRM_IOCTL_NR(cmd);
+-	int ret;
  
- 	for (i = 0; i < rdev->usec_timeout; i++) {
- 		if (RREG32_SMC(RCU_UC_EVENTS) & BOOT_SEQ_DONE)
-@@ -2067,9 +2067,7 @@ static int ci_upload_firmware(struct radeon_device *rdev)
- 	ci_stop_smc_clock(rdev);
- 	ci_reset_smc(rdev);
+ 	if (nr < DRM_COMMAND_BASE)
+ 		return drm_compat_ioctl(filp, cmd, arg);
  
--	ret = ci_load_smc_ucode(rdev, pi->sram_end);
+-	ret = radeon_drm_ioctl(filp, cmd, arg);
 -
 -	return ret;
-+	return ci_load_smc_ucode(rdev, pi->sram_end);
- 
++	return radeon_drm_ioctl(filp, cmd, arg);
  }
+ #endif
  
 -- 
 2.25.1
