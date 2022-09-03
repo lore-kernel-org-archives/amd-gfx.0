@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 510BDECAAD4
-	for <amd-gfx@archiver.kernel.org>; Sat,  3 Sep 2022 11:48:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56C02ECAAD4
+	for <amd-gfx@archiver.kernel.org>; Sat,  3 Sep 2022 19:51:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F1A210E97E;
-	Sat,  3 Sep 2022 11:48:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4F3010E0DF;
+	Sat,  3 Sep 2022 19:51:12 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8030710E97E;
- Sat,  3 Sep 2022 11:48:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E1EE10E060;
+ Sat,  3 Sep 2022 19:51:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662205714; x=1693741714;
+ t=1662234669; x=1693770669;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=PTRpdYTZVjkzB9A3G/dP9KDaNGEagJf1u6l6G72lnkM=;
- b=DVt/195JwG0ywJw2ZJFRt42o/GpVRaGxj+fyAA2CwB/xCCOK2vRwvpNP
- Celvqt4MYYUnUznxcSPRNNWwwM7RKLBGygrlFRDYvjxx9WqSnxqPleHKs
- F6S1vCdoq3WXCzDDSkBEIblguyptm6coyDT2Xd+8JtIveJQVjde/KHR86
- kQ04MK9ZGkA8CI6eVUIPOw9Zpn/mgi2L6KJVUwj4qJVvjfLudo4HHW5dY
- RmOwFcfqfH71Cm9UcEY6B5TztalGPjmnU6m3HeQ9If0UoYV6zMaQ69hRx
- YK7cxUaC2IjNjgEZ+d0pET4Ae6lINRvJcqVgSFCHIzsWcEkgInjBDMqVh Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="357866838"
-X-IronPort-AV: E=Sophos;i="5.93,287,1654585200"; d="scan'208";a="357866838"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ bh=3NPntIDVBvHXGIzNn2Egr3SFUyvwpkrt48LyCws0pmg=;
+ b=ZddUeGP/KjZPOFmWKUwBrFbBn62bGyRUMBSm3igNYhlpK/iW/JpTxvwq
+ 7XeoyxOeJ4HnzzJyWi/hzZVnpn7mC+lhJWeWbQp+e9YB6OG+Xm7Qr2ut9
+ rhMmEZDYLArrhREBdFO6IKB7bokLlVIR6vgr67yzqlxrEXeJFvZSIskak
+ fXmgH2yt0fobEuqrINSOBsq323jw0aZ9BjS+fbaWPGhEm24j0SSfUOxd3
+ uS0p8dTYODp1FzkrJmD3vRqqNDT7pYZbcGLDV8Yaeevc6oxpOUvdAD1aO
+ zatAnzYby32zhq8DOM6FZQQUIDXWCghoYzIL2eusbuNV0V48sdypgVgWJ Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10459"; a="357897766"
+X-IronPort-AV: E=Sophos;i="5.93,287,1654585200"; d="scan'208";a="357897766"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2022 04:48:33 -0700
+ 03 Sep 2022 12:51:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,287,1654585200"; d="scan'208";a="702412172"
+X-IronPort-AV: E=Sophos;i="5.93,287,1654585200"; d="scan'208";a="739193302"
 Received: from lkp-server02.sh.intel.com (HELO 95dfd251caa2) ([10.239.97.151])
- by FMSMGA003.fm.intel.com with ESMTP; 03 Sep 2022 04:48:28 -0700
+ by orsmga004.jf.intel.com with ESMTP; 03 Sep 2022 12:51:03 -0700
 Received: from kbuild by 95dfd251caa2 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oURdT-0001ad-1q;
- Sat, 03 Sep 2022 11:48:27 +0000
-Date: Sat, 3 Sep 2022 19:47:55 +0800
+ (envelope-from <lkp@intel.com>) id 1oUZAU-00026P-1a;
+ Sat, 03 Sep 2022 19:51:02 +0000
+Date: Sun, 4 Sep 2022 03:50:41 +0800
 From: kernel test robot <lkp@intel.com>
 To: =?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
  Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
@@ -48,15 +48,15 @@ To: =?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
  Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  Daniel Latypov <dlatypov@google.com>, David Gow <davidgow@google.com>
-Subject: Re: [PATCH v2 7/8] drm/amd/display: Introduce KUnit tests to
- dc_dmub_srv library
-Message-ID: <202209031904.Q8eJt6X4-lkp@intel.com>
-References: <20220831172239.344446-8-mairacanal@riseup.net>
+Subject: Re: [PATCH v2 6/8] drm/amd/display: Introduce KUnit tests for
+ dcn20_fpu
+Message-ID: <202209040310.aa1jd14e-lkp@intel.com>
+References: <20220831172239.344446-7-mairacanal@riseup.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220831172239.344446-8-mairacanal@riseup.net>
+In-Reply-To: <20220831172239.344446-7-mairacanal@riseup.net>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,43 +78,38 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Hi "Maíra,
 
-Thank you for the patch! Yet something to improve:
+Thank you for the patch! Perhaps something to improve:
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm/drm-next drm-intel/for-linux-next drm-tip/drm-tip linus/master v6.0-rc3 next-20220901]
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on drm/drm-next drm-intel/for-linux-next drm-tip/drm-tip linus/master v6.0-rc3 next-20220901]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Ma-ra-Canal/drm-amd-display-Introduce-KUnit-to-Display-Mode-Library/20220901-012715
 base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-config: sparc-allyesconfig (https://download.01.org/0day-ci/archive/20220903/202209031904.Q8eJt6X4-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 12.1.0
+config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20220904/202209040310.aa1jd14e-lkp@intel.com/config)
+compiler: gcc-11 (Debian 11.3.0-5) 11.3.0
 reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/510f486251586c33675dc1e1639f1b5fa2bd0da7
+        # https://github.com/intel-lab-lkp/linux/commit/6b01e906d58654fb9c209fa848883658d203b073
         git remote add linux-review https://github.com/intel-lab-lkp/linux
         git fetch --no-tags linux-review Ma-ra-Canal/drm-amd-display-Introduce-KUnit-to-Display-Mode-Library/20220901-012715
-        git checkout 510f486251586c33675dc1e1639f1b5fa2bd0da7
+        git checkout 6b01e906d58654fb9c209fa848883658d203b073
         # save the config file
         mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=sparc SHELL=/bin/bash
+        make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash
 
 If you fix the issue, kindly add following tag where applicable
 Reported-by: kernel test robot <lkp@intel.com>
 
-All errors (new ones prefixed by >>):
+All warnings (new ones prefixed by >>):
 
-   In file included from drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:814:
-   drivers/gpu/drm/amd/amdgpu/../display/dc/../tests/dc/dc_dmub_srv_test.c: In function 'populate_subvp_cmd_drr_info_test':
->> drivers/gpu/drm/amd/amdgpu/../display/dc/../tests/dc/dc_dmub_srv_test.c:260:9: error: implicit declaration of function 'populate_subvp_cmd_drr_info'; did you mean 'populate_subvp_cmd_drr_info_test'? [-Werror=implicit-function-declaration]
-     260 |         populate_subvp_cmd_drr_info(test_param->dc, test_param->subvp_pipe,
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-         |         populate_subvp_cmd_drr_info_test
+>> drivers/gpu/drm/amd/amdgpu/../display/tests/dc/dml/dcn20/dcn20_fpu_test.c:455:5: warning: no previous prototype for 'dcn20_fpu_dcn21_update_bw_bounding_box_test_init' [-Wmissing-prototypes]
+     455 | int dcn20_fpu_dcn21_update_bw_bounding_box_test_init(struct kunit *test)
+         |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    In file included from drivers/gpu/drm/amd/amdgpu/../display/dc/inc/core_types.h:32,
-                    from drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:31:
-   drivers/gpu/drm/amd/amdgpu/../display/include/ddc_service_types.h: At top level:
+                    from drivers/gpu/drm/amd/amdgpu/../display/dc/inc/resource.h:28,
+                    from drivers/gpu/drm/amd/amdgpu/../display/tests/dc/dml/dcn20/dcn20_fpu_test.c:10:
    drivers/gpu/drm/amd/amdgpu/../display/include/ddc_service_types.h:137:22: warning: 'SYNAPTICS_DEVICE_ID' defined but not used [-Wunused-const-variable=]
      137 | static const uint8_t SYNAPTICS_DEVICE_ID[] = "SYNA";
          |                      ^~~~~~~~~~~~~~~~~~~
@@ -127,40 +122,23 @@ All errors (new ones prefixed by >>):
    drivers/gpu/drm/amd/amdgpu/../display/include/ddc_service_types.h:131:22: warning: 'DP_SINK_DEVICE_STR_ID_1' defined but not used [-Wunused-const-variable=]
      131 | static const uint8_t DP_SINK_DEVICE_STR_ID_1[] = {7, 1, 8, 7, 3, 0};
          |                      ^~~~~~~~~~~~~~~~~~~~~~~
-   cc1: some warnings being treated as errors
 
 
-vim +260 drivers/gpu/drm/amd/amdgpu/../display/dc/../tests/dc/dc_dmub_srv_test.c
+vim +/dcn20_fpu_dcn21_update_bw_bounding_box_test_init +455 drivers/gpu/drm/amd/amdgpu/../display/tests/dc/dml/dcn20/dcn20_fpu_test.c
 
-   246	
-   247	KUNIT_ARRAY_PARAM(populate_subvp_cmd_drr_info, populate_subvp_cmd_drr_info_cases,
-   248			  populate_subvp_cmd_drr_info_test_to_desc);
-   249	
-   250	static void populate_subvp_cmd_drr_info_test(struct kunit *test)
-   251	{
-   252		const struct populate_subvp_cmd_drr_info_test_case *test_param =
-   253			test->param_value;
-   254		struct dmub_cmd_fw_assisted_mclk_switch_pipe_data_v2 *pipe_data;
-   255	
-   256		pipe_data = kunit_kzalloc(test,
-   257					  sizeof(struct dmub_cmd_fw_assisted_mclk_switch_pipe_data_v2),
-   258					  GFP_KERNEL);
-   259	
- > 260		populate_subvp_cmd_drr_info(test_param->dc, test_param->subvp_pipe,
-   261					    test_param->vblank_pipe, pipe_data);
-   262	
-   263		KUNIT_EXPECT_EQ(test, test_param->drr_in_use,
-   264				pipe_data->pipe_config.vblank_data.drr_info.drr_in_use);
-   265		KUNIT_EXPECT_EQ(test, test_param->drr_window_size_ms,
-   266				pipe_data->pipe_config.vblank_data.drr_info.drr_window_size_ms);
-   267		KUNIT_EXPECT_EQ(test, test_param->use_ramping,
-   268				pipe_data->pipe_config.vblank_data.drr_info.use_ramping);
-   269		KUNIT_EXPECT_EQ(test, test_param->min_vtotal_supported,
-   270				pipe_data->pipe_config.vblank_data.drr_info.min_vtotal_supported);
-   271		KUNIT_EXPECT_EQ(test, test_param->max_vtotal_supported,
-   272				pipe_data->pipe_config.vblank_data.drr_info.max_vtotal_supported);
-   273	}
-   274	
+   450	
+   451	/**
+   452	 * dcn20_fpu_dcn21_update_bw_bounding_box_test_init - Store backup copies of DCN global structures
+   453	 * @test: represents a running instance of a test.
+   454	 */
+ > 455	int dcn20_fpu_dcn21_update_bw_bounding_box_test_init(struct kunit *test)
+   456	{
+   457		memcpy(&original_dcn2_1_soc, &dcn2_1_soc, sizeof(struct _vcs_dpi_soc_bounding_box_st));
+   458		memcpy(&original_dcn2_1_ip, &dcn2_1_ip, sizeof(struct _vcs_dpi_ip_params_st));
+   459	
+   460		return 0;
+   461	}
+   462	
 
 -- 
 0-DAY CI Kernel Test Service
