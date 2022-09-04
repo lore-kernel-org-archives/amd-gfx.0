@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37CFEC6FA82
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6B47ECAAD5
 	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBBD010E3E2;
-	Sun,  4 Sep 2022 21:43:56 +0000 (UTC)
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [IPv6:2607:f8b0:4864:20::d2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3858D10E283;
- Sun,  4 Sep 2022 21:42:58 +0000 (UTC)
-Received: by mail-io1-xd2a.google.com with SMTP id y187so5724154iof.0;
- Sun, 04 Sep 2022 14:42:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37CC610E4EA;
+	Sun,  4 Sep 2022 21:43:57 +0000 (UTC)
+Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com
+ [IPv6:2607:f8b0:4864:20::d34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8D6110E249;
+ Sun,  4 Sep 2022 21:42:47 +0000 (UTC)
+Received: by mail-io1-xd34.google.com with SMTP id b142so5642444iof.10;
+ Sun, 04 Sep 2022 14:42:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=0iGLn9xqCpcC4gcXCQSb7q1CfO8AItXp+UrSrC23ofg=;
- b=c4Kq7xloZvvHFQ9epBPNdcfT88slUONFGhsZx5MMGEMETHKqfUD9s2gzih6ALSi3wD
- RrSDXPBRasBgiwo4/u96iVTFZBqUgPsrGJ215FEXB49z7jnLyWi457WMuaGNd/EON1XH
- GyjBZNFnOS45dRu6gLJPWVkFsKVueCkOjPTRK+IINcSb2jbyp3YwEPuMkYNSzl/rirQM
- d5EwuNynlS8h4OY8pAJTaF7QeWBKZcUVuMJzzAnk0maYPeDvxCRYSxmx7XIOTzxGp1yV
- PLaexfCoB2wQoSDMH+kN17KC+TwYCpQd6YSNc7LXPW74NfB8khKnhZvXekFB8EQPRMeQ
- pFNw==
+ bh=F+IqvxQINaymRL+MafidUTbGzpHBkq2RsFapBWAQydg=;
+ b=N0zhsOBdmXSpqdVIM7Dax53vYiJTKsqF6x9qw6PLO/aFCYoOS0opwP1W/5aTypbefh
+ thcPTdmgHjCwAVeFNHFjBjHzjInzGS+YiXXOrz8p9PMclYRxe1LfcB0y1XUcNo/5BytA
+ YEnLhw/gfAr8rG8KozwOaV+lYe7NXyUjy4JmDGJ94WvqWQr15EnP0FR45EtCb9sixA2H
+ 5PVujoc2/62tw2Rf6QVixL1umMf0g4g0KWpbNPggi2SaHbsUt9ALitBx9exeU1qkh3CT
+ vHElW8wRlXwjNWiUeoUytlqPPgsAovjsIKN3Z9gCGdsWoXgjj0apzjKHP7jxrbSbW8d4
+ SIYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=0iGLn9xqCpcC4gcXCQSb7q1CfO8AItXp+UrSrC23ofg=;
- b=aGirrv5idrxju4T1Ra6aLfWXuLyB3C8gGa+ZR2liwgGB4Mohi10C60oL7fACKPaWOf
- l47dI8QQKqcVw0p5kQrjlBJ5uvYAeuJnMZrSUE4JZAvoxCZxT1L3Ui4V5v+r+SAhIO9T
- 9KgvqIpyyiJboLMTiOYRY7z6w5BeCAjZlgt0MyJdA31TmpAp7YLUeBDGLm5jRK/UfV5h
- 9Rp24FMHPUpOv+g0RNNOlI5a+2fWAxx4ujYy8sd9kd5RCYgCcrY0sQ6QoC81UjH2M7xj
- 3D5JhWOfaFafvI/1pQrP/0vCezMhGTcjgfMTrRI+yiyL1CVI+EqcOuEhRkkXwmdOGvft
- VabA==
-X-Gm-Message-State: ACgBeo2cOEWBgOcszjsVd2RwOwj6mdd36pX5t2AC7CYgLb2+Cs6pViNQ
- rA5Dk/+ZjtB3aPbGXwqQGH4=
-X-Google-Smtp-Source: AA6agR5hVc9DnYKL0ZIAQuzKxXKG0S5DufyPzrHmQJwD8MfDjPFuhObXx/a4iT1L7ykoRUbvzDY2Pw==
-X-Received: by 2002:a05:6638:1350:b0:349:f94d:5ea7 with SMTP id
- u16-20020a056638135000b00349f94d5ea7mr24681226jad.129.1662327777931; 
- Sun, 04 Sep 2022 14:42:57 -0700 (PDT)
+ bh=F+IqvxQINaymRL+MafidUTbGzpHBkq2RsFapBWAQydg=;
+ b=KBhhIppzZLDDBhZp4G1PdJD6bUrHPaes7J1V9U+k8qA2nWTsJvKjGCgwZz3YjqZbid
+ WWpqTvnUAI3tXZLqo1pruFWgMviB/B8g0752Z8wygT0D3D6ZjP23hYAgaj9zjFEAKfev
+ BnkKMO2olp2zI6xNSHyqCQ/ZjmeX8J/v0y3E28W3w4pQA65VcvciNK2Ku2W5LXEVFnei
+ Pjr5nBmlV073T0XrvQ8buzS2ltTTQezZMNgj2fozKLszcyIPY4WzKyGeYIDxFK9dSkVN
+ a/WsRJDwYU709Raz13Nr4ic91jzqziV2pMpy3YyOqRYLNGJJ1j711Qw1/n2015RwdIFQ
+ /ORw==
+X-Gm-Message-State: ACgBeo2X5TQojNJ/pBaldW9GHEnZoxr9GLjmguvnZLWvFTTLYJFuZyMj
+ gZ69EV8CaUlAcunip8CpXy0=
+X-Google-Smtp-Source: AA6agR6wneRG7yCu0WnhzdrmY46L82HWUk9b8e+ZYvtbU/eRsNK3PLQqrk215dPJggzpSd7jRHChZQ==
+X-Received: by 2002:a5e:c319:0:b0:68b:2683:8e26 with SMTP id
+ a25-20020a5ec319000000b0068b26838e26mr17614839iok.129.1662327767546; 
+ Sun, 04 Sep 2022 14:42:47 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.57
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:57 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:47 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 50/57] dyndbg: count unique callsites
-Date: Sun,  4 Sep 2022 15:41:27 -0600
-Message-Id: <20220904214134.408619-51-jim.cromie@gmail.com>
+Subject: [PATCH v6 39/57] dyndbg/drm: POC add tracebits sysfs-knob
+Date: Sun,  4 Sep 2022 15:41:16 -0600
+Message-Id: <20220904214134.408619-40-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
@@ -78,53 +78,52 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Count de-duplicated callsites.  Since the _ddebug_site excludes
-lineno, all callsites in a function are identical, and this
-effectively counts functions in the module with callsites.
+clone DRM.debug interface to DRM.tracebits: ie map bits to
+drm-debug-categories, except this interface enables messages to
+tracefs, not to syslog.
+
+1- we reuse the class-map added previously.
+   this reflects the single source of both syslog/trace events
+
+2- add a 2nd struct ddebug_classes_bitmap_param
+   refs 1, reusing it.
+   flags = "T", to enable trace-events on this callsite.
+
+3- module_param_cb([2]) - does the sysfs part
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_print.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 91fe7fb5dda9..891d70d7fed4 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -1348,7 +1348,7 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 			       unsigned int *packed_base)
- {
- 	struct ddebug_table *dt;
--	int i;
-+	int i, num_funcs = 0;
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index c50edbf443d3..75d0cecd7e86 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -45,6 +45,9 @@
+ unsigned long __drm_debug;
+ EXPORT_SYMBOL(__drm_debug);
  
- 	v3pr_info("add-module: %s %d/%d sites, start: %d\n", modname, di->num_descs, di->num_sites, base);
- 	if (!di->num_descs) {
-@@ -1381,12 +1381,11 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 	//BUG_ON(di->num_descs != di->num_sites);
++unsigned long __drm_trace;
++EXPORT_SYMBOL(__drm_trace);
++
+ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
+ "\t\tBit 0 (0x01)  will enable CORE messages (drm core code)\n"
+ "\t\tBit 1 (0x02)  will enable DRIVER messages (drm controller code)\n"
+@@ -77,6 +80,13 @@ static struct ddebug_class_param drm_debug_bitmap = {
+ 	.map = &drm_debug_classes,
+ };
+ module_param_cb(debug, &param_ops_dyndbg_classes, &drm_debug_bitmap, 0600);
++
++static struct ddebug_class_param drm_trace_bitmap = {
++	.bits = &__drm_trace,
++	.flags = "T",
++	.map = &drm_debug_classes,
++};
++module_param_cb(tracecats, &param_ops_dyndbg_classes, &drm_trace_bitmap, 0600);
+ #endif
  
- 	for (i = 0; i < di->num_descs; i++) {
--
--		if (di->sites[i]._function != packed_sites[(*packed_base)]._function)
--
-+		if (di->sites[i]._function != packed_sites[(*packed_base)]._function) {
-+			num_funcs++;
- 			memcpy((void *) &packed_sites[++(*packed_base)],
- 			       (void *) &di->sites[i], sizeof(struct _ddebug_site));
--
-+		}
- 		di->descs[i]._index = i + base;
- 		di->descs[i]._map = *packed_base;
- 
-@@ -1397,7 +1396,7 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
- 
--	vpr_info("%3u debug prints in module %s\n", di->num_descs, modname);
-+	vpr_info("%3u debug prints in %d functions, in module %s\n", di->num_descs, num_funcs, modname);
- 	return 0;
- }
- 
+ void __drm_puts_coredump(struct drm_printer *p, const char *str)
 -- 
 2.37.2
 
