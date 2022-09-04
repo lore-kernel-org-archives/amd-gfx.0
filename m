@@ -4,59 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56C02ECAAD4
-	for <amd-gfx@archiver.kernel.org>; Sat,  3 Sep 2022 19:51:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA136ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 11:03:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4F3010E0DF;
-	Sat,  3 Sep 2022 19:51:12 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E1EE10E060;
- Sat,  3 Sep 2022 19:51:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABD4610E009;
+	Sun,  4 Sep 2022 11:03:58 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0ACD10E009;
+ Sun,  4 Sep 2022 11:03:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662234669; x=1693770669;
+ t=1662289435; x=1693825435;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=3NPntIDVBvHXGIzNn2Egr3SFUyvwpkrt48LyCws0pmg=;
- b=ZddUeGP/KjZPOFmWKUwBrFbBn62bGyRUMBSm3igNYhlpK/iW/JpTxvwq
- 7XeoyxOeJ4HnzzJyWi/hzZVnpn7mC+lhJWeWbQp+e9YB6OG+Xm7Qr2ut9
- rhMmEZDYLArrhREBdFO6IKB7bokLlVIR6vgr67yzqlxrEXeJFvZSIskak
- fXmgH2yt0fobEuqrINSOBsq323jw0aZ9BjS+fbaWPGhEm24j0SSfUOxd3
- uS0p8dTYODp1FzkrJmD3vRqqNDT7pYZbcGLDV8Yaeevc6oxpOUvdAD1aO
- zatAnzYby32zhq8DOM6FZQQUIDXWCghoYzIL2eusbuNV0V48sdypgVgWJ Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10459"; a="357897766"
-X-IronPort-AV: E=Sophos;i="5.93,287,1654585200"; d="scan'208";a="357897766"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2022 12:51:08 -0700
+ mime-version:in-reply-to;
+ bh=4xFvZorPNgarWpqxdvR5B56hPUE5VZ8Xelhg2+9k5mE=;
+ b=F/N2V5QyOrjhU42Migqzbqwdg4O/IFM/Rn9EbctrVsgFMHgaqciUthQz
+ gYfq8DITuqa/BFpzylrs0c0XDbyPPolq3M8Zh4+Y6jh1kJq2cOmixYWZg
+ ymX9qVpg4yHSYYI9yMSS5q+Xr513iROzlZg+gF7E0VT0mv7fETD0zsj5p
+ qERcEeWtVX4Db+RKXOQdxvGsq4BDXAOvJqpMYguSgb9ol083sFbu230V/
+ GnlAZLVPiscGg2rFcgKn+CsYSu2ogY8mHdre4aiNopI8FtvVfxpnqaZKU
+ zEoCNyKojtoh+6EOd4Dlz70xccGtZCmC7azOKcz1mErDU7DWoMC3JkzlN w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10459"; a="279247945"
+X-IronPort-AV: E=Sophos;i="5.93,289,1654585200"; d="scan'208";a="279247945"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Sep 2022 04:03:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,287,1654585200"; d="scan'208";a="739193302"
+X-IronPort-AV: E=Sophos;i="5.93,289,1654585200"; d="scan'208";a="681754228"
 Received: from lkp-server02.sh.intel.com (HELO 95dfd251caa2) ([10.239.97.151])
- by orsmga004.jf.intel.com with ESMTP; 03 Sep 2022 12:51:03 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 04 Sep 2022 04:03:50 -0700
 Received: from kbuild by 95dfd251caa2 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oUZAU-00026P-1a;
- Sat, 03 Sep 2022 19:51:02 +0000
-Date: Sun, 4 Sep 2022 03:50:41 +0800
+ (envelope-from <lkp@intel.com>) id 1oUnPq-0002zT-0A;
+ Sun, 04 Sep 2022 11:03:50 +0000
+Date: Sun, 4 Sep 2022 19:03:21 +0800
 From: kernel test robot <lkp@intel.com>
-To: =?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Daniel Latypov <dlatypov@google.com>, David Gow <davidgow@google.com>
-Subject: Re: [PATCH v2 6/8] drm/amd/display: Introduce KUnit tests for
- dcn20_fpu
-Message-ID: <202209040310.aa1jd14e-lkp@intel.com>
-References: <20220831172239.344446-7-mairacanal@riseup.net>
+To: Jingyu Wang <jingyuwang_vip@163.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, evan.quan@amd.com, mario.limonciello@amd.com,
+ Hawking.Zhang@amd.com, andrey.grodzovsky@amd.com, solomon.chiu@amd.com
+Subject: Re: [PATCH] drm: amd: This is a patch to the amdgpu_drv.c file that
+ fixes some warnings and errors found by the checkpatch.pl tool
+Message-ID: <202209041839.rob9XU3V-lkp@intel.com>
+References: <20220904083912.1006262-1-jingyuwang_vip@163.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220831172239.344446-7-mairacanal@riseup.net>
+In-Reply-To: <20220904083912.1006262-1-jingyuwang_vip@163.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,77 +61,208 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kbuild-all@lists.01.org, magalilemes00@gmail.com, tales.aparecida@gmail.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, mwen@igalia.com,
- =?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
- dri-devel@lists.freedesktop.org, Isabella Basso <isabbasso@riseup.net>,
- andrealmeid@riseup.net, kunit-dev@googlegroups.com
+Cc: Jingyu Wang <jingyuwang_vip@163.com>, kbuild-all@lists.01.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi "Maíra,
+Hi Jingyu,
 
 Thank you for the patch! Perhaps something to improve:
 
 [auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm/drm-next drm-intel/for-linux-next drm-tip/drm-tip linus/master v6.0-rc3 next-20220901]
+[also build test WARNING on linus/master v6.0-rc3 next-20220901]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ma-ra-Canal/drm-amd-display-Introduce-KUnit-to-Display-Mode-Library/20220901-012715
+url:    https://github.com/intel-lab-lkp/linux/commits/Jingyu-Wang/drm-amd-This-is-a-patch-to-the-amdgpu_drv-c-file-that-fixes-some-warnings-and-errors-found-by-the-checkpatch-pl-tool/20220904-165633
 base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20220904/202209040310.aa1jd14e-lkp@intel.com/config)
-compiler: gcc-11 (Debian 11.3.0-5) 11.3.0
+config: arc-allyesconfig (https://download.01.org/0day-ci/archive/20220904/202209041839.rob9XU3V-lkp@intel.com/config)
+compiler: arceb-elf-gcc (GCC) 12.1.0
 reproduce (this is a W=1 build):
-        # https://github.com/intel-lab-lkp/linux/commit/6b01e906d58654fb9c209fa848883658d203b073
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/639ddf37854dd71c3ee836591db7518b146ae8ae
         git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Ma-ra-Canal/drm-amd-display-Introduce-KUnit-to-Display-Mode-Library/20220901-012715
-        git checkout 6b01e906d58654fb9c209fa848883658d203b073
+        git fetch --no-tags linux-review Jingyu-Wang/drm-amd-This-is-a-patch-to-the-amdgpu_drv-c-file-that-fixes-some-warnings-and-errors-found-by-the-checkpatch-pl-tool/20220904-165633
+        git checkout 639ddf37854dd71c3ee836591db7518b146ae8ae
         # save the config file
         mkdir build_dir && cp config build_dir/.config
-        make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arc SHELL=/bin/bash drivers/gpu/drm/amd/amdgpu/
 
 If you fix the issue, kindly add following tag where applicable
 Reported-by: kernel test robot <lkp@intel.com>
 
 All warnings (new ones prefixed by >>):
 
->> drivers/gpu/drm/amd/amdgpu/../display/tests/dc/dml/dcn20/dcn20_fpu_test.c:455:5: warning: no previous prototype for 'dcn20_fpu_dcn21_update_bw_bounding_box_test_init' [-Wmissing-prototypes]
-     455 | int dcn20_fpu_dcn21_update_bw_bounding_box_test_init(struct kunit *test)
-         |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   In file included from drivers/gpu/drm/amd/amdgpu/../display/dc/inc/core_types.h:32,
-                    from drivers/gpu/drm/amd/amdgpu/../display/dc/inc/resource.h:28,
-                    from drivers/gpu/drm/amd/amdgpu/../display/tests/dc/dml/dcn20/dcn20_fpu_test.c:10:
-   drivers/gpu/drm/amd/amdgpu/../display/include/ddc_service_types.h:137:22: warning: 'SYNAPTICS_DEVICE_ID' defined but not used [-Wunused-const-variable=]
-     137 | static const uint8_t SYNAPTICS_DEVICE_ID[] = "SYNA";
-         |                      ^~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/../display/include/ddc_service_types.h:134:17: warning: 'DP_SINK_BRANCH_DEV_NAME_7580' defined but not used [-Wunused-const-variable=]
-     134 | static const u8 DP_SINK_BRANCH_DEV_NAME_7580[] = "7580\x80u";
-         |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/../display/include/ddc_service_types.h:132:22: warning: 'DP_SINK_DEVICE_STR_ID_2' defined but not used [-Wunused-const-variable=]
-     132 | static const uint8_t DP_SINK_DEVICE_STR_ID_2[] = {7, 1, 8, 7, 5, 0};
-         |                      ^~~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/../display/include/ddc_service_types.h:131:22: warning: 'DP_SINK_DEVICE_STR_ID_1' defined but not used [-Wunused-const-variable=]
-     131 | static const uint8_t DP_SINK_DEVICE_STR_ID_1[] = {7, 1, 8, 7, 3, 0};
-         |                      ^~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:290:17: warning: missing terminating " character
+     290 |                 "for passthrough or sriov, 10000 for all jobs.
+         |                 ^
+   In file included from include/linux/module.h:22,
+                    from include/linux/device/driver.h:21,
+                    from include/linux/device.h:32,
+                    from include/drm/drm_print.h:32,
+                    from include/drm/drm_mm.h:51,
+                    from include/drm/drm_vma_manager.h:26,
+                    from include/drm/drm_gem.h:40,
+                    from drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:28:
+   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:290:17: error: missing terminating " character
+     290 |                 "for passthrough or sriov, 10000 for all jobs.
+         |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/moduleparam.h:26:61: note: in definition of macro '__MODULE_INFO'
+      26 |                 = __MODULE_INFO_PREFIX __stringify(tag) "=" info
+         |                                                             ^~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:289:1: note: in expansion of macro 'MODULE_PARM_DESC'
+     289 | MODULE_PARM_DESC(lockup_timeout, "GPU lockup timeout in ms (default: for bare metal 10000 for non-compute jobs and 60000 for compute jobs; "
+         | ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:291:17: error: expected ',' or ';' before numeric constant
+     291 |                 0: keep default value. negative: infinity timeout),
+         |                 ^
+   include/linux/moduleparam.h:26:61: note: in definition of macro '__MODULE_INFO'
+      26 |                 = __MODULE_INFO_PREFIX __stringify(tag) "=" info
+         |                                                             ^~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:289:1: note: in expansion of macro 'MODULE_PARM_DESC'
+     289 | MODULE_PARM_DESC(lockup_timeout, "GPU lockup timeout in ms (default: for bare metal 10000 for non-compute jobs and 60000 for compute jobs; "
+         | ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:292:83: warning: missing terminating " character
+     292 |                 format: for bare metal [Non-Compute] or [GFX,Compute,SDMA,Video]; "
+         |                                                                                   ^
+   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:292:83: error: missing terminating " character
+   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:293:17: error: expected identifier or '(' before string constant
+     293 |                 "for passthrough or sriov [all jobs] or [GFX,Compute,SDMA,Video].");
+         |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:604:9: warning: missing terminating " character
+     604 |         "reserve gtt for smu debug usage, 0 = disable,
+         |         ^
+   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:605:76: warning: missing terminating " character
+     605 |                 0x1 = 256Mbyte, 0x2 = 512Mbyte, 0x4 = 1 Gbyte, 0x8 = 2GByte");
+         |                                                                            ^
+   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:2799:45: error: unterminated argument list invoking macro "MODULE_PARM_DESC"
+    2799 | MODULE_LICENSE("GPL and additional rights");
+         |                                             ^
+   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:603:1: error: expected '=', ',', ';', 'asm' or '__attribute__' at end of input
+     603 | MODULE_PARM_DESC(smu_memory_pool_size,
+         | ^~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:186:13: warning: 'amdgpu_drv_delayed_reset_work_handler' used but never defined
+     186 | static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
+         |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-vim +/dcn20_fpu_dcn21_update_bw_bounding_box_test_init +455 drivers/gpu/drm/amd/amdgpu/../display/tests/dc/dml/dcn20/dcn20_fpu_test.c
+vim +290 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
 
-   450	
-   451	/**
-   452	 * dcn20_fpu_dcn21_update_bw_bounding_box_test_init - Store backup copies of DCN global structures
-   453	 * @test: represents a running instance of a test.
-   454	 */
- > 455	int dcn20_fpu_dcn21_update_bw_bounding_box_test_init(struct kunit *test)
-   456	{
-   457		memcpy(&original_dcn2_1_soc, &dcn2_1_soc, sizeof(struct _vcs_dpi_soc_bounding_box_st));
-   458		memcpy(&original_dcn2_1_ip, &dcn2_1_ip, sizeof(struct _vcs_dpi_ip_params_st));
-   459	
-   460		return 0;
-   461	}
-   462	
+   185	
+ > 186	static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
+   187	
+   188	struct amdgpu_mgpu_info mgpu_info = {
+   189		.mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
+   190		.delayed_reset_work = __DELAYED_WORK_INITIALIZER(
+   191				mgpu_info.delayed_reset_work,
+   192				amdgpu_drv_delayed_reset_work_handler, 0),
+   193	};
+   194	int amdgpu_ras_enable = -1;
+   195	uint amdgpu_ras_mask = 0xffffffff;
+   196	int amdgpu_bad_page_threshold = -1;
+   197	struct amdgpu_watchdog_timer amdgpu_watchdog_timer = {
+   198		.timeout_fatal_disable = false,
+   199		.period = 0x0, /* default to 0x0 (timeout disable) */
+   200	};
+   201	
+   202	/**
+   203	 * DOC: vramlimit (int)
+   204	 * Restrict the total amount of VRAM in MiB for testing.  The default is 0 (Use full VRAM).
+   205	 */
+   206	MODULE_PARM_DESC(vramlimit, "Restrict VRAM for testing, in megabytes");
+   207	module_param_named(vramlimit, amdgpu_vram_limit, int, 0600);
+   208	
+   209	/**
+   210	 * DOC: vis_vramlimit (int)
+   211	 * Restrict the amount of CPU visible VRAM in MiB for testing.  The default is 0 (Use full CPU visible VRAM).
+   212	 */
+   213	MODULE_PARM_DESC(vis_vramlimit, "Restrict visible VRAM for testing, in megabytes");
+   214	module_param_named(vis_vramlimit, amdgpu_vis_vram_limit, int, 0444);
+   215	
+   216	/**
+   217	 * DOC: gartsize (uint)
+   218	 * Restrict the size of GART in Mib (32, 64, etc.) for testing. The default is -1 (The size depends on asic).
+   219	 */
+   220	MODULE_PARM_DESC(gartsize, "Size of GART to setup in megabytes (32, 64, etc., -1=auto)");
+   221	module_param_named(gartsize, amdgpu_gart_size, uint, 0600);
+   222	
+   223	/**
+   224	 * DOC: gttsize (int)
+   225	 * Restrict the size of GTT domain in MiB for testing. The default is -1 (It's VRAM size if 3GB < VRAM < 3/4 RAM,
+   226	 * otherwise 3/4 RAM size).
+   227	 */
+   228	MODULE_PARM_DESC(gttsize, "Size of the GTT domain in megabytes (-1 = auto)");
+   229	module_param_named(gttsize, amdgpu_gtt_size, int, 0600);
+   230	
+   231	/**
+   232	 * DOC: moverate (int)
+   233	 * Set maximum buffer migration rate in MB/s. The default is -1 (8 MB/s).
+   234	 */
+   235	MODULE_PARM_DESC(moverate, "Maximum buffer migration rate in MB/s. (32, 64, etc., -1=auto, 0=1=disabled)");
+   236	module_param_named(moverate, amdgpu_moverate, int, 0600);
+   237	
+   238	/**
+   239	 * DOC: audio (int)
+   240	 * Set HDMI/DPAudio. Only affects non-DC display handling. The default is -1 (Enabled), set 0 to disabled it.
+   241	 */
+   242	MODULE_PARM_DESC(audio, "Audio enable (-1 = auto, 0 = disable, 1 = enable)");
+   243	module_param_named(audio, amdgpu_audio, int, 0444);
+   244	
+   245	/**
+   246	 * DOC: disp_priority (int)
+   247	 * Set display Priority (1 = normal, 2 = high). Only affects non-DC display handling. The default is 0 (auto).
+   248	 */
+   249	MODULE_PARM_DESC(disp_priority, "Display Priority (0 = auto, 1 = normal, 2 = high)");
+   250	module_param_named(disp_priority, amdgpu_disp_priority, int, 0444);
+   251	
+   252	/**
+   253	 * DOC: hw_i2c (int)
+   254	 * To enable hw i2c engine. Only affects non-DC display handling. The default is 0 (Disabled).
+   255	 */
+   256	MODULE_PARM_DESC(hw_i2c, "hw i2c engine enable (0 = disable)");
+   257	module_param_named(hw_i2c, amdgpu_hw_i2c, int, 0444);
+   258	
+   259	/**
+   260	 * DOC: pcie_gen2 (int)
+   261	 * To disable PCIE Gen2/3 mode (0 = disable, 1 = enable). The default is -1 (auto, enabled).
+   262	 */
+   263	MODULE_PARM_DESC(pcie_gen2, "PCIE Gen2 mode (-1 = auto, 0 = disable, 1 = enable)");
+   264	module_param_named(pcie_gen2, amdgpu_pcie_gen2, int, 0444);
+   265	
+   266	/**
+   267	 * DOC: msi (int)
+   268	 * To disable Message Signaled Interrupts (MSI) functionality (1 = enable, 0 = disable). The default is -1 (auto, enabled).
+   269	 */
+   270	MODULE_PARM_DESC(msi, "MSI support (1 = enable, 0 = disable, -1 = auto)");
+   271	module_param_named(msi, amdgpu_msi, int, 0444);
+   272	
+   273	/**
+   274	 * DOC: lockup_timeout (string)
+   275	 * Set GPU scheduler timeout value in ms.
+   276	 *
+   277	 * The format can be [Non-Compute] or [GFX,Compute,SDMA,Video]. That is there can be one or
+   278	 * multiple values specified. 0 and negative values are invalidated. They will be adjusted
+   279	 * to the default timeout.
+   280	 *
+   281	 * - With one value specified, the setting will apply to all non-compute jobs.
+   282	 * - With multiple values specified, the first one will be for GFX.
+   283	 *   The second one is for Compute. The third and fourth ones are
+   284	 *   for SDMA and Video.
+   285	 *
+   286	 * By default(with no lockup_timeout settings), the timeout for all non-compute(GFX, SDMA and Video)
+   287	 * jobs is 10000. The timeout for compute is 60000.
+   288	 */
+   289	MODULE_PARM_DESC(lockup_timeout, "GPU lockup timeout in ms (default: for bare metal 10000 for non-compute jobs and 60000 for compute jobs; "
+ > 290			"for passthrough or sriov, 10000 for all jobs.
+   291			0: keep default value. negative: infinity timeout),
+   292			format: for bare metal [Non-Compute] or [GFX,Compute,SDMA,Video]; "
+   293			"for passthrough or sriov [all jobs] or [GFX,Compute,SDMA,Video].");
+   294	module_param_string(lockup_timeout, amdgpu_lockup_timeout, sizeof(amdgpu_lockup_timeout), 0444);
+   295	
 
 -- 
 0-DAY CI Kernel Test Service
