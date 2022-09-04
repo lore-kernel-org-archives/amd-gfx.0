@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB805C6FA82
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:47:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBC0BC6FA82
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:47:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E332F10E135;
-	Sun,  4 Sep 2022 21:43:35 +0000 (UTC)
-Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
- [IPv6:2607:f8b0:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59D4610E1DA;
- Sun,  4 Sep 2022 21:42:37 +0000 (UTC)
-Received: by mail-il1-x12d.google.com with SMTP id s11so3868182ilt.7;
- Sun, 04 Sep 2022 14:42:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4A8810E34E;
+	Sun,  4 Sep 2022 21:43:36 +0000 (UTC)
+Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
+ [IPv6:2607:f8b0:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8953410E290;
+ Sun,  4 Sep 2022 21:42:59 +0000 (UTC)
+Received: by mail-il1-x12e.google.com with SMTP id s3so1911308ilv.4;
+ Sun, 04 Sep 2022 14:42:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=Yz1nHWqmg1d//jI5WL7ehO+9XBH0wkH/Bsd6VUk2Nqk=;
- b=AK+43dpGRirTw4nNfvr173iCsOdOocOg1R4PrjXeYFMuE6BHzNx4/JyS2/Hs12JMwR
- arAb0AoFD3lLvnp+XMkj+nWBX4byPR8fWvDR9CUjvDV5RC/AcQEP8uncq985GYHJU6ZV
- Y1NZeglyoj+4PmVpyOb5acskIwIX7OJWl0g7dKKda3S5vGjIzl3tKiY/y8lQr42zk5mL
- 0kqpDAV5CIhV4bkqTSSNFO+cqJYPRqlUFUEUtUB21hy9TbrmlNQfyn3Yfv+pNchiW5lP
- omQ1D670173DGSz8AJfJF3mWC72dET7qdHGew94KumgAoocW1dkvnKB5l0zMBDpdb6qQ
- wgxw==
+ bh=KACUwbv9zFDFS+/NnZ2+bHc0BJ5XxAtoDioY/cngaq0=;
+ b=VWLo9KQRx3wUEpHavD9gtPYNFllTyy4JKxvs/7m7tkQZM4ST377wbMAzvfbzKUgbOp
+ J6WuHZ3P93mqwHnELmx4xWY2iE88bkmZTSJqZgzV49g9rgdp//m9df+iAKw5mapuizNM
+ 8N7/7jcJanbJgpES8DxAtzXNIpOD8ZbW5WOPK05nV0i1YT9y6m46gm5tX0ZuDvQutVME
+ hVXVPzZsqJYaB2x7eaQgiQ5QGXMW5MZGs2s9lLUmDUh275cuM3Hr9LM8UftEseh/RA6Z
+ Yc6+zDt9i1m5X50alTa/P6gMXlOYHL2RiMbZY6SXX3tIiEk2zkHyzL+A2td9lp2Hi3c2
+ vR2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=Yz1nHWqmg1d//jI5WL7ehO+9XBH0wkH/Bsd6VUk2Nqk=;
- b=ZWIiJgo6z8EnI+7dI1ZQzNMp0CNkvvlf3FRsDpxY0lYxUdxzYnNRFWnBjgAVYOKwsi
- y0GOwyFh8iroqpY1q8SO/11RzFor2DpX30dDhw4CSspPJ/PMJFVD2AqLIw1GOZz+3pFJ
- RcVUI2Y6Ae0WXGqyU2wW2WORZmkDrR0s2ZKd74wO0lYZ8L2kShlJmRey9n3hOJ/OPpZr
- 0fqPgqiOL0ScSap078YpUiszKTrdI0uUWnr0B7hZEVleN4MLPq+zxo042WthPfMK9dSJ
- XMAPDgPRFpAfy+zuRXztzb3aINKiffIEM48LpWwAB/q5Xpw2aWIx7MH+49/MnOs7Wm1t
- w6hg==
-X-Gm-Message-State: ACgBeo0Riq3x5VgqkkCwQwFkSpiwGtla2WLPMW0YvzhsiQ2i79BjLUn8
- JaRW9msVbnI7gUNrpzUvoB4=
-X-Google-Smtp-Source: AA6agR7r6U93/s1yKE4uP9xLO0qO4rTXytRbBRYsXbjE4vP4auvFXzNw8l/Z1/hxoQSGO8wQE4MxOA==
-X-Received: by 2002:a92:d708:0:b0:2eb:603a:f6fc with SMTP id
- m8-20020a92d708000000b002eb603af6fcmr12394161iln.225.1662327757031; 
- Sun, 04 Sep 2022 14:42:37 -0700 (PDT)
+ bh=KACUwbv9zFDFS+/NnZ2+bHc0BJ5XxAtoDioY/cngaq0=;
+ b=TODwl0ZnAWhfJzsks+oSTjz5sDpxRzjLgfwV4bexRYxZ4/8iOgE1Ij3mO+WSS/ndRb
+ js/QLo9CFLp26lmNqmhi6NRENEDfITAM50RiimcPidqwvqwi4NakFJrDCbIDAH/h958g
+ +QOkaNZbpegYJAtCHyyL7cbCfYIdxTLzOlYqjxm01+Apdp80KtBfgkp38wnowEbfaH3o
+ rXstka2EfSYKSvBcClDIEXu5pIXlu/feFncQST9T0F4nRAEIbXZWrUZbotWhHmn4iymW
+ wIcVvYRb88cmQIYpTaTBCiWC0g0xPjWp/7jvd0MgItVOjyuItF71IYxieNICKvIv7rK1
+ PZMw==
+X-Gm-Message-State: ACgBeo1W0K9Ihou1RK8JJksW+gJpSZRBEYfJQvExDdYU1XNQ6QC/l0HM
+ WSZt8IWuVDRNMUBYD2cSx4o=
+X-Google-Smtp-Source: AA6agR4Fn4lGPNDj+VkdpCwid3ve66XVQ8L4VIZBVbVLfcwMhJmhHwO+CmYwocy3EXC3pDUoc7POZw==
+X-Received: by 2002:a05:6e02:1c2b:b0:2e9:f263:2942 with SMTP id
+ m11-20020a056e021c2b00b002e9f2632942mr24514448ilh.74.1662327779197; 
+ Sun, 04 Sep 2022 14:42:59 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.36
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:36 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:58 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 28/57] drm_print: refine drm_debug_enabled for jump-label
-Date: Sun,  4 Sep 2022 15:41:05 -0600
-Message-Id: <20220904214134.408619-29-jim.cromie@gmail.com>
+Subject: [PATCH v6 51/57] dyndbg: prevent build bugs via
+ -DNO_DYNAMIC_DEBUG_TABLE
+Date: Sun,  4 Sep 2022 15:41:28 -0600
+Message-Id: <20220904214134.408619-52-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
@@ -72,110 +73,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
+Cc: lkp@intel.com, Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
  linux@rasmusvillemoes.dk, robdclark@gmail.com, seanpaul@chromium.org,
  joe@perches.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In order to use dynamic-debug's jump-label optimization in drm-debug,
-its clarifying to refine drm_debug_enabled into 3 uses:
+The next patch adds DEFINE_DYNAMIC_DEBUG_TABLE(), which broke several
+subtrees, including efi, vdso, and some of arch/*/boot/compressed,
+with various relocation errors, iirc.
 
-1.   drm_debug_enabled - legacy, public
-2. __drm_debug_enabled - optimized for dyndbg jump-label enablement.
-3.  _drm_debug_enabled - pr_debug instrumented, observable
+Avoid those problems by adding a define to suppress the "transparent"
+DEFINE_DYNAMIC_DEBUG_TABLE() invocation.  I found the x86 problems
+myself, lkp@intel.com found arm & sparc problems, and may yet find
+others.
 
-1. The legacy version always checks the bits.
-
-2. is privileged, for use by __drm_dbg(), __drm_dev_dbg(), which do an
-early return unless the category is enabled.  For dyndbg builds, debug
-callsites are selectively "pre-enabled", so __drm_debug_enabled()
-short-circuits to true there.  Remaining callers of 1 may be able to
-use 2, case by case.
-
-3. is 1st wrapped in a macro, with a pr_debug, which reports each
-usage in /proc/dynamic_debug/control, making it observable in the
-logs.  The macro lets the pr_debug see the real caller, not an inline
-function.
-
-When plugged into 1, 3 identified ~10 remaining callers of the
-function, leading to the follow-on cleanup patch, and would allow
-activating the pr_debugs, estimating the callrate, and the potential
-savings by using the wrapper macro.  It is unused ATM, but it fills
-out the picture.
-
+Reported-by: <lkp@intel.com> # on [jimc:lkp-test/dyndbg-diet] recently
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c |  4 ++--
- include/drm/drm_print.h     | 28 ++++++++++++++++++++++++++++
- 2 files changed, 30 insertions(+), 2 deletions(-)
+ arch/arm/boot/compressed/Makefile     | 2 ++
+ arch/sparc/vdso/Makefile              | 2 ++
+ arch/x86/boot/compressed/Makefile     | 1 +
+ arch/x86/entry/vdso/Makefile          | 3 +++
+ arch/x86/purgatory/Makefile           | 1 +
+ drivers/firmware/efi/libstub/Makefile | 3 ++-
+ 6 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 29a29949ad0b..cb203d63b286 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -285,7 +285,7 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
- 	struct va_format vaf;
- 	va_list args;
+diff --git a/arch/arm/boot/compressed/Makefile b/arch/arm/boot/compressed/Makefile
+index 41bcbb460fac..f2d7a3b62727 100644
+--- a/arch/arm/boot/compressed/Makefile
++++ b/arch/arm/boot/compressed/Makefile
+@@ -81,6 +81,8 @@ compress-$(CONFIG_KERNEL_LZMA) = lzma_with_size
+ compress-$(CONFIG_KERNEL_XZ)   = xzkern_with_size
+ compress-$(CONFIG_KERNEL_LZ4)  = lz4_with_size
  
--	if (!drm_debug_enabled(category))
-+	if (!__drm_debug_enabled(category))
- 		return;
- 
- 	va_start(args, format);
-@@ -308,7 +308,7 @@ void ___drm_dbg(enum drm_debug_category category, const char *format, ...)
- 	struct va_format vaf;
- 	va_list args;
- 
--	if (!drm_debug_enabled(category))
-+	if (!__drm_debug_enabled(category))
- 		return;
- 
- 	va_start(args, format);
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index dfdd81c3287c..7631b5fb669e 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -321,11 +321,39 @@ enum drm_debug_category {
- 	DRM_UT_DRMRES
- };
- 
-+/*
-+ * 3 name flavors of drm_debug_enabled:
-+ *   drm_debug_enabled - public/legacy, always checks bits
-+ *  _drm_debug_enabled - instrumented to observe call-rates, est overheads.
-+ * __drm_debug_enabled - privileged - knows jump-label state, can short-circuit
-+ */
- static inline bool drm_debug_enabled(enum drm_debug_category category)
- {
- 	return unlikely(__drm_debug & BIT(category));
- }
- 
-+/*
-+ * Wrap fn in macro, so that the pr_debug sees the actual caller, not
-+ * the inline fn.  Using this name creates a callsite entry / control
-+ * point in /proc/dynamic_debug/control.
-+ */
-+#define _drm_debug_enabled(category)				\
-+	({							\
-+		pr_debug("todo: maybe avoid via dyndbg\n");     \
-+		drm_debug_enabled(category);			\
-+	})
++KBUILD_CFLAGS += -DNO_DYNAMIC_DEBUG_TABLE
 +
-+#if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
-+/*
-+ * dyndbg is wrapping the drm.debug API, so as to avoid the runtime
-+ * bit-test overheads of drm_debug_enabled() in those api calls.
-+ * In this case, executed callsites are known enabled, so true.
-+ */
-+#define __drm_debug_enabled(category)	true
-+#else
-+#define __drm_debug_enabled(category)	drm_debug_enabled(category)
-+#endif
+ libfdt_objs := fdt_rw.o fdt_ro.o fdt_wip.o fdt.o
+ 
+ ifeq ($(CONFIG_ARM_ATAG_DTB_COMPAT),y)
+diff --git a/arch/sparc/vdso/Makefile b/arch/sparc/vdso/Makefile
+index 77d7b9032158..58ed4d64c978 100644
+--- a/arch/sparc/vdso/Makefile
++++ b/arch/sparc/vdso/Makefile
+@@ -30,6 +30,8 @@ obj-y += $(vdso_img_objs)
+ targets += $(vdso_img_cfiles)
+ targets += $(vdso_img_sodbg) $(vdso_img-y:%=vdso%.so)
+ 
++KBUILD_CFLAGS += -DNO_DYNAMIC_DEBUG_TABLE
 +
- /*
-  * struct device based logging
-  *
+ CPPFLAGS_vdso.lds += -P -C
+ 
+ VDSO_LDFLAGS_vdso.lds = -m elf64_sparc -soname linux-vdso.so.1 --no-undefined \
+diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
+index 35ce1a64068b..b76bbf9fc504 100644
+--- a/arch/x86/boot/compressed/Makefile
++++ b/arch/x86/boot/compressed/Makefile
+@@ -36,6 +36,7 @@ KBUILD_CFLAGS := -m$(BITS) -O2 $(CLANG_FLAGS)
+ KBUILD_CFLAGS += -fno-strict-aliasing -fPIE
+ KBUILD_CFLAGS += -Wundef
+ KBUILD_CFLAGS += -DDISABLE_BRANCH_PROFILING
++KBUILD_CFLAGS += -DNO_DYNAMIC_DEBUG_TABLE
+ cflags-$(CONFIG_X86_32) := -march=i386
+ cflags-$(CONFIG_X86_64) := -mcmodel=small -mno-red-zone
+ KBUILD_CFLAGS += $(cflags-y)
+diff --git a/arch/x86/entry/vdso/Makefile b/arch/x86/entry/vdso/Makefile
+index 12f6c4d714cd..3182728f9f4d 100644
+--- a/arch/x86/entry/vdso/Makefile
++++ b/arch/x86/entry/vdso/Makefile
+@@ -29,6 +29,9 @@ vobjs32-y := vdso32/note.o vdso32/system_call.o vdso32/sigreturn.o
+ vobjs32-y += vdso32/vclock_gettime.o
+ vobjs-$(CONFIG_X86_SGX)	+= vsgx.o
+ 
++# avoid a x86_64_RELATIVE error
++KBUILD_CFLAGS += -DNO_DYNAMIC_DEBUG_TABLE
++
+ # files to link into kernel
+ obj-y				+= vma.o extable.o
+ KASAN_SANITIZE_vma.o		:= y
+diff --git a/arch/x86/purgatory/Makefile b/arch/x86/purgatory/Makefile
+index 31c634a22818..8d264836ae64 100644
+--- a/arch/x86/purgatory/Makefile
++++ b/arch/x86/purgatory/Makefile
+@@ -35,6 +35,7 @@ PURGATORY_CFLAGS_REMOVE := -mcmodel=kernel
+ PURGATORY_CFLAGS := -mcmodel=large -ffreestanding -fno-zero-initialized-in-bss -g0
+ PURGATORY_CFLAGS += $(DISABLE_STACKLEAK_PLUGIN) -DDISABLE_BRANCH_PROFILING
+ PURGATORY_CFLAGS += -fno-stack-protector
++PURGATORY_CFLAGS += -DNO_DYNAMIC_DEBUG_TABLE
+ 
+ # Default KBUILD_CFLAGS can have -pg option set when FTRACE is enabled. That
+ # in turn leaves some undefined symbols like __fentry__ in purgatory and not
+diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
+index 3ef67431f05e..2b7e34555c5a 100644
+--- a/drivers/firmware/efi/libstub/Makefile
++++ b/drivers/firmware/efi/libstub/Makefile
+@@ -14,7 +14,8 @@ cflags-$(CONFIG_X86)		+= -m$(BITS) -D__KERNEL__ \
+ 				   $(call cc-disable-warning, address-of-packed-member) \
+ 				   $(call cc-disable-warning, gnu) \
+ 				   -fno-asynchronous-unwind-tables \
+-				   $(CLANG_FLAGS)
++				   $(CLANG_FLAGS) \
++				   -DNO_DYNAMIC_DEBUG_TABLE
+ 
+ # arm64 uses the full KBUILD_CFLAGS so it's necessary to explicitly
+ # disable the stackleak plugin
 -- 
 2.37.2
 
