@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E0C3C6FA82
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14FF5C6FA82
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBE8710E379;
-	Sun,  4 Sep 2022 21:43:44 +0000 (UTC)
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [IPv6:2607:f8b0:4864:20::d2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49CC310E266;
- Sun,  4 Sep 2022 21:42:52 +0000 (UTC)
-Received: by mail-io1-xd2a.google.com with SMTP id y187so5724068iof.0;
- Sun, 04 Sep 2022 14:42:52 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3043610E25A;
+	Sun,  4 Sep 2022 21:43:47 +0000 (UTC)
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94A4610E299;
+ Sun,  4 Sep 2022 21:43:00 +0000 (UTC)
+Received: by mail-io1-xd31.google.com with SMTP id e195so5690947iof.1;
+ Sun, 04 Sep 2022 14:43:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=NJv9roPGKnaMDb9Znbql4uMkywSuYywvt+PY8YTJJ6Q=;
- b=HhTTMF5cOvfQxdSZmrczdsrS6DcF+dXJ4prb+yfBwfEsbsV/l8CegD6fvYMQv45pnL
- Lf3KTZjPRQvn2olpOHp+kmaJ4oJHgCOfWsY3FUgvHVffh1+zc352thh9xXYlfcfH2jPd
- WHUvSV9qo/7iWc+93e5dgxNXp0BN7YD7iPq5mLd4Lp375zL2U7/g25FtP4jW0poI3Xy1
- BVe/2TTcrNFKPS3ucVYZJTTlomYi+IjWKzHykbLWJSIGsDYsRKCTeZerO4ouyzRs9apT
- ceUwHG+xksDXgJwO4SLD6ULb2vBG1qGluX6Fx9greabj7IG3dRz5uT820IrbROFlv4PW
- vTYg==
+ bh=HlXlcsu2RqT6fAUiV6NVhuDn1t0xR93nZ+jChKYhqUw=;
+ b=aHV/k9J2PuitBnlhA4br73E9JnLl2gCBHHBTGdkL9KmqcRS5bomgzwR0OaqXBlVyql
+ Mf+7Y+KsEOXcIs+D0+rNcc1xfUx+tf11ZEtL7jgmdcXn3KKcYRtVgMKv2QivMhgwGB6p
+ qhysutFwua8FbpIFvlVp/S3j8MzU+FtQko8iiKsgLlooadXPLQQ21I6Q1NTrYJTip/4D
+ 0VC0OYdPKhw0V3Mzu3DZ0R5yhcn852KcFxvjVL4Bi2PKi8TFHfnlMTt0MfuMqEB1W0cT
+ r3SV72vbw59OuMsz2HCPNecCDPTzT4EzG4nBHs7LsaOq7fTjOvTkLYW8hBG4OuYPJt9E
+ DnRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=NJv9roPGKnaMDb9Znbql4uMkywSuYywvt+PY8YTJJ6Q=;
- b=Oqz6/PZLld5NHvrUkEHmwZcGvTlOMDHXFonM6HQC1gv2GGcWAIUrBFDweP9Wc1ekJ0
- KLS+sWBL/Tm4bQI4RcrpkpEKqHpZxGXLOlkGpp+N1CK9yoshpnvLxUxd3uTNSn1PNiPf
- h7pQbjVw4mHf0xYZVZMCywtuUv+AAV4zE7klzBT9JMXswGYAbw4ldY69LVERU/4hT6/y
- t/grv1f/SmyqMPKmbEItFFhN5vYUwlUOZAs3mfif+IzM9CSJkz6yU/6WqbomMW1JevyG
- VP/IdL3r4v9d2NO5MvmbUkf9OwBAlPNNPVGR523Uux4kURQQ/3ztQnE13h2ff1aF4ddg
- 4hlw==
-X-Gm-Message-State: ACgBeo0IeSEal/J7jvQVLWh5Rx6cTQ0/wEbHJ/L2OTJL6KO3GhVZTVBK
- Zuk44yOgrwp/LFYXn3W2lYw=
-X-Google-Smtp-Source: AA6agR4MY52KR1Bw1Ot+iK3sIpDRwZTCG1xc7RrkCdtaGzSPJBBL/OV4txxLoofl2HiIy/rTScLO/A==
-X-Received: by 2002:a6b:1543:0:b0:688:6fcb:fa76 with SMTP id
- 64-20020a6b1543000000b006886fcbfa76mr21261370iov.60.1662327771514; 
- Sun, 04 Sep 2022 14:42:51 -0700 (PDT)
+ bh=HlXlcsu2RqT6fAUiV6NVhuDn1t0xR93nZ+jChKYhqUw=;
+ b=EDxselT83jQL0qvrXntF5Ga9xS5B4MhrHTX41w+0Z0egLvLhpKVKQjtJI6j4RUmEN6
+ zm7m1Q/nRAu1qS2NVs6igBWslUjt2cf19vXQlSWNeeivxbeMeaLesWtJytOMreqR+OB0
+ gmKrkcVhYhoNW3nmBUI+hZ7hiPa1k7TtG8hKUG0RIi5l0hCH0RCnADHKfxZI0l5pPGaz
+ CPaVjzhl97RocA1Q/ET3pdDFlWQF2L/qa+SI5nzt4450P7KU+zrFvT4u84KGuEgTDilL
+ aBiA0ue17F/dumpHTW1fqPSAPesSpmDfAFGGxGQ7XxML20O6xIC4/V20jMEosvxSolIW
+ XSrQ==
+X-Gm-Message-State: ACgBeo2p0MHYh1TZAD6TsF1ZLTeM5M00TYpZy16CL0WhD5jZD9L8uCN5
+ YXEQY4RbCxvQeMs8HP3tnkk=
+X-Google-Smtp-Source: AA6agR7vlI7R7BZjvt5nOZUe1nHbAjNSYfJLtX8tg1fOrQTMkIvWzLEFddRnIK11jzK+Lp9kCqNOZQ==
+X-Received: by 2002:a05:6638:22d1:b0:34f:5d31:5fe with SMTP id
+ j17-20020a05663822d100b0034f5d3105femr6114929jat.185.1662327780173; 
+ Sun, 04 Sep 2022 14:43:00 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.50
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:51 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:59 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 43/57] dyndbg: add _index,_map to struct _ddebug
-Date: Sun,  4 Sep 2022 15:41:20 -0600
-Message-Id: <20220904214134.408619-44-jim.cromie@gmail.com>
+Subject: [PATCH v6 52/57] dyndbg: add DEFINE_DYNAMIC_DEBUG_TABLE,
+ use it tacitly RFC
+Date: Sun,  4 Sep 2022 15:41:29 -0600
+Message-Id: <20220904214134.408619-53-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
@@ -78,151 +79,84 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We now have 2 vectors of data: (__dyndbg, __dyndbg_sites), known to be
-equal-length, with _ddebug.site connecting them, like rungs on a
-ladder.  In order to drop _ddebug.site, we need to replace the
-absolute ptr with a cheap relative-address computation:
+This defines a new macro (tbd: tweak name) which is a special version
+of DEFINE_DYNAMIC_DEBUG_METADATA_CLS().  Unlike that macro, which
+declares callsites in pairs of desc/site recs.
 
-   struct _ddebug_site *site = _ddebug_map_site(desc);
+This macro declares a pair of header records, which the linker script
+then places once (.gnu.linkonce.) into the front of the respective
+sections.  For builtins, the .linkonce gives us a single header
+preceding all ~3-5k callsites.
 
-1st step: (done here)
+It uses __unused, __weak, .gnu.linkonce to avoid trouble with multiple
+inclusions, and should not consume space when not linked to by a
+callsite in a loadable module.
 
-add ._index, ._map fields, and initialize them in __debug_add_module()
-to N (and = each other), where N is each element's position in the
-builtins (or loaded-module).  Then _ddebug_map_site(desc) can compute
-&descs[0], and then use container_of() to go up 1 struct.
+Atypically, this macro is also tacitly invoked in the header, which is
+indirectly included by printk.h.  This means 2 things: it mostly
+insures that source files will declare it at least once, and that
+multiple decls resolve to the identical storage address.
 
-RFC: Next steps: (outlined here, not done):
-
-1. UPLINK:
-
-Define 2 new header structs, with _uplink fields, pointing at _ddebug_info:
-
-struct _ddebug_site_hdr {
-       union {
-       	     struct _ddebug_info _uplink*;
-	     struct _ddebug_site __;  // sizeof this
-	};
-};
-
-struct _ddebug_hdr {
-       union {
-       	     struct _ddebug_info _uplink*;
-	     struct _ddebug __;  // sizeof this
-	};
-};
-
-the union forces the allocation to be the bigger of the 2, with the
-expectation that the pointer will always fit.
-
-2. Reserve a record in front of the __dyndbg* sections.
-
-can be done in {module,vmlinux}.lds.h, something like:
-
-SECTIONS {
-__dyndbg_sites : ALIGN(8) { *(.gnu.linkonce.dyndbg_site) *(__dyndbg_sites) }
-__dyndbg       : ALIGN(8) { *(.gnu.linkonce.dyndbg)      *(__dyndbg) }
-}
-KEEP( *(.gnu.linkonce.__dyndbg_site) *(__dyndbg_sites))
-
-3. specialize DYNAMIC_DEBUG_METADATA_CLS as DYNAMIC_DEBUG_TABLE.
-
-This special macro version creates header records, and puts them into
-.gnu.linkonce section.  Unusually (uniquely?), it is tacitly invoked
-by dynamic_debug.h on behalf of all printk.h includers.  This can
-result in multiple "declarations" in the same scope, so macro uses
-__weak and/or __unused to suppress linkage & errors.
-
-This created mumble-RELATIVE linkage errors in a few parts of the
-kernel, I worked around this by just suppressing the declaration if
-cflags includes -DDYNDBG_NO_TABLE.
-
-The up-link is init'd in 2 cases:
-
-The file static struct _ddebug_info builtins is initialized by
-dynamic_debug_init(), with the 3 ELF sections addresses+lengths
-composing the builtin dyndbg-state.  It will be able to also
-initialize the header.UPLINK fields, as long as the storage space is
-available.  Then rel_map() can rely upon it to provide the &site ref
-for a callsite's desc*, if it is enabled.
-
-Then at runtime (assuming initialization is correct):
-
- - use _index to get &descs[0]
- - container-of gets .UPLINK to &dyndbg_info
- - info->sites[_index]	- replaces .sites
- - info->sites[_map]	- allows de-duplicated vector position. M<N
-
-But thats all talk; this patch just adds and initializes the index and
-map fields.
-
-._index:14 allows ~16k entries, more than enough for ~3k built-in
-callsites, or ~4k in amdgpu (with dyn-drm-trc commitset).  It is
-initialized in __ddebug_add_module(), a new refactorization.
-
-ddebug_add_module() is called from kernel/module.c, that interface is
-preserved.  It just passes 0 to inner fn when loading modules.
+I did this with the expectation that I could let the linker compute
+the offset and initialize ._index accordingly, but that resulted in
+some "linker cant compute" error.  Ive initialized it in
+__ddebug_add_module() instead.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 3 +++
- lib/dynamic_debug.c           | 8 ++++++++
- 2 files changed, 11 insertions(+)
+ include/linux/dynamic_debug.h | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
 diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index c05148dab367..268e903b7c4e 100644
+index f23608c38a79..23d3d2882882 100644
 --- a/include/linux/dynamic_debug.h
 +++ b/include/linux/dynamic_debug.h
-@@ -31,6 +31,8 @@ struct _ddebug {
- 	/* format is always needed, lineno shares word with flags */
- 	const char *format;
- 	const unsigned lineno:16;
-+	unsigned _index:14;
-+	unsigned _map:14;
- #define CLS_BITS 6
- 	unsigned int class_id:CLS_BITS;
- #define _DPRINTK_CLASS_DFLT		((1 << CLS_BITS) - 1)
-@@ -60,6 +62,7 @@ struct _ddebug {
- #define _DPRINTK_FLAGS_DEFAULT 0
- #endif
- 	unsigned int flags:8;
-+
- #ifdef CONFIG_JUMP_LABEL
- 	union {
- 		struct static_key_true dd_key_true;
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index f1f354efed5a..506a7e2e59d6 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -1344,6 +1344,7 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 			       const char *modname)
- {
- 	struct ddebug_table *dt;
-+	int i;
+@@ -220,6 +220,32 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)		\
+ 	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
  
- 	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
- 	if (!di->num_descs) {
-@@ -1364,6 +1365,7 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 	 */
- 	dt->mod_name = modname;
- 	dt->ddebugs = di->descs;
-+	dt->sites = di->sites;
- 	dt->num_ddebugs = di->num_descs;
- 
- 	INIT_LIST_HEAD(&dt->link);
-@@ -1372,6 +1374,12 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 	if (di->classes && di->num_classes)
- 		ddebug_attach_module_classes(dt, di->classes, di->num_classes);
- 
-+	for (i = 0; i < di->num_descs; i++) {
-+		di->descs[i]._index = base + i;
-+		v3pr_info(" %d %d %s.%s.%d\n", i, base, modname,
-+			  di->descs[i].site->_function, di->descs[i].lineno);
++/*
++ * DEFINE_DYNAMIC_DEBUG_TABLE(): This is a special version of
++ * DEFINE_DYNAMIC_DEBUG_METADATA().  It creates a single pair of
++ * header records, which the linker scripts place in front of their
++ * respective sections.
++ *
++ * To allow for a robust runtime test in dynamic_debug_init(), the
++ * pair of records is hardwired into a self-reference loop which can
++ * be validated before the field is altered to support _ddebug_map_site()
++ */
++#define DEFINE_DYNAMIC_DEBUG_TABLE()					\
++	/* forward decl, allowing loopback pointer */			\
++	struct _ddebug_hdr __used __aligned(8)				\
++		__section(".gnu.linkonce.dyndbg")			\
++		_LINKONCE_dyndbg_header;				\
++	struct _ddebug_site_hdr __used __aligned(8)			\
++		__section(".gnu.linkonce.dyndbg_site")			\
++		_LINKONCE_dyndbg_site_header = {			\
++		._uplink = (void *) &_LINKONCE_dyndbg_header		\
++	};								\
++	struct _ddebug_hdr __used __aligned(8)				\
++		__section(".gnu.linkonce.dyndbg")			\
++		_LINKONCE_dyndbg_header = {				\
++		._uplink = (void *) &_LINKONCE_dyndbg_site_header	\
 +	}
 +
- 	mutex_lock(&ddebug_lock);
- 	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
+ #ifdef CONFIG_JUMP_LABEL
+ 
+ #ifdef DEBUG
+@@ -390,4 +416,12 @@ static inline int param_get_dyndbg_classes(char *buffer, const struct kernel_par
+ 
+ extern const struct kernel_param_ops param_ops_dyndbg_classes;
+ 
++#if ((defined(CONFIG_DYNAMIC_DEBUG) ||					\
++      (defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))) \
++     && defined(KBUILD_MODNAME) && !defined(NO_DYNAMIC_DEBUG_TABLE))
++
++/* transparently invoked, except when -DNO_DYNAMIC_DEBUG_TABLE */
++DEFINE_DYNAMIC_DEBUG_TABLE();
++#endif
++
+ #endif
 -- 
 2.37.2
 
