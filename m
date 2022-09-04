@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A5F8ECAAD5
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:46:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 351D9C6FA86
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:46:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2A4D10E339;
-	Sun,  4 Sep 2022 21:43:17 +0000 (UTC)
-Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
- [IPv6:2607:f8b0:4864:20::d35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC1910E1C5;
- Sun,  4 Sep 2022 21:42:36 +0000 (UTC)
-Received: by mail-io1-xd35.google.com with SMTP id i77so5661068ioa.7;
- Sun, 04 Sep 2022 14:42:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99E0710E33E;
+	Sun,  4 Sep 2022 21:43:18 +0000 (UTC)
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98ECD10E183;
+ Sun,  4 Sep 2022 21:42:30 +0000 (UTC)
+Received: by mail-io1-xd31.google.com with SMTP id d68so5628987iof.11;
+ Sun, 04 Sep 2022 14:42:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=AsutXgMDAJiXYIziQgoUHz04vuwS74Ufjn18RboeZlU=;
- b=Qw5u5kHlAuCdVRdp5boFr8w9l56DpQmLytG5X7x/gapi8SNDYyfHxGQ865EixG1rDF
- w+qm25s4Qx7V+r1LIT4Yojr69wswh53LgdFjuv5u8ss4N7Y3M6OvvXRH+gSQtLhrl51K
- 8MA7vqh1hp2ucRb7mbZmSegCHdgHh45ZtNYeJv2RuaJEfVrE7xjijSClBWTNNcJBAAfv
- QJ9VxUtPDKNoU59NHhpkj4z/UKL9NQ5pTTXZdMEXqLoRbGLT/+iXx3JIGAlyabOc3HOS
- z4XZEA/jjk7trB7VNHK/xQkhJcQcINVffpR5ej+XDbn5uk/XFMlCTA04L/CLoqDiCira
- /Okw==
+ bh=SWtn3j+X9Qv4/8jm3akSHIAKz6ptgqW0K3O3Ay77qY0=;
+ b=kdD+2APgzWur66T/Yw0JAUha2OIBdQGSWr5pcgqmIKcw9t0P0ExtxJ+wCGmYlifBWY
+ jx4J02H6x5y7Jghzq1hjlLd3x+JlLb3u/xHIEvdFLXebvyF7FseT8Um/rfOTT8sRqkHS
+ Kwn5kYLnvRsaaJvK8r60GbVBm4z23vlSxPpIWmtoTyoxwEUVg3LWqMUsG2Yi6iDLoOmG
+ BEzbio/nlWqLK6FIxJogNbut2lE5Za4JjbwBPh5poTqO7XvQoIMgS1PV8gDVCvH69rhU
+ ccmuPpHwqKxPNGqKrdl4oLgloCvbIqvr5bIuq/7NKCEFQ+QaUBDxXUj6ZrVzTpP227xS
+ 4kDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=AsutXgMDAJiXYIziQgoUHz04vuwS74Ufjn18RboeZlU=;
- b=sFWWZjI0HXNSu+i6lF0+hLYiDKjqTFQTcqHD60ys9ioqPkjwlkZXIUu88MRppn5t2h
- pClzqToViw2nhWpNJJTDCn/sRZKbAQLGXvOt0mQtW9qX6B0VaNRuqZa2q83Q6zcrA2IH
- tVYNay414TihItQv5i9TbVanArDrdX9c+aDAh3LMwlPHZ44dQoB3xjMjWDHMlent2BaE
- 6PRnAa25XPtqdEn6qKNYoCWfG17Tk9rcYAy0jXFBo8ntcwBFDOyJlV8jEeTqa1WAaU6l
- VwFIxJvTtuERrwvEt6m9yUkyb5Xd3GOmjJIh2UoZr1KXf2Ip3KQJDITMsAEs+/ehCluX
- udqQ==
-X-Gm-Message-State: ACgBeo06XFKCvuKt1y1p261/1kqxSXogaT4WDOpRb002VrQSwQTIw2zo
- iT9WcGyw3Nd1BEjDBollKAE=
-X-Google-Smtp-Source: AA6agR4XUVL8R/sQ1zC2uzGX3CzIouq5JH8v/iId7txQSE5EgJyUlziUe0GD5gnf+dO0fl8HHWQm8g==
-X-Received: by 2002:a02:740b:0:b0:349:bcdd:ca20 with SMTP id
- o11-20020a02740b000000b00349bcddca20mr25953249jac.110.1662327753065; 
- Sun, 04 Sep 2022 14:42:33 -0700 (PDT)
+ bh=SWtn3j+X9Qv4/8jm3akSHIAKz6ptgqW0K3O3Ay77qY0=;
+ b=shV9RVbaac1mW7D1yqMVhdeNBP9nY08a3eO6/qInFyCpNtyT5P8DUNFgVqQqYA45X7
+ DhVncxJ0mFBg9e3Wns5/iqjboSBBumW1RW39b2L3Jpi9UpdbgBOS7g2CRCsjBEwZE0B8
+ qdxoUBsh6J6DsEkEA0EnaHuXJKJLlm6vNMC51vHCy2h+jfw2tcs3HFcfAvkW6KKR7uEe
+ 9jCAz4vONT5FBdUqW3IRNR36Y51rBPOvyxzFGgoZtwDipAyl8yNtSmjdkWk3Q9jwCq10
+ 8RlU4ohHIX9uQeF9cPOXCFjErh6RqFzuH5w/NznmfZWmBCR/KGnCjKenQfC3kGgr24ia
+ /3EA==
+X-Gm-Message-State: ACgBeo0wwQSNS9tOaDaDS5tgyw5AoKio0eUITmGEbwVf3Iz391iLzZs9
+ tYRfzvC375UEfyp8jVXeLDI=
+X-Google-Smtp-Source: AA6agR41XH/DfG2wtMg0P4XixHVW9m5d5cJuou6QXxyrDYjIbsET4TcIXXSM7OxtuZdeXgbZ6EA6Xg==
+X-Received: by 2002:a6b:610c:0:b0:688:820d:bd14 with SMTP id
+ v12-20020a6b610c000000b00688820dbd14mr20274946iob.205.1662327750268; 
+ Sun, 04 Sep 2022 14:42:30 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.32
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:32 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:29 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 24/57] drm_print: interpose drm_*dbg with forwarding macros
-Date: Sun,  4 Sep 2022 15:41:01 -0600
-Message-Id: <20220904214134.408619-25-jim.cromie@gmail.com>
+Subject: [PATCH v6 21/57] dyndbg: test DECLARE_DYNDBG_CLASSMAP, sysfs nodes
+Date: Sun,  4 Sep 2022 15:40:58 -0600
+Message-Id: <20220904214134.408619-22-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
@@ -78,111 +78,225 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-change drm_dev_dbg & drm_dbg to macros, which forward to the renamed
-functions (with __ prefix added).
+Demonstrate use of DECLARE_DYNDBG_CLASSMAP macro, and expose them as
+sysfs-nodes for testing.
 
-Those functions sit below the categorized layer of macros implementing
-the DRM debug.category API, and implement most of it.  These are good
-places to insert dynamic-debug jump-label mechanics, which will allow
-DRM to avoid the runtime cost of drm_debug_enabled().
+For each of the 4 class-map-types:
 
-no functional changes.
+  - declare a class-map of that type,
+  - declare the enum corresponding to those class-names
+  - share _base across 0..30 range
+  - add a __pr_debug_cls() call for each class-name
+  - declare 2 sysnodes for each class-map
+    for 'p' flag, and future 'T' flag
 
-memory cost baseline: (unchanged)
-bash-5.1# drms_load
-[    9.220389] dyndbg:   1 debug prints in module drm
-[    9.224426] ACPI: bus type drm_connector registered
-[    9.302192] dyndbg:   2 debug prints in module ttm
-[    9.305033] dyndbg:   8 debug prints in module video
-[    9.627563] dyndbg: 127 debug prints in module i915
-[    9.721505] AMD-Vi: AMD IOMMUv2 functionality not available on this system - This is not a bug.
-[   10.091345] dyndbg: 2196 debug prints in module amdgpu
-[   10.106589] [drm] amdgpu kernel modesetting enabled.
-[   10.107270] amdgpu: CRAT table not found
-[   10.107926] amdgpu: Virtual CRAT table created for CPU
-[   10.108398] amdgpu: Topology: Add CPU node
-[   10.168507] dyndbg:   3 debug prints in module wmi
-[   10.329587] dyndbg:   3 debug prints in module nouveau
+These declarations create the following sysfs parameter interface:
+
+  :#> pwd
+  /sys/module/test_dynamic_debug/parameters
+  :#> ls
+  T_disjoint_bits  T_disjoint_names  T_level_names  T_level_num  do_prints
+  p_disjoint_bits  p_disjoint_names  p_level_names  p_level_num
+
+NOTES:
+
+The local wrapper macro is an api candidate, but there are already too
+many parameters.  OTOH, maybe related enum should be in there too,
+since it has _base inter-dependencies.
+
+The T_* params control the (future) T flag on the same class'd
+pr_debug callsites as their p* counterparts.  Using them will fail,
+until the dyndbg-trace patches are added in.
+
+:#> echo 1 > T_disjoint
+[   28.792489] dyndbg: disjoint: 0x1 > test_dynamic_debug.T_D2
+[   28.793848] dyndbg: query 0: "class D2_CORE +T" mod:*
+[   28.795086] dyndbg: split into words: "class" "D2_CORE" "+T"
+[   28.796467] dyndbg: op='+'
+[   28.797148] dyndbg: unknown flag 'T'
+[   28.798021] dyndbg: flags parse failed
+[   28.798947] dyndbg: processed 1 queries, with 0 matches, 1 errs
+[   28.800378] dyndbg: bit_0: -22 matches on class: D2_CORE -> 0x1
+[   28.801959] dyndbg: test_dynamic_debug.T_D2: updated 0x0 -> 0x1
+[   28.803974] dyndbg: total matches: -22
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c | 10 +++++-----
- include/drm/drm_print.h     |  9 +++++++--
- 2 files changed, 12 insertions(+), 7 deletions(-)
+ lib/test_dynamic_debug.c | 125 ++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 110 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index ec32df35a3e3..29a29949ad0b 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -279,8 +279,8 @@ void drm_dev_printk(const struct device *dev, const char *level,
- }
- EXPORT_SYMBOL(drm_dev_printk);
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index ba3882ca3e48..8dd250ad022b 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -10,57 +10,152 @@
  
--void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
--		 const char *format, ...)
-+void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-+		   const char *format, ...)
+ #include <linux/module.h>
+ 
+-static void do_prints(void); /* device under test */
+-
+-/* run tests by reading or writing sysfs node */
++/* run tests by reading or writing sysfs node: do_prints */
+ 
++static void do_prints(void); /* device under test */
+ static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
  {
- 	struct va_format vaf;
- 	va_list args;
-@@ -301,9 +301,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
- 
- 	va_end(args);
+ 	do_prints();
+ 	return 0;
  }
--EXPORT_SYMBOL(drm_dev_dbg);
-+EXPORT_SYMBOL(__drm_dev_dbg);
- 
--void __drm_dbg(enum drm_debug_category category, const char *format, ...)
-+void ___drm_dbg(enum drm_debug_category category, const char *format, ...)
+-
+ static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
  {
- 	struct va_format vaf;
- 	va_list args;
-@@ -320,7 +320,7 @@ void __drm_dbg(enum drm_debug_category category, const char *format, ...)
- 
- 	va_end(args);
+ 	do_prints();
+ 	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
  }
--EXPORT_SYMBOL(__drm_dbg);
-+EXPORT_SYMBOL(___drm_dbg);
+-
+ static const struct kernel_param_ops param_ops_do_prints = {
+ 	.set = param_set_do_prints,
+ 	.get = param_get_do_prints,
+ };
+-
+ module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
  
- void __drm_err(const char *format, ...)
- {
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 668273e36c2c..c429c258c957 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -335,7 +335,7 @@ __printf(3, 4)
- void drm_dev_printk(const struct device *dev, const char *level,
- 		    const char *format, ...);
- __printf(3, 4)
--void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-+void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
- 		 const char *format, ...);
- 
- /**
-@@ -384,6 +384,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
- 	}								\
- })
- 
-+#define drm_dev_dbg(dev, cat, fmt, ...)				\
-+	__drm_dev_dbg(dev, cat, fmt, ##__VA_ARGS__)
+-static void do_alpha(void)
++/*
++ * Using the CLASSMAP api:
++ * - classmaps must have corresponding enum
++ * - enum symbols must match/correlate with class-name strings in the map.
++ * - base must equal enum's 1st value
++ * - multiple maps must set their base to share the 0-30 class_id space !!
++ *   (build-bug-on tips welcome)
++ * Additionally, here:
++ * - tie together sysname, mapname, bitsname, flagsname
++ */
++#define DD_SYS_WRAP(_model, _flags)					\
++	static unsigned long bits_##_model;				\
++	static struct ddebug_class_param _flags##_model = {		\
++		.bits = &bits_##_model,					\
++		.flags = #_flags,					\
++		.map = &map_##_model,					\
++	};								\
++	module_param_cb(_flags##_##_model, &param_ops_dyndbg_classes, &_flags##_model, 0600)
 +
- /**
-  * DRM_DEV_DEBUG() - Debug output for generic drm code
-  *
-@@ -485,10 +488,12 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-  */
- 
- __printf(2, 3)
--void __drm_dbg(enum drm_debug_category category, const char *format, ...);
-+void ___drm_dbg(enum drm_debug_category category, const char *format, ...);
- __printf(1, 2)
- void __drm_err(const char *format, ...);
- 
-+#define __drm_dbg(fmt, ...)		___drm_dbg(fmt, ##__VA_ARGS__)
++/* numeric input, independent bits */
++enum cat_disjoint_bits {
++	D2_CORE = 0,
++	D2_DRIVER,
++	D2_KMS,
++	D2_PRIME,
++	D2_ATOMIC,
++	D2_VBL,
++	D2_STATE,
++	D2_LEASE,
++	D2_DP,
++	D2_DRMRES };
++DECLARE_DYNDBG_CLASSMAP(map_disjoint_bits, DD_CLASS_TYPE_DISJOINT_BITS, 0,
++			"D2_CORE",
++			"D2_DRIVER",
++			"D2_KMS",
++			"D2_PRIME",
++			"D2_ATOMIC",
++			"D2_VBL",
++			"D2_STATE",
++			"D2_LEASE",
++			"D2_DP",
++			"D2_DRMRES");
++DD_SYS_WRAP(disjoint_bits, p);
++DD_SYS_WRAP(disjoint_bits, T);
 +
- /* Macros to make printk easier */
++/* symbolic input, independent bits */
++enum cat_disjoint_names { LOW = 11, MID, HI };
++DECLARE_DYNDBG_CLASSMAP(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES, 10,
++			"LOW", "MID", "HI");
++DD_SYS_WRAP(disjoint_names, p);
++DD_SYS_WRAP(disjoint_names, T);
++
++/* numeric verbosity, V2 > V1 related */
++enum cat_level_num { V0 = 14, V1, V2, V3, V4, V5, V6, V7 };
++DECLARE_DYNDBG_CLASSMAP(map_level_num, DD_CLASS_TYPE_LEVEL_NUM, 14,
++		       "V0", "V1", "V2", "V3", "V4", "V5", "V6", "V7");
++DD_SYS_WRAP(level_num, p);
++DD_SYS_WRAP(level_num, T);
++
++/* symbolic verbosity */
++enum cat_level_names { L0 = 22, L1, L2, L3, L4, L5, L6, L7 };
++DECLARE_DYNDBG_CLASSMAP(map_level_names, DD_CLASS_TYPE_LEVEL_NAMES, 22,
++			"L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7");
++DD_SYS_WRAP(level_names, p);
++DD_SYS_WRAP(level_names, T);
++
++/* stand-in for all pr_debug etc */
++#define prdbg(SYM) __pr_debug_cls(SYM, #SYM " msg\n")
++
++static void do_cats(void)
+ {
+-	pr_debug("do alpha\n");
++	pr_debug("doing categories\n");
++
++	prdbg(LOW);
++	prdbg(MID);
++	prdbg(HI);
++
++	prdbg(D2_CORE);
++	prdbg(D2_DRIVER);
++	prdbg(D2_KMS);
++	prdbg(D2_PRIME);
++	prdbg(D2_ATOMIC);
++	prdbg(D2_VBL);
++	prdbg(D2_STATE);
++	prdbg(D2_LEASE);
++	prdbg(D2_DP);
++	prdbg(D2_DRMRES);
+ }
+-static void do_beta(void)
++
++static void do_levels(void)
+ {
+-	pr_debug("do beta\n");
++	pr_debug("doing levels\n");
++
++	prdbg(V1);
++	prdbg(V2);
++	prdbg(V3);
++	prdbg(V4);
++	prdbg(V5);
++	prdbg(V6);
++	prdbg(V7);
++
++	prdbg(L1);
++	prdbg(L2);
++	prdbg(L3);
++	prdbg(L4);
++	prdbg(L5);
++	prdbg(L6);
++	prdbg(L7);
+ }
  
- #define _DRM_PRINTK(once, level, fmt, ...)				\
+ static void do_prints(void)
+ {
+-	do_alpha();
+-	do_beta();
++	do_cats();
++	do_levels();
+ }
+ 
+ static int __init test_dynamic_debug_init(void)
+ {
+ 	pr_debug("init start\n");
+-
+ 	do_prints();
+-
+ 	pr_debug("init done\n");
+ 	return 0;
+ }
+ 
+ static void __exit test_dynamic_debug_exit(void)
+ {
+-	pr_debug("exiting\n");
++	pr_debug("exited\n");
+ }
+ 
+ module_init(test_dynamic_debug_init);
 -- 
 2.37.2
 
