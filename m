@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F382BC6FA86
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:47:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C6F6ECAAD5
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:47:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAC7510E2BE;
-	Sun,  4 Sep 2022 21:43:24 +0000 (UTC)
-Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
- [IPv6:2607:f8b0:4864:20::d30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA36A10E1D3;
- Sun,  4 Sep 2022 21:42:45 +0000 (UTC)
-Received: by mail-io1-xd30.google.com with SMTP id q81so5653963iod.9;
- Sun, 04 Sep 2022 14:42:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E6B310E2A3;
+	Sun,  4 Sep 2022 21:43:30 +0000 (UTC)
+Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
+ [IPv6:2607:f8b0:4864:20::d35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2A3910E140;
+ Sun,  4 Sep 2022 21:42:25 +0000 (UTC)
+Received: by mail-io1-xd35.google.com with SMTP id r141so5678400iod.4;
+ Sun, 04 Sep 2022 14:42:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=A2zndOeDRPgGOvwAIBa0JaD1rifqqeyYUM4/f4LglP8=;
- b=Dx7ob9YDExsS8kTSLfJMyPG66UA0U31lxKW3FyZ0OB7RnX+eTy24lpN15BN0uRCHgK
- iYRtls7LairgGBqQuWjOWGt5yV/5sReWPL8tJcxGLve+LNOB7TeMPm6iwWvkuf+Gq8oK
- Jg00USMN4Sx6FBVhr4RDt6XK444pORZc4ArmQjXr5Hi+BWDooYO/+r75wEMcyKAvmeXv
- ITokxmZrLFKj9FfRabOmhj5kw4y0bEhW59aTj3Y2WyYkmh3QI84/qPuQpnu2EEilo0M9
- 03YBBWYjSQ9xaDCSkgVNC8OmCZZsemz9X0cEsj/0x82tX7xElqTn8iPg31QwPj3XtjyW
- ewQg==
+ bh=bV2pbi1NEnXBIYceq2iCnojYvMw47Sm5P0bDatZE/qY=;
+ b=DRCAFhL8qizXn9QBOsMZO6CWk737/iorbRJ4AxHGEgMlW1XjBcP+vkmFKNoyTUK0Mj
+ RgDgR2Ync4KORGyKwN45XuxZ3LCgDHh7aM7gIcdOLcttBFR6Un79bJyvT2V/T+t1uwET
+ tHeAl0kEFnMLN5umqFTSN7rOVhAj0XWVzl/y6lz8DsbMtgZKngpwCHlWQPaVdjC6LyHL
+ qSLUkoUXTZ6m9J5MpZDXz12M3aHFBVeTnL/qP7lUD45vpjehf2aOfxyxGF8UMp8S8D8U
+ hKvmKb7U5FALDSB3abvwTeqDsOg4bgbNnzuU9E1pJLb4XrIdrdIzUyRn++u3pSGOKqBq
+ 6ETw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=A2zndOeDRPgGOvwAIBa0JaD1rifqqeyYUM4/f4LglP8=;
- b=h+6z9Lk7BwTzBANgKRGhY5L5pJrXyKBx5cplOIzviLdFi6yzEpjRDypfewJ98vssuV
- 0xDpJT23nR9itAyULb7zx37vZnNyNklMFDajlbOFqUya/J1dmv5B5uyCnT1mmkCvLyfB
- AgI+TSQKP7hlGg5e9EELjSMqgXEUlyDdJ0D8gDrHHcrg6A/qPnSlXiPX5YXQIjXVQjs0
- XdejrndvOmBsWNre4NydHogZxcaNcHkiHDp8/k0nk4yqb3Roeiu/eZHgaLzZ3xDmLn0Z
- S105vvTY3hYNUXjiRZOnspwV7wZ9DFob/pZu0SVVvDQTlVM45xbIgiBERU1y7uUoWA8z
- jT3w==
-X-Gm-Message-State: ACgBeo1iocDhYrjSBodp5hQX0IRdD5lbLszGrpqAaWogoE2tzOfkTJGF
- nkkaJ4Dl3UUNdP1Lo8yJ3LY=
-X-Google-Smtp-Source: AA6agR5zZ3MpxOCe1Gv6PL9bbcItO9JKVZB4ZP+mJzEw4KEVnlCu6qXDvhLhCGEBE1WfgmU3fBenrw==
-X-Received: by 2002:a05:6638:d10:b0:34c:10d8:4f7 with SMTP id
- q16-20020a0566380d1000b0034c10d804f7mr10894388jaj.246.1662327765640; 
- Sun, 04 Sep 2022 14:42:45 -0700 (PDT)
+ bh=bV2pbi1NEnXBIYceq2iCnojYvMw47Sm5P0bDatZE/qY=;
+ b=yMlJ5eaqZCr1helUhuL3NXet4g6Ua8XMvah6x4I9G5zSYMoRQLoxLSj5mnsTsyuhDK
+ cqwclGqbovebeO8qBE/STq+EWTz+cqEaz9GVfoFgVhpAUTkVUGmnqEz9pf1JyowWAp5F
+ RnBSkjGU7aqMdW6mEzHcWz3wzFb5dfc29V1aIcJC934gPzwo38FQk+jFpVFclA+x1Knu
+ NrUBvKUWj/8T43Zhy/sT0W+ChR+VWp0+6gOIjvgCCoxJ+gcN1lR5W5mR9U8iCltel7cJ
+ AioWNNdgGDiShdRPMSXzBcaHl0fsiY0ZMNr6Si7y9zagsBHXHVY+p3wrJLAXJ37j+0Mk
+ 1RnQ==
+X-Gm-Message-State: ACgBeo2fstDQJzouGUFMUXEj6DvPzmI2pQoCq2pvHZQxdmVtsWlVgPza
+ lO38VMFCNbmPIP8yKJJv0qs=
+X-Google-Smtp-Source: AA6agR4Eiudl3FZhHqIH1u+1kjDcwObHAsibzo+7iq3K3aAIOXK9LPSM3GGiI3JaBRbAwyq3KZU0rA==
+X-Received: by 2002:a6b:3e06:0:b0:68b:7524:f342 with SMTP id
+ l6-20020a6b3e06000000b0068b7524f342mr15398868ioa.149.1662327745421; 
+ Sun, 04 Sep 2022 14:42:25 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.44
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:45 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:25 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 37/57] dyndbg: add 2 trace-events: drm_debug, drm_devdbg
-Date: Sun,  4 Sep 2022 15:41:14 -0600
-Message-Id: <20220904214134.408619-38-jim.cromie@gmail.com>
+Subject: [PATCH v6 16/57] dyndbg: add ddebug_attach_module_classes
+Date: Sun,  4 Sep 2022 15:40:53 -0600
+Message-Id: <20220904214134.408619-17-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
@@ -78,137 +78,101 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Recently added ddebug_trace() issues a single printk:console event.
-Replace that event with 2 new ones, defined in a new header:
-include/trace/events/dyndbg.h
+Add ddebug_attach_module_classes(), call it from ddebug_add_module().
+It scans the classes/section its given, finds records where the
+module-name matches the module being added, and adds them to the
+module's maps list.  No locking here, since the record
+isn't yet linked into the ddebug_tables list.
 
-- dyndbg:prdbg  - from trace_prdbg()  - if !dev
-- dyndbg:devdbg - from trace_devdbg() - if !!dev
+It is called indirectly from 2 sources:
 
-This links the legacy pr_debug API to tracefs, so pr_debug() and
-dev_dbg() calls can add more debug context into the trace-logs, and
-then at users option, less into syslog.
+ - from load_module(), where it scans the module's __dyndbg_classes
+   section, which contains DYNAMIC_DEBUG_CLASSES definitions from just
+   the module.
 
-The new events allow enabling by event-type in tracefs, and dyndbg
-allows individual enablement of prdbg callsites (via +T flag).
+ - from dynamic_debug_init(), where all DYNAMIC_DEBUG_CLASSES
+   definitions of each builtin module have been packed together.
+   This is why ddebug_attach_module_classes() checks module-name.
+
+NOTES
+
+Its (highly) likely that builtin classes will be ordered by module
+name (just like prdbg descriptors are in the __dyndbg section).  So
+the list can be replaced by a vector (ptr + length), which will work
+for loaded modules too.  This would imitate whats currently done for
+the _ddebug descriptors.
+
+That said, converting to vector,len is close to pointless; a small
+minority of modules will ever define a class-map, and almost all of
+them will have only 1 or 2 class-maps, so theres only a couple dozen
+pointers to save.  TODO: re-evaluate for lines removable.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c | 25 ++++++++++++-----
- include/trace/events/drm.h  | 54 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 72 insertions(+), 7 deletions(-)
- create mode 100644 include/trace/events/drm.h
+v6
+. fix compile err due to reorderd commits, and missed lkp report.
+. init dt->maps in ddebug_add_module, prior to ddebug_attach_module_classes
+---
+ lib/dynamic_debug.c | 32 +++++++++++++++++++++++++++++++-
+ 1 file changed, 31 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 5b93c11895bb..c50edbf443d3 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -35,6 +35,9 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_print.h>
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index fb31a1a2fc3f..b71efd0b491d 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -45,7 +45,7 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
+ extern struct ddebug_class_map __stop___dyndbg_classes[];
  
-+#define CREATE_TRACE_POINTS
-+#include <trace/events/drm.h>
+ struct ddebug_table {
+-	struct list_head link;
++	struct list_head link, maps;
+ 	const char *mod_name;
+ 	unsigned int num_ddebugs;
+ 	struct _ddebug *ddebugs;
+@@ -921,6 +921,32 @@ static const struct proc_ops proc_fops = {
+ 	.proc_write = ddebug_proc_write
+ };
+ 
++static void ddebug_attach_module_classes(struct ddebug_table *dt,
++					 struct ddebug_class_map *classes,
++					 int num_classes)
++{
++	struct ddebug_class_map *cm;
++	int i, j, ct = 0;
++
++	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
++
++		if (!strcmp(cm->mod_name, dt->mod_name)) {
++
++			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
++				  cm->mod_name, cm->base, cm->length, cm->map_type);
++
++			for (j = 0; j < cm->length; j++)
++				v3pr_info(" %d: %d %s\n", j + cm->base, j,
++					  cm->class_names[j]);
++
++			list_add(&cm->link, &dt->maps);
++			ct++;
++		}
++	}
++	if (ct)
++		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
++}
 +
  /*
-  * __drm_debug: Enable debug output.
-  * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
-@@ -293,13 +296,19 @@ void __drm_dev_dbg(struct _ddebug *desc, const struct device *dev,
- 	vaf.fmt = format;
- 	vaf.va = &args;
+  * Allocate a new ddebug_table for the given module
+  * and add it to the global list.
+@@ -952,6 +978,10 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
+ 	dt->num_ddebugs = di->num_descs;
  
--	if (dev)
--		dev_printk(KERN_DEBUG, dev, "[" DRM_NAME ":%ps] %pV",
--			   __builtin_return_address(0), &vaf);
--	else
--		printk(KERN_DEBUG "[" DRM_NAME ":%ps] %pV",
--		       __builtin_return_address(0), &vaf);
--
-+	if (dev) {
-+		if (desc->flags & _DPRINTK_FLAGS_PRINTK)
-+			dev_printk(KERN_DEBUG, dev, "[" DRM_NAME ":%ps] %pV",
-+				   __builtin_return_address(0), &vaf);
-+		if (desc->flags & _DPRINTK_FLAGS_TRACE)
-+			trace_drm_devdbg(dev, category, &vaf);
-+	} else {
-+		if (desc->flags & _DPRINTK_FLAGS_PRINTK)
-+			printk(KERN_DEBUG "[" DRM_NAME ":%ps] %pV",
-+			       __builtin_return_address(0), &vaf);
-+		if (desc->flags & _DPRINTK_FLAGS_TRACE)
-+			trace_drm_debug(category, &vaf);
-+	}
- 	va_end(args);
- }
- EXPORT_SYMBOL(__drm_dev_dbg);
-@@ -319,6 +328,8 @@ void ___drm_dbg(struct _ddebug *desc, enum drm_debug_category category, const ch
- 	printk(KERN_DEBUG "[" DRM_NAME ":%ps] %pV",
- 	       __builtin_return_address(0), &vaf);
+ 	INIT_LIST_HEAD(&dt->link);
++	INIT_LIST_HEAD(&dt->maps);
++
++	if (di->classes && di->num_classes)
++		ddebug_attach_module_classes(dt, di->classes, di->num_classes);
  
-+	trace_drm_debug(category, &vaf);
-+
- 	va_end(args);
- }
- EXPORT_SYMBOL(___drm_dbg);
-diff --git a/include/trace/events/drm.h b/include/trace/events/drm.h
-new file mode 100644
-index 000000000000..589fa1e1f2c2
---- /dev/null
-+++ b/include/trace/events/drm.h
-@@ -0,0 +1,54 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#undef TRACE_SYSTEM
-+#define TRACE_SYSTEM drm
-+
-+#if !defined(_TRACE_DRM_H) || defined(TRACE_HEADER_MULTI_READ)
-+#define _TRACE_DRM_H
-+
-+#include <linux/tracepoint.h>
-+
-+/* drm_debug() was called, pass its args */
-+TRACE_EVENT(drm_debug,
-+	    TP_PROTO(int drm_debug_category, struct va_format *vaf),
-+
-+	    TP_ARGS(drm_debug_category, vaf),
-+
-+	    TP_STRUCT__entry(
-+		    __field(int, drm_debug_category)
-+		    __vstring(msg, vaf->fmt, vaf->va)
-+		    ),
-+
-+	    TP_fast_assign(
-+		    __entry->drm_debug_category = drm_debug_category;
-+		    __assign_vstr(msg, vaf->fmt, vaf->va);
-+		    ),
-+
-+	    TP_printk("%s", __get_str(msg))
-+);
-+
-+/* drm_devdbg() was called, pass its args, preserving order */
-+TRACE_EVENT(drm_devdbg,
-+	    TP_PROTO(const struct device *dev, int drm_debug_category, struct va_format *vaf),
-+
-+	    TP_ARGS(dev, drm_debug_category, vaf),
-+
-+	    TP_STRUCT__entry(
-+		    __field(const struct device*, dev)
-+		    __field(int, drm_debug_category)
-+		    __vstring(msg, vaf->fmt, vaf->va)
-+		    ),
-+
-+	    TP_fast_assign(
-+		    __entry->drm_debug_category = drm_debug_category;
-+		    __entry->dev = dev;
-+		    __assign_vstr(msg, vaf->fmt, vaf->va);
-+		    ),
-+
-+	    TP_printk("cat:%d, %s %s", __entry->drm_debug_category,
-+		      dev_name(__entry->dev), __get_str(msg))
-+);
-+
-+#endif /* _TRACE_DRM_H */
-+
-+/* This part must be outside protection */
-+#include <trace/define_trace.h>
+ 	mutex_lock(&ddebug_lock);
+ 	list_add_tail(&dt->link, &ddebug_tables);
 -- 
 2.37.2
 
