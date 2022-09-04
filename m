@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3E0BECAAD5
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D145ECAAD5
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7B2410E38D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91DB210E38B;
 	Sun,  4 Sep 2022 21:43:46 +0000 (UTC)
-Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
- [IPv6:2607:f8b0:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C86A810E1C4;
- Sun,  4 Sep 2022 21:42:43 +0000 (UTC)
-Received: by mail-il1-x12d.google.com with SMTP id s11so3868244ilt.7;
- Sun, 04 Sep 2022 14:42:43 -0700 (PDT)
+Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
+ [IPv6:2607:f8b0:4864:20::d2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81D4610E2CB;
+ Sun,  4 Sep 2022 21:43:05 +0000 (UTC)
+Received: by mail-io1-xd2b.google.com with SMTP id 62so5674429iov.5;
+ Sun, 04 Sep 2022 14:43:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=TAwV35ZWZLIKqOElwfkhFfIbRXseVOLIKBiUUUQjUVQ=;
- b=YQSF24Us+VgO6MmkwBVVohgShZMcax7Tlk2S3GvdeKpX8+kDOiSv3UtwHdryBa/MfZ
- MVJvIEFu2ceZYdrJvC7LCgaG6cEGWWOo9rPDcMnnD+bMW23GiPRN5wZw8EBRiwT0rE4D
- tyIORau8tjxdkTvurYsJa1KKbPC7Xw24bYyvtnAHFUTaVJyVUi4XMOenzHqGO8vAeZLz
- IykguT8g4g+lANiwbVQH2BC/Z9FWb7/vEYDvWbQ9K6c9NLNB3P6ZPkHEEo1aJnLu/3DP
- so/ytamyrgwlaVUiFuKwgSUCvGgReaF3szmlQpVggMMm6ySVIhuDBYvRb9VRu2wy021f
- mxrg==
+ bh=gc3CEPtxYjk29+Wh9qd9Uhba+Qcycq/xTeA557V/yJA=;
+ b=pjBlhL+ATdSasCB8eiAlDBtg6VQZe3cAxxbzs1dn4fhsTGll1ZJKZVPkMR2mAe6vQD
+ +1ZUleBqb9yFLUkLQLuRp4esV7jUMm+9nkPY8LhEgMfb+aZzAVC2mkPJrqbpGbEQhkRo
+ beZ5FNifB5rdJxWg7R8D5bcVcnK7tDty4bpm3uL/kbFe0gGnoJy6MFouLJWvzkGtbSFw
+ KbDqjScDXUcFQ9R/5Be0XLDU0graPMWJvrt9XQvpuQIZmHQO8jVZA6GPpMTQquJWxpzE
+ uymD2AvAzBcc+9sFlbROngihXuT8MzFti5OGgYB/TVQyB52NFye/DNbIZ9Wq82jlh8uk
+ kuiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=TAwV35ZWZLIKqOElwfkhFfIbRXseVOLIKBiUUUQjUVQ=;
- b=GXnssqtqRnAF3GHkQWsyxXYaHG2kQ5OPiCWi7qXYHs9ADMxQkstc63Gpl6ksN4vDRU
- C3nMqV5EyeyM9azu4GyXVPdSTHYcrXskwy5+1vubqWxkc9grOC0LDoqFgZ9ePUb2gIhY
- yulCTtOQXQ62weE6LoxgqSKhih1JbvXQI9WS9DMsx/R/ZNpgaR1d0BNGdDRpi2XmR4xS
- TUTaaD1xCad9WIgtoSvVqYFkOwiJdus/zisB7mzcciLOPQy1GkqMSmRGFBlrwi3rJtM4
- ZZ/4K+LfWntWb6mpUXaVO0RdUpsw03Lyhe0b0gAUkHcS4n/9yg/CXGoqjQftynEAjlCW
- 3Wxg==
-X-Gm-Message-State: ACgBeo0xyQL6wrWRIKpox+rDp6Y5ETJWt40kRX7q1cpiCojJcut805Jq
- fla9S2MK1fz0gNVekuKBoo4=
-X-Google-Smtp-Source: AA6agR5dlZ+2mbjYaiVo07B1ri+ETbudxxDzknKKyObWsKY9ZVDTd1RmO8d48xns2r12tpVnSs9bbw==
-X-Received: by 2002:a05:6e02:12ed:b0:2eb:753e:cfb with SMTP id
- l13-20020a056e0212ed00b002eb753e0cfbmr12322927iln.14.1662327763512; 
- Sun, 04 Sep 2022 14:42:43 -0700 (PDT)
+ bh=gc3CEPtxYjk29+Wh9qd9Uhba+Qcycq/xTeA557V/yJA=;
+ b=aDGqCwjdA+bWLEIBtyn+2NjY/j2CF/7TdOJRCEZHdERfGB1Z4A4segeRQ2oj/yeOSU
+ k85aROVZZdqzYQ4k0oxHX5QDmTb+vvDOg5gjhTwDhDOkrqZ0ilce6rtU7IFgaRBc3+g6
+ T0SgAZ1YdqOny+VsQwbmVrVir/RESYaLWFRfGCE9xYeeTzZ0UEPQSJZabuXwDGeWYQ/s
+ BuRPDjXAx3tnFtn0lztTnYlpsmFwpbL6HrUsgFACFRo3HrMcC9FzjliMVF1QbsFYaRA3
+ c0PD5G8dUyAb8xyq34R0CXkY8UhvL3ag6Mo5xYSrh3rWF5VhiodwEr7dA4ewyFGwPrN7
+ dENg==
+X-Gm-Message-State: ACgBeo3efeaURAKS0u/8VUQMvjU/QZ3jJvddx9dF7mbbZhrjGq6izDQk
+ t8w0H6xnZzUhN0I5tIyR9ow=
+X-Google-Smtp-Source: AA6agR62BzXzT17KlWx9uqQOlpAhM116jyafKxT3anpuAMgqBhik1FZ5pmVPGg2GE9QdKZVv5ooKrQ==
+X-Received: by 2002:a05:6638:24c2:b0:346:ce9e:3eff with SMTP id
+ y2-20020a05663824c200b00346ce9e3effmr25894336jat.262.1662327784843; 
+ Sun, 04 Sep 2022 14:43:04 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.42
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.43.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:43 -0700 (PDT)
+ Sun, 04 Sep 2022 14:43:04 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 35/57] dyndbg: add _DPRINTK_FLAGS_TRACE
-Date: Sun,  4 Sep 2022 15:41:12 -0600
-Message-Id: <20220904214134.408619-36-jim.cromie@gmail.com>
+Subject: [PATCH v6 57/57] dyndbg: fiddle with readback value on LEVEL_NAMES
+ types
+Date: Sun,  4 Sep 2022 15:41:34 -0600
+Message-Id: <20220904214134.408619-58-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
@@ -73,34 +74,37 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
- vincent.whitchurch@axis.com, linux@rasmusvillemoes.dk, robdclark@gmail.com,
- seanpaul@chromium.org, joe@perches.com
+ linux@rasmusvillemoes.dk, robdclark@gmail.com, seanpaul@chromium.org,
+ joe@perches.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add new flag, and OR it into _DPRINTK_FLAGS_ENABLED definition
+my test scripts were writing one val, reading back val+1
 
-CC: vincent.whitchurch@axis.com
+  echo L3 > p_level_names
+  cat p_level_names
+  L4
+
+fix this w a -1 offset.
+
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ lib/dynamic_debug.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index ecd3379090c4..04f49df308a7 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -42,7 +42,9 @@ struct _ddebug {
- 	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
- 	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID)
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 11fea1f818a7..7d458601a61b 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -830,6 +830,8 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+ 		return scnprintf(buffer, PAGE_SIZE, "0x%lx\n", *dcp->bits);
  
--#define _DPRINTK_FLAGS_ENABLED		_DPRINTK_FLAGS_PRINTK
-+#define _DPRINTK_FLAGS_TRACE		(1 << 5)
-+#define _DPRINTK_FLAGS_ENABLED		(_DPRINTK_FLAGS_PRINTK | \
-+					 _DPRINTK_FLAGS_TRACE)
- 
- #if defined DEBUG
- #define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINTK
+ 	case DD_CLASS_TYPE_LEVEL_NAMES:
++		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl - 1);
++
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+ 		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
+ 	default:
 -- 
 2.37.2
 
