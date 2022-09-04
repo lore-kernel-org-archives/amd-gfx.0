@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68878C6FA82
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:49:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA6ABC6FA82
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:49:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8DF910E849;
-	Sun,  4 Sep 2022 21:44:01 +0000 (UTC)
-Received: from mail-il1-x136.google.com (mail-il1-x136.google.com
- [IPv6:2607:f8b0:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7762810E183;
- Sun,  4 Sep 2022 21:43:01 +0000 (UTC)
-Received: by mail-il1-x136.google.com with SMTP id h14so3864060ilh.10;
- Sun, 04 Sep 2022 14:43:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DDAF10E6AF;
+	Sun,  4 Sep 2022 21:44:03 +0000 (UTC)
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE38710E1C5;
+ Sun,  4 Sep 2022 21:42:42 +0000 (UTC)
+Received: by mail-io1-xd31.google.com with SMTP id e195so5690736iof.1;
+ Sun, 04 Sep 2022 14:42:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=e3ozCdACMZmIXizqK002HFm7hj6BkwsMmmCq1NgZ3+4=;
- b=BbbFDk5Ds3TKsvXVbegzI7CpK80eT1rLEmQAVhGGmkbjefDTu1gcIWX3uZ+Gm3W16k
- 3S2yBAZFyR4M8ryCfllvuDfTEF5RipMBjPts8hfi0pV7bgB3wzkcHuY4zKj4khhmKXMX
- pSl1t58XXxStJLZnSVd/tYgQeSDea1W2Q0b2Yjqp1FxlZFqw6LWpNqFhC6szuGaRu8dl
- 5KSWJpEvt20IxDYiChjLMX8wBoKwHlILNtfzF8+iMXyfBHmY6aJSuvXzt1gP3PkSoi/Q
- ObHbdHfGYhfOUrMIzj4dzek2gnNfsuuTirJYodRLuPa4LRKsvPAHjppmK36ztUBZgFy/
- TBLA==
+ bh=yB0p6m1pbFn82PaaCe9bX0Com85Je0ESfO84kw+YqGQ=;
+ b=UQ8KTpkUZuUjPBlMxj/1xzitRYQINMPQpY3Hd7AH9zV7Ub4knjfNFZVsDZcPlumg6D
+ RVvYcS9KlYeVAl2ypb4nyaXZuZp4hKLEPCUJULeth+dw9XjB7AZUphJjVMw77uQvbwIP
+ F74jHiu1hanUG/lW7nkcHVm36JEUcgagI5taL7R0dabNs3eanVGIGy30Bz+y4yv7YaJg
+ uJQDYEHEOVxa0h3AynNMElY1UV5uwXtZvaejV0B8nW90gt5D3JzxCo087m/HxCJPbM3P
+ OmgAgxgRkcofaDF0Os9F+y60Rz4cN4ndRv4xMNT9b4kOQ3TXaSKJIqrX2mX1Xky6pPdt
+ OYJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=e3ozCdACMZmIXizqK002HFm7hj6BkwsMmmCq1NgZ3+4=;
- b=4H7/K/9dwxSeIR+S0Ua6L8yAegt1yf4fTq5J+ZJwIEx8hJ797nmNsfkxA/89Fclx4+
- DR/eUB8puQcM+F4FD+aQl8pvXSyyRnbTR+r3mM+bMjKieJWGHtoNpPOuQDLA/O1od8lx
- L7vFvSCFJVKMuE4bf59XFU/9TiCy4E/1jRdomZ9jEbWsQ5IjTgniw5woHOHr5FVg24pl
- WZI1kIzBiuuc7xw4FJgdwys0LndOubm9ZFM7P+8RIg054C0S6nrNCS1JLEIbPPKqAHJ7
- m4XShX1zPnbxzMRmCYoMIVV4brMrbt1Ext6pKGq1EQ1ghzyVMtLPPkrvbgXMDfCHMLkJ
- XNTg==
-X-Gm-Message-State: ACgBeo2+r+F+6NGrJvMwMBZx0DKMkMVk8tocVFTEePz6ymA+LXc8ANcM
- Cxqh/KESSHPaGZtjnPPEYYo=
-X-Google-Smtp-Source: AA6agR5Ky+BjL0NnfIX4cYKS1KnsINOXh0NpNlMijj01ekGHcYdvtJWlYQecsvf47LfzeAoLHEZ2MA==
-X-Received: by 2002:a05:6e02:1524:b0:2ec:71c6:7b85 with SMTP id
- i4-20020a056e02152400b002ec71c67b85mr9725292ilu.237.1662327781031; 
- Sun, 04 Sep 2022 14:43:01 -0700 (PDT)
+ bh=yB0p6m1pbFn82PaaCe9bX0Com85Je0ESfO84kw+YqGQ=;
+ b=g/z26cCJqKHx4bIGC3LIPOXrHfctO6Qa9qt/Cuskyl+yQDIiLlGVzJFzjsrwkV6o1H
+ iuARW4rZ6rOCQH+HF6qv5IPROCY5nomcnfK+zWIhatddqbN9vn7sWiu5r98TRBwwzp6a
+ 8mmQnAjxgnXesdttlNr9C/g+XwNGc94y/rF6FtIl7olmKesUW/EvWUjZLnISH7pfAuT2
+ dobMWgT62AH20QLSW5LL6hKMVfVBpnN21DeGxwbAXP6k1EizQ2FqNM3TJTU2uFBNpdVn
+ 8lr+jIonNJqsMw1SIxTvgygFYgLJBAbOaBDpLmIn06WWIQDo9uhF1cr3UlGBUo6lsWcU
+ WYmg==
+X-Gm-Message-State: ACgBeo2RbYHMdvL8s1fwG+BTs2oMvb66BjxKQCYj3G/+7A7JvQ+zzTcf
+ hlKc96NZni+fBpNScGCpPr4=
+X-Google-Smtp-Source: AA6agR5hyoFODwyMk2f+k/6+4G4cl6nFZCnCNI0y+wxYxmE+qgJlFbiwfQMvoxjNj4fTWX0cU6fXrg==
+X-Received: by 2002:a05:6638:3712:b0:34a:31f:b80 with SMTP id
+ k18-20020a056638371200b0034a031f0b80mr24360396jav.84.1662327762569; 
+ Sun, 04 Sep 2022 14:42:42 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.43.00
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:43:00 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:42 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 53/57] dyndbg: add/use is_dyndbg_header then set _uplink
-Date: Sun,  4 Sep 2022 15:41:30 -0600
-Message-Id: <20220904214134.408619-54-jim.cromie@gmail.com>
+Subject: [PATCH v6 34/57] dyndbg: add _DPRINTK_FLAGS_ENABLED
+Date: Sun,  4 Sep 2022 15:41:11 -0600
+Message-Id: <20220904214134.408619-35-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
@@ -73,115 +73,91 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
- linux@rasmusvillemoes.dk, robdclark@gmail.com, seanpaul@chromium.org,
- joe@perches.com
+ vincent.whitchurch@axis.com, linux@rasmusvillemoes.dk, robdclark@gmail.com,
+ seanpaul@chromium.org, joe@perches.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add static int is_dyndbg_header(d), which verifies that the arg is
-initialized as expected; that it points to the _ddebug_hdr &
-_ddebug_site_hdr records initialized by DYNAMIC_DEBUG_TABLE().
+Distinguish the condition: _DPRINTK_FLAGS_ENABLED from the bit:
+_DPRINTK_FLAGS_PRINT, and re-define former in terms of latter, in
+preparation to add a 2nd bit: _DPRINTK_FLAGS_TRACE
 
-That init macro sets the _uplink fields in the 2 records to point at
-each other.  This is an impossible situation for the regular callsite
-record pairs built by *_METADATA_CLS(), so it provides a robust
-verification that linkage happened as we require/depend upon.
+Update JUMP_LABEL code block to check _DPRINTK_FLAGS_ENABLED symbol.
+Also add a 'K' to get new symbol _DPRINTK_FLAGS_PRINTK, in order to
+break any stale uses.
 
-In dynamic_debug_init(), is_dyndbg_header() validates the header, and
-sets _uplink to builtin_state.
-
-Thereafter, ddebug_map_site() can use it, and we can drop the
-_ddebug.site member, and shrink the DATA footprint.
+CC: vincent.whitchurch@axis.com
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h |  1 +
- lib/dynamic_debug.c           | 38 +++++++++++++++++++++++++++++++++--
- 2 files changed, 37 insertions(+), 2 deletions(-)
+ include/linux/dynamic_debug.h | 10 ++++++----
+ lib/dynamic_debug.c           |  8 ++++----
+ 2 files changed, 10 insertions(+), 8 deletions(-)
 
 diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 23d3d2882882..ed3e1e1c08eb 100644
+index 41682278d2e8..ecd3379090c4 100644
 --- a/include/linux/dynamic_debug.h
 +++ b/include/linux/dynamic_debug.h
-@@ -149,6 +149,7 @@ struct _ddebug_site_hdr {
- /* encapsulate linker provided built-in (or module) dyndbg vectors */
- struct _ddebug_info {
- 	struct _ddebug_hdr *hdr;
-+	struct _ddebug_site_hdr *site_hdr;
- 	struct _ddebug *descs;
- 	struct _ddebug_site *sites;
- 	struct ddebug_class_map *classes;
+@@ -32,7 +32,7 @@ struct _ddebug {
+ 	 * writes commands to <debugfs>/dynamic_debug/control
+ 	 */
+ #define _DPRINTK_FLAGS_NONE	0
+-#define _DPRINTK_FLAGS_PRINT	(1<<0) /* printk() a message using the format */
++#define _DPRINTK_FLAGS_PRINTK	(1 << 0) /* printk() a message using the format */
+ #define _DPRINTK_FLAGS_INCL_MODNAME	(1<<1)
+ #define _DPRINTK_FLAGS_INCL_FUNCNAME	(1<<2)
+ #define _DPRINTK_FLAGS_INCL_LINENO	(1<<3)
+@@ -42,8 +42,10 @@ struct _ddebug {
+ 	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
+ 	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID)
+ 
++#define _DPRINTK_FLAGS_ENABLED		_DPRINTK_FLAGS_PRINTK
++
+ #if defined DEBUG
+-#define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINT
++#define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINTK
+ #else
+ #define _DPRINTK_FLAGS_DEFAULT 0
+ #endif
+@@ -198,10 +200,10 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 
+ #ifdef DEBUG
+ #define DYNAMIC_DEBUG_BRANCH(descriptor) \
+-	likely(descriptor.flags & _DPRINTK_FLAGS_PRINT)
++	likely(descriptor.flags & _DPRINTK_FLAGS_ENABLED)
+ #else
+ #define DYNAMIC_DEBUG_BRANCH(descriptor) \
+-	unlikely(descriptor.flags & _DPRINTK_FLAGS_PRINT)
++	unlikely(descriptor.flags & _DPRINTK_FLAGS_ENABLED)
+ #endif
+ 
+ #endif /* CONFIG_JUMP_LABEL */
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 891d70d7fed4..0a68fbfd8432 100644
+index 009f2ead09c1..1e9d0124a0e9 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -1339,6 +1339,25 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt,
- 		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
+@@ -89,7 +89,7 @@ static inline const char *trim_prefix(const char *path)
  }
  
-+/*
-+ * detect the hardwired loopback initialized into the header pairs'
-+ * _uplink member.  In dynamic_debug_init(), it verifies the presence
-+ * of the header, before setting its _uplink to either &builtin_state
-+ * or the module's embedded _ddebug_info.  __ddebug_add_module() will
-+ * also use it..
-+ */
-+static int is_dyndbg_header(struct _ddebug_hdr *hdr)
-+{
-+	struct _ddebug_site_hdr *sp;
-+
-+	if (!hdr || !hdr->_uplink)
-+		return 0;
-+
-+	sp = (struct _ddebug_site_hdr *) ((struct _ddebug_hdr *)hdr)->_uplink;
-+	return hdr == (struct _ddebug_hdr *)
-+		((struct _ddebug_site_hdr *)sp)->_uplink;
-+}
-+
- /*
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
-@@ -1351,6 +1370,15 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 	int i, num_funcs = 0;
- 
- 	v3pr_info("add-module: %s %d/%d sites, start: %d\n", modname, di->num_descs, di->num_sites, base);
-+
-+	if (is_dyndbg_header((struct _ddebug_hdr *)&di->descs[0])) {
-+		pr_info("module header\n");
-+		di->hdr = (struct _ddebug_hdr *) di->descs;
-+		di->descs++;
-+		di->sites++;
-+		di->num_descs--;
-+		di->num_sites--;
-+	}
- 	if (!di->num_descs) {
- 		v3pr_info(" skip %s\n", modname);
- 		return 0;
-@@ -1525,6 +1553,7 @@ static int __init dynamic_debug_init(void)
- 
- 	struct _ddebug_info di = {
- 		.hdr = __dyndbg_header,
-+		.site_hdr = __dyndbg_site_header,
- 		.descs = __start___dyndbg,
- 		.sites = __start___dyndbg_sites,
- 		.classes = __start___dyndbg_classes,
-@@ -1548,11 +1577,16 @@ static int __init dynamic_debug_init(void)
- 		pr_err("unequal vectors: descs/sites %d/%d\n", di.num_descs, di.num_sites);
- 		return 1;
- 	}
--
- 	/* these 2 print the same, until _TABLE is added */
--	v2pr_info("%px %px \n", __dyndbg_header, __dyndbg_site_header);
-+	v2pr_info("%px %px \n", di.hdr, __dyndbg_site_header);
- 	v2pr_info("%px %px \n", di.descs, di.sites);
- 
-+	if (is_dyndbg_header(di.hdr)) {
-+		di.hdr->_uplink = &builtin_state;
-+	} else {
-+		pr_err("missing header records: cannot continue!\n");
-+		return 1;
-+	}
- 	iter = iter_mod_start = __start___dyndbg;
- 	site = site_mod_start = __start___dyndbg_sites;
- 	modname = site->_modname;
+ static struct { unsigned flag:8; char opt_char; } opt_array[] = {
+-	{ _DPRINTK_FLAGS_PRINT, 'p' },
++	{ _DPRINTK_FLAGS_PRINTK, 'p' },
+ 	{ _DPRINTK_FLAGS_INCL_MODNAME, 'm' },
+ 	{ _DPRINTK_FLAGS_INCL_FUNCNAME, 'f' },
+ 	{ _DPRINTK_FLAGS_INCL_LINENO, 'l' },
+@@ -246,10 +246,10 @@ static int ddebug_change(const struct ddebug_query *query,
+ 			if (newflags == dp->flags)
+ 				continue;
+ #ifdef CONFIG_JUMP_LABEL
+-			if (dp->flags & _DPRINTK_FLAGS_PRINT) {
+-				if (!(newflags & _DPRINTK_FLAGS_PRINT))
++			if (dp->flags & _DPRINTK_FLAGS_ENABLED) {
++				if (!(newflags & _DPRINTK_FLAGS_ENABLED))
+ 					static_branch_disable(&dp->key.dd_key_true);
+-			} else if (newflags & _DPRINTK_FLAGS_PRINT) {
++			} else if (newflags & _DPRINTK_FLAGS_ENABLED) {
+ 				static_branch_enable(&dp->key.dd_key_true);
+ 			}
+ #endif
 -- 
 2.37.2
 
