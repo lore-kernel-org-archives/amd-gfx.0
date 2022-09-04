@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA136ECAAD3
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 11:03:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5D8CECAAD3
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 12:36:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABD4610E009;
-	Sun,  4 Sep 2022 11:03:58 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0ACD10E009;
- Sun,  4 Sep 2022 11:03:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E4FA10E09A;
+	Sun,  4 Sep 2022 12:36:02 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C47A910E07E;
+ Sun,  4 Sep 2022 12:35:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662289435; x=1693825435;
+ t=1662294957; x=1693830957;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=4xFvZorPNgarWpqxdvR5B56hPUE5VZ8Xelhg2+9k5mE=;
- b=F/N2V5QyOrjhU42Migqzbqwdg4O/IFM/Rn9EbctrVsgFMHgaqciUthQz
- gYfq8DITuqa/BFpzylrs0c0XDbyPPolq3M8Zh4+Y6jh1kJq2cOmixYWZg
- ymX9qVpg4yHSYYI9yMSS5q+Xr513iROzlZg+gF7E0VT0mv7fETD0zsj5p
- qERcEeWtVX4Db+RKXOQdxvGsq4BDXAOvJqpMYguSgb9ol083sFbu230V/
- GnlAZLVPiscGg2rFcgKn+CsYSu2ogY8mHdre4aiNopI8FtvVfxpnqaZKU
- zEoCNyKojtoh+6EOd4Dlz70xccGtZCmC7azOKcz1mErDU7DWoMC3JkzlN w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10459"; a="279247945"
-X-IronPort-AV: E=Sophos;i="5.93,289,1654585200"; d="scan'208";a="279247945"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Sep 2022 04:03:54 -0700
+ bh=piSF2v4mJ2U0UnZMtBmkBQ2gtOgRHy7T+1lHBFuWN6Q=;
+ b=gqNREGl+eK+al3tyeRzLAA5hnl9ICsuJbiME9YASIw2mWL0AEaCsiLWQ
+ 1vtREpFBfjfuTQN1ePCUKRwlRB6LqQY3T3dN4j+WaSKD3Q85GsZNpUkOG
+ M/9hFtX51yyPqM15CHKs0w6uHEcdC9oJHZSIOQ9rGNejHI37W/7HUVxka
+ ERkG/2CPII/1RZGPdzsYvE6HEKj/IHpHGfIhcy7ORoupoRtDnee36HJvk
+ F1+3sT3AyIwoQkd0/Ng36IqH7hMQq3qOT4x8c3dKc5YLbIclu8ZvXCwy9
+ 9n4yoSguCkNZceNHXP9LL8oSe/uE5Ep5DXduKhwuziqjXUIhFLWczrQ1v g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10459"; a="297024056"
+X-IronPort-AV: E=Sophos;i="5.93,289,1654585200"; d="scan'208";a="297024056"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Sep 2022 05:35:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,289,1654585200"; d="scan'208";a="681754228"
+X-IronPort-AV: E=Sophos;i="5.93,289,1654585200"; d="scan'208";a="564462865"
 Received: from lkp-server02.sh.intel.com (HELO 95dfd251caa2) ([10.239.97.151])
- by fmsmga004.fm.intel.com with ESMTP; 04 Sep 2022 04:03:50 -0700
+ by orsmga003.jf.intel.com with ESMTP; 04 Sep 2022 05:35:53 -0700
 Received: from kbuild by 95dfd251caa2 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oUnPq-0002zT-0A;
- Sun, 04 Sep 2022 11:03:50 +0000
-Date: Sun, 4 Sep 2022 19:03:21 +0800
+ (envelope-from <lkp@intel.com>) id 1oUoqu-00032l-2a;
+ Sun, 04 Sep 2022 12:35:52 +0000
+Date: Sun, 4 Sep 2022 20:35:17 +0800
 From: kernel test robot <lkp@intel.com>
 To: Jingyu Wang <jingyuwang_vip@163.com>, alexander.deucher@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
@@ -44,7 +44,7 @@ To: Jingyu Wang <jingyuwang_vip@163.com>, alexander.deucher@amd.com,
  Hawking.Zhang@amd.com, andrey.grodzovsky@amd.com, solomon.chiu@amd.com
 Subject: Re: [PATCH] drm: amd: This is a patch to the amdgpu_drv.c file that
  fixes some warnings and errors found by the checkpatch.pl tool
-Message-ID: <202209041839.rob9XU3V-lkp@intel.com>
+Message-ID: <202209042040.j7yoKrbB-lkp@intel.com>
 References: <20220904083912.1006262-1-jingyuwang_vip@163.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -69,18 +69,18 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Hi Jingyu,
 
-Thank you for the patch! Perhaps something to improve:
+Thank you for the patch! Yet something to improve:
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v6.0-rc3 next-20220901]
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v6.0-rc3 next-20220901]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Jingyu-Wang/drm-amd-This-is-a-patch-to-the-amdgpu_drv-c-file-that-fixes-some-warnings-and-errors-found-by-the-checkpatch-pl-tool/20220904-165633
 base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-config: arc-allyesconfig (https://download.01.org/0day-ci/archive/20220904/202209041839.rob9XU3V-lkp@intel.com/config)
-compiler: arceb-elf-gcc (GCC) 12.1.0
+config: mips-randconfig-r006-20220904 (https://download.01.org/0day-ci/archive/20220904/202209042040.j7yoKrbB-lkp@intel.com/config)
+compiler: mips64el-linux-gcc (GCC) 12.1.0
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
         chmod +x ~/bin/make.cross
@@ -90,12 +90,12 @@ reproduce (this is a W=1 build):
         git checkout 639ddf37854dd71c3ee836591db7518b146ae8ae
         # save the config file
         mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arc SHELL=/bin/bash drivers/gpu/drm/amd/amdgpu/
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=mips SHELL=/bin/bash drivers/gpu/drm/amd/amdgpu/
 
 If you fix the issue, kindly add following tag where applicable
 Reported-by: kernel test robot <lkp@intel.com>
 
-All warnings (new ones prefixed by >>):
+All error/warnings (new ones prefixed by >>):
 
 >> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:290:17: warning: missing terminating " character
      290 |                 "for passthrough or sriov, 10000 for all jobs.
@@ -108,7 +108,7 @@ All warnings (new ones prefixed by >>):
                     from include/drm/drm_vma_manager.h:26,
                     from include/drm/drm_gem.h:40,
                     from drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:28:
-   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:290:17: error: missing terminating " character
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:290:17: error: missing terminating " character
      290 |                 "for passthrough or sriov, 10000 for all jobs.
          |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    include/linux/moduleparam.h:26:61: note: in definition of macro '__MODULE_INFO'
@@ -117,7 +117,7 @@ All warnings (new ones prefixed by >>):
    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:289:1: note: in expansion of macro 'MODULE_PARM_DESC'
      289 | MODULE_PARM_DESC(lockup_timeout, "GPU lockup timeout in ms (default: for bare metal 10000 for non-compute jobs and 60000 for compute jobs; "
          | ^~~~~~~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:291:17: error: expected ',' or ';' before numeric constant
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:291:17: error: expected ',' or ';' before numeric constant
      291 |                 0: keep default value. negative: infinity timeout),
          |                 ^
    include/linux/moduleparam.h:26:61: note: in definition of macro '__MODULE_INFO'
@@ -130,7 +130,7 @@ All warnings (new ones prefixed by >>):
      292 |                 format: for bare metal [Non-Compute] or [GFX,Compute,SDMA,Video]; "
          |                                                                                   ^
    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:292:83: error: missing terminating " character
-   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:293:17: error: expected identifier or '(' before string constant
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:293:17: error: expected identifier or '(' before string constant
      293 |                 "for passthrough or sriov [all jobs] or [GFX,Compute,SDMA,Video].");
          |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:604:9: warning: missing terminating " character
@@ -139,10 +139,10 @@ All warnings (new ones prefixed by >>):
    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:605:76: warning: missing terminating " character
      605 |                 0x1 = 256Mbyte, 0x2 = 512Mbyte, 0x4 = 1 Gbyte, 0x8 = 2GByte");
          |                                                                            ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:2799:45: error: unterminated argument list invoking macro "MODULE_PARM_DESC"
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:2799:45: error: unterminated argument list invoking macro "MODULE_PARM_DESC"
     2799 | MODULE_LICENSE("GPL and additional rights");
          |                                             ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:603:1: error: expected '=', ',', ';', 'asm' or '__attribute__' at end of input
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:603:1: error: expected '=', ',', ';', 'asm' or '__attribute__' at end of input
      603 | MODULE_PARM_DESC(smu_memory_pool_size,
          | ^~~~~~~~~~~~~~~~
 >> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:186:13: warning: 'amdgpu_drv_delayed_reset_work_handler' used but never defined
@@ -258,9 +258,9 @@ vim +290 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
    288	 */
    289	MODULE_PARM_DESC(lockup_timeout, "GPU lockup timeout in ms (default: for bare metal 10000 for non-compute jobs and 60000 for compute jobs; "
  > 290			"for passthrough or sriov, 10000 for all jobs.
-   291			0: keep default value. negative: infinity timeout),
+ > 291			0: keep default value. negative: infinity timeout),
    292			format: for bare metal [Non-Compute] or [GFX,Compute,SDMA,Video]; "
-   293			"for passthrough or sriov [all jobs] or [GFX,Compute,SDMA,Video].");
+ > 293			"for passthrough or sriov [all jobs] or [GFX,Compute,SDMA,Video].");
    294	module_param_string(lockup_timeout, amdgpu_lockup_timeout, sizeof(amdgpu_lockup_timeout), 0444);
    295	
 
