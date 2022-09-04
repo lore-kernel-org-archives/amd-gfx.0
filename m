@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92F45C6FA86
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61CACECAAD5
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E50CE10E398;
-	Sun,  4 Sep 2022 21:43:49 +0000 (UTC)
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C651E10E279;
- Sun,  4 Sep 2022 21:42:56 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id a9so3885645ilh.1;
- Sun, 04 Sep 2022 14:42:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BFAA10E3A9;
+	Sun,  4 Sep 2022 21:43:51 +0000 (UTC)
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [IPv6:2607:f8b0:4864:20::d2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFA0E10E2A9;
+ Sun,  4 Sep 2022 21:43:02 +0000 (UTC)
+Received: by mail-io1-xd2f.google.com with SMTP id p187so5653229iod.8;
+ Sun, 04 Sep 2022 14:43:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=58gChvxjBedxDU/dSXgKq8f75Aq/PMP0VWOkECUeGr8=;
- b=J2tQsdq2kkHf85Z9ASRTiHs9OI3ZDVILIcK9yZOObu9+KlrqqjVNIjRz1rl5rphOwC
- 2Qfnz0oI/RsX3V70MD8E8G/yZztrNm2ZfOZnCp9690q1IH4JJ+adDmarycETlY/12rhr
- Db+6+SqEctFD/7m0SrX4AuGqEeuaJOmohsGrTlCLPTPTc/eFNhQn9dKNl96NeOx5rxdC
- vum//49JpYe1Z4oGVnwyv1uBitMZ8t5aokHuE388ICOZLGyjaZC6ZUwl7qnvJ1ZVUgUl
- OCs0CimfeNixxoHVLc+cIByGyUxmeix8tj9SCyBEQkzsOFFYl2FMPL60Yd7P36fczO+9
- Pthw==
+ bh=bXSeYH0zduNfWYtAn2/GFLXR9T03/2CnSS0WiVim3VQ=;
+ b=Kz5c1apWMX0yddvgXTrt/BjoeN52CrK81vVC2ejDG94BrieUIvPuQxqUc9mOpTS/PP
+ HWECHkoY/OGUf08e39Nmu5OrgrRhJWG04JFoAaPLsxT6JyFH/YDSudtSKAU+VFekFYsq
+ Vod9PDrJCKlyWzWt7qenFWfsvqXS3nuOE+JpI9yW2OwLoVmYddOY5g5wBsTWGPdp/8D4
+ T8EWSg90FSXg58mfxM0h4Ijo4DgetN371n10Vzcly6r5kLaSzcQu1NTLn9EFrrE/z+XJ
+ JBzGq1uSt6X2fse4mVKP1vmF2LWn1W1sfDqy+6kqDBUE4JOdFjuhQGLvtnC0Saz04FMW
+ fgLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=58gChvxjBedxDU/dSXgKq8f75Aq/PMP0VWOkECUeGr8=;
- b=40EF5BeWK2riML1AnsptLdQO1pAJ4GmMCO6f4hyXKhH5A1sfUXMGkN9Zk2v/tlrnED
- WhACTNdfVmmYswZ5PBpZOineVllPf57uN3yOPIApcP5VSvTh74SqtpLde4vc7c9QdeTv
- 3I88cCiLbVJkwsXYAqUVzEvfR8JqQUJg9zyShyFUMAAPJ98sdfaShY+OFUAELebydSA9
- 3sxe2b+7lGKjG80YZvWYDHEQW/kttlCDz9mHC7Wgz4gCEPU5z3gE7oBUcFqCXVHIecc5
- nU4ZIB+LQPkVVe4K+KtMPFfEybbtFg9y0pbIJcW+g2FF0wLwD0iT91tEc10F57EzRsEp
- ZEdA==
-X-Gm-Message-State: ACgBeo2DxxsLqoT1UUh4A1gNYDI7M3njNEjEXApkVpkaKH4cMr02TnK/
- g8wMpsKEYlqXYkzceJuhXEA=
-X-Google-Smtp-Source: AA6agR61bCYoBFhO606MrMj2e5JJ9ontZpH/7gcxtdHyPlYtKYvvYkTqL53A1Ak5xf1hQmk380rWDQ==
-X-Received: by 2002:a05:6e02:16cd:b0:2ea:e75b:f357 with SMTP id
- 13-20020a056e0216cd00b002eae75bf357mr19038138ilx.110.1662327776105; 
- Sun, 04 Sep 2022 14:42:56 -0700 (PDT)
+ bh=bXSeYH0zduNfWYtAn2/GFLXR9T03/2CnSS0WiVim3VQ=;
+ b=FlIOT/nAibk5KswXBEb+JEIbIyqGQMw8vTZb90YgI+QhtB1FJap2M8NQ4xCT+H8fc7
+ vOkP+90KgtTtUuvJJSPsFkZ+31nxmPR4JoVnbYiw6E4gLqyNeLk/KM7VMnA45vm0OTIi
+ y7HaVKdmUe2SKy9Ie4RK8oKsxB6bFkcqk34gHmM9HuCTlzRiyeQD/JGMOu1GS68R0Iax
+ kR6+YfDt/HVgxolRqVsvOHv7TwX7BABnREg10VfRAfnoq+/FkNjj3NQrgSHvEJc+QbM+
+ TYsrzsFT0foDnemUqrQm372zpS1U5qt2WxDyd4Ax4FEBG6p7i6yYfB6+TGvrMLpYtiUr
+ hfyw==
+X-Gm-Message-State: ACgBeo0m8EQXUyPxZZDTB+aw2hmpz/bWsWMDuj3jsy4Hu4n6N6XQwdlH
+ UwtKkCnfW61Lfpyy6Ch7f/w=
+X-Google-Smtp-Source: AA6agR4F0Y5uoS0j9obmZc9hPIHDQS7tGY0siR2ILOqRr5ep1L+AxeY27R3APLGSgxbHOp+TIgipXA==
+X-Received: by 2002:a05:6638:40a8:b0:346:8e3c:8141 with SMTP id
+ m40-20020a05663840a800b003468e3c8141mr24647914jam.107.1662327782109; 
+ Sun, 04 Sep 2022 14:43:02 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.55
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.43.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:55 -0700 (PDT)
+ Sun, 04 Sep 2022 14:43:01 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 48/57] dyndbg: add .gnu.linkonce slot in vmlinux.lds.h KEEPs
-Date: Sun,  4 Sep 2022 15:41:25 -0600
-Message-Id: <20220904214134.408619-49-jim.cromie@gmail.com>
+Subject: [PATCH v6 54/57] dyndbg: add .gnu.linkonce. & __dyndbg* sections in
+ module.lds.h
+Date: Sun,  4 Sep 2022 15:41:31 -0600
+Message-Id: <20220904214134.408619-55-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
@@ -78,43 +79,56 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add linker symbols and KEEPs for .gnu.linkonce.dyndbg and
-.gnu.linkonce.dyndbg_sites sections, placing them in front of their
-respective dyndbg and dyndbg_sites sections.
+For a long time now, loadable modules have tacitly linked the __dyndbg
+section into the .ko, as is observable in dmesg by enabling module.c's
+pr_debugs and loading a module.  Recently, __dyndbg_sites was added,
+following the original model.
 
-This placement gives us a known relative offset (ie -1) from the start
-of the vector to the header, letting us use container_of to get it.
-The _index added previously allows determining &descs[0] from any
-desc[N].
+But now, we need to explicitly name those (__dyndbg, __dyndbg_sites)
+sections in order to place new .gnu.linkonce.dyndbg* sections in front
+of them.
 
-The .gnu.linkonce. collapses possible multiple declarations into a
-single allocation, with a single address.
+This gives us the properties we need for _ddebug_map_site() to drop
+the _ddebug.site pointer:
 
-todo: will need similar for modules.lds.h
+   fixed offset from &__dyndbg[N] to &__dyndbg[0]
+   container_of gets &header
+   header has ptr to __dyndbg_sites[]
+   __dyndbg_sites[_map] gives de-duplicated site recs
+
+NOTE
+
+HEAD~1 took headers off front of descs,sites and saved them into
+_ddebug_info, this puts the gnu.linkonce.* records into those vectors.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/asm-generic/vmlinux.lds.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ include/asm-generic/module.lds.h | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index 1e7ee65e8591..20fdea9efd78 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -348,9 +348,13 @@
- 	__start___dyndbg_classes = .;					\
- 	KEEP(*(__dyndbg_classes))					\
- 	__stop___dyndbg_classes = .;					\
-+	__dyndbg_header = .;						\
-+	KEEP(*(.gnu.linkonce.dyndbg))					\
- 	__start___dyndbg = .;						\
- 	KEEP(*(__dyndbg))						\
- 	__stop___dyndbg = .;						\
-+	__dyndbg_site_header = .;					\
-+	KEEP(*(.gnu.linkonce.dyndbg_sites))				\
- 	__start___dyndbg_sites = .;					\
- 	KEEP(*(__dyndbg_sites))						\
- 	__stop___dyndbg_sites = .;					\
+diff --git a/include/asm-generic/module.lds.h b/include/asm-generic/module.lds.h
+index f210d5c1b78b..328c48dfc88c 100644
+--- a/include/asm-generic/module.lds.h
++++ b/include/asm-generic/module.lds.h
+@@ -4,7 +4,17 @@
+ 
+ /*
+  * <asm/module.lds.h> can specify arch-specific sections for linking modules.
+- * Empty for the asm-generic header.
++ *
++ * For loadable modules with CONFIG_DYNAMIC_DEBUG, we need to keep the
++ * 2 __dyndbg* ELF sections, which are loaded by module.c
++ *
++ * Pack the 2 __dyndbg* input sections with their respective
++ * .gnu.linkonce. header records into 2 output sections, with those
++ * header records in the 0th element.
+  */
++SECTIONS {
++__dyndbg_sites	: ALIGN(8) { *(.gnu.linkonce.dyndbg_site) *(__dyndbg_sites) }
++__dyndbg	: ALIGN(8) { *(.gnu.linkonce.dyndbg)	  *(__dyndbg) }
++}
+ 
+ #endif /* __ASM_GENERIC_MODULE_LDS_H */
 -- 
 2.37.2
 
