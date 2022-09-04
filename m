@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C6F6ECAAD5
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:47:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A9CDECAAD5
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:47:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E6B310E2A3;
-	Sun,  4 Sep 2022 21:43:30 +0000 (UTC)
-Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
- [IPv6:2607:f8b0:4864:20::d35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2A3910E140;
- Sun,  4 Sep 2022 21:42:25 +0000 (UTC)
-Received: by mail-io1-xd35.google.com with SMTP id r141so5678400iod.4;
- Sun, 04 Sep 2022 14:42:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 169BA10E2DB;
+	Sun,  4 Sep 2022 21:43:34 +0000 (UTC)
+Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
+ [IPv6:2607:f8b0:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0757610E1CE;
+ Sun,  4 Sep 2022 21:42:37 +0000 (UTC)
+Received: by mail-il1-x131.google.com with SMTP id e7so3873185ilc.5;
+ Sun, 04 Sep 2022 14:42:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=bV2pbi1NEnXBIYceq2iCnojYvMw47Sm5P0bDatZE/qY=;
- b=DRCAFhL8qizXn9QBOsMZO6CWk737/iorbRJ4AxHGEgMlW1XjBcP+vkmFKNoyTUK0Mj
- RgDgR2Ync4KORGyKwN45XuxZ3LCgDHh7aM7gIcdOLcttBFR6Un79bJyvT2V/T+t1uwET
- tHeAl0kEFnMLN5umqFTSN7rOVhAj0XWVzl/y6lz8DsbMtgZKngpwCHlWQPaVdjC6LyHL
- qSLUkoUXTZ6m9J5MpZDXz12M3aHFBVeTnL/qP7lUD45vpjehf2aOfxyxGF8UMp8S8D8U
- hKvmKb7U5FALDSB3abvwTeqDsOg4bgbNnzuU9E1pJLb4XrIdrdIzUyRn++u3pSGOKqBq
- 6ETw==
+ bh=U1e/PDiTaqhNlqhWklmksFO85pXyEBvT7LYXXx9lRsc=;
+ b=Dx9MBKpykNOjC760F4pFLwFUkOoBmF/4z7wBX2mc5AIweU/3t3yi4wF+532OcszVdM
+ fJS+kbBgoRInPWQA6RJ24UEiO6RyYqvxzwnizY/OXlGjDTiAte5Jy7Wgkyh+ej2dw7mp
+ 8ah+0F5F3ut30swO8Jl6e2dH2RtgR7VodKDNux7pE967WR0SeE/u428cUqvwN8xe2OmV
+ ay3wjVmLVzY5WIqtJ/VBzchbZ+9NV5ny/h5+U6aR4pyOmNjuCxZNrwhA78HFQY997wef
+ fNMxXUBdIylIsoA4g3Yk7C70N55L4Qb/lJbN8V6hoNbx4nWhOh8w8GsOeIFiw0QPvj7b
+ zvqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=bV2pbi1NEnXBIYceq2iCnojYvMw47Sm5P0bDatZE/qY=;
- b=yMlJ5eaqZCr1helUhuL3NXet4g6Ua8XMvah6x4I9G5zSYMoRQLoxLSj5mnsTsyuhDK
- cqwclGqbovebeO8qBE/STq+EWTz+cqEaz9GVfoFgVhpAUTkVUGmnqEz9pf1JyowWAp5F
- RnBSkjGU7aqMdW6mEzHcWz3wzFb5dfc29V1aIcJC934gPzwo38FQk+jFpVFclA+x1Knu
- NrUBvKUWj/8T43Zhy/sT0W+ChR+VWp0+6gOIjvgCCoxJ+gcN1lR5W5mR9U8iCltel7cJ
- AioWNNdgGDiShdRPMSXzBcaHl0fsiY0ZMNr6Si7y9zagsBHXHVY+p3wrJLAXJ37j+0Mk
- 1RnQ==
-X-Gm-Message-State: ACgBeo2fstDQJzouGUFMUXEj6DvPzmI2pQoCq2pvHZQxdmVtsWlVgPza
- lO38VMFCNbmPIP8yKJJv0qs=
-X-Google-Smtp-Source: AA6agR4Eiudl3FZhHqIH1u+1kjDcwObHAsibzo+7iq3K3aAIOXK9LPSM3GGiI3JaBRbAwyq3KZU0rA==
-X-Received: by 2002:a6b:3e06:0:b0:68b:7524:f342 with SMTP id
- l6-20020a6b3e06000000b0068b7524f342mr15398868ioa.149.1662327745421; 
- Sun, 04 Sep 2022 14:42:25 -0700 (PDT)
+ bh=U1e/PDiTaqhNlqhWklmksFO85pXyEBvT7LYXXx9lRsc=;
+ b=f3e8FERhe0+9GnSoG90tTP2QrQUYs9LIE24BQLiqs2Ry16vQ+I65AuEDeHSIdMoH38
+ 99bWXM3tDxrwKEol7jlA9oxLWukrezdCQ5MgmDYrPvGcZezwmvYoA0jA+9LbySqU/9pX
+ h2zEisnbY3Gje+VbngT7Vf86Gf/r/mQcVmvNXtE0J98tWGkQb5VZa425bJ5xm6nOPRwd
+ Q0JVNkaxyDXpcf0lq91Kts7Ry8nk20FyZZBaMXQFK+HeEyLM9USFfTpd+PK/uz0HHaKc
+ SlqpRz+EsEFgjwDwcsNZ9cc0IgcoTtg6UwSLzSfpuph/GgxRyus479wvs9mT9XuRmrVH
+ Jm4Q==
+X-Gm-Message-State: ACgBeo09REmJRf4q48ZnQKV3jhXROLGc6PbuZqHClGw+vgrIGreEs16X
+ jFJDXoRFjKnxZW1MpChPD8k=
+X-Google-Smtp-Source: AA6agR4QIlOxxpmNgt7Mmv0IK9vaV2J3UNUt+wMqkJN9PXiw35wmcxQf7MVn0gpUR78DsbgyvTivGg==
+X-Received: by 2002:a05:6e02:1d07:b0:2eb:1792:5468 with SMTP id
+ i7-20020a056e021d0700b002eb17925468mr15883450ila.60.1662327753969; 
+ Sun, 04 Sep 2022 14:42:33 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.24
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:25 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:33 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 16/57] dyndbg: add ddebug_attach_module_classes
-Date: Sun,  4 Sep 2022 15:40:53 -0600
-Message-Id: <20220904214134.408619-17-jim.cromie@gmail.com>
+Subject: [PATCH v6 25/57] drm_print: wrap drm_*_dbg in dyndbg descriptor
+ factory macro
+Date: Sun,  4 Sep 2022 15:41:02 -0600
+Message-Id: <20220904214134.408619-26-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
@@ -78,101 +79,95 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add ddebug_attach_module_classes(), call it from ddebug_add_module().
-It scans the classes/section its given, finds records where the
-module-name matches the module being added, and adds them to the
-module's maps list.  No locking here, since the record
-isn't yet linked into the ddebug_tables list.
+For CONFIG_DRM_USE_DYNAMIC_DEBUG=y, wrap __drm_dbg() & __drm_dev_dbg()
+in one of dyndbg's Factory macros: _dynamic_func_call_no_desc().
 
-It is called indirectly from 2 sources:
+This adds the callsite descriptor into the code, and an entry for each
+into /proc/dynamic_debug/control.
 
- - from load_module(), where it scans the module's __dyndbg_classes
-   section, which contains DYNAMIC_DEBUG_CLASSES definitions from just
-   the module.
+  #> echo class DRM_UT_ATOMIC +p > /proc/dynamic_debug/control
 
- - from dynamic_debug_init(), where all DYNAMIC_DEBUG_CLASSES
-   definitions of each builtin module have been packed together.
-   This is why ddebug_attach_module_classes() checks module-name.
-
-NOTES
-
-Its (highly) likely that builtin classes will be ordered by module
-name (just like prdbg descriptors are in the __dyndbg section).  So
-the list can be replaced by a vector (ptr + length), which will work
-for loaded modules too.  This would imitate whats currently done for
-the _ddebug descriptors.
-
-That said, converting to vector,len is close to pointless; a small
-minority of modules will ever define a class-map, and almost all of
-them will have only 1 or 2 class-maps, so theres only a couple dozen
-pointers to save.  TODO: re-evaluate for lines removable.
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y/n is configurable because of the .data
+footprint cost of per-callsite control; 56 bytes/site * ~2k for i915,
+~4k callsites for amdgpu.  This is large enough that a kernel builder
+might not want it.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-v6
-. fix compile err due to reorderd commits, and missed lkp report.
-. init dt->maps in ddebug_add_module, prior to ddebug_attach_module_classes
----
- lib/dynamic_debug.c | 32 +++++++++++++++++++++++++++++++-
- 1 file changed, 31 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/Kconfig  | 12 ++++++++++++
+ drivers/gpu/drm/Makefile |  2 ++
+ include/drm/drm_print.h  | 12 ++++++++++++
+ 3 files changed, 26 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index fb31a1a2fc3f..b71efd0b491d 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -45,7 +45,7 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
- extern struct ddebug_class_map __stop___dyndbg_classes[];
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 2f52e8941074..3b75c286f14f 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -51,6 +51,18 @@ config DRM_DEBUG_MM
  
- struct ddebug_table {
--	struct list_head link;
-+	struct list_head link, maps;
- 	const char *mod_name;
- 	unsigned int num_ddebugs;
- 	struct _ddebug *ddebugs;
-@@ -921,6 +921,32 @@ static const struct proc_ops proc_fops = {
- 	.proc_write = ddebug_proc_write
- };
+ 	  If in doubt, say "N".
  
-+static void ddebug_attach_module_classes(struct ddebug_table *dt,
-+					 struct ddebug_class_map *classes,
-+					 int num_classes)
-+{
-+	struct ddebug_class_map *cm;
-+	int i, j, ct = 0;
++config DRM_USE_DYNAMIC_DEBUG
++	bool "use dynamic debug to implement drm.debug"
++	default y
++	depends on DRM
++	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
++	depends on JUMP_LABEL
++	help
++	  Use dynamic-debug to avoid drm_debug_enabled() runtime overheads.
++	  Due to callsite counts in DRM drivers (~4k in amdgpu) and 56
++	  bytes per callsite, the .data costs can be substantial, and
++	  are therefore configurable.
 +
-+	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
-+
-+		if (!strcmp(cm->mod_name, dt->mod_name)) {
-+
-+			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
-+				  cm->mod_name, cm->base, cm->length, cm->map_type);
-+
-+			for (j = 0; j < cm->length; j++)
-+				v3pr_info(" %d: %d %s\n", j + cm->base, j,
-+					  cm->class_names[j]);
-+
-+			list_add(&cm->link, &dt->maps);
-+			ct++;
-+		}
-+	}
-+	if (ct)
-+		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
-+}
-+
- /*
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
-@@ -952,6 +978,10 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 	dt->num_ddebugs = di->num_descs;
+ config DRM_KUNIT_TEST
+ 	tristate "KUnit tests for DRM" if !KUNIT_ALL_TESTS
+ 	depends on DRM && KUNIT
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 25d0ba310509..0b283e46f28b 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -3,6 +3,8 @@
+ # Makefile for the drm device driver.  This driver provides support for the
+ # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
  
- 	INIT_LIST_HEAD(&dt->link);
-+	INIT_LIST_HEAD(&dt->maps);
++CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
 +
-+	if (di->classes && di->num_classes)
-+		ddebug_attach_module_classes(dt, di->classes, di->num_classes);
+ drm-y       :=	drm_aperture.o drm_auth.o drm_cache.o \
+ 		drm_file.o drm_gem.o drm_ioctl.o \
+ 		drm_drv.o \
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index c429c258c957..2d2cef76b5c1 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -384,8 +384,14 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ 	}								\
+ })
  
- 	mutex_lock(&ddebug_lock);
- 	list_add_tail(&dt->link, &ddebug_tables);
++#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+ #define drm_dev_dbg(dev, cat, fmt, ...)				\
+ 	__drm_dev_dbg(dev, cat, fmt, ##__VA_ARGS__)
++#else
++#define drm_dev_dbg(dev, cat, fmt, ...)				\
++	_dynamic_func_call_no_desc(fmt, __drm_dev_dbg,			\
++				   dev, cat, fmt, ##__VA_ARGS__)
++#endif
+ 
+ /**
+  * DRM_DEV_DEBUG() - Debug output for generic drm code
+@@ -492,7 +498,13 @@ void ___drm_dbg(enum drm_debug_category category, const char *format, ...);
+ __printf(1, 2)
+ void __drm_err(const char *format, ...);
+ 
++#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+ #define __drm_dbg(fmt, ...)		___drm_dbg(fmt, ##__VA_ARGS__)
++#else
++#define __drm_dbg(cat, fmt, ...)					\
++	_dynamic_func_call_no_desc(fmt, ___drm_dbg,			\
++				   cat, fmt, ##__VA_ARGS__)
++#endif
+ 
+ /* Macros to make printk easier */
+ 
 -- 
 2.37.2
 
