@@ -4,97 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31306ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9242CECAAA1
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D44C810E1EA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6651110E1E8;
 	Mon,  5 Sep 2022 07:04:14 +0000 (UTC)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E023610E7D6
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Sep 2022 09:31:29 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id c7so1509620wrp.11
- for <amd-gfx@lists.freedesktop.org>; Fri, 02 Sep 2022 02:31:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=1gh2cH8+/vu9+O44Ntzb/QjlvRTOJYihF+Y3Qm1SXrI=;
- b=EVe1TJlwgwENLq9wjko+3+iqmTNZUI3JPuYAT7OKSM+R/epnoMEDtd8xg6TmEMxWx3
- w3tho74vxXAPjBSsm4lYFUcgCWErhh5+d3jcpk70E6Cl1y+e5y1R2FlOY66Rl8+JeCwL
- W3nltWTUG/K5D5uJwaOIEe1GS28g32m2+6rHL+rUQ9SE6SLcEMA41Q+pdYi3o3e/Gse3
- vkzFGeV6Fodjv9QezhLGwOjQYvAKxf+B1t8jpSLVlaAcYGHcSmHNtUS1CA4d+v2e/F68
- XWkTUJ18yNVic8+Sr4F0TOACzpTFk8RLS58xwLJ8vLbq0MIzXXHOSVbDexp4Q4m4S3zf
- Pupw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=1gh2cH8+/vu9+O44Ntzb/QjlvRTOJYihF+Y3Qm1SXrI=;
- b=R7G5MJwRxebMfb/Eyh1Ria67sJ3QnYW+X2FaRpB3xHGgamHhqJ+5KN5pdriLDEv7IA
- UqzgKjHEThb5YwfcFhMkE4ngX/d2T98a4TPYcjsxyb1zlTCORKD3/hW6Om2OA34mpKVL
- xXCUtV/2sJdIjDI992rUCJbrwe7AL+LDbDajByVrMzvyLCpqrRK2ZiH0Mgg5O6wKMyEn
- GDu0G/ZVtf2yvk7AkG2N3ADR26EyCnqHrIunjaGc2yXNIxkXFn937vmoMvagSkPOW86a
- rSRfueQ/VpZDinsXl4czaWhryQyzaRSAAwavFDJk9G02Io77Q/Ty9X1joeJQD3/cWAQC
- T0ow==
-X-Gm-Message-State: ACgBeo2nLTb8X2JLvxGqlFB8v+2FgNe0/bCGqMRGN7xHIqwfNRvFvA7V
- KDfrhIn6GFECd7cAGkWaQi1xzA==
-X-Google-Smtp-Source: AA6agR6YtQhQs9M+XpNrEr5ZjCr4K1ke8LjplN8/PGIGXMDtTqKLhIXAP+/GSYEqOabmcCpXMoNTwQ==
-X-Received: by 2002:a05:6000:184e:b0:226:e227:35e4 with SMTP id
- c14-20020a056000184e00b00226e22735e4mr10140437wri.624.1662111088131; 
- Fri, 02 Sep 2022 02:31:28 -0700 (PDT)
-Received: from [192.168.86.238]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- d17-20020adffbd1000000b002253d865715sm1042629wrs.87.2022.09.02.02.31.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Sep 2022 02:31:27 -0700 (PDT)
-Message-ID: <c2cd764e-ef70-4a7a-fe7d-aade5adb8057@linaro.org>
-Date: Fri, 2 Sep 2022 10:31:24 +0100
+Received: from m12-16.163.com (m12-16.163.com [220.181.12.16])
+ by gabe.freedesktop.org (Postfix) with ESMTP id AF51F10E12E;
+ Sun,  4 Sep 2022 19:32:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=L6daq
+ wHVQLkLiNfq8TDmxWwToy3Ef+On7jVkCO/wFL8=; b=JhMkxVCpy5sMBx4wkvAPw
+ 1i9+1KpKAhB/7BIKyoWfnEdXZiFkxhNobCYp8drXdmVJZ+mUVpxgMoY9x7JeTuDe
+ PqdOL5sb5/uqX1TKNASl9opU0jQLDKtKsT65dYnUWV97dSv43eliBmXyEdOvQHMi
+ dKSViBRDy2b9N5YE2pX4EI=
+Received: from f00160-VMware-Virtual-Platform.localdomain (unknown
+ [1.203.67.201])
+ by smtp12 (Coremail) with SMTP id EMCowADHKqkX_RRjiCK7Jg--.38130S4;
+ Mon, 05 Sep 2022 03:31:48 +0800 (CST)
+From: Jingyu Wang <jingyuwang_vip@163.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, Hawking.Zhang@amd.com,
+ ray.huang@amd.com, Jack.Xiao@amd.com, guchun.chen@amd.com,
+ Likun.Gao@amd.com, en.brown@intel.com
+Subject: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_fence.c
+Date: Mon,  5 Sep 2022 03:31:32 +0800
+Message-Id: <20220904193132.15446-1-jingyuwang_vip@163.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v4 11/21] misc: fastrpc: Prepare to dynamic dma-buf
- locking specification
-Content-Language: en-US
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
- <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>, Amol Maheshwari <amahesh@qti.qualcomm.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>
-References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
- <20220831153757.97381-12-dmitry.osipenko@collabora.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220831153757.97381-12-dmitry.osipenko@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: EMCowADHKqkX_RRjiCK7Jg--.38130S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCr17KFyDAr15tr17AFy5Jwb_yoW5CFW7pF
+ 4fK345KrWDZF1UWrW8AF1vvFnxKw1IqF1IgrW7A34Sgwn8CF15K3WIyrWjqryDCF4kuF4a
+ kFW2v3y5ZF1jqF7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEs2-OUUUUU=
+X-Originating-IP: [1.203.67.201]
+X-CM-SenderInfo: 5mlqw5xxzd0whbyl1qqrwthudrp/1tbisgRyF1UMWQSWNAAAs1
 X-Mailman-Approved-At: Mon, 05 Sep 2022 07:04:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,56 +52,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- linux-media@vger.kernel.org
+Cc: Jingyu Wang <jingyuwang_vip@163.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Fix everything checkpatch.pl complained about in amdgpu_fence.c
 
+Signed-off-by: Jingyu Wang <jingyuwang_vip@163.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-On 31/08/2022 16:37, Dmitry Osipenko wrote:
-> Prepare fastrpc to the common dynamic dma-buf locking convention by
-> starting to use the unlocked versions of dma-buf API functions.
-> 
-> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> ---
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index 8adeb7469f1e..ae9daf653ad3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -1,3 +1,4 @@
++// SPDX-License-Identifier: MIT
+ /*
+  * Copyright 2009 Jerome Glisse.
+  * All Rights Reserved.
+@@ -42,7 +43,6 @@
+ #include "amdgpu_reset.h"
+ 
+ /*
+- * Fences
+  * Fences mark an event in the GPUs pipeline and are used
+  * for GPU/CPU synchronization.  When the fence is written,
+  * it is expected that all buffers associated with that fence
+@@ -139,7 +139,7 @@ static u32 amdgpu_fence_read(struct amdgpu_ring *ring)
+  * Returns 0 on success, -ENOMEM on failure.
+  */
+ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f, struct amdgpu_job *job,
+-		      unsigned flags)
++		      unsigned int flags)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+ 	struct dma_fence *fence;
+@@ -173,8 +173,7 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f, struct amd
+ 				       adev->fence_context + ring->idx, seq);
+ 			/* Against remove in amdgpu_job_{free, free_cb} */
+ 			dma_fence_get(fence);
+-		}
+-		else
++		} else
+ 			dma_fence_init(fence, &amdgpu_fence_ops,
+ 				       &ring->fence_drv.lock,
+ 				       adev->fence_context + ring->idx, seq);
+@@ -393,7 +392,7 @@ signed long amdgpu_fence_wait_polling(struct amdgpu_ring *ring,
+  * Returns the number of emitted fences on the ring.  Used by the
+  * dynpm code to ring track activity.
+  */
+-unsigned amdgpu_fence_count_emitted(struct amdgpu_ring *ring)
++unsigned int amdgpu_fence_count_emitted(struct amdgpu_ring *ring)
+ {
+ 	uint64_t emitted;
+ 
+@@ -422,7 +421,7 @@ unsigned amdgpu_fence_count_emitted(struct amdgpu_ring *ring)
+  */
+ int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
+ 				   struct amdgpu_irq_src *irq_src,
+-				   unsigned irq_type)
++				   unsigned int irq_type)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+ 	uint64_t index;
+@@ -594,6 +593,7 @@ void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev)
+ 
+ 	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
+ 		struct amdgpu_ring *ring = adev->rings[i];
++
+ 		if (!ring || !ring->fence_drv.initialized)
+ 			continue;
+ 
+@@ -772,6 +772,7 @@ static int amdgpu_debugfs_fence_info_show(struct seq_file *m, void *unused)
+ 
+ 	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+ 		struct amdgpu_ring *ring = adev->rings[i];
++
+ 		if (!ring || !ring->fence_drv.initialized)
+ 			continue;
+ 
+@@ -845,6 +846,7 @@ static void amdgpu_debugfs_reset_work(struct work_struct *work)
+ 						  reset_work);
+ 
+ 	struct amdgpu_reset_context reset_context;
++
+ 	memset(&reset_context, 0, sizeof(reset_context));
+ 
+ 	reset_context.method = AMD_RESET_METHOD_NONE;
 
-LGTM,
+base-commit: e47eb90a0a9ae20b82635b9b99a8d0979b757ad8
+prerequisite-patch-id: f039528bc88876d6e0f64e843da089e85f6d3f58
+-- 
+2.34.1
 
-Incase you plan to take it via another tree.
-
-Acked-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-
-
---srini
->   drivers/misc/fastrpc.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 93ebd174d848..6fcfb2e9f7a7 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -310,8 +310,8 @@ static void fastrpc_free_map(struct kref *ref)
->   				return;
->   			}
->   		}
-> -		dma_buf_unmap_attachment(map->attach, map->table,
-> -					 DMA_BIDIRECTIONAL);
-> +		dma_buf_unmap_attachment_unlocked(map->attach, map->table,
-> +						  DMA_BIDIRECTIONAL);
->   		dma_buf_detach(map->buf, map->attach);
->   		dma_buf_put(map->buf);
->   	}
-> @@ -726,7 +726,7 @@ static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
->   		goto attach_err;
->   	}
->   
-> -	map->table = dma_buf_map_attachment(map->attach, DMA_BIDIRECTIONAL);
-> +	map->table = dma_buf_map_attachment_unlocked(map->attach, DMA_BIDIRECTIONAL);
->   	if (IS_ERR(map->table)) {
->   		err = PTR_ERR(map->table);
->   		goto map_err;
