@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6B47ECAAD5
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F8E5C6FA82
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37CC610E4EA;
-	Sun,  4 Sep 2022 21:43:57 +0000 (UTC)
-Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com
- [IPv6:2607:f8b0:4864:20::d34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8D6110E249;
- Sun,  4 Sep 2022 21:42:47 +0000 (UTC)
-Received: by mail-io1-xd34.google.com with SMTP id b142so5642444iof.10;
- Sun, 04 Sep 2022 14:42:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6895210E6C6;
+	Sun,  4 Sep 2022 21:43:58 +0000 (UTC)
+Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
+ [IPv6:2607:f8b0:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3709110E2C3;
+ Sun,  4 Sep 2022 21:43:04 +0000 (UTC)
+Received: by mail-il1-x12d.google.com with SMTP id s11so3868449ilt.7;
+ Sun, 04 Sep 2022 14:43:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=F+IqvxQINaymRL+MafidUTbGzpHBkq2RsFapBWAQydg=;
- b=N0zhsOBdmXSpqdVIM7Dax53vYiJTKsqF6x9qw6PLO/aFCYoOS0opwP1W/5aTypbefh
- thcPTdmgHjCwAVeFNHFjBjHzjInzGS+YiXXOrz8p9PMclYRxe1LfcB0y1XUcNo/5BytA
- YEnLhw/gfAr8rG8KozwOaV+lYe7NXyUjy4JmDGJ94WvqWQr15EnP0FR45EtCb9sixA2H
- 5PVujoc2/62tw2Rf6QVixL1umMf0g4g0KWpbNPggi2SaHbsUt9ALitBx9exeU1qkh3CT
- vHElW8wRlXwjNWiUeoUytlqPPgsAovjsIKN3Z9gCGdsWoXgjj0apzjKHP7jxrbSbW8d4
- SIYQ==
+ bh=enn6xVuYphe+hXVPoV5iWIYr1g8ASji6MTEr9zuj34c=;
+ b=MHZ+j5vq+DgcrRYUNssA/mQhOIh3IuE7Zq+aUJb41YdzWZC9PSDSIhOvEQ3TdCICX5
+ WTCvmLp7RobRHWpiQpug9Ise55wiJ4uYADB3QCMYatUnEHE8Jziwms0gNLdJzSy1SzKa
+ weVrPvvMaJPWqT6SfVFtUwOQv+sOyCuhrhi/oJW7xApjkbYa3ldckzG68imOVm76KV+m
+ Xwjrlq1ZQVkjBcKsJbOYdKGeSdp/d/LglobU+D8HgN3Kz9AvMJF9xfzvrS0x23RcYOMb
+ o7tMHOwXqEMULGc4tCi168zLZkAoPrmdiBkQzY7FRbs0xD1GH/Ij8ZhWMXzT0upfwrl7
+ rC4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=F+IqvxQINaymRL+MafidUTbGzpHBkq2RsFapBWAQydg=;
- b=KBhhIppzZLDDBhZp4G1PdJD6bUrHPaes7J1V9U+k8qA2nWTsJvKjGCgwZz3YjqZbid
- WWpqTvnUAI3tXZLqo1pruFWgMviB/B8g0752Z8wygT0D3D6ZjP23hYAgaj9zjFEAKfev
- BnkKMO2olp2zI6xNSHyqCQ/ZjmeX8J/v0y3E28W3w4pQA65VcvciNK2Ku2W5LXEVFnei
- Pjr5nBmlV073T0XrvQ8buzS2ltTTQezZMNgj2fozKLszcyIPY4WzKyGeYIDxFK9dSkVN
- a/WsRJDwYU709Raz13Nr4ic91jzqziV2pMpy3YyOqRYLNGJJ1j711Qw1/n2015RwdIFQ
- /ORw==
-X-Gm-Message-State: ACgBeo2X5TQojNJ/pBaldW9GHEnZoxr9GLjmguvnZLWvFTTLYJFuZyMj
- gZ69EV8CaUlAcunip8CpXy0=
-X-Google-Smtp-Source: AA6agR6wneRG7yCu0WnhzdrmY46L82HWUk9b8e+ZYvtbU/eRsNK3PLQqrk215dPJggzpSd7jRHChZQ==
-X-Received: by 2002:a5e:c319:0:b0:68b:2683:8e26 with SMTP id
- a25-20020a5ec319000000b0068b26838e26mr17614839iok.129.1662327767546; 
- Sun, 04 Sep 2022 14:42:47 -0700 (PDT)
+ bh=enn6xVuYphe+hXVPoV5iWIYr1g8ASji6MTEr9zuj34c=;
+ b=YHy/g+p4i+dySmaQIpudLQT8jHEWUwQdRGMJ9Rxtj8TUOKM68ir+5lr1OnpZh3Gmlu
+ kAg6Bjgw4diVEJ6qZZNd9Rxu/A//N0+npAke+aBU6+KWSseUv146e+WfTEVhl6QQc01p
+ /fj9QLyqy9R9IkQTGMOnTjtAJ+y4nl2DggTri6C6+L9TFkOzapnJki5ZEu6iZ2AasQru
+ E6Sw4QJ9zZbJ8Rwe7pkHvi9m5XY591t5Zu/vUtgahtUm3r1YTySattbOcRDxHGixEkbT
+ 737UVIR2542eI5B8RynC7wmk0Z0jUuQVD7y10apkqqGweNKG4ZbLxf36MrglBJaGqdHs
+ uJrA==
+X-Gm-Message-State: ACgBeo0FwgrrrTn3ThrQH3cTq68/RwlSKiqLwpImHmCXZRGGWW0dlsNz
+ miNXYcdNqxAJ0b79cR4TTD4=
+X-Google-Smtp-Source: AA6agR5YpuT8Q9JQCumSZI1qIIDzfmGUPYBDoLNXJiZ6x9bW2LfTNC3WN5DzbhXOp2lE4bQ4o8fKCA==
+X-Received: by 2002:a05:6e02:1605:b0:2ed:be80:59ae with SMTP id
+ t5-20020a056e02160500b002edbe8059aemr7558764ilu.319.1662327783877; 
+ Sun, 04 Sep 2022 14:43:03 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.46
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.43.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:47 -0700 (PDT)
+ Sun, 04 Sep 2022 14:43:03 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 39/57] dyndbg/drm: POC add tracebits sysfs-knob
-Date: Sun,  4 Sep 2022 15:41:16 -0600
-Message-Id: <20220904214134.408619-40-jim.cromie@gmail.com>
+Subject: [PATCH v6 56/57] dyndbg: work ddebug_map_site
+Date: Sun,  4 Sep 2022 15:41:33 -0600
+Message-Id: <20220904214134.408619-57-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
@@ -78,52 +78,58 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-clone DRM.debug interface to DRM.tracebits: ie map bits to
-drm-debug-categories, except this interface enables messages to
-tracefs, not to syslog.
+attempt container-of, broken, missing use of uplink... took that out.
 
-1- we reuse the class-map added previously.
-   this reflects the single source of both syslog/trace events
+ptr computations are naive, and wrong.
 
-2- add a 2nd struct ddebug_classes_bitmap_param
-   refs 1, reusing it.
-   flags = "T", to enable trace-events on this callsite.
+Deeper prob is lack of _ddebug_vec, with header and descs in same struct.
+maybe.
 
-3- module_param_cb([2]) - does the sysfs part
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+builtin_state looks right in debugger
 ---
- drivers/gpu/drm/drm_print.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ lib/dynamic_debug.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index c50edbf443d3..75d0cecd7e86 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -45,6 +45,9 @@
- unsigned long __drm_debug;
- EXPORT_SYMBOL(__drm_debug);
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 194367bc13fb..11fea1f818a7 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -173,8 +173,25 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
+ 	return NULL;
+ }
  
-+unsigned long __drm_trace;
-+EXPORT_SYMBOL(__drm_trace);
+-static inline struct _ddebug_site * _ddebug_map_site(const struct _ddebug *desc)
++/*
++ * mapping from desc to site is multi-step:
++ * - _index back to &descs[0]
++ * - container-of to get header struct above
++ * - ._uplink field, pointing to _ddebug_info (for builtins, loadables)
++ * - di->sites[desc->_map]
++ */
++static struct _ddebug_site * _ddebug_map_site(const struct _ddebug *desc)
+ {
++	struct _ddebug_info *di;
++	struct _ddebug const *d0 = desc - desc->_index * sizeof(struct _ddebug);
 +
- MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
- "\t\tBit 0 (0x01)  will enable CORE messages (drm core code)\n"
- "\t\tBit 1 (0x02)  will enable DRIVER messages (drm controller code)\n"
-@@ -77,6 +80,13 @@ static struct ddebug_class_param drm_debug_bitmap = {
- 	.map = &drm_debug_classes,
- };
- module_param_cb(debug, &param_ops_dyndbg_classes, &drm_debug_bitmap, 0600);
++	di = (struct _ddebug_info *) d0;
 +
-+static struct ddebug_class_param drm_trace_bitmap = {
-+	.bits = &__drm_trace,
-+	.flags = "T",
-+	.map = &drm_debug_classes,
-+};
-+module_param_cb(tracecats, &param_ops_dyndbg_classes, &drm_trace_bitmap, 0600);
- #endif
++	v3pr_info("map_site idx:%d map:%d %s.%s  di:%px site:%px ds:%px\n",
++		  desc->_index, desc->_map,
++		  desc->site->_modname, desc->site->_function,
++		  di, desc->site, &di->sites[desc->_map]);
++
+ 	return desc->site;
+ }
+ #define _desc_field(desc, _fld)	(desc ? (_ddebug_map_site(desc)->_fld) : "_na_")
+@@ -866,7 +883,7 @@ static char *__dynamic_emit_prefix(const struct _ddebug *desc, char *buf)
+ 	return buf;
+ }
  
- void __drm_puts_coredump(struct drm_printer *p, const char *str)
+-static inline char *dynamic_emit_prefix(struct _ddebug *desc, char *buf)
++char *dynamic_emit_prefix(struct _ddebug *desc, char *buf)
+ {
+ 	if (unlikely(desc->flags & _DPRINTK_FLAGS_INCL_ANY))
+ 		return __dynamic_emit_prefix(desc, buf);
 -- 
 2.37.2
 
