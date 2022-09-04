@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15B88ECAAD5
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:46:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58F9BC6FA82
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:46:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20AC410E249;
-	Sun,  4 Sep 2022 21:43:10 +0000 (UTC)
-Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
- [IPv6:2607:f8b0:4864:20::d2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5621F10E16D;
- Sun,  4 Sep 2022 21:42:25 +0000 (UTC)
-Received: by mail-io1-xd2e.google.com with SMTP id p187so5652771iod.8;
- Sun, 04 Sep 2022 14:42:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 934DD10E1DA;
+	Sun,  4 Sep 2022 21:43:11 +0000 (UTC)
+Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com
+ [IPv6:2607:f8b0:4864:20::d34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CDA610E1BE;
+ Sun,  4 Sep 2022 21:42:41 +0000 (UTC)
+Received: by mail-io1-xd34.google.com with SMTP id b142so5642372iof.10;
+ Sun, 04 Sep 2022 14:42:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=ygTuajbmVKRymZcTR8l4AYG1vTV31KkFalfQRqvEO70=;
- b=qb+eXUS2FeGvpVtJ7v+DpOZwxGybLXxNLvokvSQTdNFeUtdY8CsheY5eB/SHmPx4O9
- huSEsSDTQKrSj+0Puiw+lGBf49Y4J1xWJgf6Ap2MJoyUCbw2fAY5nQAAJERXo7vJ7beG
- uEy7TG4owjT8onLbXW0wMRyVFiQeDhNfDDdJsyJhbLqVj3VikXMuVtM2AfKuFTkruuIT
- ZEtn5PQ+tih96gGXNgsH2cVDPtvjPYgq/XfBF5eBzbkWlcn29wqz/HPJB8mdX0xxRHTF
- eqZ20NxASPafvwnESXcu++44WdfCGPEIGsJqdmjGZ4Ebkk3JbphMGW8Ilt+BN7LlYeLQ
- RQIw==
+ bh=8gwyhoydIHSfwTTFYi0xd/UEVRo5zT1WMZJS4KZ9ukE=;
+ b=Oj7Ixl6oj9kg3JhT5hX2YNpqFWBWrRAemLR9ZyRiH8YKxlEL1JbyYUePKaIrZAL5jf
+ 1WolreEcW4UQ85oE8rIFcQKM9Y8DgXov3VdkOuxIChkt3b8QQ86vavL7yfZdfnG1GXrG
+ DieSrzFFZkksP5SG7xHoU2NUtwtLwxXiHtZdjYdGp0A0SfFIYvtv5K3SHQproh7ZaK9g
+ fFJF5WVYv4z4A9NBf1N+h/WwX6chGYIEj2Ni0q0zS2lPBsAWNrYRKNiDRgERv8ZCLA+5
+ CocXeZEZ1Rn3EM+S6VnFtLemc62uByDMdXXT71Ilig4RAz83otTF0UG6qgEF5wkzDQpI
+ 548g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=ygTuajbmVKRymZcTR8l4AYG1vTV31KkFalfQRqvEO70=;
- b=wqyswgqSS+xjxhGFgvJszBg+HlA73UKzKlDubqKST3aa2GcfrSxGUyVPbJM8ELYkty
- zDiRUy3ZzFtvddHO1aHNwQzyZ9yzHqszranMyOCaNsBvrAsBNOGrDg1mtjq49SufJwa/
- Gi4IIn4K07Ro7GV8DFG2fMEMM1ySJWfIGkxZph2YzPoXn1d02uNlJTlQocom/QqomJT0
- u0yc3YWLypTLNweEICsH7G2+r+OFW5JuJS+5on2SkIOX2UqktQkQQs9GJ79UlZkLsomj
- 7eiXP8eHwNu3KmdRtZ2eYeOIfzNMhlv26hXD1CKclxIvH2Xx+BQNdvZKMR903AqpJ2sc
- 4i/w==
-X-Gm-Message-State: ACgBeo1XsD8v5gJMF8LxRX/lxYzdJNh6/hAFelEYRgjq08/OvgjcURqr
- SRh2pLPzwgSVgahrgx72aj8=
-X-Google-Smtp-Source: AA6agR6i2bEKl1Cs2088Bgc9CVI77OTinqvJI0IWGolf9NIA7tDBAIrKIIWBixVDBMgcEhK2nR9WNg==
-X-Received: by 2002:a05:6638:4091:b0:342:e406:45d8 with SMTP id
- m17-20020a056638409100b00342e40645d8mr25310655jam.130.1662327744496; 
- Sun, 04 Sep 2022 14:42:24 -0700 (PDT)
+ bh=8gwyhoydIHSfwTTFYi0xd/UEVRo5zT1WMZJS4KZ9ukE=;
+ b=lrv9lbQfZIm95JGLjvFVRIlUvKmMlxbADfT8f0t62rBx+GRBIPMh3SAyNZzgVoKYNr
+ NWH6camU1Qfvf44nQOaougVEs7ncZdISqwNoTbDg5UrzBD1xo/FY131nUawf7ZqBajGu
+ VXkleJnMl5LYq4TqWY8TsTf55Hfwtr4VZOo0DvpyhlnCrVRbEIAAuR1vZgxiO3T1YLDo
+ eztw+ZbPrQoXsavyzZBcgm4xCACiI9YMAYcqiB3WMkSJMXKdqZNJizY2jhtZoAmHIzWs
+ JHQQIyVLQNexPMjwRcV4E7NkzL2fhbjk8XcjTNCoPoIezRWwSOiAXDvltUwU8thbWk0x
+ UjzQ==
+X-Gm-Message-State: ACgBeo0Kxp+i8r74aO10F9kLwXU6yv79IhECPEcTwG5FGryCbNngj9SC
+ fBdUe3KsVMG8ZSI6jb+UDoY=
+X-Google-Smtp-Source: AA6agR7YcRBN9eLsdX3bzp79/kQqCn5Cue7Lw5y+W0FC6PDyqlsmvwF4ziOCRLDCU+BO8di3xE1W6A==
+X-Received: by 2002:a05:6638:d06:b0:350:a613:f7ec with SMTP id
+ q6-20020a0566380d0600b00350a613f7ecmr3859829jaj.169.1662327760724; 
+ Sun, 04 Sep 2022 14:42:40 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.23
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:24 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:40 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 15/57] kernel/module: add __dyndbg_classes section
-Date: Sun,  4 Sep 2022 15:40:52 -0600
-Message-Id: <20220904214134.408619-16-jim.cromie@gmail.com>
+Subject: [PATCH v6 32/57] nouveau: adapt NV_DEBUG, NV_ATOMIC to use DRM.debug
+Date: Sun,  4 Sep 2022 15:41:09 -0600
+Message-Id: <20220904214134.408619-33-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
@@ -78,112 +78,62 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add __dyndbg_classes section, using __dyndbg as a model. Use it:
+These 2 macros used drm_debug_enabled() on DRM_UT_{DRIVER,ATOMIC}
+respectively, replace those with drm_dbg_##cat invocations.
 
-vmlinux.lds.h:
+this results in new class'd prdbg callsites:
 
-KEEP the new section, which also silences orphan section warning on
-loadable modules.  Add (__start_/__stop_)__dyndbg_classes linker
-symbols for the c externs (below).
+:#> grep nouveau /proc/dynamic_debug/control | grep class | wc
+    116    1130   15584
+:#> grep nouveau /proc/dynamic_debug/control | grep class | grep DRIVER | wc
+     74     704    9709
+:#> grep nouveau /proc/dynamic_debug/control | grep class | grep ATOMIC | wc
+     31     307    4237
+:#> grep nouveau /proc/dynamic_debug/control | grep class | grep KMS | wc
+     11     119    1638
 
-kernel/module/main.c:
-- fill new fields in find_module_sections(), using section_objs()
-- extend callchain prototypes
-  to pass classes, length
-  load_module(): pass new info to dynamic_debug_setup()
-  dynamic_debug_setup(): new params, pass through to ddebug_add_module()
-
-dynamic_debug.c:
-- add externs to the linker symbols.
-
-ddebug_add_module():
-- It currently builds a debug_table, and *will* find and attach classes.
-
-dynamic_debug_init():
-- add class fields to the _ddebug_info cursor var: di.
+the KMS entries are due to existing uses of drm_dbg_kms().
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/asm-generic/vmlinux.lds.h | 3 +++
- include/linux/dynamic_debug.h     | 2 ++
- kernel/module/main.c              | 2 ++
- lib/dynamic_debug.c               | 7 +++++++
- 4 files changed, 14 insertions(+)
+ drivers/gpu/drm/nouveau/nouveau_drv.h | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index 7515a465ec03..9b8bd5504ad9 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -345,6 +345,9 @@
- 	*(__tracepoints)						\
- 	/* implement dynamic printk debug */				\
- 	. = ALIGN(8);							\
-+	__start___dyndbg_classes = .;					\
-+	KEEP(*(__dyndbg_classes))					\
-+	__stop___dyndbg_classes = .;					\
- 	__start___dyndbg = .;						\
- 	KEEP(*(__dyndbg))						\
- 	__stop___dyndbg = .;						\
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 98dbf1d49984..9073a43a2039 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -114,7 +114,9 @@ struct ddebug_class_map {
- /* encapsulate linker provided built-in (or module) dyndbg data */
- struct _ddebug_info {
- 	struct _ddebug *descs;
-+	struct ddebug_class_map *classes;
- 	unsigned int num_descs;
-+	unsigned int num_classes;
- };
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drv.h b/drivers/gpu/drm/nouveau/nouveau_drv.h
+index 84df5ddae4d0..3b8a76004b57 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drv.h
++++ b/drivers/gpu/drm/nouveau/nouveau_drv.h
+@@ -39,6 +39,7 @@
+  */
  
- #if defined(CONFIG_DYNAMIC_DEBUG_CORE)
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index 4c20bc3ff203..6aa6153aa6e0 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -2113,6 +2113,8 @@ static int find_module_sections(struct module *mod, struct load_info *info)
+ #include <linux/notifier.h>
++#include <linux/dynamic_debug.h>
  
- 	info->dyndbg.descs = section_objs(info, "__dyndbg",
- 					sizeof(*info->dyndbg.descs), &info->dyndbg.num_descs);
-+	info->dyndbg.classes = section_objs(info, "__dyndbg_classes",
-+					sizeof(*info->dyndbg.classes), &info->dyndbg.num_classes);
+ #include <nvif/client.h>
+ #include <nvif/device.h>
+@@ -263,13 +264,16 @@ void nouveau_drm_device_remove(struct drm_device *dev);
+ #define NV_WARN(drm,f,a...) NV_PRINTK(warn, &(drm)->client, f, ##a)
+ #define NV_INFO(drm,f,a...) NV_PRINTK(info, &(drm)->client, f, ##a)
  
- 	return 0;
- }
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index c358ccdf4a39..fb31a1a2fc3f 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -41,6 +41,8 @@
- 
- extern struct _ddebug __start___dyndbg[];
- extern struct _ddebug __stop___dyndbg[];
-+extern struct ddebug_class_map __start___dyndbg_classes[];
-+extern struct ddebug_class_map __stop___dyndbg_classes[];
- 
- struct ddebug_table {
- 	struct list_head link;
-@@ -1079,7 +1081,9 @@ static int __init dynamic_debug_init(void)
- 
- 	struct _ddebug_info di = {
- 		.descs = __start___dyndbg,
-+		.classes = __start___dyndbg_classes,
- 		.num_descs = __stop___dyndbg - __start___dyndbg,
-+		.num_classes = __stop___dyndbg_classes - __start___dyndbg_classes,
- 	};
- 
- 	if (&__start___dyndbg == &__stop___dyndbg) {
-@@ -1122,6 +1126,9 @@ static int __init dynamic_debug_init(void)
- 		 i, mod_ct, (int)((mod_ct * sizeof(struct ddebug_table)) >> 10),
- 		 (int)((i * sizeof(struct _ddebug)) >> 10));
- 
-+	if (di.num_classes)
-+		v2pr_info("  %d builtin ddebug class-maps\n", di.num_classes);
+-#define NV_DEBUG(drm,f,a...) do {                                              \
+-	if (drm_debug_enabled(DRM_UT_DRIVER))                                  \
+-		NV_PRINTK(info, &(drm)->client, f, ##a);                       \
++#define NV_DRMDBG(cat,c,f,a...) do {				\
++	struct nouveau_cli *_cli = (c);				\
++	drm_dbg_##cat(_cli->drm->dev, "%s: "f, _cli->name, ##a); \
+ } while(0)
+-#define NV_ATOMIC(drm,f,a...) do {                                             \
+-	if (drm_debug_enabled(DRM_UT_ATOMIC))                                  \
+-		NV_PRINTK(info, &(drm)->client, f, ##a);                       \
 +
- 	/* now that ddebug tables are loaded, process all boot args
- 	 * again to find and activate queries given in dyndbg params.
- 	 * While this has already been done for known boot params, it
++#define NV_DEBUG(drm,f,a...) do {					\
++	NV_DRMDBG(driver, &(drm)->client, f, ##a);			\
++} while(0)
++#define NV_ATOMIC(drm,f,a...) do {					\
++	NV_DRMDBG(atomic, &(drm)->client, f, ##a);			\
+ } while(0)
+ 
+ #define NV_PRINTK_ONCE(l,c,f,a...) NV_PRINTK(l##_once,c,f, ##a)
 -- 
 2.37.2
 
