@@ -4,116 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 506A4ECAAD4
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 14:13:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6967C6FA82
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:42:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5068310E055;
-	Sun,  4 Sep 2022 14:13:28 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2078.outbound.protection.outlook.com [40.107.94.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53F5010E031;
- Sun,  4 Sep 2022 14:13:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d4WO/J09zM770rB8EqbQGD9zwedSOAvpyWa/O10rVRgEev3lKwZHI3j/LbvNtZgmzvtW4Lt38/Q6Jo+NJDTDJNTESpnNLFuIAoRHpD2SsFCsA+N7wM8UQ7ePY56HKJD7QTrsreQ3swF0nA6xK6swpTcxSUBrZm3YUF3AdifQUr47vPjkACrNpHye50VdIASElwqHdgKOAbu7KkdkUlg2IcpkwY7BJIIMoUnwIGTvPcftUnyA+PApGP5hBFFZNSMl5E9t7qp7Ru3lF2eJkT43PNh8SPnc2MOPzJB2xfZS0G83XTiu5AXAhoMCfVyIMVAM/krGG3VTmuOt4s0gFzLPEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mnWpIw8bo0nsfjIree/0UYeTboeYThY60xZ5OIxpz38=;
- b=D8Uw2UK8kABAUAAIJQteBlJx1AXH7ITLEa8Yah7KWpED8DWCb/gPriTIEeEHpOrbvWzajfpxKppx3N5RRy9L6bj1DXXTwAzfamQi3hGJwCVenrFDC2uxpEFr86l0ObA2mB2WnTji74dH1FE/iJA2n4iWKGTSbDXiDz6APyCC3siIDLE4d9PIAdmOuGOlxMP64sZDBwrfep0dl9BeHwGKj+mNYc4fFnuYFacw0t2sviutYHoPFlMBa4tf/L+zyCixNVueONASx9q3Xzho2OJb/VJfamX8er3+EWqhI8IndfumcEEDJjf4FGlNVYluzXa3eSeM9pGy5tLGM0vVUaxEAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mnWpIw8bo0nsfjIree/0UYeTboeYThY60xZ5OIxpz38=;
- b=lRVoBcPRqtx0G2lao8M/m/WEOSWxhxsY4A+0kDXjuax/OtELwD+q8esgVNSy2g0RKn0PuSVHzSMmkq+SOq71RzcDFxMSHZKBRzr5cB17/80Qumdt6ciYPR2tPvnF0P1GOpFML3CL4E7daBQk1rJuv4nIOPchtwdS1IvcPU6ds4Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by PH7PR12MB7161.namprd12.prod.outlook.com (2603:10b6:510:200::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.18; Sun, 4 Sep
- 2022 14:13:21 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::4524:eda6:873a:8f94]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::4524:eda6:873a:8f94%7]) with mapi id 15.20.5588.018; Sun, 4 Sep 2022
- 14:13:21 +0000
-Message-ID: <5112955e-3f1a-be3f-a07d-afd0923ac26a@amd.com>
-Date: Sun, 4 Sep 2022 16:13:18 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] amd: amdgpu: fix coding style issue
-Content-Language: en-US
-To: Jingyu Wang <jingyuwang_vip@163.com>, alexander.deucher@amd.com,
- Xinhui.Pan@amd.com, airlied@linux.ie, daniel@ffwll.ch, Felix.Kuehling@amd.com
-References: <20220904092625.1007393-1-jingyuwang_vip@163.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20220904092625.1007393-1-jingyuwang_vip@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR02CA0010.eurprd02.prod.outlook.com
- (2603:10a6:20b:6e::23) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E3C910E010;
+	Sun,  4 Sep 2022 21:42:09 +0000 (UTC)
+Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
+ [IPv6:2607:f8b0:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C912D10E010;
+ Sun,  4 Sep 2022 21:41:59 +0000 (UTC)
+Received: by mail-il1-x132.google.com with SMTP id k2so3867452ilu.9;
+ Sun, 04 Sep 2022 14:41:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=Rk0v3z6nbpdvu88IImrHMGbLoUUPdnPRh/3Godzt1FA=;
+ b=J2j1esbki5TiJj8l6H2Q6c2JHxiCFaB7O6YGdT/pn7Ag+2yqvlGJJweNSqogG5zEb3
+ diZzFKrda46JEN7PyM8gc/0Xahl4bAs5OoUt1yopJui7ZMfGo//PDQeA59ddFWxzg3vz
+ gqvfrHJ06LSDXQQTH322kmGT2t5nLF5iYUtCtLULrNzzZclYuwWFMpEPMJNuuaJz2f5E
+ KlO5OmjsdjFozKTAmalEqVDHQzJH1gBZ4o6kAqUA0n3MRbhARGj+Pg2J3y5bONpqxZMN
+ 9gxyQ4asUPXvVEsUeYypcYKMsqMw/Nl60eI1KOPpWsEPBmGHn30hJUDfnigMHVwuBZIX
+ 6LBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=Rk0v3z6nbpdvu88IImrHMGbLoUUPdnPRh/3Godzt1FA=;
+ b=LRf12Rx0wnojkkQPoOTGpOgpZeqpTdlovBLIzbba7+ETDQGi0akLp4rY3f44hax0xi
+ JRP4Qr9Q6FRFgw9YBMy7cdAFsvBal4kPv4YpIXiBNHfKAqBloNF6iEXur15wYVLM1zj3
+ E88MA2Bf5qNOPq0GdZiQx8EtYKmwAJWRHQgziu5NyCcghZGSwbklGidIfvKGMZAzeo/F
+ HU4jOp0BdWjaCE5B5D+1b5a9h2LGwbUIdcsq9sSb2ykNOX19kff0E+O/zj+HHeMevMST
+ 91Elct/tJowb0i5H4FySgRLK0/LKHVrvNp+yoN7pm8dq2O/p/bL7gqPH1LOWa1LsbWJf
+ Y4tA==
+X-Gm-Message-State: ACgBeo2QniuxEuw1T3TtILtKhYgRN5dA35pr61havREbwdDXaanobYpT
+ pkg2N/rybc86hpBiguFTDEU=
+X-Google-Smtp-Source: AA6agR7CD92JSdC+7MhP3s0TXTkBFP2IYi9ja006MgU6Xo9IdJnxicAEFaNporcaAvAi1/sbjpYAow==
+X-Received: by 2002:a05:6e02:543:b0:2eb:5d3c:dde6 with SMTP id
+ i3-20020a056e02054300b002eb5d3cdde6mr12602343ils.84.1662327719085; 
+ Sun, 04 Sep 2022 14:41:59 -0700 (PDT)
+Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
+ by smtp.googlemail.com with ESMTPSA id
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.41.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 04 Sep 2022 14:41:58 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com, gregkh@linuxfoundation.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v6 00/57] DYNDBG: opt-in class'd debug for modules, use in drm.
+Date: Sun,  4 Sep 2022 15:40:37 -0600
+Message-Id: <20220904214134.408619-1-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b348e1f0-086b-4c2f-abcf-08da8e7f9f6a
-X-MS-TrafficTypeDiagnostic: PH7PR12MB7161:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9B792YNEMtdlCB9Al3zNYu5ui7BziauTZwbf3UmUj6ArB7UcurwU3WDrPpkS3Y96rggyopjZ+ElSRz9E3STs8kVNuQwpivt1GV3eoXFQ7DCFOpZ6ailYBxfP91Q0+kFIKklsV6hbP42ZyInq8UvrSWTk5JN4C67pIKcuUBXkpy4w6systTfm471aoBopSVC2x86+witXqN+IiwE/ZCMOTmf65phUuKC0uYFhOA3bTdULYRRjIhHYGsS+TqA/pj+GWx3XXCZGyPaqOeB1nlDIAuRKdCMhZAL3ZHK8RlyHuaC8yHxM3uQFNZzg7QdGJM3d1bJcFKyeEMD34uV84fIGzCZ8dZStXHacYpn6BjpJUBWV67Ke0dbtDYzna9a8lzcQm7Rm4l+b9bPLbRYiscg1T6Tv4k5ZLcnqErHWXtNkW4MoU8ZQ4JotBj32BEHrTEH3b/A7MTra0P4xjT31rDb6swoTRUXVldfI8T0LZJUFTroaKTo8I2f5NsklvDWmdGcehfi72Vf5V51wW0mKzJ/v6+pHKv9wOx/TtleJTTRdHDnooVjvrZ7VkHTYNKdNLtpHFSX3bSRwEA4rktIUkJ6ONERrl83QphmyvquUatiS8lD+yC0+GQKidjdv8PrK+63uAp+mxKeTsV4LqNEOETVeD0oDySlrRlomFg/j+IfBjCmXeauKPudwtkF9KDcyFFmVSlIWmKrJosMVIKDpBs2sYYkEUMJZ8psplUEB14pzUt7ZxyNSooB56XAYX4QTBcSAGAA3JXMgGYJ1uDKy68U2K9UZZ6yXhB5qdMEPS9GNWXM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(366004)(396003)(39860400002)(376002)(136003)(346002)(316002)(6636002)(83380400001)(6506007)(6512007)(6666004)(478600001)(8936002)(31686004)(31696002)(36756003)(86362001)(2906002)(5660300002)(4326008)(66556008)(66476007)(8676002)(66946007)(41300700001)(186003)(2616005)(6486002)(38100700002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1B4S01OeG5ncmlkajhPbEEycWhMa1hBWWVXZ2Q5NHZ5bnJpVzl0RXd6b3o5?=
- =?utf-8?B?MXJvZVhUek5JK2plaFc1ZElYRXVaOEdYV1FkS3NnWGVkakwzS1o5MFZmR3Bk?=
- =?utf-8?B?WnA0emRrT1NKb3BkQWM5M0lSd1QwWjlzQzE0d3lOZXVMNmZCdit6TURUNENE?=
- =?utf-8?B?UC9pZmdFZjQ0amJvN09LaWdLRWQ2OW90Y21LdS9oMjQ5eWFFZGJVa0tCZkdE?=
- =?utf-8?B?eG9BRXhkbmUwU1BxNTgwbmVIZXlXZFVDc3NmTUlyR1U4bklBNlpSRlNFRTNG?=
- =?utf-8?B?cE9heVlHa0hLbHJLMlAxUHRCV3F2eUVHVldaZzNRUlVhdnhISnJValN1bWZH?=
- =?utf-8?B?SkFxaGRHV0lrNEp2SVZnNjJIWXBxaWpZdkp1blBsWXIrT0V3ZG4ra1A2MEVi?=
- =?utf-8?B?aGxnc2tiY05keG1CTU42THVXMGl5VStJWThPeHZCT1VPdEYwYzZoKy9yT3Uw?=
- =?utf-8?B?aHEyLzdLZGVlNDNjeVlNRHZpa2xLMTh2dUhXRi9UYzk1QW9NWFBhQlhqREdN?=
- =?utf-8?B?amtLS3V5MVBZMTJZdjFGMHRUV2pKVldwWDlROG8zcWZtVEJLNWx0bm5kK2Z0?=
- =?utf-8?B?SjI4d3FaODlEYXBYY0ZJaDliK0dDeTNOUGM5d0VsR2ozWXRqa1BFYXRJRDdR?=
- =?utf-8?B?U0c5eTVjcVp1dDhNMk84dmp4SHQxRlh2L1c5a0o2bGFGcVdOeXZ6cGlqd0xQ?=
- =?utf-8?B?eFhMVCtJNUR2bFBQdkw2VU5tZFA3NDkyNG1wd0RXLzBsOGV0cWs5S1luQlpW?=
- =?utf-8?B?bmN6QVBpbnhjcUNIZWtZRktBN2V4cHJoZGsvUVAzSlAyOWw4enpodC9MSEVE?=
- =?utf-8?B?T1JrR1lrNThrQ0xlQnRQbExjYitMYUZ5aGtQWGdEcFlKaGt6UlFURlRqRklR?=
- =?utf-8?B?ZGV1c2lVMW5OZ01oaEZ2N0RwbS9RaGUrN3lVQ0FUeWVvRFNnRGpqUjJQcmZY?=
- =?utf-8?B?dmtuWDVCNHZrNm9jajNvNG5VdHlMQTBHckVsamVHbUdDV1hiMlQ5SmI3Z1Yz?=
- =?utf-8?B?QTIzdEpLbUpEZlpFck1HdUpIeCs0MTNkanVNdDhOd0ROMnF5cm1FRGtVS2dC?=
- =?utf-8?B?azF0NEwwRkNaTjFDMXFMV1FtZU1QenJVOHlsa1o0REVINTRyTEo4cEJuaWQ3?=
- =?utf-8?B?cFFJeDZzY251dmNUQ2VRQzFtakQzQm04eCtjS1RzcVpjb25CVVFLYm5RY0tz?=
- =?utf-8?B?N01YZTd5K0I3bTJLRlJMM2swWDNnQXhzUVR0TDlZSkpqYlE4UGtGUnZtdXlN?=
- =?utf-8?B?T1R4MjRiQmZUTFE4N3NZYUk2ek0rU0E1Vng3SHpFM0NGRTVTMnRRd2RsNmIy?=
- =?utf-8?B?T2ZWWGJESHJtN24wWUQ5SThOUHlhb0pCcUwvZ2k4NStSV1FweVkwUUpPTlRQ?=
- =?utf-8?B?MkdSaldEWGJpbUVQSklrQmJxcCtLV2l2bStPdWgwSjI3Qys2WWpTYTNpN0tG?=
- =?utf-8?B?TGpvNnRMREl5YjFhOVZIaEJpNGlTM2wrK21mU09TZjNGT2ZvNC9TZGRMVEw4?=
- =?utf-8?B?OFBRUDhLWFk3UmQzVEZRN2I3ZXhTeEp1aDc1RThjQnJLYWkwSllVV0VRL0Er?=
- =?utf-8?B?bjMvZWNCYkZIdktiQ1FKMzlxUmZhdXhueHhqcklJQ0xpNk5VclNuT0FMaUcw?=
- =?utf-8?B?ZjFFMmk3RGp5ZnNqQTFmVjF3dGpUSGprTW8zSU9iLzdwU3o5S3Z3anJRbHg1?=
- =?utf-8?B?SEJiZ1dtendEU2duc3BQeTljQnF1UFBKWE0reEhXdzRHdjhRZk1FdlZDMUJy?=
- =?utf-8?B?ZXlVQlR4SEJKRXZ5eHZWSURsV2ZBYTV4YkwvbS9HT29LdFFwK0NtbThraVVL?=
- =?utf-8?B?RStnYXhtckd2ZjNOSmxSSVlMNTE0MDllRSthek9ITHpBWEtZVk5RQUNZWGVM?=
- =?utf-8?B?dm4xWXpiWEl1UkFjU2VsRUo4aG9hMkhja3ZZRThpUXRsaTY3UmdZSnUvaXNw?=
- =?utf-8?B?dU1yUjRVa2JUM29ERitZZWx4dlRSaXZzSVl5b2g1cC9lYVdXSEtaQXFUR2ZD?=
- =?utf-8?B?dThvWHpOK2hLeEIreDk3eUg3eVVMMDRRbzg1aUVmZ3I5eVkya3I3UkcxbllX?=
- =?utf-8?B?dFg1RUZtcFRwQjl0UUFrL2V5UVlxblFGWFI5RlZYL2VYcXNWWFdBQVoybWQ2?=
- =?utf-8?B?RExMRnVIYnI5Q1NFS3F3VkFiYUpxYXNJMjV5UlhOUXNJK0lHTXJyVFpTRVJS?=
- =?utf-8?Q?bTjiDMGQSXUQAJb5/zo75huvqoIXLrtmuIcTCWJ9rGOx?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b348e1f0-086b-4c2f-abcf-08da8e7f9f6a
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2022 14:13:21.4780 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: m5xwyyuWbn421fyebF3LYOqwgdPysHxej9EX+T/ZyxhRL00KWR5wwkKSR85Tl4qU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7161
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,52 +69,197 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
+ linux@rasmusvillemoes.dk, robdclark@gmail.com, seanpaul@chromium.org,
+ joe@perches.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 04.09.22 um 11:26 schrieb Jingyu Wang:
-> This is a patch to the amdgpu_sync.c file that fixes some warnings found by the checkpatch.pl tool
->
-> Signed-off-by: Jingyu Wang <jingyuwang_vip@163.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 8 +++++---
->   1 file changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> index 504af1b93bfa..dfc787b749b2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> @@ -1,5 +1,6 @@
-> -/*
-> - * Copyright 2014 Advanced Micro Devices, Inc.
-> +// SPDX-License-Identifier: GPL-2.0
+hi Greg, Jason, DRM-folk, Steven,
 
-This code is under and MIT license.
+If Im not too late for linux-next in this cycle, heres V6.  Diffs are minor:
 
-Christian.
+ - rebased onto e47eb90a0a9a (tag: next-20220901, linux-next/master)
+   gets past Kconfig conflict, same for drm-tip.
+ - uint debug_level, not ulong.  to fit nouveau.
+ - -1 on param-read-back, to match prev write val.
+ - added back tracefs parts, missing from -V5
+   updated for tracing/events: Add __vstring() and __assign_vstr() helper macros
+   no decorations-lite in TP_printk, do it right later.
+ - commit-msg tweaks
 
-> +
-> +/* Copyright 2014 Advanced Micro Devices, Inc.
->    * All Rights Reserved.
->    *
->    * Permission is hereby granted, free of charge, to any person obtaining a
-> @@ -315,6 +316,7 @@ struct dma_fence *amdgpu_sync_get_fence(struct amdgpu_sync *sync)
->   	struct hlist_node *tmp;
->   	struct dma_fence *f;
->   	int i;
-> +
->   	hash_for_each_safe(sync->fences, i, tmp, e, node) {
->   
->   		f = e->fence;
-> @@ -392,7 +394,7 @@ void amdgpu_sync_free(struct amdgpu_sync *sync)
->   {
->   	struct amdgpu_sync_entry *e;
->   	struct hlist_node *tmp;
-> -	unsigned i;
-> +	unsigned int i;
->   
->   	hash_for_each_safe(sync->fences, i, tmp, e, node) {
->   		hash_del(&e->node);
+Theres also new RFC stuff with the potential to reduce the size of the
+__dyndbgs section by 20%.  Not ready for prime time, or linux-next,
+but I hope compelling.
+
+FEATURE DESCRIPTION
+
+dyndbg provides DECLARE_DYNAMIC_DEBUG_CLASSMAP() which allows module
+authors to declare "good" class-names, of 4 types.
+
+  DYNAMIC_DEBUG_CLASSMAP(drm_debug_classes,
+  			DD_CLASS_TYPE_DISJOINT_BITS, offset,
+                        "DRM_UT_CORE",
+                        "DRM_UT_DRIVER",
+                        "DRM_UT_KMS",
+                        "DRM_UT_PRIME",
+                        "DRM_UT_ATOMIC",
+                        "DRM_UT_VBL",
+                        "DRM_UT_STATE",
+                        "DRM_UT_LEASE",
+                        "DRM_UT_DP",
+                        "DRM_UT_DRMRES");
+
+That usage authorizes dyndbg to set class'd pr_debugs accordingly:
+
+  echo class DRM_UT_CORE +p > /proc/dynamic_debug/control
+  echo class DRM_UT_KMS  +p > /proc/dynamic_debug/control
+
+Because the DRM modules declare the same classes, they each authorize
+dyndbg with the same classnames, which allows dyndbg to effect changes
+to its selected class'd prdbgs.
+
+Opting in by using the macro effectively privatizes the limited
+63-classes available per module; only modules which share classnames
+must coordinate their use of the common range, and they can
+independently use the remaining id-space.
+
+Other dyndbg filtering pertains too, so single sites can be selected.
+
+
+4 DD_CLASS_TYPE_*_*s determine 2 behaviors:
+
+  DISJOINT	bits are independent, like drm.debug categories
+  LEVELs	3>2, turns on level-2, like nouveau debug-levels
+  NUM/BITS	numeric input, bitmap if disjoint, else 0-32.
+  NAMES		accept proper names, like DRM_UT_CORE
+
+Dyndbg provides param-callbacks which enforce those behaviors:
+
+  # DISJOINT_BITS
+  echo 0x03 > /sys/module/drm/parameters/debug
+
+  # LEVEL_NUM
+  echo 3 > /sys/module/drm/nouveau/debug-mumble*
+
+  # DISJOINT_NAMES
+  echo +DRM_UT_CORE,+DRM_UT_KMS,-DRM_UT_DRIVER > /sys/module/drm/parameters/debug_categories
+
+  # LEVEL_NAMES
+  echo NV_TRACE > /sys/module/nouveau/parameters/debug-mumble*
+
+That design choice is allowed cuz verbosity is always attached to a
+(user visible) interface, and theres no reason not to put the
+implementation there (in the callback).  It also considerably
+simplifies things; ddebug_change can treat class_id's as disjoint,
+period.
+
+
+Jim Cromie (57):
+prep:
+  dyndbg: fix static_branch manipulation
+  dyndbg: fix module.dyndbg handling
+  dyndbg: show both old and new in change-info
+  dyndbg: reverse module walk in cat control
+  dyndbg: reverse module.callsite walk in cat control
+  dyndbg: use ESCAPE_SPACE for cat control
+  dyndbg: let query-modname override actual module name
+  dyndbg: add test_dynamic_debug module
+  dyndbg: drop EXPORTed dynamic_debug_exec_queries
+  dyndbg: cleanup auto vars in dynamic_debug_init
+  dyndbg: gather __dyndbg[] state into struct _ddebug_info
+
+class feature:
+  dyndbg: add class_id to pr_debug callsites
+  dyndbg: add __pr_debug_cls for testing
+  dyndbg: add DECLARE_DYNDBG_CLASSMAP macro
+  kernel/module: add __dyndbg_classes section
+  dyndbg: add ddebug_attach_module_classes
+  dyndbg: validate class FOO by checking with module
+  doc-dyndbg: describe "class CLASS_NAME" query support
+  doc-dyndbg: edit dynamic-debug-howto for brevity, audience
+  dyndbg: add drm.debug style (drm/parameters/debug) bitmap support
+  dyndbg: test DECLARE_DYNDBG_CLASSMAP, sysfs nodes
+
+drm-use-case:
+  drm_print: condense enum drm_debug_category
+  drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.
+  drm_print: interpose drm_*dbg with forwarding macros
+  drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro
+  drm-print.h: include dyndbg header
+  drm-print: add drm_dbg_driver to improve namespace symmetry
+  drm_print: refine drm_debug_enabled for jump-label
+  drm_print: prefer bare printk KERN_DEBUG on generic fn
+  drm_print: add _ddebug descriptor to drm_*dbg prototypes
+  nouveau: change nvkm_debug/trace to use dev_dbg POC
+  nouveau: adapt NV_DEBUG, NV_ATOMIC to use DRM.debug
+  nouveau: WIP add 2 LEVEL_NUM classmaps for CLI, SUBDEV
+
+dyndbg-tracefs:
+  dyndbg: add _DPRINTK_FLAGS_ENABLED
+  dyndbg: add _DPRINTK_FLAGS_TRACE
+  dyndbg: add write-events-to-tracefs code
+  dyndbg: add 2 trace-events: drm_debug, drm_devdbg
+  dyndbg: add 2 more trace-events: pr_debug, dev_dbg
+  dyndbg/drm: POC add tracebits sysfs-knob
+
+RFC-20%-data-reclaim:
+  dyndbg: abstraction macros for modname,function,filename fields
+  dyndbg: split repeating columns to new struct _ddebug_site
+  dyndbg: shrink lineno field by 2 bits
+  dyndbg: add _index,_map to struct _ddebug
+  dyndbg: extend __ddebug_add_module proto to allow packing sites
+  dyndbg: de-duplicate sites
+  dyndbg: drop site-> in add-module, more needed
+  dyndbg: demote iter->site in _init
+  dyndbg: add .gnu.linkonce slot in vmlinux.lds.h KEEPs
+  dyndbg: add structs _ddebug_hdr, _ddebug_site_hdr
+  dyndbg: count unique callsites
+  dyndbg: prevent build bugs via -DNO_DYNAMIC_DEBUG_TABLE
+  dyndbg: add DEFINE_DYNAMIC_DEBUG_TABLE, use it tacitly RFC
+  dyndbg: add/use is_dyndbg_header then set _uplink
+  dyndbg: add .gnu.linkonce. & __dyndbg* sections in module.lds.h
+  dyndbg: dynamic_debug_sites_reclaim() using free_reserved_page() WAG
+  dyndbg: work ddebug_map_site
+  dyndbg: fiddle with readback value on LEVEL_NAMES types
+
+ .../admin-guide/dynamic-debug-howto.rst       | 249 +++---
+ MAINTAINERS                                   |   2 +
+ arch/arm/boot/compressed/Makefile             |   2 +
+ arch/sparc/vdso/Makefile                      |   2 +
+ arch/x86/boot/compressed/Makefile             |   1 +
+ arch/x86/entry/vdso/Makefile                  |   3 +
+ arch/x86/purgatory/Makefile                   |   1 +
+ drivers/firmware/efi/libstub/Makefile         |   3 +-
+ drivers/gpu/drm/Kconfig                       |  12 +
+ drivers/gpu/drm/Makefile                      |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  14 +
+ drivers/gpu/drm/display/drm_dp_helper.c       |  13 +
+ drivers/gpu/drm/drm_crtc_helper.c             |  13 +
+ drivers/gpu/drm/drm_print.c                   |  83 +-
+ drivers/gpu/drm/i915/i915_params.c            |  12 +
+ .../gpu/drm/nouveau/include/nvkm/core/debug.h |  16 +
+ .../drm/nouveau/include/nvkm/core/subdev.h    |  17 +-
+ drivers/gpu/drm/nouveau/nouveau_drm.c         |  20 +
+ drivers/gpu/drm/nouveau/nouveau_drv.h         |  16 +-
+ drivers/gpu/drm/nouveau/nvkm/core/subdev.c    |  23 +
+ include/asm-generic/module.lds.h              |  12 +-
+ include/asm-generic/vmlinux.lds.h             |  10 +
+ include/drm/drm_print.h                       |  85 +-
+ include/linux/dynamic_debug.h                 | 286 ++++++-
+ include/trace/events/drm.h                    |  54 ++
+ include/trace/events/dyndbg.h                 |  73 ++
+ kernel/module/internal.h                      |   4 +-
+ kernel/module/main.c                          |  22 +-
+ lib/Kconfig.debug                             |  10 +
+ lib/Makefile                                  |   1 +
+ lib/dynamic_debug.c                           | 792 +++++++++++++++---
+ lib/test_dynamic_debug.c                      | 165 ++++
+ 32 files changed, 1680 insertions(+), 338 deletions(-)
+ create mode 100644 include/trace/events/drm.h
+ create mode 100644 include/trace/events/dyndbg.h
+ create mode 100644 lib/test_dynamic_debug.c
+
+-- 
+2.37.2
 
