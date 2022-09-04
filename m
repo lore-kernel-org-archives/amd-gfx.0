@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A120C6FA82
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:44:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E00D4C6FA86
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:44:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D18110E163;
-	Sun,  4 Sep 2022 21:42:45 +0000 (UTC)
-Received: from mail-il1-x133.google.com (mail-il1-x133.google.com
- [IPv6:2607:f8b0:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 805B110E163;
- Sun,  4 Sep 2022 21:42:23 +0000 (UTC)
-Received: by mail-il1-x133.google.com with SMTP id k9so701019ils.12;
- Sun, 04 Sep 2022 14:42:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D796C10E256;
+	Sun,  4 Sep 2022 21:42:49 +0000 (UTC)
+Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
+ [IPv6:2607:f8b0:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C08B610E133;
+ Sun,  4 Sep 2022 21:42:34 +0000 (UTC)
+Received: by mail-il1-x129.google.com with SMTP id l16so3889010ilj.2;
+ Sun, 04 Sep 2022 14:42:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=UryXZ8MRQvm9M8ywPbYKJOd9IzaI7xdASsleEmdDI64=;
- b=muSWjLs7x00fb34NXmJsZan+xUhIQRfkeBRQvGNO6EFtSqDV4gjF1KMkI8Bqak2VBg
- M+SglSeYYC0OIZzXmOEj02FMTLSgdMYfMKEdDLaaJuUeMzg1y8KursXgroBhEJhRXtPE
- ES3Dwgi1AQvCREt4K2pjDPVYOugleYpu5qaUw9tS2HWryERwvYXOQYwsEa82WRrrUjO/
- yp7b0DPlePFOgcmNGO1FDSg1nPI3ICuWkKnZ9YbEBpQ3YvU6cljVk8CuOS4yIAP4Zg5S
- dnOYXunWEY24yxfgLxp+iCfDjBKFKOLqcksfSprGowZrq59RNyZHdmnZQ7ThwtBHf/Qg
- N9vg==
+ bh=Yb6CWV+TDDmM9onUuCxvFgBnmtmfnm46mq8t0HXB9jg=;
+ b=lHCcfKuE75YvbApb3Q3ZrFKS/VLaGwoG8AzIOt7lRvkN6SBFDFxisWcCRiGMiVWTmH
+ Kt63m7En4yLxNz7W7gTVWvhHgavhPV4rIN/E8gjWDoz36fXVQ8TufnV5YiPONZdg0wA9
+ PSC+3lVcstXByssTzg5qYKmlsp30bseonqBYHx7jAS4+G7wvrNp/c/1zAFFPf+Zb+I+C
+ bM52a0v8IgrcQsDr4+T74tV0XI154yB2HOw02ZrUn321+0Geo88H4CTT7pj1lgDKjIx/
+ lz/D5+FWjXkDEy4M7lN8ydHYZ3SpeaGHxvF6OeZEhZdGSQrj5iVYVDwQgerulqIfnVFo
+ NX1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=UryXZ8MRQvm9M8ywPbYKJOd9IzaI7xdASsleEmdDI64=;
- b=VSSB3w8FllE86Ogs8WRG3kN8jJHoE1Vo/7txnaOKJiWJRsDznnL1U8BTICKfs0VT4g
- 8w0fDRcfAXO9LMMRoawPkOeH3qdFY07V8A7oAHKXiPvPR9WrPhUdcQzDPpqzD3u011q1
- Gsl5zj/b0N7MMPHvSR4fmbmRCzNyJYG7Jrh4xtFxRDSl9sFG1LnXEbS0ZpXmrQc+X8B2
- bcg2hBMGRhFkekQI6Qn6loyckJUotUUzGDB2HlMILX71KDOgSWwJZrYWYh1Bt9bc20UZ
- H5JJmSBvvh2GlrfRJSYz+Q5SGvvJPRmPmSXWaLnRfgXRAtIEnevFeILXG1QZYOUTbzG2
- OTrg==
-X-Gm-Message-State: ACgBeo2b6Db5npWcBmZtXbSie5zYpNKZjvvqHzRIqpTikicy8TLRrPpz
- S54L8F5bfqcWmV08oSjz55Y=
-X-Google-Smtp-Source: AA6agR4xCBLCNJuB54OnGN7VtAxvyEt+vNDQxb7qX+QcTnPDx6k921Txd/smbqxpe7ugLH91cljdjg==
-X-Received: by 2002:a05:6e02:15c4:b0:2e1:986c:91a1 with SMTP id
- q4-20020a056e0215c400b002e1986c91a1mr24412890ilu.22.1662327740646; 
- Sun, 04 Sep 2022 14:42:20 -0700 (PDT)
+ bh=Yb6CWV+TDDmM9onUuCxvFgBnmtmfnm46mq8t0HXB9jg=;
+ b=VV+h+iCxcnMtU4hjwqnYkNPpjh1QYOTa7mGMTk2lCPFyBeqYJtowAwSaQ2LnvWXD2c
+ Jn8XOBuqeSlraEiBF/k2tjVMBj72Mm2Jt17Hy5P8OdCMjVwhgC3qJ4ADjNozWd/jEXsH
+ DEKvuP7lOtXSlmTlz9Y5hx/3rye1xNSAPxO92t9aN+ST4eJb1EimfZxASU0t505QYIW1
+ emx8gH7Repsp9+D2zxKQqJuVZKZxPvf3rG/lpjdYETIhopYknAYpsN6ApNXonSGeciJT
+ ViQX+Z9UHGJIZSN0vnOQCCNvv3x6dFuf6x9HoH2AIx+W09F81agKu6UDUdlJfBSBSnyU
+ +GYA==
+X-Gm-Message-State: ACgBeo13KEwzmOF2ay+lr4W2dU78TFUXDidCB0QE7nEGm4BAXkPCn0Rg
+ RHBJDdeT3Adro+xVoqpBOpc=
+X-Google-Smtp-Source: AA6agR5Cx+ajN8UUSivj7N6vamViDhkJkE8U1oCqTJYgtKCcaD95EUgEYEoUpvP503z2jlMiKd37Xg==
+X-Received: by 2002:a92:6a0d:0:b0:2e5:afe7:8d95 with SMTP id
+ f13-20020a926a0d000000b002e5afe78d95mr24687711ilc.262.1662327752155; 
+ Sun, 04 Sep 2022 14:42:32 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.19
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:20 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:31 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 11/57] dyndbg: gather __dyndbg[] state into struct
- _ddebug_info
-Date: Sun,  4 Sep 2022 15:40:48 -0600
-Message-Id: <20220904214134.408619-12-jim.cromie@gmail.com>
+Subject: [PATCH v6 23/57] drm: POC drm on dyndbg - use in core, 2 helpers,
+ 3 drivers.
+Date: Sun,  4 Sep 2022 15:41:00 -0600
+Message-Id: <20220904214134.408619-24-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
@@ -74,273 +74,273 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
- linux@rasmusvillemoes.dk, Luis Chamberlain <mcgrof@kernel.org>,
- robdclark@gmail.com, seanpaul@chromium.org, joe@perches.com
+ linux@rasmusvillemoes.dk, robdclark@gmail.com, seanpaul@chromium.org,
+ joe@perches.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This new struct composes the linker provided (vector,len) section,
-and provides a place to add other __dyndbg[] state-data later:
+Use DECLARE_DYNDBG_CLASSMAP across DRM:
 
-  descs - the vector of descriptors in __dyndbg section.
-  num_descs - length of the data/section.
+ - in .c files, since macro defines/initializes a record
 
-Use it, in several different ways, as follows:
+ - in drivers, $mod_{drv,drm,param}.c
+   ie where param setup is done, since a classmap is param related
 
-In lib/dynamic_debug.c:
+ - in drm/drm_print.c
+   since existing __drm_debug param is defined there,
+   and we ifdef it, and provide an elaborated alternative.
 
-ddebug_add_module(): Alter params-list, replacing 2 args (array,index)
-with a struct _ddebug_info * containing them both, with room for
-expansion.  This helps future-proof the function prototype against the
-looming addition of class-map info into the dyndbg-state, by providing
-a place to add more member fields later.
+ - in drm_*_helper modules:
+   dp/drm_dp - 1st item in makefile target
+   drivers/gpu/drm/drm_crtc_helper.c - random pick iirc.
 
-NB: later add static struct _ddebug_info builtins_state declaration,
-not needed yet.
+Since these modules all use identical CLASSMAP declarations (ie: names
+and .class_id's) they will all respond together to "class DRM_UT_*"
+query-commands:
 
-ddebug_add_module() is called in 2 contexts:
+  :#> echo class DRM_UT_KMS +p > /proc/dynamic_debug/control
 
-In dynamic_debug_init(), declare, init a struct _ddebug_info di
-auto-var to use as a cursor.  Then iterate over the prdbg blocks of
-the builtin modules, and update the di cursor before calling
-_add_module for each.
+NOTES:
 
-Its called from kernel/module/main.c:load_info() for each loaded
-module:
+This changes __drm_debug from int to ulong, so BIT() is usable on it.
 
-In internal.h, alter struct load_info, replacing the dyndbg array,len
-fields with an embedded _ddebug_info containing them both; and
-populate its members in find_module_sections().
+DRM's enum drm_debug_category values need to sync with the index of
+their respective class-names here.  Then .class_id == category, and
+dyndbg's class FOO mechanisms will enable drm_dbg(DRM_UT_KMS, ...).
 
-The 2 calling contexts differ in that _init deals with contiguous
-subranges of __dyndbgs[] section, packed together, while loadable
-modules are added one at a time.
+Though DRM needs consistent categories across all modules, thats not
+generally needed; modules X and Y could define FOO differently (ie a
+different NAME => class_id mapping), changes are made according to
+each module's private class-map.
 
-So rename ddebug_add_module() into outer/__inner fns, call __inner
-from _init, and provide the offset into the builtin __dyndbgs[] where
-the module's prdbgs reside.  The cursor provides start, len of the
-subrange for each.  The offset will be used later to pack the results
-of builtin __dyndbg_sites[] de-duplication, and is 0 and unneeded for
-loadable modules,
+No callsites are actually selected by this patch, since none are
+class'd yet.
 
-Note:
-
-kernel/module/main.c includes <dynamic_debug.h> for struct
-_ddeubg_info.  This might be prone to include loops, since its also
-included by printk.h.  Nothing has broken in robot-land on this.
-
-cc: Luis Chamberlain <mcgrof@kernel.org>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 13 +++++++-----
- kernel/module/internal.h      |  4 ++--
- kernel/module/main.c          | 18 ++++++++--------
- lib/dynamic_debug.c           | 40 +++++++++++++++++++++++++++--------
- 4 files changed, 50 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 14 +++++++++++++
+ drivers/gpu/drm/display/drm_dp_helper.c | 13 ++++++++++++
+ drivers/gpu/drm/drm_crtc_helper.c       | 13 ++++++++++++
+ drivers/gpu/drm/drm_print.c             | 27 +++++++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_params.c      | 12 +++++++++++
+ drivers/gpu/drm/nouveau/nouveau_drm.c   | 13 ++++++++++++
+ include/drm/drm_print.h                 |  3 ++-
+ 7 files changed, 92 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 8d9eec5f6d8b..6a2001250da1 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -51,12 +51,16 @@ struct _ddebug {
- #endif
- } __attribute__((aligned(8)));
- 
--
-+/* encapsulate linker provided built-in (or module) dyndbg data */
-+struct _ddebug_info {
-+	struct _ddebug *descs;
-+	unsigned int num_descs;
-+};
- 
- #if defined(CONFIG_DYNAMIC_DEBUG_CORE)
- 
--int ddebug_add_module(struct _ddebug *tab, unsigned int n,
--				const char *modname);
-+int ddebug_add_module(struct _ddebug_info *dyndbg, const char *modname);
-+
- extern int ddebug_remove_module(const char *mod_name);
- extern __printf(2, 3)
- void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
-@@ -184,8 +188,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- #include <linux/errno.h>
- #include <linux/printk.h>
- 
--static inline int ddebug_add_module(struct _ddebug *tab, unsigned int n,
--				    const char *modname)
-+static inline int ddebug_add_module(struct _ddebug_info *dinfo, const char *modname)
- {
- 	return 0;
- }
-diff --git a/kernel/module/internal.h b/kernel/module/internal.h
-index 680d980a4fb2..2e2bf236f558 100644
---- a/kernel/module/internal.h
-+++ b/kernel/module/internal.h
-@@ -53,6 +53,7 @@ extern const struct kernel_symbol __stop___ksymtab_gpl[];
- extern const s32 __start___kcrctab[];
- extern const s32 __start___kcrctab_gpl[];
- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index de7144b06e93..97e184f44a52 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -38,6 +38,8 @@
+ #include <linux/mmu_notifier.h>
+ #include <linux/suspend.h>
+ #include <linux/cc_platform.h>
++#include <linux/fb.h>
 +#include <linux/dynamic_debug.h>
- struct load_info {
- 	const char *name;
- 	/* pointer to module in temporary copy, freed at end of load_module() */
-@@ -62,8 +63,7 @@ struct load_info {
- 	Elf_Shdr *sechdrs;
- 	char *secstrings, *strtab;
- 	unsigned long symoffs, stroffs, init_typeoffs, core_typeoffs;
--	struct _ddebug *debug;
--	unsigned int num_debug;
-+	struct _ddebug_info dyndbg;
- 	bool sig_ok;
- #ifdef CONFIG_KALLSYMS
- 	unsigned long mod_kallsyms_init_off;
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index a4e4d84b6f4e..4c20bc3ff203 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -1598,16 +1598,16 @@ static void free_modinfo(struct module *mod)
- 	}
- }
  
--static void dynamic_debug_setup(struct module *mod, struct _ddebug *debug, unsigned int num)
-+static void dynamic_debug_setup(struct module *mod, struct _ddebug_info *dyndbg)
- {
--	if (!debug)
-+	if (!dyndbg->num_descs)
- 		return;
--	ddebug_add_module(debug, num, mod->name);
-+	ddebug_add_module(dyndbg, mod->name);
- }
+ #include "amdgpu.h"
+ #include "amdgpu_irq.h"
+@@ -185,6 +187,18 @@ int amdgpu_vcnfw_log;
  
--static void dynamic_debug_remove(struct module *mod, struct _ddebug *debug)
-+static void dynamic_debug_remove(struct module *mod, struct _ddebug_info *dyndbg)
- {
--	if (debug)
-+	if (dyndbg->num_descs)
- 		ddebug_remove_module(mod->name);
- }
+ static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
  
-@@ -2111,8 +2111,8 @@ static int find_module_sections(struct module *mod, struct load_info *info)
- 	if (section_addr(info, "__obsparm"))
- 		pr_warn("%s: Ignoring obsolete parameters\n", mod->name);
++DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
++			"DRM_UT_CORE",
++			"DRM_UT_DRIVER",
++			"DRM_UT_KMS",
++			"DRM_UT_PRIME",
++			"DRM_UT_ATOMIC",
++			"DRM_UT_VBL",
++			"DRM_UT_STATE",
++			"DRM_UT_LEASE",
++			"DRM_UT_DP",
++			"DRM_UT_DRMRES");
++
+ struct amdgpu_mgpu_info mgpu_info = {
+ 	.mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
+ 	.delayed_reset_work = __DELAYED_WORK_INITIALIZER(
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 92990a3d577a..cbb9c4d6d8f2 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -30,6 +30,7 @@
+ #include <linux/sched.h>
+ #include <linux/seq_file.h>
+ #include <linux/string_helpers.h>
++#include <linux/dynamic_debug.h>
  
--	info->debug = section_objs(info, "__dyndbg",
--				   sizeof(*info->debug), &info->num_debug);
-+	info->dyndbg.descs = section_objs(info, "__dyndbg",
-+					sizeof(*info->dyndbg.descs), &info->dyndbg.num_descs);
+ #include <drm/display/drm_dp_helper.h>
+ #include <drm/display/drm_dp_mst_helper.h>
+@@ -40,6 +41,18 @@
  
- 	return 0;
- }
-@@ -2807,7 +2807,7 @@ static int load_module(struct load_info *info, const char __user *uargs,
- 	}
+ #include "drm_dp_helper_internal.h"
  
- 	init_build_id(mod, info);
--	dynamic_debug_setup(mod, info->debug, info->num_debug);
-+	dynamic_debug_setup(mod, &info->dyndbg);
++DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
++			"DRM_UT_CORE",
++			"DRM_UT_DRIVER",
++			"DRM_UT_KMS",
++			"DRM_UT_PRIME",
++			"DRM_UT_ATOMIC",
++			"DRM_UT_VBL",
++			"DRM_UT_STATE",
++			"DRM_UT_LEASE",
++			"DRM_UT_DP",
++			"DRM_UT_DRMRES");
++
+ struct dp_aux_backlight {
+ 	struct backlight_device *base;
+ 	struct drm_dp_aux *aux;
+diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
+index 457448cc60f7..7d86020b5244 100644
+--- a/drivers/gpu/drm/drm_crtc_helper.c
++++ b/drivers/gpu/drm/drm_crtc_helper.c
+@@ -32,6 +32,7 @@
+ #include <linux/export.h>
+ #include <linux/kernel.h>
+ #include <linux/moduleparam.h>
++#include <linux/dynamic_debug.h>
  
- 	/* Ftrace init must be called in the MODULE_STATE_UNFORMED state */
- 	ftrace_module_init(mod);
-@@ -2871,7 +2871,7 @@ static int load_module(struct load_info *info, const char __user *uargs,
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+@@ -50,6 +51,18 @@
  
-  ddebug_cleanup:
- 	ftrace_release_mod(mod);
--	dynamic_debug_remove(mod, info->debug);
-+	dynamic_debug_remove(mod, &info->dyndbg);
- 	synchronize_rcu();
- 	kfree(mod->args);
-  free_arch_cleanup:
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 2e8ebef3bd0d..c358ccdf4a39 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -923,14 +923,20 @@ static const struct proc_ops proc_fops = {
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
+ #include "drm_crtc_helper_internal.h"
+ 
++DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
++			"DRM_UT_CORE",
++			"DRM_UT_DRIVER",
++			"DRM_UT_KMS",
++			"DRM_UT_PRIME",
++			"DRM_UT_ATOMIC",
++			"DRM_UT_VBL",
++			"DRM_UT_STATE",
++			"DRM_UT_LEASE",
++			"DRM_UT_DP",
++			"DRM_UT_DRMRES");
++
+ /**
+  * DOC: overview
+  *
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index f783d4963d4b..ec32df35a3e3 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -40,7 +40,7 @@
+  * __drm_debug: Enable debug output.
+  * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
   */
--int ddebug_add_module(struct _ddebug *tab, unsigned int n,
--			     const char *name)
-+static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
-+			       const char *modname)
+-unsigned int __drm_debug;
++unsigned long __drm_debug;
+ EXPORT_SYMBOL(__drm_debug);
+ 
+ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
+@@ -52,7 +52,30 @@ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug cat
+ "\t\tBit 5 (0x20)  will enable VBL messages (vblank code)\n"
+ "\t\tBit 7 (0x80)  will enable LEASE messages (leasing code)\n"
+ "\t\tBit 8 (0x100) will enable DP messages (displayport code)");
+-module_param_named(debug, __drm_debug, int, 0600);
++
++#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
++module_param_named(debug, __drm_debug, ulong, 0600);
++#else
++/* classnames must match vals of enum drm_debug_category */
++DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
++			"DRM_UT_CORE",
++			"DRM_UT_DRIVER",
++			"DRM_UT_KMS",
++			"DRM_UT_PRIME",
++			"DRM_UT_ATOMIC",
++			"DRM_UT_VBL",
++			"DRM_UT_STATE",
++			"DRM_UT_LEASE",
++			"DRM_UT_DP",
++			"DRM_UT_DRMRES");
++
++static struct ddebug_class_param drm_debug_bitmap = {
++	.bits = &__drm_debug,
++	.flags = "p",
++	.map = &drm_debug_classes,
++};
++module_param_cb(debug, &param_ops_dyndbg_classes, &drm_debug_bitmap, 0600);
++#endif
+ 
+ void __drm_puts_coredump(struct drm_printer *p, const char *str)
  {
- 	struct ddebug_table *dt;
+diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+index 6fc475a5db61..d1e4d528cb17 100644
+--- a/drivers/gpu/drm/i915/i915_params.c
++++ b/drivers/gpu/drm/i915/i915_params.c
+@@ -29,6 +29,18 @@
+ #include "i915_params.h"
+ #include "i915_drv.h"
  
-+	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
-+	if (!di->num_descs) {
-+		v3pr_info(" skip %s\n", modname);
-+		return 0;
-+	}
++DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
++			"DRM_UT_CORE",
++			"DRM_UT_DRIVER",
++			"DRM_UT_KMS",
++			"DRM_UT_PRIME",
++			"DRM_UT_ATOMIC",
++			"DRM_UT_VBL",
++			"DRM_UT_STATE",
++			"DRM_UT_LEASE",
++			"DRM_UT_DP",
++			"DRM_UT_DRMRES");
 +
- 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
- 	if (dt == NULL) {
--		pr_err("error adding module: %s\n", name);
-+		pr_err("error adding module: %s\n", modname);
- 		return -ENOMEM;
- 	}
- 	/*
-@@ -939,18 +945,25 @@ int ddebug_add_module(struct _ddebug *tab, unsigned int n,
- 	 * member of struct module, which lives at least as long as
- 	 * this struct ddebug_table.
- 	 */
--	dt->mod_name = name;
--	dt->num_ddebugs = n;
--	dt->ddebugs = tab;
-+	dt->mod_name = modname;
-+	dt->ddebugs = di->descs;
-+	dt->num_ddebugs = di->num_descs;
+ #define i915_param_named(name, T, perm, desc) \
+ 	module_param_named(name, i915_modparams.name, T, perm); \
+ 	MODULE_PARM_DESC(name, desc)
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index 561309d447e0..fd99ec0f4257 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -28,6 +28,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/vga_switcheroo.h>
+ #include <linux/mmu_notifier.h>
++#include <linux/dynamic_debug.h>
+ 
+ #include <drm/drm_aperture.h>
+ #include <drm/drm_crtc_helper.h>
+@@ -70,6 +71,18 @@
+ #include "nouveau_svm.h"
+ #include "nouveau_dmem.h"
+ 
++DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
++			"DRM_UT_CORE",
++			"DRM_UT_DRIVER",
++			"DRM_UT_KMS",
++			"DRM_UT_PRIME",
++			"DRM_UT_ATOMIC",
++			"DRM_UT_VBL",
++			"DRM_UT_STATE",
++			"DRM_UT_LEASE",
++			"DRM_UT_DP",
++			"DRM_UT_DRMRES");
 +
-+	INIT_LIST_HEAD(&dt->link);
+ MODULE_PARM_DESC(config, "option string to pass to driver core");
+ static char *nouveau_config;
+ module_param_named(config, nouveau_config, charp, 0400);
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index b3b470440e46..668273e36c2c 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -35,7 +35,7 @@
+ #include <drm/drm.h>
  
- 	mutex_lock(&ddebug_lock);
- 	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
+ /* Do *not* use outside of drm_print.[ch]! */
+-extern unsigned int __drm_debug;
++extern unsigned long __drm_debug;
  
--	vpr_info("%3u debug prints in module %s\n", n, dt->mod_name);
-+	vpr_info("%3u debug prints in module %s\n", di->num_descs, modname);
- 	return 0;
- }
- 
-+int ddebug_add_module(struct _ddebug_info *di, const char *modname)
-+{
-+	return __ddebug_add_module(di, 0, modname);
-+}
-+
- /* helper for ddebug_dyndbg_(boot|module)_param_cb */
- static int ddebug_dyndbg_param_cb(char *param, char *val,
- 				const char *modname, int on_err)
-@@ -1064,6 +1077,11 @@ static int __init dynamic_debug_init(void)
- 	const char *modname;
- 	char *cmdline;
- 
-+	struct _ddebug_info di = {
-+		.descs = __start___dyndbg,
-+		.num_descs = __stop___dyndbg - __start___dyndbg,
-+	};
-+
- 	if (&__start___dyndbg == &__stop___dyndbg) {
- 		if (IS_ENABLED(CONFIG_DYNAMIC_DEBUG)) {
- 			pr_warn("_ddebug table is empty in a CONFIG_DYNAMIC_DEBUG build\n");
-@@ -1082,7 +1100,9 @@ static int __init dynamic_debug_init(void)
- 
- 		if (strcmp(modname, iter->modname)) {
- 			mod_ct++;
--			ret = ddebug_add_module(iter_mod_start, mod_sites, modname);
-+			di.num_descs = mod_sites;
-+			di.descs = iter_mod_start;
-+			ret = __ddebug_add_module(&di, i - mod_sites, modname);
- 			if (ret)
- 				goto out_err;
- 
-@@ -1091,7 +1111,9 @@ static int __init dynamic_debug_init(void)
- 			iter_mod_start = iter;
- 		}
- 	}
--	ret = ddebug_add_module(iter_mod_start, mod_sites, modname);
-+	di.num_descs = mod_sites;
-+	di.descs = iter_mod_start;
-+	ret = __ddebug_add_module(&di, i - mod_sites, modname);
- 	if (ret)
- 		goto out_err;
- 
+ /**
+  * DOC: print
+@@ -275,6 +275,7 @@ static inline struct drm_printer drm_err_printer(const char *prefix)
+  *
+  */
+ enum drm_debug_category {
++	/* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
+ 	/**
+ 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+ 	 * drm_memory.c, ...
 -- 
 2.37.2
 
