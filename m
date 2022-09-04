@@ -4,98 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C5EAC6FA89
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AA38ECAAD5
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D76310E1EE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C283510E267;
 	Mon,  5 Sep 2022 07:04:46 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DF9C10E7D6
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Sep 2022 09:31:31 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- ay39-20020a05600c1e2700b003a5503a80cfso1062689wmb.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 02 Sep 2022 02:31:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=1gh2cH8+/vu9+O44Ntzb/QjlvRTOJYihF+Y3Qm1SXrI=;
- b=X4/4Zk55Ukbyir5IW5L08w5Q+fBtLNiG6CONxZPYH5OrhlCyRaaYThfUPWsbJipvYT
- swTNjLlHybyUWC/dfqbdAW5Ah7r6Ymh4/g/oVrerD+13326oWvDv3zz6rydOMv/zNWXn
- LtHud4zBf5xTIhynm9koMjOkNsLG74eqnxnm8RKGFRPGx7mBVVLJnC9rPLFS1X7yRHuD
- 1yX57RVfuS/GckEUMvFGVsy+Mf5mTMSC+0BUZDK65PEfhodItsbyEKzD56Ku/yT7NOR6
- 3oT1E3kXSyaBiSKfL1ykhnf13PQkgJjtaV8uIpotOq7DBSYoGzbS6ubAJ3YQ7hxyMo0X
- wobw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=1gh2cH8+/vu9+O44Ntzb/QjlvRTOJYihF+Y3Qm1SXrI=;
- b=Y3+D/VMMMSjXjykMKuEKd4M7UKqvdY6aEZb4j5xl+rLCyJSZuR0lBMuYHBfiTXFsmJ
- bedKEaZV2G53j8+Iyw//S/oTj1PxA2w+Po3pPBylIb3fOH5FuCNo/uvjH6wsnBh0ipLM
- cmrDAUUAkFSbEtaHVuujewmFHlEFszagCNuozjN4tQVrNnv6PyOcBC2RnGW6vDDO7LcE
- d6GVnIEjmcuvvd8qfqrCtK/D/USjjWr53CVLXXAKa1C6XEhyUQnrhg+VyJ6e4ZM5viht
- 1ENK+8OKR6nom8izdCtGHCwP72b9x4nUIO26GK6wlhH5/EwdJE9NrrDOhH9Ydm5Xn86o
- 4Lcg==
-X-Gm-Message-State: ACgBeo0ADmfZ3H93P3Ph9sjGRt6xg/in4ULWTggrwp0mY5kQ+YJp3IgH
- X0Nb8Lx5k3KGxBMBweJyU7VIEQ==
-X-Google-Smtp-Source: AA6agR7RmSVyjAeQGFw3MIw2xrxrUVQiVxAzEY6jcgGsEMR0UnpBnCqr/mnb1uGpwjcB9GCyqvs1tA==
-X-Received: by 2002:a1c:7703:0:b0:3a5:aefa:68e3 with SMTP id
- t3-20020a1c7703000000b003a5aefa68e3mr2239820wmi.158.1662111089219; 
- Fri, 02 Sep 2022 02:31:29 -0700 (PDT)
-Received: from [192.168.86.238]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- g40-20020a05600c4ca800b003a4f1385f0asm1537794wmp.24.2022.09.02.02.31.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Sep 2022 02:31:28 -0700 (PDT)
-Message-ID: <c22a8724-4a1c-dcc5-816d-32faedf6dee2@linaro.org>
-Date: Fri, 2 Sep 2022 10:31:24 +0100
+Received: from m12-12.163.com (m12-12.163.com [220.181.12.12])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0A82610E074;
+ Sun,  4 Sep 2022 19:16:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=oec+S
+ Ar3/a821J/02ocnsMHj9THCQ/CcC3l6okIm00E=; b=JzCtvo2Cqo9QlUJidGMz8
+ z8CuQmNovpstYShSlxKmOuOHVd/EpcWndS5fD+7YrU0gqNKql7rFC1xWp+Fe4aUj
+ WY1c8U6Mi1NeSaBHEVbuKSoJBLfw2SO8klipZEn7UO1Ha7KeT0z3UJ8aEj4yqaHv
+ +5ZLtcLCJrfqabw6SQ8fXc=
+Received: from f00160-VMware-Virtual-Platform.localdomain (unknown
+ [1.203.67.201])
+ by smtp8 (Coremail) with SMTP id DMCowADXhx9E+RRjM1kxZA--.19845S4;
+ Mon, 05 Sep 2022 03:15:31 +0800 (CST)
+From: Jingyu Wang <jingyuwang_vip@163.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, evan.quan@amd.com,
+ mario.limonciello@amd.com, Felix.Kuehling@amd.com,
+ andrey.grodzovsky@amd.com, olomon.chiu@amd.com
+Subject: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_drv.c
+Date: Mon,  5 Sep 2022 03:15:13 +0800
+Message-Id: <20220904191513.15159-1-jingyuwang_vip@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <4362da59f466d8c41c9a3ea91348266280b6a594>
+References: <4362da59f466d8c41c9a3ea91348266280b6a594>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v4 11/21] misc: fastrpc: Prepare to dynamic dma-buf
- locking specification
-Content-Language: en-US
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
- <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>, Amol Maheshwari <amahesh@qti.qualcomm.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>
-References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
- <20220831153757.97381-12-dmitry.osipenko@collabora.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220831153757.97381-12-dmitry.osipenko@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: DMCowADXhx9E+RRjM1kxZA--.19845S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Xry3Ar47tr1UXr4fAw4xJFb_yoW7AF43pF
+ 4rCr97t3y8Zr47tryDJFn3Wr90ga48XrWxZ3yDZryjgwn7CFn5Ga18tF9YqFnrXrs3Cw4x
+ JrykA39rWa4YkFJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pE6RRZUUUUU=
+X-Originating-IP: [1.203.67.201]
+X-CM-SenderInfo: 5mlqw5xxzd0whbyl1qqrwthudrp/1tbishNyF1UMWQR+bwAAsR
 X-Mailman-Approved-At: Mon, 05 Sep 2022 07:04:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,56 +54,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- linux-media@vger.kernel.org
+Cc: Jingyu Wang <jingyuwang_vip@163.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Fix something checkpatch.pl complained about in amdgpu_drv.c
 
+Signed-off-by: Jingyu Wang <jingyuwang_vip@163.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 31 +++++++++++++------------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
 
-On 31/08/2022 16:37, Dmitry Osipenko wrote:
-> Prepare fastrpc to the common dynamic dma-buf locking convention by
-> starting to use the unlocked versions of dma-buf API functions.
-> 
-> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> ---
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index de7144b06e93..b50fd27fb6aa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1,3 +1,4 @@
++// SPDX-License-Identifier: MIT
+ /*
+  * Copyright 2000 VA Linux Systems, Inc., Sunnyvale, California.
+  * All Rights Reserved.
+@@ -140,8 +141,8 @@ uint amdgpu_pcie_lane_cap;
+ u64 amdgpu_cg_mask = 0xffffffffffffffff;
+ uint amdgpu_pg_mask = 0xffffffff;
+ uint amdgpu_sdma_phase_quantum = 32;
+-char *amdgpu_disable_cu = NULL;
+-char *amdgpu_virtual_display = NULL;
++char *amdgpu_disable_cu;
++char *amdgpu_virtual_display;
+ 
+ /*
+  * OverDrive(bit 14) disabled by default
+@@ -502,7 +503,7 @@ module_param_named(virtual_display, amdgpu_virtual_display, charp, 0444);
+  * Set how much time allow a job hang and not drop it. The default is 0.
+  */
+ MODULE_PARM_DESC(job_hang_limit, "how much time allow a job hang and not drop it (default 0)");
+-module_param_named(job_hang_limit, amdgpu_job_hang_limit, int ,0444);
++module_param_named(job_hang_limit, amdgpu_job_hang_limit, int, 0444);
+ 
+ /**
+  * DOC: lbpw (int)
+@@ -565,8 +566,8 @@ module_param_named(timeout_period, amdgpu_watchdog_timer.period, uint, 0644);
+  */
+ #ifdef CONFIG_DRM_AMDGPU_SI
+ 
+-#if defined(CONFIG_DRM_RADEON) || defined(CONFIG_DRM_RADEON_MODULE)
+-int amdgpu_si_support = 0;
++#if IS_ENABLED(CONFIG_DRM_RADEON) || defined(CONFIG_DRM_RADEON_MODULE)
++int amdgpu_si_support;
+ MODULE_PARM_DESC(si_support, "SI support (1 = enabled, 0 = disabled (default))");
+ #else
+ int amdgpu_si_support = 1;
+@@ -584,8 +585,8 @@ module_param_named(si_support, amdgpu_si_support, int, 0444);
+  */
+ #ifdef CONFIG_DRM_AMDGPU_CIK
+ 
+-#if defined(CONFIG_DRM_RADEON) || defined(CONFIG_DRM_RADEON_MODULE)
+-int amdgpu_cik_support = 0;
++#if IS_ENABLED(CONFIG_DRM_RADEON) || defined(CONFIG_DRM_RADEON_MODULE)
++int amdgpu_cik_support;
+ MODULE_PARM_DESC(cik_support, "CIK support (1 = enabled, 0 = disabled (default))");
+ #else
+ int amdgpu_cik_support = 1;
+@@ -772,9 +773,9 @@ module_param(hws_gws_support, bool, 0444);
+ MODULE_PARM_DESC(hws_gws_support, "Assume MEC2 FW supports GWS barriers (false = rely on FW version check (Default), true = force supported)");
+ 
+ /**
+-  * DOC: queue_preemption_timeout_ms (int)
+-  * queue preemption timeout in ms (1 = Minimum, 9000 = default)
+-  */
++ * DOC: queue_preemption_timeout_ms (int)
++ * queue preemption timeout in ms (1 = Minimum, 9000 = default)
++ */
+ int queue_preemption_timeout_ms = 9000;
+ module_param(queue_preemption_timeout_ms, int, 0644);
+ MODULE_PARM_DESC(queue_preemption_timeout_ms, "queue preemption timeout in ms (1 = Minimum, 9000 = default)");
+@@ -799,7 +800,7 @@ MODULE_PARM_DESC(no_system_mem_limit, "disable system memory limit (false = defa
+  * DOC: no_queue_eviction_on_vm_fault (int)
+  * If set, process queues will not be evicted on gpuvm fault. This is to keep the wavefront context for debugging (0 = queue eviction, 1 = no queue eviction). The default is 0 (queue eviction).
+  */
+-int amdgpu_no_queue_eviction_on_vm_fault = 0;
++int amdgpu_no_queue_eviction_on_vm_fault;
+ MODULE_PARM_DESC(no_queue_eviction_on_vm_fault, "No queue eviction on VM fault (0 = queue eviction, 1 = no queue eviction)");
+ module_param_named(no_queue_eviction_on_vm_fault, amdgpu_no_queue_eviction_on_vm_fault, int, 0444);
+ #endif
+@@ -1609,7 +1610,7 @@ static const u16 amdgpu_unsupported_pciidlist[] = {
+ };
+ 
+ static const struct pci_device_id pciidlist[] = {
+-#ifdef  CONFIG_DRM_AMDGPU_SI
++#ifdef CONFIG_DRM_AMDGPU_SI
+ 	{0x1002, 0x6780, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+ 	{0x1002, 0x6784, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+ 	{0x1002, 0x6788, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+@@ -2289,7 +2290,6 @@ static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work)
+ 			amdgpu_amdkfd_device_init(adev);
+ 		amdgpu_ttm_set_buffer_funcs_status(adev, true);
+ 	}
+-	return;
+ }
+ 
+ static int amdgpu_pmops_prepare(struct device *dev)
+@@ -2478,6 +2478,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 	/* wait for all rings to drain before suspending */
+ 	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
+ 		struct amdgpu_ring *ring = adev->rings[i];
++
+ 		if (ring && ring->sched.ready) {
+ 			ret = amdgpu_fence_wait_empty(ring);
+ 			if (ret)
+@@ -2600,6 +2601,7 @@ long amdgpu_drm_ioctl(struct file *filp,
+ 	struct drm_file *file_priv = filp->private_data;
+ 	struct drm_device *dev;
+ 	long ret;
++
+ 	dev = file_priv->minor->dev;
+ 	ret = pm_runtime_get_sync(dev->dev);
+ 	if (ret < 0)
+@@ -2664,9 +2666,8 @@ int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv)
+ 	if (!filp)
+ 		return -EINVAL;
+ 
+-	if (filp->f_op != &amdgpu_driver_kms_fops) {
++	if (filp->f_op != &amdgpu_driver_kms_fops)
+ 		return -EINVAL;
+-	}
+ 
+ 	file = filp->private_data;
+ 	*fpriv = file->driver_priv;
 
-LGTM,
+base-commit: e47eb90a0a9ae20b82635b9b99a8d0979b757ad8
+-- 
+2.34.1
 
-Incase you plan to take it via another tree.
-
-Acked-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-
-
---srini
->   drivers/misc/fastrpc.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 93ebd174d848..6fcfb2e9f7a7 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -310,8 +310,8 @@ static void fastrpc_free_map(struct kref *ref)
->   				return;
->   			}
->   		}
-> -		dma_buf_unmap_attachment(map->attach, map->table,
-> -					 DMA_BIDIRECTIONAL);
-> +		dma_buf_unmap_attachment_unlocked(map->attach, map->table,
-> +						  DMA_BIDIRECTIONAL);
->   		dma_buf_detach(map->buf, map->attach);
->   		dma_buf_put(map->buf);
->   	}
-> @@ -726,7 +726,7 @@ static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
->   		goto attach_err;
->   	}
->   
-> -	map->table = dma_buf_map_attachment(map->attach, DMA_BIDIRECTIONAL);
-> +	map->table = dma_buf_map_attachment_unlocked(map->attach, DMA_BIDIRECTIONAL);
->   	if (IS_ERR(map->table)) {
->   		err = PTR_ERR(map->table);
->   		goto map_err;
