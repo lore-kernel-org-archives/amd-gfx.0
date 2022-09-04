@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58F9BC6FA82
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:46:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A5F8ECAAD5
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:46:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 934DD10E1DA;
-	Sun,  4 Sep 2022 21:43:11 +0000 (UTC)
-Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com
- [IPv6:2607:f8b0:4864:20::d34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CDA610E1BE;
- Sun,  4 Sep 2022 21:42:41 +0000 (UTC)
-Received: by mail-io1-xd34.google.com with SMTP id b142so5642372iof.10;
- Sun, 04 Sep 2022 14:42:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2A4D10E339;
+	Sun,  4 Sep 2022 21:43:17 +0000 (UTC)
+Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
+ [IPv6:2607:f8b0:4864:20::d35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC1910E1C5;
+ Sun,  4 Sep 2022 21:42:36 +0000 (UTC)
+Received: by mail-io1-xd35.google.com with SMTP id i77so5661068ioa.7;
+ Sun, 04 Sep 2022 14:42:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=8gwyhoydIHSfwTTFYi0xd/UEVRo5zT1WMZJS4KZ9ukE=;
- b=Oj7Ixl6oj9kg3JhT5hX2YNpqFWBWrRAemLR9ZyRiH8YKxlEL1JbyYUePKaIrZAL5jf
- 1WolreEcW4UQ85oE8rIFcQKM9Y8DgXov3VdkOuxIChkt3b8QQ86vavL7yfZdfnG1GXrG
- DieSrzFFZkksP5SG7xHoU2NUtwtLwxXiHtZdjYdGp0A0SfFIYvtv5K3SHQproh7ZaK9g
- fFJF5WVYv4z4A9NBf1N+h/WwX6chGYIEj2Ni0q0zS2lPBsAWNrYRKNiDRgERv8ZCLA+5
- CocXeZEZ1Rn3EM+S6VnFtLemc62uByDMdXXT71Ilig4RAz83otTF0UG6qgEF5wkzDQpI
- 548g==
+ bh=AsutXgMDAJiXYIziQgoUHz04vuwS74Ufjn18RboeZlU=;
+ b=Qw5u5kHlAuCdVRdp5boFr8w9l56DpQmLytG5X7x/gapi8SNDYyfHxGQ865EixG1rDF
+ w+qm25s4Qx7V+r1LIT4Yojr69wswh53LgdFjuv5u8ss4N7Y3M6OvvXRH+gSQtLhrl51K
+ 8MA7vqh1hp2ucRb7mbZmSegCHdgHh45ZtNYeJv2RuaJEfVrE7xjijSClBWTNNcJBAAfv
+ QJ9VxUtPDKNoU59NHhpkj4z/UKL9NQ5pTTXZdMEXqLoRbGLT/+iXx3JIGAlyabOc3HOS
+ z4XZEA/jjk7trB7VNHK/xQkhJcQcINVffpR5ej+XDbn5uk/XFMlCTA04L/CLoqDiCira
+ /Okw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=8gwyhoydIHSfwTTFYi0xd/UEVRo5zT1WMZJS4KZ9ukE=;
- b=lrv9lbQfZIm95JGLjvFVRIlUvKmMlxbADfT8f0t62rBx+GRBIPMh3SAyNZzgVoKYNr
- NWH6camU1Qfvf44nQOaougVEs7ncZdISqwNoTbDg5UrzBD1xo/FY131nUawf7ZqBajGu
- VXkleJnMl5LYq4TqWY8TsTf55Hfwtr4VZOo0DvpyhlnCrVRbEIAAuR1vZgxiO3T1YLDo
- eztw+ZbPrQoXsavyzZBcgm4xCACiI9YMAYcqiB3WMkSJMXKdqZNJizY2jhtZoAmHIzWs
- JHQQIyVLQNexPMjwRcV4E7NkzL2fhbjk8XcjTNCoPoIezRWwSOiAXDvltUwU8thbWk0x
- UjzQ==
-X-Gm-Message-State: ACgBeo0Kxp+i8r74aO10F9kLwXU6yv79IhECPEcTwG5FGryCbNngj9SC
- fBdUe3KsVMG8ZSI6jb+UDoY=
-X-Google-Smtp-Source: AA6agR7YcRBN9eLsdX3bzp79/kQqCn5Cue7Lw5y+W0FC6PDyqlsmvwF4ziOCRLDCU+BO8di3xE1W6A==
-X-Received: by 2002:a05:6638:d06:b0:350:a613:f7ec with SMTP id
- q6-20020a0566380d0600b00350a613f7ecmr3859829jaj.169.1662327760724; 
- Sun, 04 Sep 2022 14:42:40 -0700 (PDT)
+ bh=AsutXgMDAJiXYIziQgoUHz04vuwS74Ufjn18RboeZlU=;
+ b=sFWWZjI0HXNSu+i6lF0+hLYiDKjqTFQTcqHD60ys9ioqPkjwlkZXIUu88MRppn5t2h
+ pClzqToViw2nhWpNJJTDCn/sRZKbAQLGXvOt0mQtW9qX6B0VaNRuqZa2q83Q6zcrA2IH
+ tVYNay414TihItQv5i9TbVanArDrdX9c+aDAh3LMwlPHZ44dQoB3xjMjWDHMlent2BaE
+ 6PRnAa25XPtqdEn6qKNYoCWfG17Tk9rcYAy0jXFBo8ntcwBFDOyJlV8jEeTqa1WAaU6l
+ VwFIxJvTtuERrwvEt6m9yUkyb5Xd3GOmjJIh2UoZr1KXf2Ip3KQJDITMsAEs+/ehCluX
+ udqQ==
+X-Gm-Message-State: ACgBeo06XFKCvuKt1y1p261/1kqxSXogaT4WDOpRb002VrQSwQTIw2zo
+ iT9WcGyw3Nd1BEjDBollKAE=
+X-Google-Smtp-Source: AA6agR4XUVL8R/sQ1zC2uzGX3CzIouq5JH8v/iId7txQSE5EgJyUlziUe0GD5gnf+dO0fl8HHWQm8g==
+X-Received: by 2002:a02:740b:0:b0:349:bcdd:ca20 with SMTP id
+ o11-20020a02740b000000b00349bcddca20mr25953249jac.110.1662327753065; 
+ Sun, 04 Sep 2022 14:42:33 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.39
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:40 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:32 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 32/57] nouveau: adapt NV_DEBUG, NV_ATOMIC to use DRM.debug
-Date: Sun,  4 Sep 2022 15:41:09 -0600
-Message-Id: <20220904214134.408619-33-jim.cromie@gmail.com>
+Subject: [PATCH v6 24/57] drm_print: interpose drm_*dbg with forwarding macros
+Date: Sun,  4 Sep 2022 15:41:01 -0600
+Message-Id: <20220904214134.408619-25-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
@@ -78,62 +78,111 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These 2 macros used drm_debug_enabled() on DRM_UT_{DRIVER,ATOMIC}
-respectively, replace those with drm_dbg_##cat invocations.
+change drm_dev_dbg & drm_dbg to macros, which forward to the renamed
+functions (with __ prefix added).
 
-this results in new class'd prdbg callsites:
+Those functions sit below the categorized layer of macros implementing
+the DRM debug.category API, and implement most of it.  These are good
+places to insert dynamic-debug jump-label mechanics, which will allow
+DRM to avoid the runtime cost of drm_debug_enabled().
 
-:#> grep nouveau /proc/dynamic_debug/control | grep class | wc
-    116    1130   15584
-:#> grep nouveau /proc/dynamic_debug/control | grep class | grep DRIVER | wc
-     74     704    9709
-:#> grep nouveau /proc/dynamic_debug/control | grep class | grep ATOMIC | wc
-     31     307    4237
-:#> grep nouveau /proc/dynamic_debug/control | grep class | grep KMS | wc
-     11     119    1638
+no functional changes.
 
-the KMS entries are due to existing uses of drm_dbg_kms().
+memory cost baseline: (unchanged)
+bash-5.1# drms_load
+[    9.220389] dyndbg:   1 debug prints in module drm
+[    9.224426] ACPI: bus type drm_connector registered
+[    9.302192] dyndbg:   2 debug prints in module ttm
+[    9.305033] dyndbg:   8 debug prints in module video
+[    9.627563] dyndbg: 127 debug prints in module i915
+[    9.721505] AMD-Vi: AMD IOMMUv2 functionality not available on this system - This is not a bug.
+[   10.091345] dyndbg: 2196 debug prints in module amdgpu
+[   10.106589] [drm] amdgpu kernel modesetting enabled.
+[   10.107270] amdgpu: CRAT table not found
+[   10.107926] amdgpu: Virtual CRAT table created for CPU
+[   10.108398] amdgpu: Topology: Add CPU node
+[   10.168507] dyndbg:   3 debug prints in module wmi
+[   10.329587] dyndbg:   3 debug prints in module nouveau
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_drv.h | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_print.c | 10 +++++-----
+ include/drm/drm_print.h     |  9 +++++++--
+ 2 files changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drv.h b/drivers/gpu/drm/nouveau/nouveau_drv.h
-index 84df5ddae4d0..3b8a76004b57 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drv.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_drv.h
-@@ -39,6 +39,7 @@
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index ec32df35a3e3..29a29949ad0b 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -279,8 +279,8 @@ void drm_dev_printk(const struct device *dev, const char *level,
+ }
+ EXPORT_SYMBOL(drm_dev_printk);
+ 
+-void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+-		 const char *format, ...)
++void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
++		   const char *format, ...)
+ {
+ 	struct va_format vaf;
+ 	va_list args;
+@@ -301,9 +301,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ 
+ 	va_end(args);
+ }
+-EXPORT_SYMBOL(drm_dev_dbg);
++EXPORT_SYMBOL(__drm_dev_dbg);
+ 
+-void __drm_dbg(enum drm_debug_category category, const char *format, ...)
++void ___drm_dbg(enum drm_debug_category category, const char *format, ...)
+ {
+ 	struct va_format vaf;
+ 	va_list args;
+@@ -320,7 +320,7 @@ void __drm_dbg(enum drm_debug_category category, const char *format, ...)
+ 
+ 	va_end(args);
+ }
+-EXPORT_SYMBOL(__drm_dbg);
++EXPORT_SYMBOL(___drm_dbg);
+ 
+ void __drm_err(const char *format, ...)
+ {
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 668273e36c2c..c429c258c957 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -335,7 +335,7 @@ __printf(3, 4)
+ void drm_dev_printk(const struct device *dev, const char *level,
+ 		    const char *format, ...);
+ __printf(3, 4)
+-void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
++void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ 		 const char *format, ...);
+ 
+ /**
+@@ -384,6 +384,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ 	}								\
+ })
+ 
++#define drm_dev_dbg(dev, cat, fmt, ...)				\
++	__drm_dev_dbg(dev, cat, fmt, ##__VA_ARGS__)
++
+ /**
+  * DRM_DEV_DEBUG() - Debug output for generic drm code
+  *
+@@ -485,10 +488,12 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
   */
  
- #include <linux/notifier.h>
-+#include <linux/dynamic_debug.h>
+ __printf(2, 3)
+-void __drm_dbg(enum drm_debug_category category, const char *format, ...);
++void ___drm_dbg(enum drm_debug_category category, const char *format, ...);
+ __printf(1, 2)
+ void __drm_err(const char *format, ...);
  
- #include <nvif/client.h>
- #include <nvif/device.h>
-@@ -263,13 +264,16 @@ void nouveau_drm_device_remove(struct drm_device *dev);
- #define NV_WARN(drm,f,a...) NV_PRINTK(warn, &(drm)->client, f, ##a)
- #define NV_INFO(drm,f,a...) NV_PRINTK(info, &(drm)->client, f, ##a)
- 
--#define NV_DEBUG(drm,f,a...) do {                                              \
--	if (drm_debug_enabled(DRM_UT_DRIVER))                                  \
--		NV_PRINTK(info, &(drm)->client, f, ##a);                       \
-+#define NV_DRMDBG(cat,c,f,a...) do {				\
-+	struct nouveau_cli *_cli = (c);				\
-+	drm_dbg_##cat(_cli->drm->dev, "%s: "f, _cli->name, ##a); \
- } while(0)
--#define NV_ATOMIC(drm,f,a...) do {                                             \
--	if (drm_debug_enabled(DRM_UT_ATOMIC))                                  \
--		NV_PRINTK(info, &(drm)->client, f, ##a);                       \
++#define __drm_dbg(fmt, ...)		___drm_dbg(fmt, ##__VA_ARGS__)
 +
-+#define NV_DEBUG(drm,f,a...) do {					\
-+	NV_DRMDBG(driver, &(drm)->client, f, ##a);			\
-+} while(0)
-+#define NV_ATOMIC(drm,f,a...) do {					\
-+	NV_DRMDBG(atomic, &(drm)->client, f, ##a);			\
- } while(0)
+ /* Macros to make printk easier */
  
- #define NV_PRINTK_ONCE(l,c,f,a...) NV_PRINTK(l##_once,c,f, ##a)
+ #define _DRM_PRINTK(once, level, fmt, ...)				\
 -- 
 2.37.2
 
