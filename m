@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CF6CECAAD5
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 12:32:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F9B4ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 12:32:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B31E210E357;
-	Mon,  5 Sep 2022 12:32:43 +0000 (UTC)
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC32B10E369
+	by gabe.freedesktop.org (Postfix) with ESMTP id 155DE10E369;
+	Mon,  5 Sep 2022 12:32:45 +0000 (UTC)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 353E110E369
  for <amd-gfx@lists.freedesktop.org>; Mon,  5 Sep 2022 12:32:38 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id fy31so16797379ejc.6
+Received: by mail-ed1-x52a.google.com with SMTP id 29so6097898edv.2
  for <amd-gfx@lists.freedesktop.org>; Mon, 05 Sep 2022 05:32:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=Xb0HCbFiduCgbCnqPi5Z3FkjCxcPpWPR+lLUNT2LeAk=;
- b=mS1i2uKu/SwtzHW8an0fy8838Wo6p7AAwbMM3HfVzZmG47CwWadw0GLF7rLH/PazIU
- xitz8Cvf/pDOcbBOzW05IV1aNJggkFAjRQcf9T+qeEcpFjKu8gzKOFqG5UkOfPHQbbsQ
- ljzTf7obdTHed5bk+T2MiIDtEl+dtOs+Z3VKpYgfVjf0CJ+gpbCHZ7oWEKxhDLP7o62j
- U7z6s+Y0rMD0d61zSgmud3X5sdhLZ1oaOROjnRBdWZJVYYbfA+CUFds9M1An4zKQ6Exs
- qSfgkU2NGqTajfLpw454zbj9B64eKm/mIASmIyr7VOuHEv37o/O29rCqU3jZG+wYqzNH
- 2u6w==
+ bh=8e8doljTnPyIRj/2PESGhuo6S+B61WP1an/U5wv1D2Y=;
+ b=VPZBMMl/9E7m+Wei8U4NYvHjlIWZEB6vd1+ZC8rE5zwdoMPRL6YBf7UOePysbB724+
+ HWZl1MzqYjy1nlQOWyerqays27/jfu+tE/wOBhIAQOwWsMQp1Hvxa4vgfsxxYD45pBnR
+ M1t+jeo7nI2gYDK/lyAhVNZFwh6eCziAMsmt6c49/R+PiUIU7wM0aVfY1zD8fUl6I2Ds
+ 8isXO71JTh2FyNFArLypFIUiJuPisxhigOe3NbF6hUdw0u3XVLWJcd6a431wTq/VoSDg
+ mrV2WGVELkO8QJV3WWVuf/AoRQaBMGceJF+gLEVGOxYB8S/1WpW/aPRbvh1xybrpQ5jv
+ 348Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=Xb0HCbFiduCgbCnqPi5Z3FkjCxcPpWPR+lLUNT2LeAk=;
- b=gqCbR5nbX7/cZsahKpUaXt+ijV/hP0JH4VU7DtUXw20o2x8llCynSmJ5WkH8ykPp3Z
- Oqqo1RSOZmmxTqezB4qyBYbixUY4Gy2MA+k6x4YQaOKzYRdFhGiCJ5FJ79EAQFpd9uK5
- KepoT5ikcGFiggkCr4Ia7S3G3pgzkKf2EMoKmk/Co+euTv6/mhfIhsCt+v9G2uebVEZa
- H2FHFlJgw+XsvmgNjIQVE4k8zx+HZedlFsaaDvs6C/BGWbvSMlIlDJKUCM/OrJdCv9D/
- 1X70kJagby9VKCuZz6r0f10kKFNF1ShHreZd+0Ye88xj8OeEPe5hDvnhW9obpAQ6V67R
- u1EA==
-X-Gm-Message-State: ACgBeo3EzqVRtOls42eFgzmT84lVNGRR+f0gKBRP8Rf7sYlJHRPR9laX
- y0GUD+Z7DHYmrhFkS/HTX47gtQ2XPgubiw==
-X-Google-Smtp-Source: AA6agR7VMRAfYGpnwuesUzjaACGtwsmKBsE3blMD9obUANzHkXjLHmaEFrb+W3M0aqXLpanhudx/ew==
-X-Received: by 2002:a17:906:8a47:b0:741:5d6a:13e5 with SMTP id
- gx7-20020a1709068a4700b007415d6a13e5mr28257746ejc.60.1662381158369; 
- Mon, 05 Sep 2022 05:32:38 -0700 (PDT)
+ bh=8e8doljTnPyIRj/2PESGhuo6S+B61WP1an/U5wv1D2Y=;
+ b=IG3D8XYzk1hrJ+uGf5zoVP73OceSItZCVfD4PglZeRsWs3zIxUPu/soDu4raqNdtRK
+ owVmn4vXJpRwY09MXH6kt2qIfRN5snZKIf3g+5E8x7SfulDRNEWeWvRoIOBNrG+E9fpC
+ RfLtmz5Gv33zY7X8y+iak0XOUfFcZbSpDgZlZ0snDX0Ki5mYmv7BBzXPR1E6or7+yj9Q
+ 7exF+n3gTe13/+VaD8bf5BJ8HKxLyfyDFLsZ9mvbT1/WuPrpS4U7AZFKHRPsTasvy2tv
+ 0m4YDehECCZDuu59zrKAVkhp4H7bpU6KuN93ccgt4BrmjiDYgcKljIxXY14Bl5yPWRPx
+ omLQ==
+X-Gm-Message-State: ACgBeo2z10W12FNg9txSi2q+Fx1w6Uwm8nmHuqMCjpcKgQn3AG4N7aFc
+ THknUOi6tK9J8pkgW4fzEYnFiokueJkF5w==
+X-Google-Smtp-Source: AA6agR7LtUXBXLkH5hv8UkIFOOZb2AHPWQ6ETqr72PQYVsmjAIJqs4b+7p+q25hslRUWV97ywQbtRg==
+X-Received: by 2002:a05:6402:4c9:b0:44d:9921:cb6c with SMTP id
+ n9-20020a05640204c900b0044d9921cb6cmr8010238edw.176.1662381156540; 
+ Mon, 05 Sep 2022 05:32:36 -0700 (PDT)
 Received: from able.fritz.box (p4fc20f4e.dip0.t-ipconnect.de. [79.194.15.78])
  by smtp.gmail.com with ESMTPSA id
- k6-20020a17090632c600b0073c0b87ba34sm4970341ejk.198.2022.09.05.05.32.37
+ k6-20020a17090632c600b0073c0b87ba34sm4970341ejk.198.2022.09.05.05.32.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Sep 2022 05:32:37 -0700 (PDT)
+ Mon, 05 Sep 2022 05:32:36 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	Ruijing.Dong@amd.com
-Subject: [PATCH 05/12] drm/amdgpu: use DMA_RESV_USAGE_BOOKKEEP v2
-Date: Mon,  5 Sep 2022 14:32:25 +0200
-Message-Id: <20220905123232.2809-5-christian.koenig@amd.com>
+Subject: [PATCH 03/12] drm/amdgpu: move setting the job resources
+Date: Mon,  5 Sep 2022 14:32:23 +0200
+Message-Id: <20220905123232.2809-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220905123232.2809-1-christian.koenig@amd.com>
 References: <20220905123232.2809-1-christian.koenig@amd.com>
@@ -73,105 +73,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use DMA_RESV_USAGE_BOOKKEEP for VM page table updates and KFD preemption fence.
-
-v2: actually update all usages for KFD
+Move setting the job resources into amdgpu_job.c
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 26 ++++++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |  3 ++-
- 2 files changed, 18 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  | 21 ++-------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 17 +++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h |  2 ++
+ 3 files changed, 21 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index cbd593f7d553..f1604f5cd7c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -297,7 +297,7 @@ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
- 	 */
- 	replacement = dma_fence_get_stub();
- 	dma_resv_replace_fences(bo->tbo.base.resv, ef->base.context,
--				replacement, DMA_RESV_USAGE_READ);
-+				replacement, DMA_RESV_USAGE_BOOKKEEP);
- 	dma_fence_put(replacement);
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 6f80cf2ea9ae..f7bf61d96be5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -495,9 +495,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 	struct amdgpu_vm *vm = &fpriv->vm;
+ 	struct amdgpu_bo_list_entry *e;
+ 	struct list_head duplicates;
+-	struct amdgpu_bo *gds;
+-	struct amdgpu_bo *gws;
+-	struct amdgpu_bo *oa;
+ 	int r;
+ 
+ 	INIT_LIST_HEAD(&p->validated);
+@@ -614,22 +611,8 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 	amdgpu_cs_report_moved_bytes(p->adev, p->bytes_moved,
+ 				     p->bytes_moved_vis);
+ 
+-	gds = p->bo_list->gds_obj;
+-	gws = p->bo_list->gws_obj;
+-	oa = p->bo_list->oa_obj;
+-
+-	if (gds) {
+-		p->job->gds_base = amdgpu_bo_gpu_offset(gds) >> PAGE_SHIFT;
+-		p->job->gds_size = amdgpu_bo_size(gds) >> PAGE_SHIFT;
+-	}
+-	if (gws) {
+-		p->job->gws_base = amdgpu_bo_gpu_offset(gws) >> PAGE_SHIFT;
+-		p->job->gws_size = amdgpu_bo_size(gws) >> PAGE_SHIFT;
+-	}
+-	if (oa) {
+-		p->job->oa_base = amdgpu_bo_gpu_offset(oa) >> PAGE_SHIFT;
+-		p->job->oa_size = amdgpu_bo_size(oa) >> PAGE_SHIFT;
+-	}
++	amdgpu_job_set_resources(p->job, p->bo_list->gds_obj,
++				 p->bo_list->gws_obj, p->bo_list->oa_obj);
+ 
+ 	if (!r && p->uf_entry.tv.bo) {
+ 		struct amdgpu_bo *uf = ttm_to_amdgpu_bo(p->uf_entry.tv.bo);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 8f51adf3b329..37dc5ee4153d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -132,6 +132,23 @@ int amdgpu_job_alloc_with_ib(struct amdgpu_device *adev, unsigned size,
+ 	return r;
  }
-@@ -1390,8 +1390,9 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,
- 	ret = dma_resv_reserve_fences(vm->root.bo->tbo.base.resv, 1);
- 	if (ret)
- 		goto reserve_shared_fail;
--	amdgpu_bo_fence(vm->root.bo,
--			&vm->process_info->eviction_fence->base, true);
-+	dma_resv_add_fence(vm->root.bo->tbo.base.resv,
-+			   &vm->process_info->eviction_fence->base,
-+			   DMA_RESV_USAGE_BOOKKEEP);
- 	amdgpu_bo_unreserve(vm->root.bo);
  
- 	/* Update process info */
-@@ -1987,9 +1988,9 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
- 	}
- 
- 	if (!amdgpu_ttm_tt_get_usermm(bo->tbo.ttm) && !bo->tbo.pin_count)
--		amdgpu_bo_fence(bo,
--				&avm->process_info->eviction_fence->base,
--				true);
-+		dma_resv_add_fence(bo->tbo.base.resv,
-+				   &avm->process_info->eviction_fence->base,
-+				   DMA_RESV_USAGE_BOOKKEEP);
- 	ret = unreserve_bo_and_vms(&ctx, false, false);
- 
- 	goto out;
-@@ -2758,15 +2759,18 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence **ef)
- 		if (mem->bo->tbo.pin_count)
- 			continue;
- 
--		amdgpu_bo_fence(mem->bo,
--			&process_info->eviction_fence->base, true);
-+		dma_resv_add_fence(mem->bo->tbo.base.resv,
-+				   &process_info->eviction_fence->base,
-+				   DMA_RESV_USAGE_BOOKKEEP);
- 	}
- 	/* Attach eviction fence to PD / PT BOs */
- 	list_for_each_entry(peer_vm, &process_info->vm_list_head,
- 			    vm_list_node) {
- 		struct amdgpu_bo *bo = peer_vm->root.bo;
- 
--		amdgpu_bo_fence(bo, &process_info->eviction_fence->base, true);
-+		dma_resv_add_fence(bo->tbo.base.resv,
-+				   &process_info->eviction_fence->base,
-+				   DMA_RESV_USAGE_BOOKKEEP);
- 	}
- 
- validate_map_fail:
-@@ -2820,7 +2824,9 @@ int amdgpu_amdkfd_add_gws_to_process(void *info, void *gws, struct kgd_mem **mem
- 	ret = dma_resv_reserve_fences(gws_bo->tbo.base.resv, 1);
- 	if (ret)
- 		goto reserve_shared_fail;
--	amdgpu_bo_fence(gws_bo, &process_info->eviction_fence->base, true);
-+	dma_resv_add_fence(gws_bo->tbo.base.resv,
-+			   &process_info->eviction_fence->base,
-+			   DMA_RESV_USAGE_BOOKKEEP);
- 	amdgpu_bo_unreserve(gws_bo);
- 	mutex_unlock(&(*mem)->process_info->lock);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-index 1fd3cbca20a2..03ec099d64e0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-@@ -112,7 +112,8 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
- 		swap(p->vm->last_unlocked, tmp);
- 		dma_fence_put(tmp);
- 	} else {
--		amdgpu_bo_fence(p->vm->root.bo, f, true);
-+		dma_resv_add_fence(p->vm->root.bo->tbo.base.resv, f,
-+				   DMA_RESV_USAGE_BOOKKEEP);
- 	}
- 
- 	if (fence && !p->immediate)
++void amdgpu_job_set_resources(struct amdgpu_job *job, struct amdgpu_bo *gds,
++			      struct amdgpu_bo *gws, struct amdgpu_bo *oa)
++{
++	if (gds) {
++		job->gds_base = amdgpu_bo_gpu_offset(gds) >> PAGE_SHIFT;
++		job->gds_size = amdgpu_bo_size(gds) >> PAGE_SHIFT;
++	}
++	if (gws) {
++		job->gws_base = amdgpu_bo_gpu_offset(gws) >> PAGE_SHIFT;
++		job->gws_size = amdgpu_bo_size(gws) >> PAGE_SHIFT;
++	}
++	if (oa) {
++		job->oa_base = amdgpu_bo_gpu_offset(oa) >> PAGE_SHIFT;
++		job->oa_size = amdgpu_bo_size(oa) >> PAGE_SHIFT;
++	}
++}
++
+ void amdgpu_job_free_resources(struct amdgpu_job *job)
+ {
+ 	struct amdgpu_ring *ring = to_amdgpu_ring(job->base.sched);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+index babc0af751c2..2a1961bf1194 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+@@ -76,6 +76,8 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, unsigned num_ibs,
+ 		     struct amdgpu_job **job, struct amdgpu_vm *vm);
+ int amdgpu_job_alloc_with_ib(struct amdgpu_device *adev, unsigned size,
+ 		enum amdgpu_ib_pool_type pool, struct amdgpu_job **job);
++void amdgpu_job_set_resources(struct amdgpu_job *job, struct amdgpu_bo *gds,
++			      struct amdgpu_bo *gws, struct amdgpu_bo *oa);
+ void amdgpu_job_free_resources(struct amdgpu_job *job);
+ void amdgpu_job_free(struct amdgpu_job *job);
+ int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
 -- 
 2.25.1
 
