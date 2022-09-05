@@ -4,121 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCB04ECAAD5
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 06:35:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2FB0C6FA86
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 06:57:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBA2210E1D5;
-	Mon,  5 Sep 2022 06:35:51 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F0BF10E1D5
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Sep 2022 06:35:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bu2pCPuQ5CgS0k/X0RydexxzPzfzDQZD7kSE1QQd7x7DJN+oyWoSKkwCOgVdzjiDdVB5yXkjJSzN1xPiGw/xLnTWC8Tkjho7DGZHkHNml0ZTpL84hBAOmtWfDdIQsIO92P7pTm3ZDZu/RPNYnVvaEDBQS5pkRWue/kGd/0vHpPYUoJMEdnAyLwZO8NkBh6Hpkk1GeDq3G4iW0XlfKsfnLgUOPsBcJb3btIJt6zeu1vqHLqiK1eS0OdA9GmeOh2bUc/I5W80q8Mru4SZjGoMrjTrg4XhFjOXx3Sq8VF4cpB1Fgxyn56fceKIKxfnXgOV8G+L54oGNbLXDJiFjVU6V/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y+4Y+oO5FOKIHliVa/FrcqUjXEcKtSVfu71JdSeUBsg=;
- b=bLozqcQpsh6OX2cvUgI2n0dhOzGXMWiKWLMEbAUZ2q2D8ouyjkfxSHgi7CRPjmNN2q/oeyuD05NyDCx35xxAXnrXIGjsvMn/bV8tV/PX8oMj79zDnuXo/xvoOSCEvgxVztSB1RO30PY3kmJ9WpFLRcZAYbmJEX61veHs8p1TnPBKgIjXVnMVORczZNwYaW5hahWXSgqR6X14856YvWfes5TMtrodZdc5LbtFdM99mjgwUpK11HHOKTQokj99s0vS1HA+ybLon6WX/DyAYbIHKX40PUwTHAUzMNL9RKu6OaUgQrDTDyKDqx+XpOID6pghgILR/qjmrTI0fjA3fRVZIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y+4Y+oO5FOKIHliVa/FrcqUjXEcKtSVfu71JdSeUBsg=;
- b=gHV+7o+Cueo7fPgkDS10CuoZxNyR3YUY24ssvECgoswAZrC1MyShwErD34NWrCjFPESjU/YcX8TGFF/cGtmo6OFRw1hHRUjUD5QtXg5onUkP4k478M3aBdNgWU5Dnn5P6PJl8GCjxi9ZNzfJYDxk0Kt4AdBIRH6nBiUBBkZ4utM=
-Received: from CH2PR12MB4215.namprd12.prod.outlook.com (2603:10b6:610:ab::24)
- by SJ0PR12MB7084.namprd12.prod.outlook.com (2603:10b6:a03:4ae::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.11; Mon, 5 Sep
- 2022 06:35:41 +0000
-Received: from CH2PR12MB4215.namprd12.prod.outlook.com
- ([fe80::b554:96ce:4449:5e98]) by CH2PR12MB4215.namprd12.prod.outlook.com
- ([fe80::b554:96ce:4449:5e98%5]) with mapi id 15.20.5588.018; Mon, 5 Sep 2022
- 06:35:41 +0000
-From: "Chai, Thomas" <YiPeng.Chai@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH V2] drm/amdgpu: TA unload messages are not actually sent
- to psp when amdgpu is uninstalled
-Thread-Topic: [PATCH V2] drm/amdgpu: TA unload messages are not actually sent
- to psp when amdgpu is uninstalled
-Thread-Index: AQHYvd56BORbmt9k+UKMfFTpWQcqQK3QZT4g
-Date: Mon, 5 Sep 2022 06:35:41 +0000
-Message-ID: <CH2PR12MB4215BC1389204B0F153DFC57FC7F9@CH2PR12MB4215.namprd12.prod.outlook.com>
-References: <20220901083955.2696208-1-YiPeng.Chai@amd.com>
-In-Reply-To: <20220901083955.2696208-1-YiPeng.Chai@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-05T06:35:37Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=544c0094-d1e9-4422-ab4b-96142104b77f;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-09-05T06:35:37Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: bce4688d-c523-4518-bc33-f92ab302e824
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2c7b3335-a3a0-4568-f10f-08da8f08da89
-x-ms-traffictypediagnostic: SJ0PR12MB7084:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: C57xToIhnF62hhcgfeF4lcnTneOvj62kzXBDSc/RLUsSGyfYr8KaTa/KVK/aTJd1TuzUKYXHA5sIFLynG1HbihFTl7ekRnFLei/mqpZSiEDiQMUxDL3STC++nkLwO6t6dSLrQeEutTWWIbOH27szmB1s4XVoSlyoGKvuHOotsb+LstLHmLX/4JqptLuENQxLcbIqcvrLdT7yzV5SwNDFaJlikmzxjtdvayWut1rFQ9W9l0xb/wfGswPAbrrSvsaihA63WKnlVs97cABstbGQV/CMbi/fcAue9Xv5k895ocJO2/JAV9msG24M4aUB3UgoyQRoJ2jDraRC8B+VvEA15OVzU37O5tpHV1l+7njMyBMG8cI2DqQHvpbRvWz7vi82eZgT8vOPOSzTKR9LPPxEzrGsiKcp0wOu8D/XxIB+JKSMSL49SDS/QZC4qzmGG95L5q91cSRuuqtqhM+O0F+p0lMiTUTj0QTfyzAhz9WrwDQtfQy9ETxqrSISwgi4Y0tYN0q1i5lqCMt+goCi07GSinvV9vBKi2zn+SD7w9LSJ0zgLJCdr48wIS/+yeOX4ET9/N3Io8Ax8L1+cUHt0qXG19kuifpYkaoicP/S2VoRN+BizoBug0U0Wt5g9R8GCapAuaQyq9m9xk1l2QdhK3+85aQ6Qt2NI5X1daju9822t1Tj2frgISAHZDyXkZ/ziV3qMGWVzFnv5/uZPieO5Bni2jsDMQqu1ZoNbzqrRa6Xc3NhyT4/ysO4L7P4GV6ukAQuPwvMYzjskRLBPipsZ8Sy1g==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB4215.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(376002)(366004)(136003)(39860400002)(346002)(122000001)(38070700005)(55016003)(83380400001)(38100700002)(316002)(66946007)(71200400001)(64756008)(8676002)(66446008)(4326008)(66476007)(66556008)(478600001)(54906003)(6916009)(76116006)(5660300002)(52536014)(41300700001)(15650500001)(33656002)(8936002)(26005)(186003)(7696005)(86362001)(6506007)(2906002)(9686003)(53546011);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Rif5K08h7gbZqtRdHVdkA2EgiIP25ZYPSt20ZfxavsikUIK5k+2OtgZ2YmJ4?=
- =?us-ascii?Q?U9KIwv0P+IeeWM/WlpRRVG2uQj9CfeK19C8M2fdcMJ8pqDfaljps3z5Gek68?=
- =?us-ascii?Q?YWurxXg/Q1Dlvvh39iwDunNyLJdFRJWTW0ySnx5PpcImw3hZvcgmCd89SgKq?=
- =?us-ascii?Q?jU+Keh4JrDaaHVuBAIea+5nrdVuQrdm2U0F/Zq5yv587pjG/ZIzb866walIl?=
- =?us-ascii?Q?djJnNbiluwspquVVAR4yqlNJfgCs2QtKcybDE8kdttM1NQau6/9AvR8wfSsm?=
- =?us-ascii?Q?VcadpeAY44yr9AzY1BMbHvF83rrZ6OWpo3YFkHdFIIgAB1Jl53UEM9nrAtuE?=
- =?us-ascii?Q?9bAz3e8/poP9uFEn6JKX2qfddMPAR69ECeOlhbOyvn7mI3+1XQbdi/Z5pSQq?=
- =?us-ascii?Q?ady8dbEFxhlB7VV4DKjcSl69I9OaRZPtNdn9vvkrV3iNsu+aJYiIWShcsgJZ?=
- =?us-ascii?Q?aJpClng69YQJZb35ujKN+vWSRkyP4Hcj9Yk8lCHnnY7yh1UCLzQPuZL7xS+e?=
- =?us-ascii?Q?qEMAKOsFzdY3s6btQhasUAOOUDjumsIo5V2FbpY1QyPXBqZyVRAamx2dRtx2?=
- =?us-ascii?Q?F2W8H87AA3BQfC9mNTtGzxzf/ed4PuysyyEnZ/VCGjYxa1vHDv4mC/nsouqW?=
- =?us-ascii?Q?4wOZ7kzloyfp0UDtjgBg0KpV75DeqCd7S2P5lUQKrONP35UFSEaoWsdKGV8Q?=
- =?us-ascii?Q?1/1t8UTP1fMoZa8BhLnbzFZUi12d7h9QloxsvE3lbiovzMtByRbBXKw91A/m?=
- =?us-ascii?Q?1OqNHq8A54hJc4ZL9LN6f2o66W1G7qlfbFyOnXiWfv/iCm0Wcmc5pkXE77tG?=
- =?us-ascii?Q?XQAqvXqHqMQc+u6ETMVMCtKhJ9NPSLoSS8boYh0WU+hsQ3ZF/oo3vozC16el?=
- =?us-ascii?Q?OITrzxgppAlXbNM1gahEjN9tdmHnuh0hD5HnX4NorRXssSqObAj+f3Iv8dul?=
- =?us-ascii?Q?swOXy2wZBUrWWlmvzyZ4BCowxpiu6492CmFy9eLsf1k8IDqqPNYxGphZFM5/?=
- =?us-ascii?Q?5gDEom+PU47luEJeeFjM7QjwW7pfQNprevPMn72to/b1dpwSbIqXn8g1+FCC?=
- =?us-ascii?Q?t6PULx1GYict/IMkOnMz1lXK9TVsO4c8dQXBTueirEmPlk3Akh3MWMcbAqOU?=
- =?us-ascii?Q?8JihJ9nVaaFooWfy1JtNX3omEyYn+vHYumqhN1ymNVKlsMAZZOPrtrbVmQlr?=
- =?us-ascii?Q?Dp2ybrWbDmt4ZjmXjZ9iwDuUHZrdpdtTks5hDVWIjrK8xFflZ9kkTu6sfS6F?=
- =?us-ascii?Q?g4TJPDjOnWxU9aPyBMxuglX3kcIKXluJReZ3sulb8aa9A4M7dRUii1z2yZrL?=
- =?us-ascii?Q?J5VqKNYtQSJBhcXxQvtG9JNhftawjbcjfpxyLSv/yTCnpJzxUUXd3PKTD8pJ?=
- =?us-ascii?Q?eOquxUcKo2zsXHjrRns5wJkxSXZtn27Wdv1qipiBCZ0mmJVnnv7+qsiM7cmK?=
- =?us-ascii?Q?ZWJptcoYMp5DV0JbOv0X5bfb98WgOjTTC84zS8n9gk4ES//qSkOQ1ZeInYg2?=
- =?us-ascii?Q?OE7yAU4TvFjHs2CHzVj+Rw5k9PsScyJSKrOrqOFSC6ficdBFVI39PqWCDrDU?=
- =?us-ascii?Q?N1W7Dxgdab6QzhE7oEVNR9TZa8RjGBA25gF4V06c?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05BC110E1DB;
+	Mon,  5 Sep 2022 06:57:21 +0000 (UTC)
+X-Greylist: delayed 470 seconds by postgrey-1.36 at gabe;
+ Mon, 05 Sep 2022 06:57:17 UTC
+Received: from condef-08.nifty.com (condef-08.nifty.com [202.248.20.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DA5410E1C1;
+ Mon,  5 Sep 2022 06:57:17 +0000 (UTC)
+Received: from conssluserg-05.nifty.com ([10.126.8.84])by condef-08.nifty.com
+ with ESMTP id 2856isQN010025; Mon, 5 Sep 2022 15:44:54 +0900
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
+ [209.85.210.42]) (authenticated)
+ by conssluserg-05.nifty.com with ESMTP id 2856ic6t020651;
+ Mon, 5 Sep 2022 15:44:39 +0900
+DKIM-Filter: OpenDKIM Filter v2.10.3 conssluserg-05.nifty.com 2856ic6t020651
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
+ s=dec2015msa; t=1662360279;
+ bh=2/aEuTIGQY1eRCS8ZnFpEZnaZhJYBAN2YOqc0m45zS0=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=lKAB6BQc70nahRxqaJZNtnfMD+5Yec10/NkTOmFn2bNQNge2AgFZW7dBoRJqR6MnI
+ xPC/bll5EYabRy5wk4VM/2t1rCwklXfH+QePUY2EHAAwAI/+OQYY/bQlEF+vfb41jq
+ O+0v+kq1iRSwlgz/idsyDS/fER9XuSMbET7bpuSSVbebJZfGOYlSQyXUZJAfiTqkJD
+ WW1rymTI7myf1KQPXzI+OEG5yl2tukVLr+4rx+aN9kYriAWLRWx3bo0/AFtZfrskkb
+ dN6ZtLlo7S6u9OdbHj7cLg6CxD2bQaclRl5Me77fQNz7p8voW1WVLVPGvzKwUB5QB3
+ cxlaHRJ2p496g==
+X-Nifty-SrcIP: [209.85.210.42]
+Received: by mail-ot1-f42.google.com with SMTP id
+ t11-20020a05683014cb00b0063734a2a786so5583752otq.11; 
+ Sun, 04 Sep 2022 23:44:39 -0700 (PDT)
+X-Gm-Message-State: ACgBeo2AIAh+sior96jHTvoeAz1UYCB9FK2XGmDSb8T4sPgS0RJrVHvx
+ PMt3d31dQ5Xe6AsR/F5J/yE41p1MbJGScZMQzHE=
+X-Google-Smtp-Source: AA6agR5eDbGMjw3wtK6ZZjfyuxTtPhmoA7XbU6Z2YqLR6PluQmowVmlHe933hVZ0RY1QlSEEKDQLiJ+SNF7QSFqwxdE=
+X-Received: by 2002:a05:6830:658b:b0:63b:3501:7167 with SMTP id
+ cn11-20020a056830658b00b0063b35017167mr12590275otb.343.1662360278092; Sun, 04
+ Sep 2022 23:44:38 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4215.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c7b3335-a3a0-4568-f10f-08da8f08da89
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Sep 2022 06:35:41.4705 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hsO7vc0UxBoxw+ngzFEFrdX1tnEK9OA4AXBMwuWdTVcUTP6USaGVtqzOenVu+YCH7IY5iJU3SVokV7OJF15fsg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7084
+References: <20220831184408.2778264-1-ndesaulniers@google.com>
+ <20220831184408.2778264-4-ndesaulniers@google.com>
+In-Reply-To: <20220831184408.2778264-4-ndesaulniers@google.com>
+From: Masahiro Yamada <masahiroy@kernel.org>
+Date: Mon, 5 Sep 2022 15:44:01 +0900
+X-Gmail-Original-Message-ID: <CAK7LNAQsAwUX-w8YQTxPRSi8S0MRcDtv2mc=umjF_3C3dA1-Kg@mail.gmail.com>
+Message-ID: <CAK7LNAQsAwUX-w8YQTxPRSi8S0MRcDtv2mc=umjF_3C3dA1-Kg@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] Makefile.compiler: replace cc-ifversion with
+ compiler-specific macros
+To: Nick Desaulniers <ndesaulniers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,99 +64,249 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: X86 ML <x86@kernel.org>, Michal Marek <michal.lkml@markovi.net>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Fangrui Song <maskray@google.com>,
+ Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>,
+ Tom Rix <trix@redhat.com>, Dmitrii Bundin <dmitrii.bundin.a@gmail.com>,
+ clang-built-linux <llvm@lists.linux.dev>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>,
+ Greg Thelen <gthelen@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Alexey Alexandrov <aalexand@google.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+On Thu, Sep 1, 2022 at 3:44 AM Nick Desaulniers <ndesaulniers@google.com> wrote:
+>
+> cc-ifversion is GCC specific. Replace it with compiler specific
+> variants. Update the users of cc-ifversion to use these new macros.
+> Provide a helper for checking compiler versions for GCC and Clang
+> simultaneously, that will be used in a follow up patch.
+>
+> Cc: Jonathan Corbet <corbet@lwn.net>
+> Cc: linux-doc@vger.kernel.org
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> Link: https://github.com/ClangBuiltLinux/linux/issues/350
+> Link: https://lore.kernel.org/llvm/CAGG=3QWSAUakO42kubrCap8fp-gm1ERJJAYXTnP1iHk_wrH=BQ@mail.gmail.com/
+> Suggested-by: Bill Wendling <morbo@google.com>
+> Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+> ---
+> Changes v1 -> v2:
+> * New patch.
+>
+>  Documentation/kbuild/makefiles.rst          | 44 +++++++++++++++------
+>  Makefile                                    |  4 +-
+>  drivers/gpu/drm/amd/display/dc/dml/Makefile | 12 ++----
+>  scripts/Makefile.compiler                   | 15 +++++--
+>  4 files changed, 49 insertions(+), 26 deletions(-)
+>
+> diff --git a/Documentation/kbuild/makefiles.rst b/Documentation/kbuild/makefiles.rst
+> index 11a296e52d68..e46f5b45c422 100644
+> --- a/Documentation/kbuild/makefiles.rst
+> +++ b/Documentation/kbuild/makefiles.rst
+> @@ -682,22 +682,42 @@ more details, with real examples.
+>         In the above example, -Wno-unused-but-set-variable will be added to
+>         KBUILD_CFLAGS only if gcc really accepts it.
+>
+> -    cc-ifversion
+> -       cc-ifversion tests the version of $(CC) and equals the fourth parameter
+> -       if version expression is true, or the fifth (if given) if the version
+> -       expression is false.
+> +    gcc-min-version
+> +       gcc-min-version tests if the value of $(CONFIG_GCC_VERSION) is greater than
+> +       or equal to the provided value and evaluates to y if so.
+>
+>         Example::
+>
+> -               #fs/reiserfs/Makefile
+> -               ccflags-y := $(call cc-ifversion, -lt, 0402, -O1)
+> +               cflags-$(call gcc-min-version, 70100) := -foo
+>
+> -       In this example, ccflags-y will be assigned the value -O1 if the
+> -       $(CC) version is less than 4.2.
+> -       cc-ifversion takes all the shell operators:
+> -       -eq, -ne, -lt, -le, -gt, and -ge
+> -       The third parameter may be a text as in this example, but it may also
+> -       be an expanded variable or a macro.
+> +       In this example, cflags-y will be assigned the value -foo if $(CC) is gcc and
+> +       $(CONFIG_GCC_VERSION) is >= 7.1.
+> +
+> +    clang-min-version
+> +       clang-min-version tests if the value of $(CONFIG_CLANG_VERSION) is greater
+> +       than or equal to the provided value and evaluates to y if so.
+> +
+> +       Example::
+> +
+> +               cflags-$(call clang-min-version, 110000) := -foo
+> +
+> +       In this example, cflags-y will be assigned the value -foo if $(CC) is clang
+> +       and $(CONFIG_CLANG_VERSION) is >= 11.0.0.
+> +
+> +    cc-min-version
+> +       cc-min-version tests if the value of $(CONFIG_GCC_VERSION) is greater
+> +       than or equal to the first value provided, or if the value of
+> +       $(CONFIG_CLANG_VERSION) is greater than or equal to the second value
+> +       provided, and evaluates
+> +       to y if so.
+> +
+> +       Example::
+> +
+> +               cflags-$(call cc-min-version, 70100, 110000) := -foo
+> +
+> +       In this example, cflags-y will be assigned the value -foo if $(CC) is gcc and
+> +       $(CONFIG_GCC_VERSION) is >= 7.1, or if $(CC) is clang and
+> +       $(CONFIG_CLANG_VERSION) is >= 11.0.0.
+>
+>      cc-cross-prefix
+>         cc-cross-prefix is used to check if there exists a $(CC) in path with
+> diff --git a/Makefile b/Makefile
+> index 952d354069a4..caa39ecb1136 100644
+> --- a/Makefile
+> +++ b/Makefile
+> @@ -972,7 +972,7 @@ ifdef CONFIG_CC_IS_GCC
+>  KBUILD_CFLAGS += -Wno-maybe-uninitialized
+>  endif
+>
+> -ifdef CONFIG_CC_IS_GCC
+> +ifeq ($(call gcc-min-version, 90100),y)
+>  # The allocators already balk at large sizes, so silence the compiler
+>  # warnings for bounds checks involving those possible values. While
+>  # -Wno-alloc-size-larger-than would normally be used here, earlier versions
+> @@ -984,7 +984,7 @@ ifdef CONFIG_CC_IS_GCC
+>  # ignored, continuing to default to PTRDIFF_MAX. So, left with no other
+>  # choice, we must perform a versioned check to disable this warning.
+>  # https://lore.kernel.org/lkml/20210824115859.187f272f@canb.auug.org.au
+> -KBUILD_CFLAGS += $(call cc-ifversion, -ge, 0901, -Wno-alloc-size-larger-than)
+> +KBUILD_CFLAGS += -Wno-alloc-size-larger-than
+>  endif
+>
+>  # disable invalid "can't wrap" optimizations for signed / pointers
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> index 86a3b5bfd699..d8ee4743b2e3 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> @@ -33,20 +33,14 @@ ifdef CONFIG_PPC64
+>  dml_ccflags := -mhard-float -maltivec
+>  endif
+>
+> -ifdef CONFIG_CC_IS_GCC
+> -ifeq ($(call cc-ifversion, -lt, 0701, y), y)
+> -IS_OLD_GCC = 1
+> -endif
+> -endif
+> -
+>  ifdef CONFIG_X86
+> -ifdef IS_OLD_GCC
+> +ifeq ($(call gcc-min-version, 70100),y)
+> +dml_ccflags += -msse2
+> +else
+>  # Stack alignment mismatch, proceed with caution.
+>  # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
+>  # (8B stack alignment).
+>  dml_ccflags += -mpreferred-stack-boundary=4
+> -else
+> -dml_ccflags += -msse2
+>  endif
+>  endif
+>
+> diff --git a/scripts/Makefile.compiler b/scripts/Makefile.compiler
+> index d1739f0d3ce3..13dade724fa3 100644
+> --- a/scripts/Makefile.compiler
+> +++ b/scripts/Makefile.compiler
+> @@ -61,9 +61,18 @@ cc-option-yn = $(call try-run,\
+>  cc-disable-warning = $(call try-run,\
+>         $(CC) -Werror $(KBUILD_CPPFLAGS) $(KBUILD_CFLAGS) -W$(strip $(1)) -c -x c /dev/null -o "$$TMP",-Wno-$(strip $(1)))
+>
+> -# cc-ifversion
+> -# Usage:  EXTRA_CFLAGS += $(call cc-ifversion, -lt, 0402, -O1)
+> -cc-ifversion = $(shell [ $(CONFIG_GCC_VERSION)0 $(1) $(2)000 ] && echo $(3) || echo $(4))
+> +# gcc-min-version
+> +# Usage: cflags-$(call gcc-min-version, 70100) += -foo
+> +gcc-min-version = $(shell [ $(CONFIG_GCC_VERSION) -ge $(1) ] && echo y)
+> +
+> +# clang-min-version
+> +# Usage: cflags-$(call clang-min-version, 110000) += -foo
+> +clang-min-version = $(shell [ $(CONFIG_CLANG_VERSION) -ge $(1) ] && echo y)
+> +
+> +# cc-min-version
+> +# Usage: cflags-$(call cc-min-version, 701000, 110000)
+> +#                                      ^ GCC   ^ Clang
+> +cc-min-version = $(filter y, $(call gcc-min-version, $(1)), $(call clang-min-version, $(2)))
 
-Ping....
 
 
------------------
-Best Regards,
-Thomas
 
------Original Message-----
-From: Chai, Thomas <YiPeng.Chai@amd.com>=20
-Sent: Thursday, September 1, 2022 4:40 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
-om>; Zhou1, Tao <Tao.Zhou1@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
-Subject: [PATCH V2] drm/amdgpu: TA unload messages are not actually sent to=
- psp when amdgpu is uninstalled
+A more intuitive and more efficient form would be:
 
-V1:
-  The psp_cmd_submit_buf function is called by psp_hw_fini to send TA unloa=
-d messages to psp to terminate ras, asd and tmr. But when amdgpu is uninsta=
-lled, drm_dev_unplug is called earlier than psp_hw_fini in amdgpu_pci_remov=
-e, the calling order as follows:
-static void amdgpu_pci_remove(struct pci_dev *pdev) {
-	drm_dev_unplug
-	......
-	amdgpu_driver_unload_kms->amdgpu_device_fini_hw->...
-		->.hw_fini->psp_hw_fini->...
-		->psp_ta_unload->psp_cmd_submit_buf
-	......
-}
-The program will return when calling drm_dev_enter in psp_cmd_submit_buf.
+  cc-min-version = $(or $(call gcc-min-version, $(1)), $(call
+clang-min-version, $(2)))
 
-So the call to drm_dev_enter in psp_cmd_submit_buf should be removed, so th=
-at the TA unload messages can be sent to the psp when amdgpu is uninstalled=
-.
 
-V2:
-1. Restore psp_cmd_submit_buf to its original code.
-2. Move drm_dev_unplug call after amdgpu_driver_unload_kms in
-   amdgpu_pci_remove.
-3. Since amdgpu_device_fini_hw is called by amdgpu_driver_unload_kms,
-   remove the unplug check to release device mmio resource in
-   amdgpu_device_fini_hw before calling drm_dev_unplug.
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 4 ++--
- 2 files changed, 3 insertions(+), 4 deletions(-)
+In your implementation, both gcc-min-version and clang-min-version are
+expanded before being passed to $(filter ...).
+So the shell is always invoked twice.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index afaa1056e039..62b26f0e37b0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3969,8 +3969,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev=
-)
-=20
- 	amdgpu_gart_dummy_page_fini(adev);
-=20
--	if (drm_dev_is_unplugged(adev_to_drm(adev)))
--		amdgpu_device_unmap_mmio(adev);
-+	amdgpu_device_unmap_mmio(adev);
-=20
- }
-=20
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c
-index de7144b06e93..728a0933ea6f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2181,8 +2181,6 @@ amdgpu_pci_remove(struct pci_dev *pdev)
- 	struct drm_device *dev =3D pci_get_drvdata(pdev);
- 	struct amdgpu_device *adev =3D drm_to_adev(dev);
-=20
--	drm_dev_unplug(dev);
--
- 	if (adev->pm.rpm_mode !=3D AMDGPU_RUNPM_NONE) {
- 		pm_runtime_get_sync(dev->dev);
- 		pm_runtime_forbid(dev->dev);
-@@ -2190,6 +2188,8 @@ amdgpu_pci_remove(struct pci_dev *pdev)
-=20
- 	amdgpu_driver_unload_kms(dev);
-=20
-+	drm_dev_unplug(dev);
-+
- 	/*
- 	 * Flush any in flight DMA operations from device.
- 	 * Clear the Bus Master Enable bit and then wait on the PCIe Device
---
-2.25.1
+
+$(or A, B) is lazily expanded; A is evaluated first.
+If and only if A is empty, B is expanded.
+
+If gcc-min-version is met, the shell invocation in clang-min-version
+will be short-cut.
+
+
+
+But, I do not find a place where cc-min-version is useful.
+
+
+Looking at the next patch,
+
+
+
+# gcc-11+, clang-14+
+ifeq ($(call cc-min-version, 110000, 140000),y)
+dwarf-version-y := 5
+else
+dwarf-version-y := 4
+endif
+
+
+ ... can be written in a more simpler way:
+
+
+dwarf-version-y                                 := 4
+dwarf-version-$(call gcc-min-version, 110000)   := 5
+dwarf-version-$(call clang-min-version, 140000) := 5
+
+
+
+
+
+With $(call cc-min-version, 110000, 140000),
+you never know the meaning of 110000, 140000
+until you see the definition of this macro.
+So, you feel like adding the comment "gcc-11+, clang-14+".
+
+
+The latter form, the code is self-documenting.
+
+
+
+
+
+
+
+
+>  # ld-option
+>  # Usage: KBUILD_LDFLAGS += $(call ld-option, -X, -Y)
+> --
+> 2.37.2.672.g94769d06f0-goog
+>
+
+
+-- 
+Best Regards
+Masahiro Yamada
