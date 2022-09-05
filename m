@@ -4,40 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 024B3C38145
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 07:27:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24FB4C38145
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 07:27:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1330110E58E;
-	Tue,  6 Sep 2022 07:27:29 +0000 (UTC)
-Received: from m12-14.163.com (m12-14.163.com [220.181.12.14])
- by gabe.freedesktop.org (Postfix) with ESMTP id B08F310E1F5;
- Mon,  5 Sep 2022 07:57:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8440710E591;
+	Tue,  6 Sep 2022 07:27:31 +0000 (UTC)
+Received: from m12-13.163.com (m12-13.163.com [220.181.12.13])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 490B410E4A3;
+ Mon,  5 Sep 2022 18:46:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=PthuW
- 4+2T/916gJ0mcWz5BIVJ432LvylOCFS/+qPKNg=; b=bmYeIG18Mz1MxsUfvGV5m
- 3y5R8/IKJqPkpoLTuNVO7++3sj6sJXPWjmF4xm51lZQYEbyDzCM3TldFIcKvDG/8
- UKruVWb8VFyoNYSeN4WjXwmJU8z/tdG1vjce0VnP1HUDDy5bC3Eixk89ArNyfBWA
- +8BRDfnwOMwJP0kGtf0txI=
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=K2vPE
+ f0lSyt7G87uoDDdgoK3rIluZSXcUDLwneP6uPA=; b=go/iMUZklHjaQMjHOPAgp
+ mbFhn0eKAa9BZ/pWomhbYgbq4O/rkQy87CEq4B8TV9V+TmrwIc05CjIo3CBMUi+2
+ vb/hJ+QMFuBswNMUvZ6kLOHREX92SOVbyxP3vfQmq4lQ2Mu3WmRm66Zi/M47eZ1o
+ 6DMdDrm+KzpfZvaWBPmITc=
 Received: from f00160-VMware-Virtual-Platform.localdomain (unknown
  [1.203.67.201])
- by smtp10 (Coremail) with SMTP id DsCowACXQKmrqxVjsjDjGA--.54890S4;
- Mon, 05 Sep 2022 15:56:45 +0800 (CST)
+ by smtp9 (Coremail) with SMTP id DcCowACnqqqmQxZjE5AZeg--.29409S4;
+ Tue, 06 Sep 2022 02:45:15 +0800 (CST)
 From: Jingyu Wang <jingyuwang_vip@163.com>
-To: Felix.Kuehling@amd.com, lexander.deucher@amd.com, hristian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@linux.ie, daniel@ffwll.ch
-Subject: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_amdkfd.c
-Date: Mon,  5 Sep 2022 15:56:24 +0800
-Message-Id: <20220905075624.22979-1-jingyuwang_vip@163.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, van.quan@amd.com, guchun.chen@amd.com,
+ lijo.lazar@amd.com, candice.li@amd.com, mdaenzer@redhat.com,
+ Bokun.Zhang@amd.com
+Subject: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_kms.c
+Date: Tue,  6 Sep 2022 02:44:51 +0800
+Message-Id: <20220905184451.27815-1-jingyuwang_vip@163.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: DsCowACXQKmrqxVjsjDjGA--.54890S4
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKw4UCr48uw4xJw4UXF45trb_yoWfuFc_CF
- W5XF4xury3AFnFvr1ayrW3Zry0yFZ8Zrn5Jr1rtFZaq34Du3yUA3srXrnrXF15Gr1xuF9r
- uw409F45A3ZxCjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRt2Nt7UUUUU==
+X-CM-TRANSID: DcCowACnqqqmQxZjE5AZeg--.29409S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGrW5CFyxZr4DKr1xJrykGrg_yoW5XryDpF
+ 1fXrW2grWUZr4I9347AFWkZr95Kr17ua47Gr1xu34SqF1qyw1YvFyrCrWUZrWkGFZ7ua1x
+ J39rW345Ja4qvr7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEnYwUUUUUU=
 X-Originating-IP: [1.203.67.201]
-X-CM-SenderInfo: 5mlqw5xxzd0whbyl1qqrwthudrp/xtbCoBVzF1zmWEfaqAAAsG
+X-CM-SenderInfo: 5mlqw5xxzd0whbyl1qqrwthudrp/1tbiyRtzF2I66xpomAAAsv
 X-Mailman-Approved-At: Tue, 06 Sep 2022 07:27:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,30 +57,75 @@ Cc: Jingyu Wang <jingyuwang_vip@163.com>, dri-devel@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix everything checkpatch.pl complained about in amdgpu_amdkfd.c
+Fix some checkpatch.pl complained about in amdgpu_kms.c
 
 Signed-off-by: Jingyu Wang <jingyuwang_vip@163.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 091415a4abf0..4f5bd96000ec 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -1,3 +1,4 @@
-+// SPDX-License-Identifier: MIT
- /*
-  * Copyright 2014 Advanced Micro Devices, Inc.
-  *
-@@ -130,6 +131,7 @@ static void amdgpu_amdkfd_reset_work(struct work_struct *work)
- 						  kfd.reset_work);
- 
- 	struct amdgpu_reset_context reset_context;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 77668c3dae5b..1f90a096232d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -532,6 +532,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 			crtc = (struct drm_crtc *)minfo->crtcs[i];
+ 			if (crtc && crtc->base.id == info->mode_crtc.id) {
+ 				struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
 +
- 	memset(&reset_context, 0, sizeof(reset_context));
+ 				ui32 = amdgpu_crtc->crtc_id;
+ 				found = 1;
+ 				break;
+@@ -550,7 +551,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		if (ret)
+ 			return ret;
  
- 	reset_context.method = AMD_RESET_METHOD_NONE;
+-		ret = copy_to_user(out, &ip, min((size_t)size, sizeof(ip)));
++		ret = copy_to_user(out, &ip, min_t((size_t)size, sizeof(ip)));
+ 		return ret ? -EFAULT : 0;
+ 	}
+ 	case AMDGPU_INFO_HW_IP_COUNT: {
+@@ -696,17 +697,18 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 				    ? -EFAULT : 0;
+ 	}
+ 	case AMDGPU_INFO_READ_MMR_REG: {
+-		unsigned n, alloc_size;
++		unsigned int n, alloc_size;
+ 		uint32_t *regs;
+-		unsigned se_num = (info->read_mmr_reg.instance >>
++		unsigned int se_num = (info->read_mmr_reg.instance >>
+ 				   AMDGPU_INFO_MMR_SE_INDEX_SHIFT) &
+ 				  AMDGPU_INFO_MMR_SE_INDEX_MASK;
+-		unsigned sh_num = (info->read_mmr_reg.instance >>
++		unsigned int sh_num = (info->read_mmr_reg.instance >>
+ 				   AMDGPU_INFO_MMR_SH_INDEX_SHIFT) &
+ 				  AMDGPU_INFO_MMR_SH_INDEX_MASK;
+ 
+ 		/* set full masks if the userspace set all bits
+-		 * in the bitfields */
++		 * in the bitfields
++		 */
+ 		if (se_num == AMDGPU_INFO_MMR_SE_INDEX_MASK)
+ 			se_num = 0xffffffff;
+ 		else if (se_num >= AMDGPU_GFX_MAX_SE)
+@@ -830,7 +832,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		return ret;
+ 	}
+ 	case AMDGPU_INFO_VCE_CLOCK_TABLE: {
+-		unsigned i;
++		unsigned int i;
+ 		struct drm_amdgpu_info_vce_clock_table vce_clk_table = {};
+ 		struct amd_vce_state *vce_state;
+ 
+@@ -1379,7 +1381,7 @@ static int amdgpu_debugfs_firmware_info_show(struct seq_file *m, void *unused)
+ 	int ret, i;
+ 
+ 	static const char *ta_fw_name[TA_FW_TYPE_MAX_INDEX] = {
+-#define TA_FW_NAME(type) [TA_FW_TYPE_PSP_##type] = #type
++#define TA_FW_NAME(type) ([TA_FW_TYPE_PSP_##type] = #type)
+ 		TA_FW_NAME(XGMI),
+ 		TA_FW_NAME(RAS),
+ 		TA_FW_NAME(HDCP),
 
 base-commit: e47eb90a0a9ae20b82635b9b99a8d0979b757ad8
 -- 
