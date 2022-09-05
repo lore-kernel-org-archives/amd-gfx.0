@@ -4,58 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E591DECAAD3
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 12:32:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CF6CECAAD5
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 12:32:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65BC610E365;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B31E210E357;
 	Mon,  5 Sep 2022 12:32:43 +0000 (UTC)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25CFE10E365
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Sep 2022 12:32:36 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id nc14so16805347ejc.4
- for <amd-gfx@lists.freedesktop.org>; Mon, 05 Sep 2022 05:32:36 -0700 (PDT)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC32B10E369
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Sep 2022 12:32:38 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id fy31so16797379ejc.6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 05 Sep 2022 05:32:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=kBJ8MKPMTc/ljm1Je/dqVW7iOpGuBGK18C7LP1VWBRU=;
- b=SCCqjllNF84WnEvFepSLKsg1f527LFfzvIVpOxAZVs0cKKtI3rMnaBgYpf37UuxHPH
- jyMygbfjKQquiVC2ESRn88V+q28/uPzKfo9OE+XcTbUhXaOnYOkmZ3906qBB8tBngJe0
- TbdMPkEyTR0MKVYvmmwJ1tp24BywZuNrZBKjim+6RcC3lWHi9TAULzVdl5DKiolhaLgX
- WQgErA6yCD2k4+yYUqJVnN1Ps2tBo9XS0MfsMjdjPG9hbnTGL4cvX1z/3mN9293pu1vc
- ZMTGsv4K2zLo+5B35FFpbNnFk540eiexIQtoZ7QRKnMOhYA8gubsX7AZ/AM4YeXNwDJH
- lTlQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
+ bh=Xb0HCbFiduCgbCnqPi5Z3FkjCxcPpWPR+lLUNT2LeAk=;
+ b=mS1i2uKu/SwtzHW8an0fy8838Wo6p7AAwbMM3HfVzZmG47CwWadw0GLF7rLH/PazIU
+ xitz8Cvf/pDOcbBOzW05IV1aNJggkFAjRQcf9T+qeEcpFjKu8gzKOFqG5UkOfPHQbbsQ
+ ljzTf7obdTHed5bk+T2MiIDtEl+dtOs+Z3VKpYgfVjf0CJ+gpbCHZ7oWEKxhDLP7o62j
+ U7z6s+Y0rMD0d61zSgmud3X5sdhLZ1oaOROjnRBdWZJVYYbfA+CUFds9M1An4zKQ6Exs
+ qSfgkU2NGqTajfLpw454zbj9B64eKm/mIASmIyr7VOuHEv37o/O29rCqU3jZG+wYqzNH
+ 2u6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=kBJ8MKPMTc/ljm1Je/dqVW7iOpGuBGK18C7LP1VWBRU=;
- b=juUGJIZx+H5YiWBt6boKtfAJ+rJGiLY5FpAXSAWQCjIhU0bF8LOO9e7WBNLXEXbMo7
- 1Hn+b1Put205gd5jaLR7hirhvU47LDB3Mecu5IkRlmIw2EJ/wkIXLmG5WeTgNwgIdhga
- SpYW3toebVWbswsXotoaabyzacw7ZiZCU1AurlLZjIytuEW5NBNqAuZ+zhDIPqzFGFrU
- 7khOe4wb8aibNPiOeOt46QBq+KA/ghClbfJyDzJQrmAQi/ThChdXFuVXtPiIAYhT6WCV
- TGyOcNLSnoKGYNnNal36sgyBsseOkaDIbjcbdCIzEAWJ1HUi4e7YmDZD4CNlvBppEoTO
- mLkA==
-X-Gm-Message-State: ACgBeo0Uo75S3l72bdVnNNYwBdV6tcjRHrlXb0GPjHV0WFvYL3npcl0X
- cmoEdZoxcnkcD6yuANBixJgUKjQOn+I=
-X-Google-Smtp-Source: AA6agR4ZLuch2T8gp+IH9r1N43NiG0wGQtoG4w9Hng/iqoOpRuHeaObauwoKWzYLzPO9kWNP9Q4pnw==
-X-Received: by 2002:a17:907:86aa:b0:741:a0d5:43bc with SMTP id
- qa42-20020a17090786aa00b00741a0d543bcmr24739854ejc.100.1662381154633; 
- Mon, 05 Sep 2022 05:32:34 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=Xb0HCbFiduCgbCnqPi5Z3FkjCxcPpWPR+lLUNT2LeAk=;
+ b=gqCbR5nbX7/cZsahKpUaXt+ijV/hP0JH4VU7DtUXw20o2x8llCynSmJ5WkH8ykPp3Z
+ Oqqo1RSOZmmxTqezB4qyBYbixUY4Gy2MA+k6x4YQaOKzYRdFhGiCJ5FJ79EAQFpd9uK5
+ KepoT5ikcGFiggkCr4Ia7S3G3pgzkKf2EMoKmk/Co+euTv6/mhfIhsCt+v9G2uebVEZa
+ H2FHFlJgw+XsvmgNjIQVE4k8zx+HZedlFsaaDvs6C/BGWbvSMlIlDJKUCM/OrJdCv9D/
+ 1X70kJagby9VKCuZz6r0f10kKFNF1ShHreZd+0Ye88xj8OeEPe5hDvnhW9obpAQ6V67R
+ u1EA==
+X-Gm-Message-State: ACgBeo3EzqVRtOls42eFgzmT84lVNGRR+f0gKBRP8Rf7sYlJHRPR9laX
+ y0GUD+Z7DHYmrhFkS/HTX47gtQ2XPgubiw==
+X-Google-Smtp-Source: AA6agR7VMRAfYGpnwuesUzjaACGtwsmKBsE3blMD9obUANzHkXjLHmaEFrb+W3M0aqXLpanhudx/ew==
+X-Received: by 2002:a17:906:8a47:b0:741:5d6a:13e5 with SMTP id
+ gx7-20020a1709068a4700b007415d6a13e5mr28257746ejc.60.1662381158369; 
+ Mon, 05 Sep 2022 05:32:38 -0700 (PDT)
 Received: from able.fritz.box (p4fc20f4e.dip0.t-ipconnect.de. [79.194.15.78])
  by smtp.gmail.com with ESMTPSA id
- k6-20020a17090632c600b0073c0b87ba34sm4970341ejk.198.2022.09.05.05.32.33
+ k6-20020a17090632c600b0073c0b87ba34sm4970341ejk.198.2022.09.05.05.32.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Sep 2022 05:32:34 -0700 (PDT)
+ Mon, 05 Sep 2022 05:32:37 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	Ruijing.Dong@amd.com
-Subject: [PATCH 01/12] drm/sched: move calling drm_sched_entity_select_rq
-Date: Mon,  5 Sep 2022 14:32:21 +0200
-Message-Id: <20220905123232.2809-1-christian.koenig@amd.com>
+Subject: [PATCH 05/12] drm/amdgpu: use DMA_RESV_USAGE_BOOKKEEP v2
+Date: Mon,  5 Sep 2022 14:32:25 +0200
+Message-Id: <20220905123232.2809-5-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220905123232.2809-1-christian.koenig@amd.com>
+References: <20220905123232.2809-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -70,42 +73,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We already discussed that the call to drm_sched_entity_select_rq() needs
-to move to drm_sched_job_arm() to be able to set a new scheduler list
-between _init() and _arm(). This was just not applied for some reason.
+Use DMA_RESV_USAGE_BOOKKEEP for VM page table updates and KFD preemption fence.
+
+v2: actually update all usages for KFD
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 26 ++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |  3 ++-
+ 2 files changed, 18 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 68317d3a7a27..e0ab14e0fb6b 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -592,7 +592,6 @@ int drm_sched_job_init(struct drm_sched_job *job,
- 		       struct drm_sched_entity *entity,
- 		       void *owner)
- {
--	drm_sched_entity_select_rq(entity);
- 	if (!entity->rq)
- 		return -ENOENT;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index cbd593f7d553..f1604f5cd7c1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -297,7 +297,7 @@ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
+ 	 */
+ 	replacement = dma_fence_get_stub();
+ 	dma_resv_replace_fences(bo->tbo.base.resv, ef->base.context,
+-				replacement, DMA_RESV_USAGE_READ);
++				replacement, DMA_RESV_USAGE_BOOKKEEP);
+ 	dma_fence_put(replacement);
+ 	return 0;
+ }
+@@ -1390,8 +1390,9 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,
+ 	ret = dma_resv_reserve_fences(vm->root.bo->tbo.base.resv, 1);
+ 	if (ret)
+ 		goto reserve_shared_fail;
+-	amdgpu_bo_fence(vm->root.bo,
+-			&vm->process_info->eviction_fence->base, true);
++	dma_resv_add_fence(vm->root.bo->tbo.base.resv,
++			   &vm->process_info->eviction_fence->base,
++			   DMA_RESV_USAGE_BOOKKEEP);
+ 	amdgpu_bo_unreserve(vm->root.bo);
  
-@@ -628,7 +627,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
- 	struct drm_sched_entity *entity = job->entity;
+ 	/* Update process info */
+@@ -1987,9 +1988,9 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
+ 	}
  
- 	BUG_ON(!entity);
--
-+	drm_sched_entity_select_rq(entity);
- 	sched = entity->rq->sched;
+ 	if (!amdgpu_ttm_tt_get_usermm(bo->tbo.ttm) && !bo->tbo.pin_count)
+-		amdgpu_bo_fence(bo,
+-				&avm->process_info->eviction_fence->base,
+-				true);
++		dma_resv_add_fence(bo->tbo.base.resv,
++				   &avm->process_info->eviction_fence->base,
++				   DMA_RESV_USAGE_BOOKKEEP);
+ 	ret = unreserve_bo_and_vms(&ctx, false, false);
  
- 	job->sched = sched;
+ 	goto out;
+@@ -2758,15 +2759,18 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence **ef)
+ 		if (mem->bo->tbo.pin_count)
+ 			continue;
+ 
+-		amdgpu_bo_fence(mem->bo,
+-			&process_info->eviction_fence->base, true);
++		dma_resv_add_fence(mem->bo->tbo.base.resv,
++				   &process_info->eviction_fence->base,
++				   DMA_RESV_USAGE_BOOKKEEP);
+ 	}
+ 	/* Attach eviction fence to PD / PT BOs */
+ 	list_for_each_entry(peer_vm, &process_info->vm_list_head,
+ 			    vm_list_node) {
+ 		struct amdgpu_bo *bo = peer_vm->root.bo;
+ 
+-		amdgpu_bo_fence(bo, &process_info->eviction_fence->base, true);
++		dma_resv_add_fence(bo->tbo.base.resv,
++				   &process_info->eviction_fence->base,
++				   DMA_RESV_USAGE_BOOKKEEP);
+ 	}
+ 
+ validate_map_fail:
+@@ -2820,7 +2824,9 @@ int amdgpu_amdkfd_add_gws_to_process(void *info, void *gws, struct kgd_mem **mem
+ 	ret = dma_resv_reserve_fences(gws_bo->tbo.base.resv, 1);
+ 	if (ret)
+ 		goto reserve_shared_fail;
+-	amdgpu_bo_fence(gws_bo, &process_info->eviction_fence->base, true);
++	dma_resv_add_fence(gws_bo->tbo.base.resv,
++			   &process_info->eviction_fence->base,
++			   DMA_RESV_USAGE_BOOKKEEP);
+ 	amdgpu_bo_unreserve(gws_bo);
+ 	mutex_unlock(&(*mem)->process_info->lock);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 1fd3cbca20a2..03ec099d64e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -112,7 +112,8 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
+ 		swap(p->vm->last_unlocked, tmp);
+ 		dma_fence_put(tmp);
+ 	} else {
+-		amdgpu_bo_fence(p->vm->root.bo, f, true);
++		dma_resv_add_fence(p->vm->root.bo->tbo.base.resv, f,
++				   DMA_RESV_USAGE_BOOKKEEP);
+ 	}
+ 
+ 	if (fence && !p->immediate)
 -- 
 2.25.1
 
