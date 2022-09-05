@@ -4,55 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2FB0C6FA86
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 06:57:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B15B0ECAAD5
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05BC110E1DB;
-	Mon,  5 Sep 2022 06:57:21 +0000 (UTC)
-X-Greylist: delayed 470 seconds by postgrey-1.36 at gabe;
- Mon, 05 Sep 2022 06:57:17 UTC
-Received: from condef-08.nifty.com (condef-08.nifty.com [202.248.20.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DA5410E1C1;
- Mon,  5 Sep 2022 06:57:17 +0000 (UTC)
-Received: from conssluserg-05.nifty.com ([10.126.8.84])by condef-08.nifty.com
- with ESMTP id 2856isQN010025; Mon, 5 Sep 2022 15:44:54 +0900
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
- [209.85.210.42]) (authenticated)
- by conssluserg-05.nifty.com with ESMTP id 2856ic6t020651;
- Mon, 5 Sep 2022 15:44:39 +0900
-DKIM-Filter: OpenDKIM Filter v2.10.3 conssluserg-05.nifty.com 2856ic6t020651
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
- s=dec2015msa; t=1662360279;
- bh=2/aEuTIGQY1eRCS8ZnFpEZnaZhJYBAN2YOqc0m45zS0=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=lKAB6BQc70nahRxqaJZNtnfMD+5Yec10/NkTOmFn2bNQNge2AgFZW7dBoRJqR6MnI
- xPC/bll5EYabRy5wk4VM/2t1rCwklXfH+QePUY2EHAAwAI/+OQYY/bQlEF+vfb41jq
- O+0v+kq1iRSwlgz/idsyDS/fER9XuSMbET7bpuSSVbebJZfGOYlSQyXUZJAfiTqkJD
- WW1rymTI7myf1KQPXzI+OEG5yl2tukVLr+4rx+aN9kYriAWLRWx3bo0/AFtZfrskkb
- dN6ZtLlo7S6u9OdbHj7cLg6CxD2bQaclRl5Me77fQNz7p8voW1WVLVPGvzKwUB5QB3
- cxlaHRJ2p496g==
-X-Nifty-SrcIP: [209.85.210.42]
-Received: by mail-ot1-f42.google.com with SMTP id
- t11-20020a05683014cb00b0063734a2a786so5583752otq.11; 
- Sun, 04 Sep 2022 23:44:39 -0700 (PDT)
-X-Gm-Message-State: ACgBeo2AIAh+sior96jHTvoeAz1UYCB9FK2XGmDSb8T4sPgS0RJrVHvx
- PMt3d31dQ5Xe6AsR/F5J/yE41p1MbJGScZMQzHE=
-X-Google-Smtp-Source: AA6agR5eDbGMjw3wtK6ZZjfyuxTtPhmoA7XbU6Z2YqLR6PluQmowVmlHe933hVZ0RY1QlSEEKDQLiJ+SNF7QSFqwxdE=
-X-Received: by 2002:a05:6830:658b:b0:63b:3501:7167 with SMTP id
- cn11-20020a056830658b00b0063b35017167mr12590275otb.343.1662360278092; Sun, 04
- Sep 2022 23:44:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB5A010E1DE;
+	Mon,  5 Sep 2022 07:04:12 +0000 (UTC)
+Received: from m12-16.163.com (m12-16.163.com [220.181.12.16])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4F39010E172;
+ Mon,  5 Sep 2022 01:15:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=0UuRi
+ XnqG0+tWCBmLnMTBzneooWmRUaaLB3aIEKok50=; b=B/g2VYj4DClm3qOwnvLq7
+ tOxL++OAJdWE7KTFeqsCUVEYo46j2OWmSurWdTy0WBh2+zmzZuakLA1yF0F8poZ8
+ kfLoUppQgkPl4walQsJpDc5a8B7kq8SDHmbVTKEjph5kS+88Nb/hC5bplaMdMDkL
+ xmLVDdRtEcBdQL2Zk+hnG0=
+Received: from f00160-VMware-Virtual-Platform.localdomain (unknown
+ [1.203.67.201])
+ by smtp12 (Coremail) with SMTP id EMCowAAncaJ8TRVj3hDsJg--.51831S4;
+ Mon, 05 Sep 2022 09:14:54 +0800 (CST)
+From: Jingyu Wang <jingyuwang_vip@163.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, mario.limonciello@amd.com,
+ hdegoede@redhat.com, rafael.j.wysocki@intel.com
+Subject: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_acpi.c
+Date: Mon,  5 Sep 2022 09:14:31 +0800
+Message-Id: <20220905011431.19818-1-jingyuwang_vip@163.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20220831184408.2778264-1-ndesaulniers@google.com>
- <20220831184408.2778264-4-ndesaulniers@google.com>
-In-Reply-To: <20220831184408.2778264-4-ndesaulniers@google.com>
-From: Masahiro Yamada <masahiroy@kernel.org>
-Date: Mon, 5 Sep 2022 15:44:01 +0900
-X-Gmail-Original-Message-ID: <CAK7LNAQsAwUX-w8YQTxPRSi8S0MRcDtv2mc=umjF_3C3dA1-Kg@mail.gmail.com>
-Message-ID: <CAK7LNAQsAwUX-w8YQTxPRSi8S0MRcDtv2mc=umjF_3C3dA1-Kg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/5] Makefile.compiler: replace cc-ifversion with
- compiler-specific macros
-To: Nick Desaulniers <ndesaulniers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: EMCowAAncaJ8TRVj3hDsJg--.51831S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7trykur48Xw1rZrWUJrWrKrg_yoW8uF4fpF
+ ySqr1Fkry5uF12vFyjyFy8ZFn0yw4I934xWFWxZ34ag3W5ZFyrJa48Cw4Uur97JrZxua1x
+ JFZrJ3yUuF4jvw7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEsXonUUUUU=
+X-Originating-IP: [1.203.67.201]
+X-CM-SenderInfo: 5mlqw5xxzd0whbyl1qqrwthudrp/xtbCoAdzF1zmWEIQ-gAAsN
+X-Mailman-Approved-At: Mon, 05 Sep 2022 07:04:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,249 +51,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: X86 ML <x86@kernel.org>, Michal Marek <michal.lkml@markovi.net>,
- dri-devel <dri-devel@lists.freedesktop.org>, Fangrui Song <maskray@google.com>,
- Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>,
- Tom Rix <trix@redhat.com>, Dmitrii Bundin <dmitrii.bundin.a@gmail.com>,
- clang-built-linux <llvm@lists.linux.dev>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>,
- Greg Thelen <gthelen@google.com>, Jonathan Corbet <corbet@lwn.net>,
- Alexey Alexandrov <aalexand@google.com>
+Cc: Jingyu Wang <jingyuwang_vip@163.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 1, 2022 at 3:44 AM Nick Desaulniers <ndesaulniers@google.com> wrote:
->
-> cc-ifversion is GCC specific. Replace it with compiler specific
-> variants. Update the users of cc-ifversion to use these new macros.
-> Provide a helper for checking compiler versions for GCC and Clang
-> simultaneously, that will be used in a follow up patch.
->
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: linux-doc@vger.kernel.org
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> Link: https://github.com/ClangBuiltLinux/linux/issues/350
-> Link: https://lore.kernel.org/llvm/CAGG=3QWSAUakO42kubrCap8fp-gm1ERJJAYXTnP1iHk_wrH=BQ@mail.gmail.com/
-> Suggested-by: Bill Wendling <morbo@google.com>
-> Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
-> ---
-> Changes v1 -> v2:
-> * New patch.
->
->  Documentation/kbuild/makefiles.rst          | 44 +++++++++++++++------
->  Makefile                                    |  4 +-
->  drivers/gpu/drm/amd/display/dc/dml/Makefile | 12 ++----
->  scripts/Makefile.compiler                   | 15 +++++--
->  4 files changed, 49 insertions(+), 26 deletions(-)
->
-> diff --git a/Documentation/kbuild/makefiles.rst b/Documentation/kbuild/makefiles.rst
-> index 11a296e52d68..e46f5b45c422 100644
-> --- a/Documentation/kbuild/makefiles.rst
-> +++ b/Documentation/kbuild/makefiles.rst
-> @@ -682,22 +682,42 @@ more details, with real examples.
->         In the above example, -Wno-unused-but-set-variable will be added to
->         KBUILD_CFLAGS only if gcc really accepts it.
->
-> -    cc-ifversion
-> -       cc-ifversion tests the version of $(CC) and equals the fourth parameter
-> -       if version expression is true, or the fifth (if given) if the version
-> -       expression is false.
-> +    gcc-min-version
-> +       gcc-min-version tests if the value of $(CONFIG_GCC_VERSION) is greater than
-> +       or equal to the provided value and evaluates to y if so.
->
->         Example::
->
-> -               #fs/reiserfs/Makefile
-> -               ccflags-y := $(call cc-ifversion, -lt, 0402, -O1)
-> +               cflags-$(call gcc-min-version, 70100) := -foo
->
-> -       In this example, ccflags-y will be assigned the value -O1 if the
-> -       $(CC) version is less than 4.2.
-> -       cc-ifversion takes all the shell operators:
-> -       -eq, -ne, -lt, -le, -gt, and -ge
-> -       The third parameter may be a text as in this example, but it may also
-> -       be an expanded variable or a macro.
-> +       In this example, cflags-y will be assigned the value -foo if $(CC) is gcc and
-> +       $(CONFIG_GCC_VERSION) is >= 7.1.
-> +
-> +    clang-min-version
-> +       clang-min-version tests if the value of $(CONFIG_CLANG_VERSION) is greater
-> +       than or equal to the provided value and evaluates to y if so.
-> +
-> +       Example::
-> +
-> +               cflags-$(call clang-min-version, 110000) := -foo
-> +
-> +       In this example, cflags-y will be assigned the value -foo if $(CC) is clang
-> +       and $(CONFIG_CLANG_VERSION) is >= 11.0.0.
-> +
-> +    cc-min-version
-> +       cc-min-version tests if the value of $(CONFIG_GCC_VERSION) is greater
-> +       than or equal to the first value provided, or if the value of
-> +       $(CONFIG_CLANG_VERSION) is greater than or equal to the second value
-> +       provided, and evaluates
-> +       to y if so.
-> +
-> +       Example::
-> +
-> +               cflags-$(call cc-min-version, 70100, 110000) := -foo
-> +
-> +       In this example, cflags-y will be assigned the value -foo if $(CC) is gcc and
-> +       $(CONFIG_GCC_VERSION) is >= 7.1, or if $(CC) is clang and
-> +       $(CONFIG_CLANG_VERSION) is >= 11.0.0.
->
->      cc-cross-prefix
->         cc-cross-prefix is used to check if there exists a $(CC) in path with
-> diff --git a/Makefile b/Makefile
-> index 952d354069a4..caa39ecb1136 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -972,7 +972,7 @@ ifdef CONFIG_CC_IS_GCC
->  KBUILD_CFLAGS += -Wno-maybe-uninitialized
->  endif
->
-> -ifdef CONFIG_CC_IS_GCC
-> +ifeq ($(call gcc-min-version, 90100),y)
->  # The allocators already balk at large sizes, so silence the compiler
->  # warnings for bounds checks involving those possible values. While
->  # -Wno-alloc-size-larger-than would normally be used here, earlier versions
-> @@ -984,7 +984,7 @@ ifdef CONFIG_CC_IS_GCC
->  # ignored, continuing to default to PTRDIFF_MAX. So, left with no other
->  # choice, we must perform a versioned check to disable this warning.
->  # https://lore.kernel.org/lkml/20210824115859.187f272f@canb.auug.org.au
-> -KBUILD_CFLAGS += $(call cc-ifversion, -ge, 0901, -Wno-alloc-size-larger-than)
-> +KBUILD_CFLAGS += -Wno-alloc-size-larger-than
->  endif
->
->  # disable invalid "can't wrap" optimizations for signed / pointers
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index 86a3b5bfd699..d8ee4743b2e3 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -33,20 +33,14 @@ ifdef CONFIG_PPC64
->  dml_ccflags := -mhard-float -maltivec
->  endif
->
-> -ifdef CONFIG_CC_IS_GCC
-> -ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-> -IS_OLD_GCC = 1
-> -endif
-> -endif
-> -
->  ifdef CONFIG_X86
-> -ifdef IS_OLD_GCC
-> +ifeq ($(call gcc-min-version, 70100),y)
-> +dml_ccflags += -msse2
-> +else
->  # Stack alignment mismatch, proceed with caution.
->  # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
->  # (8B stack alignment).
->  dml_ccflags += -mpreferred-stack-boundary=4
-> -else
-> -dml_ccflags += -msse2
->  endif
->  endif
->
-> diff --git a/scripts/Makefile.compiler b/scripts/Makefile.compiler
-> index d1739f0d3ce3..13dade724fa3 100644
-> --- a/scripts/Makefile.compiler
-> +++ b/scripts/Makefile.compiler
-> @@ -61,9 +61,18 @@ cc-option-yn = $(call try-run,\
->  cc-disable-warning = $(call try-run,\
->         $(CC) -Werror $(KBUILD_CPPFLAGS) $(KBUILD_CFLAGS) -W$(strip $(1)) -c -x c /dev/null -o "$$TMP",-Wno-$(strip $(1)))
->
-> -# cc-ifversion
-> -# Usage:  EXTRA_CFLAGS += $(call cc-ifversion, -lt, 0402, -O1)
-> -cc-ifversion = $(shell [ $(CONFIG_GCC_VERSION)0 $(1) $(2)000 ] && echo $(3) || echo $(4))
-> +# gcc-min-version
-> +# Usage: cflags-$(call gcc-min-version, 70100) += -foo
-> +gcc-min-version = $(shell [ $(CONFIG_GCC_VERSION) -ge $(1) ] && echo y)
-> +
-> +# clang-min-version
-> +# Usage: cflags-$(call clang-min-version, 110000) += -foo
-> +clang-min-version = $(shell [ $(CONFIG_CLANG_VERSION) -ge $(1) ] && echo y)
-> +
-> +# cc-min-version
-> +# Usage: cflags-$(call cc-min-version, 701000, 110000)
-> +#                                      ^ GCC   ^ Clang
-> +cc-min-version = $(filter y, $(call gcc-min-version, $(1)), $(call clang-min-version, $(2)))
+Fix everything checkpatch.pl complained about in amdgpu_acpi.c
 
+Signed-off-by: Jingyu Wang <jingyuwang_vip@163.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index 55402d238919..3da27436922c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1,3 +1,4 @@
++// SPDX-License-Identifier: MIT
+ /*
+  * Copyright 2012 Advanced Micro Devices, Inc.
+  *
+@@ -849,6 +850,7 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
+ 		if (amdgpu_device_has_dc_support(adev)) {
+ #if defined(CONFIG_DRM_AMD_DC)
+ 			struct amdgpu_display_manager *dm = &adev->dm;
++
+ 			if (dm->backlight_dev[0])
+ 				atif->bd = dm->backlight_dev[0];
+ #endif
+@@ -863,6 +865,7 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
+ 				if ((enc->devices & (ATOM_DEVICE_LCD_SUPPORT)) &&
+ 				    enc->enc_priv) {
+ 					struct amdgpu_encoder_atom_dig *dig = enc->enc_priv;
++
+ 					if (dig->bl_dev) {
+ 						atif->bd = dig->bl_dev;
+ 						break;
+@@ -919,9 +922,9 @@ static bool amdgpu_atif_pci_probe_handle(struct pci_dev *pdev)
+ 		return false;
+ 
+ 	status = acpi_get_handle(dhandle, "ATIF", &atif_handle);
+-	if (ACPI_FAILURE(status)) {
++	if (ACPI_FAILURE(status))
+ 		return false;
+-	}
++
+ 	amdgpu_acpi_priv.atif.handle = atif_handle;
+ 	acpi_get_name(amdgpu_acpi_priv.atif.handle, ACPI_FULL_PATHNAME, &buffer);
+ 	DRM_DEBUG_DRIVER("Found ATIF handle %s\n", acpi_method_name);
+@@ -954,9 +957,9 @@ static bool amdgpu_atcs_pci_probe_handle(struct pci_dev *pdev)
+ 		return false;
+ 
+ 	status = acpi_get_handle(dhandle, "ATCS", &atcs_handle);
+-	if (ACPI_FAILURE(status)) {
++	if (ACPI_FAILURE(status))
+ 		return false;
+-	}
++
+ 	amdgpu_acpi_priv.atcs.handle = atcs_handle;
+ 	acpi_get_name(amdgpu_acpi_priv.atcs.handle, ACPI_FULL_PATHNAME, &buffer);
+ 	DRM_DEBUG_DRIVER("Found ATCS handle %s\n", acpi_method_name);
 
-
-A more intuitive and more efficient form would be:
-
-  cc-min-version = $(or $(call gcc-min-version, $(1)), $(call
-clang-min-version, $(2)))
-
-
-
-In your implementation, both gcc-min-version and clang-min-version are
-expanded before being passed to $(filter ...).
-So the shell is always invoked twice.
-
-
-$(or A, B) is lazily expanded; A is evaluated first.
-If and only if A is empty, B is expanded.
-
-If gcc-min-version is met, the shell invocation in clang-min-version
-will be short-cut.
-
-
-
-But, I do not find a place where cc-min-version is useful.
-
-
-Looking at the next patch,
-
-
-
-# gcc-11+, clang-14+
-ifeq ($(call cc-min-version, 110000, 140000),y)
-dwarf-version-y := 5
-else
-dwarf-version-y := 4
-endif
-
-
- ... can be written in a more simpler way:
-
-
-dwarf-version-y                                 := 4
-dwarf-version-$(call gcc-min-version, 110000)   := 5
-dwarf-version-$(call clang-min-version, 140000) := 5
-
-
-
-
-
-With $(call cc-min-version, 110000, 140000),
-you never know the meaning of 110000, 140000
-until you see the definition of this macro.
-So, you feel like adding the comment "gcc-11+, clang-14+".
-
-
-The latter form, the code is self-documenting.
-
-
-
-
-
-
-
-
->  # ld-option
->  # Usage: KBUILD_LDFLAGS += $(call ld-option, -X, -Y)
-> --
-> 2.37.2.672.g94769d06f0-goog
->
-
-
+base-commit: e47eb90a0a9ae20b82635b9b99a8d0979b757ad8
 -- 
-Best Regards
-Masahiro Yamada
+2.34.1
+
