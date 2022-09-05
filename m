@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA08FC54EE9
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 12:33:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B260DECAAD3
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 12:33:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B14310E364;
-	Mon,  5 Sep 2022 12:32:52 +0000 (UTC)
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8240C10E36B
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Sep 2022 12:32:39 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id p16so16783166ejb.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 05 Sep 2022 05:32:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BD3710E382;
+	Mon,  5 Sep 2022 12:32:54 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07B0A10E364
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Sep 2022 12:32:45 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id r4so11163820edi.8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 05 Sep 2022 05:32:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=oFhiX5OrD2xKjocCqCe65ElofuDat+YfEZDe+lTq+Ec=;
- b=IZK8UL65gpZy7Lya6rQE1Xr+1OrxmqhqbeciD8V6uFTCx/mOIO/cUz8E8hkI2UrB7w
- bIl9McU/AatIl/isncTUSpNwKBA2l4iar5K2L8hRshvEzo3+jUCEFjMIPlUow+wMW8LM
- ubMyJJj2lesT8In70/SPtafdfnxPuHGyKOkrkf1E5BLzz2czX3/iKQGHqWWJtfqZqLqU
- SRlTnoJ8PGMMDEux5QsJ8d3+z/ZO3xQSJXwP/DvH6F3bce82uKuJrt8a0V+b8VyWwWjI
- 1qnbD4Z1G9AtMB2QRnyGTx4JWP2ZR9wEgMTZmBzrbDuJ0ilFuFkZM+5snU0rnysjTK+C
- 5s5Q==
+ bh=P8amNQm9/41M+qRqeZPKryOIaYVkHhP+lUnw2p3sxEM=;
+ b=YfPaaPkBq+EfXcQVFaE8TrCvr8Au2b+AIARopdtL6OcdZigkSTvZV6XMGxCVcQQhdc
+ JlKktP8BSvR2JzWZlD00vLXY8KixXJpwG6RU0zaKfuOAmYKe5dj4ylm1U9btfTdcRA4R
+ yFnmgM4z+DC78JB9rTA0bH0tg89LToP3HbJPm4G3ir8mWQD2ismp+E9E/XlU6kSNhFUm
+ HPafPnzl2vUUOjoBrnxntCBH3JHzC3HCBXigLFNCduDP/2FxowNJ1aOanc4lGAGn1c5j
+ SJ3aemEh2vFktm4UJD3fqdbJ2VzFF90iFCf+XUCHe6jFLZpHtETyxvIojxwga3I2anDE
+ 20mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=oFhiX5OrD2xKjocCqCe65ElofuDat+YfEZDe+lTq+Ec=;
- b=FwAey1u602EXAr9t9mQ5hb6jSyhtBadkho2+2MQRu3uoA+VjWFuPGvmYjYPqqmLklM
- 0ZUS0HoUQYU7WU/s7vBPmgPqtXC2N9MATdKhIDx3NxsQqPUzaur6ei0u7zRSSJIdXex7
- WvmyDG914MBkjNtVuZ0AgSCe7Nr0C7Sy6fOsc7LXyAZr6sWBazXaVYczcOrYOu6syjzm
- 1u/3iRbX5GarW5SasZ5/icU4TYeEbjKGim+hBirrBNCf4wpGeWr8XZ229uQntmV//0iW
- 7riLJSQRdbgRs3OfRS0AWsQqZuaBbSW0FQ4kZmVWJCZQ6OnP+sO2zT3aXVD8acdo3WC7
- zGCA==
-X-Gm-Message-State: ACgBeo345yVqdGKCRSpsV/rWkiqJdwvh/0quXS3cD7J9c9BeMRCumMTz
- AjEFGJ01VWgjuKspG9iUI8YelzsAWWdRIQ==
-X-Google-Smtp-Source: AA6agR69u67zbln6HUg1V6J8svIFKeFjh9YurV37G2mOJeHy1H8UzbeJH1SaHhQv8jDhQO/2hp7c4A==
-X-Received: by 2002:a17:907:31c9:b0:740:ef93:2ffd with SMTP id
- xf9-20020a17090731c900b00740ef932ffdmr30946672ejb.584.1662381157389; 
- Mon, 05 Sep 2022 05:32:37 -0700 (PDT)
+ bh=P8amNQm9/41M+qRqeZPKryOIaYVkHhP+lUnw2p3sxEM=;
+ b=EY8z/uK/oYd4t8lSwA9zO6YjhrHfhOH0IdX765b5PN8JvrI1ubU3Ju7fcBudImiWIL
+ Jk91TlK2UaCcA0Mg7jF54LqQaqMC0ZwBCi/pU34T9lVBAskRE30Ssp5n22jb1revwGOD
+ dFQbZ7k701zkAbUvjiwyVK7bQpUaxIlQ8t8gr/8tAJRHOqhnYQbc2dFg9yO00Pt+9S4y
+ YuTXxAD3ETrX8VOpY2YPOz49PhZ3pfEtstSX+Dl8a05vprc2VCq1U237KTThlVJT5t8O
+ Qu/fbuk33wREaUmFG/6rKIyvP96012EykvX7WAlk01zim4Qy+N04RvMIA9+/aT0qHKK7
+ VGog==
+X-Gm-Message-State: ACgBeo14tgWFGaeny9XHkAqg9e6jEacma88o3UGMvTzu1cIvRU6GDihn
+ TjwA8r8x7mVnVeKlWsKVJPJ5uVdnhCHUmQ==
+X-Google-Smtp-Source: AA6agR6NvK+AP1Q9paNnU0CRl9Uuqa5jc47LhzNL+iQyVQ/dMoj3Qqw9f+KkqWjgx3rjDAOSPWYiSw==
+X-Received: by 2002:a05:6402:2791:b0:448:763c:666f with SMTP id
+ b17-20020a056402279100b00448763c666fmr30885185ede.36.1662381163380; 
+ Mon, 05 Sep 2022 05:32:43 -0700 (PDT)
 Received: from able.fritz.box (p4fc20f4e.dip0.t-ipconnect.de. [79.194.15.78])
  by smtp.gmail.com with ESMTPSA id
- k6-20020a17090632c600b0073c0b87ba34sm4970341ejk.198.2022.09.05.05.32.36
+ k6-20020a17090632c600b0073c0b87ba34sm4970341ejk.198.2022.09.05.05.32.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Sep 2022 05:32:37 -0700 (PDT)
+ Mon, 05 Sep 2022 05:32:42 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	Ruijing.Dong@amd.com
-Subject: [PATCH 04/12] drm/amdgpu: revert "partial revert "remove ctx->lock"
- v2"
-Date: Mon,  5 Sep 2022 14:32:24 +0200
-Message-Id: <20220905123232.2809-4-christian.koenig@amd.com>
+Subject: [PATCH 10/12] drm/amdgpu: add gang submit backend v2
+Date: Mon,  5 Sep 2022 14:32:30 +0200
+Message-Id: <20220905123232.2809-10-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220905123232.2809-1-christian.koenig@amd.com>
 References: <20220905123232.2809-1-christian.koenig@amd.com>
@@ -78,130 +77,188 @@ Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 94f4c4965e5513ba624488f4b601d6b385635aec.
+Allows submitting jobs as gang which needs to run on multiple
+engines at the same time.
 
-We found that the bo_list is missing a protection for its list entries.
-Since that is fixed now this workaround can be removed again.
+Basic idea is that we have a global gang submit fence representing when the
+gang leader is finally pushed to run on the hardware last.
+
+Jobs submitted as gang are never re-submitted in case of a GPU reset since this
+won't work and will just deadlock the hardware immediately again.
+
+v2: fix logic inversion, improve documentation, fix rcu
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  | 21 ++++++---------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c |  2 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  1 -
- 3 files changed, 6 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 35 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 28 +++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h    |  3 ++
+ 4 files changed, 67 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index f7bf61d96be5..52ba6325944e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -128,8 +128,6 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
- 		goto free_chunk;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 79bb6fd83094..ae9371b172e3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -885,6 +885,7 @@ struct amdgpu_device {
+ 	u64				fence_context;
+ 	unsigned			num_rings;
+ 	struct amdgpu_ring		*rings[AMDGPU_MAX_RINGS];
++	struct dma_fence __rcu		*gang_submit;
+ 	bool				ib_pool_ready;
+ 	struct amdgpu_sa_manager	ib_pools[AMDGPU_IB_POOL_MAX];
+ 	struct amdgpu_sched		gpu_sched[AMDGPU_HW_IP_NUM][AMDGPU_RING_PRIO_MAX];
+@@ -1294,6 +1295,8 @@ u32 amdgpu_device_pcie_port_rreg(struct amdgpu_device *adev,
+ 				u32 reg);
+ void amdgpu_device_pcie_port_wreg(struct amdgpu_device *adev,
+ 				u32 reg, u32 v);
++struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
++					    struct dma_fence *gang);
  
--	mutex_lock(&p->ctx->lock);
--
- 	/* skip guilty context job */
- 	if (atomic_read(&p->ctx->guilty) == 1) {
- 		ret = -ECANCELED;
-@@ -691,7 +689,6 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser, int error,
- 	dma_fence_put(parser->fence);
+ /* atpx handler */
+ #if defined(CONFIG_VGA_SWITCHEROO)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index d7eb23b8d692..172095122cc1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3501,6 +3501,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	adev->gmc.gart_size = 512 * 1024 * 1024;
+ 	adev->accel_working = false;
+ 	adev->num_rings = 0;
++	RCU_INIT_POINTER(adev->gang_submit, dma_fence_get_stub());
+ 	adev->mman.buffer_funcs = NULL;
+ 	adev->mman.buffer_funcs_ring = NULL;
+ 	adev->vm_manager.vm_pte_funcs = NULL;
+@@ -3983,6 +3984,7 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+ 	release_firmware(adev->firmware.gpu_info_fw);
+ 	adev->firmware.gpu_info_fw = NULL;
+ 	adev->accel_working = false;
++	dma_fence_put(rcu_dereference_protected(adev->gang_submit, true));
  
- 	if (parser->ctx) {
--		mutex_unlock(&parser->ctx->lock);
- 		amdgpu_ctx_put(parser->ctx);
- 	}
- 	if (parser->bo_list)
-@@ -1138,9 +1135,6 @@ static int amdgpu_cs_dependencies(struct amdgpu_device *adev,
+ 	amdgpu_reset_fini(adev);
+ 
+@@ -5916,3 +5918,36 @@ void amdgpu_device_pcie_port_wreg(struct amdgpu_device *adev,
+ 	(void)RREG32(data);
+ 	spin_unlock_irqrestore(&adev->pcie_idx_lock, flags);
+ }
++
++/**
++ * amdgpu_device_switch_gang - switch to a new gang
++ * @adev: amdgpu_device pointer
++ * @gang: the gang to switch to
++ *
++ * Try to switch to a new gang.
++ * Returns: NULL if we switched to the new gang or a reference to the current
++ * gang leader.
++ */
++struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
++					    struct dma_fence *gang)
++{
++	struct dma_fence *old = NULL;
++
++	do {
++		dma_fence_put(old);
++		rcu_read_lock();
++		old = dma_fence_get_rcu_safe(&adev->gang_submit);
++		rcu_read_unlock();
++
++		if (old == gang)
++			break;
++
++		if (!dma_fence_is_signaled(old))
++			return old;
++
++	} while (cmpxchg((struct dma_fence __force **)&adev->gang_submit,
++			 old, gang) != old);
++
++	dma_fence_put(old);
++	return NULL;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 37dc5ee4153d..6f6708caf0e6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -173,11 +173,29 @@ static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
+ 	dma_fence_put(&job->hw_fence);
+ }
+ 
++void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
++				struct amdgpu_job *leader)
++{
++	struct dma_fence *fence = &leader->base.s_fence->scheduled;
++
++	WARN_ON(job->gang_submit);
++
++	/*
++	 * Don't add a reference when we are the gang leader to avoid circle
++	 * dependency.
++	 */
++	if (job != leader)
++		dma_fence_get(fence);
++	job->gang_submit = fence;
++}
++
+ void amdgpu_job_free(struct amdgpu_job *job)
  {
- 	int i, r;
+ 	amdgpu_job_free_resources(job);
+ 	amdgpu_sync_free(&job->sync);
+ 	amdgpu_sync_free(&job->sched_sync);
++	if (job->gang_submit != &job->base.s_fence->scheduled)
++		dma_fence_put(job->gang_submit);
  
--	/* TODO: Investigate why we still need the context lock */
--	mutex_unlock(&p->ctx->lock);
--
- 	for (i = 0; i < p->nchunks; ++i) {
- 		struct amdgpu_cs_chunk *chunk;
- 
-@@ -1151,34 +1145,32 @@ static int amdgpu_cs_dependencies(struct amdgpu_device *adev,
- 		case AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES:
- 			r = amdgpu_cs_process_fence_dep(p, chunk);
- 			if (r)
--				goto out;
-+				return r;
- 			break;
- 		case AMDGPU_CHUNK_ID_SYNCOBJ_IN:
- 			r = amdgpu_cs_process_syncobj_in_dep(p, chunk);
- 			if (r)
--				goto out;
-+				return r;
- 			break;
- 		case AMDGPU_CHUNK_ID_SYNCOBJ_OUT:
- 			r = amdgpu_cs_process_syncobj_out_dep(p, chunk);
- 			if (r)
--				goto out;
-+				return r;
- 			break;
- 		case AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT:
- 			r = amdgpu_cs_process_syncobj_timeline_in_dep(p, chunk);
- 			if (r)
--				goto out;
-+				return r;
- 			break;
- 		case AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL:
- 			r = amdgpu_cs_process_syncobj_timeline_out_dep(p, chunk);
- 			if (r)
--				goto out;
-+				return r;
- 			break;
- 		}
+ 	dma_fence_put(&job->hw_fence);
+ }
+@@ -244,12 +262,16 @@ static struct dma_fence *amdgpu_job_dependency(struct drm_sched_job *sched_job,
+ 		fence = amdgpu_sync_get_fence(&job->sync);
  	}
  
--out:
--	mutex_lock(&p->ctx->lock);
--	return r;
-+	return 0;
++	if (!fence && job->gang_submit)
++		fence = amdgpu_device_switch_gang(ring->adev, job->gang_submit);
++
+ 	return fence;
  }
  
- static void amdgpu_cs_post_dependencies(struct amdgpu_cs_parser *p)
-@@ -1340,7 +1332,6 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		goto out;
+ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
+ {
+ 	struct amdgpu_ring *ring = to_amdgpu_ring(sched_job->sched);
++	struct amdgpu_device *adev = ring->adev;
+ 	struct dma_fence *fence = NULL, *finished;
+ 	struct amdgpu_job *job;
+ 	int r = 0;
+@@ -261,8 +283,10 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
  
- 	r = amdgpu_cs_submit(&parser, cs);
--
- out:
- 	amdgpu_cs_parser_fini(&parser, r, reserved_buffers);
+ 	trace_amdgpu_sched_run_job(job);
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 8ee4e8491f39..168337d8d4cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -315,7 +315,6 @@ static int amdgpu_ctx_init(struct amdgpu_ctx_mgr *mgr, int32_t priority,
- 	kref_init(&ctx->refcount);
- 	ctx->mgr = mgr;
- 	spin_lock_init(&ctx->ring_lock);
--	mutex_init(&ctx->lock);
+-	if (job->vram_lost_counter != atomic_read(&ring->adev->vram_lost_counter))
+-		dma_fence_set_error(finished, -ECANCELED);/* skip IB as well if VRAM lost */
++	/* Skip job if VRAM is lost and never resubmit gangs */
++	if (job->vram_lost_counter != atomic_read(&adev->vram_lost_counter) ||
++	    (job->job_run_counter && job->gang_submit))
++		dma_fence_set_error(finished, -ECANCELED);
  
- 	ctx->reset_counter = atomic_read(&mgr->adev->gpu_reset_counter);
- 	ctx->reset_counter_query = ctx->reset_counter;
-@@ -407,7 +406,6 @@ static void amdgpu_ctx_fini(struct kref *ref)
- 		drm_dev_exit(idx);
- 	}
- 
--	mutex_destroy(&ctx->lock);
- 	kfree(ctx);
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-index cc7c8afff414..0fa0e56daf67 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-@@ -53,7 +53,6 @@ struct amdgpu_ctx {
- 	bool				preamble_presented;
- 	int32_t				init_priority;
- 	int32_t				override_priority;
--	struct mutex			lock;
- 	atomic_t			guilty;
- 	unsigned long			ras_counter_ce;
- 	unsigned long			ras_counter_ue;
+ 	if (finished->error < 0) {
+ 		DRM_INFO("Skip scheduling IBs!\n");
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+index 866d35bbe073..ab7b150e5d50 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+@@ -50,6 +50,7 @@ struct amdgpu_job {
+ 	struct amdgpu_sync	sync;
+ 	struct amdgpu_sync	sched_sync;
+ 	struct dma_fence	hw_fence;
++	struct dma_fence	*gang_submit;
+ 	uint32_t		preamble_status;
+ 	uint32_t                preemption_status;
+ 	bool                    vm_needs_flush;
+@@ -84,6 +85,8 @@ int amdgpu_job_alloc_with_ib(struct amdgpu_device *adev, unsigned size,
+ void amdgpu_job_set_resources(struct amdgpu_job *job, struct amdgpu_bo *gds,
+ 			      struct amdgpu_bo *gws, struct amdgpu_bo *oa);
+ void amdgpu_job_free_resources(struct amdgpu_job *job);
++void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
++				struct amdgpu_job *leader);
+ void amdgpu_job_free(struct amdgpu_job *job);
+ int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
+ 		      void *owner, struct dma_fence **f);
 -- 
 2.25.1
 
