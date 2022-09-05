@@ -4,50 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37BABC6FA89
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEBD2C6FA86
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 07:04:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A36D210E1F0;
-	Mon,  5 Sep 2022 07:04:27 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C258210E82F;
- Fri,  2 Sep 2022 13:01:26 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A95F4B82ADD;
- Fri,  2 Sep 2022 13:01:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2882C433C1;
- Fri,  2 Sep 2022 13:01:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1662123683;
- bh=2Bz/efN2/mg1731d5K4pjKr79RYPaHO217/mHswxl4Y=;
- h=From:To:Cc:Subject:Date:From;
- b=K/WL4KZPAlSuht5rqlHSv5eY4DFfjY9gDUj2mqBn+KnYx0byowdhu2Z25fx2k1FIA
- a6njcrtpRvGUnLQvKBi1UYfAdwHkiegRVUWv3hvrplGcuMR0Zwd+CWhyD86w94wKIn
- N22QsLhhAWrCcwkNn6uKjfUf859qv1iWPTxzvoCg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng^Ci@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deuc her <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui.Pan@amd.com
-Subject: [PATCH] drm/amd/display: fix memory leak when using debugfs_lookup()
-Date: Fri,  2 Sep 2022 15:01:05 +0200
-Message-Id: <20220902130105.139138-1-gregkh@linuxfoundation.org>
-X-Mailer: git-send-email 2.37.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0EFD10E1F2;
+	Mon,  5 Sep 2022 07:04:28 +0000 (UTC)
+Received: from m12-18.163.com (m12-18.163.com [220.181.12.18])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B24F710E295;
+ Mon,  5 Sep 2022 00:55:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=z9nvn
+ N5LMXDX8a7aP7btkSJDO5Ia4gaMEc/3ABW2E00=; b=FS6u3Ge7xHS2IfIB+2/4z
+ 8u2tAV9kKJ37xsM2vPouNbmE1kRNxkCR9JzoHBVCUpmQqb8pNDaUxhCaolQqPEPD
+ hqeAT8RC2I557koy2doGFXTb9AXtBtnuU4iwZyFK2Ec2Pq3nqgUoYfLpMtlWPwdS
+ eUFKJrdpavAb3+HjZQ8XBU=
+Received: from f00160-VMware-Virtual-Platform.localdomain (unknown
+ [1.203.67.201])
+ by smtp14 (Coremail) with SMTP id EsCowAD3c1mQSBVjtUhLDw--.19175S4;
+ Mon, 05 Sep 2022 08:54:51 +0800 (CST)
+From: Jingyu Wang <jingyuwang_vip@163.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, isabbasso@riseup.net,
+ Rodrigo.Siqueira@amd.com
+Subject: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_atpx_handler.c
+Date: Mon,  5 Sep 2022 08:53:29 +0800
+Message-Id: <20220905005329.19501-1-jingyuwang_vip@163.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1866;
- i=gregkh@linuxfoundation.org; h=from:subject;
- bh=2Bz/efN2/mg1731d5K4pjKr79RYPaHO217/mHswxl4Y=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDMmC/yZsOu+8L1Mx8IXV1LtsrzJY/ZoOyKvVmH27M98zdcG9
- uSo/OmJZGASZGGTFFFm+bOM5ur/ikKKXoe1pmDmsTCBDGLg4BWAi0fIMC9Zfmp9y7XLhBFaZa0Kzdc
- U3nHD0UmSY7/s/eFtrCMv55BPFc1lj7uS9ETn4EQA=
-X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
- fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: EsCowAD3c1mQSBVjtUhLDw--.19175S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJF13CrWrCF17ArWkJFWrXwb_yoW5tF17pF
+ WSgr97tr1rZw18AFykAr4DZF1Ykws7ZFyUG3yDZ34Y9w4UJr1rJ348ta4jyrn5CrW7CFsa
+ vFZxXa45Aa9FyF7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEVc_7UUUUU=
+X-Originating-IP: [1.203.67.201]
+X-CM-SenderInfo: 5mlqw5xxzd0whbyl1qqrwthudrp/1tbiyRtzF2I66w2tygAAsv
 X-Mailman-Approved-At: Mon, 05 Sep 2022 07:04:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,63 +51,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Leo Li <sunpeng.li@amd.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- dri-devel@lists.freedesktop.org,
- Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
- Wenjing Liu <wenjing.liu@amd.com>, linux-kernel@vger.kernel.org,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- David Airlie <airlied@linux.ie>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- hersen wu <hersenxs.wu@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
- Sean Paul <seanpaul@chromium.org>, Yongzhi Liu <lyz_cs@pku.edu.cn>,
- Mikita Lipski <mikita.lipski@amd.com>,
- Thelford Williams <tdwilliamsiv@gmail.com>
+Cc: Jingyu Wang <jingyuwang_vip@163.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When calling debugfs_lookup() the result must have dput() called on it,
-otherwise the memory will leak over time.  Fix this up by properly
-calling dput().
+Fix everything checkpatch.pl complained about in amdgpu_atpx_handler.c
 
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Wayne Lin <Wayne.Lin@amd.com>
-Cc: hersen wu <hersenxs.wu@amd.com>
-Cc: Wenjing Liu <wenjing.liu@amd.com>
-Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Cc: Thelford Williams <tdwilliamsiv@gmail.com>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Cc: Yongzhi Liu <lyz_cs@pku.edu.cn>
-Cc: Mikita Lipski <mikita.lipski@amd.com>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Cc: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
-Cc: Sean Paul <seanpaul@chromium.org>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Jingyu Wang <jingyuwang_vip@163.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c  | 27 +++++++++++--------
+ 1 file changed, 16 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 0e48824f55e3..ee242d9d8b06 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -3288,6 +3288,7 @@ void crtc_debugfs_init(struct drm_crtc *crtc)
- 				   &crc_win_y_end_fops);
- 	debugfs_create_file_unsafe("crc_win_update", 0644, dir, crtc,
- 				   &crc_win_update_fops);
-+	dput(dir);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+index d6d986be906a..911d6a130ec5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+@@ -74,24 +74,29 @@ struct atpx_mux {
+ 	u16 mux;
+ } __packed;
+ 
+-bool amdgpu_has_atpx(void) {
++bool amdgpu_has_atpx(void)
++{
+ 	return amdgpu_atpx_priv.atpx_detected;
+ }
+ 
+-bool amdgpu_has_atpx_dgpu_power_cntl(void) {
++bool amdgpu_has_atpx_dgpu_power_cntl(void)
++{
+ 	return amdgpu_atpx_priv.atpx.functions.power_cntl;
+ }
+ 
+-bool amdgpu_is_atpx_hybrid(void) {
++bool amdgpu_is_atpx_hybrid(void)
++{
+ 	return amdgpu_atpx_priv.atpx.is_hybrid;
+ }
+ 
+-bool amdgpu_atpx_dgpu_req_power_for_displays(void) {
++bool amdgpu_atpx_dgpu_req_power_for_displays(void)
++{
+ 	return amdgpu_atpx_priv.atpx.dgpu_req_power_for_displays;
+ }
+ 
+ #if defined(CONFIG_ACPI)
+-void *amdgpu_atpx_get_dhandle(void) {
++void *amdgpu_atpx_get_dhandle(void)
++{
+ 	return amdgpu_atpx_priv.dhandle;
+ }
  #endif
- 	debugfs_create_file("amdgpu_current_bpc", 0644, crtc->debugfs_entry,
- 			    crtc, &amdgpu_current_bpc_fops);
+@@ -134,7 +139,7 @@ static union acpi_object *amdgpu_atpx_call(acpi_handle handle, int function,
+ 
+ 	/* Fail only if calling the method fails and ATPX is supported */
+ 	if (ACPI_FAILURE(status) && status != AE_NOT_FOUND) {
+-		printk("failed to evaluate ATPX got %s\n",
++		DRM_WARN("failed to evaluate ATPX got %s\n",
+ 		       acpi_format_exception(status));
+ 		kfree(buffer.pointer);
+ 		return NULL;
+@@ -190,7 +195,7 @@ static int amdgpu_atpx_validate(struct amdgpu_atpx *atpx)
+ 
+ 		size = *(u16 *) info->buffer.pointer;
+ 		if (size < 10) {
+-			printk("ATPX buffer is too small: %zu\n", size);
++			DRM_WARN("ATPX buffer is too small: %zu\n", size);
+ 			kfree(info);
+ 			return -EINVAL;
+ 		}
+@@ -223,11 +228,11 @@ static int amdgpu_atpx_validate(struct amdgpu_atpx *atpx)
+ 	atpx->is_hybrid = false;
+ 	if (valid_bits & ATPX_MS_HYBRID_GFX_SUPPORTED) {
+ 		if (amdgpu_atpx_priv.quirks & AMDGPU_PX_QUIRK_FORCE_ATPX) {
+-			printk("ATPX Hybrid Graphics, forcing to ATPX\n");
++			DRM_WARN("ATPX Hybrid Graphics, forcing to ATPX\n");
+ 			atpx->functions.power_cntl = true;
+ 			atpx->is_hybrid = false;
+ 		} else {
+-			printk("ATPX Hybrid Graphics\n");
++			DRM_WARN("ATPX Hybrid Graphics\n");
+ 			/*
+ 			 * Disable legacy PM methods only when pcie port PM is usable,
+ 			 * otherwise the device might fail to power off or power on.
+@@ -269,7 +274,7 @@ static int amdgpu_atpx_verify_interface(struct amdgpu_atpx *atpx)
+ 
+ 	size = *(u16 *) info->buffer.pointer;
+ 	if (size < 8) {
+-		printk("ATPX buffer is too small: %zu\n", size);
++		DRM_WARN("ATPX buffer is too small: %zu\n", size);
+ 		err = -EINVAL;
+ 		goto out;
+ 	}
+@@ -278,7 +283,7 @@ static int amdgpu_atpx_verify_interface(struct amdgpu_atpx *atpx)
+ 	memcpy(&output, info->buffer.pointer, size);
+ 
+ 	/* TODO: check version? */
+-	printk("ATPX version %u, functions 0x%08x\n",
++	DRM_WARN("ATPX version %u, functions 0x%08x\n",
+ 	       output.version, output.function_bits);
+ 
+ 	amdgpu_atpx_parse_functions(&atpx->functions, output.function_bits);
+
+base-commit: e47eb90a0a9ae20b82635b9b99a8d0979b757ad8
 -- 
-2.37.3
+2.34.1
 
