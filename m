@@ -4,65 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DB78ECAAD5
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 15:25:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEF4AC6FA86
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 15:34:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5468089208;
-	Tue,  6 Sep 2022 15:25:40 +0000 (UTC)
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
- [IPv6:2001:4860:4864:20::35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B61B10E6B3
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Sep 2022 15:25:35 +0000 (UTC)
-Received: by mail-oa1-x35.google.com with SMTP id
- 586e51a60fabf-127a3a39131so8200393fac.13
- for <amd-gfx@lists.freedesktop.org>; Tue, 06 Sep 2022 08:25:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date;
- bh=o+euuUXRZhA0i5zZ4+MOS/8hza0ertE6B+X1T6A3EmA=;
- b=n6oYuTJMGIGPBDdbdCsyOWBqUIB1Y6Rl/yZLDB2QNfry5dhAIjl1ZBYqgtEqRHR55C
- ZzmxhODB8ZFSDB0h/BMLczO3CdJvJeK+ylteGbVWsNENk3BPOsjfBnyLTMrL3KFrerQV
- 0U45GGg8fZzI5Jtvy8apzFix1QVMvVFqz++pzLEtNfwB/uAU6zpAo/q2oOf91smJ49sC
- RlC97J0OHEO21yqzztl5H6bMOnARxFM4Aue36w7ItiSI39s5EQOBd/xdMkDPNrHNXOr0
- TUIHAZeI5SKrxzKTpYHXzFpD7dlnSBwfTdRAOZVQgx/v8Z2EAsiH6ghqgQpYyzTnyLlx
- 1aMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date;
- bh=o+euuUXRZhA0i5zZ4+MOS/8hza0ertE6B+X1T6A3EmA=;
- b=ZMXiGBJHlkXk2+3ppk/XMQjyara1N3qX7vudvFzntuVnGOk9bQdQ6BEHDf3e6X4sVa
- II9zfaWUUczHLugSt7uU8oUu5OQIp3zds0q4IcK9HYjw4EqUl+GCx8X2oYl/3+DNZlFz
- 3HlYFqRV/A7Cgv1V7xfgKTs7ZqZZZk/Z0eyntxVFiwFbFXntlNCav8gbazsc0kl7ZJSP
- GmsAXLozKd7LxzjFtt+jQTOYtuftCdjM5jVe2yq/Nc1K08CojeKsTHNuUCtrZRZUdaQF
- kKPhGh/8fR20iaVxunyJaLNWre/6fmeoUAPM11tKsS6EJibGe9YfAq/KAP+UYS8XmEkE
- Rb3Q==
-X-Gm-Message-State: ACgBeo3gdCzU9NaEmA6KK8p1lv3fCDs/rh1fz2HH+NPueu4I/I1OsB3k
- ffkKgCwOxgjZ1FQ0EtAeQf8MdXWVwafBp/dC3F0WM8KjMso=
-X-Google-Smtp-Source: AA6agR5czXGXtvhVwCJYuyMXJpBEScNtlyIWHMPgAK3jBnqOUVGg0RbE7XWHXUF/WRCznHiOBB4BtX1fC5xFWTNRiaY=
-X-Received: by 2002:a05:6870:3484:b0:11e:4465:3d9b with SMTP id
- n4-20020a056870348400b0011e44653d9bmr12518028oah.46.1662477934657; Tue, 06
- Sep 2022 08:25:34 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26F3910E6DF;
+	Tue,  6 Sep 2022 15:34:00 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2048.outbound.protection.outlook.com [40.107.93.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E019810E6DF
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Sep 2022 15:33:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CE2DtSaYXYxF372Nqz6ZJ0SvpSIxbMOW0WD/PXfAOezMEnkM7b9EsKBbvnMoGqFg27nqRIEwIR1Ny4v47nv+TiAHqIQAav4Ifsa3czcssPvFHSkwc33Mb498cYPYbYsbGZrSsNEopW9eqK6GbHTqgqLyWJBiP/2fF+im1YJf39/PW94vAquTIzoLctkkXGy4ZwSCGvJScRpLd7g4ljEVElf4AK71J/zPTmA6lmDYMy8U/HMfn4NpWDrjJPYxfAqC5va+yB+c14G7ygjgDbv5zMqol1q+iPyyzjJfACV8JtrRdKVqR8tlS2DuwvjKLSTiU7G2O8+S1lNuHX/WBOi2SA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZUubmPGDFQMTzWJJyYFBkTniy2idd4qLUKHzdA+uo/M=;
+ b=J3aJLkoTUhOn9XsXH+TYW2KDHVmLLl8hksJQJE5MQy064JoE3Z+gIJx3aopPC1GKvWrK9PRXJ9nmLwS4g+dcia5SgKz1R1KrxRQvNn2Avty2cvkRZtZMfVrDBYQ6dnueog0YNY/zhDYExQ2I1m4ejEJ0OZyfDdVP53J2Wc1VQjfRVIr4giTB7dQUEb69opaFWgftGcEtUy9WH0JX3/weeUkHVqwA7kvEuuy7L2C1hSA8g+bO/ghyVdJNyLZGph6jWrZlrZGzfiPYrz8R7DSs77ptv82REqIr3IsxO4uzEUZP528DQr7qi6TTFAI9ZDQSlymC9ORsjUbyOV87mSV2lQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZUubmPGDFQMTzWJJyYFBkTniy2idd4qLUKHzdA+uo/M=;
+ b=CxCTugC2/jZFT3lMJa2xNCif/jJpaY8D5P/CBvU26mscEZBgm6nxSrkY+ZUteq2OSu0BCBM8GGofqwy+OQsliAqaRn2VhDYw2E5uh4CsZcnGCOk3XbKRC51xps8PZpK6jVj+MMoUxFjEbb3q+ecAbsqzviA79fRBFIKkWCSmCSw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by CY5PR12MB6252.namprd12.prod.outlook.com (2603:10b6:930:20::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.14; Tue, 6 Sep
+ 2022 15:33:53 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::406d:afb5:d2d7:8115]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::406d:afb5:d2d7:8115%6]) with mapi id 15.20.5588.018; Tue, 6 Sep 2022
+ 15:33:53 +0000
+Message-ID: <b90aa6e9-138e-4e8f-14e1-0279a8d8c605@amd.com>
+Date: Tue, 6 Sep 2022 11:33:51 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/amdkfd: print address in hex format rather than
+ decimal
+Content-Language: en-US
+To: Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220906054607.67959-1-yifan1.zhang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20220906054607.67959-1-yifan1.zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL0PR01CA0032.prod.exchangelabs.com (2603:10b6:208:71::45)
+ To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <20220829081752.1258274-1-lijo.lazar@amd.com>
- <CADnq5_O=3u1Z4kH_5A+UsynQ31Grh-=j=3+hPWo398kfMi411w@mail.gmail.com>
- <3b2a9a8f-dedf-2781-0023-d6bd64f16d65@amd.com>
- <CADnq5_P0=+NNk2v_VOxyjOVSnY55SY=OX40xD5Bx6etspREnfA@mail.gmail.com>
- <1890aec6-a92d-e9b7-a782-fd6b0e8f8595@amd.com>
- <CADnq5_Pkpe_-SH8Wh=_s6FXDFEWvO8rr5Ls2=Q4HRXy9+eSOBQ@mail.gmail.com>
- <9ef0287a-e463-d440-58fe-0323a6eca94a@amd.com>
- <CADnq5_P1VV2zWpjtsedPCoJH_CKv+d-MuVJwxOBbdpo1fLFCjA@mail.gmail.com>
- <CADnq5_O1Z0FK99cKDmRuCoxg-hbD3LtcW1q3n4zvrB9xFo0XHw@mail.gmail.com>
- <e90fe5d6-2b19-f253-f2d9-e538c152ec75@amd.com>
-In-Reply-To: <e90fe5d6-2b19-f253-f2d9-e538c152ec75@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 6 Sep 2022 11:25:23 -0400
-Message-ID: <CADnq5_NmgfsXcXdRpi3NkJKgKGGCZrY-NPmrJtuPmuarCD11OQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/amdgpu: Move HDP remapping earlier during init
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 329fe136-7f7b-445a-208c-08da901d3474
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6252:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: dobelexGekwu7SRpIYbpIdEX3kAmrcM6KiKsz2ySeB1TKWAfwL0x8E+RW78nMsycwuRW1gCKS9v2urbw+qTxuZUUdnH4Uh0NnkwN+WsDMkgqD5JqxVQZyhp6y+XsZ+hKSG9P6S0xibob4GHC6c5PLfQsJnecxeGgJYcC1c2P/OwTJbcPQbZk8hacfhCeJ+KWM7SNhylqXJnHYN1YJAqY0MdN5cUODknePgj5I2DEEruOznbzmmikQjeN9M43xNuow32+HpCs2QfNPes47wPyWFVzWq7WAK18vdnH8b3aQz0Wvsval68Tx4VbEfmYFLD7rwhEHJPERxpauy4VQcrWiB/g1R03CI8X6eQ/nybZTA7CPrHIPqgel65MBTqZ+H+mKHhLSUStisce8ApBtZssY3xSvc45Eexwc3ktTIf8e6JXAQgd6lS8Nq2EfXTycqfy/NaReY4q3UZmnv7R+eh5BCMPAAsFjQ+A82tBVyI/MWnbogGjzbnTDGnZ6hz2dhp8+Rlf05R4IzZ7G4Q+uhMXScESBmqRr/bvrGB+GFA+gXXDRrGSXymUSYZkfGcT5l78dyTbPd5Ss7/hjI10y7PWPpvHzM10hyna816+XXn4HG/eJQCDde286P/m94EQVS3Yo+0F9qAci2FrAPrcQxYPg1OiqJG0pR4jRx0fpbo71WLqBQ2aiPZw4wqjzhfMrmiPikXSQmdGdcz6s5wfhRTx3OivyjGtMXO06/v4HA6v8HU0HsYPMQvUGgO083v8Dl36CD99zPy+YRk4AcdUhBOztd1qpIWz3laC/aKDXKBD6eE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(376002)(366004)(39860400002)(396003)(136003)(41300700001)(8936002)(5660300002)(44832011)(2906002)(6512007)(26005)(31696002)(4744005)(6506007)(86362001)(36916002)(53546011)(38100700002)(2616005)(186003)(83380400001)(6486002)(31686004)(66476007)(66946007)(66556008)(4326008)(478600001)(36756003)(316002)(8676002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K3FkM0paS0ZMRUs5THBweHBiR05EUDd6aDRtZWdSV2Z1ZUdaWHBsVWdBUUI5?=
+ =?utf-8?B?NVlOcTZicFdNQ3VQSFNaZkhZQnBSWXVMOUJvckJlS1hyWnNIZFltOHZyb3k2?=
+ =?utf-8?B?VWEzSmY4YkZrYXpmZ3NSTzQ3VlhxV3cwOURSMXZYZEhpYVNWdjlxaHdIRVZx?=
+ =?utf-8?B?czk2TS9oQy9qd1ZkdkVmVGxGa2xjdkRJYXRNTjl0N25jUDBDNDRvdysrSDgr?=
+ =?utf-8?B?ckpsMmJhUVBXdGNFZFk1Q3dORzJBTnVtMUlpQko1Tk45elY2c2pRYkhIVmMw?=
+ =?utf-8?B?djhJdXhmekRiTFZlY08xWDB1cksyS2NpaWdPcFpBQWxJQkhJQ2tHVU4zL0Jj?=
+ =?utf-8?B?cHUwNWlSek9JK3BPUi9meExTdVlYMExjQitxdXZ3a2NaOG9yYVVUS09YMTdF?=
+ =?utf-8?B?eC90QURQQmRyMThMckdHSjN1RHZYTndVcHVJU0xlbmFrcVNJTTZxU1lDbTRK?=
+ =?utf-8?B?WklVeEJxL25RYk9wMmdLNWpOMm5EMkUyNGRiY2dJSTc0bFJSWU9rdFY3V1Fy?=
+ =?utf-8?B?TmFKSlpuSUYvV3k0N29zTHU3cGVDUEtqVXFXcjVQZ05MVXE2c2pnU2Z5aWR0?=
+ =?utf-8?B?N013Ym1JOENjazRoNWx2a1c0aXpLQ0hvT25KK2t6bE9jOWl3TG9BMTJZdTFs?=
+ =?utf-8?B?UmxZaGZyVTY3QWU5ZG9UcDVNVWxYdGtJMVFDMWtBbndzZGd2UmlsWnlYOGJn?=
+ =?utf-8?B?TXRnWXY5c3VweExQZ0NWYTRzZTNpd3dubFB3dUpGdmZ1NnZZNkFkanNKejNN?=
+ =?utf-8?B?dWRubTlFVjNyZHpaNVdrYWhhdHFhSVYwNmJLU3piMnpCeFBUNHdJZTlxaTZz?=
+ =?utf-8?B?ZWk4UGFvRFM5RW1yNGNMR0hXdjM3WjhZdTVCWW9NS3IvbHBRKzQxMk1YcGVG?=
+ =?utf-8?B?NDM5NHREaUdTZUdzWHlhdHJEUFRNSEdibmR2YmQ5WmhCODZ5dytKZVBMQ0lx?=
+ =?utf-8?B?dGpxc2FhRjNVOXRRaXNnYng0Sm9MTnJLY3BlcjdOSmZIbzJxNXNudGgyR3ky?=
+ =?utf-8?B?Ykt0My9GVEl6aEFLOFBReDRaM0ZoMXlhaWxHYVVWS2h6M2ExQi9rQi9oc09q?=
+ =?utf-8?B?TzlPa1lXc3lTeTYwZVFwNXZQSU1YSm92UDJiQnJiU003SDJWVWt2RVh6RjhD?=
+ =?utf-8?B?MElKMERHbFM3RDhPU0FIRUdteGtmUkRBZFNKTVJGQzcrV3hkZzA0Q0Y2eGFX?=
+ =?utf-8?B?Q0JYK1ZBdDZhY3ZZbk55QWVkWkhrckpnMWp5ZVh2MjlTNmZIL2prcHNsQ3ZO?=
+ =?utf-8?B?SS9pWVdyZHBMVHowczI0b25pOHFMaXJibnk0UTdHY1FKdloveEdJSkd2YjJR?=
+ =?utf-8?B?MEVvM1JqTzJVd05xVXpZcnpPSGV4NHJqajN0RXZzbWJrNkZKQUQxRDZoZU0r?=
+ =?utf-8?B?NXl2SnU4UEpneUR4YnRsQ2htMHI3Nm5ZZlNsTnJieWZWNFMzVHZzNFVsWElw?=
+ =?utf-8?B?VkJqS25xYnhFVGpGSVJ3Z2ZoNHltdzBjY2xUc3dJRUR4RXRPamNadkxpSkhr?=
+ =?utf-8?B?c3ZWQW5RbkpGeTRaTlR4MTVQa1Y0dFZXY2tIcDE3a2dOb2pHdXdsMHFQSFNy?=
+ =?utf-8?B?YTM2VUN4eHdIdWNJeDdVL29XcnRHYm8yRFk1UWRzV3ZvdmJuN3lqMXFmbjVV?=
+ =?utf-8?B?TmpQQ0VUSDV1ZmQwWHYyMTBxeDVOZVprNi9MU3NHM1pRQlRhWTE5c0VDOXpZ?=
+ =?utf-8?B?ZXYvZW55S2xKMk43aHlpY1FUV2RXbTB1VkZMRlhYdjZKTGlLeGduR0c4Qklk?=
+ =?utf-8?B?eGRvOGFTUTE0L2RRZWhGd0did1NXdTY3NXFtckxsTlA0WDF3MjlLN1E2QjZD?=
+ =?utf-8?B?Z0R0WDFxamZsRnBwalBkYmx1aFFZdzFLRHB3MkRMcTBFUml1WW9oTXR4czhm?=
+ =?utf-8?B?NE4xYXlqdktLcFhFNThTSmVwWFNFelRRb1VrOWN4RzRUNnF1TkZ6cE5Qc2ZI?=
+ =?utf-8?B?REJHTTE0am9rTzZKU0kwOHNRWi83eG5tVmsxVGZyZHFxV2tZYjJJTkwxcHRW?=
+ =?utf-8?B?OGZxbWRJTFFEcm13bGs4dWxUa1ViaFZzNkY4Zzh6Y01tWW9FOHZYbHV0S3ov?=
+ =?utf-8?B?YnJWbEVaVFhYZVNxNXBkS0hnRE5neERkMjFzNjRlK0Z5aGtEb0VJMUhFMmh6?=
+ =?utf-8?Q?xJ5D7aTSzn1dlGBE0Hjt5HwfV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 329fe136-7f7b-445a-208c-08da901d3474
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2022 15:33:53.6385 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UNu26V1vDVibzK2GaxBVJQxggbxRbJGWvvaI2YXFOrr2uzRByJ/xioGso4x0th6c5sX6kSC8suHm18+2kvNNxw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6252
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,320 +125,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, stable@vger.kernel.org, tseewald@gmail.com,
- helgaas@kernel.org, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- sr@denx.de, Christian.Koenig@amd.com, Hawking.Zhang@amd.com
+Cc: Alexander.Deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 5, 2022 at 1:27 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
->
->
->
-> On 9/2/2022 1:09 AM, Alex Deucher wrote:
-> > How about this?  We should just move HDP remap to gmc hw_init since
-> > that is mainly what uses it anyway.
-> >
->
-> Sorry, I missed to R-B the previous version. Did you find any problem
-> when common block is initialized first?
->
 
-One of the users on the bug report reported an issue with that patch,
-that said, that user seems to be seeing a slightly different issue
-since he is on a gfx9 card and the original reporter was on gfx10.
-https://bugzilla.kernel.org/show_bug.cgi?id=3D216373
+On 2022-09-06 01:46, Yifan Zhang wrote:
+> Addresses should be printed in hex format.
+>
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
 
-Alex
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
 
-> I think that patch provides a consistent IP init sequence during cold
-> init and resume.
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> Thanks,
-> Lijo
->
-> > Alex
-> >
-> > On Tue, Aug 30, 2022 at 2:05 PM Alex Deucher <alexdeucher@gmail.com> wr=
-ote:
-> >>
-> >> On Tue, Aug 30, 2022 at 12:06 PM Lazar, Lijo <lijo.lazar@amd.com> wrot=
-e:
-> >>>
-> >>>
-> >>>
-> >>> On 8/30/2022 8:39 PM, Alex Deucher wrote:
-> >>>> On Tue, Aug 30, 2022 at 10:45 AM Lazar, Lijo <lijo.lazar@amd.com> wr=
-ote:
-> >>>>>
-> >>>>>
-> >>>>>
-> >>>>> On 8/30/2022 7:18 PM, Alex Deucher wrote:
-> >>>>>> On Tue, Aug 30, 2022 at 12:05 AM Lazar, Lijo <lijo.lazar@amd.com> =
-wrote:
-> >>>>>>>
-> >>>>>>>
-> >>>>>>>
-> >>>>>>> On 8/29/2022 10:20 PM, Alex Deucher wrote:
-> >>>>>>>> On Mon, Aug 29, 2022 at 4:18 AM Lijo Lazar <lijo.lazar@amd.com> =
-wrote:
-> >>>>>>>>>
-> >>>>>>>>> HDP flush is used early in the init sequence as part of memory =
-controller
-> >>>>>>>>> block initialization. Hence remapping of HDP registers needed f=
-or flush
-> >>>>>>>>> needs to happen earlier.
-> >>>>>>>>>
-> >>>>>>>>> This also fixes the Unsupported Request error reported through =
-AER during
-> >>>>>>>>> driver load. The error happens as a write happens to the remap =
-offset
-> >>>>>>>>> before real remapping is done.
-> >>>>>>>>>
-> >>>>>>>>> Link: https://nam11.safelinks.protection.outlook.com/?url=3Dhtt=
-ps%3A%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D216373&amp;data=3D05%7=
-C01%7Clijo.lazar%40amd.com%7C4e59ae0f8ed54aa7c5a208da8c51aa29%7C3dd8961fe48=
-84e608e11a82d994e183d%7C0%7C0%7C637976579623485975%7CUnknown%7CTWFpbGZsb3d8=
-eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7=
-C%7C%7C&amp;sdata=3DWTcd9ImY7Oba0MT6oQ7%2B7UEBkdS6azvqgYoK%2B%2F4mJPg%3D&am=
-p;reserved=3D0
-> >>>>>>>>>
-> >>>>>>>>> The error was unnoticed before and got visible because of the c=
-ommit
-> >>>>>>>>> referenced below. This doesn't fix anything in the commit below=
-, rather
-> >>>>>>>>> fixes the issue in amdgpu exposed by the commit. The reference =
-is only
-> >>>>>>>>> to associate this commit with below one so that both go togethe=
-r.
-> >>>>>>>>>
-> >>>>>>>>> Fixes: 8795e182b02d ("PCI/portdrv: Don't disable AER reporting =
-in get_port_device_capability()")
-> >>>>>>>>>
-> >>>>>>>>> Reported-by: Tom Seewald <tseewald@gmail.com>
-> >>>>>>>>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> >>>>>>>>> Cc: stable@vger.kernel.org
-> >>>>>>>>
-> >>>>>>>> How about something like the attached patch rather than these tw=
-o
-> >>>>>>>> patches?  It's a bit bigger but seems cleaner and more defensive=
- in my
-> >>>>>>>> opinion.
-> >>>>>>>>
-> >>>>>>>
-> >>>>>>> Whenever device goes to suspend/reset and then comes back, remap =
-offset
-> >>>>>>> has to be set back to 0 to make sure it doesn't use the wrong off=
-set
-> >>>>>>> when the register assumes default values again.
-> >>>>>>>
-> >>>>>>> To avoid the if-check in hdp_flush (which is more frequent), anot=
-her way
-> >>>>>>> is to initialize the remap offset to default offset during early =
-init
-> >>>>>>> and hw fini/suspend sequences. It won't be obvious (even with thi=
-s
-> >>>>>>> patch) as to when remap offset vs default offset is used though.
-> >>>>>>
-> >>>>>> On resume, the common IP is resumed first so it will always be set=
-.
-> >>>>>> The only case that is a problem is init because we init GMC out of
-> >>>>>> order.  We could init common before GMC in amdgpu_device_ip_init()=
-.  I
-> >>>>>> think that should be fine, but I wasn't sure if there might be som=
-e
-> >>>>>> fallout from that on certain cards.
-> >>>>>>
-> >>>>>
-> >>>>> There are other places where an IP order is forced like in
-> >>>>> amdgpu_device_ip_reinit_early_sriov(). This also may not affect thi=
-s
-> >>>>> case as remapping is not done for VF.
-> >>>>>
-> >>>>> Agree that a better way is to have the common IP to be inited first=
-.
-> >>>>
-> >>>> How about these patches?
-> >>>>
-> >>>
-> >>> Looks good to me. BTW, is nbio 7.7 for an APU (in which case hdp flus=
-h
-> >>> is not expected to be used)?
-> >>
-> >> It would be used in some cases, e.g., GPU VM passthrough where we use
-> >> the BAR rather than the carve out.
-> >>
-> >> Alex
-> >>
-> >>
-> >>>
-> >>> Thanks,
-> >>> Lijo
-> >>>
-> >>>> Alex
-> >>>>
-> >>>>
-> >>>>>
-> >>>>> Thanks,
-> >>>>> Lijo
-> >>>>>
-> >>>>>> Alex
-> >>>>>>
-> >>>>>>>
-> >>>>>>> Thanks,
-> >>>>>>> Lijo
-> >>>>>>>
-> >>>>>>>> Alex
-> >>>>>>>>
-> >>>>>>>>> ---
-> >>>>>>>>> v2:
-> >>>>>>>>>             Take care of IP resume cases (Alex Deucher)
-> >>>>>>>>>             Add NULL check to nbio.funcs to cover older (GFXv8)=
- ASICs (Felix Kuehling)
-> >>>>>>>>>             Add more details in commit message and associate wi=
-th AER patch (Bjorn
-> >>>>>>>>> Helgaas)
-> >>>>>>>>>
-> >>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 24 ++++++++++=
-++++++++++++
-> >>>>>>>>>      drivers/gpu/drm/amd/amdgpu/nv.c            |  6 ------
-> >>>>>>>>>      drivers/gpu/drm/amd/amdgpu/soc15.c         |  6 ------
-> >>>>>>>>>      drivers/gpu/drm/amd/amdgpu/soc21.c         |  6 ------
-> >>>>>>>>>      4 files changed, 24 insertions(+), 18 deletions(-)
-> >>>>>>>>>
-> >>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drive=
-rs/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >>>>>>>>> index ce7d117efdb5..e420118769a5 100644
-> >>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >>>>>>>>> @@ -2334,6 +2334,26 @@ static int amdgpu_device_init_schedulers=
-(struct amdgpu_device *adev)
-> >>>>>>>>>             return 0;
-> >>>>>>>>>      }
-> >>>>>>>>>
-> >>>>>>>>> +/**
-> >>>>>>>>> + * amdgpu_device_prepare_ip - prepare IPs for hardware initial=
-ization
-> >>>>>>>>> + *
-> >>>>>>>>> + * @adev: amdgpu_device pointer
-> >>>>>>>>> + *
-> >>>>>>>>> + * Any common hardware initialization sequence that needs to b=
-e done before
-> >>>>>>>>> + * hw init of individual IPs is performed here. This is differ=
-ent from the
-> >>>>>>>>> + * 'common block' which initializes a set of IPs.
-> >>>>>>>>> + */
-> >>>>>>>>> +static void amdgpu_device_prepare_ip(struct amdgpu_device *ade=
-v)
-> >>>>>>>>> +{
-> >>>>>>>>> +       /* Remap HDP registers to a hole in mmio space, for the=
- purpose
-> >>>>>>>>> +        * of exposing those registers to process space. This n=
-eeds to be
-> >>>>>>>>> +        * done before hw init of ip blocks to take care of HDP=
- flush
-> >>>>>>>>> +        * operations through registers during hw_init.
-> >>>>>>>>> +        */
-> >>>>>>>>> +       if (adev->nbio.funcs && adev->nbio.funcs->remap_hdp_reg=
-isters &&
-> >>>>>>>>> +           !amdgpu_sriov_vf(adev))
-> >>>>>>>>> +               adev->nbio.funcs->remap_hdp_registers(adev);
-> >>>>>>>>> +}
-> >>>>>>>>>
-> >>>>>>>>>      /**
-> >>>>>>>>>       * amdgpu_device_ip_init - run init for hardware IPs
-> >>>>>>>>> @@ -2376,6 +2396,8 @@ static int amdgpu_device_ip_init(struct a=
-mdgpu_device *adev)
-> >>>>>>>>>                                     DRM_ERROR("amdgpu_vram_scra=
-tch_init failed %d\n", r);
-> >>>>>>>>>                                     goto init_failed;
-> >>>>>>>>>                             }
-> >>>>>>>>> +
-> >>>>>>>>> +                       amdgpu_device_prepare_ip(adev);
-> >>>>>>>>>                             r =3D adev->ip_blocks[i].version->f=
-uncs->hw_init((void *)adev);
-> >>>>>>>>>                             if (r) {
-> >>>>>>>>>                                     DRM_ERROR("hw_init %d faile=
-d %d\n", i, r);
-> >>>>>>>>> @@ -3058,6 +3080,7 @@ static int amdgpu_device_ip_reinit_early_=
-sriov(struct amdgpu_device *adev)
-> >>>>>>>>>                     AMD_IP_BLOCK_TYPE_IH,
-> >>>>>>>>>             };
-> >>>>>>>>>
-> >>>>>>>>> +       amdgpu_device_prepare_ip(adev);
-> >>>>>>>>>             for (i =3D 0; i < adev->num_ip_blocks; i++) {
-> >>>>>>>>>                     int j;
-> >>>>>>>>>                     struct amdgpu_ip_block *block;
-> >>>>>>>>> @@ -3139,6 +3162,7 @@ static int amdgpu_device_ip_resume_phase1=
-(struct amdgpu_device *adev)
-> >>>>>>>>>      {
-> >>>>>>>>>             int i, r;
-> >>>>>>>>>
-> >>>>>>>>> +       amdgpu_device_prepare_ip(adev);
-> >>>>>>>>>             for (i =3D 0; i < adev->num_ip_blocks; i++) {
-> >>>>>>>>>                     if (!adev->ip_blocks[i].status.valid || ade=
-v->ip_blocks[i].status.hw)
-> >>>>>>>>>                             continue;
-> >>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/=
-amd/amdgpu/nv.c
-> >>>>>>>>> index b3fba8dea63c..3ac7fef74277 100644
-> >>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> >>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> >>>>>>>>> @@ -1032,12 +1032,6 @@ static int nv_common_hw_init(void *handl=
-e)
-> >>>>>>>>>             nv_program_aspm(adev);
-> >>>>>>>>>             /* setup nbio registers */
-> >>>>>>>>>             adev->nbio.funcs->init_registers(adev);
-> >>>>>>>>> -       /* remap HDP registers to a hole in mmio space,
-> >>>>>>>>> -        * for the purpose of expose those registers
-> >>>>>>>>> -        * to process space
-> >>>>>>>>> -        */
-> >>>>>>>>> -       if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sr=
-iov_vf(adev))
-> >>>>>>>>> -               adev->nbio.funcs->remap_hdp_registers(adev);
-> >>>>>>>>>             /* enable the doorbell aperture */
-> >>>>>>>>>             nv_enable_doorbell_aperture(adev, true);
-> >>>>>>>>>
-> >>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/d=
-rm/amd/amdgpu/soc15.c
-> >>>>>>>>> index fde6154f2009..a0481e37d7cf 100644
-> >>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> >>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> >>>>>>>>> @@ -1240,12 +1240,6 @@ static int soc15_common_hw_init(void *ha=
-ndle)
-> >>>>>>>>>             soc15_program_aspm(adev);
-> >>>>>>>>>             /* setup nbio registers */
-> >>>>>>>>>             adev->nbio.funcs->init_registers(adev);
-> >>>>>>>>> -       /* remap HDP registers to a hole in mmio space,
-> >>>>>>>>> -        * for the purpose of expose those registers
-> >>>>>>>>> -        * to process space
-> >>>>>>>>> -        */
-> >>>>>>>>> -       if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sr=
-iov_vf(adev))
-> >>>>>>>>> -               adev->nbio.funcs->remap_hdp_registers(adev);
-> >>>>>>>>>
-> >>>>>>>>>             /* enable the doorbell aperture */
-> >>>>>>>>>             soc15_enable_doorbell_aperture(adev, true);
-> >>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/d=
-rm/amd/amdgpu/soc21.c
-> >>>>>>>>> index 55284b24f113..16b447055102 100644
-> >>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> >>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> >>>>>>>>> @@ -660,12 +660,6 @@ static int soc21_common_hw_init(void *hand=
-le)
-> >>>>>>>>>             soc21_program_aspm(adev);
-> >>>>>>>>>             /* setup nbio registers */
-> >>>>>>>>>             adev->nbio.funcs->init_registers(adev);
-> >>>>>>>>> -       /* remap HDP registers to a hole in mmio space,
-> >>>>>>>>> -        * for the purpose of expose those registers
-> >>>>>>>>> -        * to process space
-> >>>>>>>>> -        */
-> >>>>>>>>> -       if (adev->nbio.funcs->remap_hdp_registers)
-> >>>>>>>>> -               adev->nbio.funcs->remap_hdp_registers(adev);
-> >>>>>>>>>             /* enable the doorbell aperture */
-> >>>>>>>>>             soc21_enable_doorbell_aperture(adev, true);
-> >>>>>>>>>
-> >>>>>>>>> --
-> >>>>>>>>> 2.25.1
-> >>>>>>>>>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index cbd593f7d553..2170db83e41d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -1728,7 +1728,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+>   	add_kgd_mem_to_kfd_bo_list(*mem, avm->process_info, user_addr);
+>   
+>   	if (user_addr) {
+> -		pr_debug("creating userptr BO for user_addr = %llu\n", user_addr);
+> +		pr_debug("creating userptr BO for user_addr = %llx\n", user_addr);
+>   		ret = init_user_pages(*mem, user_addr, criu_resume);
+>   		if (ret)
+>   			goto allocate_init_user_pages_failed;
