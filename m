@@ -4,52 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6198DC6FA8B
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 17:12:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CD92ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 18:48:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80B0C10E709;
-	Tue,  6 Sep 2022 17:12:48 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7D7310E079;
- Tue,  6 Sep 2022 17:12:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662484360; x=1694020360;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=75dJLFsISrfadPGHvf56ormv/BfihZ67Pu3bV53ZeKM=;
- b=BnKqoomdw9bTuUW4cG91IKaBcaUdr5m76+P7h0F6cmhk3uEt/dg2LfW0
- OgkcWUtL5xFBaNFIkE1hihMcwji6F6fYQpqPETV/I/mOMjRHkM6WLTili
- txiPIJszjo4jsqWbwbtiWfqAVMeZtM1NpmTDcI32hgGpQQHVHNJGW7ZsG
- 05wm/yB9DtwPf2lTMncR7mHKCM6Sr0l/TNxvsTJas8Mk/qNTGvXeUOCNP
- JSKawlCpmKQe6+X8SedFl3gcNFi/iI24X8KIALYTcfcc5qoeNI2eM3haH
- IyYzFkGTthPufK0viHoLLwG05betCdrUWPqdBGPmiz5X55FkgzNHockuF w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="283649910"
-X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="283649910"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2022 10:12:39 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="789749147"
-Received: from lkp-server02.sh.intel.com (HELO 95dfd251caa2) ([10.239.97.151])
- by orsmga005.jf.intel.com with ESMTP; 06 Sep 2022 10:12:35 -0700
-Received: from kbuild by 95dfd251caa2 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oVc7m-0005NZ-2d;
- Tue, 06 Sep 2022 17:12:34 +0000
-Date: Wed, 7 Sep 2022 01:11:36 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jingyu Wang <jingyuwang_vip@163.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, van.quan@amd.com, guchun.chen@amd.com,
- lijo.lazar@amd.com, candice.li@amd.com, mdaenzer@redhat.com,
- Bokun.Zhang@amd.com
-Subject: Re: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_kms.c
-Message-ID: <202209070101.LeRXI9ZR-lkp@intel.com>
-References: <20220905184451.27815-1-jingyuwang_vip@163.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8059410E0E6;
+	Tue,  6 Sep 2022 18:48:08 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2055.outbound.protection.outlook.com [40.107.220.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47E5110E0E6;
+ Tue,  6 Sep 2022 18:48:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=b0X5ZSzjtLVy2WUcFj7MNPrRz3QrldDlZOXGMLyt4M/xbT3sZibrXGYOKkunjLVnCF8hMNY5yUqh0WLw1uwxMHGBBnXYvEHnmHWOdKp+75X70GZ6zUnd1/sDSW+oQ6dpC2g6veReKBzjOq73uD0jjWyQwjRd5h8WGyLCs7VrRDcto49tZ6XxA9bs16CrSC2Gwu6vtKyXp8LKGbyrEIX0afY8HgpUN1zGH74qH5KCmHvfISkF+3KbMuV4x3KCQx2F6x1dMeeZcNy7BC4GHXgSmdQOsCIDygrN5U7udtR6Q3tGJWdVQD6AP5vxCIcgEZu3aesEQ9pD/+kHjPcsk25ZAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kE75CFqv9047hRzrpj+7r89IgoQZEfeC4NUcb9HWVMA=;
+ b=W9pgBS/UmBy9TnII60PVKZd3l5lTLEgz69htJyf+xYps3TlxGvhfL564CuaHbFN5z2yK66Qm27egvnrbTc04CWlvRj7g4Y2oc0wdwYpWkU/M30Ih272Ps1Hntm9tMScezpmtjb+5lqkiatjAFr7ayZuKXq/dx+uLN2xAVIZm5L/AiMIXevcf0xDwUUn6MfJOkG7lmRmCGqDJt2yWw7+lIAZN8r5yW6hZjZhJzWKhJxjy3t1LtGRfhqU8Uz0+CsHODTly7S2gJ+65/jNvB1SjWu/6nbT3K1tvNjwPCRFJxPMgDSSWSeXVLb2DZUBJBGFfYNwTlCAkGyOrTx0MtoIgQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kE75CFqv9047hRzrpj+7r89IgoQZEfeC4NUcb9HWVMA=;
+ b=aE1bBXdeVDA28YtpFSGeRBm+0V7ib5tGABpvH4fWQF1z1wBKyYjmkub634dDTBRCXYj3ERiguaBg3rdXttU7bgFUlSu03e2Soic5IOMiArGdow8OPDdaAn9b8dms5CiuhVKiCe+agMLD9KSiQv4W6XJkeQYQMenpWjzGWGx0t50=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BN9PR12MB5130.namprd12.prod.outlook.com (2603:10b6:408:137::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.11; Tue, 6 Sep
+ 2022 18:48:04 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::2428:2f57:b85c:757f]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::2428:2f57:b85c:757f%7]) with mapi id 15.20.5588.017; Tue, 6 Sep 2022
+ 18:48:04 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>, Jingyu Wang
+ <jingyuwang_vip@163.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, "airlied@linux.ie" <airlied@linux.ie>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>
+Subject: Re: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_amdkfd_gpuvm.c
+Thread-Topic: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_amdkfd_gpuvm.c
+Thread-Index: AQHYwQLu96H3UYws/U+s+2p4GZlXfq3SbAUAgABULVo=
+Date: Tue, 6 Sep 2022 18:48:04 +0000
+Message-ID: <BL1PR12MB51444461B0F15AAF3BE46F91F77E9@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20220905083825.23429-1-jingyuwang_vip@163.com>
+ <18083c05-7636-2155-610b-2d1347f8585f@amd.com>
+In-Reply-To: <18083c05-7636-2155-610b-2d1347f8585f@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-09-06T18:48:03.635Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 0104586a-20c4-45c6-8238-08da903854e4
+x-ms-traffictypediagnostic: BN9PR12MB5130:EE_
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: bYGk6cJTFx/jlvyHt2krBB7tKsBcGMT+wM3XWMmpOZsUXHUmEo+QekAKoy0tdTzmpLLpNeaRLw7HxcNEJ3gcJFosehIlNzhemCjh/NsMLulSTqUf2RZo4zaYNuqAt6aG0PZ7b3DRkbGTN8Wn0moBsfgtuS6vsu4deNRHUiWDheghAO6gRqFSSdxC4qqRVHpkg5nyOBxX+DXFfzryxddIH5Hdott+JMWmuln2v0kp1RX7K++qciLX0DwXSj615OqlbjRnW88tMBCQABdz46lwlPtRaYxCF663F5saENMG85urD326zubrK7W89wHImu+0ea223cCE935LhVhC/J8i2TKAN9RCOqNRNuGEQcbuVUPyfDJ1hfm6XY/Esz+UiYH3ZIIrLrI7HUsgiknHSvZJQfd1yTIdvTovBaUSs7G82My0FwTu/In48SSAPGWhUhijHd18DNmhgRKH0KulRqV/v8J/5o0QvVUqtWrrk59nlPNd+n3Yl77KH07Te/u3M6NpASvp7GCcK9jIlHzEthgb8yJDCdA/BeaulQ3TVbGYZB8BJQtZ3e5/T0Wv+3aXyYe1d/17KJxSBxe02AEetuo3NmgxYuS0rg7rzhUsULCUk4jK2YdF/W9/xUcpflwLgKA38L7hG3AU1mDbrsmUuSp2NAwbJ80JzG57x2EavYvxAs1qS1xqW2zeJ/P/XP0DnoxNBPkkoSUcaFXAjp/NWAqEbblZO11YD6+4hRtP3o/suq/Ces13yD2ppgogGmHZS51fKVURHUcF4oQ9C9oGNIDPHg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(396003)(366004)(376002)(136003)(39860400002)(64756008)(6506007)(26005)(66446008)(9686003)(4326008)(66556008)(86362001)(76116006)(53546011)(66476007)(8676002)(122000001)(83380400001)(7696005)(71200400001)(55016003)(38100700002)(316002)(110136005)(33656002)(54906003)(8936002)(66946007)(5660300002)(38070700005)(41300700001)(19627405001)(478600001)(186003)(2906002)(52536014);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?2mGkUmwV/13FkvDAoRVsrnYe0ZPG5pJ4TQm6cLIAxtcwYiAq7jaVGIHEPoES?=
+ =?us-ascii?Q?zPVuNGWyDKSpTl1qy0Fb4HBIWvpD7o/SA5xYaMBsA6XkqdcdBTismVXFr1Me?=
+ =?us-ascii?Q?HSOT4q49RTgvuPXeN9gDbxdqMo179L89FtITTI/nTkXE2LQEO19BCKfRnNFS?=
+ =?us-ascii?Q?XGZ73ASeFlf8KzV3aHkDelVV4Qs9fBUAyPzDbizGC3fGQOKrAyVtVoea0Lu2?=
+ =?us-ascii?Q?W1eqT5qAsf2NwVtpcRr4bi1fHsJsAXvwfvEBVc6MarczflikqLl4ls4dfcs8?=
+ =?us-ascii?Q?pU6spPatCTNG6YEUtzF1vWLR9lPuNYsJ6qM13nEp5Sxd117oWpofSsgMOi6P?=
+ =?us-ascii?Q?DrdxovNdhXJEHLroSzds4s7bJygJigSj2CbA63DJLI+VolRz9r6flZMM3qQf?=
+ =?us-ascii?Q?pJqJ9pNHHhH0GdZ907JWwvwtjiSB64QCH34wZiRc/II+e5/9vysAKT7pH5eP?=
+ =?us-ascii?Q?vFeTw/wqaUk8Ss8QEEkJODOqLI3xfVV3Jmes3mMMogn/iymrTC38LZb9aV0z?=
+ =?us-ascii?Q?1kZt/b7qgRKyBilP265V/3vCoP0iXYHZPJP3CGypyvzx9HeHHz3Fo0osGXA0?=
+ =?us-ascii?Q?y3iKyTD2zAzuDy5dUc3YMtLtJZz0yGKb7pxACteXpuiGGN7HQMDAp//Kuy2x?=
+ =?us-ascii?Q?YPrTUjIvm09fmcKg52Iuz16btHcrkZfC6fLc6zRiYCVdrDmsaZz7aBYyR74v?=
+ =?us-ascii?Q?j5owZOSqd60XZ6fbK1TD32m1N2eHpw/szTrTrt5nfq47FYNJ4lHOw6GPWv/9?=
+ =?us-ascii?Q?06LhcDSmQyLKmWMNAYMIU0AagwUD7snXCqK/fIycAhwa4gmBt0rXG+/u0LDE?=
+ =?us-ascii?Q?I82gretkUQncjsJQwJSUTFGaq1mMOEjiFEX4zupmDHbKbyNZRyAMPgGk8Bh/?=
+ =?us-ascii?Q?+R0EdOBd69JSrjuzVia78m7BSfTpbLezChi/lABC11hEYWTfVE0MvrLalgwx?=
+ =?us-ascii?Q?uGsT9fikuLdOv25V7piAtPBGLFylHd7ZtAF4iLuDrPvI/5w1eMbOZbajcdQW?=
+ =?us-ascii?Q?DiafYhnEpnB0qZ7EkE2qnRAhAfzoDZM4Urf7G8bqmQTHiWpQf6sBiZCV1Rhy?=
+ =?us-ascii?Q?XLiGP1ihyBP43Jzspn7ux+vOXM/suVtymEsGYrckQ4uPxYmbsOeUQmoZnfLG?=
+ =?us-ascii?Q?jjTDgWG3ymZTXDuqla51C6KfO3wdWRN+KpRGrnLZH2Ves/kzN9GhByjcwr4y?=
+ =?us-ascii?Q?CcR76zOZ4Q0IXVy2mZtRgwzcrHLQglBB57+AULkPscYBFqDqmIuNykC58Re1?=
+ =?us-ascii?Q?HM3TjBaOlYgCnb+p+EgWHyri4MU+5uAf+ggFCeLwcGRsc/eC218Arwd6vjhF?=
+ =?us-ascii?Q?J1ITUc81etq8JcURvfmrnLNDnBdpFIjbfc5hqfxNdEiQ9/b4jLvrm+mqKz0M?=
+ =?us-ascii?Q?nQFxPo3DJXqJB6ZCCwGlXTkRmWuY2IeVnmgS3VMFHqBa1RpNTO5AzXAGdWPh?=
+ =?us-ascii?Q?9ymArqZB0C2+4SbPK4HGq8Af9LtOarYWFf6Ya7+C7GCvuXk9nbb7Zxrbl2Pe?=
+ =?us-ascii?Q?UxcND7KUVC55BAq8J+F9IvvcsfNKM3AKs5NXhgR1pjvaJKX/wdZVBr6oHG3W?=
+ =?us-ascii?Q?DbZNUEYZADTdM73S2zE=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB51444461B0F15AAF3BE46F91F77E9BL1PR12MB5144namp_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220905184451.27815-1-jingyuwang_vip@163.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0104586a-20c4-45c6-8238-08da903854e4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Sep 2022 18:48:04.2551 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: yHN57ejiwzxzLG4Mjbb/h3Cm75rkVqh/yUYjfXaPPLfI+2luXs+KW8tR5EVGTeh80R18oQJ/IcTPaPjJ70TiJg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5130
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,683 +124,209 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jingyu Wang <jingyuwang_vip@163.com>, kbuild-all@lists.01.org,
- llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Jingyu,
+--_000_BL1PR12MB51444461B0F15AAF3BE46F91F77E9BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for the patch! Yet something to improve:
+[Public]
 
-[auto build test ERROR on e47eb90a0a9ae20b82635b9b99a8d0979b757ad8]
+Yeah, seems to be a mix.  I don't have a strong opinion as long as it has M=
+IT.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Jingyu-Wang/drm-amdgpu-cleanup-coding-style-in-amdgpu_kms-c/20220906-104802
-base:   e47eb90a0a9ae20b82635b9b99a8d0979b757ad8
-config: arm64-randconfig-r031-20220906 (https://download.01.org/0day-ci/archive/20220907/202209070101.LeRXI9ZR-lkp@intel.com/config)
-compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project c55b41d5199d2394dd6cdb8f52180d8b81d809d4)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # install arm64 cross compiling tool for clang build
-        # apt-get install binutils-aarch64-linux-gnu
-        # https://github.com/intel-lab-lkp/linux/commit/778e4a57afd0db6a6a752487e1a1cda253cd9682
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Jingyu-Wang/drm-amdgpu-cleanup-coding-style-in-amdgpu_kms-c/20220906-104802
-        git checkout 778e4a57afd0db6a6a752487e1a1cda253cd9682
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 SHELL=/bin/bash
+Alex
 
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:554:62: error: too few arguments provided to function-like macro invocation
-                   ret = copy_to_user(out, &ip, min_t((size_t)size, sizeof(ip)));
-                                                                              ^
-   include/linux/minmax.h:104:9: note: macro 'min_t' defined here
-   #define min_t(type, x, y)       __careful_cmp((type)(x), (type)(y), <)
-           ^
->> drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:554:32: error: use of undeclared identifier 'min_t'; did you mean 'minfo'?
-                   ret = copy_to_user(out, &ip, min_t((size_t)size, sizeof(ip)));
-                                                ^~~~~
-                                                minfo
-   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:514:27: note: 'minfo' declared here
-           struct amdgpu_mode_info *minfo = &adev->mode_info;
-                                    ^
->> drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1385:3: error: expected expression
-                   TA_FW_NAME(XGMI),
-                   ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1384:27: note: expanded from macro 'TA_FW_NAME'
-   #define TA_FW_NAME(type) ([TA_FW_TYPE_PSP_##type] = #type)
-                             ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1386:3: error: expected expression
-                   TA_FW_NAME(RAS),
-                   ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1384:27: note: expanded from macro 'TA_FW_NAME'
-   #define TA_FW_NAME(type) ([TA_FW_TYPE_PSP_##type] = #type)
-                             ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1387:3: error: expected expression
-                   TA_FW_NAME(HDCP),
-                   ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1384:27: note: expanded from macro 'TA_FW_NAME'
-   #define TA_FW_NAME(type) ([TA_FW_TYPE_PSP_##type] = #type)
-                             ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1388:3: error: expected expression
-                   TA_FW_NAME(DTM),
-                   ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1384:27: note: expanded from macro 'TA_FW_NAME'
-   #define TA_FW_NAME(type) ([TA_FW_TYPE_PSP_##type] = #type)
-                             ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1389:3: error: expected expression
-                   TA_FW_NAME(RAP),
-                   ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1384:27: note: expanded from macro 'TA_FW_NAME'
-   #define TA_FW_NAME(type) ([TA_FW_TYPE_PSP_##type] = #type)
-                             ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1390:3: error: expected expression
-                   TA_FW_NAME(SECUREDISPLAY),
-                   ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1384:27: note: expanded from macro 'TA_FW_NAME'
-   #define TA_FW_NAME(type) ([TA_FW_TYPE_PSP_##type] = #type)
-                             ^
-   8 errors generated.
+________________________________
+From: Kuehling, Felix <Felix.Kuehling@amd.com>
+Sent: Tuesday, September 6, 2022 9:46 AM
+To: Jingyu Wang <jingyuwang_vip@163.com>; Deucher, Alexander <Alexander.Deu=
+cher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Pan, Xinhui <X=
+inhui.Pan@amd.com>; airlied@linux.ie <airlied@linux.ie>; daniel@ffwll.ch <d=
+aniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; dri-deve=
+l@lists.freedesktop.org <dri-devel@lists.freedesktop.org>; linux-kernel@vge=
+r.kernel.org <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_amdkfd_gpuv=
+m.c
 
 
-vim +554 drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+Am 2022-09-05 um 04:38 schrieb Jingyu Wang:
+> Fix everything checkpatch.pl complained about in amdgpu_amdkfd_gpuvm.c
+>
+> Signed-off-by: Jingyu Wang <jingyuwang_vip@163.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index cbd593f7d553..eff596c60c89 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -1,3 +1,4 @@
+> +// SPDX-License-Identifier: MIT
 
-   494	
-   495	/*
-   496	 * Userspace get information ioctl
-   497	 */
-   498	/**
-   499	 * amdgpu_info_ioctl - answer a device specific request.
-   500	 *
-   501	 * @dev: drm device pointer
-   502	 * @data: request object
-   503	 * @filp: drm filp
-   504	 *
-   505	 * This function is used to pass device specific parameters to the userspace
-   506	 * drivers.  Examples include: pci device id, pipeline parms, tiling params,
-   507	 * etc. (all asics).
-   508	 * Returns 0 on success, -EINVAL on failure.
-   509	 */
-   510	int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
-   511	{
-   512		struct amdgpu_device *adev = drm_to_adev(dev);
-   513		struct drm_amdgpu_info *info = data;
-   514		struct amdgpu_mode_info *minfo = &adev->mode_info;
-   515		void __user *out = (void __user *)(uintptr_t)info->return_pointer;
-   516		uint32_t size = info->return_size;
-   517		struct drm_crtc *crtc;
-   518		uint32_t ui32 = 0;
-   519		uint64_t ui64 = 0;
-   520		int i, found;
-   521		int ui32_size = sizeof(ui32);
-   522	
-   523		if (!info->return_size || !info->return_pointer)
-   524			return -EINVAL;
-   525	
-   526		switch (info->query) {
-   527		case AMDGPU_INFO_ACCEL_WORKING:
-   528			ui32 = adev->accel_working;
-   529			return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT : 0;
-   530		case AMDGPU_INFO_CRTC_FROM_ID:
-   531			for (i = 0, found = 0; i < adev->mode_info.num_crtc; i++) {
-   532				crtc = (struct drm_crtc *)minfo->crtcs[i];
-   533				if (crtc && crtc->base.id == info->mode_crtc.id) {
-   534					struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
-   535	
-   536					ui32 = amdgpu_crtc->crtc_id;
-   537					found = 1;
-   538					break;
-   539				}
-   540			}
-   541			if (!found) {
-   542				DRM_DEBUG_KMS("unknown crtc id %d\n", info->mode_crtc.id);
-   543				return -EINVAL;
-   544			}
-   545			return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT : 0;
-   546		case AMDGPU_INFO_HW_IP_INFO: {
-   547			struct drm_amdgpu_info_hw_ip ip = {};
-   548			int ret;
-   549	
-   550			ret = amdgpu_hw_ip_info(adev, info, &ip);
-   551			if (ret)
-   552				return ret;
-   553	
- > 554			ret = copy_to_user(out, &ip, min_t((size_t)size, sizeof(ip)));
-   555			return ret ? -EFAULT : 0;
-   556		}
-   557		case AMDGPU_INFO_HW_IP_COUNT: {
-   558			enum amd_ip_block_type type;
-   559			uint32_t count = 0;
-   560	
-   561			switch (info->query_hw_ip.type) {
-   562			case AMDGPU_HW_IP_GFX:
-   563				type = AMD_IP_BLOCK_TYPE_GFX;
-   564				break;
-   565			case AMDGPU_HW_IP_COMPUTE:
-   566				type = AMD_IP_BLOCK_TYPE_GFX;
-   567				break;
-   568			case AMDGPU_HW_IP_DMA:
-   569				type = AMD_IP_BLOCK_TYPE_SDMA;
-   570				break;
-   571			case AMDGPU_HW_IP_UVD:
-   572				type = AMD_IP_BLOCK_TYPE_UVD;
-   573				break;
-   574			case AMDGPU_HW_IP_VCE:
-   575				type = AMD_IP_BLOCK_TYPE_VCE;
-   576				break;
-   577			case AMDGPU_HW_IP_UVD_ENC:
-   578				type = AMD_IP_BLOCK_TYPE_UVD;
-   579				break;
-   580			case AMDGPU_HW_IP_VCN_DEC:
-   581			case AMDGPU_HW_IP_VCN_ENC:
-   582				type = AMD_IP_BLOCK_TYPE_VCN;
-   583				break;
-   584			case AMDGPU_HW_IP_VCN_JPEG:
-   585				type = (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_JPEG)) ?
-   586					AMD_IP_BLOCK_TYPE_JPEG : AMD_IP_BLOCK_TYPE_VCN;
-   587				break;
-   588			default:
-   589				return -EINVAL;
-   590			}
-   591	
-   592			for (i = 0; i < adev->num_ip_blocks; i++)
-   593				if (adev->ip_blocks[i].version->type == type &&
-   594				    adev->ip_blocks[i].status.valid &&
-   595				    count < AMDGPU_HW_IP_INSTANCE_MAX_COUNT)
-   596					count++;
-   597	
-   598			return copy_to_user(out, &count, min(size, 4u)) ? -EFAULT : 0;
-   599		}
-   600		case AMDGPU_INFO_TIMESTAMP:
-   601			ui64 = amdgpu_gfx_get_gpu_clock_counter(adev);
-   602			return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
-   603		case AMDGPU_INFO_FW_VERSION: {
-   604			struct drm_amdgpu_info_firmware fw_info;
-   605			int ret;
-   606	
-   607			/* We only support one instance of each IP block right now. */
-   608			if (info->query_fw.ip_instance != 0)
-   609				return -EINVAL;
-   610	
-   611			ret = amdgpu_firmware_info(&fw_info, &info->query_fw, adev);
-   612			if (ret)
-   613				return ret;
-   614	
-   615			return copy_to_user(out, &fw_info,
-   616					    min((size_t)size, sizeof(fw_info))) ? -EFAULT : 0;
-   617		}
-   618		case AMDGPU_INFO_NUM_BYTES_MOVED:
-   619			ui64 = atomic64_read(&adev->num_bytes_moved);
-   620			return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
-   621		case AMDGPU_INFO_NUM_EVICTIONS:
-   622			ui64 = atomic64_read(&adev->num_evictions);
-   623			return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
-   624		case AMDGPU_INFO_NUM_VRAM_CPU_PAGE_FAULTS:
-   625			ui64 = atomic64_read(&adev->num_vram_cpu_page_faults);
-   626			return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
-   627		case AMDGPU_INFO_VRAM_USAGE:
-   628			ui64 = ttm_resource_manager_usage(&adev->mman.vram_mgr.manager);
-   629			return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
-   630		case AMDGPU_INFO_VIS_VRAM_USAGE:
-   631			ui64 = amdgpu_vram_mgr_vis_usage(&adev->mman.vram_mgr);
-   632			return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
-   633		case AMDGPU_INFO_GTT_USAGE:
-   634			ui64 = ttm_resource_manager_usage(&adev->mman.gtt_mgr.manager);
-   635			return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
-   636		case AMDGPU_INFO_GDS_CONFIG: {
-   637			struct drm_amdgpu_info_gds gds_info;
-   638	
-   639			memset(&gds_info, 0, sizeof(gds_info));
-   640			gds_info.compute_partition_size = adev->gds.gds_size;
-   641			gds_info.gds_total_size = adev->gds.gds_size;
-   642			gds_info.gws_per_compute_partition = adev->gds.gws_size;
-   643			gds_info.oa_per_compute_partition = adev->gds.oa_size;
-   644			return copy_to_user(out, &gds_info,
-   645					    min((size_t)size, sizeof(gds_info))) ? -EFAULT : 0;
-   646		}
-   647		case AMDGPU_INFO_VRAM_GTT: {
-   648			struct drm_amdgpu_info_vram_gtt vram_gtt;
-   649	
-   650			vram_gtt.vram_size = adev->gmc.real_vram_size -
-   651				atomic64_read(&adev->vram_pin_size) -
-   652				AMDGPU_VM_RESERVED_VRAM;
-   653			vram_gtt.vram_cpu_accessible_size =
-   654				min(adev->gmc.visible_vram_size -
-   655				    atomic64_read(&adev->visible_pin_size),
-   656				    vram_gtt.vram_size);
-   657			vram_gtt.gtt_size = ttm_manager_type(&adev->mman.bdev, TTM_PL_TT)->size;
-   658			vram_gtt.gtt_size -= atomic64_read(&adev->gart_pin_size);
-   659			return copy_to_user(out, &vram_gtt,
-   660					    min((size_t)size, sizeof(vram_gtt))) ? -EFAULT : 0;
-   661		}
-   662		case AMDGPU_INFO_MEMORY: {
-   663			struct drm_amdgpu_memory_info mem;
-   664			struct ttm_resource_manager *gtt_man =
-   665				&adev->mman.gtt_mgr.manager;
-   666			struct ttm_resource_manager *vram_man =
-   667				&adev->mman.vram_mgr.manager;
-   668	
-   669			memset(&mem, 0, sizeof(mem));
-   670			mem.vram.total_heap_size = adev->gmc.real_vram_size;
-   671			mem.vram.usable_heap_size = adev->gmc.real_vram_size -
-   672				atomic64_read(&adev->vram_pin_size) -
-   673				AMDGPU_VM_RESERVED_VRAM;
-   674			mem.vram.heap_usage =
-   675				ttm_resource_manager_usage(vram_man);
-   676			mem.vram.max_allocation = mem.vram.usable_heap_size * 3 / 4;
-   677	
-   678			mem.cpu_accessible_vram.total_heap_size =
-   679				adev->gmc.visible_vram_size;
-   680			mem.cpu_accessible_vram.usable_heap_size =
-   681				min(adev->gmc.visible_vram_size -
-   682				    atomic64_read(&adev->visible_pin_size),
-   683				    mem.vram.usable_heap_size);
-   684			mem.cpu_accessible_vram.heap_usage =
-   685				amdgpu_vram_mgr_vis_usage(&adev->mman.vram_mgr);
-   686			mem.cpu_accessible_vram.max_allocation =
-   687				mem.cpu_accessible_vram.usable_heap_size * 3 / 4;
-   688	
-   689			mem.gtt.total_heap_size = gtt_man->size;
-   690			mem.gtt.usable_heap_size = mem.gtt.total_heap_size -
-   691				atomic64_read(&adev->gart_pin_size);
-   692			mem.gtt.heap_usage = ttm_resource_manager_usage(gtt_man);
-   693			mem.gtt.max_allocation = mem.gtt.usable_heap_size * 3 / 4;
-   694	
-   695			return copy_to_user(out, &mem,
-   696					    min((size_t)size, sizeof(mem)))
-   697					    ? -EFAULT : 0;
-   698		}
-   699		case AMDGPU_INFO_READ_MMR_REG: {
-   700			unsigned int n, alloc_size;
-   701			uint32_t *regs;
-   702			unsigned int se_num = (info->read_mmr_reg.instance >>
-   703					   AMDGPU_INFO_MMR_SE_INDEX_SHIFT) &
-   704					  AMDGPU_INFO_MMR_SE_INDEX_MASK;
-   705			unsigned int sh_num = (info->read_mmr_reg.instance >>
-   706					   AMDGPU_INFO_MMR_SH_INDEX_SHIFT) &
-   707					  AMDGPU_INFO_MMR_SH_INDEX_MASK;
-   708	
-   709			/* set full masks if the userspace set all bits
-   710			 * in the bitfields
-   711			 */
-   712			if (se_num == AMDGPU_INFO_MMR_SE_INDEX_MASK)
-   713				se_num = 0xffffffff;
-   714			else if (se_num >= AMDGPU_GFX_MAX_SE)
-   715				return -EINVAL;
-   716			if (sh_num == AMDGPU_INFO_MMR_SH_INDEX_MASK)
-   717				sh_num = 0xffffffff;
-   718			else if (sh_num >= AMDGPU_GFX_MAX_SH_PER_SE)
-   719				return -EINVAL;
-   720	
-   721			if (info->read_mmr_reg.count > 128)
-   722				return -EINVAL;
-   723	
-   724			regs = kmalloc_array(info->read_mmr_reg.count, sizeof(*regs), GFP_KERNEL);
-   725			if (!regs)
-   726				return -ENOMEM;
-   727			alloc_size = info->read_mmr_reg.count * sizeof(*regs);
-   728	
-   729			amdgpu_gfx_off_ctrl(adev, false);
-   730			for (i = 0; i < info->read_mmr_reg.count; i++) {
-   731				if (amdgpu_asic_read_register(adev, se_num, sh_num,
-   732							      info->read_mmr_reg.dword_offset + i,
-   733							      &regs[i])) {
-   734					DRM_DEBUG_KMS("unallowed offset %#x\n",
-   735						      info->read_mmr_reg.dword_offset + i);
-   736					kfree(regs);
-   737					amdgpu_gfx_off_ctrl(adev, true);
-   738					return -EFAULT;
-   739				}
-   740			}
-   741			amdgpu_gfx_off_ctrl(adev, true);
-   742			n = copy_to_user(out, regs, min(size, alloc_size));
-   743			kfree(regs);
-   744			return n ? -EFAULT : 0;
-   745		}
-   746		case AMDGPU_INFO_DEV_INFO: {
-   747			struct drm_amdgpu_info_device *dev_info;
-   748			uint64_t vm_size;
-   749			int ret;
-   750	
-   751			dev_info = kzalloc(sizeof(*dev_info), GFP_KERNEL);
-   752			if (!dev_info)
-   753				return -ENOMEM;
-   754	
-   755			dev_info->device_id = adev->pdev->device;
-   756			dev_info->chip_rev = adev->rev_id;
-   757			dev_info->external_rev = adev->external_rev_id;
-   758			dev_info->pci_rev = adev->pdev->revision;
-   759			dev_info->family = adev->family;
-   760			dev_info->num_shader_engines = adev->gfx.config.max_shader_engines;
-   761			dev_info->num_shader_arrays_per_engine = adev->gfx.config.max_sh_per_se;
-   762			/* return all clocks in KHz */
-   763			dev_info->gpu_counter_freq = amdgpu_asic_get_xclk(adev) * 10;
-   764			if (adev->pm.dpm_enabled) {
-   765				dev_info->max_engine_clock = amdgpu_dpm_get_sclk(adev, false) * 10;
-   766				dev_info->max_memory_clock = amdgpu_dpm_get_mclk(adev, false) * 10;
-   767			} else {
-   768				dev_info->max_engine_clock = adev->clock.default_sclk * 10;
-   769				dev_info->max_memory_clock = adev->clock.default_mclk * 10;
-   770			}
-   771			dev_info->enabled_rb_pipes_mask = adev->gfx.config.backend_enable_mask;
-   772			dev_info->num_rb_pipes = adev->gfx.config.max_backends_per_se *
-   773				adev->gfx.config.max_shader_engines;
-   774			dev_info->num_hw_gfx_contexts = adev->gfx.config.max_hw_contexts;
-   775			dev_info->_pad = 0;
-   776			dev_info->ids_flags = 0;
-   777			if (adev->flags & AMD_IS_APU)
-   778				dev_info->ids_flags |= AMDGPU_IDS_FLAGS_FUSION;
-   779			if (amdgpu_mcbp || amdgpu_sriov_vf(adev))
-   780				dev_info->ids_flags |= AMDGPU_IDS_FLAGS_PREEMPTION;
-   781			if (amdgpu_is_tmz(adev))
-   782				dev_info->ids_flags |= AMDGPU_IDS_FLAGS_TMZ;
-   783	
-   784			vm_size = adev->vm_manager.max_pfn * AMDGPU_GPU_PAGE_SIZE;
-   785			vm_size -= AMDGPU_VA_RESERVED_SIZE;
-   786	
-   787			/* Older VCE FW versions are buggy and can handle only 40bits */
-   788			if (adev->vce.fw_version &&
-   789			    adev->vce.fw_version < AMDGPU_VCE_FW_53_45)
-   790				vm_size = min(vm_size, 1ULL << 40);
-   791	
-   792			dev_info->virtual_address_offset = AMDGPU_VA_RESERVED_SIZE;
-   793			dev_info->virtual_address_max =
-   794				min(vm_size, AMDGPU_GMC_HOLE_START);
-   795	
-   796			if (vm_size > AMDGPU_GMC_HOLE_START) {
-   797				dev_info->high_va_offset = AMDGPU_GMC_HOLE_END;
-   798				dev_info->high_va_max = AMDGPU_GMC_HOLE_END | vm_size;
-   799			}
-   800			dev_info->virtual_address_alignment = max_t(u32, PAGE_SIZE, AMDGPU_GPU_PAGE_SIZE);
-   801			dev_info->pte_fragment_size = (1 << adev->vm_manager.fragment_size) * AMDGPU_GPU_PAGE_SIZE;
-   802			dev_info->gart_page_size = max_t(u32, PAGE_SIZE, AMDGPU_GPU_PAGE_SIZE);
-   803			dev_info->cu_active_number = adev->gfx.cu_info.number;
-   804			dev_info->cu_ao_mask = adev->gfx.cu_info.ao_cu_mask;
-   805			dev_info->ce_ram_size = adev->gfx.ce_ram_size;
-   806			memcpy(&dev_info->cu_ao_bitmap[0], &adev->gfx.cu_info.ao_cu_bitmap[0],
-   807			       sizeof(adev->gfx.cu_info.ao_cu_bitmap));
-   808			memcpy(&dev_info->cu_bitmap[0], &adev->gfx.cu_info.bitmap[0],
-   809			       sizeof(adev->gfx.cu_info.bitmap));
-   810			dev_info->vram_type = adev->gmc.vram_type;
-   811			dev_info->vram_bit_width = adev->gmc.vram_width;
-   812			dev_info->vce_harvest_config = adev->vce.harvest_config;
-   813			dev_info->gc_double_offchip_lds_buf =
-   814				adev->gfx.config.double_offchip_lds_buf;
-   815			dev_info->wave_front_size = adev->gfx.cu_info.wave_front_size;
-   816			dev_info->num_shader_visible_vgprs = adev->gfx.config.max_gprs;
-   817			dev_info->num_cu_per_sh = adev->gfx.config.max_cu_per_sh;
-   818			dev_info->num_tcc_blocks = adev->gfx.config.max_texture_channel_caches;
-   819			dev_info->gs_vgt_table_depth = adev->gfx.config.gs_vgt_table_depth;
-   820			dev_info->gs_prim_buffer_depth = adev->gfx.config.gs_prim_buffer_depth;
-   821			dev_info->max_gs_waves_per_vgt = adev->gfx.config.max_gs_threads;
-   822	
-   823			if (adev->family >= AMDGPU_FAMILY_NV)
-   824				dev_info->pa_sc_tile_steering_override =
-   825					adev->gfx.config.pa_sc_tile_steering_override;
-   826	
-   827			dev_info->tcc_disabled_mask = adev->gfx.config.tcc_disabled_mask;
-   828	
-   829			ret = copy_to_user(out, dev_info,
-   830					   min((size_t)size, sizeof(*dev_info))) ? -EFAULT : 0;
-   831			kfree(dev_info);
-   832			return ret;
-   833		}
-   834		case AMDGPU_INFO_VCE_CLOCK_TABLE: {
-   835			unsigned int i;
-   836			struct drm_amdgpu_info_vce_clock_table vce_clk_table = {};
-   837			struct amd_vce_state *vce_state;
-   838	
-   839			for (i = 0; i < AMDGPU_VCE_CLOCK_TABLE_ENTRIES; i++) {
-   840				vce_state = amdgpu_dpm_get_vce_clock_state(adev, i);
-   841				if (vce_state) {
-   842					vce_clk_table.entries[i].sclk = vce_state->sclk;
-   843					vce_clk_table.entries[i].mclk = vce_state->mclk;
-   844					vce_clk_table.entries[i].eclk = vce_state->evclk;
-   845					vce_clk_table.num_valid_entries++;
-   846				}
-   847			}
-   848	
-   849			return copy_to_user(out, &vce_clk_table,
-   850					    min((size_t)size, sizeof(vce_clk_table))) ? -EFAULT : 0;
-   851		}
-   852		case AMDGPU_INFO_VBIOS: {
-   853			uint32_t bios_size = adev->bios_size;
-   854	
-   855			switch (info->vbios_info.type) {
-   856			case AMDGPU_INFO_VBIOS_SIZE:
-   857				return copy_to_user(out, &bios_size,
-   858						min((size_t)size, sizeof(bios_size)))
-   859						? -EFAULT : 0;
-   860			case AMDGPU_INFO_VBIOS_IMAGE: {
-   861				uint8_t *bios;
-   862				uint32_t bios_offset = info->vbios_info.offset;
-   863	
-   864				if (bios_offset >= bios_size)
-   865					return -EINVAL;
-   866	
-   867				bios = adev->bios + bios_offset;
-   868				return copy_to_user(out, bios,
-   869						    min((size_t)size, (size_t)(bios_size - bios_offset)))
-   870						? -EFAULT : 0;
-   871			}
-   872			case AMDGPU_INFO_VBIOS_INFO: {
-   873				struct drm_amdgpu_info_vbios vbios_info = {};
-   874				struct atom_context *atom_context;
-   875	
-   876				atom_context = adev->mode_info.atom_context;
-   877				memcpy(vbios_info.name, atom_context->name, sizeof(atom_context->name));
-   878				memcpy(vbios_info.vbios_pn, atom_context->vbios_pn, sizeof(atom_context->vbios_pn));
-   879				vbios_info.version = atom_context->version;
-   880				memcpy(vbios_info.vbios_ver_str, atom_context->vbios_ver_str,
-   881							sizeof(atom_context->vbios_ver_str));
-   882				memcpy(vbios_info.date, atom_context->date, sizeof(atom_context->date));
-   883	
-   884				return copy_to_user(out, &vbios_info,
-   885							min((size_t)size, sizeof(vbios_info))) ? -EFAULT : 0;
-   886			}
-   887			default:
-   888				DRM_DEBUG_KMS("Invalid request %d\n",
-   889						info->vbios_info.type);
-   890				return -EINVAL;
-   891			}
-   892		}
-   893		case AMDGPU_INFO_NUM_HANDLES: {
-   894			struct drm_amdgpu_info_num_handles handle;
-   895	
-   896			switch (info->query_hw_ip.type) {
-   897			case AMDGPU_HW_IP_UVD:
-   898				/* Starting Polaris, we support unlimited UVD handles */
-   899				if (adev->asic_type < CHIP_POLARIS10) {
-   900					handle.uvd_max_handles = adev->uvd.max_handles;
-   901					handle.uvd_used_handles = amdgpu_uvd_used_handles(adev);
-   902	
-   903					return copy_to_user(out, &handle,
-   904						min((size_t)size, sizeof(handle))) ? -EFAULT : 0;
-   905				} else {
-   906					return -ENODATA;
-   907				}
-   908	
-   909				break;
-   910			default:
-   911				return -EINVAL;
-   912			}
-   913		}
-   914		case AMDGPU_INFO_SENSOR: {
-   915			if (!adev->pm.dpm_enabled)
-   916				return -ENOENT;
-   917	
-   918			switch (info->sensor_info.type) {
-   919			case AMDGPU_INFO_SENSOR_GFX_SCLK:
-   920				/* get sclk in Mhz */
-   921				if (amdgpu_dpm_read_sensor(adev,
-   922							   AMDGPU_PP_SENSOR_GFX_SCLK,
-   923							   (void *)&ui32, &ui32_size)) {
-   924					return -EINVAL;
-   925				}
-   926				ui32 /= 100;
-   927				break;
-   928			case AMDGPU_INFO_SENSOR_GFX_MCLK:
-   929				/* get mclk in Mhz */
-   930				if (amdgpu_dpm_read_sensor(adev,
-   931							   AMDGPU_PP_SENSOR_GFX_MCLK,
-   932							   (void *)&ui32, &ui32_size)) {
-   933					return -EINVAL;
-   934				}
-   935				ui32 /= 100;
-   936				break;
-   937			case AMDGPU_INFO_SENSOR_GPU_TEMP:
-   938				/* get temperature in millidegrees C */
-   939				if (amdgpu_dpm_read_sensor(adev,
-   940							   AMDGPU_PP_SENSOR_GPU_TEMP,
-   941							   (void *)&ui32, &ui32_size)) {
-   942					return -EINVAL;
-   943				}
-   944				break;
-   945			case AMDGPU_INFO_SENSOR_GPU_LOAD:
-   946				/* get GPU load */
-   947				if (amdgpu_dpm_read_sensor(adev,
-   948							   AMDGPU_PP_SENSOR_GPU_LOAD,
-   949							   (void *)&ui32, &ui32_size)) {
-   950					return -EINVAL;
-   951				}
-   952				break;
-   953			case AMDGPU_INFO_SENSOR_GPU_AVG_POWER:
-   954				/* get average GPU power */
-   955				if (amdgpu_dpm_read_sensor(adev,
-   956							   AMDGPU_PP_SENSOR_GPU_POWER,
-   957							   (void *)&ui32, &ui32_size)) {
-   958					return -EINVAL;
-   959				}
-   960				ui32 >>= 8;
-   961				break;
-   962			case AMDGPU_INFO_SENSOR_VDDNB:
-   963				/* get VDDNB in millivolts */
-   964				if (amdgpu_dpm_read_sensor(adev,
-   965							   AMDGPU_PP_SENSOR_VDDNB,
-   966							   (void *)&ui32, &ui32_size)) {
-   967					return -EINVAL;
-   968				}
-   969				break;
-   970			case AMDGPU_INFO_SENSOR_VDDGFX:
-   971				/* get VDDGFX in millivolts */
-   972				if (amdgpu_dpm_read_sensor(adev,
-   973							   AMDGPU_PP_SENSOR_VDDGFX,
-   974							   (void *)&ui32, &ui32_size)) {
-   975					return -EINVAL;
-   976				}
-   977				break;
-   978			case AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_SCLK:
-   979				/* get stable pstate sclk in Mhz */
-   980				if (amdgpu_dpm_read_sensor(adev,
-   981							   AMDGPU_PP_SENSOR_STABLE_PSTATE_SCLK,
-   982							   (void *)&ui32, &ui32_size)) {
-   983					return -EINVAL;
-   984				}
-   985				ui32 /= 100;
-   986				break;
-   987			case AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_MCLK:
-   988				/* get stable pstate mclk in Mhz */
-   989				if (amdgpu_dpm_read_sensor(adev,
-   990							   AMDGPU_PP_SENSOR_STABLE_PSTATE_MCLK,
-   991							   (void *)&ui32, &ui32_size)) {
-   992					return -EINVAL;
-   993				}
-   994				ui32 /= 100;
-   995				break;
-   996			default:
-   997				DRM_DEBUG_KMS("Invalid request %d\n",
-   998					      info->sensor_info.type);
-   999				return -EINVAL;
-  1000			}
-  1001			return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT : 0;
-  1002		}
-  1003		case AMDGPU_INFO_VRAM_LOST_COUNTER:
-  1004			ui32 = atomic_read(&adev->vram_lost_counter);
-  1005			return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT : 0;
-  1006		case AMDGPU_INFO_RAS_ENABLED_FEATURES: {
-  1007			struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-  1008			uint64_t ras_mask;
-  1009	
-  1010			if (!ras)
-  1011				return -EINVAL;
-  1012			ras_mask = (uint64_t)adev->ras_enabled << 32 | ras->features;
-  1013	
-  1014			return copy_to_user(out, &ras_mask,
-  1015					min_t(u64, size, sizeof(ras_mask))) ?
-  1016				-EFAULT : 0;
-  1017		}
-  1018		case AMDGPU_INFO_VIDEO_CAPS: {
-  1019			const struct amdgpu_video_codecs *codecs;
-  1020			struct drm_amdgpu_info_video_caps *caps;
-  1021			int r;
-  1022	
-  1023			switch (info->video_cap.type) {
-  1024			case AMDGPU_INFO_VIDEO_CAPS_DECODE:
-  1025				r = amdgpu_asic_query_video_codecs(adev, false, &codecs);
-  1026				if (r)
-  1027					return -EINVAL;
-  1028				break;
-  1029			case AMDGPU_INFO_VIDEO_CAPS_ENCODE:
-  1030				r = amdgpu_asic_query_video_codecs(adev, true, &codecs);
-  1031				if (r)
-  1032					return -EINVAL;
-  1033				break;
-  1034			default:
-  1035				DRM_DEBUG_KMS("Invalid request %d\n",
-  1036					      info->video_cap.type);
-  1037				return -EINVAL;
-  1038			}
-  1039	
-  1040			caps = kzalloc(sizeof(*caps), GFP_KERNEL);
-  1041			if (!caps)
-  1042				return -ENOMEM;
-  1043	
-  1044			for (i = 0; i < codecs->codec_count; i++) {
-  1045				int idx = codecs->codec_array[i].codec_type;
-  1046	
-  1047				switch (idx) {
-  1048				case AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2:
-  1049				case AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4:
-  1050				case AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1:
-  1051				case AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC:
-  1052				case AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC:
-  1053				case AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG:
-  1054				case AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9:
-  1055				case AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1:
-  1056					caps->codec_info[idx].valid = 1;
-  1057					caps->codec_info[idx].max_width =
-  1058						codecs->codec_array[i].max_width;
-  1059					caps->codec_info[idx].max_height =
-  1060						codecs->codec_array[i].max_height;
-  1061					caps->codec_info[idx].max_pixels_per_frame =
-  1062						codecs->codec_array[i].max_pixels_per_frame;
-  1063					caps->codec_info[idx].max_level =
-  1064						codecs->codec_array[i].max_level;
-  1065					break;
-  1066				default:
-  1067					break;
-  1068				}
-  1069			}
-  1070			r = copy_to_user(out, caps,
-  1071					 min((size_t)size, sizeof(*caps))) ? -EFAULT : 0;
-  1072			kfree(caps);
-  1073			return r;
-  1074		}
-  1075		default:
-  1076			DRM_DEBUG_KMS("Invalid request %d\n", info->query);
-  1077			return -EINVAL;
-  1078		}
-  1079		return 0;
-  1080	}
-  1081	
+I'm not sure if this is correct. We've used "GPL-2.0 OR MIT" in KFD. In
+amdgpu there is currently a mix of licenses. Alex, do you want to make a
+call on a consistent one to use in amdgpu?
 
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+Other than that, this patch is
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
+>   /*
+>    * Copyright 2014-2018 Advanced Micro Devices, Inc.
+>    *
+> @@ -1612,6 +1613,7 @@ size_t amdgpu_amdkfd_get_available_memory(struct am=
+dgpu_device *adev)
+>        uint64_t reserved_for_pt =3D
+>                ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);
+>        size_t available;
+> +
+>        spin_lock(&kfd_mem_limit.mem_limit_lock);
+>        available =3D adev->gmc.real_vram_size
+>                - adev->kfd.vram_used_aligned
+> @@ -2216,7 +2218,7 @@ int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct am=
+dgpu_device *adev,
+>   {
+>        if (atomic_read(&adev->gmc.vm_fault_info_updated) =3D=3D 1) {
+>                *mem =3D *adev->gmc.vm_fault_info;
+> -             mb();
+> +             mb(); /* make sure read happened */
+>                atomic_set(&adev->gmc.vm_fault_info_updated, 0);
+>        }
+>        return 0;
+>
+> base-commit: e47eb90a0a9ae20b82635b9b99a8d0979b757ad8
+
+--_000_BL1PR12MB51444461B0F15AAF3BE46F91F77E9BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
+ign=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+Yeah, seems to be a mix.&nbsp; I don't have a strong opinion as long as it =
+has MIT.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+Alex</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix &lt;F=
+elix.Kuehling@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, September 6, 2022 9:46 AM<br>
+<b>To:</b> Jingyu Wang &lt;jingyuwang_vip@163.com&gt;; Deucher, Alexander &=
+lt;Alexander.Deucher@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@am=
+d.com&gt;; Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;; airlied@linux.ie &lt;air=
+lied@linux.ie&gt;; daniel@ffwll.ch &lt;daniel@ffwll.ch&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt=
+;; linux-kernel@vger.kernel.org &lt;linux-kernel@vger.kernel.org&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_amdk=
+fd_gpuvm.c</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText"><br>
+Am 2022-09-05 um 04:38 schrieb Jingyu Wang:<br>
+&gt; Fix everything checkpatch.pl complained about in amdgpu_amdkfd_gpuvm.c=
+<br>
+&gt;<br>
+&gt; Signed-off-by: Jingyu Wang &lt;jingyuwang_vip@163.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 +++-<=
+br>
+&gt;&nbsp;&nbsp; 1 file changed, 3 insertions(+), 1 deletion(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/driver=
+s/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
+&gt; index cbd593f7d553..eff596c60c89 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
+&gt; @@ -1,3 +1,4 @@<br>
+&gt; +// SPDX-License-Identifier: MIT<br>
+<br>
+I'm not sure if this is correct. We've used &quot;GPL-2.0 OR MIT&quot; in K=
+FD. In <br>
+amdgpu there is currently a mix of licenses. Alex, do you want to make a <b=
+r>
+call on a consistent one to use in amdgpu?<br>
+<br>
+Other than that, this patch is<br>
+<br>
+Reviewed-by: Felix Kuehling &lt;Felix.Kuehling@amd.com&gt;<br>
+<br>
+<br>
+&gt;&nbsp;&nbsp; /*<br>
+&gt;&nbsp;&nbsp;&nbsp; * Copyright 2014-2018 Advanced Micro Devices, Inc.<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp; *<br>
+&gt; @@ -1612,6 +1613,7 @@ size_t amdgpu_amdkfd_get_available_memory(struct=
+ amdgpu_device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t reserved_for_pt =3D=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size_t available;<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock(&amp;kfd_mem_limit=
+.mem_limit_lock);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; available =3D adev-&gt;gmc.r=
+eal_vram_size<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; - adev-&gt;kfd.vram_used_aligned<br>
+&gt; @@ -2216,7 +2218,7 @@ int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct=
+ amdgpu_device *adev,<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (atomic_read(&amp;adev-&g=
+t;gmc.vm_fault_info_updated) =3D=3D 1) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; *mem =3D *adev-&gt;gmc.vm_fault_info;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; mb();<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; mb(); /* make sure read happened */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; atomic_set(&amp;adev-&gt;gmc.vm_fault_info_updated, 0);=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;<br>
+&gt; base-commit: e47eb90a0a9ae20b82635b9b99a8d0979b757ad8<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB51444461B0F15AAF3BE46F91F77E9BL1PR12MB5144namp_--
