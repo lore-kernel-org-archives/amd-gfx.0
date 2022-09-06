@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37831C6FA83
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 16:46:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AEB0ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 16:46:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8910010E08C;
-	Tue,  6 Sep 2022 16:46:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 591B910E094;
+	Tue,  6 Sep 2022 16:46:57 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65A4310E08C
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Sep 2022 16:46:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A832C10E090
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Sep 2022 16:46:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=eUiu9Wjf4cO16yZY2bNhlA8qvES7ZdJnbNszqoBABJk=; b=HJEfrw7ve1fWLHFEU+vC4hbdr1
- faYCqAwgoFhilLgJE7rmNNV8wZ3juHKuWJXpnCT8sDKUf02yyxHjI66CrrEKzEPqvRiW59dcjEUy6
- aLZlc9hFN45ZeLoayIgKDABKGdoXy9jsCBe2lRJOCFEe1n7Fz+CgoYs045cp398hiQ8U078nuvdLE
- NS1upXstWneuYS8QWSQAJigoJzJogkCMkq2Sb6V5oA2K7Ahada0O1vrIvZwpuHnMgQzdrOR/6oAS0
- Rqndyr+FU6X7xWs8jPuZ/p1a6NKpejpj4ciNEAbm6isctdzuSz+0pTwDRiR0KsaShbQMKPKAOXQGT
- dLGH+56w==;
+ bh=K76fgCIRLmv3MZLzW/7P6GOeojGIC5BS1/CYBpi06qo=; b=gDPKmVZxyMsDZhreiuL/6OiiiN
+ vKD1Ja429lVPvWYTULZTPOwN6y22vylF9T4V3n7e7KqcY+rbTkjNpc++H9z/zjszVaBp+171tmzEA
+ F4bpjxB4zCLUFk7y4bTUvi4whVvBEs3wkRKlsnLc1PWpbAk2a4QlMMTlz/RJcZNeuRzPE38hlZ7gS
+ +5juAeOKTA//Q+XltHQL+hxzOqV4XE5T4TkRuWjPgAKg/dEHi+BHUGgwsrq6QDHPNuJ0RPGFGLl03
+ KiIsRWRrxIZ0D6CaUU/e2XW+W/h4zN9xI0rlTUolFtNPLE4zy5O7/DEtVRrwMb226iVQkMFuK4jFb
+ LhGxmm+g==;
 Received: from [38.44.74.92] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1oVbil-00CALM-Ck; Tue, 06 Sep 2022 18:46:43 +0200
+ id 1oVbit-00CALM-MF; Tue, 06 Sep 2022 18:46:51 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  alex.hung@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com,
  Rodrigo.Siqueira@amd.com
-Subject: [RFC PATCH v2 1/9] drm/amd/display: remove unused regamma condition
-Date: Tue,  6 Sep 2022 15:46:20 -0100
-Message-Id: <20220906164628.2361811-2-mwen@igalia.com>
+Subject: [RFC PATCH v2 3/9] drm/drm_color_mgmt: add shaper LUT to color mgmt
+ properties
+Date: Tue,  6 Sep 2022 15:46:22 -0100
+Message-Id: <20220906164628.2361811-4-mwen@igalia.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220906164628.2361811-1-mwen@igalia.com>
 References: <20220906164628.2361811-1-mwen@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,79 +59,218 @@ Cc: amd-gfx@lists.freedesktop.org, nikola.cornij@amd.com, kernel-dev@igalia.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function __set_output_tf is only called by
-amdgpu_dm_update_crtc_color_mgmt() when using atomic regamma. In this
-situation, func->tf == TRANSFER_FUNCTION_LINEAR (the original if
-condition) and it never falls into tf != LINEAR (the else condition).
-Therefore, remove unused condition to avoid misunderstandings here.
+Shaper LUT is used to shape the contect after blending, i.e.,
+de-linearize space before applying 3D LUT color correction. In the next
+patch, we are adding 3D LUT property to DRM color mgmt.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 32 ++++++-------------
- 1 file changed, 10 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/drm_atomic_state_helper.c |  4 +++
+ drivers/gpu/drm/drm_atomic_uapi.c         | 10 ++++++++
+ drivers/gpu/drm/drm_color_mgmt.c          | 31 ++++++++++++++++++-----
+ drivers/gpu/drm/drm_fb_helper.c           |  3 +++
+ drivers/gpu/drm/drm_mode_config.c         | 14 ++++++++++
+ include/drm/drm_crtc.h                    | 14 ++++++++--
+ include/drm/drm_mode_config.h             | 12 +++++++++
+ 7 files changed, 79 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index a4cb23d059bd..10a29d131424 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -255,14 +255,13 @@ static int __set_legacy_tf(struct dc_transfer_func *func,
-  * @func: transfer function
-  * @lut: lookup table that defines the color space
-  * @lut_size: size of respective lut
-- * @has_rom: if ROM can be used for hardcoded curve
+diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+index 3b6d3bdbd099..bf3222fbf4bb 100644
+--- a/drivers/gpu/drm/drm_atomic_state_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+@@ -139,8 +139,11 @@ void __drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc,
+ 		drm_property_blob_get(state->degamma_lut);
+ 	if (state->ctm)
+ 		drm_property_blob_get(state->ctm);
++	if (state->shaper_lut)
++		drm_property_blob_get(state->shaper_lut);
+ 	if (state->gamma_lut)
+ 		drm_property_blob_get(state->gamma_lut);
++
+ 	state->mode_changed = false;
+ 	state->active_changed = false;
+ 	state->planes_changed = false;
+@@ -212,6 +215,7 @@ void __drm_atomic_helper_crtc_destroy_state(struct drm_crtc_state *state)
+ 	drm_property_blob_put(state->mode_blob);
+ 	drm_property_blob_put(state->degamma_lut);
+ 	drm_property_blob_put(state->ctm);
++	drm_property_blob_put(state->shaper_lut);
+ 	drm_property_blob_put(state->gamma_lut);
+ }
+ EXPORT_SYMBOL(__drm_atomic_helper_crtc_destroy_state);
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 434f3d4cb8a2..ee78f4f5976d 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -429,6 +429,14 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 					&replaced);
+ 		state->color_mgmt_changed |= replaced;
+ 		return ret;
++	} else if (property == config->shaper_lut_property) {
++		ret = drm_atomic_replace_property_blob_from_id(dev,
++					&state->shaper_lut,
++					val,
++					-1, sizeof(struct drm_color_lut),
++					&replaced);
++		state->color_mgmt_changed |= replaced;
++		return ret;
+ 	} else if (property == config->gamma_lut_property) {
+ 		ret = drm_atomic_replace_property_blob_from_id(dev,
+ 					&state->gamma_lut,
+@@ -480,6 +488,8 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
+ 		*val = (state->degamma_lut) ? state->degamma_lut->base.id : 0;
+ 	else if (property == config->ctm_property)
+ 		*val = (state->ctm) ? state->ctm->base.id : 0;
++	else if (property == config->shaper_lut_property)
++		*val = (state->shaper_lut) ? state->shaper_lut->base.id : 0;
+ 	else if (property == config->gamma_lut_property)
+ 		*val = (state->gamma_lut) ? state->gamma_lut->base.id : 0;
+ 	else if (property == config->prop_out_fence_ptr)
+diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+index 17c6c3eefcd6..873cca35f078 100644
+--- a/drivers/gpu/drm/drm_color_mgmt.c
++++ b/drivers/gpu/drm/drm_color_mgmt.c
+@@ -69,6 +69,24 @@
+  *	boot-up state too. Drivers can access the blob for the color conversion
+  *	matrix through &drm_crtc_state.ctm.
   *
-  * Returns:
-  * 0 in case of success. -ENOMEM if fails.
++ * “SHAPER_LUT”:
++ *	Blob property to set the shaper lut shaping pixel data after the color
++ *	transformation matrix and before applying 3D Lookup Table (3D LUT). It
++ *	can be used to delinearize content to get an effective 3D LUT mapping.
++ *	The data is interpreted as an array of &struct drm_color_lut elements.
++ *
++ *	Setting this to NULL (blob property value set to 0) means the output
++ *	color is identical to the input color. This is generally the driver
++ *	boot-up state too. Drivers can access this blob through
++ *	&drm_crtc_state.gamma_lut.
++ *
++ * “SHAPER_LUT_SIZE”:
++ *	Unsigned range property to give the size of the shaper lookup table to
++ *	be set on the SHAPER_LUT property (the size depends on the underlying
++ *	hardware). If drivers support multiple LUT sizes then they should
++ *	publish the largest size, and sub-sample smaller sized LUTs
++ *	appropriately.
++ *
+  * “GAMMA_LUT”:
+  *	Blob property to set the gamma lookup table (LUT) mapping pixel data
+  *	after the transformation matrix to data sent to the connector. The
+@@ -153,13 +171,12 @@ EXPORT_SYMBOL(drm_color_ctm_s31_32_to_qm_n);
+  * @has_ctm: whether to attach ctm_property for CSC matrix
+  * @gamma_lut_size: the size of the gamma lut (after CSC)
+  *
+- * This function lets the driver enable the color correction
+- * properties on a CRTC. This includes 3 degamma, csc and gamma
+- * properties that userspace can set and 2 size properties to inform
+- * the userspace of the lut sizes. Each of the properties are
+- * optional. The gamma and degamma properties are only attached if
+- * their size is not 0 and ctm_property is only attached if has_ctm is
+- * true.
++ * This function lets the driver enable the color correction properties on a
++ * CRTC. This includes 3 properties (degamma, csc and gamma) that
++ * userspace can set and 2 size properties to inform the userspace of the lut
++ * sizes. Each of the properties are optional. The gamma and degamma
++ * properties are only attached if their size is not 0 and ctm_property is only
++ * attached if has_ctm is true.
   */
- static int __set_output_tf(struct dc_transfer_func *func,
--			   const struct drm_color_lut *lut, uint32_t lut_size,
--			   bool has_rom)
-+			   const struct drm_color_lut *lut,
-+			   uint32_t lut_size)
- {
- 	struct dc_gamma *gamma = NULL;
- 	struct calculate_buffer cal_buffer = {0};
-@@ -279,24 +278,13 @@ static int __set_output_tf(struct dc_transfer_func *func,
- 	gamma->num_entries = lut_size;
- 	__drm_lut_to_dc_gamma(lut, gamma, false);
+ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
+ 				uint degamma_lut_size,
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 5ad2b6a2778c..20c4878bd4d9 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -1098,8 +1098,11 @@ static int setcmap_atomic(struct fb_cmap *cmap, struct fb_info *info)
+ 		replaced  = drm_property_replace_blob(&crtc_state->degamma_lut,
+ 						      NULL);
+ 		replaced |= drm_property_replace_blob(&crtc_state->ctm, NULL);
++		replaced |= drm_property_replace_blob(&crtc_state->shaper_lut,
++						      NULL);
+ 		replaced |= drm_property_replace_blob(&crtc_state->gamma_lut,
+ 						      gamma_lut);
++
+ 		crtc_state->color_mgmt_changed |= replaced;
+ 	}
  
--	if (func->tf == TRANSFER_FUNCTION_LINEAR) {
--		/*
--		 * Color module doesn't like calculating regamma params
--		 * on top of a linear input. But degamma params can be used
--		 * instead to simulate this.
--		 */
--		gamma->type = GAMMA_CUSTOM;
--		res = mod_color_calculate_degamma_params(NULL, func,
--							gamma, true);
--	} else {
--		/*
--		 * Assume sRGB. The actual mapping will depend on whether the
--		 * input was legacy or not.
--		 */
--		gamma->type = GAMMA_CS_TFM_1D;
--		res = mod_color_calculate_regamma_params(func, gamma, false,
--							 has_rom, NULL, &cal_buffer);
--	}
-+	/*
-+	 * Color module doesn't like calculating regamma params
-+	 * on top of a linear input. But degamma params can be used
-+	 * instead to simulate this.
+diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+index 37b4b9f0e468..4ba2a95b88e8 100644
+--- a/drivers/gpu/drm/drm_mode_config.c
++++ b/drivers/gpu/drm/drm_mode_config.c
+@@ -350,6 +350,20 @@ static int drm_mode_create_standard_properties(struct drm_device *dev)
+ 		return -ENOMEM;
+ 	dev->mode_config.ctm_property = prop;
+ 
++	prop = drm_property_create(dev,
++			DRM_MODE_PROP_BLOB,
++			"SHAPER_LUT", 0);
++	if (!prop)
++		return -ENOMEM;
++	dev->mode_config.shaper_lut_property = prop;
++
++	prop = drm_property_create_range(dev,
++			DRM_MODE_PROP_IMMUTABLE,
++			"SHAPER_LUT_SIZE", 0, UINT_MAX);
++	if (!prop)
++		return -ENOMEM;
++	dev->mode_config.shaper_lut_size_property = prop;
++
+ 	prop = drm_property_create(dev,
+ 			DRM_MODE_PROP_BLOB,
+ 			"GAMMA_LUT", 0);
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index a70baea0636c..21938780d4bd 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -165,8 +165,9 @@ struct drm_crtc_state {
+ 	bool zpos_changed : 1;
+ 	/**
+ 	 * @color_mgmt_changed: Color management properties have changed
+-	 * (@gamma_lut, @degamma_lut or @ctm). Used by the atomic helpers and
+-	 * drivers to steer the atomic commit control flow.
++	 * (@shaper_lut, @gamma_lut, @degamma_lut or @ctm). Used by
++	 * the atomic helpers and drivers to steer the atomic commit control
++	 * flow.
+ 	 */
+ 	bool color_mgmt_changed : 1;
+ 
+@@ -292,6 +293,15 @@ struct drm_crtc_state {
+ 	 */
+ 	struct drm_property_blob *gamma_lut;
+ 
++	/**
++	 * @shaper_lut:
++	 *
++	 * Lookup table used to de-linearize pixel data for gamma correction.
++	 * See drm_crtc_enable_color_mgmt(). The blob (if not NULL) is an array
++	 * of &struct drm_color_lut.
 +	 */
-+	gamma->type = GAMMA_CUSTOM;
-+	res = mod_color_calculate_degamma_params(NULL, func, gamma, true);
- 
- 	dc_gamma_release(&gamma);
- 
-@@ -450,7 +438,7 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
- 		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
- 
- 		r = __set_output_tf(stream->out_transfer_func, regamma_lut,
--				    regamma_size, has_rom);
-+				    regamma_size);
- 		if (r)
- 			return r;
- 	} else {
++	struct drm_property_blob *shaper_lut;
++
+ 	/**
+ 	 * @target_vblank:
+ 	 *
+diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+index 6b5e01295348..c174d3a7c951 100644
+--- a/include/drm/drm_mode_config.h
++++ b/include/drm/drm_mode_config.h
+@@ -800,6 +800,18 @@ struct drm_mode_config {
+ 	 * degamma LUT.
+ 	 */
+ 	struct drm_property *ctm_property;
++
++	/**
++	 * @shaper_lut_property: Optional CRTC property to set the shaper LUT used to
++	 * convert colors before 3D LUT conversion.
++	 */
++	struct drm_property *shaper_lut_property;
++	/**
++	 * @shaper_lut_size_property: Optional CRTC property for the size of the
++	 * shaper LUT as supported by the driver (read-only).
++	 */
++	struct drm_property *shaper_lut_size_property;
++
+ 	/**
+ 	 * @gamma_lut_property: Optional CRTC property to set the LUT used to
+ 	 * convert the colors, after the CTM matrix, to the gamma space of the
 -- 
 2.35.1
 
