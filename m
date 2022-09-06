@@ -4,88 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 173C2ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 19:34:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61649C54EE9
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 19:58:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C02110EA55;
-	Tue,  6 Sep 2022 19:34:52 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08ABB10EA5C
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Sep 2022 19:34:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BCqhghA03xNqQU/chOWgR4N2sjptHWfsUmH8bk2Ya+VaHBFf2yfCUjNQU+Y71WhOF+IghyQLRgqKUL+CISltsmb46/Ye94b3O887FvUG93oVGR7QArHozfPHt3YJa5DC3CvmaUk1k1txLSl8uGjz6Dqm3ZciEdGFUGpuzfg2UCChN6ye7/c6I+d2dDwp2di3Fqq4wbsS07aWIlb2opYKKsNs07c/Y75UCPGQDcMxgdZc8wlDnBXIjcPoVxw8n8T0u8Hmz/uu7nPrCDKOt+xajWbPjxONFgFQkLWhyR9ME5s5DODXEzf/cCW1MLnTtfDZzVr9yEA7o93onpLf+LY6Kw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZVETb5SRPMTliLVgw5wLeZFmWXRdV5gJybdN/B289v4=;
- b=YKhCeo9DI1E9j1TaiYMHsBxgJ0bkCmqY6/eLQEEm/EiSCnSyC9Hz+QRGq+Imv0P6Rwf1UVch9fiwfzUpsmf2jRl9gJCgde4TRig1cA7rGVayl42tLQEHjSNUCD+k8wIF+BO+iMc1ioiYGF5hdfcipsraz8sF0qAY+9o4TrvppS+9EwGljnszv4VRQbMpkPehl94mdNi32us19Dx5hsPKQyuJqOpR+spW3ymsDpWulrBvBt1ZcuHFpOPlZJue1eNuoyTHuTRbMDdeNqaYKgUNejTsHCJ7An+eQg/9VU5NdO8Bnn5I/umxA9wdv5UvC87wn3u4LOoJGnPP77PJ1zifTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZVETb5SRPMTliLVgw5wLeZFmWXRdV5gJybdN/B289v4=;
- b=uqJ5TgB5I2V1TtE0kWqgkW7UrioyzzHNU09H+nvIOJp59ms1O4CocTBB5i68Whub5hzxvMZ0tiHNkq0xkG5K8dzFwpN/ONfXZUlfQYi0hHqsx0BQxCGJTm1siX3AYgnk6fSc8XNXTEKp4FGcDkDY2W5R4LAxdfFOYvwqnURevVQ=
-Received: from MW4PR04CA0067.namprd04.prod.outlook.com (2603:10b6:303:6b::12)
- by PH7PR12MB7019.namprd12.prod.outlook.com (2603:10b6:510:1b9::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Tue, 6 Sep
- 2022 19:34:45 +0000
-Received: from CO1NAM11FT059.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6b:cafe::e4) by MW4PR04CA0067.outlook.office365.com
- (2603:10b6:303:6b::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.16 via Frontend
- Transport; Tue, 6 Sep 2022 19:34:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT059.mail.protection.outlook.com (10.13.174.160) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5612.13 via Frontend Transport; Tue, 6 Sep 2022 19:34:45 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 6 Sep
- 2022 14:34:44 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/1] drm/amdkfd: Remove prefault before migrating to VRAM
-Date: Tue, 6 Sep 2022 15:34:14 -0400
-Message-ID: <20220906193414.1261-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FB5510EA6F;
+	Tue,  6 Sep 2022 19:58:09 +0000 (UTC)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 497DD10EA6D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Sep 2022 19:58:04 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id
+ z14-20020a7bc7ce000000b003a5db0388a8so8522841wmk.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 06 Sep 2022 12:58:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date;
+ bh=xVv6Xk9+wtMMfK0r4PHpL32bnpTEGeAraL/Ln7EwJ6w=;
+ b=FqALK1B1koxUpfn3CBl/o09mWhuXsU3wEOBxoLi7YRXkpVDN9o4nPdDy4NwXjTKB9q
+ X2UiJCF8suFvzUWlvyrF+oG1CV1jm8UGVicYgy5j275bSjJsqpWhNYtYu5YcpjfNJlHX
+ qHM/ja6RpAwokCUCwrDSAvu26c9/9k8+eZrhM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=xVv6Xk9+wtMMfK0r4PHpL32bnpTEGeAraL/Ln7EwJ6w=;
+ b=DuVc3C7D44X5AXPWL+v5MVUA0z2CGy0vQci8zs9QMw/Y0H7+Q7j6epX5ue4QyBDOpk
+ CJ1dGunHfIb/EcVnf1Q54itL4ArY4gffBzEppT7J1STkwvT6NQ2YSVHOP/JQK9HrFQ82
+ MbN6PC2bjpa7oUZVZIUEp7AIBssTO+Q88ZFlUepy7DRk/xECTiAiRwIbcnr7MoQo85a0
+ 72/1UOkkFpkSDl3ddpMufKeETIkt0B3qiZsKz1INLzlnBttnEOPCVqYPl7ZJvOeOPjxv
+ QZGf+14Aoz7no8DwFvg+y9P9HJcp2ZEw+KULjnYZ9u4pR67IErUtMB6uzL5+CuZvzML4
+ zHvg==
+X-Gm-Message-State: ACgBeo16T32H4B7WjUhPZqFI4IqHtkSm4+UiZgX/xtRHDs3izBlFNtOU
+ YP9uGO5B34uNJO0L+fMEAg+h1g==
+X-Google-Smtp-Source: AA6agR479IxBARDkBX4e8PfOBv7gCdnQ+hVCFZp7AZ2YxgTRsusFAKKc9Zin0/w1csvhZxeNERUOKw==
+X-Received: by 2002:a05:600c:3482:b0:3a6:e09:1ebf with SMTP id
+ a2-20020a05600c348200b003a60e091ebfmr31815wmq.173.1662494282484; 
+ Tue, 06 Sep 2022 12:58:02 -0700 (PDT)
+Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
+ [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
+ l13-20020adff48d000000b0020e6ce4dabdsm13769526wro.103.2022.09.06.12.58.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Sep 2022 12:58:02 -0700 (PDT)
+Date: Tue, 6 Sep 2022 21:58:00 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+Subject: Re: [PATCH v6 1/6] drm/ttm: Add new callbacks to ttm res mgr
+Message-ID: <YxemSP4IrQQtmHps@phenom.ffwll.local>
+References: <20220812133048.2814-1-Arunpravin.PaneerSelvam@amd.com>
+ <b6ade0fe-367a-21f3-1942-a9d7eefcf1d3@amd.com>
+ <b0b4f3a0-0df5-8d2a-c1a0-ad6d721e9cba@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT059:EE_|PH7PR12MB7019:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97f32685-4001-4b01-eda0-08da903eda99
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HE1wsdDuX2Vh12ZiwGxVhdVLtdx+emk4hioilk2KjvnEy8PKFN0RvkulY5iY7IMT7oCcNhfE7WmbX7/OETr7tVwl5rRtWLIOm41V/LepgvhhBExqAaHMZwAJImnXHRgP0sQpezT4saZrEQRSDIbIfcO15nez/lomiSTrHfSNMQWaz8BH2ZB+e4w6zmriWjHjSPQL//x21y8rhLqUxg/D/IyESuJSZK0FDlR7IokS5BYtlqmvvp3VWBC31fXj5mpFAnEnaTnoJPv6SGcyC1etY1QVuOdw/U6otkCE1NtpeT/ortjuD4ScRP7Qlynorns/4e52m+O7ZstCFBVkiLtfTUPSxXvOAe3dxKJkpxMne+0zx+OQm8ZXBGCsDkOJWf0TEV83AXKYZuuBpFiE3IYV1HxoLSdKF/1ChKoTjyCnCG0ZY8QawkdUE7c3gYFPlUOlHZJqjDz0ns8PVbOASEHHFh63PG6/N2iv7pQ4IDwZwMdTz99WLZKBTWzWENw1RXThXgvSRWXud9diQ4RyiljlCmBKHkVuRtcQicuUmFiOlA9ygY1RvYG0KGyE4sg+Ia7gw2bi80t2fH1PmwgnlGKRqOK32SzQZUOjJ5k0lnwXYTAVEAcztHOari4z6YpHocMu9IS7ZX9rCGFOowW95Cq1MbFpzj3EEFc2wV04jdl1zSwblZrxmDwrksxcd3be/UdmoPiflYanBz0CKGXgJgXVMCQLCN4dbv6q2L0t6sD+iWdEhQg71UFTtkhXCUi45EEDQ3Isbk2yeJiSr4wF+aAcFNfc9Pj1OdvaUcRIK1qKnWU=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(136003)(346002)(396003)(39860400002)(46966006)(36840700001)(40470700004)(86362001)(6666004)(82740400003)(54906003)(2616005)(41300700001)(26005)(356005)(1076003)(186003)(36756003)(16526019)(426003)(47076005)(478600001)(7696005)(83380400001)(336012)(70586007)(5660300002)(8676002)(70206006)(40480700001)(82310400005)(316002)(6916009)(4326008)(2906002)(36860700001)(8936002)(81166007)(40460700003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2022 19:34:45.4364 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97f32685-4001-4b01-eda0-08da903eda99
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT059.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7019
+In-Reply-To: <b0b4f3a0-0df5-8d2a-c1a0-ad6d721e9cba@amd.com>
+X-Operating-System: Linux phenom 5.18.0-4-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,101 +72,266 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, felix.kuehling@amd.com
+Cc: intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ luben.tuikov@amd.com, dri-devel@lists.freedesktop.org,
+ alexander.deucher@amd.com,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ matthew.auld@intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If svm range no back system memory pages, migrate the range to GPU VRAM
-don't need prefault on system pages to migrate pages. Instead we just
-alloc VRAM pages and setup migrate->dst with the corresponding device
-page and skip the page migration. The device page will be inserted to
-PTE. Then CPU page fault will migrate the page back to system memory.
+On Tue, Aug 16, 2022 at 10:33:16AM +0530, Arunpravin Paneer Selvam wrote:
+> 
+> 
+> On 8/15/2022 4:35 PM, Christian König wrote:
+> > Am 12.08.22 um 15:30 schrieb Arunpravin Paneer Selvam:
+> > > We are adding two new callbacks to ttm resource manager
+> > > function to handle intersection and compatibility of
+> > > placement and resources.
+> > > 
+> > > v2: move the amdgpu and ttm_range_manager changes to
+> > >      separate patches (Christian)
+> > > v3: rename "intersect" to "intersects" (Matthew)
+> > > v4: move !place check to the !res if and return false
+> > >      in ttm_resource_compatible() function (Christian)
+> > > v5: move bits of code from patch number 6 to avoid
+> > >      temporary driver breakup (Christian)
+> > > 
+> > > Signed-off-by: Christian König <christian.koenig@amd.com>
+> > > Signed-off-by: Arunpravin Paneer Selvam
+> > > <Arunpravin.PaneerSelvam@amd.com>
+> > 
+> > Patch #6 could still be cleaned up more now that we have the workaround
+> > code in patch #1, but that not really a must have.
+> > 
+> > Reviewed-by: Christian König <christian.koenig@amd.com> for the entire
+> > series.
+> > 
+> > Do you already have commit rights?
+> 
+> Hi Christian,
+> I applied for drm-misc commit rights, waiting for the project maintainers to
+> approve my request.
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 12 +++++-------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 22 ----------------------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |  2 --
- 3 files changed, 5 insertions(+), 31 deletions(-)
+Why do all drivers have to implement the current behaviour? Can we have a
+default implementation, which gets called if nothing is set instead?
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 373e5bfd4e91..d3ebbde21241 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -322,12 +322,13 @@ svm_migrate_copy_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
- 	for (i = j = 0; i < npages; i++) {
- 		struct page *spage;
- 
-+		dst[i] = cursor.start + (j << PAGE_SHIFT);
-+		migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
-+		svm_migrate_get_vram_page(prange, migrate->dst[i]);
-+		migrate->dst[i] = migrate_pfn(migrate->dst[i]);
-+
- 		spage = migrate_pfn_to_page(migrate->src[i]);
- 		if (spage && !is_zone_device_page(spage)) {
--			dst[i] = cursor.start + (j << PAGE_SHIFT);
--			migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
--			svm_migrate_get_vram_page(prange, migrate->dst[i]);
--			migrate->dst[i] = migrate_pfn(migrate->dst[i]);
- 			src[i] = dma_map_page(dev, spage, 0, PAGE_SIZE,
- 					      DMA_TO_DEVICE);
- 			r = dma_mapping_error(dev, src[i]);
-@@ -522,9 +523,6 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
- 	pr_debug("svms 0x%p [0x%lx 0x%lx] to gpu 0x%x\n", prange->svms,
- 		 prange->start, prange->last, best_loc);
- 
--	/* FIXME: workaround for page locking bug with invalid pages */
--	svm_range_prefault(prange, mm, SVM_ADEV_PGMAP_OWNER(adev));
--
- 	start = prange->start << PAGE_SHIFT;
- 	end = (prange->last + 1) << PAGE_SHIFT;
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 11074cc8c333..cf5b4005534c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -3181,28 +3181,6 @@ svm_range_best_prefetch_location(struct svm_range *prange)
- 	return best_loc;
- }
- 
--/* FIXME: This is a workaround for page locking bug when some pages are
-- * invalid during migration to VRAM
-- */
--void svm_range_prefault(struct svm_range *prange, struct mm_struct *mm,
--			void *owner)
--{
--	struct hmm_range *hmm_range;
--	int r;
--
--	if (prange->validated_once)
--		return;
--
--	r = amdgpu_hmm_range_get_pages(&prange->notifier, mm, NULL,
--				       prange->start << PAGE_SHIFT,
--				       prange->npages, &hmm_range,
--				       false, true, owner);
--	if (!r) {
--		amdgpu_hmm_range_get_pages_done(hmm_range);
--		prange->validated_once = true;
--	}
--}
--
- /* svm_range_trigger_migration - start page migration if prefetch loc changed
-  * @mm: current process mm_struct
-  * @prange: svm range structure
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index cfac13ad06ef..012c53729516 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -181,8 +181,6 @@ void schedule_deferred_list_work(struct svm_range_list *svms);
- void svm_range_dma_unmap(struct device *dev, dma_addr_t *dma_addr,
- 			 unsigned long offset, unsigned long npages);
- void svm_range_free_dma_mappings(struct svm_range *prange);
--void svm_range_prefault(struct svm_range *prange, struct mm_struct *mm,
--			void *owner);
- int svm_range_get_info(struct kfd_process *p, uint32_t *num_svm_ranges,
- 		       uint64_t *svm_priv_data_size);
- int kfd_criu_checkpoint_svm(struct kfd_process *p,
+I'm a bit confused why the bloat here ...
+
+Also please document new callbacks precisely with inline kerneldoc. I know
+ttm docs aren't great yet, but they don't get better if we don't start
+somewhere. I think the in-depth comments for modeset vfuncs (e.g. in
+drm_modeset_helper_vtables.h) are a good standard here.
+-Daniel
+
+> 
+> Thanks,
+> Arun
+> > 
+> > Regards,
+> > Christian.
+> > 
+> > > ---
+> > >   drivers/gpu/drm/ttm/ttm_bo.c       |  9 ++--
+> > >   drivers/gpu/drm/ttm/ttm_resource.c | 77 +++++++++++++++++++++++++++++-
+> > >   include/drm/ttm/ttm_resource.h     | 40 ++++++++++++++++
+> > >   3 files changed, 119 insertions(+), 7 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> > > index c1bd006a5525..f066e8124c50 100644
+> > > --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> > > +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> > > @@ -518,6 +518,9 @@ static int ttm_bo_evict(struct ttm_buffer_object
+> > > *bo,
+> > >   bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+> > >                     const struct ttm_place *place)
+> > >   {
+> > > +    struct ttm_resource *res = bo->resource;
+> > > +    struct ttm_device *bdev = bo->bdev;
+> > > +
+> > >       dma_resv_assert_held(bo->base.resv);
+> > >       if (bo->resource->mem_type == TTM_PL_SYSTEM)
+> > >           return true;
+> > > @@ -525,11 +528,7 @@ bool ttm_bo_eviction_valuable(struct
+> > > ttm_buffer_object *bo,
+> > >       /* Don't evict this BO if it's outside of the
+> > >        * requested placement range
+> > >        */
+> > > -    if (place->fpfn >= (bo->resource->start +
+> > > bo->resource->num_pages) ||
+> > > -        (place->lpfn && place->lpfn <= bo->resource->start))
+> > > -        return false;
+> > > -
+> > > -    return true;
+> > > +    return ttm_resource_intersects(bdev, res, place, bo->base.size);
+> > >   }
+> > >   EXPORT_SYMBOL(ttm_bo_eviction_valuable);
+> > >   diff --git a/drivers/gpu/drm/ttm/ttm_resource.c
+> > > b/drivers/gpu/drm/ttm/ttm_resource.c
+> > > index 20f9adcc3235..0d1f862a582b 100644
+> > > --- a/drivers/gpu/drm/ttm/ttm_resource.c
+> > > +++ b/drivers/gpu/drm/ttm/ttm_resource.c
+> > > @@ -253,10 +253,84 @@ void ttm_resource_free(struct
+> > > ttm_buffer_object *bo, struct ttm_resource **res)
+> > >   }
+> > >   EXPORT_SYMBOL(ttm_resource_free);
+> > >   +/**
+> > > + * ttm_resource_intersects - test for intersection
+> > > + *
+> > > + * @bdev: TTM device structure
+> > > + * @res: The resource to test
+> > > + * @place: The placement to test
+> > > + * @size: How many bytes the new allocation needs.
+> > > + *
+> > > + * Test if @res intersects with @place and @size. Used for testing
+> > > if evictions
+> > > + * are valueable or not.
+> > > + *
+> > > + * Returns true if the res placement intersects with @place and @size.
+> > > + */
+> > > +bool ttm_resource_intersects(struct ttm_device *bdev,
+> > > +                 struct ttm_resource *res,
+> > > +                 const struct ttm_place *place,
+> > > +                 size_t size)
+> > > +{
+> > > +    struct ttm_resource_manager *man;
+> > > +
+> > > +    if (!res)
+> > > +        return false;
+> > > +
+> > > +    if (!place)
+> > > +        return true;
+> > > +
+> > > +    man = ttm_manager_type(bdev, res->mem_type);
+> > > +    if (!man->func->intersects) {
+> > > +        if (place->fpfn >= (res->start + res->num_pages) ||
+> > > +            (place->lpfn && place->lpfn <= res->start))
+> > > +            return false;
+> > > +
+> > > +        return true;
+> > > +    }
+> > > +
+> > > +    return man->func->intersects(man, res, place, size);
+> > > +}
+> > > +
+> > > +/**
+> > > + * ttm_resource_compatible - test for compatibility
+> > > + *
+> > > + * @bdev: TTM device structure
+> > > + * @res: The resource to test
+> > > + * @place: The placement to test
+> > > + * @size: How many bytes the new allocation needs.
+> > > + *
+> > > + * Test if @res compatible with @place and @size.
+> > > + *
+> > > + * Returns true if the res placement compatible with @place and @size.
+> > > + */
+> > > +bool ttm_resource_compatible(struct ttm_device *bdev,
+> > > +                 struct ttm_resource *res,
+> > > +                 const struct ttm_place *place,
+> > > +                 size_t size)
+> > > +{
+> > > +    struct ttm_resource_manager *man;
+> > > +
+> > > +    if (!res || !place)
+> > > +        return false;
+> > > +
+> > > +    man = ttm_manager_type(bdev, res->mem_type);
+> > > +    if (!man->func->compatible) {
+> > > +        if (res->start < place->fpfn ||
+> > > +            (place->lpfn && (res->start + res->num_pages) >
+> > > place->lpfn))
+> > > +            return false;
+> > > +
+> > > +        return true;
+> > > +    }
+> > > +
+> > > +    return man->func->compatible(man, res, place, size);
+> > > +}
+> > > +
+> > >   static bool ttm_resource_places_compat(struct ttm_resource *res,
+> > >                          const struct ttm_place *places,
+> > >                          unsigned num_placement)
+> > >   {
+> > > +    struct ttm_buffer_object *bo = res->bo;
+> > > +    struct ttm_device *bdev = bo->bdev;
+> > >       unsigned i;
+> > >         if (res->placement & TTM_PL_FLAG_TEMPORARY)
+> > > @@ -265,8 +339,7 @@ static bool ttm_resource_places_compat(struct
+> > > ttm_resource *res,
+> > >       for (i = 0; i < num_placement; i++) {
+> > >           const struct ttm_place *heap = &places[i];
+> > >   -        if (res->start < heap->fpfn || (heap->lpfn &&
+> > > -            (res->start + res->num_pages) > heap->lpfn))
+> > > +        if (!ttm_resource_compatible(bdev, res, heap, bo->base.size))
+> > >               continue;
+> > >             if ((res->mem_type == heap->mem_type) &&
+> > > diff --git a/include/drm/ttm/ttm_resource.h
+> > > b/include/drm/ttm/ttm_resource.h
+> > > index ca89a48c2460..5afc6d664fde 100644
+> > > --- a/include/drm/ttm/ttm_resource.h
+> > > +++ b/include/drm/ttm/ttm_resource.h
+> > > @@ -88,6 +88,38 @@ struct ttm_resource_manager_func {
+> > >       void (*free)(struct ttm_resource_manager *man,
+> > >                struct ttm_resource *res);
+> > >   +    /**
+> > > +     * struct ttm_resource_manager_func member intersects
+> > > +     *
+> > > +     * @man: Pointer to a memory type manager.
+> > > +     * @res: Pointer to a struct ttm_resource to be checked.
+> > > +     * @place: Placement to check against.
+> > > +     * @size: Size of the check.
+> > > +     *
+> > > +     * Test if @res intersects with @place + @size. Used to judge if
+> > > +     * evictions are valueable or not.
+> > > +     */
+> > > +    bool (*intersects)(struct ttm_resource_manager *man,
+> > > +               struct ttm_resource *res,
+> > > +               const struct ttm_place *place,
+> > > +               size_t size);
+> > > +
+> > > +    /**
+> > > +     * struct ttm_resource_manager_func member compatible
+> > > +     *
+> > > +     * @man: Pointer to a memory type manager.
+> > > +     * @res: Pointer to a struct ttm_resource to be checked.
+> > > +     * @place: Placement to check against.
+> > > +     * @size: Size of the check.
+> > > +     *
+> > > +     * Test if @res compatible with @place + @size. Used to check of
+> > > +     * the need to move the backing store or not.
+> > > +     */
+> > > +    bool (*compatible)(struct ttm_resource_manager *man,
+> > > +               struct ttm_resource *res,
+> > > +               const struct ttm_place *place,
+> > > +               size_t size);
+> > > +
+> > >       /**
+> > >        * struct ttm_resource_manager_func member debug
+> > >        *
+> > > @@ -329,6 +361,14 @@ int ttm_resource_alloc(struct ttm_buffer_object
+> > > *bo,
+> > >                  const struct ttm_place *place,
+> > >                  struct ttm_resource **res);
+> > >   void ttm_resource_free(struct ttm_buffer_object *bo, struct
+> > > ttm_resource **res);
+> > > +bool ttm_resource_intersects(struct ttm_device *bdev,
+> > > +                 struct ttm_resource *res,
+> > > +                 const struct ttm_place *place,
+> > > +                 size_t size);
+> > > +bool ttm_resource_compatible(struct ttm_device *bdev,
+> > > +                 struct ttm_resource *res,
+> > > +                 const struct ttm_place *place,
+> > > +                 size_t size);
+> > >   bool ttm_resource_compat(struct ttm_resource *res,
+> > >                struct ttm_placement *placement);
+> > >   void ttm_resource_set_bo(struct ttm_resource *res,
+> > > 
+> > > base-commit: 730c2bf4ad395acf0aa0820535fdb8ea6abe5df1
+> > 
+> 
+
 -- 
-2.35.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
