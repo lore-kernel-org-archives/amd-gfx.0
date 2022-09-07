@@ -4,117 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A25C4C54EE9
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 15:58:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96A88C54EE9
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 17:00:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8044810E7B8;
-	Wed,  7 Sep 2022 15:58:16 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2052.outbound.protection.outlook.com [40.107.95.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F277610E347;
- Wed,  7 Sep 2022 15:58:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c8inX6hQbJ3RiXUHjVcYVKPxj49ws0IbB8854n3M42T8PKK+PSkilWE9YXoatRxTZuqviO9eeQwjBRMxdz2mtqEdWipjR8ufiMdGXWGe/7BxD12l3Q2S2rws3ID33cBsk40aLBuetxeYc7KqmimTYuAm9Ne9JfA5Y0egS2siuBrVqz3uuLk66gSGF02Iq1Iw/oiG7jLFWAvkxaI6BhKhcnC+A8rkydfKY6htAfaGUTiC1GzscbI6QYefYMoUin0q0dPpdWPaSCwLlreb/+v+3H7wQDrRNDxQwQhSfbnBHp+bWExySuVSpGYllGcTuTjXZTf0gOlredKo7kbOj/MSLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CylvD2reMYvJl7y+elqSvIDKfp8hvBhPm33Aibcodtc=;
- b=Ey9IBuDgnAaOIgEwwjtA/8KAHKmJLRhHLzM9goi32YGdKLNJ2DpceLAwdOcdN1RPMuN3Bn54QSrryzCKxrYBeKOKiqsVKunyAZidPbWRwGE2eeA0Z9uPASksf7t7vxd3uUa9r6zADFpfnxcoVXq0Ddxs2oQp27xhUJCagFE0Ry2mVOsSAKKOHVhJLYWI/tFvjWs1DsiDLKEpgl02uaHGOObZ9x9WMD5BkZvhLKSFQQifUlg8E5PVZRwvfoRL+sArM/A9kaVxepOFDr6bgEIIxl19PLGgzYAFsNt1mhXo3ch1wOhPrIARB/KNK5IEjkzvrIOQWiF+zlT4A/pQdUTuyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CylvD2reMYvJl7y+elqSvIDKfp8hvBhPm33Aibcodtc=;
- b=CdqUa4z/r++xl5gLVnCiHtCg5YuHu16f6sxWA4bGC4lMr9bveBg2iMUj74K1IRpK+33FiXW2Z5+HBYUXm+LcVDn6Xu9hZo0TOhV3UPxEX7BGi89hCvvMSS+nMXDpdjtuv/QiBZeTS5+qbepyJVGzNePvWU2f5vKaRck8Q3wczGs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
- by MN0PR12MB6269.namprd12.prod.outlook.com (2603:10b6:208:3c3::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.12; Wed, 7 Sep
- 2022 15:58:10 +0000
-Received: from DM5PR12MB1947.namprd12.prod.outlook.com
- ([fe80::80ca:c97:d395:1acf]) by DM5PR12MB1947.namprd12.prod.outlook.com
- ([fe80::80ca:c97:d395:1acf%6]) with mapi id 15.20.5612.014; Wed, 7 Sep 2022
- 15:58:09 +0000
-Message-ID: <2d7b8d1b-2344-182b-dea8-8f75f273b5e5@amd.com>
-Date: Wed, 7 Sep 2022 11:58:07 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2] drm/sced: Add FIFO sched policy to rq
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org
-References: <20220903024817.528107-1-andrey.grodzovsky@amd.com>
- <9cc09bec-650d-cfbb-f8be-89fa81343004@amd.com>
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-In-Reply-To: <9cc09bec-650d-cfbb-f8be-89fa81343004@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0146.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:83::15) To DM5PR12MB1947.namprd12.prod.outlook.com
- (2603:10b6:3:111::23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DF5110E7E4;
+	Wed,  7 Sep 2022 17:00:49 +0000 (UTC)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC64A10E7E6
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 17:00:44 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id y3so31852994ejc.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 Sep 2022 10:00:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date;
+ bh=GSpZkZbAuSefSrfssuEJ1efmhaMlwXgtYGmijPo8a5M=;
+ b=REWBsE/qu5y1NJn/4Eznta5RhRieI5bewhLuCzJzzkT+Xi8S0Z570uwLh+Mvfuem6a
+ f97VWXdwz9RTzLOqNgIrlI4S0XxwL6GIPwilZtempoI1/7ms0MvcdRIXx1dq51k/Rd4M
+ 1pgHiNUWo0ZPuiqgiYmNcVcsZ7m3Fmyv08hUY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=GSpZkZbAuSefSrfssuEJ1efmhaMlwXgtYGmijPo8a5M=;
+ b=MSNLWwfPT3ygYU9YSFLFcNTwy6+u6VshxOnco/Wl+ArOXY/Qc+rsAjZGPP+hkOAwmt
+ dybi3KdvgA823mLu5xa+3FpPt6+SI91/J0p4oTgI9BKA3q2ItJZRl3I0XlsX/rKhii/0
+ 8MupCmCdFnqgBQH0j84cmM1TqmCCea3zF2FM2GHFlcKKlH7j0qhAGWqAOf+8L3JR4iO0
+ ErI3TpAEaeaPeGQHRKUwJYLkFOBU87m8XC7cYme9wPCFG6Q4k9gwNWbY9c/rmGlB4Ube
+ rKwnOsWkGX0ghrhJB27Ub0U9BwvN1Br2XUtQwzuQVSRDBMNEnM050wS+Zcxro/vXgjHp
+ TXog==
+X-Gm-Message-State: ACgBeo3nQI4hFFcqhLPnH1dzuYHTFhZ56g62eSg3stMgEPYlyD44/AYV
+ TWA5WL7cJTBN+OnvHmVl9gCVMw==
+X-Google-Smtp-Source: AA6agR6SBUNb9OCfUxXItYyGDh0JBtj/vealqGb4dVNhxNrFQIB0SYLRBrkqG5UhBByata/Y9dC2ag==
+X-Received: by 2002:a17:907:75cb:b0:770:5d2d:fc37 with SMTP id
+ jl11-20020a17090775cb00b007705d2dfc37mr3030823ejc.480.1662570043051; 
+ Wed, 07 Sep 2022 10:00:43 -0700 (PDT)
+Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
+ [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
+ b9-20020a1709063ca900b0073dde62713asm8712624ejh.89.2022.09.07.10.00.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Sep 2022 10:00:42 -0700 (PDT)
+Date: Wed, 7 Sep 2022 19:00:40 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH v6 1/6] drm/ttm: Add new callbacks to ttm res mgr
+Message-ID: <YxjOOLGVbFvtrwrF@phenom.ffwll.local>
+References: <20220812133048.2814-1-Arunpravin.PaneerSelvam@amd.com>
+ <b6ade0fe-367a-21f3-1942-a9d7eefcf1d3@amd.com>
+ <b0b4f3a0-0df5-8d2a-c1a0-ad6d721e9cba@amd.com>
+ <YxemSP4IrQQtmHps@phenom.ffwll.local>
+ <6988c6c3-892f-799b-0114-c2c8462c7ace@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1947:EE_|MN0PR12MB6269:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3889d5e-693e-4421-5d5e-08da90e9c25f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pZl1hcQcQgC6VquE5MOrv/LRaZIm2n69fd42sR5kFAKp9NGz9YHVtOggiSXR28sfiaZIajaLTAbSeB/kwdzXT10J6K8fUrecdAYBFoMXRyFyGhXYJIiwMtRXWTcXcUJZB+cYGo9rU7TVY/hyf9A3yWkmGr3UKs26NoA0iWBo+fuqsZHU3GK8Fp1qo9fnIuXBaOIyvKIJG/HfwGgNhmC6BhrZb73lIpY95hBNmF0quGMVBF3Y89ipYjix1mb9muCxMe4MtQaf/p3hL3ecrEeHwxwIbzxguyWV7bOhHnbrQqLMkRLTUiXhjTQ3b07CIz9Bgv86BMbi6bJ8q+h4YeTaAFxcOjyjS9B9uwx2MRC34HMJMJnf7uMUGMMEFGlFYMgL3Xm3KwUEUVoX8LR2yat8JJuC0dfqPGAQ5mpn99we9fh1BIcyflVuMDquluZcTJeCIybkT3XT5p60Ki/41yvehN9eIrwMwHHyRrzXRBjP/dVa2YP7krQnkdqIn6Ri60WTz/A5JkqpkuLk0nkRI667usArtThyMomsGii7UmOX62+9MDU/GvVcKyvvhrBaqoiBC9GL2JiOgbke1tF/eZtOHBuP12WzwN2JVbQ7Xha7T0dHZgqrT7lpl3Gx1cesH49vP6oRbQuTZEUZk/gg+Mj9ZBUU+P4w+0Yrcflp37Jc7vaep4m5bjySLtP3Fs/jwUfMCsFHm4qwkJeQkez4KFdCvDBr6C9oZ1Ma52wyPYJ+IXnpOs14X92vbmPcVmCkgiChUEKrLO9Gjy9xgx/UiALkNIGXYgRX0nxzLfh8xMvRafE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(346002)(366004)(376002)(136003)(39860400002)(31696002)(83380400001)(36756003)(31686004)(86362001)(186003)(2616005)(6512007)(41300700001)(53546011)(6506007)(66574015)(66556008)(316002)(4326008)(66476007)(6486002)(478600001)(66946007)(8676002)(450100002)(2906002)(44832011)(38100700002)(5660300002)(8936002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K3pQQXVvSExia0FKMUNvZ1hzNG1aN0xDenFpVTU5ZEZOWnA0V0t6VGZYMnQw?=
- =?utf-8?B?cllHTU9MMXY2cW04YThXQWk5MWZNQWg2U2UzcWRlTDdYck5TdzZubzhTRm9o?=
- =?utf-8?B?ZG1Ha3FySk1GVnhXR2Zsa3NyejZoaStzRXE0V2k0TmxERHQzcHFDR1FlVlZC?=
- =?utf-8?B?alk2bHhTUW83aHd2QjhaalBORy8zcFE3VWp3WVFsUlMzL0FxRGhxVVE1c3pz?=
- =?utf-8?B?N25SaWpsQWFjK0UvWTU5ZTlvdVpRQ2cvY05xZEcvbzRaODN2aGhucGQ1ZERp?=
- =?utf-8?B?cGFrcjdCdE9nbGFrbWQxc3E4TWxjUFFGZEFLUXRpZWNmYm5pM1RLUHZOOW5J?=
- =?utf-8?B?L0M4Z1J6YVpTbTNJdi84c2ZQR1pFWkVQMC9rNHl6UUFTL013U1hOdS9FV0pC?=
- =?utf-8?B?b29peXJpMDJTOWh4dFZQUEtSVGhGMDFmenI1SGNQUE1BSGQ0OXRsa2RwYzZL?=
- =?utf-8?B?MnhScjNlK0RnWXpFQXVoaUFUdmNzd0RrVVpIK2VUc3FkVnZ5L2NTRkVHWUJo?=
- =?utf-8?B?T3Q3WnZtamZJem1CRGkyZWZtMjBObTN0eW1xbkt3SFlOMGQ0M2haSFU2b29V?=
- =?utf-8?B?akhJMG9Zem1keUxOK1lZeWJrcWRxcE1RcUpMQkVrUkZJQUdFeE1zQ3NNeHdT?=
- =?utf-8?B?QWNFS2wveE5KTERGWVk5MHF6Y3ZYZkU0SDNucmhMeEVnMGNwenJvOTVMQ3hI?=
- =?utf-8?B?K1YvL0FvL3l5dW81bmVIa2ZPSHRHZklRMnEwTkxha3FtbzZkTklWU2pqdDd1?=
- =?utf-8?B?Wk1xSGhHZlRVc1ZsRW03emU5djd0WXBxWFR1Q0NkRkJsV0RTcGxoeTA0WU1O?=
- =?utf-8?B?cDVDTkc5a0JRSkZkaW4wVFFkZ3VEbUp3SkE4bmtxeENtazR3V25rRUYwRy9u?=
- =?utf-8?B?eWt3ODJESEkrTUM1WFBKUXZUZzhvYWJjbGpRK1JkcXVGNWlRTXFoMGtjeEFW?=
- =?utf-8?B?L0doeGtqOTZ6cElRd1NXaS9GZDRSOG1WbGRTbnRVRXNBZFpVVkZsNVFZa0xi?=
- =?utf-8?B?eGViaThhdFprVDRvemhHVEUwdSszUGhMQm1OTUIzOFhMNFZJVXBvbVlMRitH?=
- =?utf-8?B?L1NKeFJBZUhrUjJnOXdrdUFMaEUzcVY5TTR3WmJVa0ppR2FyMWkzOXN4NEJB?=
- =?utf-8?B?OGtUMWR6ZS91WUg2OU5CS2tFRE84NDlKUXhySDI4YVNKMVlhOXR4NThUUzV3?=
- =?utf-8?B?OW5JNnNnYTVYODFiTmhORUVYb0dMMTNDOUhmRmtZcVE0N1hNYTJ2L0hINTFY?=
- =?utf-8?B?aFBuaEhrMUJLVGdKeHJMekcvSkJYdUwwTzAwNzNqMUFrNUdOVXBNUGxXMklj?=
- =?utf-8?B?QU9HejJGWk1zTDBtYUtuN1Q5a1gwUUlXQzQvLzN0Ulp6Rkp1RjVqN2pNT3dC?=
- =?utf-8?B?N3ZzYk9GeHlYUjMzbDlHTDFkcVphSkFKUnpNcFMxZk5OSTk2RGJ2cVFvVVlL?=
- =?utf-8?B?ZXJLNzBqN0dwbTdjcXhuZ0NpVXJ6UFllaXJhbnhpMXFKd01vZFRFc09YNitL?=
- =?utf-8?B?U3J6UFRMcHpBRWdVazFzT2lNdk0wYlUwTXQ5eS9BZ3FhT3JpYitrSFlHdEpF?=
- =?utf-8?B?cHpMR0pPK3Vzb1dzYWVpY0N1cXlWOERwd3RsYXJOU0JYeXM3ei9wRGRicUxH?=
- =?utf-8?B?Z282TEsrMGZyWGloZ1U0SHo1emZScTRuYnZRYmRaNVR1OWlncG4vblFGWGc1?=
- =?utf-8?B?S3B4ZUlMazhUR1BLbUZBa094N29rTnBPSzZCd3NyYVRKTE5nWXBZc0cyamZS?=
- =?utf-8?B?YXhXRXo2S0RsRzcwbmoxamtpdC9EMDRDT1FPWk1Fbnl4ME9rT041NkNIUnpP?=
- =?utf-8?B?M2cvMjViUTczSUMySjE3cVIvUy9rT3docWUyRkhwd3Z4WVhVaSt2YkIrcGFQ?=
- =?utf-8?B?ZTIzMkdnVEJmNXBhZVlBV0xxN0dQNHpHYTF5a1BLamVOblZhM2lVbk9FaGxi?=
- =?utf-8?B?QU1hYUcwcjh3VTVPUE5jeDJ2YmZIMG03NzdxT2JjT0ZqMzFOZ0hpd1plVExi?=
- =?utf-8?B?aGVZZXVzZ3J2a3pMTUZSSURBcVhVb0NCdGVFL1J5QjhqbnB6YTBpRlpBdE5L?=
- =?utf-8?B?OTl1QzFMb28xS1ZPc2JDNFdsL2JXUjhEeWJwZHN0VlJtNTdaUVpqZnVvWWw0?=
- =?utf-8?B?aXpNNGxCcXlVU3FLVVgyZG5HUk1NRTFNUldnQzJaOWZITy8yZU1MMFNVSG9M?=
- =?utf-8?Q?unEl/wo2XWHie8KfHNY4c3PNWXVJj5wBmlArpzXNdPOF?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3889d5e-693e-4421-5d5e-08da90e9c25f
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2022 15:58:09.1343 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dHlecosEH9otGmNdJI8zDy9BHWXp6sYp6hSyrHiXvzT4lFzoUD7TXk8kIplqt8rGlv4HgiMkAK572aDCdfOu9A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6269
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6988c6c3-892f-799b-0114-c2c8462c7ace@amd.com>
+X-Operating-System: Linux phenom 5.18.0-4-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,84 +73,300 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Li Yunxiang <Yunxiang.Li@amd.com>, luben.tuikov@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ luben.tuikov@amd.com, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, alexander.deucher@amd.com,
+ matthew.auld@intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Luben, just a ping, whenever you have time.
+On Wed, Sep 07, 2022 at 08:45:22AM +0200, Christian König wrote:
+> Am 06.09.22 um 21:58 schrieb Daniel Vetter:
+> > On Tue, Aug 16, 2022 at 10:33:16AM +0530, Arunpravin Paneer Selvam wrote:
+> > > 
+> > > On 8/15/2022 4:35 PM, Christian König wrote:
+> > > > Am 12.08.22 um 15:30 schrieb Arunpravin Paneer Selvam:
+> > > > > We are adding two new callbacks to ttm resource manager
+> > > > > function to handle intersection and compatibility of
+> > > > > placement and resources.
+> > > > > 
+> > > > > v2: move the amdgpu and ttm_range_manager changes to
+> > > > >       separate patches (Christian)
+> > > > > v3: rename "intersect" to "intersects" (Matthew)
+> > > > > v4: move !place check to the !res if and return false
+> > > > >       in ttm_resource_compatible() function (Christian)
+> > > > > v5: move bits of code from patch number 6 to avoid
+> > > > >       temporary driver breakup (Christian)
+> > > > > 
+> > > > > Signed-off-by: Christian König <christian.koenig@amd.com>
+> > > > > Signed-off-by: Arunpravin Paneer Selvam
+> > > > > <Arunpravin.PaneerSelvam@amd.com>
+> > > > Patch #6 could still be cleaned up more now that we have the workaround
+> > > > code in patch #1, but that not really a must have.
+> > > > 
+> > > > Reviewed-by: Christian König <christian.koenig@amd.com> for the entire
+> > > > series.
+> > > > 
+> > > > Do you already have commit rights?
+> > > Hi Christian,
+> > > I applied for drm-misc commit rights, waiting for the project maintainers to
+> > > approve my request.
+> > Why do all drivers have to implement the current behaviour? Can we have a
+> > default implementation, which gets called if nothing is set instead?
+> 
+> We do have a default implementation in the range manager which is used by
+> radeon, GEM VRAM helpers, VMWGFX and amdgpu (but there only for some
+> domains).
+> 
+> > I'm a bit confused why the bloat here ...
+> 
+> Drivers do have specialized implementations of the backend, e.g. VMWGFX have
+> his handle backend, amdgpu the VRAM backend with special placements, i915 is
+> completely special as well.
+> 
+> Here we only move the decision if resources intersect or are compatible into
+> those specialized backends. Previously we had all this in a centralized
+> callback for all backends of a driver.
+> 
+> See the switch in amdgpu_ttm_bo_eviction_valuable() for an example. Final
+> goal is to move all this stuff into the specialized backends and remove this
+> callback.
+> 
+> The only driver where I couldn't figure out why we have duplicated all this
+> from the standard implementation is Nouveau.
 
-Andrey
+Yeah I didn't read this too carefully, apologies.
 
-On 2022-09-05 01:57, Christian KÃ¶nig wrote:
->
->
-> Am 03.09.22 um 04:48 schrieb Andrey Grodzovsky:
->> Poblem: Given many entities competing for same rq on
->> same scheduler an uncceptabliy long wait time for some
->> jobs waiting stuck in rq before being picked up are
->> observed (seen usingÂ  GPUVis).
->> The issue is due to Round Robin policy used by scheduler
->> to pick up the next entity for execution. Under stress
->> of many entities and long job queus within entity some
->> jobs could be stack for very long time in it's entity's
->> queue before being popped from the queue and executed
->> while for other entites with samller job queues a job
->> might execute ealier even though that job arrived later
->> then the job in the long queue.
->>
->> Fix:
->> Add FIFO selection policy to entites in RQ, chose next enitity
->> on rq in such order that if job on one entity arrived
->> ealrier then job on another entity the first job will start
->> executing ealier regardless of the length of the entity's job
->> queue.
->>
->> v2:
->> Switch to rb tree structure for entites based on TS of
->> oldest job waiting in job queue of enitity. Improves next
->> enitity extraction to O(1). Enitity TS update
->> O(log(number of entites in rq))
->>
->> Drop default option in module control parameter.
->>
->> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->> Tested-by: Li Yunxiang (Teddy) <Yunxiang.Li@amd.com>
-> [SNIP]
->> Â  /**
->> @@ -313,6 +330,14 @@ struct drm_sched_job {
->> Â  Â Â Â Â Â  /** @last_dependency: tracks @dependencies as they signal */
->> Â Â Â Â Â  unsigned longÂ Â Â Â Â Â Â Â Â Â Â  last_dependency;
->> +
->> +
->> +Â Â Â  /**
->> +Â Â Â  * @submit_ts:
->> +Â Â Â  *
->> +Â Â Â  * Marks job submit time
->
-> Maybe write something like "When the job was pushed into the entity 
-> queue."
->
-> Apart from that I leave it to Luben and you to get this stuff upstream.
->
+> > Also please document new callbacks precisely with inline kerneldoc. I know
+> > ttm docs aren't great yet, but they don't get better if we don't start
+> > somewhere. I think the in-depth comments for modeset vfuncs (e.g. in
+> > drm_modeset_helper_vtables.h) are a good standard here.
+> 
+> I thought we already did that. Please be a bit more specific.
+
+Yeah rushed this too, but the kerneldoc isn't too great yet. It's
+definitely not formatted correctly (you can't do a full function
+definition in a struct unfortunately, see the examples I linked). And it
+would be good to specificy what the default implementation is, that there
+is one (i.e. the hook is optional) and when exactly a driver would want to
+overwrite this. Atm it's a one-liner that explains exactly as much as you
+can guess from the function interface anyway, that's not super userful.
+-Daniel
+
+
+
+> 
 > Thanks,
 > Christian.
->
->> +Â Â Â  */
->> +Â Â Â  ktime_tÂ Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  submit_ts;
->> Â  };
->> Â  Â  static inline bool drm_sched_invalidate_job(struct drm_sched_job 
->> *s_job,
->> @@ -501,6 +526,10 @@ void drm_sched_rq_add_entity(struct drm_sched_rq 
->> *rq,
->> Â  void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
->> Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  struct drm_sched_entity *entity);
->> Â  +void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, 
->> ktime_t ts,
->> +Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  bool remove_only);
->> +
->> +
->> Â  int drm_sched_entity_init(struct drm_sched_entity *entity,
->> Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  enum drm_sched_priority priority,
->> Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  struct drm_gpu_scheduler **sched_list,
->
+> 
+> > -Daniel
+> > 
+> > > Thanks,
+> > > Arun
+> > > > Regards,
+> > > > Christian.
+> > > > 
+> > > > > ---
+> > > > >    drivers/gpu/drm/ttm/ttm_bo.c       |  9 ++--
+> > > > >    drivers/gpu/drm/ttm/ttm_resource.c | 77 +++++++++++++++++++++++++++++-
+> > > > >    include/drm/ttm/ttm_resource.h     | 40 ++++++++++++++++
+> > > > >    3 files changed, 119 insertions(+), 7 deletions(-)
+> > > > > 
+> > > > > diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> > > > > index c1bd006a5525..f066e8124c50 100644
+> > > > > --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> > > > > +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> > > > > @@ -518,6 +518,9 @@ static int ttm_bo_evict(struct ttm_buffer_object
+> > > > > *bo,
+> > > > >    bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+> > > > >                      const struct ttm_place *place)
+> > > > >    {
+> > > > > +    struct ttm_resource *res = bo->resource;
+> > > > > +    struct ttm_device *bdev = bo->bdev;
+> > > > > +
+> > > > >        dma_resv_assert_held(bo->base.resv);
+> > > > >        if (bo->resource->mem_type == TTM_PL_SYSTEM)
+> > > > >            return true;
+> > > > > @@ -525,11 +528,7 @@ bool ttm_bo_eviction_valuable(struct
+> > > > > ttm_buffer_object *bo,
+> > > > >        /* Don't evict this BO if it's outside of the
+> > > > >         * requested placement range
+> > > > >         */
+> > > > > -    if (place->fpfn >= (bo->resource->start +
+> > > > > bo->resource->num_pages) ||
+> > > > > -        (place->lpfn && place->lpfn <= bo->resource->start))
+> > > > > -        return false;
+> > > > > -
+> > > > > -    return true;
+> > > > > +    return ttm_resource_intersects(bdev, res, place, bo->base.size);
+> > > > >    }
+> > > > >    EXPORT_SYMBOL(ttm_bo_eviction_valuable);
+> > > > >    diff --git a/drivers/gpu/drm/ttm/ttm_resource.c
+> > > > > b/drivers/gpu/drm/ttm/ttm_resource.c
+> > > > > index 20f9adcc3235..0d1f862a582b 100644
+> > > > > --- a/drivers/gpu/drm/ttm/ttm_resource.c
+> > > > > +++ b/drivers/gpu/drm/ttm/ttm_resource.c
+> > > > > @@ -253,10 +253,84 @@ void ttm_resource_free(struct
+> > > > > ttm_buffer_object *bo, struct ttm_resource **res)
+> > > > >    }
+> > > > >    EXPORT_SYMBOL(ttm_resource_free);
+> > > > >    +/**
+> > > > > + * ttm_resource_intersects - test for intersection
+> > > > > + *
+> > > > > + * @bdev: TTM device structure
+> > > > > + * @res: The resource to test
+> > > > > + * @place: The placement to test
+> > > > > + * @size: How many bytes the new allocation needs.
+> > > > > + *
+> > > > > + * Test if @res intersects with @place and @size. Used for testing
+> > > > > if evictions
+> > > > > + * are valueable or not.
+> > > > > + *
+> > > > > + * Returns true if the res placement intersects with @place and @size.
+> > > > > + */
+> > > > > +bool ttm_resource_intersects(struct ttm_device *bdev,
+> > > > > +                 struct ttm_resource *res,
+> > > > > +                 const struct ttm_place *place,
+> > > > > +                 size_t size)
+> > > > > +{
+> > > > > +    struct ttm_resource_manager *man;
+> > > > > +
+> > > > > +    if (!res)
+> > > > > +        return false;
+> > > > > +
+> > > > > +    if (!place)
+> > > > > +        return true;
+> > > > > +
+> > > > > +    man = ttm_manager_type(bdev, res->mem_type);
+> > > > > +    if (!man->func->intersects) {
+> > > > > +        if (place->fpfn >= (res->start + res->num_pages) ||
+> > > > > +            (place->lpfn && place->lpfn <= res->start))
+> > > > > +            return false;
+> > > > > +
+> > > > > +        return true;
+> > > > > +    }
+> > > > > +
+> > > > > +    return man->func->intersects(man, res, place, size);
+> > > > > +}
+> > > > > +
+> > > > > +/**
+> > > > > + * ttm_resource_compatible - test for compatibility
+> > > > > + *
+> > > > > + * @bdev: TTM device structure
+> > > > > + * @res: The resource to test
+> > > > > + * @place: The placement to test
+> > > > > + * @size: How many bytes the new allocation needs.
+> > > > > + *
+> > > > > + * Test if @res compatible with @place and @size.
+> > > > > + *
+> > > > > + * Returns true if the res placement compatible with @place and @size.
+> > > > > + */
+> > > > > +bool ttm_resource_compatible(struct ttm_device *bdev,
+> > > > > +                 struct ttm_resource *res,
+> > > > > +                 const struct ttm_place *place,
+> > > > > +                 size_t size)
+> > > > > +{
+> > > > > +    struct ttm_resource_manager *man;
+> > > > > +
+> > > > > +    if (!res || !place)
+> > > > > +        return false;
+> > > > > +
+> > > > > +    man = ttm_manager_type(bdev, res->mem_type);
+> > > > > +    if (!man->func->compatible) {
+> > > > > +        if (res->start < place->fpfn ||
+> > > > > +            (place->lpfn && (res->start + res->num_pages) >
+> > > > > place->lpfn))
+> > > > > +            return false;
+> > > > > +
+> > > > > +        return true;
+> > > > > +    }
+> > > > > +
+> > > > > +    return man->func->compatible(man, res, place, size);
+> > > > > +}
+> > > > > +
+> > > > >    static bool ttm_resource_places_compat(struct ttm_resource *res,
+> > > > >                           const struct ttm_place *places,
+> > > > >                           unsigned num_placement)
+> > > > >    {
+> > > > > +    struct ttm_buffer_object *bo = res->bo;
+> > > > > +    struct ttm_device *bdev = bo->bdev;
+> > > > >        unsigned i;
+> > > > >          if (res->placement & TTM_PL_FLAG_TEMPORARY)
+> > > > > @@ -265,8 +339,7 @@ static bool ttm_resource_places_compat(struct
+> > > > > ttm_resource *res,
+> > > > >        for (i = 0; i < num_placement; i++) {
+> > > > >            const struct ttm_place *heap = &places[i];
+> > > > >    -        if (res->start < heap->fpfn || (heap->lpfn &&
+> > > > > -            (res->start + res->num_pages) > heap->lpfn))
+> > > > > +        if (!ttm_resource_compatible(bdev, res, heap, bo->base.size))
+> > > > >                continue;
+> > > > >              if ((res->mem_type == heap->mem_type) &&
+> > > > > diff --git a/include/drm/ttm/ttm_resource.h
+> > > > > b/include/drm/ttm/ttm_resource.h
+> > > > > index ca89a48c2460..5afc6d664fde 100644
+> > > > > --- a/include/drm/ttm/ttm_resource.h
+> > > > > +++ b/include/drm/ttm/ttm_resource.h
+> > > > > @@ -88,6 +88,38 @@ struct ttm_resource_manager_func {
+> > > > >        void (*free)(struct ttm_resource_manager *man,
+> > > > >                 struct ttm_resource *res);
+> > > > >    +    /**
+> > > > > +     * struct ttm_resource_manager_func member intersects
+> > > > > +     *
+> > > > > +     * @man: Pointer to a memory type manager.
+> > > > > +     * @res: Pointer to a struct ttm_resource to be checked.
+> > > > > +     * @place: Placement to check against.
+> > > > > +     * @size: Size of the check.
+> > > > > +     *
+> > > > > +     * Test if @res intersects with @place + @size. Used to judge if
+> > > > > +     * evictions are valueable or not.
+> > > > > +     */
+> > > > > +    bool (*intersects)(struct ttm_resource_manager *man,
+> > > > > +               struct ttm_resource *res,
+> > > > > +               const struct ttm_place *place,
+> > > > > +               size_t size);
+> > > > > +
+> > > > > +    /**
+> > > > > +     * struct ttm_resource_manager_func member compatible
+> > > > > +     *
+> > > > > +     * @man: Pointer to a memory type manager.
+> > > > > +     * @res: Pointer to a struct ttm_resource to be checked.
+> > > > > +     * @place: Placement to check against.
+> > > > > +     * @size: Size of the check.
+> > > > > +     *
+> > > > > +     * Test if @res compatible with @place + @size. Used to check of
+> > > > > +     * the need to move the backing store or not.
+> > > > > +     */
+> > > > > +    bool (*compatible)(struct ttm_resource_manager *man,
+> > > > > +               struct ttm_resource *res,
+> > > > > +               const struct ttm_place *place,
+> > > > > +               size_t size);
+> > > > > +
+> > > > >        /**
+> > > > >         * struct ttm_resource_manager_func member debug
+> > > > >         *
+> > > > > @@ -329,6 +361,14 @@ int ttm_resource_alloc(struct ttm_buffer_object
+> > > > > *bo,
+> > > > >                   const struct ttm_place *place,
+> > > > >                   struct ttm_resource **res);
+> > > > >    void ttm_resource_free(struct ttm_buffer_object *bo, struct
+> > > > > ttm_resource **res);
+> > > > > +bool ttm_resource_intersects(struct ttm_device *bdev,
+> > > > > +                 struct ttm_resource *res,
+> > > > > +                 const struct ttm_place *place,
+> > > > > +                 size_t size);
+> > > > > +bool ttm_resource_compatible(struct ttm_device *bdev,
+> > > > > +                 struct ttm_resource *res,
+> > > > > +                 const struct ttm_place *place,
+> > > > > +                 size_t size);
+> > > > >    bool ttm_resource_compat(struct ttm_resource *res,
+> > > > >                 struct ttm_placement *placement);
+> > > > >    void ttm_resource_set_bo(struct ttm_resource *res,
+> > > > > 
+> > > > > base-commit: 730c2bf4ad395acf0aa0820535fdb8ea6abe5df1
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
