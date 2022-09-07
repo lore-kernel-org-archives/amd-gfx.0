@@ -4,121 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED94BC38145
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 03:29:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45581ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 03:41:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BDAE10E0B4;
-	Wed,  7 Sep 2022 03:29:40 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29C6E10E0B4
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 03:29:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63F4B10E0CE;
+	Wed,  7 Sep 2022 03:41:58 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2082.outbound.protection.outlook.com [40.107.223.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15B3110E0CE
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 03:41:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K3yjqzAl24/gFwWZpFJIzll5iYMmaHXqr6NPdqtq/DDY9CeORlIYoaGh9dN3eREouiOtl7R9IjWpo2f7Pd7QfyHYnpldd52S2XbswQEKZ26H5/53nZNMKkyr0Ofu/S0h02TNE+NcjibLoWljc3TBv0yVsYJORjrgz80eP8h/vjkzOPVcPHgx4LUAdHqs4ivUafF4tzWddrnOKb6rfMy6k1YzjsthVeKShDXVSwFlChXxDODkDZtF+It8hlhgz8nB6tQJ+U5hvLuupqqGYA5VIrRgSKBOkMupDk+JSeXMXCX65n2YxEEvApYkUzBmmOd0UNiak6xPjibhOobuural4g==
+ b=PbcMmUm0f2gibBiXYWQbHkLChsFiFtvPkf7vM7k2nkuNspqzmxYHozzZtrFV5kcKzWPDL++brB20QiF9kwdvlyfADwpYaygg9IRV+PWBqN8qO7jC+LOTvzlmWiufV6cro/H0+oM7fmwoFOR8OlAg8CMfkaMSRpsOtGr0cn3JZGGt8dJWabYc1cUbvdXuBJP992+XTkKdaCkPuNKZfzrTyD3Ym9Wx1H3SugUEXIDh8M+ziOfFSael8wJ3ayhN81gfZYWfckuLQATHM0aazzXNWFyNMARgdnlGBcCa/u5up5MgflD4wKYxUkTiv1K8U6Tzefcm9h3jJEhxUhZMZaH68Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B4xMaavsUdgjjW7VcMSYZ1aNIXPZfJYWESqHjUNJ0FM=;
- b=FO09w9NRTd2WbWmHOU74p4Vxwryj68Y6eiHHj3gTr0DS+KZT08hacAcQNV1J/wMERYB3Pha3jrAKefPu/kyIX/C+/IC6tLK7+2NCyci+n3OphhjssJxYxZ0YWAEAQov1ALxvTpHzTv/iMnfmpnytuYTafxJuDLf1BWkS6oZ+fw3kVyRRVtKUSUSw/YU/O72Iwl88LwAdpavvi2iLB2sBCuJMlpW4+lnwi7ZhTbXxl+oyt+IzYZxOGOFagZiVRjFGrcfCAJ2JRNwuNgjdux1D20d6v0A3SFiuFQx2FycRnvHqGgPwK1tEpTG/XfQ/mITk8itnB4sej3tA1EpAvjQa4A==
+ bh=ZeaWRyTmLzJ0aG+LxIx4k8gDLp27g/yKCNy7w4hn0I0=;
+ b=EaXnIbkSpBmRy6T6H4IzBX5D9dBXuSlRopg6Hm/f7uRbXOteSm3sdfAdnJZHj2cIcJUkp2yPJAO/PPEr+H30QykxQ2ruCM6TcmdBa/MFjoMuJBNFlOMv8OOhfF7jFQk0qreo+VwwZF/o+19WGGCWWztmZ1anasEw+ZA2xIu3kAz07DQUq8jUysBjMl8LfjAVdfolkgtLPjF9/m3ECpXTAmO0ZUKtjWjdsF2TSy+cZfjAxNSNtmnrGw4IEww+Jt2ijxtNe8uLa6YqJ7MLGexPeOg943LAJSj/08jGbJa2f3GIaGqvBYDvhDXZnw+kljzQI5z7LvibVU8TBXhBGjyqwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B4xMaavsUdgjjW7VcMSYZ1aNIXPZfJYWESqHjUNJ0FM=;
- b=A+3Chko8Y7phTkIFxVEEb+6PpsKULg313CVFGUXYeZCvXV1Xhp9/EV7C5IAUPkbhtUq/qPFvSY0BJcXXrQpkr1H3sWnE6W8lf1m6tyBin5Nk3NdKu4iVDg3qzb4TMktO8+UtEU5Sp4XxyDscSJoBmbaSdULKd26PrDabnDbcr8g=
-Received: from CH2PR12MB4215.namprd12.prod.outlook.com (2603:10b6:610:ab::24)
- by DM6PR12MB4156.namprd12.prod.outlook.com (2603:10b6:5:218::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.10; Wed, 7 Sep
- 2022 03:29:35 +0000
-Received: from CH2PR12MB4215.namprd12.prod.outlook.com
- ([fe80::b554:96ce:4449:5e98]) by CH2PR12MB4215.namprd12.prod.outlook.com
- ([fe80::b554:96ce:4449:5e98%5]) with mapi id 15.20.5588.018; Wed, 7 Sep 2022
- 03:29:35 +0000
-From: "Chai, Thomas" <YiPeng.Chai@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ bh=ZeaWRyTmLzJ0aG+LxIx4k8gDLp27g/yKCNy7w4hn0I0=;
+ b=X9pvFsKLKt0IqBS157f40DwjEQZqZytMRSrc4EB2TJ6gJC9Qi1S5bV0baHP5koWt7KWnp3O5qedONLhb+Jr1+oTqfq6CADn74xxWQRulvs8Xg1VNAbvTkwnr4sM79khaNMOls83EXMF0uFjcskzQ5ZOWikgwuDbnDbEq9SiqQ5I=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by SN7PR12MB7023.namprd12.prod.outlook.com (2603:10b6:806:260::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Wed, 7 Sep
+ 2022 03:41:52 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::1192:d133:8667:ed28]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::1192:d133:8667:ed28%5]) with mapi id 15.20.5588.018; Wed, 7 Sep 2022
+ 03:41:52 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH V2] drm/amdgpu: Adjust removal control flow for smu v13_0_2
+Subject: Re: [PATCH V2] drm/amdgpu: Adjust removal control flow for smu v13_0_2
 Thread-Topic: [PATCH V2] drm/amdgpu: Adjust removal control flow for smu
  v13_0_2
-Thread-Index: AQHYwcUXXCDZYelE7UWkXHkAOUzNjq3TQqOAgAANyfA=
-Date: Wed, 7 Sep 2022 03:29:35 +0000
-Message-ID: <CH2PR12MB42157A5295994AACB0D17166FC419@CH2PR12MB4215.namprd12.prod.outlook.com>
+Thread-Index: AQHYwcUXT59FoOeTJ0KI+nAyynxNcq3TNTHBgAAbX4CAAANFdQ==
+Date: Wed, 7 Sep 2022 03:41:52 +0000
+Message-ID: <BN9PR12MB52570D6703F7FFEF517305C6FC419@BN9PR12MB5257.namprd12.prod.outlook.com>
 References: <20220906074822.3885626-1-YiPeng.Chai@amd.com>
  <BN9PR12MB5257F5FC5531B2426C073CDEFC419@BN9PR12MB5257.namprd12.prod.outlook.com>
-In-Reply-To: <BN9PR12MB5257F5FC5531B2426C073CDEFC419@BN9PR12MB5257.namprd12.prod.outlook.com>
+ <CH2PR12MB42157A5295994AACB0D17166FC419@CH2PR12MB4215.namprd12.prod.outlook.com>
+In-Reply-To: <CH2PR12MB42157A5295994AACB0D17166FC419@CH2PR12MB4215.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-07T03:29:30Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-09-07T03:29:30Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: f5de10d8-1021-453b-ba2f-62362a59296b
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-07T03:29:30.0000000Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: f1b03064-cb83-4be2-0c05-08da90812fc6
-x-ms-traffictypediagnostic: DM6PR12MB4156:EE_
+x-ms-office365-filtering-correlation-id: d937441e-175c-4f70-45ed-08da9082e708
+x-ms-traffictypediagnostic: SN7PR12MB7023:EE_
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: bwreetIEJC7L4Ew8P6fZxRw97MksQmauhndiYxC4SjTEtYxkgpogojwjnVj2wAcevUfCuycSe9SMRvdFUPlBRivHV5N2ZndKyQ/o4bfkjJGhiCgPWsEQqGmF/X9grQTnfskiVbwHOK6L8Y0Otua94J1SPyOEdz50IDo3htjg88Cme1QvfHTYVLuGPyH4sFzS9y0MUfXmz5+i1w3mxapVMIQ37IoxqqB3bmue5l1xeGoPd+XqfOTkPgj2uk0M2VXQ5/Q5Al0f5OuTpc90SpNsVKcImR3O6KWwoDT2dmlkMlUe0H3MRDXftrRkisoJ4kzjm0PMmgq8BYoMsjtM+vPSqvR9JYPZuQAX4PYiljKJ3mveOgUsr7jHcs1uLHm28UnqqgH9m4QDR9kX6+AS62KO0hSJ2Mqg4YPwleL0qbUOV8ER3yqDF19gS7DuQt2FU2h42CAvxzZHjM/s5DP3AmE7xwtkBkFng/+SZEKyQ2RL20IExh2TbMg8B6aO3/J/qyJnLZKR5sNL+Tdi4Ai1RfeH2NJCUlLJWai/1aM157qqEVCCm9QoSIXVDu2chAD1dD60fGNw7CHeYVwR95z6ENv5vQCN46xI/Qf9v7S6u+Ym8YY4TAW1pGpDSiHicnKzN6DMHnlJzM83tIJhK29gIvB4RtjxI6PSEYtPXEjzKhmMpg4oDXKCWxOIb5YV2A0p4eagBZlcQ7wW01aD9cEZA40x3y+3/gDJar6GpdMMHnL7VY5PBLHKZNEB5yxg7aaYokpgOnxjocOLpAqRaqk425n8TRA9Lamu+iQnbtDBevxojOQ=
+x-microsoft-antispam-message-info: oulxFYcr7JuF0zR0Dz7LF0gKlSL5zcHi8OQHthPOIIvoZ2x0T8fK/lNm3EzP4Ec56w9jsHayhhgye1Dp5AgwdRtGZNMf1HDw22YTXHFoVdTDd3oc8nmqxuWd+C8UtnLpBx3idtsSlaJBD8eujXM9/f7YmA1e7mRZnGsYJxMUxrGpJUqTz/u3DKroJh5HCm/jnkseG9OMhYp+BVkLVvh3o42TIzMnB+rVw3sLejYxPmXMWlJ67Jjo46P5bCWeCGw3rWoxTWML+vqklK+jWHX/7junLk9NHEHd/tXkBbjm7XOqRcXT1YDGei6us4WCVp/tbYeNt+O6gLMzc9Gazyp0+W+IHEs3JcY7mDmhxubCWA8/6185EmivCCFc7JlcQ6wzBVnxsWHsot+Nqr0O0dCBE+1tvpd7uaCiyWC0HkmTKaGzK5EIZv5qMGktfyIYY46BLVYjbU/KkDMxGzh/KhJffxgldrLMEY4BSOMkigEUezmFwCgZOUwkHgkgSTNnFDmr6ZrVtYvsQq1WAJkYW1PLExj9IRbwKEGlpVoISzENfJaDB9cSzpgMsRmbzeTRSF0jwH4vvWMGW0z4Wp5z1UQbra4+tzbLUvr7k0UZP1AddmnlsbG7xJfTFpzttX8ykPVgQnzV1fdb5ZVwEdJrTVT0QrL7ckj/UqxfNw5S2g2lj4EFigZEbxNAtArM8Q4H/hAHY6mVHQVHhuYUnbFEN8gWz/zuYDxOCo7MU1RdGS4GrUSW75AcJz61bnga8jJBlpwSuFc4jmdX3n/CvS+qeVnR1X6juVdeWcid7Xn/qkAhyfs=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB4215.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(39860400002)(366004)(376002)(136003)(396003)(52536014)(54906003)(110136005)(38070700005)(55016003)(83380400001)(316002)(71200400001)(186003)(26005)(122000001)(41300700001)(8936002)(33656002)(478600001)(9686003)(5660300002)(2906002)(53546011)(6506007)(4326008)(7696005)(8676002)(38100700002)(66946007)(76116006)(86362001)(66476007)(64756008)(30864003)(66446008)(66556008)(473944003);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(376002)(39860400002)(136003)(396003)(346002)(366004)(4326008)(8676002)(91956017)(66446008)(110136005)(66476007)(66556008)(76116006)(38100700002)(64756008)(316002)(66946007)(55016003)(122000001)(5660300002)(2906002)(8936002)(54906003)(30864003)(478600001)(53546011)(9686003)(86362001)(33656002)(41300700001)(38070700005)(6506007)(71200400001)(26005)(83380400001)(52536014)(7696005)(186003)(473944003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?9Kzzg/zyL0467ZBH4BM1U8mf2wkjfMLHZ+FT0Wb+sr8wzZmqH12yyhf/oVp1?=
- =?us-ascii?Q?z/jjq2XKX1WJ5RoAGcj9ntNvy5+pmgjD0gkpAEI/AKCzb3daro45kyQs6r9a?=
- =?us-ascii?Q?M5olVXpuwUVmthJcD46PA8qlxVMUt1YpeDCArXJy0No32/flWMd3emwGxIH9?=
- =?us-ascii?Q?51wbntcSYInty1eZZiSZJc9/OOqXU0qT+bGuUOfnY7knWYqkcqn5otPW4Mnx?=
- =?us-ascii?Q?QzlMhJnJ9uoCqb/zPZ75IRWaYvplTaJWsNq9GvAUEb0alOR5MqJ1CVaA6kof?=
- =?us-ascii?Q?Vwr9K/ZfyN0+8cpvIJDcerYmZoEcWa68LjewAvFJqbnU41c5TccWC7zg+KbN?=
- =?us-ascii?Q?cZlWyhNWsa4q3VogoKpH3SpGGfj08EIU+ju9w7Q5Gsi1YS4mSeiCkOVUkeV+?=
- =?us-ascii?Q?VyqB+hBPkztxogcI/L7wBwjyyu2NxijG3uFul+FM7WDA6eU5iL1lHRTear6C?=
- =?us-ascii?Q?MmLxYY7Xu4M2LdAs8Y/bd35DyuQGTxthZ+6Xy1G1BspQsqJIi0cV0/3YfB84?=
- =?us-ascii?Q?GO09Amj+jTK1agWwHLCx2nJLkyF9uJq2IXhGqjEK4GiHOTNA12p0DYYCHEf5?=
- =?us-ascii?Q?a0+riyRiurcQYJ3EmKBUDwGz0ulRpLkzQqbwkxjKKMuf0/vAWUKpbNs76dka?=
- =?us-ascii?Q?/7f5QuNVv/VuQTUt859PjJwGSy/QYfrIk4UunRrN3B5LPCbkSIAimT3COlpz?=
- =?us-ascii?Q?rD1tDCyDtWdPurKXd81/Ne63BwLgW2BjbviRJ2ah2IVfjQbSz2f9F94CX8AR?=
- =?us-ascii?Q?dnzN3F9U4OygYlPLyKjJ8Sa2t7QIux2kp9O+UZQk8Hsn6CzjXIOq8SsriMAT?=
- =?us-ascii?Q?gn61CzSzD3tU70Z80Js9FcDgKTVImhZG6SKPkwuxRocBFBpsrIT4h4gfbD9m?=
- =?us-ascii?Q?qsWHPe5E4qLSZ71Kc4GeLBzNMaYeWVLFJJSmvDUagsqbyRTPvnbJTT4pElYQ?=
- =?us-ascii?Q?TyINzDAbi3/keo8trA0qj/AOfAKkkMsc0Lcm6b8Qqm0fgakLcngW0ChqNoQA?=
- =?us-ascii?Q?J23h/4c5C8GsAFcTRbECTjbaS6D4h8aiHj+wXn41aTtYf/iIHgTEqwZktFHf?=
- =?us-ascii?Q?gbX+haox8zQ1K4b2LHp9ERaWZQgJWeydB4NoYroO+c7SGRTXNftnvbOmyFJN?=
- =?us-ascii?Q?QxRprPcap6O09mq5xib6GafCGjmyPbB0r6Xb5PtuA8T6CC4dNEZaKuV2VGCP?=
- =?us-ascii?Q?ZC51GoERb6RgRc27kM5CG0XXLJ558IqBciIFQfuXmR8wMTblpDGA6oVbNytc?=
- =?us-ascii?Q?SGbrvrTmNwfqmeH8lqdWnQj8yrqWMLSZTwmdx1lvB376c/nSbT4piyqDV6sl?=
- =?us-ascii?Q?FwaAai5qnJWaPcQoufL8efAkzmgb50RKlNOLMp0ON6IYS8K/51onHlrIwgn3?=
- =?us-ascii?Q?2iuKJg5tV16EqH2B8kK5R8ia4OwpddVKPh2bsjdoceezskymQKQxL0uNVDTN?=
- =?us-ascii?Q?MWifHcP6GET0QiHPoTI0UMuN75LZ9JimWNJSf0DZ0a/LpiVO76BZXCs7lA8X?=
- =?us-ascii?Q?Ow++xAC0CcLo/E+pivrVXeigWt1A2juwY/1VDkJV0BE+d4xirHBMFrT07FNw?=
- =?us-ascii?Q?Zh39psF1S1SKuEXEgCJIKUWZbpQ9czEw2JlHtlg3?=
+x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?Eh8z+Si/DslIa0Xs5+GrFpR8cYDdOHA2JjIUwDhKXiS7XfABG7V0db2Y?=
+ =?Windows-1252?Q?Il1321z3VF/OAoOH8ifkhaUSuwLT0dsI3RBKYH2962/kQdcj2Br9z/hg?=
+ =?Windows-1252?Q?2P2J/S2OMjyC9eh+gSgvQti9pTJc/ewEgWND2Vf/uewqaAqyWhoY6yfW?=
+ =?Windows-1252?Q?d3C/soUFLt3PPAVRkb5Qpe1wR45zSr6eAz47f9oafy/viQgTZpl23lUk?=
+ =?Windows-1252?Q?rwgi773+mXx764eaat4Tg4piVlTEG76i9+WI94xHEjidZVBuxLnArtC5?=
+ =?Windows-1252?Q?XvYJYwV6aMvqwEg2grN/GO7Wlh8dBq4BJO2QpQI2PlEScckmcwL78gyL?=
+ =?Windows-1252?Q?rSBnq9FicdyT3jGdKXDMww+yu+F2xS0Lzot7R4ZlCbUHuPSbCt2HG2PK?=
+ =?Windows-1252?Q?KHTlvPfvWzwLOhl+Hacq7Yhd3GJR1uc7cjrcT0NyigaCqe9AUM+7H9f5?=
+ =?Windows-1252?Q?KTz7saeZWRVBTyPixSSltG5GH1gZPYVBVGrNDMfCci6MLNndUfHwDQzQ?=
+ =?Windows-1252?Q?pNtcqQ2qk4PalEvbKXX55/St6beTg9RJsmntRbc/xfp9Ef4ICJQTFO+7?=
+ =?Windows-1252?Q?5klluLGr6VOU6YUEfqmeeR3nbq4qmsx4u98e1vndYP2tYzw8HXFYX41a?=
+ =?Windows-1252?Q?Fe/M+j+FKxhaArzsLUCZ8Yqh2xORdklDvq/IXAKsfxHFWaHeWmzwlWyy?=
+ =?Windows-1252?Q?XwTvR4P/JnuFDTx0joyB/U/okxxrUMgfctPe6Z8so+vgrioKW3iP2IcL?=
+ =?Windows-1252?Q?ASg5YdNtXCXedQVIhO7O2Bu7CQddiIWFg5FuGLOckWCcpO7I0zxF5LAu?=
+ =?Windows-1252?Q?/gr/KTC+a8KPMQ0X+MfuyIBRHAiPGK+gp9gJc0LnpwFzKy5eLZRw4W82?=
+ =?Windows-1252?Q?bZpcRcu9ydA6Q0wBuqo8NxUsZZacxKs1fV05a6IpnEdb+35XiAHb72oA?=
+ =?Windows-1252?Q?vtUonhPqOVQF1JsGofDaWKJGTOQBsYtkOYWxW/b9Ml+SXzA+6vqG3cJ2?=
+ =?Windows-1252?Q?QKRBMYJUuySylDxq8tJLY4dwXWM2Ps6EmKjUHW0LCE/m58s+q+Iv10tf?=
+ =?Windows-1252?Q?J63Guc0ytuXD//5eiCy6XeeJDNSqVUo4vHTjX9GEtdmV1TNF6F/vBirb?=
+ =?Windows-1252?Q?GNwayp+ZW5J/Lev2PloiqZ3ohWkKhTJVstL7azz0bZMlSqfsFupnhaxs?=
+ =?Windows-1252?Q?936Qtvnn7b3x4pbxxmLam0bVi1oyQK3Rw3EGP5SHAEuFEcqyhmabbx1B?=
+ =?Windows-1252?Q?awg/umY8dl+9U86vFjJCWc5FwbRBNnrGC1s9NAC8b1VOTSvfo+nbyCmR?=
+ =?Windows-1252?Q?vYAhob3r39m8SefOoZ8YKn1GZiJdWm9MZXi0Yl1ZzgKMx0A2pdNjaa5S?=
+ =?Windows-1252?Q?Ioh+DTkO6M08wy04f9xy9Ai9K6G1NGYVCLS0avAF3Bag3TlVJRVoxjjx?=
+ =?Windows-1252?Q?1oqAfQ+Vp/vRWjCimfuY2vBupkQBE6hd7+VT9O/VomsAkMmwUhb931rT?=
+ =?Windows-1252?Q?MfQsRBafADj2yw/NMgGDlTXIrzGbV2Ua4B50vRdr25mn466HGrZSy6/t?=
+ =?Windows-1252?Q?30I42L58pjCE6B6M4Dbw1U+b8Duo4P7C/PnHECpZxUzeMC0dhoHBibGa?=
+ =?Windows-1252?Q?9yNn2cZzTpmoTXTzb8gfLNxW04T38ihf3cplkuoGWeGKzPzVcMshdHjG?=
+ =?Windows-1252?Q?toRRN1iiZEDeXLU+WJ0jr9pj4/mnqZV9OsY+WlEjNw2bjfTOw5vSEA?=
+ =?Windows-1252?Q?=3D=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_CH2PR12MB42157A5295994AACB0D17166FC419CH2PR12MB4215namp_"
+ boundary="_000_BN9PR12MB52570D6703F7FFEF517305C6FC419BN9PR12MB5257namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4215.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1b03064-cb83-4be2-0c05-08da90812fc6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2022 03:29:35.2410 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d937441e-175c-4f70-45ed-08da9082e708
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2022 03:41:52.1948 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PYqPtrcJeQmjuRlwPDESRO0ucGimN1ieVHqfLFWKNfQaOaZSl9MkEZ5wWg7f7CSdHNo8ezfDfYHDfaZ/mftaIQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4156
+X-MS-Exchange-CrossTenant-userprincipalname: 8t5PxGbRN5MoLOl7pOA/uxjAXPt+6sERsnNbPP0LRtmAZuKuYI4EwngwAAOxP4onMUjlxKQc7kVw2fEpjsfCvA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7023
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,9 +132,26 @@ Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Wang,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CH2PR12MB42157A5295994AACB0D17166FC419CH2PR12MB4215namp_
-Content-Type: text/plain; charset="us-ascii"
+--_000_BN9PR12MB52570D6703F7FFEF517305C6FC419BN9PR12MB5257namp_
+Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
+
+Thanks.
+
+Can you please share more details to help me understand the sequence adjust=
+ment in suspend?
+
+Regards,
+Hawking
+
+From: Chai, Thomas <YiPeng.Chai@amd.com>
+Date: Wednesday, September 7, 2022 at 11:29
+To: Zhang, Hawking <Hawking.Zhang@amd.com>, amd-gfx@lists.freedesktop.org <=
+amd-gfx@lists.freedesktop.org>
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>, Wang, Yang(Kevin) <KevinYang.Wang@amd.c=
+om>
+Subject: RE: [PATCH V2] drm/amdgpu: Adjust removal control flow for smu v13=
+_0_2
 
 [AMD Official Use Only - General]
 
@@ -172,10 +186,10 @@ _0_2
 +       amdgpu_device_gpu_recover(adev, NULL, &reset_context);
 +}
 
-This wrapper is kind of confusing. Let's keep amdgpu_device_gpu_recover as =
-the only entry point for recovery handling. If possible, please drop this w=
-rapper,  initialize reset_context and call amdgpu_device_gpu_recover direct=
-ly
+This wrapper is kind of confusing. Let=92s keep amdgpu_device_gpu_recover a=
+s the only entry point for recovery handling. If possible, please drop this=
+ wrapper,  initialize reset_context and call amdgpu_device_gpu_recover dire=
+ctly
 
 
 +               /* If in_remove is true, psp_hw_fini should be executed aft=
@@ -512,17 +526,16 @@ index 5e318b3f6c0f..6be90076c9f3 100644
 --
 2.25.1
 
---_000_CH2PR12MB42157A5295994AACB0D17166FC419CH2PR12MB4215namp_
-Content-Type: text/html; charset="us-ascii"
+--_000_BN9PR12MB52570D6703F7FFEF517305C6FC419BN9PR12MB5257namp_
+Content-Type: text/html; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
+hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
+fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
 <meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
 <style><!--
 /* Font Definitions */
@@ -539,10 +552,10 @@ xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
-	{font-family:"\@SimSun";
+	{font-family:"\@DengXian";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
-	{font-family:"\@DengXian";
+	{font-family:"\@SimSun";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 /* Style Definitions */
 p.MsoNormal, li.MsoNormal, div.MsoNormal
@@ -553,10 +566,6 @@ a:link, span.MsoHyperlink
 	{mso-style-priority:99;
 	color:#0563C1;
 	text-decoration:underline;}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
 p.msipheaderdf3d92d6, li.msipheaderdf3d92d6, div.msipheaderdf3d92d6
 	{mso-style-name:msipheaderdf3d92d6;
 	mso-margin-top-alt:auto;
@@ -565,6 +574,10 @@ p.msipheaderdf3d92d6, li.msipheaderdf3d92d6, div.msipheaderdf3d92d6
 	margin-left:0in;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
+span.EmailStyle21
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	font-size:10.0pt;}
@@ -573,37 +586,59 @@ p.msipheaderdf3d92d6, li.msipheaderdf3d92d6, div.msipheaderdf3d92d6
 	margin:1.0in 1.0in 1.0in 1.0in;}
 div.WordSection1
 	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+--></style>
 </head>
 <body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
 break-word">
 <div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Thanks. <o:p></o:p>=
+</span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;color:black">Can you=
+ please share more details to help me understand the sequence adjustment in=
+ suspend?</span><span style=3D"font-size:11.0pt"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Regards,<br>
+Hawking<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><b><span style=3D"fon=
+t-size:12.0pt;color:black">From:
+</span></b><span style=3D"font-size:12.0pt;color:black">Chai, Thomas &lt;Yi=
+Peng.Chai@amd.com&gt;<br>
+<b>Date: </b>Wednesday, September 7, 2022 at 11:29<br>
+<b>To: </b>Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;, amd-gfx@lists.free=
+desktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc: </b>Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;, Wang, Yang(Kevin) &lt;Kevi=
+nYang.Wang@amd.com&gt;<br>
+<b>Subject: </b>RE: [PATCH V2] drm/amdgpu: Adjust removal control flow for =
+smu v13_0_2<o:p></o:p></span></p>
+</div>
 <p class=3D"msipheaderdf3d92d6" style=3D"margin:0in"><span style=3D"font-si=
 ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
 l Use Only - General]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
+/o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">OK, I will update p=
-atch.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
+atch.</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
+/o:p></p>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">-----------------<o=
-:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Best Regards,<o:p><=
-/o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Thomas<o:p></o:p></=
-span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
+/o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">-----------------</=
+span><o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Best Regards,</span=
+><o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Thomas</span><o:p><=
+/o:p></p>
 </div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
+/o:p></p>
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
@@ -617,15 +652,15 @@ top.org<br>
 <b>Cc:</b> Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;; Zhou1, Tao &lt;Tao.Zho=
 u1@amd.com&gt;; Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;<br>
 <b>Subject:</b> Re: [PATCH V2] drm/amdgpu: Adjust removal control flow for =
-smu v13_0_2<o:p></o:p></span></p>
+smu v13_0_2</span><o:p></o:p></p>
 </div>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 <p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only - General]<o:p><=
-/o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
+;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only - General]</span=
+><o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
+/o:p></p>
 <div>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">+static void amdgpu=
 _device_gpu_reset(struct amdgpu_device *adev)<br>
@@ -646,18 +681,18 @@ E, &amp;reset_context.flags);<br>
 +<br>
 +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_gpu_recover(adev, NULL,=
  &amp;reset_context);<br>
-+}<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
++}</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
+/o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">This wrapper is kin=
-d of confusing. Let&#8217;s keep amdgpu_device_gpu_recover as the only entr=
-y point for recovery handling. If possible, please drop this wrapper, &nbsp=
-;initialize reset_context and call amdgpu_device_gpu_recover
- directly<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
+d of confusing. Let=92s keep amdgpu_device_gpu_recover as the only entry po=
+int for recovery handling. If possible, please drop this wrapper, &nbsp;ini=
+tialize reset_context and call amdgpu_device_gpu_recover
+ directly</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
+/o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
+/o:p></p>
 <p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
 ize:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp; /* If in_remove is true, psp_hw_fini should be execu=
@@ -671,16 +706,16 @@ bsp;&nbsp; if (adev-&gt;in_remove &amp;&amp; (adev-&gt;ip_blocks[i].version=
 -&gt;type =3D=3D AMD_IP_BLOCK_TYPE_PSP))<br>
 +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;</span>=
-<span style=3D"font-size:11.0pt;font-family:SimSun"><o:p></o:p></span></p>
+<o:p></o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Can you please shar=
 e more details to help me understand the sequence adjustment here?
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
+</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
+/o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Regards,<br>
-Hawking<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
+Hawking</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
+/o:p></p>
 <div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
 0in 0in">
 <p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><b><span style=3D"fon=
@@ -699,7 +734,7 @@ hou1@amd.com">Tao.Zhou1@amd.com</a>&gt;, Wang, Yang(Kevin)
 t;, Chai, Thomas &lt;<a href=3D"mailto:YiPeng.Chai@amd.com">YiPeng.Chai@amd=
 .com</a>&gt;<br>
 <b>Subject: </b>[PATCH V2] drm/amdgpu: Adjust removal control flow for smu =
-v13_0_2<o:p></o:p></span></p>
+v13_0_2</span><o:p></o:p></p>
 </div>
 <div>
 <p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
@@ -1173,11 +1208,11 @@ sp;&nbsp;&nbsp;&nbsp; return;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.int_hwmon_=
 dev)<br>
 -- <br>
-2.25.1<o:p></o:p></span></p>
+2.25.1</span><o:p></o:p></p>
 </div>
 </div>
 </div>
 </body>
 </html>
 
---_000_CH2PR12MB42157A5295994AACB0D17166FC419CH2PR12MB4215namp_--
+--_000_BN9PR12MB52570D6703F7FFEF517305C6FC419BN9PR12MB5257namp_--
