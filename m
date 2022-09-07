@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ADD4C38145
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 18:13:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0B82C54EE9
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 18:36:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D9D210E816;
-	Wed,  7 Sep 2022 18:13:14 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2044.outbound.protection.outlook.com [40.107.101.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0525110E80B
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 18:12:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA4B010E82F;
+	Wed,  7 Sep 2022 18:36:45 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2058.outbound.protection.outlook.com [40.107.102.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C804410E82F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 18:36:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PIYeDAB8tCj9HZptAlikP/dIVGMTCSidp7B4U1MAz1qa/rl+Orq/6E2QE42K+GxFirxXZO6olBmq1XJNIpI/WjxTAiYV078e7BKcBE/P8m0yNg8h82717ab70pLMT3P2IEI7Zs6+GUh2f8EsAGZL9yHYRrBkkBzsxqsHGvpHA2skRuVoWCL7YaYDVbqbH/JOPaWKPn6tPPcui4oHDnG41k9Ed/KeowNJ8xFPSIcnJmS7cI2xdOBpQzc3TsmzNuCVOfVNhVqJ3FaWtPgsgJHEolo+MWwKHcaDV4+lcAFhWD2d5CW+54SIYaA/x+xVgsrb1CGlnRj2efrus8q8pHXUJg==
+ b=RW5cvuOv0BFk1XkzEYTes1hB8Jq9SRQe6dsJJVmHTTO2wjQwMA41MhFCvPnXKQQrqbEWoKLrTGR6GS2pykaAqHqqVlqsuj/o+z6tD23030iTUGOO1xlgH4W1lUsKyzlBoYdCIUzphy7KWuebuX3MWEHlwOkxYn9qweNv4FCEHoEPowvOV0sj7Vh0gBcIgCqUzjrOEQ8JI1I1B1Cz1rMU3Sp3pb+2Fls9RefwF2rln9WOF0a0G5P1384M8GxOFA/rbA8RALYbyGHytBJj6g6M/oqmcvVY6y3vk7q63Hjtg+a3ZzFT05uh2yDwAzwA3FJp/jXGnQ0eL0AaUmgnjIwk9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wiiGwzrkPbpHmDuFlnAP0vTD7yQtV3kTd22MogIMHZQ=;
- b=biMe1FjSKaTGmtHGR0/birybmszhyTsVLxN2tEEcM6bYRGhnmwken3lTBg0G955CVzEiTSIkq6k+0ovU2bZGYpAowwcDI8jom8Ayw/nvfM5PLwKWTI5W8/glnuX6/PQM+yILtHocn6+6iz05KKngEoPE8hpnT/vI4MmdknsCji2C8eaY+fziRbOwalc3+oL6RvWXtKLzwp2NLww9w7B0eFF/AUfOe8nkD6p1j9SyNQ0oBOJVYN+3g6kXoVDgJdfTMYBXaqsV9BlZOl9vdmsfjHiN5BOoAdNL/t09+YIxODj3vn+fUHwU5rzcSN4Ld+azVzA0JFZH/8Dh2wg8MIhyYA==
+ bh=a7u4lKYIRETNehYzCcg60K79kNUfkBwZzGNz24txzi4=;
+ b=KPwlwJGbpZHXJtoXBL8i9mywWmlEPmh4yRReCTzqS+srCS6AW2Wi+rAEsSVeIF2oZKXUu0rXHnsdRy7wK9M/JmX1xeW/rw5bDzW6zg+DDB248aF9pzw5uJYOF27uHzOqvxsuqaFU3rGbqDB2Cot65kMOLBMW7IPWdcCM6NT6wm1BWrkJ/+DPeUp+oZdWLvcr4uJmS4VOmAJcrgFpEMmc9X5swZ3cGsVKHHwXCd+e5CJaHCL6SXvDI87z0oCCuxWl4obqcOf4L0VTLdZpfBZ/j8pVsNXm2Fzg1ss10pZSXjBNmYj1muTaa6JyKeMsthFUuzgkqP7j5e3z7tJk4eUTcQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wiiGwzrkPbpHmDuFlnAP0vTD7yQtV3kTd22MogIMHZQ=;
- b=JiKPUtDKXgKnCsZH8AccUVI0tWomBeZ6yj3asxVfaeiMrzSBWpJ4LKwTmZbaMvSVSHaD0159njeZ4v/yvFVrtPMcBTcUE0bRcM2BndfOUAOwcZx+8fwLAKkkJkEP5yc3pUwCPN3NJlZLBNRHxUl9FoTDvEwzVmBfWAQ+0JS0m3A=
-Received: from DM5PR06CA0074.namprd06.prod.outlook.com (2603:10b6:3:4::12) by
- DM6PR12MB4372.namprd12.prod.outlook.com (2603:10b6:5:2af::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5588.10; Wed, 7 Sep 2022 18:12:38 +0000
-Received: from DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:4:cafe::d) by DM5PR06CA0074.outlook.office365.com
- (2603:10b6:3:4::12) with Microsoft SMTP Server (version=TLS1_2,
+ bh=a7u4lKYIRETNehYzCcg60K79kNUfkBwZzGNz24txzi4=;
+ b=wVfMU1+Cl/oh0rrpllZA8E5NtkSXGh3p0dW5Lt1v/odCa47+jQxLlNa5CvDwIwLjuo7y+tYZyQWn5/+3Dk4Iv1jejrUp1bo29rKwsYjFKsESXFLxHAzaDe7PvqIdZI6vIOHlQsM0fgN/QVTwuBGo37WrFJnXISdNGAxiyDnWdu0=
+Received: from DM6PR04CA0020.namprd04.prod.outlook.com (2603:10b6:5:334::25)
+ by DM6PR12MB4499.namprd12.prod.outlook.com (2603:10b6:5:2ab::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.12; Wed, 7 Sep
+ 2022 18:36:39 +0000
+Received: from DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:334:cafe::f4) by DM6PR04CA0020.outlook.office365.com
+ (2603:10b6:5:334::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14 via Frontend
- Transport; Wed, 7 Sep 2022 18:12:38 +0000
+ Transport; Wed, 7 Sep 2022 18:36:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,49 +45,46 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT029.mail.protection.outlook.com (10.13.173.23) with Microsoft SMTP
+ DM6NAM11FT057.mail.protection.outlook.com (10.13.172.252) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5612.13 via Frontend Transport; Wed, 7 Sep 2022 18:12:37 +0000
-Received: from promo.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.5612.13 via Frontend Transport; Wed, 7 Sep 2022 18:36:39 +0000
+Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 7 Sep
- 2022 13:12:36 -0500
-From: Pavle Kotarac <pavle.kotarac@amd.com>
+ 2022 13:36:37 -0500
+From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 20/21] drm/amd/display: Fix register definitions for DCN32/321
-Date: Wed, 7 Sep 2022 14:11:59 -0400
-Message-ID: <20220907181200.54726-20-pavle.kotarac@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220907181200.54726-1-pavle.kotarac@amd.com>
-References: <20220907181200.54726-1-pavle.kotarac@amd.com>
+Subject: [PATCH] drm/amdkfd: Fix CRIU restore op due to doorbell offset
+Date: Wed, 7 Sep 2022 14:36:24 -0400
+Message-ID: <20220907183624.26018-1-rajneesh.bhardwaj@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT029:EE_|DM6PR12MB4372:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ab8ed2c-5ef3-4b08-9284-08da90fc8be8
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT057:EE_|DM6PR12MB4499:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9100506a-1526-4d90-0fe6-08da90ffe74f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Jo31HsUi/D5yZy/JcCY/DwirtYkHqRT+t8M6SdDWpDUJ6iOEnSxJVWUetuDlTfI0P3ixeKS5FP3HdC8mWGd0AxpktFoyJPna0iCrof+xVZlDdR6bF+RiKKDTcE31uzsciDASbOMb5tnQw3f06OpEScNnlHDNA5I4W12Lr1/HRVOPX0+bgG7W1eMPMBVwgujB2Fs9AGwRnKnr3WJkYOu2qTPmunYhl4z7653c5o6+xKDxuPpd4UWyuKQiRhgsY3qv0ZGoZJ2oZgcbXVqJZa7WyOwn4Ap03zRdw4sUfIECUMGExfMtTouJynL3f9qbxMV4R+Lw8Qu2SukQh1wtu7+84oZnacU/O7eCzg9ukeUn96P1BvlwxS3qnd2JxjfJDXtuqDkekkEhFGaphZ3nekA1qRlophfDdrFB4MoIxJf+EvLQw6IC6AGMS7jCzJAGe6Klfv5C73hMQtzcu7tcMXF2ulzcOBfejo+peIBdkbWt+enP4SJU2NLasTgKmnGYsFo6Z8uRXhigcAUX6sh6gp4IDE8ZnpbV2ixoS1hxNBiFRiJ5nT28UFO+tClQbbd2wH098LGqtLSsj5B4eiyJzliONMBT8JDibTn5z0j1CrAfXCf9jAacLdOUQr3uhpa5VEmXfauvogjwHxIuRVlvl9LBGG7UROwCUWNGYilHnKfgGGXtKsCUI1VffsMM4WDdTvMgXqVoZXsaSY1FkyV7s/ifh74spNy8ybk9q0vJpisWx6JT40KAG4+oexTWXXFO4c9x3+0mkN4O4AgWK5KV98Q9dooZW+MJv8A8Cjm3NSg99QZN3M5OnENqrnHVObmHAHLZ
+X-Microsoft-Antispam-Message-Info: KtAB4rwfrMtDW5vQFaiTWo3tndjt1jeUIYzKPZeJFUK2ZxvfVhKvMx1thiny6fYEPBgFGGOOtqeI4KnwRH3QDRI1DYsxzMrOK8LG8IH5XNijf+7ll/hIANEF0oDcg3oew4FxkzQFPAhoN0gVBfrSi1k2pQHf4FmI/e1oT5UFJZG6otmmraAvh4bi0zS5AbDHhPofktoAMhj9TIL96GdzH+ujgHF+Ilt2C3AtDHymr7icdnSwZvB8fiVjUlUanGCqHcGpcBZ0KOdWID2r67iUbA3BlLxN0f4NCssWeP9SYoiw8wJ2B1hj6zSIdwzvnEbwHzqAMJju6DeAe7VKGNMlUz4ZbtsefEsY0IUfAMB2L1c1tiQp1abQXWl6EKn/ZW62Qr8/uXCOSWE4mfw2DB/OerMR7kOF17saMjULVxsH/3C9hu7KKHZBQ/4p5Tm9580xwNyKAJNtLl6dkck4rUliu6KQhMhX9bjqVdcfdhSo+C7RbQogRhFq8zAsGrvGV2XwSZVy+UtdO2Kxo2cKOLOMndrMO7H8MZILKZdK8wPfTxy9DJJU6UrVweisXU0LXe0jRPkUB/2IY9myAVpktjeEacWVcOYq3MHSOTw9ITl/Zo2Hxz8/Voo/PvM4MI3X8Ue0Oe6rvEoYO+vy98OE7xBwJEPgBAZbz863Ynb9aVoTGHmKCkseqAz5REv+b0WtxiN17zVoUJbLlKT9IYjmarG/htsOuDHtU61PQ95J7Y2l2hOL211nfZOHuYuJhuDtx3e+2foxPZ3Q8Tjy88ITGtjfDz+dERFpHQA2do4ck4kSbb9bMvTOWfDtAL/QF/4TKBiL
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(346002)(136003)(396003)(39860400002)(46966006)(40470700004)(36840700001)(36860700001)(82310400005)(426003)(47076005)(2616005)(83380400001)(8676002)(30864003)(5660300002)(6666004)(8936002)(2906002)(16526019)(70586007)(44832011)(36756003)(70206006)(40480700001)(356005)(6916009)(316002)(54906003)(478600001)(86362001)(40460700003)(41300700001)(82740400003)(81166007)(26005)(1076003)(4326008)(186003)(7696005)(336012)(36900700001);
+ SFS:(13230016)(4636009)(39860400002)(376002)(136003)(346002)(396003)(36840700001)(40470700004)(46966006)(426003)(41300700001)(7696005)(26005)(478600001)(6666004)(83380400001)(2616005)(336012)(47076005)(8936002)(186003)(44832011)(16526019)(5660300002)(2906002)(6916009)(40480700001)(1076003)(40460700003)(82310400005)(54906003)(316002)(4326008)(70206006)(70586007)(8676002)(82740400003)(36756003)(81166007)(86362001)(356005)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2022 18:12:37.8842 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ab8ed2c-5ef3-4b08-9284-08da90fc8be8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2022 18:36:39.7031 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9100506a-1526-4d90-0fe6-08da90ffe74f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4372
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4499
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,351 +96,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+Cc: alexander.deucher@amd.com, Felix.Kuehling@amd.com,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Recently introduced change to allocate doorbells only when the first
+queue is created or mapped for CPU / GPU access, did not consider
+Checkpoint Restore scenario completely. This fix allows the CRIU restore
+operation by extedning the doorbell optimization to CRIU restore
+scenario.
 
-[Why & How]
-Fix the instatiation sequence for MPC registers and add a few other
-missing register definitions that were ommited erroneously when copying
-them over to enable runtime initialization of reigster offsets for
-DCN32/321
+Fixes: 'commit 15bcfbc55b57 ("drm/amdkfd: Allocate doorbells only when needed")'
 
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 ---
- .../drm/amd/display/dc/dcn32/dcn32_resource.c |  27 +--
- .../drm/amd/display/dc/dcn32/dcn32_resource.h | 216 ++++++++++++------
- .../amd/display/dc/dcn321/dcn321_resource.c   |  24 +-
- 3 files changed, 166 insertions(+), 101 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c               | 8 ++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c              | 4 +++-
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 9 +++++++++
+ 3 files changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-index 0b94a783d285..11f1435b8c07 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-@@ -468,22 +468,17 @@ static const struct dcn20_dsc_mask dsc_mask = {
- };
- 
- static struct dcn30_mpc_registers mpc_regs;
--#define dcn_mpc_regs_init()\
--		( \
--		MPC_REG_LIST_DCN3_0_RI(0),\
--		MPC_REG_LIST_DCN3_0_RI(1),\
--		MPC_REG_LIST_DCN3_0_RI(2),\
--		MPC_REG_LIST_DCN3_0_RI(3),\
--		MPC_OUT_MUX_REG_LIST_DCN3_0_RI(0),\
--		MPC_OUT_MUX_REG_LIST_DCN3_0_RI(1),\
--		MPC_OUT_MUX_REG_LIST_DCN3_0_RI(2),\
--		MPC_OUT_MUX_REG_LIST_DCN3_0_RI(3),\
--		MPC_MCM_REG_LIST_DCN32_RI(0),\
--		MPC_MCM_REG_LIST_DCN32_RI(1),\
--		MPC_MCM_REG_LIST_DCN32_RI(2),\
--		MPC_MCM_REG_LIST_DCN32_RI(3),\
--		MPC_DWB_MUX_REG_LIST_DCN3_0_RI(0)\
--		)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 84da1a9ce37c..c476993e3927 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -2153,6 +2153,13 @@ static int criu_restore_devices(struct kfd_process *p,
+ 			ret = PTR_ERR(pdd);
+ 			goto exit;
+ 		}
 +
-+#define dcn_mpc_regs_init() \
-+	MPC_REG_LIST_DCN3_2_RI(0),\
-+	MPC_REG_LIST_DCN3_2_RI(1),\
-+	MPC_REG_LIST_DCN3_2_RI(2),\
-+	MPC_REG_LIST_DCN3_2_RI(3),\
-+	MPC_OUT_MUX_REG_LIST_DCN3_0_RI(0),\
-+	MPC_OUT_MUX_REG_LIST_DCN3_0_RI(1),\
-+	MPC_OUT_MUX_REG_LIST_DCN3_0_RI(2),\
-+	MPC_OUT_MUX_REG_LIST_DCN3_0_RI(3),\
-+	MPC_DWB_MUX_REG_LIST_DCN3_0_RI(0)
++		if (!pdd->doorbell_index &&
++			kfd_alloc_process_doorbells(pdd->dev, &pdd->doorbell_index) < 0) {
++			pr_err("Failed to allocate process doorbells\n");
++			ret = -ENOMEM;
++			goto err_alloc_doorbells;
++	}
+ 	}
  
- static const struct dcn30_mpc_shift mpc_shift = {
- 	MPC_COMMON_MASK_SH_LIST_DCN32(__SHIFT)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
-index d1e85622dd3b..95f3517724d1 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
-@@ -225,7 +225,8 @@ void dcn32_determine_det_override(struct dc_state *context, display_e2e_pipe_par
-       SRI_ARR(DP_MSA_TIMING_PARAM4, DP, id),                                   \
-       SRI_ARR(DP_MSE_RATE_CNTL, DP, id), SRI_ARR(DP_MSE_RATE_UPDATE, DP, id),  \
-       SRI_ARR(DP_PIXEL_FORMAT, DP, id), SRI_ARR(DP_SEC_CNTL, DP, id),          \
--      SRI_ARR(DP_SEC_CNTL2, DP, id), SRI_ARR(DP_SEC_CNTL6, DP, id),            \
-+      SRI_ARR(DP_SEC_CNTL1, DP, id), SRI_ARR(DP_SEC_CNTL2, DP, id),            \
-+      SRI_ARR(DP_SEC_CNTL5, DP, id), SRI_ARR(DP_SEC_CNTL6, DP, id),            \
-       SRI_ARR(DP_STEER_FIFO, DP, id), SRI_ARR(DP_VID_M, DP, id),               \
-       SRI_ARR(DP_VID_N, DP, id), SRI_ARR(DP_VID_STREAM_CNTL, DP, id),          \
-       SRI_ARR(DP_VID_TIMING, DP, id), SRI_ARR(DP_SEC_AUD_N, DP, id),           \
-@@ -738,75 +739,6 @@ void dcn32_determine_det_override(struct dc_state *context, display_e2e_pipe_par
- #define MPC_DWB_MUX_REG_LIST_DCN3_0_RI(inst)                                   \
-   SRII_DWB(DWB_MUX, MUX, MPC_DWB, inst)
+ 	/*
+@@ -2161,6 +2168,7 @@ static int criu_restore_devices(struct kfd_process *p,
+ 	 */
+ 	*priv_offset += args->num_devices * sizeof(*device_privs);
  
--#define MPC_MCM_REG_LIST_DCN32_RI(inst)                                        \
--  ( \
--  SRII(MPCC_MCM_SHAPER_CONTROL, MPCC_MCM, inst),                               \
--      SRII(MPCC_MCM_SHAPER_OFFSET_R, MPCC_MCM, inst),                          \
--      SRII(MPCC_MCM_SHAPER_OFFSET_G, MPCC_MCM, inst),                          \
--      SRII(MPCC_MCM_SHAPER_OFFSET_B, MPCC_MCM, inst),                          \
--      SRII(MPCC_MCM_SHAPER_SCALE_R, MPCC_MCM, inst),                           \
--      SRII(MPCC_MCM_SHAPER_SCALE_G_B, MPCC_MCM, inst),                         \
--      SRII(MPCC_MCM_SHAPER_LUT_INDEX, MPCC_MCM, inst),                         \
--      SRII(MPCC_MCM_SHAPER_LUT_DATA, MPCC_MCM, inst),                          \
--      SRII(MPCC_MCM_SHAPER_LUT_WRITE_EN_MASK, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_START_CNTL_B, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_START_CNTL_G, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_START_CNTL_R, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_END_CNTL_B, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMA_END_CNTL_G, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMA_END_CNTL_R, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_0_1, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_2_3, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_4_5, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_6_7, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_8_9, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_10_11, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_12_13, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_14_15, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_16_17, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_18_19, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_20_21, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_22_23, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_24_25, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_26_27, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_28_29, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_30_31, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMA_REGION_32_33, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_START_CNTL_B, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_START_CNTL_G, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_START_CNTL_R, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_END_CNTL_B, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMB_END_CNTL_G, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMB_END_CNTL_R, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_0_1, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_2_3, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_4_5, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_6_7, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_8_9, MPCC_MCM, inst),                   \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_10_11, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_12_13, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_14_15, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_16_17, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_18_19, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_20_21, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_22_23, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_24_25, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_26_27, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_28_29, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_30_31, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_SHAPER_RAMB_REGION_32_33, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_3DLUT_MODE, MPCC_MCM, inst),                               \
--      SRII(MPCC_MCM_3DLUT_INDEX, MPCC_MCM, inst),                              \
--      SRII(MPCC_MCM_3DLUT_DATA, MPCC_MCM, inst),                               \
--      SRII(MPCC_MCM_3DLUT_DATA_30BIT, MPCC_MCM, inst),                         \
--      SRII(MPCC_MCM_3DLUT_READ_WRITE_CONTROL, MPCC_MCM, inst),                 \
--      SRII(MPCC_MCM_3DLUT_OUT_NORM_FACTOR, MPCC_MCM, inst),                    \
--      SRII(MPCC_MCM_3DLUT_OUT_OFFSET_R, MPCC_MCM, inst),                       \
--      SRII(MPCC_MCM_3DLUT_OUT_OFFSET_G, MPCC_MCM, inst),                       \
--      SRII(MPCC_MCM_3DLUT_OUT_OFFSET_B, MPCC_MCM, inst),                       \
--      SRII(MPCC_MCM_MEM_PWR_CTRL, MPCC_MCM, inst)                              \
--  )
--
- #define MPC_OUT_MUX_COMMON_REG_LIST_DCN1_0_RI(inst)                            \
-   ( \
-   SRII(MUX, MPC_OUT, inst), VUPDATE_SRII(CUR, VUPDATE_LOCK_SET, inst)          \
-@@ -890,6 +822,149 @@ void dcn32_determine_det_override(struct dc_state *context, display_e2e_pipe_par
-       SRII(MPCC_OGAM_LUT_CONTROL, MPCC_OGAM, inst)                             \
-   )
++err_alloc_doorbells:
+ exit:
+ 	kfree(device_buckets);
+ 	return ret;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+index b33798f89ef0..7690514c4eb3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+@@ -157,8 +157,10 @@ int kfd_doorbell_mmap(struct kfd_dev *dev, struct kfd_process *process,
  
-+#define MPC_REG_LIST_DCN3_2_RI(inst) \
-+	MPC_REG_LIST_DCN3_0_RI(inst),\
-+	SRII(MPCC_MOVABLE_CM_LOCATION_CONTROL, MPCC, inst),\
-+	SRII(MPCC_MCM_SHAPER_CONTROL, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_OFFSET_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_OFFSET_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_OFFSET_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_SCALE_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_SCALE_G_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_LUT_INDEX, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_LUT_DATA, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_LUT_WRITE_EN_MASK, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_START_CNTL_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_START_CNTL_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_START_CNTL_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_END_CNTL_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_END_CNTL_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_END_CNTL_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_0_1, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_2_3, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_4_5, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_6_7, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_8_9, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_10_11, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_12_13, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_14_15, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_16_17, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_18_19, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_20_21, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_22_23, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_24_25, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_26_27, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_28_29, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_30_31, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMA_REGION_32_33, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_START_CNTL_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_START_CNTL_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_START_CNTL_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_END_CNTL_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_END_CNTL_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_END_CNTL_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_0_1, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_2_3, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_4_5, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_6_7, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_8_9, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_10_11, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_12_13, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_14_15, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_16_17, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_18_19, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_20_21, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_22_23, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_24_25, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_26_27, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_28_29, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_30_31, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_SHAPER_RAMB_REGION_32_33, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_3DLUT_MODE, MPCC_MCM, inst), /*TODO: may need to add other 3DLUT regs*/\
-+	SRII(MPCC_MCM_3DLUT_INDEX, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_3DLUT_DATA, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_3DLUT_DATA_30BIT, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_3DLUT_READ_WRITE_CONTROL, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_3DLUT_OUT_NORM_FACTOR, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_3DLUT_OUT_OFFSET_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_3DLUT_OUT_OFFSET_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_3DLUT_OUT_OFFSET_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_CONTROL, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_LUT_INDEX, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_LUT_DATA, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_LUT_CONTROL, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_START_CNTL_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_START_CNTL_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_START_CNTL_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_START_SLOPE_CNTL_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_START_SLOPE_CNTL_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_START_SLOPE_CNTL_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_START_BASE_CNTL_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_START_BASE_CNTL_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_START_BASE_CNTL_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_END_CNTL1_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_END_CNTL2_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_END_CNTL1_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_END_CNTL2_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_END_CNTL1_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_END_CNTL2_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_OFFSET_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_OFFSET_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_OFFSET_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_0_1, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_2_3, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_4_5, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_6_7, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_8_9, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_10_11, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_12_13, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_14_15, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_16_17, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_18_19, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_20_21, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_22_23, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_24_25, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_26_27, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_28_29, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_30_31, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMA_REGION_32_33, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_START_CNTL_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_START_CNTL_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_START_CNTL_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_START_SLOPE_CNTL_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_START_SLOPE_CNTL_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_START_SLOPE_CNTL_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_START_BASE_CNTL_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_START_BASE_CNTL_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_START_BASE_CNTL_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_END_CNTL1_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_END_CNTL2_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_END_CNTL1_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_END_CNTL2_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_END_CNTL1_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_END_CNTL2_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_OFFSET_B, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_OFFSET_G, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_OFFSET_R, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_0_1, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_2_3, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_4_5, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_6_7, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_8_9, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_10_11, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_12_13, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_14_15, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_16_17, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_18_19, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_20_21, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_22_23, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_24_25, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_26_27, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_28_29, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_30_31, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_1DLUT_RAMB_REGION_32_33, MPCC_MCM, inst),\
-+	SRII(MPCC_MCM_MEM_PWR_CTRL, MPCC_MCM, inst)
+ 	/* Calculate physical address of doorbell */
+ 	address = kfd_get_process_doorbells(pdd);
+-	if (!address)
++	if (!address) {
++		pr_err("Failed to  get physical address of process doorbell\n");
+ 		return -ENOMEM;
++	}
+ 	vma->vm_flags |= VM_IO | VM_DONTCOPY | VM_DONTEXPAND | VM_NORESERVE |
+ 				VM_DONTDUMP | VM_PFNMAP;
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 6e3e7f54381b..9f05f64c5af8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -857,6 +857,14 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+ 		ret = -EINVAL;
+ 		goto exit;
+ 	}
 +
- /* OPTC */
++	if (!pdd->doorbell_index &&
++	    kfd_alloc_process_doorbells(pdd->dev, &pdd->doorbell_index) < 0) {
++		pr_err("Failed to alloc process doorbells\n");
++		ret = -ENOMEM;
++		goto err_alloc_doorbells;
++	}
++
+ 	/* data stored in this order: mqd, ctl_stack */
+ 	mqd = q_extra_data;
+ 	ctl_stack = mqd + q_data->mqd_size;
+@@ -876,6 +884,7 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+ 	if (q_data->gws)
+ 		ret = pqm_set_gws(&p->pqm, q_data->q_id, pdd->dev->gws);
  
- #define OPTC_COMMON_REG_LIST_DCN3_2_RI(inst)                                   \
-@@ -1124,6 +1199,7 @@ void dcn32_determine_det_override(struct dc_state *context, display_e2e_pipe_par
-       SR(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D), SR(DCHUBBUB_DET0_CTRL),    \
-       SR(DCHUBBUB_DET1_CTRL), SR(DCHUBBUB_DET2_CTRL), SR(DCHUBBUB_DET3_CTRL),  \
-       SR(DCHUBBUB_COMPBUF_CTRL), SR(COMPBUF_RESERVED_SPACE),                   \
-+      SR(DCHUBBUB_DEBUG_CTRL_0),                                               \
-       SR(DCHUBBUB_ARB_USR_RETRAINING_CNTL),                                    \
-       SR(DCHUBBUB_ARB_USR_RETRAINING_WATERMARK_A),                             \
-       SR(DCHUBBUB_ARB_USR_RETRAINING_WATERMARK_B),                             \
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
-index b602fdbbaf10..1bbc0bdf5dc3 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
-@@ -473,21 +473,15 @@ static const struct dcn20_dsc_mask dsc_mask = {
- 
- static struct dcn30_mpc_registers mpc_regs;
- #define dcn_mpc_regs_init()\
--		( \
--		MPC_REG_LIST_DCN3_0_RI(0),\
--		MPC_REG_LIST_DCN3_0_RI(1),\
--		MPC_REG_LIST_DCN3_0_RI(2),\
--		MPC_REG_LIST_DCN3_0_RI(3),\
--		MPC_OUT_MUX_REG_LIST_DCN3_0_RI(0),\
--		MPC_OUT_MUX_REG_LIST_DCN3_0_RI(1),\
--		MPC_OUT_MUX_REG_LIST_DCN3_0_RI(2),\
--		MPC_OUT_MUX_REG_LIST_DCN3_0_RI(3),\
--		MPC_MCM_REG_LIST_DCN32_RI(0),\
--		MPC_MCM_REG_LIST_DCN32_RI(1),\
--		MPC_MCM_REG_LIST_DCN32_RI(2),\
--		MPC_MCM_REG_LIST_DCN32_RI(3),\
--		MPC_DWB_MUX_REG_LIST_DCN3_0_RI(0)\
--		)
-+	MPC_REG_LIST_DCN3_2_RI(0),\
-+	MPC_REG_LIST_DCN3_2_RI(1),\
-+	MPC_REG_LIST_DCN3_2_RI(2),\
-+	MPC_REG_LIST_DCN3_2_RI(3),\
-+	MPC_OUT_MUX_REG_LIST_DCN3_0_RI(0),\
-+	MPC_OUT_MUX_REG_LIST_DCN3_0_RI(1),\
-+	MPC_OUT_MUX_REG_LIST_DCN3_0_RI(2),\
-+	MPC_OUT_MUX_REG_LIST_DCN3_0_RI(3),\
-+	MPC_DWB_MUX_REG_LIST_DCN3_0_RI(0)
- 
- static const struct dcn30_mpc_shift mpc_shift = {
- 	MPC_COMMON_MASK_SH_LIST_DCN32(__SHIFT)
++err_alloc_doorbells:
+ exit:
+ 	if (ret)
+ 		pr_err("Failed to restore queue (%d)\n", ret);
 -- 
-2.34.1
+2.17.1
 
