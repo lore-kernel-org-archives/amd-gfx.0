@@ -4,38 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EA1DECAAD3
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 09:50:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83FAEC54EE9
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 09:50:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 283C010E4CA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47A0210E4D5;
 	Wed,  7 Sep 2022 09:50:51 +0000 (UTC)
-Received: from bg4.exmail.qq.com (bg4.exmail.qq.com [43.155.65.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5711A10E109;
- Wed,  7 Sep 2022 04:11:16 +0000 (UTC)
-X-QQ-mid: bizesmtp81t1662523866tngcpo18
-Received: from localhost.localdomain ( [182.148.14.0])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 07 Sep 2022 12:11:04 +0800 (CST)
-X-QQ-SSF: 01000000000000D0F000000A0000000
-X-QQ-FEAT: bQsUcYFpAAYXdJRqwB80RHYaBxZP/Q/TG+x7ozmXciylMDFbSbygBd7c4qNHd
- iXGZIUiievK8azdmEVoz00pm7uV/hKUlFROQSHbxNQcJYSgVN7tFAid2Tr9eH37OSjG4y8R
- ZHtOMLA9b5Ds7DPocbpLHEAIrYa8s+Z/ZUFcmOEYGFagX6vtZRT7ptSmdtBMw0F64qdnuPc
- 45fg15gYbOMkyI6qsfm1+lOdVObeRnup9ckLA9DYZpt8MKPf/iSy47I136Np15+WwY8VEDi
- r6zqjGLezaOGMyPvsg4iJw2ekF+4y9qZVEt/w8jGE9WHvWFkvRJ4bkVQrv02ZBId2dVqjSN
- uIP9X+p8EaJ8z5B5shdWBMBKjvIXCL8emTDfNSOzpcvJhh1gxzZvIJfHuCyCw==
-X-QQ-GoodBg: 0
-From: Jilin Yuan <yuanjilin@cdjrlc.com>
-To: airlied@linux.ie,
-	daniel@ffwll.ch,
-	Charlene.Liu@amd.com
-Subject: [PATCH] drm/amd/display: fix repeated words in comments
-Date: Wed,  7 Sep 2022 12:10:58 +0800
-Message-Id: <20220907041058.935-1-yuanjilin@cdjrlc.com>
-X-Mailer: git-send-email 2.36.1
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C75CA10E2AA;
+ Wed,  7 Sep 2022 05:47:15 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CA37D6172A;
+ Wed,  7 Sep 2022 05:47:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E37EC433C1;
+ Wed,  7 Sep 2022 05:47:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1662529634;
+ bh=0Y1yo7zpEr/ZpjFTW18hxa8Cia2WTAK/LX+I0bdJMKY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hamyFWLjhenvUp+Z8NDcW33e4ZyFmNZlJMvrc31bKy23NnTvvis3Cs11VCpVxBzJ3
+ kTSjtS3mIKk5eA5CMdEJBZfO2Zpjs6JvzAn89mJdg48Puq8WUW5hEvvmXtTWTURHqt
+ iGychBoNEbk+uyhJBl0HwUzkDvGLu7RnVTSOBdpI=
+Date: Wed, 7 Sep 2022 07:47:10 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH v4 00/41] DYNDBG: opt-in class'd debug for modules, use
+ in drm.
+Message-ID: <YxgwXgEpzyqg0cjR@kroah.com>
+References: <20220720153233.144129-1-jim.cromie@gmail.com>
+ <CAJfuBxxPRj-u5S45pPfAEaE46ji0--MTVxryEAUPe1+1c1jgEw@mail.gmail.com>
+ <17628790-3905-460d-8734-981cfa8e7e51@akamai.com>
+ <YvUz2Nk6YHl+jVwR@phenom.ffwll.local> <YvXtQ7/FJFSVXlGU@kroah.com>
+ <Yxec8VRCQT5fJdqk@phenom.ffwll.local>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Yxec8VRCQT5fJdqk@phenom.ffwll.local>
 X-Mailman-Approved-At: Wed, 07 Sep 2022 09:50:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,31 +54,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jilin Yuan <yuanjilin@cdjrlc.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: jim.cromie@gmail.com, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ robdclark@gmail.com, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Jason Baron <jbaron@akamai.com>, Sean Paul <seanpaul@chromium.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Delete the redundant word 'in'.
+On Tue, Sep 06, 2022 at 09:18:09PM +0200, Daniel Vetter wrote:
+> On Fri, Aug 12, 2022 at 08:03:47AM +0200, Greg KH wrote:
+> > On Thu, Aug 11, 2022 at 06:52:40PM +0200, Daniel Vetter wrote:
+> > > On Wed, Aug 03, 2022 at 04:13:05PM -0400, Jason Baron wrote:
+> > > > 
+> > > > 
+> > > > On 8/3/22 15:56, jim.cromie@gmail.com wrote:
+> > > > > On Wed, Jul 20, 2022 at 9:32 AM Jim Cromie <jim.cromie@gmail.com> wrote:
+> > > > >>
+> > > > > 
+> > > > >> Hi Jason, Greg, DRM-folk,
+> > > > >>
+> > > > >> This adds 'typed' "class FOO" support to dynamic-debug, where 'typed'
+> > > > >> means either DISJOINT (like drm debug categories), or VERBOSE (like
+> > > > >> nouveau debug-levels).  Use it in DRM modules: core, helpers, and in
+> > > > >> drivers i915, amdgpu, nouveau.
+> > > > >>
+> > > > > 
+> > > > > This revision fell over, on a conflict with something in drm-MUMBLE
+> > > > > 
+> > > > > Error: patch https://urldefense.com/v3/__https://patchwork.freedesktop.org/api/1.0/series/106427/revisions/2/mbox/__;!!GjvTz_vk!UCPl5Uf32cDVwwysMTfaLwoGLWomargFXuR8HjBA3xsUOjxXHXC5hneAkP4iWK91yc-LjjJxWW89-51Z$ 
+> > > > > not applied
+> > > > > Applying: dyndbg: fix static_branch manipulation
+> > > > > Applying: dyndbg: fix module.dyndbg handling
+> > > > > Applying: dyndbg: show both old and new in change-info
+> > > > > Applying: dyndbg: reverse module walk in cat control
+> > > > > Applying: dyndbg: reverse module.callsite walk in cat control
+> > > > > Applying: dyndbg: use ESCAPE_SPACE for cat control
+> > > > > Applying: dyndbg: let query-modname override actual module name
+> > > > > Applying: dyndbg: add test_dynamic_debug module
+> > > > > Applying: dyndbg: drop EXPORTed dynamic_debug_exec_queries
+> > > > > 
+> > > > > Jason,
+> > > > > those above are decent maintenance patches, particularly the drop export.
+> > > > > It would be nice to trim this unused api this cycle.
+> > > > 
+> > > > Hi Jim,
+> > > > 
+> > > > Agreed - I was thinking the same thing. Feel free to add
+> > > > Acked-by: Jason Baron <jbaron@akamai.com> to those first 9.
+> > > 
+> > > Does Greg KH usually pick up dyndbg patches or someone else or do I need
+> > > to do something? Would be great to get some movement here since -rc1 goes
+> > > out and merging will restart next week.
+> > 
+> > Yes, I can take these into my tree after -rc1 is out.
+> 
+> [uncovering from an absolutely impressive cascade of holes :-(]
+> 
+> Did this happen and I can stop worrying here? I'd like to make sure these
+> drm debug infra improvements keep moving.
 
-Signed-off-by: Jilin Yuan <yuanjilin@cdjrlc.com>
----
- drivers/gpu/drm/amd/display/dc/dce/dce_audio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I didn't take these, and I think I saw a 6th series sent:
+	https://lore.kernel.org/r/20220904214134.408619-1-jim.cromie@gmail.com
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c b/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
-index bdb6bac8dd97..c94a966c6612 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
-@@ -300,7 +300,7 @@ static void set_high_bit_rate_capable(
- 	AZ_REG_WRITE(AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_HBR, value);
- }
- 
--/* set video latency in in ms/2+1 */
-+/* set video latency in ms/2+1 */
- static void set_video_latency(
- 	struct audio *audio,
- 	int latency_in_ms)
--- 
-2.36.1
+If you ack them, I will pick them up.
 
+thanks,
+
+greg k-h
