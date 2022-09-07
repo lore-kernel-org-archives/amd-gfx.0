@@ -4,41 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B79CC54EE9
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 14:54:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57D3FC54EE9
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 14:56:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB44710E795;
-	Wed,  7 Sep 2022 14:54:39 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DFFA10E786;
- Wed,  7 Sep 2022 14:54:04 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DB1936194E;
- Wed,  7 Sep 2022 14:54:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C091DC433D6;
- Wed,  7 Sep 2022 14:54:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1662562443;
- bh=FnTuP15XLzFNLiYzDllSBtNOTSW5KL/gP6XWVJ3ejpw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Ohdn/uVYqN+mXpJ77/NZg/rgPYe7ewGTDztOmZITM6VaNb8GEYm9/cGMFt2/tN2di
- 2kYrgbXRjDM1SlGRmyajY20ani3Fxqdl2BpREJzjos+HupAJGq+F8Wr1EvJ9qVLgL3
- /7Cvj2/vodNIOTEG60Q+aoMEXKhAQJBKdzBeDPPs=
-Date: Wed, 7 Sep 2022 16:54:00 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jim Cromie <jim.cromie@gmail.com>
-Subject: Re: [PATCH v6 21/57] dyndbg: test DECLARE_DYNDBG_CLASSMAP, sysfs nodes
-Message-ID: <YxiwiO+Ni/CvAO5Q@kroah.com>
-References: <20220904214134.408619-1-jim.cromie@gmail.com>
- <20220904214134.408619-22-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE83110E796;
+	Wed,  7 Sep 2022 14:56:51 +0000 (UTC)
+Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
+ [IPv6:2607:f8b0:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ACDD10E790;
+ Wed,  7 Sep 2022 14:56:48 +0000 (UTC)
+Received: by mail-ot1-x32d.google.com with SMTP id
+ 6-20020a9d0106000000b0063963134d04so10455086otu.3; 
+ Wed, 07 Sep 2022 07:56:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=R18/KkvI0bwN1Yb6uOYkzfgE4nW++3c9UPmBBYxx7CU=;
+ b=QB8Ku1JNOE1BUAopdNjlcDp1puobGOzHlyUhKR6CWlFP15tejy6UAgQs1GfZwKadDs
+ a0gyp3nB4XZrd9rchWz256RHIKDl9/5krwM7UNHlfD50LKybxsC9CnfE4pZPYmK+4Ts5
+ t4Z9wLe8CfXRL0bSpxGpdhk2xl6jIu6MqoUrmLSWyu0NIl6qvHzY/sAigyQ4uP+A/tpi
+ YRTM4RATMRutuA03smGNmntwEwWKGWyKBcL3ggj9qxpTDBXnTQs+yn3qViuHbNXWvDLV
+ zE2vGQlvDUFm9ZR38UdkiSpxEla5mWnaJMNzf2L6bYPonYsiJkE2lFOtc+qR1Gr7Lcup
+ w2Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=R18/KkvI0bwN1Yb6uOYkzfgE4nW++3c9UPmBBYxx7CU=;
+ b=K2sJvzZUf/jVaIF95TFKprD6hTYJZ9fKpDEL2eiVwMb8cO0xyMQ39ppuFVWNJMclna
+ CMFBgzExpLoprim3pisYTluYBe4OsQFVlBqHPEyvt50CVbamv3l3GLEA9h89dxOFRZZM
+ PnXiI2GwZH430a6JQ7Crl/6jp2441e/8k8tav9L/JzgjzZkW3EU1FL5lmyHofDNi8mFE
+ 2fJerA6A7lXsAVoJEMC//CIjRLr2dRhikQNClk06mgh+J1/KSbAm/fU1icEB7MHOMuZo
+ WpKhMu91XvyAjNAC1gWlzOZrBaX2XPCJzA2KtkPx8EeqwqyzE0MAuc6eJ1OFPWkrgwNB
+ Fe5A==
+X-Gm-Message-State: ACgBeo2nQ75LcL8GroobQI8w6U41+IOmXoExoquu2zXu9ZeMlvsO6blS
+ okj7tp5a+G0KLOp112FgN1yzHiY878BI5KqRjjw=
+X-Google-Smtp-Source: AA6agR7IWbHn3lhZ/ot+C85/TxO/QN9z4ndtsTAyaJfaazgJGihOPTdsepxkn6HDUffxyIi1P+btvKVCBiP4iT8yQic=
+X-Received: by 2002:a05:6830:54b:b0:636:eecb:1196 with SMTP id
+ l11-20020a056830054b00b00636eecb1196mr1623273otb.123.1662562607723; Wed, 07
+ Sep 2022 07:56:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220904214134.408619-22-jim.cromie@gmail.com>
-X-Mailman-Approved-At: Wed, 07 Sep 2022 14:54:34 +0000
+References: <20220907112657.25150-1-yuanjilin@cdjrlc.com>
+ <becf299e-9cf0-68bc-da31-1207e4bb71e1@arm.com>
+In-Reply-To: <becf299e-9cf0-68bc-da31-1207e4bb71e1@arm.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 7 Sep 2022 10:56:36 -0400
+Message-ID: <CADnq5_Ms18MHqyQVZ7UMQUCGGinzWtb5SkLubjSceOgrfJn+Ag@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix repeated words in comments
+To: Robin Murphy <robin.murphy@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,46 +64,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@gmail.com, daniel.vetter@ffwll.ch,
- intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, jbaron@akamai.com,
- seanpaul@chromium.org, dri-devel@lists.freedesktop.org, joe@perches.com,
- intel-gvt-dev@lists.freedesktop.org
+Cc: Jilin Yuan <yuanjilin@cdjrlc.com>, airlied@linux.ie,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, isabbasso@riseup.net
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Sep 04, 2022 at 03:40:58PM -0600, Jim Cromie wrote:
-> Demonstrate use of DECLARE_DYNDBG_CLASSMAP macro, and expose them as
-> sysfs-nodes for testing.
+On Wed, Sep 7, 2022 at 10:50 AM Robin Murphy <robin.murphy@arm.com> wrote:
+>
+> On 2022-09-07 12:26, Jilin Yuan wrote:
+> > Delete the redundant word 'we'.
+>
+> FWIW, to me it's not redundant because while indeed it is not correct,
+> it looks exactly like the kind of typo I might make of "if we", and
+> parsing it as *that* does make sense. The sentence you end up with here
+> can hardly be considered an improvement since it is still ungrammatical
+> nonsense.
 
-Wait, why sysfs?
+Yes, I believe this was supposed to say "if we" rather than "we we".
 
-sysfs isn't for testing, why not use debugfs?
+Alex
 
-
-> 
-> For each of the 4 class-map-types:
-> 
->   - declare a class-map of that type,
->   - declare the enum corresponding to those class-names
->   - share _base across 0..30 range
->   - add a __pr_debug_cls() call for each class-name
->   - declare 2 sysnodes for each class-map
->     for 'p' flag, and future 'T' flag
-> 
-> These declarations create the following sysfs parameter interface:
-> 
->   :#> pwd
->   /sys/module/test_dynamic_debug/parameters
->   :#> ls
->   T_disjoint_bits  T_disjoint_names  T_level_names  T_level_num  do_prints
->   p_disjoint_bits  p_disjoint_names  p_level_names  p_level_num
-
-What is in these files?
-
-For sysfs stuff, you need Documentation/ABI entries so that you can't
-abuse sysfs.  With debugfs, you can do anything you want :)
-
-thanks,
-
-greg k-h
+>
+> Robin.
+>
+> > Signed-off-by: Jilin Yuan <yuanjilin@cdjrlc.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> > index 02cb3a12dd76..6d6cc4637d41 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> > @@ -694,7 +694,7 @@ static int amdgpu_vce_cs_reloc(struct amdgpu_cs_parser *p, struct amdgpu_ib *ib,
+> >    * @allocated: allocated a new handle?
+> >    *
+> >    * Validates the handle and return the found session index or -EINVAL
+> > - * we we don't have another free session index.
+> > + * we don't have another free session index.
+> >    */
+> >   static int amdgpu_vce_validate_handle(struct amdgpu_cs_parser *p,
+> >                                     uint32_t handle, uint32_t *allocated)
