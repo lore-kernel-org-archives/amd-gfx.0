@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E3DFC54EE9
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 14:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17AAAC38145
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 14:34:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00A2D10EB0C;
-	Thu,  8 Sep 2022 14:21:27 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF2D810EB0C
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Sep 2022 14:21:22 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-127ba06d03fso21171093fac.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 08 Sep 2022 07:21:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E30F10EB32;
+	Thu,  8 Sep 2022 14:34:28 +0000 (UTC)
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
+ [IPv6:2607:f8b0:4864:20::c2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D456F10EB32
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Sep 2022 14:34:25 +0000 (UTC)
+Received: by mail-oo1-xc2e.google.com with SMTP id
+ a1-20020a4ab101000000b0044acf001f83so2976394ooo.10
+ for <amd-gfx@lists.freedesktop.org>; Thu, 08 Sep 2022 07:34:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date;
- bh=Qudv4PRxQU2ec00vhzza+IJ/8DXkVM9NA8dDvO9+d8s=;
- b=Z6gWPbeubeUCBKbACAJxowa+zqM89pGQ4YV5++Upgcd0H5rkBGDOlUbDtb7SQceb+f
- KJjtIg57+pX/OHyjF1h5+zGiaE9ncp3OXUI4oTYb7TZruWuIHEtcBZ0W06n91jd4+S7M
- sxkqHad9uizYNTWVxaNRmHYOdUrfYGTwGjBrw7xtV9Mq6WScsU3ULbUeZqPeHm5nKLt2
- 6GsFTH4mJX+/s0iSht+Pxc2w2nimCsstYnoYoe/HEe0nA0rw54Nq0kyERCyhSoTUrdMb
- 8SqB+fJd7zd57X9O8M8CebU4wECl2+Zv5rkj0lwYZmAN20InyAvXyjLjKGnHH55CX/hF
- Gabw==
+ bh=3za8w/Kh9FMUewNDWqQO2iVNWIziP8AFXCV79g21n2k=;
+ b=IIb/cVLbFQlELFTH20BMIvoiwYWlOZ4OqyP8xldmRWDBhWa7ChA9+ZyzkZOY1MYUot
+ XRpHsRlancygT5mwUh1WmanHAaKXLDmWESzRp6ihaWDh/R8BPpPwTN/gZ/cX5GziE3lv
+ Icydgb5m/5qZKIzXSV/JYRWA+R7c9ruNWMrpbXjt3t7BiA5QkSJ80aCQ+V9hta6yW+HC
+ LpEGlquh6QvbuEQDltT+DQ3aLii11C4XAabHe4FNMfydsrADSXF+hV7zfzD2vngBca52
+ 2IhIG+C9Rr3Wfc7T41f+pQg7B9S6G3QX0+e0ew2vOAAgvmW4rLrhsc+kWLx3LeOl31wF
+ ORkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=Qudv4PRxQU2ec00vhzza+IJ/8DXkVM9NA8dDvO9+d8s=;
- b=oZmyefXF9Pe4UxFdeTpQ9o1wzHkcYD1vLsoUwObWDK0yoQ7NM12lGuApn+q+N1YaTM
- qDRMOsytqgbRSimUmenZQKcMywOtfTXp0O49UvJiismbtIQF57gW3G2JqdGXJTVpwsrl
- wtbIn9Mix9OVgsYOFaxRusel77Ld5a5D9BxgtLwLl8PizIHLP5ll4XA6uGEMP3qFclR3
- uO2uOJHCnf0Lj4G9qamGezipsproS63rVfLJq5L1Jv8K3FVdsj9bY+F20hKyMsDwTwFd
- RISaQ2OFgvAXyP3pTUARFcAJJy+DHOGEEo6Y75OnuMD55igVd9gt7ccAlEeLWo1Gt2ss
- aMkA==
-X-Gm-Message-State: ACgBeo18/2Ghz7LB0oQXmy6lkB/KhfbIyRr4HeBt6P3QXeeC4S2tDmkE
- 8uR0q58BKTRbzLtPotXRNIALsLHjTZVzI4yOu7A=
-X-Google-Smtp-Source: AA6agR6mNyIvQyJTxriUckKrkO9BLzLVrO6FrPkAZTJMW5L+owjRZFNzihkcshhUwW2jBBoJwLMyu0Pwr0i8mdVXtsg=
-X-Received: by 2002:a05:6808:2187:b0:344:eccd:3fc5 with SMTP id
- be7-20020a056808218700b00344eccd3fc5mr1708882oib.46.1662646882178; Thu, 08
- Sep 2022 07:21:22 -0700 (PDT)
+ bh=3za8w/Kh9FMUewNDWqQO2iVNWIziP8AFXCV79g21n2k=;
+ b=U4eB0K1RRzt3Ns8W8ruUI1OiTjMxC/2l8p32p33eHiM24ISXC9rk/n55mmQHTZSWjb
+ mQ3QeC+Nrbki3m/GVoxxrg1ksBKdbTeIhf8SUmxbUu7DG6X6BhuteYv1WRQ/B2qYffqI
+ 11djeiJ/SZMm5kIjIIVHX52jUZOwBDWz0Y5xRp6fxxIMpUweXofcfzenqEMTn/BMLxFr
+ wNpnQ0X8xDRLxUjQ842pgNoId0gOlG6Zu8g/O+/AV5YFhUEd3kGbuwa6BKneXzDehTNg
+ IVOIoI1je5o+4W64hSXc470Jglqb/myjbG1BE+Ifi8g7OVeuon7/fAARfVYloBDjzWTp
+ 3s5A==
+X-Gm-Message-State: ACgBeo3IF5ffklWLcD4SpaK+8LfLzlLRtgzEDxrdrHsC6+oUvnuiGuFe
+ NIvbcwwVi2OLHS28omwd7KcdGRbQK0DRvZqyt4I=
+X-Google-Smtp-Source: AA6agR6T2OmHtDYStKlvsAzaM/zHTyRfK/wGkTru5nKbaoGuR6/OTanKQPhYH6qjz2uKLZ8fA3ChG2gs9UJ+A+pApw4=
+X-Received: by 2002:a4a:4197:0:b0:467:cd87:bcb3 with SMTP id
+ x145-20020a4a4197000000b00467cd87bcb3mr3150365ooa.97.1662647665155; Thu, 08
+ Sep 2022 07:34:25 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220908040821.5786-1-alexander.deucher@amd.com>
- <4148adb1-2181-efa4-672c-defb45abe0e8@amd.com>
-In-Reply-To: <4148adb1-2181-efa4-672c-defb45abe0e8@amd.com>
+References: <20220719183436.1705006-1-alexander.deucher@amd.com>
+In-Reply-To: <20220719183436.1705006-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 8 Sep 2022 10:21:10 -0400
-Message-ID: <CADnq5_Pc0MvqWHMOBd3=z72TF4HiwWwf3g6dHA6KrGbAUe4W9w@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: make sure to init common IP before gmc
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Date: Thu, 8 Sep 2022 10:34:13 -0400
+Message-ID: <CADnq5_OeOuQ262pk_8naNnKpm-8M_1dBPUm31XjLSk0j-gGSMw@mail.gmail.com>
+Subject: Re: [PATCH 1/4] drm/amdgpu: use proper DC check in
+ amdgpu_display_supported_domains()
+To: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,88 +64,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: regressions@lists.linux.dev, airlied@linux.ie, linux-pci@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, tseewald@gmail.com, kai.heng.feng@canonical.com,
- helgaas@kernel.org, daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- sr@denx.de
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 8, 2022 at 1:11 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
->
->
->
-> On 9/8/2022 9:38 AM, Alex Deucher wrote:
-> > Common is mainly golden register setting and HDP register
-> > remapping, it shouldn't allocate any GPU memory.  Make sure
-> > common happens before gmc so that the HDP registers are
-> > remapped before gmc attempts to access them.
-> >
-> > This fixes the Unsupported Request error reported through
-> > AER during driver load. The error happens as a write happens
-> > to the remap offset before real remapping is done.
-> >
-> > Link: https://bugzilla.kernel.org/show_bug.cgi?id=216373
-> >
-> > The error was unnoticed before and got visible because of the commit
-> > referenced below. This doesn't fix anything in the commit below, rather
-> > fixes the issue in amdgpu exposed by the commit. The reference is only
-> > to associate this commit with below one so that both go together.
-> >
-> > Fixes: 8795e182b02d ("PCI/portdrv: Don't disable AER reporting in get_port_device_capability()")
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->
-> Series is:
->         Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-
-
-@tseewald@gmail.com it would be good if you could verify that this
-patch fixes the issue for you as well.
-
-Thanks,
+Ping on this series?
 
 Alex
 
+On Tue, Jul 19, 2022 at 2:35 PM Alex Deucher <alexander.deucher@amd.com> wrote:
 >
-> Thanks,
-> Lijo
+> amdgpu_device_asic_has_dc_support() just checks the asic itself.
+> amdgpu_device_has_dc_support() is a runtime check which not
+> only checks the asic, but also other things in the driver
+> like whether virtual display is enabled.  We want the latter
+> here.
 >
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 14 +++++++++++---
-> >   1 file changed, 11 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index 899564ea8b4b..4da85ce9e3b1 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -2375,8 +2375,16 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
-> >               }
-> >               adev->ip_blocks[i].status.sw = true;
-> >
-> > -             /* need to do gmc hw init early so we can allocate gpu mem */
-> > -             if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC) {
-> > +             if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_COMMON) {
-> > +                     /* need to do common hw init early so everything is set up for gmc */
-> > +                     r = adev->ip_blocks[i].version->funcs->hw_init((void *)adev);
-> > +                     if (r) {
-> > +                             DRM_ERROR("hw_init %d failed %d\n", i, r);
-> > +                             goto init_failed;
-> > +                     }
-> > +                     adev->ip_blocks[i].status.hw = true;
-> > +             } else if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC) {
-> > +                     /* need to do gmc hw init early so we can allocate gpu mem */
-> >                       /* Try to reserve bad pages early */
-> >                       if (amdgpu_sriov_vf(adev))
-> >                               amdgpu_virt_exchange_data(adev);
-> > @@ -3062,8 +3070,8 @@ static int amdgpu_device_ip_reinit_early_sriov(struct amdgpu_device *adev)
-> >       int i, r;
-> >
-> >       static enum amd_ip_block_type ip_order[] = {
-> > -             AMD_IP_BLOCK_TYPE_GMC,
-> >               AMD_IP_BLOCK_TYPE_COMMON,
-> > +             AMD_IP_BLOCK_TYPE_GMC,
-> >               AMD_IP_BLOCK_TYPE_PSP,
-> >               AMD_IP_BLOCK_TYPE_IH,
-> >       };
-> >
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index c20922a5af9f..b0fa5d065d50 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -514,7 +514,7 @@ uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
+>          */
+>         if ((bo_flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC) &&
+>             amdgpu_bo_support_uswc(bo_flags) &&
+> -           amdgpu_device_asic_has_dc_support(adev->asic_type) &&
+> +           amdgpu_device_has_dc_support(adev) &&
+>             adev->mode_info.gpu_vm_support)
+>                 domain |= AMDGPU_GEM_DOMAIN_GTT;
+>  #endif
+> --
+> 2.35.3
+>
