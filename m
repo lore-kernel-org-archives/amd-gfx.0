@@ -4,59 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 831B8ECAAD5
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 03:53:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64BB0ECAAD5
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 03:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 178F810E6CB;
-	Thu,  8 Sep 2022 03:53:50 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0792110E6CB
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Sep 2022 03:53:47 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-127dca21a7dso13875362fac.12
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Sep 2022 20:53:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date;
- bh=l6NJaTKwEzsUeLi+E/HRk3WppQuMne4Aw9OZ/pKkHHQ=;
- b=DDMJJD/t7FsQnlGlQwHlpKFY+BXfgQWJqjnYA2TuWR2pNVOZP7inCViWY59JQ/wfmW
- snrjggPey/R/i07HPWzMKo9zdiO+bhYZTFQKRMvoL+2JTcICJclV+OteiEk3R0dT1nfV
- WZFwuHrziGFSeqTCDCiTO2WHt926+04Woznic65KXARzA/Ocy6qVH27Zn8mp9iKdAl6K
- YhtU3u89FsX80J/uvDw4DQ+1jv8bWBKJAHEn8qbEt1BZxDtWSOAqSpFn7kVGFZCwxURL
- eaXglMwOXXg8M9c3iJWT1N6qBi1JkSPjLt3HvTdKIzpM/p8pllyjUc1pRQ+BOYn3MxBR
- zRTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date;
- bh=l6NJaTKwEzsUeLi+E/HRk3WppQuMne4Aw9OZ/pKkHHQ=;
- b=6Vdsl2fIzgDZ/xQgCUH0i14S0BJuNOn1oaTaKLmCpY4JItLJll6QX274uRMMnL+XW/
- mWpe4QvUhdqxP+yByZfhfQuFUePpvV6YBzE006y3npMhts73jZA+iadkdXSLRPOBS4GN
- OWt+hUJHfC0/uRbCxaGJoL64MPKrVoQ3VMW1/DwOU0UW78PGHUOYKuiJ879PnRcCGt6E
- HbFbCC5eJzUpjINuMWnR61K+SFq7h4env4EMb9bPjIfVJIXmWEAuT4VBnlY1OWbrJYCO
- fCO9KURiHHzLqKfWERvHJMJ824mG9kKwpejcaentNQWrVyWltFhJnaGgJIWl5/CeMS6v
- PtIw==
-X-Gm-Message-State: ACgBeo10YqfO/SLTNku8GArHoQS747Hx0dGnBM1hyxZw5ddMJhWV7A3I
- C5lxGbE0jMBkNZUX5zwfvE7VPVh7ZDUOIqLQLr8=
-X-Google-Smtp-Source: AA6agR6wB4TlEvFnY/1o4mg+//uRJcWR5499ivpee1TQBLXg6SBtu21avN5ycYzxr8SXYCov+ZnlFNiZ1mpoV/UYsMc=
-X-Received: by 2002:a05:6870:738d:b0:125:1b5:420f with SMTP id
- z13-20020a056870738d00b0012501b5420fmr873127oam.96.1662609226653; Wed, 07 Sep
- 2022 20:53:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FEEA10E945;
+	Thu,  8 Sep 2022 03:54:29 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2043.outbound.protection.outlook.com [40.107.100.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5493410E945
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Sep 2022 03:54:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UA6VDKs0ZA4Bi4PByEd+pd8G9ECxP8+LIuW/0JlAGPsbyepwauEdwijRdfqFKBmGGcdQy52jmx/Yf/6fbakO6tbH8SzyBrHibAzRrY+QdRQaM5WW7u3qtzYwwHWWHGYuxmB1acwDh5qb7TPIZdOu6tMb4g410XZaXLMjWDTDfFNVzocTz1ogtXAIzxiJmmpL21DNdT81qTYtDXyuiniWblrFLmjEZjnWv20W2pmnB9ZT+uxz0/V0NEfnYSot0a3Dhfk/DM6uzhDAl7sbQ0JJGTcrYXPcyGM/rtL6Vwjd2iUuagizUeuq/Mszwpc0N/j093f3+8p/mDE9iAmSiekosw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C88vF85NBuK3tskEd4ILo2VrzNe9Lldao/SBeKV3bmA=;
+ b=JjNG/mvnrhQAQPdJJTLXfRscggw28Pp0Y5qY8C7Qngb2KEKkaxG7Nf4tY5hBXcqLtwiNI1u5l9iWcBY6EC/LJVXkjDmbK3gVLJTEgh4aq+asDZ5xLv0oLGhjyc690WTMj7LuJwVJReK2obXNkRkc8PbNoFRUb3/3PfhLWkMZV7L+ZL3Oa3edXs+QQaGKmxpRyKyci2uXCcrssLgRg7y4lvUn7ZsHvZOUB2fKiUk35begrlBaMWpMsMLDES/blSxTxP+trvm+skPlgnNGxc05AFUIJ82pmGA++xFaOz1iiI0n31+j4i1dULwWg18ekMiM65/hpDTzSA5gLRZJQ1dddg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C88vF85NBuK3tskEd4ILo2VrzNe9Lldao/SBeKV3bmA=;
+ b=u1EHkHaiqX3/Lv4eM3V6zEBLmMrGjItZjcFDiDC9K6OBvkPXg54i+PCybg+KXCIydL786xf95mU861HaURpTclApM6vJ/7VEg6Vkf2+W0CHLNSHy9e+mA4c48/rcHKqjxr4Fq++yXZWOAsCDCrA7T2/SxBQGdIKW/Nd2GkFX6k4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DM4PR12MB6325.namprd12.prod.outlook.com (2603:10b6:8:a4::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14; Thu, 8 Sep
+ 2022 03:54:21 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::406d:afb5:d2d7:8115]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::406d:afb5:d2d7:8115%6]) with mapi id 15.20.5588.018; Thu, 8 Sep 2022
+ 03:54:21 +0000
+Message-ID: <4a97ca4d-8ca3-8143-43d1-8b4a33de675b@amd.com>
+Date: Wed, 7 Sep 2022 23:54:18 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/amdgpu: Enable full reset when RAS is supported on gc
+ v11_0_0
+Content-Language: en-US
+To: Candice Li <candice.li@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220908011035.17145-1-candice.li@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20220908011035.17145-1-candice.li@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT1PR01CA0039.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::8) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <20220908032344.1682187-1-lijo.lazar@amd.com>
- <CADnq5_MQ64piXz-CJeEn2e4yi_kwePYCea_sTxdFUAb+j8wu5Q@mail.gmail.com>
- <b3b786b1-2f72-4f5e-f011-8acf06867d0e@amd.com>
- <CADnq5_ObpVNo7CVKpNEg0UJx0BnLb7OOoBhozKRxu-nR2N-8vQ@mail.gmail.com>
-In-Reply-To: <CADnq5_ObpVNo7CVKpNEg0UJx0BnLb7OOoBhozKRxu-nR2N-8vQ@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 7 Sep 2022 23:53:35 -0400
-Message-ID: <CADnq5_OEckaKYr-bKi5iNXiB4+RYeY9kVy6XYoFwCu4svdBb6g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Don't enable LTR if not supported
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: dc09a257-b8fa-4543-983e-08da914dcf5e
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6325:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 56os7SYHm2JqIYapaGE/hp4+42xd7cRaCl0almgoqh7gOZOEDQJI5RXxDbemZYSdebXMd2ctW/XlpFpzMNgoemFzMCAsf3t6YogDd5YT/IUT5QOwXj+/9I+UDYFAr9P4Z/TXslRKH3kg2VWu4ZqsGrk+yjCURzWaLLfAyZewLUMkIsrD/p1f+ZgfUFN2u+jk0Ar6dP8A7Kwn5cv+wVnJ/UBUND7nh5X2xIssH8edrGifceGvYirco8tdDIjotjAjhN++HItOk8nz936e7iypgfd0lsMQ9/3X9Gugf48N6HFUigLPGqouWN/V8kv3Q/ZnoYSIs8V9jPEDQBTg5zaidpKWMl5/lt72KPtMsaJrScHbwpF3x9uoHpLOT1LiR9AbJ48y+DZoqP+Lc4qy7DjKKfvbzZGEf1WWW9ySZe0w1q+FWrvY8Jx7mXH9XIRIQmnhbr9taRMKSadrso6+bSnrzeqBdjTZ7ruuUjLx8j+qbwvEq9XnWKuAf9IFxPSgvxELNvylxxKZlk3NduROjHAlGi/zU0VFw8VITdqbBm3FcYUWxGd4qxGwlMvHtLUeQ5UMWpK/Wm2l1KNvJP/zxg+ZwnQ1YPc1FiHDdLbibuZBtjq5x69OwKnAJ6Gr2/j7pIR1hCbnzXY/gMIAB+Xj1zFMOicw+thdpmdWBagEaStrKhoGmRGPQn6pdkCzOXDjtiD9shUkSAlC/kmyh3uqmxy+2B0isAgmZixKtTd7tSyxMvFdaMKKnN0y9PSAfcsmduCU5EPz59xM4lOU3rmC1fGbj3TIGsCC4lVbZm6yn2pjyRs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(39860400002)(396003)(346002)(366004)(376002)(31696002)(38100700002)(316002)(41300700001)(5660300002)(4744005)(2906002)(44832011)(8936002)(66946007)(6486002)(66476007)(8676002)(66556008)(186003)(2616005)(6666004)(83380400001)(478600001)(6506007)(31686004)(26005)(6512007)(86362001)(36756003)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VnZwdWlSV0g0SVdZcDdzUUtVSHhQalJxOTdpRTlMMkIxOUtWQmFYdjd3WkpR?=
+ =?utf-8?B?REVJTU5XRmlxeDZIOFBLNlE1OTdwa0NldkM1eGJSZ0RLZXB3SktmR1RXS1F6?=
+ =?utf-8?B?Z0h0RGdXN3ZZZCtndlRucmx2Ujdza2RHM0ZYVWF2dkpoMUtVV0hjQzNUSlZa?=
+ =?utf-8?B?ZnZPdjlsaFNZVEdZNW4zR1VGY0VWTEQrbFQwT1d5QVJuOGhqUWttS0xtUGh4?=
+ =?utf-8?B?WmRYZGVtOTd5RnhqNmNTR1Z5V2UyVEhRWFZWbE5yR3BmNzZvelRaMXJJeFJ2?=
+ =?utf-8?B?c1lCM2d5cnVGK1MzTDUva0trUHFhVFk3cE1vdGFDY2dqY1c5dVY4aDdTT1kx?=
+ =?utf-8?B?aFVRU1BCRlAzMGgxV3pvb1lRWEl2aUNLNkoyTjEvV1ZGZVFDYmNLcERrd3F4?=
+ =?utf-8?B?YVArYXRySStnZTFhMG0vc0VadHdidEN1Lzk4WTlvRFptcnBoZ0poR2xsMmlk?=
+ =?utf-8?B?NFhOKzc1ekhFem5valVHYVoxckRxWmljcnNVeEhZMmloRWxLSXJ1cnp5aGJh?=
+ =?utf-8?B?b2RhMGs4emZVanNVT1EzeVNnNmoxdVhST25GWEkwV0crVFI3U0FNT3IvR3NM?=
+ =?utf-8?B?MGJRRTBNRURaYlh2ak05ZzNDLzJBbnh4Z0U1azhmdGpyVzZQcE1YQWRUVHU5?=
+ =?utf-8?B?M3hCYUszR0k1Q3FpM0lUbXhyWVJkejRBQzZHSzNJeTNHMTc4Wm4wTy9xN3or?=
+ =?utf-8?B?RDc2ZWtvb2VoNWNjL2N1M0pRZlNYSTBxTUp0RS9oaS9IVFNiOEtKUDlTUmxi?=
+ =?utf-8?B?ZjY2Vk9sbnBUOWJ5SjI0aDR5NnRpN0RKWkZPTXZ4bTJOaEFqczIxU1I2cmhm?=
+ =?utf-8?B?VkN6QXRsQXJEN0dXR0QxdzVieEIrS1hlSExmQ0dDbUFPZVNpbG1vNXNZeFlz?=
+ =?utf-8?B?eGk4QlkyUWhoZHJsTGIyVkxhbmwwUTdySTdIb2E3TWpyZ2U5ZjVhc3hkWFVW?=
+ =?utf-8?B?dE5FdFB3bXZIR1Fab0dCaWRVQWtBMmRXK2VvR3o0T05yTUZpNldYaGJpUmtU?=
+ =?utf-8?B?YU5GZ0FwaElqZDU1VS9FL2tjQlhOdXNNLzRiQi8vNnhwRHFyenVhZVNPM3hY?=
+ =?utf-8?B?Mm9UR3M0cGo0T2h5Q29nZXU2SVlWRnhQOWlXMDk0S0lweGNJbnRJQ00xTXFy?=
+ =?utf-8?B?R3dyZDFMZWRIUVNxT1dPUkRDYmw0WXhQbXB3Y3EveUEyUi9rU0E5SjN3MGg5?=
+ =?utf-8?B?dnVDR1UvdGRPSkNiQmxIa2NhNjd5Y09rMTJhUjNaL25HSFFUK2U3WVJSMlpG?=
+ =?utf-8?B?WC8rYk1DeGRnUGdXNGR0YjZVVVJ3UVhNdTJWbHpkMmNDS08wRjByTHZBOHlX?=
+ =?utf-8?B?SGFMU0Q1RzJ0RDJKazh4VW9hb2o1eS9EaSsxUWs5RFFmZGtPQWZVem5tTEpq?=
+ =?utf-8?B?WTR4NUVYckFNUHBzbllwZHhkTmhyZXBYdUxTTlRvVHFDd0NTOHBWOStMTEN5?=
+ =?utf-8?B?QjNXVldzeWJOc0JibGJMbU5aYy8xNW8waC8zSXowZEIwR1dmY2NpVndJQkU2?=
+ =?utf-8?B?QzRGdWdJMmNSbWp2ZWdETytKMElMSWtKakl5SjVkUnNzVE5rY1RLTHd2M0R3?=
+ =?utf-8?B?cFQvSDdmMEN4TUxpOVRIQnduNUU5SFN0ZURZNjNwU0E1T25JRE52aW9nbktx?=
+ =?utf-8?B?emFQb3lQM1hldE5xdUNNdFlhS1BMVlR4ZHVPSkFoMlc0N2RKVmNXczlGY0sx?=
+ =?utf-8?B?eGdwbVdYV3R6UkJ3TEZhVHV4eDQ4TElYTlpVYVNZMEQxeEpjRjhUTEk3dEVZ?=
+ =?utf-8?B?dVVDYzNiWDBEWSsxcC96Y04zMjdKbjZOQktXQ3hmQVZOdENEYUNPWjI2SUhy?=
+ =?utf-8?B?b091bituQlR3Ui9YTFF0VWhvaWU0OE5RUHZ5VzdVazZFK0MySElLa2cveCtj?=
+ =?utf-8?B?cnNha1hzM0Z3RlIvYkFLVXllNmo1bExBcUZ5MVAxbUJCZzN0c0NHQ2RwNWJl?=
+ =?utf-8?B?V1NNSnV1ZnhMcFlybXVXdWtRQzl3cUU3SDB3WXllRVo1bGdEUVhrbm96VWF1?=
+ =?utf-8?B?ODY3OVZIdDJ2UndJenloZE5NdjhwTUQzQUpmQ2NNelEzK1E3RnhxNk1rRU0y?=
+ =?utf-8?B?Qi94RDJTa1YvY3E2S3VUNU5JL0xuZXM3cGhKU203WHdqdUF1U2dyK3FJbWFw?=
+ =?utf-8?Q?uiI5OAVV3r48jqRz6BZuJBHKh?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc09a257-b8fa-4543-983e-08da914dcf5e
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2022 03:54:20.8807 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: k+dSC0kLWiTT3s9vkuGc51IFXueWqVmDXlgEsDHb2qXlTHc4LTZgqIkGSYUoVn8i5sBVLmVpdTgqszB9HS+ebQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6325
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,242 +124,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, wielkiegie@gmail.com, helgaas@kernel.org,
- amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 7, 2022 at 11:53 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+Am 2022-09-07 um 21:10 schrieb Candice Li:
+> Enable full reset for RAS supported configuration on gc v11_0_0.
 >
-> On Wed, Sep 7, 2022 at 11:40 PM Lazar, Lijo <lijo.lazar@amd.com> wrote:
-> >
-> >
-> >
-> > On 9/8/2022 8:58 AM, Alex Deucher wrote:
-> > > On Wed, Sep 7, 2022 at 11:24 PM Lijo Lazar <lijo.lazar@amd.com> wrote=
-:
-> > >>
-> > >> As per PCIE Base Spec r4.0 Section 6.18
-> > >> 'Software must not enable LTR in an Endpoint unless the Root Complex
-> > >> and all intermediate Switches indicate support for LTR.'
-> > >>
-> > >> This fixes the Unsupported Request error reported through AER during
-> > >> ASPM enablement.
-> > >>
-> > >> Link: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A=
-%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D216455&amp;data=3D05%7C01%7=
-Clijo.lazar%40amd.com%7Cc190635e13f047625b4508da914a47a5%7C3dd8961fe4884e60=
-8e11a82d994e183d%7C0%7C0%7C637982045476774989%7CUnknown%7CTWFpbGZsb3d8eyJWI=
-joiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%=
-7C&amp;sdata=3DmNq7A7oT2VwZVc7WtYyWj0BRAXV5MzNLir0o4%2BKiWYU%3D&amp;reserve=
-d=3D0
-> > >>
-> > >> The error was unnoticed before and got visible because of the commit
-> > >> referenced below. This doesn't fix anything in the commit below, rat=
-her
-> > >> fixes the issue in amdgpu exposed by the commit. The reference is on=
-ly
-> > >> to associate this commit with below one so that both go together.
-> > >>
-> > >> Fixes: 8795e182b02d ("PCI/portdrv: Don't disable AER reporting in ge=
-t_port_device_capability()")
-> > >>
-> > >> Reported-by: Gustaw Smolarczyk <wielkiegie@gmail.com>
-> > >> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> > >> Cc: stable@vger.kernel.org
-> > >> ---
-> > >
-> > > Even though the ASPM code in si.c, cik.c, and vi.c doesn't mess with
-> > > LTR, it still sets up ASPM so shouldn't it be protected with
-> > > CONFIG_PCIEASPM as well?
-> > >
-> >
-> > Yes, but it is only a compilation improvement and unrelated to this
-> > patch. We don't access any ASPM related kernel variables in those
-> > sequences. ltr_path variable used under this patch is declared under
-> > ASPM config.
+> Signed-off-by: Candice Li <candice.li@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/soc21.c | 4 ++++
+>   1 file changed, 4 insertions(+)
 >
-> Thanks for the information.
->
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com?
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> index a26c5723c46e27..81f32d77c98cd5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> @@ -421,6 +421,10 @@ static bool soc21_need_full_reset(struct amdgpu_device *adev)
+>   {
+>   	switch (adev->ip_versions[GC_HWIP][0]) {
+>   	case IP_VERSION(11, 0, 0):
+> +		if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC))
+> +			return true;
+> +		else
+> +			return false;
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Is there a reason why this can't be written simply as
 
->
-> >
-> > Runtime protection is already there -
-> > 0ab5d711ec74 (drm/amd: Refactor `amdgpu_aspm` to be evaluated per devic=
-e)
-> >
-> > Thanks,
-> > Lijo
-> >
-> > > Alex
-> > >
-> > >>   drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c | 9 ++++++++-
-> > >>   drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c | 9 ++++++++-
-> > >>   drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c | 9 ++++++++-
-> > >>   3 files changed, 24 insertions(+), 3 deletions(-)
-> > >>
-> > >> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/dr=
-m/amd/amdgpu/nbio_v2_3.c
-> > >> index b465baa26762..aa761ff3a5fa 100644
-> > >> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-> > >> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-> > >> @@ -380,6 +380,7 @@ static void nbio_v2_3_enable_aspm(struct amdgpu_=
-device *adev,
-> > >>                  WREG32_PCIE(smnPCIE_LC_CNTL, data);
-> > >>   }
-> > >>
-> > >> +#ifdef CONFIG_PCIEASPM
-> > >>   static void nbio_v2_3_program_ltr(struct amdgpu_device *adev)
-> > >>   {
-> > >>          uint32_t def, data;
-> > >> @@ -401,9 +402,11 @@ static void nbio_v2_3_program_ltr(struct amdgpu=
-_device *adev)
-> > >>          if (def !=3D data)
-> > >>                  WREG32_PCIE(smnBIF_CFG_DEV0_EPF0_DEVICE_CNTL2, data=
-);
-> > >>   }
-> > >> +#endif
-> > >>
-> > >>   static void nbio_v2_3_program_aspm(struct amdgpu_device *adev)
-> > >>   {
-> > >> +#ifdef CONFIG_PCIEASPM
-> > >>          uint32_t def, data;
-> > >>
-> > >>          def =3D data =3D RREG32_PCIE(smnPCIE_LC_CNTL);
-> > >> @@ -459,7 +462,10 @@ static void nbio_v2_3_program_aspm(struct amdgp=
-u_device *adev)
-> > >>          if (def !=3D data)
-> > >>                  WREG32_PCIE(smnPCIE_LC_CNTL6, data);
-> > >>
-> > >> -       nbio_v2_3_program_ltr(adev);
-> > >> +       /* Don't bother about LTR if LTR is not enabled
-> > >> +        * in the path */
-> > >> +       if (adev->pdev->ltr_path)
-> > >> +               nbio_v2_3_program_ltr(adev);
-> > >>
-> > >>          def =3D data =3D RREG32_SOC15(NBIO, 0, mmRCC_BIF_STRAP3);
-> > >>          data |=3D 0x5DE0 << RCC_BIF_STRAP3__STRAP_VLINK_ASPM_IDLE_T=
-IMER__SHIFT;
-> > >> @@ -483,6 +489,7 @@ static void nbio_v2_3_program_aspm(struct amdgpu=
-_device *adev)
-> > >>          data &=3D ~PCIE_LC_CNTL3__LC_DSC_DONT_ENTER_L23_AFTER_PME_A=
-CK_MASK;
-> > >>          if (def !=3D data)
-> > >>                  WREG32_PCIE(smnPCIE_LC_CNTL3, data);
-> > >> +#endif
-> > >>   }
-> > >>
-> > >>   static void nbio_v2_3_apply_lc_spc_mode_wa(struct amdgpu_device *a=
-dev)
-> > >> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/dr=
-m/amd/amdgpu/nbio_v6_1.c
-> > >> index f7f6ddebd3e4..37615a77287b 100644
-> > >> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-> > >> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-> > >> @@ -282,6 +282,7 @@ static void nbio_v6_1_init_registers(struct amdg=
-pu_device *adev)
-> > >>                          mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FL=
-USH_CNTL) << 2;
-> > >>   }
-> > >>
-> > >> +#ifdef CONFIG_PCIEASPM
-> > >>   static void nbio_v6_1_program_ltr(struct amdgpu_device *adev)
-> > >>   {
-> > >>          uint32_t def, data;
-> > >> @@ -303,9 +304,11 @@ static void nbio_v6_1_program_ltr(struct amdgpu=
-_device *adev)
-> > >>          if (def !=3D data)
-> > >>                  WREG32_PCIE(smnBIF_CFG_DEV0_EPF0_DEVICE_CNTL2, data=
-);
-> > >>   }
-> > >> +#endif
-> > >>
-> > >>   static void nbio_v6_1_program_aspm(struct amdgpu_device *adev)
-> > >>   {
-> > >> +#ifdef CONFIG_PCIEASPM
-> > >>          uint32_t def, data;
-> > >>
-> > >>          def =3D data =3D RREG32_PCIE(smnPCIE_LC_CNTL);
-> > >> @@ -361,7 +364,10 @@ static void nbio_v6_1_program_aspm(struct amdgp=
-u_device *adev)
-> > >>          if (def !=3D data)
-> > >>                  WREG32_PCIE(smnPCIE_LC_CNTL6, data);
-> > >>
-> > >> -       nbio_v6_1_program_ltr(adev);
-> > >> +       /* Don't bother about LTR if LTR is not enabled
-> > >> +        * in the path */
-> > >> +       if (adev->pdev->ltr_path)
-> > >> +               nbio_v6_1_program_ltr(adev);
-> > >>
-> > >>          def =3D data =3D RREG32_PCIE(smnRCC_BIF_STRAP3);
-> > >>          data |=3D 0x5DE0 << RCC_BIF_STRAP3__STRAP_VLINK_ASPM_IDLE_T=
-IMER__SHIFT;
-> > >> @@ -385,6 +391,7 @@ static void nbio_v6_1_program_aspm(struct amdgpu=
-_device *adev)
-> > >>          data &=3D ~PCIE_LC_CNTL3__LC_DSC_DONT_ENTER_L23_AFTER_PME_A=
-CK_MASK;
-> > >>          if (def !=3D data)
-> > >>                  WREG32_PCIE(smnPCIE_LC_CNTL3, data);
-> > >> +#endif
-> > >>   }
-> > >>
-> > >>   const struct amdgpu_nbio_funcs nbio_v6_1_funcs =3D {
-> > >> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/dr=
-m/amd/amdgpu/nbio_v7_4.c
-> > >> index 11848d1e238b..19455a725939 100644
-> > >> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-> > >> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-> > >> @@ -673,6 +673,7 @@ struct amdgpu_nbio_ras nbio_v7_4_ras =3D {
-> > >>   };
-> > >>
-> > >>
-> > >> +#ifdef CONFIG_PCIEASPM
-> > >>   static void nbio_v7_4_program_ltr(struct amdgpu_device *adev)
-> > >>   {
-> > >>          uint32_t def, data;
-> > >> @@ -694,9 +695,11 @@ static void nbio_v7_4_program_ltr(struct amdgpu=
-_device *adev)
-> > >>          if (def !=3D data)
-> > >>                  WREG32_PCIE(smnBIF_CFG_DEV0_EPF0_DEVICE_CNTL2, data=
-);
-> > >>   }
-> > >> +#endif
-> > >>
-> > >>   static void nbio_v7_4_program_aspm(struct amdgpu_device *adev)
-> > >>   {
-> > >> +#ifdef CONFIG_PCIEASPM
-> > >>          uint32_t def, data;
-> > >>
-> > >>          if (adev->ip_versions[NBIO_HWIP][0] =3D=3D IP_VERSION(7, 4,=
- 4))
-> > >> @@ -755,7 +758,10 @@ static void nbio_v7_4_program_aspm(struct amdgp=
-u_device *adev)
-> > >>          if (def !=3D data)
-> > >>                  WREG32_PCIE(smnPCIE_LC_CNTL6, data);
-> > >>
-> > >> -       nbio_v7_4_program_ltr(adev);
-> > >> +       /* Don't bother about LTR if LTR is not enabled
-> > >> +        * in the path */
-> > >> +       if (adev->pdev->ltr_path)
-> > >> +               nbio_v7_4_program_ltr(adev);
-> > >>
-> > >>          def =3D data =3D RREG32_PCIE(smnRCC_BIF_STRAP3);
-> > >>          data |=3D 0x5DE0 << RCC_BIF_STRAP3__STRAP_VLINK_ASPM_IDLE_T=
-IMER__SHIFT;
-> > >> @@ -779,6 +785,7 @@ static void nbio_v7_4_program_aspm(struct amdgpu=
-_device *adev)
-> > >>          data &=3D ~PCIE_LC_CNTL3__LC_DSC_DONT_ENTER_L23_AFTER_PME_A=
-CK_MASK;
-> > >>          if (def !=3D data)
-> > >>                  WREG32_PCIE(smnPCIE_LC_CNTL3, data);
-> > >> +#endif
-> > >>   }
-> > >>
-> > >>   const struct amdgpu_nbio_funcs nbio_v7_4_funcs =3D {
-> > >> --
-> > >> 2.25.1
-> > >>
+     return amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC);
+
+
+Regards,
+   Felix
+
+
+>   	case IP_VERSION(11, 0, 2):
+>   		return false;
+>   	default:
