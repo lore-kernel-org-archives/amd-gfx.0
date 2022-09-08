@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00BB9C38145
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 00:17:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80A5FC38145
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 00:17:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F67B10E603;
-	Thu,  8 Sep 2022 00:17:30 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 915DF10E603
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Sep 2022 00:17:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D94E10E908;
+	Thu,  8 Sep 2022 00:17:35 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D294C10E86B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Sep 2022 00:17:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QF4QLDD1BLVXsPNOUoVT1Ruk+VKn6LSxfQVJ4gITArrFgsVrR/dG4lFVtGkApwD3umXR7Y+NyJJKkCpE13kRETpWbBK7IPEKxWswr2vZQFw0xrftMhaW6wj0b1mEEE3MdcD+QD5wlId8r2HiHrne9lcwJ6SG2u/BIL2EYuKzUUuHU/TWhGtEOIMGG7TcGHR0LJAK15Z9nJPMTF3r2zKti+y2S/wC/lf4MUNJAd3avOUpiYnmyh1XMZO/b8/eqSidELOyBVlmm+8ciUE5clAfXUChdyLwEBup/BqHv4C+sBNZY19rPmgF9rFZfNLf94G6FvsCv0vrILBH/11VXknHBw==
+ b=CSpnltXE5UIEDaxIy1hhR87rbqJmTCl/Fwn9ypM7Ta4a/aFhUrhF96T7fbe70UqZIsZr1YCbDBLHp/UbYTTUv5d4Sls8cZa1aIdINYZMUn3QvakJkYra1guJvZtMj9jlJy2EnOkrEscFTOZ/PX/a00K571FdLa0Yiieng03OyWAGHHLV1fkduDHClJptSKPkXVn5gHQreGU4vJa0h//JLCluB3OIcjKVRLcC5DmNUFf3aUDRXoZH7vl9e5TXh++cWfh2YBR3EyvG5q/aW4RMzgfDfyRWG2CQ/mi2vHEZWdYnRGbwL2Y0NlrFUoJ3TVn0mC3zH0z2aX2U5aUpmxB0og==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HvlGsW+OnjeAwR9qXNsxQETUXv2K8A0u/jh6uJghpqk=;
- b=DWl5A7HOdXQ1y9KaEuW2SfpLQ29Rjucx1HvBh01HhmvkbrETbFlZV36qbcLjADjecg7JPcyeUZRi0zhpCubX8hAQtaIUmTY4LqTusljXXXQESxJBQCGN3NcKSyPaiEYPt4pUKl9OiGOJGXUsSIMB6TI0vqMDCnGAQ11NBZxDISkxyFK+p3ZTA961hEnDyOxP/x6lDkIOzSEHpcd2BvzwnhX4vCwgevzyaS/2dfgakCg8wmuBaRmTxbc8Y0KDP+Qlr5Ych/rX5Rk5mT7JHkjtmVCUCavTxAymcvRjCC/UHWxl8D9eTb+Mu+1QlAVIT+1esTFoElDctu7iQ11fObrpTw==
+ bh=aERrfY/7AYhwuz5D0yEuOyaAultSn55fMYVnMNDHRAM=;
+ b=SfEA3Qij8TSwWEfbeewH2dqHKLJK7I1lf+GTObMTJebFNiVXXJAzQlmYxyzKdGzn9Qlg1APUO7pGRQP4eJ3Bw7BfFj8nydlcP0Z6XtIkSoxEm/K3mH0MXGt2isnpZ3qMjdsAF1mujb/RG3UIRPizksaN36lOKzLQkYna8N1FzabjoftkruPXCs96YUtwCWr5FOcG63cCt8/gqRHk+oSSxeTP2axcmd9hZCYdb3K7HsVMm67m/b30IZY7cIXAmfFUsadl6agHqRV7+CkGJVCQ7YlUoXLa8so8oTnJScs1BHtE9OoLXH2ivnLLznPzN5zxjNjPWy7Z71HpotFpOaSaNQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HvlGsW+OnjeAwR9qXNsxQETUXv2K8A0u/jh6uJghpqk=;
- b=FaZVMUC+KmOVwsIdcup9S5lBXEMPWn1sPz3t5uVS5wUrSW5PgDXEwrC+r3a/IKV5HPEZ0lqh/ZouLPURPDmmn0h+7CQj0X8fPhcMGvVp3RQSXqqYOjqN2bPru0a6CImIpzMQDDJZ3dxXW1u+KDh5p7WukFD5duuXexQnDzkyaAo=
-Received: from DS7PR03CA0310.namprd03.prod.outlook.com (2603:10b6:8:2b::9) by
- PH7PR12MB7356.namprd12.prod.outlook.com (2603:10b6:510:20f::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.14; Thu, 8 Sep
- 2022 00:17:23 +0000
-Received: from DM6NAM11FT061.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2b:cafe::c8) by DS7PR03CA0310.outlook.office365.com
- (2603:10b6:8:2b::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.10 via Frontend
- Transport; Thu, 8 Sep 2022 00:17:23 +0000
+ bh=aERrfY/7AYhwuz5D0yEuOyaAultSn55fMYVnMNDHRAM=;
+ b=ooqLW/wKT6TYknirKZcTziNPLbc+iTJj03VFS6c9W3YvtvWhO8Ih1eK0G6Jm8eqTaFjOsl/qkq2Fngn3GBK2WaZaPcVCx2BCChN2h7i3lE0BOhKvNcS5P0uIPY/I602xoVkhos4BvgfQrEaoJk0AGpjYDmE8VL8lZhuS8Idz50A=
+Received: from DM6PR13CA0004.namprd13.prod.outlook.com (2603:10b6:5:bc::17) by
+ DM6PR12MB4959.namprd12.prod.outlook.com (2603:10b6:5:208::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5588.10; Thu, 8 Sep 2022 00:17:28 +0000
+Received: from DM6NAM11FT092.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:bc:cafe::89) by DM6PR13CA0004.outlook.office365.com
+ (2603:10b6:5:bc::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14 via Frontend
+ Transport; Thu, 8 Sep 2022 00:17:28 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT061.mail.protection.outlook.com (10.13.173.138) with Microsoft SMTP
+ DM6NAM11FT092.mail.protection.outlook.com (10.13.173.44) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5612.13 via Frontend Transport; Thu, 8 Sep 2022 00:17:23 +0000
+ 15.20.5612.13 via Frontend Transport; Thu, 8 Sep 2022 00:17:28 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 7 Sep
- 2022 19:16:56 -0500
+ 2022 19:17:27 -0500
 From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 1/2] drm/amdkfd: handle CPU fault on COW mapping
-Date: Wed, 7 Sep 2022 20:16:29 -0400
-Message-ID: <20220908001630.15437-1-Philip.Yang@amd.com>
+Subject: [PATCH v2 2/2] drm/amdkfd: Remove prefault before migrating to VRAM
+Date: Wed, 7 Sep 2022 20:16:30 -0400
+Message-ID: <20220908001630.15437-2-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220908001630.15437-1-Philip.Yang@amd.com>
+References: <20220908001630.15437-1-Philip.Yang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT061:EE_|PH7PR12MB7356:EE_
-X-MS-Office365-Filtering-Correlation-Id: c8d90a40-6763-45fd-d470-08da912f809b
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT092:EE_|DM6PR12MB4959:EE_
+X-MS-Office365-Filtering-Correlation-Id: 082c5e5d-7f19-47c9-0b74-08da912f837d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jipddTC6sMfm1rRfkEVKyn/onJdY9Zb2YUiQuqh5gN5SOcVxSmGw4uA2CeyfBnVCVWTzeRhiXLFaS7QQBpkNBcYxtHeQMcYWDn/1xCD7knEvRHeqFg/wkWxicmHaQEKqYAGnr7PsjsYM9Yh1kpw/1gx6eSZ7WgX+fahWuvUE1MyVW/5kHspTPGxf61Eprk3eLfjtWp+mKnTtbg2WYoZp/buySLexpYy7rfWYkMG3tm/4Rd8ow2Tr4QngqUsQ9IhVbrJ+xKeMjuxv3bZHfC6YwhNdBVCUROL7I/2LUdp8ufvWdRZIBgzKedxoF+UAG+3MmYxaMJSrJeJ49Rfg9zeLrQI9LLGT+0W7ht309o/9jyTyegsrpNcV5UeddG4Zfgi5QgzOuz/AsNhzKeoml9+/orbFOY/ZZcqkHcLQiGsK9BuzN7PX6qHbY0+N2JTvC41OfPMkEVdt9ApzUaa8ItvqI7ShpWoplS8ukwEZPWQ+rdzxi41Lq9xX7kYIu/Ur+3MsW+Hmcto+77VCOd9jjuArZcy4weiHzQEJZ5f6SRYX+jR+Df/hs1JjJrrgxVCgohydbL9lLOvTsUDAeNupLVsTFmKXHBKjj8rfodwTLpMzrFPfQLO5cHyRIB4tsRn37xwwkTQljxtJqjTX+ZUTuFRTko0vuKZiFdoNtK7gO6h11EE92bbyydPEbQKHTcciuPQayqO2xULdhJWW3SLXLGjfFYeHisU+KO/b8UB/Ttu0nIlAvtISIgpISLMUwmkBGc6C3a/M7BCB/AacGgB/lxfKCAPp11KI4nchyky9Va0eEY3EShothZe3M/MFKmwqE9bLLEf1eSaJhGfCJ8P3veye5WAY1qzmv+pvaAD1BYxl4BI=
+X-Microsoft-Antispam-Message-Info: 2ISO5ig0x2rwxw4k3myCazHRriBy/+CDd781W42DLQ+Teqh0BZyPqFi5AbyQcWt6lldhOqENDbYQk722Iptynt8217pBaXxPgoV7zfiTvmTTmSjfGK9vzynaSPiT12v1tcFVFK9bxeTB+KUvaDFYqWBOlYfoikzAu0UTlxg6PeL0n2UaoMv7d3fe0kTdemz4Crw4kg4tMt3pcnaRww1xztb0EI9xKx2ju5JrBldNpSgH+qpUmsO7qqmew0Egh567yXqEAJ4atYjFfgjq92fWF8EiQ2HQt5/c7Ez63lFbNsT4Ykx9KiDKSvSluIzINrEiwhv0DiS/CM8KwJbIjDGYG8IeUWAmAGqrE70fNQ+dkKLWML4x9NoIm1moXSRco1rpaFM4e9u8Qb9vDH2eg3yJAfpBjLP6MQGrpkWcw0FiofsJMjQ0d3IlHyGuxYyrxTpXrLXxHF5TeGkPGEudgIMWo8NhBa+BlOZA2JzHzCtopCeJem2zMQhJMizlyR/Fbl/fhK/qoW3EQNCKST25r3TGs3hRccRbxeofDwoxEJQvHWfqfLHFZOIjdAF/6otZVt7tKonMTkiK9qrxlVwmu7FAOnEBrUUnAuq4FG3tStFLVePMd1wdAT5ziUd3ceQcttfXHwfxBDbk+wrZGNKF7quozSS08ECoxjLtcpej/V6G4xKTIUHcKohtJBMplRdPjHKOLXixBxsr3Xu2NRVRC4nG2hQ5VLwn2zQsNGlpKh/aJM6eD/AdGRaHwtss7f3Qo0EUn/fIPVJBzpzhMgq48Q6I+j8OMd+M/Gm59cBHdMO4roc=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(346002)(376002)(396003)(136003)(46966006)(36840700001)(40470700004)(7696005)(186003)(16526019)(26005)(1076003)(426003)(2616005)(336012)(47076005)(5660300002)(8936002)(86362001)(41300700001)(40480700001)(36756003)(6666004)(478600001)(40460700003)(36860700001)(82740400003)(356005)(81166007)(83380400001)(54906003)(82310400005)(316002)(4326008)(6916009)(2906002)(70206006)(8676002)(70586007)(36900700001);
+ SFS:(13230016)(4636009)(39860400002)(346002)(376002)(136003)(396003)(36840700001)(46966006)(40470700004)(81166007)(47076005)(5660300002)(36756003)(356005)(2616005)(426003)(186003)(16526019)(83380400001)(336012)(8676002)(4326008)(40480700001)(70206006)(70586007)(1076003)(8936002)(2906002)(6666004)(86362001)(7696005)(6916009)(82310400005)(54906003)(26005)(41300700001)(36860700001)(40460700003)(478600001)(316002)(82740400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2022 00:17:23.2439 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8d90a40-6763-45fd-d470-08da912f809b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2022 00:17:28.0909 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 082c5e5d-7f19-47c9-0b74-08da912f837d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT061.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT092.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7356
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4959
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,106 +103,98 @@ Cc: Philip Yang <Philip.Yang@amd.com>, felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If CPU page fault in a page with zone_device_data svm_bo from another
-process, that means it is COW mapping in the child process and the
-range is migrated to VRAM by parent process. Migrate the parent
-process range back to system memory to recover the CPU page fault.
+Prefaulting potentially allocates system memory pages before a
+migration. This adds unnecessary overhead. Instead we can skip
+unallocated pages in the migration and just point migrate->dst to a
+0-initialized VRAM page directly. Then the VRAM page will be inserted
+to the PTE. A subsequent CPU page fault will migrate the page back to
+system memory.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 42 ++++++++++++++++--------
- 1 file changed, 29 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 12 +++++-------
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 22 ----------------------
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |  2 --
+ 3 files changed, 5 insertions(+), 31 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 373e5bfd4e91..8562dd0eb4b6 100644
+index 8562dd0eb4b6..f62c4561f0f4 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -884,7 +884,7 @@ svm_migrate_to_vram(struct svm_range *prange, uint32_t best_loc,
- static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
- {
- 	unsigned long addr = vmf->address;
--	struct vm_area_struct *vma;
-+	struct svm_range_bo *svm_bo;
- 	enum svm_work_list_ops op;
- 	struct svm_range *parent;
- 	struct svm_range *prange;
-@@ -892,29 +892,42 @@ static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
- 	struct mm_struct *mm;
- 	int r = 0;
+@@ -322,12 +322,13 @@ svm_migrate_copy_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
+ 	for (i = j = 0; i < npages; i++) {
+ 		struct page *spage;
  
--	vma = vmf->vma;
--	mm = vma->vm_mm;
-+	svm_bo = vmf->page->zone_device_data;
-+	if (!svm_bo) {
-+		pr_debug("failed get device page at addr 0x%lx\n", addr);
-+		return VM_FAULT_SIGBUS;
-+	}
-+	if (!mmget_not_zero(svm_bo->eviction_fence->mm)) {
-+		pr_debug("addr 0x%lx of process mm is detroyed\n", addr);
-+		return VM_FAULT_SIGBUS;
-+	}
++		dst[i] = cursor.start + (j << PAGE_SHIFT);
++		migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
++		svm_migrate_get_vram_page(prange, migrate->dst[i]);
++		migrate->dst[i] = migrate_pfn(migrate->dst[i]);
 +
-+	mm = svm_bo->eviction_fence->mm;
-+	if (mm != vmf->vma->vm_mm)
-+		pr_debug("addr 0x%lx is COW mapping in child process\n", addr);
+ 		spage = migrate_pfn_to_page(migrate->src[i]);
+ 		if (spage && !is_zone_device_page(spage)) {
+-			dst[i] = cursor.start + (j << PAGE_SHIFT);
+-			migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
+-			svm_migrate_get_vram_page(prange, migrate->dst[i]);
+-			migrate->dst[i] = migrate_pfn(migrate->dst[i]);
+ 			src[i] = dma_map_page(dev, spage, 0, PAGE_SIZE,
+ 					      DMA_TO_DEVICE);
+ 			r = dma_mapping_error(dev, src[i]);
+@@ -522,9 +523,6 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
+ 	pr_debug("svms 0x%p [0x%lx 0x%lx] to gpu 0x%x\n", prange->svms,
+ 		 prange->start, prange->last, best_loc);
  
--	p = kfd_lookup_process_by_mm(vma->vm_mm);
-+	p = kfd_lookup_process_by_mm(mm);
- 	if (!p) {
- 		pr_debug("failed find process at fault address 0x%lx\n", addr);
--		return VM_FAULT_SIGBUS;
-+		r = VM_FAULT_SIGBUS;
-+		goto out_mmput;
- 	}
- 	if (READ_ONCE(p->svms.faulting_task) == current) {
- 		pr_debug("skipping ram migration\n");
--		kfd_unref_process(p);
--		return 0;
-+		r = 0;
-+		goto out_unref_process;
- 	}
--	addr >>= PAGE_SHIFT;
-+
- 	pr_debug("CPU page fault svms 0x%p address 0x%lx\n", &p->svms, addr);
-+	addr >>= PAGE_SHIFT;
+-	/* FIXME: workaround for page locking bug with invalid pages */
+-	svm_range_prefault(prange, mm, SVM_ADEV_PGMAP_OWNER(adev));
+-
+ 	start = prange->start << PAGE_SHIFT;
+ 	end = (prange->last + 1) << PAGE_SHIFT;
  
- 	mutex_lock(&p->svms.lock);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 11074cc8c333..cf5b4005534c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -3181,28 +3181,6 @@ svm_range_best_prefetch_location(struct svm_range *prange)
+ 	return best_loc;
+ }
  
- 	prange = svm_range_from_addr(&p->svms, addr, &parent);
- 	if (!prange) {
--		pr_debug("cannot find svm range at 0x%lx\n", addr);
-+		pr_debug("failed get range svms 0x%p addr 0x%lx\n", &p->svms, addr);
- 		r = -EFAULT;
--		goto out;
-+		goto out_unlock_svms;
- 	}
- 
- 	mutex_lock(&parent->migrate_mutex);
-@@ -938,8 +951,8 @@ static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
- 
- 	r = svm_migrate_vram_to_ram(prange, mm, KFD_MIGRATE_TRIGGER_PAGEFAULT_CPU);
- 	if (r)
--		pr_debug("failed %d migrate 0x%p [0x%lx 0x%lx] to ram\n", r,
--			 prange, prange->start, prange->last);
-+		pr_debug("failed %d migrate svms 0x%p range 0x%p [0x%lx 0x%lx]\n",
-+			 r, prange->svms, prange, prange->start, prange->last);
- 
- 	/* xnack on, update mapping on GPUs with ACCESS_IN_PLACE */
- 	if (p->xnack_enabled && parent == prange)
-@@ -953,9 +966,12 @@ static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
- 	if (prange != parent)
- 		mutex_unlock(&prange->migrate_mutex);
- 	mutex_unlock(&parent->migrate_mutex);
--out:
-+out_unlock_svms:
- 	mutex_unlock(&p->svms.lock);
-+out_unref_process:
- 	kfd_unref_process(p);
-+out_mmput:
-+	mmput(mm);
- 
- 	pr_debug("CPU fault svms 0x%p address 0x%lx done\n", &p->svms, addr);
- 
+-/* FIXME: This is a workaround for page locking bug when some pages are
+- * invalid during migration to VRAM
+- */
+-void svm_range_prefault(struct svm_range *prange, struct mm_struct *mm,
+-			void *owner)
+-{
+-	struct hmm_range *hmm_range;
+-	int r;
+-
+-	if (prange->validated_once)
+-		return;
+-
+-	r = amdgpu_hmm_range_get_pages(&prange->notifier, mm, NULL,
+-				       prange->start << PAGE_SHIFT,
+-				       prange->npages, &hmm_range,
+-				       false, true, owner);
+-	if (!r) {
+-		amdgpu_hmm_range_get_pages_done(hmm_range);
+-		prange->validated_once = true;
+-	}
+-}
+-
+ /* svm_range_trigger_migration - start page migration if prefetch loc changed
+  * @mm: current process mm_struct
+  * @prange: svm range structure
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index cfac13ad06ef..012c53729516 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -181,8 +181,6 @@ void schedule_deferred_list_work(struct svm_range_list *svms);
+ void svm_range_dma_unmap(struct device *dev, dma_addr_t *dma_addr,
+ 			 unsigned long offset, unsigned long npages);
+ void svm_range_free_dma_mappings(struct svm_range *prange);
+-void svm_range_prefault(struct svm_range *prange, struct mm_struct *mm,
+-			void *owner);
+ int svm_range_get_info(struct kfd_process *p, uint32_t *num_svm_ranges,
+ 		       uint64_t *svm_priv_data_size);
+ int kfd_criu_checkpoint_svm(struct kfd_process *p,
 -- 
 2.35.1
 
