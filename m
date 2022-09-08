@@ -4,54 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6B13C38145
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 13:14:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D8FFC38145
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 13:18:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C29FD10EAE1;
-	Thu,  8 Sep 2022 13:14:53 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CB0210E9C4;
- Thu,  8 Sep 2022 13:14:49 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-11e9a7135easo44199993fac.6; 
- Thu, 08 Sep 2022 06:14:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=PKx0v8N9YvEdbCnl3VJ9cuH9xcqQx+VnjaIOLPR9Czk=;
- b=ZS/7JbXh65BNH4t6OPVZOW0t4raGc4c7dXcoWt2lmQ6mrH6/aE31PuYG0HeXHOq+Ub
- 9oMQP+1k0cZrL/tYzvk2occ2c38JKtrEaRktgSx8eK7puJKnmTWkzu9gxA9uKwjM1im3
- 3MqqaMBOgxL3Y6fBoIPlbo4O2GQ1iiTxSaeybjEaxO2d0tpa0XhK1mtdieziqctGY7/C
- 6ZXXhX47Y7tPFr1MujrwSnTDmfMTXjURsqzv8PWl+X1kzza1gISo70QeB7Utaq7ZtUU9
- 5/ySsPZo6J5vTXXXnUrTugE6VNAoUXY1KuxRk6bPZ/Y3USReD+noLy1OyIiKXOAS49KW
- 6YCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=PKx0v8N9YvEdbCnl3VJ9cuH9xcqQx+VnjaIOLPR9Czk=;
- b=e3JzfjSvR/pJ8+/tIlvGt+cWZk0oZPB/IQX3Ll83CHBdckibw/iwu27UhYGTRdJNdk
- vTZ+z+Y47tVoNXMBMCRO9cpnC1K+TbgyodwQ2RqvdLFIZNY8AyXE+1ux7laigKbzZGgX
- TOgipYCx1tmcWHizlkEHygS4yY9MTjVNkfATFfg2lGvA6pzZzeC2HJrj+c27zzNEIWUo
- AGiRzi73eqztevilFbPB8bKg6OSlkvN1cFPUoKYoTKDEExj1HHsVF5o8FjkqW9mg1GDe
- 1O00b/ItO+qWe4emgv7Zqznj0vJfKc3MTMQiC+9DSqYri6jIvSAf4CakrYTln49Ts5Kb
- 6T5w==
-X-Gm-Message-State: ACgBeo1tfmyl9LTSYHCUxa7Lv1v1jRZA8WgZvWawGOg8FM9Ufdxi04Po
- c2xMxfpQolo8V1CT7/TtIyTK7c7s8EID5F/ItdY=
-X-Google-Smtp-Source: AA6agR63axWcWuoiPmLdv7JJo8NQ+7t/OC3Va7LB8HTyVVWAvafafRCGevZ5p9xF6ImC115Oou+1v2eU0FXaaNhWTVY=
-X-Received: by 2002:a05:6870:1783:b0:12a:f442:504d with SMTP id
- r3-20020a056870178300b0012af442504dmr335621oae.46.1662642888600; Thu, 08 Sep
- 2022 06:14:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25DBA10EAE7;
+	Thu,  8 Sep 2022 13:18:47 +0000 (UTC)
+Received: from bg4.exmail.qq.com (bg4.exmail.qq.com [43.154.221.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76EBA10EAE4;
+ Thu,  8 Sep 2022 13:17:29 +0000 (UTC)
+X-QQ-mid: bizesmtp84t1662643039t07ra0ze
+Received: from localhost.localdomain ( [182.148.14.0])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Thu, 08 Sep 2022 21:17:18 +0800 (CST)
+X-QQ-SSF: 01000000002000B0C000B00A0000000
+X-QQ-FEAT: +bXiSo2NuBcBlRYOxHLzXBtArwwG6UHyCDKxp/s0RZ6EVpfj/h3Vkndm6DbmK
+ WRueeLfffZ5YPRqwhoIQBQzq+tHY0bTZvPklKVKSmJ84Q6gqG9ibDy5v5o3IJ/nMKJcPean
+ XqxdTAw6Evc/DT9nHy2+QIczXwutQmBqUEaKJ4fFTgmOS7pqogIy6Rtzm2L5jbuOIIXmm+N
+ KnCUmqaQIHSYsopDhJBwCgQq/XFPTAUB2nB2zAt64jxMCAZD8s1YiF/yDPc81ibQIPduGWd
+ qB8gt5DhWRqHlHBUeLvJXQHv6mmOZbD8mMa4fL7S8W0kdhzXr12LDcFLFuxvn/rYTFMixOK
+ RlkEKFm/qkW6kvt1pwqkx9VT586HLKrNO9ZNYzZowrfLEN+YH+zjmrY+34jNg==
+X-QQ-GoodBg: 0
+From: wangjianli <wangjianli@cdjrlc.com>
+To: airlied@linux.ie, daniel@ffwll.ch, Xinhui.Pan@amd.com,
+ christian.koenig@amd.com, alexander.deucher@amd.com, Felix.Kuehling@amd.com
+Subject: [PATCH] amd/amdkfd: fix repeated words in comments
+Date: Thu,  8 Sep 2022 21:17:12 +0800
+Message-Id: <20220908131712.40442-1-wangjianli@cdjrlc.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-References: <20220906195721.143022-1-hamza.mahfooz@amd.com>
-In-Reply-To: <20220906195721.143022-1-hamza.mahfooz@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 8 Sep 2022 09:14:37 -0400
-Message-ID: <CADnq5_O0W-ipCCy3hsub5GwirjDTM76Xn3kAxgyZT5V+vDguSA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: use dirty framebuffer helper
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr7
+X-Mailman-Approved-At: Thu, 08 Sep 2022 13:18:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,50 +47,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun Chen <guchun.chen@amd.com>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Sean Paul <seanpaul@chromium.org>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Fernando Ramos <greenfoo@u92.eu>
+Cc: wangjianli <wangjianli@cdjrlc.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 6, 2022 at 3:58 PM Hamza Mahfooz <hamza.mahfooz@amd.com> wrote:
->
-> Currently, we aren't handling DRM_IOCTL_MODE_DIRTYFB. So, use
-> drm_atomic_helper_dirtyfb() as the dirty callback in the amdgpu_fb_funcs
-> struct.
->
-> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Delete the redundant word 'to'.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: wangjianli <wangjianli@cdjrlc.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index c20922a5af9f..5b09c8f4fe95 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -38,6 +38,7 @@
->  #include <linux/pci.h>
->  #include <linux/pm_runtime.h>
->  #include <drm/drm_crtc_helper.h>
-> +#include <drm/drm_damage_helper.h>
->  #include <drm/drm_edid.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
->  #include <drm/drm_fb_helper.h>
-> @@ -496,6 +497,7 @@ bool amdgpu_display_ddc_probe(struct amdgpu_connector *amdgpu_connector,
->  static const struct drm_framebuffer_funcs amdgpu_fb_funcs = {
->         .destroy = drm_gem_fb_destroy,
->         .create_handle = drm_gem_fb_create_handle,
-> +       .dirty = drm_atomic_helper_dirtyfb,
->  };
->
->  uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
-> --
-> 2.37.2
->
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 24b414cff3ec..cd5f8b219bf9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -2284,7 +2284,7 @@ static int kfd_create_vcrat_image_gpu(void *pcrat_image,
+ 
+ 	/* Fill in Subtype: IO_LINKS
+ 	 *  Only direct links are added here which is Link from GPU to
+-	 *  to its NUMA node. Indirect links are added by userspace.
++	 *  its NUMA node. Indirect links are added by userspace.
+ 	 */
+ 	sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
+ 		cache_mem_filled);
+-- 
+2.36.1
+
