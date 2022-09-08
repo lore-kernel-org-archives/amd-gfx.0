@@ -4,114 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 354E6C38145
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 01:59:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50AE2ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 02:01:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 566E110E103;
-	Thu,  8 Sep 2022 01:59:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5E1610E15E;
+	Thu,  8 Sep 2022 02:01:20 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2086.outbound.protection.outlook.com [40.107.220.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0A3410E103
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Sep 2022 01:58:55 +0000 (UTC)
+ (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7699B10E15E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Sep 2022 02:01:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lbN0hTMMUjmY2HF+SsFM0lWtIrT4PaIa1jb8Q2zAiBjYkady9+C76/2TZhg4X+x5syCUONpCwtiXvinTB+Aaf7GYbYQhENGvggFuZb4zbHO+w1pj6isv9vViJfljkKSMeU5unN1nzJ3Bn1nJS7Iu80Ntek3yqpVjxU/ORfHf3S4rxhqmkN8Ggh6O+KRTfCPDZTSJbj35a0Grk02VDgSkio70qUXbtap5dG8yLoZQMTkMpWcmGTdKdM+BR7Zm8CmVO+FQ2tfx5cBCUv4OVgWgfMozcOs986W47najLNEaF0XgqNg/JCzfxhjW6uE4XKKu0+R41XN6aBNh2CEj4BhruA==
+ b=Yyusu9BM4JZrzapQoMF6HMpXWLPKVagCiPkOLqZqu39/F5alUhvvuiSwbiiDv/eR70AqxXn/MjI4EeGbJRheFAyV8ZpgYC9f6sO+u9zcNu4B6MBNLtzOlusdl5YPDXudh1RN8NliWyHlS5UgvdIIvhxtiCcYF5adZa0sRv9I7qA0l4ebcG9MVgYd3ETEDzABX8QJDiSF8FgWdthtsbpHkdqdtG6kptBis4DxlR0dUz1M+QtamBY+Ir29ThCA4K0JtGhEVZi8NyYCqkpYrFDBhBNEzH4Rosddt2Y3B1v104zoJRHhZdAt5g+LYwUz1fvn3fdQsbtto+3vJY3bBF/kYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JQpPhNgXdPPnHmXGJPI/WTYS+zoHg+ZM5QN4PpWYWns=;
- b=ZfrzwfBiZ6FI1WQ5CRUw+bNbWpC7FqHw70mejWrYk8Ye4TCPir0Sv65b+zYRicioaK74ikFgVMxs0BDM0sRnV/iUpOe8mbXIGADPM8WUjv05tYPcCu/UCVJZJpNGrG7wtcG8iF8MpaXUVSMr97V3aShICIQVEaZlxXVoE0P0pzLE2MhOaxlLStBJG3wsHIg9bnQbxrZMVAWhG4j54domD5ZsMg/ExooHrYMQ/U/KcsuwmSaUD9x/ozWuDmxZwBYxQawruzBxPgbNKNoEeiEsNAZ/1lsDSp5r9NOqgmA/JbDHvPLY0IbnTEHAKHh1I/GdxDv9Q9eUtygUjg+nKFAG8Q==
+ bh=QirmW1nv9GvKnaZda7e5JyBmSWhLcGl9BLoh86PJXHQ=;
+ b=gnkr67c9PLeaUECeNfDmxMHQZLIM8SDfzxlTt3GAs7h+/0rBlrlmhLh7BQmWK1WoEdEe7WhZJ8Hsjz54FE+Van69mXjVM9seVk09RTyOMvfMj+cCsjbR7GEN/WMOiB1kzCRK30YLK6pgiKd4+bkJVPQ+vxkS2SNnkeOUApL5mqw2LILrZYxAw89VUpywgRaUZoKVrmQ8OTzW373BLAWTSYfQaHzLuBqbO35GwJK1gyack38tn9qDvjsb32zVR49TtHhntdY/KYlAJ2LVJhH4XNqqjg2FqO95WXQpF0eUYcPL6OyKUR5by5dTmjb0KbgIkgWBVsc05d+jMpQFdM1eZw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JQpPhNgXdPPnHmXGJPI/WTYS+zoHg+ZM5QN4PpWYWns=;
- b=HgoGgI/vneGOVFZgqvndlYNwBykrAJSW1AfckQdoI5FMF7iLeQ3TFFG6tr5wpcs5D6Mrx6JQLAc5gQybmVAVgSbKGozc2Lesq3k3Cxd8kzBaVmdmuKz01vXIAU5cpCAGLNiLLH6kT7zLrOVNhTQeRDD5NvR3PP6yegzRmxoZvHw=
+ bh=QirmW1nv9GvKnaZda7e5JyBmSWhLcGl9BLoh86PJXHQ=;
+ b=jE9PcS5XCiWhwwZc62RuD9KcCAYbdur1vK5ROekaKwhGbCz2skRTTNoof6hptoLLyWvqjgZyHYhNsbP9vpuK8FUwfawldP8EnHn9+Ezf0XJENP23OuNuVnvuGMTbbiRVfHeN4lv3yCq24hy4z6CQxxcSvF/a9yrOkkCZyg2cMJI=
 Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by DM4PR12MB6278.namprd12.prod.outlook.com (2603:10b6:8:a4::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14; Thu, 8 Sep
- 2022 01:58:54 +0000
+ by SJ0PR12MB6880.namprd12.prod.outlook.com (2603:10b6:a03:485::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.16; Thu, 8 Sep
+ 2022 02:01:14 +0000
 Received: from BN9PR12MB5257.namprd12.prod.outlook.com
  ([fe80::1192:d133:8667:ed28]) by BN9PR12MB5257.namprd12.prod.outlook.com
  ([fe80::1192:d133:8667:ed28%5]) with mapi id 15.20.5588.018; Thu, 8 Sep 2022
- 01:58:54 +0000
+ 02:01:14 +0000
 From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Li, Candice" <Candice.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
+To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Enable full reset when RAS is supported on gc
- v11_0_0
-Thread-Topic: [PATCH] drm/amdgpu: Enable full reset when RAS is supported on
- gc v11_0_0
-Thread-Index: AQHYwyAs/3LPYcA1dkWtmXFYV/ApZq3UxsXs
-Date: Thu, 8 Sep 2022 01:58:54 +0000
-Message-ID: <BN9PR12MB5257EB43ACC8F25A4A510461FC409@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20220908011035.17145-1-candice.li@amd.com>
-In-Reply-To: <20220908011035.17145-1-candice.li@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Use per device reset_domain for XGMI on sriov
+ configuration
+Thread-Topic: [PATCH] drm/amdgpu: Use per device reset_domain for XGMI on
+ sriov configuration
+Thread-Index: AQHYws/yLcIBF8rNXkqKDL9scgwPEq3Up5cAgAAgaR4=
+Date: Thu, 8 Sep 2022 02:01:14 +0000
+Message-ID: <BN9PR12MB5257D5EDF30177E66F53984AFC409@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20220907153803.24370-1-shaoyun.liu@amd.com>
+ <CH0PR12MB5372A46F350E46A9953114F1F4409@CH0PR12MB5372.namprd12.prod.outlook.com>
+In-Reply-To: <CH0PR12MB5372A46F350E46A9953114F1F4409@CH0PR12MB5372.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-08T01:58:38.1741542Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-08T00:04:37.0000000Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8c487b83-73b1-4fea-7740-08da913daf08
-x-ms-traffictypediagnostic: DM4PR12MB6278:EE_
+x-ms-office365-filtering-correlation-id: 3ab623b1-49be-4de4-5e63-08da913e02a8
+x-ms-traffictypediagnostic: SJ0PR12MB6880:EE_
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: FkchZfurBi268bwaMLDy73+2XRvC/rNPaduSOsfbLoLHUeP0Ndwhjp7dN80jqb+NGooXkuZM2zUV8iKxVvDprfGBWUNjgMr1MLYSvxkszzHNypxFHC6PVEGJMrR41UUmma0nrljfPcthQ64zHkkddLBVImbMLJ2YJGNmVh/KqP0BXyhZDfXD8MlWcZ+V3cvGxalVIbYzHAan/nwztqpGocSrEgBbkTaSKT4b1QLwXcioq1hLsE8sqdeMMBuwFVBiH35HrjxxDEDAK8GeFNI3T8n3rOMs80HOWqB56cd+TueGmPRZrOW+70gpXCliUfL5nVE7jNpKUW114rtMAyRM1eH+jN/EKn638EGPsnfRaXl9fFYlJ5oQUXTuM5uKsqn/vuy8NkSm803zb+IWgjW2dgB22L3Ua1bYDAYuj9Dr/oGFZqxiNuMADOqjSQyBNBOexENb8juBbg8jVfn+stuY4zMuDWrZGH6N/bEvixCZ94RgaTjPZ7r1Cqi6BYt4HujCT61QGxHYHrMPn0qzWFh9vXHRz+ZTBv7iQjH7mv3QTTEP2Vdj45L3rlG1QDIkMxmaItgvUxZAngAT0zR0J8gEK9rXjq0XG5AC7ZyjlQfYUDzp1yPtgVDp0AVpMKOwFpXeYHcJ3J+RZySvPQCr8OoJjFUklXV+PTA5jqdPmSxLjjFKFHIIQu3xG7grXAY+ej9qDOk1ykkd+HES/HfHqKnwwg/pzVNoyRubPA/oUzccrfMgz8LPSomVLnluY2Zh+tkubXnTjbOKsa7UoSkU+v0IVA==
+x-microsoft-antispam-message-info: HuQb78WnI0KN1eh2iBRB4Lnc84V8pXeE25txwgnBSs8DOOHZKScV8+57uI7mxjIAdIV77BSthrTs+M1+yvlxjz0kJQgQw3hQWUpo88DaNe0aMQw3duHKZ1VE3P7YaIV6DtBQ2XRExY6eYeXvyrhPgzH6CG1vUKFvxUcV0zCD0QPA7yZGOzan3QnOS7GgIUwH2jrqDyD6JKLKfAr0vqD1+B9n79XGC7mlf0qhgQqUbWrjiPRmijrLF4wlfHLIX3vxa47bsmtR2+lmlTEmq/ymnbLQNvfyoCxKBy+WHNKzjC5kJ6JS/7w+urUO4hUnPPTe/vhdXbH08JBabuCcbqsAsFR6t2gY3xZ2shQmxbuZSK3j/rYvl+mjWoB4IUwCsIdoUWYONmJW7cxUGwiyy4JyaURGF3jQ/s1xpNZvbPWn/5UkcyswYuPIKEXhNw67L5w71YG1NRJbWM8OPw/FKZpCnjCBSqAd68h9UXK/24e6AYh3PE79aL5z0tS1LOaPPaGYzqebTHDeQcSqkmxEbzzKBWp6pTdL4yp3C/+AfGgbfZEwDyxanSuicGvDW6DuEg923YMC9EF3871eOZQ6gcdiCz8bt+2ejcpMarNdfmKF4+F2TRk4rNbMnvzWz/7SQyRcMtvdTqt+I/WqhpWtbb/FKJt+ZH//y73Xv9TQFKDWUJTicU7jNgnW+NGdlf5lBk4EtcMgcfxDjx94q/z4GdeyaxzmHRjWDBWZC1IKjasmf9OqtDNSgi2LHDSMIje/90rkmmdLIp16HtnbdanSDcKcYaPS7C4iqVtZHPWopGD9gao=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(346002)(136003)(366004)(396003)(376002)(86362001)(122000001)(38100700002)(38070700005)(66446008)(64756008)(8676002)(4326008)(76116006)(66476007)(66556008)(66946007)(91956017)(33656002)(83380400001)(478600001)(9686003)(7696005)(26005)(41300700001)(71200400001)(53546011)(316002)(110136005)(6506007)(55016003)(186003)(8936002)(5660300002)(2906002)(52536014);
+ SFS:(13230016)(4636009)(396003)(346002)(366004)(136003)(376002)(39860400002)(66556008)(110136005)(316002)(478600001)(966005)(2906002)(66946007)(66446008)(66476007)(45080400002)(86362001)(122000001)(33656002)(91956017)(76116006)(166002)(38100700002)(38070700005)(8676002)(9686003)(71200400001)(6506007)(26005)(53546011)(41300700001)(7696005)(186003)(64756008)(55016003)(83380400001)(5660300002)(52536014)(8936002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?GX1DBaVtTs44EzFRya/i8nc9URhacllRcvmhhYmMbq8aycTSKJYbp09om2PW?=
- =?us-ascii?Q?cfK1qWp+O5QlHuVzeotyO2C9twr8XggtCDXMr9WCLlGXPzhc8AownwZQ4vRH?=
- =?us-ascii?Q?HSNklMVoJ6pvNtiNMyCUbWAB1A5fcWpX5rJyH4lYyn1lW7Rr7JFgUU3hfP23?=
- =?us-ascii?Q?bS3o2/SrbgzUym5Rj41DHmmH6eOzF6U7OzG1QEQ+DU/QdrsmBHuynN4vCsF4?=
- =?us-ascii?Q?leAXDZGLiDLZe8GdgSA6IHgkUKlR1a4lBZPNSHZXVrRlX4OVMdqrWngXhLdl?=
- =?us-ascii?Q?FFYTuM6x+JSoBUPxQoYqRNkixJAkziXmPN2z8kV5AN2I9sK16TKqu33T4RGY?=
- =?us-ascii?Q?SWsc+HtAKSz7t0T8lzG7Kt15pf+MZ131p99Y0eGZzSZm+MxFkezc4BQ+kLki?=
- =?us-ascii?Q?tSL/F/0oyZUXucgSrQZfd7rAo40w19VxAfaFRlOdT1/Xa/b0diAQrdMwREMZ?=
- =?us-ascii?Q?nLIHm5A8s1wd0qLGeoUMZE6HJessrIrwp7E7/D/3NJSwnxkkksw0b6UMcVlh?=
- =?us-ascii?Q?raC0nr1zk9//+DkUvTmAwx1luSp+/EGo646SvfTVLj+8GQmnAdZ8b22DyGjm?=
- =?us-ascii?Q?Y0EV1O10TZjZZLSFzoXk6eQjadILikiu0M2500Eb7ZmqzTWgagGORrvTXKOt?=
- =?us-ascii?Q?rzIdy8owsc0GGLxpqHpA6f9GR/6j48CikfaQc2EjRqNxuy2BoAdfHF8gdcuX?=
- =?us-ascii?Q?OiUMwR43nVjQlGKQPV2OBI5ocimj5+3CQHfg7lNXiF2EN8ZdbzKHsYh69tnK?=
- =?us-ascii?Q?kWsyeF9JU862avLirLHmHBTG6u2oTtjQsYv5o9fZQVoOpiVx+TRyDhhKu9r5?=
- =?us-ascii?Q?DUk3suhyabZDO9UAWwsZpyLHMwCW1dsH17OXqVRcuJJHQvgHwXY6PeSpNG28?=
- =?us-ascii?Q?gJZNSYtX8O40USjWE1mnIxULjkRKKChrXiq0otoZ+GeczfNsuT43c/qE3v+q?=
- =?us-ascii?Q?XHLT7jKR+xgdONRLgoy50YzhOqIAZfNZlzT+M8+24wjM+TLwWs5qqB4zVOTk?=
- =?us-ascii?Q?mjhayTILa5xZdfT+5penNnEiVokFerEM+BCeoRuWcbDkaNWcpVNxKNFLZjq2?=
- =?us-ascii?Q?3r9ffzBZphu14feUFY5M13VVfNT+CvWO90RnQRgSoAQHdL22HGDK1bUNhvfA?=
- =?us-ascii?Q?R3dlhNM7PeqZFEPV5z8LpPGW3VJKSTgENW7uWuTqo0YltNQ6/t6B7vFLctPV?=
- =?us-ascii?Q?vmxIuOy6vStOBxdyC7s6+SZL2p1ciQNW1rr3vs1RWUrQW0yPUy3ys0siocvR?=
- =?us-ascii?Q?DrH10PnlnLPHJUjuJE2/phY3kI+tdfZA1ZoBWyiM+IbIYa+SkE2gP0C8/toi?=
- =?us-ascii?Q?iG1n6fa/aYm5UQTHZivjb4xOJNNutDPE0IPoGQ8BoApmQDzmDhywpuXeXwFy?=
- =?us-ascii?Q?L1GiJ3hcj9KohH+vEknuP3fTqLzWavaOYEP6BG/aGwA3ph8xU2DZXnDiuRZO?=
- =?us-ascii?Q?IQPklfm85jywUpQCR+EOWcb/FN+c59L8CJlF5ZZ9XNvrCZnEpAGBuAYct4CL?=
- =?us-ascii?Q?ehu4vsZc+qhWWrkgND1auBXD6ufcYI63QcBZ+JVqF7lA2WdwF2J1Y/I3XiIp?=
- =?us-ascii?Q?GPYrNDS5/qg/LzKs7v+f4d17/Ji/St9oFIo/tDdta8Jja+8p3APd7H+LuzcG?=
- =?us-ascii?Q?YQ=3D=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kwj2CZ1Rg8e+XQzPGj9aRLmIvJeH7QikafbSfM201iMIcdGCWijAN490D0CY?=
+ =?us-ascii?Q?Q2G2Za3zdP1E+9AfSXbGwADzE2DiVuUPZrgPyqQ/JE4127+Rx1BiFBcgY2Zu?=
+ =?us-ascii?Q?bqAtLyIps5qBHy7bLRq8qRDv2/j2jma5jijFK/DYGH2gxQLJi9gxKbpdCd78?=
+ =?us-ascii?Q?7NuNKJkevhfum5LPcti2SIhvcDkNLcC0g3B5aHBnHnK7iU7nFBd7s8J3+mg+?=
+ =?us-ascii?Q?mSyrPrBCvhgLLYO45QSQ3fIecaJ4ugPttIHMGOPiSZSl9+s8jmQxNUPqX/GP?=
+ =?us-ascii?Q?lMLnl2dyG6U4hBxRC2suBlETKrJuH1Bi9VZRwyz9PhaDhmjtUKSY3nuogDMg?=
+ =?us-ascii?Q?L4VuSoQ1cyKGxebJXU/xWLZqlQz5GgV/BTywQx0aJPWZduTy2ug5ZMTt2cfY?=
+ =?us-ascii?Q?dYSgWQXSkB/nBalARvGFh25J1mBI+7Sf3BFQT74xBHyEn84iQipOUMQ/Be5C?=
+ =?us-ascii?Q?1EItJ6l1c1J3JS9d3LmlJCcRv7QukFZvgEv/pTZVpENM6/Xt1H6V0NNLmxTn?=
+ =?us-ascii?Q?CK8/+hOmsO14zXxM5wH2cEiUMhUQ7YEoAwWQk3OKVvSA40z901c9Ik2PWs0v?=
+ =?us-ascii?Q?Z+m3QJzL6MURp+9J9dRKWilJchEqBMymq8b0rmjJbbna+WVTRUmuxjxxUXvs?=
+ =?us-ascii?Q?tq5ZLD0GmSaJ/3KlG8fQX4wCuLvsVCcHKa4zn6jpVOAzKdNyb4IgpjUZCNaE?=
+ =?us-ascii?Q?EgFhKFmNyoWUn8uPW1aBEYNHbOvpmZM3RpbhkWfjIN3KQL1K2OPh6Wqjb925?=
+ =?us-ascii?Q?toyJrdOzR4/TZgYXysJCbCUNENFWs2TN0i+SuC9tIDDD77jQwZcShT4bscnq?=
+ =?us-ascii?Q?H7MMIk5LBkBxo+87mj6OQ7xJhQL80fCFKfAsTFdqaA3US7LYMJ2kN2LUvL+A?=
+ =?us-ascii?Q?3yAavZzEvA189bH7KM0L9fi0oDn2HJQqiOkO3KwNWwvZhn3sLrGWgO9vQHbH?=
+ =?us-ascii?Q?K/Ngpdh6kiPadjxt8h6TeiOTrcOXmwtRa5PdJEIS8RE8RwNJw6wyFMEHhPy+?=
+ =?us-ascii?Q?pPQ5cWDA9m/+Jz44MJvPMZwll47TWWBwK6mRqeGZIbx8iu4KFPxKxvstP3OW?=
+ =?us-ascii?Q?4Y7FQxJTfdsvzGe9cDJvrQFRtCEHA3ometE5IKXg2WNYGlOHpjxXmyJ2ZiEi?=
+ =?us-ascii?Q?xk8JxyODXaky2oQzX5vqtdle6WQfxmkCkAxaE7mCTQreDpx2oq7GleZQYl7m?=
+ =?us-ascii?Q?HkYHwyYhOVpEHYiorDFGEiUH8lZ2BqEzvmd4vooUNfhPw+lrejEIWkUi3lfz?=
+ =?us-ascii?Q?OpzuPRhMJBP8i6ZphKdXdwr/bACLeJ4gt04OlrZuzwq+jyRaLDq/xB6Mlc9Y?=
+ =?us-ascii?Q?VRaoGZJkKJuq3GzcgypOAwRSPC1CYPf0rgYOeXFWJjJ8qq/qbKrWtAck9/ny?=
+ =?us-ascii?Q?yk+L7WQYcmbirW+kY48jM0u8dOpi32PYAPkflTlhN6xD5wE0dO1bGMV+DkYL?=
+ =?us-ascii?Q?pEJ8ZOkAmZMmD+q1ORHYjudpq+PnT2OVRTi1oFjn9ZPIni8ffgbCla9gX0iF?=
+ =?us-ascii?Q?nAxMgycz6l7S5hrCKqWvTUWRoSzJjCBrApvDBGogc2uN+dSySkNkcQyl6+Ie?=
+ =?us-ascii?Q?Yf3efiUmCQcFHMEuYEgAzBidKdNhuefvsazsRYjXd2eFNCIxy5Xo66ZMJ739?=
+ =?us-ascii?Q?ng=3D=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_BN9PR12MB5257EB43ACC8F25A4A510461FC409BN9PR12MB5257namp_"
+ boundary="_000_BN9PR12MB5257D5EDF30177E66F53984AFC409BN9PR12MB5257namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c487b83-73b1-4fea-7740-08da913daf08
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2022 01:58:54.1634 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ab623b1-49be-4de4-5e63-08da913e02a8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2022 02:01:14.4778 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: K9wKR7l5Xj7k+FQeNhSSpPpSGFwl2dpVtrXwJCcHi7wt+seevA6OUmGFMZkEbSUapLunHRATfyERgwjodL0tlA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6278
+X-MS-Exchange-CrossTenant-userprincipalname: qWBRBKvkgUqvk8Bohq2wbpQbvZBdt5GgUFOeiKXMBIFwOFY9ohGe6cCW2pyo2CGjYTglmPCtW/bTOPW1qxhbPw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6880
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,11 +125,10 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Li, Candice" <Candice.Li@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BN9PR12MB5257EB43ACC8F25A4A510461FC409BN9PR12MB5257namp_
+--_000_BN9PR12MB5257D5EDF30177E66F53984AFC409BN9PR12MB5257namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -137,41 +138,152 @@ Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
 Regards,
 Hawking
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Candice =
-Li <candice.li@amd.com>
-Date: Thursday, September 8, 2022 at 09:13
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Liu, Sha=
+oyun <Shaoyun.Liu@amd.com>
+Date: Thursday, September 8, 2022 at 08:05
 To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Li, Candice <Candice.Li@amd.com>
-Subject: [PATCH] drm/amdgpu: Enable full reset when RAS is supported on gc =
-v11_0_0
-Enable full reset for RAS supported configuration on gc v11_0_0.
+Subject: RE: [PATCH] drm/amdgpu: Use per device reset_domain for XGMI on sr=
+iov configuration
+[AMD Official Use Only - General]
 
-Signed-off-by: Candice Li <candice.li@amd.com>
+[AMD Official Use Only - General]
+
+ping
+
+-----Original Message-----
+From: Liu, Shaoyun <Shaoyun.Liu@amd.com>
+Sent: Wednesday, September 7, 2022 11:38 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Liu, Shaoyun <Shaoyun.Liu@amd.com>
+Subject: [PATCH] drm/amdgpu: Use per device reset_domain for XGMI on sriov =
+configuration
+
+For SRIOV configuration, host driver control the reset method(either FLR or=
+ heavier chain reset). The host will notify the guest individually with FLR=
+ message if individual GPU within the hive need to be reset. So for guest s=
+ide, no need to use hive->reset_domain to replace the original per device r=
+eset_domain
+
+Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/soc21.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 20 ++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   | 36 +++++++++++++---------
+ 2 files changed, 33 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgp=
-u/soc21.c
-index a26c5723c46e27..81f32d77c98cd5 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -421,6 +421,10 @@ static bool soc21_need_full_reset(struct amdgpu_device=
- *adev)
- {
-         switch (adev->ip_versions[GC_HWIP][0]) {
-         case IP_VERSION(11, 0, 0):
-+               if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC))
-+                       return true;
-+               else
-+                       return false;
-         case IP_VERSION(11, 0, 2):
-                 return false;
-         default:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 62b26f0e37b0..a5533e0d9d6c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2453,17 +2453,19 @@ static int amdgpu_device_ip_init(struct amdgpu_devi=
+ce *adev)
+                if (amdgpu_xgmi_add_device(adev) =3D=3D 0) {
+                        struct amdgpu_hive_info *hive =3D amdgpu_get_xgmi_h=
+ive(adev);
+
+-                       if (!hive->reset_domain ||
+-                           !amdgpu_reset_get_reset_domain(hive->reset_doma=
+in)) {
+-                               r =3D -ENOENT;
++                       if(!amdgpu_sriov_vf(adev)) {
++                               if (!hive->reset_domain ||
++                                   !amdgpu_reset_get_reset_domain(hive->re=
+set_domain)) {
++                                       r =3D -ENOENT;
++                                       amdgpu_put_xgmi_hive(hive);
++                                       goto init_failed;
++                               }
++
++                               /* Drop the early temporary reset domain we=
+ created for device */
++                               amdgpu_reset_put_reset_domain(adev->reset_d=
+omain);
++                               adev->reset_domain =3D hive->reset_domain;
+                                amdgpu_put_xgmi_hive(hive);
+-                               goto init_failed;
+                        }
+-
+-                       /* Drop the early temporary reset domain we created=
+ for device */
+-                       amdgpu_reset_put_reset_domain(adev->reset_domain);
+-                       adev->reset_domain =3D hive->reset_domain;
+-                       amdgpu_put_xgmi_hive(hive);
+                }
+        }
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_xgmi.c
+index d3b483aa81f8..a78b589e4f4f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -391,24 +391,32 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct =
+amdgpu_device *adev)
+                goto pro_end;
+        }
+
++       /**
++        * Only init hive->reset_domain for none SRIOV configuration. For S=
+RIOV,
++        * Host driver decide how to reset the GPU either through FLR or ch=
+ain reset.
++        * Guest side will get individual notifications from the host for t=
+he FLR
++        * if necessary.
++        */
++       if (!amdgpu_sriov_vf(adev)) {
+        /**
+         * Avoid recreating reset domain when hive is reconstructed for the=
+ case
+-        * of reset the devices in the XGMI hive during probe for SRIOV
++        * of reset the devices in the XGMI hive during probe for passthrou=
+gh
++GPU
+         * See https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%=
+3A%2F%2Fwww.spinics.net%2Flists%2Famd-gfx%2Fmsg58836.html&amp;data=3D05%7C0=
+1%7Chawking.zhang%40amd.com%7C1cc58853b47048a4e25208da912dc783%7C3dd8961fe4=
+884e608e11a82d994e183d%7C0%7C0%7C637981923054102228%7CUnknown%7CTWFpbGZsb3d=
+8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%=
+7C%7C%7C&amp;sdata=3DDmZeEevkv%2FlVa07m0HUCkC6ozH0BgJ4uPGnYe41NAOs%3D&amp;r=
+eserved=3D0
+         */
+-       if (adev->reset_domain->type !=3D XGMI_HIVE) {
+-               hive->reset_domain =3D amdgpu_reset_create_reset_domain(XGM=
+I_HIVE, "amdgpu-reset-hive");
+-                       if (!hive->reset_domain) {
+-                               dev_err(adev->dev, "XGMI: failed initializi=
+ng reset domain for xgmi hive\n");
+-                               ret =3D -ENOMEM;
+-                               kobject_put(&hive->kobj);
+-                               kfree(hive);
+-                               hive =3D NULL;
+-                               goto pro_end;
+-                       }
+-       } else {
+-               amdgpu_reset_get_reset_domain(adev->reset_domain);
+-               hive->reset_domain =3D adev->reset_domain;
++               if (adev->reset_domain->type !=3D XGMI_HIVE) {
++                       hive->reset_domain =3D amdgpu_reset_create_reset_do=
+main(XGMI_HIVE, "amdgpu-reset-hive");
++                               if (!hive->reset_domain) {
++                                       dev_err(adev->dev, "XGMI: failed in=
+itializing reset domain for xgmi hive\n");
++                                       ret =3D -ENOMEM;
++                                       kobject_put(&hive->kobj);
++                                       kfree(hive);
++                                       hive =3D NULL;
++                                       goto pro_end;
++                               }
++               } else {
++                       amdgpu_reset_get_reset_domain(adev->reset_domain);
++                       hive->reset_domain =3D adev->reset_domain;
++               }
+        }
+
+        hive->hive_id =3D adev->gmc.xgmi.hive_id;
 --
 2.17.1
 
---_000_BN9PR12MB5257EB43ACC8F25A4A510461FC409BN9PR12MB5257namp_
+--_000_BN9PR12MB5257D5EDF30177E66F53984AFC409BN9PR12MB5257namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -201,6 +313,10 @@ p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0in;
 	font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
 span.EmailStyle19
 	{mso-style-type:personal-reply;
 	font-family:"Calibri",sans-serif;
@@ -215,8 +331,8 @@ div.WordSection1
 	{page:WordSection1;}
 --></style>
 </head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
+k-word">
 <p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
 gn=3D"Left">
 [AMD Official Use Only - General]<br>
@@ -235,52 +351,259 @@ Hawking<o:p></o:p></span></p>
 <p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><b><span style=3D"fon=
 t-size:12.0pt;color:black">From:
 </span></b><span style=3D"font-size:12.0pt;color:black">amd-gfx &lt;amd-gfx=
--bounces@lists.freedesktop.org&gt; on behalf of Candice Li &lt;candice.li@a=
-md.com&gt;<br>
-<b>Date: </b>Thursday, September 8, 2022 at 09:13<br>
+-bounces@lists.freedesktop.org&gt; on behalf of Liu, Shaoyun &lt;Shaoyun.Li=
+u@amd.com&gt;<br>
+<b>Date: </b>Thursday, September 8, 2022 at 08:05<br>
 <b>To: </b>amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
 gt;<br>
-<b>Cc: </b>Li, Candice &lt;Candice.Li@amd.com&gt;<br>
-<b>Subject: </b>[PATCH] drm/amdgpu: Enable full reset when RAS is supported=
- on gc v11_0_0<o:p></o:p></span></p>
+<b>Subject: </b>RE: [PATCH] drm/amdgpu: Use per device reset_domain for XGM=
+I on sriov configuration<o:p></o:p></span></p>
 </div>
 <div>
 <p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
-ize:11.0pt">Enable full reset for RAS supported configuration on gc v11_0_0=
-.<br>
+ize:11.0pt">[AMD Official Use Only - General]<br>
 <br>
-Signed-off-by: Candice Li &lt;candice.li@amd.com&gt;<br>
+[AMD Official Use Only - General]<br>
+<br>
+ping<br>
+<br>
+-----Original Message-----<br>
+From: Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;<br>
+Sent: Wednesday, September 7, 2022 11:38 AM<br>
+To: amd-gfx@lists.freedesktop.org<br>
+Cc: Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;<br>
+Subject: [PATCH] drm/amdgpu: Use per device reset_domain for XGMI on sriov =
+configuration<br>
+<br>
+For SRIOV configuration, host driver control the reset method(either FLR or=
+ heavier chain reset). The host will notify the guest individually with FLR=
+ message if individual GPU within the hive need to be reset. So for guest s=
+ide, no need to use hive-&gt;reset_domain
+ to replace the original per device reset_domain<br>
+<br>
+Signed-off-by: shaoyunl &lt;shaoyun.liu@amd.com&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/soc21.c | 4 ++++<br>
-&nbsp;1 file changed, 4 insertions(+)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 20 ++++++------<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c&nbsp;&nbsp; | 36 +++++++++++=
+++---------<br>
+&nbsp;2 files changed, 33 insertions(+), 23 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgp=
-u/soc21.c<br>
-index a26c5723c46e27..81f32d77c98cd5 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c<br>
-@@ -421,6 +421,10 @@ static bool soc21_need_full_reset(struct amdgpu_device=
- *adev)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;ip_versio=
-ns[GC_HWIP][0]) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(11, 0, 0):=
-<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; else<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(11, 0, 2):=
-<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index 62b26f0e37b0..a5533e0d9d6c 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -2453,17 +2453,19 @@ static int amdgpu_device_ip_init(struct amdgpu_devi=
+ce *adev)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return false;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
--- <br>
+sp;&nbsp;&nbsp; if (amdgpu_xgmi_add_device(adev) =3D=3D 0) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdg=
+pu_hive_info *hive =3D amdgpu_get_xgmi_hive(adev);<br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hive-&gt;re=
+set_domain ||<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; !amdgpu_reset_get_reset_domain(hive-&gt;reset_domain)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D -ENOENT;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!amdgpu_sriov=
+_vf(adev)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hive-&gt;reset_domain ||<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !amdgpu_reset_get_r=
+eset_domain(hive-&gt;reset_domain)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; r =3D -ENOENT;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; amdgpu_put_xgmi_hive(hive);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; goto init_failed;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Drop the early temporary reset domain we=
+ created for device */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_reset_put_reset_domain(adev-&gt;rese=
+t_domain);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;reset_domain =3D hive-&gt;reset_do=
+main;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_put_xgmi_hive(hive);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto init_failed;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Drop the earl=
+y temporary reset domain we created for device */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_reset_put=
+_reset_domain(adev-&gt;reset_domain);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;reset_d=
+omain =3D hive-&gt;reset_domain;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_put_xgmi_=
+hive(hive);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_xgmi.c<br>
+index d3b483aa81f8..a78b589e4f4f 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<br>
+@@ -391,24 +391,32 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct =
+amdgpu_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; goto pro_end;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Only init hive-&gt;reset_doma=
+in for none SRIOV configuration. For SRIOV,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Host driver decide how to res=
+et the GPU either through FLR or chain reset.<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Guest side will get individua=
+l notifications from the host for the FLR<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * if necessary.<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Avoid recreating reset d=
+omain when hive is reconstructed for the case<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * of reset the devices in the X=
+GMI hive during probe for SRIOV<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * of reset the devices in the X=
+GMI hive during probe for passthrough<br>
++GPU<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * See <a href=3D"https://n=
+am11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.spinics.net%=
+2Flists%2Famd-gfx%2Fmsg58836.html&amp;amp;data=3D05%7C01%7Chawking.zhang%40=
+amd.com%7C1cc58853b47048a4e25208da912dc783%7C3dd8961fe4884e608e11a82d994e18=
+3d%7C0%7C0%7C637981923054102228%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDA=
+iLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sda=
+ta=3DDmZeEevkv%2FlVa07m0HUCkC6ozH0BgJ4uPGnYe41NAOs%3D&amp;amp;reserved=3D0"=
+>
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.spi=
+nics.net%2Flists%2Famd-gfx%2Fmsg58836.html&amp;amp;data=3D05%7C01%7Chawking=
+.zhang%40amd.com%7C1cc58853b47048a4e25208da912dc783%7C3dd8961fe4884e608e11a=
+82d994e183d%7C0%7C0%7C637981923054102228%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC=
+4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&am=
+p;amp;sdata=3DDmZeEevkv%2FlVa07m0HUCkC6ozH0BgJ4uPGnYe41NAOs%3D&amp;amp;rese=
+rved=3D0</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;reset_domain-&gt;type !=
+=3D XGMI_HIVE) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; hive-&gt;reset_domain =3D amdgpu_reset_create_reset_domain(XGMI_=
+HIVE, &quot;amdgpu-reset-hive&quot;);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hive-&gt;re=
+set_domain) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;XGMI: failed in=
+itializing reset domain for xgmi hive\n&quot;);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D -ENOMEM;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kobject_put(&amp;hive-&gt;kobj);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hive);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hive =3D NULL;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto pro_end;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_reset_get_reset_domain(adev-&gt;reset_domain);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; hive-&gt;reset_domain =3D adev-&gt;reset_domain;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (adev-&gt;reset_domain-&gt;type !=3D XGMI_HIVE) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hive-&gt;reset_d=
+omain =3D amdgpu_reset_create_reset_domain(XGMI_HIVE, &quot;amdgpu-reset-hi=
+ve&quot;);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hive-&gt;reset_domain) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; dev_err(adev-&gt;dev, &quot;XGMI: failed initializing reset domain for=
+ xgmi hive\n&quot;);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; ret =3D -ENOMEM;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; kobject_put(&amp;hive-&gt;kobj);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; kfree(hive);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; hive =3D NULL;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; goto pro_end;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; } else {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_reset_get=
+_reset_domain(adev-&gt;reset_domain);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hive-&gt;reset_d=
+omain =3D adev-&gt;reset_domain;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hive-&gt;hive_id =3D adev-&gt;gm=
+c.xgmi.hive_id;<br>
+--<br>
 2.17.1<o:p></o:p></span></p>
 </div>
 </div>
@@ -288,4 +611,4 @@ sp;&nbsp;&nbsp;&nbsp; return false;<br>
 </body>
 </html>
 
---_000_BN9PR12MB5257EB43ACC8F25A4A510461FC409BN9PR12MB5257namp_--
+--_000_BN9PR12MB5257D5EDF30177E66F53984AFC409BN9PR12MB5257namp_--
