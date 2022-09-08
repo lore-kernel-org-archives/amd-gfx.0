@@ -4,90 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80A5FC38145
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 00:17:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4785EECAAD3
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 01:12:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D94E10E908;
-	Thu,  8 Sep 2022 00:17:35 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D294C10E86B
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Sep 2022 00:17:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CSpnltXE5UIEDaxIy1hhR87rbqJmTCl/Fwn9ypM7Ta4a/aFhUrhF96T7fbe70UqZIsZr1YCbDBLHp/UbYTTUv5d4Sls8cZa1aIdINYZMUn3QvakJkYra1guJvZtMj9jlJy2EnOkrEscFTOZ/PX/a00K571FdLa0Yiieng03OyWAGHHLV1fkduDHClJptSKPkXVn5gHQreGU4vJa0h//JLCluB3OIcjKVRLcC5DmNUFf3aUDRXoZH7vl9e5TXh++cWfh2YBR3EyvG5q/aW4RMzgfDfyRWG2CQ/mi2vHEZWdYnRGbwL2Y0NlrFUoJ3TVn0mC3zH0z2aX2U5aUpmxB0og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aERrfY/7AYhwuz5D0yEuOyaAultSn55fMYVnMNDHRAM=;
- b=SfEA3Qij8TSwWEfbeewH2dqHKLJK7I1lf+GTObMTJebFNiVXXJAzQlmYxyzKdGzn9Qlg1APUO7pGRQP4eJ3Bw7BfFj8nydlcP0Z6XtIkSoxEm/K3mH0MXGt2isnpZ3qMjdsAF1mujb/RG3UIRPizksaN36lOKzLQkYna8N1FzabjoftkruPXCs96YUtwCWr5FOcG63cCt8/gqRHk+oSSxeTP2axcmd9hZCYdb3K7HsVMm67m/b30IZY7cIXAmfFUsadl6agHqRV7+CkGJVCQ7YlUoXLa8so8oTnJScs1BHtE9OoLXH2ivnLLznPzN5zxjNjPWy7Z71HpotFpOaSaNQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aERrfY/7AYhwuz5D0yEuOyaAultSn55fMYVnMNDHRAM=;
- b=ooqLW/wKT6TYknirKZcTziNPLbc+iTJj03VFS6c9W3YvtvWhO8Ih1eK0G6Jm8eqTaFjOsl/qkq2Fngn3GBK2WaZaPcVCx2BCChN2h7i3lE0BOhKvNcS5P0uIPY/I602xoVkhos4BvgfQrEaoJk0AGpjYDmE8VL8lZhuS8Idz50A=
-Received: from DM6PR13CA0004.namprd13.prod.outlook.com (2603:10b6:5:bc::17) by
- DM6PR12MB4959.namprd12.prod.outlook.com (2603:10b6:5:208::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5588.10; Thu, 8 Sep 2022 00:17:28 +0000
-Received: from DM6NAM11FT092.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:bc:cafe::89) by DM6PR13CA0004.outlook.office365.com
- (2603:10b6:5:bc::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14 via Frontend
- Transport; Thu, 8 Sep 2022 00:17:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT092.mail.protection.outlook.com (10.13.173.44) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5612.13 via Frontend Transport; Thu, 8 Sep 2022 00:17:28 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 7 Sep
- 2022 19:17:27 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 2/2] drm/amdkfd: Remove prefault before migrating to VRAM
-Date: Wed, 7 Sep 2022 20:16:30 -0400
-Message-ID: <20220908001630.15437-2-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220908001630.15437-1-Philip.Yang@amd.com>
-References: <20220908001630.15437-1-Philip.Yang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABAC310E918;
+	Thu,  8 Sep 2022 01:12:50 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC13A10E3F5;
+ Thu,  8 Sep 2022 01:12:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1662599564; x=1694135564;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=DzghnYU0wzVB6WTARjWFLQMkyj0Z+o+JZG+YW32sRcI=;
+ b=fdmqGx0Xc7Egzyq/aO4rcNkgSlKA427s0rVMCb6BVaBx10TM9FIF9rQd
+ z+M4YnM/Sk2YebIAoMp2W4lmyIHjCRa/ZT/MPW/puw/eTpiUAyAaLZ3zW
+ lhocrCv+1HrQBH612S26w9gVLOUtPLgQfofeAJkGETapN2BlWh6h7eDOC
+ IkQ9mOpy0TokwJoVnSG4bTyf4iwuRhXMgiyDZ5SxqyR0KIKR9VIKL9pbv
+ sMgSLRWmAcEZSdzq2E4nlN62NcrCtjeFa73Y0xhdT1YiszMrDuEbnFwOu
+ izPAGgE2ZWRLKGMzOGNhCSp7y1JlJibcKw0ccXs/BkdojlfPyuplw3KTo A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10463"; a="276772259"
+X-IronPort-AV: E=Sophos;i="5.93,298,1654585200"; d="scan'208";a="276772259"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2022 18:12:44 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,298,1654585200"; d="scan'208";a="683033955"
+Received: from lkp-server02.sh.intel.com (HELO 95dfd251caa2) ([10.239.97.151])
+ by fmsmga004.fm.intel.com with ESMTP; 07 Sep 2022 18:12:42 -0700
+Received: from kbuild by 95dfd251caa2 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1oW65x-0007C3-1W;
+ Thu, 08 Sep 2022 01:12:41 +0000
+Date: Thu, 08 Sep 2022 09:12:15 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 5957ac6635a1a12d4aa2661bbf04d3085a73372a
+Message-ID: <6319416f.h232K5rqqAPQe4ZI%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT092:EE_|DM6PR12MB4959:EE_
-X-MS-Office365-Filtering-Correlation-Id: 082c5e5d-7f19-47c9-0b74-08da912f837d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2ISO5ig0x2rwxw4k3myCazHRriBy/+CDd781W42DLQ+Teqh0BZyPqFi5AbyQcWt6lldhOqENDbYQk722Iptynt8217pBaXxPgoV7zfiTvmTTmSjfGK9vzynaSPiT12v1tcFVFK9bxeTB+KUvaDFYqWBOlYfoikzAu0UTlxg6PeL0n2UaoMv7d3fe0kTdemz4Crw4kg4tMt3pcnaRww1xztb0EI9xKx2ju5JrBldNpSgH+qpUmsO7qqmew0Egh567yXqEAJ4atYjFfgjq92fWF8EiQ2HQt5/c7Ez63lFbNsT4Ykx9KiDKSvSluIzINrEiwhv0DiS/CM8KwJbIjDGYG8IeUWAmAGqrE70fNQ+dkKLWML4x9NoIm1moXSRco1rpaFM4e9u8Qb9vDH2eg3yJAfpBjLP6MQGrpkWcw0FiofsJMjQ0d3IlHyGuxYyrxTpXrLXxHF5TeGkPGEudgIMWo8NhBa+BlOZA2JzHzCtopCeJem2zMQhJMizlyR/Fbl/fhK/qoW3EQNCKST25r3TGs3hRccRbxeofDwoxEJQvHWfqfLHFZOIjdAF/6otZVt7tKonMTkiK9qrxlVwmu7FAOnEBrUUnAuq4FG3tStFLVePMd1wdAT5ziUd3ceQcttfXHwfxBDbk+wrZGNKF7quozSS08ECoxjLtcpej/V6G4xKTIUHcKohtJBMplRdPjHKOLXixBxsr3Xu2NRVRC4nG2hQ5VLwn2zQsNGlpKh/aJM6eD/AdGRaHwtss7f3Qo0EUn/fIPVJBzpzhMgq48Q6I+j8OMd+M/Gm59cBHdMO4roc=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(346002)(376002)(136003)(396003)(36840700001)(46966006)(40470700004)(81166007)(47076005)(5660300002)(36756003)(356005)(2616005)(426003)(186003)(16526019)(83380400001)(336012)(8676002)(4326008)(40480700001)(70206006)(70586007)(1076003)(8936002)(2906002)(6666004)(86362001)(7696005)(6916009)(82310400005)(54906003)(26005)(41300700001)(36860700001)(40460700003)(478600001)(316002)(82740400003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2022 00:17:28.0909 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 082c5e5d-7f19-47c9-0b74-08da912f837d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT092.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4959
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,102 +57,174 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, felix.kuehling@amd.com
+Cc: alsa-devel@alsa-project.org, linux-scsi@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ amd-gfx@lists.freedesktop.org, bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prefaulting potentially allocates system memory pages before a
-migration. This adds unnecessary overhead. Instead we can skip
-unallocated pages in the migration and just point migrate->dst to a
-0-initialized VRAM page directly. Then the VRAM page will be inserted
-to the PTE. A subsequent CPU page fault will migrate the page back to
-system memory.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 5957ac6635a1a12d4aa2661bbf04d3085a73372a  Add linux-next specific files for 20220907
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 12 +++++-------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 22 ----------------------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |  2 --
- 3 files changed, 5 insertions(+), 31 deletions(-)
+Error/Warning reports:
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 8562dd0eb4b6..f62c4561f0f4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -322,12 +322,13 @@ svm_migrate_copy_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
- 	for (i = j = 0; i < npages; i++) {
- 		struct page *spage;
- 
-+		dst[i] = cursor.start + (j << PAGE_SHIFT);
-+		migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
-+		svm_migrate_get_vram_page(prange, migrate->dst[i]);
-+		migrate->dst[i] = migrate_pfn(migrate->dst[i]);
-+
- 		spage = migrate_pfn_to_page(migrate->src[i]);
- 		if (spage && !is_zone_device_page(spage)) {
--			dst[i] = cursor.start + (j << PAGE_SHIFT);
--			migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
--			svm_migrate_get_vram_page(prange, migrate->dst[i]);
--			migrate->dst[i] = migrate_pfn(migrate->dst[i]);
- 			src[i] = dma_map_page(dev, spage, 0, PAGE_SIZE,
- 					      DMA_TO_DEVICE);
- 			r = dma_mapping_error(dev, src[i]);
-@@ -522,9 +523,6 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
- 	pr_debug("svms 0x%p [0x%lx 0x%lx] to gpu 0x%x\n", prange->svms,
- 		 prange->start, prange->last, best_loc);
- 
--	/* FIXME: workaround for page locking bug with invalid pages */
--	svm_range_prefault(prange, mm, SVM_ADEV_PGMAP_OWNER(adev));
--
- 	start = prange->start << PAGE_SHIFT;
- 	end = (prange->last + 1) << PAGE_SHIFT;
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 11074cc8c333..cf5b4005534c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -3181,28 +3181,6 @@ svm_range_best_prefetch_location(struct svm_range *prange)
- 	return best_loc;
- }
- 
--/* FIXME: This is a workaround for page locking bug when some pages are
-- * invalid during migration to VRAM
-- */
--void svm_range_prefault(struct svm_range *prange, struct mm_struct *mm,
--			void *owner)
--{
--	struct hmm_range *hmm_range;
--	int r;
--
--	if (prange->validated_once)
--		return;
--
--	r = amdgpu_hmm_range_get_pages(&prange->notifier, mm, NULL,
--				       prange->start << PAGE_SHIFT,
--				       prange->npages, &hmm_range,
--				       false, true, owner);
--	if (!r) {
--		amdgpu_hmm_range_get_pages_done(hmm_range);
--		prange->validated_once = true;
--	}
--}
--
- /* svm_range_trigger_migration - start page migration if prefetch loc changed
-  * @mm: current process mm_struct
-  * @prange: svm range structure
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index cfac13ad06ef..012c53729516 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -181,8 +181,6 @@ void schedule_deferred_list_work(struct svm_range_list *svms);
- void svm_range_dma_unmap(struct device *dev, dma_addr_t *dma_addr,
- 			 unsigned long offset, unsigned long npages);
- void svm_range_free_dma_mappings(struct svm_range *prange);
--void svm_range_prefault(struct svm_range *prange, struct mm_struct *mm,
--			void *owner);
- int svm_range_get_info(struct kfd_process *p, uint32_t *num_svm_ranges,
- 		       uint64_t *svm_priv_data_size);
- int kfd_criu_checkpoint_svm(struct kfd_process *p,
+https://lore.kernel.org/linux-mm/202209070728.o3stvgVt-lkp@intel.com
+https://lore.kernel.org/linux-mm/202209080545.qMIVj7YM-lkp@intel.com
+https://lore.kernel.org/linux-mm/202209080718.y5QmlNKH-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+ERROR: modpost: "__divdi3" [drivers/gpu/drm/vkms/vkms.ko] undefined!
+ERROR: modpost: "__udivdi3" [drivers/gpu/drm/vkms/vkms.ko] undefined!
+arm-linux-gnueabi-ld: vkms_formats.c:(.text+0x824): undefined reference to `__aeabi_ldivmod'
+arm-linux-gnueabi-ld: warning: orphan section `.data.rel.ro.local' from `arch/arm/boot/compressed/fdt.o' being placed in section `.data.rel.ro.local'
+arm-linux-gnueabi-ld: warning: orphan section `.data.rel.ro.local' from `arch/arm/boot/compressed/fdt_ro.o' being placed in section `.data.rel.ro.local'
+arm-linux-gnueabi-ld: warning: orphan section `.data.rel.ro.local' from `arch/arm/boot/compressed/fdt_rw.o' being placed in section `.data.rel.ro.local'
+arm-linux-gnueabi-ld: warning: orphan section `.data.rel.ro.local' from `arch/arm/boot/compressed/fdt_wip.o' being placed in section `.data.rel.ro.local'
+arm-linux-gnueabi-ld: warning: orphan section `.printk_index' from `arch/arm/boot/compressed/fdt.o' being placed in section `.printk_index'
+arm-linux-gnueabi-ld: warning: orphan section `.printk_index' from `arch/arm/boot/compressed/fdt_ro.o' being placed in section `.printk_index'
+arm-linux-gnueabi-ld: warning: orphan section `.printk_index' from `arch/arm/boot/compressed/fdt_rw.o' being placed in section `.printk_index'
+arm-linux-gnueabi-ld: warning: orphan section `.printk_index' from `arch/arm/boot/compressed/fdt_wip.o' being placed in section `.printk_index'
+drivers/base/regmap/regmap-mmio.c:221:17: error: implicit declaration of function 'writesb'; did you mean 'writeb'? [-Werror=implicit-function-declaration]
+drivers/base/regmap/regmap-mmio.c:224:17: error: implicit declaration of function 'writesw'; did you mean 'writew'? [-Werror=implicit-function-declaration]
+drivers/base/regmap/regmap-mmio.c:227:17: error: implicit declaration of function 'writesl'; did you mean 'writel'? [-Werror=implicit-function-declaration]
+drivers/base/regmap/regmap-mmio.c:231:17: error: implicit declaration of function 'writesq'; did you mean 'writeq'? [-Werror=implicit-function-declaration]
+drivers/base/regmap/regmap-mmio.c:231:17: error: implicit declaration of function 'writesq'; did you mean 'writesl'? [-Werror=implicit-function-declaration]
+drivers/base/regmap/regmap-mmio.c:358:17: error: implicit declaration of function 'readsb'; did you mean 'readb'? [-Werror=implicit-function-declaration]
+drivers/base/regmap/regmap-mmio.c:361:17: error: implicit declaration of function 'readsw'; did you mean 'readw'? [-Werror=implicit-function-declaration]
+drivers/base/regmap/regmap-mmio.c:364:17: error: implicit declaration of function 'readsl'; did you mean 'readl'? [-Werror=implicit-function-declaration]
+drivers/base/regmap/regmap-mmio.c:368:17: error: implicit declaration of function 'readsq'; did you mean 'readq'? [-Werror=implicit-function-declaration]
+drivers/base/regmap/regmap-mmio.c:368:17: error: implicit declaration of function 'readsq'; did you mean 'readsl'? [-Werror=implicit-function-declaration]
+drivers/clk/xilinx/clk-xlnx-clock-wizard.c:431: undefined reference to `devm_platform_ioremap_resource'
+drivers/gpu/drm/amd/amdgpu/imu_v11_0_3.c:139:6: warning: no previous prototype for 'imu_v11_0_3_program_rlc_ram' [-Wmissing-prototypes]
+drivers/gpu/drm/drm_atomic_helper.c:802: warning: expecting prototype for drm_atomic_helper_check_wb_connector_state(). Prototype was for drm_atomic_helper_check_wb_encoder_state() instead
+drivers/gpu/drm/vkms/vkms_plane.c:110 vkms_plane_atomic_update() warn: variable dereferenced before check 'fb' (see line 108)
+drivers/scsi/qla2xxx/qla_os.c:2854:23: warning: assignment to 'struct trace_array *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+fs/btrfs/volumes.c:6549 __btrfs_map_block() error: we previously assumed 'mirror_num_ret' could be null (see line 6376)
+include/linux/string.h:303:42: warning: 'strnlen' specified bound 4 exceeds source size 3 [-Wstringop-overread]
+kernel/bpf/memalloc.c:499 bpf_mem_alloc_destroy() error: potentially dereferencing uninitialized 'c'.
+ld: vkms_formats.c:(.text+0x3ba): undefined reference to `__divdi3'
+microblaze-linux-ld: vkms_formats.o:(.text+0xc74): undefined reference to `__divdi3'
+mips-linux-ld: vkms_formats.c:(.text+0x384): undefined reference to `__divdi3'
+mips-linux-ld: vkms_formats.c:(.text.argb_u16_to_RGB565+0xd0): undefined reference to `__divdi3'
+sound/soc/codecs/tas2562.c:442:13: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+vkms_formats.c:(.text+0x266): undefined reference to `__divdi3'
+vkms_formats.c:(.text+0x364): undefined reference to `__divdi3'
+vkms_formats.c:(.text+0x390): undefined reference to `__divdi3'
+vkms_formats.c:(.text+0x804): undefined reference to `__aeabi_ldivmod'
+vkms_formats.c:(.text.argb_u16_to_RGB565+0xb0): undefined reference to `__divdi3'
+vkms_formats.o:(.text+0xb28): undefined reference to `__divdi3'
+xtensa-linux-ld: vkms_formats.c:(.text+0x560): undefined reference to `__divdi3'
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsb
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsl
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsw
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesb
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesl
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesw
+|   |-- drivers-gpu-drm-amd-amdgpu-imu_v11_0_3.c:warning:no-previous-prototype-for-imu_v11_0_3_program_rlc_ram
+|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|   |-- drivers-scsi-qla2xxx-qla_os.c:warning:assignment-to-struct-trace_array-from-int-makes-pointer-from-integer-without-a-cast
+|   `-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
+|-- alpha-randconfig-r015-20220907
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsb
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsl
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsq
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-readsw
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesb
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesl
+|   |-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesq
+|   `-- drivers-base-regmap-regmap-mmio.c:error:implicit-declaration-of-function-writesw
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-imu_v11_0_3.c:warning:no-previous-prototype-for-imu_v11_0_3_program_rlc_ram
+|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|   `-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
+|-- arc-randconfig-r001-20220907
+|   `-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|-- arm-allyesconfig
+|   |-- arm-linux-gnueabi-ld:vkms_formats.c:(.text):undefined-reference-to-__aeabi_ldivmod
+|   |-- drivers-gpu-drm-amd-amdgpu-imu_v11_0_3.c:warning:no-previous-prototype-for-imu_v11_0_3_program_rlc_ram
+|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|   |-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
+|   `-- vkms_formats.c:(.text):undefined-reference-to-__aeabi_ldivmod
+|-- arm-buildonly-randconfig-r006-20220907
+|   |-- arm-linux-gnueabi-ld:warning:orphan-section-data.rel.ro.local-from-arch-arm-boot-compressed-fdt.o-being-placed-in-section-.data.rel.ro.local
+|   |-- arm-linux-gnueabi-ld:warning:orphan-section-data.rel.ro.local-from-arch-arm-boot-compressed-fdt_ro.o-being-placed-in-section-.data.rel.ro.local
+|   |-- arm-linux-gnueabi-ld:warning:orphan-section-data.rel.ro.local-from-arch-arm-boot-compressed-fdt_rw.o-being-placed-in-section-.data.rel.ro.local
+|   |-- arm-linux-gnueabi-ld:warning:orphan-section-data.rel.ro.local-from-arch-arm-boot-compressed-fdt_wip.o-being-placed-in-section-.data.rel.ro.local
+|   |-- arm-linux-gnueabi-ld:warning:orphan-section-printk_index-from-arch-arm-boot-compressed-fdt.o-being-placed-in-section-.printk_index
+|   |-- arm-linux-gnueabi-ld:warning:orphan-section-printk_index-from-arch-arm-boot-compressed-fdt_ro.o-being-placed-in-section-.printk_index
+|   |-- arm-linux-gnueabi-ld:warning:orphan-section-printk_index-from-arch-arm-boot-compressed-fdt_rw.o-being-placed-in-section-.printk_index
+|   `-- arm-linux-gnueabi-ld:warning:orphan-section-printk_index-from-arch-arm-boot-compressed-fdt_wip.o-being-placed-in-section-.printk_index
+|-- arm-defconfig
+|   `-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-imu_v11_0_3.c:warning:no-previous-prototype-for-imu_v11_0_3_program_rlc_ram
+|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|   `-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
+|-- arm64-randconfig-r033-20220907
+clang_recent_errors
+|-- i386-randconfig-a006
+|   `-- ld.lld:error:undefined-symbol:__udivdi3
+|-- i386-randconfig-a013
+|   `-- ld.lld:error:undefined-symbol:__udivdi3
+|-- powerpc-randconfig-r013-20220907
+|   `-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
+`-- riscv-randconfig-r021-20220907
+    `-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
+
+elapsed time: 723m
+
+configs tested: 35
+configs skipped: 2
+
+gcc tested configs:
+um                             i386_defconfig
+um                           x86_64_defconfig
+i386                                defconfig
+x86_64                    rhel-8.3-kselftests
+x86_64                          rhel-8.3-func
+x86_64                              defconfig
+arc                  randconfig-r043-20220907
+x86_64                         rhel-8.3-kunit
+x86_64                           rhel-8.3-kvm
+x86_64                               rhel-8.3
+x86_64                           rhel-8.3-syz
+x86_64                        randconfig-a013
+x86_64                           allyesconfig
+x86_64                        randconfig-a011
+x86_64                        randconfig-a004
+m68k                             allyesconfig
+arm                                 defconfig
+m68k                             allmodconfig
+alpha                            allyesconfig
+powerpc                           allnoconfig
+arc                              allyesconfig
+ia64                             allmodconfig
+arm                              allyesconfig
+arm64                            allyesconfig
+sh                               allmodconfig
+mips                             allyesconfig
+powerpc                          allmodconfig
+i386                             allyesconfig
+
+clang tested configs:
+hexagon              randconfig-r041-20220907
+riscv                randconfig-r042-20220907
+hexagon              randconfig-r045-20220907
+s390                 randconfig-r044-20220907
+i386                          randconfig-a013
+i386                          randconfig-a006
+x86_64                          rhel-8.3-rust
+
 -- 
-2.35.1
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp
