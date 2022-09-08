@@ -4,60 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FD16C38145
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 02:05:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D1E6ECAAD5
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 03:24:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 548AD10E1A9;
-	Thu,  8 Sep 2022 02:05:01 +0000 (UTC)
-Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
- [IPv6:2607:f8b0:4864:20::1035])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE2B110E444
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 23:47:35 +0000 (UTC)
-Received: by mail-pj1-x1035.google.com with SMTP id
- a5-20020a17090aa50500b002008eeb040eso2054355pjq.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Sep 2022 16:47:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date;
- bh=QA7YsklnD2cfDCjZnRS3vgbzndyD3I08QYNTHl1zCqo=;
- b=ZLBdFbRl5paMgO0B2nkuSUB92aTwmtmqanZFesgw5UFus70dkXrDyjCNdhChN3pJI2
- t8e2tFazYgcQ2/I+HCWkNpNnhTL+sGFQ2IQmiy8gFk422S7/bBjOweZRLDXszByhh4xi
- VaMpTtbZBDMm4nqrs2mAgMKZ9VkS11Y3DZbhU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=QA7YsklnD2cfDCjZnRS3vgbzndyD3I08QYNTHl1zCqo=;
- b=ARidr9kwYB3cfeQWIR54emN7fUKF2xmgkilx70QfLuXlTmN+nYe1bAj0q2fhJnLPUZ
- EZ9qu8u00237RSsYLPJ1r5uyT5dM2LknEMvWimjYaNbQ/63wciVf5teUEgFmAx0oSq24
- f5B7S3xJg5GdXJxJfl2C86Ev5fdg7hcXS45xGLMffpAJ4YpvbwNCiQuVYOpGul2ESAPE
- K82hqizGhig7t9zHZ1wI2y0AONtLVQ+/i+bdccLplVF594zdBPpSpqyJRKVsioQSh5xT
- F835SLekkIP4WaXehI4jB2mjs+4YwWarDXW1qTbvw9MBG5ZkStiXi8+ROWp39yssHNhR
- QJ1w==
-X-Gm-Message-State: ACgBeo2U29yMt/adIRS7e2jxbVrV4R6i/BjzsPpzyvyf3CgrACscF4eG
- IOU4HaPNmIra9Es099cD5NwJ7k9FlnI5Ow==
-X-Google-Smtp-Source: AA6agR6FxJPicYC0Cds/ZMsA1yhEHsGrUHcNbVNraLL0wYnkuXuYdtKZvewZkYvWfNoqDsOEyKfeIg==
-X-Received: by 2002:a17:903:556:b0:176:84c9:df3 with SMTP id
- jo22-20020a170903055600b0017684c90df3mr6335255plb.98.1662594455557; 
- Wed, 07 Sep 2022 16:47:35 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id
- r28-20020aa79edc000000b0053e38ac0ff4sm4585765pfq.115.2022.09.07.16.47.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Sep 2022 16:47:34 -0700 (PDT)
-Date: Wed, 7 Sep 2022 16:47:33 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Subject: Re: Build regressions/improvements in v6.0-rc4
-Message-ID: <202209071646.A95761A@keescook>
-References: <CAHk-=wiqix9N5P0BXrSSOXjPZxMh=wDDRJ3sgf=hutoTUx0nZQ@mail.gmail.com>
- <20220905071915.2312316-1-geert@linux-m68k.org>
- <alpine.DEB.2.22.394.2209050944290.964530@ramsan.of.borg>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C087310E29B;
+	Thu,  8 Sep 2022 03:24:15 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2041.outbound.protection.outlook.com [40.107.94.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42E2910E29B;
+ Thu,  8 Sep 2022 03:24:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gFnZHQ2ZQRqpZ5/THR0uMi/xcxVTOjLOL71wgcAi4IbjOLLEV5GNnV1+ZcWj8KYuBP1Fvo98VIQR6mMISbRr3c9y07QW0Noz3iK54uyYhCVOFPY8Rx23f4PfQmQKHuP54YzHx1Nw8of+NoTZusXzUUnovxvx2FH83uqFW68qv9IYT7IpwzmcLbEXvmzkq/2vRkZ6IMq+I1Ql6zqCTj8+a1bLpoq/++aEFr/Ksrq0nnyV5INyveVltTr16H9TzXDv7feIDun42vKVWqQkOS/BqeQyPj9tqBzOro50zZJ2YRZwSvecsAlb7gTQ6Py4t7BYxydmLU939rzYNcbckd/TTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dF9rVpXm41IVZB23gufIFrqxkA0q7NdJi5edRERZMGQ=;
+ b=NlTfgo3fzmxw/LTJ+/q+BlCDJdnCEo2bznvzQX0QLGla5YhwcrdgJzBlvkOX3rdXlh/PPFTaQw5YOAJ1Er0tmz1c9kEttpk2Pp8RhKDXbtwNSvOYEANhHtPozlJPOgL2FiNnSO+J7/qFMJcUsXNPy1nlzWNxkVRPCk+RoWHW1TPXgVHyojxcYiLm3+K9sFgEg+9OqBP2GarWTvSdeqehqjK28hhJ1U3gE4gb1oPoeSVTDuWlgwPLhQ7N50LihKdgocJOP5mdrP4ZNPoHIxHJTfw65KGv2xDvqkHVreYylE4oehdSvQ21c6SOrCjBa9fgH/Hs73sAw+sTztMuNs8PNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dF9rVpXm41IVZB23gufIFrqxkA0q7NdJi5edRERZMGQ=;
+ b=VKROZKeFKwDuF3MJ9E33wDCwH0zE/fslzM0slrAxqOCF37HLetr7cwBVVVMhh2fwQ1u1pjkF67Ei89jkEfilNbRM5dl4baF4kW1ixFaEe4RiGyx/9KCdAjYPtZeWMeIW0TcnUCfM6QGisrSWLyd+BVqUGdVPj4TO+iXntSDgu6E=
+Received: from DM6PR06CA0040.namprd06.prod.outlook.com (2603:10b6:5:54::17) by
+ CH0PR12MB5297.namprd12.prod.outlook.com (2603:10b6:610:d4::24) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5612.14; Thu, 8 Sep 2022 03:24:12 +0000
+Received: from DM6NAM11FT079.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:54:cafe::d2) by DM6PR06CA0040.outlook.office365.com
+ (2603:10b6:5:54::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.15 via Frontend
+ Transport; Thu, 8 Sep 2022 03:24:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT079.mail.protection.outlook.com (10.13.173.4) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5612.13 via Frontend Transport; Thu, 8 Sep 2022 03:24:12 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 7 Sep
+ 2022 22:24:09 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu, amdkfd drm-fixes-6.0
+Date: Wed, 7 Sep 2022 23:23:32 -0400
+Message-ID: <20220908032332.5880-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2209050944290.964530@ramsan.of.borg>
-X-Mailman-Approved-At: Thu, 08 Sep 2022 02:04:57 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT079:EE_|CH0PR12MB5297:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35b04f0b-e73d-4a2d-f8cd-08da914999b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: C4dnbc0DpWTvi/03xLzr2omsVW8jfxlGQbZsouAJJ3LFPGfTi0K7XxXvwuSKk3oE0TDDBX4PpaiPR6sde2dAoU7Eu//mOkw2sCRL6aR7Y7iBmrr4cGxCfAEMOYEe/Q877KVTAFNmQtR9JCnEdWCGx1BxsVxiPohfktRWXss6y8PgQ0ZvCacDN3EjVcTG5ke4vnU8ZhB07CU0xBU+GMSrI0KyBye05TxBXgOqWWNMIMJHNicSP4lIg3FurvSozoCcZdq9pHAkNV05OxQUzZFmLjI4lX0d1C5aPzFLJozyexDTxXRjmJG4ABiYp2oMyD1bHIs/UoySPEr3ITQR3vNqIOiQQScoIFkA5UYItjOtQb3wyicO7rwwjF7TacgHKMR3PD7OoWne0mGTxGbQVcloLJTQA6E8ixfL1/Y1dJ3BEIhREgriKPhb3qvZbgsiJoXtraD7SdXHLIbbhzj82YXuoxLzcqeLc7Q/gVCMEeroTBEX+MfwKQa8bJg3XEYVVKvybKrMNKyX8unQYNI+PWrukHMlHTvQ6ruPRbC/u7nrLqcNSx9LGObW6k+MHO3od8kwWVsTgvXktot72RUblPTLOyuzKzju7zqN+Dk3q34kBR6KggnngHniP0OsATB+wT8TauLzbZF0aNFjNpYdRN1ifwId4UxX71xgVPOyLpS/8XuC3W9m1dNoLWaHCz1s7YJdrHxbjnT/HhQOKFraWcWv4JZcBSZyFYRrd1Yc4SduMgr+eTC0oGoznaxczhl/eDke
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(396003)(376002)(136003)(346002)(40470700004)(46966006)(36840700001)(70586007)(478600001)(8676002)(4326008)(70206006)(41300700001)(966005)(8936002)(6666004)(5660300002)(2906002)(81166007)(356005)(7696005)(82740400003)(40460700003)(26005)(40480700001)(36860700001)(336012)(16526019)(86362001)(2616005)(82310400005)(110136005)(1076003)(83380400001)(47076005)(426003)(186003)(316002)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2022 03:24:12.3085 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35b04f0b-e73d-4a2d-f8cd-08da914999b8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT079.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5297
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,34 +98,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-s390@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-sh@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 05, 2022 at 09:46:01AM +0200, Geert Uytterhoeven wrote:
-> On Mon, 5 Sep 2022, Geert Uytterhoeven wrote:
-> > JFYI, when comparing v6.0-rc4[1] to v6.0-rc3[3], the summaries are:
-> >  - build errors: +3/-16
-> 
->   + /kisskb/src/arch/sh/kernel/machvec.c: error: array subscript 'struct sh_machine_vector[0]' is partly outside array bounds of 'long int[1]' [-Werror=array-bounds]:  => 105:33
-> 
-> sh4-gcc11/sh-allyesconfig (-Werror)
+Hi Dave, Daniel,
 
-Sent a patch for this:
-https://lore.kernel.org/linux-hardening/20220907234345.96798-1-keescook@chromium.org/
+Fixes for 6.0.
 
->   + /kisskb/src/include/linux/fortify-string.h: error: call to '__write_overflow_field' declared with attribute warning: detected write beyond size of field (1st parameter); maybe use struct_group()? [-Werror=attribute-warning]:  => 258:25
-> 
-> s390x-gcc11/s390-allyesconfig (inlined from 'copy_process' at /kisskb/src/kernel/fork.c:2200:2)
+The following changes since commit 7e18e42e4b280c85b76967a9106a13ca61c16179:
 
-This error appears to have vanished?
+  Linux 6.0-rc4 (2022-09-04 13:10:01 -0700)
 
-> > [3] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/b90cb1053190353cc30f0fef0ef1f378ccc063c5/ (all 135 configs)
+are available in the Git repository at:
 
-Status	Date/time	Target
-OK	Sep 7, 13:54	linus/s390-allyesconfig/s390x-gcc11
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.0-2022-09-07
 
--- 
-Kees Cook
+for you to fetch changes up to aac4cec1ec45d72bd03eaf3fd772c5a609f5ed26:
+
+  drm/amdgpu: prevent toc firmware memory leak (2022-09-07 22:52:43 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.0-2022-09-07:
+
+amdgpu:
+- Firmware header fix
+- SMU 13.x fix
+- Debugfs memory leak fix
+- NBIO 7.7 fix
+- Firmware memory leak fix
+
+amdkfd:
+- Debug output fix
+
+----------------------------------------------------------------
+Chengming Gui (1):
+      drm/amd/amdgpu: add rlc_firmware_header_v2_4 to amdgpu_firmware_header
+
+Evan Quan (1):
+      drm/amd/pm: add missing SetMGpuFanBoostLimitRpm mapping for SMU 13.0.7
+
+Greg Kroah-Hartman (1):
+      drm/amd/display: fix memory leak when using debugfs_lookup()
+
+Guchun Chen (1):
+      drm/amdgpu: prevent toc firmware memory leak
+
+Yifan Zhang (2):
+      drm/amdkfd: print address in hex format rather than decimal
+      drm/amdgpu: correct doorbell range/size value for CSDMA_DOORBELL_RANGE
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c          | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c                   | 7 +++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h                 | 1 +
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c                    | 6 ------
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 1 +
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c      | 1 +
+ 6 files changed, 9 insertions(+), 9 deletions(-)
