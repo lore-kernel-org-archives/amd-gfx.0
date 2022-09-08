@@ -4,117 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 290C2C38145
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 06:15:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04F56C38145
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Sep 2022 08:44:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3ADD810E965;
-	Thu,  8 Sep 2022 06:15:19 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2043.outbound.protection.outlook.com [40.107.244.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA8A010E965;
- Thu,  8 Sep 2022 06:15:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C1FB10E9A6;
+	Thu,  8 Sep 2022 08:43:58 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2061.outbound.protection.outlook.com [40.107.94.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9C5010E9A6
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Sep 2022 08:43:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XFFbkBdDA5bXFqRL5MEFhILcolYV2NlB6FmkXuwRBi4eCEd+/FgwB3NT4kHSugVSICwltg6LP/YOApLoiKrGVb2WlMxhBIyS3y2sbN0PjplOAcL+I0zlvzIVcCkuR0419HLPzlwo52svM+6xBVmhXyX2Rc+64EJy3z2ACy+iam3VDBKTIG3YgrW64x4f0BoEmHXf2m9ep4WnfsLdCR3WvAJ45Mw1PXb2S+R4/exR3eQzlSCp0B8LQq+J7eO4Og1qgOlfaUiDVMmb6hGpMEcdMHIkFvaKoA2o2RbRB9NTAD0z6SeeEoZ/NlKFRQmn9Bi8Cb1fGUKPZRto3wI085Qm6A==
+ b=g2MP9oe/iRoCMrxumTvVZT06/05mGl1cmnstjtadfzBlGO8O0gr/NROTGzbcXQzpO/7+TQtUPCgjP28cu5D6qF958gNeBNIQ6s0HwVyTAucD3pZ0x3tWG/mLVUPkDniRJNzmf07ni1xioVU1JNssHIIhhAtL7hBFHoBThw3pwmp150A5pfaVV4a4w9ZOat2CMXUWgtTqyL2XonNMpyImwyTbPSXfKkxKbQBy2q5daGludOSKIXVL96nQWHe//TDxhRIs+RrApJSeDCvGYh463ARoc3oiaY2FxHbMG0kpJ7wQFpFq+GZUugbTu+B5QokaHcGJv+7K/imhykqckcitZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ueUjLpcr6Em2SI0S+JGZIZH9cIEEya+bDFgdhLT3SPM=;
- b=Kj6SFqc5ywzegy9Yq8nYZMdkYobrNhbjhLhcly9k1XYgwNjlnWKJKQwopDxm6mODLFeMBxh6UFVJFLqbwYGCSS+osAA4j+6DZ5t27zkwSg8c0YWB7t9lqbmDWSY95pmpSpMvx/1OAQXO2BvrZGJbUb9ho3RV7iitOzYJJw9UPvzsqX4zgXoeqxWCCJ70nPgNuB1aKOrWQ0dWCArP2S1Cmk36R+ghNrQZnfogrKOYvjKYmEFS6RcpxYP/PWB12t6fkeqqmRyVpfacDjzAOMH+/+mScvQ5ho09/8UAEUeeXOAzOz8XUiUEYEXeSpfALQ0qp1gf1FMUiVCwElMjiwZAOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=iueEGf1tO0gqhD+q6bdJeLO5NDopPfRVYFeqVCE7wkg=;
+ b=HaByAKQ8X0G2hYcW41oyXECh/NrifKjjYy0yqM9DQOMaJFPVhGaPyxLGOSCUykLxUBhzSb5h1K++fSXiNKcgxvvXvAg0gQ2vvnUkJ3gx4BNkgn+Cf9YR50MqRYcHiPf3busMQsirl401jTuAntBg2CtvTu6BoZhiMq9NflEN6AYl7uaiZmbaPbCcn5QTW+EA9wQcenrVlnzrTCbo8vcwL6CtleMQeTkaQL+qmMiNgDGP8IPqLa7O+kD68qNGxleskAdRrNWSS7IrCK4ScimFaIeNrQLnIlWF4m19hqptJE6+scAc/B7hscBOPnSQDptOWQOHkesZGLivlTTZDQ7nrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ueUjLpcr6Em2SI0S+JGZIZH9cIEEya+bDFgdhLT3SPM=;
- b=iic3AXMj/LmE3OAO1HtkrQ2kGqUElDHn99qqsDAMYbgzNwXyxFm7Z6oeJMRPcmTVQmKlLdw4RjU/3BzwAb/BC7AOc7AT+waf43Q1Nps+0LXzy4eYq6RkfNbB5XqeHXbc8ocOZDIAwqJW97zc4C0RFB7Jlth1jBPSBB0uHKw6aYc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SA0PR12MB4382.namprd12.prod.outlook.com (2603:10b6:806:9a::14)
+ bh=iueEGf1tO0gqhD+q6bdJeLO5NDopPfRVYFeqVCE7wkg=;
+ b=sc59SNd7i4BYrhfz/IrBvcoXbY6j528pCZu3cnmzmXphhzNMWgITDFQIPJsPMZqJNDdH2G4L/3wMbtZ88Nq8WMkNareZV0D6NhGQpkAK4ZpAgM0H2eYJok3K0PdP1Pj8WDmo4xQAXpuYocI94CueyxijNS+49BIrs0qhy/IqdfM=
+Received: from BN0PR04CA0024.namprd04.prod.outlook.com (2603:10b6:408:ee::29)
+ by MN2PR12MB4421.namprd12.prod.outlook.com (2603:10b6:208:26c::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14; Thu, 8 Sep
- 2022 06:15:13 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::653f:e59b:3f40:8fed]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::653f:e59b:3f40:8fed%6]) with mapi id 15.20.5612.015; Thu, 8 Sep 2022
- 06:15:13 +0000
-Message-ID: <facee8f2-b674-5893-10fc-ef58ebd76358@amd.com>
-Date: Thu, 8 Sep 2022 08:15:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 3/4] drm/sched: always keep selecetd ring sched list in
- ctx entity
-Content-Language: en-US
-To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20220907205705.934688-1-James.Zhu@amd.com>
- <20220907205705.934688-3-James.Zhu@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20220907205705.934688-3-James.Zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR04CA0137.eurprd04.prod.outlook.com
- (2603:10a6:20b:48a::12) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.16; Thu, 8 Sep
+ 2022 08:43:50 +0000
+Received: from BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ee:cafe::20) by BN0PR04CA0024.outlook.office365.com
+ (2603:10b6:408:ee::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14 via Frontend
+ Transport; Thu, 8 Sep 2022 08:43:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT013.mail.protection.outlook.com (10.13.176.182) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5612.13 via Frontend Transport; Thu, 8 Sep 2022 08:43:50 +0000
+Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 8 Sep
+ 2022 03:43:48 -0500
+From: YiPeng Chai <YiPeng.Chai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH V3 1/3] drm/amdgpu: Adjust removal control flow for smu v13_0_2
+Date: Thu, 8 Sep 2022 16:42:34 +0800
+Message-ID: <20220908084236.110566-1-YiPeng.Chai@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SA0PR12MB4382:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12fea712-b900-4ca4-3ad7-08da91617ddc
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT013:EE_|MN2PR12MB4421:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce085bdb-611b-4adc-6f12-08da917640f0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ls4erbP8gaxRCFvLHDnIrqALBU8DEFWmigVFf/ctgQxE39l/cT4rPSxoLSqPAqwkE3A4H7trOGk1/8ePd2S35ZyZ6enDXPHnl2Ejg2SU0mZPLaxu4Zng76UN1xm3vk6XfxLSKqyko2KiTHJ6A6Nl8jqDMkNWGNITpcNAKnAa9YjqCujR85CDM7GBzGGGJlZohQtL7ws3hRDdTNkz0wlPHw2/r8Cmirk7w6Cgnk00sUoYCKdp/GJ3uqCZDhzd89exaPteNhvtqPCuaADwgWIP5vdFMaAcM8R60Sqdd35Fho7kSDNI+3PJLeShGbqihGX1R1V/IoVgamJ8VwzrWn45gk5RsIamDvjV+/vY8QCoeY0drFg0wKTLxGk7Acx3+k0/WDoOmtQDnjanQv3HB0j37z4NZym/AGuZW0Ic0PjlEPJGFbx2eBqq1YlTZzd+eoRgzOvkl1pp1iSiTeJzF3BIiI9C5LL8qDW2eRqs9CS4zQ0nOo8G4kkfmvyit6u6tnA7ab+bOb+hWYzaPE/Qavg00u89vET6RRw/4iOxEEk3VD7kB2SRdlitspadouk7u3Vh9Ib6w2flBvC6wUZwl5427u7wb5B3NjgSK6gs3oU6n1gP+A2V6N8CZ6fT5ZM1zCE0lzkJc6c4DjMY2ik2mAbRPYOd7CCipFhF48lTyEHabhfG/dXKw1QuHWjqljzQRE27KfUkfwPlG4ehCMVxSS62iPwvcEgx9t4TvsNgFWc+9TkRTYBULjasg91GUDRoAoV1APr05ynYV1dgygVIobqHAZMsLoPpmV5oBkC6xRuhdEA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(366004)(346002)(136003)(376002)(39860400002)(83380400001)(186003)(2616005)(31686004)(86362001)(36756003)(316002)(5660300002)(8936002)(6486002)(450100002)(66556008)(8676002)(26005)(66946007)(478600001)(66476007)(4326008)(38100700002)(6666004)(41300700001)(2906002)(6512007)(31696002)(6506007)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: ekYkoNOnkFAbg4yg/wmZjhk0LIUldpQz5ZTDYP/S55PGjWgH/x09drkHE5E+d5POqGwF7Owu53ZroUq4q94tLukOz8Ti6RWGdLz1o1w90qMK762vBYZlhMJ1lIMHB7GBFUAVLS1TcwilUhLR3yOLwy1jbYRrdNG+ZhS/Tepb/scri1gqOZ14f/J/mLaj0PbStDVJE1FzpFphQ7cBChUKxc4DzJDX4oVh94YNAP3AIXXBsAyUywpQUMrzL6j4A2JwGEFDj38uQ2h2N9aHUU80mQIt7YtZLAaV+BsSyxN2gYeFDiF6ybUneWIcy47FU/LVA5vflJNeHZDUYTUfZ8shozt8RauDODN3xZGS/meeB6VRVxxZaZ9kI+PDQmLOu3xU+3Du4NDaNR8xSQ+g2RObttokqQZ9dIMCTI1ofJYx/NwuyY2Cw4EFq7thx9ERP8Dbv5UhdRxJrcsZeSSB2p81+uhV1HKDla5Dms9b9hm4X1ybiEP+oUytvyQ1OWYf1Zt8r0IMve/1lJdDLpVWlbtRfLOoKO1mJ3AnEzwPT3w4SYhQRKleBE1NIbFRwj6u9n+OKy0B2zL5EY/KppMdNOjt9gPWE4Hl5GJKV9dmrowS+nD7Trap3sIL7veR/BNDYq2kxYGv3u0kKwlVyigmIIeFoVHo0qpDBbKyhe9OHYsEw099K6BLoafmr+6mVFlMF75ZFN+GX3pI3sPoIdXAf1vQapSaoO3I61Q9CNqQndVX3e3s2M8IUKjHIQ0RWiZN68vwAhseKwZ4Y21o8PW9kxChX7LPGzQfwPak6XRkOwXxZp1+hjYPv7fDT8UuFGl2PHiMPOKmaxnUhvIdnSkz1IUPUg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(376002)(136003)(39860400002)(396003)(46966006)(40470700004)(36840700001)(47076005)(40480700001)(426003)(83380400001)(336012)(1076003)(186003)(2616005)(16526019)(5660300002)(2906002)(316002)(36860700001)(6916009)(54906003)(70206006)(70586007)(8676002)(8936002)(4326008)(36756003)(356005)(81166007)(26005)(7696005)(478600001)(82310400005)(86362001)(41300700001)(40460700003)(82740400003)(6666004)(36900700001)(473944003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cW1rUFQvR3RtQVM2d1ZuTmJIWmpaWHRHbXB1c0R0cFFqQ1NTRm40SnZYMUpI?=
- =?utf-8?B?dkNBU2c5S2gvU0h6YWN3S0dESndSc05QVjRGMmQ3cGlWQTFvaTRMdFkrQ0xW?=
- =?utf-8?B?WjlBaFJmdmpBVE04djA2U2ZxSlhCdVpBLzVsdWZLVkpublBTUXZyRWdmWm5S?=
- =?utf-8?B?dC9TbDJmUWhGYlVtandTNFYyeVJqT3RCTytLc0FnbWtocGQzdlZtcnhVZ1Bl?=
- =?utf-8?B?NTdDbVhVNTluakNCK1Bmd25xZmtlMmZkSmlPdERLcDNlU2orRlJ1K1QySGs5?=
- =?utf-8?B?dmp5bzFjVFhkUjJnWUtVNnU0WkJmNTZuSGNjVnR4c3lHbWI0Qi9PaC9xM1ND?=
- =?utf-8?B?L1FITVBJZjJwaW9GM245T1lpUVVVZ3dxWURUcFB1QlZzcW9vb25PM2dyUVNj?=
- =?utf-8?B?bUp0dHdOcEx1Ni8yU3k1SG9iSzZPek1Id0psV0xBa2tzQVBMd0lRMitqakFD?=
- =?utf-8?B?RDZidU9WVk84b0trMUswb0JSRTBIVlVvMHo0VG9tTVZMVkJOWjNYa0lhcW9n?=
- =?utf-8?B?UVBmZmNIQVZ0STVnVWdXM2xldzdaZmQ3NkI1eG1GQ0RoaCticU5KOFJGY0Ju?=
- =?utf-8?B?TTlhZFNUUXJaRWZNQnpxM3lyVVJYd3pQTmtwTGE0TVV1V2J5RnFJMVVGbURD?=
- =?utf-8?B?UWtFSTN1bE95YlRMRFB0Q2lsU1BHSWdJcGlIZE82OSthVDJNRUl0Y2JJcFp3?=
- =?utf-8?B?TXBadFh3VjJnNHQvMWpZWXRueE9qM241NG56eTlaLzI4UTZ6MXlvV1RyclU4?=
- =?utf-8?B?cWRkbllqZTdSMUlJbDNqWlNCU09EMGlsdDVoa0k4cDFXYTZQbmZTcXVLTWFP?=
- =?utf-8?B?cS9Ya250UGhERkl4RDM0aGZ5SEorZ0l4YmtkclBjcWZITjNHeEw4SlZKVGx6?=
- =?utf-8?B?ZDVxUjd5RzZhVUhFTS9Mc2hBUHNFRG92ZUdKWUtsaWdkaWU3bW9zSzFWUVVH?=
- =?utf-8?B?a1lQNG9laXl4MHFPeW1UczBuN1lwWS9qYitQY3RiSDJrQlhLb3IrUStlWWJI?=
- =?utf-8?B?YVFnYTM0cEZLbCtFWjVsaVJkdStNdWRiejhYaU1wTktsMTV3OHBtTzd5Q2t0?=
- =?utf-8?B?NDJtdFIzSEFLdWtINmRpa3Y1NVNBaTJwM0RRYXFRa3hSVkFvQW9FZ2Y2OExH?=
- =?utf-8?B?VndNRGxJUzdFcTdRNHQ2QVFSblArcWhXN2JGNTZOdmhTVHQralZlL085RVJt?=
- =?utf-8?B?cU9ING5uZ1lUVHB2UWJyYkI4S2tyKzZ6Z0l2QnFlb0JBTko3VlBlZDFCQjUz?=
- =?utf-8?B?eDlkb0hWM2NyQk1pWWVzckxFRm1vUXNZQm91WG51Rml1MjU3MWVlR1NrOXN5?=
- =?utf-8?B?angwVFFUT00zSDM4aWp0QU9HS1dHZmo1V3pVQnpqS083ZTRWSVlwRCtYTUM1?=
- =?utf-8?B?czk2eE9tdTA3SC9EVkM3elZxWTdsWUpYa2ZWTURuZGZqb1pwdmxWQkVEdUZt?=
- =?utf-8?B?bmsyUWZYZ3B3cWVQWkp6czZtVTNZT0tTUXphaW9jMkNINDQ0YzRCa0FRY0xD?=
- =?utf-8?B?MDJoclVmRHNzazU2cWRVQk8vSnRFR3B5WHNwNkZIS0l4T3NUNDVlNEtIZW5G?=
- =?utf-8?B?MXlxdHcxbzRPS05lWkI1UEF4V1BjQVVZSS9xN1lTTXFlQTlpUzBpRE5CbEdO?=
- =?utf-8?B?SFc5ODl3eTI3NjFCRUxSWGtzNWcrSVJUQVl3d04xMEk2OFFxdGVPR2N0cjlX?=
- =?utf-8?B?NGxCRlNsc1JwZjltM0MwM3N5Ky96OHlDZjRtRDY0d0FReEZVaTY1UkZ2MW9i?=
- =?utf-8?B?bllwQnY2ejFQdC9OOUtkT1RwR0haMkRnL2ZlR1dFanR6Um1TcUQvWjAvdGF6?=
- =?utf-8?B?cGZwbzIwcUwvaVc0T3dGYWw0TG9VQW5lQWJFRlpINFFhTTZmellBS0ZvOHkv?=
- =?utf-8?B?MTZabS8yNlJNTk4ra0ZVT3FTTDVBZnR2cHFIam9DbzgvRU5VOFF0aWc1Y3Zn?=
- =?utf-8?B?cmZsV1RKdzFhY3Q3TVRQOGtycnlKazY4ZkFyUHR1aE4reC8vcWZOaTNHQ3F5?=
- =?utf-8?B?bGRMQzRnSjNBNEpYeXBGMGlyaEg4QStjdThEc09BT3VEU1VZMWNYejI2SjBB?=
- =?utf-8?B?a2hLRGJDSG5EeDlRUFVXTzVTekJsdmphNU4veUw5S3kyZUxVbksvbW5OakUr?=
- =?utf-8?Q?bRMP05Ldq0qxgQNiixQVOl6+I?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12fea712-b900-4ca4-3ad7-08da91617ddc
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2022 06:15:13.7817 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2022 08:43:50.7232 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce085bdb-611b-4adc-6f12-08da917640f0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5nNcDKGiMFx35IvsfQ3h1jDB43brR3NkFZ0+3r+eKkTksiXtZYoeO4ifmowKGm/R
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4382
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4421
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,57 +97,220 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, andrey.grodzovsky@amd.com
+Cc: Tao.Zhou1@amd.com, Hawking.Zhang@amd.com, YiPeng Chai <YiPeng.Chai@amd.com>,
+ KevinYang.Wang@amd.com, yipechai@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 07.09.22 um 22:57 schrieb James Zhu:
-> Always keep selecetd ring sched list in ctx entity.
+Adjust removal control flow for smu v13_0_2:
+   During amdgpu uninstallation, when removing the first
+device, the kernel needs to first send a mode1reset message
+to all gpu devices. Otherwise, smu initialization will fail
+the next time amdgpu is installed.
 
-I have no idea what you are doing here, but this certainly doesn't make 
-sense.
+V2:
+1. Update commit comments.
+2. Remove the global variable amdgpu_device_remove_cnt
+   and add a variable to the structure amdgpu_hive_info.
+3. Use hive to detect the first removed device instead of
+   a global variable.
 
-Please explain a bit more.
+V3:
+ 1. Update commit comments.
+ 2. Split a patch into multiple patches.
+ 3. The current patch does:
+    a. Add a work mode of AMDGPU_RESET_FOR_DEVICE_REMOVE into
+       the existing gpu recover path, which make all devices
+       in hive list only have HW reset but no resume (except
+       the base IP).
+    b. Call AMDGPU_RESET_FOR_DEVICE_REMOVE and
+       AMDGPU_NEED_FULL_RESET mode of amdgpu_device_gpu_recover
+       in amdgpu_pci_remove when removing the first device in
+       hive list.
+    c. When removing the first device, the IP blocks keyword
+       function call sequence is as follows:
+.suspend->mode1reset->.resume(basic ip)->.hw_fini->.early_fini->.sw_fini.
+   ^                           |
+   |-<----------<---------<----|
+	The first three sequences are because of a call to
+        amdgpu_device_gpu_recover. The three sequences will be
+        executed in a loop until all devices in the hive list
+        are iterated.
+        The sequences starting from .hw_fini only apply to the
+        first device. Since .suspend has been called before,
+        except the resumed phase1 basic ip blocks, all other ip
+        blocks .hw_fini of current device will do nothing.
+     d. When removing other devices, the calling sequences is the
+        same as legacy:
+	   .hw_fini -> .early_fini -> .sw_fini.
+	Since .suspend has been called when removing the first device,
+        except the resumed phase1 basic ip blocks, all of other ip
+        blocks .hw_fini of current device will do nothing.
 
-Thanks,
-Christian.
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 32 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 29 ++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h   |  1 +
+ 4 files changed, 63 insertions(+)
 
->
-> Signed-off-by: James Zhu <James.Zhu@amd.com>
-> ---
->   drivers/gpu/drm/scheduler/sched_entity.c | 7 ++-----
->   1 file changed, 2 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-> index f5595607995b..39dca9cb8e0d 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -71,7 +71,7 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
->   	entity->guilty = guilty;
->   	entity->num_sched_list = num_sched_list;
->   	entity->priority = priority;
-> -	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
-> +	entity->sched_list = sched_list;
->   	entity->last_scheduled = NULL;
->   
->   	if(num_sched_list)
-> @@ -453,7 +453,7 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
->   	struct drm_sched_rq *rq;
->   
->   	/* single possible engine and already selected */
-> -	if (!entity->sched_list)
-> +	if (entity->num_sched_list <= 1)
->   		return;
->   
->   	/* queue non-empty, stay on the same engine */
-> @@ -482,9 +482,6 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
->   		entity->rq = rq;
->   	}
->   	spin_unlock(&entity->rq_lock);
-> -
-> -	if (entity->num_sched_list == 1)
-> -		entity->sched_list = NULL;
->   }
->   
->   /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 62b26f0e37b0..a2614b881128 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2999,6 +2999,7 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
+ 			DRM_ERROR("suspend of IP block <%s> failed %d\n",
+ 				  adev->ip_blocks[i].version->funcs->name, r);
+ 		}
++
+ 		adev->ip_blocks[i].status.hw = false;
+ 		/* handle putting the SMC in the appropriate state */
+ 		if(!amdgpu_sriov_vf(adev)){
+@@ -4739,6 +4740,7 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
+ 	struct amdgpu_device *tmp_adev = NULL;
+ 	bool need_full_reset, skip_hw_reset, vram_lost = false;
+ 	int r = 0;
++	bool gpu_reset_for_dev_remove = 0;
+ 
+ 	/* Try reset handler method first */
+ 	tmp_adev = list_first_entry(device_list_handle, struct amdgpu_device,
+@@ -4758,6 +4760,10 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
+ 		test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
+ 	skip_hw_reset = test_bit(AMDGPU_SKIP_HW_RESET, &reset_context->flags);
+ 
++	gpu_reset_for_dev_remove =
++		test_bit(AMDGPU_RESET_FOR_DEVICE_REMOVE, &reset_context->flags) &&
++			test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
++
+ 	/*
+ 	 * ASIC reset has to be done on all XGMI hive nodes ASAP
+ 	 * to allow proper links negotiation in FW (within 1 sec)
+@@ -4802,6 +4808,19 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
+ 		amdgpu_ras_intr_cleared();
+ 	}
+ 
++
++	/* Since the mode1 reset affects base ip blocks, the
++	 * phase1 ip blocks need to be resumed. Otherwise there
++	 * will be a BIOS signature error and the psp bootloader
++	 * can't load kdb on the next amdgpu install.
++	 */
++	if (gpu_reset_for_dev_remove) {
++		list_for_each_entry(tmp_adev, device_list_handle, reset_list)
++			amdgpu_device_ip_resume_phase1(tmp_adev);
++
++		goto end;
++	}
++
+ 	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
+ 		if (need_full_reset) {
+ 			/* post card */
+@@ -5124,6 +5143,11 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	bool need_emergency_restart = false;
+ 	bool audio_suspended = false;
+ 	int tmp_vram_lost_counter;
++	bool gpu_reset_for_dev_remove = false;
++
++	gpu_reset_for_dev_remove =
++			test_bit(AMDGPU_RESET_FOR_DEVICE_REMOVE, &reset_context->flags) &&
++				test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
+ 
+ 	/*
+ 	 * Special case: RAS triggered and full reset isn't supported
+@@ -5243,6 +5267,10 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 
+ retry:	/* Rest of adevs pre asic reset from XGMI hive. */
+ 	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
++		if (gpu_reset_for_dev_remove) {
++			/* Workaroud for ASICs need to disable SMC first */
++			amdgpu_device_smu_fini_early(tmp_adev);
++		}
+ 		r = amdgpu_device_pre_asic_reset(tmp_adev, reset_context);
+ 		/*TODO Should we stop ?*/
+ 		if (r) {
+@@ -5276,6 +5304,9 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 			adev->asic_reset_res = 0;
+ 			goto retry;
+ 		}
++
++		if (!r && gpu_reset_for_dev_remove)
++			goto recover_end;
+ 	}
+ 
+ skip_hw_reset:
+@@ -5349,6 +5380,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 		amdgpu_device_unset_mp1_state(tmp_adev);
+ 	}
+ 
++recover_end:
+ 	tmp_adev = list_first_entry(device_list_handle, struct amdgpu_device,
+ 					    reset_list);
+ 	amdgpu_device_unlock_reset_domain(tmp_adev->reset_domain);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 728a0933ea6f..8933f8f63d13 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2186,6 +2186,35 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+ 		pm_runtime_forbid(dev->dev);
+ 	}
+ 
++	if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 2)) {
++		bool need_to_reset_gpu = false;
++
++		if (adev->gmc.xgmi.num_physical_nodes > 1) {
++			struct amdgpu_hive_info *hive;
++
++			hive = amdgpu_get_xgmi_hive(adev);
++			if (hive->device_remove_count == 0)
++				need_to_reset_gpu = true;
++			hive->device_remove_count++;
++			amdgpu_put_xgmi_hive(hive);
++		} else
++			need_to_reset_gpu = true;
++
++		/* Workaround for ASICs need to reset SMU.
++		 * Called only when the first device is removed.
++		 */
++		if (need_to_reset_gpu) {
++			struct amdgpu_reset_context reset_context;
++
++			memset(&reset_context, 0, sizeof(reset_context));
++			reset_context.method = AMD_RESET_METHOD_NONE;
++			reset_context.reset_req_dev = adev;
++			set_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
++			set_bit(AMDGPU_RESET_FOR_DEVICE_REMOVE, &reset_context.flags);
++			amdgpu_device_gpu_recover(adev, NULL, &reset_context);
++		}
++	}
++
+ 	amdgpu_driver_unload_kms(dev);
+ 
+ 	drm_dev_unplug(dev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+index f71b83c42590..dc43fcb93eac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+@@ -31,6 +31,7 @@ enum AMDGPU_RESET_FLAGS {
+ 	AMDGPU_NEED_FULL_RESET = 0,
+ 	AMDGPU_SKIP_HW_RESET = 1,
+ 	AMDGPU_SKIP_MODE2_RESET = 2,
++	AMDGPU_RESET_FOR_DEVICE_REMOVE = 3,
+ };
+ 
+ struct amdgpu_reset_context {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+index 552e6fb55aa8..30dcc1681b4e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+@@ -43,6 +43,7 @@ struct amdgpu_hive_info {
+ 	} pstate;
+ 
+ 	struct amdgpu_reset_domain *reset_domain;
++	uint32_t device_remove_count;
+ };
+ 
+ struct amdgpu_pcs_ras_field {
+-- 
+2.25.1
 
