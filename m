@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38951ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 20:41:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B6B2ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 20:43:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B93A010E069;
-	Fri,  9 Sep 2022 20:41:55 +0000 (UTC)
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [IPv6:2001:4860:4864:20::2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB3BA10E069;
- Fri,  9 Sep 2022 20:41:50 +0000 (UTC)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-1274ec87ad5so7072727fac.0; 
- Fri, 09 Sep 2022 13:41:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A48E10EE46;
+	Fri,  9 Sep 2022 20:43:22 +0000 (UTC)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D79E10EE45;
+ Fri,  9 Sep 2022 20:43:19 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-1225219ee46so7016317fac.2; 
+ Fri, 09 Sep 2022 13:43:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date;
- bh=Aiun8CusNgh/PUTHR9vRms66+k6qtenVsahGU6Eq63U=;
- b=U3vXka7eQa25N8VZDHmT2KsIz/3SRsNUo+WH1qlg5ulr1RjX7VaO57gV+TWUuBeqxX
- y2A3oJsm7Zs8Uo6IZHsUBsgdEgR6BMgCrCYZKvRbJ/svLnYEIU4OXJu9g9GNmcoiePMp
- XzfOHxcoPYqyAmjrYu8BauNhmC7zmG+HHQjOgaJ1+NKTTBd3TvDk7O2M2icxWRIBMTiA
- h07E0BUIb2YJt1DqWrr8QuaxWic+ae2kGr5mFYkeTKPi4l3C5z8gE53mRl+l73FbMfgv
- 7oYCLHffsHYpS2TatLwoMEt8mWo+Jq6JxGeM90kilnsA3Wh+iJUXY9XZ79Eyb7XzJPaC
- Yhgg==
+ bh=UpjlPyvLcw4N5LfAVf39R6W0A9McL24cYMQux8ptGv8=;
+ b=e7HTVip99SqvqlRZXZalCOLj/1aFRkt+uGXux/sme46CxsjwtMp+xi7Uqnt0bgf1EF
+ r55WBVxyF+PHAVpNFPwxSSAmQ8dLlHLPSq/IQsglAGoFpR+9oE33Hi2HAxmKBPg9yN7a
+ 1CcykSngo3e/TdSKIVGFIUvf0TdXX2SnrRJLLPjtv2C56Z0Z5UcKWzr3fXvIsX+zd+jq
+ 5zrekY3mfYb7QxEW0gJ5OcJHizC5Q3dUDEWEmDVj59QZRCikXp3eztjQI7uyF6glIACs
+ PxlJv/rdKi0M1lDNE8+0mgsnS+/LPUI+GvoDZKMEB1AOVwVNJyKXv8fgqCabiKkRsrWv
+ ozkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=Aiun8CusNgh/PUTHR9vRms66+k6qtenVsahGU6Eq63U=;
- b=yyjzKMvXvMMxG74g6K8inceeac3MrOR8U4zI7mhiRsANrXGtr6SVBxD+qM/ZdF2VCC
- RMDFyc0KwcqY6QgtaPw74N0mjS49J/gWaW20EGLcClSHeVTy+u6zXoPLN2ED7TMoVdrQ
- Qcbqw0s9+NpAuoAfRqeBAK1FdUrgSgkcJt8h51PpPly1ppbFqeJC9+erqzzGUsWO62GI
- JL7lwNjjxWjpHDYU1SVh7Tg9USLiKPhbTbqGOUKfzaHuvnZ8vn0HdW746eqbS2qYrkU2
- S2pI1WNBFsyGX21xFGrHxD8JC84n8L90H6vD09Hjckm0K+4xeDoeCFruswJ+ziNPOEnM
- 8F5A==
-X-Gm-Message-State: ACgBeo0NGf1k5SYGu7/1E1u8sZpLhlheA0znGSD/QUTtelzrGomE3eN8
- 1lWWLz12hyZQIvJhKyfnBe33aObUbVChesbmYvk=
-X-Google-Smtp-Source: AA6agR52Zp70u5YUKPMxE2dP1G33FINV9iw1YeREdDxeoQMi1BG1aPSMAgRE0quDLePMj29oK37xQPmS63XdBPnY3sY=
-X-Received: by 2002:a05:6808:2187:b0:344:eccd:3fc5 with SMTP id
- be7-20020a056808218700b00344eccd3fc5mr4797981oib.46.1662756109694; Fri, 09
- Sep 2022 13:41:49 -0700 (PDT)
+ bh=UpjlPyvLcw4N5LfAVf39R6W0A9McL24cYMQux8ptGv8=;
+ b=b6FiPSdatZnrAB2rmf3s1WdzJuJqf1eWjm6iHtt/bTj165lu+56UehyLzvWPMhFPd9
+ Ie1063guPAI0vzJBAuK7ufxXNU0Lj7T/6ltqLSK0hh2zwkUSP4KuOAUllQmk4Ea6Rk0H
+ BDhxpA7aDS7PXO6yJx9T3GArb7vEpQGYs6W97cpNWGJHslMrughaeWIHpBiLvfskPNed
+ BC//Oi1s0AlFoNbzKTH0ir6ONZVLzAXt25g8LGUCAfefs/n69pawv0eMzg4HtB4UrM9i
+ wNQeXZzVhU8+f/1uVOeCEqo/zMD2YAQ5N6x2FYabPT0UYudQwAwKDWA3iDShdaeMj9nq
+ tyXQ==
+X-Gm-Message-State: ACgBeo2wMu/CcKaY1Z6p1NNwzFW7QhmZ0fc1lpgJQYYln7lkOmFkLDBu
+ XYWa5fH8EMXOL5Yy0TA0I/GydkO1nXVztB4dH/v8Ew8O
+X-Google-Smtp-Source: AA6agR63zDi5mAVL6/Z4bTAfycaBgTKj2tKmHeRB6tfaRZx/HB4UWxeu3FEPvQrmT0fCvfSoxEcgxiYj/Jej3LHXWP0=
+X-Received: by 2002:a05:6808:138e:b0:345:13d1:fd66 with SMTP id
+ c14-20020a056808138e00b0034513d1fd66mr4517729oiw.96.1662756198847; Fri, 09
+ Sep 2022 13:43:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220901075655.57494-1-yang.lee@linux.alibaba.com>
-In-Reply-To: <20220901075655.57494-1-yang.lee@linux.alibaba.com>
+References: <20220901081131.76486-1-yang.lee@linux.alibaba.com>
+In-Reply-To: <20220901081131.76486-1-yang.lee@linux.alibaba.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 9 Sep 2022 16:41:38 -0400
-Message-ID: <CADnq5_MuAXcCZ6aeRSzuCjsw12C0eYR0_2FWYynMOdx4ppvcgA@mail.gmail.com>
-Subject: Re: [PATCH -next] drm/amd/display: clean up some inconsistent
- indentings
+Date: Fri, 9 Sep 2022 16:43:07 -0400
+Message-ID: <CADnq5_OOTCb_AXV6rpB5DWnAv2+khhZuDZPrA5V0OGacuXTsdQ@mail.gmail.com>
+Subject: Re: [PATCH -next] drm/amd/display: Simplify bool conversion
 To: Yang Li <yang.lee@linux.alibaba.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -74,35 +73,31 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-Alex
-
-On Thu, Sep 1, 2022 at 3:57 AM Yang Li <yang.lee@linux.alibaba.com> wrote:
+On Thu, Sep 1, 2022 at 4:11 AM Yang Li <yang.lee@linux.alibaba.com> wrote:
 >
-> This if statement is the content of the for statement above it. It
-> should be indented.
+> The result of relational operation is Boolean, and the question mark
+> expression is redundant.
 >
-> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2026
+> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2027
 > Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 > Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  .../gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-> index 9dd705b985b9..0139e98a0aa1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-> @@ -417,8 +417,8 @@ void get_subvp_visual_confirm_color(
->         for (i = 0; i < dc->res_pool->pipe_count; i++) {
->                 struct pipe_ctx *pipe = &dc->current_state->res_ctx.pipe_ctx[i];
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+> index dc501ee7d01a..e4fd540dec0f 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+> @@ -1873,7 +1873,7 @@ void dml32_CalculateSurfaceSizeInMall(
+>                 if (UseMALLForStaticScreen[k] == dm_use_mall_static_screen_enable)
+>                         TotalSurfaceSizeInMALL = TotalSurfaceSizeInMALL + SurfaceSizeInMALL[k];
+>         }
+> -       *ExceededMALLSize =  (TotalSurfaceSizeInMALL <= MALLAllocatedForDCN * 1024 * 1024 ? false : true);
+> +       *ExceededMALLSize =  (TotalSurfaceSizeInMALL > MALLAllocatedForDCN * 1024 * 1024);
+>  } // CalculateSurfaceSizeInMall
 >
-> -       if (pipe->stream && pipe->stream->mall_stream_config.paired_stream &&
-> -                               pipe->stream->mall_stream_config.type == SUBVP_MAIN) {
-> +               if (pipe->stream && pipe->stream->mall_stream_config.paired_stream &&
-> +                       pipe->stream->mall_stream_config.type == SUBVP_MAIN) {
->                         /* SubVP enable - red */
->                         color->color_r_cr = color_value;
->                         enable_subvp = true;
+>  void dml32_CalculateVMRowAndSwath(
 > --
 > 2.20.1.7.g153144c
 >
