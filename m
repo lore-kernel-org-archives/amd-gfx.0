@@ -4,67 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6621EECAAA1
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 14:24:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF830ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 14:53:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A72A10EDC9;
-	Fri,  9 Sep 2022 14:24:27 +0000 (UTC)
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1D2110EDC9
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 14:24:23 +0000 (UTC)
-Received: by mail-ed1-x534.google.com with SMTP id z8so2760796edb.6
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Sep 2022 07:24:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=lgknUgvTjwaD90gyP0ZoSnVwOipsKqIolvK6TEW3rko=;
- b=H0B1iaZXJOzBANBHaWr1dkbaJXYCYV1kUKHaRHPAzEynzu00InlsNXAFgpbsIzQcVS
- 6jI8OkSD4zo90vULOAdQrt02nlWTKayYtV2f68WcTdF7yHz2ngS186KcYGeHZ2nrDesR
- uYOgJQCfNkg9CTGR97sfFl8h+DFkw+h1esI4MT+54vpGT/tQVz0yvhNEs1ssTXSJlm5P
- BxURcE7rFktXs0vO/+Kd0ITpEYk8fPM6qdORQ1J6fjG7Hct7jAgKF15hC3uupQcvVJzN
- 3Iu/E1izhmfWokgtgZ7LD/NGvMQpwZaB7FoAMV7vwRXO7ED2Ji0rYZAm49JB7bZjEuE7
- LauQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=lgknUgvTjwaD90gyP0ZoSnVwOipsKqIolvK6TEW3rko=;
- b=uA8/QZpKFBRy4WLG3/lmYaaXT6RL/A58lcimZCNikx5aLr+6MU2qgu8MyApNzpHnLf
- iBFEU8nu+t+uYJblvb9bvSW1KrLwV74jfwE2eZz3ANAD646k6k2GIeaueeOGE75r8+qD
- RpOHkbvrl2ki0HYV0n6wdbLaFiQqs9wKTV5nuozVyq1DCaaygBsSU3OG1t9JEe9iOWe/
- w9GZ3J4yGajr/YycRntzkULE/IIx1L99bacWQQSu2ZqsLHSXygnhmMgPEsOtIIcavhQG
- XBrBbNgtUbMMdR/TikkfILdIzmZvJg3GHIP+oO5EQWAnqmMvNy3v1RX+zgr8/TLxyEG2
- Cf0A==
-X-Gm-Message-State: ACgBeo0llI19Pj3wKiu0OcrN0/oMNELG+9iCYFtBdfHYdGITQe/b6t9V
- qxy+umDtiamtkChQNjd7HOmthXGbQfw=
-X-Google-Smtp-Source: AA6agR4hjRSiX//wwofubJXfrnXfTnghdwKqpBoFY77t2OBoNN4OK21Q8QNXMyYqCE6V39Lj9uJD9g==
-X-Received: by 2002:a05:6402:10d2:b0:445:d9ee:fc19 with SMTP id
- p18-20020a05640210d200b00445d9eefc19mr11185018edu.81.1662733462175; 
- Fri, 09 Sep 2022 07:24:22 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:9da0:4bb2:ba96:23be?
- ([2a02:908:1256:79a0:9da0:4bb2:ba96:23be])
- by smtp.gmail.com with ESMTPSA id
- o23-20020a17090611d700b007341663d7ddsm341095eja.96.2022.09.09.07.24.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Sep 2022 07:24:21 -0700 (PDT)
-Message-ID: <5c0a4135-72e3-184f-e581-8e1fe222597d@gmail.com>
-Date: Fri, 9 Sep 2022 16:24:20 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 1/4] drm/amdgpu: Introduce gfx software ring(v3)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B828710EDF6;
+	Fri,  9 Sep 2022 14:53:49 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2088.outbound.protection.outlook.com [40.107.243.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE91610EDF6
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 14:53:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oVJfnwLRBXEKvL8SxPfqjEBwXqca030jelDiSdbOn4TXFYdnKH2v0x75NKKS9jCvjjw/L+kVKx1KDiZVCUW8m8QDRV9pqbRqRuVqMn31Igbuv0tGYfbnqsNSZ7YpiSowcJ+RyaEOo4Aki7omUnzVxAaweMlvqHeQ30ZaloviJvjtdE+cetzsfqRrGvojK431E5CVoDNqFuf5vcyPSRs4LUbuDTW4hqIAMSAL6QgDK96b8SNyU6kruvsoaoZUxKgAGXksEf7feuQwlsckRa1SqcEt1EKNS4cnSI5kt63iqJbUhZxOLUJKuaFmrKa1Ibe1Dwch3k6XLl7aEQkuHRI/Qw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y6oj+kmI9id8OUPuSIJuZbwzTU2ViW5yPBwwj1gi1Ys=;
+ b=j9aglML6un1qgHKg5GO9eNxECwIEjOgXh+Uhv07yAtOiJnwGqcoAnqvo7kmo32edtLIuAlAwmSMNc/lf1yGTg2hZolKYI6SopowD1npKdVRh/gGy1A1DKhVGbAme1b4QTw5WekehMq+kbKNhaA1TWrgcQjaYkoBFPsfR4c616qIGC8KqhpqeyIcfNf/RO0+IB8cCH4lCu3TE6mb9miKFIoEM1o2UHcifbWc28k6P/cbsnqKXUyaX0oWYcstyPaHYVwLVDQRX1fkL9EANWdb9QjKWogDb1CsJx3ykx/jSwtKAlEtr8Is3x1QCXTUKV92Dqvl4s+jS5X0eXNOfFm/KZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y6oj+kmI9id8OUPuSIJuZbwzTU2ViW5yPBwwj1gi1Ys=;
+ b=GoH9u1kggzBKvT8Yfzi+0T/orwvxj7MNCtkBCRMBAs+wzYCZ67psw+nEm/F74mYnci+29AESJRlzgWukhsWsHBlB+hfcx9cwD/HllTYvqF8vz0sDTC6kW5cE6l2DFLQgIEfYuzd3eyiHWhiCggtI655bNxmppGMCtGF+ILMtwlI=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by MN2PR12MB4581.namprd12.prod.outlook.com (2603:10b6:208:260::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.20; Fri, 9 Sep
+ 2022 14:53:43 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::1192:d133:8667:ed28]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::1192:d133:8667:ed28%5]) with mapi id 15.20.5612.021; Fri, 9 Sep 2022
+ 14:53:43 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH V3 3/3] drm/amd/pm: Remove redundant check condition
+Thread-Topic: [PATCH V3 3/3] drm/amd/pm: Remove redundant check condition
+Thread-Index: AQHYw18hho0yAdaA2EqzMKeiJ+U2tq3XMBu+
+Date: Fri, 9 Sep 2022 14:53:43 +0000
+Message-ID: <BN9PR12MB5257B956B25C6055FB42B860FC439@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20220908084236.110566-1-YiPeng.Chai@amd.com>
+ <20220908084236.110566-3-YiPeng.Chai@amd.com>
+In-Reply-To: <20220908084236.110566-3-YiPeng.Chai@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org,
- Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- "Tuikov, Luben" <Luben.Tuikov@amd.com>
-References: <20220909015022.557099-1-jiadong.zhu@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220909015022.557099-1-jiadong.zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-09T14:49:55.1284248Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|MN2PR12MB4581:EE_
+x-ms-office365-filtering-correlation-id: 58470e03-7781-44d7-33bd-08da92731743
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: RnrqVuBb0nFvGlJX2NtqkU8OSVdJ/Wi5O554QOR0YI0Byoh2rNRT4PQyykbiEROrJ45hrNLlSD6tJthklC8AyaLzS5y5a58O5+UzFUlLjoBm7zE3aIwtETcLd4Dsy7K0VMo4xFSWC7gsDRXzQoMeLHuFYQMnYHTSl4NzP+NCnbShBurk1g1zilJleKIeUZViLUGHsJQdntbGZTaSBsUt19I+m6qru/smZvxVl6g9yOAPIpb82cSJlTY4z3mpl0eWoGCHKZomt+DgiCwUQcZ3qUVg2lSHk1GBfEOwHEAt2TlBFGU+lFEh50J1XC3y4pm8HygshCWymdYUnTnNH1yTs6LFx5XnIEcjDWONpI/d07mR/2ARlVpwUIee62va4eanU2OvNnKNwTso0HHalpoACEZ1QHs7oPRCmi5cgUhSgm74864pK2OQ/R7u3fxH5gRrsoC7KZvastdPVANfzYaVXQM4/haDCgrztIKSlBIigUJ/KGsEeBTZTjfPmaNUjJcZztp2Ef4QKp1coXxQCW3U7E7dSMpvku+TfRSzPHLpJij/kXlVwAmzUDfBbPYI7rmfGwB2dNiYesI3s+L+OrBk2RUp1HvUtx9UrE48u5A9Vrlnj2CCxTKIqyjkaZ4DsxuRlZ3fuW2rFbNDCijumO5FJ3VfLtutYB2cI/kaeBsGw8gH5Y79/Smgww2+kIFyCGVR6Fl+RKPeTbJg1/FpvHiiL9EvsPMmSxOcULSK9cLiQcKxl56pNS+h0owxzAtOMmEtnw8cxVvteVfbSKImJTewaQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(396003)(366004)(136003)(39860400002)(376002)(478600001)(7696005)(186003)(26005)(9686003)(53546011)(6506007)(86362001)(2906002)(33656002)(71200400001)(8936002)(5660300002)(38070700005)(52536014)(54906003)(110136005)(316002)(8676002)(64756008)(66556008)(66946007)(66476007)(66446008)(41300700001)(83380400001)(122000001)(4326008)(91956017)(55016003)(38100700002)(76116006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JoYRL7Tsxnr7n8l+xR8we+mxc9lqQC9JvX8EI6PWYrthaRg85YuIdUlFAAcf?=
+ =?us-ascii?Q?N8ygHxQGK3Hp4XFMIZ6d03Id68CG3s3NiMATGqgYwSzfvBIQdb4BQKN6Ys8b?=
+ =?us-ascii?Q?SVvILl8JAAyop3e/4b52eb4zgGt+H79vyd9uGFnCo1N4qnJC4qtp0YNqMHJI?=
+ =?us-ascii?Q?xruSQ1n7w9Ieo5nOmEqgqjQ1umVkFDfhklhTj+S+qZNVbaY7tF/FaqpHbR9G?=
+ =?us-ascii?Q?lJdwCKx4w9QNdwIVjxWGpcUyXBQkZPSaYopJS6P5U7yD0RO+ZT4mZcn9MQZC?=
+ =?us-ascii?Q?sZhSdpjlss0D5YeYoRSCPmZPdmjF2VtKEqNCo3xqGkRQPLJ8hLWTHznWkduR?=
+ =?us-ascii?Q?nrx3mXl+nuGIgM9Hj2hxMTaJiyxfjNbaINKsL/D/8L4BSrg54lrkuMDwf7Fr?=
+ =?us-ascii?Q?c9LyCeNDkLvR//NU57RwBVePcNgaLf4P5zyTI3SkgyrrMJ/lvAbQiptxaGug?=
+ =?us-ascii?Q?hl/hzSxuMuKoL6+wvadNJpGIcEps/NYIitoW0VWoRpQoNPDRRh7L1gwTYRt7?=
+ =?us-ascii?Q?izdPWJJKWSudyHfEAKhxDt0pQpAmANpc7Dtkf89lSelhKnucp+eN662hZv0B?=
+ =?us-ascii?Q?NYXz8YzuNXfl9p1pXSGk54vRNijCy1RhfN7QJca5H3LRU6TVyXOLByHzHqxq?=
+ =?us-ascii?Q?QkJbesDfsxlrgZKp20HlkazjGJYeV5PzyJkzGdUEMDBBy22d1tg89y7HfZyT?=
+ =?us-ascii?Q?Kjaf+q5XVk+HBB0IUYF6tIYWJRBQfDOVIVNkf/J23iSAQfixx4VdBqP3AvFa?=
+ =?us-ascii?Q?qLY/uBA+xOL1m2U6E7n3BlC//yMkkQ9PQ6LK6cGxu6nbqbL/h/BEUlyig7aB?=
+ =?us-ascii?Q?5n5dcw0xrYJvzqCLm9+v+OYyoFI7l/FM1UiMBXrpzg8lDN9w3m81GICsWo/1?=
+ =?us-ascii?Q?TbcEIu9rmOVWvMuX7NvbwGZU0/B27L6Uqm940wAvUxe+KAO+C/NGw2f08uZ0?=
+ =?us-ascii?Q?lIQPGuYF6OQQNCsTaL5L96GYYy6ASpXGzTpKRvK4sVJyEAyGP+ujW1++8K2S?=
+ =?us-ascii?Q?eZJqxlDuM4HqmULZpNomKCD9LkEc89IA6NFKhxu0v2i2iHXBJjUSDM3hjJKS?=
+ =?us-ascii?Q?DfsoCIEbxB/3iiHdpjIqfJMJy2LDK9XqJdaWWYGGcdkHq1aeSUdlwm4WHv1+?=
+ =?us-ascii?Q?CBNZKMp8CALiGNTGAO4PaqldNFnmi8YXfM7RSxtPmQ6gf54v9Se4PvFpPNPR?=
+ =?us-ascii?Q?bfWQV10TPCALQgaDjCpxSxGTOFpeb1j1Ci5NcWYsWWm7WMeakVGRjZkBpuAk?=
+ =?us-ascii?Q?MQjWh/g3hN13sNgELxsUWmho2V+urL/2l4csJS9QJDYV3+IilW0A1p5GGJHQ?=
+ =?us-ascii?Q?1Um1i1R7L9kpUyrM6jmSCvvviNfwR4W50LbeMRMRHWrQVtwXpuy69cPX/HKs?=
+ =?us-ascii?Q?Nqyoef7nfu8d1PiqZ5eB3DyvaLKReUdmNIt5HcUqmQPBk9yP9KH3SW6950rw?=
+ =?us-ascii?Q?/bSE/efqWyNO4mFT2scblaDyvnzh/pTZ8bbMWUG/pkm51ptCmCO/+LiGMP7R?=
+ =?us-ascii?Q?MdQu1l484bfaovudnHlrTe+kjg8mCr+YhbI0w55Yv7CPGtshlk48ns70ABns?=
+ =?us-ascii?Q?MHnDlRXKMxuVRRaSY5tEuNd72cksR08uJQqW5rVYFrPp79iEayP/ASk3fv9g?=
+ =?us-ascii?Q?eQ=3D=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BN9PR12MB5257B956B25C6055FB42B860FC439BN9PR12MB5257namp_"
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58470e03-7781-44d7-33bd-08da92731743
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2022 14:53:43.4896 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: AR7GBNlX/cWsduxf0af8s4gmTpS+43HdVwXQxYmfHgJHEl1giOkqGTKnQsrhV2ZtlpPWiDOcCACZrKMSWnQSlg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4581
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,619 +122,194 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ray.Huang@amd.com, jiadong.zhu@amd.com
+Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>,
+ "Wang, Yang\(Kevin\)" <KevinYang.Wang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Andrey and Luben please take a look at this set here and help with 
-reviewing it.
+--_000_BN9PR12MB5257B956B25C6055FB42B860FC439BN9PR12MB5257namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks,
-Christian.
+[AMD Official Use Only - General]
 
-Am 09.09.22 um 03:50 schrieb jiadong.zhu@amd.com:
-> From: "Jiadong.Zhu" <Jiadong.Zhu@amd.com>
->
-> The software ring is created to support priority
-> context while there is only one hardware queue
-> for gfx.
->
-> Every software rings has its fence driver and could
-> be used as an ordinary ring for the gpu_scheduler.
-> Multiple software rings are binded to a real ring
-> with the ring muxer. The packages committed on the
-> software ring are copied to the real ring.
->
-> v2: use array to store software ring entry.
-> v3: remove unnecessary prints.
->
-> Signed-off-by: Jiadong.Zhu <Jiadong.Zhu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/Makefile          |   3 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h      |   3 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h     |   3 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c | 182 +++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h |  67 ++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c  | 204 +++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h  |  48 +++++
->   7 files changed, 509 insertions(+), 1 deletion(-)
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index 3e0e2eb7e235..85224bc81ce5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -58,7 +58,8 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
->   	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
->   	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
->   	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
-> -	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o
-> +	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
-> +	amdgpu_sw_ring.o amdgpu_ring_mux.o
->   
->   amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index 53526ffb2ce1..0de8e3cd0f1c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -33,6 +33,7 @@
->   #include "amdgpu_imu.h"
->   #include "soc15.h"
->   #include "amdgpu_ras.h"
-> +#include "amdgpu_ring_mux.h"
->   
->   /* GFX current status */
->   #define AMDGPU_GFX_NORMAL_MODE			0x00000000L
-> @@ -346,6 +347,8 @@ struct amdgpu_gfx {
->   	struct amdgpu_gfx_ras		*ras;
->   
->   	bool				is_poweron;
-> +
-> +	struct amdgpu_ring_mux			muxer;
->   };
->   
->   #define amdgpu_gfx_get_gpu_clock_counter(adev) (adev)->gfx.funcs->get_gpu_clock_counter((adev))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> index 7d89a52091c0..fe33a683bfba 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -278,6 +278,9 @@ struct amdgpu_ring {
->   	bool			is_mes_queue;
->   	uint32_t		hw_queue_id;
->   	struct amdgpu_mes_ctx_data *mes_ctx;
-> +
-> +	bool			is_sw_ring;
-> +
->   };
->   
->   #define amdgpu_ring_parse_cs(r, p, job, ib) ((r)->funcs->parse_cs((p), (job), (ib)))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
-> new file mode 100644
-> index 000000000000..ea4a3c66119a
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
-> @@ -0,0 +1,182 @@
-> +/*
-> + * Copyright 2022 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#include <drm/drm_print.h>
-> +
-> +#include "amdgpu_ring_mux.h"
-> +#include "amdgpu_ring.h"
-> +
-> +#define AMDGPU_MUX_RESUBMIT_JIFFIES_TIMEOUT (HZ/2)
-> +
-> +static int copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
-> +	u64 s_begin, u64 s_end);
-> +
-> +int amdgpu_ring_mux_init(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
-> +{
-> +	mux->real_ring = ring;
-> +	memset(mux->ring_entries, 0, sizeof(mux->ring_entries));
-> +	mux->num_ring_entries = 0;
-> +	spin_lock_init(&mux->lock);
-> +	return 0;
-> +}
-> +
-> +void amdgpu_ring_mux_fini(struct amdgpu_ring_mux *mux)
-> +{
-> +	memset(mux->ring_entries, 0, sizeof(mux->ring_entries));
-> +	mux->num_ring_entries = 0;
-> +}
-> +
-> +int amdgpu_ring_mux_add_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
-> +{
-> +	struct amdgpu_mux_entry *e;
-> +
-> +	if (mux->num_ring_entries == AMDGPU_MAX_GFX_RINGS) {
-> +		DRM_ERROR("adding sw ring exceeds max gfx num\n");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	e = &mux->ring_entries[mux->num_ring_entries++];
-> +
-> +	e->ring = ring;
-> +	e->start_ptr_in_hw_ring = 0;
-> +	e->end_ptr_in_hw_ring = 0;
-> +	e->sw_cptr = 0;
-> +	e->sw_rptr = 0;
-> +	e->sw_wptr = 0;
-> +
-> +	return 0;
-> +}
-> +
-> +static struct amdgpu_mux_entry *amdgpu_get_sw_entry(struct amdgpu_ring_mux *mux,
-> +				struct amdgpu_ring *ring)
-> +{
-> +	struct amdgpu_mux_entry *e;
-> +	int i;
-> +
-> +	e = NULL;
-> +	for (i = 0; i < mux->num_ring_entries; i++) {
-> +		if (mux->ring_entries[i].ring == ring) {
-> +			e = &mux->ring_entries[i];
-> +			break;
-> +		}
-> +	}
-> +
-> +	return e;
-> +}
-> +
-> +void amdgpu_ring_set_wptr_to_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring, u64 wptr)
-> +{
-> +	struct amdgpu_mux_entry *e;
-> +
-> +	e = amdgpu_get_sw_entry(mux, ring);
-> +	if (!e) {
-> +		DRM_ERROR("cannot find entry for sw ring\n");
-> +		return;
-> +	}
-> +
-> +	spin_lock(&mux->lock);
-> +	e->sw_cptr = e->sw_wptr;
-> +	e->sw_wptr = wptr;
-> +	e->start_ptr_in_hw_ring = mux->real_ring->wptr;
-> +
-> +	if (copy_pkt_from_sw_ring(mux, ring, e->sw_cptr, wptr) == 0) {
-> +		e->end_ptr_in_hw_ring = mux->real_ring->wptr;
-> +		amdgpu_ring_commit(mux->real_ring);
-> +	}
-> +
-> +	spin_unlock(&mux->lock);
-> +}
-> +
-> +u64 amdgpu_ring_get_wptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
-> +{
-> +	struct amdgpu_mux_entry *e;
-> +
-> +	e = amdgpu_get_sw_entry(mux, ring);
-> +	if (!e) {
-> +		DRM_ERROR("cannot find entry for sw ring\n");
-> +		return 0;
-> +	}
-> +
-> +	return e->sw_wptr;
-> +}
-> +
-> +u64 amdgpu_ring_get_rptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
-> +{
-> +	struct amdgpu_mux_entry *e;
-> +	u64 r_rptr, r_wptr, offset, start, end;
-> +
-> +	e = amdgpu_get_sw_entry(mux, ring);
-> +	if (!e) {
-> +		DRM_ERROR("no sw entry found!\n");
-> +		return 0;
-> +	}
-> +
-> +	r_rptr = amdgpu_ring_get_rptr(mux->real_ring);
-> +	r_wptr = amdgpu_ring_get_wptr(mux->real_ring);
-> +
-> +	if (r_wptr < r_rptr)
-> +		r_wptr += mux->real_ring->ring_size >> 2;
-> +
-> +	start = e->start_ptr_in_hw_ring & mux->real_ring->buf_mask;
-> +	end = e->end_ptr_in_hw_ring & mux->real_ring->buf_mask;
-> +	if (start > end)
-> +		end += mux->real_ring->ring_size >> 2;
-> +	if (r_rptr <= end && r_rptr >= start) {
-> +		offset = r_rptr - start;
-> +		e->sw_rptr = (e->sw_cptr + offset) & ring->buf_mask;
-> +	} else if (r_rptr < start) {
-> +		e->sw_rptr = e->sw_cptr;
-> +	} else {
-> +		e->sw_rptr = e->sw_wptr;
-> +	}
-> +
-> +	return e->sw_rptr;
-> +}
-> +
-> +/*copy packages on sw ring range[begin, end) */
-> +static int copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
-> +	u64 s_begin, u64 s_end)
-> +{
-> +	u64 begin, end, r_begin, r_end;
-> +	struct amdgpu_ring *real_ring = mux->real_ring;
-> +
-> +	begin = s_begin & ring->buf_mask;
-> +	end = s_end & ring->buf_mask;
-> +
-> +	r_begin = real_ring->wptr & real_ring->buf_mask;
-> +	if (begin == end)
-> +		return -ERANGE;
-> +	if (begin > end) {
-> +		amdgpu_ring_alloc(real_ring, (ring->ring_size >> 2) + end - begin);
-> +		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[begin],
-> +			(ring->ring_size >> 2) - begin);
-> +		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[0], end);
-> +	} else {
-> +		amdgpu_ring_alloc(real_ring, end - begin);
-> +		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[begin], end - begin);
-> +	}
-> +
-> +	r_end = real_ring->wptr & real_ring->buf_mask;
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
-> new file mode 100644
-> index 000000000000..d058c43bb063
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
-> @@ -0,0 +1,67 @@
-> +/*
-> + * Copyright 2022 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#ifndef __AMDGPU_RING_MUX__
-> +#define __AMDGPU_RING_MUX__
-> +
-> +#include <linux/timer.h>
-> +#include <linux/spinlock.h>
-> +#include "amdgpu_ring.h"
-> +
-> +struct amdgpu_ring;
-> +/*
-> + * start_ptr_in_hw_ring - last copied start loc on hw ring
-> + * end_ptr_in_hw_ring - last copied end loc on hw ring
-> + *sw_cptr -the begin of copy ptr in sw ring
-> + *sw_rptr; the read ptr in sw ring
-> + *sw_wptr; the write ptr in sw ring
-> + */
-> +struct amdgpu_mux_entry {
-> +	struct amdgpu_ring	*ring;
-> +	u64 start_ptr_in_hw_ring;
-> +	u64 end_ptr_in_hw_ring;
-> +
-> +	u64 sw_cptr;
-> +	u64 sw_rptr;
-> +	u64 sw_wptr;
-> +};
-> +
-> +struct amdgpu_ring_mux {
-> +	struct amdgpu_ring *real_ring;
-> +
-> +	struct amdgpu_mux_entry ring_entries[AMDGPU_MAX_GFX_RINGS];
-> +
-> +	unsigned num_ring_entries;
-> +
-> +	spinlock_t			lock;
-> +
-> +};
-> +
-> +int amdgpu_ring_mux_init(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
-> +void amdgpu_ring_mux_fini(struct amdgpu_ring_mux *mux);
-> +int amdgpu_ring_mux_add_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
-> +void amdgpu_ring_set_wptr_to_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring, u64 wptr);
-> +u64 amdgpu_ring_get_wptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
-> +u64 amdgpu_ring_get_rptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
-> +
-> +#endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c
-> new file mode 100644
-> index 000000000000..452d0ff37758
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c
-> @@ -0,0 +1,204 @@
-> +/*
-> + * Copyright 2022 Advanced Micro Devices, Inc.
-> + * All Rights Reserved.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the
-> + * "Software"), to deal in the Software without restriction, including
-> + * without limitation the rights to use, copy, modify, merge, publish,
-> + * distribute, sub license, and/or sell copies of the Software, and to
-> + * permit persons to whom the Software is furnished to do so, subject to
-> + * the following conditions:
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDERS, AUTHORS AND/OR ITS SUPPLIERS BE LIABLE FOR ANY CLAIM,
-> + * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-> + * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-> + * USE OR OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + * The above copyright notice and this permission notice (including the
-> + * next paragraph) shall be included in all copies or substantial portions
-> + * of the Software.
-> + *
-> + */
-> +
-> +#include "amdgpu_sw_ring.h"
-> +#include "amdgpu_ring_mux.h"
-> +
-> +#define amdgpu_ring_get_gpu_addr(ring, offset)				\
-> +	(ring->is_mes_queue ?						\
-> +	 (ring->mes_ctx->meta_data_gpu_addr + offset) :			\
-> +	 (ring->adev->wb.gpu_addr + offset * 4))
-> +
-> +#define amdgpu_ring_get_cpu_addr(ring, offset)				\
-> +	(ring->is_mes_queue ?						\
-> +	 (void *)((uint8_t *)(ring->mes_ctx->meta_data_ptr) + offset) : \
-> +	 (&ring->adev->wb.wb[offset]))
-> +
-> +
-> +int amdgpu_sw_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
-> +		     unsigned int max_dw, struct amdgpu_irq_src *irq_src,
-> +		     unsigned int irq_type, unsigned int hw_prio,
-> +		     atomic_t *sched_score)
-> +{
-> +	int r;
-> +	int sched_hw_submission = amdgpu_sched_hw_submission;
-> +	u32 *num_sched;
-> +	u32 hw_ip;
-> +
-> +	BUG_ON(!ring->is_sw_ring);
-> +
-> +	if (ring->adev == NULL) {
-> +		if (adev->num_rings >= AMDGPU_MAX_RINGS)
-> +			return -EINVAL;
-> +
-> +		ring->adev = adev;
-> +		ring->num_hw_submission = sched_hw_submission;
-> +		ring->sched_score = sched_score;
-> +		ring->vmid_wait = dma_fence_get_stub();
-> +
-> +		if (!ring->is_mes_queue) {
-> +			ring->idx = adev->num_rings++;
-> +			adev->rings[ring->idx] = ring;
-> +		}
-> +
-> +		r = amdgpu_fence_driver_init_ring(ring);
-> +		if (r)
-> +			return r;
-> +	}
-> +
-> +	r = amdgpu_device_wb_get(adev, &ring->fence_offs);
-> +	if (r) {
-> +		dev_err(adev->dev, "(%d) ring fence_offs wb alloc failed\n", r);
-> +		return r;
-> +	}
-> +
-> +	r = amdgpu_device_wb_get(adev, &ring->fence_offs);
-> +	if (r) {
-> +		dev_err(adev->dev, "(%d) ring fence_offs wb alloc failed\n", r);
-> +		return r;
-> +	}
-> +
-> +	r = amdgpu_device_wb_get(adev, &ring->trail_fence_offs);
-> +	if (r) {
-> +		dev_err(adev->dev, "(%d) ring trail_fence_offs wb alloc failed\n", r);
-> +		return r;
-> +	}
-> +
-> +	r = amdgpu_device_wb_get(adev, &ring->cond_exe_offs);
-> +	if (r) {
-> +		dev_err(adev->dev, "(%d) ring cond_exec_polling wb alloc failed\n", r);
-> +		return r;
-> +	}
-> +
-> +	ring->fence_gpu_addr =
-> +		amdgpu_ring_get_gpu_addr(ring, ring->fence_offs);
-> +	ring->fence_cpu_addr =
-> +		amdgpu_ring_get_cpu_addr(ring, ring->fence_offs);
-> +
-> +	ring->trail_fence_gpu_addr =
-> +		amdgpu_ring_get_gpu_addr(ring, ring->trail_fence_offs);
-> +	ring->trail_fence_cpu_addr =
-> +		amdgpu_ring_get_cpu_addr(ring, ring->trail_fence_offs);
-> +
-> +	ring->cond_exe_gpu_addr =
-> +		amdgpu_ring_get_gpu_addr(ring, ring->cond_exe_offs);
-> +	ring->cond_exe_cpu_addr =
-> +		amdgpu_ring_get_cpu_addr(ring, ring->cond_exe_offs);
-> +
-> +	/* always set cond_exec_polling to CONTINUE */
-> +	*ring->cond_exe_cpu_addr = 1;
-> +
-> +	r = amdgpu_fence_driver_start_ring(ring, irq_src, irq_type);
-> +	if (r) {
-> +		dev_err(adev->dev, "failed initializing fences (%d).\n", r);
-> +		return r;
-> +	}
-> +
-> +	ring->ring_size = roundup_pow_of_two(max_dw * 4 * sched_hw_submission);
-> +
-> +	ring->buf_mask = (ring->ring_size / 4) - 1;
-> +	ring->ptr_mask = ring->funcs->support_64bit_ptrs ?
-> +		0xffffffffffffffff : ring->buf_mask;
-> +
-> +	/* Allocate ring buffer */
-> +	if (ring->ring == NULL) {
-> +		ring->ring = kzalloc(ring->ring_size + ring->funcs->extra_dw, GFP_KERNEL);
-> +		if (!ring->ring) {
-> +			dev_err(adev->dev, "(%d) swring create failed\n", r);
-> +			return r;
-> +		}
-> +
-> +		amdgpu_ring_clear_ring(ring);
-> +	}
-> +
-> +	ring->max_dw = max_dw;
-> +	ring->hw_prio = hw_prio;
-> +
-> +	if (!ring->no_scheduler) {
-> +		hw_ip = ring->funcs->type;
-> +		num_sched = &adev->gpu_sched[hw_ip][hw_prio].num_scheds;
-> +		adev->gpu_sched[hw_ip][hw_prio].sched[(*num_sched)++] =
-> +			&ring->sched;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +u64 amdgpu_sw_ring_get_rptr_gfx(struct amdgpu_ring *ring)
-> +{
-> +	struct amdgpu_device *adev = ring->adev;
-> +	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
-> +
-> +	BUG_ON(!ring->is_sw_ring);
-> +	return amdgpu_ring_get_rptr_from_mux(mux, ring);
-> +}
-> +
-> +u64 amdgpu_sw_ring_get_wptr_gfx(struct amdgpu_ring *ring)
-> +{
-> +	struct amdgpu_device *adev = ring->adev;
-> +	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
-> +
-> +	BUG_ON(!ring->is_sw_ring);
-> +	return amdgpu_ring_get_wptr_from_mux(mux, ring);
-> +}
-> +
-> +void amdgpu_sw_ring_set_wptr_gfx(struct amdgpu_ring *ring)
-> +{
-> +	BUG_ON(!ring->is_sw_ring);
-> +}
-> +
-> +void amdgpu_sw_ring_commit(struct amdgpu_ring *ring)
-> +{
-> +	struct amdgpu_device *adev = ring->adev;
-> +	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
-> +
-> +	BUG_ON(!ring->is_sw_ring);
-> +	amdgpu_ring_set_wptr_to_mux(mux, ring, ring->wptr);
-> +}
-> +
-> +void amdgpu_sw_ring_fini(struct amdgpu_ring *ring)
-> +{
-> +	BUG_ON(!ring->is_sw_ring);
-> +
-> +	/* Not to finish a ring which is not initialized */
-> +	if (!(ring->adev) ||
-> +	    (!ring->is_mes_queue && !(ring->adev->rings[ring->idx])))
-> +		return;
-> +
-> +	ring->sched.ready = false;
-> +
-> +	amdgpu_device_wb_free(ring->adev, ring->cond_exe_offs);
-> +	amdgpu_device_wb_free(ring->adev, ring->fence_offs);
-> +
-> +	kfree((void *)ring->ring);
-> +
-> +	dma_fence_put(ring->vmid_wait);
-> +	ring->vmid_wait = NULL;
-> +	ring->me = 0;
-> +
-> +	ring->adev->rings[ring->idx] = NULL;
-> +}
-> +
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h
-> new file mode 100644
-> index 000000000000..c05d8a94ad0c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h
-> @@ -0,0 +1,48 @@
-> +/*
-> + * Copyright 2012 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#include <drm/amdgpu_drm.h>
-> +#include <drm/gpu_scheduler.h>
-> +#include <drm/drm_print.h>
-> +
-> +#include "amdgpu_irq.h"
-> +#include "amdgpu_ring.h"
-> +#include "amdgpu.h"
-> +
-> +#ifndef __AMDGPU_SWRING_H__
-> +#define __AMDGPU_SWRING_H__
-> +
-> +int amdgpu_sw_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *sw_ring,
-> +		     unsigned int max_dw, struct amdgpu_irq_src *irq_src,
-> +		     unsigned int irq_type, unsigned int hw_prio,
-> +		     atomic_t *sched_score);
-> +void amdgpu_sw_ring_fini(struct amdgpu_ring *ring);
-> +u64 amdgpu_sw_ring_get_rptr_gfx(struct amdgpu_ring *ring);
-> +u64 amdgpu_sw_ring_get_wptr_gfx(struct amdgpu_ring *ring);
-> +void amdgpu_sw_ring_set_wptr_gfx(struct amdgpu_ring *ring);
-> +void amdgpu_sw_ring_commit(struct amdgpu_ring *ring);
-> +
-> +void amdgpu_sw_ring_ib_begin(struct amdgpu_ring *ring);
-> +void amdgpu_sw_ring_ib_end(struct amdgpu_ring *ring);
-> +
-> +#endif
+Series is
 
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+
+Regards,
+Hawking
+From: Chai, Thomas <YiPeng.Chai@amd.com>
+Date: Thursday, September 8, 2022 at 16:43
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Chai, Thomas <YiPeng.Chai@amd.com>, Zhang, Hawking <Hawking.Zhang@amd.c=
+om>, Zhou1, Tao <Tao.Zhou1@amd.com>, Wang, Yang(Kevin) <KevinYang.Wang@amd.=
+com>, Chai, Thomas <YiPeng.Chai@amd.com>
+Subject: [PATCH V3 3/3] drm/amd/pm: Remove redundant check condition
+V3:
+[Why]:
+  Since ASICs using smu v13_0_2 have called smu
+.suspend before calling amdgpu_pm_sysfs_fini,
+pm.dpm_enabled was already set to 0 when smu
+.suspend was called. This makes it impossible
+to delete all pm sys nodes.
+
+[How]:
+  Since all functions in amdgpu_pm_sysfs_fini
+have their own condition checks, so the first
+conditional check in amdgpu_pm_sysfs_fini can
+be removed.
+
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
+dgpu_pm.c
+index 5e318b3f6c0f..948cc75376f8 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -3405,9 +3405,6 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
+
+ void amdgpu_pm_sysfs_fini(struct amdgpu_device *adev)
+ {
+-       if (adev->pm.dpm_enabled =3D=3D 0)
+-               return;
+-
+         if (adev->pm.int_hwmon_dev)
+                 hwmon_device_unregister(adev->pm.int_hwmon_dev);
+
+--
+2.25.1
+
+--_000_BN9PR12MB5257B956B25C6055FB42B860FC439BN9PR12MB5257namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
+hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
+fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style>
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Series is<o:p></o:p=
+></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Reviewed-by: Hawkin=
+g Zhang &lt;Hawking.Zhang@amd.com&gt;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Regards,<br>
+Hawking<o:p></o:p></span></p>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><b><span style=3D"fon=
+t-size:12.0pt;color:black">From:
+</span></b><span style=3D"font-size:12.0pt;color:black">Chai, Thomas &lt;Yi=
+Peng.Chai@amd.com&gt;<br>
+<b>Date: </b>Thursday, September 8, 2022 at 16:43<br>
+<b>To: </b>amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc: </b>Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;, Zhang, Hawking &lt;Haw=
+king.Zhang@amd.com&gt;, Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;, Wang, Yang(Ke=
+vin) &lt;KevinYang.Wang@amd.com&gt;, Chai, Thomas &lt;YiPeng.Chai@amd.com&g=
+t;<br>
+<b>Subject: </b>[PATCH V3 3/3] drm/amd/pm: Remove redundant check condition=
+<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
+ize:11.0pt">V3:<br>
+[Why]:<br>
+&nbsp; Since ASICs using smu v13_0_2 have called smu<br>
+.suspend before calling amdgpu_pm_sysfs_fini,<br>
+pm.dpm_enabled was already set to 0 when smu<br>
+.suspend was called. This makes it impossible<br>
+to delete all pm sys nodes.<br>
+<br>
+[How]:<br>
+&nbsp; Since all functions in amdgpu_pm_sysfs_fini<br>
+have their own condition checks, so the first<br>
+conditional check in amdgpu_pm_sysfs_fini can<br>
+be removed.<br>
+<br>
+Signed-off-by: YiPeng Chai &lt;YiPeng.Chai@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/pm/amdgpu_pm.c | 3 ---<br>
+&nbsp;1 file changed, 3 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
+dgpu_pm.c<br>
+index 5e318b3f6c0f..948cc75376f8 100644<br>
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+@@ -3405,9 +3405,6 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)<=
+br>
+&nbsp;<br>
+&nbsp;void amdgpu_pm_sysfs_fini(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.dpm_enabled =3D=3D 0)=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return;<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.int_hwmon_=
+dev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; hwmon_device_unregister(adev-&gt;pm.int_hwmon_dev);<b=
+r>
+&nbsp;<br>
+-- <br>
+2.25.1<o:p></o:p></span></p>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN9PR12MB5257B956B25C6055FB42B860FC439BN9PR12MB5257namp_--
