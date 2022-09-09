@@ -4,46 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4C3EECAAD5
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 07:27:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCA59ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 07:27:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0281610E279;
-	Mon, 12 Sep 2022 07:27:02 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D201A10E2A5;
- Sat, 10 Sep 2022 06:26:59 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 210A2B8015B;
- Sat, 10 Sep 2022 06:26:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FD55C433C1;
- Sat, 10 Sep 2022 06:26:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1662791215;
- bh=0qlehN7vhup/EkQL/f7xkmEf9yI2anApDnpSe8Y3pYo=;
- h=Subject:To:Cc:From:Date:From;
- b=Z86Qu6Ylcs29QsYxMTG3ASnZu6KmFiEJ65Zf1snbScDGru1Lgyyim7SfumUGifxM5
- 9Z5vvTEhRcEsYLRQglHaEnWc2j7Zo4K30IEdW1SzWgO4l7II21FC6rltTFhc/au1rS
- N2iOcWWeWzZlMLwXqgOjwYolSg9rzyH0AsAbjoyI=
-Subject: Patch "drm/amd/display: fix memory leak when using debugfs_lookup()"
- has been added to the 5.15-stable tree
-To: Jerry.Zuo@amd.com, Rodrigo.Siqueira@amd.com, Wayne.Lin@amd.com,
- Xinhui.Pan@amd.com, airlied@linux.ie, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, bhanuprakash.modem@intel.com,
- christian.koenig@amd.com, daniel@ffwll.ch, dri-devel@lists.freedesktop.org,
- gregkh@linuxfoundation.org, harry.wentland@amd.com, hersenxs.wu@amd.com,
- jiapeng.chong@linux.alibaba.com, lyz_cs@pku.edu.cn, mikita.lipski@amd.com,
- patrik.r.jakobsson@gmail.com, seanpaul@chromium.org, sunpeng.li@amd.com,
- tdwilliamsiv@gmail.com, wenjing.liu@amd.com
-From: <gregkh@linuxfoundation.org>
-Date: Sat, 10 Sep 2022 08:27:10 +0200
-Message-ID: <16627912306312@kroah.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A56010E27B;
+	Mon, 12 Sep 2022 07:27:04 +0000 (UTC)
+Received: from m12-11.163.com (m12-11.163.com [220.181.12.11])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 878A810EE1C;
+ Fri,  9 Sep 2022 19:53:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=MD7Ku
+ o/8ZI7rK5baDMxuo/yBRJbppXCYTo0SO7OLZo0=; b=Onm3pJflkFpnGTNMGJRku
+ 18aUFeyWrqhJRW0O6o/rgRoR3sb9MIdAW5yU/YpKy3Dc+A/1/kryYJ9kVDzhgfy9
+ Yk6ncVo+YIYckjsS2tfvM00KTDvrWNLaStn13MMO95oL+bR6h9r+1gPkqeQ22GVq
+ j4c42uPtyJgU++9GK5RQNE=
+Received: from f00160-VMware-Virtual-Platform.localdomain (unknown
+ [1.203.67.201])
+ by smtp7 (Coremail) with SMTP id C8CowAB3C228mRtjZhFoEg--.50987S4;
+ Sat, 10 Sep 2022 03:53:43 +0800 (CST)
+From: Jingyu Wang <jingyuwang_vip@163.com>
+To: arry.wentland@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch
+Subject: [PATCH] drm/amdgpu/display: remove unneeded "default n" options
+Date: Sat, 10 Sep 2022 03:53:30 +0800
+Message-Id: <20220909195330.85888-1-jingyuwang_vip@163.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+X-CM-TRANSID: C8CowAB3C228mRtjZhFoEg--.50987S4
+X-Coremail-Antispam: 1Uf129KBjvdXoWrZw1fKry5XF4kXryDWFWfZrb_yoWDXrX_K3
+ yUAw1rZF15AasFgr12vr4rury0ya1UZrZ7XFy8tryavr17ur4fW3s7u3y3Kr17u3ZrCFZx
+ u3yrCF4aywn3tjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRi5r2tUUUUU==
+X-Originating-IP: [1.203.67.201]
+X-CM-SenderInfo: 5mlqw5xxzd0whbyl1qqrwthudrp/xtbCoAd3F1zmWJAhuAAAss
 X-Mailman-Approved-At: Mon, 12 Sep 2022 07:26:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,104 +51,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable-commits@vger.kernel.org
+Cc: Jingyu Wang <jingyuwang_vip@163.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Remove "default n" options. If the "default" line is removed, it
+defaults to 'n'.
 
-This is a note to let you know that I've just added the patch titled
-
-    drm/amd/display: fix memory leak when using debugfs_lookup()
-
-to the 5.15-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-amd-display-fix-memory-leak-when-using-debugfs_lookup.patch
-and it can be found in the queue-5.15 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From cbfac7fa491651c57926c99edeb7495c6c1aeac2 Mon Sep 17 00:00:00 2001
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Fri, 2 Sep 2022 15:01:05 +0200
-Subject: drm/amd/display: fix memory leak when using debugfs_lookup()
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-commit cbfac7fa491651c57926c99edeb7495c6c1aeac2 upstream.
-
-When calling debugfs_lookup() the result must have dput() called on it,
-otherwise the memory will leak over time.  Fix this up by properly
-calling dput().
-
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Wayne Lin <Wayne.Lin@amd.com>
-Cc: hersen wu <hersenxs.wu@amd.com>
-Cc: Wenjing Liu <wenjing.liu@amd.com>
-Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Cc: Thelford Williams <tdwilliamsiv@gmail.com>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Cc: Yongzhi Liu <lyz_cs@pku.edu.cn>
-Cc: Mikita Lipski <mikita.lipski@amd.com>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Cc: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
-Cc: Sean Paul <seanpaul@chromium.org>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Jingyu Wang <jingyuwang_vip@163.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/Kconfig | 2 --
+ 1 file changed, 2 deletions(-)
 
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -3007,7 +3007,7 @@ void crtc_debugfs_init(struct drm_crtc *
- 				   &crc_win_y_end_fops);
- 	debugfs_create_file_unsafe("crc_win_update", 0644, dir, crtc,
- 				   &crc_win_update_fops);
--
-+	dput(dir);
- }
- #endif
- /*
+diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+index 413d8c6d592f..6925e0280dbe 100644
+--- a/drivers/gpu/drm/amd/display/Kconfig
++++ b/drivers/gpu/drm/amd/display/Kconfig
+@@ -28,7 +28,6 @@ config DRM_AMD_DC_SI
+ 	bool "AMD DC support for Southern Islands ASICs"
+ 	depends on DRM_AMDGPU_SI
+ 	depends on DRM_AMD_DC
+-	default n
+ 	help
+ 	  Choose this option to enable new AMD DC support for SI asics
+ 	  by default. This includes Tahiti, Pitcairn, Cape Verde, Oland.
+@@ -43,7 +42,6 @@ config DEBUG_KERNEL_DC
+ 
+ config DRM_AMD_SECURE_DISPLAY
+         bool "Enable secure display support"
+-        default n
+         depends on DEBUG_FS
+         depends on DRM_AMD_DC_DCN
+         help
 
+base-commit: 5957ac6635a1a12d4aa2661bbf04d3085a73372a
+-- 
+2.34.1
 
-Patches currently in stable-queue which might be from gregkh@linuxfoundation.org are
-
-queue-5.15/alsa-aloop-fix-random-zeros-in-capture-data-when-using-jiffies-timer.patch
-queue-5.15/alsa-usb-audio-split-endpoint-setups-for-hw_params-and-prepare.patch
-queue-5.15/net-wwan-iosm-remove-pointless-null-check.patch
-queue-5.15/fs-only-do-a-memory-barrier-for-the-first-set_buffer_uptodate.patch
-queue-5.15/efi-capsule-loader-fix-use-after-free-in-efi_capsule_write.patch
-queue-5.15/alsa-emu10k1-fix-out-of-bounds-access-in-snd_emu10k1_pcm_channel_alloc.patch
-queue-5.15/net-mvpp2-debugfs-fix-memory-leak-when-using-debugfs_lookup.patch
-queue-5.15/efi-libstub-disable-struct-randomization.patch
-queue-5.15/revert-mm-kmemleak-take-a-full-lowmem-check-in-kmemleak_-_phys.patch
-queue-5.15/sched-debug-fix-dentry-leak-in-update_sched_domain_debugfs.patch
-queue-5.15/alsa-usb-audio-fix-an-out-of-bounds-bug-in-__snd_usb_parse_audio_interface.patch
-queue-5.15/kprobes-prohibit-probes-in-gate-area.patch
-queue-5.15/wifi-iwlegacy-4965-corrected-fix-for-potential-off-by-one-overflow-in-il4965_rs_fill_link_cmd.patch
-queue-5.15/alsa-pcm-oss-fix-race-at-sndctl_dsp_sync.patch
-queue-5.15/debugfs-add-debugfs_lookup_and_remove.patch
-queue-5.15/vfio-type1-unpin-zero-pages.patch
-queue-5.15/tracing-fix-to-check-event_mutex-is-held-while-accessing-trigger-list.patch
-queue-5.15/btrfs-zoned-set-pseudo-max-append-zone-limit-in-zone-emulation-mode.patch
-queue-5.15/drm-amd-display-fix-memory-leak-when-using-debugfs_lookup.patch
