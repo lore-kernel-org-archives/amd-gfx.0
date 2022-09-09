@@ -4,54 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EFABECAAA1
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 20:47:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7F7CECAAD3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 20:50:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DF3C10EE58;
-	Fri,  9 Sep 2022 20:47:14 +0000 (UTC)
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC96D10EE58;
- Fri,  9 Sep 2022 20:47:09 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- q39-20020a056830442700b0063889adc0ddso1841987otv.1; 
- Fri, 09 Sep 2022 13:47:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B725610EE5A;
+	Fri,  9 Sep 2022 20:50:39 +0000 (UTC)
+Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
+ [IPv6:2001:4860:4864:20::35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3EF110EE5A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 20:50:36 +0000 (UTC)
+Received: by mail-oa1-x35.google.com with SMTP id
+ 586e51a60fabf-127f5411b9cso7043037fac.4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 09 Sep 2022 13:50:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=ctBj19lXOSEAyh1C28UnDwMWPyBLl2d98Ybb5NQ3Hpo=;
- b=iuGPTsfMp1NLIEZHZAPWw5d6sEmLrxK3sDvVQ62rW3vFn4NnGwKgcKlPopYhtpt3Y0
- G1TFMRos64Y9tcPqSTvAlGxsKYDwHmFcVxSjSBwAKLZCtTPauF2HVlFfgrgOd0tWt6rx
- fPUNODtIJ8u8YEHzakdi/SLg2+8ZQTx8elW1Zfsu1A/MymzVJ7p1uBoA/pY7ogxMLrSD
- bCYYDaT54dWsdJN/sbb9ju6QKcrcyX+nsqKehiVwXET2RmvkD47yQsiR9V4ImTjmzdKP
- n8RHpNgZ/Pp622K6GtZHBrjY9xpGCB9HAiUgMnFa079xH50MI78jta+EGWh7+USy034Q
- adqQ==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date;
+ bh=jtIzW4vlV/2kHTUvWN90als3zJYDARaCSFfqVbW0bDM=;
+ b=FdP4S3Pb+wUEKpDqjFIT4mdRT54lWqM24bFiU01Dy7J2dBoRGCwsg/wtpPZH74fyGu
+ +00a2Av00o//q9KiKcJykzAHTd7VDijCO9LWjig/QRR4Oie/w0V+aReC8iTXZdRcYOUk
+ q8Mjor2sIzmuTbf01G5rKC5yisjtGZgX4ygwlLW/pTPpDalb7JIb0UhgkYzaCpwuqN/J
+ ArlxvlJ01V5hII+6qm5beoOzxZFjBuWscOb220xl2ZhTVDQ66BD5UKn1Ky3gRpg3fYMw
+ 2URiOarDOim1s8PzWswiPY9OtZeGU3RchyvsPfl2Ngs1L9qyxBUBTwhevsl/UdgvNyBx
+ PbSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=ctBj19lXOSEAyh1C28UnDwMWPyBLl2d98Ybb5NQ3Hpo=;
- b=h2GU7B5kMQVx5++mOZ4XI3TV8WylU430ZOy10EW+wLDGIsQeLoM3ex5BRk5elUTO01
- jUE0pMQmxXQukrzrudJ2rrrx5EVOJQiA3b+P13ISPRpjnHStPwxubtSHGTzpeA2EFDPy
- vK+JQ7hDvF4+UqevaZvvoscW9L+gVwhbjHaf+o4aN4QQzOW+7qnxYjqc1lWqGeNdGITC
- Z6Ps6pdGwwe7DIbWcP6bZlVG+t3gbdbazHtktwNJva5+QCPmGiVIuD/ZgokgjwQRxAgk
- gzrs57xYrDI+zxHLPY6g7QJFFcBXxO90gsNE/AhREl8Wec77/7G5IkKQjadH2DRhY5P/
- 8ZgA==
-X-Gm-Message-State: ACgBeo2HGmgoSLz5EQLyf3g+JTex/q7QVxWmpdvMhGY/aVMoNqt5Y310
- rX+SXeoNgdLJN37EmqfNBy3rgGLWMCpq/3UFd+eJfvh8
-X-Google-Smtp-Source: AA6agR4RQJLT8qIZlpEO6stNFrHhIBxAwc918rt2nme3NTrorkRuJjc8eZFzhQc6GM8r3MWq7LGUkYYN7AoldJjmfpU=
-X-Received: by 2002:a9d:376:0:b0:655:b4bc:fd6e with SMTP id
- 109-20020a9d0376000000b00655b4bcfd6emr1332692otv.233.1662756428882; Fri, 09
- Sep 2022 13:47:08 -0700 (PDT)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=jtIzW4vlV/2kHTUvWN90als3zJYDARaCSFfqVbW0bDM=;
+ b=Rar4AXWkvfjZELLadWk5Vw9aSbI2O5pzzaZ6/TPmcPpHlcFl3+Ki54rH32nGEy2Isz
+ HwaqQIEAK4ysoqs91ucSVvoWzb1EazHUFXouaZEXbXELUdig8SIOLqy17LU8V3H1Zau3
+ 6/yUdhaA0XrfTHeXLkKIAp7v/n5VmIVmGrl1e+jHlRnAlvMYdy/zXLld/7wgPuCNlb8X
+ ujlTUelWbE3GbePlsGgFxhc83j7aAOQxaigmNPnqBDjpJH8LgjzdOv6CAUYwsSKKKtdf
+ xar948nUUBJIsL08ipeIEm4JuvfasHGafaPUCc0jNIq51OKXhUzWXuuUHrcvn03n0+OR
+ ML8w==
+X-Gm-Message-State: ACgBeo0qheaAby7DH8/SH+3LahAPYqpu8/f8qd/+iEOtxbhCVIzkYGX7
+ ikbGAM0kSLpHHO+h1hciS5ycCBW/77j2iBAHuYJCZp4M
+X-Google-Smtp-Source: AA6agR7f1JXyUyC1EyG/oW8C53xAidkCE9upg4o5TKqZcs0mzPNiBF7/3xPF3F4lJ8akLNuRolKO+L79VkjMsb2MJt4=
+X-Received: by 2002:a05:6808:138e:b0:345:13d1:fd66 with SMTP id
+ c14-20020a056808138e00b0034513d1fd66mr4526304oiw.96.1662756636172; Fri, 09
+ Sep 2022 13:50:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220902080401.320050-1-zhang.songyi@zte.com.cn>
-In-Reply-To: <20220902080401.320050-1-zhang.songyi@zte.com.cn>
+References: <CANiD2e9U=QXyYBOZLyTyqamtSJ3pyz45kZjEH04QbSpb=4miEg@mail.gmail.com>
+In-Reply-To: <CANiD2e9U=QXyYBOZLyTyqamtSJ3pyz45kZjEH04QbSpb=4miEg@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 9 Sep 2022 16:46:57 -0400
-Message-ID: <CADnq5_NQByVi1dnxzc4jdPX+sKtA6OtU9j-L9M+uGXqvrJP+kA@mail.gmail.com>
-Subject: Re: [PATCH linux-next] drm/amdgpu: Remove the unneeded result variable
-To: cgel.zte@gmail.com
+Date: Fri, 9 Sep 2022 16:50:25 -0400
+Message-ID: <CADnq5_Mfshx+SekYBxPab7Xa8jaSQgTzgnR_JQUsC8-f4-RutQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: getting fan speed pwm for vega10 properly
+To: Yury Zhuravlev <stalkerg@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,50 +65,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack.Xiao@amd.com, airlied@linux.ie, Zeal Robot <zealci@zte.com.cn>,
- Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, ray.huang@amd.com, Stanley.Yang@amd.com,
- dri-devel@lists.freedesktop.org, alexander.deucher@amd.com, Likun.Gao@amd.com,
- Hawking.Zhang@amd.com, christian.koenig@amd.com, zhang.songyi@zte.com.cn
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Mon, Sep 5, 2022 at 3:04 AM Yury Zhuravlev <stalkerg@gmail.com> wrote:
+>
+> Hello,
+>
+> During the setup, the fan manager https://github.com/markusressel/fan2go =
+I found that my Vega56 was not working correctly. This fan manager expects =
+what read PWM value should be the same as you wrote before, but it's not th=
+e case. PWM value was volatile, and what is more critical, if I wrote 200, =
+after reading I saw ~70-100, which is very confusing.
+> After that, I started reading the amdgpu driver, and how fan speed works,=
+ and I found what PWM value was calculated from RPM speed and not correct f=
+or my case (different BIOS or fan configuration?).
+> Because it looked wrong, I started looking into different implementations=
+ and found that Vega20 used mmCG_FDO_CTRL1 and mmCG_THERMAL_STATUS register=
+s to calculate the PWM value.
+> I also checked how we set PWM for Vega10 and found the same registers. Af=
+ter that, I copy-pasted the function from Vega20 to Vega10, and it started =
+working much better. It still has some fluctuation, but as I understand, th=
+is behavior is expected.
+>
+> I have no in-depth information about amdgpu, and the original function ma=
+y have been for some reason (maybe for some broken BIOS?), but I suppose so=
+mebody forgot to backport this code after prototype implementation.
+>
+> It would be my first patch here. Sorry if I skipped some procedures, will=
+ be appreciated it if you help me.
+
+Please send this as a proper patch with your Signed-off-by using git-send-e=
+mail.
 
 Alex
 
-On Fri, Sep 2, 2022 at 4:04 AM <cgel.zte@gmail.com> wrote:
 >
-> From: zhang songyi <zhang.songyi@zte.com.cn>
+> Regards,
 >
-> Return the sdma_v6_0_start() directly instead of storing it in another
-> redundant variable.
->
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: zhang songyi <zhang.songyi@zte.com.cn>
 > ---
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> index 2bc1407e885e..2cc2d851b4eb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> @@ -1373,12 +1373,9 @@ static int sdma_v6_0_sw_fini(void *handle)
->
->  static int sdma_v6_0_hw_init(void *handle)
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/dr=
+ivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> index dad3e3741a4e..190af79f3236 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> @@ -67,22 +67,21 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmg=
+r *hwmgr,
+>  int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
+>                 uint32_t *speed)
 >  {
-> -       int r;
->         struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->
-> -       r = sdma_v6_0_start(adev);
+> -       uint32_t current_rpm;
+> -       uint32_t percent =3D 0;
 > -
-> -       return r;
-> +       return sdma_v6_0_start(adev);
+> -       if (hwmgr->thermal_controller.fanInfo.bNoFan)
+> -               return 0;
+> +       struct amdgpu_device *adev =3D hwmgr->adev;
+> +       uint32_t duty100, duty;
+> +       uint64_t tmp64;
+>
+> -       if (vega10_get_current_rpm(hwmgr, &current_rpm))
+> -               return -1;
+> +       duty100 =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL1),
+> +                               CG_FDO_CTRL1, FMAX_DUTY100);
+> +       duty =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_THERMAL_STATUS),
+> +                               CG_THERMAL_STATUS, FDO_PWM_DUTY);
+>
+> -       if (hwmgr->thermal_controller.
+> -                       advanceFanControlParameters.usMaxFanRPM !=3D 0)
+> -               percent =3D current_rpm * 255 /
+> -                       hwmgr->thermal_controller.
+> -                       advanceFanControlParameters.usMaxFanRPM;
+> +       if (!duty100)
+> +               return -EINVAL;
+>
+> -       *speed =3D MIN(percent, 255);
+> +       tmp64 =3D (uint64_t)duty * 255;
+> +       do_div(tmp64, duty100);
+> +       *speed =3D MIN((uint32_t)tmp64, 255);
+>
+>         return 0;
 >  }
->
->  static int sdma_v6_0_hw_fini(void *handle)
 > --
-> 2.25.1
->
->
