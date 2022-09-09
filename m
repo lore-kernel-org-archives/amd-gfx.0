@@ -4,64 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C42DBECAAD3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 19:06:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08DCFECAAD3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 19:55:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A394310EDB6;
-	Fri,  9 Sep 2022 19:06:56 +0000 (UTC)
-Received: from mail-vs1-xe30.google.com (mail-vs1-xe30.google.com
- [IPv6:2607:f8b0:4864:20::e30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EB1E10EDB6;
- Fri,  9 Sep 2022 19:06:54 +0000 (UTC)
-Received: by mail-vs1-xe30.google.com with SMTP id i1so2680060vsc.9;
- Fri, 09 Sep 2022 12:06:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=ahr14h6KjlyOLxYXPAD4hS0TZjmkL0paFuUiYdgkD0s=;
- b=iX5Xydo/Hc2RaWqEtFNZ+b8pT3uTmTNTwMis8W63WAkrjmv1dj3TO26rpoSDowHb8X
- Ea6o5nkPc8osXBO+eDUg4r5vJw14F6/BzM1PuR0ji5eNWTZ01z+b1onwv2skwetzPieg
- 6KKZ8Ku0AhQ4Ma/R52Z0QfbcVAfXRkR+ALPNFw9N/2ZfZTnKBfgry+CHI4KV3t4PS6OR
- KO1/RWZSobotWZfzVHJm2urieXjAX6iRkGk+6zmjxZnNXEqkUOi7DfAQI3AWWdlHlbU8
- jLaw+SGWegoHDigXkzejk1HDQfnhiaqkkQPQjzoxBrTZphEQtJvY0Dg+aQKK7iO5OQ9q
- /nFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=ahr14h6KjlyOLxYXPAD4hS0TZjmkL0paFuUiYdgkD0s=;
- b=lJTS6jPsofAcChZWXeRwJv4u1cvBn+/eRYPmbvKK3j0jWKaLTi2EfOJPP9gTW/GSRX
- ll7wykhw7/tuepCVWIoPwoPVes1ywzHvbHYrlx1pxUBUAU1NPkGUUXauJN8WudfqDe7U
- h0VC30kIa6jix8g6yFMEHfwV8WdLWuyjYoJHuKmi3ETQo3EqWMZ2VP6MNe6Uq8ayU0qn
- KtphENueQHc88PQTG+JGYpGvsSNvJhBPgp1bf8KI4SDkjuvB8TZuty6CUp3Sqn77ACkI
- +xx6n0FSpv4qwT4FN/K56uIzu/HpMIgxAREMyGgX32tJ8Jna/aYS7aZJwBiIKBvFzt0o
- z9Wg==
-X-Gm-Message-State: ACgBeo2GJ1Uwy9S2d5tViaTU5352hAE8Kf5F7d40dXmVreiFbtS4gvcS
- ocxD6vRPkraCHWP4f/LtPrkWgZNSHYmmELfz9Ek=
-X-Google-Smtp-Source: AA6agR5028DA7OqZ9J9sMFi7dkLQnKJMdrQ0zAppoctI1FwlBjJBW3gpcuNvgALdzQrHynswLpBZL/WwynuYEgcuqbw=
-X-Received: by 2002:a05:6102:538:b0:398:2ca3:bec2 with SMTP id
- m24-20020a056102053800b003982ca3bec2mr4860540vsa.56.1662750413144; Fri, 09
- Sep 2022 12:06:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A9C910EE21;
+	Fri,  9 Sep 2022 19:55:53 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04B5510EE28
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 19:55:48 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9DD31B82625;
+ Fri,  9 Sep 2022 19:55:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33E1EC433C1;
+ Fri,  9 Sep 2022 19:55:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1662753345;
+ bh=KMgedXlIXbQ75nEAN7Xt8YHn1LF5kcWjC6xSs+xcx8k=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=OVegD8hdC13AAJMu8fof3s42PoWb1yHd/xu6eQf9MeQAOYDDKOfyqAX45vyABcuue
+ s4l5OF0fViOlIP0gDIqFYgan+98sL74x5NZnIpPca6cWWIXLslAaEYwOw7icc4W8bx
+ QxkscX+zucLUNVKEcgOO6vbYMvJVFExK4NzHszVydrP4vK9dFpDNLXvNyFA08uCypv
+ H6LnvpQgS9Gzwf5fEZLrKuLYjBa5dQSTLFZCc+3EUvWeQcnwMrjzE/l0Jyu5fRU0B6
+ 7eQ6dzVfwcTPMkrTryWZbl1MBvdqCVMLfvgIdyo/L5cINegoyFkFaymaOg82gSJ0e8
+ tvX+ezj3YFhvg==
+Date: Fri, 9 Sep 2022 14:55:43 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Don't enable LTR if not supported
+Message-ID: <20220909195543.GA310962@bhelgaas>
 MIME-Version: 1.0
-References: <20220904214134.408619-1-jim.cromie@gmail.com>
- <20220904214134.408619-24-jim.cromie@gmail.com>
- <Yxg2b2stA27B6B0t@phenom.ffwll.local>
-In-Reply-To: <Yxg2b2stA27B6B0t@phenom.ffwll.local>
-From: jim.cromie@gmail.com
-Date: Fri, 9 Sep 2022 13:06:27 -0600
-Message-ID: <CAJfuBxx3T3SquEWe-Uj0UW3zHacup_sHe0SWsffNzNj1XMmuQg@mail.gmail.com>
-Subject: Re: [PATCH v6 23/57] drm: POC drm on dyndbg - use in core, 2 helpers, 
- 3 drivers.
-To: Jim Cromie <jim.cromie@gmail.com>, Jason Baron <jbaron@akamai.com>, 
- Greg KH <gregkh@linuxfoundation.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- intel-gvt-dev@lists.freedesktop.org, 
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, 
- Sean Paul <seanpaul@chromium.org>, robdclark@gmail.com, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, Joe Perches <joe@perches.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a7b2f76a-772d-78d9-a1f8-68c32477f21f@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,115 +49,122 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ "wielkiegie@gmail.com" <wielkiegie@gmail.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 7, 2022 at 12:13 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Sun, Sep 04, 2022 at 03:41:00PM -0600, Jim Cromie wrote:
-> > Use DECLARE_DYNDBG_CLASSMAP across DRM:
-> >
-> >  - in .c files, since macro defines/initializes a record
-> >
-> >  - in drivers, $mod_{drv,drm,param}.c
-> >    ie where param setup is done, since a classmap is param related
-> >
-> >  - in drm/drm_print.c
-> >    since existing __drm_debug param is defined there,
-> >    and we ifdef it, and provide an elaborated alternative.
-> >
-> >  - in drm_*_helper modules:
-> >    dp/drm_dp - 1st item in makefile target
-> >    drivers/gpu/drm/drm_crtc_helper.c - random pick iirc.
-> >
-> > Since these modules all use identical CLASSMAP declarations (ie: names
-> > and .class_id's) they will all respond together to "class DRM_UT_*"
-> > query-commands:
-> >
-> >   :#> echo class DRM_UT_KMS +p > /proc/dynamic_debug/control
-> >
-> > NOTES:
-> >
-> > This changes __drm_debug from int to ulong, so BIT() is usable on it.
-> >
-> > DRM's enum drm_debug_category values need to sync with the index of
-> > their respective class-names here.  Then .class_id == category, and
-> > dyndbg's class FOO mechanisms will enable drm_dbg(DRM_UT_KMS, ...).
-> >
-> > Though DRM needs consistent categories across all modules, thats not
-> > generally needed; modules X and Y could define FOO differently (ie a
-> > different NAME => class_id mapping), changes are made according to
-> > each module's private class-map.
-> >
-> > No callsites are actually selected by this patch, since none are
-> > class'd yet.
-> >
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
->
-> So maybe I should just try, but what happens if a drm module doesn't have
-> these classbits declared? You simply have to use the raw number instead?
+On Fri, Sep 09, 2022 at 01:11:54PM +0530, Lazar, Lijo wrote:
+> 
+> 
+> On 9/8/2022 11:27 PM, Bjorn Helgaas wrote:
+> > On Thu, Sep 08, 2022 at 04:42:38PM +0000, Lazar, Lijo wrote:
+> > > I am not sure if ASPM settings can be generalized by PCIE core.
+> > > Performance vs Power savings when ASPM is enabled will require some
+> > > additional tuning and that will be device specific.
+> > 
+> > Can you elaborate on this?  In the universe of drivers, very few do
+> > their own ASPM configuration, and it's usually to work around hardware
+> > defects, e.g., L1 doesn't work on some e1000e devices, L0s doesn't
+> > work on some iwlwifi devices, etc.
+> > 
+> > The core does know how to configure all the ASPM features defined in
+> > the PCIe spec, e.g., L0s, L1, L1.1, L1.2, and LTR.
+> > 
+> > > In some of the other ASICs, this programming is done in VBIOS/SBIOS
+> > > firmware. Having it in driver provides the advantage of additional
+> > > tuning without forcing a VBIOS upgrade.
+> > 
+> > I think it's clearly the intent of the PCIe spec that ASPM
+> > configuration be done by generic code.  Here are some things that
+> > require a system-level view, not just an individual device view:
+> > 
+> >    - L0s, L1, and L1 Substates cannot be enabled unless both ends
+> >      support it (PCIe r6.0, secs 5.4.1.4, 7.5.3.7, 5.5.4).
+> > 
+> >    - Devices advertise the "Acceptable Latency" they can accept for
+> >      transitions from L0s or L1 to L0, and the actual latency depends
+> >      on the "Exit Latencies" of all the devices in the path to the Root
+> >      Port (sec 5.4.1.3.2).
+> > 
+> >    - LTR (required by L1.2) cannot be enabled unless it is already
+> >      enabled in all upstream devices (sec 6.18).  This patch relies on
+> >      "ltr_path", which works now but relies on the PCI core never
+> >      reconfiguring the upstream path.
+> > 
+> > There might be amdgpu-specific features the driver needs to set up,
+> > but if drivers fiddle with architected features like LTR behind the
+> > PCI core's back, things are likely to break.
+> > 
+> 
+> The programming is mostly related to entry conditions and spec leaves it to
+> implementation.
+> 
+> From r4.0 spec -
+> "
+> This specification does not dictate when a component with an Upstream Port
+> must initiate a transition to the L1 state. The interoperable mechanisms for
+> transitioning into and out of L1 are defined within this specification;
+> however, the specific ASPM policy governing when to transition into L1 is
+> left to the implementer.
+> ...
+> Another approach would be for the Downstream device to initiate a transition
+> to the L1 state once the Link has been idle in L0 for a set amount of time.
+> "
+> 
+> Some of the programming like below relates to timings for entry.
+> 
+>         def = data = RREG32_SOC15(NBIO, 0, regRCC_STRAP0_RCC_BIF_STRAP3);
+>         data |= 0x5DE0 <<
+> RCC_BIF_STRAP3__STRAP_VLINK_ASPM_IDLE_TIMER__SHIFT;
+>         data |= 0x0010 <<
+> RCC_BIF_STRAP3__STRAP_VLINK_PM_L1_ENTRY_TIMER__SHIFT;
+>         if (def != data)
+>                 WREG32_SOC15(NBIO, 0, regRCC_STRAP0_RCC_BIF_STRAP3, data);
+> 
+> Similarly for LTR, as it provides a dynamic mechanism to report tolerance
+> while in L1 substates, the tolerance timings can be tuned through registers
+> though there is a threshold.
 
-without the classnames declared via macro,
-dyndbg has no names by which to validate the query.
-raw class numbers are not usable into >control.
-This is what privatizes the module's class-id space.
+I don't object to the driver programming device-specific things,
+although there might be issues if it does that after the core has
+already configured and enabled ASPM -- the driver might need to
+temporarily disable ASPM while it updates parameters, then re-enable
+it.
 
-If the macro is missing, the drm_dbg()s ( after conversion to reside
-atop dyndbg)
-will do this in `cat control`
-                        seq_printf(m, " class unknown, _id:%d", dp->class_id);
+I *do* object to the driver programming PCIe-generic things that the
+PCI core thinks it owns.  It's especially annoying if the driver uses
+device-specific #defines and access methods for generic PCIe things
+because then we can't even find potential conflicts.
 
-
-
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 14 +++++++++++++
-> >  drivers/gpu/drm/display/drm_dp_helper.c | 13 ++++++++++++
-> >  drivers/gpu/drm/drm_crtc_helper.c       | 13 ++++++++++++
-> >  drivers/gpu/drm/drm_print.c             | 27 +++++++++++++++++++++++--
-> >  drivers/gpu/drm/i915/i915_params.c      | 12 +++++++++++
-> >  drivers/gpu/drm/nouveau/nouveau_drm.c   | 13 ++++++++++++
-> >  include/drm/drm_print.h                 |  3 ++-
-> >  7 files changed, 92 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > index de7144b06e93..97e184f44a52 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > @@ -38,6 +38,8 @@
-> >  #include <linux/mmu_notifier.h>
-> >  #include <linux/suspend.h>
-> >  #include <linux/cc_platform.h>
-> > +#include <linux/fb.h>
-> > +#include <linux/dynamic_debug.h>
-> >
-> >  #include "amdgpu.h"
-> >  #include "amdgpu_irq.h"
-> > @@ -185,6 +187,18 @@ int amdgpu_vcnfw_log;
-> >
-> >  static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
-> >
-> > +DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
->
-> Iirc we've talked about maybe some kbuild trickery so that any module
-> under drivers/gpu/drm gets these by default. I don't think we need to have
-> this for the first cut, but a macro to avoid the copypaste mistakes would
-> be really good here.
-
-It *may be* that theres a perfect place to declare it once, for everyone.
-For me thats exploratory, error prone.
-Proving that the sub-optimal worked seemed a good place to stop.
-
-that said, theres a macro in test-dynamic-debug that is a candidate
-for wider availability - it needs a better name
-
-#define DD_SYS_WRAP(_model, _flags)                                     \
-        static unsigned long bits_##_model;                             \
-        static struct ddebug_class_param _flags##_model = {             \
-                .bits = &bits_##_model,                                 \
-                .flags = #_flags,                                       \
-                .map = &map_##_model,                                   \
-        };                                                              \
-        module_param_cb(_flags##_##_model, &param_ops_dyndbg_classes,
-&_flags##_model, 0600)
+> > > From: Alex Deucher <alexdeucher@gmail.com>
+> > > On Thu, Sep 8, 2022 at 12:12 PM Bjorn Helgaas <helgaas@kernel.org> wrote:
+> > 
+> > > > Do you know why the driver configures ASPM itself?  If the PCI core is
+> > > > doing something wrong (and I'm sure it is, ASPM support is kind of a
+> > > > mess), I'd much prefer to fix up the core where *all* drivers can
+> > > > benefit from it.
+> > > 
+> > > This is the programming sequence we get from our hardware team and it
+> > > is used on both windows and Linux.  As far as I understand it windows
+> > > doesn't handle this in the core, it's up to the individual drivers to
+> > > enable it.  I'm not familiar with how this should be enabled
+> > > generically, but at least for our hardware, it seems to have some
+> > > variation compared to what is done in the PCI core due to stability,
+> > > etc. It seems to me that this may need asic specific implementations
+> > > for a lot of hardware depending on the required programming sequences.
+> > > E.g., various asics may need hardware workaround for bugs or platform
+> > > issues, etc.  I can ask for more details from our hardware team.
+> > 
+> > If the PCI core has stability issues, I want to fix them.  This
+> > hardware may have its own stability issues, and I would ideally like
+> > to have drivers use interfaces like pci_disable_link_state() to avoid
+> > broken things.  Maybe we need new interfaces for more subtle kinds of
+> > breakage.
+> > 
+> > Bjorn
+> > 
