@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7F7CECAAD3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 20:50:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7765AECAAA1
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 20:51:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B725610EE5A;
-	Fri,  9 Sep 2022 20:50:39 +0000 (UTC)
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
- [IPv6:2001:4860:4864:20::35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3EF110EE5A
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 20:50:36 +0000 (UTC)
-Received: by mail-oa1-x35.google.com with SMTP id
- 586e51a60fabf-127f5411b9cso7043037fac.4
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Sep 2022 13:50:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A995C10EE5D;
+	Fri,  9 Sep 2022 20:51:54 +0000 (UTC)
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DEA110EE5B;
+ Fri,  9 Sep 2022 20:51:50 +0000 (UTC)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ l40-20020a4a94eb000000b00472717928b5so464618ooi.1; 
+ Fri, 09 Sep 2022 13:51:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date;
- bh=jtIzW4vlV/2kHTUvWN90als3zJYDARaCSFfqVbW0bDM=;
- b=FdP4S3Pb+wUEKpDqjFIT4mdRT54lWqM24bFiU01Dy7J2dBoRGCwsg/wtpPZH74fyGu
- +00a2Av00o//q9KiKcJykzAHTd7VDijCO9LWjig/QRR4Oie/w0V+aReC8iTXZdRcYOUk
- q8Mjor2sIzmuTbf01G5rKC5yisjtGZgX4ygwlLW/pTPpDalb7JIb0UhgkYzaCpwuqN/J
- ArlxvlJ01V5hII+6qm5beoOzxZFjBuWscOb220xl2ZhTVDQ66BD5UKn1Ky3gRpg3fYMw
- 2URiOarDOim1s8PzWswiPY9OtZeGU3RchyvsPfl2Ngs1L9qyxBUBTwhevsl/UdgvNyBx
- PbSQ==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=DUHWHeA08mIahhsciiaTsaPGg+HQzx7SFaoh+t8qFxs=;
+ b=SORX/TdUyX7GAibTMD7q0Au1yjFpBBE5BmsKfX9LSqaXhYbo010nYD6yFBM+y/b2T0
+ ai3Wt12CE8e9aX4WHsOcWSuflUukQ0Ba7xeLMwyzJEDwBXesFuDioQHfWEGESVczJs/R
+ 3Ra8UtfgIs8/o6WN/uHjVDOo3T3z/DxzZ4EnmejFMM07CxwMsdYbCPJxHWENFw0e5G47
+ bxXHTz/i0SoI98cV+PWtg707lMeW6kpPH4KF7j+YagM2NHhdGbzwQMcVNsDJC6fFFaNi
+ cnf4fYyodIXygO6ww9F5uZdwfYgwwofZFVlPOQWA6fUSWiDTJGWvS9F0XH1kHMi35H4n
+ 8AFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date;
- bh=jtIzW4vlV/2kHTUvWN90als3zJYDARaCSFfqVbW0bDM=;
- b=Rar4AXWkvfjZELLadWk5Vw9aSbI2O5pzzaZ6/TPmcPpHlcFl3+Ki54rH32nGEy2Isz
- HwaqQIEAK4ysoqs91ucSVvoWzb1EazHUFXouaZEXbXELUdig8SIOLqy17LU8V3H1Zau3
- 6/yUdhaA0XrfTHeXLkKIAp7v/n5VmIVmGrl1e+jHlRnAlvMYdy/zXLld/7wgPuCNlb8X
- ujlTUelWbE3GbePlsGgFxhc83j7aAOQxaigmNPnqBDjpJH8LgjzdOv6CAUYwsSKKKtdf
- xar948nUUBJIsL08ipeIEm4JuvfasHGafaPUCc0jNIq51OKXhUzWXuuUHrcvn03n0+OR
- ML8w==
-X-Gm-Message-State: ACgBeo0qheaAby7DH8/SH+3LahAPYqpu8/f8qd/+iEOtxbhCVIzkYGX7
- ikbGAM0kSLpHHO+h1hciS5ycCBW/77j2iBAHuYJCZp4M
-X-Google-Smtp-Source: AA6agR7f1JXyUyC1EyG/oW8C53xAidkCE9upg4o5TKqZcs0mzPNiBF7/3xPF3F4lJ8akLNuRolKO+L79VkjMsb2MJt4=
-X-Received: by 2002:a05:6808:138e:b0:345:13d1:fd66 with SMTP id
- c14-20020a056808138e00b0034513d1fd66mr4526304oiw.96.1662756636172; Fri, 09
- Sep 2022 13:50:36 -0700 (PDT)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=DUHWHeA08mIahhsciiaTsaPGg+HQzx7SFaoh+t8qFxs=;
+ b=w8EKkCqmi9T1Me/AJ1iCiCRVkqWq2u355/YHLSfLuvnx73ah1n1fRz4TLHfn+I35V6
+ ApaSdHYT5/tlOZVsK7kjcJTgvHCHAJ8nYSf8sdSzFm73ronoOj31WjjCdIM4F/sqR4yz
+ 4NCA64n7Wk835TvmFnuMGZvRALaC7tQBOJSV6Bw4jNz9PZn8LnBwAIstsFYKXIUxFNkR
+ nIwAgG0DireC8OBzYobB4F+GrQ/rvM1Rt8ApVEE8Tq5la7FZGK+xz60wsTgX5RBmvFAq
+ IQzknvIk6ANG3tj+5SeRw1Q60hVs0dVB0h+Ok47WM99tYJl5Ld8WGa8Pzd/UVnLNNW0F
+ s37w==
+X-Gm-Message-State: ACgBeo30B/r5wMv/fdL/m6nkcumr6XW+M/my8Au8CwTCpUO/2TNO/0nK
+ 3dzJm8O1gvR1skREICjGUo8owxVMHkxA0y8QhQA=
+X-Google-Smtp-Source: AA6agR4lQQ5B0kKRbq0IyYE2sfBAPPacxCJVm/a7if8rUqF0go9tIzZ8wYR2S1rCYNl65J7Xv/DN3zOr2n58YTQSrGM=
+X-Received: by 2002:a4a:a78a:0:b0:472:a078:98d6 with SMTP id
+ l10-20020a4aa78a000000b00472a07898d6mr2325126oom.97.1662756709748; Fri, 09
+ Sep 2022 13:51:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <CANiD2e9U=QXyYBOZLyTyqamtSJ3pyz45kZjEH04QbSpb=4miEg@mail.gmail.com>
-In-Reply-To: <CANiD2e9U=QXyYBOZLyTyqamtSJ3pyz45kZjEH04QbSpb=4miEg@mail.gmail.com>
+References: <20220905011431.19818-1-jingyuwang_vip@163.com>
+In-Reply-To: <20220905011431.19818-1-jingyuwang_vip@163.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 9 Sep 2022 16:50:25 -0400
-Message-ID: <CADnq5_Mfshx+SekYBxPab7Xa8jaSQgTzgnR_JQUsC8-f4-RutQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: getting fan speed pwm for vega10 properly
-To: Yury Zhuravlev <stalkerg@gmail.com>
+Date: Fri, 9 Sep 2022 16:51:38 -0400
+Message-ID: <CADnq5_O+pduHeGra3R0XHZP=aOUmy4SETzOP+e-x-5rhYHVi2g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: cleanup coding style in amdgpu_acpi.c
+To: Jingyu Wang <jingyuwang_vip@163.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,85 +63,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: rafael.j.wysocki@intel.com, airlied@linux.ie, Xinhui.Pan@amd.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ hdegoede@redhat.com, mario.limonciello@amd.com, daniel@ffwll.ch,
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 5, 2022 at 3:04 AM Yury Zhuravlev <stalkerg@gmail.com> wrote:
->
-> Hello,
->
-> During the setup, the fan manager https://github.com/markusressel/fan2go =
-I found that my Vega56 was not working correctly. This fan manager expects =
-what read PWM value should be the same as you wrote before, but it's not th=
-e case. PWM value was volatile, and what is more critical, if I wrote 200, =
-after reading I saw ~70-100, which is very confusing.
-> After that, I started reading the amdgpu driver, and how fan speed works,=
- and I found what PWM value was calculated from RPM speed and not correct f=
-or my case (different BIOS or fan configuration?).
-> Because it looked wrong, I started looking into different implementations=
- and found that Vega20 used mmCG_FDO_CTRL1 and mmCG_THERMAL_STATUS register=
-s to calculate the PWM value.
-> I also checked how we set PWM for Vega10 and found the same registers. Af=
-ter that, I copy-pasted the function from Vega20 to Vega10, and it started =
-working much better. It still has some fluctuation, but as I understand, th=
-is behavior is expected.
->
-> I have no in-depth information about amdgpu, and the original function ma=
-y have been for some reason (maybe for some broken BIOS?), but I suppose so=
-mebody forgot to backport this code after prototype implementation.
->
-> It would be my first patch here. Sorry if I skipped some procedures, will=
- be appreciated it if you help me.
-
-Please send this as a proper patch with your Signed-off-by using git-send-e=
-mail.
+Applied.  Thanks!
 
 Alex
 
+On Mon, Sep 5, 2022 at 2:29 AM Jingyu Wang <jingyuwang_vip@163.com> wrote:
 >
-> Regards,
+> Fix everything checkpatch.pl complained about in amdgpu_acpi.c
 >
+> Signed-off-by: Jingyu Wang <jingyuwang_vip@163.com>
 > ---
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/dr=
-ivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-> index dad3e3741a4e..190af79f3236 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-> @@ -67,22 +67,21 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmg=
-r *hwmgr,
->  int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
->                 uint32_t *speed)
->  {
-> -       uint32_t current_rpm;
-> -       uint32_t percent =3D 0;
-> -
-> -       if (hwmgr->thermal_controller.fanInfo.bNoFan)
-> -               return 0;
-> +       struct amdgpu_device *adev =3D hwmgr->adev;
-> +       uint32_t duty100, duty;
-> +       uint64_t tmp64;
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
 >
-> -       if (vega10_get_current_rpm(hwmgr, &current_rpm))
-> -               return -1;
-> +       duty100 =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL1),
-> +                               CG_FDO_CTRL1, FMAX_DUTY100);
-> +       duty =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_THERMAL_STATUS),
-> +                               CG_THERMAL_STATUS, FDO_PWM_DUTY);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> index 55402d238919..3da27436922c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> @@ -1,3 +1,4 @@
+> +// SPDX-License-Identifier: MIT
+>  /*
+>   * Copyright 2012 Advanced Micro Devices, Inc.
+>   *
+> @@ -849,6 +850,7 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
+>                 if (amdgpu_device_has_dc_support(adev)) {
+>  #if defined(CONFIG_DRM_AMD_DC)
+>                         struct amdgpu_display_manager *dm = &adev->dm;
+> +
+>                         if (dm->backlight_dev[0])
+>                                 atif->bd = dm->backlight_dev[0];
+>  #endif
+> @@ -863,6 +865,7 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
+>                                 if ((enc->devices & (ATOM_DEVICE_LCD_SUPPORT)) &&
+>                                     enc->enc_priv) {
+>                                         struct amdgpu_encoder_atom_dig *dig = enc->enc_priv;
+> +
+>                                         if (dig->bl_dev) {
+>                                                 atif->bd = dig->bl_dev;
+>                                                 break;
+> @@ -919,9 +922,9 @@ static bool amdgpu_atif_pci_probe_handle(struct pci_dev *pdev)
+>                 return false;
 >
-> -       if (hwmgr->thermal_controller.
-> -                       advanceFanControlParameters.usMaxFanRPM !=3D 0)
-> -               percent =3D current_rpm * 255 /
-> -                       hwmgr->thermal_controller.
-> -                       advanceFanControlParameters.usMaxFanRPM;
-> +       if (!duty100)
-> +               return -EINVAL;
+>         status = acpi_get_handle(dhandle, "ATIF", &atif_handle);
+> -       if (ACPI_FAILURE(status)) {
+> +       if (ACPI_FAILURE(status))
+>                 return false;
+> -       }
+> +
+>         amdgpu_acpi_priv.atif.handle = atif_handle;
+>         acpi_get_name(amdgpu_acpi_priv.atif.handle, ACPI_FULL_PATHNAME, &buffer);
+>         DRM_DEBUG_DRIVER("Found ATIF handle %s\n", acpi_method_name);
+> @@ -954,9 +957,9 @@ static bool amdgpu_atcs_pci_probe_handle(struct pci_dev *pdev)
+>                 return false;
 >
-> -       *speed =3D MIN(percent, 255);
-> +       tmp64 =3D (uint64_t)duty * 255;
-> +       do_div(tmp64, duty100);
-> +       *speed =3D MIN((uint32_t)tmp64, 255);
+>         status = acpi_get_handle(dhandle, "ATCS", &atcs_handle);
+> -       if (ACPI_FAILURE(status)) {
+> +       if (ACPI_FAILURE(status))
+>                 return false;
+> -       }
+> +
+>         amdgpu_acpi_priv.atcs.handle = atcs_handle;
+>         acpi_get_name(amdgpu_acpi_priv.atcs.handle, ACPI_FULL_PATHNAME, &buffer);
+>         DRM_DEBUG_DRIVER("Found ATCS handle %s\n", acpi_method_name);
 >
->         return 0;
->  }
+> base-commit: e47eb90a0a9ae20b82635b9b99a8d0979b757ad8
 > --
+> 2.34.1
+>
