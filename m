@@ -4,112 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C040ECAAD3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 03:51:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD031ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:42:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39EC810E3B2;
-	Fri,  9 Sep 2022 03:51:12 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2040.outbound.protection.outlook.com [40.107.237.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7FF410E3C0
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 03:51:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 142A310E55D;
+	Fri,  9 Sep 2022 07:42:11 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4054E10E55D
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 07:42:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mSt+DTBOGSFZHnITjcOKcmSfGZVLSzG7KqTpX8JqXBvyCPN7XlSalgTL9Qtybd/xysekVl5+A2WpjgD6qjkVfVW1v+2o3XP94DQXu4OyCBDJUmvN2Lc1CMA7Y9MpibjXprtcrcgQMajA1e3jo7iZAXjbkAQ9+6FGHiWqgrYm6nFJzFKNVBTGzHelR/UIn/iYBbuu0hEodEV/dMW9esXr6s0MYE5QEZGdNsSjULumGOyaoWLnURrS39hYAhDTn10w1iUr42PY/fd74MYZL7Un3gwSe+6yZb4HY9ShMLyQEpBbGe9YtC3Yr97cVKySCL+CAU+Wg8xBheVzlwAYMc0prQ==
+ b=gtcBgA7/9tTtqs5+s9K78e8KAyQ7UlNWHhYOpvvXgqryJPM4AUgUaRO3xfoOx1fen7aVp4YabECRtJYykpF655I6f+9Zfv7aBdleaEOEt61DoheLlA9KaeEBa0X6xr14jLk3tcqb5SfQkjOwzm0/YD3vqhEwQRBRaRmK0j+pL4ywc8sqjFg061EwId7gDAAsS1ijTWFSvgMDOnJkZHC5LzmgyGj1hxRtrAeAAo0ZXNW5+vAAL34onJxb1I/lIywMGJi3F21uU+ugtBWjSXZpUSIV7CMnt5HOUGi8UNxET52IaPoYC7lhVUnZ0/YFyM/I0zNwOcGT5vH40HtN8cAlbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zZsqQSdqDEIpkHtur4Ae70+boKtXsFCuWNl0bWtyrcA=;
- b=FZ4X+hPYoZFF83YmojbB/cli9+wIQGBUJsrL81c07s8hswZ6yJtbRxwu4dZsrmU90ZhFqCiY8Ka4gCsHFurFvPWRgTVtIe1O4i8sQxnx8mLUC0c5lvwhRqE9XLT0GAU/Qor2T6UQLe5l8r9UP1FfAAGo7jKQveDzbC4qfa9yujCFrvCTMlcHIOCBdLrk+C4QxHlr2/ZtITQbdlz8oQ4MMOhAqYREIyUzDoE6EWL0Md4uWlh8BLLeU8ktk+khN5apAhNMmYB6zBgFIlSQrOnOj2ik6GB8Om3UWB1jfeNZpIGr1ymThaVDA+ogoGTbtvjzrJE/TcQd0lDkbKUB71WKpg==
+ bh=Uc87nDdg5IMS9mR2dewUde4pCgB+AGUidAASZzHlNd8=;
+ b=dyip6eR79Hx+WB9tsO3daYNjlMCJikYJ85VPIGVMdyaJB5LcTA1qzyBotimYEzFfVVubQh8yOY7ykMjJ3BH0vvC922dy9BX72KAgZDY3BYJJYuZd0s5GWnGijiR0PnXu9CCvfURp5OqF8FdIfd9GfkbpSmRwJ9F2EAgZl+wXf3HMeEEFy6pUAQakEUy99pVauxAVNtmlA7OVnG1JoHX1AUQMVUysaaexRmQknA4eL9/28gOgrrXDeUxRIeRQNoCpGkwIsRhSwAcTBrXY6jf4jfs8UxleAfezcf3YK3mS4rFHVftnfw/9x2gIt6/9jN0O31XpauvV54O1+G8r1E4DXg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zZsqQSdqDEIpkHtur4Ae70+boKtXsFCuWNl0bWtyrcA=;
- b=X+KwwPwciM3bfkLRHIDKhBKL5MY0rtn5CXI0o0zOic1q/SXop5oBH4fEWXvd2zyt5F1vWWHzBKN24go0cFy/mi/Kj1PaNIpiUWlCJAeNc/UACa1V+FAfHNRaQHdeopNd2CCaEu9sj8P4u1SGMfSGB2HYyl4zqEUgIj/AAa2N+zY=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by DM4PR12MB6639.namprd12.prod.outlook.com (2603:10b6:8:be::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.14; Fri, 9 Sep
- 2022 03:51:04 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1192:d133:8667:ed28]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1192:d133:8667:ed28%5]) with mapi id 15.20.5612.019; Fri, 9 Sep 2022
- 03:51:04 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v3] drm/amdgpu: change the alignment size of TMR BO to 1M
-Thread-Topic: [PATCH v3] drm/amdgpu: change the alignment size of TMR BO to 1M
-Thread-Index: AQHYw/9C1KaYUA1kJE+pXZKQGn9+p63Wdqak
-Date: Fri, 9 Sep 2022 03:51:03 +0000
-Message-ID: <BN9PR12MB52579A7D564E0DA5CE50184CFC439@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20220909034948.3647700-1-KevinYang.Wang@amd.com>
-In-Reply-To: <20220909034948.3647700-1-KevinYang.Wang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-09T03:50:37.6106498Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=Uc87nDdg5IMS9mR2dewUde4pCgB+AGUidAASZzHlNd8=;
+ b=JmwYNNXZgmPcGuW0mMxS3/okhvkRdxRDsv7PfpbUns7Oun/DvpjBZYDRW4Vm0pDMivSkRiR50wXcJZrvA92knwUCSINlae6m61GZUnnBoWakW9teB+LWXvtlQD8ZhyRZsXTT3dXDYhf2XqLiZWHpfhBjyUWw+S1hN56SCcJkhvY=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|DM4PR12MB6639:EE_
-x-ms-office365-filtering-correlation-id: 760030e7-a724-46cb-be1c-08da921684b4
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: b4+ZtoIgDAJUebwW03OCj9gP9rKOfLMtR+gsSI52iS1kwCjfFOcHYHv+ynUoY44Fhkn9UqwawlLMHvMB3ONlrQ0ZOBwsWReQJlQBc78pPz///o3/UMDtnX9UU6Rl4sW29cMRjZv6zu5Kk3lFOM2Wy1mdqvRhO7PQ4I0YTl6Wpxk6wpysgxNiW3/S979ufz/wJm+Y94zj+++4A+DPm9L+ZYj8UAxskhiIp2q1vkqfLiwpcQjCnT5Q9XeVrAZXK3sDEFy66CYS+TNe18+7ZYLKmt5a3EKDRxcdyDfPXr7nTl9TFevQKjNAeQ6OQX8It2QXI+OacJSnt3fYV/8xdWk/q7xIK+/A3Xdwa+6PEPrJV4e01clruEOfci+qem+sCzh3lx7nrWQ8i0gPgFA0twNh0asW3yUWUG7ecCjUb9Kq+WIZ814EPPnlYpGCHgdVB4rkqwsw2IzMVrb8unY+Z/DITr9xMSThk4SX11T7bn0bUwc2L2Ukv1tiK1TncZGAEd6c1QZPxE5pLpbABkvBZn9N0pXqEMOnWO52mt2gu2qhOyfFmiNlOQmHI8kgneuQEhxuLyoHmiLgTt1vos88quFVuwnYxhveMqN1FDN4tvZt0cga6apuCZdD+8gEavoiC2iUNGhHrGTfFYgBFRlL4jZ03+MMo8S/1W6UuFmMnB+9zCJK/oPI6g2zAwcT3sdxVAM+jx7SY+zOoQ3O2ky0b9l9W5mYuHcUPQV4Agh3jqZiqdh2jhJaJeiYT5Kid0dp+1lPftPRjGgkjzd7SzEjRPvwXA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(366004)(376002)(346002)(396003)(136003)(33656002)(83380400001)(5660300002)(2906002)(53546011)(26005)(6506007)(7696005)(66446008)(110136005)(316002)(186003)(9686003)(38070700005)(86362001)(122000001)(38100700002)(55016003)(8936002)(41300700001)(52536014)(71200400001)(76116006)(66556008)(66476007)(64756008)(91956017)(66946007)(4326008)(478600001)(8676002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?8NWgA8jSSKlQ+PltlD1GiMU7kzhG9FlGxWlmrJnEKRsNPDmn1LP9cXXwXsO3?=
- =?us-ascii?Q?aT2OJ3T2gxBvS6CS4KRFE7WiEqvdOrXHQ2EruGreERc4/TYISggjwqoSPOWC?=
- =?us-ascii?Q?U+DKyC9Nqkbr0rYtbAAR1q/ht6VMmtsYOqhoqxnD98ML+0Au0xPPvgmPq+iY?=
- =?us-ascii?Q?dhhLoaf5fMCspc1/4e9KxMMqojrafVdBaEV6XtO9Fc1HLr5gGJB+E3+ndtNd?=
- =?us-ascii?Q?Dlmhu5fpgDwQ8+DeDFrMK/JqBy8iO6POyjem2SMxEsGjXXl60lEnEdCGvTiD?=
- =?us-ascii?Q?rAQxiiu2xyE+jtM3ToOPMXhRpeh8raM2G0/W3qpoSw54pRtD3JyrdMRld6Wb?=
- =?us-ascii?Q?8phPAQkgZyLsUGe9wpnCR7MQfVu3WIE/FaZY432IUEUPvv6l34lN5Ef9abFZ?=
- =?us-ascii?Q?Fgl2xTq2hU5WXSrU6bvNsj4ziamRWoWk7YGsbAEi3CCSGXV+OrvUg6/pHl/7?=
- =?us-ascii?Q?SlWVHGJw/p7rjTykheNAtx6bs3/zk+nR7bX4NuOfFalLq1IYoppMpGZlUMk2?=
- =?us-ascii?Q?06cx/Ax6GoKxIx2Po4NggMfrrKTgmKHidjUMPFgaLZh2HHJ2ejBvxFZ7pWHt?=
- =?us-ascii?Q?B+HTIqzAVLLnU25+zHaQNsNBDVXt85oSp7lIsUWn0tQY4luDUD+n/RqYAx6s?=
- =?us-ascii?Q?4Q66AR/azTAEcB3SG3kKWV80TfYBOcU7SJ9xDk1/GBv/O5Xj9VIdZaiCbErx?=
- =?us-ascii?Q?YASMb+BL19YTLJ4l6AAnOntXB6cr+UOeRsmlKZVr9yRE6993CYyHk9MgQRn4?=
- =?us-ascii?Q?YciaVE4Ew/7toN8SgU+VuN+mN1Zi6BbdOdbu+mgF2sCwv6x9AeMa0AFopWrl?=
- =?us-ascii?Q?ig4jehIBfCdkDCwjQnB4Lkh4xmMgXTHvVqGBX6hNMTIgj4NB7ljJ8yjg5HXD?=
- =?us-ascii?Q?sjHNzZo4nZl4nbR1BjKPCDx8s1trMhgR5yckUgFKNEwavdpB0w/4zUG8huxu?=
- =?us-ascii?Q?ezJ1VcJQPUufQOTS4auJp7FYEsMeejOkTSD3xrn6vn7rS1MmKFSIKoi+fJ4z?=
- =?us-ascii?Q?Zo1qspyWb4xuszDI0mlv/rutYNfRIAvDc0G2XJE/Yt0OT1TLH/6BxEELzVJ6?=
- =?us-ascii?Q?Ile+KfHXIcxEnEtRpLqjVNwKrc8duzmzItJfW4DsEjskp+MgjnQ85uIcm0rq?=
- =?us-ascii?Q?rFDM/tBHEUnw0qZIfDOyro3AhmL/HgamTlb//IEj/186/cqmHCl+piF4YV4c?=
- =?us-ascii?Q?0qCt4hms8TjrxWIgPBAg6DjpYfOl+U9LKkcmuNrS+atJqPIFQilX4gcvyUZf?=
- =?us-ascii?Q?plOcgh46pifKtdGZc05veZ8egHd0543mCUo4jMnTHBJSM+lHIuvLHY/O6z33?=
- =?us-ascii?Q?A2AHw9qEIXtH2FuRy++561l6WwoI9dotoLCFuzI/1x7OWfnrnt5mE8KOaGvd?=
- =?us-ascii?Q?HKQliD5rk90Oqs1HfKddUBphdUWng8S1YuY0ImEz4bGHJaOI2vG5MsvPi4Md?=
- =?us-ascii?Q?F6GpTus9gnwQKru6AVNFo10FHcJ8I+R5DYNQVI1LQuNlgQ/5khFjsGYhlPZ8?=
- =?us-ascii?Q?svVmxKYEE4HLyJx7rPsl9bcPVq6Jq0Sg6Qht4cN6LWwR3kJl5HbgiEUa/P1V?=
- =?us-ascii?Q?PwKy7YVw7MhqjcVZCC2Ne1RuL4Oidh86kvg/PyI3LwZzEyBZWWgxwUYJK/nf?=
- =?us-ascii?Q?9Q=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BN9PR12MB52579A7D564E0DA5CE50184CFC439BN9PR12MB5257namp_"
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by PH7PR12MB5686.namprd12.prod.outlook.com (2603:10b6:510:13d::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.19; Fri, 9 Sep
+ 2022 07:42:04 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::2925:100a:f0b9:9ad8]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::2925:100a:f0b9:9ad8%3]) with mapi id 15.20.5612.014; Fri, 9 Sep 2022
+ 07:42:04 +0000
+Message-ID: <a7b2f76a-772d-78d9-a1f8-68c32477f21f@amd.com>
+Date: Fri, 9 Sep 2022 13:11:54 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH] drm/amdgpu: Don't enable LTR if not supported
+Content-Language: en-US
+To: Bjorn Helgaas <helgaas@kernel.org>
+References: <20220908175713.GA206965@bhelgaas>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20220908175713.GA206965@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0013.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:95::9) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|PH7PR12MB5686:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80e0f8c7-2d78-4b9f-68d9-08da9236ca18
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +1aAQz3ozQvT5YNmf9wqZX0WSF7TmFXkop2bvprFElJjy9manwHB/X7f7PsTMXmU2lJP8oipR7f72qfzv0cF+VjQ+gspnuB2MTdN2kLmzR9EGobwaufNDObxYxV+XwVe0xoR/pjUxDn2WWAEXOcQv0gPwJwGmlhU3lbWpqrhT8lDqnpdF8Jh0g42AmXKtiYyYfmtlrwO6feAdsfwV9L4pK1AxqHhC7md1OBY7mWPYQWaUedKwm+4znDaOpQETQ6bsHaciRguFtoLnimPLxK8lqyn4RPciaqVWxc06ZQhqRPDzDmm1oMSfiUHjF/X3c3Yl9rMjsxQBESEfbeAQhQTfTyXRWPIagCR98TpCP6/ejGLmnnyotOpawd0REFiBhrm9Jo2yiSwobaZF4JjR07uWXntI3WTmZ+Fq1hXdalGOikyhMhN/N31KgIop0SJxNNDbba+T9aEVjXLYZ3lrCH32Eol4Lee26l8zZY4uIKk7qmbGCxH4bpoP8mgoPilKIlJ2LH9eUsJIlHCJvYHxew0WcG5vlBhf9uv0L81wkiZwlq2J+qEMKArY9eMhVwMNng4pk+SqrdOeWwS2ZqBzxFN8UdrnAsNFzPQ/5JoEb+xTa6Gt5K7iz6wmiE54TWJA1tdWKj8KBSS/xUP9/Gju6gLDunejez447X8Aogi+SDlGLVegly99hMbYeUpS9OsOEIqN3qryuEApIfkuYOtO7cgwkjpQV7Xq7xPvCoLc5bzXGRyNR9iGTAzLI+1neQYRbP8pCzI8riDjLE4ST0zdXwj7vIQsxuK0gZm+gmWKJDL8ks=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(396003)(366004)(376002)(39860400002)(136003)(6512007)(26005)(54906003)(86362001)(31696002)(6666004)(53546011)(6916009)(41300700001)(6506007)(478600001)(6486002)(2616005)(186003)(38100700002)(83380400001)(66476007)(66556008)(8676002)(4326008)(8936002)(36756003)(31686004)(66946007)(5660300002)(2906002)(316002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QllzbmVwN3RsVldEZ0hVY0pZbVI0T0M2d0hFTW5SQzRmUFdYZ0kwSTJ3dnQ1?=
+ =?utf-8?B?azRUeVVoSE9zMElZMktXMHRuUWtYcXRCbzRsM1ZLY1JNWG80MjJmR2JnQ2s2?=
+ =?utf-8?B?NFZPeGRmVDlUeTN1bnh6U2llRE1wVlJTUlFBUmRLeGVrUzlGdGJQZ3l2NlAv?=
+ =?utf-8?B?dG1Nd0FiMEcvdkU2a3F4M2pmaHhNd1YvMmROaDNvMVpsWFZHbEczUW5NZ3JS?=
+ =?utf-8?B?cnNOdnA2SVd6Q1A0N0dGQjNkNVJESEdROVFTL09VY0VZVnVzL2xoZVYxdDJr?=
+ =?utf-8?B?L0MvWWp2bkdScHY3bk5TV09JdEVwY0xxeGhUUEkrR01NUHNwTjJQUHdtekMy?=
+ =?utf-8?B?aGc3Ykd5V3A2YkEzRnNOTTJkdWozSGNIdzZrajV0cFMzL2phenNoTlhrZDU4?=
+ =?utf-8?B?a2loaWxxZ0NLWXk4ODJLSmRoZk5zZDgzbHRoaVlsQUExYUxsSmEzMFBOMGc5?=
+ =?utf-8?B?bjY1cEZHcjFzRFZ3a3dRWDNBRGpLMkkzTURTWktuOVlTZy9wZnNYOWZ3TzVK?=
+ =?utf-8?B?cHZvRVkyUUpCNUYrVy9sL1MwQ2FidGlMbEljeHVTWkRZK0NGcktYMFYrR0NX?=
+ =?utf-8?B?ejZRRWpoWHEwaUpiU0tjQnJOZDdoV2dhdG1pdWlUai9PalZBb0NjQzczendV?=
+ =?utf-8?B?dDF3TXAxMEN2Kzh6d01EZmd0TnY3c0JyZXRBTFdmdlBlMDM2OEh4dDZrSEJX?=
+ =?utf-8?B?dmZET1NOY3J5U1Y4V0RDNXdGWTAvMkFkQ2ZBT21ucUR6RzVwRzVTTnBNUjA3?=
+ =?utf-8?B?cC9uUTk1SzJ4U3FoMzF5YW9rV1JZTFBaTjhEdVYxM0krMERFMTlMSURqUW1C?=
+ =?utf-8?B?MXNDYWMrRjNFbFhxallsaFZLTklBZ3BFRzQ1WWZvSzF3d2FveWthSXFySmVa?=
+ =?utf-8?B?Wnk0NmFZZHg4V2N4cExaaG9DajFrbTJoSDNnRGJHQUtnV3pHUDFGZUUrMENN?=
+ =?utf-8?B?U2FuN0x2V1o4bkg4azB6VHJMWk84a3ZuQ1hDTmdJZFhsOWVncjNZVjc2R1Nr?=
+ =?utf-8?B?TGk4UHZLa2xKR01LTllHQVZBOVdabEFLb0cxU0srem1FOWlmM29oYzljR2dG?=
+ =?utf-8?B?ZURDUm0ySEVrcytJQVRzMVpPYnlaOENBVlhmNkNPUzlTakVtc2NMUDVsZ0F2?=
+ =?utf-8?B?TktWbitUUHlTN1oyOWhVMnJvTTNNMS9EeGdXY210SVJTeGVpWjJWUTBpTDlH?=
+ =?utf-8?B?OURkNG5LOURMZENjUWZ3TkxQOXVYNm1xd2taeDU1QTd0dGM3TGxlbmdpU05w?=
+ =?utf-8?B?aGNvejhaNDUrMUZWTk1kMUp3MlZkcVdXMVd4NWNMZ3l0SExzVmVKTTZaUEg5?=
+ =?utf-8?B?UzU3N3c2dThxT0laTndHdStSb01vVDhkWk9rTlBqcFd4K0lkdkI5WVBPM1ZS?=
+ =?utf-8?B?TUZWMXFlNDN3ZU5hODNhSHAvQ1Vzc0VpTFVtV01QY3Z1U3VZeWsxVXZxRG1u?=
+ =?utf-8?B?enVoRnF3aks4RnRkSGJPS1BHYklSQzBqQXdidGY5ZWsyUmxISk5DeFBJelJI?=
+ =?utf-8?B?b0ZJWVUzdzBJYkZhSXE5NlAxbnJ3ZDd5V1B5bmp0MnlKWmdUZ3F2ZGVDZFZ1?=
+ =?utf-8?B?Nzl2NDlZWTR3SEpMRnhDVUpzV3VMUHRxMkZsd2NSSmJxNDRyRXozdkgyNWx5?=
+ =?utf-8?B?cGhJaUtaNlBjWGNtRmtRcDRGMTRDVHlteDNKMThTMzZTQ2JldnI4cWtTQ1Bq?=
+ =?utf-8?B?Z3JObXJqdmJlL08xYlFpMTlUY2xBdlJIYUxtRXE3VEw5alZzR0FCZmlzN1hI?=
+ =?utf-8?B?Tmp5c1R4MzZCOExFQ3o2N0krOEcwY3hQam5NV3lNUDJxczV1SHdQc05JNjNn?=
+ =?utf-8?B?b2NCS2RGMCs2ZWpzUlN4QWZhbXlhTDZON3U1elZxdUVEb1l2WWR5V3QzRVda?=
+ =?utf-8?B?d21PQ2xOTjdKeTZ6VmF5eFhXZDY3ZUJ6RVdJWUw4MmVnRllTTm1XcjBDUEdQ?=
+ =?utf-8?B?RldHK0c2ajZUTEZ0cGhEa28zUVlKZGROQW5ZeE9qaFpldzIzLzIxRzRWSDRQ?=
+ =?utf-8?B?MmhGRDl2VDViWTZCRnRJQUFQNGd6N0oySEhCTXdSaXE5eHhzWDZUaDMwOE5r?=
+ =?utf-8?B?aC9IWFpLd3BpU2pvSmRvS2JWZ256Nmh2SGhXT0pzYjB0SmJKNW9KNFdjWGlh?=
+ =?utf-8?Q?fDIxU0ZyPe33qWpXRT+XN/q1p?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80e0f8c7-2d78-4b9f-68d9-08da9236ca18
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 760030e7-a724-46cb-be1c-08da921684b4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2022 03:51:03.9251 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Sni6hbXp+bpAKg8TV6xqM2BxMaNmZyC87AQ0uI5yk7+7qZ9i7HU4kVvxzVTVzBC4SW98MP4NentehzpIZXXHyA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6639
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2022 07:42:04.6270 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wTG6KjYiZlMd3UyLJcK29QcZk6nYEdtXasfFPTtoGywocI03CH3aI34+BgbsNxXe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5686
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,212 +123,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, Yang\(Kevin\)" <KevinYang.Wang@amd.com>
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>,
+ "wielkiegie@gmail.com" <wielkiegie@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexdeucher@gmail.com>, "Quan, Evan" <Evan.Quan@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BN9PR12MB52579A7D564E0DA5CE50184CFC439BN9PR12MB5257namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only - General]
 
-Thanks Kevin!
+On 9/8/2022 11:27 PM, Bjorn Helgaas wrote:
+> On Thu, Sep 08, 2022 at 04:42:38PM +0000, Lazar, Lijo wrote:
+>> I am not sure if ASPM settings can be generalized by PCIE core.
+>> Performance vs Power savings when ASPM is enabled will require some
+>> additional tuning and that will be device specific.
+> 
+> Can you elaborate on this?  In the universe of drivers, very few do
+> their own ASPM configuration, and it's usually to work around hardware
+> defects, e.g., L1 doesn't work on some e1000e devices, L0s doesn't
+> work on some iwlwifi devices, etc.
+> 
+> The core does know how to configure all the ASPM features defined in
+> the PCIe spec, e.g., L0s, L1, L1.1, L1.2, and LTR.
+> 
+>> In some of the other ASICs, this programming is done in VBIOS/SBIOS
+>> firmware. Having it in driver provides the advantage of additional
+>> tuning without forcing a VBIOS upgrade.
+> 
+> I think it's clearly the intent of the PCIe spec that ASPM
+> configuration be done by generic code.  Here are some things that
+> require a system-level view, not just an individual device view:
+> 
+>    - L0s, L1, and L1 Substates cannot be enabled unless both ends
+>      support it (PCIe r6.0, secs 5.4.1.4, 7.5.3.7, 5.5.4).
+> 
+>    - Devices advertise the "Acceptable Latency" they can accept for
+>      transitions from L0s or L1 to L0, and the actual latency depends
+>      on the "Exit Latencies" of all the devices in the path to the Root
+>      Port (sec 5.4.1.3.2).
+> 
+>    - LTR (required by L1.2) cannot be enabled unless it is already
+>      enabled in all upstream devices (sec 6.18).  This patch relies on
+>      "ltr_path", which works now but relies on the PCI core never
+>      reconfiguring the upstream path.
+> 
+> There might be amdgpu-specific features the driver needs to set up,
+> but if drivers fiddle with architected features like LTR behind the
+> PCI core's back, things are likely to break.
+> 
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+The programming is mostly related to entry conditions and spec leaves it 
+to implementation.
 
-Regards,
-Hawking
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-Date: Friday, September 9, 2022 at 11:50
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>, Wang, Yang(Kevin) <KevinYang.Wa=
-ng@amd.com>
-Subject: [PATCH v3] drm/amdgpu: change the alignment size of TMR BO to 1M
-align TMR BO size TO tmr size is not necessary,
-modify the size to 1M to avoid re-create BO fail
-when serious VRAM fragmentation.
+ From r4.0 spec -
+"
+This specification does not dictate when a component with an Upstream 
+Port must initiate a transition to the L1 state. The interoperable 
+mechanisms for transitioning into and out of L1 are defined within this 
+specification; however, the specific ASPM policy governing when to 
+transition into L1 is left to the implementer.
+...
+Another approach would be for the Downstream device to initiate a 
+transition to the L1 state once the Link has been idle in L0 for a set 
+amount of time.
+"
 
-v2:
-add new macro PSP_TMR_ALIGNMENT for TMR BO alignment size
+Some of the programming like below relates to timings for entry.
 
-Signed-off-by: Yang Wang <KevinYang.Wang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+         def = data = RREG32_SOC15(NBIO, 0, regRCC_STRAP0_RCC_BIF_STRAP3);
+         data |= 0x5DE0 << 
+RCC_BIF_STRAP3__STRAP_VLINK_ASPM_IDLE_TIMER__SHIFT;
+         data |= 0x0010 << 
+RCC_BIF_STRAP3__STRAP_VLINK_PM_L1_ENTRY_TIMER__SHIFT;
+         if (def != data)
+                 WREG32_SOC15(NBIO, 0, regRCC_STRAP0_RCC_BIF_STRAP3, data);
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c
-index cfcaf890a6a1..e430a3142310 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -766,7 +766,7 @@ static int psp_tmr_init(struct psp_context *psp)
-         }
+Similarly for LTR, as it provides a dynamic mechanism to report 
+tolerance while in L1 substates, the tolerance timings can be tuned 
+through registers though there is a threshold.
 
-         pptr =3D amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
--       ret =3D amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TMR_SIZE(p=
-sp->adev),
-+       ret =3D amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TMR_ALIGNM=
-ENT,
-                                       AMDGPU_GEM_DOMAIN_VRAM,
-                                       &psp->tmr_bo, &psp->tmr_mc_addr, ppt=
-r);
+Regardless, Alex is already checking with hardware design team on 
+possible improvements.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.h
-index c32b74bd970f..e593e8c2a54d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -36,6 +36,7 @@
- #define PSP_CMD_BUFFER_SIZE     0x1000
- #define PSP_1_MEG               0x100000
- #define PSP_TMR_SIZE(adev)      ((adev)->asic_type =3D=3D CHIP_ALDEBARAN ?=
- 0x800000 : 0x400000)
-+#define PSP_TMR_ALIGNMENT      0x100000
- #define PSP_FW_NAME_LEN         0x24
+Thanks,
+Lijo
 
- enum psp_shared_mem_size {
---
-2.25.1
-
---_000_BN9PR12MB52579A7D564E0DA5CE50184CFC439BN9PR12MB5257namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
-hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
-fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style>
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Thanks Kevin!<o:p><=
-/o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Reviewed-by: Hawkin=
-g Zhang &lt;Hawking.Zhang@amd.com&gt;<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Regards,<br>
-Hawking<o:p></o:p></span></p>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><b><span style=3D"fon=
-t-size:12.0pt;color:black">From:
-</span></b><span style=3D"font-size:12.0pt;color:black">Wang, Yang(Kevin) &=
-lt;KevinYang.Wang@amd.com&gt;<br>
-<b>Date: </b>Friday, September 9, 2022 at 11:50<br>
-<b>To: </b>amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc: </b>Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;, Wang, Yang(Kevin) =
-&lt;KevinYang.Wang@amd.com&gt;<br>
-<b>Subject: </b>[PATCH v3] drm/amdgpu: change the alignment size of TMR BO =
-to 1M<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
-ize:11.0pt">align TMR BO size TO tmr size is not necessary,<br>
-modify the size to 1M to avoid re-create BO fail<br>
-when serious VRAM fragmentation.<br>
-<br>
-v2:<br>
-add new macro PSP_TMR_ALIGNMENT for TMR BO alignment size<br>
-<br>
-Signed-off-by: Yang Wang &lt;KevinYang.Wang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h | 1 +<br>
-&nbsp;2 files changed, 2 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c<br>
-index cfcaf890a6a1..e430a3142310 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-@@ -766,7 +766,7 @@ static int psp_tmr_init(struct psp_context *psp)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pptr =3D amdgpu_sriov_vf(p=
-sp-&gt;adev) ? &amp;tmr_buf : NULL;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_create_kernel(psp-&=
-gt;adev, tmr_size, PSP_TMR_SIZE(psp-&gt;adev),<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_create_kernel(psp-&=
-gt;adev, tmr_size, PSP_TMR_ALIGNMENT,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; AMDGPU_GEM_DOMAIN_VRAM,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; &amp;psp-&gt;tmr_bo, &amp;psp-&gt;tmr_mc_addr, pptr);<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.h<br>
-index c32b74bd970f..e593e8c2a54d 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
-@@ -36,6 +36,7 @@<br>
-&nbsp;#define PSP_CMD_BUFFER_SIZE&nbsp;&nbsp;&nbsp;&nbsp; 0x1000<br>
-&nbsp;#define PSP_1_MEG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x100000<br>
-&nbsp;#define PSP_TMR_SIZE(adev)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((adev)-&gt;=
-asic_type =3D=3D CHIP_ALDEBARAN ? 0x800000 : 0x400000)<br>
-+#define PSP_TMR_ALIGNMENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x100000<br>
-&nbsp;#define PSP_FW_NAME_LEN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; 0x24<br>
-&nbsp;<br>
-&nbsp;enum psp_shared_mem_size {<br>
--- <br>
-2.25.1<o:p></o:p></span></p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN9PR12MB52579A7D564E0DA5CE50184CFC439BN9PR12MB5257namp_--
+>> From: Alex Deucher <alexdeucher@gmail.com>
+>> On Thu, Sep 8, 2022 at 12:12 PM Bjorn Helgaas <helgaas@kernel.org> wrote:
+> 
+>>> Do you know why the driver configures ASPM itself?  If the PCI core is
+>>> doing something wrong (and I'm sure it is, ASPM support is kind of a
+>>> mess), I'd much prefer to fix up the core where *all* drivers can
+>>> benefit from it.
+>>
+>> This is the programming sequence we get from our hardware team and it
+>> is used on both windows and Linux.  As far as I understand it windows
+>> doesn't handle this in the core, it's up to the individual drivers to
+>> enable it.  I'm not familiar with how this should be enabled
+>> generically, but at least for our hardware, it seems to have some
+>> variation compared to what is done in the PCI core due to stability,
+>> etc. It seems to me that this may need asic specific implementations
+>> for a lot of hardware depending on the required programming sequences.
+>> E.g., various asics may need hardware workaround for bugs or platform
+>> issues, etc.  I can ask for more details from our hardware team.
+> 
+> If the PCI core has stability issues, I want to fix them.  This
+> hardware may have its own stability issues, and I would ideally like
+> to have drivers use interfaces like pci_disable_link_state() to avoid
+> broken things.  Maybe we need new interfaces for more subtle kinds of
+> breakage.
+> 
+> Bjorn
+> 
