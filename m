@@ -4,57 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FA6AECAAD3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 17:36:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2015BECAAD3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 17:38:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BACDF10ED30;
-	Fri,  9 Sep 2022 17:36:12 +0000 (UTC)
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
- [IPv6:2001:4860:4864:20::2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC71510ED30
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 17:36:09 +0000 (UTC)
-Received: by mail-oa1-x2e.google.com with SMTP id
- 586e51a60fabf-12803ac8113so5703907fac.8
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Sep 2022 10:36:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=jtXdra4m0dzn0sY7Po7o0MxlYg6uPUCynslJBEbJdfg=;
- b=DULSIiHM3CLlTGF6HhaKwStBJuVL8vvh6nqTqrcDJKHWALG3S/D8Ns+QYQFxtOmE2M
- JisRaxkqtrCC317P0zoua9EhblwDkFo7Ry1ggb08d0dCjWuev7HmniZ6JmxJunZGzDAp
- SMuirov8OvNxUjIFVALdGj6A2PmWc/d9q8ov6wrFW8WEoaWCoH6fp02fpmANSsQcaDMO
- Jnd3aLCWRcVy03UWj1QyRqx6gLkQBLZ4RZ9qPhnGLvesV326HnH0YeGIy78FTRn6LPZb
- NpNMAPR/tPw0ABkv4rh37m7ql1oaWKrVdf44mrnOwS0zVjfqHPBokuIp6BdhEjOVPmzU
- qcRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=jtXdra4m0dzn0sY7Po7o0MxlYg6uPUCynslJBEbJdfg=;
- b=GqLPcQCEo8ToJnayvy5uGK4WqAyUbQUzKDMfAmDnpssptYwCrgSx3cGo1YWcjKQWRz
- 67CifsXC1DdsGYHGmfg+FIF9MGhztsG/fHj0b5re7fVQ25ECkvfApJQ6LNl0ZKofrZxG
- CnjqRDu4gtWuuEWGpd79vDLrq2Xgxgtx0eJUlg8/nTGh0aweSYgiT83DiQaVFWBrs9qF
- Eg3miIIoQudMk2mJeQ+Sr3ieE/256y1e332S9PI+3igVcgDDC5E4Dc4QNSAb+klUIdR9
- pmdy0YiemlGMkTzfDCG8kU0AthMsLJYYcuhsnXcym1SOvs5Nsv/3sK1M7EexAjuQZcQ3
- WMtg==
-X-Gm-Message-State: ACgBeo1gOwFn8/WEWOB2LTwbcqfBq0qrfuU/qDkRYe+Ng3Tbb3Yq3YiZ
- 7Q9mQsxZ0mevnz0u7FKkEdPoImfxeif3f4d5+VI=
-X-Google-Smtp-Source: AA6agR5Bb8iV7WnVwt7O6l5mra4DssjIvnX9xf+nJ7xVrR0GjGw/+M9hTc8ERqqRYtPnVqSYaAVJNBPHYO4CMmKL28g=
-X-Received: by 2002:a05:6870:1783:b0:12a:f442:504d with SMTP id
- r3-20020a056870178300b0012af442504dmr4265778oae.46.1662744968958; Fri, 09 Sep
- 2022 10:36:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19C8710ED54;
+	Fri,  9 Sep 2022 17:38:19 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA08010ED4D;
+ Fri,  9 Sep 2022 17:36:56 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
+ [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 0A45E6601FC6;
+ Fri,  9 Sep 2022 18:36:51 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1662745015;
+ bh=8xgN4e43LGiBPVdQ7GyKB5jQBCWxBspXnT50kSaZfdc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=E1pvbfsh4mhx8kHsaeEx5+wdORPcsEFHoldFIWWyXseblN1dtO3m2LKuSoqgihlSa
+ mvxWcvwfAY63jSB7DnN7yOeJIhOmHYkexHRg9C30PT7fBMeLWfUKCiYOa08B86oCUs
+ ccnMOiQ/eemk3IQI6BMX/oXA+OGKrl0rBatDrO8+JSqXCkTd/fI+qJU/40kfFMc89g
+ t0gQ9aaRRLRYPyQEByTuKyml5hlPtBl1GC6RbbKtZL44FqTg2qeA3KCDga5aZ0jHda
+ scJFjauo2KMswJRJK5d6rTZTggJc5SFIdfQTgNU1j3sp7y+V1qH4Ha2hAFB1s341R4
+ qnfx/6JJNgQIg==
+Message-ID: <588ff12e-d030-0db0-e248-1afd0dee4ae1@collabora.com>
+Date: Fri, 9 Sep 2022 20:36:48 +0300
 MIME-Version: 1.0
-References: <20220909164758.5632-1-alexander.deucher@amd.com>
- <20220909164758.5632-2-alexander.deucher@amd.com>
- <4f9441e7-6ca3-25a6-6dd3-644b211d3fcc@amd.com>
-In-Reply-To: <4f9441e7-6ca3-25a6-6dd3-644b211d3fcc@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 9 Sep 2022 13:35:57 -0400
-Message-ID: <CADnq5_OKQwXDP-730jCXFCe60AbvzLrDvyr=dVr91awEwLNWjw@mail.gmail.com>
-Subject: Re: [PATCH 1/7] drm/amdgpu: move nbio remap_hdp_registers() to gmc9
- code
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH v4 06/21] drm/i915: Prepare to dynamic dma-buf locking
+ specification
+Content-Language: en-US
+To: "Ruhl, Michael J" <michael.j.ruhl@intel.com>,
+ Dmitry Osipenko <digetx@gmail.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
+References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
+ <20220831153757.97381-7-dmitry.osipenko@collabora.com>
+ <DM5PR11MB1324088635FDE00B0D957816C17B9@DM5PR11MB1324.namprd11.prod.outlook.com>
+ <760b999f-b15d-102e-8bc7-c3e69f07f43f@gmail.com>
+ <c89680d0-30ee-f5d7-be68-fa84458df04d@gmail.com>
+ <DM5PR11MB1324EDC7A97DE98C2DC6EDA8C17A9@DM5PR11MB1324.namprd11.prod.outlook.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <DM5PR11MB1324EDC7A97DE98C2DC6EDA8C17A9@DM5PR11MB1324.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 09 Sep 2022 17:38:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,104 +70,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: regressions@lists.linux.dev, airlied@linux.ie, linux-pci@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, tseewald@gmail.com, kai.heng.feng@canonical.com,
- helgaas@kernel.org, m.seyfarth@gmail.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, sr@denx.de
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ "kernel@collabora.com" <kernel@collabora.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>,
+ "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Daniel Stone <daniel@fooishbar.org>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>, Chia-I Wu <olvaffe@gmail.com>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, "Gross,
+ Jurgen" <jgross@suse.com>, David Airlie <airlied@linux.ie>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Tomi Valkeinen <tomba@kernel.org>, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Tomasz Figa <tfiga@chromium.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Rob Clark <robdclark@gmail.com>, Qiang Yu <yuq825@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>,
+ Lucas Stach <l.stach@pengutronix.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 9, 2022 at 1:17 PM Lazar, Lijo <lijo.lazar@amd.com> wrote:
->
->
->
-> On 9/9/2022 10:17 PM, Alex Deucher wrote:
-> > This is where it is used, so move it into gmc init so
->
-> It's only the *side effect* of GMC IP init process, but that doesn't
-> mean these IPs are interlinked. Any IP init process which requires HDP
-> flush also would need this. It is not a good idea to couple HDP remap
-> with GMC especially when there exists a HDP data path way without
-> setting up GMC (MM INDEX/DATA).
+On 9/2/22 19:26, Ruhl, Michael J wrote:
+>> 02.09.2022 13:31, Dmitry Osipenko пишет:
+>>> 01.09.2022 17:02, Ruhl, Michael J пишет:
+>>> ...
+>>>>> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
+>>>>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+>>>>> @@ -331,7 +331,19 @@ static void __i915_gem_free_objects(struct
+>>>>> drm_i915_private *i915,
+>>>>> 			continue;
+>>>>> 		}
+>>>>>
+>>>>> +		/*
+>>>>> +		 * dma_buf_unmap_attachment() requires reservation to be
+>>>>> +		 * locked. The imported GEM shouldn't share reservation lock,
+>>>>> +		 * so it's safe to take the lock.
+>>>>> +		 */
+>>>>> +		if (obj->base.import_attach)
+>>>>> +			i915_gem_object_lock(obj, NULL);
+>>>>
+>>>> There is a lot of stuff going here.  Taking the lock may be premature...
+>>>>
+>>>>> 		__i915_gem_object_pages_fini(obj);
+>>>>
+>>>> The i915_gem_dmabuf.c:i915_gem_object_put_pages_dmabuf is where
+>>>> unmap_attachment is actually called, would it make more sense to make
+>>>> do the locking there?
+>>>
+>>> The __i915_gem_object_put_pages() is invoked with a held reservation
+>>> lock, while freeing object is a special time when we know that GEM is
+>>> unused.
+>>>
+>>> The __i915_gem_free_objects() was taking the lock two weeks ago until
+>>> the change made Chris Wilson [1] reached linux-next.
+>>>
+>>> [1]
+>>> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-
+>> next.git/commit/?id=2826d447fbd60e6a05e53d5f918bceb8c04e315c
+>>>
+>>> I don't think we can take the lock within
+>>> i915_gem_object_put_pages_dmabuf(), it may/should deadlock other code
+>> paths.
+>>
+>> On the other hand, we can check whether the GEM's refcount number is
+>> zero in i915_gem_object_put_pages_dmabuf() and then take the lock if
+>> it's zero.
+>>
+>> Also, seems it should be possible just to bail out from
+>> i915_gem_object_put_pages_dmabuf() if refcount=0. The further
+>> drm_prime_gem_destroy() will take care of unmapping. Perhaps this could
+>> be the best option, I'll give it a test.
+> 
+> i915_gem_object_put_pages() is uses the SG, and the usage for
+> drm_prim_gem_destroy()
+> 
+> from __i915_gem_free_objects() doesn't use the SG because it has been "freed"
+> already, I am not sure if that would work...
+> 
+> Hmm.. with that in mind, maybe moving the base.import_attach check to 
+> __i915_gem_object_put_pages with your attach check?
 
-We have no need for HDP flush at all without vram, and we only have
-access to vram once GMC is initialized so it is sort of a dependency
-in that regard.  We also call a bunch of the HDP callbacks in the GMC
-code and I think those are sort of the boat.  Also, the whole reason
-we are in this situation is because we need to init GMC before all
-other HW because all other hardware has a dependency on being able to
-access GPU memory.
+I see you meant __i915_gem_object_pages_fini() here.
 
->
->  From a generic software perspective, I think programming pre-requisite
-> for HDP flush need to be standalone and the order needs to be guaranteed
-> before any client IPs that make use of it.
+> 	atomic_set(&obj->mm.pages_pin_count, 0);
+> 	if (obj->base.import)
+> 		i915_gem_object_lock(obj, NULL);
+> 
+> 	__i915_gem_object_put_pages(obj);
+> 
+> 	if (obj->base.import)
+> 		i915_gem_object_unlock(obj, NULL);
+> 	GEM_BUG_ON(i915_gem_object_has_pages(obj));
+> 
+> Pretty much one step up from the dmabuf interface, but we are guaranteed to
+> not have any pinned pages?
 
-In that case patches 5, 6, 7 could be an alternative.
+Importer shouldn't hold pages outside of dma-buf API, otherwise it
+should be a bug.
 
-Alex
+> The other caller of __i915_gem_object_pages_fini is the i915_ttm move_notify
+> which should not conflict (export side, not import side).
+> 
+> Since it appears that not locking during the clean up is desirable, trying to make sure take the lock
+> is taken at the last moment might be the right path?
 
->
-> Thanks,
-> Lijo
->
-> > that it will always be initialized in the right order.
-> > We already do this for other nbio and hdp callbacks so
-> > it's consistent with what we do on other IPs.
-> >
-> > This fixes the Unsupported Request error reported through
-> > AER during driver load. The error happens as a write happens
-> > to the remap offset before real remapping is done.
-> >
-> > Link: https://bugzilla.kernel.org/show_bug.cgi?id=216373
-> >
-> > The error was unnoticed before and got visible because of the commit
-> > referenced below. This doesn't fix anything in the commit below, rather
-> > fixes the issue in amdgpu exposed by the commit. The reference is only
-> > to associate this commit with below one so that both go together.
-> >
-> > Fixes: 8795e182b02d ("PCI/portdrv: Don't disable AER reporting in get_port_device_capability()")
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 7 +++++++
-> >   drivers/gpu/drm/amd/amdgpu/soc15.c    | 7 -------
-> >   2 files changed, 7 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> > index 4603653916f5..3a4b0a475672 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> > @@ -1819,6 +1819,13 @@ static int gmc_v9_0_hw_init(void *handle)
-> >       bool value;
-> >       int i, r;
-> >
-> > +     /* remap HDP registers to a hole in mmio space,
-> > +      * for the purpose of expose those registers
-> > +      * to process space
-> > +      */
-> > +     if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
-> > +             adev->nbio.funcs->remap_hdp_registers(adev);
-> > +
-> >       /* The sequence of these two function calls matters.*/
-> >       gmc_v9_0_init_golden_registers(adev);
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > index 5188da87428d..39c3c6d65aef 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > @@ -1240,13 +1240,6 @@ static int soc15_common_hw_init(void *handle)
-> >       soc15_program_aspm(adev);
-> >       /* setup nbio registers */
-> >       adev->nbio.funcs->init_registers(adev);
-> > -     /* remap HDP registers to a hole in mmio space,
-> > -      * for the purpose of expose those registers
-> > -      * to process space
-> > -      */
-> > -     if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
-> > -             adev->nbio.funcs->remap_hdp_registers(adev);
-> > -
-> >       /* enable the doorbell aperture */
-> >       soc15_enable_doorbell_aperture(adev, true);
-> >       /* HW doorbell routing policy: doorbell writing not
-> >
+Reducing the scope of locking usually is preferred more. Yours
+suggestion works okay, I couldn't spot any problems at least for a
+non-TTM code paths.
+
+It's indeed a bit not nice that __i915_gem_object_pages_fini() is used
+by TTM, but should be safe for imported objects. Will be great if anyone
+from i915 maintainers could ack this variant.
+
+-- 
+Best regards,
+Dmitry
