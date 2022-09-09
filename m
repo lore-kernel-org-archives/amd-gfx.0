@@ -4,113 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF830ECAAD3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 14:53:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6F6FECAAA1
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 15:13:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B828710EDF6;
-	Fri,  9 Sep 2022 14:53:49 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2088.outbound.protection.outlook.com [40.107.243.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE91610EDF6
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 14:53:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26B2B10E048;
+	Fri,  9 Sep 2022 15:13:30 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7DB310E048
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 15:13:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oVJfnwLRBXEKvL8SxPfqjEBwXqca030jelDiSdbOn4TXFYdnKH2v0x75NKKS9jCvjjw/L+kVKx1KDiZVCUW8m8QDRV9pqbRqRuVqMn31Igbuv0tGYfbnqsNSZ7YpiSowcJ+RyaEOo4Aki7omUnzVxAaweMlvqHeQ30ZaloviJvjtdE+cetzsfqRrGvojK431E5CVoDNqFuf5vcyPSRs4LUbuDTW4hqIAMSAL6QgDK96b8SNyU6kruvsoaoZUxKgAGXksEf7feuQwlsckRa1SqcEt1EKNS4cnSI5kt63iqJbUhZxOLUJKuaFmrKa1Ibe1Dwch3k6XLl7aEQkuHRI/Qw==
+ b=DkDikD8/NwwcsPfNVqEUI/+Ava6FqxsA4fUg8fDhYZMPeqD1sSQVDOsjLBknEz+ddAO/1c1gCNsgf3N0uYoPXZb6+oNGyxm55awGqCs14OsLy7qwFt0+3fQ288V1ekdGmMtWJXa+5wVlEZIjEvC/jESzosVh28rMZR3NV4+9/s72UTcIn8tPeQf0TCaLl3GczGtm2a5iinYJrztwsKUto8R8LKuK6ewiqKAFIO1tG2sPEDLxCesK6ZQ1S9CCXuX5mSmbPap7T5501dr8ZF1hVIyd8xbbQH6J6ee3tIsKt7FHCiZHdxShZp+E6t3SY207e6Zh5ghz6fuybYOUwNVEXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y6oj+kmI9id8OUPuSIJuZbwzTU2ViW5yPBwwj1gi1Ys=;
- b=j9aglML6un1qgHKg5GO9eNxECwIEjOgXh+Uhv07yAtOiJnwGqcoAnqvo7kmo32edtLIuAlAwmSMNc/lf1yGTg2hZolKYI6SopowD1npKdVRh/gGy1A1DKhVGbAme1b4QTw5WekehMq+kbKNhaA1TWrgcQjaYkoBFPsfR4c616qIGC8KqhpqeyIcfNf/RO0+IB8cCH4lCu3TE6mb9miKFIoEM1o2UHcifbWc28k6P/cbsnqKXUyaX0oWYcstyPaHYVwLVDQRX1fkL9EANWdb9QjKWogDb1CsJx3ykx/jSwtKAlEtr8Is3x1QCXTUKV92Dqvl4s+jS5X0eXNOfFm/KZQ==
+ bh=dzJiKRAGyoD6xJyCN9BLIXS7WVUJXc/AlJWpJTvZYeE=;
+ b=cRXDB67BLo8V4mpFIhsHW+xJoR1yw0MFgaKC31ydKxpdxdc64s3uMIAuYwr6ylVktwv7VU7uBX3BgaSW82Ey6SkJc6j0gcSZE4CcoulVXckZLDEL6ZC92KwQ56ll3yyAGNF5j6vS9C7sC8PP/xw3JYDA3HIG70l8kI005+kOVd6Fj05UqNlHprp94wpqNDy6yEdl1rsKTILIDftK/pNeCA44euUtvl4IlMjTCKNcup5vwNWPjgVYUTmQzFs9RD6JdP36sx50oj9/FmVOxGG0QV8UZSqBhSfI6NuRy3MKXV4vB6Qldq5gGDgrqb6OIFiJDFuIV2SvMbdYEJO8VTbWvQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y6oj+kmI9id8OUPuSIJuZbwzTU2ViW5yPBwwj1gi1Ys=;
- b=GoH9u1kggzBKvT8Yfzi+0T/orwvxj7MNCtkBCRMBAs+wzYCZ67psw+nEm/F74mYnci+29AESJRlzgWukhsWsHBlB+hfcx9cwD/HllTYvqF8vz0sDTC6kW5cE6l2DFLQgIEfYuzd3eyiHWhiCggtI655bNxmppGMCtGF+ILMtwlI=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by MN2PR12MB4581.namprd12.prod.outlook.com (2603:10b6:208:260::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.20; Fri, 9 Sep
- 2022 14:53:43 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1192:d133:8667:ed28]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1192:d133:8667:ed28%5]) with mapi id 15.20.5612.021; Fri, 9 Sep 2022
- 14:53:43 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH V3 3/3] drm/amd/pm: Remove redundant check condition
-Thread-Topic: [PATCH V3 3/3] drm/amd/pm: Remove redundant check condition
-Thread-Index: AQHYw18hho0yAdaA2EqzMKeiJ+U2tq3XMBu+
-Date: Fri, 9 Sep 2022 14:53:43 +0000
-Message-ID: <BN9PR12MB5257B956B25C6055FB42B860FC439@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20220908084236.110566-1-YiPeng.Chai@amd.com>
- <20220908084236.110566-3-YiPeng.Chai@amd.com>
-In-Reply-To: <20220908084236.110566-3-YiPeng.Chai@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-09T14:49:55.1284248Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=dzJiKRAGyoD6xJyCN9BLIXS7WVUJXc/AlJWpJTvZYeE=;
+ b=ZEG7Ozw6D/nxEj7r9ASQAT9QoAqLS0+MSMZ/ftus8MxjHJFqmyp+eUThlTqNWSJqjvwJAmU7dV+81qpWeqcyX8uzy9okoi8KddyB2g+V7F5tzvxORdvUpimQ9Nteypqcj0zDkbVR1ij0zVvFegDmg4XlOP2HxRVkc93IEW+VtE8=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|MN2PR12MB4581:EE_
-x-ms-office365-filtering-correlation-id: 58470e03-7781-44d7-33bd-08da92731743
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: RnrqVuBb0nFvGlJX2NtqkU8OSVdJ/Wi5O554QOR0YI0Byoh2rNRT4PQyykbiEROrJ45hrNLlSD6tJthklC8AyaLzS5y5a58O5+UzFUlLjoBm7zE3aIwtETcLd4Dsy7K0VMo4xFSWC7gsDRXzQoMeLHuFYQMnYHTSl4NzP+NCnbShBurk1g1zilJleKIeUZViLUGHsJQdntbGZTaSBsUt19I+m6qru/smZvxVl6g9yOAPIpb82cSJlTY4z3mpl0eWoGCHKZomt+DgiCwUQcZ3qUVg2lSHk1GBfEOwHEAt2TlBFGU+lFEh50J1XC3y4pm8HygshCWymdYUnTnNH1yTs6LFx5XnIEcjDWONpI/d07mR/2ARlVpwUIee62va4eanU2OvNnKNwTso0HHalpoACEZ1QHs7oPRCmi5cgUhSgm74864pK2OQ/R7u3fxH5gRrsoC7KZvastdPVANfzYaVXQM4/haDCgrztIKSlBIigUJ/KGsEeBTZTjfPmaNUjJcZztp2Ef4QKp1coXxQCW3U7E7dSMpvku+TfRSzPHLpJij/kXlVwAmzUDfBbPYI7rmfGwB2dNiYesI3s+L+OrBk2RUp1HvUtx9UrE48u5A9Vrlnj2CCxTKIqyjkaZ4DsxuRlZ3fuW2rFbNDCijumO5FJ3VfLtutYB2cI/kaeBsGw8gH5Y79/Smgww2+kIFyCGVR6Fl+RKPeTbJg1/FpvHiiL9EvsPMmSxOcULSK9cLiQcKxl56pNS+h0owxzAtOMmEtnw8cxVvteVfbSKImJTewaQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(396003)(366004)(136003)(39860400002)(376002)(478600001)(7696005)(186003)(26005)(9686003)(53546011)(6506007)(86362001)(2906002)(33656002)(71200400001)(8936002)(5660300002)(38070700005)(52536014)(54906003)(110136005)(316002)(8676002)(64756008)(66556008)(66946007)(66476007)(66446008)(41300700001)(83380400001)(122000001)(4326008)(91956017)(55016003)(38100700002)(76116006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JoYRL7Tsxnr7n8l+xR8we+mxc9lqQC9JvX8EI6PWYrthaRg85YuIdUlFAAcf?=
- =?us-ascii?Q?N8ygHxQGK3Hp4XFMIZ6d03Id68CG3s3NiMATGqgYwSzfvBIQdb4BQKN6Ys8b?=
- =?us-ascii?Q?SVvILl8JAAyop3e/4b52eb4zgGt+H79vyd9uGFnCo1N4qnJC4qtp0YNqMHJI?=
- =?us-ascii?Q?xruSQ1n7w9Ieo5nOmEqgqjQ1umVkFDfhklhTj+S+qZNVbaY7tF/FaqpHbR9G?=
- =?us-ascii?Q?lJdwCKx4w9QNdwIVjxWGpcUyXBQkZPSaYopJS6P5U7yD0RO+ZT4mZcn9MQZC?=
- =?us-ascii?Q?sZhSdpjlss0D5YeYoRSCPmZPdmjF2VtKEqNCo3xqGkRQPLJ8hLWTHznWkduR?=
- =?us-ascii?Q?nrx3mXl+nuGIgM9Hj2hxMTaJiyxfjNbaINKsL/D/8L4BSrg54lrkuMDwf7Fr?=
- =?us-ascii?Q?c9LyCeNDkLvR//NU57RwBVePcNgaLf4P5zyTI3SkgyrrMJ/lvAbQiptxaGug?=
- =?us-ascii?Q?hl/hzSxuMuKoL6+wvadNJpGIcEps/NYIitoW0VWoRpQoNPDRRh7L1gwTYRt7?=
- =?us-ascii?Q?izdPWJJKWSudyHfEAKhxDt0pQpAmANpc7Dtkf89lSelhKnucp+eN662hZv0B?=
- =?us-ascii?Q?NYXz8YzuNXfl9p1pXSGk54vRNijCy1RhfN7QJca5H3LRU6TVyXOLByHzHqxq?=
- =?us-ascii?Q?QkJbesDfsxlrgZKp20HlkazjGJYeV5PzyJkzGdUEMDBBy22d1tg89y7HfZyT?=
- =?us-ascii?Q?Kjaf+q5XVk+HBB0IUYF6tIYWJRBQfDOVIVNkf/J23iSAQfixx4VdBqP3AvFa?=
- =?us-ascii?Q?qLY/uBA+xOL1m2U6E7n3BlC//yMkkQ9PQ6LK6cGxu6nbqbL/h/BEUlyig7aB?=
- =?us-ascii?Q?5n5dcw0xrYJvzqCLm9+v+OYyoFI7l/FM1UiMBXrpzg8lDN9w3m81GICsWo/1?=
- =?us-ascii?Q?TbcEIu9rmOVWvMuX7NvbwGZU0/B27L6Uqm940wAvUxe+KAO+C/NGw2f08uZ0?=
- =?us-ascii?Q?lIQPGuYF6OQQNCsTaL5L96GYYy6ASpXGzTpKRvK4sVJyEAyGP+ujW1++8K2S?=
- =?us-ascii?Q?eZJqxlDuM4HqmULZpNomKCD9LkEc89IA6NFKhxu0v2i2iHXBJjUSDM3hjJKS?=
- =?us-ascii?Q?DfsoCIEbxB/3iiHdpjIqfJMJy2LDK9XqJdaWWYGGcdkHq1aeSUdlwm4WHv1+?=
- =?us-ascii?Q?CBNZKMp8CALiGNTGAO4PaqldNFnmi8YXfM7RSxtPmQ6gf54v9Se4PvFpPNPR?=
- =?us-ascii?Q?bfWQV10TPCALQgaDjCpxSxGTOFpeb1j1Ci5NcWYsWWm7WMeakVGRjZkBpuAk?=
- =?us-ascii?Q?MQjWh/g3hN13sNgELxsUWmho2V+urL/2l4csJS9QJDYV3+IilW0A1p5GGJHQ?=
- =?us-ascii?Q?1Um1i1R7L9kpUyrM6jmSCvvviNfwR4W50LbeMRMRHWrQVtwXpuy69cPX/HKs?=
- =?us-ascii?Q?Nqyoef7nfu8d1PiqZ5eB3DyvaLKReUdmNIt5HcUqmQPBk9yP9KH3SW6950rw?=
- =?us-ascii?Q?/bSE/efqWyNO4mFT2scblaDyvnzh/pTZ8bbMWUG/pkm51ptCmCO/+LiGMP7R?=
- =?us-ascii?Q?MdQu1l484bfaovudnHlrTe+kjg8mCr+YhbI0w55Yv7CPGtshlk48ns70ABns?=
- =?us-ascii?Q?MHnDlRXKMxuVRRaSY5tEuNd72cksR08uJQqW5rVYFrPp79iEayP/ASk3fv9g?=
- =?us-ascii?Q?eQ=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BN9PR12MB5257B956B25C6055FB42B860FC439BN9PR12MB5257namp_"
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DS7PR12MB5957.namprd12.prod.outlook.com (2603:10b6:8:7c::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.16; Fri, 9 Sep
+ 2022 15:13:25 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::3de4:456f:800d:e013]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::3de4:456f:800d:e013%5]) with mapi id 15.20.5612.021; Fri, 9 Sep 2022
+ 15:13:25 +0000
+Message-ID: <cbb46a59-75c7-d3fe-d200-fbf4ea402870@amd.com>
+Date: Fri, 9 Sep 2022 11:13:23 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 1/1] drm/amdkfd: Migrate in CPU page fault use current mm
+Content-Language: en-US
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220909131219.23677-1-Philip.Yang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20220909131219.23677-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT3PR01CA0150.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:83::18) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS7PR12MB5957:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1f57ce9-0342-49bc-db57-08da9275d797
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: UeQLT9WGlQw9WReoJVfV9SySIbu575NG0jNZy1toXhIQTRAn/snp6dTarpF0N9PiSERY7VN1PiQ78iSGcHUKGLwzctiFXFUBbCBZimBqH5Tkrnp4uJq+ESvKNEH46PgCz6MuifeiSwJ6yixGSc2GusnBEKLYxh82MMzlOUqvtBSkWtsJ3P94/lwcCCzP6mJKN8pxAFD0YkS632w1+DnGDJgl9g8PKpINyUofQKeqPT/psqSsUYlN7pwe+ajWW6yTAmW9H0Y/Aq/6Q3NL1YnOYG6Sw/T48Vl9xDnYKpGy1H0ja74EJbJJqwTjK3pabLLzxUXRTavF4J4O1hdz6Bqom8b+uO3krJXqlok2BpaSjOaoI2kY76ih6aemBTotj63C/R7IsR19IPF/m+V79W5CiN6tgNbFLtSSd0Jfg0j7j6Jcs6UIcZCk07rsWmPigApnSNM/eusWjdMcsavXElm7bz9arUVa7GX/W+wnPPtIWcqoOzHo8fYF6LI0Df5F2coluQtRfTBEePLYJ5vNZP1ShmGBT9gluaoWO/5WOAV63rHYqptwHYUmj+bDC6zlQaxAtFGnQ2yorazdXyIDXIOaPH1IoSJ4E0/YxRI9E51mqsS4P/IsG2Q+4VGNZ00F6TPEn26cR5x0F5iCNJrq7yAPeN1mQEIkU/1BmR9BbHYs7Gpb+K32IVmSiK1W7zOOaa6OE0HXunFnAmXrPgjZKHjOqIv2fzSBm9mfVeN5O1H0twBU4luj7QtB1SPXd1YrAua+FRPLkNy426APfs/b/dDnWVLz0zlD7Dq3GsnhDhguM5s=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(136003)(366004)(39860400002)(376002)(346002)(66946007)(66476007)(6486002)(66556008)(31686004)(31696002)(86362001)(2616005)(8936002)(5660300002)(316002)(8676002)(2906002)(36756003)(44832011)(41300700001)(6512007)(26005)(478600001)(6506007)(186003)(38100700002)(83380400001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VTc3WDBBN3BOVy9vdFBhbzFjbDBPb21aakp3ZjdEejYyUzNqVjl5RW9mdWNa?=
+ =?utf-8?B?MWV6VFB4N21vMU1pMVBGeDc3VER2VnkrZDdZdlpYUFNORUxwT2RmSFFIU2tU?=
+ =?utf-8?B?YUROREh5bXg3Tm1XVVJTNk1Ic0N1bllYU3dPTzNxUGc5eEkyMWxnZGlWNExt?=
+ =?utf-8?B?Z2dwVzhoZUkyMUdFdERmSW9weFNGWGFUMHpKbjRSZnRsL3FBRG15UVczb29O?=
+ =?utf-8?B?aDc3ZDhHNTdWNnU3dEJ1YjViZlpDcHJkRUUxaGFna0tJMEh3ZTRHU1B5WkVr?=
+ =?utf-8?B?dlpsSWw4TGFOeGtPY01PcnlCT25lTUpKY243NnB1TTNVSjE0U2p6TGNOTjdL?=
+ =?utf-8?B?MWxNK0Yxa2xLc1FYMEp2N0U4MVZNelVjZ3V2TURoQmdDblViNExNN0w1TC9L?=
+ =?utf-8?B?MWZzQVdEalh0SG1qd1U1am1BcTdHczYyOVoveFZiYkk0T25PeDdxb1ZRcDVq?=
+ =?utf-8?B?cVE1UFJDYXZmd2hmYW1VTDcvb2tWMUhCU0NTdElRUE1CWFdsZW9TajIrMzRB?=
+ =?utf-8?B?MDFnZjNrRnFUTklDNFFBUlA2YmlQbmFHZWNUc0pNNnJNMXpFdTJ0S2tCQTZS?=
+ =?utf-8?B?U2hNQW1QeE96am9zMWk4UU1WKzgxaHZuRjdBUkNHNFJHNGdzUGREMURtcXRz?=
+ =?utf-8?B?a1pCcFg2UVBYRWRienFLSmFTcmJPWTgwRjYyT1RFc0drMU1kT0l3VWFWK0ww?=
+ =?utf-8?B?SmxpV0lYcHJxZHNwTVE3a2xOMEhJZWVUQUVWUnB2a3oxY0ZiOVM5YVhOYktn?=
+ =?utf-8?B?SHZTTmRUcHEzM2pIWmxSd0x2YU5welF4OXl1SSsrK3hCbFdUT2ZVSTdLWW00?=
+ =?utf-8?B?Qm5BVWRXQ3hIZ24yNGNMK1Y3VlFEVUNBZEEvZUIvUExUbHBteWJydERWeVYx?=
+ =?utf-8?B?R2hsbUV2U3BWVmxLWGpKZVdYUmhiMDdKV0UydnhOTFFLdWxFZjgwVXRBdlJN?=
+ =?utf-8?B?VWFEVFFKd1UycXRYMG9ya0I2V0t5cFlGdmFEbDhzQjByZ1lidk9VOTRqZ3Zn?=
+ =?utf-8?B?S3JIZU1Ec29FM1d2MjlqMDFmT3BiZmc3KzgvQ0FqblNSeFRqZlZjc01BY1VR?=
+ =?utf-8?B?UDN0dHFmd3RuSUR5ZlZPMllKQ243NUphKzVuTFZvdG40dW5UNkJDUGtRdTlL?=
+ =?utf-8?B?R1JiLzc1WS9IUVBUVlo0VGZxTXErbUp0RGp1aTZwNkVPZkMwa1JjV1NxdUZN?=
+ =?utf-8?B?RWNscngvQ3dZWHhrL2ZTU3pZV3ZiZlhBb3grSldkMG1RbGNzeWpHamc0NzUz?=
+ =?utf-8?B?V2NFQ25FdktZdXVjbVFWVWNDaGZzdTlhWU4rcXlHZG1GWTlaNjJ6M05ackNs?=
+ =?utf-8?B?MWFSVnR2WkdvOUFoZHp5Q05IWllVVGJjZWN1ZWZzcDVNSVl0SWp4MnpNNUZS?=
+ =?utf-8?B?T21jMXF2bUtmR2FZTkNtSU5VMlg0bHdqMkpVbHlrK3JMODBzTTZjWk94Y3Ni?=
+ =?utf-8?B?QUpOMzVhdW9WTWN1VExvazc5S2FsY3NZVU40dW1WcU5ENGpJMFE1TWQ0WTYy?=
+ =?utf-8?B?RFNXOWtCV05HZFFEcURybFhrTUhBZjl5SVpNVUl4emxQQTd3djY5VmJvS0xh?=
+ =?utf-8?B?MnU1TXF3MDFzbDFGaENxdzhOazFxVGE4dmlYMkQzVkEzM1locWE3QlZmTWVT?=
+ =?utf-8?B?Q0g1UWx2UERzWjFsMVBkU1JoU1dWZ01iOFZHcng3bjFuRDdTNFZiWFlvRmp5?=
+ =?utf-8?B?MTFMOGdiUkpSVW1CeDR0N2hnaFhKTG1WWnZMR3lNNlZLRlZSZ1ZnWlNYT0sy?=
+ =?utf-8?B?MUE2VmZBQmJVaE95QzFEN0diZ0ttN2RHYjhFSHB5ampnYjBTU1BZcGxpSlg2?=
+ =?utf-8?B?cXdsdGZlSHZLUURFS2F5eC8yejBhN3BGM0pXVFI0bWNNbXk3bGdPaGZPNVN2?=
+ =?utf-8?B?V2FuNms2Q0o3T2dJM2srUERvY2lKV2F4dGh0QklSZkZRUGNvOGNMTVJRUVBZ?=
+ =?utf-8?B?VFVDSll4Y0RZZWpiRUpDZCt6eG5PMlQwRjg2WTdSbmxwdGVycHQ2Y3puNVVV?=
+ =?utf-8?B?Q3dDQkRxUVdtVmpkemtMOGh3K2x0NzVmZ1NSWnVnNU1mVEFaVzd6Yll5Vjll?=
+ =?utf-8?B?YWRacVo4MUpSMkV4cHhPNVhkUDRpVSsweFF5bXBUdi9pTDJST05BQ3JJY2Qw?=
+ =?utf-8?Q?+s+uwoU3i2NJ6DT8Uwff0ubaB?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1f57ce9-0342-49bc-db57-08da9275d797
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58470e03-7781-44d7-33bd-08da92731743
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2022 14:53:43.4896 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AR7GBNlX/cWsduxf0af8s4gmTpS+43HdVwXQxYmfHgJHEl1giOkqGTKnQsrhV2ZtlpPWiDOcCACZrKMSWnQSlg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4581
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2022 15:13:25.3478 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ULUEWqBU6eL8IntOR+G4RT3C1WTzIBPMkW54iZALxE0ZVAiLJka/2zcahoBdk3y9KklBwoC98BJgnXiGQAhrng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5957
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,194 +123,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>,
- "Wang, Yang\(Kevin\)" <KevinYang.Wang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BN9PR12MB5257B956B25C6055FB42B860FC439BN9PR12MB5257namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Am 2022-09-09 um 09:12 schrieb Philip Yang:
+> migrate_vma_setup shows below warning because we don't hold another
+> process mm mmap_lock. We should use current vmf->vma->vm_mm instead, the
+> caller already hold current mmap lock inside CPU page fault handler.
+>
+>   WARNING: CPU: 10 PID: 3054 at include/linux/mmap_lock.h:155 find_vma
+>   Call Trace:
+>    walk_page_range+0x76/0x150
+>    migrate_vma_setup+0x18a/0x640
+>    svm_migrate_vram_to_ram+0x245/0xa10 [amdgpu]
+>    svm_migrate_to_ram+0x36f/0x470 [amdgpu]
+>    do_swap_page+0xcfe/0xec0
+>    __handle_mm_fault+0x96b/0x15e0
+>    handle_mm_fault+0x13f/0x3e0
+>    do_user_addr_fault+0x1e7/0x690
+>
+> Fixes: 5e5bbf36a2c0 ("drm/amdkfd: handle CPU fault on COW mapping")
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 
-[AMD Official Use Only - General]
+For a quick fix, this looks OK.
 
-Series is
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+For a better fix, I notice that svm_migrate_vram_to_ram only uses the mm 
+to look up the vma. But you already know the vma here, so that look up 
+is completely unnecessary. So could you just call svm_migrate_vma_to_ram 
+directly? Then you don't need the mm at all and you save yourself an 
+unnecessary vma lookup from the virtual address.
 
 Regards,
-Hawking
-From: Chai, Thomas <YiPeng.Chai@amd.com>
-Date: Thursday, September 8, 2022 at 16:43
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Chai, Thomas <YiPeng.Chai@amd.com>, Zhang, Hawking <Hawking.Zhang@amd.c=
-om>, Zhou1, Tao <Tao.Zhou1@amd.com>, Wang, Yang(Kevin) <KevinYang.Wang@amd.=
-com>, Chai, Thomas <YiPeng.Chai@amd.com>
-Subject: [PATCH V3 3/3] drm/amd/pm: Remove redundant check condition
-V3:
-[Why]:
-  Since ASICs using smu v13_0_2 have called smu
-.suspend before calling amdgpu_pm_sysfs_fini,
-pm.dpm_enabled was already set to 0 when smu
-.suspend was called. This makes it impossible
-to delete all pm sys nodes.
+   Felix
 
-[How]:
-  Since all functions in amdgpu_pm_sysfs_fini
-have their own condition checks, so the first
-conditional check in amdgpu_pm_sysfs_fini can
-be removed.
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c
-index 5e318b3f6c0f..948cc75376f8 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -3405,9 +3405,6 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
-
- void amdgpu_pm_sysfs_fini(struct amdgpu_device *adev)
- {
--       if (adev->pm.dpm_enabled =3D=3D 0)
--               return;
--
-         if (adev->pm.int_hwmon_dev)
-                 hwmon_device_unregister(adev->pm.int_hwmon_dev);
-
---
-2.25.1
-
---_000_BN9PR12MB5257B956B25C6055FB42B860FC439BN9PR12MB5257namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
-hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
-fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style>
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Series is<o:p></o:p=
-></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Reviewed-by: Hawkin=
-g Zhang &lt;Hawking.Zhang@amd.com&gt;<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Regards,<br>
-Hawking<o:p></o:p></span></p>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><b><span style=3D"fon=
-t-size:12.0pt;color:black">From:
-</span></b><span style=3D"font-size:12.0pt;color:black">Chai, Thomas &lt;Yi=
-Peng.Chai@amd.com&gt;<br>
-<b>Date: </b>Thursday, September 8, 2022 at 16:43<br>
-<b>To: </b>amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc: </b>Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;, Zhang, Hawking &lt;Haw=
-king.Zhang@amd.com&gt;, Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;, Wang, Yang(Ke=
-vin) &lt;KevinYang.Wang@amd.com&gt;, Chai, Thomas &lt;YiPeng.Chai@amd.com&g=
-t;<br>
-<b>Subject: </b>[PATCH V3 3/3] drm/amd/pm: Remove redundant check condition=
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
-ize:11.0pt">V3:<br>
-[Why]:<br>
-&nbsp; Since ASICs using smu v13_0_2 have called smu<br>
-.suspend before calling amdgpu_pm_sysfs_fini,<br>
-pm.dpm_enabled was already set to 0 when smu<br>
-.suspend was called. This makes it impossible<br>
-to delete all pm sys nodes.<br>
-<br>
-[How]:<br>
-&nbsp; Since all functions in amdgpu_pm_sysfs_fini<br>
-have their own condition checks, so the first<br>
-conditional check in amdgpu_pm_sysfs_fini can<br>
-be removed.<br>
-<br>
-Signed-off-by: YiPeng Chai &lt;YiPeng.Chai@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/amdgpu_pm.c | 3 ---<br>
-&nbsp;1 file changed, 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c<br>
-index 5e318b3f6c0f..948cc75376f8 100644<br>
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-@@ -3405,9 +3405,6 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)<=
-br>
-&nbsp;<br>
-&nbsp;void amdgpu_pm_sysfs_fini(struct amdgpu_device *adev)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.dpm_enabled =3D=3D 0)=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return;<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.int_hwmon_=
-dev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; hwmon_device_unregister(adev-&gt;pm.int_hwmon_dev);<b=
-r>
-&nbsp;<br>
--- <br>
-2.25.1<o:p></o:p></span></p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN9PR12MB5257B956B25C6055FB42B860FC439BN9PR12MB5257namp_--
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> index f62c4561f0f4..1cfa4fcd28b3 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> @@ -947,7 +947,8 @@ static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
+>   		goto out_unlock_prange;
+>   	}
+>   
+> -	r = svm_migrate_vram_to_ram(prange, mm, KFD_MIGRATE_TRIGGER_PAGEFAULT_CPU);
+> +	r = svm_migrate_vram_to_ram(prange, vmf->vma->vm_mm,
+> +				    KFD_MIGRATE_TRIGGER_PAGEFAULT_CPU);
+>   	if (r)
+>   		pr_debug("failed %d migrate svms 0x%p range 0x%p [0x%lx 0x%lx]\n",
+>   			 r, prange->svms, prange, prange->start, prange->last);
