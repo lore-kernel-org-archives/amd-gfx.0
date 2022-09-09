@@ -4,88 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F35D9ECAAD3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 16:51:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1304C6FA8B
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 17:02:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5634710E0E4;
-	Fri,  9 Sep 2022 16:51:19 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2089.outbound.protection.outlook.com [40.107.244.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3968A10E0E4
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 16:51:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F73C10ECBC;
+	Fri,  9 Sep 2022 17:02:32 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2043.outbound.protection.outlook.com [40.107.101.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1464E10ECBC
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 17:02:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PB/YRYaeNodesszWD4b4mUFCXUdfDWTPjcwesDzfCWN9N/DlvyKUnvgz2doHV7Dl26q+ukD5S2DCc9GRpEkTm1BAXDJS/gr7rSOgzwmLChRrhf1lCf6JJM9zGuYm+eL769A5/R+lYdpXzgTrgRd2YE6r9lLAaImOYDTTz3XogH6iGXaQTa4MUlKlHIvIJsuuijMD6t7ZHekp3Qgme4SfU3SY8zHluVGNwwST2JZL0FBvX1qdw/QE2acea1HeTtcYLrM1iCq/4OElHILqRHtvLvkbN0pdmCXXjRvuFHJP7MFt9MNCcCErB5c/6Ay1hrcN17vjicOCU8wkzpC6xz65Jg==
+ b=OKTQ60x0HR1bx8TTU3JzwWX+h6LTKqXBQv4g6gNvCh+IBXxD/t8gsSLZO6uc+4RI2p5eSy+xeg2RATc04vMZVO0VZmlAG6wOasMCr2vu+WN11lLJrOY2kjaK4wZcu26syYbZjorAkyP+ljqjG+SjksbvnVJPFtEPH/BZoFgADQmrWy1+QpZ/UIugB2d0uTlw5vfyOqu5jCZHmAZDP4MLH8qT9pYlUyylSqCyQeC7IwL9t6H/nYM0SlWN3yKWbBAIxvalIXMzOZGufXrjNRKUnDqrPhRGb0+uPlsZHasX+E7J2Nqb6SRvpj+JAJjSTbytA7p88gg2+TLEgqjNF/5U+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xyFLEe+QUBiuukqz/V4EMGCz4APkZK7UXAeis+AQE10=;
- b=O82nRVOKlwJjyLL04A0sQ/YwHsSl37I1Z8vmdHI9MSab7/mpbFwVtNG449DxeWxLqtE4lXr4JM4fCwNB743jwm2ucBmVHyhYRgsmA2X5uHbZZcp7nLTutG0ky9hcwRT9KI0KsYn3UCKimDAQHXf2PV2rB6fPmc8ZqzQR03lEgT0YP1ITHSrZwkFdfMMkFHRS08GmJOshClK9GK4iBHe5UXUcKWwDyIa9Fewc+j6S3TEqCIU5ZjdDvWywss4zonyZBTXF1JCWYWiuSaF2YZq5AVP4yt50W4eiZJkLYvBZTtGI4zRsWrIHxW0gaamodP4s9tgLp3/3bq31WgrKqoY4WA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=lHj9rQeCyb6EUqPAI8NiUV+gJQkgsWixNFn45GSjdIs=;
+ b=PH5fdVTzd3YxBFWnfGuI6+GSnvuByVHIGJrR/UdixLcWhFg0hjov46bs4SlXHFn01o+LmkZ1WtPt6nrHfexV6hXnvCv93O+jLWotlbcUsZvwydb+8Len+kYY3EhOhIZofo/7/xSmu6UNImeMqhQXcNqFcNxCAzuLEFQCZ7VPLBY263HlpSdiExP92SHHdTRn+nbIuQeVYS7hgq/1ODfbqyCJeAm72NWoE+5tmQXWtYk/xroyxnW7Vyv58Amu7qDpJxEP27ht00PXl0HnIabO7jXq0l/INe9Oi4ScL+YpCxsL2srhFHdrdW3Jhh8iRm7ZZ2PmdiiC3Pz+RCkLyKL/9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xyFLEe+QUBiuukqz/V4EMGCz4APkZK7UXAeis+AQE10=;
- b=a29Ze5SmTlke/bnE44Rlkr7RX+/pDQV8RPAivct/I+rIYabVShlXgknvxAsDUIQURZnNPp60sRzugSYTiCr0UMyZR1sJRr3mKxujLYl31g4jtE2gPzpS5mArWoSK3ZtmVXyWX/hkAXSJ8mcyJzXCAMkbWKBI7tVIx/ol7ldPIf4=
-Received: from BN0PR03CA0025.namprd03.prod.outlook.com (2603:10b6:408:e6::30)
- by MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14; Fri, 9 Sep
- 2022 16:51:14 +0000
-Received: from BN8NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e6:cafe::e4) by BN0PR03CA0025.outlook.office365.com
- (2603:10b6:408:e6::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14 via Frontend
- Transport; Fri, 9 Sep 2022 16:51:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT006.mail.protection.outlook.com (10.13.177.21) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5612.13 via Frontend Transport; Fri, 9 Sep 2022 16:51:14 +0000
-Received: from VC-PC.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 9 Sep
- 2022 11:51:13 -0500
-From: Vignesh Chander <Vignesh.Chander@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Fix hive reference count leak
-Date: Fri, 9 Sep 2022 12:51:35 -0400
-Message-ID: <20220909165135.24645-1-Vignesh.Chander@amd.com>
-X-Mailer: git-send-email 2.25.1
+ bh=lHj9rQeCyb6EUqPAI8NiUV+gJQkgsWixNFn45GSjdIs=;
+ b=WEFiWRp0pLxQim9pRhpQbsmrvhCuBBJWcPqJXfsf2B7Te7QVeTj0q1DiH4zdRvcxHNUuDN7MrTtJlpvBbYF0sN6u9Gp3DzwqZn3ffSGFe1KKd2X0G1v+02DO5nZZb2B3DVcZ6VMW8hMkVzSMjbpn9c/IQxJwzKBeQuj9MEEmXFk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
+ by PH8PR12MB7350.namprd12.prod.outlook.com (2603:10b6:510:216::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.16; Fri, 9 Sep
+ 2022 17:02:24 +0000
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::80ca:c97:d395:1acf]) by DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::80ca:c97:d395:1acf%6]) with mapi id 15.20.5612.016; Fri, 9 Sep 2022
+ 17:02:24 +0000
+Message-ID: <5d475294-5a8e-ade7-ff64-e39a8374115f@amd.com>
+Date: Fri, 9 Sep 2022 13:02:22 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 4/4] drm/amdgpu: Implement OS triggered MCBP(v2)
+Content-Language: en-US
+To: jiadong.zhu@amd.com, amd-gfx@lists.freedesktop.org
+References: <20220909015022.557099-1-jiadong.zhu@amd.com>
+ <20220909015022.557099-4-jiadong.zhu@amd.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+In-Reply-To: <20220909015022.557099-4-jiadong.zhu@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT3PR01CA0136.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:83::21) To DM5PR12MB1947.namprd12.prod.outlook.com
+ (2603:10b6:3:111::23)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT006:EE_|MN0PR12MB6101:EE_
-X-MS-Office365-Filtering-Correlation-Id: d9360790-d2c7-4e8c-27a9-08da92838212
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1947:EE_|PH8PR12MB7350:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66787875-26ed-43b1-3a34-08da9285116e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FcqEA/8t+xIhMhQY3tRwMzY+hfi4hXipJDcZAyZJmVjHOm1O9j3qqa2Z1qKwmuYa5L/+AdJj7FrEM6hoO/rd7t8+q6BMlvQDgUT/0Gn18Sckx9UjsN3C2J7goJUcgdSrSsSSP8qPXyebhevFON/22e5HC/bxbyVgS8hLVpojobPiVIDNuqkREEk82slsLn0sag2cNe2nEo447y0mb7OvLp/vDDGPgehWCrFFJ6EdcYweYv+MDgJrLtw6YHVJLYXV6W4BJfEPEFw9/4subf/4PjB80bi6PLmgRoftRW8OwNRyVGObJHXPO38ylhd6pdFqNwhYs2WFi/BVusaLxtFwij8UikvGgTQ/P4NOABdZpgEmFo16H8JZtTIEvVYPDpH9sITItrkStDU1iG1T3wr5jsLSvpPipz9Y4h4qr/SytFm/P5lEZ7e2H5ISKTNaUQuIxyNd8DxgEjIl2ug9Gz45pPkksLfiUzfllJVDGSe/NfWFo9M1VzLmBlCtaIZP8HcYQDiHnsk/hbqBdpnGc3GmCsQcQfreja1CGW6MZADad0R41BnoNRz5C5qwrCY0PdH17R5wnNj5jhpNtHLoNIpikX3tpEwXSKdFdPO8jjAtZoryZAHvPr2++GTgT2UwP6Z39KaKbjr78DOB/gtqihVPcCkjlD4gL8LwsZYu5wbO6EvxyTD/npz/Fj66Gg2XUxqox9GrshcH68hhptrw6/NVqKLSRWER6wfOO5i7mKCF7Z26u9cK2DWlHT77S7GB3eJeJ5KXm6pfT1pvWWX4XcoFtx5lQiaguuPqywAjDKN5FYX2FXVAMzBoL/CV/1HObOdKhWuUeXFfy/TkR+gD0HG+Sg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(396003)(346002)(376002)(39860400002)(36840700001)(40470700004)(46966006)(36860700001)(26005)(40460700003)(356005)(81166007)(82740400003)(316002)(6916009)(54906003)(8676002)(4744005)(5660300002)(70206006)(8936002)(70586007)(2906002)(336012)(1076003)(2616005)(186003)(16526019)(426003)(47076005)(41300700001)(83380400001)(478600001)(82310400005)(6666004)(40480700001)(7696005)(4326008)(86362001)(36756003)(36900700001)(16060500005);
+X-Microsoft-Antispam-Message-Info: yy6Cssh7yBV3yfMSghA0Sb7YtQGi3nak0DsN5EMiq9bLHulH6ppcximLSVcCXjq08/oJ6uy/CWIGttvK/VTueNC5ilRNWg0uXLmJEyWj/TMbrIIN9qPIP0uy/2NJGpW+f0OVmZQ0WEeTKg1Nv9TZRyF0AGOnkfqpjqMKKFtnx22hWyRINgCcPfDylGw9yaL5XS2pCwqcgAjk4lXyDyqIQ0/s0gNFlbYPY2eIauVncvC4LxxMsvUJjXDz2+swGAUWYxGKMHTCcEdL7ceo+YOzIzJuphmZWWnxW4mnIVmwHtMSQm/ZmNS8Qb25aUfNLGmSbTL2LZ27JavQTHlZeXAaAUl7lnZWTQRZt5g5jHtlIj93E9otYKEyrqcFFMDkQnrYIX1kSKwv3WTJu17yQFpHUqk8/rYP392SaragqRQA7WKR8R/qlvkkjqNSqkDjmBo1pwYzrVnmoZ7pkIwwtFxmbBQpVpI7IVUacRsdsZ5bEXjNp0EZsCGaPJrhAavxKEybOXjagf5+8g3sdZIw5FwdlHyxQdhjS8GWtW+dRHz3tv3y1Ip0mLgEcTqAKEqp1a2+17JyhiMNmDr+ECmdMPMj+g6dIH0Idz41rYpIE0wwdVSLoXlKNdSsSwyzEIViIY0ZzncN6oFaJQMVYBrBG/AwL6FYIFrG+ZWNCu8rywTXvHjAX0J+6I6adaz78n1bO6M0gBQGVx1vwb8xffnwDDDw1nuHfjReRvhVGPxPpfYQs+fejh49avY2suu3n0r7Hv7EJJ929req2fFbOSg+ktJhwpF0rtr3keMKyOUa6zR04Co=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(39860400002)(366004)(346002)(396003)(136003)(376002)(53546011)(6506007)(30864003)(6512007)(8676002)(4326008)(8936002)(5660300002)(2616005)(44832011)(186003)(41300700001)(86362001)(316002)(66476007)(2906002)(66946007)(66556008)(478600001)(6486002)(31696002)(38100700002)(83380400001)(36756003)(31686004)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RUNHelAraXl1MmlvTnRRRVBqM2hSVU5JdGlQdzl0QlMvZlBjZDdHTHR0b1hr?=
+ =?utf-8?B?bUxvSFNQU1lneVhoTGVqWW93N3lCakllNzZBRnBVdjdtYTdXV0oyMFppZnRS?=
+ =?utf-8?B?MU1HNjdoQTR2c2M4Q2FrMTE0RHIwNkhvYzAzUEZDeVZZclNZQWMrcjJrN3Za?=
+ =?utf-8?B?bEJHLzRaVWFnbWsrSHZ4OHhDQjFRNVA3dzJxd0pyZEd5MHlvZFZKTVVsTWZY?=
+ =?utf-8?B?eFFyRjl1Rk9xT1RZOUxkM0ZGV3N3KytveVVYaVZSYnpHUWtTTWlhdks4NklL?=
+ =?utf-8?B?RTdmYWVEQWVUVG1wRGc5dm1IQ094VWFnazZyL0xua1pFb3NCQ1R6U0pYQllH?=
+ =?utf-8?B?bHVUcXljOG1HNHRGdlhCbkxTbTltV3ozejRZRUxyTkhrTmtHbVB5L1RVNC9L?=
+ =?utf-8?B?Y292OFJZRi9OTzR3K0VKVGpRcHJzNEd2bmovZlJ4TkxTUlRWQmY4MUtPVHlW?=
+ =?utf-8?B?VXRSZ2U0WS9DK21pQlZ6eGxqcE1SMDhCNmk0ckZaUjBHeUZiUEZrMW8wZkdn?=
+ =?utf-8?B?RWU3Q0M2Rjd2cVNlb0NNVEtMdWpVblBvRkNyYjkzalA3OGoreVRJRFArZjZ5?=
+ =?utf-8?B?TlFmTU5CV0ZxYlVNY3VpdVJMWGlGYXUxRDV3Q3Z6SFk3OGpSOFN6T3pWVVUw?=
+ =?utf-8?B?L0FMNDhtdGNiU0RSMmpRV2FPZmY5L1pobWNGanNHRjk0YlZQWVVhZlMrM0dr?=
+ =?utf-8?B?MkRNRG55NmVESXVGbUFCdHIvZU4vdFhFYzhBNzl4M05WMlVibElJM2hMRS96?=
+ =?utf-8?B?NkJDbUt0QkZHc2pZN1lzTlVFNnZ2VU1tMmxudW5wcW5RbkxWeGxnYjhwQ05o?=
+ =?utf-8?B?Q1h4RFk5NCtTb01EMGlKWkl5T3NBOUhsUjNzeC9zajh3QW5HNDA0ZklFdG1h?=
+ =?utf-8?B?RFpTV0xLeC9BK2VkTEFiNWJTaXJsUFNEOGhpYzNpaW1pMzJHM0J2Q0dxMnVD?=
+ =?utf-8?B?aFZQamVyaWdHRHpDcFdZU3hQT3FlQ1d6Rlo5a0NDdEtlRnBHb2JZTUMvMzk5?=
+ =?utf-8?B?enpKa0RXQlJuMWdXWUZGV2FHSVRZbFp1WUNmVnFHL1ZzTVBHRzNpR3dONEVN?=
+ =?utf-8?B?Tmk1Tk1ENk5Gc2t3NUR0ZHhoeVRrVkM4ZFk4WDdGVFVydjlubm5IN2VnVTNX?=
+ =?utf-8?B?Z00ya0V3Q2M4M0U1Zmdtc1VzSEhFZVhveEg5ZUFXTjMxTTA0NnlJdFo3Nm0x?=
+ =?utf-8?B?OVVaa1ZDNDZnZWFmTmhIb3VEOUpmanJIMVV2QzdaVUJxRFNGR2VoOWVpbmpP?=
+ =?utf-8?B?YkQ0ZDAvZWNMSW5peGw0Zk5UNmtZeWxSZ3ZzL1hUNGVnakxISk4yZWlaUU1j?=
+ =?utf-8?B?Q1FsZkNwZFBmcU9Vd1ZFbzdMNWVKYWJ1QTJkK1JZYS9Yc2QrczBheTV1Y3h3?=
+ =?utf-8?B?N3duNWV1b1pPdWNTN3VlU2hkVEdHbnBBSFRHVUptS2hMUDFtbUNxQnZyQ2Mv?=
+ =?utf-8?B?MUpIV2h5ZTZLLzg4dzFnWFk3d0EvMXVya2VsV0NCZW90VXpTMlJDOE9IYlBx?=
+ =?utf-8?B?VWJwWHcwN2ZBYjZmUC9CSUxqMTROWmRGY0cwbEg1SXE0UzRvNWJ5TnhTT3p3?=
+ =?utf-8?B?ckJGS2FkbURaQVluOXRKSU56ckYrVjlyK05pNFdMVEJnRVZUcmZWWWZFck1E?=
+ =?utf-8?B?dGNNMVU0Z1RFbUk5cCszdTRUR3lhdDN5eXZ5cUpncjZBaGFiazVidmhaWERR?=
+ =?utf-8?B?eWo5YzFlMXlFaXZ3NlgxTnRTendSLzBORk4yK1FuNjZiVW9XK0h0UjAwQXZn?=
+ =?utf-8?B?WTNIV0dSL0hvOFRuYVRZUlVWU0tNbGtzRW1aaDdGcFhBWGRJWTlLSGFEM2Ex?=
+ =?utf-8?B?b3JJcDFwQkVIaWFucjY5Y1dQNEFnTWJyRHkxaEtna0VGekI5bDR3QWlFN3hv?=
+ =?utf-8?B?M2ZiRytuTXdubElFNkhLWVpPNTFuaEpvYXFJZGN1ZW1uVm01TmVpUGt4dDhv?=
+ =?utf-8?B?NWdmaTVRVEZMZFBUc1M0RGJtV094VWVYREFQTWY1bWx1QVBjdFhFd08yeEVF?=
+ =?utf-8?B?OVlUQnVCQTVzNmRjRVdmbUhFMitJeVpKRnlJT21xK3RPSEN0eGV6RjhRMlph?=
+ =?utf-8?B?Y2QzQXFSL2RndFhjYXludWU4emZudFRqS1pXdnBQcmZXbXl2RnZmRVFlaFlj?=
+ =?utf-8?B?cXArZTdDNXY3aXNSRVAyY3kwY3hRZitBQUhYeXdhYXA3aExtU2ttL3Y0Ni8x?=
+ =?utf-8?Q?R6Y9O9ajG4Jp6KvGjshMyFVAweumJ84jiqqRK8pcIpcT?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2022 16:51:14.6320 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9360790-d2c7-4e8c-27a9-08da92838212
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66787875-26ed-43b1-3a34-08da9285116e
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2022 17:02:24.8807 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT006.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6101
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LlrKSnUAZJtOq52EOd0h/F8AR44lggWlZj/7SXnaWE6Tqn94wpnMYPVrGW3+/fOOZtmpKRp54vemNtu/GrBjLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7350
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,35 +125,552 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vignesh Chander <Vignesh.Chander@amd.com>, Shaoyun.Liu@amd.com
+Cc: Ray.Huang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-both get_xgmi_hive and put_xgmi_hive can be skipped since the
-reset domain is not necessary for VF
 
-Signed-off-by: Vignesh Chander <Vignesh.Chander@amd.com>
-Reviewed-by: Shaoyun Liu <Shaoyun.Liu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On 2022-09-08 21:50, jiadong.zhu@amd.com wrote:
+> From: "Jiadong.Zhu" <Jiadong.Zhu@amd.com>
+>
+> Trigger MCBP according to the priroty of the
+> software rings and the hw fence signaling
+> condition.
+>
+> The muxer records some lastest locations from the
+> software ring which is used to resubmit packages
+> in preemption scenarios.
+>
+> v2: update comment style
+>
+> Signed-off-by: Jiadong.Zhu <Jiadong.Zhu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/Makefile          |   2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c       |   2 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mcbp.c     | 101 ++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mcbp.h     |  29 ++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c     |  12 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h     |   3 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c | 163 ++++++++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h |  16 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c  |  26 +++
+>   9 files changed, 351 insertions(+), 3 deletions(-)
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_mcbp.c
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_mcbp.h
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index 85224bc81ce5..24c5aa19bbf2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -59,7 +59,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+>   	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
+>   	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
+>   	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
+> -	amdgpu_sw_ring.o amdgpu_ring_mux.o
+> +	amdgpu_sw_ring.o amdgpu_ring_mux.o amdgpu_mcbp.o
+>   
+>   amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> index 258cffe3c06a..af86d87e2f3b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> @@ -211,6 +211,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+>   		}
+>   	}
+>   
+> +	amdgpu_ring_ib_begin(ring);
+>   	if (job && ring->funcs->init_cond_exec)
+>   		patch_offset = amdgpu_ring_init_cond_exec(ring);
+>   
+> @@ -285,6 +286,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+>   	    ring->hw_prio == AMDGPU_GFX_PIPE_PRIO_HIGH)
+>   		ring->funcs->emit_wave_limit(ring, false);
+>   
+> +	amdgpu_ring_ib_end(ring);
+>   	amdgpu_ring_commit(ring);
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mcbp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mcbp.c
+> new file mode 100644
+> index 000000000000..2a12101a7699
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mcbp.c
+> @@ -0,0 +1,101 @@
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#include <linux/delay.h>
+> +#include <linux/kernel.h>
+> +#include <linux/firmware.h>
+> +#include <linux/module.h>
+> +#include <linux/pci.h>
+> +#include <drm/gpu_scheduler.h>
+> +
+> +#include "amdgpu.h"
+> +#include "amdgpu_mcbp.h"
+> +#include "amdgpu_ring.h"
+> +
+> +/* trigger mcbp and find if we need resubmit */
+> +int amdgpu_mcbp_trigger_preempt(struct amdgpu_ring_mux *mux)
+> +{
+> +	struct amdgpu_mux_entry *e;
+> +	struct amdgpu_ring *ring = NULL;
+> +	int i;
+> +
+> +	DRM_INFO("%s in\n", __func__);
+> +
+> +	spin_lock(&mux->lock);
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index e21804362995..943c9e750575 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2451,9 +2451,9 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 	 */
- 	if (adev->gmc.xgmi.num_physical_nodes > 1) {
- 		if (amdgpu_xgmi_add_device(adev) == 0) {
--			struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev);
--
- 			if (!amdgpu_sriov_vf(adev)) {
-+				struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev);
-+
- 				if (!hive->reset_domain ||
- 				    !amdgpu_reset_get_reset_domain(hive->reset_domain)) {
- 					r = -ENOENT;
--- 
-2.25.1
 
+Same comment/question about locking as in patch 1
+
+
+> +
+> +	amdgpu_ring_preempt_ib(mux->real_ring);
+> +
+> +	ring = NULL;
+> +	for (i = 0; i < mux->num_ring_entries; i++) {
+> +		e = &mux->ring_entries[i];
+> +		if (e->ring->hw_prio <= AMDGPU_RING_PRIO_DEFAULT) {
+> +			ring = e->ring;
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!ring) {
+> +		DRM_ERROR("cannot find low priority ring\n");
+> +		return -ENOENT;
+> +	}
+> +
+> +	amdgpu_fence_process(ring);
+
+
+What's the role of fence signaling here (sorry, I am not very 
+knowledgeable about how exactly mcbp works) ?
+
+
+> +
+> +	DRM_INFO("after preempted ring_prio(%d) last_seq(%x) sync_seq(%x)\n",
+> +		ring->hw_prio, atomic_read(&ring->fence_drv.last_seq), ring->fence_drv.sync_seq);
+> +
+> +	if (atomic_read(&ring->fence_drv.last_seq) !=
+> +	    ring->fence_drv.sync_seq) {
+> +		DRM_INFO("schedule resubmit\n");
+> +		mux->s_resubmit = true;
+> +		amdgpu_ring_mux_schedule_resubmit(mux);
+> +	}
+> +
+> +	spin_unlock(&mux->lock);
+> +	return 0;
+> +}
+> +
+> +
+> +/*scan on low prio rings to have unsignaled fence and high ring has no fence.*/
+> +int amdgpu_mcbp_scan(struct amdgpu_ring_mux *mux)
+> +{
+> +	struct amdgpu_ring *ring;
+> +	uint32_t seq, last_seq;
+> +	int i, need_preempt;
+> +
+> +	need_preempt = 0;
+> +	for (i = 0; i < mux->num_ring_entries; i++) {
+> +		ring = mux->ring_entries[i].ring;
+> +		last_seq = atomic_read(&ring->fence_drv.last_seq);
+> +		seq = READ_ONCE(ring->fence_drv.sync_seq);
+> +		DRM_INFO("ring(%p) prio(%d) last_seq(%x) seq(%x)\n",
+> +			ring, ring->hw_prio, last_seq, seq);
+> +		if (ring->hw_prio > AMDGPU_RING_PRIO_DEFAULT && last_seq < seq)
+> +			return 0;
+> +		if (ring->hw_prio <= AMDGPU_RING_PRIO_DEFAULT && last_seq < seq)
+> +			need_preempt = 1;
+> +	}
+> +
+> +	DRM_INFO("%s return %d\n", __func__, need_preempt && !mux->s_resubmit);
+> +	return need_preempt && !mux->s_resubmit;
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mcbp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mcbp.h
+> new file mode 100644
+> index 000000000000..0033bcba8d03
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mcbp.h
+> @@ -0,0 +1,29 @@
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#ifndef __AMDGPU_MCBP_H__
+> +#define __AMDGPU_MCBP_H__
+> +
+> +int amdgpu_mcbp_trigger_preempt(struct amdgpu_ring_mux *mux);
+> +int amdgpu_mcbp_scan(struct amdgpu_ring_mux *mux);
+> +#endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> index 5b70a2c36d81..6d7f8a40e308 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -583,3 +583,15 @@ int amdgpu_ring_init_mqd(struct amdgpu_ring *ring)
+>   
+>   	return mqd_mgr->init_mqd(adev, ring->mqd_ptr, &prop);
+>   }
+> +
+> +void amdgpu_ring_ib_begin(struct amdgpu_ring *ring)
+> +{
+> +	if (ring->is_sw_ring)
+> +		amdgpu_sw_ring_ib_begin(ring);
+> +}
+> +
+> +void amdgpu_ring_ib_end(struct amdgpu_ring *ring)
+> +{
+> +	if (ring->is_sw_ring)
+> +		amdgpu_sw_ring_ib_end(ring);
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> index d3155dc86c07..399037b0d6e6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -311,6 +311,9 @@ struct amdgpu_ring {
+>   #define amdgpu_ring_preempt_ib(r) (r)->funcs->preempt_ib(r)
+>   
+>   int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned ndw);
+> +void amdgpu_ring_ib_begin(struct amdgpu_ring *ring);
+> +void amdgpu_ring_ib_end(struct amdgpu_ring *ring);
+> +
+>   void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count);
+>   void amdgpu_ring_generic_pad_ib(struct amdgpu_ring *ring, struct amdgpu_ib *ib);
+>   void amdgpu_ring_commit(struct amdgpu_ring *ring);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+> index ea4a3c66119a..0c9b639b844e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+> @@ -20,28 +20,60 @@
+>    * OTHER DEALINGS IN THE SOFTWARE.
+>    *
+>    */
+> -
+> +#include <linux/slab.h>
+>   #include <drm/drm_print.h>
+>   
+>   #include "amdgpu_ring_mux.h"
+> +#include "amdgpu_mcbp.h"
+>   #include "amdgpu_ring.h"
+>   
+>   #define AMDGPU_MUX_RESUBMIT_JIFFIES_TIMEOUT (HZ/2)
+>   
+> +static struct kmem_cache *amdgpu_mux_chunk_slab;
+> +
+>   static int copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
+>   	u64 s_begin, u64 s_end);
+> +static void amdgpu_mux_resubmit_chunks(struct amdgpu_ring_mux *mux);
+> +static void amdgpu_mux_resubmit_fallback(struct timer_list *t);
+>   
+>   int amdgpu_ring_mux_init(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
+>   {
+>   	mux->real_ring = ring;
+> +
+>   	memset(mux->ring_entries, 0, sizeof(mux->ring_entries));
+>   	mux->num_ring_entries = 0;
+> +
+> +	mux->s_resubmit = false;
+> +
+> +	amdgpu_mux_chunk_slab = kmem_cache_create(
+> +		"amdgpu_mux_chunk", sizeof(struct amdgpu_mux_chunk), 0,
+> +		SLAB_HWCACHE_ALIGN, NULL);
+> +	if (!amdgpu_mux_chunk_slab) {
+> +		DRM_ERROR("create amdgpu_mux_chunk cache failed\n");
+> +		return -ENOMEM;
+> +	}
+> +
+>   	spin_lock_init(&mux->lock);
+> +
+> +	timer_setup(&mux->resubmit_timer, amdgpu_mux_resubmit_fallback, 0);
+> +
+>   	return 0;
+>   }
+>   
+>   void amdgpu_ring_mux_fini(struct amdgpu_ring_mux *mux)
+>   {
+> +	struct amdgpu_mux_entry *e;
+> +	struct amdgpu_mux_chunk *chunk, *chunk2;
+> +	int i;
+> +
+> +	for (i = 0; i < mux->num_ring_entries; i++) {
+> +		e = &mux->ring_entries[i];
+> +		list_for_each_entry_safe(chunk, chunk2, &e->list, entry) {
+> +			list_del(&chunk->entry);
+> +			kmem_cache_free(amdgpu_mux_chunk_slab, chunk);
+> +		}
+> +	}
+> +	kmem_cache_destroy(amdgpu_mux_chunk_slab);
+>   	memset(mux->ring_entries, 0, sizeof(mux->ring_entries));
+>   	mux->num_ring_entries = 0;
+>   }
+> @@ -64,6 +96,8 @@ int amdgpu_ring_mux_add_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring
+>   	e->sw_rptr = 0;
+>   	e->sw_wptr = 0;
+>   
+> +	INIT_LIST_HEAD(&e->list);
+> +
+>   	return 0;
+>   }
+>   
+> @@ -180,3 +214,130 @@ static int copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring
+>   
+>   	return 0;
+>   }
+> +
+> +void amdgpu_ring_mux_schedule_resubmit(struct amdgpu_ring_mux *mux)
+> +{
+> +	mod_timer(&mux->resubmit_timer, jiffies + AMDGPU_MUX_RESUBMIT_JIFFIES_TIMEOUT);
+> +}
+> +
+> +void amdgpu_ring_mux_start_ib(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_mux_entry *e;
+> +	struct amdgpu_mux_chunk *chunk;
+> +
+> +	if (mux->s_resubmit)
+> +		amdgpu_mux_resubmit_chunks(mux);
+> +
+> +	e = amdgpu_get_sw_entry(mux, ring);
+> +	if (!e) {
+> +		DRM_ERROR("cannot find entry!\n");
+> +		return;
+> +	}
+> +
+> +	chunk = kmem_cache_alloc(amdgpu_mux_chunk_slab, GFP_KERNEL);
+> +	if (!chunk) {
+> +		DRM_ERROR("alloc amdgpu_mux_chunk_slab failed\n");
+> +		return;
+> +	}
+> +
+> +	chunk->start = ring->wptr;
+> +	list_add_tail(&chunk->entry, &e->list);
+> +}
+> +
+> +static void scan_and_remove_signaled_chunk(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
+> +{
+> +	uint32_t last_seq, size = 0;
+> +	struct amdgpu_mux_entry *e;
+> +	struct amdgpu_mux_chunk *chunk, *tmp;
+> +
+> +	e = amdgpu_get_sw_entry(mux, ring);
+> +	if (!e) {
+> +		DRM_ERROR("cannot find entry!\n");
+> +		return;
+> +	}
+> +
+> +	last_seq = atomic_read(&ring->fence_drv.last_seq);
+> +
+> +	list_for_each_entry_safe(chunk, tmp, &e->list, entry) {
+> +		if (chunk->sync_seq <= last_seq) {
+> +			list_del(&chunk->entry);
+> +			kmem_cache_free(amdgpu_mux_chunk_slab, chunk);
+> +		} else {
+> +			size++;
+
+
+What's the role of size here ? Seems to have no impact.
+
+Andrey
+
+
+> +		}
+> +	}
+> +}
+> +
+> +void amdgpu_ring_mux_end_ib(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_mux_entry *e;
+> +	struct amdgpu_mux_chunk *chunk;
+> +
+> +	e = amdgpu_get_sw_entry(mux, ring);
+> +	if (!e) {
+> +		DRM_ERROR("cannot find entry!\n");
+> +		return;
+> +	}
+> +
+> +	chunk = list_last_entry(&e->list, struct amdgpu_mux_chunk, entry);
+> +	if (!chunk) {
+> +		DRM_ERROR("cannot find chunk!\n");
+> +		return;
+> +	}
+> +
+> +	chunk->end = ring->wptr;
+> +	chunk->sync_seq = READ_ONCE(ring->fence_drv.sync_seq);
+> +
+> +	scan_and_remove_signaled_chunk(mux, ring);
+> +}
+> +
+> +static void amdgpu_mux_resubmit_chunks(struct amdgpu_ring_mux *mux)
+> +{
+> +	struct amdgpu_mux_entry *e = NULL;
+> +	struct amdgpu_mux_chunk *chunk;
+> +	uint32_t seq, last_seq;
+> +	int i;
+> +
+> +	/*find low priority entries:*/
+> +	spin_lock(&mux->lock);
+> +
+> +	for (i = 0; i < mux->num_ring_entries; i++) {
+> +		if (mux->ring_entries[i].ring->hw_prio <= AMDGPU_RING_PRIO_DEFAULT) {
+> +				e = &mux->ring_entries[i];
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!e) {
+> +		DRM_ERROR("%s no low priority ring found\n", __func__);
+> +		return;
+> +	}
+> +
+> +	last_seq = atomic_read(&e->ring->fence_drv.last_seq);
+> +	seq = READ_ONCE(e->ring->fence_drv.sync_seq);
+> +	if (seq == last_seq) {
+> +		DRM_INFO("skip as fence signaled seq=%x\n", seq);
+> +		return;
+> +	}
+> +	DRM_INFO("begin to copy resubmit chunks\n");
+> +
+> +	/*resubmit all the fences between (last_seq, seq]*/
+> +	list_for_each_entry(chunk, &e->list, entry) {
+> +		if (chunk->sync_seq > last_seq) {
+> +			copy_pkt_from_sw_ring(mux, e->ring, chunk->start, chunk->end);
+> +			amdgpu_ring_commit(mux->real_ring);
+> +		}
+> +	}
+> +	spin_unlock(&mux->lock);
+> +
+> +	del_timer(&mux->resubmit_timer);
+> +	mux->s_resubmit = false;
+> +}
+> +
+> +static void amdgpu_mux_resubmit_fallback(struct timer_list *t)
+> +{
+> +	struct amdgpu_ring_mux *mux = from_timer(mux, t, resubmit_timer);
+> +
+> +	DRM_INFO("calling %s\n", __func__);
+> +	amdgpu_mux_resubmit_chunks(mux);
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+> index d058c43bb063..1d91c235061a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+> @@ -44,17 +44,27 @@ struct amdgpu_mux_entry {
+>   	u64 sw_cptr;
+>   	u64 sw_rptr;
+>   	u64 sw_wptr;
+> +
+> +	struct list_head list;
+>   };
+>   
+>   struct amdgpu_ring_mux {
+>   	struct amdgpu_ring *real_ring;
+>   
+>   	struct amdgpu_mux_entry ring_entries[AMDGPU_MAX_GFX_RINGS];
+> -
+>   	unsigned num_ring_entries;
+>   
+>   	spinlock_t			lock;
+>   
+> +	bool s_resubmit;
+> +	struct timer_list		resubmit_timer;
+> +};
+> +
+> +struct amdgpu_mux_chunk {
+> +	struct list_head entry;
+> +	uint32_t sync_seq;
+> +	u64 start;
+> +	u64 end;
+>   };
+>   
+>   int amdgpu_ring_mux_init(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
+> @@ -64,4 +74,8 @@ void amdgpu_ring_set_wptr_to_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring
+>   u64 amdgpu_ring_get_wptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
+>   u64 amdgpu_ring_get_rptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
+>   
+> +void amdgpu_ring_mux_start_ib(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
+> +void amdgpu_ring_mux_end_ib(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
+> +void amdgpu_ring_mux_schedule_resubmit(struct amdgpu_ring_mux *mux);
+> +
+>   #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c
+> index 452d0ff37758..143a84c18534 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c
+> @@ -26,6 +26,7 @@
+>   
+>   #include "amdgpu_sw_ring.h"
+>   #include "amdgpu_ring_mux.h"
+> +#include "amdgpu_mcbp.h"
+>   
+>   #define amdgpu_ring_get_gpu_addr(ring, offset)				\
+>   	(ring->is_mes_queue ?						\
+> @@ -202,3 +203,28 @@ void amdgpu_sw_ring_fini(struct amdgpu_ring *ring)
+>   	ring->adev->rings[ring->idx] = NULL;
+>   }
+>   
+> +void amdgpu_sw_ring_ib_begin(struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_device *adev = ring->adev;
+> +	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
+> +
+> +	BUG_ON(!ring->is_sw_ring);
+> +	if (ring->hw_prio > AMDGPU_RING_PRIO_DEFAULT) {
+> +		if (amdgpu_mcbp_scan(mux) > 0)
+> +			amdgpu_mcbp_trigger_preempt(mux);
+> +		return;
+> +	}
+> +
+> +	amdgpu_ring_mux_start_ib(mux, ring);
+> +}
+> +
+> +void amdgpu_sw_ring_ib_end(struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_device *adev = ring->adev;
+> +	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
+> +
+> +	BUG_ON(!ring->is_sw_ring);
+> +	if (ring->hw_prio > AMDGPU_RING_PRIO_DEFAULT)
+> +		return;
+> +	amdgpu_ring_mux_end_ib(mux, ring);
+> +}
