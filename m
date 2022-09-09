@@ -4,88 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD117ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 23:00:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C07A0ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 23:43:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1749310E12D;
-	Fri,  9 Sep 2022 23:00:27 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2086.outbound.protection.outlook.com [40.107.102.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD4F10E0A1
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 23:00:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DPc0kLz0OBkoCl27DjdGIExkVCimdHgOy4rrod777w/wVAOErPzY+jr8OBSggm1wI7Axrjdlu6Ry5ay07kVPVrGZBkouZI1O6sX4+yKaSBc4LHFZRBSpLDomecUAYekMNLT+XVagD3qQn/lhvjZfw4WKOfNUJJ5BDMmQVE27lFP2donfn6I+9LpYfxnqsMJCFOVuZw+7+q6/Z/o8XSf1xSHiDVh/zV3gJfjjtElt1cyGdcr/J3YjvqdtkMouBuNypI9IdBvKxyK/8i/Tzsy9RdfKhdZx+QbJVrd6VmXs9ewNGkdfo9xUadZsOozPElI8OwtjnPe+TR3TyoybDnPi5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wPI31EFP3coVN1pAw++8KAwWxJWS3/EMOe9a8hm6Xbk=;
- b=K5pQhtEaRMUV3ud3wG7SBXAICrIJNAfj+LjE8Io/8f5y1UOif4Lem4cReJNm54R69+b+0agAQabbsd33nPjhlMaPxyZiRgVEpplry65Zb/AboZL7Vft9CofH5aeA8FsWJI/xlJ35k4vQ7lwXZsurR0z23yj3D+aV5rczxemfc+DrSId7u5pHtu/jmeq+UMWwFlaOCForOZrfD0otom4vxlWGt6hsJA6sLXC3mquy8BawOT377OykbiwcIF/q2wl3IXPPuQxlErROweBPaVm0eVGjHzGMiT21PYkkihHS86o+PdlDdNBJLhYlzjdTwbfvJQij6pLkTaaNjWbpRokJrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wPI31EFP3coVN1pAw++8KAwWxJWS3/EMOe9a8hm6Xbk=;
- b=sTMmvx9EOc/rohLQ91VINrqZV5ObInto6YWNO3WEw00aV6tVdCZJauu9Pnpfs7MbP5oGzhFkedMmk4qgddm1y0ewFRwcmKYKDnBHvSUoh5Kf2ZOQnXYvj1nZQ20J/6n5OCbCrLj4zArscm23x2WOvEth+5t2dtj1KHIxOVhjj8s=
-Received: from BN0PR04CA0172.namprd04.prod.outlook.com (2603:10b6:408:eb::27)
- by MN0PR12MB6199.namprd12.prod.outlook.com (2603:10b6:208:3c4::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.12; Fri, 9 Sep
- 2022 23:00:20 +0000
-Received: from BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:eb:cafe::95) by BN0PR04CA0172.outlook.office365.com
- (2603:10b6:408:eb::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.12 via Frontend
- Transport; Fri, 9 Sep 2022 23:00:20 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT018.mail.protection.outlook.com (10.13.176.89) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5612.13 via Frontend Transport; Fri, 9 Sep 2022 23:00:20 +0000
-Received: from canli.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 9 Sep
- 2022 18:00:18 -0500
-From: Candice Li <candice.li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: added support for ras driver loading
-Date: Sat, 10 Sep 2022 07:00:05 +0800
-Message-ID: <20220909230005.20646-1-candice.li@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C85F210E1A3;
+	Fri,  9 Sep 2022 23:43:26 +0000 (UTC)
+Received: from mail-vk1-xa36.google.com (mail-vk1-xa36.google.com
+ [IPv6:2607:f8b0:4864:20::a36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A28A10E184;
+ Fri,  9 Sep 2022 23:43:23 +0000 (UTC)
+Received: by mail-vk1-xa36.google.com with SMTP id f76so1500637vkf.7;
+ Fri, 09 Sep 2022 16:43:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=yM/kvhJdsI8NBo5uNMFm8JlRP3HNMGQbZs8fTKlnEQM=;
+ b=TS4swxQjHiLEbHAj3vKqdkMS1ch47fEWIsqb2o3dZdeDVdjCQyiQsRifCw0sWVOuXo
+ x40vLFFVCjzDimP/9hUK/X98obdnxxdbKibUweQAeRGndm91NxkxvdcMBAgwchLbw8D8
+ svly7WfSSESy4mWTg8k65fzYcIaQij+HSNhVFrkZ0R2CiRA9Ak3aOI1WSza2CdXKht9U
+ x4MupFXFIQ7cs5jRSTDBf9Yjc5VTT/uZhHupLi2Xchv3e0D0ZPSWzJrgvMD0IMuYsiWf
+ NnocaNi6QRN08Bu1qGQuRHzqamNKxC3n+xsOY2Al30rx60Nho4l65S300AWLZtNvXOK/
+ hKqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=yM/kvhJdsI8NBo5uNMFm8JlRP3HNMGQbZs8fTKlnEQM=;
+ b=G2+9tURno8YLintjfCa5c1c1+bjk/8CtYbXz16lBgYVsUhnwXpf4fHZ0ZE8VOxqYtJ
+ yQdJ1t0KyJNXJJblWNnshRGS6PmuUhFeYJGrCgSEuF3MZo4VxBLO/rGLFJE/1o5+0yYw
+ dnUNNqTnXwXlYs9pTvSqoxc03zived4xOQvqIo/xRInoDgPveotL+3rP2HT+vRxFNti+
+ yKTukovirGpmmfLBtZ2YIxmAsstzHGklgUXLIdyEv4MxBQyJxwDvvM9yYhMK2Dy8W7Uh
+ B8vVaAdhxuF3h6r0jmpiElvbCRtBc3XTQplFJ03qcl6c4IHu/t2Yw7B8tXFX1oaBSwJR
+ K3aw==
+X-Gm-Message-State: ACgBeo1iOzBYEuA+putIZ1rIprpdmFMcdmw3S34Q2MIuZy3xHBqIzlYj
+ xqBBOmZcjs27NpUD12CE9HXP1T53oArW3AO69IlZffnuH53Fvw==
+X-Google-Smtp-Source: AA6agR7LGX14G3rAUr9BzeWCa0Er0i9E3ZBlG/vg0BrB9buV8rSqHWfvPInCBO6KJneE9thG9epmo6YcJmkLknluQBY=
+X-Received: by 2002:a1f:2ad4:0:b0:38c:5a9c:2d98 with SMTP id
+ q203-20020a1f2ad4000000b0038c5a9c2d98mr5862449vkq.24.1662767002164; Fri, 09
+ Sep 2022 16:43:22 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT018:EE_|MN0PR12MB6199:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8c8136f-9b85-4661-fb71-08da92b71203
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9wBHpoUYelk5nGGqCZSXRvfk/D2zVIpiNgkcLUKOVa4mqEI4m9x10hNMFDRdMWX1fJM0lNVGj6zHW7mT9Luo9FpSJfnfpqnT1z7dqq71PdcZ+8YerwuuGsOH/pXSaD3A9k760l7OnNYrqoH71p0k9nsJ3cvl7xHEaAOFTAh83EmmD3xy7xJoZuC5WYj8DzsvfkshA/62GLlHGLh9qVq8eo/gT+Nk7yXcU97V9xMN10DP0sSz7ldIRtpwtKHsErl8chPo/1BSJ3L56Z9gvRzokBSH3ttvKiNX2crJVVroG1IXo6b+sCVuDK+LJ0CSeZqXjudrj0CnphJrA730Lhu2W41u0uL5MB/aeDlHQP4HqXgU1YfIkC6fz2jv/rzSsc/qHe/lOjySbXZVMm6/LvhrkPzfoMNaXklOJyvKGnPcwtIgGBtduKHMChLt0EKUIXBKC8zQvLiKe2R7SIcsap/qtj0YCme52PiHSksjE+n8coHvo/12WNJ5ALtJN2eflx2YgbDZLXTIe/lnUtUUMtCYxSIyRfzzYxVodXvCt892kkFp1Iu0Ffc6LHX6nxEFmKhJmMasigYGsdRULG61N2/vegzQc4p80bmVyuwXnTUMechuhbwmvZKcRxiY7owOclxl8dLIk6anYaDe63G5oK96cUJkDxgDGWhfBImc2HTSAfNwuEJmXyJmGrjYaaZ1HaOxaUmYaQyeJQpJVPIctoDPEZT6usdIVG8LL1/05Lee8PCSAgGt4iLn6J29cox5p8GQv+u33ylR3S3bc5KDmMCY1qIDCcdCQeCfthB9n/iV0lE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(376002)(39860400002)(346002)(136003)(36840700001)(46966006)(40470700004)(44832011)(82310400005)(2906002)(36756003)(70206006)(5660300002)(86362001)(8936002)(4326008)(40480700001)(41300700001)(316002)(8676002)(6666004)(54906003)(6916009)(70586007)(478600001)(40460700003)(7696005)(1076003)(16526019)(186003)(426003)(336012)(26005)(2616005)(81166007)(47076005)(356005)(82740400003)(36860700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2022 23:00:20.4642 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8c8136f-9b85-4661-fb71-08da92b71203
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6199
+References: <20220904214134.408619-1-jim.cromie@gmail.com>
+ <20220904214134.408619-29-jim.cromie@gmail.com>
+ <Yxg86v7UsB8jtyYi@phenom.ffwll.local>
+In-Reply-To: <Yxg86v7UsB8jtyYi@phenom.ffwll.local>
+From: jim.cromie@gmail.com
+Date: Fri, 9 Sep 2022 17:42:55 -0600
+Message-ID: <CAJfuBxx_MnNbC=HDypKvG-aLxRu_k_jcPCwWqAwC+ghqjb9NmQ@mail.gmail.com>
+Subject: Re: [PATCH v6 28/57] drm_print: refine drm_debug_enabled for
+ jump-label
+To: Jim Cromie <jim.cromie@gmail.com>, Jason Baron <jbaron@akamai.com>, 
+ Greg KH <gregkh@linuxfoundation.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ intel-gvt-dev@lists.freedesktop.org, 
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, 
+ Sean Paul <seanpaul@chromium.org>, robdclark@gmail.com, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, Joe Perches <joe@perches.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,130 +73,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Candice Li <candice.li@amd.com>, John Clements <john.clements@amd.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: John Clements <john.clements@amd.com>
+On Wed, Sep 7, 2022 at 12:40 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Sun, Sep 04, 2022 at 03:41:05PM -0600, Jim Cromie wrote:
+> > In order to use dynamic-debug's jump-label optimization in drm-debug,
+> > its clarifying to refine drm_debug_enabled into 3 uses:
+> >
+> > 1.   drm_debug_enabled - legacy, public
+> > 2. __drm_debug_enabled - optimized for dyndbg jump-label enablement.
+> > 3.  _drm_debug_enabled - pr_debug instrumented, observable
+> >
+> > 1. The legacy version always checks the bits.
+> >
+> > 2. is privileged, for use by __drm_dbg(), __drm_dev_dbg(), which do an
+> > early return unless the category is enabled.  For dyndbg builds, debug
+> > callsites are selectively "pre-enabled", so __drm_debug_enabled()
+> > short-circuits to true there.  Remaining callers of 1 may be able to
+> > use 2, case by case.
+> >
+> > 3. is 1st wrapped in a macro, with a pr_debug, which reports each
+> > usage in /proc/dynamic_debug/control, making it observable in the
+> > logs.  The macro lets the pr_debug see the real caller, not an inline
+> > function.
+> >
+> > When plugged into 1, 3 identified ~10 remaining callers of the
+> > function, leading to the follow-on cleanup patch, and would allow
+> > activating the pr_debugs, estimating the callrate, and the potential
+> > savings by using the wrapper macro.  It is unused ATM, but it fills
+> > out the picture.
+> >
+> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+>
+> So instead of having 3 here as a "you need to hack it in to see what
+> should be converted" I have a bit a different idea: Could we make the
+> public version also a dyndbg callsite (like the printing wrappers), but
+> instead of a dynamic call we'd have a dynamically fixed value we get out?
+> I think that would take care of everything you have here as an open.
+>
+> Otherwise I'd just drop 3 for the series we're going to merge.
+> -Daniel
+>
 
-copy ras driver to psp if present
+OK - So here it is in use again,  with  modules drm amdgpu i915 loaded + deps
 
-Signed-off-by: John Clements <john.clements@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   | 15 +++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h   |  6 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h |  1 +
- drivers/gpu/drm/amd/amdgpu/psp_v13_0.c    |  7 +++++++
- 4 files changed, 29 insertions(+)
+:#> grep todo /proc/dynamic_debug/control
+drivers/gpu/drm/drm_edid_load.c:178 [drm]edid_load =_ "todo: maybe
+avoid via dyndbg\n"
+drivers/gpu/drm/drm_vblank.c:410 [drm]drm_crtc_accurate_vblank_count
+=_ "todo: maybe avoid via dyndbg\n"
+drivers/gpu/drm/drm_vblank.c:787
+[drm]drm_crtc_vblank_helper_get_vblank_timestamp_internal =_ "todo:
+maybe avoid via dyndbg\n"
+drivers/gpu/drm/drm_vblank.c:1491 [drm]drm_vblank_restore =_ "todo:
+maybe avoid via dyndbg\n"
+drivers/gpu/drm/drm_vblank.c:1433 [drm]drm_vblank_enable =_ "todo:
+maybe avoid via dyndbg\n"
+drivers/gpu/drm/drm_plane.c:2168 [drm]drm_mode_setplane =_ "todo:
+maybe avoid via dyndbg\n"
+drivers/gpu/drm/display/drm_dp_mst_topology.c:1359
+[drm_display_helper]drm_dp_mst_wait_tx_reply =_ "todo: maybe avoid via
+dyndbg\n"
+drivers/gpu/drm/display/drm_dp_mst_topology.c:2864
+[drm_display_helper]process_single_tx_qlock =_ "todo: maybe avoid via
+dyndbg\n"
+drivers/gpu/drm/display/drm_dp_mst_topology.c:2909
+[drm_display_helper]drm_dp_queue_down_tx =_ "todo: maybe avoid via
+dyndbg\n"
+drivers/gpu/drm/display/drm_dp_mst_topology.c:1686
+[drm_display_helper]drm_dp_mst_update_slots =_ "todo: maybe avoid via
+dyndbg\n"
+drivers/gpu/drm/i915/display/intel_dp.c:1111
+[i915]intel_dp_print_rates =_ "todo: maybe avoid via dyndbg\n"
+drivers/gpu/drm/i915/display/intel_backlight.c:5434
+[i915]cnp_enable_backlight =_ "todo: maybe avoid via dyndbg\n"
+drivers/gpu/drm/i915/display/intel_backlight.c:5459
+[i915]intel_backlight_device_register =_ "todo: maybe avoid via
+dyndbg\n"
+drivers/gpu/drm/i915/display/intel_opregion.c:43
+[i915]intel_opregion_notify_encoder =_ "todo: maybe avoid via
+dyndbg\n"
+drivers/gpu/drm/i915/display/intel_opregion.c:53
+[i915]asle_set_backlight =_ "todo: maybe avoid via dyndbg\n"
+drivers/gpu/drm/i915/display/intel_bios.c:1088
+[i915]intel_bios_is_dsi_present =_ "todo: maybe avoid via dyndbg\n"
+drivers/gpu/drm/i915/display/intel_display_debugfs.c:6153
+[i915]i915_drrs_ctl_set =_ "todo: maybe avoid via dyndbg\n"
+drivers/gpu/drm/i915/intel_pcode.c:26 [i915]snb_pcode_read =_ "todo:
+maybe avoid via dyndbg\n"
+drivers/gpu/drm/i915/i915_getparam.c:785 [i915]i915_getparam_ioctl =_
+"todo: maybe avoid via dyndbg\n"
+drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c:282
+[amdgpu]vcn_v2_5_process_interrupt =_ "todo: maybe avoid via dyndbg\n"
+drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c:433
+[amdgpu]vcn_v2_0_process_interrupt =_ "todo: maybe avoid via dyndbg\n"
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index cfcaf890a6a122..218666f6203a9f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -2055,6 +2055,15 @@ static int psp_hw_start(struct psp_context *psp)
- 			}
- 		}
- 
-+		if ((is_psp_fw_valid(psp->ras_drv)) &&
-+		    (psp->funcs->bootloader_load_ras_drv != NULL)) {
-+			ret = psp_bootloader_load_ras_drv(psp);
-+			if (ret) {
-+				DRM_ERROR("PSP load ras_drv failed!\n");
-+				return ret;
-+			}
-+		}
-+
- 		if ((is_psp_fw_valid(psp->sos)) &&
- 		    (psp->funcs->bootloader_load_sos != NULL)) {
- 			ret = psp_bootloader_load_sos(psp);
-@@ -3040,6 +3049,12 @@ static int parse_sos_bin_descriptor(struct psp_context *psp,
- 		psp->dbg_drv.size_bytes         = le32_to_cpu(desc->size_bytes);
- 		psp->dbg_drv.start_addr         = ucode_start_addr;
- 		break;
-+	case PSP_FW_TYPE_PSP_RAS_DRV:
-+		psp->ras_drv.fw_version         = le32_to_cpu(desc->fw_version);
-+		psp->ras_drv.feature_version    = le32_to_cpu(desc->fw_version);
-+		psp->ras_drv.size_bytes         = le32_to_cpu(desc->size_bytes);
-+		psp->ras_drv.start_addr         = ucode_start_addr;
-+		break;
- 	default:
- 		dev_warn(psp->adev->dev, "Unsupported PSP FW type: %d\n", desc->fw_type);
- 		break;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index c32b74bd970fc5..d7a5ff4660cf9e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -71,6 +71,7 @@ enum psp_bootloader_cmd {
- 	PSP_BL__LOAD_SOCDRV             = 0xB0000,
- 	PSP_BL__LOAD_DBGDRV             = 0xC0000,
- 	PSP_BL__LOAD_INTFDRV		= 0xD0000,
-+	PSP_BL__LOAD_RASDRV		    = 0xE0000,
- 	PSP_BL__DRAM_LONG_TRAIN		= 0x100000,
- 	PSP_BL__DRAM_SHORT_TRAIN	= 0x200000,
- 	PSP_BL__LOAD_TOS_SPL_TABLE	= 0x10000000,
-@@ -114,6 +115,7 @@ struct psp_funcs
- 	int (*bootloader_load_soc_drv)(struct psp_context *psp);
- 	int (*bootloader_load_intf_drv)(struct psp_context *psp);
- 	int (*bootloader_load_dbg_drv)(struct psp_context *psp);
-+	int (*bootloader_load_ras_drv)(struct psp_context *psp);
- 	int (*bootloader_load_sos)(struct psp_context *psp);
- 	int (*ring_init)(struct psp_context *psp, enum psp_ring_type ring_type);
- 	int (*ring_create)(struct psp_context *psp,
-@@ -323,6 +325,7 @@ struct psp_context
- 	struct psp_bin_desc		soc_drv;
- 	struct psp_bin_desc		intf_drv;
- 	struct psp_bin_desc		dbg_drv;
-+	struct psp_bin_desc		ras_drv;
- 
- 	/* tmr buffer */
- 	struct amdgpu_bo		*tmr_bo;
-@@ -403,6 +406,9 @@ struct amdgpu_psp_funcs {
- 		((psp)->funcs->bootloader_load_intf_drv ? (psp)->funcs->bootloader_load_intf_drv((psp)) : 0)
- #define psp_bootloader_load_dbg_drv(psp) \
- 		((psp)->funcs->bootloader_load_dbg_drv ? (psp)->funcs->bootloader_load_dbg_drv((psp)) : 0)
-+#define psp_bootloader_load_ras_drv(psp) \
-+		((psp)->funcs->bootloader_load_ras_drv ? \
-+		(psp)->funcs->bootloader_load_ras_drv((psp)) : 0)
- #define psp_bootloader_load_sos(psp) \
- 		((psp)->funcs->bootloader_load_sos ? (psp)->funcs->bootloader_load_sos((psp)) : 0)
- #define psp_smu_reload_quirk(psp) \
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-index 96b6cf4c4d54f8..3975bcaa2c8997 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-@@ -124,6 +124,7 @@ enum psp_fw_type {
- 	PSP_FW_TYPE_PSP_SOC_DRV,
- 	PSP_FW_TYPE_PSP_INTF_DRV,
- 	PSP_FW_TYPE_PSP_DBG_DRV,
-+	PSP_FW_TYPE_PSP_RAS_DRV,
- };
- 
- /* version_major=2, version_minor=0 */
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-index eac33d5c93e74f..262dcd7513a6fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-@@ -223,6 +223,12 @@ static int psp_v13_0_bootloader_load_dbg_drv(struct psp_context *psp)
- 	return psp_v13_0_bootloader_load_component(psp, &psp->dbg_drv, PSP_BL__LOAD_DBGDRV);
- }
- 
-+static int psp_v13_0_bootloader_load_ras_drv(struct psp_context *psp)
-+{
-+	return psp_v13_0_bootloader_load_component(psp, &psp->ras_drv, PSP_BL__LOAD_RASDRV);
-+}
-+
-+
- static int psp_v13_0_bootloader_load_sos(struct psp_context *psp)
- {
- 	int ret;
-@@ -719,6 +725,7 @@ static const struct psp_funcs psp_v13_0_funcs = {
- 	.bootloader_load_soc_drv = psp_v13_0_bootloader_load_soc_drv,
- 	.bootloader_load_intf_drv = psp_v13_0_bootloader_load_intf_drv,
- 	.bootloader_load_dbg_drv = psp_v13_0_bootloader_load_dbg_drv,
-+	.bootloader_load_ras_drv = psp_v13_0_bootloader_load_ras_drv,
- 	.bootloader_load_sos = psp_v13_0_bootloader_load_sos,
- 	.ring_init = psp_v13_0_ring_init,
- 	.ring_create = psp_v13_0_ring_create,
--- 
-2.17.1
+w/o actually looking, the vblank debug could be called frequently.
+I'll build on my amdgpu box to run on real hardware.
 
+And Im inclined to restore the instrumented version (with the "todo:")
+care to suggest a better message than "maybe avoid" ?
