@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE5ECECAAD5
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 16:48:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A0EAECAAA1
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 16:48:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0F2B10ECB2;
-	Fri,  9 Sep 2022 16:48:24 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2064.outbound.protection.outlook.com [40.107.101.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B4BC10ECA5
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 16:48:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90CBA10ECB5;
+	Fri,  9 Sep 2022 16:48:27 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2068.outbound.protection.outlook.com [40.107.92.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75E4A10EC9E
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 16:48:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Zga4wUq08CsccFgbvsVPsbYxejOuszCX/RceTTuSpkWSg61DywjUIE40IlApABBd1LjEZwRz4YNLXx/d+DJL46UNUQGpKxnto6N4TKx4ZGj3FSj3xEOYjOrEY/YWLwOd/VPBacUEfZulpyupcvAGSqQhqbeOd6WV3GoOk9PSrFMH7FUR01l5qpDCIWDhxVjHGJj2aSsH0eTcgleUHHT8GvaNnsdbu48VTRSZhjNhxEzxt/QsT6fpf6aLJxYBJpB0aZTUqphMM9Jqrt0VO6FNMNvCo6X8PdhpPg6h0P5YtcVqt9qwGuev6XOL6+pN9ykHCikyNJtaF4Nq8RXs2ZlOGw==
+ b=a/SH0sOKWeJOsqfI6n3/0xSDW0mf0pLKTeC9B6f/tCTXoYG2/bMiL1sYhfVnOgP/NdO/EqlssvJT2GZDfEJHEhjXwrYjSiE7gbX5eqLMNLAH/X5jIxtfahxHmsGzi3ml/80Q1FTeTy8wLPjnE5Z9M5L7oKb8C7D76LtQSX/SA0VIdz/AoJtqeUZv8+0hcxyIOpcHQ+J4FN2EWUwMeDMuwelH3ZusZdmtCwXdAvVotaLTWustUAtW5F4NWz7XKTUefkTyN7BPQvRzYqNdBst6TG51AambRxjjwvZdNjC8TxPldIvSyzha7B6siGqObIak6N6xLVFh5wqRsZBO1D/1aQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oM5C4SO6ywgn0Fb/mEw2bOtQFiLTCLD7BCTHIBtSpq8=;
- b=L7ImBjSA2OhP+7Udi6/VpIfhVXmRntTYaFyCp3ZXibvBM5uCNdOUIgppXrDwDFJzEh3ZzN9MgOblXr/GkDWwIh6C+zszp1IciUb6vYnBnFLUfAJPyerzJFrDHDcHdJWo6ZjjmPXu6c6x+KfeyAfq/nAs9RMhv4rKQXc4m3+qumPfaGAiOILhcUQxGEI8mHFhr/IZOzqENQ6jV3/lGCn592XNKEwozqHBjLrU4JtCAsh63vuQcLR0wS/d3zZiuwNSl9c/MENZened+8HpXyMR/EeobOBKvOXe7VTauixQw9ufhHOcfM5/T1AV18lYMz/sn6QdbnEIFE+PCUP825+dFA==
+ bh=gPUbCP85Jihh116YQLuMOnXfaJRfFnRrpx2C2G6HTgk=;
+ b=EMyzxWhubmAYB3HPn4l6rLv52LzuO8bregvvkeBVqmsjelpQqxrIFQ87otxOUdjmbTgKJYxGld31Qm05N/IDNJcMYfPRRf75tpKw8yTvQHuNM84R/2Dp30niYxVytrkGw9Smc06wTEJTaJgjXFa04gXCPFTD63vjoLVuF//GbpAiT1VoIt9/d5LyvoE/2YmicexxNZKYUrhvrcN8MdZsKOdt1r/Up5SWaehD9mff9D4RzXIWclcGzT5nuv/hsg/ovgpEjeS44oJCMSNCJTvO6pPxM+WbZYJf7bVWQxS0ocK5yQXgx9O648ovvEEXk5HDW0rd4SKvJezaPpzjp01VTg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oM5C4SO6ywgn0Fb/mEw2bOtQFiLTCLD7BCTHIBtSpq8=;
- b=zHbVj4SBtPvfqOA0ydewFl9MP0PeEAX5qP1mSMoeLazG7dXKB7iaImcIP+j0ZXlZlZ7ElRcRTo9Srv81ThgjR9QjbipQo4PPC4V/8FLaodmh3A3ts1Kk7Hn/LnUVpnogpCc/dBEk6mG+WToIj9aGdDNERDSmF60YxzuhoU+XdbU=
-Received: from BN9PR03CA0138.namprd03.prod.outlook.com (2603:10b6:408:fe::23)
- by SA0PR12MB4365.namprd12.prod.outlook.com (2603:10b6:806:96::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14; Fri, 9 Sep
- 2022 16:48:16 +0000
+ bh=gPUbCP85Jihh116YQLuMOnXfaJRfFnRrpx2C2G6HTgk=;
+ b=4csT5sLMQ5O6SMSs1ET0riMB1mo1kAWcYNutMHOZtEDf6Fk1NXN/o6fmRAGpwsjfzxlML7L2uk5SqeS28qOLkf9dRDVJsF5/pNJmbAPg+n/o35gV3JeGnUP14vJ6jgns/Tl4rLLpLmPsL90CbHsa8a2Sih7utkX94tdaAIo9h9Y=
+Received: from BN9PR03CA0123.namprd03.prod.outlook.com (2603:10b6:408:fe::8)
+ by BN9PR12MB5116.namprd12.prod.outlook.com (2603:10b6:408:119::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.19; Fri, 9 Sep
+ 2022 16:48:15 +0000
 Received: from BN8NAM11FT056.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fe:cafe::bf) by BN9PR03CA0138.outlook.office365.com
- (2603:10b6:408:fe::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.19 via Frontend
- Transport; Fri, 9 Sep 2022 16:48:16 +0000
+ (2603:10b6:408:fe:cafe::b2) by BN9PR03CA0123.outlook.office365.com
+ (2603:10b6:408:fe::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.15 via Frontend
+ Transport; Fri, 9 Sep 2022 16:48:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT056.mail.protection.outlook.com (10.13.177.26) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5612.13 via Frontend Transport; Fri, 9 Sep 2022 16:48:16 +0000
+ 15.20.5612.13 via Frontend Transport; Fri, 9 Sep 2022 16:48:14 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 9 Sep
- 2022 11:48:15 -0500
+ 2022 11:48:13 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <helgaas@kernel.org>
-Subject: [PATCH 5/7] drm/amdgpu: move nbio ih_doorbell_range() into ih code
- for vega
-Date: Fri, 9 Sep 2022 12:47:56 -0400
-Message-ID: <20220909164758.5632-6-alexander.deucher@amd.com>
+Subject: [PATCH 3/7] drm/amdgpu: move nbio remap_hdp_registers() to gmc11 code
+Date: Fri, 9 Sep 2022 12:47:54 -0400
+Message-ID: <20220909164758.5632-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220909164758.5632-1-alexander.deucher@amd.com>
 References: <20220909164758.5632-1-alexander.deucher@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT056:EE_|SA0PR12MB4365:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a3ab4de-6992-485d-eafc-08da92831811
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT056:EE_|BN9PR12MB5116:EE_
+X-MS-Office365-Filtering-Correlation-Id: af39a629-b4a8-4b59-f196-08da928316ee
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TGgxaku6pXHfsyfwktUhdXSuhKcDWzB5qHS5uejLxKZz7O0E9ZnFa65zpj0m1aa7Gjfqhtlj7mViDFxGm8GiApFlDorbgH1oUy9pG6EMUk7XUHn4FjSkmMImmwHkrKvXat+pRRkw7EbttxVCkDndT9cGKDM2zBau7p4myVypZFSkQEL7bKYU61ivmSyJza3gAcx0oQDWpDuwPQ8/0WMbwahpFsNiWDWHPCPxz//ZtTtARBoK6WW6bd1Id3p5GYSuJvuwFi9xZSEPQV9pS3jLLmDsAATue92KoMLcBmb2XGZkeGSXkgceEnfUxcvpVfVZ7P1SZxIRSBZ+/nHIlFVerW62DbTt0yDHdeQ5cdYg5OQaqrfP0rBygXCXbVQoLIDwRYMEym4j7XqUQlA25o7FL75CL7MzcjdmpVfV4x6RuZApgI+M+lhkqMSaYpQRi6og16udH88TW2x3FBB3q3bgVh3gs6ee6t7/oW95S7ydKIbqzeVmBkGUJjouUnnW5ik3OIXoPF3DI8MxkKKynJ1bRi+RbtKXPRlm9RYj+R8YcWM3mhImj+b2A/JW6boG30cmWtFlwT++sy8F+AJFp6ekS9RX+sxK9Ar2ySGAKVEnX7O80n2LNMpGXgdJhH3my9j5Oh8I9zbOWTDHHLiB070T9tr3y+nU0+nQKznDz65fa2KVxC7QMY5J72i5amDpGf8KJ8rHJtsk2a3y1fR/YxYclzK3bvJBMERCH9f3PpZrq9+vPZNMLcsQe043UkDRFqbV1L2fw/KIuyqQkDv1Oi4I+xo7a5n4WuiDjM8ZXEJ/pR8=
+X-Microsoft-Antispam-Message-Info: +q3avOmJFxUkSEWWqv5euylhS1KeEnurIde8Sy/A7V/PRtU4RM9Qf8QxMKkXYRyE1WvyMp2N/mo4bvBbxTN90mjT6OUCaPdjLWYMs5V2tTvfI2WhHnojlMgjZxedvQZmp+du5U/yquKIxqSmxcVlGFx0STOEAfEFJRj48DLJjBtni0o7fcNzRO9TbJYwo2Pp0m5h5dUgU0o/s7mDzBf2P40tIlwQbTcw9Tig0ZZ/9cVYAkKW6lN1pKu50wXgIHvYBUPA0lhT1wlXoyZ8klBOyqJuIApAkF14xR1YpzAjJOHMh8BkajyRSxVg+vHTy1ZtTsdNVbw/57zoHqE+NL9qCJg/0ANyCNSfPIFqidi72yc/D4CCtDhBvPrLZl6V0RyoMpgrq8OYCckIESv9L8VaZVcoE2mtAZQ2psrnGMdHq+W4p1rnR8+agxkSS9GWs6rRrVkX55waNgap2ot97SKW+J9R/dqvtKWlolyB+LH7bLjDcRwFB6F9G0/OE5mfOaQvpOFBD4NJXJkZzlPzVcR98fBhbQR99vU3Lrgqt3pdzF7tV6EIiiNOsxwMnwW4pLvp1KCaqMGvxkvqN+wfuv66WttCsFdFWC6YtXpwu7/TQqTD6PCX+OzabjiEcA+opFLL+H3VxMoahIvA4LsPNWwpV7KN3e6evWYNBomEspPJepxlXq7g99cAAAahgRbKqWFAi6JWFs9se2cO5u9ggpX2gVZ90EQMxKN+NAaP6ybKcFZdcL+RTWFiJsFc25uWZMGJu2hzaSJz7L6XHAddGmNnfpIDBv4O77GPwFcaGdu/b66+zm1UKyaM1uG76AXIu/H1MQvxcqleS8LHNcj9FqQxTQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(376002)(396003)(39860400002)(346002)(40470700004)(36840700001)(46966006)(7696005)(6666004)(478600001)(41300700001)(83380400001)(2616005)(426003)(47076005)(26005)(2906002)(16526019)(336012)(1076003)(7416002)(5660300002)(8936002)(316002)(40460700003)(82310400005)(110136005)(186003)(40480700001)(54906003)(4326008)(70586007)(70206006)(8676002)(86362001)(82740400003)(356005)(81166007)(36860700001)(36756003)(36900700001);
+ SFS:(13230016)(4636009)(136003)(376002)(396003)(39860400002)(346002)(36840700001)(40470700004)(46966006)(36756003)(82740400003)(4326008)(8676002)(70206006)(70586007)(36860700001)(81166007)(86362001)(356005)(16526019)(83380400001)(47076005)(426003)(26005)(7696005)(6666004)(966005)(41300700001)(2616005)(478600001)(40480700001)(82310400005)(316002)(54906003)(40460700003)(110136005)(2906002)(1076003)(336012)(5660300002)(186003)(8936002)(7416002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2022 16:48:16.7763 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a3ab4de-6992-485d-eafc-08da92831811
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2022 16:48:14.8694 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: af39a629-b4a8-4b59-f196-08da928316ee
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT056.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4365
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5116
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,65 +105,65 @@ Cc: regressions@lists.linux.dev, airlied@linux.ie, linux-pci@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This mirrors what we do for other asics and this way we are
-sure the ih doorbell range is properly initialized.
+This is where it is used, so move it into gmc init so
+that it will always be initialized in the right order.
+We already do this for other nbio and hdp callbacks so
+it's consistent with what we do on other IPs.
 
-There is a comment about the way doorbells on gfx9 work that
-requires that they are initialized for other IPs before GFX
-is initialized.  In this case IH is initialized before GFX,
-so there should be no issue.
+This fixes the Unsupported Request error reported through
+AER during driver load. The error happens as a write happens
+to the remap offset before real remapping is done.
+
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=216373
+
+The error was unnoticed before and got visible because of the commit
+referenced below. This doesn't fix anything in the commit below, rather
+fixes the issue in amdgpu exposed by the commit. The reference is only
+to associate this commit with below one so that both go together.
+
+Fixes: 8795e182b02d ("PCI/portdrv: Don't disable AER reporting in get_port_device_capability()")
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/soc15.c     | 3 ---
- drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 4 ++++
- drivers/gpu/drm/amd/amdgpu/vega20_ih.c | 4 ++++
- 3 files changed, 8 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 7 +++++++
+ drivers/gpu/drm/amd/amdgpu/soc21.c     | 6 ------
+ 2 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 39c3c6d65aef..1dbb2a3ac4c4 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -1224,9 +1224,6 @@ static void soc15_doorbell_range_init(struct amdgpu_device *adev)
- 				ring->use_doorbell, ring->doorbell_index,
- 				adev->doorbell_index.sdma_doorbell_range);
- 		}
--
--		adev->nbio.funcs->ih_doorbell_range(adev, adev->irq.ih.use_doorbell,
--						adev->irq.ih.doorbell_index);
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 846ccb6cf07d..b0df27fea648 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -891,6 +891,13 @@ static int gmc_v11_0_hw_init(void *handle)
+ 	int r;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-index 03b7066471f9..1e83db0c5438 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-@@ -289,6 +289,10 @@ static int vega10_ih_irq_init(struct amdgpu_device *adev)
- 		}
- 	}
- 
-+	if (!amdgpu_sriov_vf(adev))
-+		adev->nbio.funcs->ih_doorbell_range(adev, adev->irq.ih.use_doorbell,
-+						    adev->irq.ih.doorbell_index);
++	/* remap HDP registers to a hole in mmio space,
++	 * for the purpose of expose those registers
++	 * to process space
++	 */
++	if (adev->nbio.funcs->remap_hdp_registers)
++		adev->nbio.funcs->remap_hdp_registers(adev);
 +
- 	pci_set_master(adev->pdev);
+ 	/* The sequence of these two function calls matters.*/
+ 	gmc_v11_0_init_golden_registers(adev);
  
- 	/* enable interrupts */
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-index 2022ffbb8dba..59dfca093155 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-@@ -340,6 +340,10 @@ static int vega20_ih_irq_init(struct amdgpu_device *adev)
- 		}
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index a26c5723c46e..4dbcc2b4fda0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -677,12 +677,6 @@ static int soc21_common_hw_init(void *handle)
+ 	soc21_program_aspm(adev);
+ 	/* setup nbio registers */
+ 	adev->nbio.funcs->init_registers(adev);
+-	/* remap HDP registers to a hole in mmio space,
+-	 * for the purpose of expose those registers
+-	 * to process space
+-	 */
+-	if (adev->nbio.funcs->remap_hdp_registers)
+-		adev->nbio.funcs->remap_hdp_registers(adev);
+ 	/* enable the doorbell aperture */
+ 	soc21_enable_doorbell_aperture(adev, true);
  
-+	if (!amdgpu_sriov_vf(adev))
-+		adev->nbio.funcs->ih_doorbell_range(adev, adev->irq.ih.use_doorbell,
-+						    adev->irq.ih.doorbell_index);
-+
- 	pci_set_master(adev->pdev);
- 
- 	/* enable interrupts */
 -- 
 2.37.2
 
