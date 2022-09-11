@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72533ECAAD3
-	for <amd-gfx@archiver.kernel.org>; Sat, 10 Sep 2022 21:19:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD5D3C6FA83
+	for <amd-gfx@archiver.kernel.org>; Sun, 11 Sep 2022 20:59:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0823D10E2DD;
-	Sat, 10 Sep 2022 21:19:02 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1043910E2D8;
- Sat, 10 Sep 2022 21:18:58 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 853AF60E86;
- Sat, 10 Sep 2022 21:18:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A335C43140;
- Sat, 10 Sep 2022 21:18:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662844736;
- bh=c15g6TlQSNLnuj/POUbCskQOM/kc1isI+563BYNg+DY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hr9pSG1uBqaKJ/Z7aMf3yCSrp8xUA6yWmOA1Hju/ghcbv4xBpChDgSLauqsvKmNCr
- Yz5z6HQk/VS4YLARQD7yYQ7+xpQqD1rx+G+aPgFq9vVkgCt3XGUh312UANEcXy9vk6
- 12n3qb3qq/CpLkZtQB04xoed4g4ehI5PO1gaHFGf8phGC4EeOO3VvZM4oK4A48wDY+
- le+uMIvUZNKs/BmNmnMCh6x2cVsmn/JMxhN5PZ3y0MRHvoDxEFpCtKFHYnnkjh7g/t
- deS8jNACv4EJRCJukZG75qNbgW6yESYdAmF/MHIzX+LeEW0nF0KrDItyNGRIu+wZja
- LTsXf+a2u4y/A==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 11/14] drm/amd/amdgpu: skip ucode loading if
- ucode_size == 0
-Date: Sat, 10 Sep 2022 17:18:29 -0400
-Message-Id: <20220910211832.70579-11-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220910211832.70579-1-sashal@kernel.org>
-References: <20220910211832.70579-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1BC310E0ED;
+	Sun, 11 Sep 2022 20:59:07 +0000 (UTC)
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7484310E0ED;
+ Sun, 11 Sep 2022 20:59:05 +0000 (UTC)
+Received: from fews2.riseup.net (fews2-pn.riseup.net [10.0.1.84])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
+ (Client CN "mail.riseup.net", Issuer "R3" (not verified))
+ by mx1.riseup.net (Postfix) with ESMTPS id 4MQht0278fzDsCl;
+ Sun, 11 Sep 2022 20:59:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+ t=1662929944; bh=1N35O6XhmkneDsnvy/2oWxg1XykGRWHKDLRp0cSqA50=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=DC7D6TGbMzcb3dXoMgZs2YErzM9mFa0S/e7w/ymmXpw6YTwGLJAHi96pHKKSJTNj0
+ H8SvTufd/PY7OLICleSPlsACnBcFaMcH0LhabZ/xsNQy8TCZX8E5VY7rG9ewFSTOB0
+ 0PLzGL1NKjg8JX9QtTL2iqZj5Y7LpArLCFtnX0NY=
+X-Riseup-User-ID: 6F65FF3CA326C820EF73C2DA7271A46B0F2C1755CF664F5B5ED7AFDF43971D89
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ by fews2.riseup.net (Postfix) with ESMTPSA id 4MQhsw153wz1xx1;
+ Sun, 11 Sep 2022 20:58:59 +0000 (UTC)
+Message-ID: <6ef3abfb-27de-7044-dae1-153284504c05@riseup.net>
+Date: Sun, 11 Sep 2022 17:58:56 -0300
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
+Subject: Re: [PATCH 0/5] drm/amd/display: Reduce stack usage for clang
+Content-Language: en-US
+To: Nathan Chancellor <nathan@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>
+References: <20220830203409.3491379-1-nathan@kernel.org>
+From: =?UTF-8?Q?Ma=c3=adra_Canal?= <mairacanal@riseup.net>
+In-Reply-To: <20220830203409.3491379-1-nathan@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,43 +56,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, tao.zhou1@amd.com,
- Chengming Gui <Jack.Gui@amd.com>, guchun.chen@amd.com, airlied@linux.ie,
- Bokun.Zhang@amd.com, Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, Likun.Gao@amd.com,
- candice.li@amd.com, john.clements@amd.com, christian.koenig@amd.com,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>, patches@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Sudip Mukherjee <sudipm.mukherjee@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Chengming Gui <Jack.Gui@amd.com>
+Hi Nathan,
 
-[ Upstream commit 39c84b8e929dbd4f63be7e04bf1a2bcd92b44177 ]
+I have built-tested the whole series with clang 14.0.5 (Fedora
+14.0.5-1.fc36), using:
 
-Restrict the ucode loading check to avoid frontdoor loading error.
+$ make -kj"$(nproc)" ARCH=x86_64 LLVM=1 mrproper allmodconfig
+drivers/gpu/drm/amd/amdgpu/
 
-Signed-off-by: Chengming Gui <Jack.Gui@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Great to see this patchset coming for DML!
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 2f47f81a74a57..f3a806df7648d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1921,7 +1921,7 @@ static int psp_load_smu_fw(struct psp_context *psp)
- static bool fw_load_skip_check(struct psp_context *psp,
- 			       struct amdgpu_firmware_info *ucode)
- {
--	if (!ucode->fw)
-+	if (!ucode->fw || !ucode->ucode_size)
- 		return true;
- 
- 	if (ucode->ucode_id == AMDGPU_UCODE_ID_SMC &&
--- 
-2.35.1
+To the whole series:
 
+Tested-by: Maíra Canal <mairacanal@riseup.net>
+
+Best Regards,
+- Maíra Canal
+
+On 8/30/22 17:34, Nathan Chancellor wrote:
+> Hi all,
+> 
+> This series aims to address the following warnings, which are visible
+> when building x86_64 allmodconfig with clang after commit 3876a8b5e241
+> ("drm/amd/display: Enable building new display engine with KCOV
+> enabled").
+> 
+>     drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/display_mode_vba_30.c:3542:6: error: stack frame size (2200) exceeds limit (2048) in 'dml30_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
+>     void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+>         ^
+>     1 error generated.
+> 
+>     drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:3908:6: error: stack frame size (2216) exceeds limit (2048) in 'dml31_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
+>     void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+>         ^
+>     1 error generated.
+> 
+>     drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:1721:6: error: stack frame size (2152) exceeds limit (2048) in 'dml32_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
+>     void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+>         ^
+>     1 error generated.
+> 
+> This series is based on commit b3235e8635e1 ("drm/amd/display: clean up
+> some inconsistent indentings"). These warnings are fatal for
+> allmodconfig due to CONFIG_WERROR so ideally, I would like to see these
+> patches cherry-picked to a branch targeting mainline to allow our builds
+> to go back to green. However, since this series is not exactly trivial
+> in size, I can understand not wanting to apply these to mainline during
+> the -rc cycle. If they cannot be cherry-picked to mainline, I can add a
+> patch raising the value of -Wframe-larger-than for these files that can
+> be cherry-picked to 6.0/mainline then add a revert of that change as the
+> last patch in the stack so everything goes back to normal for -next/6.1.
+> I am open to other options though!
+> 
+> I have built this series against clang 16.0.0 (ToT) and GCC 12.2.0 for
+> x86_64. It has seen no runtime testing, as my only test system with AMD
+> graphics is a Renoir one, which as far as I understand it uses DCN 2.1.
+> 
+> Nathan Chancellor (5):
+>   drm/amd/display: Reduce number of arguments of
+>     dml32_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport()
+>   drm/amd/display: Reduce number of arguments of
+>     dml32_CalculatePrefetchSchedule()
+>   drm/amd/display: Reduce number of arguments of dml31's
+>     CalculateWatermarksAndDRAMSpeedChangeSupport()
+>   drm/amd/display: Reduce number of arguments of dml31's
+>     CalculateFlipSchedule()
+>   drm/amd/display: Mark dml30's UseMinimumDCFCLK() as noinline for stack
+>     usage
+> 
+>  .../dc/dml/dcn30/display_mode_vba_30.c        |   2 +-
+>  .../dc/dml/dcn31/display_mode_vba_31.c        | 420 +++++-------------
+>  .../dc/dml/dcn32/display_mode_vba_32.c        | 236 +++-------
+>  .../dc/dml/dcn32/display_mode_vba_util_32.c   | 323 ++++++--------
+>  .../dc/dml/dcn32/display_mode_vba_util_32.h   |  51 +--
+>  5 files changed, 318 insertions(+), 714 deletions(-)
+> 
+> 
+> base-commit: b3235e8635e1dd7ac1a27a73330e9880dfe05154
