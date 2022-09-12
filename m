@@ -4,65 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 477ECC6FA83
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 10:22:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37A10ECAAD5
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 10:29:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0D6B10E36B;
-	Mon, 12 Sep 2022 10:22:58 +0000 (UTC)
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE97510E36B
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 10:22:55 +0000 (UTC)
-Received: by mail-ej1-x634.google.com with SMTP id lc7so19127645ejb.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 03:22:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=mMpGD6pBXpsqxFQ1Oas3TIn08pk0av7LahZ6TS3PWa0=;
- b=LeehE9s17bbu8qWo51Nx1EhV4kLmG+YapHpZPW88jkKbeLR8rjCPkVK8znLVbclO1B
- qXSOLbqCpKVQzLjlp8D17RqXtIMnORMNdyrxSvijWUXzcPiTZ7uMcLMcLZSVtjLOL4Vz
- ngt5O3xHA/yd4pMYrtAVINdxO5Vr7AeM5glMpUFRhdh3JIfY+6+XtrS0n2LFGY7ULbrS
- u6fuzsWZtR1QmSf5Cc/SEdz40HuPboP8UMzENKMdBo4t+y9Md0INJ2VXOWOXaF2mZadj
- T8K0ZyhjivsHHcKnivyIXJOURDM1ACbvo01jUiVyZPRjRFUjKNKsgo8dJ5His5UH16xO
- KoGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=mMpGD6pBXpsqxFQ1Oas3TIn08pk0av7LahZ6TS3PWa0=;
- b=zCrcJwDPml6QjMJvmNQhzJ9v74vInVvmdLiADWgNXzcXI256ge3ngloNxOcjI11qHl
- xG8jNb7XpGQFyWbmd03xtmzPgkixvKLR7lehDJRIfLas1DLhudqZrdr1U8rAdOemhBVt
- RrOeJqXeULc/hCR48l7BfwwkmbCt4hVkRP3AFN2JAWtbuv33PhLj0hzDfk0e/A2IdBNe
- +sfTw1CjZrQskA5uyVTQ2p1+hq9YI0WPCk3dLauVVAxikdbPsbtyZiBFhhqiyHMc3Iy+
- wSGDy0qFwEvmkq2rO6NyB7rqn9ay3pbRsbw8wXuxi4xEjdFc3w0r8XbOsF+l9WqV2ZhQ
- 9Ipw==
-X-Gm-Message-State: ACgBeo0v9xDBOCRrfrSJjJt9nqv+DxmZc8Luf7DYXeVGbT+JMny8WjkV
- gqf1xvkG/1brFNm4O15EhJSdUbapAsA=
-X-Google-Smtp-Source: AA6agR6K764f8CEpapWLw2UHQBJC7PHl5Nazwx/Ud4ikUTBsi4ghchKaFpEPDc0Ka0arhFNNOKqkLQ==
-X-Received: by 2002:a17:907:16a6:b0:73d:de5f:8b22 with SMTP id
- hc38-20020a17090716a600b0073dde5f8b22mr18379761ejc.261.1662978174054; 
- Mon, 12 Sep 2022 03:22:54 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:cb75:ba2a:b78d:9ea5?
- ([2a02:908:1256:79a0:cb75:ba2a:b78d:9ea5])
- by smtp.gmail.com with ESMTPSA id
- s1-20020a05640217c100b0044ec76521a1sm5496578edy.55.2022.09.12.03.22.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Sep 2022 03:22:53 -0700 (PDT)
-Message-ID: <d00251a6-dae3-2b42-7c26-71fee4a06fe5@gmail.com>
-Date: Mon, 12 Sep 2022 12:22:52 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCE0510E373;
+	Mon, 12 Sep 2022 10:29:52 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63C8410E373;
+ Mon, 12 Sep 2022 10:29:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1662978589; x=1694514589;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=sJEYOR48olYIUwiQngpqfZYVkj4K0IWejtNVYlou12k=;
+ b=UiX9catJ/+TFk3X5FCOfyG+WBy9FNpdji6NeyRWeEClu2VwZHlAc5kqI
+ dmqIk5VL5WkhjJvjEBXEHsGkCvfwPN8jT8DL+64avwUf+m/TUhNyKrplg
+ GWJOSnAPNFbSqKaRBOb8IW2UXtZeTuANZ9i+CabZ8HyKSDzZEUQuRSPab
+ rJBpYa8wxJfLpSQgSuYPkVJAfLLdfS/zpeLuNhSQ8FtyY/ypPirAGZb3o
+ D9bg9H/9WDs9fjhhSCD7UumIDAI73yl+JklXsdMMsRCgFEQHLdoN71nw2
+ Y2+qz+t8KJ/VZwPArNDsWlm+6dzITW1EbpSK1lxFSmzV0TI0J40DQBLFG g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="278223963"
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="278223963"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 03:29:48 -0700
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="678031309"
+Received: from abijaz-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.58.140])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 03:29:45 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Jim Cromie <jim.cromie@gmail.com>, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 2/9] drm: POC drm on dyndbg - use in core, 2 helpers,
+ 3 drivers.
+In-Reply-To: <20220912052852.1123868-3-jim.cromie@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220912052852.1123868-1-jim.cromie@gmail.com>
+ <20220912052852.1123868-3-jim.cromie@gmail.com>
+Date: Mon, 12 Sep 2022 13:29:42 +0300
+Message-ID: <87pmg06g2x.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 1/1] drm/amdgpu: fix amdgpu_vm_pt_free warning
-Content-Language: en-US
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220909182502.13995-1-Philip.Yang@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220909182502.13995-1-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,180 +60,291 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: felix.kuehling@amd.com, christian.koenig@amd.com
+Cc: seanpaul@chromium.org, daniel.vetter@ffwll.ch, joe@perches.com,
+ linux@rasmusvillemoes.dk
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 09.09.22 um 20:25 schrieb Philip Yang:
-> Free page table BO from vm resv unlocked context generate below
-> warnings.
+On Sun, 11 Sep 2022, Jim Cromie <jim.cromie@gmail.com> wrote:
+> Use DECLARE_DYNDBG_CLASSMAP across DRM:
 >
-> Add a free_work in vm_bo base of each page table BO, pass vm resv
-> unlock status from page table update caller, and schedule the
-> work if calling with vm resv unlocked.
+>  - in .c files, since macro defines/initializes a record
 >
->   WARNING: CPU: 12 PID: 3238 at
->   drivers/gpu/drm/ttm/ttm_bo.c:106 ttm_bo_set_bulk_move+0xa1/0xc0
->   Call Trace:
->    amdgpu_vm_pt_free+0x42/0xd0 [amdgpu]
->    amdgpu_vm_pt_free_dfs+0xb3/0xf0 [amdgpu]
->    amdgpu_vm_ptes_update+0x52d/0x850 [amdgpu]
->    amdgpu_vm_update_range+0x2a6/0x640 [amdgpu]
->    svm_range_unmap_from_gpus+0x110/0x300 [amdgpu]
->    svm_range_cpu_invalidate_pagetables+0x535/0x600 [amdgpu]
->   __mmu_notifier_invalidate_range_start+0x1cd/0x230
->    unmap_vmas+0x9d/0x140
->    unmap_region+0xa8/0x110
+>  - in drivers, $mod_{drv,drm,param}.c
+>    ie where param setup is done, since a classmap is param related
 >
->   WARNING: CPU: 0 PID: 1475 at
->   drivers/dma-buf/dma-resv.c:483 dma_resv_iter_next
->   Call Trace:
->    dma_resv_iter_first+0x43/0xa0
->    amdgpu_vm_sdma_update+0x69/0x2d0 [amdgpu]
->    amdgpu_vm_ptes_update+0x29c/0x870 [amdgpu]
->    amdgpu_vm_update_range+0x2f6/0x6c0 [amdgpu]
->    svm_range_unmap_from_gpus+0x115/0x300 [amdgpu]
->    svm_range_cpu_invalidate_pagetables+0x510/0x5e0 [amdgpu]
->    __mmu_notifier_invalidate_range_start+0x1d3/0x230
->    unmap_vmas+0x140/0x150
->    unmap_region+0xa8/0x110
+>  - in drm/drm_print.c
+>    since existing __drm_debug param is defined there,
+>    and we ifdef it, and provide an elaborated alternative.
 >
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+>  - in drm_*_helper modules:
+>    dp/drm_dp - 1st item in makefile target
+>    drivers/gpu/drm/drm_crtc_helper.c - random pick iirc.
+>
+> Since these modules all use identical CLASSMAP declarations (ie: names
+> and .class_id's) they will all respond together to "class DRM_UT_*"
+> query-commands:
+>
+>   :#> echo class DRM_UT_KMS +p > /proc/dynamic_debug/control
+>
+> NOTES:
+>
+> This changes __drm_debug from int to ulong, so BIT() is usable on it.
+>
+> DRM's enum drm_debug_category values need to sync with the index of
+> their respective class-names here.  Then .class_id == category, and
+> dyndbg's class FOO mechanisms will enable drm_dbg(DRM_UT_KMS, ...).
+>
+> Though DRM needs consistent categories across all modules, thats not
+> generally needed; modules X and Y could define FOO differently (ie a
+> different NAME => class_id mapping), changes are made according to
+> each module's private class-map.
+>
+> No callsites are actually selected by this patch, since none are
+> class'd yet.
+
+The commit message could start off by saying each module needs to define
+DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, ...). That is, IIUC.
+
+Where's DECLARE_DYNDBG_CLASSMAP defined? linux-next? What's it do? What
+if multiple modules with that are actually builtin?
+
+The duplication and requirement that they're identical seems like an
+error prone combo.
+
+Finally, the choice of placement in e.g. i915_params.c seems completely
+arbitrary, and makes you wonder "what here requires this, nothing?".
+
+BR,
+Jani.
+
+
+>
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  3 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 40 +++++++++++++++++++----
->   2 files changed, 37 insertions(+), 6 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 14 +++++++++++++
+>  drivers/gpu/drm/display/drm_dp_helper.c | 13 ++++++++++++
+>  drivers/gpu/drm/drm_crtc_helper.c       | 13 ++++++++++++
+>  drivers/gpu/drm/drm_print.c             | 27 +++++++++++++++++++++++--
+>  drivers/gpu/drm/i915/i915_params.c      | 12 +++++++++++
+>  drivers/gpu/drm/nouveau/nouveau_drm.c   | 13 ++++++++++++
+>  include/drm/drm_print.h                 |  3 ++-
+>  7 files changed, 92 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 9ecb7f663e19..ac7cd2c738e5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -150,6 +150,9 @@ struct amdgpu_vm_bo_base {
->   
->   	/* protected by the BO being reserved */
->   	bool				moved;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 429fcdf28836..5f091cb52de2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -38,6 +38,8 @@
+>  #include <linux/mmu_notifier.h>
+>  #include <linux/suspend.h>
+>  #include <linux/cc_platform.h>
+> +#include <linux/fb.h>
+> +#include <linux/dynamic_debug.h>
+>  
+>  #include "amdgpu.h"
+>  #include "amdgpu_irq.h"
+> @@ -185,6 +187,18 @@ int amdgpu_vcnfw_log;
+>  
+>  static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
+>  
+> +DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+> +			"DRM_UT_CORE",
+> +			"DRM_UT_DRIVER",
+> +			"DRM_UT_KMS",
+> +			"DRM_UT_PRIME",
+> +			"DRM_UT_ATOMIC",
+> +			"DRM_UT_VBL",
+> +			"DRM_UT_STATE",
+> +			"DRM_UT_LEASE",
+> +			"DRM_UT_DP",
+> +			"DRM_UT_DRMRES");
 > +
-> +	/* work to free pt bo if vm resv is not hold */
-> +	struct work_struct              free_work;
+>  struct amdgpu_mgpu_info mgpu_info = {
+>  	.mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
+>  	.delayed_reset_work = __DELAYED_WORK_INITIALIZER(
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index e5bab236b3ae..196dfb1e8d87 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -30,6 +30,7 @@
+>  #include <linux/sched.h>
+>  #include <linux/seq_file.h>
+>  #include <linux/string_helpers.h>
+> +#include <linux/dynamic_debug.h>
+>  
+>  #include <drm/display/drm_dp_helper.h>
+>  #include <drm/display/drm_dp_mst_helper.h>
+> @@ -40,6 +41,18 @@
+>  
+>  #include "drm_dp_helper_internal.h"
+>  
+> +DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+> +			"DRM_UT_CORE",
+> +			"DRM_UT_DRIVER",
+> +			"DRM_UT_KMS",
+> +			"DRM_UT_PRIME",
+> +			"DRM_UT_ATOMIC",
+> +			"DRM_UT_VBL",
+> +			"DRM_UT_STATE",
+> +			"DRM_UT_LEASE",
+> +			"DRM_UT_DP",
+> +			"DRM_UT_DRMRES");
+> +
+>  struct dp_aux_backlight {
+>  	struct backlight_device *base;
+>  	struct drm_dp_aux *aux;
+> diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
+> index 8a6d54515f92..a8cee6694cf6 100644
+> --- a/drivers/gpu/drm/drm_crtc_helper.c
+> +++ b/drivers/gpu/drm/drm_crtc_helper.c
+> @@ -32,6 +32,7 @@
+>  #include <linux/export.h>
+>  #include <linux/kernel.h>
+>  #include <linux/moduleparam.h>
+> +#include <linux/dynamic_debug.h>
+>  
+>  #include <drm/drm_atomic.h>
+>  #include <drm/drm_atomic_helper.h>
+> @@ -51,6 +52,18 @@
+>  
+>  #include "drm_crtc_helper_internal.h"
+>  
+> +DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+> +			"DRM_UT_CORE",
+> +			"DRM_UT_DRIVER",
+> +			"DRM_UT_KMS",
+> +			"DRM_UT_PRIME",
+> +			"DRM_UT_ATOMIC",
+> +			"DRM_UT_VBL",
+> +			"DRM_UT_STATE",
+> +			"DRM_UT_LEASE",
+> +			"DRM_UT_DP",
+> +			"DRM_UT_DRMRES");
+> +
+>  /**
+>   * DOC: overview
+>   *
+> diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+> index f783d4963d4b..ec32df35a3e3 100644
+> --- a/drivers/gpu/drm/drm_print.c
+> +++ b/drivers/gpu/drm/drm_print.c
+> @@ -40,7 +40,7 @@
+>   * __drm_debug: Enable debug output.
+>   * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
+>   */
+> -unsigned int __drm_debug;
+> +unsigned long __drm_debug;
+>  EXPORT_SYMBOL(__drm_debug);
+>  
+>  MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
+> @@ -52,7 +52,30 @@ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug cat
+>  "\t\tBit 5 (0x20)  will enable VBL messages (vblank code)\n"
+>  "\t\tBit 7 (0x80)  will enable LEASE messages (leasing code)\n"
+>  "\t\tBit 8 (0x100) will enable DP messages (displayport code)");
+> -module_param_named(debug, __drm_debug, int, 0600);
+> +
+> +#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+> +module_param_named(debug, __drm_debug, ulong, 0600);
+> +#else
+> +/* classnames must match vals of enum drm_debug_category */
+> +DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+> +			"DRM_UT_CORE",
+> +			"DRM_UT_DRIVER",
+> +			"DRM_UT_KMS",
+> +			"DRM_UT_PRIME",
+> +			"DRM_UT_ATOMIC",
+> +			"DRM_UT_VBL",
+> +			"DRM_UT_STATE",
+> +			"DRM_UT_LEASE",
+> +			"DRM_UT_DP",
+> +			"DRM_UT_DRMRES");
+> +
+> +static struct ddebug_class_param drm_debug_bitmap = {
+> +	.bits = &__drm_debug,
+> +	.flags = "p",
+> +	.map = &drm_debug_classes,
+> +};
+> +module_param_cb(debug, &param_ops_dyndbg_classes, &drm_debug_bitmap, 0600);
+> +#endif
+>  
+>  void __drm_puts_coredump(struct drm_printer *p, const char *str)
+>  {
+> diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+> index 6fc475a5db61..d1e4d528cb17 100644
+> --- a/drivers/gpu/drm/i915/i915_params.c
+> +++ b/drivers/gpu/drm/i915/i915_params.c
+> @@ -29,6 +29,18 @@
+>  #include "i915_params.h"
+>  #include "i915_drv.h"
+>  
+> +DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+> +			"DRM_UT_CORE",
+> +			"DRM_UT_DRIVER",
+> +			"DRM_UT_KMS",
+> +			"DRM_UT_PRIME",
+> +			"DRM_UT_ATOMIC",
+> +			"DRM_UT_VBL",
+> +			"DRM_UT_STATE",
+> +			"DRM_UT_LEASE",
+> +			"DRM_UT_DP",
+> +			"DRM_UT_DRMRES");
+> +
+>  #define i915_param_named(name, T, perm, desc) \
+>  	module_param_named(name, i915_modparams.name, T, perm); \
+>  	MODULE_PARM_DESC(name, desc)
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> index 561309d447e0..fd99ec0f4257 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> @@ -28,6 +28,7 @@
+>  #include <linux/pm_runtime.h>
+>  #include <linux/vga_switcheroo.h>
+>  #include <linux/mmu_notifier.h>
+> +#include <linux/dynamic_debug.h>
+>  
+>  #include <drm/drm_aperture.h>
+>  #include <drm/drm_crtc_helper.h>
+> @@ -70,6 +71,18 @@
+>  #include "nouveau_svm.h"
+>  #include "nouveau_dmem.h"
+>  
+> +DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+> +			"DRM_UT_CORE",
+> +			"DRM_UT_DRIVER",
+> +			"DRM_UT_KMS",
+> +			"DRM_UT_PRIME",
+> +			"DRM_UT_ATOMIC",
+> +			"DRM_UT_VBL",
+> +			"DRM_UT_STATE",
+> +			"DRM_UT_LEASE",
+> +			"DRM_UT_DP",
+> +			"DRM_UT_DRMRES");
+> +
+>  MODULE_PARM_DESC(config, "option string to pass to driver core");
+>  static char *nouveau_config;
+>  module_param_named(config, nouveau_config, charp, 0400);
+> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+> index b3b470440e46..668273e36c2c 100644
+> --- a/include/drm/drm_print.h
+> +++ b/include/drm/drm_print.h
+> @@ -35,7 +35,7 @@
+>  #include <drm/drm.h>
+>  
+>  /* Do *not* use outside of drm_print.[ch]! */
+> -extern unsigned int __drm_debug;
+> +extern unsigned long __drm_debug;
+>  
+>  /**
+>   * DOC: print
+> @@ -275,6 +275,7 @@ static inline struct drm_printer drm_err_printer(const char *prefix)
+>   *
+>   */
+>  enum drm_debug_category {
+> +	/* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
+>  	/**
+>  	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+>  	 * drm_memory.c, ...
 
-Oh, this is a pretty clear NAK. We can't increase the size of this struct.
-
-Instead just come up with a single worker in the VM and a new state for 
-the page tables.
-
-Regards,
-Christian.
-
->   };
->   
->   /* provided by hw blocks that can write ptes, e.g., sdma */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index 88de9f0d4728..e6f6d7e6368f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -37,6 +37,8 @@ struct amdgpu_vm_pt_cursor {
->   	unsigned int level;
->   };
->   
-> +static void amdgpu_vm_pt_free_work(struct work_struct *work);
-> +
->   /**
->    * amdgpu_vm_pt_level_shift - return the addr shift for each level
->    *
-> @@ -607,6 +609,7 @@ static int amdgpu_vm_pt_alloc(struct amdgpu_device *adev,
->   	pt_bo = &pt->bo;
->   	pt_bo->parent = amdgpu_bo_ref(cursor->parent->bo);
->   	amdgpu_vm_bo_base_init(entry, vm, pt_bo);
-> +	INIT_WORK(&entry->free_work, amdgpu_vm_pt_free_work);
->   	r = amdgpu_vm_pt_clear(adev, vm, pt, immediate);
->   	if (r)
->   		goto error_free_pt;
-> @@ -624,23 +627,46 @@ static int amdgpu_vm_pt_alloc(struct amdgpu_device *adev,
->    *
->    * @entry: PDE to free
->    */
-> -static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
-> +static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry, bool unlocked)
->   {
->   	struct amdgpu_bo *shadow;
->   
->   	if (!entry->bo)
->   		return;
-> +
-> +	if (unlocked) {
-> +		schedule_work(&entry->free_work);
-> +		return;
-> +	}
-> +
->   	shadow = amdgpu_bo_shadowed(entry->bo);
->   	if (shadow) {
->   		ttm_bo_set_bulk_move(&shadow->tbo, NULL);
->   		amdgpu_bo_unref(&shadow);
->   	}
->   	ttm_bo_set_bulk_move(&entry->bo->tbo, NULL);
-> +
->   	entry->bo->vm_bo = NULL;
->   	list_del(&entry->vm_status);
->   	amdgpu_bo_unref(&entry->bo);
->   }
->   
-> +static void amdgpu_vm_pt_free_work(struct work_struct *work)
-> +{
-> +	struct amdgpu_vm_bo_base *entry;
-> +	struct amdgpu_bo *root;
-> +
-> +	entry = container_of(work, struct amdgpu_vm_bo_base, delayed_work);
-> +
-> +	root = amdgpu_bo_ref(entry->vm->root.bo);
-> +	amdgpu_bo_reserve(root, true);
-> +
-> +	amdgpu_vm_pt_free(entry, true);
-> +
-> +	amdgpu_bo_unreserve(root);
-> +	amdgpu_bo_unref(&root);
-> +}
-> +
->   /**
->    * amdgpu_vm_pt_free_dfs - free PD/PT levels
->    *
-> @@ -652,16 +678,17 @@ static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
->    */
->   static void amdgpu_vm_pt_free_dfs(struct amdgpu_device *adev,
->   				  struct amdgpu_vm *vm,
-> -				  struct amdgpu_vm_pt_cursor *start)
-> +				  struct amdgpu_vm_pt_cursor *start,
-> +				  bool unlocked)
->   {
->   	struct amdgpu_vm_pt_cursor cursor;
->   	struct amdgpu_vm_bo_base *entry;
->   
->   	for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
-> -		amdgpu_vm_pt_free(entry);
-> +		amdgpu_vm_pt_free(entry, unlocked);
->   
->   	if (start)
-> -		amdgpu_vm_pt_free(start->entry);
-> +		amdgpu_vm_pt_free(start->entry, unlocked);
->   }
->   
->   /**
-> @@ -673,7 +700,7 @@ static void amdgpu_vm_pt_free_dfs(struct amdgpu_device *adev,
->    */
->   void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->   {
-> -	amdgpu_vm_pt_free_dfs(adev, vm, NULL);
-> +	amdgpu_vm_pt_free_dfs(adev, vm, NULL, false);
->   }
->   
->   /**
-> @@ -966,7 +993,8 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
->   				if (cursor.entry->bo) {
->   					params->table_freed = true;
->   					amdgpu_vm_pt_free_dfs(adev, params->vm,
-> -							      &cursor);
-> +							      &cursor,
-> +							      params->unlocked);
->   				}
->   				amdgpu_vm_pt_next(adev, &cursor);
->   			}
-
+-- 
+Jani Nikula, Intel Open Source Graphics Center
