@@ -4,117 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E63B1C6FA82
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 19:00:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AA00C6FA83
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 20:18:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 259D310E17C;
-	Mon, 12 Sep 2022 19:00:01 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2042.outbound.protection.outlook.com [40.107.94.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34D5610E17A
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 18:59:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QvLp/kkz5AlAw6cEFoOvXwy5PrUtxXPFcAZ3QlIGhUuAuqd9RCmGNxvqBFHRMl3WGQ6zF3XN3PrspoweZBm1Jokbq0Stb5F7ydRx+LtazbjyUYURKAYTTsqN0//vBQwbT5hgKmt3TXbZGUc4ae2W6uIGbW2AsHv1mhgMYfhb+l50YdkhWD2djrNk13mUJKdGoVp9236Y16rRyAbEOeQLw2g9biR3I9ev2uTugC65s1lYrHh6Nk3tz1jzLyoB14smZtJ4hjC0f4zvQCeDdQ1ShizcVPX0iQh3P4LSPFFGz04OG9KgJrgxhxOoI4fPJy5bgmTsC4T6NdeHw+c9p8k7vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W8JFuFFZW9RjTzubwGfbu4YeIZggjv2Kslfa/Zogdao=;
- b=Z7MPR3xuERZPPhtQ2m1TeWSH2Uj7ljtoDrpg5xGKD3BWzKJf6vkG43soYbFYma13Mn5JB4riDJfmvQvSGFLcn5zjF/a0hWmFo/vnKRYfxHAZNIFUDCHrQ9/vnI5IWr0bFTcQlefv3MF87YRbn2m5KN7p5SmaQg3kN34bYywSxupI2qyTOGEjaRsF2VWz8/E7kAcMewoCFySgUNw2ScX2/ihTG8Z8DReo0IpD14xsQjdmq/975PdiTUFKG8yeZsfi5bcHGfvb1neeq9tg8EBkO81AjXGffvMUIjrHVwkYXhIY8DK5pWf4BNa3IK1Aha/FSwJFj3pt8yDWG/HCMIC9nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W8JFuFFZW9RjTzubwGfbu4YeIZggjv2Kslfa/Zogdao=;
- b=JdA6jh56hRgWw6DiduPrS0QlngFVwg7E/kTC4/NlNwL7TeSsAorWDXXiviyjN4gh7wLqP4nzkhz3NbVguVNlUlNrfbc40w6dOX/9J0ujHl7v7J8+NqanENc1sj9uG7vT6UvqZlXqi/jbXcQSHxcabwIo7AsPq/5ukYdtYuVxE7Q=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by CH0PR12MB5250.namprd12.prod.outlook.com (2603:10b6:610:d1::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14; Mon, 12 Sep
- 2022 18:59:54 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::653f:e59b:3f40:8fed]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::653f:e59b:3f40:8fed%6]) with mapi id 15.20.5612.022; Mon, 12 Sep 2022
- 18:59:53 +0000
-Message-ID: <4b34d62a-b34d-1ab9-a3cb-032a1b6e580e@amd.com>
-Date: Mon, 12 Sep 2022 20:59:47 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB28010E227;
+	Mon, 12 Sep 2022 20:18:17 +0000 (UTC)
+Received: from mx0a-00190b01.pphosted.com (mx0a-00190b01.pphosted.com
+ [IPv6:2620:100:9001:583::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7219210E172;
+ Mon, 12 Sep 2022 20:17:12 +0000 (UTC)
+Received: from pps.filterd (m0050095.ppops.net [127.0.0.1])
+ by m0050095.ppops.net-00190b01. (8.17.1.5/8.17.1.5) with ESMTP id
+ 28CGn0s1000316; Mon, 12 Sep 2022 21:17:03 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=jan2016.eng;
+ bh=PPtZHmCIQVuM9YXzLPNtRwdGAqaP/tT/4KH6zim4BTk=;
+ b=J0a0BInST46lwTEIr0aqv3RDPnHNzZzbc/gn++frBD8awWms+RF0UxiEe2dSINuE/0Ul
+ xA9klHjTwJu/NOFKI+q3hwjlk4r+pWtVammua4QSu6FgXqxvSki5PX/gtYg0laUE5tFw
+ RKhQwNGCyyow5pczu6GvQEPB22usQC9T+vn0YgSKPSSRumn/GeHDmTzZ+Mg5ykATKjDs
+ WPHJa4fC/c/4CyQsb8BbVntxkB/D9yqcFmH40HSv6v4g5419glK47rJrmlZeozCs8pnr
+ 1S9MN1H9Kj3IqyHtQLeEUkp7/4Zgi4dVE4F21z9UqOnJMy5Xu/9/DU/fyFlasyPi8Zjm Zg== 
+Received: from prod-mail-ppoint7
+ (a72-247-45-33.deploy.static.akamaitechnologies.com [72.247.45.33] (may be
+ forged))
+ by m0050095.ppops.net-00190b01. (PPS) with ESMTPS id 3jgk46s9gq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 12 Sep 2022 21:17:03 +0100
+Received: from pps.filterd (prod-mail-ppoint7.akamai.com [127.0.0.1])
+ by prod-mail-ppoint7.akamai.com (8.17.1.5/8.17.1.5) with ESMTP id
+ 28CIUslV017697; Mon, 12 Sep 2022 16:17:02 -0400
+Received: from prod-mail-relay18.dfw02.corp.akamai.com ([172.27.165.172])
+ by prod-mail-ppoint7.akamai.com (PPS) with ESMTP id 3jgnxvdfbx-1;
+ Mon, 12 Sep 2022 16:17:02 -0400
+Received: from [0.0.0.0] (unknown [172.27.119.138])
+ by prod-mail-relay18.dfw02.corp.akamai.com (Postfix) with ESMTP id 38EF1FA;
+ Mon, 12 Sep 2022 20:17:01 +0000 (GMT)
+Message-ID: <0d9f644f-3d60-02c3-7ce0-01296757e181@akamai.com>
+Date: Mon, 12 Sep 2022 16:17:00 -0400
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH v2 1/1] drm/amdgpu: fix amdgpu_vm_pt_free warning
+Subject: Re: [PATCH v6 17/57] dyndbg: validate class FOO by checking with
+ module
 Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>, Philip Yang
- <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220912175817.17985-1-Philip.Yang@amd.com>
- <6e223900-7b8a-8ec6-e08d-aee0697a1aa0@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <6e223900-7b8a-8ec6-e08d-aee0697a1aa0@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0045.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::14) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|CH0PR12MB5250:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e5fc104-62b2-4bea-6c9f-08da94f0f9f1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6mSqCkcZ63qm/CljLIQ4f+b16Sf00cr8FPY9aQ5TWjMykznpkGNhXkMekeCiqBBAycGoR7fR2apGweTtodzTX+UxQsBYq6Oz6+ofYhid6N0Wq3DuSgr/ILcNexA7GHpdwXhCEu7jaRJHWKt+fi0o7OO05bwz4msDS4cXZ/FyErZXud3iE64JnrstCe+pGPkyfKPkuUSumanaoPW26sZvOQo/b+3ouWv0cLjSkS4kSDwlSI2UfnNjmp6Vk9PO0O5z9xvtnEmHAYDBernBRh6iUlMnhANgHclUAZ69ys4OSeOF4OlAgqf88TiP8n0Hj8nheLfwP9DQMzmgtF/PkpVOpv+P3RAehBjAgsjCwLOtUIdA5S3WaItjk0RnIeKeSBWYofxDo17IL9r03GmG8Hrd4kr9Vke8aj/udjG1yb3kF7BcTlMOUcXpYmtmkb9KT3yihHqvLYBFYieK4LguKwjwwYCxyrTr5ELs6xVUgLCWhTdTQXDrFbivP4lQ39d9ZGwIvpd2Srd5Crm8SLXZ+LmuTBwY/GUCwvVl5s1PZ0NBzLQiqdauMF/UOwC/Vx8SCAS+C/gPeGFNuLqwntSyy5UBAn9gXr+lLYPvuxwTzDvOXCWC59nvtr9rE1Eclv9Go+aHefCIsoLdZeSigXZSPYGXfuYoX7fJVq1oXUC/g9R7kZzYdAF9YIVnA3R5IzZ7X3CxppsklAjAX1VGrWREBfw+Nq2JWkaWfSUYk/iMs5pRpPSvnUBfpsFmGojPkKNO6h5epU2GDBLvH0EYnAUnxQoTkWaARzNXmfIY/vubMpHOJns=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(396003)(366004)(346002)(39860400002)(376002)(451199015)(186003)(110136005)(31696002)(6666004)(86362001)(2616005)(41300700001)(6512007)(38100700002)(478600001)(6486002)(6506007)(31686004)(8676002)(2906002)(66946007)(5660300002)(83380400001)(316002)(8936002)(66556008)(66476007)(36756003)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V0Z5TGNUd2tDUkxRdWkwQ3QvdU5wU2ZObEJJdEhhUjM0ZC9QMWpCb0tocUpn?=
- =?utf-8?B?OEZQM1k1VWpEczYxU0ttQ0tQbEpOK0NhMERPTWZrc1JGc3BDM1Fjbkt0dGVp?=
- =?utf-8?B?UGRoU0lTdkpiNTJKQWtkbFpOMWxLSlhzYThyM01FRDVaSUJFdHNzRW5jSWtl?=
- =?utf-8?B?KzBjQnBBUzdQSUJnTnNJb3ZOem9wYnJzQWg3R3dWUUwxNlQwNVk2R2FRZlBI?=
- =?utf-8?B?dEpXRTlIdmxycms1QUttTWVxaW0vY1prRFlFNmZQYk9hVDYzcDhhZWxpYTlI?=
- =?utf-8?B?ckpzODhOcEdTQ1pERU9sV0YrWWM5SS8vcFhOOWswalZac0RnKzFpL1VyOTJV?=
- =?utf-8?B?WW8ra1pGVEEwUDV1RGVXNlM0b1BmSUR5Z09nTUxZek9XcndUS25SelJ5V0Iz?=
- =?utf-8?B?N2hjNXRvSDBxUzJNbWcxZmZqamQ0Z2dLTytxc2tWK2JVRzV5WFpOaUdiU25D?=
- =?utf-8?B?ZG9RUHdrVXNwZy82RnZnRFVzZ25qSGVZWElBYmFPWW5wby9tVWNtZVFhNDBr?=
- =?utf-8?B?YkRvUks0emlNT2QyTUM3ZWRFTzdsK25WNUJJVmo4ck9zU1Uzais4d0RhUjVn?=
- =?utf-8?B?eE1rNSsva3AwSGcvLzRMUEFnWU0xcVJJQkhlVVFrRW9MSGxJMG5EYUc5Wks0?=
- =?utf-8?B?TS9qRk44WUsyRUVGSGJvSkM2Z3JxT2txeU5nRjhqZHNBMmYrdkIxaEw0c0s0?=
- =?utf-8?B?cm9rUVdKcWFMemt6ZHQ4RExzamJUYStHakQrU2F5eFpYN1lhQWtMdzhzNEJM?=
- =?utf-8?B?Z2JVZzAvYXRSQy90c01hRmVJeTF5OFRza0ZVZlNRQW1ERXkxZkVHM3Y4UnIr?=
- =?utf-8?B?M2MvbXAxRHZ0aFR4SDNqNWN2ck5ZZnJWS25pMC9tODFsQUNjVW9qR1RvSEVR?=
- =?utf-8?B?M1NVNUhJVTc3aUFPNlVqd2FXVzlkQnRTUlQwcTQ3M0JmNnd4dDBISzJ5Tmd3?=
- =?utf-8?B?cFF2QStLakxFMFhmOE5NUmtzUG1Pc0t3RlkycEtKSXF3L2lpL1QrZ3lpQ2NV?=
- =?utf-8?B?Slc2UWNzSUQ2TXc3UmdEQ0JRMWM3cnJ6NzdCVVFsYVhqN1V5RjJyU2txVlJM?=
- =?utf-8?B?ZEQ2NVhTeVRYMld5TFpQWHBCOFk2eGZZdkRJemkzSVpBWktWNmJ0d0diNHRF?=
- =?utf-8?B?dzE3T0x0K2c2RWg2bXZPemlHMjVEcXcrUldKbXhJOEpHWEhEZm1hcnVWUmcx?=
- =?utf-8?B?NW8wRGNORk1aa0QvVnN6cmRlUHdPZm9ZeURENi9qQzVsVkZneGJzUjkyQTQx?=
- =?utf-8?B?QXVVT3drMEtjc2xlWDV3Z2NBd2pnVTl4VHpoTGF3OHlMVDl4ZFJ5eU1YaStM?=
- =?utf-8?B?VTJacFJ0cVRUT3BkaUlmZnJxWW1sbEIxQzQwTHVPVE1peTZHUm4rdmlUUzVp?=
- =?utf-8?B?VE9TTS83VGZFbWlqUkVQWFB5QjlMb3I5WHc2dDFkSEpQMlp0T2JLWkxmVGMz?=
- =?utf-8?B?eXcxT0MxOFlTRm1PajJaSklzY3Y4ek15SXpHdzlhYWlXU21keEM0cU45b2pn?=
- =?utf-8?B?UDFJZnRVWHo4bEdPZk5vUDRENHh2NG9oME95QXRmbkFjcWFPZE93Q2pOYTYy?=
- =?utf-8?B?OXNMdGx5NkUxSnJxWmE1SGZqdXVJSjdaSy83bzBLbXNzejdRNFMvcHFnWmEz?=
- =?utf-8?B?WStaK3VFUzU0UDVUbXNia1RmZXpBRHV6SVcvQXJoUXhrU2thdFIrWGRhcDFa?=
- =?utf-8?B?MXQ3OFZhWXZqMkIxVElNbWNacXlZVzk4OG96KzJGMTN5d241SnV4ZE45MUpZ?=
- =?utf-8?B?REZXN2pGMG8zbmxHeXo2Q3RGNHg4ZWY0V3g0RytURmRpVUtka2txK2trMWVL?=
- =?utf-8?B?c3puS05mdnNiTE9ZRjFLODBtQUh2c0FocXcxNldMYXcrenFPMWdDOS9raWVl?=
- =?utf-8?B?U3IyVmY3b3lCNGw2OURDS2lxVnllWmNwTXNUNyswaGdiZzVFUW04NS9JRFJq?=
- =?utf-8?B?L2M1cHhCRVBrcmErRzFYTVVkdjVuSGc1UEQ3cmtIZmR6NFNjb3pDM2JQbGZ1?=
- =?utf-8?B?UXhPVUJ6bEV0M08vMWIydzB4N1F2VFg1YUN6UHQ5KzJJLzNzT2JyRC9BKytI?=
- =?utf-8?B?NDBSZ1hmb0RFd3hSZTNUallVMHFtODBQRnNqcFBoQllYODVLUHZ3ZlNBOVU0?=
- =?utf-8?B?d1ZnSkhhMlZ4Q1ZKdFM4dnZ2dzJDUzRVdWs1WFA3SDhuK2FnRENSQ29TTFVV?=
- =?utf-8?Q?eboh48f8GTDlABiau7p36loo4nWqzqRGSn9aFCqF+P7W?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e5fc104-62b2-4bea-6c9f-08da94f0f9f1
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2022 18:59:53.5569 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wV3GMi4Bwki4gDMrPmHFIbvaZ7zVtCCjEyCnmYe4YjcQfjEP7oFyRaJxB/QXlptM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5250
+To: jim.cromie@gmail.com
+References: <20220904214134.408619-1-jim.cromie@gmail.com>
+ <20220904214134.408619-18-jim.cromie@gmail.com>
+ <2d3846cb-ff9a-3484-61a8-973799727d8f@akamai.com>
+ <CAJfuBxzM=KKPbcks-aQLAJM0QVd5sjL-CucYbyFbeG5sgoCVjg@mail.gmail.com>
+From: Jason Baron <jbaron@akamai.com>
+In-Reply-To: <CAJfuBxzM=KKPbcks-aQLAJM0QVd5sjL-CucYbyFbeG5sgoCVjg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-12_14,2022-09-12_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ malwarescore=0 adultscore=0
+ phishscore=0 bulkscore=0 mlxscore=0 mlxlogscore=999 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
+ definitions=main-2209120067
+X-Proofpoint-ORIG-GUID: NWqNNT8JvyIz1ZmPTHNe_ca5jdhHGLod
+X-Proofpoint-GUID: NWqNNT8JvyIz1ZmPTHNe_ca5jdhHGLod
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-12_14,2022-09-12_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ lowpriorityscore=0 bulkscore=0
+ phishscore=0 mlxlogscore=999 spamscore=0 priorityscore=1501 suspectscore=0
+ mlxscore=0 impostorscore=0 adultscore=0 clxscore=1015 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
+ definitions=main-2209120068
+X-Mailman-Approved-At: Mon, 12 Sep 2022 20:18:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,227 +89,277 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, robdclark@gmail.com,
+ Sean Paul <seanpaul@chromium.org>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Joe Perches <joe@perches.com>,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-Am 12.09.22 um 20:48 schrieb Felix Kuehling:
-> Am 2022-09-12 um 13:58 schrieb Philip Yang:
->> Free page table BO from vm resv unlocked context generate below
->> warnings.
+On 9/9/22 16:44, jim.cromie@gmail.com wrote:
+> On Wed, Sep 7, 2022 at 12:19 PM Jason Baron <jbaron@akamai.com> wrote:
 >>
->> Add a free_bo_work in vm to free page able BO from vm->bo_freed list.
->> pass vm resv unlock status from page table update caller, and add vm_bo
->> entry to vm->bo_freed_list and schedule the work if calling with vm resv
->> unlocked.
 >>
->> WARNING: CPU: 12 PID: 3238 at
->> drivers/gpu/drm/ttm/ttm_bo.c:106 ttm_bo_set_bulk_move+0xa1/0xc0
->> Call Trace:
->>   amdgpu_vm_pt_free+0x42/0xd0 [amdgpu]
->>   amdgpu_vm_pt_free_dfs+0xb3/0xf0 [amdgpu]
->>   amdgpu_vm_ptes_update+0x52d/0x850 [amdgpu]
->>   amdgpu_vm_update_range+0x2a6/0x640 [amdgpu]
->>   svm_range_unmap_from_gpus+0x110/0x300 [amdgpu]
->>   svm_range_cpu_invalidate_pagetables+0x535/0x600 [amdgpu]
->>   __mmu_notifier_invalidate_range_start+0x1cd/0x230
->>   unmap_vmas+0x9d/0x140
->>   unmap_region+0xa8/0x110
 >>
->> WARNING: CPU: 0 PID: 1475 at
->> drivers/dma-buf/dma-resv.c:483 dma_resv_iter_next
->> Call Trace:
->>   dma_resv_iter_first+0x43/0xa0
->>   amdgpu_vm_sdma_update+0x69/0x2d0 [amdgpu]
->>   amdgpu_vm_ptes_update+0x29c/0x870 [amdgpu]
->>   amdgpu_vm_update_range+0x2f6/0x6c0 [amdgpu]
->>   svm_range_unmap_from_gpus+0x115/0x300 [amdgpu]
->>   svm_range_cpu_invalidate_pagetables+0x510/0x5e0 [amdgpu]
->>   __mmu_notifier_invalidate_range_start+0x1d3/0x230
->>   unmap_vmas+0x140/0x150
->>   unmap_region+0xa8/0x110
+>> On 9/4/22 17:40, Jim Cromie wrote:
+>>> Add module-to-class validation:
+>>>
+>>>   #> echo class DRM_UT_KMS +p > /proc/dynamic_debug/control
+>>>
+>>> If a query has "class FOO", then ddebug_find_valid_class(), called
+>>> from ddebug_change(), requires that FOO is known to module X,
+>>> otherwize the query is skipped entirely for X.  This protects each
+>>> module's class-space, other than the default:31.
+>>>
+>>> The authors' choice of FOO is highly selective, giving isolation
+>>> and/or coordinated sharing of FOOs.  For example, only DRM modules
+>>> should know and respond to DRM_UT_KMS.
+>>>
+>>> So this, combined with module's opt-in declaration of known classes,
+>>> effectively privatizes the .class_id space for each module (or
+>>> coordinated set of modules).
+>>>
+>>> Notes:
+>>>
+>>> For all "class FOO" queries, ddebug_find_valid_class() is called, it
+>>> returns the map matching the query, and sets valid_class via an
+>>> *outvar).
+>>>
+>>> If no "class FOO" is supplied, valid_class = _CLASS_DFLT.  This
+>>> insures that legacy queries do not trample on new class'd callsites,
+>>> as they get added.
 >>
->> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  4 ++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  6 +++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 51 ++++++++++++++++++++---
->>   3 files changed, 55 insertions(+), 6 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> index 59cac347baa3..add3b08ffde9 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -2022,6 +2022,9 @@ int amdgpu_vm_init(struct amdgpu_device *adev, 
->> struct amdgpu_vm *vm)
->>       spin_lock_init(&vm->invalidated_lock);
->>       INIT_LIST_HEAD(&vm->freed);
->>       INIT_LIST_HEAD(&vm->done);
->> +    INIT_LIST_HEAD(&vm->bo_freed);
->> +    INIT_WORK(&vm->bo_free_work, amdgpu_vm_pt_free_work);
->> +    spin_lock_init(&vm->bo_free_lock);
->>         /* create scheduler entities for page table updates */
->>       r = drm_sched_entity_init(&vm->immediate, 
->> DRM_SCHED_PRIORITY_NORMAL,
->> @@ -2244,6 +2247,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, 
->> struct amdgpu_vm *vm)
->>           amdgpu_vm_free_mapping(adev, vm, mapping, NULL);
->>       }
->>   +    cancel_work_sync(&vm->bo_free_work);
->>       amdgpu_vm_pt_free_root(adev, vm);
->>       amdgpu_bo_unreserve(root);
->>       amdgpu_bo_unref(&root);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> index 9ecb7f663e19..c8c59c66ca2f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> @@ -276,6 +276,11 @@ struct amdgpu_vm {
->>       /* BOs which are invalidated, has been updated in the PTs */
->>       struct list_head        done;
->>   +    /* PT BOs scheduled to free and fill with zero if vm_resv is 
->> not hold */
->> +    struct list_head    bo_freed;
->> +    struct work_struct    bo_free_work;
->> +    spinlock_t        bo_free_lock;
->> +
->>       /* contains the page directory */
->>       struct amdgpu_vm_bo_base     root;
->>       struct dma_fence    *last_update;
->> @@ -471,6 +476,7 @@ int amdgpu_vm_pde_update(struct 
->> amdgpu_vm_update_params *params,
->>   int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
->>                 uint64_t start, uint64_t end,
->>                 uint64_t dst, uint64_t flags);
->> +void amdgpu_vm_pt_free_work(struct work_struct *work);
->>     #if defined(CONFIG_DEBUG_FS)
->>   void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct 
->> seq_file *m);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->> index 88de9f0d4728..12471ef126a9 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->> @@ -624,12 +624,22 @@ static int amdgpu_vm_pt_alloc(struct 
->> amdgpu_device *adev,
->>    *
->>    * @entry: PDE to free
->>    */
->> -static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
->> +static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry, bool 
->> unlocked)
->>   {
->>       struct amdgpu_bo *shadow;
->>         if (!entry->bo)
->>           return;
->> +
->> +    if (unlocked) {
->> +        spin_lock(&entry->vm->bo_free_lock);
->> +        list_move(&entry->vm_status, &entry->vm->bo_freed);
->> +        spin_unlock(&entry->vm->bo_free_lock);
->> +
->> +        schedule_work(&entry->vm->bo_free_work);
->> +        return;
->> +    }
->> +
->>       shadow = amdgpu_bo_shadowed(entry->bo);
->>       if (shadow) {
->>           ttm_bo_set_bulk_move(&shadow->tbo, NULL);
->> @@ -641,6 +651,33 @@ static void amdgpu_vm_pt_free(struct 
->> amdgpu_vm_bo_base *entry)
->>       amdgpu_bo_unref(&entry->bo);
->>   }
->>   +void amdgpu_vm_pt_free_work(struct work_struct *work)
->> +{
->> +    struct amdgpu_vm_bo_base *entry;
->> +    struct amdgpu_vm *vm;
->> +    struct amdgpu_bo *root;
->> +
->> +    vm = container_of(work, struct amdgpu_vm, bo_free_work);
->> +
->> +    root = amdgpu_bo_ref(vm->root.bo);
->> +    amdgpu_bo_reserve(root, true);
->> +
->> +    spin_lock(&vm->bo_free_lock);
->> +    while (!list_empty(&vm->bo_freed)) {
->> +        entry = list_first_entry(&vm->bo_freed, struct 
->> amdgpu_vm_bo_base,
->> +                     vm_status);
->
-> I don't see where you're removing the entry from the list. You need a 
-> list_del_init here.
->
-> If you're relying on the list_del call in amdgpu_vm_pt_free, that's 
-> not safe because it's outside the spinlock. This could end up 
-> corrupting the list if another thread is concurrently adding to the 
-> same list.
+>> Hi Jim,
+>>
+>> I'm wondering about the case where we have a callsite which is marked
+>> as 'class foo', but the query string is done by say module and file, so:
+>>
+>> # echo "module bar file foo.c +p" > /proc/dynamic_debug_control
+>>
+>> With the proposed code, I think this ends up not enabling anything right?
+> 
+> correct - the only way to enable :    pr_debug_cls(CL_FOO, " ...")
+> is
+>    echo class CL_FOO +p > control
+> 
+> 1st, existing dyndbg query uses, whether ad-hoc or scripted,
+> were not written in anticipation of new / classified subsystems.
+> 
+> 2nd, new class users dont want to sit in coach. no damn legroom.
+> 
+> 3rd, consider DRM, which already has drm.debug
+> ie:  /sys/module/drm/parameters/debug
+> and prefers it, at least by inertia.
+> protecting these new class'd callsites (3-5k of them)
+> from casual (unintended) manipulations of the kernel-wide
+> dyndbg state seems prudent, and a usability win.
+> 
+> Not everyone will use module bar, requiring "class foo"
+> guarantees that changes are intentional.
+> 
 
-It's much easier to use list_splice() to move the list to a local head 
-and then traverse it with list_for_each_entry_safe() and free up everything.
+I sort of get that your trying to protect these from unintended toggling,
+but I would say it's that's not really new with these statements,
+prr_debug() come and go before and I'm not aware of this is an issue.
+And in any case, a query can be modified.
 
-Regards,
-Christian.
+I think what bugs me is now query stuff works differently. Previously,
+all the query strings - 'module', 'file', 'line', 'format', were
+used as additional selectors, but now we have this new one 'class'
+that works differently as it's requited for pr_debug_cls() statements.
 
->
-> Regards,
->   Felix
->
->
->> + spin_unlock(&vm->bo_free_lock);
->> +
->> +        amdgpu_vm_pt_free(entry, false);
->> +
->> +        spin_lock(&vm->bo_free_lock);
->> +    }
->> +    spin_unlock(&vm->bo_free_lock);
->> +
->> +    amdgpu_bo_unreserve(root);
->> +    amdgpu_bo_unref(&root);
->> +}
->> +
->>   /**
->>    * amdgpu_vm_pt_free_dfs - free PD/PT levels
->>    *
->> @@ -652,16 +689,17 @@ static void amdgpu_vm_pt_free(struct 
->> amdgpu_vm_bo_base *entry)
->>    */
->>   static void amdgpu_vm_pt_free_dfs(struct amdgpu_device *adev,
->>                     struct amdgpu_vm *vm,
->> -                  struct amdgpu_vm_pt_cursor *start)
->> +                  struct amdgpu_vm_pt_cursor *start,
->> +                  bool unlocked)
->>   {
->>       struct amdgpu_vm_pt_cursor cursor;
->>       struct amdgpu_vm_bo_base *entry;
->>         for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
->> -        amdgpu_vm_pt_free(entry);
->> +        amdgpu_vm_pt_free(entry, unlocked);
->>         if (start)
->> -        amdgpu_vm_pt_free(start->entry);
->> +        amdgpu_vm_pt_free(start->entry, unlocked);
->>   }
->>     /**
->> @@ -673,7 +711,7 @@ static void amdgpu_vm_pt_free_dfs(struct 
->> amdgpu_device *adev,
->>    */
->>   void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct 
->> amdgpu_vm *vm)
->>   {
->> -    amdgpu_vm_pt_free_dfs(adev, vm, NULL);
->> +    amdgpu_vm_pt_free_dfs(adev, vm, NULL, false);
->>   }
->>     /**
->> @@ -966,7 +1004,8 @@ int amdgpu_vm_ptes_update(struct 
->> amdgpu_vm_update_params *params,
->>                   if (cursor.entry->bo) {
->>                       params->table_freed = true;
->>                       amdgpu_vm_pt_free_dfs(adev, params->vm,
->> -                                  &cursor);
->> +                                  &cursor,
->> +                                  params->unlocked);
->>                   }
->>                   amdgpu_vm_pt_next(adev, &cursor);
->>               }
+> 
+> 
+>> Because valid class is set to _DPRINTK_CLASS_DFLT and then:
+>> 'dp->class_id != valid_class' is true?
+>>
+>> This seems confusing to me as a user as this doesn't work like the
+>> other queries....so maybe we should only do the
+>> 'dp->class_id != valid_class' check *if* query->class_string is set,
+>> see below.
+>>
+> 
+> Could you clarify whether you think this is a logic error
+> or a frame-of-reference difference as elaborated above ?
 
+'frame-of-reference' I'm questioning the how 'class' works as mentioned
+above not the implementation.
+
+Thanks,
+
+-Jason
+
+> 
+> ISTM theres a place for a well-worded paragraph in doc
+> about the class distinction, perhaps a whole for-authors section.
+> 
+> 
+> 
+>>
+>>
+>>>
+>>> Also add a new column to control-file output, displaying non-default
+>>> class-name (when found) or the "unknown _id:", if it has not been
+>>> (correctly) declared with one of the declarator macros.
+>>>
+>>> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+>>> ---
+>>>  lib/dynamic_debug.c | 76 ++++++++++++++++++++++++++++++++++++++++-----
+>>>  1 file changed, 68 insertions(+), 8 deletions(-)
+>>>
+>>> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+>>> index b71efd0b491d..db96ded78c3f 100644
+>>> --- a/lib/dynamic_debug.c
+>>> +++ b/lib/dynamic_debug.c
+>>> @@ -56,6 +56,7 @@ struct ddebug_query {
+>>>       const char *module;
+>>>       const char *function;
+>>>       const char *format;
+>>> +     const char *class_string;
+>>>       unsigned int first_lineno, last_lineno;
+>>>  };
+>>>
+>>> @@ -136,15 +137,33 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
+>>>                       fmtlen--;
+>>>       }
+>>>
+>>> -     v3pr_info("%s: func=\"%s\" file=\"%s\" module=\"%s\" format=\"%.*s\" lineno=%u-%u\n",
+>>> -              msg,
+>>> -              query->function ?: "",
+>>> -              query->filename ?: "",
+>>> -              query->module ?: "",
+>>> -              fmtlen, query->format ?: "",
+>>> -              query->first_lineno, query->last_lineno);
+>>> +     v3pr_info("%s: func=\"%s\" file=\"%s\" module=\"%s\" format=\"%.*s\" lineno=%u-%u class=%s\n",
+>>> +               msg,
+>>> +               query->function ?: "",
+>>> +               query->filename ?: "",
+>>> +               query->module ?: "",
+>>> +               fmtlen, query->format ?: "",
+>>> +               query->first_lineno, query->last_lineno, query->class_string);
+>>>  }
+>>>
+>>> +static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
+>>> +                                                       const char *class_string, int *class_id)
+>>> +{
+>>> +     struct ddebug_class_map *map;
+>>> +     int idx;
+>>> +
+>>> +     list_for_each_entry(map, &dt->maps, link) {
+>>> +             idx = match_string(map->class_names, map->length, class_string);
+>>> +             if (idx >= 0) {
+>>> +                     *class_id = idx + map->base;
+>>> +                     return map;
+>>> +             }
+>>> +     }
+>>> +     *class_id = -ENOENT;
+>>> +     return NULL;
+>>> +}
+>>> +
+>>> +#define __outvar /* filled by callee */
+>>>  /*
+>>>   * Search the tables for _ddebug's which match the given `query' and
+>>>   * apply the `flags' and `mask' to them.  Returns number of matching
+>>> @@ -159,6 +178,8 @@ static int ddebug_change(const struct ddebug_query *query,
+>>>       unsigned int newflags;
+>>>       unsigned int nfound = 0;
+>>>       struct flagsbuf fbuf, nbuf;
+>>> +     struct ddebug_class_map *map = NULL;
+>>> +     int __outvar valid_class;
+>>>
+>>>       /* search for matching ddebugs */
+>>>       mutex_lock(&ddebug_lock);
+>>> @@ -169,9 +190,22 @@ static int ddebug_change(const struct ddebug_query *query,
+>>>                   !match_wildcard(query->module, dt->mod_name))
+>>>                       continue;
+>>>
+>>> +             if (query->class_string) {
+>>> +                     map = ddebug_find_valid_class(dt, query->class_string, &valid_class);
+>>> +                     if (!map)
+>>> +                             continue;
+>>
+>> So remove the else here.
+>>
+>>> +             } else {
+>>> +                     /* constrain query, do not touch class'd callsites */
+>>> +                     valid_class = _DPRINTK_CLASS_DFLT;
+>>> +             }
+>>> +
+>>>               for (i = 0; i < dt->num_ddebugs; i++) {
+>>>                       struct _ddebug *dp = &dt->ddebugs[i];
+>>>
+>>> +                     /* match site against query-class */
+>>> +                     if (dp->class_id != valid_class)
+>>
+>> And then make this: if (query->class_string && (dp->class_id != valid_class))
+>>
+>> thoughts?
+>>
+>>
+>>> +                             continue;
+>>> +>                    /* match against the source filename */
+>>>                       if (query->filename &&
+>>>                           !match_wildcard(query->filename, dp->filename) &&
+>>> @@ -420,6 +454,8 @@ static int ddebug_parse_query(char *words[], int nwords,
+>>>               } else if (!strcmp(keyword, "line")) {
+>>>                       if (parse_linerange(query, arg))
+>>>                               return -EINVAL;
+>>> +             } else if (!strcmp(keyword, "class")) {
+>>> +                     rc = check_set(&query->class_string, arg, "class");
+>>>               } else {
+>>>                       pr_err("unknown keyword \"%s\"\n", keyword);
+>>>                       return -EINVAL;
+>>> @@ -854,6 +890,20 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
+>>>       return dp;
+>>>  }
+>>>
+>>> +#define class_in_range(class_id, map)                                        \
+>>> +     (class_id >= map->base && class_id < map->base + map->length)
+>>> +
+>>> +static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
+>>> +{
+>>> +     struct ddebug_class_map *map;
+>>> +
+>>> +     list_for_each_entry(map, &iter->table->maps, link)
+>>> +             if (class_in_range(dp->class_id, map))
+>>> +                     return map->class_names[dp->class_id - map->base];
+>>> +
+>>> +     return NULL;
+>>> +}
+>>> +
+>>>  /*
+>>>   * Seq_ops show method.  Called several times within a read()
+>>>   * call from userspace, with ddebug_lock held.  Formats the
+>>> @@ -865,6 +915,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+>>>       struct ddebug_iter *iter = m->private;
+>>>       struct _ddebug *dp = p;
+>>>       struct flagsbuf flags;
+>>> +     char const *class;
+>>>
+>>>       if (p == SEQ_START_TOKEN) {
+>>>               seq_puts(m,
+>>> @@ -877,7 +928,16 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+>>>                  iter->table->mod_name, dp->function,
+>>>                  ddebug_describe_flags(dp->flags, &flags));
+>>>       seq_escape_str(m, dp->format, ESCAPE_SPACE, "\t\r\n\"");
+>>> -     seq_puts(m, "\"\n");
+>>> +     seq_puts(m, "\"");
+>>> +
+>>> +     if (dp->class_id != _DPRINTK_CLASS_DFLT) {
+>>> +             class = ddebug_class_name(iter, dp);
+>>> +             if (class)
+>>> +                     seq_printf(m, " class:%s", class);
+>>> +             else
+>>> +                     seq_printf(m, " class unknown, _id:%d", dp->class_id);
+>>> +     }
+>>> +     seq_puts(m, "\n");
+>>>
+>>>       return 0;
+>>>  }
