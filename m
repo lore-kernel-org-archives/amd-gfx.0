@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D88CFC6FA86
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 12:37:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66CCAECAAD5
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 12:37:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09EE810E438;
-	Mon, 12 Sep 2022 12:37:16 +0000 (UTC)
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F5C010E46D
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 12:36:45 +0000 (UTC)
-Received: by mail-ed1-x532.google.com with SMTP id f20so8066700edf.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 05:36:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E31D10E44E;
+	Mon, 12 Sep 2022 12:37:32 +0000 (UTC)
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D77810E467
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 12:36:46 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id z21so12561907edi.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 05:36:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=kBJ8MKPMTc/ljm1Je/dqVW7iOpGuBGK18C7LP1VWBRU=;
- b=N0viDBk+OE4G2fXZMNgHtec8zmk2V4DzNO/0dhhNiM+2GBGDL34Ht6uQCk5JhqPB2K
- jtqeujXwvDaZ6tE82re/4mhnCk7dQykUvtF1TQejNzo8BRpVpexHBI6deiaQwQy5N4B8
- j1b1IgIQTIY8zkSubd6AxtJrhFG+MnRBi100FobsqDxIG11kjXDC5qAb44HNDpKW95WT
- U5jJFMemqyYQbqhH5r1YQ9+9YX0B/NtCpHTivaqEZR+x1F/wFQVCoEgfb7f5WxEl47eV
- wJ6hH7KHJJj2bJTW+VTBbIBa8mpFWvW4OUp9C24ZCpWaDnOpz2Y7aZF8kXFNKrl8W9pK
- g/Pg==
+ bh=n8m5/Y6MpUvPe1e/1gGmGx4fix9qgu3Q8BvFeDGYwog=;
+ b=eEs/tDMM9rYLuowcwB8aVJI68Ob6pYuU9DPtTeTvz+sPlbYBahHbBG2+cjFN/+hC48
+ Te6bq8MlqVI7/ew37ala49F1hBUF5+kP4A2w0D3EJzyQe2awD3X0W00ZNxm9PmmjW9wq
+ ZxKNgutYCvQ9rUIT+VqdS632liv5e2U+b444Vs8XGj1KUaXoGvaZte+hLwkceSotnH6l
+ n4wmwIRC30//pBkjljJ9fiZBXlbFeRySqB41yTkFEZGmbZ4uRioEkaJ3vp6rSOMjnuVP
+ TtAJ3D9CM6wy/lUiplSjnAv2e6tVfP97GQlKSbohN9Pl0Ho62jm1VHWo0pD+wwyo4dJb
+ a8TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=kBJ8MKPMTc/ljm1Je/dqVW7iOpGuBGK18C7LP1VWBRU=;
- b=hHa9rZkpefut1O7+lDcM5lqgtqs9MX2Lr9wPpVhN/6ce3SlYo6NngKy847BNO1Mze6
- YixwQhwUUKH/E7PQcSaGoAtD4OIb+32VUwhj1BFsJgeXL/kxkdTAJJW0i4FhyZj+U8Es
- o3rsgdQu24WkoI9S425KiWZuvjGVlhgjX4rImciP2spG4INOKwOkTmFnpkcArPhtaILy
- X5ki8nCN3sjhxDaKxHqjSBEoJMymGH+JaeXH2w4YvLLyEi+nAgrU387y+7C72OKhSJoC
- /Mgp9U+5I8AqYMcdr7xYifsOM7AHYQ86CEPw9NjFKZjWLgbKbDr0qhdTnpVavvtng4zd
- 1VZA==
-X-Gm-Message-State: ACgBeo1lhi7sX27ZAWywxbOnO+Mt0YKm/EYIZ8pqpWow5AdYo+yVSpuR
- gO3jkyBKPlwUXrHlePQ3rSQ=
-X-Google-Smtp-Source: AA6agR7nNpdHiHCt4qorpiyEjQCZS8gZz1lAArd59x2SuNenIHAi7GWuK5vaTPcdNZ7PO/2N9hNGCQ==
-X-Received: by 2002:a05:6402:3485:b0:451:f615:321f with SMTP id
- v5-20020a056402348500b00451f615321fmr1978424edc.65.1662986203768; 
- Mon, 12 Sep 2022 05:36:43 -0700 (PDT)
+ bh=n8m5/Y6MpUvPe1e/1gGmGx4fix9qgu3Q8BvFeDGYwog=;
+ b=A4CyCQmMsmA8fE99z1p5etDv3V7ho2/2UINADg8nxttwRuyvnNIe2c6SX131/E2os4
+ SEi1945uP4tTaY8NFbsv35WnsoFDCWatLQKNBmp5Q28bJqm+YKLoLtuAe19YLEyFiBrr
+ koE5lgVOLjT9+NztZwyBpxz6yQB7zPVsO7/8XzUnrQ+hDw88DUbwsuaaLR85iWt0HKlr
+ Kdg/vVbktlviRAsXMZghVUbSxQEFcSFoQriV6gWME/B2WOM15ANyyAQFgrO79purlmfU
+ MgdQfeaXCRwVC0C+lSghUsea0K3tLLtIGfvU9/Alu1MlIqD8DmV34ojk3nMaZq0fj9L+
+ uNUQ==
+X-Gm-Message-State: ACgBeo1l76z9EbatVZwKG9EfFNDa5Urs6GQc/p9RIQDtPOoMBK0UwTRV
+ shPw9upt+SGt2KF0NVtYr+c=
+X-Google-Smtp-Source: AA6agR69x3CBnWliFw0yMZ1ZH1lH58sG2oGa3VxanANnfJBCj8SCL5KbCFa+Fvbtaean8V9KqxaCXQ==
+X-Received: by 2002:a05:6402:3215:b0:451:4ce5:d7b8 with SMTP id
+ g21-20020a056402321500b004514ce5d7b8mr9014468eda.223.1662986204679; 
+ Mon, 12 Sep 2022 05:36:44 -0700 (PDT)
 Received: from able.fritz.box (p4fc20f4e.dip0.t-ipconnect.de. [79.194.15.78])
  by smtp.gmail.com with ESMTPSA id
- au6-20020a170907092600b00770c8e157ccsm4335639ejc.136.2022.09.12.05.36.42
+ au6-20020a170907092600b00770c8e157ccsm4335639ejc.136.2022.09.12.05.36.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Sep 2022 05:36:43 -0700 (PDT)
+ Mon, 12 Sep 2022 05:36:44 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: alexander.deucher@amd.com,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/7] drm/sched: move calling drm_sched_entity_select_rq
-Date: Mon, 12 Sep 2022 14:36:34 +0200
-Message-Id: <20220912123640.20058-2-christian.koenig@amd.com>
+Subject: [PATCH 2/7] drm/amdgpu: remove SRIOV and MCBP dependencies from the CS
+Date: Mon, 12 Sep 2022 14:36:35 +0200
+Message-Id: <20220912123640.20058-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220912123640.20058-1-christian.koenig@amd.com>
 References: <20220912123640.20058-1-christian.koenig@amd.com>
@@ -73,42 +73,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We already discussed that the call to drm_sched_entity_select_rq() needs
-to move to drm_sched_job_arm() to be able to set a new scheduler list
-between _init() and _arm(). This was just not applied for some reason.
+We should not have any different CS constrains based
+on the execution environment.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 68317d3a7a27..e0ab14e0fb6b 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -592,7 +592,6 @@ int drm_sched_job_init(struct drm_sched_job *job,
- 		       struct drm_sched_entity *entity,
- 		       void *owner)
- {
--	drm_sched_entity_select_rq(entity);
- 	if (!entity->rq)
- 		return -ENOENT;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index b7bae833c804..6f80cf2ea9ae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -814,7 +814,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+ 	if (r)
+ 		return r;
  
-@@ -628,7 +627,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
- 	struct drm_sched_entity *entity = job->entity;
+-	if (amdgpu_mcbp || amdgpu_sriov_vf(adev)) {
++	if (fpriv->csa_va) {
+ 		bo_va = fpriv->csa_va;
+ 		BUG_ON(!bo_va);
+ 		r = amdgpu_vm_bo_update(adev, bo_va, false);
+@@ -898,13 +898,11 @@ static int amdgpu_cs_ib_fill(struct amdgpu_device *adev,
+ 			continue;
  
- 	BUG_ON(!entity);
--
-+	drm_sched_entity_select_rq(entity);
- 	sched = entity->rq->sched;
+ 		if (chunk_ib->ip_type == AMDGPU_HW_IP_GFX &&
+-		    (amdgpu_mcbp || amdgpu_sriov_vf(adev))) {
+-			if (chunk_ib->flags & AMDGPU_IB_FLAG_PREEMPT) {
+-				if (chunk_ib->flags & AMDGPU_IB_FLAG_CE)
+-					ce_preempt++;
+-				else
+-					de_preempt++;
+-			}
++		    chunk_ib->flags & AMDGPU_IB_FLAG_PREEMPT) {
++			if (chunk_ib->flags & AMDGPU_IB_FLAG_CE)
++				ce_preempt++;
++			else
++				de_preempt++;
  
- 	job->sched = sched;
+ 			/* each GFX command submit allows 0 or 1 IB preemptible for CE & DE */
+ 			if (ce_preempt > 1 || de_preempt > 1)
 -- 
 2.25.1
 
