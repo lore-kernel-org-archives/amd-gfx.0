@@ -4,21 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88692C54EE9
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 07:26:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8246C54EE9
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 07:26:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6C4410E621;
-	Tue, 13 Sep 2022 07:26:35 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 233C610E4F1;
- Tue, 13 Sep 2022 02:48:56 +0000 (UTC)
-Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MRSX53gN9znVGr;
- Tue, 13 Sep 2022 10:46:13 +0800 (CST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88A8210E623;
+	Tue, 13 Sep 2022 07:26:38 +0000 (UTC)
+X-Greylist: delayed 940 seconds by postgrey-1.36 at gabe;
+ Tue, 13 Sep 2022 03:04:32 UTC
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C467310E103;
+ Tue, 13 Sep 2022 03:04:32 +0000 (UTC)
+Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.57])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4MRSXq12JyzHntV;
+ Tue, 13 Sep 2022 10:46:51 +0800 (CST)
 Received: from cgs.huawei.com (10.244.148.83) by
  kwepemi500012.china.huawei.com (7.221.188.12) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Tue, 13 Sep 2022 10:48:52 +0800
+ 15.1.2375.24; Tue, 13 Sep 2022 10:48:50 +0800
 From: Gaosheng Cui <cuigaosheng1@huawei.com>
 To: <evan.quan@amd.com>, <alexander.deucher@amd.com>,
  <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@linux.ie>,
@@ -28,9 +30,9 @@ To: <evan.quan@amd.com>, <alexander.deucher@amd.com>,
  <zackr@vmware.com>, <linux-graphics-maintainer@vmware.com>,
  <lijo.lazar@amd.com>, <matthew.brost@intel.com>, <John.C.Harrison@Intel.com>, 
  <daniele.ceraolospurio@intel.com>, <cuigaosheng1@huawei.com>
-Subject: [PATCH 6/6] drm/i915: remove unused i915_gem_lmem_obj_ops declaration
-Date: Tue, 13 Sep 2022 10:48:47 +0800
-Message-ID: <20220913024847.552254-7-cuigaosheng1@huawei.com>
+Subject: [PATCH 4/6] drm/gma500: remove unused declarations in psb_intel_drv.h
+Date: Tue, 13 Sep 2022 10:48:45 +0800
+Message-ID: <20220913024847.552254-5-cuigaosheng1@huawei.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220913024847.552254-1-cuigaosheng1@huawei.com>
 References: <20220913024847.552254-1-cuigaosheng1@huawei.com>
@@ -58,28 +60,39 @@ Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-i915_gem_lmem_obj_ops has been removed since
-commit 213d50927763 ("drm/i915/ttm: Introduce a TTM i915
-gem object backend"), so remove it.
+psb_intel_sdvo_supports_hotplug(), psb_intel_sdvo_set_hotplug()
+and psb_intel_sdvo_find() have been removed since
+commit 871c60156dbe ("drm/gma500: Remove dead code"),
+so remove them.
 
 Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_lmem.h | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/gma500/psb_intel_drv.h | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_lmem.h b/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-index 1b88ea13435c..5a7a14e85c3f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-@@ -12,8 +12,6 @@ struct drm_i915_private;
- struct drm_i915_gem_object;
- struct intel_memory_region;
- 
--extern const struct drm_i915_gem_object_ops i915_gem_lmem_obj_ops;
--
- void __iomem *
- i915_gem_object_lmem_io_map(struct drm_i915_gem_object *obj,
- 			    unsigned long n,
+diff --git a/drivers/gpu/drm/gma500/psb_intel_drv.h b/drivers/gpu/drm/gma500/psb_intel_drv.h
+index 8ccba116821b..8a1111fe714b 100644
+--- a/drivers/gpu/drm/gma500/psb_intel_drv.h
++++ b/drivers/gpu/drm/gma500/psb_intel_drv.h
+@@ -197,8 +197,6 @@ extern void psb_intel_lvds_set_brightness(struct drm_device *dev, int level);
+ extern void oaktrail_lvds_init(struct drm_device *dev,
+ 			   struct psb_intel_mode_device *mode_dev);
+ extern void oaktrail_wait_for_INTR_PKT_SENT(struct drm_device *dev);
+-extern void oaktrail_dsi_init(struct drm_device *dev,
+-			   struct psb_intel_mode_device *mode_dev);
+ struct gma_i2c_chan *oaktrail_lvds_i2c_init(struct drm_device *dev);
+ extern void mid_dsi_init(struct drm_device *dev,
+ 		    struct psb_intel_mode_device *mode_dev, int dsi_num);
+@@ -219,9 +217,6 @@ extern struct drm_crtc *psb_intel_get_crtc_from_pipe(struct drm_device *dev,
+ 						 int pipe);
+ extern struct drm_connector *psb_intel_sdvo_find(struct drm_device *dev,
+ 					     int sdvoB);
+-extern int psb_intel_sdvo_supports_hotplug(struct drm_connector *connector);
+-extern void psb_intel_sdvo_set_hotplug(struct drm_connector *connector,
+-				   int enable);
+ extern int intelfb_probe(struct drm_device *dev);
+ extern int intelfb_remove(struct drm_device *dev,
+ 			  struct drm_framebuffer *fb);
 -- 
 2.25.1
 
