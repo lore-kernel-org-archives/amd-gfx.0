@@ -4,31 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12C0DC54EE9
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 19:31:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECB09ECAAD8
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 19:31:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2341510E3C4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5756B10E26D;
 	Tue, 13 Sep 2022 19:30:40 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D18C10E1E0;
- Tue, 13 Sep 2022 19:28:20 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72C5210E1CF;
+ Tue, 13 Sep 2022 19:29:44 +0000 (UTC)
 Received: from dimapc.. (109-252-122-187.nat.spd-mgts.ru [109.252.122.187])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 274456601F99;
- Tue, 13 Sep 2022 20:28:14 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 0550E6601FFD;
+ Tue, 13 Sep 2022 20:29:37 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1663097298;
- bh=9oImKG94bbbgo9nd8m27hUQYenjRSdlmBmnPGzIeN6k=;
- h=From:To:Cc:Subject:Date:From;
- b=dbQW0xgBDdLNPsGVQlkFkGCHdOvAe058Q5LKJmed2tclljNUa4P+DpLazS3H4q4As
- WeTKi3VDEd3Z3KQcvOTSOAaZeqc3rQ8es/Z3RyxKjT5dXzqKJmNRhVhXdXJixL3l3l
- ASIgPf5jzJT7XFXEmsWTJm51ReLKtmFE82LvuV6ZPEu/r46ia7Lrm6/O8wdwwL5CSn
- 1bGFNv70ufvYYdU84UPwfH0k1iUawn7M8XIw7UQq/arZTMfe4lSZtPgZ7cgr1QJRZy
- 5vd4xVZJpsrWc2N7uj3ThsCKM4aCUqQPIdkJyFSNoIybNLg2znm3OPdqwmFJgl0+3/
- tfZUJWyVrZn/Q==
+ s=mail; t=1663097383;
+ bh=KXnLT1zxHK6U6noEjkHRO2Mfpv2Yq4iTZhk9Iiw0LNk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=PQyGcACbXOTNIgk0irg1P6NcYmxhJujzFOXE6Ef69JU5AzWwVFi7exXLF2mnvwUiB
+ U6eAiHHbYb+Hxz0eHy+lpvBCT4eIvX0QaZ8+u6Rm/T+IkVvmFYnZJcPRS5hfBJKdNA
+ NEmTX/AUUCVZH7BKy8T/A0CORL8IZ6KLqa6Abrihbt9xQSZ9BMBOyaNjiBJjkyJXuh
+ n7tVhmliMWXj3IQ2im87fTlaYDbNTjLjQ33VTpcqARrbt3JYHn/df0U0UAxtjzLAaL
+ 9qy9nFA1JqFjSN8LOlgO2lVU8Xe9SAtAqJZnBk7uMKM5QtiavHcl6uzt3Z/oHiN9sG
+ 0PYhKji8YIX4g==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -64,11 +65,13 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Subject: [PATCH v5 00/21] Move all drivers to a common dma-buf locking
- convention
-Date: Tue, 13 Sep 2022 22:27:36 +0300
-Message-Id: <20220913192757.37727-1-dmitry.osipenko@collabora.com>
+Subject: [PATCH v5 17/21] dma-buf: Move dma_buf_map_attachment() to dynamic
+ locking specification
+Date: Tue, 13 Sep 2022 22:27:53 +0300
+Message-Id: <20220913192757.37727-18-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20220913192757.37727-1-dmitry.osipenko@collabora.com>
+References: <20220913192757.37727-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -93,138 +96,54 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Move dma-buf attachment mapping functions to the dynamic locking
+specification by asserting that the reservation lock is held.
 
-This series moves all drivers to a dynamic dma-buf locking specification.
-From now on all dma-buf importers are made responsible for holding
-dma-buf's reservation lock around all operations performed over dma-bufs
-in accordance to the locking specification. This allows us to utilize
-reservation lock more broadly around kernel without fearing of a potential
-deadlocks.
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+---
+ drivers/dma-buf/dma-buf.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-This patchset passes all i915 selftests. It was also tested using VirtIO,
-Panfrost, Lima, Tegra, udmabuf, AMDGPU and Nouveau drivers. I tested cases
-of display+GPU, display+V4L and GPU+V4L dma-buf sharing (where appropriate),
-which covers majority of kernel drivers since rest of the drivers share
-same or similar code paths.
-
-Changelog:
-
-v5: - Added acks and r-bs that were given to v4.
-
-    - Changed i915 preparation patch like was suggested by Michael Ruhl.
-      The scope of reservation locking is smaller now.
-
-v4: - Added dma_buf_mmap() to the "locking convention" documentation,
-      which was missed by accident in v3.
-
-    - Added acks from Christian König, Tomasz Figa and Hans Verkuil that
-      they gave to couple v3 patches.
-
-    - Dropped the "_unlocked" postfix from function names that don't have
-      the locked variant, as was requested by Christian König.
-
-    - Factored out the per-driver preparations into separate patches
-      to ease reviewing of the changes, which is now doable without the
-      global dma-buf functions renaming.
-
-    - Factored out the dynamic locking convention enforcements into separate
-      patches which add the final dma_resv_assert_held(dmabuf->resv) to the
-      dma-buf API functions.
-
-v3: - Factored out dma_buf_mmap_unlocked() and attachment functions
-      into aseparate patches, like was suggested by Christian König.
-
-    - Corrected and factored out dma-buf locking documentation into
-      a separate patch, like was suggested by Christian König.
-
-    - Intel driver dropped the reservation locking fews days ago from
-      its BO-release code path, but we need that locking for the imported
-      GEMs because in the end that code path unmaps the imported GEM.
-      So I added back the locking needed by the imported GEMs, updating
-      the "dma-buf attachment locking specification" patch appropriately.
-
-    - Tested Nouveau+Intel dma-buf import/export combo.
-
-    - Tested udmabuf import to i915/Nouveau/AMDGPU.
-
-    - Fixed few places in Etnaviv, Panfrost and Lima drivers that I missed
-      to switch to locked dma-buf vmapping in the drm/gem: Take reservation
-      lock for vmap/vunmap operations" patch. In a result invalidated the
-      Christian's r-b that he gave to v2.
-
-    - Added locked dma-buf vmap/vunmap functions that are needed for fixing
-      vmappping of Etnaviv, Panfrost and Lima drivers mentioned above.
-      I actually had this change stashed for the drm-shmem shrinker patchset,
-      but then realized that it's already needed by the dma-buf patches.
-      Also improved my tests to better cover these code paths.
-
-v2: - Changed locking specification to avoid problems with a cross-driver
-      ww locking, like was suggested by Christian König. Now the attach/detach
-      callbacks are invoked without the held lock and exporter should take the
-      lock.
-
-    - Added "locking convention" documentation that explains which dma-buf
-      functions and callbacks are locked/unlocked for importers and exporters,
-      which was requested by Christian König.
-
-    - Added ack from Tomasz Figa to the V4L patches that he gave to v1.
-
-Dmitry Osipenko (21):
-  dma-buf: Add unlocked variant of vmapping functions
-  dma-buf: Add unlocked variant of attachment-mapping functions
-  drm/gem: Take reservation lock for vmap/vunmap operations
-  drm/prime: Prepare to dynamic dma-buf locking specification
-  drm/armada: Prepare to dynamic dma-buf locking specification
-  drm/i915: Prepare to dynamic dma-buf locking specification
-  drm/omapdrm: Prepare to dynamic dma-buf locking specification
-  drm/tegra: Prepare to dynamic dma-buf locking specification
-  drm/etnaviv: Prepare to dynamic dma-buf locking specification
-  RDMA/umem: Prepare to dynamic dma-buf locking specification
-  misc: fastrpc: Prepare to dynamic dma-buf locking specification
-  xen/gntdev: Prepare to dynamic dma-buf locking specification
-  media: videobuf2: Prepare to dynamic dma-buf locking specification
-  media: tegra-vde: Prepare to dynamic dma-buf locking specification
-  dma-buf: Move dma_buf_vmap() to dynamic locking specification
-  dma-buf: Move dma_buf_attach() to dynamic locking specification
-  dma-buf: Move dma_buf_map_attachment() to dynamic locking
-    specification
-  dma-buf: Move dma_buf_mmap() to dynamic locking specification
-  dma-buf: Document dynamic locking convention
-  media: videobuf2: Stop using internal dma-buf lock
-  dma-buf: Remove obsoleted internal lock
-
- Documentation/driver-api/dma-buf.rst          |   6 +
- drivers/dma-buf/dma-buf.c                     | 211 +++++++++++++++---
- drivers/gpu/drm/armada/armada_gem.c           |   8 +-
- drivers/gpu/drm/drm_client.c                  |   4 +-
- drivers/gpu/drm/drm_gem.c                     |  24 ++
- drivers/gpu/drm/drm_gem_dma_helper.c          |   6 +-
- drivers/gpu/drm/drm_gem_framebuffer_helper.c  |   6 +-
- drivers/gpu/drm/drm_gem_ttm_helper.c          |   9 +-
- drivers/gpu/drm/drm_prime.c                   |   6 +-
- drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |   2 +-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |   2 +-
- drivers/gpu/drm/i915/gem/i915_gem_object.c    |  14 ++
- .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |  16 +-
- drivers/gpu/drm/lima/lima_sched.c             |   4 +-
- drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c     |   4 +-
- drivers/gpu/drm/panfrost/panfrost_dump.c      |   4 +-
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c   |   6 +-
- drivers/gpu/drm/qxl/qxl_object.c              |  17 +-
- drivers/gpu/drm/qxl/qxl_prime.c               |   4 +-
- drivers/gpu/drm/tegra/gem.c                   |  17 +-
- drivers/infiniband/core/umem_dmabuf.c         |   7 +-
- .../common/videobuf2/videobuf2-dma-contig.c   |  22 +-
- .../media/common/videobuf2/videobuf2-dma-sg.c |  19 +-
- .../common/videobuf2/videobuf2-vmalloc.c      |  17 +-
- .../platform/nvidia/tegra-vde/dmabuf-cache.c  |   6 +-
- drivers/misc/fastrpc.c                        |   6 +-
- drivers/xen/gntdev-dmabuf.c                   |   8 +-
- include/drm/drm_gem.h                         |   3 +
- include/linux/dma-buf.h                       |  17 +-
- 29 files changed, 320 insertions(+), 155 deletions(-)
-
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index b406f42d1ebe..8873315d6edc 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1038,8 +1038,7 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
+ 	if (WARN_ON(!attach || !attach->dmabuf))
+ 		return ERR_PTR(-EINVAL);
+ 
+-	if (dma_buf_attachment_is_dynamic(attach))
+-		dma_resv_assert_held(attach->dmabuf->resv);
++	dma_resv_assert_held(attach->dmabuf->resv);
+ 
+ 	if (attach->sgt) {
+ 		/*
+@@ -1054,7 +1053,6 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
+ 	}
+ 
+ 	if (dma_buf_is_dynamic(attach->dmabuf)) {
+-		dma_resv_assert_held(attach->dmabuf->resv);
+ 		if (!IS_ENABLED(CONFIG_DMABUF_MOVE_NOTIFY)) {
+ 			r = attach->dmabuf->ops->pin(attach);
+ 			if (r)
+@@ -1143,15 +1141,11 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *attach,
+ 	if (WARN_ON(!attach || !attach->dmabuf || !sg_table))
+ 		return;
+ 
+-	if (dma_buf_attachment_is_dynamic(attach))
+-		dma_resv_assert_held(attach->dmabuf->resv);
++	dma_resv_assert_held(attach->dmabuf->resv);
+ 
+ 	if (attach->sgt == sg_table)
+ 		return;
+ 
+-	if (dma_buf_is_dynamic(attach->dmabuf))
+-		dma_resv_assert_held(attach->dmabuf->resv);
+-
+ 	__unmap_dma_buf(attach, sg_table, direction);
+ 
+ 	if (dma_buf_is_dynamic(attach->dmabuf) &&
 -- 
 2.37.3
 
