@@ -4,55 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DEDBC54EE9
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 18:28:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB448C54EE9
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 19:00:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEF5410E199;
-	Tue, 13 Sep 2022 18:28:49 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2D5110E134;
- Tue, 13 Sep 2022 18:28:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663093721; x=1694629721;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=BTsfLzI0tVlzUWOBdavAOYQc+Pzx4o+CuINtZ68syYs=;
- b=mxLS4RBppTQpP7E/q12M0kWXfHsyQSn9Y6Fb6RW7FTr4OnK70scSiw8a
- YRfT1+OLonS0w5qt3kkUsRtqEJeYLxiPfcSVP5nmefkybKMM0r5d41F05
- d5EPi5FKFWG9TlkfnbdEmPxYSxU/c3JlZlgjveH2w3gFB0xfUpVR+9lvs
- D2IYQ4gNow5VUvrVKKKPGbmoAp2w4GzzdGwJxWy4ddZmzc9NU10xeU7sa
- myvKu1iJQeSHgVn+W+scap1g+FP9HreiYdStWjiqzrXLW98BevS/OvUOX
- PpYLOKNUKiU3D8RClL1efiXrPoBHTDo14XiCAJuuW1wGMtfeVB/9HhfSc w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="324465097"
-X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="324465097"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2022 11:28:41 -0700
-X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="678687633"
-Received: from baumeish-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.59.168])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2022 11:28:35 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Gaosheng Cui <cuigaosheng1@huawei.com>, evan.quan@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, patrik.r.jakobsson@gmail.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tvrtko.ursulin@linux.intel.com, zackr@vmware.com,
- linux-graphics-maintainer@vmware.com, lijo.lazar@amd.com,
- matthew.brost@intel.com, John.C.Harrison@Intel.com,
- daniele.ceraolospurio@intel.com, cuigaosheng1@huawei.com
-Subject: Re: [PATCH 6/6] drm/i915: remove unused i915_gem_lmem_obj_ops
- declaration
-In-Reply-To: <20220913024847.552254-7-cuigaosheng1@huawei.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220913024847.552254-1-cuigaosheng1@huawei.com>
- <20220913024847.552254-7-cuigaosheng1@huawei.com>
-Date: Tue, 13 Sep 2022 21:28:31 +0300
-Message-ID: <874jxb3z8w.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9D1910E1F1;
+	Tue, 13 Sep 2022 19:00:26 +0000 (UTC)
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [IPv6:2001:4860:4864:20::2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6278F10E19D;
+ Tue, 13 Sep 2022 19:00:20 +0000 (UTC)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-12b542cb1d3so24968572fac.13; 
+ Tue, 13 Sep 2022 12:00:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date;
+ bh=7vLGPoZcwxwyAMQ2FOW2Q+MT6R6bBUQMkdryQVleexY=;
+ b=IAfel4ArdHR6a+qEBk+j0xzunOgqu810cS/s5f1alwl18EG6KcWFqnS96d5Xr4NQtO
+ vZUlVXXvmPQSeeYVwtyRTt90akxfTFtcQp0+jvrUNNKltvhbrWH+bHIAptrDsBKl0xUc
+ ZgT6k07c+nU/ORBOqryAlfmX6c4L2mov7avXWYEbvEvV7UcB7qJyVymBD+o4oQ4m3mXS
+ eHBuObmyXUcoMMWM9lfCxuFz1t1hIS0RscfaLQEjbhn8ocNnz77OkRLv1phHiDKBE7Ab
+ aUkfAMdYJjlm6xj3AkIyJ01qajj9fpBacV1aVNOMQWjDqQ2nrSn0E99fNnpFt53QAQBu
+ O1BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=7vLGPoZcwxwyAMQ2FOW2Q+MT6R6bBUQMkdryQVleexY=;
+ b=CUN3Ap6iZPcb8GtNN3Pi6xMgH6PyxH0BlQB1lmFQfxJvtDp0S76MXU4dY4sgKh12i/
+ cL6iV0bIbbPw5z2ml/n2SwBfh+el6owUFiUTDqJMbedJYNS0JgrvPnGE1P5OZHjj/XLF
+ xfxUUXNt0DHr/m7UwGwJlLEoy4j8/cPB0qvTetN3e83+72sXGB0w8R4q/JaS2Aepy4ca
+ QDJxdjY8fbohjKVmFKtXUb6rnOvbtKLHhC2xCL+CAI6erKvpI7Yi6MW/h8NTrY0bQA7l
+ QmBSM3sSpWaBSsPT+i0HUbLsc6Nz9a8F4pK9EL+gUbSo2gVIKp5KrBaYhuUR9lBPaIK5
+ m1ow==
+X-Gm-Message-State: ACgBeo1OAzoOIqR5nuEwf8uv2V6QbPEoyv5fo/Hcf56CRDpIR8lwNHmQ
+ DIrUpaGwX1kb7+6+tqq9eseUGaSpc4bF6jr1tg0=
+X-Google-Smtp-Source: AA6agR5T1LNTrQ0eYDkV2suw2Dy4czl+0Og58CBZ0JdqFa6Gsc+2p4xcS0tc9hqnEYhwhkkt3mn0Sy4mS5gbIdQUgRo=
+X-Received: by 2002:a05:6870:1783:b0:12a:f442:504d with SMTP id
+ r3-20020a056870178300b0012af442504dmr453599oae.46.1663095619642; Tue, 13 Sep
+ 2022 12:00:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20220913024847.552254-1-cuigaosheng1@huawei.com>
+ <22ba001b-82d9-e7fd-3ced-978e3608bd7d@amd.com>
+In-Reply-To: <22ba001b-82d9-e7fd-3ced-978e3608bd7d@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 13 Sep 2022 15:00:08 -0400
+Message-ID: <CADnq5_PrPJUdgYZ+uaVt1fcjocK0-MeJ3jTtpGEefJQz3kcf_g@mail.gmail.com>
+Subject: Re: [PATCH 0/6] Remove unused declarations for gpu/drm
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,40 +66,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: matthew.brost@intel.com, tvrtko.ursulin@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
+ airlied@linux.ie, intel-gfx@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ John.C.Harrison@intel.com, patrik.r.jakobsson@gmail.com, lijo.lazar@amd.com,
+ daniele.ceraolospurio@intel.com, linux-graphics-maintainer@vmware.com,
+ jani.nikula@linux.intel.com, daniel@ffwll.ch, rodrigo.vivi@intel.com,
+ alexander.deucher@amd.com, evan.quan@amd.com, amd-gfx@lists.freedesktop.org,
+ Gaosheng Cui <cuigaosheng1@huawei.com>, zackr@vmware.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 13 Sep 2022, Gaosheng Cui <cuigaosheng1@huawei.com> wrote:
-> i915_gem_lmem_obj_ops has been removed since
-> commit 213d50927763 ("drm/i915/ttm: Introduce a TTM i915
-> gem object backend"), so remove it.
+Pushed patches 1-5 to drm-misc-next.
 
-Thanks, pushed this one patch to drm-intel-gt-next.
+Alex
 
-BR,
-Jani.
-
+On Tue, Sep 13, 2022 at 2:14 AM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_lmem.h | 2 --
->  1 file changed, 2 deletions(-)
+> Nice cleanup. Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com> f=
+or
+> the whole series.
 >
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_lmem.h b/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-> index 1b88ea13435c..5a7a14e85c3f 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-> @@ -12,8 +12,6 @@ struct drm_i915_private;
->  struct drm_i915_gem_object;
->  struct intel_memory_region;
->  
-> -extern const struct drm_i915_gem_object_ops i915_gem_lmem_obj_ops;
-> -
->  void __iomem *
->  i915_gem_object_lmem_io_map(struct drm_i915_gem_object *obj,
->  			    unsigned long n,
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
+> Thanks,
+> Christian.
+>
+> Am 13.09.22 um 04:48 schrieb Gaosheng Cui:
+> > This series contains a few cleanup patches, to remove unused
+> > declarations which have been removed. Thanks!
+> >
+> > Gaosheng Cui (6):
+> >    drm/vmwgfx: remove unused vmw_bo_is_vmw_bo() declaration
+> >    drm/radeon/r600_cs: remove r600_cs_legacy_get_tiling_conf()
+> >      declaration
+> >    drm/radeon: remove unused declarations for radeon
+> >    drm/gma500: remove unused declarations in psb_intel_drv.h
+> >    drm/amd/pm: remove unused declarations in hardwaremanager.h
+> >    drm/i915: remove unused i915_gem_lmem_obj_ops declaration
+> >
+> >   drivers/gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h | 2 --
+> >   drivers/gpu/drm/gma500/psb_intel_drv.h                 | 5 -----
+> >   drivers/gpu/drm/i915/gem/i915_gem_lmem.h               | 2 --
+> >   drivers/gpu/drm/radeon/r600_cs.c                       | 2 --
+> >   drivers/gpu/drm/radeon/radeon.h                        | 3 ---
+> >   drivers/gpu/drm/radeon/radeon_mode.h                   | 1 -
+> >   drivers/gpu/drm/vmwgfx/vmwgfx_drv.h                    | 1 -
+> >   7 files changed, 16 deletions(-)
+> >
+>
