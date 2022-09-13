@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AD29ECAAD8
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 19:31:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88E69C54EE9
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 19:31:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9241510E387;
-	Tue, 13 Sep 2022 19:30:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E8C910E3F5;
+	Tue, 13 Sep 2022 19:30:54 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA2E510E1DF;
- Tue, 13 Sep 2022 19:29:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24CCB10E241;
+ Tue, 13 Sep 2022 19:29:15 +0000 (UTC)
 Received: from dimapc.. (109-252-122-187.nat.spd-mgts.ru [109.252.122.187])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 913356602006;
- Tue, 13 Sep 2022 20:29:43 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 0806D6601FF7;
+ Tue, 13 Sep 2022 20:29:09 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1663097388;
- bh=1GtKrwThZVJsniK/ptiZT5S6PL4TRRG1YKxbwpZHIhA=;
+ s=mail; t=1663097353;
+ bh=f3G12g+5czfdXru1FeeGI7Ybfs2QOu1D1lZN+8ABGmM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=iahWG9QhacEAl4VINBeLXiSWEkk0ZfYsZ5ZMd/mQXxBuGVP3fwGIyCDEEPkTBklVw
- F2IrWL/57n6JO11EaSwKt//9LJZQW/Kp3LWtAkz+7MiidjvTgCSPiPu6hfBnckFqM6
- HMUILDoGsfxYprNWaR9CEbuzhEcV3N5Z/saNVT3ZKlwhtuwR3vzpnZ1mSrtMtYO5aN
- pU59cM86CUHdMdoE1HRBI22kpUd0rWKnUy+zMGElw8s+Iyzh6pj+QhIVfwqOcNzHem
- 3f5fdgBRvLE5cFN+c19ZuXluy+hc9bcmmgg4KT7LtSexT8Wgg9sPLjQbskg3QEHod/
- HlVfpcq3uK5ZA==
+ b=l8E3j69MZsOoeJFmN6+prFsIesDXuo73IUdHgzcxepu+uUHJgULkanSSc3I7hkwKd
+ IhSsSvrj6aRb80JOlb1XFAQDowM8O2zqE5TFe4gd/IuZKgznQ7cZTe8Lp/y01rHRfp
+ mdyPy4/M+ZWECW4htWN68/mY8c49QYzB+QJYXoWQS9K3TxUJ4OS98OSNP2xFncmdxV
+ yvodqjDNEVjuAmXlsiTuFd5NXnL8TNp0OxbcHfMvJdwwJ1SsWRO3PUnAz8DWq0QcPn
+ UwTqRB6NIK/h/eY//eb/uvyomzgaQPf82E9SXNdZ0/VPgF46sELNpfb2cmByn7xhIW
+ 5G9NxFn3B7eAw==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -64,10 +64,10 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Subject: [PATCH v5 18/21] dma-buf: Move dma_buf_mmap() to dynamic locking
+Subject: [PATCH v5 11/21] misc: fastrpc: Prepare to dynamic dma-buf locking
  specification
-Date: Tue, 13 Sep 2022 22:27:54 +0300
-Message-Id: <20220913192757.37727-19-dmitry.osipenko@collabora.com>
+Date: Tue, 13 Sep 2022 22:27:47 +0300
+Message-Id: <20220913192757.37727-12-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220913192757.37727-1-dmitry.osipenko@collabora.com>
 References: <20220913192757.37727-1-dmitry.osipenko@collabora.com>
@@ -95,43 +95,40 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move dma_buf_mmap() function to the dynamic locking specification by
-taking the reservation lock. Neither of the today's drivers take the
-reservation lock within the mmap() callback, hence it's safe to enforce
-the locking.
+Prepare fastrpc to the common dynamic dma-buf locking convention by
+starting to use the unlocked versions of dma-buf API functions.
 
 Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/dma-buf/dma-buf.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/misc/fastrpc.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 8873315d6edc..8821a3ad9530 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1390,6 +1390,8 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_end_cpu_access, DMA_BUF);
- int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 		 unsigned long pgoff)
- {
-+	int ret;
-+
- 	if (WARN_ON(!dmabuf || !vma))
- 		return -EINVAL;
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 7ff0b63c25e3..1ad580865525 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -310,8 +310,8 @@ static void fastrpc_free_map(struct kref *ref)
+ 				return;
+ 			}
+ 		}
+-		dma_buf_unmap_attachment(map->attach, map->table,
+-					 DMA_BIDIRECTIONAL);
++		dma_buf_unmap_attachment_unlocked(map->attach, map->table,
++						  DMA_BIDIRECTIONAL);
+ 		dma_buf_detach(map->buf, map->attach);
+ 		dma_buf_put(map->buf);
+ 	}
+@@ -726,7 +726,7 @@ static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
+ 		goto attach_err;
+ 	}
  
-@@ -1410,7 +1412,11 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 	vma_set_file(vma, dmabuf->file);
- 	vma->vm_pgoff = pgoff;
- 
--	return dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_lock(dmabuf->resv, NULL);
-+	ret = dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_unlock(dmabuf->resv);
-+
-+	return ret;
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_mmap, DMA_BUF);
- 
+-	map->table = dma_buf_map_attachment(map->attach, DMA_BIDIRECTIONAL);
++	map->table = dma_buf_map_attachment_unlocked(map->attach, DMA_BIDIRECTIONAL);
+ 	if (IS_ERR(map->table)) {
+ 		err = PTR_ERR(map->table);
+ 		goto map_err;
 -- 
 2.37.3
 
