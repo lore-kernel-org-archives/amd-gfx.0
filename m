@@ -4,88 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0582EECAAD8
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 22:16:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94F01C6FA86
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 22:48:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C99910E584;
-	Tue, 13 Sep 2022 22:16:34 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57E1710E596
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Sep 2022 22:16:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HBuI+W6hFkOj7L52yPyIt2V/H3jNU8kDEZ+CZDXRE0V5VFSvTVdIZ1+Ivk2/yDMUFKBXLsKRAewrteVjogOn6SdlZjk3m1JpR7bWGzpPekFYcpE5rEriVDDRhGaah49/AciknbsAT0q9YytCYPWBat4oKRXvykH6+i8NxIbX4YJuITwWH0cDUgjSByNo94yo0dT29CxNoZ4UnaWdH0SvvUzB+6IcH6HCC7bA+ZO9TNEGf9gXAxj4IIrJBbDOzlOZjnxIHwn6+WN3tH/Aml5UcRYzpx4i5B5qSsq03sK0GmRZFcxX5SfT9xT8WX69V6b1+32ELXhxKwHMiifM9aWw5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZBpoOS9Ol/0QE7sEVHKjNNAHov1p1PsDEWuKaClLOww=;
- b=lWcOgjoehJSJgayfeXRRMNSwR3hOzrDUHd0nLIzc/fn6F04EF1eLcV7xQgnCM0fhBw+fcAogkA9vXc9itDlbFeZ7iadMN3GlTGxnmeftHP2KS9h0WqooapmrobSzHnW1rR6It4Pqvcna0EOiRTHDjdvIVoBPVjRDu2bGWOzofdDV51hvusfyl1a5gAVC+QhRjBERHdPU3EFegO4kCHPLOSLf3+wxXoCOt2VbtZJ7K+5XMVpxYR/D5RNbW3Vq95Oq3RonrwQHSHjsztbPEcn+vIAS8GvJiqmUv1CiAwN3sqh19bfMQwgbEnm9Rs7x4eeDvdcoif0LViVQkoO2tthSVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZBpoOS9Ol/0QE7sEVHKjNNAHov1p1PsDEWuKaClLOww=;
- b=XPSS0xg5qd1TNVjWzeGvxZp44QZbNu8Gbu0l4KNXJBFqEABWKasXhtRkVnvMp14zuJPMeG8DPuuHSFu0cd87p5dxmVhvJf9u9YnNvyvKttXO8y7dPf2ESm9M+1jM5zXnbieHFOOCCuFDvKaPRjobyoYSaq+89AqcX2v4pUsyLwk=
-Received: from BYAPR07CA0083.namprd07.prod.outlook.com (2603:10b6:a03:12b::24)
- by CY5PR12MB6575.namprd12.prod.outlook.com (2603:10b6:930:41::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.10; Tue, 13 Sep
- 2022 22:16:24 +0000
-Received: from CO1PEPF00001A60.namprd05.prod.outlook.com
- (2603:10b6:a03:12b:cafe::cf) by BYAPR07CA0083.outlook.office365.com
- (2603:10b6:a03:12b::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.18 via Frontend
- Transport; Tue, 13 Sep 2022 22:16:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF00001A60.mail.protection.outlook.com (10.167.241.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5612.11 via Frontend Transport; Tue, 13 Sep 2022 22:16:23 +0000
-Received: from mukjoshi-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 17:16:22 -0500
-From: Mukul Joshi <mukul.joshi@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Update PTE flags with TF enabled
-Date: Tue, 13 Sep 2022 18:16:02 -0400
-Message-ID: <20220913221602.1308205-1-mukul.joshi@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE20A10E5E7;
+	Tue, 13 Sep 2022 22:48:01 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70AF510E5E7;
+ Tue, 13 Sep 2022 22:47:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663109279; x=1694645279;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=7vuGPrjvpnP8JElr2b5KXy1+oZKLBwocK710pEgM2W4=;
+ b=AWMgR3hgzdkq7GHga815UhxZpqwzf6qLEAVHeXbKcR1Alyr7oLzkVYuU
+ yJyQYhyIZxBIhqm3QuLnpYvF/PbsdDvmTQA/mv68RGxJvBBi6pBLwoQs9
+ L7IqRrDFsSHHoQ4zsuVhoXTkfegZcTLnDAAHaKZdExCRU7mgzgVfpzzhT
+ QD77pKXD0kxROS4Gnc1ptjGok0yaHAbSuaYpOyuDrDIwLDVtPmo3OOqSz
+ 2LrEZvkHt0ZCMD4o5o2Y8xUGVZei3gub+4ByWPYI7pcHvcL39wdELpOnj
+ zZ3vELGXDcEt43v1lPFcr44YnoyhF7bXrOARTRtuG6Ufb2uwp6qhS2Ev/ g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="362245082"
+X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="362245082"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2022 15:47:58 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="678778744"
+Received: from lkp-server02.sh.intel.com (HELO 4011df4f4fd3) ([10.239.97.151])
+ by fmsmga008.fm.intel.com with ESMTP; 13 Sep 2022 15:47:55 -0700
+Received: from kbuild by 4011df4f4fd3 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1oYEh8-00045Z-2P;
+ Tue, 13 Sep 2022 22:47:54 +0000
+Date: Wed, 14 Sep 2022 06:47:23 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 0caac1da994900d12a9be6106edb8e98696712a3
+Message-ID: <6321087b.WsDIw5m+1a7xRREp%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00001A60:EE_|CY5PR12MB6575:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30c88ed1-25d1-404e-0327-08da95d59813
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iB2FgMwhDLcqaZ5LYm8wJbxbvAICm+EsEN+zS5hG3DD6x6RrMR2z0SjpySyqk2NyLD6tJmfs+D8V70ptbBr5fCN7Y5Ki5G2zSJglxkrDie8p9I2l5uF6KvEziAnkTibip8YjmPsvcdiW9999G3CCzQ1DI4iCuL+ZjX4RMJbYnOi5gPK/xe7M7NcrZvtD0+f7rS6NJ1fIjSR58NYNz4lvjsiQ+AajupmVIIkxyoSz+/M6WPATvU4BGb2uHbCHWxpihZNur3DOk+SeLujZmkSYW6HdftPXaYkg4M1KSecttwJyKeIUMc5ISX7Mb0j8M7GiJJxbhCONJqTLoKaL2NqV/sZzZ+0h+5BhSNhTEAZiZZDSaJysFT6P5Yx7gtYSz4i8kfELfIm/+ok7y/H2cEkg2j75KQvnsrANAphNP0iOvgJ63fmhn03wQrBTdDtUGdeVKxDHlU7QzIezLYxvbG/074c+wuup37x6/f1pYe0zKNixMKkDfVRUY8kL+2Asyf39Mo1vdaPEe+gXV1/pPQ40WLjX3T1GyszJzCNcOFQV/j24+JqcVR3spiR8/nj2wSnMr9IBWHQ77aMoGGphr6rT3vsp0q4w6BnlGjde2M0QMP9p8wsiyL86ZY82t5ls5XA2HDJ2gns77Ti1zJsvwicwFH0ZEOpo6bwXQ68IZvlSFuZoS8XkvGMsG/9sSTPAOjMOPQYwvNde0hCyiz9u03K6aggpKsNRGZM+x4XwlFpRvswmuTHHGTYvbcrLMFTZ5HazlTxoA9iq0YrBPFhjEoO5HeqWgUjxbspxtsQJPVuiriM=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(376002)(39860400002)(136003)(396003)(451199015)(40470700004)(36840700001)(46966006)(54906003)(316002)(6916009)(478600001)(4326008)(7696005)(426003)(2616005)(40460700003)(41300700001)(70206006)(8936002)(5660300002)(186003)(1076003)(81166007)(6666004)(47076005)(2906002)(336012)(82310400005)(26005)(36756003)(15650500001)(16526019)(8676002)(36860700001)(70586007)(83380400001)(44832011)(356005)(82740400003)(86362001)(40480700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2022 22:16:23.6426 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30c88ed1-25d1-404e-0327-08da95d59813
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00001A60.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6575
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,62 +57,173 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mukul Joshi <mukul.joshi@amd.com>, Felix.Kuehling@amd.com,
- christian.koenig@amd.com, joseph.greathouse@amd.com
+Cc: linux-hwmon@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-scsi@vger.kernel.org, linux-pm@vger.kernel.org, damon@lists.linux.dev,
+ linux-wireless@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ amd-gfx@lists.freedesktop.org, bpf@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch updates the PTE flags when translate further (TF) is
-enabled:
-- With translate_further enabled, invalid PTEs can be 0. Reading
-  consecutive invalid PTEs as 0 is considered a fault. To prevent
-  this, ensure invalid PTEs have at least 1 bit set.
-- The current invalid PTE flags settings to translate a retry fault
-  into a no-retry fault, doesn't work with TF enabled. As a result,
-  update invalid PTE flags settings which works for both TF enabled
-  and disabled case.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 0caac1da994900d12a9be6106edb8e98696712a3  Add linux-next specific files for 20220913
 
-Fixes: 2abf2573b1c69 ("drm/amdgpu: Enable translate_further to extend UTCL2 reach")
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 3 +--
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 7 +++++--
- 2 files changed, 6 insertions(+), 4 deletions(-)
+Error/Warning reports:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 59cac347baa3..690fd4f639f1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2484,8 +2484,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 		/* Intentionally setting invalid PTE flag
- 		 * combination to force a no-retry-fault
- 		 */
--		flags = AMDGPU_PTE_EXECUTABLE | AMDGPU_PDE_PTE |
--			AMDGPU_PTE_TF;
-+		flags = AMDGPU_PTE_SNOOPED | AMDGPU_PTE_PRT;
- 		value = 0;
- 	} else if (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_NEVER) {
- 		/* Redirect the access to the dummy page */
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 4603653916f5..67ca16a8027c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1103,10 +1103,13 @@ static void gmc_v9_0_get_vm_pde(struct amdgpu_device *adev, int level,
- 			*flags |= AMDGPU_PDE_BFS(0x9);
- 
- 	} else if (level == AMDGPU_VM_PDB0) {
--		if (*flags & AMDGPU_PDE_PTE)
-+		if (*flags & AMDGPU_PDE_PTE) {
- 			*flags &= ~AMDGPU_PDE_PTE;
--		else
-+			if (!(*flags & AMDGPU_PTE_VALID))
-+				*addr |= 1 << PAGE_SHIFT;
-+		} else {
- 			*flags |= AMDGPU_PTE_TF;
-+		}
- 	}
- }
- 
+https://lore.kernel.org/linux-mm/202209042337.FQi69rLV-lkp@intel.com
+https://lore.kernel.org/linux-mm/202209060229.dVuyxjBv-lkp@intel.com
+https://lore.kernel.org/linux-mm/202209080718.y5QmlNKH-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+drivers/gpu/drm/amd/amdgpu/imu_v11_0_3.c:139:6: warning: no previous prototype for 'imu_v11_0_3_program_rlc_ram' [-Wmissing-prototypes]
+drivers/gpu/drm/drm_atomic_helper.c:802: warning: expecting prototype for drm_atomic_helper_check_wb_connector_state(). Prototype was for drm_atomic_helper_check_wb_encoder_state() instead
+drivers/hwmon/emc2305.c:194 emc2305_set_cur_state() warn: impossible condition '(val > 255) => (0-255 > 255)'
+drivers/scsi/qla2xxx/qla_os.c:2854:23: warning: assignment to 'struct trace_array *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+drivers/scsi/qla2xxx/qla_os.c:2854:25: error: implicit declaration of function 'trace_array_get_by_name'; did you mean 'trace_array_set_clr_event'? [-Werror=implicit-function-declaration]
+drivers/scsi/qla2xxx/qla_os.c:2869:9: error: implicit declaration of function 'trace_array_put' [-Werror=implicit-function-declaration]
+kernel/bpf/memalloc.c:499 bpf_mem_alloc_destroy() error: potentially dereferencing uninitialized 'c'.
+mm/damon/vaddr.c:158 __damon_va_three_regions() error: uninitialized symbol 'start'.
+net/mac80211/iface.c:251 ieee80211_can_powered_addr_change() warn: inconsistent returns '&local->mtx'.
+sound/soc/codecs/tas2562.c:442:13: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-imu_v11_0_3.c:warning:no-previous-prototype-for-imu_v11_0_3_program_rlc_ram
+|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|   |-- drivers-scsi-qla2xxx-qla_os.c:error:implicit-declaration-of-function-trace_array_get_by_name
+|   |-- drivers-scsi-qla2xxx-qla_os.c:error:implicit-declaration-of-function-trace_array_put
+|   |-- drivers-scsi-qla2xxx-qla_os.c:warning:assignment-to-struct-trace_array-from-int-makes-pointer-from-integer-without-a-cast
+|   `-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
+|-- alpha-buildonly-randconfig-r003-20220911
+|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|   `-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-imu_v11_0_3.c:warning:no-previous-prototype-for-imu_v11_0_3_program_rlc_ram
+|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|   `-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
+|-- arc-buildonly-randconfig-r002-20220912
+|   `-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|-- arc-randconfig-r012-20220913
+|   `-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|-- arc-randconfig-r021-20220911
+|   `-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|-- arc-randconfig-r043-20220911
+|   `-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|-- arc-randconfig-r043-20220912
+|   `-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|-- arc-randconfig-s052-20220911
+|   |-- kernel-bpf-hashtab.c:sparse:sparse:cast-removes-address-space-__percpu-of-expression
+|   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-noderef-__percpu-assigned-pptr-got-void
+|   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-ptr_to_pptr-got-void-noderef-__percpu-assigned-pptr
+|   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void
+|   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void-pptr
+|   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-pptr-got-void-noderef-__percpu
+|   `-- kernel-exit.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-struct-sighand_struct-sighand-got-struct-sighand_struct-noderef-__rcu-sighand
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-imu_v11_0_3.c:warning:no-previous-prototype-for-imu_v11_0_3_program_rlc_ram
+|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|   `-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
+|-- arm-defconfig
+|   `-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|-- arm-randconfig-r001-20220911
+|   |-- drivers-gpu-drm-amd-amdgpu-imu_v11_0_3.c:warning:no-previous-prototype-for-imu_v11_0_3_program_rlc_ram
+|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|   `-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
+|-- arm-randconfig-r006-20220911
+|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|   `-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-imu_v11_0_3.c:warning:no-previous-prototype-for-imu_v11_0_3_program_rlc_ram
+|   |-- drivers-gpu-drm-drm_atomic_helper.c:warning:expecting-prototype-for-drm_atomic_helper_check_wb_connector_state().-Prototype-was-for-drm_atomic_helper_check_wb_encoder_state()-instead
+|   `-- sound-soc-codecs-tas2562.c:warning:variable-ret-set-but-not-used
+|-- csky-buildonly-randconfig-r001-20220911
+clang_recent_errors
+|-- i386-randconfig-a012-20220912
+|   `-- sound-soc-intel-skylake-skl.c:warning:unused-variable-skl
+|-- i386-randconfig-a015-20220912
+|   `-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
+|-- powerpc-buildonly-randconfig-r006-20220912
+|   `-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
+|-- powerpc-randconfig-r004-20220911
+|   `-- drivers-gpu-drm-amd-amdgpu-imu_v11_0_3.c:warning:no-previous-prototype-for-function-imu_v11_0_3_program_rlc_ram
+`-- riscv-randconfig-r042-20220912
+    `-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
+
+elapsed time: 725m
+
+configs tested: 63
+configs skipped: 2
+
+gcc tested configs:
+um                             i386_defconfig
+um                           x86_64_defconfig
+i386                 randconfig-a001-20220912
+i386                 randconfig-a002-20220912
+x86_64                              defconfig
+i386                 randconfig-a004-20220912
+x86_64                           rhel-8.3-kvm
+i386                 randconfig-a003-20220912
+x86_64                          rhel-8.3-func
+i386                 randconfig-a006-20220912
+x86_64                               rhel-8.3
+x86_64                         rhel-8.3-kunit
+i386                 randconfig-a005-20220912
+x86_64                    rhel-8.3-kselftests
+m68k                             allmodconfig
+x86_64                           rhel-8.3-syz
+arc                              allyesconfig
+x86_64                           allyesconfig
+alpha                            allyesconfig
+i386                                defconfig
+m68k                             allyesconfig
+powerpc                           allnoconfig
+powerpc                          allmodconfig
+arm                                 defconfig
+mips                             allyesconfig
+x86_64               randconfig-a001-20220912
+x86_64               randconfig-a006-20220912
+sh                               allmodconfig
+x86_64               randconfig-a004-20220912
+riscv                randconfig-r042-20220911
+x86_64               randconfig-a002-20220912
+i386                             allyesconfig
+arc                  randconfig-r043-20220912
+x86_64               randconfig-a005-20220912
+arm64                            allyesconfig
+x86_64               randconfig-a003-20220912
+arm                              allyesconfig
+arc                  randconfig-r043-20220911
+s390                 randconfig-r044-20220911
+ia64                             allmodconfig
+csky                              allnoconfig
+arc                               allnoconfig
+alpha                             allnoconfig
+riscv                             allnoconfig
+
+clang tested configs:
+i386                 randconfig-a014-20220912
+i386                 randconfig-a013-20220912
+x86_64               randconfig-a014-20220912
+i386                 randconfig-a011-20220912
+x86_64               randconfig-a011-20220912
+i386                 randconfig-a015-20220912
+x86_64               randconfig-a012-20220912
+i386                 randconfig-a012-20220912
+x86_64               randconfig-a016-20220912
+i386                 randconfig-a016-20220912
+x86_64               randconfig-a013-20220912
+riscv                randconfig-r042-20220912
+x86_64               randconfig-a015-20220912
+hexagon              randconfig-r041-20220912
+hexagon              randconfig-r045-20220911
+hexagon              randconfig-r041-20220911
+hexagon              randconfig-r045-20220912
+s390                 randconfig-r044-20220912
+x86_64                          rhel-8.3-rust
+
 -- 
-2.35.1
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp
