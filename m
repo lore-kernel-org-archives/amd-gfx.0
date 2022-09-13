@@ -4,31 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9133C54EE9
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 12:46:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D67CC54EE9
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 12:46:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A5B010E6EA;
-	Tue, 13 Sep 2022 12:46:47 +0000 (UTC)
-Received: from out30-131.freemail.mail.aliyun.com
- (out30-131.freemail.mail.aliyun.com [115.124.30.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20B5210E644;
- Tue, 13 Sep 2022 08:38:39 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R121e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046059;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B46D10E6EC;
+	Tue, 13 Sep 2022 12:46:51 +0000 (UTC)
+Received: from out30-54.freemail.mail.aliyun.com
+ (out30-54.freemail.mail.aliyun.com [115.124.30.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1322F10E643;
+ Tue, 13 Sep 2022 08:38:25 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046056;
  MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
- TI=SMTPD_---0VPf.XZx_1663058314; 
+ TI=SMTPD_---0VPem1f0_1663058299; 
 Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VPf.XZx_1663058314) by smtp.aliyun-inc.com;
- Tue, 13 Sep 2022 16:38:36 +0800
+ fp:SMTPD_---0VPem1f0_1663058299) by smtp.aliyun-inc.com;
+ Tue, 13 Sep 2022 16:38:21 +0800
 From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH 4/5] drm/amd/display: make mpc32_program_shaper and
- mpc32_program_3dlut static
-Date: Tue, 13 Sep 2022 16:38:04 +0800
-Message-Id: <20220913083805.22549-4-jiapeng.chong@linux.alibaba.com>
+Subject: [PATCH 1/5] drm/amd/display: make
+ enc32_stream_encoder_dvi_set_stream_attribute static
+Date: Tue, 13 Sep 2022 16:38:01 +0800
+Message-Id: <20220913083805.22549-1-jiapeng.chong@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
-In-Reply-To: <20220913083805.22549-1-jiapeng.chong@linux.alibaba.com>
-References: <20220913083805.22549-1-jiapeng.chong@linux.alibaba.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -51,41 +49,31 @@ Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, airlied@linux.ie,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These two functions are not used outside the function dcn32_mpc.c, so the
-modification is defined as static.
+This symbol is not used outside of dcn32_dio_stream_encoder.c, so marks
+it static.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_mpc.c:704:6: warning: no previous prototype for ‘mpc32_program_shaper’.
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_mpc.c:900:6: warning: no previous prototype for ‘mpc32_program_3dlut’.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_dio_stream_encoder.c:63:6: warning: no previous prototype for ‘enc32_stream_encoder_dvi_set_stream_attribute’.
 
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2115
+Link:https://bugzilla.openanolis.cn/show_bug.cgi?id=2119
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_stream_encoder.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c
-index 357bd2461bc9..f4bc77972c4e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c
-@@ -701,7 +701,7 @@ static void mpc32_power_on_shaper_3dlut(
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_stream_encoder.c
+index 38a48983f663..0e9dce414641 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_stream_encoder.c
+@@ -60,7 +60,7 @@ static void enc32_dp_set_odm_combine(
  }
  
- 
--bool mpc32_program_shaper(
-+static bool mpc32_program_shaper(
- 		struct mpc *mpc,
- 		const struct pwl_params *params,
- 		uint32_t mpcc_id)
-@@ -897,7 +897,7 @@ static void mpc32_set_3dlut_mode(
- }
- 
- 
--bool mpc32_program_3dlut(
-+static bool mpc32_program_3dlut(
- 		struct mpc *mpc,
- 		const struct tetrahedral_params *params,
- 		int mpcc_id)
+ /* setup stream encoder in dvi mode */
+-void enc32_stream_encoder_dvi_set_stream_attribute(
++static void enc32_stream_encoder_dvi_set_stream_attribute(
+ 	struct stream_encoder *enc,
+ 	struct dc_crtc_timing *crtc_timing,
+ 	bool is_dual_link)
 -- 
 2.20.1.7.g153144c
 
