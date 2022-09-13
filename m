@@ -4,32 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 119D8C54EE9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2267C6FA8A
 	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 19:31:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF7C610E3A9;
-	Tue, 13 Sep 2022 19:30:41 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E773510E241;
- Tue, 13 Sep 2022 19:29:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B757B10E3C9;
+	Tue, 13 Sep 2022 19:30:42 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10FA310E28E;
+ Tue, 13 Sep 2022 19:29:30 +0000 (UTC)
 Received: from dimapc.. (109-252-122-187.nat.spd-mgts.ru [109.252.122.187])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 24E9E660000F;
- Tue, 13 Sep 2022 20:29:06 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 8F04D6602006;
+ Tue, 13 Sep 2022 20:29:24 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1663097349;
- bh=d4kuxWWfCXJ7AC6vJtgzZbHEhy+iIaxiq8Yot3IE+C4=;
+ s=mail; t=1663097368;
+ bh=5SoJM0KT/OL453Vzox/c0XL1yLlnHbzjEdmJRs0v2dc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=B2oW8D6CRNYN81gsJ2lSOrjKKtfXitXrYpGKOXJB8uEMYcrJxvJfNoU7nkZfTW1jN
- wEenarUfR4BoSg0ZOm8xPFGNb3R1VkpdpY9MTTeWK2nId1qwlVrEd+frlS5+liInK8
- rLW5PsmPUkPGFkzAsErf755QlmuJtGtNkl0ghmACka1saqF4H00J33JwZEjswJ62v+
- eKe/ZfoDGaGSlVxDzX1hwGMfvN3oqZdKFX3WVO1tK85RGk+4j6evEmkif57Ci21T5D
- mZK/NTnGNf0UCbyeDngvdi2XwMNIfaQwJ9jxUw/SvJCYasg9ygd+8obbHeRWkgONBz
- GR/9DIl2xfHHQ==
+ b=IathQob+2aDJsLGehErebjP7wDY1+IUArjCJFM5Rux0wGuv3Y3hfD8B6t7nYyE8l4
+ PfKukMjO11LsvtWQmlkvzuI62QV5R7XKRC700F/r2GRsioTeh19iHjIE/piANkuOiK
+ 5lFO1EE/NvzukYIIh1Fjj/NQaIpNdc8s2lX95YpN81Ie/o+Hu2r3bYJhMbC/7o2ryU
+ jKOe2CVg6oFsZhIayeTI9dlNE7nm22mbCcSqgcGt8DjtsT8m8Kl56gJoEB0Dsim/Jn
+ GNPUtfjD1aVQLnvR4VgjHvoQh1nUKOKxzHz518XStycS2CrrueWADkRjls47Xb7BeQ
+ 2lAN9tZZyp3Pg==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -65,10 +64,10 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Subject: [PATCH v5 10/21] RDMA/umem: Prepare to dynamic dma-buf locking
+Subject: [PATCH v5 14/21] media: tegra-vde: Prepare to dynamic dma-buf locking
  specification
-Date: Tue, 13 Sep 2022 22:27:46 +0300
-Message-Id: <20220913192757.37727-11-dmitry.osipenko@collabora.com>
+Date: Tue, 13 Sep 2022 22:27:50 +0300
+Message-Id: <20220913192757.37727-15-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220913192757.37727-1-dmitry.osipenko@collabora.com>
 References: <20220913192757.37727-1-dmitry.osipenko@collabora.com>
@@ -96,41 +95,47 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prepare InfiniBand drivers to the common dynamic dma-buf locking
-convention by starting to use the unlocked versions of dma-buf API
-functions.
+Prepare Tegra video decoder driver to the common dynamic dma-buf
+locking convention by starting to use the unlocked versions of dma-buf
+API functions.
 
 Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/infiniband/core/umem_dmabuf.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/infiniband/core/umem_dmabuf.c b/drivers/infiniband/core/umem_dmabuf.c
-index 04c04e6d24c3..43b26bc12288 100644
---- a/drivers/infiniband/core/umem_dmabuf.c
-+++ b/drivers/infiniband/core/umem_dmabuf.c
-@@ -26,7 +26,8 @@ int ib_umem_dmabuf_map_pages(struct ib_umem_dmabuf *umem_dmabuf)
- 	if (umem_dmabuf->sgt)
- 		goto wait_fence;
+diff --git a/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c b/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c
+index 69c346148070..1c5b94989aec 100644
+--- a/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c
++++ b/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c
+@@ -38,7 +38,7 @@ static void tegra_vde_release_entry(struct tegra_vde_cache_entry *entry)
+ 	if (entry->vde->domain)
+ 		tegra_vde_iommu_unmap(entry->vde, entry->iova);
  
--	sgt = dma_buf_map_attachment(umem_dmabuf->attach, DMA_BIDIRECTIONAL);
-+	sgt = dma_buf_map_attachment_unlocked(umem_dmabuf->attach,
-+					      DMA_BIDIRECTIONAL);
- 	if (IS_ERR(sgt))
- 		return PTR_ERR(sgt);
+-	dma_buf_unmap_attachment(entry->a, entry->sgt, entry->dma_dir);
++	dma_buf_unmap_attachment_unlocked(entry->a, entry->sgt, entry->dma_dir);
+ 	dma_buf_detach(dmabuf, entry->a);
+ 	dma_buf_put(dmabuf);
  
-@@ -102,8 +103,8 @@ void ib_umem_dmabuf_unmap_pages(struct ib_umem_dmabuf *umem_dmabuf)
- 		umem_dmabuf->last_sg_trim = 0;
+@@ -102,7 +102,7 @@ int tegra_vde_dmabuf_cache_map(struct tegra_vde *vde,
+ 		goto err_unlock;
  	}
  
--	dma_buf_unmap_attachment(umem_dmabuf->attach, umem_dmabuf->sgt,
--				 DMA_BIDIRECTIONAL);
-+	dma_buf_unmap_attachment_unlocked(umem_dmabuf->attach, umem_dmabuf->sgt,
-+					  DMA_BIDIRECTIONAL);
- 
- 	umem_dmabuf->sgt = NULL;
- }
+-	sgt = dma_buf_map_attachment(attachment, dma_dir);
++	sgt = dma_buf_map_attachment_unlocked(attachment, dma_dir);
+ 	if (IS_ERR(sgt)) {
+ 		dev_err(dev, "Failed to get dmabufs sg_table\n");
+ 		err = PTR_ERR(sgt);
+@@ -152,7 +152,7 @@ int tegra_vde_dmabuf_cache_map(struct tegra_vde *vde,
+ err_free:
+ 	kfree(entry);
+ err_unmap:
+-	dma_buf_unmap_attachment(attachment, sgt, dma_dir);
++	dma_buf_unmap_attachment_unlocked(attachment, sgt, dma_dir);
+ err_detach:
+ 	dma_buf_detach(dmabuf, attachment);
+ err_unlock:
 -- 
 2.37.3
 
