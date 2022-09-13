@@ -4,31 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84633ECAAD8
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 19:31:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EF90C6FA82
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 19:31:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF15D10E423;
-	Tue, 13 Sep 2022 19:30:54 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35F1C10E241;
- Tue, 13 Sep 2022 19:28:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0243810E424;
+	Tue, 13 Sep 2022 19:30:55 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC34C10E1DF;
+ Tue, 13 Sep 2022 19:30:04 +0000 (UTC)
 Received: from dimapc.. (109-252-122-187.nat.spd-mgts.ru [109.252.122.187])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 941196601FF1;
- Tue, 13 Sep 2022 20:28:51 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 9C9DD6601FF1;
+ Tue, 13 Sep 2022 20:29:58 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1663097335;
- bh=GhuscwhnN1rEaoy5OISonfRJMlLjonYkZBtE9HRenG4=;
+ s=mail; t=1663097403;
+ bh=32DT79p8L1K15f6adhGbahiu94xS3zGj4oLq3s2Q/bk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=e7O7IO4hHqM9ne0+uW4mQQdsoAeA5Y34GHqM0vZ6rOKdaR84/ZtKmEANO7PsS6iFX
- EyT1RK314RWI8+gojsZtt/lm/keSe6rlO7I4Zdsg788qGrHitRWVVhiGUEYBrbP0P+
- Lt9i70SMU06+8SocOB1odlwrRi4a4g/LOdXeeuF/IhNEekB9PExpsP/f+cZZk6pwEo
- +dI5ZKiSN9ol0eaQrvwD5Tl3k+ZgVg23JDk7IOrMzTLGsH4rM9hB2SCfm96viJ4CKZ
- uKKXtyqqbv4VbtP5XbMFnJ78sjCv9wauzRqejkMTXxZ1J0rywYa2azQTgdn/CvxwgI
- sT0wbBM46pa9w==
+ b=RMDqnedVbqHb7nXTgtvUlemkGPaw5x7Ocza7HJwGwRyBSTSUoRCggPri0A1KoTJfR
+ hl6alpo8d9bxRC3Nl8mOBteOffY+Vgq+A2938CkdExRpcrvoNHA5EDYPTWxR7Dfl+b
+ 57IsuZXJkgU+dsV9E9BYBQL3VBYcipoEMavmX+EJfPqfoficwCz+uIuqDVh8R+l9Rk
+ Srhijm0Ziy1k77ovcr3QnJx52fLHMAQ5+EHO2TLApf6k9a1uKpeCz4DbkaLraZP17O
+ YL5KE+sqZx/bRhDyqJzBd/K6NKc9HsD6DTBN/P5oC7axUA7QEOpLF9GNyaDCJeFQl5
+ RioIt2Y0cPdeQ==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -64,10 +65,9 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Subject: [PATCH v5 07/21] drm/omapdrm: Prepare to dynamic dma-buf locking
- specification
-Date: Tue, 13 Sep 2022 22:27:43 +0300
-Message-Id: <20220913192757.37727-8-dmitry.osipenko@collabora.com>
+Subject: [PATCH v5 21/21] dma-buf: Remove obsoleted internal lock
+Date: Tue, 13 Sep 2022 22:27:57 +0300
+Message-Id: <20220913192757.37727-22-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220913192757.37727-1-dmitry.osipenko@collabora.com>
 References: <20220913192757.37727-1-dmitry.osipenko@collabora.com>
@@ -95,37 +95,106 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prepare OMAP DRM driver to the common dynamic dma-buf locking convention
-by starting to use the unlocked versions of dma-buf API functions.
+The internal dma-buf lock isn't needed anymore because the updated
+locking specification claims that dma-buf reservation must be locked
+by importers, and thus, the internal data is already protected by the
+reservation lock. Remove the obsoleted internal lock.
 
 Acked-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/dma-buf/dma-buf.c | 14 ++++----------
+ include/linux/dma-buf.h   |  9 ---------
+ 2 files changed, 4 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c b/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c
-index 393f82e26927..8e194dbc9506 100644
---- a/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c
-+++ b/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c
-@@ -125,7 +125,7 @@ struct drm_gem_object *omap_gem_prime_import(struct drm_device *dev,
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index c359bdbdf5be..45462b988aec 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -657,7 +657,6 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
  
- 	get_dma_buf(dma_buf);
+ 	dmabuf->file = file;
  
--	sgt = dma_buf_map_attachment(attach, DMA_TO_DEVICE);
-+	sgt = dma_buf_map_attachment_unlocked(attach, DMA_TO_DEVICE);
- 	if (IS_ERR(sgt)) {
- 		ret = PTR_ERR(sgt);
- 		goto fail_detach;
-@@ -142,7 +142,7 @@ struct drm_gem_object *omap_gem_prime_import(struct drm_device *dev,
- 	return obj;
+-	mutex_init(&dmabuf->lock);
+ 	INIT_LIST_HEAD(&dmabuf->attachments);
  
- fail_unmap:
--	dma_buf_unmap_attachment(attach, sgt, DMA_TO_DEVICE);
-+	dma_buf_unmap_attachment_unlocked(attach, sgt, DMA_TO_DEVICE);
- fail_detach:
- 	dma_buf_detach(dma_buf, attach);
- 	dma_buf_put(dma_buf);
+ 	mutex_lock(&db_list.lock);
+@@ -1503,7 +1502,7 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_mmap, DMA_BUF);
+ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
+ {
+ 	struct iosys_map ptr;
+-	int ret = 0;
++	int ret;
+ 
+ 	iosys_map_clear(map);
+ 
+@@ -1515,28 +1514,25 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
+ 	if (!dmabuf->ops->vmap)
+ 		return -EINVAL;
+ 
+-	mutex_lock(&dmabuf->lock);
+ 	if (dmabuf->vmapping_counter) {
+ 		dmabuf->vmapping_counter++;
+ 		BUG_ON(iosys_map_is_null(&dmabuf->vmap_ptr));
+ 		*map = dmabuf->vmap_ptr;
+-		goto out_unlock;
++		return 0;
+ 	}
+ 
+ 	BUG_ON(iosys_map_is_set(&dmabuf->vmap_ptr));
+ 
+ 	ret = dmabuf->ops->vmap(dmabuf, &ptr);
+ 	if (WARN_ON_ONCE(ret))
+-		goto out_unlock;
++		return ret;
+ 
+ 	dmabuf->vmap_ptr = ptr;
+ 	dmabuf->vmapping_counter = 1;
+ 
+ 	*map = dmabuf->vmap_ptr;
+ 
+-out_unlock:
+-	mutex_unlock(&dmabuf->lock);
+-	return ret;
++	return 0;
+ }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_vmap, DMA_BUF);
+ 
+@@ -1578,13 +1574,11 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map)
+ 	BUG_ON(dmabuf->vmapping_counter == 0);
+ 	BUG_ON(!iosys_map_is_equal(&dmabuf->vmap_ptr, map));
+ 
+-	mutex_lock(&dmabuf->lock);
+ 	if (--dmabuf->vmapping_counter == 0) {
+ 		if (dmabuf->ops->vunmap)
+ 			dmabuf->ops->vunmap(dmabuf, map);
+ 		iosys_map_clear(&dmabuf->vmap_ptr);
+ 	}
+-	mutex_unlock(&dmabuf->lock);
+ }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap, DMA_BUF);
+ 
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index f11b5bbc2f37..6fa8d4e29719 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -326,15 +326,6 @@ struct dma_buf {
+ 	/** @ops: dma_buf_ops associated with this buffer object. */
+ 	const struct dma_buf_ops *ops;
+ 
+-	/**
+-	 * @lock:
+-	 *
+-	 * Used internally to serialize list manipulation, attach/detach and
+-	 * vmap/unmap. Note that in many cases this is superseeded by
+-	 * dma_resv_lock() on @resv.
+-	 */
+-	struct mutex lock;
+-
+ 	/**
+ 	 * @vmapping_counter:
+ 	 *
 -- 
 2.37.3
 
