@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8384DECAAD8
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 15:58:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DEDBC54EE9
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 18:28:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B006C10E774;
-	Tue, 13 Sep 2022 15:58:06 +0000 (UTC)
-Received: from mail-vk1-xa2e.google.com (mail-vk1-xa2e.google.com
- [IPv6:2607:f8b0:4864:20::a2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A99D10E4CF;
- Tue, 13 Sep 2022 15:57:58 +0000 (UTC)
-Received: by mail-vk1-xa2e.google.com with SMTP id b81so6069320vkf.1;
- Tue, 13 Sep 2022 08:57:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=i5/2s/PtLL3F7sLuPHmoT47IPaMV4985HuOVmfSMhas=;
- b=FbQwg+dOez++WMspFJqw3yEG1M9ose4sVfHvAK1ksk90VagdWtbqpulHuCRHaYxWtx
- iWBUI7EruGr5Fnk1kzQbRwg2rXSrp1eTMYgGIhiEyyDqPWTrp28ydel1DboiYARudz05
- 3HuiX/r1ZYm7OKE3cPd8kxtBYA08o1jSXqVOt/p+p00VqyKyxnQFlqtEQZ33eQRTqD0Y
- Vv4hGG7Dzo1Y1N+PY6/116ZIX+AOdx0Hsl8QBSO7ey8fPW54COsVdx0wAh+TbkQoBbVD
- gktX3l08/T7cFDFA6Zz2W65Jy6gqZXkfBtBsY7hTcGUI1RhvpppGaZvZKcEYhHdET21G
- zvuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=i5/2s/PtLL3F7sLuPHmoT47IPaMV4985HuOVmfSMhas=;
- b=I4gH+Duw5770rVJDBrUw4yovuhP2WwafBaRurN2PfNswQ6r4DatOBIUcVx7D1z18/q
- IpBqw4n2VVeJDzSsyvg/oqcq9H3aWDbmSplz4uldzyrKIzf0xS/Sno7xddpUl+l6VKjM
- 9XB5kWtl4w8RBYnuJGCr4uCcAqP082S9bVyBHIsQy3KRU/RwqoEUwISZRj8W9lx8Bw6d
- b8C6fMXRz23h2z8ZSGxEXWqHT1MXkSlzmbTzfNbpizVrBd+4AmksF5PLkgSfhaUIhvkH
- BFACBWKS2ceqhrGjpLhbpsE6Sca85M6RoQKYfNvKNrE/NOG2hPR+uabbtSYO410QLqg4
- FvrQ==
-X-Gm-Message-State: ACgBeo1L8At5d8RyGtaS+6Kzlp2LTCYAwkSk5CdtQIRhYcVO6W4Hzp6e
- BQWpu6CDrJcs/8dkukRd+fUBsSJMbKeEC4Sf8AQ=
-X-Google-Smtp-Source: AA6agR44lSG8WNfFrRxZTUuCUtDbsrpCwCxLMS1Oq5vTfjYOKjqu8k4+i5IJZlBMtaqQKUsoKsN6BU9gFKDQhHfo5ss=
-X-Received: by 2002:a1f:2a58:0:b0:37d:2a8d:5fbd with SMTP id
- q85-20020a1f2a58000000b0037d2a8d5fbdmr10871327vkq.31.1663084677136; Tue, 13
- Sep 2022 08:57:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEF5410E199;
+	Tue, 13 Sep 2022 18:28:49 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2D5110E134;
+ Tue, 13 Sep 2022 18:28:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663093721; x=1694629721;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=BTsfLzI0tVlzUWOBdavAOYQc+Pzx4o+CuINtZ68syYs=;
+ b=mxLS4RBppTQpP7E/q12M0kWXfHsyQSn9Y6Fb6RW7FTr4OnK70scSiw8a
+ YRfT1+OLonS0w5qt3kkUsRtqEJeYLxiPfcSVP5nmefkybKMM0r5d41F05
+ d5EPi5FKFWG9TlkfnbdEmPxYSxU/c3JlZlgjveH2w3gFB0xfUpVR+9lvs
+ D2IYQ4gNow5VUvrVKKKPGbmoAp2w4GzzdGwJxWy4ddZmzc9NU10xeU7sa
+ myvKu1iJQeSHgVn+W+scap1g+FP9HreiYdStWjiqzrXLW98BevS/OvUOX
+ PpYLOKNUKiU3D8RClL1efiXrPoBHTDo14XiCAJuuW1wGMtfeVB/9HhfSc w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="324465097"
+X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="324465097"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2022 11:28:41 -0700
+X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="678687633"
+Received: from baumeish-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.59.168])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2022 11:28:35 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Gaosheng Cui <cuigaosheng1@huawei.com>, evan.quan@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, patrik.r.jakobsson@gmail.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tvrtko.ursulin@linux.intel.com, zackr@vmware.com,
+ linux-graphics-maintainer@vmware.com, lijo.lazar@amd.com,
+ matthew.brost@intel.com, John.C.Harrison@Intel.com,
+ daniele.ceraolospurio@intel.com, cuigaosheng1@huawei.com
+Subject: Re: [PATCH 6/6] drm/i915: remove unused i915_gem_lmem_obj_ops
+ declaration
+In-Reply-To: <20220913024847.552254-7-cuigaosheng1@huawei.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220913024847.552254-1-cuigaosheng1@huawei.com>
+ <20220913024847.552254-7-cuigaosheng1@huawei.com>
+Date: Tue, 13 Sep 2022 21:28:31 +0300
+Message-ID: <874jxb3z8w.fsf@intel.com>
 MIME-Version: 1.0
-References: <20220912052852.1123868-1-jim.cromie@gmail.com>
- <20220912052852.1123868-2-jim.cromie@gmail.com> <87sfkw6gn5.fsf@intel.com>
-In-Reply-To: <87sfkw6gn5.fsf@intel.com>
-From: jim.cromie@gmail.com
-Date: Tue, 13 Sep 2022 09:57:31 -0600
-Message-ID: <CAJfuBxyrpMsHdYozXPSf=Oms4XAHyQ=PUx18RU3w=R1wVJQTtg@mail.gmail.com>
-Subject: Re: [PATCH v7 1/9] drm_print: condense enum drm_debug_category
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,82 +64,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Greg KH <gregkh@linuxfoundation.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Jason Baron <jbaron@akamai.com>, Sean Paul <seanpaul@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Joe Perches <joe@perches.com>,
- intel-gvt-dev@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 12, 2022 at 4:17 AM Jani Nikula <jani.nikula@linux.intel.com> wrote:
->
-> On Sun, 11 Sep 2022, Jim Cromie <jim.cromie@gmail.com> wrote:
-> > enum drm_debug_category has 10 categories, but is initialized with
-> > bitmasks which require 10 bits of underlying storage.  By using
-> > natural enumeration, and moving the BIT(cat) into drm_debug_enabled(),
-> > the enum fits in 4 bits, allowing the category to be represented
-> > directly in pr_debug callsites, via the ddebug.class_id field.
-> >
-> > While this slightly pessimizes the bit-test in drm_debug_enabled(),
-> > using dyndbg with JUMP_LABEL will avoid the function entirely.
-> >
-> > NOTE: this change forecloses the possibility of doing:
-> >
-> >   drm_dbg(DRM_UT_CORE|DRM_UT_KMS, "weird 2-cat experiment")
-> >
-> > but thats already strongly implied by the use of the enum itself; its
-> > not a normal enum if it can be 2 values simultaneously.
->
-> The drm.debug module parameter values are, arguably, ABI. There are tons
-> of people, scripts, test environments, documentation, bug reports, etc,
-> etc, referring to specific drm.debug module parameter values to enable
-> specific drm debug logging categories.
->
-> AFAICT you're not changing any of the values here, but having an enum
-> without the hard coded values makes it more likely to accidentally
-> change the category to bit mapping. At the very least deserves a
-> comment.
->
+On Tue, 13 Sep 2022, Gaosheng Cui <cuigaosheng1@huawei.com> wrote:
+> i915_gem_lmem_obj_ops has been removed since
+> commit 213d50927763 ("drm/i915/ttm: Introduce a TTM i915
+> gem object backend"), so remove it.
 
-hi Jani,
+Thanks, pushed this one patch to drm-intel-gt-next.
 
-You're correct, this is unchanged :
-   echo $script_debug_val > /sys/module/drm/parameters/debug
-
-wrt the enum, the next patch adds a comment,
-
- enum drm_debug_category {
-+       /* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
-        /**
-         * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
-
-
-But that comment mostly misses the point youre making.
-and the specific NAME is stale.
-and the s/int/ulong/ __drm_debug should go here, with the use of BIT()
-I will fix this and repost.
-
-Is it useful for CI / patchwork / lkp-robot purposes,
-to branch-and-rebase onto drm-next/drm-next  or  drm-tip/drm-tip
-(or dated tags on them ) ?
-
-
-
+BR,
+Jani.
 
 >
-> BR,
-> Jani.
+> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_lmem.h | 2 --
+>  1 file changed, 2 deletions(-)
 >
->
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_lmem.h b/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
+> index 1b88ea13435c..5a7a14e85c3f 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
+> @@ -12,8 +12,6 @@ struct drm_i915_private;
+>  struct drm_i915_gem_object;
+>  struct intel_memory_region;
+>  
+> -extern const struct drm_i915_gem_object_ops i915_gem_lmem_obj_ops;
+> -
+>  void __iomem *
+>  i915_gem_object_lmem_io_map(struct drm_i915_gem_object *obj,
+>  			    unsigned long n,
 
-thank you
-
-> >
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> > ---
-> >  inclu
+-- 
+Jani Nikula, Intel Open Source Graphics Center
