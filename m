@@ -4,57 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64971ECAAD3
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 13:44:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C71F1C6FA82
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 13:50:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE8E710E919;
-	Wed, 14 Sep 2022 13:44:11 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 828FA10E919
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 13:44:10 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- r13-20020a056830418d00b0065601df69c0so4986699otu.7
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 06:44:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=0ejaHtJmK1pTKMJwOo46vUymgHPZdMfpHAV6DsH/TMU=;
- b=E4BIeg3R3KxB4vs8m/L/Pu88tvq/dHT2vo5h9piTWPK/Kt8GbZjmoI/iM5xnK+GOu4
- rbPaq2qFsjugwxPgG5nyUI3JJTx3bUdFkTVP0W5W4HN7Fxk2JU9QicKROwZkB+LlpbcJ
- t3InAO14VvbdCRPb+OEmKY4tg6zAba9jhmRXa6dE225DKMbIjTmpgmr8IuPszWMW89S6
- LewD9h2LK2dKvRUNv/CpZWoYkYjZdlZerYrt0Uaw/Ul0OXpx8mdjsLQkKdUbqyxYdUCK
- TOCq55AK7EB4Gy70Ki3zcS/39tQZ1ED22dPDTrQsN4o0wsOaYqai5DNoSzilL6DRl6zc
- E/ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=0ejaHtJmK1pTKMJwOo46vUymgHPZdMfpHAV6DsH/TMU=;
- b=4aikjKfw5mmEOC6lVl22b8LUcAofz7dPNWhQr3E7NGHxFU1ZMbt/LTo8QBHDbjI0t3
- +Njd1fN2wrjwWRYGATR3PfA6PIhMXU7iRXrH9pwEyFoTCNw4CXKvd+9xTi/wSg8dCHqU
- PJU8LD1O2BiIgZI+E8OhmcWjkTcDahgHWWA732+xqMpDRZp2lWPIMEKx5IGVieSpddhA
- dKpUMwgJSh+m82s5gWyhCesqma44e9WgfZv7Ot8aVl2IWGIdA80J/h1rq2RePHlL6VoO
- 3mxEGqQHwOjlYrunSp3H2nCiBzsnCRXGmAiqvbI1q8PPmNxfkyNQfPVHPJ+8O4jX1Ajq
- zN7w==
-X-Gm-Message-State: ACgBeo3MmV0/k2MnxHV2QCUo3Ai1SU7cXy+BAEvmzFoQoNWl3IzHr/Wz
- AcEt0dIHuMXufNuQI7KWoMtKpuPEj3xXLn0r44pgoSI+
-X-Google-Smtp-Source: AA6agR700U7geaGD9CLh6djLAoJ4cdFKbv5Amsm6BAhiWdDeS2O5OHW7eUqdxA5+yT1mSZyeVep86SmMaMDCfurhj5E=
-X-Received: by 2002:a9d:376:0:b0:655:b4bc:fd6e with SMTP id
- 109-20020a9d0376000000b00655b4bcfd6emr10229584otv.233.1663163049690; Wed, 14
- Sep 2022 06:44:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0CF310E91D;
+	Wed, 14 Sep 2022 13:50:25 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2089.outbound.protection.outlook.com [40.107.237.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F9CF10E91D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 13:50:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=D9g5r3PdZOAoGU8OCDb6/R8WAY05jUCQZM9CQNg/CPDAPM4N3Oq/iPx+DvO1sMnge4lhqk0Sa/P84xs5en/UL+wnBXyI3U3OAU4HtHuVeoxCmrS2ynzRzwIdUUBW3ojfLiWpXjI303st1pGVPUJxpimwV1gZflaEF0wKBRwdm+g545YfdGpJIdKdtKVPkG4ZxNV7l93VONhGiNPjFui3URqQRfdjcYxQVbIY3cn8wuzxyPEOystvniBex9J4Ahsu1D7+8Fr+8w4TqBT/9JmJ/CMgXt8oH1jO5Xa6pBWY72QqtVDdzcUkIHkAfLMRqYhNkHeSCTcAgbEltAUiA2UVVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ys7YgcEmDrY4Tq5npBrumHBO8nP8z7Jjo8pcBJgr2uw=;
+ b=GSL6QarTUVNgmW0uGqi8pdzDF/UDHa683nH65oCtwVS4lEA/hFNr2XPOc9fvUwATd3ZxseS+UYnAnRyEtahTgpNvnkCIfchFtIXTEm6/vfCuajWeENG9Q77uj2MN7PkDNMrbAqO7e8OpcRd18UT+UR5o1S27eEtEfApu6FkdyxTKv1Mrzj071vEH7NU75GpvmlWowY1UmQU4Z8H3quupu0XHHbzZLDYK15yCS8fHrolGcwv/rZjiSBS+F4AgtsHkhtkrgbh/k/HVD2aQTxQ1vPw6SXKE7GsfSZr1aHYEsvGCM/5sBvJKKH9RH4ZyoIn59NW7mqKw06PkTV6y8IXutA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ys7YgcEmDrY4Tq5npBrumHBO8nP8z7Jjo8pcBJgr2uw=;
+ b=JJ6I11Q3theIF5i2bL+mP0KMqOkMcXZTJYAv5IJP9XcmLS+3WX9JaGCiQIJazO8K4OJCNINAZaJpoc2feLu8Ep15rWpn/a7hxAOT+xYK7MhA79X+nDIFWghF1c+rDdlt/i59shVF4/DggTLsZbrmzo9s3IRDDy8U1QLf5JxYgL8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by BL3PR12MB6473.namprd12.prod.outlook.com (2603:10b6:208:3b9::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Wed, 14 Sep
+ 2022 13:50:21 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::653f:e59b:3f40:8fed]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::653f:e59b:3f40:8fed%6]) with mapi id 15.20.5612.022; Wed, 14 Sep 2022
+ 13:50:21 +0000
+Message-ID: <037c9e48-ca53-0f3c-edd2-de58b43e96a8@amd.com>
+Date: Wed, 14 Sep 2022 15:50:14 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/amdgpu: Fix the lpfn checking condition in drm buddy
+Content-Language: en-US
+To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org,
+ arunpravin.paneerselvam@amd.com
+References: <20220914125331.2467162-1-Jun.Ma2@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20220914125331.2467162-1-Jun.Ma2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS9PR06CA0630.eurprd06.prod.outlook.com
+ (2603:10a6:20b:46e::22) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-References: <20220913144832.2784012-1-alexander.deucher@amd.com>
- <20220913144832.2784012-2-alexander.deucher@amd.com>
- <6dd85297-76d0-07c6-bfd2-5795a339f032@amd.com>
-In-Reply-To: <6dd85297-76d0-07c6-bfd2-5795a339f032@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 14 Sep 2022 09:43:58 -0400
-Message-ID: <CADnq5_M0mVZ1=wpWZD2c+CUrzqFwJmU7aadThcErUPf+tk0KmA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu: move nbio ih_doorbell_range() into ih
- code for vega
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|BL3PR12MB6473:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04d2e1c3-838b-43fd-0880-08da96581085
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qYfbBp9nLdEWRKe2iW4IRHiykAtgXqsT6VOkMb07CsqpiIoEjw0AuVdfPgqucsT7iyRDRMmKXa7bHjfjVhqxwUhtuwllcc8Alj0NZl1+rO4vrZCNn0IdguZ8cV03XpFHeiiLT5qoZRG2EfKqDbiQFE0dIos2+U3rpLYb4u2MTFbx2snrn4g2wS3gSdZLyxx4fAnQmGPxgDC6TtYPybfJ7cTrgD/G8A5VYFhmLahzT2WysQZdBRjrs+j+KDJbAPcYUQXnTF/RWXEX3+ePelbJn9fteCUQYWv2KEc3brF5/SPcTmjKU7h2+WdaPreLxxglFLRfB1VhAvfVii7NWPzQ2oV/A43mqnyjVS6Byd4zFC6ef2CAYCYPHCPbkN6EtZCCTxVG6KGaut2duWDoaeKGlTTTtUP3wdcy0rZ/ChRrtaXDEiYetnOsDfZ86qHeWvBFxOuQdpK7/TF6dnmSqofiWRe5Fz1FocDQKlDOTP4sl6K986m1NHN8SZa4XSseWHnxtLZ1o5ciryBBeZ8U7Bv25xwZtsP9+6BA349YWrII3GzZVPV9Z2Doi2A+E8MOFMZh8fCd5Zx0YzhxQzt+i2aT9TMdnecrQ022P/PCdnyQ18H9f/a7DRnFL8i/oP74/CTjU6F2896V624kbeQC5LOgL5r7Xizen5REzbADIOkqQ6+asxU73ItOO37WNestgrszn0O0TA/eq+AmvAum/mt0HbpPzOyM/WurdxJ+jOuilRz/YhDg6dDwyemENxxOmGu0tjdy/zUru/q5jUi4kw+Wqo1wwd2bOoG+3zBpMRAL2CQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(136003)(376002)(366004)(346002)(396003)(451199015)(6512007)(8936002)(38100700002)(316002)(31686004)(8676002)(6636002)(66476007)(6506007)(66574015)(66556008)(186003)(83380400001)(66946007)(31696002)(4326008)(6666004)(36756003)(2616005)(86362001)(6486002)(478600001)(2906002)(41300700001)(5660300002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eEtxSnhVUVhKaHNyVnYrQ2ZtazNheWxkMENZNVB4dVBHOVk1VlNKUjdTaTF2?=
+ =?utf-8?B?ZWJ3S2VLa0VhQjVHTXhRSndpMm5FNE44M0VYQWVjcFhjdlgrbzFBUEJreVZr?=
+ =?utf-8?B?dmxYWEh5K0tIWW1MWHV5ZkdOYU1RVlVBWjFsb2ZTNllkZUxqM1pldGZDK2Jn?=
+ =?utf-8?B?SjhQbkVHT3Nwd0xuQ1NMcHRxeHU2eVExVEw5ZW94SXZMcHdwS21qT1hhaUR1?=
+ =?utf-8?B?aDV3dHg4cjdRc3ZRMCtONnRZS3MrNXpxakRLekU2OFpacmZ1Z04rT3BPcHF5?=
+ =?utf-8?B?YmxIZ2FocXU4L1B4cDBmc3RkVnp3UHFHV2dHdisvRnZiWUNmdXRZWkUzYXBu?=
+ =?utf-8?B?bW1SMTQvK1FWZ2E0dTJ2K3ZLdDRobkU1VHRNMlRQejlMcUpSMWJ3THdKRGRT?=
+ =?utf-8?B?bnczNWZEYmozeUZabWJZZVRZTDRkWjVnbmFzR05waFJCdXE1U0RTSUl3NDdU?=
+ =?utf-8?B?SzlyN3Y4eWNxVUhQYXM3UWZaQzh1R29FTytIRkFrTXVHZXIveHlmUElqZ1Zq?=
+ =?utf-8?B?c01WR3plWkUwVkd6SmkxbWdFNEt1cWE3QllEcTdyaThNejBXanlubFRwOXRY?=
+ =?utf-8?B?cGxwd2toVHFKRXg1dVB5bzcvNXlweUxmSWw0ZzhibEtIc1ZKZXZobTM4Y2hG?=
+ =?utf-8?B?bk1aNy9DT0FFVEo0Y3NYSWQ3MXpjNk9Xa2x3cXlqRExpc2szT0QweXAzYmxQ?=
+ =?utf-8?B?eHA0MndjSk42TFMrUmt2V1FxM3F3SUF1dTdEV3YyZ0JxdmJkNWlObWVrOHpL?=
+ =?utf-8?B?WmxQcUV2cWFtOWNQZDdnZ0l0QmRqb0FFRm90UmFsSG9xd2xYZElGaGdhTStF?=
+ =?utf-8?B?SU0valorUU1iMmFTN2NBNkhrUEZYY0hnanFlRjRGM1c2eEZ6UFBkZlBVSDF2?=
+ =?utf-8?B?TXVNV2s5TUo3L3ZyNEJ5cXBWK0t1YytQQWlmdEtDTms1RWVUWElrczk0N2xi?=
+ =?utf-8?B?aFpHZW1zeURMY0ZMRTk1OUdFNEs5alFSMmhTMzdOYnFYMy9lM25oTWtIUlNZ?=
+ =?utf-8?B?NDFGaHJRZlkrZXRnYWFDNXkwdU1hdTU0aDNHU3pZWUxRbFlWbXRBQ0Y5ZUUw?=
+ =?utf-8?B?SVdlVjFYbWJmMmxKaVl1R0VtKzBWdXV6cElNVUltRk1kTG9BYVp3MExJRjh6?=
+ =?utf-8?B?MUdxb0hUOThyZ1pQU3I4Tzk0Q0FFVS9NNjhHaDhJLzczb0VBSUVwTW1rRHd0?=
+ =?utf-8?B?cmpLYnZXVjVnek5xNnZ2MC9NbVlERFpWNGpZRCtMcFhsOXZrbVE3d0hXQUw1?=
+ =?utf-8?B?SjNzQTF6OEhzY3lwUFR1MnNMWlpObGtDMm5FNm5HVEVUVENESXZJc2FHWHA4?=
+ =?utf-8?B?WVUwZGhueitjSG4xVHA5ZnBWUGlNNVJXMUxvYlBwN3B3OGxmTk4wdzJiZlVq?=
+ =?utf-8?B?eFdkNThhd2FPb0xPOXhQQWpOTEI3akdmL1kzN2VxQ3puSHRycERZb21meHpV?=
+ =?utf-8?B?RWxKS29yTnlPanBWMkFuSlVnUjdoVndUUU5OVlpQWXdkTWlYRlRxUmFDTW1R?=
+ =?utf-8?B?RThQOVhTS0JLV2VSRU1TVDZjRGVQa3pwSVVIOVZMeWZmZFRzMzhtc2J6aVdk?=
+ =?utf-8?B?dEhINUZtN0NnVERjMW9hMDBXenRSTTFHRjZoMmtxMEdubU1zYldQK3llTGRN?=
+ =?utf-8?B?aExEOUJsVnFhNzEwOHlmSkl6akJPOXJlbkVzMDFsZlRZZzJielZ6NVNmTmFk?=
+ =?utf-8?B?bDljWjhJd04rNnQ3UExtVENlQmRlUGpJekxPRHlZM0sxK3QvY1l3TFdWQ1o5?=
+ =?utf-8?B?UXVWYTY4S3VZRERCSmhzUWRzOXlzSXdlZnF6SmJXVTlDSkxta0cvSDd6d2tJ?=
+ =?utf-8?B?R1RZZ3FHQVdMT1FYNWhLdlRDRTRqYXp1eDdmazZBcW4rRm1RRVRqaTk4ZHVw?=
+ =?utf-8?B?VmY5M2RyRXBIdVdKdVRyRmg5U0owYUpOT1ZPUlA4dmh3Qk9nMVVneWlSTXBK?=
+ =?utf-8?B?cUFWOGNBQ1o5cmFVZG5IZkxWTk9qd0tXdjZpN0dTcnl1MUQxanA1ajJhWnpq?=
+ =?utf-8?B?Nkt3aDQ4WWl0c3pJV1RGaUxYWXdzODdZekpYNTBLSEZnaVJTVWRSNjVoOXJY?=
+ =?utf-8?B?UGc5SFZNK3RSVE1yL2pHaHNjTDNWckpweU9KK000YnZScGlUL1RXN0h3anpp?=
+ =?utf-8?B?aURqQkFxcC9tUUcwVkFpTkFqU3lrMHJtT1BDeUNleWh4QmpObW5Qc0drTmRR?=
+ =?utf-8?Q?mS5ivzrSJLz7hN2rkOxX59jG59u+bE5Aguo8w2AzuNA3?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04d2e1c3-838b-43fd-0880-08da96581085
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 13:50:20.8069 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bam7gVjI8GwGHZ40tyDBKCm+d3BkWnz5zQw1dhyQVE8rnrbdUn0iTox3ctAqk1og
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6473
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,111 +125,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: regressions@lists.linux.dev, airlied@linux.ie, linux-pci@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, tseewald@gmail.com, kai.heng.feng@canonical.com,
- helgaas@kernel.org, m.seyfarth@gmail.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, sr@denx.de
+Cc: alexander.deucher@amd.com, guchun.chen@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 14, 2022 at 3:05 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
+Am 14.09.22 um 14:53 schrieb Ma Jun:
+> Because the value of man->size is changed during suspend/resume process,
+> use mgr->mm.size instead of man->size here for lpfn checking.
 >
->
->
-> On 9/13/2022 8:18 PM, Alex Deucher wrote:
-> > This mirrors what we do for other asics and this way we are
-> > sure the ih doorbell range is properly initialized.
-> >
-> > There is a comment about the way doorbells on gfx9 work that
-> > requires that they are initialized for other IPs before GFX
-> > is initialized.  In this case IH is initialized before GFX,
-> > so there should be no issue.
-> >
->
-> Not sure about the association of patch 1 and 2 with AER as in the
-> comment below. I thought the access would go through (PCIE errors may
-> not be reported) and the only side effect is doorbell won't be hit/routed.
->
-> The comments may not be relevant to patches 1/2, apart from that -
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> Suggested-by: Christian König <christian.koenig@amd.com>
 
-Patches 1 and 2 don't fix the actual issue, but they are prerequisites
-for patch 3.  Without patches 1 and 2, patch 3 won't work on all
-cards.  Seemed prudent to just mark all 3, but I could clarify that 1
-and 2 are just prerequisites.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Thanks,
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> index 48e3dc28b156..0b598b510bd8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> @@ -441,7 +441,7 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>   	if (place->flags & TTM_PL_FLAG_TOPDOWN)
+>   		vres->flags |= DRM_BUDDY_TOPDOWN_ALLOCATION;
+>   
+> -	if (fpfn || lpfn != man->size)
+> +	if (fpfn || lpfn != mgr->mm.size)
+>   		/* Allocate blocks in desired range */
+>   		vres->flags |= DRM_BUDDY_RANGE_ALLOCATION;
+>   
 
-Alex
-
->
-> Series is:
->         Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
->
-> Thanks,
-> Lijo
->
-> > This fixes the Unsupported Request error reported through
-> > AER during driver load. The error happens as a write happens
-> > to the remap offset before real remapping is done.
-> >
-> > Link: https://bugzilla.kernel.org/show_bug.cgi?id=216373
-> >
-> > The error was unnoticed before and got visible because of the commit
-> > referenced below. This doesn't fix anything in the commit below, rather
-> > fixes the issue in amdgpu exposed by the commit. The reference is only
-> > to associate this commit with below one so that both go together.
-> >
-> > Fixes: 8795e182b02d ("PCI/portdrv: Don't disable AER reporting in get_port_device_capability()")
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/soc15.c     | 3 ---
-> >   drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 4 ++++
-> >   drivers/gpu/drm/amd/amdgpu/vega20_ih.c | 4 ++++
-> >   3 files changed, 8 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > index 5188da87428d..e6a4002fa67d 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > @@ -1224,9 +1224,6 @@ static void soc15_doorbell_range_init(struct amdgpu_device *adev)
-> >                               ring->use_doorbell, ring->doorbell_index,
-> >                               adev->doorbell_index.sdma_doorbell_range);
-> >               }
-> > -
-> > -             adev->nbio.funcs->ih_doorbell_range(adev, adev->irq.ih.use_doorbell,
-> > -                                             adev->irq.ih.doorbell_index);
-> >       }
-> >   }
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> > index 03b7066471f9..1e83db0c5438 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> > @@ -289,6 +289,10 @@ static int vega10_ih_irq_init(struct amdgpu_device *adev)
-> >               }
-> >       }
-> >
-> > +     if (!amdgpu_sriov_vf(adev))
-> > +             adev->nbio.funcs->ih_doorbell_range(adev, adev->irq.ih.use_doorbell,
-> > +                                                 adev->irq.ih.doorbell_index);
-> > +
-> >       pci_set_master(adev->pdev);
-> >
-> >       /* enable interrupts */
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> > index 2022ffbb8dba..59dfca093155 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> > @@ -340,6 +340,10 @@ static int vega20_ih_irq_init(struct amdgpu_device *adev)
-> >               }
-> >       }
-> >
-> > +     if (!amdgpu_sriov_vf(adev))
-> > +             adev->nbio.funcs->ih_doorbell_range(adev, adev->irq.ih.use_doorbell,
-> > +                                                 adev->irq.ih.doorbell_index);
-> > +
-> >       pci_set_master(adev->pdev);
-> >
-> >       /* enable interrupts */
-> >
