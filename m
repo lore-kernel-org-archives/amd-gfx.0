@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9732ECAAD8
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 03:34:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3B9EECAAD8
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 03:35:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FC3110E7FA;
-	Wed, 14 Sep 2022 03:34:12 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2043.outbound.protection.outlook.com [40.107.93.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 628E610E7F9
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 03:34:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1370910E7FB;
+	Wed, 14 Sep 2022 03:35:09 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8166A10E7FB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 03:35:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aqziXdxGdOL1Ii0iL1D7uXK+/ns6F0gGyjwzliqIkBpEKmaWGvjKZm/9z8YYysAxTtu1nJAyukcbdvqj7699vtFuoLNhilGJM4LrhHm2+HsksK/rYd+sNtSsukzknu42DUIik8gZs4eqLOzLEM3OxdbeYzm1UqV2UNUFox+b6qd1JNp2t4Y3zbyPnMCNc/hVB4GOIkLMyZkf/azTmZUxiyr+KOJsZ0l5EoojOv3bD1a3xCpkbEjcCryk6+Asg75PdHAPo63NZysyvzOB2TOMhTPbitQVf6T6E0vlVT/VGYWxg4635V3DUOL3SgWIuSXGl0XQAT2TG3DKmYD6V/0tGw==
+ b=Yb+kFyIMH1hD/DUGw5BKeIt33OSgT45jPTeVVnay3aXWB+3S6Feuq0hyELVQkOSrwNf/HbEg5rMVBtcBLcTcrIVgf0FGRjtTAuXD1Htg6TeJRuGK2r25qlL6TfuukbPLiybGdH+CMBKiiLAR0mH0ru9TwOiziIkiK58sbdnVMxHro8tA/32Igc0CE2527yURQmKjbITy9ALA+/GMxVdbzTZ3Z/aaDqsC1p7POdGpjE08DcC0cNZYi55zxfSWlN3OlhPlOt0X2/4s8eMFUUdAuBJZ9hpphQyJ3TY800v93SSY0ga+tX8dxATIz9VtR4j4e57fiG7l5cVJtFy+d6/Jjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u5D/kWN32UWc0bccXRYLkW4B9d71JkKKfDfnFIqrDsg=;
- b=VH4s2Zni9AvCZ3zrZUb/EN4Z0XSZEia7p20Ov7qC6NDmvOLqf9MihWI3FEu8rJW7Xdx32pEbhmlQWNyCNmi8H8RdsPkGEPwTf5XMm4IDZzC63p5Pq+BZBHCiPGC8Ki9zKZGYwhhA9vSmhY/X2T/mDNki3ua5VeNA9TeTRIrnBMqIyunjoBKmRCnxP/tX/200p8Popu3XtPFU9ld8rFRLPr54XBUpzTuSU5HMp8OSM79zGZHJX7BWQrMVIPJdMyMVf/0tTydo0AxP/QMhr+bNJOyhFCz903AJRXtUnCCGmvFKWmg19u7/gVeID5Lz7UVrD7ZUAVMXapQAIGS6p1HenQ==
+ bh=DOZJknLQl+4cf+IBEe5MrURoNA8WjbZuftP132R47Js=;
+ b=cpjTk4juSEqMy19OjrQ/o1Sg/WZQtQ/fQgnSwfijL2qUnRuj7qM+2/nVMjikEnOqouXUgsH5w2oCc1NDoqMb9oX3eJNyo2K+4sKZBDTDUK9y+2Csu+Qh/5dyboZo70vcIBMsF5a2eCBk1VGLlCCq8M6BEQzat0NgtSjsqaT0z7vq7IExIbErod4n3sPTySIXTCAcu/MwprPvBPl7EUp0D6iJAtDFCQHVDuESGHhzKlYR4d6TOb57x5IXzoBKhCOYr4AMt1f4AVcel821zr0xeqUHJSAMlW721jLevTUQMa5aPHPYcVOPcn2s3k9mksO3lhaW3HGdCY4CvPfsN0ei+A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u5D/kWN32UWc0bccXRYLkW4B9d71JkKKfDfnFIqrDsg=;
- b=bPWMb1NSiSTZPxCmG2griq0ZQ2rEhaCaPp5byDT1n2q++wkA/bmgE0EcICeQRP+c1mnVkJNEScN0+AzAlEBB6lKFXDFPuEfky1W4N6PToTeVXbOlqp4WJXpholr1o6elRmpy5VZhwHfQNy934XSW8Bhzv9kq/WgsXOBH3SuFWWM=
-Received: from DM5PR07CA0054.namprd07.prod.outlook.com (2603:10b6:4:ad::19) by
- CH0PR12MB5330.namprd12.prod.outlook.com (2603:10b6:610:d5::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5612.14; Wed, 14 Sep 2022 03:34:05 +0000
-Received: from DM6NAM11FT094.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:ad:cafe::d6) by DM5PR07CA0054.outlook.office365.com
- (2603:10b6:4:ad::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14 via Frontend
- Transport; Wed, 14 Sep 2022 03:34:05 +0000
+ bh=DOZJknLQl+4cf+IBEe5MrURoNA8WjbZuftP132R47Js=;
+ b=NsrYyjwK7gR8FOnOGLxZnRgU9+tzGSPx5LGWCFGau4hseyw5SoDNE1ZSvNJGNDxCKV0FMN8q+StQO0RsLVtEwnHCk337/mBlDbcgnTwBG9Vrb2z4MypkCKO/DTLXkIgAw7+IkUPZRfvtvtwyepLysEZVUGNxpGwjeuUUc5xqDp8=
+Received: from BN0PR07CA0020.namprd07.prod.outlook.com (2603:10b6:408:141::18)
+ by MW4PR12MB6731.namprd12.prod.outlook.com (2603:10b6:303:1eb::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.12; Wed, 14 Sep
+ 2022 03:34:59 +0000
+Received: from BN8NAM11FT014.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:141:cafe::c4) by BN0PR07CA0020.outlook.office365.com
+ (2603:10b6:408:141::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.12 via Frontend
+ Transport; Wed, 14 Sep 2022 03:34:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT094.mail.protection.outlook.com (10.13.172.195) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT014.mail.protection.outlook.com (10.13.177.142) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5632.12 via Frontend Transport; Wed, 14 Sep 2022 03:34:05 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5632.12 via Frontend Transport; Wed, 14 Sep 2022 03:34:58 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 22:34:04 -0500
+ 2022 22:34:47 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
  (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 22:34:04 -0500
+ 2022 22:34:18 -0500
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Tue, 13 Sep 2022 22:34:00 -0500
+ Transport; Tue, 13 Sep 2022 22:34:15 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 27/47] drm/amd/display: Expose few dchubbub functions
-Date: Wed, 14 Sep 2022 11:24:21 +0800
-Message-ID: <20220914032441.1075031-28-Wayne.Lin@amd.com>
+Subject: [PATCH 28/47] drm/amd/display: Update dummy P-state search to use
+ DCN32 DML
+Date: Wed, 14 Sep 2022 11:24:22 +0800
+Message-ID: <20220914032441.1075031-29-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220914032441.1075031-1-Wayne.Lin@amd.com>
 References: <20220914032441.1075031-1-Wayne.Lin@amd.com>
@@ -72,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT094:EE_|CH0PR12MB5330:EE_
-X-MS-Office365-Filtering-Correlation-Id: 054679a3-52c5-49b5-dfd3-08da9601f9b5
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT014:EE_|MW4PR12MB6731:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16cf50c8-600d-47f5-95cc-08da9602194a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Cw76v9HRulvjE9oAh0xkeO4mBf8ApIeDJaMuZ7dGGbJoj9Ot8BWYBhhcXJTKAbd0NTDxr7pwLcrsYE21rbm3aVoEoZUHKddt/+T3snMvGoEWWRRIm6nMJyWEUT9XKiwXMSnSqydf/uMgdESsobqLSZ89NDoxQdFHbujLrjcSD/4ZV+/KU+JIWQM9kpTkM67bQq4p9qZAvn4SXJ4r1LgnrTS4Q8bdbFllNs9Q/kMdAk/8N155hxYr5Z2043+jEd/gL7OE9XQF6a1lnxqcRJax/JS+S5evbtj1IJSwewqd4+VAMUia37sMyCUdS4KH8tPPy1FCz9HyPo2rmifKgB1x1kyWUsoCwtgF5aSLofQfpM5Es3K5hUQBQBukwgcqNWaE+N7Ga63w365bW3iVW3TgfcDa1/A5Q+ZxTX1wSyQiN8W0uxHhNK9hdOaqnURumj7HQwlIeGFisRKuBHN/9b2sUdDSBFVFT4xCCI30wAek8RSgNUHRYSNDZQ+7zo2qfc4mGTow+GIqJTbPXajN/osB0BChzBdhN+31OewqknzO2EhPm3wGw8vHrGu6FBxMOhKJd+Ph0RPDZgY9FMIM33qJP1rLnqLwUOHkHPRoSnVk2gZjCppiruMZMgIeHQ1KyY1IMFuBHc2pX+nXV/KqvBeUWvPFpFpPGNb4u/ZCpkbvx6jocs6jTxMU+k6iawdTFDpumYLKiXBBCH8N/xoD22QtE0/kuSVzvsoUKpWZdqSMtqsejHuK8010PjKOhtEiPkxdW7vYiS4z57SOekzhkQ95XdcC9OdQ7ff2D9GFLtIkN7Jex9urqeRHtnHaAiUju29D
+X-Microsoft-Antispam-Message-Info: EyL6E20AFXYAffrT5R+xYtykMBSv22jV4938kfl4DFFxPX+noywHij1vtkGFTBuS4TUOxibimaUdcdF+tClWG5AeF/2TdqCuzvOg205fU6yAZJMnb058bcWzTj7R1lm7lNGlenXfv+/uNeMmLWILaeGxzHxphkMiQgC/qHnBYiLh4Y1bblI4Knt2+IaVfmXdWgRxzghBboeiW5ynZl77HrtGqHsvbUHIb7dmaOgmU9EIr+HtxhK0uXU/mCwuwz2dMSuJdV8rPOgrTxEGG6knOYyUKwd2nWzy1v1+DkuJsbqAJU+OrJmL2Hs+OBgCIsYEcWKNF6vJPJDy/yackF82TMZixcofx/pIxkXkXOVkmQtdvFS0RVEyr5OznybhZWRG8PJn5ExKKrIx1Aa5jznjXmfPOsgQp0lD1/trb1MJkceKReIb6kbCVn39rgb4wwU03KXZdo7rZxC5fHCmu4JJ1vrT/d6JoQVGF7sjQC1MZDm0f11qapVN694cVgUbpvWWiG+l6wx1ihPXDmKD/NbPXU5WZlDUAiC80zttSLHzt3ehKh/APVxkyGuKvw4kDS0u4bZW69stdoR1KbAq+49Ahh9XfbEqEZ8ILhna1+89486RWgc7EvqoObAgQg0NqfeSFcrSyux78qQm5haFHicFdttrxX3vmcD+XEch3/frPHD8KUxd3q7uoaLkEK+0GexCDUglOwWLvRBzQrVzAN8T4bCZ4UJy24DzlHIz2r6LjormEXUXjcF9ks8cIr2UWjgFbu1FS79lUjN1k1BJb9jVE7CBnnb8UuSRvtutoit6/RmuprHgssT1L1KJmNfcIt/Q
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(39860400002)(346002)(136003)(396003)(451199015)(46966006)(36840700001)(40470700004)(6916009)(316002)(82310400005)(54906003)(41300700001)(70586007)(2616005)(7696005)(336012)(36756003)(40480700001)(4326008)(40460700003)(478600001)(186003)(2906002)(6666004)(70206006)(8936002)(426003)(356005)(5660300002)(86362001)(82740400003)(1076003)(47076005)(26005)(8676002)(81166007)(83380400001)(36860700001)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(396003)(376002)(346002)(136003)(451199015)(40470700004)(36840700001)(46966006)(316002)(6916009)(40460700003)(186003)(36756003)(41300700001)(82310400005)(54906003)(2616005)(81166007)(70586007)(47076005)(26005)(7696005)(478600001)(8936002)(70206006)(36860700001)(6666004)(2906002)(426003)(15650500001)(82740400003)(5660300002)(336012)(86362001)(8676002)(4326008)(356005)(83380400001)(1076003)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 03:34:05.3988 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 054679a3-52c5-49b5-dfd3-08da9601f9b5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 03:34:58.4140 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16cf50c8-600d-47f5-95cc-08da9602194a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT094.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT014.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5330
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6731
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,145 +104,115 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, George Shen <george.shen@amd.com>,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, Nevenko Stupar <Nevenko.Stupar@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Charlene Liu <Charlene.Liu@amd.com>
+From: George Shen <george.shen@amd.com>
 
-[why]
-Expose few dchubbun functions in dcn31 and dcn32 to leverage.
+[Why]
+Current DCN3.2 logic for finding the dummy P-state index uses the
+DCN3.0 DML validation function instead of DCN3.2 DML.
 
-Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+This can result in either unexpected DML VBA values, or unexpected
+dummy P-state index to be used.
+
+[How]
+Update the dummy P-state logic to use DCN3.2 DML validation function.
+
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Reviewed-by: Nevenko Stupar <Nevenko.Stupar@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
+Signed-off-by: George Shen <george.shen@amd.com>
 ---
- .../drm/amd/display/dc/dcn31/dcn31_hubbub.c   |  2 +-
- .../drm/amd/display/dc/dcn31/dcn31_hubbub.h   |  2 ++
- .../drm/amd/display/dc/dcn32/dcn32_hubbub.c   | 10 +++----
- .../drm/amd/display/dc/dcn32/dcn32_hubbub.h   | 29 +++++++++++++++++++
- 4 files changed, 37 insertions(+), 6 deletions(-)
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 46 ++++++++++++++++++-
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.h  |  6 +++
+ 2 files changed, 51 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-index 51c5f3685470..6360dc9502e7 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-@@ -876,7 +876,7 @@ static bool hubbub31_get_dcc_compression_cap(struct hubbub *hubbub,
- 	return true;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index b8d4547a885f..b573ab7b81ed 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -243,6 +243,50 @@ void dcn32_build_wm_range_table_fpu(struct clk_mgr_internal *clk_mgr)
+ 	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.max_uclk = 0xFFFF;
  }
  
--static int hubbub31_init_dchub_sys_ctx(struct hubbub *hubbub,
-+int hubbub31_init_dchub_sys_ctx(struct hubbub *hubbub,
- 		struct dcn_hubbub_phys_addr_config *pa_config)
- {
- 	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.h
-index e3a654bf04e8..70c60de448ac 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.h
-@@ -122,6 +122,8 @@
- 	HUBBUB_SF(DCN_VM_FAULT_STATUS, DCN_VM_ERROR_PIPE, mask_sh), \
- 	HUBBUB_SF(DCN_VM_FAULT_STATUS, DCN_VM_ERROR_INTERRUPT_STATUS, mask_sh)
- 
-+int hubbub31_init_dchub_sys_ctx(struct hubbub *hubbub,
-+		struct dcn_hubbub_phys_addr_config *pa_config);
- 
- void hubbub31_construct(struct dcn20_hubbub *hubbub3,
- 	struct dc_context *ctx,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
-index 99eb239bbc7b..3d3226aca2ef 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
-@@ -68,7 +68,7 @@ static void dcn32_init_crb(struct hubbub *hubbub)
- 	REG_UPDATE(DCHUBBUB_DEBUG_CTRL_0, DET_DEPTH, 0x47F);
- }
- 
--static void dcn32_program_det_size(struct hubbub *hubbub, int hubp_inst, unsigned int det_buffer_size_in_kbyte)
-+void dcn32_program_det_size(struct hubbub *hubbub, int hubp_inst, unsigned int det_buffer_size_in_kbyte)
- {
- 	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
- 
-@@ -140,7 +140,7 @@ static uint32_t convert_and_clamp(
- 	return ret_val;
- }
- 
--static bool hubbub32_program_urgent_watermarks(
-+bool hubbub32_program_urgent_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
-@@ -330,7 +330,7 @@ static bool hubbub32_program_urgent_watermarks(
- 	return wm_pending;
- }
- 
--static bool hubbub32_program_stutter_watermarks(
-+bool hubbub32_program_stutter_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
-@@ -476,7 +476,7 @@ static bool hubbub32_program_stutter_watermarks(
- }
- 
- 
--static bool hubbub32_program_pstate_watermarks(
-+bool hubbub32_program_pstate_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
-@@ -629,7 +629,7 @@ static bool hubbub32_program_pstate_watermarks(
- }
- 
- 
--static bool hubbub32_program_usr_watermarks(
-+bool hubbub32_program_usr_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h
-index 3bae6e558971..cda94e0e31bf 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h
-@@ -161,6 +161,35 @@
- 	HUBBUB_SF(DCN_VM_FAULT_STATUS, DCN_VM_ERROR_PIPE, mask_sh), \
- 	HUBBUB_SF(DCN_VM_FAULT_STATUS, DCN_VM_ERROR_INTERRUPT_STATUS, mask_sh)
- 
-+bool hubbub32_program_urgent_watermarks(
-+		struct hubbub *hubbub,
-+		struct dcn_watermark_set *watermarks,
-+		unsigned int refclk_mhz,
-+		bool safe_to_lower);
++/**
++ * Finds dummy_latency_index when MCLK switching using firmware based
++ * vblank stretch is enabled. This function will iterate through the
++ * table of dummy pstate latencies until the lowest value that allows
++ * dm_allow_self_refresh_and_mclk_switch to happen is found
++ */
++int dcn32_find_dummy_latency_index_for_fw_based_mclk_switch(struct dc *dc,
++							    struct dc_state *context,
++							    display_e2e_pipe_params_st *pipes,
++							    int pipe_cnt,
++							    int vlevel)
++{
++	const int max_latency_table_entries = 4;
++	const struct vba_vars_st *vba = &context->bw_ctx.dml.vba;
++	int dummy_latency_index = 0;
 +
-+bool hubbub32_program_stutter_watermarks(
-+		struct hubbub *hubbub,
-+		struct dcn_watermark_set *watermarks,
-+		unsigned int refclk_mhz,
-+		bool safe_to_lower);
++	dc_assert_fp_enabled();
 +
-+bool hubbub32_program_pstate_watermarks(
-+		struct hubbub *hubbub,
-+		struct dcn_watermark_set *watermarks,
-+		unsigned int refclk_mhz,
-+		bool safe_to_lower);
++	while (dummy_latency_index < max_latency_table_entries) {
++		context->bw_ctx.dml.soc.dram_clock_change_latency_us =
++				dc->clk_mgr->bw_params->dummy_pstate_table[dummy_latency_index].dummy_pstate_latency_us;
++		dcn32_internal_validate_bw(dc, context, pipes, &pipe_cnt, &vlevel, false);
 +
-+bool hubbub32_program_usr_watermarks(
-+		struct hubbub *hubbub,
-+		struct dcn_watermark_set *watermarks,
-+		unsigned int refclk_mhz,
-+		bool safe_to_lower);
++		if (vlevel < context->bw_ctx.dml.vba.soc.num_states &&
++				vba->DRAMClockChangeSupport[vlevel][vba->maxMpcComb] != dm_dram_clock_change_unsupported)
++			break;
 +
-+void hubbub32_force_usr_retraining_allow(struct hubbub *hubbub, bool allow);
++		dummy_latency_index++;
++	}
 +
-+void hubbub32_force_wm_propagate_to_pipes(struct hubbub *hubbub);
++	if (dummy_latency_index == max_latency_table_entries) {
++		ASSERT(dummy_latency_index != max_latency_table_entries);
++		/* If the execution gets here, it means dummy p_states are
++		 * not possible. This should never happen and would mean
++		 * something is severely wrong.
++		 * Here we reset dummy_latency_index to 3, because it is
++		 * better to have underflows than system crashes.
++		 */
++		dummy_latency_index = max_latency_table_entries - 1;
++	}
 +
-+void dcn32_program_det_size(struct hubbub *hubbub, int hubp_inst, unsigned int det_buffer_size_in_kbyte);
++	return dummy_latency_index;
++}
++
+ /**
+  * dcn32_helper_populate_phantom_dlg_params - Get DLG params for phantom pipes
+  * and populate pipe_ctx with those params.
+@@ -1723,7 +1767,7 @@ void dcn32_calculate_wm_and_dlg_fpu(struct dc *dc, struct dc_state *context,
+ 			dcn30_can_support_mclk_switch_using_fw_based_vblank_stretch(dc, context);
  
- void hubbub32_construct(struct dcn20_hubbub *hubbub2,
- 	struct dc_context *ctx,
+ 		if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching) {
+-			dummy_latency_index = dcn30_find_dummy_latency_index_for_fw_based_mclk_switch(dc,
++			dummy_latency_index = dcn32_find_dummy_latency_index_for_fw_based_mclk_switch(dc,
+ 				context, pipes, pipe_cnt, vlevel);
+ 
+ 			/* After calling dcn30_find_dummy_latency_index_for_fw_based_mclk_switch
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
+index ce4c33e64186..b43c45adb7d3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
+@@ -70,4 +70,10 @@ void dcn32_calculate_wm_and_dlg_fpu(struct dc *dc, struct dc_state *context,
+ 
+ void dcn32_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_params);
+ 
++int dcn32_find_dummy_latency_index_for_fw_based_mclk_switch(struct dc *dc,
++							    struct dc_state *context,
++							    display_e2e_pipe_params_st *pipes,
++							    int pipe_cnt,
++							    int vlevel);
++
+ #endif
 -- 
 2.37.3
 
