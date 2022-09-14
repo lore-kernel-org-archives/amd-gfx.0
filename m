@@ -4,28 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C22D4ECAAD8
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 07:50:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50695ECAAD8
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 07:50:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8905B10E8A0;
-	Wed, 14 Sep 2022 07:50:11 +0000 (UTC)
-Received: from out30-132.freemail.mail.aliyun.com
- (out30-132.freemail.mail.aliyun.com [115.124.30.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0289610E870;
- Wed, 14 Sep 2022 05:28:27 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R201e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045192;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC55E10E8A3;
+	Wed, 14 Sep 2022 07:50:12 +0000 (UTC)
+Received: from out30-133.freemail.mail.aliyun.com
+ (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 217F910E86C;
+ Wed, 14 Sep 2022 05:28:18 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R101e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045176;
  MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
- TI=SMTPD_---0VPlhaq2_1663133301; 
+ TI=SMTPD_---0VPlhali_1663133292; 
 Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VPlhaq2_1663133301) by smtp.aliyun-inc.com;
- Wed, 14 Sep 2022 13:28:24 +0800
+ fp:SMTPD_---0VPlhali_1663133292) by smtp.aliyun-inc.com;
+ Wed, 14 Sep 2022 13:28:14 +0800
 From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH 8/8] drm/amd/display: make optc32_phantom_crtc_post_enable,
- optc32_setup_manual_trigger and optc32_set_drr static
-Date: Wed, 14 Sep 2022 13:27:42 +0800
-Message-Id: <20220914052742.116297-8-jiapeng.chong@linux.alibaba.com>
+Subject: [PATCH 6/8] drm/amd/display: make some functions static
+Date: Wed, 14 Sep 2022 13:27:40 +0800
+Message-Id: <20220914052742.116297-6-jiapeng.chong@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
 In-Reply-To: <20220914052742.116297-1-jiapeng.chong@linux.alibaba.com>
 References: <20220914052742.116297-1-jiapeng.chong@linux.alibaba.com>
@@ -51,51 +50,61 @@ Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, airlied@linux.ie,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These three functions are not used outside the function
-dcn32_optc.c, so the modification is defined as static.
+These functions are not used outside the file dcn32_hubbub.c, so the
+modification is defined as static.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_optc.c:159:6: warning: no previous prototype for function 'optc32_phantom_crtc_post_enable'.
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_optc.c:218:6: warning: no previous prototype for ‘optc32_set_drr’.
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_optc.c:193:6: warning: no previous prototype for ‘optc32_setup_manual_trigger’.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hubbub.c:912:6: warning: no previous prototype for ‘hubbub32_force_wm_propagate_to_pipes’.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hubbub.c:823:6: warning: no previous prototype for ‘hubbub32_wm_read_state’.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hubbub.c:772:6: warning: no previous prototype for ‘hubbub32_init_watermarks’.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hubbub.c:712:6: warning: no previous prototype for ‘hubbub32_force_usr_retraining_allow’.
 
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2140
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2141
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
-index 1fad7b48bd5b..ec3989d37086 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
-@@ -156,7 +156,7 @@ static bool optc32_disable_crtc(struct timing_generator *optc)
- 	return true;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
+index 99eb239bbc7b..d4963959426c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
+@@ -709,7 +709,7 @@ static bool hubbub32_program_usr_watermarks(
+ 	return wm_pending;
  }
  
--void optc32_phantom_crtc_post_enable(struct timing_generator *optc)
-+static void optc32_phantom_crtc_post_enable(struct timing_generator *optc)
+-void hubbub32_force_usr_retraining_allow(struct hubbub *hubbub, bool allow)
++static void hubbub32_force_usr_retraining_allow(struct hubbub *hubbub, bool allow)
  {
- 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
+ 	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
  
-@@ -190,7 +190,7 @@ static void optc32_set_odm_bypass(struct timing_generator *optc,
- 	optc1->opp_count = 1;
+@@ -769,7 +769,7 @@ static bool hubbub32_program_watermarks(
  }
  
--void optc32_setup_manual_trigger(struct timing_generator *optc)
-+static void optc32_setup_manual_trigger(struct timing_generator *optc)
+ /* Copy values from WM set A to all other sets */
+-void hubbub32_init_watermarks(struct hubbub *hubbub)
++static void hubbub32_init_watermarks(struct hubbub *hubbub)
  {
- 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
- 	struct dc *dc = optc->ctx->dc;
-@@ -215,7 +215,7 @@ void optc32_setup_manual_trigger(struct timing_generator *optc)
- 	}
+ 	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
+ 	uint32_t reg;
+@@ -820,7 +820,7 @@ void hubbub32_init_watermarks(struct hubbub *hubbub)
+ 	REG_WRITE(DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_D, reg);
  }
  
--void optc32_set_drr(
-+static void optc32_set_drr(
- 	struct timing_generator *optc,
- 	const struct drr_params *params)
+-void hubbub32_wm_read_state(struct hubbub *hubbub,
++static void hubbub32_wm_read_state(struct hubbub *hubbub,
+ 		struct dcn_hubbub_wm *wm)
  {
+ 	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
+@@ -909,7 +909,7 @@ void hubbub32_wm_read_state(struct hubbub *hubbub,
+ 			DCHUBBUB_ARB_FCLK_PSTATE_CHANGE_WATERMARK_D, &s->fclk_pstate_change);
+ }
+ 
+-void hubbub32_force_wm_propagate_to_pipes(struct hubbub *hubbub)
++static void hubbub32_force_wm_propagate_to_pipes(struct hubbub *hubbub)
+ {
+ 	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
+ 	uint32_t refclk_mhz = hubbub->ctx->dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000;
 -- 
 2.20.1.7.g153144c
 
