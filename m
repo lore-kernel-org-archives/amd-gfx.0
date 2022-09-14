@@ -4,67 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78A41ECAAD8
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 03:57:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE049ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 03:58:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EA2F10E825;
-	Wed, 14 Sep 2022 03:57:39 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2044.outbound.protection.outlook.com [40.107.220.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91E1F10E81F
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 03:57:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8722510E823;
+	Wed, 14 Sep 2022 03:58:18 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2060.outbound.protection.outlook.com [40.107.92.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA1C410E823
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 03:58:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EktgfiuETyqQRBoMExgDDCxVYfr2ZXk8sEi/2S7fHyujwXbeIzMcT6YsXzqOqwJnZJb0ydZafvkXPID5RCxYlm+Xw/BvgCuGBIiouHMwDgo1azcjEj+5vJycujUehL5S1BEel9zlS9NSSkECJtaXLQAqDhQZOzv4zD5V8EFT+gDAC3s2wgFbDt0ztdrwcN+4tSoE7Ox43rFfyyjALW1yzoTgfnN4ZiJ2mpx3W2UasR/m8UR+9DjB1I9tZ2GwjEetKsK0Z12uEdrV2KV/00pIy+SFUa/k8aE2cSh4VNsDs/JddsTC9ciOW7XptEP8VgE0K19/ReO4sXqqyFOgZr5HDQ==
+ b=LP9Zm/0FPYgqt0wkdjiGsOF4mNK+FDVjURoidyTcD1NDWXNWmiKhgbYtTgjaA5jlqglxj/gqLJCoFyRG2Nnoq/SzFTTLPSBhwsdVQijDnZT+wTUaeJjPGUjZ0bd4piRRQ7u5cUjO/I11ovCbp7CkNdmMsa7lD6AiIgLfLQ4dL3txP3l4yZQkeew5CcMRrysU+SOo/ZfFR474ORAL5Jvklwj7SvePURFrQIQxcwfZsCp8FUOzGH06Hy3hqjm2nqmrUmP1/wP2Xb63inQr2FE3fVNvtYU3eAwOZaXmSkHi3G9b857eG3ZRgTrdokcv3CA9iKUuJhDqxBfA43K4qJelew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+Vr3O6ekARkUcnKkLCPHtLkZriXw4kS1ft1xVq1bu3w=;
- b=FbnSrWjJNBlAh1O4eHU4kMQA6AKTAKvPbdJuQa5O+Fi7JrC1HjvHYk6NH4IxrCwToqROXBT1XVRavfyVBDOjIrnYLCIP1qmhTh7rrL1w4eJ6ul9yssMF6OzW97LxEaPuVNsHWnkfiixPgpR8FrYjXvT6cJopL2AabBBfTHUUclaQrYGp169VPNO1KwbS98iARLplKxxCPKws9pFtw4YNTYrtgww5S/fO7R8uT8piN10lc1uO5cjj8zy+SK3JTZdhJNyOzBRQRTc84+DbiCzfgl38XxXQoqdxg954LX41ASAKi+mpYamWEgiSf/2L+v7JQVlkQaHOiimkk3uU0jio0g==
+ bh=EDzVgp1Hgr/5HX4jZ4ykuVE0QG4hWoD52N/C/1U+n5c=;
+ b=RtKz+RC0UfR32C2Rkd+K1VCBLVJ32vvdvyRZh9kemcgr6X+AwqWMhrMV1+WNR+izl1ZUlNgWtBIPhXcbCHQ8YOEP0Xc/o+g+BR05bs9gfA+1IUS/UAvjrEsrXiLZpIqsUdbXIYVa7dvucF4uQbiaBAeksGKoW5wr4UBS8LvIDg6wTA0fzbkXbex0IShN0M5cNgcZ0zncKv3mTjIIXjTsfok0z8O38/Mw2o4ejOS+g++cLjvyLZS4FkrFAfsC/zcM/QASEg7bRPl96UPisnbgcaXp35chTd0mQ4AhNv2RuqSc11vKCsrtSsyNGRk/bhSI9IPGImjVvMClYn2gE8LASA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+Vr3O6ekARkUcnKkLCPHtLkZriXw4kS1ft1xVq1bu3w=;
- b=IKI2WYhDBjjd87Fb132CQcnEfI5cUbMACN3FOStYXfigwY2FFqOk5fEwNTnLRAiel4faCOj2hgdtQS2oxlvBc7D186zrwOqgaz5t476LSCEIBTzn9QlMNwgEy33pklRgcyQyT6d1hKmeCajujlQN2vBjU8fdX3Gkgwdwqg5Hcr0=
-Received: from BN0PR07CA0011.namprd07.prod.outlook.com (2603:10b6:408:141::32)
- by DM6PR12MB4281.namprd12.prod.outlook.com (2603:10b6:5:21e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Wed, 14 Sep
- 2022 03:57:23 +0000
-Received: from BN8NAM11FT072.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:141:cafe::d1) by BN0PR07CA0011.outlook.office365.com
- (2603:10b6:408:141::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14 via Frontend
- Transport; Wed, 14 Sep 2022 03:57:23 +0000
+ bh=EDzVgp1Hgr/5HX4jZ4ykuVE0QG4hWoD52N/C/1U+n5c=;
+ b=uBOVQjYNT63tzbiyansGcqTgmPVYY3iH4nS7YAOSu/1bYmTZp3b/4xW4jTg3fEbCpfOKvtjY6oQPNBI4cxvhFeoBwFftdcuCesg6RaO3idz/vdB5TKrCa4bavLcVwlFjqOgjA1zOkPBW34BgXudhIopZpnX8gcaTTYDHQwPCYFg=
+Received: from BN8PR15CA0016.namprd15.prod.outlook.com (2603:10b6:408:c0::29)
+ by MW4PR12MB7383.namprd12.prod.outlook.com (2603:10b6:303:219::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.20; Wed, 14 Sep
+ 2022 03:58:03 +0000
+Received: from BN8NAM11FT077.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:c0:cafe::fd) by BN8PR15CA0016.outlook.office365.com
+ (2603:10b6:408:c0::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22 via Frontend
+ Transport; Wed, 14 Sep 2022 03:58:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT072.mail.protection.outlook.com (10.13.176.165) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT077.mail.protection.outlook.com (10.13.177.232) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5632.12 via Frontend Transport; Wed, 14 Sep 2022 03:57:23 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5632.12 via Frontend Transport; Wed, 14 Sep 2022 03:58:02 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 22:57:23 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 22:58:00 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 20:57:22 -0700
+ 2022 22:58:00 -0500
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Tue, 13 Sep 2022 22:57:18 -0500
+ Transport; Tue, 13 Sep 2022 22:57:23 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V2 44/47] drm/amd/display: solve regression in update phy
- state refactor
-Date: Wed, 14 Sep 2022 11:48:05 +0800
-Message-ID: <20220914034808.1093521-45-Wayne.Lin@amd.com>
+Subject: [PATCH V2 45/47] drm/amd/display: correct num_dsc based on HW cap
+Date: Wed, 14 Sep 2022 11:48:06 +0800
+Message-ID: <20220914034808.1093521-46-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220914034808.1093521-1-Wayne.Lin@amd.com>
 References: <20220914034808.1093521-1-Wayne.Lin@amd.com>
@@ -73,26 +72,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT072:EE_|DM6PR12MB4281:EE_
-X-MS-Office365-Filtering-Correlation-Id: a18eb2d2-78ef-41be-aaf8-08da96053b03
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT077:EE_|MW4PR12MB7383:EE_
+X-MS-Office365-Filtering-Correlation-Id: c4f2f920-e996-4a8b-d7ff-08da96055264
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yv5ePLGyDKy8PiEekUplTVld3LCD8EtkFgrI7CDZ8jQZSt/rQUKzrXDbiF1SkayY/Mv+oN5zSm7uh68a2z4gyuF4D7tb8XQuJclZn4StvmY2dQzC4arOAfuwN+yUGm8USIHGwrDzkeNeifRC51D3iUHEXA2DBHgfxc0qGisDbso0rR0WunWxb3LUTe9tDOT+XGrK5MNaiqSGzFp8XyH1xfigE2WuSQ7pBUn0xZsjlmzfMl6oHJ7R2b9SEGl6J1Ft6FhPwemw5NRUxvjjS8HzqmlubwssxfOz9GAgaCgePOCzrBpbYW0dUdGJZLjg6Wf9OxUf6Hlh1jyquQG9M1kJjdVpa+r4dlb1NL5sNqx2f9qhM/mQNXe2wKLjXwLHRU5HLXjtvH+D0O7Jsmb2hlegYEcH4Usy1IGv+2ZuftyDpH/o0ztSIZ99IfW2hcKY+J5Kmah/+zrC0JF1SMkOOiE+M6EmN39fGsKkLqoYR9Y2bpFPTi014KkLNW/KqjYkhsRQ/uBNyzyfhVyX1OhZyU1i5jAbb1HSUOrVfJMGbbSg/tXdWHwJ3Xe36YmbhoHzmUgBUEIv8mgRZyTacTPyk9iQpeBkmdQGpqLzcpwkGUsUFWzfGIEVbw3zvbo4pZhAuRGqYThiroX/m0Cdg7PYE/m3e2V2GFStyMRfunk1uOZCT/5eLNrnN+MH+n/jCYylGlX1/qSpVhfucG+BPQyrHdZPnNIeZXRK4JocJTFu6LDtC6mqR0m64wryk+nHDKgalDlpNXLieTlcKWixGu+IWI6iYOKLP6dI+Z+0N0FJYu26kTeYIj6FOhwwl0B1ZdSau8Ul
+X-Microsoft-Antispam-Message-Info: ATYZpt+GfYg1d7PwywksVGAYEHW3N5PE2JlZiQSq2sJelRqGz+kvCsiyTkx5fW2QDByEU3/LrsoB9uSH4UkfLJ7TilG3GnMG/aHtLmHoZk4uK3iaFgaPZVtkYTiuDQygKS6lS1t85liEssJqKlJ6Pr1fqZ0RqEW5fJ1DLCU7Xy50pvxG/je/AIOhujCkwH7juYGvtJj9BjdPWzuPQFC9uwq9end2CB+K750g4svZAxYbVffNMDWP8v47OxAnGa5N0otsue83w+lVp85mUchZlEfRrDlMv+BLttpZfTWaHXBDfXzYvfYeDjwTzWIFulJoC1UOHfob+5DQUr+USdnJ3B0y2lx5HCqkcUQhF9/dtXEopzEqpNPaL7c3Q+1fLKftU9PPY1xP9n6XCB+XM/MnDTj+ZS/Jj5pBNvvymEaKZBNyIORP3ViWAvHwozDfWyGuOC68MuNYzDwdBfSMRjlVPPUi1OhmzEPAK5sLTmRYT/HIbtnZz6Wq+0nU7LgkLEkP03bEl1C5yXo6t0dBnsYJm4XPY5aAJiwEl3+U+T7pzFySmNA+DRHDKVokCRyZ1RmFxzrkk6lq00+pHOwJVXYKt525PPdLqHTEux62TpgXElIFyzCVL4rx8P7VejiASLU22U3JjGJBZJdRNTSQgSFhqSwV6A8uV0M5JNxj30YwHtNyyjlxquWWGM8jU/Ao5VcVu3HIBzVU/hKt+66qTMctUW/0gnRvxxp8E/MGIrKyk+2UBaBWgCokxq6PWrK0Ds3GkYXQ4DDeAvZjhFsaglR4lucXITC8VNr9sQB0QlTum/twzIkJrCZ/ehUzGafEF+3k
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(396003)(376002)(346002)(136003)(451199015)(40470700004)(46966006)(36840700001)(8936002)(36860700001)(70206006)(70586007)(8676002)(4326008)(478600001)(5660300002)(41300700001)(83380400001)(82310400005)(82740400003)(81166007)(356005)(2906002)(47076005)(336012)(2616005)(1076003)(426003)(40460700003)(186003)(36756003)(26005)(54906003)(40480700001)(7696005)(6666004)(6916009)(316002)(86362001)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(376002)(136003)(396003)(346002)(451199015)(40470700004)(36840700001)(46966006)(2906002)(36860700001)(7696005)(1076003)(70206006)(83380400001)(82310400005)(478600001)(186003)(6666004)(426003)(6916009)(81166007)(316002)(26005)(70586007)(41300700001)(40460700003)(336012)(40480700001)(4744005)(36756003)(8936002)(47076005)(5660300002)(8676002)(82740400003)(86362001)(54906003)(2616005)(356005)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 03:57:23.4820 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a18eb2d2-78ef-41be-aaf8-08da96053b03
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 03:58:02.7065 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4f2f920-e996-4a8b-d7ff-08da96055264
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT072.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT077.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4281
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7383
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,90 +106,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
  Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
  Martin Leung <Martin.Leung@amd.com>, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, Wenjing Liu <wenjing.liu@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Charlene Liu <Charlene.Liu@amd.com>
 
-[Why]
-There is a coding error when moving dp disable link phy to
-hw sequencer, where the receiver power control is missed during
-this refactor.
+[why]
+num_dsc is 3 for dcn314 based on HW capablity.
 
-[how]
-1. Add back missing receiver power control in disable link phy.
-2. minor modifications to ensure there is no undesired sequence
-changes in dp link enable/disable.
-
-Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
 Reviewed-by: Martin Leung <Martin.Leung@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c            | 5 ++++-
- drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 6 ++++--
- 2 files changed, 8 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 3118e6f808f0..7842df9f62de 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -7073,9 +7073,9 @@ void dp_enable_link_phy(
- 	enum clock_source_id clock_source,
- 	const struct dc_link_settings *link_settings)
- {
-+	link->cur_link_settings = *link_settings;
- 	link->dc->hwss.enable_dp_link_output(link, link_res, signal,
- 			clock_source, link_settings);
--	link->cur_link_settings = *link_settings;
- 	dp_receiver_power_ctrl(link, true);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
+index a6c5ad9b67db..24ec71cbd3e3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
+@@ -847,7 +847,7 @@ static const struct resource_caps res_cap_dcn314 = {
+ 	.num_ddc = 5,
+ 	.num_vmid = 16,
+ 	.num_mpc_3dlut = 2,
+-	.num_dsc = 4,
++	.num_dsc = 3,
+ };
  
-@@ -7149,6 +7149,9 @@ void dp_disable_link_phy(struct dc_link *link, const struct link_resource *link_
- {
- 	struct dc  *dc = link->ctx->dc;
- 
-+	if (!link->wa_flags.dp_keep_receiver_powered)
-+		dp_receiver_power_ctrl(link, false);
-+
- 	dc->hwss.disable_link_output(link, link_res, signal);
- 	/* Clear current link setting.*/
- 	memset(&link->cur_link_settings, 0,
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index 55c98dbfcc1c..2341982ee0a5 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -3098,6 +3098,7 @@ void dce110_enable_dp_link_output(
- 	if (dmcu != NULL && dmcu->funcs->unlock_phy)
- 		dmcu->funcs->unlock_phy(dmcu);
- 
-+	dp_source_sequence_trace(link, DPCD_SOURCE_SEQ_AFTER_ENABLE_LINK_PHY);
- }
- 
- void dce110_disable_link_output(struct dc_link *link,
-@@ -3111,7 +3112,7 @@ void dce110_disable_link_output(struct dc_link *link,
- 	if (signal == SIGNAL_TYPE_EDP &&
- 			link->dc->hwss.edp_backlight_control)
- 		link->dc->hwss.edp_backlight_control(link, false);
--	else if (dc_is_dp_signal(signal) && dmcu != NULL && dmcu->funcs->lock_phy)
-+	else if (dmcu != NULL && dmcu->funcs->lock_phy)
- 		dmcu->funcs->lock_phy(dmcu);
- 
- 	link_hwss->disable_link_output(link, link_res, signal);
-@@ -3120,8 +3121,9 @@ void dce110_disable_link_output(struct dc_link *link,
- 	if (signal == SIGNAL_TYPE_EDP &&
- 			link->dc->hwss.edp_backlight_control)
- 		link->dc->hwss.edp_power_control(link, false);
--	else if (dc_is_dp_signal(signal) && dmcu != NULL && dmcu->funcs->lock_phy)
-+	else if (dmcu != NULL && dmcu->funcs->lock_phy)
- 		dmcu->funcs->unlock_phy(dmcu);
-+	dp_source_sequence_trace(link, DPCD_SOURCE_SEQ_AFTER_DISABLE_LINK_PHY);
- }
- 
- static const struct hw_sequencer_funcs dce110_funcs = {
+ static const struct dc_plane_cap plane_cap = {
 -- 
 2.37.3
 
