@@ -4,74 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4E7CECAAD8
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 13:07:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F2FCECAAD3
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 13:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1A1210E903;
-	Wed, 14 Sep 2022 13:07:52 +0000 (UTC)
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F8C310E179;
- Wed, 14 Sep 2022 11:29:38 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 151235C002F;
- Wed, 14 Sep 2022 07:29:36 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Wed, 14 Sep 2022 07:29:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; t=1663154976; x=1663241376; bh=nQu2SC9skj
- 3zvKgRAY+OE/EsK7UjSaSgeju0QfEt0Cs=; b=sI6+pKkRrFiyWe0Di0vUI4Elub
- WU2WZ16qg5NsAIf4cYxne5RPHmLNkNbOnTap31OE31Ikj6KyXkxyRBvzyARaAhH1
- 4WaF17Vp33VyqXlgHWVeTnX5TE8blIAtgT28busRsPYDhgksEk1HjeCc08Wvga+t
- bskfWscIPId4Ly552s6iPRxZIfV693nUdEISY1m1C6cuM/CBHr2clsj2w6waZpUc
- kcNd7KZM3nEz3ZczPhAysdEw9m6h8AG4IDnT16cTpd7wxRGIT51rselgZprVkbNo
- cV2i7Zr6x+DVMwNNIE9IhKXuFhnjxru5j7vvcHFaD2a37X7XKXbzwbCoWkvw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; t=1663154976; x=1663241376; bh=nQu2SC9skj3zvKgRAY+OE/EsK7Uj
- SaSgeju0QfEt0Cs=; b=tB/hgMgRkBvvDe2Larr5g2Xf2i8pcNlw8zMWLcyXqMtz
- RB6o4uF3NQfWxsrTx4foH9n8N0buQUyc78NvdvGkG4UlhuwObb4DLW7+hBTGHLOI
- lz+e2Q5CLfsdCvSDgB0+WnUG5qLcyw1qIvyWSVO2MWJgapsJp1mP+Gu2aPma6Ict
- WXXqlCMcwpPIUC+xd91w/xzze6dFXsOtXBwdztItwSbghsQjRH2NPHQVRhFBnZ6q
- dY908u0Y4DOR5UQPGpXG3/WuBqpOiYl5lrcVVme9qasVWakJqRmTomu16NE1d1XL
- GnsoGxdlzWy+uNseiD8/XdR6ysJ9+BdoSF2XaJiEiw==
-X-ME-Sender: <xms:H7shYy-z-Sy-s0CYkYhiWGEo-Fk_sa4yzpFsShmbVmcw8NKVEim-Ow>
- <xme:H7shYyuhl7apl0uzCWtoXaLVdsY3vIuHlVJPZVfymPsr4NqTL0cxTJskRvonuk2hn
- j43Mbjcps8eNMsiwoQ>
-X-ME-Received: <xmr:H7shY4CZYM4ETUI7hJOe8i-3Bo9XlCMwvu1ooLO0z2Jo5DxvZAi390_OMsGo>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeduiedggeduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeetfefffefgkedtfefgledugfdtjeefjedvtddtkeetieffjedvgfehheff
- hfevudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:H7shY6fH7W_BVuQc_Pv1wOCbe0JZZwDcqIOQjR9ElV0d0XyvT8FDFA>
- <xmx:H7shY3PQ1WXtryglSTdW3rrdTj3tpcFZXxBJFYoc6JJb0xJRVeA8nQ>
- <xmx:H7shY0mvO9oKdlpqejxArcWaOLnY7GbsVZO4bMdJEo1YmlDQ9Owr_w>
- <xmx:ILshY6hp7U4y67xd1z7aW61uMylQ-NOWf_PLrKUGCD3bAJEil6TFPg>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 14 Sep 2022 07:29:34 -0400 (EDT)
-Date: Wed, 14 Sep 2022 12:29:33 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [GIT PULL] Immutable backlight-detect-refactor branch between
- acpi, drm-* and pdx86
-Message-ID: <20220914112933.64ovljgsrv2l25rs@penduick>
-References: <261afe3d-7790-e945-adf6-a2c96c9b1eff@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13D9210E913;
+	Wed, 14 Sep 2022 13:31:13 +0000 (UTC)
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7541610E913
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 13:31:08 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4MSLnh4lRHz9sWq;
+ Wed, 14 Sep 2022 15:31:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1663162264;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=UKUfy2w5mxG+ZB8Pw3fQrcRLpQ1rKs6xhEsMS2DHWj4=;
+ b=lDDEs4Y7mVsgHWY6l/vCifehpTgyEAOXXvrGglGJbSCEULAMizl5uraeiMuST2Rv3liMNr
+ asv+U+XMulz++/Q4hGVG0ygo4HkaIvF1fPIRXheYWnOWg1KvJxxZBk1lZmpxqRRj/SrM0s
+ NcmviZKG67/99/rtogT7es31Z2iznDiGD/DJhsOyTOP8om98i8cNLlTHwNRnbDwM3GzX7g
+ gU+AzG8MZ+000nfQdiUkwBXnYvnG37doAGzU3bBq40fT7UPPz+rpJRUkwXb+lygTLCbOLr
+ Wr5ZNXw7rw32IvOJrCp8oehEAtCQz075XaUsfSZ0Md/ZDl2mymcjoo+EFrdMSQ==
+Message-ID: <604a1d7e-1cd9-ad27-6d37-2e8535ce253b@mailbox.org>
+Date: Wed, 14 Sep 2022 15:31:02 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="hy5cszh57lz34buf"
-Content-Disposition: inline
-In-Reply-To: <261afe3d-7790-e945-adf6-a2c96c9b1eff@redhat.com>
-X-Mailman-Approved-At: Wed, 14 Sep 2022 13:07:48 +0000
+Subject: Re: [PATCH V3 46/47] drm/amd/display: Fix failures of disabling
+ primary plans
+Content-Language: en-CA
+To: Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220914051046.1131186-1-Wayne.Lin@amd.com>
+ <20220914051046.1131186-47-Wayne.Lin@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <20220914051046.1131186-47-Wayne.Lin@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 00531fba77b782323a9
+X-MBO-RS-META: sxchaif8z58qyjjmc166mbp89trnhrja
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,64 +56,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org,
- Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@redhat.com>,
- Len Brown <lenb@kernel.org>, Daniel Dadap <ddadap@nvidia.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Mark Gross <markgross@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Andy Shevchenko <andy@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Xinhui <Xinhui.Pan@amd.com>,
- Lukas Wunner <lukas@wunner.de>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Alex Hung <alex.hung@amd.com>,
+ Harry.Wentland@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 2022-09-14 07:10, Wayne Lin wrote:
+> From: Alex Hung <alex.hung@amd.com>
+> 
+> [Why & How]
+> This fixes kernel errors when IGT disables primary planes during the
+> tests kms_universal_plane::functional_test_pipe/pageflip_test_pipe.
 
---hy5cszh57lz34buf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+NAK.
 
-Hi Hans,
+This essentially reverts commit b836a274b797 ("drm/amdgpu/dc: Require primary plane to be enabled whenever the CRTC is") (except that it goes even further and completely removes the requirement for any HW plane to be enabled when the HW cursor is), so it would reintroduce the issues described in that commit log.
 
-On Mon, Sep 05, 2022 at 10:35:47AM +0200, Hans de Goede wrote:
-> Hi All,
->=20
-> Now that all patches have been reviewed/acked here is an immutable backli=
-ght-detect-refactor
-> branch with 6.0-rc1 + the v5 patch-set, for merging into the relevant (ac=
-pi, drm-* and pdx86)
-> subsystems.
->=20
-> Please pull this branch into the relevant subsystems.
->=20
-> I will merge this into the review-hans branch of the pdx86 git tree today=
- and
-> from there it will move to for-next once the builders have successfully b=
-uild-tested
-> the merge.
+If IGT tests disable the primary plane while leaving the CRTC enabled, those tests are broken and need to be fixed instead.
 
-I merged it into drm-misc-next, thanks!
-Maxime
 
---hy5cszh57lz34buf
-Content-Type: application/pgp-signature; name="signature.asc"
+P.S. Per above, this patch should never have made it this far without getting in touch with me directly.
 
------BEGIN PGP SIGNATURE-----
 
-iHUEABMIAB0WIQTXEe0+DlZaRlgM8LOIQ8rmN6G3ywUCYyG7HQAKCRCIQ8rmN6G3
-yxexAQD6R+v7rkQb0GeB4b/P6qIJ8gkrhQhlZLrmcPYoUuwldAD/fLehBZhVa7TE
-ohzG1kghzg7S8i2Op8YPG+18dMDqoTU=
-=37BB
------END PGP SIGNATURE-----
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> index c89594f3a5cb..099a226407a3 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> @@ -376,18 +376,6 @@ static int dm_crtc_helper_atomic_check(struct drm_crtc *crtc,
+>  		return ret;
+>  	}
+>  
+> -	/*
+> -	 * We require the primary plane to be enabled whenever the CRTC is, otherwise
+> -	 * drm_mode_cursor_universal may end up trying to enable the cursor plane while all other
+> -	 * planes are disabled, which is not supported by the hardware. And there is legacy
+> -	 * userspace which stops using the HW cursor altogether in response to the resulting EINVAL.
+> -	 */
+> -	if (crtc_state->enable &&
+> -		!(crtc_state->plane_mask & drm_plane_mask(crtc->primary))) {
+> -		DRM_DEBUG_ATOMIC("Can't enable a CRTC without enabling the primary plane\n");
+> -		return -EINVAL;
+> -	}
+> -
+>  	/* In some use cases, like reset, no stream is attached */
+>  	if (!dm_crtc_state->stream)
+>  		return 0;
 
---hy5cszh57lz34buf--
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
+
