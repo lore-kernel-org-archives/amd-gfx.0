@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 028EFECAAD3
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 03:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48FD6ECAAD8
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 03:55:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E3CF10E811;
-	Wed, 14 Sep 2022 03:54:23 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2053.outbound.protection.outlook.com [40.107.237.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B5C910E811
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 03:54:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C98B10E812;
+	Wed, 14 Sep 2022 03:55:06 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA81810E812
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 03:54:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Yh0tjRaPP2c3LFb7sEV87fR7rPF6onyIs2IpASs94By7POG/D35YjZKZAko4UMgFfh2TvpdlRC270BCfVxRA2D2GlJldqphT/0+RRPJdUoxOqBnxN8IvqcxjrALzcuK6ZfNJzcqnpE5wwj3uk3KxZQQBl0nzSlA0C3+PwKX2BxJEqwdNBDlOAuHL+NZGz65y864R4yb7I/koJgtlCTCn2bCzN4uyWFyfc6UTuzHYiBYQZyVybeRfNyqQ2nYWScK00I3WWjdMEhtEKXlzM/o12DVKm2AL8XacDPtd7NXKXqtlmfI3CQcZNYLxlrxxWFyy4R+HnkyK06qPZCM/nvW4IA==
+ b=bwiVq6HYSLfn/qch0CT0/Q22cW7iYfpf5oHyQ4spv0VxWVeYvbg6lQS8h1PQHkm/h/J12bWozB4/D5S4RbwoqaTL6GVKJp6+O9KG/ZqgqiujJo04N4mWpZeKPAoon1EXZORhDFOSWK8Q0QE6UVehlPIh/nmYfvEjRZki75jilNTonnBzNmo0eFEZ4rRES5JqSBiJ5HaVaM1ZscK194XAgql6a/8r/Ahy6OlUJqUWgBAebWlc+YQMrt76eOACig2u0p2LgD47gZJGdhweXLeht1mx19dYBlPzM0u0JpbdLTyrdG1KGbIl9N7cfsZkhy2WVVQyXqIAqsG5PH9XQXJ3+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J8moY3LDdRL700blhswLKYPgDUqM5zVJ7gO7NA0jCQw=;
- b=clvvzVF7Ad4weErbq6ouhOk9gFiYwm1/p8zPsBiaYigt/g3IT3IubQBvp03KMQyLxAZ8bL4nuPPvUnFXX7mAoXyljkCzP+zO43oFMeryT5cUr7iVPLUtgArJ1Jy1Ro9PhI0FWUsVO3gfUQiifEKVER7o7+omXiFThF15RJzf4Na2tlKtg5rIn4E8vfWimE2i2AvNKO+5lX9PMkBygols3lMVKQ+fvBouk6M89q/yQRgXwY6sdo99gt13IEHX35sqt7NIdLtVfbGZRToGRbZgs4P3QXrvD+9QgO8lXJ8gAFISKO7u8AqeNmvKEkBbS2TG0krZ3tahiw/SuoLapt9cbw==
+ bh=u5D/kWN32UWc0bccXRYLkW4B9d71JkKKfDfnFIqrDsg=;
+ b=Murcawm91xIPMA/qVq70PgAtXltF7+CurEdq+77y800Csb7e2f5lcHQ6PaATa4Jvo40EATSsf9zfwf2N+EpFZnHkUM5S0Fp70YYiXlw2URX/B9go/W3yzJnJ55gE22B4qCpnmwGxk3Ih/FLZNwn0Qdo4zelKzuSYvkhMv9KSBNxFS6kTE0DrRwt//oDy7JCj+PzLQXh+W0rlu0qfanOCkRAoUpB2YJyGkNvFxnvkftCVUY2A5t746aOgRqHXWDwlGGcOVBxO4Rm5mDaA0gFGQMAV4KQeLLzi6rk24m2BdWlJXgffz1oBGexoJbF0zUd/g4QJMxsDq4zEI5+0nriplw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J8moY3LDdRL700blhswLKYPgDUqM5zVJ7gO7NA0jCQw=;
- b=Hhzz9eDAUu1FI5ULBz6uHJQImbXIG8OUd7Qxv/+mc0BjDWRk4YNguo/WZ+pFbudji+lQZJcp0rZRUyuTVjkiKLENtDA0guw3UgL3npAv6m2e69DtARA592fDAYn+sVh1GYm5syXdB86ZMVtLSA7LBQ5z4gLXCbwYKco5aIaIOd4=
-Received: from MW4P221CA0008.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::13)
- by DM6PR12MB4548.namprd12.prod.outlook.com (2603:10b6:5:2a1::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14; Wed, 14 Sep
- 2022 03:54:18 +0000
-Received: from CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8b:cafe::19) by MW4P221CA0008.outlook.office365.com
- (2603:10b6:303:8b::13) with Microsoft SMTP Server (version=TLS1_2,
+ bh=u5D/kWN32UWc0bccXRYLkW4B9d71JkKKfDfnFIqrDsg=;
+ b=wOTq96qbBsTYzzBSRP1HGyX/cN9mKI5nHGhUfGgKP5Omn2Eb72YHgF71VZb8sDXVMJvDB4vPw0sGLqoWudE8XXxMA4RGdYg+AsBmSp5NmFsEjAS2Or7YkqMa9im3zZkBKyJhjO1VaMw0qqXYKBbOKMx1cjuLOQWOQYixD+UZtME=
+Received: from BN9PR03CA0268.namprd03.prod.outlook.com (2603:10b6:408:ff::33)
+ by SN7PR12MB7131.namprd12.prod.outlook.com (2603:10b6:806:2a3::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Wed, 14 Sep
+ 2022 03:54:55 +0000
+Received: from BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ff:cafe::f6) by BN9PR03CA0268.outlook.office365.com
+ (2603:10b6:408:ff::33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14 via Frontend
- Transport; Wed, 14 Sep 2022 03:54:18 +0000
+ Transport; Wed, 14 Sep 2022 03:54:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT065.mail.protection.outlook.com (10.13.174.62) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT038.mail.protection.outlook.com (10.13.176.246) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5632.12 via Frontend Transport; Wed, 14 Sep 2022 03:54:17 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5632.12 via Frontend Transport; Wed, 14 Sep 2022 03:54:54 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 22:54:15 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 22:54:54 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 20:54:04 -0700
+ 2022 20:54:53 -0700
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Tue, 13 Sep 2022 22:53:55 -0500
+ Transport; Tue, 13 Sep 2022 22:54:49 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V2 25/47] drm/amd/display: Added new DCN301 Asic Id
-Date: Wed, 14 Sep 2022 11:47:46 +0800
-Message-ID: <20220914034808.1093521-26-Wayne.Lin@amd.com>
+Subject: [PATCH V2 27/47] drm/amd/display: Expose few dchubbub functions
+Date: Wed, 14 Sep 2022 11:47:48 +0800
+Message-ID: <20220914034808.1093521-28-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220914034808.1093521-1-Wayne.Lin@amd.com>
 References: <20220914034808.1093521-1-Wayne.Lin@amd.com>
@@ -72,26 +72,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT065:EE_|DM6PR12MB4548:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa2f5d25-70d4-4557-ff3e-08da9604cc4f
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT038:EE_|SN7PR12MB7131:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00577fca-e30a-490b-f897-08da9604e26a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vMkE9aOs8lg/xmKoVTx0pm8EviKb1zlJKDBVWtD95G4eN12qVllEybDQ5g9v7xT0yuhN9qGZoG2yvT1f3z/L1VYrG656lfk0Rtzpby+CIaDmXInHcg1ZOSfMCZUjxlhYO7Tt8NGhU8QjFBZScqvAxEF+T74EXPN/AbbN8ey4sSHwiVZcA+OTzMOVaOdG6RZucekAsD9SFEv4Hnd+bFmxvaCWMuQpM51NmLD/3oViskkvvGvX8p4jSb5O126aMmQhalKwO7m8JYU4Xn8m9y8a2n3sDTy+1z/i+qJudTvYsYpHgKT+G00OYH7/fzs3PLR/1IGH5K5b2umZtVTpkZcnzYZ4iaHrHd6ht8iBcK9485ZrJ3j4vzI2KcHkjVr1tzoBgQfNnyfbsNwXizaWhfqWv9n42c8PgeznGZ6EIdDm5VPJlbMLTITyBivo6OgkFo1Ti9D7/6I6nObhnuOke9xv9rqNuPrzqsfcklQi8n4DX7fCy/xfWoaMhydMhRq3jMr53p3WxgX3zYE4hRnfy3S6JYxBkGqBjKUkvSE5c9LNDWyG5eEOTFgOpJx/ZfweDaQbGm/Aadww5dM6lXPIvLROVAfY4KhcJDoiosT0o8Zhwx3muYEy/oFLC37NOY6XuhTsaVNyQEX8l+7hFQHHQ18fBpAhZmIei/6tcGj6l/IOeZRKFBz3UxEGrOPs2gkFomYISTAU6r1fTMHuzze/NsY9EuqjeKOLrKDwVKm8ZcaMLd/ZnO5VyZjsxc6EtkBQjXmcJj5VuTpgFSvc4iq5PQrdGEcmpcOYDcZgSKi2HpAPKaIpCNozDg4Tpzm3O6UmUTd8
+X-Microsoft-Antispam-Message-Info: JlCeUI2yS7YZzo81tneTCj9RoGQIs1uORuaAUM17H0RkFNKQl52wgk7ayJPZZtX7zKR7A4/hUcDytDyEGmvx/CJHvfU7Wx2alIqtCUqg3EY35MTQLRQqmpmXwTHOxed5pzPpG16S1ggVXicZp6aEo5j6JBlwJpy6QyMTFnGXFONXCRq+skU7mEAA6vvLAMQXdDf/+pezzJ7B8gvthxSN6FwVIge6wUMZ27XEX3FOUyQhqTXZ6kjHrCOFKsrGpq2uyuvElyKhATt6OoSuOy0VDA2f0IDNWwVqY6aR6SFxtcj7zRI+iuZRNgBiMT9Ycj0YjRpZ5Sa7xzGczhmyXn6bNgjsKMayc4UdOXUtGq1rjOMI8L5yunI+H816+SB9IiV5PM3Mga+BVstpD3rcaN1nGWz8LKsMC4h0Xz9DYYPmibXqzWmL6L7cU8ATuEHvEGsXCJ3hz54keb/c0EnPfhjOHm8t3vPE5f270lAlkzlMZMBBc8oqFQuc3Te1kTQfQhsp8IiOnp56WopWzXvWzS60JOaVMLM2drDL9lJOPYfeDnAyWuEwQQHr6UkZtIJ8npw01ASIgVWy/A7DA9gAy7ChDGbKcuhgbtRXJbopMhC47P/zcSS2JL5RbHHd9QoldYippCW6UHHv3yHBOPTzZ5rxzn4EOoZeY+vsffynYOhPOjXe8sTQ/uiPzzet9OgxNly5JJcFd+0VgYucbPaAwMM48iQYVvS4UyHziDd0TPdNTxlSy5vc3QrSE/WPOkjbeePHZmN3MnjrjTrHY6h62IPxB+n/teiVy/PGVq3gFGis12p7pHJSLpzpvEJ/QkyP7Qza
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(376002)(396003)(346002)(136003)(451199015)(46966006)(36840700001)(40470700004)(36756003)(70586007)(336012)(4326008)(7696005)(4744005)(8936002)(316002)(70206006)(2906002)(26005)(41300700001)(478600001)(40460700003)(8676002)(1076003)(40480700001)(86362001)(36860700001)(6916009)(6666004)(356005)(54906003)(186003)(5660300002)(81166007)(47076005)(426003)(82740400003)(2616005)(82310400005)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(346002)(136003)(39860400002)(376002)(451199015)(40470700004)(46966006)(36840700001)(70206006)(1076003)(7696005)(8676002)(70586007)(186003)(4326008)(86362001)(40460700003)(426003)(6916009)(26005)(2906002)(36756003)(356005)(41300700001)(316002)(336012)(5660300002)(40480700001)(81166007)(82310400005)(54906003)(47076005)(2616005)(478600001)(8936002)(82740400003)(83380400001)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 03:54:17.6301 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa2f5d25-70d4-4557-ff3e-08da9604cc4f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 03:54:54.8418 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00577fca-e30a-490b-f897-08da9604e26a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4548
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7131
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,37 +104,144 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, Pavle Kotarac <Pavle.Kotarac@amd.com>
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Pavle Kotarac <Pavle.Kotarac@amd.com>
+From: Charlene Liu <Charlene.Liu@amd.com>
 
-[WHY]
-Adding new asic id for dcn301
+[why]
+Expose few dchubbun functions in dcn31 and dcn32 to leverage.
 
-Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
+Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Pavle Kotarac <Pavle.Kotarac@amd.com>
+Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
 ---
- drivers/gpu/drm/amd/display/include/dal_asic_id.h | 1 +
- 1 file changed, 1 insertion(+)
+ .../drm/amd/display/dc/dcn31/dcn31_hubbub.c   |  2 +-
+ .../drm/amd/display/dc/dcn31/dcn31_hubbub.h   |  2 ++
+ .../drm/amd/display/dc/dcn32/dcn32_hubbub.c   | 10 +++----
+ .../drm/amd/display/dc/dcn32/dcn32_hubbub.h   | 29 +++++++++++++++++++
+ 4 files changed, 37 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/include/dal_asic_id.h b/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-index 9f3558c0ef11..c3089c673975 100644
---- a/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-+++ b/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-@@ -215,6 +215,7 @@ enum {
- #define DEVICE_ID_NV_143F 0x143F
- #define FAMILY_VGH 144
- #define DEVICE_ID_VGH_163F 0x163F
-+#define DEVICE_ID_VGH_1435 0x1435
- #define VANGOGH_A0 0x01
- #define VANGOGH_UNKNOWN 0xFF
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
+index 51c5f3685470..6360dc9502e7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
+@@ -876,7 +876,7 @@ static bool hubbub31_get_dcc_compression_cap(struct hubbub *hubbub,
+ 	return true;
+ }
  
+-static int hubbub31_init_dchub_sys_ctx(struct hubbub *hubbub,
++int hubbub31_init_dchub_sys_ctx(struct hubbub *hubbub,
+ 		struct dcn_hubbub_phys_addr_config *pa_config)
+ {
+ 	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.h
+index e3a654bf04e8..70c60de448ac 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.h
+@@ -122,6 +122,8 @@
+ 	HUBBUB_SF(DCN_VM_FAULT_STATUS, DCN_VM_ERROR_PIPE, mask_sh), \
+ 	HUBBUB_SF(DCN_VM_FAULT_STATUS, DCN_VM_ERROR_INTERRUPT_STATUS, mask_sh)
+ 
++int hubbub31_init_dchub_sys_ctx(struct hubbub *hubbub,
++		struct dcn_hubbub_phys_addr_config *pa_config);
+ 
+ void hubbub31_construct(struct dcn20_hubbub *hubbub3,
+ 	struct dc_context *ctx,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
+index 99eb239bbc7b..3d3226aca2ef 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c
+@@ -68,7 +68,7 @@ static void dcn32_init_crb(struct hubbub *hubbub)
+ 	REG_UPDATE(DCHUBBUB_DEBUG_CTRL_0, DET_DEPTH, 0x47F);
+ }
+ 
+-static void dcn32_program_det_size(struct hubbub *hubbub, int hubp_inst, unsigned int det_buffer_size_in_kbyte)
++void dcn32_program_det_size(struct hubbub *hubbub, int hubp_inst, unsigned int det_buffer_size_in_kbyte)
+ {
+ 	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
+ 
+@@ -140,7 +140,7 @@ static uint32_t convert_and_clamp(
+ 	return ret_val;
+ }
+ 
+-static bool hubbub32_program_urgent_watermarks(
++bool hubbub32_program_urgent_watermarks(
+ 		struct hubbub *hubbub,
+ 		struct dcn_watermark_set *watermarks,
+ 		unsigned int refclk_mhz,
+@@ -330,7 +330,7 @@ static bool hubbub32_program_urgent_watermarks(
+ 	return wm_pending;
+ }
+ 
+-static bool hubbub32_program_stutter_watermarks(
++bool hubbub32_program_stutter_watermarks(
+ 		struct hubbub *hubbub,
+ 		struct dcn_watermark_set *watermarks,
+ 		unsigned int refclk_mhz,
+@@ -476,7 +476,7 @@ static bool hubbub32_program_stutter_watermarks(
+ }
+ 
+ 
+-static bool hubbub32_program_pstate_watermarks(
++bool hubbub32_program_pstate_watermarks(
+ 		struct hubbub *hubbub,
+ 		struct dcn_watermark_set *watermarks,
+ 		unsigned int refclk_mhz,
+@@ -629,7 +629,7 @@ static bool hubbub32_program_pstate_watermarks(
+ }
+ 
+ 
+-static bool hubbub32_program_usr_watermarks(
++bool hubbub32_program_usr_watermarks(
+ 		struct hubbub *hubbub,
+ 		struct dcn_watermark_set *watermarks,
+ 		unsigned int refclk_mhz,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h
+index 3bae6e558971..cda94e0e31bf 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.h
+@@ -161,6 +161,35 @@
+ 	HUBBUB_SF(DCN_VM_FAULT_STATUS, DCN_VM_ERROR_PIPE, mask_sh), \
+ 	HUBBUB_SF(DCN_VM_FAULT_STATUS, DCN_VM_ERROR_INTERRUPT_STATUS, mask_sh)
+ 
++bool hubbub32_program_urgent_watermarks(
++		struct hubbub *hubbub,
++		struct dcn_watermark_set *watermarks,
++		unsigned int refclk_mhz,
++		bool safe_to_lower);
++
++bool hubbub32_program_stutter_watermarks(
++		struct hubbub *hubbub,
++		struct dcn_watermark_set *watermarks,
++		unsigned int refclk_mhz,
++		bool safe_to_lower);
++
++bool hubbub32_program_pstate_watermarks(
++		struct hubbub *hubbub,
++		struct dcn_watermark_set *watermarks,
++		unsigned int refclk_mhz,
++		bool safe_to_lower);
++
++bool hubbub32_program_usr_watermarks(
++		struct hubbub *hubbub,
++		struct dcn_watermark_set *watermarks,
++		unsigned int refclk_mhz,
++		bool safe_to_lower);
++
++void hubbub32_force_usr_retraining_allow(struct hubbub *hubbub, bool allow);
++
++void hubbub32_force_wm_propagate_to_pipes(struct hubbub *hubbub);
++
++void dcn32_program_det_size(struct hubbub *hubbub, int hubp_inst, unsigned int det_buffer_size_in_kbyte);
+ 
+ void hubbub32_construct(struct dcn20_hubbub *hubbub2,
+ 	struct dc_context *ctx,
 -- 
 2.37.3
 
