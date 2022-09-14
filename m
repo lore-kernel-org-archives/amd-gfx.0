@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB18EECAAD3
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 03:26:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1236DECAAD3
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 03:26:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 418EC10E7E7;
-	Wed, 14 Sep 2022 03:26:23 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2056.outbound.protection.outlook.com [40.107.243.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 137AF10E7E1
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 03:26:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1996210E7E5;
+	Wed, 14 Sep 2022 03:26:27 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2040.outbound.protection.outlook.com [40.107.93.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1E8010E7E3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 03:26:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b4ru4b1sXEJHc6y4EO3Hd3Ep5Ejzf564QQNCcqfa0xAb7GLDXu5b3GrnmbhyN5buxuCruUIM0ZVFMGO29JBYkwzsEZ26CoQKHLgzAGU5kPmS5M+ipFUzZmS1bmfVtnst6rKOZdVJK1MjnTfAPITV73pBfFe0Eaq2XsfWSDQGi96Hjd6vK1ilzlxXJEqoOw6s+ZFBOAkCFJHdYPGTzGb/5aPTNP9RjOBHC4ejBResJ0205opgwDw58zQNhLqe16YVlxpgSuRHGPyykXFtS3gPA03oUCd9VIQgvTcR10LPiNui2O3ZV6BhK+NGuxzPXCcPOAjifmi5iOTyfoeXKvfvvg==
+ b=AeeaE5Kk4EVHfEhiwPw/+fXVRUjwhTpoRU7uO00xBOAQLuQyWkjUP+6jber/x52iQeE2nmE5+/7WHStLN8mVGgsYwMrEZtmaBZUwx74QaXmoEdt9SYQXn+/RtE8mY/ccc92xUfTJr0RnPGIvm8B1qC15it1wyftnZbp8Fp3D649vBKZ3MBJRlCK/NavUL80Gzc8IwhROlLRFkCYMQ5VmPc3hTKGxpxo8D3+wLIp6oO4UQNVdDP/+JyiZ8LgTkvo+QU/f5I9XJP/o34zAzG+pEBfh2BmqIe/XQLRBqk1JZRJQOyesB1Jq4K+REOs0dcBtZ65KQ3m5P9I1yIz4ZL4krw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1Aq4TlKukSkX2KEP9xRHBKZPydJ9LJ0dVxC5V665cqM=;
- b=nJlaeOwxv95yzZu/kB2B0H0ZdPMB2YqOyq6vmcxCsX2VwyuJV5XMS9Mi5uZcyl5FXnvd2Y73sNxwNY+2NIMUI81w0kFqpx5CTW2qCPQYqdVtu600QDIks8DFRS8lmqFEXb4+ABUHu/ZO3nnaOkuktthdgG5XawOeoeDcX+0AZwfn0ywL8zUl1YVCVhRYm5r7vvWzdI/12o7UjnCXgr86gwOMU2ZpC9+teZF0vY2nG9Gmbh8PN+idkfdhqU4jch2H+jk9lJjLe5jCXhJYMw7D15pdBsubPZaHsRUSajImk1tFe+0N4iTQhfKjmEZ1xYakmYpgJhameWQd+VyhOvR71Q==
+ bh=drfvbaTv/aBTE70QOfEjSkQV3eSxqo3bMaw8QYlC+J8=;
+ b=KnDuxnVbvSa4aGkLVo/YxYQ8LpGe8MXwmbEOMe4invC8vBV8eJ/lqZb70CWAPP7OV48Dcv53MOWUzx92Lc6Us0XrbTUoQw/77EsnpM2a7KclrDvFkPVHCc4Or0RCg9/dTQIz8wvxRVRibjdFo2Dw1bxHkTOZMVMtuy4opGyOEk4BenC/jFBQuzxWsIBXKC+M+/6ktpd28Upixxt9LxCY5UW7y6fIR1hGJMfPpXm/cI4DTsRbNsUqK9zN6DNEthOYQRRXGCRVtqyacvbZGd9NK59jCR1ViOi26VQUNcPskHF92m4ayxYKmtgN3soK3FQqD1jN3KgFAMGRlsdXryYhlg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1Aq4TlKukSkX2KEP9xRHBKZPydJ9LJ0dVxC5V665cqM=;
- b=Y445LD5dCdSEY3X3DxPA4W99yMWVA1Luan2SxOt8N78GgrArATuyLUyo2NY1cm541Yi/drPyage6xUm9639P7N0pfZrukZlcc9c4GULYm/TImVNV0Wm+BqSagHAuUqAbjlU3NFyD5qXwURBmtcNdaZOOvLiyv/KrIPdxjShBq84=
-Received: from DM6PR11CA0004.namprd11.prod.outlook.com (2603:10b6:5:190::17)
- by DS7PR12MB6264.namprd12.prod.outlook.com (2603:10b6:8:94::18) with
+ bh=drfvbaTv/aBTE70QOfEjSkQV3eSxqo3bMaw8QYlC+J8=;
+ b=Gd5rMjbQiWhdg+wbV+Za/AQ5acXke6HffQGQkpXooNj8Y15uqZiQsOjcMDuZ+Afl6X6WLIrTvmz7C7OJESxKwTsD1QhCaa0OOUMONuhE8P7dsAkNYrORmkcDiLKKHlSUwSwzrA9K0Tv3VbsbbNDUsmMtdgWdNlrDmvl3Fnb3qik=
+Received: from DM6PR12CA0025.namprd12.prod.outlook.com (2603:10b6:5:1c0::38)
+ by MN2PR12MB4453.namprd12.prod.outlook.com (2603:10b6:208:260::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14; Wed, 14 Sep
- 2022 03:26:07 +0000
-Received: from DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:190:cafe::2b) by DM6PR11CA0004.outlook.office365.com
- (2603:10b6:5:190::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14 via Frontend
- Transport; Wed, 14 Sep 2022 03:26:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Wed, 14 Sep
+ 2022 03:26:19 +0000
+Received: from DM6NAM11FT067.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1c0:cafe::d9) by DM6PR12CA0025.outlook.office365.com
+ (2603:10b6:5:1c0::38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.15 via Frontend
+ Transport; Wed, 14 Sep 2022 03:26:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,26 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT068.mail.protection.outlook.com (10.13.173.67) with Microsoft SMTP
+ DM6NAM11FT067.mail.protection.outlook.com (10.13.172.76) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5632.12 via Frontend Transport; Wed, 14 Sep 2022 03:26:07 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ 15.20.5632.12 via Frontend Transport; Wed, 14 Sep 2022 03:26:18 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 22:26:06 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 22:26:06 -0500
+ 2022 22:26:18 -0500
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Tue, 13 Sep 2022 22:26:02 -0500
+ Transport; Tue, 13 Sep 2022 22:26:14 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 04/47] drm/amd/display: add debug option for
- dramclk_change_latency in apu
-Date: Wed, 14 Sep 2022 11:23:58 +0800
-Message-ID: <20220914032441.1075031-5-Wayne.Lin@amd.com>
+Subject: [PATCH 05/47] drm/amd/display: Various logs added
+Date: Wed, 14 Sep 2022 11:23:59 +0800
+Message-ID: <20220914032441.1075031-6-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220914032441.1075031-1-Wayne.Lin@amd.com>
 References: <20220914032441.1075031-1-Wayne.Lin@amd.com>
@@ -73,26 +68,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT068:EE_|DS7PR12MB6264:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d64cd00-93fb-45b7-ca07-08da9600dcb5
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT067:EE_|MN2PR12MB4453:EE_
+X-MS-Office365-Filtering-Correlation-Id: 82d5a715-5b16-473d-c4a0-08da9600e3b0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FY9wxVPsC5LgudeAYnj2jMb2M3sgPTJgftu3XinqqGYaLFwxgZyya9qqveDygR8vwmuK7o1/7M/UxUB9Xx46Ju56vDeVQXh49MlUxQrPwX4R7I9PKxPgS1LE8IyV8+dC0DMqjWjHG7nE3EAo9tEIsm9Y7vJ4AFXrPHzkEL3PAyCGQPafKpFIa3my5qoIkwnXN+grwBVw6RSduO/oItX0zNFIvnokeZCAoeHj2+TZacjrXj72yX69z9gtjvKST4wSBqocpH6Le+xhOKycxuY2reo8oJdrDMN81vjN1FYEd8rl4dG90SktKUd9M05DQPx3tsXBa6H7LQUucDY0FOAPkshlFQYzrzOsfRd+H7nEmL2xUtuLJz8iiigAH/9jhO+dtK9PyZUJ9XgeHxT6rRSKZyyRXCkx8gd1DWoVQlPJxfWo9+gcXYtSyLCsIBVt3NKQK6echi97bmNnGUIAs8LqurXCmgg4GPZt5UJjYi2r2oY2/bUDYuJEN3KgYJ/qp/JEHeIUupM8x34Vwi7s5ht1/6uTpnSgO8XDTRWCPu6OKIV2UcSClvpIwC7EKLS36nkd7Gll5/G/9U2uYXs3wl7k68T+owaScNvFJcn6aO6vz6FbLmg/zL/Aztuor09pl1UPFQ3PLnt25NB4tc+XfetgBLv/lhxQzi2cwvYsG2Ci0qo8fUolFyi2g1r9SkqR3uWbwJmVa6zP2MEXbXr28SN856+FFVmAXe1sOD9ZFMwIlpSeGZpyVJELrhZI4jpjTRR4dF1O89VXAdNRAFm8yR2HDjQ1cc+TNQ2lgQm7M/fjVXF894Kz16WEnSdbyIUDQlQy
+X-Microsoft-Antispam-Message-Info: U9xZhbetdwpmJHKoJpU/535ka6fsxpXmHU6RTDLXNsfVgEmsTIoWxhU6igTy/z61NF+cZjwcpZ0yTrEoQP0BhFFDGt6KKFjHEVJI41DNN3SysEp/Ez5VGfSl1Wpe4XIxzgfnwcvD+uXY32hhQzemCT51xei8OM8VY79of8RQBK3+SpkoUnCVreZtPH4EWX/2Ssp16VoVn89Dv3j55cqYWKnCRla9ylrGUcSfQL6iTRpL4nUjhbnGXx53HMFPIN4SVFiOjMAgkwnNE6/7noe93LmtFA+P6kkKALzPfl4mndxHCSKCgv1K4WXAcC/abm65TDxn5FsR8wiX4ouvGMl8qNYUNzbFynZZmt+yMFXJq3pXAuNXgATkWx6z5TXh6DGwbqyizWzkdYY8GiKTL9OClIEKBVeIruljDI9XC4NGi5hPll1A9Vmu89gE7fit6F+sW2OocF0F0bWCsfu7l3KpuKADCPf/hRYhwphTHvm8+xSAi8xMva2qIlOyLT8vOQlGMYKNcHLkhqf7OjDCZ/Od0o+DnjKKFQGoh6mu34pnW4DfR5vztxc4HDJ+ZEuwBMTsANe0OlCB1RT6UCDlzLjLXU2Z9CtIQKPcSgssAHFLaVbUruRloIcV/21YfS7Xc+xZgEV8rhEdttJ09OW8DoxjOUgOkDC88MSXczU5Xiohj1y/SE07IdGw1Xj50JUoKvRncPLGTjSQ/A6AdaLLJpzPapuSJKlloLs4QWw67nLrgyrZ9QXaybJBU/JU62K9BSqD5LdlIrzrGnpyA8Ra/LYGQmv0dNsuAbl9pLVM8/0cRAU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(136003)(396003)(376002)(346002)(451199015)(40470700004)(36840700001)(46966006)(426003)(6666004)(8936002)(5660300002)(356005)(7696005)(36756003)(4326008)(82310400005)(478600001)(82740400003)(186003)(83380400001)(36860700001)(70586007)(47076005)(81166007)(2906002)(1076003)(6916009)(54906003)(8676002)(40460700003)(86362001)(26005)(2616005)(316002)(40480700001)(70206006)(41300700001)(336012)(36900700001);
+ SFS:(13230022)(4636009)(376002)(136003)(346002)(39860400002)(396003)(451199015)(40470700004)(46966006)(36840700001)(26005)(7696005)(478600001)(6666004)(54906003)(316002)(6916009)(70586007)(2906002)(4326008)(70206006)(8676002)(41300700001)(8936002)(5660300002)(40460700003)(36756003)(82310400005)(40480700001)(86362001)(81166007)(82740400003)(36860700001)(356005)(336012)(47076005)(426003)(83380400001)(1076003)(186003)(2616005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 03:26:07.2476 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d64cd00-93fb-45b7-ca07-08da9600dcb5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 03:26:18.9588 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82d5a715-5b16-473d-c4a0-08da9600e3b0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT067.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6264
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4453
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,102 +101,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
  Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Martin Leung <Martin.Leung@amd.com>, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ Leo Chen <sancchen@amd.com>, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Charlene Liu <Charlene.Liu@amd.com>
+From: Leo Chen <sancchen@amd.com>
 
 [Why & How]
-Support dramclk change latency change via debug option and add some
-code isolation.
+Added logs for panel delays, spread_spectrum_percentage,
+and gpuclk_ss_percentage to facilitate debugging.
 
-Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
+Signed-off-by: Leo Chen <sancchen@amd.com>
 ---
- .../drm/amd/display/dc/dml/dcn301/dcn301_fpu.c  |  5 +++++
- .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.c    | 17 +++++++++++++++++
- .../drm/amd/display/dc/dml/dcn314/dcn314_fpu.c  |  5 +++++
- 3 files changed, 27 insertions(+)
+ .../drm/amd/display/dc/bios/bios_parser2.c    | 54 ++++++++++++++-----
+ 1 file changed, 40 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
-index 241d28d0b7fb..422f17aefd4a 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
-@@ -379,6 +379,11 @@ void dcn301_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
- 	dcn3_01_soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
- 	dc->dml.soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index 85ed0afb74a9..acbdb7926375 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -850,7 +850,7 @@ static enum bp_result get_ss_info_v4_1(
+ 		if (disp_cntl_tbl->dvi_ss_mode & ATOM_SS_CENTRE_SPREAD_MODE)
+ 			ss_info->type.CENTER_MODE = true;
  
-+	if ((int)(dcn3_01_soc.dram_clock_change_latency_us * 1000)
-+				!= dc->debug.dram_clock_change_latency_ns
-+			&& dc->debug.dram_clock_change_latency_ns) {
-+		dcn3_01_soc.dram_clock_change_latency_us = dc->debug.dram_clock_change_latency_ns / 1000.0;
-+	}
- 	dml_init_instance(&dc->dml, &dcn3_01_soc, &dcn3_01_ip, DML_PROJECT_DCN30);
- }
+-		DC_LOG_BIOS("AS_SIGNAL_TYPE_DVI: %d\n", ss_info->spread_spectrum_percentage);
++		DC_LOG_BIOS("AS_SIGNAL_TYPE_DVI ss_percentage: %d\n", ss_info->spread_spectrum_percentage);
+ 		break;
+ 	case AS_SIGNAL_TYPE_HDMI:
+ 		ss_info->spread_spectrum_percentage =
+@@ -860,7 +860,7 @@ static enum bp_result get_ss_info_v4_1(
+ 		if (disp_cntl_tbl->hdmi_ss_mode & ATOM_SS_CENTRE_SPREAD_MODE)
+ 			ss_info->type.CENTER_MODE = true;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-index 0e62eb823e34..43230709bd11 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-@@ -667,6 +667,12 @@ void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
- 	dcn3_1_soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
- 	dc->dml.soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
+-		DC_LOG_BIOS("AS_SIGNAL_TYPE_HDMI: %d\n", ss_info->spread_spectrum_percentage);
++		DC_LOG_BIOS("AS_SIGNAL_TYPE_HDMI ss_percentage: %d\n", ss_info->spread_spectrum_percentage);
+ 		break;
+ 	/* TODO LVDS not support anymore? */
+ 	case AS_SIGNAL_TYPE_DISPLAY_PORT:
+@@ -871,7 +871,7 @@ static enum bp_result get_ss_info_v4_1(
+ 		if (disp_cntl_tbl->dp_ss_mode & ATOM_SS_CENTRE_SPREAD_MODE)
+ 			ss_info->type.CENTER_MODE = true;
  
-+	if ((int)(dcn3_1_soc.dram_clock_change_latency_us * 1000)
-+				!= dc->debug.dram_clock_change_latency_ns
-+			&& dc->debug.dram_clock_change_latency_ns) {
-+		dcn3_1_soc.dram_clock_change_latency_us = dc->debug.dram_clock_change_latency_ns / 1000;
-+	}
+-		DC_LOG_BIOS("AS_SIGNAL_TYPE_DISPLAY_PORT: %d\n", ss_info->spread_spectrum_percentage);
++		DC_LOG_BIOS("AS_SIGNAL_TYPE_DISPLAY_PORT ss_percentage: %d\n", ss_info->spread_spectrum_percentage);
+ 		break;
+ 	case AS_SIGNAL_TYPE_GPU_PLL:
+ 		/* atom_firmware: DAL only get data from dce_info table.
+@@ -885,7 +885,7 @@ static enum bp_result get_ss_info_v4_1(
+ 				      DATA_TABLES(smu_info));
+ 		if (!smu_info)
+ 			return BP_RESULT_BADBIOSTABLE;
+-
++		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info->gpuclk_ss_percentage);
+ 		ss_info->spread_spectrum_percentage =
+ 				smu_info->waflclk_ss_percentage;
+ 		ss_info->spread_spectrum_range =
+@@ -893,7 +893,7 @@ static enum bp_result get_ss_info_v4_1(
+ 		if (smu_info->waflclk_ss_mode & ATOM_SS_CENTRE_SPREAD_MODE)
+ 			ss_info->type.CENTER_MODE = true;
+ 
+-		DC_LOG_BIOS("AS_SIGNAL_TYPE_XGMI: %d\n", ss_info->spread_spectrum_percentage);
++		DC_LOG_BIOS("AS_SIGNAL_TYPE_XGMI ss_percentage: %d\n", ss_info->spread_spectrum_percentage);
+ 		break;
+ 	default:
+ 		result = BP_RESULT_UNSUPPORTED;
+@@ -930,6 +930,7 @@ static enum bp_result get_ss_info_v4_2(
+ 	if (!smu_info)
+ 		return BP_RESULT_BADBIOSTABLE;
+ 
++	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info->gpuclk_ss_percentage);
+ 	ss_info->type.STEP_AND_DELAY_INFO = false;
+ 	ss_info->spread_percentage_divider = 1000;
+ 	/* BIOS no longer uses target clock.  Always enable for now */
+@@ -944,7 +945,7 @@ static enum bp_result get_ss_info_v4_2(
+ 		if (disp_cntl_tbl->dvi_ss_mode & ATOM_SS_CENTRE_SPREAD_MODE)
+ 			ss_info->type.CENTER_MODE = true;
+ 
+-		DC_LOG_BIOS("AS_SIGNAL_TYPE_DVI: %d\n", ss_info->spread_spectrum_percentage);
++		DC_LOG_BIOS("AS_SIGNAL_TYPE_DVI ss_percentage: %d\n", ss_info->spread_spectrum_percentage);
+ 		break;
+ 	case AS_SIGNAL_TYPE_HDMI:
+ 		ss_info->spread_spectrum_percentage =
+@@ -954,7 +955,7 @@ static enum bp_result get_ss_info_v4_2(
+ 		if (disp_cntl_tbl->hdmi_ss_mode & ATOM_SS_CENTRE_SPREAD_MODE)
+ 			ss_info->type.CENTER_MODE = true;
+ 
+-		DC_LOG_BIOS("AS_SIGNAL_TYPE_HDMI: %d\n", ss_info->spread_spectrum_percentage);
++		DC_LOG_BIOS("AS_SIGNAL_TYPE_HDMI ss_percentage: %d\n", ss_info->spread_spectrum_percentage);
+ 		break;
+ 	/* TODO LVDS not support anymore? */
+ 	case AS_SIGNAL_TYPE_DISPLAY_PORT:
+@@ -965,7 +966,7 @@ static enum bp_result get_ss_info_v4_2(
+ 		if (smu_info->gpuclk_ss_mode & ATOM_SS_CENTRE_SPREAD_MODE)
+ 			ss_info->type.CENTER_MODE = true;
+ 
+-		DC_LOG_BIOS("AS_SIGNAL_TYPE_DISPLAY_PORT: %d\n", ss_info->spread_spectrum_percentage);
++		DC_LOG_BIOS("AS_SIGNAL_TYPE_DISPLAY_PORT ss_percentage: %d\n", ss_info->spread_spectrum_percentage);
+ 		break;
+ 	case AS_SIGNAL_TYPE_GPU_PLL:
+ 		/* atom_firmware: DAL only get data from dce_info table.
+@@ -1015,7 +1016,7 @@ static enum bp_result get_ss_info_v4_5(
+ 		if (disp_cntl_tbl->dvi_ss_mode & ATOM_SS_CENTRE_SPREAD_MODE)
+ 			ss_info->type.CENTER_MODE = true;
+ 
+-		DC_LOG_BIOS("AS_SIGNAL_TYPE_DVI: %d\n", ss_info->spread_spectrum_percentage);
++		DC_LOG_BIOS("AS_SIGNAL_TYPE_DVI ss_percentage: %d\n", ss_info->spread_spectrum_percentage);
+ 		break;
+ 	case AS_SIGNAL_TYPE_HDMI:
+ 		ss_info->spread_spectrum_percentage =
+@@ -1025,7 +1026,7 @@ static enum bp_result get_ss_info_v4_5(
+ 		if (disp_cntl_tbl->hdmi_ss_mode & ATOM_SS_CENTRE_SPREAD_MODE)
+ 			ss_info->type.CENTER_MODE = true;
+ 
+-		DC_LOG_BIOS("AS_SIGNAL_TYPE_HDMI: %d\n", ss_info->spread_spectrum_percentage);
++		DC_LOG_BIOS("AS_SIGNAL_TYPE_HDMI ss_percentage: %d\n", ss_info->spread_spectrum_percentage);
+ 		break;
+ 	case AS_SIGNAL_TYPE_DISPLAY_PORT:
+ 		ss_info->spread_spectrum_percentage =
+@@ -1035,7 +1036,7 @@ static enum bp_result get_ss_info_v4_5(
+ 		if (disp_cntl_tbl->dp_ss_mode & ATOM_SS_CENTRE_SPREAD_MODE)
+ 			ss_info->type.CENTER_MODE = true;
+ 
+-		DC_LOG_BIOS("AS_SIGNAL_TYPE_DISPLAY_PORT: %d\n", ss_info->spread_spectrum_percentage);
++		DC_LOG_BIOS("AS_SIGNAL_TYPE_DISPLAY_PORT ss_percentage: %d\n", ss_info->spread_spectrum_percentage);
+ 		break;
+ 	case AS_SIGNAL_TYPE_GPU_PLL:
+ 		/* atom_smu_info_v4_0 does not have fields for SS for SMU Display PLL anymore.
+@@ -1860,7 +1861,7 @@ static enum bp_result get_firmware_info_v3_2(
+ 		/* Vega12 */
+ 		smu_info_v3_2 = GET_IMAGE(struct atom_smu_info_v3_2,
+ 							DATA_TABLES(smu_info));
+-
++		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_2->gpuclk_ss_percentage);
+ 		if (!smu_info_v3_2)
+ 			return BP_RESULT_BADBIOSTABLE;
+ 
+@@ -1869,7 +1870,7 @@ static enum bp_result get_firmware_info_v3_2(
+ 		/* Vega20 */
+ 		smu_info_v3_3 = GET_IMAGE(struct atom_smu_info_v3_3,
+ 							DATA_TABLES(smu_info));
+-
++		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_3->gpuclk_ss_percentage);
+ 		if (!smu_info_v3_3)
+ 			return BP_RESULT_BADBIOSTABLE;
+ 
+@@ -2011,7 +2012,7 @@ static enum bp_result get_firmware_info_v3_4(
+ 
+ 			if (!smu_info_v3_5)
+ 				return BP_RESULT_BADBIOSTABLE;
+-
++			DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_5->gpuclk_ss_percentage);
+ 			info->default_engine_clk = smu_info_v3_5->bootup_dcefclk_10khz * 10;
+ 			break;
+ 
+@@ -2417,6 +2418,7 @@ static enum bp_result get_integrated_info_v11(
+ 	info_v11 = GET_IMAGE(struct atom_integrated_system_info_v1_11,
+ 					DATA_TABLES(integratedsysteminfo));
+ 
++	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v11->gpuclk_ss_percentage);
+ 	if (info_v11 == NULL)
+ 		return BP_RESULT_BADBIOSTABLE;
+ 
+@@ -2631,6 +2633,7 @@ static enum bp_result get_integrated_info_v2_1(
+ 
+ 	info_v2_1 = GET_IMAGE(struct atom_integrated_system_info_v2_1,
+ 					DATA_TABLES(integratedsysteminfo));
++	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_1->gpuclk_ss_percentage);
+ 
+ 	if (info_v2_1 == NULL)
+ 		return BP_RESULT_BADBIOSTABLE;
+@@ -2792,6 +2795,8 @@ static enum bp_result get_integrated_info_v2_2(
+ 	info_v2_2 = GET_IMAGE(struct atom_integrated_system_info_v2_2,
+ 					DATA_TABLES(integratedsysteminfo));
+ 
++	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_2->gpuclk_ss_percentage);
 +
- 	if (!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment))
- 		dml_init_instance(&dc->dml, &dcn3_1_soc, &dcn3_1_ip, DML_PROJECT_DCN31);
- 	else
-@@ -721,6 +727,12 @@ void dcn315_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
- 	 */
- 	dcn3_15_soc.dispclk_dppclk_vco_speed_mhz = max_dispclk_mhz * 2;
+ 	if (info_v2_2 == NULL)
+ 		return BP_RESULT_BADBIOSTABLE;
  
-+	if ((int)(dcn3_15_soc.dram_clock_change_latency_us * 1000)
-+				!= dc->debug.dram_clock_change_latency_ns
-+			&& dc->debug.dram_clock_change_latency_ns) {
-+		dcn3_15_soc.dram_clock_change_latency_us = dc->debug.dram_clock_change_latency_ns / 1000;
-+	}
+@@ -2943,6 +2948,27 @@ static enum bp_result construct_integrated_info(
+ 		default:
+ 			return result;
+ 		}
++		if (result == BP_RESULT_OK) {
 +
- 	if (!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment))
- 		dml_init_instance(&dc->dml, &dcn3_15_soc, &dcn3_15_ip, DML_PROJECT_DCN31);
- 	else
-@@ -813,6 +825,11 @@ void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
- 		dcn3_16_soc.dispclk_dppclk_vco_speed_mhz = max_dispclk_mhz * 2;
- 		dc->dml.soc.dispclk_dppclk_vco_speed_mhz = max_dispclk_mhz * 2;
- 	}
-+	if ((int)(dcn3_16_soc.dram_clock_change_latency_us * 1000)
-+				!= dc->debug.dram_clock_change_latency_ns
-+			&& dc->debug.dram_clock_change_latency_ns) {
-+		dcn3_16_soc.dram_clock_change_latency_us = dc->debug.dram_clock_change_latency_ns / 1000;
-+	}
- 
- 	if (!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment))
- 		dml_init_instance(&dc->dml, &dcn3_16_soc, &dcn3_16_ip, DML_PROJECT_DCN31);
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
-index 4bb3b31ea7e0..ce477c090987 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
-@@ -264,6 +264,11 @@ void dcn314_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_p
- 		dc->dml.soc.dispclk_dppclk_vco_speed_mhz = max_dispclk_mhz * 2;
++			DC_LOG_BIOS("edp1:\n"
++						"\tedp_pwr_on_off_delay = %d\n"
++						"\tedp_pwr_on_vary_bl_to_blon = %d\n"
++						"\tedp_pwr_down_bloff_to_vary_bloff = %d\n"
++						"\tedp_bootup_bl_level = %d\n",
++						info->edp1_info.edp_pwr_on_off_delay,
++						info->edp1_info.edp_pwr_on_vary_bl_to_blon,
++						info->edp1_info.edp_pwr_down_bloff_to_vary_bloff,
++						info->edp1_info.edp_bootup_bl_level);
++			DC_LOG_BIOS("edp2:\n"
++						"\tedp_pwr_on_off_delayv = %d\n"
++						"\tedp_pwr_on_vary_bl_to_blon = %d\n"
++						"\tedp_pwr_down_bloff_to_vary_bloff = %d\n"
++						"\tedp_bootup_bl_level = %d\n",
++						info->edp2_info.edp_pwr_on_off_delay,
++						info->edp2_info.edp_pwr_on_vary_bl_to_blon,
++						info->edp2_info.edp_pwr_down_bloff_to_vary_bloff,
++						info->edp2_info.edp_bootup_bl_level);
++		}
  	}
  
-+	if ((int)(dcn3_14_soc.dram_clock_change_latency_us * 1000)
-+				!= dc->debug.dram_clock_change_latency_ns
-+			&& dc->debug.dram_clock_change_latency_ns) {
-+		dcn3_14_soc.dram_clock_change_latency_us = dc->debug.dram_clock_change_latency_ns / 1000;
-+	}
- 	if (!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment))
- 		dml_init_instance(&dc->dml, &dcn3_14_soc, &dcn3_14_ip, DML_PROJECT_DCN314);
- 	else
+ 	if (result != BP_RESULT_OK)
 -- 
 2.37.3
 
