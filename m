@@ -4,58 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B950EC6FA8A
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 14:00:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5DFCC6FA82
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 14:01:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC1F910E926;
-	Wed, 14 Sep 2022 14:00:19 +0000 (UTC)
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [IPv6:2001:4860:4864:20::2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6FCA10E91F;
- Wed, 14 Sep 2022 14:00:16 +0000 (UTC)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-1278a61bd57so41162478fac.7; 
- Wed, 14 Sep 2022 07:00:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A1C410E925;
+	Wed, 14 Sep 2022 14:01:32 +0000 (UTC)
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82BAC10E922;
+ Wed, 14 Sep 2022 14:01:27 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-12b542cb1d3so31440844fac.13; 
+ Wed, 14 Sep 2022 07:01:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date;
- bh=Nhf4NUE5pNrO2iPn+duWxF+/BKciVlA3AuEHtMu2CkM=;
- b=aLjXaqxm731w8pTsLIJqD/I2r3nY06kTldoBkhB+GTNaSahVvmr04XDUCNS2awKrsP
- 0sOo3DaKjjQXVYof4nLSJeFVwkH+VfffbTEjdfVu/wXmzrV9ILvlkVVe1s0QZC1QYHoT
- rPA4VzvgvpygZ9DEZiyMu7kayNhTLP9MI4j1Wv95mqAxL7OxrgJa0zaBrM+dbHIG0UCc
- dvsNAqvrRL8z++KlsXFsStXKaon9pqNvXrerCldvBwpOUKRXKKiore6NH93N6bRQHYiX
- dpqqPZwiI7zZs0dJ6/NGm7q5XJrHuqyiYsbNc/CHDsIP0XhnBA6xbEWLVF57nwToWoHV
- Nvgw==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=k8U95BumaTBbmAt9TrN0QV5NqfyKt6VN+p4d+At6nao=;
+ b=hZ4MyiYYZA17pWd2sXxCN3Y5eVcUpfNheChiC/xsUMCSQX25+naMAhm9L+g8SDlHpu
+ TXoBLEMSChC0+L/0AgvC1/IDp2dGJr/qjt9YYAIcmWBNGToE5Bv54rv3/oMxGY7ZtObU
+ GlqyvUmG9XenirplcDZzJpq/ywjUgtNfWkHtwZDon/Whh3PdUs4RezoNer3jDJusE7RK
+ RM75qEh9CJFLDdDkVn71KB8doMWnMBpMSRELmPPEw2FqyWRggYnbJQGPXg36OWhh997J
+ scIGVISsnhRWoF1wtHtBzx6V2pnTKod8bPxDzgE9I1K3hdEvdgMO3f5A/mltUyP0JTny
+ 3AaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date;
- bh=Nhf4NUE5pNrO2iPn+duWxF+/BKciVlA3AuEHtMu2CkM=;
- b=RTgDKvccxUkr6WvB7iF1G9M5a0jziIxA/nk1CpGdFXGEJuCEwhZU4ddExYg5ufn4o4
- 8YvkTBm5Qzgi8hewe+dJmONb5UfzLFvwzIyGIOiGcVEoZDznabAEOh3e5rQknTdUW9UA
- GfoERLs5cdEtDMctdCJazXNsw3mdnxYAfGFQyXVYTWGBWYgx0a9F+v4P6BMkI5FzXwpx
- yufQTd802LMDGfCKzcAkW/Ga9AJ1YWffhK1g1rCdA3IjagRiqprc9kMMKNNUgFJegQSZ
- dBd0OnRzdpE+3hXUHyRC3kJ1nDvu0fHLp44E5x4dScwJ6+rMPLzlhSYLeBL0VthSeyur
- s2PQ==
-X-Gm-Message-State: ACgBeo0XF+BjTcXLFZlclLyear8vQtz5fmdeUjrlpd9dRcBZBDkk+ark
- vjSXjA58tgfQAghNAwapwhGcX667RY4lS1zisfK1SpDo
-X-Google-Smtp-Source: AA6agR4+0HrSlOBJVxUZRMY+wQKkAqM7Lq8kfvW+Hf/8efKDYKhqKL0TNMJEugeMxOFKaXEotpqoHFiDtk0gYbgOf+U=
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=k8U95BumaTBbmAt9TrN0QV5NqfyKt6VN+p4d+At6nao=;
+ b=OTmNLHrKgJXEhU9MsPscQTdhSMswQaIpFK/nyO6fkEp5u2Hp+Pn54z13Tqm7m0+1Zm
+ qs6Emx1LB2Z/okRHMNx+ByChnjYohD01vy76UmEulmo6hNd/OFC2Sov/mVQeQEcGfhmi
+ 62mhhuEH/QEn4caagDK1FDUXXdraLUxL3FIwHypXVo+Buj9YraGRqqILIQue3kqcqdLI
+ KBGZaSsPzPyrpvmUnCSaVAT0srsGRL+VRAnPdYb2+Pot9kKcyzUSe3I69Z0WnlWj9uk3
+ 6LV01NVhvUPIKghbUWcxzB9YP97Mp5o6Zrfa3beU0TMHiU7zwr93vmAjLtvXhNr15w4A
+ d2Tg==
+X-Gm-Message-State: ACgBeo0UTyKVrHVOyo54CjPUQD+lfmDo96gReJ0djYfYGTfzbWox6zFo
+ 7dSDfWVFNqzojnQszSp5VyamFVSdfX9o00UVj1s=
+X-Google-Smtp-Source: AA6agR5PKLMgPfNEM9I3tSJH5qiXe/xPWs362xf4K+HyW2wha0yujlDyMJ6JWeuG3zs8uWYjjMVFDkGlQYB/rYQgX1k=
 X-Received: by 2002:a05:6870:1783:b0:12a:f442:504d with SMTP id
- r3-20020a056870178300b0012af442504dmr2643357oae.46.1663164016167; Wed, 14 Sep
- 2022 07:00:16 -0700 (PDT)
+ r3-20020a056870178300b0012af442504dmr2648088oae.46.1663164086734; Wed, 14 Sep
+ 2022 07:01:26 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220914052742.116297-1-jiapeng.chong@linux.alibaba.com>
- <20220914052742.116297-8-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <20220914052742.116297-8-jiapeng.chong@linux.alibaba.com>
+References: <20220914075213.4998-1-hanyihao@vivo.com>
+In-Reply-To: <20220914075213.4998-1-hanyihao@vivo.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 14 Sep 2022 10:00:04 -0400
-Message-ID: <CADnq5_NmWKF+7UQov2oQ2JH5UW0Pzjw0bCUzhZWZQ=xH2mu17g@mail.gmail.com>
-Subject: Re: [PATCH 8/8] drm/amd/display: make optc32_phantom_crtc_post_enable, 
- optc32_setup_manual_trigger and optc32_set_drr static
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Date: Wed, 14 Sep 2022 10:01:15 -0400
+Message-ID: <CADnq5_O8N-_kbYtsM0DMR+zDE+6wJ+gGQFUjYgUHkoZcaQJg9Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix boolconv.cocci warning
+To: Yihao Han <hanyihao@vivo.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,73 +63,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Leo Li <sunpeng.li@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Martin Leung <Martin.Leung@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
+Applied.  Thanks!
 
-Alex
-
-On Wed, Sep 14, 2022 at 1:29 AM Jiapeng Chong
-<jiapeng.chong@linux.alibaba.com> wrote:
+On Wed, Sep 14, 2022 at 3:53 AM Yihao Han <hanyihao@vivo.com> wrote:
 >
-> These three functions are not used outside the function
-> dcn32_optc.c, so the modification is defined as static.
+> ./drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c:729:63-68:
+> WARNING: conversion to bool not needed here
 >
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_optc.c:159:6: warnin=
-g: no previous prototype for function 'optc32_phantom_crtc_post_enable'.
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_optc.c:218:6: warnin=
-g: no previous prototype for =E2=80=98optc32_set_drr=E2=80=99.
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_optc.c:193:6: warnin=
-g: no previous prototype for =E2=80=98optc32_setup_manual_trigger=E2=80=99.
->
-> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3D2140
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+> Generated by: scripts/coccinelle/misc/boolconv.cocci
+> Signed-off-by: Yihao Han <hanyihao@vivo.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c b/drivers/=
-gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
-> index 1fad7b48bd5b..ec3989d37086 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
-> @@ -156,7 +156,7 @@ static bool optc32_disable_crtc(struct timing_generat=
-or *optc)
->         return true;
->  }
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c
+> index f4bc77972c4e..4edd0655965b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c
+> @@ -726,7 +726,7 @@ static bool mpc32_program_shaper(
+>         else
+>                 next_mode = LUT_RAM_A;
 >
-> -void optc32_phantom_crtc_post_enable(struct timing_generator *optc)
-> +static void optc32_phantom_crtc_post_enable(struct timing_generator *opt=
-c)
->  {
->         struct optc *optc1 =3D DCN10TG_FROM_TG(optc);
+> -       mpc32_configure_shaper_lut(mpc, next_mode == LUT_RAM_A ? true:false, mpcc_id);
+> +       mpc32_configure_shaper_lut(mpc, next_mode == LUT_RAM_A, mpcc_id);
 >
-> @@ -190,7 +190,7 @@ static void optc32_set_odm_bypass(struct timing_gener=
-ator *optc,
->         optc1->opp_count =3D 1;
->  }
->
-> -void optc32_setup_manual_trigger(struct timing_generator *optc)
-> +static void optc32_setup_manual_trigger(struct timing_generator *optc)
->  {
->         struct optc *optc1 =3D DCN10TG_FROM_TG(optc);
->         struct dc *dc =3D optc->ctx->dc;
-> @@ -215,7 +215,7 @@ void optc32_setup_manual_trigger(struct timing_genera=
-tor *optc)
->         }
->  }
->
-> -void optc32_set_drr(
-> +static void optc32_set_drr(
->         struct timing_generator *optc,
->         const struct drr_params *params)
->  {
+>         if (next_mode == LUT_RAM_A)
+>                 mpc32_program_shaper_luta_settings(mpc, params, mpcc_id);
 > --
-> 2.20.1.7.g153144c
+> 2.17.1
 >
