@@ -4,63 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE917ECAAD8
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 03:50:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17FCCECAAD3
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 03:50:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68D9E10E803;
-	Wed, 14 Sep 2022 03:50:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43AEA10E804;
+	Wed, 14 Sep 2022 03:50:58 +0000 (UTC)
 Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2081.outbound.protection.outlook.com [40.107.95.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F56610E803
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 03:50:39 +0000 (UTC)
+ (mail-dm3nam02on2079.outbound.protection.outlook.com [40.107.95.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC8D910E804
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 03:50:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CWDW2xcUHoIMyETvKVXhxl60k/V63yu3uoINDYdFVLaiDczu6y5nc5JeToLaVI/ra5+/kjNO+IJzaad9Ygp33yF9JNr1XUgU4MQdXmXOZ/3vlYz1S1Ye5VKq6WRiOMg8RcaO6Ogmozo6YrUAp/O+S8iLNSdo7vQVHEcmzRUDYUD+0Idhc7jolqNnqXHTBfMsKudIA68x1DZH8D1FUfqV2dfFRz98xG0jICC6I/1d5HCMJnDsmBzaWj3cdg1Y0DdDhL0R0xcGccZzWrG4HdTwlMs5DgGHNcVLy04PALr6PAOo+KbzN++CC8p6BnXjuRdjxqpI+EWWJFcK5USFzfOpVA==
+ b=LBstvQTr5gf79po7p8vu7Ht/r7dFLJadrVdHa3MvQk2T/JKut5gn2bID2THc3PqI1MQwKrqyMe6GJTEnZEZOqshqIAWm85LxlGdZqQhnIpEkVeWcMm1Xqz7qjeGUPdzSokYJP/7v3h0kzbUcL7ae3KFCDlefI05SzVOlfk7A1hyKRbnJLKXF59bdDvHkbDszkzety+Z/97X/EoexvqJXp0Iiarm6ifNvZ75e/RFAivG0jqN9+ejRpS300JrvhJanMSrQzXQlrnKZWaZRqqmTTdyB+0d/0O1wa06VYPRue7m13lbO7a3t/SkAB3xRuD3k2qHLp5SJ+LYTeAfYAmX9GA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kmXm5/YVAZjUOadgy1foXJdTEttdZXhCeXPyZV8ZI2k=;
- b=F0uVIyHdvfUSoa9vA13tFX22vL+opoq9bhV7k+2j+VDDHrrQbMT/HfQcpwfo65RWnRUMcJQ8caGw438iEQiwGSNVpBEjIpKnmTt79OQ5RK0wMAA/1hsLvSU4KtsGYWGODQDrgqK/Gb/gpKOneW/m2PMnLWLbY/iBZ7jMAXCTKcOuiHwmNoPD431hMtb0aiqz7bdaiknaEFBwyCsAU00v2K6neSYKgZQsv1ME51i9K6okKYUTLsm0EMMDVi/dVT+fnNRSsmQlbTSS+P9XfjdshbZ5joVL90PK1VeLMhG6jEWxwBycQ9nSBtvF6c8QZho/xIlm/AK4T9miDlb4g4d2lA==
+ bh=ustIEJ7rt1h/Jxej59DLgAVxmJN1egO9c6HGTnDG204=;
+ b=LI1jv4942GyR08dO9q+CQGKcusRbPTc1sgXCAftRbAFVpAlChg0bGutVNFdUhHyiRDFx7D6QElPZwbFc+aOAME5hc8mrVrd4NdeowrgluqHmyp+GQVb0ofIz28WplsiPSgQpX08vkvh1csA+UF/D7GplQ/2BYygdLaa7Fez+umumzGtbtWXtJgPrHEDzECvV0kQySQ6y4dB5EFiuI3R9BCVDvjCLVy4bvfx9yeJodx+vIrTcNN9MMaUm9u4Hi4DNhxXmjM1sz7WBBzi4Kt5T6dsI+/s+fMw5UljUPSfZTrv728V2K+9Q+CSG8Z91tuKv0thBqfpf5szooYTpsZnZ2w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kmXm5/YVAZjUOadgy1foXJdTEttdZXhCeXPyZV8ZI2k=;
- b=kFsK7la1IanCR8mOg+sN9v7RK7wo7skGjjQ9q3hkhZF74a7vDj7j6MVQZNjNVSRmnarH+wZeJLo6Kr34VbZxjVU5UwUI3pwDFWP34pwB06RhD/OYV5NPQy/eYoO+OAEy1TuQZqlMBdvDTUKc9QOFrKGsoMztdd3D4zDMckkfOUA=
-Received: from DM6PR04CA0015.namprd04.prod.outlook.com (2603:10b6:5:334::20)
- by MN2PR12MB4536.namprd12.prod.outlook.com (2603:10b6:208:263::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.19; Wed, 14 Sep
- 2022 03:50:37 +0000
-Received: from DS1PEPF0000B076.namprd05.prod.outlook.com
- (2603:10b6:5:334:cafe::a5) by DM6PR04CA0015.outlook.office365.com
- (2603:10b6:5:334::20) with Microsoft SMTP Server (version=TLS1_2,
+ bh=ustIEJ7rt1h/Jxej59DLgAVxmJN1egO9c6HGTnDG204=;
+ b=J6ccoQC1L5LWZ340BgBDkaO1UWGit6KOKV5Je1XwG3sMOFMhD45Eh7dNA0RXiyTfknXiMV1oVjx4aB3ZJYtwJt6TGibkr98ZY5o4rBeiQcGj82xX4rw+0rPLmfdpIt5E5IYyIYtRQljwbrirSVGH+hNdCin0BOFw+CDyNGr5LNo=
+Received: from BN9PR03CA0927.namprd03.prod.outlook.com (2603:10b6:408:107::32)
+ by CH2PR12MB4070.namprd12.prod.outlook.com (2603:10b6:610:ae::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14; Wed, 14 Sep
+ 2022 03:50:51 +0000
+Received: from BN8NAM11FT109.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:107:cafe::ed) by BN9PR03CA0927.outlook.office365.com
+ (2603:10b6:408:107::32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.12 via Frontend
- Transport; Wed, 14 Sep 2022 03:50:36 +0000
+ Transport; Wed, 14 Sep 2022 03:50:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS1PEPF0000B076.mail.protection.outlook.com (10.167.17.7) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT109.mail.protection.outlook.com (10.13.176.221) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5612.10 via Frontend Transport; Wed, 14 Sep 2022 03:50:36 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5632.12 via Frontend Transport; Wed, 14 Sep 2022 03:50:50 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 22:50:35 -0500
+ 2022 22:50:47 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
+ 2022 20:50:41 -0700
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Tue, 13 Sep 2022 22:50:31 -0500
+ Transport; Tue, 13 Sep 2022 22:50:37 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V2 11/47] drm/amd/display: support proper mst payload removal
- when link is not in mst mode in dc
-Date: Wed, 14 Sep 2022 11:47:32 +0800
-Message-ID: <20220914034808.1093521-12-Wayne.Lin@amd.com>
+Subject: [PATCH V2 12/47] drm/amd/display: For ODM seamless transition require
+ AUTO mode
+Date: Wed, 14 Sep 2022 11:47:33 +0800
+Message-ID: <20220914034808.1093521-13-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220914034808.1093521-1-Wayne.Lin@amd.com>
 References: <20220914034808.1093521-1-Wayne.Lin@amd.com>
@@ -69,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000B076:EE_|MN2PR12MB4536:EE_
-X-MS-Office365-Filtering-Correlation-Id: bbdf3e24-8114-47e8-fd4b-08da96044890
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT109:EE_|CH2PR12MB4070:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8d44267-3f91-4bc7-6987-08da96045104
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9Q6vsSYkSgLh6mmzQaK330QyqJvOveJgASZxBcE23H6sFX+4ebRKEPX+YAF9Tezs3U/FSFh+g88PJ8uBnc/E2NIMobdrVly1KaPAzRdI+uuwnfd7yjUbAZY7YM0VpX7wVUKi9VkG9uNRpUj7d5gg6OfXQtsQSpvX+JQYZwsVlAHszLaHw4L43cJbg6mg5soAO/8V2t/4hMhpLRanH8UPatcfNg4wYlA6F/L9WvJ4qr03zJzRWJVi6PwzS0a+cMRgd/0T0+ksw6GQrnlRRNLZsXK/3U13vsdLevTxNGpq5211jSEmDCFSrEnD8TCfOqmLVVHAaWBfUAUMJarHkYMPs4laRabi7SrhC3jijSeH57BppWWCG4UAa/vkdtGMr7GQ51Qb3KxhsdOxZpbQU8DftY/Jmo+H37wpy344gmidAYqyLeHTD9hj08I0nrBQzltawvwok67DPRxr/9rtsxnqUgah4qBxJQjjYD61KY4ljYxT4vowArZZTSuWzEzX0zbgW6RinlKUGZshJ02J6d3rUV59py8bi321dCQfcdLsvFek1+GTXe+eDvMFwm93qdWdgpF2HotFKCggjCR1YQQoSadCKbUffg/xxwJb+XKbYBFADwlseV96jAwhV5yXhAWDFTEaJuadHPML9sLTCrtkUgksXGr9S0pY5FlfEwzKwIk+tbqA08yxP8f/sD8Aiq4tZecBKNBEg00AXE4pnDHjiaIIQGdbxO9rGucFmOptz4GhBEp+55WVnpjfJkOwvdKqA0MiZY7KLGCya7KWrSB7Tf/9EY2g0X3v1i4X+Jec973zloX0AY4ziNIJgNOXLaYi
+X-Microsoft-Antispam-Message-Info: nnKpWNOeu8QcCPnPwDIFUIqfKi3SqaqqwuTQkqnnj7BH2ETsJxK1D6NmaZfbz8VCkyxuAZxQbewWKX8AcNImyEhtnP+Cugyaq+Ti/iL4FKUPq5hDT9ACTe4lb0yKn4cmMw0lA5d0oVaD4y668egslEJtPnaElHNRCtBouOR4r+k8xb8BTyj0LZgHYc9smF+2CyrFLrpTZ0lBV5TH88ZTNkVoZ2W4uHnQo4RYdBGz64T8NL2jZ/3H/ml8YBTCaUum/fTAFGnaivPOOXbnHVPBadOhwA/vZuBhsVAPa3oZnAL48Wxh/atrq0t0q/eSJvNShgn/AQ+9YFlmav3xVb25Ngi1OrwqN8tr23y2QMIye19ibyKktdNFWRMt2lYCwChOewhAnUW5vsIN13u24VI+DQU4VUizkkDUtHPtEWBerviFbaDZ+33+S4dkML6poNxQ4ODGEJBeelJEk6xgknAGKhgrwIuXy1Gw5bN13XH7DoBaZn7csk8OqFjgXOfWx+KwVZNNSXgXTq7pTYso9jlxHdNCa4IrT5u7kvizGsTvI935cTd26N492Afbwl2/6Oi7MYQbhlOneOD29emCog+IQ4vBYZQMQSORilE/NGln03GFKpW9mFuzKZlP19PE/ETfLQ1V3aRFRFV4kwmQXyrJvtkFBPgxdAxFzTc/lxYW3ccxdh9f2SJQVy2AwttHtNtfkFyLWEMTYDB4V4Sbz+XpSLsNu9dumpSZlXUkA9plwaQgzUiZzqGhjkqS+gsD8lOE+EdtjoZtoGeN/R6vAJ8dSv+wg1qc/cXVCqPeuAO4kNrMRLwCkfXfbflMQuLN+UKW
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(346002)(39860400002)(376002)(136003)(451199015)(40470700004)(46966006)(36840700001)(478600001)(40460700003)(4326008)(426003)(8936002)(2906002)(186003)(70206006)(2616005)(7696005)(36756003)(40480700001)(336012)(1076003)(47076005)(26005)(36860700001)(83380400001)(8676002)(81166007)(356005)(5660300002)(82740400003)(86362001)(316002)(82310400005)(41300700001)(54906003)(6916009)(70586007)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(39860400002)(346002)(136003)(396003)(451199015)(40470700004)(36840700001)(46966006)(6916009)(316002)(82310400005)(41300700001)(54906003)(36756003)(70586007)(26005)(70206006)(336012)(2616005)(40480700001)(426003)(8936002)(6666004)(186003)(40460700003)(356005)(478600001)(4326008)(86362001)(5660300002)(82740400003)(8676002)(1076003)(47076005)(2906002)(83380400001)(81166007)(7696005)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 03:50:36.6593 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbdf3e24-8114-47e8-fd4b-08da96044890
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 03:50:50.9000 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8d44267-3f91-4bc7-6987-08da96045104
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000B076.namprd05.prod.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT109.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4536
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4070
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,146 +106,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Wenjing Liu <wenjing.liu@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Jun Lei <Jun.Lei@amd.com>,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>,
+ wayne.lin@amd.com, Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[why]
-When user unplugs mst hubs, the current code will forcefully zero
-entire mst payload allocation table structure stored in link before we
-deallocate actual payload when disabling stream.
-
-During the first disable stream sequence, we will use current mst
-payload allocation table to determine if link should be turned off.
-Because we zero out it before we are disabling stream, the payload
-allocation table stored in link doesn't represent the actual allocation status,
-so we turn off link at the first disable stream without waiting until all
-streams' payloads have been deallocated. This avoilates the designed
-deallocation sequence and caused system hang in DP2 scenario.
-
-[how]
-Remove payload during deallocation and never zero payload allocation structure
-without actually deallocating payload.
+[Why & How]
+ODM seamless transitions require DIV_MODE_AUTO. However,
+DIV_MODE_AUTO only works when all the horizontal timing params
+are divisible by the ODM combine factor. Therefore, disable the
+ODM 2:1 policy when the horizontal timing params are not divisible
+by 2.
 
 Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 70 +++++++++++++------
- 1 file changed, 49 insertions(+), 21 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_resource.c | 22 +++++++++++++++++++
+ .../drm/amd/display/dc/dcn32/dcn32_resource.c |  3 ++-
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |  2 ++
+ 3 files changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 7a9f7b4bd666..4fb57d4041a0 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -848,20 +848,13 @@ static bool discover_dp_mst_topology(struct dc_link *link, enum dc_detect_reason
- 
- bool reset_cur_dp_mst_topology(struct dc_link *link)
- {
--	bool result = false;
- 	DC_LOGGER_INIT(link->ctx->logger);
- 
- 	LINK_INFO("link=%d, mst branch is now Disconnected\n",
- 		  link->link_index);
- 
- 	revert_dpia_mst_dsc_always_on_wa(link);
--	result = dm_helpers_dp_mst_stop_top_mgr(link->ctx, link);
--
--	link->mst_stream_alloc_table.stream_count = 0;
--	memset(link->mst_stream_alloc_table.stream_allocations,
--			0,
--			sizeof(link->mst_stream_alloc_table.stream_allocations));
--	return result;
-+	return dm_helpers_dp_mst_stop_top_mgr(link->ctx, link);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 29f27e3fe3ac..5bedee56acd4 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -3645,3 +3645,25 @@ const struct link_hwss *get_link_hwss(const struct dc_link *link,
+ 	else
+ 		return get_virtual_link_hwss();
  }
- 
- static bool should_prepare_phy_clocks_for_link_verification(const struct dc *dc,
-@@ -3570,6 +3563,35 @@ static void update_mst_stream_alloc_table(
- 				work_table[i];
- }
- 
-+static void remove_stream_from_alloc_table(
-+		struct dc_link *link,
-+		struct stream_encoder *dio_stream_enc,
-+		struct hpo_dp_stream_encoder *hpo_dp_stream_enc)
++
++bool is_h_timing_divisible_by_2(struct dc_stream_state *stream)
 +{
-+	int i = 0;
-+	struct link_mst_stream_allocation_table *table =
-+			&link->mst_stream_alloc_table;
++	bool divisible = false;
++	uint16_t h_blank_start = 0;
++	uint16_t h_blank_end = 0;
 +
-+	if (hpo_dp_stream_enc) {
-+		for (; i < table->stream_count; i++)
-+			if (hpo_dp_stream_enc == table->stream_allocations[i].hpo_dp_stream_enc)
-+				break;
-+	} else {
-+		for (; i < table->stream_count; i++)
-+			if (dio_stream_enc == table->stream_allocations[i].stream_enc)
-+				break;
-+	}
++	if (stream) {
++		h_blank_start = stream->timing.h_total - stream->timing.h_front_porch;
++		h_blank_end = h_blank_start - stream->timing.h_addressable;
 +
-+	if (i < table->stream_count) {
-+		i++;
-+		for (; i < table->stream_count; i++)
-+			table->stream_allocations[i-1] = table->stream_allocations[i];
-+		memset(&table->stream_allocations[table->stream_count-1], 0,
-+				sizeof(struct link_mst_stream_allocation));
-+		table->stream_count--;
++		/* HTOTAL, Hblank start/end, and Hsync start/end all must be
++		 * divisible by 2 in order for the horizontal timing params
++		 * to be considered divisible by 2. Hsync start is always 0.
++		 */
++		divisible = (stream->timing.h_total % 2 == 0) &&
++				(h_blank_start % 2 == 0) &&
++				(h_blank_end % 2 == 0) &&
++				(stream->timing.h_sync_width % 2 == 0);
 +	}
++	return divisible;
 +}
+\ No newline at end of file
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+index 6bc0fe922599..d757d1638fa7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+@@ -1871,7 +1871,8 @@ int dcn32_populate_dml_pipes_from_context(
+ 		timing = &pipe->stream->timing;
+ 
+ 		pipes[pipe_cnt].pipe.dest.odm_combine_policy = dm_odm_combine_policy_dal;
+-		if (context->stream_count == 1 && !dc_is_hdmi_signal(res_ctx->pipe_ctx[i].stream->signal)) {
++		if (context->stream_count == 1 && !dc_is_hdmi_signal(res_ctx->pipe_ctx[i].stream->signal) &&
++				is_h_timing_divisible_by_2(res_ctx->pipe_ctx[i].stream)) {
+ 			if (dc->debug.enable_single_display_2to1_odm_policy) {
+ 				if (!((plane_count > 2) && pipe->top_pipe))
+ 					pipes[pipe_cnt].pipe.dest.odm_combine_policy = dm_odm_combine_policy_2to1;
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
+index 58158764adc0..a58f80ac94ba 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
+@@ -224,4 +224,6 @@ uint8_t resource_transmitter_to_phy_idx(const struct dc *dc, enum transmitter tr
+ const struct link_hwss *get_link_hwss(const struct dc_link *link,
+ 		const struct link_resource *link_res);
+ 
++bool is_h_timing_divisible_by_2(struct dc_stream_state *stream);
 +
- static void dc_log_vcp_x_y(const struct dc_link *link, struct fixed31_32 avg_time_slots_per_mtp)
- {
- 	const uint32_t VCP_Y_PRECISION = 1000;
-@@ -3987,26 +4009,32 @@ static enum dc_status deallocate_mst_payload(struct pipe_ctx *pipe_ctx)
- 				&empty_link_settings,
- 				avg_time_slots_per_mtp);
- 
--	/* TODO: which component is responsible for remove payload table? */
- 	if (mst_mode) {
-+		/* when link is in mst mode, reply on mst manager to remove
-+		 * payload
-+		 */
- 		if (dm_helpers_dp_mst_write_payload_allocation_table(
- 				stream->ctx,
- 				stream,
- 				&proposed_table,
--				false)) {
-+				false))
- 
- 			update_mst_stream_alloc_table(
--						link,
--						pipe_ctx->stream_res.stream_enc,
--						pipe_ctx->stream_res.hpo_dp_stream_enc,
--						&proposed_table);
--		}
--		else {
--				DC_LOG_WARNING("Failed to update"
--						"MST allocation table for"
--						"pipe idx:%d\n",
--						pipe_ctx->pipe_idx);
--		}
-+					link,
-+					pipe_ctx->stream_res.stream_enc,
-+					pipe_ctx->stream_res.hpo_dp_stream_enc,
-+					&proposed_table);
-+		else
-+			DC_LOG_WARNING("Failed to update"
-+					"MST allocation table for"
-+					"pipe idx:%d\n",
-+					pipe_ctx->pipe_idx);
-+	} else {
-+		/* when link is no longer in mst mode (mst hub unplugged),
-+		 * remove payload with default dc logic
-+		 */
-+		remove_stream_from_alloc_table(link, pipe_ctx->stream_res.stream_enc,
-+				pipe_ctx->stream_res.hpo_dp_stream_enc);
- 	}
- 
- 	DC_LOG_MST("%s"
+ #endif /* DRIVERS_GPU_DRM_AMD_DC_DEV_DC_INC_RESOURCE_H_ */
 -- 
 2.37.3
 
