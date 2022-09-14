@@ -4,62 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77AC0ECAAD3
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 05:14:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A377ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 05:14:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD41810E832;
-	Wed, 14 Sep 2022 05:14:09 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2069.outbound.protection.outlook.com [40.107.220.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCB0F10E832
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 05:13:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC45C10E833;
+	Wed, 14 Sep 2022 05:14:17 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2074.outbound.protection.outlook.com [40.107.102.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDE5410E833
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 05:14:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CYukDGoIjPVlba+KHbk1I5rPwK8rMRiCrmw+T1VFKOR8PyJEFgZbhkR6ZDsQ2GZ+VnJiBpLM95XxrJOtqy9zkGndmYjh30udcw6KpZF7XzcOqBzRAUk35w2rzvkqWmb17XEixXuY28C2SD+YBdokeWGa79nxxUGnC3G84b5+9S0hUBVHqSxDhgkEXzVJHAb6wcqBVw9kAcSRiADNbbnkkLhg+a3jKCT5Nl9t/oVloO7ZM5B/8rRyo0nyEJeigLdUhDV+8BTjRS2+5tm1wQe/DRjbCQSXwGca49eOYpi8BSptUr2NZz/7clw1c+Nw0BDghZWXdxIXMvN9ACY0s+vDpw==
+ b=oXLBrJr6E89wmNiUHPQ+U/oET2XdrSt4cpfRQWSQ9reAJijbeCQcrYYoUr+K+5jhycj+A5uGVnBCWo4oa4Gqozl/PpPlpTgW4CigQ99Ef7vfW4XEtjyrnaIKCOKSAGJuzt0nHyNBwMEU0yf6CmjT4ZKE940rkneYTJPjOSt/Rx7YMTvnZkZQ2w5lMagxGYHIOQPYak72maywQbn+dYlcwKPL84OGgxFMw3vV4qwcFo4AHixzD70wHrgx0cV8zh2HfzWyYbULV0INJPBrVx2yFRYpnzdL1ieLp8B/7U7MzK8ZOq2L/b+ZCEOBpCBG90o8p0VHPzljbWbwWfMYWzFDVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AOhRbySf138h7l8a++kqxKUjWUYsB4r8XnJQ/PR6BuI=;
- b=R99L6f4dJ30pqcmwta/GN7zXFWw+AYKljuAp9GAZHqMoosRg/dvk5ZD9mWwByw21vsH0Q5m1k5vhn0FUPDdlOEl2z3R8vc+DzUEwCrKrxK/5HWfvGjVbpJ6hS9dA8wGEBm0g5omQ7xubdzJayQlOt4qo8E/EY1XkGlfe0Er0PVa9xjscrgqwmHXeBoED6JkFmfPly2bxAHhJFGM9/xi9crbZE4OJqJIHqqpVqCjDKnhn9UptnemBiEC8tSccF7CLbNQvpfAsAEmKc6e8oniLsxNDWm06IzTgl7eQmB/R6S0yijrZW3nWUpbro/+MJYNgeCqjNMVvVEcFWRl+wfZP7Q==
+ bh=/Ijor3YFc05UyA8CtRdonVDWKEueofgqpgM6Qmfb+l8=;
+ b=jREXBTfrKW/YwnQlBG14GlJTi1FVYFCHe2geDlSXm/meCnfSHlkft1eQz7JIGWbNswz8w/VTawto4xP6q8Mbq1ygiKx6BY+qRPKr6lsCDrMnfT4wYK6tQ+0jnPp6diyKuna48+w+vjzF508ZsF5byREu7QKuwLmQEmVi+X1c7JIfJoAmXvb1Klkgdn4k7Bc1iMsW9isr2zctexNU2AjRmMqsl1TaeaLyIMPO+iLRQbdcBCdxOU6oX/Xi/nDmU5kQZ0Y1Y1PWzxutgr8jSVH0antZbUFiXxx8wbOz0I+rgFAYApjaBt1BnnuJwfb/0Mt/hDds9h/voBHHbXGvyJoysw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AOhRbySf138h7l8a++kqxKUjWUYsB4r8XnJQ/PR6BuI=;
- b=gtKH7ePYMNviJPoLBDQS9GJO58At/VuIzeSeDSpV8PsC00NLITymf7zkWouNKh3tb9EftI8xShL+MvGE9KRa+HLnb4AZP1HBzIhcHI0O0Li9dsvD7pTooz9NCOCcFvbDWvf0Q8b1Xo5bI1iK0hOS9lxj/oeKVtNq51M0PwuWtbU=
-Received: from MW4PR03CA0289.namprd03.prod.outlook.com (2603:10b6:303:b5::24)
- by PH7PR12MB5784.namprd12.prod.outlook.com (2603:10b6:510:1d3::22)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=/Ijor3YFc05UyA8CtRdonVDWKEueofgqpgM6Qmfb+l8=;
+ b=KywBGUbNK0nX+I1tgI39fiCh0RGPZSUJrE71KICHrnhOTl2l94FQgBpLkQTUohLM/jJ/1s1Yi9C1moUfpDg6/tJ3OY6UGkwN8io4fiwiXHAMq4DYiHhqw59ODSFpcQAaYu5K+/QOXo9Xew85xc9ESvMaYN9alWZAyf7SzCHXH5Q=
+Received: from DM6PR18CA0001.namprd18.prod.outlook.com (2603:10b6:5:15b::14)
+ by SJ1PR12MB6122.namprd12.prod.outlook.com (2603:10b6:a03:45b::17) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Wed, 14 Sep
- 2022 05:13:51 +0000
-Received: from CO1PEPF00001A63.namprd05.prod.outlook.com
- (2603:10b6:303:b5:cafe::5d) by MW4PR03CA0289.outlook.office365.com
- (2603:10b6:303:b5::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14 via Frontend
- Transport; Wed, 14 Sep 2022 05:13:51 +0000
+ 2022 05:14:12 +0000
+Received: from DM6NAM11FT077.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:15b:cafe::2) by DM6PR18CA0001.outlook.office365.com
+ (2603:10b6:5:15b::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.12 via Frontend
+ Transport; Wed, 14 Sep 2022 05:14:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF00001A63.mail.protection.outlook.com (10.167.241.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5612.12 via Frontend Transport; Wed, 14 Sep 2022 05:13:51 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT077.mail.protection.outlook.com (10.13.173.147) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5632.12 via Frontend Transport; Wed, 14 Sep 2022 05:14:11 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 14 Sep
- 2022 00:13:50 -0500
+ 2022 00:14:10 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
+ 2022 22:13:38 -0700
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Wed, 14 Sep 2022 00:13:45 -0500
+ Transport; Wed, 14 Sep 2022 00:13:33 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V3 16/47] drm/amd/display: Fix SubVP way calculation
-Date: Wed, 14 Sep 2022 13:10:15 +0800
-Message-ID: <20220914051046.1131186-17-Wayne.Lin@amd.com>
+Subject: [PATCH V3 14/47] drm/amd/display: SubVP pipe split case
+Date: Wed, 14 Sep 2022 13:10:13 +0800
+Message-ID: <20220914051046.1131186-15-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220914051046.1131186-1-Wayne.Lin@amd.com>
 References: <20220914051046.1131186-1-Wayne.Lin@amd.com>
@@ -68,26 +72,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00001A63:EE_|PH7PR12MB5784:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65bb5f3e-cd20-42b0-eb70-08da960fe98c
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT077:EE_|SJ1PR12MB6122:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85e81feb-53ba-4705-a7bb-08da960ff5aa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4Z64OrQpdIBHRkIG15yi9gi//5M+RtVtywbtf5TJVr7HLQimZlfgmN1qpFSofWuUJttQ6+vrl7wfv3FnUfxMutFcJmuaY3SKUiGr5yaWuKnFrxr97s+bA1tL6OPlBR3Jy6hMTQixjC5byWmRuFG4hrnK/iRjQP63ODPnC5DZfDNvzWFn43co6DkHC1XXbf7EAf0M2k78FylzsahUCu1FuIf9XBKqGi4iuAB22VuU3lFZ6i+uWRGSVAHVJBLZGHXoC8veXGv5u+Rsd5j1Y6T5By3vhqLMUichXCu80XDWHiWE2CWbTSQqIoJgWnh/afqzaj2Md47xJ3LdOPSxeBX++PjbnBAqlge8BsE6hynV2IzP+6xF5EPWUd/iBE8+Iksp/kQwEXeqd1ub0HAoRRfHCn+lwMQkLAPv1gnkheIckAzVmzx89/U3k3HLiGS0k3E93qOdhqwxMmfbIQdsRY958ABwUFnelBSLBDA3g1cxRxJq42Psm1Z79CiYlC7xZw2Qpu4dVQmRfWyj7iTROKeiZq3oe9K30lxiAVftxNNw15e/uRGcpzr28n8yvWb0xKjPxrqVwx9ktQ9OohT8N3G8DGYMFGzKz7ukA88z378xDgB1i+Nq7d0kWwHTBDSG+1c+yIx7Wy+u2yqQ+pOjRxKVFgDH+U3npBnZhpcX+87Wdqs9K0zz9XpJJZ5M24+Tyla7MeSWlHyG6hiryFSRPl4q15NN7PokFwyaGsZ1+QQW3scHgZr7A1SLbwPV0Iq5HeuJPyNWDRKBUMEm9Jw/EnP0f3ayJtJhQ6c8ndb1XWMcYnrO88xbS0BMtrn050EJolZ0
+X-Microsoft-Antispam-Message-Info: uLofFXoiC4/od1ekz0619ChSZLEWoMaXg5vC1cCuZ0bKzDChvLiAiIPS0HEIb55/jiJct0YTcPX77PokhgoK91MGxrT/TkZktmR5bIFelp3zBLJfNrEHKHghvRCA7UuebHEIpJ0uhX3XkZFHbdV1VjRH+FrCOTrvZQEv2lepz/PYNNq+ZcAplXP/pA5ya59R2kY+pl9472G3zX0SAViWiYMMzkp8nWe22FgWZyhCqNUBEdnSUNr0iWpWKbGVaRlIk7Mj6Jms8L0yWTUk7AfsJnYZTbsJ2rcSpXdSxfv/74eitwj5TyGRbeG9j48a/ZR6TXbHN70shf5hXHzHYWu09quI9F/ji6AdNlonUWBjqavXY7roSpXWOJhdA//CQgcXsEdqA8mKAUTcyfCGIBSfVwZ10fLbtvhSXxS4X/BHOBb8D3Qb2cnxXEcrhOSiDGmuc8m3xDZC/rWHyuZBRcckGiYM27zD2QKpeaCSvWU2TNuGi8t4Qk+brTI2xEfxAkLe+7+UatDhFs38y3Nw/OZ7IUr0ZNoY4mVzb9EllGgCZ9KU82mLMLSLGMXM6GPNBaIzguYNCFdEvE6GVVew6QbU3UKGYN89NxNhKBzLcbo7aDkAryfNad0qtiEWTeMamDuDbkF1bh9MS+QtzWCVxDwt5sfvlI3DgAZ44LorpJp3FRS8+jlqJ/rahz076zbk/s7IzOlb9AZTnzN4zqxcacrIR+LQlppRAArtDOFYmQoQtexN55NbsXUQQ4dhhx/PajrIBVuwUfh3YGrhyUDRQ1kS7vqO8J1Jlgfqid7oe1CM0WgRqCZy8tq7DdenN0CaD76w
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(346002)(376002)(136003)(396003)(451199015)(46966006)(36840700001)(40470700004)(36756003)(6666004)(47076005)(426003)(54906003)(356005)(81166007)(36860700001)(2906002)(4326008)(41300700001)(40480700001)(82310400005)(2616005)(8936002)(8676002)(82740400003)(1076003)(26005)(7696005)(40460700003)(86362001)(70586007)(5660300002)(70206006)(478600001)(6916009)(83380400001)(336012)(316002)(186003)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(346002)(39860400002)(396003)(376002)(451199015)(46966006)(36840700001)(40470700004)(8936002)(81166007)(356005)(5660300002)(82740400003)(2906002)(4326008)(8676002)(1076003)(36860700001)(2616005)(478600001)(70586007)(70206006)(40460700003)(6666004)(186003)(426003)(26005)(47076005)(82310400005)(7696005)(336012)(40480700001)(41300700001)(54906003)(6916009)(83380400001)(36756003)(86362001)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 05:13:51.1629 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65bb5f3e-cd20-42b0-eb70-08da960fe98c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 05:14:11.5686 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85e81feb-53ba-4705-a7bb-08da960ff5aa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00001A63.namprd05.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT077.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5784
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6122
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,7 +105,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ Nevenko Stupar <Nevenko.Stupar@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
  wayne.lin@amd.com, Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -110,47 +115,137 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alvin Lee <Alvin.Lee2@amd.com>
 
 [Why and How]
-- Don't skip bottom and next odm pipe when calculating
-  num ways for subvp
-- Don't need to double cache lines for DCC (divide by 256)
+For SubVP pipe split case, pass in split index for
+main and phantom pipes to ensure that the P-State
+sequence will force P-State for all required pipes.
 
+Reviewed-by: Nevenko Stupar <Nevenko.Stupar@amd.com>
 Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
 Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 ---
- .../drm/amd/display/dc/dcn32/dcn32_resource_helpers.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 29 ++++++++++++++++++-
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 11 ++++---
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 18 ++++++++----
+ 3 files changed, 47 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-index 237f71d9304e..14787e0f0b6e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-@@ -66,8 +66,11 @@ uint32_t dcn32_helper_calculate_num_ways_for_subvp(struct dc *dc, struct dc_stat
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
- 		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index df5ad02fc4b3..f09a3ddcf30d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -674,12 +674,32 @@ static void populate_subvp_cmd_pipe_info(struct dc *dc,
+ 	pipe_data->pipe_config.subvp_data.processing_delay_lines =
+ 			div64_u64(((uint64_t)(dc->caps.subvp_fw_processing_delay_us) * ((uint64_t)phantom_timing->pix_clk_100hz * 100) +
+ 					((uint64_t)phantom_timing->h_total * 1000000 - 1)), ((uint64_t)phantom_timing->h_total * 1000000));
++
++	/* TODO: Uncomment once FW headers are promoted
++	if (subvp_pipe->bottom_pipe) {
++		pipe_data->pipe_config.subvp_data.main_split_pipe_index = subvp_pipe->bottom_pipe->pipe_idx;
++	} else if (subvp_pipe->next_odm_pipe) {
++		pipe_data->pipe_config.subvp_data.main_split_pipe_index = subvp_pipe->next_odm_pipe->pipe_idx;
++	} else {
++		pipe_data->pipe_config.subvp_data.main_split_pipe_index = 0;
++	}
++	*/
++
+ 	// Find phantom pipe index based on phantom stream
+ 	for (j = 0; j < dc->res_pool->pipe_count; j++) {
+ 		struct pipe_ctx *phantom_pipe = &context->res_ctx.pipe_ctx[j];
  
--		// Find the phantom pipes
--		if (pipe->stream && pipe->plane_state && !pipe->top_pipe && !pipe->prev_odm_pipe &&
-+		/* Find the phantom pipes.
-+		 * - For pipe split case we need to loop through the bottom and next ODM
-+		 *   pipes or only half the viewport size is counted
-+		 */
-+		if (pipe->stream && pipe->plane_state &&
- 				pipe->stream->mall_stream_config.type == SUBVP_PHANTOM) {
- 			struct pipe_ctx *main_pipe = NULL;
- 
-@@ -118,9 +121,9 @@ uint32_t dcn32_helper_calculate_num_ways_for_subvp(struct dc *dc, struct dc_stat
- 			// (MALL is 64-byte aligned)
- 			cache_lines_per_plane = bytes_in_mall / dc->caps.cache_line_size + 2;
- 
--			// For DCC we must cache the meat surface, so double cache lines required
-+			/* For DCC divide by 256 */
- 			if (pipe->plane_state->dcc.enable)
--				cache_lines_per_plane *= 2;
-+				cache_lines_per_plane = cache_lines_per_plane + (cache_lines_per_plane / 256) + 1;
- 			cache_lines_used += cache_lines_per_plane;
+ 		if (phantom_pipe->stream == subvp_pipe->stream->mall_stream_config.paired_stream) {
+ 			pipe_data->pipe_config.subvp_data.phantom_pipe_index = phantom_pipe->pipe_idx;
++			/* TODO: Uncomment once FW headers are promoted
++			if (phantom_pipe->bottom_pipe) {
++				pipe_data->pipe_config.subvp_data.phantom_split_pipe_index = phantom_pipe->bottom_pipe->pipe_idx;
++			} else if (phantom_pipe->next_odm_pipe) {
++				pipe_data->pipe_config.subvp_data.phantom_split_pipe_index = phantom_pipe->next_odm_pipe->pipe_idx;
++			} else {
++				pipe_data->pipe_config.subvp_data.phantom_split_pipe_index = 0;
++			}
++			*/
+ 			break;
  		}
  	}
+@@ -724,7 +744,9 @@ void dc_dmub_setup_subvp_dmub_command(struct dc *dc,
+ 		if (!pipe->stream)
+ 			continue;
+ 
+-		if (pipe->plane_state && !pipe->top_pipe &&
++		/* For SubVP pipe count, only count the top most (ODM / MPC) pipe
++		 */
++		if (pipe->plane_state && !pipe->top_pipe && !pipe->prev_odm_pipe &&
+ 				pipe->stream->mall_stream_config.type == SUBVP_MAIN)
+ 			subvp_pipes[subvp_count++] = pipe;
+ 	}
+@@ -737,7 +759,12 @@ void dc_dmub_setup_subvp_dmub_command(struct dc *dc,
+ 			if (!pipe->stream)
+ 				continue;
+ 
++			/* When populating subvp cmd info, only pass in the top most (ODM / MPC) pipe.
++			 * Any ODM or MPC splits being used in SubVP will be handled internally in
++			 * populate_subvp_cmd_pipe_info
++			 */
+ 			if (pipe->plane_state && pipe->stream->mall_stream_config.paired_stream &&
++					!pipe->top_pipe && !pipe->prev_odm_pipe &&
+ 					pipe->stream->mall_stream_config.type == SUBVP_MAIN) {
+ 				populate_subvp_cmd_pipe_info(dc, context, &cmd, pipe, cmd_pipe_index++);
+ 			} else if (pipe->plane_state && pipe->stream->mall_stream_config.type == SUBVP_NONE) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 86ab3a71c67b..ab56f14d6247 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1906,10 +1906,13 @@ void dcn20_post_unlock_program_front_end(
+ 			 * can underflow due to HUBP_VTG_SEL programming if done in the regular front end
+ 			 * programming sequence).
+ 			 */
+-			if (pipe->stream && pipe->stream->mall_stream_config.type == SUBVP_PHANTOM) {
+-				if (dc->hwss.update_phantom_vp_position)
+-					dc->hwss.update_phantom_vp_position(dc, context, pipe);
+-				dcn20_program_pipe(dc, pipe, context);
++			while (pipe) {
++				if (pipe->stream && pipe->stream->mall_stream_config.type == SUBVP_PHANTOM) {
++					if (dc->hwss.update_phantom_vp_position)
++						dc->hwss.update_phantom_vp_position(dc, context, pipe);
++					dcn20_program_pipe(dc, pipe, context);
++				}
++				pipe = pipe->bottom_pipe;
+ 			}
+ 		}
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index 2b3ffa300f25..7ff7cd8b5c93 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -1160,17 +1160,23 @@ static void dcn32_full_validate_bw_helper(struct dc *dc,
+ 				vba->VoltageLevel = *vlevel;
+ 			}
+ 		} else {
+-			// only call dcn20_validate_apply_pipe_split_flags if we found a supported config
+-			memset(split, 0, MAX_PIPES * sizeof(int));
+-			memset(merge, 0, MAX_PIPES * sizeof(bool));
+-			*vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, *vlevel, split, merge);
+-			vba->VoltageLevel = *vlevel;
+-
+ 			// Most populate phantom DLG params before programming hardware / timing for phantom pipe
+ 			DC_FP_START();
+ 			dcn32_helper_populate_phantom_dlg_params(dc, context, pipes, *pipe_cnt);
+ 			DC_FP_END();
+ 
++			/* Call validate_apply_pipe_split flags after calling DML getters for
++			 * phantom dlg params, or some of the VBA params indicating pipe split
++			 * can be overwritten by the getters.
++			 *
++			 * When setting up SubVP config, all pipes are merged before attempting to
++			 * add phantom pipes. If pipe split (ODM / MPC) is required, both the main
++			 * and phantom pipes will be split in the regular pipe splitting sequence.
++			 */
++			memset(split, 0, MAX_PIPES * sizeof(int));
++			memset(merge, 0, MAX_PIPES * sizeof(bool));
++			*vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, *vlevel, split, merge);
++			vba->VoltageLevel = *vlevel;
+ 			// Note: We can't apply the phantom pipes to hardware at this time. We have to wait
+ 			// until driver has acquired the DMCUB lock to do it safely.
+ 		}
 -- 
 2.37.3
 
