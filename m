@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45CD6C6FA8A
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 05:15:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D692ECAAD8
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 05:15:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5747F10E83A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D658010E83C;
 	Wed, 14 Sep 2022 05:15:52 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2044.outbound.protection.outlook.com [40.107.212.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22E8210E83B
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 05:15:45 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2076.outbound.protection.outlook.com [40.107.223.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4032010E83A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 05:15:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ks8KdV7l8FKWJsz4jFYM1tpIbonEe0e+F7uuZ2CtLK7/gu6GGHxe2sN4cON6dWRKla3LT0LXPyVzP238e+DR+OTEQHTa5ChJjnwlnqg/5uVwvN/PGPdKx8Y/7vwU2KzWY/2tJmX4Md2t64zn00nBRzSmaTBGzfBsIou4ZuC3YdkPrJK/gkDwO0N6SLYnqlAnWhm75ApjY7+Nh1NtPhUcL5hgsZOlBLCsoziU5MPGTh+BQnOA7e+wIS8p6T8jsdFW4DEsG8X54J6ml+NZjBQLmGFCLyPZbxzNZqdr07p+QZqMIz9cy2Y7czGtaG6ZlfqfSGfSPoUwj+Y1hvdzV6/ZTg==
+ b=OEWHSPcmXbgFyLgrVXYkDtL6zszF//LH7IPGXIm/3gJ7dFdXWYRkvGB/3yDRpH4WnL6x0ww1uceZwomr6MvWf0AbQqJktR58bSXb8lrQAdpAy47yc6WIaSajRLqkP1kqCiY8N9cQYVvTAgRRJ1BKqEf8kzsvGCijQtP/Ac4YiLUOqJA7OpkFldA3+F5/wX9D8wzI0eA7fsweR9p6+CX470dWP6cXbBeGNGf79gKP88Kh+Y36MPY2h4EsEIPmaX9feqPhUw9JooMxpfST5lvBVr0TMpDDmosY48BZgOpgu78nf6RJuF3rGGJFglQdNMD1yKMMX5FsXD2HXsfPl9nwhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9OzWDObgH4mbjr8jRVvt6Jh2kw5zWvKgAJe4L4hUiVg=;
- b=lvW+fr/j5wAgfk1Pfo1pjoOYIoXq/A2H4XD29Mb7TlfW8GpJk9FW5d3DMZNxo+3W8ebjtFTUiCOAcKoElWqgX3INFizKGHHliOqqGCPwCHuEUvCAGFklrKGuJzqxh4vfxSxDnnW3gsQUN76oTLtjGp++xCa/FEiWepWaZ/KVfdcsExGdDheWgEIPFaFH88IoM5apNlFqjNl4xWZp7e1ZxmADJ0u+S0z9zljKC2Ry+wVEfyZnQk6q1ZLGzhIryzzGhq927To++RpJq9EX47GAPbKKaK3cte9gaG5NtM1tJ2Eu/Xu4wbuUZdcq+8xigNaui+opFdX4FS4JiC73hF3jdw==
+ bh=hwC3hZUYMiQHw2mwi+01IbMKeIyE28Nc3a0pwSIGXZw=;
+ b=l0GpxCMO4fhvycPKdQ8/nM1euYXg7PluocpLZL84smBbCiAHh3aE+HDxK1+Zf5PwHKRUzpbX7F/C/u9iKcMrL45/cBBHPiWzpn2qmZclry9lFeJ2KLeV3MGn2Etz39OfVM7rplmgdvSdJ78IJtXHKyLb8uJJ4TrFeekHHJCllM54a9BkYxhK/u5/rUAnfqLRX1XzEQs+X/rdXyW3x+vjs/aExPVpGW3Qm8LdVqmDs7vcG9WEC4i+tyaAPQkcWmuIaspiI35Bdhfq/AxGr/s00xrufcbUSxOgEYFPMa2KE3fpwbX0BZqejkasueMJm5h48f5lQ4ST74cARktEFPtdjQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9OzWDObgH4mbjr8jRVvt6Jh2kw5zWvKgAJe4L4hUiVg=;
- b=45ou+4R9DmCVgwufpBCXf2YmROr74O9VvDdwk98VeiuoNdGbMF6YwAFHQteGQPdaqRxmKhvddUYuJ2rcxDHRxHl1XrdUcKDsVPC/2QJc+WoDqoxw2zxm3Mufhh3prOa+bATpuS7jOFr9d1Aq5EBYGCWX9cpI/I2afYKI0Care0w=
-Received: from MW4PR04CA0203.namprd04.prod.outlook.com (2603:10b6:303:86::28)
- by SJ0PR12MB5634.namprd12.prod.outlook.com (2603:10b6:a03:429::7)
+ bh=hwC3hZUYMiQHw2mwi+01IbMKeIyE28Nc3a0pwSIGXZw=;
+ b=FYzA8vfS4r75oc/Xek5/6Q/gNGmAiCigKC2FqSE9FYtfyeuTioWlF5IqXDP1VOgRmVNWhYrgN4WlnOSuDe/Y3HIjILiE9MOHCXwnu3Rc7BpJ7DzqasRjaQuMS/OemTfybfqSCA+pKKXHmpa8+eSSKNLdptnEclGjydqX6tB2pPg=
+Received: from MW4PR03CA0276.namprd03.prod.outlook.com (2603:10b6:303:b5::11)
+ by CH0PR12MB5154.namprd12.prod.outlook.com (2603:10b6:610:b9::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Wed, 14 Sep
- 2022 05:15:41 +0000
-Received: from CO1PEPF00001A5D.namprd05.prod.outlook.com
- (2603:10b6:303:86:cafe::45) by MW4PR04CA0203.outlook.office365.com
- (2603:10b6:303:86::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14 via Frontend
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.16; Wed, 14 Sep
+ 2022 05:15:42 +0000
+Received: from CO1PEPF00001A63.namprd05.prod.outlook.com
+ (2603:10b6:303:b5:cafe::bf) by MW4PR03CA0276.outlook.office365.com
+ (2603:10b6:303:b5::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.12 via Frontend
  Transport; Wed, 14 Sep 2022 05:15:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -45,7 +45,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF00001A5D.mail.protection.outlook.com (10.167.241.4) with Microsoft
+ CO1PEPF00001A63.mail.protection.outlook.com (10.167.241.10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.5612.12 via Frontend Transport; Wed, 14 Sep 2022 05:15:41 +0000
 Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
@@ -55,16 +55,16 @@ Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
  (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 22:14:56 -0700
+ 2022 22:14:50 -0700
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Wed, 14 Sep 2022 00:14:50 -0500
+ Transport; Wed, 14 Sep 2022 00:14:44 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V3 22/47] drm/amd/display: Uncomment SubVP pipe split
- assignment in driver
-Date: Wed, 14 Sep 2022 13:10:21 +0800
-Message-ID: <20220914051046.1131186-23-Wayne.Lin@amd.com>
+Subject: [PATCH V3 21/47] drm/amd/display: skip audio setup when audio stream
+ is enabled
+Date: Wed, 14 Sep 2022 13:10:20 +0800
+Message-ID: <20220914051046.1131186-22-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220914051046.1131186-1-Wayne.Lin@amd.com>
 References: <20220914051046.1131186-1-Wayne.Lin@amd.com>
@@ -73,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00001A5D:EE_|SJ0PR12MB5634:EE_
-X-MS-Office365-Filtering-Correlation-Id: cfdd3632-648d-4dc9-cb1f-08da96102b57
+X-MS-TrafficTypeDiagnostic: CO1PEPF00001A63:EE_|CH0PR12MB5154:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1a0e4a6-208d-4f85-a274-08da96102b55
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: buAApTyMN83a0mqk9ybTudJvPTm58CDP/tv2OyLXCBFr17BEJaPB6r9LoIbpb/MTx8VLmXTwtnAkMbsFmO9oVTYd8bLoIbvcb2qNCj30ISp8IaNdMHTj5XAmTj5n+3YXVHj5MsMk/KtV8RzATbBr6XKdakrpHjArHE33BHBvEDXqmFQx2PXBNHz8RT+nlzPS40oKZ5eOq+SUXEJvGj1QyyUXfxcr+qsp0ih9jxM6Rz5G/D8KxP0vTWAUjwn3atdCDiIgTkk9MQgEXqP9tjFviDJbiDx8ThbNIcYQSGc6qat1OYw0jdMD98mrzfnZb69H0yyOxFWcFfliCw66dBMidXYrXWiozIW384Gb+XzdQqhYzJhBZvqtF8BkFNdqyA1IjMrruHw6IToZCrRNxJSLs7jYJvFzkarODV3hVJXyyYPs7czkm9Y0X97FgveU3avBi/II6dbqklWzCTsOCw4gCKxsNm98bXR3NHN4w8uH7H7Nws+syO4aWL6AXjnekf6ysz6I2VCBvR3d+4ZjcVESmNrqoKEY6O3JN/vuOaT7jEifF4s5te3Q/c2kuawY1IULY/JsEIuvFVJJenwUzZHAc+IlOFEnfr45GrSSCvPFs6VHgm+ItAkXYeFnrk6CF7Anz/FH9T1Hh1X+UlGR4+PnadI3Rc2QQ6D0r0rJ9YHeXK+HmyNEp+qgahpFWhEDCmZaaXVOXdJKulPcMxbsf2kLGP7BMVIwuk7N+lgn34QbYCwkurD44uXQfJZSYV3Wdazz7UqdlT7zvfqR16Sfx4tu+l6mEMCWshf24kHn9xyKG21kmtDH0GQ0MkEqjLCFRtBy
+X-Microsoft-Antispam-Message-Info: +CFZMKLkBrZGOnyKb+579fEKzbrgvrxw3/DTAyZFISbxbIonqApxn+8jzXK3li6BQkf8YtCGb3ZsE2rlmqY/Kb3ddE4wTThHsoWlvMvHwIn1GvsuKlG4UwouS9uEi8YaPhlwgsy1+jvR/s8XwJ5d3az20T221qTfkZeOu4TjFlfSeQdCZdNGIcmm1dtSqlsRhqiaxuE5y6LU+0iQvWMPjbL9z56viG7YjKIi39N83yuelQw/NGuiSncUDNqIp5dh4r+EBK03oXPgNG85JQCKLGndCAo58UCGGZSzrxNfP57A87WQefc1lTjNGg7ob6D4EI7UWclPa9sTWaMBuZnV5HXmJducWOVrBn919Tj2m+E7F09QVbukqIaFSc08T2hyfZheD2jcGtmrjmzf/M1YDpiGvLE7F2RppBEfHhzEbdFIdZW3qj0E7hxgKgTqHNArFFXAiAD5C/iiPgNmIBt2p1iEv2/1IZesAAKRxlyyVBdA3VXEnkRT/GtAqDBRqVfXdqiIqh38NcLLjCbehNHfo1/d0o6pxeSvRdi/wOcfmekqvrj0K/PcSOl2Q0q+8tOwxZznDQu0QpWEgtDVUDGlWFQ1LvnkO/u4b1psZ4UU4unTzE6o1QE1tPcOuR2VnwLDcf+r7zRPHmkkb2WOr/zA5tc/Vu4ZZfP4w2AWIWnD9/aySnU9M+06N2d4t0EVq5OblUYp4g1S35or2WK4CU24He5Z2Lx7krXMzUUVtDK7qtaaVkLK6//+w1DRn8S+NrghRus9OChau4+Fspw7UmxZvrWilMqQqBsuAa2nYFe7ABixfSWvxBYd7QsdvOV534nz
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(346002)(39860400002)(136003)(376002)(451199015)(40470700004)(46966006)(36840700001)(356005)(5660300002)(8676002)(40480700001)(54906003)(478600001)(6666004)(81166007)(82740400003)(4326008)(86362001)(1076003)(41300700001)(36860700001)(316002)(6916009)(8936002)(36756003)(2616005)(82310400005)(336012)(26005)(186003)(426003)(47076005)(83380400001)(40460700003)(70586007)(70206006)(2906002)(7696005)(36900700001);
+ SFS:(13230022)(4636009)(39860400002)(346002)(376002)(396003)(136003)(451199015)(46966006)(36840700001)(40470700004)(478600001)(41300700001)(70206006)(26005)(4326008)(86362001)(2906002)(36756003)(82310400005)(47076005)(40480700001)(186003)(54906003)(82740400003)(2616005)(8676002)(356005)(40460700003)(6916009)(6666004)(36860700001)(316002)(70586007)(81166007)(1076003)(8936002)(83380400001)(336012)(426003)(7696005)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 05:15:41.5288 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfdd3632-648d-4dc9-cb1f-08da96102b57
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 05:15:41.5147 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1a0e4a6-208d-4f85-a274-08da96102b55
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00001A5D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00001A63.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5634
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5154
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,63 +104,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Martin Leung <Martin.Leung@amd.com>,
+Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
  Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>, wayne.lin@amd.com,
+ Aurabindo.Pillai@amd.com, zhikzhai <zhikai.zhai@amd.com>, wayne.lin@amd.com,
  Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: zhikzhai <zhikai.zhai@amd.com>
 
-[Why & How]
-Uncomment SubVP pipe split assignment in driver since FW headers
-are now promoted
+[why]
+We have minimal pipe split transition method to avoid pipe
+allocation outage.However, this method will invoke audio setup
+which cause audio output stuck once pipe reallocate.
 
-Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+[how]
+skip audio setup for pipelines which audio stream has been enabled
+
+Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Signed-off-by: zhikzhai <zhikai.zhai@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index f09a3ddcf30d..89d7d3fd3321 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -675,7 +675,6 @@ static void populate_subvp_cmd_pipe_info(struct dc *dc,
- 			div64_u64(((uint64_t)(dc->caps.subvp_fw_processing_delay_us) * ((uint64_t)phantom_timing->pix_clk_100hz * 100) +
- 					((uint64_t)phantom_timing->h_total * 1000000 - 1)), ((uint64_t)phantom_timing->h_total * 1000000));
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+index 70ac0b31baba..55c98dbfcc1c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+@@ -2178,7 +2178,8 @@ static void dce110_setup_audio_dto(
+ 			continue;
+ 		if (pipe_ctx->stream->signal != SIGNAL_TYPE_HDMI_TYPE_A)
+ 			continue;
+-		if (pipe_ctx->stream_res.audio != NULL) {
++		if (pipe_ctx->stream_res.audio != NULL &&
++			pipe_ctx->stream_res.audio->enabled == false) {
+ 			struct audio_output audio_output;
  
--	/* TODO: Uncomment once FW headers are promoted
- 	if (subvp_pipe->bottom_pipe) {
- 		pipe_data->pipe_config.subvp_data.main_split_pipe_index = subvp_pipe->bottom_pipe->pipe_idx;
- 	} else if (subvp_pipe->next_odm_pipe) {
-@@ -683,7 +682,6 @@ static void populate_subvp_cmd_pipe_info(struct dc *dc,
- 	} else {
- 		pipe_data->pipe_config.subvp_data.main_split_pipe_index = 0;
- 	}
--	*/
+ 			build_audio_output(context, pipe_ctx, &audio_output);
+@@ -2218,7 +2219,8 @@ static void dce110_setup_audio_dto(
+ 			if (!dc_is_dp_signal(pipe_ctx->stream->signal))
+ 				continue;
  
- 	// Find phantom pipe index based on phantom stream
- 	for (j = 0; j < dc->res_pool->pipe_count; j++) {
-@@ -691,7 +689,6 @@ static void populate_subvp_cmd_pipe_info(struct dc *dc,
+-			if (pipe_ctx->stream_res.audio != NULL) {
++			if (pipe_ctx->stream_res.audio != NULL &&
++				pipe_ctx->stream_res.audio->enabled == false) {
+ 				struct audio_output audio_output;
  
- 		if (phantom_pipe->stream == subvp_pipe->stream->mall_stream_config.paired_stream) {
- 			pipe_data->pipe_config.subvp_data.phantom_pipe_index = phantom_pipe->pipe_idx;
--			/* TODO: Uncomment once FW headers are promoted
- 			if (phantom_pipe->bottom_pipe) {
- 				pipe_data->pipe_config.subvp_data.phantom_split_pipe_index = phantom_pipe->bottom_pipe->pipe_idx;
- 			} else if (phantom_pipe->next_odm_pipe) {
-@@ -699,7 +696,6 @@ static void populate_subvp_cmd_pipe_info(struct dc *dc,
- 			} else {
- 				pipe_data->pipe_config.subvp_data.phantom_split_pipe_index = 0;
- 			}
--			*/
- 			break;
- 		}
- 	}
+ 				build_audio_output(context, pipe_ctx, &audio_output);
 -- 
 2.37.3
 
