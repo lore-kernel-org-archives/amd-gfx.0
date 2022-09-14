@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17FCCECAAD3
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 03:50:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F0D0ECAAD8
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 03:51:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43AEA10E804;
-	Wed, 14 Sep 2022 03:50:58 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2079.outbound.protection.outlook.com [40.107.95.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC8D910E804
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 03:50:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A69D10E806;
+	Wed, 14 Sep 2022 03:51:03 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2074.outbound.protection.outlook.com [40.107.96.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74C7110E805
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 03:51:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LBstvQTr5gf79po7p8vu7Ht/r7dFLJadrVdHa3MvQk2T/JKut5gn2bID2THc3PqI1MQwKrqyMe6GJTEnZEZOqshqIAWm85LxlGdZqQhnIpEkVeWcMm1Xqz7qjeGUPdzSokYJP/7v3h0kzbUcL7ae3KFCDlefI05SzVOlfk7A1hyKRbnJLKXF59bdDvHkbDszkzety+Z/97X/EoexvqJXp0Iiarm6ifNvZ75e/RFAivG0jqN9+ejRpS300JrvhJanMSrQzXQlrnKZWaZRqqmTTdyB+0d/0O1wa06VYPRue7m13lbO7a3t/SkAB3xRuD3k2qHLp5SJ+LYTeAfYAmX9GA==
+ b=Mfk525xbxjMB9YLFjD8v9jisM1TM1740eswUe6ofLwxBKVRrUFLsLwSSTRe8IdCD6l67kELvQca2V5lGDmmZVJ+0wBH7jb9xaHbM3eIuN+JIL+l+MlpzjQcDHlBbk2+yk4z2mY7LpQHpm0EhFAnNJvRAl2usaMzm3fy3PHrAUVgmrnFm/bryOKyXykobZS2xouI9FNhIaYJ17eG5/xPcNXvrSDy7FnaWXt9B3eVEwqCR6CqrX1ve2GcjGy0i2Lrk6MjCJEV4nPS8puLJq7O6myh3silL0R3wwBY9/Hhu5fNz56quKQBW40Phud6je+iFIIOtsqm5QO8R5Ka3uzP5Vg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ustIEJ7rt1h/Jxej59DLgAVxmJN1egO9c6HGTnDG204=;
- b=LI1jv4942GyR08dO9q+CQGKcusRbPTc1sgXCAftRbAFVpAlChg0bGutVNFdUhHyiRDFx7D6QElPZwbFc+aOAME5hc8mrVrd4NdeowrgluqHmyp+GQVb0ofIz28WplsiPSgQpX08vkvh1csA+UF/D7GplQ/2BYygdLaa7Fez+umumzGtbtWXtJgPrHEDzECvV0kQySQ6y4dB5EFiuI3R9BCVDvjCLVy4bvfx9yeJodx+vIrTcNN9MMaUm9u4Hi4DNhxXmjM1sz7WBBzi4Kt5T6dsI+/s+fMw5UljUPSfZTrv728V2K+9Q+CSG8Z91tuKv0thBqfpf5szooYTpsZnZ2w==
+ bh=AlMBzCpKyJ37E99iEJJB4ZHNH31RV+ninyq9XTQFskU=;
+ b=Y+klWeiU+JiIv1zCYZEtBDkECocUfgf+e+lDWpf0lDqreZX8RtXVYT98veCRJc5mICN+InP3cRejUHQ6qTGnfUknfZKAsXNz8iIuf1tQVdPd7QMC0F5yiA89fJnmh7zzWPsj1d1FeDCfToOW21KrCR0Dur09jMJdbgxiUFMgG2fu7jbtTz+rKpwFs6AoCKn8E3OFuKJzr1WBbKYFunptYbbjZxPL6Xu3JV5AxmHlZt/VkQWeGzV2s44v+JdUSC7/rZQGKnQR1sch70VEESx6R5RO524JZZs+upBgO7pcOdTqswVTuVqUTUlNLVPlcF3hE7FNtaTK/5b8aVjYHH7JJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ustIEJ7rt1h/Jxej59DLgAVxmJN1egO9c6HGTnDG204=;
- b=J6ccoQC1L5LWZ340BgBDkaO1UWGit6KOKV5Je1XwG3sMOFMhD45Eh7dNA0RXiyTfknXiMV1oVjx4aB3ZJYtwJt6TGibkr98ZY5o4rBeiQcGj82xX4rw+0rPLmfdpIt5E5IYyIYtRQljwbrirSVGH+hNdCin0BOFw+CDyNGr5LNo=
-Received: from BN9PR03CA0927.namprd03.prod.outlook.com (2603:10b6:408:107::32)
- by CH2PR12MB4070.namprd12.prod.outlook.com (2603:10b6:610:ae::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14; Wed, 14 Sep
- 2022 03:50:51 +0000
-Received: from BN8NAM11FT109.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:107:cafe::ed) by BN9PR03CA0927.outlook.office365.com
- (2603:10b6:408:107::32) with Microsoft SMTP Server (version=TLS1_2,
+ bh=AlMBzCpKyJ37E99iEJJB4ZHNH31RV+ninyq9XTQFskU=;
+ b=yuPBffdAQf119PkIr3Akkq8JqyZrKpwA/wsNti+KHJrZwxMnSoutyY5zJgDSyxuF43a/s5cYUBcnU6Y23okz6HmL2rcJaUOSRo8uUxH2vYZ4fikDdMFcY//S5Ps61HzuepRjEnDxaKV12S6ZlPrlLk/O4TSKD2tgOGvif51ZsV0=
+Received: from DM6PR02CA0082.namprd02.prod.outlook.com (2603:10b6:5:1f4::23)
+ by BN9PR12MB5082.namprd12.prod.outlook.com (2603:10b6:408:133::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.18; Wed, 14 Sep
+ 2022 03:50:58 +0000
+Received: from DS1PEPF0000B079.namprd05.prod.outlook.com
+ (2603:10b6:5:1f4:cafe::41) by DM6PR02CA0082.outlook.office365.com
+ (2603:10b6:5:1f4::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.12 via Frontend
- Transport; Wed, 14 Sep 2022 03:50:50 +0000
+ Transport; Wed, 14 Sep 2022 03:50:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT109.mail.protection.outlook.com (10.13.176.221) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5632.12 via Frontend Transport; Wed, 14 Sep 2022 03:50:50 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS1PEPF0000B079.mail.protection.outlook.com (10.167.17.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5612.10 via Frontend Transport; Wed, 14 Sep 2022 03:50:57 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 22:50:47 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 22:50:57 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 20:50:41 -0700
+ 2022 22:50:56 -0500
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Tue, 13 Sep 2022 22:50:37 -0500
+ Transport; Tue, 13 Sep 2022 22:50:47 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V2 12/47] drm/amd/display: For ODM seamless transition require
- AUTO mode
-Date: Wed, 14 Sep 2022 11:47:33 +0800
-Message-ID: <20220914034808.1093521-13-Wayne.Lin@amd.com>
+Subject: [PATCH V2 13/47] drm/amd/display: Add debug option for allocating
+ extra way for cursor
+Date: Wed, 14 Sep 2022 11:47:34 +0800
+Message-ID: <20220914034808.1093521-14-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220914034808.1093521-1-Wayne.Lin@amd.com>
 References: <20220914034808.1093521-1-Wayne.Lin@amd.com>
@@ -73,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT109:EE_|CH2PR12MB4070:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8d44267-3f91-4bc7-6987-08da96045104
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000B079:EE_|BN9PR12MB5082:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1034d0cc-be6e-4485-b557-08da96045526
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nnKpWNOeu8QcCPnPwDIFUIqfKi3SqaqqwuTQkqnnj7BH2ETsJxK1D6NmaZfbz8VCkyxuAZxQbewWKX8AcNImyEhtnP+Cugyaq+Ti/iL4FKUPq5hDT9ACTe4lb0yKn4cmMw0lA5d0oVaD4y668egslEJtPnaElHNRCtBouOR4r+k8xb8BTyj0LZgHYc9smF+2CyrFLrpTZ0lBV5TH88ZTNkVoZ2W4uHnQo4RYdBGz64T8NL2jZ/3H/ml8YBTCaUum/fTAFGnaivPOOXbnHVPBadOhwA/vZuBhsVAPa3oZnAL48Wxh/atrq0t0q/eSJvNShgn/AQ+9YFlmav3xVb25Ngi1OrwqN8tr23y2QMIye19ibyKktdNFWRMt2lYCwChOewhAnUW5vsIN13u24VI+DQU4VUizkkDUtHPtEWBerviFbaDZ+33+S4dkML6poNxQ4ODGEJBeelJEk6xgknAGKhgrwIuXy1Gw5bN13XH7DoBaZn7csk8OqFjgXOfWx+KwVZNNSXgXTq7pTYso9jlxHdNCa4IrT5u7kvizGsTvI935cTd26N492Afbwl2/6Oi7MYQbhlOneOD29emCog+IQ4vBYZQMQSORilE/NGln03GFKpW9mFuzKZlP19PE/ETfLQ1V3aRFRFV4kwmQXyrJvtkFBPgxdAxFzTc/lxYW3ccxdh9f2SJQVy2AwttHtNtfkFyLWEMTYDB4V4Sbz+XpSLsNu9dumpSZlXUkA9plwaQgzUiZzqGhjkqS+gsD8lOE+EdtjoZtoGeN/R6vAJ8dSv+wg1qc/cXVCqPeuAO4kNrMRLwCkfXfbflMQuLN+UKW
+X-Microsoft-Antispam-Message-Info: 2LkIZP98tkd0Gu4Gbf7KGymLvFZ5oCY/3VlU1ju2eqml+gV1/QuHA1O2jtXKSlbOrgEDUJ4ViqQ1xdHWBs8diOA9AJ4ed+9oMXineBpEHkRNkK5j5kO6Kktj87frWEU4GaIeLHblQD8r5GwO5kzK3ilws74YAPKSfXJ0tZm8SvJZGrXGU7/JEbcgFVQRWhZY+lfu0hi3amPrHrl3qQAnAbkOtauvLOlYC+EBlbHcuZQjYFU9/F4N7119s+0EjQL2MRUi3t2H0v2P3r/KzNjg/9aLJRneISambrjaKkQe0rCN2qXDa+5+IPKaHQgPuKb9wNq89Zin9r8UUFAV3x5G6jxYU9ejGM083V4zsa+iX0pRGduacL9KwBB88ES6VZH8pojzr3pn7uIH3pwzSBxO+rxIsRzZlKpufTaFBtSQzYD0YBAQmML7CWGk27ndEIk0dsiJOP+GDdWDdShGpmqmw4mFA5Lhq+LhlxkPUKqt0nASTR91Hi+v42z0frbdDP5Xttpgqqb3GvQxPpmvDelTubXOCAcn7F5W/OYRelfnrG+aXeB3TJAYeYrYFYFoi8Z3stZen1O3jqxzyHM7kt9JD3uDspmDl1nQKyY5I9VbBu1VFeC95TxsjCIC2dk8Cz28nBb/O7UB9gcy9iyZqC4p11NVmpAHgJbZm1nZs5kC/teuy9Ri0Fz7JvIE28LzuCls64o2digNl2nuW0p67cWbE5vxF4QGAt2roOoWUgXq8xFl7FZaqui+aHUYs0irwBk1/e+AUyshojKL/HprLdo/Vx9K/Xg0xtYeTw16TdbHEFC5sgtGE5o3eXGJ28EL1Se6
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(39860400002)(346002)(136003)(396003)(451199015)(40470700004)(36840700001)(46966006)(6916009)(316002)(82310400005)(41300700001)(54906003)(36756003)(70586007)(26005)(70206006)(336012)(2616005)(40480700001)(426003)(8936002)(6666004)(186003)(40460700003)(356005)(478600001)(4326008)(86362001)(5660300002)(82740400003)(8676002)(1076003)(47076005)(2906002)(83380400001)(81166007)(7696005)(36860700001)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(396003)(376002)(346002)(39860400002)(451199015)(36840700001)(40470700004)(46966006)(2616005)(82740400003)(40460700003)(8676002)(2906002)(36756003)(86362001)(47076005)(54906003)(186003)(40480700001)(82310400005)(356005)(1076003)(83380400001)(8936002)(336012)(7696005)(5660300002)(426003)(36860700001)(6916009)(6666004)(81166007)(70586007)(316002)(70206006)(41300700001)(26005)(478600001)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 03:50:50.9000 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8d44267-3f91-4bc7-6987-08da96045104
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 03:50:57.8044 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1034d0cc-be6e-4485-b557-08da96045526
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT109.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000B079.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4070
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5082
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,85 +107,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
  solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>,
- wayne.lin@amd.com, Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[Why & How]
-ODM seamless transitions require DIV_MODE_AUTO. However,
-DIV_MODE_AUTO only works when all the horizontal timing params
-are divisible by the ODM combine factor. Therefore, disable the
-ODM 2:1 policy when the horizontal timing params are not divisible
-by 2.
+[Why and How]
+- Add a debug option for allocating extra way for cursor
+- Remove usage of cache_cursor_addr since it's not gaurenteed
+  to be populated
+- Include cursor size in MALL calculation if it exceeds the
+  DCN cursor buffer size (and don't need extra way for cursor)
 
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Reviewed-by: Aurabindo Pillai <Aurabindo.Pillai@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
 Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_resource.c | 22 +++++++++++++++++++
- .../drm/amd/display/dc/dcn32/dcn32_resource.c |  3 ++-
- drivers/gpu/drm/amd/display/dc/inc/resource.h |  2 ++
- 3 files changed, 26 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dc.h                    |  1 +
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c     | 10 ++++++----
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c  |  1 +
+ .../gpu/drm/amd/display/dc/dcn321/dcn321_resource.c    |  1 +
+ 4 files changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 29f27e3fe3ac..5bedee56acd4 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -3645,3 +3645,25 @@ const struct link_hwss *get_link_hwss(const struct dc_link *link,
- 	else
- 		return get_virtual_link_hwss();
- }
-+
-+bool is_h_timing_divisible_by_2(struct dc_stream_state *stream)
-+{
-+	bool divisible = false;
-+	uint16_t h_blank_start = 0;
-+	uint16_t h_blank_end = 0;
-+
-+	if (stream) {
-+		h_blank_start = stream->timing.h_total - stream->timing.h_front_porch;
-+		h_blank_end = h_blank_start - stream->timing.h_addressable;
-+
-+		/* HTOTAL, Hblank start/end, and Hsync start/end all must be
-+		 * divisible by 2 in order for the horizontal timing params
-+		 * to be considered divisible by 2. Hsync start is always 0.
-+		 */
-+		divisible = (stream->timing.h_total % 2 == 0) &&
-+				(h_blank_start % 2 == 0) &&
-+				(h_blank_end % 2 == 0) &&
-+				(stream->timing.h_sync_width % 2 == 0);
-+	}
-+	return divisible;
-+}
-\ No newline at end of file
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 53b13beff0b2..af726ffeb0d5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -832,6 +832,7 @@ struct dc_debug_options {
+ 	bool force_subvp_mclk_switch;
+ 	bool allow_sw_cursor_fallback;
+ 	unsigned int force_subvp_num_ways;
++	bool alloc_extra_way_for_cursor;
+ 	bool force_usr_allow;
+ 	/* uses value at boot and disables switch */
+ 	bool disable_dtb_ref_clk_switch;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+index c6d2a05ded3d..931dcf3e5ada 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+@@ -304,7 +304,8 @@ static uint32_t dcn32_calculate_cab_allocation(struct dc *dc, struct dc_state *c
+ 				 * using the max for calculation
+ 				 */
+ 				if (hubp->curs_attr.width > 0) {
+-					cursor_size = hubp->curs_attr.width * hubp->curs_attr.height;
++					// Round cursor width to next multiple of 64
++					cursor_size = (((hubp->curs_attr.width + 63) / 64) * 64) * hubp->curs_attr.height;
+ 					break;
+ 				}
+ 		}
+@@ -325,7 +326,8 @@ static uint32_t dcn32_calculate_cab_allocation(struct dc *dc, struct dc_state *c
+ 			break;
+ 		}
+ 
+-		if (stream->cursor_position.enable && plane->address.grph.cursor_cache_addr.quad_part) {
++		if (stream->cursor_position.enable && !dc->debug.alloc_extra_way_for_cursor &&
++				cursor_size > 16384) {
+ 			cache_lines_used += dcn32_cache_lines_for_surface(dc, cursor_size,
+ 					plane->address.grph.cursor_cache_addr.quad_part);
+ 		}
+@@ -345,8 +347,8 @@ static uint32_t dcn32_calculate_cab_allocation(struct dc *dc, struct dc_state *c
+ 			plane = ctx->stream_status[i].plane_states[j];
+ 
+ 			if (stream->cursor_position.enable && plane &&
+-				!plane->address.grph.cursor_cache_addr.quad_part &&
+-				cursor_size > 16384) {
++					dc->debug.alloc_extra_way_for_cursor &&
++					cursor_size > 16384) {
+ 				/* Cursor caching is not supported since it won't be on the same line.
+ 				 * So we need an extra line to accommodate it. With large cursors and a single 4k monitor
+ 				 * this case triggers corruption. If we're at the edge, then dont trigger display refresh
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-index 6bc0fe922599..d757d1638fa7 100644
+index d757d1638fa7..dad174a52449 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-@@ -1871,7 +1871,8 @@ int dcn32_populate_dml_pipes_from_context(
- 		timing = &pipe->stream->timing;
+@@ -720,6 +720,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.enable_single_display_2to1_odm_policy = true,
+ 	.enable_dp_dig_pixel_rate_div_policy = 1,
+ 	.allow_sw_cursor_fallback = false,
++	.alloc_extra_way_for_cursor = true,
+ };
  
- 		pipes[pipe_cnt].pipe.dest.odm_combine_policy = dm_odm_combine_policy_dal;
--		if (context->stream_count == 1 && !dc_is_hdmi_signal(res_ctx->pipe_ctx[i].stream->signal)) {
-+		if (context->stream_count == 1 && !dc_is_hdmi_signal(res_ctx->pipe_ctx[i].stream->signal) &&
-+				is_h_timing_divisible_by_2(res_ctx->pipe_ctx[i].stream)) {
- 			if (dc->debug.enable_single_display_2to1_odm_policy) {
- 				if (!((plane_count > 2) && pipe->top_pipe))
- 					pipes[pipe_cnt].pipe.dest.odm_combine_policy = dm_odm_combine_policy_2to1;
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-index 58158764adc0..a58f80ac94ba 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-@@ -224,4 +224,6 @@ uint8_t resource_transmitter_to_phy_idx(const struct dc *dc, enum transmitter tr
- const struct link_hwss *get_link_hwss(const struct dc_link *link,
- 		const struct link_resource *link_res);
+ static const struct dc_debug_options debug_defaults_diags = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+index 60bf6e1b2972..1068230f16ee 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+@@ -720,6 +720,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.enable_single_display_2to1_odm_policy = true,
+ 	.enable_dp_dig_pixel_rate_div_policy = 1,
+ 	.allow_sw_cursor_fallback = false,
++	.alloc_extra_way_for_cursor = true,
+ };
  
-+bool is_h_timing_divisible_by_2(struct dc_stream_state *stream);
-+
- #endif /* DRIVERS_GPU_DRM_AMD_DC_DEV_DC_INC_RESOURCE_H_ */
+ static const struct dc_debug_options debug_defaults_diags = {
 -- 
 2.37.3
 
