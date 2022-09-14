@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DC6AECAAD3
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 05:16:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55DD6ECAAD8
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 05:16:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 529EE10E83F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FB1710E83D;
 	Wed, 14 Sep 2022 05:15:55 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2088.outbound.protection.outlook.com [40.107.94.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B92C410E83D
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06EF910E83A
  for <amd-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 05:15:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kKktDHHUkY5iMcCIufT37PER2FgXhOx1M2Lic2ix+SXwu9+tQYClV/qIOWcaKXIyoenghnXddkmQfQWg47wWQVg/B6A/iEAuGLSm2XKp8Y6N37qXbkYxw9LGVUILCGqXZA+QKROUAzibTPWicl0kxd34Y6SuAv3ORT1K5aLjvXJt1COzMxeK0cUozv7oaoYDMlI5gWF7SBWWoKmaD3a04W9+0SkLoETXDEG9ofBvDYrsq4m6ZyElb9khM4NZMeOsgml6rF3Pa9K2Q5w2SmNLLfAWltRsWDVPhGJhBaoJby+T7kBX5dB7a3CLnZcU89p7bC0QhRTYbn4aI1RX71uKQw==
+ b=Qgt/Zh4YUsYnG/T+x+Bt62OhFywjDQo2gbeVQ4ETebH6BJT2JQzSZpuxL6sdXoYWTJFYIDG+6kVYxadKU3GddAng1aKNA4Kp+1R/CCcH7k2c0a+j6ZcMfLjmeHV8VRmRfQgbz1KbLupmcy7803Jy3/dS4CnOV2jOKqOrud9Cnr4OUGA6R55RgvqYmBPLPJo0v/b9cc3FzQebkOokhs7SLDhSHLwv/w5GVjP4Da2NSMoMh2np/RGY1+MMCj12hGF6ioGWVRpMY10efMUg6K8iuoKctArHypOp5oF75DzNB6g/fxKN8lt4aCfjJNitpjc73sLaQDQbC7KU8mThNTlNyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pqXMQIT2Hy0qNkSf6JCIuJisvsRmByP25zNJHTB3/kc=;
- b=XmMKD4bwPtlzMpnGvXBOD3pX86G/jKj05ZQ8dKIxMCdhZURrU8q7jdF1apnMF6BJQ8SNOPq+6xbum7LBfcoLaxrMlqgTYHtE3yBBtzgj30vu2TXOX8hmx6V3pVoOOl5knAx3FSSE7julnLnnu6ovf429Ay79ydxGALYpRhu14Cs4JKtrdofEonCl9fA1zyifJhQUXa11cFFukKffYRBlaXhxKCzm3m0j6juit8ql4ahjB3U+D6ZGGEh2xHlnvRTm7h6BvrUK1l10fYTr4Z/w1DNZSPRJ5KdHwghb5o3z2n0p7evN3PWLJ9PxhZqwJAnaa3KPvYBd4dPF2SftjNwpuQ==
+ bh=bpdw30ij4Fwu8LPqV26bibIITnnD9ShCLNuGUxOJp7A=;
+ b=k92SezC7k25H4bJPkgD6Wj6RrRwfQyf5YxJPIUiWQZ1+uMl0EY2XHxeXHps/wRc+6o04ctNDiX945kho8d0Pn6uP5G3Vkd/0f+A++fuvFBkQUMeK/JwnpTFeEQe91QRXwrlsGJz9xT6tiJlL3Z0inhPxFPs8c/lmUIYcC5IP65I6+23Sx4v/WQLGqlXtMVpA2fd1eOGKlTMpYbcSYtmG2DgDS1A4jfQSmHfFT+PS+uArxHwlZLhPOd9qD0ADOLUQGopEE11w2rvZEskidu83pjAaPsG8Hcark4YzHatvrm93Z8Tg3sGKEn+nxXUHP2JRC9Ss9b9Ve50VcuNUgnVHcw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pqXMQIT2Hy0qNkSf6JCIuJisvsRmByP25zNJHTB3/kc=;
- b=MXelZt/qFAwiWLTnvYM90ASYcf6f8YJCx/Aq/BiwEJHiE+YEt8rPpEbhlePHo7ZS6Wj0NElp1W0H2gZtR3jzdzrJuT7np2JjRzXx5z0uV8m5vgFCt05mB7x6HMDe9/tILzVHnGnk8uLhIRLIyYgDoGztx7/OEmxu+mu3v8e5XmM=
-Received: from MW4PR04CA0207.namprd04.prod.outlook.com (2603:10b6:303:86::32)
- by DM4PR12MB6591.namprd12.prod.outlook.com (2603:10b6:8:8e::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.18; Wed, 14 Sep
+ bh=bpdw30ij4Fwu8LPqV26bibIITnnD9ShCLNuGUxOJp7A=;
+ b=xziVfUdf9LXWFmaDbDVwzKBd5EIuAIVAbr/729CyA95aMgWWpJ4/UliYqPzxGnm804fyjH2afG45nzrcxYeu3XqDOJ0TBBoF6Gj49FNNawqLiEjff9dR3mNYZXmNCYIn4RsBxwSqb7uFgW2hoAwgu9w2fvjBA/1jNiJKR+LAxmQ=
+Received: from MW4PR04CA0215.namprd04.prod.outlook.com (2603:10b6:303:87::10)
+ by SJ0PR12MB6709.namprd12.prod.outlook.com (2603:10b6:a03:44a::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Wed, 14 Sep
  2022 05:15:42 +0000
-Received: from CO1PEPF00001A5D.namprd05.prod.outlook.com
- (2603:10b6:303:86:cafe::8) by MW4PR04CA0207.outlook.office365.com
- (2603:10b6:303:86::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.18 via Frontend
+Received: from CO1PEPF00001A5E.namprd05.prod.outlook.com
+ (2603:10b6:303:87:cafe::2d) by MW4PR04CA0215.outlook.office365.com
+ (2603:10b6:303:87::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.12 via Frontend
  Transport; Wed, 14 Sep 2022 05:15:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -45,26 +45,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF00001A5D.mail.protection.outlook.com (10.167.241.4) with Microsoft
+ CO1PEPF00001A5E.mail.protection.outlook.com (10.167.241.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.5612.12 via Frontend Transport; Wed, 14 Sep 2022 05:15:42 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 14 Sep
  2022 00:15:06 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 13 Sep
- 2022 22:14:38 -0700
+ 2022 22:15:02 -0700
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Wed, 14 Sep 2022 00:14:33 -0500
+ Transport; Wed, 14 Sep 2022 00:14:57 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V3 19/47] drm/amd/display: Refactor edp panel power
- sequencer(PPS) codes
-Date: Wed, 14 Sep 2022 13:10:18 +0800
-Message-ID: <20220914051046.1131186-20-Wayne.Lin@amd.com>
+Subject: [PATCH V3 23/47] drm/amd/display: Fix urgent latency override for
+ DCN32/DCN321
+Date: Wed, 14 Sep 2022 13:10:22 +0800
+Message-ID: <20220914051046.1131186-24-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220914051046.1131186-1-Wayne.Lin@amd.com>
 References: <20220914051046.1131186-1-Wayne.Lin@amd.com>
@@ -73,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00001A5D:EE_|DM4PR12MB6591:EE_
-X-MS-Office365-Filtering-Correlation-Id: e895a988-1d0c-421a-3c53-08da96102bca
+X-MS-TrafficTypeDiagnostic: CO1PEPF00001A5E:EE_|SJ0PR12MB6709:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85faf13a-b2c9-49de-78ba-08da96102bff
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sImnHfrmbEv9bRkpDSQQobJKATTIChmMkwgGaSteDp9MJR2Gc2i1KTVXNuzJ+eZGA3uEx2kOI14hENZ73Ei5yww55/KcGxL9crzLLPrAPKdTF8EBlaeNEyvLBt8h1PYOTq46ZkZdDoyhZTfllOb1Ra6NuMAPEcwkRXK9QUlg340oaBAz5WSF2M+7I+jNXvIm/J5ZJdnDaS93CRw8YZ7shr7l6l4LOuXNe1irG3tyCJGtW3GGsHDDCKa1ABJCW3P2KazJPxMfipE0+CoABrjI4yf+daHa560ejbcxwf5zbJz0dBPaF2NtvFwD3s9t4Z1GI62hJJEhJMBwX79NTjWiLNf/+vhuZvb54wbP9OW3d3bYm/hBiFDWGDopHRTqWFpkjoezhKX89a7LewUTS2TsXBRGLbA8H0H1bfddr2h+DMrJ9YmLYo/puG5fza+Kqk/2mkG/DyobPvJKIjdMYyJ/7hTIs08arJkIuHXzPiY6TEcO2DFacwj/0znnX+VjNHuEuaPg+JXuQOTGz+2W/rm4TSlGxP1MlUKNKTgZ9ZitS3UZfYtWt/PnW6Onn+z3ZxWit5dNNeiTw7rZLBKAH0mqlR4ap3LVQAwG6uxDwWojJjUMurLGnS6fdoimjQc0cE8qMXYUcpL2HdVmq/ghjUPANRaCGoIriXQTnhjboxBkuY3QWPU3hPVdmkdlFofEhsiqbC5ut+ccBnysDJS6zEMmDIOxuyJvI6nfbzWCSRset9Ft0hsajRWT5jGx1yahQ0xrBnYnfUlVb6aQD6AC8O2BcS13ada62THAAAaAVFgBFFkmiZgruOSTWUAJfxrsghn1
+X-Microsoft-Antispam-Message-Info: hCGINudDcE9Fl8RQGBwil0llEGFfMIEsHp2qYHD99Ipi4RnHAg2j0AuecybjV1nGxaVmEG4i0Dk4Qr1IptiBFsCzMYZ0bdSbkF2iOmd64Xy5qpp1KERUY1QElSeanNUbj0nsTWqLs4OUnqnTJF8Vnq26hPb0dfF+yMcWu3UoYuff2LLl36dLefentrb3/vGY0+cPxkZVOJBZ5ywwdOg2tjyVm6Hcv4ZSRAlSDFh/D/4jlAiJR1hxcz6qf7hT9qnixPGopqbCb3OpnkBjk1Io2NxYYdTKVpUJDSH4g7nmyp4HrAf48LmEOTwhqH8Z6j32IkIyecZWYEBBVvOKCnbxKns9ItaI2jcNgsRBKV+EJubcfEH6Kpf2ACJ5nnsm99bmVg1Jm+oJpMHOIIPwjgyhKW4+WC/GQX/5E+m5auCB64T8Dhrok7eZrGXvxm7vhU+nw6yoAf9N0ivnAZkcrOX7IebyC2uQVQcV3pUKjWMEtgUufVfq+9UBX5KyP/uRmuGl0ye9f2jMPkk0ydLgsAKyeOOyH9NWJUA0sstOPYLyZu82fArYfhJ7qlJTnlWB0A59X+SCopZ7vxBoSBTjwEtOsmat7I9PC2JgSUiaq6mgIPsBIF6RS1BZjvbWn3UsmJFW1Vo/HrQ2WwwCmEd+s12UnVuAWZs/hvJ3hPpySIiMn174SALPwcdsaI3Yw8b1R4oKMPj0szdZquHzf/pzErhHQosfUU5vbOYdtE6/qFImtfhJgYCTTgbPMgaNiCkjwdZukRlrGaDmpw8p56WW0sL4I5lr0Q5jSM305mcUIsx6NseVIHpDobxrV001Ar5LdpNx
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(136003)(376002)(39860400002)(346002)(451199015)(46966006)(40470700004)(36840700001)(36860700001)(5660300002)(356005)(8936002)(2616005)(70586007)(7696005)(316002)(40460700003)(82740400003)(83380400001)(6916009)(26005)(40480700001)(36756003)(336012)(8676002)(41300700001)(54906003)(82310400005)(1076003)(4326008)(6666004)(81166007)(86362001)(478600001)(70206006)(47076005)(186003)(2906002)(426003)(36900700001);
+ SFS:(13230022)(4636009)(136003)(39860400002)(346002)(396003)(376002)(451199015)(40470700004)(36840700001)(46966006)(426003)(47076005)(5660300002)(6666004)(36756003)(54906003)(40460700003)(316002)(86362001)(2616005)(6916009)(26005)(2906002)(336012)(82740400003)(1076003)(8936002)(186003)(41300700001)(81166007)(7696005)(82310400005)(4326008)(478600001)(8676002)(70206006)(356005)(40480700001)(70586007)(36860700001)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 05:15:42.2788 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e895a988-1d0c-421a-3c53-08da96102bca
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 05:15:42.6277 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85faf13a-b2c9-49de-78ba-08da96102bff
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00001A5D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00001A5E.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6591
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6709
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,229 +104,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Ian Chen <ian.chen@amd.com>,
- Anthony Koo <Anthony.Koo@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, George Shen <george.shen@amd.com>,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, Nevenko Stupar <Nevenko.Stupar@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ian Chen <ian.chen@amd.com>
+From: George Shen <george.shen@amd.com>
 
-[Why & How]
-Move extra panel power sequencer settings into panel_cofig struct.
+[Why]
+The urgent latency override is useful when debugging issues
+relating to underflow.
 
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Current overridden variable is not correct and has no effect
+on DCN3.2 and DCN3.21 DML calculations.
+
+[How]
+For DCN3.2 and DCN3.21, override the correct urgent latency
+variable when bounding box override is present.
+
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Reviewed-by: Nevenko Stupar <Nevenko.Stupar@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Ian Chen <ian.chen@amd.com>
+Signed-off-by: George Shen <george.shen@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 11 +++++++-
- drivers/gpu/drm/amd/display/dc/core/dc_link.c |  8 +++---
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 10 +++-----
- drivers/gpu/drm/amd/display/dc/dc_link.h      | 10 ++++++++
- .../display/dc/dce110/dce110_hw_sequencer.c   | 25 +++++++++++--------
- drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  3 ++-
- 6 files changed, 46 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c   | 1 +
+ drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 0b7440b92c10..4956a0118215 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -918,8 +918,17 @@ void dm_helpers_smu_timeout(struct dc_context *ctx, unsigned int msg_id, unsigne
- 
- void dm_helpers_init_panel_settings(
- 	struct dc_context *ctx,
--	struct dc_panel_config *panel_config)
-+	struct dc_panel_config *panel_config,
-+	struct dc_sink *sink)
- {
-+	// Extra Panel Power Sequence
-+	panel_config->pps.extra_t3_ms = sink->edid_caps.panel_patch.extra_t3_ms;
-+	panel_config->pps.extra_t7_ms = sink->edid_caps.panel_patch.extra_t7_ms;
-+	panel_config->pps.extra_delay_backlight_off = sink->edid_caps.panel_patch.extra_delay_backlight_off;
-+	panel_config->pps.extra_post_t7_ms = 0;
-+	panel_config->pps.extra_pre_t11_ms = 0;
-+	panel_config->pps.extra_t12_ms = sink->edid_caps.panel_patch.extra_t12_ms;
-+	panel_config->pps.extra_post_OUI_ms = 0;
- 	// Feature DSC
- 	panel_config->dsc.disable_dsc_edp = false;
- 	panel_config->dsc.force_dsc_edp_policy = 0;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 4fb57d4041a0..3529be5888c8 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -1308,7 +1308,7 @@ static bool detect_link_and_local_sink(struct dc_link *link,
- 
- 		if (link->connector_signal == SIGNAL_TYPE_EDP) {
- 			// Init dc_panel_config
--			dm_helpers_init_panel_settings(dc_ctx, &link->panel_config);
-+			dm_helpers_init_panel_settings(dc_ctx, &link->panel_config, sink);
- 			// Override dc_panel_config if system has specific settings
- 			dm_helpers_override_panel_settings(dc_ctx, &link->panel_config);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index 7ff7cd8b5c93..b8d4547a885f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -2197,6 +2197,7 @@ void dcn32_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_pa
+ 		if ((int)(dcn3_2_soc.urgent_latency_us * 1000) != dc->bb_overrides.urgent_latency_ns
+ 			&& dc->bb_overrides.urgent_latency_ns) {
+ 			dcn3_2_soc.urgent_latency_us = dc->bb_overrides.urgent_latency_ns / 1000.0;
++			dcn3_2_soc.urgent_latency_pixel_data_only_us = dc->bb_overrides.urgent_latency_ns / 1000.0;
  		}
-@@ -1977,7 +1977,7 @@ static enum dc_status enable_link_dp(struct dc_state *state,
- 	int i;
- 	bool apply_seamless_boot_optimization = false;
- 	uint32_t bl_oled_enable_delay = 50; // in ms
--	const uint32_t post_oui_delay = 30; // 30ms
-+	uint32_t post_oui_delay = 30; // 30ms
- 	/* Reduce link bandwidth between failed link training attempts. */
- 	bool do_fallback = false;
  
-@@ -2024,8 +2024,10 @@ static enum dc_status enable_link_dp(struct dc_state *state,
- 
- 	// during mode switch we do DP_SET_POWER off then on, and OUI is lost
- 	dpcd_set_source_specific_data(link);
--	if (link->dpcd_sink_ext_caps.raw != 0)
-+	if (link->dpcd_sink_ext_caps.raw != 0) {
-+		post_oui_delay += link->panel_config.pps.extra_post_OUI_ms;
- 		msleep(post_oui_delay);
-+	}
- 
- 	// similarly, mode switch can cause loss of cable ID
- 	dpcd_write_cable_id_to_dprx(link);
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index eea6ec0a76b4..f317e48c2721 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -7075,9 +7075,8 @@ void dp_enable_link_phy(
- 
- void edp_add_delay_for_T9(struct dc_link *link)
- {
--	if (link->local_sink &&
--			link->local_sink->edid_caps.panel_patch.extra_delay_backlight_off > 0)
--		udelay(link->local_sink->edid_caps.panel_patch.extra_delay_backlight_off * 1000);
-+	if (link && link->panel_config.pps.extra_delay_backlight_off > 0)
-+		udelay(link->panel_config.pps.extra_delay_backlight_off * 1000);
- }
- 
- bool edp_receiver_ready_T9(struct dc_link *link)
-@@ -7133,9 +7132,8 @@ bool edp_receiver_ready_T7(struct dc_link *link)
- 		} while (time_taken_in_ns < 50 * 1000000); //MAx T7 is 50ms
- 	}
- 
--	if (link->local_sink &&
--			link->local_sink->edid_caps.panel_patch.extra_t7_ms > 0)
--		udelay(link->local_sink->edid_caps.panel_patch.extra_t7_ms * 1000);
-+	if (link && link->panel_config.pps.extra_t7_ms > 0)
-+		udelay(link->panel_config.pps.extra_t7_ms * 1000);
- 
- 	return result;
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
-index 4d9819d9ffb6..d890a03910c7 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-@@ -117,6 +117,16 @@ struct psr_settings {
-  * Add a struct dc_panel_config under dc_link
-  */
- struct dc_panel_config {
-+	// extra panel power sequence parameters
-+	struct pps {
-+		unsigned int extra_t3_ms;
-+		unsigned int extra_t7_ms;
-+		unsigned int extra_delay_backlight_off;
-+		unsigned int extra_post_t7_ms;
-+		unsigned int extra_pre_t11_ms;
-+		unsigned int extra_t12_ms;
-+		unsigned int extra_post_OUI_ms;
-+	} pps;
- 	// edp DSC
- 	struct dsc {
- 		bool disable_dsc_edp;
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index 8ffb13847ae0..70ac0b31baba 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -722,7 +722,6 @@ void dce110_edp_wait_for_hpd_ready(
- 	struct dc_context *ctx = link->ctx;
- 	struct graphics_object_id connector = link->link_enc->connector;
- 	struct gpio *hpd;
--	struct dc_sink *sink = link->local_sink;
- 	bool edp_hpd_high = false;
- 	uint32_t time_elapsed = 0;
- 	uint32_t timeout = power_up ?
-@@ -755,9 +754,9 @@ void dce110_edp_wait_for_hpd_ready(
- 		return;
- 	}
- 
--	if (sink != NULL) {
--		if (sink->edid_caps.panel_patch.extra_t3_ms > 0) {
--			int extra_t3_in_ms = sink->edid_caps.panel_patch.extra_t3_ms;
-+	if (link != NULL) {
-+		if (link->panel_config.pps.extra_t3_ms > 0) {
-+			int extra_t3_in_ms = link->panel_config.pps.extra_t3_ms;
- 
- 			msleep(extra_t3_in_ms);
+ 		if ((int)(dcn3_2_soc.dram_clock_change_latency_us * 1000)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
+index 7ebf25e87933..dd90f241e906 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
+@@ -489,6 +489,7 @@ void dcn321_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_p
+ 		if ((int)(dcn3_21_soc.urgent_latency_us * 1000) != dc->bb_overrides.urgent_latency_ns
+ 			&& dc->bb_overrides.urgent_latency_ns) {
+ 			dcn3_21_soc.urgent_latency_us = dc->bb_overrides.urgent_latency_ns / 1000.0;
++			dcn3_21_soc.urgent_latency_pixel_data_only_us = dc->bb_overrides.urgent_latency_ns / 1000.0;
  		}
-@@ -842,7 +841,7 @@ void dce110_edp_power_control(
- 			/* add time defined by a patch, if any (usually patch extra_t12_ms is 0) */
- 			if (link->local_sink != NULL)
- 				remaining_min_edp_poweroff_time_ms +=
--					link->local_sink->edid_caps.panel_patch.extra_t12_ms;
-+					link->panel_config.pps.extra_t12_ms;
  
- 			/* Adjust remaining_min_edp_poweroff_time_ms if this is not the first time. */
- 			if (dp_trace_get_edp_poweroff_timestamp(link) != 0) {
-@@ -946,7 +945,7 @@ void dce110_edp_wait_for_T12(
- 						current_ts,
- 						dp_trace_get_edp_poweroff_timestamp(link)), 1000000);
- 
--		t12_duration += link->local_sink->edid_caps.panel_patch.extra_t12_ms; // Add extra T12
-+		t12_duration += link->panel_config.pps.extra_t12_ms; // Add extra T12
- 
- 		if (time_since_edp_poweroff_ms < t12_duration)
- 			msleep(t12_duration - time_since_edp_poweroff_ms);
-@@ -965,6 +964,8 @@ void dce110_edp_backlight_control(
- 	struct dc_context *ctx = link->ctx;
- 	struct bp_transmitter_control cntl = { 0 };
- 	uint8_t panel_instance;
-+	unsigned int pre_T11_delay = OLED_PRE_T11_DELAY;
-+	unsigned int post_T7_delay = OLED_POST_T7_DELAY;
- 
- 	if (dal_graphics_object_id_get_connector_id(link->link_enc->connector)
- 		!= CONNECTOR_ID_EDP) {
-@@ -1043,8 +1044,10 @@ void dce110_edp_backlight_control(
- 
- 	link_transmitter_control(ctx->dc_bios, &cntl);
- 
--	if (enable && link->dpcd_sink_ext_caps.bits.oled)
--		msleep(OLED_POST_T7_DELAY);
-+	if (enable && link->dpcd_sink_ext_caps.bits.oled) {
-+		post_T7_delay += link->panel_config.pps.extra_post_t7_ms;
-+		msleep(post_T7_delay);
-+	}
- 
- 	if (link->dpcd_sink_ext_caps.bits.oled ||
- 		link->dpcd_sink_ext_caps.bits.hdr_aux_backlight_control == 1 ||
-@@ -1066,8 +1069,10 @@ void dce110_edp_backlight_control(
- 			DC_LOG_DC("edp_receiver_ready_T9 skipped\n");
- 	}
- 
--	if (!enable && link->dpcd_sink_ext_caps.bits.oled)
--		msleep(OLED_PRE_T11_DELAY);
-+	if (!enable && link->dpcd_sink_ext_caps.bits.oled) {
-+		pre_T11_delay += link->panel_config.pps.extra_pre_t11_ms;
-+		msleep(pre_T11_delay);
-+	}
- }
- 
- void dce110_enable_audio_stream(struct pipe_ctx *pipe_ctx)
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-index 6e4d3df0454e..6abbed22bb20 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-@@ -173,7 +173,8 @@ void dm_helpers_smu_timeout(struct dc_context *ctx, unsigned int msg_id, unsigne
- 	(result == 0x0)
- void dm_helpers_init_panel_settings(
- 	struct dc_context *ctx,
--	struct dc_panel_config *config);
-+	struct dc_panel_config *config,
-+	struct dc_sink *sink);
- void dm_helpers_override_panel_settings(
- 	struct dc_context *ctx,
- 	struct dc_panel_config *config);
+ 		if ((int)(dcn3_21_soc.dram_clock_change_latency_us * 1000)
 -- 
 2.37.3
 
