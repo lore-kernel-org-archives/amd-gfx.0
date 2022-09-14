@@ -4,27 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEB08ECAAD8
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 07:50:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C22D4ECAAD8
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Sep 2022 07:50:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CF4F10E89D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8905B10E8A0;
 	Wed, 14 Sep 2022 07:50:11 +0000 (UTC)
 Received: from out30-132.freemail.mail.aliyun.com
  (out30-132.freemail.mail.aliyun.com [115.124.30.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B916E10E869;
- Wed, 14 Sep 2022 05:28:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0289610E870;
+ Wed, 14 Sep 2022 05:28:27 +0000 (UTC)
 X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R201e4; CH=green; DM=||false|;
  DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045192;
  MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
- TI=SMTPD_---0VPlj1Sf_1663133297; 
+ TI=SMTPD_---0VPlhaq2_1663133301; 
 Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VPlj1Sf_1663133297) by smtp.aliyun-inc.com;
- Wed, 14 Sep 2022 13:28:19 +0800
+ fp:SMTPD_---0VPlhaq2_1663133301) by smtp.aliyun-inc.com;
+ Wed, 14 Sep 2022 13:28:24 +0800
 From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH 7/8] drm/amd/display: make some functions static
-Date: Wed, 14 Sep 2022 13:27:41 +0800
-Message-Id: <20220914052742.116297-7-jiapeng.chong@linux.alibaba.com>
+Subject: [PATCH 8/8] drm/amd/display: make optc32_phantom_crtc_post_enable,
+ optc32_setup_manual_trigger and optc32_set_drr static
+Date: Wed, 14 Sep 2022 13:27:42 +0800
+Message-Id: <20220914052742.116297-8-jiapeng.chong@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
 In-Reply-To: <20220914052742.116297-1-jiapeng.chong@linux.alibaba.com>
 References: <20220914052742.116297-1-jiapeng.chong@linux.alibaba.com>
@@ -50,61 +51,51 @@ Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, airlied@linux.ie,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These functions are not used outside the file dcn32_dccg.c, so the
-modification is defined as static.
+These three functions are not used outside the function
+dcn32_optc.c, so the modification is defined as static.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_dccg.c:257:6: warning: no previous prototype for ‘dccg32_otg_drop_pixel’.
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_dccg.c:248:6: warning: no previous prototype for ‘dccg32_otg_add_pixel’.
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_dccg.c:211:6: warning: no previous prototype for ‘dccg32_set_dpstreamclk’.
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_dccg.c:136:6: warning: no previous prototype for ‘dccg32_set_dtbclk_dto’.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_optc.c:159:6: warning: no previous prototype for function 'optc32_phantom_crtc_post_enable'.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_optc.c:218:6: warning: no previous prototype for ‘optc32_set_drr’.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_optc.c:193:6: warning: no previous prototype for ‘optc32_setup_manual_trigger’.
 
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2142
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2140
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c
-index 0d5e8a441512..26eb04ea472c 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c
-@@ -133,7 +133,7 @@ static void dccg32_set_dtbclk_p_src(
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
+index 1fad7b48bd5b..ec3989d37086 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
+@@ -156,7 +156,7 @@ static bool optc32_disable_crtc(struct timing_generator *optc)
+ 	return true;
  }
  
- /* Controls the generation of pixel valid for OTG in (OTG -> HPO case) */
--void dccg32_set_dtbclk_dto(
-+static void dccg32_set_dtbclk_dto(
- 		struct dccg *dccg,
- 		const struct dtbclk_dto_params *params)
+-void optc32_phantom_crtc_post_enable(struct timing_generator *optc)
++static void optc32_phantom_crtc_post_enable(struct timing_generator *optc)
  {
-@@ -208,7 +208,7 @@ static void dccg32_get_dccg_ref_freq(struct dccg *dccg,
- 	return;
+ 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
+ 
+@@ -190,7 +190,7 @@ static void optc32_set_odm_bypass(struct timing_generator *optc,
+ 	optc1->opp_count = 1;
  }
  
--void dccg32_set_dpstreamclk(
-+static void dccg32_set_dpstreamclk(
- 		struct dccg *dccg,
- 		enum streamclk_source src,
- 		int otg_inst,
-@@ -245,7 +245,7 @@ void dccg32_set_dpstreamclk(
+-void optc32_setup_manual_trigger(struct timing_generator *optc)
++static void optc32_setup_manual_trigger(struct timing_generator *optc)
+ {
+ 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
+ 	struct dc *dc = optc->ctx->dc;
+@@ -215,7 +215,7 @@ void optc32_setup_manual_trigger(struct timing_generator *optc)
  	}
  }
  
--void dccg32_otg_add_pixel(struct dccg *dccg,
-+static void dccg32_otg_add_pixel(struct dccg *dccg,
- 		uint32_t otg_inst)
+-void optc32_set_drr(
++static void optc32_set_drr(
+ 	struct timing_generator *optc,
+ 	const struct drr_params *params)
  {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
-@@ -254,7 +254,7 @@ void dccg32_otg_add_pixel(struct dccg *dccg,
- 			OTG_ADD_PIXEL[otg_inst], 1);
- }
- 
--void dccg32_otg_drop_pixel(struct dccg *dccg,
-+static void dccg32_otg_drop_pixel(struct dccg *dccg,
- 		uint32_t otg_inst)
- {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
 -- 
 2.20.1.7.g153144c
 
