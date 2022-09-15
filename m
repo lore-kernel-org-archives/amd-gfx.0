@@ -4,133 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57EDEECAAD3
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Sep 2022 06:38:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EE12ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Sep 2022 06:48:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99EDE10EAA1;
-	Thu, 15 Sep 2022 06:38:20 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2051.outbound.protection.outlook.com [40.107.93.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FD3C10EAA1
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Sep 2022 06:38:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FDEB10E14E;
+	Thu, 15 Sep 2022 06:48:50 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8036910E14E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Sep 2022 06:48:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bbjSLecxG6XToV7ROfPcWGYCDnn41ErSsBMqN+5sGGSyt1wnaSoercZ48zF85nrcTg0FBHDkcApTNskOgU5LXfYzmkFyL3G91+Y1cSE1qfQAQoaCeAwpoNVKVEcHc34Kh2gEU2C9XZS9ECYKVcz3w1sDDBI7R6SCJx9ODtlNflMiBtz4wg+AbA+H1MlcJ55vNfjSe4PFgD3rY0Ycz8g2B6Wb5PrUDC6DmAzDVBmjwcdujzAOEkjqXhApg39hSukf3qbQifAbpbHIWLUuHjKMnYx8qm7OZT982DIsA3vEikdNCsa2HeyG/XvNQj5SbqJc+OumnBt1cfI4F71Z7SEQgQ==
+ b=h0+BKpS5mKc3u9nuE+LbDtT8P/TNQNSa68k6K5irHnJZyhA9vKtHgtvhfrdJAXkSP09m2MarYpzy/QDPzCYA3sb7+Z8qvaidhmoqHBaQxdwfYz8f+TZ5G/KQZ1c2rAo9yp0JLyqWQDk+LrHwv9NDg+L1HDwn87O8Gg6KhqGi/r2qTjRxC621J2rX0REaWubP1Ws8HcHuwHznFfHLR6Q6jtapho+RfJl5w1DuUSf/rJhE7pgkyttG/OEmESqINCd6+K02L2X2Vk5+vP/FF9YCX6GlBePtPC30vf1jT4Fo5PAQiKWjX9rNxEfQ1Z80MrF/+WbUx4gizOSatby2oMzVVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7GyhObplxVnjHVpayD060VfV3apIw9F+xI2Q8J0z6tw=;
- b=cVk47JMId+t1ioWTEuzcJbllU9ZZiRRHFbyEDJCuqQyW/C6kcm17aLeg8Q3/QsvywWZN+PGDqPHQUU28yivxVzKYYJy7LH93/hYxqkcLszCuk/MAQZt4yMBUcqpt788XCV0khvl6lW9p0uT/mFS4FvtlmkLOlE+K5bB1u0zjvqxX/sq/f81zv2uOS8UXiSywYfqRDT6MqXQ0+n/ruFSshB/CDfzACbNx/KJ7BG7KNlyxAA+3OYvtR1HruoiFhNaVP227wtdZHas9fJQBjYuSKjbMSs3A2zF6RxEUoBGTzcAemyI70s2bzGDBxmtz/JgiFTJ/hIArLckgeE1/u2v+gQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=aKPklcuhS+7uMcPGAiSlC44WvFzTzrYGAWHKe/Hwwio=;
+ b=d9ajMGROtjP/pYqWAdSo6l2rv4l4rzS3qB13CpEbiQtMkwtzrt7Pl9xgM3yO7OEMCmT9qR4vLE9302r73Fl8fKOk0JNhPMlWEech72WnaPJjUQWjKEf5mv/Lee7xQsEfAiFYG6wox5l6qLxyEvvNM6iK/ecROaruWLHlMRQCDxr22UHDY5yxasgCJmz0NkpRR19DXYs/9Fp8yGR22auiv4uhMQF5blbCH1Lql366GC8Qs+/VRFtLQAPNTbn8eo2kji0zeKhMJmBXaHdTB5hzQq1rStwE1FvMe77sTZq+5PbXKHgFqgsB37tfLmd1oidXvJyPq+afhEchzU+sgE6zgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7GyhObplxVnjHVpayD060VfV3apIw9F+xI2Q8J0z6tw=;
- b=sODg1pYAJxNmpVRiZwJsRKqO1IY/jvxewdM6V47m/1A7qoPcGkXLKHdUpJmvewyE0D2QaWNYUZA2HyVGQQYkRvBkBiw/KRZKqMU2a8A6bIvmbtn9oiKaUaMeuFFUZamOipJsFXXnnnKFoy+nu5Kc/kUlDvQqcZRBNX4uVjl2OCc=
-Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
- PH7PR12MB6857.namprd12.prod.outlook.com (2603:10b6:510:1af::20) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=aKPklcuhS+7uMcPGAiSlC44WvFzTzrYGAWHKe/Hwwio=;
+ b=UMqGkAtCMs0rLwIFfCM8/AJ/BoTnenbP/f2bWDXSsxN2lnNnIHJ1jCXXunffGroTO4YnwatwMGxbMsB+3+ScWCJfUMXcx9ksJWFdHa4uzjDJoAwEhFlX8TRalIS+puL+nm4I5oYwq3y4kw7icgpbu8/dCTAD5+pGPtoCWLm171E=
+Received: from BN8PR15CA0072.namprd15.prod.outlook.com (2603:10b6:408:80::49)
+ by MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Thu, 15 Sep
- 2022 06:38:12 +0000
-Received: from DM6PR12MB4340.namprd12.prod.outlook.com
- ([fe80::7118:ff85:f7ee:b1ce]) by DM6PR12MB4340.namprd12.prod.outlook.com
- ([fe80::7118:ff85:f7ee:b1ce%4]) with mapi id 15.20.5632.015; Thu, 15 Sep 2022
- 06:38:12 +0000
-From: "Zhao, Victor" <Victor.Zhao@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: move enable irq later to avoid race with
- ih resume
-Thread-Topic: [PATCH 2/2] drm/amdgpu: move enable irq later to avoid race with
- ih resume
-Thread-Index: AQHYyCJa31wYmCMhXU6bqIazn5JAw63f/9cAgAAKBsA=
-Date: Thu, 15 Sep 2022 06:38:12 +0000
-Message-ID: <DM6PR12MB4340C1B8A689A0AA8B5DB27DFA499@DM6PR12MB4340.namprd12.prod.outlook.com>
-References: <20220914101025.366954-1-Victor.Zhao@amd.com>
- <20220914101025.366954-2-Victor.Zhao@amd.com>
- <6d96d72b-cde6-ad13-ec3a-ef26cd0f068f@amd.com>
-In-Reply-To: <6d96d72b-cde6-ad13-ec3a-ef26cd0f068f@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-15T06:38:07Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=25f1657c-c2b3-425a-942d-78f07dabfc32;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-09-15T06:38:07Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 62a33c7a-f13c-4495-a26c-b87960fff66a
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB4340:EE_|PH7PR12MB6857:EE_
-x-ms-office365-filtering-correlation-id: a5f3ba10-6a8b-4460-648e-08da96e4dcc3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ME5CAeSIMUGJX0yFI6aILDes/iEO3vBe35Fa71BPcG2uZUwphe9DBKQiPkf3YShelW8s62l/ngK7xafzQyvLignfofSOiGOQ6Ttq0mGesbGPWLNMFKKcLzhwtOlf3IOFlqmcRmGOfN4twV5SaTNbi9IJ+Qjs1i7uPzZ3b6MCM6W+fIjLmLiGy0z0EuyY50XIinxt+GS9riyJAyfygCaSzGtNRMUx+d68dcGyigD+ByZtaO5TgDe6Q5CIo82N20/Vm3x1YFyywcPBm+ubqXe2wqK7gIlMCzjUgtuLjSPd9w7pjp4ec0w80gRwTPVH7kOLV2lc3IdwJMom3nBGCVw6l+6MVIMxMtoYTeS2chc90uyFmuGacG+tpfvc0xsCzXO/z+JTAioqpS+R+UqM5QFqXU/6DIGyQDQ9Rfdyxd8pbewyzKew2niK5AmHFoE5s53de0NXTmSKIb7PRjcgPwZrBXOv/0urkf+TsS3eAJgPN4GHtXBFDutu2dVINCOtghblGOIBubmW/4lhhxpQK+QPFsreWxo+F1g8nKWXmHgwaClOWSayx8/igElYh+EIH8Nx12/JFw714Bed/FFZPpT3wCqwQg9I8M0MAEs4Twm8oYwlvphU0ir7GqnQXwZqzqpmXjmuOpUMJcPnmXcYA9hvWzVu+Pi2ldbWDEpZOhp33gDp+ZB6A6shPDDkWuytMbAUOKvW5CVZ9/L/EajKv1ymMJ+e3vdMCEo02g1XgEUjHkLKipC52LPd2KuQ12uGKMWvSn/hpkDpKf88o6c6Lq2jsw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(39860400002)(136003)(396003)(376002)(346002)(451199015)(41300700001)(8676002)(6506007)(55016003)(4326008)(7696005)(66476007)(86362001)(66946007)(66556008)(38100700002)(38070700005)(316002)(83380400001)(186003)(9686003)(33656002)(53546011)(52536014)(2906002)(8936002)(54906003)(478600001)(64756008)(26005)(71200400001)(110136005)(66446008)(5660300002)(76116006)(122000001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ODVaeE1xSnFnTEVCSnRCRUpyVHpZamM0eTllbU1IdkdWdGJXNEpZVmNLN3VX?=
- =?utf-8?B?V0lGdWh5SWhodWpQL2tLUVRJTVdWVHI4cnVMWlFNVzhmQmVwN3NEUHRINnpR?=
- =?utf-8?B?Y0RnT2VCbUIzMWpOTTB2YkN5QU5pdWdtQ2VUNnhKdzc5aEwwK3c3UHBxUWJz?=
- =?utf-8?B?NEwrRFlSK05aZDE1a3hlaXcyeDk4elhwQnBNcVZ1UzhmYWwvWmRZTGZuT3Zy?=
- =?utf-8?B?VXlwTm1KMVJvNHJCV292M0w4eVMrWVRyeG04cFJuRGNmVDhGOElXUGFxUHRX?=
- =?utf-8?B?RE1ZYlV5K3lKeTljU3RQMjd4eE0yL0w1cjNWSExPLzdBVkN6S2tDd3hDMHly?=
- =?utf-8?B?QXZsaGhuR2twK0x2cHpKTzNJeDlja2JsczFBbTdCOGN3bXpweEhIcUlWWFhv?=
- =?utf-8?B?Y1VUWE85bWpYdmZ1UGJwUTdJWjlRU3hkSkh0WHJHcjd6NGJFMEpQVnl6MHBy?=
- =?utf-8?B?Sm9UZVRSY21USEV2M0hCRFlmeHlDSUt3MWN3SHVyS25GNGFUNGh3TEpHbGNn?=
- =?utf-8?B?Qm1ndXkxaEhrV2NScVloMTZ5QnFTWTV1NDE0VFdOcXNKd09qMXdQY3R3dlNN?=
- =?utf-8?B?RHNtRGRoTGJCVGpBZFNNQ0doR3ArZ3UzUWhYYThOQnUzZzVObFpxc1dPdm9W?=
- =?utf-8?B?RWxnUzRibjJGNFM1bDM0cUFlVlBRc1RBSjVrbHRWOGNDSVd2cDNkR2pmMzU3?=
- =?utf-8?B?RnphaGg3RHZUNXFWcXlZYkNPWHNNVld0VU1pQ3hKeElVMG5ROHJEb2FZZDZZ?=
- =?utf-8?B?czN5QjZmdHJVczFDVDBnaDN5L09BaTR6KzZvczQzMDFvM2lCbTRTSHQyYzFI?=
- =?utf-8?B?enBWWFlMNkplOG1kY09adVRJcU5NSmRNVlFiS1Z0MHVKaWpLNGl5SC9QZUJG?=
- =?utf-8?B?TVBNU1YvR1MwN1JzY2s5S1VLZE1OSkVhQ0lSZlIvMkU4ZTJpeGpjd2VuUmtj?=
- =?utf-8?B?SjN4dUdXWjUyVy9kNlJWZHdiMXZyNzVMOG55ODJQLzhaQUoyc3p0cUQvWmdU?=
- =?utf-8?B?bVQ5R3dkWWsrN2Z0dmJMQVVxb2ZoWlpNYndadmhIVnNYVm9TNUJhSjBwSGJU?=
- =?utf-8?B?ZXpNNlBTSVZDTVRaOVBYOEtzamtPY0lmS1NyVDlmSWlTQlFnbjdEOGg5Nmd6?=
- =?utf-8?B?ZTVmRk8venFwczlGUW5hdTRiNmMrb0p6RzRZZmFLamFVRTVLMlRjZWloc0xw?=
- =?utf-8?B?RjF5MjFMQkJWa1BWTnNrelVPYjZoMkg2SDFTY00wTUFSVHYzc2J2MG1ZcDlr?=
- =?utf-8?B?UEEzaHNnWnRCMCtBbkkwZVJhakU4S055U0tWL05iK0FXUm1WeUNySWJtdXZj?=
- =?utf-8?B?SVBta1A5Q201ZHBKaVJLNGRMK2UwaXgyWWFic0kwOE0ySW5QU0RacEpxYjZ1?=
- =?utf-8?B?bW1jdDJld29KclRINk5lZjh2UHhZK1ZBcnpXK2Jwdy9HQ0grcjl5QVBoeHI2?=
- =?utf-8?B?R0hTcEpRZTZibTFoS2dWZVVrSDJ0SS90VXJZa092aThPakZlbnZrMEZhait3?=
- =?utf-8?B?WkFKbmxyS09yZWZ2Q0o2aXcxbSszdEkzWWtQbkJoYVlRWEMyckQ5Ky9qb0Iz?=
- =?utf-8?B?MU1STEIrZ2RPb1owbTcxbTR1OS9oM21xS3Z2T01NUDl5MG02RWN6SjJEcXl1?=
- =?utf-8?B?aWd3dWF2L3lWZlhjck5ZVk9BbXF5ak01bVNBM0V2QlhxVytmeXZoSE1Td1Ro?=
- =?utf-8?B?NXhLZldkcXpkc2tkVS9sTXJaZG9MRWtIOUFWMnRMQSt5R2pMYVdVMWJOMzdZ?=
- =?utf-8?B?L01XMWVWSGxsdkRWSy9vNHU3eEZUT1ZydnF5L3JhMWNYaSsrQncrVzZ4SWxN?=
- =?utf-8?B?MVVzS3B5R25lWitmMEY2ek9LUE1JZEx0RFpBZDl0SkNucjNtRWZBYmlwM0c1?=
- =?utf-8?B?OTRFVlhReVY4R2EwN3I0UXlSM1ViZkdrcC9LcEFJejAyQTkzVkxPTEFtSU91?=
- =?utf-8?B?cS9uQWY5SVVXQXJtT2RiWmNZckxTSHV4WmJ3VXJyN1N4RnNKMS9tM2E1ejdP?=
- =?utf-8?B?RkFSU3kydXhrSk5Pamk0d0s5TTZuYUdDNC9WUTVWbG1SZnhlQ0pDTnRBeVhi?=
- =?utf-8?B?SElmUXh4NXQ0OWIwaS9Zb0NJbmI1TVJLVWttMit4RC9kNmdRbzJFNEczZlp0?=
- =?utf-8?Q?0+tQ=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ 2022 06:48:43 +0000
+Received: from BN8NAM11FT056.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:80:cafe::c7) by BN8PR15CA0072.outlook.office365.com
+ (2603:10b6:408:80::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.15 via Frontend
+ Transport; Thu, 15 Sep 2022 06:48:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT056.mail.protection.outlook.com (10.13.177.26) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5632.12 via Frontend Transport; Thu, 15 Sep 2022 06:48:43 +0000
+Received: from jenkins-jiadong-1.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Thu, 15 Sep 2022 01:48:41 -0500
+From: <jiadong.zhu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Introduce gfx software ring(v5)
+Date: Thu, 15 Sep 2022 14:48:21 +0800
+Message-ID: <20220915064821.865541-1-jiadong.zhu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT056:EE_|MN0PR12MB6101:EE_
+X-MS-Office365-Filtering-Correlation-Id: 33019a5b-4590-4f29-2524-08da96e654e5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EBQdUo/fVs3cTJG+Yg2jE2ULcetZ6UZC4+lE782q2533d7+ePt9LB5oUhpqHZJEl45bX0lxmHL5ogQAMihsZGm4Rj2ViJkzhpRryTdztdpOm6DAkvakXkgeqjiYjouQul4v5c/YijzR6/MdlFlqL4FZgABoIy+hF21qlwMBGIUsF2KZcLwgh58YiDVxpw3wV1yYF8UhPDxQ6vrWGkurgBHeQZ452pHZaoGvmJ0gGHAVk9/X2C2h8+ye9lUvXDaXsrlBpHvqOz7drTpe9D9hOKUIzQUpLBqN74kc0IuDYeNf+GgQa+XlFlkVJdwnToxepFaAYAOP1ZqN5jFm6LdMYqAXhXdP5TK1nLyr1W3zLouZ1hKVaAzqufx3v5d/fsYoJ3JskbpYAWhb7Vh45Uj77/cyNOPYv67X84mYsRA9jP8Sgg8K6wljwCM/z5BxyrSyQRqxeVrrkB92AT2bhawkrR3SIeyXfQocuBQaMT5SRTbYNWdXPeYp+CT7PIXTySQ8MkA2vTmHiGgXkDyjdEzxbnY3P/lLvPjfzzDs/bAfmQ2gmQTwpFsPGs5uIG2bevcl4iQgxc/dT/rDODY4z1T+Ko1TXyDAPY/RwVrTUERopLuLaUwfBGBDzUfQDyAzuPaPO4eGzFjzNckC5OU6L08F7MbCXg5gZJtKxJGbwdFWqCvX3U86GB87ymwqyKAcy6nfHwD3MykxDZOZ/cl8DRv7gqhLX6Xe7ErGTBKOCTD5RgqV2vb5LHA1ARg5ZSKP3Lq/jT/ITEJRjxDwhfJushI5N0x1L4z8UNbqzcu/kstaOKW0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(376002)(346002)(136003)(39860400002)(451199015)(36840700001)(40470700004)(46966006)(316002)(81166007)(36756003)(2876002)(82310400005)(6666004)(40460700003)(336012)(86362001)(82740400003)(2906002)(41300700001)(8676002)(7696005)(356005)(66899012)(186003)(26005)(478600001)(426003)(2616005)(47076005)(5660300002)(8936002)(30864003)(1076003)(83380400001)(4326008)(6916009)(70206006)(70586007)(40480700001)(54906003)(36860700001)(16526019)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5f3ba10-6a8b-4460-648e-08da96e4dcc3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2022 06:38:12.6692 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Bgfj2ebMu4Yz8w01E89BsssJ8VwADTEwjep7toI6FvuzC5j0QjukDTBvYDSBGJ4s
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6857
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2022 06:48:43.6669 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33019a5b-4590-4f29-2524-08da96e654e5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT056.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6101
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,78 +97,466 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deng, Emily" <Emily.Deng@amd.com>, "Grodzovsky,
- Andrey" <Andrey.Grodzovsky@amd.com>
+Cc: Luben Tuikov <Luben.Tuikov@amd.com>, "Jiadong.Zhu" <Jiadong.Zhu@amd.com>,
+ Christian Koenig <Christian.Koenig@amd.com>, Andrey
+ Grodzovsky <Andrey.Grodzovsky@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCkhpIExpam8sDQoNCklIIHJlc3Vt
-ZSB3YXMgYWRkZWQgdG8gcmVzb2x2ZSBhbiBpc3N1ZSBmb3VuZCBkdXJpbmcgbW9kZTIgYnJpbmcg
-dXAgb24gc2llbm5hIGNpY2hsaWQ6DQotIGNsb3NlIGRvd24gbW9kZTIgcmVzZXQgYW5kIGRvIGEg
-bW9kZTEgcmVzZXQgZmlyc3QNCi0gb3BlbiBtb2RlMiByZXNldCBhbmQgZG8gYSBtb2RlMiByZXNl
-dC4gTW9kZTIgcmVzZXQgd2FzIGZvdW5kIGZhaWwgaW4gdGhpcyBjYXNlLg0KDQpSZXN1bWUgSUgg
-aGVscHMgaW4gdGhpcyBjYXNlDQoNCg0KVGhhbmtzLA0KVmljdG9yDQoNCg0KDQotLS0tLU9yaWdp
-bmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogTGF6YXIsIExpam8gPExpam8uTGF6YXJAYW1kLmNvbT4g
-DQpTZW50OiBUaHVyc2RheSwgU2VwdGVtYmVyIDE1LCAyMDIyIDE6NTggUE0NClRvOiBaaGFvLCBW
-aWN0b3IgPFZpY3Rvci5aaGFvQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zw0KQ2M6IERlbmcsIEVtaWx5IDxFbWlseS5EZW5nQGFtZC5jb20+OyBHcm9kem92c2t5LCBBbmRy
-ZXkgPEFuZHJleS5Hcm9kem92c2t5QGFtZC5jb20+DQpTdWJqZWN0OiBSZTogW1BBVENIIDIvMl0g
-ZHJtL2FtZGdwdTogbW92ZSBlbmFibGUgaXJxIGxhdGVyIHRvIGF2b2lkIHJhY2Ugd2l0aCBpaCBy
-ZXN1bWUNCg0KDQoNCk9uIDkvMTQvMjAyMiAzOjQwIFBNLCBWaWN0b3IgWmhhbyB3cm90ZToNCj4g
-W2JhY2tncm91bmRdDQo+IE9uIGN1cnJlbnQgc2llbm5hIGNpY2hsaWQgbW9kZTIgcmVzZXQsIG9u
-IHRoZSBzbG93IGpvYiBoYW5nIGNhc2VzLCANCj4gc2luY2UgcGFnZSB0YWJsZSBjb250ZXh0IHdh
-cyByZXZlcnRlZCB0byBjb21wbGV0ZWx5IHN0b3AgZ3B1LCBpdCB3aWxsIA0KPiBnZW5lcmF0ZSBw
-YWdlIGZhdWx0IGludGVycnVwdC4NCj4gDQo+IFNpbmNlIHRoZSBpcnEgYXJlIG9wZW4gZHVyaW5n
-IHJlY292ZXJ5IHN0YWdlLCBkdXJpbmcgaWggcmVzdW1lIHN0ZXAsIA0KPiBpZiB0aGlzIGludGVy
-cnVwdCB3YXMgaW4gcHJvY2Vzc2luZywgd2hpY2ggaW5jcmVhc2VkIGloIHJpbmcgcnB0ciwgYW5k
-IA0KPiBpaCByZXN1bWUgbWVhbndoaWxlIHdpbGwgc2V0IHJwdHIgYW5kIHdwdHIgdG8gMC4gVGhp
-cyBtYXkgY2F1c2UNCg0KQUZBSUssIG9ubHkgR0ZYL1NETUEgYXJlIGFmZmVjdGVkIGJ5IG1vZGUt
-Mi4gSUggaXMgbm90IHN1c3BlbmRlZCBiZWZvcmUgbW9kZS0yLiBXaHkgZG8geW91IHJlc3VtZSBJ
-SCBhZnRlciBtb2RlLTIgd2hlbiBpdCBpcyBub3Qgc3VzcGVuZGVkPyBJcyBpdCBhIHNwZWNpYWwg
-Y2FzZSBmb3IgdmlydHVhbGl6YXRpb24/DQoNClRoYW5rcywNCkxpam8NCg0KPiBycHRyIGdyZWF0
-ZXIgdGhhbiB3cHRyLiBTdWNoIGNhc2Ugd2FzIG5vdCBoYW5kbGVkIGluIGloIHByb2Nlc3MsIGFu
-ZCANCj4gaXQgd2lsbCBjYXVzZSBycHRyIGNvbnRpbnVlIGluY3JlYXNpbmcgdXRpbCByZWFjaGVz
-IHRoZSBtYXguDQo+IFN1Y2ggY2FzZSB3aWxsIG1ha2UgZmVuY2UgZmFsbGJhY2sgc2l0dWF0aW9u
-IGhhcHBlbi4NCj4gDQo+IFtob3ddDQo+IE1vdmUgdGhlIGVuYWJsZSBvZiBpcnEgYWZ0ZXIgaWgg
-cmVzdW1lZCBhbmQgYmVmb3JlIGliIHRlc3QuDQo+IEFkanVzdGluZyB0aGUgcG9zaXRpb24gb2Yg
-ZW5hYmxlIGlycSBvbiBvdGhlciByZXNldCBwYXRocyBhY2NvcmRpbmdseS4NCj4gDQo+IFNpZ25l
-ZC1vZmYtYnk6IFZpY3RvciBaaGFvIDxWaWN0b3IuWmhhb0BhbWQuY29tPg0KPiAtLS0NCj4gICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgIHwgOCArKysrLS0tLQ0K
-PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpZW5uYV9jaWNobGlkLmMgfCAxICsNCj4g
-ICAyIGZpbGVzIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkNCj4gDQo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMg
-DQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+IGluZGV4
-IGMwY2ZhZTUyZjEyYi4uMGI2NTgyMjVlOWVmIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+IEBAIC00NjI1LDggKzQ2MjUsNiBAQCBpbnQgYW1k
-Z3B1X2RldmljZV9wcmVfYXNpY19yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4g
-ICAJCWFtZGdwdV9mZW5jZV9kcml2ZXJfZm9yY2VfY29tcGxldGlvbihyaW5nKTsNCj4gICAJfQ0K
-PiAgIA0KPiAtCWFtZGdwdV9mZW5jZV9kcml2ZXJfaXNyX3RvZ2dsZShhZGV2LCBmYWxzZSk7DQo+
-IC0NCj4gICAJaWYgKGpvYiAmJiBqb2ItPnZtKQ0KPiAgIAkJZHJtX3NjaGVkX2luY3JlYXNlX2th
-cm1hKCZqb2ItPmJhc2UpOw0KPiAgIA0KPiBAQCAtNDc1OCw2ICs0NzU2LDEwIEBAIGludCBhbWRn
-cHVfZG9fYXNpY19yZXNldChzdHJ1Y3QgbGlzdF9oZWFkICpkZXZpY2VfbGlzdF9oYW5kbGUsDQo+
-ICAgCQl0ZXN0X2JpdChBTURHUFVfTkVFRF9GVUxMX1JFU0VULCAmcmVzZXRfY29udGV4dC0+Zmxh
-Z3MpOw0KPiAgIAlza2lwX2h3X3Jlc2V0ID0gdGVzdF9iaXQoQU1ER1BVX1NLSVBfSFdfUkVTRVQs
-IA0KPiAmcmVzZXRfY29udGV4dC0+ZmxhZ3MpOw0KPiAgIA0KPiArCWxpc3RfZm9yX2VhY2hfZW50
-cnkgKHRtcF9hZGV2LCBkZXZpY2VfbGlzdF9oYW5kbGUsIHJlc2V0X2xpc3QpIHsNCj4gKwkJYW1k
-Z3B1X2ZlbmNlX2RyaXZlcl9pc3JfdG9nZ2xlKHRtcF9hZGV2LCBmYWxzZSk7DQo+ICsJfQ0KPiAr
-DQo+ICAgCS8qDQo+ICAgCSAqIEFTSUMgcmVzZXQgaGFzIHRvIGJlIGRvbmUgb24gYWxsIFhHTUkg
-aGl2ZSBub2RlcyBBU0FQDQo+ICAgCSAqIHRvIGFsbG93IHByb3BlciBsaW5rcyBuZWdvdGlhdGlv
-biBpbiBGVyAod2l0aGluIDEgc2VjKSBAQCANCj4gLTUwMzEsOCArNTAzMyw2IEBAIHN0YXRpYyB2
-b2lkIGFtZGdwdV9kZXZpY2VfcmVjaGVja19ndWlsdHlfam9icygNCj4gICAJCQkvKiBDbGVhciB0
-aGlzIGZhaWxlZCBqb2IgZnJvbSBmZW5jZSBhcnJheSAqLw0KPiAgIAkJCWFtZGdwdV9mZW5jZV9k
-cml2ZXJfY2xlYXJfam9iX2ZlbmNlcyhyaW5nKTsNCj4gICANCj4gLQkJCWFtZGdwdV9mZW5jZV9k
-cml2ZXJfaXNyX3RvZ2dsZShhZGV2LCBmYWxzZSk7DQo+IC0NCj4gICAJCQkvKiBTaW5jZSB0aGUg
-am9iIHdvbid0IHNpZ25hbCBhbmQgd2UgZ28gZm9yDQo+ICAgCQkJICogYW5vdGhlciByZXN1Ym1p
-dCBkcm9wIHRoaXMgcGFyZW50IHBvaW50ZXINCj4gICAJCQkgKi8NCj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpZW5uYV9jaWNobGlkLmMgDQo+IGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvc2llbm5hX2NpY2hsaWQuYw0KPiBpbmRleCA3YWE1NzBjMWNlNGEu
-Ljk1MzAzNjQ4MmQxZiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-c2llbm5hX2NpY2hsaWQuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaWVu
-bmFfY2ljaGxpZC5jDQo+IEBAIC0yNDAsNiArMjQwLDcgQEAgc2llbm5hX2NpY2hsaWRfbW9kZTJf
-cmVzdG9yZV9od2NvbnRleHQoc3RydWN0IGFtZGdwdV9yZXNldF9jb250cm9sICpyZXNldF9jdGws
-DQo+ICAgCSogQWRkIHRoaXMgQVNJQyBhcyB0cmFja2VkIGFzIHJlc2V0IHdhcyBhbHJlYWR5DQo+
-ICAgCSogY29tcGxldGUgc3VjY2Vzc2Z1bGx5Lg0KPiAgIAkqLw0KPiArCWFtZGdwdV9mZW5jZV9k
-cml2ZXJfaXNyX3RvZ2dsZSh0bXBfYWRldiwgZmFsc2UpOw0KPiAgIAlhbWRncHVfcmVnaXN0ZXJf
-Z3B1X2luc3RhbmNlKHRtcF9hZGV2KTsNCj4gICANCj4gICAJLyogUmVzdW1lIFJBUyAqLw0KPiAN
-Cg==
+From: "Jiadong.Zhu" <Jiadong.Zhu@amd.com>
+
+The software ring is created to support priority context while there is only
+one hardware queue for gfx.
+
+Every software ring has its fence driver and could be used as an ordinary ring
+for the GPU scheduler.
+Multiple software rings are bound to a real ring with the ring muxer. The
+packages committed on the software ring are copied to the real ring.
+
+v2: Use array to store software ring entry.
+v3: Remove unnecessary prints.
+v4: Remove amdgpu_ring_sw_init/fini functions,
+using gtt for sw ring buffer for later dma copy
+optimization.
+v5: Allocate ring entry dynamicly in the muxer.
+
+Cc: Christian Koenig <Christian.Koenig@amd.com>
+Cc: Luben Tuikov <Luben.Tuikov@amd.com>
+Cc: Andrey Grodzovsky  <Andrey.Grodzovsky@amd.com>
+Signed-off-by: Jiadong.Zhu <Jiadong.Zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile          |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h      |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h     |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c | 176 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h |  66 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c  |  60 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h  |  43 +++++
+ 7 files changed, 354 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 3e0e2eb7e235..85224bc81ce5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -58,7 +58,8 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+ 	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
+ 	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
+ 	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
+-	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o
++	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
++	amdgpu_sw_ring.o amdgpu_ring_mux.o
+ 
+ amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 53526ffb2ce1..9996dadb39f7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -33,6 +33,7 @@
+ #include "amdgpu_imu.h"
+ #include "soc15.h"
+ #include "amdgpu_ras.h"
++#include "amdgpu_ring_mux.h"
+ 
+ /* GFX current status */
+ #define AMDGPU_GFX_NORMAL_MODE			0x00000000L
+@@ -346,6 +347,8 @@ struct amdgpu_gfx {
+ 	struct amdgpu_gfx_ras		*ras;
+ 
+ 	bool				is_poweron;
++
++	struct amdgpu_ring_mux          muxer;
+ };
+ 
+ #define amdgpu_gfx_get_gpu_clock_counter(adev) (adev)->gfx.funcs->get_gpu_clock_counter((adev))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 7d89a52091c0..40b1277b4f0c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -278,6 +278,10 @@ struct amdgpu_ring {
+ 	bool			is_mes_queue;
+ 	uint32_t		hw_queue_id;
+ 	struct amdgpu_mes_ctx_data *mes_ctx;
++
++	bool            is_sw_ring;
++	unsigned int    entry_index;
++
+ };
+ 
+ #define amdgpu_ring_parse_cs(r, p, job, ib) ((r)->funcs->parse_cs((p), (job), (ib)))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+new file mode 100644
+index 000000000000..5e9c178f358b
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+@@ -0,0 +1,176 @@
++/*
++ * Copyright 2022 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#include <linux/slab.h>
++#include <drm/drm_print.h>
++
++#include "amdgpu_ring_mux.h"
++#include "amdgpu_ring.h"
++
++#define AMDGPU_MUX_RESUBMIT_JIFFIES_TIMEOUT (HZ/2)
++
++static void copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
++	u64 s_begin, u64 s_end);
++
++int amdgpu_ring_mux_init(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
++			      unsigned int entry_size)
++{
++	mux->real_ring = ring;
++	mux->num_ring_entries = 0;
++	mux->ring_entry = kcalloc(entry_size, sizeof(struct amdgpu_mux_entry), GFP_KERNEL);
++	if (!mux->ring_entry)
++		return -ENOMEM;
++
++	mux->ring_entry_size = entry_size;
++	spin_lock_init(&mux->lock);
++
++	return 0;
++}
++
++void amdgpu_ring_mux_fini(struct amdgpu_ring_mux *mux)
++{
++	kfree(mux->ring_entry);
++	mux->ring_entry = NULL;
++	mux->num_ring_entries = 0;
++	mux->ring_entry_size = 0;
++}
++
++int amdgpu_ring_mux_add_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
++{
++	struct amdgpu_mux_entry *e;
++
++	if (mux->num_ring_entries >= mux->ring_entry_size) {
++		DRM_ERROR("add sw ring exceeding max entry size\n");
++		return -ENOENT;
++	}
++
++	e = &mux->ring_entry[mux->num_ring_entries];
++	ring->entry_index = mux->num_ring_entries;
++	e->ring = ring;
++
++	mux->num_ring_entries += 1;
++	return 0;
++}
++
++static struct amdgpu_mux_entry *amdgpu_get_sw_entry(struct amdgpu_ring_mux *mux,
++				struct amdgpu_ring *ring)
++{
++	struct amdgpu_mux_entry *e = NULL;
++
++	if (ring->entry_index < mux->ring_entry_size)
++		e = &mux->ring_entry[ring->entry_index];
++
++	return e;
++}
++
++void amdgpu_ring_set_wptr_to_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring, u64 wptr)
++{
++	struct amdgpu_mux_entry *e;
++
++	e = amdgpu_get_sw_entry(mux, ring);
++	if (!e) {
++		DRM_ERROR("cannot find entry for sw ring\n");
++		return;
++	}
++
++	spin_lock(&mux->lock);
++	e->sw_cptr = e->sw_wptr;
++	e->sw_wptr = wptr;
++	e->start_ptr_in_hw_ring = mux->real_ring->wptr;
++
++	copy_pkt_from_sw_ring(mux, ring, e->sw_cptr, wptr);
++	e->end_ptr_in_hw_ring = mux->real_ring->wptr;
++	amdgpu_ring_commit(mux->real_ring);
++
++	spin_unlock(&mux->lock);
++}
++
++u64 amdgpu_ring_get_wptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
++{
++	struct amdgpu_mux_entry *e;
++
++	e = amdgpu_get_sw_entry(mux, ring);
++	if (!e) {
++		DRM_ERROR("cannot find entry for sw ring\n");
++		return 0;
++	}
++
++	return e->sw_wptr;
++}
++
++u64 amdgpu_ring_get_rptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
++{
++	struct amdgpu_mux_entry *e;
++	u64 readp, offset, start, end;
++
++	e = amdgpu_get_sw_entry(mux, ring);
++	if (!e) {
++		DRM_ERROR("no sw entry found!\n");
++		return 0;
++	}
++
++	readp = amdgpu_ring_get_rptr(mux->real_ring);
++
++	start = e->start_ptr_in_hw_ring & mux->real_ring->buf_mask;
++	end = e->end_ptr_in_hw_ring & mux->real_ring->buf_mask;
++	if (start > end) {
++		if (readp <= end)
++			readp += mux->real_ring->ring_size >> 2;
++		end += mux->real_ring->ring_size >> 2;
++	}
++
++	if (readp <= end && readp >= start) {
++		offset = readp - start;
++		e->sw_rptr = (e->sw_cptr + offset) & ring->buf_mask;
++	} else if (readp < start) {
++		e->sw_rptr = e->sw_cptr;
++	} else {
++		e->sw_rptr = e->sw_wptr;
++	}
++
++	return e->sw_rptr;
++}
++
++/* copy packages on sw ring range[begin, end) */
++static void copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
++	u64 s_begin, u64 s_end)
++{
++	u64 begin, end;
++	struct amdgpu_ring *real_ring = mux->real_ring;
++
++	begin = s_begin & ring->buf_mask;
++	end = s_end & ring->buf_mask;
++
++	if (begin == end) {
++		DRM_ERROR("no more data copied from sw ring\n");
++		return;
++	}
++	if (begin > end) {
++		amdgpu_ring_alloc(real_ring, (ring->ring_size >> 2) + end - begin);
++		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[begin],
++			(ring->ring_size >> 2) - begin);
++		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[0], end);
++	} else {
++		amdgpu_ring_alloc(real_ring, end - begin);
++		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[begin], end - begin);
++	}
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+new file mode 100644
+index 000000000000..0f6430fe16b3
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+@@ -0,0 +1,66 @@
++/*
++ * Copyright 2022 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __AMDGPU_RING_MUX__
++#define __AMDGPU_RING_MUX__
++
++#include <linux/timer.h>
++#include <linux/spinlock.h>
++#include "amdgpu_ring.h"
++
++struct amdgpu_ring;
++/*
++ * start_ptr_in_hw_ring -- last start location copied to in the hardware ring
++ * end_ptr_in_hw_ring -- last end location copied to in the hardware ring
++ * sw_cptr -- the begin of copy pointer in sw ring
++ * sw_rptr -- the read pointer in software ring
++ * sw_wptr -- the write pointer in software ring
++ */
++struct amdgpu_mux_entry {
++	struct                  amdgpu_ring *ring;
++	u64                     start_ptr_in_hw_ring;
++	u64                     end_ptr_in_hw_ring;
++	u64                     sw_cptr;
++	u64                     sw_rptr;
++	u64                     sw_wptr;
++};
++
++struct amdgpu_ring_mux {
++	struct amdgpu_ring      *real_ring;
++
++	struct amdgpu_mux_entry *ring_entry;
++	unsigned int            num_ring_entries;
++	unsigned int            ring_entry_size;
++
++	spinlock_t              lock;
++};
++
++int amdgpu_ring_mux_init(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
++			      unsigned int entry_size);
++void amdgpu_ring_mux_fini(struct amdgpu_ring_mux *mux);
++int amdgpu_ring_mux_add_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
++void amdgpu_ring_set_wptr_to_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring, u64 wptr);
++u64 amdgpu_ring_get_wptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
++u64 amdgpu_ring_get_rptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
++
++#endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c
+new file mode 100644
+index 000000000000..ec50793aa54d
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c
+@@ -0,0 +1,60 @@
++/*
++ * Copyright 2022 Advanced Micro Devices, Inc.
++ * All Rights Reserved.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the
++ * "Software"), to deal in the Software without restriction, including
++ * without limitation the rights to use, copy, modify, merge, publish,
++ * distribute, sub license, and/or sell copies of the Software, and to
++ * permit persons to whom the Software is furnished to do so, subject to
++ * the following conditions:
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDERS, AUTHORS AND/OR ITS SUPPLIERS BE LIABLE FOR ANY CLAIM,
++ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
++ * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
++ * USE OR OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * The above copyright notice and this permission notice (including the
++ * next paragraph) shall be included in all copies or substantial portions
++ * of the Software.
++ *
++ */
++
++#include "amdgpu_sw_ring.h"
++#include "amdgpu_ring_mux.h"
++
++u64 amdgpu_sw_ring_get_rptr_gfx(struct amdgpu_ring *ring)
++{
++	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
++
++	WARN_ON(!ring->is_sw_ring);
++	return amdgpu_ring_get_rptr_from_mux(mux, ring);
++}
++
++u64 amdgpu_sw_ring_get_wptr_gfx(struct amdgpu_ring *ring)
++{
++	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
++
++	WARN_ON(!ring->is_sw_ring);
++	return amdgpu_ring_get_wptr_from_mux(mux, ring);
++}
++
++void amdgpu_sw_ring_set_wptr_gfx(struct amdgpu_ring *ring)
++{
++	WARN_ON(!ring->is_sw_ring);
++}
++
++void amdgpu_sw_ring_commit(struct amdgpu_ring *ring)
++{
++	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
++
++	WARN_ON(!ring->is_sw_ring);
++	amdgpu_ring_set_wptr_to_mux(mux, ring, ring->wptr);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h
+new file mode 100644
+index 000000000000..0a2e66318f3f
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h
+@@ -0,0 +1,43 @@
++/*
++ * Copyright 2012 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#include <drm/amdgpu_drm.h>
++#include <drm/gpu_scheduler.h>
++#include <drm/drm_print.h>
++
++#include "amdgpu_irq.h"
++#include "amdgpu_ring.h"
++#include "amdgpu.h"
++
++#ifndef __AMDGPU_SWRING_H__
++#define __AMDGPU_SWRING_H__
++
++u64 amdgpu_sw_ring_get_rptr_gfx(struct amdgpu_ring *ring);
++u64 amdgpu_sw_ring_get_wptr_gfx(struct amdgpu_ring *ring);
++void amdgpu_sw_ring_set_wptr_gfx(struct amdgpu_ring *ring);
++void amdgpu_sw_ring_commit(struct amdgpu_ring *ring);
++
++void amdgpu_sw_ring_ib_begin(struct amdgpu_ring *ring);
++void amdgpu_sw_ring_ib_end(struct amdgpu_ring *ring);
++
++#endif
+-- 
+2.25.1
+
