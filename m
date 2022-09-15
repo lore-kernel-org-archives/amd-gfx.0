@@ -4,58 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2637ECAAD3
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Sep 2022 08:55:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F279ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Sep 2022 10:09:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D43BD10EABE;
-	Thu, 15 Sep 2022 08:55:53 +0000 (UTC)
-X-Greylist: delayed 69285 seconds by postgrey-1.36 at gabe;
- Thu, 15 Sep 2022 08:55:48 UTC
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org
- [IPv6:2001:67c:2050:0:465::202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCF0910EABE;
- Thu, 15 Sep 2022 08:55:48 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4MSrdX4WlZz9sQx;
- Thu, 15 Sep 2022 10:55:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1663232144;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=I6rLJ0bu/aQ7il0eqvRwZ4yHWJmt6vdefPCovIIQAJU=;
- b=OHZSdmC30hlobiKbaURiREvSts/UaWXJKibWSCXKLsviWNLgt9BTEb6Qr1Lfr3cuY8WVBq
- 7zIqX5rWrtf2F7hCamMeL+exOIfq61s2/hgVWT2ukXtblfRwYW9rhKJgt3UbT6QWIX/x4X
- x2FlaxQDf1NSmScNWMW4jxR2JqHCUEVkP/xrrwMMbgZV/BsuSgIFjSjfMIecxAJZZVCcF9
- O/D/4R1t7fbPHmJIJHLhTX1MDzWkiWLgYP/GzL3T6IjsM1RRSf3dFVgDQUTx2VjsHlo+4E
- slFDBcaWWjqluLC6lrHWm2VhyJ12ckAQlbv8iENdihpGl6ZAT/BTFJjsQTuSzg==
-Message-ID: <5f12b404-e351-3ae2-65b6-f83f27e1c7be@mailbox.org>
-Date: Thu, 15 Sep 2022 10:55:42 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id A360210E15C;
+	Thu, 15 Sep 2022 10:09:37 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2042.outbound.protection.outlook.com [40.107.244.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B135010EAE0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Sep 2022 10:09:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jvTh6SWCbTlveI6JyWcZUMi9vyc8UXR7wKIUL9Gv9OZpOHrxpo2WeQRzpSTRh681/zrEfcmS4MWFDtxHeuUhOPQKx+n0LkLn9+L8LjCc2fVHqDCjsBqlTHyuukYzVwFXQmnww3cZOSmA8jRNkypnkQgaYStXha3oRUVcK4FJtAm5RuJR8hQRhxjPoI/PFUf2U+JpWG7Glb8GJLrJBSrlQB8RuJ96Cq3bZqTEPY2PHc9/YLkde3gs1b2rHbML1B4FFqFuY7TREIWtoGgGkrEvRtaB85HDRMMvW3lDVZRNbAhSFt3FWCkk/z144asJrAaDln/g9uVIMnCDvDw4cGnPLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VHL74SOYwHD5o+/PqBussEgtDS5ql596dLOMocRlUFk=;
+ b=fFtqmSCUNKhpRLUf6wRMhXbziSQ/5dMCJ97nnuaDYCMT9EdezToR6zwe/6CPg6z9Lu1XTtkJocVc/s0SN246oLT65jzCDN6N5/UH9wY7Mm6VhPd2/QEYKpwqTLtwRP4sFaSeF95FqegPJE6X4s3tjyiMq5LdShF6oZJYU3b66HVLmJZlACb5CAqQKLUsqecKi9E6VHXYRwHhI/EMekzfi4+JhsmD2/CUXxW6YHSE0wckQa6Btcjw6Vb9pHBns+Rb7Zt9dTe7jv67Q5SzEabMs/QMjz8tm7KZYXeZw28cEMYan69vsNxQUuZdiQ3uZG7ESDnzD6p9plWWxr4YHdbYPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VHL74SOYwHD5o+/PqBussEgtDS5ql596dLOMocRlUFk=;
+ b=T+yPz2GUL7cuLy+6UU9cUcgqAVMkfhiqjhBVs9tYBYzM96VTdN3GmVBKTfUUjUVZATqkltBzsjwIqey9qRz9dNHmWeQaldqbmd9LgB+BsYECESfg1zsG/Vdvoaq5KQ+tO+YtAHvHR74HX9WO/YsDMNFeS/m4bH+IpyYpLpWZ9eU=
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
+ MN0PR12MB5860.namprd12.prod.outlook.com (2603:10b6:208:37b::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5612.22; Thu, 15 Sep 2022 10:09:30 +0000
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::7118:ff85:f7ee:b1ce]) by DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::7118:ff85:f7ee:b1ce%4]) with mapi id 15.20.5632.015; Thu, 15 Sep 2022
+ 10:09:30 +0000
+From: "Zhao, Victor" <Victor.Zhao@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Grodzovsky, 
+ Andrey" <Andrey.Grodzovsky@amd.com>
+Subject: RE: [PATCH 1/2] drm/amdgpu: fix deadlock caused by overflow
+Thread-Topic: [PATCH 1/2] drm/amdgpu: fix deadlock caused by overflow
+Thread-Index: AQHYyCJXeAkvPXRu1UqTYYhuuS4eR63f3y8QgAAqMoCAAAISMA==
+Date: Thu, 15 Sep 2022 10:09:29 +0000
+Message-ID: <DM6PR12MB434047014434C43396BB2D31FA499@DM6PR12MB4340.namprd12.prod.outlook.com>
+References: <20220914101025.366954-1-Victor.Zhao@amd.com>
+ <DM6PR12MB4340D28D9D23472D571727D7FA499@DM6PR12MB4340.namprd12.prod.outlook.com>
+ <1ea8528f-fb55-e8b1-73c8-bf8935f9870c@amd.com>
+In-Reply-To: <1ea8528f-fb55-e8b1-73c8-bf8935f9870c@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-15T06:44:12Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=2ed42c08-afe7-4398-886c-bf75a6b58ec6;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-09-15T10:09:26Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: a1e0a983-e7d7-4e1a-b7ca-92f3ea30e836
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB4340:EE_|MN0PR12MB5860:EE_
+x-ms-office365-filtering-correlation-id: ab384dac-8e1a-4f02-4dc8-08da97026106
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: hal2dbxS4TJf9BgK8HaNYeaR9gOiP+tNZn713JNx3fBP6ocJ4eW5N70zdnQEoF4qY9/HCqa6bFI5+XcodxIi1gcZUFsijRzmeWiYrz42Jm7mgmfexRh6ppdQK0iL5gskolPcs29bcLCS4oVi6a5j0XgLsSnFjbOF18SDNL6DbzWpu+fjqhl34vdf6EbFYvxgmgudkEloqNy2/IR1YwvZvNXCayKx5XSB2+iTPjOyhQ7/8rv5DUMuEwmVZwpRQa/rNcst6WUmK8Ve9Prm6RUMdJTKSapayLn3i/LOSIN/lOhRYgQWApSBA/kf8jKuP+wOg/o2G7JBki6O9wadOsaIo49j98p154HAixjJPHHFCoiOKYbooiJm+Tp7LthXRJQkn7GJBPqQB14ypv8HBLMSwPLMy6UJSfIlyy1dIRDgxTNFLPNfIt9oRD7koiV5owXlr1Laztpx3ylrYkqhaeYflHI/aKTbLoBaHxnHDrR8PE++ASnVhUrcz02xiMj6DWbz0K0c8Uq6iq9GyAo3i2V3IPnBgngYaDOmUpybXCsOeabpdIQHchSpetxqDWLBO0h7YkvjvOfwyrnci2TODhquxduNaatqVNkdOS9/xjkc9cmNsHwY9sDA2OYoQalYa2pxxXrymCB1kOyA7v/hLwrBk8L7PyndVMPg7bpYHNgfteKCAnAYSU/GFmDupZWUHzHAJhasxfPoFLHwySo28Ll3j8mSidHv9Ohg1rUo0irWfq4CMmqxhdohk7W+ctwWaVXUeFAult/LXn3aPwZgR+Rlmg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(396003)(39860400002)(346002)(136003)(366004)(451199015)(71200400001)(86362001)(33656002)(64756008)(8676002)(66446008)(76116006)(66946007)(66556008)(5660300002)(38100700002)(316002)(66476007)(38070700005)(110136005)(186003)(2906002)(41300700001)(55016003)(7696005)(6506007)(52536014)(8936002)(9686003)(53546011)(83380400001)(6636002)(4326008)(478600001)(122000001)(26005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cDZXcHB1RGRkZEkvNkJ0Q2s4V3JjNHlHVWlHVGlVQmZvRnc0ZGhiRkZycHBt?=
+ =?utf-8?B?TWdTa0RTcWJFSUFMcUVBNmppVGFLQW5IdCtoaEQwVWVSNWRxTi8rVWc4U0RZ?=
+ =?utf-8?B?U1FSblRXYm82c1B5RlBiQXY1VVpSRVdSM04rQmdjcC96bjBYaTBHZFNucEQr?=
+ =?utf-8?B?Z3dCejZ0OWxIemJnMGNhZHJYSzl5akloQzlhWUFVN3N1NDlOcGFkcDg0ckhy?=
+ =?utf-8?B?dTE4NVMxK0doeDZ6RWIxdThjWVdEeWFwU2Y0bXBKTUltS0NhWkxWMWZFbm82?=
+ =?utf-8?B?T1UyalhIL1FBeDZLT0FQYnVtUTBmaUwzVlJoRk1TbFZzZ2xFL1hzTXl2TFpU?=
+ =?utf-8?B?elpMUEZ5eXhhbmF1R1RDSkU5UHZ4RWczaGorWFpHRFNycHFTNi8zS1lxL1pk?=
+ =?utf-8?B?NGZhVTFPZVpiSDBnblpTYmh3YWFHYmtPVG9Jc0hvVG5QTkVESGRtMUdkNXJD?=
+ =?utf-8?B?eDd6ZFBjQW5tZUY4d1BEVm9zQVZjQnNwS0t3OWdTMDFqckVkR24xZ21aamZw?=
+ =?utf-8?B?b1QvM3F4VXdwWVlUNEg4ZFZ2MGdHVFV4eVZLT3NXREhUMkhNenFqTVduekVl?=
+ =?utf-8?B?UjBqaTN2Q3lHRjZUU2doaWpUMFlvS0lFUDh1anNCREhMVUZnNnFtWWFCMFVz?=
+ =?utf-8?B?aWxyUDhvZGNaNEkvVjc3ajlEY1RCVlpVUlExWFRRZXhwN3E1Y0Y4WlFKUm1j?=
+ =?utf-8?B?N1JaWWl3THpGazdpZ2Z4NDR6dHJhZXVURTN3eDJNTXdTU2dSMU5MVGk4Vi9C?=
+ =?utf-8?B?L3k1b240Lzg4em4rWXVoRFZEUytOZFVwWVBKcHI4UkNmLzRXTWlOdXlFQUZp?=
+ =?utf-8?B?c2U2VmdyRS9MemZDcmtMQTBNYkNrU1ZmNW9mUDFwTmQvWHE5OEpXQUJYUTRK?=
+ =?utf-8?B?cS9vb2c1YUtVRkhTRHRCalJvU2hxcFBmR1I1OGwxRFp2ZE9LNmdKSDAvWW5I?=
+ =?utf-8?B?NWFpcC9LcnZqWVdmb1NpZUxqWUpZNzM3SXFtMm4vSTQ1YjNEeEhlT1F6Z0tH?=
+ =?utf-8?B?WXlJVzcrK0N3blRpK3JhNEJmTlB4bElKSm9yMCtOMmhzS051YVg2bUluTHBo?=
+ =?utf-8?B?K2NkVkt1Y2pQZnpVLy9BZDNxL1BZZktrbXFmMlJTeFc4QkczSzhzWEtZSitM?=
+ =?utf-8?B?UFdGNFFUc3U3OU15Y1hqV2oyQlJsSU5EbUFmNjBZZFRzUTNIeVNnRU44cURk?=
+ =?utf-8?B?U09NVnhNRm1wYlNsaVd5amxwWlpwdk45c2F2V0tWOGhVK0tCd0MxcW9kQitE?=
+ =?utf-8?B?d2Y5Q1pnczE2TU1RbjZnVCttdG1mOXZWVWhDaW83ajhMQ0t1em5FWjJSRFE1?=
+ =?utf-8?B?cjRCaDVodmNKTCs3NzNYWlZxazZDTUNReldzNE44a2lZNXBpK3lQSUlVQ0la?=
+ =?utf-8?B?WlVxU1lKYkc2OVhkOFFjSkk4eGlxS2YvZkdFTjNkRFRkcHdzZnZ2RTd0L0lS?=
+ =?utf-8?B?dmxTZ0JPTjlpQ1VjUkE0VSt1NUw0bWozQWJpWjhFNXo3VWF3SjhIaTdlNzNT?=
+ =?utf-8?B?YktTKytiRm5kNGw1SnphU01tYmQ0dURmeVkyRlk0NmFDY1VjRld0Rit3Njg4?=
+ =?utf-8?B?a2RRS1NTeU00YmVjOTNUNm16SWF5V3dacXZQUjlyRWZNNE4wK1lhMDRsSEZw?=
+ =?utf-8?B?ODN6NkxtT0NCeVV5emswaGE4WnJueUVtNUNqcmN0WEF0TEhDd3hmRmpQSkoz?=
+ =?utf-8?B?SnhQRDFQdkY5dk5Tdks0c2dTNDNVNFhucEZKNWJ1MkRxeW5vNTZOb21oUFBz?=
+ =?utf-8?B?d1p1UlFJam5UZVZoa0tuTVp6QVpkZ0xyWnNDeVNzSityM3ZvRWw5dnNaVlJn?=
+ =?utf-8?B?NnRNOGVlUG5kRXk4MnJia09BV3NjMTdJSkZjNGY2WEVmeUZlR3huY3Nod0x3?=
+ =?utf-8?B?SFlFZ0xNR0hoRXE3NUltWVoxcmhCeWMycHF1dyszaTVzbHozS1RKMVMyc21K?=
+ =?utf-8?B?S0h3Yi8yam8xdndHUzczbWh1b3puRTJ2SFFlSUNRejMrRUxmWnlMR2hLamE3?=
+ =?utf-8?B?SzlSYXlzbUtNa3ZNZzlMYzdEV3hyd1VjVzAwak05QXdqeU9weTgydWFaZjFH?=
+ =?utf-8?B?eWdRSGlobXE2c3dWYXZLQVdFMHplMVorZVRFTzFuV2VKSXUxVWM2Vlg0aE5T?=
+ =?utf-8?Q?WBrU=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Subject: Re: [PATCH V3 46/47] drm/amd/display: Fix failures of disabling
- primary plans
-Content-Language: en-CA, de-CH-frami
-To: Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20220914051046.1131186-1-Wayne.Lin@amd.com>
- <20220914051046.1131186-47-Wayne.Lin@amd.com>
- <604a1d7e-1cd9-ad27-6d37-2e8535ce253b@mailbox.org>
- <40e970ca-c0ac-98b3-0549-2d7b1a812f81@mailbox.org>
- <c429010f-30ea-7abf-a67a-e730c7a6728d@amd.com>
- <65bbb8fb-92ae-774c-72ab-d22195851828@mailbox.org>
- <d94e5504-41b2-3546-24cb-6db2877d277c@amd.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <d94e5504-41b2-3546-24cb-6db2877d277c@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 4733547a23b3c75af3f
-X-MBO-RS-META: 9zeakazanorakuupu3if7szuaem13myd
-X-Rspamd-Queue-Id: 4MSrdX4WlZz9sQx
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab384dac-8e1a-4f02-4dc8-08da97026106
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2022 10:09:29.9565 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: C4nv+SA4hy7OiLn/hEdY/vX/C7FJzWhZym0X1Q6ZA1i/TRi8FfXVEGLG6DbSDV7J
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5860
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,87 +141,132 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: "Deng, Emily" <Emily.Deng@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-09-14 22:08, Alex Hung wrote:
-> On 2022-09-14 10:55, Michel Dänzer wrote:
->> On 2022-09-14 18:30, Alex Hung wrote:
->>> On 2022-09-14 07:40, Michel Dänzer wrote:
->>>> On 2022-09-14 15:31, Michel Dänzer wrote:
->>>>> On 2022-09-14 07:10, Wayne Lin wrote:
->>>>>> From: Alex Hung <alex.hung@amd.com>
->>>>>>
->>>>>> [Why & How]
->>>>>> This fixes kernel errors when IGT disables primary planes during the
->>>>>> tests kms_universal_plane::functional_test_pipe/pageflip_test_pipe.
->>>>>
->>>>> NAK.
->>>>>
->>>>> This essentially reverts commit b836a274b797 ("drm/amdgpu/dc: Require primary plane to be enabled whenever the CRTC is") (except that it goes even further and completely removes the requirement for any HW plane to be enabled when the HW cursor is), so it would reintroduce the issues described in that commit log.
->>>>
->>>> Actually not exactly the same issues, due to going even further than reverting my fix.
->>>>
->>>> Instead, the driver will claim that an atomic commit which enables the CRTC and the cursor plane, while leaving all other KMS planes disabled, succeeds. But the HW cursor will not actually be visible.
->>>
->>> I did not observe problems with cursors (GNOME 42.4 - desktop and youtube/mpv video playback: windowed/fullscreen). Are there steps to reproduce cursor problems?
->>
->> As described in my last follow-up e-mail: An atomic KMS commit which enables the CRTC and the cursor plane, but disables all other KMS planes for the CRTC. The commit will succeed, but will not result in the HW cursor being actually visible. (I don't know of any specific application or test which exercises this)
-> 
-> Did you mean cursor plane depends on primary plane (i.e. no primary plane = no visible HW cursor)?
-
-Sort of. I understand the HW cursor isn't an actual separate plane in AMD HW. Instead, the HW cursor can be displayed as part of any other HW plane. This means that the HW cursor can only be visible if any other plane is enabled.
-
-
-> If there is no primary plane, what scenario would it be required to draw a cursor?
-> 
-> If this is a rare case, would it still be a concern?
-
-Yes. In the KMS API, the cursor plane is like any other plane. A Wayland compositor or other user space may legitimately try to display something (not necessarily a "cursor") using only the cursor plane. The driver must accurately signal that this cannot work. The established way to do so (if a bit indirectly) is to require the primary plane to be enabled whenever the CRTC is.
-
-
->> Also see the commit log of bc92c06525e5 ("drm/amd/display: Allow commits with no planes active").
-> 
-> Does it mean dm_crtc_helper_atomic_check does not need to return -EINVAL if there is no active cursor because there are no cursors to be shown anyways, [...]
-
-This was considered in the review discussion for b836a274b797 ("drm/amdgpu/dc: Require primary plane to be enabled whenever the CRTC is"), see https://patchwork.freedesktop.org/patch/387230/ .
-
-TL;DR: There were already other KMS drivers requiring the primary plane to be enabled whenever the CRTC is, and there's a special case for that in atomic_remove_fb. Adding another special case for the cursor plane would make things much more complicated for common DRM code and user space (and possibly even introduce issues which cannot be solved at all).
-
-
->>>>> If IGT tests disable the primary plane while leaving the CRTC enabled, those tests are broken and need to be fixed instead.
->>>
->>> There are IGT cursor tests fixed by this:
->>>
->>>    igt@kms_cursor_legacy@flip-vs-cursor@atomic-transitions
->>>    igt@kms_cursor_legacy@flip-vs-cursor@atomic-transitions-varying-size
->>>
->>> It also reduces amdgpu workaround in IGT's kms_concurrent:
->>>    https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpatchwork.freedesktop.org%2Fpatch%2F499382%2F%3Fseries%3D107734%26rev%3D1&amp;data=05%7C01%7Calex.hung%40amd.com%7Cc757c9e4fbda4f8474a308da9671f920%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637987713521806985%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=XRRvilVZMBALIWHAOLArxjiAcgqQ%2FwNRnuUUJCTOYzY%3D&amp;reserved=0
->>>
->>> The change affect multiple IGT tests. Adding amdgpu-specific workarounds to each of the IGT tests is not an ideal solution.
->>
->> It's not amdgpu specific, other atomic KMS drivers have the same restriction. IGT tests need to be able to handle this. See e.g. 88e379cef970 ("kms_cursor_legacy: Keep primary plane enabled for XRGB overlay fallback").
-> 
-> 
-> Commit 88e379cef970 adds the following change to keep primary plane enabled:
-> 
-> +               igt_plane_set_fb(primary, prim_fb)
-> 
-> but kms_universal_plane fails at testing disabling primary plane, ex.
-> 
-> [...]
-
-User space just cannot rely on being able to disable the primary plane while the CRTC is enabled. Any IGT tests which do so are broken and need to be fixed.
-
-See also https://patchwork.freedesktop.org/series/80904/ .
-
-
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
-
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCkhpIENocmlzdGlhbiwNCg0KVGhl
+IHRlc3Qgc2VxdWVuY2UgaXMgZXhlY3V0aW5nIGEgY29tcHV0ZSBlbmdpbmUgaGFuZyB3aGlsZSBy
+dW5uaW5nIGEgbG90IG9mIGNvbnRhaW5lcnMgc3VibWl0dGluZyBnZnggam9icy4gV2UgaGF2ZSBh
+ZHZhbmNlZCB0ZHIgbW9kZSBhbmQgbW9kZTIgcmVzZXQgZW5hYmxlZCBvbiBkcml2ZXIuDQpXaGVu
+IGEgY29tcHV0ZSBoYW5nIGpvYiB0aW1lb3V0IGhhcHBlbnMsIHRoZSAyIGpvYnMgb24gdGhlIGdm
+eCBwZW5kaW5nIGxpc3QgbWF5YmUgc2lnbmFsZWQgYWZ0ZXIgZHJtX3NjaGVkX3N0b3AuIFNvIHRo
+ZXkgd2lsbCBub3QgYmUgcmVtb3ZlZCBmcm9tIHBlbmRpbmcgbGlzdCBidXQgaGF2ZSB0aGUgRE1B
+X0ZFTkNFX0ZMQUdfU0lHTkFMRURfQklUIHNldC4NCkF0IHRoZSBhbWRncHVfZGV2aWNlX3JlY2hl
+Y2tfZ3VpbHR5X2pvYnMgc3RlcCwgdGhlIGZpcnN0IGpvYiB3aWxsIGJlIHJlcnVuIGFuZCByZW1v
+dmVkIGZyb20gcGVuZGluZyBsaXN0Lg0KQXQgdGhlIHJlc3VibWl0IHNldHAsIHRoZSBzZWNvbmQg
+am9iICh3aXRoIHNpZ25hbGVkIGJpdCkgd2lsbCBiZSByZXN1Ym1pdHRlZC4gU2luY2UgaXQgc3Rp
+bGwgaGFzIHNpZ25hbGVkIGJpdCwgZHJtX3NjaGVkX2pvYl9kb25lIHdpbGwgYmUgY2FsbGVkIGRp
+cmVjdGx5LiBUaGlzIGRlY3JlYXNlIHRoZSBod19ycV9jb3VudCB3aGljaCBhbGxvd3MgbW9yZSBq
+b2JzIGVtaXR0ZWQgYnV0IGRpZCBub3QgY2xlYW4gZmVuY2VfZHJ2IHJjdSBwdHIuIA0KVGhpcyBy
+ZXN1bHRzIGluIGFuIG92ZXJmbG93IGluIHRoZSBmZW5jZV9kcnYuIFNpbmNlIHdlIHdpbGwgdXNl
+IG51bV9mZW5jZXNfbWFzayBpbiBhbWRncHVfZmVuY2VfcHJvY2Vzcywgd2hlbiBvdmVyZmxvdyBo
+YXBwZW5zLCB0aGUgc2lnbmFsIG9mIHNvbWUgam9iIHdpbGwgYmUgc2tpcHBlZCB3aGljaCByZXN1
+bHQgaW4gYW4gaW5maW5pdGUgd2FpdCBmb3IgdGhlIGZlbmNlX2RydiByY3UgcHRyLg0KDQpTbyBj
+bG9zZSBpcnEgYmVmb3JlIHNjaGVkX3N0b3AgY291bGQgYXZvaWQgc2lnbmFsIGpvYnMgYWZ0ZXIg
+ZHJtX3NjaGVkX3N0b3AuIEFuZCBzaWduYWwgam9iIG9uZSBieSBvbmUgaW4gZmVuY2VfcHJvY2Vz
+cyBpbnN0ZWFkIG9mIHVzaW5nIGEgbWFzayB3aWxsIGhhbmRsZSB0aGUgb3ZlcmZsb3cgc2l0dWF0
+aW9uLg0KDQpBbm90aGVyIGZpeCBjb3VsZCBiZSBza2lwIHN1Ym1pdHRpbmcgam9icyB3aGljaCBh
+bHJlYWR5IHNpZ25hbGVkIGR1cmluZyByZXN1Ym1pdCBzdGFnZSwgd2hpY2ggbWF5IGxvb2sgY2xl
+YW5lci4NCg0KUGxlYXNlIGhlbHAgZ2l2ZSBzb21lIGFkdmljZS4NCg0KDQpUaGFua3MsDQpWaWN0
+b3INCg0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBLb2VuaWcsIENocmlz
+dGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPiANClNlbnQ6IFRodXJzZGF5LCBTZXB0ZW1i
+ZXIgMTUsIDIwMjIgMjozMiBQTQ0KVG86IFpoYW8sIFZpY3RvciA8VmljdG9yLlpoYW9AYW1kLmNv
+bT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBHcm9kem92c2t5LCBBbmRyZXkgPEFu
+ZHJleS5Hcm9kem92c2t5QGFtZC5jb20+DQpDYzogRGVuZywgRW1pbHkgPEVtaWx5LkRlbmdAYW1k
+LmNvbT4NClN1YmplY3Q6IFJlOiBbUEFUQ0ggMS8yXSBkcm0vYW1kZ3B1OiBmaXggZGVhZGxvY2sg
+Y2F1c2VkIGJ5IG92ZXJmbG93DQoNCg0KDQpBbSAxNS4wOS4yMiB1bSAwNjowMiBzY2hyaWViIFpo
+YW8sIFZpY3RvcjoNCj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQo+DQo+IFBp
+bmcuDQo+DQo+IEhpIEBLb2VuaWcsIENocmlzdGlhbiBhbmQgQEdyb2R6b3Zza3ksIEFuZHJleSwN
+Cj4NCj4gV2UgZm91bmQgc29tZSByZXNldCByZWxhdGVkIGlzc3VlcyBkdXJpbmcgc3RyZXNzIHRl
+c3Qgb24gdGhlIHNlcXVlbmNlLiBQbGVhc2UgaGVscCBnaXZlIHNvbWUgY29tbWVudHMuDQo+DQo+
+DQo+IFRoYW5rcywNCj4gVmljdG9yDQo+DQo+DQo+DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0t
+LS0tDQo+IEZyb206IFZpY3RvciBaaGFvIDxWaWN0b3IuWmhhb0BhbWQuY29tPg0KPiBTZW50OiBX
+ZWRuZXNkYXksIFNlcHRlbWJlciAxNCwgMjAyMiA2OjEwIFBNDQo+IFRvOiBhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogRGVuZywgRW1pbHkgPEVtaWx5LkRlbmdAYW1kLmNvbT47
+IEdyb2R6b3Zza3ksIEFuZHJleSANCj4gPEFuZHJleS5Hcm9kem92c2t5QGFtZC5jb20+OyBaaGFv
+LCBWaWN0b3IgPFZpY3Rvci5aaGFvQGFtZC5jb20+DQo+IFN1YmplY3Q6IFtQQVRDSCAxLzJdIGRy
+bS9hbWRncHU6IGZpeCBkZWFkbG9jayBjYXVzZWQgYnkgb3ZlcmZsb3cNCj4NCj4gW2JhY2tncm91
+bmRdDQo+IEZvciBhIGdwdSByZWNvdmVyeSBjYXVzZWQgYnkgYSBoYW5nIG9uIG9uZSByaW5nIChl
+LmcuIGNvbXB1dGUpLCBqb2JzIGZyb20gYW5vdGhlciByaW5nIChlLmcuIGdmeCkgbWF5IGNvbnRp
+bnVlIHNpZ25hbGluZyBkdXJpbmcgZHJtX3NjaGVkX3N0b3Agc3RhZ2UuIFRoZSBzaWduYWwgYml0
+IHdpbGwgbm90IGJlIGNsZWFyZWQuDQo+DQo+IEF0IHRoZSByZXN1Ym1pdCBzdGFnZSBhZnRlciBy
+ZWNvdmVyeSwgdGhlIGpvYiB3aXRoIGh3IGZlbmNlIHNpZ25hbGVkIGJpdCBzZXQgd2lsbCBjYWxs
+IGpvYiBkb25lIGRpcmVjdGx5IGluc3RlYWQgZ28gdGhyb3VnaCBmZW5jZSBwcm9jZXNzLg0KPiBU
+aGlzIG1ha2VzIHRoZSBod19ycV9jb3VudCBkZWNyZWFzZSBidXQgcmN1IGZlbmNlIHBvaW50ZXIg
+bm90IGNsZWFyZWQgeWV0Lg0KPg0KPiBUaGVuIG92ZXJmbG93IGhhcHBlbnMgaW4gdGhlIGZlbmNl
+IGRyaXZlciBzbG90cyBhbmQgc29tZSBqb2JzIG1heSBiZSBza2lwcGVkIGFuZCBsZWF2ZSB0aGUg
+cmN1IHBvaW50ZXIgbm90IGNsZWFyZWQgd2hpY2ggbWFrZXMgYW4gaW5maW5pdGUgd2FpdCBmb3Ig
+dGhlIHNsb3Qgb24gdGhlIG5leHQgZmVuY2UgZW1pdHRlZC4NCj4NCj4gVGhpcyBpbmZpbml0ZSB3
+YWl0IGNhdXNlIGEgam9iIHRpbWVvdXQgb24gdGhlIGVtaXR0aW5nIGpvYi4gQW5kIGRyaXZlciB3
+aWxsIHN0dWNrIGF0IHRoZSBpdHMgc2NoZWQgc3RvcCBzdGVwIGJlY2F1c2Uga3RocmVhZF9wYXJr
+IGNhbm5vdCBiZSBkb25lLg0KPg0KPiBbaG93XQ0KPiAxLiBtb3ZlIGFtZGdwdV9mZW5jZV9kcml2
+ZXJfaXNyX3RvZ2dsZSBlYXJsaWVyIHRvIGNsb3NlIGludGVycnVwdCANCj4gYmVmb3JlIGRybSBz
+Y2hlZCBzdG9wIDIuIGhhbmRsZSBhbGwgZmVuY2VzIGluIGZlbmNlIHByb2Nlc3MgdG8gYXZpb2Qg
+DQo+IHNraXAgd2hlbiBvdmVyZmxvdyBoYXBwZW5zDQo+DQo+IFNpZ25lZC1vZmYtYnk6IFZpY3Rv
+ciBaaGFvIDxWaWN0b3IuWmhhb0BhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAxNiArKysrKysrKysrKysrLS0tICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYyAgfCAgNiArLS0tLS0NCj4gICAyIGZp
+bGVzIGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgDQo+IGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+IGluZGV4IDk0M2M5
+ZTc1MDU3NS4uYzBjZmFlNTJmMTJiIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2RldmljZS5jDQo+IEBAIC00NjEwLDggKzQ2MTAsNiBAQCBpbnQgYW1kZ3B1X2Rl
+dmljZV9wcmVfYXNpY19yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gICAJCWFt
+ZGdwdV92aXJ0X2ZpbmlfZGF0YV9leGNoYW5nZShhZGV2KTsNCj4gICAJfQ0KPiAgIA0KPiAtCWFt
+ZGdwdV9mZW5jZV9kcml2ZXJfaXNyX3RvZ2dsZShhZGV2LCB0cnVlKTsNCj4gLQ0KPiAgIAkvKiBi
+bG9jayBhbGwgc2NoZWR1bGVycyBhbmQgcmVzZXQgZ2l2ZW4gam9iJ3MgcmluZyAqLw0KPiAgIAlm
+b3IgKGkgPSAwOyBpIDwgQU1ER1BVX01BWF9SSU5HUzsgKytpKSB7DQo+ICAgCQlzdHJ1Y3QgYW1k
+Z3B1X3JpbmcgKnJpbmcgPSBhZGV2LT5yaW5nc1tpXTsgQEAgLTUyMTQsNiArNTIxMiw4IEBAIGlu
+dCBhbWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0K
+PiAgIAkJICAgICAgYW1kZ3B1X2RldmljZV9pcF9uZWVkX2Z1bGxfcmVzZXQodG1wX2FkZXYpKQ0K
+PiAgIAkJCWFtZGdwdV9yYXNfc3VzcGVuZCh0bXBfYWRldik7DQo+ICAgDQo+ICsJCWFtZGdwdV9m
+ZW5jZV9kcml2ZXJfaXNyX3RvZ2dsZSh0bXBfYWRldiwgdHJ1ZSk7DQo+ICsNCj4gICAJCWZvciAo
+aSA9IDA7IGkgPCBBTURHUFVfTUFYX1JJTkdTOyArK2kpIHsNCj4gICAJCQlzdHJ1Y3QgYW1kZ3B1
+X3JpbmcgKnJpbmcgPSB0bXBfYWRldi0+cmluZ3NbaV07DQo+ICAgDQo+IEBAIC01MjI4LDggKzUy
+MjgsMTIgQEAgaW50IGFtZGdwdV9kZXZpY2VfZ3B1X3JlY292ZXIoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYsDQo+ICAgCQlhdG9taWNfaW5jKCZ0bXBfYWRldi0+Z3B1X3Jlc2V0X2NvdW50ZXIp
+Ow0KPiAgIAl9DQo+ICAgDQo+IC0JaWYgKG5lZWRfZW1lcmdlbmN5X3Jlc3RhcnQpDQo+ICsJaWYg
+KG5lZWRfZW1lcmdlbmN5X3Jlc3RhcnQpIHsNCj4gKwkJbGlzdF9mb3JfZWFjaF9lbnRyeSAodG1w
+X2FkZXYsIGRldmljZV9saXN0X2hhbmRsZSwgcmVzZXRfbGlzdCkgew0KPiArCQkJYW1kZ3B1X2Zl
+bmNlX2RyaXZlcl9pc3JfdG9nZ2xlKHRtcF9hZGV2LCBmYWxzZSk7DQo+ICsJCX0NCj4gICAJCWdv
+dG8gc2tpcF9zY2hlZF9yZXN1bWU7DQo+ICsJfQ0KPiAgIA0KPiAgIAkvKg0KPiAgIAkgKiBNdXN0
+IGNoZWNrIGd1aWx0eSBzaWduYWwgaGVyZSBzaW5jZSBhZnRlciB0aGlzIHBvaW50IGFsbCBvbGQg
+QEAgLTUyNDAsNiArNTI0NCw5IEBAIGludCBhbWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyKHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgIAlpZiAoam9iICYmIGRtYV9mZW5jZV9pc19zaWdu
+YWxlZCgmam9iLT5od19mZW5jZSkpIHsNCj4gICAJCWpvYl9zaWduYWxlZCA9IHRydWU7DQo+ICAg
+CQlkZXZfaW5mbyhhZGV2LT5kZXYsICJHdWlsdHkgam9iIGFscmVhZHkgc2lnbmFsZWQsIHNraXBw
+aW5nIEhXIA0KPiByZXNldCIpOw0KPiArCQlsaXN0X2Zvcl9lYWNoX2VudHJ5ICh0bXBfYWRldiwg
+ZGV2aWNlX2xpc3RfaGFuZGxlLCByZXNldF9saXN0KSB7DQo+ICsJCQlhbWRncHVfZmVuY2VfZHJp
+dmVyX2lzcl90b2dnbGUodG1wX2FkZXYsIGZhbHNlKTsNCj4gKwkJfQ0KPiAgIAkJZ290byBza2lw
+X2h3X3Jlc2V0Ow0KPiAgIAl9DQo+ICAgDQo+IEBAIC01Mjc2LDYgKzUyODMsNyBAQCBpbnQgYW1k
+Z3B1X2RldmljZV9ncHVfcmVjb3ZlcihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gICAJ
+CWlmIChyICYmIHIgPT0gLUVBR0FJTikgew0KPiAgIAkJCXNldF9iaXQoQU1ER1BVX1NLSVBfTU9E
+RTJfUkVTRVQsICZyZXNldF9jb250ZXh0LT5mbGFncyk7DQo+ICAgCQkJYWRldi0+YXNpY19yZXNl
+dF9yZXMgPSAwOw0KPiArCQkJYW1kZ3B1X2ZlbmNlX2RyaXZlcl9pc3JfdG9nZ2xlKGFkZXYsIHRy
+dWUpOw0KPiAgIAkJCWdvdG8gcmV0cnk7DQo+ICAgCQl9DQo+ICAgCX0NCj4gQEAgLTU3MTEsNiAr
+NTcxOSw4IEBAIHBjaV9lcnNfcmVzdWx0X3QgYW1kZ3B1X3BjaV9zbG90X3Jlc2V0KHN0cnVjdCBw
+Y2lfZGV2ICpwZGV2KQ0KPiAgIAlzZXRfYml0KEFNREdQVV9TS0lQX0hXX1JFU0VULCAmcmVzZXRf
+Y29udGV4dC5mbGFncyk7DQo+ICAgCXNldF9iaXQoQU1ER1BVX1NLSVBfTU9ERTJfUkVTRVQsICZy
+ZXNldF9jb250ZXh0LmZsYWdzKTsNCj4gICANCj4gKwlhbWRncHVfZmVuY2VfZHJpdmVyX2lzcl90
+b2dnbGUoYWRldiwgdHJ1ZSk7DQo+ICsNCj4gICAJYWRldi0+bm9faHdfYWNjZXNzID0gdHJ1ZTsN
+Cj4gICAJciA9IGFtZGdwdV9kZXZpY2VfcHJlX2FzaWNfcmVzZXQoYWRldiwgJnJlc2V0X2NvbnRl
+eHQpOw0KPiAgIAlhZGV2LT5ub19od19hY2Nlc3MgPSBmYWxzZTsNCj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jIA0KPiBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jDQo+IGluZGV4IDhhZGViNzQ2OWYxZS4uNjVh
+ODc3ZTFhN2ZjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZmVuY2UuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVu
+Y2UuYw0KPiBAQCAtMjg3LDE1ICsyODcsMTEgQEAgYm9vbCBhbWRncHVfZmVuY2VfcHJvY2Vzcyhz
+dHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpDQo+ICAgCWlmICh1bmxpa2VseShzZXEgPT0gbGFzdF9z
+ZXEpKQ0KPiAgIAkJcmV0dXJuIGZhbHNlOw0KPiAgIA0KPiAtCWxhc3Rfc2VxICY9IGRydi0+bnVt
+X2ZlbmNlc19tYXNrOw0KPiAtCXNlcSAmPSBkcnYtPm51bV9mZW5jZXNfbWFzazsNCj4gLQ0KPiAg
+IAlkbyB7DQo+ICAgCQlzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSwgKipwdHI7DQo+ICAgDQo+ICAg
+CQkrK2xhc3Rfc2VxOw0KPiAtCQlsYXN0X3NlcSAmPSBkcnYtPm51bV9mZW5jZXNfbWFzazsNCj4g
+LQkJcHRyID0gJmRydi0+ZmVuY2VzW2xhc3Rfc2VxXTsNCj4gKwkJcHRyID0gJmRydi0+ZmVuY2Vz
+W2xhc3Rfc2VxICYgZHJ2LT5udW1fZmVuY2VzX21hc2tdOw0KPiAgIA0KPiAgIAkJLyogVGhlcmUg
+aXMgYWx3YXlzIGV4YWN0bHkgb25lIHRocmVhZCBzaWduYWxpbmcgdGhpcyBmZW5jZSBzbG90ICov
+DQo+ICAgCQlmZW5jZSA9IHJjdV9kZXJlZmVyZW5jZV9wcm90ZWN0ZWQoKnB0ciwgMSk7DQoNClRo
+b3NlIGNoYW5nZXMgaGVyZSBkb2Vzbid0IHNlZW0gdG8gbWFrZSBzZW5zZS4gUGxlYXNlIGV4cGxh
+aW4gZnVydGhlciB3aHkgdGhhdCBpcyBuZWNlc3NhcnkuDQoNCkNocmlzdGlhbi4NCg0KPiAtLQ0K
+PiAyLjI1LjENCg==
