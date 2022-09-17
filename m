@@ -4,43 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B81E3ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Sep 2022 22:16:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 910CEC6FA82
+	for <amd-gfx@archiver.kernel.org>; Sat, 17 Sep 2022 03:31:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0311C10E35F;
-	Fri, 16 Sep 2022 22:16:10 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8F5610E1A7;
- Fri, 16 Sep 2022 22:16:05 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id F381DB82996;
- Fri, 16 Sep 2022 22:16:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5592C433D6;
- Fri, 16 Sep 2022 22:16:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663366562;
- bh=QJU2bpF1qhcur4csmpxoZgKoUEQtaXh5V19DQH5Wcc0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=c8mPiTOVjDC3IxHv7Tq/K6uWZuTgH1G63RQ7uCdhIQXn0/2H+T6E9MfsIOTJAI3kh
- tAWhOHpA+ayDbmrI9lVArWqhFRd9LXlzotTwJjoOqMaPqpE8vqx5NlUuNWJn5KI/35
- GAaJAFa4eLDx/r+6oI+kFi7HvYpTl4LAjuMD1oMHhZeIJkM0CIUnwBgbnjch3KjpsU
- Z2nPigkku64E8R125hp0fsaXTY081vmJznpQ3Ze3dsbZReq5wJe5YLIHEwM7zUpTXa
- IJiuGxVqbQ/yzd8Xd9wa98GNcYWUoTr1fA/zJYAYA3ZeY9B1429s8wnjhvxP3V0qUG
- lVftgWzrwHiQQ==
-Date: Fri, 16 Sep 2022 15:16:00 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Tom Rix <trix@redhat.com>
-Subject: Re: [PATCH 1/2] drm/amd/display: Reduce number of arguments of
- dml314's CalculateWatermarksAndDRAMSpeedChangeSupport()
-Message-ID: <YyT1oKEW81ZtMF22@dev-arch.thelio-3990X>
-References: <20220916210658.3412450-1-nathan@kernel.org>
- <79b70fc5-0b95-f3ac-1e4a-8bf0542012c2@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD68610E14A;
+	Sat, 17 Sep 2022 03:31:21 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90B5C10E13E
+ for <amd-gfx@lists.freedesktop.org>; Sat, 17 Sep 2022 03:31:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YO2bhupYgoPBCd+dd252LT3AjnWiNspIWM4RqS1d7LulIJ/VIt9ukcStitcaFCvaSQxZvQkzI/2/h9GNnich8FZvvva0rFrxlr3xhJCR2yAuywNWwGZtkMp8Gp/XX216O3ilY9YS+UO+13kqO8/Yb0tU9tR9zowIwpSDttMg0YxTUvMlhAbV4jVVAqG4Lk4PYZTQVdKuz/F/iV9OIfBWsHTyiPVowJUqyzaiM8/KPLYAeNKnpnhHRXXB2/8qA4uVADyy4wNiFItDsW7QYWtUEuamgoLhQ+GGQz2hPpRvyds1pJhBmT1fNVhyxWnSB8nktTb+l3KRlR87MHWkLrQzMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0pz35N8cXe9dqABQXvZXd/Q67jZPB+oFn0t4ZY9GKlo=;
+ b=OfKrkgzzb2NMHcamePqbI0I9A9/pXrp6K+mwKb7fSei4fiJUXiQQda98ERn+o0kPuQFDau1FMcPBJzjncb38I58GRWj/onOYeV2mAkFohznM23BMpgxc009k7ZxmBxGyieyE0LVtqgCI/3rsCdJpLweP6yPVd6IXhSj2E+ePzwGPgTT/0JtqkY+odzph4tphw7PBHDFaMZxmuh/Axr2mL0cjEdib6QccXeQf5oBqzDapvdjF7BwrjXiC5pmqpfDgss52bW+7FcbkyunUUVp+OrVUMo3y0RMA5rkcCQShzeyIhtntJDdvlgc1lXhNJFChHJ2CAKVvDRjzP2rzJdUH1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0pz35N8cXe9dqABQXvZXd/Q67jZPB+oFn0t4ZY9GKlo=;
+ b=mV5t32SfcIrZf9RohhM7hJa780r8hiaCwH9uQ9ral2Mjrmo+NXNvzIk0oexyi6JnN9vUM9kSgbmO8jOgfzNpcTG66zqew5Ob3MZ8bCCDp3l/WXUnMu91Go5bVNJZJZIue+fh3SPLKo20pxzOuJZRB6G99ydl43yUHWc0k9/Aftc=
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
+ BL1PR12MB5730.namprd12.prod.outlook.com (2603:10b6:208:385::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5612.22; Sat, 17 Sep 2022 03:31:14 +0000
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::7118:ff85:f7ee:b1ce]) by DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::7118:ff85:f7ee:b1ce%4]) with mapi id 15.20.5632.017; Sat, 17 Sep 2022
+ 03:31:13 +0000
+From: "Zhao, Victor" <Victor.Zhao@amd.com>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/2] drm/amdgpu: fix deadlock caused by overflow
+Thread-Topic: [PATCH 1/2] drm/amdgpu: fix deadlock caused by overflow
+Thread-Index: AQHYyCJXeAkvPXRu1UqTYYhuuS4eR63f3y8QgAAqMoCAAAISMIAAxoqAgAAP4gCAABPmgIAAkYgAgACO5oCAAOQbwA==
+Date: Sat, 17 Sep 2022 03:31:13 +0000
+Message-ID: <DM6PR12MB4340BA5F434240E73E5E5F8CFA4B9@DM6PR12MB4340.namprd12.prod.outlook.com>
+References: <20220914101025.366954-1-Victor.Zhao@amd.com>
+ <DM6PR12MB4340D28D9D23472D571727D7FA499@DM6PR12MB4340.namprd12.prod.outlook.com>
+ <1ea8528f-fb55-e8b1-73c8-bf8935f9870c@amd.com>
+ <DM6PR12MB434047014434C43396BB2D31FA499@DM6PR12MB4340.namprd12.prod.outlook.com>
+ <e7eadc0d-c9a6-8a12-bbd7-5dd3277a7754@amd.com>
+ <fc7f7d5f-3d63-234f-1864-ab365d6e338d@amd.com>
+ <378f971b-9ee6-5fb3-4143-f20b873d0b4b@amd.com>
+ <3ee47f74-fca4-f78c-9235-972d4543d880@amd.com>
+ <d4fff5a6-833a-161f-d86e-b17cb9d9382c@amd.com>
+In-Reply-To: <d4fff5a6-833a-161f-d86e-b17cb9d9382c@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-17T03:31:11Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=7bec5bc3-4a51-454a-89cf-9b852255a728;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-09-17T03:31:11Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: ef012f17-ebf9-4224-997c-e700fdc04003
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB4340:EE_|BL1PR12MB5730:EE_
+x-ms-office365-filtering-correlation-id: 3ed72954-6dc3-490d-9b3b-08da985d1296
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Ni2jARoWM5Pg2JEEcevmhHWsThMQNGv0J4Wphm4p4Bz16fxAxOZw3wg8fhpY5OsqaqvfLHceyHYd0szET2kYkbi6B5BKLvQxUlrAa8OswlkXKjcmIg+IuaHuEX+vt+mfSwHf3ydOGWkh6kkZ1wVCxv4n2wl3WIYUCs2a/AavSY+2e5fhoBTrsYst0i2j77mMYf7l1SIahWIuoeaz7etfIuyPDsJmJH4q7ZsND+6p1r92s+MWHey0SjSbsIEzIUTrvj8bVha6PtM2wvFYtWK84kjmjpztpeiefdhhEeK0ktOU4wANqWjyKgPdD1kpg2yqDZKdTT08z97l2QR4wUdKBZ1mXMxb2zA0NrnlfieTzvRiuYaKU7fLmRbF5Fse44d9VzF0AuL+n/KbSzHiQ3v46/wdAMwsi5lVJ0GOfRFu/vHbsLKS6ZRMZWgFij46bC9UawEThZgt2YVGbNTZeZF0DURQFYS/cTs/yAzG+olcUOb84GQol+/qJFVp5BDggxc69B/0HSQjgA2OAQowfGOHoPwI5Qi8cDdVrGJ7U/SNYxxwUBiXEkvIg2UuClO/fc1Ewgh20u34Myzfm+rZYK8extO1r7UDqoUiarbo6L+VzHkzTFOsb0gfePNLmhHzpP267ppdOt6MqLUp0EIZWG2BetUChNajXc4517EBnzXHMgkQXXczrRcgnc8PCC/aUxNXKS+C2Ao8/k7pYxQK4uq90Mw3B3d7kU6JUasMzEC4V9ObNOBSY0UQydJw7Vc+xYWbRXsjwXAAHzuyby1X4Tpm+k8FK44kYAgT8STK4BXj8fA=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(136003)(346002)(396003)(366004)(39860400002)(451199015)(52536014)(26005)(8936002)(5660300002)(9686003)(66574015)(71200400001)(53546011)(4326008)(64756008)(66556008)(66476007)(122000001)(33656002)(66446008)(38070700005)(110136005)(76116006)(66946007)(41300700001)(316002)(8676002)(478600001)(83380400001)(2906002)(6506007)(7696005)(86362001)(30864003)(55016003)(186003)(38100700002)(509564003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?bmJ5eGx2NUc3ZVhYMkpDNzZBTEt1MkZydFNwL1hIN285cTlQYnhONzdINm55?=
+ =?utf-8?B?VFRtNUN3WEhPQmNwZllXZnJKVmNRYXZrQlN0Q1RzcWs4Mm9XY0dlYXlxWEY4?=
+ =?utf-8?B?YXJwMDhkUzNURzNJRTVQVUJXUjVKazU0MVNYTlVDUVBxV3d2L0xvRHlZQUI0?=
+ =?utf-8?B?S2hrZllSQnpMMEZ2SDBQU3hTcGVHM1NtWmM3emxrb29Db3J0S1dkdlJKNnFT?=
+ =?utf-8?B?Y2l4alJLOEtOd1VUaEc1QXNDaGRqYm12VGdMVlppRkc3b016LzZzM05xcWhW?=
+ =?utf-8?B?MTI3RXFydEo0WSs3aDJhaDRhZ0NyeXZOYUswMS9qcy9UeW05ZWhoWndIR3dT?=
+ =?utf-8?B?cjg2L1NtMW51eStWS1h5VjZIQnVlelUvYmJTNk9DRm5kWFdXU3kxUFZKUVAx?=
+ =?utf-8?B?OFljOHpMUEVhdXFaODduUGd1RWNZMW4xNEZEMHg2MXBmdm5vb3h2VlZtL1BL?=
+ =?utf-8?B?QlZpRlI0UEphQXprSm9SL0NaeVBPdDJFSHcyZHVBazdBaTJvTGdnemp3ZjdS?=
+ =?utf-8?B?bHhPYk1oTjE4bFRxK0pYQWcrZ0taN2cxWW13RXlQdjkyRVh1bGF0VzIwa1By?=
+ =?utf-8?B?L0VNb1F1cW9BVXJQTFFwY2tYK09kcXFELzB2Z3dzS3JTc05VeXRZTEljY05q?=
+ =?utf-8?B?VnhqVERaZE40b3p2V2hVTVRRWWs3ZTZ5TnZsOElEaE9aME1kMjVUNVZCK3dR?=
+ =?utf-8?B?c0JOYVNYTHJUb2xPVUgvY0lSNzBmdFBVdFloZWh0Y3dyUHJuUnR5REFseUFP?=
+ =?utf-8?B?TDk4eFFENm5JZ0pJZWRpSnVQVWN1b0R4c3U1SUhjZ1VoU3dGTE5LOTRFRFF1?=
+ =?utf-8?B?aXVHZS94ZDdSU0tFUFVOcmxlc0tNY2JuSmhRNE9vUnVEOW5Eb2NhWmpzZWZB?=
+ =?utf-8?B?ZHNyVUlUd3VCZkl1Y3Q5WE9QVGR4a3N3cTIxcGhndDZMc01ZbGlRaFgzQXdP?=
+ =?utf-8?B?WmdVZGRmQzZxSnJQSndaQjBqTXQvUXNDNkxDQmEwTFIyblROcnRoeVFmbXEx?=
+ =?utf-8?B?QU1LRVZXMHM4VDNYR3RZMW15Snk2Witqb1RuS0JqNUVoN0d6bFpYWGpwdFlY?=
+ =?utf-8?B?T2E5dHVOeFlWY0xRNTZLZkpyM0dHZk8vMkJaYU04dHRTMmMwRnVOMEVoOTZm?=
+ =?utf-8?B?ZGVnZG50UHRRZ3p4cmxZaExXZnZLZ2pzK1owbHN2T09Tc3ZMQkZYR3RWZWlO?=
+ =?utf-8?B?cWVDNW5ZRkNxUDNtNGwxc0U0TnVjVlAzSWdvTENNRUtaTUVyU2JnamFReGEy?=
+ =?utf-8?B?QXRETCtQTW1MTGRlelI0ZjhhbzQ1Y21GSElTSStJWitPSW1Tc1pxbDg3M3Iz?=
+ =?utf-8?B?MklibTVaNEdtM0tWaGU2MEtJeksvSTh6ckFJYVJNdjM3KzJ1ZjhJWmszVVNH?=
+ =?utf-8?B?TEpGSUNKaVpIMDZRMlhZMCtuMnBNUlZ2K0hVS2ZLTEEyTVZrMGl4aEx0L2pM?=
+ =?utf-8?B?c2Vrb0IzNzh2MVR0TEduVUZkY1VkRENLTUw0VHZmNUpzNnRqNnpZQ2xqeUlJ?=
+ =?utf-8?B?Q0xlQ2ZqbFIzamtEZ1lUdG1vdEw1NGd5NHMrKzdXb1g3Wkd5RmIwMmhSa2dt?=
+ =?utf-8?B?L2JwbGJKUjZVcVdXNlFRa05mZk9QUlMrenVJR2NpYit4VVNRQ1ozR1Z5NkhY?=
+ =?utf-8?B?Z1F2alVPUjQxODZ0VzFJbWoxUmdEejk2Mkh4elRnVHZWcXdaNlNITFZnaW5y?=
+ =?utf-8?B?R0xwejczRklic2tlNmFtSXVsY2JuM3hqTXdDREZ2WmlHUzhTL1dvQlpDOVh5?=
+ =?utf-8?B?MnpycnR5ZjIzWTllVlp2ajJCSzlqajI4VE1jQWtraFBEcy9oa1VJS2xGOFd4?=
+ =?utf-8?B?cDNPazhlMmlJak9WbDhBallZZlFUSzRBNTJTbEpObDdyay9tUE04UmtxbFBQ?=
+ =?utf-8?B?VlFlOGliVk9MQXhwSkxEUGI4T254QWU3dndhQjdabmRHb213KzdGSzcxcGtq?=
+ =?utf-8?B?VlZRdDh4UXM3RVl3VUxoMERwRlJ6Wjh1ODRRU1owdm0rUzJxZnpRQ2FYQXNT?=
+ =?utf-8?B?Z1ZsKzlPWHFLT0hxSFkvenRLU2szU3p5Y0h6Sy9GMWhPbWdEMEhJaFNqOUpY?=
+ =?utf-8?B?cFhOYzFmdzhNOVAyaEdvQmFxRFhQditRdzB0OG55N1hVTnVPbWRVcnZjbDd3?=
+ =?utf-8?Q?GUS4=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <79b70fc5-0b95-f3ac-1e4a-8bf0542012c2@redhat.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ed72954-6dc3-490d-9b3b-08da985d1296
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2022 03:31:13.7028 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EnAQI6CX1XYJP5gZWH/8tf0oyf2BuB/dcOKGwwr3d3WPEArOsKehKrWRWguGTfCN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5730
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,516 +147,221 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, "kernelci.org bot" <bot@kernelci.org>,
- Leo Li <sunpeng.li@amd.com>, Nick Desaulniers <ndesaulniers@google.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- patches@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: "Deng, Emily" <Emily.Deng@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 16, 2022 at 03:04:53PM -0700, Tom Rix wrote:
-> 
-> On 9/16/22 2:06 PM, Nathan Chancellor wrote:
-> > Most of the arguments are identical between the two call sites and they
-> > can be accessed through the 'struct vba_vars_st' pointer. This reduces
-> > the total amount of stack space that
-> > dml314_ModeSupportAndSystemConfigurationFull() uses by 240 bytes with
-> > LLVM 16 (2216 -> 1976), helping clear up the following clang warning:
-> > 
-> >    drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.c:4020:6: error: stack frame size (2216) exceeds limit (2048) in 'dml314_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
-> >    void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
-> >         ^
-> >    1 error generated.
-> > 
-> > Link: https://github.com/ClangBuiltLinux/linux/issues/1710
-> > Reported-by: "kernelci.org bot" <bot@kernelci.org>
-> > Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> 
-> Nathan,
-> 
-> I like this change but I don't think it goes far enough.
-> 
-> There are many similar functions in this file and there other
-> display_node_vba_*.c files that pass too many vba_vars_st elements.
-> 
-> I think most/all of the static functions should be refactored to pass
-> vba_vars_st * or vba_vars_st **
-> 
-> fwiw, i found the calling function DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation,
-> hilariously long :)
-> 
-> I'll do the change if you want to pass this to me, I promise not to add to
-> the above function name.
-
-Right, there is definitely more that could be done here; I just picked
-the couple of functions that would appear to make the most impact, as I
-am only concerned with keeping the code warning free with clang so that
--Werror does not break us. I think it makes sense to take this series to
-fix the warnings right now (especially since this patch has technically
-already been accepted, as it was applied to dcn31) then follow up with
-refactoring, which I am more than happy to let you do if you so desire
-:)
-
-Thank you for the input as always!
-
-Cheers,
-Nathan
-
-> > ---
-> > 
-> > This is just commit ab2ac59c32db ("drm/amd/display: Reduce number of
-> > arguments of dml31's CalculateWatermarksAndDRAMSpeedChangeSupport()")
-> > applied to dml314.
-> > 
-> >   .../dc/dml/dcn314/display_mode_vba_314.c      | 248 ++++--------------
-> >   1 file changed, 52 insertions(+), 196 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-> > index 2829f179f982..32ceb72f7a14 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-> > @@ -325,64 +325,28 @@ static void CalculateVupdateAndDynamicMetadataParameters(
-> >   static void CalculateWatermarksAndDRAMSpeedChangeSupport(
-> >   		struct display_mode_lib *mode_lib,
-> >   		unsigned int PrefetchMode,
-> > -		unsigned int NumberOfActivePlanes,
-> > -		unsigned int MaxLineBufferLines,
-> > -		unsigned int LineBufferSize,
-> > -		unsigned int WritebackInterfaceBufferSize,
-> >   		double DCFCLK,
-> >   		double ReturnBW,
-> > -		bool SynchronizedVBlank,
-> > -		unsigned int dpte_group_bytes[],
-> > -		unsigned int MetaChunkSize,
-> >   		double UrgentLatency,
-> >   		double ExtraLatency,
-> > -		double WritebackLatency,
-> > -		double WritebackChunkSize,
-> >   		double SOCCLK,
-> > -		double DRAMClockChangeLatency,
-> > -		double SRExitTime,
-> > -		double SREnterPlusExitTime,
-> > -		double SRExitZ8Time,
-> > -		double SREnterPlusExitZ8Time,
-> >   		double DCFCLKDeepSleep,
-> >   		unsigned int DETBufferSizeY[],
-> >   		unsigned int DETBufferSizeC[],
-> >   		unsigned int SwathHeightY[],
-> >   		unsigned int SwathHeightC[],
-> > -		unsigned int LBBitPerPixel[],
-> >   		double SwathWidthY[],
-> >   		double SwathWidthC[],
-> > -		double HRatio[],
-> > -		double HRatioChroma[],
-> > -		unsigned int vtaps[],
-> > -		unsigned int VTAPsChroma[],
-> > -		double VRatio[],
-> > -		double VRatioChroma[],
-> > -		unsigned int HTotal[],
-> > -		double PixelClock[],
-> > -		unsigned int BlendingAndTiming[],
-> >   		unsigned int DPPPerPlane[],
-> >   		double BytePerPixelDETY[],
-> >   		double BytePerPixelDETC[],
-> > -		double DSTXAfterScaler[],
-> > -		double DSTYAfterScaler[],
-> > -		bool WritebackEnable[],
-> > -		enum source_format_class WritebackPixelFormat[],
-> > -		double WritebackDestinationWidth[],
-> > -		double WritebackDestinationHeight[],
-> > -		double WritebackSourceHeight[],
-> >   		bool UnboundedRequestEnabled,
-> >   		unsigned int CompressedBufferSizeInkByte,
-> >   		enum clock_change_support *DRAMClockChangeSupport,
-> > -		double *UrgentWatermark,
-> > -		double *WritebackUrgentWatermark,
-> > -		double *DRAMClockChangeWatermark,
-> > -		double *WritebackDRAMClockChangeWatermark,
-> >   		double *StutterExitWatermark,
-> >   		double *StutterEnterPlusExitWatermark,
-> >   		double *Z8StutterExitWatermark,
-> > -		double *Z8StutterEnterPlusExitWatermark,
-> > -		double *MinActiveDRAMClockChangeLatencySupported);
-> > +		double *Z8StutterEnterPlusExitWatermark);
-> >   static void CalculateDCFCLKDeepSleep(
-> >   		struct display_mode_lib *mode_lib,
-> > @@ -3041,64 +3005,28 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
-> >   		CalculateWatermarksAndDRAMSpeedChangeSupport(
-> >   				mode_lib,
-> >   				PrefetchMode,
-> > -				v->NumberOfActivePlanes,
-> > -				v->MaxLineBufferLines,
-> > -				v->LineBufferSize,
-> > -				v->WritebackInterfaceBufferSize,
-> >   				v->DCFCLK,
-> >   				v->ReturnBW,
-> > -				v->SynchronizedVBlank,
-> > -				v->dpte_group_bytes,
-> > -				v->MetaChunkSize,
-> >   				v->UrgentLatency,
-> >   				v->UrgentExtraLatency,
-> > -				v->WritebackLatency,
-> > -				v->WritebackChunkSize,
-> >   				v->SOCCLK,
-> > -				v->DRAMClockChangeLatency,
-> > -				v->SRExitTime,
-> > -				v->SREnterPlusExitTime,
-> > -				v->SRExitZ8Time,
-> > -				v->SREnterPlusExitZ8Time,
-> >   				v->DCFCLKDeepSleep,
-> >   				v->DETBufferSizeY,
-> >   				v->DETBufferSizeC,
-> >   				v->SwathHeightY,
-> >   				v->SwathHeightC,
-> > -				v->LBBitPerPixel,
-> >   				v->SwathWidthY,
-> >   				v->SwathWidthC,
-> > -				v->HRatio,
-> > -				v->HRatioChroma,
-> > -				v->vtaps,
-> > -				v->VTAPsChroma,
-> > -				v->VRatio,
-> > -				v->VRatioChroma,
-> > -				v->HTotal,
-> > -				v->PixelClock,
-> > -				v->BlendingAndTiming,
-> >   				v->DPPPerPlane,
-> >   				v->BytePerPixelDETY,
-> >   				v->BytePerPixelDETC,
-> > -				v->DSTXAfterScaler,
-> > -				v->DSTYAfterScaler,
-> > -				v->WritebackEnable,
-> > -				v->WritebackPixelFormat,
-> > -				v->WritebackDestinationWidth,
-> > -				v->WritebackDestinationHeight,
-> > -				v->WritebackSourceHeight,
-> >   				v->UnboundedRequestEnabled,
-> >   				v->CompressedBufferSizeInkByte,
-> >   				&DRAMClockChangeSupport,
-> > -				&v->UrgentWatermark,
-> > -				&v->WritebackUrgentWatermark,
-> > -				&v->DRAMClockChangeWatermark,
-> > -				&v->WritebackDRAMClockChangeWatermark,
-> >   				&v->StutterExitWatermark,
-> >   				&v->StutterEnterPlusExitWatermark,
-> >   				&v->Z8StutterExitWatermark,
-> > -				&v->Z8StutterEnterPlusExitWatermark,
-> > -				&v->MinActiveDRAMClockChangeLatencySupported);
-> > +				&v->Z8StutterEnterPlusExitWatermark);
-> >   		for (k = 0; k < v->NumberOfActivePlanes; ++k) {
-> >   			if (v->WritebackEnable[k] == true) {
-> > @@ -5496,64 +5424,28 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
-> >   			CalculateWatermarksAndDRAMSpeedChangeSupport(
-> >   					mode_lib,
-> >   					v->PrefetchModePerState[i][j],
-> > -					v->NumberOfActivePlanes,
-> > -					v->MaxLineBufferLines,
-> > -					v->LineBufferSize,
-> > -					v->WritebackInterfaceBufferSize,
-> >   					v->DCFCLKState[i][j],
-> >   					v->ReturnBWPerState[i][j],
-> > -					v->SynchronizedVBlank,
-> > -					v->dpte_group_bytes,
-> > -					v->MetaChunkSize,
-> >   					v->UrgLatency[i],
-> >   					v->ExtraLatency,
-> > -					v->WritebackLatency,
-> > -					v->WritebackChunkSize,
-> >   					v->SOCCLKPerState[i],
-> > -					v->DRAMClockChangeLatency,
-> > -					v->SRExitTime,
-> > -					v->SREnterPlusExitTime,
-> > -					v->SRExitZ8Time,
-> > -					v->SREnterPlusExitZ8Time,
-> >   					v->ProjectedDCFCLKDeepSleep[i][j],
-> >   					v->DETBufferSizeYThisState,
-> >   					v->DETBufferSizeCThisState,
-> >   					v->SwathHeightYThisState,
-> >   					v->SwathHeightCThisState,
-> > -					v->LBBitPerPixel,
-> >   					v->SwathWidthYThisState,
-> >   					v->SwathWidthCThisState,
-> > -					v->HRatio,
-> > -					v->HRatioChroma,
-> > -					v->vtaps,
-> > -					v->VTAPsChroma,
-> > -					v->VRatio,
-> > -					v->VRatioChroma,
-> > -					v->HTotal,
-> > -					v->PixelClock,
-> > -					v->BlendingAndTiming,
-> >   					v->NoOfDPPThisState,
-> >   					v->BytePerPixelInDETY,
-> >   					v->BytePerPixelInDETC,
-> > -					v->DSTXAfterScaler,
-> > -					v->DSTYAfterScaler,
-> > -					v->WritebackEnable,
-> > -					v->WritebackPixelFormat,
-> > -					v->WritebackDestinationWidth,
-> > -					v->WritebackDestinationHeight,
-> > -					v->WritebackSourceHeight,
-> >   					UnboundedRequestEnabledThisState,
-> >   					CompressedBufferSizeInkByteThisState,
-> >   					&v->DRAMClockChangeSupport[i][j],
-> > -					&v->UrgentWatermark,
-> > -					&v->WritebackUrgentWatermark,
-> > -					&v->DRAMClockChangeWatermark,
-> > -					&v->WritebackDRAMClockChangeWatermark,
-> > -					&dummy,
-> >   					&dummy,
-> >   					&dummy,
-> >   					&dummy,
-> > -					&v->MinActiveDRAMClockChangeLatencySupported);
-> > +					&dummy);
-> >   		}
-> >   	}
-> > @@ -5679,64 +5571,28 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
-> >   static void CalculateWatermarksAndDRAMSpeedChangeSupport(
-> >   		struct display_mode_lib *mode_lib,
-> >   		unsigned int PrefetchMode,
-> > -		unsigned int NumberOfActivePlanes,
-> > -		unsigned int MaxLineBufferLines,
-> > -		unsigned int LineBufferSize,
-> > -		unsigned int WritebackInterfaceBufferSize,
-> >   		double DCFCLK,
-> >   		double ReturnBW,
-> > -		bool SynchronizedVBlank,
-> > -		unsigned int dpte_group_bytes[],
-> > -		unsigned int MetaChunkSize,
-> >   		double UrgentLatency,
-> >   		double ExtraLatency,
-> > -		double WritebackLatency,
-> > -		double WritebackChunkSize,
-> >   		double SOCCLK,
-> > -		double DRAMClockChangeLatency,
-> > -		double SRExitTime,
-> > -		double SREnterPlusExitTime,
-> > -		double SRExitZ8Time,
-> > -		double SREnterPlusExitZ8Time,
-> >   		double DCFCLKDeepSleep,
-> >   		unsigned int DETBufferSizeY[],
-> >   		unsigned int DETBufferSizeC[],
-> >   		unsigned int SwathHeightY[],
-> >   		unsigned int SwathHeightC[],
-> > -		unsigned int LBBitPerPixel[],
-> >   		double SwathWidthY[],
-> >   		double SwathWidthC[],
-> > -		double HRatio[],
-> > -		double HRatioChroma[],
-> > -		unsigned int vtaps[],
-> > -		unsigned int VTAPsChroma[],
-> > -		double VRatio[],
-> > -		double VRatioChroma[],
-> > -		unsigned int HTotal[],
-> > -		double PixelClock[],
-> > -		unsigned int BlendingAndTiming[],
-> >   		unsigned int DPPPerPlane[],
-> >   		double BytePerPixelDETY[],
-> >   		double BytePerPixelDETC[],
-> > -		double DSTXAfterScaler[],
-> > -		double DSTYAfterScaler[],
-> > -		bool WritebackEnable[],
-> > -		enum source_format_class WritebackPixelFormat[],
-> > -		double WritebackDestinationWidth[],
-> > -		double WritebackDestinationHeight[],
-> > -		double WritebackSourceHeight[],
-> >   		bool UnboundedRequestEnabled,
-> >   		unsigned int CompressedBufferSizeInkByte,
-> >   		enum clock_change_support *DRAMClockChangeSupport,
-> > -		double *UrgentWatermark,
-> > -		double *WritebackUrgentWatermark,
-> > -		double *DRAMClockChangeWatermark,
-> > -		double *WritebackDRAMClockChangeWatermark,
-> >   		double *StutterExitWatermark,
-> >   		double *StutterEnterPlusExitWatermark,
-> >   		double *Z8StutterExitWatermark,
-> > -		double *Z8StutterEnterPlusExitWatermark,
-> > -		double *MinActiveDRAMClockChangeLatencySupported)
-> > +		double *Z8StutterEnterPlusExitWatermark)
-> >   {
-> >   	struct vba_vars_st *v = &mode_lib->vba;
-> >   	double EffectiveLBLatencyHidingY;
-> > @@ -5756,103 +5612,103 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
-> >   	double TotalPixelBW = 0.0;
-> >   	int k, j;
-> > -	*UrgentWatermark = UrgentLatency + ExtraLatency;
-> > +	v->UrgentWatermark = UrgentLatency + ExtraLatency;
-> >   #ifdef __DML_VBA_DEBUG__
-> >   	dml_print("DML::%s: UrgentLatency = %f\n", __func__, UrgentLatency);
-> >   	dml_print("DML::%s: ExtraLatency = %f\n", __func__, ExtraLatency);
-> > -	dml_print("DML::%s: UrgentWatermark = %f\n", __func__, *UrgentWatermark);
-> > +	dml_print("DML::%s: UrgentWatermark = %f\n", __func__, v->UrgentWatermark);
-> >   #endif
-> > -	*DRAMClockChangeWatermark = DRAMClockChangeLatency + *UrgentWatermark;
-> > +	v->DRAMClockChangeWatermark = v->DRAMClockChangeLatency + v->UrgentWatermark;
-> >   #ifdef __DML_VBA_DEBUG__
-> > -	dml_print("DML::%s: DRAMClockChangeLatency = %f\n", __func__, DRAMClockChangeLatency);
-> > -	dml_print("DML::%s: DRAMClockChangeWatermark = %f\n", __func__, *DRAMClockChangeWatermark);
-> > +	dml_print("DML::%s: v->DRAMClockChangeLatency = %f\n", __func__, v->DRAMClockChangeLatency);
-> > +	dml_print("DML::%s: DRAMClockChangeWatermark = %f\n", __func__, v->DRAMClockChangeWatermark);
-> >   #endif
-> >   	v->TotalActiveWriteback = 0;
-> > -	for (k = 0; k < NumberOfActivePlanes; ++k) {
-> > -		if (WritebackEnable[k] == true) {
-> > +	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
-> > +		if (v->WritebackEnable[k] == true) {
-> >   			v->TotalActiveWriteback = v->TotalActiveWriteback + 1;
-> >   		}
-> >   	}
-> >   	if (v->TotalActiveWriteback <= 1) {
-> > -		*WritebackUrgentWatermark = WritebackLatency;
-> > +		v->WritebackUrgentWatermark = v->WritebackLatency;
-> >   	} else {
-> > -		*WritebackUrgentWatermark = WritebackLatency + WritebackChunkSize * 1024.0 / 32.0 / SOCCLK;
-> > +		v->WritebackUrgentWatermark = v->WritebackLatency + v->WritebackChunkSize * 1024.0 / 32.0 / SOCCLK;
-> >   	}
-> >   	if (v->TotalActiveWriteback <= 1) {
-> > -		*WritebackDRAMClockChangeWatermark = DRAMClockChangeLatency + WritebackLatency;
-> > +		v->WritebackDRAMClockChangeWatermark = v->DRAMClockChangeLatency + v->WritebackLatency;
-> >   	} else {
-> > -		*WritebackDRAMClockChangeWatermark = DRAMClockChangeLatency + WritebackLatency + WritebackChunkSize * 1024.0 / 32.0 / SOCCLK;
-> > +		v->WritebackDRAMClockChangeWatermark = v->DRAMClockChangeLatency + v->WritebackLatency + v->WritebackChunkSize * 1024.0 / 32.0 / SOCCLK;
-> >   	}
-> > -	for (k = 0; k < NumberOfActivePlanes; ++k) {
-> > +	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
-> >   		TotalPixelBW = TotalPixelBW
-> > -				+ DPPPerPlane[k] * (SwathWidthY[k] * BytePerPixelDETY[k] * VRatio[k] + SwathWidthC[k] * BytePerPixelDETC[k] * VRatioChroma[k])
-> > -						/ (HTotal[k] / PixelClock[k]);
-> > +				+ DPPPerPlane[k] * (SwathWidthY[k] * BytePerPixelDETY[k] * v->VRatio[k] + SwathWidthC[k] * BytePerPixelDETC[k] * v->VRatioChroma[k])
-> > +						/ (v->HTotal[k] / v->PixelClock[k]);
-> >   	}
-> > -	for (k = 0; k < NumberOfActivePlanes; ++k) {
-> > +	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
-> >   		double EffectiveDETBufferSizeY = DETBufferSizeY[k];
-> >   		v->LBLatencyHidingSourceLinesY = dml_min(
-> > -				(double) MaxLineBufferLines,
-> > -				dml_floor(LineBufferSize / LBBitPerPixel[k] / (SwathWidthY[k] / dml_max(HRatio[k], 1.0)), 1)) - (vtaps[k] - 1);
-> > +				(double) v->MaxLineBufferLines,
-> > +				dml_floor(v->LineBufferSize / v->LBBitPerPixel[k] / (SwathWidthY[k] / dml_max(v->HRatio[k], 1.0)), 1)) - (v->vtaps[k] - 1);
-> >   		v->LBLatencyHidingSourceLinesC = dml_min(
-> > -				(double) MaxLineBufferLines,
-> > -				dml_floor(LineBufferSize / LBBitPerPixel[k] / (SwathWidthC[k] / dml_max(HRatioChroma[k], 1.0)), 1)) - (VTAPsChroma[k] - 1);
-> > +				(double) v->MaxLineBufferLines,
-> > +				dml_floor(v->LineBufferSize / v->LBBitPerPixel[k] / (SwathWidthC[k] / dml_max(v->HRatioChroma[k], 1.0)), 1)) - (v->VTAPsChroma[k] - 1);
-> > -		EffectiveLBLatencyHidingY = v->LBLatencyHidingSourceLinesY / VRatio[k] * (HTotal[k] / PixelClock[k]);
-> > +		EffectiveLBLatencyHidingY = v->LBLatencyHidingSourceLinesY / v->VRatio[k] * (v->HTotal[k] / v->PixelClock[k]);
-> > -		EffectiveLBLatencyHidingC = v->LBLatencyHidingSourceLinesC / VRatioChroma[k] * (HTotal[k] / PixelClock[k]);
-> > +		EffectiveLBLatencyHidingC = v->LBLatencyHidingSourceLinesC / v->VRatioChroma[k] * (v->HTotal[k] / v->PixelClock[k]);
-> >   		if (UnboundedRequestEnabled) {
-> >   			EffectiveDETBufferSizeY = EffectiveDETBufferSizeY
-> > -					+ CompressedBufferSizeInkByte * 1024 * SwathWidthY[k] * BytePerPixelDETY[k] * VRatio[k] / (HTotal[k] / PixelClock[k]) / TotalPixelBW;
-> > +					+ CompressedBufferSizeInkByte * 1024 * SwathWidthY[k] * BytePerPixelDETY[k] * v->VRatio[k] / (v->HTotal[k] / v->PixelClock[k]) / TotalPixelBW;
-> >   		}
-> >   		LinesInDETY[k] = (double) EffectiveDETBufferSizeY / BytePerPixelDETY[k] / SwathWidthY[k];
-> >   		LinesInDETYRoundedDownToSwath[k] = dml_floor(LinesInDETY[k], SwathHeightY[k]);
-> > -		FullDETBufferingTimeY = LinesInDETYRoundedDownToSwath[k] * (HTotal[k] / PixelClock[k]) / VRatio[k];
-> > +		FullDETBufferingTimeY = LinesInDETYRoundedDownToSwath[k] * (v->HTotal[k] / v->PixelClock[k]) / v->VRatio[k];
-> >   		if (BytePerPixelDETC[k] > 0) {
-> >   			LinesInDETC = v->DETBufferSizeC[k] / BytePerPixelDETC[k] / SwathWidthC[k];
-> >   			LinesInDETCRoundedDownToSwath = dml_floor(LinesInDETC, SwathHeightC[k]);
-> > -			FullDETBufferingTimeC = LinesInDETCRoundedDownToSwath * (HTotal[k] / PixelClock[k]) / VRatioChroma[k];
-> > +			FullDETBufferingTimeC = LinesInDETCRoundedDownToSwath * (v->HTotal[k] / v->PixelClock[k]) / v->VRatioChroma[k];
-> >   		} else {
-> >   			LinesInDETC = 0;
-> >   			FullDETBufferingTimeC = 999999;
-> >   		}
-> >   		ActiveDRAMClockChangeLatencyMarginY = EffectiveLBLatencyHidingY + FullDETBufferingTimeY
-> > -				- ((double) DSTXAfterScaler[k] / HTotal[k] + DSTYAfterScaler[k]) * HTotal[k] / PixelClock[k] - *UrgentWatermark - *DRAMClockChangeWatermark;
-> > +				- ((double) v->DSTXAfterScaler[k] / v->HTotal[k] + v->DSTYAfterScaler[k]) * v->HTotal[k] / v->PixelClock[k] - v->UrgentWatermark - v->DRAMClockChangeWatermark;
-> > -		if (NumberOfActivePlanes > 1) {
-> > +		if (v->NumberOfActivePlanes > 1) {
-> >   			ActiveDRAMClockChangeLatencyMarginY = ActiveDRAMClockChangeLatencyMarginY
-> > -					- (1 - 1.0 / NumberOfActivePlanes) * SwathHeightY[k] * HTotal[k] / PixelClock[k] / VRatio[k];
-> > +					- (1 - 1.0 / v->NumberOfActivePlanes) * SwathHeightY[k] * v->HTotal[k] / v->PixelClock[k] / v->VRatio[k];
-> >   		}
-> >   		if (BytePerPixelDETC[k] > 0) {
-> >   			ActiveDRAMClockChangeLatencyMarginC = EffectiveLBLatencyHidingC + FullDETBufferingTimeC
-> > -					- ((double) DSTXAfterScaler[k] / HTotal[k] + DSTYAfterScaler[k]) * HTotal[k] / PixelClock[k] - *UrgentWatermark - *DRAMClockChangeWatermark;
-> > +					- ((double) v->DSTXAfterScaler[k] / v->HTotal[k] + v->DSTYAfterScaler[k]) * v->HTotal[k] / v->PixelClock[k] - v->UrgentWatermark - v->DRAMClockChangeWatermark;
-> > -			if (NumberOfActivePlanes > 1) {
-> > +			if (v->NumberOfActivePlanes > 1) {
-> >   				ActiveDRAMClockChangeLatencyMarginC = ActiveDRAMClockChangeLatencyMarginC
-> > -						- (1 - 1.0 / NumberOfActivePlanes) * SwathHeightC[k] * HTotal[k] / PixelClock[k] / VRatioChroma[k];
-> > +						- (1 - 1.0 / v->NumberOfActivePlanes) * SwathHeightC[k] * v->HTotal[k] / v->PixelClock[k] / v->VRatioChroma[k];
-> >   			}
-> >   			v->ActiveDRAMClockChangeLatencyMargin[k] = dml_min(ActiveDRAMClockChangeLatencyMarginY, ActiveDRAMClockChangeLatencyMarginC);
-> >   		} else {
-> >   			v->ActiveDRAMClockChangeLatencyMargin[k] = ActiveDRAMClockChangeLatencyMarginY;
-> >   		}
-> > -		if (WritebackEnable[k] == true) {
-> > -			WritebackDRAMClockChangeLatencyHiding = WritebackInterfaceBufferSize * 1024
-> > -					/ (WritebackDestinationWidth[k] * WritebackDestinationHeight[k] / (WritebackSourceHeight[k] * HTotal[k] / PixelClock[k]) * 4);
-> > -			if (WritebackPixelFormat[k] == dm_444_64) {
-> > +		if (v->WritebackEnable[k] == true) {
-> > +			WritebackDRAMClockChangeLatencyHiding = v->WritebackInterfaceBufferSize * 1024
-> > +					/ (v->WritebackDestinationWidth[k] * v->WritebackDestinationHeight[k] / (v->WritebackSourceHeight[k] * v->HTotal[k] / v->PixelClock[k]) * 4);
-> > +			if (v->WritebackPixelFormat[k] == dm_444_64) {
-> >   				WritebackDRAMClockChangeLatencyHiding = WritebackDRAMClockChangeLatencyHiding / 2;
-> >   			}
-> >   			WritebackDRAMClockChangeLatencyMargin = WritebackDRAMClockChangeLatencyHiding - v->WritebackDRAMClockChangeWatermark;
-> > @@ -5862,14 +5718,14 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
-> >   	v->MinActiveDRAMClockChangeMargin = 999999;
-> >   	PlaneWithMinActiveDRAMClockChangeMargin = 0;
-> > -	for (k = 0; k < NumberOfActivePlanes; ++k) {
-> > +	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
-> >   		if (v->ActiveDRAMClockChangeLatencyMargin[k] < v->MinActiveDRAMClockChangeMargin) {
-> >   			v->MinActiveDRAMClockChangeMargin = v->ActiveDRAMClockChangeLatencyMargin[k];
-> > -			if (BlendingAndTiming[k] == k) {
-> > +			if (v->BlendingAndTiming[k] == k) {
-> >   				PlaneWithMinActiveDRAMClockChangeMargin = k;
-> >   			} else {
-> > -				for (j = 0; j < NumberOfActivePlanes; ++j) {
-> > -					if (BlendingAndTiming[k] == j) {
-> > +				for (j = 0; j < v->NumberOfActivePlanes; ++j) {
-> > +					if (v->BlendingAndTiming[k] == j) {
-> >   						PlaneWithMinActiveDRAMClockChangeMargin = j;
-> >   					}
-> >   				}
-> > @@ -5877,11 +5733,11 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
-> >   		}
-> >   	}
-> > -	*MinActiveDRAMClockChangeLatencySupported = v->MinActiveDRAMClockChangeMargin + DRAMClockChangeLatency;
-> > +	v->MinActiveDRAMClockChangeLatencySupported = v->MinActiveDRAMClockChangeMargin + v->DRAMClockChangeLatency ;
-> >   	SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank = 999999;
-> > -	for (k = 0; k < NumberOfActivePlanes; ++k) {
-> > -		if (!((k == PlaneWithMinActiveDRAMClockChangeMargin) && (BlendingAndTiming[k] == k)) && !(BlendingAndTiming[k] == PlaneWithMinActiveDRAMClockChangeMargin)
-> > +	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
-> > +		if (!((k == PlaneWithMinActiveDRAMClockChangeMargin) && (v->BlendingAndTiming[k] == k)) && !(v->BlendingAndTiming[k] == PlaneWithMinActiveDRAMClockChangeMargin)
-> >   				&& v->ActiveDRAMClockChangeLatencyMargin[k] < SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank) {
-> >   			SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank = v->ActiveDRAMClockChangeLatencyMargin[k];
-> >   		}
-> > @@ -5889,25 +5745,25 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
-> >   	v->TotalNumberOfActiveOTG = 0;
-> > -	for (k = 0; k < NumberOfActivePlanes; ++k) {
-> > -		if (BlendingAndTiming[k] == k) {
-> > +	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
-> > +		if (v->BlendingAndTiming[k] == k) {
-> >   			v->TotalNumberOfActiveOTG = v->TotalNumberOfActiveOTG + 1;
-> >   		}
-> >   	}
-> >   	if (v->MinActiveDRAMClockChangeMargin > 0 && PrefetchMode == 0) {
-> >   		*DRAMClockChangeSupport = dm_dram_clock_change_vactive;
-> > -	} else if ((SynchronizedVBlank == true || v->TotalNumberOfActiveOTG == 1
-> > +	} else if ((v->SynchronizedVBlank == true || v->TotalNumberOfActiveOTG == 1
-> >   			|| SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank > 0) && PrefetchMode == 0) {
-> >   		*DRAMClockChangeSupport = dm_dram_clock_change_vblank;
-> >   	} else {
-> >   		*DRAMClockChangeSupport = dm_dram_clock_change_unsupported;
-> >   	}
-> > -	*StutterExitWatermark = SRExitTime + ExtraLatency + 10 / DCFCLKDeepSleep;
-> > -	*StutterEnterPlusExitWatermark = (SREnterPlusExitTime + ExtraLatency + 10 / DCFCLKDeepSleep);
-> > -	*Z8StutterExitWatermark = SRExitZ8Time + ExtraLatency + 10 / DCFCLKDeepSleep;
-> > -	*Z8StutterEnterPlusExitWatermark = SREnterPlusExitZ8Time + ExtraLatency + 10 / DCFCLKDeepSleep;
-> > +	*StutterExitWatermark = v->SRExitTime + ExtraLatency + 10 / DCFCLKDeepSleep;
-> > +	*StutterEnterPlusExitWatermark = (v->SREnterPlusExitTime + ExtraLatency + 10 / DCFCLKDeepSleep);
-> > +	*Z8StutterExitWatermark = v->SRExitZ8Time + ExtraLatency + 10 / DCFCLKDeepSleep;
-> > +	*Z8StutterEnterPlusExitWatermark = v->SREnterPlusExitZ8Time + ExtraLatency + 10 / DCFCLKDeepSleep;
-> >   #ifdef __DML_VBA_DEBUG__
-> >   	dml_print("DML::%s: StutterExitWatermark = %f\n", __func__, *StutterExitWatermark);
-> > 
-> > base-commit: dacd2d2d9d800b7ab2ee2734578112532cba8105
-> 
-> 
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCkhpIEFuZHJleSwNCg0KWWVzLCBt
+b3ZpbmcgaXJxIGRpc2FibGUgY2FuIGZpeCB0aGUgaXNzdWUuIENoYW5nZSBpbiBhbWRncHVfZmVu
+Y2VfcHJvY2VzcyBpcyBqdXN0IHdhbnQgdG8gbWFrZSBzdXJlIGRyaXZlciBjYW4gY29ycmVjdCBp
+dHNlbGYgZnJvbSBhbiBvdmVyZmxvdyBzaXR1YXRpb24uIERpZG7igJl0IGtub3cgYWJvdXQgdGhl
+IHByZXZpb3VzIGlzc3VlIHRoZXJlLg0KDQpEbyB5b3Uga25vdyBpZiB0aGUgaXNzdWUgc3RpbGwg
+ZXhpc3RzPyBPciBpcyBpdCBvbiBWQ0Ugb25seT8NCg0KDQpUaGFua3MsDQpWaWN0b3INCg0KDQoN
+Ci0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBHcm9kem92c2t5LCBBbmRyZXkgPEFu
+ZHJleS5Hcm9kem92c2t5QGFtZC5jb20+IA0KU2VudDogRnJpZGF5LCBTZXB0ZW1iZXIgMTYsIDIw
+MjIgOTo1MCBQTQ0KVG86IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5j
+b20+OyBaaGFvLCBWaWN0b3IgPFZpY3Rvci5aaGFvQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZw0KQ2M6IERlbmcsIEVtaWx5IDxFbWlseS5EZW5nQGFtZC5jb20+DQpTdWJq
+ZWN0OiBSZTogW1BBVENIIDEvMl0gZHJtL2FtZGdwdTogZml4IGRlYWRsb2NrIGNhdXNlZCBieSBv
+dmVyZmxvdw0KDQoNCk9uIDIwMjItMDktMTYgMDE6MTgsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6
+DQo+IEFtIDE1LjA5LjIyIHVtIDIyOjM3IHNjaHJpZWIgQW5kcmV5IEdyb2R6b3Zza3k6DQo+Pg0K
+Pj4gT24gMjAyMi0wOS0xNSAxNToyNiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToNCj4+PiBBbSAx
+NS4wOS4yMiB1bSAyMDoyOSBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Og0KPj4+Pg0KPj4+PiBP
+biAyMDIyLTA5LTE1IDA2OjA5LCBaaGFvLCBWaWN0b3Igd3JvdGU6DQo+Pj4+PiBbQU1EIE9mZmlj
+aWFsIFVzZSBPbmx5IC0gR2VuZXJhbF0NCj4+Pj4+DQo+Pj4+PiBIaSBDaHJpc3RpYW4sDQo+Pj4+
+Pg0KPj4+Pj4gVGhlIHRlc3Qgc2VxdWVuY2UgaXMgZXhlY3V0aW5nIGEgY29tcHV0ZSBlbmdpbmUg
+aGFuZyB3aGlsZSBydW5uaW5nIA0KPj4+Pj4gYSBsb3Qgb2YgY29udGFpbmVycyBzdWJtaXR0aW5n
+IGdmeCBqb2JzLiBXZSBoYXZlIGFkdmFuY2VkIHRkciBtb2RlIA0KPj4+Pj4gYW5kIG1vZGUyIHJl
+c2V0IGVuYWJsZWQgb24gZHJpdmVyLg0KPj4+Pj4gV2hlbiBhIGNvbXB1dGUgaGFuZyBqb2IgdGlt
+ZW91dCBoYXBwZW5zLCB0aGUgMiBqb2JzIG9uIHRoZSBnZnggDQo+Pj4+PiBwZW5kaW5nIGxpc3Qg
+bWF5YmUgc2lnbmFsZWQgYWZ0ZXIgZHJtX3NjaGVkX3N0b3AuIFNvIHRoZXkgd2lsbCBub3QgDQo+
+Pj4+PiBiZSByZW1vdmVkIGZyb20gcGVuZGluZyBsaXN0IGJ1dCBoYXZlIHRoZSANCj4+Pj4+IERN
+QV9GRU5DRV9GTEFHX1NJR05BTEVEX0JJVCBzZXQuDQo+Pj4+PiBBdCB0aGUgYW1kZ3B1X2Rldmlj
+ZV9yZWNoZWNrX2d1aWx0eV9qb2JzIHN0ZXAsIHRoZSBmaXJzdCBqb2Igd2lsbCANCj4+Pj4+IGJl
+IHJlcnVuIGFuZCByZW1vdmVkIGZyb20gcGVuZGluZyBsaXN0Lg0KPj4+Pj4gQXQgdGhlIHJlc3Vi
+bWl0IHNldHAsIHRoZSBzZWNvbmQgam9iICh3aXRoIHNpZ25hbGVkIGJpdCkgd2lsbCBiZSANCj4+
+Pj4+IHJlc3VibWl0dGVkLiBTaW5jZSBpdCBzdGlsbCBoYXMgc2lnbmFsZWQgYml0LCBkcm1fc2No
+ZWRfam9iX2RvbmUgDQo+Pj4+PiB3aWxsIGJlIGNhbGxlZCBkaXJlY3RseS4gVGhpcyBkZWNyZWFz
+ZSB0aGUgaHdfcnFfY291bnQgd2hpY2ggDQo+Pj4+PiBhbGxvd3MgbW9yZSBqb2JzIGVtaXR0ZWQg
+YnV0IGRpZCBub3QgY2xlYW4gZmVuY2VfZHJ2IHJjdSBwdHIuDQo+Pj4+PiBUaGlzIHJlc3VsdHMg
+aW4gYW4gb3ZlcmZsb3cgaW4gdGhlIGZlbmNlX2Rydi4gU2luY2Ugd2Ugd2lsbCB1c2UgDQo+Pj4+
+PiBudW1fZmVuY2VzX21hc2sgaW4gYW1kZ3B1X2ZlbmNlX3Byb2Nlc3MsIHdoZW4gb3ZlcmZsb3cg
+aGFwcGVucywgDQo+Pj4+PiB0aGUgc2lnbmFsIG9mIHNvbWUgam9iIHdpbGwgYmUgc2tpcHBlZCB3
+aGljaCByZXN1bHQgaW4gYW4gaW5maW5pdGUgDQo+Pj4+PiB3YWl0IGZvciB0aGUgZmVuY2VfZHJ2
+IHJjdSBwdHIuDQo+Pj4+Pg0KPj4+Pj4gU28gY2xvc2UgaXJxIGJlZm9yZSBzY2hlZF9zdG9wIGNv
+dWxkIGF2b2lkIHNpZ25hbCBqb2JzIGFmdGVyIA0KPj4+Pj4gZHJtX3NjaGVkX3N0b3AuIEFuZCBz
+aWduYWwgam9iIG9uZSBieSBvbmUgaW4gZmVuY2VfcHJvY2VzcyBpbnN0ZWFkIA0KPj4+Pj4gb2Yg
+dXNpbmcgYSBtYXNrIHdpbGwgaGFuZGxlIHRoZSBvdmVyZmxvdyBzaXR1YXRpb24uDQo+Pj4+Pg0K
+Pj4+Pj4gQW5vdGhlciBmaXggY291bGQgYmUgc2tpcCBzdWJtaXR0aW5nIGpvYnMgd2hpY2ggYWxy
+ZWFkeSBzaWduYWxlZCANCj4+Pj4+IGR1cmluZyByZXN1Ym1pdCBzdGFnZSwgd2hpY2ggbWF5IGxv
+b2sgY2xlYW5lci4NCj4+Pj4+DQo+Pj4+PiBQbGVhc2UgaGVscCBnaXZlIHNvbWUgYWR2aWNlLg0K
+Pj4+Pg0KPj4+Pg0KPj4+PiBIb3cgYWJvdXQgdGhlIGNvZGUgYmVsbG93wqAgaW5zdGVhZCA/IFRo
+ZSByZWFsIHByb2JsZW0gaXMgdGhhdCB3ZSANCj4+Pj4gcmV1c2UgYSBkbWEgZmVuY2UgdHdpY2Ug
+d2hpY2ggaXMgbm90IGFjY29yZGluZyB0byBmbWEgZmVuY2UgZGVzaWduLCANCj4+Pj4gc28gbWF5
+YmUgdGhpcyBjYW4gaGVscCA/DQo+Pj4+DQo+Pj4+DQo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYw0KPj4+PiBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jDQo+Pj4+IGluZGV4IDhhZGViNzQ2OWYxZS4uMDMz
+ZjBhZTE2Nzg0IDEwMDY0NA0KPj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZmVuY2UuYw0KPj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZmVuY2UuYw0KPj4+PiBAQCAtMTY0LDYgKzE2NCwxMCBAQCBpbnQgYW1kZ3B1X2ZlbmNlX2Vt
+aXQoc3RydWN0IGFtZGdwdV9yaW5nIA0KPj4+PiAqcmluZywgc3RydWN0IGRtYV9mZW5jZSAqKmYs
+IHN0cnVjdCBhbWQNCj4+Pj4gwqDCoMKgwqDCoMKgwqAgaWYgKGpvYiAmJiBqb2ItPmpvYl9ydW5f
+Y291bnRlcikgew0KPj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogcmVpbml0
+IHNlcSBmb3IgcmVzdWJtaXR0ZWQgam9icyAqLw0KPj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgZmVuY2UtPnNlcW5vID0gc2VxOw0KPj4+PiArDQo+Pj4+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIC8qIEZvciByZXN1Ym1pdHRlZCBqb2IgY2xlYXIgdGhlIHNpbmdsZWQg
+Yml0ICovDQo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNlbGFyX2JpdChETUFf
+RkVOQ0VfRkxBR19USU1FU1RBTVBfQklULA0KPj4+PiAmZmVuY2UtPmZsYWdzKTsNCj4+Pj4gKw0K
+Pj4+DQo+Pj4gVXBzdHJlYW0gd2lsbCBwcmV0dHkgbXVjaCBraWxsIHlvdSBmb3IgdGhhdC4NCj4+
+Pg0KPj4+IFJlLXNldHRpbmcgYSBmZW5jZSBmcm9tIGEgc2lnbmFsZWQgdG8gYW4gdW5zaWduYWxl
+ZCBzdGF0ZSBpcyBhIA0KPj4+IG1hc3NpdmUgbm8tZ28uDQo+Pj4NCj4+PiBDaHJpc3RpYW4uDQo+
+Pg0KPj4NCj4+IElzIGl0IHdvcnNlIHRoZW4gZG9pbmcgZmVuY2UtPnNlcW5vID0gc2VxOyA/IFRo
+aXMgaXMgYWxyZWFkeSBhIGh1Z2UgDQo+PiBoYWNrICwgbm8gPw0KPg0KPiBObywgaXQncyBhcyBl
+cXVhbGx5IGJhZC4gSSBkb24ndCB0aGluayB3ZSBjYW4gZG8gZWl0aGVyLg0KPg0KPiBDaHJpc3Rp
+YW4uDQoNCg0KQW5kIGFsbCB0aG9zZSB1Z2x5IGhhY2sgYXJlIHRoZXJlIGJlY2F1c2Ugd2UgcmV1
+c2UgYSBkbWFfZmVuY2UgKGh3X2ZlbmNlIGVtYmVkZGVkIGludG8gdGhlIGpvYikgYW5kIGNvcnJl
+Y3QgbWUgaWYgSSBhbSB3cm9uZyBidXQgSSBkb24ndCB0aGluayBkbWFfZmVuY2UgaXMgZXZlciBz
+dXBwb3NlZCB0byBiZSByZXVzZWQuDQoNClNvIG1heWJlIGxpa2UgVmljdG9yIHN1Z2dlc3RlZCB3
+ZSBzaG91bGQgbW92ZSBjbG9zZSBhbmQgZmx1c2ggaXJxIGJlZm9yZSBzY2hlZF9zdG9wIC0gdGhp
+cyBpbiBteSBvcGluaW9uIHNob3VsZCBzb2x2ZSB0aGUgaXNzdWUsIGJ1dCBWaWN0b3IgLSB3aHkg
+dGhlbiB5b3Ugc3RpbGwgbmVlZCB0aGUgY2hhbmdlIGluIGFtZGdwdV9mZW5jZV9wcm9jZXNzID8g
+WW91IHdpbGwgbm90IGhhdmUgdGhlIG92ZXJmbG93IHNpdHVhdGlvbiBiZWNhdXNlIGJ5IG1vdmlu
+ZyBpcnFfZGlzYWJsZSBiZWZvcmUgc3RvcCBhbnkgam9iIHRoYXQgc2lnbmFsZWQgd2lsbCBiZSBy
+ZW1vdmVkIGZyb20gdGhlIHNjaGVkdWxlciBwZW5kaW5nIGxpc3QgYW55d2F5LiBBbHNvIG5vdCB0
+aGF0IHRoaXMgY2hhbmdlIHJldmVydHMgJ2RybS9hbWRncHU6IHNhbml0aXplIGZlbmNlIG51bWJl
+cnMnIGFuZCBjb3VsZCByZWludHJvZHVjZSB0aGF0IGJ1Zy4NCg0KQW5kcmV5DQoNCg0KPg0KPj4N
+Cj4+IEFuZHJleQ0KPj4NCj4+DQo+Pj4NCj4+Pj4NCj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIC8qIFRPIGJlIGlubGluZSB3aXRoIGV4dGVybmFsIGZlbmNlIGNyZWF0aW9uIGFu
+ZCANCj4+Pj4gb3RoZXIgZHJpdmVycyAqLw0KPj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgZG1hX2ZlbmNlX2dldChmZW5jZSk7DQo+Pj4+IMKgwqDCoMKgwqDCoMKgIH0gZWxzZSB7
+DQo+Pj4+DQo+Pj4+DQo+Pj4+IEFuZHJleQ0KPj4+Pg0KPj4+Pg0KPj4+Pj4NCj4+Pj4+DQo+Pj4+
+PiBUaGFua3MsDQo+Pj4+PiBWaWN0b3INCj4+Pj4+DQo+Pj4+Pg0KPj4+Pj4NCj4+Pj4+IC0tLS0t
+T3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+Pj4+PiBGcm9tOiBLb2VuaWcsIENocmlzdGlhbiA8Q2hy
+aXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPj4+Pj4gU2VudDogVGh1cnNkYXksIFNlcHRlbWJlciAx
+NSwgMjAyMiAyOjMyIFBNDQo+Pj4+PiBUbzogWmhhbywgVmljdG9yIDxWaWN0b3IuWmhhb0BhbWQu
+Y29tPjsgDQo+Pj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgR3JvZHpvdnNreSwg
+QW5kcmV5IA0KPj4+Pj4gPEFuZHJleS5Hcm9kem92c2t5QGFtZC5jb20+DQo+Pj4+PiBDYzogRGVu
+ZywgRW1pbHkgPEVtaWx5LkRlbmdAYW1kLmNvbT4NCj4+Pj4+IFN1YmplY3Q6IFJlOiBbUEFUQ0gg
+MS8yXSBkcm0vYW1kZ3B1OiBmaXggZGVhZGxvY2sgY2F1c2VkIGJ5IA0KPj4+Pj4gb3ZlcmZsb3cN
+Cj4+Pj4+DQo+Pj4+Pg0KPj4+Pj4NCj4+Pj4+IEFtIDE1LjA5LjIyIHVtIDA2OjAyIHNjaHJpZWIg
+WmhhbywgVmljdG9yOg0KPj4+Pj4+IFtBTUQgT2ZmaWNpYWwgVXNlIE9ubHkgLSBHZW5lcmFsXQ0K
+Pj4+Pj4+DQo+Pj4+Pj4gUGluZy4NCj4+Pj4+Pg0KPj4+Pj4+IEhpIEBLb2VuaWcsIENocmlzdGlh
+biBhbmQgQEdyb2R6b3Zza3ksIEFuZHJleSwNCj4+Pj4+Pg0KPj4+Pj4+IFdlIGZvdW5kIHNvbWUg
+cmVzZXQgcmVsYXRlZCBpc3N1ZXMgZHVyaW5nIHN0cmVzcyB0ZXN0IG9uIHRoZSANCj4+Pj4+PiBz
+ZXF1ZW5jZS4gUGxlYXNlIGhlbHAgZ2l2ZSBzb21lIGNvbW1lbnRzLg0KPj4+Pj4+DQo+Pj4+Pj4N
+Cj4+Pj4+PiBUaGFua3MsDQo+Pj4+Pj4gVmljdG9yDQo+Pj4+Pj4NCj4+Pj4+Pg0KPj4+Pj4+DQo+
+Pj4+Pj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4+Pj4+PiBGcm9tOiBWaWN0b3IgWmhh
+byA8VmljdG9yLlpoYW9AYW1kLmNvbT4NCj4+Pj4+PiBTZW50OiBXZWRuZXNkYXksIFNlcHRlbWJl
+ciAxNCwgMjAyMiA2OjEwIFBNDQo+Pj4+Pj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnDQo+Pj4+Pj4gQ2M6IERlbmcsIEVtaWx5IDxFbWlseS5EZW5nQGFtZC5jb20+OyBHcm9kem92
+c2t5LCBBbmRyZXkgDQo+Pj4+Pj4gPEFuZHJleS5Hcm9kem92c2t5QGFtZC5jb20+OyBaaGFvLCBW
+aWN0b3IgPFZpY3Rvci5aaGFvQGFtZC5jb20+DQo+Pj4+Pj4gU3ViamVjdDogW1BBVENIIDEvMl0g
+ZHJtL2FtZGdwdTogZml4IGRlYWRsb2NrIGNhdXNlZCBieSBvdmVyZmxvdw0KPj4+Pj4+DQo+Pj4+
+Pj4gW2JhY2tncm91bmRdDQo+Pj4+Pj4gRm9yIGEgZ3B1IHJlY292ZXJ5IGNhdXNlZCBieSBhIGhh
+bmcgb24gb25lIHJpbmcgKGUuZy4gY29tcHV0ZSksIA0KPj4+Pj4+IGpvYnMgZnJvbSBhbm90aGVy
+IHJpbmcgKGUuZy4gZ2Z4KSBtYXkgY29udGludWUgc2lnbmFsaW5nIGR1cmluZyANCj4+Pj4+PiBk
+cm1fc2NoZWRfc3RvcCBzdGFnZS4gVGhlIHNpZ25hbCBiaXQgd2lsbCBub3QgYmUgY2xlYXJlZC4N
+Cj4+Pj4+Pg0KPj4+Pj4+IEF0IHRoZSByZXN1Ym1pdCBzdGFnZSBhZnRlciByZWNvdmVyeSwgdGhl
+IGpvYiB3aXRoIGh3IGZlbmNlIA0KPj4+Pj4+IHNpZ25hbGVkIGJpdCBzZXQgd2lsbCBjYWxsIGpv
+YiBkb25lIGRpcmVjdGx5IGluc3RlYWQgZ28gdGhyb3VnaCANCj4+Pj4+PiBmZW5jZSBwcm9jZXNz
+Lg0KPj4+Pj4+IFRoaXMgbWFrZXMgdGhlIGh3X3JxX2NvdW50IGRlY3JlYXNlIGJ1dCByY3UgZmVu
+Y2UgcG9pbnRlciBub3QgDQo+Pj4+Pj4gY2xlYXJlZCB5ZXQuDQo+Pj4+Pj4NCj4+Pj4+PiBUaGVu
+IG92ZXJmbG93IGhhcHBlbnMgaW4gdGhlIGZlbmNlIGRyaXZlciBzbG90cyBhbmQgc29tZSBqb2Jz
+IG1heSANCj4+Pj4+PiBiZSBza2lwcGVkIGFuZCBsZWF2ZSB0aGUgcmN1IHBvaW50ZXIgbm90IGNs
+ZWFyZWQgd2hpY2ggbWFrZXMgYW4gDQo+Pj4+Pj4gaW5maW5pdGUgd2FpdCBmb3IgdGhlIHNsb3Qg
+b24gdGhlIG5leHQgZmVuY2UgZW1pdHRlZC4NCj4+Pj4+Pg0KPj4+Pj4+IFRoaXMgaW5maW5pdGUg
+d2FpdCBjYXVzZSBhIGpvYiB0aW1lb3V0IG9uIHRoZSBlbWl0dGluZyBqb2IuIEFuZCANCj4+Pj4+
+PiBkcml2ZXIgd2lsbCBzdHVjayBhdCB0aGUgaXRzIHNjaGVkIHN0b3Agc3RlcCBiZWNhdXNlIGt0
+aHJlYWRfcGFyayANCj4+Pj4+PiBjYW5ub3QgYmUgZG9uZS4NCj4+Pj4+Pg0KPj4+Pj4+IFtob3dd
+DQo+Pj4+Pj4gMS4gbW92ZSBhbWRncHVfZmVuY2VfZHJpdmVyX2lzcl90b2dnbGUgZWFybGllciB0
+byBjbG9zZSBpbnRlcnJ1cHQgDQo+Pj4+Pj4gYmVmb3JlIGRybSBzY2hlZCBzdG9wIDIuIGhhbmRs
+ZSBhbGwgZmVuY2VzIGluIGZlbmNlIHByb2Nlc3MgdG8gDQo+Pj4+Pj4gYXZpb2Qgc2tpcCB3aGVu
+IG92ZXJmbG93IGhhcHBlbnMNCj4+Pj4+Pg0KPj4+Pj4+IFNpZ25lZC1vZmYtYnk6IFZpY3RvciBa
+aGFvIDxWaWN0b3IuWmhhb0BhbWQuY29tPg0KPj4+Pj4+IC0tLQ0KPj4+Pj4+IMKgwqAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgMTYNCj4+Pj4+PiArKysrKysr
+KysrKysrLS0tIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jIHzCoCA2
+DQo+Pj4+Pj4gKy0tLS0tDQo+Pj4+Pj4gwqDCoCAyIGZpbGVzIGNoYW5nZWQsIDE0IGluc2VydGlv
+bnMoKyksIDggZGVsZXRpb25zKC0pDQo+Pj4+Pj4NCj4+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+Pj4+Pj4gYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4+Pj4+PiBpbmRleCA5NDNjOWU3NTA1
+NzUuLmMwY2ZhZTUyZjEyYiAxMDA2NDQNCj4+Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4+Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4+Pj4+PiBAQCAtNDYxMCw4ICs0NjEwLDYgQEAgaW50
+IGFtZGdwdV9kZXZpY2VfcHJlX2FzaWNfcmVzZXQoc3RydWN0DQo+Pj4+Pj4gYW1kZ3B1X2Rldmlj
+ZSAqYWRldiwNCj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfdmlydF9maW5pX2Rh
+dGFfZXhjaGFuZ2UoYWRldik7DQo+Pj4+Pj4gwqDCoMKgwqDCoMKgIH0NCj4+Pj4+PiDCoMKgIC3C
+oMKgwqAgYW1kZ3B1X2ZlbmNlX2RyaXZlcl9pc3JfdG9nZ2xlKGFkZXYsIHRydWUpOw0KPj4+Pj4+
+IC0NCj4+Pj4+PiDCoMKgwqDCoMKgwqAgLyogYmxvY2sgYWxsIHNjaGVkdWxlcnMgYW5kIHJlc2V0
+IGdpdmVuIGpvYidzIHJpbmcgKi8NCj4+Pj4+PiDCoMKgwqDCoMKgwqAgZm9yIChpID0gMDsgaSA8
+IEFNREdQVV9NQVhfUklOR1M7ICsraSkgew0KPj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0
+cnVjdCBhbWRncHVfcmluZyAqcmluZyA9IGFkZXYtPnJpbmdzW2ldOyBAQCAtNTIxNCw2DQo+Pj4+
+Pj4gKzUyMTIsOCBAQCBpbnQgYW1kZ3B1X2RldmljZV9ncHVfcmVjb3ZlcihzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSANCj4+Pj4+PiArKmFkZXYsDQo+Pj4+Pj4gYW1kZ3B1X2RldmljZV9pcF9uZWVkX2Z1
+bGxfcmVzZXQodG1wX2FkZXYpKQ0KPj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+YW1kZ3B1X3Jhc19zdXNwZW5kKHRtcF9hZGV2KTsNCj4+Pj4+PiDCoMKgICvCoMKgwqDCoMKgwqDC
+oCBhbWRncHVfZmVuY2VfZHJpdmVyX2lzcl90b2dnbGUodG1wX2FkZXYsIHRydWUpOw0KPj4+Pj4+
+ICsNCj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBmb3IgKGkgPSAwOyBpIDwgQU1ER1BVX01B
+WF9SSU5HUzsgKytpKSB7DQo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1
+Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSB0bXBfYWRldi0+cmluZ3NbaV07DQo+Pj4+Pj4gwqDCoCBA
+QCAtNTIyOCw4ICs1MjI4LDEyIEBAIGludCBhbWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyKHN0cnVj
+dCANCj4+Pj4+PiBhbWRncHVfZGV2aWNlICphZGV2LCBhdG9taWNfaW5jKCZ0bXBfYWRldi0+Z3B1
+X3Jlc2V0X2NvdW50ZXIpOw0KPj4+Pj4+IMKgwqDCoMKgwqDCoCB9DQo+Pj4+Pj4gwqDCoCAtwqDC
+oMKgIGlmIChuZWVkX2VtZXJnZW5jeV9yZXN0YXJ0KQ0KPj4+Pj4+ICvCoMKgwqAgaWYgKG5lZWRf
+ZW1lcmdlbmN5X3Jlc3RhcnQpIHsNCj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgbGlzdF9mb3JfZWFj
+aF9lbnRyeSAodG1wX2FkZXYsIGRldmljZV9saXN0X2hhbmRsZSwNCj4+Pj4+PiByZXNldF9saXN0
+KSB7DQo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1X2ZlbmNlX2RyaXZlcl9p
+c3JfdG9nZ2xlKHRtcF9hZGV2LCBmYWxzZSk7DQo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgIH0NCj4+
+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIHNraXBfc2NoZWRfcmVzdW1lOw0KPj4+Pj4+
+ICvCoMKgwqAgfQ0KPj4+Pj4+IMKgwqAgwqDCoMKgwqDCoMKgIC8qDQo+Pj4+Pj4gwqDCoMKgwqDC
+oMKgwqAgKiBNdXN0IGNoZWNrIGd1aWx0eSBzaWduYWwgaGVyZSBzaW5jZSBhZnRlciB0aGlzIHBv
+aW50IA0KPj4+Pj4+IGFsbCBvbGQgQEAgLTUyNDAsNiArNTI0NCw5IEBAIGludCANCj4+Pj4+PiBh
+bWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4+
+Pj4+IMKgwqDCoMKgwqDCoCBpZiAoam9iICYmIGRtYV9mZW5jZV9pc19zaWduYWxlZCgmam9iLT5o
+d19mZW5jZSkpIHsNCj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBqb2Jfc2lnbmFsZWQgPSB0
+cnVlOw0KPj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRldl9pbmZvKGFkZXYtPmRldiwgIkd1
+aWx0eSBqb2IgYWxyZWFkeSBzaWduYWxlZCwgDQo+Pj4+Pj4gc2tpcHBpbmcgSFcgcmVzZXQiKTsN
+Cj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgbGlzdF9mb3JfZWFjaF9lbnRyeSAodG1wX2FkZXYsIGRl
+dmljZV9saXN0X2hhbmRsZSwNCj4+Pj4+PiByZXNldF9saXN0KSB7DQo+Pj4+Pj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgYW1kZ3B1X2ZlbmNlX2RyaXZlcl9pc3JfdG9nZ2xlKHRtcF9hZGV2LCBm
+YWxzZSk7DQo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgIH0NCj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBnb3RvIHNraXBfaHdfcmVzZXQ7DQo+Pj4+Pj4gwqDCoMKgwqDCoMKgIH0NCj4+Pj4+PiDC
+oMKgIEBAIC01Mjc2LDYgKzUyODMsNyBAQCBpbnQgYW1kZ3B1X2RldmljZV9ncHVfcmVjb3Zlcihz
+dHJ1Y3QgDQo+Pj4+Pj4gYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+Pj4+PiDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBpZiAociAmJiByID09IC1FQUdBSU4pIHsNCj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIHNldF9iaXQoQU1ER1BVX1NLSVBfTU9ERTJfUkVTRVQsIA0KPj4+Pj4+ICZy
+ZXNldF9jb250ZXh0LT5mbGFncyk7DQo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBhZGV2LT5hc2ljX3Jlc2V0X3JlcyA9IDA7DQo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgYW1kZ3B1X2ZlbmNlX2RyaXZlcl9pc3JfdG9nZ2xlKGFkZXYsIHRydWUpOw0KPj4+Pj4+IMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byByZXRyeTsNCj4+Pj4+PiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCB9DQo+Pj4+Pj4gwqDCoMKgwqDCoMKgIH0NCj4+Pj4+PiBAQCAtNTcxMSw2ICs1
+NzE5LDggQEAgcGNpX2Vyc19yZXN1bHRfdCANCj4+Pj4+PiBhbWRncHVfcGNpX3Nsb3RfcmVzZXQo
+c3RydWN0IHBjaV9kZXYgKnBkZXYpDQo+Pj4+Pj4gwqDCoMKgwqDCoMKgIHNldF9iaXQoQU1ER1BV
+X1NLSVBfSFdfUkVTRVQsICZyZXNldF9jb250ZXh0LmZsYWdzKTsNCj4+Pj4+PiDCoMKgwqDCoMKg
+wqAgc2V0X2JpdChBTURHUFVfU0tJUF9NT0RFMl9SRVNFVCwgJnJlc2V0X2NvbnRleHQuZmxhZ3Mp
+Ow0KPj4+Pj4+IMKgwqAgK8KgwqDCoCBhbWRncHVfZmVuY2VfZHJpdmVyX2lzcl90b2dnbGUoYWRl
+diwgdHJ1ZSk7DQo+Pj4+Pj4gKw0KPj4+Pj4+IMKgwqDCoMKgwqDCoCBhZGV2LT5ub19od19hY2Nl
+c3MgPSB0cnVlOw0KPj4+Pj4+IMKgwqDCoMKgwqDCoCByID0gYW1kZ3B1X2RldmljZV9wcmVfYXNp
+Y19yZXNldChhZGV2LCAmcmVzZXRfY29udGV4dCk7DQo+Pj4+Pj4gwqDCoMKgwqDCoMKgIGFkZXYt
+Pm5vX2h3X2FjY2VzcyA9IGZhbHNlOyBkaWZmIC0tZ2l0IA0KPj4+Pj4+IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMNCj4+Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jDQo+Pj4+Pj4gaW5kZXggOGFkZWI3NDY5ZjFlLi42NWE4
+NzdlMWE3ZmMgMTAwNjQ0DQo+Pj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2ZlbmNlLmMNCj4+Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZmVuY2UuYw0KPj4+Pj4+IEBAIC0yODcsMTUgKzI4NywxMSBAQCBib29sIGFtZGdwdV9m
+ZW5jZV9wcm9jZXNzKHN0cnVjdCANCj4+Pj4+PiBhbWRncHVfcmluZyAqcmluZykNCj4+Pj4+PiDC
+oMKgwqDCoMKgwqAgaWYgKHVubGlrZWx5KHNlcSA9PSBsYXN0X3NlcSkpDQo+Pj4+Pj4gwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgcmV0dXJuIGZhbHNlOw0KPj4+Pj4+IMKgwqAgLcKgwqDCoCBsYXN0X3Nl
+cSAmPSBkcnYtPm51bV9mZW5jZXNfbWFzazsNCj4+Pj4+PiAtwqDCoMKgIHNlcSAmPSBkcnYtPm51
+bV9mZW5jZXNfbWFzazsNCj4+Pj4+PiAtDQo+Pj4+Pj4gwqDCoMKgwqDCoMKgIGRvIHsNCj4+Pj4+
+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSwgKipwdHI7DQo+
+Pj4+Pj4gwqDCoCDCoMKgwqDCoMKgwqDCoMKgwqDCoCArK2xhc3Rfc2VxOw0KPj4+Pj4+IC3CoMKg
+wqDCoMKgwqDCoCBsYXN0X3NlcSAmPSBkcnYtPm51bV9mZW5jZXNfbWFzazsNCj4+Pj4+PiAtwqDC
+oMKgwqDCoMKgwqAgcHRyID0gJmRydi0+ZmVuY2VzW2xhc3Rfc2VxXTsNCj4+Pj4+PiArwqDCoMKg
+wqDCoMKgwqAgcHRyID0gJmRydi0+ZmVuY2VzW2xhc3Rfc2VxICYgZHJ2LT5udW1fZmVuY2VzX21h
+c2tdOw0KPj4+Pj4+IMKgwqAgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogVGhlcmUgaXMgYWx3YXlz
+IGV4YWN0bHkgb25lIHRocmVhZCBzaWduYWxpbmcgDQo+Pj4+Pj4gdGhpcyBmZW5jZSBzbG90ICov
+DQo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgZmVuY2UgPSByY3VfZGVyZWZlcmVuY2VfcHJv
+dGVjdGVkKCpwdHIsIDEpOw0KPj4+Pj4gVGhvc2UgY2hhbmdlcyBoZXJlIGRvZXNuJ3Qgc2VlbSB0
+byBtYWtlIHNlbnNlLiBQbGVhc2UgZXhwbGFpbiANCj4+Pj4+IGZ1cnRoZXIgd2h5IHRoYXQgaXMg
+bmVjZXNzYXJ5Lg0KPj4+Pj4NCj4+Pj4+IENocmlzdGlhbi4NCj4+Pj4+DQo+Pj4+Pj4gLS0NCj4+
+Pj4+PiAyLjI1LjENCj4+Pg0KPg0K
