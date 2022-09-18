@@ -4,41 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 567C4C54EE9
-	for <amd-gfx@archiver.kernel.org>; Sat, 17 Sep 2022 13:25:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77EE4C32771
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Sep 2022 07:26:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49BE710E367;
-	Sat, 17 Sep 2022 13:25:51 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F6CA10E367;
- Sat, 17 Sep 2022 13:25:48 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id BC0E9B80D6C;
- Sat, 17 Sep 2022 13:25:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3DBC433D6;
- Sat, 17 Sep 2022 13:25:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663421145;
- bh=BkuuQ2aQAT4iZBNGS/uQLareFfaWSgUXjZ+EFt14Ok8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fNYS6WPr2T+KbWWIkKYcUPvhDweJlIRrmD64B4yzXRLWwdXHl9n3M9u6W6yVF3/91
- kksDNxCP17ew0/I17OpL9c1arKFmpoHuCYN4q5SSI8uFQM7mJ+W/K9ZADu53iF3PPp
- 16M6WJgIWxnGizOIPXogMzM4SDMPlGjwtGsvNdvSe73/bcrUwYwXJYPTaVxspROxZq
- FwewGng2c4u/vpVpwUFewx9ILrspZY48vxdF2BRNxEv4bu8LvjjmfVx6nkGM3S91iA
- uabaq+pz5IlC0pk20aJjdV9ZddiQOrh2BD3pz5t6XZcr1Xhl84IzisA2PZiQ2iVvix
- DeZKfPkmAXqmw==
-Date: Sat, 17 Sep 2022 06:25:42 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
-Subject: Re: mainline build failure (new) for x86_64 allmodconfig with clang
-Message-ID: <YyXK1rJYEc04Sobt@dev-arch.thelio-3990X>
-References: <YyWniVAqJclcbSqN@debian>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5930210E4FC;
+	Sun, 18 Sep 2022 07:26:41 +0000 (UTC)
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
+ [IPv6:2607:f8b0:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D23C10E4FB
+ for <amd-gfx@lists.freedesktop.org>; Sun, 18 Sep 2022 07:26:37 +0000 (UTC)
+Received: by mail-pf1-x42d.google.com with SMTP id b75so19970771pfb.7
+ for <amd-gfx@lists.freedesktop.org>; Sun, 18 Sep 2022 00:26:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=C8vsUa5TU95rsgUcJUkozqAPbFUmOUW9tjNdpADjyrs=;
+ b=cEQ1vuj6zPBknfy4Xr5cPJ+H9e7UH8A1lpIxdpcpUlh0+6x5BGpwQQjXywdV0sjzcN
+ ec4a0YeUgpIb7eb0aO7SuiPzGXzGk1o7iKU6DLx86nYaFL+F+KYSVvwEKyVspSzlVhjP
+ 9r4Q5Q8JvIBzOTcIEu6hp+ynLwM8WizN9HvWkuTVF4hx2il5cDqeKAmfwM6yR2YyIw4u
+ Lz/jJ3hX9kJM4n+mrUDfaqUDfVRm2gw1W8Hrl3xq3aZfSmMzWWGDB0iNwv0zNVgIDL3u
+ MnlHGfjBoN/Y5235nBQ1Ame0r8RdoHsxliQtGpf5ECLYH6NhxgYNzk7Eec/42frbNBZF
+ MeFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=C8vsUa5TU95rsgUcJUkozqAPbFUmOUW9tjNdpADjyrs=;
+ b=x8rIhDl7BfaEJ0tzH7iyYVItiJH2Ad1VW3IFEKPAzfaxMath2Sl52kgOlEZcf+2IGY
+ fcjqqnKdDO3tIRxWAwGbygQykV4PU9NA7+yWtlVK5aWyRg/N1eHSh45nxuzKmbmlmmfY
+ qb13acwPMPMuPKqNvEE4ZFR7JOquMxRNigEpSIYHgOgKJe7fJ9NXzGVrObjh9Hm7kNug
+ 5cPx5BAU5wgF+yQFUrybrXwEeLK7+VG5XUvnphvZl3BFwsmMyhtaaQ8sGif54QbX29QR
+ UONFr/994WUxGlbDRiTPEbWuFaFHvit/nOLDKQjE3dTtMSSQYisFUsqo+ub6Pozmv01F
+ QweA==
+X-Gm-Message-State: ACrzQf1ASBZiqGKOeAa27TNDrLPXknjoz4CrhjE16vp8gfcYNs09aGuE
+ mesooA2XwXtuVhjofSjJGry/i6TXDS0=
+X-Google-Smtp-Source: AMsMyM6Upq4W3M0XP/mOUv42MbJbFokt2lgz6Mi9obhgmluWJFongK+lROcRlkt3qDjJGXTv9CW6lg==
+X-Received: by 2002:a63:e52:0:b0:438:ebec:363e with SMTP id
+ 18-20020a630e52000000b00438ebec363emr11137039pgo.437.1663485996416; 
+ Sun, 18 Sep 2022 00:26:36 -0700 (PDT)
+Received: from rainbow.com ([240d:1a:5a8:5a00:34b9:499e:1035:3657])
+ by smtp.gmail.com with ESMTPSA id
+ q6-20020aa79606000000b0052d432b4cc0sm17662163pfg.33.2022.09.18.00.26.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 18 Sep 2022 00:26:34 -0700 (PDT)
+From: stalkerg <stalkerg@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: getting fan speed pwm for vega10 properly
+Date: Sun, 18 Sep 2022 16:23:15 +0900
+Message-Id: <20220918072314.28870-1-stalkerg@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YyWniVAqJclcbSqN@debian>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,51 +66,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, torvalds@linux-foundation.org, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: alexander.deucher@amd.com, stalkerg <stalkerg@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Sudip,
+Instead of using RPM speed, we will use a function from vega20 based on PWM registers.
 
-On Sat, Sep 17, 2022 at 11:55:05AM +0100, Sudip Mukherjee (Codethink) wrote:
-> Hi All,
-> 
-> The latest mainline kernel branch fails to build for x86_64 allmodconfig
-> with clang. The errors are:
-> 
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.c:4020:6: error: stack frame size (2184) exceeds limit (2048) in 'dml314_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
-> void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
->      ^
-> 1 error generated.
-> 
-> 
-> Note: This is a new error seen on top on a335366bad13 ("Merge tag 'gpio-fixes-for-v6.0-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux").
-> Previous reported clang build error is now fixed, thanks to Nathan.
-> 
-> And, it appears Nathan has already sent a fix for this:
-> https://github.com/intel-lab-lkp/linux/commit/4ecc45d7585ae2e05d622879ad97e13a7d8c595b
-> https://github.com/intel-lab-lkp/linux/commit/819976a950b497d7f10cd9a198a94c26a9005b30
+Signed-off-by: Yury Zhuravlev <stalkerg@gmail.com>
+---
+ .../amd/pm/powerplay/hwmgr/vega10_thermal.c   | 25 +++++++++----------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
 
-I did not realize this was a mainline issue too :( it seems that
-commit af2f2a256e04 ("drm/amd/display: Enable dlg and vba compilation
-for dcn314") is needed to see this and it was only in -next for three
-releases (20220914 to 20220916), which I missed checking as closely as I
-normally do due to Plumbers wrapping up and traveling.
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+index dad3e3741a4e..190af79f3236 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+@@ -67,22 +67,21 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr *hwmgr,
+ int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
+ 		uint32_t *speed)
+ {
+-	uint32_t current_rpm;
+-	uint32_t percent = 0;
+-
+-	if (hwmgr->thermal_controller.fanInfo.bNoFan)
+-		return 0;
++	struct amdgpu_device *adev = hwmgr->adev;
++	uint32_t duty100, duty;
++	uint64_t tmp64;
+ 
+-	if (vega10_get_current_rpm(hwmgr, &current_rpm))
+-		return -1;
++	duty100 = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL1),
++				CG_FDO_CTRL1, FMAX_DUTY100);
++	duty = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_THERMAL_STATUS),
++				CG_THERMAL_STATUS, FDO_PWM_DUTY);
+ 
+-	if (hwmgr->thermal_controller.
+-			advanceFanControlParameters.usMaxFanRPM != 0)
+-		percent = current_rpm * 255 /
+-			hwmgr->thermal_controller.
+-			advanceFanControlParameters.usMaxFanRPM;
++	if (!duty100)
++		return -EINVAL;
+ 
+-	*speed = MIN(percent, 255);
++	tmp64 = (uint64_t)duty * 255;
++	do_div(tmp64, duty100);
++	*speed = MIN((uint32_t)tmp64, 255);
+ 
+ 	return 0;
+ }
+-- 
+2.35.1
 
-The series is on the mailing lists at
-https://lore.kernel.org/20220916210658.3412450-1-nathan@kernel.org/,
-which is basically just 's/31/314/g' on the dml31 fixes because the code
-is identical. Hopefully those two patches can be picked up in the same
-manner as the other ones so that x86_64 allmodconfig does not ship
-broken in 6.0 and thank you to the AMD folks for moving on those
-already!
-
-Cheers,
-Nathan
