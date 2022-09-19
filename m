@@ -4,55 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E47FECAAD3
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 15:54:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E589DC54EE9
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 16:05:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93E4910E039;
-	Mon, 19 Sep 2022 15:54:04 +0000 (UTC)
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
- [IPv6:2001:4860:4864:20::35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0833A10E039
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Sep 2022 15:54:01 +0000 (UTC)
-Received: by mail-oa1-x35.google.com with SMTP id
- 586e51a60fabf-127ba06d03fso32454fac.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Sep 2022 08:54:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD74110E05C;
+	Mon, 19 Sep 2022 16:05:56 +0000 (UTC)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACDEE10E05C;
+ Mon, 19 Sep 2022 16:05:52 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-1279948d93dso28250fac.10; 
+ Mon, 19 Sep 2022 09:05:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=CV5DvHMHjLExrcItKX4N05NTUEal191X/QBnilo1/VA=;
- b=PLeS51PHtR/Rsq/h+buTAk8fCJyV9zVz5RtyrYxMObvDJfEz3tJK1tCV20T2Zyu5KR
- 5643R9qSqQwrxjoVELL8hZSsvtbENM72JEax5qVXb7t3R25g7bC1ppdgXDY7fCIx7uzd
- 3RFppf07tXS9DoE/5S1k2SZ3cpUUqtsVKOjXQMeIJv38dbjgYI/x25hLn312mSJ4IGbU
- fJw8TMwxCoj1GaIdVVRHE+ZPbgwh55DeBI6REfWXwbSxnxubhd7alqshAsDb4arBTu9V
- SzWb08xRDqNeGOtBa34ioX9PngHw/ixux5dWyaJgxtKblb3xfw1lgvY9I7i6FUXE7SLx
- hy3g==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date;
+ bh=TtK0CZHvlXGsDlu0AqgvaxeE0wjcAWRXpa3fmgdIzi4=;
+ b=gdOjw03cMPvYmo7X5JmPuTEAtfszk9n+1IMP+P9ShqBSLgXiZYKLLn6X0KeBqSeAs4
+ yuRXs352ekuj9x+O8QM5YySaaVrARFSgrKBgv1bj3KTXqStMi4yquG4+/4fWj+Xb8kA2
+ FPwiZHIWHVaRIiE8zDRwwgubJd3bhVH/l9D4p26FrmrLkCiIMy4gTaHp2wCh/M7scpmq
+ mz69x7M6dl7yGrt3jjyFaSzA7TYwfwybbc0Va78E1VgSzlzUxLtc0rQMky8ffccOOaEV
+ Ov1NNZHqh695qqNyq4ushGW6G86kgWZstTaiUfdneMahWe9kVFsLebmiQNsmanUbDST0
+ WWqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=CV5DvHMHjLExrcItKX4N05NTUEal191X/QBnilo1/VA=;
- b=ZsretO6Tg1tb9416akpI7OQULiTJFwq5rPcYLz+X+0DwHdCQYKoBILewOaakDaWOiv
- wzJ3IKPJCbr3jHfyO0oreBl7NeReO8XGDebGYKlv4VWo/zjvbrdaANzU9T3tm5mVZKs3
- zIJBesIlkAjH/qkZ7GWbF6fiWQ5yQFZJ2wyAuLYwao3yIAbI7+MFNupTQ43Q5TasmUlL
- FMQFxtRfJeG0NNQrnW1BKIi48dEEixYpKBwQZjx2lUbRKCOHKb/irE8rn3oDJkDzRMXM
- JD3yDA2d0Bt4OxCPgQCB/M9GL+0kdqscnRGOg+tI8LPbAwsVtQY9i8RsIyRJ6WvXq4mc
- n6cw==
-X-Gm-Message-State: ACrzQf2Tc5P88+j8i3pLleLWv/PHYa49ahbpcjdR/tryrwlBt5NiNW/Z
- yIuUjEkPhRHfmLfS8zUVzt50+iIcPPejLnM58eU=
-X-Google-Smtp-Source: AMsMyM5aDGe5qqtGNMMjbMfqv5X4vdt79bt5CoXTj7E2GUVc+J892ez3LCeCbVxVv8xBBGbAcOYQZQR5pqamqv5HwCQ=
-X-Received: by 2002:a05:6870:738d:b0:125:1b5:420f with SMTP id
- z13-20020a056870738d00b0012501b5420fmr10274564oam.96.1663602841331; Mon, 19
- Sep 2022 08:54:01 -0700 (PDT)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=TtK0CZHvlXGsDlu0AqgvaxeE0wjcAWRXpa3fmgdIzi4=;
+ b=xwbFBHryOUxsKFP1AWbLQmPA5O+THzPhKOIbFoAgEKtHiVi4SjxFM3BfsfauBdw7et
+ unpNIuNCbBxcz2m5cXRXA1l2YFJ3FqjzWF2x8wkrATxCHqbSZVmv4oHH1UbpnMrnFhiu
+ 1lsHwNy3lCZ9iEwQQ7yJtr7yqwen/r9lXaN+JgDwPk+DcXa9QmZp28lvBFytRcUdf8j3
+ 9M2oFptS+mw/VgZJhotJ+ed4VFL/QLxxj0KqUDUd0O0XwMuHvr1coUCo6scyYnFMqB37
+ 1eB5OxLuD1Z4iM/7+uFnRz9u7yykIXb8p+1LBLqlxb+6t5ac0yjza73HRcpTWpGj70wm
+ r6mg==
+X-Gm-Message-State: ACgBeo3/afDwazKCyWcuo+LTF+nnqZxNbG8B/Y8Brz3E5QpcD92XBSU6
+ sRkenrQPRqjUDzHiRJNxCWSHTOmq9w2qYlls5oY=
+X-Google-Smtp-Source: AA6agR6xjGec5Z+e5ITIS8Px/3Na0gYk7ZFFqj1cmMZbvbwxhruquGmeJU4QrAgSuyjscEkxyXxTXpJ+syqTk36pUiw=
+X-Received: by 2002:a05:6870:1783:b0:12a:f442:504d with SMTP id
+ r3-20020a056870178300b0012af442504dmr16842712oae.46.1663603551665; Mon, 19
+ Sep 2022 09:05:51 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220918072314.28870-1-stalkerg@gmail.com>
- <DM6PR12MB261982DE6EACF869254AEDF1E44D9@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB261982DE6EACF869254AEDF1E44D9@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20220919014457.3297857-1-zengheng4@huawei.com>
+In-Reply-To: <20220919014457.3297857-1-zengheng4@huawei.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 19 Sep 2022 11:53:49 -0400
-Message-ID: <CADnq5_PxJu7WN6sGUi+9sj3x0pfOQCJwb7rGdKrc_nNg2pGhFQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: getting fan speed pwm for vega10 properly
-To: "Quan, Evan" <Evan.Quan@amd.com>
+Date: Mon, 19 Sep 2022 12:05:40 -0400
+Message-ID: <CADnq5_OE0yZvEYGu82QJHL9wvVcTFZrmeTgX7URgh7FVA=jqYg@mail.gmail.com>
+Subject: Re: [PATCH] gpu: color: eliminate implicit conversion about enum type
+To: Zeng Heng <zengheng4@huawei.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,81 +65,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- stalkerg <stalkerg@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: HaoPing.Liu@amd.com, Krunoslav.Kovac@amd.com, sunpeng.li@amd.com,
+ liwei391@huawei.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ dri-devel@lists.freedesktop.org, airlied@linux.ie, Yao.Wang1@amd.com,
+ weiyongjun1@huawei.com, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
+ alexander.deucher@amd.com, harry.wentland@amd.com, christian.koenig@amd.com,
+ Pavle.Kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Mon, Sep 19, 2022 at 3:19 AM Zeng Heng <zengheng4@huawei.com> wrote:
+>
+> Fix below compile warning when open enum-conversion
+> option check:
+>
+> drivers/gpu/drm/amd/amdgpu/../display/modules/color/color_gamma.c:
+> In function =E2=80=98apply_degamma_for_user_regamma=E2=80=99:
+> drivers/gpu/drm/amd/amdgpu/../display/modules/color/color_gamma.c:1695:29=
+:
+> error: implicit conversion from =E2=80=98enum <anonymous>=E2=80=99 to =E2=
+=80=98enum dc_transfer_func_predefined=E2=80=99 [-Werror=3Denum-conversion]
+>  1695 |  build_coefficients(&coeff, true);
+>       |                             ^~~~
+>
+> As 'build_coefficients' definition, it needs enum
+> 'dc_transfer_func_predefined' type acts as the
+> second argument, instead of bool-type one.
+>
+> The numerical values of TRANSFER_FUNCTION_BT709 & true
+> happen to be the same, so there is no change in
+> behavior.
+
+This looks like a regression from:
+
+commit 9b3d76527f6ea50270f7f7ac749493b41783e8bd
+Author: Jaehyun Chung <jaehyun.chung@amd.com>
+Date:   Mon Aug 30 16:46:42 2021 -0400
+
+    drm/amd/display: Revert adding degamma coefficients
+
+    [Why]
+    Degamma coefficients are calculated in our degamma formula using
+    the regamma coefficients. We do not need to add separate degamma
+    coefficients.
+
+    [How]
+    Remove the change to add separate degamma coefficients.
+
+    Reviewed-by: Krunoslav Kovac <Krunoslav.Kovac@amd.com>
+    Acked-by: Mikita Lipski <mikita.lipski@amd.com>
+    Signed-off-by: Jaehyun Chung <jaehyun.chung@amd.com>
+    Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+    Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+Which seems to improperly revert:
+commit d020970959169627d59a711769f8c4b87bf5f90c
+Author: Jaehyun Chung <jaehyun.chung@amd.com>
+Date:   Tue Aug 24 14:05:48 2021 -0400
+
+    drm/amd/display: Add regamma/degamma coefficients and set sRGB
+when TF is BT709
+
+    [Why]
+    In YUV case, need to set the input TF to sRGB instead of BT709,
+    even though the input TF type is distributed. SRGB was not
+    being used because pixel format was not being set in the
+    surface update sequence.
+    Also, we were using the same coefficients for degamma and
+    regamma formula, causing the cutoff point of the linear
+    section of the curve to be incorrect.
+
+    [How]
+    Set pixel format in the surface update sequence. Add separate
+    coefficient arrays for regamma and degamma.
+
+    Reviewed-by: Krunoslav Kovac <Krunoslav.Kovac@amd.com>
+    Acked-by: Mikita Lipski <mikita.lipski@amd.com>
+    Signed-off-by: Jaehyun Chung <jaehyun.chung@amd.com>
+    Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+    Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+I think the proper fix is to set it to:
+build_coefficients(&coeff, TRANSFER_FUNCTION_SRGB);
 
 Alex
 
-On Sun, Sep 18, 2022 at 10:06 PM Quan, Evan <Evan.Quan@amd.com> wrote:
 >
-> [AMD Official Use Only - General]
+> Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+> ---
+>  drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> Reviewed-by: Evan Quan <evan.quan@amd.com>
+> diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/dr=
+ivers/gpu/drm/amd/display/modules/color/color_gamma.c
+> index 04f7656906ca..2f807d787c77 100644
+> --- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+> +++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+> @@ -1692,7 +1692,7 @@ static void apply_degamma_for_user_regamma(struct p=
+wl_float_data_ex *rgb_regamma
+>         struct pwl_float_data_ex *rgb =3D rgb_regamma;
+>         const struct hw_x_point *coord_x =3D coordinates_x;
 >
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> > stalkerg
-> > Sent: Sunday, September 18, 2022 3:23 PM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; stalkerg
-> > <stalkerg@gmail.com>
-> > Subject: [PATCH] drm/amdgpu: getting fan speed pwm for vega10 properly
-> >
-> > Instead of using RPM speed, we will use a function from vega20 based on
-> > PWM registers.
-> >
-> > Signed-off-by: Yury Zhuravlev <stalkerg@gmail.com>
-> > ---
-> >  .../amd/pm/powerplay/hwmgr/vega10_thermal.c   | 25 +++++++++----------
-> >  1 file changed, 12 insertions(+), 13 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-> > b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-> > index dad3e3741a4e..190af79f3236 100644
-> > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-> > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-> > @@ -67,22 +67,21 @@ int vega10_fan_ctrl_get_fan_speed_info(struct
-> > pp_hwmgr *hwmgr,
-> >  int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
-> >               uint32_t *speed)
-> >  {
-> > -     uint32_t current_rpm;
-> > -     uint32_t percent = 0;
-> > -
-> > -     if (hwmgr->thermal_controller.fanInfo.bNoFan)
-> > -             return 0;
-> > +     struct amdgpu_device *adev = hwmgr->adev;
-> > +     uint32_t duty100, duty;
-> > +     uint64_t tmp64;
-> >
-> > -     if (vega10_get_current_rpm(hwmgr, &current_rpm))
-> > -             return -1;
-> > +     duty100 = REG_GET_FIELD(RREG32_SOC15(THM, 0,
-> > mmCG_FDO_CTRL1),
-> > +                             CG_FDO_CTRL1, FMAX_DUTY100);
-> > +     duty = REG_GET_FIELD(RREG32_SOC15(THM, 0,
-> > mmCG_THERMAL_STATUS),
-> > +                             CG_THERMAL_STATUS, FDO_PWM_DUTY);
-> >
-> > -     if (hwmgr->thermal_controller.
-> > -                     advanceFanControlParameters.usMaxFanRPM != 0)
-> > -             percent = current_rpm * 255 /
-> > -                     hwmgr->thermal_controller.
-> > -                     advanceFanControlParameters.usMaxFanRPM;
-> > +     if (!duty100)
-> > +             return -EINVAL;
-> >
-> > -     *speed = MIN(percent, 255);
-> > +     tmp64 = (uint64_t)duty * 255;
-> > +     do_div(tmp64, duty100);
-> > +     *speed = MIN((uint32_t)tmp64, 255);
-> >
-> >       return 0;
-> >  }
-> > --
-> > 2.35.1
+> -       build_coefficients(&coeff, true);
+> +       build_coefficients(&coeff, TRANSFER_FUNCTION_BT709);
+>
+>         i =3D 0;
+>         while (i !=3D hw_points_num + 1) {
+> --
+> 2.25.1
+>
