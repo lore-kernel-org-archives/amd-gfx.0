@@ -4,53 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D6FCECAAD3
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 08:06:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3C8CC6FA82
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 08:06:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAB5C10E59E;
-	Mon, 19 Sep 2022 08:06:52 +0000 (UTC)
-Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
- [IPv6:2607:f8b0:4864:20::b33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F75210E39C;
- Sat, 17 Sep 2022 14:01:03 +0000 (UTC)
-Received: by mail-yb1-xb33.google.com with SMTP id s14so3691333ybe.7;
- Sat, 17 Sep 2022 07:01:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=zD/Sef8RPFCu0UVUYWziEP2nxLn+8U8oMtAWbA1WOKg=;
- b=YcC3cgGuhWS4Xg3lrgZagbYgcH7H+Oqs1Vtfdb19quwhZaGI9UkGTfJt0FGuC3TbGk
- cC65tdI5WnSnZBN82+V6LK9oswdYJU3KLJq6NoFtrUPaQ6p2Xvxopnlu32vLyj2QvSUL
- d2Dw+zRNL37+TnmVi1iohbS1coBfaP8ILUJ+0wNcjTbQdFjoD6QL2lSRLYKcMN7hH9oL
- z1KxYlu1exKoBhQOaq5Q1um1ACC3dGlNgbLomefFeD4frSFk69CfgbS12OBMoOtME9Y+
- YFTpir5rXiAsWbkTm5IHbNzHkcZu+iLcrlGir95p2yHh63P9SNdm/rocCcaTwgCOeScc
- Wztg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=zD/Sef8RPFCu0UVUYWziEP2nxLn+8U8oMtAWbA1WOKg=;
- b=Dr9Z7ZM2ZWIkySGbIbUw/hEwhMHWRz4rr5YhJmjGkFQSfuz1RM09JdOAdpNSKoaU1x
- F9J5aMCknTLNbfn9jpOjrJaTqcrP8+iUxW/oXWml542/MoJ/Ff2S6eO+lykzKtfTh+Lf
- BTeM9Iy8xBfnu4Fr9y+pFRWZSKtVi6c6hsrs+X7fdwnboxuzmc1Z/LUrTzsBMyNa/zWd
- T5aroDhveVAKDh6IofWdMS9C5QcVqV9o10socp/MOwurdGqez7eBQWgqJe8kv068E0PS
- RH2PkdArF/7JadZXnrrtlxF5jBpdGza7Wi5umJa0QY78/6RxyTnc7xsXLZUuNCnRIJF/
- xg7w==
-X-Gm-Message-State: ACrzQf2x7LfBGArVVozv/16JbbsfJMA/nVgwdger68NWWSHOJ4JuPqzN
- 3NQNxUnwjCFZatuCi0glngEt80TbIz4AqH8E4XQ=
-X-Google-Smtp-Source: AMsMyM6MSZI9tekALssIfUCVIXmmS+TxhNp3mdgEOPjIBYJ6CwNaZ3jWo3MxCGHOKPfoAytGRmXAHXSCXcB/twZbNMc=
-X-Received: by 2002:a5b:845:0:b0:683:6ed7:b3b6 with SMTP id
- v5-20020a5b0845000000b006836ed7b3b6mr8163614ybq.183.1663423262817; Sat, 17
- Sep 2022 07:01:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D916710E58C;
+	Mon, 19 Sep 2022 08:06:54 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A856210E429;
+ Mon, 19 Sep 2022 01:37:56 +0000 (UTC)
+Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.54])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MW6dp2gbCzlVxB;
+ Mon, 19 Sep 2022 09:33:50 +0800 (CST)
+Received: from huawei.com (10.175.103.91) by dggpemm500022.china.huawei.com
+ (7.185.36.162) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 19 Sep
+ 2022 09:37:53 +0800
+From: Zeng Heng <zengheng4@huawei.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
+ <Rodrigo.Siqueira@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>, <Pavle.Kotarac@amd.com>, <HaoPing.Liu@amd.com>,
+ <Krunoslav.Kovac@amd.com>, <Yao.Wang1@amd.com>
+Subject: [PATCH] gpu: color: eliminate implicit conversion about enum type
+Date: Mon, 19 Sep 2022 09:44:57 +0800
+Message-ID: <20220919014457.3297857-1-zengheng4@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <YyWniVAqJclcbSqN@debian> <YyXK1rJYEc04Sobt@dev-arch.thelio-3990X>
-In-Reply-To: <YyXK1rJYEc04Sobt@dev-arch.thelio-3990X>
-From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Date: Sat, 17 Sep 2022 15:00:26 +0100
-Message-ID: <CADVatmPwPjpEJdfygtQtt7d6oQfABUtTVrn2k57eKFEFQChDbQ@mail.gmail.com>
-Subject: Re: mainline build failure (new) for x86_64 allmodconfig with clang
-To: Nathan Chancellor <nathan@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ dggpemm500022.china.huawei.com (7.185.36.162)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 19 Sep 2022 08:06:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,54 +48,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Linus Torvalds <torvalds@linux-foundation.org>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: zengheng4@huawei.com, weiyongjun1@huawei.com, liwei391@huawei.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Nathan,
+Fix below compile warning when open enum-conversion
+option check:
 
-On Sat, Sep 17, 2022 at 2:25 PM Nathan Chancellor <nathan@kernel.org> wrote:
->
-> Hi Sudip,
->
-> On Sat, Sep 17, 2022 at 11:55:05AM +0100, Sudip Mukherjee (Codethink) wrote:
-> > Hi All,
-> >
-> > The latest mainline kernel branch fails to build for x86_64 allmodconfig
-> > with clang. The errors are:
-> >
-> > drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.c:4020:6: error: stack frame size (2184) exceeds limit (2048) in 'dml314_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
-> > void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
-> >      ^
-> > 1 error generated.
-> >
-> >
-> > Note: This is a new error seen on top on a335366bad13 ("Merge tag 'gpio-fixes-for-v6.0-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux").
-> > Previous reported clang build error is now fixed, thanks to Nathan.
-> >
-> > And, it appears Nathan has already sent a fix for this:
-> > https://github.com/intel-lab-lkp/linux/commit/4ecc45d7585ae2e05d622879ad97e13a7d8c595b
-> > https://github.com/intel-lab-lkp/linux/commit/819976a950b497d7f10cd9a198a94c26a9005b30
->
-> I did not realize this was a mainline issue too :( it seems that
-> commit af2f2a256e04 ("drm/amd/display: Enable dlg and vba compilation
-> for dcn314") is needed to see this and it was only in -next for three
-> releases (20220914 to 20220916), which I missed checking as closely as I
-> normally do due to Plumbers wrapping up and traveling.
+drivers/gpu/drm/amd/amdgpu/../display/modules/color/color_gamma.c:
+In function ‘apply_degamma_for_user_regamma’:
+drivers/gpu/drm/amd/amdgpu/../display/modules/color/color_gamma.c:1695:29:
+error: implicit conversion from ‘enum <anonymous>’ to ‘enum dc_transfer_func_predefined’ [-Werror=enum-conversion]
+ 1695 |  build_coefficients(&coeff, true);
+      |                             ^~~~
 
-This has become a mainline issue since today.
-I saw in it linux-next also, but missed reporting :(
+As 'build_coefficients' definition, it needs enum
+'dc_transfer_func_predefined' type acts as the
+second argument, instead of bool-type one.
 
+The numerical values of TRANSFER_FUNCTION_BT709 & true
+happen to be the same, so there is no change in
+behavior.
 
+Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+---
+ drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+index 04f7656906ca..2f807d787c77 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+@@ -1692,7 +1692,7 @@ static void apply_degamma_for_user_regamma(struct pwl_float_data_ex *rgb_regamma
+ 	struct pwl_float_data_ex *rgb = rgb_regamma;
+ 	const struct hw_x_point *coord_x = coordinates_x;
+ 
+-	build_coefficients(&coeff, true);
++	build_coefficients(&coeff, TRANSFER_FUNCTION_BT709);
+ 
+ 	i = 0;
+ 	while (i != hw_points_num + 1) {
 -- 
-Regards
-Sudip
+2.25.1
+
