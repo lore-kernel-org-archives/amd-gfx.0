@@ -4,54 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F373C54EE9
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 16:08:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 714E8ECAAD3
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 16:26:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1289010E68E;
-	Mon, 19 Sep 2022 16:08:50 +0000 (UTC)
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58BC510E693
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Sep 2022 16:08:47 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-12803ac8113so56985fac.8
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Sep 2022 09:08:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAE4D10E055;
+	Mon, 19 Sep 2022 16:26:17 +0000 (UTC)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20B3A10E042;
+ Mon, 19 Sep 2022 16:26:14 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-11e9a7135easo144647fac.6; 
+ Mon, 19 Sep 2022 09:26:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=i+jGilU9V3DMHiF+YedFGPadmYxcUB+FOwGaQBOUByk=;
- b=RfaGRlhoNL/j2q9ywo3ox/1VXoJa/boDFeUh0BV5FDAkxKs7XFYKtss1cLGCmt4VDz
- 0gIOro2hhZjPz4+gD+E6pQJ4DGLyFXgdYghWiDfy2o4N6cbVXr9UFC21mDEQPGAD/ND9
- SpG8UwWHEDfPiP5YJamzSm7cw84NU0MNA0x5r6qvtDZnHeYp5GFKAhyHEjTHrHh7P/LF
- qIXG+ZH8TSZs2BFRpqDc6gNm6cpV5a2Vc/TGVTQXMRDxGSntEWOE7qdLzFhKTWqXz29D
- 9l7pyT9M4HHKHFIHL45jmh+HmhCQKwVIZfKgn6Nyb9/mLm3uNkJVVwkpuZvfe5Wjpmc0
- 55dQ==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date;
+ bh=B79VNmtksFZCxxDMaKm5/f3GDhn1sPWt9TTqsHjBc44=;
+ b=p4KBBtjPK5F6KjhfBxOotM/kEf99VqLGvag9iPunX57HEavFuYwQ0Gtr4amfWbjcWh
+ jt1cAKnoH/x09ARebwlsO6Tot4ODwrwH35uTlEqt1p5PSaTMUsaoOe9NgqMAikbvX2+z
+ qhca/cOrPTbArKoxRZmGe9Zk1eykZbYcrfPnXc6xnMU7d8ajY5o/vag9Jug+zD12uAWS
+ flj2v9wTuVQ46qrR7ITj+hG6acIg70QwC9PoDNu1c3GaM1a0oDpRx6lhZUDD1uw7XZkV
+ 1ArvlG5ixJKONjKXgPTpCh7KZM0blxlfw4ucY9uqP5SxcyxiwRmQaSevilZmz9GSwLfA
+ O7MA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=i+jGilU9V3DMHiF+YedFGPadmYxcUB+FOwGaQBOUByk=;
- b=L7TRhM2ZqufZPDs4bgiGYH4bsLen1i8DSwX7+ONU6LDT6h2m0sEVD8ct7uIDfW5A3R
- /PelQvY46Aojuy8oQg6funauo6K8jq09WBcUnTOF+jse2g+IROUTEJVjDdO1fJIOFU/y
- 5itxeaCVH3pqP91rZVAvCR3nrF4Os69mP7f4/T3HEPIrvq20qIrbleO+VpsdATfBco5M
- etCXRd8hdjU7kcl1eTkTfsevmN9Re10fLArO+ZdeEr0v+2+9Uv3Ogm5PznfoNFgiS/aE
- EGxZk8KG17I3Exf9hDxilqzlRwM3WH+B5TokH9sb51Cf1vnbJQem3gyQ6Uav4xwCgiHS
- E4vA==
-X-Gm-Message-State: ACrzQf2m5JtQcDrFDeByfbN06YCVuOX4Cs3xXLidkeqNyn9o5Bxe2rC+
- fp9mtfW/2bTxAEbI6E5SKlfT0zW9GZUJIuyH1a4=
-X-Google-Smtp-Source: AMsMyM6RHJ3Fk0T6dNv4NKD/EuoPh0QKKmshJzMyYYBrovKJ6LgSQW6DDwep5r6pxVLwpGq4ZC5hbbipysj9L1BEyrc=
-X-Received: by 2002:a05:6870:738d:b0:125:1b5:420f with SMTP id
- z13-20020a056870738d00b0012501b5420fmr10316388oam.96.1663603726483; Mon, 19
- Sep 2022 09:08:46 -0700 (PDT)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=B79VNmtksFZCxxDMaKm5/f3GDhn1sPWt9TTqsHjBc44=;
+ b=kO5WJE+ej3aLFEVKMJSmUfENlKPtRc9oyQb0MEpvlcK/rpCKrq94px0xnMsCKh+i/9
+ vLRB5KAKx7EZPgPsB9RDAW5UOzTk18Fh8rHhKVmRombz9J3OEWEvP6A5NHp7+KqCmTUP
+ aAJ2sp3Hw3RfEgcDH0uGi5gA/wLLk0oGo2Q6NTNRmtVqn1THjYm2aneo8XgqzJ1Ap727
+ tr9cCoDMtnD0RmdG2TvoZm/qDA+sQNR99Eo3qcrRtrXYpcDjs2QwNW3eot8UYdtEakOk
+ C4iBItwtpTrDn1kPEKHupTM6SnH+6IcJ4GMYmYYWrXNfkPtymfIvRPDdWJH4sbLYJWEm
+ Fy/Q==
+X-Gm-Message-State: ACgBeo2zd5pbshLDvrclivDwUXPW76ZKUWj+wlvdqudOz/LhedyY0+xq
+ /lhLXXaptVJvsFKZIS1aoVbR6vpMyQBnf9SicBs=
+X-Google-Smtp-Source: AA6agR5UC2hT2uHICYAa0FQGITGaDgBaOc17kIMj80rW+6ebrWUDYWUju/qs8MgQ/D1Q5xmjL6PdkqT7LmmDeG5Z+/I=
+X-Received: by 2002:a05:6870:1783:b0:12a:f442:504d with SMTP id
+ r3-20020a056870178300b0012af442504dmr16904152oae.46.1663604773291; Mon, 19
+ Sep 2022 09:26:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220919134152.332411-1-David.Francis@amd.com>
-In-Reply-To: <20220919134152.332411-1-David.Francis@amd.com>
+References: <20220906195721.143022-1-hamza.mahfooz@amd.com>
+ <99314fcf-b886-a7bd-3866-241af6ac9831@suse.de>
+In-Reply-To: <99314fcf-b886-a7bd-3866-241af6ac9831@suse.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 19 Sep 2022 12:08:35 -0400
-Message-ID: <CADnq5_Oj6A+5YA8xXeJahYDauD31KsHgJkKrbyk+yUmwLGA5MA@mail.gmail.com>
-Subject: Re: [v2] drm/amd: Add IMU fw version to fw version queries
-To: David Francis <David.Francis@amd.com>
+Date: Mon, 19 Sep 2022 12:26:01 -0400
+Message-ID: <CADnq5_MBF2j1Zwe2gFxN-bwe62Yo-RbOepUBwzYDR0APc=T0Zw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: use dirty framebuffer helper
+To: Thomas Zimmermann <tzimmermann@suse.de>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,126 +66,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Likun Gao <Likun.Gao@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Guchun Chen <guchun.chen@amd.com>, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Sean Paul <seanpaul@chromium.org>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Fernando Ramos <greenfoo@u92.eu>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 19, 2022 at 9:42 AM David Francis <David.Francis@amd.com> wrote:
+On Mon, Sep 19, 2022 at 2:44 AM Thomas Zimmermann <tzimmermann@suse.de> wro=
+te:
 >
-> IMU is a new firmware for GFX11.
+> Hi
 >
-> There are four means by which firmware version can be queried
-> from the driver: device attributes, vf2pf, debugfs,
-> and the AMDGPU_INFO_FW_VERSION option in the amdgpu info ioctl.
+> Am 06.09.22 um 21:57 schrieb Hamza Mahfooz:
+> > Currently, we aren't handling DRM_IOCTL_MODE_DIRTYFB. So, use
+> > drm_atomic_helper_dirtyfb() as the dirty callback in the amdgpu_fb_func=
+s
+> > struct.
 >
-> Add IMU as an option for those four methods.
->
-> V2: Added debugfs
->
-> CC: Likun Gao <Likun.Gao@amd.com>
->
-> Signed-off-by: David Francis <David.Francis@amd.com>
+> drm_atomic_helper_dirtyfb() creates a new atomic commit for the
+> frambuffer's planes. Drivers can then updates these planes' output
+> (e.g., writeback to video memory). I thought that amdgpu simply scans
+> out from the framebuffer's memory regions in VRAM. So I'm curious why
+> this patch is necessary.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+I think in this particular case, the problem is that there are still
+some asic which default to non-atomic code which is what is causing
+the problem here.  Something like this would fix that:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 5b09c8f4fe95..f5e9dd454c54 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -497,6 +497,11 @@ bool amdgpu_display_ddc_probe(struct
+amdgpu_connector *amdgpu_connector,
+ static const struct drm_framebuffer_funcs amdgpu_fb_funcs =3D {
+        .destroy =3D drm_gem_fb_destroy,
+        .create_handle =3D drm_gem_fb_create_handle,
++};
++
++static const struct drm_framebuffer_funcs amdgpu_fb_funcs_atomic =3D {
++       .destroy =3D drm_gem_fb_destroy,
++       .create_handle =3D drm_gem_fb_create_handle,
+        .dirty =3D drm_atomic_helper_dirtyfb,
+ };
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     | 13 +++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c   |  4 +++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h |  1 +
->  include/uapi/drm/amdgpu_drm.h               |  2 ++
->  5 files changed, 20 insertions(+), 1 deletion(-)
+@@ -1102,7 +1107,10 @@ static int
+amdgpu_display_gem_fb_verify_and_init(struct drm_device *dev,
+        if (ret)
+                goto err;
+
+-       ret =3D drm_framebuffer_init(dev, &rfb->base, &amdgpu_fb_funcs);
++       if (drm_drv_uses_atomic_modeset(adev_to_drm(adev)))
++               ret =3D drm_framebuffer_init(dev, &rfb->base,
+&amdgpu_fb_funcs_atomic);
++       else
++               ret =3D drm_framebuffer_init(dev, &rfb->base, &amdgpu_fb_fu=
+ncs);
+        if (ret)
+                goto err;
+
+As for why we need the dirty callback, I think it's used for PSR.
+
+Alex
+
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 1369c25448dc..56753c3574b1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -328,6 +328,10 @@ static int amdgpu_firmware_info(struct drm_amdgpu_info_firmware *fw_info,
->                 fw_info->ver = adev->psp.cap_fw_version;
->                 fw_info->feature = adev->psp.cap_feature_version;
->                 break;
-> +       case AMDGPU_INFO_FW_IMU:
-> +               fw_info->ver = adev->gfx.imu_fw_version;
-> +               fw_info->feature = 0;
-> +               break;
->         default:
->                 return -EINVAL;
->         }
-> @@ -1488,6 +1492,15 @@ static int amdgpu_debugfs_firmware_info_show(struct seq_file *m, void *unused)
->                            fw_info.feature, fw_info.ver);
->         }
+> Best regards
+> Thomas
 >
-> +       /* IMU */
-> +       query_fw.fw_type = AMDGPU_INFO_FW_IMU;
-> +       query_fw.index = 0;
-> +       ret = amdgpu_firmware_info(&fw_info, &query_fw, adev);
-> +       if (ret)
-> +               return ret;
-> +       seq_printf(m, "IMU feature version: %u, firmware version: 0x%08x\n",
-> +                  fw_info.feature, fw_info.ver);
-> +
->         /* PSP SOS */
->         query_fw.fw_type = AMDGPU_INFO_FW_SOS;
->         ret = amdgpu_firmware_info(&fw_info, &query_fw, adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> index 939c8614f0e3..a576a50fad25 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> @@ -630,6 +630,7 @@ FW_VERSION_ATTR(rlc_srlg_fw_version, 0444, gfx.rlc_srlg_fw_version);
->  FW_VERSION_ATTR(rlc_srls_fw_version, 0444, gfx.rlc_srls_fw_version);
->  FW_VERSION_ATTR(mec_fw_version, 0444, gfx.mec_fw_version);
->  FW_VERSION_ATTR(mec2_fw_version, 0444, gfx.mec2_fw_version);
-> +FW_VERSION_ATTR(imu_fw_version, 0444, gfx.imu_fw_version);
->  FW_VERSION_ATTR(sos_fw_version, 0444, psp.sos.fw_version);
->  FW_VERSION_ATTR(asd_fw_version, 0444, psp.asd_context.bin_desc.fw_version);
->  FW_VERSION_ATTR(ta_ras_fw_version, 0444, psp.ras_context.context.bin_desc.fw_version);
-> @@ -651,7 +652,8 @@ static struct attribute *fw_attrs[] = {
->         &dev_attr_ta_ras_fw_version.attr, &dev_attr_ta_xgmi_fw_version.attr,
->         &dev_attr_smc_fw_version.attr, &dev_attr_sdma_fw_version.attr,
->         &dev_attr_sdma2_fw_version.attr, &dev_attr_vcn_fw_version.attr,
-> -       &dev_attr_dmcu_fw_version.attr, NULL
-> +       &dev_attr_dmcu_fw_version.attr, &dev_attr_imu_fw_version.attr,
-> +       NULL
->  };
+> >
+> > Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 2 ++
+> >   1 file changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_display.c
+> > index c20922a5af9f..5b09c8f4fe95 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> > @@ -38,6 +38,7 @@
+> >   #include <linux/pci.h>
+> >   #include <linux/pm_runtime.h>
+> >   #include <drm/drm_crtc_helper.h>
+> > +#include <drm/drm_damage_helper.h>
+> >   #include <drm/drm_edid.h>
+> >   #include <drm/drm_gem_framebuffer_helper.h>
+> >   #include <drm/drm_fb_helper.h>
+> > @@ -496,6 +497,7 @@ bool amdgpu_display_ddc_probe(struct amdgpu_connect=
+or *amdgpu_connector,
+> >   static const struct drm_framebuffer_funcs amdgpu_fb_funcs =3D {
+> >       .destroy =3D drm_gem_fb_destroy,
+> >       .create_handle =3D drm_gem_fb_create_handle,
+> > +     .dirty =3D drm_atomic_helper_dirtyfb,
+> >   };
+> >
+> >   uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
 >
->  static const struct attribute_group fw_attr_group = {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> index e4af40b9a8aa..38c46f09d784 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> @@ -547,6 +547,7 @@ static void amdgpu_virt_populate_vf2pf_ucode_info(struct amdgpu_device *adev)
->         POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_RLC_SRLS, adev->gfx.rlc_srls_fw_version);
->         POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_MEC,      adev->gfx.mec_fw_version);
->         POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_MEC2,     adev->gfx.mec2_fw_version);
-> +       POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_IMU,      adev->gfx.imu_fw_version);
->         POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_SOS,      adev->psp.sos.fw_version);
->         POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_ASD,
->                             adev->psp.asd_context.bin_desc.fw_version);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> index e78e4c27b62a..6c97148ca0ed 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> @@ -70,6 +70,7 @@ enum amd_sriov_ucode_engine_id {
->         AMD_SRIOV_UCODE_ID_RLC_SRLS,
->         AMD_SRIOV_UCODE_ID_MEC,
->         AMD_SRIOV_UCODE_ID_MEC2,
-> +       AMD_SRIOV_UCODE_ID_IMU,
->         AMD_SRIOV_UCODE_ID_SOS,
->         AMD_SRIOV_UCODE_ID_ASD,
->         AMD_SRIOV_UCODE_ID_TA_RAS,
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index c2c9c674a223..3e00cec47f52 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -755,6 +755,8 @@ struct drm_amdgpu_cs_chunk_data {
->         #define AMDGPU_INFO_FW_TOC              0x15
->         /* Subquery id: Query CAP firmware version */
->         #define AMDGPU_INFO_FW_CAP              0x16
-> +       /* Subquery id: Query IMU firmware version */
-> +       #define AMDGPU_INFO_FW_IMU              0x17
->
->  /* number of bytes moved for TTM migration */
->  #define AMDGPU_INFO_NUM_BYTES_MOVED            0x0f
 > --
-> 2.25.1
->
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+> (HRB 36809, AG N=C3=BCrnberg)
+> Gesch=C3=A4ftsf=C3=BChrer: Ivo Totev
