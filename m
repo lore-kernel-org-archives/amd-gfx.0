@@ -4,55 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83C9DECAAD3
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 16:34:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC2A8ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 16:44:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0177210E694;
-	Mon, 19 Sep 2022 16:34:09 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A10E010E69A;
- Mon, 19 Sep 2022 16:34:06 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- j17-20020a9d7f11000000b0065a20212349so986422otq.12; 
- Mon, 19 Sep 2022 09:34:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=ZLiOCNNF7wdWCABGAiGK8/oWijAvCIwWJHaJzbioRxM=;
- b=nY+pSkSNHqCwgtOKWBI3vQ+7D3KMosqNkG9NQy+uhbnu5FMJZkFy8tjyyEXUhOBDv+
- nYPaJDkq+xFcrYLY0JkhfgmUY+NcDQQpL0Im6CoXPfPRUE8ZYzmm/q2rVBZAEldwA5wY
- JD4qMfqJrkDkjjXkUm7bQqhDzMraaOF45/LpssN8HoilzMlg10z2/G1F9aGRVva3fwSi
- 2hYDZ3ECKF18w+c1Vlumuks5PYGholLxd6uMqdKLLxWQX2IVeBKvFgdIwWBOr9QvrZ+M
- +mm6RcrmwWSq/ApAM0DtxDlSd0tEtWOGUDZPHVHxq39ofhSbwjC30rR1zeVEK0Y69xUL
- nMCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=ZLiOCNNF7wdWCABGAiGK8/oWijAvCIwWJHaJzbioRxM=;
- b=VYfgE//YcLPxd1FcaM3Ph1ZK13HWd0LZ/xBL5DliBW7tm1q7ZGEqdEZkEM7bx22BG3
- F2M+kxzAcMMePwB6y9a2pChAqwOXnLXkIqe00GAK8aw6m1ds7O5rkr2pX897pFKDEyC6
- Ib4eGjOz7DlKOMdFGbJadDaSn9an8zLyW0TvzVDVhtTYlGRlScZ3Z1WeypK7wZGDjlCb
- 5yN0LPgDbKiTvAbGrtywxXXMDYGpPAQZojB7DFolsDla1kaxF7zFub5wLnim9b0zLcNm
- v3y2p+0HXya6zqlvSxq7EJrC695UxSzk5mUPeqc/rKBTwaE8NRsWb4LDo44aroklPl3t
- IdDg==
-X-Gm-Message-State: ACrzQf019o3qUdb62sVUbCszllWVLyXDveNsIxqn2HTxoZtGnmRk/0bv
- IoTVMMIyIhx620k6cRqzcUm/fc1Lp6Ni5IvzjeE=
-X-Google-Smtp-Source: AMsMyM4sipQbglJKguzhieKBP2oCrd47THdmXYiXWCu3NuliJqL9QXCYcig3ahqFxzgD4GZoMeUgxmjQRxKFfln6t1Y=
-X-Received: by 2002:a9d:376:0:b0:655:b4bc:fd6e with SMTP id
- 109-20020a9d0376000000b00655b4bcfd6emr8479616otv.233.1663605245951; Mon, 19
- Sep 2022 09:34:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6B3F10E6A6;
+	Mon, 19 Sep 2022 16:44:03 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2067.outbound.protection.outlook.com [40.107.95.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3893E10E03F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Sep 2022 16:43:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Qac3Df1+E+rWY5GTy97uHDag1M3G99Lph53guEJi/JGiGzgx0t7FGFrhl8soM72xb6GZTrs1NBEapQK1ACOxY5Y7PlcEt1AHZV7Ev5TXtc9zoCSbx+mmHfQkP2OgELknsyPAmWUIeeVsoiB/QpsSPEi2M/IKOoTlfdR+OPRjSvYM3awhhOrA2+JWtwfZu9KUzVKnWZEZzPM2f9xoQdNFj44x28tn2Z3jr6KkGj1kv9z5bmU/bqb6nTVJ3eUXbJ/IWfpagki7FnFF6f+zCU2u2P7yXHnTxudh42oD0LK7Z4u1KtCkHAvhojyPjEV2rJzFAjlF9NzMyRdMhDQxGFTJWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OPAY6zmfwqplu3sLMz8EQJrgbmlhncRoNdxQ3cbVl6w=;
+ b=WeZ4JvKvyK2QeJQ0mXSuCVClJ8dNOxAdzJjv8GkUh7S4ffmaMyaIXrvEab1CbqPtuSZcOkcygJFA0uak6IrXjYzO22YaPRmBVIVBGtweJe+owIFkmd2gsoiGBxNlEOdbwh98UtiU9z1jRXV3eUEZRI256tCwEC4epzPWikK78OtzJ4u1D8VNd4stDa4rLqmV1lR0UyZsRI2RGcYVhb1DjraG2c1/dWb0RQ0jYFl5DX3Brb3L/1MXMeutYTfjyieOU+76CSIgmcN9O+wQpCo2Bs86PEwsh9Nh+aYzeeyEG9cxCfvQmviBsqMn3Z39Uw7ZMidKNqvpfJUbxeNaxD4Qrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OPAY6zmfwqplu3sLMz8EQJrgbmlhncRoNdxQ3cbVl6w=;
+ b=Qt5ug7f3Mdw2d97aaoJvOCKh/P+P7k2LH29uhErLzICP3VOtjhtsqsdCmRK9CfdcTGxWKIOQZ4KIz3OucbBCihE9AzUe0ofj1d2qa65X9xnosvw1o6NdYyWBsuniz5KVwjfVNdZ3bxeUdx4Qg+6+2sbcUekkmojS4QY8N+yLsCI=
+Received: from MW4PR04CA0316.namprd04.prod.outlook.com (2603:10b6:303:82::21)
+ by MN0PR12MB6054.namprd12.prod.outlook.com (2603:10b6:208:3ce::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Mon, 19 Sep
+ 2022 16:43:56 +0000
+Received: from CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:82:cafe::35) by MW4PR04CA0316.outlook.office365.com
+ (2603:10b6:303:82::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.21 via Frontend
+ Transport; Mon, 19 Sep 2022 16:43:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT036.mail.protection.outlook.com (10.13.174.124) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5632.12 via Frontend Transport; Mon, 19 Sep 2022 16:43:56 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 19 Sep
+ 2022 11:43:54 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: fix transfer function passed to
+ build_coefficients()
+Date: Mon, 19 Sep 2022 12:43:34 -0400
+Message-ID: <20220919164334.1579973-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-References: <CADnq5_O0W-ipCCy3hsub5GwirjDTM76Xn3kAxgyZT5V+vDguSA@mail.gmail.com>
- <20220918120926.10322-1-user@am64>
-In-Reply-To: <20220918120926.10322-1-user@am64>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 19 Sep 2022 12:33:54 -0400
-Message-ID: <CADnq5_Py+dgAxa5Y1tzbWx6xRt1g2LQ1JsiJD6ewYYTzjjaPcw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: use dirty framebuffer helper
-To: root <arthur.marsh@internode.on.net>
-Content-Type: multipart/mixed; boundary="000000000000bb74c905e90a4789"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT036:EE_|MN0PR12MB6054:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4178a8d6-0892-4f46-948a-08da9a5e2507
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6WOSBW9kr3m5JvEkiptEBSerLhCow0XKIK/yqcHlc24h+wRrHVKp6om5wyvq2YmOcQFGVO4OORlCLnIz8HBBNVTd3MVybs95InAtOidUrSDirGvLGjAJ3ObrTLwgn4U/ewR75CKoT6ZutYBiPxbvXouqzmsW935lgMqv+muG9njHy3UYtxEfs7rzJYQapKWTW87TZtYhm8ehRgAyw7rdkrV5PAPCYaXT6BlJfZYQBGjPBzNQi52uAg1XC2J472UqqabXGem4JsFazugLvaGAVfKsRcD6CvqeFEnZ7nqZ53v0PFSoYQkLwhG/QK+QrYJ51ICRamPlVbfMqjY2ebPAsiMAL9u/L/nNkdMUJTFd2IQnkjX1KzjHubiSq5z9/PU44N5WmSSlp07rsI5MvbdJhrlfL/LlZzVlSBRVLi4yv0Z7DtXU6cjc+2B1Ni90ZIWWPUI79FqmB5OwzpVLnuZxoOFmti62UurM89CfXnc4QcxAEb0nibzEnEIQS9BPferu8s60ijQe0ktUTNvI5IkzM5cc7XcHW9MKimi6PWXNxaH/IzYVgbjgEho+oInHS8zsf+J7vngnY1QQJdCpM2JoOCj9tycURTAODOGUD1nP8TEfYarzNPFxadtj5JYf48qxHQdz+REtZDWcox+QOVdsoWSMBPSaDTL1y1AnK4mjava7kDBgz2wsO9Wp7mdUhx2DvaA9W0mhVtuVrT4FLtv3iuE5tBVCwil34v7HjiIuD/tbl4+BIcTvcq7SD9y1m9QjiCqb3XZdSsziCV0LrMiGwixBcaICf0MsHNxAf/vb3WI=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(396003)(136003)(376002)(39860400002)(451199015)(40470700004)(36840700001)(46966006)(2616005)(7696005)(336012)(82740400003)(70586007)(2906002)(26005)(6666004)(86362001)(8676002)(81166007)(5660300002)(41300700001)(186003)(426003)(70206006)(16526019)(40460700003)(47076005)(40480700001)(8936002)(356005)(83380400001)(36756003)(36860700001)(1076003)(478600001)(6916009)(82310400005)(316002)(54906003)(4326008)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2022 16:43:56.3328 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4178a8d6-0892-4f46-948a-08da9a5e2507
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6054
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,127 +98,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: guchun.chen@amd.com, airlied@linux.ie, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- aurabindo.pillai@amd.com, seanpaul@chromium.org,
- dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, greenfoo@u92.eu, hamza.mahfooz@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Krunoslav Kovac <Krunoslav.Kovac@amd.com>, Zeng Heng <zengheng4@huawei.com>,
+ Jaehyun Chung <jaehyun.chung@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000bb74c905e90a4789
-Content-Type: text/plain; charset="UTF-8"
+The default argument should be enum TRANSFER_FUNCTION_SRGB rather than
+the current boolean value which improperly maps to
+TRANSFER_FUNCTION_BT709.
 
-On Sun, Sep 18, 2022 at 8:09 AM root <arthur.marsh@internode.on.net> wrote:
->
-> Hi, I recently experienced lock-ups that only responded to magic sysreq
-> reboots when the amdgpu module was loading on my pc (Athlon II X4 640 CPU,
-> with Radeon R7 250 - Cape Verde).
->
-> .config has:
->
-> CONFIG_DRM_AMDGPU=m
-> CONFIG_DRM_AMDGPU_SI=y
-> # CONFIG_DRM_AMDGPU_CIK is not set
-> # CONFIG_DRM_AMDGPU_USERPTR is not set
->
-> kernel command line has:
->
-> amdgpu.audio=1 amdgpu.si_support=1 radeon.si_support=0 page_owner=on \
-> amdgpu.gpu_recovery=1
->
-> Bisecting lead to:
->
-> commit 66f99628eb24409cb8feb5061f78283c8b65f820
-> Author: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> Date:   Tue Sep 6 15:01:49 2022 -0400
->
->     drm/amdgpu: use dirty framebuffer helper
->
->     Currently, we aren't handling DRM_IOCTL_MODE_DIRTYFB. So, use
->     drm_atomic_helper_dirtyfb() as the dirty callback in the amdgpu_fb_funcs
->     struct.
->
->     Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
->     Acked-by: Alex Deucher <alexander.deucher@amd.com>
->     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index c20922a5af9f..5b09c8f4fe95 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -38,6 +38,7 @@
->  #include <linux/pci.h>
->  #include <linux/pm_runtime.h>
->  #include <drm/drm_crtc_helper.h>
-> +#include <drm/drm_damage_helper.h>
->  #include <drm/drm_edid.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
->  #include <drm/drm_fb_helper.h>
-> @@ -496,6 +497,7 @@ bool amdgpu_display_ddc_probe(struct amdgpu_connector *amdgpu_connector,
->  static const struct drm_framebuffer_funcs amdgpu_fb_funcs = {
->         .destroy = drm_gem_fb_destroy,
->         .create_handle = drm_gem_fb_create_handle,
-> +       .dirty = drm_atomic_helper_dirtyfb,
->  };
->
->  uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
->
-> After doing a git bisect reset, git pull and reverting the patch above, I
-> rebuilt the kernel and am successfully running with the amdgpu module loaded
-> and using the Radeon R7 250 GPU.
->
-> I am happy to supply any further configuration details.
+Commit 9b3d76527f6e ("drm/amd/display: Revert adding degamma coefficients")
+looks to have improperly reverted
+commit d02097095916 ("drm/amd/display: Add regamma/degamma coefficients and set sRGB when TF is BT709")
+replacing the enum value with a boolean value.
 
-Does the attached patch help?
+Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>
+Cc: Jaehyun Chung <jaehyun.chung@amd.com>
+Cc: Zeng Heng <zengheng4@huawei.com>
+Fixes: 9b3d76527f6e ("drm/amd/display: Revert adding degamma coefficients")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+index 04f7656906ca..447a0ec9cbe2 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+@@ -1692,7 +1692,7 @@ static void apply_degamma_for_user_regamma(struct pwl_float_data_ex *rgb_regamma
+ 	struct pwl_float_data_ex *rgb = rgb_regamma;
+ 	const struct hw_x_point *coord_x = coordinates_x;
+ 
+-	build_coefficients(&coeff, true);
++	build_coefficients(&coeff, TRANSFER_FUNCTION_SRGB);
+ 
+ 	i = 0;
+ 	while (i != hw_points_num + 1) {
+-- 
+2.37.3
 
-
->
-> Arthur Marsh.
-
---000000000000bb74c905e90a4789
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-drm-amdgpu-don-t-register-a-dirty-callback-for-non-a.patch"
-Content-Disposition: attachment; 
-	filename="0001-drm-amdgpu-don-t-register-a-dirty-callback-for-non-a.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_l88zlnu70>
-X-Attachment-Id: f_l88zlnu70
-
-RnJvbSA1ZTQ5YzY4YzFhYzFmYmI5OGIxYzg0NDA3NDg1YWJmYjdkMzA5NzgzIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
-b20+CkRhdGU6IE1vbiwgMTkgU2VwIDIwMjIgMTI6MjY6MjAgLTA0MDAKU3ViamVjdDogW1BBVENI
-XSBkcm0vYW1kZ3B1OiBkb24ndCByZWdpc3RlciBhIGRpcnR5IGNhbGxiYWNrIGZvciBub24tYXRv
-bWljCgpTb21lIGFzaWNzIHN0aWxsIHN1cHBvcnQgbm9uLWF0b21pYyBjb2RlIHBhdGhzLgoKRml4
-ZXM6IDY2Zjk5NjI4ZWIyNDQwICgiZHJtL2FtZGdwdTogdXNlIGRpcnR5IGZyYW1lYnVmZmVyIGhl
-bHBlciIpClJlcG9ydGVkLWJ5OiBBcnRodXIgTWFyc2ggPGFydGh1ci5tYXJzaEBpbnRlcm5vZGUu
-b24ubmV0PgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
-ZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYyB8
-IDExICsrKysrKysrKystCiAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKSwgMSBkZWxl
-dGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-aXNwbGF5LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCmlu
-ZGV4IDViMDljOGY0ZmU5NS4uMjM5OThmNzI3YzdmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMKQEAgLTM5LDYgKzM5LDcgQEAKICNpbmNsdWRlIDxsaW51
-eC9wbV9ydW50aW1lLmg+CiAjaW5jbHVkZSA8ZHJtL2RybV9jcnRjX2hlbHBlci5oPgogI2luY2x1
-ZGUgPGRybS9kcm1fZGFtYWdlX2hlbHBlci5oPgorI2luY2x1ZGUgPGRybS9kcm1fZHJ2Lmg+CiAj
-aW5jbHVkZSA8ZHJtL2RybV9lZGlkLmg+CiAjaW5jbHVkZSA8ZHJtL2RybV9nZW1fZnJhbWVidWZm
-ZXJfaGVscGVyLmg+CiAjaW5jbHVkZSA8ZHJtL2RybV9mYl9oZWxwZXIuaD4KQEAgLTQ5Nyw2ICs0
-OTgsMTEgQEAgYm9vbCBhbWRncHVfZGlzcGxheV9kZGNfcHJvYmUoc3RydWN0IGFtZGdwdV9jb25u
-ZWN0b3IgKmFtZGdwdV9jb25uZWN0b3IsCiBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9mcmFtZWJ1
-ZmZlcl9mdW5jcyBhbWRncHVfZmJfZnVuY3MgPSB7CiAJLmRlc3Ryb3kgPSBkcm1fZ2VtX2ZiX2Rl
-c3Ryb3ksCiAJLmNyZWF0ZV9oYW5kbGUgPSBkcm1fZ2VtX2ZiX2NyZWF0ZV9oYW5kbGUsCit9Owor
-CitzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9mcmFtZWJ1ZmZlcl9mdW5jcyBhbWRncHVfZmJfZnVu
-Y3NfYXRvbWljID0geworCS5kZXN0cm95ID0gZHJtX2dlbV9mYl9kZXN0cm95LAorCS5jcmVhdGVf
-aGFuZGxlID0gZHJtX2dlbV9mYl9jcmVhdGVfaGFuZGxlLAogCS5kaXJ0eSA9IGRybV9hdG9taWNf
-aGVscGVyX2RpcnR5ZmIsCiB9OwogCkBAIC0xMTAyLDcgKzExMDgsMTAgQEAgc3RhdGljIGludCBh
-bWRncHVfZGlzcGxheV9nZW1fZmJfdmVyaWZ5X2FuZF9pbml0KHN0cnVjdCBkcm1fZGV2aWNlICpk
-ZXYsCiAJaWYgKHJldCkKIAkJZ290byBlcnI7CiAKLQlyZXQgPSBkcm1fZnJhbWVidWZmZXJfaW5p
-dChkZXYsICZyZmItPmJhc2UsICZhbWRncHVfZmJfZnVuY3MpOworCWlmIChkcm1fZHJ2X3VzZXNf
-YXRvbWljX21vZGVzZXQoZGV2KSkKKwkJcmV0ID0gZHJtX2ZyYW1lYnVmZmVyX2luaXQoZGV2LCAm
-cmZiLT5iYXNlLCAmYW1kZ3B1X2ZiX2Z1bmNzX2F0b21pYyk7CisJZWxzZQorCQlyZXQgPSBkcm1f
-ZnJhbWVidWZmZXJfaW5pdChkZXYsICZyZmItPmJhc2UsICZhbWRncHVfZmJfZnVuY3MpOwogCWlm
-IChyZXQpCiAJCWdvdG8gZXJyOwogCi0tIAoyLjM3LjMKCg==
---000000000000bb74c905e90a4789--
