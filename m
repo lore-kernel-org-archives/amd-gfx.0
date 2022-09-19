@@ -4,59 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30F3EC54EE9
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 06:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B1B1C54EE9
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 07:44:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B63B110E3E3;
-	Mon, 19 Sep 2022 06:44:27 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7168F10E3E3
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Sep 2022 06:44:24 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E65481FA7E;
- Mon, 19 Sep 2022 06:44:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663569860; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gn+zgz3kIc+wDFdnrhBXWyfd8Cd2IToofEuWe3kVzy4=;
- b=j9yqxg2TMM3XBVh7jP9MBV0X5rbq0LDE3+1g6VDjzRKUeX5gSQKKNx7W1zPavVYTxqxXdz
- IXKAlLowJIxnsaIFBTK5vYeMcKLBFZq/XRa/83wNKjAMBQt4pBfmbKzCN5Zk2N0R8oXR2W
- BAN4dAuW7pMRS6KGJggyJIVN1ORfRT4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663569860;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gn+zgz3kIc+wDFdnrhBXWyfd8Cd2IToofEuWe3kVzy4=;
- b=CyOPtCUJlEzhz04bjhjWPO8h8xfgF+CIQX3XJWjETbhumAkrCUREYgusr3OljC1KcGpCit
- 3+HZTjMbN+zojaAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E6D0A13A96;
- Mon, 19 Sep 2022 06:44:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 58xLN8MPKGO9DwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 19 Sep 2022 06:44:19 +0000
-Message-ID: <99314fcf-b886-a7bd-3866-241af6ac9831@suse.de>
-Date: Mon, 19 Sep 2022 08:44:19 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH] drm/amdgpu: use dirty framebuffer helper
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>, linux-kernel@vger.kernel.org
-References: <20220906195721.143022-1-hamza.mahfooz@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6814A10E55E;
+	Mon, 19 Sep 2022 07:44:27 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2083.outbound.protection.outlook.com [40.107.92.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D48710E553;
+ Mon, 19 Sep 2022 07:44:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RnWDeOb2Rjymknmxz89KhKRk5NVW/6yy1j5TVWK1FmEjVvLhSHIJkUP9sTm+MSw2Vczdthb6YeiHP0i5iOuffzdgMw2Awe9fSOpiwxPCrAQIB4AWRZVIcF2Q6nxd4bXQXOsBVdVnwtCeRJugCYw8gSY9v+QVCe/MyWqnE69ttViBZb7E9ClUgp4DTuMuoAvFZbE0Tg7Ap/Irx9JG8qKlt7PbFDp/fia1MpJgjJMhWrffLusD0pep1sK9bl1SIrpCixMH0mVsOyIbmJd4gON88LzHhzSIxlvw0OKbZ6iJnuAqAkNjwD/kyJRiHf6vpAyP429POhJEpQ9Vvv8v1o7bAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rtlskHon3z82LyKFtavsij98O+Glv5Jhp+/tGqvsVsc=;
+ b=JYEhX9Dp/2La9FnXdbtDaz4pR0kpHwkVApO7iErwF766maT4k3fB0bOh623VrV8kI6D5YNXujY4dZVF8HsYxf+MU+qnOXjdbvhYXPAGkhSQONQwCRFM2rw8fkn4GIPE16zjR9lMUO5oP8z1ydhJglQw5iE5XRL87PKdfvUwF4Plw6fK6lal8QODg4h/OAqVWGy35J+h+FS6MYqmxcjwEqlDQEbQQQ68L65YMK/yjFLvGWRS7yMyfFg9qBRN80TKXhzlZLved3/i0S8k7TepKs2ZQwDOLX0V9ccDzMloiK3u9jmRkmOosGtIeuXXp3mo28thnnPM04bdvQzsQoNXBtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rtlskHon3z82LyKFtavsij98O+Glv5Jhp+/tGqvsVsc=;
+ b=y/Xl9oqjBVxGBsvwKhi67Ju2ErwxRaDL3kWqN84rGsVV/YIgiEPivyS0sXYYdG86A/iFfQcJE204xlceTRkOVMGz+SMwwjiiLo0D3SSuniMiyUSZKsVUc0I7feQjlcXTpWI3NWqe3bNdujnedayuDAl0KA2c9OAghbxWisxWQm4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by PH0PR12MB7096.namprd12.prod.outlook.com (2603:10b6:510:21d::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.21; Mon, 19 Sep
+ 2022 07:44:21 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::653f:e59b:3f40:8fed]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::653f:e59b:3f40:8fed%6]) with mapi id 15.20.5632.021; Mon, 19 Sep 2022
+ 07:44:21 +0000
+Message-ID: <9b7f030f-eedf-9a14-b442-6afa0c67c5f7@amd.com>
+Date: Mon, 19 Sep 2022 09:44:14 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] gpu: dc: fix enum conversion in display_mode_vba
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <20220906195721.143022-1-hamza.mahfooz@amd.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------tCX2ivrNVIxf43pa5zK2V7v7"
+To: Zeng Heng <zengheng4@huawei.com>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ Xinhui.Pan@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ Nevenko.Stupar@amd.com, Pavle.Kotarac@amd.com, aric.cyr@amd.com
+References: <20220919014125.3295213-1-zengheng4@huawei.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20220919014125.3295213-1-zengheng4@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0029.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::22) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH0PR12MB7096:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6dad8c0-fec5-408e-22ec-08da9a12c3a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: o/4yynGOJReHTC5WrTAWroCrvyWmAHyzy7A7n7cdb3oCZ3beZ1GUTLdrN/Bg8s7y8O1k+yjBaJgPvkSXPsATkWw+2lp/1dySe458zrZMRbR/6uNXKZ5Vx6B+e2okPe4qXwWVWxamL36RF0NXE1NQq/BEFCfzAp+kDD0cviM1VwhIy7siYCRCzCJx8wZ92A+Z14OnI3AxRgyudzOTtwHtXDuYXd4coF4AJJsjtXpZHpeVbnYMwX7rKytlXY0o6sHIjhmeDHFaI0XEi5oQwSR4P0gRKe1mQql825W43fLdz7orPSf8drKL854+i5ngQUHCrGNYr5eBbXB8Tf6CRUiGfeG/ARBWvr5tuobqsXTRW90b+d7ecyCuU0tJjSnIYWaNGDP+8vsCY6KZ8uPHBMKWJeIPLva0OvORWTMTTl/4T5rTp2+zYkUNTzhAd7/0NEIDO1uou8f8fkNJ/5PJ7Bt8aJvRzlgMLi5advClSnpK85+eguSRxWYD3qu1nc9vL/8rf8Tx6ebZ4O0Nwu5wJ219BGo8GD+rIbn7rFZd13XzbOxc3fsFO7gDZsBOC9AE9HjV6Y2Q4tOlcf51i06b/GMt7onjWad7Q0yfmxGLegUZpiZ8bMdIlbFZCbaDwAGsKij7Mm0UZz9uRaLl1B5jIkuNi83lXqZz+z9hklCRgEU4nv+bRxHBvzQo7NfB5Xry/O3KbfsFCIUlA4mW+aqC/wEkRaZ6ixEO2GaP5JiieGaq9dtRfgUJfpPZiSO3WQdEs94t5oHTBHz9cCL83fVYkCXZsSDz6444Bp2K/eAaPqI/UWP9AhmTGk8HND4y8I+puAzs3gOoSydzX+DInemh2yt7Hw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(366004)(396003)(136003)(376002)(39860400002)(451199015)(31686004)(38100700002)(6512007)(26005)(6506007)(6666004)(8676002)(4326008)(2906002)(2616005)(41300700001)(921005)(86362001)(31696002)(186003)(36756003)(5660300002)(478600001)(8936002)(6636002)(316002)(66946007)(66556008)(66476007)(83380400001)(6486002)(45980500001)(43740500002)(44824005);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WWdWaFFpK25XaUxKaDZXeVJyODNVQ2FYakxiS0ljTlJrK28vZVprMzg1OXgx?=
+ =?utf-8?B?ajNpVktuYjFsMHphWG91VzR1ai84cno2cGR6RTBSMlFMNDlKTXVBYnQ1bWtS?=
+ =?utf-8?B?MnpXN1FXcVpvNzNFWllaZ29IRENPczlqWExweEwzekFVUnl4NkxpZThSM01o?=
+ =?utf-8?B?ZFNHRzBWMmgvUTVCVHlvUGFhUXNjUmljOUNDdkNlaUtObG1xMzdScWJUSTIy?=
+ =?utf-8?B?MXl6RUNNblM0MXBhTFA5ckt6c1VaalNwenRxZXZSTTg2U0FyUmhrdDEvL1JJ?=
+ =?utf-8?B?S2ppNjh5bDdnY3JSMEVzdVovUXhQdlNLOUU1RUdIQW1nRHNoUDNGUGhjZEJD?=
+ =?utf-8?B?emxtdlNQRHowQUdiTUphODNNRnpKWXFjRVF4dGJwZUxFRVZheTl6VkxSTEtM?=
+ =?utf-8?B?TFVtTWY1YXVONWJzR2hHWFkxaVRWVmp2ZFppV2VGSkVxVnM0aVd4bkFFMjZU?=
+ =?utf-8?B?YWpYdGgyeG91Y0lWeGROWFF0elBHbVl2RzUzbldFV0FPbkZFb1VpOUhEQUtJ?=
+ =?utf-8?B?dzhkVDhSWkovdVpUQTErRlNRYzgyc0tnY3kybElmaUJpOVhoNTJ4aCt4NHlL?=
+ =?utf-8?B?a3I3Z0FtS1ZaWWVwcGpuU0pVL0lWa3R1MURoUGxtczFhRERmckN4dGFRYTNU?=
+ =?utf-8?B?Uy9QTTduUVQ1bjhlcUxSUit2Wms2VFJ1NDlSY0V2anRQYTdSdXRoSGZjMVV5?=
+ =?utf-8?B?RmJSY05jSXhiTjlhUVZuYnlBZWgva2JXLzJRR1FZcWQwc3VwQXhySkZReXFy?=
+ =?utf-8?B?UHBrTkpqVTY4ZUg4QUc4YytlS3VnNVdFTUlYR0JXOFlYSlN1azE2TlFpWTRu?=
+ =?utf-8?B?VEQ1VmR0dXNtYkVaVFkwekQrWHZ2YUZHYzl2ZGNUR2NyMHBNblIyYnd0eFJn?=
+ =?utf-8?B?b0xwOGh3VHhuWmNobVJOOGhOdmhqUjFPdmpVc2N1OWpVZkE0dTlMNnE1eklH?=
+ =?utf-8?B?TmJBZXhERTk3RkMvQ0t4WVZtcHdmeExUdTBtckZ2R29UbUFaOXRlaXlNRCtD?=
+ =?utf-8?B?NDdNbHRjaTNFazJ5VVpSa1Z3SHZSdDRKTHVyR1BKbFRpWUVMamNBSUkza2I3?=
+ =?utf-8?B?bGxPc21ybXNuVGt2UVFKVis0S0VIZHI4U2NPbVFGc2p4OXcyc3p4dmJZSE14?=
+ =?utf-8?B?UmVWMFFhczNXS0daTHRmbjRtK0lNemhnbWZSTW1EdWgwRjhlYWt6SnU5M3Nr?=
+ =?utf-8?B?UWMxY0NJRWhRcThFNEM4YlZ3WGpRQ0dpK0g5M1NoUzQwTU9UWGtxNnFSK0Y0?=
+ =?utf-8?B?R0NqK1E3ZCtTM3hVSnhFOHBQcGVWSnZCWkVJRFZadjhqeEcyd3dwY3pnTmVR?=
+ =?utf-8?B?Nks1dUtFMGk2Wm1NV212TzZHRVpuSnFHWUdweDJ3NDZBQVpidEcwem9CODhI?=
+ =?utf-8?B?SlpzS1FaRzZxZlo0Q2NpUUZwODkyb3A3RUxReDNZWmpEZVVSYm1EcklKQ1pM?=
+ =?utf-8?B?SG1LSU5QM0ZIVHRZU2xhSGlaV1dENmtkK2ZmUUlXREhuMHBid3dWNkkySENZ?=
+ =?utf-8?B?RWxaUWpMNERoSHR3cS8yRWpMM3BQaHZWUGdaRWNnRzdXZ0E0WVNOY3EyQ0g2?=
+ =?utf-8?B?OVZUMlJ5TmJBenpsZXRFNE9lSTBQWkdPY1pvYmhJcEhxVjN5V2NWN0JtdE5N?=
+ =?utf-8?B?VitVeXJsWVI4cDhsQ2xiZjB6V1BhRUI2K1g2ZHB2cEcxUGlIU2tlU2FycHEx?=
+ =?utf-8?B?SE1DTUNmZ3RCa0pSQ1RXTXJNejhBUTVpZ3RremJ6WHM4K2NXdUU3RHduUklx?=
+ =?utf-8?B?WkFvL09Fd25rYmJoclUvNERxZ2tCUy9Yc2VzUTErRzBiQU1sT3dGQXBoVTRt?=
+ =?utf-8?B?eWFqMFREWWFFR2NNV29sSVM0Tmx4NnNuQWZuUmpNeWl4UWhkR05DN3g1MytN?=
+ =?utf-8?B?eHEyYW95dU45QWIyVTdKK0w0OHExKzF2Sk5GRUdvK3c4Qzl5cG44YW1tWFJX?=
+ =?utf-8?B?eGlPMERxS0FvMWdqWlZWMXhXRHZWWjdWK2pjblo1S3U1MGJ6dCt5WmRMcWw2?=
+ =?utf-8?B?ejkyckR0SFVUNXVDaWNhZDlSUEozclEyM0RabHFGb0p4UHJ3TjNWOFdtT3lR?=
+ =?utf-8?B?ZmZhYWRZbFVnT1p0NHh2TWx2Y0NBWjhDNXBFcnJ3eXBoYmVyR0lLcmhmQ3B0?=
+ =?utf-8?Q?dASFq+JCHDDMwa9vSIM3YOl0+?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6dad8c0-fec5-408e-22ec-08da9a12c3a3
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2022 07:44:21.0402 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OvlTM1l2rsz8ItG/xmZNiT5+1QalPec5ty3UgQXaVbuE9a0Vq/gOew2plrbGOqUx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7096
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,92 +126,166 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun Chen <guchun.chen@amd.com>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Sean Paul <seanpaul@chromium.org>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Fernando Ramos <greenfoo@u92.eu>
+Cc: weiyongjun1@huawei.com, liwei391@huawei.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------tCX2ivrNVIxf43pa5zK2V7v7
-Content-Type: multipart/mixed; boundary="------------mLZcpfYMWZ06L0dqaUWIhukt";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>, linux-kernel@vger.kernel.org
-Cc: Guchun Chen <guchun.chen@amd.com>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- amd-gfx@lists.freedesktop.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Sean Paul <seanpaul@chromium.org>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Fernando Ramos <greenfoo@u92.eu>
-Message-ID: <99314fcf-b886-a7bd-3866-241af6ac9831@suse.de>
-Subject: Re: [PATCH] drm/amdgpu: use dirty framebuffer helper
-References: <20220906195721.143022-1-hamza.mahfooz@amd.com>
-In-Reply-To: <20220906195721.143022-1-hamza.mahfooz@amd.com>
+Am 19.09.22 um 03:41 schrieb Zeng Heng:
+> Fix below compile warning when open enum-conversion
+> option check (compiled with -Wenum-conversion):
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:
+> In function ‘dml20_ModeSupportAndSystemConfigurationFull’:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3900:44:
+> error: implicit conversion from ‘enum <anonymous>’ to ‘enum odm_combine_mode’ [-Werror=enum-conversion]
+>   3900 |     locals->ODMCombineEnablePerState[i][k] = false;
+>        |                                            ^
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3904:46:
+> error: implicit conversion from ‘enum <anonymous>’ to ‘enum odm_combine_mode’ [-Werror=enum-conversion]
+>   3904 |       locals->ODMCombineEnablePerState[i][k] = true;
+>        |                                              ^
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3907:46:
+> error: implicit conversion from ‘enum <anonymous>’ to ‘enum odm_combine_mode’ [-Werror=enum-conversion]
+>   3907 |       locals->ODMCombineEnablePerState[i][k] = true;
+>        |                                              ^
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3960:45:
+> error: implicit conversion from ‘enum <anonymous>’ to ‘enum odm_combine_mode’ [-Werror=enum-conversion]
+>   3960 |      locals->ODMCombineEnablePerState[i][k] = false;
+>
+> Use the proper value from the right enumerated type,
+> dm_odm_combine_mode_disabled & dm_odm_combine_mode_2to1,
+> so there is no more implicit conversion.
+>
+> The numerical values of dm_odm_combine_mode_disabled
+> & false and dm_odm_combine_mode_2to1 & true
+> happen to be the same, so there is no change in
+> behavior.
 
---------------mLZcpfYMWZ06L0dqaUWIhukt
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+In the subject line the correct prefix is "drm/amdgpu: ....", but apart 
+from that looks good to me as well.
 
-SGkNCg0KQW0gMDYuMDkuMjIgdW0gMjE6NTcgc2NocmllYiBIYW16YSBNYWhmb296Og0KPiBD
-dXJyZW50bHksIHdlIGFyZW4ndCBoYW5kbGluZyBEUk1fSU9DVExfTU9ERV9ESVJUWUZCLiBT
-bywgdXNlDQo+IGRybV9hdG9taWNfaGVscGVyX2RpcnR5ZmIoKSBhcyB0aGUgZGlydHkgY2Fs
-bGJhY2sgaW4gdGhlIGFtZGdwdV9mYl9mdW5jcw0KPiBzdHJ1Y3QuDQoNCmRybV9hdG9taWNf
-aGVscGVyX2RpcnR5ZmIoKSBjcmVhdGVzIGEgbmV3IGF0b21pYyBjb21taXQgZm9yIHRoZSAN
-CmZyYW1idWZmZXIncyBwbGFuZXMuIERyaXZlcnMgY2FuIHRoZW4gdXBkYXRlcyB0aGVzZSBw
-bGFuZXMnIG91dHB1dCANCihlLmcuLCB3cml0ZWJhY2sgdG8gdmlkZW8gbWVtb3J5KS4gSSB0
-aG91Z2h0IHRoYXQgYW1kZ3B1IHNpbXBseSBzY2FucyANCm91dCBmcm9tIHRoZSBmcmFtZWJ1
-ZmZlcidzIG1lbW9yeSByZWdpb25zIGluIFZSQU0uIFNvIEknbSBjdXJpb3VzIHdoeSANCnRo
-aXMgcGF0Y2ggaXMgbmVjZXNzYXJ5Lg0KDQpCZXN0IHJlZ2FyZHMNClRob21hcw0KDQo+IA0K
-PiBTaWduZWQtb2ZmLWJ5OiBIYW16YSBNYWhmb296IDxoYW16YS5tYWhmb296QGFtZC5jb20+
-DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5
-LmMgfCAyICsrDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQ0KPiANCj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jDQo+IGlu
-ZGV4IGMyMDkyMmE1YWY5Zi4uNWIwOWM4ZjRmZTk1IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jDQo+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMNCj4gQEAgLTM4LDYgKzM4LDcg
-QEANCj4gICAjaW5jbHVkZSA8bGludXgvcGNpLmg+DQo+ICAgI2luY2x1ZGUgPGxpbnV4L3Bt
-X3J1bnRpbWUuaD4NCj4gICAjaW5jbHVkZSA8ZHJtL2RybV9jcnRjX2hlbHBlci5oPg0KPiAr
-I2luY2x1ZGUgPGRybS9kcm1fZGFtYWdlX2hlbHBlci5oPg0KPiAgICNpbmNsdWRlIDxkcm0v
-ZHJtX2VkaWQuaD4NCj4gICAjaW5jbHVkZSA8ZHJtL2RybV9nZW1fZnJhbWVidWZmZXJfaGVs
-cGVyLmg+DQo+ICAgI2luY2x1ZGUgPGRybS9kcm1fZmJfaGVscGVyLmg+DQo+IEBAIC00OTYs
-NiArNDk3LDcgQEAgYm9vbCBhbWRncHVfZGlzcGxheV9kZGNfcHJvYmUoc3RydWN0IGFtZGdw
-dV9jb25uZWN0b3IgKmFtZGdwdV9jb25uZWN0b3IsDQo+ICAgc3RhdGljIGNvbnN0IHN0cnVj
-dCBkcm1fZnJhbWVidWZmZXJfZnVuY3MgYW1kZ3B1X2ZiX2Z1bmNzID0gew0KPiAgIAkuZGVz
-dHJveSA9IGRybV9nZW1fZmJfZGVzdHJveSwNCj4gICAJLmNyZWF0ZV9oYW5kbGUgPSBkcm1f
-Z2VtX2ZiX2NyZWF0ZV9oYW5kbGUsDQo+ICsJLmRpcnR5ID0gZHJtX2F0b21pY19oZWxwZXJf
-ZGlydHlmYiwNCj4gICB9Ow0KPiAgIA0KPiAgIHVpbnQzMl90IGFtZGdwdV9kaXNwbGF5X3N1
-cHBvcnRlZF9kb21haW5zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KDQotLSANClRo
-b21hcyBaaW1tZXJtYW5uDQpHcmFwaGljcyBEcml2ZXIgRGV2ZWxvcGVyDQpTVVNFIFNvZnR3
-YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgNCk1heGZlbGRzdHIuIDUsIDkwNDA5IE7DvHJu
-YmVyZywgR2VybWFueQ0KKEhSQiAzNjgwOSwgQUcgTsO8cm5iZXJnKQ0KR2VzY2jDpGZ0c2bD
-vGhyZXI6IEl2byBUb3Rldg0K
+But our DC team has to take a closer look.
 
---------------mLZcpfYMWZ06L0dqaUWIhukt--
+Thanks,
+Christian.
 
---------------tCX2ivrNVIxf43pa5zK2V7v7
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+>
+> Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+> ---
+>   .../amd/display/dc/dml/dcn20/display_mode_vba_20.c   |  8 ++++----
+>   .../amd/display/dc/dml/dcn20/display_mode_vba_20v2.c | 10 +++++-----
+>   .../amd/display/dc/dml/dcn21/display_mode_vba_21.c   | 12 ++++++------
+>   3 files changed, 15 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+> index d3b5b6fedf04..6266b0788387 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+> @@ -3897,14 +3897,14 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   					mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = mode_lib->vba.PixelClock[k] / 2
+>   							* (1 + mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
+>   
+> -				locals->ODMCombineEnablePerState[i][k] = false;
+> +				locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
+>   				mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
+>   				if (mode_lib->vba.ODMCapability) {
+>   					if (locals->PlaneRequiredDISPCLKWithoutODMCombine > mode_lib->vba.MaxDispclkRoundedDownToDFSGranularity) {
+> -						locals->ODMCombineEnablePerState[i][k] = true;
+> +						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>   						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>   					} else if (locals->HActive[k] > DCN20_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
+> -						locals->ODMCombineEnablePerState[i][k] = true;
+> +						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>   						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>   					}
+>   				}
+> @@ -3957,7 +3957,7 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   				locals->RequiredDISPCLK[i][j] = 0.0;
+>   				locals->DISPCLK_DPPCLK_Support[i][j] = true;
+>   				for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes - 1; k++) {
+> -					locals->ODMCombineEnablePerState[i][k] = false;
+> +					locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
+>   					if (locals->SwathWidthYSingleDPP[k] <= locals->MaximumSwathWidth[k]) {
+>   						locals->NoOfDPP[i][j][k] = 1;
+>   						locals->RequiredDPPCLK[i][j][k] = locals->MinDPPCLKUsingSingleDPP[k]
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+> index edd098c7eb92..989d83ee3842 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+> @@ -4008,17 +4008,17 @@ void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode
+>   					mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = mode_lib->vba.PixelClock[k] / 2
+>   							* (1 + mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
+>   
+> -				locals->ODMCombineEnablePerState[i][k] = false;
+> +				locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
+>   				mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
+>   				if (mode_lib->vba.ODMCapability) {
+>   					if (locals->PlaneRequiredDISPCLKWithoutODMCombine > MaxMaxDispclkRoundedDown) {
+> -						locals->ODMCombineEnablePerState[i][k] = true;
+> +						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>   						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>   					} else if (locals->DSCEnabled[k] && (locals->HActive[k] > DCN20_MAX_DSC_IMAGE_WIDTH)) {
+> -						locals->ODMCombineEnablePerState[i][k] = true;
+> +						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>   						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>   					} else if (locals->HActive[k] > DCN20_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
+> -						locals->ODMCombineEnablePerState[i][k] = true;
+> +						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>   						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>   					}
+>   				}
+> @@ -4071,7 +4071,7 @@ void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode
+>   				locals->RequiredDISPCLK[i][j] = 0.0;
+>   				locals->DISPCLK_DPPCLK_Support[i][j] = true;
+>   				for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes - 1; k++) {
+> -					locals->ODMCombineEnablePerState[i][k] = false;
+> +					locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
+>   					if (locals->SwathWidthYSingleDPP[k] <= locals->MaximumSwathWidth[k]) {
+>   						locals->NoOfDPP[i][j][k] = 1;
+>   						locals->RequiredDPPCLK[i][j][k] = locals->MinDPPCLKUsingSingleDPP[k]
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+> index d40d32e380f4..f15e82492381 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+> @@ -4102,17 +4102,17 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   					mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = mode_lib->vba.PixelClock[k] / 2
+>   							* (1 + mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
+>   
+> -				locals->ODMCombineEnablePerState[i][k] = false;
+> +				locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
+>   				mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
+>   				if (mode_lib->vba.ODMCapability) {
+>   					if (locals->PlaneRequiredDISPCLKWithoutODMCombine > MaxMaxDispclkRoundedDown) {
+> -						locals->ODMCombineEnablePerState[i][k] = true;
+> +						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>   						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>   					} else if (locals->DSCEnabled[k] && (locals->HActive[k] > DCN21_MAX_DSC_IMAGE_WIDTH)) {
+> -						locals->ODMCombineEnablePerState[i][k] = true;
+> +						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>   						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>   					} else if (locals->HActive[k] > DCN21_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
+> -						locals->ODMCombineEnablePerState[i][k] = true;
+> +						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>   						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>   					}
+>   				}
+> @@ -4165,7 +4165,7 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   				locals->RequiredDISPCLK[i][j] = 0.0;
+>   				locals->DISPCLK_DPPCLK_Support[i][j] = true;
+>   				for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes - 1; k++) {
+> -					locals->ODMCombineEnablePerState[i][k] = false;
+> +					locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
+>   					if (locals->SwathWidthYSingleDPP[k] <= locals->MaximumSwathWidth[k]) {
+>   						locals->NoOfDPP[i][j][k] = 1;
+>   						locals->RequiredDPPCLK[i][j][k] = locals->MinDPPCLKUsingSingleDPP[k]
+> @@ -5230,7 +5230,7 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+>   			mode_lib->vba.ODMCombineEnabled[k] =
+>   					locals->ODMCombineEnablePerState[mode_lib->vba.VoltageLevel][k];
+>   		} else {
+> -			mode_lib->vba.ODMCombineEnabled[k] = false;
+> +			mode_lib->vba.ODMCombineEnabled[k] = dm_odm_combine_mode_disabled;
+>   		}
+>   		mode_lib->vba.DSCEnabled[k] =
+>   				locals->RequiresDSC[mode_lib->vba.VoltageLevel][k];
 
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmMoD8MFAwAAAAAACgkQlh/E3EQov+C7
-Cg//SOlbly12jwKhN4c4Bxl/h6HrQiUFL8crVOXnp3rQMcA67Mg5TrGZgrcZAqN7NfeNAhyzy1pa
-W6jBdtEkoW9MoiNO9tiW6iSIeEHoPfH07zICJ4lMpIau9RMjIH2WpKBomsd+HCM2wvlc4SDO5tD4
-+uWlnMszGkxVqrZSPgcXkoBvKVKCaKPYZI42LJBPWoA7kdl6YpQT/cd1ykyy+9ychGPysbDYpmwq
-rQhI5R1KTND0g3C6zPd00ZE3uJ3o1wbJw+yTdz6NgNJbY5h4h9zWJUkKvfH8a7Ayts5fvURN9Jh4
-BQ3o7QEdXq66KzJ3cMk1S4D34d7WRDo55nmr5YHCD8hUXLwlrydlslHQOnzOjP3LoHQ4UEM2v0JY
-mRTxn/G4sALuclSo4AXV3hMr5Odqp0U/Ci3OYHIEofUY3BKN0iWl9tA1bcEwzU2vYCmAPjajC66G
-axsP4hSSdr+FMaBRYqIUB9b3yaJVA5if9RmuDlOSwMDzHTe8woki1CilbjzwNkbVYUDDcspR61bs
-ght5LHC/13p6D6RTWS7c+jt6dc1DVreFyi344lF5DUf+2p6qFm1oCSHmB8SDFsWsDigDpv0fCpeN
-QTQmdWe0vxOyTZ5QksAXMLeXC9GBwrvxPCjyQgcqhCizrHoT4xTxoxOi662PKtggG2eJDOxooTp1
-8LM=
-=0FZp
------END PGP SIGNATURE-----
-
---------------tCX2ivrNVIxf43pa5zK2V7v7--
