@@ -4,60 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC50DECAAD8
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Sep 2022 12:55:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC708C54EE9
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Sep 2022 12:55:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BB5210E6AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAF6510E6AD;
 	Tue, 20 Sep 2022 12:55:22 +0000 (UTC)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1D4810E4DB;
- Tue, 20 Sep 2022 11:47:53 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- ay7-20020a05600c1e0700b003b49861bf48so883397wmb.0; 
- Tue, 20 Sep 2022 04:47:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date;
- bh=Uzqu4x3ReJl2swGfEJj67Pd2unDJ3Dv2X7PfUeAMFlU=;
- b=CmXkA8qIbaFNouX5UDIP2EtzvEpNmgRhb/8rznaJhGMNUuwBOFHghs3gJQS4uomnZr
- YDcqkjuEvJ4vCka5cONnCHVRV6iQInH+8o7Zq6VeC/3C8HUmiQ31Tc1D7RqHoZMY0+gl
- DpJVgqTY9VSsYXVMFHySjCx4npqW7qGsRD7k6vyHOfIxIklfFsHo9utUqClMbHOH7nzv
- xKq4OLNK7WWtv23lHrNAz+KZYWDVjodkcEtoVo4NkPp0a/0giowcL+JsMfRSnh9PfBq2
- GPBjK8DY/TfnAMRV+kChdRhMBeamsBENpwI9RfDCDpHENBnE3x1TJgyEn6gEeFu9Vrxg
- wbYw==
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D72CA10E55C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Sep 2022 12:22:22 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ r133-20020a1c448b000000b003b494ffc00bso6191331wma.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Sep 2022 05:22:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=4SwIaD3vwte9/wOVUhii8jjHUDs7etXJMigmdSdQFz4=;
+ b=SLFoLkpR340kKkW0YrWlEfAhG5dD3fKjX3yfiQcJ1RBvRf3qDsOJQmWuFi8It2zGOO
+ 4xWD+xaLSG2zcyyiiRX1wHCG/QPvLR6pyaxkUQuhrKBIwqqWleODmA3zmBCy2s7jSOpd
+ vvFkpw0tqn83ArzebL3ogqtG6JaH24hPhvgb0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date;
- bh=Uzqu4x3ReJl2swGfEJj67Pd2unDJ3Dv2X7PfUeAMFlU=;
- b=SoEE8D9QRmRLQrje6dkPAADZg7NnwWMyeYA0sIpSNSSuY7jo9KPu0yVEEhfO79htIY
- ZbfOdpCBJ87QUVyI/eOF+Jlk2rc+3Mm+frBjZ8F/XRd8nBRonnzmxf32srrGs69uT2+v
- h1AjMXjIZr9p5oPmcxG8LHCRDKgQbuL0uGcS48Av9WO2m1LA/0mx4vxSxK0RGhvULK39
- OCBSKJttNLfI0DrCseRAuXdF93iZYiU+WVBkJ9Qsxtp4Q/LOnrj4L/STaLzR73WJr6Dy
- XYhb/GYKtmPTy4lDSDkyo10DJFTQEevKGUJqCHALhv9xrbMQbDfc5d4kgd+M4RhFTfKT
- Z5NA==
-X-Gm-Message-State: ACrzQf2og3DG0PNRL0gYraT7fhTvuBTxMtOiTMSf+BK4zCeKV9/E+es6
- Me49urA3wYM3x+9ZQMAAao4=
-X-Google-Smtp-Source: AMsMyM4aBYcaHzJkBzdvhpxsTIJL1CmLJ4dHjh82nS5T2kmR/xQCQfB8ki9IGbZoXjIWTpnN0yGzMA==
-X-Received: by 2002:a1c:f009:0:b0:3b4:9398:49c9 with SMTP id
- a9-20020a1cf009000000b003b4939849c9mr2085385wmb.174.1663674472131; 
- Tue, 20 Sep 2022 04:47:52 -0700 (PDT)
-Received: from debian (host-78-150-37-98.as13285.net. [78.150.37.98])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=4SwIaD3vwte9/wOVUhii8jjHUDs7etXJMigmdSdQFz4=;
+ b=r3N1fCltx5lGcQntrobXmt5osi7TYFLlwdJAcbDccdK/+RSni1tZNDjFgxzmHwsRHl
+ jtH+bHn3kpjKeLtmSBZoDmoehHD84by++I+GjlCYZIU7SdwPAsCnlmPrUT2j6wXOqHah
+ FnliaAH/1yXrLRwRgvfoqQ7g1iAJ7LQUbUVs3pgttjJIX8yF++mOqokKDpaxmLsYok/t
+ UHoWMpA3xYX6upvB9yzFCn0QCAl+dis3Bgu+3Ua1J2jytmbziXQEKcYBur4eQdZdTAU8
+ i/mVBI36BRh4EumLMK4HCFDIz0bC35OgxFPDetQSyYQqTBjfaEJgxP5IZFClnoT4HDSZ
+ zGyw==
+X-Gm-Message-State: ACrzQf0wGM0quPE9hpKM6aFd8zKRxTAmuxwSpyhLEa1oMNWwJJrvGApx
+ h6w3GaQkUTMgTcycITdhZEX8GQ==
+X-Google-Smtp-Source: AMsMyM7KTVO8qT5Kn3gc4wVc7Gf+axGxMqi1Oeo15wjCpSJNRvW5WWXc7u2JmKl2DoEucPmryDsVKg==
+X-Received: by 2002:a05:600c:1c19:b0:3b4:c1cb:d46d with SMTP id
+ j25-20020a05600c1c1900b003b4c1cbd46dmr2203248wms.172.1663676541365; 
+ Tue, 20 Sep 2022 05:22:21 -0700 (PDT)
+Received: from tom-ThinkPad-T14s-Gen-2i.station
+ (net-188-217-56-12.cust.vodafonedsl.it. [188.217.56.12])
  by smtp.gmail.com with ESMTPSA id
- b20-20020a05600c4e1400b003b33de17577sm2254667wmq.13.2022.09.20.04.47.50
+ i7-20020a05600c354700b003b4cba4ef71sm13124268wmq.41.2022.09.20.05.22.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Sep 2022 04:47:51 -0700 (PDT)
-Date: Tue, 20 Sep 2022 12:47:49 +0100
-From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: build failure of next-20220920 due to c2b08e7a6d27 ("drm/amdgpu:
- move entity selection and job init earlier during CS")
-Message-ID: <YymoZR0jHR7seGyU@debian>
+ Tue, 20 Sep 2022 05:22:20 -0700 (PDT)
+From: Tommaso Merciai <tommaso.merciai@amarulasolutions.com>
+To: tommaso.merciai@amarulasolutions.com
+Subject: [PATCH] drm/amdgpu: initialize r variable into amdgpu_cs_submit
+ function
+Date: Tue, 20 Sep 2022 14:22:14 +0200
+Message-Id: <20220920122216.346321-1-tommaso.merciai@amarulasolutions.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 20 Sep 2022 12:55:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,36 +68,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, llvm@lists.linux.dev,
- David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-next@vger.kernel.org,
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, llvm@lists.linux.dev,
+ Philip Yang <Philip.Yang@amd.com>, David Airlie <airlied@linux.ie>,
+ linuxfancy@googlegroups.com, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nathan Chancellor <nathan@kernel.org>, Luben Tuikov <luben.tuikov@amd.com>,
  dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Nathan Chancellor <nathan@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- linux-media@vger.kernel.org
+ Tom Rix <trix@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
+ linux-amarula@amarulasolutions.com, sudipm.mukherjee@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi All,
+The builds of arm64 allmodconfig with clang failed to build
+next-20220920 with the following result:
 
-The builds of arm64 allmodconfig with clang failed to build next-20220920
-with the error:
+1190:3: error: variable 'r' is uninitialized when used here [-Werror,-Wuninitialized]
+note: initialize the variable 'r' to silence this warning
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:1190:3: error: variable 'r' is uninitialized when used here [-Werror,-Wuninitialized]
-                r |= !amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm);
-                ^
-drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:1171:7: note: initialize the variable 'r' to silence this warning
-        int r;
-             ^
-              = 0
-1 error generated.
+This fix compilation error
 
+Signed-off-by: Tommaso Merciai <tommaso.merciai@amarulasolutions.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-git bisect pointed to c2b08e7a6d27 ("drm/amdgpu: move entity selection and job init earlier during CS")
-
-I will be happy to test any patch or provide any extra log if needed.
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 58088c663125..efa3dc9b69fd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1168,7 +1168,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 	struct amdgpu_bo_list_entry *e;
+ 	struct amdgpu_job *job;
+ 	uint64_t seq;
+-	int r;
++	int r = 0;
+ 
+ 	job = p->job;
+ 	p->job = NULL;
 -- 
-Regards
-Sudip
+2.25.1
+
