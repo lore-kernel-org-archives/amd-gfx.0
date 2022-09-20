@@ -4,64 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC36C54EE9
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Sep 2022 12:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E7FEC6FA8E
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Sep 2022 12:55:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FCC910E6AE;
-	Tue, 20 Sep 2022 12:55:24 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCF6D10E64C
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Sep 2022 12:32:08 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id bq9so4052097wrb.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Sep 2022 05:32:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date;
- bh=1MF4EqMmKiknkCxbkWjC3WSdMgGUyAMwUXpH/v5PLhs=;
- b=hqQ+kEhXrINc6InWXqyon5OwHwauo0C0OEZqG9NYnnK3ZJEsnGX1dAgFB3BKCrj+G2
- dPc7q5c1k8lHWMoQBkHE/1IaSTUy3ygewYM52gTFSgKVYi2WbLib61VKuUPe+W0DDkYR
- JKD8dDfQC2/sTJdVL6sudb0h/OJjZIYbZ88OU=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1031610E6B0;
+	Tue, 20 Sep 2022 12:55:51 +0000 (UTC)
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB8FF10E6B0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Sep 2022 12:55:46 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id e16so4133524wrx.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Sep 2022 05:55:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=umO3QimaAupCPzcO0aBXwYlRJ9kArardKD4Ns6OFTcs=;
+ b=OAJVVFcdTHlBtlD8gfGEfkb1PxMAbzab9n09ggDc9aQOXi6G65FZYxypqKQj1RfuOg
+ OgG9CqySLc+SlZ9TLqgk7hm5AG4ATyEXYtbW3l43aRBPlJgCL0m0s7b/2mWhDjo+jxpg
+ OeJid+ivIWIEawKu4y8wOtbWzl3xOAqC+eWXc0e6qnhGy3PVgOXqPZ3KqlwVQ+qlNzos
+ 2VEXZrYDM60D/6F7QkXb9rOnI6A87IDCKRVtgf73LhTA6tBdmkHFsyB/nJF1veqV9BlI
+ 6ehsh0P86KgydiCpnBfvXEct2Rv+urmLeNR4UJdY6flDzG8u0F3fR7aPx7ag/0hG9YCq
+ CIxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date;
- bh=1MF4EqMmKiknkCxbkWjC3WSdMgGUyAMwUXpH/v5PLhs=;
- b=zyBEG8SXWaTD6uDFtez3am8/qTZYfs89vE7OXNeInj+gh6gZiz1zRSKc9PiI3mkCPM
- iKmnJv3wPWTAbg+fHkZqlAvo/k4WKPFxAzvxzPR5YtZz18HBHbgYWVeaNQjQ2u/UOwy/
- WDjROLAIZSa03owfk+j3xcac98zFEAhfimSy/FNWR63R+4TZ6ppRN4NvWgfT6aBzMf+X
- FLBRGrSE0a4xxylQTVaPqWLrAP+ynKXxZfVDxi/RmBWqv9mVPsA/eguKnklHrsiyngFk
- 2rrC1lJmeKxMcn/R28ZyMTMLP433+YNvP4nptX9yDoAJt2NmkoJbLlHEHVw3QgzExlMg
- XanQ==
-X-Gm-Message-State: ACrzQf3pPCQPFetiNgf86qz226A8Zu+zIiTCKUNd8lQQUjY1aAcD3Uzj
- xmJtIXqkIQUrXTd93CpfwJydHZ93eIxaXw==
-X-Google-Smtp-Source: AMsMyM6r6Ml0b1UTbXqs9UY3GRGCQbw72xzvUd6ll61viiKh6J0PpVhoGzWJOg+mkXMFmIU7FSUtJw==
-X-Received: by 2002:a5d:504c:0:b0:228:db0e:a4c9 with SMTP id
- h12-20020a5d504c000000b00228db0ea4c9mr14181924wrt.272.1663677127257; 
- Tue, 20 Sep 2022 05:32:07 -0700 (PDT)
-Received: from tom-ThinkPad-T14s-Gen-2i
- (net-188-217-56-12.cust.vodafonedsl.it. [188.217.56.12])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=umO3QimaAupCPzcO0aBXwYlRJ9kArardKD4Ns6OFTcs=;
+ b=jENP9wmbfDc2Ft0wimg0RhhYZ6HDoVLmcaNnM7nVdtK8SiapzFCh3wK3fQ1/4i9cGX
+ K7KPBQBzJwVM0v3CDdsq/8/MzQNKL2WR0qmrAWe3Bs32q64RMlKftJVWJ7Otbaslxxq6
+ A/ANlc54SHiKNi/rRdZUGd/5kapzxXmyIwmkeRUNEoaKDYn2I58P4uZxVMq9MF6hCC6K
+ vJja9KFQ5+8eLQi4377BJLAmtk4q1l8ZUjFcDGkLY+CBT+ljkKCouFBSgQiiF9IidBVB
+ FS+kx7mJRYfngk1YzdD7qOqFHnG2VHWl2j54TtWo6xkwejtPqVyfTgkQUQL2AwO4Qa/q
+ dt6Q==
+X-Gm-Message-State: ACrzQf2f01iG1y+9xxThVGBK/LS6ovZ76ri6zH7qTiQLFb3PXUOUxMNm
+ iwEKVlwG0pu8kbQMxGqep6YkXqnFDOk=
+X-Google-Smtp-Source: AMsMyM4P8+NuZ9OWaanRPFSGnOGiN+jezzP0cHgneUT/WJmFhHxP3qR/1ycEEKRbDIQEFjKXcURmYg==
+X-Received: by 2002:a5d:58da:0:b0:22a:c3cb:e3cb with SMTP id
+ o26-20020a5d58da000000b0022ac3cbe3cbmr14018466wrf.34.1663678545221; 
+ Tue, 20 Sep 2022 05:55:45 -0700 (PDT)
+Received: from able.fritz.box (p4fc20ebf.dip0.t-ipconnect.de. [79.194.14.191])
  by smtp.gmail.com with ESMTPSA id
- f7-20020a05600c4e8700b003b340f00f10sm17629084wmq.31.2022.09.20.05.32.05
+ k5-20020adfe8c5000000b00226f39d1a3esm1578703wrn.73.2022.09.20.05.55.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Sep 2022 05:32:06 -0700 (PDT)
-Date: Tue, 20 Sep 2022 14:32:03 +0200
-From: Tommaso Merciai <tommaso.merciai@amarulasolutions.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: initialize r variable into amdgpu_cs_submit
- function
-Message-ID: <20220920123203.GA346517@tom-ThinkPad-T14s-Gen-2i>
-References: <20220920122216.346321-1-tommaso.merciai@amarulasolutions.com>
- <3430255f-3675-eef2-92bd-4eb8be582c83@amd.com>
+ Tue, 20 Sep 2022 05:55:44 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: bump minor for gang submit
+Date: Tue, 20 Sep 2022 14:55:43 +0200
+Message-Id: <20220920125543.3965-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <3430255f-3675-eef2-92bd-4eb8be582c83@amd.com>
-X-Mailman-Approved-At: Tue, 20 Sep 2022 12:55:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,71 +69,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, llvm@lists.linux.dev,
- Philip Yang <Philip.Yang@amd.com>, David Airlie <airlied@linux.ie>,
- linuxfancy@googlegroups.com, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>,
- Luben Tuikov <luben.tuikov@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Tom Rix <trix@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>, linux-amarula@amarulasolutions.com,
- sudipm.mukherjee@gmail.com
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
+Since that has now landed bump the minor to let userspace know about it.
 
-On Tue, Sep 20, 2022 at 02:23:58PM +0200, Christian König wrote:
-> Am 20.09.22 um 14:22 schrieb Tommaso Merciai:
-> > The builds of arm64 allmodconfig with clang failed to build
-> > next-20220920 with the following result:
-> > 
-> > 1190:3: error: variable 'r' is uninitialized when used here [-Werror,-Wuninitialized]
-> > note: initialize the variable 'r' to silence this warning
-> > 
-> > This fix compilation error
-> 
-> I've already send a patch to fix this to the mailing list 7 Minutes ago :)
-> 
-> Please review or ack that one.
+Signed-off-by: Christian KÃ¶nig <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Sorry, my bad. Don't see your patch :)
-
-Cheers,
-Tommaso
-
-> 
-> Thanks,
-> Christian.
-> 
-> > 
-> > Signed-off-by: Tommaso Merciai <tommaso.merciai@amarulasolutions.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > index 58088c663125..efa3dc9b69fd 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > @@ -1168,7 +1168,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
-> >   	struct amdgpu_bo_list_entry *e;
-> >   	struct amdgpu_job *job;
-> >   	uint64_t seq;
-> > -	int r;
-> > +	int r = 0;
-> >   	job = p->job;
-> >   	p->job = NULL;
-> 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 81b22c1bd8df..16f6a313335e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -102,9 +102,10 @@
+  * - 3.46.0 - To enable hot plug amdgpu tests in libdrm
+  * - 3.47.0 - Add AMDGPU_GEM_CREATE_DISCARDABLE and AMDGPU_VM_NOALLOC flags
+  * - 3.48.0 - Add IP discovery version info to HW INFO
++ *   3.49.0 - Add gang submit into CS IOCTL
+  */
+ #define KMS_DRIVER_MAJOR	3
+-#define KMS_DRIVER_MINOR	48
++#define KMS_DRIVER_MINOR	49
+ #define KMS_DRIVER_PATCHLEVEL	0
+ 
+ int amdgpu_vram_limit;
 -- 
-Tommaso Merciai
-Embedded Linux Engineer
-tommaso.merciai@amarulasolutions.com
-__________________________________
+2.25.1
 
-Amarula Solutions SRL
-Via Le Canevare 30, 31100 Treviso, Veneto, IT
-T. +39 042 243 5310
-info@amarulasolutions.com
-www.amarulasolutions.com
