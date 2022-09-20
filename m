@@ -4,63 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C7C5C54EE9
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Sep 2022 07:31:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3E0BC54EE9
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Sep 2022 07:31:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78C1C10E347;
-	Tue, 20 Sep 2022 07:31:43 +0000 (UTC)
-Received: from ipmail03.adl2.internode.on.net (ipmail03.adl2.internode.on.net
- [150.101.137.141])
- by gabe.freedesktop.org (Postfix) with ESMTP id 833FD10E254;
- Tue, 20 Sep 2022 03:14:46 +0000 (UTC)
-X-SMTP-MATCH: 1
-IronPort-Data: =?us-ascii?q?A9a23=3AfFSx46iTVFuokU3YwQikc0bKX161nBEKZh0uj?=
- =?us-ascii?q?C45NGQN5FlHY01jehtvDGyOaKvbYmT3fNAiaI+wpx5UvcLRx4NiQQZqqno8R?=
- =?us-ascii?q?CkU8cSfX4iVJE6uNnmfIJyZQhxu5p4VYYXMcZhpFiTVqz6gY+PrxZVe/fjYH?=
- =?us-ascii?q?uCmVIYoGczQqTeJ+07NsDo78wIEqtcAbeaRU1vlVeza+6UzCHf9s9JFGjp8B?=
- =?us-ascii?q?5Cr8XuDj9yq0N8shWHSUNgQ1LPoe9j5O7pETU25ByOQroC5hYdWTc6bpF2y1?=
- =?us-ascii?q?juxExvAlrqYfrjHnk0iGtY+PCC90yAJHfDk2l4bk0Te0I5icqNANgEG0nPQw?=
- =?us-ascii?q?IoZJNZl7PRcTS8gJLHMhf5bVhBCCCFWPKta9aXBJnSy98uViUvLbxMAxt00X?=
- =?us-ascii?q?BhubNJCqr8f7WZmr6dGcFjhdCurjua70L62V+Jsi94LI8ziPYdZsXZlpRnpD?=
- =?us-ascii?q?PAmXJGFe6zMzdZd0HE7gcUmNf/ffc4YZDZHaBXGfg0JO1p/IJs6kfehgHXya?=
- =?us-ascii?q?XtUpU+epacty2HWwEp6172FGNPQdpmFS9V9mkeDunmA8X70Dx0XL9+DziLD9?=
- =?us-ascii?q?Wij7sfGgDnyUoMUGLr+7v9uhFSS7mUWBFsdUl7TifK5kE+lR9NWLQoX/Scor?=
- =?us-ascii?q?Kca/UmnCNL6WnWQrGSF+xIRRddUO+k78x2WjKTO7guVC3MHUjlZLts8u6ceS?=
- =?us-ascii?q?iYn21mHmNTBGG019rCIIVqS67yUsDX0MigYK0cLYCNCRgwAi/HjqYQhh1TKR?=
- =?us-ascii?q?9ZtF6mnptTwFXf7xDXihCw/gagDyM0GzaO2+XjZjD+24JvEVAg44kPQRG3Nx?=
- =?us-ascii?q?hh0bYi9bpGswVPb9/FFLZucCF6bsxA5d2K2+LhbSMjV0nSZGbBVWum9vaPdd?=
- =?us-ascii?q?myD2gV7RMx5sWm5pCubd4REuWkrfAMxJq7oYhewJhaP5kUAvdkKYyHCUEO+W?=
- =?us-ascii?q?KrpY+xC8EQqPY2NuijoU+dz?=
-IronPort-HdrOrdr: =?us-ascii?q?A9a23=3A50ELeaAJr/gAkfjlHemg55DYdb4zR+YMi2?=
- =?us-ascii?q?TC1yhKJSC9Ffbo8/xG/c5rsCMc5wx7ZJhNo7q90ey7IE80lqQFg7X5X43SPz?=
- =?us-ascii?q?UO0VHARL2Kr7GD/9SKIULDH4BmuJuIP5IRNOHN?=
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2CaAQCULyljAKxbkwENTYEJCYFGhH2?=
- =?us-ascii?q?EToJijjWLKpF6gWgLAVMEAQGFBQKEayY3Bg4BAgQVAQEGAQEBAQEHBBABOVK?=
- =?us-ascii?q?MOAEBAQMjVhALDQcEAgImAgIhNgYOBYJ9gm4Dq2l6gTEaZ4cpDWeBZYERLYF?=
- =?us-ascii?q?lhRmEaYQ8N4FVRIEVJw8Ngmc+giCCAgEBBxmDVjiCLgSEBZR3OAMaKx1BAwt?=
- =?us-ascii?q?CNBgDFAMFJAcDGQ8jDQ0EFgcMAwMFJQMCAhsHAgIDAgYTBQICTTgIBAgEKyQ?=
- =?us-ascii?q?PBQIHLwUELwIeBAUGEQgCFgIGBAQEBBUCEAgCCCYXBxMYGxkBBVkQCSEcDho?=
- =?us-ascii?q?NBQYTAwoWbwUKOw8oMmsrHRsKgQwqKBUDBAQDAgYTAwMiAhAqMRQEKRMSLQc?=
- =?us-ascii?q?rcwkCAyIEYwUDAwQoLAMJQAcoJjwHWDoBBAMDECI9BgMJAwIkWnk3ExUFAw0?=
- =?us-ascii?q?ZJggFIxYdBAg8AgUGmiSBFYE+BJQjCpBhnW86NAeDWYFBBgyYW4YJIwuDdox?=
- =?us-ascii?q?QhksDjAGFb5Q0glaEA40cmD2BfzMaLm8BgjxRnShlAjkCBgsBAQMJin0BAQ?=
-Received: from unknown (HELO [127.0.0.1]) ([1.147.91.172])
- by ipmail03.adl2.internode.on.net with ESMTP; 20 Sep 2022 12:44:42 +0930
-Date: Tue, 20 Sep 2022 12:44:25 +0930
-From: Arthur Marsh <arthur.marsh@internode.on.net>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: use dirty framebuffer helper
-User-Agent: K-9 Mail for Android
-In-Reply-To: <CADnq5_Py+dgAxa5Y1tzbWx6xRt1g2LQ1JsiJD6ewYYTzjjaPcw@mail.gmail.com>
-References: <CADnq5_O0W-ipCCy3hsub5GwirjDTM76Xn3kAxgyZT5V+vDguSA@mail.gmail.com>
- <20220918120926.10322-1-user@am64>
- <CADnq5_Py+dgAxa5Y1tzbWx6xRt1g2LQ1JsiJD6ewYYTzjjaPcw@mail.gmail.com>
-Message-ID: <EB4E527C-84AA-464D-9B14-CA8D9E116750@internode.on.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CA9E10E355;
+	Tue, 20 Sep 2022 07:31:44 +0000 (UTC)
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [IPv6:2607:f8b0:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADDEF10E2A5;
+ Tue, 20 Sep 2022 06:36:05 +0000 (UTC)
+Received: by mail-pl1-x62d.google.com with SMTP id w13so1443888plp.1;
+ Mon, 19 Sep 2022 23:36:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=DcE48FGDHv0yOSzbYjt1rNc9RDHXJDR1T2QYo0htzd4=;
+ b=WfeSzzwjMlC1h/a8WfNvTmDa7ZVJvLPJO0rI2MnM0B5LsKfBrO7f7AfHe3L6gj0REV
+ SagG+yVOhfjjKM8Y8I/9UnLYJNTWBIbNjo3LhfNA/69g7+k0PyRa2JWiSz9Howjc8BqQ
+ cXTF60pxTFPfH1ivPQUBfdvqTJzuBQY7tBRwNOgGcabhmNrDBKzXQk+f5bxlwQoJx/gg
+ H19nu/PHjwtk3VR6nDqM5fQ73dYzbhJyxWr9yRgdHoZAomNqcsTxNNqJ08KJshfC5AAt
+ D3Fh9GTelOxInr1eevycB2gmafxEEZTMx/gdYo/6tUqBycmQamYBKTR+cJ78oPImHXnf
+ W5Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=DcE48FGDHv0yOSzbYjt1rNc9RDHXJDR1T2QYo0htzd4=;
+ b=O6zyYdBpTWblVEAq6xPcwrg4xrYMCQM24YVlPNYOMfKkvmy5LI78AFQMaeAIE5exWV
+ mpHnkHrCOjms5PpooYjPs2AEqFVLM6SyM09imnKGSI60eAMRQN1dYluJG/MKoUuyRwU1
+ MAxrHA1A2020lxI3steOdIElD9+t2oNgTv1IjzUAIsrzM2AUBCIDXBnmdD60ICdiD1QC
+ WajsyGhcDTiTBTkfteQ/g21eknGABIl3i5sQxKGHvlZEqg4CXQIC+8uViRU5JHVOQbjo
+ i1bXgOI0/xibWXz8e6iThWwDnqMy02BKXmrB/2UY1vI9hZUT8STJvd7o5xaF6CsUPfLQ
+ Q5GA==
+X-Gm-Message-State: ACrzQf1lmARZrZCHGQLGzuBrVrjwVeDUFxJmncjuRLMDqcdSj/IUWz7z
+ Xg/xNPW0TSQqVvYM4VPI3W0=
+X-Google-Smtp-Source: AMsMyM4qpv+0B2J9/SDVZwkIT7eEtZIA5rLG3v1vSQ1E5LYdzYonEiVCQe3nrzq/M+cjqfWD0br5Nw==
+X-Received: by 2002:a17:90b:2bd3:b0:203:1a03:6b1b with SMTP id
+ ru19-20020a17090b2bd300b002031a036b1bmr2203013pjb.58.1663655765249; 
+ Mon, 19 Sep 2022 23:36:05 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id
+ i13-20020a63220d000000b0042c0ffa0e62sm611172pgi.47.2022.09.19.23.36.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Sep 2022 23:36:04 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: ye.xingchen@zte.com.cn
+To: alexander.deucher@amd.com
+Subject: [PATCH linux-next] drm/amd/pm: Remove unneeded result variable
+Date: Tue, 20 Sep 2022 06:36:00 +0000
+Message-Id: <20220920063600.215257-1-ye.xingchen@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 20 Sep 2022 07:31:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,97 +68,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: guchun.chen@amd.com, airlied@linux.ie, Xinhui.Pan@amd.com,
+Cc: airlied@linux.ie, ye xingchen <ye.xingchen@zte.com.cn>,
+ Zeal Robot <zealci@zte.com.cn>, Xinhui.Pan@amd.com,
  linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- aurabindo.pillai@amd.com, seanpaul@chromium.org,
- dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, greenfoo@u92.eu, hamza.mahfooz@amd.com
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, evan.quan@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks, the patch applied against 6=2E0-rc6 kernel worked and the amdgpu mo=
-dule loaded and works on my Radeon R7 250 (Cape Verde) GPU=2E
+From: ye xingchen <ye.xingchen@zte.com.cn>
 
-Arthur Marsh=2E=20
+Return the value atomctrl_initialize_mc_reg_table_v2_2() directly instead
+of storing it in another redundant variable.
 
-On 20 September 2022 2:03:54 am ACST, Alex Deucher <alexdeucher@gmail=2Eco=
-m> wrote:
->On Sun, Sep 18, 2022 at 8:09 AM root <arthur=2Emarsh@internode=2Eon=2Enet=
-> wrote:
->>
->> Hi, I recently experienced lock-ups that only responded to magic sysreq
->> reboots when the amdgpu module was loading on my pc (Athlon II X4 640 C=
-PU,
->> with Radeon R7 250 - Cape Verde)=2E
->>
->> =2Econfig has:
->>
->> CONFIG_DRM_AMDGPU=3Dm
->> CONFIG_DRM_AMDGPU_SI=3Dy
->> # CONFIG_DRM_AMDGPU_CIK is not set
->> # CONFIG_DRM_AMDGPU_USERPTR is not set
->>
->> kernel command line has:
->>
->> amdgpu=2Eaudio=3D1 amdgpu=2Esi_support=3D1 radeon=2Esi_support=3D0 page=
-_owner=3Don \
->> amdgpu=2Egpu_recovery=3D1
->>
->> Bisecting lead to:
->>
->> commit 66f99628eb24409cb8feb5061f78283c8b65f820
->> Author: Hamza Mahfooz <hamza=2Emahfooz@amd=2Ecom>
->> Date:   Tue Sep 6 15:01:49 2022 -0400
->>
->>     drm/amdgpu: use dirty framebuffer helper
->>
->>     Currently, we aren't handling DRM_IOCTL_MODE_DIRTYFB=2E So, use
->>     drm_atomic_helper_dirtyfb() as the dirty callback in the amdgpu_fb_=
-funcs
->>     struct=2E
->>
->>     Signed-off-by: Hamza Mahfooz <hamza=2Emahfooz@amd=2Ecom>
->>     Acked-by: Alex Deucher <alexander=2Edeucher@amd=2Ecom>
->>     Signed-off-by: Alex Deucher <alexander=2Edeucher@amd=2Ecom>
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display=2Ec b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_display=2Ec
->> index c20922a5af9f=2E=2E5b09c8f4fe95 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display=2Ec
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display=2Ec
->> @@ -38,6 +38,7 @@
->>  #include <linux/pci=2Eh>
->>  #include <linux/pm_runtime=2Eh>
->>  #include <drm/drm_crtc_helper=2Eh>
->> +#include <drm/drm_damage_helper=2Eh>
->>  #include <drm/drm_edid=2Eh>
->>  #include <drm/drm_gem_framebuffer_helper=2Eh>
->>  #include <drm/drm_fb_helper=2Eh>
->> @@ -496,6 +497,7 @@ bool amdgpu_display_ddc_probe(struct amdgpu_connect=
-or *amdgpu_connector,
->>  static const struct drm_framebuffer_funcs amdgpu_fb_funcs =3D {
->>         =2Edestroy =3D drm_gem_fb_destroy,
->>         =2Ecreate_handle =3D drm_gem_fb_create_handle,
->> +       =2Edirty =3D drm_atomic_helper_dirtyfb,
->>  };
->>
->>  uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
->>
->> After doing a git bisect reset, git pull and reverting the patch above,=
- I
->> rebuilt the kernel and am successfully running with the amdgpu module l=
-oaded
->> and using the Radeon R7 250 GPU=2E
->>
->> I am happy to supply any further configuration details=2E
->
->Does the attached patch help?
->
->Alex
->
->
->>
->> Arthur Marsh=2E
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
+---
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
---=20
-Sent from my Android device with K-9 Mail=2E Please excuse my brevity=2E
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
+index 45214a364baa..e7ed2a7adf8f 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
+@@ -2567,15 +2567,13 @@ static uint8_t polaris10_get_memory_modile_index(struct pp_hwmgr *hwmgr)
+ 
+ static int polaris10_initialize_mc_reg_table(struct pp_hwmgr *hwmgr)
+ {
+-	int result;
+ 	struct polaris10_smumgr *smu_data = (struct polaris10_smumgr *)(hwmgr->smu_backend);
+ 	pp_atomctrl_mc_reg_table *mc_reg_table = &smu_data->mc_reg_table;
+ 	uint8_t module_index = polaris10_get_memory_modile_index(hwmgr);
+ 
+ 	memset(mc_reg_table, 0, sizeof(pp_atomctrl_mc_reg_table));
+-	result = atomctrl_initialize_mc_reg_table_v2_2(hwmgr, module_index, mc_reg_table);
+ 
+-	return result;
++	return atomctrl_initialize_mc_reg_table_v2_2(hwmgr, module_index, mc_reg_table);
+ }
+ 
+ static bool polaris10_is_dpm_running(struct pp_hwmgr *hwmgr)
+-- 
+2.25.1
