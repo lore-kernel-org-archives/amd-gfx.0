@@ -4,114 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61DCAECAAD8
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Sep 2022 03:42:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 622C8ECAAD8
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Sep 2022 03:43:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87E5B10E25B;
-	Tue, 20 Sep 2022 03:42:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAF1B10E25C;
+	Tue, 20 Sep 2022 03:43:06 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2071.outbound.protection.outlook.com [40.107.223.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E46FD10E25B
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Sep 2022 03:42:54 +0000 (UTC)
+ (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DA9A10E25C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Sep 2022 03:43:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LikScIAp0g6UVskHSwWAQLY30dTpJDxu/IMUY1ZjATSPfQRmdwHo0bzQTzdLTDD+dor4bwzkxfXie/I6C/dcKJSzxMtp31BPu9058iGtxBEkY2eC/mGJIi16qpKYYTu9pbM8SjR9EuOF3EvidDDkvJo7+OQ8Co5J8KBzruqd9i6itgagtkRmKGTPNfCy5lq+ppLYdIEjC7uMoHWAvG3ivoXp7CiaKKKWXsceWO5p6bpiZj4nRDTTsxdxX3yuxTErasPqQr/cuH08S2FsYvyEv5Z17Jes4ENpGwf9mECcSzZBjLhym49sBQYqqEQ+m15bHa2zSldONgiRmiaBbYqz3w==
+ b=LZBmOfD3vOwHw1A07Amxg0U5mKOgLkutovS+WZ0OTB+Qnsks8tCcc9Sh0W7cRa93RjhqxvGyLAmawMx5A3+BEr4dud4SuOqKh5qgxVem5sAeGDzfyv7Z9C1Dt1svxCoTkx9kdvpqbOf8/MUy0ChCf8/16aD62mtLcAiYNdY3spysXsLJL1bg1iE8AjpoleUWWUGgx7CZmV/DzuVVuyjjW2l6KTeB986N9L21E1ILvNkJeCVfzVJ13u9uS8cf8DcluAQBOCJvewiMgj9kavQbd01TbZwffUk25cwUiN2mSoM589KYP4UOetypqkGSU0LpU441mxAH1UaN90OQ+/6VhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gF0YlZustLAsQwHsgcAAcY/zv+00BjZOTsymd8RzUZs=;
- b=anmhlB1jVlletN94Lx6v9E/MXUVPaN8Kz29/kP2PkXZLXcq8bzTZDjgjw8BYRWAb5mf6LRAyrcwVjS9muBwT/5UNODbch4w1p5PpPChyI0Fl1T5FIZIlxwqQsO9TolGET3mhKb7r9Z6frS5JHRlifco2DD+D4N6/A5HPlBhvckyikwWqyj1YK5b+v90uqtqI54NBuH2+3ICCSi4QoaZaaZISL8WTQCTObmOPvkyF5R8aDcBRcB5fkVqwyYuqTwfVaxiB/vZVyKCKQfrNPQEfpaKj8EGg1kdvX5L05WokkbhlBR8I/m65TSe6QX9OzTd6D55ORzWdwT49q7HiCBCzVw==
+ bh=oTmjxaGCZCKPlyI8FG70iuzBX3fYivUAuj4Uqa7ldns=;
+ b=nH+sriyiJVdUcazOym5MeMi4btc9cIjWL6toggooUux+3ynvwrm2ndZ14wLY14XFMsntYSBekhw4m2Ql47nhmrNMZFw6vkCSJ/l8skuez5kFHRttAsBkuS8ghSPV/Nwvsg7dxkcdwKrcwSCXb0KqfsangNY42VTQymjgDSDq0f0UzeP5An1h1ohA8KbxvvDclmuptkcqhAzNjbgQs7Od2JwFjTPZGzEXT4dG296zBzQP/aR7Z7PStxk8sY+XhU59jc3RGSy3S8f1B6d535chyt6SqM4zNBdgUU0M3OfqZlkHKAXyFEaKheokRV4BpAN4VnQvCfuox110LQ8d3qrhSw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gF0YlZustLAsQwHsgcAAcY/zv+00BjZOTsymd8RzUZs=;
- b=aqwvvxuJSJ+9775+/f+MXpOPKZUTRi87OnUFmHkucpNL4+w71tMb15E7DucKpNx7ioBc3euf8zzcpA/Uu9/xy17IvzUiTmn9YM6ePY7x4+w2+bu8X/q9Mc7Kkk3y/zyK2KcPmCPm1TBVEYTGQwhRA9SY1aOhEeI4k0Hv0Lfk1Zw=
+ bh=oTmjxaGCZCKPlyI8FG70iuzBX3fYivUAuj4Uqa7ldns=;
+ b=la5DczPxgeQEd/om48XU+P0gZxSWZoOfiz5cGXrZSYYCmAyntNZfbO1BlGi9XqqwBpL7CUp+uWVzU+uvPCXWkQM1M3U9XGfKaDDQrSBvnq5nI3D678UNqPgdFhqn5loJbzdmRn4c6J+np0wLvfcB8/pzjRla5h6JKSPKTI5R2GA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
  by DM6PR12MB4433.namprd12.prod.outlook.com (2603:10b6:5:2a1::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.21; Tue, 20 Sep
- 2022 03:42:53 +0000
+ 2022 03:43:02 +0000
 Received: from BYAPR12MB4614.namprd12.prod.outlook.com
  ([fe80::3054:3089:efbb:78c0]) by BYAPR12MB4614.namprd12.prod.outlook.com
  ([fe80::3054:3089:efbb:78c0%6]) with mapi id 15.20.5632.021; Tue, 20 Sep 2022
- 03:42:52 +0000
-Message-ID: <82fa6702-73f7-8851-4d4b-2e2466c67764@amd.com>
-Date: Tue, 20 Sep 2022 09:12:40 +0530
+ 03:43:01 +0000
+Message-ID: <e711fd93-5df9-8ca8-234d-e66a937268cd@amd.com>
+Date: Tue, 20 Sep 2022 09:12:52 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
-Subject: Re: [PATCH V2 1/7] drm/amd/pm: add support for 3794 pptable for
- SMU13.0.0
+Subject: Re: [PATCH V2 2/7] drm/amd/pm: drop the pptable related workarounds
+ for SMU 13.0.0
 Content-Language: en-US
 To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20220919020251.7048-1-evan.quan@amd.com>
+ <20220919020251.7048-2-evan.quan@amd.com>
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20220919020251.7048-1-evan.quan@amd.com>
+In-Reply-To: <20220919020251.7048-2-evan.quan@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0091.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9b::20) To BYAPR12MB4614.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN3PR01CA0101.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9b::7) To BYAPR12MB4614.namprd12.prod.outlook.com
  (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|DM6PR12MB4433:EE_
-X-MS-Office365-Filtering-Correlation-Id: c3a05a4d-42f2-4e99-9660-08da9aba322f
+X-MS-Office365-Filtering-Correlation-Id: b71d3518-a26f-4eae-7550-08da9aba37b5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RSJtKnu3/V3qjZP1bK0XhY9PE+/aHi+cYzAopU2FF/16iV/VoD/hjStQdCwdVC1/AEw0FvNDy78SI+5O9i6NBH2WZjL4WvQNCaByizLND8Eo7fjlB6x9wU+TLHCfP7CQ7kIgT1u3HyCS9v44DxZaX+3oGPwawill4nSRMNHIZC75q390PAQhRwxDJaTs0EXoI4rgBWFb/XwAOhXYQFMsFbGvrrkVM410i1GO2/GQa3mcHXtDLkOwBdwKV/DApriWkOnRu5uC54jYq0pGN9eSCP3mEAphLKSw+gC+Dtu3+vCFn1N22WFcYol4A+8BLbk+D6msWgsE0jm/E8jQw5+zjYuMxlTuyLRyCieoq0ml9wQt1AgxaiU9USsQufCOSaneMNyhmM/DS+2O/FMktgMlw3I6p1V5oTGQIgmqyz+8toYSsIBnJCw3dNQv8su9POX6Imrnzu6OqjlKi14Nw1Y5xI07Grm5durRqguA9HYBYpNrKz+045oTSf9bw6rQtihMKALu153Ll3FUzduZcxKKP1FjeWsyeRyNO3LQ+2DJ9EK+rMJIL3DklszAolsLT/Ns3IQAKt1AKIVeTdLVjI3qcH4l6rEeZ/mJX2x/lDVAir2xn1wruwj2nIT9iFQmMT73MbGiR4KFT4XpbtdgTbf2v9Afb/bItCW259A3P22NeX/a2BeWpt6B1hYpN7ZVIePluGiHMQ3rFwgYTM4cmikod4R34v2K8tAEzygpgWovVxeXf+7rqYtZsnbO47DgySICv9yDwHSiCz4Nxr6GHOehNmKDw9bemDlS398qSHVWZRc=
+X-Microsoft-Antispam-Message-Info: SijhK2EcHpMzExUmSFRC1wLlptWKuuiJ7QW8Wl8Pl6fMLhKxU970HWUhbnhwCQY/wsATGmA6xWSoL2g4xn59MPJCm9z5Y0VY+aacS8VWovpXb3HUAorc3BpmY9sTsTgWXs1qX6gWgWeQTrl9bIgFXLyQI3h6S90JWpg/pCm2Ts7pov7rk0xetTegXzZePYDo7ntI2q+iwx2ghPFUfBP5wKfG1J4MG3YM0WIvEuEdP82AxlODFJwNNkn5GNtJHeSfuiqg0wv//DrlAWG+iecPtViICVMDUwKLvgem5/PIxQv9U2rNKKhYFlS1KigqvFrw1ZtseuSjFg32KlJKTkSRdKZxhJnKpAj4FOL4sgpOCIh30ahyOTxG7WNCICrZmGh1PVCR5Ho6/FEX/WMQXMWEsXRA4OEq9C32kTm3fX53b6E1mL+fQq3+1UPooS1bRETv5jxgAidKYDGVagtNYYAQLzkj+kRqTw8gUdIzUAHF6B6I3j4giXxFuQSzS5gz4ZHoP6B+K3gHdURG6NcV6b/Sc2liv8j57wVDhqcUfKCDao02NjVLhXcRSZqhjeoLJVrDyedhYBi/GpXgWB0A6BvQZjCQ+UTMFYvO4PT78mDJLTJzEjNtMoYIJ2aBtmm3jc9Q3/thIZMZIN/HI3s70IJfr1UHVZ3VfkUbClx4AG50TXvflmr36lxZE4HGjmiGUmg0Cz5MSUPAW16cohMf2NQB+cHzlUfS0V9uT14dhwIVnSqh2aRxClN8non7lCmnbx9aFDoZhDLNHIqOLWa7uMxJmFilQebarX2g4U4Y//0JCaQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(346002)(366004)(136003)(39860400002)(376002)(451199015)(31686004)(36756003)(4744005)(2906002)(316002)(38100700002)(4326008)(8676002)(66556008)(5660300002)(66946007)(66476007)(31696002)(86362001)(186003)(478600001)(2616005)(6512007)(26005)(53546011)(6666004)(8936002)(6506007)(6486002)(41300700001)(43740500002)(45980500001);
+ SFS:(13230022)(4636009)(396003)(346002)(366004)(136003)(39860400002)(376002)(451199015)(31686004)(36756003)(2906002)(316002)(38100700002)(4326008)(8676002)(66556008)(5660300002)(66946007)(66476007)(31696002)(86362001)(186003)(478600001)(2616005)(6512007)(26005)(53546011)(6666004)(8936002)(83380400001)(6506007)(6486002)(41300700001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDBRS0RDWFdPTTFWOTVhaEdtKzFzZXdPOU1qcEpSYTFSUCtMRVAzajUzZklh?=
- =?utf-8?B?YndVdDdpa2lMZStPeWpJenBIMVMzR2ZJL0RMMWZrQjNoM0oySjRsWi9ybG0r?=
- =?utf-8?B?N2J6d2tPaE1DNUY0V0FhSVNpM3hHNUkrVGcwdTRkKzlQR3V6VDUyZlpWN2tt?=
- =?utf-8?B?VDNhblFESEhHeTl1dHFYTzJwc1RwZWNOV3U5TmtmUUlOSUw2NnIvWVJkTXI4?=
- =?utf-8?B?RTZCSzdVWUFGdk1paE5xTy9CYmlRR2FkcytsNWtBaFVKOEg0WEY3alRhZUtw?=
- =?utf-8?B?RENseEJhdGUvQ21wdHE2Qnl4TjBMV2NjS0ZSNUh2azE4NWREc0ZZeDNQalMr?=
- =?utf-8?B?NGRXRUU4ckZLTHNQMzhZWlRoS0JlY3NJci9xa1V3K1FBTFhwKy81VFBiR2NU?=
- =?utf-8?B?ejlKSHFFMWxJZFRDVjFEZWhGc2dRaE5UWVpERDJGT2M5a3R3Mithd3RIRFFi?=
- =?utf-8?B?NGt6R2VNKzY0ZUg2dG52WFhKSUJjaWJCZndVWnFHUXhET0JoYXBXdXNMN0NQ?=
- =?utf-8?B?dHBrV3I0MGloNTMvVWZvdDk3REg2aFFvbENhM000bEpaM25nakxvTVg2QUFP?=
- =?utf-8?B?dVU4aEMyYnp5d1BBOXRwWE5ESDRJdEtvTDdvOUFGSG9NZE5mZzBkRzFybm1G?=
- =?utf-8?B?MFNLMjRsRUxhcWU1VW1WNDRBUmVSbzUySkVXc1RHTnh4SmErOUpuc1BraEdN?=
- =?utf-8?B?Wk5WNXpjNlM0UmYwMTdkWVRUZXpHVVE2ZW43bFhFRHJLSGRrVkJvVFNpdHpj?=
- =?utf-8?B?UGtpbjNLdXQ0QnFUSGoxcXFYOWxEQnM3OUt2VnlRUU5IcXczTjg0TzRaZDF5?=
- =?utf-8?B?OURCSG9pMTZaYTBJZTEzWkRFNTV5NHhqVy96WTVMakg0VWFIcUE1U0xkZ04r?=
- =?utf-8?B?R203dVdPVk5EeGo3MW9YWjQrNzRXekhYTUJVT2x1ZzRxTTNJU0ovdW1CcnhM?=
- =?utf-8?B?aXM1QTBXWVNmekYrclFuUENRVFdiaXhLeENNZnYrWFBoWGZXK21MOXRvV0c1?=
- =?utf-8?B?bngzMW1kZnhKTkV5K3E0V3Rrb1ZWTFBCYzZaRVZ3bWMyN1pCWU9rOG9vY2Rx?=
- =?utf-8?B?ZDNvbWEzQjZaWWh6MWlnTkhVcmVqUzhHYWpKU2IzQTk2OW9ZdzdscUx1TnJ0?=
- =?utf-8?B?dnk1eERvVjBxZW9ickF2Y2FwT0ZDWTdSNUMwRFhSeTVsS3lCNkwxMFJ5RW1L?=
- =?utf-8?B?VlJkYlFuWFlNYkJQQmM3TTdEc3FKYi85ZkIyWDJHMFVCOUMreTJuYjhpOVc5?=
- =?utf-8?B?QjBRZGFSWmpRcEVwYk5rb05rNnJlMm43ZVBTOUZaN1dYNU1DRU9PdnRLMTNu?=
- =?utf-8?B?bTlpZEhDdnYraFl2S1hiZ0pvQjlSclhjMFNCK1FYTFRObkVzcHZTem9Cd3Nv?=
- =?utf-8?B?aE1ndnV3ZFkvY3g1RklOMnd1aWJJRUtGNERMcmN2dmR5NmRDTzBIZ21idERJ?=
- =?utf-8?B?UGFiZmRWNGl4Y2h1d0FuRTl5cE43Ymo3SG8zQ0RVQitjMFVqQlJpSmJHdTh6?=
- =?utf-8?B?cHFXWERGUGZYQWRrNEdNaUdjU3dlTlBqOVQraEk1ZFdVZC9najIxT0tNcGhq?=
- =?utf-8?B?L3lKb0pPZjFhdEltZ2VlRDJJZEFkNS9YOG5kYVhlVzI4ZjZwVGhXNi8rUG5S?=
- =?utf-8?B?WFVEZm5wNFpIQkJXYlNoWEtmeEtMak9uRmRkdit1UnZrOTNwVURRcS9qZHBh?=
- =?utf-8?B?bjBMbWN5Y3RqQzZpR1ZhL0p2Rm5tMVVXellNdlNlc2xuS1BWQ2lwNUY5NXpZ?=
- =?utf-8?B?amhuWEd1WGwyYTRLNW5oTXE1VlEvb2d1WFZOaENYM0YrZkVkRHVrUjBSSU9B?=
- =?utf-8?B?ZStiWXVKUjg3OHZYZGdEY1lubGYrZlpIbkhzRW9NRkdqU2IvSFhLTG84TC95?=
- =?utf-8?B?SHhmUElaY0VydmlhSTQ1aUZyUlVoSm9QRzdTZVVOMlc3NGFuL0dva1R1SHZZ?=
- =?utf-8?B?cWNXQVBpRHQ2S284V1cycDRjRDFPVTJpTloydUtMMkROd04vUm0wem4xS1g0?=
- =?utf-8?B?TFNoTWJ5cUZlYTVOY3U2UkNOUkdvZ3Q0OXFWQXpQVzlEL0dhZFY3TW1GZFhQ?=
- =?utf-8?B?ckZKOTIxeTZtNU5LUVlORFNLTlVWR1o1N1g1aHJqZUxRQVJTaGZldVNBTEwx?=
- =?utf-8?Q?mjF3EDc9FHCj4bECasY9z9VJ0?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K1BLYXR0RktueVVEQUM1c1ZtR0dCeW8rOHk2ZSs3WlRBQ1BObnJ6QW1ROHpG?=
+ =?utf-8?B?TWtBZExuTE1raDNlaUk5ZittYkprcHYxRDhaYms3L04vaGs5VmlUOTkvZEFT?=
+ =?utf-8?B?U2xMWXNEbmJDanVGTXIzTFRPd2hxNUpMVFkwMytYUWl3b3NGWnNFemw1NDRP?=
+ =?utf-8?B?U2R1aHc1RGZRZHdTbHJLeGNWVjFCV0VYRlNOVGtKRzVlZVAvTXkrWFlqdW1a?=
+ =?utf-8?B?UjFIdG5iQXAxUUZjN3pUbXhFMTBpeWh4TENEalkrck8xVmJRWEkxZXV6Y0pU?=
+ =?utf-8?B?MkRyVXdkeFlxaTJiQkpXakhaM3ZLbDlYd2xrOWp4Smk1LzBmTVhSVjBFNzIw?=
+ =?utf-8?B?NTBmTi9ubXdoSkJtMUNaaEo1NVpRcC9Dc3ZHMzlmMnlqTjNOTmlFdmQzbGVG?=
+ =?utf-8?B?OUliU2NPa0lUVVl0Qnlydzh2K3FOWFFtZ0ZNa2svTFZqMzRzVGtJSy95NTV1?=
+ =?utf-8?B?YTRIMXZMOHN6dDh5WkJ1T2ZBeTVIT0E1OUV0SXhYSnhzbm45b1Z4aVArby9P?=
+ =?utf-8?B?ZlZHVFl1SzVmaEhSZW9EL0thNzFGcytzRWsrZ09Qclp0MVA1UDV1Vi9BK2pL?=
+ =?utf-8?B?andoNUduYVo5U055bGxOQ3JaUWxTRExjSHhvaU9scnQ1TEZQUnd0QS9pMnU1?=
+ =?utf-8?B?M3JLMEhWblhwOHI1aGhoQUNZME1vQVVVa0tFKzMrbWQxMGNYUEpyWGFjTnRW?=
+ =?utf-8?B?NzJEelhEeFJuTjcvVEZKT3VsQWxRUnVSZjRYTXFKczFBM21CaVMxS1Z5S1dH?=
+ =?utf-8?B?NERpZ05iOXdlTjV4VmQ5ODhtWjNzZ1UwdStVQUZTMEpLUlp3Y0RON2dCUGRV?=
+ =?utf-8?B?bWlrSWdNYjEyeDMwRU9BemFHOG9RUkpydWR1aHNGWUVBNDNndDNOYTR3SEFs?=
+ =?utf-8?B?T3E4RFVtVklINnBGNXRwUHd5VWZBS0V1QVFvWmxUaUtqeWZZR2UwZWFmZ0xt?=
+ =?utf-8?B?QzBRNFJuTkR5WDlpcjVseVh4TlJTY2NXSW1LUE4xOHZmeENBejZQaFJuWHpM?=
+ =?utf-8?B?V0tSZlNacTlGSnJ6RHpmSjF0OTU0S0x2bUtlZzVDNDVqQVRsV0RKbTR2MDA3?=
+ =?utf-8?B?c2p6Q29tRHlWU1hob1FuVTBqS3VGSjlPTjFtdkkvTXFQZkhUUEs2elUrQUg5?=
+ =?utf-8?B?ZEwrWlRiTzREV0RBVGtkT1JoN1E4bmpUZ2wrRWRjRXg4ejZ0Qk9HK3loQ2dq?=
+ =?utf-8?B?aVg0dEZPbW9hVVVtT1NKTmNRN1hIZG11dHMyTXFHRlVCUmJKUndNN0pwZ3g4?=
+ =?utf-8?B?dkZlam9qQUVPYldMa3YxKzlmZmMzUlFzZ0RFS01HQ09RaEhmSWlFM29QOXc5?=
+ =?utf-8?B?ZHhxNXZtc083Vi82NllXNlh1dEVKVGRJYTZKcWZGbHVoVTlIN0FkM3ZEYlU5?=
+ =?utf-8?B?THIwMjRHZjI0Qm90OVdPZTB1ZkxCbTlQNWc0YUpsMDZvK3dGRDBwZ1QyTTVr?=
+ =?utf-8?B?RnRRSXFEdUUvYjc5SlNObWpLRlp4OHhQaGF5RDlOOHE2TWVHSW0xcEtSK2pX?=
+ =?utf-8?B?bS9PblRVQ3c2Mm9EM1ZmaStNNTJ2dVk3ZzdoQlY3bFlEdkpGMHF2MDYxaXdU?=
+ =?utf-8?B?bm5WV0J5bDErZ2R4NjJjTjJqbTNMSmhQWnBiUkJiaFAwZmFBWlhIUW01ZWRY?=
+ =?utf-8?B?TDFsY2MwZXUyUlY3L3NRcU5rRGY5U1dsbkFLR2lENnVkZnFsT2FxWkh5RWl0?=
+ =?utf-8?B?dTZvTkN1dlk5dG0rZng2UGxRTTJqSFVWSVNweEVqZUVvemc3TG9ldy9SY1Zi?=
+ =?utf-8?B?WE5YSGNjTUkxdWRXZ1hrYktOdnJpY2p4NzlDWkg2WDF6SVdwYklDQVJldHRI?=
+ =?utf-8?B?L2h2ZjVvQjByQXJsZGNVb1hKcGpnWDh1MWhUT3dhNGJVd2tsWE41MDRlZkdI?=
+ =?utf-8?B?ekJyY3VlZ05Ma0E4VlZuQWJoZDVDVW41b2RYTFZIU2c0SWZCL3BNc1R6MDJV?=
+ =?utf-8?B?UW1EQnltSTV4WEhiZktGTWxxZkxWUERUbTd5L1k4YjAyb012WGh5SmtCak8y?=
+ =?utf-8?B?UEVRM2tlUG8wK0NxajZiL0xjcGV4TFF0aTRsZ0k3eng1bkg0Y0E1YU9LbWpl?=
+ =?utf-8?B?QjhmWDM1YjNnRGllK3A1ZDJXOHc3Uk5ocEJQNGdJL1ZyVUFsdU9CWVplV0dE?=
+ =?utf-8?Q?GKZx9WEZycd8ghrH3YgfaESw3?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3a05a4d-42f2-4e99-9660-08da9aba322f
+X-MS-Exchange-CrossTenant-Network-Message-Id: b71d3518-a26f-4eae-7550-08da9aba37b5
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2022 03:42:52.7139 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2022 03:43:01.9017 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dc0MzLfRCmpJoWlc2gO6fHLq2zFBCjW8KhSCRDRLHDHWaoZdkPpcDOhKZX+igdWu
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2kHiXVnpTdNQGXjQUSiGVbhNWDLCleaaG2Ymw9rLUhmfFHFFNofMxFbsmKziId5H
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4433
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -131,7 +132,8 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 9/19/2022 7:32 AM, Evan Quan wrote:
-> Enable 3794 pptable support for SMU13.0.0.
+> The pptable in the vbios is fully ready. The related workarounds
+> in driver are not needed any more.
 > 
 > Signed-off-by: Evan Quan <evan.quan@amd.com>
 
@@ -140,21 +142,152 @@ Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 Thanks,
 Lijo
 
-> Change-Id: Ia208531c9eb96611b6136975bcbd8d27007b9e14
+> Change-Id: I2549cd1acd6eebde361ed8e27d5631bd57644e52
+> --
+> v1->v2:
+>    - drop unrelated and unnecessary changes(Alex, Guchun)
 > ---
->   drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 1 +
->   1 file changed, 1 insertion(+)
+>   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 46 ++--------------
+>   .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 54 ++-----------------
+>   2 files changed, 6 insertions(+), 94 deletions(-)
 > 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> index 4fd685af8fa4..53d26bca524a 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> @@ -210,7 +210,8 @@ int smu_v13_0_init_pptable_microcode(struct smu_context *smu)
+>   	if (!adev->scpm_enabled)
+>   		return 0;
+>   
+> -	if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 7))
+> +	if ((adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 7)) ||
+> +	    (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 0)))
+>   		return 0;
+>   
+>   	/* override pptable_id from driver parameter */
+> @@ -219,27 +220,6 @@ int smu_v13_0_init_pptable_microcode(struct smu_context *smu)
+>   		dev_info(adev->dev, "override pptable id %d\n", pptable_id);
+>   	} else {
+>   		pptable_id = smu->smu_table.boot_values.pp_table_id;
+> -
+> -		/*
+> -		 * Temporary solution for SMU V13.0.0 with SCPM enabled:
+> -		 *   - use vbios carried pptable when pptable_id is 3664, 3715 or 3795
+> -		 *   - use 36831 soft pptable when pptable_id is 3683
+> -		 */
+> -		if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 0)) {
+> -			switch (pptable_id) {
+> -			case 3664:
+> -			case 3715:
+> -			case 3795:
+> -				pptable_id = 0;
+> -				break;
+> -			case 3683:
+> -				pptable_id = 36831;
+> -				break;
+> -			default:
+> -				dev_err(adev->dev, "Unsupported pptable id %d\n", pptable_id);
+> -				return -EINVAL;
+> -			}
+> -		}
+>   	}
+>   
+>   	/* "pptable_id == 0" means vbios carries the pptable. */
+> @@ -475,28 +455,8 @@ int smu_v13_0_setup_pptable(struct smu_context *smu)
+>   	} else {
+>   		pptable_id = smu->smu_table.boot_values.pp_table_id;
+>   
+> -		/*
+> -		 * Temporary solution for SMU V13.0.0 with SCPM disabled:
+> -		 *   - use 3664, 3683 or 3715 on request
+> -		 *   - use 3664 when pptable_id is 0
+> -		 * TODO: drop these when the pptable carried in vbios is ready.
+> -		 */
+> -		if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 0)) {
+> -			switch (pptable_id) {
+> -			case 0:
+> -				pptable_id = 3664;
+> -				break;
+> -			case 3664:
+> -			case 3683:
+> -			case 3715:
+> -				break;
+> -			default:
+> -				dev_err(adev->dev, "Unsupported pptable id %d\n", pptable_id);
+> -				return -EINVAL;
+> -			}
+> -		} else if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 10)) {
+> +		if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 10))
+>   			pptable_id = 6666;
+> -		}
+>   	}
+>   
+>   	/* force using vbios pptable in sriov mode */
 > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index de779f8089d3..a6b7319fbfe6 100644
+> index a6b7319fbfe6..1d454485e0d9 100644
 > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
 > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -406,6 +406,7 @@ static int smu_v13_0_0_setup_pptable(struct smu_context *smu)
->   			case 3664:
->   			case 3715:
->   			case 3795:
-> +			case 3794:
->   				pptable_id = 0;
->   				break;
->   			case 3683:
+> @@ -375,59 +375,11 @@ static int smu_v13_0_0_setup_pptable(struct smu_context *smu)
+>   {
+>   	struct smu_table_context *smu_table = &smu->smu_table;
+>   	struct amdgpu_device *adev = smu->adev;
+> -	uint32_t pptable_id;
+>   	int ret = 0;
+>   
+> -	/*
+> -	 * With SCPM enabled, the pptable used will be signed. It cannot
+> -	 * be used directly by driver. To get the raw pptable, we need to
+> -	 * rely on the combo pptable(and its revelant SMU message).
+> -	 */
+> -	if (adev->scpm_enabled) {
+> -		ret = smu_v13_0_0_get_pptable_from_pmfw(smu,
+> -							&smu_table->power_play_table,
+> -							&smu_table->power_play_table_size);
+> -	} else {
+> -		/* override pptable_id from driver parameter */
+> -		if (amdgpu_smu_pptable_id >= 0) {
+> -			pptable_id = amdgpu_smu_pptable_id;
+> -			dev_info(adev->dev, "override pptable id %d\n", pptable_id);
+> -		} else {
+> -			pptable_id = smu_table->boot_values.pp_table_id;
+> -		}
+> -
+> -		/*
+> -		 * Temporary solution for SMU V13.0.0 with SCPM disabled:
+> -		 *   - use vbios carried pptable when pptable_id is 3664, 3715 or 3795
+> -		 *   - use soft pptable when pptable_id is 3683
+> -		 */
+> -		if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 0)) {
+> -			switch (pptable_id) {
+> -			case 3664:
+> -			case 3715:
+> -			case 3795:
+> -			case 3794:
+> -				pptable_id = 0;
+> -				break;
+> -			case 3683:
+> -				break;
+> -			default:
+> -				dev_err(adev->dev, "Unsupported pptable id %d\n", pptable_id);
+> -				return -EINVAL;
+> -			}
+> -		}
+> -
+> -		/* force using vbios pptable in sriov mode */
+> -		if ((amdgpu_sriov_vf(adev) || !pptable_id) && (amdgpu_emu_mode != 1))
+> -			ret = smu_v13_0_0_get_pptable_from_pmfw(smu,
+> -								&smu_table->power_play_table,
+> -								&smu_table->power_play_table_size);
+> -		else
+> -			ret = smu_v13_0_get_pptable_from_firmware(smu,
+> -								  &smu_table->power_play_table,
+> -								  &smu_table->power_play_table_size,
+> -								  pptable_id);
+> -	}
+> +	ret = smu_v13_0_0_get_pptable_from_pmfw(smu,
+> +						&smu_table->power_play_table,
+> +						&smu_table->power_play_table_size);
+>   	if (ret)
+>   		return ret;
+>   
 > 
