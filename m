@@ -4,117 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8335CC32771
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 09:08:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8D89ECAAD8
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 09:42:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C39410E577;
-	Wed, 21 Sep 2022 09:08:55 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2084.outbound.protection.outlook.com [40.107.223.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCDC310E577;
- Wed, 21 Sep 2022 09:08:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 289B210E903;
+	Wed, 21 Sep 2022 09:42:17 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43F5E10E901
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Sep 2022 09:42:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I0rKsdRh+Ju9yBO6WLHYnUewQ3sWBFF5lM20x0/QUy31js4baRPyNki3bBS44r2s7rsFoYNUfOyzcdTjhavhxcgfa8VL7/rj+pm/IA2eygS7n8QFY0IydmR/YiOm+29bFVnLkaXiHYGpUuM6sw0NcsvLgRNSxEIN7spz62Xxmo5MUrr9DRfBf064XftJiw/s0WCNKzwfHBaBhJ6tEJpFSXPJO+cJ58PC/SnBQ4gh/Mt0ZjjoYf6kiXy9/rdKtZmEUqMFYUm5nJv56pPi3X9hwvoQB7wsdEbD8IqdTI3ygEsKdCM+AfRKWCOFiVE8f72x2Az/Dhu68N5l+54CPAgS+w==
+ b=VqV1auhwTh01gIV+zfaq0TcfctqRyVS9V4iXOO896PA82+bawFSUpff3qNPBjcB8zThvvCYCSatnu9hV0oDiBXgaajfmDPeUULxBcUiB6y4+H60Ndg6HaYOgUFAM+5EtEITMKqUnTfOKWN53i4aEN+YQ4a95QIsZzjvHBCZSd6URsvTyGLRgEbk7ktSoMg05mWqBSGk5F4iZq2Yak658A8uXUQCpQZ3kyGOK8rFKbj4YejbT2cK3+Zc2CyuyuFIXO33RLA2/eIsz2Al0ME6nBIcKR7l8CV4HMGnb6rdh4rAqGRihhCo8YHB2xQS7FAqzfsHNDeEpWWUYEI7J9mV+fg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j+lnh6Z6IJEPrPtXdiuVoxkVG0QN922fmogWUTbvmKE=;
- b=Yz7+ZTx8fa5aArauUsWGHrjcCKU0U6zkp90LvVYI11dcC0uAZa7Ot2NBM9hXAsQ5D4rBBVruT9cf5uOGoaq9vTrkz2Izro0OA91DWQAQenhfBpogpE/GzDfeu9RgrXK6ekJGgS6nal0rKmlL6DMoSXmss/Aw0HS0GSOcgDoChi0CQD8/4i4LML84dlY0HXdsU+LqHSjDLPH85Hv8y/UWqdrja3TFnJg5mpOGxMNPBR1SFXKAOArx7Zh57AO2LGNcCLX8JJ0XYq+stH/K3/yJlF9voIAexfmNHg/LNmagYDIxvw9X+vmPYPlW1aZzVA6nP4zfCicUQOLAtUyLZS1jUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=yYo6i8SOPJTE9nmuSYWz926WHwM+B+XtiRfwQE6sNxY=;
+ b=IX73DlWGxEKaSDlnvePKqHH4Ut2hoZWH8MuvNL9tVf12S7UlcH05E/cfPDoAkOODeumFhtx5DFiQcWnps+ie/mD26OD74obZlgANyIyn7KKeqwabz356wJVsfIP1a/zidwBBhocTvFJWDBWTwCqcIYbcyua+SR/JFWCN+P7FtZRokn4oxOOXfV3ArDGlJHcmTfEhvnJup3pDl0aZYa77QvQ4kLhofToRSc5dQtRHBrjg7nfMaxl8OiR9ooSdE8gyOLk5ErifVflhUa7BvWhMjc0rHy5Bn7mVTqUcONLP221SbAhkr6Qv4SjddCuUbeQ/EIWgBq8tbpZWQEjuBj7iaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j+lnh6Z6IJEPrPtXdiuVoxkVG0QN922fmogWUTbvmKE=;
- b=n/TI6Kl/s/Ox9pVxLpWbarmqHHTBW7IIvjFaHrE3gj74SymKjFC8G7CXf2zLscj6lHq1WlU1ZVtYKwPkRWQLddvJWx4vDYOUzUnQ0KPGX/3xvOz7c8BhB+yOW6wx3POVoqRtxHPeTe1Vey5KCz4CDp2DVz0v3TGupmYf0iJbiNY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- DM6PR12MB4909.namprd12.prod.outlook.com (2603:10b6:5:1ba::23) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5654.16; Wed, 21 Sep 2022 09:08:46 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::c549:82d4:60d9:2a8a]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::c549:82d4:60d9:2a8a%3]) with mapi id 15.20.5654.016; Wed, 21 Sep 2022
- 09:08:46 +0000
-Message-ID: <05815bfc-3c2a-5cb7-c591-c91574de6309@amd.com>
-Date: Wed, 21 Sep 2022 05:08:42 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH v3] drm/sched: Add FIFO sched policy to run queue v3
-Content-Language: en-CA
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- dri-devel@lists.freedesktop.org
-References: <20220913204025.1473086-1-andrey.grodzovsky@amd.com>
- <d227810a-e39a-dd86-2954-a9df0904cbdc@amd.com>
- <00958205-ec9a-b6ad-274d-becb0e6961ba@amd.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <00958205-ec9a-b6ad-274d-becb0e6961ba@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0112.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::21) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+ bh=yYo6i8SOPJTE9nmuSYWz926WHwM+B+XtiRfwQE6sNxY=;
+ b=G+vEYL8lg0YAaWpuFc6RCfGLafU9wNKTpZTQcU+Y6+YobznfUul31gez50+g9D9RkGl7TUhFA8tmP48mwtc8aA4Wq8cVhOPIgV7XuMWJA8+8vI95t22g1xOcbtHqLq6OEMDXD2QDMKuICCqjuwS+xkwUlAhbbX7QPHwL+RPbjZk=
+Received: from DS7PR06CA0014.namprd06.prod.outlook.com (2603:10b6:8:2a::11) by
+ BL1PR12MB5333.namprd12.prod.outlook.com (2603:10b6:208:31f::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.16; Wed, 21 Sep
+ 2022 09:42:11 +0000
+Received: from DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2a:cafe::9c) by DS7PR06CA0014.outlook.office365.com
+ (2603:10b6:8:2a::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.17 via Frontend
+ Transport; Wed, 21 Sep 2022 09:42:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT037.mail.protection.outlook.com (10.13.172.122) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5654.14 via Frontend Transport; Wed, 21 Sep 2022 09:42:10 +0000
+Received: from jenkins-jiadong-1.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Wed, 21 Sep 2022 04:42:05 -0500
+From: <jiadong.zhu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/5] drm/amdgpu: Introduce gfx software ring (v6)
+Date: Wed, 21 Sep 2022 17:41:13 +0800
+Message-ID: <20220921094117.1071106-1-jiadong.zhu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|DM6PR12MB4909:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76f4751b-7219-421d-11da-08da9bb0e3b0
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT037:EE_|BL1PR12MB5333:EE_
+X-MS-Office365-Filtering-Correlation-Id: 090129b0-a191-4f34-3a20-08da9bb58e87
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xQ69TVmt8OsPWFQqRpRgOkUSUIL+0Z84vYozJI4zf/PsQunh+L8cNaOkzeaRwJa0I+0/CxRQABHCO6CnlpkqbvOj1eYfw1h/WVXmjSkwS2uJk9vLMRU/+kYuoVvOQukkcF6nO1TMaIEhbZ+5UTv+srEhqFS0sqhRealB5teBKMvA4hTp4frCtd0peSrYTz5ZAc3+AuvDoYm17/O41kBcuxrv/aoDr2TKNTFrgj4g9FvtX2+TCrIv5yOHVzfJmW1P8AOV7llESPVM3w7XfeLA8rnLwxHk86eLZRTPo5mjLABY8pMNrDOSBo1YnPuq4pRm/MJvjiNA5Yv2DBjoVlCFf9Yda5y34WgvjLgbez4QG54j4gLEaPKRODbo7ZuFn0ltKUHoGKcjEPKqmxaKdxZnVBDUQV09Eb7d5sBEH8qPRZNq3ciH8Rrv9Y+G3NEPJIRNXx+E+q0C7Kq0ycxtm/VN1D33XT4/hTSRiSGd5/soX2iFgUigtBHuvLDtgfLz8IsTBloivvRW9MgnuqQVEjeO4kRjwDmHykt7OcL/iGIF4e9B7Jq/+2CNyOhCwfAi0t8N1lI2h5wEdeQi3zkohFJmVQ9ILVqbV7Wc2uXtx9IA2tYeHD4KVkapIJ9M8Bv8J72vm+zLnqU4J1VU0sB3dZRp2Ag7TqEnQAStV046HMuPRlLxqXz1UMWM89K4vlHUrg8xT10RNYGmNwed4g4pfiRCJ8goUsd1mjEe2BudyIV9m7uzbIc7sC8TTGyfGhDyO7HglIYNpqxmtXP+D7wsi9/tXcgzOQ2Mk1ttLGV64ETWWrE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(346002)(136003)(396003)(376002)(39860400002)(451199015)(31686004)(478600001)(6666004)(31696002)(86362001)(66946007)(66556008)(66476007)(4326008)(8676002)(30864003)(83380400001)(38100700002)(44832011)(36756003)(2906002)(6506007)(26005)(53546011)(5660300002)(41300700001)(6512007)(8936002)(6486002)(2616005)(316002)(186003)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: 35gC+uZVp6VfD8uSDGKI//dhRfp9BoDYBTRaebsNOLaiB77LesqQWwCRnWdy+SJxzPkGK2JnbgwozAaXE1zLDJZefUNK7cvs8ZHGZt/aAk4Pa8t9K8UZ5GRazQN788PNm0T5yKST30xoCJKRxaKVv2Y+fSSoEFXeaAhjSEEWEJ1slzoFNTzB8ANMo96DMr3kpS6qgTErI99v3O1fbC+VGMchDblirXGXDFeFNdzhoqgSUA50OQWM0DCWE40odJ2rAaK047NBlXX3YEw2Gm5FPU+WiwRuCOVPEWjiqWLkGl7A/ycVt8vRcsfWrA0Zf7xzfcH7OXZztfQjENUG7vjZjTZdIzx9+/e8OPoELg3ymIHPx+0jtBNFdWEr84taYkMi1qxEm9OPZXuMM/7AwDkwYPDty9gyYQqAXP7/2wD0HB4DNTeWN8HxvLzl0CznHumm7juisbLDUmqs4OXaJBB6ZQZi3FDPSKFRXCZxY1gnJsPHMFkMIRaVFGfDfPEA81ZE9N8drsp/JPfxSnBesXSJLZnLU2Bv7breI5SQ4PkqMZZI0/OnEt8HUufYNzQ5exxzixiV35fbAn0Cdw5xEVcdN21TUM+7l+Eoh97yRjndO8EY68XKKvhJegjbGWiMtIz+IlVrId/REVdryAdizpkh1CiOQS/yjBKBV9HcPSSVJn0nYkfeALgjLL1gJYGmmFkQRaWeHRfCzIOrjCXxLaSsc9AAKpzVzkNo6At30iIk95N8suVzllBUmS4ypGFLJwBiLSCnE+lkH4TpVvfw93XFsjPw9TZpazeORVssE9sLFTY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(346002)(136003)(396003)(39860400002)(451199015)(46966006)(40470700004)(36840700001)(2906002)(2876002)(82310400005)(36756003)(66899012)(47076005)(83380400001)(40480700001)(4326008)(82740400003)(30864003)(54906003)(6916009)(5660300002)(86362001)(316002)(41300700001)(8936002)(8676002)(70586007)(70206006)(16526019)(186003)(81166007)(426003)(1076003)(336012)(40460700003)(478600001)(26005)(356005)(2616005)(36860700001)(7696005)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QVIrMkNTbVliczNwa1dtS3RoSy9yMUxCZUd6MGRGTlVJaU42T29pTXIzd0Jr?=
- =?utf-8?B?UXA5RnNiSWFrUDZ0SUk5bnRMSFB2dEtLVktHTG1uVWJXSGM0eVJ3U0xYYzBU?=
- =?utf-8?B?dXNTSnUzY1l3MEF0UXUvdTgyT042K2hXdG9pSUFsb2J2Z3hoaXBBSmN6dmli?=
- =?utf-8?B?aHF2a0hEcEVVcGZaNmY0T3F5M2xTdkpqL1ZDRURtZGkwb2xTeXUyZTZRSGZ5?=
- =?utf-8?B?eEZ1dW1kS0pjaDlFSzd3eC9BRkpBN2EyWm9PRkVIM09nVGpoOWNHdlNsUWFz?=
- =?utf-8?B?YnFGWDJrSll6VGhmMkM5MmJwU01zQW1GZlk5NUtYb1JvekVKOWY0bk1EL200?=
- =?utf-8?B?Vi9hMVhtS0lWMHVRQVNRSUIyMUg5R204amxuK3A2YWxyeHliR3RaYVdyb284?=
- =?utf-8?B?WEM2MytOM0didDZTOUhlazRuai9aYmYrTDJmcHFoRHgvYmo4N1ZnMTVkNGpH?=
- =?utf-8?B?STFVMHh3VlhuNjlKRyt4TzBMVHAyNEk3R1drek5KSnpiMCtNTXk1MS9YZzh6?=
- =?utf-8?B?K0JYRFdSdlVyWWlCL3kwNWVFYk1JL216NVRkbWJzclVzSmVzQnBPTExTa1NH?=
- =?utf-8?B?R0RvaTc1ZnVvd1pCZW5mVFZORmpORXdaclBUOXd6ZUY5RVcrVkpneDJPemxo?=
- =?utf-8?B?UnRPQTdpQmxsVkd5NjVQdHBVUU5mVEJXYUJMZ3FVRHlOejlTVVd3NzNqSEoy?=
- =?utf-8?B?MWFVL01WajZ5aENmQTFPV3UrN1hPWk81b3FtRFN2ZXdyTGFpSlE4OHRIbjRI?=
- =?utf-8?B?VE1NdDBYeHZhdEdta2dTZHVjL1lzQk9NVVBhNUl2VXIvS08xdHRUYjlJdkJK?=
- =?utf-8?B?cklmdGdFVG5hcStSb2piVkxqakFrQkRKZEI1bENjdy9tUEpQdElkM1RHbUJ3?=
- =?utf-8?B?N1NoaGg3N1d3ZStQSEJZdVFWb29EMjdUSWNWeGZMUFdlMmNNTU9Hb0VXZWNE?=
- =?utf-8?B?OFRING50Wm13S3NhSERLMTFPc0tITWIrdFRVWlhkbFNxNGl4OHlPdWlEZDlK?=
- =?utf-8?B?WXhCNEFOdE1yb1pNMVd2VmNNbXVwcG4xSVJXdVluV2E0R3NPanVGS3ZLbkxQ?=
- =?utf-8?B?VDE2UW9lSXJ1WGdqeUhERXJpdkdZQXBDbGwxekRGcFZMcmRtWHVBZzJyZkx6?=
- =?utf-8?B?YmY4SThkV1VNVlJDenY3dmVqSDRMaFhlSWVJcXhJNDFabFFNb0FYQmdxd0tM?=
- =?utf-8?B?TWllTmtad0RYK3Rtemp4Vk5xUC9lM0ZtS08yc0xvajRNUURtVjltYmtEbjBC?=
- =?utf-8?B?TnUrYUtYZHFvUkpCTlhnM3ZUdHlsUWpxdWxBR3JzQU52bUNVT0I1Z1p4dTdS?=
- =?utf-8?B?cmhLSFVQdS9WWjRHUkR3NTN4Q093VXpyN3dLQnlVSHhKYTRiWlAxYjN6NGQ4?=
- =?utf-8?B?aksvR1NyMHZwRnpvRHFRMWdTSlhoQUI3NzRzRndPd2h1bnZUSkp2Wmd1bExS?=
- =?utf-8?B?NUdDRlRnVlZ0YW0zNWxBd2hyc3ZRUUtTOEZIcE52M3V6aU15RHFkZEZIL1oy?=
- =?utf-8?B?RFdMYkR2bzZiWWhlSkszc2dKYkVpTEZxS1Y0MlRwMDBwd0Uxby96dW1RUjdL?=
- =?utf-8?B?MmZEcytOdmNRUkZZV0FQM2I0LzVNcUM5bVFsaE1BU0ZtUGJOcEQyeWxPdUdF?=
- =?utf-8?B?WnpibTVMc2IyWnNEcFBpT0l3bXFHU2xqYTBLZnNaQTdhT3RWdWxPRERSTzhv?=
- =?utf-8?B?SWhwRWM5Ty9MS2t5c1p1dW1xSGx2akU4SldCV2VBSU1UR0QzS0V4d3VhTWZs?=
- =?utf-8?B?VGozcXBBWGlKd0ZGbUgyUWtpSXB3RVZiVXgxbWEvcjVmRXk5ZDFuci9zSTIy?=
- =?utf-8?B?a0JLdW14S1pOZTJwUzRYcUU1Y0FrYWxYYUtpRm9FUXhxeW9jejFlV3dicGZS?=
- =?utf-8?B?QkNYZitxblAxbGEwVUdRL2NJMGpvdGlxTnI3RjZjOVFMbndhUXZaWUxlWmpM?=
- =?utf-8?B?T1dtY3ZCZUtseFVydTB6djVuVytnM0d2OTE3d3VmMmZLK1d1b1pQdVFURjh0?=
- =?utf-8?B?WGhmanVCeVhEYS9YK3BYd3RtLzZSVzEwbVhIRnk2dTZ6MmN2dGc2RXhsNU1s?=
- =?utf-8?B?a2NnNjhDWXBUQzFCOTgzNFNDL0twaGdLOGlYak9HUkZibUR0NENNUncwN1Ns?=
- =?utf-8?Q?5SsbZgSdG1SSOYZXHtnc7w5aV?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76f4751b-7219-421d-11da-08da9bb0e3b0
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2022 09:08:46.3956 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2022 09:42:10.8021 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 090129b0-a191-4f34-3a20-08da9bb58e87
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3FAdu8AqMT7WWERSDyBYPr+TUasveww46Td94ZDauc5/e1QB6rThj5dgh2UYMhgJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4909
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5333
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,566 +97,476 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ckoenig.leichtzumerken@gmail.com, Li Yunxiang <Yunxiang.Li@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Luben Tuikov <Luben.Tuikov@amd.com>, "Jiadong.Zhu" <Jiadong.Zhu@amd.com>,
+ Christian Koenig <Christian.Koenig@amd.com>, Andrey
+ Grodzovsky <Andrey.Grodzovsky@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Inlined:
+From: "Jiadong.Zhu" <Jiadong.Zhu@amd.com>
 
-On 2022-09-20 15:16, Andrey Grodzovsky wrote:
-> 
-> On 2022-09-19 23:11, Luben Tuikov wrote:
->> Please run this patch through checkpatch.pl, as it shows
->> 12 warnings with it. Use these command line options:
->> "--strict --show-types".
->>
->> Inlined:
->>
->> On 2022-09-13 16:40, Andrey Grodzovsky wrote:
->>> Given many entities competing for same run queue on
->>> the same scheduler and unacceptably long wait time for some
->>> jobs waiting stuck in the run queue before being picked up are
->>> observed (seen using  GPUVis).
->> Since the second part of this sentence is the result of the first,
->> I'd say something like "When many entities ... we see unacceptably long ...".
->>
->>> The issue is due to the Round Robin policy used by schedulers
->>> to pick up the next entity's job queue for execution. Under stress
->>> of many entities and long job queus within entity some
->> Spelling: "queues".
->>
->>> jobs could be stack for very long time in it's entity's
->> "stuck", not "stack".
->>
->>> queue before being popped from the queue and executed
->>> while for other entities with smaller job queues a job
->>> might execute earlier even though that job arrived later
->>> then the job in the long queue.
->> "than".
->>
->>>     
->>> Fix:
->>> Add FIFO selection policy to entities in run queue, chose next entity
->>> on run queue in such order that if job on one entity arrived
->>> earlier then job on another entity the first job will start
->>> executing earlier regardless of the length of the entity's job
->>> queue.
->>>     
->>> v2:
->>> Switch to rb tree structure for entities based on TS of
->>> oldest job waiting in the job queue of an entity. Improves next
->>> entity extraction to O(1). Entity TS update
->>> O(log N) where N is the number of entities in the run-queue
->>>     
->>> Drop default option in module control parameter.
->>>
->>> v3:
->>> Various cosmetical fixes and minor refactoring of fifo update function.
->>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->>> Tested-by: Li Yunxiang (Teddy) <Yunxiang.Li@amd.com>
->>> ---
->>>   drivers/gpu/drm/scheduler/sched_entity.c |  26 ++++-
->>>   drivers/gpu/drm/scheduler/sched_main.c   | 132 ++++++++++++++++++++++-
->>>   include/drm/gpu_scheduler.h              |  35 ++++++
->>>   3 files changed, 187 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->>> index 6b25b2f4f5a3..f3ffce3c9304 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>> @@ -73,6 +73,7 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
->>>   	entity->priority = priority;
->>>   	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
->>>   	entity->last_scheduled = NULL;
->>> +	RB_CLEAR_NODE(&entity->rb_tree_node);
->>>   
->>>   	if(num_sched_list)
->>>   		entity->rq = &sched_list[0]->sched_rq[entity->priority];
->>> @@ -417,14 +418,16 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->>>   
->>>   	sched_job = to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
->>>   	if (!sched_job)
->>> -		return NULL;
->>> +		goto skip;
->>>   
->>>   	while ((entity->dependency =
->>>   			drm_sched_job_dependency(sched_job, entity))) {
->>>   		trace_drm_sched_job_wait_dep(sched_job, entity->dependency);
->>>   
->>> -		if (drm_sched_entity_add_dependency_cb(entity))
->>> -			return NULL;
->>> +		if (drm_sched_entity_add_dependency_cb(entity)) {
->>> +			sched_job = NULL;
->>> +			goto skip;
->>> +		}
->>>   	}
->>>   
->>>   	/* skip jobs from entity that marked guilty */
->>> @@ -443,6 +446,16 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->>>   	smp_wmb();
->>>   
->>>   	spsc_queue_pop(&entity->job_queue);
->>> +
->>> +	/*
->>> +	 * It's when head job is extracted we can access the next job (or empty)
->>> +	 * queue and update the entity location in the min heap accordingly.
->>> +	 */
->>> +skip:
->>> +	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->>> +		drm_sched_rq_update_fifo(entity,
->>> +					 (sched_job ? sched_job->submit_ts : ktime_get()));
->>> +
->>>   	return sched_job;
->>>   }
->>>   
->>> @@ -502,11 +515,13 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
->>>   {
->>>   	struct drm_sched_entity *entity = sched_job->entity;
->>>   	bool first;
->>> +	ktime_t ts =  ktime_get();
->>>   
->>>   	trace_drm_sched_job(sched_job, entity);
->>>   	atomic_inc(entity->rq->sched->score);
->>>   	WRITE_ONCE(entity->last_user, current->group_leader);
->>>   	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
->>> +	sched_job->submit_ts = ts;
->>>   
->>>   	/* first job wakes up scheduler */
->>>   	if (first) {
->>> @@ -518,8 +533,13 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
->>>   			DRM_ERROR("Trying to push to a killed entity\n");
->>>   			return;
->>>   		}
->>> +
->>>   		drm_sched_rq_add_entity(entity->rq, entity);
->>>   		spin_unlock(&entity->rq_lock);
->>> +
->>> +		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->>> +			drm_sched_rq_update_fifo(entity, ts);
->>> +
->>>   		drm_sched_wakeup(entity->rq->sched);
->>>   	}
->>>   }
->>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
->>> index e5a4ecde0063..72f7105e0b16 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>> @@ -62,6 +62,65 @@
->>>   #define to_drm_sched_job(sched_job)		\
->>>   		container_of((sched_job), struct drm_sched_job, queue_node)
->>>   
->>> +int drm_sched_policy = DRM_SCHED_POLICY_RR;
->>> +
->>> +/**
->>> + * DOC: sched_policy (int)
->>> + * Used to override default entities scheduling policy in a run queue.
->>> + */
->>> +MODULE_PARM_DESC(sched_policy,
->>> +	"specify schedule policy for entities on a runqueue (DRM_SCHED_POLICY_RR = Round Robin (default) ,DRM_SCHED_POLICY_FIFO  = use FIFO");
->> " ... Robin (default) ,DRM_SCHED_POLICY_FIFO ..."
->>
->> Swap the position of the space and comma. Check with modinfo that those are correctly
->> substituted and look nice in the output.
->>
->>> +module_param_named(sched_policy, drm_sched_policy, int, 0444);
->>> +
->>> +static __always_inline bool drm_sched_entity_compare_before(struct rb_node *a,
->>> +							     const struct rb_node *b)
->>> +{
->>> +	struct drm_sched_entity *ent_a =  rb_entry((a), struct drm_sched_entity, rb_tree_node);
->>> +	struct drm_sched_entity *ent_b =  rb_entry((b), struct drm_sched_entity, rb_tree_node);
->>> +
->>> +	return ktime_before(ent_a->oldest_job_waiting, ent_b->oldest_job_waiting);
->>> +}
->>> +
->>> +static inline void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity)
->>> +{
->>> +	struct drm_sched_rq *rq = entity->rq;
->>> +
->>> +	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
->>> +		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
->>> +		RB_CLEAR_NODE(&entity->rb_tree_node);
->>> +	}
->>> +}
->>> +
->>> +static inline void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
->>> +						   ktime_t ts)
->>> +{
->>> +	struct drm_sched_rq *rq = entity->rq;
->>> +
->>> +	drm_sched_rq_remove_fifo_locked(entity);
->>> +
->>> +	entity->oldest_job_waiting = ts;
->>> +
->>> +	rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
->>> +			drm_sched_entity_compare_before);
->>> +}
->>> +
->>> +void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts)
->>> +{
->>> +
->>> +	/*
->>> +	 * Both locks need to be grabbed, one to protect from entity->rq change
->>> +	 * for entity from within concurrent drm_sched_entity_select_rq and the
->>> +	 * other to update the rb tree structure.
->>> +	 */
->>> +	spin_lock(&entity->rq_lock);
->>> +	spin_lock(&entity->rq->lock);
->>> +
->>> +	drm_sched_rq_update_fifo_locked(entity, ts);
->>> +
->>> +	spin_unlock(&entity->rq->lock);
->>> +	spin_unlock(&entity->rq_lock);
->>> +}
->> Here you grab both locks, but you call drm_sched_rq_update_fifo_locked()
->> from drm_sched_rq_select_entity_fifo() with only the rq->lock.
-> 
-> 
-> It's somewhat problematic I agree but, as you can see from 
-> drm_sched_rq_update_fifo
-> comment we need both locks to protect from racing 
-> drm_sched_entity_select_rq against us
-> which can change entity->rq while we update the time stamp. For the 
-> particular case of
-> drm_sched_rq_select_entity_fifo it's ok IMHO to rely on rq->lock only 
-> because we only access those entities
-> which are still in the rq rb_tree meaning if drm_sched_entity_select_rq 
-> runs concurrently now, we grabbed the
-> rq->lock before drm_sched_entity_select_rq->drm_sched_rq_remove_entity 
-> executed which means
-> entity->rq = rq in drm_sched_entity_select_rq didn't happen yet so we 
-> should be ok
+The software ring is created to support priority context while there is only
+one hardware queue for gfx.
 
-Well either make locking consistent, or explain why locking is inconsistent
-by adding the explanation you wrote above into the comment of the function.
-People need to know why locking is inconsistent--add that explanation above
-as a comment.
+Every software ring has its fence driver and could be used as an ordinary ring
+for the GPU scheduler.
+Multiple software rings are bound to a real ring with the ring muxer. The
+packages committed on the software ring are copied to the real ring.
 
-If someone wants to add to the scheduler, say a new function or new functionality,
-they'd not know whether to grab both locks or just the rq->lock. The comments
-left therein should explain which way to proceed with locking in the future.
+v2: Use array to store software ring entry.
+v3: Remove unnecessary prints.
+v4: Remove amdgpu_ring_sw_init/fini functions,
+using gtt for sw ring buffer for later dma copy
+optimization.
+v5: Allocate ring entry dynamically in the muxer.
+v6: Update comments for the ring muxer.
 
-> 
-> 
->>
->>> +
->>>   /**
->>>    * drm_sched_rq_init - initialize a given run queue struct
->>>    *
->>> @@ -75,6 +134,7 @@ static void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
->>>   {
->>>   	spin_lock_init(&rq->lock);
->>>   	INIT_LIST_HEAD(&rq->entities);
->>> +	rq->rb_tree_root = RB_ROOT_CACHED;
->>>   	rq->current_entity = NULL;
->>>   	rq->sched = sched;
->>>   }
->>> @@ -92,9 +152,12 @@ void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
->>>   {
->>>   	if (!list_empty(&entity->list))
->>>   		return;
->>> +
->>>   	spin_lock(&rq->lock);
->>> +
->>>   	atomic_inc(rq->sched->score);
->>>   	list_add_tail(&entity->list, &rq->entities);
->>> +
->>>   	spin_unlock(&rq->lock);
->>>   }
->>>   
->>> @@ -111,23 +174,32 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
->>>   {
->>>   	if (list_empty(&entity->list))
->>>   		return;
->>> +
->>>   	spin_lock(&rq->lock);
->>> +
->>> +
->>>   	atomic_dec(rq->sched->score);
->>>   	list_del_init(&entity->list);
->>> +
->>>   	if (rq->current_entity == entity)
->>>   		rq->current_entity = NULL;
->>> +
->>> +	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->>> +		drm_sched_rq_remove_fifo_locked(entity);
->>> +
->>>   	spin_unlock(&rq->lock);
->>>   }
->>>   
->>> +
->>>   /**
->>> - * drm_sched_rq_select_entity - Select an entity which could provide a job to run
->>> + * drm_sched_rq_select_entity_rr - Select an entity which could provide a job to run
->>>    *
->>>    * @rq: scheduler run queue to check.
->>>    *
->>>    * Try to find a ready entity, returns NULL if none found.
->>>    */
->>>   static struct drm_sched_entity *
->>> -drm_sched_rq_select_entity(struct drm_sched_rq *rq)
->>> +drm_sched_rq_select_entity_rr(struct drm_sched_rq *rq)
->>>   {
->>>   	struct drm_sched_entity *entity;
->>>   
->>> @@ -163,6 +235,58 @@ drm_sched_rq_select_entity(struct drm_sched_rq *rq)
->>>   	return NULL;
->>>   }
->>>   
->>> +
->>> +/**
->>> + * drm_sched_rq_select_entity_fifo - Select an entity which provides a job to run
->>> + *
->>> + * @rq: scheduler run queue to check.
->>> + *
->>> + * Try to find a ready entity, returns NULL if none found.
->>> + */
->>> +static struct drm_sched_entity *
->>> +drm_sched_rq_select_entity_fifo(struct drm_sched_rq *rq)
->>> +{
->>> +		struct drm_sched_entity *first, *entity = NULL;
->>> +		struct rb_node *rb;
->>> +
->>> +		spin_lock(&rq->lock);
->>> +
->>> +		rb = rb_first_cached(&rq->rb_tree_root);
->>> +		if (!rb)
->>> +			goto out;
->>> +
->>> +		first = rb_entry((rb), struct drm_sched_entity, rb_tree_node);
->>> +		entity = first;
->>> +
->>> +		while (true) {
->>> +
->>> +			if (drm_sched_entity_is_ready(entity)) {
->>> +				rq->current_entity = entity;
->>> +				reinit_completion(&entity->entity_idle);
->>> +				break;
->>> +			}
->>> +
->>> +			/*
->>> +			 * Push not ready entity to the end of the line so others
->>> +			 * have chance
->>> +			 */
->>> +			drm_sched_rq_update_fifo_locked(entity, ktime_get());
->>> +
->>> +
->>> +			rb = rb_first_cached(&rq->rb_tree_root);
->> You've an extra blank line above--checkpatch.pl with the options mentioned above
->> will reveal them all.
->>
->> You call drm_sched_rq_update_fifo_locked() with, what it seems, only the rq->lock
->> held, but in drm_sched_rq_update_fifo() you stipulate that both locks need to be held.
->> Should resolve this.
->>
->> Note that if no entity is ready, this code modifies all the timestamps of all entities
->> in the tree, and reinserts all the entities back again, for a total of O(N * log N),
->> O(N) to pick each one and O(log N) to reinsert, again, if no entity is ready and you
->> go over all of them. (Using rb_first_cached(), modify timestamp, rb_add_cached(),
->> rb_first_cached(), modify timestamp, rb_add_cached(), ..., and so on for all elements
->> in the tree).
->>
->> I feel that you shouldn't have to modify the time stamp of any entity, and that
->> you shouldn't have to modify the tree. You want to preserve the order in which
->> entities were added. Instead you should do an ordered walk, i.e. oldest entity to
->> youngest entity and pick the oldest one ready, using something like the following:
->>
->> static struct drm_sched_entity *
->> drm_sched_rq_select_entity_fifo(struct drm_sched_rq *rq)
->> {
->> 	struct rb_node *rb;
->>
->> 	spin_lock(&rq->lock);
->> 	for (rb = rb_first_cached(&rq->rb_tree); rb; rb = rb_next(rb)) {
->> 		struct drm_sched_entity *entity;
->>
->> 		entity = rb_entry(rb, struct drm_sched_entity, rb_node);
->> 		if (drm_sched_entity_is_ready(entity)) {
->> 			rq->current_entity = entity;
->> 			reinit_completion(&entity->entity_idle);
->> 			break;
->> 		}
->> 	}
->> 	spin_unlock(&rq->lock);
->>
->> 	return rb ? rb_entry(rb, struct drm_sched_entity, rb_node) : NULL;
->> }
->>
->> The idea is that this preserves the insertion order, the timestamp, and
->> you search for the oldest entity, which is also ready, to schedule--not getting
->> the time, and no tree insert/modify operations, other than an in-order walk.
-> 
-> 
-> This one much more elegant and efficient agree but - imagine now you 
-> have 100 idle
-> entities and 1 active  (100 idle game instances and one running) - in my 
-> approach you would (with one minor tweak of updating idle entity time 
-> stamp to TIME64_MAX instead of current time ktime_get)
-> spend 1 time nlogn effort to put the running game in the head of the 
-> priority queue but since then and on
-> all the idle entities would stay in the back of the queue until a real 
-> job comes to them. For your approach
-> we would always keep iterating over all of them first before reaching 
-> active entity because they have oldest TS which we never updated.
+Cc: Christian Koenig <Christian.Koenig@amd.com>
+Cc: Luben Tuikov <Luben.Tuikov@amd.com>
+Cc: Andrey Grodzovsky  <Andrey.Grodzovsky@amd.com>
+Signed-off-by: Jiadong.Zhu <Jiadong.Zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile          |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h      |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h     |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c | 185 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h |  66 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c  |  60 ++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h  |  43 +++++
+ 7 files changed, 363 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h
 
-I see what you want to achieve with this tweak, but it is still undesirable
-to modify EVERY entity, and reinsert every entity, for a O(N*lnN) time complexity.
-(If you used TIME64_MIN, you can modify just the ready entity and reinsert only it,
-but this is still no good, as explained below.)
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 3e0e2eb7e235..85224bc81ce5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -58,7 +58,8 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+ 	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
+ 	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
+ 	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
+-	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o
++	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
++	amdgpu_sw_ring.o amdgpu_ring_mux.o
+ 
+ amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 53526ffb2ce1..9996dadb39f7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -33,6 +33,7 @@
+ #include "amdgpu_imu.h"
+ #include "soc15.h"
+ #include "amdgpu_ras.h"
++#include "amdgpu_ring_mux.h"
+ 
+ /* GFX current status */
+ #define AMDGPU_GFX_NORMAL_MODE			0x00000000L
+@@ -346,6 +347,8 @@ struct amdgpu_gfx {
+ 	struct amdgpu_gfx_ras		*ras;
+ 
+ 	bool				is_poweron;
++
++	struct amdgpu_ring_mux          muxer;
+ };
+ 
+ #define amdgpu_gfx_get_gpu_clock_counter(adev) (adev)->gfx.funcs->get_gpu_clock_counter((adev))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 7d89a52091c0..40b1277b4f0c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -278,6 +278,10 @@ struct amdgpu_ring {
+ 	bool			is_mes_queue;
+ 	uint32_t		hw_queue_id;
+ 	struct amdgpu_mes_ctx_data *mes_ctx;
++
++	bool            is_sw_ring;
++	unsigned int    entry_index;
++
+ };
+ 
+ #define amdgpu_ring_parse_cs(r, p, job, ib) ((r)->funcs->parse_cs((p), (job), (ib)))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+new file mode 100644
+index 000000000000..d6b30db27104
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+@@ -0,0 +1,185 @@
++/*
++ * Copyright 2022 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#include <linux/slab.h>
++#include <drm/drm_print.h>
++
++#include "amdgpu_ring_mux.h"
++#include "amdgpu_ring.h"
++
++#define AMDGPU_MUX_RESUBMIT_JIFFIES_TIMEOUT (HZ / 2)
++
++static void copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
++				  u64 s_start, u64 s_end);
++
++int amdgpu_ring_mux_init(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
++			 unsigned int entry_size)
++{
++	mux->real_ring = ring;
++	mux->num_ring_entries = 0;
++	mux->ring_entry = kcalloc(entry_size, sizeof(struct amdgpu_mux_entry), GFP_KERNEL);
++	if (!mux->ring_entry)
++		return -ENOMEM;
++
++	mux->ring_entry_size = entry_size;
++	spin_lock_init(&mux->lock);
++
++	return 0;
++}
++
++void amdgpu_ring_mux_fini(struct amdgpu_ring_mux *mux)
++{
++	kfree(mux->ring_entry);
++	mux->ring_entry = NULL;
++	mux->num_ring_entries = 0;
++	mux->ring_entry_size = 0;
++}
++
++int amdgpu_ring_mux_add_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
++{
++	struct amdgpu_mux_entry *e;
++
++	if (mux->num_ring_entries >= mux->ring_entry_size) {
++		DRM_ERROR("add sw ring exceeding max entry size\n");
++		return -ENOENT;
++	}
++
++	e = &mux->ring_entry[mux->num_ring_entries];
++	ring->entry_index = mux->num_ring_entries;
++	e->ring = ring;
++
++	mux->num_ring_entries += 1;
++	return 0;
++}
++
++static inline struct amdgpu_mux_entry *amdgpu_get_sw_entry(struct amdgpu_ring_mux *mux,
++							   struct amdgpu_ring *ring)
++{
++	return ring->entry_index < mux->ring_entry_size ?
++			&mux->ring_entry[ring->entry_index] : NULL;
++}
++
++void amdgpu_ring_set_wptr_to_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring, u64 wptr)
++{
++	struct amdgpu_mux_entry *e;
++
++	e = amdgpu_get_sw_entry(mux, ring);
++	if (!e) {
++		DRM_ERROR("cannot find entry for sw ring\n");
++		return;
++	}
++
++	spin_lock(&mux->lock);
++	e->sw_cptr = e->sw_wptr;
++	e->sw_wptr = wptr;
++	e->start_ptr_in_hw_ring = mux->real_ring->wptr;
++
++	copy_pkt_from_sw_ring(mux, ring, e->sw_cptr, wptr);
++	e->end_ptr_in_hw_ring = mux->real_ring->wptr;
++	amdgpu_ring_commit(mux->real_ring);
++
++	spin_unlock(&mux->lock);
++}
++
++u64 amdgpu_ring_get_wptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
++{
++	struct amdgpu_mux_entry *e;
++
++	e = amdgpu_get_sw_entry(mux, ring);
++	if (!e) {
++		DRM_ERROR("cannot find entry for sw ring\n");
++		return 0;
++	}
++
++	return e->sw_wptr;
++}
++
++/*
++ * The return value of the readptr is not precise while the other rings could
++ * write data onto the real ring buffer.After overwriting on the real ring, we
++ * can not decide if our packages have been excuted or not read yet. However,
++ * this function is only called by the tools such as umr to collect the latest
++ * packages for the hang analysis. We assume the hang happens near our latest
++ * submit. Thus we could use the following logic to give the clue:
++ * If the readptr is between start and end, then we return the copy pointer
++ * plus the distance from start to readptr. If the readptr is before start, we
++ * return the copy pointer. Lastly, if the readptr is past end, we return the
++ * write pointer.
++ */
++u64 amdgpu_ring_get_rptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
++{
++	struct amdgpu_mux_entry *e;
++	u64 readp, offset, start, end;
++
++	e = amdgpu_get_sw_entry(mux, ring);
++	if (!e) {
++		DRM_ERROR("no sw entry found!\n");
++		return 0;
++	}
++
++	readp = amdgpu_ring_get_rptr(mux->real_ring);
++
++	start = e->start_ptr_in_hw_ring & mux->real_ring->buf_mask;
++	end = e->end_ptr_in_hw_ring & mux->real_ring->buf_mask;
++	if (start > end) {
++		if (readp <= end)
++			readp += mux->real_ring->ring_size >> 2;
++		end += mux->real_ring->ring_size >> 2;
++	}
++
++	if (start <= readp && readp <= end) {
++		offset = readp - start;
++		e->sw_rptr = (e->sw_cptr + offset) & ring->buf_mask;
++	} else if (readp < start) {
++		e->sw_rptr = e->sw_cptr;
++	} else {
++		/* end < readptr */
++		e->sw_rptr = e->sw_wptr;
++	}
++
++	return e->sw_rptr;
++}
++
++/* copy packages on sw ring range[begin, end) */
++static void copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
++				  u64 s_start, u64 s_end)
++{
++	u64 start, end;
++	struct amdgpu_ring *real_ring = mux->real_ring;
++
++	start = s_start & ring->buf_mask;
++	end = s_end & ring->buf_mask;
++
++	if (start == end) {
++		DRM_ERROR("no more data copied from sw ring\n");
++		return;
++	}
++	if (start > end) {
++		amdgpu_ring_alloc(real_ring, (ring->ring_size >> 2) + end - start);
++		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[start],
++					   (ring->ring_size >> 2) - start);
++		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[0], end);
++	} else {
++		amdgpu_ring_alloc(real_ring, end - start);
++		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[start], end - start);
++	}
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+new file mode 100644
+index 000000000000..e8ee34e6b9a5
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+@@ -0,0 +1,66 @@
++/*
++ * Copyright 2022 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __AMDGPU_RING_MUX__
++#define __AMDGPU_RING_MUX__
++
++#include <linux/timer.h>
++#include <linux/spinlock.h>
++#include "amdgpu_ring.h"
++
++struct amdgpu_ring;
++/*
++ * start_ptr_in_hw_ring -- last start location copied to in the hardware ring
++ * end_ptr_in_hw_ring -- last end location copied to in the hardware ring
++ * sw_cptr -- the position of the copy pointer in the sw ring
++ * sw_rptr -- the read pointer in software ring
++ * sw_wptr -- the write pointer in software ring
++ */
++struct amdgpu_mux_entry {
++	struct                  amdgpu_ring *ring;
++	u64                     start_ptr_in_hw_ring;
++	u64                     end_ptr_in_hw_ring;
++	u64                     sw_cptr;
++	u64                     sw_rptr;
++	u64                     sw_wptr;
++};
++
++struct amdgpu_ring_mux {
++	struct amdgpu_ring      *real_ring;
++
++	struct amdgpu_mux_entry *ring_entry;
++	unsigned int            num_ring_entries;
++	unsigned int            ring_entry_size;
++	/*the lock for copy data from different software rings*/
++	spinlock_t              lock;
++};
++
++int amdgpu_ring_mux_init(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
++			 unsigned int entry_size);
++void amdgpu_ring_mux_fini(struct amdgpu_ring_mux *mux);
++int amdgpu_ring_mux_add_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
++void amdgpu_ring_set_wptr_to_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring, u64 wptr);
++u64 amdgpu_ring_get_wptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
++u64 amdgpu_ring_get_rptr_from_mux(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
++
++#endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c
+new file mode 100644
+index 000000000000..ec50793aa54d
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.c
+@@ -0,0 +1,60 @@
++/*
++ * Copyright 2022 Advanced Micro Devices, Inc.
++ * All Rights Reserved.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the
++ * "Software"), to deal in the Software without restriction, including
++ * without limitation the rights to use, copy, modify, merge, publish,
++ * distribute, sub license, and/or sell copies of the Software, and to
++ * permit persons to whom the Software is furnished to do so, subject to
++ * the following conditions:
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDERS, AUTHORS AND/OR ITS SUPPLIERS BE LIABLE FOR ANY CLAIM,
++ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
++ * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
++ * USE OR OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * The above copyright notice and this permission notice (including the
++ * next paragraph) shall be included in all copies or substantial portions
++ * of the Software.
++ *
++ */
++
++#include "amdgpu_sw_ring.h"
++#include "amdgpu_ring_mux.h"
++
++u64 amdgpu_sw_ring_get_rptr_gfx(struct amdgpu_ring *ring)
++{
++	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
++
++	WARN_ON(!ring->is_sw_ring);
++	return amdgpu_ring_get_rptr_from_mux(mux, ring);
++}
++
++u64 amdgpu_sw_ring_get_wptr_gfx(struct amdgpu_ring *ring)
++{
++	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
++
++	WARN_ON(!ring->is_sw_ring);
++	return amdgpu_ring_get_wptr_from_mux(mux, ring);
++}
++
++void amdgpu_sw_ring_set_wptr_gfx(struct amdgpu_ring *ring)
++{
++	WARN_ON(!ring->is_sw_ring);
++}
++
++void amdgpu_sw_ring_commit(struct amdgpu_ring *ring)
++{
++	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
++
++	WARN_ON(!ring->is_sw_ring);
++	amdgpu_ring_set_wptr_to_mux(mux, ring, ring->wptr);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h
+new file mode 100644
+index 000000000000..0a2e66318f3f
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sw_ring.h
+@@ -0,0 +1,43 @@
++/*
++ * Copyright 2012 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#include <drm/amdgpu_drm.h>
++#include <drm/gpu_scheduler.h>
++#include <drm/drm_print.h>
++
++#include "amdgpu_irq.h"
++#include "amdgpu_ring.h"
++#include "amdgpu.h"
++
++#ifndef __AMDGPU_SWRING_H__
++#define __AMDGPU_SWRING_H__
++
++u64 amdgpu_sw_ring_get_rptr_gfx(struct amdgpu_ring *ring);
++u64 amdgpu_sw_ring_get_wptr_gfx(struct amdgpu_ring *ring);
++void amdgpu_sw_ring_set_wptr_gfx(struct amdgpu_ring *ring);
++void amdgpu_sw_ring_commit(struct amdgpu_ring *ring);
++
++void amdgpu_sw_ring_ib_begin(struct amdgpu_ring *ring);
++void amdgpu_sw_ring_ib_end(struct amdgpu_ring *ring);
++
++#endif
+-- 
+2.25.1
 
-You can search the priority queue as I've shown above, and you can still
-reorder by last-ready, but I contend that you shouldn't have to modify timestamps,
-or reorder/reinsert at all, and do any of this.
-
-First, in-order walk is O(N) which is much faster than O(N*lnN) for N > 2,
-which means that you'll find the first ready entity much quicker using what I've shown
-above.
-
-Second, suppose that on a first iteration you did find a younger entity which is ready
-skipping some old ones which are not yet ready for whatever reason. Then you did mess with
-the timestamp of this younger entity making it oldest, the order, and you reinserted it to
-the front of the queue. (This can be achieved by modifying only that element's timestamp,
-not all.) Now suppose that an older entity, which had been waiting a long time became
-ready--you'd miss that because in the FIFO, the younger entity has had its timestamp modified
-and it was reinserted before that older entity, and if that younger entity is ready consistently,
-then the older entity would be starved. In other words, you shouldn't reorder by ready-first,
-timestamp-second, order. This defeats the purpose of the FIFO effort to avoid starvation of
-older entities which became ready in the interim.
-
-The correct way to address this is to use in-order walk, as I've shown above, in O(N)
-time, and pick the first entity which is ready--which would be the oldest ready entity.
-
-This way you really give priority to oldest entities which are also ready.
-
-Meaning that you really want to preserve the real-time order in which they were submitted,
-not the order in which they had been/became ready.
-
-All you want to find is the oldest entity which is also ready, in the fastest way possible.
-
-Regards,
-Luben
-
-
-> 
-> Andrey
-> 
-> 
->>
->>> +			entity =  rb_entry((rb), struct drm_sched_entity, rb_tree_node);
->> Extra space after = and before rb_entry().
->>
->>> +
->>> +			/* We completed full cycle */
->>> +			if (!drm_sched_entity_is_ready(entity) && entity == first) {
->>> +				entity = NULL;
->>> +				break;
->>> +			}
->>> +		}
->>> +out:
->>> +		spin_unlock(&rq->lock);
->>> +		return entity;
->>> +}
->>> +
->>>   /**
->>>    * drm_sched_job_done - complete a job
->>>    * @s_job: pointer to the job which is done
->>> @@ -803,7 +927,9 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sched)
->>>   
->>>   	/* Kernel run queue has higher priority than normal run queue*/
->>>   	for (i = DRM_SCHED_PRIORITY_COUNT - 1; i >= DRM_SCHED_PRIORITY_MIN; i--) {
->>> -		entity = drm_sched_rq_select_entity(&sched->sched_rq[i]);
->>> +		entity = drm_sched_policy != DRM_SCHED_POLICY_FIFO ?
->>> +				drm_sched_rq_select_entity_rr(&sched->sched_rq[i]) :
->>> +				drm_sched_rq_select_entity_fifo(&sched->sched_rq[i]);
->>>   		if (entity)
->>>   			break;
->>>   	}
->>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
->>> index 599855c6a672..e3fdfb757d61 100644
->>> --- a/include/drm/gpu_scheduler.h
->>> +++ b/include/drm/gpu_scheduler.h
->>> @@ -50,6 +50,13 @@ enum drm_sched_priority {
->>>   	DRM_SCHED_PRIORITY_UNSET = -2
->>>   };
->>>   
->>> +/* Used to chose between FIFO and RR jobs scheduling */
->>> +extern int drm_sched_policy;
->>> +
->>> +
->>> +#define DRM_SCHED_POLICY_RR    0
->>> +#define DRM_SCHED_POLICY_FIFO  1
->>> +
->>>   /**
->>>    * struct drm_sched_entity - A wrapper around a job queue (typically
->>>    * attached to the DRM file_priv).
->>> @@ -196,6 +203,21 @@ struct drm_sched_entity {
->>>   	 * drm_sched_entity_fini().
->>>   	 */
->>>   	struct completion		entity_idle;
->>> +
->>> +	/**
->>> +	 * @oldest_job_waiting:
->>> +	 *
->>> +	 * Marks earliest job waiting in SW queue
->>> +	 */
->>> +	ktime_t				oldest_job_waiting;
->>> +
->>> +	/**
->>> +	 * @rb_tree_node:
->>> +	 *
->>> +	 * The node used to insert this entity into time based priority queue
->>> +	 */
->>> +	struct rb_node			rb_tree_node;
->> I'd probably call it "rb_node", shorter--it's up to you.
->>
->>> +
->>>   };
->>>   
->>>   /**
->>> @@ -205,6 +227,7 @@ struct drm_sched_entity {
->>>    * @sched: the scheduler to which this rq belongs to.
->>>    * @entities: list of the entities to be scheduled.
->>>    * @current_entity: the entity which is to be scheduled.
->>> + * @rb_tree_root: root of time based priory queue of entities for FIFO scheduling
->>>    *
->>>    * Run queue is a set of entities scheduling command submissions for
->>>    * one specific ring. It implements the scheduling policy that selects
->>> @@ -215,6 +238,7 @@ struct drm_sched_rq {
->>>   	struct drm_gpu_scheduler	*sched;
->>>   	struct list_head		entities;
->>>   	struct drm_sched_entity		*current_entity;
->>> +	struct rb_root_cached		rb_tree_root;
->> I'd probably just call it "rb_tree", shorter--it's up to you.
->>
->> Regards,
->> Luben
->>
->>>   };
->>>   
->>>   /**
->>> @@ -314,6 +338,14 @@ struct drm_sched_job {
->>>   
->>>   	/** @last_dependency: tracks @dependencies as they signal */
->>>   	unsigned long			last_dependency;
->>> +
->>> +
->>> +	/**
->>> +	 * @submit_ts:
->>> +	 *
->>> +	 * When the job was pushed into the entity queue.
->>> +	 */
->>> +	ktime_t                         submit_ts;
->>>   };
->>>   
->>>   static inline bool drm_sched_invalidate_job(struct drm_sched_job *s_job,
->>> @@ -503,6 +535,9 @@ void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
->>>   void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
->>>   				struct drm_sched_entity *entity);
->>>   
->>> +void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts);
->>> +
->>> +
->>>   int drm_sched_entity_init(struct drm_sched_entity *entity,
->>>   			  enum drm_sched_priority priority,
->>>   			  struct drm_gpu_scheduler **sched_list,
