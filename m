@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E617CC6FA90
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 15:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46F59C6FA8E
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 15:54:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D644310E9B1;
-	Wed, 21 Sep 2022 15:54:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1AA310E9C3;
+	Wed, 21 Sep 2022 15:54:32 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE2F410E9A8;
- Wed, 21 Sep 2022 15:54:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF5DA10E9B3;
+ Wed, 21 Sep 2022 15:54:20 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 25B3063175;
- Wed, 21 Sep 2022 15:54:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3759FC433D6;
- Wed, 21 Sep 2022 15:54:00 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 47DB36317C;
+ Wed, 21 Sep 2022 15:54:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60919C433C1;
+ Wed, 21 Sep 2022 15:54:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663775640;
- bh=oYdRjpsQ0y7Yda6NsSDe3hEm5WkcByYSTqzOz7KnoXE=;
+ s=k20201202; t=1663775659;
+ bh=Xd9c0X3QS3568Rh+Yj1HbEuidc7xksczan6ogDvhjVY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MLuya6kjwfrbaktPFi50jgBbbqPqxZEE2inRLm9YEctAFOuzP2V5ZEFTv0dsZeihA
- /zqqwOpSXMtD0l1hkvDX5kjrSuyXaHpeLsDGKHzQ/lv/msoHfQ5ZXgEYxY3ItwSp9b
- e7yDuJMBOFJeLrOXNJ9HJPADjXUQOgdNOuBEYac+8Aj+stHY03ESlS91Q07lQmxVE/
- kDv8WlsNcnVWoiXnLSG/MD9ZxN5ErvuCNfit/qw1yqxJPhSk+CpOx1TzFhTXpE4DFO
- RJ7k395mXjK/S+8Ut84EPXOUc/Acgn3YurRQo7TOqWA4ug6SSbRLxHik5wdl1yPEjq
- w4sQWkBJl9R8g==
+ b=nb0PKkNqyGVZRxBi+q1BPTiqxBM5ac1yg2YgQBDCV/rTNeRYeCeYFAentrBv7h79I
+ BsDGc7oOT3RJbTzKUh5IcIV/dHkOfioyfSL5m5dhUaJIWG8hRq67Fi07Xwkf0M+EFF
+ 7GdSsGkE3rUOjT7ZuKvgO0kpMYdIe+VUVIuU0GKndZ6e6nJQsqWjcxiHTFy3z3xgzj
+ LO1n6gls73oB4UNCGhvewiNto1YIK3crw0mxZuiTFxLr1E5plhkY+eqpRjVW9WBYho
+ KyTfhx/cUpxM72IK5+e/D6Yfb3AJP+odE993fuv1EeO873TnTgqGyIuQzs48oR8NIB
+ 33uctQ46gutNg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 12/16] drm/amd/display: Reduce number of
+Subject: [PATCH AUTOSEL 5.15 07/10] drm/amd/display: Reduce number of
  arguments of dml31's CalculateWatermarksAndDRAMSpeedChangeSupport()
-Date: Wed, 21 Sep 2022 11:53:28 -0400
-Message-Id: <20220921155332.234913-12-sashal@kernel.org>
+Date: Wed, 21 Sep 2022 11:54:04 -0400
+Message-Id: <20220921155407.235132-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220921155332.234913-1-sashal@kernel.org>
-References: <20220921155332.234913-1-sashal@kernel.org>
+In-Reply-To: <20220921155407.235132-1-sashal@kernel.org>
+References: <20220921155407.235132-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
@@ -59,9 +59,9 @@ Cc: airlied@linux.ie, llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
  =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>, mdaenzer@redhat.com,
  Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- aurabindo.pillai@amd.com, Bing.Guo@amd.com, chaitanya.dhere@amd.com,
  harry.wentland@amd.com, sunpeng.li@amd.com,
- Nathan Chancellor <nathan@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>, agustin.gutierrez@amd.com,
+ Wesley.Chalmers@amd.com,
  "Sudip Mukherjee \(Codethink\)" <sudipm.mukherjee@gmail.com>,
  Xinhui.Pan@amd.com, ndesaulniers@google.com, nicholas.kazlauskas@amd.com,
  Dmytro.Laktyushkin@amd.com, daniel@ffwll.ch,
@@ -97,10 +97,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 52 insertions(+), 196 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-index e4b9fd31223c..586825d85d66 100644
+index d58925cff420..a6ce22d23b26 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-@@ -321,64 +321,28 @@ static void CalculateVupdateAndDynamicMetadataParameters(
+@@ -319,64 +319,28 @@ static void CalculateVupdateAndDynamicMetadataParameters(
  static void CalculateWatermarksAndDRAMSpeedChangeSupport(
  		struct display_mode_lib *mode_lib,
  		unsigned int PrefetchMode,
@@ -166,7 +166,7 @@ index e4b9fd31223c..586825d85d66 100644
  
  static void CalculateDCFCLKDeepSleep(
  		struct display_mode_lib *mode_lib,
-@@ -3027,64 +2991,28 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+@@ -3072,64 +3036,28 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
  		CalculateWatermarksAndDRAMSpeedChangeSupport(
  				mode_lib,
  				PrefetchMode,
@@ -232,7 +232,7 @@ index e4b9fd31223c..586825d85d66 100644
  
  		for (k = 0; k < v->NumberOfActivePlanes; ++k) {
  			if (v->WritebackEnable[k] == true) {
-@@ -5481,64 +5409,28 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+@@ -5561,64 +5489,28 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
  			CalculateWatermarksAndDRAMSpeedChangeSupport(
  					mode_lib,
  					v->PrefetchModePerState[i][j],
@@ -298,7 +298,7 @@ index e4b9fd31223c..586825d85d66 100644
  		}
  	}
  
-@@ -5663,64 +5555,28 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+@@ -5743,64 +5635,28 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
  static void CalculateWatermarksAndDRAMSpeedChangeSupport(
  		struct display_mode_lib *mode_lib,
  		unsigned int PrefetchMode,
@@ -364,7 +364,7 @@ index e4b9fd31223c..586825d85d66 100644
  {
  	struct vba_vars_st *v = &mode_lib->vba;
  	double EffectiveLBLatencyHidingY;
-@@ -5740,103 +5596,103 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+@@ -5820,103 +5676,103 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
  	double TotalPixelBW = 0.0;
  	int k, j;
  
@@ -502,7 +502,7 @@ index e4b9fd31223c..586825d85d66 100644
  				WritebackDRAMClockChangeLatencyHiding = WritebackDRAMClockChangeLatencyHiding / 2;
  			}
  			WritebackDRAMClockChangeLatencyMargin = WritebackDRAMClockChangeLatencyHiding - v->WritebackDRAMClockChangeWatermark;
-@@ -5846,14 +5702,14 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+@@ -5926,14 +5782,14 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
  
  	v->MinActiveDRAMClockChangeMargin = 999999;
  	PlaneWithMinActiveDRAMClockChangeMargin = 0;
@@ -521,7 +521,7 @@ index e4b9fd31223c..586825d85d66 100644
  						PlaneWithMinActiveDRAMClockChangeMargin = j;
  					}
  				}
-@@ -5861,11 +5717,11 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+@@ -5941,11 +5797,11 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
  		}
  	}
  
@@ -536,7 +536,7 @@ index e4b9fd31223c..586825d85d66 100644
  				&& v->ActiveDRAMClockChangeLatencyMargin[k] < SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank) {
  			SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank = v->ActiveDRAMClockChangeLatencyMargin[k];
  		}
-@@ -5873,25 +5729,25 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+@@ -5953,25 +5809,25 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
  
  	v->TotalNumberOfActiveOTG = 0;
  
