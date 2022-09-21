@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DACC8C6FA82
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 15:55:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6CCFC6FA8B
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 15:55:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCB1510E9C5;
-	Wed, 21 Sep 2022 15:54:38 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B140F10E9AF;
- Wed, 21 Sep 2022 15:54:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71CFA10E9C6;
+	Wed, 21 Sep 2022 15:54:40 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A162F10E9C7;
+ Wed, 21 Sep 2022 15:54:33 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3876B6317A;
- Wed, 21 Sep 2022 15:54:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3BB1C433D7;
- Wed, 21 Sep 2022 15:54:16 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 38D08B830E0;
+ Wed, 21 Sep 2022 15:54:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C384CC43140;
+ Wed, 21 Sep 2022 15:54:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663775657;
- bh=50kLM76nyyhdmXbushh3HRygRTZC0Oc3WRLlXQ6F6Dg=;
+ s=k20201202; t=1663775671;
+ bh=POJEUFJAQlTYEqRSQtclK/yO1+QTIhU/Zksam7jq3oI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WK58r9DbxBDQbbIgeXghOwl/2i+R5sGPVeEU8QCsbOJV5NEmWcxUTdK9h8Pt86l9F
- UjAZpKulTHAU3v6NHDooRkl4/aZVuUAQ5HhwWPFQ1ufD1S7x7Q88JP+u8Sc1gxpxM5
- BNp2655fMcaxvgkFErPQ015uhNu/qgRaxJBXDcSkFC14L+UVnKGhcwZwDOnUasHA+P
- VW9Ov43WW3U9b5TAsegwrPTWKRg6mPRp2N1728238PK6G6/kQl9eXZpSgjRrUduEtj
- qh9CivhFgmcQ+8RmKSsrLTLsYYgO4jM2HrtChcU/TA5hOHWo5KEkzjhD1RP21WQ7hM
- ofCZfJlBSHHUw==
+ b=dyulTt0apX0lk4G+npLQXy3Mm3B6fyjDlcVpZWHsBPnuG9yvoRQXi8K2soS6rBzkq
+ Gr8yB2Ga2nZ/7hKUS27j6AT6aUTGvXucEMlBOjU+3qEptkMdk6Qa9RmjYQu3LxU1R/
+ LMqOhU76UeHuZFZtBb9fNPkqQfxNhd1/M35huBZbVw+ZHJP/NpdCkBDrR3E/UKn8yk
+ wsJe47c4C5IGLMWK+W+1uCMTAvzYYj3tmw0doN4c2TN+2TCEBvXJqtDT41TLkJKCt0
+ uif1dPfKypw3P0WezzDg9wlWUtuc2hURSgeQZew3NWOOQE+Q+/ja9+KNmdsO6Jd+82
+ XgWolMeu6bV+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 06/10] drm/amd/display: Limit user regamma to a
- valid value
-Date: Wed, 21 Sep 2022 11:54:03 -0400
-Message-Id: <20220921155407.235132-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 4/7] drm/amdgpu: use dirty framebuffer helper
+Date: Wed, 21 Sep 2022 11:54:22 -0400
+Message-Id: <20220921155425.235273-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220921155407.235132-1-sashal@kernel.org>
-References: <20220921155407.235132-1-sashal@kernel.org>
+In-Reply-To: <20220921155425.235273-1-sashal@kernel.org>
+References: <20220921155425.235273-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -54,64 +53,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, HaoPing.Liu@amd.com,
- Aric Cyr <Aric.Cyr@amd.com>, Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
- sunpeng.li@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, airlied@linux.ie,
- Daniel Wheeler <daniel.wheeler@amd.com>, Yao Wang1 <Yao.Wang1@amd.com>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
- christian.koenig@amd.com, Pavle Kotarac <Pavle.Kotarac@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, guchun.chen@amd.com, airlied@linux.ie,
+ contact@emersion.fr, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com, seanpaul@chromium.org,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com,
+ christian.koenig@amd.com, greenfoo@u92.eu
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yao Wang1 <Yao.Wang1@amd.com>
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 
-[ Upstream commit 3601d620f22e37740cf73f8278eabf9f2aa19eb7 ]
+[ Upstream commit 66f99628eb24409cb8feb5061f78283c8b65f820 ]
 
-[Why]
-For HDR mode, we get total 512 tf_point and after switching to SDR mode
-we actually get 400 tf_point and the rest of points(401~512) still use
-dirty value from HDR mode. We should limit the rest of the points to max
-value.
+Currently, we aren't handling DRM_IOCTL_MODE_DIRTYFB. So, use
+drm_atomic_helper_dirtyfb() as the dirty callback in the amdgpu_fb_funcs
+struct.
 
-[How]
-Limit the value when coordinates_x.x > 1, just like what we do in
-translate_from_linear_space for other re-gamma build paths.
-
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Krunoslav Kovac <Krunoslav.Kovac@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
-Acked-by: Pavle Kotarac <Pavle.Kotarac@amd.com>
-Signed-off-by: Yao Wang1 <Yao.Wang1@amd.com>
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-index ef742d95ef05..c707c9bfed43 100644
---- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-+++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-@@ -1597,6 +1597,7 @@ static void interpolate_user_regamma(uint32_t hw_points_num,
- 	struct fixed31_32 lut2;
- 	struct fixed31_32 delta_lut;
- 	struct fixed31_32 delta_index;
-+	const struct fixed31_32 one = dc_fixpt_from_int(1);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 7cc7af2a6822..947f50e402ba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -35,6 +35,7 @@
+ #include <linux/pci.h>
+ #include <linux/pm_runtime.h>
+ #include <drm/drm_crtc_helper.h>
++#include <drm/drm_damage_helper.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_fb_helper.h>
+@@ -498,6 +499,7 @@ bool amdgpu_display_ddc_probe(struct amdgpu_connector *amdgpu_connector,
+ static const struct drm_framebuffer_funcs amdgpu_fb_funcs = {
+ 	.destroy = drm_gem_fb_destroy,
+ 	.create_handle = drm_gem_fb_create_handle,
++	.dirty = drm_atomic_helper_dirtyfb,
+ };
  
- 	i = 0;
- 	/* fixed_pt library has problems handling too small values */
-@@ -1625,6 +1626,9 @@ static void interpolate_user_regamma(uint32_t hw_points_num,
- 			} else
- 				hw_x = coordinates_x[i].x;
- 
-+			if (dc_fixpt_le(one, hw_x))
-+				hw_x = one;
-+
- 			norm_x = dc_fixpt_mul(norm_factor, hw_x);
- 			index = dc_fixpt_floor(norm_x);
- 			if (index < 0 || index > 255)
+ uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
 -- 
 2.35.1
 
