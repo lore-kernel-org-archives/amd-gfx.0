@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B962FECAAD8
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 15:55:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AD51C6FA82
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 15:55:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1961310E9C2;
-	Wed, 21 Sep 2022 15:54:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A309C10E9DC;
+	Wed, 21 Sep 2022 15:54:58 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E0E210E9B9;
- Wed, 21 Sep 2022 15:54:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9C8F10E9C8;
+ Wed, 21 Sep 2022 15:54:44 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AD0DAB830E0;
- Wed, 21 Sep 2022 15:54:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 460D6C433D6;
- Wed, 21 Sep 2022 15:54:33 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 95474B830F1;
+ Wed, 21 Sep 2022 15:54:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060A9C433C1;
+ Wed, 21 Sep 2022 15:54:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663775673;
- bh=0BEwOcdvfMkUKYaNeHKKXFlAaEzB4sCcBK6PLkpw9YY=;
+ s=k20201202; t=1663775683;
+ bh=7QRXjBtBQvWq/NN8AqiQeXCPBs/BFJQC/y6ZQ+q0Yeg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qJhwh6m8n0TtTyWcvvdIVqcbYV8nHThtHjwvRLr12KM/GZhwzOeZijNZeRbhSic9Y
- 6OyGu5/G4GSygaDnIO8wSo3tiYrVLBvX4QDN/sgWqneipWs80rr5Cx0ltUnNPIbzNa
- ADOuW06a5RJwxEbYR6kI1WnyukY/OOylvVamAy5XAIctCSVVf4JptH6LD1OXh3dEwB
- 0LFX8lcm/liVJgjtvrrFq1AV+IXteMEiKRE95ntIHO7cjB7Z/dmweeezVTdFSAGpSo
- 64AADkqiNpMu7sxFfzzP54NSlv0sOXv+E6dJtNfIgTfljki/SeGlnKb9fcueZhKNOg
- Zwsv5UDExqlqA==
+ b=cRN9VUzFBOil+SqqvaIXW3C03JZtisa5Ybq+BwKTfbndH6uezwaHr7aKIq9sA1/o+
+ L/sSWqkcXt2m8lZZ8pVTsFl4ZmGEtpj4/k6rDPZztq8o9iKrey9Zu7HHUBYiE2jcjm
+ HrtXyHhfS68gqpB5cACIa7AYzQtj6JAuBSlEMvbrkZhz9/TnoKt3EsG23FMDUjiZ+B
+ Fjbt70vMNN+PNiU6iA5qBlAWeDVwr70mLcjJIvEkgbgRhCetmKrpxzeGJVA8RCEHI0
+ XI/wix3FH2KsKdBMYiVPMGBggDH7i29U80udmhCwsnk+jNy8myEiy0cLkFlosp8YY7
+ Z9U5x3gi2BuTQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 5/7] drm/amd/display: Limit user regamma to a
+Subject: [PATCH AUTOSEL 5.4 4/5] drm/amd/display: Limit user regamma to a
  valid value
-Date: Wed, 21 Sep 2022 11:54:23 -0400
-Message-Id: <20220921155425.235273-5-sashal@kernel.org>
+Date: Wed, 21 Sep 2022 11:54:35 -0400
+Message-Id: <20220921155436.235371-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220921155425.235273-1-sashal@kernel.org>
-References: <20220921155425.235273-1-sashal@kernel.org>
+In-Reply-To: <20220921155436.235371-1-sashal@kernel.org>
+References: <20220921155436.235371-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -55,14 +55,14 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Aric Cyr <Aric.Cyr@amd.com>,
- Krunoslav Kovac <Krunoslav.Kovac@amd.com>, sunpeng.li@amd.com,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
- airlied@linux.ie, Daniel Wheeler <daniel.wheeler@amd.com>,
- Yao Wang1 <Yao.Wang1@amd.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- harry.wentland@amd.com, christian.koenig@amd.com,
- Pavle Kotarac <Pavle.Kotarac@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, HaoPing.Liu@amd.com,
+ Aric Cyr <Aric.Cyr@amd.com>, Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
+ sunpeng.li@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, airlied@linux.ie,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Yao Wang1 <Yao.Wang1@amd.com>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
+ christian.koenig@amd.com, Pavle Kotarac <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
@@ -92,10 +92,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-index 09bc2c249e1a..3c4390d71a82 100644
+index e042d8ce05b4..22d105635e33 100644
 --- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
 +++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-@@ -1524,6 +1524,7 @@ static void interpolate_user_regamma(uint32_t hw_points_num,
+@@ -1486,6 +1486,7 @@ static void interpolate_user_regamma(uint32_t hw_points_num,
  	struct fixed31_32 lut2;
  	struct fixed31_32 delta_lut;
  	struct fixed31_32 delta_index;
@@ -103,7 +103,7 @@ index 09bc2c249e1a..3c4390d71a82 100644
  
  	i = 0;
  	/* fixed_pt library has problems handling too small values */
-@@ -1552,6 +1553,9 @@ static void interpolate_user_regamma(uint32_t hw_points_num,
+@@ -1514,6 +1515,9 @@ static void interpolate_user_regamma(uint32_t hw_points_num,
  			} else
  				hw_x = coordinates_x[i].x;
  
