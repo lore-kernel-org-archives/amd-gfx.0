@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04785C6FA91
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 15:54:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DACC8C6FA82
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 15:55:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00B0D10E9CA;
-	Wed, 21 Sep 2022 15:54:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCB1510E9C5;
+	Wed, 21 Sep 2022 15:54:38 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAC9910E9BE;
- Wed, 21 Sep 2022 15:54:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B140F10E9AF;
+ Wed, 21 Sep 2022 15:54:17 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6C0306317E;
- Wed, 21 Sep 2022 15:54:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A78AC43140;
- Wed, 21 Sep 2022 15:54:24 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3876B6317A;
+ Wed, 21 Sep 2022 15:54:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3BB1C433D7;
+ Wed, 21 Sep 2022 15:54:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663775664;
- bh=9DEejuMfkrhuIDbcoEKbjnyHibaoLFWXahlnTgslgB0=;
+ s=k20201202; t=1663775657;
+ bh=50kLM76nyyhdmXbushh3HRygRTZC0Oc3WRLlXQ6F6Dg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JcmnDCtHF7Ha72KDhAaBQOJZ3DkZwcgqcIyw93vgP1dYZ50uZRBgWcH73s8bvnlpD
- sP5cXiZ1qAiykse5EYDqihkttyM4m5Tu0zgOvVQZYMsdluh+HPnNeaoCiXbIOu1Mod
- mffZqb7XhqGqiNGZ+YY582lOqJnc9o3PTzLLiBqKQFCOej/dEvloAogbXHJm+hi/bJ
- 1zBIhT2ol62b9KWcEpj7L22OCidhDbVSJdT+TrAs+wxn84id8pgL/wZ2qSeWsDIIw0
- 158PWRMAbsEqIQyBKI45iziKGfiFue6z3niYG/4oysVF3AScIGbGcO7C8v7PejF/uY
- X9MJXE9gBFJUw==
+ b=WK58r9DbxBDQbbIgeXghOwl/2i+R5sGPVeEU8QCsbOJV5NEmWcxUTdK9h8Pt86l9F
+ UjAZpKulTHAU3v6NHDooRkl4/aZVuUAQ5HhwWPFQ1ufD1S7x7Q88JP+u8Sc1gxpxM5
+ BNp2655fMcaxvgkFErPQ015uhNu/qgRaxJBXDcSkFC14L+UVnKGhcwZwDOnUasHA+P
+ VW9Ov43WW3U9b5TAsegwrPTWKRg6mPRp2N1728238PK6G6/kQl9eXZpSgjRrUduEtj
+ qh9CivhFgmcQ+8RmKSsrLTLsYYgO4jM2HrtChcU/TA5hOHWo5KEkzjhD1RP21WQ7hM
+ ofCZfJlBSHHUw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 09/10] drm/amd/display: Mark dml30's
- UseMinimumDCFCLK() as noinline for stack usage
-Date: Wed, 21 Sep 2022 11:54:06 -0400
-Message-Id: <20220921155407.235132-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 06/10] drm/amd/display: Limit user regamma to a
+ valid value
+Date: Wed, 21 Sep 2022 11:54:03 -0400
+Message-Id: <20220921155407.235132-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220921155407.235132-1-sashal@kernel.org>
 References: <20220921155407.235132-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -55,69 +54,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, llvm@lists.linux.dev, chris.park@amd.com,
- sunpeng.li@amd.com, ndesaulniers@google.com, airlied@linux.ie,
- Xinhui.Pan@amd.com, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- Nathan Chancellor <nathan@kernel.org>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>,
- aurabindo.pillai@amd.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Bing.Guo@amd.com, Alex Deucher <alexander.deucher@amd.com>,
- harry.wentland@amd.com,
- "Sudip Mukherjee \(Codethink\)" <sudipm.mukherjee@gmail.com>
+Cc: Sasha Levin <sashal@kernel.org>, HaoPing.Liu@amd.com,
+ Aric Cyr <Aric.Cyr@amd.com>, Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
+ sunpeng.li@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, airlied@linux.ie,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Yao Wang1 <Yao.Wang1@amd.com>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
+ christian.koenig@amd.com, Pavle Kotarac <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nathan Chancellor <nathan@kernel.org>
+From: Yao Wang1 <Yao.Wang1@amd.com>
 
-[ Upstream commit 41012d715d5d7b9751ae84b8fb255e404ac9c5d0 ]
+[ Upstream commit 3601d620f22e37740cf73f8278eabf9f2aa19eb7 ]
 
-This function consumes a lot of stack space and it blows up the size of
-dml30_ModeSupportAndSystemConfigurationFull() with clang:
+[Why]
+For HDR mode, we get total 512 tf_point and after switching to SDR mode
+we actually get 400 tf_point and the rest of points(401~512) still use
+dirty value from HDR mode. We should limit the rest of the points to max
+value.
 
-  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/display_mode_vba_30.c:3542:6: error: stack frame size (2200) exceeds limit (2048) in 'dml30_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
-  void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
-       ^
-  1 error generated.
+[How]
+Limit the value when coordinates_x.x > 1, just like what we do in
+translate_from_linear_space for other re-gamma build paths.
 
-Commit a0f7e7f759cf ("drm/amd/display: fix i386 frame size warning")
-aimed to address this for i386 but it did not help x86_64.
-
-To reduce the amount of stack space that
-dml30_ModeSupportAndSystemConfigurationFull() uses, mark
-UseMinimumDCFCLK() as noinline, using the _for_stack variant for
-documentation. While this will increase the total amount of stack usage
-between the two functions (1632 and 1304 bytes respectively), it will
-make sure both stay below the limit of 2048 bytes for these files. The
-aforementioned change does help reduce UseMinimumDCFCLK()'s stack usage
-so it should not be reverted in favor of this change.
-
-Link: https://github.com/ClangBuiltLinux/linux/issues/1681
-Reported-by: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
-Tested-by: Maíra Canal <mairacanal@riseup.net>
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Krunoslav Kovac <Krunoslav.Kovac@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Acked-by: Pavle Kotarac <Pavle.Kotarac@amd.com>
+Signed-off-by: Yao Wang1 <Yao.Wang1@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-index e3d9f1decdfc..518672a2450f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-@@ -6658,8 +6658,7 @@ static double CalculateUrgentLatency(
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+index ef742d95ef05..c707c9bfed43 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+@@ -1597,6 +1597,7 @@ static void interpolate_user_regamma(uint32_t hw_points_num,
+ 	struct fixed31_32 lut2;
+ 	struct fixed31_32 delta_lut;
+ 	struct fixed31_32 delta_index;
++	const struct fixed31_32 one = dc_fixpt_from_int(1);
  
--
--static void UseMinimumDCFCLK(
-+static noinline_for_stack void UseMinimumDCFCLK(
- 		struct display_mode_lib *mode_lib,
- 		int MaxInterDCNTileRepeaters,
- 		int MaxPrefetchMode,
+ 	i = 0;
+ 	/* fixed_pt library has problems handling too small values */
+@@ -1625,6 +1626,9 @@ static void interpolate_user_regamma(uint32_t hw_points_num,
+ 			} else
+ 				hw_x = coordinates_x[i].x;
+ 
++			if (dc_fixpt_le(one, hw_x))
++				hw_x = one;
++
+ 			norm_x = dc_fixpt_mul(norm_factor, hw_x);
+ 			index = dc_fixpt_floor(norm_x);
+ 			if (index < 0 || index > 255)
 -- 
 2.35.1
 
