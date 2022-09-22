@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD434C32771
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 00:19:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03492ECAAD8
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 00:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C383E10EA03;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9997D10E9FF;
 	Thu, 22 Sep 2022 00:19:38 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2049.outbound.protection.outlook.com [40.107.223.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9523910E9FB
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 00:19:32 +0000 (UTC)
+ (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AED5410E9FA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 00:19:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q0agUuu//Us8Yn5zfTL8NrzJG+KEeiuEWFUr1Vqz6tq8vVZPo34+lc0Fe9W9PC5Qqxk8EhoT/uYkSmNSVOEdRrIreCDVIn1TfEuUA9TK7W5GsmpW6mkPHA329Ghu60hn6kh5BdxUCtujOFQE1a6Rt90jrYN3t3hwsqWNu0s2znYfyVK1zParUvGeb3QT/fqD24xpmFCIK3ioh40Wi8A4AhmmcLK/o6Uf/pJVd1pbUmnh4TF6trPlvnTEwsRAIHsqJopIlDRmZf0DK1VYnTZz3ViPRsPNgzatQdJLISMoTAsPXi4uYZ3QXv2l/IQY1icsZqnK/keP2+cGVfm/oQcaTw==
+ b=cQZEYKwgBW6x8N5lkohgRHvm3fBA3Em3a8of+64S3q2YeJpp8Gj2jVdl3DEq0AtFXSrnYah8uv/QCp2RPnkHJZmA1z80sPrB68pIpk3GcGAF6+Ff7W8xVdFsE/5lB3IYHM6AkCpon23/Tl+Xs/XmljcC9B3KTEUT076N+rzJUYPh9ojTOBV7cZmJKxEvBSd+j2ybJUGtDwltE1coSKCNnTbmRgrmDBPpMD/5X3Px1LZXUD4RZizVI9vwqZEVqNgG8KF8f4LJ572lT3yvhFDTvs0sjz35Shf3R/dNn8M0UHERJGpdrJgEnWGiwLimOUSqa33RBS2dkMyeTIt7/8Unmw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=74+avp5PyU5mbvKLSZZkr22pxWAd83G1oKWP1eVvoec=;
- b=GlM9yFDLJTfGANxSSdEDmbuVQveLbgmFn5MykOO3KfhXqiLRPTzl9QeLxf3/Ftk1XQ6nxdt7YC2ZDZkZ6KM24d6CjcMuM9FqgiA7+aAdjUYyPxqdQ/PLf3d8gqIGfaRV6BbLzAkTdrGe1wLC9LLCvzFCgdqQmhn+VMUmESOdCEavMBqiYoVfvy+Oy4zn86gLy6PhckNUR6bUVJ3/4Jximp9slkvP4oZbOYrTKzWEPbXnkThOODVYa106lp2wxzyuEnhZQ3leFz1AwkHvOotMljqq1S+efEg9npcGKgDCU/5a/9tfIX8kBgXbnSw1jUPRiI+dvMn1fgrMod3KEcburQ==
+ bh=usx0QtUuoxAk92fXbltzOCM81TmP1JzScGy5tKZha/w=;
+ b=B6J3d5XOF5kvKespxZCJY+MEpjyPFY1W/UM/meAXW6F0vqQHFmmIRzXCp5RJHo0uK4fkSheWX9GXhZTSGt30C3io4fsST4fmZIKFYKqKfVPlIbQDoahySgO8x/ufWUMmh1XtaK/bY1Xc2Nr2dAJFVMS9/LXX1eJyNr8b1OY/xCm9mxNm3neSc69VDKrRztGJtsAWixlU4xS7UKn9PjWOHe193Zyw8LqJFxC3nDENtTWP7QC1JbaS/0DZVBC7oodAOY/Z3RX3aJopFWbL9LZ6puICRBeVzs+GvjNNEuVvkHOl4Eqb16pxSOp1KL8TwaY7KIV2xyW/4J2vxM6Wgt3ZXA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=74+avp5PyU5mbvKLSZZkr22pxWAd83G1oKWP1eVvoec=;
- b=1mygLOSvNGbrNtANGIX0X2Klq9xILZ/IE2bw8Ee0BFyGFsKb2C8E3EuBEYaow1UYzg4JrO/HRPeSQA0P4hjkhgBezuF3UwiQ/yqvWHIp2cIhTIrO9eGGzbZ6GpngIHWF8Oo5t9pwEimO1o7ycT3DC282egVSI/ndXHe/rqp22Eo=
-Received: from BN0PR07CA0025.namprd07.prod.outlook.com (2603:10b6:408:141::28)
- by SA1PR12MB5638.namprd12.prod.outlook.com (2603:10b6:806:229::14)
+ bh=usx0QtUuoxAk92fXbltzOCM81TmP1JzScGy5tKZha/w=;
+ b=ePePXpXKPYti+CHaYX9ss4vj7Y8/MnDNSmEFFpu9Kk1cOVGu4Fr93xRl+uvZkaDLzlXy0+0euh9zqXyESUFq8CwL7GIUWmtt1CTpM4Hb93Rsqad32M8YoF5+k0/SId5PhiEOtWsclk6LFd8Qm4Fw/Fc9JNFg1P2EOqrB/f6xS8U=
+Received: from BN9PR03CA0890.namprd03.prod.outlook.com (2603:10b6:408:13c::25)
+ by BY5PR12MB4163.namprd12.prod.outlook.com (2603:10b6:a03:202::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.14; Thu, 22 Sep
- 2022 00:19:30 +0000
-Received: from BN8NAM11FT099.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:141:cafe::56) by BN0PR07CA0025.outlook.office365.com
- (2603:10b6:408:141::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.16; Thu, 22 Sep
+ 2022 00:19:18 +0000
+Received: from BN8NAM11FT068.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13c:cafe::79) by BN9PR03CA0890.outlook.office365.com
+ (2603:10b6:408:13c::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.17 via Frontend
- Transport; Thu, 22 Sep 2022 00:19:30 +0000
+ Transport; Thu, 22 Sep 2022 00:19:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT099.mail.protection.outlook.com (10.13.177.197) with Microsoft SMTP
+ BN8NAM11FT068.mail.protection.outlook.com (10.13.177.69) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5654.14 via Frontend Transport; Thu, 22 Sep 2022 00:19:30 +0000
+ 15.20.5654.14 via Frontend Transport; Thu, 22 Sep 2022 00:19:18 +0000
 Received: from jasdeep-System-Product-Name.phub.net.cable.rogers.com
  (10.180.168.240) by SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Wed, 21 Sep 2022 19:19:28 -0500
+ 15.1.2375.28; Wed, 21 Sep 2022 19:19:12 -0500
 From: Jasdeep Dhillon <jdhillon@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 28/31] drm/amd/display: Reduce number of arguments of dml314's
- CalculateFlipSchedule()
-Date: Wed, 21 Sep 2022 20:18:18 -0400
-Message-ID: <20220922001821.320255-29-jdhillon@amd.com>
+Subject: [PATCH 18/31] drm/amd/display: Fix CAB allocation calculation
+Date: Wed, 21 Sep 2022 20:18:08 -0400
+Message-ID: <20220922001821.320255-19-jdhillon@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220922001821.320255-1-jdhillon@amd.com>
 References: <20220922001821.320255-1-jdhillon@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT099:EE_|SA1PR12MB5638:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6c4561a-3ef3-4e64-059e-08da9c301dfd
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT068:EE_|BY5PR12MB4163:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea9cb46d-c88f-4f4b-a1f3-08da9c301710
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 53NeIP0Ci3Izxp2oRx5tkRWaf9TyNtwAmoUg2qJCbflICAAv6myVuY1p5v5PEy2/y3SWeB7cQzUr0V+DfDlzjLsv3SE1z6Htj3u6lGaTBgWVcNELGdF6bsOLctjQC8H9DBRefxT/bKTfKy1i9B2FcZ0CNPJK8Xmu/wjmd6ZfpkaGxAZ9Kwcew7fz6UUcX3dptb9opong2+g5Oas6HC23kscXyCG7ccchYNZtF7ANBBthXyZhEqLVk40BeWnagCnO0xe9uOmBMl77CdUfOhsllAgV5FSPKi7tQ9RlJDYl3XaguThtSBr6U1PhGzi2Fka1gfYhRBslllS72tWOrjUwZczCE7XAdQiMnUt8hIiSkXn1JHzJFykF09v+1UjKQwMVxTUNxB/n0yV7JD90/t2KAH+s9BVNRJeYq5Xyy5M+Bxvdv/dEjZU7yHPZm5p6vv4Z/syrDTw+NNMOYuQaacqBQlex8au2IK4t5oqMSqx7PZPwWru3L/YnOuuhKafMT1Axze4DQ3jTaZB2L0jcZdA5GciuZEgsiKObQCBb9kVzbYSgzfY6XgOxWjDxkr/ysA/e7onPqJspA4WoPSsLcyEOwMcjIxdEnqVeJ6bJ2nLEWYcDumllYpFGg7oA5G4qj9IvAcKC09H2gF2nfNc7fm+WWxnKZlFnprxhKdiaU4mq9LADNeoNQ+Oc3oSkwN0WDnB94fQS1RcQgQUr7b6hpyB+GKS0DMEL38J/MEhxBTKMk6Dd89TV7Mpvad1dC9b8wlZwQVMZld8p22gLo/fDCvHEBRhDAE8TGzu38MTL1ORQw7N2DV0euPZnsQHyMiPnn1faTtTn2I0AiX2pEnFQr24HJmVyBEH3k16neMGvdNd63wM=
+X-Microsoft-Antispam-Message-Info: p1n5jHi4w5CaJEChr0ckbh9M8qTlbI8me8Yrxja4E5SJMx3WkbtAH+0Dydf3SFY0+Oez0F8ZkTxdE24E/Z+PW8TqfVUwn+vRrN+I3dXor2wDi1DQ//MM5ULREs11x/Hxh+Ypxi7x9l6fWl6bdEZb6xBixZJEh6Y7Q64ESH1vi8BS3aihESKTr6F5oRWJMkgeT6vR1/fMMDrttKTOrVFhquS5uuiV3wE2skspJRA8R5bO8W126UXElbbkChOgchkGWxz7huxCgVysCem5m/R4Jttcd96KVzqjGSZozW0v3+eeIIBLut9bDyiWMoefPT9csGcHNIUauSz2cIklEeUS/4aIXWv8D+nQM+OD70vf2nP3cyWLtd4PzLRnwx1h9u82jLKmcrSv25E9mr5cTKx8ID8k+02CjtxmlnTTI1M4yzFfZXEoOMK4Mwuj9ExqQ86iqCZ14lFCWAjh0L3c5xCs5AxMiROf5blcZ6EqKyABiyhDfayWy2aluM8uCB2vo+czK8RMYI5NckfETsEHVl2vJtYIdEKaQDUeptUGkWyBHTHPEav8jW2j5HYsA/N1NRpJye42EmLB0a87Uf3xu3ZVobDd6AjpUnv/ar3j7m9TndG6BWZ00P36ymDdukP+VDuk/lr6RZ2WUEwYsax4rwvQZyvZ8cabZuqmFbq+nClbnRSzqNORZiPpAfaHAs721irLuiszbx68s0NcD5ajmE9kvAcjvqE7a+1KncUpr4Y0tt7+WqMfkCEE1xedaecGTYP/bmwy9adRCD8AWIE6Nh8mLJleLqlqJhbb93ssOQHMQig=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(396003)(39860400002)(136003)(376002)(451199015)(40470700004)(46966006)(36840700001)(5660300002)(2906002)(70586007)(8936002)(966005)(478600001)(6666004)(40460700003)(6916009)(70206006)(316002)(8676002)(4326008)(54906003)(82740400003)(81166007)(40480700001)(356005)(36756003)(41300700001)(82310400005)(83380400001)(186003)(16526019)(1076003)(47076005)(336012)(426003)(36860700001)(30864003)(26005)(2616005)(36900700001)(44824005);
+ SFS:(13230022)(4636009)(39860400002)(396003)(376002)(136003)(346002)(451199015)(46966006)(36840700001)(40470700004)(47076005)(2906002)(70206006)(70586007)(6916009)(8936002)(54906003)(8676002)(36860700001)(81166007)(356005)(316002)(82310400005)(478600001)(5660300002)(4326008)(41300700001)(36756003)(6666004)(40460700003)(2616005)(336012)(16526019)(426003)(1076003)(83380400001)(186003)(40480700001)(82740400003)(26005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2022 00:19:30.1206 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6c4561a-3ef3-4e64-059e-08da9c301dfd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2022 00:19:18.5050 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea9cb46d-c88f-4f4b-a1f3-08da9c301710
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT099.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT068.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5638
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4163
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,305 +99,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, "kernelci.org bot" <bot@kernelci.org>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Nathan Chancellor <nathan@kernel.org>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Jasdeep Dhillon <jdhillon@amd.com>,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>, wayne.lin@amd.com,
+ Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nathan Chancellor <nathan@kernel.org>
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-Most of the arguments are identical between the two call sites and they
-can be accessed through the 'struct vba_vars_st' pointer. This reduces
-the total amount of stack space that
-dml314_ModeSupportAndSystemConfigurationFull() uses by 112 bytes with
-LLVM 16 (1976 -> 1864), helping clear up the following clang warning:
+[Description]
+Accidentally added when should have subtracted
+in calculation
 
-  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.c:4020:6: error: stack frame size (2216) exceeds limit (2048) in 'dml314_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
-  void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
-       ^
-  1 error generated.
-
-Link: https://github.com/ClangBuiltLinux/linux/issues/1710
-Reported-by: "kernelci.org bot" <bot@kernelci.org>
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 ---
- .../dc/dml/dcn314/display_mode_vba_314.c      | 172 +++++-------------
- 1 file changed, 47 insertions(+), 125 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-index 4c1d0c103933..0d12fd079cd6 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-@@ -265,33 +265,13 @@ static void CalculateRowBandwidth(
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+index 6497246692cf..85fa17185ccb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+@@ -242,7 +242,7 @@ static uint32_t dcn32_calculate_cab_allocation(struct dc *dc, struct dc_state *c
+ 		 * mall_alloc_width_blk_aligned_l/c = full_vp_width_blk_aligned_l/c
+ 		 */
+ 		mall_alloc_width_blk_aligned = ((pipe->plane_res.scl_data.viewport.x +
+-				pipe->plane_res.scl_data.viewport.width + mblk_width - 1) / mblk_width * mblk_width) +
++				pipe->plane_res.scl_data.viewport.width + mblk_width - 1) / mblk_width * mblk_width) -
+ 						(pipe->plane_res.scl_data.viewport.x / mblk_width * mblk_width);
  
- static void CalculateFlipSchedule(
- 		struct display_mode_lib *mode_lib,
-+		unsigned int k,
- 		double HostVMInefficiencyFactor,
- 		double UrgentExtraLatency,
- 		double UrgentLatency,
--		unsigned int GPUVMMaxPageTableLevels,
--		bool HostVMEnable,
--		unsigned int HostVMMaxNonCachedPageTableLevels,
--		bool GPUVMEnable,
--		double HostVMMinPageSize,
- 		double PDEAndMetaPTEBytesPerFrame,
- 		double MetaRowBytes,
--		double DPTEBytesPerRow,
--		double BandwidthAvailableForImmediateFlip,
--		unsigned int TotImmediateFlipBytes,
--		enum source_format_class SourcePixelFormat,
--		double LineTime,
--		double VRatio,
--		double VRatioChroma,
--		double Tno_bw,
--		bool DCCEnable,
--		unsigned int dpte_row_height,
--		unsigned int meta_row_height,
--		unsigned int dpte_row_height_chroma,
--		unsigned int meta_row_height_chroma,
--		double *DestinationLinesToRequestVMInImmediateFlip,
--		double *DestinationLinesToRequestRowInImmediateFlip,
--		double *final_flip_bw,
--		bool *ImmediateFlipSupportedForPipe);
-+		double DPTEBytesPerRow);
- static double CalculateWriteBackDelay(
- 		enum source_format_class WritebackPixelFormat,
- 		double WritebackHRatio,
-@@ -2892,33 +2872,13 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 			for (k = 0; k < v->NumberOfActivePlanes; ++k) {
- 				CalculateFlipSchedule(
- 						mode_lib,
-+						k,
- 						HostVMInefficiencyFactor,
- 						v->UrgentExtraLatency,
- 						v->UrgentLatency,
--						v->GPUVMMaxPageTableLevels,
--						v->HostVMEnable,
--						v->HostVMMaxNonCachedPageTableLevels,
--						v->GPUVMEnable,
--						v->HostVMMinPageSize,
- 						v->PDEAndMetaPTEBytesFrame[k],
- 						v->MetaRowByte[k],
--						v->PixelPTEBytesPerRow[k],
--						v->BandwidthAvailableForImmediateFlip,
--						v->TotImmediateFlipBytes,
--						v->SourcePixelFormat[k],
--						v->HTotal[k] / v->PixelClock[k],
--						v->VRatio[k],
--						v->VRatioChroma[k],
--						v->Tno_bw[k],
--						v->DCCEnable[k],
--						v->dpte_row_height[k],
--						v->meta_row_height[k],
--						v->dpte_row_height_chroma[k],
--						v->meta_row_height_chroma[k],
--						&v->DestinationLinesToRequestVMInImmediateFlip[k],
--						&v->DestinationLinesToRequestRowInImmediateFlip[k],
--						&v->final_flip_bw[k],
--						&v->ImmediateFlipSupportedForPipe[k]);
-+						v->PixelPTEBytesPerRow[k]);
- 			}
+ 		/* full_vp_height_blk_aligned = FLOOR(vp_y_start + full_vp_height + blk_height - 1, blk_height) -
+@@ -251,7 +251,7 @@ static uint32_t dcn32_calculate_cab_allocation(struct dc *dc, struct dc_state *c
+ 		 * mall_alloc_height_blk_aligned_l/c = full_vp_height_blk_aligned_l/c
+ 		 */
+ 		mall_alloc_height_blk_aligned = ((pipe->plane_res.scl_data.viewport.y +
+-				pipe->plane_res.scl_data.viewport.height + mblk_height - 1) / mblk_height * mblk_height) +
++				pipe->plane_res.scl_data.viewport.height + mblk_height - 1) / mblk_height * mblk_height) -
+ 						(pipe->plane_res.scl_data.viewport.y / mblk_height * mblk_height);
  
- 			v->total_dcn_read_bw_with_flip = 0.0;
-@@ -3638,61 +3598,43 @@ static void CalculateRowBandwidth(
- 
- static void CalculateFlipSchedule(
- 		struct display_mode_lib *mode_lib,
-+		unsigned int k,
- 		double HostVMInefficiencyFactor,
- 		double UrgentExtraLatency,
- 		double UrgentLatency,
--		unsigned int GPUVMMaxPageTableLevels,
--		bool HostVMEnable,
--		unsigned int HostVMMaxNonCachedPageTableLevels,
--		bool GPUVMEnable,
--		double HostVMMinPageSize,
- 		double PDEAndMetaPTEBytesPerFrame,
- 		double MetaRowBytes,
--		double DPTEBytesPerRow,
--		double BandwidthAvailableForImmediateFlip,
--		unsigned int TotImmediateFlipBytes,
--		enum source_format_class SourcePixelFormat,
--		double LineTime,
--		double VRatio,
--		double VRatioChroma,
--		double Tno_bw,
--		bool DCCEnable,
--		unsigned int dpte_row_height,
--		unsigned int meta_row_height,
--		unsigned int dpte_row_height_chroma,
--		unsigned int meta_row_height_chroma,
--		double *DestinationLinesToRequestVMInImmediateFlip,
--		double *DestinationLinesToRequestRowInImmediateFlip,
--		double *final_flip_bw,
--		bool *ImmediateFlipSupportedForPipe)
-+		double DPTEBytesPerRow)
- {
-+	struct vba_vars_st *v = &mode_lib->vba;
- 	double min_row_time = 0.0;
- 	unsigned int HostVMDynamicLevelsTrips;
- 	double TimeForFetchingMetaPTEImmediateFlip;
- 	double TimeForFetchingRowInVBlankImmediateFlip;
- 	double ImmediateFlipBW;
-+	double LineTime = v->HTotal[k] / v->PixelClock[k];
- 
--	if (GPUVMEnable == true && HostVMEnable == true) {
--		HostVMDynamicLevelsTrips = HostVMMaxNonCachedPageTableLevels;
-+	if (v->GPUVMEnable == true && v->HostVMEnable == true) {
-+		HostVMDynamicLevelsTrips = v->HostVMMaxNonCachedPageTableLevels;
- 	} else {
- 		HostVMDynamicLevelsTrips = 0;
- 	}
- 
--	if (GPUVMEnable == true || DCCEnable == true) {
--		ImmediateFlipBW = (PDEAndMetaPTEBytesPerFrame + MetaRowBytes + DPTEBytesPerRow) * BandwidthAvailableForImmediateFlip / TotImmediateFlipBytes;
-+	if (v->GPUVMEnable == true || v->DCCEnable[k] == true) {
-+		ImmediateFlipBW = (PDEAndMetaPTEBytesPerFrame + MetaRowBytes + DPTEBytesPerRow) * v->BandwidthAvailableForImmediateFlip / v->TotImmediateFlipBytes;
- 	}
- 
--	if (GPUVMEnable == true) {
-+	if (v->GPUVMEnable == true) {
- 		TimeForFetchingMetaPTEImmediateFlip = dml_max3(
--				Tno_bw + PDEAndMetaPTEBytesPerFrame * HostVMInefficiencyFactor / ImmediateFlipBW,
--				UrgentExtraLatency + UrgentLatency * (GPUVMMaxPageTableLevels * (HostVMDynamicLevelsTrips + 1) - 1),
-+				v->Tno_bw[k] + PDEAndMetaPTEBytesPerFrame * HostVMInefficiencyFactor / ImmediateFlipBW,
-+				UrgentExtraLatency + UrgentLatency * (v->GPUVMMaxPageTableLevels * (HostVMDynamicLevelsTrips + 1) - 1),
- 				LineTime / 4.0);
- 	} else {
- 		TimeForFetchingMetaPTEImmediateFlip = 0;
- 	}
- 
--	*DestinationLinesToRequestVMInImmediateFlip = dml_ceil(4.0 * (TimeForFetchingMetaPTEImmediateFlip / LineTime), 1) / 4.0;
--	if ((GPUVMEnable == true || DCCEnable == true)) {
-+	v->DestinationLinesToRequestVMInImmediateFlip[k] = dml_ceil(4.0 * (TimeForFetchingMetaPTEImmediateFlip / LineTime), 1) / 4.0;
-+	if ((v->GPUVMEnable == true || v->DCCEnable[k] == true)) {
- 		TimeForFetchingRowInVBlankImmediateFlip = dml_max3(
- 				(MetaRowBytes + DPTEBytesPerRow * HostVMInefficiencyFactor) / ImmediateFlipBW,
- 				UrgentLatency * (HostVMDynamicLevelsTrips + 1),
-@@ -3701,54 +3643,54 @@ static void CalculateFlipSchedule(
- 		TimeForFetchingRowInVBlankImmediateFlip = 0;
- 	}
- 
--	*DestinationLinesToRequestRowInImmediateFlip = dml_ceil(4.0 * (TimeForFetchingRowInVBlankImmediateFlip / LineTime), 1) / 4.0;
-+	v->DestinationLinesToRequestRowInImmediateFlip[k] = dml_ceil(4.0 * (TimeForFetchingRowInVBlankImmediateFlip / LineTime), 1) / 4.0;
- 
--	if (GPUVMEnable == true) {
--		*final_flip_bw = dml_max(
--				PDEAndMetaPTEBytesPerFrame * HostVMInefficiencyFactor / (*DestinationLinesToRequestVMInImmediateFlip * LineTime),
--				(MetaRowBytes + DPTEBytesPerRow * HostVMInefficiencyFactor) / (*DestinationLinesToRequestRowInImmediateFlip * LineTime));
--	} else if ((GPUVMEnable == true || DCCEnable == true)) {
--		*final_flip_bw = (MetaRowBytes + DPTEBytesPerRow * HostVMInefficiencyFactor) / (*DestinationLinesToRequestRowInImmediateFlip * LineTime);
-+	if (v->GPUVMEnable == true) {
-+		v->final_flip_bw[k] = dml_max(
-+				PDEAndMetaPTEBytesPerFrame * HostVMInefficiencyFactor / (v->DestinationLinesToRequestVMInImmediateFlip[k] * LineTime),
-+				(MetaRowBytes + DPTEBytesPerRow * HostVMInefficiencyFactor) / (v->DestinationLinesToRequestRowInImmediateFlip[k] * LineTime));
-+	} else if ((v->GPUVMEnable == true || v->DCCEnable[k] == true)) {
-+		v->final_flip_bw[k] = (MetaRowBytes + DPTEBytesPerRow * HostVMInefficiencyFactor) / (v->DestinationLinesToRequestRowInImmediateFlip[k] * LineTime);
- 	} else {
--		*final_flip_bw = 0;
-+		v->final_flip_bw[k] = 0;
- 	}
- 
--	if (SourcePixelFormat == dm_420_8 || SourcePixelFormat == dm_420_10 || SourcePixelFormat == dm_rgbe_alpha) {
--		if (GPUVMEnable == true && DCCEnable != true) {
--			min_row_time = dml_min(dpte_row_height * LineTime / VRatio, dpte_row_height_chroma * LineTime / VRatioChroma);
--		} else if (GPUVMEnable != true && DCCEnable == true) {
--			min_row_time = dml_min(meta_row_height * LineTime / VRatio, meta_row_height_chroma * LineTime / VRatioChroma);
-+	if (v->SourcePixelFormat[k] == dm_420_8 || v->SourcePixelFormat[k] == dm_420_10 || v->SourcePixelFormat[k] == dm_rgbe_alpha) {
-+		if (v->GPUVMEnable == true && v->DCCEnable[k] != true) {
-+			min_row_time = dml_min(v->dpte_row_height[k] * LineTime / v->VRatio[k], v->dpte_row_height_chroma[k] * LineTime / v->VRatioChroma[k]);
-+		} else if (v->GPUVMEnable != true && v->DCCEnable[k] == true) {
-+			min_row_time = dml_min(v->meta_row_height[k] * LineTime / v->VRatio[k], v->meta_row_height_chroma[k] * LineTime / v->VRatioChroma[k]);
- 		} else {
- 			min_row_time = dml_min4(
--					dpte_row_height * LineTime / VRatio,
--					meta_row_height * LineTime / VRatio,
--					dpte_row_height_chroma * LineTime / VRatioChroma,
--					meta_row_height_chroma * LineTime / VRatioChroma);
-+					v->dpte_row_height[k] * LineTime / v->VRatio[k],
-+					v->meta_row_height[k] * LineTime / v->VRatio[k],
-+					v->dpte_row_height_chroma[k] * LineTime / v->VRatioChroma[k],
-+					v->meta_row_height_chroma[k] * LineTime / v->VRatioChroma[k]);
- 		}
- 	} else {
--		if (GPUVMEnable == true && DCCEnable != true) {
--			min_row_time = dpte_row_height * LineTime / VRatio;
--		} else if (GPUVMEnable != true && DCCEnable == true) {
--			min_row_time = meta_row_height * LineTime / VRatio;
-+		if (v->GPUVMEnable == true && v->DCCEnable[k] != true) {
-+			min_row_time = v->dpte_row_height[k] * LineTime / v->VRatio[k];
-+		} else if (v->GPUVMEnable != true && v->DCCEnable[k] == true) {
-+			min_row_time = v->meta_row_height[k] * LineTime / v->VRatio[k];
- 		} else {
--			min_row_time = dml_min(dpte_row_height * LineTime / VRatio, meta_row_height * LineTime / VRatio);
-+			min_row_time = dml_min(v->dpte_row_height[k] * LineTime / v->VRatio[k], v->meta_row_height[k] * LineTime / v->VRatio[k]);
- 		}
- 	}
- 
--	if (*DestinationLinesToRequestVMInImmediateFlip >= 32 || *DestinationLinesToRequestRowInImmediateFlip >= 16
-+	if (v->DestinationLinesToRequestVMInImmediateFlip[k] >= 32 || v->DestinationLinesToRequestRowInImmediateFlip[k] >= 16
- 			|| TimeForFetchingMetaPTEImmediateFlip + 2 * TimeForFetchingRowInVBlankImmediateFlip > min_row_time) {
--		*ImmediateFlipSupportedForPipe = false;
-+		v->ImmediateFlipSupportedForPipe[k] = false;
- 	} else {
--		*ImmediateFlipSupportedForPipe = true;
-+		v->ImmediateFlipSupportedForPipe[k] = true;
- 	}
- 
- #ifdef __DML_VBA_DEBUG__
--	dml_print("DML::%s: DestinationLinesToRequestVMInImmediateFlip = %f\n", __func__, *DestinationLinesToRequestVMInImmediateFlip);
--	dml_print("DML::%s: DestinationLinesToRequestRowInImmediateFlip = %f\n", __func__, *DestinationLinesToRequestRowInImmediateFlip);
-+	dml_print("DML::%s: DestinationLinesToRequestVMInImmediateFlip = %f\n", __func__, v->DestinationLinesToRequestVMInImmediateFlip[k]);
-+	dml_print("DML::%s: DestinationLinesToRequestRowInImmediateFlip = %f\n", __func__, v->DestinationLinesToRequestRowInImmediateFlip[k]);
- 	dml_print("DML::%s: TimeForFetchingMetaPTEImmediateFlip = %f\n", __func__, TimeForFetchingMetaPTEImmediateFlip);
- 	dml_print("DML::%s: TimeForFetchingRowInVBlankImmediateFlip = %f\n", __func__, TimeForFetchingRowInVBlankImmediateFlip);
- 	dml_print("DML::%s: min_row_time = %f\n", __func__, min_row_time);
--	dml_print("DML::%s: ImmediateFlipSupportedForPipe = %d\n", __func__, *ImmediateFlipSupportedForPipe);
-+	dml_print("DML::%s: ImmediateFlipSupportedForPipe = %d\n", __func__, v->ImmediateFlipSupportedForPipe[k]);
- #endif
- 
- }
-@@ -5340,33 +5282,13 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
- 					for (k = 0; k < v->NumberOfActivePlanes; k++) {
- 						CalculateFlipSchedule(
- 								mode_lib,
-+								k,
- 								HostVMInefficiencyFactor,
- 								v->ExtraLatency,
- 								v->UrgLatency[i],
--								v->GPUVMMaxPageTableLevels,
--								v->HostVMEnable,
--								v->HostVMMaxNonCachedPageTableLevels,
--								v->GPUVMEnable,
--								v->HostVMMinPageSize,
- 								v->PDEAndMetaPTEBytesPerFrame[i][j][k],
- 								v->MetaRowBytes[i][j][k],
--								v->DPTEBytesPerRow[i][j][k],
--								v->BandwidthAvailableForImmediateFlip,
--								v->TotImmediateFlipBytes,
--								v->SourcePixelFormat[k],
--								v->HTotal[k] / v->PixelClock[k],
--								v->VRatio[k],
--								v->VRatioChroma[k],
--								v->Tno_bw[k],
--								v->DCCEnable[k],
--								v->dpte_row_height[k],
--								v->meta_row_height[k],
--								v->dpte_row_height_chroma[k],
--								v->meta_row_height_chroma[k],
--								&v->DestinationLinesToRequestVMInImmediateFlip[k],
--								&v->DestinationLinesToRequestRowInImmediateFlip[k],
--								&v->final_flip_bw[k],
--								&v->ImmediateFlipSupportedForPipe[k]);
-+								v->DPTEBytesPerRow[i][j][k]);
- 					}
- 					v->total_dcn_read_bw_with_flip = 0.0;
- 					for (k = 0; k < v->NumberOfActivePlanes; k++) {
+ 		num_mblks = ((mall_alloc_width_blk_aligned + mblk_width - 1) / mblk_width) *
 -- 
 2.25.1
 
