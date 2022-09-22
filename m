@@ -4,88 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDC7AC6FA82
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 18:02:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14CCAC54EE9
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 18:42:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2665810E002;
-	Thu, 22 Sep 2022 18:02:38 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 284AF10E002
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 18:02:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FCnHVD0bItN5k7vmKq8UoNkXEYeULCtavDE9zi3TQurCmb2Xgg+gzFzREJH4953GUgtOihoS3h9vj2Uij6VGMF8D6VPIysxSlKl5kW/M5JFpS0uyzbb9V9R3SLj9NVVeMCrTvCFd2jyZaU/47yXEHODUozMwue9eBf8xyq2Wd7b2rp64iyONSwKCHcWxlOfbKi2lNfyxs54JdWoh19K6TByH+hIW3Tn2RtzgiMHcPgjOEywofgKUKXlazy5qnRIaFMxzl/cIND7kir2hQW9+XmnwjgPTtWuBMvj2JPIsHZwY9TWS32Z/S7m6A1vHZn90h7j5n04DCVvCLb7wQTYvyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lS3UKQeYEVpo+Btou7fyE360tAJ/BAOlx2aJyU6MV3I=;
- b=FAlFYt7xbIVzsnzJ61EjfterJt0Arv/Rk4IHXz2vGBBurU7euG6fb6LPvGpdTtlcp9PoiY/gVf9Z7JoT2TXd+81SHXhjGvdhCNXmLZh4o7MRU17dsiBOja5UhTGLIZ8Sjk34nXVQ3ebRCh8Edwkwm8kqUeGZRepUSq8jMxGAblGfbWC269bOwwruP0m7A81kyyUQbObXZtiMUf6NiF3K0JW7kJRmUkDez5RX7Ae4ez/JtcDFUm1eIhhyLkBbN04aSjyEqLFlT36H5WSR8kopmTqxUhCa/L1kWUsVjSJU2+EXPvCLG7Umx4bdTlntllgBDDWf6yb32mYN0ZsdUlw3+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lS3UKQeYEVpo+Btou7fyE360tAJ/BAOlx2aJyU6MV3I=;
- b=Ea3zJi6FYwTklV9vxD3GVRhsQ0KonXufeN2VXQ0I8pIb3PUnzwW2Gzl2re5HDdYl5zegp21q3f0vFgYgjduyxPjVlKt8/T/SuZ0Nz5JSg8YXxNd35yRnF444Iewwflf/xVGlNHRRN4Rq6Cxbl4ApWeJ1FWBbrvXcVtcUY6KzaIw=
-Received: from DM6PR02CA0094.namprd02.prod.outlook.com (2603:10b6:5:1f4::35)
- by CY5PR12MB6058.namprd12.prod.outlook.com (2603:10b6:930:2d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.16; Thu, 22 Sep
- 2022 18:02:31 +0000
-Received: from DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1f4:cafe::98) by DM6PR02CA0094.outlook.office365.com
- (2603:10b6:5:1f4::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.18 via Frontend
- Transport; Thu, 22 Sep 2022 18:02:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT016.mail.protection.outlook.com (10.13.173.139) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5654.14 via Frontend Transport; Thu, 22 Sep 2022 18:02:31 +0000
-Received: from mkgs-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 22 Sep
- 2022 13:02:30 -0500
-From: Graham Sider <Graham.Sider@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amdgpu: pass queue size and is_aql_queue to MES
-Date: Thu, 22 Sep 2022 14:02:19 -0400
-Message-ID: <20220922180219.814212-1-Graham.Sider@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT016:EE_|CY5PR12MB6058:EE_
-X-MS-Office365-Filtering-Correlation-Id: e91e0c09-260a-4df1-72a6-08da9cc49e81
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pEuboWLPi4zaC4ETArRqCxf92Fz+BYzO19TvDF/W0w2KtnKt49Mr8tMl+iM+QCYBEdJ38PxcDeka8yrtYRIWDP14VgTZ0HHBZe7GCjGBfAUKWO8lrcol3Slp/DyKBOxo0hdB/YV1ZgJu7Pr54xTBqZHXM3VpY4BkMwfrYkTvdzdSijoFp/idv9UcD5B5QyPGSznXKPVHPSd1MM9ADx7t3pi2vvJcCB5NJ0YamKTfSpQaCBJrnFf3c19jzq4aSOCSYaSFGg8ZonxLdFK1S04y+0pKswhiyQnmpjJKEJsD3VzCWk9OMrZ3KU9gLEtJmy9mFx+tcPmMyQc/7EDSR7CGQAwzluzNBTNHcJlhfTQguDXJQii8RwOt0PCRO4adSgCKKHYd2dwfcyjVnZLAm6w041YqBuSE+/7F/C1F+OxP7v8dUAVcIxUe6QXJQQU0chrog4bj911OLqRSl8sLwJ7xrXs1YHW451q5VPQRxIFwHAxROBDxFhAPf4R9V2tRha9zr4kq/CdZUp5CQkMqJPcQ54r5niciCwwTuTfSK+Phb8OCT3kyVRo1Co84dQAXZ6b8R1VafzuPBQ4wpracIA2npImhokjT2wr2CTlEF7n0RIVsdgVbRdmpWs8p+L8gUt5txkkxhiJTzj8LLZ1ZBQu2q/lc3bpvl775kjMo3pClyujIpi0WomqpWjv7R7ehw4eJsTmoRKnLoVO8xYc49kTcneQSmMgnVOXyO+11Jbo44rzQ99CxOLIBemnhQ9uyHSUpEAETP68lsbCUQCypoT5PJf6eZ+1qbg00NYMeV7pfyv0TvTcRrMW2Ignip6CLUnmw
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(136003)(39860400002)(396003)(346002)(451199015)(46966006)(36840700001)(40470700004)(336012)(16526019)(47076005)(2616005)(8936002)(426003)(186003)(7696005)(6666004)(40460700003)(1076003)(36860700001)(26005)(5660300002)(83380400001)(2906002)(70206006)(478600001)(82310400005)(6916009)(54906003)(8676002)(41300700001)(70586007)(4326008)(40480700001)(316002)(81166007)(36756003)(356005)(86362001)(82740400003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2022 18:02:31.2059 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e91e0c09-260a-4df1-72a6-08da9cc49e81
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6058
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B86710E045;
+	Thu, 22 Sep 2022 18:42:20 +0000 (UTC)
+Received: from ach1ajh118.fra1.oracleemaildelivery.com
+ (ach1ajh118.fra1.oracleemaildelivery.com [138.1.108.118])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F2E210E045
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 18:13:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=oci-fra1-20220101;
+ d=augustwikerfors.se;
+ h=Date:To:From:Subject:Message-Id:MIME-Version:Sender;
+ bh=hMbKnsDfGuZbST3+iKB8T0JJtGf8/ETxt5BDAqjyo60=;
+ b=FXYyBWbm2KZCo8oOR6GuTWocRwSDPxtgpRP3wQRSqj6UH+CXUwKn0LPuF2CjH6USA/+MeqV2Zizx
+ U9+pMzLzqaBxzwRzc5PmPqH4b5JhbGqXUcy84I1TWA1vWhcxn8b0pe+VznEEvUnUbr905lfohyQU
+ TGxfHCndMPqz/H3Gqd8jApa+GyiKXfPUkJGmMs5j8/VxPpv1BhZl+4y1T32SO3zZq+4gvAT3K04n
+ whg9no5siCSdLWdNbGvppr8zaT79aUwy4m2fSSkdUo7+qJNI5hTN2FhWB14/Qo/ZrKGM3uH/Szt7
+ F6egfWPLW9vM1jUqSU5YsH8zxqZy2iDcCYmWxA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=prod-fra-20191115;
+ d=fra1.rp.oracleemaildelivery.com;
+ h=Date:To:From:Subject:Message-Id:MIME-Version:Sender;
+ bh=hMbKnsDfGuZbST3+iKB8T0JJtGf8/ETxt5BDAqjyo60=;
+ b=BijYoPiyAwNXbWmqegRJ5wx3OmVxM/8mrX1eSiLCvhaApKTQ48zk2zMv2xGmKxOdcWYwjDqzceE6
+ Iyf9H8ZbRBUDNy45K/bWsEW3wNARcd4A+mmDDGfxlnu3ETqOQ6cYNgpIZqqA979ivBnRNuXdqpra
+ eS5hCt4iVi3xmbd0Nrmy0lCc+6aTjmAq+B0W7R6qZ2vOcoZXi71BQ2q2qssF58Jt7FPkhdzTKnRV
+ X22K4t17tzudeZ3zo928Kb3vr5MsLsgiGh6QqAWMWq72jLPDxEvAtNTenqsTEFxdlaNuDri6zNOC
+ WmOtSybNYUJ5v0XgtmaAcOOiBIjzP7s1Uy1BIA==
+Received: by omta-ad3-fd1-302-eu-frankfurt-1.omtaad3.vcndpfra.oraclevcn.com
+ (Oracle Communications Messaging Server 8.1.0.1.20220826 64bit (built Aug 26
+ 2022)) with ESMTPS id
+ <0RIM001FVIMZ70E0@omta-ad3-fd1-302-eu-frankfurt-1.omtaad3.vcndpfra.oraclevcn.com>
+ for amd-gfx@lists.freedesktop.org; Thu, 22 Sep 2022 18:13:47 +0000 (GMT)
+Message-id: <33cf5071-3157-a3c2-3252-3a8ab926c60d@augustwikerfors.se>
+Date: Thu, 22 Sep 2022 20:13:39 +0200
+MIME-version: 1.0
+From: August Wikerfors <git@augustwikerfors.se>
+Subject: Re: [REGRESSION] Graphical issues on Lenovo Yoga 7 14ARB7 laptop since
+ v6.0-rc1 (bisected)
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <c1f8886a-5624-8f49-31b1-e42b6d20dcf5@augustwikerfors.se>
+ <eee82fb8-0fc5-98cb-e630-f86891574f21@leemhuis.info>
+ <CADnq5_PRP3ekHPLhdXALxt9GL3aHHZQUw5TNAwm4t+ggimUq7g@mail.gmail.com>
+Content-language: en-US
+In-reply-to: <CADnq5_PRP3ekHPLhdXALxt9GL3aHHZQUw5TNAwm4t+ggimUq7g@mail.gmail.com>
+Content-type: text/plain; charset=UTF-8; format=flowed
+Content-transfer-encoding: 7bit
+Reporting-Meta: AAHbDiOyw7PQ+YvQ6Tk2wL3boCy4Gse2rKd/OctvMwiREQdSmCjJhUzxDqPn50D4
+ b2YL7+qFbADcEhF5v3aoKRWdW4C9GDLg1v1GIOEwYB3d1GkFFb8HifL2cGQsLRYm
+ rIvmjpE2oDiEvpUhXqkWFd3LANo+s7vemDjoj6mvWZigPJY0cWnvonz3y7oiAzz3
+ jHj6b9vMWowumUqy9l2IlL732Obo6dAg5tPs7Ttg0icRtL+1vbZag0BI++I7ANit
+ 5vvXX2BntyiNRNVZMXtkRvHu8PKICknnccqdgV+L9jMiFlHWmJBVngMkz8LlLRpg
+ cuasLCWjDHHocVFs7jmSnyMjBSpBc9GVKcpq/8yiPI+kkdSCFZWgMS+Ui0Ss5upK
+ LVjSWuQZOdAA6w76GxKJPMm2ta+dzeGAbOSRIgx+bKnhbP0PSsJXzlJnflpaZ47P SnraHIP2ow==
+X-Mailman-Approved-At: Thu, 22 Sep 2022 18:42:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,80 +69,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, Graham Sider <Graham.Sider@amd.com>
+Cc: regressions@lists.linux.dev, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Thorsten Leemhuis <regressions@leemhuis.info>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update mes_v11_api_def.h add_queue API with is_aql_queue parameter. Also
-re-use gds_size for the queue size (unused for KFD). MES requires the
-queue size in order to compute the actual wptr offset within the queue
-RB since it increases monotonically for AQL queues.
+Hi Alex,
 
-v2: Make is_aql_queue assign clearer
+On 2022-09-22 15:59, Alex Deucher wrote:
+> On Thu, Sep 22, 2022 at 8:54 AM Thorsten Leemhuis
+> <regressions@leemhuis.info> wrote:
+>>
+>> Hi, this is your Linux kernel regression tracker. Top-posting for once,
+>> to make this easily accessible to everyone.
+>>
+>> @amdgpu developers, what up here? August afaics didn't even get a single
+>> reply for his report that even identifies the change that's causing the
+>> problem. We're already late in the development cycle, so it would be
+>> good if someone could take a closer look into this before it's too late
+>> for 6.0.
+> 
+> Been a busy week.  Haven't had a chance to look into this yet.  Does
+> the issue still happen with this patch:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=66f99628eb24409cb8feb5061f78283c8b65f820
+Yes, the issue still happens with that patch, and also with the current 
+git master (dc164f4fb00a0abebdfff132f8bc7291a28f5401).
 
-Signed-off-by: Graham Sider <Graham.Sider@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h               | 2 ++
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c                | 4 ++++
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 2 ++
- drivers/gpu/drm/amd/include/mes_v11_api_def.h         | 3 ++-
- 4 files changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index 7b46f6bf4187..ad980f4b66e1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -222,6 +222,8 @@ struct mes_add_queue_input {
- 	uint64_t	tba_addr;
- 	uint64_t	tma_addr;
- 	uint32_t	is_kfd_process;
-+	uint32_t	is_aql_queue;
-+	uint32_t	queue_size;
- };
- 
- struct mes_remove_queue_input {
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index b64cd46a159a..5581e03fc956 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -187,6 +187,10 @@ static int mes_v11_0_add_hw_queue(struct amdgpu_mes *mes,
- 	mes_add_queue_pkt.is_kfd_process = input->is_kfd_process;
- 	mes_add_queue_pkt.trap_en = 1;
- 
-+	/* For KFD, gds_size is re-used for queue size (needed in MES for AQL queues) */
-+	mes_add_queue_pkt.is_aql_queue = input->is_aql_queue;
-+	mes_add_queue_pkt.gds_size = input->queue_size;
-+
- 	return mes_v11_0_submit_pkt_and_poll_completion(mes,
- 			&mes_add_queue_pkt, sizeof(mes_add_queue_pkt),
- 			offsetof(union MESAPI__ADD_QUEUE, api_status));
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index e83725a28106..007a3db69df1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -205,6 +205,8 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	}
- 
- 	queue_input.is_kfd_process = 1;
-+	queue_input.is_aql_queue = (q->properties.format == KFD_QUEUE_FORMAT_AQL);
-+	queue_input.queue_size = q->properties.queue_size >> 2;
- 
- 	queue_input.paging = false;
- 	queue_input.tba_addr = qpd->tba_addr;
-diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-index 50bfa513cb35..7e85cdc5bd34 100644
---- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-+++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-@@ -269,7 +269,8 @@ union MESAPI__ADD_QUEUE {
- 			uint32_t map_kiq_utility_queue  : 1;
- 			uint32_t is_kfd_process		: 1;
- 			uint32_t trap_en		: 1;
--			uint32_t reserved		: 21;
-+			uint32_t is_aql_queue		: 1;
-+			uint32_t reserved		: 20;
- 		};
- 		struct MES_API_STATUS		api_status;
- 		uint64_t                        tma_addr;
--- 
-2.25.1
-
+Regards,
+August Wikerfors
