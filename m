@@ -4,46 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58936C6FA82
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 12:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00818C54EE9
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 13:19:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCF4410EB05;
-	Thu, 22 Sep 2022 12:54:24 +0000 (UTC)
-X-Greylist: delayed 1077 seconds by postgrey-1.36 at gabe;
- Thu, 22 Sep 2022 09:34:42 UTC
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47E7410E109;
- Thu, 22 Sep 2022 09:34:42 +0000 (UTC)
-Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.56])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4MY8k02SW1zHpnj;
- Thu, 22 Sep 2022 17:14:32 +0800 (CST)
-Received: from [10.174.179.163] (10.174.179.163) by
- dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+	by gabe.freedesktop.org (Postfix) with ESMTP id 335A810EB10;
+	Thu, 22 Sep 2022 13:19:41 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2086.outbound.protection.outlook.com [40.107.243.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1232C10EB10
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 13:19:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dVayTxgpznAJ/MZPlEx2jlb/UF3Ig6mbawe+b3nnXbMXv3zdAtrDP9iwuAoiRrgikv/CVu/kiIVVKf4vSIIWPGD1kWpsJOhJZzKUbAkEjMkb25niSnv2f96FR5VpiTYjJZWvYqdXGYVZfXHHOv+445hg6iT9cxc/cBtltGEU20cCFyDVJRm+88m6xcIWdM50kPLBT42OKKhnGzlBKc6aKapCrvdLdePo7x7IdN/amL0FJ2U2sCNJNNUi2g6qlsHBJOvX+oJKqPEkAYKUfty+nCtoOd1TCiPV39jiNuiAbSSn3RbhQlCFehZIBS6aaeYF2LKJRi1nOUuNi1BZbIkoow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l4+3kUbhWUtsA7FYakJ/DZCnRxFycpMEkU0BpjdvZqM=;
+ b=XbGiGzVbL8GFqIqrRQTDzESrce7T15CPi8rCxe3K0fphkH/TP5TZM2T+uHZyF2z1xZfihI2aGs1lHYjplJ+973pS5O8QZzrxbRkM0bvwL+La5YRTl0ir3TpGesbDJjMuXNl2diuI417pOCPahGncpZEp5nHMoeTjAR9DPLPPTAUWJ2l0j5f54qOmn9UCubFlZiLz4l60cJl58gfOLyaWpXvW/S27ovWxYF93yb3nYqPM8h3GMMivACCFK9M/t922hcfd5Sz8j+gscXsArv2IYA6uGiiBzADQX8NxcDKcQbvKGTb0wNF5hqQsGWzo/oXGQ/RFLOL9kmFTpPxYcarpXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l4+3kUbhWUtsA7FYakJ/DZCnRxFycpMEkU0BpjdvZqM=;
+ b=cDBijo1bQpKsMaWy7UGfo7HlJfpcNkgRsCaZ3jBM5EtfShh6MhqlguKTXRAuTcGQEnOuggU73MfD5CniP1UpDHae7UJgIZkY/BwRI47iwk1saW3uMr+GZUbnd95sMuZoHtuMM/nZNXqzfSnS9wm06DfA0fwyPg2MEeT/oZvhkG0=
+Received: from MW4PR04CA0221.namprd04.prod.outlook.com (2603:10b6:303:87::16)
+ by PH7PR12MB7162.namprd12.prod.outlook.com (2603:10b6:510:201::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.18; Thu, 22 Sep
+ 2022 13:19:34 +0000
+Received: from CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:87:cafe::cd) by MW4PR04CA0221.outlook.office365.com
+ (2603:10b6:303:87::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.18 via Frontend
+ Transport; Thu, 22 Sep 2022 13:19:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT065.mail.protection.outlook.com (10.13.174.62) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5654.14 via Frontend Transport; Thu, 22 Sep 2022 13:19:34 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 22 Sep 2022 17:16:42 +0800
-Message-ID: <189dcb4d-1c09-3380-252c-c8fe9ada31f6@huawei.com>
-Date: Thu, 22 Sep 2022 17:16:41 +0800
+ 15.1.2375.28; Thu, 22 Sep 2022 08:19:29 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Fix VRAM BO swap issue
+Date: Thu, 22 Sep 2022 06:18:59 -0700
+Message-ID: <20220922131859.131544-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Subject: Re: [PATCH] gpu: dc: fix enum conversion in display_mode_vba
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
- <alexander.deucher@amd.com>, <Xinhui.Pan@amd.com>, <airlied@linux.ie>,
- <daniel@ffwll.ch>, <Nevenko.Stupar@amd.com>, <Pavle.Kotarac@amd.com>,
- <aric.cyr@amd.com>
-References: <20220919014125.3295213-1-zengheng4@huawei.com>
- <9b7f030f-eedf-9a14-b442-6afa0c67c5f7@amd.com>
-From: Zeng Heng <zengheng4@huawei.com>
-In-Reply-To: <9b7f030f-eedf-9a14-b442-6afa0c67c5f7@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.174.179.163]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- dggpemm500022.china.huawei.com (7.185.36.162)
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Thu, 22 Sep 2022 12:54:13 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT065:EE_|PH7PR12MB7162:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ba724c8-e482-4913-f161-08da9c9d1764
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: fA7+zuQUd46OWzHJ3N7Uk0C+/pQRRBLKjeIS0nJWeu1hVfL+71mrwTR0pGYM0RmFbQI8ZE/3MIpvKUmiBlvxGR1XZjbbfvpat7KXyyiIJ6qUQBi9zJLtIgbIBXj3X0yIC8Yu95sFk0QdvKPUO1eKRedRfaLR7E6B8kPlRfmIiPOJC2AIR80UzjNny1/7pB2a0auAvGkZfGxU+g9aG0dZq7Vo48D/9b/xWnTU1/QHNK67RKy2mJvPljI/08THg6BVmzF/wex8KH/BpnQCTR4ceqonwhvm6bAJAUrDgtvxRibHIeAm1amImZue3ZP1JTMB6KWesMGvodKX4rwCrjfm4XMtczDMMbrLF+UHR/1kYm821keLMBt/FAC5DWaJR3HWQrzgSkvG+UO/CQ2I3mC5yChilDdZ4N6gxmT+/uw4feVLyP6ykvYeDm+lGPh7JtDSRdatdhkeMyyMjSNdd3sZNt9BugZQ6Xk6r2BXUusEmp5i9t7q3gCKGr82mPibN8/fjSQiOeB8/pJAYHfhWA6rjc3jBpT368V2XOtwxFbaeKHo6VHJGxF+opilcUNv9iJLii2l48GHr3g3FSxAE4iMBwVWP3ZqMp/Yjv9rtd8jVZrElYNIaS/6cDWnv1J0pHaYqgW/ndwtFeRiIb/mDPdEQKAug55Q+h5szbors5l4JjI+8ofpEyxZ6Vb8HQsyJ+vDd6OvgPuJWb/bVj0H5vEfnaxNRnHoKI8ROqypUtP5gdN6W6yOh5Td48R3jGKQekprelJVN7v4QwHRorXWIXe5cSIMdnSTDgjEfArOtUhfFUyWzvsKTqQTXNO9ACbBDJvP
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(39860400002)(136003)(376002)(396003)(451199015)(36840700001)(46966006)(40470700004)(70586007)(8676002)(6666004)(4326008)(70206006)(316002)(8936002)(478600001)(26005)(5660300002)(40460700003)(41300700001)(36756003)(2906002)(7696005)(356005)(36860700001)(82740400003)(81166007)(82310400005)(40480700001)(186003)(47076005)(426003)(2616005)(16526019)(336012)(86362001)(1076003)(83380400001)(54906003)(6916009)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2022 13:19:34.0917 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ba724c8-e482-4913-f161-08da9c9d1764
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7162
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,244 +97,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: liwei391@huawei.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, Jun.Ma2@amd.com, christian.koenig@amd.com,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I just correct the subject line and resend the patch mail.
+DRM buddy manager allocates the contiguous memory requests in
+a single block or multiple blocks. So for the ttm move operation
+(incase of low vram memory) we should consider all the blocks to
+compute the total memory size which compared with the struct
+ttm_resource num_pages in order to verify that the blocks are
+contiguous for the eviction process.
 
-Please refer to:
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-[PATCH resend v2] drm/amdgpu: fix enum conversion in display_mode_vba
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index b1c455329023..b1223c8e30c9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -426,6 +426,7 @@ static bool amdgpu_mem_visible(struct amdgpu_device *adev,
+ {
+ 	uint64_t mem_size = (u64)mem->num_pages << PAGE_SHIFT;
+ 	struct amdgpu_res_cursor cursor;
++	u64 start, size, total_size = 0;
+ 
+ 	if (mem->mem_type == TTM_PL_SYSTEM ||
+ 	    mem->mem_type == TTM_PL_TT)
+@@ -435,8 +436,23 @@ static bool amdgpu_mem_visible(struct amdgpu_device *adev,
+ 
+ 	amdgpu_res_first(mem, 0, mem_size, &cursor);
+ 
+-	/* ttm_resource_ioremap only supports contiguous memory */
+-	if (cursor.size != mem_size)
++	do {
++		start = cursor.start;
++		size = cursor.size;
++
++		total_size += size;
++
++		amdgpu_res_next(&cursor, cursor.size);
++
++		if (!cursor.remaining)
++			break;
++
++		/* ttm_resource_ioremap only supports contiguous memory */
++		if (start + size != cursor.start)
++			return false;
++	} while (1);
++
++	if (total_size != mem_size)
+ 		return false;
+ 
+ 	return cursor.start + cursor.size <= adev->gmc.visible_vram_size;
+-- 
+2.25.1
 
-
-On 2022/9/19 15:44, Christian König wrote:
-> Am 19.09.22 um 03:41 schrieb Zeng Heng:
->> Fix below compile warning when open enum-conversion
->> option check (compiled with -Wenum-conversion):
->>
->> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c: 
->>
->> In function ‘dml20_ModeSupportAndSystemConfigurationFull’:
->> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3900:44: 
->>
->> error: implicit conversion from ‘enum <anonymous>’ to ‘enum 
->> odm_combine_mode’ [-Werror=enum-conversion]
->>   3900 |     locals->ODMCombineEnablePerState[i][k] = false;
->>        |                                            ^
->> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3904:46: 
->>
->> error: implicit conversion from ‘enum <anonymous>’ to ‘enum 
->> odm_combine_mode’ [-Werror=enum-conversion]
->>   3904 |       locals->ODMCombineEnablePerState[i][k] = true;
->>        |                                              ^
->> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3907:46: 
->>
->> error: implicit conversion from ‘enum <anonymous>’ to ‘enum 
->> odm_combine_mode’ [-Werror=enum-conversion]
->>   3907 |       locals->ODMCombineEnablePerState[i][k] = true;
->>        |                                              ^
->> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3960:45: 
->>
->> error: implicit conversion from ‘enum <anonymous>’ to ‘enum 
->> odm_combine_mode’ [-Werror=enum-conversion]
->>   3960 |      locals->ODMCombineEnablePerState[i][k] = false;
->>
->> Use the proper value from the right enumerated type,
->> dm_odm_combine_mode_disabled & dm_odm_combine_mode_2to1,
->> so there is no more implicit conversion.
->>
->> The numerical values of dm_odm_combine_mode_disabled
->> & false and dm_odm_combine_mode_2to1 & true
->> happen to be the same, so there is no change in
->> behavior.
->
-> In the subject line the correct prefix is "drm/amdgpu: ....", but 
-> apart from that looks good to me as well.
->
-> But our DC team has to take a closer look.
->
-> Thanks,
-> Christian.
->
->>
->> Signed-off-by: Zeng Heng <zengheng4@huawei.com>
->> ---
->>   .../amd/display/dc/dml/dcn20/display_mode_vba_20.c   |  8 ++++----
->>   .../amd/display/dc/dml/dcn20/display_mode_vba_20v2.c | 10 +++++-----
->>   .../amd/display/dc/dml/dcn21/display_mode_vba_21.c   | 12 ++++++------
->>   3 files changed, 15 insertions(+), 15 deletions(-)
->>
->> diff --git 
->> a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c 
->> b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
->> index d3b5b6fedf04..6266b0788387 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
->> @@ -3897,14 +3897,14 @@ void 
->> dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
->> *mode_l
->> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = 
->> mode_lib->vba.PixelClock[k] / 2
->>                               * (1 + 
->> mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
->>   -                locals->ODMCombineEnablePerState[i][k] = false;
->> +                locals->ODMCombineEnablePerState[i][k] = 
->> dm_odm_combine_mode_disabled;
->>                   mode_lib->vba.PlaneRequiredDISPCLK = 
->> mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
->>                   if (mode_lib->vba.ODMCapability) {
->>                       if 
->> (locals->PlaneRequiredDISPCLKWithoutODMCombine > 
->> mode_lib->vba.MaxDispclkRoundedDownToDFSGranularity) {
->> - locals->ODMCombineEnablePerState[i][k] = true;
->> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->>                           mode_lib->vba.PlaneRequiredDISPCLK = 
->> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->>                       } else if (locals->HActive[k] > 
->> DCN20_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
->> - locals->ODMCombineEnablePerState[i][k] = true;
->> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->>                           mode_lib->vba.PlaneRequiredDISPCLK = 
->> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->>                       }
->>                   }
->> @@ -3957,7 +3957,7 @@ void 
->> dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
->> *mode_l
->>                   locals->RequiredDISPCLK[i][j] = 0.0;
->>                   locals->DISPCLK_DPPCLK_Support[i][j] = true;
->>                   for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes 
->> - 1; k++) {
->> -                    locals->ODMCombineEnablePerState[i][k] = false;
->> +                    locals->ODMCombineEnablePerState[i][k] = 
->> dm_odm_combine_mode_disabled;
->>                       if (locals->SwathWidthYSingleDPP[k] <= 
->> locals->MaximumSwathWidth[k]) {
->>                           locals->NoOfDPP[i][j][k] = 1;
->>                           locals->RequiredDPPCLK[i][j][k] = 
->> locals->MinDPPCLKUsingSingleDPP[k]
->> diff --git 
->> a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c 
->> b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
->> index edd098c7eb92..989d83ee3842 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
->> @@ -4008,17 +4008,17 @@ void 
->> dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
->> *mode
->> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = 
->> mode_lib->vba.PixelClock[k] / 2
->>                               * (1 + 
->> mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
->>   -                locals->ODMCombineEnablePerState[i][k] = false;
->> +                locals->ODMCombineEnablePerState[i][k] = 
->> dm_odm_combine_mode_disabled;
->>                   mode_lib->vba.PlaneRequiredDISPCLK = 
->> mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
->>                   if (mode_lib->vba.ODMCapability) {
->>                       if 
->> (locals->PlaneRequiredDISPCLKWithoutODMCombine > 
->> MaxMaxDispclkRoundedDown) {
->> - locals->ODMCombineEnablePerState[i][k] = true;
->> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->>                           mode_lib->vba.PlaneRequiredDISPCLK = 
->> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->>                       } else if (locals->DSCEnabled[k] && 
->> (locals->HActive[k] > DCN20_MAX_DSC_IMAGE_WIDTH)) {
->> - locals->ODMCombineEnablePerState[i][k] = true;
->> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->>                           mode_lib->vba.PlaneRequiredDISPCLK = 
->> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->>                       } else if (locals->HActive[k] > 
->> DCN20_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
->> - locals->ODMCombineEnablePerState[i][k] = true;
->> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->>                           mode_lib->vba.PlaneRequiredDISPCLK = 
->> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->>                       }
->>                   }
->> @@ -4071,7 +4071,7 @@ void 
->> dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
->> *mode
->>                   locals->RequiredDISPCLK[i][j] = 0.0;
->>                   locals->DISPCLK_DPPCLK_Support[i][j] = true;
->>                   for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes 
->> - 1; k++) {
->> -                    locals->ODMCombineEnablePerState[i][k] = false;
->> +                    locals->ODMCombineEnablePerState[i][k] = 
->> dm_odm_combine_mode_disabled;
->>                       if (locals->SwathWidthYSingleDPP[k] <= 
->> locals->MaximumSwathWidth[k]) {
->>                           locals->NoOfDPP[i][j][k] = 1;
->>                           locals->RequiredDPPCLK[i][j][k] = 
->> locals->MinDPPCLKUsingSingleDPP[k]
->> diff --git 
->> a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c 
->> b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
->> index d40d32e380f4..f15e82492381 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
->> @@ -4102,17 +4102,17 @@ void 
->> dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
->> *mode_l
->> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = 
->> mode_lib->vba.PixelClock[k] / 2
->>                               * (1 + 
->> mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
->>   -                locals->ODMCombineEnablePerState[i][k] = false;
->> +                locals->ODMCombineEnablePerState[i][k] = 
->> dm_odm_combine_mode_disabled;
->>                   mode_lib->vba.PlaneRequiredDISPCLK = 
->> mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
->>                   if (mode_lib->vba.ODMCapability) {
->>                       if 
->> (locals->PlaneRequiredDISPCLKWithoutODMCombine > 
->> MaxMaxDispclkRoundedDown) {
->> - locals->ODMCombineEnablePerState[i][k] = true;
->> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->>                           mode_lib->vba.PlaneRequiredDISPCLK = 
->> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->>                       } else if (locals->DSCEnabled[k] && 
->> (locals->HActive[k] > DCN21_MAX_DSC_IMAGE_WIDTH)) {
->> - locals->ODMCombineEnablePerState[i][k] = true;
->> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->>                           mode_lib->vba.PlaneRequiredDISPCLK = 
->> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->>                       } else if (locals->HActive[k] > 
->> DCN21_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
->> - locals->ODMCombineEnablePerState[i][k] = true;
->> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->>                           mode_lib->vba.PlaneRequiredDISPCLK = 
->> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->>                       }
->>                   }
->> @@ -4165,7 +4165,7 @@ void 
->> dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
->> *mode_l
->>                   locals->RequiredDISPCLK[i][j] = 0.0;
->>                   locals->DISPCLK_DPPCLK_Support[i][j] = true;
->>                   for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes 
->> - 1; k++) {
->> -                    locals->ODMCombineEnablePerState[i][k] = false;
->> +                    locals->ODMCombineEnablePerState[i][k] = 
->> dm_odm_combine_mode_disabled;
->>                       if (locals->SwathWidthYSingleDPP[k] <= 
->> locals->MaximumSwathWidth[k]) {
->>                           locals->NoOfDPP[i][j][k] = 1;
->>                           locals->RequiredDPPCLK[i][j][k] = 
->> locals->MinDPPCLKUsingSingleDPP[k]
->> @@ -5230,7 +5230,7 @@ void 
->> dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
->> *mode_l
->>               mode_lib->vba.ODMCombineEnabled[k] =
->> locals->ODMCombineEnablePerState[mode_lib->vba.VoltageLevel][k];
->>           } else {
->> -            mode_lib->vba.ODMCombineEnabled[k] = false;
->> +            mode_lib->vba.ODMCombineEnabled[k] = 
->> dm_odm_combine_mode_disabled;
->>           }
->>           mode_lib->vba.DSCEnabled[k] =
->> locals->RequiresDSC[mode_lib->vba.VoltageLevel][k];
->
