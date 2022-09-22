@@ -4,38 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42122C6FA82
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 12:54:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58936C6FA82
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 12:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4FAD10EB04;
-	Thu, 22 Sep 2022 12:54:21 +0000 (UTC)
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [IPv6:2a01:488:42:1000:50ed:8234::])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81C4710EAC7
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 11:26:27 +0000 (UTC)
-Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1obKLY-0005Or-C2; Thu, 22 Sep 2022 13:26:24 +0200
-Message-ID: <eee82fb8-0fc5-98cb-e630-f86891574f21@leemhuis.info>
-Date: Thu, 22 Sep 2022 13:26:23 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCF4410EB05;
+	Thu, 22 Sep 2022 12:54:24 +0000 (UTC)
+X-Greylist: delayed 1077 seconds by postgrey-1.36 at gabe;
+ Thu, 22 Sep 2022 09:34:42 UTC
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47E7410E109;
+ Thu, 22 Sep 2022 09:34:42 +0000 (UTC)
+Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.56])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4MY8k02SW1zHpnj;
+ Thu, 22 Sep 2022 17:14:32 +0800 (CST)
+Received: from [10.174.179.163] (10.174.179.163) by
+ dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Thu, 22 Sep 2022 17:16:42 +0800
+Message-ID: <189dcb4d-1c09-3380-252c-c8fe9ada31f6@huawei.com>
+Date: Thu, 22 Sep 2022 17:16:41 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.1
-Content-Language: en-US, de-DE
-To: August Wikerfors <git@augustwikerfors.se>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-References: <c1f8886a-5624-8f49-31b1-e42b6d20dcf5@augustwikerfors.se>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: Re: [REGRESSION] Graphical issues on Lenovo Yoga 7 14ARB7 laptop
- since v6.0-rc1 (bisected)
-In-Reply-To: <c1f8886a-5624-8f49-31b1-e42b6d20dcf5@augustwikerfors.se>
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.1.2
+Subject: Re: [PATCH] gpu: dc: fix enum conversion in display_mode_vba
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
+ <alexander.deucher@amd.com>, <Xinhui.Pan@amd.com>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>, <Nevenko.Stupar@amd.com>, <Pavle.Kotarac@amd.com>,
+ <aric.cyr@amd.com>
+References: <20220919014125.3295213-1-zengheng4@huawei.com>
+ <9b7f030f-eedf-9a14-b442-6afa0c67c5f7@amd.com>
+From: Zeng Heng <zengheng4@huawei.com>
+In-Reply-To: <9b7f030f-eedf-9a14-b442-6afa0c67c5f7@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1663845987;
- 8c6bb610; 
-X-HE-SMSGID: 1obKLY-0005Or-C2
+X-Originating-IP: [10.174.179.163]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ dggpemm500022.china.huawei.com (7.185.36.162)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Thu, 22 Sep 2022 12:54:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,170 +55,244 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, regressions@lists.linux.dev
+Cc: liwei391@huawei.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, this is your Linux kernel regression tracker. Top-posting for once,
-to make this easily accessible to everyone.
+I just correct the subject line and resend the patch mail.
 
-@amdgpu developers, what up here? August afaics didn't even get a single
-reply for his report that even identifies the change that's causing the
-problem. We're already late in the development cycle, so it would be
-good if someone could take a closer look into this before it's too late
-for 6.0.
+Please refer to:
 
-Ciao, Thorsten
+[PATCH resend v2] drm/amdgpu: fix enum conversion in display_mode_vba
 
-#regzbot poke
 
-On 17.09.22 18:57, August Wikerfors wrote:
-> Hi,
-> with every kernel version since v6.0-rc1, including the latest git
-> master, there are constant graphical issues on this laptop, such as
-> heavy stuttering (this is especially noticeable while typing on the
-> keyboard), parts of the screen showing random noise, and the entire
-> desktop environment freezing.
-> 
-> I bisected the issue which showed that this is the first bad commit:
-> 
->> commit 7cc191ee7621b7145c6cc9c18a4e1929bb5f136e
->> Author: Leo Li <sunpeng.li@amd.com>
->> Date:   Wed Mar 30 12:45:09 2022 -0400
+On 2022/9/19 15:44, Christian König wrote:
+> Am 19.09.22 um 03:41 schrieb Zeng Heng:
+>> Fix below compile warning when open enum-conversion
+>> option check (compiled with -Wenum-conversion):
 >>
->>     drm/amd/display: Implement MPO PSR SU
->>         [WHY]
->>         For additional power savings, PSR SU (also referred to as
->> PSR2) can be
->>     enabled on eDP panels with PSR SU support.
->>         PSR2 saves more power compared to PSR1 by allowing more
->> opportunities
->>     for the display hardware to be shut down. In comparison to PSR1, Shut
->>     down can now occur in-between frames, as well as in display regions
->>     where there is no visible update. In otherwords, it allows for some
->>     display hw components to be enabled only for a **selectively
->> updated**
->>     region of the visible display. Hence PSR SU.
->>         [HOW]
->>         To define the SU region, support from the OS is required. OS
->> needs to
->>     inform driver of damaged regions that need to be flushed to the eDP
->>     panel. Today, such support is lacking in most compositors.
->>         Therefore, an in-between solution is to implement PSR SU for
->> MPO and
->>     cursor scenarios. The plane bounds can be used to define the damaged
->>     region to be flushed to panel. This is achieved by:
->>         * Leveraging dm_crtc_state->mpo_requested flag to identify
->> when MPO is
->>       enabled.
->>     * If MPO is enabled, only add updated plane bounds to dirty region.
->>       Determine plane update by either:
->>         * Existence of drm damaged clips attached to the plane (added
->> by a
->>           damage-aware compositor)
->>         * Change in fb id (flip)
->>         * Change in plane bounds (position and dimensions)
->>     * If cursor is enabled, the old_pos and new_pos of cursor plus cursor
->>       size is used as damaged regions(*).
->>         (*) Cursor updates follow a different code path through DC.
->> PSR SU for
->>     cursor is already implemented in DC, and the only thing required to
->>     enable is to set DC_PSR_VERSION_SU_1 on the eDP link. See
->>     dcn10_dmub_update_cursor_data().
->>         Signed-off-by: Leo Li <sunpeng.li@amd.com>
->>     Acked-by: Leo Li <sunpeng.li@amd.com>
->>     Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->>     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> 
-> #regzbot introduced: 7cc191ee7621b7145c6cc9c18a4e1929bb5f136e
-> 
-> Note that while bisecting I also needed to apply commit
-> 9946e39fe8d0a5da9eb947d8e40a7ef204ba016e as the keyboard doesn't work
-> without it.
-> 
-> Laptop model: Lenovo Yoga 7 14ARB7
-> CPU: AMD Ryzen 5 6600U
-> Kernel config:
-> https://raw.githubusercontent.com/archlinux/svntogit-packages/aa564cf7088b1d834ef4cda9cb48ff0283fde5c5/trunk/config
-> Distribution: Arch Linux
-> Desktop environment: KDE Plasma 5.25.5
-> 
-> lspci:
->> $ lspci -nn
->> 00:00.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:14b5] (rev 01)
->> 00:00.2 IOMMU [0806]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:14b6]
->> 00:01.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:14b7] (rev 01)
->> 00:02.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:14b7] (rev 01)
->> 00:02.3 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:14ba]
->> 00:02.4 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:14ba]
->> 00:02.5 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:14ba]
->> 00:03.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:14b7] (rev 01)
->> 00:03.1 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:14cd]
->> 00:04.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:14b7] (rev 01)
->> 00:08.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:14b7] (rev 01)
->> 00:08.1 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:14b9] (rev 10)
->> 00:08.3 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:14b9] (rev 10)
->> 00:14.0 SMBus [0c05]: Advanced Micro Devices, Inc. [AMD] FCH SMBus
->> Controller [1022:790b] (rev 71)
->> 00:14.3 ISA bridge [0601]: Advanced Micro Devices, Inc. [AMD] FCH LPC
->> Bridge [1022:790e] (rev 51)
->> 00:18.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:1679]
->> 00:18.1 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:167a]
->> 00:18.2 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:167b]
->> 00:18.3 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:167c]
->> 00:18.4 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:167d]
->> 00:18.5 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:167e]
->> 00:18.6 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:167f]
->> 00:18.7 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
->> [1022:1680]
->> 01:00.0 Network controller [0280]: MEDIATEK Corp. MT7922 802.11ax PCI
->> Express Wireless Network Adapter [14c3:0616]
->> 02:00.0 Non-Volatile memory controller [0108]: Samsung Electronics Co
->> Ltd Device [144d:a80b] (rev 02)
->> 03:00.0 SD Host controller [0805]: O2 Micro, Inc. SD/MMC Card Reader
->> Controller [1217:8621] (rev 01)
->> 33:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc.
->> [AMD/ATI] Rembrandt [Radeon 680M] [1002:1681] (rev c2)
->> 33:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI]
->> Rembrandt Radeon High Definition Audio Controller [1002:1640]
->> 33:00.2 Encryption controller [1080]: Advanced Micro Devices, Inc.
->> [AMD] VanGogh PSP/CCP [1022:1649]
->> 33:00.3 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD]
->> Device [1022:161d]
->> 33:00.4 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD]
->> Device [1022:161e]
->> 33:00.5 Multimedia controller [0480]: Advanced Micro Devices, Inc.
->> [AMD] ACP/ACP3X/ACP6x Audio Coprocessor [1022:15e2] (rev 60)
->> 33:00.6 Audio device [0403]: Advanced Micro Devices, Inc. [AMD] Family
->> 17h/19h HD Audio Controller [1022:15e3]
->> 34:00.0 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD]
->> Device [1022:161f]
->> 34:00.3 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD]
->> Device [1022:15d6]
->> 34:00.4 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD]
->> Device [1022:15d7]
->> 34:00.5 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD]
->> Device [1022:162e]
-> 
-> 
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c: 
+>>
+>> In function ‘dml20_ModeSupportAndSystemConfigurationFull’:
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3900:44: 
+>>
+>> error: implicit conversion from ‘enum <anonymous>’ to ‘enum 
+>> odm_combine_mode’ [-Werror=enum-conversion]
+>>   3900 |     locals->ODMCombineEnablePerState[i][k] = false;
+>>        |                                            ^
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3904:46: 
+>>
+>> error: implicit conversion from ‘enum <anonymous>’ to ‘enum 
+>> odm_combine_mode’ [-Werror=enum-conversion]
+>>   3904 |       locals->ODMCombineEnablePerState[i][k] = true;
+>>        |                                              ^
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3907:46: 
+>>
+>> error: implicit conversion from ‘enum <anonymous>’ to ‘enum 
+>> odm_combine_mode’ [-Werror=enum-conversion]
+>>   3907 |       locals->ODMCombineEnablePerState[i][k] = true;
+>>        |                                              ^
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3960:45: 
+>>
+>> error: implicit conversion from ‘enum <anonymous>’ to ‘enum 
+>> odm_combine_mode’ [-Werror=enum-conversion]
+>>   3960 |      locals->ODMCombineEnablePerState[i][k] = false;
+>>
+>> Use the proper value from the right enumerated type,
+>> dm_odm_combine_mode_disabled & dm_odm_combine_mode_2to1,
+>> so there is no more implicit conversion.
+>>
+>> The numerical values of dm_odm_combine_mode_disabled
+>> & false and dm_odm_combine_mode_2to1 & true
+>> happen to be the same, so there is no change in
+>> behavior.
+>
+> In the subject line the correct prefix is "drm/amdgpu: ....", but 
+> apart from that looks good to me as well.
+>
+> But our DC team has to take a closer look.
+>
+> Thanks,
+> Christian.
+>
+>>
+>> Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+>> ---
+>>   .../amd/display/dc/dml/dcn20/display_mode_vba_20.c   |  8 ++++----
+>>   .../amd/display/dc/dml/dcn20/display_mode_vba_20v2.c | 10 +++++-----
+>>   .../amd/display/dc/dml/dcn21/display_mode_vba_21.c   | 12 ++++++------
+>>   3 files changed, 15 insertions(+), 15 deletions(-)
+>>
+>> diff --git 
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c 
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+>> index d3b5b6fedf04..6266b0788387 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+>> @@ -3897,14 +3897,14 @@ void 
+>> dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
+>> *mode_l
+>> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = 
+>> mode_lib->vba.PixelClock[k] / 2
+>>                               * (1 + 
+>> mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
+>>   -                locals->ODMCombineEnablePerState[i][k] = false;
+>> +                locals->ODMCombineEnablePerState[i][k] = 
+>> dm_odm_combine_mode_disabled;
+>>                   mode_lib->vba.PlaneRequiredDISPCLK = 
+>> mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
+>>                   if (mode_lib->vba.ODMCapability) {
+>>                       if 
+>> (locals->PlaneRequiredDISPCLKWithoutODMCombine > 
+>> mode_lib->vba.MaxDispclkRoundedDownToDFSGranularity) {
+>> - locals->ODMCombineEnablePerState[i][k] = true;
+>> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>>                           mode_lib->vba.PlaneRequiredDISPCLK = 
+>> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>>                       } else if (locals->HActive[k] > 
+>> DCN20_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
+>> - locals->ODMCombineEnablePerState[i][k] = true;
+>> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>>                           mode_lib->vba.PlaneRequiredDISPCLK = 
+>> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>>                       }
+>>                   }
+>> @@ -3957,7 +3957,7 @@ void 
+>> dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
+>> *mode_l
+>>                   locals->RequiredDISPCLK[i][j] = 0.0;
+>>                   locals->DISPCLK_DPPCLK_Support[i][j] = true;
+>>                   for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes 
+>> - 1; k++) {
+>> -                    locals->ODMCombineEnablePerState[i][k] = false;
+>> +                    locals->ODMCombineEnablePerState[i][k] = 
+>> dm_odm_combine_mode_disabled;
+>>                       if (locals->SwathWidthYSingleDPP[k] <= 
+>> locals->MaximumSwathWidth[k]) {
+>>                           locals->NoOfDPP[i][j][k] = 1;
+>>                           locals->RequiredDPPCLK[i][j][k] = 
+>> locals->MinDPPCLKUsingSingleDPP[k]
+>> diff --git 
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c 
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+>> index edd098c7eb92..989d83ee3842 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+>> @@ -4008,17 +4008,17 @@ void 
+>> dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
+>> *mode
+>> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = 
+>> mode_lib->vba.PixelClock[k] / 2
+>>                               * (1 + 
+>> mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
+>>   -                locals->ODMCombineEnablePerState[i][k] = false;
+>> +                locals->ODMCombineEnablePerState[i][k] = 
+>> dm_odm_combine_mode_disabled;
+>>                   mode_lib->vba.PlaneRequiredDISPCLK = 
+>> mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
+>>                   if (mode_lib->vba.ODMCapability) {
+>>                       if 
+>> (locals->PlaneRequiredDISPCLKWithoutODMCombine > 
+>> MaxMaxDispclkRoundedDown) {
+>> - locals->ODMCombineEnablePerState[i][k] = true;
+>> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>>                           mode_lib->vba.PlaneRequiredDISPCLK = 
+>> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>>                       } else if (locals->DSCEnabled[k] && 
+>> (locals->HActive[k] > DCN20_MAX_DSC_IMAGE_WIDTH)) {
+>> - locals->ODMCombineEnablePerState[i][k] = true;
+>> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>>                           mode_lib->vba.PlaneRequiredDISPCLK = 
+>> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>>                       } else if (locals->HActive[k] > 
+>> DCN20_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
+>> - locals->ODMCombineEnablePerState[i][k] = true;
+>> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>>                           mode_lib->vba.PlaneRequiredDISPCLK = 
+>> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>>                       }
+>>                   }
+>> @@ -4071,7 +4071,7 @@ void 
+>> dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
+>> *mode
+>>                   locals->RequiredDISPCLK[i][j] = 0.0;
+>>                   locals->DISPCLK_DPPCLK_Support[i][j] = true;
+>>                   for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes 
+>> - 1; k++) {
+>> -                    locals->ODMCombineEnablePerState[i][k] = false;
+>> +                    locals->ODMCombineEnablePerState[i][k] = 
+>> dm_odm_combine_mode_disabled;
+>>                       if (locals->SwathWidthYSingleDPP[k] <= 
+>> locals->MaximumSwathWidth[k]) {
+>>                           locals->NoOfDPP[i][j][k] = 1;
+>>                           locals->RequiredDPPCLK[i][j][k] = 
+>> locals->MinDPPCLKUsingSingleDPP[k]
+>> diff --git 
+>> a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c 
+>> b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+>> index d40d32e380f4..f15e82492381 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+>> @@ -4102,17 +4102,17 @@ void 
+>> dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
+>> *mode_l
+>> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = 
+>> mode_lib->vba.PixelClock[k] / 2
+>>                               * (1 + 
+>> mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
+>>   -                locals->ODMCombineEnablePerState[i][k] = false;
+>> +                locals->ODMCombineEnablePerState[i][k] = 
+>> dm_odm_combine_mode_disabled;
+>>                   mode_lib->vba.PlaneRequiredDISPCLK = 
+>> mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
+>>                   if (mode_lib->vba.ODMCapability) {
+>>                       if 
+>> (locals->PlaneRequiredDISPCLKWithoutODMCombine > 
+>> MaxMaxDispclkRoundedDown) {
+>> - locals->ODMCombineEnablePerState[i][k] = true;
+>> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>>                           mode_lib->vba.PlaneRequiredDISPCLK = 
+>> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>>                       } else if (locals->DSCEnabled[k] && 
+>> (locals->HActive[k] > DCN21_MAX_DSC_IMAGE_WIDTH)) {
+>> - locals->ODMCombineEnablePerState[i][k] = true;
+>> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>>                           mode_lib->vba.PlaneRequiredDISPCLK = 
+>> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>>                       } else if (locals->HActive[k] > 
+>> DCN21_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
+>> - locals->ODMCombineEnablePerState[i][k] = true;
+>> + locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+>>                           mode_lib->vba.PlaneRequiredDISPCLK = 
+>> mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>>                       }
+>>                   }
+>> @@ -4165,7 +4165,7 @@ void 
+>> dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
+>> *mode_l
+>>                   locals->RequiredDISPCLK[i][j] = 0.0;
+>>                   locals->DISPCLK_DPPCLK_Support[i][j] = true;
+>>                   for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes 
+>> - 1; k++) {
+>> -                    locals->ODMCombineEnablePerState[i][k] = false;
+>> +                    locals->ODMCombineEnablePerState[i][k] = 
+>> dm_odm_combine_mode_disabled;
+>>                       if (locals->SwathWidthYSingleDPP[k] <= 
+>> locals->MaximumSwathWidth[k]) {
+>>                           locals->NoOfDPP[i][j][k] = 1;
+>>                           locals->RequiredDPPCLK[i][j][k] = 
+>> locals->MinDPPCLKUsingSingleDPP[k]
+>> @@ -5230,7 +5230,7 @@ void 
+>> dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib 
+>> *mode_l
+>>               mode_lib->vba.ODMCombineEnabled[k] =
+>> locals->ODMCombineEnablePerState[mode_lib->vba.VoltageLevel][k];
+>>           } else {
+>> -            mode_lib->vba.ODMCombineEnabled[k] = false;
+>> +            mode_lib->vba.ODMCombineEnabled[k] = 
+>> dm_odm_combine_mode_disabled;
+>>           }
+>>           mode_lib->vba.DSCEnabled[k] =
+>> locals->RequiresDSC[mode_lib->vba.VoltageLevel][k];
+>
