@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0482AC6FA82
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 13:35:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 514A8C54EE9
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 13:59:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E21E810EB1F;
-	Thu, 22 Sep 2022 13:35:15 +0000 (UTC)
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [IPv6:2001:4860:4864:20::2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC9F210EB1F
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 13:35:10 +0000 (UTC)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-12b542cb1d3so13808032fac.13
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 06:35:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6729E10EB2E;
+	Thu, 22 Sep 2022 13:59:21 +0000 (UTC)
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [IPv6:2607:f8b0:4864:20::c2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BD5C10EB2E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 13:59:19 +0000 (UTC)
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ u3-20020a4ab5c3000000b0044b125e5d9eso1419718ooo.12
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 06:59:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date;
- bh=6mkeYO7Ke/w8c22LFTpz5GPS9ufltXyBy9yN81Li49M=;
- b=VpB0HNcrU4fwTDvqSteHIBWmUVbl/5ArDNLMvs2VXV4TqFX04WA6GfS7PUUi1QnVE5
- 0XhV1WOAjviIzzOjrXGWXoq8FNb3MUJYaQB+It5qzua9DKPy4/66gZu6jkRaCdThpQT2
- OG0rFzhq+GGb4wtvHj2u4NzIgNWJYDZ5Rir/BmH6dM2YHH8kuYSqHx+JZdE7pQaY5qny
- 2SEghLhvEu3AIjPbH+DLzf3QiIqpW236j828dLONYP5YzgetiI4wjA4H1r8H35neWiDU
- 7R1dJb4b7kVxpoZG6k1I2PleuKMujvdwtYWbuyRncsnorYxjbv7/rm1bAQUVzfSkrR6p
- aK7w==
+ bh=f+r/iWWqg/HjBpXtLMIVbPF1H3Ic9euNYOnuSgUeQc0=;
+ b=ppAdWbIiBCle0dSjFlmHIc2U1m0R4TG6e8vCeMVsy9uv1Qk00JQ9uMRj8r8yfZuOrh
+ SgxBNhI/jLnPU2svJbB43SzQs6FLXyP3CAxIYnLh5mmAczjAVbDBywJepqW2SjXqOKig
+ dVownBjvgif9imqMykIVnNNSAYqPbOGeBQM6hLqrTO1NC2iW+6MkzZEjSWnRJ8wqwrjz
+ OmyFZkNaagQDBwHq+9LNr7s7T8+UqPoxjIipN3yspCnXmcmi1fZDauZPLKk3rG73+mQr
+ khrRKPMhTO6nSiuxH5rbnwBzV98xr5bm3Bnwc0PHId/MGCB8qNkUG3Ht/j+/1q2BfFUw
+ n6+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=6mkeYO7Ke/w8c22LFTpz5GPS9ufltXyBy9yN81Li49M=;
- b=Ua1geA8VVollaxnyrqsloJMzk7OCpz3+WyDeyuzKAhuzGsuRJEDnV4g9rTYQ2yW3wZ
- e4taHB+xG3HVKgA7+ayr+RqA3cbd4KCxAwSrhkO861kh7HcIuSJRlAIyIhhASbC7Bh+w
- ipa4/JIT/83YnJdlDdB81lH5fuuDPirPm4Vv/zoXIIOO/0fSMshzeEvoBMFOIT2pYfsN
- vu/TkUb+oDFcC3MIRNIJB3nH8LtMHGtqKOqcB0d8z3ihBi2AWPf5rvuylp7lg1gLeP76
- D8oX3fWoTWe6FywxRl/tb5k5KgXh1hNU7SQpIouJMpH5xwMScTYabWUXD6TWcbcDENcg
- LJqA==
-X-Gm-Message-State: ACrzQf3mEgzN8VZL3vkECQSSnHfsbya3yP7/ibhc5ViA4TREz5IJB3SA
- kCgoumRvHg2QZzuPpmNseuCIzeLfRt7rWJhtQEg=
-X-Google-Smtp-Source: AMsMyM7SYY7bHPzQE2Yt4xMK6PWhVSnNbDf1tfzvyhCezrg6ANGv/Qp2j0u5Mw4q8VPqxLKpExXte70UuNjRR4C1zeQ=
-X-Received: by 2002:a05:6870:738d:b0:125:1b5:420f with SMTP id
- z13-20020a056870738d00b0012501b5420fmr2003984oam.96.1663853710123; Thu, 22
- Sep 2022 06:35:10 -0700 (PDT)
+ bh=f+r/iWWqg/HjBpXtLMIVbPF1H3Ic9euNYOnuSgUeQc0=;
+ b=59jay1bc9E1BNRuOp7Bb0Gxb7rJyPa6XtxX7hz65JCn7M4EvtXVvOdwNwzfrNZEfmy
+ ODif2QjrCGsEBSbw2iWlkUGvQD6PZkd+HufLTjT8bTSiY1oTjXkZvNcCKaLMImuqqzBw
+ pxKF+u8U9mk0kuxFR3LjYijlEzfxF4/+TKRVaJzsgzC92b9MLDM0zv+a7D8OdYMF/ZnB
+ OnVk2qnM+W+dtOC2oZg87hvmYEoszHqU3TruV9Ar4xjteKbQzSUUFpCcW+j+GQ1VmXWX
+ T9fJ/Ec4MfzeVUAJ2Zl9x4Kl760C41Pp4Uf4p0rd2Go/5W00xIl/CrqnYFor6INBI5og
+ ZEsQ==
+X-Gm-Message-State: ACrzQf1fb2u7eD+PCFxvqGSDeciAfXm06K/gmzl/hHw7h4LbllV4Z5zU
+ 95RS6oGM7nubABKZ82F3o8SCXxm8Rhlt3M7cI2Q=
+X-Google-Smtp-Source: AMsMyM7dvRWKL6FLuMMaN8yFT+BqKP2F96+nZ4YounII6s0tMygoeMsJno0WDUcPfTQWXHYEetWPo+JYOh5tK+XVtKE=
+X-Received: by 2002:a05:6820:104a:b0:476:36d8:c7a6 with SMTP id
+ x10-20020a056820104a00b0047636d8c7a6mr1425208oot.70.1663855158289; Thu, 22
+ Sep 2022 06:59:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220922131859.131544-1-Arunpravin.PaneerSelvam@amd.com>
-In-Reply-To: <20220922131859.131544-1-Arunpravin.PaneerSelvam@amd.com>
+References: <c1f8886a-5624-8f49-31b1-e42b6d20dcf5@augustwikerfors.se>
+ <eee82fb8-0fc5-98cb-e630-f86891574f21@leemhuis.info>
+In-Reply-To: <eee82fb8-0fc5-98cb-e630-f86891574f21@leemhuis.info>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 22 Sep 2022 09:34:58 -0400
-Message-ID: <CADnq5_PoB=3XO7wjcqcmewOnNajuhnWpVisSh1TR6eAQD+Z-5A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix VRAM BO swap issue
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Date: Thu, 22 Sep 2022 09:59:06 -0400
+Message-ID: <CADnq5_PRP3ekHPLhdXALxt9GL3aHHZQUw5TNAwm4t+ggimUq7g@mail.gmail.com>
+Subject: Re: [REGRESSION] Graphical issues on Lenovo Yoga 7 14ARB7 laptop
+ since v6.0-rc1 (bisected)
+To: Thorsten Leemhuis <regressions@leemhuis.info>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,69 +65,183 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Jun.Ma2@amd.com, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: regressions@lists.linux.dev, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, August Wikerfors <git@augustwikerfors.se>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 22, 2022 at 9:19 AM Arunpravin Paneer Selvam
-<Arunpravin.PaneerSelvam@amd.com> wrote:
+On Thu, Sep 22, 2022 at 8:54 AM Thorsten Leemhuis
+<regressions@leemhuis.info> wrote:
 >
-> DRM buddy manager allocates the contiguous memory requests in
-> a single block or multiple blocks. So for the ttm move operation
-> (incase of low vram memory) we should consider all the blocks to
-> compute the total memory size which compared with the struct
-> ttm_resource num_pages in order to verify that the blocks are
-> contiguous for the eviction process.
+> Hi, this is your Linux kernel regression tracker. Top-posting for once,
+> to make this easily accessible to everyone.
 >
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> @amdgpu developers, what up here? August afaics didn't even get a single
+> reply for his report that even identifies the change that's causing the
+> problem. We're already late in the development cycle, so it would be
+> good if someone could take a closer look into this before it's too late
+> for 6.0.
 
-Please add a Fixes line and any relevant bug report links.
+Been a busy week.  Haven't had a chance to look into this yet.  Does
+the issue still happen with this patch:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=66f99628eb24409cb8feb5061f78283c8b65f820
 
 Alex
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 20 ++++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index b1c455329023..b1223c8e30c9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -426,6 +426,7 @@ static bool amdgpu_mem_visible(struct amdgpu_device *adev,
->  {
->         uint64_t mem_size = (u64)mem->num_pages << PAGE_SHIFT;
->         struct amdgpu_res_cursor cursor;
-> +       u64 start, size, total_size = 0;
+> Ciao, Thorsten
 >
->         if (mem->mem_type == TTM_PL_SYSTEM ||
->             mem->mem_type == TTM_PL_TT)
-> @@ -435,8 +436,23 @@ static bool amdgpu_mem_visible(struct amdgpu_device *adev,
+> #regzbot poke
 >
->         amdgpu_res_first(mem, 0, mem_size, &cursor);
->
-> -       /* ttm_resource_ioremap only supports contiguous memory */
-> -       if (cursor.size != mem_size)
-> +       do {
-> +               start = cursor.start;
-> +               size = cursor.size;
-> +
-> +               total_size += size;
-> +
-> +               amdgpu_res_next(&cursor, cursor.size);
-> +
-> +               if (!cursor.remaining)
-> +                       break;
-> +
-> +               /* ttm_resource_ioremap only supports contiguous memory */
-> +               if (start + size != cursor.start)
-> +                       return false;
-> +       } while (1);
-> +
-> +       if (total_size != mem_size)
->                 return false;
->
->         return cursor.start + cursor.size <= adev->gmc.visible_vram_size;
-> --
-> 2.25.1
->
+> On 17.09.22 18:57, August Wikerfors wrote:
+> > Hi,
+> > with every kernel version since v6.0-rc1, including the latest git
+> > master, there are constant graphical issues on this laptop, such as
+> > heavy stuttering (this is especially noticeable while typing on the
+> > keyboard), parts of the screen showing random noise, and the entire
+> > desktop environment freezing.
+> >
+> > I bisected the issue which showed that this is the first bad commit:
+> >
+> >> commit 7cc191ee7621b7145c6cc9c18a4e1929bb5f136e
+> >> Author: Leo Li <sunpeng.li@amd.com>
+> >> Date:   Wed Mar 30 12:45:09 2022 -0400
+> >>
+> >>     drm/amd/display: Implement MPO PSR SU
+> >>         [WHY]
+> >>         For additional power savings, PSR SU (also referred to as
+> >> PSR2) can be
+> >>     enabled on eDP panels with PSR SU support.
+> >>         PSR2 saves more power compared to PSR1 by allowing more
+> >> opportunities
+> >>     for the display hardware to be shut down. In comparison to PSR1, Shut
+> >>     down can now occur in-between frames, as well as in display regions
+> >>     where there is no visible update. In otherwords, it allows for some
+> >>     display hw components to be enabled only for a **selectively
+> >> updated**
+> >>     region of the visible display. Hence PSR SU.
+> >>         [HOW]
+> >>         To define the SU region, support from the OS is required. OS
+> >> needs to
+> >>     inform driver of damaged regions that need to be flushed to the eDP
+> >>     panel. Today, such support is lacking in most compositors.
+> >>         Therefore, an in-between solution is to implement PSR SU for
+> >> MPO and
+> >>     cursor scenarios. The plane bounds can be used to define the damaged
+> >>     region to be flushed to panel. This is achieved by:
+> >>         * Leveraging dm_crtc_state->mpo_requested flag to identify
+> >> when MPO is
+> >>       enabled.
+> >>     * If MPO is enabled, only add updated plane bounds to dirty region.
+> >>       Determine plane update by either:
+> >>         * Existence of drm damaged clips attached to the plane (added
+> >> by a
+> >>           damage-aware compositor)
+> >>         * Change in fb id (flip)
+> >>         * Change in plane bounds (position and dimensions)
+> >>     * If cursor is enabled, the old_pos and new_pos of cursor plus cursor
+> >>       size is used as damaged regions(*).
+> >>         (*) Cursor updates follow a different code path through DC.
+> >> PSR SU for
+> >>     cursor is already implemented in DC, and the only thing required to
+> >>     enable is to set DC_PSR_VERSION_SU_1 on the eDP link. See
+> >>     dcn10_dmub_update_cursor_data().
+> >>         Signed-off-by: Leo Li <sunpeng.li@amd.com>
+> >>     Acked-by: Leo Li <sunpeng.li@amd.com>
+> >>     Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> >>     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >
+> > #regzbot introduced: 7cc191ee7621b7145c6cc9c18a4e1929bb5f136e
+> >
+> > Note that while bisecting I also needed to apply commit
+> > 9946e39fe8d0a5da9eb947d8e40a7ef204ba016e as the keyboard doesn't work
+> > without it.
+> >
+> > Laptop model: Lenovo Yoga 7 14ARB7
+> > CPU: AMD Ryzen 5 6600U
+> > Kernel config:
+> > https://raw.githubusercontent.com/archlinux/svntogit-packages/aa564cf7088b1d834ef4cda9cb48ff0283fde5c5/trunk/config
+> > Distribution: Arch Linux
+> > Desktop environment: KDE Plasma 5.25.5
+> >
+> > lspci:
+> >> $ lspci -nn
+> >> 00:00.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:14b5] (rev 01)
+> >> 00:00.2 IOMMU [0806]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:14b6]
+> >> 00:01.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:14b7] (rev 01)
+> >> 00:02.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:14b7] (rev 01)
+> >> 00:02.3 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:14ba]
+> >> 00:02.4 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:14ba]
+> >> 00:02.5 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:14ba]
+> >> 00:03.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:14b7] (rev 01)
+> >> 00:03.1 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:14cd]
+> >> 00:04.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:14b7] (rev 01)
+> >> 00:08.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:14b7] (rev 01)
+> >> 00:08.1 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:14b9] (rev 10)
+> >> 00:08.3 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:14b9] (rev 10)
+> >> 00:14.0 SMBus [0c05]: Advanced Micro Devices, Inc. [AMD] FCH SMBus
+> >> Controller [1022:790b] (rev 71)
+> >> 00:14.3 ISA bridge [0601]: Advanced Micro Devices, Inc. [AMD] FCH LPC
+> >> Bridge [1022:790e] (rev 51)
+> >> 00:18.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:1679]
+> >> 00:18.1 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:167a]
+> >> 00:18.2 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:167b]
+> >> 00:18.3 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:167c]
+> >> 00:18.4 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:167d]
+> >> 00:18.5 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:167e]
+> >> 00:18.6 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:167f]
+> >> 00:18.7 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
+> >> [1022:1680]
+> >> 01:00.0 Network controller [0280]: MEDIATEK Corp. MT7922 802.11ax PCI
+> >> Express Wireless Network Adapter [14c3:0616]
+> >> 02:00.0 Non-Volatile memory controller [0108]: Samsung Electronics Co
+> >> Ltd Device [144d:a80b] (rev 02)
+> >> 03:00.0 SD Host controller [0805]: O2 Micro, Inc. SD/MMC Card Reader
+> >> Controller [1217:8621] (rev 01)
+> >> 33:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc.
+> >> [AMD/ATI] Rembrandt [Radeon 680M] [1002:1681] (rev c2)
+> >> 33:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI]
+> >> Rembrandt Radeon High Definition Audio Controller [1002:1640]
+> >> 33:00.2 Encryption controller [1080]: Advanced Micro Devices, Inc.
+> >> [AMD] VanGogh PSP/CCP [1022:1649]
+> >> 33:00.3 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD]
+> >> Device [1022:161d]
+> >> 33:00.4 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD]
+> >> Device [1022:161e]
+> >> 33:00.5 Multimedia controller [0480]: Advanced Micro Devices, Inc.
+> >> [AMD] ACP/ACP3X/ACP6x Audio Coprocessor [1022:15e2] (rev 60)
+> >> 33:00.6 Audio device [0403]: Advanced Micro Devices, Inc. [AMD] Family
+> >> 17h/19h HD Audio Controller [1022:15e3]
+> >> 34:00.0 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD]
+> >> Device [1022:161f]
+> >> 34:00.3 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD]
+> >> Device [1022:15d6]
+> >> 34:00.4 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD]
+> >> Device [1022:15d7]
+> >> 34:00.5 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD]
+> >> Device [1022:162e]
+> >
+> >
