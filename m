@@ -4,44 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 710BDC6FA82
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 14:16:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8733C54EE9
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 14:43:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C149710EB32;
-	Thu, 22 Sep 2022 14:16:36 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C811D10EB32;
- Thu, 22 Sep 2022 14:16:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=8g87Kq8e5SpIZN5RyDSlZuQpb7aBxvPY3D7ufRb5ZfQ=; b=o8kwp5NPu+P2PDp+E2KIvnP5Bt
- CkaYHrOCM/OCOtwMz2+8OAN7TjoVKO+hvTUM7GstobynaHw6G3P3+Qv80wnrdSlXZANId6vs4gxQc
- xMM3fJYVDqcixSYGm7SNbxfbAdNRl1t83HXcQPE47bkpbTQLJP0r0XyRHjcqTUJu9OffbDuIkGiO4
- 3o4swb7eM/4fkeBVXUlRjf++U/AYVFCOivXzEMPh9ZHUhZivzaWoWhh4eSZq0HAWXKW5VIeyUxdC5
- xmuiapNG+JphnRncSsL1aExjELbshsDhQq1vsYlKrxjMlqXZpk+kAJZIRWjCQqE54j6S+HTuv+Hnj
- p5pcrRjA==;
-Received: from 201-93-50-1.dial-up.telesp.net.br ([201.93.50.1]
- helo=[192.168.1.111]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1obN09-001i8N-9C; Thu, 22 Sep 2022 16:16:29 +0200
-Message-ID: <0f89f4a8-3ab4-b840-6c19-a0d59c1e8cd6@igalia.com>
-Date: Thu, 22 Sep 2022 11:16:09 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2372210EBDF;
+	Thu, 22 Sep 2022 14:42:59 +0000 (UTC)
+Received: from mail-vs1-xe32.google.com (mail-vs1-xe32.google.com
+ [IPv6:2607:f8b0:4864:20::e32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A299110EBD7;
+ Thu, 22 Sep 2022 14:42:53 +0000 (UTC)
+Received: by mail-vs1-xe32.google.com with SMTP id m66so10511362vsm.12;
+ Thu, 22 Sep 2022 07:42:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date;
+ bh=qUbEpdRlteNF9t/zkLoFalPqmUoMmG/wjzQPvDY2tIU=;
+ b=cRQjexIBjXl7gyOlBbjD4BxO7xCbxVxm05gcC0VaPBw85KlZd2jp6bfkCDDbAaaw6Z
+ JJ9sbw2hJRMS8BCb1mGGGcmzg3+0hzRczED9AmTRLDtcLFAAfNz+K9BWAs5Ky9RJnS1V
+ MVYfAI3bP8pB30C85R4R7+oEFEATLB5zoDU7wBS9CgpBYmlXDZedVIPnksxuvpQ4uTPn
+ ZuzA+r++PmlcwrNTPQSX9zNXnOvcCby6EAqmBMf2wflRHgbSfM0V/tL119Xhs6v6ez7v
+ gL2v7s290DIeMsbisda6u93PmWyXWa39Yg9mG0dwQzFYnaCIC8rA0sSpyX24dOd2vDvu
+ 5LBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=qUbEpdRlteNF9t/zkLoFalPqmUoMmG/wjzQPvDY2tIU=;
+ b=sunSYVhg3mO/x90ASK5DqmrSigheKv4Ad/6VzphdfzkHFaEo5x0ZuYuHix0eyk5P5F
+ cwAe3XnxAd9rMAWejG6Cc3kl5pehprstHWsmAqUKVowXbQzJXl04kSUvcDIqEMg4PzMT
+ edkYzWVNQ3PkyG4+dikT8+YYopgQ9vDRSm7mRXE6qX2tnyNS8vMX/2Xmpau1ZfJUdDeN
+ ZaC3dJeK/2cV/hR+ba48G6eFDlqoio7fQu2A+zODHS7fIBUAQCAu7MOxKntL0X8/PcnH
+ A2uNkgJPmituOBDDFd5z0wy7kpWY7NpfZqDa+MBm0MV5SysFKDX5tvq2xgmAON/0X0lW
+ T5Gg==
+X-Gm-Message-State: ACrzQf3uo0GQiFkNLNkriHfYlXFTFDu4mfvY2SsfZbCQ6Cx5//XkYxWP
+ J6KgszxdPxUypP4sXiHB2b0dFkozShWJOGM2+wI=
+X-Google-Smtp-Source: AMsMyM5ggAbS6Hr6jcyxUdmDL6w7BbRsD7NIlHa8FKpKme07LNbivsRL9X4WPCeEQ6oBvoWMJNXDoE93uxCzopKH9L8=
+X-Received: by 2002:a67:b80f:0:b0:398:9de6:2d6b with SMTP id
+ i15-20020a67b80f000000b003989de62d6bmr1531131vsf.1.1663857772696; Thu, 22 Sep
+ 2022 07:42:52 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.0
-Subject: Re: [PATCH v2 0/6] Add support for atomic async page-flips
-To: Simon Ser <contact@emersion.fr>
-References: <20220830172851.269402-1-contact@emersion.fr>
-Content-Language: en-US
-From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <20220830172851.269402-1-contact@emersion.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20220922041756.1681845-1-floridsleeves@gmail.com>
+ <a103064d-b213-5b8f-2a72-039236777c57@amd.com>
+In-Reply-To: <a103064d-b213-5b8f-2a72-039236777c57@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 22 Sep 2022 10:42:40 -0400
+Message-ID: <CADnq5_OZgEs3aFWPNi7HiH9owTm+8_LfhBqNEWC0qKP=_2FCpA@mail.gmail.com>
+Subject: Re: [PATCH v2] drivers/amd/pm: check the return value of
+ amdgpu_bo_kmap
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,55 +66,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, amd-gfx@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org, mwen@igalia.com,
- ville.syrjala@linux.intel.com, dri-devel@lists.freedesktop.org,
- alexander.deucher@amd.com, hwentlan@amd.com, nicholas.kazlauskas@amd.com,
- joshua@froggi.es
+Cc: jiapeng.chong@linux.alibaba.com, lijo.lazar@amd.com, guchun.chen@amd.com,
+ airlied@linux.ie, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, Li Zhong <floridsleeves@gmail.com>,
+ daniel@ffwll.ch, darren.powell@amd.com, alexander.deucher@amd.com,
+ evan.quan@amd.com, mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Simon,
+Applied.  Thanks!
 
-On 8/30/22 14:29, Simon Ser wrote:
-> This series adds support for DRM_MODE_PAGE_FLIP_ASYNC for atomic
-> commits, aka. "immediate flip" (which might result in tearing).
-> The feature was only available via the legacy uAPI, however for
-> gaming use-cases it may be desirable to enable it via the atomic
-> uAPI too.
-> 
-> - v1: https://patchwork.freedesktop.org/series/107683/
-> - User-space patch: https://github.com/Plagman/gamescope/pull/595
-> - IGT patch: https://patchwork.freedesktop.org/series/107681/
-> 
-> Main changes in v2: add docs, fail atomic commit if async flip isn't
-> possible.
-> 
-> Tested on an AMD Picasso iGPU.
-> 
-
-I tested on an AMD vangogh GPU and worked with the IGT tests.
-
-This series is Reviewed-by: André Almeida <andrealmeid@igalia.com>
-
-> Simon Ser (6):
->    amd/display: only accept async flips for fast updates
->    drm: document DRM_MODE_PAGE_FLIP_ASYNC
->    drm: introduce drm_mode_config.atomic_async_page_flip_not_supported
->    drm: allow DRM_MODE_PAGE_FLIP_ASYNC for atomic commits
->    drm: introduce DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP
->    amd/display: indicate support for atomic async page-flips on DC
-> 
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++++++
->   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 10 +++++++
->   drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |  1 +
->   drivers/gpu/drm/drm_atomic_uapi.c             | 28 +++++++++++++++++--
->   drivers/gpu/drm/drm_ioctl.c                   |  5 ++++
->   drivers/gpu/drm/i915/display/intel_display.c  |  1 +
->   drivers/gpu/drm/nouveau/nouveau_display.c     |  1 +
->   drivers/gpu/drm/vc4/vc4_kms.c                 |  1 +
->   include/drm/drm_mode_config.h                 | 11 ++++++++
->   include/uapi/drm/drm.h                        | 10 ++++++-
->   include/uapi/drm/drm_mode.h                   | 11 ++++++++
->   11 files changed, 83 insertions(+), 4 deletions(-)
-> 
+On Thu, Sep 22, 2022 at 2:49 AM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 22.09.22 um 06:17 schrieb Li Zhong:
+> > amdgpu_bo_kmap() returns error when fails to map buffer object. Add the
+> > error check and propagate the error.
+> >
+> > Signed-off-by: Li Zhong <floridsleeves@gmail.com>
+>
+> We usually use "r" as return and error variables, but that's just a nit.
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> > ---
+> >   drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 5 ++++-
+> >   1 file changed, 4 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers=
+/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> > index 1eb4e613b27a..ec055858eb95 100644
+> > --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> > +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> > @@ -1485,6 +1485,7 @@ static int pp_get_prv_buffer_details(void *handle=
+, void **addr, size_t *size)
+> >   {
+> >       struct pp_hwmgr *hwmgr =3D handle;
+> >       struct amdgpu_device *adev =3D hwmgr->adev;
+> > +     int err;
+> >
+> >       if (!addr || !size)
+> >               return -EINVAL;
+> > @@ -1492,7 +1493,9 @@ static int pp_get_prv_buffer_details(void *handle=
+, void **addr, size_t *size)
+> >       *addr =3D NULL;
+> >       *size =3D 0;
+> >       if (adev->pm.smu_prv_buffer) {
+> > -             amdgpu_bo_kmap(adev->pm.smu_prv_buffer, addr);
+> > +             err =3D amdgpu_bo_kmap(adev->pm.smu_prv_buffer, addr);
+> > +             if (err)
+> > +                     return err;
+> >               *size =3D adev->pm.smu_prv_buffer_size;
+> >       }
+> >
+>
