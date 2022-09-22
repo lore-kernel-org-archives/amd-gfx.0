@@ -4,55 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53946C6FA8B
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 07:26:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04B42C6FA8B
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 07:26:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8954510EA5E;
-	Thu, 22 Sep 2022 07:26:06 +0000 (UTC)
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [IPv6:2607:f8b0:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FA9510E110;
- Thu, 22 Sep 2022 04:18:20 +0000 (UTC)
-Received: by mail-pg1-x52c.google.com with SMTP id e67so1845177pgc.12;
- Wed, 21 Sep 2022 21:18:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B2EB10EA5A;
+	Thu, 22 Sep 2022 07:26:09 +0000 (UTC)
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47E4D8921E;
+ Thu, 22 Sep 2022 01:27:32 +0000 (UTC)
+Received: by mail-pj1-x102d.google.com with SMTP id
+ s14-20020a17090a6e4e00b0020057c70943so652908pjm.1; 
+ Wed, 21 Sep 2022 18:27:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date;
  bh=Nn/xaYDr70nfIgJ9YO/J5RCYgkbZZtOIDhcd1yX3ucQ=;
- b=McbPgHOuUAiXhKa8Mj/J8qvc8uJydjQKaMHJnUcZolHmMcxxuHccaLMo6FfOnltQTP
- f6F79C3tOlRc/edjDAGL0O2YVAqZhTXwvOyePXjxhdEdwWQIwz7uHeVHOKNq45JbSBCG
- f38b5lvnmPU1iyyPZNZga/BlN2pqi6qaISLQiG91J6jOgP7EP0uHEZk99Gmbik63kXHg
- BpJl2ds/vS6T6JIm/3lcAm3sfFXq331P9O7kYXK1WeXtnmQ+tAXcm/aj4+fklTxF8g6B
- VHYq+NNMexWVu4RmkQhy3IlVFYCfAAsAdCh/23DXtnX/U5UfO1zSejTU72cpAO7kJSps
- /p1w==
+ b=ijl3DG/F/T8LrNkohZukB7Ha4rpNVsYgaiJCuTqk6YSYBh2O/Qipty55Mp0Z8/T77L
+ GJ/yFQ1nXMencxNxhzEF87a11t0Ymk44foaOZ2CN+e3rMrB2qjpoSAhDejKnqRnh/fuo
+ F4l88/YtIFC1asSQJ8NlmveD5Pg/ShBdm1bK8jXj+zPKtaQieikdM4L9NyFO5/nritGd
+ 3DImhY2Zf4KPQduCOMIUAXWv1vY1uT4QnFpFj2vu0l/41MlfTCTY/MYcL55udWtrY8PK
+ FcPz17l8d3u7nuC3mnoP9rbSTJfo4gBcIsHqYKJCocdEuPnku2WJ8ndLZhvX3LoCHcIW
+ BGcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date;
  bh=Nn/xaYDr70nfIgJ9YO/J5RCYgkbZZtOIDhcd1yX3ucQ=;
- b=5izdVv/YYHEa+6cmAZF8GhFqMI5Kyri9U2wvV9o/m26SS4BtIzOyg0ronXupGb+wCW
- ZJ2BVid3CyWzNvb8JCnP8lYk814aP/vOVcD1yrn6+6xnB62nJfi4bsPYk7/ZNQwr9Ag+
- lg6BTLEPhB8sSfdjvz5dWkjtyUmJ70iru95F74A335ym7PKiSL4+JGZolC6bEYPoYIFP
- +nHUujZ/A1s3Pd/yhNzt+RJkGpUBRhu+DHJxklQpcHwOmD39vGKJikKo325lYot5fL74
- yZjcFZUooQ84zJdxqEYeDsg3F61o8n2GA/I1IhlK6xDFTjciSYZQ6yP4DwWsrXBiSmM8
- +HqQ==
-X-Gm-Message-State: ACrzQf2G61kPsxNlM4KKNYztoWrq9znTWgJjqhXI9Roo4/KYKk12/kDG
- d0s70K6zV/jiEpn0Af4rorhkkem+N0viVQ==
-X-Google-Smtp-Source: AMsMyM50FzxRj2HlMqLUhKs7DyuUnvQs7gW82ejReGQGM3ZrmkM6wbsvNINnTUoBNEBG17AXJLYY2Q==
-X-Received: by 2002:a65:6d93:0:b0:42c:50ec:8025 with SMTP id
- bc19-20020a656d93000000b0042c50ec8025mr1380786pgb.62.1663820299647; 
- Wed, 21 Sep 2022 21:18:19 -0700 (PDT)
+ b=NcCIjBXHgUvTpPB84kPP0j8WffnjU84y+qcjhTcyMNBbPzGQcg9SSVxXKvKj0OJfUR
+ eCrswCN4HM83AOBH3BMXOJox1lAm27iYk07Q72zIFl8xSAinUR6DmR959/A/ArrOIjql
+ K5EVYIyc2SU0wSVfXm4rLPZMvOicvsQQaS1hkPzhbaF6kON4bA2rhwG/1WDqz+pEQayO
+ eHh5E0yJZcNk/1Nsf+p3b/PCVq1ZcWUoCs0W3Ql/7JIgMYnvqTH55qUGFmVsNnG1AAzK
+ ExBLOzPhZ8cO9lH6ZR+kgBjm75/rRFcNcn0TJXzbYUG+0v/f+hNMME9IBcG2gr5UzhvI
+ O97w==
+X-Gm-Message-State: ACrzQf0nrAapJnOg1BH08ImIDmP+m6AcqtV6Iu5Eo4QYrUQxcp2J+izq
+ MM3n5xgwITiSZ8hNrib8RVV1hbdBWHyySw==
+X-Google-Smtp-Source: AMsMyM5TfJLNWJSq/FsUmvKPRz4vhiY7w/WNIT+Tr3OomHvIiUFyp8KLViLkJxk0fltCucrHeWPqUg==
+X-Received: by 2002:a17:90a:cc9:b0:203:ab27:78c7 with SMTP id
+ 9-20020a17090a0cc900b00203ab2778c7mr12336745pjt.123.1663810051382; 
+ Wed, 21 Sep 2022 18:27:31 -0700 (PDT)
 Received: from localhost.localdomain (lily-optiplex-3070.dynamic.ucsd.edu.
  [2607:f720:1300:3033::1:4dd]) by smtp.googlemail.com with ESMTPSA id
- n124-20020a634082000000b004388ba7e5a9sm2697825pga.49.2022.09.21.21.18.17
+ n15-20020a63e04f000000b0043b565cb57csm2551492pgj.73.2022.09.21.18.27.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Sep 2022 21:18:18 -0700 (PDT)
+ Wed, 21 Sep 2022 18:27:30 -0700 (PDT)
 From: Li Zhong <floridsleeves@gmail.com>
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2] drivers/amd/pm: check the return value of amdgpu_bo_kmap
-Date: Wed, 21 Sep 2022 21:17:56 -0700
-Message-Id: <20220922041756.1681845-1-floridsleeves@gmail.com>
+Subject: [PATCH v1] drivers:amdgpu: check the return value of amdgpu_bo_kmap
+Date: Wed, 21 Sep 2022 18:27:19 -0700
+Message-Id: <20220922012719.1676315-1-floridsleeves@gmail.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
