@@ -4,91 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EA28C6FA8E
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 00:20:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0B1BECAAD8
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 01:36:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B645F10EA17;
-	Thu, 22 Sep 2022 00:20:43 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2057.outbound.protection.outlook.com [40.107.100.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A52110EA0B
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 00:19:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E265010EA25;
+	Thu, 22 Sep 2022 01:36:52 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2043.outbound.protection.outlook.com [40.107.94.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38D5A10EA25
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 01:36:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ltEliwK6VBAAhcsa4VMquWTn6Pic+4NXXjM8heHRjfGQQzarbBuS4FUZmV5V8BjvPCv6t1Ve84riIwFNbw0qPJlparmqh1LiPNazeUI5UGOlD8Ss6HoSCVTkCWPhYiKByEbZOZSpsaAjuC9U5ibvl7TmmCOMPvbPtN07nVft0lxjshqIrWh0FwNcbq5/g6sFFN235X/ckjqZcqdm5bHCMz0Gg8L7rfvjxKYq+GfjmHJQDaXEnZJBRS+B5METcptP0ljwlYD6VOxUe6ik5eZZSnuqFLO6zQLKYPuP+ywP1C/xRhrEyZPdALlsaoot6KKDuoVUqvnh+n4RRdl2gxAGzw==
+ b=a7ntqMJmm9uoCS0FXhTpFt2wjWR3OTkmKveNLSIOUuYaQqVAvvyLxxXz2jLRJvx0TIsHh266QMe6blK/7yj7+pha6heBOQtgmbSwCkszS7D6HcybFUsSr3vpiQ3pd47n2WR09NAIN70YtyBQ/F2xj3Z4vuNl8zqGkyJQG1nCgaSA3/59dAozLzJoSGP9r72iYNmJkBn4fDS65o+4GgzxT5JQxKtIGlzlQ90ilsm+xf30LwMpM/eXFqjeyM82YCKuM7r1yVx/frH+Qxgn2xP9M1n8BwgPEXz0Lh1s0S+vsI6k3Y4roLIp74/iKSAZ248MGc0t2dNMgrqNSffMWrzuKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RTup/JM5k9NkoUrl54+iNWvUiLXRqX4gpix35aJK2PE=;
- b=QaLuQXRYCo7AKSqEF0DydUSoPr6rhnN4NyK15vUAMejRIDhIwuiwuFYu4Cdkual234X4tswTjIeVHyvIaTaDmhqpIXU4OrvGazfQGZGwnG+hxWMIVL6dcNfmDtAecRXAkwFmcAVEpAYCTdlEmAHuU+KPrloCYorFHURzy2Pe4JmSmHrV8cpzJHLWAruikSVp95A+796IYltHhmClBZTnX8XH99DYh1JsN/lPbBCdBtAoQxlsY6wSTUfiHj91DP0jQLEhatd3SemTEDJTZOoKMPjFDeNUrFha3+xdPpPHt+TI/4NfqN38iuDRK/1w8VcmR4kjHmkkZPslf8G3XUKw7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=xgMCtgt8iFu7b4wyWExjWcibFYiEHNy3eY6fB/1mg4A=;
+ b=elnYtnJ5nLUi45yB9yZGRFQgAVXjr+z9VGA+c7E88Kj8KsC+wL7rPran8xVt7moHu94kzI/HigdLn/Oeo+4wyr8HA1rDG/TEUhVit5Eo55qHkdADgw9NCeGacLWXKJfnrNNpreaiHeQghQvYj3GyM+fXqUDGjtir5S5el7cIhv2SKcmYCo8M5BDULtCG5FN6xscTS8umEIQnGM7mZ/d4YWI49KB1DBU5aWmK2/H4MSqUq4BzGO66rf9NRwWfiZw5n//3SbSosPpdak1ttS9zxRHq7NOhj4F6ipVkWsWz1T8NcEWG9402TgJYEHM4toRVaYLPSdd9d3WAhKTVKOGzTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RTup/JM5k9NkoUrl54+iNWvUiLXRqX4gpix35aJK2PE=;
- b=C8yg8wgCR0ve9bsMRMMsYq51WGbZj7IIxH4zQL3VBmTOlUsWyLIb1nQiv6ibBVUXfvlKVVyZoOzk4UJkxgXNQNe0ZzmXR9mhVIZx4UsQ2qROShSm51drBx3sfuQ6ffAvqxEKL6fngCPnGi6UuT+BF5fsZqkI3Ue7bHhITzFbjGM=
-Received: from BN9PR03CA0765.namprd03.prod.outlook.com (2603:10b6:408:13a::20)
- by DM8PR12MB5480.namprd12.prod.outlook.com (2603:10b6:8:24::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.16; Thu, 22 Sep
- 2022 00:19:57 +0000
-Received: from BN8NAM11FT105.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13a:cafe::5c) by BN9PR03CA0765.outlook.office365.com
- (2603:10b6:408:13a::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.17 via Frontend
- Transport; Thu, 22 Sep 2022 00:19:57 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT105.mail.protection.outlook.com (10.13.176.183) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5654.14 via Frontend Transport; Thu, 22 Sep 2022 00:19:56 +0000
-Received: from jasdeep-System-Product-Name.phub.net.cable.rogers.com
- (10.180.168.240) by SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Wed, 21 Sep 2022 19:19:33 -0500
-From: Jasdeep Dhillon <jdhillon@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 31/31] drm/amd/display: remove redundant
- CalculateRemoteSurfaceFlipDelay's
-Date: Wed, 21 Sep 2022 20:18:21 -0400
-Message-ID: <20220922001821.320255-32-jdhillon@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220922001821.320255-1-jdhillon@amd.com>
-References: <20220922001821.320255-1-jdhillon@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT105:EE_|DM8PR12MB5480:EE_
-X-MS-Office365-Filtering-Correlation-Id: d27ef293-ab0e-46c1-d49c-08da9c302dfe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Fc7G3jndroEwBPT5VUH/bfjU6kxLE7s77uDCtFI+t2ovsbK8Gc6icVY8dbEQUifX37qFPiABs/f3v5SgfpoPPzkiolf0gSOjQ/XUrZibrqnPGSjTbBsKuuqawNFFJzZ6cSW9FoxqUQTyXlXXt/uYCiRbdauIXCtLi4qAtGWaosumAK2PirM+P5KfvZNPzetPkMWYIUoY4v58r44h53K8u+0GzY3lCd7PyQ67gtG7heF+CXKwDShfDzyA6qpOIa7iwohdJGvzKzW/5FhcxS1pRb6OL86luJbTT1boznNhSoE1WlZLi1PXqr/t/2GdTrHaYHT9IvUEO3kOUZrV6D/Fsp/O7iHiqfdsxlQBYRhAwrmmolJEIUM+SyWDYj2JfuN6U4wpWcvGv5L5PXC4Nfy/W2jX0JwWsm1TCok1bGbFZZa3NGIw/6AFtaUpXD/gGzIbk3JujE7EJJJ4g6gUb0xWEtK/sBrFkhc9FNiH0RDjJtnZnGmzqL3bin1W5nZbtgLzEAYRfyzfR40euV9uuV+kwY0xVvAdvZpGTKtMCnKyafnlFEn2YP0iyTzNWEtoL8HuNXQ2aSyvuyag5qiEF7GGkCv8NuGT5e/ZTxXR0rGLuwLvSCfnW2zu6Cs6TsuWqeeT79Zf1Nk6iSq9/zThXCSRKMkU78PobrthhutNbt/QflEVTgdtGkEWE5USSrzWa7zeD2JIjqkQvDm6gk31gymhHE7BIh4VdR9vcub20lPVbCb3EOho7iCI32OazClu/XcXpxyUqo0FiFpVa6Zc1mCOQ+YqNzcKREdliNty5GKPahs/gfWtt2VlTTt9wXPlz/cK0uBiTRWPAnnCf0zIJlelZQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(39860400002)(346002)(376002)(136003)(451199015)(40470700004)(36840700001)(46966006)(47076005)(83380400001)(426003)(186003)(336012)(16526019)(82740400003)(36860700001)(2616005)(1076003)(26005)(41300700001)(5660300002)(40480700001)(478600001)(6666004)(40460700003)(8936002)(82310400005)(8676002)(4326008)(356005)(70586007)(70206006)(81166007)(316002)(6916009)(54906003)(2906002)(36756003)(213903007)(36900700001);
+ bh=xgMCtgt8iFu7b4wyWExjWcibFYiEHNy3eY6fB/1mg4A=;
+ b=4rzQf5WouZ1DKaIrtMIHw9UsynLB9i+ErUj1Syt7k2EuheBvhOUUdjCXN4ZLoLql+AQohUsVaHqw+qCzKNI059k9dP7B1bYC/eY85wezCvm/+nvRp6LZ3bvsWNMEFyaf3ZvRcEW4OFi8v+au6YTS9dNwNt7RX6e9l9mp+6zCUt0=
+Received: from CH2PR12MB4215.namprd12.prod.outlook.com (2603:10b6:610:ab::24)
+ by CH2PR12MB4199.namprd12.prod.outlook.com (2603:10b6:610:a7::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.17; Thu, 22 Sep
+ 2022 01:36:46 +0000
+Received: from CH2PR12MB4215.namprd12.prod.outlook.com
+ ([fe80::c5b3:5a8a:5947:be53]) by CH2PR12MB4215.namprd12.prod.outlook.com
+ ([fe80::c5b3:5a8a:5947:be53%4]) with mapi id 15.20.5654.016; Thu, 22 Sep 2022
+ 01:36:46 +0000
+From: "Chai, Thomas" <YiPeng.Chai@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Fixed ras warning when uninstalling amdgpu
+Thread-Topic: [PATCH] drm/amdgpu: Fixed ras warning when uninstalling amdgpu
+Thread-Index: AQHYzJXMGKVWn+1KKE69SI3uatSiWK3qrlAw
+Date: Thu, 22 Sep 2022 01:36:46 +0000
+Message-ID: <CH2PR12MB42150879BB1AB00A757CFB3CFC4E9@CH2PR12MB4215.namprd12.prod.outlook.com>
+References: <20220920020701.692610-1-YiPeng.Chai@amd.com>
+In-Reply-To: <20220920020701.692610-1-YiPeng.Chai@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-22T01:36:31Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=67060bbc-c269-424e-af3c-7725e3c12396;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-09-22T01:36:42Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: c8a56e9a-bfac-46e2-9ac2-7a2774ee17e2
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH2PR12MB4215:EE_|CH2PR12MB4199:EE_
+x-ms-office365-filtering-correlation-id: 9bda8eaa-ad7b-468e-6a95-08da9c3ae963
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 1SLrVc5/sALz5EJh1hR1Ueovxemczji2fbk4FA4Di212zunPR9JOkeBAlxgalEjqTydImfIvAcxW1GcKofyuk9gudNAlmTRn+pugmd9mb2TSuh+zQuPshZxeot8xlfdgrc/eQ8QKCI3feu7tzOxKAGAghknlSkKWC+cdHLhut/ILqYTp8Gw3/s/i58Lmbw6uoYhF+Ny9gW/xSYbIydG8AtLvSXI+8B/Mz5QDXuj7uwT6RMziCByjSs01kvf4ADPqpqR2T0z8lPVjS5mQ8C3ZQSIeQc5ciYEjrPMzuFpmsD764c9Ud3009Ncy68YoZETOBqNDBBIjLVbrHNItyPBgmRi6T3x/Mve6aR90PFElfIlNtw03Ylz8V5a0W/3e8MNoTgggBty5O2LLI/WtPKSpiSjwpiwxziF0LKCORwyFGxV6KkbDywvqjTxPUeyWYxXhRjE+eRxEAoiaRGkwsCR2jHjdaqqcOlj3ZS/dlMTZAJJarX6hHwIDb+nfxXoDvoaH7H62iwZVibbIy1CpaqG5FyKoKOOvLnbGW4pAh+hbzrC5KA4P+ocGFW2wmcVZgnGEvzcEz/B+dzLBB48nIoSqFSLFqQan5rjXZRJA+jNIkbgrwzybNzMe50aoeV9APTVf9DlcdWpCg+Kb0a2tz6ZZejLddApcl3/OG/jqHRBILdGWgWM1esEyoLcM4eSv7CJU8ilJ64lImwIK7gt6hIHGTJpfs4uwhJgeXQw1Fr7qoWnbd16IT3XU6UOfaRHdGJDOnosVHIUfcbT6CDPq3ALZ/4G43tLkURti3L3RXanS08Y=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4215.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(366004)(346002)(39860400002)(136003)(396003)(451199015)(66556008)(66476007)(66446008)(64756008)(83380400001)(38100700002)(122000001)(4326008)(33656002)(5660300002)(54906003)(6916009)(41300700001)(86362001)(8676002)(8936002)(76116006)(316002)(55016003)(52536014)(66946007)(186003)(26005)(478600001)(38070700005)(9686003)(53546011)(71200400001)(2906002)(6506007)(7696005)(473944003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EdynsOuc6ctBk+xz8zNAxJwjnMiNXjhwpdTdGkhXIRGCRXqksA2KO7cZm17x?=
+ =?us-ascii?Q?jBJmqT6JdGf1X/L1l8EGWAMcQzP+AhFaQbnB704dxXpzy0gwrkC5WecJ/v8r?=
+ =?us-ascii?Q?GGCqxWKJKyPz0lmEvw9xvjSZXU33UH0RzrSc1yII2zqBaruDwcGIAH3L/0hg?=
+ =?us-ascii?Q?/0bCwzSTNP50g5agQdjWwQVt6EzQfoytpl69hgPF+JpODJLIDBazePM822JY?=
+ =?us-ascii?Q?MIjFRi+einFeWS/gJFl4AAej4nEtpxWVNrwKh+6cWPQtWRtKW5zBQzsM1iXI?=
+ =?us-ascii?Q?1WqsG22kFBPL73sA6x2mi+1pd4brUuy+Pni2gNC4kY8iMpvUtY21QRgEAsG1?=
+ =?us-ascii?Q?gjGVK+o1R0fRl/sIqTFWi6Dw9fCt6M7AhQKfK+fC7Hkn5opyLuhpZyxLcNtc?=
+ =?us-ascii?Q?/dNfq8IUuEhF6OJT+V4C79OgSW/fxTeNdRdu3g9AznWP5hOl1A0OF7tSMUVj?=
+ =?us-ascii?Q?svKph52hemiyxYByuFSD1LBvqbSS5HkE0vNNfYYmBVPClgETId2QGiWMjB41?=
+ =?us-ascii?Q?/C70Drt9BviUSi4WTOJgQuCABsHAJZ4lFSnpGSI5AZvkmQ9Yyj/2RKuTriuJ?=
+ =?us-ascii?Q?kJPPdzO3om4jeU65f8ZrwN3p6bg8WUcGfTHtbWp9h8CyHysLteaZ+Um1Rghw?=
+ =?us-ascii?Q?fb9R5Tt2EVjahsqH19Q1KR728p2aia5fSka8GjTV9IKbfHStTkw7q5agu796?=
+ =?us-ascii?Q?Ew3sd3PvNoFbBSs8nZN7gJ5o83CamXMqVTIxalve5JVUvI81iRMLc9OyJ6CF?=
+ =?us-ascii?Q?VJoeWnqzxKAdS2XC6KHi/bwMo79uiHz3R9GvkOefyG8xA540r6zfbK7hVt1F?=
+ =?us-ascii?Q?mWWtkDH1pyexX947wWCGs1Sp96Hm1S/Gvoo5NFL1JwIz1+9mpzXH5bDatRWJ?=
+ =?us-ascii?Q?c2T4eKbOyFIr8H+E1mB/omEUaOwyfqFJ+2xYuFh6gDSit5gkfOWlRMqh35Pb?=
+ =?us-ascii?Q?pwmkzDMm59SXsGVBlPy37aM5fSFilzkcFRiA3bIXHO+By4HEQ++n87DVREeU?=
+ =?us-ascii?Q?aXYgL2VnplnOpWktdL9SG9bte4/wAEZjQAuEEvXImXuB1xsGug4pYvWJbM9i?=
+ =?us-ascii?Q?j+GXi9MtxywHsdqxz6NcdCqBHxJzmdm88OamGt4U/h/GSp7RZpOgd/boiArv?=
+ =?us-ascii?Q?II5nzRhSHyNRTDMPJkNuAKfptOHgI9f/urMbVegtx4vxcMDP2HVCDwEZTipY?=
+ =?us-ascii?Q?ExHCMcdNqZiDOad+BZ1uIUsxjgkWn+E+V8pdBUT0Y0mIeEGV4TCbt6Mrab5M?=
+ =?us-ascii?Q?vJQPCxNEtO2UowyJJhUwhOuwkvyVmnJ8YT1ZIk0JFtdbos2eCwe4GzNwCe7p?=
+ =?us-ascii?Q?S8wG9eQmbRhK4KgvsBVGM7ip3/12xkKPwf/OPAruLLEDP3mNEGaL2KmJ3njB?=
+ =?us-ascii?Q?ySrhPgsL27xuU0tc4QVDnlhGW4W3Cyup8f1sVMlN5SIsOBhjzJVD12DxzTAQ?=
+ =?us-ascii?Q?yxLai2RDB3XjEQV4wHKLeiGPh9RxNDie93M73rqov7EOJyRSgJONBoDh0ftj?=
+ =?us-ascii?Q?2vTJo5RhmS2Lt/Vr4/JAojt4X91Ss3gujq5nQBZDY2VzlF+sQEQNz1QM07nq?=
+ =?us-ascii?Q?Z+XFqL4DBzvp/6DHQiQae8+ghUK4Izk884B+8exp?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2022 00:19:56.9603 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d27ef293-ab0e-46c1-d49c-08da9c302dfe
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT105.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5480
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4215.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bda8eaa-ad7b-468e-6a95-08da9c3ae963
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2022 01:36:46.3676 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: w6lZYthLaPO7M7s/23lha22MoP+dXewXFoxBYqw/QNqHa5h2Uv60vuwlcAgV099wrbF8OBDdaLfopCorOk1n+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4199
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,165 +128,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
- Tom Rix <trix@redhat.com>, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: "Yang,
+ Stanley" <Stanley.Yang@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Clements,
+ John" <John.Clements@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tom Rix <trix@redhat.com>
+[AMD Official Use Only - General]
 
-There are several copies of CalculateRemoteSurfaceFlipDelay.
-Reduce to one instance.
+Ping ...
 
-Signed-off-by: Tom Rix <trix@redhat.com>
-Reviewed-by: Maíra Canal <mairacanal@riseup.net>
+
+-----------------
+Best Regards,
+Thomas
+
+-----Original Message-----
+From: Chai, Thomas <YiPeng.Chai@amd.com>=20
+Sent: Tuesday, September 20, 2022 10:07 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
+om>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>=
+; Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
+Subject: [PATCH] drm/amdgpu: Fixed ras warning when uninstalling amdgpu
+
+  For the asic using smu v13_0_2, there is the following warning when unins=
+talling amdgpu:
+  amdgpu: ras disable gfx failed poison:1 ret:-22.
+
+[Why]:
+  For the asic using smu v13_0_2, the psp .suspend and
+  mode1reset is called before amdgpu_ras_pre_fini during
+  amdgpu uninstall, it has disabled all ras features and
+  reset the psp. Since the psp is reset, calling
+  amdgpu_ras_disable_all_features in amdgpu_ras_pre_fini
+  to disable ras features will fail.
+
+[How]:
+  If all ras features are disabled, amdgpu_ras_disable_all_features
+  will not be called to disable all ras features again.
+
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- .../dc/dml/dcn20/display_mode_vba_20.c        |  4 +-
- .../dc/dml/dcn20/display_mode_vba_20v2.c      | 40 +------------------
- .../dc/dml/dcn21/display_mode_vba_21.c        | 40 +------------------
- 3 files changed, 4 insertions(+), 80 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-index 4ca080950924..8e5d58336bc5 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-@@ -158,7 +158,7 @@ double CalculateTWait(
- 		double DRAMClockChangeLatency,
- 		double UrgentLatency,
- 		double SREnterPlusExitTime);
--static double CalculateRemoteSurfaceFlipDelay(
-+double CalculateRemoteSurfaceFlipDelay(
- 		struct display_mode_lib *mode_lib,
- 		double VRatio,
- 		double SwathWidth,
-@@ -2909,7 +2909,7 @@ double CalculateTWait(
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index e55f106621ef..3deb716710e6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2720,7 +2720,8 @@ int amdgpu_ras_pre_fini(struct amdgpu_device *adev)
+=20
+=20
+ 	/* Need disable ras on all IPs here before ip [hw/sw]fini */
+-	amdgpu_ras_disable_all_features(adev, 0);
++	if (con->features)
++		amdgpu_ras_disable_all_features(adev, 0);
+ 	amdgpu_ras_recovery_fini(adev);
+ 	return 0;
  }
- 
--static double CalculateRemoteSurfaceFlipDelay(
-+double CalculateRemoteSurfaceFlipDelay(
- 		struct display_mode_lib *mode_lib,
- 		double VRatio,
- 		double SwathWidth,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
-index 2b4dcae4e432..e9ebc81adc71 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
-@@ -182,7 +182,7 @@ double CalculateTWait(
- 		double DRAMClockChangeLatency,
- 		double UrgentLatency,
- 		double SREnterPlusExitTime);
--static double CalculateRemoteSurfaceFlipDelay(
-+double CalculateRemoteSurfaceFlipDelay(
- 		struct display_mode_lib *mode_lib,
- 		double VRatio,
- 		double SwathWidth,
-@@ -2967,44 +2967,6 @@ static void dml20v2_DisplayPipeConfiguration(struct display_mode_lib *mode_lib)
- 	}
- }
- 
--static double CalculateRemoteSurfaceFlipDelay(
--		struct display_mode_lib *mode_lib,
--		double VRatio,
--		double SwathWidth,
--		double Bpp,
--		double LineTime,
--		double XFCTSlvVupdateOffset,
--		double XFCTSlvVupdateWidth,
--		double XFCTSlvVreadyOffset,
--		double XFCXBUFLatencyTolerance,
--		double XFCFillBWOverhead,
--		double XFCSlvChunkSize,
--		double XFCBusTransportTime,
--		double TCalc,
--		double TWait,
--		double *SrcActiveDrainRate,
--		double *TInitXFill,
--		double *TslvChk)
--{
--	double TSlvSetup, AvgfillRate, result;
--
--	*SrcActiveDrainRate = VRatio * SwathWidth * Bpp / LineTime;
--	TSlvSetup = XFCTSlvVupdateOffset + XFCTSlvVupdateWidth + XFCTSlvVreadyOffset;
--	*TInitXFill = XFCXBUFLatencyTolerance / (1 + XFCFillBWOverhead / 100);
--	AvgfillRate = *SrcActiveDrainRate * (1 + XFCFillBWOverhead / 100);
--	*TslvChk = XFCSlvChunkSize / AvgfillRate;
--	dml_print(
--			"DML::CalculateRemoteSurfaceFlipDelay: SrcActiveDrainRate: %f\n",
--			*SrcActiveDrainRate);
--	dml_print("DML::CalculateRemoteSurfaceFlipDelay: TSlvSetup: %f\n", TSlvSetup);
--	dml_print("DML::CalculateRemoteSurfaceFlipDelay: TInitXFill: %f\n", *TInitXFill);
--	dml_print("DML::CalculateRemoteSurfaceFlipDelay: AvgfillRate: %f\n", AvgfillRate);
--	dml_print("DML::CalculateRemoteSurfaceFlipDelay: TslvChk: %f\n", *TslvChk);
--	result = 2 * XFCBusTransportTime + TSlvSetup + TCalc + TWait + *TslvChk + *TInitXFill; // TODO: This doesn't seem to match programming guide
--	dml_print("DML::CalculateRemoteSurfaceFlipDelay: RemoteSurfaceFlipDelay: %f\n", result);
--	return result;
--}
--
- static void CalculateActiveRowBandwidth(
- 		bool GPUVMEnable,
- 		enum source_format_class SourcePixelFormat,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-index df4b52b2ed4c..d79b27ba8a9c 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-@@ -210,7 +210,7 @@ double CalculateTWait(
- 		double DRAMClockChangeLatency,
- 		double UrgentLatency,
- 		double SREnterPlusExitTime);
--static double CalculateRemoteSurfaceFlipDelay(
-+double CalculateRemoteSurfaceFlipDelay(
- 		struct display_mode_lib *mode_lib,
- 		double VRatio,
- 		double SwathWidth,
-@@ -2980,44 +2980,6 @@ static void DisplayPipeConfiguration(struct display_mode_lib *mode_lib)
- 	}
- }
- 
--static double CalculateRemoteSurfaceFlipDelay(
--		struct display_mode_lib *mode_lib,
--		double VRatio,
--		double SwathWidth,
--		double Bpp,
--		double LineTime,
--		double XFCTSlvVupdateOffset,
--		double XFCTSlvVupdateWidth,
--		double XFCTSlvVreadyOffset,
--		double XFCXBUFLatencyTolerance,
--		double XFCFillBWOverhead,
--		double XFCSlvChunkSize,
--		double XFCBusTransportTime,
--		double TCalc,
--		double TWait,
--		double *SrcActiveDrainRate,
--		double *TInitXFill,
--		double *TslvChk)
--{
--	double TSlvSetup, AvgfillRate, result;
--
--	*SrcActiveDrainRate = VRatio * SwathWidth * Bpp / LineTime;
--	TSlvSetup = XFCTSlvVupdateOffset + XFCTSlvVupdateWidth + XFCTSlvVreadyOffset;
--	*TInitXFill = XFCXBUFLatencyTolerance / (1 + XFCFillBWOverhead / 100);
--	AvgfillRate = *SrcActiveDrainRate * (1 + XFCFillBWOverhead / 100);
--	*TslvChk = XFCSlvChunkSize / AvgfillRate;
--	dml_print(
--			"DML::CalculateRemoteSurfaceFlipDelay: SrcActiveDrainRate: %f\n",
--			*SrcActiveDrainRate);
--	dml_print("DML::CalculateRemoteSurfaceFlipDelay: TSlvSetup: %f\n", TSlvSetup);
--	dml_print("DML::CalculateRemoteSurfaceFlipDelay: TInitXFill: %f\n", *TInitXFill);
--	dml_print("DML::CalculateRemoteSurfaceFlipDelay: AvgfillRate: %f\n", AvgfillRate);
--	dml_print("DML::CalculateRemoteSurfaceFlipDelay: TslvChk: %f\n", *TslvChk);
--	result = 2 * XFCBusTransportTime + TSlvSetup + TCalc + TWait + *TslvChk + *TInitXFill; // TODO: This doesn't seem to match programming guide
--	dml_print("DML::CalculateRemoteSurfaceFlipDelay: RemoteSurfaceFlipDelay: %f\n", result);
--	return result;
--}
--
- static void CalculateActiveRowBandwidth(
- 		bool GPUVMEnable,
- 		enum source_format_class SourcePixelFormat,
--- 
+--
 2.25.1
-
