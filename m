@@ -4,88 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00818C54EE9
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 13:19:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0482AC6FA82
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 13:35:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 335A810EB10;
-	Thu, 22 Sep 2022 13:19:41 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2086.outbound.protection.outlook.com [40.107.243.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1232C10EB10
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 13:19:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dVayTxgpznAJ/MZPlEx2jlb/UF3Ig6mbawe+b3nnXbMXv3zdAtrDP9iwuAoiRrgikv/CVu/kiIVVKf4vSIIWPGD1kWpsJOhJZzKUbAkEjMkb25niSnv2f96FR5VpiTYjJZWvYqdXGYVZfXHHOv+445hg6iT9cxc/cBtltGEU20cCFyDVJRm+88m6xcIWdM50kPLBT42OKKhnGzlBKc6aKapCrvdLdePo7x7IdN/amL0FJ2U2sCNJNNUi2g6qlsHBJOvX+oJKqPEkAYKUfty+nCtoOd1TCiPV39jiNuiAbSSn3RbhQlCFehZIBS6aaeYF2LKJRi1nOUuNi1BZbIkoow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l4+3kUbhWUtsA7FYakJ/DZCnRxFycpMEkU0BpjdvZqM=;
- b=XbGiGzVbL8GFqIqrRQTDzESrce7T15CPi8rCxe3K0fphkH/TP5TZM2T+uHZyF2z1xZfihI2aGs1lHYjplJ+973pS5O8QZzrxbRkM0bvwL+La5YRTl0ir3TpGesbDJjMuXNl2diuI417pOCPahGncpZEp5nHMoeTjAR9DPLPPTAUWJ2l0j5f54qOmn9UCubFlZiLz4l60cJl58gfOLyaWpXvW/S27ovWxYF93yb3nYqPM8h3GMMivACCFK9M/t922hcfd5Sz8j+gscXsArv2IYA6uGiiBzADQX8NxcDKcQbvKGTb0wNF5hqQsGWzo/oXGQ/RFLOL9kmFTpPxYcarpXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l4+3kUbhWUtsA7FYakJ/DZCnRxFycpMEkU0BpjdvZqM=;
- b=cDBijo1bQpKsMaWy7UGfo7HlJfpcNkgRsCaZ3jBM5EtfShh6MhqlguKTXRAuTcGQEnOuggU73MfD5CniP1UpDHae7UJgIZkY/BwRI47iwk1saW3uMr+GZUbnd95sMuZoHtuMM/nZNXqzfSnS9wm06DfA0fwyPg2MEeT/oZvhkG0=
-Received: from MW4PR04CA0221.namprd04.prod.outlook.com (2603:10b6:303:87::16)
- by PH7PR12MB7162.namprd12.prod.outlook.com (2603:10b6:510:201::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.18; Thu, 22 Sep
- 2022 13:19:34 +0000
-Received: from CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:87:cafe::cd) by MW4PR04CA0221.outlook.office365.com
- (2603:10b6:303:87::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.18 via Frontend
- Transport; Thu, 22 Sep 2022 13:19:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT065.mail.protection.outlook.com (10.13.174.62) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5654.14 via Frontend Transport; Thu, 22 Sep 2022 13:19:34 +0000
-Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Thu, 22 Sep 2022 08:19:29 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Fix VRAM BO swap issue
-Date: Thu, 22 Sep 2022 06:18:59 -0700
-Message-ID: <20220922131859.131544-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E21E810EB1F;
+	Thu, 22 Sep 2022 13:35:15 +0000 (UTC)
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [IPv6:2001:4860:4864:20::2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC9F210EB1F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 13:35:10 +0000 (UTC)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-12b542cb1d3so13808032fac.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 06:35:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=6mkeYO7Ke/w8c22LFTpz5GPS9ufltXyBy9yN81Li49M=;
+ b=VpB0HNcrU4fwTDvqSteHIBWmUVbl/5ArDNLMvs2VXV4TqFX04WA6GfS7PUUi1QnVE5
+ 0XhV1WOAjviIzzOjrXGWXoq8FNb3MUJYaQB+It5qzua9DKPy4/66gZu6jkRaCdThpQT2
+ OG0rFzhq+GGb4wtvHj2u4NzIgNWJYDZ5Rir/BmH6dM2YHH8kuYSqHx+JZdE7pQaY5qny
+ 2SEghLhvEu3AIjPbH+DLzf3QiIqpW236j828dLONYP5YzgetiI4wjA4H1r8H35neWiDU
+ 7R1dJb4b7kVxpoZG6k1I2PleuKMujvdwtYWbuyRncsnorYxjbv7/rm1bAQUVzfSkrR6p
+ aK7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=6mkeYO7Ke/w8c22LFTpz5GPS9ufltXyBy9yN81Li49M=;
+ b=Ua1geA8VVollaxnyrqsloJMzk7OCpz3+WyDeyuzKAhuzGsuRJEDnV4g9rTYQ2yW3wZ
+ e4taHB+xG3HVKgA7+ayr+RqA3cbd4KCxAwSrhkO861kh7HcIuSJRlAIyIhhASbC7Bh+w
+ ipa4/JIT/83YnJdlDdB81lH5fuuDPirPm4Vv/zoXIIOO/0fSMshzeEvoBMFOIT2pYfsN
+ vu/TkUb+oDFcC3MIRNIJB3nH8LtMHGtqKOqcB0d8z3ihBi2AWPf5rvuylp7lg1gLeP76
+ D8oX3fWoTWe6FywxRl/tb5k5KgXh1hNU7SQpIouJMpH5xwMScTYabWUXD6TWcbcDENcg
+ LJqA==
+X-Gm-Message-State: ACrzQf3mEgzN8VZL3vkECQSSnHfsbya3yP7/ibhc5ViA4TREz5IJB3SA
+ kCgoumRvHg2QZzuPpmNseuCIzeLfRt7rWJhtQEg=
+X-Google-Smtp-Source: AMsMyM7SYY7bHPzQE2Yt4xMK6PWhVSnNbDf1tfzvyhCezrg6ANGv/Qp2j0u5Mw4q8VPqxLKpExXte70UuNjRR4C1zeQ=
+X-Received: by 2002:a05:6870:738d:b0:125:1b5:420f with SMTP id
+ z13-20020a056870738d00b0012501b5420fmr2003984oam.96.1663853710123; Thu, 22
+ Sep 2022 06:35:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT065:EE_|PH7PR12MB7162:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ba724c8-e482-4913-f161-08da9c9d1764
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fA7+zuQUd46OWzHJ3N7Uk0C+/pQRRBLKjeIS0nJWeu1hVfL+71mrwTR0pGYM0RmFbQI8ZE/3MIpvKUmiBlvxGR1XZjbbfvpat7KXyyiIJ6qUQBi9zJLtIgbIBXj3X0yIC8Yu95sFk0QdvKPUO1eKRedRfaLR7E6B8kPlRfmIiPOJC2AIR80UzjNny1/7pB2a0auAvGkZfGxU+g9aG0dZq7Vo48D/9b/xWnTU1/QHNK67RKy2mJvPljI/08THg6BVmzF/wex8KH/BpnQCTR4ceqonwhvm6bAJAUrDgtvxRibHIeAm1amImZue3ZP1JTMB6KWesMGvodKX4rwCrjfm4XMtczDMMbrLF+UHR/1kYm821keLMBt/FAC5DWaJR3HWQrzgSkvG+UO/CQ2I3mC5yChilDdZ4N6gxmT+/uw4feVLyP6ykvYeDm+lGPh7JtDSRdatdhkeMyyMjSNdd3sZNt9BugZQ6Xk6r2BXUusEmp5i9t7q3gCKGr82mPibN8/fjSQiOeB8/pJAYHfhWA6rjc3jBpT368V2XOtwxFbaeKHo6VHJGxF+opilcUNv9iJLii2l48GHr3g3FSxAE4iMBwVWP3ZqMp/Yjv9rtd8jVZrElYNIaS/6cDWnv1J0pHaYqgW/ndwtFeRiIb/mDPdEQKAug55Q+h5szbors5l4JjI+8ofpEyxZ6Vb8HQsyJ+vDd6OvgPuJWb/bVj0H5vEfnaxNRnHoKI8ROqypUtP5gdN6W6yOh5Td48R3jGKQekprelJVN7v4QwHRorXWIXe5cSIMdnSTDgjEfArOtUhfFUyWzvsKTqQTXNO9ACbBDJvP
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(39860400002)(136003)(376002)(396003)(451199015)(36840700001)(46966006)(40470700004)(70586007)(8676002)(6666004)(4326008)(70206006)(316002)(8936002)(478600001)(26005)(5660300002)(40460700003)(41300700001)(36756003)(2906002)(7696005)(356005)(36860700001)(82740400003)(81166007)(82310400005)(40480700001)(186003)(47076005)(426003)(2616005)(16526019)(336012)(86362001)(1076003)(83380400001)(54906003)(6916009)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2022 13:19:34.0917 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ba724c8-e482-4913-f161-08da9c9d1764
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7162
+References: <20220922131859.131544-1-Arunpravin.PaneerSelvam@amd.com>
+In-Reply-To: <20220922131859.131544-1-Arunpravin.PaneerSelvam@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 22 Sep 2022 09:34:58 -0400
+Message-ID: <CADnq5_PoB=3XO7wjcqcmewOnNajuhnWpVisSh1TR6eAQD+Z-5A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix VRAM BO swap issue
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,60 +64,68 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: alexander.deucher@amd.com, Jun.Ma2@amd.com, christian.koenig@amd.com,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DRM buddy manager allocates the contiguous memory requests in
-a single block or multiple blocks. So for the ttm move operation
-(incase of low vram memory) we should consider all the blocks to
-compute the total memory size which compared with the struct
-ttm_resource num_pages in order to verify that the blocks are
-contiguous for the eviction process.
+On Thu, Sep 22, 2022 at 9:19 AM Arunpravin Paneer Selvam
+<Arunpravin.PaneerSelvam@amd.com> wrote:
+>
+> DRM buddy manager allocates the contiguous memory requests in
+> a single block or multiple blocks. So for the ttm move operation
+> (incase of low vram memory) we should consider all the blocks to
+> compute the total memory size which compared with the struct
+> ttm_resource num_pages in order to verify that the blocks are
+> contiguous for the eviction process.
+>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+Please add a Fixes line and any relevant bug report links.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index b1c455329023..b1223c8e30c9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -426,6 +426,7 @@ static bool amdgpu_mem_visible(struct amdgpu_device *adev,
- {
- 	uint64_t mem_size = (u64)mem->num_pages << PAGE_SHIFT;
- 	struct amdgpu_res_cursor cursor;
-+	u64 start, size, total_size = 0;
- 
- 	if (mem->mem_type == TTM_PL_SYSTEM ||
- 	    mem->mem_type == TTM_PL_TT)
-@@ -435,8 +436,23 @@ static bool amdgpu_mem_visible(struct amdgpu_device *adev,
- 
- 	amdgpu_res_first(mem, 0, mem_size, &cursor);
- 
--	/* ttm_resource_ioremap only supports contiguous memory */
--	if (cursor.size != mem_size)
-+	do {
-+		start = cursor.start;
-+		size = cursor.size;
-+
-+		total_size += size;
-+
-+		amdgpu_res_next(&cursor, cursor.size);
-+
-+		if (!cursor.remaining)
-+			break;
-+
-+		/* ttm_resource_ioremap only supports contiguous memory */
-+		if (start + size != cursor.start)
-+			return false;
-+	} while (1);
-+
-+	if (total_size != mem_size)
- 		return false;
- 
- 	return cursor.start + cursor.size <= adev->gmc.visible_vram_size;
--- 
-2.25.1
+Alex
 
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 20 ++++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index b1c455329023..b1223c8e30c9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -426,6 +426,7 @@ static bool amdgpu_mem_visible(struct amdgpu_device *adev,
+>  {
+>         uint64_t mem_size = (u64)mem->num_pages << PAGE_SHIFT;
+>         struct amdgpu_res_cursor cursor;
+> +       u64 start, size, total_size = 0;
+>
+>         if (mem->mem_type == TTM_PL_SYSTEM ||
+>             mem->mem_type == TTM_PL_TT)
+> @@ -435,8 +436,23 @@ static bool amdgpu_mem_visible(struct amdgpu_device *adev,
+>
+>         amdgpu_res_first(mem, 0, mem_size, &cursor);
+>
+> -       /* ttm_resource_ioremap only supports contiguous memory */
+> -       if (cursor.size != mem_size)
+> +       do {
+> +               start = cursor.start;
+> +               size = cursor.size;
+> +
+> +               total_size += size;
+> +
+> +               amdgpu_res_next(&cursor, cursor.size);
+> +
+> +               if (!cursor.remaining)
+> +                       break;
+> +
+> +               /* ttm_resource_ioremap only supports contiguous memory */
+> +               if (start + size != cursor.start)
+> +                       return false;
+> +       } while (1);
+> +
+> +       if (total_size != mem_size)
+>                 return false;
+>
+>         return cursor.start + cursor.size <= adev->gmc.visible_vram_size;
+> --
+> 2.25.1
+>
