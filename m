@@ -4,57 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86DFDC6FA82
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 14:17:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77797ECAAD8
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 14:27:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54DAA10E580;
-	Fri, 23 Sep 2022 14:17:37 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB1E10E574
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Sep 2022 14:17:33 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id z2so450610edi.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Sep 2022 07:17:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qtec.com; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=UIbyRt/2hWXP75+auGQPO08v5iAXBofhMAPo6YTUSuE=;
- b=DCh6DTm3dTnmhFuz1AxVt+/Hf0Vj9pZbLB8HWXquhcamS2npe70kwCziymZUbQGNAV
- D2Rs5zULVze5BuGBXVUCZIPkyxq5OoefKZ8Aoje+V8lQyyOtWCYIdP8MSi+6XXtefCfK
- wfPWxReLV74vNlFHGXLYWzzXyJEMukTaX5jjULcBwENBb9ZK7wg16V0YnoPKJOIsrkbt
- wU9TiR+Af91SJVDTsNkQd4VCXMciemDrTKcF3j6I05HUL+6HD5GtIDSdVDRIwPj8BdDH
- gOgFOLGgDUZIdgSuJJbQD8QT8j5us/4cZag0DyEEqs51jec60dm1v/Fm5iqYlGQN9N3Y
- dxaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=UIbyRt/2hWXP75+auGQPO08v5iAXBofhMAPo6YTUSuE=;
- b=ZXLQ9t3lsiAlhx2rdbmlTn2MnZ47oW3OLykb/53e0/xOK1Z4KIko3e3cYioMLK6uCm
- d8QwigNt0WrRZ0UTem0u7LuzQCtMDWxUQzJdm+xgE9JYLDkaxjOKioGOipsRiqGqEKPd
- ZEa4Hre+AOY/jgPuSoOfNf4c06ZgS5szDi8YxRTtkg3umJsVSodOlUbw6VHRRu2u+NIi
- 2eORLBiQbj1Dqk84c6ckxQ1Qu85lmGuikxoerEXhLJwe3urencM/+YIqi0H5YZs6/tHC
- 4hmvqCpXFZyXr2qrqBW/bDf2hhbTZMUaLxdpIC5b+bElpxiPxmAuUI+ZpnpGZUR9IsCO
- R2pQ==
-X-Gm-Message-State: ACrzQf0mVNdaxSAa+GJSxQmZFgWD6wCRMgoFuHYPEKUhfY6naizyRQFe
- LW9wTtU13mCtgPAN7DNktfWI2w==
-X-Google-Smtp-Source: AMsMyM5NGNo9Lo1ijc28YrZjiuN2uwqRWJDXjoxxPzsYB0tIsz6bEtT7ZOtW4epyg/UFf6H+D1hVWw==
-X-Received: by 2002:a05:6402:3596:b0:450:c4d9:a04b with SMTP id
- y22-20020a056402359600b00450c4d9a04bmr8746426edc.218.1663942651526; 
- Fri, 23 Sep 2022 07:17:31 -0700 (PDT)
-Received: from datops.qtec.com (cpe.ge-3-0-8-100.ryvnqe10.dk.customer.tdc.net.
- [80.197.57.18]) by smtp.gmail.com with ESMTPSA id
- e26-20020a1709062c1a00b00722e50dab2csm4071384ejh.109.2022.09.23.07.17.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Sep 2022 07:17:30 -0700 (PDT)
-From: Daniel Gomez <daniel@qtec.com>
-To: 
-Subject: [RFC][PATCH] drm/amd/display: Restore DC_FP_* wrapper in dml/calcs
-Date: Fri, 23 Sep 2022 16:17:21 +0200
-Message-Id: <20220923141725.436141-1-daniel@qtec.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB68210EAF1;
+	Fri, 23 Sep 2022 14:27:01 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2048.outbound.protection.outlook.com [40.107.96.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07C9610EAF1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Sep 2022 14:26:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fyCj0rs5BrZiA9cr83GZK7VmU5QELHYQHwJ4JS+R14XyjMLUdPo5Lrn6g7Kx4ju1xA1P1IwNvANFfzDYSdzAJm1OlL/xv0bPh7FAJ6iI3VfXf2Hj49bKPMX+Yb5QRoElj9j5/Wi2qHNq6LTgnVhhunZPq0oUOurChssx/NFG1LTzvJdDBR/MOFQWWLTkYXZsJtXx1/tiz7Ws5TE9Hzr6sar9XXRdVfsFRp9HWD7V4/+XnMzYB0iJ5v31LRUD+PnbutUXUw6WCmGZXUrMsIg0+y5en1y3S48MAoWsFuSEExrx6ambN3I6G6Yd55A2QZbCu1P4VxaYkSnDijhA2bzBtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GgwToDCMhl14Gtt+1DkE+r56C6j25c9vKTJx5M45na0=;
+ b=CbrM0PqZ7ZDSkAn4246SNRB9KfgPlDFNW4Ye8qGQ+AUqqiHM6wE8twCzeZw2DwMgKBJ5JkyG//mEPb2avOedlC4yX1Ym7sCVpW9yDfEVJZzludCA/JX1hc7iNackRV3CYwBQsZb2RhhD2IYoo8QZL9+Zkk5bBwsWHcL/OcBkF55bsTNkd5XnFQ5guIHAutNdAT4k3YRu9BJkSME5cjWRTfRAqwYLltPm4z2gKk0Hdtf4ParAWs3JNLjWK4ZOZ0BO3OPNqR04Yn+/+E5NY1sx77/bOtKW/HSU6P2YjtOsgrHeZRaed83HfaGCzkwraSP4kwKCkAkWWCWj+dXqUTUjXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GgwToDCMhl14Gtt+1DkE+r56C6j25c9vKTJx5M45na0=;
+ b=sFtpx+xj3njJAvDbGIYom4m/clgcGdnVr+xPIw3ZZIRBecFwxS4kU4ktLghX2EAm1TyU2MAKp3w0MhpM/v7B625vw8Ptxx/yMB0Q+xhRwnszdo+lsQsK8Uj+JwAH3ADDxdPjhhDOAU2kosK056ND5k9r8PPIJ6uJuXZYLQzxXxk=
+Received: from MW4PR03CA0033.namprd03.prod.outlook.com (2603:10b6:303:8e::8)
+ by DM4PR12MB5037.namprd12.prod.outlook.com (2603:10b6:5:39a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.20; Fri, 23 Sep
+ 2022 14:26:54 +0000
+Received: from CO1NAM11FT080.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8e:cafe::ac) by MW4PR03CA0033.outlook.office365.com
+ (2603:10b6:303:8e::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.20 via Frontend
+ Transport; Fri, 23 Sep 2022 14:26:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT080.mail.protection.outlook.com (10.13.174.99) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5654.14 via Frontend Transport; Fri, 23 Sep 2022 14:26:54 +0000
+Received: from mkgs-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 23 Sep
+ 2022 09:26:53 -0500
+From: Graham Sider <Graham.Sider@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdkfd: fix dropped interrupt in kfd_int_process_v11
+Date: Fri, 23 Sep 2022 10:26:36 -0400
+Message-ID: <20220923142636.1007838-1-Graham.Sider@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT080:EE_|DM4PR12MB5037:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4875c085-d881-4b3b-075e-08da9d6faa14
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 0fLDExPlUQ70MQA9mo4gmcjZ4TBcmRuQA7fzpg/je5qIs+HPV4NwVbaJ/cot6NZRT70tqz6gRHKhcaEjuIW14WFFKobWFutaTZuo/wspPdrzxbIjNYNBaFEo8I44u3E0dUZ7iPD7mF7+HNwY5N8wTG5K2e0qS+IOzazuQ51uEvNnDGqb6abSpsU704V/HZQRGqrSlNdn7q73aa13teguDGDVy7q97zK8zKlyFzeeNG5+c6+rFR1yNtu+0j3xHaEPftLuL/6bgIO23lMpsQbPAQD1S9OsZ2k+zt0D/oiIa7ble3+WHm2A7VS+Ls8lIkYFP3+Brd1tfl+ohmr9oSy/U+ZVo0OOEevncMbE34iE5R0ERIU1x5L3oDYncqJ1v3/D+TekhdLHIXoUQzirEpaNftVC05o3pRzjMfp453QSm+VLugp0wxuuXOcW7YZJxZm0c+PdqKN9JtP4nDxhUEUBTbhjVm27BWPq2btrnU5VeRFCHdS+oROq6YiDkLZyHMJdxmVgEmUZWiXN7KQ+GsSDAwnRfxDQ8aubBTkPfAHwbF49AXN8h/6ttKrf6elr7lmCJ3Ue/c5tG6m3Bvi/xAfOxEhY/EG/EL4/mnbcs7ic00+2OiZzy5l3liCV8UXyKoewvuQL4Wh9VHiMwmMO+AQyfmpbUHesmlXAdKUxJF/3TaLivs8iU+QMH2/3qpHtmvZbcauMZFFn+6sZtt3YTwW+9pcyNUksgWoRVxFdvWwhZM6N4iyJNMKTvuHoBk+Q2QNHiCN7U/Oj8pxfn592Axf/O+NQafq71eQZWGwjnwJGo8s=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(136003)(396003)(39860400002)(346002)(451199015)(36840700001)(40470700004)(46966006)(8676002)(86362001)(336012)(81166007)(26005)(83380400001)(1076003)(356005)(16526019)(186003)(426003)(316002)(8936002)(54906003)(40480700001)(6916009)(70586007)(70206006)(82310400005)(7696005)(6666004)(41300700001)(4326008)(36756003)(478600001)(5660300002)(2616005)(2906002)(40460700003)(36860700001)(82740400003)(47076005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2022 14:26:54.4841 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4875c085-d881-4b3b-075e-08da9d6faa14
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT080.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5037
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,175 +97,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Liu <HaoPing.Liu@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Bernard Zhao <bernard@vivo.com>, dri-devel@lists.freedesktop.org, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Becle Lee <becle.lee@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Melissa Wen <mwen@igalia.com>,
- David Airlie <airlied@linux.ie>, Isabella Basso <isabbasso@riseup.net>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, dagmcr@gmail.com,
- Daniel Vetter <daniel@ffwll.ch>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Alex Deucher <alexander.deucher@amd.com>, Daniel Gomez <daniel@qtec.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Felix.Kuehling@amd.com, Jonathan.Kim@amd.com,
+ Graham Sider <Graham.Sider@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit [1] removes DC_FP_* wrappers from dml. However, this generates
-the BUG [2] on the amdgpu driver. Restore DC_FP_* wrappers in dml/calcs
-but only for the functions dcn_bw_update_from_pplib and
-dcn_bw_notify_pplib_of_wm_ranges.
+Shader wave interrupts were getting dropped in event_interrupt_wq_v11
+if the PRIV bit was set to 1. This would often lead to a hang. Until
+debugger logic is upstreamed, expand comment to stop early return.
 
-[1] 9696679bf7ac40a8fb6a488a75bd66d4414cd3c3 drm/amd/display: remove
-DC_FP_* wrapper from dml folder
-
-[2] BUG: sleeping function called from invalid context at
-kernel/locking/mutex.c:283
-
-Signed-off-by: Daniel Gomez <daniel@qtec.com>
+Signed-off-by: Graham Sider <Graham.Sider@amd.com>
 ---
+ drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Hi,
-
-The patch [1] introduces BUG [2] since linux 5.18. The reason seems to be
-wrapping entirely the functions dcn_bw_update_from_pplib and
-dcn_bw_notify_pplib_of_wm_ranges in the dcn10.
-
-On dcn_bw_update_from_pplib function the problem seems to be the
-dm_pp_get_clock_levels_by_type_with_voltage call.
-
-Any suggestions on what should we do here?
-
-BUG: sleeping function called from invalid context at kernel/locking/mutex.c:283
-in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 227, name: systemd-udevd
-preempt_count: 1, expected: 0
-CPU: 4 PID: 227 Comm: systemd-udevd Not tainted 6.0.0-rc6-qtec-standard #2
-Hardware name: Qtechnology A/S QT5222/QT5221, BIOS v1.0.1 06/07/2021
-Call Trace:
- <TASK>
- dump_stack_lvl+0x33/0x42
- __might_resched.cold.172+0xa5/0xb3
- mutex_lock+0x1a/0x40
- amdgpu_dpm_get_clock_by_type_with_voltage+0x38/0x70 [amdgpu]
- dm_pp_get_clock_levels_by_type_with_voltage+0x64/0xa0 [amdgpu]
- dcn_bw_update_from_pplib+0x70/0x340 [amdgpu]
- dcn10_create_resource_pool+0x8c8/0xd20 [amdgpu]
- ? __kmalloc+0x1c7/0x4a0
- dc_create_resource_pool+0xe7/0x190 [amdgpu]
- dc_create+0x212/0x5d0 [amdgpu]
- amdgpu_dm_init+0x246/0x370 [amdgpu]
- ? schedule_hrtimeout_range_clock+0x93/0x120
- ? phm_wait_for_register_unequal.part.1+0x4a/0x80 [amdgpu]
- dm_hw_init+0xe/0x20 [amdgpu]
- amdgpu_device_init.cold.56+0x1324/0x1653 [amdgpu]
- ? pci_bus_read_config_word+0x43/0x80
- amdgpu_driver_load_kms+0x15/0x120 [amdgpu]
- amdgpu_pci_probe+0x116/0x320 [amdgpu]
- pci_device_probe+0x97/0x110
- really_probe+0xdd/0x340
- __driver_probe_device+0x80/0x170
- driver_probe_device+0x1f/0x90
- __driver_attach+0xdc/0x180
- ? __device_attach_driver+0x100/0x100
- ? __device_attach_driver+0x100/0x100
- bus_for_each_dev+0x74/0xc0
- bus_add_driver+0x19e/0x210
- ? kset_find_obj+0x30/0xa0
- ? 0xffffffffa0a5b000
- driver_register+0x6b/0xc0
- ? 0xffffffffa0a5b000
- do_one_initcall+0x4a/0x1f0
- ? __vunmap+0x28e/0x2f0
- ? __cond_resched+0x15/0x30
- ? kmem_cache_alloc_trace+0x3d/0x440
- do_init_module+0x4a/0x1e0
- load_module+0x1cba/0x1e10
- ? __do_sys_finit_module+0xb7/0x120
- __do_sys_finit_module+0xb7/0x120
- do_syscall_64+0x3c/0x80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7ff2b5f5422d
-Code: 5d c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d c3 ab 0e 00 f7 d8 64 89 01 48
-RSP: 002b:00007ffc44ab28e8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-RAX: ffffffffffffffda RBX: 0000555c566a9240 RCX: 00007ff2b5f5422d
-RDX: 0000000000000000 RSI: 00007ff2b60bb353 RDI: 0000000000000019
-RBP: 00007ff2b60bb353 R08: 0000000000000000 R09: 0000555c566a9240
-R10: 0000000000000019 R11: 0000000000000246 R12: 0000000000000000
-R13: 0000000000020000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c |  2 --
- drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c  | 10 ++++++++++
- 2 files changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-index 174eebbe8b4f..a6ef20b43f3a 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-@@ -1505,7 +1505,6 @@ static bool dcn10_resource_construct(
- 			&& pool->base.pp_smu->rv_funcs.set_pme_wa_enable != NULL)
- 		dc->debug.az_endpoint_mute_only = false;
-
--	DC_FP_START();
- 	if (!dc->debug.disable_pplib_clock_request)
- 		dcn_bw_update_from_pplib(dc);
- 	dcn_bw_sync_calcs_and_dml(dc);
-@@ -1513,7 +1512,6 @@ static bool dcn10_resource_construct(
- 		dc->res_pool = &pool->base;
- 		dcn_bw_notify_pplib_of_wm_ranges(dc);
- 	}
--	DC_FP_END();
-
- 	{
- 		struct irq_service_init_data init_data;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-index db3b16b77034..a3c71d875adb 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-@@ -1490,6 +1490,8 @@ void dcn_bw_update_from_pplib(struct dc *dc)
- 	res = dm_pp_get_clock_levels_by_type_with_voltage(
- 			ctx, DM_PP_CLOCK_TYPE_FCLK, &fclks);
-
-+	DC_FP_START();
-+
- 	if (res)
- 		res = verify_clock_values(&fclks);
-
-@@ -1519,9 +1521,13 @@ void dcn_bw_update_from_pplib(struct dc *dc)
- 	} else
- 		BREAK_TO_DEBUGGER();
-
-+	DC_FP_END();
-+
- 	res = dm_pp_get_clock_levels_by_type_with_voltage(
- 			ctx, DM_PP_CLOCK_TYPE_DCFCLK, &dcfclks);
-
-+	DC_FP_START();
-+
- 	if (res)
- 		res = verify_clock_values(&dcfclks);
-
-@@ -1532,6 +1538,8 @@ void dcn_bw_update_from_pplib(struct dc *dc)
- 		dc->dcn_soc->dcfclkv_max0p9 = dcfclks.data[dcfclks.num_levels - 1].clocks_in_khz / 1000.0;
- 	} else
- 		BREAK_TO_DEBUGGER();
-+
-+	DC_FP_END();
- }
-
- void dcn_bw_notify_pplib_of_wm_ranges(struct dc *dc)
-@@ -1546,9 +1554,11 @@ void dcn_bw_notify_pplib_of_wm_ranges(struct dc *dc)
- 	if (!pp || !pp->set_wm_ranges)
- 		return;
-
-+	DC_FP_START();
- 	min_fclk_khz = dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 * 1000000 / 32;
- 	min_dcfclk_khz = dc->dcn_soc->dcfclkv_min0p65 * 1000;
- 	socclk_khz = dc->dcn_soc->socclk * 1000;
-+	DC_FP_END();
-
- 	/* Now notify PPLib/SMU about which Watermarks sets they should select
- 	 * depending on DPM state they are in. And update BW MGR GFX Engine and
---
-2.35.1
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
+index a6fcbeeb7428..0d53f6067422 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
+@@ -350,11 +350,11 @@ static void event_interrupt_wq_v11(struct kfd_dev *dev,
+ 				print_sq_intr_info_inst(context_id0, context_id1);
+ 				sq_int_priv = REG_GET_FIELD(context_id0,
+ 						SQ_INTERRUPT_WORD_WAVE_CTXID0, PRIV);
+-				if (sq_int_priv /*&& (kfd_set_dbg_ev_from_interrupt(dev, pasid,
++				/*if (sq_int_priv && (kfd_set_dbg_ev_from_interrupt(dev, pasid,
+ 						KFD_CTXID0_DOORBELL_ID(context_id0),
+ 						KFD_CTXID0_TRAP_CODE(context_id0),
+-						NULL, 0))*/)
+-					return;
++						NULL, 0)))
++					return;*/
+ 				break;
+ 			case SQ_INTERRUPT_WORD_ENCODING_ERROR:
+ 				print_sq_intr_info_error(context_id0, context_id1);
+-- 
+2.25.1
 
