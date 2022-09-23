@@ -4,116 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E17EC6FA82
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 14:05:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86DFDC6FA82
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 14:17:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D03610E578;
-	Fri, 23 Sep 2022 14:05:48 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2857F10E56C
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Sep 2022 14:05:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lCRE3oeR9sGVloemmljvxFF8f8Ysx9fUYQsD+hMxtI0Eikg5ICKEgIOc3KQx7tTkE8182B+PEnQep0n/9bcbXYcxCLOD07gmQoToEqUnnYFvdR7ITyP0ubkytnVe4f8VPkxe2kBor50ZYd48Pc79eP2yXE9WQbDgKPJv3QsEllQtxNy58cr7bJP591I93VD3ZaeMxEm1pyZ3Jf9MOWlDhWHs+VHxsRk51nCvTpacpWFFo+tytKat+N7zBEsiXS8GnmctrsCFhf3Toj7o8RbI4TXojptRUFM/Cgx1KxqymZlHQe59/6i0Ww7NbEhoICzMAjchORQ5x2+AjAkY3NZgTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p2573TFIcgbtcaYp3UofeATjKQHJqDqSUTdyTMpMaGQ=;
- b=Z/HqJJd6IeNb+roGXW+ndfVOlA4QQUk82IpKBeDPyxVqbtuREThJqI4iF8QtRLXfu5lJoLjBkOoenwIfjSAaoVlhHtiVweV3NcLScAlQWGqoahXCMudlFUfxEEJIUTISSW+txR+pffTPrULxY8k/FHBoeyU1UehTIsvdj8EWHE32NEjoRArgcPQKCn5tblJRRaz+qmNInDafWowAXg6QWV6u/82Q0RSN3JqlELELyl7zg0sOyWFaKKBIAtlsyiJF8E6Fp1pd6T3A2bvdD+XXq1roe8iFRtnF1bDjtlF9EEW99eJwdepTEHZU5xJTlbQ/i5IWeGlTa+4WgoZOh8OeYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p2573TFIcgbtcaYp3UofeATjKQHJqDqSUTdyTMpMaGQ=;
- b=kAgEHc4mBCO/PY5uNzwIHqvViFzBh6YhbOjrY3Lz6NkPJ0cKZ/n4Hfu49wI7/8u/ojQCTeFnXxllAXi62B6jV6HIot3qCjsG21q5oaYyJEX8C8xTowpdNNe1HdTN6DZSbp8olZ2Gc7iYy5Kg5VOFJzG6TPDrn7NToMKDQc2Cq3o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) by
- MW3PR12MB4556.namprd12.prod.outlook.com (2603:10b6:303:52::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5654.20; Fri, 23 Sep 2022 14:05:39 +0000
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::c2e0:7000:9e70:e2fa]) by DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::c2e0:7000:9e70:e2fa%4]) with mapi id 15.20.5632.019; Fri, 23 Sep 2022
- 14:05:39 +0000
-Message-ID: <539ae58d-79f9-4bce-4e93-679e09303288@amd.com>
-Date: Fri, 23 Sep 2022 10:05:36 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] drm/amdgpu/vcn: update vcn4 fw shared data structure
-Content-Language: en-US
-To: Ruijing Dong <ruijing.dong@amd.com>, Christian.Koenig@amd.com,
- james.zhu@amd.com, boyuan.zhang@amd.com, sonny.jiang@amd.com,
- amd-gfx@lists.freedesktop.org
-References: <20220922193042.35427-1-ruijing.dong@amd.com>
-From: Leo Liu <leo.liu@amd.com>
-In-Reply-To: <20220922193042.35427-1-ruijing.dong@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT2PR01CA0022.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::27) To DM8PR12MB5399.namprd12.prod.outlook.com
- (2603:10b6:8:34::5)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54DAA10E580;
+	Fri, 23 Sep 2022 14:17:37 +0000 (UTC)
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB1E10E574
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Sep 2022 14:17:33 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id z2so450610edi.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Sep 2022 07:17:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qtec.com; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=UIbyRt/2hWXP75+auGQPO08v5iAXBofhMAPo6YTUSuE=;
+ b=DCh6DTm3dTnmhFuz1AxVt+/Hf0Vj9pZbLB8HWXquhcamS2npe70kwCziymZUbQGNAV
+ D2Rs5zULVze5BuGBXVUCZIPkyxq5OoefKZ8Aoje+V8lQyyOtWCYIdP8MSi+6XXtefCfK
+ wfPWxReLV74vNlFHGXLYWzzXyJEMukTaX5jjULcBwENBb9ZK7wg16V0YnoPKJOIsrkbt
+ wU9TiR+Af91SJVDTsNkQd4VCXMciemDrTKcF3j6I05HUL+6HD5GtIDSdVDRIwPj8BdDH
+ gOgFOLGgDUZIdgSuJJbQD8QT8j5us/4cZag0DyEEqs51jec60dm1v/Fm5iqYlGQN9N3Y
+ dxaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=UIbyRt/2hWXP75+auGQPO08v5iAXBofhMAPo6YTUSuE=;
+ b=ZXLQ9t3lsiAlhx2rdbmlTn2MnZ47oW3OLykb/53e0/xOK1Z4KIko3e3cYioMLK6uCm
+ d8QwigNt0WrRZ0UTem0u7LuzQCtMDWxUQzJdm+xgE9JYLDkaxjOKioGOipsRiqGqEKPd
+ ZEa4Hre+AOY/jgPuSoOfNf4c06ZgS5szDi8YxRTtkg3umJsVSodOlUbw6VHRRu2u+NIi
+ 2eORLBiQbj1Dqk84c6ckxQ1Qu85lmGuikxoerEXhLJwe3urencM/+YIqi0H5YZs6/tHC
+ 4hmvqCpXFZyXr2qrqBW/bDf2hhbTZMUaLxdpIC5b+bElpxiPxmAuUI+ZpnpGZUR9IsCO
+ R2pQ==
+X-Gm-Message-State: ACrzQf0mVNdaxSAa+GJSxQmZFgWD6wCRMgoFuHYPEKUhfY6naizyRQFe
+ LW9wTtU13mCtgPAN7DNktfWI2w==
+X-Google-Smtp-Source: AMsMyM5NGNo9Lo1ijc28YrZjiuN2uwqRWJDXjoxxPzsYB0tIsz6bEtT7ZOtW4epyg/UFf6H+D1hVWw==
+X-Received: by 2002:a05:6402:3596:b0:450:c4d9:a04b with SMTP id
+ y22-20020a056402359600b00450c4d9a04bmr8746426edc.218.1663942651526; 
+ Fri, 23 Sep 2022 07:17:31 -0700 (PDT)
+Received: from datops.qtec.com (cpe.ge-3-0-8-100.ryvnqe10.dk.customer.tdc.net.
+ [80.197.57.18]) by smtp.gmail.com with ESMTPSA id
+ e26-20020a1709062c1a00b00722e50dab2csm4071384ejh.109.2022.09.23.07.17.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Sep 2022 07:17:30 -0700 (PDT)
+From: Daniel Gomez <daniel@qtec.com>
+To: 
+Subject: [RFC][PATCH] drm/amd/display: Restore DC_FP_* wrapper in dml/calcs
+Date: Fri, 23 Sep 2022 16:17:21 +0200
+Message-Id: <20220923141725.436141-1-daniel@qtec.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM8PR12MB5399:EE_|MW3PR12MB4556:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab5f313d-721b-4f6c-5f3b-08da9d6cb1a4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: X13D1JnKOhhumR8AC7BQogBvq9dxl0LFsKgNRutTARcJyqq6v5D9gzqGRKjkK7V03LfsaT7bxgVVsvisnU1ieuwZ63hTAT+Jy8icZZgEGX83YT/NfnKl1pOnG0o4PDB1vKidobexuAOjcaafL5Fw16+haaIl98JB77GDpPzRhUntk/I/H5KhwPGgr5C/4OdPi9OxJlWT7eHpjG3udsmSbafiDEICpP9+zcDXAmg232fw92mjbzqAD0uDu4SuLSwdGSY9GWWVgRcXVIxIeEo4ihGS2Dxf4o+Xm7za32i2uQpPsHZtzVaH5/I7YWyhs9bXF6dv2rUQontZmYOsvHv1XHssyd+DeO8LX/vmS4IEXLvT9VVdmAVi3QELQ18il7+B3mVK4mL5DFnn+Rx8lxRRsYvVa4me+VBa9HDJOjeZLstYFmut0AHY1DVNa+R12081+c57+k5aPS814PYsRKRmd7ostkDxhdwvBXpfSkiYTufDt6JCN6A9AgE2YvU0dBr/zgg3waolnaiqwBbmn4A2/VvG1UaKoEb8AWvFrfaHG9y627NQFy/pW63jBaPIRS/TqDhQkiCOCpfnn40jk+wa2qP+89kjgxvMG2k8r7K4BMiTL6SRhfCENnhSvRmr0WRLhrH9Zq2I5FXQ9AqFHggy2qCC2T1EJ0mIxf9llAvvfyFoMa3k9l3a4iNT9JWZ1sZ6WmNhggxRpmVWCrgjlkjAtWnK5XzATjilRegcr332xX9L2rm3CM+olFKUevcl0ljcXqoPOeoiJnvc0VgYxcssBiSjXo4ZtZGKx8OF1ip9H0A=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR12MB5399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(376002)(366004)(39860400002)(136003)(346002)(451199015)(31686004)(44832011)(5660300002)(6486002)(86362001)(38100700002)(186003)(8676002)(2906002)(31696002)(478600001)(83380400001)(316002)(15650500001)(8936002)(26005)(6512007)(53546011)(66476007)(6506007)(66556008)(66946007)(4326008)(2616005)(36756003)(41300700001)(6666004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2dxM0ZPZnovMm5OcGNhYVFMS2o5aGt4TzVCZE9pU2JuU2FjQ0k0RkhjWGVw?=
- =?utf-8?B?R2hIbWxlVUlMVTRGU2NycXlTVHBoZjcxZ1dEV0tUOGZWaTJyREhoZDFoKysv?=
- =?utf-8?B?WHNESzJWdGUxYnk5M3h4V3JOY21OOEwzeTVsbGtXNlFJU0NWQml6Ui80U09z?=
- =?utf-8?B?OTVQTmxKWS9NMitTR2VKYUN6QjJNeDRTcldNaXRzTEhmbVUzcFlPZmx5STBz?=
- =?utf-8?B?ZC9lclZGditQaytnMVVCcDRpeEo5N2ZiZVRpTTN4eUFoT3NTWjhudnA2bnk3?=
- =?utf-8?B?dWFjQURBMnY4MVF3cUFrY2ovSHREY0t6azljb0FTRVF0Y0xKTCtnaWFPZmJo?=
- =?utf-8?B?M1RYakI3KzUzUGl0VkMyMVFJQzg1cWtqSStqNml1Q0xxVXFlNGNKSi9wVml0?=
- =?utf-8?B?UnRmcFNJbjRCcHNLNXdJcm1DV3pKcmx5YkhpVUs2aHp4MjUrbk52M2lEU2RJ?=
- =?utf-8?B?KzlRb0FBTXRkenBqZTBEUGhFQm5GODMxY0xNNW53LzNZeEtFSWdWc2dmKzZF?=
- =?utf-8?B?R3A0K3J4bjQwQjEvMW5vc3ZJMi9DTWQ1UXNML1Nnc0xRYUFsaDJmK2MwMDZj?=
- =?utf-8?B?aVgzNXo2WUIzdG44NDh5MldnL3UyL0V2VXBLV1R3WEgwUHZxUmtZa09uOXhI?=
- =?utf-8?B?S3orWUtGMytFMUNSUTBPQ1VHTHRoc0tPbWxHeHdDSjB5RG5vTm12YmJqWnVr?=
- =?utf-8?B?VEdVTTdTdWtETFNYZzJuV0s2NUlrMWhyRkZTamRKQVVnUlFzR0FkNSttbmQ0?=
- =?utf-8?B?YzBtRnJnSWFFVGpNUDV6Um9CanJGWDJKZDd6QU1HWlJrUm1ja1RUNGRBL0hk?=
- =?utf-8?B?b1UwaHVuMUswbmJHVUo3SmNkbUh0UTVVemYwejZlanlXK3lhU1UxZDN2RE1P?=
- =?utf-8?B?WGwxeEU5eWtHaHcvRC9Gb21xTkVlcU1vZFoxRXdhR2gzczhhU1ppZEViOEtp?=
- =?utf-8?B?eXZTNUwvbWRsZS9xalZFTGFzZTdienp4VkkzODFrWXpjSUdoMVlPTXdNeDkv?=
- =?utf-8?B?cmRtYzQyemZNanp5TXhYNHd6QW51eXN2ZFJIMXNRaE40TkRpOTdGSEpBc0tP?=
- =?utf-8?B?cUpDVDF5cE1wb242YmZnQUtqQWhnelhmZ0NIRmdzWjlUS3ozSWl5clYwOTlD?=
- =?utf-8?B?NUx3TFdOQVZFYmd6MUxXYVpQVW16NkRaemoycUcxbHZ2VndLQ1dwdFpRMmRk?=
- =?utf-8?B?a3VnbXBzcmtVUjE1alcxQUdPVXlzOFlxUkl6cEgrU0J3TW95R2I4eFJEZ0xZ?=
- =?utf-8?B?QXdxVkFnWjNaQ0NLTHZxRnpsOFV3cXZ4c3Znb2lpQWtUSHBwVmsrVERBSk82?=
- =?utf-8?B?MjRPZWZXMDJNSE5Sc3A4R1Z6RUllQW90SXJRbXlOSmVHWUp3REdOaS81WTIz?=
- =?utf-8?B?cmc0SE9xa1doazUvZVJiZmM3Qy9KUGhTTzJuYkMyUWtIb3pDY1gzQWhQSElu?=
- =?utf-8?B?MlVTRmt4TEsrQ2RRdldQZGlKWWgwL2E1ZTQ4SmJUNmVucXNnZGVhQjJwQnBn?=
- =?utf-8?B?bHpmZ0lURlNtRGxUV2xsU0ZxVWJ0WXF3Z3V3T2ZKbjdRbGRBMGVYa0xreU82?=
- =?utf-8?B?bWR6SnBjVHBqUUhYeXBFenZHWGlLUnM1L2NLNVhMRTFtZzMrcHI5VnhlQUlv?=
- =?utf-8?B?dytCaUd6QlVNdktVb2RlVjFEdS9ZREJpRUIrK002UkxGWTE3Nmc3UTVneGEr?=
- =?utf-8?B?VHZpeDBmV1BXYy83Qis3QWN2V3l3d2lHNnJZdGhlTXdKc01KazNDL1hGc2d0?=
- =?utf-8?B?cGNVemlxZDFFRmZQYU9jV1k2VWpiRGxJVDQ3SW1yZlA3VkJ4RDF0ZlRFTDEw?=
- =?utf-8?B?SktHSlRqZmwvbEwrMEFVZ096Y1FaK0NZeElzT05vWGo3RHRuVnhKQmw5ZUVJ?=
- =?utf-8?B?QVB4NWJRSjNoK2tnRzZER1Y1Zkl2bmNnMTk5V0ZZcytKY2Q2THFUYzRQTDQ5?=
- =?utf-8?B?V3c5OVVXQTJLckpKSzZpaVRsR3lsSmpObC92cXQzaWVxdGlrMVRWM2k2RHFO?=
- =?utf-8?B?UVhJWmZIOEV2MWdSbDJyemxBL3NidGN4cHpuM0NtaWllVVZGRlJIVXd5cHpN?=
- =?utf-8?B?QWtwa2RyWEtlM043TDh6VnBlaXMxTTh1aTVJbytwNXNSNHNpd0VmMEhYT1dY?=
- =?utf-8?Q?8x3Z4lzKZCeIrRU8yflpvIUqx?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab5f313d-721b-4f6c-5f3b-08da9d6cb1a4
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5399.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2022 14:05:39.0120 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QSacJHRWxJM8AZyBU2gE2X/cObs1w1TzXfm+W9YFgGVD6qmWh4EjL9u3l6hIUbFA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4556
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,68 +66,175 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com
+Cc: Alan Liu <HaoPing.Liu@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Bernard Zhao <bernard@vivo.com>, dri-devel@lists.freedesktop.org, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Becle Lee <becle.lee@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Melissa Wen <mwen@igalia.com>,
+ David Airlie <airlied@linux.ie>, Isabella Basso <isabbasso@riseup.net>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, dagmcr@gmail.com,
+ Daniel Vetter <daniel@ffwll.ch>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Alex Deucher <alexander.deucher@amd.com>, Daniel Gomez <daniel@qtec.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Leo Liu <leo.liu@amd.com>
+Commit [1] removes DC_FP_* wrappers from dml. However, this generates
+the BUG [2] on the amdgpu driver. Restore DC_FP_* wrappers in dml/calcs
+but only for the functions dcn_bw_update_from_pplib and
+dcn_bw_notify_pplib_of_wm_ranges.
 
-On 2022-09-22 15:30, Ruijing Dong wrote:
-> update VF_RB_SETUP_FLAG, add SMU_DPM_INTERFACE_FLAG,
-> and corresponding change in VCN4.
->
-> Signed-off-by: Ruijing Dong <ruijing.dong@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h | 8 +++++++-
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 4 ++++
->   2 files changed, 11 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> index 80b7a6cfd026..253ea6b159df 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> @@ -161,7 +161,8 @@
->   #define AMDGPU_VCN_SW_RING_FLAG		(1 << 9)
->   #define AMDGPU_VCN_FW_LOGGING_FLAG	(1 << 10)
->   #define AMDGPU_VCN_SMU_VERSION_INFO_FLAG (1 << 11)
-> -#define AMDGPU_VCN_VF_RB_SETUP_FLAG (1 << 12)
-> +#define AMDGPU_VCN_SMU_DPM_INTERFACE_FLAG (1 << 11)
-> +#define AMDGPU_VCN_VF_RB_SETUP_FLAG (1 << 14)
->   
->   #define AMDGPU_VCN_IB_FLAG_DECODE_BUFFER	0x00000001
->   #define AMDGPU_VCN_CMD_FLAG_MSG_BUFFER		0x00000001
-> @@ -171,6 +172,9 @@
->   #define VCN_CODEC_DISABLE_MASK_HEVC (1 << 2)
->   #define VCN_CODEC_DISABLE_MASK_H264 (1 << 3)
->   
-> +#define AMDGPU_VCN_SMU_DPM_INTERFACE_DGPU (0)
-> +#define AMDGPU_VCN_SMU_DPM_INTERFACE_APU (1)
-> +
->   enum fw_queue_mode {
->   	FW_QUEUE_RING_RESET = 1,
->   	FW_QUEUE_DPG_HOLD_OFF = 2,
-> @@ -335,7 +339,9 @@ struct amdgpu_vcn4_fw_shared {
->   	struct amdgpu_fw_shared_unified_queue_struct sq;
->   	uint8_t pad1[8];
->   	struct amdgpu_fw_shared_fw_logging fw_log;
-> +	uint8_t pad2[20];
->   	struct amdgpu_fw_shared_rb_setup rb_setup;
-> +	struct amdgpu_fw_shared_smu_interface_info smu_dpm_interface;
->   };
->   
->   struct amdgpu_vcn_fwlog {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> index b6f73b87c47e..897a5ce9c9da 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> @@ -150,6 +150,10 @@ static int vcn_v4_0_sw_init(void *handle)
->   		fw_shared->present_flag_0 = cpu_to_le32(AMDGPU_FW_SHARED_FLAG_0_UNIFIED_QUEUE);
->   		fw_shared->sq.is_enabled = 1;
->   
-> +		fw_shared->present_flag_0 |= cpu_to_le32(AMDGPU_VCN_SMU_DPM_INTERFACE_FLAG);
-> +		fw_shared->smu_dpm_interface.smu_interface_type = (adev->flags & AMD_IS_APU) ?
-> +			AMDGPU_VCN_SMU_DPM_INTERFACE_APU : AMDGPU_VCN_SMU_DPM_INTERFACE_DGPU;
-> +
->   		if (amdgpu_sriov_vf(adev))
->   			fw_shared->present_flag_0 |= cpu_to_le32(AMDGPU_VCN_VF_RB_SETUP_FLAG);
->   
+[1] 9696679bf7ac40a8fb6a488a75bd66d4414cd3c3 drm/amd/display: remove
+DC_FP_* wrapper from dml folder
+
+[2] BUG: sleeping function called from invalid context at
+kernel/locking/mutex.c:283
+
+Signed-off-by: Daniel Gomez <daniel@qtec.com>
+---
+
+Hi,
+
+The patch [1] introduces BUG [2] since linux 5.18. The reason seems to be
+wrapping entirely the functions dcn_bw_update_from_pplib and
+dcn_bw_notify_pplib_of_wm_ranges in the dcn10.
+
+On dcn_bw_update_from_pplib function the problem seems to be the
+dm_pp_get_clock_levels_by_type_with_voltage call.
+
+Any suggestions on what should we do here?
+
+BUG: sleeping function called from invalid context at kernel/locking/mutex.c:283
+in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 227, name: systemd-udevd
+preempt_count: 1, expected: 0
+CPU: 4 PID: 227 Comm: systemd-udevd Not tainted 6.0.0-rc6-qtec-standard #2
+Hardware name: Qtechnology A/S QT5222/QT5221, BIOS v1.0.1 06/07/2021
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x33/0x42
+ __might_resched.cold.172+0xa5/0xb3
+ mutex_lock+0x1a/0x40
+ amdgpu_dpm_get_clock_by_type_with_voltage+0x38/0x70 [amdgpu]
+ dm_pp_get_clock_levels_by_type_with_voltage+0x64/0xa0 [amdgpu]
+ dcn_bw_update_from_pplib+0x70/0x340 [amdgpu]
+ dcn10_create_resource_pool+0x8c8/0xd20 [amdgpu]
+ ? __kmalloc+0x1c7/0x4a0
+ dc_create_resource_pool+0xe7/0x190 [amdgpu]
+ dc_create+0x212/0x5d0 [amdgpu]
+ amdgpu_dm_init+0x246/0x370 [amdgpu]
+ ? schedule_hrtimeout_range_clock+0x93/0x120
+ ? phm_wait_for_register_unequal.part.1+0x4a/0x80 [amdgpu]
+ dm_hw_init+0xe/0x20 [amdgpu]
+ amdgpu_device_init.cold.56+0x1324/0x1653 [amdgpu]
+ ? pci_bus_read_config_word+0x43/0x80
+ amdgpu_driver_load_kms+0x15/0x120 [amdgpu]
+ amdgpu_pci_probe+0x116/0x320 [amdgpu]
+ pci_device_probe+0x97/0x110
+ really_probe+0xdd/0x340
+ __driver_probe_device+0x80/0x170
+ driver_probe_device+0x1f/0x90
+ __driver_attach+0xdc/0x180
+ ? __device_attach_driver+0x100/0x100
+ ? __device_attach_driver+0x100/0x100
+ bus_for_each_dev+0x74/0xc0
+ bus_add_driver+0x19e/0x210
+ ? kset_find_obj+0x30/0xa0
+ ? 0xffffffffa0a5b000
+ driver_register+0x6b/0xc0
+ ? 0xffffffffa0a5b000
+ do_one_initcall+0x4a/0x1f0
+ ? __vunmap+0x28e/0x2f0
+ ? __cond_resched+0x15/0x30
+ ? kmem_cache_alloc_trace+0x3d/0x440
+ do_init_module+0x4a/0x1e0
+ load_module+0x1cba/0x1e10
+ ? __do_sys_finit_module+0xb7/0x120
+ __do_sys_finit_module+0xb7/0x120
+ do_syscall_64+0x3c/0x80
+ entry_SYSCALL_64_after_hwframe+0x63/0xcd
+RIP: 0033:0x7ff2b5f5422d
+Code: 5d c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d c3 ab 0e 00 f7 d8 64 89 01 48
+RSP: 002b:00007ffc44ab28e8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+RAX: ffffffffffffffda RBX: 0000555c566a9240 RCX: 00007ff2b5f5422d
+RDX: 0000000000000000 RSI: 00007ff2b60bb353 RDI: 0000000000000019
+RBP: 00007ff2b60bb353 R08: 0000000000000000 R09: 0000555c566a9240
+R10: 0000000000000019 R11: 0000000000000246 R12: 0000000000000000
+R13: 0000000000020000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c |  2 --
+ drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c  | 10 ++++++++++
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+index 174eebbe8b4f..a6ef20b43f3a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+@@ -1505,7 +1505,6 @@ static bool dcn10_resource_construct(
+ 			&& pool->base.pp_smu->rv_funcs.set_pme_wa_enable != NULL)
+ 		dc->debug.az_endpoint_mute_only = false;
+
+-	DC_FP_START();
+ 	if (!dc->debug.disable_pplib_clock_request)
+ 		dcn_bw_update_from_pplib(dc);
+ 	dcn_bw_sync_calcs_and_dml(dc);
+@@ -1513,7 +1512,6 @@ static bool dcn10_resource_construct(
+ 		dc->res_pool = &pool->base;
+ 		dcn_bw_notify_pplib_of_wm_ranges(dc);
+ 	}
+-	DC_FP_END();
+
+ 	{
+ 		struct irq_service_init_data init_data;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
+index db3b16b77034..a3c71d875adb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
+@@ -1490,6 +1490,8 @@ void dcn_bw_update_from_pplib(struct dc *dc)
+ 	res = dm_pp_get_clock_levels_by_type_with_voltage(
+ 			ctx, DM_PP_CLOCK_TYPE_FCLK, &fclks);
+
++	DC_FP_START();
++
+ 	if (res)
+ 		res = verify_clock_values(&fclks);
+
+@@ -1519,9 +1521,13 @@ void dcn_bw_update_from_pplib(struct dc *dc)
+ 	} else
+ 		BREAK_TO_DEBUGGER();
+
++	DC_FP_END();
++
+ 	res = dm_pp_get_clock_levels_by_type_with_voltage(
+ 			ctx, DM_PP_CLOCK_TYPE_DCFCLK, &dcfclks);
+
++	DC_FP_START();
++
+ 	if (res)
+ 		res = verify_clock_values(&dcfclks);
+
+@@ -1532,6 +1538,8 @@ void dcn_bw_update_from_pplib(struct dc *dc)
+ 		dc->dcn_soc->dcfclkv_max0p9 = dcfclks.data[dcfclks.num_levels - 1].clocks_in_khz / 1000.0;
+ 	} else
+ 		BREAK_TO_DEBUGGER();
++
++	DC_FP_END();
+ }
+
+ void dcn_bw_notify_pplib_of_wm_ranges(struct dc *dc)
+@@ -1546,9 +1554,11 @@ void dcn_bw_notify_pplib_of_wm_ranges(struct dc *dc)
+ 	if (!pp || !pp->set_wm_ranges)
+ 		return;
+
++	DC_FP_START();
+ 	min_fclk_khz = dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 * 1000000 / 32;
+ 	min_dcfclk_khz = dc->dcn_soc->dcfclkv_min0p65 * 1000;
+ 	socclk_khz = dc->dcn_soc->socclk * 1000;
++	DC_FP_END();
+
+ 	/* Now notify PPLib/SMU about which Watermarks sets they should select
+ 	 * depending on DPM state they are in. And update BW MGR GFX Engine and
+--
+2.35.1
+
