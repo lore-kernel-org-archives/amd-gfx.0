@@ -4,123 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DD3AECAAD8
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 15:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EB32C6FA83
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 17:13:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB28910E49E;
-	Fri, 23 Sep 2022 15:44:29 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2067.outbound.protection.outlook.com [40.107.92.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 738F410E49E
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Sep 2022 15:44:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4319010E59C;
+	Fri, 23 Sep 2022 17:13:20 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2087.outbound.protection.outlook.com [40.107.223.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA54010E42E;
+ Fri, 23 Sep 2022 17:13:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cMMLpGsSkzr8MIIZrVlJBdX07zAbR0lQEy6cA0UtQjtHHRoPSUilD0r4osnVgHgEMP6RiZewTJCJvM2P19urr31BLWhEC0GNYewnZSffbADsGQjC6j3B8fbH6FM9mai0Nmpf32wWLfi9NOljivO63kl09Wi1formXfe1dIXHvr5Fd0+ZUAdXkklBhDdGnrseXadpMZvy64ZwTmj2p+mHRzYhzYBwpkG788+ZeWeuGCQRgPybZIUneltmvl74V+uMG8pj0qIe2DRkQD7n6e0itBf7UY16+y1O8X0pfzNI9aadOYdSzb4rt5GRqQPqBDSEibOdjqXtxNlrnjEGXKCKoA==
+ b=TY3fVUEEclvvKIs68xr/Q0qcLkXf3Nk5FZ+mePO9VrwEmSl+61f6kWBqP2w0dTcrakk3EaDxkoH3VkXCWD0RAJ3MEqMJwXGfz0V0VNtSTExR9OfsBmiOrq4fZ2HBLq5XsHICuPbgbacxSKUbLsojFnXr3pe9ET09M7GVPRHKUcxmxpfRr7ihWpO0dwakyXJUeIBVp0L76m9OzLEJB7eoj2k7kKqIGqUmS1m1MYMFH2Vygqs5mqRKEiyKZvu0GNMauGeTB9qa9O8M0nFJd12QfnlEMgZdDu5OS1z9DDP6MWpKgJ0KD5s1FLv3BK4v+Yku2XZk4yMxdrtqDyFuS1YfsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z3gTxCnVnHA69J0JEcSKV3hseHWwY/9tyu8P4DGqytI=;
- b=GM0Om7qpEZA0LngEi0yGP92WjGzYXrDm2/WncyMqn0SA1RVLCKqIoH3dS3OI50mbXLtQQsgJM+1PmiHF0x1Dqr1ZBZA7MbAaOXDsRqeTuFhtBeflLIpIr9VwH2Ns0OUesXdMLREn4bhW2O8xR0A51gTCI0VQRlmHRjdYWHhjfrlA7ezF5BUnv5/lk5CHEHNSWbD9Ea75eOrbz7cQNbjCwl/ILVf4U0e5Dopg9iROoC3eH4yEkXgfen2biklqYCKx/pAQYZjMYHFEljI3FYpGVidRbI9rO/+aKPBbvH59/8JqmSRX5pzI4kKV7NmgyGhyf/UFCVB64rdujsNRYwBUIQ==
+ bh=Of+heXdG0+qcu8xS4Y61HXraFPU//7Tdd/I329HG7kU=;
+ b=Y6GcSGRPtuGQQs36/ygcrcQtCmCGls+IKxbrGmkwraJ8JrFm56yPodVD7EKyeNjusxFUJxa1vmY1AsjmY5BybUFZodEGAKNwUA7FNLtJh86xkh+CQcN6/bzDM3kCkMnZPA4hgx1JIfR3WiPtQWXGwwo/o8muY5rn2udsMR96JLXu4PiXWpcOklHhaYlnhGLssl2f24V+uzgQtvUCjT3QI+52A90dZUOb8kwDAOGwdqILMiLZ/6YcQhiMY1RmTxAz3HBUJX4fy9rpuf1+Ropo7i3clSFVMdzokobj894FupWaTrLDneomvtd4UwF2FDX/opw9yM5qGgJqKzDKfy+J7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z3gTxCnVnHA69J0JEcSKV3hseHWwY/9tyu8P4DGqytI=;
- b=ThuWDfbtx6+EDxUJ3pAualobhPx3W64k9o6yWP8ZZauoD5DNXYGPgwUZRe4slRcPlWr1FFBx6yASJKxzNbYVtf+Egd2yctodbwUyXAF3paqO8SAY8D9G//EBg+MYIbwJnDWu3/6IWSm/nj2bjnTKwRoleSOX3hCiz+Ruf1yb9sk=
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
- DM4PR12MB6086.namprd12.prod.outlook.com (2603:10b6:8:b2::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5632.16; Fri, 23 Sep 2022 15:44:21 +0000
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::cdf9:a98e:ade:43f7]) by DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::cdf9:a98e:ade:43f7%9]) with mapi id 15.20.5588.014; Fri, 23 Sep 2022
- 15:44:20 +0000
-From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-To: "Dhillon, Jasdeep" <Jasdeep.Dhillon@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 00/31] DC Patches Sept 26, 2022
-Thread-Topic: [PATCH 00/31] DC Patches Sept 26, 2022
-Thread-Index: AQHYzhjelcrr2gQtUU6IBB61qqNmuK3tKXoQ
-Date: Fri, 23 Sep 2022 15:44:20 +0000
-Message-ID: <DS0PR12MB6534E6A401A9FC8853D6F2509C519@DS0PR12MB6534.namprd12.prod.outlook.com>
-References: <20220922001821.320255-1-jdhillon@amd.com>
-In-Reply-To: <20220922001821.320255-1-jdhillon@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=02a93385-9fbb-4273-956a-975c5bf7260c;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-09-23T15:44:18Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=Of+heXdG0+qcu8xS4Y61HXraFPU//7Tdd/I329HG7kU=;
+ b=3ntltWgP5763w9VBNJVwHKMkdkAZCb7HIK8zGYjGyx28sTsRsNhmGtCfZx3tz+/8yrLMNDED3O5RgMtDEmw+m1anKVZy+uq1lY19y2E+bD6Eovf4bn2YBI9UMBRqrFY4t4vtgiHI29yrHVt3slkw/Y52+Z3vWe/sGPlL8CP4PNU=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 43e720f3-8e2b-4118-ee13-08da9d7a7b65
-x-ms-traffictypediagnostic: DM4PR12MB6086:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 4X2cHMvhdMp7cardaxCE9TJ1kPB0C9LOCpeiVgPzobWg7TUaHzSs8gU2QyNkTz2j0DJc2h1kO8bE/7CuHZb/qvvjDVPOxZuugxFm4W5DUGUlonPGPMhtATWm44uMGEcxS/Ne7U7t6shMWsA2S3HWie9Zlv0yz0DyKSQ3t48AUgE1T/Ao2MNZA2FuWjo08wkYZONlhCDLUD5S1o4bFP08LriC+7SclKRM9SYViLyskY2glsCVU/xDsiIBu5FnVTAv2i6e8Kn+Wd2t0DBNmtfEzh+g/ftOdzl75eSmxqt/9Ep+IFqb8eAUtXsiqQcLJfhrt9SBn5JgCU1Mtoi0HQuqgyEKEluNgE5ERAscFk/L2FH1IAadU0BDbtS6RdLHyp8Oz6jTxYVxf1mGIGZFtUG18TBYzRTppuEut8IEDjKJyM8a3+d/LD+EC5KYOO769eMGwYGxr4wxoHBg4hpQ1rv7xLDMrw0GXNelRgJq8RnRfqFgiTEfbhaO80Xlixi2NouQ11Qhd+1RD+UOHr6lfERY7/VwnHCh+3KEQRTrFwU1zDOIFcgYSwz/0FHAa2yy08MZ0zGkjndHMUFofBi1RQNop9KmRGLkKIXDnnBmSn68+oaqcQJojXISYLUgiQn+hGgraGSn9z/RVaSOoNFBJ1zErP9giOWr87TglQkUotTq1N8FIfQrRemYDe788y6UmZkJaQSTger3xX9iUnk1MHKxwcyS3aWbtEHfdTPZM51/hlY7IX447tJqFmUXq+SF72yS
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(346002)(39860400002)(136003)(376002)(396003)(451199015)(110136005)(316002)(478600001)(71200400001)(54906003)(53546011)(26005)(7696005)(38070700005)(83380400001)(9686003)(52536014)(5660300002)(38100700002)(186003)(6506007)(66476007)(64756008)(2906002)(86362001)(55016003)(122000001)(4326008)(8936002)(66946007)(33656002)(8676002)(76116006)(66446008)(66556008)(41300700001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Rk9CcGxaanVEVXdxcFlnZlBObjh6MHZ6UFBPM2hIbmFaTm9DWURiVWp6aWhB?=
- =?utf-8?B?M3EwMVExcnBjWENjMCtCUW1LclMvUEUvdERVdk5ZQWptbDVvQXZvRHg0OUd5?=
- =?utf-8?B?aXVZK1o4YlBvMVU0RzFWNkdXejdCS09wYXExckR4OW1SSExaSFZvN3FYaHFH?=
- =?utf-8?B?dS9jUDNNMm5vWllaUXpxcWhXVk85c2liM3NBRkNRV0g4UHlnSUNLc2Fya29o?=
- =?utf-8?B?M0FGbmhkUmNKUHFMaTU5ZVZnWWM1OVVkWkNrSnZqcTZKeCtaNC9KQXZ0ZVVV?=
- =?utf-8?B?cnFxaG9QdHJNdS9pdC93Z1hIb0RuN2ZuRFk3d0c4TlBtSFZwc1YvVm11Nitr?=
- =?utf-8?B?eVlhUGtaZ0hRWnNxUmJwb0ZKSFBMeS95M2hOZ2hnWU40SS83YU5SVFdZMUxE?=
- =?utf-8?B?NVo2TUdmZUF1bExFcnduQWwyRXBVKzAwa0RDMXBuM3dXa0RZOU9SMHRDV2p3?=
- =?utf-8?B?WnJlM20yNDVWSkJBY2l0MUZCYi9PU3k2UzZhUTV0RkdscG1qeDA1ZkdoYnY5?=
- =?utf-8?B?ekZjS0ZnWllXQlN4ZmRTcTBmRWwrSzlrbGhtWldzNDR0dU5jRGFmUXFENDFy?=
- =?utf-8?B?MVoyakZOY1ZadkVpNERQTlVVNzFEY1pKcEEwTUNEOGhvVFhEZ3dHdSt0N0o1?=
- =?utf-8?B?MEpLcy9ISlFaTGVVRFEwRzJ5a29neGp5YVI0VXB3M1VkODF1cHJEKzIrUUNE?=
- =?utf-8?B?ZXlBRmJUR1cwWlFtc01XbWZib0V3aTlTZTFoYlFkSVVycDIyelhwOU5nMmgz?=
- =?utf-8?B?QXl1cUM1VFk3ZFRkcW5OeUtWMCtUUjlJWU1JSlllcm12VXhXb1phR0g1WStu?=
- =?utf-8?B?eUN4bUhDYVdtS1o1MUFSZ0lYYXkrQ0ZvM292SXRwU2tqMlpCME5VK0pMaDQ4?=
- =?utf-8?B?TFZHcklOakVkc2RWMlhZdTlKcDBISFJMRlFXbUJ0S09iWXlBZ1BmOEVLejh2?=
- =?utf-8?B?VzZnMEpGbVF4ZU1BQnE5Rnh5RkxaUG94eW5zT0pYM0JXSFRpWVNreEVtSU5Z?=
- =?utf-8?B?K3dQWm16SVVMVWZRWnVGeTY0UDdmQ25KL0p5S0t4dDh5Qm01Y0EvRmNiVkdt?=
- =?utf-8?B?UnBvSHNEc01iZmMreWtNVzJxRlRMSHN2azd4OVdXVmZiWVFHVnRMeWdyUDFk?=
- =?utf-8?B?cCs3am5QbVFXRUI4bWtXQmJEeGVxWmhieFBTRUpFOFNMQXZXbXNFcWxDOXd3?=
- =?utf-8?B?TEx4bThQeWl5WlNldVM5dXprNlNMSzBsM1VQN2NoQklFMTJtcTFrMTh5TzVU?=
- =?utf-8?B?RGl2dmsyZllnOXcyVUFNc3JMQlhOdngvM1RnVWlVYm9DTUY5YXJaTFVaZEVx?=
- =?utf-8?B?OVMxYmhPNTZrTXlNMFpKUmRlcVI3dVJ6N2oxOVVPeUxHbVNidHMydjdZSFQw?=
- =?utf-8?B?MTlaYnJhSUZGaU5OVjNiYzM5c0NNbzRtMWM1dCtjZytBK2twd2pTVGpSWld5?=
- =?utf-8?B?YXFpYmEwNW5oTkIwSFBPU212YWJ3NUFKYUpqbGMzd2l4dEgvRHo0YkpBdnpo?=
- =?utf-8?B?alZvck9yVWNJZjJ2N3VNSEpsMlRRaVV0Sy9pVlVKR25YMTg2bjZoRWFHU2ps?=
- =?utf-8?B?RjR3TFg2SHgvZHNMUTRzOStkVVNpNnIvRTZRTkhrTCtiUm1KaTRIVjBqRWI3?=
- =?utf-8?B?cmsyRTNGWHRGSjAxVlBrT3ZuWU5yd05ORjhaZ2FlNFNjRjlJZ2RwKzZlWGFx?=
- =?utf-8?B?U28rYzRGQ05UK3A5ek9EejZOdVJRZUg0QWYydFl1TjNNL3I0Ri9YRm5laHRm?=
- =?utf-8?B?WkNiRVpoMGlNck9NSDJrNXczeUpwbVJsbmY3OEJvTUtjYlRwMkxUN3FVdUJM?=
- =?utf-8?B?UjVVSHQ2YU5QWVpBWU96QzdEZjluL3YvZmZHeUJ1TGk3T3ZGbGJQUktnTW5R?=
- =?utf-8?B?cVVEaittZnB3OUJ5MS9RT0M3NFpmNk5Ob01tenFpc3FBU1o1STBlK20wOVg5?=
- =?utf-8?B?cWVhK05uYzVha0pIQ25XRTc4Z1JQTzhPWUExaDA0WnBCUXZCSFJJY0NqZDl0?=
- =?utf-8?B?aDEzY1I3YTNFNHp3dHcvNkw4MHd4YkhIczdGMjExVmhIc1pBejUvNUZ6QnF6?=
- =?utf-8?B?VjRqQ0k0RmpvMk0xdTJSL3RHZ2hrMlNpajIxSGRHa1hnT05FajZ3aXlHZU51?=
- =?utf-8?Q?BeIY=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
+ by DM4PR12MB6085.namprd12.prod.outlook.com (2603:10b6:8:b3::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.19; Fri, 23 Sep
+ 2022 17:13:11 +0000
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::80ca:c97:d395:1acf]) by DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::80ca:c97:d395:1acf%6]) with mapi id 15.20.5654.017; Fri, 23 Sep 2022
+ 17:13:11 +0000
+Message-ID: <6bfd7060-0f4e-c8cc-444b-14cef7d5c876@amd.com>
+Date: Fri, 23 Sep 2022 13:13:09 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v4] drm/sched: Add FIFO sched policy to run queue v3
+Content-Language: en-US
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+To: Luben Tuikov <luben.tuikov@amd.com>, dri-devel@lists.freedesktop.org
+References: <20220921182831.25214-1-andrey.grodzovsky@amd.com>
+ <5c3e72bb-0df7-b76c-1679-5bbb571e4a2c@amd.com>
+ <43891f6c-615b-3b5e-204d-b0815dc858cf@amd.com>
+In-Reply-To: <43891f6c-615b-3b5e-204d-b0815dc858cf@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT1PR01CA0137.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::16) To DM5PR12MB1947.namprd12.prod.outlook.com
+ (2603:10b6:3:111::23)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1947:EE_|DM4PR12MB6085:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a4e78ef-d97f-4e0c-00f2-08da9d86e4b9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 4prMIl7ucz4iqSuTTca0KPESNF0/qZ+vVlC4YkSQecSFF+OdvZ3/EPgvpiyFY8MFGO9FiO7XPbGydG7FyQdSIaHyB0it0lxoNTc2lsNbneF34rPOktOjECVx61WRvVLmCuEi1N25DtIODygpOOCDMj75lraz14JjE3dLmjHT1bJZIR2TQ5B5XJ8BtQsMdqJd+p+lbiC2lnmkIvViQfoRpv8RSRpZloUb9hFvv6C738LaZkENnBRw7a/KsyaW0RahpYSV3QObhMH9S5xb5yzORSE8wBaaAB4UnQvjpcqZ6Q+5lSxPlIPtDOycTTxRh6yQy6/G0Q16+qma2RD5avKq92JlKsbCgISTPxFfX2YJpwB0DyG80hE8AP1UeRyfltUgl/v6OmL8ZZUpyljBiAkSuuyFHCRe2QSyhxyCmGKDuVSe6evncFrTLeNc0Lw3pd0PnIb6oDemgVkW26elowcaFhjFsR3RDSrN5jQNXXaykssVyaf1sKVEqY6VkphZJ9p/lvyWq+R0ByxpFpHvzQ/cVIGawJ+k6LhznagJxgyZuayPeZ9t/91wihdvgqTwah+xvpSEL08j+folBkNJo46CHQJ+/BQehAzlNGycuHDwG58SrtqVTObL4up5CFY4l1B42JpZcN0IkSeOr+0egpsb6XcQK19HMUrWxsCE+yh+5ekp5FMQMp4Rii5y2um2+QrCVgxCAFZk4c/hZgCA8XtsazNSrm5eitLGKYnKApPOwzQZXYU3LqtnQ7hh0iMYyHCoMlryZCls2Doj9qfpSTixJzVZjaU/keXKsCMlXm2SbURxMDKga22WpJ9KA4b/dCo87ZUVqhiyAOxHcMHJhbIPSQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(366004)(39860400002)(376002)(346002)(396003)(451199015)(44832011)(6506007)(66556008)(2616005)(186003)(83380400001)(38100700002)(8676002)(66946007)(53546011)(66476007)(4326008)(31696002)(8936002)(41300700001)(2906002)(5660300002)(6512007)(86362001)(30864003)(6486002)(31686004)(316002)(478600001)(36756003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MkR0blVnR2VOckczQ3k2S3M1RVA2dXk2U0VBQ0lGUnNxNTVMQ29oWVFSNWIx?=
+ =?utf-8?B?NUNnKy9CSGl4WTdVeVAwdS85eVNsK0poK3hIMjlEbUFnSVc4SG0xLzFmNUZq?=
+ =?utf-8?B?N0Z1dGx0R1pVRXEwMUo2clJBOUd3Q0EyRkRvK0owcll3Qy9NdmtLdEExTTlo?=
+ =?utf-8?B?NURJZ0V4eFQ2Y3RGQTdjeHJ6VVVSa3VrenpFc2Q5MitrYjhpeFYwRUxkeVZq?=
+ =?utf-8?B?bnBEUWJXc2tGdXZQUFlQUXpmc1Y3OWpQV3cvYUZVU0s4eVB6VVhGeHk2TVRO?=
+ =?utf-8?B?TldNNHdiZkJCQXRia2VXMDJWNWQ0SDBMcU1odVljdGd3UHhGLzNzeWRhdE4x?=
+ =?utf-8?B?dmdLSmwzdytqMTFPbkNnWTdaRWZKNW82RDQrbVQ1bXNvRzlEd3RwNlllaHFR?=
+ =?utf-8?B?VWRUR3U3VnhmcmVvMkN5TFZVOVNDMFVpejUzSkc4Y1g0ZVMxcGxJdk15WWNu?=
+ =?utf-8?B?WVp4anNacWJDVnFBcHBMZnI0L2tvMWFIaEpWOXNYMUk1ZFgwZGN4WjFWMUVD?=
+ =?utf-8?B?bUVCSURMMW5vNGtUems1N3RhRDZBalNoQkhpRjF6SWdCdmhBemphZ1hDODN2?=
+ =?utf-8?B?VVd4ZFQvTXpEOFFDM0J6RkJKZE1HMEJrZDFZaGxUNUk2Zk4rKzFCZGpvOUdT?=
+ =?utf-8?B?UHN2RWJvMnZhUEx1VmJTallKblRodTZXcUhGOHlJVjc0QU8yRmkvdk93WkxI?=
+ =?utf-8?B?cTNOQUx0ZndEUzVWWVd5cTI3Qnc4THVlajZIemdJQU5wTTUrUmRRUFg2VU9Q?=
+ =?utf-8?B?SFJSTW1ucjZaTFVkTGR3K3pFa2U3aDdKQS9BT1FqUzRvcHExUEZWdVdWUElv?=
+ =?utf-8?B?R0RGTXl3QXhZYnRaT0NrWi9lOG1BWG1rTG1JWjNhcXU2cWgyMm92QkZTQzZ2?=
+ =?utf-8?B?aVJBbi9iWlJjTGYrTCtJT1AwY0dLUWxPblpvMVU5U2t3YnJ0WGxjSXNFY0pG?=
+ =?utf-8?B?S3FWQ0haVmVpY2JBb3BNekZkMjU5ek1oZ1NaK0RhSHFOOHE3dzB4RncwaVg4?=
+ =?utf-8?B?alBvMHc4aUsrbVMxTzRjN2VGQ1pGUDVjWmNaRWltUkdpY2txRG9KTzMwc1hq?=
+ =?utf-8?B?VGduV1dyUmNxcldZemREYjFqdzNYSjM1NXBFemhzVVVaemhwcVNmc1FxMlRW?=
+ =?utf-8?B?VUlWb2dQQ0crUkhSUGdkK2VhZ3duRlIxYzViRStwTFlBVTltektMUTFPNG1H?=
+ =?utf-8?B?aDdIc2FPWEZzVldGdTluMTNwTW9ncE5xTk5oamR3dnhjSFlvSlN4MmQxZVd4?=
+ =?utf-8?B?cUhCdWhNTEg4YmQrTkR0SXNld3YxZjdJTlJVOGpuZkFXK0VJdENwNzBCQ1dO?=
+ =?utf-8?B?UzVmQ05MbU9CTTZFdHJCeE5WMnYrSjZldTJwbkxFMGpKQzh3SXM4ZUJLRDVK?=
+ =?utf-8?B?V0RjeHN5Y3FwaTJxRThEbGV3VDlBZDZxaGJFS0JqM3FEcDFWUWlCVkNDRC9t?=
+ =?utf-8?B?RzB6bmQ2VFJEbWJ4WS9MekVhVXNVbk5JaG54NGxXSTM3d20xSmJBY3JFbUI1?=
+ =?utf-8?B?ZXFyL3AwMFFuNGxNMVpjVmFZL2dObFp4eDlHK0I1T3RSSDBNUG1xTUlYc1ZT?=
+ =?utf-8?B?MzdaRDdDVDh6d1pwMzE0UlBKZk5WSGc3YTR4dzJ5WUt3VWFGMGZ5K2RJNDdT?=
+ =?utf-8?B?VnFSYTBXUHFkdnpMTFJrMmtIMGtPTldva0dpTitWR3hsS0ovTjRJUEplaWhk?=
+ =?utf-8?B?WERqN1ZEa1NyQnkxSGdYSVByVGd3MGppM0FXeVBvNkN0TUtyOVYvdWQrY1d3?=
+ =?utf-8?B?T2lQSVhWQU0zbHc2bTFOUHAxUllzamJ1Ky9pN2RmV0xVeGl1bndJVktXZzZ6?=
+ =?utf-8?B?SVNPUmdHeUN6QjJyWkdnSHpJOEVJYk8yVEhMNlB5dVRpMmF4bFA5TGJNQVRQ?=
+ =?utf-8?B?UnRXNzRJTDNteDBnbUk4RDdwSXdnTnF5clk3b0lMelR4NkF2c0paaE9sb2RC?=
+ =?utf-8?B?TUprNVF5MUdxaktZVUZhVU83cXRBTUFrdmZ0V2pqeFNnZmtuRmxNZldQNDhw?=
+ =?utf-8?B?WE5DNTE1SGl5WDB3S2VkVGxEVWlzL2MvVk1wZVhiUExOc2hFRmgzYmY5WXdG?=
+ =?utf-8?B?YXVIWXBvWE0xUEZEeHZ2aFlqbUwzdEdZRGJ4N2NYN2lPUmJIV25BR1hrdWx6?=
+ =?utf-8?B?YXdRVkJEZlRpNFJrcXJkbVBmSkJjajg2cVVHMjAzd3ZLdExsbmxpcVppM0xy?=
+ =?utf-8?Q?gLJABdKkjw9jjXFApTxkOleOwbVnI/dpjg7oxOyCK7qy?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a4e78ef-d97f-4e0c-00f2-08da9d86e4b9
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43e720f3-8e2b-4118-ee13-08da9d7a7b65
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2022 15:44:20.8038 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bOYvONXw6KG//noQjJWHD7e5M5wo3vKshj6SqWH8iUO1om9q2coHIuwHj0J3EJoq2Xz4qbjYRBtnxO3LiKywjw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6086
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2022 17:13:11.7041 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R2CAL5ZKdAXeTqzEIXDW1ExMPB4YpHynMTqsg7QNT3XTy6iTBLmRe9xep9Qq/+4QzyrdeN+mHpp1lW/xpRPT5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6085
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,155 +126,499 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Li,
- Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Zhuo,
- Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, Roman" <Roman.Li@amd.com>, "Chiu, 
- Solomon" <Solomon.Chiu@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
- "Lin, Wayne" <Wayne.Lin@amd.com>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Gutierrez,
- Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
+Cc: ckoenig.leichtzumerken@gmail.com, Li Yunxiang <Yunxiang.Li@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W1B1YmxpY10NCg0KSGkgYWxsLA0KDQpUaGlzIHdlZWsgdGhpcyBwYXRjaHNldCB3YXMgdGVzdGVk
-IG9uIHRoZSBmb2xsb3dpbmcgc3lzdGVtczoNCg0KTGVub3ZvIFRoaW5rcGFkIFQxNHMgR2VuMiwg
-d2l0aCBBTUQgUnl6ZW4gNSA1NjUwVQ0KUmVmZXJlbmNlIEFNRCBSWDY4MDANCkVuZ2luZWVyaW5n
-IGJvYXJkIHdpdGggUnl6ZW4gOSA1OTAwSA0KDQpUaGVzZSBzeXN0ZW1zIHdlcmUgdGVzdGVkIG9u
-IHRoZSBmb2xsb3dpbmcgZGlzcGxheSB0eXBlczoNCmVEUCwgKDEwODBwIDYwaHogWzQ1MDBVLCA1
-NjUwVSwgNTkwMEhdKQ0KVkdBIGFuZCBEVkkgKDE2ODB4MTA1MCA2MEhaIFtEUCB0byBWR0EvRFZJ
-LCBVU0ItQyB0byBEVkkvVkdBXSkNCkRQL0hETUkvVVNCLUMgKDE0NDBwIDE3MGh6LCA0ayA2MGh6
-LCA0ayAxNDRoeiBbSW5jbHVkZXMgVVNCLUMgdG8gRFAvSERNSSBhZGFwdGVyc10pDQoNCk1TVCB0
-ZXN0ZWQgd2l0aCBTdGFydGVjaCBNU1QxNERQMTIzRFAgYW5kIDJ4IDRrIDYwSHogZGlzcGxheXMN
-CkRTQyB0ZXN0ZWQgd2l0aCBDYWJsZSBNYXR0ZXJzIDEwMTA3NSAoRFAgdG8gM3ggRFApLCBhbmQg
-MjAxMzc1IChVU0ItQyB0byAzeCBEUCkgd2l0aCAzeCA0azYwIGRpc3BsYXlzDQoNClRoZSB0ZXN0
-aW5nIGlzIGEgbWl4IG9mIGF1dG9tYXRlZCBhbmQgbWFudWFsIHRlc3RzLiBNYW51YWwgdGVzdGlu
-ZyBpbmNsdWRlcyAoYnV0IGlzIG5vdCBsaW1pdGVkIHRvKToNCkNoYW5naW5nIGRpc3BsYXkgY29u
-ZmlndXJhdGlvbnMgYW5kIHNldHRpbmdzDQpCZW5jaG1hcmsgdGVzdGluZw0KRmVhdHVyZSB0ZXN0
-aW5nIChGcmVlc3luYywgZXRjLikNCg0KQXV0b21hdGVkIHRlc3RpbmcgaW5jbHVkZXMgKGJ1dCBp
-cyBub3QgbGltaXRlZCB0byk6DQpTY3JpcHQgdGVzdGluZyAoc2NyaXB0cyB0byBhdXRvbWF0ZSBz
-b21lIG9mIHRoZSBtYW51YWwgY2hlY2tzKQ0KSUdUIHRlc3RpbmcNCg0KVGhlIHBhdGNoc2V0IGNv
-bnNpc3RzIG9mIHRoZSBhbWQtc3RhZ2luZy1kcm0tbmV4dCBicmFuY2ggKEhlYWQgY29tbWl0IC0g
-NTQwNjVmYzE1MjYzODllYWM2NmZkOTBhYmM1MWZhOTdiMTJjMDE4NiAtPiBkcm0vYW1kZ3B1OiBG
-aXggYW1kZ3B1X3ZtX3B0X2ZyZWUgd2FybmluZykgd2l0aCBuZXcgcGF0Y2hlcyBhZGRlZCBvbiB0
-b3Agb2YgaXQuIFRoaXMgYnJhbmNoIGlzIHVzZWQgZm9yIGJvdGggVWJ1bnR1IGFuZCBDaHJvbWUg
-T1MgdGVzdGluZyAoQ2hyb21lT1Mgb24gYSBiaS13ZWVrbHkgYmFzaXMpLg0KDQoNClRlc3RlZCBv
-biBVYnVudHUgMjIuMDQgYW5kIENocm9tZSBPUw0KDQpUZXN0ZWQtYnk6IERhbmllbCBXaGVlbGVy
-IDxkYW5pZWwud2hlZWxlckBhbWQuY29tPg0KDQoNClRoYW5rIHlvdSwNCg0KRGFuIFdoZWVsZXIN
-ClNyLiBUZWNobm9sb2dpc3QgfCBBTUQNClNXIERpc3BsYXkNCi0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KMSBDb21tZXJjZSBWYWxsZXkg
-RHIgRSwgVGhvcm5oaWxsLCBPTiBMM1QgN1g2DQphbWQuY29tDQoNCi0tLS0tT3JpZ2luYWwgTWVz
-c2FnZS0tLS0tDQpGcm9tOiBEaGlsbG9uLCBKYXNkZWVwIDxKYXNkZWVwLkRoaWxsb25AYW1kLmNv
-bT4NClNlbnQ6IFNlcHRlbWJlciAyMSwgMjAyMiA4OjE4IFBNDQpUbzogYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcNCkNjOiBXZW50bGFuZCwgSGFycnkgPEhhcnJ5LldlbnRsYW5kQGFtZC5j
-b20+OyBMaSwgU3VuIHBlbmcgKExlbykgPFN1bnBlbmcuTGlAYW1kLmNvbT47IExha2hhLCBCaGF3
-YW5wcmVldCA8Qmhhd2FucHJlZXQuTGFraGFAYW1kLmNvbT47IFNpcXVlaXJhLCBSb2RyaWdvIDxS
-b2RyaWdvLlNpcXVlaXJhQGFtZC5jb20+OyBQaWxsYWksIEF1cmFiaW5kbyA8QXVyYWJpbmRvLlBp
-bGxhaUBhbWQuY29tPjsgWmh1bywgUWluZ3FpbmcgKExpbGxpYW4pIDxRaW5ncWluZy5aaHVvQGFt
-ZC5jb20+OyBMaSwgUm9tYW4gPFJvbWFuLkxpQGFtZC5jb20+OyBMaW4sIFdheW5lIDxXYXluZS5M
-aW5AYW1kLmNvbT47IFdhbmcsIENoYW8ta2FpIChTdHlsb24pIDxTdHlsb24uV2FuZ0BhbWQuY29t
-PjsgQ2hpdSwgU29sb21vbiA8U29sb21vbi5DaGl1QGFtZC5jb20+OyBLb3RhcmFjLCBQYXZsZSA8
-UGF2bGUuS290YXJhY0BhbWQuY29tPjsgR3V0aWVycmV6LCBBZ3VzdGluIDxBZ3VzdGluLkd1dGll
-cnJlekBhbWQuY29tPjsgRGhpbGxvbiwgSmFzZGVlcCA8SmFzZGVlcC5EaGlsbG9uQGFtZC5jb20+
-OyBXaGVlbGVyLCBEYW5pZWwgPERhbmllbC5XaGVlbGVyQGFtZC5jb20+DQpTdWJqZWN0OiBbUEFU
-Q0ggMDAvMzFdIERDIFBhdGNoZXMgU2VwdCAyNiwgMjAyMg0KDQpUaGlzIERDIHBhdGNoc2V0IGJy
-aW5ncyBpbXByb3ZlbWVudHMgaW4gbXVsdGlwbGUgYXJlYXMuIEluIHN1bW1hcnksIHdlIGhhdmU6
-DQoNCiAgICAtIExUVFBSIG1vZGUgY2FuIGJlIGJlIGR5bmFtaWNhbGx5IGNoYW5nZWQNCiAgICAt
-IGZlYXR1cmVzIGFibGUgdG8gdXNlIHNhbWUgaW50ZXJmYWNlIHRvIHVwZGF0ZSBjdXJzb3IgaW5m
-bw0KICAgIC0gZml4ZXMgZm9yIGxsdm0gY29tcGlsYXRpb24gaXNzdWVzDQogICAgLSBGaXhlcyBE
-SU8gRklGTyB1bmRlcmZsb3cgYW5kIG90aGVyIEZJRk8gZXJyb3JzDQogICAgLSBQYXJ0aWFsbHkg
-dmFsaWQgRURJRHMgaGFuZGxlZCBwcm9wZXJseQ0KICAgIC0gUGhhdG9tIHBpcGVzIGFyZSBza2lw
-cGVkIHdoZW4gY2hlY2tpbmcgcGVuZGluZyBmbGlwDQogICAgLSBGaXhlZCBhdWRpbyBvbiBkaXNw
-bGF5IGFmdGVyIHVucGx1Z2dpbmcNCg0KQ2M6IERhbmllbCBXaGVlbGVyIDxkYW5pZWwud2hlZWxl
-ckBhbWQuY29tPg0KDQpBbHZpbiBMZWUgKDQpOg0KICBkcm0vYW1kL2Rpc3BsYXk6IFVwZGF0ZSBE
-Q04zMiB0byB1c2UgbmV3IFNSIGxhdGVuY2llcw0KICBkcm0vYW1kL2Rpc3BsYXk6IFVwZGF0ZSBN
-QUxMIFNTIE51bVdheXMgY2FsY3VsYXRpb24NCiAgZHJtL2FtZC9kaXNwbGF5OiBEaXNhYmxlIE1B
-TEwgd2hlbiBUTVogc3VyZmFjZQ0KICBkcm0vYW1kL2Rpc3BsYXk6IEZpeCBDQUIgYWxsb2NhdGlv
-biBjYWxjdWxhdGlvbg0KDQpBcmljIEN5ciAoMyk6DQogIGRybS9hbWQvZGlzcGxheTogUmVtb3Zl
-IGludGVyZmFjZSBmb3IgcGVyaW9kaWMgaW50ZXJydXB0IDENCiAgZHJtL2FtZC9kaXNwbGF5OiBG
-aXggYXVkaW8gb24gZGlzcGxheSBhZnRlciB1bnBsdWdnaW5nIGFub3RoZXINCiAgZHJtL2FtZC9k
-aXNwbGF5OiAzLjIuMjA1DQoNCkF1cmFiaW5kbyBQaWxsYWkgKDIpOg0KICBkcm0vYW1kL2Rpc3Bs
-YXk6IHNraXAgcGhhbnRvbSBwaXBlcyB3aGVuIGNoZWNraW5nIGZvciBwZW5kaW5nIGZsaXANCiAg
-ZHJtL2FtZC9kaXNwbGF5OiBmaXggYSBkaXZpZGUgYnkgemVybyBlcnJvcg0KDQpCcmFuZG9uIFN5
-dSAoMSk6DQogIEFkZCBkZWJ1ZyBvcHRpb24gZm9yIGV4aXRpbmcgaWRsZSBvcHRpbWl6YXRpb25z
-IG9uIGN1cnNvciB1cGRhdGVzDQoNCkNoYXJsZW5lIExpdSAoMSk6DQogIGRybS9hbWQvZGlzcGxh
-eTogYWRkIGRlYnVnIGtleXMgZm9yIG92ZXJyaWRlIGJpb3Mgc2V0dGluZ3MuDQoNCkRpbGxvbiBW
-YXJvbmUgKDEpOg0KICBkcm0vYW1kL2Rpc3BsYXk6IEZpeCB2YXJpb3VzIGR5bmFtaWMgT0RNIHRy
-YW5zaXRpb25zIG9uIERDTjMyDQoNCkVyaWMgQmVybnN0ZWluICgxKToNCiAgZHJtL2FtZC9kaXNw
-bGF5OiBSZW1vdmUgYXNzZXJ0IGZvciBvZG0gdHJhbnNpdGlvbiBjYXNlDQoNCklhbiBDaGVuICgx
-KToNCiAgQWRkIEFCTSBjb250cm9sIHRvIHBhbmVsX2NvbmZpZyBzdHJ1Y3QuDQoNCklseWEgQmFr
-b3VsaW4gKDEpOg0KICBkcm0vYW1kL2Rpc3BsYXk6IENoYW5nZSBFRElEIGZhbGxiYWNrIGNvbmRp
-dGlvbg0KDQpNYXggVHNlbmcgKDEpOg0KICBkcm0vYW1kL2Rpc3BsYXk6IEN1cnNvciBJbmZvIFVw
-ZGF0ZSByZWZhY3Rvcg0KDQpNaWNoYWVsIFN0cmF1c3MgKDEpOg0KICBkcm0vYW1kL2Rpc3BsYXk6
-IFJlZmFjdG9yIExUVFBSIG1vZGUgc2VsZWN0aW9uDQoNCk5hdGhhbiBDaGFuY2VsbG9yICgyKToN
-CiAgZHJtL2FtZC9kaXNwbGF5OiBSZWR1Y2UgbnVtYmVyIG9mIGFyZ3VtZW50cyBvZiBkbWwzMTQn
-cw0KICAgIENhbGN1bGF0ZVdhdGVybWFya3NBbmREUkFNU3BlZWRDaGFuZ2VTdXBwb3J0KCkNCiAg
-ZHJtL2FtZC9kaXNwbGF5OiBSZWR1Y2UgbnVtYmVyIG9mIGFyZ3VtZW50cyBvZiBkbWwzMTQncw0K
-ICAgIENhbGN1bGF0ZUZsaXBTY2hlZHVsZSgpDQoNCk5pY2hvbGFzIEthemxhdXNrYXMgKDMpOg0K
-ICBkcm0vYW1kL2Rpc3BsYXk6IFdyYXAgT1RHIGRpc2FibGUgd29ya2Fyb3VuZCB3aXRoIEZJRk8g
-Y29udHJvbA0KICBkcm0vYW1kL2Rpc3BsYXk6IEFkZCBleHBsaWNpdCBGSUZPIGRpc2FibGUgZm9y
-IERQIGJsYW5rDQogIGRybS9hbWQvZGlzcGxheTogRG8gRElPIEZJRk8gZW5hYmxlIGFmdGVyIERQ
-IHZpZGVvIHN0cmVhbSBlbmFibGUNCg0KU2Ftc29uIFRhbSAoMSk6DQogIGRybS9hbWQvZGlzcGxh
-eTogZmlsbCBpbiBjbG9jayB2YWx1ZXMgd2hlbiBEUE0gaXMgbm90IGVuYWJsZWQNCg0KVGFpbXVy
-IEhhc3NhbiAoMyk6DQogIGRybS9hbWQvZGlzcGxheTogQXZvaWQgYXZvaWQgdW5uZWNlc3Nhcnkg
-cGl4ZWwgcmF0ZSBkaXZpZGVyDQogICAgcHJvZ3JhbW1pbmcNCiAgZHJtL2FtZC9kaXNwbGF5OiBG
-aXggdHlwbyBpbiBnZXRfcGl4ZWxfcmF0ZV9kaXYNCiAgZHJtL2FtZC9kaXNwbGF5OiBBdm9pZCB1
-bm5lY2Vzc2FyeSBwaXhlbCByYXRlIGRpdmlkZXIgcHJvZ3JhbW1pbmcNCg0KVG9tIFJpeCAoMyk6
-DQogIGRybS9hbWQvZGlzcGxheTogcmVtb3ZlIHJlZHVuZGFudCBDYWxjdWxhdGVUV2FpdCdzDQog
-IGRybS9hbWQvZGlzcGxheTogcmVmYWN0b3IgQ2FsY3VsYXRlV3JpdGVCYWNrRGVsYXkgdG8gdXNl
-IHZiYV92YXJzX3N0DQogICAgcHRyDQogIGRybS9hbWQvZGlzcGxheTogcmVtb3ZlIHJlZHVuZGFu
-dCBDYWxjdWxhdGVSZW1vdGVTdXJmYWNlRmxpcERlbGF5J3MNCg0KV2VuamluZyBMaXUgKDIpOg0K
-ICBkcm0vYW1kL2Rpc3BsYXk6IGFkZCBtaXNzaW5nIG51bGwgY2hlY2sNCiAgZHJtL2FtZC9kaXNw
-bGF5OiBwb2xsaW5nIHZpZCBzdHJlYW0gc3RhdHVzIGluIGhwbyBkcCBibGFuaw0KDQogLi4uL2Ry
-bS9hbWQvZGlzcGxheS9kYy9iaW9zL2Jpb3NfcGFyc2VyMi5jICAgIHwgIDIxICstDQogLi4uL2Rj
-L2Nsa19tZ3IvZGNuMzE0L2RjbjMxNF9jbGtfbWdyLmMgICAgICAgIHwgIDExICstDQogLi4uL2Rp
-c3BsYXkvZGMvY2xrX21nci9kY24zMi9kY24zMl9jbGtfbWdyLmMgIHwgIDE0ICsNCiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5jICAgICAgfCAxMjcgKysrLS0NCiAuLi4v
-Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmtfZGRjLmMgfCAgMTkgKyAgLi4uL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rX2RwLmMgIHwgMzAxICsrKysrKy0tLS0t
-DQogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmtfZHBpYS5jICAgIHwgIDM0ICst
-DQogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19zdHJlYW0uYyAgIHwgICAxICsN
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGMuaCAgICAgICAgICAgfCAgIDggKy0N
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNfbGluay5oICAgICAgfCAgIDcgKy0N
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNfc3RyZWFtLmggICAgfCAgIDYgKy0N
-CiAuLi4vZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX2h3X3NlcXVlbmNlci5jICAgfCAgIDYgKy0N
-CiAuLi4vYW1kL2Rpc3BsYXkvZGMvZGNuMTAvZGNuMTBfaHdfc2VxdWVuY2VyLmMgfCAgMzUgKy0N
-CiAuLi4vYW1kL2Rpc3BsYXkvZGMvZGNuMTAvZGNuMTBfaHdfc2VxdWVuY2VyLmggfCAgIDMgKy0N
-CiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjMwL2RjbjMwX3Jlc291cmNlLmMgfCAgIDMgKy0N
-CiAuLi4vYW1kL2Rpc3BsYXkvZGMvZGNuMzAxL2RjbjMwMV9yZXNvdXJjZS5jICAgfCAgIDEgKw0K
-IC4uLi9hbWQvZGlzcGxheS9kYy9kY24zMDIvZGNuMzAyX3Jlc291cmNlLmMgICB8ICAgMyArLQ0K
-IC4uLi9hbWQvZGlzcGxheS9kYy9kY24zMDMvZGNuMzAzX3Jlc291cmNlLmMgICB8ICAgMSArDQog
-Li4uL2RjL2RjbjMxL2RjbjMxX2hwb19kcF9zdHJlYW1fZW5jb2Rlci5jICAgIHwgICA2ICstDQog
-Li4uL2RybS9hbWQvZGlzcGxheS9kYy9kY24zMTQvZGNuMzE0X2RjY2cuYyAgIHwgIDQ3ICsrDQog
-Li4uL2RjL2RjbjMxNC9kY24zMTRfZGlvX3N0cmVhbV9lbmNvZGVyLmMgICAgIHwgIDI1ICstDQog
-Li4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMzIvZGNuMzJfZGNjZy5jIHwgIDUzICsrDQog
-Li4uL2RybS9hbWQvZGlzcGxheS9kYy9kY24zMi9kY24zMl9odWJidWIuYyAgIHwgIDEwICstDQog
-Li4uL2RybS9hbWQvZGlzcGxheS9kYy9kY24zMi9kY24zMl9od3NlcS5jICAgIHwgMjgwICsrKysr
-Ky0tLS0NCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjMyL2RjbjMyX2h3c2VxLmggICAgfCAg
-IDggKw0KIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjMyL2RjbjMyX2luaXQuYyB8ICAg
-MiArDQogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kY24zMi9kY24zMl9yZXNvdXJjZS5jIHwgIDI3
-ICstDQogLi4uL2Rpc3BsYXkvZGMvZGNuMzIvZGNuMzJfcmVzb3VyY2VfaGVscGVycy5jIHwgICAy
-ICstDQogLi4uL2FtZC9kaXNwbGF5L2RjL2RjbjMyMS9kY24zMjFfcmVzb3VyY2UuYyAgIHwgICAz
-ICsNCiAuLi4vZGMvZG1sL2RjbjIwL2Rpc3BsYXlfbW9kZV92YmFfMjAuYyAgICAgICAgfCAgOTgg
-Ky0tLQ0KIC4uLi9kYy9kbWwvZGNuMjAvZGlzcGxheV9tb2RlX3ZiYV8yMHYyLmMgICAgICB8IDE3
-NiArLS0tLS0NCiAuLi4vZGMvZG1sL2RjbjIxL2Rpc3BsYXlfbW9kZV92YmFfMjEuYyAgICAgICAg
-fCAxNzMgKy0tLS0tDQogLi4uL2RjL2RtbC9kY24zMC9kaXNwbGF5X21vZGVfdmJhXzMwLmMgICAg
-ICAgIHwgIDkyICstLS0NCiAuLi4vZGMvZG1sL2RjbjMxL2Rpc3BsYXlfbW9kZV92YmFfMzEuYyAg
-ICAgICAgfCAgODkgKy0tDQogLi4uL2RjL2RtbC9kY24zMTQvZGlzcGxheV9tb2RlX3ZiYV8zMTQu
-YyAgICAgIHwgNTA5ICsrKystLS0tLS0tLS0tLS0tLQ0KIC4uLi9kcm0vYW1kL2Rpc3BsYXkvZGMv
-ZG1sL2RjbjMyL2RjbjMyX2ZwdS5jICB8ICA3MCArKy0NCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2Rj
-L2RtbC9kY24zMi9kY24zMl9mcHUuaCAgfCAgIDIgKw0KIC4uLi9kYy9kbWwvZGNuMzIvZGlzcGxh
-eV9tb2RlX3ZiYV8zMi5jICAgICAgICB8ICA0MiArLQ0KIC4uLi9kYy9kbWwvZGNuMzIvZGlzcGxh
-eV9tb2RlX3ZiYV91dGlsXzMyLmMgICB8ICAzMCAtLQ0KIC4uLi9kYy9kbWwvZGNuMzIvZGlzcGxh
-eV9tb2RlX3ZiYV91dGlsXzMyLmggICB8ICAxMCArLQ0KIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2RjL2luYy9kY19saW5rX2RwLmggICB8ICAgNSArDQogLi4uL2FtZC9kaXNwbGF5L2RjL2luYy9o
-dy9jbGtfbWdyX2ludGVybmFsLmggIHwgICAyICsNCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9k
-Yy9pbmMvaHdfc2VxdWVuY2VyLmggfCAgIDkgKy0NCiAuLi4vYW1kL2Rpc3BsYXkvZGMvaW5jL2h3
-X3NlcXVlbmNlcl9wcml2YXRlLmggfCAgIDIgKw0KIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rt
-dWIvaW5jL2RtdWJfY21kLmggICB8ICAgNSArDQogLi4uL2FtZC9kaXNwbGF5L2luY2x1ZGUvbGlu
-a19zZXJ2aWNlX3R5cGVzLmggIHwgICAxICsNCiBzY3JpcHRzL2V4dHJhY3QtY2VydCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgfCBCaW4gMCAtPiAxODMyMCBieXRlcw0KIDQ3IGZpbGVzIGNoYW5n
-ZWQsIDk1MiBpbnNlcnRpb25zKCspLCAxNDI3IGRlbGV0aW9ucygtKSAgY3JlYXRlIG1vZGUgMTAw
-NzU1IHNjcmlwdHMvZXh0cmFjdC1jZXJ0DQoNCi0tDQoyLjI1LjENCg0K
+Ping
+
+Andrey
+
+On 2022-09-22 12:15, Andrey Grodzovsky wrote:
+>
+> On 2022-09-22 11:03, Luben Tuikov wrote:
+>> The title of this patch has "v3", but "v4" in the title prefix.
+>> If you're using "-v" to git-format-patch, please remove the "v3" from 
+>> the title.
+>>
+>> Inlined:
+>>
+>> On 2022-09-21 14:28, Andrey Grodzovsky wrote:
+>>> When many entities competing for same run queue on
+>>> the same scheduler When many entities have  unacceptably long wait
+>>> time for some jobs waiting stuck in the run queue before being picked
+>>> up are observed (seen using  GPUVis).
+>> Use this as your opening:
+>>
+>> "When many entities are competing for the same run queue on the same 
+>> scheduler,
+>> we observe an unusually long wait times and some jobs get starved. 
+>> This has
+>> been observed on GPUVis."
+>>
+>>> The issue is due to the Round Robin policy used by schedulers
+>>> to pick up the next entity's job queue for execution. Under stress
+>>> of many entities and long job queues within entity some
+>>> jobs could be stack for very long time in it's entity's
+>> "stuck", not "stack".
+>>
+>>> queue before being popped from the queue and executed
+>>> while for other entities with smaller job queues a job
+>>> might execute earlier even though that job arrived later
+>>> then the job in the long queue.
+>>>     Fix:
+>>> Add FIFO selection policy to entities in run queue, chose next entity
+>>> on run queue in such order that if job on one entity arrived
+>>> earlier then job on another entity the first job will start
+>>> executing earlier regardless of the length of the entity's job
+>>> queue.
+>>>     v2:
+>>> Switch to rb tree structure for entities based on TS of
+>>> oldest job waiting in the job queue of an entity. Improves next
+>>> entity extraction to O(1). Entity TS update
+>>> O(log N) where N is the number of entities in the run-queue
+>>>     Drop default option in module control parameter.
+>>>
+>>> v3:
+>>> Various cosmetical fixes and minor refactoring of fifo update 
+>>> function. (Luben)
+>>>
+>>> v4:
+>>> Switch drm_sched_rq_select_entity_fifo to in order search (Luben)
+>>>     Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>>> Tested-by: Li Yunxiang (Teddy) <Yunxiang.Li@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/scheduler/sched_entity.c |  26 +++++-
+>>>   drivers/gpu/drm/scheduler/sched_main.c   | 107 
+>>> ++++++++++++++++++++++-
+>>>   include/drm/gpu_scheduler.h              |  32 +++++++
+>>>   3 files changed, 159 insertions(+), 6 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c 
+>>> b/drivers/gpu/drm/scheduler/sched_entity.c
+>>> index 6b25b2f4f5a3..f3ffce3c9304 100644
+>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>>> @@ -73,6 +73,7 @@ int drm_sched_entity_init(struct drm_sched_entity 
+>>> *entity,
+>>>       entity->priority = priority;
+>>>       entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
+>>>       entity->last_scheduled = NULL;
+>>> +    RB_CLEAR_NODE(&entity->rb_tree_node);
+>>>         if(num_sched_list)
+>>>           entity->rq = &sched_list[0]->sched_rq[entity->priority];
+>>> @@ -417,14 +418,16 @@ struct drm_sched_job 
+>>> *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+>>>         sched_job = 
+>>> to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
+>>>       if (!sched_job)
+>>> -        return NULL;
+>>> +        goto skip;
+>>>         while ((entity->dependency =
+>>>               drm_sched_job_dependency(sched_job, entity))) {
+>>>           trace_drm_sched_job_wait_dep(sched_job, entity->dependency);
+>>>   -        if (drm_sched_entity_add_dependency_cb(entity))
+>>> -            return NULL;
+>>> +        if (drm_sched_entity_add_dependency_cb(entity)) {
+>>> +            sched_job = NULL;
+>>> +            goto skip;
+>>> +        }
+>>>       }
+>>>         /* skip jobs from entity that marked guilty */
+>>> @@ -443,6 +446,16 @@ struct drm_sched_job 
+>>> *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+>>>       smp_wmb();
+>>>         spsc_queue_pop(&entity->job_queue);
+>>> +
+>>> +    /*
+>>> +     * It's when head job is extracted we can access the next job 
+>>> (or empty)
+>>> +     * queue and update the entity location in the min heap 
+>>> accordingly.
+>>> +     */
+>>> +skip:
+>>> +    if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>>> +        drm_sched_rq_update_fifo(entity,
+>>> +                     (sched_job ? sched_job->submit_ts : 
+>>> ktime_get()));
+>>> +
+>>>       return sched_job;
+>>>   }
+>>>   @@ -502,11 +515,13 @@ void drm_sched_entity_push_job(struct 
+>>> drm_sched_job *sched_job)
+>>>   {
+>>>       struct drm_sched_entity *entity = sched_job->entity;
+>>>       bool first;
+>>> +    ktime_t ts =  ktime_get();
+>>>         trace_drm_sched_job(sched_job, entity);
+>>>       atomic_inc(entity->rq->sched->score);
+>>>       WRITE_ONCE(entity->last_user, current->group_leader);
+>>>       first = spsc_queue_push(&entity->job_queue, 
+>>> &sched_job->queue_node);
+>>> +    sched_job->submit_ts = ts;
+>>>         /* first job wakes up scheduler */
+>>>       if (first) {
+>>> @@ -518,8 +533,13 @@ void drm_sched_entity_push_job(struct 
+>>> drm_sched_job *sched_job)
+>>>               DRM_ERROR("Trying to push to a killed entity\n");
+>>>               return;
+>>>           }
+>>> +
+>>>           drm_sched_rq_add_entity(entity->rq, entity);
+>>>           spin_unlock(&entity->rq_lock);
+>>> +
+>>> +        if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>>> +            drm_sched_rq_update_fifo(entity, ts);
+>>> +
+>>>           drm_sched_wakeup(entity->rq->sched);
+>>>       }
+>>>   }
+>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c 
+>>> b/drivers/gpu/drm/scheduler/sched_main.c
+>>> index 4f2395d1a791..565707a1c5c7 100644
+>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>>> @@ -62,6 +62,64 @@
+>>>   #define to_drm_sched_job(sched_job)        \
+>>>           container_of((sched_job), struct drm_sched_job, queue_node)
+>>>   +int drm_sched_policy = DRM_SCHED_POLICY_RR;
+>>> +
+>>> +/**
+>>> + * DOC: sched_policy (int)
+>>> + * Used to override default entities scheduling policy in a run queue.
+>>> + */
+>>> +MODULE_PARM_DESC(sched_policy,
+>>> +         "specify schedule policy for entities on a runqueue 
+>>> (DRM_SCHED_POLICY_RR = Round Robin (default), DRM_SCHED_POLICY_FIFO  
+>>> = use FIFO");
+>>> +module_param_named(sched_policy, drm_sched_policy, int, 0444);
+>>> +
+>>> +static __always_inline bool drm_sched_entity_compare_before(struct 
+>>> rb_node *a,
+>>> +                                const struct rb_node *b)
+>>> +{
+>>> +    struct drm_sched_entity *ent_a =  rb_entry((a), struct 
+>>> drm_sched_entity, rb_tree_node);
+>>> +    struct drm_sched_entity *ent_b =  rb_entry((b), struct 
+>>> drm_sched_entity, rb_tree_node);
+>>> +
+>>> +    return ktime_before(ent_a->oldest_job_waiting, 
+>>> ent_b->oldest_job_waiting);
+>>> +}
+>>> +
+>>> +static inline void drm_sched_rq_remove_fifo_locked(struct 
+>>> drm_sched_entity *entity)
+>>> +{
+>>> +    struct drm_sched_rq *rq = entity->rq;
+>>> +
+>>> +    if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
+>>> +        rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
+>>> +        RB_CLEAR_NODE(&entity->rb_tree_node);
+>>> +    }
+>>> +}
+>>> +
+>>> +static inline void drm_sched_rq_update_fifo_locked(struct 
+>>> drm_sched_entity *entity,
+>>> +                           ktime_t ts)
+>>> +{
+>>> +    struct drm_sched_rq *rq = entity->rq;
+>>> +
+>>> +    drm_sched_rq_remove_fifo_locked(entity);
+>>> +
+>>> +    entity->oldest_job_waiting = ts;
+>>> +
+>>> +    rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
+>>> +              drm_sched_entity_compare_before);
+>>> +}
+>>> +
+>>> +void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, 
+>>> ktime_t ts)
+>>> +{
+>>> +    /*
+>>> +     * Both locks need to be grabbed, one to protect from 
+>>> entity->rq change
+>>> +     * for entity from within concurrent drm_sched_entity_select_rq 
+>>> and the
+>>> +     * other to update the rb tree structure.
+>>> +     */
+>>> +    spin_lock(&entity->rq_lock);
+>>> +    spin_lock(&entity->rq->lock);
+>>> +
+>>> +    drm_sched_rq_update_fifo_locked(entity, ts);
+>>> +
+>>> +    spin_unlock(&entity->rq->lock);
+>>> +    spin_unlock(&entity->rq_lock);
+>>> +}
+>> I thought you were going to drop one of the locks here?
+>> Address this by either updating the comment to explain to future 
+>> programmers
+>> what is going on here and why the locking is not consistent (2 vs 1 
+>> lock),
+>> or drop one of the locks, as per my previous review.
+>
+>
+> Note that after last review drm_sched_rq_update_fifo_locked is not 
+> called anywhere
+> besides drm_sched_rq_update_fifo and so becomes obsolete and I will 
+> remove it now.
+> In this case the double locking above is consistent and the reason is 
+> explained in the
+> comment above.
+>
+>
+>>
+>>> +
+>>>   /**
+>>>    * drm_sched_rq_init - initialize a given run queue struct
+>>>    *
+>>> @@ -75,6 +133,7 @@ static void drm_sched_rq_init(struct 
+>>> drm_gpu_scheduler *sched,
+>>>   {
+>>>       spin_lock_init(&rq->lock);
+>>>       INIT_LIST_HEAD(&rq->entities);
+>>> +    rq->rb_tree_root = RB_ROOT_CACHED;
+>>>       rq->current_entity = NULL;
+>>>       rq->sched = sched;
+>>>   }
+>>> @@ -92,9 +151,12 @@ void drm_sched_rq_add_entity(struct drm_sched_rq 
+>>> *rq,
+>>>   {
+>>>       if (!list_empty(&entity->list))
+>>>           return;
+>>> +
+>>>       spin_lock(&rq->lock);
+>>> +
+>>>       atomic_inc(rq->sched->score);
+>>>       list_add_tail(&entity->list, &rq->entities);
+>>> +
+>>>       spin_unlock(&rq->lock);
+>>>   }
+>>>   @@ -111,23 +173,30 @@ void drm_sched_rq_remove_entity(struct 
+>>> drm_sched_rq *rq,
+>>>   {
+>>>       if (list_empty(&entity->list))
+>>>           return;
+>>> +
+>>>       spin_lock(&rq->lock);
+>>> +
+>>>       atomic_dec(rq->sched->score);
+>>>       list_del_init(&entity->list);
+>>> +
+>>>       if (rq->current_entity == entity)
+>>>           rq->current_entity = NULL;
+>>> +
+>>> +    if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>>> +        drm_sched_rq_remove_fifo_locked(entity);
+>>> +
+>>>       spin_unlock(&rq->lock);
+>>>   }
+>>>     /**
+>>> - * drm_sched_rq_select_entity - Select an entity which could 
+>>> provide a job to run
+>>> + * drm_sched_rq_select_entity_rr - Select an entity which could 
+>>> provide a job to run
+>>>    *
+>>>    * @rq: scheduler run queue to check.
+>>>    *
+>>>    * Try to find a ready entity, returns NULL if none found.
+>>>    */
+>>>   static struct drm_sched_entity *
+>>> -drm_sched_rq_select_entity(struct drm_sched_rq *rq)
+>>> +drm_sched_rq_select_entity_rr(struct drm_sched_rq *rq)
+>>>   {
+>>>       struct drm_sched_entity *entity;
+>>>   @@ -163,6 +232,36 @@ drm_sched_rq_select_entity(struct 
+>>> drm_sched_rq *rq)
+>>>       return NULL;
+>>>   }
+>>>   +/**
+>>> + * drm_sched_rq_select_entity_fifo - Select an entity which 
+>>> provides a job to run
+>>> + *
+>>> + * @rq: scheduler run queue to check.
+>>> + *
+>>> + * Find oldest waiting ready entity, returns NULL if none found.
+>>> + */
+>>> +static struct drm_sched_entity *
+>>> +drm_sched_rq_select_entity_fifo(struct drm_sched_rq *rq)
+>>> +{
+>>> +    struct rb_node *rb;
+>>> +    bool found = false;
+>>> +    struct drm_sched_entity *entity;
+>>> +
+>>> +    spin_lock(&rq->lock);
+>>> +    for (rb = rb_first_cached(&rq->rb_tree_root); rb; rb = 
+>>> rb_next(rb)) {
+>>> +        entity = rb_entry(rb, struct drm_sched_entity, rb_tree_node);
+>>> +
+>>> +        if (drm_sched_entity_is_ready(entity)) {
+>>> +            rq->current_entity = entity;
+>>> +            reinit_completion(&entity->entity_idle);
+>>> +            found = true;
+>>> +            break;
+>>> +        }
+>>> +    }
+>>> +    spin_unlock(&rq->lock);
+>>> +
+>>> +    return found ? entity : NULL;
+>>> +}
+>> You really don't need "found", and you don't need "entity" to be 
+>> outside the loop.
+>>
+>> As per my last review, use this (which I've compiled and run):
+>>
+>> static struct drm_sched_entity *
+>> drm_sched_rq_select_entity_fifo(struct drm_sched_rq *rq)
+>> {
+>>     struct rb_node *rb;
+>>
+>>     spin_lock(&rq->lock);
+>>     for (rb = rb_first_cached(&rq->rb_tree_root); rb; rb = 
+>> rb_next(rb)) {
+>>         struct drm_sched_entity *entity;
+>>
+>>         entity = rb_entry(rb, struct drm_sched_entity, rb_tree_node);
+>>         if (drm_sched_entity_is_ready(entity)) {
+>>             rq->current_entity = entity;
+>>             reinit_completion(&entity->entity_idle);
+>>             break;
+>>         }
+>>     }
+>>     spin_unlock(&rq->lock);
+>>
+>>     return rb ? rb_entry(rb, struct drm_sched_entity, rb_tree_node) : 
+>> NULL;
+>> }
+>>
+>> The only way we can exit the loop is,
+>> 1. The loop invariant is false, i.e. rb == NULL, or
+>> 2. The "break;" jump from inside the if () inside the loop.
+>>
+>> Also note that "rb" does NOT need to be initialized, since, the for() 
+>> statement
+>> is always executed, and the assignment "rb = 
+>> rb_first_cached(&rq->rb_tree_root);"
+>> initializes it--this is why GCC doesn't complain :-)
+>>
+>> Also note that you don't need to export "entity" as it makes the 
+>> for() loop relocatable
+>> to another function with only having a dependency on "rb" being 
+>> defined--the loop
+>> is self-contained.
+>>
+>> At the "return" statement, we know that we've exited the loop, by 
+>> either the loop
+>> invariant being false, i.e. rb == NULL, or by the "break;" jump, in 
+>> which case
+>> we know that rb != NULL. This is why the "return;" statement as 
+>> presented above works
+>> correctly.
+>>
+>> Please use that function in the way it is above, which is minimal and 
+>> mature.
+>
+>
+> Makes sense, missed the point that at the end rb will be set to NULL
+>
+> Andrey
+>
+>
+>>
+>> Regards,
+>> Luben
+>>
+>>> +
+>>>   /**
+>>>    * drm_sched_job_done - complete a job
+>>>    * @s_job: pointer to the job which is done
+>>> @@ -803,7 +902,9 @@ drm_sched_select_entity(struct drm_gpu_scheduler 
+>>> *sched)
+>>>         /* Kernel run queue has higher priority than normal run queue*/
+>>>       for (i = DRM_SCHED_PRIORITY_COUNT - 1; i >= 
+>>> DRM_SCHED_PRIORITY_MIN; i--) {
+>>> -        entity = drm_sched_rq_select_entity(&sched->sched_rq[i]);
+>>> +        entity = drm_sched_policy != DRM_SCHED_POLICY_FIFO ?
+>>> + drm_sched_rq_select_entity_rr(&sched->sched_rq[i]) :
+>>> + drm_sched_rq_select_entity_fifo(&sched->sched_rq[i]);
+>>>           if (entity)
+>>>               break;
+>>>       }
+>>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+>>> index 599855c6a672..1f7d9dd1a444 100644
+>>> --- a/include/drm/gpu_scheduler.h
+>>> +++ b/include/drm/gpu_scheduler.h
+>>> @@ -50,6 +50,12 @@ enum drm_sched_priority {
+>>>       DRM_SCHED_PRIORITY_UNSET = -2
+>>>   };
+>>>   +/* Used to chose between FIFO and RR jobs scheduling */
+>>> +extern int drm_sched_policy;
+>>> +
+>>> +#define DRM_SCHED_POLICY_RR    0
+>>> +#define DRM_SCHED_POLICY_FIFO  1
+>>> +
+>>>   /**
+>>>    * struct drm_sched_entity - A wrapper around a job queue (typically
+>>>    * attached to the DRM file_priv).
+>>> @@ -196,6 +202,21 @@ struct drm_sched_entity {
+>>>        * drm_sched_entity_fini().
+>>>        */
+>>>       struct completion        entity_idle;
+>>> +
+>>> +    /**
+>>> +     * @oldest_job_waiting:
+>>> +     *
+>>> +     * Marks earliest job waiting in SW queue
+>>> +     */
+>>> +    ktime_t                oldest_job_waiting;
+>>> +
+>>> +    /**
+>>> +     * @rb_tree_node:
+>>> +     *
+>>> +     * The node used to insert this entity into time based priority 
+>>> queue
+>>> +     */
+>>> +    struct rb_node            rb_tree_node;
+>>> +
+>>>   };
+>>>     /**
+>>> @@ -205,6 +226,7 @@ struct drm_sched_entity {
+>>>    * @sched: the scheduler to which this rq belongs to.
+>>>    * @entities: list of the entities to be scheduled.
+>>>    * @current_entity: the entity which is to be scheduled.
+>>> + * @rb_tree_root: root of time based priory queue of entities for 
+>>> FIFO scheduling
+>>>    *
+>>>    * Run queue is a set of entities scheduling command submissions for
+>>>    * one specific ring. It implements the scheduling policy that 
+>>> selects
+>>> @@ -215,6 +237,7 @@ struct drm_sched_rq {
+>>>       struct drm_gpu_scheduler    *sched;
+>>>       struct list_head        entities;
+>>>       struct drm_sched_entity        *current_entity;
+>>> +    struct rb_root_cached        rb_tree_root;
+>>>   };
+>>>     /**
+>>> @@ -314,6 +337,13 @@ struct drm_sched_job {
+>>>         /** @last_dependency: tracks @dependencies as they signal */
+>>>       unsigned long            last_dependency;
+>>> +
+>>> +    /**
+>>> +     * @submit_ts:
+>>> +     *
+>>> +     * When the job was pushed into the entity queue.
+>>> +     */
+>>> +    ktime_t                         submit_ts;
+>>>   };
+>>>     static inline bool drm_sched_invalidate_job(struct drm_sched_job 
+>>> *s_job,
+>>> @@ -503,6 +533,8 @@ void drm_sched_rq_add_entity(struct drm_sched_rq 
+>>> *rq,
+>>>   void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+>>>                   struct drm_sched_entity *entity);
+>>>   +void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, 
+>>> ktime_t ts);
+>>> +
+>>>   int drm_sched_entity_init(struct drm_sched_entity *entity,
+>>>                 enum drm_sched_priority priority,
+>>>                 struct drm_gpu_scheduler **sched_list,
