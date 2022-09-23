@@ -4,48 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E81BC07E9D
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 22:16:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E585C07E9D
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 22:25:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCF9410EAA9;
-	Fri, 23 Sep 2022 22:16:16 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66CB910EA7E;
- Fri, 23 Sep 2022 22:16:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663971372; x=1695507372;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=HnHny9mH/Tc9Mi+8kDkl+OHLMRjchuCS0knbbnNoCE4=;
- b=elz2wTo7va1NY5sHCH89Ek+w92+muK4YHQH3Hu8gPLE5T79y3ujgyT8Y
- KyfDZ+TMoxabR/iNTw/wBmLcLML0bDBxexlLNeYlAfV2jFL0PQGp9g92C
- WwF/3JRQAnxilakGpFpYz3599jrBncsHo8IJqwtSL281stGwRS2z4UPo/
- RKASCEH6svfM4Cu8OIHTgX4n9cNUCCOpAl9TL67eO6qMmRVA1rrh/ISk/
- woI8Wu/wdtzK1NmiEc3s5bB2c91Qbh4CQvSEDI+D1JT1P0I12eea7wV1m
- 18dV2N7W1UATED4fVROujZsGHJjfyV88+EjgoL9GuBUEww8Tqtm7J+aAM A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10479"; a="327041475"
-X-IronPort-AV: E=Sophos;i="5.93,340,1654585200"; d="scan'208";a="327041475"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2022 15:16:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,340,1654585200"; d="scan'208";a="688887263"
-Received: from lkp-server01.sh.intel.com (HELO c0a60f19fe7e) ([10.239.97.150])
- by fmsmga004.fm.intel.com with ESMTP; 23 Sep 2022 15:16:08 -0700
-Received: from kbuild by c0a60f19fe7e with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1obqxr-0005yu-32;
- Fri, 23 Sep 2022 22:16:07 +0000
-Date: Sat, 24 Sep 2022 06:15:33 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- aaa11ce2ffc84166d11c4d2ac88c3fcf75425fbd
-Message-ID: <632e3005.ZYJJ6QtZHKiRIgTH%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7B0710EB22;
+	Fri, 23 Sep 2022 22:25:06 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2084.outbound.protection.outlook.com [40.107.244.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFC1310EB22
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Sep 2022 22:25:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bB80vF3jlD238vCjz2ruTcKUopb9oh63vDNTXHni+qr2f74NGGTqMkRLIuDgD9i/g+K97+OzfSzThkzODcXx1N3AluKHbpLBqiLzGwUT0WLQObIvuXs+Ozdlj8jBXbUio62ySQZmHr8M65X5X0qVNg/6aGO8/rgyimYnxy2DvAf/gtB7+Fpb4QCfIaSZnAfMNsmGAMfWBFPdlesALqcxKbAenAqy4lnZADoes4oB+NIJMyrhWrqL/qOAbuN1E5LvMVDMpYeOxZiSj+EmilGNaQDMATRe6rulmY5HufPO09KlIpJeUyblSDoeILZAXKtooJEiU/3VZHZrjNAHLvSIEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vdAG2DOZv3LQO28JHMflJBh7rNl90SDsVmqqYvP3c68=;
+ b=JgCYYGg7SvLA6R9othtZo97ObENzDJIWLZCyoHxcTR6sD58nWtZBnCW1yOzmF4ruaCmAi78DO8ozP3PTyYVt+43tCWErE/NvuICxuwwUzarb9jJCIhSOQ+SP9JPoGCPhuM3zZFk/rCMn2Nl4Q3VBCjpEzLKW6rH3fb/8MXZJ6SKmM7kzNoWAL0bRn4mCDKSVQ4KdNtO75bACpeLCoIgTQt1nq20itqyAUpoWhvLlWrg92saQc1k5n+/2rMMUMGB/ehTz2Mx4SfLny43Iqtd6/r4NV/jGGIjZpBA9cM/ABi/zx+Hjh3w5zBcUWoNnkmJB0T3wJRLwW/eGiVA3jP8DVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vdAG2DOZv3LQO28JHMflJBh7rNl90SDsVmqqYvP3c68=;
+ b=4kuqqVk+UMG3gVU52bbr3xPJKx7327h9BnR7tIbNtPeUU5lolCdiLCUElsnB+s2bweEPl6HBVkLryDMMAKW3qN8SLhQMJMY8AadKDV3vkov8nKnuFHY6afoBkQdhVvC0jfUamLczpN9DwiPaQu9gQPP09zZNFMAnla9R4BmTCXk=
+Received: from BN1PR13CA0030.namprd13.prod.outlook.com (2603:10b6:408:e2::35)
+ by DM4PR12MB5915.namprd12.prod.outlook.com (2603:10b6:8:68::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.17; Fri, 23 Sep
+ 2022 22:24:59 +0000
+Received: from BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e2:cafe::49) by BN1PR13CA0030.outlook.office365.com
+ (2603:10b6:408:e2::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.7 via Frontend
+ Transport; Fri, 23 Sep 2022 22:24:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT031.mail.protection.outlook.com (10.13.177.25) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5654.14 via Frontend Transport; Fri, 23 Sep 2022 22:24:59 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 23 Sep
+ 2022 17:24:58 -0500
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdgpu: Set MTYPE in PTE based on BO flags
+Date: Fri, 23 Sep 2022 18:24:32 -0400
+Message-ID: <20220923222432.877832-1-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT031:EE_|DM4PR12MB5915:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38ec94ee-ca79-4e84-2c0e-08da9db273b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qrAbObnrAnk6ia/ypHEo05BRVqtEweh0DjTRKG98ZXn8r8LJ0axO+VoNOPjYnZawRhI01i1Mlg/d+7JIgdoRIVKQxX0TznOxh1RRq9tp7w+w3anghYUBOroHuHh72ylWpuFbOAHWfBpENw9hxdMGSWIL0zaCQ7CfKFodm+TibmnytHxcGcyMiaC2YFUOP/U0aEGPaaYpBxt1yqKWxRYKm+Y0s+VZRMIeJJgOHEn1pkfOA/RwlXsatRYI/8n1NQ+QMWbTPxkfQE54oy4xYX4TdjgpfVdAyw4D5U4KRL3JUzgUMS2SHfS5rNiMExgZNIKWye1zILgCy8BhkXBacoRh5mdw7oPGALXx0Q81hhCtie/CtJAnVQKvrGyyI8VONgE6X1TWN9Wohwik0TiE2f/RvqRQ6OUIuCXw0lQzC1frsGEPn+GssUF7UahEA58Pi97b32tbBdbqnNqtGYfnM0Je39QDlfWuxrSaslxY7yKLBvgy2dM++wN3P2p5kIJM3iRoRzQ3Isuq1l2v8hFn00BSuGVnQ47byXy33QjEl/K6wKbs0TvRNKm0XtdnuRvuqTw5LHgDA9GrogZ11tYsQLvcEEnRw1hkCdg33a8Nfn3OK3B02+TBsj6PWou9W4zbr4pUZFeBJei+aAp7/bDBdY9jSDfZTikK5c/x3RDYO1/qNyJiGEXUb7QWXzwU2AjN1VzFTCk0bGmLT8AxODqFIFiuP+X7lmdbR7vFtTh+ESBw3puEc/s7kkeO6LUujVIAHZsK+4+r4m+iMhI1VIOAJTuCbbSZ52/LiLiu6ZAF+lIK5ZI=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(346002)(396003)(376002)(136003)(451199015)(40470700004)(36840700001)(46966006)(478600001)(36756003)(40460700003)(47076005)(6916009)(316002)(41300700001)(6666004)(36860700001)(26005)(8936002)(4326008)(2906002)(7696005)(70206006)(8676002)(82740400003)(70586007)(81166007)(66574015)(356005)(426003)(40480700001)(83380400001)(336012)(16526019)(1076003)(186003)(5660300002)(86362001)(82310400005)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2022 22:24:59.6845 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38ec94ee-ca79-4e84-2c0e-08da9db273b7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5915
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,257 +97,296 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-scsi@vger.kernel.org,
- linux-parisc@vger.kernel.org, linux-pm@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- amd-gfx@lists.freedesktop.org, bpf@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: aaa11ce2ffc84166d11c4d2ac88c3fcf75425fbd  Add linux-next specific files for 20220923
+The same BO may need different MTYPEs and SNOOP flags in PTEs depending
+on its current location relative to the mappint GPU. Setting MTYPEs from
+clients ahead of time is not practical for coherent memory sharing.
+Instead determine the correct MTYPE for the desired coherence model and
+current BO location when updating the page tables.
 
-Error/Warning reports:
+To maintain backwards compatibility with MTYPE-selection in
+AMDGPU_VA_OP_MAP, the coherence-model-based MTYPE selection is only
+applied if it chooses an MTYPE other than MTYPE_NC (the default).
 
-https://lore.kernel.org/linux-doc/202209231933.vcyETtUl-lkp@intel.com
-https://lore.kernel.org/linux-mm/202209042337.FQi69rLV-lkp@intel.com
-https://lore.kernel.org/linux-mm/202209060229.dVuyxjBv-lkp@intel.com
-https://lore.kernel.org/linux-mm/202209150141.WgbAKqmX-lkp@intel.com
-https://lore.kernel.org/linux-mm/202209200603.Hpvoa8Ii-lkp@intel.com
-https://lore.kernel.org/linux-mm/202209200949.Vl3xrUYD-lkp@intel.com
-https://lore.kernel.org/llvm/202209220019.Yr2VuXhg-lkp@intel.com
+Add two AMDGPU_GEM_CREATE_... flags to indicate the coherence model. The
+default if no flag is specified is non-coherent (i.e. coarse-grained
+coherent at dispatch boundaries).
 
-Error/Warning: (recently discovered and may have been fixed)
+Update amdgpu_amdkfd_gpuvm.c to use this new method to choose the
+correct MTYPE depending on the current memory location.
 
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/idma64.ko] undefined!
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/qcom/hdma.ko] undefined!
-ERROR: modpost: "devm_memremap" [drivers/misc/open-dice.ko] undefined!
-ERROR: modpost: "devm_memunmap" [drivers/misc/open-dice.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/char/xillybus/xillybus_of.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/clk/xilinx/clk-xlnx-clock-wizard.ko] undefined!
-ERROR: modpost: "ioremap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
-ERROR: modpost: "ioremap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
-ERROR: modpost: "iounmap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
-ERROR: modpost: "iounmap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
-Warning: Documentation/translations/zh_CN/devicetree/kernel-api.rst references a file that doesn't exist: Documentation/Devicetree/kernel-api.rst
-arch/arm64/kernel/alternative.c:199:6: warning: no previous prototype for 'apply_alternatives_vdso' [-Wmissing-prototypes]
-arch/arm64/kernel/alternative.c:295:14: warning: no previous prototype for 'alt_cb_patch_nops' [-Wmissing-prototypes]
-arch/parisc/lib/iomap.c:363:5: warning: no previous prototype for 'ioread64_lo_hi' [-Wmissing-prototypes]
-arch/parisc/lib/iomap.c:373:5: warning: no previous prototype for 'ioread64_hi_lo' [-Wmissing-prototypes]
-arch/parisc/lib/iomap.c:448:6: warning: no previous prototype for 'iowrite64_lo_hi' [-Wmissing-prototypes]
-arch/parisc/lib/iomap.c:454:6: warning: no previous prototype for 'iowrite64_hi_lo' [-Wmissing-prototypes]
-drivers/scsi/qla2xxx/qla_os.c:2854:23: warning: assignment to 'struct trace_array *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-drivers/scsi/qla2xxx/qla_os.c:2854:25: error: implicit declaration of function 'trace_array_get_by_name'; did you mean 'trace_array_set_clr_event'? [-Werror=implicit-function-declaration]
-drivers/scsi/qla2xxx/qla_os.c:2869:9: error: implicit declaration of function 'trace_array_put' [-Werror=implicit-function-declaration]
-grep: smatch_trinity_*: No such file or directory
-make[5]: *** No rule to make target 'drivers/crypto/aspeed/aspeed_crypto.o', needed by 'drivers/crypto/aspeed/'.
-mm/hugetlb.c:5539:14: warning: variable 'reserve_alloc' set but not used [-Wunused-but-set-variable]
+v2:
+* check that bo is not NULL (e.g. PRT mappings)
+* Fix missing ~ bitmask in gmc_v11_0.c
 
-Error/Warning ids grouped by kconfigs:
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 59 ++------------
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |  7 ++
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  7 ++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         | 79 +++++++++++++++++--
+ include/uapi/drm/amdgpu_drm.h                 | 14 ++++
+ 5 files changed, 107 insertions(+), 59 deletions(-)
 
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-scsi-qla2xxx-qla_os.c:error:implicit-declaration-of-function-trace_array_get_by_name
-|   |-- drivers-scsi-qla2xxx-qla_os.c:error:implicit-declaration-of-function-trace_array_put
-|   `-- drivers-scsi-qla2xxx-qla_os.c:warning:assignment-to-struct-trace_array-from-int-makes-pointer-from-integer-without-a-cast
-|-- alpha-randconfig-c042-20220923
-|   `-- make:No-rule-to-make-target-drivers-crypto-aspeed-aspeed_crypto.o-needed-by-drivers-crypto-aspeed-.
-|-- arc-randconfig-s031-20220923
-|   |-- drivers-gpu-drm-vkms-vkms_formats.c:sparse:sparse:cast-to-restricted-__le16
-|   |-- drivers-gpu-drm-vkms-vkms_formats.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-unsigned-short-usertype-got-restricted-__le16-usertype
-|   |-- kernel-exit.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-struct-sighand_struct-sighand-got-struct-sighand_struct-noderef-__rcu-sighand
-|   `-- sound-soc-generic-simple-card-utils.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-unsigned-int-usertype-val-got-restricted-snd_pcm_format_t-usertype
-|-- arm64-allnoconfig
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
-|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
-|-- arm64-allyesconfig
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- arm64-randconfig-s043-20220923
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
-|   |-- drivers-gpu-drm-tiny-simpledrm.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-vaddr-got-void-noderef-__iomem-screen_base
-|   |-- drivers-gpu-drm-vkms-vkms_formats.c:sparse:sparse:cast-to-restricted-__le16
-|   |-- drivers-gpu-drm-vkms-vkms_formats.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-unsigned-short-usertype-got-restricted-__le16-usertype
-|   |-- drivers-thermal-broadcom-ns-thermal.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-data-got-void-noderef-__iomem-assigned-pvtmon
-|   |-- drivers-thermal-broadcom-ns-thermal.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-noderef-__iomem-pvtmon-got-void
-|   |-- drivers-thermal-broadcom-ns-thermal.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-noderef-__iomem-pvtmon-got-void-devdata
-|   |-- kernel-exit.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-struct-sighand_struct-sighand-got-struct-sighand_struct-noderef-__rcu-sighand
-|   `-- sound-soc-generic-simple-card-utils.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-unsigned-int-usertype-val-got-restricted-snd_pcm_format_t-usertype
-|-- arm64-randconfig-s053-20220923
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
-|   |-- drivers-gpu-drm-tiny-simpledrm.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-vaddr-got-void-noderef-__iomem-screen_base
-|   |-- drivers-gpu-drm-vkms-vkms_formats.c:sparse:sparse:cast-to-restricted-__le16
-|   |-- drivers-gpu-drm-vkms-vkms_formats.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-unsigned-short-usertype-got-restricted-__le16-usertype
-|   |-- kernel-bpf-hashtab.c:sparse:sparse:cast-removes-address-space-__percpu-of-expression
-|   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-noderef-__percpu-assigned-pptr-got-void
-|   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-ptr_to_pptr-got-void-noderef-__percpu-assigned-pptr
-|   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void
-|   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void-pptr
-|   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-pptr-got-void-noderef-__percpu
-|   |-- kernel-exit.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-struct-sighand_struct-sighand-got-struct-sighand_struct-noderef-__rcu-sighand
-|   `-- sound-soc-generic-simple-card-utils.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-unsigned-int-usertype-val-got-restricted-snd_pcm_format_t-usertype
-|-- csky-randconfig-s051-20220923
-|   `-- kernel-exit.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-struct-sighand_struct-sighand-got-struct-sighand_struct-noderef-__rcu-sighand
-|-- i386-allyesconfig
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- i386-defconfig
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- i386-randconfig-a005
-clang_recent_errors
-|-- hexagon-buildonly-randconfig-r006-20220923
-|   |-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
-|   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmnewmap
-|   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmsetvec
-|   `-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-memset
-|-- i386-randconfig-a002
-|   |-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- i386-randconfig-a004
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- i386-randconfig-a006
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- i386-randconfig-a013
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- powerpc-mpc885_ads_defconfig
-|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-A_c-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-B_c-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- arch-powerpc-math-emu-fctiw.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- arch-powerpc-math-emu-fctiwz.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- arch-powerpc-math-emu-fsel.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- powerpc-randconfig-r035-20220923
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-function-virtual_disable_link_output
-|-- powerpc-tqm8540_defconfig
-|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-A_c-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-B_c-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- arch-powerpc-math-emu-fctiw.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- arch-powerpc-math-emu-fctiwz.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
-|   `-- arch-powerpc-math-emu-fsel.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
-|-- powerpc-xes_mpc85xx_defconfig
-|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-A_c-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-B_c-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- arch-powerpc-math-emu-fctiw.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- arch-powerpc-math-emu-fctiwz.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
-|   `-- arch-powerpc-math-emu-fsel.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
-|-- riscv-randconfig-r015-20220922
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-get_symbol_offset:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_markers
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-get_symbol_offset:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_names
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-update_iter:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_names
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-update_iter:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_offsets
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-update_iter:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_relative_base
-|   `-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-update_iter:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_token_index
-|-- x86_64-randconfig-a001
-|   `-- mm-hugetlb.c:warning:variable-reserve_alloc-set-but-not-used
-|-- x86_64-randconfig-a003
-|   `-- drivers-extcon-extcon-usbc-tusb320.c:warning:expecting-prototype-for-drivers-extcon-extcon-tusb320c().-Prototype-was-for-TUSB320_REG8()-instead
-|-- x86_64-randconfig-a005
-
-elapsed time: 726m
-
-configs tested: 88
-configs skipped: 3
-
-gcc tested configs:
-um                             i386_defconfig
-um                           x86_64_defconfig
-x86_64                              defconfig
-arc                  randconfig-r043-20220922
-i386                                defconfig
-i386                          randconfig-a001
-x86_64                        randconfig-a002
-i386                          randconfig-a003
-arm                                 defconfig
-x86_64                        randconfig-a006
-x86_64                        randconfig-a013
-i386                          randconfig-a005
-x86_64                               rhel-8.3
-x86_64                        randconfig-a004
-x86_64                        randconfig-a011
-i386                             allyesconfig
-arc                                 defconfig
-x86_64                           rhel-8.3-kvm
-x86_64                    rhel-8.3-kselftests
-s390                             allmodconfig
-csky                             alldefconfig
-x86_64                        randconfig-a015
-x86_64                           rhel-8.3-syz
-xtensa                    smp_lx200_defconfig
-sh                           se7705_defconfig
-ia64                             allmodconfig
-x86_64                          rhel-8.3-func
-powerpc                      tqm8xx_defconfig
-arc                               allnoconfig
-alpha                             allnoconfig
-riscv                             allnoconfig
-csky                              allnoconfig
-sh                        sh7757lcr_defconfig
-mips                         rt305x_defconfig
-sh                   sh7770_generic_defconfig
-m68k                          hp300_defconfig
-arm                          lpd270_defconfig
-sh                               allmodconfig
-i386                          randconfig-c001
-mips                          rb532_defconfig
-ia64                        generic_defconfig
-arm                          exynos_defconfig
-mips                            ar7_defconfig
-sh                          lboxre2_defconfig
-powerpc                     pq2fads_defconfig
-arm                        mini2440_defconfig
-powerpc                  iss476-smp_defconfig
-ia64                          tiger_defconfig
-sh                        edosk7760_defconfig
-nios2                               defconfig
-parisc                              defconfig
-powerpc                           allnoconfig
-alpha                               defconfig
-m68k                             allmodconfig
-arc                              allyesconfig
-x86_64                           allyesconfig
-x86_64                         rhel-8.3-kunit
-alpha                            allyesconfig
-m68k                             allyesconfig
-mips                             allyesconfig
-powerpc                          allmodconfig
-s390                                defconfig
-arm                              allyesconfig
-arm64                            allyesconfig
-s390                             allyesconfig
-arm                  randconfig-c002-20220924
-
-clang tested configs:
-hexagon              randconfig-r041-20220922
-x86_64                        randconfig-a001
-i386                          randconfig-a002
-riscv                randconfig-r042-20220922
-x86_64                        randconfig-a003
-hexagon              randconfig-r045-20220922
-i386                          randconfig-a006
-x86_64                        randconfig-a005
-x86_64                        randconfig-a016
-i386                          randconfig-a004
-s390                 randconfig-r044-20220922
-mips                     loongson1c_defconfig
-x86_64                        randconfig-a012
-powerpc                  mpc885_ads_defconfig
-x86_64                        randconfig-a014
-i386                          randconfig-a013
-mips                        maltaup_defconfig
-arm                       versatile_defconfig
-riscv                            alldefconfig
-powerpc                 xes_mpc85xx_defconfig
-powerpc                     tqm8540_defconfig
-powerpc                 mpc8272_ads_defconfig
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 978d3970b5cc..f846ff119784 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -405,63 +405,15 @@ static int vm_update_pds(struct amdgpu_vm *vm, struct amdgpu_sync *sync)
+ 
+ static uint64_t get_pte_flags(struct amdgpu_device *adev, struct kgd_mem *mem)
+ {
+-	struct amdgpu_device *bo_adev = amdgpu_ttm_adev(mem->bo->tbo.bdev);
+-	bool coherent = mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_COHERENT;
+-	bool uncached = mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED;
+-	uint32_t mapping_flags;
+-	uint64_t pte_flags;
+-	bool snoop = false;
++	uint32_t mapping_flags = AMDGPU_VM_PAGE_READABLE |
++				 AMDGPU_VM_MTYPE_DEFAULT;
+ 
+-	mapping_flags = AMDGPU_VM_PAGE_READABLE;
+ 	if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE)
+ 		mapping_flags |= AMDGPU_VM_PAGE_WRITEABLE;
+ 	if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE)
+ 		mapping_flags |= AMDGPU_VM_PAGE_EXECUTABLE;
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_ARCTURUS:
+-	case CHIP_ALDEBARAN:
+-		if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
+-			if (bo_adev == adev) {
+-				if (uncached)
+-					mapping_flags |= AMDGPU_VM_MTYPE_UC;
+-				else if (coherent)
+-					mapping_flags |= AMDGPU_VM_MTYPE_CC;
+-				else
+-					mapping_flags |= AMDGPU_VM_MTYPE_RW;
+-				if (adev->asic_type == CHIP_ALDEBARAN &&
+-				    adev->gmc.xgmi.connected_to_cpu)
+-					snoop = true;
+-			} else {
+-				if (uncached || coherent)
+-					mapping_flags |= AMDGPU_VM_MTYPE_UC;
+-				else
+-					mapping_flags |= AMDGPU_VM_MTYPE_NC;
+-				if (amdgpu_xgmi_same_hive(adev, bo_adev))
+-					snoop = true;
+-			}
+-		} else {
+-			if (uncached || coherent)
+-				mapping_flags |= AMDGPU_VM_MTYPE_UC;
+-			else
+-				mapping_flags |= AMDGPU_VM_MTYPE_NC;
+-			snoop = true;
+-		}
+-		break;
+-	default:
+-		if (uncached || coherent)
+-			mapping_flags |= AMDGPU_VM_MTYPE_UC;
+-		else
+-			mapping_flags |= AMDGPU_VM_MTYPE_NC;
+-
+-		if (!(mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM))
+-			snoop = true;
+-	}
+-
+-	pte_flags = amdgpu_gem_va_map_flags(adev, mapping_flags);
+-	pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
+-
+-	return pte_flags;
++	return amdgpu_gem_va_map_flags(adev, mapping_flags);
+ }
+ 
+ /**
+@@ -1673,6 +1625,11 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 		}
+ 	}
+ 
++	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_COHERENT)
++		alloc_flags |= AMDGPU_GEM_CREATE_COHERENT;
++	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED)
++		alloc_flags |= AMDGPU_GEM_CREATE_UNCACHED;
++
+ 	*mem = kzalloc(sizeof(struct kgd_mem), GFP_KERNEL);
+ 	if (!*mem) {
+ 		ret = -ENOMEM;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index f513e2c2e964..a83efdc8aa0c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -612,6 +612,8 @@ static void gmc_v10_0_get_vm_pte(struct amdgpu_device *adev,
+ 				 struct amdgpu_bo_va_mapping *mapping,
+ 				 uint64_t *flags)
+ {
++	struct amdgpu_bo *bo = mapping->bo_va->base.bo;
++
+ 	*flags &= ~AMDGPU_PTE_EXECUTABLE;
+ 	*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
+ 
+@@ -628,6 +630,11 @@ static void gmc_v10_0_get_vm_pte(struct amdgpu_device *adev,
+ 		*flags |= AMDGPU_PTE_SYSTEM;
+ 		*flags &= ~AMDGPU_PTE_VALID;
+ 	}
++
++	if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
++			       AMDGPU_GEM_CREATE_UNCACHED))
++		*flags = (*flags & ~AMDGPU_PTE_MTYPE_NV10_MASK) |
++			 AMDGPU_PTE_MTYPE_NV10(MTYPE_UC);
+ }
+ 
+ static unsigned gmc_v10_0_get_vbios_fb_size(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 846ccb6cf07d..0b515a6dd4aa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -499,6 +499,8 @@ static void gmc_v11_0_get_vm_pte(struct amdgpu_device *adev,
+ 				 struct amdgpu_bo_va_mapping *mapping,
+ 				 uint64_t *flags)
+ {
++	struct amdgpu_bo *bo = mapping->bo_va->base.bo;
++
+ 	*flags &= ~AMDGPU_PTE_EXECUTABLE;
+ 	*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
+ 
+@@ -515,6 +517,11 @@ static void gmc_v11_0_get_vm_pte(struct amdgpu_device *adev,
+ 		*flags |= AMDGPU_PTE_SYSTEM;
+ 		*flags &= ~AMDGPU_PTE_VALID;
+ 	}
++
++	if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
++			       AMDGPU_GEM_CREATE_UNCACHED))
++		*flags = (*flags & ~AMDGPU_PTE_MTYPE_NV10_MASK) |
++			 AMDGPU_PTE_MTYPE_NV10(MTYPE_UC);
+ }
+ 
+ static unsigned gmc_v11_0_get_vbios_fb_size(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 67ca16a8027c..50386eb2eec8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1113,6 +1113,74 @@ static void gmc_v9_0_get_vm_pde(struct amdgpu_device *adev, int level,
+ 	}
+ }
+ 
++static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
++					 struct amdgpu_bo *bo,
++					 struct amdgpu_bo_va_mapping *mapping,
++					 uint64_t *flags)
++{
++	struct amdgpu_device *bo_adev = amdgpu_ttm_adev(bo->tbo.bdev);
++	bool is_vram = bo->tbo.resource->mem_type == TTM_PL_VRAM;
++	bool coherent = bo->flags & AMDGPU_GEM_CREATE_COHERENT;
++	bool uncached = bo->flags & AMDGPU_GEM_CREATE_UNCACHED;
++	unsigned int mtype;
++	bool snoop = false;
++
++	switch (adev->ip_versions[GC_HWIP][0]) {
++	case IP_VERSION(9, 4, 1):
++	case IP_VERSION(9, 4, 2):
++		if (is_vram) {
++			if (bo_adev == adev) {
++				if (uncached)
++					mtype = MTYPE_UC;
++				else if (coherent)
++					mtype = MTYPE_CC;
++				else
++					mtype = MTYPE_RW;
++				/* FIXME: is this still needed? Or does
++				 * amdgpu_ttm_tt_pde_flags already handle this?
++				 */
++				if (adev->ip_versions[GC_HWIP][0] ==
++					IP_VERSION(9, 4, 2) &&
++				    adev->gmc.xgmi.connected_to_cpu)
++					snoop = true;
++			} else {
++				if (uncached || coherent)
++					mtype = MTYPE_UC;
++				else
++					mtype = MTYPE_NC;
++				if (mapping->bo_va->is_xgmi)
++					snoop = true;
++			}
++		} else {
++			if (uncached || coherent)
++				mtype = MTYPE_UC;
++			else
++				mtype = MTYPE_NC;
++			/* FIXME: is this still needed? Or does
++			 * amdgpu_ttm_tt_pde_flags already handle this?
++			 */
++			snoop = true;
++		}
++		break;
++	default:
++		if (uncached || coherent)
++			mtype = MTYPE_UC;
++		else
++			mtype = MTYPE_NC;
++
++		/* FIXME: is this still needed? Or does
++		 * amdgpu_ttm_tt_pde_flags already handle this?
++		 */
++		if (!is_vram)
++			snoop = true;
++	}
++
++	if (mtype != MTYPE_NC)
++		*flags = (*flags & ~AMDGPU_PTE_MTYPE_VG10_MASK) |
++			 AMDGPU_PTE_MTYPE_VG10(mtype);
++	*flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
++}
++
+ static void gmc_v9_0_get_vm_pte(struct amdgpu_device *adev,
+ 				struct amdgpu_bo_va_mapping *mapping,
+ 				uint64_t *flags)
+@@ -1128,14 +1196,9 @@ static void gmc_v9_0_get_vm_pte(struct amdgpu_device *adev,
+ 		*flags &= ~AMDGPU_PTE_VALID;
+ 	}
+ 
+-	if ((adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 1) ||
+-	     adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 2)) &&
+-	    !(*flags & AMDGPU_PTE_SYSTEM) &&
+-	    mapping->bo_va->is_xgmi)
+-		*flags |= AMDGPU_PTE_SNOOPED;
+-
+-	if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 2))
+-		*flags |= mapping->flags & AMDGPU_PTE_SNOOPED;
++	if (mapping->bo_va->base.bo)
++		gmc_v9_0_get_coherence_flags(adev, mapping->bo_va->base.bo,
++					     mapping, flags);
+ }
+ 
+ static unsigned gmc_v9_0_get_vbios_fb_size(struct amdgpu_device *adev)
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 7ee65c0b4f70..5941bc2bc27f 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -144,6 +144,20 @@ extern "C" {
+  * content.
+  */
+ #define AMDGPU_GEM_CREATE_DISCARDABLE		(1 << 12)
++/* Flag that BO is shared coherently between multiple devices or CPU threads.
++ * May depend on GPU instructions to flush caches explicitly
++ *
++ * This influences the choice of MTYPE in the PTEs on GFXv9 and later GPUs and
++ * may override the MTYPE selected in AMDGPU_VA_OP_MAP.
++ */
++#define AMDGPU_GEM_CREATE_COHERENT		(1 << 13)
++/* Flag that BO should not be cached by GPU. Coherent without having to flush
++ * GPU caches explicitly
++ *
++ * This influences the choice of MTYPE in the PTEs on GFXv9 and later GPUs and
++ * may override the MTYPE selected in AMDGPU_VA_OP_MAP.
++ */
++#define AMDGPU_GEM_CREATE_UNCACHED		(1 << 14)
+ 
+ struct drm_amdgpu_gem_create_in  {
+ 	/** the requested memory size */
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.32.0
+
