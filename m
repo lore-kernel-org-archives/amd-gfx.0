@@ -4,117 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EB32C6FA83
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 17:13:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D162C04A95
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 18:41:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4319010E59C;
-	Fri, 23 Sep 2022 17:13:20 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2087.outbound.protection.outlook.com [40.107.223.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA54010E42E;
- Fri, 23 Sep 2022 17:13:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD8F10E4D8;
+	Fri, 23 Sep 2022 18:41:57 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2046.outbound.protection.outlook.com [40.107.237.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2347410E4D8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Sep 2022 18:41:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TY3fVUEEclvvKIs68xr/Q0qcLkXf3Nk5FZ+mePO9VrwEmSl+61f6kWBqP2w0dTcrakk3EaDxkoH3VkXCWD0RAJ3MEqMJwXGfz0V0VNtSTExR9OfsBmiOrq4fZ2HBLq5XsHICuPbgbacxSKUbLsojFnXr3pe9ET09M7GVPRHKUcxmxpfRr7ihWpO0dwakyXJUeIBVp0L76m9OzLEJB7eoj2k7kKqIGqUmS1m1MYMFH2Vygqs5mqRKEiyKZvu0GNMauGeTB9qa9O8M0nFJd12QfnlEMgZdDu5OS1z9DDP6MWpKgJ0KD5s1FLv3BK4v+Yku2XZk4yMxdrtqDyFuS1YfsA==
+ b=MmTmRU6Oq+pjAv0PUP/N1iZ+0fEUjmDzCCgNf0yU5g+S6RAQAGgqS9/lnGdRd6ftBoNDeK7H8x3NxeNeAd3chFut+IJ6pUC/V3KvNefyMgouFnXSYFSzBXZUfuKK0WnxPxWplqU/pSuTeP2iwt2xcZQd9bYTWniPUrg8M/YVdKXZH17fUyObemGB8Qe3b4Em1aaWhFPC4cq65IAyrIX5Y6K9OgYyparPsrbInG1T5V/k374Cz8B/PGmgUlsvVfHN1KWH8TQDlods/z+pYjrh/z8KmbeZYtGqMfbKrxSP8X9Qcmj7b/ZsXgNQ+iUICu7jqVa5ZPwrGNny3DkuBXWp9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Of+heXdG0+qcu8xS4Y61HXraFPU//7Tdd/I329HG7kU=;
- b=Y6GcSGRPtuGQQs36/ygcrcQtCmCGls+IKxbrGmkwraJ8JrFm56yPodVD7EKyeNjusxFUJxa1vmY1AsjmY5BybUFZodEGAKNwUA7FNLtJh86xkh+CQcN6/bzDM3kCkMnZPA4hgx1JIfR3WiPtQWXGwwo/o8muY5rn2udsMR96JLXu4PiXWpcOklHhaYlnhGLssl2f24V+uzgQtvUCjT3QI+52A90dZUOb8kwDAOGwdqILMiLZ/6YcQhiMY1RmTxAz3HBUJX4fy9rpuf1+Ropo7i3clSFVMdzokobj894FupWaTrLDneomvtd4UwF2FDX/opw9yM5qGgJqKzDKfy+J7w==
+ bh=eFwVOL9inWJJb9Enqc4UN+Hg0as0EqraWcepjWcLdAw=;
+ b=bhy8X/H43JzddkhwWHdO91EIg/JqfQHP9sREhQC+CvRkKvS42f8stAE8fLPoRxeLIk9LKmYnv5csm+krv4LgZg56SRO3cixd/ZQEEZXUXMvEtB4huFQpVHJEcxfkCv17dP5jqM0xid3Y23Y4JYnPcATjGnm8dqIOo+b8WJfom9KvRFlhJrd9xO56EdHf/FSX0sFxkBEMhIR438sakQ168jDWOg67zEQffkq90CNuUQyLMyU7VKtCDkuU/dDdZV7nATbbhWoiN3KNBtxBwo3EDe2zNfWTQbArgDFNI5cWGhCKzdpMvTuioVPWf9Vnv1WCpFPjKuwPAAUUNrKNFOcnvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Of+heXdG0+qcu8xS4Y61HXraFPU//7Tdd/I329HG7kU=;
- b=3ntltWgP5763w9VBNJVwHKMkdkAZCb7HIK8zGYjGyx28sTsRsNhmGtCfZx3tz+/8yrLMNDED3O5RgMtDEmw+m1anKVZy+uq1lY19y2E+bD6Eovf4bn2YBI9UMBRqrFY4t4vtgiHI29yrHVt3slkw/Y52+Z3vWe/sGPlL8CP4PNU=
+ bh=eFwVOL9inWJJb9Enqc4UN+Hg0as0EqraWcepjWcLdAw=;
+ b=EbeWpa5hEYnQWnamvMqmmKA2jdB1c0w9iX6alNs8GgYu1B45KF+na6uDY9o5uzRyTJsTgphW5fJwsugMaPqEdkvZy4HSDsIMiDu8+851CEbLdZGFKuNWZE0URhPobzcuxHC+0Sfy0+x1FpGRiMg4gownUZvID33RkJy1Pu68Q6Q=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
- by DM4PR12MB6085.namprd12.prod.outlook.com (2603:10b6:8:b3::16) with
+Received: from DM4PR12MB5311.namprd12.prod.outlook.com (2603:10b6:5:39f::7) by
+ BY5PR12MB5016.namprd12.prod.outlook.com (2603:10b6:a03:1c5::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.19; Fri, 23 Sep
- 2022 17:13:11 +0000
-Received: from DM5PR12MB1947.namprd12.prod.outlook.com
- ([fe80::80ca:c97:d395:1acf]) by DM5PR12MB1947.namprd12.prod.outlook.com
- ([fe80::80ca:c97:d395:1acf%6]) with mapi id 15.20.5654.017; Fri, 23 Sep 2022
- 17:13:11 +0000
-Message-ID: <6bfd7060-0f4e-c8cc-444b-14cef7d5c876@amd.com>
-Date: Fri, 23 Sep 2022 13:13:09 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v4] drm/sched: Add FIFO sched policy to run queue v3
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.20; Fri, 23 Sep
+ 2022 18:41:41 +0000
+Received: from DM4PR12MB5311.namprd12.prod.outlook.com
+ ([fe80::fc54:e514:e096:b243]) by DM4PR12MB5311.namprd12.prod.outlook.com
+ ([fe80::fc54:e514:e096:b243%3]) with mapi id 15.20.5654.020; Fri, 23 Sep 2022
+ 18:41:40 +0000
+Message-ID: <f4818fc3-7015-29ed-95c5-ab6a18da33d7@amd.com>
+Date: Fri, 23 Sep 2022 14:41:37 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: [REGRESSION] Graphical issues on Lenovo Yoga 7 14ARB7 laptop
+ since v6.0-rc1 (bisected)
 Content-Language: en-US
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-To: Luben Tuikov <luben.tuikov@amd.com>, dri-devel@lists.freedesktop.org
-References: <20220921182831.25214-1-andrey.grodzovsky@amd.com>
- <5c3e72bb-0df7-b76c-1679-5bbb571e4a2c@amd.com>
- <43891f6c-615b-3b5e-204d-b0815dc858cf@amd.com>
-In-Reply-To: <43891f6c-615b-3b5e-204d-b0815dc858cf@amd.com>
+To: August Wikerfors <git@augustwikerfors.se>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <c1f8886a-5624-8f49-31b1-e42b6d20dcf5@augustwikerfors.se>
+ <eee82fb8-0fc5-98cb-e630-f86891574f21@leemhuis.info>
+ <CADnq5_PRP3ekHPLhdXALxt9GL3aHHZQUw5TNAwm4t+ggimUq7g@mail.gmail.com>
+ <33cf5071-3157-a3c2-3252-3a8ab926c60d@augustwikerfors.se>
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <33cf5071-3157-a3c2-3252-3a8ab926c60d@augustwikerfors.se>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0137.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::16) To DM5PR12MB1947.namprd12.prod.outlook.com
- (2603:10b6:3:111::23)
+X-ClientProxiedBy: CH2PR20CA0022.namprd20.prod.outlook.com
+ (2603:10b6:610:58::32) To DM4PR12MB5311.namprd12.prod.outlook.com
+ (2603:10b6:5:39f::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1947:EE_|DM4PR12MB6085:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a4e78ef-d97f-4e0c-00f2-08da9d86e4b9
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5311:EE_|BY5PR12MB5016:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b9066d7-62f4-44a8-34a0-08da9d9340ce
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4prMIl7ucz4iqSuTTca0KPESNF0/qZ+vVlC4YkSQecSFF+OdvZ3/EPgvpiyFY8MFGO9FiO7XPbGydG7FyQdSIaHyB0it0lxoNTc2lsNbneF34rPOktOjECVx61WRvVLmCuEi1N25DtIODygpOOCDMj75lraz14JjE3dLmjHT1bJZIR2TQ5B5XJ8BtQsMdqJd+p+lbiC2lnmkIvViQfoRpv8RSRpZloUb9hFvv6C738LaZkENnBRw7a/KsyaW0RahpYSV3QObhMH9S5xb5yzORSE8wBaaAB4UnQvjpcqZ6Q+5lSxPlIPtDOycTTxRh6yQy6/G0Q16+qma2RD5avKq92JlKsbCgISTPxFfX2YJpwB0DyG80hE8AP1UeRyfltUgl/v6OmL8ZZUpyljBiAkSuuyFHCRe2QSyhxyCmGKDuVSe6evncFrTLeNc0Lw3pd0PnIb6oDemgVkW26elowcaFhjFsR3RDSrN5jQNXXaykssVyaf1sKVEqY6VkphZJ9p/lvyWq+R0ByxpFpHvzQ/cVIGawJ+k6LhznagJxgyZuayPeZ9t/91wihdvgqTwah+xvpSEL08j+folBkNJo46CHQJ+/BQehAzlNGycuHDwG58SrtqVTObL4up5CFY4l1B42JpZcN0IkSeOr+0egpsb6XcQK19HMUrWxsCE+yh+5ekp5FMQMp4Rii5y2um2+QrCVgxCAFZk4c/hZgCA8XtsazNSrm5eitLGKYnKApPOwzQZXYU3LqtnQ7hh0iMYyHCoMlryZCls2Doj9qfpSTixJzVZjaU/keXKsCMlXm2SbURxMDKga22WpJ9KA4b/dCo87ZUVqhiyAOxHcMHJhbIPSQ==
+X-Microsoft-Antispam-Message-Info: 8FoAsusvof2zFN1FtSmuIHJ2MGF3umh5/9omQcFNPMvY9l9L4bjEEpzvY7zV5LiPPMjHgU+3fEiHLJBGatLoB/Yov+eH8pidRPhDaVKcvuzVGbRfUCSjH18GHi3rfZIJTDivsnLsHBORKMXgDzv51vAm/Km+zpxZf2M6cQISMIc3HxlXKX7dj5jndy2kVrLmaXxVOa6fzqRdPVzii0OrdGD8LFlopkEsKETn7W5FUNsZNzarifLvtS9fHIp2EaUNbQkQWeWEJSMXzQkWJhXHXscjYQ57V+wUyCEllj20kJ7QshmTmFW7hal6m6P/NHfO31Zy2772owAktNkM91fa7M/lj1qfOpBvehQI1kv8pFSqaWE4ljOmavFMDftbFH+oXYgx5XwUCEGyGqXtCtVT0Gj+JkPUC+cDm9JsWRfBMUPxF3H64U8zsDtLHPosrgQXq3Icj0aqN+Aw0i7rZy2f1JKNijDa4stkMviLV/O6NoKTlwsRO+Flt+OBC9lKyKTmHedR34OgxxpCHqH6yny8LRrguldfPpykckYZ2rv92GVRTqRdwlxkG5+Gt/Rs21KSxSDt9VHqgI8SffVhO119B2WXnuiNPxvNyvvUzJRcVYX8+HCmLblVmVwoD4XndB+DiOya73ztpilor2wa3QaZ/vym+GBzHX/rlCKG1lKCSE16yji0gM/+8r3WZcpnr1yCMqkxq1EiloLfm/PUf+DLdw+/PJn6iw14yhggWJT19se/rlvt2LVJifnGpiwijsCD30Bi2j7gh+WovRCfwhH92XBklE6/3M1liQA3B5v/Y2PuL9v6T4JpeTEMK5vUiq73
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(366004)(39860400002)(376002)(346002)(396003)(451199015)(44832011)(6506007)(66556008)(2616005)(186003)(83380400001)(38100700002)(8676002)(66946007)(53546011)(66476007)(4326008)(31696002)(8936002)(41300700001)(2906002)(5660300002)(6512007)(86362001)(30864003)(6486002)(31686004)(316002)(478600001)(36756003)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5311.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(366004)(396003)(346002)(136003)(376002)(451199015)(316002)(31686004)(86362001)(31696002)(36756003)(5660300002)(66556008)(8936002)(4326008)(2906002)(66476007)(38100700002)(66946007)(8676002)(966005)(41300700001)(54906003)(6666004)(110136005)(53546011)(2616005)(186003)(6506007)(83380400001)(6512007)(26005)(478600001)(45080400002)(6486002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MkR0blVnR2VOckczQ3k2S3M1RVA2dXk2U0VBQ0lGUnNxNTVMQ29oWVFSNWIx?=
- =?utf-8?B?NUNnKy9CSGl4WTdVeVAwdS85eVNsK0poK3hIMjlEbUFnSVc4SG0xLzFmNUZq?=
- =?utf-8?B?N0Z1dGx0R1pVRXEwMUo2clJBOUd3Q0EyRkRvK0owcll3Qy9NdmtLdEExTTlo?=
- =?utf-8?B?NURJZ0V4eFQ2Y3RGQTdjeHJ6VVVSa3VrenpFc2Q5MitrYjhpeFYwRUxkeVZq?=
- =?utf-8?B?bnBEUWJXc2tGdXZQUFlQUXpmc1Y3OWpQV3cvYUZVU0s4eVB6VVhGeHk2TVRO?=
- =?utf-8?B?TldNNHdiZkJCQXRia2VXMDJWNWQ0SDBMcU1odVljdGd3UHhGLzNzeWRhdE4x?=
- =?utf-8?B?dmdLSmwzdytqMTFPbkNnWTdaRWZKNW82RDQrbVQ1bXNvRzlEd3RwNlllaHFR?=
- =?utf-8?B?VWRUR3U3VnhmcmVvMkN5TFZVOVNDMFVpejUzSkc4Y1g0ZVMxcGxJdk15WWNu?=
- =?utf-8?B?WVp4anNacWJDVnFBcHBMZnI0L2tvMWFIaEpWOXNYMUk1ZFgwZGN4WjFWMUVD?=
- =?utf-8?B?bUVCSURMMW5vNGtUems1N3RhRDZBalNoQkhpRjF6SWdCdmhBemphZ1hDODN2?=
- =?utf-8?B?VVd4ZFQvTXpEOFFDM0J6RkJKZE1HMEJrZDFZaGxUNUk2Zk4rKzFCZGpvOUdT?=
- =?utf-8?B?UHN2RWJvMnZhUEx1VmJTallKblRodTZXcUhGOHlJVjc0QU8yRmkvdk93WkxI?=
- =?utf-8?B?cTNOQUx0ZndEUzVWWVd5cTI3Qnc4THVlajZIemdJQU5wTTUrUmRRUFg2VU9Q?=
- =?utf-8?B?SFJSTW1ucjZaTFVkTGR3K3pFa2U3aDdKQS9BT1FqUzRvcHExUEZWdVdWUElv?=
- =?utf-8?B?R0RGTXl3QXhZYnRaT0NrWi9lOG1BWG1rTG1JWjNhcXU2cWgyMm92QkZTQzZ2?=
- =?utf-8?B?aVJBbi9iWlJjTGYrTCtJT1AwY0dLUWxPblpvMVU5U2t3YnJ0WGxjSXNFY0pG?=
- =?utf-8?B?S3FWQ0haVmVpY2JBb3BNekZkMjU5ek1oZ1NaK0RhSHFOOHE3dzB4RncwaVg4?=
- =?utf-8?B?alBvMHc4aUsrbVMxTzRjN2VGQ1pGUDVjWmNaRWltUkdpY2txRG9KTzMwc1hq?=
- =?utf-8?B?VGduV1dyUmNxcldZemREYjFqdzNYSjM1NXBFemhzVVVaemhwcVNmc1FxMlRW?=
- =?utf-8?B?VUlWb2dQQ0crUkhSUGdkK2VhZ3duRlIxYzViRStwTFlBVTltektMUTFPNG1H?=
- =?utf-8?B?aDdIc2FPWEZzVldGdTluMTNwTW9ncE5xTk5oamR3dnhjSFlvSlN4MmQxZVd4?=
- =?utf-8?B?cUhCdWhNTEg4YmQrTkR0SXNld3YxZjdJTlJVOGpuZkFXK0VJdENwNzBCQ1dO?=
- =?utf-8?B?UzVmQ05MbU9CTTZFdHJCeE5WMnYrSjZldTJwbkxFMGpKQzh3SXM4ZUJLRDVK?=
- =?utf-8?B?V0RjeHN5Y3FwaTJxRThEbGV3VDlBZDZxaGJFS0JqM3FEcDFWUWlCVkNDRC9t?=
- =?utf-8?B?RzB6bmQ2VFJEbWJ4WS9MekVhVXNVbk5JaG54NGxXSTM3d20xSmJBY3JFbUI1?=
- =?utf-8?B?ZXFyL3AwMFFuNGxNMVpjVmFZL2dObFp4eDlHK0I1T3RSSDBNUG1xTUlYc1ZT?=
- =?utf-8?B?MzdaRDdDVDh6d1pwMzE0UlBKZk5WSGc3YTR4dzJ5WUt3VWFGMGZ5K2RJNDdT?=
- =?utf-8?B?VnFSYTBXUHFkdnpMTFJrMmtIMGtPTldva0dpTitWR3hsS0ovTjRJUEplaWhk?=
- =?utf-8?B?WERqN1ZEa1NyQnkxSGdYSVByVGd3MGppM0FXeVBvNkN0TUtyOVYvdWQrY1d3?=
- =?utf-8?B?T2lQSVhWQU0zbHc2bTFOUHAxUllzamJ1Ky9pN2RmV0xVeGl1bndJVktXZzZ6?=
- =?utf-8?B?SVNPUmdHeUN6QjJyWkdnSHpJOEVJYk8yVEhMNlB5dVRpMmF4bFA5TGJNQVRQ?=
- =?utf-8?B?UnRXNzRJTDNteDBnbUk4RDdwSXdnTnF5clk3b0lMelR4NkF2c0paaE9sb2RC?=
- =?utf-8?B?TUprNVF5MUdxaktZVUZhVU83cXRBTUFrdmZ0V2pqeFNnZmtuRmxNZldQNDhw?=
- =?utf-8?B?WE5DNTE1SGl5WDB3S2VkVGxEVWlzL2MvVk1wZVhiUExOc2hFRmgzYmY5WXdG?=
- =?utf-8?B?YXVIWXBvWE0xUEZEeHZ2aFlqbUwzdEdZRGJ4N2NYN2lPUmJIV25BR1hrdWx6?=
- =?utf-8?B?YXdRVkJEZlRpNFJrcXJkbVBmSkJjajg2cVVHMjAzd3ZLdExsbmxpcVppM0xy?=
- =?utf-8?Q?gLJABdKkjw9jjXFApTxkOleOwbVnI/dpjg7oxOyCK7qy?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aDRodTd2TGRzRXkvV01jWkg1dVB5Uzk5VnZ1L1lmb0o2S21EUXM1SmZqRnMv?=
+ =?utf-8?B?ekZMdy9sbTRtVmVOTml6MmtTN3A0Njc1dmtIT2dQT3ZsZmhpaE10bUJDTlhI?=
+ =?utf-8?B?dTdjYzlaay83N0Q4ME5paUtEaSs0YnNwK3lGdFhrMnA5blR6M21QaTRkb0xQ?=
+ =?utf-8?B?M3BkOEdNcFpaWEFmOVh2NEtqTEtWYWxENUdsZGhyaEVZcWVGbUJVc1pFTU9v?=
+ =?utf-8?B?ZWJ4NWtJOGtKQ0t2UU9tWUdteEtqMy9nc202S0dMTUpOQnB1TmtKK0pzdmsz?=
+ =?utf-8?B?Qkk2RGFpOGZWZXpQVnpWMSt4THFrWW92UWkzcDN3SllIdHZhTHJtS1RGREhN?=
+ =?utf-8?B?TXlYMHQ1V3hYNlp3QUdEcFh2YWlOeXZKbUpxekE1b0RpWnFodlQrQ1RpbEsz?=
+ =?utf-8?B?RWZtdnBqamRHbVhRQStjeGt0MU40VEhYNDdmVEJOWktJU29pT3BnZ0RkMnBo?=
+ =?utf-8?B?OXQxcldrUVd5MkJBWEZNUjZwVmVlc0ZkdCtiRDhlY2Jmb3RwMHVIUHZFL2JX?=
+ =?utf-8?B?TkwwL1VIMjFWWmhqV2dSY2l4bG1CRmFURmdjdkZZKzBMUUw4NmR5NndiZjRV?=
+ =?utf-8?B?dnNzeC9raTdqb1NhSXltVGlmbWdCNjE5OXlVN2E4bzVmTGpwMlhoV1NTVGk5?=
+ =?utf-8?B?UzdZUmtrUUhhUXgyL08vazdCa3lSbGdRd0d6Sm0ra0xCQldqdFZjNUpjSmkz?=
+ =?utf-8?B?SVhqSVl5Nmt1TDVTYjU5d0piQnBYRjgxcjJKMVYyT0p0Mm41clVyZDhaSlhG?=
+ =?utf-8?B?Nmx6MjJiVXBIMHRGV0RrNWVGMUdmdGhsUWhVbVFXdEJ4d0Z4UG96OVN3WGdh?=
+ =?utf-8?B?MVdJZ3kzVjA3M1ZzV2QzaVErZFdYN0RWK2JMSW9taWZUY292OEJkUlUxYkFL?=
+ =?utf-8?B?UGpXanNmVzdOcXZkU1UzQ0E2bHBUUUVENFdaT1pHWktHWi90R3lDQmxvYmps?=
+ =?utf-8?B?MmEyWS8yaHZYcVFPdGRDWXZmbkJTb3VuUUx6dUZkL2oxVmFnV1o2MnBHaHJT?=
+ =?utf-8?B?T2ZxOXVXdWJrZmlRWWEwbm1MZUVaZmRId3VMTkhiN3NxVGlqSWRWNitkKzFp?=
+ =?utf-8?B?RGpWQmdMUGZ2eXp0U0plWVV2YzFHVVZtN05CdmxOSXRCK2c3ZmphVlFPQVdo?=
+ =?utf-8?B?VldScnJXa0lUZXZCZkdnSDNELzFabVdsRlBBUjI2OXB1eU9ESXhUMHFPdDI3?=
+ =?utf-8?B?V0l4bkFBVG9xNTg0OEN2UzdlZDhhK0YrSlBuejZQM21vQUtMckxWZXo5ZnZ3?=
+ =?utf-8?B?eGtiZkswU0JLaHF1MHp0MGd4UzNRUHZJclVBdGY1TGlqZlNCMlZuUzBtWllH?=
+ =?utf-8?B?VVo5RXRrSHUvSjVPRTdrZ0VYakNOcElRWkk4L0ZIUXQySS9BcVM0MXV4UlpS?=
+ =?utf-8?B?TFd6MjAzeS8vcExMb3I1RVJRcWVKNnlnTS9ieE12bnZReERRdUYzYVNTR3F2?=
+ =?utf-8?B?clcreUVoRlZFcVFmdU1JRWpON2kwTmtIRlJiRHdPZ1VpRGhRdHpDZ2FMeXRh?=
+ =?utf-8?B?Mkpwa2RZWWVFRTN1dFVRK1hSRzZ6T0VpWjQ5WnJEL2c3N2tOd2xscHE1blVq?=
+ =?utf-8?B?U3E1czdHMThhYkhNdEpzKzRHUGZMNnoyQnVSL2RDK3dxZXhCS3NYZ216VnNO?=
+ =?utf-8?B?SnhmY0laK2xNL2t2U0NEcmdKWWpkclZ1UWlsNDBHdkhPM0RzNWdRaXVpd2l4?=
+ =?utf-8?B?MkVySndibUVscEUycDVRM1hudlNDeSswL2kraWZBT2hFSkNjRnlmSGMwYmg5?=
+ =?utf-8?B?emFjbUFReG5OTmpwTDJzdy9nLzRsMkwvNUk2QUF4Q1lmS3ZGQVYvb0c1dlVG?=
+ =?utf-8?B?V1B6MUFZOWZmTTNoSysvRTVTbktEa2wvOERvU3A1eE1HcGQ3VW0yaTlWVGJO?=
+ =?utf-8?B?VTg5QmZTVXpqWU1PM1FJSEhBMSsyWmd3UmdPeVpUdGwxNlkyaEYrbnlXV0wr?=
+ =?utf-8?B?WmhablBSeW56VlBMTlF1NFg4MGlvRktLYUlYbHQ0L002bWxrQS9ZbXFzWFhJ?=
+ =?utf-8?B?SnN3SnlOR1gvN2tIM2h1RDczZGFBZ25DbDVOaXZ4V1ViNWhGNWJWRnBEQmUz?=
+ =?utf-8?B?ZzY4Vm9sNWkwS3R0cFJZSFRnM1JhUGh5Z3lyVmtOS3BUbjNmWVY4aXFTZ0Nv?=
+ =?utf-8?Q?C2NA=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a4e78ef-d97f-4e0c-00f2-08da9d86e4b9
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b9066d7-62f4-44a8-34a0-08da9d9340ce
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5311.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2022 17:13:11.7041 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2022 18:41:40.0604 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R2CAL5ZKdAXeTqzEIXDW1ExMPB4YpHynMTqsg7QNT3XTy6iTBLmRe9xep9Qq/+4QzyrdeN+mHpp1lW/xpRPT5A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6085
+X-MS-Exchange-CrossTenant-UserPrincipalName: mTzC5uMW3EKtDOoX5V6Frc0/08Tlg89ji1KypJG5xg6hNlQWUfC24CFQsrO4MKt3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5016
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,499 +128,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ckoenig.leichtzumerken@gmail.com, Li Yunxiang <Yunxiang.Li@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: regressions@lists.linux.dev, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Thorsten Leemhuis <regressions@leemhuis.info>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping
+Hi August,
 
-Andrey
+Can you provide a dmesg log with drm.debug=0x16 enabled in kernel cmdline?
 
-On 2022-09-22 12:15, Andrey Grodzovsky wrote:
->
-> On 2022-09-22 11:03, Luben Tuikov wrote:
->> The title of this patch has "v3", but "v4" in the title prefix.
->> If you're using "-v" to git-format-patch, please remove the "v3" from 
->> the title.
->>
->> Inlined:
->>
->> On 2022-09-21 14:28, Andrey Grodzovsky wrote:
->>> When many entities competing for same run queue on
->>> the same scheduler When many entities have  unacceptably long wait
->>> time for some jobs waiting stuck in the run queue before being picked
->>> up are observed (seen using  GPUVis).
->> Use this as your opening:
->>
->> "When many entities are competing for the same run queue on the same 
->> scheduler,
->> we observe an unusually long wait times and some jobs get starved. 
->> This has
->> been observed on GPUVis."
->>
->>> The issue is due to the Round Robin policy used by schedulers
->>> to pick up the next entity's job queue for execution. Under stress
->>> of many entities and long job queues within entity some
->>> jobs could be stack for very long time in it's entity's
->> "stuck", not "stack".
->>
->>> queue before being popped from the queue and executed
->>> while for other entities with smaller job queues a job
->>> might execute earlier even though that job arrived later
->>> then the job in the long queue.
->>>     Fix:
->>> Add FIFO selection policy to entities in run queue, chose next entity
->>> on run queue in such order that if job on one entity arrived
->>> earlier then job on another entity the first job will start
->>> executing earlier regardless of the length of the entity's job
->>> queue.
->>>     v2:
->>> Switch to rb tree structure for entities based on TS of
->>> oldest job waiting in the job queue of an entity. Improves next
->>> entity extraction to O(1). Entity TS update
->>> O(log N) where N is the number of entities in the run-queue
->>>     Drop default option in module control parameter.
+I wasn't aware that there are currently psr su edp panel + rembrandt apu 
+systems out in the wild. In any case, psrsu + rmb should be working, and 
+there might something specific to your configuration that's hitting a 
+corner case. The dmesg will shed some light.
+
+Thanks
+Leo
+
+On 2022-09-22 14:13, August Wikerfors wrote:
+> Hi Alex,
+> 
+> On 2022-09-22 15:59, Alex Deucher wrote:
+>> On Thu, Sep 22, 2022 at 8:54 AM Thorsten Leemhuis
+>> <regressions@leemhuis.info> wrote:
 >>>
->>> v3:
->>> Various cosmetical fixes and minor refactoring of fifo update 
->>> function. (Luben)
+>>> Hi, this is your Linux kernel regression tracker. Top-posting for once,
+>>> to make this easily accessible to everyone.
 >>>
->>> v4:
->>> Switch drm_sched_rq_select_entity_fifo to in order search (Luben)
->>>     Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->>> Tested-by: Li Yunxiang (Teddy) <Yunxiang.Li@amd.com>
->>> ---
->>>   drivers/gpu/drm/scheduler/sched_entity.c |  26 +++++-
->>>   drivers/gpu/drm/scheduler/sched_main.c   | 107 
->>> ++++++++++++++++++++++-
->>>   include/drm/gpu_scheduler.h              |  32 +++++++
->>>   3 files changed, 159 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c 
->>> b/drivers/gpu/drm/scheduler/sched_entity.c
->>> index 6b25b2f4f5a3..f3ffce3c9304 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>> @@ -73,6 +73,7 @@ int drm_sched_entity_init(struct drm_sched_entity 
->>> *entity,
->>>       entity->priority = priority;
->>>       entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
->>>       entity->last_scheduled = NULL;
->>> +    RB_CLEAR_NODE(&entity->rb_tree_node);
->>>         if(num_sched_list)
->>>           entity->rq = &sched_list[0]->sched_rq[entity->priority];
->>> @@ -417,14 +418,16 @@ struct drm_sched_job 
->>> *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->>>         sched_job = 
->>> to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
->>>       if (!sched_job)
->>> -        return NULL;
->>> +        goto skip;
->>>         while ((entity->dependency =
->>>               drm_sched_job_dependency(sched_job, entity))) {
->>>           trace_drm_sched_job_wait_dep(sched_job, entity->dependency);
->>>   -        if (drm_sched_entity_add_dependency_cb(entity))
->>> -            return NULL;
->>> +        if (drm_sched_entity_add_dependency_cb(entity)) {
->>> +            sched_job = NULL;
->>> +            goto skip;
->>> +        }
->>>       }
->>>         /* skip jobs from entity that marked guilty */
->>> @@ -443,6 +446,16 @@ struct drm_sched_job 
->>> *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->>>       smp_wmb();
->>>         spsc_queue_pop(&entity->job_queue);
->>> +
->>> +    /*
->>> +     * It's when head job is extracted we can access the next job 
->>> (or empty)
->>> +     * queue and update the entity location in the min heap 
->>> accordingly.
->>> +     */
->>> +skip:
->>> +    if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->>> +        drm_sched_rq_update_fifo(entity,
->>> +                     (sched_job ? sched_job->submit_ts : 
->>> ktime_get()));
->>> +
->>>       return sched_job;
->>>   }
->>>   @@ -502,11 +515,13 @@ void drm_sched_entity_push_job(struct 
->>> drm_sched_job *sched_job)
->>>   {
->>>       struct drm_sched_entity *entity = sched_job->entity;
->>>       bool first;
->>> +    ktime_t ts =  ktime_get();
->>>         trace_drm_sched_job(sched_job, entity);
->>>       atomic_inc(entity->rq->sched->score);
->>>       WRITE_ONCE(entity->last_user, current->group_leader);
->>>       first = spsc_queue_push(&entity->job_queue, 
->>> &sched_job->queue_node);
->>> +    sched_job->submit_ts = ts;
->>>         /* first job wakes up scheduler */
->>>       if (first) {
->>> @@ -518,8 +533,13 @@ void drm_sched_entity_push_job(struct 
->>> drm_sched_job *sched_job)
->>>               DRM_ERROR("Trying to push to a killed entity\n");
->>>               return;
->>>           }
->>> +
->>>           drm_sched_rq_add_entity(entity->rq, entity);
->>>           spin_unlock(&entity->rq_lock);
->>> +
->>> +        if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->>> +            drm_sched_rq_update_fifo(entity, ts);
->>> +
->>>           drm_sched_wakeup(entity->rq->sched);
->>>       }
->>>   }
->>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c 
->>> b/drivers/gpu/drm/scheduler/sched_main.c
->>> index 4f2395d1a791..565707a1c5c7 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>> @@ -62,6 +62,64 @@
->>>   #define to_drm_sched_job(sched_job)        \
->>>           container_of((sched_job), struct drm_sched_job, queue_node)
->>>   +int drm_sched_policy = DRM_SCHED_POLICY_RR;
->>> +
->>> +/**
->>> + * DOC: sched_policy (int)
->>> + * Used to override default entities scheduling policy in a run queue.
->>> + */
->>> +MODULE_PARM_DESC(sched_policy,
->>> +         "specify schedule policy for entities on a runqueue 
->>> (DRM_SCHED_POLICY_RR = Round Robin (default), DRM_SCHED_POLICY_FIFO  
->>> = use FIFO");
->>> +module_param_named(sched_policy, drm_sched_policy, int, 0444);
->>> +
->>> +static __always_inline bool drm_sched_entity_compare_before(struct 
->>> rb_node *a,
->>> +                                const struct rb_node *b)
->>> +{
->>> +    struct drm_sched_entity *ent_a =  rb_entry((a), struct 
->>> drm_sched_entity, rb_tree_node);
->>> +    struct drm_sched_entity *ent_b =  rb_entry((b), struct 
->>> drm_sched_entity, rb_tree_node);
->>> +
->>> +    return ktime_before(ent_a->oldest_job_waiting, 
->>> ent_b->oldest_job_waiting);
->>> +}
->>> +
->>> +static inline void drm_sched_rq_remove_fifo_locked(struct 
->>> drm_sched_entity *entity)
->>> +{
->>> +    struct drm_sched_rq *rq = entity->rq;
->>> +
->>> +    if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
->>> +        rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
->>> +        RB_CLEAR_NODE(&entity->rb_tree_node);
->>> +    }
->>> +}
->>> +
->>> +static inline void drm_sched_rq_update_fifo_locked(struct 
->>> drm_sched_entity *entity,
->>> +                           ktime_t ts)
->>> +{
->>> +    struct drm_sched_rq *rq = entity->rq;
->>> +
->>> +    drm_sched_rq_remove_fifo_locked(entity);
->>> +
->>> +    entity->oldest_job_waiting = ts;
->>> +
->>> +    rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
->>> +              drm_sched_entity_compare_before);
->>> +}
->>> +
->>> +void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, 
->>> ktime_t ts)
->>> +{
->>> +    /*
->>> +     * Both locks need to be grabbed, one to protect from 
->>> entity->rq change
->>> +     * for entity from within concurrent drm_sched_entity_select_rq 
->>> and the
->>> +     * other to update the rb tree structure.
->>> +     */
->>> +    spin_lock(&entity->rq_lock);
->>> +    spin_lock(&entity->rq->lock);
->>> +
->>> +    drm_sched_rq_update_fifo_locked(entity, ts);
->>> +
->>> +    spin_unlock(&entity->rq->lock);
->>> +    spin_unlock(&entity->rq_lock);
->>> +}
->> I thought you were going to drop one of the locks here?
->> Address this by either updating the comment to explain to future 
->> programmers
->> what is going on here and why the locking is not consistent (2 vs 1 
->> lock),
->> or drop one of the locks, as per my previous review.
->
->
-> Note that after last review drm_sched_rq_update_fifo_locked is not 
-> called anywhere
-> besides drm_sched_rq_update_fifo and so becomes obsolete and I will 
-> remove it now.
-> In this case the double locking above is consistent and the reason is 
-> explained in the
-> comment above.
->
->
+>>> @amdgpu developers, what up here? August afaics didn't even get a single
+>>> reply for his report that even identifies the change that's causing the
+>>> problem. We're already late in the development cycle, so it would be
+>>> good if someone could take a closer look into this before it's too late
+>>> for 6.0.
 >>
->>> +
->>>   /**
->>>    * drm_sched_rq_init - initialize a given run queue struct
->>>    *
->>> @@ -75,6 +133,7 @@ static void drm_sched_rq_init(struct 
->>> drm_gpu_scheduler *sched,
->>>   {
->>>       spin_lock_init(&rq->lock);
->>>       INIT_LIST_HEAD(&rq->entities);
->>> +    rq->rb_tree_root = RB_ROOT_CACHED;
->>>       rq->current_entity = NULL;
->>>       rq->sched = sched;
->>>   }
->>> @@ -92,9 +151,12 @@ void drm_sched_rq_add_entity(struct drm_sched_rq 
->>> *rq,
->>>   {
->>>       if (!list_empty(&entity->list))
->>>           return;
->>> +
->>>       spin_lock(&rq->lock);
->>> +
->>>       atomic_inc(rq->sched->score);
->>>       list_add_tail(&entity->list, &rq->entities);
->>> +
->>>       spin_unlock(&rq->lock);
->>>   }
->>>   @@ -111,23 +173,30 @@ void drm_sched_rq_remove_entity(struct 
->>> drm_sched_rq *rq,
->>>   {
->>>       if (list_empty(&entity->list))
->>>           return;
->>> +
->>>       spin_lock(&rq->lock);
->>> +
->>>       atomic_dec(rq->sched->score);
->>>       list_del_init(&entity->list);
->>> +
->>>       if (rq->current_entity == entity)
->>>           rq->current_entity = NULL;
->>> +
->>> +    if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->>> +        drm_sched_rq_remove_fifo_locked(entity);
->>> +
->>>       spin_unlock(&rq->lock);
->>>   }
->>>     /**
->>> - * drm_sched_rq_select_entity - Select an entity which could 
->>> provide a job to run
->>> + * drm_sched_rq_select_entity_rr - Select an entity which could 
->>> provide a job to run
->>>    *
->>>    * @rq: scheduler run queue to check.
->>>    *
->>>    * Try to find a ready entity, returns NULL if none found.
->>>    */
->>>   static struct drm_sched_entity *
->>> -drm_sched_rq_select_entity(struct drm_sched_rq *rq)
->>> +drm_sched_rq_select_entity_rr(struct drm_sched_rq *rq)
->>>   {
->>>       struct drm_sched_entity *entity;
->>>   @@ -163,6 +232,36 @@ drm_sched_rq_select_entity(struct 
->>> drm_sched_rq *rq)
->>>       return NULL;
->>>   }
->>>   +/**
->>> + * drm_sched_rq_select_entity_fifo - Select an entity which 
->>> provides a job to run
->>> + *
->>> + * @rq: scheduler run queue to check.
->>> + *
->>> + * Find oldest waiting ready entity, returns NULL if none found.
->>> + */
->>> +static struct drm_sched_entity *
->>> +drm_sched_rq_select_entity_fifo(struct drm_sched_rq *rq)
->>> +{
->>> +    struct rb_node *rb;
->>> +    bool found = false;
->>> +    struct drm_sched_entity *entity;
->>> +
->>> +    spin_lock(&rq->lock);
->>> +    for (rb = rb_first_cached(&rq->rb_tree_root); rb; rb = 
->>> rb_next(rb)) {
->>> +        entity = rb_entry(rb, struct drm_sched_entity, rb_tree_node);
->>> +
->>> +        if (drm_sched_entity_is_ready(entity)) {
->>> +            rq->current_entity = entity;
->>> +            reinit_completion(&entity->entity_idle);
->>> +            found = true;
->>> +            break;
->>> +        }
->>> +    }
->>> +    spin_unlock(&rq->lock);
->>> +
->>> +    return found ? entity : NULL;
->>> +}
->> You really don't need "found", and you don't need "entity" to be 
->> outside the loop.
->>
->> As per my last review, use this (which I've compiled and run):
->>
->> static struct drm_sched_entity *
->> drm_sched_rq_select_entity_fifo(struct drm_sched_rq *rq)
->> {
->>     struct rb_node *rb;
->>
->>     spin_lock(&rq->lock);
->>     for (rb = rb_first_cached(&rq->rb_tree_root); rb; rb = 
->> rb_next(rb)) {
->>         struct drm_sched_entity *entity;
->>
->>         entity = rb_entry(rb, struct drm_sched_entity, rb_tree_node);
->>         if (drm_sched_entity_is_ready(entity)) {
->>             rq->current_entity = entity;
->>             reinit_completion(&entity->entity_idle);
->>             break;
->>         }
->>     }
->>     spin_unlock(&rq->lock);
->>
->>     return rb ? rb_entry(rb, struct drm_sched_entity, rb_tree_node) : 
->> NULL;
->> }
->>
->> The only way we can exit the loop is,
->> 1. The loop invariant is false, i.e. rb == NULL, or
->> 2. The "break;" jump from inside the if () inside the loop.
->>
->> Also note that "rb" does NOT need to be initialized, since, the for() 
->> statement
->> is always executed, and the assignment "rb = 
->> rb_first_cached(&rq->rb_tree_root);"
->> initializes it--this is why GCC doesn't complain :-)
->>
->> Also note that you don't need to export "entity" as it makes the 
->> for() loop relocatable
->> to another function with only having a dependency on "rb" being 
->> defined--the loop
->> is self-contained.
->>
->> At the "return" statement, we know that we've exited the loop, by 
->> either the loop
->> invariant being false, i.e. rb == NULL, or by the "break;" jump, in 
->> which case
->> we know that rb != NULL. This is why the "return;" statement as 
->> presented above works
->> correctly.
->>
->> Please use that function in the way it is above, which is minimal and 
->> mature.
->
->
-> Makes sense, missed the point that at the end rb will be set to NULL
->
-> Andrey
->
->
->>
->> Regards,
->> Luben
->>
->>> +
->>>   /**
->>>    * drm_sched_job_done - complete a job
->>>    * @s_job: pointer to the job which is done
->>> @@ -803,7 +902,9 @@ drm_sched_select_entity(struct drm_gpu_scheduler 
->>> *sched)
->>>         /* Kernel run queue has higher priority than normal run queue*/
->>>       for (i = DRM_SCHED_PRIORITY_COUNT - 1; i >= 
->>> DRM_SCHED_PRIORITY_MIN; i--) {
->>> -        entity = drm_sched_rq_select_entity(&sched->sched_rq[i]);
->>> +        entity = drm_sched_policy != DRM_SCHED_POLICY_FIFO ?
->>> + drm_sched_rq_select_entity_rr(&sched->sched_rq[i]) :
->>> + drm_sched_rq_select_entity_fifo(&sched->sched_rq[i]);
->>>           if (entity)
->>>               break;
->>>       }
->>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
->>> index 599855c6a672..1f7d9dd1a444 100644
->>> --- a/include/drm/gpu_scheduler.h
->>> +++ b/include/drm/gpu_scheduler.h
->>> @@ -50,6 +50,12 @@ enum drm_sched_priority {
->>>       DRM_SCHED_PRIORITY_UNSET = -2
->>>   };
->>>   +/* Used to chose between FIFO and RR jobs scheduling */
->>> +extern int drm_sched_policy;
->>> +
->>> +#define DRM_SCHED_POLICY_RR    0
->>> +#define DRM_SCHED_POLICY_FIFO  1
->>> +
->>>   /**
->>>    * struct drm_sched_entity - A wrapper around a job queue (typically
->>>    * attached to the DRM file_priv).
->>> @@ -196,6 +202,21 @@ struct drm_sched_entity {
->>>        * drm_sched_entity_fini().
->>>        */
->>>       struct completion        entity_idle;
->>> +
->>> +    /**
->>> +     * @oldest_job_waiting:
->>> +     *
->>> +     * Marks earliest job waiting in SW queue
->>> +     */
->>> +    ktime_t                oldest_job_waiting;
->>> +
->>> +    /**
->>> +     * @rb_tree_node:
->>> +     *
->>> +     * The node used to insert this entity into time based priority 
->>> queue
->>> +     */
->>> +    struct rb_node            rb_tree_node;
->>> +
->>>   };
->>>     /**
->>> @@ -205,6 +226,7 @@ struct drm_sched_entity {
->>>    * @sched: the scheduler to which this rq belongs to.
->>>    * @entities: list of the entities to be scheduled.
->>>    * @current_entity: the entity which is to be scheduled.
->>> + * @rb_tree_root: root of time based priory queue of entities for 
->>> FIFO scheduling
->>>    *
->>>    * Run queue is a set of entities scheduling command submissions for
->>>    * one specific ring. It implements the scheduling policy that 
->>> selects
->>> @@ -215,6 +237,7 @@ struct drm_sched_rq {
->>>       struct drm_gpu_scheduler    *sched;
->>>       struct list_head        entities;
->>>       struct drm_sched_entity        *current_entity;
->>> +    struct rb_root_cached        rb_tree_root;
->>>   };
->>>     /**
->>> @@ -314,6 +337,13 @@ struct drm_sched_job {
->>>         /** @last_dependency: tracks @dependencies as they signal */
->>>       unsigned long            last_dependency;
->>> +
->>> +    /**
->>> +     * @submit_ts:
->>> +     *
->>> +     * When the job was pushed into the entity queue.
->>> +     */
->>> +    ktime_t                         submit_ts;
->>>   };
->>>     static inline bool drm_sched_invalidate_job(struct drm_sched_job 
->>> *s_job,
->>> @@ -503,6 +533,8 @@ void drm_sched_rq_add_entity(struct drm_sched_rq 
->>> *rq,
->>>   void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
->>>                   struct drm_sched_entity *entity);
->>>   +void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, 
->>> ktime_t ts);
->>> +
->>>   int drm_sched_entity_init(struct drm_sched_entity *entity,
->>>                 enum drm_sched_priority priority,
->>>                 struct drm_gpu_scheduler **sched_list,
+>> Been a busy week.  Haven't had a chance to look into this yet.  Does
+>> the issue still happen with this patch:
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Ftorvalds%2Flinux.git%2Fcommit%2F%3Fid%3D66f99628eb24409cb8feb5061f78283c8b65f820&amp;data=05%7C01%7Csunpeng.li%40amd.com%7Cb3457b7e83df4b2c7d4308da9cc63280%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637994672320000021%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=a0EMjX6L13FaQU0mqxp5vO9vRe0BEDBDJ5emOdCj8gY%3D&amp;reserved=0
+> Yes, the issue still happens with that patch, and also with the current 
+> git master (dc164f4fb00a0abebdfff132f8bc7291a28f5401).
+> 
+> Regards,
+> August Wikerfors
