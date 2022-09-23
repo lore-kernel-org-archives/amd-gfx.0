@@ -4,119 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D162C04A95
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 18:41:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 797D9C04A95
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 20:52:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD8F10E4D8;
-	Fri, 23 Sep 2022 18:41:57 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2046.outbound.protection.outlook.com [40.107.237.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2347410E4D8
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Sep 2022 18:41:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6AAF10E991;
+	Fri, 23 Sep 2022 20:52:48 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2042.outbound.protection.outlook.com [40.107.220.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22E6A10E1F1;
+ Fri, 23 Sep 2022 20:52:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MmTmRU6Oq+pjAv0PUP/N1iZ+0fEUjmDzCCgNf0yU5g+S6RAQAGgqS9/lnGdRd6ftBoNDeK7H8x3NxeNeAd3chFut+IJ6pUC/V3KvNefyMgouFnXSYFSzBXZUfuKK0WnxPxWplqU/pSuTeP2iwt2xcZQd9bYTWniPUrg8M/YVdKXZH17fUyObemGB8Qe3b4Em1aaWhFPC4cq65IAyrIX5Y6K9OgYyparPsrbInG1T5V/k374Cz8B/PGmgUlsvVfHN1KWH8TQDlods/z+pYjrh/z8KmbeZYtGqMfbKrxSP8X9Qcmj7b/ZsXgNQ+iUICu7jqVa5ZPwrGNny3DkuBXWp9Q==
+ b=aYISXiCXslb+QgM8KcKXVngvVgEO+clVNzaVXyd8xFuaawwnwdcRwACcEuCIjxlwwKigJFKsDAU8wnn72XQ5VXJ65pro0AlKB8H+tAOlpuSZm6td/pNT1s+2Af2GvtjKShRuK6yo/WTsffa8hYsQ9J6YhP8Gu5KKuaUzJ11w9SEyUkPHeYVDveXwXztexgHrpydBtKj4tT3TtVPCVblY2umoMtpIhe5krQKg/Y25vRgg3je/MhwZKCNID4SyorDnonqB18WZ4bM3RXl53oXDYBGY7cY9tBcRevefkm99vqfgJaJfPDGZ/sTDz68dbppx9E5yrW8ttXhN9FE5PyJksg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eFwVOL9inWJJb9Enqc4UN+Hg0as0EqraWcepjWcLdAw=;
- b=bhy8X/H43JzddkhwWHdO91EIg/JqfQHP9sREhQC+CvRkKvS42f8stAE8fLPoRxeLIk9LKmYnv5csm+krv4LgZg56SRO3cixd/ZQEEZXUXMvEtB4huFQpVHJEcxfkCv17dP5jqM0xid3Y23Y4JYnPcATjGnm8dqIOo+b8WJfom9KvRFlhJrd9xO56EdHf/FSX0sFxkBEMhIR438sakQ168jDWOg67zEQffkq90CNuUQyLMyU7VKtCDkuU/dDdZV7nATbbhWoiN3KNBtxBwo3EDe2zNfWTQbArgDFNI5cWGhCKzdpMvTuioVPWf9Vnv1WCpFPjKuwPAAUUNrKNFOcnvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=JIHfBcJrCmnBRxtjis+sCa2mamAhQ+etIHBFLKZQ1/w=;
+ b=VWRD39Onxrb6/E/9OEiaqbN0oisxIeaQSi/ZuQfs2SIz0jfYX3FDjU/7NjUt050ngAfslABxlpO3L/RijKo5rmxdEqzSLlzwTsS3MORcu9z4Ee4Yi0LmLj3BxIHs0vtc+IbPHHKGZStHpU7dzxeSD+Gu1zABxwIXvTVhz92MzXuyBcmvFQ7WA8V8BXAYc34i41rZCTTyTwbMdD7ctqa0btyYItxIqpScVYX7ERdTK0j4VUvxcegI/MD0+rp3pxwWpAjhmUdaNoKInw7tQwTufSM3Ikx9ff7WFEtSwAlPtEJjR5O5FTTAEFOGcpeBd7WDaFk1i7r/xJvFSdGYskmI+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eFwVOL9inWJJb9Enqc4UN+Hg0as0EqraWcepjWcLdAw=;
- b=EbeWpa5hEYnQWnamvMqmmKA2jdB1c0w9iX6alNs8GgYu1B45KF+na6uDY9o5uzRyTJsTgphW5fJwsugMaPqEdkvZy4HSDsIMiDu8+851CEbLdZGFKuNWZE0URhPobzcuxHC+0Sfy0+x1FpGRiMg4gownUZvID33RkJy1Pu68Q6Q=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com (2603:10b6:5:39f::7) by
- BY5PR12MB5016.namprd12.prod.outlook.com (2603:10b6:a03:1c5::20) with
+ bh=JIHfBcJrCmnBRxtjis+sCa2mamAhQ+etIHBFLKZQ1/w=;
+ b=E0udaQMgrKseJFuzs2huo1FNF9l80LoGWsAcGVInddN2pmGD55Qcxztw/x1Mjh/Pd0PLMdjOQe0RFL1MOhkuwygFaNbOHOaF+iaO6smqXvnuNa0wah1AjmcAVoeVSmkIuZwWvtLzhdWRqcT2Z3gA9asHyqNQizb+3cJC7N4Rrlo=
+Received: from DM6PR06CA0088.namprd06.prod.outlook.com (2603:10b6:5:336::21)
+ by IA1PR12MB6209.namprd12.prod.outlook.com (2603:10b6:208:3e7::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.20; Fri, 23 Sep
- 2022 18:41:41 +0000
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::fc54:e514:e096:b243]) by DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::fc54:e514:e096:b243%3]) with mapi id 15.20.5654.020; Fri, 23 Sep 2022
- 18:41:40 +0000
-Message-ID: <f4818fc3-7015-29ed-95c5-ab6a18da33d7@amd.com>
-Date: Fri, 23 Sep 2022 14:41:37 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [REGRESSION] Graphical issues on Lenovo Yoga 7 14ARB7 laptop
- since v6.0-rc1 (bisected)
-Content-Language: en-US
-To: August Wikerfors <git@augustwikerfors.se>,
- Alex Deucher <alexdeucher@gmail.com>
-References: <c1f8886a-5624-8f49-31b1-e42b6d20dcf5@augustwikerfors.se>
- <eee82fb8-0fc5-98cb-e630-f86891574f21@leemhuis.info>
- <CADnq5_PRP3ekHPLhdXALxt9GL3aHHZQUw5TNAwm4t+ggimUq7g@mail.gmail.com>
- <33cf5071-3157-a3c2-3252-3a8ab926c60d@augustwikerfors.se>
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <33cf5071-3157-a3c2-3252-3a8ab926c60d@augustwikerfors.se>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH2PR20CA0022.namprd20.prod.outlook.com
- (2603:10b6:610:58::32) To DM4PR12MB5311.namprd12.prod.outlook.com
- (2603:10b6:5:39f::7)
+ 2022 20:52:41 +0000
+Received: from DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:336:cafe::8b) by DM6PR06CA0088.outlook.office365.com
+ (2603:10b6:5:336::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.20 via Frontend
+ Transport; Fri, 23 Sep 2022 20:52:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT058.mail.protection.outlook.com (10.13.172.216) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5654.14 via Frontend Transport; Fri, 23 Sep 2022 20:52:41 +0000
+Received: from hamza-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 23 Sep
+ 2022 15:52:38 -0500
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+To: <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/3] drm/amd/display: fix HDCP drm prop update for MST
+Date: Fri, 23 Sep 2022 16:52:28 -0400
+Message-ID: <20220923205234.207628-1-hamza.mahfooz@amd.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5311:EE_|BY5PR12MB5016:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b9066d7-62f4-44a8-34a0-08da9d9340ce
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT058:EE_|IA1PR12MB6209:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c17acfe-5c42-4a5f-eab3-08da9da58e88
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8FoAsusvof2zFN1FtSmuIHJ2MGF3umh5/9omQcFNPMvY9l9L4bjEEpzvY7zV5LiPPMjHgU+3fEiHLJBGatLoB/Yov+eH8pidRPhDaVKcvuzVGbRfUCSjH18GHi3rfZIJTDivsnLsHBORKMXgDzv51vAm/Km+zpxZf2M6cQISMIc3HxlXKX7dj5jndy2kVrLmaXxVOa6fzqRdPVzii0OrdGD8LFlopkEsKETn7W5FUNsZNzarifLvtS9fHIp2EaUNbQkQWeWEJSMXzQkWJhXHXscjYQ57V+wUyCEllj20kJ7QshmTmFW7hal6m6P/NHfO31Zy2772owAktNkM91fa7M/lj1qfOpBvehQI1kv8pFSqaWE4ljOmavFMDftbFH+oXYgx5XwUCEGyGqXtCtVT0Gj+JkPUC+cDm9JsWRfBMUPxF3H64U8zsDtLHPosrgQXq3Icj0aqN+Aw0i7rZy2f1JKNijDa4stkMviLV/O6NoKTlwsRO+Flt+OBC9lKyKTmHedR34OgxxpCHqH6yny8LRrguldfPpykckYZ2rv92GVRTqRdwlxkG5+Gt/Rs21KSxSDt9VHqgI8SffVhO119B2WXnuiNPxvNyvvUzJRcVYX8+HCmLblVmVwoD4XndB+DiOya73ztpilor2wa3QaZ/vym+GBzHX/rlCKG1lKCSE16yji0gM/+8r3WZcpnr1yCMqkxq1EiloLfm/PUf+DLdw+/PJn6iw14yhggWJT19se/rlvt2LVJifnGpiwijsCD30Bi2j7gh+WovRCfwhH92XBklE6/3M1liQA3B5v/Y2PuL9v6T4JpeTEMK5vUiq73
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5311.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(366004)(396003)(346002)(136003)(376002)(451199015)(316002)(31686004)(86362001)(31696002)(36756003)(5660300002)(66556008)(8936002)(4326008)(2906002)(66476007)(38100700002)(66946007)(8676002)(966005)(41300700001)(54906003)(6666004)(110136005)(53546011)(2616005)(186003)(6506007)(83380400001)(6512007)(26005)(478600001)(45080400002)(6486002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: mBw9PxeIwVtfkT/RzL691vsujth81IJOjAX4YKDFVNJC5IW2dIlsTblVrWqH3QhpCLK74gBQughowDr47yfXZ5Cx5dlA0gVex7pSaZo1/e9py1azhsg7Iblq27WWCgCB1ws0YSfqTs1UMjCJcDVuPhwy1ZW6vbCTLVUMj39VVgVISBzp7Mwq1n1SmpMjLGyMKkKRnedwBzOpMTIEjWQEq1hL6GBRRZAzKfmc1kHAp9H+dq/fPT9v1/bZkAAdPi4w4BJFVv08NHmFPWBnw+PiW4aErn5YVJtypYOQebEK9MfDQqqmcMj6INynTGDC5iS8hmap0Tv8HFqzeUuGMnKEJty34B2tiAo2PE4w9td0U3hbj8wT+4kRwKBkHUj5+11TEzQ9o3RZgstx1shmwBkfNSsMx2l7m8YA+hqz1fjO7D/qhW1eIXk/sjocR2TzomX+yM5yz6GgjdkS/w5Nqq0SOaxp3IzL5ZduFr+cX6VlIpnbpwMm/iEJEGVbzYTw7UiElOXNeWxDvpg62SadqZpkyfa+xaRn53zDqcMBvtHT9SDYg5J2/tF67DDObJlATmhMXtqHg7X8bENpQL4h6/XJin9KyxFBhK+bnJOIc91DUmj33SRdYYYVmWMNwxjalOr8Kg0xFgQWTeXqVM+AENY2WGGRkHYVj7fbYWGrLbnEJwKp2SeQ9QEUFOJ/Dsax3+EuxHuh6JkU+H3JX9cn6ualZSUAjf6QgPLr0jZQQlM3Fwg64b44310TCjo+NgfJh06WrY1ui/E9JzYEloTe+WcP+odna4txAFknif1Qe2BEGVlgxhMCYmz7znqx4zyB5A73RN+yRGtMF/YA0lIFFkQmHA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(39860400002)(136003)(396003)(346002)(451199015)(46966006)(36840700001)(40470700004)(426003)(36756003)(1076003)(2616005)(6666004)(15650500001)(41300700001)(16526019)(336012)(26005)(44832011)(2906002)(8936002)(7696005)(186003)(5660300002)(82740400003)(81166007)(82310400005)(47076005)(83380400001)(40480700001)(86362001)(40460700003)(356005)(36860700001)(478600001)(316002)(54906003)(6916009)(70586007)(4326008)(70206006)(8676002)(16060500005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aDRodTd2TGRzRXkvV01jWkg1dVB5Uzk5VnZ1L1lmb0o2S21EUXM1SmZqRnMv?=
- =?utf-8?B?ekZMdy9sbTRtVmVOTml6MmtTN3A0Njc1dmtIT2dQT3ZsZmhpaE10bUJDTlhI?=
- =?utf-8?B?dTdjYzlaay83N0Q4ME5paUtEaSs0YnNwK3lGdFhrMnA5blR6M21QaTRkb0xQ?=
- =?utf-8?B?M3BkOEdNcFpaWEFmOVh2NEtqTEtWYWxENUdsZGhyaEVZcWVGbUJVc1pFTU9v?=
- =?utf-8?B?ZWJ4NWtJOGtKQ0t2UU9tWUdteEtqMy9nc202S0dMTUpOQnB1TmtKK0pzdmsz?=
- =?utf-8?B?Qkk2RGFpOGZWZXpQVnpWMSt4THFrWW92UWkzcDN3SllIdHZhTHJtS1RGREhN?=
- =?utf-8?B?TXlYMHQ1V3hYNlp3QUdEcFh2YWlOeXZKbUpxekE1b0RpWnFodlQrQ1RpbEsz?=
- =?utf-8?B?RWZtdnBqamRHbVhRQStjeGt0MU40VEhYNDdmVEJOWktJU29pT3BnZ0RkMnBo?=
- =?utf-8?B?OXQxcldrUVd5MkJBWEZNUjZwVmVlc0ZkdCtiRDhlY2Jmb3RwMHVIUHZFL2JX?=
- =?utf-8?B?TkwwL1VIMjFWWmhqV2dSY2l4bG1CRmFURmdjdkZZKzBMUUw4NmR5NndiZjRV?=
- =?utf-8?B?dnNzeC9raTdqb1NhSXltVGlmbWdCNjE5OXlVN2E4bzVmTGpwMlhoV1NTVGk5?=
- =?utf-8?B?UzdZUmtrUUhhUXgyL08vazdCa3lSbGdRd0d6Sm0ra0xCQldqdFZjNUpjSmkz?=
- =?utf-8?B?SVhqSVl5Nmt1TDVTYjU5d0piQnBYRjgxcjJKMVYyT0p0Mm41clVyZDhaSlhG?=
- =?utf-8?B?Nmx6MjJiVXBIMHRGV0RrNWVGMUdmdGhsUWhVbVFXdEJ4d0Z4UG96OVN3WGdh?=
- =?utf-8?B?MVdJZ3kzVjA3M1ZzV2QzaVErZFdYN0RWK2JMSW9taWZUY292OEJkUlUxYkFL?=
- =?utf-8?B?UGpXanNmVzdOcXZkU1UzQ0E2bHBUUUVENFdaT1pHWktHWi90R3lDQmxvYmps?=
- =?utf-8?B?MmEyWS8yaHZYcVFPdGRDWXZmbkJTb3VuUUx6dUZkL2oxVmFnV1o2MnBHaHJT?=
- =?utf-8?B?T2ZxOXVXdWJrZmlRWWEwbm1MZUVaZmRId3VMTkhiN3NxVGlqSWRWNitkKzFp?=
- =?utf-8?B?RGpWQmdMUGZ2eXp0U0plWVV2YzFHVVZtN05CdmxOSXRCK2c3ZmphVlFPQVdo?=
- =?utf-8?B?VldScnJXa0lUZXZCZkdnSDNELzFabVdsRlBBUjI2OXB1eU9ESXhUMHFPdDI3?=
- =?utf-8?B?V0l4bkFBVG9xNTg0OEN2UzdlZDhhK0YrSlBuejZQM21vQUtMckxWZXo5ZnZ3?=
- =?utf-8?B?eGtiZkswU0JLaHF1MHp0MGd4UzNRUHZJclVBdGY1TGlqZlNCMlZuUzBtWllH?=
- =?utf-8?B?VVo5RXRrSHUvSjVPRTdrZ0VYakNOcElRWkk4L0ZIUXQySS9BcVM0MXV4UlpS?=
- =?utf-8?B?TFd6MjAzeS8vcExMb3I1RVJRcWVKNnlnTS9ieE12bnZReERRdUYzYVNTR3F2?=
- =?utf-8?B?clcreUVoRlZFcVFmdU1JRWpON2kwTmtIRlJiRHdPZ1VpRGhRdHpDZ2FMeXRh?=
- =?utf-8?B?Mkpwa2RZWWVFRTN1dFVRK1hSRzZ6T0VpWjQ5WnJEL2c3N2tOd2xscHE1blVq?=
- =?utf-8?B?U3E1czdHMThhYkhNdEpzKzRHUGZMNnoyQnVSL2RDK3dxZXhCS3NYZ216VnNO?=
- =?utf-8?B?SnhmY0laK2xNL2t2U0NEcmdKWWpkclZ1UWlsNDBHdkhPM0RzNWdRaXVpd2l4?=
- =?utf-8?B?MkVySndibUVscEUycDVRM1hudlNDeSswL2kraWZBT2hFSkNjRnlmSGMwYmg5?=
- =?utf-8?B?emFjbUFReG5OTmpwTDJzdy9nLzRsMkwvNUk2QUF4Q1lmS3ZGQVYvb0c1dlVG?=
- =?utf-8?B?V1B6MUFZOWZmTTNoSysvRTVTbktEa2wvOERvU3A1eE1HcGQ3VW0yaTlWVGJO?=
- =?utf-8?B?VTg5QmZTVXpqWU1PM1FJSEhBMSsyWmd3UmdPeVpUdGwxNlkyaEYrbnlXV0wr?=
- =?utf-8?B?WmhablBSeW56VlBMTlF1NFg4MGlvRktLYUlYbHQ0L002bWxrQS9ZbXFzWFhJ?=
- =?utf-8?B?SnN3SnlOR1gvN2tIM2h1RDczZGFBZ25DbDVOaXZ4V1ViNWhGNWJWRnBEQmUz?=
- =?utf-8?B?ZzY4Vm9sNWkwS3R0cFJZSFRnM1JhUGh5Z3lyVmtOS3BUbjNmWVY4aXFTZ0Nv?=
- =?utf-8?Q?C2NA=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b9066d7-62f4-44a8-34a0-08da9d9340ce
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5311.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2022 18:41:40.0604 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2022 20:52:41.1755 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c17acfe-5c42-4a5f-eab3-08da9da58e88
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mTzC5uMW3EKtDOoX5V6Frc0/08Tlg89ji1KypJG5xg6hNlQWUfC24CFQsrO4MKt3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5016
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6209
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,47 +97,293 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: regressions@lists.linux.dev, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
+Cc: dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Leo Li <sunpeng.li@amd.com>, Jude Shih <shenshih@amd.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
+ amd-gfx@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ David Airlie <airlied@linux.ie>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, hersen wu <hersenxs.wu@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>, Wayne
+ Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi August,
+For MST topology with 1 physical link and multiple connectors (e.g. a
+one-to-many MST hub), if userspace enables HDCP simultaneously on all
+connected outputs, the commit tail iteratively calls
+hdcp_update_display() for each display (connector). However, the HDCP
+workqueue data structure for each link has only one DM connector and
+encryption status member, which means the workqueue of
+property_validate/update() would only be triggered for the last
+connector within this physical link, and therefore the HDCP property
+value of other connectors would stay on DESIRED instead of switching to
+ENABLED. So, to ensure that all of the connectors switch from DESIRED to
+ENABLED keep track of each connector's status in an array instead of
+only keeping track of the status of the most recent connector that
+userspace has interacted with.
 
-Can you provide a dmesg log with drm.debug=0x16 enabled in kernel cmdline?
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    | 145 +++++++++++++-----
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.h    |   5 +-
+ 2 files changed, 113 insertions(+), 37 deletions(-)
 
-I wasn't aware that there are currently psr su edp panel + rembrandt apu 
-systems out in the wild. In any case, psrsu + rmb should be working, and 
-there might something specific to your configuration that's hitting a 
-corner case. The dmesg will shed some light.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+index 6202e31c7e3a..922ec91940e4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+@@ -170,9 +170,10 @@ void hdcp_update_display(struct hdcp_workqueue *hdcp_work,
+ 	struct mod_hdcp_display *display = &hdcp_work[link_index].display;
+ 	struct mod_hdcp_link *link = &hdcp_work[link_index].link;
+ 	struct mod_hdcp_display_query query;
++	unsigned int conn_index = aconnector->base.index;
+ 
+ 	mutex_lock(&hdcp_w->mutex);
+-	hdcp_w->aconnector = aconnector;
++	hdcp_w->aconnector[conn_index] = aconnector;
+ 
+ 	query.display = NULL;
+ 	mod_hdcp_query_display(&hdcp_w->hdcp, aconnector->base.index, &query);
+@@ -204,7 +205,8 @@ void hdcp_update_display(struct hdcp_workqueue *hdcp_work,
+ 					      msecs_to_jiffies(DRM_HDCP_CHECK_PERIOD_MS));
+ 		} else {
+ 			display->adjust.disable = MOD_HDCP_DISPLAY_DISABLE_AUTHENTICATION;
+-			hdcp_w->encryption_status = MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF;
++			hdcp_w->encryption_status[conn_index] =
++				MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF;
+ 			cancel_delayed_work(&hdcp_w->property_validate_dwork);
+ 		}
+ 
+@@ -223,9 +225,10 @@ static void hdcp_remove_display(struct hdcp_workqueue *hdcp_work,
+ {
+ 	struct hdcp_workqueue *hdcp_w = &hdcp_work[link_index];
+ 	struct drm_connector_state *conn_state = aconnector->base.state;
++	unsigned int conn_index = aconnector->base.index;
+ 
+ 	mutex_lock(&hdcp_w->mutex);
+-	hdcp_w->aconnector = aconnector;
++	hdcp_w->aconnector[conn_index] = aconnector;
+ 
+ 	/* the removal of display will invoke auth reset -> hdcp destroy and
+ 	 * we'd expect the Content Protection (CP) property changed back to
+@@ -247,13 +250,18 @@ static void hdcp_remove_display(struct hdcp_workqueue *hdcp_work,
+ void hdcp_reset_display(struct hdcp_workqueue *hdcp_work, unsigned int link_index)
+ {
+ 	struct hdcp_workqueue *hdcp_w = &hdcp_work[link_index];
++	unsigned int conn_index;
+ 
+ 	mutex_lock(&hdcp_w->mutex);
+ 
+ 	mod_hdcp_reset_connection(&hdcp_w->hdcp,  &hdcp_w->output);
+ 
+ 	cancel_delayed_work(&hdcp_w->property_validate_dwork);
+-	hdcp_w->encryption_status = MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF;
++
++	for (conn_index = 0; conn_index < AMDGPU_DM_MAX_DISPLAY_INDEX;
++	     conn_index++)
++		hdcp_w->encryption_status[conn_index] =
++			MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF;
+ 
+ 	process_output(hdcp_w);
+ 
+@@ -290,45 +298,85 @@ static void event_callback(struct work_struct *work)
+ 
+ 
+ }
+-static void event_property_update(struct work_struct *work)
++
++static struct amdgpu_dm_connector *find_first_connected_output(struct hdcp_workqueue *hdcp_work)
+ {
++	unsigned int conn_index;
+ 
++	for (conn_index = 0; conn_index < AMDGPU_DM_MAX_DISPLAY_INDEX;
++	     conn_index++)
++		if (hdcp_work->aconnector[conn_index])
++			return hdcp_work->aconnector[conn_index];
++
++	return NULL;
++}
++
++static void event_property_update(struct work_struct *work)
++{
+ 	struct hdcp_workqueue *hdcp_work = container_of(work, struct hdcp_workqueue, property_update_work);
+-	struct amdgpu_dm_connector *aconnector = hdcp_work->aconnector;
+-	struct drm_device *dev = hdcp_work->aconnector->base.dev;
++	struct amdgpu_dm_connector *aconnector =
++		find_first_connected_output(hdcp_work);
++	struct drm_device *dev;
+ 	long ret;
++	unsigned int conn_index;
++	struct drm_connector *connector;
++	struct drm_connector_state *conn_state;
++
++	if (!aconnector)
++		return;
++
++	dev = aconnector->base.dev;
+ 
+ 	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+ 	mutex_lock(&hdcp_work->mutex);
+ 
++	for (conn_index = 0; conn_index < AMDGPU_DM_MAX_DISPLAY_INDEX;
++	     conn_index++) {
++		aconnector = hdcp_work->aconnector[conn_index];
++
++		if (!aconnector)
++			continue;
++
++		if (!aconnector->base.index)
++			continue;
++
++		connector = &aconnector->base;
++		conn_state = aconnector->base.state;
+ 
+-	if (aconnector->base.state && aconnector->base.state->commit) {
+-		ret = wait_for_completion_interruptible_timeout(&aconnector->base.state->commit->hw_done, 10 * HZ);
++		if (!conn_state)
++			continue;
+ 
+-		if (ret == 0) {
+-			DRM_ERROR("HDCP state unknown! Setting it to DESIRED");
+-			hdcp_work->encryption_status = MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF;
++		if (conn_state->commit) {
++			ret = wait_for_completion_interruptible_timeout(&conn_state->commit->hw_done,
++									10 * HZ);
++			if (!ret) {
++				DRM_ERROR("HDCP state unknown! Setting it to DESIRED");
++				hdcp_work->encryption_status[conn_index] =
++					MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF;
++			}
+ 		}
+-	}
+ 
+-	if (aconnector->base.state) {
+-		if (hdcp_work->encryption_status != MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF) {
+-			if (aconnector->base.state->hdcp_content_type ==
+-				DRM_MODE_HDCP_CONTENT_TYPE0 &&
+-			hdcp_work->encryption_status <=
+-				MOD_HDCP_ENCRYPTION_STATUS_HDCP2_TYPE0_ON)
+-				drm_hdcp_update_content_protection(&aconnector->base,
++		if (hdcp_work->encryption_status[conn_index] !=
++		    MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF) {
++			if (conn_state->hdcp_content_type ==
++			    DRM_MODE_HDCP_CONTENT_TYPE0 &&
++			    hdcp_work->encryption_status[conn_index] <=
++			    MOD_HDCP_ENCRYPTION_STATUS_HDCP2_TYPE0_ON)
++
++				drm_hdcp_update_content_protection(connector,
+ 					DRM_MODE_CONTENT_PROTECTION_ENABLED);
+-			else if (aconnector->base.state->hdcp_content_type ==
+-					DRM_MODE_HDCP_CONTENT_TYPE1 &&
+-				hdcp_work->encryption_status ==
+-					MOD_HDCP_ENCRYPTION_STATUS_HDCP2_TYPE1_ON)
+-				drm_hdcp_update_content_protection(&aconnector->base,
++			else if (conn_state->hdcp_content_type ==
++				 DRM_MODE_HDCP_CONTENT_TYPE1 &&
++				 hdcp_work->encryption_status[conn_index] ==
++				 MOD_HDCP_ENCRYPTION_STATUS_HDCP2_TYPE1_ON)
++
++				drm_hdcp_update_content_protection(connector,
+ 					DRM_MODE_CONTENT_PROTECTION_ENABLED);
+ 		} else {
+-			drm_hdcp_update_content_protection(&aconnector->base,
++			drm_hdcp_update_content_protection(connector,
+ 				DRM_MODE_CONTENT_PROTECTION_DESIRED);
+ 		}
++
+ 	}
+ 
+ 	mutex_unlock(&hdcp_work->mutex);
+@@ -340,19 +388,37 @@ static void event_property_validate(struct work_struct *work)
+ 	struct hdcp_workqueue *hdcp_work =
+ 		container_of(to_delayed_work(work), struct hdcp_workqueue, property_validate_dwork);
+ 	struct mod_hdcp_display_query query;
+-	struct amdgpu_dm_connector *aconnector = hdcp_work->aconnector;
+-
+-	if (!aconnector)
+-		return;
++	struct amdgpu_dm_connector *aconnector;
++	unsigned int conn_index;
+ 
+ 	mutex_lock(&hdcp_work->mutex);
+ 
+-	query.encryption_status = MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF;
+-	mod_hdcp_query_display(&hdcp_work->hdcp, aconnector->base.index, &query);
++	for (conn_index = 0; conn_index < AMDGPU_DM_MAX_DISPLAY_INDEX;
++	     conn_index++) {
++		aconnector = hdcp_work->aconnector[conn_index];
+ 
+-	if (query.encryption_status != hdcp_work->encryption_status) {
+-		hdcp_work->encryption_status = query.encryption_status;
+-		schedule_work(&hdcp_work->property_update_work);
++		if (!aconnector)
++			continue;
++
++		if (!aconnector->base.index)
++			continue;
++
++		query.encryption_status = MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF;
++		mod_hdcp_query_display(&hdcp_work->hdcp, aconnector->base.index,
++				       &query);
++
++		DRM_DEBUG_DRIVER("[HDCP_DM] display %d, CP %u, (query->enc_st, work->enc_st): (%d, %d)\n",
++				 aconnector->base.index,
++				 aconnector->base.state->content_protection,
++				 query.encryption_status,
++				 hdcp_work->encryption_status[conn_index]);
++
++		if (query.encryption_status !=
++		    hdcp_work->encryption_status[conn_index]) {
++			hdcp_work->encryption_status[conn_index] =
++				query.encryption_status;
++			schedule_work(&hdcp_work->property_update_work);
++		}
+ 	}
+ 
+ 	mutex_unlock(&hdcp_work->mutex);
+@@ -686,6 +752,15 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev, struct
+ 		hdcp_work[i].hdcp.config.ddc.funcs.read_i2c = lp_read_i2c;
+ 		hdcp_work[i].hdcp.config.ddc.funcs.write_dpcd = lp_write_dpcd;
+ 		hdcp_work[i].hdcp.config.ddc.funcs.read_dpcd = lp_read_dpcd;
++
++		memset(hdcp_work[i].aconnector, 0,
++		       sizeof(struct amdgpu_dm_connector *) *
++		       AMDGPU_DM_MAX_DISPLAY_INDEX);
++
++		memset(hdcp_work[i].encryption_status, 0,
++		       sizeof(enum mod_hdcp_encryption_status) *
++		       AMDGPU_DM_MAX_DISPLAY_INDEX);
++
+ 	}
+ 
+ 	cp_psp->funcs.update_stream_config = update_config;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
+index 09294ff122fe..b2dbc0719472 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
+@@ -43,7 +43,7 @@ struct hdcp_workqueue {
+ 	struct delayed_work callback_dwork;
+ 	struct delayed_work watchdog_timer_dwork;
+ 	struct delayed_work property_validate_dwork;
+-	struct amdgpu_dm_connector *aconnector;
++	struct amdgpu_dm_connector *aconnector[AMDGPU_DM_MAX_DISPLAY_INDEX];
+ 	struct mutex mutex;
+ 
+ 	struct mod_hdcp hdcp;
+@@ -51,7 +51,8 @@ struct hdcp_workqueue {
+ 	struct mod_hdcp_display display;
+ 	struct mod_hdcp_link link;
+ 
+-	enum mod_hdcp_encryption_status encryption_status;
++	enum mod_hdcp_encryption_status encryption_status[
++		AMDGPU_DM_MAX_DISPLAY_INDEX];
+ 	uint8_t max_link;
+ 
+ 	uint8_t *srm;
+-- 
+2.37.2
 
-Thanks
-Leo
-
-On 2022-09-22 14:13, August Wikerfors wrote:
-> Hi Alex,
-> 
-> On 2022-09-22 15:59, Alex Deucher wrote:
->> On Thu, Sep 22, 2022 at 8:54 AM Thorsten Leemhuis
->> <regressions@leemhuis.info> wrote:
->>>
->>> Hi, this is your Linux kernel regression tracker. Top-posting for once,
->>> to make this easily accessible to everyone.
->>>
->>> @amdgpu developers, what up here? August afaics didn't even get a single
->>> reply for his report that even identifies the change that's causing the
->>> problem. We're already late in the development cycle, so it would be
->>> good if someone could take a closer look into this before it's too late
->>> for 6.0.
->>
->> Been a busy week.  Haven't had a chance to look into this yet.  Does
->> the issue still happen with this patch:
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Ftorvalds%2Flinux.git%2Fcommit%2F%3Fid%3D66f99628eb24409cb8feb5061f78283c8b65f820&amp;data=05%7C01%7Csunpeng.li%40amd.com%7Cb3457b7e83df4b2c7d4308da9cc63280%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637994672320000021%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=a0EMjX6L13FaQU0mqxp5vO9vRe0BEDBDJ5emOdCj8gY%3D&amp;reserved=0
-> Yes, the issue still happens with that patch, and also with the current 
-> git master (dc164f4fb00a0abebdfff132f8bc7291a28f5401).
-> 
-> Regards,
-> August Wikerfors
