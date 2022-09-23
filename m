@@ -4,59 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85491ECAAD8
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 13:25:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEBA0ECAAD8
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 13:25:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A500110EA8B;
-	Fri, 23 Sep 2022 13:25:09 +0000 (UTC)
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [IPv6:2607:f8b0:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EAFB10E052;
- Thu, 22 Sep 2022 20:08:39 +0000 (UTC)
-Received: by mail-pf1-x434.google.com with SMTP id u132so10366161pfc.6;
- Thu, 22 Sep 2022 13:08:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D044010EAAA;
+	Fri, 23 Sep 2022 13:25:11 +0000 (UTC)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D796910E325
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Sep 2022 05:28:18 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ f20-20020a9d7b54000000b006574e21f1b6so7629282oto.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 22:28:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=IJN11SETmy+B9JV6I30KOXoXYKi95lkVmtL9b34Ld0M=;
- b=ixo9+NYtTdPVxDr15roMSGrLMpGCDN4OH3NY6zQwJ/ISHY7skrhFWe/fsORH7fdaPp
- AVhohfxmyHnKgqiytysVmwQmTN5iAcedIg+qWpy+o5y5Qi+XneRF0CxcFejOiiHotoXA
- 2yNOowF9hkh6nCCgFB6Bj0lzWMkx+S+/GAl+5L/8AuClAS7UhZ9dbdsOWIkRQFl2TZ5G
- 7EOP7+wOqZ2/tdPT3Dz/W6NjnTU7YkJ528/K/713bjOk91eohXB1nD3iQkEyirq5ryTC
- 3Hb986HO3rVGnb2dYCno/lW1hADbH9yJQxrRPBa64Atpl2WXBSFQPN3yw/GKBrgFV0+b
- 1+tw==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date;
+ bh=6YBiavs8EyW6TBouIq+iMjGF8mAeQEQaSZGm2AdiKPs=;
+ b=CZxccXxMFhsSc3RTh1iIeLkvlDj9MAWPuoQfvYGRYmJrQrN6+7XGqFGXlZvL7KqgsA
+ mc88ZyJrSuLEHmSmmObCKx6EXdXgRk3/ZpbPfaad1XEQ5+BhNjxm0+5eZ3I9uSxG8NUA
+ vwnzO+8LsPkTJ7JFUTNuscq+EReBqindfPAo0UBkuKDCeECOh4CaVYhZfKXZR8xwwbkw
+ 8592xALmke2DxJaEYvc5931ZAu/7u8GBnIaLQK2mEvd2lqDsqpwUnhnwAzLEN36lEUtP
+ IojjDOe69N12yESIegKv4T7bMe5TMT35nc6xngAab/+zb6iLzoHiWrWkIHaKzU3kP1gb
+ 17ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=IJN11SETmy+B9JV6I30KOXoXYKi95lkVmtL9b34Ld0M=;
- b=JgYXsOxJJBbon1TLzfTuM2GSvRGKILd3Uv5LKP29vqZ4bf3UMN5g3K7sIfg8TLZY6U
- 2nndl7kcYjO/kIvxvjuZUYYynFsmVj/pUSabP1ow2IU2/C11TcrLrhfOKCPIk5SGPVIE
- 5DTmT4poT1BosfhWQp9MoPga2cRq+FuKcTWiylMKnncdD9sWRYtZiDslMXVDxt/gNWnx
- 3xah9QjMkY7Z2R6FHo/sd+2AiMNLQ6Qa4xEaFcA76PMKVAtFq/zYXmSZhajrrc1JAo/s
- A+aA5SWa8nayVLxbzVmyt7qFeywjItdEkW1Xvk1VvnTYJRpSsvMZVKOdDxFqqdoni1jM
- yAgQ==
-X-Gm-Message-State: ACrzQf2kdFhxjz8fYMKKLOzE4Wz9cPGRQfk6zojG61+aF1modIOXgb7M
- y5hTWQATetqK27ru9C0A9d5gSns7fjHX1w==
-X-Google-Smtp-Source: AMsMyM65xpLSZzi723yIDdhumvp/E3d7HQ+HQ1pZXctUG3QhPsr4efXDUHl2y4bJE6f4oAaFQl9d0g==
-X-Received: by 2002:a05:6a00:2446:b0:528:5da9:cc7 with SMTP id
- d6-20020a056a00244600b005285da90cc7mr5408473pfj.51.1663877318382; 
- Thu, 22 Sep 2022 13:08:38 -0700 (PDT)
-Received: from localhost.localdomain (lily-optiplex-3070.dynamic.ucsd.edu.
- [2607:f720:1300:3033::1:4dd]) by smtp.googlemail.com with ESMTPSA id
- o64-20020a625a43000000b0053e9d14e51asm4849503pfb.98.2022.09.22.13.08.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Sep 2022 13:08:37 -0700 (PDT)
-From: Li Zhong <floridsleeves@gmail.com>
-To: dri-devel@lists.freedesktop.org,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH v1] drivers/amd/kv_dpm: check the return value of
- amdgpu_kv_smc_bapm_enable
-Date: Thu, 22 Sep 2022 13:06:13 -0700
-Message-Id: <20220922200613.1703624-1-floridsleeves@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=6YBiavs8EyW6TBouIq+iMjGF8mAeQEQaSZGm2AdiKPs=;
+ b=gzXbRpFGbAGETZpb2hYH5i3MjP9I39BhVFYRLTlBocQVg+NUb8RAszC7b4gKRBrdL1
+ ZUCRFlqFKcRZeCdpfqBUlb8h+y2pWDcj1IIQXQORnhsPZqFq8JOfJgEK7XUAyU46r+QC
+ V/ZrhU9777cuZ/SzbRGnf5FRleL4p7EJbY/azmXkoHIJpD2Bs9p6eb6MZSBW9tqGU6aL
+ i/nwXonTtmC5XzsP3Y1o6IqxXyevaCQpZJGHw2HyidQMwss/oNvaz7SMXc22T0tbKZw4
+ KejPq7aavAYOjFqOGMdu1MYlzPZ3PlA0aB9Oq97nSVSjdyF6oxLnxa5CbKX7doqV1VqV
+ 91og==
+X-Gm-Message-State: ACrzQf3PLN9no0sW4hlYSUBJZzPw+11D4V4cDMrS8nsEoSsNyA66bgH6
+ y2ozkKOcewFeMpA1rb6tWmHLkzpn9r2dboV1JrDWG0wu
+X-Google-Smtp-Source: AMsMyM7TK2BfaekC1OT2NPuxh61w9OCVmiz/Cq/gHHtKvgIpA4EZhOzJlfZUmDmt1h8YFhU8Hyn3gBIr5lLXjaf6nso=
+X-Received: by 2002:a9d:76d1:0:b0:655:e46e:3c07 with SMTP id
+ p17-20020a9d76d1000000b00655e46e3c07mr3214241otl.194.1663910897762; Thu, 22
+ Sep 2022 22:28:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20220922230452.3903316-1-ytht.net@gmail.com>
+ <7526e4ba-1022-d921-9138-257c369cc172@amd.com>
+In-Reply-To: <7526e4ba-1022-d921-9138-257c369cc172@amd.com>
+From: lepton <ytht.net@gmail.com>
+Date: Thu, 22 Sep 2022 22:28:06 -0700
+Message-ID: <CALqoU4y-3dWJ-gR8RxUFry9KpT+FMNDfb4WmvEoK5bc56ueUvw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Always align dumb buffer at PAGE_SIZE
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 23 Sep 2022 13:25:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,42 +67,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lijo.lazar@amd.com, airlied@linux.ie, Xinhui.Pan@amd.com,
- Li Zhong <floridsleeves@gmail.com>, daniel@ffwll.ch, alexander.deucher@amd.com,
- evan.quan@amd.com, christian.koenig@amd.com
+Cc: marek.olsak@amd.com, amd-gfx@lists.freedesktop.org, bas@basnieuwenhuizen.nl
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Check the return value of amdgpu_kv_smc_bapm_enable() and log the error
-when it fails.
-
-Signed-off-by: Li Zhong <floridsleeves@gmail.com>
----
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-index 8fd0782a2b20..d392256effe2 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-@@ -1384,13 +1384,16 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
- static void kv_dpm_disable(struct amdgpu_device *adev)
- {
- 	struct kv_power_info *pi = kv_get_pi(adev);
-+	int err;
- 
- 	amdgpu_irq_put(adev, &adev->pm.dpm.thermal.irq,
- 		       AMDGPU_THERMAL_IRQ_LOW_TO_HIGH);
- 	amdgpu_irq_put(adev, &adev->pm.dpm.thermal.irq,
- 		       AMDGPU_THERMAL_IRQ_HIGH_TO_LOW);
- 
--	amdgpu_kv_smc_bapm_enable(adev, false);
-+	err = amdgpu_kv_smc_bapm_enable(adev, false);
-+	if (ret)
-+		DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
- 
- 	if (adev->asic_type == CHIP_MULLINS)
- 		kv_enable_nb_dpm(adev, false);
--- 
-2.25.1
-
+On Thu, Sep 22, 2022 at 10:14 PM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 23.09.22 um 01:04 schrieb Lepton Wu:
+> > Since size has been aligned to PAGE_SIZE already, just align it
+> > to PAGE_SIZE so later the buffer can be used as a texture in mesa
+> > after https://cgit.freedesktop.org/mesa/mesa/commit/?id=3Df7a4051b8
+> > Otherwise, si_texture_create_object will fail at line
+> > "buf->alignment < tex->surface.alignment"
+>
+> I don't think that those Mesa checks are a good idea in the first place.
+>
+> The alignment value is often specified as zero when it doesn't matter
+> because the minimum alignment can never be less than the page size.
+Are you suggesting to change those mesa checks? While that can be
+done, I still think a kernel side "fix" is still
+useful since it doesn't hurt while can fix issues for some versions of mesa=
+.
+>
+> Christian.
+>
+> >
+> > Signed-off-by: Lepton Wu <ytht.net@gmail.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_gem.c
+> > index 8ef31d687ef3b..8dca0c920d3ce 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> > @@ -928,7 +928,7 @@ int amdgpu_mode_dumb_create(struct drm_file *file_p=
+riv,
+> >       args->size =3D ALIGN(args->size, PAGE_SIZE);
+> >       domain =3D amdgpu_bo_get_preferred_domain(adev,
+> >                               amdgpu_display_supported_domains(adev, fl=
+ags));
+> > -     r =3D amdgpu_gem_object_create(adev, args->size, 0, domain, flags=
+,
+> > +     r =3D amdgpu_gem_object_create(adev, args->size, PAGE_SIZE, domai=
+n, flags,
+> >                                    ttm_bo_type_device, NULL, &gobj);
+> >       if (r)
+> >               return -ENOMEM;
+>
