@@ -4,55 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8D46C32771
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 07:33:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E55DC07E9D
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 07:33:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 539BF10E5C9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53E5F10E5CA;
 	Mon, 26 Sep 2022 07:33:44 +0000 (UTC)
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3BEB10E196;
- Sat, 24 Sep 2022 22:21:28 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id sb3so7157519ejb.9;
- Sat, 24 Sep 2022 15:21:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=YCNfMed/pPVYD7J51KG0xapFPT3OMA7Ln3KDUFVm268=;
- b=imGTgCM8dGuV2WIK67Q/oM9q4nye4CU67RDehEiGBgBdaiktWb1dcby4PPmtJ4wKZN
- dmKQehrUyo3Yq8Gk6lA4wu9+FgiAXNXh8zA/SRz2yn/2yGA9ttqgW8d9O5XdyIc/eaqW
- Kbl+fTTj4YhRYZKuFPSRniG/cJ+s7nYJYNdKiAhgV1tt8Zi/KMMG1h7Smw0zMSQJLdFk
- yDgbYUCFJ5sjwmeyVvPO/DPDLYvsO4RUfn3DeqnQ1BZimIrO0GHpfc76O9YAYwfdDdJd
- j+3PMrW/ljPT7B/X67+ivbovsjZLKPHirUiARaGue/z1+i5bm9gC5WNHVwBa9eN1Ci7D
- mHhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=YCNfMed/pPVYD7J51KG0xapFPT3OMA7Ln3KDUFVm268=;
- b=rwjpK7R7cIGqoqzNpqtfvu9lVLiNZGar4Mwrqer54KwnnT0hP0/xBG/Z7K/lFekSkg
- zf7cqFGgtdpxbwRWKIYHD+yXBfXvYn1M+I+GD3Ekl8At2qdR8e/85AnGrQZXNFh1NYQe
- +Y7Y8dLVBFQ8eAOel8+7zjubdG2skev8lpJljaums5WI4QJXGs0vh19GdVoVcJrjxIcM
- rGk+jLWnX6ISpoMPHwblv8zM74azi7Vi463ZXn7MdT8JQ1HwFUGazM5xqB5PMd73/R67
- LDCpIx+1VRQUSMK9+rxGTaCjystI/GQ/E+VfAWFcqOJ2nnNmSdQzMFlRTYPkm+Q2Ajmf
- QoHA==
-X-Gm-Message-State: ACrzQf3jnfUOjUOlLb1ePpU6HmN4MO5brAjrBU7CAYH/4DrZF17YHs1e
- hOY/bzzVMoh+h4i4qKw0iFC+IRtZm/TKrQSC5Bs=
-X-Google-Smtp-Source: AMsMyM66lrmEJVLqH4rkw+tCv3o1v//7NW/wmDVSRWIIbtSICMzRae4iwi37xCkJqI7StQIWEpGLf86tpKMrwUowOkk=
-X-Received: by 2002:a17:907:2d0f:b0:780:2170:e079 with SMTP id
- gs15-20020a1709072d0f00b007802170e079mr13023619ejc.185.1664058087119; Sat, 24
- Sep 2022 15:21:27 -0700 (PDT)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D14E10E295;
+ Sat, 24 Sep 2022 13:02:40 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6F9CDB80D6F;
+ Sat, 24 Sep 2022 13:02:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB5B9C433C1;
+ Sat, 24 Sep 2022 13:02:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1664024557;
+ bh=f9TI+zLW1k/oFp4jM/JMZaUsym4/RFdsc3oPkp8gl1A=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=vITOSzQTGC/YMameL61MhoY34yQPY9hA/15BiGXn3DaQb0P/4ieDqrLxOzgFJD/EC
+ OaJ5R8dLDwURtAdRo2n3a07T27JXSXU6D94vXm+uPBGbELv+Mk6Qeh0ckggaTKWgi3
+ NCAIw6POslOurSMVto1kITZtI4YmGXRMz+l4pFeQ=
+Date: Sat, 24 Sep 2022 15:02:34 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jim Cromie <jim.cromie@gmail.com>
+Subject: Re: [PATCH v7 0/9] dyndbg: drm.debug adaptation
+Message-ID: <Yy7/6oTBW2lqVSK1@kroah.com>
+References: <20220912052852.1123868-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-References: <20220922200613.1703624-1-floridsleeves@gmail.com>
- <900023c1-a02e-25cd-f255-0e43693afe23@amd.com>
-In-Reply-To: <900023c1-a02e-25cd-f255-0e43693afe23@amd.com>
-From: Li Zhong <floridsleeves@gmail.com>
-Date: Sat, 24 Sep 2022 15:21:17 -0700
-Message-ID: <CAMEuxRrNFDqEjQwhjTRbCxxdVVxk1yNhnkWJDjYyxKGMvs3eNg@mail.gmail.com>
-Subject: Re: [PATCH v1] drivers/amd/kv_dpm: check the return value of
- amdgpu_kv_smc_bapm_enable
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220912052852.1123868-1-jim.cromie@gmail.com>
 X-Mailman-Approved-At: Mon, 26 Sep 2022 07:33:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,56 +49,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- evan.quan@amd.com, christian.koenig@amd.com
+Cc: robdclark@gmail.com, daniel.vetter@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, jbaron@akamai.com,
+ seanpaul@chromium.org, dri-devel@lists.freedesktop.org, joe@perches.com,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 22, 2022 at 8:04 PM Lazar, Lijo <lijo.lazar@amd.com> wrote:
->
->
->
-> On 9/23/2022 1:36 AM, Li Zhong wrote:
-> > Check the return value of amdgpu_kv_smc_bapm_enable() and log the error
-> > when it fails.
-> >
-> > Signed-off-by: Li Zhong <floridsleeves@gmail.com>
-> > ---
-> >   drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c | 5 ++++-
-> >   1 file changed, 4 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> > index 8fd0782a2b20..d392256effe2 100644
-> > --- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> > +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> > @@ -1384,13 +1384,16 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
-> >   static void kv_dpm_disable(struct amdgpu_device *adev)
-> >   {
-> >       struct kv_power_info *pi = kv_get_pi(adev);
-> > +     int err;
-> >
-> >       amdgpu_irq_put(adev, &adev->pm.dpm.thermal.irq,
-> >                      AMDGPU_THERMAL_IRQ_LOW_TO_HIGH);
-> >       amdgpu_irq_put(adev, &adev->pm.dpm.thermal.irq,
-> >                      AMDGPU_THERMAL_IRQ_HIGH_TO_LOW);
-> >
-> > -     amdgpu_kv_smc_bapm_enable(adev, false);
-> > +     err = amdgpu_kv_smc_bapm_enable(adev, false);
-> > +     if (ret)
-> > +             DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
->
-> Return code is captured in 'err' and check is for ret' variable.
->
-> BTW, does this code compile?
->
-> Thanks,
-> Lijo
->
-> >
-> >       if (adev->asic_type == CHIP_MULLINS)
-> >               kv_enable_nb_dpm(adev, false);
-> >
+On Sun, Sep 11, 2022 at 11:28:43PM -0600, Jim Cromie wrote:
+> hi Greg, Dan, Jason, DRM-folk,
+> 
+> heres follow-up to V6:
+>   rebased on driver-core/driver-core-next for -v6 applied bits (thanks)
+>   rework drm_debug_enabled{_raw,_instrumented,} per Dan.
+> 
+> It excludes:
+>   nouveau parts (immature)
+>   tracefs parts (I missed --to=Steve on v6)
+>   split _ddebug_site and de-duplicate experiment (way unready)
+> 
+> IOW, its the remaining commits of V6 on which Dan gave his Reviewed-by.
+> 
+> If these are good to apply, I'll rebase and repost the rest separately.
 
-Thanks for your reply. So sorry for submitting the wrong commit. Now it's
-fixed in v2 patch.
+All now queued up, thanks.
+
+greg k-h
