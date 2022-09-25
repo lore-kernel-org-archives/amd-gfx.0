@@ -4,57 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69B28C32771
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 07:33:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AAECC32771
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 07:33:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81FCA10E5BE;
-	Mon, 26 Sep 2022 07:33:41 +0000 (UTC)
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [IPv6:2607:f8b0:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED7E210E146;
- Sat, 24 Sep 2022 22:20:00 +0000 (UTC)
-Received: by mail-pf1-x434.google.com with SMTP id y136so3323042pfb.3;
- Sat, 24 Sep 2022 15:20:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1291B10E5C5;
+	Mon, 26 Sep 2022 07:33:43 +0000 (UTC)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3943E10E2EF;
+ Sun, 25 Sep 2022 23:39:54 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id k10so8345807lfm.4;
+ Sun, 25 Sep 2022 16:39:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=UfxmaX6xS18SKL5CagBELfs0Ts/wzJVZYz5agHw6ueY=;
- b=IHfmwB/VyAFq4bNc5eirmno6HT/0rkT/d4G5Vroz8EZg2S6Oo+NJ86/vMHgDOH2Zv9
- xlS/SxJiF9fMyXmCBB4eM8aJCJzWn/GFB/BFQTt83ZAHy5Qlgm92RYOitUwD1Q2eCxLT
- 1XSMSAbv9Vz124+eMxcJ2hbpEZKkUayPJylVUrRCxYTfIUkHopqOsmUHok4xkFphbeX1
- v+MKSHsnhtEUfipD52DC2WL74Bew65y2xfcU4wMuOPvW/cw/WMRTUNdSn5rNbtS1lYrR
- 8LzwDIv/bx7NvzdS2Rk0V3cfDr5RJNXKYwwkjTTCQEKABiWsfBKGHunny7CjHVdnpK24
- TsjA==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=st3O2pRGPWK1FLJTPBGRuCniY8P/u6abQYJb/fEYuJQ=;
+ b=W3K2NP/a6+oTI8gFEGt5nGGS9enU+0KpjF9MSWpto/y/e8Pqkyk3KdNROeq1VReuw3
+ 4tbDUQNzhEsLSU0JCkjVpzqYzoF9pZhg9SvgEiWunM5yC5N0DLguvjWHMxFYGtncW+mc
+ vOragtuGv5wtfYTpeKmAEjfsXd4V6tTTTzaNGi8+qtE32bmF4JD4wQ6frMIJoh9GGTge
+ RAD/AaBmrSAOC5LqiVErhUkwhGjVz5+qH/Z27UJUyGp+GEOEmwJRfc1RTbiWoQbzjL5M
+ mtmY0fn16PQvkz4jleVY/+noMI6YznIJxGIP6waxvJ+sh1wleUqUblTSTP3nNWAH+jkr
+ pZZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=UfxmaX6xS18SKL5CagBELfs0Ts/wzJVZYz5agHw6ueY=;
- b=H8aOOUE5PALhZtrFLysaxGqHpewyroR4KnwpJlG1eNZUGmD0AODsRuXoe0ncaSaj0t
- KSd6oRxw7M8Bg+U8RVNh8HQymPejJbjZbb8cc+d2YbZv96QgZ869kIWGT8Z/yvd9z1a+
- zyLf6KGxfzNHbJuhulzQYwwTkm2ott5bgq0Wn+2nUL7EZv4r1Gjr85AcRY2xf7rn10hd
- Kz2TroqRVLJIKYccHP4UtW/0Qri5qzIubxLdqja7BrEO98nJMP/1Ga7EEqRdiBTfxig4
- TKOav5fFvuN9wn62Vd/kylxjIOT4Ho3xTEgenn7TkDZETwhUQ5laJXNr8b9dlWxq1ZuB
- wNaw==
-X-Gm-Message-State: ACrzQf1Ytqi+i2MakHUgbwzv2TLozityGQineBRBQDR3fIpRLyBoFzsN
- XslMQzTQJjEZLpEhgqXjFh+8JLYiI24cyg==
-X-Google-Smtp-Source: AMsMyM6fRTViVJAV24Y1aqXPwLsmaZvOex6LL58yU6e78vxShmI4rGx41WdiJ0tcZjtm86yWMIxHvg==
-X-Received: by 2002:a63:1326:0:b0:439:40b5:77cc with SMTP id
- i38-20020a631326000000b0043940b577ccmr13797634pgl.473.1664058000118; 
- Sat, 24 Sep 2022 15:20:00 -0700 (PDT)
-Received: from localhost.localdomain (lily-optiplex-3070.dynamic.ucsd.edu.
- [2607:f720:1300:3033::1:4dd]) by smtp.googlemail.com with ESMTPSA id
- mi7-20020a17090b4b4700b00200b12f2bf5sm14773431pjb.1.2022.09.24.15.19.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 24 Sep 2022 15:19:59 -0700 (PDT)
-From: Li Zhong <floridsleeves@gmail.com>
-To: dri-devel@lists.freedesktop.org,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2] drivers/amd/pm: check the return value of amdgpu_bo_kmap
-Date: Sat, 24 Sep 2022 15:19:39 -0700
-Message-Id: <20220924221939.1736291-1-floridsleeves@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=st3O2pRGPWK1FLJTPBGRuCniY8P/u6abQYJb/fEYuJQ=;
+ b=WwphXFysj+atz4I9xMY5vGxD4BppJEQZcwGMzhwCXK8XtZFxFSifg+J8JccFXfq6Es
+ PKzltgZZIPqxAloQbkQ/HqjSREYSmRpjHmM+DVkdAUU1g2msxn+pbWALn1/BuMjcUM3y
+ lEqJfCRRJ4KFTODfG8uavzIFPNAXcKRQ/0MPlxTFqw0D9T/W+EKVmk0PQqI3f8QgeMzK
+ 7OZNZDwapHbiMASMELJFfkX2bd3p8mJxM6R5wyQIuQ1d0/2VBpYDR/NHjoKa017SNYXi
+ PM0JVUF1/vGAW9s05V1KAThkJ6d3/9U47Vic4kcMJ2mMli6ZuoHLOG7K/tMitqteUACH
+ AMGg==
+X-Gm-Message-State: ACrzQf22dU2VeDc36Nb/rYKAIhXAOOeU8U/a1WGj4gLp26W4fuLcNhhX
+ iKuPlUUnV2OKTEgE8H/ynXQ=
+X-Google-Smtp-Source: AMsMyM5aDKQS2b/KY3xFf9M+RoiDx1qfHHYGi1ptQgxDMi9xIzklVjEJFzIiBqGLPRgxtbvB3OmxiQ==
+X-Received: by 2002:a05:6512:2215:b0:49e:ac45:22e1 with SMTP id
+ h21-20020a056512221500b0049eac4522e1mr8247070lfu.33.1664149192424; 
+ Sun, 25 Sep 2022 16:39:52 -0700 (PDT)
+Received: from [192.168.2.145] (109-252-124-206.nat.spd-mgts.ru.
+ [109.252.124.206]) by smtp.googlemail.com with ESMTPSA id
+ i11-20020ac2522b000000b0048a921664e8sm2351312lfl.37.2022.09.25.16.39.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 25 Sep 2022 16:39:51 -0700 (PDT)
+Message-ID: <f914ceb3-94bd-743c-f8b6-0334086e731a@gmail.com>
+Date: Mon, 26 Sep 2022 02:39:50 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH v5 02/31] drm/i915: Don't register backlight when another
+ backlight should be used (v2)
+Content-Language: en-US
+To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
+ Daniel Dadap <ddadap@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>
+References: <20220825143726.269890-1-hdegoede@redhat.com>
+ <20220825143726.269890-3-hdegoede@redhat.com>
+From: Dmitry Osipenko <digetx@gmail.com>
+In-Reply-To: <20220825143726.269890-3-hdegoede@redhat.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 26 Sep 2022 07:33:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,69 +91,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lijo.lazar@amd.com, airlied@linux.ie, Xinhui.Pan@amd.com,
- Li Zhong <floridsleeves@gmail.com>, daniel@ffwll.ch, alexander.deucher@amd.com,
- evan.quan@amd.com, christian.koenig@amd.com
+Cc: Jani Nikula <jani.nikula@intel.com>, nouveau@lists.freedesktop.org,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
+ Len Brown <lenb@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_bo_kmap() returns error when fails to map buffer object. Add the
-error check and propagate the error.
+25.08.2022 17:36, Hans de Goede пишет:
+> Before this commit when we want userspace to use the acpi_video backlight
+> device we register both the GPU's native backlight device and acpi_video's
+> firmware acpi_video# backlight device. This relies on userspace preferring
+> firmware type backlight devices over native ones.
+> 
+> Registering 2 backlight devices for a single display really is
+> undesirable, don't register the GPU's native backlight device when
+> another backlight device should be used.
+> 
+> Changes in v2:
+> - Use drm_info(drm_dev,  ...) for log messages
+> 
+> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_backlight.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
+> index 681ebcda97ad..03c7966f68d6 100644
+> --- a/drivers/gpu/drm/i915/display/intel_backlight.c
+> +++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+> @@ -8,6 +8,8 @@
+>  #include <linux/pwm.h>
+>  #include <linux/string_helpers.h>
+>  
+> +#include <acpi/video.h>
+> +
+>  #include "intel_backlight.h"
+>  #include "intel_backlight_regs.h"
+>  #include "intel_connector.h"
+> @@ -952,6 +954,11 @@ int intel_backlight_device_register(struct intel_connector *connector)
+>  
+>  	WARN_ON(panel->backlight.max == 0);
+>  
+> +	if (!acpi_video_backlight_use_native()) {
+> +		drm_info(&i915->drm, "Skipping intel_backlight registration\n");
+> +		return 0;
+> +	}
+> +
+>  	memset(&props, 0, sizeof(props));
+>  	props.type = BACKLIGHT_RAW;
+>  
 
-Signed-off-by: Li Zhong <floridsleeves@gmail.com>
----
-
-v2: revise the compile error
-
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c       | 5 ++++-
- drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 5 ++++-
- 2 files changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-index 8fd0782a2b20..f5e08b60f66e 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-@@ -1384,13 +1384,16 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
- static void kv_dpm_disable(struct amdgpu_device *adev)
- {
- 	struct kv_power_info *pi = kv_get_pi(adev);
-+	int err;
- 
- 	amdgpu_irq_put(adev, &adev->pm.dpm.thermal.irq,
- 		       AMDGPU_THERMAL_IRQ_LOW_TO_HIGH);
- 	amdgpu_irq_put(adev, &adev->pm.dpm.thermal.irq,
- 		       AMDGPU_THERMAL_IRQ_HIGH_TO_LOW);
- 
--	amdgpu_kv_smc_bapm_enable(adev, false);
-+	err = amdgpu_kv_smc_bapm_enable(adev, false);
-+	if (err)
-+		DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
- 
- 	if (adev->asic_type == CHIP_MULLINS)
- 		kv_enable_nb_dpm(adev, false);
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index 1eb4e613b27a..ec055858eb95 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -1485,6 +1485,7 @@ static int pp_get_prv_buffer_details(void *handle, void **addr, size_t *size)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 	struct amdgpu_device *adev = hwmgr->adev;
-+	int err;
- 
- 	if (!addr || !size)
- 		return -EINVAL;
-@@ -1492,7 +1493,9 @@ static int pp_get_prv_buffer_details(void *handle, void **addr, size_t *size)
- 	*addr = NULL;
- 	*size = 0;
- 	if (adev->pm.smu_prv_buffer) {
--		amdgpu_bo_kmap(adev->pm.smu_prv_buffer, addr);
-+		err = amdgpu_bo_kmap(adev->pm.smu_prv_buffer, addr);
-+		if (err)
-+			return err;
- 		*size = adev->pm.smu_prv_buffer_size;
- 	}
- 
--- 
-2.25.1
-
+This breaks backlight on Acer Chromebook Spin 713 because backlight
+isn't registered anymore. Any ideas how to fix it?
