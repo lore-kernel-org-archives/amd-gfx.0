@@ -4,60 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00BD5C6FA82
-	for <amd-gfx@archiver.kernel.org>; Sun, 25 Sep 2022 21:53:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B21EC6FA82
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 03:15:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E31AE10E28D;
-	Sun, 25 Sep 2022 21:53:28 +0000 (UTC)
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CC2D10E28D
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Sep 2022 21:53:25 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id w8so8067550lft.12
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Sep 2022 14:53:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qtec.com; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=yQ+lfhRR2bAbJqjtfC3UV79L4Vh7W/BYSyQmB8xGYmg=;
- b=bMotQ7pG4vHGInI6+u0VLMlf0V9e9usU61BPZ889xoX0tpOm31ooV/0wVi57MX7Vlk
- bR3A7hMHxaO2QbqTT9ZIAHArEra3dy1w62OBtC5sx1keKjMkocA9u8LEEN1wohb1qHPM
- xL4M0YETyCroDaNH9KlpF2EalOsgbH8A5GGMQPjbSQbxWptY5LsCTc8BqbpodpVzzP3B
- AbjtvKD0uRCk2/JCz5c2tbA5EeV2rmZPkwaOPfAEG6dram0QqStJC1i3FMTip/AVwuCi
- w2QzSgBp1D3PXw3EUtZAzAFFYoWTyo6rC87QxnHhF7hLw1mEjOMTFt8QgsJPtVkftKmr
- ++Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date;
- bh=yQ+lfhRR2bAbJqjtfC3UV79L4Vh7W/BYSyQmB8xGYmg=;
- b=yOHM8YYX0G6WCZGfJcYpaGIk0CO3tuiqMUegg4Z6B3wATjVai7w8S6NnZwwxzE/69q
- Y58i82ZeOKjDCRtjbfGn4IMMswicBwG+FQVr9cd8PGiW0xatUWqpQBmHsyH6lX9T/826
- ovlX2TsuFpj0zstqeBuAdmuazXTIRfoVn9BRViJ3G4I+fFsOZmsUtGQuPHHSmlG6A+j/
- IT53o4XNAnqEKYH9q3UVJBIxY/je9kTIdzyALYYEuEswDPhi4I/wgkDz9mCu9qwx0eau
- yKiiTbtLXUC737vQBFJpcZrFvdgP3dcdfIQCiUPcGdLX84hTGoGTYFTyAwSZsWrSCD7e
- wbIw==
-X-Gm-Message-State: ACrzQf2Bbsw5M3tbjGNs0z1fcuKa70aCoYVUGAzamDe6EUtBAuipcmOC
- giuEgOEiW8l4F+PZrNStLT++ZA==
-X-Google-Smtp-Source: AMsMyM5UoKpma0p9XuNN0qhnrD7JEoJzExaFNAlsbMCiWoMA3L6/fIcK2g69WM1EsQ5bhB9Gv8lmBg==
-X-Received: by 2002:a05:6512:6c7:b0:49f:5491:3330 with SMTP id
- u7-20020a05651206c700b0049f54913330mr7582623lff.197.1664142803312; 
- Sun, 25 Sep 2022 14:53:23 -0700 (PDT)
-Received: from localhost.localdomain (188-177-43-54-cable.dk.customer.tdc.net.
- [188.177.43.54]) by smtp.gmail.com with ESMTPSA id
- c12-20020ac2530c000000b004a054efd0cdsm1121867lfh.36.2022.09.25.14.53.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Sep 2022 14:53:22 -0700 (PDT)
-From: Daniel Gomez <daniel@qtec.com>
-To: 
-Subject: [PATCH] drm/amd/display: Fix mutex lock in dcn10
-Date: Sun, 25 Sep 2022 23:53:13 +0200
-Message-Id: <20220925215320.644169-1-daniel@qtec.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <b21aa2e6-1b47-cdc1-307c-21fb331d4afb@amd.com>
-References: <b21aa2e6-1b47-cdc1-307c-21fb331d4afb@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8A8D10E1ED;
+	Mon, 26 Sep 2022 03:15:33 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2084.outbound.protection.outlook.com [40.107.223.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5A3610E4E9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Sep 2022 03:15:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=F2732ngQemCOgnBPvhkEzglj/OlFTlArOu4woQwEMhn4hnenKoA+pY+Y1cdpnlwOchnOCOQbSZaynIsUFgP75WNZvsq2g2OncIvXWTtcFiB2DBYTPTx62JMFx1G5SzwSnWUZzYc+wfiCwqcExj7eS45JnqxnfSIwxnafLIv+RhgGj6Z6FY80+jQHHj2zkleD/cezOn5BccNFD1ydPrOVPvh2/sXCRvpSD8wiJ5Buq6kLkbzbVs6XhRzFQ79abxxkvySHnkHm5OTyxiL06pE4tv68CNc9gR12NDgqKtzPcAB5jOTvbCWX+M4kxFv0RUb8AMnEomzkM2mzo83coNMlLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gzpPVGs73bnjWEkjbGROLWxdzREb2Tk472n1PbYc7Cc=;
+ b=WfwiWWnga8ZFj9jKhpqWUhDVWqIUrt9A54DEoGYBfiuHnDz+LIxp3ODTl3fzQYBXnkQXunr3Sc5LMawZd/HBlNulTMp061qfj+A0ysHFg5TdRNTx1rsVgddyn3j5UPzDj2CdcTwJc0IpO4htueiDilX+L4sY9Fp4Qgp1czWjtP0fLJq1K6pJd3/bXu/zgoU3Im5W32H2wdB7omzm14m8o/Wa7cIY4Eehk/jhtyD/i0//6T98R9TDskY7cqHZWV6in1kwWaGNKMqGkJh8JpA6/hFqgb7SzbnWDi2sf+iU81MIm5iZWQSA4LcURXgyTzsyLWJsqc8945WSs2REVAn0dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gzpPVGs73bnjWEkjbGROLWxdzREb2Tk472n1PbYc7Cc=;
+ b=BXPxNQUrcj1V9/pDdNe8kBrPLop/ZP8N4bGJGimYs9hVoIEISC62f88abS1kwYLM4oaKLSK1r8ULVcGnjGMZ8tRrsx4FDWXNesfJO8lrRA0FGAV/VaO2euRcdU4+5IGlnZ23ukUFjcUy5CFkCk5IhfHkNHWc/6Xt2wOSvlcTTWs=
+Received: from BL1PR12MB5334.namprd12.prod.outlook.com (2603:10b6:208:31d::17)
+ by DM6PR12MB4185.namprd12.prod.outlook.com (2603:10b6:5:216::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.25; Mon, 26 Sep
+ 2022 03:15:26 +0000
+Received: from BL1PR12MB5334.namprd12.prod.outlook.com
+ ([fe80::8377:b2e:e686:c85]) by BL1PR12MB5334.namprd12.prod.outlook.com
+ ([fe80::8377:b2e:e686:c85%2]) with mapi id 15.20.5654.025; Mon, 26 Sep 2022
+ 03:15:26 +0000
+From: "Yang, Stanley" <Stanley.Yang@amd.com>
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH 1/4] drm/amdgpu: export umc error address translation
+ interface
+Thread-Topic: [PATCH 1/4] drm/amdgpu: export umc error address translation
+ interface
+Thread-Index: AQHYzy3a9PR+k1AQH0CvfpFtDoOuCa3xC0BQ
+Date: Mon, 26 Sep 2022 03:15:25 +0000
+Message-ID: <BL1PR12MB533452B53F1C09D704ECBA239A529@BL1PR12MB5334.namprd12.prod.outlook.com>
+References: <20220923092112.14141-1-tao.zhou1@amd.com>
+In-Reply-To: <20220923092112.14141-1-tao.zhou1@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-26T03:15:20Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=40607ca5-5af3-4dcd-9893-41cb1e9dba75;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-09-26T03:15:20Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 13c9cbc1-e232-4b10-81e3-654ff0a1ee01
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5334:EE_|DM6PR12MB4185:EE_
+x-ms-office365-filtering-correlation-id: 9bc10696-ce5d-401f-ad35-08da9f6d5b61
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Csx1RIlIFfoEp8hyCTd/TKKAH6ucxcYnuhTogc1QZxmdzT2uZ9PAq2ozn528wFbVXU4mQQRZpJNWBdxrjLXSzjCiPxwNlORnl5+VP0lAFfPliWRNDZlbHiqyFRSYja/kpyBAeBR3inCc6dCxDkiAb+Y2Nippe24tXhM+bJeChuAkULUD1Fs5N+y8ePqJLW5ByHIPwnXhvRkBPLVuyyUkm0K9/eypHoDTiwWS1TaHrnLa+gcAYrHIVh2bH+ighQDK16AckBdGPI7xHjoWf/NUrR9mmWyTzm15UyhLH4KAoSFLcLmQh9s6ng4D1WvYPsXCpocaqFkgQD00VzKuXfe2s+qeMCFGUqaj3S8IQhUhOQrXrbw6sGjD9GS4bcB608BXDYbepoafeRGz9BAdVJeQb++853pNusxBBwefmU98CL0EMt+5VPL7pgQY7644G+KPVmh0VHJlTQFW7GJJDlwBommi/JX3S7c7ZVf+yGPVdWjP7ezvH/xYl3p9HruWsdzn4e1wChg2ttuAFkNjTSpyHYxbHTYOUN1N6g3K1+h0+2CBXgc5kwxQxYnXx8E5/ZoUOFCF9JquAmQte+/1FgOexDcJqGEC6lCZ2y3xCAQjh5+4DC4KM+cNJV54cFCdueNY3NrvUgt+7phHMdDN5sbDb4F/Y0cpg1pLVO9noM9okPqJm6Rcxez3fCXEd06X3pLra+EyEo1N4fT5zx/ieuF52FmDynTevcoyDhskEw3JHRUpG0c6j1EW/6q2v/Mr2+ncrXmh06JK91xOGCDpGb+pIw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5334.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(366004)(39860400002)(346002)(136003)(376002)(451199015)(33656002)(86362001)(2906002)(52536014)(8936002)(38070700005)(66556008)(66476007)(64756008)(76116006)(8676002)(66446008)(38100700002)(316002)(110136005)(66946007)(6636002)(122000001)(71200400001)(9686003)(26005)(5660300002)(83380400001)(186003)(6506007)(41300700001)(478600001)(55016003)(7696005)(53546011);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Yu2a5yhZgIDG4iXIvfEQjAq1CQyMt8MRXGTeApj/u+wtemj7XfMLfAEBe62H?=
+ =?us-ascii?Q?1o2+4oO+8U3j1xH3SYOnPestXNfIrdQXqX5s0SQE48EuHnNkKUmMGbyjloqx?=
+ =?us-ascii?Q?F2zDJGb4y4y7nXW9QWusbElLjvcpsn2HnshD3IgAe44+a0Os5shzxI0kO1rn?=
+ =?us-ascii?Q?G5y6i7VNsQNaioDob9sKaplpG5gvGJG0ca74rkmhr29NrMYmGc3NBIzQGArv?=
+ =?us-ascii?Q?2TtRwlitFI/hyUWwqfvt4vlERh547vXpH0XFbQAtS+bck+McuOfvJ2ODVOTj?=
+ =?us-ascii?Q?bV7nDnq5UV3SnRJxBdfKiFvA8+Kto056V/9xl/b2bj7XS4QEc+OJlI3SDZyQ?=
+ =?us-ascii?Q?+akLG8QGnHXX56gfuIa51SCCsHFQjb8CdLXUvvHbZuSa9yRw8LKVZc3P+RFe?=
+ =?us-ascii?Q?r+KTReKs3JXVPsTdY1OHNc2cUakjq5u4QLQNRFTYueb/RSIdFjhlAZKLNkBd?=
+ =?us-ascii?Q?9WGDVTQZzkhYSaCKonJoW6IcUa65H+GvlSt65lWmsfxF3KgKmiaE829b041C?=
+ =?us-ascii?Q?SCHHpmkVyAzxeMaKJkjHyCKFCOjG1pN92E0dvksvI73cH5RwdQApzdNXubyX?=
+ =?us-ascii?Q?CyhnuR5gMNydsp06gFhOg9E9By9gGgb5EDhxh+PUcG073WdhA0XUtkFZJFMt?=
+ =?us-ascii?Q?NBnxpeTiHsLwUCSozatqeBfjyCGPEGSUWXfrUiWYI5JjagoKAu7ZpUo3M/FX?=
+ =?us-ascii?Q?7LaaahriUUucGjLQJTGnXqGJ5VOIAjef7TqKkGz1oa3+5rKBpd3nNwNc1Now?=
+ =?us-ascii?Q?Tngk/Qk2/A8SSis5w6cLNfKXRJLsTwMg4ubmFchIGT2+upS75+SNgyWajuuc?=
+ =?us-ascii?Q?EKWerSo+JfYR7sPm6XHNLnVPNKtV6zGFUNBpXu7b6iGXdqSV2zN6N55SzQsA?=
+ =?us-ascii?Q?R85+OoGPykfhk22NA8TMauWYCLrtVv5YyfoCJXrcMBc3D77CF7eS7W+R2wxH?=
+ =?us-ascii?Q?ICZLNd3upd2F0losd0eS25sfy5dYI6TWTLKhRelum9s15IY6tdNOD0Negtar?=
+ =?us-ascii?Q?q2iOIXiN5Q/P9afteQKqgHMnGyZe963EcsysDs565FKHUZWqb1luHwDXt9Vo?=
+ =?us-ascii?Q?MPVfQ/orz5sQT7mQlUVatXkFS6IfjIXvMfkwa1mjwTQJj1jeFZmV3AAQq0Kd?=
+ =?us-ascii?Q?VojO7LeUtDRMKpuFMoAMiySI6OHYDUkh1Z254Xa1FmtBWSqEBQetDgfYLPMn?=
+ =?us-ascii?Q?uDk/Lb1DKNPnc2iZ1uBF9AyVNPRBth7SpYp+4ZTXsqZp26OTp+sqWrkOwqve?=
+ =?us-ascii?Q?8xw3cf1eIu95XtS2HrJEq7fQCxf9Xpg8kfSmXPcTekuZV7iqo0X0zFX1HtMY?=
+ =?us-ascii?Q?XaCNGyK7q2nVuC5MnRTSCLDOYPWJX1rJO/lpryDTFv0mL/vvgMTqTy+oF4R4?=
+ =?us-ascii?Q?Zihvo+wrLYnqjPhDiU8pgrpv1X7CUhXpgRYX9dMgx4mUqWOBNqzJ6YUxWaNp?=
+ =?us-ascii?Q?vJz9iuFGbaegEYJEf9Xh/E0bQRq8/Mowexaj1r1xmglmncifMwD7nfep5xRk?=
+ =?us-ascii?Q?/d/JUPOiOPi7cscHrIjK6LN8hP8E/bPgwWJB1hiAgblLfiVRhroiMCTM8c58?=
+ =?us-ascii?Q?KJo9xNFUrZOmzvb3JJQ=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5334.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bc10696-ce5d-401f-ad35-08da9f6d5b61
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Sep 2022 03:15:25.9101 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +R2jmqevS6ISHa+v562OKjdlYBebHD2nrcmeHO90fhpRMANoqUJGBFFRxw2IvOZ9vBo1rKg6B1I6dmsFrQqd3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4185
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,420 +131,107 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Yi-Ling Chen <Yi-Ling.Chen2@amd.com>, Isabella Basso <isabbasso@riseup.net>,
- David Airlie <airlied@gmail.com>, Daniel Gomez <daniel@qtec.com>,
- Anthony Koo <Anthony.Koo@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Ahmad Othman <Ahmad.Othman@amd.com>, amd-gfx@lists.freedesktop.org,
- Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Alan Liu <HaoPing.Liu@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, Duncan Ma <duncan.ma@amd.com>,
- Becle Lee <becle.lee@amd.com>, Melissa Wen <mwen@igalia.com>, dagmcr@gmail.com,
- "Leo \(Hanghong\) Ma" <hanghong.ma@amd.com>,
- Agustin Gutierrez <agustin.gutierrez@amd.com>,
- Sung Joon Kim <Sungjoon.Kim@amd.com>, David Zhang <dingchen.zhang@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Zhan Liu <Zhan.Liu@amd.com>,
- Roman Li <Roman.Li@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Bernard Zhao <bernard@vivo.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Removal of DC_FP_* wrappers from dml (9696679bf7ac) provokes a mutex
-lock [2] on the amdgpu driver. Re-arrange the dcn10 code to avoid
-locking the mutex by placing the DC_FP_* wrappers around the proper
-functions.
+[AMD Official Use Only - General]
 
-This fixes the following WARN/stacktrace:
+Hi Tao,
 
-BUG: sleeping function called from invalid context at kernel/locking/mutex.c:283
-in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 227, name: systemd-udevd
-preempt_count: 1, expected: 0
-CPU: 4 PID: 227 Comm: systemd-udevd Not tainted 6.0.0-rc6-qtec-standard #2
-Hardware name: Qtechnology A/S QT5222/QT5221, BIOS v1.0.1 06/07/2021
-Call Trace:
- <TASK>
- dump_stack_lvl+0x33/0x42
- __might_resched.cold.172+0xa5/0xb3
- mutex_lock+0x1a/0x40
- amdgpu_dpm_get_clock_by_type_with_voltage+0x38/0x70 [amdgpu]
- dm_pp_get_clock_levels_by_type_with_voltage+0x64/0xa0 [amdgpu]
- dcn_bw_update_from_pplib+0x70/0x340 [amdgpu]
- dcn10_create_resource_pool+0x8c8/0xd20 [amdgpu]
- ? __kmalloc+0x1c7/0x4a0
- dc_create_resource_pool+0xe7/0x190 [amdgpu]
- dc_create+0x212/0x5d0 [amdgpu]
- amdgpu_dm_init+0x246/0x370 [amdgpu]
- ? schedule_hrtimeout_range_clock+0x93/0x120
- ? phm_wait_for_register_unequal.part.1+0x4a/0x80 [amdgpu]
- dm_hw_init+0xe/0x20 [amdgpu]
- amdgpu_device_init.cold.56+0x1324/0x1653 [amdgpu]
- ? pci_bus_read_config_word+0x43/0x80
- amdgpu_driver_load_kms+0x15/0x120 [amdgpu]
- amdgpu_pci_probe+0x116/0x320 [amdgpu]
- pci_device_probe+0x97/0x110
- really_probe+0xdd/0x340
- __driver_probe_device+0x80/0x170
- driver_probe_device+0x1f/0x90
- __driver_attach+0xdc/0x180
- ? __device_attach_driver+0x100/0x100
- ? __device_attach_driver+0x100/0x100
- bus_for_each_dev+0x74/0xc0
- bus_add_driver+0x19e/0x210
- ? kset_find_obj+0x30/0xa0
- ? 0xffffffffa0a5b000
- driver_register+0x6b/0xc0
- ? 0xffffffffa0a5b000
- do_one_initcall+0x4a/0x1f0
- ? __vunmap+0x28e/0x2f0
- ? __cond_resched+0x15/0x30
- ? kmem_cache_alloc_trace+0x3d/0x440
- do_init_module+0x4a/0x1e0
- load_module+0x1cba/0x1e10
- ? __do_sys_finit_module+0xb7/0x120
- __do_sys_finit_module+0xb7/0x120
- do_syscall_64+0x3c/0x80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7ff2b5f5422d
-Code: 5d c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48
-89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48>
-3d 01 f0 ff ff 73 01 c3 48 8b 0d c3 ab 0e 00 f7 d8 64 89 01 48
-RSP: 002b:00007ffc44ab28e8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-RAX: ffffffffffffffda RBX: 0000555c566a9240 RCX: 00007ff2b5f5422d
-RDX: 0000000000000000 RSI: 00007ff2b60bb353 RDI: 0000000000000019
-RBP: 00007ff2b60bb353 R08: 0000000000000000 R09: 0000555c566a9240
-R10: 0000000000000019 R11: 0000000000000246 R12: 0000000000000000
-R13: 0000000000020000 R14: 0000000000000000 R15: 0000000000000000
-</TASK>
+> -----Original Message-----
+> From: Zhou1, Tao <Tao.Zhou1@amd.com>
+> Sent: Friday, September 23, 2022 5:21 PM
+> To: amd-gfx@lists.freedesktop.org; Zhang, Hawking
+> <Hawking.Zhang@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>
+> Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
+> Subject: [PATCH 1/4] drm/amdgpu: export umc error address translation
+> interface
+>=20
+> Make it globally so we can convert specific mca address.
+>=20
+> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h |  6 ++++++
+>  drivers/gpu/drm/amd/amdgpu/umc_v6_7.c   | 11 +++++------
+>  2 files changed, 11 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+> index 3629d8f292ef..31fbefaaf676 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+> @@ -22,6 +22,8 @@
+>  #define __AMDGPU_UMC_H__
+>  #include "amdgpu_ras.h"
+>=20
+> +#define UMC_INVALID_ADDR 0x1ULL
+> +
+>  /*
+>   * (addr / 256) * 4096, the higher 26 bits in ErrorAddr
+>   * is the index of 4KB block
+> @@ -51,6 +53,10 @@ struct amdgpu_umc_ras {
+>  	struct amdgpu_ras_block_object ras_block;
+>  	void (*err_cnt_init)(struct amdgpu_device *adev);
+>  	bool (*query_ras_poison_mode)(struct amdgpu_device *adev);
+> +	void (*query_error_address_per_channel)(struct amdgpu_device
+> *adev,
+> +						 struct ras_err_data
+> *err_data,
+> +						 uint32_t umc_reg_offset,
+> uint32_t ch_inst,
+> +						 uint32_t umc_inst, uint64_t
+> mca_addr);
+>  	void (*ecc_info_query_ras_error_count)(struct amdgpu_device
+> *adev,
+>  				      void *ras_error_status);
+>  	void (*ecc_info_query_ras_error_address)(struct amdgpu_device
+> *adev, diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+> b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+> index bf7524f16b66..0f1b215653f3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+> @@ -452,9 +452,8 @@ static void umc_v6_7_query_ras_error_count(struct
+> amdgpu_device *adev,
+>=20
+>  static void umc_v6_7_query_error_address(struct amdgpu_device *adev,
+>  					 struct ras_err_data *err_data,
+> -					 uint32_t umc_reg_offset,
+> -					 uint32_t ch_inst,
+> -					 uint32_t umc_inst)
+> +					 uint32_t umc_reg_offset, uint32_t
+> ch_inst,
+> +					 uint32_t umc_inst, uint64_t
+> mca_addr)
+>  {
+>  	uint32_t mc_umc_status_addr;
+>  	uint32_t channel_index;
+> @@ -540,9 +539,8 @@ static void
+> umc_v6_7_query_ras_error_address(struct amdgpu_device *adev,
+>  							 ch_inst);
+>  		umc_v6_7_query_error_address(adev,
+>  					     err_data,
+> -					     umc_reg_offset,
+> -					     ch_inst,
+> -					     umc_inst);
+> +					     umc_reg_offset, ch_inst,
+> +					     umc_inst, UMC_INVALID_ADDR);
+>  	}
+>  }
+>=20
+> @@ -583,4 +581,5 @@ struct amdgpu_umc_ras umc_v6_7_ras =3D {
+>  	.query_ras_poison_mode =3D umc_v6_7_query_ras_poison_mode,
+>  	.ecc_info_query_ras_error_count =3D
+> umc_v6_7_ecc_info_query_ras_error_count,
+>  	.ecc_info_query_ras_error_address =3D
+> umc_v6_7_ecc_info_query_ras_error_address,
+> +	.query_error_address_per_channel =3D
+> umc_v6_7_query_error_address,
 
-Fixes: 9696679bf7ac ("drm/amd/display: remove DC_FP_* wrapper from
-dml folder")
-Signed-off-by: Daniel Gomez <daniel@qtec.com>
----
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  12 +-
- .../drm/amd/display/dc/dcn10/dcn10_resource.c |  66 +++++++++-
- .../drm/amd/display/dc/dml/calcs/dcn_calcs.c  | 118 ++++++++----------
- .../gpu/drm/amd/display/dc/inc/dcn_calcs.h    |  19 ++-
- 4 files changed, 138 insertions(+), 77 deletions(-)
+Stanley: According to patch#3, it's better to rename query_error_address_pe=
+r_channel to covert/query_error_address_at_specific_channel due to the chan=
+nel_instance and umc_instance get form the mce structure, using per_channel=
+ may cause misunderstanding.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index 5b5d952b2b8c..cb1e06d62841 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -2994,6 +2994,7 @@ void dcn10_prepare_bandwidth(
- {
- 	struct dce_hwseq *hws = dc->hwseq;
- 	struct hubbub *hubbub = dc->res_pool->hubbub;
-+	int min_fclk_khz, min_dcfclk_khz, socclk_khz;
- 
- 	if (dc->debug.sanity_checks)
- 		hws->funcs.verify_allow_pstate_change_high(dc);
-@@ -3016,8 +3017,11 @@ void dcn10_prepare_bandwidth(
- 
- 	if (dc->debug.pplib_wm_report_mode == WM_REPORT_OVERRIDE) {
- 		DC_FP_START();
--		dcn_bw_notify_pplib_of_wm_ranges(dc);
-+		dcn_get_soc_clks(
-+			dc, &min_fclk_khz, &min_dcfclk_khz, &socclk_khz);
- 		DC_FP_END();
-+		dcn_bw_notify_pplib_of_wm_ranges(
-+			dc, min_fclk_khz, min_dcfclk_khz, socclk_khz);
- 	}
- 
- 	if (dc->debug.sanity_checks)
-@@ -3030,6 +3034,7 @@ void dcn10_optimize_bandwidth(
- {
- 	struct dce_hwseq *hws = dc->hwseq;
- 	struct hubbub *hubbub = dc->res_pool->hubbub;
-+	int min_fclk_khz, min_dcfclk_khz, socclk_khz;
- 
- 	if (dc->debug.sanity_checks)
- 		hws->funcs.verify_allow_pstate_change_high(dc);
-@@ -3053,8 +3058,11 @@ void dcn10_optimize_bandwidth(
- 
- 	if (dc->debug.pplib_wm_report_mode == WM_REPORT_OVERRIDE) {
- 		DC_FP_START();
--		dcn_bw_notify_pplib_of_wm_ranges(dc);
-+		dcn_get_soc_clks(
-+			dc, &min_fclk_khz, &min_dcfclk_khz, &socclk_khz);
- 		DC_FP_END();
-+		dcn_bw_notify_pplib_of_wm_ranges(
-+			dc, min_fclk_khz, min_dcfclk_khz, socclk_khz);
- 	}
- 
- 	if (dc->debug.sanity_checks)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-index 174eebbe8b4f..a18a5b56ca7d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-@@ -1336,6 +1336,21 @@ static noinline void dcn10_resource_construct_fp(
- 	}
- }
- 
-+static bool verify_clock_values(struct dm_pp_clock_levels_with_voltage *clks)
-+{
-+	int i;
-+
-+	if (clks->num_levels == 0)
-+		return false;
-+
-+	for (i = 0; i < clks->num_levels; i++)
-+		/* Ensure that the result is sane */
-+		if (clks->data[i].clocks_in_khz == 0)
-+			return false;
-+
-+	return true;
-+}
-+
- static bool dcn10_resource_construct(
- 	uint8_t num_virtual_links,
- 	struct dc *dc,
-@@ -1345,6 +1360,9 @@ static bool dcn10_resource_construct(
- 	int j;
- 	struct dc_context *ctx = dc->ctx;
- 	uint32_t pipe_fuses = read_pipe_fuses(ctx);
-+	struct dm_pp_clock_levels_with_voltage fclks = {0}, dcfclks = {0};
-+	int min_fclk_khz, min_dcfclk_khz, socclk_khz;
-+	bool res;
- 
- 	ctx->dc_bios->regs = &bios_regs;
- 
-@@ -1505,15 +1523,53 @@ static bool dcn10_resource_construct(
- 			&& pool->base.pp_smu->rv_funcs.set_pme_wa_enable != NULL)
- 		dc->debug.az_endpoint_mute_only = false;
- 
--	DC_FP_START();
--	if (!dc->debug.disable_pplib_clock_request)
--		dcn_bw_update_from_pplib(dc);
-+
-+	if (!dc->debug.disable_pplib_clock_request) {
-+		/*
-+		 * TODO: This is not the proper way to obtain
-+		 * fabric_and_dram_bandwidth, should be min(fclk, memclk).
-+		 */
-+		res = dm_pp_get_clock_levels_by_type_with_voltage(
-+				ctx, DM_PP_CLOCK_TYPE_FCLK, &fclks);
-+
-+		DC_FP_START();
-+
-+		if (res)
-+			res = verify_clock_values(&fclks);
-+
-+		if (res)
-+			dcn_bw_update_from_pplib_fclks(dc, &fclks);
-+		else
-+			BREAK_TO_DEBUGGER();
-+
-+		DC_FP_END();
-+
-+		res = dm_pp_get_clock_levels_by_type_with_voltage(
-+			ctx, DM_PP_CLOCK_TYPE_DCFCLK, &dcfclks);
-+
-+		DC_FP_START();
-+
-+		if (res)
-+			res = verify_clock_values(&dcfclks);
-+
-+		if (res)
-+			dcn_bw_update_from_pplib_dcfclks(dc, &dcfclks);
-+		else
-+			BREAK_TO_DEBUGGER();
-+
-+		DC_FP_END();
-+	}
-+
- 	dcn_bw_sync_calcs_and_dml(dc);
- 	if (!dc->debug.disable_pplib_wm_range) {
- 		dc->res_pool = &pool->base;
--		dcn_bw_notify_pplib_of_wm_ranges(dc);
-+		DC_FP_START();
-+		dcn_get_soc_clks(
-+			dc, &min_fclk_khz, &min_dcfclk_khz, &socclk_khz);
-+		DC_FP_END();
-+		dcn_bw_notify_pplib_of_wm_ranges(
-+			dc, min_fclk_khz, min_dcfclk_khz, socclk_khz);
- 	}
--	DC_FP_END();
- 
- 	{
- 		struct irq_service_init_data init_data;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-index db3b16b77034..7d3394470352 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-@@ -1464,81 +1464,67 @@ unsigned int dcn_find_dcfclk_suits_all(
- 	return dcf_clk;
- }
- 
--static bool verify_clock_values(struct dm_pp_clock_levels_with_voltage *clks)
-+void dcn_bw_update_from_pplib_fclks(
-+	struct dc *dc,
-+	struct dm_pp_clock_levels_with_voltage *fclks)
- {
--	int i;
--
--	if (clks->num_levels == 0)
--		return false;
--
--	for (i = 0; i < clks->num_levels; i++)
--		/* Ensure that the result is sane */
--		if (clks->data[i].clocks_in_khz == 0)
--			return false;
-+	unsigned vmin0p65_idx, vmid0p72_idx, vnom0p8_idx, vmax0p9_idx;
- 
--	return true;
-+	ASSERT(fclks->num_levels);
-+
-+	vmin0p65_idx = 0;
-+	vmid0p72_idx = fclks->num_levels -
-+		(fclks->num_levels > 2 ? 3 : (fclks->num_levels > 1 ? 2 : 1));
-+	vnom0p8_idx = fclks->num_levels - (fclks->num_levels > 1 ? 2 : 1);
-+	vmax0p9_idx = fclks->num_levels - 1;
-+
-+	dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 =
-+		32 * (fclks->data[vmin0p65_idx].clocks_in_khz / 1000.0) / 1000.0;
-+	dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72 =
-+		dc->dcn_soc->number_of_channels *
-+		(fclks->data[vmid0p72_idx].clocks_in_khz / 1000.0)
-+		* ddr4_dram_factor_single_Channel / 1000.0;
-+	dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8 =
-+		dc->dcn_soc->number_of_channels *
-+		(fclks->data[vnom0p8_idx].clocks_in_khz / 1000.0)
-+		* ddr4_dram_factor_single_Channel / 1000.0;
-+	dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 =
-+		dc->dcn_soc->number_of_channels *
-+		(fclks->data[vmax0p9_idx].clocks_in_khz / 1000.0)
-+		* ddr4_dram_factor_single_Channel / 1000.0;
- }
- 
--void dcn_bw_update_from_pplib(struct dc *dc)
-+void dcn_bw_update_from_pplib_dcfclks(
-+	struct dc *dc,
-+	struct dm_pp_clock_levels_with_voltage *dcfclks)
- {
--	struct dc_context *ctx = dc->ctx;
--	struct dm_pp_clock_levels_with_voltage fclks = {0}, dcfclks = {0};
--	bool res;
--	unsigned vmin0p65_idx, vmid0p72_idx, vnom0p8_idx, vmax0p9_idx;
--
--	/* TODO: This is not the proper way to obtain fabric_and_dram_bandwidth, should be min(fclk, memclk) */
--	res = dm_pp_get_clock_levels_by_type_with_voltage(
--			ctx, DM_PP_CLOCK_TYPE_FCLK, &fclks);
--
--	if (res)
--		res = verify_clock_values(&fclks);
--
--	if (res) {
--		ASSERT(fclks.num_levels);
--
--		vmin0p65_idx = 0;
--		vmid0p72_idx = fclks.num_levels -
--			(fclks.num_levels > 2 ? 3 : (fclks.num_levels > 1 ? 2 : 1));
--		vnom0p8_idx = fclks.num_levels - (fclks.num_levels > 1 ? 2 : 1);
--		vmax0p9_idx = fclks.num_levels - 1;
--
--		dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 =
--			32 * (fclks.data[vmin0p65_idx].clocks_in_khz / 1000.0) / 1000.0;
--		dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72 =
--			dc->dcn_soc->number_of_channels *
--			(fclks.data[vmid0p72_idx].clocks_in_khz / 1000.0)
--			* ddr4_dram_factor_single_Channel / 1000.0;
--		dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8 =
--			dc->dcn_soc->number_of_channels *
--			(fclks.data[vnom0p8_idx].clocks_in_khz / 1000.0)
--			* ddr4_dram_factor_single_Channel / 1000.0;
--		dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 =
--			dc->dcn_soc->number_of_channels *
--			(fclks.data[vmax0p9_idx].clocks_in_khz / 1000.0)
--			* ddr4_dram_factor_single_Channel / 1000.0;
--	} else
--		BREAK_TO_DEBUGGER();
--
--	res = dm_pp_get_clock_levels_by_type_with_voltage(
--			ctx, DM_PP_CLOCK_TYPE_DCFCLK, &dcfclks);
--
--	if (res)
--		res = verify_clock_values(&dcfclks);
-+	if (dcfclks->num_levels >= 3) {
-+		dc->dcn_soc->dcfclkv_min0p65 = dcfclks->data[0].clocks_in_khz / 1000.0;
-+		dc->dcn_soc->dcfclkv_mid0p72 = dcfclks->data[dcfclks->num_levels - 3].clocks_in_khz / 1000.0;
-+		dc->dcn_soc->dcfclkv_nom0p8 = dcfclks->data[dcfclks->num_levels - 2].clocks_in_khz / 1000.0;
-+		dc->dcn_soc->dcfclkv_max0p9 = dcfclks->data[dcfclks->num_levels - 1].clocks_in_khz / 1000.0;
-+	}
-+}
- 
--	if (res && dcfclks.num_levels >= 3) {
--		dc->dcn_soc->dcfclkv_min0p65 = dcfclks.data[0].clocks_in_khz / 1000.0;
--		dc->dcn_soc->dcfclkv_mid0p72 = dcfclks.data[dcfclks.num_levels - 3].clocks_in_khz / 1000.0;
--		dc->dcn_soc->dcfclkv_nom0p8 = dcfclks.data[dcfclks.num_levels - 2].clocks_in_khz / 1000.0;
--		dc->dcn_soc->dcfclkv_max0p9 = dcfclks.data[dcfclks.num_levels - 1].clocks_in_khz / 1000.0;
--	} else
--		BREAK_TO_DEBUGGER();
-+void dcn_get_soc_clks(
-+	struct dc *dc,
-+	int *min_fclk_khz,
-+	int *min_dcfclk_khz,
-+	int *socclk_khz)
-+{
-+	*min_fclk_khz = dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 * 1000000 / 32;
-+	*min_dcfclk_khz = dc->dcn_soc->dcfclkv_min0p65 * 1000;
-+	*socclk_khz = dc->dcn_soc->socclk * 1000;
- }
- 
--void dcn_bw_notify_pplib_of_wm_ranges(struct dc *dc)
-+void dcn_bw_notify_pplib_of_wm_ranges(
-+	struct dc *dc,
-+	int min_fclk_khz,
-+	int min_dcfclk_khz,
-+	int socclk_khz)
- {
- 	struct pp_smu_funcs_rv *pp = NULL;
- 	struct pp_smu_wm_range_sets ranges = {0};
--	int min_fclk_khz, min_dcfclk_khz, socclk_khz;
- 	const int overdrive = 5000000; /* 5 GHz to cover Overdrive */
- 
- 	if (dc->res_pool->pp_smu)
-@@ -1546,10 +1532,6 @@ void dcn_bw_notify_pplib_of_wm_ranges(struct dc *dc)
- 	if (!pp || !pp->set_wm_ranges)
- 		return;
- 
--	min_fclk_khz = dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 * 1000000 / 32;
--	min_dcfclk_khz = dc->dcn_soc->dcfclkv_min0p65 * 1000;
--	socclk_khz = dc->dcn_soc->socclk * 1000;
--
- 	/* Now notify PPLib/SMU about which Watermarks sets they should select
- 	 * depending on DPM state they are in. And update BW MGR GFX Engine and
- 	 * Memory clock member variables for Watermarks calculations for each
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h b/drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h
-index 806f3041db14..9e4ddc985240 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h
-@@ -628,8 +628,23 @@ unsigned int dcn_find_dcfclk_suits_all(
- 	const struct dc *dc,
- 	struct dc_clocks *clocks);
- 
--void dcn_bw_update_from_pplib(struct dc *dc);
--void dcn_bw_notify_pplib_of_wm_ranges(struct dc *dc);
-+void dcn_get_soc_clks(
-+		struct dc *dc,
-+		int *min_fclk_khz,
-+		int *min_dcfclk_khz,
-+		int *socclk_khz);
-+
-+void dcn_bw_update_from_pplib_fclks(
-+		struct dc *dc,
-+		struct dm_pp_clock_levels_with_voltage *fclks);
-+void dcn_bw_update_from_pplib_dcfclks(
-+		struct dc *dc,
-+		struct dm_pp_clock_levels_with_voltage *dcfclks);
-+void dcn_bw_notify_pplib_of_wm_ranges(
-+		struct dc *dc,
-+		int min_fclk_khz,
-+		int min_dcfclk_khz,
-+		int socclk_khz);
- void dcn_bw_sync_calcs_and_dml(struct dc *dc);
- 
- enum source_macro_tile_size swizzle_mode_to_macro_tile_size(enum swizzle_mode_values sw_mode);
--- 
-2.35.1
-
+>  };
+> --
+> 2.35.1
