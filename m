@@ -4,120 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86850C6FA8E
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 15:43:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F090CC32771
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 19:41:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4D7F10E6E8;
-	Mon, 26 Sep 2022 15:43:26 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2089.outbound.protection.outlook.com [40.107.220.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AD7510E6E8
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Sep 2022 15:43:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C76A10E4F6;
+	Mon, 26 Sep 2022 19:41:21 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2076.outbound.protection.outlook.com [40.107.101.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 169DE10E4F6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Sep 2022 19:41:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dJIx2M8NqMBfwE+HVZSkRuQt629nOnMXXDZrzRzcQWrvUnqymPdIXHeikPuYZHpEcUxZ3Eb5/16b8li+Rg02kqx5ekJeGTcIguqco8V+4tblOrIMwPQ520VPzqnhY3AFGFXkVlXeeaD14blhTZ4k8GtDcdfRluZPhBYaImqno9+JZEh0Pf6X5bNU+iGdVMdc6lYDgq+tk1Jo+Z1i6szv1etMKFa6js7grMi7rx8Eu8sHw6YZbXBnFDEk7hD4zW05+yVk7L1h9tV7PcjVF/n34aePfFPXknPG7jar40qiLkae3vP2Jgl6WU3uSxLOO++ypcOi/YjRLWv2n3btS1UnOQ==
+ b=JlbKZcMR1e7CxjXoZED1I2I6AL+rSj0Y+Am9KVvREICFLvxBlFgppNaYA2k8T+cuKFpNf97Q53TkulZVacpuGiPQ58Tmfjs6nbkM69zYnFu3hiabyTTdhTDcmtZ6OGGsPmobVKlQWAG9TDs+STeR8hNIcwQgy+jBq2aJ8NvolMY6sLvwIA4b2IeP+DiZuanR7wgHn2tkURa87AUUcZI9fp4KwRIsKHmtYveYnTtKRLCp1NFwuO28ps2bLfO2gF+tInSnCE9oPyC73RE8VerFKsRvN125KAayqbjHyz2xnZDTTwa3QyBujEmbkU9UO6fBCTSh1HyMpIKK4b/dK4srhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MuiDnIlvKc+qLpTRRwyDs7oF7nW0/6VQeolrrHqhBMw=;
- b=Zn29zqbcLfkpzJ8FyRab4pb/tg2RxD0tr5oNNVowVB16dqo+ST7wt2q8p/y40d5y5PffAKQk6odBxyBqpG/Qv3pGTFErhb82Z6I9G9QE4VZc0qjWXgU4la2DMmVophIs+K396zWkvWRehispwnbzb/6vgJPuhsXge4C7FOC53vF/FQTnkpR9o8DTUlktlE3jooVB0O7S2PJzbZDE81NzALn0uJeduHU4K6h3JM9/OOIALKv04aYkCDDOtaNkd+N19c618MERjhFEQiFFHRx/qNb7qs4lFZqjBwNsHa+50mNtg5W9vPNUkRvi4oNZgdjh7WOxCCfeBBRoxc6Gz2njUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=d3IsPkWQu79qCyP4CxJ9qobrkecQNHfLD5BPe2gA744=;
+ b=nXu5H3br2zoz+hVIDXFMZMeVZB2N3cPxygozpxqlZaV0QZsqrx3gmROrB4s+wCVLxJHVTkSJ/8JD6nvCMuZ8OOQroWtbftCizyw8rnjAtiTnZBBypcAM9g6XuK9ptLjsoELlvkYsIgahQGuZA+Vpkc9U+fQzlt0d7LOuHH2I7WjregeYXkBBocLE1cDFEISqcr09nj7NxCXwyPzuUubJ45e8Df6D4mZsGeUAoORXtE8ZCvydmhufQmF4EjL4veEEjT5t/r57hPMFctg+2IrADAfXNOybh6bptL8YJ1x+Ue/ezeisRHDrr7oEtZrV8qIZrUksD17DsvmcO51KkFGGVQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MuiDnIlvKc+qLpTRRwyDs7oF7nW0/6VQeolrrHqhBMw=;
- b=PoHSz3BED8f0UmO8/uRBgdTsQvlIrqfisTa4c/uGDI4nEMgdBDyNXz9R/72s/lcMyThqJHUUXYcdxG+3VRw0ex6nOFxw2FOyQdK5xm51DpZFItn3CcO2BjN63a1xdIP1Gftz03l6qA821Pqj+7XBj2bJlLcM7W0fpOb9LlIyxxQ=
-Received: from DM6PR12MB3067.namprd12.prod.outlook.com (2603:10b6:5:115::10)
- by MN2PR12MB4406.namprd12.prod.outlook.com (2603:10b6:208:268::23) with
+ bh=d3IsPkWQu79qCyP4CxJ9qobrkecQNHfLD5BPe2gA744=;
+ b=RIagCLjIZfB4gmAVK5vso2ZN4AD66DtJ853ORhJDLUlmyXPWxPtI575A487KcNKozny8S0QaH8v3jy9VFwQJzqLSRw3083Vp6uxvlqal5AvwUhiu3Yjz2z2eb/DHNmIPXKg6cNSdH+VmmuB0HUQyoc4FgzizqC824k61ePY8edk=
+Received: from DS7P222CA0005.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::17) by
+ MW4PR12MB6899.namprd12.prod.outlook.com (2603:10b6:303:208::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.25; Mon, 26 Sep
- 2022 15:43:20 +0000
-Received: from DM6PR12MB3067.namprd12.prod.outlook.com
- ([fe80::3c76:8e77:b067:49ea]) by DM6PR12MB3067.namprd12.prod.outlook.com
- ([fe80::3c76:8e77:b067:49ea%5]) with mapi id 15.20.5654.022; Mon, 26 Sep 2022
- 15:43:20 +0000
-From: "Sider, Graham" <Graham.Sider@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdkfd: Fix UBSAN shift-out-of-bounds warning
-Thread-Topic: [PATCH] drm/amdkfd: Fix UBSAN shift-out-of-bounds warning
-Thread-Index: AQHYzgnAt2RnlLvVA0yI3Yvap/Ofva3x10+w
-Date: Mon, 26 Sep 2022 15:43:20 +0000
-Message-ID: <DM6PR12MB3067F40CBF77101101E524B68A529@DM6PR12MB3067.namprd12.prod.outlook.com>
-References: <20220921222951.677177-1-Felix.Kuehling@amd.com>
-In-Reply-To: <20220921222951.677177-1-Felix.Kuehling@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-26T15:43:17Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=9bb61515-48e3-42d7-bba5-deab060458d2;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-09-26T15:43:18Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 29128c50-91d1-457f-8c6e-e74cfc27ce52
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB3067:EE_|MN2PR12MB4406:EE_
-x-ms-office365-filtering-correlation-id: 9d4a9ecb-e26c-4085-630f-08da9fd5d699
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: p5qw+tD7k3bFIDwDn1QNdRGIKJ0/fJAii/Nip0qRYeXBvazoNv6gKWUni70fApQAZsr/4LlZs9+lOiMcr4lHPmqE1YHXN6RICuRPUlBjUmpzVx6VwNDOklD3H//vIxFktbWDtMpvkXK0WsFsiFAQTOzvjHq/6Q9NNGCi6Alz8zfrj5NYhqZ9GAYuxwDd1n3xdKSbYHaan6kqz3QAbA4SSGvEtBEIgmdkG1WbAfFd2mB9TDQZ/uY6x0/n8gNpZoUVwRPvZaW9uIPO23LUCigDuC4k78pDPE/v+vdI4TQixC8Si7H93zxImQ31ToRzbGqSBr+1oa+bKZ/UM/Fmyj2Om9t5Sdg772a8yR+so7Eok17IwzKMZaF3AKuMjqMH+7bA9Y/iCqR78L2bhQS8UQm1OlvnIUv9jpYGvpw7SXa7kvciLzqiwqqE1Sg/iA5jHlR96VOYwKvxzw7MKnpUPUpjoIxb+wl7JVXdbORH9fCeXKSzXWCZ/TlhACgilRIGUAOvU3IdDsAX1Vds59w9TOgpcAjo25+4JR0il1m+CzBNBZE9f6/vX0hEkxk7B3lBjQ68lNygjGmFmnwYkBibN8TJrqF8+8I2PZgUeKQ5nPZlfM6+8HULAnXLoyyP9vIF8LknyMgm6kNzSDa2eD/N9efu8Cid8XYVNjaitH+mUyZP1/6MuhyuTVi4taDt5KKr1mG+N4qtnTK9M0PjfVOEa59AvZDxctj0yN/GqJYwCpwJj05l6qmRz0+ql/7y7Ukbp6mW8K4UjHFbgA3dTPQfDiCh7Q==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3067.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(396003)(376002)(136003)(39860400002)(346002)(451199015)(26005)(52536014)(6506007)(7696005)(8936002)(5660300002)(41300700001)(53546011)(33656002)(83380400001)(9686003)(122000001)(186003)(38070700005)(2906002)(55016003)(38100700002)(110136005)(316002)(71200400001)(4326008)(8676002)(76116006)(66446008)(66946007)(66556008)(64756008)(66476007)(478600001)(86362001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Y2OVKPrQmC0gGj2CMaXBUJQwvwngNVszRdj+FUPUjZDzDaNwP5ONtN9EWRYk?=
- =?us-ascii?Q?4JawrT6cYw0ZXkt5kc71XTy6vbPRk8APMJXccrtmbX0hmnebV64hT7pejXmt?=
- =?us-ascii?Q?H089QvIlnWTofiXjcYMnJem0wT54piscPK9OEQ0s5UAOIBd5/OMEV0s06A+D?=
- =?us-ascii?Q?6pV+UvxkLLoa1wQBvuL/7ggXYwguet2EpKcRGcaSuYc/a+uzix4LVwcdj0Bf?=
- =?us-ascii?Q?EJPzxaHlx78zI4yv25EG+enMcrW8GCN9pvzsxC0MH6HXq17WZEhh1FhC2sU3?=
- =?us-ascii?Q?jDjhrWIEEWAr2U/COcaUzd8Un19wxd9Pv400cjVQbpaoZo8+OnDv4Pb4Q8ja?=
- =?us-ascii?Q?SK2HEEI25yvGRz1ZVT5PzLhhVSG786uOGyk2cuwYkBQG/2E7u2ZOBJW3m4a2?=
- =?us-ascii?Q?yAx3h/99pJ0j36YfFBVm1rRA38+I0X6C40KpVhSbPfoOqWSxWh+zs5BpwccE?=
- =?us-ascii?Q?j4r3wRARjjqln/ioQfnXpco3oEJBGkqRxYXK89zqFR9pa9XhsQ1AFUYjh2bd?=
- =?us-ascii?Q?kPQyXZAQQIAtA3nQroe9UkaKC02/RvU/0HkrrizZLQO2Wbuhm1gOLAgriVKs?=
- =?us-ascii?Q?yL+8ylz157ROGPwmSYnHkKvkqteA80hlcQ/zR/7Bloh/IjsXUH4q5ppLm49X?=
- =?us-ascii?Q?QxEh6XU81bglZctH5dotTB+7aUbucFvoOphHqVkJ7+TB7yHJFcgjwYA10XfA?=
- =?us-ascii?Q?XbI8/FBju8+6uNL6D0r4s8BpHpiUj6C0QltWchYijZTS6CSEswhkIytGJ2Ik?=
- =?us-ascii?Q?W1apo3OUSPef8V8Ttl9+Q3WI+wNRAra4IXfaPPbltUyeTvwBRrT/FQpIJcR2?=
- =?us-ascii?Q?/6R7T1CoXCSDLqchIEZAtR+skLuq2okB8YPYBQanmd5BSp3enk3haGaAUD/+?=
- =?us-ascii?Q?Mw+oxajFetf6r/iXl4ywTBU91VsdtBl+vt+IqXSTXeh5jQgO5SW0Te9ykRBv?=
- =?us-ascii?Q?PXzIrAbvPhy1eEF+GI1ClWTy/yivY3wTcC70e0Jkj/2BLQnszwdUtRp/hZ/U?=
- =?us-ascii?Q?l0zMMgHVRHL0yYj7hz4WTo9xqxlxN2hDcO54++Yr5NL/JRvN1LXgYjLhlVhj?=
- =?us-ascii?Q?XLkxyqg3Bk9XMTMniUhj1jpg31WHSa3ubnr5gOEvk+AMaAuw5JXg15iqCBYz?=
- =?us-ascii?Q?BCU/cr9cbQHh//obaDhezpF5BCrfj7+3+3NqCNY8T/mJA0RP3/AEuw07Hb1V?=
- =?us-ascii?Q?kn4aJnqA9debIGwZg/jfR3d90u556H1Ll05vExpfhKHsS/OFxAKNz8QMkB5/?=
- =?us-ascii?Q?IzmNOg97Yf1wsUZTE6RMR/gqSGTe0ogm1B821E9K0JljFyir96yfzVmdPgSC?=
- =?us-ascii?Q?Iihiya1NmQN2I4eabPAKl4DeqADaaMC8ps+s5wBpBwIHE0KOPtvq3cAy9QMO?=
- =?us-ascii?Q?/xeHZYGxFAhky+d3nxrp9F2OwmsgF5FWhF6qOmNL2Dlg+3QEPrAlCKUWzI+6?=
- =?us-ascii?Q?mx+pf6YP2yMDEA9iap3pqr0mdpWMoA0vtcACWD6vUngl65pc2Mm1cE9Ggcc2?=
- =?us-ascii?Q?ePzE7vMOk+AkX3vJPJ2WokSQOEWZmCMrOmcJ6WnHOG3qKXBwUSVKfwZ4TOol?=
- =?us-ascii?Q?d8nJ8G7idfuOyDSmvyE=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2022 19:41:17 +0000
+Received: from DM6NAM11FT104.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2e:cafe::18) by DS7P222CA0005.outlook.office365.com
+ (2603:10b6:8:2e::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.16 via Frontend
+ Transport; Mon, 26 Sep 2022 19:41:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT104.mail.protection.outlook.com (10.13.173.232) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5654.14 via Frontend Transport; Mon, 26 Sep 2022 19:41:17 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 26 Sep
+ 2022 14:41:15 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v3 1/1] drm/amdkfd: Track unified memory when switching xnack
+ mode
+Date: Mon, 26 Sep 2022 15:40:24 -0400
+Message-ID: <20220926194024.31643-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT104:EE_|MW4PR12MB6899:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94d1fc6d-a0b1-4540-02ca-08da9ff7146a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: AMo1JfMFZDnUgc0jOHjYc8uSKU7B/lUs/jCH4/D5LcdmpQZgZC58RzyNJQAyZcLGf3iyr+Nt/mz9liNIUyaO9zdEcLxMqu3dXTezI018DjaBip/reQZIqx6prW6FyECmWYgX0wHVwMPQkzPrFIEtz76R6FUaUjKlJ0pEsKMqZsinSurV6zoedCTsY7eWG90dPdllwNOckp+wyc1Xn2NKGFAyrDXu2Z070fgk65iCCkZlOhsdamglyveVYPMsJvAiCtEAIJCai0vNbwOsGTz2AbeCcZy/7NAXXabfxOVFT2a7kkBXXKrgWBE0QGU4xla+NlTVfFjmVlj2aS+enu0qE89lKUlneFdZNTQv+97dt1khS/dn1HwKM14mqpmhV+jVdcuczLcmVpaGiCAChO69vkeZfREK7fFjV/CA5fHLbZNJMuckDl7dmK6KwBZfUi0T7VgiIDRPqJkVRgq39TP/ixxNrs2P4SvoXw1wvbazmsIf/7fyY9ydDdpeotH9ugelt7mWWBQ+pujnYqrbMAySpVce+sqYxIYIj3QRNuKqT0Ia8DzjWDk3/giwrAPddGRjRn/O4xH9biTJzd1vq90X4p7B04RBJHprReR5jFQgtZzcuGBs4eduo6RvU9f0uWFmz/MzcqOlPePFz0YfWqkBeRgRcGB/vTotmw0jvDK9X+JvJQCqy7U1SuKZXyDu+hV2HkppGGV3TeCf8SRqdxMIWaUeha3LC2itPCoq9zzFoDQ1baxAYKhxgh2qEihDBIgsf4NkU5DKx4xkQXkbb+mlKeVymimTVZTu/cJemg3I4lY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(396003)(376002)(136003)(39860400002)(451199015)(36840700001)(46966006)(40470700004)(82310400005)(40460700003)(36756003)(40480700001)(83380400001)(426003)(1076003)(186003)(336012)(2616005)(16526019)(47076005)(356005)(81166007)(82740400003)(36860700001)(70206006)(70586007)(4326008)(8676002)(86362001)(316002)(6916009)(2906002)(5660300002)(41300700001)(478600001)(7696005)(26005)(6666004)(8936002)(54906003)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3067.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d4a9ecb-e26c-4085-630f-08da9fd5d699
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Sep 2022 15:43:20.3261 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QEwA5MaT+hA601BtBu8kxI/dDBxp8sqe1o+tIrUeroeJZGEaTO5Vz98HMFGTq6Bay2PESnuFHCPGFFOVWv6sdQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4406
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 19:41:17.3639 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94d1fc6d-a0b1-4540-02ca-08da9ff7146a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT104.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6899
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,133 +98,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ellis Michael <ellis@ellismichael.com>
+Cc: Philip Yang <Philip.Yang@amd.com>, felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Unified memory usage with xnack off is tracked to avoid oversubscribe
+system memory. When switching xnack mode from off to on, subsequent
+free ranges allocated with xnack off will not unreserve memory when
+xnack is on, cause memory accounting unbalanced.
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Felix
-> Kuehling
-> Sent: Wednesday, September 21, 2022 6:30 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Ellis Michael <ellis@ellismichael.com>
-> Subject: [PATCH] drm/amdkfd: Fix UBSAN shift-out-of-bounds warning
->=20
-> Caution: This message originated from an External Source. Use proper
-> caution when opening attachments, clicking links, or responding.
->=20
->=20
-> This was fixed in initialize_cpsch before, but not in initialize_nocpsch.
-> Factor sdma bitmap initialization into a helper function to apply the cor=
-rect
-> implementation in both cases without duplicating it.
->=20
-> Reported-by: Ellis Michael <ellis@ellismichael.com>
-> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> ---
->  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 41 ++++++++----------
-> -
->  1 file changed, 17 insertions(+), 24 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index e83725a28106..f88ec6a11ad2 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -1240,6 +1240,20 @@ static void init_interrupts(struct
-> device_queue_manager *dqm)
->                         dqm->dev->kfd2kgd->init_interrupts(dqm->dev->adev=
-, i);  }
->=20
-> +static void init_sdma_bitmaps(struct device_queue_manager *dqm) {
-> +       uint64_t num_sdma_queues =3D get_num_sdma_queues(dqm);
-> +       uint64_t num_xgmi_sdma_queues =3D
-> get_num_xgmi_sdma_queues(dqm);
-> +
-> +       if (num_sdma_queues)
-> +               dqm->sdma_bitmap =3D GENMASK_ULL(num_sdma_queues-1, 0);
-> +       if (num_xgmi_sdma_queues)
-> +               dqm->xgmi_sdma_bitmap =3D
-> + GENMASK_ULL(num_xgmi_sdma_queues-1, 0);
+When switching xnack mode from on to off, need reserve already allocated
+svm range memory because subsequent free ranges will unreserve memory
+with xnack off.
 
-I think we still want a safeguard here in case we ever get into a situation=
- where num_sdma_queues is > 64. Otherwise we could hit an unsigned wraparou=
-nd (in __GENMASK_ULL: (~ULL(0) >> (BITS_PER_LONG_LONG - 1 - (h)))) --> woul=
-d cause a wrap plus shift > width of type warning if h > 63).
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 30 ++++++++++++++++++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 20 +++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |  2 ++
+ 3 files changed, 46 insertions(+), 6 deletions(-)
 
-Something along the lines of
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 56f7307c21d2..938095478707 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1594,16 +1594,36 @@ static int kfd_ioctl_set_xnack_mode(struct file *filep,
+ 	if (args->xnack_enabled >= 0) {
+ 		if (!list_empty(&p->pqm.queues)) {
+ 			pr_debug("Process has user queues running\n");
+-			mutex_unlock(&p->mutex);
+-			return -EBUSY;
++			r = -EBUSY;
++			goto out_unlock;
+ 		}
+-		if (args->xnack_enabled && !kfd_process_xnack_mode(p, true))
++
++		if (p->xnack_enabled == args->xnack_enabled)
++			goto out_unlock;
++
++		if (args->xnack_enabled && !kfd_process_xnack_mode(p, true)) {
+ 			r = -EPERM;
+-		else
+-			p->xnack_enabled = args->xnack_enabled;
++			goto out_unlock;
++		}
++
++		pr_debug("switching xnack from %d to %d\n", p->xnack_enabled,
++			 args->xnack_enabled);
++
++		mutex_lock(&p->svms.lock);
++
++		/* Switching to XNACK on/off, unreserve/reserve memory of all
++		 * svm ranges. Change xnack must be inside svms lock, to avoid
++		 * race with svm_range_deferred_list_work unreserve memory.
++		 */
++		p->xnack_enabled = args->xnack_enabled;
++		svm_range_list_unreserve_mem(p, p->xnack_enabled);
++
++		mutex_unlock(&p->svms.lock);
+ 	} else {
+ 		args->xnack_enabled = p->xnack_enabled;
+ 	}
++
++out_unlock:
+ 	mutex_unlock(&p->mutex);
+ 
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index cf5b4005534c..5a82d5660470 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -278,7 +278,7 @@ static void svm_range_free(struct svm_range *prange, bool update_mem_usage)
+ 	svm_range_free_dma_mappings(prange);
+ 
+ 	if (update_mem_usage && !p->xnack_enabled) {
+-		pr_debug("unreserve mem limit: %lld\n", size);
++		pr_debug("unreserve prange 0x%p size: 0x%llx\n", prange, size);
+ 		amdgpu_amdkfd_unreserve_mem_limit(NULL, size,
+ 					KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
+ 	}
+@@ -2956,6 +2956,24 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 	return r;
+ }
+ 
++void svm_range_list_unreserve_mem(struct kfd_process *p, bool unreserve)
++{
++	struct svm_range *prange;
++	uint64_t size;
++
++	list_for_each_entry(prange, &p->svms.list, list) {
++		size = (prange->last - prange->start + 1) << PAGE_SHIFT;
++		pr_debug("svms 0x%p %s prange 0x%p size 0x%llx\n", &p->svms,
++			 unreserve ? "unreserve" : "reserve", prange, size);
++		if (unreserve)
++			amdgpu_amdkfd_unreserve_mem_limit(NULL, size,
++						KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
++		else
++			amdgpu_amdkfd_reserve_mem_limit(NULL, size,
++						KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
++	}
++}
++
+ void svm_range_list_fini(struct kfd_process *p)
+ {
+ 	struct svm_range *prange;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index 012c53729516..05a2135cd56e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -203,10 +203,12 @@ void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_s
+ void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
+ 
+ void svm_range_set_max_pages(struct amdgpu_device *adev);
++void svm_range_list_unreserve_mem(struct kfd_process *p, bool unreserve);
+ 
+ #else
+ 
+ struct kfd_process;
++void svm_range_list_unreserve_mem(struct kfd_process *p, bool unreserve) { }
+ 
+ static inline int svm_range_list_init(struct kfd_process *p)
+ {
+-- 
+2.35.1
 
-dqm->sdma_bitmap =3D GENMASK_ULL(min(num_sdma_queues, BITS_PER_LONG_LONG) -=
- 1, 0);
-
-Could work as a safeguard. Same for xgmi_sdma_bitmap.
-
-Best,
-Graham
-
-> +
-> +       dqm->sdma_bitmap &=3D ~get_reserved_sdma_queues_bitmap(dqm);
-> +       pr_info("sdma_bitmap: %llx\n", dqm->sdma_bitmap); }
-> +
->  static int initialize_nocpsch(struct device_queue_manager *dqm)  {
->         int pipe, queue;
-> @@ -1268,11 +1282,7 @@ static int initialize_nocpsch(struct
-> device_queue_manager *dqm)
->=20
->         memset(dqm->vmid_pasid, 0, sizeof(dqm->vmid_pasid));
->=20
-> -       dqm->sdma_bitmap =3D ~0ULL >> (64 - get_num_sdma_queues(dqm));
-> -       dqm->sdma_bitmap &=3D ~(get_reserved_sdma_queues_bitmap(dqm));
-> -       pr_info("sdma_bitmap: %llx\n", dqm->sdma_bitmap);
-> -
-> -       dqm->xgmi_sdma_bitmap =3D ~0ULL >> (64 -
-> get_num_xgmi_sdma_queues(dqm));
-> +       init_sdma_bitmaps(dqm);
->=20
->         return 0;
->  }
-> @@ -1450,9 +1460,6 @@ static int set_sched_resources(struct
-> device_queue_manager *dqm)
->=20
->  static int initialize_cpsch(struct device_queue_manager *dqm)  {
-> -       uint64_t num_sdma_queues;
-> -       uint64_t num_xgmi_sdma_queues;
-> -
->         pr_debug("num of pipes: %d\n", get_pipes_per_mec(dqm));
->=20
->         mutex_init(&dqm->lock_hidden);
-> @@ -1461,24 +1468,10 @@ static int initialize_cpsch(struct
-> device_queue_manager *dqm)
->         dqm->active_cp_queue_count =3D 0;
->         dqm->gws_queue_count =3D 0;
->         dqm->active_runlist =3D false;
-> -
-> -       num_sdma_queues =3D get_num_sdma_queues(dqm);
-> -       if (num_sdma_queues >=3D BITS_PER_TYPE(dqm->sdma_bitmap))
-> -               dqm->sdma_bitmap =3D ULLONG_MAX;
-> -       else
-> -               dqm->sdma_bitmap =3D (BIT_ULL(num_sdma_queues) - 1);
-> -
-> -       dqm->sdma_bitmap &=3D ~(get_reserved_sdma_queues_bitmap(dqm));
-> -       pr_info("sdma_bitmap: %llx\n", dqm->sdma_bitmap);
-> -
-> -       num_xgmi_sdma_queues =3D get_num_xgmi_sdma_queues(dqm);
-> -       if (num_xgmi_sdma_queues >=3D BITS_PER_TYPE(dqm-
-> >xgmi_sdma_bitmap))
-> -               dqm->xgmi_sdma_bitmap =3D ULLONG_MAX;
-> -       else
-> -               dqm->xgmi_sdma_bitmap =3D (BIT_ULL(num_xgmi_sdma_queues) =
--
-> 1);
-> -
->         INIT_WORK(&dqm->hw_exception_work, kfd_process_hw_exception);
->=20
-> +       init_sdma_bitmaps(dqm);
-> +
->         return 0;
->  }
->=20
-> --
-> 2.32.0
