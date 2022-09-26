@@ -4,106 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA2F1C07E9D
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 07:34:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58EABC07E9D
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 09:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95AAB10E63A;
-	Mon, 26 Sep 2022 07:34:29 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2088.outbound.protection.outlook.com [40.107.94.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0213910E51D;
- Mon, 26 Sep 2022 06:04:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA02810E658;
+	Mon, 26 Sep 2022 09:21:44 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4DF310E2F9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Sep 2022 09:21:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Cr0R+Nl5O2QQlbEAEgPF3TrFKc03o0NJrdaKm1WmuDsHl6Cqk8/UoLlZWTblENr68pCUCNRBhawXaqNozTN+VWv5gxQxkTCo5TGlKrGTm2k5Anlg4yI0iU5BXEPElJVdqi7heIyI0J66fqbH7NdC4QHqIxfqegfKoVgB67h1Oi4OQJbms1K9C34zdqdFHtg2NAqBoPgMuo2lZ+ip1adRpa7O2NXe/lDwR7ua9iqAyLsHXOjZlLg+Y3w5TVaPvK5T2yobInD1Qr4FdwcLwWRk79FW1l8DjOX3vKHmhfkUiw42uK6Zd3lYiyQwDa1vkgLjngyU4hz9GQcBu+EfZDmnkg==
+ b=hu2ATzchtSqlqusWhQFPoF3gsvgkcWfXu4xlm/o28xBetWnA+b2nfbJ+B5YTnk5i2zE3B4VtBsgrGLkIuybUvCGDuXnIDL8/uhJEK/2Aa0/D5myLjVtfUq9QUaE9P7YfCf4C0efegFZEHiUy8EHW24tmebxSZ2z7f1Q4ewkKmdqwb9W5AdMu2OFGB1gG0Qekk5Wgd4ttnApUKFQuoIx+F7em7iTJfky1w/cj1OnusbV2Y7EtpUhy2pPM9uvRrlkXa+5ZARIn5OwxBnS9io7BCB7wYp4ABgpt0dOi+v+BMa+reyHNAHk9nnzg9Q0FF6YcMo4GlIgF/OFrLQVMLUfBiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d08BMP/s2kcQBXT/J7jAgkJORhk1QGK3D2rAwOAqqoE=;
- b=k0Avn6iK4OqY56ca0ndyGgQC7iJAZEQwPamQUrrpCKwtyMMhAlKl83OD2Q5Y4jqBN59B5S69sBAdmG1K/d1hfaG7LwRGrFf0phqqPmqnEQi7hcj/QZlrfQluokZ4s5XylHiMqZL8zuHio+8ekZkjAHhcIDs/qkpFkkUgNwTtzVI7HlO3/8Ex2U0p3BqtQYfc7bQBHFuXfK/F5CX7DqCm+GBsVusiOO20vyCjgCVTpKHUE637hrRwuFyw6YA3xaNMqrJbaJLYp5eZ2ur4vFxyKpErudYl17k3AD/hpj0EeqyNZQ2RMlc5I1PeYDtnjLXCXkJ8J1GHjKd10e9eaWnf+g==
+ bh=glycbzegHdt0jyNNYA4N8WhMCdhO8SPweJrBzxFrxDQ=;
+ b=eCecOFZt4hN4kVU9CZnkdDZQhMVrU/JbKxaOFDlLOIesIFietC6lJJXrUOlCrbRunfXEgcWVQjnqMzRiRB6mtEPxn9cm0yaCM3u0CG1thVIYjyzBR+cyKWUCkSpo13B5fkIhRMZx2BxV7wGQMaMohb2Wl4NNikdtSSZA+PUhaUVGdN5BQZyE0PP0oRST5FGoD7zQ4SjOG6ngnUdo4SIkFG9wRzh8dJ5y9wu1udVFhW5n9YA0yhVVG7sey18qGGmAXkM1+JfcX1C34gycSh2MVTBAtI1Y4+e3D2uknihBh5TCvFhdIosd/0Yf1n/jP1Vapb0gV1No1F8VMlrEuUUgzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d08BMP/s2kcQBXT/J7jAgkJORhk1QGK3D2rAwOAqqoE=;
- b=aIOZr/7ZnYUBvrGbZcWZJcZFJ4P/BXnLuPkvGhT6BkhrAhN+fweekWsAn/PzP7UGHv4dUZPymdbZGrSD6pOZ4ivlLGJ+lVYSoUMHMJCD3s4NKu/FjLh4vpFA2AuepL9Ix/SuBKyt8e0If2jO7yP4t61aarr5xEqk/CtwHd9Ijjt0dt6Rb9QNCB0uTqC5Wj8wXBC97MFNEQn/zBfWs18QjyMPXwvhJRb6oswEWb0+H3Qodb2NAdR/uLm4XvFKS9il8kiskd4ckWsjMsgDjqX3LqGmMHbUuQhDXZbZ2rZ2HkRt7kIvJhWpm3q/8ZzaTSkqEh47fOAeWaQmEXOFJH/ZPg==
+ bh=glycbzegHdt0jyNNYA4N8WhMCdhO8SPweJrBzxFrxDQ=;
+ b=UlU3Z4VehJtv27ecvVRuPr635s+U7T66+aOPzpfVQKUkccmuzB1fBQ3/ZvqCo4oR4lHSoplF5LgUIWiuvKlTqEI31JREDRl3E8HAK0M8pM4/e0SxD5CC00rnmr5bUVt9qRuqPEGe0lPWVVfS6jbr26Cs+RVCGrNGt4mWZWgxVp8=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BYAPR12MB3176.namprd12.prod.outlook.com (2603:10b6:a03:134::26)
- by MW4PR12MB7359.namprd12.prod.outlook.com (2603:10b6:303:219::6)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by PH0PR12MB5402.namprd12.prod.outlook.com (2603:10b6:510:ef::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.25; Mon, 26 Sep
- 2022 06:04:32 +0000
-Received: from BYAPR12MB3176.namprd12.prod.outlook.com
- ([fe80::ed0:a520:ac8e:9966]) by BYAPR12MB3176.namprd12.prod.outlook.com
- ([fe80::ed0:a520:ac8e:9966%6]) with mapi id 15.20.5654.025; Mon, 26 Sep 2022
- 06:04:32 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: linux-mm@kvack.org,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 4/7] mm/migrate_device.c: Add migrate_device_range()
-Date: Mon, 26 Sep 2022 16:03:08 +1000
-Message-Id: <10f8bded7368fcfafb501239dfd18e1160b5470d.1664171943.git-series.apopple@nvidia.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <cover.f15b25597fc3afd45b144df863eeca3b2c13f9f4.1664171943.git-series.apopple@nvidia.com>
-References: <cover.f15b25597fc3afd45b144df863eeca3b2c13f9f4.1664171943.git-series.apopple@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SY3PR01CA0084.ausprd01.prod.outlook.com
- (2603:10c6:0:19::17) To BYAPR12MB3176.namprd12.prod.outlook.com
- (2603:10b6:a03:134::26)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.20; Mon, 26 Sep
+ 2022 09:21:38 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::653f:e59b:3f40:8fed]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::653f:e59b:3f40:8fed%6]) with mapi id 15.20.5654.025; Mon, 26 Sep 2022
+ 09:21:38 +0000
+Content-Type: multipart/alternative;
+ boundary="------------RTVBmqqGd0DByD92oZpvoumg"
+Message-ID: <2feb4983-1258-e4de-4efd-9d90f6bafa7c@amd.com>
+Date: Mon, 26 Sep 2022 11:21:32 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] drm/amdgpu: Always align dumb buffer at PAGE_SIZE
+Content-Language: en-US
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+References: <20220922230452.3903316-1-ytht.net@gmail.com>
+ <7526e4ba-1022-d921-9138-257c369cc172@amd.com>
+ <CALqoU4y-3dWJ-gR8RxUFry9KpT+FMNDfb4WmvEoK5bc56ueUvw@mail.gmail.com>
+ <8fd109a0-bf1d-befd-a9b5-c02c2104df25@amd.com>
+ <CAAxE2A7jgTq_TiqK+V7aYPMd7rW2xATJSyVRcyRXpXreo3o4eQ@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CAAxE2A7jgTq_TiqK+V7aYPMd7rW2xATJSyVRcyRXpXreo3o4eQ@mail.gmail.com>
+X-ClientProxiedBy: FR3P281CA0063.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::13) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3176:EE_|MW4PR12MB7359:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3964bc42-4a06-48fe-d33e-08da9f84fad1
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH0PR12MB5402:EE_
+X-MS-Office365-Filtering-Correlation-Id: b5ee038f-f42c-4540-0b03-08da9fa08391
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IHX/JZWEIlTTIBWP7XMideMxSOFN9FvviwlpJu2dhYz3ns3c4PrV56w2onki0D0NLTu9BRKJwX4txMbBUTt+50GekQQvpOT5Lp7EJ6DP+7E8vy0oKScOy7gViQ0+hdXAZJDP60HfKwr0SyqOm+1f7gWFaY1OGKlSEUVt0DfiS+B8A2Rn0CPkmS9jfxEeOq9EuwFJkyFuqhkzxXptz2g/eqv+fOfQzqtheA5lSy/6DVyuViZdpIjB55y38nZ5F7P3G/mN7djZYZXJnJjGSwiJ1vMo06EpWGtGGadlLtKkbE9SCJ35R4UkOg2gE2JAHEMdLijii17KSi4BRaaHNDYHCHMmPm/H2WCqaCo+d1UWegbaGCzs/4Rio/2c9Di4ym6DUbaoDzG3KsuGyd3d912qE7EpSmlnY5G0SFjxkUPgXdRSDwdpJhymmUB3a17eh2Q2AX0fdKzx6sMNlf9MhY4RbHKHbJTc3OL+JXybPpuUALTVzJB8L5aSwIWQLuB9twCfJlmVcKxRM3pGIngTFgB2GH96WTZG/fQFNMj8cIteAhB2llVVZviHfWOztUExC1895tgVfnk1cnH/G6hXDFctBitBhV87xlhumXUwuJKD/aa0K+PtYPhLOKWs+sDa5YBR7cfUhx8ZpkcnnorhH7mMOMXzfRsGn2PB+IIYHB2MuoPuNS5/h9wy7+V3UtRfEsFgCR4rrct3AKRngi5KBVtJ3vcBmmAwxnoCvDCifuWPPLGhHNqQuMiTIPKZIOtLBosi
+X-Microsoft-Antispam-Message-Info: 5swn98dSV2NRZc8gMGuRu2ZlpKxqpNEfkaQJ68Kw3m0gHF5riGwS6T4t8ZA6uNhg90hVcLk9fkhMyE9tm1Z4YDyNJ4gnaHJ0+Hr7mziMaP0xhmzQYa6W8kI5qpljCkiKFns8IS7yXrREdyCLu2HldcjltV6bonMt2ZlRsw6U9d9nZ0QUzoTRUoPe5H0lTZKG24Ih3iZ5tTCVW2gF24tQfKmMvheUPCcTkhmNEvnHCYojPezrX6LdMDxsqSg5o6pjAOrCIbEOfoh7mgoZPMIv1OyXdfGCU3NCAaSCSCxgU4psFC0g4/8VQrgcSvb65duqfed+F8AGuoLf+4XuGFO8vlahyIJvUKBnTbRwpPIRN+b17pJBoQFZj+HvciJ6jZ2FKOIlwduFxxr6gzku3MyxLHZ17zhQmzG8nRV9CsmTbH5F9Y5VlwwSeij1n5lCHNERjgv3oIi4IHEHzfEOqFhIg+mkZy6k/zqjfm5xHMW2+8P2p63YjHIlXvzx/n4nq4UL5F2jxfjHzCIQhD1lsslqNiO3ebTIaPsVUz8yaxA6dgkOFTedkcmcghSi+Bgm4YU+XmK178/sjkGDEgcvw6U3JYNzkTckpju9ebv+KQBOVEVDmmfiU8j8+OdCFJW71nPiRGzHmeHyV/HEK36vhNlavO3BZnpEiVlFDYAGEmIIXuZkQNKowD7gjkq2+gWzoj8oEf6PilQW0CblzRxZSCO2C1MTAK1KoGRt+ACIF9Rdi2VoNjT82fO1hIYDCrT7wcvb
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3176.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(136003)(366004)(376002)(396003)(346002)(451199015)(8936002)(86362001)(7416002)(2906002)(5660300002)(83380400001)(6666004)(41300700001)(6512007)(186003)(107886003)(26005)(6506007)(478600001)(6486002)(2616005)(6916009)(66946007)(4326008)(66556008)(66476007)(8676002)(316002)(38100700002)(54906003)(36756003);
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(39860400002)(366004)(396003)(346002)(136003)(451199015)(6666004)(36756003)(31696002)(86362001)(31686004)(166002)(4326008)(54906003)(66476007)(66556008)(6916009)(6486002)(316002)(8676002)(966005)(478600001)(2906002)(6512007)(38100700002)(26005)(5660300002)(6506007)(53546011)(2616005)(41300700001)(8936002)(186003)(66946007)(33964004)(45080400002)(66574015)(83380400001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?prPSBvwVeGYdERj5nJ6HdoyLM1vxvCXpiyn6oxagZY3ddDaZ/Z10G+Q0eJgj?=
- =?us-ascii?Q?4bgq458p8HY7CGLmJDlMaOLNXJFZyWmc0v3b3ypcobYDJ0Z52q0xByTw1tLg?=
- =?us-ascii?Q?UgUOJugvBa/QocYioBIM1xW7gbk9dELXYTwdw9nr79pU7ZGedMvL5r+U2BkZ?=
- =?us-ascii?Q?7Y9wkpoJxPoc7AsQHZhP3b133dRgWBCqvfxnrzyisGZMgStCq3S5PxDEYUhC?=
- =?us-ascii?Q?xyoWKfIMYIJzXxIoNoTXCejjE6qvo/q7bEHrzpsd/CAQxMjSYiq7Zwx4Ispt?=
- =?us-ascii?Q?P3m1KXgpqXgsKZHqdgNMxeb/CUYHyImJGVzuLK0Nfe4HbX4mZC1QTt4Fic6j?=
- =?us-ascii?Q?EiEnr1wFquo/JWM5F881CPXAMJDb376eYXjHu8a2+SJYrRnGCFmtGkJOh2nF?=
- =?us-ascii?Q?jDL/fSCdhg0GyKwzaxW27YX4jNmkOj/m3Ut8dmRWUxDK8FkNG4OCxso6faso?=
- =?us-ascii?Q?dMcNafnUVDA1/cALOwPHY/+X/HuyeeXTQtzE6hzFAqbbHGqllIPkzddvBC0T?=
- =?us-ascii?Q?9woGEN7lGQc9LpDE+J5YZGJOTOg7u17g3KIn3OrCsFuSqNwl2FYRUfCl8+eD?=
- =?us-ascii?Q?0c1jCmVHjf1n/mWzFddIKH07h3EjVwmX2cmTzLoKNKoVu/5sb1vL1872EH1p?=
- =?us-ascii?Q?tsRl9s7OGYXdXVWUz5zhGh4fvwPXFLWslWWnUlK8WOV09nTb7KborrmN7OfK?=
- =?us-ascii?Q?xtC4bYQiGzaPlqBnAHQ4HCmG8+2r/1xVkSHMJ1K4ITug0DucInzQHcLxaOSB?=
- =?us-ascii?Q?AK4frt4AD3z+l0VXC0lq+YPtLjzM+zXkYSiKgQdvgn1jPS8aSPw/lZPfDVS0?=
- =?us-ascii?Q?F/QD/ezH5nrbt0oEdyIUrLBoqjjQ61N6GiLA+Ym/hkDMOcwZwReWUe6HtX9Q?=
- =?us-ascii?Q?LMeGJGFP7WwMaLTKIGCkwXzeyzN3cIdDDCow4S8b5FvRCxUIBuIaCzmTrgAb?=
- =?us-ascii?Q?LOEMOe0MsXw0MW64h/pkmTbr4is9G3dsppCq7FVVSEWkyaEj586v7W1rvSwR?=
- =?us-ascii?Q?DfNe5X7zhojL4jIYsHaidmps/Hd6UZXYwMEGqV1N2hTlf8p+nl5Z/kqqVAiR?=
- =?us-ascii?Q?vZWrv89ommSJ4gHPFb3KSXr3Pu2/u8R+h/HgLwfRH0Ze0i3wJ0d74xub8f65?=
- =?us-ascii?Q?/N7tx7IVSzNRHuM/hLKTnE5VF7E2iJoGzkN3XUCDDnuw6nftkavFfc0dV2BB?=
- =?us-ascii?Q?BETHdZ59OTPQ3rBzph7rh7p5gsbGQ37z0b+ZJw95lqYK7y8PmHTzJuYr2H1z?=
- =?us-ascii?Q?MKQ5fx7SaTN2vbsCqbXInUc4+32ISWGIO2CaD0USLtDAzSEML9adZpXTfy9r?=
- =?us-ascii?Q?t/GdHz4KlV1Ugsd3aw0wPuPcPs68G3P4K8+Zux3/diXCUhPqwaJos9qcV9g7?=
- =?us-ascii?Q?wKLkXTe7zd0lE/ARusOOiHIMw++viLVZnwI4bEUJ1+p1a7LMnwJC7ONHQ/or?=
- =?us-ascii?Q?66Tt+GNw7owC2PsbKFLC68Sk0+0q5EGHZpvwmTEoG+dnwiZQ9G6Jal3VJ+xS?=
- =?us-ascii?Q?LE8k378dqFolpgcfaiG49JZLftDNkF/w5dDuh8aWJcM22qb3YtYSr/ZeyfUR?=
- =?us-ascii?Q?2c+m0+R29ivnAgOYGwLREANrfpdNgSfWxaHnUeUT?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3964bc42-4a06-48fe-d33e-08da9f84fad1
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3176.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bmswbzZxTmJEcGJ5cTNUbkRzcEs1OFNxTk5SU09CMEVueUdSNnR6SklDdWZ0?=
+ =?utf-8?B?RlRRelY5ZzNzM3Z2NThFUERxVSs5Si9aMjRMSFN4MStQdTBaNHJSdTVUMEhu?=
+ =?utf-8?B?T29oRzlvNVlPL1VPelhSQklrd0JoVzhiZmxDVFlsNjdtbGQycjZaOWRlUmVu?=
+ =?utf-8?B?ZXo1MTlUWFJpQ3AyeW1xYmVzSXlhbVNoVEoyM29IUndsd1h4cTFLblhzbDhR?=
+ =?utf-8?B?ZHdWOE03VExpVkFYcUpzQTNWUUM5SEhmWjZvZ2poS3hXbTlJSmhYTEgycFhM?=
+ =?utf-8?B?dzdRb2J0RDVlaXhXc2VCUUY2ZGVzcVJDQnlBSWZSRmtTd2F4c0pGcVB1dEpk?=
+ =?utf-8?B?cklZeHZSaVl0clhLc05oV29WbFJpcUc0aUZiR2RkdlVVMDhwQXJqdUdiRU9C?=
+ =?utf-8?B?TytTMStRazI3UXNlZ2xDZnRpWkk3NXdFRk5SYitXNmhLY1Z3M2hGUTVjTGE3?=
+ =?utf-8?B?Q25YMGFSM2FjQlJwQXlIS2p4enk1Um5oOStVYk5tektUbWVyenh3cjVRUnYv?=
+ =?utf-8?B?MEdzbUM3NnpXRGg5akpObU5zRDcxTlZia052Rkw1aVJyUW1LNGdZZWRBVnps?=
+ =?utf-8?B?eTBsWUNldlJnSW9ydjczUjlKa2liR2hHVXZRcEc3NkY0K3BTcGlkSVlSWkVK?=
+ =?utf-8?B?VkxDaWdteEZPL1hDd3ZZR2VzSTd5MnB2R1RhRFNCRDBZNHQ3OFBkVVE2b0lj?=
+ =?utf-8?B?Z25meUNCR3J3Z3FJbEl6Kzh6V2p6S3lMUXdhNW1tMFk3Y3piSzhTUG9vajFR?=
+ =?utf-8?B?VlltcVp6cGdrOHpmRklUVVo2bmg0M1NRSkNVMFFEVkJWdWU0NlBwSEJXbnJ4?=
+ =?utf-8?B?TzMrVzFIdTF0RjJmdUwyc3BSNHFPcytyK21hRkNKNXQ0WkNoS2VlVU5rOTcz?=
+ =?utf-8?B?ZFpIeEJFZG9zWW1FUEdMS2N1SWZvRGlza0xHNStCeE1vR2hMRXpVR3A0MUZK?=
+ =?utf-8?B?ZGxqR3NoODRucERQNEc1WXU0NmV0V2cxcTVEVTdtRGZKSUFJVk9hdHc4SE5X?=
+ =?utf-8?B?c1JWUEo0cDJaQTlxZEhoeDFaTy9KZW5ONUp3NWRqZ29NU1I1bHRjNkdrZUo4?=
+ =?utf-8?B?RThvaXhJOTZQd2VYOW5lMldBTHhzR0x3aDYwbGd2U3FVN1UwOFRHaGtuQ2Mr?=
+ =?utf-8?B?c0VGVFNVT2x4a2FVS2h4TCt0eDE5aGw3MzdoUStRSC9JS1NPeXJsTTFHaC9J?=
+ =?utf-8?B?V21Gb2hCRVdxSEMzNWRXUmJhMUQwOXluNldzQ1VkN2hwdVdmbFUrUDh4MUJt?=
+ =?utf-8?B?RDNmaEVTNkxDNGRiS0Q5MHY5N3FtdEg5NHdIWmllZVg2cFYySklMalFYUUdw?=
+ =?utf-8?B?Nk5Oa1Y5aHZJL2ttQlcwUFljenlNK0lOeTY4VjFZWVZWcVRZNTF4RVdTKzFT?=
+ =?utf-8?B?VVRBL0dJMy8zbGJLSFVUMEdlNzR2YVVRVGxrbWVyYlVyejN1dlR0dWlwd0RF?=
+ =?utf-8?B?dDRKTHdJRngrc3NXRFhzY0RzdXFqWDR2d2theGZTWDN1QkJJaW05QTEzUExQ?=
+ =?utf-8?B?MzJVcWFiUkd6eTVkSzlGVFpyRDliTExjK2hqVE1tUkdmVWtJLzFaZndjT29s?=
+ =?utf-8?B?ZTJma2c3cEFNMnhNYWt5Z3JsRHdIM013YkYwd1QzSHlvdk9XMmZWZjZWTVRP?=
+ =?utf-8?B?RTdMN1VxamhSUmliTDdzcnpQbzJnV0NUaFVHdGNacnBDVGtleHBIOG5xUHZN?=
+ =?utf-8?B?RVM5U2wrVnJUR2NnL0k1VXBKalFUSEJvZmN2eGFtNWx3YWkwVUlaREdKV1NU?=
+ =?utf-8?B?emlGYTZERVBhRGNKaERyMFU3bHpXNU85Y1NBUXNwcDRTWFZOZXQwN3NkeCsx?=
+ =?utf-8?B?ZVVQN1l1bHVhUEtZbkpaUVpoeE4yalltbHhSdWJ6Zk16Yk5NMmRRTnBRdUVl?=
+ =?utf-8?B?NWp2UlNXN0dhd0JCM3Mzd041d0xRL05IdzNWRGhEeW1ZUnlyMDlpUCtSVU5u?=
+ =?utf-8?B?N2QyUzJ0TU9LOGxtTUhRNk9ob1pTRVpieWFreXl2OGhYREV1eWs1aDdWOFNE?=
+ =?utf-8?B?N1ZwKzlTb2ZrMjI3T005cXEwaDJPRXVmYkZsY1d1WFdTUG1pYWYrYlhCNnh2?=
+ =?utf-8?B?Q1BpRjlUMDV2NEdLNWhKMVVlNmlHdmRQeTFXZURhVE9KNjg5c3lYTkdTK2F5?=
+ =?utf-8?Q?DMvFrhekvXsh0G5L0/6h0EkJ4?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5ee038f-f42c-4540-0b03-08da9fa08391
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 06:04:32.2182 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 09:21:37.9125 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V9g7NmcrjoVwuPIiA2tyFM780M4t8Vv5ZOyRYuKDb/PPS9PeEegJJ7JEadd0Gsjooitet1YQ4ga2vfVj2bAGhA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7359
-X-Mailman-Approved-At: Mon, 26 Sep 2022 07:33:28 +0000
+X-MS-Exchange-CrossTenant-UserPrincipalName: qF0xM1n13PdoO8t4edkgZBsSrPswzO1EHJvRY2tH+mnnTcStETjcRSEfXoImOSRa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5402
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,223 +127,223 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, Karol Herbst <kherbst@redhat.com>,
- David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Michael Ellerman <mpe@ellerman.id.au>, Alistair Popple <apopple@nvidia.com>,
- "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
- Ben Skeggs <bskeggs@redhat.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Ralph Campbell <rcampbell@nvidia.com>, John Hubbard <jhubbard@nvidia.com>,
- Nicholas Piggin <npiggin@gmail.com>, Dan Williams <dan.j.williams@intel.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, linuxppc-dev@lists.ozlabs.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
+ lepton <ytht.net@gmail.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Device drivers can use the migrate_vma family of functions to migrate
-existing private anonymous mappings to device private pages. These pages
-are backed by memory on the device with drivers being responsible for
-copying data to and from device memory.
+--------------RTVBmqqGd0DByD92oZpvoumg
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Device private pages are freed via the pgmap->page_free() callback when
-they are unmapped and their refcount drops to zero. Alternatively they
-may be freed indirectly via migration back to CPU memory in response to
-a pgmap->migrate_to_ram() callback called whenever the CPU accesses
-an address mapped to a device private page.
+I was thinking about that as well, yes.
 
-In other words drivers cannot control the lifetime of data allocated on
-the devices and must wait until these pages are freed from userspace.
-This causes issues when memory needs to reclaimed on the device, either
-because the device is going away due to a ->release() callback or
-because another user needs to use the memory.
+Might be a good idea to just change the alignment check in 
+amdgpu_bo_create():
 
-Drivers could use the existing migrate_vma functions to migrate data off
-the device. However this would require them to track the mappings of
-each page which is both complicated and not always possible. Instead
-drivers need to be able to migrate device pages directly so they can
-free up device memory.
+                 /* Memory should be aligned at least to a page size. */
+                 page_align = ALIGN(bp->byte_align, PAGE_SIZE) >> 
+PAGE_SHIFT;
 
-To allow that this patch introduces the migrate_device family of
-functions which are functionally similar to migrate_vma but which skips
-the initial lookup based on mapping.
 
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
----
- include/linux/migrate.h |  7 +++-
- mm/migrate_device.c     | 89 ++++++++++++++++++++++++++++++++++++++----
- 2 files changed, 89 insertions(+), 7 deletions(-)
+Something like ALIGN(bp->byte_align ?: 1, PAGE_SIZE) should already do it.
 
-diff --git a/include/linux/migrate.h b/include/linux/migrate.h
-index 82ffa47..582cdc7 100644
---- a/include/linux/migrate.h
-+++ b/include/linux/migrate.h
-@@ -225,6 +225,13 @@ struct migrate_vma {
- int migrate_vma_setup(struct migrate_vma *args);
- void migrate_vma_pages(struct migrate_vma *migrate);
- void migrate_vma_finalize(struct migrate_vma *migrate);
-+int migrate_device_range(unsigned long *src_pfns, unsigned long start,
-+			unsigned long npages);
-+void migrate_device_pages(unsigned long *src_pfns, unsigned long *dst_pfns,
-+			unsigned long npages);
-+void migrate_device_finalize(unsigned long *src_pfns,
-+			unsigned long *dst_pfns, unsigned long npages);
-+
- #endif /* CONFIG_MIGRATION */
- 
- #endif /* _LINUX_MIGRATE_H */
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index ba479b5..824860a 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -681,7 +681,7 @@ static void migrate_vma_insert_page(struct migrate_vma *migrate,
- 	*src &= ~MIGRATE_PFN_MIGRATE;
- }
- 
--static void migrate_device_pages(unsigned long *src_pfns,
-+static void __migrate_device_pages(unsigned long *src_pfns,
- 				unsigned long *dst_pfns, unsigned long npages,
- 				struct migrate_vma *migrate)
- {
-@@ -703,6 +703,9 @@ static void migrate_device_pages(unsigned long *src_pfns,
- 		if (!page) {
- 			unsigned long addr;
- 
-+			if (!(src_pfns[i] & MIGRATE_PFN_MIGRATE))
-+				continue;
-+
- 			/*
- 			 * The only time there is no vma is when called from
- 			 * migrate_device_coherent_page(). However this isn't
-@@ -710,8 +713,6 @@ static void migrate_device_pages(unsigned long *src_pfns,
- 			 */
- 			VM_BUG_ON(!migrate);
- 			addr = migrate->start + i*PAGE_SIZE;
--			if (!(src_pfns[i] & MIGRATE_PFN_MIGRATE))
--				continue;
- 			if (!notified) {
- 				notified = true;
- 
-@@ -767,6 +768,22 @@ static void migrate_device_pages(unsigned long *src_pfns,
- }
- 
- /**
-+ * migrate_device_pages() - migrate meta-data from src page to dst page
-+ * @src_pfns: src_pfns returned from migrate_device_range()
-+ * @dst_pfns: array of pfns allocated by the driver to migrate memory to
-+ * @npages: number of pages in the range
-+ *
-+ * Equivalent to migrate_vma_pages(). This is called to migrate struct page
-+ * meta-data from source struct page to destination.
-+ */
-+void migrate_device_pages(unsigned long *src_pfns, unsigned long *dst_pfns,
-+			unsigned long npages)
-+{
-+	__migrate_device_pages(src_pfns, dst_pfns, npages, NULL);
-+}
-+EXPORT_SYMBOL(migrate_device_pages);
-+
-+/**
-  * migrate_vma_pages() - migrate meta-data from src page to dst page
-  * @migrate: migrate struct containing all migration information
-  *
-@@ -776,12 +793,22 @@ static void migrate_device_pages(unsigned long *src_pfns,
-  */
- void migrate_vma_pages(struct migrate_vma *migrate)
- {
--	migrate_device_pages(migrate->src, migrate->dst, migrate->npages, migrate);
-+	__migrate_device_pages(migrate->src, migrate->dst, migrate->npages, migrate);
- }
- EXPORT_SYMBOL(migrate_vma_pages);
- 
--static void migrate_device_finalize(unsigned long *src_pfns,
--				unsigned long *dst_pfns, unsigned long npages)
-+/*
-+ * migrate_device_finalize() - complete page migration
-+ * @src_pfns: src_pfns returned from migrate_device_range()
-+ * @dst_pfns: array of pfns allocated by the driver to migrate memory to
-+ * @npages: number of pages in the range
-+ *
-+ * Completes migration of the page by removing special migration entries.
-+ * Drivers must ensure copying of page data is complete and visible to the CPU
-+ * before calling this.
-+ */
-+void migrate_device_finalize(unsigned long *src_pfns,
-+			unsigned long *dst_pfns, unsigned long npages)
- {
- 	unsigned long i;
- 
-@@ -825,6 +852,7 @@ static void migrate_device_finalize(unsigned long *src_pfns,
- 		}
- 	}
- }
-+EXPORT_SYMBOL(migrate_device_finalize);
- 
- /**
-  * migrate_vma_finalize() - restore CPU page table entry
-@@ -843,6 +871,53 @@ void migrate_vma_finalize(struct migrate_vma *migrate)
- }
- EXPORT_SYMBOL(migrate_vma_finalize);
- 
-+/**
-+ * migrate_device_range() - migrate device private pfns to normal memory.
-+ * @src_pfns: array large enough to hold migrating source device private pfns.
-+ * @start: starting pfn in the range to migrate.
-+ * @npages: number of pages to migrate.
-+ *
-+ * migrate_vma_setup() is similar in concept to migrate_vma_setup() except that
-+ * instead of looking up pages based on virtual address mappings a range of
-+ * device pfns that should be migrated to system memory is used instead.
-+ *
-+ * This is useful when a driver needs to free device memory but doesn't know the
-+ * virtual mappings of every page that may be in device memory. For example this
-+ * is often the case when a driver is being unloaded or unbound from a device.
-+ *
-+ * Like migrate_vma_setup() this function will take a reference and lock any
-+ * migrating pages that aren't free before unmapping them. Drivers may then
-+ * allocate destination pages and start copying data from the device to CPU
-+ * memory before calling migrate_device_pages().
-+ */
-+int migrate_device_range(unsigned long *src_pfns, unsigned long start,
-+			unsigned long npages)
-+{
-+	unsigned long i, pfn;
-+
-+	for (pfn = start, i = 0; i < npages; pfn++, i++) {
-+		struct page *page = pfn_to_page(pfn);
-+
-+		if (!get_page_unless_zero(page)) {
-+			src_pfns[i] = 0;
-+			continue;
-+		}
-+
-+		if (!trylock_page(page)) {
-+			src_pfns[i] = 0;
-+			put_page(page);
-+			continue;
-+		}
-+
-+		src_pfns[i] = migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
-+	}
-+
-+	migrate_device_unmap(src_pfns, npages, NULL);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(migrate_device_range);
-+
- /*
-  * Migrate a device coherent page back to normal memory. The caller should have
-  * a reference on page which will be copied to the new page if migration is
-@@ -873,7 +948,7 @@ int migrate_device_coherent_page(struct page *page)
- 		dst_pfn = migrate_pfn(page_to_pfn(dpage));
- 	}
- 
--	migrate_device_pages(&src_pfn, &dst_pfn, 1, NULL);
-+	migrate_device_pages(&src_pfn, &dst_pfn, 1);
- 	if (src_pfn & MIGRATE_PFN_MIGRATE)
- 		copy_highpage(dpage, page);
- 	migrate_device_finalize(&src_pfn, &dst_pfn, 1);
--- 
-git-series 0.9.1
+Christian.
+
+Am 23.09.22 um 08:23 schrieb Marek Olšák:
+> The kernel could report the true alignment from the ioctl instead of 0.
+>
+> Marek
+>
+> On Fri, Sep 23, 2022 at 1:31 AM Christian König 
+> <christian.koenig@amd.com> wrote:
+>
+>     Am 23.09.22 um 07:28 schrieb lepton:
+>     > On Thu, Sep 22, 2022 at 10:14 PM Christian König
+>     > <christian.koenig@amd.com> wrote:
+>     >> Am 23.09.22 um 01:04 schrieb Lepton Wu:
+>     >>> Since size has been aligned to PAGE_SIZE already, just align it
+>     >>> to PAGE_SIZE so later the buffer can be used as a texture in mesa
+>     >>> after
+>     https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fmesa%2Fmesa%2Fcommit%2F%3Fid%3Df7a4051b8&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C645f6878a7bd487588b708da9d246c4c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637995077041120091%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=NMEAl8TByDLQFWW1d%2FaJfiGrXc4mpwL5dxNH0M0QH84%3D&amp;reserved=0
+>     <https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fmesa%2Fmesa%2Fcommit%2F%3Fid%3Df7a4051b8&data=05%7C01%7Cchristian.koenig%40amd.com%7C69c0881fd97d4de3380408da9d2c336b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637995111117539790%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=KMiCYD7blJCjO9zcfsqmy9%2FfYbtAmMHbrwpzHP7F5O0%3D&reserved=0>
+>     >>> Otherwise, si_texture_create_object will fail at line
+>     >>> "buf->alignment < tex->surface.alignment"
+>     >> I don't think that those Mesa checks are a good idea in the
+>     first place.
+>     >>
+>     >> The alignment value is often specified as zero when it doesn't
+>     matter
+>     >> because the minimum alignment can never be less than the page size.
+>     > Are you suggesting to change those mesa checks?
+>
+>     Yes, the minimum alignment of allocations is always 4096 because
+>     that's
+>     the page size of the GPU.
+>
+>     > While that can be
+>     > done, I still think a kernel side "fix" is still
+>     > useful since it doesn't hurt while can fix issues for some
+>     versions of mesa.
+>
+>     No, we have tons of places where we don't specify and alignment for
+>     buffers because it never mattered. I certainly don't want to fix
+>     all of
+>     those.
+>
+>     Regards,
+>     Christian.
+>
+>     >> Christian.
+>     >>
+>     >>> Signed-off-by: Lepton Wu <ytht.net@gmail.com>
+>     >>> ---
+>     >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 +-
+>     >>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>     >>>
+>     >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>     b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>     >>> index 8ef31d687ef3b..8dca0c920d3ce 100644
+>     >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>     >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>     >>> @@ -928,7 +928,7 @@ int amdgpu_mode_dumb_create(struct
+>     drm_file *file_priv,
+>     >>>        args->size = ALIGN(args->size, PAGE_SIZE);
+>     >>>        domain = amdgpu_bo_get_preferred_domain(adev,
+>     >>> amdgpu_display_supported_domains(adev, flags));
+>     >>> -     r = amdgpu_gem_object_create(adev, args->size, 0,
+>     domain, flags,
+>     >>> +     r = amdgpu_gem_object_create(adev, args->size,
+>     PAGE_SIZE, domain, flags,
+>     >>>  ttm_bo_type_device, NULL, &gobj);
+>     >>>        if (r)
+>     >>>                return -ENOMEM;
+>
+
+--------------RTVBmqqGd0DByD92oZpvoumg
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    I was thinking about that as well, yes.<br>
+    <br>
+    Might be a good idea to just change the alignment check in
+    amdgpu_bo_create():<br>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Memory should be aligned at least to a page size.
+    */<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; page_align = ALIGN(bp-&gt;byte_align, PAGE_SIZE)
+    &gt;&gt; PAGE_SHIFT;<br>
+    <br>
+    <br>
+    Something like ALIGN(bp-&gt;byte_align ?: 1, PAGE_SIZE) should
+    already do it.<br>
+    <br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 23.09.22 um 08:23 schrieb Marek
+      Olšák:<br>
+    </div>
+    <blockquote type="cite" cite="mid:CAAxE2A7jgTq_TiqK+V7aYPMd7rW2xATJSyVRcyRXpXreo3o4eQ@mail.gmail.com">
+      
+      <div dir="ltr">
+        <div>The kernel could report the true alignment from the ioctl
+          instead of 0.</div>
+        <div><br>
+        </div>
+        <div>Marek<br>
+        </div>
+      </div>
+      <br>
+      <div class="gmail_quote">
+        <div dir="ltr" class="gmail_attr">On Fri, Sep 23, 2022 at 1:31
+          AM Christian König &lt;<a href="mailto:christian.koenig@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;
+          wrote:<br>
+        </div>
+        <blockquote class="gmail_quote" style="margin:0px 0px 0px
+          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Am
+          23.09.22 um 07:28 schrieb lepton:<br>
+          &gt; On Thu, Sep 22, 2022 at 10:14 PM Christian König<br>
+          &gt; &lt;<a href="mailto:christian.koenig@amd.com" target="_blank" moz-do-not-send="true" class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;
+          wrote:<br>
+          &gt;&gt; Am 23.09.22 um 01:04 schrieb Lepton Wu:<br>
+          &gt;&gt;&gt; Since size has been aligned to PAGE_SIZE already,
+          just align it<br>
+          &gt;&gt;&gt; to PAGE_SIZE so later the buffer can be used as a
+          texture in mesa<br>
+          &gt;&gt;&gt; after <a href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fmesa%2Fmesa%2Fcommit%2F%3Fid%3Df7a4051b8&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C69c0881fd97d4de3380408da9d2c336b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637995111117539790%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=KMiCYD7blJCjO9zcfsqmy9%2FfYbtAmMHbrwpzHP7F5O0%3D&amp;reserved=0" originalsrc="https://cgit.freedesktop.org/mesa/mesa/commit/?id=f7a4051b8" shash="tWZ/wSFytcJujLRNLlQuVPu0GEQzU3dY7OQK9ATquLkHfpsKql65oFr7ZGju71IstnGuM4ElKmeZ3EJnWu9AcnyWuun7wPM82YmJQvlP7bLR1BMSuqfrVdMJvaX/nPuaeYB+JLBbEiT/9FdBdITIL3/4S2dOWwWNf4VUUkHwGqE=" rel="noreferrer" target="_blank" moz-do-not-send="true">https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fmesa%2Fmesa%2Fcommit%2F%3Fid%3Df7a4051b8&amp;amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C645f6878a7
+ bd487588b708da9d246c4c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637995077041120091%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sdata=NMEAl8TByDLQFWW1d%2FaJfiGrXc4mpwL5dxNH0M0QH84%3D&amp;amp;reserved=0</a><br>
+          &gt;&gt;&gt; Otherwise, si_texture_create_object will fail at
+          line<br>
+          &gt;&gt;&gt; &quot;buf-&gt;alignment &lt;
+          tex-&gt;surface.alignment&quot;<br>
+          &gt;&gt; I don't think that those Mesa checks are a good idea
+          in the first place.<br>
+          &gt;&gt;<br>
+          &gt;&gt; The alignment value is often specified as zero when
+          it doesn't matter<br>
+          &gt;&gt; because the minimum alignment can never be less than
+          the page size.<br>
+          &gt; Are you suggesting to change those mesa checks?<br>
+          <br>
+          Yes, the minimum alignment of allocations is always 4096
+          because that's <br>
+          the page size of the GPU.<br>
+          <br>
+          &gt; While that can be<br>
+          &gt; done, I still think a kernel side &quot;fix&quot; is still<br>
+          &gt; useful since it doesn't hurt while can fix issues for
+          some versions of mesa.<br>
+          <br>
+          No, we have tons of places where we don't specify and
+          alignment for <br>
+          buffers because it never mattered. I certainly don't want to
+          fix all of <br>
+          those.<br>
+          <br>
+          Regards,<br>
+          Christian.<br>
+          <br>
+          &gt;&gt; Christian.<br>
+          &gt;&gt;<br>
+          &gt;&gt;&gt; Signed-off-by: Lepton Wu &lt;<a href="mailto:ytht.net@gmail.com" target="_blank" moz-do-not-send="true" class="moz-txt-link-freetext">ytht.net@gmail.com</a>&gt;<br>
+          &gt;&gt;&gt; ---<br>
+          &gt;&gt;&gt;&nbsp; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 +-<br>
+          &gt;&gt;&gt;&nbsp; &nbsp; 1 file changed, 1 insertion(+), 1 deletion(-)<br>
+          &gt;&gt;&gt;<br>
+          &gt;&gt;&gt; diff --git
+          a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+          &gt;&gt;&gt; index 8ef31d687ef3b..8dca0c920d3ce 100644<br>
+          &gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+          &gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+          &gt;&gt;&gt; @@ -928,7 +928,7 @@ int
+          amdgpu_mode_dumb_create(struct drm_file *file_priv,<br>
+          &gt;&gt;&gt;&nbsp; &nbsp; &nbsp; &nbsp; args-&gt;size = ALIGN(args-&gt;size,
+          PAGE_SIZE);<br>
+          &gt;&gt;&gt;&nbsp; &nbsp; &nbsp; &nbsp; domain =
+          amdgpu_bo_get_preferred_domain(adev,<br>
+          &gt;&gt;&gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          amdgpu_display_supported_domains(adev, flags));<br>
+          &gt;&gt;&gt; -&nbsp; &nbsp; &nbsp;r = amdgpu_gem_object_create(adev,
+          args-&gt;size, 0, domain, flags,<br>
+          &gt;&gt;&gt; +&nbsp; &nbsp; &nbsp;r = amdgpu_gem_object_create(adev,
+          args-&gt;size, PAGE_SIZE, domain, flags,<br>
+          &gt;&gt;&gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          &nbsp;ttm_bo_type_device, NULL, &amp;gobj);<br>
+          &gt;&gt;&gt;&nbsp; &nbsp; &nbsp; &nbsp; if (r)<br>
+          &gt;&gt;&gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return -ENOMEM;<br>
+          <br>
+        </blockquote>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------RTVBmqqGd0DByD92oZpvoumg--
