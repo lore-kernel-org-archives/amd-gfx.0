@@ -4,78 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEA8CC07E9D
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 21:35:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95CACC07E9D
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 21:40:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C6C110E526;
-	Mon, 26 Sep 2022 21:35:23 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3222210E526
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Sep 2022 21:35:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1664228117;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6AigG2QaFz9fUItmLdlNymo8Bc77uFt/gfHqkCrhpQs=;
- b=ViQMg1Eqzxl/4dSVnTdtLU0jQBFgR1BD3XLdEZJ+Zr/c/jKXFPT8SFhMz0Y1AnQwJWHhVy
- hW29kOoUy5T8sMmor5mgrAE4AU3PTwy7AbNra9sj9h7xE7Fk5KThtW7GvYeLnNDVWlKRky
- orPhJ6ftD0ht9a0tH5uWU4YcETO+Jzg=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-17-FjNekgAAOmK5DAcRttX_Xw-1; Mon, 26 Sep 2022 17:35:16 -0400
-X-MC-Unique: FjNekgAAOmK5DAcRttX_Xw-1
-Received: by mail-qt1-f199.google.com with SMTP id
- g6-20020ac84b66000000b0035cf832dec9so5549438qts.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Sep 2022 14:35:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:user-agent:organization
- :references:in-reply-to:date:cc:to:from:subject:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=6AigG2QaFz9fUItmLdlNymo8Bc77uFt/gfHqkCrhpQs=;
- b=fzeAWB7Zr0Y2col2Cbw9Yme7CXlYqE5zrPmX2s4WkP63ryzKmdRbC4soLdeAiE8SFW
- 93l2/tccE/n8YkNGlLS4AUtM+eShS3MlsH5u5Zexn7GrQW2PiFiBIZguePn7Lf5bhF2A
- trk3RccKItR0vwj3uU9mF4z+DCj72dIUFi73yMG2sqIdeWgQfuL86YQZ0/x87PGeeHgv
- QgsCDhqwt7NeOWE1YKk3r5jYL0ArVutjDd4orYRqbDKNs4wX3N9vEDpLRvTma13kUqi2
- LGK3HAyqcDv9GIKDr4tQD2M6ywt3nuGI+HhIsmB6jrzTYxeWoMyJrpj7EvCOmA6d8zoa
- rDIQ==
-X-Gm-Message-State: ACrzQf0Sb5vipSVMDTWGU+TKSmv0CUsFhMQl1OiCcRkxsHk5gx5TRXt0
- EAGQVC1hL4bJGhB8jVl9wX7WdpefHu9ap+UOnR32LR6ZnNYQQY3RVeUtr1+DdBVQUecU4RoZAAG
- T6G8DCZYw6Jft6NrlEWjVCrU6hQ==
-X-Received: by 2002:ad4:596f:0:b0:4ad:79fc:9ae0 with SMTP id
- eq15-20020ad4596f000000b004ad79fc9ae0mr19024084qvb.53.1664228115786; 
- Mon, 26 Sep 2022 14:35:15 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM4xw6uz00XLpP3Skve6uaqwVGBSYr5mSlACMtNy5xy5ttQADFwfKgBu7gO0RX0i2rRcQ9QrXA==
-X-Received: by 2002:ad4:596f:0:b0:4ad:79fc:9ae0 with SMTP id
- eq15-20020ad4596f000000b004ad79fc9ae0mr19024049qvb.53.1664228115534; 
- Mon, 26 Sep 2022 14:35:15 -0700 (PDT)
-Received: from ?IPv6:2600:4040:5c48:e00:e786:1aff:4f5c:c549?
- ([2600:4040:5c48:e00:e786:1aff:4f5c:c549])
- by smtp.gmail.com with ESMTPSA id
- e24-20020ac84918000000b003445d06a622sm11246884qtq.86.2022.09.26.14.35.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Sep 2022 14:35:13 -0700 (PDT)
-Message-ID: <881735bda9b1ba0ecf3648af201840233508f206.camel@redhat.com>
-Subject: Re: [PATCH 6/7] nouveau/dmem: Evict device private memory during
- release
-From: Lyude Paul <lyude@redhat.com>
-To: Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org, Andrew Morton
- <akpm@linux-foundation.org>
-Date: Mon, 26 Sep 2022 17:35:11 -0400
-In-Reply-To: <072e1ce590fe101a4cdbd5e91b1702efebb6d0fd.1664171943.git-series.apopple@nvidia.com>
-References: <cover.f15b25597fc3afd45b144df863eeca3b2c13f9f4.1664171943.git-series.apopple@nvidia.com>
- <072e1ce590fe101a4cdbd5e91b1702efebb6d0fd.1664171943.git-series.apopple@nvidia.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CE0810E7BC;
+	Mon, 26 Sep 2022 21:40:51 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2040.outbound.protection.outlook.com [40.107.92.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DFBB10E7B6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Sep 2022 21:40:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GF5eAdazA4YA8USCu2T5ruBkCVFImDgNIlnePOoOyZIPzZMmGG21JCCnRDhL7fNutoMQ3A54LME7Kkct1ZcAQlqrF7Oc3zMRITva3KzT9d2LaHoAS7VHaJ8945Ll4oLiHMXFRCCRr6/gPTlU9iCCeF6Ly/S7GuR2kG0aR283QarkVkroz4L0xKXoJbEAfPMAeGS8U5X7C3cUrj1HAsJXJCaSh03pg/+9Pxwx8OxYicfD9y9GqDC51s005xx6xiYdfUg3A/BD//26selpzXJLv+bF8kmKEyLGXH0b2mjYnl/DX5P1Xh7luKQMliOV/pxfJC78UvwpqCRYSPw2xv6E1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y9DCkk2ESxc36KOrJ3TGmjCeN+tLV/E/uqzQOnWnFKU=;
+ b=KYvP/4+h2ElZ7/OCzD86mS1JcafVTUTjeCtAbF8AT/7SJk45mCFye/h2cnicr1jOmD8qOwx9LsSeegFW5oULxYCH6pyKFdkpNlJF/tY44A+sAZoW1pg6vIYOMTdLc1Pns2uBhMqJc3JSAaRTiOXH32d+Umh1DCVQaAfJ46fNmShSwQsUPc0vuIelThKcIqfgBsswUmU4Wz0x9zCXoi24D5bTljjHKNlXyBw79xHoFA0qGbY2i+trIXOpVvg1f1AFQIC+86VgLERevUOqUzMLjZqeWl7m9WfLHwxV9Hum0fkY2WlxYtVDUWscTw3wNd9ogzz8USFCaw+0pHtx/EAmpA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y9DCkk2ESxc36KOrJ3TGmjCeN+tLV/E/uqzQOnWnFKU=;
+ b=1yQnX+ZCtyc+uEA9GPl0AyWR1RiNP51KILir2F1PEGo88/jk7XC5zo00kt3pYNy4MU/CmArlI9Q0d/cspR1qqFmz1hwLSuTduFsduCSMYU4X+rQuK5aM6pSzkpgI5cZQTkkGYu1/+F++Y+fP2NtbWqKjreWDnDR6YY/X14IJQEQ=
+Received: from DM6PR21CA0001.namprd21.prod.outlook.com (2603:10b6:5:174::11)
+ by MN2PR12MB4222.namprd12.prod.outlook.com (2603:10b6:208:19a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.26; Mon, 26 Sep
+ 2022 21:40:43 +0000
+Received: from DM6NAM11FT081.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:174:cafe::2c) by DM6PR21CA0001.outlook.office365.com
+ (2603:10b6:5:174::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.14 via Frontend
+ Transport; Mon, 26 Sep 2022 21:40:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT081.mail.protection.outlook.com (10.13.172.136) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5654.14 via Frontend Transport; Mon, 26 Sep 2022 21:40:42 +0000
+Received: from shashanks-target.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 26 Sep
+ 2022 16:40:37 -0500
+From: Shashank Sharma <shashank.sharma@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v3 0/5] GPU workload hints for better performance
+Date: Mon, 26 Sep 2022 23:40:09 +0200
+Message-ID: <20220926214014.5450-1-shashank.sharma@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT081:EE_|MN2PR12MB4222:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4853b53f-c947-4e8d-2cb6-08daa007c36c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: lWmk46dTnGukmmQTrRW06h3H7KvyF5oVBu0bKAQFNu+4+3vOilnBKsjW8lnk2QtKSt/IatTdVO5oz7FC8GZA3gGeb/vyJTDS+pJmLLhFd4L8JWCjHTt5ci35hvSoEpnY3szz5/2D7oGKlWF4mg8ZUxeVk+SR78X1HXLJ2YtGBcEfpbV3kmIM1NevosSuNWF18k1yaJNz3JEb16H7vR8iSJrNAkCvtCWaM1iaKZTvCNzbvfLUJrDUIBphI8X8IsnfHvdm4zZGxUUakopBog0oW5Lc2v1zn8xd4R+HN/1PdHOipgwhdr/ct3za7wV3q6tDVvJWlgwhoB6TgS99RkaoSvw6zm8Cu7dyx1UzG4cqgy9xwaFOjGi15Vmw6NKB2DT27BD97bSAY6zSxPoFcNOUfvmE7KmE5GwIgYFNggMznHxaexnzsOeYBZoRbV852RCXE7WsQFqb1YR2hsMLmIW5LRx9tHnv0zg4VtDoghAGGiLDQgX0qnxF9gZOugYuFPOajeGqfPjI9BjkINMwTRnqXE5vXF2w83u3fRy0ejigwuzZ0tHq8vxWz+hNKsYnSqMspXEFtaNiPy6oPPAf0/UHKGXo6V67+oBvfRxNyQ2EuH33aM0QReHZMBOckEaRJF3HKLNB7GL0PPw1DdkgFxoPQp3E9tHtzgyqOheJ/G3EJjfNJ9+RRMexb7th6Owot33i9FIG8lpfUIR4gD6Jq9yP75J7gn1bSnN+Sgyyn6ebJiD/ZLCOH4Q6R0FPDhiqMfKo/O7zAPY0ovw8ots1iTw7P9a3sOKT4EpeAw2k0TK0bqqEQZxvK2DEHIRQ69bPM5zp
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(39860400002)(396003)(376002)(136003)(451199015)(36840700001)(46966006)(40470700004)(2616005)(36756003)(2906002)(186003)(86362001)(44832011)(1076003)(336012)(8936002)(16526019)(47076005)(426003)(41300700001)(81166007)(26005)(40480700001)(4326008)(8676002)(356005)(70206006)(70586007)(5660300002)(82740400003)(40460700003)(36860700001)(83380400001)(316002)(7696005)(54906003)(6916009)(6666004)(478600001)(82310400005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 21:40:42.8958 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4853b53f-c947-4e8d-2cb6-08daa007c36c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT081.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4222
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,127 +97,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, Ralph Campbell <rcampbell@nvidia.com>,
- "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
- dri-devel@lists.freedesktop.org, Karol Herbst <kherbst@redhat.com>,
- nouveau@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Michael Ellerman <mpe@ellerman.id.au>, Felix Kuehling <Felix.Kuehling@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Nicholas Piggin <npiggin@gmail.com>, Ben Skeggs <bskeggs@redhat.com>,
- Daniel Vetter <daniel@ffwll.ch>, John Hubbard <jhubbard@nvidia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Dan Williams <dan.j.williams@intel.com>, amd-gfx@lists.freedesktop.org,
- linuxppc-dev@lists.ozlabs.org,
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@nvidia.com>
+Cc: alexander.deucher@amd.com, amaranath.somalapuram@amd.com,
+ christian.koenig@amd.com, Shashank Sharma <shashank.sharma@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2022-09-26 at 16:03 +1000, Alistair Popple wrote:
-> When the module is unloaded or a GPU is unbound from the module it is
-> possible for device private pages to be left mapped in currently running
-> processes. This leads to a kernel crash when the pages are either freed
-> or accessed from the CPU because the GPU and associated data structures
-> and callbacks have all been freed.
-> 
-> Fix this by migrating any mappings back to normal CPU memory prior to
-> freeing the GPU memory chunks and associated device private pages.
-> 
-> Signed-off-by: Alistair Popple <apopple@nvidia.com>
-> 
-> ---
-> 
-> I assume the AMD driver might have a similar issue. However I can't see
-> where device private (or coherent) pages actually get unmapped/freed
-> during teardown as I couldn't find any relevant calls to
-> devm_memunmap(), memunmap(), devm_release_mem_region() or
-> release_mem_region(). So it appears that ZONE_DEVICE pages are not being
-> properly freed during module unload, unless I'm missing something?
+AMDGPU SOCs supports dynamic workload based power profiles, which can
+provide fine-tuned performance for a particular type of workload.
+This patch series adds an interface to set/reset these power profiles
+based on the workload type hints. A user can set a hint of workload
+type being submistted to GPU, and the driver can dynamically switch
+the power profiles which is best suited to this kind of workload. 
 
-I've got no idea, will poke Ben to see if they know the answer to this
+Currently supported workload profiles are:
+"None", "3D", "Video", "VR", "Compute"
 
-> ---
->  drivers/gpu/drm/nouveau/nouveau_dmem.c | 48 +++++++++++++++++++++++++++-
->  1 file changed, 48 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> index 66ebbd4..3b247b8 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> @@ -369,6 +369,52 @@ nouveau_dmem_suspend(struct nouveau_drm *drm)
->  	mutex_unlock(&drm->dmem->mutex);
->  }
->  
-> +/*
-> + * Evict all pages mapping a chunk.
-> + */
-> +void
-> +nouveau_dmem_evict_chunk(struct nouveau_dmem_chunk *chunk)
-> +{
-> +	unsigned long i, npages = range_len(&chunk->pagemap.range) >> PAGE_SHIFT;
-> +	unsigned long *src_pfns, *dst_pfns;
-> +	dma_addr_t *dma_addrs;
-> +	struct nouveau_fence *fence;
-> +
-> +	src_pfns = kcalloc(npages, sizeof(*src_pfns), GFP_KERNEL);
-> +	dst_pfns = kcalloc(npages, sizeof(*dst_pfns), GFP_KERNEL);
-> +	dma_addrs = kcalloc(npages, sizeof(*dma_addrs), GFP_KERNEL);
-> +
-> +	migrate_device_range(src_pfns, chunk->pagemap.range.start >> PAGE_SHIFT,
-> +			npages);
-> +
-> +	for (i = 0; i < npages; i++) {
-> +		if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
-> +			struct page *dpage;
-> +
-> +			/*
-> +			 * _GFP_NOFAIL because the GPU is going away and there
-> +			 * is nothing sensible we can do if we can't copy the
-> +			 * data back.
-> +			 */
+V2: This version addresses the review comment from Christian about
+chaning the design to set workload mode in a more dynamic method
+than during the context creation.
 
-You'll have to excuse me for a moment since this area of nouveau isn't one of
-my strongpoints, but are we sure about this? IIRC __GFP_NOFAIL means infinite
-retry, in the case of a GPU hotplug event I would assume we would rather just
-stop trying to migrate things to the GPU and just drop the data instead of
-hanging on infinite retries.
+V3: Addressed review comment from Christian, Removed the get_workload()
+    calls from UAPI, keeping only the set_workload() call.
 
-> +			dpage = alloc_page(GFP_HIGHUSER | __GFP_NOFAIL);
-> +			dst_pfns[i] = migrate_pfn(page_to_pfn(dpage));
-> +			nouveau_dmem_copy_one(chunk->drm,
-> +					migrate_pfn_to_page(src_pfns[i]), dpage,
-> +					&dma_addrs[i]);
-> +		}
-> +	}
-> +
-> +	nouveau_fence_new(chunk->drm->dmem->migrate.chan, false, &fence);
-> +	migrate_device_pages(src_pfns, dst_pfns, npages);
-> +	nouveau_dmem_fence_done(&fence);
-> +	migrate_device_finalize(src_pfns, dst_pfns, npages);
-> +	kfree(src_pfns);
-> +	kfree(dst_pfns);
-> +	for (i = 0; i < npages; i++)
-> +		dma_unmap_page(chunk->drm->dev->dev, dma_addrs[i], PAGE_SIZE, DMA_BIDIRECTIONAL);
-> +	kfree(dma_addrs);
-> +}
-> +
->  void
->  nouveau_dmem_fini(struct nouveau_drm *drm)
->  {
-> @@ -380,8 +426,10 @@ nouveau_dmem_fini(struct nouveau_drm *drm)
->  	mutex_lock(&drm->dmem->mutex);
->  
->  	list_for_each_entry_safe(chunk, tmp, &drm->dmem->chunks, list) {
-> +		nouveau_dmem_evict_chunk(chunk);
->  		nouveau_bo_unpin(chunk->bo);
->  		nouveau_bo_ref(NULL, &chunk->bo);
-> +		WARN_ON(chunk->callocated);
->  		list_del(&chunk->list);
->  		memunmap_pages(&chunk->pagemap);
->  		release_mem_region(chunk->pagemap.range.start,
+Shashank Sharma (5):
+  drm/amdgpu: add UAPI for workload hints to ctx ioctl
+  drm/amdgpu: add new functions to set GPU power profile
+  drm/amdgpu: set GPU workload via ctx IOCTL
+  drm/amdgpu: switch GPU workload profile
+  drm/amdgpu: switch workload context to/from compute
+
+ drivers/gpu/drm/amd/amdgpu/Makefile           |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    | 14 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c       | 42 ++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h       |  1 +
+ .../gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c  | 93 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       | 15 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |  3 +
+ .../gpu/drm/amd/include/amdgpu_ctx_workload.h | 54 +++++++++++
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  5 +
+ include/uapi/drm/amdgpu_drm.h                 | 17 ++++
+ 12 files changed, 243 insertions(+), 6 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
+ create mode 100644 drivers/gpu/drm/amd/include/amdgpu_ctx_workload.h
 
 -- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
+2.34.1
 
