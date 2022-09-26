@@ -4,118 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58EABC07E9D
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 09:21:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6349C32771
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 09:23:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA02810E658;
-	Mon, 26 Sep 2022 09:21:44 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4DF310E2F9
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Sep 2022 09:21:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21C2810E65C;
+	Mon, 26 Sep 2022 09:23:02 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2052.outbound.protection.outlook.com [40.107.244.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE9B410E2F9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Sep 2022 09:22:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hu2ATzchtSqlqusWhQFPoF3gsvgkcWfXu4xlm/o28xBetWnA+b2nfbJ+B5YTnk5i2zE3B4VtBsgrGLkIuybUvCGDuXnIDL8/uhJEK/2Aa0/D5myLjVtfUq9QUaE9P7YfCf4C0efegFZEHiUy8EHW24tmebxSZ2z7f1Q4ewkKmdqwb9W5AdMu2OFGB1gG0Qekk5Wgd4ttnApUKFQuoIx+F7em7iTJfky1w/cj1OnusbV2Y7EtpUhy2pPM9uvRrlkXa+5ZARIn5OwxBnS9io7BCB7wYp4ABgpt0dOi+v+BMa+reyHNAHk9nnzg9Q0FF6YcMo4GlIgF/OFrLQVMLUfBiQ==
+ b=hXXb2yTAPUanSfK4oTmair+QOJUmHUxv/ZtOoxh3tUWSYAkCN9mFYfu7wsBvOKCUF7IvvLvhG6st7bIqvjIEaPORD8UMkSMuRitI+0rThHK9zvefaIVzi6Z+PS1JWmB/LaNX75wLwgCnQM7QI1S6bh8EKdaDd2z6P8SCgbYvb8jP64PyrS/1NTITWGDvjKDW/RJSmwx2LqpFn7KoQ716HWRHPvQbwBBa5QmMypKlE6GThCNzHV8VP5zcjr071GAdoHiAg9G9nj6dyj9gg+Nz0rtfjbp/pedZdRy8ixH7lVZHKSWzqdnjnQ6773kjZNCJLy6K2VoLwyK+5iHounVI7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=glycbzegHdt0jyNNYA4N8WhMCdhO8SPweJrBzxFrxDQ=;
- b=eCecOFZt4hN4kVU9CZnkdDZQhMVrU/JbKxaOFDlLOIesIFietC6lJJXrUOlCrbRunfXEgcWVQjnqMzRiRB6mtEPxn9cm0yaCM3u0CG1thVIYjyzBR+cyKWUCkSpo13B5fkIhRMZx2BxV7wGQMaMohb2Wl4NNikdtSSZA+PUhaUVGdN5BQZyE0PP0oRST5FGoD7zQ4SjOG6ngnUdo4SIkFG9wRzh8dJ5y9wu1udVFhW5n9YA0yhVVG7sey18qGGmAXkM1+JfcX1C34gycSh2MVTBAtI1Y4+e3D2uknihBh5TCvFhdIosd/0Yf1n/jP1Vapb0gV1No1F8VMlrEuUUgzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=jyP+teF5yRVkm6NGC6hqq7spfWMuSdPhbeSX5fJgcW8=;
+ b=oXsLXU/gycxq8wHfIAsx+O6CjszBUkexC1Dz66/Pf+F580UTC8Ijhs3iJ9A6wYuopXTJlgZF6cvqjlivcKeHs9OiBXoqYx7BYJI12G5bV0QcvvG0sCA3d/bOC2/PmFWj4aBRFV7kG6eA+GHLN3i2Yi5G8rJ1D0YMDkUpCdFbgySvE/3hHJ/evo3E5K10OqbO8DiI3mBJ86cYW6jLn/Oqe8ty2e3HLltJSTss3nGo44WiozRoP5DsZ55bJWXV8kID3ITvoc3TzpCkzkm1+xBp4O5EEM8NP+r39hHrNCSReo6cwJRvoL8tz7exGnkrCcDEXrvsH7B18Z3TKvViI0p7Dg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=glycbzegHdt0jyNNYA4N8WhMCdhO8SPweJrBzxFrxDQ=;
- b=UlU3Z4VehJtv27ecvVRuPr635s+U7T66+aOPzpfVQKUkccmuzB1fBQ3/ZvqCo4oR4lHSoplF5LgUIWiuvKlTqEI31JREDRl3E8HAK0M8pM4/e0SxD5CC00rnmr5bUVt9qRuqPEGe0lPWVVfS6jbr26Cs+RVCGrNGt4mWZWgxVp8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by PH0PR12MB5402.namprd12.prod.outlook.com (2603:10b6:510:ef::23)
+ bh=jyP+teF5yRVkm6NGC6hqq7spfWMuSdPhbeSX5fJgcW8=;
+ b=pQbDlPjzGbXu+BMa0HkXjjmG7QVdQk5G7LEpo6j58isteTWpDtaxIpz9VacDv249fyYwbrGGxdEiR0I9ZM+9KqGf4hzfwFdsny4cfTck8oeTj9Y2QWVf69mk2dzfznZXPjWpFXtR+jb80OwWUb8iD+74k+hvXcjJvTxSjT0WH0w=
+Received: from MW3PR05CA0020.namprd05.prod.outlook.com (2603:10b6:303:2b::25)
+ by CH0PR12MB5346.namprd12.prod.outlook.com (2603:10b6:610:d5::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.20; Mon, 26 Sep
- 2022 09:21:38 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::653f:e59b:3f40:8fed]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::653f:e59b:3f40:8fed%6]) with mapi id 15.20.5654.025; Mon, 26 Sep 2022
- 09:21:38 +0000
-Content-Type: multipart/alternative;
- boundary="------------RTVBmqqGd0DByD92oZpvoumg"
-Message-ID: <2feb4983-1258-e4de-4efd-9d90f6bafa7c@amd.com>
-Date: Mon, 26 Sep 2022 11:21:32 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] drm/amdgpu: Always align dumb buffer at PAGE_SIZE
-Content-Language: en-US
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-References: <20220922230452.3903316-1-ytht.net@gmail.com>
- <7526e4ba-1022-d921-9138-257c369cc172@amd.com>
- <CALqoU4y-3dWJ-gR8RxUFry9KpT+FMNDfb4WmvEoK5bc56ueUvw@mail.gmail.com>
- <8fd109a0-bf1d-befd-a9b5-c02c2104df25@amd.com>
- <CAAxE2A7jgTq_TiqK+V7aYPMd7rW2xATJSyVRcyRXpXreo3o4eQ@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAAxE2A7jgTq_TiqK+V7aYPMd7rW2xATJSyVRcyRXpXreo3o4eQ@mail.gmail.com>
-X-ClientProxiedBy: FR3P281CA0063.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4b::13) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.26; Mon, 26 Sep
+ 2022 09:22:54 +0000
+Received: from CO1NAM11FT063.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:2b:cafe::f4) by MW3PR05CA0020.outlook.office365.com
+ (2603:10b6:303:2b::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.7 via Frontend
+ Transport; Mon, 26 Sep 2022 09:22:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT063.mail.protection.outlook.com (10.13.175.37) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5654.14 via Frontend Transport; Mon, 26 Sep 2022 09:22:53 +0000
+Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 26 Sep
+ 2022 04:22:51 -0500
+From: Asher Song <Asher.Song@amd.com>
+To: <Dillon_Varone@amd.com>, <Guchun.Chen@amd.com>, <flora.cui@amd.com>,
+ <yuliang.shi@amd.com>, <jun.ma2@amd.com>, <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: fix a compiling error
+Date: Mon, 26 Sep 2022 17:22:26 +0800
+Message-ID: <20220926092226.96988-1-Asher.Song@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH0PR12MB5402:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5ee038f-f42c-4540-0b03-08da9fa08391
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT063:EE_|CH0PR12MB5346:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7746e50-b414-4b89-4847-08da9fa0b11c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5swn98dSV2NRZc8gMGuRu2ZlpKxqpNEfkaQJ68Kw3m0gHF5riGwS6T4t8ZA6uNhg90hVcLk9fkhMyE9tm1Z4YDyNJ4gnaHJ0+Hr7mziMaP0xhmzQYa6W8kI5qpljCkiKFns8IS7yXrREdyCLu2HldcjltV6bonMt2ZlRsw6U9d9nZ0QUzoTRUoPe5H0lTZKG24Ih3iZ5tTCVW2gF24tQfKmMvheUPCcTkhmNEvnHCYojPezrX6LdMDxsqSg5o6pjAOrCIbEOfoh7mgoZPMIv1OyXdfGCU3NCAaSCSCxgU4psFC0g4/8VQrgcSvb65duqfed+F8AGuoLf+4XuGFO8vlahyIJvUKBnTbRwpPIRN+b17pJBoQFZj+HvciJ6jZ2FKOIlwduFxxr6gzku3MyxLHZ17zhQmzG8nRV9CsmTbH5F9Y5VlwwSeij1n5lCHNERjgv3oIi4IHEHzfEOqFhIg+mkZy6k/zqjfm5xHMW2+8P2p63YjHIlXvzx/n4nq4UL5F2jxfjHzCIQhD1lsslqNiO3ebTIaPsVUz8yaxA6dgkOFTedkcmcghSi+Bgm4YU+XmK178/sjkGDEgcvw6U3JYNzkTckpju9ebv+KQBOVEVDmmfiU8j8+OdCFJW71nPiRGzHmeHyV/HEK36vhNlavO3BZnpEiVlFDYAGEmIIXuZkQNKowD7gjkq2+gWzoj8oEf6PilQW0CblzRxZSCO2C1MTAK1KoGRt+ACIF9Rdi2VoNjT82fO1hIYDCrT7wcvb
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(39860400002)(366004)(396003)(346002)(136003)(451199015)(6666004)(36756003)(31696002)(86362001)(31686004)(166002)(4326008)(54906003)(66476007)(66556008)(6916009)(6486002)(316002)(8676002)(966005)(478600001)(2906002)(6512007)(38100700002)(26005)(5660300002)(6506007)(53546011)(2616005)(41300700001)(8936002)(186003)(66946007)(33964004)(45080400002)(66574015)(83380400001)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: tUGvZKo+sfRGyQO4MRlMtjW3ha6z+MIw+P9CEOwK3/Py/olAdP1NvR02+DDmIhWGT/ae+WbT7tMxJsYx+t4wnG2tUvnfkjN00UDgoMeUkUaIdEboiL9HfMqWZGs06sgmA3DQVQtd2xUiCLapMQNT39mwmdI92hrrNxNy7H5OaQf+F4bf7MziWv1gpMNWD24gJ9a/SB3XBQOjJ4vdsv/j9vSuJMkUhMH2hhH0470Mnsw7uKAvlwFaE2/1QxYCFCv4STpmadrLWOk21+JumKfz9nN14f7M4KvHApwFdcU8PCbT4dCnarVCRIsTijF4kqxONdblwg2n9Jq1AqleOvqSostEx2RgORpeA2k4QBylQEVdPLgM4eZw5gY1riHUJ+BZoVeJBPbmYvECu9UWUmfiwV6UGmm7mNuWEFPBLStszfZQ08UkHErQocaXyXqc5eJJOU6ujm8K7H55oMAuVxUvSC6AxrsPMRxsVxJFWtp3Xd3M2Y93MGN2ym0GjNM1SODxel/aL/70DQ4kWnu4iBP6smyZm2IxudgP6+29pVG2beGPK/ECFTd2af9W7tXyLGZRbxZByPa9NtAYntgemxDyWsfXgGJsSu/3G7XEPAaMHmD5LyoznPMCxN6Z7kelHaE0WNK4NaSnEZF8RyeyNszX/k1ke0I60qHFS0wWYdgqJjFIOv3ozvNhTJ82fYmd2e/AJ8URsG/ZLUsHoJrlqhQXJcOhakrjO+0yDyPzLgZKSWkukt9AdQKxv/747XmgRdqUAOqGBs2FQLK2ksjQ8pefYLQSJLKdmIB2TzlnyAkByUlTyolAGrKPXQkXEfz8YkB+
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(376002)(346002)(39860400002)(136003)(451199015)(46966006)(40470700004)(36840700001)(86362001)(82740400003)(82310400005)(81166007)(356005)(36860700001)(478600001)(8936002)(426003)(83380400001)(110136005)(6666004)(40460700003)(316002)(5660300002)(26005)(336012)(2906002)(47076005)(4744005)(8676002)(40480700001)(2616005)(70206006)(70586007)(4326008)(36756003)(41300700001)(1076003)(186003)(16526019)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bmswbzZxTmJEcGJ5cTNUbkRzcEs1OFNxTk5SU09CMEVueUdSNnR6SklDdWZ0?=
- =?utf-8?B?RlRRelY5ZzNzM3Z2NThFUERxVSs5Si9aMjRMSFN4MStQdTBaNHJSdTVUMEhu?=
- =?utf-8?B?T29oRzlvNVlPL1VPelhSQklrd0JoVzhiZmxDVFlsNjdtbGQycjZaOWRlUmVu?=
- =?utf-8?B?ZXo1MTlUWFJpQ3AyeW1xYmVzSXlhbVNoVEoyM29IUndsd1h4cTFLblhzbDhR?=
- =?utf-8?B?ZHdWOE03VExpVkFYcUpzQTNWUUM5SEhmWjZvZ2poS3hXbTlJSmhYTEgycFhM?=
- =?utf-8?B?dzdRb2J0RDVlaXhXc2VCUUY2ZGVzcVJDQnlBSWZSRmtTd2F4c0pGcVB1dEpk?=
- =?utf-8?B?cklZeHZSaVl0clhLc05oV29WbFJpcUc0aUZiR2RkdlVVMDhwQXJqdUdiRU9C?=
- =?utf-8?B?TytTMStRazI3UXNlZ2xDZnRpWkk3NXdFRk5SYitXNmhLY1Z3M2hGUTVjTGE3?=
- =?utf-8?B?Q25YMGFSM2FjQlJwQXlIS2p4enk1Um5oOStVYk5tektUbWVyenh3cjVRUnYv?=
- =?utf-8?B?MEdzbUM3NnpXRGg5akpObU5zRDcxTlZia052Rkw1aVJyUW1LNGdZZWRBVnps?=
- =?utf-8?B?eTBsWUNldlJnSW9ydjczUjlKa2liR2hHVXZRcEc3NkY0K3BTcGlkSVlSWkVK?=
- =?utf-8?B?VkxDaWdteEZPL1hDd3ZZR2VzSTd5MnB2R1RhRFNCRDBZNHQ3OFBkVVE2b0lj?=
- =?utf-8?B?Z25meUNCR3J3Z3FJbEl6Kzh6V2p6S3lMUXdhNW1tMFk3Y3piSzhTUG9vajFR?=
- =?utf-8?B?VlltcVp6cGdrOHpmRklUVVo2bmg0M1NRSkNVMFFEVkJWdWU0NlBwSEJXbnJ4?=
- =?utf-8?B?TzMrVzFIdTF0RjJmdUwyc3BSNHFPcytyK21hRkNKNXQ0WkNoS2VlVU5rOTcz?=
- =?utf-8?B?ZFpIeEJFZG9zWW1FUEdMS2N1SWZvRGlza0xHNStCeE1vR2hMRXpVR3A0MUZK?=
- =?utf-8?B?ZGxqR3NoODRucERQNEc1WXU0NmV0V2cxcTVEVTdtRGZKSUFJVk9hdHc4SE5X?=
- =?utf-8?B?c1JWUEo0cDJaQTlxZEhoeDFaTy9KZW5ONUp3NWRqZ29NU1I1bHRjNkdrZUo4?=
- =?utf-8?B?RThvaXhJOTZQd2VYOW5lMldBTHhzR0x3aDYwbGd2U3FVN1UwOFRHaGtuQ2Mr?=
- =?utf-8?B?c0VGVFNVT2x4a2FVS2h4TCt0eDE5aGw3MzdoUStRSC9JS1NPeXJsTTFHaC9J?=
- =?utf-8?B?V21Gb2hCRVdxSEMzNWRXUmJhMUQwOXluNldzQ1VkN2hwdVdmbFUrUDh4MUJt?=
- =?utf-8?B?RDNmaEVTNkxDNGRiS0Q5MHY5N3FtdEg5NHdIWmllZVg2cFYySklMalFYUUdw?=
- =?utf-8?B?Nk5Oa1Y5aHZJL2ttQlcwUFljenlNK0lOeTY4VjFZWVZWcVRZNTF4RVdTKzFT?=
- =?utf-8?B?VVRBL0dJMy8zbGJLSFVUMEdlNzR2YVVRVGxrbWVyYlVyejN1dlR0dWlwd0RF?=
- =?utf-8?B?dDRKTHdJRngrc3NXRFhzY0RzdXFqWDR2d2theGZTWDN1QkJJaW05QTEzUExQ?=
- =?utf-8?B?MzJVcWFiUkd6eTVkSzlGVFpyRDliTExjK2hqVE1tUkdmVWtJLzFaZndjT29s?=
- =?utf-8?B?ZTJma2c3cEFNMnhNYWt5Z3JsRHdIM013YkYwd1QzSHlvdk9XMmZWZjZWTVRP?=
- =?utf-8?B?RTdMN1VxamhSUmliTDdzcnpQbzJnV0NUaFVHdGNacnBDVGtleHBIOG5xUHZN?=
- =?utf-8?B?RVM5U2wrVnJUR2NnL0k1VXBKalFUSEJvZmN2eGFtNWx3YWkwVUlaREdKV1NU?=
- =?utf-8?B?emlGYTZERVBhRGNKaERyMFU3bHpXNU85Y1NBUXNwcDRTWFZOZXQwN3NkeCsx?=
- =?utf-8?B?ZVVQN1l1bHVhUEtZbkpaUVpoeE4yalltbHhSdWJ6Zk16Yk5NMmRRTnBRdUVl?=
- =?utf-8?B?NWp2UlNXN0dhd0JCM3Mzd041d0xRL05IdzNWRGhEeW1ZUnlyMDlpUCtSVU5u?=
- =?utf-8?B?N2QyUzJ0TU9LOGxtTUhRNk9ob1pTRVpieWFreXl2OGhYREV1eWs1aDdWOFNE?=
- =?utf-8?B?N1ZwKzlTb2ZrMjI3T005cXEwaDJPRXVmYkZsY1d1WFdTUG1pYWYrYlhCNnh2?=
- =?utf-8?B?Q1BpRjlUMDV2NEdLNWhKMVVlNmlHdmRQeTFXZURhVE9KNjg5c3lYTkdTK2F5?=
- =?utf-8?Q?DMvFrhekvXsh0G5L0/6h0EkJ4?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5ee038f-f42c-4540-0b03-08da9fa08391
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 09:21:37.9125 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 09:22:53.9476 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7746e50-b414-4b89-4847-08da9fa0b11c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qF0xM1n13PdoO8t4edkgZBsSrPswzO1EHJvRY2tH+mnnTcStETjcRSEfXoImOSRa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5402
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT063.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5346
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,223 +98,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
- lepton <ytht.net@gmail.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Cc: Asher Song <Asher.Song@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------RTVBmqqGd0DByD92oZpvoumg
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+The patch fix following compiling error:
 
-I was thinking about that as well, yes.
+error: ‘for’ loop initial declarations are only allowed in C99 mode
+  for (int i = 0; i < dc->res_pool->res_cap->num_dsc; i++) {
 
-Might be a good idea to just change the alignment check in 
-amdgpu_bo_create():
+Signed-off-by: Asher Song <Asher.Song@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-                 /* Memory should be aligned at least to a page size. */
-                 page_align = ALIGN(bp->byte_align, PAGE_SIZE) >> 
-PAGE_SHIFT;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+index 772ad200c5da..d58c5085600a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+@@ -1405,8 +1405,8 @@ void dcn32_update_dsc_pg(struct dc *dc,
+ 		bool safe_to_disable)
+ {
+ 	struct dce_hwseq *hws = dc->hwseq;
+-
+-	for (int i = 0; i < dc->res_pool->res_cap->num_dsc; i++) {
++	int i;
++	for (i = 0; i < dc->res_pool->res_cap->num_dsc; i++) {
+ 		struct display_stream_compressor *dsc = dc->res_pool->dscs[i];
+ 		bool is_dsc_ungated = hws->funcs.dsc_pg_status(hws, dsc->inst);
+ 
+-- 
+2.25.1
 
-
-Something like ALIGN(bp->byte_align ?: 1, PAGE_SIZE) should already do it.
-
-Christian.
-
-Am 23.09.22 um 08:23 schrieb Marek Olšák:
-> The kernel could report the true alignment from the ioctl instead of 0.
->
-> Marek
->
-> On Fri, Sep 23, 2022 at 1:31 AM Christian König 
-> <christian.koenig@amd.com> wrote:
->
->     Am 23.09.22 um 07:28 schrieb lepton:
->     > On Thu, Sep 22, 2022 at 10:14 PM Christian König
->     > <christian.koenig@amd.com> wrote:
->     >> Am 23.09.22 um 01:04 schrieb Lepton Wu:
->     >>> Since size has been aligned to PAGE_SIZE already, just align it
->     >>> to PAGE_SIZE so later the buffer can be used as a texture in mesa
->     >>> after
->     https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fmesa%2Fmesa%2Fcommit%2F%3Fid%3Df7a4051b8&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C645f6878a7bd487588b708da9d246c4c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637995077041120091%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=NMEAl8TByDLQFWW1d%2FaJfiGrXc4mpwL5dxNH0M0QH84%3D&amp;reserved=0
->     <https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fmesa%2Fmesa%2Fcommit%2F%3Fid%3Df7a4051b8&data=05%7C01%7Cchristian.koenig%40amd.com%7C69c0881fd97d4de3380408da9d2c336b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637995111117539790%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=KMiCYD7blJCjO9zcfsqmy9%2FfYbtAmMHbrwpzHP7F5O0%3D&reserved=0>
->     >>> Otherwise, si_texture_create_object will fail at line
->     >>> "buf->alignment < tex->surface.alignment"
->     >> I don't think that those Mesa checks are a good idea in the
->     first place.
->     >>
->     >> The alignment value is often specified as zero when it doesn't
->     matter
->     >> because the minimum alignment can never be less than the page size.
->     > Are you suggesting to change those mesa checks?
->
->     Yes, the minimum alignment of allocations is always 4096 because
->     that's
->     the page size of the GPU.
->
->     > While that can be
->     > done, I still think a kernel side "fix" is still
->     > useful since it doesn't hurt while can fix issues for some
->     versions of mesa.
->
->     No, we have tons of places where we don't specify and alignment for
->     buffers because it never mattered. I certainly don't want to fix
->     all of
->     those.
->
->     Regards,
->     Christian.
->
->     >> Christian.
->     >>
->     >>> Signed-off-by: Lepton Wu <ytht.net@gmail.com>
->     >>> ---
->     >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 +-
->     >>>    1 file changed, 1 insertion(+), 1 deletion(-)
->     >>>
->     >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->     b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->     >>> index 8ef31d687ef3b..8dca0c920d3ce 100644
->     >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->     >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->     >>> @@ -928,7 +928,7 @@ int amdgpu_mode_dumb_create(struct
->     drm_file *file_priv,
->     >>>        args->size = ALIGN(args->size, PAGE_SIZE);
->     >>>        domain = amdgpu_bo_get_preferred_domain(adev,
->     >>> amdgpu_display_supported_domains(adev, flags));
->     >>> -     r = amdgpu_gem_object_create(adev, args->size, 0,
->     domain, flags,
->     >>> +     r = amdgpu_gem_object_create(adev, args->size,
->     PAGE_SIZE, domain, flags,
->     >>>  ttm_bo_type_device, NULL, &gobj);
->     >>>        if (r)
->     >>>                return -ENOMEM;
->
-
---------------RTVBmqqGd0DByD92oZpvoumg
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    I was thinking about that as well, yes.<br>
-    <br>
-    Might be a good idea to just change the alignment check in
-    amdgpu_bo_create():<br>
-    <br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Memory should be aligned at least to a page size.
-    */<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; page_align = ALIGN(bp-&gt;byte_align, PAGE_SIZE)
-    &gt;&gt; PAGE_SHIFT;<br>
-    <br>
-    <br>
-    Something like ALIGN(bp-&gt;byte_align ?: 1, PAGE_SIZE) should
-    already do it.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 23.09.22 um 08:23 schrieb Marek
-      Olšák:<br>
-    </div>
-    <blockquote type="cite" cite="mid:CAAxE2A7jgTq_TiqK+V7aYPMd7rW2xATJSyVRcyRXpXreo3o4eQ@mail.gmail.com">
-      
-      <div dir="ltr">
-        <div>The kernel could report the true alignment from the ioctl
-          instead of 0.</div>
-        <div><br>
-        </div>
-        <div>Marek<br>
-        </div>
-      </div>
-      <br>
-      <div class="gmail_quote">
-        <div dir="ltr" class="gmail_attr">On Fri, Sep 23, 2022 at 1:31
-          AM Christian König &lt;<a href="mailto:christian.koenig@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class="gmail_quote" style="margin:0px 0px 0px
-          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Am
-          23.09.22 um 07:28 schrieb lepton:<br>
-          &gt; On Thu, Sep 22, 2022 at 10:14 PM Christian König<br>
-          &gt; &lt;<a href="mailto:christian.koenig@amd.com" target="_blank" moz-do-not-send="true" class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;
-          wrote:<br>
-          &gt;&gt; Am 23.09.22 um 01:04 schrieb Lepton Wu:<br>
-          &gt;&gt;&gt; Since size has been aligned to PAGE_SIZE already,
-          just align it<br>
-          &gt;&gt;&gt; to PAGE_SIZE so later the buffer can be used as a
-          texture in mesa<br>
-          &gt;&gt;&gt; after <a href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fmesa%2Fmesa%2Fcommit%2F%3Fid%3Df7a4051b8&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C69c0881fd97d4de3380408da9d2c336b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637995111117539790%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=KMiCYD7blJCjO9zcfsqmy9%2FfYbtAmMHbrwpzHP7F5O0%3D&amp;reserved=0" originalsrc="https://cgit.freedesktop.org/mesa/mesa/commit/?id=f7a4051b8" shash="tWZ/wSFytcJujLRNLlQuVPu0GEQzU3dY7OQK9ATquLkHfpsKql65oFr7ZGju71IstnGuM4ElKmeZ3EJnWu9AcnyWuun7wPM82YmJQvlP7bLR1BMSuqfrVdMJvaX/nPuaeYB+JLBbEiT/9FdBdITIL3/4S2dOWwWNf4VUUkHwGqE=" rel="noreferrer" target="_blank" moz-do-not-send="true">https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fmesa%2Fmesa%2Fcommit%2F%3Fid%3Df7a4051b8&amp;amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C645f6878a7
- bd487588b708da9d246c4c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637995077041120091%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sdata=NMEAl8TByDLQFWW1d%2FaJfiGrXc4mpwL5dxNH0M0QH84%3D&amp;amp;reserved=0</a><br>
-          &gt;&gt;&gt; Otherwise, si_texture_create_object will fail at
-          line<br>
-          &gt;&gt;&gt; &quot;buf-&gt;alignment &lt;
-          tex-&gt;surface.alignment&quot;<br>
-          &gt;&gt; I don't think that those Mesa checks are a good idea
-          in the first place.<br>
-          &gt;&gt;<br>
-          &gt;&gt; The alignment value is often specified as zero when
-          it doesn't matter<br>
-          &gt;&gt; because the minimum alignment can never be less than
-          the page size.<br>
-          &gt; Are you suggesting to change those mesa checks?<br>
-          <br>
-          Yes, the minimum alignment of allocations is always 4096
-          because that's <br>
-          the page size of the GPU.<br>
-          <br>
-          &gt; While that can be<br>
-          &gt; done, I still think a kernel side &quot;fix&quot; is still<br>
-          &gt; useful since it doesn't hurt while can fix issues for
-          some versions of mesa.<br>
-          <br>
-          No, we have tons of places where we don't specify and
-          alignment for <br>
-          buffers because it never mattered. I certainly don't want to
-          fix all of <br>
-          those.<br>
-          <br>
-          Regards,<br>
-          Christian.<br>
-          <br>
-          &gt;&gt; Christian.<br>
-          &gt;&gt;<br>
-          &gt;&gt;&gt; Signed-off-by: Lepton Wu &lt;<a href="mailto:ytht.net@gmail.com" target="_blank" moz-do-not-send="true" class="moz-txt-link-freetext">ytht.net@gmail.com</a>&gt;<br>
-          &gt;&gt;&gt; ---<br>
-          &gt;&gt;&gt;&nbsp; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 +-<br>
-          &gt;&gt;&gt;&nbsp; &nbsp; 1 file changed, 1 insertion(+), 1 deletion(-)<br>
-          &gt;&gt;&gt;<br>
-          &gt;&gt;&gt; diff --git
-          a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-          b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-          &gt;&gt;&gt; index 8ef31d687ef3b..8dca0c920d3ce 100644<br>
-          &gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-          &gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-          &gt;&gt;&gt; @@ -928,7 +928,7 @@ int
-          amdgpu_mode_dumb_create(struct drm_file *file_priv,<br>
-          &gt;&gt;&gt;&nbsp; &nbsp; &nbsp; &nbsp; args-&gt;size = ALIGN(args-&gt;size,
-          PAGE_SIZE);<br>
-          &gt;&gt;&gt;&nbsp; &nbsp; &nbsp; &nbsp; domain =
-          amdgpu_bo_get_preferred_domain(adev,<br>
-          &gt;&gt;&gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          amdgpu_display_supported_domains(adev, flags));<br>
-          &gt;&gt;&gt; -&nbsp; &nbsp; &nbsp;r = amdgpu_gem_object_create(adev,
-          args-&gt;size, 0, domain, flags,<br>
-          &gt;&gt;&gt; +&nbsp; &nbsp; &nbsp;r = amdgpu_gem_object_create(adev,
-          args-&gt;size, PAGE_SIZE, domain, flags,<br>
-          &gt;&gt;&gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          &nbsp;ttm_bo_type_device, NULL, &amp;gobj);<br>
-          &gt;&gt;&gt;&nbsp; &nbsp; &nbsp; &nbsp; if (r)<br>
-          &gt;&gt;&gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return -ENOMEM;<br>
-          <br>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------RTVBmqqGd0DByD92oZpvoumg--
