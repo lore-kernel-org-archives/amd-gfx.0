@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A7CBC54EE9
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 17:00:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 544EBC07E9D
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 17:00:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7E5510E090;
-	Tue, 27 Sep 2022 17:00:19 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 483FA10E05C;
- Tue, 27 Sep 2022 17:00:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9997F10E103;
+	Tue, 27 Sep 2022 17:00:49 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1288310E0FA;
+ Tue, 27 Sep 2022 17:00:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664298014; x=1695834014;
+ t=1664298043; x=1695834043;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FhJMM87k0x5zG3sXLdlJ9nnD79G+3grLJBKMOo94wRA=;
- b=YrsNFxSlQvllGgp2ogys7VIhyX+pcfyZammA4zDPaKcFKkN2vYZColHk
- Ghnf0TED9dhx+X3RAWNYH63zSZc6v0tjb0WyWiT/bSjYa4M7+8Xt1zzwb
- LY6wj3u2QW5RNtfrFhv9d7kgI6DmBYH9vZZmpMMNd5VrkgdMfUUjvFHoK
- BGDHT3JfCjmYVI8Bf8FloFjJGk5NV3uf9lncsxOBYXjg4F+KAQIy9IFZq
- kjHV9cunAQJKWr/YtJc7IvZnw8XhSYKp+KfNEPKHHEEiNxjzZqDmtuP9k
- C2xTu3x0+9kW0c47Wng1byhPHiIhtUwkNq4K0DVXmvHbXFw9b7+5vX2vm Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="363208133"
-X-IronPort-AV: E=Sophos;i="5.93,349,1654585200"; d="scan'208";a="363208133"
+ bh=sSTmUKt/CaF+I5tJQCd7Qdsnjia+SAo2dGYwNbRf0fY=;
+ b=CFk6tEE3W1wDmbIqBVwIJ49dkehKtV64Gz9vrkusiFuQnPbL3gS1O1hr
+ Td9l/mjGemoYgM9hrp6Tg4RoKS3ajh23lBzN8XP05YoIy23yrr6pLZbZF
+ N6wcuQfwz3rWz81OKFYYnS2Duje8PfHEqqCAxCAf82/MPbmZ3OWsk1Q+J
+ qZ7SbcJvr9UgF2ZLuBnlKAdhaz198l1CRPyBT3thjMZ68JQ24oYQG51oT
+ 3W5oBjrhsb3gXdTRjyAiTnMb9F6Xhepo+wO2uD3+tHU+F4MTSXGqkIdpd
+ dSIYSniWhj5HJDzzL4Q4tLq7VF1wVBpNlUYgVKDn8Iv4/4Q8pIGhyJJMN w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="365414079"
+X-IronPort-AV: E=Sophos;i="5.93,349,1654585200"; d="scan'208";a="365414079"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2022 10:00:13 -0700
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2022 10:00:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="623821484"
-X-IronPort-AV: E=Sophos;i="5.93,349,1654585200"; d="scan'208";a="623821484"
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="623821892"
+X-IronPort-AV: E=Sophos;i="5.93,350,1654585200"; d="scan'208";a="623821892"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga007.fm.intel.com with SMTP; 27 Sep 2022 10:00:10 -0700
+ by fmsmga007.fm.intel.com with SMTP; 27 Sep 2022 10:00:18 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 27 Sep 2022 20:00:09 +0300
+ Tue, 27 Sep 2022 20:00:17 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 1/9] drm/edid: Clarify why we only accept the "range limits
- only" descriptor
-Date: Tue, 27 Sep 2022 19:59:58 +0300
-Message-Id: <20220927170006.27855-2-ville.syrjala@linux.intel.com>
+Subject: [PATCH v2 3/9] drm/edid: Only parse VRR range for continuous
+ frequency displays
+Date: Tue, 27 Sep 2022 20:00:00 +0300
+Message-Id: <20220927170006.27855-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220927170006.27855-1-ville.syrjala@linux.intel.com>
 References: <20220927170006.27855-1-ville.syrjala@linux.intel.com>
@@ -61,7 +61,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Manasi Navare <manasi.d.navare@intel.com>,
+ Manasi Navare <manasi.d.navare@intel.com>, Jani Nikula <jani.nikula@intel.com>,
  Harry Wentland <harry.wentland@amd.com>,
  Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -69,43 +69,38 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The current comment fails to clarify why we only accept
-the "range limits only" variant of the range descriptor.
-Reword it to make some actual sense.
+Since we only use the parsed vrefresh range to determine
+if VRR should be supported we should only accept continuous
+frequency displays here.
 
+Cc: Manasi Navare <manasi.d.navare@intel.com>
 Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Cc: Harry Wentland <harry.wentland@amd.com>
 Cc: Leo Li <sunpeng.li@amd.com>
 Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
-Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 4005dab6147d..ac662495635c 100644
+index 76753c56d4f7..8c89d6a90390 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -6033,10 +6033,13 @@ void get_monitor_range(const struct detailed_timing *timing, void *c)
+@@ -6064,7 +6064,10 @@ static void drm_get_monitor_range(struct drm_connector *connector,
+ 		.drm_edid = drm_edid,
+ 	};
+ 
+-	if (!version_greater(drm_edid, 1, 1))
++	if (!version_greater(drm_edid, 1, 3))
++		return;
++
++	if (!(drm_edid->edid->features & DRM_EDID_FEATURE_CONTINUOUS_FREQ))
  		return;
  
- 	/*
--	 * Check for flag range limits only. If flag == 1 then
--	 * no additional timing information provided.
--	 * Default GTF, GTF Secondary curve and CVT are not
--	 * supported
-+	 * These limits are used to determine the VRR refresh
-+	 * rate range. Only the "range limits only" variant
-+	 * of the range descriptor seems to guarantee that
-+	 * any and all timings are accepted by the sink, as
-+	 * opposed to just timings conforming to the indicated
-+	 * formula (GTF/GTF2/CVT). Thus other variants of the
-+	 * range descriptor are not accepted here.
- 	 */
- 	if (range->flags != DRM_EDID_RANGE_LIMITS_ONLY_FLAG)
- 		return;
+ 	drm_for_each_detailed_block(drm_edid, get_monitor_range, &closure);
 -- 
 2.35.1
 
