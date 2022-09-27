@@ -4,107 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BE96C54EE9
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 07:35:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA56C07E9D
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 07:35:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3F5510E5B4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A1AA10E5B2;
 	Tue, 27 Sep 2022 07:35:46 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B471E10E828;
- Tue, 27 Sep 2022 00:00:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C9qEbuu97hP0845r9fJFM5cDhtzraHHw8dhErpTJii5H+irjnzWs5tMYsAZl2q+hLvldwY+d1qr2V80Qhr7BgEw4BlG89k6+qWf7gBiVpHGJ6hfGUxP5HhbzTqWWv9P74GXmAhOeqMj2d7byGrRNrW2znbe/XoBowj6DRHGuMZUx8SJ2a6nPkQqto57MuHlT2XRHk35c8B2jJrBejMwORB06obF2/pXAMsjkHCsdnsY5WeaQLmw+PHEywkrXcLTvonB28mhWqyhXc7h0Z2Yg64M83mLKZKP6ETWczv1s8g7c5FoUVCYa+iNevX2Q6mukmn+cE096hjCMHUIXTKSQwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TpJ1PU95AZ/sqJVwfGjry3rRbeSqoSyrkxv5sBfHq8M=;
- b=GbbtpwuPJLmfqIh5Jm2atgjMmvA7BgKfa+Kci1GoHHoWz0rg6u7rFSG4zq0HwuQcyw+kupCvD+7f/LUvRtqt4M9KZhTKHnxKvhFGrVYeWxBzdY3qYDRwM722cexemtFzQtzNRPARPtigmTFiBV7SF6doGng4lgVMJQ24ecLeC0EhX6cjR6R6vQG7njvf87GyxMizogflxQf5B5cvFqExYypsdp1J6UlJjWJzAuPeVct3/rAUWZUcazPvxbIF8UNX7F9cFosbNu6KLhWiXHCZUEG7EInYYOWkDSWxktya7w8po3H69K5fSin3qRAt+LSp3WCaWgm/AAmWCObgSoC0yQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TpJ1PU95AZ/sqJVwfGjry3rRbeSqoSyrkxv5sBfHq8M=;
- b=S1/1cCZ/zOXD5h5nbYDBFo8u6XF1RVbD+f7/FuiYyNJG7LRCW6n4RsmQ1W72b3dX9+YEe+NOk4bfZ//1o6Rv/GpHiGrG592lTM4FhY+azDh/RIT3R4BBSV65936EzxarGDMzxA3/csq6RMEqZX4Sv3XqN+C8Hnurq5o+Ml+vw0Bw/SquWgWtkR4dAJ6mONSGB/9JgeoVeu1R7yErkIKLfcyW6wKOhiax04R8xsisx879wGFUEIC0TqtRyBem3vcUasfwGXfqxoMIOmOkn8WKwDkoVK8xaquJXrBrmUs1VT3ltA5FijdsIDOohFurC6DTX7GdIYo6EI25/NTJ2OArJQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BYAPR12MB3176.namprd12.prod.outlook.com (2603:10b6:a03:134::26)
- by CH2PR12MB4182.namprd12.prod.outlook.com (2603:10b6:610:ae::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.25; Tue, 27 Sep
- 2022 00:00:14 +0000
-Received: from BYAPR12MB3176.namprd12.prod.outlook.com
- ([fe80::4064:6c13:72e5:a936]) by BYAPR12MB3176.namprd12.prod.outlook.com
- ([fe80::4064:6c13:72e5:a936%5]) with mapi id 15.20.5654.026; Tue, 27 Sep 2022
- 00:00:14 +0000
-References: <cover.f15b25597fc3afd45b144df863eeca3b2c13f9f4.1664171943.git-series.apopple@nvidia.com>
- <072e1ce590fe101a4cdbd5e91b1702efebb6d0fd.1664171943.git-series.apopple@nvidia.com>
- <881735bda9b1ba0ecf3648af201840233508f206.camel@redhat.com>
- <6ff9dcc5-c34b-963f-f5e7-7038eecae98b@nvidia.com>
-User-agent: mu4e 1.6.9; emacs 27.1
-From: Alistair Popple <apopple@nvidia.com>
-To: John Hubbard <jhubbard@nvidia.com>
-Subject: Re: [PATCH 6/7] nouveau/dmem: Evict device private memory during
- release
-Date: Tue, 27 Sep 2022 09:45:35 +1000
-In-reply-to: <6ff9dcc5-c34b-963f-f5e7-7038eecae98b@nvidia.com>
-Message-ID: <87k05plm9j.fsf@nvdebian.thelocal>
-Content-Type: text/plain
-X-ClientProxiedBy: SYYP282CA0012.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:b4::22) To BYAPR12MB3176.namprd12.prod.outlook.com
- (2603:10b6:a03:134::26)
+X-Greylist: delayed 356 seconds by postgrey-1.36 at gabe;
+ Tue, 27 Sep 2022 02:22:14 UTC
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C2DED10E88D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Sep 2022 02:22:14 +0000 (UTC)
+Received: from localhost.localdomain (unknown [124.16.138.125])
+ by APP-01 (Coremail) with SMTP id qwCowACnrY3tXDJj8U5dAg--.19578S2;
+ Tue, 27 Sep 2022 10:16:13 +0800 (CST)
+From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, aurabindo.pillai@amd.com,
+ Jerry.Zuo@amd.com, Alvin.Lee2@amd.com, dillon.varone@amd.com,
+ Martin.Leung@amd.com
+Subject: [PATCH] drm/amd/display: Add check for memory allocation
+Date: Tue, 27 Sep 2022 10:16:12 +0800
+Message-Id: <20220927021612.31815-1-jiasheng@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3176:EE_|CH2PR12MB4182:EE_
-X-MS-Office365-Filtering-Correlation-Id: d710396b-30d7-4da0-116f-08daa01b40f4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Rh9jh09XpjxUZw+MSu85pgVXuEsxpyz2CXvdFLGqOCjp5JCt4Thv+ioyQ1eBCgH6rzm9trYQupScJrQGODXBB7bwQJL96E4uAlLm7K1EOT8heqR/7FdpW3pt4ZfsKc7Todu14EUJUVdFjfUOi06bT05lgXm5GZp449ZOdrLtXxNr/olvZmtK3Ohy/Upab9C5biYpfKMxN0DAIKBJQgkMilDQXHPKOfICFJTZxxI/H6Nc5SFSppcRWKWC7OR6xdTeHssbJgVGMp/Z4Ppf22HwynRkAvBGoX2dIor6BLBQu8tZ2bgSpa3BCcgitSaVY+aiavWsE7GIqngepJ8fQ5HavoAt9wnGXdttHFzYA8GfdeOTn6jRaYNAN7Fn1opPAJrdiG9O36GrXfY8sPtmqsobed9XHwym1hmrWTMqvZ25HO8TqaCZkGUU1pI+dtn3aZu5kTJzFXrQ5IVlIzDg9bw/VmiGqv52nn4QDCVAWSmCZDuD8NvHC80iRXB0v5mTRqMSqsBu/li9EXJfSN80Fmaz/s28X1sWofy+2xcEiyKqyWvnJh4O0YYeMb1C7PiOOx35k2FNBSaEEl8LPfM+7ASoEe7vncGPVeJyH/gAABlJ4H6omgbk3ymdiv6T1SL5pnypGWX8mLSuS0oLaBuV1GYkq7jremTn2Ch40vJT4/XHStSY7Wx8HgiFwMH5B1mDTEqQXJp6CUI5vGy2djTipIhMxQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3176.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(346002)(39860400002)(366004)(136003)(396003)(451199015)(6666004)(83380400001)(41300700001)(26005)(9686003)(6512007)(186003)(6636002)(86362001)(6862004)(8936002)(2906002)(5660300002)(6506007)(7416002)(38100700002)(54906003)(8676002)(66476007)(316002)(66556008)(478600001)(6486002)(53546011)(66946007)(4326008);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ikLGqD/7EEDvQ9bkzYFeeqN8oLOLGuenq3C9dWhPJAUtAM4+LeU9HDvn8xiA?=
- =?us-ascii?Q?ZtOvxIwITQdpjq/UG2Hv2Xki2WDFdmgSaT0ZdIArigUf9Dgxmnrpj9ACqasA?=
- =?us-ascii?Q?NfMXqZbz5rNWrUH6TJo6VtcmpUUxwTlSJ3UcUdj760NZ7vBXPqtdZnRrkffi?=
- =?us-ascii?Q?A3LC6VR6JaFqugIkM+ool8WtsupBhbTsK8BSKyh2VQE/pDJag3+J3YtBBF7b?=
- =?us-ascii?Q?5C80OF4uRxIPFLjOMTgbgIpjqViaol7jC9NnyRUT0CtH4BOcNkZHoHgdnywz?=
- =?us-ascii?Q?XdVSavFpVkIpruEmATfckQtzTgOD5ljzdXTh+MWsJHv0pRAo60WgFNOvlSnh?=
- =?us-ascii?Q?56mBGYq6Zl+gNqjMhSjavZzqE2PXT19zB+naAqp4Aek6HLvPMYMjUH9xvQMW?=
- =?us-ascii?Q?5tWL7I7/a6cKCDuKYjGYEFRXP9oggwDfeleZo6Z6scfgNoUETinx6GfYBxGl?=
- =?us-ascii?Q?5Z2XKANJ2WcyW0tvR+Q4RBJXCEvEaPcIZAUJyZxYLBKM4N4fSFeYHlm3xyON?=
- =?us-ascii?Q?Zhk8lzaRO/SdSzzyJkBcYBh1rZ+mKYsB0iE/2BXMSLC4iUuq+Id7qB9OC6Pd?=
- =?us-ascii?Q?s0HRxbn5cg8sN18yL3bRBnmoF8fxhB8iexS7vOp3/wYAaP0oO3XyFBt1meY7?=
- =?us-ascii?Q?xX7oKqjTMavhbhSO2HQXtsS3tcA1YGPTCAbTp/iX/FHJP8dKKuWl1IPqGW9M?=
- =?us-ascii?Q?aQnUis+U5SnsjtVOzCgBAeNpWtVQEc6ZruSj77LPCtX7u69nYv3qM9E66pe3?=
- =?us-ascii?Q?Eg4T6NlqA/yVOxm+wooUZEpZ0gcy0ureSX/uprA/hcniYNVlamxPPYEAQ8kA?=
- =?us-ascii?Q?/fiuCnLKaIgpdN/YrNEJgujPbkfMawRqdvYUollFISn6ZFOjUs4GYSBEN2r3?=
- =?us-ascii?Q?wbNV3HprSW8Al8FazZ7lFdF/KdkR1oT96syAHoSFe/NnSVUcKpx3Mve3CW62?=
- =?us-ascii?Q?rSOnh5J71gNpEk6Me8+IUPMB/hPj592CoUuuYP9WffpDEZULULs4J19P27ro?=
- =?us-ascii?Q?46JIlVOATiSP7++3KHU36/2G9kNYA1r6UxiVyUrn+aj1WA4wcapk0/W+pxoB?=
- =?us-ascii?Q?4nepUMe4zjefaHN+k2L7lFfsP3ZJaztiADwZabZ89BCIwY0l7fN1KeNLTPVr?=
- =?us-ascii?Q?ygWP/2BKBgCOgM8m2OqZIueUFXB4NPDL1IbilFTiWGdup4zytJtLSwWa9rmt?=
- =?us-ascii?Q?hklHWR42oBt2U+TtbxwjEepSR40OxbAItlwZGeueqC8ZYVWl7CJZrCSZc6TJ?=
- =?us-ascii?Q?mddtXF8f64KaNXC/iCjJNcRe2qesJl7Bssqc2Tst/TAuqsFfzD6VGMgP7Ja1?=
- =?us-ascii?Q?AfZkDMZnWKyXcISKwd7rtTiqGGyqdJTuXSmtl9n5g4gwZdwtwViwaP0Fscar?=
- =?us-ascii?Q?qp311p1amvItGn1m6uhiZ80/xmnnCkUfyPlmB0EbqHl8ENFst+eOugPiKIfx?=
- =?us-ascii?Q?xiWLKV/fazUIIUBrnyQcNz66aD9g/3urZXwFc/DWmQ49CBnrQ2tlKUk9kCXO?=
- =?us-ascii?Q?KxeaBkOtnnjwwurmDpy4D3yad6yiYEc0lWVB3AdonumW0NhLF3dcSIeV3lfx?=
- =?us-ascii?Q?4oAx7mmQ5cC9ema9AEY3pfMmIUMXgUedPmBgvTjp?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d710396b-30d7-4da0-116f-08daa01b40f4
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3176.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2022 00:00:14.2050 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kzlfprhBapPoQkzJVuDZaeaUhK3msi3tpPICnuY4euJgDmG6cG6QICum59gjGHdWB5DaVRD8psbfpfKZgUi6Dw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4182
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowACnrY3tXDJj8U5dAg--.19578S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CFW5Cr4fJrykGF1xJFWxXrb_yoW8Aw1Upa
+ 10y34YgwsrJF4jqry7JF4UWF4rAa4F9FyrCrZ8A3sIva47tr4rZF1YqF1qyan5KFWUCr17
+ Ja1jgr43uFnFkrDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+ 4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+ Yx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbV
+ WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+ xVA2Y2ka0xkIwI1lc2xSY4AK67AK6r4UMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+ AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+ 17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+ IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+ IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+ C2KfnxnUUI43ZEXa7VUb9NVDUUUUU==
+X-Originating-IP: [124.16.138.125]
+X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Tue, 27 Sep 2022 07:35:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -117,67 +60,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, Karol Herbst <kherbst@redhat.com>,
- David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- amd-gfx@lists.freedesktop.org, Michael Ellerman <mpe@ellerman.id.au>, "Matthew
- Wilcox \(Oracle\)" <willy@infradead.org>, Ben Skeggs <bskeggs@redhat.com>,
- Jason Gunthorpe <jgg@nvidia.com>, Ralph Campbell <rcampbell@nvidia.com>,
- Nicholas Piggin <npiggin@gmail.com>, Dan Williams <dan.j.williams@intel.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Jiasheng Jiang <jiasheng@iscas.ac.cn>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+As kzalloc and dm_helpers_allocate_gpu_mem can return NULL pointer,
+it should be better to check the return value and return error.
+Moreover, the return value of dcn32_clk_mgr_construct should be checked
+by cascade.
 
-John Hubbard <jhubbard@nvidia.com> writes:
+Fixes: 265280b99822 ("drm/amd/display: add CLKMGR changes for DCN32/321")
+Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+---
+ .../drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c   | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-> On 9/26/22 14:35, Lyude Paul wrote:
->>> +	for (i = 0; i < npages; i++) {
->>> +		if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
->>> +			struct page *dpage;
->>> +
->>> +			/*
->>> +			 * _GFP_NOFAIL because the GPU is going away and there
->>> +			 * is nothing sensible we can do if we can't copy the
->>> +			 * data back.
->>> +			 */
->>
->> You'll have to excuse me for a moment since this area of nouveau isn't one of
->> my strongpoints, but are we sure about this? IIRC __GFP_NOFAIL means infinite
->> retry, in the case of a GPU hotplug event I would assume we would rather just
->> stop trying to migrate things to the GPU and just drop the data instead of
->> hanging on infinite retries.
->>
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+index c6785969eb1a..3dc04d780fbf 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+@@ -718,7 +718,7 @@ static struct clk_mgr_funcs dcn32_funcs = {
+ 		.is_smu_present = dcn32_is_smu_present,
+ };
+ 
+-void dcn32_clk_mgr_construct(
++int dcn32_clk_mgr_construct(
+ 		struct dc_context *ctx,
+ 		struct clk_mgr_internal *clk_mgr,
+ 		struct pp_smu_funcs *pp_smu,
+@@ -779,11 +779,19 @@ void dcn32_clk_mgr_construct(
+ 	clk_mgr->smu_present = false;
+ 
+ 	clk_mgr->base.bw_params = kzalloc(sizeof(*clk_mgr->base.bw_params), GFP_KERNEL);
++	if (!clk_mgr->base.bw_params)
++		return -ENOMEM;
+ 
+ 	/* need physical address of table to give to PMFW */
+ 	clk_mgr->wm_range_table = dm_helpers_allocate_gpu_mem(clk_mgr->base.ctx,
+ 			DC_MEM_ALLOC_TYPE_GART, sizeof(WatermarksExternal_t),
+ 			&clk_mgr->wm_range_table_addr);
++	if (!clk_mgr->wm_range_table) {
++		kfree(clk_mgr->base.bw_params);
++		return -ENOMEM;
++	}
++
++	return 0;
+ }
+ 
+ void dcn32_clk_mgr_destroy(struct clk_mgr_internal *clk_mgr)
+-- 
+2.25.1
 
-No problem, thanks for taking a look!
-
-> Hi Lyude!
->
-> Actually, I really think it's better in this case to keep trying
-> (presumably not necessarily infinitely, but only until memory becomes
-> available), rather than failing out and corrupting data.
->
-> That's because I'm not sure it's completely clear that this memory is
-> discardable. And at some point, we're going to make this all work with
-> file-backed memory, which will *definitely* not be discardable--I
-> realize that we're not there yet, of course.
->
-> But here, it's reasonable to commit to just retrying indefinitely,
-> really. Memory should eventually show up. And if it doesn't, then
-> restarting the machine is better than corrupting data, generally.
-
-The memory is definitely not discardable here if the migration failed
-because that implies it is still mapped into some userspace process.
-
-We could avoid restarting the machine by doing something similar to what
-happens during memory failure and killing every process that maps the
-page(s). But overall I think it's better to retry until memory is
-available, because that allows things like reclaim to work and in the
-worst case allows the OOM killer to select an appropriate task to kill.
-It also won't cause data corruption if/when we have file-backed memory.
-
-> thanks,
