@@ -4,119 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F2F2C32771
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 23:07:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22D1CC32771
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 02:14:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5659110E51F;
-	Mon, 26 Sep 2022 23:07:34 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2057.outbound.protection.outlook.com [40.107.237.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 792EE8825E;
- Mon, 26 Sep 2022 23:07:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76AC310E02D;
+	Tue, 27 Sep 2022 02:14:21 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2047.outbound.protection.outlook.com [40.107.223.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30F1410E02D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Sep 2022 02:14:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iEtuLduRjCHXKLKox8v3K3qlNtlmdj8mNYjqRSBwmaMN9XI7wt/Rbl9AtL47qReQSJ17iHN/PhdFJtaPea36SqkND+ZSBGpfgE7b2coJtcPZYpaeEClelds9zr5TPmZeJr57srZHAJ66DvCYwSEdEqAFPrMappG+2l5xLd+5OgjJKsK1o9cN06jTTnKRQDMSLgevkTcESxeV37nnQYscKq1ITZcQTHCXNfyOcXBT/yArFX9PfmJuBK37STP7hrsYO75scC013VYPqeNUhIjrpdLvwd1nyjDbo73Eqma6gwjp+sh8zqzj685VbpQ0W4uVA2fnLvHsRBwcrnzr/Amrrg==
+ b=dlcNX7ZmFjcJpOThCr6ZiEMI6wfdz7v1mpLd74lVOTCY9IXlZrbjht9KblTHAbGgTe8rRz2A92sdXfoqyzLtFGKvilpwHg9UiLgu+QdLmlgKahAagTr3eu08ySCt/31hL2+kKbKKa0qiM2KvOn2ZlAgc5arz0Dw8je/ezWtyI29lIN23wXlgjYPwrLcpsMXa2FHhNgSIznTIJmDcoEp/lcd10zfP1hmD4IwyrNeelEawoU+CHOUUy9yLAJ09XHI/yVsFRHdfAc+H371xllTfXEGd63jrTqcJ0FaVu+Jj0E+wbylTFY9KIHnQ8WL7P+Dj59rHIOQJ8KHbiAcGES+DiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f4jruuo5f0/woYUgGnhOuFCup3VKmC6SqKASccIIV8A=;
- b=jh2QHKM6/iuBk4RjWrKudVaNBk6nEpN4VmkTeTAS6d/n03ud35m7H7+8dJ6i6qGa7eHM5D7XnYB2Bmic9WHOoPiocceoZTyWatVuMFBpGzmmRINwfs1eOq2fI3KB//mxvSgwmFQmKXUkcMzeHfHJpoA43IVx0r9yRz5PyBNVmU3FGBUl1fdYV9ydKcV9OgJ513Xu+QFo4/e5i0ewkJHd8Wx/ZaN0tnyOTU1QbdShuLLzdEq6H/TG55IiZ7G2tItqc+zP1qRAiNoIMSaINoqdI7lbiRhz+0/LzOQKupOI5kfgRAznXQsyqOdftVVMyVk6LhDR44YH+VtTit+aA/3jdw==
+ bh=Qq/F8RYL2RPg7nCPs4tmBg5GkihNmDGZXxZoBMI++Jo=;
+ b=IS4wSieBAivdl4wRdfsTvC9bMrivmRAhQrkTrf7BBeSqnXr5SiUUfsm4xw1Z0TUZgsD26KsGvB4Liu7tarsP5NQLznPu/vpq9dOgTq5E7qwOYgZED7FY0zKW+u1L9OQdmG/zoREVYP2XNhQNNTTXWeUlqc3nOMBFF1I0/neFseCFxqQISxaQmMJFjsIZqp30zdEmvRXqGCFnolO/05gpFq0tSQ0kXeMoqtcZVlbOsv7UQ7Xg2gPPklx5LSvF49nBUAwHLc5A9Xl0/N1wlEZIywwH8XSYuOqO83Kjsa8JXgHMV2TfnRj+ecJ4x0TTI7LBKUP8tTl5CRWGwCsr8VahPw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f4jruuo5f0/woYUgGnhOuFCup3VKmC6SqKASccIIV8A=;
- b=CYegn+GcrDZ/NoaJJSpmDc+ichLCkg70fJwS1+btPQFGKN6mccW65i1hOFWLM7GxlWC+SuCKuUTpKi3FNVpr1mzphqqKvK7+wm4e8tQnAPtYfjXqe4VnVEk3vQbjKCGDkWSHDStlI9+wSiFvos9ub9Jb3CCGXrtKQxygfBxsz+w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MN0PR12MB5955.namprd12.prod.outlook.com (2603:10b6:208:37e::14)
+ bh=Qq/F8RYL2RPg7nCPs4tmBg5GkihNmDGZXxZoBMI++Jo=;
+ b=bq7HHpSMw1Y4aotpnTXWs+aDq2BgcV8on7DfqQTqG4vHpLF7nqe0cjIWFUTWen0DLSYQctvyFnI3k2hp+GGE+V0s+H7ESReXa4IBBtXV9W0DlFkBavaGFIL0Nvuv2hZ6BBPssIqxHiSxqoh+DP599Cv+apO8O9wk3JXuO0A3Frk=
+Received: from BN7PR12MB2612.namprd12.prod.outlook.com (2603:10b6:408:29::14)
+ by MW4PR12MB7120.namprd12.prod.outlook.com (2603:10b6:303:222::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.25; Mon, 26 Sep
- 2022 23:07:26 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::3de4:456f:800d:e013]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::3de4:456f:800d:e013%5]) with mapi id 15.20.5654.026; Mon, 26 Sep 2022
- 23:07:26 +0000
-Message-ID: <7ca6ec0c-7e5e-3b24-8f8d-650df357130c@amd.com>
-Date: Mon, 26 Sep 2022 19:07:23 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 6/7] nouveau/dmem: Evict device private memory during
- release
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.24; Tue, 27 Sep
+ 2022 02:14:15 +0000
+Received: from BN7PR12MB2612.namprd12.prod.outlook.com
+ ([fe80::46ae:361e:23ee:ee3c]) by BN7PR12MB2612.namprd12.prod.outlook.com
+ ([fe80::46ae:361e:23ee:ee3c%7]) with mapi id 15.20.5654.020; Tue, 27 Sep 2022
+ 02:14:15 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Sharma, Shashank" <Shashank.Sharma@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v3 2/5] drm/amdgpu: add new functions to set GPU power
+ profile
+Thread-Topic: [PATCH v3 2/5] drm/amdgpu: add new functions to set GPU power
+ profile
+Thread-Index: AQHY0fCtOfiUP9SMsEGlKnCwxdq3Xa3yh+Zw
+Date: Tue, 27 Sep 2022 02:14:15 +0000
+Message-ID: <BN7PR12MB261218AAD06042B10065EA56E4559@BN7PR12MB2612.namprd12.prod.outlook.com>
+References: <20220926214014.5450-1-shashank.sharma@amd.com>
+ <20220926214014.5450-3-shashank.sharma@amd.com>
+In-Reply-To: <20220926214014.5450-3-shashank.sharma@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-To: Lyude Paul <lyude@redhat.com>, Alistair Popple <apopple@nvidia.com>,
- linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>
-References: <cover.f15b25597fc3afd45b144df863eeca3b2c13f9f4.1664171943.git-series.apopple@nvidia.com>
- <072e1ce590fe101a4cdbd5e91b1702efebb6d0fd.1664171943.git-series.apopple@nvidia.com>
- <881735bda9b1ba0ecf3648af201840233508f206.camel@redhat.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <881735bda9b1ba0ecf3648af201840233508f206.camel@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH2PR03CA0015.namprd03.prod.outlook.com
- (2603:10b6:610:59::25) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MN0PR12MB5955:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0df7500c-3156-4f48-0760-08daa013e0a8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: U88tjZ5bjFHikN4GVaVC8CRBUSqgM1I8lZvP7n+r8WFU37jaeqOogEQ1qLZy42WCF8OyjwUpckJP0TB3DkDssZTQvuFF7Ren/orHqyKxDk8sH/di6XKOQP7XxrRe8FgANemacFa8SYujPTQPKkL68t5O6exrFBh+dUt+4TOkOJBAez+GuNw+IXMf9LA6OFdsogGQFYqYPvc5n4d7hxT3MP27d7VEMjpkO9R04S6dnICuRfdHpJ746TVemwLgOZ9QvSLH+LAsOdrfTEFwI2xkSdjrxDmO1lu5kVWcK3mSNBbTQWMgokS5SLRxC4HzRJiSVyxqO7UYgB0AckOXc1FZYJH1xoxaTtypGHqhFUPUMiPyVjrBAHBEvhtGkhkPD15OXFrT3N6ndMTNnrh00m9k8ceSYmfGlp0JvW65M1gCuhuQf/tQK0ry5binRcgE3W9XjxNov2aAu5Qhb6MnP9booaOZBV5r63JNqeJkl3y61Jz88od3wvUZcvRph7K98F9iMHE9k74jY7I79Dr3ybEDIKTNpwTpEIirqcxQ1yEaRzPQkOdRdd6XnSFV+3BfxQnZmn4HOLtsk6w3GHcswNeg1kFpGjcOd1l5/tmW04YNjTPv5MH+7Vg4ND+CMcgiAjgEbDoAZpC3Px4MtC8S+GtQawwMZUOOoQIWqBteyntouCdp/jzzpyiSgeJ1kebyjuO0hIboxVy75v+90W4HtNied+9DjI0J8uo67Rw+ddYMGV6X/9P5A0i7TXac+VTEMbSR
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(366004)(346002)(39860400002)(396003)(376002)(451199015)(6506007)(53546011)(36916002)(41300700001)(478600001)(6486002)(83380400001)(6512007)(966005)(26005)(186003)(2616005)(2906002)(7416002)(44832011)(6666004)(316002)(110136005)(54906003)(66556008)(66946007)(8936002)(4326008)(8676002)(66476007)(5660300002)(38100700002)(31696002)(86362001)(36756003)(31686004)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-27T02:14:11Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=691a8def-ce20-42d9-8743-e6c9f5868798;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN7PR12MB2612:EE_|MW4PR12MB7120:EE_
+x-ms-office365-filtering-correlation-id: 321f0870-6915-44a8-000e-08daa02dfa03
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 8j//WXAZR3Nl07AcxyHmSjlo5nfq3N9fnW/XJqj5GwGnLSjC6VXFG3ke8Eh31+Ljl0M93wxla2+MMw/zfM1t+eATDts65lGBdx43nQF1+XoRnJQ4bgCfKvGMy2/Q9ByWwEc3Hv2U2YecJip0l+1j9pz8FLg13TQoKJtkpXaHkVJPdu64WLhOxwBdjmodCdScAJ+Ntf3XyXJh/3u/wpzo883XTogDJ4ajbDo35fOe3dlIX8Jz7gtOGzR8tr6i6gQQXRFfBtqr5y/5t6VnlfTPcwdEAnsh3V8sZqjwO6SEoS55AYC9xpUh8NKIBNbBB6veasdPwljrPaQttZkHQ141SLS5x9A+Nqe4Wvjcqtfu7CRiGXYq09w4r8oHXRZI7VlvMVEWC5JDhCWdyJ2C3vAVewy2tXwQ/+4iufIzEOaFoPdlVu0q16DYSPCkUgQ8UXn7uSZ5Fzpni6PExibWeZ63MWcxCid17IbBTMhE6MAufskwxgAP7qE9M41wJEXpo2g+Oezq4LGZJydxkci+sN0SsLRT8DdBa0GV4du4sZlDvVoTGIt+kIFjrtUDDCBt7lQRTPxGBKRxEUedLKtb+ko/CTJahWrZ5uYCzPDBM/MtNmlGsmQlCwFCgP4abbpeIaLILIVQiZCAllROwAIG/Qd5s18NM9A32hlG/XroLCjcH9D5uchPJv/YZIXoCkiaFCuB2FuNjzu0yXax2BWN7hrWjXQMEZhovj6/bieueGtxAgYxGJCqz0/Ycj0J91W0xghtziIktpzA5nEUUTUSN1gM1w==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PR12MB2612.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(136003)(396003)(376002)(366004)(346002)(451199015)(186003)(71200400001)(122000001)(66899012)(38100700002)(316002)(110136005)(86362001)(54906003)(55016003)(5660300002)(8936002)(38070700005)(53546011)(64756008)(52536014)(478600001)(66556008)(4326008)(66446008)(66476007)(76116006)(8676002)(66946007)(7696005)(9686003)(2906002)(33656002)(41300700001)(6506007)(30864003)(26005)(83380400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NlRJWE5XcXlhLzM5Uis1UmNRU3NqbHZVejlTZmxteVBDLytIQ2lEVm11aXRI?=
- =?utf-8?B?N3NSdzFHK0dKdGs3UmhpYXNzeG1MR0FTdDdhMWZyUndabG41dVpreW1JMUFS?=
- =?utf-8?B?eENMTXkxQ2J1cmVwZGpObVkwMXVOQ25qclQzY294bUdGcXdOdXRacUs3dHhp?=
- =?utf-8?B?cFZkUjlpUWluVWxsR2hOczIvSHBjVmFDNjZMb2tKVEZTK3pycCtvS1VhdE5G?=
- =?utf-8?B?ZzF5aElPRUhyM3BWbHZCUTZGU3k1NHVNUXJYaUdIeVRFWlZyWUZEYlBLRmg2?=
- =?utf-8?B?OEZkYkpOVVUvSDQ1bnhkcmVaLzNlbFZUdjN2RkRvR0RTb3R0VTBrUzdCVUdJ?=
- =?utf-8?B?NnVhcWVCdW91bVp5MFJqNUpPd295RnYyV1luQjNlRmVUci9XTGl0RVFUcnBq?=
- =?utf-8?B?WHhJTGgvUll4WlFReFpwekxZeGU4enVGZXRpNVMrVHNQeHlJY2xnUGdvalVQ?=
- =?utf-8?B?YlVqckY5S3FWNVVoNWV4S1BEZW9meEpTbDh4MVNVR3RKamRNRTJ5SGU3b3NR?=
- =?utf-8?B?a2l2Q2xwbkRUbGdPN2NsMmkvVmZpN3FNbjltaXJoNVRxV21vblhHTUFjSEZB?=
- =?utf-8?B?ZEhMcWJMc3JBMTZTT0x2QUFBdm5leHpHTGFMaFFMbXFKU1VacnVwMGh4NmRN?=
- =?utf-8?B?V2xHTFR5VXlyQkpnYlhVbWQrOGtYRUVEWGVZTEthL1N5dWc1dUdSQVQ4K0Zr?=
- =?utf-8?B?NjJYNzBkMXBtbFdlcVFoazdHRXNPT1FuN1l2czdiYll3MUsxd1h6Z29xYXky?=
- =?utf-8?B?MmQwUHFKRFpuVmxZQ1kwT1dmTlQ1ODZFd0s3WFdXd3VCdXZxeUJ0THJnWmdJ?=
- =?utf-8?B?OHR5RG1jQUM5dEJ1eWJJaXFHQnpOL1Y0UXJzTzNRVmVrMXBRRS9NQURGb0J2?=
- =?utf-8?B?bnBqRDVZWS93aWJYRFllaGxlb0d2Q0JKSjJRK0dqLys1ZU1hbmxyOS82R2ly?=
- =?utf-8?B?bHlJSmF0cVUxdm5tbzZLL3lJUFhHU1VYQmVaZEc4UXlFVHFyUW5zR2QxZkFr?=
- =?utf-8?B?ZEt4Q0RyN1Npb0NGZkFUZ3NWanpxOEY3bkFKQVBObFJNYUN6SCsyRGxOZElL?=
- =?utf-8?B?QlJhL2t1VWJmcElUTVVLcHE2d0hwOHUwNHdheVh4dHJUNi95ZkpTaWJvT3VV?=
- =?utf-8?B?VFVJdjlENEpRZGF6aG9mMks4WXFEdUxUbjVxU0pwMFhvbVdJUXU0RVljZWhZ?=
- =?utf-8?B?SE5CNlZrcEY3ejRxT1c2bXhjbkljc2xnRkdQdzQvMGFLL1RSR3Q5SFJXL2pz?=
- =?utf-8?B?NHRFYTB0dzk3WTNBcWdQNFltbFNPSTlxRzFqUFpFUDI5ZFNVUFQzMVVMdnBy?=
- =?utf-8?B?S3JxRXBJRmtQWEFQcnJsM3NMUFVWaWN1Vy9paVk2bmphajRUM3NicUMzWXNa?=
- =?utf-8?B?QXFLN3BnRUppaGRBemRpSEd6Rk5wd0tYNHNiRzlUNHRyOTlIdGpRZER2UFFX?=
- =?utf-8?B?WWsxNXc1Nzc0aXI5WU1ZZkcwZE1kaTRQbmhMa3oyUzBTL3BHWTB4SDZnU0Z3?=
- =?utf-8?B?ck9pTnVyWEhneFBpOUliQ0VTYTB0OGRKeTlGeUtqU29rTUpNRlNFZnVoaHZT?=
- =?utf-8?B?RnRWREh2dlRXTlJVMGk4QVdIL1VjdWM4clQrZnRobzNoSU90WHFPYXlXOXRq?=
- =?utf-8?B?LytOcTZWWFRUcGxjelZISEhQVytuNFY5RENrVUpPSGpxcHR6Tkd6am1oYWhZ?=
- =?utf-8?B?anU2cFpyV0RybEJUdFBxRzBjdUQyYzJtaGVqcEVhemVIN0Q0UmFtYkc0ZlNw?=
- =?utf-8?B?YlNRbVhPdGNIclkzL2k1c01sdFJLOG1jTHEyY3ZLVC95bWVOUngwWnUzMEx3?=
- =?utf-8?B?bTlyQW54Qy9ZMkRSUnBJWk45Q3FJNUMrQzcvYlVVZ2xCUUtqOXdMWWI0RDdk?=
- =?utf-8?B?ZDV4OS8vdFdIeCtWYzFuNndiS05HcjhhdklHMTJWNExua0k1aXBiRkV4Y2Q5?=
- =?utf-8?B?bWdkVHlxcE1SMXFwbS9IMDBxS0JHUml1bHpxKzNSMm5GaEcrZEZ0WE4rQTZZ?=
- =?utf-8?B?c2NOZTNPVmtqVXc2RG1ycXB1NUVOZk9kcnJ2R3NVSFdyaFp0bng3ZzFjdW90?=
- =?utf-8?B?TVJkR3oxY0REM0k2bEhicTBsakFieG53VzdNNW5XbG9wZy9DVkFTZUVFQjNN?=
- =?utf-8?Q?OWT7ARtwlbYB9gX89NMxg0mAG?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?dj7i/joHdllIUkI6GTVMsw2RYsPZYPQSsswOA1r4SGbhRgOppiFUioSy6hAh?=
+ =?us-ascii?Q?u+SwuG/6T82C/V91d4zZUMl09q1Jd5voKDmjkaqXUx74oHD/Gz64c9Mjgdzi?=
+ =?us-ascii?Q?bDGquAH0sUz53YhtvJKhRkWfiSVNDC1snnflJmKrEAocZwK3YbRLXHhmf5k0?=
+ =?us-ascii?Q?QwKkW+0UNBCLxGUDu+8fqraZnw/QKSf9QwIERfh4O6JYj2yWQ/LPc+MNOnsN?=
+ =?us-ascii?Q?coxhymJV6n2M02iEgx5TmWUyhO+MNBjarzJEawwryJMmRdQwFwMt7gaJzvg+?=
+ =?us-ascii?Q?5saAZlnpYKZxVwZ6KrAAnOm73CEqc0UhCopDX0Fu0avWUJYa92aPQ/OOaF8g?=
+ =?us-ascii?Q?wHcmuG4oZoIUy6upgcGl4UmEnba4jLou/Qs8GCVIIKJtF+72I8ipEe9AXcGu?=
+ =?us-ascii?Q?xe/zsym6m3LPuouqNRyU/Mvr1QHEnI+HN9aJkQXUJBTxLXE4MLEog1ypRrGr?=
+ =?us-ascii?Q?duHTGPkadbswTbiZEclRuuWmFm9KXG6EfDMLE3abeQ1xhkzu7iqrNR+oHnFK?=
+ =?us-ascii?Q?tzL5484tX7fDX4ZOTMzSRSv1Ewv76tpl0wJ1JbBTa57qSrZHIuc3Db+a79mg?=
+ =?us-ascii?Q?x0WKuq399JIK2AwJC83Gn2MWhCcYtsh9unDxDuEWKbW2vbdwoMLfFqf+kUkY?=
+ =?us-ascii?Q?wRbjOHLq+qEBYfhqzEbYlkHTAWRktnQwVnyD+2JqcCcvXUvYSp+WMKfZiSIY?=
+ =?us-ascii?Q?cfhu1OErCSoY+G7KwILBfgPX0kdks95c38X9E4Idq0vEk7ag192ohZTRajti?=
+ =?us-ascii?Q?bZ3qaUh3FbAo8p+B+7dBuE9Aks/NHBmGSsE/gl6AiaacHPTwvaXPNsEjpsDV?=
+ =?us-ascii?Q?KUwmVDAsdu+65rONdlypru9e6Tvu1OzKfSf6sYGE33Yq1dyGRuEpd68NgCay?=
+ =?us-ascii?Q?GP/9dwx5czV/wU6vavVokfiQKhFrSPb/I+p+JrD9ycw71Os69YAJTFa7UAit?=
+ =?us-ascii?Q?/Fb0kExbkUotM4rYj3IKrReq05nvqzVT4qIT/Rtvb94jgUI9658TMfhc1xF1?=
+ =?us-ascii?Q?YLRypbZyadad4br1ziTYLdcdPY8lAAPo0nNt38mMvKAXT0sE6mQIb8UuhFD6?=
+ =?us-ascii?Q?BZ/q/eWrEW0ffE0moWNhEIBj94FRLBFGzX6JlG0x/82KlO7N8VzXVmu7OPCx?=
+ =?us-ascii?Q?R7ErbwJIii/pHD4o0poHo/Jvwf4NgcK81fCteUqK3KKp4Sl/vtKIoKmcZCH/?=
+ =?us-ascii?Q?z5fjVzhwLPZo9+8skcVBiO3rlcxoG8Sh291xiF0NC2iTSwGFCs6WEQu+l3kh?=
+ =?us-ascii?Q?SCA27UEHLdV73e1KTS/E3MY9aA4qi+Ere9GWj6+iVb4Kk0lCh4Ei2h3LOInf?=
+ =?us-ascii?Q?yYuEviwJGICBsf7Yr5xnwjFI8p3aDqJzNvcSjU8fIlrGFj0X5NuVAN9SDj5w?=
+ =?us-ascii?Q?jAnDTHmX9fSaXFe/3Wv4QyTupuRHuz4WmbQ4aMdFjuIkA7+74EkcghBcIb7K?=
+ =?us-ascii?Q?yon75qiaZTvDh5nNvt9PAsO2tCFQ6EwDqnAEe7JXn2HzQw6RFI5W/vmOUgov?=
+ =?us-ascii?Q?3N0QXTuGR/7GFkZ0USLEYOHiUhI+muO1K6cGJXR0myXJ/ODf4kz/WnTOX11s?=
+ =?us-ascii?Q?JTswUJaPZ0O1C9iYqeg=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0df7500c-3156-4f48-0760-08daa013e0a8
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 23:07:26.2151 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RqAqrbl7tiG4eXbeHTHignijr6ihu5B8xvJyJryUpPi9Fy3cBFwu5NAtB7EetiUdssvxXddADbsVh6L0j2/D1Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5955
+X-MS-Exchange-CrossTenant-AuthSource: BN7PR12MB2612.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 321f0870-6915-44a8-000e-08daa02dfa03
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2022 02:14:15.4507 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: veL/UGgG6n9iQXVPrv+lE1tlKzYCvwx6NOtTCu7mgJKgBGNIF1UOcsN9Qwaw0yfS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7120
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,179 +125,316 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, Ralph Campbell <rcampbell@nvidia.com>,
- "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Karol Herbst <kherbst@redhat.com>,
- nouveau@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Michael Ellerman <mpe@ellerman.id.au>, dri-devel@lists.freedesktop.org, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Nicholas Piggin <npiggin@gmail.com>, Ben Skeggs <bskeggs@redhat.com>,
- Daniel Vetter <daniel@ffwll.ch>, John Hubbard <jhubbard@nvidia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Dan Williams <dan.j.williams@intel.com>, amd-gfx@lists.freedesktop.org,
- linuxppc-dev@lists.ozlabs.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Somalapuram,
+ Amaranath" <Amaranath.Somalapuram@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Sharma,
+ Shashank" <Shashank.Sharma@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2022-09-26 17:35, Lyude Paul wrote:
-> On Mon, 2022-09-26 at 16:03 +1000, Alistair Popple wrote:
->> When the module is unloaded or a GPU is unbound from the module it is
->> possible for device private pages to be left mapped in currently running
->> processes. This leads to a kernel crash when the pages are either freed
->> or accessed from the CPU because the GPU and associated data structures
->> and callbacks have all been freed.
->>
->> Fix this by migrating any mappings back to normal CPU memory prior to
->> freeing the GPU memory chunks and associated device private pages.
->>
->> Signed-off-by: Alistair Popple <apopple@nvidia.com>
->>
->> ---
->>
->> I assume the AMD driver might have a similar issue. However I can't see
->> where device private (or coherent) pages actually get unmapped/freed
->> during teardown as I couldn't find any relevant calls to
->> devm_memunmap(), memunmap(), devm_release_mem_region() or
->> release_mem_region(). So it appears that ZONE_DEVICE pages are not being
->> properly freed during module unload, unless I'm missing something?
-> I've got no idea, will poke Ben to see if they know the answer to this
-
-I guess we're relying on devm to release the region. Isn't the whole 
-point of using devm_request_free_mem_region that we don't have to 
-remember to explicitly release it when the device gets destroyed? I 
-believe we had an explicit free call at some point by mistake, and that 
-caused a double-free during module unload. See this commit for reference:
-
-commit 22f4f4faf337d5fb2d2750aff13215726814273e
-Author: Philip Yang <Philip.Yang@amd.com>
-Date:   Mon Sep 20 17:25:52 2021 -0400
-
-     drm/amdkfd: fix svm_migrate_fini warning
-     
-     Device manager releases device-specific resources when a driver
-     disconnects from a device, devm_memunmap_pages and
-     devm_release_mem_region calls in svm_migrate_fini are redundant.
-     
-     It causes below warning trace after patch "drm/amdgpu: Split
-     amdgpu_device_fini into early and late", so remove function
-     svm_migrate_fini.
-     
-     BUG: https://gitlab.freedesktop.org/drm/amd/-/issues/1718
-     
-     WARNING: CPU: 1 PID: 3646 at drivers/base/devres.c:795
-     devm_release_action+0x51/0x60
-     Call Trace:
-         ? memunmap_pages+0x360/0x360
-         svm_migrate_fini+0x2d/0x60 [amdgpu]
-         kgd2kfd_device_exit+0x23/0xa0 [amdgpu]
-         amdgpu_amdkfd_device_fini_sw+0x1d/0x30 [amdgpu]
-         amdgpu_device_fini_sw+0x45/0x290 [amdgpu]
-         amdgpu_driver_release_kms+0x12/0x30 [amdgpu]
-         drm_dev_release+0x20/0x40 [drm]
-         release_nodes+0x196/0x1e0
-         device_release_driver_internal+0x104/0x1d0
-         driver_detach+0x47/0x90
-         bus_remove_driver+0x7a/0xd0
-         pci_unregister_driver+0x3d/0x90
-         amdgpu_exit+0x11/0x20 [amdgpu]
-     
-     Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-     Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-
-Furthermore, I guess we are assuming that nobody is using the GPU when 
-the module is unloaded. As long as any processes have /dev/kfd open, you 
-won't be able to unload the module (except by force-unload). I suppose 
-with ZONE_DEVICE memory, we can have references to device memory pages 
-even when user mode has closed /dev/kfd. We do have a cleanup handler 
-that runs in an MMU-free-notifier. In theory that should run after all 
-the pages in the mm_struct have been freed. It releases all sorts of 
-other device resources and needs the driver to still be there. I'm not 
-sure if there is anything preventing a module unload before the 
-free-notifier runs. I'll look into that.
-
-Regards,
-   Felix
+[AMD Official Use Only - General]
 
 
->
->> ---
->>   drivers/gpu/drm/nouveau/nouveau_dmem.c | 48 +++++++++++++++++++++++++++-
->>   1 file changed, 48 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
->> index 66ebbd4..3b247b8 100644
->> --- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
->> +++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
->> @@ -369,6 +369,52 @@ nouveau_dmem_suspend(struct nouveau_drm *drm)
->>   	mutex_unlock(&drm->dmem->mutex);
->>   }
->>   
->> +/*
->> + * Evict all pages mapping a chunk.
->> + */
->> +void
->> +nouveau_dmem_evict_chunk(struct nouveau_dmem_chunk *chunk)
->> +{
->> +	unsigned long i, npages = range_len(&chunk->pagemap.range) >> PAGE_SHIFT;
->> +	unsigned long *src_pfns, *dst_pfns;
->> +	dma_addr_t *dma_addrs;
->> +	struct nouveau_fence *fence;
->> +
->> +	src_pfns = kcalloc(npages, sizeof(*src_pfns), GFP_KERNEL);
->> +	dst_pfns = kcalloc(npages, sizeof(*dst_pfns), GFP_KERNEL);
->> +	dma_addrs = kcalloc(npages, sizeof(*dma_addrs), GFP_KERNEL);
->> +
->> +	migrate_device_range(src_pfns, chunk->pagemap.range.start >> PAGE_SHIFT,
->> +			npages);
->> +
->> +	for (i = 0; i < npages; i++) {
->> +		if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
->> +			struct page *dpage;
->> +
->> +			/*
->> +			 * _GFP_NOFAIL because the GPU is going away and there
->> +			 * is nothing sensible we can do if we can't copy the
->> +			 * data back.
->> +			 */
-> You'll have to excuse me for a moment since this area of nouveau isn't one of
-> my strongpoints, but are we sure about this? IIRC __GFP_NOFAIL means infinite
-> retry, in the case of a GPU hotplug event I would assume we would rather just
-> stop trying to migrate things to the GPU and just drop the data instead of
-> hanging on infinite retries.
->
->> +			dpage = alloc_page(GFP_HIGHUSER | __GFP_NOFAIL);
->> +			dst_pfns[i] = migrate_pfn(page_to_pfn(dpage));
->> +			nouveau_dmem_copy_one(chunk->drm,
->> +					migrate_pfn_to_page(src_pfns[i]), dpage,
->> +					&dma_addrs[i]);
->> +		}
->> +	}
->> +
->> +	nouveau_fence_new(chunk->drm->dmem->migrate.chan, false, &fence);
->> +	migrate_device_pages(src_pfns, dst_pfns, npages);
->> +	nouveau_dmem_fence_done(&fence);
->> +	migrate_device_finalize(src_pfns, dst_pfns, npages);
->> +	kfree(src_pfns);
->> +	kfree(dst_pfns);
->> +	for (i = 0; i < npages; i++)
->> +		dma_unmap_page(chunk->drm->dev->dev, dma_addrs[i], PAGE_SIZE, DMA_BIDIRECTIONAL);
->> +	kfree(dma_addrs);
->> +}
->> +
->>   void
->>   nouveau_dmem_fini(struct nouveau_drm *drm)
->>   {
->> @@ -380,8 +426,10 @@ nouveau_dmem_fini(struct nouveau_drm *drm)
->>   	mutex_lock(&drm->dmem->mutex);
->>   
->>   	list_for_each_entry_safe(chunk, tmp, &drm->dmem->chunks, list) {
->> +		nouveau_dmem_evict_chunk(chunk);
->>   		nouveau_bo_unpin(chunk->bo);
->>   		nouveau_bo_ref(NULL, &chunk->bo);
->> +		WARN_ON(chunk->callocated);
->>   		list_del(&chunk->list);
->>   		memunmap_pages(&chunk->pagemap);
->>   		release_mem_region(chunk->pagemap.range.start,
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> Shashank Sharma
+> Sent: Tuesday, September 27, 2022 5:40 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Somalapuram,
+> Amaranath <Amaranath.Somalapuram@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; Sharma, Shashank
+> <Shashank.Sharma@amd.com>
+> Subject: [PATCH v3 2/5] drm/amdgpu: add new functions to set GPU power
+> profile
+>=20
+> This patch adds new functions which will allow a user to
+> change the GPU power profile based a GPU workload hint
+> flag.
+>=20
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Makefile           |  2 +-
+>  .../gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c  | 97
+> +++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  1 +
+>  .../gpu/drm/amd/include/amdgpu_ctx_workload.h | 54 +++++++++++
+>  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  5 +
+>  5 files changed, 158 insertions(+), 1 deletion(-)
+>  create mode 100644
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
+>  create mode 100644
+> drivers/gpu/drm/amd/include/amdgpu_ctx_workload.h
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile
+> b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index 5a283d12f8e1..34679c657ecc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -50,7 +50,7 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_kms.o \
+>  	atombios_dp.o amdgpu_afmt.o amdgpu_trace_points.o \
+>  	atombios_encoders.o amdgpu_sa.o atombios_i2c.o \
+>  	amdgpu_dma_buf.o amdgpu_vm.o amdgpu_vm_pt.o amdgpu_ib.o
+> amdgpu_pll.o \
+> -	amdgpu_ucode.o amdgpu_bo_list.o amdgpu_ctx.o amdgpu_sync.o \
+> +	amdgpu_ucode.o amdgpu_bo_list.o amdgpu_ctx.o
+> amdgpu_ctx_workload.o amdgpu_sync.o \
+>  	amdgpu_gtt_mgr.o amdgpu_preempt_mgr.o amdgpu_vram_mgr.o
+> amdgpu_virt.o \
+>  	amdgpu_atomfirmware.o amdgpu_vf_error.o amdgpu_sched.o \
+>  	amdgpu_debugfs.o amdgpu_ids.o amdgpu_gmc.o \
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
+> new file mode 100644
+> index 000000000000..a11cf29bc388
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
+> @@ -0,0 +1,97 @@
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> + * copy of this software and associated documentation files (the
+> "Software"),
+> + * to deal in the Software without restriction, including without limita=
+tion
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be includ=
+ed in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+> EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+> MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
+> EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+> DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+> OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+> THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +#include <drm/drm.h>
+> +#include "kgd_pp_interface.h"
+> +#include "amdgpu_ctx_workload.h"
+> +
+> +static enum PP_SMC_POWER_PROFILE
+> +amdgpu_workload_to_power_profile(uint32_t hint)
+> +{
+> +	switch (hint) {
+> +	case AMDGPU_CTX_WORKLOAD_HINT_NONE:
+> +	default:
+> +		return PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
+> +
+> +	case AMDGPU_CTX_WORKLOAD_HINT_3D:
+> +		return PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+> +	case AMDGPU_CTX_WORKLOAD_HINT_VIDEO:
+> +		return PP_SMC_POWER_PROFILE_VIDEO;
+> +	case AMDGPU_CTX_WORKLOAD_HINT_VR:
+> +		return PP_SMC_POWER_PROFILE_VR;
+> +	case AMDGPU_CTX_WORKLOAD_HINT_COMPUTE:
+> +		return PP_SMC_POWER_PROFILE_COMPUTE;
+> +	}
+> +}
+> +
+> +int amdgpu_set_workload_profile(struct amdgpu_device *adev,
+> +				uint32_t hint)
+> +{
+> +	int ret =3D 0;
+> +	enum PP_SMC_POWER_PROFILE profile =3D
+> +			amdgpu_workload_to_power_profile(hint);
+> +
+> +	if (adev->pm.workload_mode =3D=3D hint)
+> +		return 0;
+> +
+> +	mutex_lock(&adev->pm.smu_workload_lock);
+> +
+> +	if (adev->pm.workload_mode =3D=3D hint)
+> +		goto unlock;
+[Quan, Evan] This seems redundant with code above. I saw you dropped this i=
+n Patch4.
+But I kind of feel this should be the one which needs to be kept.
+> +
+> +	ret =3D amdgpu_dpm_switch_power_profile(adev, profile, 1);
+> +	if (!ret)
+> +		adev->pm.workload_mode =3D hint;
+> +	atomic_inc(&adev->pm.workload_switch_ref);
+> +
+> +unlock:
+> +	mutex_unlock(&adev->pm.smu_workload_lock);
+> +	return ret;
+> +}
+> +
+> +int amdgpu_clear_workload_profile(struct amdgpu_device *adev,
+> +				  uint32_t hint)
+> +{
+> +	int ret =3D 0;
+> +	enum PP_SMC_POWER_PROFILE profile =3D
+> +			amdgpu_workload_to_power_profile(hint);
+> +
+> +	if (hint =3D=3D AMDGPU_CTX_WORKLOAD_HINT_NONE)
+> +		return 0;
+> +
+> +	/* Do not reset GPU power profile if another reset is coming */
+> +	if (atomic_dec_return(&adev->pm.workload_switch_ref) > 0)
+> +		return 0;
+> +
+> +	mutex_lock(&adev->pm.smu_workload_lock);
+> +
+> +	if (adev->pm.workload_mode !=3D hint)
+> +		goto unlock;
+> +
+> +	ret =3D amdgpu_dpm_switch_power_profile(adev, profile, 0);
+> +	if (!ret)
+> +		adev->pm.workload_mode =3D
+> AMDGPU_CTX_WORKLOAD_HINT_NONE;
+> +
+> +unlock:
+> +	mutex_unlock(&adev->pm.smu_workload_lock);
+> +	return ret;
+> +}
+[Quan, Evan] Instead of setting to AMDGPU_CTX_WORKLOAD_HINT_NONE, better to=
+ reset it back to original workload profile mode.
+That can make it compatible with existing sysfs interface which has similar=
+ functionality for setting workload profile mode.
+/**
+ * DOC: pp_power_profile_mode
+ *
+ * The amdgpu driver provides a sysfs API for adjusting the heuristics
+ * related to switching between power levels in a power state.  The file
+ * pp_power_profile_mode is used for this.
+ *
+ * Reading this file outputs a list of all of the predefined power profiles
+ * and the relevant heuristics settings for that profile.
+ *
+ * To select a profile or create a custom profile, first select manual usin=
+g
+ * power_dpm_force_performance_level.  Writing the number of a predefined
+ * profile to pp_power_profile_mode will enable those heuristics.  To
+ * create a custom set of heuristics, write a string of numbers to the file
+ * starting with the number of the custom profile along with a setting
+ * for each heuristic parameter.  Due to differences across asic families
+ * the heuristic parameters vary from family to family.
+ *
+ */
+
+BR
+Evan
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index be7aff2d4a57..1f0f64662c04 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3554,6 +3554,7 @@ int amdgpu_device_init(struct amdgpu_device
+> *adev,
+>  	mutex_init(&adev->psp.mutex);
+>  	mutex_init(&adev->notifier_lock);
+>  	mutex_init(&adev->pm.stable_pstate_ctx_lock);
+> +	mutex_init(&adev->pm.smu_workload_lock);
+>  	mutex_init(&adev->benchmark_mutex);
+>=20
+>  	amdgpu_device_init_apu_flags(adev);
+> diff --git a/drivers/gpu/drm/amd/include/amdgpu_ctx_workload.h
+> b/drivers/gpu/drm/amd/include/amdgpu_ctx_workload.h
+> new file mode 100644
+> index 000000000000..6060fc53c3b0
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/include/amdgpu_ctx_workload.h
+> @@ -0,0 +1,54 @@
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> + * copy of this software and associated documentation files (the
+> "Software"),
+> + * to deal in the Software without restriction, including without limita=
+tion
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be includ=
+ed in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+> EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+> MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
+> EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+> DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+> OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+> THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +#ifndef _AMDGPU_CTX_WL_H_
+> +#define _AMDGPU_CTX_WL_H_
+> +#include <drm/amdgpu_drm.h>
+> +#include "amdgpu.h"
+> +
+> +/* Workload mode names */
+> +static const char * const amdgpu_workload_mode_name[] =3D {
+> +	"None",
+> +	"3D",
+> +	"Video",
+> +	"VR",
+> +	"Compute",
+> +	"Unknown",
+> +};
+> +
+> +static inline const
+> +char *amdgpu_workload_profile_name(uint32_t profile)
+> +{
+> +	if (profile >=3D AMDGPU_CTX_WORKLOAD_HINT_NONE &&
+> +		profile < AMDGPU_CTX_WORKLOAD_HINT_MAX)
+> +		return
+> amdgpu_workload_mode_name[AMDGPU_CTX_WORKLOAD_INDEX(profile
+> )];
+> +
+> +	return
+> amdgpu_workload_mode_name[AMDGPU_CTX_WORKLOAD_HINT_MAX];
+> +}
+> +
+> +int amdgpu_clear_workload_profile(struct amdgpu_device *adev,
+> +				uint32_t hint);
+> +
+> +int amdgpu_set_workload_profile(struct amdgpu_device *adev,
+> +				uint32_t hint);
+> +
+> +#endif
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> index 65624d091ed2..565131f789d0 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> @@ -361,6 +361,11 @@ struct amdgpu_pm {
+>  	struct mutex            stable_pstate_ctx_lock;
+>  	struct amdgpu_ctx       *stable_pstate_ctx;
+>=20
+> +	/* SMU workload mode */
+> +	struct mutex smu_workload_lock;
+> +	uint32_t workload_mode;
+> +	atomic_t workload_switch_ref;
+> +
+>  	struct config_table_setting config_table;
+>  	/* runtime mode */
+>  	enum amdgpu_runpm_mode rpm_mode;
+> --
+> 2.34.1
