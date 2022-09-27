@@ -4,95 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06BEAC6FA82
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 14:41:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5F4EC6FA82
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 14:41:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D818A88E26;
-	Tue, 27 Sep 2022 14:41:38 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0E0610E8DB
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Sep 2022 11:04:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1664276697;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=l/JllRVsLXk1mVK18+Kbna9TAwN4318CnjejoNa5Zl0=;
- b=YK+AinDWE/yYS77zbSrSAfPAZrGWOwomQZ/dDv1ymGVHzqQOUSMFbr8lV0XfvX41iwp/No
- RAS8xQj+h9N1JeYOU5otn0tnn20mrRZH3e7I6zoGyFxgssLXGAJfxVCEWrfJ4V/mnWdlf1
- XeMTkfH8FT1ErJu5bUGisGh/fV5coJI=
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-311-N7lp1F7RMOSKTyVM1bWkKg-1; Tue, 27 Sep 2022 07:04:56 -0400
-X-MC-Unique: N7lp1F7RMOSKTyVM1bWkKg-1
-Received: by mail-ed1-f70.google.com with SMTP id
- x5-20020a05640226c500b00451ec193793so7548891edd.16
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Sep 2022 04:04:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=l/JllRVsLXk1mVK18+Kbna9TAwN4318CnjejoNa5Zl0=;
- b=dB8i4WaGUVrDZgvQQsDpFsM/J9e8CbL+RrdKE3JZJmCkV/P0MdRbH5Erf+u6gl0Pwz
- v2wRXh+eBatsB/hYX72p0RxLJ1Kv8fSNJFoUs8rdjwkHYvoQl8VVu6y2nlmwrxjPzgnu
- dLo7+gYZrmu0PCa6C/OYZ233JtROh0qsdNZpKmKOm1/ombUvY+wBE5qfdaBGH6qqNcZE
- iw53zpXj8dUE5/skiwsiqLEuI0k4mZguDN2zMxGGCBnum3f1lJN2xRbQkaFE312LM00E
- 0rKuo+sweBZHqOLQZJOSNctO8+EhfxcFn+XbfcFmioZpqL7zYYImDpTMUB1tZoMe+RUQ
- Gu2A==
-X-Gm-Message-State: ACrzQf09tF4cZcsRydsiUk9BpvEbKy1vM8NzJlK3Cqf96y2oB4InA/4/
- 1wkS9SXt9LPHPKUs4u82Ymw2amKv5rEH8YKMyOFWdJmS4CUV54WZMFOfX6AcoebHHgsd21lK4Fs
- qJWyfWwCoM2lfFeiJFodlpvJqjQ==
-X-Received: by 2002:a17:906:eecb:b0:73c:5bcb:8eb3 with SMTP id
- wu11-20020a170906eecb00b0073c5bcb8eb3mr22169269ejb.284.1664276695566; 
- Tue, 27 Sep 2022 04:04:55 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM7D5QZjU/upOCee7GoUO2AdF8ylwZyk3AjCM/1ND7XlQnca3IxNEAVjdAeeHSEga9s+yI8OrQ==
-X-Received: by 2002:a17:906:eecb:b0:73c:5bcb:8eb3 with SMTP id
- wu11-20020a170906eecb00b0073c5bcb8eb3mr22169235ejb.284.1664276695270; 
- Tue, 27 Sep 2022 04:04:55 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
- (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
- by smtp.gmail.com with ESMTPSA id
- a3-20020a50e703000000b0044657ecfbb5sm1058230edn.13.2022.09.27.04.04.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Sep 2022 04:04:54 -0700 (PDT)
-Message-ID: <42a5f2c9-a1dc-8fc0-7334-fe6c390ecfbb@redhat.com>
-Date: Tue, 27 Sep 2022 13:04:52 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60B8A10E362;
+	Tue, 27 Sep 2022 14:41:39 +0000 (UTC)
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73E1E10E93B;
+ Tue, 27 Sep 2022 13:41:48 +0000 (UTC)
+Received: from dggpeml500024.china.huawei.com (unknown [172.30.72.55])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4McLMQ0fqhzHppR;
+ Tue, 27 Sep 2022 21:39:30 +0800 (CST)
+Received: from huawei.com (10.175.112.208) by dggpeml500024.china.huawei.com
+ (7.185.36.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 27 Sep
+ 2022 21:41:45 +0800
+From: Yuan Can <yuancan@huawei.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
+ <Rodrigo.Siqueira@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>, <Jun.Lei@amd.com>, <Charlene.Liu@amd.com>,
+ <jerry.zuo@amd.com>, <agustin.gutierrez@amd.com>, <Nevenko.Stupar@amd.com>,
+ <sancchen@amd.com>, <tales.aparecida@gmail.com>,
+ <chandan.vurdigerenataraj@amd.com>, <aurabindo.pillai@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: Remove unused struct i2c_id_config_access
+Date: Tue, 27 Sep 2022 13:39:08 +0000
+Message-ID: <20220927133908.103658-1-yuancan@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.1
-Subject: Re: [PATCH v5 02/31] drm/i915: Don't register backlight when another
- backlight should be used (v2)
-To: Dmitry Osipenko <digetx@gmail.com>, Ben Skeggs <bskeggs@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
- Daniel Dadap <ddadap@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
- Andy Shevchenko <andy@kernel.org>
-References: <20220825143726.269890-1-hdegoede@redhat.com>
- <20220825143726.269890-3-hdegoede@redhat.com>
- <f914ceb3-94bd-743c-f8b6-0334086e731a@gmail.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <f914ceb3-94bd-743c-f8b6-0334086e731a@gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.112.208]
+X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
+ dggpeml500024.china.huawei.com (7.185.36.10)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Tue, 27 Sep 2022 14:41:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,197 +50,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
- Len Brown <lenb@kernel.org>
+Cc: yuancan@huawei.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+After commit 5a8132b9f606("drm/amd/display: remove dead dc vbios code"), no one
+use struct i2c_id_config_access, so remove it.
 
-On 9/26/22 01:39, Dmitry Osipenko wrote:
-> 25.08.2022 17:36, Hans de Goede пишет:
->> Before this commit when we want userspace to use the acpi_video backlight
->> device we register both the GPU's native backlight device and acpi_video's
->> firmware acpi_video# backlight device. This relies on userspace preferring
->> firmware type backlight devices over native ones.
->>
->> Registering 2 backlight devices for a single display really is
->> undesirable, don't register the GPU's native backlight device when
->> another backlight device should be used.
->>
->> Changes in v2:
->> - Use drm_info(drm_dev,  ...) for log messages
->>
->> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
->> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
->> ---
->>  drivers/gpu/drm/i915/display/intel_backlight.c | 7 +++++++
->>  1 file changed, 7 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
->> index 681ebcda97ad..03c7966f68d6 100644
->> --- a/drivers/gpu/drm/i915/display/intel_backlight.c
->> +++ b/drivers/gpu/drm/i915/display/intel_backlight.c
->> @@ -8,6 +8,8 @@
->>  #include <linux/pwm.h>
->>  #include <linux/string_helpers.h>
->>  
->> +#include <acpi/video.h>
->> +
->>  #include "intel_backlight.h"
->>  #include "intel_backlight_regs.h"
->>  #include "intel_connector.h"
->> @@ -952,6 +954,11 @@ int intel_backlight_device_register(struct intel_connector *connector)
->>  
->>  	WARN_ON(panel->backlight.max == 0);
->>  
->> +	if (!acpi_video_backlight_use_native()) {
->> +		drm_info(&i915->drm, "Skipping intel_backlight registration\n");
->> +		return 0;
->> +	}
->> +
->>  	memset(&props, 0, sizeof(props));
->>  	props.type = BACKLIGHT_RAW;
->>  
-> 
-> This breaks backlight on Acer Chromebook Spin 713 because backlight
-> isn't registered anymore. Any ideas how to fix it?
+Signed-off-by: Yuan Can <yuancan@huawei.com>
+---
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-Thank you for reporting this.
-
-Let me start with some background info on this change:
-
-As you may have noticed sometimes on laptops there are multiple
-backlights registered under /sys/class/backlight and we just let
-userspace figure out which one to use, which is quite bad.
-
-This patch is part of a series fixing this, this is also preparation
-for adding a new display brightness control API where the brightness is
-a property on the drm_connector object for the panel/display, which
-of course requires the kernel to know which backlight control method
-to use.
-
-If you are want to know more about the new userspace API see:
-https://lore.kernel.org/dri-devel/b61d3eeb-6213-afac-2e70-7b9791c86d2e@redhat.com/
-
-What this series does is on x86/ACPI platforms make all the possible
-/sys/class/backlight providers call: acpi_video_get_backlight_type()
-(acpi_video_backlight_use_native() is a special wrapper) and only if
-that returns their type then have them register their backlight device.
-
-So to fix this we need to make acpi_video_get_backlight_type()
-return native on the Acer Chromebook Spin 713.
-
-The heuristics used in acpi_video_get_backlight_type() is
-explained by comments in the function:
-
-        /*
-         * The below heuristics / detection steps are in order of descending
-         * presedence. The commandline takes presedence over anything else.
-         */
-        /* DMI quirks override any autodetection. */
-        /* Special cases such as nvidia_wmi_ec and apple gmux. */
-
-None of these apply here, so we end up in the core of this function:
-
-        /* On systems with ACPI video use either native or ACPI video. */
-        if (video_caps & ACPI_VIDEO_BACKLIGHT) {
-                /*
-                 * Windows 8 and newer no longer use the ACPI video interface,
-                 * so it often does not work. If the ACPI tables are written
-                 * for win8 and native brightness ctl is available, use that.
-                 *
-                 * The native check deliberately is inside the if acpi-video
-                 * block on older devices without acpi-video support native
-                 * is usually not the best choice.
-                 */
-                if (acpi_osi_is_win8() && native_available)
-                        return acpi_backlight_native;
-                else
-                        return acpi_backlight_video;
-        }
-
-        /* No ACPI video (old hw), use vendor specific fw methods. */
-        return acpi_backlight_vendor;
-
-
-The acpi_video_backlight_use_native() wrappers causes native_available to
-be true, so one or both of these 2 conditions fail:
-
-1.      if (video_caps & ACPI_VIDEO_BACKLIGHT)
-2.	if (acpi_osi_is_win8())
-
-I assume that 2. will actually likely fail on quite a few chromebooks.
-So to fix this you could do something like this:
-
-diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-index 0d9064a9804c..660ea46fbee8 100644
---- a/drivers/acpi/video_detect.c
-+++ b/drivers/acpi/video_detect.c
-@@ -75,6 +75,12 @@ find_video(acpi_handle handle, u32 lvl, void *context, void **rv)
- 	return AE_OK;
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index 5d70f9901d13..d380cf98b844 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -50,13 +50,6 @@
+ #define LAST_RECORD_TYPE 0xff
+ #define SMU9_SYSPLL0_ID  0
  
-+static bool is_chromebook(void)
-+{
-+	// FIXME return true when running under ChromeOS (coreboot) firmware
-+	return false;
-+}
-+
- /* This depends on ACPI_WMI which is X86 only */
- #ifdef CONFIG_X86
- static bool nvidia_wmi_ec_supported(void)
-@@ -724,7 +730,7 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
- 		 * block on older devices without acpi-video support native
- 		 * is usually not the best choice.
- 		 */
--		if (acpi_osi_is_win8() && native_available)
-+		if (native_available && (acpi_osi_is_win8() || is_chromebook()))
- 			return acpi_backlight_native;
- 		else
- 			return acpi_backlight_video;
-
-The ACPI video bus is a pretty standard thing (and part of the ACPI standard),
-still I would not be surprised if it is missing from the ACPI tables on some
-Chromebooks, so a slightly bigger hammer approach would be:
-
-diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-index 0d9064a9804c..ff950be472a7 100644
---- a/drivers/acpi/video_detect.c
-+++ b/drivers/acpi/video_detect.c
-@@ -75,6 +75,12 @@ find_video(acpi_handle handle, u32 lvl, void *context, void **rv)
- 	return AE_OK;
- }
- 
-+static bool is_chromeos_firmware(void)
-+{
-+	// FIXME return true when running under ChromeOS (coreboot) firmware
-+	return false;
-+}
-+
- /* This depends on ACPI_WMI which is X86 only */
- #ifdef CONFIG_X86
- static bool nvidia_wmi_ec_supported(void)
-@@ -713,6 +719,10 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
- 	if (apple_gmux_present())
- 		return acpi_backlight_apple_gmux;
- 
-+	/* On Chromebooks always use native if available */
-+	if (is_chromeos_firmware() && native_available)
-+		return acpi_backlight_native;
-+
- 	/* On systems with ACPI video use either native or ACPI video. */
- 	if (video_caps & ACPI_VIDEO_BACKLIGHT) {
- 		/*
-
-I assume you are more familiar with Chromebooks ACPI tables (or at least
-are better capable to sample a couple of them) so I will leave which
-approach to take is best up to you.
-
-Regards,
-
-Hans
+-struct i2c_id_config_access {
+-	uint8_t bfI2C_LineMux:4;
+-	uint8_t bfHW_EngineID:3;
+-	uint8_t bfHW_Capable:1;
+-	uint8_t ucAccess;
+-};
+-
+ static enum bp_result get_gpio_i2c_info(struct bios_parser *bp,
+ 	struct atom_i2c_record *record,
+ 	struct graphics_object_i2c_info *info);
+-- 
+2.17.1
 
