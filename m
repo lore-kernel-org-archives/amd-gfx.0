@@ -4,116 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1588C6FA83
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 11:48:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B19DAC07E9D
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 12:11:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E51AF10E2AC;
-	Tue, 27 Sep 2022 11:48:08 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2064.outbound.protection.outlook.com [40.107.92.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E811A10E2AC
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Sep 2022 11:48:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B679410E8F4;
+	Tue, 27 Sep 2022 12:11:09 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2078.outbound.protection.outlook.com [40.107.96.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9864610E8F4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Sep 2022 12:11:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BiZZONg1r2UxOy9zHJzBON2LhXS7sofGgZAPC3nou1axy0+iUiHpNaOdcQ4xFrvuKasQDQwBdyqjnnNXne5CWKlh9z4e8lO/bt8MBTG0LxSKhJNONuuckgltETMTNJrVN2qK5vahChESZEb0pYV9mNMqydEkKE3FkzvmBl+y0tSuv2klWRZ+go/QYS0qv5ktkTNYhfQKClxL0eY6qGBtOsQZGvnnajp3tnwMT0WjbCgxks+dE+KRjCp5e0Sg0bbNl5u4TC78PeSC3QwgmHWUL1HT0sW2aPdeEh8zf8EvFOMlDFhq13FIvfzt7Si0mm5rpJteJsepPb4BP/HroDge6Q==
+ b=HbtByEdA+yWl/ZLlfuUBykBTNp2okznnDUZviAnCzRLLiX7sajJy6fUvUk/d4rjZnx2NCJdjhhR4cjb2kQaqE7HsarDbdn3AVf+vJ0U7BhqMlNj0VrTlkBidERqI7+V/O9aDhHrhoNqESm98owba98mMaSx1gPC04cRKok/296msMK5T6LpFO3vHAamU+4eUfes+QFUV+mrj+9ih2IDijbbJDx4bqF8YyTURALgq7rEATmbYTDkxchxgqlya9DG1Als9VA1YOGfdicvyMW1XjfusKAa/ppJkqK60OqV9PrIIzGcNhiJauo/txmOQzggPVq2sSeori7w76ABnGEmYiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4bpqDLNFM2bZDcnIPRVvWR5F/hjQaLCz8nXKIsqXGJM=;
- b=iqI89KPvOr/wck0tzhzui8c7hgH41ixJdhLIu6Bs5qgwncTWAcW4pmQWG0QL1/kDao5pHhkVLA59bWeRmfzCAU7106fRb5E/28LCe0KttlrSxCEwCkY6Kr85gVOLK1YH1r2qCwlS5fjp+u+vM4vcKZ4Ib86gwXoAegf6Geieb/yt9W2KX8cSy1yvZcVC0ItTGV22YtypONwjKUM+WzXiSAVIeRP6o452BzhBRR1t2rMIBdMPxF6iG9hSyndVvUslW4nukwJAZ4k4IfAXsOB8h9oTJwTbNZWavtEKaHn2qv2jX5dHVA+RDOtMuSSP8yRCBwIHyu0GSLIhvjf0NeWebg==
+ bh=YnZUPSqHbNwdp/KBANpjYln/0o7AUJc4o9hDMdGVK5E=;
+ b=PzfEy50Q7a0wYByqQjox5vGYhgRBfk2xycwJiRdYCSOR3yJVPE5n3lzNRR+oS/cM2JhgzWfH30KVZqkNP2HGX26XnnmEMqTmJQ8iaHOszkdCli/Pp7gQrz5gWrhJ8qu4g4sJq+mWjjN3WorDmGH59+k1qf2C+kUqmfprT6t9HW+tsYNbqOfBsqxcHx6ziImeVin80dMY5wjdr5XxUGLw9PpLKR8Dafu0l7WZTwG66hALzDJk96uhaDkTGgHfCUST7C6ujeTRlHUxFfxK60VCuW1v1Qr8U94c+pWHROsE4IEP0ARbgNKWPuGJ2wewlbkfAn8hAhCHNGakCksKv/GlFQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4bpqDLNFM2bZDcnIPRVvWR5F/hjQaLCz8nXKIsqXGJM=;
- b=1MjuxpvbMfs8wfNRruPXuI/RGYF4IPhoSH9hrvjTofauQBPNYyMAlM+boQ7LuuQcLH+ycu02a2Q7ltN73N3SpuH1Ww1KPRhQ1BNkuUNakOms+n8EDeZeGmS3TGexneq8Fc87hf930Vwu/VvhEOYidEE9FDoL08pG2RLglxJMxTc=
+ bh=YnZUPSqHbNwdp/KBANpjYln/0o7AUJc4o9hDMdGVK5E=;
+ b=RbY7zwjDH+JU9K0cxTu9gxVezJNhnaI9M7NrR8oJVjf6Q4SaEKbnL0jAvdEwJ/8wanXP2LNmMFhR/8qtAS6VmDmoONM3zRHcTVQyy7DbcCGVhsOqYy0ABs/AVSbvBNCEcvaSeJvjSQIBfEbRDiXtRu4uKpsBd7bRG9/ZHQV0nUQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by DS7PR12MB6189.namprd12.prod.outlook.com (2603:10b6:8:9a::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.25; Tue, 27 Sep
- 2022 11:47:58 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::b944:6ee3:2df2:631c]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::b944:6ee3:2df2:631c%9]) with mapi id 15.20.5654.026; Tue, 27 Sep 2022
- 11:47:58 +0000
-Message-ID: <824ff17b-16f5-e68e-736c-11e2c7027241@amd.com>
-Date: Tue, 27 Sep 2022 13:47:51 +0200
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by MN2PR12MB4407.namprd12.prod.outlook.com (2603:10b6:208:260::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.26; Tue, 27 Sep
+ 2022 12:11:03 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::1f2e:c1d1:efd4:f918]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::1f2e:c1d1:efd4:f918%4]) with mapi id 15.20.5654.025; Tue, 27 Sep 2022
+ 12:11:02 +0000
+Message-ID: <f8d1a1dc-056c-bfe0-2f61-cc9c0702e37b@amd.com>
+Date: Tue, 27 Sep 2022 17:40:52 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH v3 4/5] drm/amdgpu: switch GPU workload profile
+ Thunderbird/91.3.2
+Subject: Re: [PATCH v3 2/5] drm/amdgpu: add new functions to set GPU power
+ profile
 Content-Language: en-US
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
+To: "Sharma, Shashank" <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20220926214014.5450-1-shashank.sharma@amd.com>
- <20220926214014.5450-5-shashank.sharma@amd.com>
- <538ae193-37e6-40b2-cff7-bcbeab6e4fe6@amd.com>
-From: "Sharma, Shashank" <shashank.sharma@amd.com>
-In-Reply-To: <538ae193-37e6-40b2-cff7-bcbeab6e4fe6@amd.com>
+ <20220926214014.5450-3-shashank.sharma@amd.com>
+ <29782362-ca83-9174-c289-1ef973b8e736@amd.com>
+ <ff4e61f2-f361-83c2-0bf4-443989e01ada@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <ff4e61f2-f361-83c2-0bf4-443989e01ada@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM5PR1001CA0046.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:206:15::23) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
+X-ClientProxiedBy: PN3PR01CA0182.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:be::18) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|DS7PR12MB6189:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6ba94bc-b60e-4e6e-7c55-08daa07e1f47
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|MN2PR12MB4407:EE_
+X-MS-Office365-Filtering-Correlation-Id: c30d0f5f-7c57-4c7c-86e6-08daa081585f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9cxkHBywz4rRmq26lUXt4ai0j0q5c2zC+jdeUk/G93fN8S0yIIqEaDMWegS2fJLpoSF7ocHZbw24eD82Ca5qiTSDXnNs5bL4kksoqnqR9AP7lkTly0wLABTP0AbqyBxLpc1lHQ6WuxoK0pEiOogF4vfqSDFne0wAwOuoMJc6xYlj9G01L99GizWMahlU+0wwULIHqw3hzIiM4rphDsUhMKnCeq1XFCCbV+iDDFFVGOFdMgxFqoK+qg382bTzRPRwL2FtDvLmTSOBn78XIhfoiTPTe4cHXS+FKJAaZ7Okw9ioG3LxIuUnpE0sFod9r1JxgSqM8vtTqXCNFWTNsgGgI3/5MDNG2e20bPe8hBdHDitGS/rl2Me9F5DkE4yEeXFFZUye8ycBftXPPU3jWQhPfpBbufPKSUBxxFfwdqZnAu4nwPR8h+2SJuy5224enSUxDFxGvNH/ffFR8uKP3lBuV5K/qQVd4Qwv8MbNPts8pkV8O1htM/j4xeA492/uh/oX+f6EJl/SszLb02ih8G5Cc9RPLxrL9opSFe810PCEQ7kVXhr8cZB7+WOyYXL8VNRI03JOqvjH+Kagux9p6gZkUkskZMd7GtQz6/65q0AzDZfXJuZXMHLAnlXF6LdjmU0kfjjgXSGVV2uwLE5VE0OmQ9eyGsS4q6OD+Xrhes5EVnAKTQo0MdZVGBAHGaEH13gVyXGCSTyV8Iq3tBv1qA6bkVmmgXEJep1aPBCNbQ26lbQ74eeleUiLylQHCcAcQtcyzXA0Ap8oYG6dLv9G4MCY2gUngSArMSHhn2PYjSwHJ9c=
+X-Microsoft-Antispam-Message-Info: gXWfiX44BLQ1LyYrFgBn9efLvBwmNgMGuhpA+FR+xrFq0c1dKSE9n3SQqgN96gkPFNkWA/u6qeb3iak0yKHLsqFyn60RD6edroVM16KIAgUvDlEcTj6Sm4Gkmm3/tbEbfGnhzMhdKAOIsL0XQShEFxA9qIyp8fKfzPU6VtCWKYA6Av91ac47e2mtazSDa8BigCHkDHNdTzV10hqo3J1LFIxOHnvvA30YjG/WjuGVPrLByqRE/ij2pNCIU9xuvEhnRbXhdDJYl3E1PvFGSJZtQsN9o0FO7DLG4zpG6XQNmeJaycQ3GftsU2finI1QxRT2YLDL4vuTWp+KZTKL+9XqOtQSNI0Z3xyav8HHjiGpeBlI4cMajBP8xq8GnYCQvLiUUOvAviCg2D+gWYJk56WhQ+/0s0iLUbgSXIoWPQ4LvVFq3VdxWtt9O/qvWBDCpPqpYBrCFgfugt8wRVhMA5UTAxg8NeLccdBqT4Omk04+6fc2JLIF9QZt/peaEC8HsFe8bY/0TfK/EuEzITBuhV5xiSRVELcU5VmvSfvp1gp0/Qb0z4ljNcCkYTDG0Ht9Q8ujj+bxxHmsCYK0sPGfKkgseH1sf84Iqx2HOMty7kREwuT0rgdk1gWlDEUJKSBJO0/rh0TriFPAxh9VfPKx1ayl95vGNqenQya1x++kPgkajylnBoRwZNPi8Epav7RA8oL36MBt3lm9Sxq1stuuyS/yC8+EzgFPy7D1UcWSHgqnjeEgVfFhhlDTTc01LrMIvSUzwNDPQuolXgL5f9/FHeJQM2FOkC8o2JWWO2UPjVL9PnI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(136003)(376002)(366004)(39860400002)(396003)(451199015)(478600001)(6486002)(66556008)(316002)(86362001)(31696002)(4326008)(31686004)(66476007)(8676002)(66946007)(8936002)(5660300002)(41300700001)(38100700002)(6666004)(26005)(6506007)(6512007)(2616005)(83380400001)(53546011)(36756003)(186003)(2906002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(376002)(366004)(136003)(396003)(346002)(451199015)(4326008)(6666004)(478600001)(41300700001)(53546011)(6486002)(66946007)(8676002)(6506007)(66556008)(66476007)(316002)(36756003)(38100700002)(186003)(26005)(2616005)(86362001)(6512007)(66899015)(83380400001)(31696002)(30864003)(31686004)(5660300002)(2906002)(8936002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YWpEOHZjZmtMRHJwQXZhUTAyN2pWRm5nQWZyTkp4ZlFxV0xZK3JhWmRYbXFO?=
- =?utf-8?B?WFlLMHhYNGNIdXgzMktEejRPZTVlVmlwWTlKQk8wMlkrc1Z6YjU2RCt5TEM3?=
- =?utf-8?B?bkhCZC9NbFRXaGd0UkNweStjSFNhWm11c09RL2xnRStaeDdzTDgvL1BQc2Fo?=
- =?utf-8?B?MzRlTmh3a0ZJL2hNeWk3dHBOODhNT0JMTHF3MExKbnNYeTg3eDR4c1Z4UFFy?=
- =?utf-8?B?aHpld3dHS29XcGZZaTBNSjZOLzFPMDgwSWd4ZUU1M3VXdnVmemtUOFRJYTdG?=
- =?utf-8?B?Ynd1YUVHUldqcmpyNzh3MWhIUTNPWitveHFKaWFhUmlmWXVOcFlHbDYxU0Ex?=
- =?utf-8?B?YitpaDhkZHN4M0gyY3ZvWE1hbnZxYlJLRGsrMlVDaC9hMC9DUmFDRkRQQ2kv?=
- =?utf-8?B?Q1g1VENGZkRNeDZjajdmQ0dEazIvelcrVVA5YWozZDlod3MzRC9uSG1IVWVq?=
- =?utf-8?B?Ykk5RlpPRGVRbTNQMm16Rm4yN1l6QncxMHppTDJPWFdZenlISnZ4R0hoYk1M?=
- =?utf-8?B?OUF3Y04wWnBGZWNudDN3UkMxbjJiMDRRYTM4Q3JCMkF0cU9WbTEyVHFBcjll?=
- =?utf-8?B?d3l5c0F1aFUvazhsVkhJWksxdjFDRGlUVjgxUzNGY2lqanBaNEpOMk42T3Ju?=
- =?utf-8?B?MWpvcG1qeWpPcE1KeFpJekxnZmFWZkNkUndmS1RmK0xBc0VieXh5aHpGays3?=
- =?utf-8?B?VjVOY3NGejNxZFp4TWFqeXNCT3NXQW5NQlloRE5qOTdoOWJSbHJYMGVjY09U?=
- =?utf-8?B?czRPdU1GNXZNVGRpQllROUdUc0dCdnRySHFuOHA4aGpiRVVUa3doSzF6alpU?=
- =?utf-8?B?Mm9DWnJ3T1BMVm0zRjBaTGpSalVHL2N0bFRIY0E1bWVUNy9lVEFxTGd5cE1n?=
- =?utf-8?B?aWJYenpwTjMwL2RVWk1MMkd3LzN4T3pYU285RE5hMVFpaWp6SHFGTTBTc0hi?=
- =?utf-8?B?YStQZnkxeXBlK1FDTkk3bU04ZXUwYUJjVTd1S0JCeVFrZjQwUWFpVDFlNnl4?=
- =?utf-8?B?MkhuOHVGNFhjN21uWkFGQXBMUnROd2dEM2trQjJWemIrTktzMnhKMEVkZWVS?=
- =?utf-8?B?ZVR6TFpKaXZscGh0bEZPT05ESHh0bm9zbHRmT2ZtOXd3OVhKdisvRnBuQUhv?=
- =?utf-8?B?Ry9Qa2VKaXl5VWpFVGNjS1RmaFNMUFdnK0NiMmZqNGlQSmg4aHBhMEpOSnZu?=
- =?utf-8?B?ZW9zTG1SSmJXYXcvQmV2b2FNMklhV3kvVW9EUXVWbUxDZzlWTlllQ2tXTExU?=
- =?utf-8?B?MEIvdkJHcml6Q3JTUVdUY090WjczUkdwMEhSekxOUC9IU0h1bUlXdE9tdjJB?=
- =?utf-8?B?cDAzbTN4OVJjak5nYnhvTnFzamFPSnZHRmQzbXhqYSs5RVBHUC9Dcms2WFRa?=
- =?utf-8?B?dTJpelV5QldYQk4xVWtnUGwycEtOYk9KRW96UUZuTkE4T25Iajhxa3R4TFdI?=
- =?utf-8?B?ZGVvcCs3Ukc2N0VycUZ0NHdrVllJN1dRL1pqSEUxZk9kY0VDNmFSVWQvbC9J?=
- =?utf-8?B?dHVYalhjbzZWMU5NTU9OQk5GSklTdWF6T1ZOdWEyK3hjbDRpN1FzNmhvdkEr?=
- =?utf-8?B?cjZRWXMwcWdGdkRBTy9nK1F3OEpzd2ZwUHdaemhkSXZHWlpJRUlJVG5UVkIy?=
- =?utf-8?B?N2J3NndvR0Y3bzY4azRmL1pFb2ZndC9LRFoyRGZqWmE0M09qdkVDenFIbUg0?=
- =?utf-8?B?Z2syL1VBb3dUaXYwNEhXMEVqOTRTdXM3RkhJdm1qT0lqbXo2SzB3bXRjWlN2?=
- =?utf-8?B?Qk5laHpodml1UU1NTkZPZDRPc0hsclUyN0Q3dG5OUUtDbnJYNEZzQW81WkYr?=
- =?utf-8?B?ZWo3aUQ1UXZBU2FOUGVDMzFmSXcyY3RxWnI4TWxwdi9SQ1BwL3MrVFhpeXdH?=
- =?utf-8?B?b1E5ZE0zcExmSndQemxoWHBIRFBpb3JKalVMeEQ4RWFxbHEwdmVGYkhqS29x?=
- =?utf-8?B?ZTVKbFREVXRDZ0paTlhKb0gwOFZjck5ybUtoSDVVK1dPcEVxaHpRYTJWdG1i?=
- =?utf-8?B?ZGRJUmJBTzFIU3RrN1ZOQ3QyTnB2TUN4ZWxZNGNQZEpXUENjdEloTUdGS0Nk?=
- =?utf-8?B?UDlvRUpxNkNYMlpSMDZZblg5aTlRUEZlZGdBbDNzWGRGc1FJeFN5NnRHcUdP?=
- =?utf-8?Q?OgnzUxRLE5recfMAj0PI+fMaG?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dmEwY1Zka0F2YUVxNFlHZkxsSzZaNVUrajdqTDdtRzYzZnVDZ0U2ZUc5bFBt?=
+ =?utf-8?B?U2xQYTB6NWpjSE5WYnNndVJPenkzMGNRYWM2elNwcVdqQUI3MjBLWHg2UGZu?=
+ =?utf-8?B?ai8xNUt5Q0ZqaTZIQUFBVGRVWGY5SkNpT05kNDhpQTg1U3VtaHZsZ0tCejNo?=
+ =?utf-8?B?L3lKK3RiV0p2TUFZRXpFaWZjRldta01yR0RPSGZpeHlqRkZzU0FOVWtXcmg5?=
+ =?utf-8?B?KytXdHBRZmlXRGY1TnE4Z1hrOTRKZkw2dVJ6WkY3Y2VOK0NPSjJZbHRISTRh?=
+ =?utf-8?B?S1pEQ0Jodk9PQ2FTTjVjVGVVWmFOSHUwNlZYTnhVSzdlSUR1M1VXWE9CcW9m?=
+ =?utf-8?B?Q2NKTWFDMXFKZ1BLMkZ5dzlQWk5CbENJaXVQUm04VXN2aGVyVlI2UVg0Zi82?=
+ =?utf-8?B?Z2lnUTV1ZVZwcm1lcFJWYTZRSHBkdkt6MEZIcHdsdXZRUTZpY0t4VWxSMVFu?=
+ =?utf-8?B?d3NJcVdEN3lxTHdoNnBWbzR2MkE1b3Z5V1B2TXVodXFaY0VNRWxQTGRONG5v?=
+ =?utf-8?B?dnRYWk1CR1lFb0ZGTnplbEkrU3BXNnFPVnRFZm1NT0lNczJEc1R1dmFXb1cy?=
+ =?utf-8?B?SGdzcURIME1iZXFqcmVrOWNHNkhvTHI4TWFPUTRIUnVOUmNybnJHMXVETkd6?=
+ =?utf-8?B?eERBWDZRdlI0dE11WE4vMHZhbXhxQWxGY1ozR05ISForRW1nWERkbGUzaEhD?=
+ =?utf-8?B?dkVBeWZFanNYSzdHeG9ncGNlZDVVVTMvWUtFaTdjbFVCWFdLbkxUQXdOeWFz?=
+ =?utf-8?B?bWQyMzZ1SnlKWE5MT2JqQkM0VlBSZmdaNU5zTHBBTWdlMG1XVzRGNEx3SlZz?=
+ =?utf-8?B?bVVLK1pOMFdzTXBWSmpjdHhjUTlaTEpLOS8zdnNlK2VZT3FPWWNtTFF5OWhS?=
+ =?utf-8?B?MmdCV2hWUHNKQk1kNW53TTJ0MDNXZWR1NHI4Ym9odDdEUjJrZU5UQ2VYQ2JF?=
+ =?utf-8?B?M0FKWUYwSjVXMHVwRHMwSEp2VmtNMHFDZzhBRDRKWGVDelFraHJCd0RnKzh3?=
+ =?utf-8?B?VDdNOWpmMmIybEY0a1VnTitlajRxVFlJRlhWdTNSK0hiRWw0ZUxIMVMvK3Rh?=
+ =?utf-8?B?dXphRlI0ZnVyNzdTcTVEb1N0R1dpRDFwbCtucjdIbFdJWHczcXpWQVJOaUx1?=
+ =?utf-8?B?OUFpSWlQZUJOQ1lxVTd1K0Z4cWE1MlRmZXdYSEJLV242SkFZZU5mYzNtZzBv?=
+ =?utf-8?B?Y2tTNFRIRlNwaHlCRmNlUXUzZVBxWlhVazhhb2R4eldaVTRFZWYwSTVHMUZh?=
+ =?utf-8?B?czJ3ZXAzbTZKMjg0aFMxdUxmL29kREppaDkwOVdBOVVtbVdvL3dsbFN3RmFl?=
+ =?utf-8?B?T09Nbk1vUS9lRkY0elRKdlJvbFo4M3FGaTJXU0doajl5b1ZTT0xqYjc0azhl?=
+ =?utf-8?B?aEVKVXhuMUlYZ2FkWmlDRVFRa1YvUjEwaXEyT3g5enFLQ1Fadm0zUmJUbXVT?=
+ =?utf-8?B?ZDdPUmc4OUMrM3dBNWpSSzY2WjZBOWVvTFFtU0xZK2MxbUUrdENmdnBIcTlR?=
+ =?utf-8?B?Y1ZKbE5YWFpRZVl0S0VBWDhwRm9LVHNReXFVL3d6SUtHU3d0ODBMUGQ5Wnp6?=
+ =?utf-8?B?Z3BnTHNTaVlGS3VjWnc2dVkrazFmaDdsQjFvV3dMNERuVExCK09tSkJDK2RD?=
+ =?utf-8?B?Y0E4MlI4a2dzNnNFNXJxWExQTnJmQzJvT2tRVzQ3MGhGdmc4U3hUSXBCT2hn?=
+ =?utf-8?B?SDk3QXdmRDl2WnVBS1RkZTRvM01PdnRGcHlLK25KcEV0L0ZHNDR2cHlhcWNS?=
+ =?utf-8?B?R2FENitqa0kzK3AzUWN4Z0dZVFRSa29MQXovT1pJcEFDb1NtWnUyUVpCdXg3?=
+ =?utf-8?B?RmFRWGhoaGpTUDlOQWhwZk9qWkF2Zy9xNG1kalYzWUdQSjFBZ2FxZFBEZnNO?=
+ =?utf-8?B?Ymo4QXJtanR1N3ZSRncyNTg4WkRWVVBBakFMLzNoWnZqbjhEZ3A1aEVyUnNa?=
+ =?utf-8?B?WHl3UnpycE54ZmtGS3MwVTBNbzR0NnJEaTVTZ2xmYmkyQnMzZHV0RXRpbnln?=
+ =?utf-8?B?MjBXM3dvdmYwZnpmV2J0eWRGa2dTZHRhbjgvaVlPK2dwNW1TZGY2T1ZJaitu?=
+ =?utf-8?B?UzJXWFhRWk9xbW9lT3h4eDkreGpXZ1Flc05lM1RDWVFIZWl1REhoY3pNTURm?=
+ =?utf-8?Q?ClAgq7Hk5vAx8s05ql3KHfhl+?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6ba94bc-b60e-4e6e-7c55-08daa07e1f47
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c30d0f5f-7c57-4c7c-86e6-08daa081585f
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2022 11:47:57.8855 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2022 12:11:02.3820 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hDT6oFjPe1n3Uk6PIM32GCQOvcN04gTfZCHurW4XuwRV15J3VA4lpzSYPeXu99u0rY3eeoJlG2rQMNKInAFb0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6189
+X-MS-Exchange-CrossTenant-UserPrincipalName: dbqJ21wOb4YwJ6aQ8wjy5zMJKcZnV2RjF8qUqa8+YVq9NT5mgQzh5TMp2F62JJjl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4407
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,124 +134,312 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 9/27/2022 12:03 PM, Lazar, Lijo wrote:
+On 9/27/2022 5:11 PM, Sharma, Shashank wrote:
 > 
 > 
-> On 9/27/2022 3:10 AM, Shashank Sharma wrote:
->> This patch and switches the GPU workload based profile based
->> on the workload hint information saved in the workload context.
->> The workload profile is reset to NONE when the job is done.
+> On 9/27/2022 11:58 AM, Lazar, Lijo wrote:
 >>
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           |  2 ++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c |  4 ----
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c          | 15 +++++++++++++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h          |  3 +++
->>   4 files changed, 20 insertions(+), 4 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> index b7bae833c804..de906a42144f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> @@ -237,6 +237,8 @@ static int amdgpu_cs_parser_init(struct 
->> amdgpu_cs_parser *p, union drm_amdgpu_cs
->>           goto free_all_kdata;
->>       }
->> +    p->job->workload_mode = p->ctx->workload_mode;
->> +
->>       if (p->uf_entry.tv.bo)
->>           p->job->uf_addr = uf_offset;
->>       kvfree(chunk_array);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
->> index a11cf29bc388..625114804121 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
->> @@ -55,15 +55,11 @@ int amdgpu_set_workload_profile(struct 
->> amdgpu_device *adev,
->>       mutex_lock(&adev->pm.smu_workload_lock);
->> -    if (adev->pm.workload_mode == hint)
->> -        goto unlock;
->> -
-> 
-> What is the expectation when a GFX job + VCN job together (or in general 
-> two jobs running in separate schedulers) and each prefers a different 
-> workload type? FW will switch as requested.
-
-Well, I guess the last switched mode will take over. Do note that like 
-most of the PM features, the real benefit of power profiles can be seen 
-with consistant and similar workloads running for some time (Like 
-gaming, video playback etc).
-
-- Shashank
-
-> 
-> Thanks,
-> Lijo
-> 
->>       ret = amdgpu_dpm_switch_power_profile(adev, profile, 1);
->>       if (!ret)
->>           adev->pm.workload_mode = hint;
->>       atomic_inc(&adev->pm.workload_switch_ref);
->> -unlock:
->>       mutex_unlock(&adev->pm.smu_workload_lock);
->>       return ret;
->>   }
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->> index c2fd6f3076a6..9300e86ee7c5 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->> @@ -30,6 +30,7 @@
->>   #include "amdgpu.h"
->>   #include "amdgpu_trace.h"
->>   #include "amdgpu_reset.h"
->> +#include "amdgpu_ctx_workload.h"
->>   static enum drm_gpu_sched_stat amdgpu_job_timedout(struct 
->> drm_sched_job *s_job)
->>   {
->> @@ -144,6 +145,14 @@ void amdgpu_job_free_resources(struct amdgpu_job 
->> *job)
->>   static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
->>   {
->>       struct amdgpu_job *job = to_amdgpu_job(s_job);
->> +    struct amdgpu_ring *ring = to_amdgpu_ring(s_job->sched);
->> +
->> +    if (job->workload_mode != AMDGPU_CTX_WORKLOAD_HINT_NONE) {
->> +        if (amdgpu_clear_workload_profile(ring->adev, 
->> job->workload_mode))
->> +            DRM_WARN("Failed to come out of workload profile %s\n",
->> +                amdgpu_workload_profile_name(job->workload_mode));
->> +        job->workload_mode = AMDGPU_CTX_WORKLOAD_HINT_NONE;
->> +    }
->>       drm_sched_job_cleanup(s_job);
->> @@ -256,6 +265,12 @@ static struct dma_fence *amdgpu_job_run(struct 
->> drm_sched_job *sched_job)
->>               DRM_ERROR("Error scheduling IBs (%d)\n", r);
->>       }
->> +    if (job->workload_mode != AMDGPU_CTX_WORKLOAD_HINT_NONE) {
->> +        if (amdgpu_set_workload_profile(ring->adev, job->workload_mode))
->> +            DRM_WARN("Failed to set workload profile to %s\n",
->> +                  amdgpu_workload_profile_name(job->workload_mode));
->> +    }
->> +
->>       job->job_run_counter++;
->>       amdgpu_job_free_resources(job);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->> index babc0af751c2..573e8692c814 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->> @@ -68,6 +68,9 @@ struct amdgpu_job {
->>       /* job_run_counter >= 1 means a resubmit job */
->>       uint32_t        job_run_counter;
->> +    /* workload mode hint for pm */
->> +    uint32_t        workload_mode;
->> +
->>       uint32_t        num_ibs;
->>       struct amdgpu_ib    ibs[];
->>   };
+>> On 9/27/2022 3:10 AM, Shashank Sharma wrote:
+>>> This patch adds new functions which will allow a user to
+>>> change the GPU power profile based a GPU workload hint
+>>> flag.
+>>>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/Makefile           |  2 +-
+>>>   .../gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c  | 97 +++++++++++++++++++
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  1 +
+>>>   .../gpu/drm/amd/include/amdgpu_ctx_workload.h | 54 +++++++++++
+>>>   drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  5 +
+>>>   5 files changed, 158 insertions(+), 1 deletion(-)
+>>>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
+>>>   create mode 100644 drivers/gpu/drm/amd/include/amdgpu_ctx_workload.h
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile 
+>>> b/drivers/gpu/drm/amd/amdgpu/Makefile
+>>> index 5a283d12f8e1..34679c657ecc 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+>>> @@ -50,7 +50,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+>>>       atombios_dp.o amdgpu_afmt.o amdgpu_trace_points.o \
+>>>       atombios_encoders.o amdgpu_sa.o atombios_i2c.o \
+>>>       amdgpu_dma_buf.o amdgpu_vm.o amdgpu_vm_pt.o amdgpu_ib.o 
+>>> amdgpu_pll.o \
+>>> -    amdgpu_ucode.o amdgpu_bo_list.o amdgpu_ctx.o amdgpu_sync.o \
+>>> +    amdgpu_ucode.o amdgpu_bo_list.o amdgpu_ctx.o 
+>>> amdgpu_ctx_workload.o amdgpu_sync.o \
+>>>       amdgpu_gtt_mgr.o amdgpu_preempt_mgr.o amdgpu_vram_mgr.o 
+>>> amdgpu_virt.o \
+>>>       amdgpu_atomfirmware.o amdgpu_vf_error.o amdgpu_sched.o \
+>>>       amdgpu_debugfs.o amdgpu_ids.o amdgpu_gmc.o \
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
+>>> new file mode 100644
+>>> index 000000000000..a11cf29bc388
+>>> --- /dev/null
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
+>>> @@ -0,0 +1,97 @@
+>>> +/*
+>>> + * Copyright 2022 Advanced Micro Devices, Inc.
+>>> + *
+>>> + * Permission is hereby granted, free of charge, to any person 
+>>> obtaining a
+>>> + * copy of this software and associated documentation files (the 
+>>> "Software"),
+>>> + * to deal in the Software without restriction, including without 
+>>> limitation
+>>> + * the rights to use, copy, modify, merge, publish, distribute, 
+>>> sublicense,
+>>> + * and/or sell copies of the Software, and to permit persons to whom 
+>>> the
+>>> + * Software is furnished to do so, subject to the following conditions:
+>>> + *
+>>> + * The above copyright notice and this permission notice shall be 
+>>> included in
+>>> + * all copies or substantial portions of the Software.
+>>> + *
+>>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+>>> EXPRESS OR
+>>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+>>> MERCHANTABILITY,
+>>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO 
+>>> EVENT SHALL
+>>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
+>>> DAMAGES OR
+>>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
+>>> OTHERWISE,
+>>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE 
+>>> USE OR
+>>> + * OTHER DEALINGS IN THE SOFTWARE.
+>>> + *
+>>> + */
+>>> +#include <drm/drm.h>
+>>> +#include "kgd_pp_interface.h"
+>>> +#include "amdgpu_ctx_workload.h"
+>>> +
+>>> +static enum PP_SMC_POWER_PROFILE
+>>> +amdgpu_workload_to_power_profile(uint32_t hint)
+>>> +{
+>>> +    switch (hint) {
+>>> +    case AMDGPU_CTX_WORKLOAD_HINT_NONE:
+>>> +    default:
+>>> +        return PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
+>>> +
+>>> +    case AMDGPU_CTX_WORKLOAD_HINT_3D:
+>>> +        return PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+>>> +    case AMDGPU_CTX_WORKLOAD_HINT_VIDEO:
+>>> +        return PP_SMC_POWER_PROFILE_VIDEO;
+>>> +    case AMDGPU_CTX_WORKLOAD_HINT_VR:
+>>> +        return PP_SMC_POWER_PROFILE_VR;
+>>> +    case AMDGPU_CTX_WORKLOAD_HINT_COMPUTE:
+>>> +        return PP_SMC_POWER_PROFILE_COMPUTE;
+>>> +    }
+>>> +}
+>>> +
+>>> +int amdgpu_set_workload_profile(struct amdgpu_device *adev,
+>>> +                uint32_t hint)
+>>> +{
+>>> +    int ret = 0;
+>>> +    enum PP_SMC_POWER_PROFILE profile =
+>>> +            amdgpu_workload_to_power_profile(hint);
+>>> +
+>>> +    if (adev->pm.workload_mode == hint)
+>>> +        return 0;
+>>> +
+>>> +    mutex_lock(&adev->pm.smu_workload_lock);
 >>
+>> If it's all about pm subsystem variable accesses, this API should 
+>> rather be inside amd/pm subsystem. No need to expose the variable 
+>> outside pm subsytem. Also currently all amdgpu_dpm* calls are 
+>> protected under one mutex. Then this extra lock won't be needed.
+>>
+> 
+> This is tricky, this is not all about PM subsystem. Note that the job 
+> management and scheduling is handled into amdgpu_ctx, so the workload 
+> hint is set in context_management API. The API is consumed when the job 
+> is actually run from amdgpu_run() layer. So its a joint interface 
+> between context and PM.
+> 
+
+If you take out amdgpu_workload_to_power_profile() line, everything else 
+looks to touch only pm variables/functions. You could still keep a 
+wrapper though. Also dpm_* functions are protected, so the extra mutex 
+can be avoided as well.
+
+>>> +
+>>> +    if (adev->pm.workload_mode == hint)
+>>> +        goto unlock;
+>>> +
+>>> +    ret = amdgpu_dpm_switch_power_profile(adev, profile, 1);
+>>> +    if (!ret)
+>>> +        adev->pm.workload_mode = hint;
+>>> +    atomic_inc(&adev->pm.workload_switch_ref);
+>>
+>> Why is this reference kept? The swtiching happens inside a lock and 
+>> there is already a check not to switch if the hint matches with 
+>> current workload.
+>>
+> 
+> This reference is kept so that we would not reset the PM mode to DEFAULT 
+> when some other context has switched the PP mode. If you see the 4th 
+> patch, the PM mode will be changed when the job in that context is run, 
+> and a pm_reset function will be scheduled when the job is done. But in 
+> between if another job from another context has changed the PM mode, the 
+> refrence count will prevent us from resetting the PM mode.
+> 
+
+This helps only if multiple jobs request the same mode. If they request 
+different modes, then this is not helping much.
+
+It could be useful to profile some apps assuming it has exclusive access.
+
+However, in general, the API is not reliable from a user point as the 
+mode requested can be overridden by some other job. Then a better thing 
+to do is to document that and avoid the extra stuff around it.
+
+Thanks,
+Lijo
+
+> - Shashank
+> 
+>> Thanks,
+>> Lijo
+>>
+>>> +
+>>> +unlock:
+>>> +    mutex_unlock(&adev->pm.smu_workload_lock);
+>>> +    return ret;
+>>> +}
+>>> +
+>>> +int amdgpu_clear_workload_profile(struct amdgpu_device *adev,
+>>> +                  uint32_t hint)
+>>> +{
+>>> +    int ret = 0;
+>>> +    enum PP_SMC_POWER_PROFILE profile =
+>>> +            amdgpu_workload_to_power_profile(hint);
+>>> +
+>>> +    if (hint == AMDGPU_CTX_WORKLOAD_HINT_NONE)
+>>> +        return 0;
+>>> +
+>>> +    /* Do not reset GPU power profile if another reset is coming */
+>>> +    if (atomic_dec_return(&adev->pm.workload_switch_ref) > 0)
+>>> +        return 0;
+>>> +
+>>> +    mutex_lock(&adev->pm.smu_workload_lock);
+>>> +
+>>> +    if (adev->pm.workload_mode != hint)
+>>> +        goto unlock;
+>>> +
+>>> +    ret = amdgpu_dpm_switch_power_profile(adev, profile, 0);
+>>> +    if (!ret)
+>>> +        adev->pm.workload_mode = AMDGPU_CTX_WORKLOAD_HINT_NONE;
+>>> +
+>>> +unlock:
+>>> +    mutex_unlock(&adev->pm.smu_workload_lock);
+>>> +    return ret;
+>>> +}
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> index be7aff2d4a57..1f0f64662c04 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> @@ -3554,6 +3554,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>>>       mutex_init(&adev->psp.mutex);
+>>>       mutex_init(&adev->notifier_lock);
+>>>       mutex_init(&adev->pm.stable_pstate_ctx_lock);
+>>> +    mutex_init(&adev->pm.smu_workload_lock);
+>>>       mutex_init(&adev->benchmark_mutex);
+>>>       amdgpu_device_init_apu_flags(adev);
+>>> diff --git a/drivers/gpu/drm/amd/include/amdgpu_ctx_workload.h 
+>>> b/drivers/gpu/drm/amd/include/amdgpu_ctx_workload.h
+>>> new file mode 100644
+>>> index 000000000000..6060fc53c3b0
+>>> --- /dev/null
+>>> +++ b/drivers/gpu/drm/amd/include/amdgpu_ctx_workload.h
+>>> @@ -0,0 +1,54 @@
+>>> +/*
+>>> + * Copyright 2022 Advanced Micro Devices, Inc.
+>>> + *
+>>> + * Permission is hereby granted, free of charge, to any person 
+>>> obtaining a
+>>> + * copy of this software and associated documentation files (the 
+>>> "Software"),
+>>> + * to deal in the Software without restriction, including without 
+>>> limitation
+>>> + * the rights to use, copy, modify, merge, publish, distribute, 
+>>> sublicense,
+>>> + * and/or sell copies of the Software, and to permit persons to whom 
+>>> the
+>>> + * Software is furnished to do so, subject to the following conditions:
+>>> + *
+>>> + * The above copyright notice and this permission notice shall be 
+>>> included in
+>>> + * all copies or substantial portions of the Software.
+>>> + *
+>>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+>>> EXPRESS OR
+>>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+>>> MERCHANTABILITY,
+>>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO 
+>>> EVENT SHALL
+>>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
+>>> DAMAGES OR
+>>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
+>>> OTHERWISE,
+>>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE 
+>>> USE OR
+>>> + * OTHER DEALINGS IN THE SOFTWARE.
+>>> + *
+>>> + */
+>>> +#ifndef _AMDGPU_CTX_WL_H_
+>>> +#define _AMDGPU_CTX_WL_H_
+>>> +#include <drm/amdgpu_drm.h>
+>>> +#include "amdgpu.h"
+>>> +
+>>> +/* Workload mode names */
+>>> +static const char * const amdgpu_workload_mode_name[] = {
+>>> +    "None",
+>>> +    "3D",
+>>> +    "Video",
+>>> +    "VR",
+>>> +    "Compute",
+>>> +    "Unknown",
+>>> +};
+>>> +
+>>> +static inline const
+>>> +char *amdgpu_workload_profile_name(uint32_t profile)
+>>> +{
+>>> +    if (profile >= AMDGPU_CTX_WORKLOAD_HINT_NONE &&
+>>> +        profile < AMDGPU_CTX_WORKLOAD_HINT_MAX)
+>>> +        return 
+>>> amdgpu_workload_mode_name[AMDGPU_CTX_WORKLOAD_INDEX(profile)];
+>>> +
+>>> +    return amdgpu_workload_mode_name[AMDGPU_CTX_WORKLOAD_HINT_MAX];
+>>> +}
+>>> +
+>>> +int amdgpu_clear_workload_profile(struct amdgpu_device *adev,
+>>> +                uint32_t hint);
+>>> +
+>>> +int amdgpu_set_workload_profile(struct amdgpu_device *adev,
+>>> +                uint32_t hint);
+>>> +
+>>> +#endif
+>>> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h 
+>>> b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+>>> index 65624d091ed2..565131f789d0 100644
+>>> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+>>> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+>>> @@ -361,6 +361,11 @@ struct amdgpu_pm {
+>>>       struct mutex            stable_pstate_ctx_lock;
+>>>       struct amdgpu_ctx       *stable_pstate_ctx;
+>>> +    /* SMU workload mode */
+>>> +    struct mutex smu_workload_lock;
+>>> +    uint32_t workload_mode;
+>>> +    atomic_t workload_switch_ref;
+>>> +
+>>>       struct config_table_setting config_table;
+>>>       /* runtime mode */
+>>>       enum amdgpu_runpm_mode rpm_mode;
+>>>
