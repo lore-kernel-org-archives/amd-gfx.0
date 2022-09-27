@@ -4,62 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 815F8C54EE9
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 20:40:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A479C6FA82
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 23:14:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3AE610E01F;
-	Tue, 27 Sep 2022 20:40:45 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C50310E01F
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Sep 2022 20:40:42 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- w22-20020a056830061600b006546deda3f9so7047465oti.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Sep 2022 13:40:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date;
- bh=0l0sEcy74nNEwzMFTsBswy0i/XLq/2QNn+sEMZBBG7M=;
- b=nOHO0Hq0xI9mm/pPdz3+o/LSNEZo/RrAqWGmuP7qEPEF6V/KrCYFt9gxA15gZuRyco
- o3TMWYn15UozKowjfnZZPE0fUqm/DUzw7komozCWB88gaMvyGKWUT0Ddn3ISb2KO7kKE
- Q0PdG9+DMqrt1U1FARUccGapTzWrBVmy4EWVAm8+Dmh+1/V2lirRc3QTTVSNiulRr63M
- egZlyiVV/n5hGp3tKyjzTtPf+8JHnCMEqdEPoW/2z+5i2lNz5tCrpuhjyroYukiriOVU
- jUzHE1wXtiRtzik2S7WpUE839ipNwIW7VROY50T11z/4ITjVrKjvRw9mTe7EbUk6RGLQ
- ENUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date;
- bh=0l0sEcy74nNEwzMFTsBswy0i/XLq/2QNn+sEMZBBG7M=;
- b=VPc/OKx9/ZrVId1zYqYktTfoUUuG7zTVCtr+pb/UIJsjYm7hzG9hsd3ZVFGpYIuXIy
- HmlBe8UOECCpu5PSLk4BGVD+cW5O5XqzNVB+EqLwvyuirjl17fNUSugEB+RgeJ/7VOLz
- uQF2wGx9gN9cCjKTRzLVpkA48BUVpYcYYHsoBWWkRdYEmai/wVhLOwZaUk7HjQnbCt6Y
- /xjnUlYTF3BsR8Uu8KUJHoY4tXnrFNlihcYRe+8ZV8k9p15nfcZktBq+s/gTgyntDCir
- xKPo4/ZP4C7VPwNbQjYEGBVPKj/k2mR8xxmvq86ZF2qvOZEokpfI8NvzTk1XPrIxJvNW
- LjPA==
-X-Gm-Message-State: ACrzQf2ziqLy+kWY06053UhbBFlS62Hd7wMUw80b+5bIHcvtcm0HLrlf
- 95cYzOS43vGd7u1E5jLjABv80SbBHiTOQjPcn4KIOp1d
-X-Google-Smtp-Source: AMsMyM58Kqv9K5SBAuWhL1zSvE647OydYkpCrZB9Rfx2pfGplp18/rZ/VnTgYLeCrJT0/GZabCAhx4+uMnwzIBIri1w=
-X-Received: by 2002:a9d:450a:0:b0:655:f46f:2bed with SMTP id
- w10-20020a9d450a000000b00655f46f2bedmr12960283ote.123.1664311241144; Tue, 27
- Sep 2022 13:40:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B199F10E174;
+	Tue, 27 Sep 2022 23:14:06 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2055.outbound.protection.outlook.com [40.107.95.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A00810E174
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Sep 2022 23:14:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DFa2G8mvXAqL0YOwrUL6O3nHmntiL9/sq0cGjSeHjRzX4Kf6L/p1B40DiOfsePFe8oZ0zHurxdnBktV1XvSHU3G0Qx8gFhw9UjWOs6kdu9BPN+KxbohTrU2KYMK3AL+LUP/r3DK6fNl/bPciXtQiAuSeQTEIUApaEY03MduICLS/ZzuIbR3PZDPex2t8DIqWzFoMRZ+ooSImLUSrkEpsJCICoJBoGR0/r0Aajq/lacS9j+L2kuAZou7sxwslVDOJaPzmBa8fpRYa3hqs4BEuQhA58f8hQlCnNS4ozl40luNOgu3UnjhqccgValenBvP6IsflUGx9sqah/95VH+dUTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0ve5m8e4IL+9CReIxuhHpwQQB9Oa00B+JdlZJ8sTIbg=;
+ b=W1FXZ0zycIkbh224/qADR1xVZ09TQq1aGTWWabOQ/7PKQ54GLl2m8bDdPc5h192BcXhM3GuNaAVBUECmVImfqHKzw/4cZ0xTTlav2n4ydD6k5IKi/t1eMCBBkQvzy4Hr3HldB6h9KRign2oqIktjz0rORtlJQRNUg/grOBEIZTC7579h+CBY7U5bAM6Cp4jY6vP8BLaal/eypCaSNHKg6RIoSLsGeEAsQpesDOMImTUBis4ueZAQLQwbZEYo7TRUIsS7vapU6hKGc/Pe2tFB8Wz9i23VoX7+n6lg/DIV7rixKdLDLPr2YwtbiunVENalvMnOYL0Ih4NN7nAKIwOmPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0ve5m8e4IL+9CReIxuhHpwQQB9Oa00B+JdlZJ8sTIbg=;
+ b=H0cXjEetmp7azuzEzLOUEZk/By5iDsy+J14nxATIzR7sYgR2Izq5H6a0nb4Z4LMSdr7z+7h97z4xLk/Fsdmjjj4Pd3vWY6pvBqyC3t2R/+0SAoEKVm7mY8d1xnouZ4QF9scswf0V9a588pcBhom14HLt5XtMMKkZ33D0/Qlfhus=
+Received: from BN9PR03CA0857.namprd03.prod.outlook.com (2603:10b6:408:13d::22)
+ by DM4PR12MB5844.namprd12.prod.outlook.com (2603:10b6:8:67::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.15; Tue, 27 Sep
+ 2022 23:14:00 +0000
+Received: from BL02EPF0000C406.namprd05.prod.outlook.com
+ (2603:10b6:408:13d:cafe::cc) by BN9PR03CA0857.outlook.office365.com
+ (2603:10b6:408:13d::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.27 via Frontend
+ Transport; Tue, 27 Sep 2022 23:13:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000C406.mail.protection.outlook.com (10.167.241.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5676.13 via Frontend Transport; Tue, 27 Sep 2022 23:13:59 +0000
+Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 27 Sep
+ 2022 18:13:58 -0500
+From: <sunpeng.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: Prevent OTG shutdown during PSR SU
+Date: Tue, 27 Sep 2022 19:13:39 -0400
+Message-ID: <20220927231339.187788-1-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-References: <20220926214014.5450-1-shashank.sharma@amd.com>
- <20220926214014.5450-6-shashank.sharma@amd.com>
- <6a0d7dea-8c5e-701d-9231-d6f76df76706@amd.com>
- <aa663a5a-3bc4-393e-ff4b-73e3247e79fa@amd.com>
- <6d8dd85d-5d6f-8364-b710-9483944a2090@amd.com>
- <d4037915-2281-b12b-e38b-2e947fb34c75@amd.com>
- <72aa5f24-8f66-2a8b-3338-a082541dd4aa@amd.com>
-In-Reply-To: <72aa5f24-8f66-2a8b-3338-a082541dd4aa@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 27 Sep 2022 16:40:29 -0400
-Message-ID: <CADnq5_PavsH-=7hQjWn7aBSCVs30AYdNa_ixDUn7o-BRLh=78A@mail.gmail.com>
-Subject: Re: [PATCH v3 5/5] drm/amdgpu: switch workload context to/from compute
-To: "Sharma, Shashank" <shashank.sharma@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0000C406:EE_|DM4PR12MB5844:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e8532a0-28e9-4600-c73b-08daa0ddf5b1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vqnfU1baEOm+Uk1iJWLSd3BaxKlnsP4cNU/kz6BlDliGZ/9la1UJRbrGJiQCVQxfsm4gUIj7UefzfvLQyFMc9siMPJ5kTQ6+0hMOv2g1SC64RvexZMAOcd/l71eqCz8px+9wBaL9jji4yC5MlX66Rdwlpk2jsqFLCpKSSPAPo14q8wqXwa65HYabyACjkWgARqS+Pq/DzXHA/q4XJQ04IiatO8sZ8CJBlPNvhFofnm+R1KdfAjd0WVnKvR3LBqtiF0owJezLTUN0qdU204Vf2rmqZkf3xDXF3wzY+obTIpEiFoV2+VJlsrl/IbZXpRLXLEK3Hunw7497sz05v1AcKBgoGa18X57C2MTqpAAhyrmr4mnHiyw4RHiQwM+DwFUbuF61E8eMnNR/+FZ3JW/HniS1siVhtHE2Pfc5H3IbjHu7QGzhrSh06LNyCzlKTr0977OTHh63bu/7tvQ8jCwbgS8Hmgj4+VRMfZfd+p4BBxCu+TljKWHS38tJkSx7HTtouE0OQ4Y2/ekJsJgJHSEYygKhfZRL7V0XbearRaoYcrWYKBzoqhOBdjR/wV/Crfyr3c9Da263Vwoj7g/Gu2uO6zVcBcgJdFTSDGLgFGuDzk2MCI9dSdEpAN0D3+mdA0qcxI7gSOtpcisV2z0SRyybjaQ/yrPVluPEuNn6cdbvlQzHiNfUhUe51ASVWe27rOHuDqAWT9mFUADRgWJDSdtydHVa03d823gX3MT9xOZCERFg+7SdJK+EG5ylv3xj8leWhwL3HNhH8qlf+TAetR0a7/L09wC0kAMfTXxBwKHKvko=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199015)(36840700001)(40470700004)(46966006)(82740400003)(2876002)(6916009)(426003)(478600001)(86362001)(26005)(2616005)(36756003)(47076005)(36860700001)(81166007)(2906002)(8936002)(5660300002)(40480700001)(40460700003)(316002)(82310400005)(83380400001)(54906003)(186003)(1076003)(8676002)(4326008)(70586007)(70206006)(6666004)(336012)(16526019)(41300700001)(356005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2022 23:13:59.4913 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e8532a0-28e9-4600-c73b-08daa0ddf5b1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000C406.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5844
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,168 +97,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Felix Kuehling <felix.kuehling@amd.com>,
- amaranath.somalapuram@amd.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: regressions@lists.linux.dev, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo.Siqueira@amd.com, git@augustwikerfors.se, alexander.deucher@amd.com,
+ harry.wentland@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 27, 2022 at 11:38 AM Sharma, Shashank
-<shashank.sharma@amd.com> wrote:
->
->
->
-> On 9/27/2022 5:23 PM, Felix Kuehling wrote:
-> > Am 2022-09-27 um 10:58 schrieb Sharma, Shashank:
-> >> Hello Felix,
-> >>
-> >> Thank for the review comments.
-> >>
-> >> On 9/27/2022 4:48 PM, Felix Kuehling wrote:
-> >>> Am 2022-09-27 um 02:12 schrieb Christian K=C3=B6nig:
-> >>>> Am 26.09.22 um 23:40 schrieb Shashank Sharma:
-> >>>>> This patch switches the GPU workload mode to/from
-> >>>>> compute mode, while submitting compute workload.
-> >>>>>
-> >>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >>>>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> >>>>
-> >>>> Feel free to add my acked-by, but Felix should probably take a look
-> >>>> as well.
-> >>>
-> >>> This look OK purely from a compute perspective. But I'm concerned
-> >>> about the interaction of compute with graphics or multiple graphics
-> >>> contexts submitting work concurrently. They would constantly override
-> >>> or disable each other's workload hints.
-> >>>
-> >>> For example, you have an amdgpu_ctx with
-> >>> AMDGPU_CTX_WORKLOAD_HINT_COMPUTE (maybe Vulkan compute) and a KFD
-> >>> process that also wants the compute profile. Those could be different
-> >>> processes belonging to different users. Say, KFD enables the compute
-> >>> profile first. Then the graphics context submits a job. At the start
-> >>> of the job, the compute profile is enabled. That's a no-op because
-> >>> KFD already enabled the compute profile. When the job finishes, it
-> >>> disables the compute profile for everyone, including KFD. That's
-> >>> unexpected.
-> >>>
-> >>
-> >> In this case, it will not disable the compute profile, as the
-> >> reference counter will not be zero. The reset_profile() will only act
-> >> if the reference counter is 0.
-> >
-> > OK, I missed the reference counter.
-> >
-> >
-> >>
-> >> But I would be happy to get any inputs about a policy which can be
-> >> more sustainable and gets better outputs, for example:
-> >> - should we not allow a profile change, if a PP mode is already
-> >> applied and keep it Early bird basis ?
-> >>
-> >> For example: Policy A
-> >> - Job A sets the profile to compute
-> >> - Job B tries to set profile to 3D, but we do not allow it as job A is
-> >> not finished it yet.
-> >>
-> >> Or Policy B: Current one
-> >> - Job A sets the profile to compute
-> >> - Job B tries to set profile to 3D, and we allow it. Job A also runs
-> >> in PP 3D
-> >> - Job B finishes, but does not reset PP as reference count is not zero
-> >> due to compute
-> >> - Job  A finishes, profile reset to NONE
-> >
-> > I think this won't work. As I understand it, the
-> > amdgpu_dpm_switch_power_profile enables and disables individual
-> > profiles. Disabling the 3D profile doesn't disable the compute profile
-> > at the same time. I think you'll need one refcount per profile.
-> >
-> > Regards,
-> >    Felix
->
-> Thanks, This is exactly what I was looking for, I think Alex's initial
-> idea was around it, but I was under the assumption that there is only
-> one HW profile in SMU which keeps on getting overwritten. This can solve
-> our problems, as I can create an array of reference counters, and will
-> disable only the profile whose reference counter goes 0.
+From: Leo Li <sunpeng.li@amd.com>
 
-It's been a while since I paged any of this code into my head, but I
-believe the actual workload message in the SMU is a mask where you can
-specify multiple workload types at the same time and the SMU will
-arbitrate between them internally.  E.g., the most aggressive one will
-be selected out of the ones specified.  I think in the driver we just
-set one bit at a time using the current interface.  It might be better
-to change the interface and just ref count the hint types and then
-when we call the set function look at the ref counts for each hint
-type and set the mask as appropriate.
+[Why]
 
-Alex
+Enabling Z10 optimizations allows DMUB to disable the OTG during PSR
+link-off. This theoretically saves power by putting more of the display
+hardware to sleep. However, we observe that with PSR SU, it causes
+visual artifacts, higher power usage, and potential system hang.
 
+This is partly due to an odd behavior with the VStartup interrupt used
+to signal DRM vblank events. If the OTG is toggled on/off during a PSR
+link on/off cycle, the vstartup interrupt fires twice in quick
+succession. This generates incorrectly timed vblank events.
+Additionally, it can cause cursor updates to generate visual artifacts.
 
->
-> - Shashank
->
-> >
-> >
-> >>
-> >>
-> >> Or anything else ?
-> >>
-> >> REgards
-> >> Shashank
-> >>
-> >>
-> >>> Or you have multiple VCN contexts. When context1 finishes a job, it
-> >>> disables the VIDEO profile. But context2 still has a job on the other
-> >>> VCN engine and wants the VIDEO profile to still be enabled.
-> >>>
-> >>> Regards,
-> >>>    Felix
-> >>>
-> >>>
-> >>>>
-> >>>> Christian.
-> >>>>
-> >>>>> ---
-> >>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 14 +++++++++++---
-> >>>>>   1 file changed, 11 insertions(+), 3 deletions(-)
-> >>>>>
-> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> >>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> >>>>> index 5e53a5293935..1caed319a448 100644
-> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> >>>>> @@ -34,6 +34,7 @@
-> >>>>>   #include "amdgpu_ras.h"
-> >>>>>   #include "amdgpu_umc.h"
-> >>>>>   #include "amdgpu_reset.h"
-> >>>>> +#include "amdgpu_ctx_workload.h"
-> >>>>>     /* Total memory size in system memory and all GPU VRAM. Used to
-> >>>>>    * estimate worst case amount of memory to reserve for page table=
-s
-> >>>>> @@ -703,9 +704,16 @@ int amdgpu_amdkfd_submit_ib(struct
-> >>>>> amdgpu_device *adev,
-> >>>>>     void amdgpu_amdkfd_set_compute_idle(struct amdgpu_device *adev,
-> >>>>> bool idle)
-> >>>>>   {
-> >>>>> -    amdgpu_dpm_switch_power_profile(adev,
-> >>>>> -                    PP_SMC_POWER_PROFILE_COMPUTE,
-> >>>>> -                    !idle);
-> >>>>> +    int ret;
-> >>>>> +
-> >>>>> +    if (idle)
-> >>>>> +        ret =3D amdgpu_clear_workload_profile(adev,
-> >>>>> AMDGPU_CTX_WORKLOAD_HINT_COMPUTE);
-> >>>>> +    else
-> >>>>> +        ret =3D amdgpu_set_workload_profile(adev,
-> >>>>> AMDGPU_CTX_WORKLOAD_HINT_COMPUTE);
-> >>>>> +
-> >>>>> +    if (ret)
-> >>>>> +        drm_warn(&adev->ddev, "Failed to %s power profile to
-> >>>>> compute mode\n",
-> >>>>> +             idle ? "reset" : "set");
-> >>>>>   }
-> >>>>>     bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32
-> >>>>> vmid)
-> >>>>
+Note that this is not observed with PSR1 since PSR is fully disabled
+when there are vblank event requestors. Cursor updates are also
+artifact-free, likely because there are no selectively-updated (SU)
+frames that can generate artifacts.
+
+[How]
+
+A potential solution is to disable z10 idle optimizations only when fast
+updates (flips & cursor updates) are committed. A mechanism to do so
+would require some thoughtful design. Let's just disable idle
+optimizations for PSR2 for now.
+
+Fixes: 7cc191ee7621 ("drm/amd/display: Implement MPO PSR SU")
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+index c8da18e45b0e..8ca10ab3dfc1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+@@ -170,7 +170,13 @@ bool amdgpu_dm_psr_enable(struct dc_stream_state *stream)
+ 					   &stream, 1,
+ 					   &params);
+ 
+-	power_opt |= psr_power_opt_z10_static_screen;
++	/*
++	 * Only enable static-screen optimizations for PSR1. For PSR SU, this
++	 * causes vstartup interrupt issues, used by amdgpu_dm to send vblank
++	 * events.
++	 */
++	if (link->psr_settings.psr_version < DC_PSR_VERSION_SU_1)
++		power_opt |= psr_power_opt_z10_static_screen;
+ 
+ 	return dc_link_set_psr_allow_active(link, &psr_enable, false, false, &power_opt);
+ }
+-- 
+2.37.3
+
