@@ -4,88 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A479C6FA82
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 23:14:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1337C54EE9
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 23:19:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B199F10E174;
-	Tue, 27 Sep 2022 23:14:06 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2055.outbound.protection.outlook.com [40.107.95.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A00810E174
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Sep 2022 23:14:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8C0210E195;
+	Tue, 27 Sep 2022 23:19:04 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEBEF10E195
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Sep 2022 23:19:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DFa2G8mvXAqL0YOwrUL6O3nHmntiL9/sq0cGjSeHjRzX4Kf6L/p1B40DiOfsePFe8oZ0zHurxdnBktV1XvSHU3G0Qx8gFhw9UjWOs6kdu9BPN+KxbohTrU2KYMK3AL+LUP/r3DK6fNl/bPciXtQiAuSeQTEIUApaEY03MduICLS/ZzuIbR3PZDPex2t8DIqWzFoMRZ+ooSImLUSrkEpsJCICoJBoGR0/r0Aajq/lacS9j+L2kuAZou7sxwslVDOJaPzmBa8fpRYa3hqs4BEuQhA58f8hQlCnNS4ozl40luNOgu3UnjhqccgValenBvP6IsflUGx9sqah/95VH+dUTA==
+ b=ALkaOCDnQnZPqDqx7X4SGlDyT/LCYr9AMgXM9YH0j5TMVX9/ilqzs1iz6/Xl05P3cweZh4cK1ZIQ2vSe5Lmo8O7L75wnon1kybeT9+8SM8yfzj78+L/7TIoXv+acEi54KYtBLpvORRSZrV3Y3ECj7mDhrV8O9ubXOD4xsAxNY7vp11J/TY4GHw+KVOlFkbWhW5LjSWZRUWnyayHZhVFwwHPuLNpPTTqXKfNVv25Fj7QXuT5ZgQJZXNhbs8I1udJ7QhM9xk4JGzLHnMj1/brSk8k8LSs3CHi2ufNmShLLTGSwdlmJ+MVZA4EnudG0F349MhD9whSI7HhZ5/wuovDauw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0ve5m8e4IL+9CReIxuhHpwQQB9Oa00B+JdlZJ8sTIbg=;
- b=W1FXZ0zycIkbh224/qADR1xVZ09TQq1aGTWWabOQ/7PKQ54GLl2m8bDdPc5h192BcXhM3GuNaAVBUECmVImfqHKzw/4cZ0xTTlav2n4ydD6k5IKi/t1eMCBBkQvzy4Hr3HldB6h9KRign2oqIktjz0rORtlJQRNUg/grOBEIZTC7579h+CBY7U5bAM6Cp4jY6vP8BLaal/eypCaSNHKg6RIoSLsGeEAsQpesDOMImTUBis4ueZAQLQwbZEYo7TRUIsS7vapU6hKGc/Pe2tFB8Wz9i23VoX7+n6lg/DIV7rixKdLDLPr2YwtbiunVENalvMnOYL0Ih4NN7nAKIwOmPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=JoC0urk5WC0W3I64kQgESX76jLvac7UpKl0yN3aBeuc=;
+ b=XTjGcPNKICEDhQTbfOQwk6dhKZgQ4yvTI/tHPG09btHIzRcoTm5DvSqTC+6SXOKBP6GFXREwD679JzGLXS8LuoV0IBqNiv4zcpmm8iVNRhqXM3iTV2S92CWJpvK+xlHRqQpUbOm5SdMYMrl30FO+Hic7+IggHVXBzyFJL0N0CEtfc3x8tYkh1k0AEwdYM6ROWrbm99CpcTuGgJD1M4uuAqC0Vdj0JT+9ojIElGpgvBue3Si8x0+TyrtP+HshAzevgEkBhK4hdaWEDKCHCGdEscd56N/pOa6LlynAjd3gwZiDHyzUi3PeC0pYF8XxaNAjF0RlqDhj3XJXNhzx6rFIgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0ve5m8e4IL+9CReIxuhHpwQQB9Oa00B+JdlZJ8sTIbg=;
- b=H0cXjEetmp7azuzEzLOUEZk/By5iDsy+J14nxATIzR7sYgR2Izq5H6a0nb4Z4LMSdr7z+7h97z4xLk/Fsdmjjj4Pd3vWY6pvBqyC3t2R/+0SAoEKVm7mY8d1xnouZ4QF9scswf0V9a588pcBhom14HLt5XtMMKkZ33D0/Qlfhus=
-Received: from BN9PR03CA0857.namprd03.prod.outlook.com (2603:10b6:408:13d::22)
- by DM4PR12MB5844.namprd12.prod.outlook.com (2603:10b6:8:67::15) with
+ bh=JoC0urk5WC0W3I64kQgESX76jLvac7UpKl0yN3aBeuc=;
+ b=TY+TojnCKXV5SzIA1OPsnnRmqSKGNyUHX6c+xw3AIBvPdzpnJ8THzq+F6O8fRlM4IRwNd8kojVGAcvtQ/lpmtvIuFBd/Jj/jfA/WSqRl+9+GadF9/kkMnalRKMoUn8nsd/I3uGkOyzN7QxzGfQLw/Dz35QpJzjazS6cBFkBXIdo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5311.namprd12.prod.outlook.com (2603:10b6:5:39f::7) by
+ PH7PR12MB5733.namprd12.prod.outlook.com (2603:10b6:510:1e0::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.15; Tue, 27 Sep
- 2022 23:14:00 +0000
-Received: from BL02EPF0000C406.namprd05.prod.outlook.com
- (2603:10b6:408:13d:cafe::cc) by BN9PR03CA0857.outlook.office365.com
- (2603:10b6:408:13d::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.27 via Frontend
- Transport; Tue, 27 Sep 2022 23:13:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0000C406.mail.protection.outlook.com (10.167.241.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5676.13 via Frontend Transport; Tue, 27 Sep 2022 23:13:59 +0000
-Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 27 Sep
- 2022 18:13:58 -0500
-From: <sunpeng.li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: Prevent OTG shutdown during PSR SU
-Date: Tue, 27 Sep 2022 19:13:39 -0400
-Message-ID: <20220927231339.187788-1-sunpeng.li@amd.com>
-X-Mailer: git-send-email 2.37.3
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.24; Tue, 27 Sep
+ 2022 23:18:59 +0000
+Received: from DM4PR12MB5311.namprd12.prod.outlook.com
+ ([fe80::fc54:e514:e096:b243]) by DM4PR12MB5311.namprd12.prod.outlook.com
+ ([fe80::fc54:e514:e096:b243%3]) with mapi id 15.20.5654.025; Tue, 27 Sep 2022
+ 23:18:59 +0000
+Message-ID: <179b3e55-695a-d145-0b3b-2b67fbb54097@amd.com>
+Date: Tue, 27 Sep 2022 19:18:55 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Subject: Re: [REGRESSION] Graphical issues on Lenovo Yoga 7 14ARB7 laptop
+ since v6.0-rc1 (bisected)
+Content-Language: en-US
+To: August Wikerfors <git@augustwikerfors.se>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <c1f8886a-5624-8f49-31b1-e42b6d20dcf5@augustwikerfors.se>
+ <eee82fb8-0fc5-98cb-e630-f86891574f21@leemhuis.info>
+ <CADnq5_PRP3ekHPLhdXALxt9GL3aHHZQUw5TNAwm4t+ggimUq7g@mail.gmail.com>
+ <33cf5071-3157-a3c2-3252-3a8ab926c60d@augustwikerfors.se>
+ <f4818fc3-7015-29ed-95c5-ab6a18da33d7@amd.com>
+ <ea1f1d81-650b-768a-30ab-c9d7d9f9fa54@augustwikerfors.se>
+ <3ba218a3-8b6b-c0da-873b-53e1a8a082ae@amd.com>
+ <f84e4956-293f-801d-6b9f-df4226df87d2@augustwikerfors.se>
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <f84e4956-293f-801d-6b9f-df4226df87d2@augustwikerfors.se>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: CH2PR14CA0054.namprd14.prod.outlook.com
+ (2603:10b6:610:56::34) To DM4PR12MB5311.namprd12.prod.outlook.com
+ (2603:10b6:5:39f::7)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0000C406:EE_|DM4PR12MB5844:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e8532a0-28e9-4600-c73b-08daa0ddf5b1
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5311:EE_|PH7PR12MB5733:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9cd68d4-c671-4259-3305-08daa0dea80a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vqnfU1baEOm+Uk1iJWLSd3BaxKlnsP4cNU/kz6BlDliGZ/9la1UJRbrGJiQCVQxfsm4gUIj7UefzfvLQyFMc9siMPJ5kTQ6+0hMOv2g1SC64RvexZMAOcd/l71eqCz8px+9wBaL9jji4yC5MlX66Rdwlpk2jsqFLCpKSSPAPo14q8wqXwa65HYabyACjkWgARqS+Pq/DzXHA/q4XJQ04IiatO8sZ8CJBlPNvhFofnm+R1KdfAjd0WVnKvR3LBqtiF0owJezLTUN0qdU204Vf2rmqZkf3xDXF3wzY+obTIpEiFoV2+VJlsrl/IbZXpRLXLEK3Hunw7497sz05v1AcKBgoGa18X57C2MTqpAAhyrmr4mnHiyw4RHiQwM+DwFUbuF61E8eMnNR/+FZ3JW/HniS1siVhtHE2Pfc5H3IbjHu7QGzhrSh06LNyCzlKTr0977OTHh63bu/7tvQ8jCwbgS8Hmgj4+VRMfZfd+p4BBxCu+TljKWHS38tJkSx7HTtouE0OQ4Y2/ekJsJgJHSEYygKhfZRL7V0XbearRaoYcrWYKBzoqhOBdjR/wV/Crfyr3c9Da263Vwoj7g/Gu2uO6zVcBcgJdFTSDGLgFGuDzk2MCI9dSdEpAN0D3+mdA0qcxI7gSOtpcisV2z0SRyybjaQ/yrPVluPEuNn6cdbvlQzHiNfUhUe51ASVWe27rOHuDqAWT9mFUADRgWJDSdtydHVa03d823gX3MT9xOZCERFg+7SdJK+EG5ylv3xj8leWhwL3HNhH8qlf+TAetR0a7/L09wC0kAMfTXxBwKHKvko=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199015)(36840700001)(40470700004)(46966006)(82740400003)(2876002)(6916009)(426003)(478600001)(86362001)(26005)(2616005)(36756003)(47076005)(36860700001)(81166007)(2906002)(8936002)(5660300002)(40480700001)(40460700003)(316002)(82310400005)(83380400001)(54906003)(186003)(1076003)(8676002)(4326008)(70586007)(70206006)(6666004)(336012)(16526019)(41300700001)(356005)(36900700001);
+X-Microsoft-Antispam-Message-Info: P1A08/O0HBq0EEdgOF9xReualOcCijzzvOdNivr7ntKfLy9felo1XSfYNcuviAbG0ytt8AY5gowGFsB7nqJM0OMA6RJGXRpif5s461TSjoguM6dNEk1kfM0mg5s4sNjlxsBJVcE4/gwb2/3rIAeaCiABibxNQbYHaJleqqJ2GoUEZNFZyDDTjtLPgwUHZFm/SuLoHwNX56NSFH0mt2ANcgnLq7keRqT5JlacyYJ/aAHu4NdGvGR7LaqafRNnEniDrP4cMNi82JiFfJMxN2k4z8Xds99GeL/2Ewy67iJxoBo7/x/Y4gxO7dP8DI2peKdjiF0ExFvJ9CFO5L1YX2jwf76gBDsr+6PNVewEOpY87H9LLkWZwmpRrF8Apd4JvhMagMh+B0BCZ4d3+6eGxMKxdKwSHefvyH0GWmulgCOiUVHR8CkDNOPQoS7aFc3pg5e1YZCXw4xpYiFl+E4bv3ECEtef8CGeaf7XrohZBQhv70uREtZo8KtQ5MuGe8cMErn0kNYZGJZRSAVqxmteDVdJpAnrgdg6tVI4VxRJthgDtpeU+0udPARTRBvxLW4ENIQAOZrltGbbllhkR0jqoXtBH2wRZHPt6sgVHS529B7zzMc6CO5ZosSPz+ggdChOTjpKPdelITi2DsAe3I/jU3LinRATKBrz8xv36DCn+nNUNtEJ2W+bUCVlCdE1Tkte+XJZYw1rUAyfWtHFcGutpoZhSJ5BXPLSkdC7Fe7Zw4b+9uo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5311.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(396003)(376002)(39860400002)(366004)(136003)(451199015)(316002)(110136005)(6512007)(26005)(31696002)(186003)(8936002)(4326008)(54906003)(66946007)(86362001)(66476007)(66556008)(2906002)(8676002)(2616005)(6666004)(5660300002)(6506007)(41300700001)(53546011)(36756003)(6486002)(966005)(66899015)(31686004)(45080400002)(38100700002)(478600001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?REsrUEdibFA3UzRTODEyekwwdEh3cmt6citkVDgzSWNSYjlFYXdFNXVaUEVq?=
+ =?utf-8?B?Z0dtdmtDMWduU2lTS1RGd05BL21YUXlzT05UMzliQ3F6Qy9vc1FSc21IWWU4?=
+ =?utf-8?B?RFdVd1R0d2N3Rk9UdXkxOVp4SXp0aFBrSEhXaFAvSm1Gd0lSMkJJUEFsV0J4?=
+ =?utf-8?B?dHNieml0ZmlxY0QreGR3S3RIZmhNa3NhMHdwVURFKzdqaS9PRXVWR3ovcmNC?=
+ =?utf-8?B?cS81QjhaSHhidlFybFU5bmdnTzVtaXl1bnduSDJEaytoZUJsckhlbzZlSWtY?=
+ =?utf-8?B?UkFmY2FSTzZmYi9seHNONmJOSU1naDgxOXZGeTlOSHpZQWdLanlnTTdJcmFj?=
+ =?utf-8?B?SkZIUkt4WFJROU81Y1JXaHM1aExtWVB1cDBYcHdwdWM3bVJwOHZJTEFQdG8v?=
+ =?utf-8?B?QXYxK2JxMmV6bFcvbmxmZ1V5WHZkN2tBN0xOTXVlRnRRSU5ZTXYxMVdBU3pr?=
+ =?utf-8?B?SVAvYlBKSzNYckhtejdqbkZ0dmd0cVZwRmVqbWtUUzZ0UG50WmNsakZPNVFq?=
+ =?utf-8?B?ZjBqTmQ2UEJyaStWa2tCT21PUjJkMm02TXhZK2ZXNUxMeHp4Vm5haXpqQ2h6?=
+ =?utf-8?B?K3BnbThYNmd6K2gxYUpNdFhONERveVNsNGhITkhIL29wbWpRY3NzZWVLRnJ2?=
+ =?utf-8?B?NEU2TUUzVDJSRzJqemhGMUltV20wUTJYVDdqOG1mWkIzTWNDYkFsYVMzLy9m?=
+ =?utf-8?B?QVJyR3hDSTBKY1pMS2V3L003VkF0K3JRRUxDYjdxMlpUUjZ4MUxMbFZrdytO?=
+ =?utf-8?B?cGJjejJxL3RLdUJSNU50bzJwaCs3aDdENjF1dmRpME1sRVFUNEYza1VJdXhB?=
+ =?utf-8?B?NS94VmZrOXRSYXcwUDc4SVhxNGtMSytQMjFTeXJGTEJWMzlpb0YwL0JEeVcw?=
+ =?utf-8?B?clpabTNqaHJGTFE0WUZIdXJUdTd2L1FpdkJYWlgrTUxRZWhRaEs0K3FyU0dq?=
+ =?utf-8?B?Q21tZy95WnJ6M3lsNGVtWDNFT1lFMSs2bFNpWFE0ZmVvM2VPelpHSE1kYTVk?=
+ =?utf-8?B?dTRDUXBMOUZOeTNDcmROUVZoeXRFM0NlUEVya2hpa0NoK1k4aEZMN0docGdn?=
+ =?utf-8?B?V1c3T2VUNGRoeE5XZUlvRkxVRHhYdDFJdlNYV3BqYXN6dlh6Z1lBNVZMb3RL?=
+ =?utf-8?B?TklzdlpnNmc0eTdRMHRuZWRqb3d1TmhvV21xUS8yRTN1cHIzZGVtK1kwaTMy?=
+ =?utf-8?B?MUtnRDZJU2c3YWJlUnV3V1U4VTNPNHV6K1ZTUUZvdUVrMDFtTXZXUy9YeURT?=
+ =?utf-8?B?WWU4cWFrYldmUXM2R1hFdkJjczZnbHIxcW0vd1hYOGxlNE9xa213Vk1UdW1T?=
+ =?utf-8?B?S3RKVGJDWDFGVE4wUFg0RDRBRWZXa0JETTVhWFl2NTBBejFTQnpBYUZzT0Vo?=
+ =?utf-8?B?NjIyZ0pxd0VKSVFDbUluTlRVOFRkdTNtNlFRRnNsMng5WE0wZVhwQmhWMWN1?=
+ =?utf-8?B?em8yQWRxd21MQUw4U2Zxd3NRbDVBNXU1bU5EUkYzUEIyOUpqVW44SXRNRjhl?=
+ =?utf-8?B?Ri9hUktlaUhPOE44QkFNV3hCL01ZcUhOaUNrblA5ZjYzWmhEeDRZTUFTc1k5?=
+ =?utf-8?B?NFMwcTRxS2dVeGhaYTNvTGVkVk50RkNKaDJxbkJFMTA0WHhUTlA3SlJubVJp?=
+ =?utf-8?B?Y3g2SUM2OUtSOXQ3aWZ5bHZndU5ZMFF2WGdmbjlqak9NRkZJQ21ZVmlwUWlX?=
+ =?utf-8?B?OVUxejJjVHg4SmdiSUdoWmg0WHA5Q1lPbFNITHk4c082TGJEMVZZK2tWd0tY?=
+ =?utf-8?B?Y095bkY2aWlWMmhDekZBYTNRMGR0MWVrWmdweTJYS09xMHJtdytDb0g3Vmlw?=
+ =?utf-8?B?VnVSWVJYZUVTVUpJa05NMzIvbUlrTnR6bWxMVDgvRmpxZXNtSmt5alRPNUIz?=
+ =?utf-8?B?enU1MTQ1VjVybFU5RWo5SXJaRExNc2FBK3UvcFhsQmhBV0MzdmJBSlR4K3NW?=
+ =?utf-8?B?NlVwQkN5TmpUYkg0NjN5WFNGRTNvbHNvMnNxMGFFUEo4bUFzTEpYeW9WSk55?=
+ =?utf-8?B?V3NSaHJxNUorZHgyTmo4WHhRWEVCdzZzT1VoY0xFWG8vZTNsbXlPNUJaYi94?=
+ =?utf-8?B?OXhmTUJST3JqVnJDWG9ScmpnaEJ3OGdySmdGQzlnaks3UDhtUGlxU09WTjJF?=
+ =?utf-8?Q?Vt10=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2022 23:13:59.4913 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e8532a0-28e9-4600-c73b-08daa0ddf5b1
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9cd68d4-c671-4259-3305-08daa0dea80a
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5311.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2022 23:18:59.0333 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000C406.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5844
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0VDeogs+UIyxM7NsCEy38e/G8wuigl/piV0xGUxLpTUXHHO9ZIg1SP2R0FRcKCty
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5733
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,64 +132,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: regressions@lists.linux.dev, Leo Li <sunpeng.li@amd.com>,
- Rodrigo.Siqueira@amd.com, git@augustwikerfors.se, alexander.deucher@amd.com,
- harry.wentland@amd.com
+Cc: regressions@lists.linux.dev, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Thorsten Leemhuis <regressions@leemhuis.info>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Li <sunpeng.li@amd.com>
 
-[Why]
+Hi August,
 
-Enabling Z10 optimizations allows DMUB to disable the OTG during PSR
-link-off. This theoretically saves power by putting more of the display
-hardware to sleep. However, we observe that with PSR SU, it causes
-visual artifacts, higher power usage, and potential system hang.
+I've sent a fix here: https://patchwork.freedesktop.org/patch/504993/
 
-This is partly due to an odd behavior with the VStartup interrupt used
-to signal DRM vblank events. If the OTG is toggled on/off during a PSR
-link on/off cycle, the vstartup interrupt fires twice in quick
-succession. This generates incorrectly timed vblank events.
-Additionally, it can cause cursor updates to generate visual artifacts.
+It's not the most ideal fix, but it should address the regression. Let 
+me know it works for you.
 
-Note that this is not observed with PSR1 since PSR is fully disabled
-when there are vblank event requestors. Cursor updates are also
-artifact-free, likely because there are no selectively-updated (SU)
-frames that can generate artifacts.
+Thanks!
+Leo
 
-[How]
-
-A potential solution is to disable z10 idle optimizations only when fast
-updates (flips & cursor updates) are committed. A mechanism to do so
-would require some thoughtful design. Let's just disable idle
-optimizations for PSR2 for now.
-
-Fixes: 7cc191ee7621 ("drm/amd/display: Implement MPO PSR SU")
-Signed-off-by: Leo Li <sunpeng.li@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-index c8da18e45b0e..8ca10ab3dfc1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-@@ -170,7 +170,13 @@ bool amdgpu_dm_psr_enable(struct dc_stream_state *stream)
- 					   &stream, 1,
- 					   &params);
- 
--	power_opt |= psr_power_opt_z10_static_screen;
-+	/*
-+	 * Only enable static-screen optimizations for PSR1. For PSR SU, this
-+	 * causes vstartup interrupt issues, used by amdgpu_dm to send vblank
-+	 * events.
-+	 */
-+	if (link->psr_settings.psr_version < DC_PSR_VERSION_SU_1)
-+		power_opt |= psr_power_opt_z10_static_screen;
- 
- 	return dc_link_set_psr_allow_active(link, &psr_enable, false, false, &power_opt);
- }
--- 
-2.37.3
-
+On 2022-09-27 10:22, August Wikerfors wrote:
+> Hi Leo,
+> 
+> On 2022-09-27 00:29, Leo Li wrote:
+>>
+>> Hi August, thanks for the log.
+>>
+>> It seems the eDP panel does not fully satisfy the amdgpu requirements
+>> for enabling PSR SU, but we're enabling it anyways.
+>>
+>> I suspect it may be due to the "DP_FORCE_PSRSU_CAPABILITY" bit being set
+>> in it's DPCD registers, I'm checking with some devs to see if that is
+>> expected.
+>>
+>> In the meantime, can you give these two hacks a spin? Let me know if
+>> this helps with the glitches and system hangs:
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2F-%2Fsnippets%2F7076&amp;data=05%7C01%7Csunpeng.li%40amd.com%7Ca5864225840b4bbbd04c08daa093bb26%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637998853607058272%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=cNAK%2FMhWCGwXySpITTTvKtzXQ7WCEQL4DYSrPKzWSkY%3D&amp;reserved=0
+> Yes, the issues do not happen with those patches applied.
+> 
+>> Also the dmesg, in particular this line:
+>>> [drm] PSR support 1, DC PSR ver 1, sink PSR ver 3 DPCD caps 
+>>> 0x70su_y_granularity 4 force_psrsu_cap **X**
+> Here is that line:
+>> [   12.085196] [drm] PSR support 1, DC PSR ver 1, sink PSR ver 3 DPCD 
+>> caps 0x7b su_y_granularity 4 force_psrsu_cap 1
+> 
+> Regards,
+> August Wikerfors
