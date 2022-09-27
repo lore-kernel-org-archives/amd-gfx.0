@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10D39C07E9D
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 16:24:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66C57C07E9D
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Sep 2022 16:33:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DA2210E979;
-	Tue, 27 Sep 2022 16:24:45 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9416D10E979
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Sep 2022 16:24:40 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2ACC10E231;
+	Tue, 27 Sep 2022 16:33:10 +0000 (UTC)
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org
+ [IPv6:2001:67c:2050:0:465::201])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87DAA10E231
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Sep 2022 16:33:07 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4McQ1v60SCz9sTt;
- Tue, 27 Sep 2022 18:24:35 +0200 (CEST)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4McQCh01Qjz9sjH;
+ Tue, 27 Sep 2022 18:33:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1664295875;
+ s=mail20150812; t=1664296384;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HOBkfOewK9VSW4ZTFKBTwzKk2v72RxkKpb8lJnI+KGc=;
- b=T5A7DwNJ7OhsjGA6PUhcErb9MvH2PJEjXr7qDe2Sba+X/C9f7domGjpxgaJoI1+zbXHx+v
- rlAu/J5skE6Jg6Y2bEO5EG37F4t3w6qyaIxumeoGox2WjxtrLWrCih51K3c4TtolVi6sGC
- KucDNy/uV+4jpQjHfmLISR5ZFWoCGuAargj9owcyHgwReyI1kUW7LWbSpj6RD2oHEx4DYu
- 8JEGNo6IwJN5jiC3IXxJ+4O0GLH3m5/qr+Y+tbNodNtHG2rB/rmptavfdgWKIW3KqfH13f
- NzZfQAMG6oQzNKJ8tYD8sNWHt5jAIkXOhdJRH9+6rKzoPWZgEbIC7fitnqNM6Q==
-Message-ID: <1b549873-106d-1e93-7f77-4a3966828b9c@mailbox.org>
-Date: Tue, 27 Sep 2022 18:24:34 +0200
+ bh=BcZkQmG2FwcF8Z4+AwVi4NlHF6otN4mV3LWchtPIRz0=;
+ b=GjWoqQt1SP7v7ZvA4Iyn5f4HPo7d232mnLKUloTnPRqRXmEZ6JcYmWyMhDruXszx2IfHiJ
+ yPMol+swRR7RRSVEMjiRbTVay5MtTMl44QIhNNRTgpq6w8lgWHcARV5LeIJDhPsqUkX4iZ
+ dW3MOyY9CaPYY512DFVJcaS9PxvPhgHcOK3Hvovxv8V6EXParJQ9xoKBIcTKWw6t7nXeRl
+ jjS57yav2eN3h4uNZq3EKdZCD8WDg/UR4orp3juASE/hV3qdAbsoqZ5I5th5Lw2aEfmpMZ
+ 7GIoUqe6nPPSYtbrNXZ57agTmbWmDbG+5sR/c0xUMVwlw+r3J2clqEZtkLlmFg==
+Message-ID: <6ae60041-6db3-450f-2ac7-2f4415779818@mailbox.org>
+Date: Tue, 27 Sep 2022 18:33:03 +0200
 MIME-Version: 1.0
-Subject: Re: [PATCH v3 0/5] GPU workload hints for better performance
+Subject: Re: [PATCH v3 4/5] drm/amdgpu: switch GPU workload profile
 Content-Language: en-CA
-To: Shashank Sharma <shashank.sharma@amd.com>
+To: "Sharma, Shashank" <shashank.sharma@amd.com>,
+ "Lazar, Lijo" <lijo.lazar@amd.com>
 References: <20220926214014.5450-1-shashank.sharma@amd.com>
+ <20220926214014.5450-5-shashank.sharma@amd.com>
+ <538ae193-37e6-40b2-cff7-bcbeab6e4fe6@amd.com>
+ <824ff17b-16f5-e68e-736c-11e2c7027241@amd.com>
 From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <20220926214014.5450-1-shashank.sharma@amd.com>
+In-Reply-To: <824ff17b-16f5-e68e-736c-11e2c7027241@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: b7639e25cdc0625d2ed
-X-MBO-RS-META: 38eggadkti9bfohtkdr1mi6p4gqykw3o
-X-Rspamd-Queue-Id: 4McQ1v60SCz9sTt
+X-MBO-RS-ID: 5fbc7f7a1358698f7be
+X-MBO-RS-META: zdzgd499axrwq9eu7n7qjxd5eyzn8jwq
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,32 +64,54 @@ Cc: alexander.deucher@amd.com, amaranath.somalapuram@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-09-26 23:40, Shashank Sharma wrote:
-> AMDGPU SOCs supports dynamic workload based power profiles, which can
-> provide fine-tuned performance for a particular type of workload.
-> This patch series adds an interface to set/reset these power profiles
-> based on the workload type hints. A user can set a hint of workload
-> type being submistted to GPU, and the driver can dynamically switch
-> the power profiles which is best suited to this kind of workload. 
+On 2022-09-27 13:47, Sharma, Shashank wrote:
+> On 9/27/2022 12:03 PM, Lazar, Lijo wrote:
+>> On 9/27/2022 3:10 AM, Shashank Sharma wrote:
+>>> This patch and switches the GPU workload based profile based
+>>> on the workload hint information saved in the workload context.
+>>> The workload profile is reset to NONE when the job is done.
+>>>
+>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           |  2 ++
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c |  4 ----
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c          | 15 +++++++++++++++
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h          |  3 +++
+>>>   4 files changed, 20 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>> index b7bae833c804..de906a42144f 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>> @@ -237,6 +237,8 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
+>>>           goto free_all_kdata;
+>>>       }
+>>> +    p->job->workload_mode = p->ctx->workload_mode;
+>>> +
+>>>       if (p->uf_entry.tv.bo)
+>>>           p->job->uf_addr = uf_offset;
+>>>       kvfree(chunk_array);
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
+>>> index a11cf29bc388..625114804121 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx_workload.c
+>>> @@ -55,15 +55,11 @@ int amdgpu_set_workload_profile(struct amdgpu_device *adev,
+>>>       mutex_lock(&adev->pm.smu_workload_lock);
+>>> -    if (adev->pm.workload_mode == hint)
+>>> -        goto unlock;
+>>> -
+>>
+>> What is the expectation when a GFX job + VCN job together (or in general two jobs running in separate schedulers) and each prefers a different workload type? FW will switch as requested.
 > 
-> Currently supported workload profiles are:
-> "None", "3D", "Video", "VR", "Compute"
-> 
-> V2: This version addresses the review comment from Christian about
-> chaning the design to set workload mode in a more dynamic method
-> than during the context creation.
-> 
-> V3: Addressed review comment from Christian, Removed the get_workload()
->     calls from UAPI, keeping only the set_workload() call.
-> 
-> Shashank Sharma (5):
->   drm/amdgpu: add UAPI for workload hints to ctx ioctl
->   drm/amdgpu: add new functions to set GPU power profile
->   drm/amdgpu: set GPU workload via ctx IOCTL
->   drm/amdgpu: switch GPU workload profile
->   drm/amdgpu: switch workload context to/from compute
+> Well, I guess the last switched mode will take over. Do note that like most of the PM features, the real benefit of power profiles can be seen with consistant and similar workloads running for some time (Like gaming, video playback etc).
 
-Where are the corresponding Mesa changes?
+Not sure how that's supposed to work on a general purpose system, where there are always expected to be multiple processes (one of which being the display server) using the GPU for different workloads.
+
+Even in special cases there may be multiple different kinds of workloads constantly being used at the same time, e.g. a fullscreen game with live streaming / recording using VCN.
+
+
+Have you guys considered letting the display server (DRM master) choose the profile instead?
 
 
 -- 
