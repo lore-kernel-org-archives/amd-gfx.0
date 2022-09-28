@@ -4,42 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A99A6C32771
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 17:09:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75B4CC04A95
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 17:25:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B81F210E47E;
-	Wed, 28 Sep 2022 17:09:05 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 547A610E9FA;
- Wed, 28 Sep 2022 15:10:29 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B0924B81FA2;
- Wed, 28 Sep 2022 15:10:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C69C433D6;
- Wed, 28 Sep 2022 15:10:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux-foundation.org;
- s=korg; t=1664377826;
- bh=+HOKwcbw1B0WEYgcZtf8z/9nr2ZbysRiKOhYfv9YVTE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=IS5sTNnyxfit75fuP9+CKivhPVfr5MuCYX5xkSMvaIHcwj3YlHPHGiuReVZRtFCkO
- k/7JXAzqhj8lkEcOv3/FuRDU4yiHUhnPML+lIIGP/0mxsk6qSXMxUXyYBHHEAPpFJk
- OVh6CdYsxMDrs090m2k5tYCYUY4q6QAKNz+LjBGQ=
-Date: Wed, 28 Sep 2022 08:10:17 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Alistair Popple <apopple@nvidia.com>
-Subject: Re: [PATCH v2 8/8] hmm-tests: Add test for migrate_device_range()
-Message-Id: <20220928081017.3bf0b67d34a674b0a6df6b0d@linux-foundation.org>
-In-Reply-To: <a73cf109de0224cfd118d22be58ddebac3ae2897.1664366292.git-series.apopple@nvidia.com>
-References: <cover.60659b549d8509ddecafad4f498ee7f03bb23c69.1664366292.git-series.apopple@nvidia.com>
- <a73cf109de0224cfd118d22be58ddebac3ae2897.1664366292.git-series.apopple@nvidia.com>
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+	by gabe.freedesktop.org (Postfix) with ESMTP id A07C210E4FC;
+	Wed, 28 Sep 2022 17:25:19 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2051.outbound.protection.outlook.com [40.107.223.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 297CC10E50C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 17:25:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YQJsG0d8MhGsE0DIcG/0WVUiEnpuda0Dy2g7O8H17Zrv1jWFJu1wTA6HSedHvvPeid9/7d9A9IHyMBUzOE8vrTbZST1ovIi601PyZYvJ8wVXKmYJ/kRx/yFuYJJkr6rdxjXZ/fxXw8iGDR2bwAi1CKpdM5l4XrjZnbMpYa7arjW6oAJj2lPc4/uPaTTgCxVHp9Zc/LqIju/deLNljSMhmgnOTqbvevRuVGOML3RhcooVgS0kCfrwj3JBCSGU+7I4iOVtpsJDoYyDC4RrLZk/787SGGlxFLAbtJfqEABZEOoG8AmuDSyUKw12ahEpmbj4KulqKoTe0u3j3VN7C6JyRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rM+aIc2QEfUGiTWNOEjaReCgXXYYJ4c6tFfg44qNk1A=;
+ b=L/AF0LvST92SFwnUmYL6mEaHn30O8Dfe8jGZ5tVCCCN/J+5+NfWe1wCeBm9O0gPlqg0qk2CDYTlzBoHv+Z+vFgEbZlOw6AaZmLv9Sqg5g6LdIq6+ZWTk6uHCBhpJarBZlGRoUVAmyzK+e7if0M16iPdBJuAZFncY2hBGtNFWhQi6RPc0FOc/tyuFiJf0Qozp68X9NK8CoGbbfJRKwu/Zq1TRekagYLMz5xbFiB+BLT+R0+Kzw4ulisDR3yMlnH0Zibt+eyPHW8WDymSxHSGy/0PT1iDBL9iIaBNnzPOrZPc8qC4ktxpu/aQNBc/WHaIsPUyaY34d40EXRfCWVqI4BQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rM+aIc2QEfUGiTWNOEjaReCgXXYYJ4c6tFfg44qNk1A=;
+ b=S3K5AonAvsGWzmHA7MEX+SuphXQbVFm/uBek9dwOk1Cgy8138FjuEOEo5/3fthWfEPkpcDExUWM0+FrRKJhR+Pm951hYRFyxvT4s95zRJd0sgtcc3u4imJkmPKb/Z/wKcjJM+Sfy/zvr4oDeFJoyN44BEEi7uyWFy1aQbrJekzU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5311.namprd12.prod.outlook.com (2603:10b6:5:39f::7) by
+ CH2PR12MB4215.namprd12.prod.outlook.com (2603:10b6:610:ab::24) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5676.17; Wed, 28 Sep 2022 17:25:12 +0000
+Received: from DM4PR12MB5311.namprd12.prod.outlook.com
+ ([fe80::fc54:e514:e096:b243]) by DM4PR12MB5311.namprd12.prod.outlook.com
+ ([fe80::fc54:e514:e096:b243%3]) with mapi id 15.20.5676.017; Wed, 28 Sep 2022
+ 17:25:12 +0000
+Message-ID: <13a71356-a8c4-683b-ab28-e239d838338e@amd.com>
+Date: Wed, 28 Sep 2022 13:25:08 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Subject: Re: [PATCH] drm/amd/display: Prevent OTG shutdown during PSR SU
+Content-Language: en-US
+To: Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220927231339.187788-1-sunpeng.li@amd.com>
+ <fc7a63b3-9a45-d19f-3689-44ebc41aeb76@amd.com>
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <fc7a63b3-9a45-d19f-3689-44ebc41aeb76@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Wed, 28 Sep 2022 17:09:01 +0000
+X-ClientProxiedBy: MN2PR17CA0029.namprd17.prod.outlook.com
+ (2603:10b6:208:15e::42) To DM4PR12MB5311.namprd12.prod.outlook.com
+ (2603:10b6:5:39f::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5311:EE_|CH2PR12MB4215:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ae229b3-19ad-4438-1454-08daa1766614
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aWVHED9l4/9rRgrzmNnYC8fwnJvMpfLESlotrxGXNsSXywUXZW2qJ9gI6IMXEKGQGlv48Z2QnVgUQzS1SD23LSMjqg6n1ysbcYyle1CYHAzMJs2GB5QpnTJhetgZsKfUhQYlyq1/2VEd6oEDjOchD6vTs2AZMpjUt5SnINFEVEfHqqnPup/88Lb+cSn/OPTrx1tHt4vGEEymUBKxOhvUKGlxG8vo2z8IWP15EvIPjM9qdwAhukkWWMCSRRz1nusuNzwPv4VnHDm5z7+VZZmOlo/GL6hhRtr4SPl/Gg4A81vowjFPLk3jN8OJf1ayvp2CfIIpveri5Be42pB91iM3e8YtezYGKCaZLxUcWh+stu/A2foZYS+y4gHlavJObfMqISp9RMmHpttO/ImGRHG+yrQVaJjO5ZNoFlVXq8pCCoKzDjaNKcnC4U40zJ+bGFXdIDtzhDflwKeAvWrwnJFpaAK8Neq+XvX4wCzd8Knx9e5+JFw4tdnpAkPH8PBYFkNhXj3Ff8kzS4rp+3UdAyk8A1YS2r15HkURXxVE3R2/1oJ2aqYds26OVDZCGvSHKa6TkOQneIaXVyl1n/FOkg72YBoAy26ysEYr8gvIRUYSHCIDx6Dt0OFgYX3xKUo54cmxZUsRJKkj4N3VbkrWvFF8ZPPGSUSOAyjogmraAnFntP6PbiFf1HBNEHi90U3hmPbypTfMzxvN39I76mT/iDeOR1QdYtZRn93+hQSDHnzjKvGa4E7gUYH6wImwN7/HqHzJZW05wlGKyjVPxiCZ1HRadTJm/qqyQdGT2RI7dYIl2lo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5311.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(346002)(396003)(376002)(136003)(366004)(451199015)(478600001)(6486002)(31686004)(6506007)(53546011)(6666004)(186003)(316002)(2906002)(2616005)(38100700002)(8676002)(83380400001)(26005)(6512007)(36756003)(41300700001)(4326008)(66946007)(31696002)(66556008)(5660300002)(66476007)(8936002)(86362001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NW96bkhDRS81UnJHUnZ2YWpJYUpZc3VObVI5QnI2dVZBS3VBYk1Xa05SYVV2?=
+ =?utf-8?B?VHp2dkFETi8yKzdXUHpmc0NJbnNtbzFOSUh1ZUVtQkZtYXlhdkFHSTJXNFdE?=
+ =?utf-8?B?M3p0YzNubDhqT2xwSHBVQVRQaDQ5ZHd4cUpBYjVkMkJtMzlBbjFpOTI5R2pi?=
+ =?utf-8?B?NUtNRlpmWUZUMEgrRXAreUFBSU43Tk1lbCtmS3VFL09nK2RkNmlBLzRTNVhZ?=
+ =?utf-8?B?dG5mQTV3OVdGWGJtTHlwMk42K3hhTlBtYWJZMjNocFBqRDYrU2UyUTVqNUMv?=
+ =?utf-8?B?cVZDSFpJRTlOK044SXV0ampOWWNmUi93QmkrQTNHWktvNTBWYll3OUdhYlZq?=
+ =?utf-8?B?ZUFPdTgrMFJVaEgrVjNLVmNXZHg2NGVtRWhtaWs3czl1T0ZBUTZLa2dOWjN1?=
+ =?utf-8?B?VDJMeENmTnNpVjY5bGg0bGdUd0pHZW0rK0puM3kxMEk4V3NnTHNlOFhXNE1s?=
+ =?utf-8?B?TVA4ZjZQSE9lMHNCNkFMa0FYZ05VNjZmVlhkWkpRWDkzM013ZG52a0x3eVVZ?=
+ =?utf-8?B?MEJndFM0L3FlR001clFVRk1wYlRHUlF6QW0yZHV4cWN4YWZtSnFzZ2x6M25j?=
+ =?utf-8?B?eEZpVGI4RzFNVkEweXVZT3RBVDZYY1hUdldrWlU2QWlZdU5TN0F3aFJPU3Z3?=
+ =?utf-8?B?Y1ZNWnRUQS85NnF3eW5FZm9jc3lUbDA3djZEbTNPZkQxTTFqUWc1RXpSd0w4?=
+ =?utf-8?B?WTlDU1ErVTA2UVkvR1NzSVdHWElLOEc3eTZTdEd1ZzZGSWE1VzdkNXh2SEMy?=
+ =?utf-8?B?N09PUFJaVk5lTHlOZEZmb3JhNlFjRUo1VXYyQWlVa2t6NldKUDVhb0ZZQmUy?=
+ =?utf-8?B?UFIxUkhseFRWT3hWQ0NJUVpkckxUWWRuQ3ZOdk94MGRSb0NtdTFQRFNTR2J3?=
+ =?utf-8?B?TUxGa3hvN29raDJlS0hBcjZ1Y3JFeGlEQmJlQnRXcXZBbkNCQUU3Z0syQ1Vl?=
+ =?utf-8?B?STE2ZHczZUFYZldBM3RBd2VkK3dLSjNrVUp3SlptZ0tPa3FaajBFT0sxR2NI?=
+ =?utf-8?B?c1VHRzU2ZHV0ZmxQZHpWQ2FmcEx0MldkTk5ieUlLbEhoOGp5WVVhQ1Z0NTU5?=
+ =?utf-8?B?TVVyZFVFUkpnNW9FSTcyWEdSTWloRlFvcWxFT1BsakZ4ZGU1OHNmeDJ2TnZn?=
+ =?utf-8?B?SGZqby9TZVZUQjladG43ay9TZXRLeUpDcjNYUHRhZTVkaGRPWkc0SFliR3h0?=
+ =?utf-8?B?QUFtYWhXTzJURkVoYTR3VStEeURQRngwck9WbzZveXJjc0dyRm9SbFBCQURo?=
+ =?utf-8?B?bi9xajhRK1BoOHZQTFFydWVPY0ttOFlZT0dxMWZvL1AxK2ozMVh6R3pxUUVp?=
+ =?utf-8?B?YThMVXFjNnBXN3FIV2xqL3FWV2RYZlNVVmV5V1VWRkFRZjdIZWgyKzhSOU5R?=
+ =?utf-8?B?eWpRd2o5bmUvQ0x0ZGJndXJlTjlNYTNJR20vSG1heENjcmZwTUl6QmUzZVZq?=
+ =?utf-8?B?Q3NCVUdjWE9jUlAyY2tHYVl6bGFsMHhCM0FYZVNOK0VKL1Y2S2MzQ1EyMDVS?=
+ =?utf-8?B?RkxCNk9WS0RPeFNwTW9xcEMrODJhKzNEYXFrajNFUXU5WWliNllYQno4bjd5?=
+ =?utf-8?B?OGNXekVqT2V0Wmh2MWFOZDUzTTFKcVEwb2JiaHN4cW1jbS9iSjMzejJvLzVz?=
+ =?utf-8?B?MTVIRTRGdEdFZ3VSUGViRVpnUU1tZ00rWXNOdmhZMS9LZzEzNG1yZWN1cmlV?=
+ =?utf-8?B?SnYvOVRuelhBS01PR2lGYVloRnNoWmdxY0lmNFJVK0lscnpvRm9DRnFVYUxN?=
+ =?utf-8?B?TXRDbGw0OE1wZ0pEWkVVQW5ERzhwU2FDeTFoN1VkOUlaVTBLbzBzaWkvdWxl?=
+ =?utf-8?B?TzNiWm5DNnJDc25UTXcvaVQ2aXduTDVMZjVTT0RwMFJMSiszRlp2NEptSTlo?=
+ =?utf-8?B?VFpHUjZTbmFQRHFMeGovbmdyeExlSGxCQVVoWk54SVpqMmlXeG94L3pjQ25H?=
+ =?utf-8?B?bkluS2lQU0FGRTJBUndQQUY5em8zSW5TeWl3TmdwaTVoSHJud29rOGUzMStn?=
+ =?utf-8?B?MGJFVy9iZVowMms1Y29zSm95cm05bnUvZmRPNGNoTTRDSXlYQmZHckxqUHFX?=
+ =?utf-8?B?Z3dBWm5qV3lzQ08wNFZqVUxmQlZrQWRLWEcyWVNqNkR5amwzMXAwd3hPTjdp?=
+ =?utf-8?Q?rLK4=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ae229b3-19ad-4438-1454-08daa1766614
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5311.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2022 17:25:11.9494 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mw1209YMGm1XePDG4ZfpJI8QT2+DwqXNz3IEVbhKIJBUVi0w5BPmeqWqMCQ+EB91
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4215
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,279 +124,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, Ralph Campbell <rcampbell@nvidia.com>,
- nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-mm@kvack.org, amd-gfx@lists.freedesktop.org,
- Jason Gunthorpe <jgg@nvidia.com>, John Hubbard <jhubbard@nvidia.com>
+Cc: alexander.deucher@amd.com, Rodrigo.Siqueira@amd.com,
+ regressions@lists.linux.dev, git@augustwikerfors.se
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 28 Sep 2022 22:01:22 +1000 Alistair Popple <apopple@nvidia.com> wrote:
-
-> @@ -1401,22 +1494,7 @@ static int dmirror_device_init(struct dmirror_device *mdevice, int id)
->  
->  static void dmirror_device_remove(struct dmirror_device *mdevice)
->  {
-> -	unsigned int i;
-> -
-> -	if (mdevice->devmem_chunks) {
-> -		for (i = 0; i < mdevice->devmem_count; i++) {
-> -			struct dmirror_chunk *devmem =
-> -				mdevice->devmem_chunks[i];
-> -
-> -			memunmap_pages(&devmem->pagemap);
-> -			if (devmem->pagemap.type == MEMORY_DEVICE_PRIVATE)
-> -				release_mem_region(devmem->pagemap.range.start,
-> -						   range_len(&devmem->pagemap.range));
-> -			kfree(devmem);
-> -		}
-> -		kfree(mdevice->devmem_chunks);
-> -	}
-> -
-> +	dmirror_device_remove_chunks(mdevice);
->  	cdev_del(&mdevice->cdevice);
->  }
-
-Needed a bit or rework due to
-https://lkml.kernel.org/r/20220826050631.25771-1-mpenttil@redhat.com. 
-Please check my resolution.
 
 
---- a/lib/test_hmm.c~hmm-tests-add-test-for-migrate_device_range
-+++ a/lib/test_hmm.c
-@@ -100,6 +100,7 @@ struct dmirror {
- struct dmirror_chunk {
- 	struct dev_pagemap	pagemap;
- 	struct dmirror_device	*mdevice;
-+	bool remove;
- };
- 
- /*
-@@ -192,11 +193,15 @@ static int dmirror_fops_release(struct i
- 	return 0;
- }
- 
-+static struct dmirror_chunk *dmirror_page_to_chunk(struct page *page)
-+{
-+	return container_of(page->pgmap, struct dmirror_chunk, pagemap);
-+}
-+
- static struct dmirror_device *dmirror_page_to_device(struct page *page)
- 
- {
--	return container_of(page->pgmap, struct dmirror_chunk,
--			    pagemap)->mdevice;
-+	return dmirror_page_to_chunk(page)->mdevice;
- }
- 
- static int dmirror_do_fault(struct dmirror *dmirror, struct hmm_range *range)
-@@ -1218,6 +1223,85 @@ static int dmirror_snapshot(struct dmirr
- 	return ret;
- }
- 
-+static void dmirror_device_evict_chunk(struct dmirror_chunk *chunk)
-+{
-+	unsigned long start_pfn = chunk->pagemap.range.start >> PAGE_SHIFT;
-+	unsigned long end_pfn = chunk->pagemap.range.end >> PAGE_SHIFT;
-+	unsigned long npages = end_pfn - start_pfn + 1;
-+	unsigned long i;
-+	unsigned long *src_pfns;
-+	unsigned long *dst_pfns;
-+
-+	src_pfns = kcalloc(npages, sizeof(*src_pfns), GFP_KERNEL);
-+	dst_pfns = kcalloc(npages, sizeof(*dst_pfns), GFP_KERNEL);
-+
-+	migrate_device_range(src_pfns, start_pfn, npages);
-+	for (i = 0; i < npages; i++) {
-+		struct page *dpage, *spage;
-+
-+		spage = migrate_pfn_to_page(src_pfns[i]);
-+		if (!spage || !(src_pfns[i] & MIGRATE_PFN_MIGRATE))
-+			continue;
-+
-+		if (WARN_ON(!is_device_private_page(spage) &&
-+			    !is_device_coherent_page(spage)))
-+			continue;
-+		spage = BACKING_PAGE(spage);
-+		dpage = alloc_page(GFP_HIGHUSER_MOVABLE | __GFP_NOFAIL);
-+		lock_page(dpage);
-+		copy_highpage(dpage, spage);
-+		dst_pfns[i] = migrate_pfn(page_to_pfn(dpage));
-+		if (src_pfns[i] & MIGRATE_PFN_WRITE)
-+			dst_pfns[i] |= MIGRATE_PFN_WRITE;
-+	}
-+	migrate_device_pages(src_pfns, dst_pfns, npages);
-+	migrate_device_finalize(src_pfns, dst_pfns, npages);
-+	kfree(src_pfns);
-+	kfree(dst_pfns);
-+}
-+
-+/* Removes free pages from the free list so they can't be re-allocated */
-+static void dmirror_remove_free_pages(struct dmirror_chunk *devmem)
-+{
-+	struct dmirror_device *mdevice = devmem->mdevice;
-+	struct page *page;
-+
-+	for (page = mdevice->free_pages; page; page = page->zone_device_data)
-+		if (dmirror_page_to_chunk(page) == devmem)
-+			mdevice->free_pages = page->zone_device_data;
-+}
-+
-+static void dmirror_device_remove_chunks(struct dmirror_device *mdevice)
-+{
-+	unsigned int i;
-+
-+	mutex_lock(&mdevice->devmem_lock);
-+	if (mdevice->devmem_chunks) {
-+		for (i = 0; i < mdevice->devmem_count; i++) {
-+			struct dmirror_chunk *devmem =
-+				mdevice->devmem_chunks[i];
-+
-+			spin_lock(&mdevice->lock);
-+			devmem->remove = true;
-+			dmirror_remove_free_pages(devmem);
-+			spin_unlock(&mdevice->lock);
-+
-+			dmirror_device_evict_chunk(devmem);
-+			memunmap_pages(&devmem->pagemap);
-+			if (devmem->pagemap.type == MEMORY_DEVICE_PRIVATE)
-+				release_mem_region(devmem->pagemap.range.start,
-+						   range_len(&devmem->pagemap.range));
-+			kfree(devmem);
-+		}
-+		mdevice->devmem_count = 0;
-+		mdevice->devmem_capacity = 0;
-+		mdevice->free_pages = NULL;
-+		kfree(mdevice->devmem_chunks);
-+		mdevice->devmem_chunks = NULL;
-+	}
-+	mutex_unlock(&mdevice->devmem_lock);
-+}
-+
- static long dmirror_fops_unlocked_ioctl(struct file *filp,
- 					unsigned int command,
- 					unsigned long arg)
-@@ -1272,6 +1356,11 @@ static long dmirror_fops_unlocked_ioctl(
- 		ret = dmirror_snapshot(dmirror, &cmd);
- 		break;
- 
-+	case HMM_DMIRROR_RELEASE:
-+		dmirror_device_remove_chunks(dmirror->mdevice);
-+		ret = 0;
-+		break;
-+
- 	default:
- 		return -EINVAL;
- 	}
-@@ -1326,9 +1415,13 @@ static void dmirror_devmem_free(struct p
- 
- 	mdevice = dmirror_page_to_device(page);
- 	spin_lock(&mdevice->lock);
--	mdevice->cfree++;
--	page->zone_device_data = mdevice->free_pages;
--	mdevice->free_pages = page;
-+
-+	/* Return page to our allocator if not freeing the chunk */
-+	if (!dmirror_page_to_chunk(page)->remove) {
-+		mdevice->cfree++;
-+		page->zone_device_data = mdevice->free_pages;
-+		mdevice->free_pages = page;
-+	}
- 	spin_unlock(&mdevice->lock);
- }
- 
-@@ -1408,22 +1501,7 @@ static int dmirror_device_init(struct dm
- 
- static void dmirror_device_remove(struct dmirror_device *mdevice)
- {
--	unsigned int i;
--
--	if (mdevice->devmem_chunks) {
--		for (i = 0; i < mdevice->devmem_count; i++) {
--			struct dmirror_chunk *devmem =
--				mdevice->devmem_chunks[i];
--
--			memunmap_pages(&devmem->pagemap);
--			if (devmem->pagemap.type == MEMORY_DEVICE_PRIVATE)
--				release_mem_region(devmem->pagemap.range.start,
--						   range_len(&devmem->pagemap.range));
--			kfree(devmem);
--		}
--		kfree(mdevice->devmem_chunks);
--	}
--
-+	dmirror_device_remove_chunks(mdevice);
- 	cdev_device_del(&mdevice->cdevice, &mdevice->device);
- }
- 
---- a/lib/test_hmm_uapi.h~hmm-tests-add-test-for-migrate_device_range
-+++ a/lib/test_hmm_uapi.h
-@@ -36,6 +36,7 @@ struct hmm_dmirror_cmd {
- #define HMM_DMIRROR_SNAPSHOT		_IOWR('H', 0x04, struct hmm_dmirror_cmd)
- #define HMM_DMIRROR_EXCLUSIVE		_IOWR('H', 0x05, struct hmm_dmirror_cmd)
- #define HMM_DMIRROR_CHECK_EXCLUSIVE	_IOWR('H', 0x06, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_RELEASE		_IOWR('H', 0x07, struct hmm_dmirror_cmd)
- 
- /*
-  * Values returned in hmm_dmirror_cmd.ptr for HMM_DMIRROR_SNAPSHOT.
---- a/tools/testing/selftests/vm/hmm-tests.c~hmm-tests-add-test-for-migrate_device_range
-+++ a/tools/testing/selftests/vm/hmm-tests.c
-@@ -1054,6 +1054,55 @@ TEST_F(hmm, migrate_fault)
- 	hmm_buffer_free(buffer);
- }
- 
-+TEST_F(hmm, migrate_release)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size, PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS, buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer in system memory. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Migrate memory to device. */
-+	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+
-+	/* Check what the device read. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	/* Release device memory. */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_RELEASE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Fault pages back to system memory and check them. */
-+	for (i = 0, ptr = buffer->ptr; i < size / (2 * sizeof(*ptr)); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
- /*
-  * Migrate anonymous shared memory to device private memory.
-  */
-_
+On 2022-09-28 09:52, Harry Wentland wrote:
+> 
+> 
+> On 2022-09-27 19:13, sunpeng.li@amd.com wrote:
+>> From: Leo Li <sunpeng.li@amd.com>
+>>
+>> [Why]
+>>
+>> Enabling Z10 optimizations allows DMUB to disable the OTG during PSR
+>> link-off. This theoretically saves power by putting more of the display
+>> hardware to sleep. However, we observe that with PSR SU, it causes
+>> visual artifacts, higher power usage, and potential system hang.
+>>
+>> This is partly due to an odd behavior with the VStartup interrupt used
+>> to signal DRM vblank events. If the OTG is toggled on/off during a PSR
+>> link on/off cycle, the vstartup interrupt fires twice in quick
+>> succession. This generates incorrectly timed vblank events.
+>> Additionally, it can cause cursor updates to generate visual artifacts.
+>>
+>> Note that this is not observed with PSR1 since PSR is fully disabled
+>> when there are vblank event requestors. Cursor updates are also
+>> artifact-free, likely because there are no selectively-updated (SU)
+>> frames that can generate artifacts.
+>>
+>> [How]
+>>
+>> A potential solution is to disable z10 idle optimizations only when fast
+>> updates (flips & cursor updates) are committed. A mechanism to do so
+>> would require some thoughtful design. Let's just disable idle
+>> optimizations for PSR2 for now.
+>>
+> 
+> Great writeup. Wish every bugfix came with details like this.
+> 
+>> Fixes: 7cc191ee7621 ("drm/amd/display: Implement MPO PSR SU")
+>> Signed-off-by: Leo Li <sunpeng.li@amd.com>
+> 
+> With Thorsten's comments addressed this is
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> 
+> Harry
+> 
 
+Thanks all for the bug report, comments, and review. Will send out v2 
+and merge shortly.
+
+Leo
+
+>> ---
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c | 8 +++++++-
+>>   1 file changed, 7 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+>> index c8da18e45b0e..8ca10ab3dfc1 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+>> @@ -170,7 +170,13 @@ bool amdgpu_dm_psr_enable(struct dc_stream_state *stream)
+>>   					   &stream, 1,
+>>   					   &params);
+>>   
+>> -	power_opt |= psr_power_opt_z10_static_screen;
+>> +	/*
+>> +	 * Only enable static-screen optimizations for PSR1. For PSR SU, this
+>> +	 * causes vstartup interrupt issues, used by amdgpu_dm to send vblank
+>> +	 * events.
+>> +	 */
+>> +	if (link->psr_settings.psr_version < DC_PSR_VERSION_SU_1)
+>> +		power_opt |= psr_power_opt_z10_static_screen;
+>>   
+>>   	return dc_link_set_psr_allow_active(link, &psr_enable, false, false, &power_opt);
+>>   }
+> 
