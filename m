@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DD0AC04A95
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D635BC32771
 	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:41:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A330F10E9B9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAFD910E9B4;
 	Wed, 28 Sep 2022 19:41:28 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5366110E9B1
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 19:41:05 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2065.outbound.protection.outlook.com [40.107.94.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 542F010E4D8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 19:40:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M1sb5Fx8pKZRvUJn5dkZhdEiRHek9cEhoYPlDksld57YDVATo2+231pt9/jnrEWsq2Fj9Zhn9VyqD68tLO3vLT2I9ix46qNPKp5A2nDhmv/bJWD90AXj45QEkW2epGfkzuaRzk41nc+JyGanCYkJMpLHp3RNYmn4nGNGLpCl8qoWbQPvZXl9jZ1o1sS58u5rA9p2cUBDFjCyL4olj3kGeq2fibLDTCKQXfISy9kWk2KTR0GEC+2GzEBPk+q9cQeIWZCWFJ2eFU+eUPb5BdRKannpVSIcd/jc5VOIItoK8U997zs24Y9HJvnlF6JTFwhRGYPI+uEvYP6wMH0xtmWAvQ==
+ b=EONhMT2P/6ikoYc68CU7bEeGaDF4Xok5Hypf5F0fE+Vx1KSWTkAw7rcMvUSdm3VLUHWAV2LlptO1/xuTSasguMQzbSUxzZNh9+1opQ644YfnBzfY/YVxARygMj4rAF8iBwXrmgWlKguJjt6vhq9TtgLMyFgvTX11copj4/s+TddgJhMF9TKAD9Y0g4Uyt0+8/nAKtOQU+B+rhaxZnteR7fOPZtzeg65NIIxBZomMVgqINn7X5ozv8CVW1xwDvB2PsXLKk7PgIswkcNwfxi8rDKImOaKmLC4eu5JCQKZ1zBiHJj4d1MzB2IHNiSNd4hs/uH6EnI/pIaxhRcSVFdwPNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VCiw8xah7imXHKihhwN+ceOqZBdCwh3+/eo0XnjwhVw=;
- b=VSWBNl9nlO+X8bz5el6olgDCzZvlQlTReJQ591dW7L6cq/kwXiu7lxrKX4xkMvLyGpFMDnzgMpO4rxLW0mdQRPSZuTGW6qMsrVBcRc6k9lKp2RvVQSDXyZ8hjY1lBZYk4R8/9FSxbBlbDPZyRRpYOh4JdICyBcZ4LP21xBNEjZERVjKgqOIX0iw9neyXbv0BliTkXlgSDE7tRlFLXhi0FYHCCJKw+XcWI++B8Yjlnqa/9OXW/Vkn/lWTKMKal/VRzJ+QOY9aSYccUIsOkE0e+QqY+jifatdFtFZXKgEVPJHKX3Tet9+lvTQEJMv3GI+SWOD/ZGeaHgUkF2YhHpUzHw==
+ bh=XpailNpd4zGw+F9gaIeRaOIeXc6hOb7pKdSWk1jLbCk=;
+ b=UAPBTzYZ2Gpgkc11fwTZjchYgT4SFuDzotJM1rKBl/TBGIQxdY1xo2ICmVOCpHCBn8xLD1ejdQmfGm2h9JdKMev1Yrxz277E/bMXLsKrRsWxaaak+nnWjD376XKGIO7I+HT8+KKno6E0PlETTXwlw8yv439BZ9orNb0GF5cne8mJ8ziNhSS4l6dIfFycwujj52wv3hwRLJFC3nDi69LI31CU+evzbHAOqfoSD92ecWyx2FFrkeiiUoyjIGoXw3ioJk8va7bwJoO6ZYxYbwwCel2coi7ugEVrgoYwEGoYKc2kwrThT3IKfVrvi+VIZWrvUbs4gpj/m0FSJ71olcZ0XA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VCiw8xah7imXHKihhwN+ceOqZBdCwh3+/eo0XnjwhVw=;
- b=khgyhs6Vtx8UEgSqag3/cNjo0O5EEFUpjpuBkgCXGlJOJdTFGGJLfiaSNwzADwm1nbOZyBL1/l7K2PVCsAWHcg/67eeZ4cKVKtDOJ6M4KcbDPRABPqk5wG1Pi0iN5jp1/oiv8IAVXv9eUG93BuSlMhTFxiL8/vrLxobAu6F6lRM=
-Received: from BN9PR03CA0544.namprd03.prod.outlook.com (2603:10b6:408:138::9)
- by DM6PR12MB4563.namprd12.prod.outlook.com (2603:10b6:5:28e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.17; Wed, 28 Sep
- 2022 19:41:02 +0000
-Received: from BN8NAM11FT072.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:138:cafe::42) by BN9PR03CA0544.outlook.office365.com
- (2603:10b6:408:138::9) with Microsoft SMTP Server (version=TLS1_2,
+ bh=XpailNpd4zGw+F9gaIeRaOIeXc6hOb7pKdSWk1jLbCk=;
+ b=TCH5p+BJVbM+Gphh4veUHDdJKpo6lHCBAJIEaJHed4pmDgHqiDNPyNrtiRMNSVFkzV4ngxhGT204CrWelGIIPGh5yPdyQ0AE42PyJ4h8uKLDShJ1HJfiWOxSYo2F6xrooeWzL5TpA6Gj85xxLlLEtT6nCNBmKmIgqBPx1OxcQys=
+Received: from BN9PR03CA0308.namprd03.prod.outlook.com (2603:10b6:408:112::13)
+ by PH7PR12MB5877.namprd12.prod.outlook.com (2603:10b6:510:1d5::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.25; Wed, 28 Sep
+ 2022 19:40:51 +0000
+Received: from BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:112:cafe::e3) by BN9PR03CA0308.outlook.office365.com
+ (2603:10b6:408:112::13) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.17 via Frontend
- Transport; Wed, 28 Sep 2022 19:41:02 +0000
+ Transport; Wed, 28 Sep 2022 19:40:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT072.mail.protection.outlook.com (10.13.176.165) with Microsoft SMTP
+ BN8NAM11FT037.mail.protection.outlook.com (10.13.177.182) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5676.17 via Frontend Transport; Wed, 28 Sep 2022 19:41:02 +0000
+ 15.20.5676.17 via Frontend Transport; Wed, 28 Sep 2022 19:40:50 +0000
 Received: from hamza-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 28 Sep
- 2022 14:41:00 -0500
+ 2022 14:40:49 -0500
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 10/36] drm/amd/display: Disable GSL when enabling phantom pipe
-Date: Wed, 28 Sep 2022 15:40:02 -0400
-Message-ID: <20220928194028.144879-11-hamza.mahfooz@amd.com>
+Subject: [PATCH 04/36] drm/amd/display: fix dcn315 dml detile overestimation
+Date: Wed, 28 Sep 2022 15:39:56 -0400
+Message-ID: <20220928194028.144879-5-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220928194028.144879-1-hamza.mahfooz@amd.com>
 References: <20220928194028.144879-1-hamza.mahfooz@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT072:EE_|DM6PR12MB4563:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f6b70f3-9876-47cd-de1f-08daa189603d
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT037:EE_|PH7PR12MB5877:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6e45c24-92ac-4b8e-bfc0-08daa1895955
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CAWca/OmBSudmyPQXQ6HvI7Zy5YfUtnAA3+Wxybn7BO5g/IlZw3RuCLWPJOxJR7udCbGmM0CQ5075lHemv5LDI91SyxuPQeqB+mXAWYEW4xBF+4FcR1+B90Qqijz15wqYAJANOeOPIdPzskFr0wVA1qMnviScytu2tgitXFMTwmC7hV2u3Al1vZi0xeblJ9nT5P4JCpwrCyJtp9tPNs4c32dr6ZO+hgAZ0FNK6gUt44dlinqvzmnCJ9zW5sHmYDMYQSuuL7230/PxjgFwju11m5CJwYN/ELQ66K2cNFsBik/A8cfNC2hyyE7leNvYmFaAHe3HEQjA5p73R6GZODabZ7DFO+no6UWbhOKK0ho0FLUzC9/w41v4RuHwLbzXyTuBZB62aKrcBA+wtjCTTCXhLQ5K0zcEfJuz9nx6OCD7qz7qJU2BXJF17Bz61Ri8A53TqaIkiORTwYYRuj5mJ23coEiE1EdyWeFDMGDIxzL5GktR8PGIcKPtJD7+gMp7wsqwl9RYITxzOvx1X7G89QhtA/+ctxespXVMjOnfpeP/mUWzLfIcOSnBCoGjyYyJmV3cLlC7kHRuvzKsqU8qHwMYR6V9VBOkypMfrF3lCtW86r2P11IsnBCNNs9ZYrePqCbkoDy21z54bFgkU6Go/jF+lFcmroTPDlPxIswUtjf9C+/MUWm2EdTC+LXg/JlOXKp7UemFevNDLfAUTiw3Xp1LAACQ8QJNEyYfp/Vp4Kb/TZmh6r27QGktzBwHlWR3p36hkAYqxCV4Zx8cLoZeWEfKVGE7AZdQ1GBFxdWT6rGw02OXy4kMKaWoy4a3AQ4H0XIk7KNOF+ywvITyWv48iOPqA==
+X-Microsoft-Antispam-Message-Info: qsORxe+ljYZjyPCAh14E79E4n9atoyfWnyoXelJ6YJFfSg61DdqJM8QdcUkvFjWhJwT2ZbGRby1rcenMDm+0wuTXvlAdMLO1B+CoFHjJW1NN3RjeyMCicuvbvOzgcx+6qe7yIZO1q3XdO1d+VYf/beaPrWb0+78VSxmrGEEpVrufMZMSX6vPTpqCFwj19y8oCiWDT35g4IY7enpCdWnClHaBbtvH25FIxZ2wg2BpFznAmR7MQM3jTrKnw74jJjr23l1/qI5B5Wf6txL8y1EHZCHFPwEcdT8Za6PyQmyEcqyuWC6dEba+gqQrLKC5TLcDEeGrpEnDRO4ydycdMv42kcLIVH2l72v0tLgtVb3WVYbpkoWrzCknyqnY2PlOZGaEG31TaBtv5dUoN5YhpDCm8+BiyFZZhco31qxRxFRaw+2GfVSHabBQQuYH5zP5kb8cS9V9p0L09O5KtD3A+Y78f3nYPEMi20FCaWR8lRWTzrv7H5q0NN5TQfSkOHjKSEDPwum4G60I0WNcmRD3ILthLmmS/ZuxrztM+ihROeJhCI16AsB3FtwdMEWlOqS8unv8a/0rdBrxDQyCay7i+zycLzIxucr67JHHBNIXaooTlYVA9EhZ7T7mIzK5POMi3EVN2RcW2XMR5ZBADR3EvDrr963/8RLNhyB1YUBKHpa3LB9DeKyqrBXo9yk31MO82npExaneW4f9ZcZgTejnEs4cE3DGbtXJAuQyzlnle5na+J0hC8cOJ23N8dn4U5aJA55VaT38vWZxQcMzFdPbZ+eevUw8KneLJtTTSpUrIyb4z6N081K7gBeEXZyJ9MK9A3LqApXkTL/8/oSyb+ZZ/Tiomg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(39860400002)(346002)(376002)(136003)(451199015)(40470700004)(36840700001)(46966006)(82310400005)(40460700003)(478600001)(44832011)(5660300002)(356005)(2616005)(36860700001)(8936002)(86362001)(316002)(336012)(426003)(7696005)(36756003)(8676002)(6916009)(186003)(1076003)(26005)(54906003)(16526019)(82740400003)(81166007)(4326008)(70206006)(41300700001)(70586007)(2906002)(40480700001)(47076005)(83380400001)(16060500005)(36900700001);
+ SFS:(13230022)(4636009)(136003)(39860400002)(396003)(376002)(346002)(451199015)(46966006)(36840700001)(40470700004)(5660300002)(26005)(336012)(8936002)(41300700001)(7696005)(16526019)(36756003)(426003)(186003)(40460700003)(44832011)(6916009)(1076003)(83380400001)(47076005)(36860700001)(81166007)(82310400005)(2616005)(356005)(316002)(82740400003)(6666004)(2906002)(54906003)(478600001)(70586007)(40480700001)(4326008)(86362001)(70206006)(8676002)(16060500005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2022 19:41:02.2980 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f6b70f3-9876-47cd-de1f-08daa189603d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2022 19:40:50.7104 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6e45c24-92ac-4b8e-bfc0-08daa1895955
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT072.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4563
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5877
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,43 +99,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>,
- wayne.lin@amd.com, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com,
+Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Hamza
+ Mahfooz <hamza.mahfooz@amd.com>, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
 
-[Description]
-When enabling phantom pipe on a pipe that was previously
-using immediate flip, we have to disable GSL or this will
-prevent the update from taking place right away on the phantom
-pipe when we enable it in FW
+DML does not take the fact that dcn315 does not have enough detile
+buffer to max all pipes. This change adds a workaround to apply
+the same logic DC does when calculating detile buffer size in DML.
 
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
 Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c  |  2 +-
+ .../display/dc/dml/dcn31/display_mode_vba_31.c    | 15 +++++++++++++++
+ .../gpu/drm/amd/display/dc/dml/display_mode_lib.c |  1 +
+ .../gpu/drm/amd/display/dc/dml/display_mode_lib.h |  1 +
+ 4 files changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubp.c
-index 2038cbda33f7..830562f4139d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubp.c
-@@ -79,6 +79,8 @@ void hubp32_phantom_hubp_post_enable(struct hubp *hubp)
- 	uint32_t reg_val;
- 	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+index 5dbd363b275b..87bfc42bdaaf 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+@@ -692,7 +692,7 @@ void dcn315_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
+ 	}
  
-+	/* For phantom pipe enable, disable GSL */
-+	REG_UPDATE(DCSURF_FLIP_CONTROL2, SURFACE_GSL_ENABLE, 0);
- 	REG_UPDATE(DCHUBP_CNTL, HUBP_BLANK_EN, 1);
- 	reg_val = REG_READ(DCHUBP_CNTL);
- 	if (reg_val) {
+ 	if (!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment))
+-		dml_init_instance(&dc->dml, &dcn3_15_soc, &dcn3_15_ip, DML_PROJECT_DCN31);
++		dml_init_instance(&dc->dml, &dcn3_15_soc, &dcn3_15_ip, DML_PROJECT_DCN315);
+ 	else
+ 		dml_init_instance(&dc->dml, &dcn3_15_soc, &dcn3_15_ip, DML_PROJECT_DCN31_FPGA);
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+index 8dfe639b6508..b612edb14417 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+@@ -43,6 +43,8 @@
+ #define BPP_BLENDED_PIPE 0xffffffff
+ #define DCN31_MAX_DSC_IMAGE_WIDTH 5184
+ #define DCN31_MAX_FMT_420_BUFFER_WIDTH 4096
++#define DCN3_15_MIN_COMPBUF_SIZE_KB 128
++#define DCN3_15_MAX_DET_SIZE 384
+ 
+ // For DML-C changes that hasn't been propagated to VBA yet
+ //#define __DML_VBA_ALLOW_DELTA__
+@@ -3775,6 +3777,17 @@ static noinline void CalculatePrefetchSchedulePerPlane(
+ 		&v->VReadyOffsetPix[k]);
+ }
+ 
++static void PatchDETBufferSizeInKByte(unsigned int NumberOfActivePlanes, int NoOfDPPThisState[], unsigned int config_return_buffer_size_in_kbytes, unsigned int *DETBufferSizeInKByte)
++{
++	int i, total_pipes = 0;
++	for (i = 0; i < NumberOfActivePlanes; i++)
++		total_pipes += NoOfDPPThisState[i];
++	*DETBufferSizeInKByte = ((config_return_buffer_size_in_kbytes - DCN3_15_MIN_COMPBUF_SIZE_KB) / 64 / total_pipes) * 64;
++	if (*DETBufferSizeInKByte > DCN3_15_MAX_DET_SIZE)
++		*DETBufferSizeInKByte = DCN3_15_MAX_DET_SIZE;
++}
++
++
+ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+ {
+ 	struct vba_vars_st *v = &mode_lib->vba;
+@@ -4533,6 +4546,8 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 				v->ODMCombineEnableThisState[k] = v->ODMCombineEnablePerState[i][k];
+ 			}
+ 
++			if (v->NumberOfActivePlanes > 1 && mode_lib->project == DML_PROJECT_DCN315)
++				PatchDETBufferSizeInKByte(v->NumberOfActivePlanes, v->NoOfDPPThisState, v->ip.config_return_buffer_size_in_kbytes, &v->DETBufferSizeInKByte[0]);
+ 			CalculateSwathAndDETConfiguration(
+ 					false,
+ 					v->NumberOfActivePlanes,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.c b/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.c
+index f5400eda07a5..4125d3d111d1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.c
+@@ -114,6 +114,7 @@ void dml_init_instance(struct display_mode_lib *lib,
+ 		break;
+ 	case DML_PROJECT_DCN31:
+ 	case DML_PROJECT_DCN31_FPGA:
++	case DML_PROJECT_DCN315:
+ 		lib->funcs = dml31_funcs;
+ 		break;
+ 	case DML_PROJECT_DCN314:
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h
+index b1878a1440e2..3d643d50c3eb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.h
+@@ -40,6 +40,7 @@ enum dml_project {
+ 	DML_PROJECT_DCN21,
+ 	DML_PROJECT_DCN30,
+ 	DML_PROJECT_DCN31,
++	DML_PROJECT_DCN315,
+ 	DML_PROJECT_DCN31_FPGA,
+ 	DML_PROJECT_DCN314,
+ 	DML_PROJECT_DCN32,
 -- 
 2.37.2
 
