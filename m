@@ -4,31 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68F5BC32771
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:24:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C588C04A95
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:24:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF51510E8AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28CB810E8B1;
 	Wed, 28 Sep 2022 19:24:10 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD58410E7F8;
- Wed, 28 Sep 2022 19:18:09 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABFA710E7F8;
+ Wed, 28 Sep 2022 19:17:53 +0000 (UTC)
 Received: from dimapc.. (unknown [109.252.125.248])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 9BF8C66022AC;
- Wed, 28 Sep 2022 20:18:05 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 8875866022A0;
+ Wed, 28 Sep 2022 20:17:49 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1664392688;
- bh=5SoJM0KT/OL453Vzox/c0XL1yLlnHbzjEdmJRs0v2dc=;
+ s=mail; t=1664392672;
+ bh=RCM7cbGa0hbU3izrAQh1wOIWATDaV8057tfGw8XuSMQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=bo4J5bTEKu9T8F4JTs1Vqzrg8SGI6Re+tUvC1gRQqOT4eZ4ToP44rYXqPsgeiJSpB
- 1RKopdAu+JiYaBGg/NIIf0FAisQXJHKuC8irf627+bT7mlsion2qLauLIWJ3DNuAu6
- ocbhQGNqTHf7Wvk3MowOwaQr9wS32CeSfNe3ThCLonj9MNxLFnhyFa+4dyolL4zKaR
- V91vMizc8hSjb3rFkz+wmYeOqgwtXMhjSSQF3bNJMIyLeeOmIARgEQyJhmXEDlfdu+
- kp6de5kq378pZm2IFsYx5VE9BsB6krgZZ9dEKBp6631yhxb/pa5iCk3IRuDZHXL3KP
- U+urz1jaJ3DYg==
+ b=GWrc/OGwMEkATqkV9fFBn9Lv0V2xa2g53CnBd7McVCOFILkxQafwDMxOde5NsMoX0
+ VUwFPwGFknt6VN5GwQJ+ZBgp+faMC0JKSCRpkCjohCfuR4xE3YhBXKJ1zl4HHraLmB
+ rGS9efU5NaF9V5rKhv4U4mnrwiROVKScS8X4LRKbBXD6QqHojHlCR2B4Mz6WinR3uV
+ nigJS+bBO352mzA4zqkQoj14ynMhRZumJOgfYAMy/R+jgJUnDdQcSjB9uNcLNUTNj5
+ du5q5ipSvdyWS80M0vP36BJAN+bZ36rf44kQ4Cm15tWtkZw0gC9hTy2ABeu70xn6Ku
+ sLfqtzxjXU7pg==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -64,10 +65,10 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Subject: [PATCH v6 14/21] media: tegra-vde: Prepare to dynamic dma-buf locking
+Subject: [PATCH v6 09/21] drm/etnaviv: Prepare to dynamic dma-buf locking
  specification
-Date: Wed, 28 Sep 2022 22:15:53 +0300
-Message-Id: <20220928191600.5874-15-dmitry.osipenko@collabora.com>
+Date: Wed, 28 Sep 2022 22:15:48 +0300
+Message-Id: <20220928191600.5874-10-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
 References: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
@@ -95,47 +96,28 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prepare Tegra video decoder driver to the common dynamic dma-buf
-locking convention by starting to use the unlocked versions of dma-buf
-API functions.
+Prepare Etnaviv driver to the common dynamic dma-buf locking convention
+by starting to use the unlocked versions of dma-buf API functions.
 
 Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c b/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c
-index 69c346148070..1c5b94989aec 100644
---- a/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c
-+++ b/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c
-@@ -38,7 +38,7 @@ static void tegra_vde_release_entry(struct tegra_vde_cache_entry *entry)
- 	if (entry->vde->domain)
- 		tegra_vde_iommu_unmap(entry->vde, entry->iova);
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+index 3fa2da149639..7031db145a77 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+@@ -65,7 +65,7 @@ static void etnaviv_gem_prime_release(struct etnaviv_gem_object *etnaviv_obj)
+ 	struct iosys_map map = IOSYS_MAP_INIT_VADDR(etnaviv_obj->vaddr);
  
--	dma_buf_unmap_attachment(entry->a, entry->sgt, entry->dma_dir);
-+	dma_buf_unmap_attachment_unlocked(entry->a, entry->sgt, entry->dma_dir);
- 	dma_buf_detach(dmabuf, entry->a);
- 	dma_buf_put(dmabuf);
+ 	if (etnaviv_obj->vaddr)
+-		dma_buf_vunmap(etnaviv_obj->base.import_attach->dmabuf, &map);
++		dma_buf_vunmap_unlocked(etnaviv_obj->base.import_attach->dmabuf, &map);
  
-@@ -102,7 +102,7 @@ int tegra_vde_dmabuf_cache_map(struct tegra_vde *vde,
- 		goto err_unlock;
- 	}
- 
--	sgt = dma_buf_map_attachment(attachment, dma_dir);
-+	sgt = dma_buf_map_attachment_unlocked(attachment, dma_dir);
- 	if (IS_ERR(sgt)) {
- 		dev_err(dev, "Failed to get dmabufs sg_table\n");
- 		err = PTR_ERR(sgt);
-@@ -152,7 +152,7 @@ int tegra_vde_dmabuf_cache_map(struct tegra_vde *vde,
- err_free:
- 	kfree(entry);
- err_unmap:
--	dma_buf_unmap_attachment(attachment, sgt, dma_dir);
-+	dma_buf_unmap_attachment_unlocked(attachment, sgt, dma_dir);
- err_detach:
- 	dma_buf_detach(dmabuf, attachment);
- err_unlock:
+ 	/* Don't drop the pages for imported dmabuf, as they are not
+ 	 * ours, just free the array we allocated:
 -- 
 2.37.3
 
