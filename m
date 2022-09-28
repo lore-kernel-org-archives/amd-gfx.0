@@ -4,88 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F9B8C04A95
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 18:49:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23CE0C32771
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:02:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 197B910E76A;
-	Wed, 28 Sep 2022 18:49:46 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2047.outbound.protection.outlook.com [40.107.100.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8245910E762;
- Wed, 28 Sep 2022 18:49:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5986710E78C;
+	Wed, 28 Sep 2022 19:02:56 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F90F10E7F4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 19:02:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=klEZcmxTrMVS1lLDlIW+2edWGJJpm/qcrHtMOYZAdqRge26Rm0kdOujkvxij1pdkFguhjmBlht0XXP1GFWTLHHnDIMpSqUxEx8WcpndTkv/qdZZzZXoknDZk0YWz00SGKp07RC4kSqyUBXjYDyTewJ/XMtCKBzZi6Uw+YQHWXHUxuanSjgNzxQXFIRrpj2ehddwfMkkc2sA6uw9aUPF+xmnvvYyu3/PP1+ZR77Ww3VSGJhrk5NNn+wv0Wl9IAbGjFcpKXReHSX/q5D/9Qq66xFlZid2mn6I3qvgRboJjTBflurtRBZ4DASLPYznxI24C+0AosP6+pQSHR2SXQ6UPag==
+ b=GROeLeHjBgE1KvYJ8H5I5CbaVNdw2YgPZ9vpeSXBx3WMVeyEOBeeAvdQ0UI6a3vUHeIqrn1weavADZLuZq0xAzpbq40Yhn9g8Od0gmq4totAi5eSX6lCzjXKXbQmtbL5y0owlWpfk9o4AGGKmRv5XHri7exeNDBGg8gAaIqGmfwU8BQpuzvKpbHrCM/wZ0AcnaY6vaHFy/UDOQUZG37c7M4zl6CpXDaKRp46iYP+HyHHlASpk2GfhUOWDjrU2i/hayL8G/6pDEY5cfAQSH6PxxJRVdHMOFh84Fck5FhzYqw6mS/NqgDCTEH1hLORX8M0n/r6y3Gu96tJ9JVq8UaREA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XAJhmpHylicqHYpYFzdCr0Rm1nx1R1Sx6M6tRMsts04=;
- b=lPAQqKQVzxnp8y0EwdlStP65y+PyETusVKPEjjNN7K+niv2JXFsfIYauPldWG9bhKUDwjVBh4Jq5g9t4FevsH8Phw4KNXM5MqbMEqYL/i2HjYe/t9kYIR6AxFXO8I3UKY/JjAyHGmapNp0+z0KN4FsOnOYnnt+X3uOm9GoF0gOPuDfGfI3eKExucK9TlbEK3w38mylfRH2ZGCNx9lc8L2E2DJqOHw/DD41TjxaGXh/9W6T/DmGEqsz913PVF+NfUmA7PCMnViFAZrhIDuuqNGESh6gDvnKF5Z3XeyqwbHx1SbENb+0FIvhzDwAfek12j9438pEKQhiql+9F1hPfx0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=XeOm2DUQVLBCZmlVQ0qLk7DEAo2dpWDO0wNZmc6G36g=;
+ b=eBLWOFPL+XNbbN3SstlKzI4kglQMyuP6Tzf3WOtlWwu2TxYqnlfHIfukrQf5S9LI1QRfVHjHo/OFEvx9ob0/fi3qLikN5mbG7/I6lE+3VwiL+2f5964cia3zOgTu5GMHxGsvZro065jB8EtczvpiD9Kj8pd2BQzt3HM5YvJhJccbQp2cEncOcdGS81OXIoJ0dfdYOEg3vdKPt1TIJZ7OCQpvuwOYxyd6gWVqzuNRsPS5e/aDH73bLx08+DZKLOxG3IHTbZKFwigyeF+mEzlY3xqFNdZAydIfbUcE781LB38Qz2Gc1ROg7Zq+I0hhPsrspwfUyfJoSH7JVrqx6W5h/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XAJhmpHylicqHYpYFzdCr0Rm1nx1R1Sx6M6tRMsts04=;
- b=H2eXwHpvY3+aZ/2KDgFkEAiOXHwY39nPIuruSDokoQfXep331rqyDMo0BnNb+pJwDoFqfWoFRMy5cmx9gK7na7gmjMaQVT6njMHC+2QUaedriuDGCv1lYxPf9Jfd/4ezJZPOIu9oPuxi2VldytYNyg2orxZITeTxBLSbKJ3C1Gw=
-Received: from BN9PR03CA0072.namprd03.prod.outlook.com (2603:10b6:408:fc::17)
- by CY8PR12MB7291.namprd12.prod.outlook.com (2603:10b6:930:54::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.17; Wed, 28 Sep
- 2022 18:49:36 +0000
-Received: from BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fc:cafe::86) by BN9PR03CA0072.outlook.office365.com
- (2603:10b6:408:fc::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.26 via Frontend
- Transport; Wed, 28 Sep 2022 18:49:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT017.mail.protection.outlook.com (10.13.177.93) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5676.17 via Frontend Transport; Wed, 28 Sep 2022 18:49:36 +0000
-Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Wed, 28 Sep 2022 13:49:35 -0500
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <luben.tuikov@amd.com>
-Subject: [PATCH v5] drm/sched: Add FIFO sched policy to run queue
-Date: Wed, 28 Sep 2022 14:49:06 -0400
-Message-ID: <20220928184906.51760-1-andrey.grodzovsky@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+ bh=XeOm2DUQVLBCZmlVQ0qLk7DEAo2dpWDO0wNZmc6G36g=;
+ b=0PW/oDMF9LujWeUEO/D5dL6Q9vD02JLnVpSvI3N2TVw2p29AJuH/mSXgJ4Glv8eg+Mn44WJb79Cbu1NYtDcijSWHeorZ0YkMcIguHvP+/br5jkGB/Tr4QW+OYPtK72hzpqkexLypyQv+IwyRhT2qPtwVC9jX+M0bnyc0o7Zwg5w=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DS7PR12MB6165.namprd12.prod.outlook.com (2603:10b6:8:9a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.25; Wed, 28 Sep
+ 2022 19:02:49 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::3de4:456f:800d:e013]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::3de4:456f:800d:e013%5]) with mapi id 15.20.5676.017; Wed, 28 Sep 2022
+ 19:02:49 +0000
+Message-ID: <cb7e741c-82ae-727d-f958-dc49cd06b7ad@amd.com>
+Date: Wed, 28 Sep 2022 15:02:47 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v5 1/1] drm/amdkfd: Track unified memory when switching
+ xnack mode
+Content-Language: en-US
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220928161153.17523-1-Philip.Yang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20220928161153.17523-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YT1PR01CA0129.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::8) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT017:EE_|CY8PR12MB7291:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6fb7b0d1-26fb-4680-1880-08daa18230d2
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS7PR12MB6165:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c6871a5-146e-4af1-f1c9-08daa1840970
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SucsEnucXlrWkZGDoS3jfAUXM0D7BLVITwTf3VnwNbSxbZnU+MAXKfbMbKyJbA+Dr3hDS+iGf8K1nzgALtJDqv0bjB7XOWwLx0uDKJzwyB2G64PKyw6dsOWPchAcSFf8MsZtUH33Yt0gny3hN26V1k5CV2i2wRkvNmLyqjD5tNYjGkXIPMbdE8NbAoYSp+QMT0IbNcSacStGHMprjexUfPnGN+RwrrKIQBGxVX4yeJm0cNLXCr7M+tX+x+nJygva/ojUmiZomkUE1ysX8xafiGFiTcwvaZ1YbaXl/QXPkp9EMtowoe+YM6ou6ct0149hVKIIvgrEO5Va9fKOXVyshG4QsSF1S6ef6vTLkAY/MOkcAAhLgx3CBXglU6RfKpjuYD3guVNN9FIcc15dpvx+TxjZUU4v9FplZigMYsIuYfdu4oGeSiZqVbyY2K69iriDW5eze0jZ6e1KE/jNCUC0Xd+JQnRykIxC8GCMMOR7zK75Yby2uAwM2PrOR4W1/cpumapTf4up0mN9KdErYiNWMQDwfkga32USPhblK7JVagzC3r05QEt6AIFmstY9izogVaFMGTmCPKXIqaqXukICIYGAWlz3UAbd459+qKIsaC9QWDegDrPsX0RQvhzGjVka4o3v90n3gwRJqx8UNgAKaKb9Trmo2KFTxZrdat40dzBK7pXdEGVHSxuydrtIAl9TC2RmGum+IgwzLsDOQikTRsyBls90ZRdxDB0b8kxJi1COEbzSSE3ZDV7lMoPGNJortLj/wdtWudUzq+WPb9zWFnAcxfrYnUVxP4bdLdy9kNg=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(39860400002)(376002)(346002)(136003)(451199015)(46966006)(40470700004)(36840700001)(83380400001)(2616005)(47076005)(336012)(1076003)(426003)(16526019)(186003)(81166007)(356005)(82740400003)(30864003)(36860700001)(5660300002)(41300700001)(2906002)(44832011)(8936002)(82310400005)(40460700003)(478600001)(26005)(7696005)(6666004)(8676002)(4326008)(40480700001)(70586007)(70206006)(6636002)(316002)(54906003)(110136005)(36756003)(86362001)(36900700001);
+X-Microsoft-Antispam-Message-Info: PS+oeW4c/Y/nAkZsM6YntYjShxysgJnnZaI7XKnagK+apRsYLos+63Y1yhdZOffRi5d4/2hFWSfNiJaG8ZIi1mPpFdH3uVEOGva+NZsRHftc1/9l6GJQYenPckBzrdzN2t8I/OXmKTwxUl+/Y6YxheN37FAfCB8WQocoTQm/ib0BRzA8oIVztLCKGqkMMdy5n9UjMBZnCt8YUHApEIiaPy2liNNcGWIIcnnad47CEc8EDMtVtHL1GixX69m8JEUW+VLWhP6Z9FkHQMI4c9njJI0+0zY0WYJ/lEaSPV+Yrgf3KoG0xExrB7j/iyLo3PyB8sJIYkyndb21q7vtx2U42JrQsSzD7+nXOKPODJZpEpOJmcsuYJczdPiisLaiu/BfeTRlg8zSCNOPAOeTi6s+D8UTXqnP3ogAqo0eT+EdhuAiyKjlwIOP+UUVdN6SxJ9QBL6BwLTX8Y/h+T88Rjn5BVz19UWvy+aJqYVBgY4fZL23rTJeOEpONmmFhD398dX6QJOxBB9RCAxT2xqwwYPy4c6D7/gcb28FQwA6ww+uptWJKfJEZLFyJZaRSaeZGjb6ZmiELDCgWV5ar/xlAYh+SkxcEcVXJrGSZws2OrptnFXldm6FX2j+dhS6CDgT1+FDpDZo3bvisDovunIzBKZ5jZVQoEsGCQDP27dEodYN9rIJTLeHUrbr0aDT35+lrfKrMHa3W6rhBrQj5p0yGwHIvt23T1qCXcVv1PR+jl6b2khjspzaJqqoRIR1IuaFg6nzddy3vPmTszaYVczib8sWkDVOYenZ7/x0BNAUd5UZwCI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(376002)(39860400002)(346002)(136003)(366004)(451199015)(6506007)(41300700001)(6512007)(36756003)(478600001)(66946007)(2906002)(31696002)(26005)(44832011)(8936002)(83380400001)(8676002)(66476007)(66556008)(86362001)(2616005)(5660300002)(186003)(316002)(38100700002)(6486002)(31686004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Tmo5bENLVjYvVndrMDZ5WFphczRtWjNvQzlydzNENzBIVnpsemRFeDIxRnRP?=
+ =?utf-8?B?VHBRS1RNQlZpRlZoWlU5YitoNnI3N2g0SlJnVmh1NG01Ry9yZE5ldVRNVGEw?=
+ =?utf-8?B?dFE0a2J0TjBaenlhN2xjcWM1RFZjN1V5clhPR1EwdTZpRi9lclBMNlJ0Ukdr?=
+ =?utf-8?B?ZlhQcXQ1cUl4d1kxT3ZycmJ6ZFIzSG5pYkR6TEpUVUw5ajhONllFOGpSODY0?=
+ =?utf-8?B?VXpjM3FZQzhiVm9uZk9IcExNd0YrMmN3N2JIRU5lQWJ2dDZiTU5ZS0FMU1VG?=
+ =?utf-8?B?b3A1cTZDbzM4Q1FBbGV1V05nU2twd1N6cjdOUkFValUyeTByMnB1cEg2WWlm?=
+ =?utf-8?B?NUJCWW5nWVlXV2tuVWxnMnQzb3FCS20yNTVvbWhFYy9VUVhualZRb1g4UUVt?=
+ =?utf-8?B?enpvQm5JWFBOeVAzc21GTlF4di9ZMHZRQWJOYXlxNjhlNVFvaWdhN29rYlgv?=
+ =?utf-8?B?aUcvSmdsVkIvRjI1c2g1MzRxYUVoeCszaEUrU0YzTlNjckUxdDBwYm5OQlYx?=
+ =?utf-8?B?YmFLRllmZ3RiMCs2QzRWZWxKRitKU3FGL3g1NlUrd0tYTUhZUlljZ1NNUGxR?=
+ =?utf-8?B?dE9XK3RFcmlISExBWC9ZR2lxQmtoMFlPZUY3azFHNFFLU0RqTTFxSndIaDZo?=
+ =?utf-8?B?Z3ZRT0tDYnViRnVRRjFJSmQzRFFwUjYvMGdQTW1YKzRCSFZjNW80YlUrOVI2?=
+ =?utf-8?B?bElEMzQwa1lGR3NFVkVUTlNiSHNVL2V3Zjl3L0ZOR01vQ25yYzNuOW9TVUpr?=
+ =?utf-8?B?Ump5dVJnZVhRaXA2eGNzTlI3VGhwbXBqenNlUHE0dHQwWlV6SkVTNE1ScnZP?=
+ =?utf-8?B?VDFQbUcvY25vYjB3YVVTaE13Rloxc3I4b2loOUVDODJkUysvM2YzWFBLVUFn?=
+ =?utf-8?B?NzBMZmtFUVljRzB0WER5cDlseDJ3RGQ5RDMzZEZLbUxFci9zVktEcEV4SGJs?=
+ =?utf-8?B?SzRvTnNCc3o3Z291ajdvQmszcUY0cS96NEdzYlRxNGhuVmVBUmVldTlpc1Vw?=
+ =?utf-8?B?RHdUcFhvOUlQWnBSbEpUVXBiMUh2djBmQWhDeXZTbGJYUlQ5YlZhRGRRTGpB?=
+ =?utf-8?B?dEQ4dUE1RUJVSWhQdGc0UkZleUhUd0VKWVpNRTU2WWhGUnZnRkd0SUxzdG5H?=
+ =?utf-8?B?NHA1Z1hERHJIQjg3RWczZktzMVFZRldobWl6bmZTRHgvWFduVlJQSUZHejlB?=
+ =?utf-8?B?dkNndTNJblJaa1ZwaFhjclVGb24yZjZmSS9FVnMxVGtWWlkrZTJvS0NLRUFV?=
+ =?utf-8?B?ekpIY1FRZE1NWDFRZjZhSm5XZEp1Q0p2dGdqR3BhS21pSCtZaFUyR05VQlZN?=
+ =?utf-8?B?NEI4dHNOSTQ1WWdYV200bFQ4YVZOZUs5bkxnSnpCYkhoV1BqYkNoRG8vMW1W?=
+ =?utf-8?B?dWJLZ3lqUEhkYmJVVFJscWwxZlp2L3hEb0RNcjVFZWdoRkZGWjAxQWRla3Jk?=
+ =?utf-8?B?dVpxZEdsMmNKMVgvd294WUlKZFdhWjJUQmc2UXpqN2FBMFRwTDFiMmt1WXpJ?=
+ =?utf-8?B?a3VYSUVZajQydm5PUklMVGZ1QzhkamIrU2xvWC81U3VzUk9FTFBudjF1ckFQ?=
+ =?utf-8?B?WDNVNG1OSExXYU9Cdmc4N01hTE5KNHk2cUdoQmRDSy9PVlRVVFFZSDFNalIz?=
+ =?utf-8?B?QXBxT3VhNFlIY0ZDVWtmam9UaVcvUStiaE92VXNobGovd1hLa29xM3RHbWFz?=
+ =?utf-8?B?bSt5U2RSRVE4RDEwTnFxNTdvMW5YWi9lZ1NVY1VzVnF5UnVzM2k0OUZCRnFS?=
+ =?utf-8?B?TUV5c0Z0R0g3elh6bHFtR0t5YmJDNXRxWlZ0ZWNPcmQzSnQ3SVlmdVI4RTN0?=
+ =?utf-8?B?N3FpY0pURDNSWS9ZRWlqdXN1K2psRFZ2SWpLaWhpWUc5RlhWUWhIYTU0RURa?=
+ =?utf-8?B?c1NNL0xRU2dacENTMjZETURzNW5SVGc0VUg3dk5iaGpnNlEyS3pkK0RkaGta?=
+ =?utf-8?B?ZzJCb0ZmVDVIUno4WGZzM3Z0azVJaEVOcjZzYjZaY1NVLy9pc09NVGRMbW81?=
+ =?utf-8?B?ckliN2U4QjZab1B5bWsvMzl4dDhOYkFsbFNQcFc5QWttYUR5VHRpYVI1Skpm?=
+ =?utf-8?B?ektxbXk4Yy9CTjFrS1hXWmtHSDZRdjNzWGsxV285Zy9XN1g4akdBdGlVSElW?=
+ =?utf-8?Q?E++kyYvqv+4gDOc1W5WnKf2TR?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2022 18:49:36.2460 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fb7b0d1-26fb-4680-1880-08daa18230d2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c6871a5-146e-4af1-f1c9-08daa1840970
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2022 19:02:49.3592 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7291
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YEbjtunPISYsxHdbDN5yCG7F3PiXDRL72S61ho42E8uio2QM9rhYwmkcjHvigE4jyVtMW+w/WIX3m71Yzb/OKw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6165
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,373 +124,189 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ckoenig.leichtzumerken@gmail.com, Li Yunxiang <Yunxiang.Li@amd.com>,
- amd-gfx@lists.freedesktop.org, Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When many entities are competing for the same run queue
-on the same scheduler, we observe an unusually long wait
-times and some jobs get starved. This has been observed on GPUVis.
 
-The issue is due to the Round Robin policy used by schedulers
-to pick up the next entity's job queue for execution. Under stress
-of many entities and long job queues within entity some
-jobs could be stuck for very long time in it's entity's
-queue before being popped from the queue and executed
-while for other entities with smaller job queues a job
-might execute earlier even though that job arrived later
-then the job in the long queue.
-   
-Fix:
-Add FIFO selection policy to entities in run queue, chose next entity
-on run queue in such order that if job on one entity arrived
-earlier then job on another entity the first job will start
-executing earlier regardless of the length of the entity's job
-queue.
-   
-v2:
-Switch to rb tree structure for entities based on TS of
-oldest job waiting in the job queue of an entity. Improves next
-entity extraction to O(1). Entity TS update
-O(log N) where N is the number of entities in the run-queue
-   
-Drop default option in module control parameter.
+Am 2022-09-28 um 12:11 schrieb Philip Yang:
+> Unified memory usage with xnack off is tracked to avoid oversubscribe
+> system memory, with xnack on, we don't track unified memory usage to
+> allow memory oversubscribe. When switching xnack mode from off to on,
+> subsequent free ranges allocated with xnack off will not unreserve
+> memory. When switching xnack mode from on to off, subsequent free ranges
+> allocated with xnack on will unreserve memory. Both cases cause memory
+> accounting unbalanced.
+>
+> When switching xnack mode from on to off, need reserve already allocated
+> svm range memory. When switching xnack mode from off to on, need
+> unreserve already allocated svm range memory.
+>
+> v5: Handle prange child ranges
+> v4: Handle reservation memory failure
+> v3: Handle switching xnack mode race with svm_range_deferred_list_work
+> v2: Handle both switching xnack from on to off and from off to on cases
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 26 ++++++++---
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 56 +++++++++++++++++++++++-
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |  1 +
+>   3 files changed, 76 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 56f7307c21d2..5feaba6a77de 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -1584,6 +1584,8 @@ static int kfd_ioctl_smi_events(struct file *filep,
+>   	return kfd_smi_event_open(pdd->dev, &args->anon_fd);
+>   }
+>   
+> +#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
+> +
+>   static int kfd_ioctl_set_xnack_mode(struct file *filep,
+>   				    struct kfd_process *p, void *data)
+>   {
+> @@ -1594,22 +1596,29 @@ static int kfd_ioctl_set_xnack_mode(struct file *filep,
+>   	if (args->xnack_enabled >= 0) {
+>   		if (!list_empty(&p->pqm.queues)) {
+>   			pr_debug("Process has user queues running\n");
+> -			mutex_unlock(&p->mutex);
+> -			return -EBUSY;
+> +			r = -EBUSY;
+> +			goto out_unlock;
+>   		}
+> -		if (args->xnack_enabled && !kfd_process_xnack_mode(p, true))
+> +
+> +		if (p->xnack_enabled == args->xnack_enabled)
+> +			goto out_unlock;
+> +
+> +		if (args->xnack_enabled && !kfd_process_xnack_mode(p, true)) {
+>   			r = -EPERM;
+> -		else
+> -			p->xnack_enabled = args->xnack_enabled;
+> +			goto out_unlock;
+> +		}
+> +
+> +		r = svm_range_switch_xnack_reserve_mem(p, args->xnack_enabled);
+>   	} else {
+>   		args->xnack_enabled = p->xnack_enabled;
+>   	}
+> +
+> +out_unlock:
+>   	mutex_unlock(&p->mutex);
+>   
+>   	return r;
+>   }
+>   
+> -#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
+>   static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
+>   {
+>   	struct kfd_ioctl_svm_args *args = data;
+> @@ -1629,6 +1638,11 @@ static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
+>   	return r;
+>   }
+>   #else
+> +static int kfd_ioctl_set_xnack_mode(struct file *filep,
+> +				    struct kfd_process *p, void *data)
+> +{
+> +	return -EPERM;
+> +}
+>   static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
+>   {
+>   	return -EPERM;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index cf5b4005534c..ff47ac836bd4 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -278,7 +278,7 @@ static void svm_range_free(struct svm_range *prange, bool update_mem_usage)
+>   	svm_range_free_dma_mappings(prange);
+>   
+>   	if (update_mem_usage && !p->xnack_enabled) {
+> -		pr_debug("unreserve mem limit: %lld\n", size);
+> +		pr_debug("unreserve prange 0x%p size: 0x%llx\n", prange, size);
+>   		amdgpu_amdkfd_unreserve_mem_limit(NULL, size,
+>   					KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
+>   	}
+> @@ -2956,6 +2956,60 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+>   	return r;
+>   }
+>   
+> +int
+> +svm_range_switch_xnack_reserve_mem(struct kfd_process *p, bool xnack_enabled)
+> +{
+> +	struct svm_range *prange, *pchild;
+> +	uint64_t reserved_size = 0;
+> +	uint64_t size;
+> +	int r = 0;
+> +
+> +	pr_debug("switching xnack from %d to %d\n", p->xnack_enabled, xnack_enabled);
+> +
+> +	mutex_lock(&p->svms.lock);
+> +
+> +	list_for_each_entry(prange, &p->svms.list, list) {
+> +		list_for_each_entry(pchild, &prange->child_list, child_list) {
 
-v3:
-Various cosmetical fixes and minor refactoring of fifo update function. (Luben)
+I believe the child_list is not protected by the svms.lock because we 
+update it in MMU notifiers. It is protected by the prange->lock of the 
+parent range.
 
-v4:
-Switch drm_sched_rq_select_entity_fifo to in order search (Luben)
+Regards,
+   Felix
 
-v5: Fix up drm_sched_rq_select_entity_fifo loop
-   
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Tested-by: Li Yunxiang (Teddy) <Yunxiang.Li@amd.com>
----
- drivers/gpu/drm/scheduler/sched_entity.c | 26 ++++++-
- drivers/gpu/drm/scheduler/sched_main.c   | 99 +++++++++++++++++++++++-
- include/drm/gpu_scheduler.h              | 32 ++++++++
- 3 files changed, 151 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 6b25b2f4f5a3..f3ffce3c9304 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -73,6 +73,7 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	entity->priority = priority;
- 	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
- 	entity->last_scheduled = NULL;
-+	RB_CLEAR_NODE(&entity->rb_tree_node);
- 
- 	if(num_sched_list)
- 		entity->rq = &sched_list[0]->sched_rq[entity->priority];
-@@ -417,14 +418,16 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- 
- 	sched_job = to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
- 	if (!sched_job)
--		return NULL;
-+		goto skip;
- 
- 	while ((entity->dependency =
- 			drm_sched_job_dependency(sched_job, entity))) {
- 		trace_drm_sched_job_wait_dep(sched_job, entity->dependency);
- 
--		if (drm_sched_entity_add_dependency_cb(entity))
--			return NULL;
-+		if (drm_sched_entity_add_dependency_cb(entity)) {
-+			sched_job = NULL;
-+			goto skip;
-+		}
- 	}
- 
- 	/* skip jobs from entity that marked guilty */
-@@ -443,6 +446,16 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- 	smp_wmb();
- 
- 	spsc_queue_pop(&entity->job_queue);
-+
-+	/*
-+	 * It's when head job is extracted we can access the next job (or empty)
-+	 * queue and update the entity location in the min heap accordingly.
-+	 */
-+skip:
-+	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
-+		drm_sched_rq_update_fifo(entity,
-+					 (sched_job ? sched_job->submit_ts : ktime_get()));
-+
- 	return sched_job;
- }
- 
-@@ -502,11 +515,13 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- {
- 	struct drm_sched_entity *entity = sched_job->entity;
- 	bool first;
-+	ktime_t ts =  ktime_get();
- 
- 	trace_drm_sched_job(sched_job, entity);
- 	atomic_inc(entity->rq->sched->score);
- 	WRITE_ONCE(entity->last_user, current->group_leader);
- 	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
-+	sched_job->submit_ts = ts;
- 
- 	/* first job wakes up scheduler */
- 	if (first) {
-@@ -518,8 +533,13 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 			DRM_ERROR("Trying to push to a killed entity\n");
- 			return;
- 		}
-+
- 		drm_sched_rq_add_entity(entity->rq, entity);
- 		spin_unlock(&entity->rq_lock);
-+
-+		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
-+			drm_sched_rq_update_fifo(entity, ts);
-+
- 		drm_sched_wakeup(entity->rq->sched);
- 	}
- }
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 4f2395d1a791..5349fc049384 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -62,6 +62,58 @@
- #define to_drm_sched_job(sched_job)		\
- 		container_of((sched_job), struct drm_sched_job, queue_node)
- 
-+int drm_sched_policy = DRM_SCHED_POLICY_RR;
-+
-+/**
-+ * DOC: sched_policy (int)
-+ * Used to override default entities scheduling policy in a run queue.
-+ */
-+MODULE_PARM_DESC(sched_policy,
-+		 "specify schedule policy for entities on a runqueue (DRM_SCHED_POLICY_RR = Round Robin (default), DRM_SCHED_POLICY_FIFO  = use FIFO");
-+module_param_named(sched_policy, drm_sched_policy, int, 0444);
-+
-+static __always_inline bool drm_sched_entity_compare_before(struct rb_node *a,
-+							    const struct rb_node *b)
-+{
-+	struct drm_sched_entity *ent_a =  rb_entry((a), struct drm_sched_entity, rb_tree_node);
-+	struct drm_sched_entity *ent_b =  rb_entry((b), struct drm_sched_entity, rb_tree_node);
-+
-+	return ktime_before(ent_a->oldest_job_waiting, ent_b->oldest_job_waiting);
-+}
-+
-+static inline void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity)
-+{
-+	struct drm_sched_rq *rq = entity->rq;
-+
-+	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
-+		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
-+		RB_CLEAR_NODE(&entity->rb_tree_node);
-+	}
-+}
-+
-+void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts)
-+{
-+	struct drm_sched_rq *rq;
-+
-+	/*
-+	 * Both locks need to be grabbed, one to protect from entity->rq change
-+	 * for entity from within concurrent drm_sched_entity_select_rq and the
-+	 * other to update the rb tree structure.
-+	 */
-+	spin_lock(&entity->rq_lock);
-+	spin_lock(&entity->rq->lock);
-+
-+	rq = entity->rq;
-+
-+	entity->oldest_job_waiting = ts;
-+
-+	rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
-+		      drm_sched_entity_compare_before);
-+
-+	spin_unlock(&entity->rq->lock);
-+	spin_unlock(&entity->rq_lock);
-+}
-+
- /**
-  * drm_sched_rq_init - initialize a given run queue struct
-  *
-@@ -75,6 +127,7 @@ static void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
- {
- 	spin_lock_init(&rq->lock);
- 	INIT_LIST_HEAD(&rq->entities);
-+	rq->rb_tree_root = RB_ROOT_CACHED;
- 	rq->current_entity = NULL;
- 	rq->sched = sched;
- }
-@@ -92,9 +145,12 @@ void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
- {
- 	if (!list_empty(&entity->list))
- 		return;
-+
- 	spin_lock(&rq->lock);
-+
- 	atomic_inc(rq->sched->score);
- 	list_add_tail(&entity->list, &rq->entities);
-+
- 	spin_unlock(&rq->lock);
- }
- 
-@@ -111,23 +167,30 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
- {
- 	if (list_empty(&entity->list))
- 		return;
-+
- 	spin_lock(&rq->lock);
-+
- 	atomic_dec(rq->sched->score);
- 	list_del_init(&entity->list);
-+
- 	if (rq->current_entity == entity)
- 		rq->current_entity = NULL;
-+
-+	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
-+		drm_sched_rq_remove_fifo_locked(entity);
-+
- 	spin_unlock(&rq->lock);
- }
- 
- /**
-- * drm_sched_rq_select_entity - Select an entity which could provide a job to run
-+ * drm_sched_rq_select_entity_rr - Select an entity which could provide a job to run
-  *
-  * @rq: scheduler run queue to check.
-  *
-  * Try to find a ready entity, returns NULL if none found.
-  */
- static struct drm_sched_entity *
--drm_sched_rq_select_entity(struct drm_sched_rq *rq)
-+drm_sched_rq_select_entity_rr(struct drm_sched_rq *rq)
- {
- 	struct drm_sched_entity *entity;
- 
-@@ -163,6 +226,34 @@ drm_sched_rq_select_entity(struct drm_sched_rq *rq)
- 	return NULL;
- }
- 
-+/**
-+ * drm_sched_rq_select_entity_fifo - Select an entity which provides a job to run
-+ *
-+ * @rq: scheduler run queue to check.
-+ *
-+ * Find oldest waiting ready entity, returns NULL if none found.
-+ */
-+static struct drm_sched_entity *
-+drm_sched_rq_select_entity_fifo(struct drm_sched_rq *rq)
-+{
-+	struct rb_node *rb;
-+
-+	spin_lock(&rq->lock);
-+	for (rb = rb_first_cached(&rq->rb_tree_root); rb; rb = rb_next(rb)) {
-+		struct drm_sched_entity *entity;
-+
-+		entity = rb_entry(rb, struct drm_sched_entity, rb_tree_node);
-+		if (drm_sched_entity_is_ready(entity)) {
-+			rq->current_entity = entity;
-+			reinit_completion(&entity->entity_idle);
-+			break;
-+		}
-+	}
-+	spin_unlock(&rq->lock);
-+
-+	return rb ? rb_entry(rb, struct drm_sched_entity, rb_tree_node) : NULL;
-+}
-+
- /**
-  * drm_sched_job_done - complete a job
-  * @s_job: pointer to the job which is done
-@@ -803,7 +894,9 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sched)
- 
- 	/* Kernel run queue has higher priority than normal run queue*/
- 	for (i = DRM_SCHED_PRIORITY_COUNT - 1; i >= DRM_SCHED_PRIORITY_MIN; i--) {
--		entity = drm_sched_rq_select_entity(&sched->sched_rq[i]);
-+		entity = drm_sched_policy != DRM_SCHED_POLICY_FIFO ?
-+				drm_sched_rq_select_entity_rr(&sched->sched_rq[i]) :
-+				drm_sched_rq_select_entity_fifo(&sched->sched_rq[i]);
- 		if (entity)
- 			break;
- 	}
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 599855c6a672..1f7d9dd1a444 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -50,6 +50,12 @@ enum drm_sched_priority {
- 	DRM_SCHED_PRIORITY_UNSET = -2
- };
- 
-+/* Used to chose between FIFO and RR jobs scheduling */
-+extern int drm_sched_policy;
-+
-+#define DRM_SCHED_POLICY_RR    0
-+#define DRM_SCHED_POLICY_FIFO  1
-+
- /**
-  * struct drm_sched_entity - A wrapper around a job queue (typically
-  * attached to the DRM file_priv).
-@@ -196,6 +202,21 @@ struct drm_sched_entity {
- 	 * drm_sched_entity_fini().
- 	 */
- 	struct completion		entity_idle;
-+
-+	/**
-+	 * @oldest_job_waiting:
-+	 *
-+	 * Marks earliest job waiting in SW queue
-+	 */
-+	ktime_t				oldest_job_waiting;
-+
-+	/**
-+	 * @rb_tree_node:
-+	 *
-+	 * The node used to insert this entity into time based priority queue
-+	 */
-+	struct rb_node			rb_tree_node;
-+
- };
- 
- /**
-@@ -205,6 +226,7 @@ struct drm_sched_entity {
-  * @sched: the scheduler to which this rq belongs to.
-  * @entities: list of the entities to be scheduled.
-  * @current_entity: the entity which is to be scheduled.
-+ * @rb_tree_root: root of time based priory queue of entities for FIFO scheduling
-  *
-  * Run queue is a set of entities scheduling command submissions for
-  * one specific ring. It implements the scheduling policy that selects
-@@ -215,6 +237,7 @@ struct drm_sched_rq {
- 	struct drm_gpu_scheduler	*sched;
- 	struct list_head		entities;
- 	struct drm_sched_entity		*current_entity;
-+	struct rb_root_cached		rb_tree_root;
- };
- 
- /**
-@@ -314,6 +337,13 @@ struct drm_sched_job {
- 
- 	/** @last_dependency: tracks @dependencies as they signal */
- 	unsigned long			last_dependency;
-+
-+	/**
-+	 * @submit_ts:
-+	 *
-+	 * When the job was pushed into the entity queue.
-+	 */
-+	ktime_t                         submit_ts;
- };
- 
- static inline bool drm_sched_invalidate_job(struct drm_sched_job *s_job,
-@@ -503,6 +533,8 @@ void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
- void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
- 				struct drm_sched_entity *entity);
- 
-+void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts);
-+
- int drm_sched_entity_init(struct drm_sched_entity *entity,
- 			  enum drm_sched_priority priority,
- 			  struct drm_gpu_scheduler **sched_list,
--- 
-2.25.1
-
+> +			size = (pchild->last - pchild->start + 1) << PAGE_SHIFT;
+> +			if (xnack_enabled) {
+> +				amdgpu_amdkfd_unreserve_mem_limit(NULL, size,
+> +						KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
+> +			} else {
+> +				r = amdgpu_amdkfd_reserve_mem_limit(NULL, size,
+> +						KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
+> +				if (r)
+> +					goto out;
+> +				reserved_size += size;
+> +			}
+> +		}
+> +
+> +		size = (prange->last - prange->start + 1) << PAGE_SHIFT;
+> +		if (xnack_enabled) {
+> +			amdgpu_amdkfd_unreserve_mem_limit(NULL, size,
+> +						KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
+> +		} else {
+> +			r = amdgpu_amdkfd_reserve_mem_limit(NULL, size,
+> +						KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
+> +			if (r)
+> +				goto out;
+> +			reserved_size += size;
+> +		}
+> +	}
+> +
+> +out:
+> +	if (r)
+> +		amdgpu_amdkfd_unreserve_mem_limit(NULL, reserved_size,
+> +						KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
+> +	else
+> +		/* Change xnack mode must be inside svms lock, to avoid race with
+> +		 * svm_range_deferred_list_work unreserve memory in parallel.
+> +		 */
+> +		p->xnack_enabled = xnack_enabled;
+> +
+> +	mutex_unlock(&p->svms.lock);
+> +	return r;
+> +}
+> +
+>   void svm_range_list_fini(struct kfd_process *p)
+>   {
+>   	struct svm_range *prange;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+> index 012c53729516..7a33b93f9df6 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+> @@ -203,6 +203,7 @@ void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_s
+>   void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
+>   
+>   void svm_range_set_max_pages(struct amdgpu_device *adev);
+> +int svm_range_switch_xnack_reserve_mem(struct kfd_process *p, bool xnack_enabled);
+>   
+>   #else
+>   
