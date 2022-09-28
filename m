@@ -4,75 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72FEDC04A95
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 14:47:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14BFDC32771
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 14:50:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3AD210E9AB;
-	Wed, 28 Sep 2022 14:47:05 +0000 (UTC)
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 447B510E9CB
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 14:46:59 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id lh5so27638760ejb.10
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 07:46:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=jh1W0rVtbzibuA/R7gVDik2bSX8lVE96Mfw3a9PLXhM=;
- b=OqasurebgWUDHwiVlCH65xsp8vDY6f6QdbNiyDQ/Y7jxP5CmMoL4HjYK5shY9wKbi8
- I/lIj8Bum4lzp6pE6F7JAPLB2Hj9V6kresf78zXp/jQI0yrqZLz0gcjLYkWEqaqRpmHI
- sUrb5syyqr3abyYSOcZ513jXpmioYsCeRd0L8UTVV4ppVc3fq0cshqCX0GMcBBSTTCHb
- cNcP+roKIxU4F26+5OwxLiWOVSQ1TNe3TdRdV8sY4tCvKxwrVq0c1mlVgVzgV5wswUWa
- Q4ILPD7Cz85URhiww79IMIkncmWhjoXO/P8T3HhI35+ABgXKBFiyNxhJHQZuf4Gx6SXG
- wQ4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=jh1W0rVtbzibuA/R7gVDik2bSX8lVE96Mfw3a9PLXhM=;
- b=NJi4ElHEuBZZ15lJxIx96XNjGcf2NJAVy1Uhctx+EOaQlrl58TUADW9qsO+KbHgPIB
- YZG3qYjRXm8iclOLB4M9xdGnYvxzQRK6JRkEEuTZt6pSVDN2zEOzL2EX+wSpqd0B9ilM
- UMgGSygyVtMRXV16xISOjySTV/mrf3/QhebuKyxn70yiHIHuKEkQBV7Omm++DLQed7hr
- OEE8C08enjOObbNczpo9dC1d8sFF5Qt1mFdgUTR50tO+QApqrA1PZ6SAxs7/iIhorkLs
- HjtmVXISaRKovlr1srIIuykK5q4zvBGgv+h6YGyvzGHHsY3W4uNesGjPCfcNjnYq7sjn
- yfCA==
-X-Gm-Message-State: ACrzQf3MmgZDtMvt2BBJwodaEQPe5XPzLk47vMYR6Ph+ENn4Kh6y6x0D
- /DwpYs/xT8dUK/YqtsHpqSc=
-X-Google-Smtp-Source: AMsMyM6RRH9d0J/S1AU1tF+uZ4FxbWk5Dn17D/N2h4rfw85F91bE7Kj1tBzhogif8YzJKJoDsykr3A==
-X-Received: by 2002:a17:907:7e9d:b0:782:3601:7d01 with SMTP id
- qb29-20020a1709077e9d00b0078236017d01mr27395522ejc.361.1664376417688; 
- Wed, 28 Sep 2022 07:46:57 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:fe7b:c1da:17d4:a63a?
- ([2a02:908:1256:79a0:fe7b:c1da:17d4:a63a])
- by smtp.gmail.com with ESMTPSA id
- s12-20020a50ab0c000000b004580b26e32esm39821edc.81.2022.09.28.07.46.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Sep 2022 07:46:57 -0700 (PDT)
-Message-ID: <849a8d68-c752-ace3-3823-26ff247896c8@gmail.com>
-Date: Wed, 28 Sep 2022 16:46:55 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E41C10E2F6;
+	Wed, 28 Sep 2022 14:50:23 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2088.outbound.protection.outlook.com [40.107.237.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A71410E2F6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 14:50:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kT0r/xE7PloIg1aeVGq8MSwcwsCmSYnkpVF4vO3IUsSt7E7bMlXbq1CnOWZexEWlUITKub0LB7LTJI/ZvS5yfTzTztJnj7jLUlhb8mB3k8t2GGKggYXv2g1216b3Wmb9+dxIv9xnZv15xCn9x+Qze9AMhOOYdKAEHWQSpFD/Vciscyl6PzHhEPfR7JdBufYICHMJMmSSz8TPpDDYuhmIB8WBwA0FDaPT1hhS2d2miLpVtMcZMEDh0hMP3ZfHXI2dZ2AdvmNnmoHhaL2HnQ7M/sQkiiC2FWeDrdlyPZuKbEY01LZZ4Y+DIyRIxot28qMhg3v2gwjYBEyQqH/vMXPibA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ivJI+NLdg7rjsiNnJmAL4kZhwlYoPTbesiQ3nD9CwBo=;
+ b=D8ThMFpuFYlLddMqQMTOUeuLXvvxz9jdNO7Fry6JSr9o92EF5h7YUn+ug7irezAhG2BED6MTvSTPl+mDnnzPgc7pE+I8SM8bCdyovVoKnv/mk3yz1Vite5ZEA111r7CDKL1ExRKufPmeZQsfiK6jaHHXR2xcoFFdpgJ8RwW4QtNvfyZuU/RSOq+RVoThuK192WbvSP2mNS0a68Axqep6svJTIt7fAQ8obby8OwpZfbstlxts0L9cxieRbPsNqSPiIoXFN3HyQR5TzLQhIbbwJC/Ha33xeGnU/uEcvvIax8e2MgpH79rLscRjJDhTmwStXg13teg50A2FpkXfmXioAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ivJI+NLdg7rjsiNnJmAL4kZhwlYoPTbesiQ3nD9CwBo=;
+ b=vtutxyg2SLgmCAGM0oPWBSCe1m8avJrgJZ6ynJaznPekoyz+Ugld5eebCWecW/ANTT28LQZFxf5Y6uK7XfHXtKBrz5/uBOt7zLkAbqNXFbKqkaT9U9x8hg7rP5xpl1vwIV2CdQVvWJk2Ym2qY+/H8BVL79CYLIaorF7jkSI5O5A=
+Received: from BN9PR03CA0334.namprd03.prod.outlook.com (2603:10b6:408:f6::9)
+ by DM4PR12MB6662.namprd12.prod.outlook.com (2603:10b6:8:bb::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.24; Wed, 28 Sep
+ 2022 14:50:15 +0000
+Received: from BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:f6:cafe::bf) by BN9PR03CA0334.outlook.office365.com
+ (2603:10b6:408:f6::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.17 via Frontend
+ Transport; Wed, 28 Sep 2022 14:50:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT062.mail.protection.outlook.com (10.13.177.34) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5676.17 via Frontend Transport; Wed, 28 Sep 2022 14:50:14 +0000
+Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 28 Sep
+ 2022 09:50:13 -0500
+From: <sunpeng.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Fix mc_umc_status used uninitialized warning
+Date: Wed, 28 Sep 2022 10:49:51 -0400
+Message-ID: <20220928144951.89514-1-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 4/4] drm/amdgpu: MCBP based on DRM scheduler (v6)
-Content-Language: en-US
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
- "Zhu, Jiadong" <Jiadong.Zhu@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-References: <20220923131630.1260501-1-jiadong.zhu@amd.com>
- <20220923131630.1260501-4-jiadong.zhu@amd.com>
- <3d88b423-1d14-2954-e3ce-0c50887cf621@gmail.com>
- <DS7PR12MB633336F275D92829CA93BF2CF4559@DS7PR12MB6333.namprd12.prod.outlook.com>
- <fad25aa5-3f0a-0135-e580-1c96bfc37120@amd.com>
- <6a8623f8-941f-4fa4-b0e4-0beb9b4715b3@daenzer.net>
- <4c9c09b3-abbd-1dff-33f6-e9478e8a137c@amd.com>
- <DS7PR12MB633351087443795FA98B47F6F4549@DS7PR12MB6333.namprd12.prod.outlook.com>
- <d1967e64-8561-163a-fe93-be3e0b827f50@daenzer.net>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <d1967e64-8561-163a-fe93-be3e0b827f50@daenzer.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT062:EE_|DM4PR12MB6662:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9513228e-9bc8-4234-9248-08daa160c0d9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6htOf5Awtzn0Ixh/ylL7sA0sASmadzLY8CagIFalFQDLM+SDaC7+mcm/AVrq1YU1swyCm7odrR+3rvnxiS4UeVb/NXsoLYadkMCthSJklA3aJJPzGPxoIi1JsxinCEkhNbVluNj0oG9zrJTp4qdHIy2z/3iERFovvC9FyfJihOoMzp8t1Id0YDksJ6MeEGic68rJKbbx6iQo6ZLqk2lqhxf/wZT5T6G0eRw5Oly4y2BrNA8e1NgUDxmfmAD3nR1dC3H4rxusHTzVVrSLtm8aeJM2bdX59ApPEohrwHrRi+fXs+qZ/AF0ZsW0IM9E6ICTvaY41PIVVopcNR9GVHZjhy+geSPF1uTnpmA9Gnn85+4Uv5g9sV8p4jGlwGKAGEDUj+GT9enMJlpOOuW2xb38ttVH1VzTZYRtiTci+FruCWtdeuoYgI6qjzh7/5QEfZq88VQk4FytH+Mfo0w/uqqb0TT1fqmoED72ER8VFf02t+GLSSxen9WqmaAbB+rgndfRsPNwgN5W4enSydEG2mFbsX6MFsh4H1AyJb3CEw5WeCL2qnd+uf/2NMdW5tmmRsAFGKdbnTnQFvUoGtfg9NdbTyduJYMqv6mSIGq1hBKtavIDwGMnGvLdUJZCfMniZq/kuc63ln6x8krWcmtcVUhxNO8YEcPgDh8wGr93EYzfzs8P2cW/TLom5WMzKzx44OUdCBEXo4kK5ORSaABGCyIjo1AcKlC0l54r1h+cYkY9VXBdRcb5JFJxoaxnKxsMVfD6hOKZWP1CBESR0QmP2uaqZINK8GP2NGI8/cuwWXmIeDcIB6FN3SeV+Aj27r4OwLUU
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(396003)(39860400002)(346002)(376002)(451199015)(46966006)(36840700001)(40470700004)(356005)(478600001)(2616005)(5660300002)(426003)(41300700001)(316002)(6666004)(47076005)(81166007)(70586007)(6916009)(70206006)(54906003)(82310400005)(16526019)(82740400003)(2876002)(26005)(8676002)(83380400001)(2906002)(186003)(40480700001)(1076003)(36756003)(4326008)(36860700001)(336012)(40460700003)(86362001)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2022 14:50:14.9981 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9513228e-9bc8-4234-9248-08daa160c0d9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6662
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,77 +97,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Tuikov,
- Luben" <Luben.Tuikov@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Leo Li <sunpeng.li@amd.com>, tao.zhou1@amd.com, Rodrigo.Siqueira@amd.com,
+ stanley.yang@amd.com, harry.wentland@amd.com, hawking.zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 28.09.22 um 15:52 schrieb Michel Dänzer:
-> On 2022-09-28 03:01, Zhu, Jiadong wrote:>
->> Please make sure umd is calling the libdrm function to create context with different priories,
->> amdgpu_cs_ctx_create2(device_handle, AMDGPU_CTX_PRIORITY_HIGH, &context_handle).
-> Yes, I double-checked that, and that it returns success.
->
->
->> Here is the behavior we could see:
->> 1. After modprobe amdgpu, two software rings named gfx_high/gfx_low(in previous patch named gfx_sw) is visible in UMR. We could check the wptr/ptr to see if it is being used.
->> 2. MCBP happens while the two different priority ibs are submitted at the same time. We could check fence info as below:
->> Last signaled trailing fence++  when the mcbp triggers by kmd. Last preempted may not increase as the mcbp is not triggered from CP.
->>
->> --- ring 0 (gfx) ---
->> Last signaled fence          0x00000001
->> Last emitted                 0x00000001
->> Last signaled trailing fence 0x0022eb84
->> Last emitted                 0x0022eb84
->> Last preempted               0x00000000
->> Last reset                   0x00000000
-> I've now tested on this Picasso (GFX9) laptop as well. The "Last signaled trailing fence" line is changing here (seems to always match the "Last emitted" line).
->
-> However, mutter's frame rate still cannot exceed that of GPU-limited clients. BTW, you can test with a GNOME Wayland session, even without my MR referenced below. Preemption will just be less effective without that MR. mutter has used a high priority context when possible for a long time.
->
-> I'm also seeing intermittent freezes, where not even the mouse cursor moves for up to around one second, e.g. when interacting with the GNOME top bar. I'm not sure yet if these are related to this patch series, but I never noticed it before. I wonder if the freezes might occur when GPU preemption is attempted.
+From: Leo Li <sunpeng.li@amd.com>
 
-Keep in mind that this doesn't have the same fine granularity as the 
-separate hw ring buffer found on gfx10.
+On ChromeOS clang build, the following warning is seen:
 
-With MCBP we can only preempt on draw command boundary, while the 
-separate hw ring solution can preempt as soon as a CU is available.
+/mnt/host/source/src/third_party/kernel/v5.15/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c:463:6: error: variable 'mc_umc_status' is used uninitialized whenever 'if' condition is false [-Werror,-Wsometimes-uninitialized]
+        if (mca_addr == UMC_INVALID_ADDR) {
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/mnt/host/source/src/third_party/kernel/v5.15/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c:485:21: note: uninitialized use occurs here
+        if ((REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
+                           ^~~~~~~~~~~~~
+/mnt/host/source/src/third_party/kernel/v5.15/drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h:1208:5: note: expanded from macro 'REG_GET_FIELD'
+        (((value) & REG_FIELD_MASK(reg, field)) >> REG_FIELD_SHIFT(reg, field))
+           ^~~~~
+/mnt/host/source/src/third_party/kernel/v5.15/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c:463:2: note: remove the 'if' if its condition is always true
+        if (mca_addr == UMC_INVALID_ADDR) {
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/mnt/host/source/src/third_party/kernel/v5.15/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c:460:24: note: initialize the variable 'mc_umc_status' to silence this warning
+        uint64_t mc_umc_status, mc_umc_addrt0;
+                              ^
+                               = 0
+1 error generated.
+make[5]: *** [/mnt/host/source/src/third_party/kernel/v5.15/scripts/Makefile.build:289: drivers/gpu/drm/amd/amdgpu/umc_v6_7.o] Error 1
 
->> From: Koenig, Christian <Christian.Koenig@amd.com>
->>
->>> This work is solely for gfx9 (e.g. Vega) and older.
->>>
->>> Navi has a completely separate high priority gfx queue we can use for this.
-> Right, but 4c7631800e6b ("drm/amd/amdgpu: add pipe1 hardware support") was for Sienna Cichlid only, and turned out to be unstable, so it had to reverted.
->
-> It would be nice to make the SW ring solution take effect by default whenever there is no separate high priority HW gfx queue available (and any other requirements are met).
+Fix by initializing mc_umc_status = 0.
 
-I don't think that this will be a good idea. The hw ring buffer or even 
-hw scheduler have much nicer properties and we should focus on getting 
-that working when available.
+Fixes: d8e19e32945e ("drm/amdgpu: support to convert dedicated umc mca address")
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/umc_v6_7.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Regards,
-Christian.
-
->
->
->> Am 27.09.22 um 19:49 schrieb Michel Dänzer:
->>> On 2022-09-27 08:06, Christian König wrote:
->>>> Hey Michel,
->>>>
->>>> JIadong is working on exposing high/low priority gfx queues for gfx9 and older hw generations by using mid command buffer preemption.
->>> Yeah, I've been keeping an eye on these patches. I'm looking forward to this working.
->>>
->>>
->>>> I know that you have been working on Gnome Mutter to make use from userspace for this. Do you have time to run some tests with that?
->>> I just tested the v8 series (first without amdgpu.mcbp=1 on the kernel command line, then with it, since I wasn't sure if it's needed) with https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.gnome.org%2FGNOME%2Fmutter%2F-%2Fmerge_requests%2F1880&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cc6345d9230004549ba4d08daa0b0abcd%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637998977913548768%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=P1Qo2AwDmfmPrxJe2SxTFsVjdJ9vjabK8s84ZVz%2Beh8%3D&amp;reserved=0 on Navi 14.
->>>
->>> Unfortunately, I'm not seeing any change in behaviour. Even though mutter uses a high priority context via the EGL_IMG_context_priority extension, it's unable to reach a higher frame rate than a GPU-limited client[0]. The "Last preempted" line of /sys/kernel/debug/dri/0/amdgpu_fence_info remains at 0x00000000.
->>>
->>> Did I miss a step?
->>>
->>>
->>> [0] I used the GpuTest pixmark piano & plot3d benchmarks. With an Intel iGPU, mutter can achieve a higher frame rate than plot3d, though not than pixmark piano (presumably due to limited GPU preemption granularity).
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+index 2cc961534542..a0d19b768346 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+@@ -457,7 +457,7 @@ static void umc_v6_7_query_error_address(struct amdgpu_device *adev,
+ {
+ 	uint32_t mc_umc_status_addr;
+ 	uint32_t channel_index;
+-	uint64_t mc_umc_status, mc_umc_addrt0;
++	uint64_t mc_umc_status = 0, mc_umc_addrt0;
+ 	uint64_t err_addr, soc_pa, retired_page, column;
+ 
+ 	if (mca_addr == UMC_INVALID_ADDR) {
+-- 
+2.37.3
 
