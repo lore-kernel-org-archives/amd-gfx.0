@@ -4,120 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 684CCC04A95
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 14:06:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72FEDC04A95
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 14:47:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90CA610E819;
-	Wed, 28 Sep 2022 14:06:51 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 910D610E819
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 14:06:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=csiDyRpOVpazV72eG4kPTRNltyI+pPUf0igvBd3Pwoqg9mDkj9XBZVcnwDHnBTM0fFBFxuzCWEldc1pWyh+GtBydNxnkIeHi+pNA5aR5BgrWEvIoJby4neMhvOAqCvzq9HceNzTdU0jfxFZKQyIebHFX9Wyqh+QDFRpBEZ1Ss1vHg2JoFFB9IOgDEIpbL9dsSl9iwjlBwoUVQEMGZ5ndk+zuSLMEufyWn5fomJdLROH/YjX8zBOnRbqUdvVHIo1L130y55X1vAPjnKzQRfJR+KxwSMkhnNmSeClCog5J5zKa3B7KxV3xKAqOeH6xscmzvwFNQW64F2jLtqnHGeo2jQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NG8dHPvlu4ve1t9eeBq6rrnRVWzJADvetJxKNnJFYk4=;
- b=ocTA30YqJwJtyjQs2VLowc5LRjS8hCmvnh4KGDfzefx6HdFTl78kiSd+OZVp9ttMkR+bWarOJkFRoWw97BGC3zErE2KeC1514p3CZ+6mPinetJxf5ouslQIoEg3SxhIN3kse03bNZ2fDDXDOPorn+XQdcMFGsYPE3fmnRuu/q8FviHnozRZPCzA3UixbML8V8nXN3VSBav0ZnxQR7HP3DD2iFUSzKN5BLNEI5MPdaXKx8cSDx91W3CxrP5d0os04m8MS0XHrY6MPC3QX6uAaSZrFjyWJ2Jxv0RmipavghG9x5P2pHQX99b/2oZDeUsNvditU9OxuHl2AuyjyNkP1ow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NG8dHPvlu4ve1t9eeBq6rrnRVWzJADvetJxKNnJFYk4=;
- b=YMp9FbxoMT2cbe0Ha30ZXkjIF6RRoehMkzvuJlxmHU1oHeQVjJSHeA5RXYDjWZUeKelAtEi05uUlhw8LlXcQ7e5gvNegghN5xQMkZXGI8le8VCs+A5pnRIc364P/X9SUGLbiflJsrUhUaTkSxsVql7AU+3XSyTzEUUEda5AQWuA=
-Received: from DM6PR12MB3067.namprd12.prod.outlook.com (2603:10b6:5:115::10)
- by CH2PR12MB4247.namprd12.prod.outlook.com (2603:10b6:610:7c::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.15; Wed, 28 Sep
- 2022 14:06:46 +0000
-Received: from DM6PR12MB3067.namprd12.prod.outlook.com
- ([fe80::3c76:8e77:b067:49ea]) by DM6PR12MB3067.namprd12.prod.outlook.com
- ([fe80::3c76:8e77:b067:49ea%5]) with mapi id 15.20.5676.017; Wed, 28 Sep 2022
- 14:06:46 +0000
-From: "Sider, Graham" <Graham.Sider@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v2] drm/amdkfd: Fix UBSAN shift-out-of-bounds warning
-Thread-Topic: [PATCH v2] drm/amdkfd: Fix UBSAN shift-out-of-bounds warning
-Thread-Index: AQHY0fhVlW3bztKHP0GNTJY26gijTK304ivg
-Date: Wed, 28 Sep 2022 14:06:46 +0000
-Message-ID: <DM6PR12MB30675BD7F94C8EE8DF33C0718A549@DM6PR12MB3067.namprd12.prod.outlook.com>
-References: <20220926223531.956693-1-Felix.Kuehling@amd.com>
-In-Reply-To: <20220926223531.956693-1-Felix.Kuehling@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-09-28T14:03:22Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=608ee4c3-3d7b-40d8-8120-b3d08484e4ee;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2022-09-28T14:06:44Z
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: aa4209f5-da04-43f8-b517-5985f09592ab
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB3067:EE_|CH2PR12MB4247:EE_
-x-ms-office365-filtering-correlation-id: 18ea05fb-3e8f-499d-7556-08daa15aade3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: jGshr0LQEHeqTYjUKAf1411BiBCwolD8qIUHdhbFlslKpnjzA5tyVM12e52aH63q8X7qI3KR148ORqayA4hVivXC+b67BZVyDyIGWnqQ4MJDMMieK4712FpZz+IGJfkGkhZQjmAVrOsNFaGw5Jqa5phWRUn5iKyglSm6JUB0F9zMQHYJiNGaTafHgy/ZrYLfQrSQsNvAqBC0KhAWviX2R1/hgwiWIprOIkAUty6JY1Vc1/lkObW+eQTnNbHJk6Y9T1euiOKbiwONFlo5wqNXeL1Inay0UBdhXZXp5cWTpzhzLxx7NtlfK8Qm+1l2b180QbMqv/uJpYQ3Q9UE85E9uj/Ujls6mZbyHlAGP/UUsfnYeIh00ZWX9vbqA5qRYbfpj7j37FgeNcJU7V3LpZP7uFDHl8ApyFJPaqf0hM7uPp7blDAvRsCnjoAayOdQjzSwoxKvOLNdirvV2qKp7KXyFtasxAJ+fHCw7jK8xsRi3ZeMfeiAcRqrwO1SgDDPRmy+XIdBetuKhcGxrPq1XS2wklvIDxhVYvNUgTgs0Mpp8hida0AStPVYmBGrjSMn1YfKqX6yXs7TRqIuodwi7yjLPxMgIAPMOJRLFOieG5llz56vJLWHaEnKuGzhtg+fSDrH29RzktbYBNGfwk7N5Pb0lWvz6g1Y75NdB77nAafVcQ98wy/qPVzCseJSZIQ5i5GEfGCKLwSFE+QEJXnApacviiKXSFbhr5HLpWEpyn59QHRc9p58/W4qnNO/hQN/oWrSdvkS+CPR37iGmGXW6RJexg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3067.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(366004)(376002)(39860400002)(136003)(346002)(451199015)(186003)(8936002)(316002)(4326008)(7696005)(33656002)(6506007)(52536014)(53546011)(8676002)(76116006)(5660300002)(86362001)(9686003)(110136005)(26005)(66556008)(66446008)(38100700002)(64756008)(66946007)(66476007)(41300700001)(38070700005)(55016003)(122000001)(2906002)(83380400001)(71200400001)(478600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wf9zjg0hz7wbDC8FGjU3Q8kggh7GiZgDn1bgf1b2WpuPJWQZza36TGamMaDr?=
- =?us-ascii?Q?RfPsNhj3jj4a19FZJo3ptXJzKgRGrOBKSaBzeOhAJk9fnpwKdP130jeOoeqB?=
- =?us-ascii?Q?TseDp2aIQ+Nqo5yVQcBgW1qLD8WZT/Fxycd15YklfPlkiVFXR7g0D2of6ebL?=
- =?us-ascii?Q?fqrf9nHX2+/00MaqNmwfJZ054Ywc34Bjz0K1yjHWE/l+hDoWotSKBsxZmX6v?=
- =?us-ascii?Q?zDydGXXQvzKsJxdQuWUQqx2j+K9Y45OFH67mGhcNZdmL+pamvFgRtd6MTEd4?=
- =?us-ascii?Q?RgUoVFd0il1AQ91yavnbXfFUVgzgNTxgNZAiE/qfxlzawxzoOzjthBYSQePO?=
- =?us-ascii?Q?Ss50i9ayCP4h5DpT9xpf6BTkB+kgFo0XU7n9h4TutD8OxqhKq5VuHf0OLo53?=
- =?us-ascii?Q?tnmoD/bGF1P8zeJQ/kPKtXijElNAH3mEeg3Eg95QRZIeh2dqmChz9Mp33L7Y?=
- =?us-ascii?Q?nMWAJt6McGyXWDYoXqu2jQsC02JfhxGsV+olSVV3ruALLBkuFuCiEW04Bs7A?=
- =?us-ascii?Q?rI+rJHS/WGphLmPOBZEuz+4/I+PnPmyn5S209xy4hWISNgGkncDj0k7OvJnl?=
- =?us-ascii?Q?o7zF1IYosFtk+3txFiH3qPIFaXrb5JH3vM31nagueGhlsesjZffYv5gy7+mo?=
- =?us-ascii?Q?UaMOYxKfg0qNAfS2QgGspQOtzsACGKFle1OjpwDbLdz7Fd7q3RR0qxUzqNz8?=
- =?us-ascii?Q?NncfiIadp7yG4J+zoOPcv5vtAsEVFOnve43Hedhu5t2mp6gIUAZLNVqwhaXh?=
- =?us-ascii?Q?cvLUBRsMxRjYskby3sfabAfTQrUGhykOMlu+2P9KIj+QL9HJ6AJgEEwEsfG8?=
- =?us-ascii?Q?8VImDuLa6AjN6s1Um1qH4NUWPUwP4Ipq/ksBkwmdhDGv2Jj1vudkI30cssdm?=
- =?us-ascii?Q?dqqbqRSfeUggZ1EG3FvBumoWLXQOg/OqZH4KjDJpCg09VL04n0FQ6evAF0CR?=
- =?us-ascii?Q?tVVtcTE/+O4zwxVPkzqvkkpSMl1G4ja6MTr2H1W2DIe9krsR+ItRrSUXAVO8?=
- =?us-ascii?Q?TC3eS0k7/w26YAS5z0YAe2GIOppf9cWv6y+dI2vwX8X6sDJORoJICWKV/2RQ?=
- =?us-ascii?Q?U0otww8ZhPxkcz8WBRqA47yyI9DO5SEWUVIQOEnYpD9VmyU6jlBS5VS7854w?=
- =?us-ascii?Q?L4rc3DDjrV94aPIQnkFLzy+rM5QGvul1IPUDDHt6DIHZMvJ2v4rTAqvcOzdr?=
- =?us-ascii?Q?guDKU7eJ/wtosQanZpDMwAMQpcHz4gLGH3UBaPyGUw7XkuHy3ygVzE8qra2e?=
- =?us-ascii?Q?2xN+ppFMyW+equhtNnVTlRi0L4YjILPFf3wa7uv0lb1WQ0+yWdBr93NlWnfp?=
- =?us-ascii?Q?s57uzfAVtLteHalge2O+nxq1uT07aH3GSPn+F60gcVm5Ox9PZRLEg4qIfvZp?=
- =?us-ascii?Q?hwEgbDivhLOqiNTbOBA93Nj0N8aXqz01pQ0p066zZsBo45nyNUU6j/nieVZj?=
- =?us-ascii?Q?JQGFyaT1LPYK4GjOWXJ0ZeDs3LE16iafRQ1/VYS+/RMd7+I+Cq2O0wUrycXr?=
- =?us-ascii?Q?/UltFbp+cm6Rahe6HJkJJfGOlMetJZK8P98vPw5pcHTTKbJWqjEe/yIouPhz?=
- =?us-ascii?Q?VvrdwD0BXHR3TUzrNfM=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3AD210E9AB;
+	Wed, 28 Sep 2022 14:47:05 +0000 (UTC)
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 447B510E9CB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 14:46:59 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id lh5so27638760ejb.10
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 07:46:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=jh1W0rVtbzibuA/R7gVDik2bSX8lVE96Mfw3a9PLXhM=;
+ b=OqasurebgWUDHwiVlCH65xsp8vDY6f6QdbNiyDQ/Y7jxP5CmMoL4HjYK5shY9wKbi8
+ I/lIj8Bum4lzp6pE6F7JAPLB2Hj9V6kresf78zXp/jQI0yrqZLz0gcjLYkWEqaqRpmHI
+ sUrb5syyqr3abyYSOcZ513jXpmioYsCeRd0L8UTVV4ppVc3fq0cshqCX0GMcBBSTTCHb
+ cNcP+roKIxU4F26+5OwxLiWOVSQ1TNe3TdRdV8sY4tCvKxwrVq0c1mlVgVzgV5wswUWa
+ Q4ILPD7Cz85URhiww79IMIkncmWhjoXO/P8T3HhI35+ABgXKBFiyNxhJHQZuf4Gx6SXG
+ wQ4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=jh1W0rVtbzibuA/R7gVDik2bSX8lVE96Mfw3a9PLXhM=;
+ b=NJi4ElHEuBZZ15lJxIx96XNjGcf2NJAVy1Uhctx+EOaQlrl58TUADW9qsO+KbHgPIB
+ YZG3qYjRXm8iclOLB4M9xdGnYvxzQRK6JRkEEuTZt6pSVDN2zEOzL2EX+wSpqd0B9ilM
+ UMgGSygyVtMRXV16xISOjySTV/mrf3/QhebuKyxn70yiHIHuKEkQBV7Omm++DLQed7hr
+ OEE8C08enjOObbNczpo9dC1d8sFF5Qt1mFdgUTR50tO+QApqrA1PZ6SAxs7/iIhorkLs
+ HjtmVXISaRKovlr1srIIuykK5q4zvBGgv+h6YGyvzGHHsY3W4uNesGjPCfcNjnYq7sjn
+ yfCA==
+X-Gm-Message-State: ACrzQf3MmgZDtMvt2BBJwodaEQPe5XPzLk47vMYR6Ph+ENn4Kh6y6x0D
+ /DwpYs/xT8dUK/YqtsHpqSc=
+X-Google-Smtp-Source: AMsMyM6RRH9d0J/S1AU1tF+uZ4FxbWk5Dn17D/N2h4rfw85F91bE7Kj1tBzhogif8YzJKJoDsykr3A==
+X-Received: by 2002:a17:907:7e9d:b0:782:3601:7d01 with SMTP id
+ qb29-20020a1709077e9d00b0078236017d01mr27395522ejc.361.1664376417688; 
+ Wed, 28 Sep 2022 07:46:57 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:fe7b:c1da:17d4:a63a?
+ ([2a02:908:1256:79a0:fe7b:c1da:17d4:a63a])
+ by smtp.gmail.com with ESMTPSA id
+ s12-20020a50ab0c000000b004580b26e32esm39821edc.81.2022.09.28.07.46.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 28 Sep 2022 07:46:57 -0700 (PDT)
+Message-ID: <849a8d68-c752-ace3-3823-26ff247896c8@gmail.com>
+Date: Wed, 28 Sep 2022 16:46:55 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3067.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18ea05fb-3e8f-499d-7556-08daa15aade3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2022 14:06:46.2215 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 11Sx00U40b+wewFu/M2dtVeCxIJAagQjc7ZL+vTUdfb650MCR9shk51HlRpfSZhIeBs+gtIXnUG1OgqqVi6nAQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4247
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 4/4] drm/amdgpu: MCBP based on DRM scheduler (v6)
+Content-Language: en-US
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ "Zhu, Jiadong" <Jiadong.Zhu@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
+References: <20220923131630.1260501-1-jiadong.zhu@amd.com>
+ <20220923131630.1260501-4-jiadong.zhu@amd.com>
+ <3d88b423-1d14-2954-e3ce-0c50887cf621@gmail.com>
+ <DS7PR12MB633336F275D92829CA93BF2CF4559@DS7PR12MB6333.namprd12.prod.outlook.com>
+ <fad25aa5-3f0a-0135-e580-1c96bfc37120@amd.com>
+ <6a8623f8-941f-4fa4-b0e4-0beb9b4715b3@daenzer.net>
+ <4c9c09b3-abbd-1dff-33f6-e9478e8a137c@amd.com>
+ <DS7PR12MB633351087443795FA98B47F6F4549@DS7PR12MB6333.namprd12.prod.outlook.com>
+ <d1967e64-8561-163a-fe93-be3e0b827f50@daenzer.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <d1967e64-8561-163a-fe93-be3e0b827f50@daenzer.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,125 +84,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ellis Michael <ellis@ellismichael.com>
+Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Tuikov,
+ Luben" <Luben.Tuikov@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+Am 28.09.22 um 15:52 schrieb Michel Dänzer:
+> On 2022-09-28 03:01, Zhu, Jiadong wrote:>
+>> Please make sure umd is calling the libdrm function to create context with different priories,
+>> amdgpu_cs_ctx_create2(device_handle, AMDGPU_CTX_PRIORITY_HIGH, &context_handle).
+> Yes, I double-checked that, and that it returns success.
+>
+>
+>> Here is the behavior we could see:
+>> 1. After modprobe amdgpu, two software rings named gfx_high/gfx_low(in previous patch named gfx_sw) is visible in UMR. We could check the wptr/ptr to see if it is being used.
+>> 2. MCBP happens while the two different priority ibs are submitted at the same time. We could check fence info as below:
+>> Last signaled trailing fence++  when the mcbp triggers by kmd. Last preempted may not increase as the mcbp is not triggered from CP.
+>>
+>> --- ring 0 (gfx) ---
+>> Last signaled fence          0x00000001
+>> Last emitted                 0x00000001
+>> Last signaled trailing fence 0x0022eb84
+>> Last emitted                 0x0022eb84
+>> Last preempted               0x00000000
+>> Last reset                   0x00000000
+> I've now tested on this Picasso (GFX9) laptop as well. The "Last signaled trailing fence" line is changing here (seems to always match the "Last emitted" line).
+>
+> However, mutter's frame rate still cannot exceed that of GPU-limited clients. BTW, you can test with a GNOME Wayland session, even without my MR referenced below. Preemption will just be less effective without that MR. mutter has used a high priority context when possible for a long time.
+>
+> I'm also seeing intermittent freezes, where not even the mouse cursor moves for up to around one second, e.g. when interacting with the GNOME top bar. I'm not sure yet if these are related to this patch series, but I never noticed it before. I wonder if the freezes might occur when GPU preemption is attempted.
 
-Reviewed-by: Graham Sider <Graham.Sider@amd.com>
+Keep in mind that this doesn't have the same fine granularity as the 
+separate hw ring buffer found on gfx10.
 
-> -----Original Message-----
-> From: Kuehling, Felix <Felix.Kuehling@amd.com>
-> Sent: Monday, September 26, 2022 6:36 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Sider, Graham <Graham.Sider@amd.com>; Ellis Michael
-> <ellis@ellismichael.com>
-> Subject: [PATCH v2] drm/amdkfd: Fix UBSAN shift-out-of-bounds warning
->=20
-> This was fixed in initialize_cpsch before, but not in initialize_nocpsch.
-> Factor sdma bitmap initialization into a helper function to apply the cor=
-rect
-> implementation in both cases without duplicating it.
->=20
-> v2: Added a range check
->=20
-> Reported-by: Ellis Michael <ellis@ellismichael.com>
-> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> ---
->  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 45 +++++++++--------
-> --
->  1 file changed, 21 insertions(+), 24 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 007a3db69df1..ecb4c3abc629 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -1242,6 +1242,24 @@ static void init_interrupts(struct
-> device_queue_manager *dqm)
->  			dqm->dev->kfd2kgd->init_interrupts(dqm->dev-
-> >adev, i);  }
->=20
-> +static void init_sdma_bitmaps(struct device_queue_manager *dqm) {
-> +	unsigned int num_sdma_queues =3D
-> +		min_t(unsigned int, sizeof(dqm->sdma_bitmap)*8,
-> +		      get_num_sdma_queues(dqm));
-> +	unsigned int num_xgmi_sdma_queues =3D
-> +		min_t(unsigned int, sizeof(dqm->xgmi_sdma_bitmap)*8,
-> +		      get_num_xgmi_sdma_queues(dqm));
-> +
-> +	if (num_sdma_queues)
-> +		dqm->sdma_bitmap =3D GENMASK_ULL(num_sdma_queues-
-> 1, 0);
-> +	if (num_xgmi_sdma_queues)
-> +		dqm->xgmi_sdma_bitmap =3D
-> GENMASK_ULL(num_xgmi_sdma_queues-1, 0);
-> +
-> +	dqm->sdma_bitmap &=3D
-> ~get_reserved_sdma_queues_bitmap(dqm);
-> +	pr_info("sdma_bitmap: %llx\n", dqm->sdma_bitmap); }
-> +
->  static int initialize_nocpsch(struct device_queue_manager *dqm)  {
->  	int pipe, queue;
-> @@ -1270,11 +1288,7 @@ static int initialize_nocpsch(struct
-> device_queue_manager *dqm)
->=20
->  	memset(dqm->vmid_pasid, 0, sizeof(dqm->vmid_pasid));
->=20
-> -	dqm->sdma_bitmap =3D ~0ULL >> (64 -
-> get_num_sdma_queues(dqm));
-> -	dqm->sdma_bitmap &=3D
-> ~(get_reserved_sdma_queues_bitmap(dqm));
-> -	pr_info("sdma_bitmap: %llx\n", dqm->sdma_bitmap);
-> -
-> -	dqm->xgmi_sdma_bitmap =3D ~0ULL >> (64 -
-> get_num_xgmi_sdma_queues(dqm));
-> +	init_sdma_bitmaps(dqm);
->=20
->  	return 0;
->  }
-> @@ -1452,9 +1466,6 @@ static int set_sched_resources(struct
-> device_queue_manager *dqm)
->=20
->  static int initialize_cpsch(struct device_queue_manager *dqm)  {
-> -	uint64_t num_sdma_queues;
-> -	uint64_t num_xgmi_sdma_queues;
-> -
->  	pr_debug("num of pipes: %d\n", get_pipes_per_mec(dqm));
->=20
->  	mutex_init(&dqm->lock_hidden);
-> @@ -1463,24 +1474,10 @@ static int initialize_cpsch(struct
-> device_queue_manager *dqm)
->  	dqm->active_cp_queue_count =3D 0;
->  	dqm->gws_queue_count =3D 0;
->  	dqm->active_runlist =3D false;
-> -
-> -	num_sdma_queues =3D get_num_sdma_queues(dqm);
-> -	if (num_sdma_queues >=3D BITS_PER_TYPE(dqm->sdma_bitmap))
-> -		dqm->sdma_bitmap =3D ULLONG_MAX;
-> -	else
-> -		dqm->sdma_bitmap =3D (BIT_ULL(num_sdma_queues) - 1);
-> -
-> -	dqm->sdma_bitmap &=3D
-> ~(get_reserved_sdma_queues_bitmap(dqm));
-> -	pr_info("sdma_bitmap: %llx\n", dqm->sdma_bitmap);
-> -
-> -	num_xgmi_sdma_queues =3D get_num_xgmi_sdma_queues(dqm);
-> -	if (num_xgmi_sdma_queues >=3D BITS_PER_TYPE(dqm-
-> >xgmi_sdma_bitmap))
-> -		dqm->xgmi_sdma_bitmap =3D ULLONG_MAX;
-> -	else
-> -		dqm->xgmi_sdma_bitmap =3D
-> (BIT_ULL(num_xgmi_sdma_queues) - 1);
-> -
->  	INIT_WORK(&dqm->hw_exception_work,
-> kfd_process_hw_exception);
->=20
-> +	init_sdma_bitmaps(dqm);
-> +
->  	return 0;
->  }
->=20
-> --
-> 2.32.0
+With MCBP we can only preempt on draw command boundary, while the 
+separate hw ring solution can preempt as soon as a CU is available.
+
+>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>
+>>> This work is solely for gfx9 (e.g. Vega) and older.
+>>>
+>>> Navi has a completely separate high priority gfx queue we can use for this.
+> Right, but 4c7631800e6b ("drm/amd/amdgpu: add pipe1 hardware support") was for Sienna Cichlid only, and turned out to be unstable, so it had to reverted.
+>
+> It would be nice to make the SW ring solution take effect by default whenever there is no separate high priority HW gfx queue available (and any other requirements are met).
+
+I don't think that this will be a good idea. The hw ring buffer or even 
+hw scheduler have much nicer properties and we should focus on getting 
+that working when available.
+
+Regards,
+Christian.
+
+>
+>
+>> Am 27.09.22 um 19:49 schrieb Michel Dänzer:
+>>> On 2022-09-27 08:06, Christian König wrote:
+>>>> Hey Michel,
+>>>>
+>>>> JIadong is working on exposing high/low priority gfx queues for gfx9 and older hw generations by using mid command buffer preemption.
+>>> Yeah, I've been keeping an eye on these patches. I'm looking forward to this working.
+>>>
+>>>
+>>>> I know that you have been working on Gnome Mutter to make use from userspace for this. Do you have time to run some tests with that?
+>>> I just tested the v8 series (first without amdgpu.mcbp=1 on the kernel command line, then with it, since I wasn't sure if it's needed) with https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.gnome.org%2FGNOME%2Fmutter%2F-%2Fmerge_requests%2F1880&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7Cc6345d9230004549ba4d08daa0b0abcd%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637998977913548768%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=P1Qo2AwDmfmPrxJe2SxTFsVjdJ9vjabK8s84ZVz%2Beh8%3D&amp;reserved=0 on Navi 14.
+>>>
+>>> Unfortunately, I'm not seeing any change in behaviour. Even though mutter uses a high priority context via the EGL_IMG_context_priority extension, it's unable to reach a higher frame rate than a GPU-limited client[0]. The "Last preempted" line of /sys/kernel/debug/dri/0/amdgpu_fence_info remains at 0x00000000.
+>>>
+>>> Did I miss a step?
+>>>
+>>>
+>>> [0] I used the GpuTest pixmark piano & plot3d benchmarks. With an Intel iGPU, mutter can achieve a higher frame rate than plot3d, though not than pixmark piano (presumably due to limited GPU preemption granularity).
+>
+
