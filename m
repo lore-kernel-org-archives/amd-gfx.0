@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2928CC6FA86
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:24:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2EE0C04A95
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:24:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDF9110E8A4;
-	Wed, 28 Sep 2022 19:24:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C6B610E8A5;
+	Wed, 28 Sep 2022 19:24:09 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1136510E7F7;
- Wed, 28 Sep 2022 19:17:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99A4010E7EF;
+ Wed, 28 Sep 2022 19:17:27 +0000 (UTC)
 Received: from dimapc.. (unknown [109.252.125.248])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id CA6C366022AC;
- Wed, 28 Sep 2022 20:17:39 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 2EA5B660229B;
+ Wed, 28 Sep 2022 20:17:23 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1664392662;
- bh=hhlvXQ3Lswdygs1+cny74JgxIYMvmDTe9Q+VdXTTZlY=;
+ s=mail; t=1664392646;
+ bh=1NrFDIEY1QfZG+NOs9U3CRZxTNDXg8WRHwv6i/q1kjI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Qj5emPk0/6+TVDGIarVYZvtLsFvzvyjwMyXEdA4KLuAi8tGIffgJ278o7W6uHwvnW
- U88Zjp/AiFpp3wJDZBrgN3zBoxqUmRiw4pD+ywZ5kXsxxCR84+8buy2u7MXaSMebOK
- JaXEP/ydnBDNzI3vDg7tTz7Vf7jJ1twFsZ2SfKQNV/w9c6DXrSlx23qJoR5fPsRHbQ
- qORujCosVCPFK7JurkYuHQ/8kaLPg06t32Tzg1kLW4QsIAF8dbsvewI+kCoU2vDSAX
- mAI2FEWBPgH9kdkTZ7ToPYqgDRJXsrrbFyAhhTVJELwdAvPFON2BaY8+MdLIOE0guw
- 3QoezSsEusU3Q==
+ b=DLonZI1p5RO7z29nQcfnwZ4Uh3QAepEY5afS1MjchFx4P4yJjxoTlUn4XGSHvpRjb
+ b4J7zYFunbpdhxZZ4E0PQAh0iWIth2XLL1Xkuf1Z42nX5sklsaArpTDjvNrp6EMsfa
+ ++y/x2066VwYKp2hc9YjTNkUsRJzRjspAr3vKXbH75nvCSl4JpT45i2gJWjFCUzP4i
+ Si50eAmbVqxcDVbRhHMoqlN64fUM3AH/rFuRCzyfmM/EBm3GngeuFjMZAochzIY0DF
+ WNCWsUNF4V0c8GMOjqICW1yJ1wJEX/03A2HFdOqejKP3UFEzMhMKYqb74gfPRp4FLl
+ Z4CLF/eH3lxpw==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -65,10 +65,9 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Subject: [PATCH v6 06/21] drm/i915: Prepare to dynamic dma-buf locking
- specification
-Date: Wed, 28 Sep 2022 22:15:45 +0300
-Message-Id: <20220928191600.5874-7-dmitry.osipenko@collabora.com>
+Subject: [PATCH v6 01/21] dma-buf: Add unlocked variant of vmapping functions
+Date: Wed, 28 Sep 2022 22:15:40 +0300
+Message-Id: <20220928191600.5874-2-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
 References: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
@@ -96,134 +95,87 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prepare i915 driver to the common dynamic dma-buf locking convention
-by starting to use the unlocked versions of dma-buf API functions
-and handling cases where importer now holds the reservation lock.
+Add unlocked variant of dma_buf_vmap/vunmap() that will be utilized
+by drivers that don't take the reservation lock explicitly.
 
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
 Acked-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Michael J. Ruhl <michael.j.ruhl@intel.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c       |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_object.c       | 14 ++++++++++++++
- .../gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c | 16 ++++++++--------
- 3 files changed, 23 insertions(+), 9 deletions(-)
+ drivers/dma-buf/dma-buf.c | 41 +++++++++++++++++++++++++++++++++++++++
+ include/linux/dma-buf.h   |  2 ++
+ 2 files changed, 43 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-index f5062d0c6333..07eee1c09aaf 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-@@ -72,7 +72,7 @@ static int i915_gem_dmabuf_vmap(struct dma_buf *dma_buf,
- 	struct drm_i915_gem_object *obj = dma_buf_to_obj(dma_buf);
- 	void *vaddr;
- 
--	vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
-+	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
- 	if (IS_ERR(vaddr))
- 		return PTR_ERR(vaddr);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index 7ff9c7877bec..3e3f63f86629 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -290,7 +290,21 @@ void __i915_gem_object_pages_fini(struct drm_i915_gem_object *obj)
- 	__i915_gem_object_free_mmaps(obj);
- 
- 	atomic_set(&obj->mm.pages_pin_count, 0);
-+
-+	/*
-+	 * dma_buf_unmap_attachment() requires reservation to be
-+	 * locked. The imported GEM shouldn't share reservation lock
-+	 * and ttm_bo_cleanup_memtype_use() shouldn't be invoked for
-+	 * dma-buf, so it's safe to take the lock.
-+	 */
-+	if (obj->base.import_attach)
-+		i915_gem_object_lock(obj, NULL);
-+
- 	__i915_gem_object_put_pages(obj);
-+
-+	if (obj->base.import_attach)
-+		i915_gem_object_unlock(obj);
-+
- 	GEM_BUG_ON(i915_gem_object_has_pages(obj));
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index dd0f83ee505b..0427f3b88170 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1425,6 +1425,31 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
  }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_vmap, DMA_BUF);
  
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-index 51ed824b020c..f2f3cfad807b 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-@@ -213,7 +213,7 @@ static int igt_dmabuf_import_same_driver(struct drm_i915_private *i915,
- 		goto out_import;
- 	}
++/**
++ * dma_buf_vmap_unlocked - Create virtual mapping for the buffer object into kernel
++ * address space. Same restrictions as for vmap and friends apply.
++ * @dmabuf:	[in]	buffer to vmap
++ * @map:	[out]	returns the vmap pointer
++ *
++ * Unlocked version of dma_buf_vmap()
++ *
++ * Returns 0 on success, or a negative errno code otherwise.
++ */
++int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
++{
++	int ret;
++
++	if (WARN_ON(!dmabuf))
++		return -EINVAL;
++
++	dma_resv_lock(dmabuf->resv, NULL);
++	ret = dma_buf_vmap(dmabuf, map);
++	dma_resv_unlock(dmabuf->resv);
++
++	return ret;
++}
++EXPORT_SYMBOL_NS_GPL(dma_buf_vmap_unlocked, DMA_BUF);
++
+ /**
+  * dma_buf_vunmap - Unmap a vmap obtained by dma_buf_vmap.
+  * @dmabuf:	[in]	buffer to vunmap
+@@ -1449,6 +1474,22 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map)
+ }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap, DMA_BUF);
  
--	st = dma_buf_map_attachment(import_attach, DMA_BIDIRECTIONAL);
-+	st = dma_buf_map_attachment_unlocked(import_attach, DMA_BIDIRECTIONAL);
- 	if (IS_ERR(st)) {
- 		err = PTR_ERR(st);
- 		goto out_detach;
-@@ -226,7 +226,7 @@ static int igt_dmabuf_import_same_driver(struct drm_i915_private *i915,
- 		timeout = -ETIME;
- 	}
- 	err = timeout > 0 ? 0 : timeout;
--	dma_buf_unmap_attachment(import_attach, st, DMA_BIDIRECTIONAL);
-+	dma_buf_unmap_attachment_unlocked(import_attach, st, DMA_BIDIRECTIONAL);
- out_detach:
- 	dma_buf_detach(dmabuf, import_attach);
- out_import:
-@@ -296,7 +296,7 @@ static int igt_dmabuf_import(void *arg)
- 		goto out_obj;
- 	}
- 
--	err = dma_buf_vmap(dmabuf, &map);
-+	err = dma_buf_vmap_unlocked(dmabuf, &map);
- 	dma_map = err ? NULL : map.vaddr;
- 	if (!dma_map) {
- 		pr_err("dma_buf_vmap failed\n");
-@@ -337,7 +337,7 @@ static int igt_dmabuf_import(void *arg)
- 
- 	err = 0;
- out_dma_map:
--	dma_buf_vunmap(dmabuf, &map);
-+	dma_buf_vunmap_unlocked(dmabuf, &map);
- out_obj:
- 	i915_gem_object_put(obj);
- out_dmabuf:
-@@ -358,7 +358,7 @@ static int igt_dmabuf_import_ownership(void *arg)
- 	if (IS_ERR(dmabuf))
- 		return PTR_ERR(dmabuf);
- 
--	err = dma_buf_vmap(dmabuf, &map);
-+	err = dma_buf_vmap_unlocked(dmabuf, &map);
- 	ptr = err ? NULL : map.vaddr;
- 	if (!ptr) {
- 		pr_err("dma_buf_vmap failed\n");
-@@ -367,7 +367,7 @@ static int igt_dmabuf_import_ownership(void *arg)
- 	}
- 
- 	memset(ptr, 0xc5, PAGE_SIZE);
--	dma_buf_vunmap(dmabuf, &map);
-+	dma_buf_vunmap_unlocked(dmabuf, &map);
- 
- 	obj = to_intel_bo(i915_gem_prime_import(&i915->drm, dmabuf));
- 	if (IS_ERR(obj)) {
-@@ -418,7 +418,7 @@ static int igt_dmabuf_export_vmap(void *arg)
- 	}
- 	i915_gem_object_put(obj);
- 
--	err = dma_buf_vmap(dmabuf, &map);
-+	err = dma_buf_vmap_unlocked(dmabuf, &map);
- 	ptr = err ? NULL : map.vaddr;
- 	if (!ptr) {
- 		pr_err("dma_buf_vmap failed\n");
-@@ -435,7 +435,7 @@ static int igt_dmabuf_export_vmap(void *arg)
- 	memset(ptr, 0xc5, dmabuf->size);
- 
- 	err = 0;
--	dma_buf_vunmap(dmabuf, &map);
-+	dma_buf_vunmap_unlocked(dmabuf, &map);
- out:
- 	dma_buf_put(dmabuf);
- 	return err;
++/**
++ * dma_buf_vunmap_unlocked - Unmap a vmap obtained by dma_buf_vmap.
++ * @dmabuf:	[in]	buffer to vunmap
++ * @map:	[in]	vmap pointer to vunmap
++ */
++void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
++{
++	if (WARN_ON(!dmabuf))
++		return;
++
++	dma_resv_lock(dmabuf->resv, NULL);
++	dma_buf_vunmap(dmabuf, map);
++	dma_resv_unlock(dmabuf->resv);
++}
++EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap_unlocked, DMA_BUF);
++
+ #ifdef CONFIG_DEBUG_FS
+ static int dma_buf_debug_show(struct seq_file *s, void *unused)
+ {
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index 71731796c8c3..8daa054dd7fe 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -632,4 +632,6 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
+ 		 unsigned long);
+ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map);
+ void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map);
++int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
++void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
+ #endif /* __DMA_BUF_H__ */
 -- 
 2.37.3
 
