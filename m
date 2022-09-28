@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C61DC6FA82
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:42:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71E18C04A95
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:42:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B27210E9CA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3BD210E9CE;
 	Wed, 28 Sep 2022 19:41:59 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B31010E9B1
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 19:41:14 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2049.outbound.protection.outlook.com [40.107.93.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E66D10E9B1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 19:41:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UUddNhTZzk0S3t9f1LcS0i7RVvpCgI9tsmb714T7R6RUwAP6dv7pgwZu26TbKUh9Gj8R2fOyAtiEmYsbfZbCdTvoT980IqxjbTP46MgLckF9VYxzQr0IV0yVHsbp16JZ42S3x7hvOcuFAruPktNmoCGxuQwOajlWEVDefwYM2OF9H6RgFXouqoWrtHlQiFk1eM9+eWyn+eMnSqIV/+QJ1Dth96Ys+hFk4WwC6tz2IRlQouTNj2bCoGlDNY19oNplI/CDdqAPLiGiYY9Vh/dYdY2IsD2G6IXUADGBv5LuWYVcbDqKdgoJEvWaYIs2qdiKUK4hcYIUjhyfeAb/h2iujw==
+ b=Xfj9j0IserIKyMXcuDgcsenS2jnU9m1szLoO3AnHJu53UcL80pPmFRFD0/29/aikykXLTeR5ILTgCIRkvNkCxx4XTKyTlhsZgfZaNpygMfpW9Bkzwfr6pspyMk6S2RifIhqYMEUeyMUushiyVYv6mg8YjtyViZ8/G3WziffqYgeRDOBmdtjttMFlChx7lkDmMhlf/zldzGwfT/6yZzVW/W8kil8+WCadok0ljjQU+wkoQxe90OI/Mf66k7WWY8z3EOQxiNJvFyKDviGsK0rJec+e2FA6xMDEiqlDwRPhHc/c+jmuI0F9xO55TRS56GAWGOmYwzIpGA0RdbJokpWp8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ahfLuYrIFJIvURxKxgXBarUfCPVFDu90tc5yAna/Ffw=;
- b=FuRngP29SYpn4a42AWxjdVBfonwFk67iSSRhL7kPtoaKMmYvyOtVChXJcBnIiTQCfx7JCXATGPrg66EZgtlLgS/n0yeJG9fYXzDPHpK3lvGxuVGi+U1y02BEPpHPtvPyCH97BumL19SiCs8I1M05h9FASvtIrwcl3uehVN6Lk2wahJjt37XgrpiT+2uw4VC8PDD0QFE+BRSCJUXn+0S/CTI0kd+F71HjByEsTMLGeLUYDYxKWTkzXSyyc96D2GtCpiuknt8jAyuP5jgZ/kJ/ha4D1gdj/aOv5v/QWJzUbCmfspPrk59JqszYIXk8fr9AQoptGxBEGncsCvH29+uBHA==
+ bh=GemGlWomOpDkzstXpIpTqodGsvFgSnR0jUN8JNI6KWA=;
+ b=M56iayNZaaUDO5yOkll4I5lW/Qcj548AhIJEzycGUu5vGsOSjWxrYcnovlSRTi3s5Eurbf1OE9NEmf6YxD7mawLrfW9RTrQvKHSkoh2BPbBs2FLEd6pO+j/fAPZlasu0FOXEh4fCL6WkHJjEZgVHkVNjAu8PXIm1dQflHoVDfZcOFQAM2Z3dLRa/r4OsYiTrbTj1p4t2K2DzhHwR7gPl2/ph1xADp9CqaNcgqOeyMcw9wsFgngf9/e6dzK7hmBfeT8X3qmcsEmvSU6wXjfSAV5VRxFvW7XVUXLH+xMoACbF6eI9ddE9PSHIik8knEYVtsn0wBIwA+hD4JgpQzRqN4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ahfLuYrIFJIvURxKxgXBarUfCPVFDu90tc5yAna/Ffw=;
- b=sANiCg7o7TRE7jh5p/1LH5+gYWUtgng8nStAi/bXDQXA5WnRJKmii7jOjECJ1KsRM1dmLOPRjmL3OS0/XHkdqAzOBs5Y2HnyaTiIjIISCN59w/q5Gq5mHUDWV9vYZfRr8f2dtAYYM9U2M1BGUan46/p+7jlJaaMjwIDb9BfQrxE=
-Received: from BN0PR04CA0013.namprd04.prod.outlook.com (2603:10b6:408:ee::18)
- by CY8PR12MB7756.namprd12.prod.outlook.com (2603:10b6:930:85::19)
+ bh=GemGlWomOpDkzstXpIpTqodGsvFgSnR0jUN8JNI6KWA=;
+ b=sT9E2Igp+Z7BxXRbcI3G0yvtgx0TL2KFfZZ6Bk5Z58O82IbnPW+dO/y08LY2gVECZRaYj4oXuCjSbs1DeagJrIDdZBCZF/m7+mVEXDugSwxN1oLWRclAzjvn4i2Ggoy1iM9kA+dNdWKHmJD37/utgNpk9bAHIv4zOD2TNl0JHx0=
+Received: from BN9PR03CA0308.namprd03.prod.outlook.com (2603:10b6:408:112::13)
+ by MN2PR12MB4565.namprd12.prod.outlook.com (2603:10b6:208:26b::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.15; Wed, 28 Sep
- 2022 19:41:11 +0000
-Received: from BN8NAM11FT030.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ee:cafe::55) by BN0PR04CA0013.outlook.office365.com
- (2603:10b6:408:ee::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.22; Wed, 28 Sep
+ 2022 19:41:43 +0000
+Received: from BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:112:cafe::e0) by BN9PR03CA0308.outlook.office365.com
+ (2603:10b6:408:112::13) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.17 via Frontend
- Transport; Wed, 28 Sep 2022 19:41:11 +0000
+ Transport; Wed, 28 Sep 2022 19:41:43 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT030.mail.protection.outlook.com (10.13.177.146) with Microsoft SMTP
+ BN8NAM11FT015.mail.protection.outlook.com (10.13.176.90) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5676.17 via Frontend Transport; Wed, 28 Sep 2022 19:41:11 +0000
+ 15.20.5676.17 via Frontend Transport; Wed, 28 Sep 2022 19:41:43 +0000
 Received: from hamza-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 28 Sep
- 2022 14:41:09 -0500
+ 2022 14:41:42 -0500
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 15/36] drm/amd/display: Keep OTG on when Z10 is disable
-Date: Wed, 28 Sep 2022 15:40:07 -0400
-Message-ID: <20220928194028.144879-16-hamza.mahfooz@amd.com>
+Subject: [PATCH 33/36] drm/amd/display: Enable 2 to 1 ODM policy if supported
+Date: Wed, 28 Sep 2022 15:40:25 -0400
+Message-ID: <20220928194028.144879-34-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220928194028.144879-1-hamza.mahfooz@amd.com>
 References: <20220928194028.144879-1-hamza.mahfooz@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT030:EE_|CY8PR12MB7756:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3bc6e92b-3708-43ad-0746-08daa189657b
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT015:EE_|MN2PR12MB4565:EE_
+X-MS-Office365-Filtering-Correlation-Id: 562eefbe-5859-42d8-c7a8-08daa18978df
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +FO0rus5umxBHhrifIKcWFh7vyn2dSXTuaMW7zFosaIKR2odkO6qKbk+Rw7lwW8uR90FJZC7Q0jo/+6+dGjwSYiRCInql03G2qutHLaVdYQVXb2VDdudtJJfx0RNtPc/apMgqGK7mKGgLn9Aq7HmTGdCCqWG+cU1tg9SpHzWeSapFK0obiejEl16epjkLG3DytfBb3ak5fgJ0Y0oiCwn6u5gXUhP21jL+Chz9fLk6X/AvcxS98YOlhT0WSmEGQjqqv1G6xLPOq8PvC6hi0CXapj9Oa7Tf8CA4vrOmeCaIQDNyv87bAgFwm1ClmJVym6lozZ1cdP8z1wqbLY/ckclfuV20mKgXaa9lxVHLK3QzYFRAJ4nLK1Woq7t3+rUbW6WZb996ql/VfdpZJLW1pdbcEHWkGFnXoD8OYSTxfzLMhA8gCVPoDFSVhm6bLf3e7AMIAUriRUXkSRHL5RFRJbRKyqf1V/E2h2rRKKfsilpDq20e6ig9UBiClFS+xhbwi+OnrDIq+C3DJtMa846jDUQAmErzdQws5NEszM8wObqR+t5c+AjEEwuFDCrPxzyhtQiJ3DlTb0qT13/869KB3/KOuEZ2QxT/Y3/n8VwqPwqmJyvbGxniO7tZuzhrTAc250zGDchFtOo0pfpADW9VLeoi0TV2XQ3gp/a1c/YE+Paaknp5KUCXXu5OeY9hGOPXpt+DTRdGAePvoFJynCBHFYwVwP2ybscEaWNzegOrd2NFe2eZYMGNqR3vnGBCGH55wT01Ggv5nh2J0ZeDZ1LGzmtWGGQfsufSHfVPg0gA8maaqvAXa83nL4iqAUidAH60FtAf8qp7xoZR9yIIv406KXMxA==
+X-Microsoft-Antispam-Message-Info: p9M7b07SGufuiVFi0MIE/eoA8nkU04LyDFGucQPTQOb1Fz3oWN6Akfe4uuqPxGmwog4WIGQRLPeuCTJBDcYDt1T9gX2tYP61Q6UsvtWcBJ12mODWGlqpL72lNb9MjSWOcPcyy1KKr9K28KC62aWbzjvmfyAebeGA/ndT262Vn7zI9Rv2icsPejR+UDImHgC1PeSi70GdpNyLvvsB/vAOAzomdgBQl1b+R3o0OCzqliknF+52yyn7d1+IgqbqpaLs0FRQkVFuQBAEfPm4PNL1E4sP1xIWYhfHaW9tQN+AOOAbmxDnk144X/Cvp76a+wwAzE5JMO5/UtL8ZDA9ot23JQ+B9pDjXO4i30lBk5/5+DHZrWfrfL8TC1rkK7k8ImtlWAa6ezrVMoUeTasGnbGHa+YuthMOcBzQlypoZXOzqFi8sGx2FE9DHnQuRa/OMsWhVvCDv1s8V6TZbLmM2fxNgwXikpw/ieAKiwVOBOO/P3FkaXQv3hM5lxbqK2Vtv4vFrjwYV6eSKlgMtmy11LGwVFrZEFOSnqzU3TYpc8ulCV/fSRQT1A/63nc514ZxpFVNbE1LlrVElkhyWvky5lIa9Q41HflkfIhQuo8Ujk8KULglrh+XyAT+7oqnoSw6cDruDr6R4V7yldVFkZL1CjEHbrZ4hiJnOxaH+mcZlf0Jj/9Z3S4yWp0KByVuHW0MvuvVYN4+xuM3IPfQiqOOGAHbpm9VJV0zvAxNfvbbwF9BUINa1hFrBYYNmFyAUsnvANKvZD90KmBF+Q4iIYb4cPKgV6T9HQnBcptyCwKBJmFNDMPSJrclE5Kb5cKYuUNhtrYR+WU6bYPy3C+Je9dzeeqEoQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(39860400002)(376002)(396003)(136003)(451199015)(40470700004)(36840700001)(46966006)(186003)(1076003)(83380400001)(16526019)(336012)(47076005)(426003)(40480700001)(36756003)(4326008)(41300700001)(70206006)(70586007)(86362001)(5660300002)(44832011)(316002)(6916009)(54906003)(356005)(36860700001)(8936002)(2616005)(26005)(7696005)(81166007)(82740400003)(2906002)(478600001)(40460700003)(8676002)(82310400005)(36900700001)(16060500005);
+ SFS:(13230022)(4636009)(396003)(136003)(346002)(39860400002)(376002)(451199015)(36840700001)(46966006)(40470700004)(47076005)(336012)(36756003)(316002)(426003)(70206006)(36860700001)(86362001)(26005)(16526019)(6916009)(8936002)(54906003)(8676002)(1076003)(5660300002)(2616005)(2906002)(4326008)(41300700001)(6666004)(186003)(7696005)(70586007)(44832011)(40460700003)(356005)(81166007)(82310400005)(82740400003)(40480700001)(478600001)(16060500005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2022 19:41:11.0874 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3bc6e92b-3708-43ad-0746-08daa189657b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2022 19:41:43.6244 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 562eefbe-5859-42d8-c7a8-08daa18978df
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT030.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7756
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4565
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,45 +99,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Lewis Huang <Lewis.Huang@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Robin Chen <po-tchen@amd.com>,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
  wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
  pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lewis Huang <Lewis.Huang@amd.com>
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-[Why]
-Disable OTG when PSRSU with z10 even if z10 is disable
+If the current configuration supports 2 to 1 ODM policy, let's also
+enable the windowed MPO feature.
 
-[How]
-Reverse condition to keep OTG on when Z10 is disable
-
-Reviewed-by: Robin Chen <po-tchen@amd.com>
-Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Lewis Huang <Lewis.Huang@amd.com>
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index cd14ec5a5c25..71cf6776998e 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -3378,8 +3378,8 @@ bool dc_link_setup_psr(struct dc_link *link,
- 		case FAMILY_YELLOW_CARP:
- 		case AMDGPU_FAMILY_GC_10_3_6:
- 		case AMDGPU_FAMILY_GC_11_0_1:
--			if(!dc->debug.disable_z10)
--				psr_context->psr_level.bits.SKIP_CRTC_DISABLE = false;
-+			if(dc->debug.disable_z10)
-+				psr_context->psr_level.bits.SKIP_CRTC_DISABLE = true;
- 			break;
- 		default:
- 			psr_context->psr_level.bits.SKIP_CRTC_DISABLE = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+index 5213f4443531..33bdf56b2b3a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+@@ -990,6 +990,10 @@ void dcn32_init_hw(struct dc *dc)
+ 		dc_dmub_srv_query_caps_cmd(dc->ctx->dmub_srv->dmub);
+ 		dc->caps.dmub_caps.psr = dc->ctx->dmub_srv->dmub->feature_caps.psr;
+ 	}
++
++	/* Enable support for ODM and windowed MPO if policy flag is set */
++	if (dc->debug.enable_single_display_2to1_odm_policy)
++		dc->config.enable_windowed_mpo_odm = true;
+ }
+ 
+ static int calc_mpc_flow_ctrl_cnt(const struct dc_stream_state *stream,
 -- 
 2.37.2
 
