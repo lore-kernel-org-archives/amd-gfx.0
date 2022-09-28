@@ -4,76 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 446D7C32771
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:24:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57032C6FA82
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:24:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D40B10E8D0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F02C410E8E2;
 	Wed, 28 Sep 2022 19:24:13 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0005210E83A;
- Wed, 28 Sep 2022 19:18:22 +0000 (UTC)
-Received: from dimapc.. (unknown [109.252.125.248])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2C7710E7CE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 19:06:44 +0000 (UTC)
+Received: from [192.168.2.145] (unknown [109.252.125.248])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id BB23466022C4;
- Wed, 28 Sep 2022 20:18:18 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 3037B6601FFC;
+ Wed, 28 Sep 2022 20:06:43 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1664392701;
- bh=89/65f/dDy+eASrj3PX7nWokVxmv9ZpmtoFT7wYq/aE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=abP6CtWU9WWWHjvSe2Ygdq+MLjfMh95HR0FMwBvJ7q4vJqbb8xRVkEWMRReWS2R6J
- CVJ6RyC/neUsRVNH/OhRlO1DPx9CZ0akB2JrW+LoIf/Ua/DbBX5OoVcGtNmKaUp28+
- lp8lmmVdanhZdxDXVdw/ER6wzpik6+fcTY1MLWw3Esj0WMz3eQ88fVOl+mZSaRo0uT
- ozryYQt5ZZz3t9kmaL1ZCDpGk1mhhW1fuyIgxGgaBvS8jUQC2mEnnnlkH0Bw5M3xDA
- 4MDhaQFZ2jDwol9cncESUNyNnfByN4KukK+SR2By2AJ1NLuJc0I5l0kA9sNpXEYC22
- 3SptQpreSo7/w==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Ruhl Michael J <michael.j.ruhl@intel.com>
-Subject: [PATCH v6 18/21] dma-buf: Move dma_buf_mmap() to dynamic locking
- specification
-Date: Wed, 28 Sep 2022 22:15:57 +0300
-Message-Id: <20220928191600.5874-19-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
-References: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
+ s=mail; t=1664392003;
+ bh=QGS9lnpGHXuaVY/xyVE/BDHK5h+oErBchGDDgU/RBzA=;
+ h=Date:Subject:From:To:References:In-Reply-To:From;
+ b=Nv+RBKIt6ASVno+XKTk419AMqdE6tJx+dMBYKRpZbM5RiXnLhr9FHXmUUard44eOC
+ TEi2xtNzsAIwzTNM3FRggVwDSMhRcYxP5QfK1MOYhTyVOAt/AJd7cCuvbKz4zLjYiD
+ lHgj4+oP8EntJGkoAkwKGdJJ1xDLBxVApE79S0wchObUA9ANOfh3xXmVXCPyfdCQXH
+ SjqPe/9Q9082C/PMr8obGMNv9aQSrpEBn9Mas0gCeeUsdUcsCP83mD/eN63fbUk6ky
+ TKiZ9BP/fjfrY3VvCncaeuHeqRzQA9CoYVxAPSE/wFpUnzljDsMHyuOtSsUoIT1G+a
+ TIn7DsEp3dWpg==
+Message-ID: <b5fcab24-5c6c-d585-261b-2b202283eba0@collabora.com>
+Date: Wed, 28 Sep 2022 22:06:40 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Subject: Re: [PATCH 09/10] drm/amdgpu/gfx10: switch to
+ amdgpu_gfx_rlc_init_microcode
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Gao, Likun" <Likun.Gao@amd.com>
+References: <20220915170135.23060-1-Hawking.Zhang@amd.com>
+ <20220915170135.23060-10-Hawking.Zhang@amd.com>
+ <BL1PR12MB514443C746109B972824368BF7519@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <BN9PR12MB5257828CD0C0CE680B14D27CFC509@BN9PR12MB5257.namprd12.prod.outlook.com>
+ <8a383215-4a8a-243c-6cef-6e7fc12af001@collabora.com>
+ <BL1PR12MB5144E1AA8FE0EDCCCA8B12ACF7549@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <2da3a6aa-8f3e-a640-d351-c923c8c924e5@collabora.com>
+Content-Language: en-US
+In-Reply-To: <2da3a6aa-8f3e-a640-d351-c923c8c924e5@collabora.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 28 Sep 2022 19:24:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,53 +65,22 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move dma_buf_mmap() function to the dynamic locking specification by
-taking the reservation lock. Neither of the today's drivers take the
-reservation lock within the mmap() callback, hence it's safe to enforce
-the locking.
+On 9/28/22 20:47, Dmitry Osipenko wrote:
+> On 9/28/22 20:44, Deucher, Alexander wrote:
+>> [AMD Official Use Only - General]
+>>
+>> This should be fixed in a backwards compatible way with this patch:
+>> https://patchwork.freedesktop.org/patch/504869/
+> 
+> Good to know that it's already addressed, thank you very much for the
+> quick reply.
 
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
-Acked-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
----
- drivers/dma-buf/dma-buf.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Unfortunately, that patch doesn't help beige goby. Please fix.
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index bff5a70b8735..2452b4c82584 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1390,6 +1390,8 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_end_cpu_access, DMA_BUF);
- int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 		 unsigned long pgoff)
- {
-+	int ret;
-+
- 	if (WARN_ON(!dmabuf || !vma))
- 		return -EINVAL;
- 
-@@ -1410,7 +1412,11 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 	vma_set_file(vma, dmabuf->file);
- 	vma->vm_pgoff = pgoff;
- 
--	return dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_lock(dmabuf->resv, NULL);
-+	ret = dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_unlock(dmabuf->resv);
-+
-+	return ret;
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_mmap, DMA_BUF);
- 
 -- 
-2.37.3
+Best regards,
+Dmitry
 
