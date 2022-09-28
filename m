@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF252C32771
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:40:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7619AC32771
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:41:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4B3410E4D8;
-	Wed, 28 Sep 2022 19:40:55 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2047.outbound.protection.outlook.com [40.107.102.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0A3F10E4D8
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 19:40:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EDE110E9A9;
+	Wed, 28 Sep 2022 19:40:56 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2052.outbound.protection.outlook.com [40.107.92.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A2E510E4D8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 19:40:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PJZQ2ohGA57fTjES03qLQkKZRFbdfaRPr4aVcX2/VlSp+Xkol6NGxVhlNTv6whTfBh7/wkcqbgBPpIT/semkB/OAmGB/OAGBQtHOvRspMELdFRbDlZ/RZPKhPgRR1/areB8S49Ue7YqlytaW5mtz3hENdZF3rZ8Mv8l8TvNC2vU8FMeXirQtzpNQREOi2914WF3Ee41LP6jLsAt75L8MxTYl2bQ52KwJry/CyXPMqS58kBkMYjA8ur/aM6eZwb0dz1bfVxpal+Gv35XR+sOWXjn8x8J4MY/twIoNRuWR+Bxwc7yEHhul76ei1KSsUB7irJPovgHAZf0MsACtQNnZtg==
+ b=EOJIFUwabdq428tfQOPAzz8E4mcDtQIruPephbRl93CZgaYWCRmEx9IaJItz/XY81FFNU3aYCx6dOHG24DUINmMROPaqiyzapC/F3+16SS4DzE0ClkOfI/Rdzl3krIEj2JECTmvVdQtpBBcyk5P3gl3TJlyJSjl8vu0LGSDBP4zgtlbhgl5Dl2hnJRE8eVG4X8EQTQSsf0V+wYw/CxZ7lR2QPPmG6sGhf3zAbHnULxPmSuJ+mi8zQjDn4wluXAkos2w/QKMefDLdGfcREL3RusijD4ZpBLaIIbhX8JTw10+ApzVzTWTvbno7sZYkUg0/15lS/zhl469ExBqkAYhSMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A1scudNs21SiQ+of0ZW3513OijuriWKBgp/QNqLPSDE=;
- b=Vtzi5n9CtVCfNWDWM9Z/abSHzD/e1bhkf6cNwcF2uFFQW/9qcqdpMczFo29W6np6DgDHQoIHup1MK9E/haSrst5RxuWAvccr9JY5APu5jD0yRpGuWO0evLdsNP5OpzFdgg90D4CI9LQU5FQlvp1TvIjmMsm93NL3Wrum9tGKdyua8lzi2B960LybDTUa7lM4UZ8nr7pocA08HjTvAZVbcFJTHw9dAUmjsDoAbpTGwJxq3Y5YoaU8E0TvSYMYcEgGpon7xPql3hhelpAGkrSwtjcUgEs1cNyc6Nc5i8ptqj5XQSgG3K+goi8GbJ6uz/MU7BVXnW3syQcUzxNWRJgJPw==
+ bh=MT6w+Ig0xzby2NFBxNvrp1xTGK9kzW/o4KM7ALazZ40=;
+ b=leOlt/1l4r925h8qITATK3VNCuOkdQaKbeQAubConsKAumM6ViRh5uJImGsMDFqNuSLo27nTm3heDODHPsyDghPYqMGej/6lY/86vl48NvqihXm3aaLMW9khUjkdmQweFQ/ymfKu2/84juUPxNecZg3cWQqxXJ5rM/Hc+tKouCqHf0uux4t/HzXB8Ckui/Yzc3rf8qYF9H0j/IM2bcWqLEFQy7Lm7ezfLyBXzP1NvZ0NT+aLJNO+DWm/QVt6gpoQoaVW4eFuMuqKbCFGhDlRi+KTUkRXViCwWTdVA4WMsMRpegGSPH4icPMx65I01Gqfg6++5OHZOfvGeqe+XqTC1A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A1scudNs21SiQ+of0ZW3513OijuriWKBgp/QNqLPSDE=;
- b=FtYWKjXMkUBW89PmuNfa9VFPJDb+47Mj8UtvbJw77qsgeY3ONXX6HQoPkmohWNQTieUsOx4I8Sn6wJ1AsNAp8X6IOhL64ZScLJdw6GGi/D9skNZGyZj8pbd8njvKPuP+mVcmxdpHVR+FOcCNQlyDRVCVXlq+flRiDTS6aRXMPDg=
-Received: from BN0PR04CA0167.namprd04.prod.outlook.com (2603:10b6:408:eb::22)
- by DM8PR12MB5432.namprd12.prod.outlook.com (2603:10b6:8:32::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.19; Wed, 28 Sep
- 2022 19:40:44 +0000
-Received: from BN8NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:eb:cafe::a7) by BN0PR04CA0167.outlook.office365.com
- (2603:10b6:408:eb::22) with Microsoft SMTP Server (version=TLS1_2,
+ bh=MT6w+Ig0xzby2NFBxNvrp1xTGK9kzW/o4KM7ALazZ40=;
+ b=nICO6QUFlWnFEiqCMn/2xoTadCMi/yg7jUwGek07+J9Oa9zwUDsNs17Poflm6sD5BIpNIWNokJA8Hp9+/RdPff381gA5xUKWYAaKPa7DzU4Uej0mXkTFGjzamckKwtpOf9y1I7AQ4OXfOOvk4+OXHPQzHNUb6ltvLx1mAeWEzMw=
+Received: from BN8PR15CA0051.namprd15.prod.outlook.com (2603:10b6:408:80::28)
+ by MN0PR12MB5788.namprd12.prod.outlook.com (2603:10b6:208:377::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.17; Wed, 28 Sep
+ 2022 19:40:47 +0000
+Received: from BN8NAM11FT029.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:80:cafe::37) by BN8PR15CA0051.outlook.office365.com
+ (2603:10b6:408:80::28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.17 via Frontend
- Transport; Wed, 28 Sep 2022 19:40:44 +0000
+ Transport; Wed, 28 Sep 2022 19:40:47 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT006.mail.protection.outlook.com (10.13.177.21) with Microsoft SMTP
+ BN8NAM11FT029.mail.protection.outlook.com (10.13.177.68) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5676.17 via Frontend Transport; Wed, 28 Sep 2022 19:40:44 +0000
+ 15.20.5676.17 via Frontend Transport; Wed, 28 Sep 2022 19:40:47 +0000
 Received: from hamza-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 28 Sep
- 2022 14:40:42 -0500
+ 2022 14:40:44 -0500
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 01/36] drm/amd/display: Program SubVP in
- dc_commit_state_no_check
-Date: Wed, 28 Sep 2022 15:39:53 -0400
-Message-ID: <20220928194028.144879-2-hamza.mahfooz@amd.com>
+Subject: [PATCH 02/36] drm/amd/display: Reorder FCLK P-state switch sequence
+ for DCN32
+Date: Wed, 28 Sep 2022 15:39:54 -0400
+Message-ID: <20220928194028.144879-3-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220928194028.144879-1-hamza.mahfooz@amd.com>
 References: <20220928194028.144879-1-hamza.mahfooz@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT006:EE_|DM8PR12MB5432:EE_
-X-MS-Office365-Filtering-Correlation-Id: 59d6f6cb-a12a-4fba-8bbb-08daa18955a5
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT029:EE_|MN0PR12MB5788:EE_
+X-MS-Office365-Filtering-Correlation-Id: 89507a53-e319-4b1f-13f5-08daa189573f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wa4KkLCT00rgqBxPoidhBa+mmJFMq2607Nn1z9p4/h50lLe5cwmrIjnKh8NMV8kzoNNZyo8Peihfr93Fti0zXdsS2s7G9tDhg/yqnws3bBwcG2rE7WqcPy0HzgenRZOuqlCt7784MSX2TMnET6HYKlU4ij3SkC6mJoBzBmw7I2+H0I2j8mo+M9llsdgQlwJIt2iQGN+ISWqKUT8BkksdNkBXn0WVq+BZkuL/370Ah0Qo3vo1ohLSkA8nbnKtNX7CtTGkdsu2RArxV+AU3jm9ismUbqXxpMR4D14KJPAISFT72a34vtehx+yZagYgtpDk6kx8ATkYGWWjavigVjY/hPBco7qMgl9ofd+CVIpV8xL89ZcgjC/3gmPjiNuQG7c3X+p8BOmWUtRNV9JoTG/AWTFOr8DwAVRRrXExp7LfyNGqKRA8zagcx6c7zdQV+dTYTH+PYH09CQh4iFxrFI/smAPdJR0ccQg2u+BcG1wxzgXGXqPyQLfBilmycUALuJR6875JntJG9OONDpjF+b/zX/chOjvIVtlHn7M8JaP6T3qA+5VWOQW4Z+Mhci1olenh0WLL4HM2anPSG7CA7duPJoKW1vYdkPzTM8CSTeKrz29t3lvPn9Y8+qwgzZ1Ku4T8qVDNPtcHAfOFZRBJcvNW49y/y6uLF5uNQffhZOSzBdyCreVkqkNNoV02mgzcFHBtY86xmL6+BFi7G1eLuRtrZ78/LyBXNUNkH7cWnoSI8lB0+PVsee6nyX6QJuFxFR/Icv8OAhxQ/pOLnJgAnSRguKAfqC+DvdLfJpNltnPGp1TESdlmey8xAgSi6YooQ+i+E5UxOocrD1A6ZB0NLA4W2Q==
+X-Microsoft-Antispam-Message-Info: wkPsAze2s74WbMvLX9WYlHMvkxPVopgytAWq65jmUaGelE3h48u4pvDyYgjZSJtyP9Zhfn9UwGCYezAfm7YMbz38HY+khYOHqcGP+zWdneWRARJcds8XfJGWjdffpygbuKUWKJAFoWU9Pb7cvQQSEdTz3yAUe8IhpPLP8mluCX871m+Ev6TznRrelm009YdGfGqJfdUm6obtL9y3KxHKOwuu5J4RWyiJ+9ODwUetBatpoohw7bA41nUwYfIAojxPyzoIohcr1SGFe9parAg1tNltvjCA4jNDby8RmyVc8eU67hRAk/Eo2KvEyc+25xG1gNImBqEF09UHHeZKNlrWD43sWHOxN2w+qgAPCEXlqPR5ya8mVhbm6qu0tcMKAeRGE/NAfmncAv59GDsB31X2TlFNhLLos3WVMl75jiIyKkoUS2aSCwvsJLeIlQolvXpQTZplwIhHn4hHtD+JssdBX7gMdFwYsNdm9OJUS2DRXqQtQQy/VUz3PvqZzvJQ23XtR4O2jsVvszc0ALi943X/MJICHyixwS8qoKwAVefjQz/RhxWNN1MrgPbBWNjqPT6qJQxHXEiDk7gsCxtdbL1zSi09bUTizqqCqw1nnAX5wsdpCL7y+4AbAaLinsF+6f7PD7Ee3mucELSyfw+WWd1bWyQ/x+X0JAmH67+0u/3AWmo6q4S7CxitkBBLPHD+yJav2/6bqVrotkx13M/wKsPdMeyM5kH0k4BsHRFZ9hI8Soj3Z1bBQVz8tNNOyyEM768BqtxPDYs0HvWVNShZZyS4E2ddJKyTQQTP8OAj5IkW8cEkYBeeyUf2xWMhyyxhgcDP3rsaDAqeXyG2IY/d/qImtg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199015)(36840700001)(40470700004)(46966006)(54906003)(81166007)(8676002)(6916009)(356005)(426003)(478600001)(316002)(36756003)(40480700001)(5660300002)(4326008)(41300700001)(70586007)(70206006)(82740400003)(8936002)(47076005)(2616005)(83380400001)(6666004)(336012)(36860700001)(40460700003)(16526019)(7696005)(186003)(82310400005)(86362001)(1076003)(26005)(2906002)(44832011)(16060500005)(36900700001);
+ SFS:(13230022)(4636009)(396003)(376002)(346002)(136003)(39860400002)(451199015)(46966006)(40470700004)(36840700001)(70206006)(70586007)(44832011)(8936002)(36756003)(41300700001)(4326008)(8676002)(2906002)(81166007)(316002)(54906003)(6916009)(82740400003)(40460700003)(5660300002)(40480700001)(36860700001)(356005)(83380400001)(82310400005)(426003)(86362001)(1076003)(186003)(336012)(2616005)(16526019)(26005)(6666004)(7696005)(47076005)(478600001)(16060500005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2022 19:40:44.5069 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59d6f6cb-a12a-4fba-8bbb-08daa18955a5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2022 19:40:47.2064 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89507a53-e319-4b1f-13f5-08daa189573f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT006.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT029.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5432
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5788
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,69 +111,111 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Dillon Varone <Dillon.Varone@amd.com>
 
-[Why?]
-Currently SubVP programming is only done in commit_planes_for_stream, as
-it was expected only this call would add/remove planes from a
-display.
+[WHY?]
+In some cases, DCFCLK hardmin requests are not acknowledged by SMU as
+the requested clock does not have a compatible ratio with current FCLK,
+and it cannot be changed as FCLK P-state is not allowed.
 
-[How?]
-Add SubVP programming to dc_commit_state_no_check.
+[HOW?]
+Allow FCLK p-state change prior to changing DCFCLK hardmin.
 
 Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
 Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 Signed-off-by: Dillon Varone <Dillon.Varone@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 44 ++++++++++---------
+ 1 file changed, 23 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 258ba5a872b1..2584cb8f44e2 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1734,10 +1734,20 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 	int i, k, l;
- 	struct dc_stream_state *dc_streams[MAX_STREAMS] = {0};
- 	struct dc_state *old_state;
-+	bool subvp_prev_use = false;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+index f0f3f66629cc..96d5e0d5b3ce 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+@@ -333,6 +333,21 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
+ 		if (enter_display_off == safe_to_lower)
+ 			dcn30_smu_set_num_of_displays(clk_mgr, display_count);
  
- 	dc_z10_restore(dc);
- 	dc_allow_idle_optimizations(dc, false);
- 
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		struct pipe_ctx *old_pipe = &dc->current_state->res_ctx.pipe_ctx[i];
++		clk_mgr_base->clks.fclk_prev_p_state_change_support = clk_mgr_base->clks.fclk_p_state_change_support;
 +
-+		/* Check old context for SubVP */
-+		subvp_prev_use |= (old_pipe->stream && old_pipe->stream->mall_stream_config.type == SUBVP_PHANTOM);
-+		if (subvp_prev_use)
-+			break;
-+	}
++		total_plane_count = clk_mgr_helper_get_active_plane_cnt(dc, context);
++		fclk_p_state_change_support = new_clocks->fclk_p_state_change_support || (total_plane_count == 0);
 +
- 	for (i = 0; i < context->stream_count; i++)
- 		dc_streams[i] =  context->streams[i];
- 
-@@ -1777,6 +1787,9 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 		dc->hwss.wait_for_mpcc_disconnect(dc, dc->res_pool, pipe);
- 	}
- 
-+	if (dc->hwss.subvp_pipe_control_lock)
-+		dc->hwss.subvp_pipe_control_lock(dc, context, true, true, NULL, subvp_prev_use);
++		if (should_update_pstate_support(safe_to_lower, fclk_p_state_change_support, clk_mgr_base->clks.fclk_p_state_change_support)) {
++			clk_mgr_base->clks.fclk_p_state_change_support = fclk_p_state_change_support;
 +
- 	result = dc->hwss.apply_ctx_to_hw(dc, context);
- 
- 	if (result != DC_OK) {
-@@ -1794,6 +1807,12 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 		dc->hwss.interdependent_update_lock(dc, context, false);
- 		dc->hwss.post_unlock_program_front_end(dc, context);
- 	}
++			/* To enable FCLK P-state switching, send FCLK_PSTATE_NOTSUPPORTED message to PMFW */
++			if (clk_mgr_base->ctx->dce_version != DCN_VERSION_3_21 && clk_mgr_base->clks.fclk_p_state_change_support && update_fclk) {
++				/* Handle the code for sending a message to PMFW that FCLK P-state change is supported */
++				dcn32_smu_send_fclk_pstate_message(clk_mgr, FCLK_PSTATE_SUPPORTED);
++			}
++		}
 +
-+	if (dc->hwss.commit_subvp_config)
-+		dc->hwss.commit_subvp_config(dc, context);
-+	if (dc->hwss.subvp_pipe_control_lock)
-+		dc->hwss.subvp_pipe_control_lock(dc, context, false, true, NULL, subvp_prev_use);
-+
- 	for (i = 0; i < context->stream_count; i++) {
- 		const struct dc_link *link = context->streams[i]->link;
+ 		if (dc->debug.force_min_dcfclk_mhz > 0)
+ 			new_clocks->dcfclk_khz = (new_clocks->dcfclk_khz > (dc->debug.force_min_dcfclk_mhz * 1000)) ?
+ 					new_clocks->dcfclk_khz : (dc->debug.force_min_dcfclk_mhz * 1000);
+@@ -352,7 +367,6 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			clk_mgr_base->clks.socclk_khz = new_clocks->socclk_khz;
  
+ 		clk_mgr_base->clks.prev_p_state_change_support = clk_mgr_base->clks.p_state_change_support;
+-		clk_mgr_base->clks.fclk_prev_p_state_change_support = clk_mgr_base->clks.fclk_p_state_change_support;
+ 		clk_mgr_base->clks.prev_num_ways = clk_mgr_base->clks.num_ways;
+ 
+ 		if (clk_mgr_base->clks.num_ways != new_clocks->num_ways &&
+@@ -361,9 +375,8 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			dcn32_smu_send_cab_for_uclk_message(clk_mgr, clk_mgr_base->clks.num_ways);
+ 		}
+ 
+-		total_plane_count = clk_mgr_helper_get_active_plane_cnt(dc, context);
++
+ 		p_state_change_support = new_clocks->p_state_change_support || (total_plane_count == 0);
+-		fclk_p_state_change_support = new_clocks->fclk_p_state_change_support || (total_plane_count == 0);
+ 		if (should_update_pstate_support(safe_to_lower, p_state_change_support, clk_mgr_base->clks.p_state_change_support)) {
+ 			clk_mgr_base->clks.p_state_change_support = p_state_change_support;
+ 
+@@ -373,15 +386,14 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
+ 						clk_mgr_base->bw_params->clk_table.entries[clk_mgr_base->bw_params->clk_table.num_entries - 1].memclk_mhz);
+ 		}
+ 
+-		if (should_update_pstate_support(safe_to_lower, fclk_p_state_change_support, clk_mgr_base->clks.fclk_p_state_change_support) &&
+-				clk_mgr_base->ctx->dce_version != DCN_VERSION_3_21) {
+-			clk_mgr_base->clks.fclk_p_state_change_support = fclk_p_state_change_support;
++		/* Always update saved value, even if new value not set due to P-State switching unsupported. Also check safe_to_lower for FCLK */
++		if (safe_to_lower && (clk_mgr_base->clks.fclk_p_state_change_support != clk_mgr_base->clks.fclk_prev_p_state_change_support)) {
++			update_fclk = true;
++		}
+ 
+-			/* To disable FCLK P-state switching, send FCLK_PSTATE_NOTSUPPORTED message to PMFW */
+-			if (clk_mgr_base->ctx->dce_version != DCN_VERSION_3_21 && !clk_mgr_base->clks.fclk_p_state_change_support) {
+-				/* Handle code for sending a message to PMFW that FCLK P-state change is not supported */
+-				dcn32_smu_send_fclk_pstate_message(clk_mgr, FCLK_PSTATE_NOTSUPPORTED);
+-			}
++		if (clk_mgr_base->ctx->dce_version != DCN_VERSION_3_21 && !clk_mgr_base->clks.fclk_p_state_change_support && update_fclk) {
++			/* Handle code for sending a message to PMFW that FCLK P-state change is not supported */
++			dcn32_smu_send_fclk_pstate_message(clk_mgr, FCLK_PSTATE_NOTSUPPORTED);
+ 		}
+ 
+ 		/* Always update saved value, even if new value not set due to P-State switching unsupported */
+@@ -390,21 +402,11 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			update_uclk = true;
+ 		}
+ 
+-		/* Always update saved value, even if new value not set due to P-State switching unsupported. Also check safe_to_lower for FCLK */
+-		if (safe_to_lower && (clk_mgr_base->clks.fclk_p_state_change_support != clk_mgr_base->clks.fclk_prev_p_state_change_support)) {
+-			update_fclk = true;
+-		}
+-
+ 		/* set UCLK to requested value if P-State switching is supported, or to re-enable P-State switching */
+ 		if (clk_mgr_base->clks.p_state_change_support &&
+ 				(update_uclk || !clk_mgr_base->clks.prev_p_state_change_support))
+ 			dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_UCLK, khz_to_mhz_ceil(clk_mgr_base->clks.dramclk_khz));
+ 
+-		if (clk_mgr_base->ctx->dce_version != DCN_VERSION_3_21 && clk_mgr_base->clks.fclk_p_state_change_support && update_fclk) {
+-			/* Handle the code for sending a message to PMFW that FCLK P-state change is supported */
+-			dcn32_smu_send_fclk_pstate_message(clk_mgr, FCLK_PSTATE_SUPPORTED);
+-		}
+-
+ 		if (clk_mgr_base->clks.num_ways != new_clocks->num_ways &&
+ 				clk_mgr_base->clks.num_ways > new_clocks->num_ways) {
+ 			clk_mgr_base->clks.num_ways = new_clocks->num_ways;
 -- 
 2.37.2
 
