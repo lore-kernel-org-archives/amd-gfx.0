@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98E02C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Sep 2022 14:14:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3CF5C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Sep 2022 14:40:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC5F110E5E7;
-	Thu, 29 Sep 2022 14:14:54 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7A2410E5E7
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Sep 2022 14:14:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46E1410E03A;
+	Thu, 29 Sep 2022 14:40:29 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2079.outbound.protection.outlook.com [40.107.96.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74DBA10E03A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Sep 2022 14:40:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jQNcSZkMDnILQTcdedxpGU8nkzpCPGrP5ucnV7Md+4eOryuP7Fkl/PhqEpUGU8cIvXBBBNEQyr7Fn3QVdyjvB2WybGSIUR4RkHOO0f8bgxVPUMUIka+fb6RYRYt2Gm+UiLGZcffuVZaSBm20tbsiQ6tidoTy+GMDjaOD9KKxFvNX6KYRdN1EFbLHkWdGBJnN35dQ+swTHrxhPcPHOdZDfbzbz7Ml2Do4tNz/l/eoIXZ4xSEGn84Qnkt/qR1n1e42JQSdF8k0LAStZlE6GchB7z3Pk4Ztsf1OnWUy0dJDMAv5F3n15oZTzBmSkK6mDV1WDvB+EWpkAJpo4zPUtPfhYA==
+ b=e7KmzxseogLIy+6rJhvUkRCr0w3PXQwebtwuRwGg1ORgOKz+l5zNsQH0HJ8ZKaKh6R7zfHqMD617XL5nnkupyGj9M8yJeDI8y/HrzC6/zLIYa97lka+nhTYTTeLMUzbja/Eiw+yyGMCW4Ij0i/h4cxLp9s4Mf4TQTI8tjRWX+HnNr6BnFaXblq74kuNdW1wUl17N2sLYaQ5tViG2O+KQRhPAnotyjSseZgcMqYSQazRCcuPC3M0uNWIGR7vpjxaZCW33LGYoKOSYR5pDaDzpCOPGqBKCjk+q3s9SOFJXJtXlfQnFKPnlnnjvbrnujoYB7T9f94svBq1dm2jXYj/9IQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FDdTaQr/hkwMfXen7kuPEM7pcrR466M067xK6Da5tk0=;
- b=i7EO2IcVpkjYQkHwhmSUrmy3IgM9PW1WqMOH3JbXSVj0Y5337EJ8P/C4uzvRWQHULXZJ0KmnUfsAptP5tRkHbg6ynMs2PGII7OYMmVtwktRcs+7QwQsHRi8yRZZkPGBI55uUHhJN7Qubmgr/zBhw+kOwd9WIHxtnokzeIQ62qqpnGELIU5FBAvi79MrJnTLztE2GIXOckhHZgnvOjJLoQJ09XVOU2S2X8o7WWoOf+/eyO4LudDBcJLnFcxgG9oUHF5VE8gfU62A+L9HNgfQlkyswiKVqx/Y4aylXB2w1mbK38fAY90e7n2FfJjHvTsxz/jt6i0SwpzKvEWxouWGFMw==
+ bh=jWbNvuOIZpQxbX9m+tUhZkgKJ3NNk5H4rKHigq4Nreo=;
+ b=dSqZeNRKyY1QqDk8QkS0dFeDuKX5rKjaubnFW5NdzBggsg5gguEs76xRxRgmn5DGBDI5x9hTdj5FJPm1rR9+6X38hukCsVU1tfn6dX/9u9y6eRP/d5rzOGZ+SzMhv0xxfj725IMGXuNsrcIHgm75+wmj20kxagDuzd0FTU987ZpSh6YZxnDex2U/X8F39Cr+0tt6c6P8KVKqmf7myU5xs4ik3u71jukwnV+e4xbIzP3GYlF1PPqJa4VhnnuvQsfpAVoZ/8YIhWhioFUJhLRanQmaRYq6+O9YFWoMz1vxpsneKjGuHjXndQGV2vFSGX/toTz3fgEJ3jrbc5WI5r1TAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FDdTaQr/hkwMfXen7kuPEM7pcrR466M067xK6Da5tk0=;
- b=CEopMN0S+ZbuNh/ntK1fZqAHWtBMU4tJu7AoPR3fTZUavxXi0j8BV3sKM0FThc9g2ZkgJofJ/1qH1LY6CF4NrKG3LhjAAX80IJt3AZR8kyFB2XwmaBqa4fZy7bZr8OzRs9AEck8DTSV8LrskAMvQfiJIhVJZpDIwrJ9wQe8IKZ0=
+ bh=jWbNvuOIZpQxbX9m+tUhZkgKJ3NNk5H4rKHigq4Nreo=;
+ b=IMuLny93hd+aCk4GuJI5x7kUeraScWsISYqpoHSpsUQOdsF2sDNqm6WK6RD9ApU4W+9+FUcF932im0HKZNcpr3mlB08qcQaZslGl99BqCyn6de+KWxKdJDz41YclgxogOhMSjKqrKnua3y7rrZfasbexqJzDH2JSJD+yP4LSkB0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by MW4PR12MB6729.namprd12.prod.outlook.com (2603:10b6:303:1ed::15)
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
+ by CO6PR12MB5489.namprd12.prod.outlook.com (2603:10b6:303:139::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.24; Thu, 29 Sep
- 2022 14:14:47 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::1f2e:c1d1:efd4:f918]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::1f2e:c1d1:efd4:f918%4]) with mapi id 15.20.5676.020; Thu, 29 Sep 2022
- 14:14:47 +0000
-Message-ID: <46b27eb5-1807-044f-111a-bb67622e7fd6@amd.com>
-Date: Thu, 29 Sep 2022 19:44:37 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.20; Thu, 29 Sep
+ 2022 14:40:22 +0000
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::fb8b:ad89:85c3:c961]) by MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::fb8b:ad89:85c3:c961%5]) with mapi id 15.20.5676.017; Thu, 29 Sep 2022
+ 14:40:22 +0000
+Message-ID: <eaffd270-49b6-afab-ed14-b43efad25b88@amd.com>
+Date: Thu, 29 Sep 2022 16:40:14 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
+ Thunderbird/91.10.0
 Subject: Re: [PATCH v3 5/5] drm/amdgpu: switch workload context to/from compute
 Content-Language: en-US
-To: "Sharma, Shashank" <shashank.sharma@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>
+To: "Lazar, Lijo" <lijo.lazar@amd.com>, Alex Deucher <alexdeucher@gmail.com>
 References: <20220926214014.5450-1-shashank.sharma@amd.com>
  <20220926214014.5450-6-shashank.sharma@amd.com>
  <6a0d7dea-8c5e-701d-9231-d6f76df76706@amd.com>
@@ -61,72 +60,73 @@ References: <20220926214014.5450-1-shashank.sharma@amd.com>
  <05b4b97e-422d-dc00-bc3f-4dd04758a3c9@amd.com>
  <4cfb549b-9a76-f950-119d-e6e345841d5c@amd.com>
  <fc87e88d-4de0-f307-1fb2-658df564a3a1@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <fc87e88d-4de0-f307-1fb2-658df564a3a1@amd.com>
+ <46b27eb5-1807-044f-111a-bb67622e7fd6@amd.com>
+From: "Sharma, Shashank" <shashank.sharma@amd.com>
+In-Reply-To: <46b27eb5-1807-044f-111a-bb67622e7fd6@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0017.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:95::16) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
+X-ClientProxiedBy: FR0P281CA0006.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:15::11) To MW4PR12MB5667.namprd12.prod.outlook.com
+ (2603:10b6:303:18a::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|MW4PR12MB6729:EE_
-X-MS-Office365-Filtering-Correlation-Id: 37d1c619-bbcb-4219-7117-08daa224f6dc
+X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|CO6PR12MB5489:EE_
+X-MS-Office365-Filtering-Correlation-Id: aee54904-bc38-4314-d536-08daa22889c9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yuaAo+gfLJ23sBIyuKr+kQRib8r8Vxrcfc9Gs/+CpPJtNMLd31jpi0Vz+9hDAK7l4pOdh/6QvcT4vix0RPuLspJbwv0T0A8qxPsarYBnzWeywe0Y7HRTVltEo/leakwTnznIzct4XOCARAQ2Q+ptib39d/GZRtaBOY6PlsfaPSjuCLQCIXHQmZ04wYl4vkdlE96MjX+b5oA2wG7YY7npfIzE+aShtTm/VYzwmaFGO4TnxeoAvFszjepL6wQTkA6BsaN3kW4VNExViNpGx/dVPdxsAaNUUmHgFiXpaXieZFkgm6rZo1TgASkFkAvWJ/8CmUUIZ7/aCY+MgPkI/3cuG3Ofuv44JVXh2tkAJd/mgB4G+SiV4CCkKErbdhj/mhALzJ48sSmOxfCaoyWJyUWEekvQzTGfwopl1VFs/HHOadLHZatd3Eekbaj5P23fQvWFaY6vn1WyS3Peki+2PzuxZXig6QFjzB73D10tCliEFTwvbbSFJcq+aNKU56Thj9nzGYG1t8hBFnij1D7aqq7YwTRCsoMhgk3eA4BjXSE8hpRzmifcrs7+FcN0Wvn1+vy+n/wzqXhkvW1dRgSmv/8W2tUcvU78S6rypAotgdMYUoMBU4NK7oYxSfcR2Tjj8k9DXKJ7Oj/XQS5/VO+9Cs34Of9QHr17urSNruLeXQ46eDY1snq480O5kai9392XeKhb4u8Fgq1YxAztxGyRv7ll70luPqIKegeguGSSG33AO2o1GOeg62M6180w7Udhd974LEHnHecbok2ZZnmIqtrNnNto4RuzRr3ndFTKIonVBik=
+X-Microsoft-Antispam-Message-Info: /j2ueQU2szqhCQt8cbBlPQ3z+aQt6r1wkmfF0Fk3uVuKX3tPuQQ+GIZdPM6+F2Q00l4TPvEUGkuNHNul0puJBh4W9I3kygJXBTJjQRAAhn5czkcpQvwC+QCpf5KTJWav+2Lhu67MSTdORuUJDjVi3Xu2xapKU8XVCpOJ+h6bv3YavzINYt80V7n1laX5/VCc85o2HHkEmD6EMj4ptKNeuUjeEXe9AA/TgjtXMf7kmurtIH4QyiLpXoJXR6VjCMjW4Ic42QKZWtHOec0hiLkiHCJraonXlOa71JKCVzkrf6jQ5xLRD2YMT1rxoFSWgXMz4dYvSaFti/xxb+1TFE5+vm3s1cIc5kUmumjyB5Aigcw5eEdhxqlZjEitLwz2WHrfij7zB22iUMx/d+A4M1355x5o3vXXD7Z5c5ZiOoq46/27asP2gB5P08DWi7/DrcUEvisaQcaBA8glJx2JJwHUzAT3GWUVkoyd6AXFJEbKV4e57m1aKbtQk1yPz0woBvWIW1WMmEjb11yElcRbzn/Rc0jZe4N7nCszFUj1F9z9QUvFiC8r4Oz9Oq/0L9XsLxHavaOQz2mn3afZ4NYS0bKfCJMpLE/CQTLY+tVa0rO0THYiF7GURjszDnjw3pbPY6uIq8CSUBM9tLe/P0IDLObcqpKovaQXSSIjupKBa1GYGhuwxcTrSM4gi9q4c/6ka21LxTQ9yR9mlJgHhTvIuqWlqWzJ94i5mOjiF/RMyxMbvyoaFU9zd2j4EVjwF3Xj4H6Kj3tQRIyo+GMjT3blk8skJ/qp3VtiUXl4OW6+/CVn654=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(376002)(346002)(366004)(396003)(39860400002)(451199015)(38100700002)(83380400001)(31686004)(26005)(6486002)(478600001)(2616005)(6666004)(316002)(6512007)(186003)(110136005)(54906003)(86362001)(53546011)(6506007)(31696002)(8676002)(2906002)(41300700001)(5660300002)(8936002)(66556008)(66476007)(66946007)(36756003)(4326008)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(366004)(39860400002)(136003)(396003)(376002)(346002)(451199015)(31686004)(26005)(41300700001)(83380400001)(6512007)(316002)(5660300002)(86362001)(478600001)(66556008)(66476007)(8936002)(66946007)(31696002)(6486002)(6506007)(4326008)(8676002)(2616005)(38100700002)(6666004)(2906002)(36756003)(53546011)(110136005)(54906003)(186003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eUczNkFuNnhQaERhNDMvNmFDVXFEeGpWY3pVUDR2NGREVnYwc0tmRm1GVGUv?=
- =?utf-8?B?bitOUWFjWk0rdXdiSTd6L2FUaXlCTTEra05KRVpNRTA3VjVKOTNsbXJqRFFD?=
- =?utf-8?B?K2RXZkVVRk5sVnh5MHAydXk3MjluTWdTNjhNdnJ2N000a1Z1Q3pvYVp3aTRj?=
- =?utf-8?B?a043a0U2ZXYwSTBlWkUxWWtsOW96SUFCOXZXL1NlbFlLL3VoczlqV1gxdDZK?=
- =?utf-8?B?Q1BRcXRVUElidU9wK3YrSFRxRXhoczlsdHpNcExzemhIUUdxaEVuZXZnQUNR?=
- =?utf-8?B?ZHBoald0R0xSdFpxb3dBcmc1Y1BlUHpaeTZ0dGMyQWREdkg3bzNhUzVnMi9t?=
- =?utf-8?B?eWFNVDdGaDFNZUxUQjZYb0lzeWhBYXJTTFdSMzBmZlRxU3lWUDRSTTFwa3Qr?=
- =?utf-8?B?RHJ1Z0pWQUkySHNEek5BcWd6WXh3SUlLWnJBRUpxeXZNSGRQekVtTnZXYkYv?=
- =?utf-8?B?VFdNZHRRSHVpTjU2RkZZTWU4SEVNTG5FMDFmRzhtSkZsU1BXeHRFekpRSTJX?=
- =?utf-8?B?ZnZsckxqTGl5ZEk0SU1BcmVIaGcxOWp6OWEzaThmaVV6elh3cTNNZ20rTm1l?=
- =?utf-8?B?MmkzVE12R1hJL2RTQVBrN3cycXFjT3N1aGVRWmlDdCtYcjlPYlBLaXRGTFRH?=
- =?utf-8?B?SkNwL0tsVWZiN2NITG0vekNpRTJ6WDJXbksyQUMrVDMrdDJJeGxHY2JYRExy?=
- =?utf-8?B?d0U1YjZBczYvdVFzRTkxdTBiT2pjOHhCWmwxc2h6TDlsa0hscGpZdHdUSW4w?=
- =?utf-8?B?aUJIazhTc3EzdGpSd2EzbXdOd29oNmxaeWVLdW16aVBTdXoveDBBVHdJZ1B4?=
- =?utf-8?B?azhlWkxrdWNNbU5va0s2YjZYVDFPdGQ0MEpUK2FlUkExOUdpYStpWDBDOFMx?=
- =?utf-8?B?YTlGOElxWUt3cnBzbm4xd1dtYTdpSUtQWHBCRDVhcDVxZjRNblgzdnFHWTdQ?=
- =?utf-8?B?UFE1Z1hrbUNMZkh1c2FTM0oxdTVGRTFlb2svaWFnaEJydFF0NFR2cm5vNFJK?=
- =?utf-8?B?UVpkUzZHazJNell0eW9KRS9xaTMvWmxuQmJLOGM2RjdET3RnZjNUVTV3N0ZI?=
- =?utf-8?B?T0l5WEt3elhkeHc5TFFqSHEzcHNwM0xmVWlvdkE1ZzQvTElNMnZtTm5Md1dj?=
- =?utf-8?B?djBSZlYvYkVsdDF0cVVJTWMvZnliUTh1Njc2V1FtdUhiZzlMcUllTVFZdjVq?=
- =?utf-8?B?akJXRCtMa0l2aW1WSUVTbDlsZncrUlo1aVp5azRwd0ZqeWdKZ0dIODVVWkMz?=
- =?utf-8?B?RlVER1dtZ1ppT3JyYm1SN0hyeE82d0dUVTVGSUVnVDdyY05ZRG1WSlpyazVz?=
- =?utf-8?B?WUljS1AvMGtNUkt5Z2dNTkJzanlOcjFqUVVuT2VtZ1hHZXBFcnpYc21KWE5P?=
- =?utf-8?B?TmtWR0tOQnljWnNXQTNSTlp4cXFPY0VrSEl3Y24wVjR0aE5WZHFmcGhiSGhQ?=
- =?utf-8?B?NkI5aEFRa3lzOXRLamd3THlKZ0VNeTczVWl5OVdLN0hMS01kdExGQVU5MVFL?=
- =?utf-8?B?aUMrMTJQeHdaU2J6YlR1cldCcEpZOEdEZjE5cnhjdHU3WkJYODZWdjRIZHJJ?=
- =?utf-8?B?cVlDeXRlTnd3cGJWZVJ3T3BnM3JXUVhvZm9EU0NRN24wUnl1cG9JcXNhdU1a?=
- =?utf-8?B?SFd1b1FnODFQeXErRmlSSUJOUUpESkxRdFVObzZPbmZEMkZCWnZyK1hXdW1r?=
- =?utf-8?B?WUNjQTRIRzhqeHcxYkhETmR1MlRReXMrQlk3bEg3a0M3TU5TcUlhbmVFL0Rx?=
- =?utf-8?B?alI2TGUzODBjNlVvejVHaklRZnF5ODJxSUJaNHdtT25ORXI3YVB4Zkp4dVhE?=
- =?utf-8?B?WDBUM1FwdEMvU0RDdjZ0Q1llQVl0cnpyMnlYZ3MzTFJaY210eGtnODNYclFY?=
- =?utf-8?B?bmtzSVMyYlFESDROc0RwcEhHOHJKWm4zZTFGN1FKUHRtNE5wUDByUXRpeDJG?=
- =?utf-8?B?NjZHYkVmWXhjYUtMZW1zVHhFajM1THBORitadk5XKzB4Um5PQ3ZHVnpSU3NG?=
- =?utf-8?B?aTFpek8rTTJQUTI2dXZJdjRWdEVMSG9RbnN0NEgxMXlVcnFPWlFxbS9uNWhs?=
- =?utf-8?B?K21uNGJ3S21USkNlSy8zZEg1WStjaXRPeEEzc3lZbExudlU0Mk4yNFJUYlV3?=
- =?utf-8?Q?WbPepbEaBMRSrQapWQ2GjRLTj?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a1dCNFhGejRtdFBjN2NtY2MyVERJKzgzemtnSTU4V2d5SjY0VWcwbVFoWWVG?=
+ =?utf-8?B?NVdqbk1VNHFKcUFiRGxoS0k1U3FHVklmek9CSzRsL3dCSGxXQ0MvS1dvbUxR?=
+ =?utf-8?B?ZVpRbk1MQTlTMmk3MUN0RWVCRk1UQ3d3WlFpdHpIcnAyeFVQbncvZnJFT2Ro?=
+ =?utf-8?B?M3liS3BQV3NQNTNkRnBUYjZMWHVqTUFWanpZckZQK1RUM2xHakdEempQdGw5?=
+ =?utf-8?B?bXQ0d1JwWVkrcUowZWJIRHEwWFhkUXlJRVdLZDVZWkVkazU4QUNzbVNZcnlr?=
+ =?utf-8?B?eTJNNjhlMlc5ZGdpTE9tQ2pMWU5Mc09sSTM1R3piMHp2Zk9JQ3RzWURBTEEx?=
+ =?utf-8?B?SVN1Q3dTbTRTOEJCbGZwN29XazFsNWF5VTZTQ3UrTXhlTlRLamlZRk9tUjRv?=
+ =?utf-8?B?YWNrTVpHSUJ2UFl0ZzNhclVpQk5jMEgvRS9zOE5KQ3duTytNYjU3S0s5MUt5?=
+ =?utf-8?B?M2tIRHBjTDdPUitzbDBrWS85eHlxVGErWktheHZ1V0o4SWhjV2dubGFJU2ZP?=
+ =?utf-8?B?ZVc2SnNId1ljZk9tOHlQRzA1TTZUMFQ0aWtPYVpjZy9PVmNkenNBYnNqRUt4?=
+ =?utf-8?B?c2V4clBodmpLK0JMNHdrSExuZ0VnQlVEYXlrVnVYYk4wVTNzclc5eUFtajBq?=
+ =?utf-8?B?SlZ4UlpMbGpiVTBxb2UwZkR0amZMSCtNYUJoazlWYWliVEVvRFhjeHBUYWFL?=
+ =?utf-8?B?KzhReE5lY25pWU5VeW96Qkp0U01QZFBjOFpJQkw3cDFLaDhxQlJobCtRdU1s?=
+ =?utf-8?B?VHFuZ2tydjIvMUhCQkRpdjdRY2xtZkh6cUtZa0ZqRzlwSDJ4d0swT0VQU09T?=
+ =?utf-8?B?SStpeGNlR0trejRXSXJ5L1BQcVNHcmxRT2RZMFJYYlB2WEtIdWk4SjZxQVpr?=
+ =?utf-8?B?OXgrNC9Uc1FpVlpQcnhsTDlBSVl2NlRjb29mUDBvYkZIU0VYL0ppK3I1SmVz?=
+ =?utf-8?B?N1dJdTRnVi9SakVWK0hIRFNOZ251dFBtaUJGaGdBeFF0cXZ4QXVpZUIySjVp?=
+ =?utf-8?B?cmRKVTNlbjd2WFRQcTFUakVoTjVhK2FrTklyMThmU3VEY3hZUHd0Q1FFNzc2?=
+ =?utf-8?B?c3p6dnJnSGFnaEMzWU9DUU9zUVpGaDZOMUZXMmpIK2FOK3V3S2gySFdod2Fp?=
+ =?utf-8?B?V2xQVm00Z09VUFo0YUlLVVBkbFhkNk5ZV3pESjV5ZG9qZWpyZE5rd3p3SWpB?=
+ =?utf-8?B?S3Q1RVJxbW52V2FJVmRYM3N0ajdBVHg4VkZsU24vNzNYNTYySnVCTXJRS0pu?=
+ =?utf-8?B?T3doSEZXTnJJKzhVVWVHZ2dOR2pyelNmaTc0bnYvWmgyN083Y1RDdkNzYk1Z?=
+ =?utf-8?B?dWpxTUxIa3gwL2RzVEw4c3J4OE5HbmZBUTFZTmMrSlJnb2UrMUpNamErY2Nr?=
+ =?utf-8?B?d0c4YTZuZGp6NWk1NDlqZHIvK1ErbHp6cjM4YXFKOHpMTXhBUy9GN3FuY2FJ?=
+ =?utf-8?B?czZib2s2TjJpZytNWkNoZElGZXB5RU5zNDhUdUpHbG9sT1B3WEsvaWorZjNB?=
+ =?utf-8?B?L3Jpc014dTdGMjBHbE45czYrRDNTRGFEZVNMSGFldHhoZWc2RUtsSUhpbmVC?=
+ =?utf-8?B?cXRhNU9vV1Y2ZVZuSXgyU2hmY1VFQkNZb3RmNUFiWW80UmlkK1lic0VCS0s5?=
+ =?utf-8?B?NUd5Wk1SZnZPVFc5emJ1aWZDUlBCZkVmVkdxOUZSZ25VUXZNcEJTSk5NQzRT?=
+ =?utf-8?B?RkNtM1UrM2FvRkhTVkIrWExlYWhuV29wQjRkcitqY3hFQUdYMGY5STdncHkv?=
+ =?utf-8?B?V3Y3aVJnc3o4bFRjd1JLN25QTEhON0YwV29MaVd2TzQ4Tm9nRFlJM09JSkR1?=
+ =?utf-8?B?MDZ4MTd4dzZvN3lJbXlHdWMrcm4yUStCOW8rM0hyamQ3Z2gvOTNVK00vTnRG?=
+ =?utf-8?B?WDRNcmdRaDV5NjN3dHA5ZDFQUzlET0JYUWdsaW1EbTcrSFd2N0dZMnplNE84?=
+ =?utf-8?B?QmVPcFd5VU9pa3ZmTlZBR29IQWV2NURZN2taRHREeGI0eUNiUVpBNExMeXEy?=
+ =?utf-8?B?YXBGQVhiMUZyYzRqdjBQOVA4bzRkRW5CYnhWYmpHcS8xQndKRWxURnl5bHJT?=
+ =?utf-8?B?QkNFUHljQzE0UEJqdVVRVDU2cWdmV0hoOSsraEdkU1lXQU0vcHFrVXNDc05t?=
+ =?utf-8?Q?qm2hswJ35m3CoKqduyZaz0GAH?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37d1c619-bbcb-4219-7117-08daa224f6dc
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aee54904-bc38-4314-d536-08daa22889c9
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2022 14:14:47.3635 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2022 14:40:22.2162 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XOKNMbz8IV8sNTfHy9/5XpSTjLRTtZ1VjfyV2lJZWC8SEx3/HPY7pxxVI+di1wSp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6729
+X-MS-Exchange-CrossTenant-UserPrincipalName: F/6qZb/z52zKlNfPZAo+0UtjnIlACSgjfnIkGyU4ZzYRMSBz+k1fv7d5i0GW4Sd9ZhPDSlL/vSH8BT2B/uWgBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5489
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,128 +147,148 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 9/29/2022 7:30 PM, Sharma, Shashank wrote:
+On 9/29/2022 4:14 PM, Lazar, Lijo wrote:
 > 
 > 
-> On 9/29/2022 3:37 PM, Lazar, Lijo wrote:
->> To be clear your understanding -
+> On 9/29/2022 7:30 PM, Sharma, Shashank wrote:
 >>
->> Nothing is automatic in PMFW. PMFW picks a priority based on the 
->> actual mask sent by driver.
 >>
->> Assuming lower bits corresponds to highest priority -
+>> On 9/29/2022 3:37 PM, Lazar, Lijo wrote:
+>>> To be clear your understanding -
+>>>
+>>> Nothing is automatic in PMFW. PMFW picks a priority based on the 
+>>> actual mask sent by driver.
+>>>
+>>> Assuming lower bits corresponds to highest priority -
+>>>
+>>> If driver sends a mask with Bit3 and Bit 0 set, PMFW will chose 
+>>> profile that corresponds to Bit0. If driver sends a mask with Bit4 
+>>> Bit2 set and rest unset, PMFW will chose profile that corresponds to 
+>>> Bit2. However if driver sends a mask only with a single bit set, it 
+>>> chooses the profile regardless of whatever was the previous profile. 
+>>> t doesn't check if the existing profile > newly requested one. That 
+>>> is the behavior.
+>>>
+>>> So if a job send chooses a profile that corresponds to Bit0, driver 
+>>> will send that. Next time if another job chooses a profile that 
+>>> corresponds to Bit1, PMFW will receive that as the new profile and 
+>>> switch to that. It trusts the driver to send the proper workload mask.
+>>>
+>>> Hope that gives the picture.
+>>>
 >>
->> If driver sends a mask with Bit3 and Bit 0 set, PMFW will chose 
->> profile that corresponds to Bit0. If driver sends a mask with Bit4 
->> Bit2 set and rest unset, PMFW will chose profile that corresponds to 
->> Bit2. However if driver sends a mask only with a single bit set, it 
->> chooses the profile regardless of whatever was the previous profile. t 
->> doesn't check if the existing profile > newly requested one. That is 
->> the behavior.
 >>
->> So if a job send chooses a profile that corresponds to Bit0, driver 
->> will send that. Next time if another job chooses a profile that 
->> corresponds to Bit1, PMFW will receive that as the new profile and 
->> switch to that. It trusts the driver to send the proper workload mask.
+>> Thanks, my understanding is also similar, referring to the core power 
+>> switch profile function here: 
+>> amd_powerplay.c::pp_dpm_switch_power_profile()
+>> *snip code*
+>> hwmgr->workload_mask |= (1 << hwmgr->workload_prority[type]);
+>>          index = fls(hwmgr->workload_mask);
+>>          index = index <= Workload_Policy_Max ? index - 1 : 0;
+>>          workload = hwmgr->workload_setting[index];
+>> *snip_code*
+>> hwmgr->hwmgr_func->set_power_profile_mode(hwmgr, &workload, 0);
 >>
->> Hope that gives the picture.
+>> Here I can see that the new workload mask is appended into the 
+>> existing workload mask (not overwritten). So if we keep sending new 
+>> workload_modes, they would be appended into the workload flags and 
+>> finally the PM will pick the most aggressive one of all these flags, 
+>> as per its policy.
 >>
 > 
+> Actually it's misleading -
 > 
-> Thanks, my understanding is also similar, referring to the core power 
-> switch profile function here: 
-> amd_powerplay.c::pp_dpm_switch_power_profile()
-> *snip code*
-> hwmgr->workload_mask |= (1 << hwmgr->workload_prority[type]);
->          index = fls(hwmgr->workload_mask);
->          index = index <= Workload_Policy_Max ? index - 1 : 0;
->          workload = hwmgr->workload_setting[index];
-> *snip_code*
-> hwmgr->hwmgr_func->set_power_profile_mode(hwmgr, &workload, 0);
-> 
-> Here I can see that the new workload mask is appended into the existing 
-> workload mask (not overwritten). So if we keep sending new 
-> workload_modes, they would be appended into the workload flags and 
-> finally the PM will pick the most aggressive one of all these flags, as 
-> per its policy.
-> 
-
-Actually it's misleading -
-
-The path for sienna is -
-set_power_profile_mode -> sienna_cichlid_set_power_profile_mode
-
-
-This code here is a picking one based on lookup table.
-
-  workload_type = smu_cmn_to_asic_specific_index(smu,
- 
-CMN2ASIC_MAPPING_WORKLOAD,
- 
-smu->power_profile_mode);
-
-This is that lookup table -
-
-static struct cmn2asic_mapping 
-sienna_cichlid_workload_map[PP_SMC_POWER_PROFILE_COUNT] = {
-         WORKLOAD_MAP(PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT, 
-WORKLOAD_PPLIB_DEFAULT_BIT),
-         WORKLOAD_MAP(PP_SMC_POWER_PROFILE_FULLSCREEN3D, 
-WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT),
-         WORKLOAD_MAP(PP_SMC_POWER_PROFILE_POWERSAVING, 
-WORKLOAD_PPLIB_POWER_SAVING_BIT),
-         WORKLOAD_MAP(PP_SMC_POWER_PROFILE_VIDEO, 
-WORKLOAD_PPLIB_VIDEO_BIT),
-         WORKLOAD_MAP(PP_SMC_POWER_PROFILE_VR, 
-WORKLOAD_PPLIB_VR_BIT),
-         WORKLOAD_MAP(PP_SMC_POWER_PROFILE_COMPUTE, 
-WORKLOAD_PPLIB_COMPUTE_BIT),
-         WORKLOAD_MAP(PP_SMC_POWER_PROFILE_CUSTOM, 
-WORKLOAD_PPLIB_CUSTOM_BIT),
-};
-
-
-And this is the place of interaction with PMFW. (1 << workload_type) is 
-the mask being sent.
-
-        smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetWorkloadMask,
-                                     1 << workload_type, NULL);
-
-In the end, driver implementation expects only one bit to be set.
-
-Thanks,
-Lijo
-
-> Now, when we have a single workload:
-> -> Job1: requests profile P1 via UAPI, ref count = 1
-> -> driver sends flags for p1
-> -> PM FW applies profile P1
-> -> Job executes in profile P1
-> -> Job goes to reset function, ref_count = 0,
-> -> Power profile resets
-> 
-> Now, we have conflicts only when we see multiple workloads (Job1 and Job 2)
-> -> Job1: requests profile P1 via UAPI, ref count = 1
-> -> driver sends flags for p1
-> -> PM FW applies profile P1
-> -> Job executes in profile P1
-> -> Job2: requests profile P2 via UAPI, refcount = 2
-> -> driver sends flags for (P1|P2)
-> -> PM FW picks the more aggressive of the two (Say P1, stays in P1)
-> -> Job1 goes to reset function, ref_count = 1, job1 does not reset power 
-> profile
-> -> Job2 goes to reset function, ref_counter = 2, job 2 resets Power profile
-> -> Power profile resets to None
-> 
-> So this state machine looks like if there is only 1 job, it will be 
-> executed in desired mode. But if there are multiple, the most aggressive 
-> profile will be picked, and every job will be executed in atleast the 
-> requested power profile mode or higher.
-> 
-> Do you find any problem so far ?
-> 
-> - Shashank
+> The path for sienna is -
+> set_power_profile_mode -> sienna_cichlid_set_power_profile_mode
 > 
 > 
->> Thanks,
->> Lijo
+> This code here is a picking one based on lookup table.
+> 
+>   workload_type = smu_cmn_to_asic_specific_index(smu,
+> 
+> CMN2ASIC_MAPPING_WORKLOAD,
+> 
+> smu->power_profile_mode);
+> 
+> This is that lookup table -
+> 
+> static struct cmn2asic_mapping 
+> sienna_cichlid_workload_map[PP_SMC_POWER_PROFILE_COUNT] = {
+>          WORKLOAD_MAP(PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT, 
+> WORKLOAD_PPLIB_DEFAULT_BIT),
+>          WORKLOAD_MAP(PP_SMC_POWER_PROFILE_FULLSCREEN3D, 
+> WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT),
+>          WORKLOAD_MAP(PP_SMC_POWER_PROFILE_POWERSAVING, 
+> WORKLOAD_PPLIB_POWER_SAVING_BIT),
+>          WORKLOAD_MAP(PP_SMC_POWER_PROFILE_VIDEO, 
+> WORKLOAD_PPLIB_VIDEO_BIT),
+>          WORKLOAD_MAP(PP_SMC_POWER_PROFILE_VR, WORKLOAD_PPLIB_VR_BIT),
+>          WORKLOAD_MAP(PP_SMC_POWER_PROFILE_COMPUTE, 
+> WORKLOAD_PPLIB_COMPUTE_BIT),
+>          WORKLOAD_MAP(PP_SMC_POWER_PROFILE_CUSTOM, 
+> WORKLOAD_PPLIB_CUSTOM_BIT),
+> };
+> 
+> 
+> And this is the place of interaction with PMFW. (1 << workload_type) is 
+> the mask being sent.
+> 
+>         smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetWorkloadMask,
+>                                      1 << workload_type, NULL);
+> 
+> In the end, driver implementation expects only one bit to be set.
+> 
+
+Well this seems like a bug here in the core functions, because the 
+powerplay layer is doing the right thing by appending the workload flags 
+keeping in mind that a profile_change can be requested while one profile 
+is active, but the core functions are actually ignoring those flags.
+
+This brings us to look into actual PM FW expectations. If it expects 
+only one flag to be set in the power_mode change message, we don't need 
+to bother about this anymore. But if it can handle more than one flag 
+but the core driver implementation is blocking it, we will have to fix 
+that as well.
+
+@Alex: How can we get more information on this ?
+
+- Shashank
+
+> Thanks,
+> Lijo
+> 
+>> Now, when we have a single workload:
+>> -> Job1: requests profile P1 via UAPI, ref count = 1
+>> -> driver sends flags for p1
+>> -> PM FW applies profile P1
+>> -> Job executes in profile P1
+>> -> Job goes to reset function, ref_count = 0,
+>> -> Power profile resets
+>>
+>> Now, we have conflicts only when we see multiple workloads (Job1 and 
+>> Job 2)
+>> -> Job1: requests profile P1 via UAPI, ref count = 1
+>> -> driver sends flags for p1
+>> -> PM FW applies profile P1
+>> -> Job executes in profile P1
+>> -> Job2: requests profile P2 via UAPI, refcount = 2
+>> -> driver sends flags for (P1|P2)
+>> -> PM FW picks the more aggressive of the two (Say P1, stays in P1)
+>> -> Job1 goes to reset function, ref_count = 1, job1 does not reset 
+>> power profile
+>> -> Job2 goes to reset function, ref_counter = 2, job 2 resets Power 
+>> profile
+>> -> Power profile resets to None
+>>
+>> So this state machine looks like if there is only 1 job, it will be 
+>> executed in desired mode. But if there are multiple, the most 
+>> aggressive profile will be picked, and every job will be executed in 
+>> atleast the requested power profile mode or higher.
+>>
+>> Do you find any problem so far ?
+>>
+>> - Shashank
+>>
+>>
+>>> Thanks,
+>>> Lijo
