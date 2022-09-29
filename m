@@ -4,116 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99312C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Sep 2022 18:00:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61AF8C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Sep 2022 18:08:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FCF910EBB4;
-	Thu, 29 Sep 2022 18:00:37 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2042.outbound.protection.outlook.com [40.107.243.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71C8A10EBB4
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Sep 2022 18:00:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A252E10E048;
+	Thu, 29 Sep 2022 18:08:03 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2078.outbound.protection.outlook.com [40.107.93.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B900E10EBC5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Sep 2022 18:07:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ca4h62LM5GO9hZRwrhKkVt6h1pxg7T4lEEjnTQNrqkMp3S+Fk6ys0/5pAQtOl/Y904vIhorhoDgxvVhTW1gja1OTWm8c6h5r8gtmx7Rgc7qslj8QdyWeCbiJ6gfa1qS0saLg2Pqt+d3/ZmWJe2veCu347PW49ZCfRPYKSluIHF02UQEGQVQYcuRJhmSyysrvKnGGz3H0gD6Z5LUD3cWIsjyvOSPwIQKCY5VUf3a2WTs08tRMuBYU9pGAgM9ii8CI2lERZ4FWpUmRXT/BuU/JMXPO6Nz01JoNzG2au5IRIlFfqpZB+mLdwLEEVXlXwzZXVFd84CCWHKwQs15EFBCOpA==
+ b=XskvLpcq/x2wA5EHXt/4vBjWbLt4sgXG9FiMmYbBnkXZi9Q6o3NDnJ+e5Pam5SPtJfu1CApsSmBXKlX6SljuZhmgVq4yKlvw2B3h8IRoThhRfa0SI6mBJj562tYNOkvmhhdtFRwxk14xDYRACmDv7KBpuaBxeRdUuEAWomcvT3LmCNbCfMrLkRqydC0A3DQPPRz30zN7XfIrBRK5huukVDAFgv9QnYITPfkDqkhKFDTyZh6UyzhzdeabNiZTILtqEetTT3q4eWxj3DcYCp5PWXi9i+b+o3GEQXLxKbOb2Ek+gBpuqpjuQPQ5zHbzguCuF2uPLXZB9/Iyk/5AC4vSmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9h0BCuJ0CXkW8n/CiDucRz1EjhUCXxxsAXkG30rL8/k=;
- b=d7oGZSS65OM7q49PLk9dDttCgq2a53KFA8LKHZNwwgKl98MXxyRmDiJuf+1WTJoGqdyMs6w3wA6BKOdGSto4MuW4rainSB5MzCymazgz8SVs2MwQvLG/m2inlFidj8UL3u1+a6QfnctHGbLztmfmnvyDd+cRB2FFALuf2fnvTxYdJHMpXW0hr2jCkaB6LEdfRBIk7d/8WaZko5z8akaAfAaDEiq+C0Bl/APJsN7PJsIEjtVCgcexGsWmUERf3g79kbW3YO3gr4rCGWOPt9YAbl76GxR3Idw91Hz4/aZUwPEurKYIKiU/dKjqRupQGgVbiaUa2Zlij3LGbph+Cuh38A==
+ bh=TdsGfeWV8G0qeeGeGL8kgig98fPPZax9PJ50NMcWUHw=;
+ b=jALeTTUfbL7l+2CsreIm3Ip/b0aVNGXvvBpDjj1i7w5PplGFt1hZVyqZ2a9gTX3L2t34TB7cY1ah+4QSNhrQ5lUs9vv7NU1nEfonZd58FB5DluzVSIyl6W0Ka6EgLy0NAwsczOLW73vL143tgwJicVoQdQJg3EbeW6wmHhfkMTvbpxA/TNM2YrrLqKwJmvoGMzQ3b+v4tsgptLkm7Fix4mnpa0kAWPV4AJlwFwmWi6qk9SMVXeC3/d3sshIGhZaDMjiwrfTjrXQEvvGBEESiEfT36S/lnitEdCZInI3OWAlsJQea2CDz/hL1nRfrtHB0jeNcn5drQDfm5hH2ylXpDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9h0BCuJ0CXkW8n/CiDucRz1EjhUCXxxsAXkG30rL8/k=;
- b=w8rUwc76HiqZeD8nnwQcDX8mshE/Vovwi/6SnTgTPxm9JgiRWvI1k6o3R6IODm7y+QfrIa1prVgcxFCUjiIx7jFVwwOabF31z1uotXFx6RnsMmZhPhNT7oI3eppSHBSbOWGtuCOnGUtKEGxfGM5GYdlYlCO0nZm5dk0IgqgENDc=
+ bh=TdsGfeWV8G0qeeGeGL8kgig98fPPZax9PJ50NMcWUHw=;
+ b=A1ZOyZbB8cot5Ys7D8EqJm2p/hXUgmdVn+4wB/s6EU936Dozc09U9j6njaqnyxdVsx2Mby1L6rQTfOXfqcXICERMWNMXdDj5LwQ6/k8pgrfNIFiRMC1VNmJolM3DCDoMx25BH7oKXyTpeJdEKZdPRPZPpNoT3PX/G5krQ7mAewE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM6PR12MB4863.namprd12.prod.outlook.com (2603:10b6:5:1b9::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.22; Thu, 29 Sep
- 2022 18:00:31 +0000
+ by SA0PR12MB4381.namprd12.prod.outlook.com (2603:10b6:806:70::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.17; Thu, 29 Sep
+ 2022 18:07:56 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::3de4:456f:800d:e013]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::3de4:456f:800d:e013%5]) with mapi id 15.20.5676.020; Thu, 29 Sep 2022
- 18:00:31 +0000
-Message-ID: <f14b070f-4ab8-7403-9c48-f9951708ecce@amd.com>
-Date: Thu, 29 Sep 2022 14:00:30 -0400
+ 18:07:56 +0000
+Message-ID: <be0e9a44-a285-49b4-7b2f-afd68930e812@amd.com>
+Date: Thu, 29 Sep 2022 14:07:54 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH v6 1/1] drm/amdkfd: Track unified memory when switching
- xnack mode
+Subject: Re: [PATCH v3 5/5] drm/amdgpu: switch workload context to/from compute
 Content-Language: en-US
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220929164712.26962-1-Philip.Yang@amd.com>
+To: "Lazar, Lijo" <lijo.lazar@amd.com>,
+ "Sharma, Shashank" <shashank.sharma@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <20220926214014.5450-1-shashank.sharma@amd.com>
+ <20220926214014.5450-6-shashank.sharma@amd.com>
+ <6a0d7dea-8c5e-701d-9231-d6f76df76706@amd.com>
+ <aa663a5a-3bc4-393e-ff4b-73e3247e79fa@amd.com>
+ <6d8dd85d-5d6f-8364-b710-9483944a2090@amd.com>
+ <d4037915-2281-b12b-e38b-2e947fb34c75@amd.com>
+ <72aa5f24-8f66-2a8b-3338-a082541dd4aa@amd.com>
+ <CADnq5_PavsH-=7hQjWn7aBSCVs30AYdNa_ixDUn7o-BRLh=78A@mail.gmail.com>
+ <546cc67c-f17b-de76-afa1-2823f09120e8@amd.com>
+ <CADnq5_Mg7GFW=s6W5xeGa5vG7_GmedsP6uQG_dpZKkzp1CDJqg@mail.gmail.com>
+ <5bf6d05a-58e4-0057-1445-9369b20b1a67@amd.com>
+ <369b2225-87a3-b976-bbd1-6f73f190b44a@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20220929164712.26962-1-Philip.Yang@amd.com>
+In-Reply-To: <369b2225-87a3-b976-bbd1-6f73f190b44a@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR18CA0022.namprd18.prod.outlook.com
- (2603:10b6:208:23c::27) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: CH0PR03CA0413.namprd03.prod.outlook.com
+ (2603:10b6:610:11b::11) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM6PR12MB4863:EE_
-X-MS-Office365-Filtering-Correlation-Id: 526bc6c7-421b-4b07-0d49-08daa2448010
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SA0PR12MB4381:EE_
+X-MS-Office365-Filtering-Correlation-Id: 579bf85d-3717-4c5f-8d7e-08daa24588d6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: r7gOET1mkk1bbTE1SxQwByvtW/io5DWMKVNg5qbLOP/w+cZZC17XEitRZWF1t+u0JOUzPi/ylhFydkviqUSta388MB8cMclLXh8cicNmS9wCwyECtaBpVFxGl0/iCJb9PWpRgZm3BHw4fNSHQFZsnXgf/NWLfxo/KDAdsYJ3yB7O/tZTxKBYc50hS4H0KJfh1rPDYZ6BtK5ab5Z1v+0cHFu/FSKr3JTxp60Dvjv2t8GWG8Ok/7YFFzOtGeFQz58RrHQMyvWccMnhtm6EyytA3c09wc8RKHQCZPbZX8XxF/yK4oSrUP/6uaQrFtIyKkb4ZwYT6JXSMBqwcwzQ9Vm4qK88X8V94Td8kY7HVsLLjZ4Gs0diA4KAu5l+/jaVQz1EeH5B8zIZcYYTKNq2EilkJgLbJPTS3jUOmc5fPyulap8xQkGdYkxnGI8zrNg+ntymDFR1NG19VqtfArAaRbiicHcPyWiEld+1iRuKmYXEeOTkzJKFhD9/ejV6oTAbDFZeivo0LgOsfwESRHfIZA+k04gnJ81uePOjNl21E53JR6v7bPM87AaI4JTiGAEqhrUFfhRgAgSwcIZAOoUR7SPHqN6eiHyLXB9fPMb4JAsWRFnOdhgkxJBHR6JwZjKtTCPAwiYEi8swQcB5RgibqdI4Nrxydx2JBQGmZZnL17ryzDwz5d3FJ5w3qv62aYV0HNQYrTCeZPjHJEpNwlKs3V0o4gWJu6sQyaZlkzn0DLTyoLP2rN354/y33Mg8o9EQ016HKwkjLGHg+JjppBG/jAB8bmfTjqM3lb05YO6eUeRKoyg=
+X-Microsoft-Antispam-Message-Info: XDWVeM3t5mLa1xGp680742eJzsk2Yi82bq1+WJuemozJmLPX8sxo/JD3x+GE2BvzzGvzsDcLczUzTQPvRxHH+N+0OR+QbcvZA6hyqKP2r5jr+LjKU9/Te2kzoqKdZy5vaQfFpIqudbCFSqekZasH4LuB/kSHUVoVpPtzysgmTZ7f7YQxKM3BG13AeniVyPx5vfVtZPTeffHtMPc43TzAepeRAqpDT0w0vePn942CnNV5yoWCXRZROLjH4UX7GJ6bZC1g7V538Jmqx9Y0s7WTg6gFwO4nqA5ab9s4J6R8aWKn/KjZb4TlgaGgkPEMNuBGKD71pGPLATOhyyiNshPuF/9P6Lx8rJ7W2vE0SC8xH+kcnGHxGhQFyfWeybICsPXTWod2CgYdEoBxyvtbP0aNZh7PElJECS/nXbyOfVVYcxhr/bbtezBoi45q85ExvHw1Plb8gIlJmB97tin3sRJ3WCHCUoOeLblqCko7oGZuapvB4X82+bX3RHLfEFefnOgfMtAYQcWPCTmK5LZOiny87bZcZC8A3EtjVP8yjiwVQsSrC8CBuJ1OqO/iySX8TPExGKphkKyt9uCg4aZUb9jh3Xs+H3FyU6YfxW8pEoMLoDl8ZFvSlG+Lnz6MrBrsygJ+XMKwlsQCt4OdZzC3XaNaiZC6qeGkos75ukZt2Xy10E4aAjGxM/EggMzn0Qnc+b3wXJYg5mn06lMRb4GwPb+6lhFLm8DqwESmGVRLW6xpJZAfDIKmbFZijyYOA6zq5FzlfuxyUm+QFb96+3SRVpwT+8i2Y2w+m8rCFTfLaplBKoXApQEkFrM9xkSgmN2qD6be1JsB7/hmKwc2x7lYwgdEJisvSzFtL7kh+p9g557keaGvi4t6f9R2CKF182Bf/Qtb
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(39860400002)(376002)(346002)(396003)(366004)(451199015)(6506007)(53546011)(26005)(186003)(2616005)(6512007)(66476007)(66556008)(66946007)(44832011)(8676002)(6486002)(36756003)(36916002)(5660300002)(478600001)(38100700002)(31696002)(41300700001)(86362001)(8936002)(2906002)(83380400001)(31686004)(316002)(45980500001)(43740500002);
+ SFS:(13230022)(4636009)(346002)(136003)(396003)(376002)(366004)(39860400002)(451199015)(6506007)(31686004)(2616005)(26005)(53546011)(6512007)(316002)(38100700002)(6486002)(966005)(86362001)(31696002)(44832011)(36756003)(83380400001)(66574015)(36916002)(186003)(478600001)(5660300002)(8936002)(30864003)(110136005)(41300700001)(4326008)(66946007)(2906002)(8676002)(66556008)(66476007)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RW5wT3d1ejQ3K3p6RmVWQU1NVy9Pbm5iNzEwZWc1d25ONVFrS1U1eTJrV3g1?=
- =?utf-8?B?a0xKRHZtallFZHdndkNGT2xtaTVUMUZBelZ0OXJ5Z0Z5Vk55ZjU5ek8xMzRK?=
- =?utf-8?B?dnVCWWIwVERXell6QWQwRTl4UjRMbDZoN1JSc2xLcmN5SU5xQTZZb0Q0NXdj?=
- =?utf-8?B?bzAvb2dGWlE2SXI0bVl4dWtLaDlLTWx1SGhyaTZVZTUwY3pwcVdWa0YxbTFU?=
- =?utf-8?B?S1EvU3lvaDhaNFRxTDBQTys4Tm16ZC85WmwwYUROOVJCYTRFQVpQZkllN3Mv?=
- =?utf-8?B?eEtQK05DbzBkSmp3ak1Vb00ySkdPRExkOUxpOHVNVlFtTHkyVlY0Q2twaGtw?=
- =?utf-8?B?cExQeGRUSGtrRklERGh5aTlJeDE1alZHMWFKUmlmWVA0ZlBBYXExS2VLY0VR?=
- =?utf-8?B?ZDg3eGxMdXRXSGcySDdpYUtRZENENk5Bd1B4Q1VZS0JrWVQ2akUwRlFhUmg0?=
- =?utf-8?B?Smo2c3BraDFtNXJpSFhlZXA1VWNObmE5NFBNUHM3eFNyTWxJMS9FU0p2cyt6?=
- =?utf-8?B?YlFwM2h1R2RhWHRnTFkrbW4raVZsVUFHNkl6RjZBQk1uVVdLT1pvMEdmOUJ1?=
- =?utf-8?B?WXBwZkZSTk00OUw0elBtcG9RdldlQ3VvbmdILzJybGNkbEJxbThyQ1dhbThV?=
- =?utf-8?B?bTFHREFFZTNjTXJVWmhUdzVvSEprUUpLUyttamE2OVRFaGgvemQreXB4S1JF?=
- =?utf-8?B?cithZzREd2ZLSHlMVUNlVDF1TlFid0I0a1hkakkzQ3FwaFROenBoOGhxa1g1?=
- =?utf-8?B?Zk5ORW0rclNjYjk0WjdFTWJRQ2tFVGxjZTdUbVRwM0ppdGhPRzB3UG1USFUw?=
- =?utf-8?B?VEZVNGEvSVg2OFQ3VmRmcGh0TVRJOXBpU0xlL3ZqTFNRVFVHQnllUEpQS1FP?=
- =?utf-8?B?TDZDUmZEY1F2RS9xZ04waXVPeHB4ZUFsZC9wRG9nZG85Vm9BcWxIajhOVnNs?=
- =?utf-8?B?bE81dDFrRzdIQzlpRE9IdXV6UkNValY5cEZsZTZRNTVkOURlQ0N6Q3RxRU9l?=
- =?utf-8?B?L0dqY1JaWFlUdTlCam1zNXpXODRaWUhmQVl2M0RVQ3kvT1AwMzN2aFhnWDl1?=
- =?utf-8?B?NWU2bUgxOVZaNERtOE45Z3YrcXMxV3J2b2ZRb0NISDZFcGEzMERWZlRjQUp5?=
- =?utf-8?B?ZHNBcVFac2Mvd0lEaFRuT3pmQkJMVU04aWErLzFHTlVQRm1PNCsvNkU2cG5v?=
- =?utf-8?B?c05hZG12SGdmTUVUQ3lJTXNzYkdHdldYc3BIc3ViaEdMYm5JNmxqSUlYWHZ3?=
- =?utf-8?B?eUR6UEVEdjMzbldabWs3a0EwSXg3V2RpdjFNcmlGL3FUdmtyM3pzdzBoQWNB?=
- =?utf-8?B?Mm1mbHh6NGE5RkdBWldWRlIwRVh4RmFhdFQ1c0txSE9BQTRHUVp3ckF0amtO?=
- =?utf-8?B?a2RZSDZZTk9seE0zcGRFeUhxK0VSM0NvVXFMZXhvY0tqZkJhOXlwbGVZRlE5?=
- =?utf-8?B?Rzh3ZjhlM2RJd0MybTg1Y3BHei8zWFhxenpZdzY3ZEZOS1QyRVlsbE1mbGR3?=
- =?utf-8?B?bFZlZ3E3UWc3Z1RDRUFSbjlVZFpvYmNSdEN3VlFUWnFLbEpZTjlkSzBFRktW?=
- =?utf-8?B?azVtV0t4cXFDRzZSdlM5azZpd1ZWbHA1cnZPc0twTy9Dc08yUlF5SXBFMHJF?=
- =?utf-8?B?ZjZLSDRwU0xuZWhpSExjRW1oZHRGZFNQbTcxZVFDSCt0TG5EbWlVWTBpZUZm?=
- =?utf-8?B?cWxvU0M3NU1BRU5aL0Y4SnkzQ1F4Qnh0MmZLeUkwMjFITjVpY1FsUy9LcDc4?=
- =?utf-8?B?N2NITi9GMlZxM1UyUHBVeFFLeHROV2F3dGxDV20yZFF2Y3NDS25ScUZiMmFw?=
- =?utf-8?B?WWFNeEsrcXJpTjFuS1FOYkdwVUhrRzAwZEF4Q29RWlFLT1dvL0FrVStGb29V?=
- =?utf-8?B?cGUvLzJMM3N0VlE5NjB2UkozWnJGYWpGMStsd2pzRWIrZEQxbFlvdGtpRmhq?=
- =?utf-8?B?WnVoRm9BY1Byd2wxd2swcmZZTmFHcDNzVkFjYkZuSXNwZDhZY04wZDhocjUw?=
- =?utf-8?B?ZFFRdDIrWXNaWW1wcVZOUmRNdkthZzFWTjYzUGdXaStsdUFXeHpZUGZqY3Jl?=
- =?utf-8?B?OXdOenZ4Z25iMmVaMzlFVWVnUlBNcE1EbUpENy9qSnJDbjc0aTdSVWJRRElH?=
- =?utf-8?Q?Isie284UJQm3nU6s2KB5JT9qs?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YjcvNWVmVDMyV3JJR2dOZVdweXhaWmRqMWF0LzBhMW4xeFpUekNxekQ3RHlJ?=
+ =?utf-8?B?aHFiNmE0aE9YYmNxclI5LzJ0eHNZczBlY2lNbzg1akExcWFqeks2K1lCeU0r?=
+ =?utf-8?B?eFJwMlVkdm8vb2VGOVRvYzB5Q1puRSswN3paU2c0K0lTK2tSTFg0bTl4ZzNP?=
+ =?utf-8?B?UERwaWc2T0tlUGlTa1A5WmhaZFhEUzZ1a3NrTEpsR2piUnN2aXk5L1pNN2hW?=
+ =?utf-8?B?a20zNUtnK3ZQVjBjQmM4UmJLTmtadGVvSHViVUx0Skk0NFFvYzV2VEU2aE5D?=
+ =?utf-8?B?SWRZcVoydGMzUTF5N3IzWWZiQU1VQkRpVFhFaTJwZ2NYUnh1Y29ycXkzUndP?=
+ =?utf-8?B?UGhxd1NTTlkvYk5OTlFPTmwrajNTYlArOGVNWVhOK3c1UldteG53VDJuM1Vz?=
+ =?utf-8?B?UUI4bk9JSkxqWTlCUnl2ckZhcm1yTHJFZ1V3Z2pPYlRoZ3ROZkxNeGI2YnhL?=
+ =?utf-8?B?SUdFMW0vck04Z0NtRTh4cHJsVmVpekFJR2VWSGtBSmxCRG9ORFJDSklzMGpI?=
+ =?utf-8?B?VnBBM3paeXB3RGU0VWNQMitWVkNsY3Bhc0tITTZkR1RpWFUyZEJydWcvTmpL?=
+ =?utf-8?B?U3hTc1AzaUdpSVk0TWFrc1FLZG5EQnlyd3pNTlc4c2xGRlJ4Skx3Y0xiMVEx?=
+ =?utf-8?B?ZTVzdmE2bTZBZ3lxeGh5NnJQS1pYTFZEVyt1dHIrRElLUGlVQlVWWDZZL3FH?=
+ =?utf-8?B?dUl0S3JyWFdmVnV5R1JqODhXZXQ2bGdMeWg0VFZnNVRKU1piQllEUGhlWlB4?=
+ =?utf-8?B?bTlFU1RoTVloR1VBZjBVYy9yRytmcXQ0TW9rQTByUWVhUjFsY1Y4aTZIV25u?=
+ =?utf-8?B?VXh6dVFBb2JCM2hKRmN6SGg0YmFMUjJIUjlSSU1WbENFcWppUWhlYW1CVGFV?=
+ =?utf-8?B?TFJvaEZYL0M2SzlHK3lJczVXV2tOQ012L0p3ZW53NzVSSjhlVHUyanBYM25O?=
+ =?utf-8?B?eENsMEVDa01jR3ZYWE5oWis1U3BDM0JUbFdHVzBqKzRuZXRXR25CdlEwK0N6?=
+ =?utf-8?B?dHpLYy8xTW9OSEJaeEZJZDhKbUZOaU9iNk9xbmE5MmR2T2xuMmo2MmxVNlBt?=
+ =?utf-8?B?NXh2MWNVUE4yMDVpMVhxUE1oVkRsemF5VUlEdnBPekQvcjZxdmlmYWJvVldm?=
+ =?utf-8?B?YzZLNHg1NjlTRi9GZHZ3dGdUS1cwT3NMY2ZlUFAzS2ZFZ2NpdzVuQVBHNG9E?=
+ =?utf-8?B?OW1iTUlveGVKZ0tjMHRJUHYvUmk1QnRhU0QwVHg0R244cnZJeWNoMUw0MVJR?=
+ =?utf-8?B?TVVRK2NuUVlCQ05VWnFtVTA5eUlpYUdSNkIvUEkwSmR5ZHEwNmo2c0NhbXFv?=
+ =?utf-8?B?Rk5TdTk1Q3NRZTZOQ3IrcWNDa2tPWm9lN2dEN2RURWQ4dThIZE5EbzZLcitu?=
+ =?utf-8?B?WXpDdjNVZjlpQ0JnOGZyNFM5NlE5ODFzVnNHbVVDRGNtUGwrUEgxK1g4SEx6?=
+ =?utf-8?B?RFFjRitOa3h1dERoY1A0OVBVend6UTVXaDhWYlZDdkZZYnlmUmd1R1Y3SVMy?=
+ =?utf-8?B?UEY1Qzc2RUhzYjNGYmRBMjlPM2xhL3dkc3JQQW8vOVVEQldES210M3h2QlY5?=
+ =?utf-8?B?bitGeS91Q0RTU1h1Ym5wa3FRUjVmVDFNMWNXV0xvVW1RbXlBc01lck5KNWZC?=
+ =?utf-8?B?SGo2a01mL1NwUElQSkk2THoyY1l1bHByeEJGelFrdTAxWitWY2NyZmsvd0Zy?=
+ =?utf-8?B?ZDNGRCtVUG0zQm1VUXRiWjF5QzlFaDEwckdyY0RYQmdYUmhqTE0vTWFXdTlx?=
+ =?utf-8?B?UDloNEVLMWJ3ZlVmODdRMkJpV3JKbTBxSVhuMlhNRXFUNlRLOEVDZ0RVQnV0?=
+ =?utf-8?B?OWQ3cjdURm16NlBrZzBYTytXSjNrOVMzeXRobVJYK1BhTDZZMm9UKzFqREVF?=
+ =?utf-8?B?ckdmU0VxNTdTZ29UT2tncGs5Q2Flb2hka0kyYjVuckJ3RGg2clFKN21VeXNq?=
+ =?utf-8?B?WFB1ckplaEpIOXpkUmlpK0RFN2Z0RFFOS1RPVEU1c2k5UFpmNkc2eWZQeHNO?=
+ =?utf-8?B?NnBFVnZwQngycGhpK2tjOU0vMXdqNGE3OUNMM0VyRUJodGhmdkZ5dk1oRVRH?=
+ =?utf-8?B?WmF0T0lKOEEwNk5CQVlnRTBhNnZlck1iUExDSit6cGdxSFRSZTBSbGxPR2dU?=
+ =?utf-8?Q?B/BGEUXzd0JtaLZH7Pt6y8GVa?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 526bc6c7-421b-4b07-0d49-08daa2448010
+X-MS-Exchange-CrossTenant-Network-Message-Id: 579bf85d-3717-4c5f-8d7e-08daa24588d6
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2022 18:00:31.8232 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2022 18:07:56.0270 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ATe6k7neenwk9vxaeL+EEMuKMtotfcvs+JO0nUZ4CHXCiEqch8aXsBWW7DBoFds1ET49Sjc05168zpkWgL0YFg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4863
+X-MS-Exchange-CrossTenant-UserPrincipalName: /FT75pOmrEWDFf4P+FIsDFmecXDuW/Vmk5b+AjMkWLrjJRYxPuCgxoKxhmGBbip6B134LhgZpKmSRkgc86SdXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4381
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,192 +137,327 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alexander.deucher@amd.com, amaranath.somalapuram@amd.com,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-09-29 12:47, Philip Yang wrote:
-> Unified memory usage with xnack off is tracked to avoid oversubscribe
-> system memory, with xnack on, we don't track unified memory usage to
-> allow memory oversubscribe. When switching xnack mode from off to on,
-> subsequent free ranges allocated with xnack off will not unreserve
-> memory. When switching xnack mode from on to off, subsequent free ranges
-> allocated with xnack on will unreserve memory. Both cases cause memory
-> accounting unbalanced.
+On 2022-09-29 07:10, Lazar, Lijo wrote:
 >
-> When switching xnack mode from on to off, need reserve already allocated
-> svm range memory. When switching xnack mode from off to on, need
-> unreserve already allocated svm range memory.
 >
-> v6: Take prange lock to access range child list
-> v5: Handle prange child ranges
-> v4: Handle reservation memory failure
-> v3: Handle switching xnack mode race with svm_range_deferred_list_work
-> v2: Handle both switching xnack from on to off and from off to on cases
+> On 9/29/2022 2:18 PM, Sharma, Shashank wrote:
+>>
+>>
+>> On 9/28/2022 11:51 PM, Alex Deucher wrote:
+>>> On Wed, Sep 28, 2022 at 4:57 AM Sharma, Shashank
+>>> <shashank.sharma@amd.com> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 9/27/2022 10:40 PM, Alex Deucher wrote:
+>>>>> On Tue, Sep 27, 2022 at 11:38 AM Sharma, Shashank
+>>>>> <shashank.sharma@amd.com> wrote:
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>> On 9/27/2022 5:23 PM, Felix Kuehling wrote:
+>>>>>>> Am 2022-09-27 um 10:58 schrieb Sharma, Shashank:
+>>>>>>>> Hello Felix,
+>>>>>>>>
+>>>>>>>> Thank for the review comments.
+>>>>>>>>
+>>>>>>>> On 9/27/2022 4:48 PM, Felix Kuehling wrote:
+>>>>>>>>> Am 2022-09-27 um 02:12 schrieb Christian König:
+>>>>>>>>>> Am 26.09.22 um 23:40 schrieb Shashank Sharma:
+>>>>>>>>>>> This patch switches the GPU workload mode to/from
+>>>>>>>>>>> compute mode, while submitting compute workload.
+>>>>>>>>>>>
+>>>>>>>>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>>>>>>>>>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+>>>>>>>>>>
+>>>>>>>>>> Feel free to add my acked-by, but Felix should probably take 
+>>>>>>>>>> a look
+>>>>>>>>>> as well.
+>>>>>>>>>
+>>>>>>>>> This look OK purely from a compute perspective. But I'm concerned
+>>>>>>>>> about the interaction of compute with graphics or multiple 
+>>>>>>>>> graphics
+>>>>>>>>> contexts submitting work concurrently. They would constantly 
+>>>>>>>>> override
+>>>>>>>>> or disable each other's workload hints.
+>>>>>>>>>
+>>>>>>>>> For example, you have an amdgpu_ctx with
+>>>>>>>>> AMDGPU_CTX_WORKLOAD_HINT_COMPUTE (maybe Vulkan compute) and a KFD
+>>>>>>>>> process that also wants the compute profile. Those could be 
+>>>>>>>>> different
+>>>>>>>>> processes belonging to different users. Say, KFD enables the 
+>>>>>>>>> compute
+>>>>>>>>> profile first. Then the graphics context submits a job. At the 
+>>>>>>>>> start
+>>>>>>>>> of the job, the compute profile is enabled. That's a no-op 
+>>>>>>>>> because
+>>>>>>>>> KFD already enabled the compute profile. When the job 
+>>>>>>>>> finishes, it
+>>>>>>>>> disables the compute profile for everyone, including KFD. That's
+>>>>>>>>> unexpected.
+>>>>>>>>>
+>>>>>>>>
+>>>>>>>> In this case, it will not disable the compute profile, as the
+>>>>>>>> reference counter will not be zero. The reset_profile() will 
+>>>>>>>> only act
+>>>>>>>> if the reference counter is 0.
+>>>>>>>
+>>>>>>> OK, I missed the reference counter.
+>>>>>>>
+>>>>>>>
+>>>>>>>>
+>>>>>>>> But I would be happy to get any inputs about a policy which can be
+>>>>>>>> more sustainable and gets better outputs, for example:
+>>>>>>>> - should we not allow a profile change, if a PP mode is already
+>>>>>>>> applied and keep it Early bird basis ?
+>>>>>>>>
+>>>>>>>> For example: Policy A
+>>>>>>>> - Job A sets the profile to compute
+>>>>>>>> - Job B tries to set profile to 3D, but we do not allow it as 
+>>>>>>>> job A is
+>>>>>>>> not finished it yet.
+>>>>>>>>
+>>>>>>>> Or Policy B: Current one
+>>>>>>>> - Job A sets the profile to compute
+>>>>>>>> - Job B tries to set profile to 3D, and we allow it. Job A also 
+>>>>>>>> runs
+>>>>>>>> in PP 3D
+>>>>>>>> - Job B finishes, but does not reset PP as reference count is 
+>>>>>>>> not zero
+>>>>>>>> due to compute
+>>>>>>>> - Job  A finishes, profile reset to NONE
+>>>>>>>
+>>>>>>> I think this won't work. As I understand it, the
+>>>>>>> amdgpu_dpm_switch_power_profile enables and disables individual
+>>>>>>> profiles. Disabling the 3D profile doesn't disable the compute 
+>>>>>>> profile
+>>>>>>> at the same time. I think you'll need one refcount per profile.
+>>>>>>>
+>>>>>>> Regards,
+>>>>>>>      Felix
+>>>>>>
+>>>>>> Thanks, This is exactly what I was looking for, I think Alex's 
+>>>>>> initial
+>>>>>> idea was around it, but I was under the assumption that there is 
+>>>>>> only
+>>>>>> one HW profile in SMU which keeps on getting overwritten. This 
+>>>>>> can solve
+>>>>>> our problems, as I can create an array of reference counters, and 
+>>>>>> will
+>>>>>> disable only the profile whose reference counter goes 0.
+>>>>>
+>>>>> It's been a while since I paged any of this code into my head, but I
+>>>>> believe the actual workload message in the SMU is a mask where you 
+>>>>> can
+>>>>> specify multiple workload types at the same time and the SMU will
+>>>>> arbitrate between them internally.  E.g., the most aggressive one 
+>>>>> will
+>>>>> be selected out of the ones specified.  I think in the driver we just
+>>>>> set one bit at a time using the current interface.  It might be 
+>>>>> better
+>>>>> to change the interface and just ref count the hint types and then
+>>>>> when we call the set function look at the ref counts for each hint
+>>>>> type and set the mask as appropriate.
+>>>>>
+>>>>> Alex
+>>>>>
+>>>>
+>>>> Hey Alex,
+>>>> Thanks for your comment, if that is the case, this current patch 
+>>>> series
+>>>> works straight forward, and no changes would be required. Please 
+>>>> let me
+>>>> know if my understanding is correct:
+>>>>
+>>>> Assumption: Order of aggression: 3D > Media > Compute
+>>>>
+>>>> - Job 1: Requests mode compute: PP changed to compute, ref count 1
+>>>> - Job 2: Requests mode media: PP changed to media, ref count 2
+>>>> - Job 3: requests mode 3D: PP changed to 3D, ref count 3
+>>>> - Job 1 finishes, downs ref count to 2, doesn't reset the PP as ref 
+>>>> > 0,
+>>>> PP still 3D
+>>>> - Job 3 finishes, downs ref count to 1, doesn't reset the PP as ref 
+>>>> > 0,
+>>>> PP still 3D
+>>>> - Job 2 finishes, downs ref count to 0, PP changed to NONE,
+>>>>
+>>>> In this way, every job will be operating in the Power profile of 
+>>>> desired
+>>>> aggression or higher, and this API guarantees the execution 
+>>>> at-least in
+>>>> the desired power profile.
+>>>
+>>> I'm not entirely sure on the relative levels of aggression, but I
+>>> believe the SMU priorities them by index.  E.g.
+>>> #define WORKLOAD_PPLIB_DEFAULT_BIT        0
+>>> #define WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT 1
+>>> #define WORKLOAD_PPLIB_POWER_SAVING_BIT   2
+>>> #define WORKLOAD_PPLIB_VIDEO_BIT          3
+>>> #define WORKLOAD_PPLIB_VR_BIT             4
+>>> #define WORKLOAD_PPLIB_COMPUTE_BIT        5
+>>> #define WORKLOAD_PPLIB_CUSTOM_BIT         6
+>>>
+>>> 3D < video < VR < compute < custom
+>>>
+>>> VR and compute are the most aggressive.  Custom takes preference
+>>> because it's user customizable.
+>>>
+>>> Alex
+>>>
+>>
+>> Thanks, so this UAPI will guarantee the execution of the job in 
+>> atleast the requested power profile, or a more aggressive one.
+>>
 >
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Hi Shashank,
+>
+> This is not how the API works in the driver PM subsystem. In the final 
+> interface with PMFW, driver sets only one profile bit and doesn't set 
+> any mask. So it doesn't work the way as Felix explained.
 
-Really Reviewed-by me this time. Feel free to submit to 
-amd-staging-drm-next.
+I was not looking at the implementation but at the API:
 
-Thanks,
+int amdgpu_dpm_switch_power_profile(struct amdgpu_device *adev,
+                                     enum PP_SMC_POWER_PROFILE type,
+                                     bool en)
+
+This API suggests, that we can enable and disable individual profiles. 
+E.g. disabling PP_SMC_POWER_PROFILE_VIDEO should not change whether 
+PP_SMC_POWER_PROFILE_COMPUTE is enabled. What we actually send to the HW 
+when multiple profiles are enabled through this API is a different 
+question. We have to choose one profile or the other. This can happen in 
+the driver or the firmware. I don't care.
+
+But if disabling PP_SMC_POWER_PROFILE_VIDEO makes us forget that we ever 
+enabled PP_SMC_POWER_PROFILE_COMPUTE then this API is broken and useless 
+as an abstraction.
+
+Regards,
    Felix
 
 
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 26 +++++++---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 60 +++++++++++++++++++++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |  1 +
->   3 files changed, 80 insertions(+), 7 deletions(-)
+> If there is more than one profile bit set, PMFW looks at the mask and 
+> picks the one with the highest priority. Note that for each update of 
+> workload mask, PMFW should get a message.
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 56f7307c21d2..5feaba6a77de 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -1584,6 +1584,8 @@ static int kfd_ioctl_smi_events(struct file *filep,
->   	return kfd_smi_event_open(pdd->dev, &args->anon_fd);
->   }
->   
-> +#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
-> +
->   static int kfd_ioctl_set_xnack_mode(struct file *filep,
->   				    struct kfd_process *p, void *data)
->   {
-> @@ -1594,22 +1596,29 @@ static int kfd_ioctl_set_xnack_mode(struct file *filep,
->   	if (args->xnack_enabled >= 0) {
->   		if (!list_empty(&p->pqm.queues)) {
->   			pr_debug("Process has user queues running\n");
-> -			mutex_unlock(&p->mutex);
-> -			return -EBUSY;
-> +			r = -EBUSY;
-> +			goto out_unlock;
->   		}
-> -		if (args->xnack_enabled && !kfd_process_xnack_mode(p, true))
-> +
-> +		if (p->xnack_enabled == args->xnack_enabled)
-> +			goto out_unlock;
-> +
-> +		if (args->xnack_enabled && !kfd_process_xnack_mode(p, true)) {
->   			r = -EPERM;
-> -		else
-> -			p->xnack_enabled = args->xnack_enabled;
-> +			goto out_unlock;
-> +		}
-> +
-> +		r = svm_range_switch_xnack_reserve_mem(p, args->xnack_enabled);
->   	} else {
->   		args->xnack_enabled = p->xnack_enabled;
->   	}
-> +
-> +out_unlock:
->   	mutex_unlock(&p->mutex);
->   
->   	return r;
->   }
->   
-> -#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
->   static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
->   {
->   	struct kfd_ioctl_svm_args *args = data;
-> @@ -1629,6 +1638,11 @@ static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
->   	return r;
->   }
->   #else
-> +static int kfd_ioctl_set_xnack_mode(struct file *filep,
-> +				    struct kfd_process *p, void *data)
-> +{
-> +	return -EPERM;
-> +}
->   static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
->   {
->   	return -EPERM;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index cf5b4005534c..f5913ba22174 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -278,7 +278,7 @@ static void svm_range_free(struct svm_range *prange, bool update_mem_usage)
->   	svm_range_free_dma_mappings(prange);
->   
->   	if (update_mem_usage && !p->xnack_enabled) {
-> -		pr_debug("unreserve mem limit: %lld\n", size);
-> +		pr_debug("unreserve prange 0x%p size: 0x%llx\n", prange, size);
->   		amdgpu_amdkfd_unreserve_mem_limit(NULL, size,
->   					KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
->   	}
-> @@ -2956,6 +2956,64 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
->   	return r;
->   }
->   
-> +int
-> +svm_range_switch_xnack_reserve_mem(struct kfd_process *p, bool xnack_enabled)
-> +{
-> +	struct svm_range *prange, *pchild;
-> +	uint64_t reserved_size = 0;
-> +	uint64_t size;
-> +	int r = 0;
-> +
-> +	pr_debug("switching xnack from %d to %d\n", p->xnack_enabled, xnack_enabled);
-> +
-> +	mutex_lock(&p->svms.lock);
-> +
-> +	list_for_each_entry(prange, &p->svms.list, list) {
-> +		svm_range_lock(prange);
-> +		list_for_each_entry(pchild, &prange->child_list, child_list) {
-> +			size = (pchild->last - pchild->start + 1) << PAGE_SHIFT;
-> +			if (xnack_enabled) {
-> +				amdgpu_amdkfd_unreserve_mem_limit(NULL, size,
-> +						KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
-> +			} else {
-> +				r = amdgpu_amdkfd_reserve_mem_limit(NULL, size,
-> +						KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
-> +				if (r)
-> +					goto out_unlock;
-> +				reserved_size += size;
-> +			}
-> +		}
-> +
-> +		size = (prange->last - prange->start + 1) << PAGE_SHIFT;
-> +		if (xnack_enabled) {
-> +			amdgpu_amdkfd_unreserve_mem_limit(NULL, size,
-> +						KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
-> +		} else {
-> +			r = amdgpu_amdkfd_reserve_mem_limit(NULL, size,
-> +						KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
-> +			if (r)
-> +				goto out_unlock;
-> +			reserved_size += size;
-> +		}
-> +out_unlock:
-> +		svm_range_unlock(prange);
-> +		if (r)
-> +			break;
-> +	}
-> +
-> +	if (r)
-> +		amdgpu_amdkfd_unreserve_mem_limit(NULL, reserved_size,
-> +						KFD_IOC_ALLOC_MEM_FLAGS_USERPTR);
-> +	else
-> +		/* Change xnack mode must be inside svms lock, to avoid race with
-> +		 * svm_range_deferred_list_work unreserve memory in parallel.
-> +		 */
-> +		p->xnack_enabled = xnack_enabled;
-> +
-> +	mutex_unlock(&p->svms.lock);
-> +	return r;
-> +}
-> +
->   void svm_range_list_fini(struct kfd_process *p)
->   {
->   	struct svm_range *prange;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> index 012c53729516..7a33b93f9df6 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> @@ -203,6 +203,7 @@ void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_s
->   void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
->   
->   void svm_range_set_max_pages(struct amdgpu_device *adev);
-> +int svm_range_switch_xnack_reserve_mem(struct kfd_process *p, bool xnack_enabled);
->   
->   #else
->   
+> Driver currently sets only bit as Alex explained earlier. For our 
+> current driver implementation, you can check this as example -
+>
+> https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c#L1753 
+>
+>
+> Also, PM layer already stores the current workload profile for a *get* 
+> API (which also means a new pm workload variable is not needed). But, 
+> that API works as long as driver sets only one profile bit, that way 
+> driver is sure of the current profile mode -
+>
+> https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c#L1628 
+>
+>
+> When there is more than one, driver is not sure of the internal 
+> priority of PMFW though we can follow the bit order which Alex 
+> suggested (but sometimes FW carry some workarounds inside which means 
+> it doesn't necessarily follow the same order).
+>
+> There is an existing interface through sysfs through which allow to 
+> change the profile mode and add custom settings. In summary, any 
+> handling of change from single bit to mask needs to be done at the 
+> lower layer.
+>
+> The problem is this behavior has been there throughout all legacy 
+> ASICs. Not sure how much of effort it takes and what all needs to be 
+> modified.
+>
+> Thanks,
+> Lijo
+>
+>> I will do the one change required and send the updated one.
+>>
+>> - Shashank
+>>
+>>>
+>>>
+>>>
+>>>>
+>>>> - Shashank
+>>>>
+>>>>>
+>>>>>>
+>>>>>> - Shashank
+>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> Or anything else ?
+>>>>>>>>
+>>>>>>>> REgards
+>>>>>>>> Shashank
+>>>>>>>>
+>>>>>>>>
+>>>>>>>>> Or you have multiple VCN contexts. When context1 finishes a 
+>>>>>>>>> job, it
+>>>>>>>>> disables the VIDEO profile. But context2 still has a job on 
+>>>>>>>>> the other
+>>>>>>>>> VCN engine and wants the VIDEO profile to still be enabled.
+>>>>>>>>>
+>>>>>>>>> Regards,
+>>>>>>>>>      Felix
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>> Christian.
+>>>>>>>>>>
+>>>>>>>>>>> ---
+>>>>>>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 14 
+>>>>>>>>>>> +++++++++++---
+>>>>>>>>>>>     1 file changed, 11 insertions(+), 3 deletions(-)
+>>>>>>>>>>>
+>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+>>>>>>>>>>> index 5e53a5293935..1caed319a448 100644
+>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+>>>>>>>>>>> @@ -34,6 +34,7 @@
+>>>>>>>>>>>     #include "amdgpu_ras.h"
+>>>>>>>>>>>     #include "amdgpu_umc.h"
+>>>>>>>>>>>     #include "amdgpu_reset.h"
+>>>>>>>>>>> +#include "amdgpu_ctx_workload.h"
+>>>>>>>>>>>       /* Total memory size in system memory and all GPU 
+>>>>>>>>>>> VRAM. Used to
+>>>>>>>>>>>      * estimate worst case amount of memory to reserve for 
+>>>>>>>>>>> page tables
+>>>>>>>>>>> @@ -703,9 +704,16 @@ int amdgpu_amdkfd_submit_ib(struct
+>>>>>>>>>>> amdgpu_device *adev,
+>>>>>>>>>>>       void amdgpu_amdkfd_set_compute_idle(struct 
+>>>>>>>>>>> amdgpu_device *adev,
+>>>>>>>>>>> bool idle)
+>>>>>>>>>>>     {
+>>>>>>>>>>> -    amdgpu_dpm_switch_power_profile(adev,
+>>>>>>>>>>> - PP_SMC_POWER_PROFILE_COMPUTE,
+>>>>>>>>>>> -                    !idle);
+>>>>>>>>>>> +    int ret;
+>>>>>>>>>>> +
+>>>>>>>>>>> +    if (idle)
+>>>>>>>>>>> +        ret = amdgpu_clear_workload_profile(adev,
+>>>>>>>>>>> AMDGPU_CTX_WORKLOAD_HINT_COMPUTE);
+>>>>>>>>>>> +    else
+>>>>>>>>>>> +        ret = amdgpu_set_workload_profile(adev,
+>>>>>>>>>>> AMDGPU_CTX_WORKLOAD_HINT_COMPUTE);
+>>>>>>>>>>> +
+>>>>>>>>>>> +    if (ret)
+>>>>>>>>>>> +        drm_warn(&adev->ddev, "Failed to %s power profile to
+>>>>>>>>>>> compute mode\n",
+>>>>>>>>>>> +             idle ? "reset" : "set");
+>>>>>>>>>>>     }
+>>>>>>>>>>>       bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device 
+>>>>>>>>>>> *adev, u32
+>>>>>>>>>>> vmid)
+>>>>>>>>>>
