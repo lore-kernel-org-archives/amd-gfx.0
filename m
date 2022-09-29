@@ -4,106 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40362C04A95
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Sep 2022 01:43:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73448C32771
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Sep 2022 02:02:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FF9E10E8BF;
-	Thu, 29 Sep 2022 01:43:32 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2056.outbound.protection.outlook.com [40.107.93.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 035C310E8BF
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Sep 2022 01:43:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FF3A10E95B;
+	Thu, 29 Sep 2022 02:02:36 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2087.outbound.protection.outlook.com [40.107.92.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4B1D10E8EC;
+ Thu, 29 Sep 2022 01:44:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Qle671noB+6s7n+K4fyi8GwsdRCHVqlDQNZMz/SOpyPkGYD4lqpj3UHpu4aYm01W1LxBbIyGUklRofZ/x8Y5QY4I2WWW9B2u5mcmy1meMjmiKfEWfFFwki8VF304NcwfOrfU/CMOQ0JDDdXjoUloC2kNzZkI9ZchI6DXt1f/QFChrhJweG3Xn4RZWbw/+zMa/HNqJShaRuEyStl/c34aywU3PCVa1xDigw+QOohfoWT1DiDhDi8cNCjMI5FsbRoiNQOPF6mciOiPXnzc9xD65ZDYh2+Qy5QM+nLBpWgjjvZINJRVj0v/YVmBD5G23/FId634UT7ucW1As01U5NvDqw==
+ b=fy4aIQ+/kky2hE38yK9htOiOoNiE1Eh18FKVFUR+/mvnqGsUzDSOfbgfgbkdAUE4d2rFtkkyzXzstjNJlJIvssDZfO81/fI2fRn6JN2/OI711AzKnYObdb8aLXlwU5sD6Ss/bkZD4JXKVEtNiz0W9m6PDR9HNNuIeGiX6EYyAucsQdPbgsVaA79kbiCwkM1zOvDoeuYh9B56ULtAJfqlhLplHwg3zVWIgVIuS3FDMYDI66aKQ1Byui2Bt3OXa5rYp2Qx6E58vhDYvpAm9Cxux90mVrj9sQAM41C4+ZBakEziYZoSRq1f8YHe8/Ln1ghQCqLlVsraqgwKhIZW9DSDwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hPNJYx8i/GqRQe+NUqG2HKHr9Wwn995Aa46hjykW3+o=;
- b=XF/orjTm0roTLc2E4fW5qLOM30uapHuYTE7oIeuXQQYztGZ3LSMud8pckD7RWIzZMpL0Wmo4xIeqBfGUJW4QvwIrAsVhF1O7lgayZCPEDAh2Gw4AwnDgdYaSlkoLB+vjF57zj+0s9YMoz/jQ9zJw/WtWE9otVmuShS0YeSrzeiBJacilOmRtcXFtLR+U92Uxyhi5SctX07pNqKR1dB4yeJLwg5/20P3RQhKVasjDenfDSIOjU7AVwavb7xgpLNzhlQwN9kff8aZ7x/kp7hldzsnQdOzP8xQAe0U1LYB86Sk+TyeUwY8M0tiZXKpwL/E3+QWLGDyMILIcgh041gUdnQ==
+ bh=cRABUuKJfTb4OsZ43gTkQxTZu0uLEXlqApaqc9bI+bY=;
+ b=eujQGorQy+lbvaCtICm2SNWDt5xT3V2jw+5PvZpWvcp2CzhRnFZl0e7GeWeullx2MUgG8dx+h31TO0j3ckaRMBVjHMSUJBCNNFzshIDqD3G09ozPGUPc5Edh1aoKy+iaBhlioW9hSQQEAE5SoVkcrlBGcJor3cFB9Tdf1TfqIfTgdaVw/Rmaww9WCxOGITL7xEmtyfMC2I1DMRb4uGYjCwk8u/DHDja6FZNX+QrlSH6Vp1J9dilyc7DPAFZdJd8TWtjshiFxqdQ2OkSK3rMl+EAWY0z6X0STVqVppJTCEDdwEx8yaSt+PtGMxidkZFzm387XA/qLmI3sYcCxe5yBVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hPNJYx8i/GqRQe+NUqG2HKHr9Wwn995Aa46hjykW3+o=;
- b=CuhfTh6AI8QdSmzYJluxEzSdmFcziw9cBs7WcC4mVjZ1o5ASEO36Vpd48oc4fZ9qN1nf7i7FEDAWhrDCw0VaxV0lT7WtSkqA0sos/j3sSR98cAreGFfg6W8qL4he3188Yx/M5RbFghI1EldK6Fwqne0LMxz+gjQtnx3BfUQTxG8=
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
- CY8PR12MB7610.namprd12.prod.outlook.com (2603:10b6:930:9a::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5676.17; Thu, 29 Sep 2022 01:43:26 +0000
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::78b6:27fc:c590:d2c0]) by DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::78b6:27fc:c590:d2c0%7]) with mapi id 15.20.5654.026; Thu, 29 Sep 2022
- 01:43:25 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu/gfx10: ignore rlc ucode validation
-Thread-Topic: [PATCH] drm/amdgpu/gfx10: ignore rlc ucode validation
-Thread-Index: AQHY03Df73IL7kpJlUyt9mopvWa3BK31osgw
-Date: Thu, 29 Sep 2022 01:43:25 +0000
-Message-ID: <DM5PR12MB2469256F0C29C10F3649A117F1579@DM5PR12MB2469.namprd12.prod.outlook.com>
-References: <20220928193043.5729-1-alexander.deucher@amd.com>
-In-Reply-To: <20220928193043.5729-1-alexander.deucher@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM5PR12MB2469:EE_|CY8PR12MB7610:EE_
-x-ms-office365-filtering-correlation-id: 745544ce-16bb-4163-237c-08daa1bc005d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: hiTrIdHVe6H0zgfmxs2JIBnKH98tvVEAXeXhggruHgV6gbEVMj20VpCLqQRfpt50mM41GoWiLDOuegnlYT+an4k2Kg5CAi1c4zZSTM7lutBEuTcxWptnHV3AsFE9+kTcmrX9zel87ACrdbgo2A2/1Gk+7qtrDATxIZH2J+C/yWK32gsgdnHLSb5lKeMJXIVrEdDlBfZXU7VMFU3fv8fA1+l9X7Yo1IYCvcwB5VBVezksOYjNZ6sMdMtWuajqptjYIM5Ep5OMkKarm5NYcn/qqwQ3gDmZg8efBde87PY3L9xxYdEpgtB43t2Fj49asaEgSHFHguERxMj4ZOv5aYv9o9knm/6pSfygwo8dkC5McX1bYlGj317IrAT6Pas4xp8eB4LTq2TH8jADB/yYtLdffrPerDX3rdJ8JlnSJAJ3ed3xL7mYh4eayNgvgPB5TDJvtuMvcWH6HVeU/qZu2QYhZxXY1Pj1oP0bDrVHK6DQK6jh5PwyusFeCucTL1jHfL8EPLEKe71kS7iZJVw08l6LKHaxzicUHOYDivyF8842pKi7K/28pi5MNeob8y1XkqWJEFhH9aPmbrSKmwJKvMB6Os9LTwYZHBY4lAlU1Z7pzBwLXOq/yz2wZd1Faejj8VWViM6hkK56LzvfoqazGFDb8p29nVCkmcTNdR3y7syiZwfOcJlTJfJCNx6vaViGl2mWvM/NRPx/ltr13YSYHO58AQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(376002)(396003)(136003)(346002)(39860400002)(451199015)(9686003)(966005)(5660300002)(478600001)(66946007)(26005)(86362001)(186003)(8936002)(53546011)(7696005)(6506007)(110136005)(52536014)(45080400002)(66476007)(316002)(122000001)(76116006)(64756008)(66446008)(4326008)(38100700002)(71200400001)(41300700001)(55016003)(2906002)(8676002)(66556008)(83380400001)(38070700005)(33656002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?O47VH2GR/J85RwPXz/iYoXZybp4QWfKU3SSknNlKUJ/CNhQztzd6RjtOGPxW?=
- =?us-ascii?Q?7PwQbh/Cs7jnFPWllywJewyQdXDYkE3GNo+S+2SzL6V6uquvgxd8p/9FvF2L?=
- =?us-ascii?Q?wF3PQSwErzaF1CV0ZaysdtJBLtz8371fBIR+g9JvtFoRWzMNIL/fFYSo9OPn?=
- =?us-ascii?Q?9f/PHzyxrSgs4VHs7p2bpW+EaJMWvrzkmcP0fUmjAyfStKKmZU72rFMsSrvd?=
- =?us-ascii?Q?QkLg5TPCWz7hbARpC2LAxvkgsRQOfv23hPD4TKBfz5k91TocnTO2Ed4zswOZ?=
- =?us-ascii?Q?mWuvLlUKPayQl9tmn7vWjkeovhoYsKyBWZkun4h1o5iIev3i2tQz2RHq0fUM?=
- =?us-ascii?Q?hC/zHzwFFBsJDht6neXun4xeNZTruLD3L944kC8fCrb6C7LF2Wn73JJZTGOc?=
- =?us-ascii?Q?rBYOYinTZyMH4Negrvy05Np8tJm9zL8zczoJvC+1QzEgCQ0gElZlXe0vCSGP?=
- =?us-ascii?Q?Af7yiPQ7NWHFDa6dOOsU3n/QDW447kEdL8c2o+E4suU/HGzxkmwEtiD2gjsM?=
- =?us-ascii?Q?zQROdNHdoEKPDfquz2g5xUhjWEC2vXbwjS0Zi8dwioa8xeoi3db4hw9qBMhk?=
- =?us-ascii?Q?xo7sdiPwCbLmiHYo4TEi+u9EQXBuWQgb/MiCot6f/61IJ7IR95GM98OI0ULC?=
- =?us-ascii?Q?ulvZc8BOmVdpIlOulM1LYwZZRmIsd2RY1b1ZlZ1zdbAhD5wCe8kMs5Feb/rc?=
- =?us-ascii?Q?iRhebcuYsv8IIPt4ildSBCKYnIgHOSzx0eqbzfVDBF3YIbaeq+d+r2lflLGL?=
- =?us-ascii?Q?CNGOMK6jLm+PqNZW3FsbmNXFMchhozUVogzKdymym+rh4FO3TrnUPV0AoRDh?=
- =?us-ascii?Q?plhol1N3x/xZW30BBM/aesIxvjd4IBaVM8kCrtk52s2hKxiWNUt77DLibc8K?=
- =?us-ascii?Q?DfMqfA7FfYoWiwoTskc6D+5FKdIiK+Ceg3cJrSOjSHqLqAf9NacnyWHivAnw?=
- =?us-ascii?Q?I8+yCmcC3krP7U0qo5bEz4Ab4qnKl6YcVF63K7VW7Y2kVP44yDYYcc1a12MG?=
- =?us-ascii?Q?FimcHCfx/JpTCIwTXJwJecr/6x+UMxQwzy9wUNNE1qPOmu8ezPjBRJE7CEPd?=
- =?us-ascii?Q?C7ukzC5simnX7ny2KoR2wEls/Ycm8Nxu/C0RdICLos4EDYN1rtrhw2q1S8Gi?=
- =?us-ascii?Q?QE72f5DHVe8g+ekSOEKQhDwaLkzXHzfkKwEZq6KjI0A47rQd/QkHcMY22ywb?=
- =?us-ascii?Q?wwZy47hHoJ7UC0UI8mvEBTEp3dP0RK1GQvUG7m65j09pWb+ilnLXWletRMom?=
- =?us-ascii?Q?6+Kr+nFChqRIC1Qk0LAalUOl2Pk4BY9d6m19+3qxX7XWB3vXBnyXdMEbjiY1?=
- =?us-ascii?Q?VZibjEEIPnn8azzSd2DCnSvraPDijrfFIuHigtj5xVKwFg6/gZAqqc/GSg8c?=
- =?us-ascii?Q?XtH3mGwLFutpHjevm7jQwoKlGbvZE+Riow/NWmqBM8XJ12heiZ1j8g9lPTEG?=
- =?us-ascii?Q?Okuk7b/88KdWTLOJp/ecyfRJIJZWvk8FRLkaK3RB0DXE4XRp2P2kwrW4RHrF?=
- =?us-ascii?Q?/MotWOBSVOi5BoNPIycMw3xQR+VmkBzx3fHPEbt7B3lGXTtEgzdwmdomPpJr?=
- =?us-ascii?Q?qQjHG0usEaNsLnfZeDn8P7xfLVUaJnylgTEtZgRz?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=cRABUuKJfTb4OsZ43gTkQxTZu0uLEXlqApaqc9bI+bY=;
+ b=mpaiQTLGnGzo1sQGooycdVnzLALZbgoEnqQNK6IMhP5q8DTG5166h7vV13NPvLRiLEKI7W3YZbC1Dauo/xsfHJEoeOOf6SCcMulnNcK1wCXsTAupYHAetQXDjeqRlRe9icvpcMk+tmSjOgwAg63XSMkaGKc0K5jX4A+kDrMtT5fcwSf+3629xeFraI+lz2LngTLQgT5+nGTUwAqcbWyPzWpmwCfFaQvimKAnnzgfD328vRB3tNT3K3ZimuSpYRcb5Q9ASi91QmkMJi1+87fQcRghyQhrLZehPEJF8Rz/gnst/q6rou5qYsrDF140w5Pk5HjspokBCyr48jnDMO+DqA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BYAPR12MB3176.namprd12.prod.outlook.com (2603:10b6:a03:134::26)
+ by CH0PR12MB5106.namprd12.prod.outlook.com (2603:10b6:610:bd::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.20; Thu, 29 Sep
+ 2022 01:44:16 +0000
+Received: from BYAPR12MB3176.namprd12.prod.outlook.com
+ ([fe80::4064:6c13:72e5:a936]) by BYAPR12MB3176.namprd12.prod.outlook.com
+ ([fe80::4064:6c13:72e5:a936%5]) with mapi id 15.20.5654.026; Thu, 29 Sep 2022
+ 01:44:16 +0000
+References: <cover.f15b25597fc3afd45b144df863eeca3b2c13f9f4.1664171943.git-series.apopple@nvidia.com>
+ <af2ea89799b08e0a5e592df0da0dcb9a5bf8533b.1664171943.git-series.apopple@nvidia.com>
+ <87fsgbf3gh.fsf@mpe.ellerman.id.au>
+User-agent: mu4e 1.6.9; emacs 27.1
+From: Alistair Popple <apopple@nvidia.com>
+To: Michael Ellerman <mpe@ellerman.id.au>
+Subject: Re: [PATCH 1/7] mm/memory.c: Fix race when faulting a device
+ private page
+Date: Thu, 29 Sep 2022 11:40:32 +1000
+In-reply-to: <87fsgbf3gh.fsf@mpe.ellerman.id.au>
+Message-ID: <875yh7osye.fsf@nvdebian.thelocal>
+Content-Type: text/plain
+X-ClientProxiedBy: SY6PR01CA0078.ausprd01.prod.outlook.com
+ (2603:10c6:10:110::11) To BYAPR12MB3176.namprd12.prod.outlook.com
+ (2603:10b6:a03:134::26)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3176:EE_|CH0PR12MB5106:EE_
+X-MS-Office365-Filtering-Correlation-Id: e82023d0-6226-43b8-c76d-08daa1bc1e11
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KuT60+mFX7oI0ZtDiI6EW5jflvs2Riiu1gvRxn4beQ+l5QugKfEhYSsxfKwSItmDdoz93LeS+ph3KtqsqTHJZbDvmibB+JEw4QDyVd/uSZo7s3uyQDCWnDFhJsBbzPSxYEOj7iRd0I0tvNT7SyqeY3dpDRO6hlwe09WGzG75jf225SQXh4RKeTpOjjQ8HIs/Ia8108cxldpNHNHo6SxWTwuiG/q+IoUeOLRe10RHp93H37xMDd3ST3yrrBYLqvKASGH8rzA8oMVeD2V18BnL++Jw/aDA3+73xVLOH1XFamyVQldsgbHrHQw7BzsdOKJRSGW6K0kM2nNCqazhbfnCLdCrSBxAMT7bKRf7NSz879rM3B2wD5m/otuktA+0hOIUNwxe3syhajBpe0Dx4EAVYQ3Ea/i1kItrRuvwPNJmNDbNnEo8riWs001WNNw6HExfkO8MzKjbS76XZQW2VJfX/3Doz7yh7DSFF4XPurPHPsQtw5WVSFCx3wlxs4RfU/ToD/AadS1K9W0sReFGpWjSnsnz5Yxd751fBeC056W5VtEZG2Oc3mHWeFfAqVtfEVajgRUWMoEl9EbhZ5+B7LPeNPXZDKEQoqn1evyfsLJ/Mscvl+y/79MhsBMDBByiN4EVAE3tHczUDeB66xAbl5b5z1tWzYVyOl+cw2DrCwqCDF+d6co3nVs7RAovKxDBr44BaGSxz0rh5Rrty/IhBcdphg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3176.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(366004)(396003)(136003)(39860400002)(376002)(451199015)(9686003)(26005)(5660300002)(7416002)(41300700001)(6506007)(6666004)(8676002)(4326008)(38100700002)(6512007)(86362001)(83380400001)(186003)(2906002)(478600001)(54906003)(6486002)(6916009)(66476007)(8936002)(316002)(66946007)(66556008);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ZLsjQMvroX3692nr4vs6euCOhsYvI0+5+C3uhflRIknhPheIMc4/dGYFMhmx?=
+ =?us-ascii?Q?zPB4CMAP4fTQGkG93jcvLgSpBKDMed/Fd/R7z72BxCCXxyFHjy7HRkUn/m6i?=
+ =?us-ascii?Q?2nnpioFqIa/mRSFe+fvyErEiOGkNSfQ99YTg5GrdsANSvQB2KttnbfyjcCP9?=
+ =?us-ascii?Q?g6+njkk+g/vlSdXmRrHhJ3PJ3E/GuwCKostRJHG/PxvCSBmkzRMJbl/YV1DP?=
+ =?us-ascii?Q?IPmVw48j+K2cSx5U2YVrosquvQTQ+O+cjSjndelSr11aG66tnELfryIqm6tc?=
+ =?us-ascii?Q?kyY3+7QDdmCRRKoSiGheRwZqwezHfYfxxngwpm8mbtJBiXHJuzEYiLJcgNnx?=
+ =?us-ascii?Q?Qsr3BnTZr++/iXJ5XY7NAoXnofMXuDiGnjSfLoIlIsXP4/3PBh40mfspSZDu?=
+ =?us-ascii?Q?4Xf7AiEfKSa/regLuHeMTjHF5IZeyyJC9ogMUqUPvD/8cU/1ihfghF0q8Y8/?=
+ =?us-ascii?Q?A9s8F/mjyKJV2c3HNWvPwDxh43VfPWnc6WXDeF4eAN19XTx33sWdfREf/P0H?=
+ =?us-ascii?Q?RLyzWKBkACfHdCziqP1BT4dbyPt0sl5Rag6/PwsmOFJZcX4Oqp1Kc+v9EW6k?=
+ =?us-ascii?Q?G81b8HQTiV/qGmqu88Yfa0IeXgnc344FJNqmbyy0zGEMpMcD0B8fBbEWXNwS?=
+ =?us-ascii?Q?BSnptxkOsIxDRwc6H8dfIe/d+ggMnImDIK/cGmQnNrdnGC8F61J+5HAcGjXb?=
+ =?us-ascii?Q?mRh19Am3jCURgBhKOdFau4ILtsdD2iU49kZEU+wb+gMot5OmX9q8OaXH7/I6?=
+ =?us-ascii?Q?lcEt9Ig+SKn3+RV3tEasslo5nHaWizWQLLAOzyXRwkVoams3P956fIMm4+WS?=
+ =?us-ascii?Q?DJwsxDg1ZV13HLgzXaN9y90hL3x2H4JT4oSujQqOYobtQWMnm85Tee+CEU6W?=
+ =?us-ascii?Q?yheC6m0HyVIRVgLH8w/tVgf/KGoa5tIXWjeAKRxYrs+R0alHYj7DN+K8g4V0?=
+ =?us-ascii?Q?VCJnxIIG30kz47bwzfMeT39XCf8FpHugyCryT0tr6EjQs6so1b95Jq48pDni?=
+ =?us-ascii?Q?pgPA2tPQVq+GdHQPMxptJk3unYK0HNcaoR1uAAXTYcrGrYD/1TIfNABLRpgA?=
+ =?us-ascii?Q?XAegzWld47hZXw6ZpVa0SU2KGnuiR8hh3sdsH45fXKwSJWpOhrmbZ37XyRoI?=
+ =?us-ascii?Q?G+CwGJMCwT5uHJSF8Y6TScRHp9yMUHCH5pWYfnxnSPsXtZvzmJB0lahyV/UL?=
+ =?us-ascii?Q?Ed1k4/SB3ASlofEM0Pf7V4p8nQj+YBuM2x04roS52JZ92E5OBAkDsC53jv6K?=
+ =?us-ascii?Q?XoiIectsoEF1uoTB82smxuGyV2dcZAAdLG0bqT2kX8Efk8TMa9EFPG8lw+Q0?=
+ =?us-ascii?Q?KszN2loighEnV78rUvvzEHgPSmV/lDzUhszYL5lU4krhiLZPNFUB0yqohBi5?=
+ =?us-ascii?Q?LvDgw1MkdeVwmb48ULjOeaXbsuA/9IOT2f3TGwt0AQVzrnm45O6g0e1wMP7m?=
+ =?us-ascii?Q?Upe/64rt+IDgoQmQO0AMvLDrNbp8OqSt8vuMlx5NIN0OtunpxCgvUwXRvLmk?=
+ =?us-ascii?Q?pzF5J0/7BHECi9IlmoEqHU31aXeWDSYL/EZ4znihtkAqbA+TmzJErG4aPsFQ?=
+ =?us-ascii?Q?0zWscIAhNSDUu1mFNRWueWO9cILrczkjJgOnp7SU?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e82023d0-6226-43b8-c76d-08daa1bc1e11
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3176.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 745544ce-16bb-4163-237c-08daa1bc005d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2022 01:43:25.8374 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UbAkgdVNbRXngM5GI6HGLnOiseeG5rDQYPwpIq7Zc+wHXDtWQMdMo5czVSeMhGVc7CfPdcMbnX03B2wxAyMjLA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7610
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2022 01:44:16.0657 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: trBmO7349RJmQc3OQ8ygytOuPx62JiJUbdRBR/MSSEueeUm1EeDiVHeiStTuw5C/egOBT5NmiFrFi4wNSi7DZA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5106
+X-Mailman-Approved-At: Thu, 29 Sep 2022 02:02:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,61 +116,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: Alex Sierra <alex.sierra@amd.com>, Karol Herbst <kherbst@redhat.com>,
+ David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ amd-gfx@lists.freedesktop.org, "Matthew Wilcox
+ \(Oracle\)" <willy@infradead.org>, Ben Skeggs <bskeggs@redhat.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Ralph Campbell <rcampbell@nvidia.com>,
+ John Hubbard <jhubbard@nvidia.com>, Nicholas Piggin <npiggin@gmail.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
+ Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Guchun Chen <guchun.chen@amd.com>
 
-Regards,
-Guchun
+Michael Ellerman <mpe@ellerman.id.au> writes:
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deu=
-cher
-Sent: Thursday, September 29, 2022 3:31 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu/gfx10: ignore rlc ucode validation
+> Alistair Popple <apopple@nvidia.com> writes:
+>> When the CPU tries to access a device private page the migrate_to_ram()
+>> callback associated with the pgmap for the page is called. However no
+>> reference is taken on the faulting page. Therefore a concurrent
+>> migration of the device private page can free the page and possibly the
+>> underlying pgmap. This results in a race which can crash the kernel due
+>> to the migrate_to_ram() function pointer becoming invalid. It also means
+>> drivers can't reliably read the zone_device_data field because the page
+>> may have been freed with memunmap_pages().
+>>
+>> Close the race by getting a reference on the page while holding the ptl
+>> to ensure it has not been freed. Unfortunately the elevated reference
+>> count will cause the migration required to handle the fault to fail. To
+>> avoid this failure pass the faulting page into the migrate_vma functions
+>> so that if an elevated reference count is found it can be checked to see
+>> if it's expected or not.
+>>
+>> Signed-off-by: Alistair Popple <apopple@nvidia.com>
+>> ---
+>>  arch/powerpc/kvm/book3s_hv_uvmem.c       | 15 ++++++-----
+>>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 17 +++++++------
+>>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.h |  2 +-
+>>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 11 +++++---
+>>  include/linux/migrate.h                  |  8 ++++++-
+>>  lib/test_hmm.c                           |  7 ++---
+>>  mm/memory.c                              | 16 +++++++++++-
+>>  mm/migrate.c                             | 34 ++++++++++++++-----------
+>>  mm/migrate_device.c                      | 18 +++++++++----
+>>  9 files changed, 87 insertions(+), 41 deletions(-)
+>>
+>> diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
+>> index 5980063..d4eacf4 100644
+>> --- a/arch/powerpc/kvm/book3s_hv_uvmem.c
+>> +++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
+>> @@ -508,10 +508,10 @@ unsigned long kvmppc_h_svm_init_start(struct kvm *kvm)
+>>  static int __kvmppc_svm_page_out(struct vm_area_struct *vma,
+>>  		unsigned long start,
+>>  		unsigned long end, unsigned long page_shift,
+>> -		struct kvm *kvm, unsigned long gpa)
+>> +		struct kvm *kvm, unsigned long gpa, struct page *fault_page)
+>>  {
+>>  	unsigned long src_pfn, dst_pfn = 0;
+>> -	struct migrate_vma mig;
+>> +	struct migrate_vma mig = { 0 };
+>>  	struct page *dpage, *spage;
+>>  	struct kvmppc_uvmem_page_pvt *pvt;
+>>  	unsigned long pfn;
+>> @@ -525,6 +525,7 @@ static int __kvmppc_svm_page_out(struct vm_area_struct *vma,
+>>  	mig.dst = &dst_pfn;
+>>  	mig.pgmap_owner = &kvmppc_uvmem_pgmap;
+>>  	mig.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
+>> +	mig.fault_page = fault_page;
+>>
+>>  	/* The requested page is already paged-out, nothing to do */
+>>  	if (!kvmppc_gfn_is_uvmem_pfn(gpa >> page_shift, kvm, NULL))
+>> @@ -580,12 +581,14 @@ static int __kvmppc_svm_page_out(struct vm_area_struct *vma,
+>>  static inline int kvmppc_svm_page_out(struct vm_area_struct *vma,
+>>  				      unsigned long start, unsigned long end,
+>>  				      unsigned long page_shift,
+>> -				      struct kvm *kvm, unsigned long gpa)
+>> +				      struct kvm *kvm, unsigned long gpa,
+>> +				      struct page *fault_page)
+>>  {
+>>  	int ret;
+>>
+>>  	mutex_lock(&kvm->arch.uvmem_lock);
+>> -	ret = __kvmppc_svm_page_out(vma, start, end, page_shift, kvm, gpa);
+>> +	ret = __kvmppc_svm_page_out(vma, start, end, page_shift, kvm, gpa,
+>> +				fault_page);
+>>  	mutex_unlock(&kvm->arch.uvmem_lock);
+>>
+>>  	return ret;
+>> @@ -736,7 +739,7 @@ static int kvmppc_svm_page_in(struct vm_area_struct *vma,
+>>  		bool pagein)
+>>  {
+>>  	unsigned long src_pfn, dst_pfn = 0;
+>> -	struct migrate_vma mig;
+>> +	struct migrate_vma mig = { 0 };
+>>  	struct page *spage;
+>>  	unsigned long pfn;
+>>  	struct page *dpage;
+>> @@ -994,7 +997,7 @@ static vm_fault_t kvmppc_uvmem_migrate_to_ram(struct vm_fault *vmf)
+>>
+>>  	if (kvmppc_svm_page_out(vmf->vma, vmf->address,
+>>  				vmf->address + PAGE_SIZE, PAGE_SHIFT,
+>> -				pvt->kvm, pvt->gpa))
+>> +				pvt->kvm, pvt->gpa, vmf->page))
+>>  		return VM_FAULT_SIGBUS;
+>>  	else
+>>  		return 0;
+>
+> I don't have a UV test system, but as-is it doesn't even compile :)
 
-There are apparently ucode versions in the wild with incorrect sizes specif=
-ied in the header.  We never checked this before, so don't start now.
+Ugh, thanks. I did get as far as installing a PPC cross-compiler and
+building a kernel. Apparently I did not get as far as enabling
+CONFIG_PPC_UV :)
 
-Bug: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgi=
-tlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F2170&amp;data=3D05%7C01%7Cg=
-uchun.chen%40amd.com%7C83b76835cb62401dd4a408daa18800ea%7C3dd8961fe4884e608=
-e11a82d994e183d%7C0%7C0%7C637999902754962693%7CUnknown%7CTWFpbGZsb3d8eyJWIj=
-oiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7=
-C&amp;sdata=3DBvwLB%2BugxkJ11k%2Bu6Cz6MvdgUJsZ6sE77VETnIUD41s%3D&amp;reserv=
-ed=3D0
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c
-index 18809c3da178..af94ac580d3e 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4061,9 +4061,14 @@ static int gfx_v10_0_init_microcode(struct amdgpu_de=
-vice *adev)
- 		err =3D request_firmware(&adev->gfx.rlc_fw, fw_name, adev->dev);
- 		if (err)
- 			goto out;
-+		/* don't check this.  There are apparently firmwares in the wild with
-+		 * incorrect size in the header
-+		 */
- 		err =3D amdgpu_ucode_validate(adev->gfx.rlc_fw);
- 		if (err)
--			goto out;
-+			dev_dbg(adev->dev,
-+				"gfx10: amdgpu_ucode_validate() failed \"%s\"\n",
-+				fw_name);
- 		rlc_hdr =3D (const struct rlc_firmware_header_v2_0 *)adev->gfx.rlc_fw->d=
-ata;
- 		version_major =3D le16_to_cpu(rlc_hdr->header.header_version_major);
- 		version_minor =3D le16_to_cpu(rlc_hdr->header.header_version_minor);
---
-2.37.3
-
+> kvmppc_svm_page_out() is called via some paths other than the
+> migrate_to_ram callback.
+>
+> I think it's correct to just pass fault_page = NULL when it's not called
+> from the migrate_to_ram callback?
+>
+> Incremental diff below.
+>
+> cheers
+>
+>
+> diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
+> index d4eacf410956..965c9e9e500b 100644
+> --- a/arch/powerpc/kvm/book3s_hv_uvmem.c
+> +++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
+> @@ -637,7 +637,7 @@ void kvmppc_uvmem_drop_pages(const struct kvm_memory_slot *slot,
+>  			pvt->remove_gfn = true;
+>
+>  			if (__kvmppc_svm_page_out(vma, addr, addr + PAGE_SIZE,
+> -						  PAGE_SHIFT, kvm, pvt->gpa))
+> +						  PAGE_SHIFT, kvm, pvt->gpa, NULL))
+>  				pr_err("Can't page out gpa:0x%lx addr:0x%lx\n",
+>  				       pvt->gpa, addr);
+>  		} else {
+> @@ -1068,7 +1068,7 @@ kvmppc_h_svm_page_out(struct kvm *kvm, unsigned long gpa,
+>  	if (!vma || vma->vm_start > start || vma->vm_end < end)
+>  		goto out;
+>
+> -	if (!kvmppc_svm_page_out(vma, start, end, page_shift, kvm, gpa))
+> +	if (!kvmppc_svm_page_out(vma, start, end, page_shift, kvm, gpa, NULL))
+>  		ret = H_SUCCESS;
+>  out:
+>  	mmap_read_unlock(kvm->mm);
