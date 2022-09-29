@@ -4,45 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C64A0C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Sep 2022 13:06:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34DD9C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Sep 2022 13:15:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEF9210E610;
-	Thu, 29 Sep 2022 13:06:27 +0000 (UTC)
-X-Greylist: delayed 17991 seconds by postgrey-1.36 at gabe;
- Thu, 29 Sep 2022 05:07:26 UTC
-Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E815110E0FE;
- Thu, 29 Sep 2022 05:07:26 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4MdLvZ196nz4xGh;
- Thu, 29 Sep 2022 15:07:22 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
- s=201909; t=1664428044;
- bh=LNJLwf4icNuP92vlonmeVOhbmhMWAvb1KZSRpI5pNFE=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=RmmwtB+Lq8bjkFuvWqmHzVzaEXURluSYEX7ndiVyuWqzynjHwOkXEd7d55TdcPdR3
- AKsLc+bQH8LwodnZNM/TXhnavHNQdaIehmVr9TluOfPyWQZui7tDuKbQsH01FhSC8V
- wr1p2UI1BPVSJA0f/V9l1JzFzgT04uDvRNZ3B9hv9k4fxW8theuwzRQdlgNILubYhq
- ZK/ymFMP+bM4hv0Q2p4PRL+P9isFHyJhX6hL74EqHJrJiR4ExrEOSFWffFokEb+amQ
- C7cL/kWRJkajfUPucTviskOUV95IRNe3nZ8ugIFg3iEXJ1+raAUC75VfQfduJLiaJD
- XlroTz/ZLvaTw==
-From: Michael Ellerman <mpe@ellerman.id.au>
-To: Alistair Popple <apopple@nvidia.com>
-Subject: Re: [PATCH 1/7] mm/memory.c: Fix race when faulting a device
- private page
-In-Reply-To: <875yh7osye.fsf@nvdebian.thelocal>
-References: <cover.f15b25597fc3afd45b144df863eeca3b2c13f9f4.1664171943.git-series.apopple@nvidia.com>
- <af2ea89799b08e0a5e592df0da0dcb9a5bf8533b.1664171943.git-series.apopple@nvidia.com>
- <87fsgbf3gh.fsf@mpe.ellerman.id.au> <875yh7osye.fsf@nvdebian.thelocal>
-Date: Thu, 29 Sep 2022 15:07:17 +1000
-Message-ID: <87bkqyg456.fsf@mpe.ellerman.id.au>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 678A110E5FE;
+	Thu, 29 Sep 2022 13:15:32 +0000 (UTC)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BDDE10E5FE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Sep 2022 13:15:27 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-131c8ccae75so1752706fac.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Sep 2022 06:15:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=c9JEP5YlOec8+grksunzWbxWnprETPpBfHGyEbsElGE=;
+ b=RIFr6KbVTL+edzQLEfqAyqlZjEo7faPFtBBVtyywwqXgnQjpbxCFZejsi044c6zB1G
+ rCSnY0DXLCTfmRiUOHSuYbnhtVVxpmjrv1G9yMegU5UUWIbXuqORgFThBYs+F65SvZIt
+ sMy7O+NCnTMPWtgUBM56EAU1YGLIjqV2rx84rLZCEYLv1PS/vTPf49UcbBqYSsrRQEUc
+ zWC5nXUwRIOKHxJR2Ox+DgeZegDOY2ZqZVyUqw8fkE5n1uxCDuR1mbcEz8UCXzbH8/Mt
+ id+1CPgnkQDcJIh1NXKuE2Bcmk1pRl41bagWbL0FBY+O5/t6Ve4YVxXJXDM69zg1fBDM
+ mi3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=c9JEP5YlOec8+grksunzWbxWnprETPpBfHGyEbsElGE=;
+ b=O5d/Omx7FPuHMuwZjF8b1EmXAAAN3OjkV13iYpw0MzJ495ehX23BNo9Q6gZL7u1+VA
+ t1PpX0ii/+cGxxoaGbuPRNbLedfhq114P1I6GUpJJvhk0T+yHsmmg2sMSrfveH0RMm+A
+ jmQInUqvbk28uwzeAEzAZG9ASGgX2uu8e9+wRJCwbdE76jaovra36cuKTMzJMyOfGv7I
+ fiEmkSPyL0EOtvES7b8i1fWGQClyaeqtS798p8pnEJp2/eGnthYRu6lsmSJvxkcqfdqi
+ arJcn1usX5yKF31kb13S8alNWdvx+JMF5AUrikBVa0M0pEP2SUgadt8Zfcv95WmNL4HA
+ v6Lg==
+X-Gm-Message-State: ACrzQf2TGbqbuEfxMOnNWfB63NfKJ1khNYOHsIMGkhu/zXz68fXly3wE
+ QnFT7/hkGA4vaWvUjj/6CdiAy93EAIlORQkZ91fU6Dyv
+X-Google-Smtp-Source: AMsMyM7ar+/8M51qP6cURBAhFsZlL3yKqFK6hB9vk9loNO4WSjZRptSAuMyGx9oZS3/+hO+AFWQoOXkEllls1FpvZn4=
+X-Received: by 2002:a05:6870:1783:b0:12a:f442:504d with SMTP id
+ r3-20020a056870178300b0012af442504dmr8954815oae.46.1664457326604; Thu, 29 Sep
+ 2022 06:15:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Mailman-Approved-At: Thu, 29 Sep 2022 13:06:12 +0000
+References: <20220908143808.53981-1-alexander.deucher@amd.com>
+In-Reply-To: <20220908143808.53981-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 29 Sep 2022 09:15:15 -0400
+Message-ID: <CADnq5_MmTAxqdPWp864JhPWPr57Ad7YFxReJeJ=VRdbY9T0C5g@mail.gmail.com>
+Subject: Re: [PATCH 1/4] drm/amdgpu: use proper DC check in
+ amdgpu_display_supported_domains()
+To: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,77 +64,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, Karol Herbst <kherbst@redhat.com>,
- David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- amd-gfx@lists.freedesktop.org, "Matthew Wilcox
- \(Oracle\)" <willy@infradead.org>, Ben Skeggs <bskeggs@redhat.com>,
- Jason Gunthorpe <jgg@nvidia.com>, Ralph Campbell <rcampbell@nvidia.com>,
- John Hubbard <jhubbard@nvidia.com>, Nicholas Piggin <npiggin@gmail.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Alistair Popple <apopple@nvidia.com> writes:
-> Michael Ellerman <mpe@ellerman.id.au> writes:
->> Alistair Popple <apopple@nvidia.com> writes:
->>> When the CPU tries to access a device private page the migrate_to_ram()
->>> callback associated with the pgmap for the page is called. However no
->>> reference is taken on the faulting page. Therefore a concurrent
->>> migration of the device private page can free the page and possibly the
->>> underlying pgmap. This results in a race which can crash the kernel due
->>> to the migrate_to_ram() function pointer becoming invalid. It also means
->>> drivers can't reliably read the zone_device_data field because the page
->>> may have been freed with memunmap_pages().
->>>
->>> Close the race by getting a reference on the page while holding the ptl
->>> to ensure it has not been freed. Unfortunately the elevated reference
->>> count will cause the migration required to handle the fault to fail. To
->>> avoid this failure pass the faulting page into the migrate_vma functions
->>> so that if an elevated reference count is found it can be checked to see
->>> if it's expected or not.
->>>
->>> Signed-off-by: Alistair Popple <apopple@nvidia.com>
->>> ---
->>>  arch/powerpc/kvm/book3s_hv_uvmem.c       | 15 ++++++-----
->>>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 17 +++++++------
->>>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.h |  2 +-
->>>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 11 +++++---
->>>  include/linux/migrate.h                  |  8 ++++++-
->>>  lib/test_hmm.c                           |  7 ++---
->>>  mm/memory.c                              | 16 +++++++++++-
->>>  mm/migrate.c                             | 34 ++++++++++++++-----------
->>>  mm/migrate_device.c                      | 18 +++++++++----
->>>  9 files changed, 87 insertions(+), 41 deletions(-)
->>>
->>> diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
->>> index 5980063..d4eacf4 100644
->>> --- a/arch/powerpc/kvm/book3s_hv_uvmem.c
->>> +++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
->>> @@ -508,10 +508,10 @@ unsigned long kvmppc_h_svm_init_start(struct kvm *kvm)
-...
->>> @@ -994,7 +997,7 @@ static vm_fault_t kvmppc_uvmem_migrate_to_ram(struct vm_fault *vmf)
->>>
->>>  	if (kvmppc_svm_page_out(vmf->vma, vmf->address,
->>>  				vmf->address + PAGE_SIZE, PAGE_SHIFT,
->>> -				pvt->kvm, pvt->gpa))
->>> +				pvt->kvm, pvt->gpa, vmf->page))
->>>  		return VM_FAULT_SIGBUS;
->>>  	else
->>>  		return 0;
->>
->> I don't have a UV test system, but as-is it doesn't even compile :)
+Ping on this series?
+
+Alex
+
+On Thu, Sep 8, 2022 at 10:39 AM Alex Deucher <alexander.deucher@amd.com> wrote:
 >
-> Ugh, thanks. I did get as far as installing a PPC cross-compiler and
-> building a kernel. Apparently I did not get as far as enabling
-> CONFIG_PPC_UV :)
-
-No worries, that's really on us. If we're going to keep the code in the
-tree then it should really be enabled in at least one of our defconfigs.
-
-cheers
+> amdgpu_device_asic_has_dc_support() just checks the asic itself.
+> amdgpu_device_has_dc_support() is a runtime check which not
+> only checks the asic, but also other things in the driver
+> like whether virtual display is enabled.  We want the latter
+> here.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index c20922a5af9f..b0fa5d065d50 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -514,7 +514,7 @@ uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
+>          */
+>         if ((bo_flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC) &&
+>             amdgpu_bo_support_uswc(bo_flags) &&
+> -           amdgpu_device_asic_has_dc_support(adev->asic_type) &&
+> +           amdgpu_device_has_dc_support(adev) &&
+>             adev->mode_info.gpu_vm_support)
+>                 domain |= AMDGPU_GEM_DOMAIN_GTT;
+>  #endif
+> --
+> 2.37.2
+>
