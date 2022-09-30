@@ -4,50 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6AE7C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 13:53:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75A8DC433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 13:56:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB76910ED0B;
-	Fri, 30 Sep 2022 13:53:30 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D10EF10ED08;
- Fri, 30 Sep 2022 13:53:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664546001; x=1696082001;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=QH4ENeVd+49h3QIB1jgjo+dFYttG3Rwo413wsqCifSQ=;
- b=nQrAU63ubZoTv1S2DFX7+wWAELo84kJ3IQLx9LCPZ28L6aTjaUBPOSNH
- v3MKCC6NdeRMZdGomN17dG9LbOXTZ3GaRjzal2EdpAuDPVvuLl9aF1sKx
- /CZ56ZkokyGNmWsiWgQ7dyNcYqfUf0bjczzqhiz60gP36cP7mPcHKiOUL
- 0voL2WTcyKkYEWyhUkqtqktRrA5K1R68SACCJo/pNWZknyXDDdAt/Vz7d
- MFMYehsutoE0dmzMUsI0vKE/rB4rnKss7z6+meMCniCDuU3uee2G9vwrh
- 0lq0NMjfD2uw4jWR4ZMbgy6efyajTeB/97hcq82qD8lK6YHa83Fu+mf4T Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="302167158"
-X-IronPort-AV: E=Sophos;i="5.93,358,1654585200"; d="scan'208";a="302167158"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2022 06:53:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="655961386"
-X-IronPort-AV: E=Sophos;i="5.93,358,1654585200"; d="scan'208";a="655961386"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga001.jf.intel.com with SMTP; 30 Sep 2022 06:52:57 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 30 Sep 2022 16:52:56 +0300
-Date: Fri, 30 Sep 2022 16:52:56 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Simon Ser <contact@emersion.fr>
-Subject: Re: [PATCH v3 0/6] Add support for atomic async page-flips
-Message-ID: <Yzb0uNjB5FpjCIjq@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19DE310ED0E;
+	Fri, 30 Sep 2022 13:56:36 +0000 (UTC)
+X-Greylist: delayed 69186 seconds by postgrey-1.36 at gabe;
+ Fri, 30 Sep 2022 13:56:31 UTC
+Received: from mail-40136.proton.ch (mail-40136.proton.ch [185.70.40.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F19FF10ED0C;
+ Fri, 30 Sep 2022 13:56:31 +0000 (UTC)
+Date: Fri, 30 Sep 2022 13:56:25 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail3; t=1664546189; x=1664805389;
+ bh=cu9NzPYuwmV2LIQD2ELCv5fVgsv89UQlLcoBUaRxZe8=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID;
+ b=EtZ7omISzDbfLkz7bbJG8BVd2rA0vTnI3D/5DXcTAqNTc3h3IIOQnoMbYYqLYGqNT
+ ktCeN0X5gfedCjc5M6WCgnhrjUJVHGGZI6zJZgr03kVbWpaV6UyabmlLfr4F1rtNCA
+ yT3XNd9P6+jl5U/k8IoKT/K36zDFoFqO77sXBedrD2vBQWJcFGnSxOhMsVedXXilIA
+ WCirneUv8x8TLEmp93WV/IP99qM2oSOX7VjtKoSVbk5Yv30lSdzmsQw4tvosmBtmNr
+ pXo2lTsJiF8iGsBVS8DXAoCtz9TxAAX1bd7NGRIooznSOYfmaH9iTZMCdJ8LnADXMK
+ WVD5bcGBVhMIA==
+To: =?utf-8?Q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+From: Simon Ser <contact@emersion.fr>
+Subject: Re: [PATCH v3 3/6] drm: introduce
+ drm_mode_config.atomic_async_page_flip_not_supported
+Message-ID: <TIyTbXwbugAMrWLflS6c6MSMb8Nfv0n3kzxZS8XYDPW2KhtzVxazMJUQPRdq0c7BUNLAaT125oFiZYCTIT-tF5QVCnKxffLfGYOMBCBpQWQ=@emersion.fr>
+In-Reply-To: <Yzb0xhcvwnWg4iY6@intel.com>
 References: <20220929184307.258331-1-contact@emersion.fr>
+ <20220929184307.258331-4-contact@emersion.fr> <Yzb0xhcvwnWg4iY6@intel.com>
+Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220929184307.258331-1-contact@emersion.fr>
-X-Patchwork-Hint: comment
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,55 +57,22 @@ Cc: andrealmeid@igalia.com, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 29, 2022 at 06:43:15PM +0000, Simon Ser wrote:
-> This series adds support for DRM_MODE_PAGE_FLIP_ASYNC for atomic
-> commits, aka. "immediate flip" (which might result in tearing).
-> The feature was only available via the legacy uAPI, however for
-> gaming use-cases it may be desirable to enable it via the atomic
-> uAPI too.
-> 
-> - Patchwork: https://patchwork.freedesktop.org/series/107683/
-> - User-space patch: https://github.com/Plagman/gamescope/pull/595
-> - IGT patch: https://patchwork.freedesktop.org/series/107681/
+On Friday, September 30th, 2022 at 15:53, Ville Syrj=C3=A4l=C3=A4 <ville.sy=
+rjala@linux.intel.com> wrote:
 
-So no tests that actually verify that the kernel properly rejects
-stuff stuff like modesets, gamma LUT updates, plane movement,
-etc.?
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
+s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index 44235345fd57..7500e82cf06a 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -3808,6 +3808,7 @@ static int amdgpu_dm_mode_config_init(struct amdg=
+pu_device *adev)
+> >  =09=09adev_to_drm(adev)->mode_config.prefer_shadow =3D 1;
+> >  =09/* indicates support for immediate flip */
+> >  =09adev_to_drm(adev)->mode_config.async_page_flip =3D true;
+> > +=09adev_to_drm(adev)->mode_config.atomic_async_page_flip_not_supported=
+ =3D true;
+>=20
+> The flag polarity seems weird. Why opt out and not opt in?
 
-> 
-> Main changes in v2: add docs, fail atomic commit if async flip isn't
-> possible.
-> 
-> Changes in v3: add a note in the documentation about Intel hardware,
-> add R-b tags.
-> 
-> Tested on an AMD Picasso iGPU (Simon) and an AMD Vangogh GPU (André).
-> 
-> Simon Ser (6):
->   drm: document DRM_MODE_PAGE_FLIP_ASYNC
->   amd/display: only accept async flips for fast updates
->   drm: introduce drm_mode_config.atomic_async_page_flip_not_supported
->   drm: allow DRM_MODE_PAGE_FLIP_ASYNC for atomic commits
->   drm: introduce DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP
->   amd/display: indicate support for atomic async page-flips on DC
-> 
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++++++
->  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 10 +++++++
->  drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |  1 +
->  drivers/gpu/drm/drm_atomic_uapi.c             | 28 +++++++++++++++++--
->  drivers/gpu/drm/drm_ioctl.c                   |  5 ++++
->  drivers/gpu/drm/i915/display/intel_display.c  |  1 +
->  drivers/gpu/drm/nouveau/nouveau_display.c     |  1 +
->  drivers/gpu/drm/vc4/vc4_kms.c                 |  1 +
->  include/drm/drm_mode_config.h                 | 11 ++++++++
->  include/uapi/drm/drm.h                        | 10 ++++++-
->  include/uapi/drm/drm_mode.h                   | 16 +++++++++++
->  11 files changed, 88 insertions(+), 4 deletions(-)
-> 
-> -- 
-> 2.37.3
-> 
-
--- 
-Ville Syrjälä
-Intel
+Explained in the commit message.
