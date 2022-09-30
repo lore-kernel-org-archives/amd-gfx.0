@@ -4,51 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ED63C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 15:10:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 650BDC433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 15:37:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEFB710ED48;
-	Fri, 30 Sep 2022 15:10:08 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE12B10ED55;
- Fri, 30 Sep 2022 15:10:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664550601; x=1696086601;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=33ck28zDomSo1GtlXqvigs79si3EFvQUGqtynOtDxqA=;
- b=fIAgsXjfWow0RovJtSQGAlyCi+85gb9BwGfIuJOuIQblVSJ5bb7LXXBg
- /Q6AKep15BAkS+dVqdVVsp6KRkqgGsc8WL6XTTSciZYY4P0B59g46HFBn
- OZemurpTNBqCpOExb8At4wCobrldmemxkVT2NdkvDk9B9jyLM+CeACXLI
- 3pvmWIIYGF4q/0aPRQ+iZcRO/G7OflpELAVTcxyNlrFLvKWCJ1BowAwPV
- uFORRhDrgzDkJtEu6EGHtFovO5LhXg/MDPjslgaT+AMEFcqkZEzLONUDr
- xzha7/FmyfLUhW1i+irmFbzSGJAt9WIite3BeG9JZxJOcVSkhwahg0cn8 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="328595515"
-X-IronPort-AV: E=Sophos;i="5.93,358,1654585200"; d="scan'208";a="328595515"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2022 08:10:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="600441522"
-X-IronPort-AV: E=Sophos;i="5.93,358,1654585200"; d="scan'208";a="600441522"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga006.jf.intel.com with SMTP; 30 Sep 2022 08:09:56 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 30 Sep 2022 18:09:55 +0300
-Date: Fri, 30 Sep 2022 18:09:55 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Simon Ser <contact@emersion.fr>
-Subject: Re: [PATCH v3 0/6] Add support for atomic async page-flips
-Message-ID: <YzcGw9myJotLRTVl@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3A7410ED5F;
+	Fri, 30 Sep 2022 15:37:10 +0000 (UTC)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1998810ED5E;
+ Fri, 30 Sep 2022 15:37:08 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id 10so7468132lfy.5;
+ Fri, 30 Sep 2022 08:37:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date;
+ bh=xHA6yjSDnlUKmhAAm+/NkiOEJECwwsljnyj0Tr5kTMg=;
+ b=QiGgE06+RyoCdlUmQCnZpayta9xx+Qfnz6gcAAdHbJQ9cj8GkxR7HCnzFboDrKw2Sy
+ 2kS4kd33v/oIIzYPAPb3CyR2rB2J14jjQwSYfC0TPYtz221TKo+44v/Bhu2UJixUBvG5
+ ltz8Jh0NPFH/1FP4qDS9AI9G8+S0YdR8UdgWkaa68g0lh5eqEOfe/gRTk/q3jtNm0sXL
+ DL87pzi2XE4WDlORzNbbz4z6yGrjK48LjMEapFRhO5W2Z+SMhrFXlcS/5hDNuIJaU6di
+ xc/PgnpZW4S+TVa4ynrB6jnJMMLjEEZNPgd/5UJjAdXCbWt9JjaOdhT+5OJae5899LLc
+ iUUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date;
+ bh=xHA6yjSDnlUKmhAAm+/NkiOEJECwwsljnyj0Tr5kTMg=;
+ b=tm59Oua7+BVPq96izUuW4jEIHNz3zKuEmpfvpVDO63cbTsN8M9puE9LvsDYwpB/YYB
+ nhNCyNq2aRg0eJLaEvIEEmrP0qnDl4OgC7z0b6fYUKz7vdXfD7eI6N00gbcCUkEtsmTe
+ qrL7cMHbLhWJQ+zyNB/pB4QWnYwhTtN+nRg2d4XYC8GUF/4eC3yGhP/2g0IjUcawzw0S
+ fYl6/BeMCtoJ7pU4SQPXz5RHUyl1uYCwHqn9kUFB9+cK5TpP6R5fDgNQl0nex7Pf8BDy
+ U84rH4XdddKieoYM48oBU4D4E5sZfRbSC8du5A7RqAGX5kTaYUM+xM//jZvwPBJq2/P2
+ 46+w==
+X-Gm-Message-State: ACrzQf3npnmN4+AW/jLLWn6IFQihJr59bwZstmKI3fbQCrK0hujkNbKr
+ YTraRlusHZir+eByaJVV6eE=
+X-Google-Smtp-Source: AMsMyM5lPPWqtBjFAwl9uWSIpF+cvjWIxv7wpbd3IrAeRhhdrKlxDI9KTkSHNm+Vgd5fJOZ42fJdfw==
+X-Received: by 2002:a05:6512:370c:b0:49f:c4fb:8706 with SMTP id
+ z12-20020a056512370c00b0049fc4fb8706mr3637748lfr.635.1664552226329; 
+ Fri, 30 Sep 2022 08:37:06 -0700 (PDT)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ q7-20020a0565123a8700b0048aef1abb08sm316410lfu.297.2022.09.30.08.37.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Sep 2022 08:37:06 -0700 (PDT)
+Date: Fri, 30 Sep 2022 18:37:00 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: KMS atomic state sets, full vs. minimal (Re: [PATCH v3 0/6] Add
+ support for atomic async page-flips)
+Message-ID: <20220930183700.6cf64900@eldfell>
+In-Reply-To: <YzcGw9myJotLRTVl@intel.com>
 References: <20220929184307.258331-1-contact@emersion.fr>
  <Yzb0uNjB5FpjCIjq@intel.com> <Yzb6203nHF8fVH/W@intel.com>
+ <YzcGw9myJotLRTVl@intel.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Yzb6203nHF8fVH/W@intel.com>
-X-Patchwork-Hint: comment
+Content-Type: multipart/signed; boundary="Sig_/T1hLgOzt2hE1JJTqqfx/6Yb";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,65 +71,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: andrealmeid@igalia.com, daniel.vetter@ffwll.ch,
+Cc: andrealmeid@igalia.com, Simon Ser <contact@emersion.fr>,
  dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
- mwen@igalia.com, amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- hwentlan@amd.com, nicholas.kazlauskas@amd.com, joshua@froggi.es
+ mwen@igalia.com, amd-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
+ alexander.deucher@amd.com, hwentlan@amd.com, nicholas.kazlauskas@amd.com,
+ joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 30, 2022 at 05:19:07PM +0300, Ville Syrjälä wrote:
-> On Fri, Sep 30, 2022 at 04:52:56PM +0300, Ville Syrjälä wrote:
-> > On Thu, Sep 29, 2022 at 06:43:15PM +0000, Simon Ser wrote:
-> > > This series adds support for DRM_MODE_PAGE_FLIP_ASYNC for atomic
-> > > commits, aka. "immediate flip" (which might result in tearing).
-> > > The feature was only available via the legacy uAPI, however for
-> > > gaming use-cases it may be desirable to enable it via the atomic
-> > > uAPI too.
-> > > 
-> > > - Patchwork: https://patchwork.freedesktop.org/series/107683/
-> > > - User-space patch: https://github.com/Plagman/gamescope/pull/595
-> > > - IGT patch: https://patchwork.freedesktop.org/series/107681/
-> > 
-> > So no tests that actually verify that the kernel properly rejects
-> > stuff stuff like modesets, gamma LUT updates, plane movement,
-> > etc.?
-> 
-> Pondering this a bit more, it just occurred to me the current driver
-> level checks might easily lead to confusing behaviour. Eg. is
-> the ioctl going to succeed if you ask for an async change of some
-> random property while the crtc disabled, but fails if you ask for
-> the same async property change when the crtc is active?
-> 
-> So another reason why rejecting most properties already at
-> the uapi level might be a good idea.
+--Sig_/T1hLgOzt2hE1JJTqqfx/6Yb
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-And just to be clear this is pretty much what I suggest:
+On Fri, 30 Sep 2022 18:09:55 +0300
+Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 79730fa1dd8e..471a2c703847 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1392,6 +1392,13 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 				goto out;
- 			}
- 
-+			if (arg->flags & DRM_MODE_PAGE_FLIP_ASYNC &&
-+			    prop != dev->mode_config.prop_fb_id) {
-+				drm_mode_object_put(obj);
-+				ret = -EINVAL;
-+				goto out;
-+			}
-+
- 			if (copy_from_user(&prop_value,
- 					   prop_values_ptr + copied_props,
- 					   sizeof(prop_value))) {
+> That would actively discourage people from even attempting the
+> "just dump all the state into the ioctl" approach with async flips
+> since even the props whose value isn't even changing would be rejected.
+
+About that.
+
+To me it looks like just a classic case of broken communication.
+
+The kernel developers assume that of course userspace will minimize the
+state set to only those properties that change, because...?
+
+Userspace developers think that of course the kernel will optimize the
+state set into minimal changes, because the kernel actually has the
+authoritative knowledge of what the current state is, and the driver
+actually knows which properties are costly and need to be optimized and
+which ones don't matter. It has never even occurred to me that the
+kernel would not compare next state to current state.
+
+No-one ever documented any expectations, did they?
 
 
-That would actively discourage people from even attempting the
-"just dump all the state into the ioctl" approach with async flips
-since even the props whose value isn't even changing would be rejected.
+Thanks,
+pq
 
--- 
-Ville Syrjälä
-Intel
+--Sig_/T1hLgOzt2hE1JJTqqfx/6Yb
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmM3DRwACgkQI1/ltBGq
+qqflGA/+PFqtfhRFLCw87GGx+SNFRVQLLF975O0Zi3YnMfvmTh4ER4bfxasLoB+i
+KdEKxfDZflcisTrV306Gr9sc+sfvyyj5iXBWY1VEoX8wID3qh5lMW8ByE8ffgFpE
+pfGtTDs0Dfw2YoAfudnti92zlD7vdaaSkfOLeL/39/l0MyDVbKGfLJ2jha7WXsgc
+sknageMgRC1Agra5vAin222V05Xd0UpbBdb6cLkG7kfntdSzNYcJqpDSVfyNLw5u
+LkJvHaJtDK0KhLL+GYWxBkblQ4ykrQ60E4ZEnv/+rjhpGACEew96WJbLtj8ICVxg
+YT8o+ZBVWu3/PWJH9HZndL3uPBqpNcyYtOEfd5oPIz30Ow2vPy0w8TIf+vAjpBUw
+i3pI6SyWr/gPmnHS7xCIiUrDChxURblD68x8WCv8ynUVBh/agCTZGzHizIwGgyQ3
+QiVlYJRqpKtrB6hdXOgoqC5jjItz+USXaw7+vuerYXpqkJfYhEgYmHuBp8WR98+x
+Pt16NGemdBUZ1DwrgctyvqDnFjPGOaiBVuYKle2UpNgsrRwdW5COE43ctceJUJoy
+NmS368bGoVF3Puh2673E33DG1APZQoIkBNjgQVFI2WZGhFL6NqNicG2GFQaBDukv
+IljNu5pp92fTpoCzcPo9CDhPEKt2bAnZ6CH4Bb4zobx7SHD0Qsw=
+=jhbY
+-----END PGP SIGNATURE-----
+
+--Sig_/T1hLgOzt2hE1JJTqqfx/6Yb--
