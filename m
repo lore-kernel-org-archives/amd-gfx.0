@@ -4,62 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 650BDC433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 15:37:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5780EC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 15:45:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3A7410ED5F;
-	Fri, 30 Sep 2022 15:37:10 +0000 (UTC)
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1998810ED5E;
- Fri, 30 Sep 2022 15:37:08 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id 10so7468132lfy.5;
- Fri, 30 Sep 2022 08:37:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date;
- bh=xHA6yjSDnlUKmhAAm+/NkiOEJECwwsljnyj0Tr5kTMg=;
- b=QiGgE06+RyoCdlUmQCnZpayta9xx+Qfnz6gcAAdHbJQ9cj8GkxR7HCnzFboDrKw2Sy
- 2kS4kd33v/oIIzYPAPb3CyR2rB2J14jjQwSYfC0TPYtz221TKo+44v/Bhu2UJixUBvG5
- ltz8Jh0NPFH/1FP4qDS9AI9G8+S0YdR8UdgWkaa68g0lh5eqEOfe/gRTk/q3jtNm0sXL
- DL87pzi2XE4WDlORzNbbz4z6yGrjK48LjMEapFRhO5W2Z+SMhrFXlcS/5hDNuIJaU6di
- xc/PgnpZW4S+TVa4ynrB6jnJMMLjEEZNPgd/5UJjAdXCbWt9JjaOdhT+5OJae5899LLc
- iUUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date;
- bh=xHA6yjSDnlUKmhAAm+/NkiOEJECwwsljnyj0Tr5kTMg=;
- b=tm59Oua7+BVPq96izUuW4jEIHNz3zKuEmpfvpVDO63cbTsN8M9puE9LvsDYwpB/YYB
- nhNCyNq2aRg0eJLaEvIEEmrP0qnDl4OgC7z0b6fYUKz7vdXfD7eI6N00gbcCUkEtsmTe
- qrL7cMHbLhWJQ+zyNB/pB4QWnYwhTtN+nRg2d4XYC8GUF/4eC3yGhP/2g0IjUcawzw0S
- fYl6/BeMCtoJ7pU4SQPXz5RHUyl1uYCwHqn9kUFB9+cK5TpP6R5fDgNQl0nex7Pf8BDy
- U84rH4XdddKieoYM48oBU4D4E5sZfRbSC8du5A7RqAGX5kTaYUM+xM//jZvwPBJq2/P2
- 46+w==
-X-Gm-Message-State: ACrzQf3npnmN4+AW/jLLWn6IFQihJr59bwZstmKI3fbQCrK0hujkNbKr
- YTraRlusHZir+eByaJVV6eE=
-X-Google-Smtp-Source: AMsMyM5lPPWqtBjFAwl9uWSIpF+cvjWIxv7wpbd3IrAeRhhdrKlxDI9KTkSHNm+Vgd5fJOZ42fJdfw==
-X-Received: by 2002:a05:6512:370c:b0:49f:c4fb:8706 with SMTP id
- z12-20020a056512370c00b0049fc4fb8706mr3637748lfr.635.1664552226329; 
- Fri, 30 Sep 2022 08:37:06 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- q7-20020a0565123a8700b0048aef1abb08sm316410lfu.297.2022.09.30.08.37.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Sep 2022 08:37:06 -0700 (PDT)
-Date: Fri, 30 Sep 2022 18:37:00 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: KMS atomic state sets, full vs. minimal (Re: [PATCH v3 0/6] Add
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBDE110ED63;
+	Fri, 30 Sep 2022 15:45:18 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AF1510E2A5;
+ Fri, 30 Sep 2022 15:45:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1664552715; x=1696088715;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=NbSH8bl8X63yMfdG/2CWZzQSjnfsxBolNzA6k8pFsRA=;
+ b=Mmu1frPaUuxgz28opq9s+asRyj7Hez2N75dTaObSQO5svZBgN7j3LeXd
+ +jMi95uaBujXKCXMCQ3g+ZLou0jchatb/GuEtIvgJE7OrjPDG3DVi8ivv
+ z5sq4QUoFn0hJJ3gydCbG8qyz8ML1E7Yfll6LQgZiN0sknZSXrGq65j/X
+ i/w0eKqYXJ6ShVXRvqU0ZkBjzmS0aSemMMfdO3Pr4GaaPk1ZhTG5WEi9h
+ a7lMdr1LR0NECmVpUM0J+BzNjaLgGAs3Qh056c6JqRi+ZI7ehZ6jvWuuY
+ Fy5mHsxN78wV/RQ/7RGHOFFjsWc+45Ss9XvRziye1IwN466Vu/J/UYhiG A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="328603691"
+X-IronPort-AV: E=Sophos;i="5.93,358,1654585200"; d="scan'208";a="328603691"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2022 08:45:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="600451908"
+X-IronPort-AV: E=Sophos;i="5.93,358,1654585200"; d="scan'208";a="600451908"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
+ by orsmga006.jf.intel.com with SMTP; 30 Sep 2022 08:45:10 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 30 Sep 2022 18:45:09 +0300
+Date: Fri, 30 Sep 2022 18:45:09 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Subject: Re: KMS atomic state sets, full vs. minimal (Re: [PATCH v3 0/6] Add
  support for atomic async page-flips)
-Message-ID: <20220930183700.6cf64900@eldfell>
-In-Reply-To: <YzcGw9myJotLRTVl@intel.com>
+Message-ID: <YzcPBfLBNzfbHG5W@intel.com>
 References: <20220929184307.258331-1-contact@emersion.fr>
  <Yzb0uNjB5FpjCIjq@intel.com> <Yzb6203nHF8fVH/W@intel.com>
- <YzcGw9myJotLRTVl@intel.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ <YzcGw9myJotLRTVl@intel.com> <20220930183700.6cf64900@eldfell>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/T1hLgOzt2hE1JJTqqfx/6Yb";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220930183700.6cf64900@eldfell>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,56 +70,34 @@ Cc: andrealmeid@igalia.com, Simon Ser <contact@emersion.fr>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/T1hLgOzt2hE1JJTqqfx/6Yb
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On Fri, Sep 30, 2022 at 06:37:00PM +0300, Pekka Paalanen wrote:
+> On Fri, 30 Sep 2022 18:09:55 +0300
+> Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+> 
+> > That would actively discourage people from even attempting the
+> > "just dump all the state into the ioctl" approach with async flips
+> > since even the props whose value isn't even changing would be rejected.
+> 
+> About that.
+> 
+> To me it looks like just a classic case of broken communication.
+> 
+> The kernel developers assume that of course userspace will minimize the
+> state set to only those properties that change, because...?
+> 
+> Userspace developers think that of course the kernel will optimize the
+> state set into minimal changes, because the kernel actually has the
+> authoritative knowledge of what the current state is, and the driver
+> actually knows which properties are costly and need to be optimized and
+> which ones don't matter. It has never even occurred to me that the
+> kernel would not compare next state to current state.
+> 
+> No-one ever documented any expectations, did they?
 
-On Fri, 30 Sep 2022 18:09:55 +0300
-Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
+Do you really want that for async flips? Async flips can't be
+done atomically with anything else, so why are you even asking
+the kernel to do that?
 
-> That would actively discourage people from even attempting the
-> "just dump all the state into the ioctl" approach with async flips
-> since even the props whose value isn't even changing would be rejected.
-
-About that.
-
-To me it looks like just a classic case of broken communication.
-
-The kernel developers assume that of course userspace will minimize the
-state set to only those properties that change, because...?
-
-Userspace developers think that of course the kernel will optimize the
-state set into minimal changes, because the kernel actually has the
-authoritative knowledge of what the current state is, and the driver
-actually knows which properties are costly and need to be optimized and
-which ones don't matter. It has never even occurred to me that the
-kernel would not compare next state to current state.
-
-No-one ever documented any expectations, did they?
-
-
-Thanks,
-pq
-
---Sig_/T1hLgOzt2hE1JJTqqfx/6Yb
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmM3DRwACgkQI1/ltBGq
-qqflGA/+PFqtfhRFLCw87GGx+SNFRVQLLF975O0Zi3YnMfvmTh4ER4bfxasLoB+i
-KdEKxfDZflcisTrV306Gr9sc+sfvyyj5iXBWY1VEoX8wID3qh5lMW8ByE8ffgFpE
-pfGtTDs0Dfw2YoAfudnti92zlD7vdaaSkfOLeL/39/l0MyDVbKGfLJ2jha7WXsgc
-sknageMgRC1Agra5vAin222V05Xd0UpbBdb6cLkG7kfntdSzNYcJqpDSVfyNLw5u
-LkJvHaJtDK0KhLL+GYWxBkblQ4ykrQ60E4ZEnv/+rjhpGACEew96WJbLtj8ICVxg
-YT8o+ZBVWu3/PWJH9HZndL3uPBqpNcyYtOEfd5oPIz30Ow2vPy0w8TIf+vAjpBUw
-i3pI6SyWr/gPmnHS7xCIiUrDChxURblD68x8WCv8ynUVBh/agCTZGzHizIwGgyQ3
-QiVlYJRqpKtrB6hdXOgoqC5jjItz+USXaw7+vuerYXpqkJfYhEgYmHuBp8WR98+x
-Pt16NGemdBUZ1DwrgctyvqDnFjPGOaiBVuYKle2UpNgsrRwdW5COE43ctceJUJoy
-NmS368bGoVF3Puh2673E33DG1APZQoIkBNjgQVFI2WZGhFL6NqNicG2GFQaBDukv
-IljNu5pp92fTpoCzcPo9CDhPEKt2bAnZ6CH4Bb4zobx7SHD0Qsw=
-=jhbY
------END PGP SIGNATURE-----
-
---Sig_/T1hLgOzt2hE1JJTqqfx/6Yb--
+-- 
+Ville Syrjälä
+Intel
