@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0258EC433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 14:42:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D875C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 14:48:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C15A10ED37;
-	Fri, 30 Sep 2022 14:42:59 +0000 (UTC)
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAA6710ED36;
- Fri, 30 Sep 2022 14:42:55 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id q10so4935651oib.5;
- Fri, 30 Sep 2022 07:42:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2057410E1B6;
+	Fri, 30 Sep 2022 14:48:44 +0000 (UTC)
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6495710E1B6;
+ Fri, 30 Sep 2022 14:48:42 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id m130so4932135oif.6;
+ Fri, 30 Sep 2022 07:48:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date;
- bh=8y2c2TXn+uSosI4ZLTz+ogttj1trZ26bdcKYksnCapE=;
- b=C+Y8ZNBSwPPc+m+SjB0bDFHqKJzfWC1iWpmSG3lUsgVw7qgbSsIP2I5LsL3TYnqahZ
- fUXZbWkoVkKYuexMDdVOL4nHtkR0kCjBYEh4ypTZLGJ52Z2kIOqBS2w9EDlUJ6VvDTBA
- x5E0oDBgJQYjdxqL0QL+XY4F56pAF+4xDQYUEdU+C/Y/6B0TCsfctxD18h6OdJ6xKsYk
- s9rBc/SajO1K99fPQtSvzECex68fPPp8UXGn5+wqkadqZM8un2RbbQGqFwiZO5YYCjdy
- +RuNof5Sbqp9qP2WeAufmPiGaKLtABtGZYJRKcE9/8YgcU60Pr90jad0IQIUEHRcU6gk
- lZcg==
+ bh=IrD2HiOAvlqhSlCj89Kg6AmBSA4GqWLvYu4q+ahkxqw=;
+ b=FTvf7jWuva7dVerCSj72BQDqO1vmZDve/XbFr29Mq3HYSofxF+vBpy5/iZIer9Og4Y
+ 9h9F3CcvgYFpfZv/yejrKiCERLYeqz2LvHnqwyadSVZvy1nEtIRl4rT3HlqWRWLdN9Fl
+ 6z0FgRXM7sbCz6Z/CQe/zjsqbO0WbtHUvFQJuxhfcMd++iUyY6+M4itfmhGQZbhoBV+/
+ z/5sGbycYevtssfYgpjygcJfdUu/LmcZ9NcHFq80jtTHXwXBv/Qdeq1Le8d1AVN+kh6m
+ a/h4uMAu3+3AcZPIHZjPsE86B4QD+PgbXUNdsEbbs59ljH5g3agTf5/GQHtlACPfj0hV
+ k7EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=8y2c2TXn+uSosI4ZLTz+ogttj1trZ26bdcKYksnCapE=;
- b=kPmIubOlTvEyJhVaY1Cdv8ooIEDDm83woINi9XQzN5mvLGliVg0/E+wUwj9gG8fBh8
- dEx7RlbWa2jgUr9mxDk3dwhgUdVAQ/KmxfRwQReo+Sxzx5OlgLwaQpWARL8GRiBzMqFR
- UJ0BI95f7y45I5NrL3q3ax9P6CpfdhMGj60b/m7BdFuqp/MY1xxC64cR9uJHjXPSGfNk
- p2uRFOJMWlLsfX7LKSEC/qI+LY1oQKKah/tZeTk8p8xaIt77cX2QIc59etI+NZaBGko1
- p/0OkHpm5iCElPPlQK7VXG77Y24e9sPyCp5waNrdmLQroe0N2+hJBtbvD5eeG7baC9+b
- qjog==
-X-Gm-Message-State: ACrzQf3Ku6Tr1Vz43h9H/t4qIUOJT6EUNSbZREYCxpRXtIXvd1yuKMLG
- GzQj4nngUwr7lCBm2+r9x1ESIMmyQqBWv/eB8hg=
-X-Google-Smtp-Source: AMsMyM7osDVSZWUajrm3Igj7tejlkKVde0W47IAuomOnGAHzL5fMvLtUccMvXi++Z7Y6na5VELlgPTFDliQfdzBRFVU=
-X-Received: by 2002:a05:6808:2390:b0:350:5c6b:5ef9 with SMTP id
- bp16-20020a056808239000b003505c6b5ef9mr4092691oib.96.1664548974916; Fri, 30
- Sep 2022 07:42:54 -0700 (PDT)
+ bh=IrD2HiOAvlqhSlCj89Kg6AmBSA4GqWLvYu4q+ahkxqw=;
+ b=jDqpIBApu4X1qa8zWM3kt69tqwXV4HCtu2A73AhEYCDJfD9xeF3j7/OuV+dKfoKgQy
+ zpAltMB0y+UiUtMrWJs3oJvyYLRbDAslTETgPTYX2pm+K2PrXzSNN/ByPVrjXjA+i5Ba
+ JDKgPnZEZHJQlGrrOBlFZ6AyFPmwkT5smblPU3LP83FJLySSvRwT51pGcoh9sGXFb5QN
+ ZVSE8vu4VHsj8AqXAqicZDE+BvPtCkjwzKOjxXtKfAiiTYn4rUxZVnoMDy+VAzg3zl3U
+ FDub6bh3L9U4fU0c4ZDbIyaqTsntIcOs0LOqmgpYYWZUkV5vqGH0b/+QZKVtP122C7Oi
+ 9siQ==
+X-Gm-Message-State: ACrzQf39FMzhbVRYwCaJOTwu//UWKv2+6idCo0ktBrqr/+006fYxPe5b
+ MaX7snNhW0Q2u7sUWO6+IutYWj0Rf+Td5YoJLzU=
+X-Google-Smtp-Source: AMsMyM6sqVe8c4bTD9YFY2G/C+1svDf3GvVoxIluh8OGYmkdHCKavHRdrDmDo8TK3DWsOb6b2Gm9Uq4Bb3RTeg+9OAc=
+X-Received: by 2002:a05:6808:2194:b0:350:cb3d:ecd2 with SMTP id
+ be20-20020a056808219400b00350cb3decd2mr9930656oib.46.1664549321709; Fri, 30
+ Sep 2022 07:48:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220924221939.1736291-1-floridsleeves@gmail.com>
-In-Reply-To: <20220924221939.1736291-1-floridsleeves@gmail.com>
+References: <20220930053859.100235-1-yang.lee@linux.alibaba.com>
+ <20220930053859.100235-2-yang.lee@linux.alibaba.com>
+In-Reply-To: <20220930053859.100235-2-yang.lee@linux.alibaba.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 30 Sep 2022 10:42:43 -0400
-Message-ID: <CADnq5_MKscz-yV6PZUKpAY6oj7Wso6qUeX6B6RKaUGqa0vy+5g@mail.gmail.com>
-Subject: Re: [PATCH v2] drivers/amd/pm: check the return value of
- amdgpu_bo_kmap
-To: Li Zhong <floridsleeves@gmail.com>
+Date: Fri, 30 Sep 2022 10:48:30 -0400
+Message-ID: <CADnq5_O24ZXhE3qfKajjtP1gj8Pd8DO7ZVrQE6QN5cY_vf4Gvw@mail.gmail.com>
+Subject: Re: [PATCH -next 2/2] drm/amd/display: clean up one inconsistent
+ indenting
+To: Yang Li <yang.lee@linux.alibaba.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,74 +64,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lijo.lazar@amd.com, airlied@linux.ie, Xinhui.Pan@amd.com,
+Cc: sunpeng.li@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- alexander.deucher@amd.com, evan.quan@amd.com, christian.koenig@amd.com
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Sep 24, 2022 at 6:20 PM Li Zhong <floridsleeves@gmail.com> wrote:
+Applied the series.  Thanks!
+
+On Fri, Sep 30, 2022 at 1:39 AM Yang Li <yang.lee@linux.alibaba.com> wrote:
 >
-> amdgpu_bo_kmap() returns error when fails to map buffer object. Add the
-> error check and propagate the error.
+> clean up one inconsistent indenting
 >
-> Signed-off-by: Li Zhong <floridsleeves@gmail.com>
+> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2321
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 > ---
+>  drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> v2: revise the compile error
-
-Applied.  Thanks!
-
->
->  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c       | 5 ++++-
->  drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 5 ++++-
->  2 files changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> index 8fd0782a2b20..f5e08b60f66e 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> @@ -1384,13 +1384,16 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
->  static void kv_dpm_disable(struct amdgpu_device *adev)
->  {
->         struct kv_power_info *pi = kv_get_pi(adev);
-> +       int err;
->
->         amdgpu_irq_put(adev, &adev->pm.dpm.thermal.irq,
->                        AMDGPU_THERMAL_IRQ_LOW_TO_HIGH);
->         amdgpu_irq_put(adev, &adev->pm.dpm.thermal.irq,
->                        AMDGPU_THERMAL_IRQ_HIGH_TO_LOW);
->
-> -       amdgpu_kv_smc_bapm_enable(adev, false);
-> +       err = amdgpu_kv_smc_bapm_enable(adev, false);
-> +       if (err)
-> +               DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
->
->         if (adev->asic_type == CHIP_MULLINS)
->                 kv_enable_nb_dpm(adev, false);
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> index 1eb4e613b27a..ec055858eb95 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> @@ -1485,6 +1485,7 @@ static int pp_get_prv_buffer_details(void *handle, void **addr, size_t *size)
->  {
->         struct pp_hwmgr *hwmgr = handle;
->         struct amdgpu_device *adev = hwmgr->adev;
-> +       int err;
->
->         if (!addr || !size)
->                 return -EINVAL;
-> @@ -1492,7 +1493,9 @@ static int pp_get_prv_buffer_details(void *handle, void **addr, size_t *size)
->         *addr = NULL;
->         *size = 0;
->         if (adev->pm.smu_prv_buffer) {
-> -               amdgpu_bo_kmap(adev->pm.smu_prv_buffer, addr);
-> +               err = amdgpu_bo_kmap(adev->pm.smu_prv_buffer, addr);
-> +               if (err)
-> +                       return err;
->                 *size = adev->pm.smu_prv_buffer_size;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+> index 559e563d5bc1..f04595b750ab 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+> @@ -852,7 +852,7 @@ static struct hubbub *dcn301_hubbub_create(struct dc_context *ctx)
+>                 vmid->masks = &vmid_masks;
 >         }
 >
+> -        hubbub3->num_vmid = res_cap_dcn301.num_vmid;
+> +       hubbub3->num_vmid = res_cap_dcn301.num_vmid;
+>
+>         return &hubbub3->base;
+>  }
 > --
-> 2.25.1
+> 2.20.1.7.g153144c
 >
