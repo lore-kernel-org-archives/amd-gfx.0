@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FEB4C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 14:35:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEC99C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 14:37:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D624010ED32;
-	Fri, 30 Sep 2022 14:35:55 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 595E410ED34
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Sep 2022 14:35:52 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-1280590722dso5679600fac.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Sep 2022 07:35:52 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34C2910ED34;
+	Fri, 30 Sep 2022 14:37:37 +0000 (UTC)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C18110ED34;
+ Fri, 30 Sep 2022 14:37:34 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id s125so4943061oie.4;
+ Fri, 30 Sep 2022 07:37:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date;
- bh=kkPJ64cgf+FCFlNWU0OIWrKzbwQpBg0/nR7/eKGFRf8=;
- b=noiangsmvAbv09GghmUEIalbqwU0qITvM4RT4YKQuPZvtMiCkhW/7b72hiyCuWvz2i
- krxRvfxfM2WlQ0Ciq9+ALNjTiMP6Upp9N4nyN06keqSxXOB5GvYOPPnIJCIKbBMw7VWr
- tQB+4sgGcvjZvMENSwuBtpcmDiNABNmqzqLa6iFc5TPGvHER0mwtNIVrM7MMc9sLHPH6
- DjcF/X75eTL4lo6MXbMFtPNyUCq0lZ2AQhvc4VdlqPGj3XN4RHTZeuynVdtqnpIJvSdm
- JpizsK0gtDrdaGyW5KhJH9nb72wsMKyFxIPkkH7HAHrires/SBkP+9/5WqCF9SKeNBhC
- 8fsA==
+ bh=0EKYKtDamt6m6L+nsr6b+dVkqG7/Q0rILbWJkS9SPPI=;
+ b=VhEaTkvJmfCmAySCbqKnICx5hPGtMJXj6MVvx1d6dhuFM6BQyD6tUXjzQPW0Avaq6r
+ ShZTz17o2dBJ84vKDf0fKt9Pl6fjAnFpZLXkU6b31s+lMQ6WGaGXZXl1lGqmtaG6hN0S
+ MfuK68Yvp5oIlgVYOlMY0dBKOKDUjGiuxEPhJJiWEnirszUfMNpDUwcG57WMUyXV4dIm
+ eYHyL6hxvjTMMqlKlf0tOfeFBOqTiOfRUUJae8/emmZUBjhh9Mi/eZNN9S0p8Je60VwI
+ YTvq23Da4531ZcJ3GIVx8M96ZUMYdRscN5RNzTukNr884v4UvO3jctATs8jBHKtS2LkT
+ 61TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=kkPJ64cgf+FCFlNWU0OIWrKzbwQpBg0/nR7/eKGFRf8=;
- b=YuK/Uf+qle/lEqEd3HUj7YQTN/CIzZeeorD4jES2rFBCqTPrB0jKEU7LRjqT9IVAwH
- bF1GYmZ+WXwqiYF32uM0TqxXb51vpOvVoh41zHpdg4/jZRBH8BIZs91IcElv2hFHyBrd
- hwIxgPddpLqJYHF3rkiAFY2xqgPSrIh2Tfb/ZFUN7M+cM3iJf86PJQQfMjDExBN2iK6R
- /QqeUz8CzYDt0bMaAJhqw6fRNCd7Utu6ckpAk9Ca8guF5voQI6VuOlpJ3nPGbTo19S2a
- aBTKsAJXLKqjrCOaD4WqEc8ZzxB4RtszWs+kbxfHuoh+6E9/BTdmwBb7MmR5bUJxds+W
- B7fg==
-X-Gm-Message-State: ACrzQf2uFVfqMxb6tcZiX47UlzqqFuntKrsQYyEtzIKKjyXX65m+Q20q
- byeYgBjZn3vkXYrIFo96sSaWhU3W3lgBedn7555OfZFx
-X-Google-Smtp-Source: AMsMyM5WXYxKeKCQCn+QN2AAGxW4e8BNvmNInDCZGBxf51BaEhJWEKDI5xtAEpDoPR/hHpqpmym6XgBg5hTk2dJ3av4=
-X-Received: by 2002:a05:6870:c5a4:b0:131:6edd:3955 with SMTP id
- ba36-20020a056870c5a400b001316edd3955mr5043804oab.96.1664548551529; Fri, 30
- Sep 2022 07:35:51 -0700 (PDT)
+ bh=0EKYKtDamt6m6L+nsr6b+dVkqG7/Q0rILbWJkS9SPPI=;
+ b=TIdBKUeseiFMoxeda8y3gw0cXkbS9PSUeW6wSZU9TmzCcl41FpKlrvfo0utyMGDrE6
+ cska8mLket0JGeOk3wKjgZ0bt2RvcQTiq0nDeGWfDYzGDKmFAcwNcu1krnJAqIL+kdiY
+ smN0/YdfG5g6jsc6SGV1dFEFYYH25dixNnoVgvjLa2TPACTfzJ1qnYjNWYux85j/aPlr
+ Cj1bIfe0QORCCzmCgf1j2z7Kdm+qiYNlSZPES923LEx0P5GZ9mlItJWKWgZJ2ceRwEBA
+ mAUsqlIcAU9m2gMpHAdlOkgdvIALrDnxmskPo2JBzYA2+W1JXnyS/tYPYqx1XmooXdue
+ /OgA==
+X-Gm-Message-State: ACrzQf1hFEDslhRdfrBL44b7ylk4MUwWsZ5ZYRKTzoWRWaVnTZ2RrmPD
+ wVrkE7cuOo9aOQD5FI38i501XTRzW7fqXI3X8ls=
+X-Google-Smtp-Source: AMsMyM4BeOGwS6oExymXYAyzUZTfLr1KYoPz1/85vr6zRGjgWJpmrIwWEOfXHuhMicv5tJO1qjkRqJioVHywDrwalH0=
+X-Received: by 2002:a05:6808:2194:b0:350:cb3d:ecd2 with SMTP id
+ be20-20020a056808219400b00350cb3decd2mr9913017oib.46.1664548653230; Fri, 30
+ Sep 2022 07:37:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220930061634.1531705-1-yifan1.zhang@amd.com>
- <20220930061634.1531705-2-yifan1.zhang@amd.com>
-In-Reply-To: <20220930061634.1531705-2-yifan1.zhang@amd.com>
+References: <20220929090200.2189669-1-yangyingliang@huawei.com>
+In-Reply-To: <20220929090200.2189669-1-yangyingliang@huawei.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 30 Sep 2022 10:35:39 -0400
-Message-ID: <CADnq5_NHb65ApzNjytAOXOD39cBnCNAvY-YpHM5hEYPmcUkm1A@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: remove unnecessary judgement in sdma reg
- offest calculaton
-To: Yifan Zhang <yifan1.zhang@amd.com>
+Date: Fri, 30 Sep 2022 10:37:21 -0400
+Message-ID: <CADnq5_O3e5=yyAhNO7CShMatc+ZxhvQosUkBdPa+CkJTcqUTNw@mail.gmail.com>
+Subject: Re: [PATCH -next] drm/amd/display: change to
+ enc314_stream_encoder_dp_blank static
+To: Yang Yingliang <yangyingliang@huawei.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,42 +63,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Felix.Kuehling@amd.com, ruiliji2@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, nicholas.kazlauskas@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Applied.  Thanks!
 
-On Fri, Sep 30, 2022 at 2:17 AM Yifan Zhang <yifan1.zhang@amd.com> wrote:
+Alex
+
+On Thu, Sep 29, 2022 at 4:46 AM Yang Yingliang <yangyingliang@huawei.com> wrote:
 >
-> clean sdma_v6_0_get_reg_offset function.
+> enc314_stream_encoder_dp_blank is only used in dcn314_dio_stream_encoder.c now,
+> change it to static.
 >
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+> Fixes: c9c2ff53cc20 ("drm/amd/display: Add explicit FIFO disable for DP blank")
+> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
+>  .../gpu/drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c   | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> index db51230163c5..b2c71f533e93 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> @@ -67,12 +67,10 @@ static u32 sdma_v6_0_get_reg_offset(struct amdgpu_device *adev, u32 instance, u3
->         if (internal_offset >= SDMA0_HYP_DEC_REG_START &&
->             internal_offset <= SDMA0_HYP_DEC_REG_END) {
->                 base = adev->reg_offset[GC_HWIP][0][1];
-> -               if (instance != 0)
-> -                       internal_offset += SDMA1_HYP_DEC_REG_OFFSET * instance;
-> +               internal_offset += SDMA1_HYP_DEC_REG_OFFSET * instance;
->         } else {
->                 base = adev->reg_offset[GC_HWIP][0][0];
-> -               if (instance == 1)
-> -                       internal_offset += SDMA1_REG_OFFSET;
-> +               internal_offset += SDMA1_REG_OFFSET * instance;
->         }
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c
+> index 0d2ffb692957..7e773bf7b895 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c
+> @@ -262,7 +262,7 @@ static bool is_two_pixels_per_containter(const struct dc_crtc_timing *timing)
+>         return two_pix;
+>  }
 >
->         return base + internal_offset;
+> -void enc314_stream_encoder_dp_blank(
+> +static void enc314_stream_encoder_dp_blank(
+>         struct dc_link *link,
+>         struct stream_encoder *enc)
+>  {
 > --
-> 2.37.3
+> 2.25.1
 >
