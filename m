@@ -4,51 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F35F4C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 14:19:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FEB4C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 14:35:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F21210ED23;
-	Fri, 30 Sep 2022 14:19:31 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B321510ED21;
- Fri, 30 Sep 2022 14:19:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664547565; x=1696083565;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=F58cMeBr5bBgEWRI8zvTrTMwUw7dIxvTR6vfVIlERyU=;
- b=CBDROqWA5i4538DuAlkZe1nqqJjdaKKDwUqmjfNqGcaqqG28nVuKF2W3
- lBWC9UNV0WYNbDphn28JxkEzI1mTxjHPwkySijUY7ny0Arj6A1Jc+NySG
- BXIeaZL2iQWuk80CQwTaSpAWd/u+XFtMFM5+O9PAxd3AXN6Qr+C9Z3AKc
- pa44qqzPMLttEc4OnSM5sqmfKE5ryC3OK+59YEZfxSI9ugqdjWYhyeeVN
- YxuFBr45FT2CH30SDqp2PN0PH9/7goYbToy6h6j8i8OSI8Ge4dCo+TeJr
- qFeUHDAAFJI+rTWOm/Yvc5WCGraL6TSu1RGWxEgJ6e+x+dnbEy33VTTpa w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="303110482"
-X-IronPort-AV: E=Sophos;i="5.93,358,1654585200"; d="scan'208";a="303110482"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2022 07:19:13 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="573875507"
-X-IronPort-AV: E=Sophos;i="5.93,358,1654585200"; d="scan'208";a="573875507"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga003.jf.intel.com with SMTP; 30 Sep 2022 07:19:08 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 30 Sep 2022 17:19:07 +0300
-Date: Fri, 30 Sep 2022 17:19:07 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Simon Ser <contact@emersion.fr>
-Subject: Re: [PATCH v3 0/6] Add support for atomic async page-flips
-Message-ID: <Yzb6203nHF8fVH/W@intel.com>
-References: <20220929184307.258331-1-contact@emersion.fr>
- <Yzb0uNjB5FpjCIjq@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D624010ED32;
+	Fri, 30 Sep 2022 14:35:55 +0000 (UTC)
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [IPv6:2001:4860:4864:20::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 595E410ED34
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Sep 2022 14:35:52 +0000 (UTC)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-1280590722dso5679600fac.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Sep 2022 07:35:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=kkPJ64cgf+FCFlNWU0OIWrKzbwQpBg0/nR7/eKGFRf8=;
+ b=noiangsmvAbv09GghmUEIalbqwU0qITvM4RT4YKQuPZvtMiCkhW/7b72hiyCuWvz2i
+ krxRvfxfM2WlQ0Ciq9+ALNjTiMP6Upp9N4nyN06keqSxXOB5GvYOPPnIJCIKbBMw7VWr
+ tQB+4sgGcvjZvMENSwuBtpcmDiNABNmqzqLa6iFc5TPGvHER0mwtNIVrM7MMc9sLHPH6
+ DjcF/X75eTL4lo6MXbMFtPNyUCq0lZ2AQhvc4VdlqPGj3XN4RHTZeuynVdtqnpIJvSdm
+ JpizsK0gtDrdaGyW5KhJH9nb72wsMKyFxIPkkH7HAHrires/SBkP+9/5WqCF9SKeNBhC
+ 8fsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=kkPJ64cgf+FCFlNWU0OIWrKzbwQpBg0/nR7/eKGFRf8=;
+ b=YuK/Uf+qle/lEqEd3HUj7YQTN/CIzZeeorD4jES2rFBCqTPrB0jKEU7LRjqT9IVAwH
+ bF1GYmZ+WXwqiYF32uM0TqxXb51vpOvVoh41zHpdg4/jZRBH8BIZs91IcElv2hFHyBrd
+ hwIxgPddpLqJYHF3rkiAFY2xqgPSrIh2Tfb/ZFUN7M+cM3iJf86PJQQfMjDExBN2iK6R
+ /QqeUz8CzYDt0bMaAJhqw6fRNCd7Utu6ckpAk9Ca8guF5voQI6VuOlpJ3nPGbTo19S2a
+ aBTKsAJXLKqjrCOaD4WqEc8ZzxB4RtszWs+kbxfHuoh+6E9/BTdmwBb7MmR5bUJxds+W
+ B7fg==
+X-Gm-Message-State: ACrzQf2uFVfqMxb6tcZiX47UlzqqFuntKrsQYyEtzIKKjyXX65m+Q20q
+ byeYgBjZn3vkXYrIFo96sSaWhU3W3lgBedn7555OfZFx
+X-Google-Smtp-Source: AMsMyM5WXYxKeKCQCn+QN2AAGxW4e8BNvmNInDCZGBxf51BaEhJWEKDI5xtAEpDoPR/hHpqpmym6XgBg5hTk2dJ3av4=
+X-Received: by 2002:a05:6870:c5a4:b0:131:6edd:3955 with SMTP id
+ ba36-20020a056870c5a400b001316edd3955mr5043804oab.96.1664548551529; Fri, 30
+ Sep 2022 07:35:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Yzb0uNjB5FpjCIjq@intel.com>
-X-Patchwork-Hint: comment
+References: <20220930061634.1531705-1-yifan1.zhang@amd.com>
+ <20220930061634.1531705-2-yifan1.zhang@amd.com>
+In-Reply-To: <20220930061634.1531705-2-yifan1.zhang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 30 Sep 2022 10:35:39 -0400
+Message-ID: <CADnq5_NHb65ApzNjytAOXOD39cBnCNAvY-YpHM5hEYPmcUkm1A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: remove unnecessary judgement in sdma reg
+ offest calculaton
+To: Yifan Zhang <yifan1.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,38 +65,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: andrealmeid@igalia.com, daniel.vetter@ffwll.ch,
- amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
- mwen@igalia.com, dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
- hwentlan@amd.com, nicholas.kazlauskas@amd.com, joshua@froggi.es
+Cc: Alexander.Deucher@amd.com, Felix.Kuehling@amd.com, ruiliji2@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 30, 2022 at 04:52:56PM +0300, Ville Syrjälä wrote:
-> On Thu, Sep 29, 2022 at 06:43:15PM +0000, Simon Ser wrote:
-> > This series adds support for DRM_MODE_PAGE_FLIP_ASYNC for atomic
-> > commits, aka. "immediate flip" (which might result in tearing).
-> > The feature was only available via the legacy uAPI, however for
-> > gaming use-cases it may be desirable to enable it via the atomic
-> > uAPI too.
-> > 
-> > - Patchwork: https://patchwork.freedesktop.org/series/107683/
-> > - User-space patch: https://github.com/Plagman/gamescope/pull/595
-> > - IGT patch: https://patchwork.freedesktop.org/series/107681/
-> 
-> So no tests that actually verify that the kernel properly rejects
-> stuff stuff like modesets, gamma LUT updates, plane movement,
-> etc.?
+Series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Pondering this a bit more, it just occurred to me the current driver
-level checks might easily lead to confusing behaviour. Eg. is
-the ioctl going to succeed if you ask for an async change of some
-random property while the crtc disabled, but fails if you ask for
-the same async property change when the crtc is active?
-
-So another reason why rejecting most properties already at
-the uapi level might be a good idea.
-
--- 
-Ville Syrjälä
-Intel
+On Fri, Sep 30, 2022 at 2:17 AM Yifan Zhang <yifan1.zhang@amd.com> wrote:
+>
+> clean sdma_v6_0_get_reg_offset function.
+>
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> index db51230163c5..b2c71f533e93 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> @@ -67,12 +67,10 @@ static u32 sdma_v6_0_get_reg_offset(struct amdgpu_device *adev, u32 instance, u3
+>         if (internal_offset >= SDMA0_HYP_DEC_REG_START &&
+>             internal_offset <= SDMA0_HYP_DEC_REG_END) {
+>                 base = adev->reg_offset[GC_HWIP][0][1];
+> -               if (instance != 0)
+> -                       internal_offset += SDMA1_HYP_DEC_REG_OFFSET * instance;
+> +               internal_offset += SDMA1_HYP_DEC_REG_OFFSET * instance;
+>         } else {
+>                 base = adev->reg_offset[GC_HWIP][0][0];
+> -               if (instance == 1)
+> -                       internal_offset += SDMA1_REG_OFFSET;
+> +               internal_offset += SDMA1_REG_OFFSET * instance;
+>         }
+>
+>         return base + internal_offset;
+> --
+> 2.37.3
+>
