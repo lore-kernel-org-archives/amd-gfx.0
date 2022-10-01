@@ -4,57 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48D75C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 22:21:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71DADC433FE
+	for <amd-gfx@archiver.kernel.org>; Sat,  1 Oct 2022 04:23:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A693510EDDC;
-	Fri, 30 Sep 2022 22:21:07 +0000 (UTC)
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 265EF10EDD7
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Sep 2022 22:21:02 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id c30so7692353edn.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Sep 2022 15:21:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date;
- bh=6JNco3UAJVToGpvcvUOsNxLD+zLNOvfcoCbyAl5UnqY=;
- b=CqlmfYMPxg4X+ouC9tyJVxk5PNcjPLWqplPQHNuezs76StqzQ/4DHSn3hrjXmpsFOz
- HED/rrITJDFKkxduY/q8V3rsej0aHqd/JGFHwdrppNKX8oa3IZDKHgkDTOaMDclaa+cd
- ZYYJsYc6z1OSzvkN8ZAtSrEv9ibKZmaAgEuQU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=6JNco3UAJVToGpvcvUOsNxLD+zLNOvfcoCbyAl5UnqY=;
- b=MpyqsJnTEGAazoVGolyeonE0Q8tp5i8VmCOOhcQJva6SZcw0r9yf20bmun0sMb40kA
- On16amFBL5izPKLUhcz7/f6DPtnJ2Q+mYdsmDBGmDlbXURbfjKpCoVl8IXOnyKD6jJzo
- zNlRJqGYgxOQYxUABK6fHqhdORGS9upPgtJgpVmFIl3cuKIHSFDPI1VBsE9jBMT7oqqE
- 1pGDk6dB2o0mmsRJv79dXabQ1Ns9E5awPzcgqNhOjpTwsa43GtDVXeIOE3pEQpcW0s43
- 8xSTJgiTbxGHwx/p2Kjq5gNrrUraRCfBXVQvgaLPReLr7A5jeuNL12q4Hs1XP12lOsvG
- 7BZw==
-X-Gm-Message-State: ACrzQf156CKSpqOj0DDxdhNda+/bdIaxR9lgHLfsZt3XAZVJvzm4sC5b
- ZOrzczousKlBHMSEitR9O3zzLQ==
-X-Google-Smtp-Source: AMsMyM4wOc7ortJNRHF5bPY1SmaAaouIm6vjbEimiEeLA1t9yx/2enKxP8i8kdFWW+pp6RblL8Q4Kw==
-X-Received: by 2002:a05:6402:3806:b0:450:bad8:8cd5 with SMTP id
- es6-20020a056402380600b00450bad88cd5mr9656896edb.305.1664576460717; 
- Fri, 30 Sep 2022 15:21:00 -0700 (PDT)
-Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
- [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
- 17-20020a170906309100b0073d9a0d0cbcsm1769961ejv.72.2022.09.30.15.20.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Sep 2022 15:21:00 -0700 (PDT)
-Date: Sat, 1 Oct 2022 00:20:58 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [pull] amdgpu drm-fixes-6.0
-Message-ID: <YzdrymlDHGAeNqv5@phenom.ffwll.local>
-References: <20220930210454.542719-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 860E010EE2F;
+	Sat,  1 Oct 2022 04:23:33 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69BB810EE2F
+ for <amd-gfx@lists.freedesktop.org>; Sat,  1 Oct 2022 04:23:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1664598209; x=1696134209;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=RoWMV6YlQ3RZj1k+vWM5yUhCoz+P5pH/wqRjGcxHHpc=;
+ b=OUIOKupBl3sKwzsT00z4ieFh9HfC6S/gLDeqxAjpLzzE0mzNRRGg3dzT
+ DupKfErJb+LUkcsFxwV3lw8+g3rJ2YIBrTkvqjLWKixs8or2xBrcoZO82
+ vT6aZaen5NZcyKkwy3o6AQXqBNXcYg2YH7kR2pf33aGmfCINQ1y48tcFV
+ hKoPCjS1ooZhjLyAwvRKcUi0Mt1jgWjDtyY4baUDJF4HVH2JpyRi92ru2
+ RoshGKin/XUoY9d3UrjLHzoBKQt1TdDlzxVrnujuBn471RTgMupD4EiCY
+ 7TOGvJfJRGMGtHg+XjAyygyx5FPEjCmgDtw6KB0p4QUUzh/5G5yNz6Tmi Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="299937864"
+X-IronPort-AV: E=Sophos;i="5.93,359,1654585200"; d="scan'208";a="299937864"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2022 21:23:17 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="656176205"
+X-IronPort-AV: E=Sophos;i="5.93,359,1654585200"; d="scan'208";a="656176205"
+Received: from lkp-server01.sh.intel.com (HELO 14cc182da2d0) ([10.239.97.150])
+ by orsmga001.jf.intel.com with ESMTP; 30 Sep 2022 21:23:14 -0700
+Received: from kbuild by 14cc182da2d0 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1oeU1x-0001ql-2w;
+ Sat, 01 Oct 2022 04:23:13 +0000
+Date: Sat, 01 Oct 2022 12:22:25 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 274d7803837da78dfc911bcda0d593412676fc20
+Message-ID: <6337c081.sOjlKX7TNksVmkN4%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220930210454.542719-1-alexander.deucher@amd.com>
-X-Operating-System: Linux phenom 5.18.0-4-amd64 
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,73 +58,191 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, airlied@gmail.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: linux-nvme@lists.infradead.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org, linux-serial@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 30, 2022 at 05:04:54PM -0400, Alex Deucher wrote:
-> Hi Dave, Daniel,
-> 
-> Sorry, some last minute changes to deal with updated firmwares/bioses and
-> board revisions containing new IPs added in this cycle.  It required
-> pulling in some cleanup patches for the RLC firmware handing, but they
-> are only applied to GC 11 in this case.  I figured that would be cleaner
-> then a bunch of local fixes that would cause merge conflicts for -next,
-> and time was getting short for 6.0. They are only applied to GC 11, so no
-> chance of regression on existing asics.
-> 
-> V2: fixed S-O-Bs.
-> 
-> The following changes since commit 83ca5fb40e758e0a0257bf4e3a1148dd52c6d0f2:
-> 
->   drm/amd/display: Prevent OTG shutdown during PSR SU (2022-09-29 10:07:42 -0400)
-> 
-> are available in the Git repository at:
-> 
->   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.0-2022-09-30-1
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 274d7803837da78dfc911bcda0d593412676fc20  Add linux-next specific files for 20220930
 
-Pullled and forwarded.
+Error/Warning reports:
 
-Cheers, Daniel
+https://lore.kernel.org/linux-mm/202209150141.WgbAKqmX-lkp@intel.com
+https://lore.kernel.org/linux-mm/202210010718.2kaVANGb-lkp@intel.com
+https://lore.kernel.org/llvm/202209220019.Yr2VuXhg-lkp@intel.com
 
-> 
-> for you to fetch changes up to 0fd85e89b5bf18447e56099a010ee5be5dc9f2b0:
-> 
->   drm/amdgpu/gfx11: switch to amdgpu_gfx_rlc_init_microcode (2022-09-30 16:59:06 -0400)
-> 
-> ----------------------------------------------------------------
-> amd-drm-fixes-6.0-2022-09-30-1:
-> 
-> amdgpu:
-> - VCN 4.x fixes
-> - RLC fixes for GC 11.x
-> 
-> ----------------------------------------------------------------
-> Hawking Zhang (8):
->       drm/amdgpu: save rlcv/rlcp ucode version in amdgpu_gfx
->       drm/amdgpu: add helper to init rlc fw in header v2_0
->       drm/amdgpu: add helper to init rlc fw in header v2_1
->       drm/amdgpu: add helper to init rlc fw in header v2_2
->       drm/amdgpu: add helper to init rlc fw in header v2_3
->       drm/amdgpu: add helper to init rlc fw in header v2_4
->       drm/amdgpu: add helper to init rlc firmware
->       drm/amdgpu/gfx11: switch to amdgpu_gfx_rlc_init_microcode
-> 
-> Sonny Jiang (2):
->       drm/amdgpu: Enable VCN DPG for GC11_0_1
->       drm/amdgpu: Enable sram on vcn_4_0_2
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h   |   4 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c   | 264 ++++++++++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h   |   4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h |   4 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c   |   2 +-
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c    | 151 +----------------
->  drivers/gpu/drm/amd/amdgpu/soc21.c        |   1 +
->  7 files changed, 281 insertions(+), 149 deletions(-)
+Error/Warning: (recently discovered and may have been fixed)
+
+ERROR: modpost: "devm_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
+ERROR: modpost: "devm_ioremap_resource" [drivers/dma/idma64.ko] undefined!
+ERROR: modpost: "devm_ioremap_resource" [drivers/dma/qcom/hdma.ko] undefined!
+ERROR: modpost: "devm_memremap" [drivers/misc/open-dice.ko] undefined!
+ERROR: modpost: "devm_memunmap" [drivers/misc/open-dice.ko] undefined!
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/char/xillybus/xillybus_of.ko] undefined!
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/clk/xilinx/clk-xlnx-clock-wizard.ko] undefined!
+ERROR: modpost: "ioremap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
+ERROR: modpost: "iounmap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
+ERROR: modpost: "iounmap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
+arch/arm64/kernel/alternative.c:199:6: warning: no previous prototype for 'apply_alternatives_vdso' [-Wmissing-prototypes]
+arch/arm64/kernel/alternative.c:295:14: warning: no previous prototype for 'alt_cb_patch_nops' [-Wmissing-prototypes]
+depmod: ERROR: Cycle detected: nf_conntrack -> nf_nat -> nf_conntrack
+depmod: ERROR: Found 2 modules in dependency cycles!
+drivers/nvme/target/loop.c:623 nvme_loop_create_ctrl() warn: 'opts->queue_size - 1' 18446744073709551615 can't fit into 65535 'ctrl->ctrl.sqsize'
+drivers/tty/serial/atmel_serial.c:2127: undefined reference to `__clk_is_enabled'
+pahole: .tmp_vmlinux.btf: No such file or directory
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- arm64-allyesconfig
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
+|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
+|-- arm64-randconfig-r003-20220928
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
+|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
+|-- arm64-randconfig-r035-20220926
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
+|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
+|-- parisc-randconfig-m031-20220925
+|   `-- drivers-nvme-target-loop.c-nvme_loop_create_ctrl()-warn:opts-queue_size-can-t-fit-into-ctrl-ctrl.sqsize
+|-- parisc-randconfig-r002-20220925
+|   |-- drivers-tty-serial-atmel_serial.c:undefined-reference-to-__clk_is_enabled
+|   `-- pahole:.tmp_vmlinux.btf:No-such-file-or-directory
+|-- s390-allmodconfig
+|   |-- ERROR:devm_ioremap_resource-drivers-dma-fsl-edma.ko-undefined
+|   |-- ERROR:devm_ioremap_resource-drivers-dma-idma64.ko-undefined
+|   |-- ERROR:devm_ioremap_resource-drivers-dma-qcom-hdma.ko-undefined
+|   |-- ERROR:devm_memremap-drivers-misc-open-dice.ko-undefined
+|   |-- ERROR:devm_memunmap-drivers-misc-open-dice.ko-undefined
+|   |-- ERROR:devm_platform_ioremap_resource-drivers-char-xillybus-xillybus_of.ko-undefined
+|   |-- ERROR:devm_platform_ioremap_resource-drivers-clk-xilinx-clk-xlnx-clock-wizard.ko-undefined
+|   |-- ERROR:ioremap-drivers-tty-ipwireless-ipwireless.ko-undefined
+|   |-- ERROR:iounmap-drivers-net-ethernet-pcnet_cs.ko-undefined
+|   `-- ERROR:iounmap-drivers-tty-ipwireless-ipwireless.ko-undefined
+`-- x86_64-rhel-8.3-kselftests
+    |-- depmod:ERROR:Cycle-detected:nf_conntrack-nf_nat-nf_conntrack
+    `-- depmod:ERROR:Found-modules-in-dependency-cycles
+clang_recent_errors
+|-- hexagon-randconfig-r041-20220925
+|   `-- drivers-phy-mediatek-phy-mtk-tphy.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-c
+|-- hexagon-randconfig-r041-20220926
+|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
+|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
+|   `-- drivers-phy-mediatek-phy-mtk-tphy.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-c
+|-- hexagon-randconfig-r045-20220926
+|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|   `-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|-- powerpc-mpc832x_rdb_defconfig
+|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-A_c-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-B_c-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- arch-powerpc-math-emu-fctiw.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- arch-powerpc-math-emu-fctiwz.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
+|   `-- arch-powerpc-math-emu-fsel.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
+|-- s390-randconfig-r023-20220926
+|   |-- manage.c:(.text):undefined-reference-to-__tsan_memcpy
+|   |-- s39-linux-ld:affinity.c:(.text):undefined-reference-to-__tsan_memcpy
+|   |-- s39-linux-ld:topology.c:(.text):undefined-reference-to-__tsan_memcpy
+|   `-- workqueue.c:(.init.text):undefined-reference-to-__tsan_memcpy
+|-- s390-randconfig-r044-20220926
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-function-virtual_disable_link_output
+`-- x86_64-rhel-8.3-rust
+    |-- ld.lld:error:undefined-symbol:__rust_alloc
+    |-- ld.lld:error:undefined-symbol:__rust_dealloc
+    |-- ld.lld:error:undefined-symbol:__rust_realloc
+    |-- ld.lld:error:undefined-symbol:bool-as-core::fmt::Display::fmt
+    |-- ld.lld:error:undefined-symbol:core::fmt::Formatter::debug_list
+    |-- ld.lld:error:undefined-symbol:core::fmt::Formatter::debug_lower_hex
+    |-- ld.lld:error:undefined-symbol:core::fmt::Formatter::debug_upper_hex
+    |-- ld.lld:error:undefined-symbol:core::fmt::builders::DebugList::entry
+    |-- ld.lld:error:undefined-symbol:core::fmt::builders::DebugList::finish
+    |-- ld.lld:error:undefined-symbol:core::panicking::panic
+    |-- ld.lld:error:undefined-symbol:i32-as-core::fmt::Display::fmt
+    |-- ld.lld:error:undefined-symbol:i32-as-core::fmt::LowerHex::fmt
+    |-- ld.lld:error:undefined-symbol:i32-as-core::fmt::UpperHex::fmt
+    |-- ld.lld:error:undefined-symbol:kernel::error::Error-as-core::convert::From-alloc::collections::TryReserveError::from
+    |-- ld.lld:error:undefined-symbol:kernel::error::Error::to_kernel_errno
+    |-- ld.lld:error:undefined-symbol:kernel::print::call_printk
+    |-- ld.lld:error:undefined-symbol:kernel::print::format_strings::INFO
+    `-- ld.lld:error:undefined-symbol:rust_fmt_argument
+
+elapsed time: 732m
+
+configs tested: 64
+configs skipped: 2
+
+gcc tested configs:
+um                             i386_defconfig
+um                           x86_64_defconfig
+arc                                 defconfig
+alpha                               defconfig
+x86_64                           rhel-8.3-syz
+x86_64                         rhel-8.3-kunit
+x86_64                           rhel-8.3-kvm
+s390                             allmodconfig
+i386                                defconfig
+s390                                defconfig
+i386                 randconfig-a001-20220926
+x86_64                          rhel-8.3-func
+x86_64                              defconfig
+x86_64               randconfig-a002-20220926
+powerpc                          allmodconfig
+i386                 randconfig-a004-20220926
+arm                                 defconfig
+sh                               allmodconfig
+i386                 randconfig-a006-20220926
+x86_64                    rhel-8.3-kselftests
+s390                             allyesconfig
+x86_64                               rhel-8.3
+x86_64               randconfig-a005-20220926
+x86_64               randconfig-a004-20220926
+mips                             allyesconfig
+i386                 randconfig-a002-20220926
+arc                  randconfig-r043-20220925
+i386                 randconfig-a003-20220926
+x86_64               randconfig-a006-20220926
+i386                 randconfig-a005-20220926
+powerpc                           allnoconfig
+x86_64               randconfig-a001-20220926
+x86_64               randconfig-a003-20220926
+x86_64                           allyesconfig
+riscv                randconfig-r042-20220925
+arm64                            allyesconfig
+arm                              allyesconfig
+arc                  randconfig-r043-20220926
+s390                 randconfig-r044-20220925
+i386                             allyesconfig
+ia64                             allmodconfig
+m68k                             allmodconfig
+alpha                            allyesconfig
+arc                              allyesconfig
+m68k                             allyesconfig
+
+clang tested configs:
+i386                 randconfig-a011-20220926
+i386                 randconfig-a013-20220926
+x86_64               randconfig-a012-20220926
+i386                 randconfig-a016-20220926
+i386                 randconfig-a012-20220926
+x86_64               randconfig-a013-20220926
+hexagon              randconfig-r045-20220925
+i386                 randconfig-a015-20220926
+x86_64               randconfig-a011-20220926
+i386                 randconfig-a014-20220926
+hexagon              randconfig-r041-20220926
+x86_64               randconfig-a015-20220926
+x86_64               randconfig-a014-20220926
+x86_64               randconfig-a016-20220926
+hexagon              randconfig-r045-20220926
+hexagon              randconfig-r041-20220925
+riscv                randconfig-r042-20220926
+s390                 randconfig-r044-20220926
+x86_64                          rhel-8.3-rust
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+0-DAY CI Kernel Test Service
+https://01.org/lkp
