@@ -4,88 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ACF7C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Oct 2022 18:39:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A256C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Oct 2022 19:12:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7284910E2C5;
-	Mon,  3 Oct 2022 18:38:59 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8E8910E467
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Oct 2022 18:38:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B3D910E47F;
+	Mon,  3 Oct 2022 19:12:08 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5931A10E47F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Oct 2022 19:12:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ihAXyHYsx+DsypcMw3dgnbopYuVZniRK5OAtR52NBXTX7QNg85TdG3aYJoPsSCsKeyJsUrEYu2nP4nda4sv457cuCsg3MAs5fF3THZahBGGdy35R8/YJ/AY6h7LRlGTVYDEtegp5WaCL0Xsh73ZQQ1vSVhZvZuE7rMmyuOEiklBnQi0LQqLTrZT0SXKrVw6LbIsadrK9beqtWLOPkAhLD3G4NXtFiGjGEA2UaihPknsGEZMMSnh/xVmXcyoLxua0GJ4SA+KTZ/RuLnstwDX9cVrXG9f7ETP0uW/Rc8Z2vTdT57/DUazovr9G7eansd/1BnRpU2IbuGoqFjWZbRTqgw==
+ b=gITaTlptFK2hScvDC1nHz1cuCP9vk4UhomX2b4jGtnqZ6ObJVGbO6Xz2Cv8SBARse89lFXP/9Et3usLwZdzGc19Wa2o0Bgxm/pRnV3coMClKXH1OeQJeRz0+dSrK+PdYeRWys4ULYI+WSHfppFr0il3z7QfxM64yWJ43flHcHMGpt4mV2tvXLqVQ0V2JcoX79zcgSnnuOMEJx4dd8NXrqSahsx8CBPF6pl68dvzqGit0PGz/fZRCyYRsOmu6BTGyCdswWCPPbJ7tl6+4HJuMxdbwejmkOQ2+UiS4JtBFK63Fh+y1SucxwzVVkmw/oBSjd6LyIKO+wHDqQIJizDHeKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wuwqXkuX8/nc6/FAodcBb8vkrPPnCCkfjATe8jSYevA=;
- b=Do14SIAc61J5Qjz5Kqq+js2NpJZF5tQd6ca5AGji9K14gVzy4uy7T92kWTyHgs2ZQi7bfrnxtXgagsi1wOpswBRXdd34qj1xry9C+aTC91nKnhgvT905Pf7Ln0jpiptdox4UK4DPkP5TKhkVOmzQNv6Ga2MWZu654xOXoBPmRs8AGJvnQmrIn2BHdnUI5S5v06zi6RraOa1+SRAGeBi3KCVTfBvm7uEnX9yORB4GELcMifN/Ei5MKpIz3DwYKkgPO/W4lL330tJt2UVR6ilyC45cVVGU1WRVHsMrwmysRB5SIRj12ZBRJh3J9sGPZ9u+IoHRoqyhk89FB3Kfzq5Tbg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=KGpI4kRdPGNrEes6d/ALcoqkDA6yH+7cjwSyQqZd3WA=;
+ b=ZrsIivua2Kj2zL+h4MMMbigm3Ij4FYL27H7RYMKg9eH0HG9Ot7GI3FubdneoU4PzKRv8X/65nK3QLe2xVyipljpMQNLYloJeJkfJ+eaRXpmWY/hhF9+ozjnVpyBH2veFevwgpuj8TeAeie0quRw0jDyljCHUAtUjF+t3CPMOctcuYRcrVgaFiCnU48fWyreiWIJuv8rbrlHKGe/FYhwT2YuOFDSUsM/1PiWhV+03zccOuEXAXDIat2wyXllR6szS43vN4QnPCy4tiseRY4/SAGuhHWVuUQNsXfM/Ec0iLZwH7bTDqjtj1Bo7HWebXNCzTl4YzZnnFBFKiG/bvZLMRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wuwqXkuX8/nc6/FAodcBb8vkrPPnCCkfjATe8jSYevA=;
- b=usZInHabiRQmJYpovfyVRgXio8raKv9XFMsrjc8kQhLnB9Jf+hAe5JrG+8PfrVwXcJHjMDnjLEqq8e0WN3RTP19IkYlakSC6iO/xYmMI2lbUGWRxifw8SSuK7LblV5tUF24uO8L9DqLd8czzUaPPIrvcpdpDMDUqUXbf3fLPn4s=
-Received: from BN9PR03CA0118.namprd03.prod.outlook.com (2603:10b6:408:fd::33)
- by MN0PR12MB6344.namprd12.prod.outlook.com (2603:10b6:208:3d3::14)
+ bh=KGpI4kRdPGNrEes6d/ALcoqkDA6yH+7cjwSyQqZd3WA=;
+ b=ENuw3Q9LBJBVTAdjJIyeD1wDZ0cJVRekuOrVtJ1kogDTE8dHmGhfExdPaSGfjTnVuZdQp0GhyHe60v9i04IkD8uo4wlMZf+8X4eFBLHKbc8AP0SIw/eDr1iBQFzLd45wH5Pp2n10s59H9TEBZE0W4/DDAJQ257kGMkonIDT7Gv8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
+ by CY5PR12MB6405.namprd12.prod.outlook.com (2603:10b6:930:3e::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.30; Mon, 3 Oct
- 2022 18:38:51 +0000
-Received: from BN8NAM11FT097.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fd:cafe::88) by BN9PR03CA0118.outlook.office365.com
- (2603:10b6:408:fd::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.26 via Frontend
- Transport; Mon, 3 Oct 2022 18:38:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT097.mail.protection.outlook.com (10.13.176.147) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5676.17 via Frontend Transport; Mon, 3 Oct 2022 18:38:51 +0000
-Received: from tstdenis.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 3 Oct
- 2022 13:38:48 -0500
-From: Tom St Denis <tom.stdenis@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/amdgpu: Update debugfs SRBM/GRBM logic
-Date: Mon, 3 Oct 2022 14:38:24 -0400
-Message-ID: <20221003183824.585893-1-tom.stdenis@amd.com>
-X-Mailer: git-send-email 2.34.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.28; Mon, 3 Oct
+ 2022 19:12:02 +0000
+Received: from MN2PR12MB2941.namprd12.prod.outlook.com
+ ([fe80::588c:ac12:d318:bfee]) by MN2PR12MB2941.namprd12.prod.outlook.com
+ ([fe80::588c:ac12:d318:bfee%7]) with mapi id 15.20.5676.028; Mon, 3 Oct 2022
+ 19:12:02 +0000
+Message-ID: <46bebe17-a5b9-41f1-9d3b-9cd5fd39694c@amd.com>
+Date: Mon, 3 Oct 2022 15:12:01 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Subject: Re: [PATCH v5] drm/amd/display: Fix vblank refcount in vrr transition
+Content-Language: en-US
+To: Yunxiang Li <Yunxiang.Li@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harry.Wentland@amd.com, mario.kleiner.de@gmail.com, alexdeucher@gmail.com
+References: <20220921212019.9496-1-Yunxiang.Li@amd.com>
+From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20220921212019.9496-1-Yunxiang.Li@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0PR04CA0068.namprd04.prod.outlook.com
+ (2603:10b6:610:74::13) To MN2PR12MB2941.namprd12.prod.outlook.com
+ (2603:10b6:208:a9::12)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT097:EE_|MN0PR12MB6344:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2e8ddbed-67d1-40d1-ea86-08daa56e847e
+X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|CY5PR12MB6405:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9e9c39b-45f5-4ca0-d48c-08daa573274d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1lhpeKzZrmPhdEaEAVpEeuX1EVJiFOa3YyFvBCIZMaIhSVRr+Cmy7JP6jLNCnUSiKW9NmBYTv1oi1567zCL4uVz3CW43B4Wh7sP5ihlmFSNRNOo8oR+LUkzerXCg7D0hepUm/1+GPIFsye6mfrcy/kILDFFXrg7XSD1dTu3eaEle5xYai45THPqzZiWnTfo65V5zI9lRolME4SQ9Fxtm/JStSCLJ3qon++gXGNuu5Ua1s3WHMdvdYgr0+nWzaic0vSk66O5JlKMBdAX9m7YOMko89R8aeaPujHFOfjcET2wdhJ7ldU3rbNzOUZXHxSXa8/pizqxbNw1OiEsCGofIudIfZTLjOCfeizjIwbexZvZVylV5In5Dgw1w7a1BAezUNLlyuD6engDWCfrI3FGTEBgueqjl/ueEV2ICwQ5gdEqb7/7/NZULwAN9Infn2jhuRnwgnXAIs2qA9J4HpontE9W6yVPExEVRrw5l454bWL9L2sUjykw10PT7Y6KcxSUMCY+ToWbLgH7Tuto4txHbX/6loXtYBZvSiTOHQjlnPXjU679KyN1s1G8zDkTJRv7jad6hTWNMAJJVjyIhmJYNzzPC+RvObtCOZuTMkorZGkzswtG8O3LiHKsFuekb9oQOEoyKro7FOZ9+e0CwOE1n8Ya2RZg7tkK6XIm7+34p5FdT7fUqOM9blkXj90+UOoM55MOGCXvRp8h/1oL2gEPz920a7/t5h+wkuzi6L8iSi1TIEN6dSNryHaU+5hnJhOUBoVkZLv0ea9Atn4eAaglA443BWdKwlwGBcvoPwaYTCUc=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199015)(46966006)(36840700001)(40470700004)(82740400003)(26005)(8936002)(36756003)(7696005)(86362001)(16526019)(336012)(6666004)(41300700001)(81166007)(30864003)(40480700001)(40460700003)(2906002)(5660300002)(15650500001)(426003)(478600001)(82310400005)(2616005)(83380400001)(47076005)(1076003)(186003)(70206006)(4326008)(70586007)(8676002)(356005)(36860700001)(316002)(6916009)(36900700001);
+X-Microsoft-Antispam-Message-Info: y0PgICzJK/PBbkmaUivOS+zawF8LwcJWeCn2XzqAdkySe5s7gYfHIK0DruuUVPsR+lQZgPHBFgLPT21TaRQTfVsDeVW9hdt3lgP1qtTnSiAskOCiuH4HWmZIUeSXkH+J0GZuATq7SoEdSbN4YPSK4nXtIY1mrJ9lMBC9quAXbQdz/LAmxNuO+QB66ukXL86R1bwgCYX/IMWD1TtB6aPuXh5nc3IeTRo+TXx8YkybZ5eIRDQcCbvrPPGNAn5J5squgW/Rst8ATBqG/ZwOb9sg7Z7fyEDj8SqFSXx6IGZ8WhHosCaCNLe6z16qDvPXsyPdwrA+6ZRDDO6Li8/FTjGwWy9ignuGT4y70DBEbNkrHOZU5YNZ21m5qoC1Y1RwPw3bJIH+bzm66KcxMKmzHXSypWwDOiEFgWny0N5RkP0g14Yus/ypOk213uVvw4IML/YFGvKVb1K2fxl1cBVG431lVF3wX/PIAQM/HRSgw/GTNJ2DKce7pFa21aW7ZQPUVcOhKfNHTPtJiteHNI3iG+67WyhvO+/JPc6JORHB71k25FqdFv/6OnH3D8ORsKA72DLsMR8HF9edREu7b9iE+qSOIZx3193dl9r8DeNQ6clQlYDxTxFK9GXf6DiNqKs0Its/rGLVIT1UIvRWm1+Ia4DPCD/yHBO+mDBMaPPr27NQYeQxnHvVELhFuEm6aLYTioLSmTYTkM0XQ02UK68SVif2OYDMfHubQ/4szG63pOlGJuSa0LzpvFPWgwvfN882S2IX
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(136003)(39860400002)(366004)(376002)(396003)(451199015)(31686004)(86362001)(26005)(2616005)(53546011)(6506007)(83380400001)(478600001)(6486002)(186003)(36756003)(966005)(31696002)(2906002)(41300700001)(5660300002)(316002)(8936002)(6512007)(38100700002)(66946007)(66556008)(8676002)(66476007)(4326008)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q2VtRE0yQUUxTWtkWXArbUFqY3Z5QXN0YmdwaC9ZVmtRSnFWaG96L3NlcjhS?=
+ =?utf-8?B?Mm94dFg4SHA1a1FEeElCMTdTUExva1h6TjNMZklkdHRueVZWK21ONGdHVGti?=
+ =?utf-8?B?RWNHb2QxWlEvS3ZCNkpKZlJkaGRaclVUN3dZbUNXc1NoRUd3TTIwMlgzMDAv?=
+ =?utf-8?B?eTgzSS9ORzJXK0lpb3FEam83TUcrOCs4TDlCY09wOUVIUzNUcVMxZTcwbUxo?=
+ =?utf-8?B?STJKbEFPa2xRS3R1M0gvSzdVcmZCcjRiQjd1V1d6MDBmdDUrTGZTa0RUcFZm?=
+ =?utf-8?B?VUh1UG9CYmVMV1hIVmVsVUhyTDFsZ0Z6ZThrcjR2blc5anFiQ3prNTU4bk9p?=
+ =?utf-8?B?TkY3S1VmU1lTaGVKendaMjVlRWwrRmF5R1kxWmRKTWFvallBR1k1R2JnTEVY?=
+ =?utf-8?B?cTdHWlVjZVZrdUVoVS94M1hXM3VQbGt6MHlxQ3JOd3lFUVZEbUFxNHI2VjVD?=
+ =?utf-8?B?UGJRMDEyN29Ka0RpaFpINGVuQWVzM3lKUTk1RlMzUWFkN1krYWUydTdQZGp0?=
+ =?utf-8?B?SERlQUJrblVUb1p4Mkl6UVJya2VpU2xWNmdyL2Q0VStrOVNxbEZnNVdoNTlp?=
+ =?utf-8?B?ZXBWci9yU3BSTUFzUXRoMTUrZkZzVnJja2hiaWpGd3ZhU0tsZlJXc2dDZklS?=
+ =?utf-8?B?ckxzWW9ROERnSFYvODhZaG8vcTIySHJZYWIvOGtLQU82K0pxYm05TUdvTkJM?=
+ =?utf-8?B?VHlYT3AzVVp4VlIveDdNV1EyRU90SkFJNlpzSkZRQWFYUk00VmNUeUNxV2Iw?=
+ =?utf-8?B?NTA1VHgralNnZ0MyYk92V01rR3c0MkhCelVzcENsMHNRQzlSTWFHbWpEYUdP?=
+ =?utf-8?B?MUVDY1djL2M0UmxJcDJOSmpDTDVCM21NdW43N09oV3dZeEd6QTdQOFMweTAw?=
+ =?utf-8?B?V0NjYkVJOTVVUHVIR3QvRVFMNXdHeDVDK2k4akNTbU02cys1dDIyTVFuUlBs?=
+ =?utf-8?B?WlZmTXoyU3E5aGtXNTMrM1JqejZodmFhRnVLQ2FmOUo5bEhmSks1VTQ2Yllo?=
+ =?utf-8?B?dXlLdEVMU2VWWFdlYkZlWksrTmxmUU5KWUdHaUwyRWRxSjdXQkgzMVFGWk1j?=
+ =?utf-8?B?Qk9jb0VPZW84UWJqcGlKbVJqOHYxc01HN1pFamo2Nk9ycjYvT3hpVjRmSmxL?=
+ =?utf-8?B?MmFGbHAzNlArMTNHdHRzTUd2cGNGbFRpL2RLT29DZ2hTN2R3eGJiUFVza2pW?=
+ =?utf-8?B?UHFYZzYzMCtSRy9RVXlpUGhQN3BEaGQ1Rno1cUUwckNtMWY5R0ltMUtQRzA1?=
+ =?utf-8?B?T0RZbVkwN3ZjeDJxUUhuZWVDVk5uUVBzTm1JOXVKNng5NHlabVZGVjl1V1NU?=
+ =?utf-8?B?UEtlR1hRaURpc2tnSzBpUitnbTQ1WXV3bzlzM2NnUkRsVWFZakxuSnRrdmVh?=
+ =?utf-8?B?cGkybXVsek9iWlRMN0VFVmdJV0dSaS9GNmVOLzFMSjVzUzNoelJtOEF1aHBj?=
+ =?utf-8?B?WjlNQ1gwRnorRGtpZTFGczNmcURMRytzb3hReUlmT045TnBQcHpDNkhWRWxB?=
+ =?utf-8?B?T3lyOFdFbUEvd1ZDdU1xMVlISTVyOEJEcFBjRUF5VWtxdWl4c0xzWm5uVSs4?=
+ =?utf-8?B?eFRKT2ttSTgxUzRKK0gwV2RpZEhTRTA5dGtLZEZjT2s5RWpFMXdUKytCTXky?=
+ =?utf-8?B?RFdjVlBpVHNsTndRem1CTEw0Rll0c05QSWFzTXhjbFBxZVRENUFKUGJmK3dL?=
+ =?utf-8?B?V29YNUtucnk2MWZtUEs4NnZDTnNQUjhKSEFXRjJ5YTBFK1ZwMWpBRVkzdXd2?=
+ =?utf-8?B?MDlYMERDSDN4OEg5WEFxdmpJRDQ5VytQUndNVFBPRlFFYWtsRThjUElzQVBp?=
+ =?utf-8?B?Q3VWU1FHdkNTK0twRGJrMG55RjV3TUVaNW5EZUxBYWNoSk81QmdwbklXMVJw?=
+ =?utf-8?B?TWZuQW9mNW8vVmV2RFU1MTdGQVFqL3FXRXk5ZGEyYTFVUEhnV1h3a3JuYkxE?=
+ =?utf-8?B?Tmp5ZU9oWmJJend1ZGxBZlpkZmQvN3grbkFSY3FFd1U3VDJwOVJPOFhJb0k3?=
+ =?utf-8?B?WTczRnVrQnJhdGZlMmRoTmNid0NEaytnNUtnY1FxRXlpUTNKdHNTbHdwOGZD?=
+ =?utf-8?B?OGVnQk5rSnM5VUJrWStodjE0cXUrREZsajQydC9yMXI3b0VUQ2d2VTExVHVG?=
+ =?utf-8?Q?Ugg+nyeJ6AoSKwzsbyGLJhM7R?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2022 18:38:51.2367 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e8ddbed-67d1-40d1-ea86-08daa56e847e
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9e9c39b-45f5-4ca0-d48c-08daa573274d
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2022 19:12:02.8080 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT097.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6344
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rAub2TxV/s68xCKSbfI7XzMS5N4hRMU8g6zi8jU7FlGYAksYKL5U3V/gxGzZly3i3HcE06BMwZuWWT52VTHHZw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6405
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,429 +124,157 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom St Denis <tom.stdenis@amd.com>
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently our debugfs bank selection logic only
-supports a single GC instance.  This updates the functions
-amdgpu_gfx_select_se_sh() and amdgpu_gfx_select_me_pipe_q()
-to support a GC instance parameter and ultimately a GC
-instance selection via the IOCTL to debugfs.
 
-Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 44 +++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h     |  7 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h     | 15 ++++++-
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c      | 17 ++++++--
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c      | 17 ++++++--
- drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c       |  3 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c       |  3 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c       |  3 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c       | 18 +++++++--
- 9 files changed, 98 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 6066aebf491c..3a09028277f7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -139,7 +139,7 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 					sh_bank, instance_bank);
- 	} else if (use_ring) {
- 		mutex_lock(&adev->srbm_mutex);
--		amdgpu_gfx_select_me_pipe_q(adev, me, pipe, queue, vmid);
-+		amdgpu_gfx_select_me_pipe_q(adev, me, pipe, queue, vmid, 0);
- 	}
- 
- 	if (pm_pg_lock)
-@@ -172,7 +172,7 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
- 		mutex_unlock(&adev->grbm_idx_mutex);
- 	} else if (use_ring) {
--		amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0);
-+		amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0, 0);
- 		mutex_unlock(&adev->srbm_mutex);
- 	}
- 
-@@ -261,15 +261,15 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
- 			return -EINVAL;
- 		}
- 		mutex_lock(&adev->grbm_idx_mutex);
--		amdgpu_gfx_select_se_sh(adev, rd->id.grbm.se,
-+		amdgpu_gfx_select_se_sh_instanced(adev, rd->id.grbm.se,
- 								rd->id.grbm.sh,
--								rd->id.grbm.instance);
-+								rd->id.grbm.instance, rd->id.gc_instance);
- 	}
- 
- 	if (rd->id.use_srbm) {
- 		mutex_lock(&adev->srbm_mutex);
- 		amdgpu_gfx_select_me_pipe_q(adev, rd->id.srbm.me, rd->id.srbm.pipe,
--									rd->id.srbm.queue, rd->id.srbm.vmid);
-+									rd->id.srbm.queue, rd->id.srbm.vmid, rd->id.gc_instance);
- 	}
- 
- 	if (rd->id.pg_lock)
-@@ -295,12 +295,12 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
- 	}
- end:
- 	if (rd->id.use_grbm) {
--		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
-+		amdgpu_gfx_select_se_sh_instanced(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
- 		mutex_unlock(&adev->grbm_idx_mutex);
- 	}
- 
- 	if (rd->id.use_srbm) {
--		amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0);
-+		amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0, 0);
- 		mutex_unlock(&adev->srbm_mutex);
- 	}
- 
-@@ -319,17 +319,39 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
- static long amdgpu_debugfs_regs2_ioctl(struct file *f, unsigned int cmd, unsigned long data)
- {
- 	struct amdgpu_debugfs_regs2_data *rd = f->private_data;
-+	struct amdgpu_debugfs_regs2_iocdata v1_data;
- 	int r;
- 
-+	mutex_lock(&rd->lock);
-+
- 	switch (cmd) {
-+	case AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE_V2:
-+		r = copy_from_user(&rd->id, (struct amdgpu_debugfs_regs2_iocdata_v2 *)data, sizeof rd->id);
-+		if (r)
-+			return r ? -EINVAL : 0;
-+		goto done;
- 	case AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE:
--		mutex_lock(&rd->lock);
--		r = copy_from_user(&rd->id, (struct amdgpu_debugfs_regs2_iocdata *)data, sizeof rd->id);
--		mutex_unlock(&rd->lock);
--		return r ? -EINVAL : 0;
-+		r = copy_from_user(&v1_data, (struct amdgpu_debugfs_regs2_iocdata *)data, sizeof v1_data);
-+		if (r)
-+			return r ? -EINVAL : 0;
-+		goto v1_copy;
- 	default:
- 		return -EINVAL;
- 	}
-+
-+v1_copy:
-+	rd->id.use_srbm = v1_data.use_srbm;
-+	rd->id.use_grbm = v1_data.use_grbm;
-+	rd->id.pg_lock = v1_data.pg_lock;
-+	rd->id.grbm.se = v1_data.grbm.se;
-+	rd->id.grbm.sh = v1_data.grbm.sh;
-+	rd->id.grbm.instance = v1_data.grbm.instance;
-+	rd->id.srbm.me = v1_data.srbm.me;
-+	rd->id.srbm.pipe = v1_data.srbm.pipe;
-+	rd->id.srbm.queue = v1_data.srbm.queue;
-+	rd->id.gc_instance = 0;
-+done:
-+	mutex_unlock(&rd->lock);
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 832b3807f1d6..e6e722a30f08 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -216,6 +216,8 @@ struct amdgpu_gfx_funcs {
- 	uint64_t (*get_gpu_clock_counter)(struct amdgpu_device *adev);
- 	void (*select_se_sh)(struct amdgpu_device *adev, u32 se_num,
- 			     u32 sh_num, u32 instance);
-+	void (*select_se_sh_instanced)(struct amdgpu_device *adev, u32 se_num,
-+			     u32 sh_num, u32 instance, u32 gc_inst);
- 	void (*read_wave_data)(struct amdgpu_device *adev, uint32_t simd,
- 			       uint32_t wave, uint32_t *dst, int *no_fields);
- 	void (*read_wave_vgprs)(struct amdgpu_device *adev, uint32_t simd,
-@@ -225,7 +227,7 @@ struct amdgpu_gfx_funcs {
- 				uint32_t wave, uint32_t start, uint32_t size,
- 				uint32_t *dst);
- 	void (*select_me_pipe_q)(struct amdgpu_device *adev, u32 me, u32 pipe,
--				 u32 queue, u32 vmid);
-+				 u32 queue, u32 vmid, u32 instance);
- 	void (*init_spm_golden)(struct amdgpu_device *adev);
- 	void (*update_perfmon_mgcg)(struct amdgpu_device *adev, bool enable);
- };
-@@ -356,7 +358,8 @@ struct amdgpu_gfx {
- 
- #define amdgpu_gfx_get_gpu_clock_counter(adev) (adev)->gfx.funcs->get_gpu_clock_counter((adev))
- #define amdgpu_gfx_select_se_sh(adev, se, sh, instance) (adev)->gfx.funcs->select_se_sh((adev), (se), (sh), (instance))
--#define amdgpu_gfx_select_me_pipe_q(adev, me, pipe, q, vmid) (adev)->gfx.funcs->select_me_pipe_q((adev), (me), (pipe), (q), (vmid))
-+#define amdgpu_gfx_select_se_sh_instanced(adev, se, sh, instance, gc_inst) (adev)->gfx.funcs->select_se_sh_instanced ? (adev)->gfx.funcs->select_se_sh_instanced((adev), (se), (sh), (instance), (gc_inst)) : (adev)->gfx.funcs->select_se_sh((adev), (se), (sh), (instance))
-+#define amdgpu_gfx_select_me_pipe_q(adev, me, pipe, q, vmid, instance) (adev)->gfx.funcs->select_me_pipe_q((adev), (me), (pipe), (q), (vmid), (instance))
- #define amdgpu_gfx_init_spm_golden(adev) (adev)->gfx.funcs->init_spm_golden((adev))
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h
-index 919d9d401750..a49519e6a3c3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h
-@@ -35,17 +35,30 @@ struct amdgpu_debugfs_regs2_iocdata {
- 	} srbm;
- };
- 
-+struct amdgpu_debugfs_regs2_iocdata_v2 {
-+	__u32 use_srbm, use_grbm, pg_lock;
-+	struct {
-+		__u32 se, sh, instance;
-+	} grbm;
-+	struct {
-+		__u32 me, pipe, queue, vmid;
-+	} srbm;
-+	u32 gc_instance;
-+};
-+
- /*
-  * MMIO debugfs state data (per file* handle)
-  */
- struct amdgpu_debugfs_regs2_data {
- 	struct amdgpu_device *adev;
- 	struct mutex lock;
--	struct amdgpu_debugfs_regs2_iocdata id;
-+	struct amdgpu_debugfs_regs2_iocdata_v2 id;
- };
- 
- enum AMDGPU_DEBUGFS_REGS2_CMDS {
- 	AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE=0,
-+	AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE_V2,
- };
- 
- #define AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE _IOWR(0x20, AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE, struct amdgpu_debugfs_regs2_iocdata)
-+#define AMDGPU_DEBUGFS_REGS2_IOC_SET_STATE_V2 _IOWR(0x20, AMDGPU_DEBUGFS_REGS2_CMD_SET_STATE_V2, struct amdgpu_debugfs_regs2_iocdata_v2)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index af94ac580d3e..e47b51374f95 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -3506,6 +3506,8 @@ static void gfx_v10_3_set_power_brake_sequence(struct amdgpu_device *adev);
- static void gfx_v10_0_ring_invalidate_tlbs(struct amdgpu_ring *ring,
- 					   uint16_t pasid, uint32_t flush_type,
- 					   bool all_hub, uint8_t dst_sel);
-+static void gfx_v10_0_select_se_sh_instanced(struct amdgpu_device *adev, u32 se_num, u32 sh_num,
-+			   u32 instance, u32 gc_inst);
- 
- static void gfx10_kiq_set_resources(struct amdgpu_ring *kiq_ring, uint64_t queue_mask)
- {
-@@ -4417,7 +4419,7 @@ static void gfx_v10_0_read_wave_vgprs(struct amdgpu_device *adev, uint32_t simd,
- }
- 
- static void gfx_v10_0_select_me_pipe_q(struct amdgpu_device *adev,
--				       u32 me, u32 pipe, u32 q, u32 vm)
-+				       u32 me, u32 pipe, u32 q, u32 vm, u32 instance)
- {
- 	nv_grbm_select(adev, me, pipe, q, vm);
- }
-@@ -4441,6 +4443,7 @@ static void gfx_v10_0_update_perfmon_mgcg(struct amdgpu_device *adev,
- static const struct amdgpu_gfx_funcs gfx_v10_0_gfx_funcs = {
- 	.get_gpu_clock_counter = &gfx_v10_0_get_gpu_clock_counter,
- 	.select_se_sh = &gfx_v10_0_select_se_sh,
-+	.select_se_sh_instanced = &gfx_v10_0_select_se_sh_instanced,
- 	.read_wave_data = &gfx_v10_0_read_wave_data,
- 	.read_wave_sgprs = &gfx_v10_0_read_wave_sgprs,
- 	.read_wave_vgprs = &gfx_v10_0_read_wave_vgprs,
-@@ -4790,8 +4793,8 @@ static int gfx_v10_0_sw_fini(void *handle)
- 	return 0;
- }
- 
--static void gfx_v10_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
--				   u32 sh_num, u32 instance)
-+static void gfx_v10_0_select_se_sh_instanced(struct amdgpu_device *adev, u32 se_num,
-+				   u32 sh_num, u32 instance, u32 gc_inst)
- {
- 	u32 data;
- 
-@@ -4814,7 +4817,13 @@ static void gfx_v10_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
- 	else
- 		data = REG_SET_FIELD(data, GRBM_GFX_INDEX, SA_INDEX, sh_num);
- 
--	WREG32_SOC15(GC, 0, mmGRBM_GFX_INDEX, data);
-+	WREG32_SOC15(GC, gc_inst, mmGRBM_GFX_INDEX, data);
-+}
-+
-+static void gfx_v10_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
-+				   u32 sh_num, u32 instance)
-+{
-+	gfx_v10_0_select_se_sh_instanced(adev, se_num, sh_num, instance, 0);
- }
- 
- static u32 gfx_v10_0_get_rb_active_bitmap(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 251109723ab6..d970390be94a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -122,6 +122,8 @@ static void gfx_v11_0_set_safe_mode(struct amdgpu_device *adev);
- static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev);
- static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
- 				      bool enable);
-+static void gfx_v11_0_select_se_sh_instanced(struct amdgpu_device *adev, u32 se_num, u32 sh_num,
-+			   u32 instance, u32 gc_inst);
- 
- static void gfx11_kiq_set_resources(struct amdgpu_ring *kiq_ring, uint64_t queue_mask)
- {
-@@ -826,7 +828,7 @@ static void gfx_v11_0_read_wave_vgprs(struct amdgpu_device *adev, uint32_t simd,
- }
- 
- static void gfx_v11_0_select_me_pipe_q(struct amdgpu_device *adev,
--									  u32 me, u32 pipe, u32 q, u32 vm)
-+									  u32 me, u32 pipe, u32 q, u32 vm, u32 instance)
- {
- 	soc21_grbm_select(adev, me, pipe, q, vm);
- }
-@@ -834,6 +836,7 @@ static void gfx_v11_0_select_me_pipe_q(struct amdgpu_device *adev,
- static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
- 	.get_gpu_clock_counter = &gfx_v11_0_get_gpu_clock_counter,
- 	.select_se_sh = &gfx_v11_0_select_se_sh,
-+	.select_se_sh_instanced = &gfx_v11_0_select_se_sh_instanced,
- 	.read_wave_data = &gfx_v11_0_read_wave_data,
- 	.read_wave_sgprs = &gfx_v11_0_read_wave_sgprs,
- 	.read_wave_vgprs = &gfx_v11_0_read_wave_vgprs,
-@@ -1477,8 +1480,8 @@ static int gfx_v11_0_sw_fini(void *handle)
- 	return 0;
- }
- 
--static void gfx_v11_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
--				   u32 sh_num, u32 instance)
-+static void gfx_v11_0_select_se_sh_instanced(struct amdgpu_device *adev, u32 se_num,
-+				   u32 sh_num, u32 instance, u32 gc_inst)
- {
- 	u32 data;
- 
-@@ -1501,7 +1504,13 @@ static void gfx_v11_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
- 	else
- 		data = REG_SET_FIELD(data, GRBM_GFX_INDEX, SA_INDEX, sh_num);
- 
--	WREG32_SOC15(GC, 0, regGRBM_GFX_INDEX, data);
-+	WREG32_SOC15(GC, gc_inst, regGRBM_GFX_INDEX, data);
-+}
-+
-+static void gfx_v11_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
-+				   u32 sh_num, u32 instance)
-+{
-+	gfx_v11_0_select_se_sh_instanced(adev, se_num, sh_num, instance, 0);
- }
- 
- static u32 gfx_v11_0_get_rb_active_bitmap(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-index 204b246f0e3f..3fc7edd160d9 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-@@ -3016,7 +3016,7 @@ static void gfx_v6_0_read_wave_sgprs(struct amdgpu_device *adev, uint32_t simd,
- }
- 
- static void gfx_v6_0_select_me_pipe_q(struct amdgpu_device *adev,
--				  u32 me, u32 pipe, u32 q, u32 vm)
-+				  u32 me, u32 pipe, u32 q, u32 vm, u32 instance)
- {
- 	DRM_INFO("Not implemented\n");
- }
-@@ -3024,6 +3024,7 @@ static void gfx_v6_0_select_me_pipe_q(struct amdgpu_device *adev,
- static const struct amdgpu_gfx_funcs gfx_v6_0_gfx_funcs = {
- 	.get_gpu_clock_counter = &gfx_v6_0_get_gpu_clock_counter,
- 	.select_se_sh = &gfx_v6_0_select_se_sh,
-+	.select_se_sh_instanced = NULL,
- 	.read_wave_data = &gfx_v6_0_read_wave_data,
- 	.read_wave_sgprs = &gfx_v6_0_read_wave_sgprs,
- 	.select_me_pipe_q = &gfx_v6_0_select_me_pipe_q
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 0f2976507e48..162a64b45472 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -4179,7 +4179,7 @@ static void gfx_v7_0_read_wave_sgprs(struct amdgpu_device *adev, uint32_t simd,
- }
- 
- static void gfx_v7_0_select_me_pipe_q(struct amdgpu_device *adev,
--				  u32 me, u32 pipe, u32 q, u32 vm)
-+				  u32 me, u32 pipe, u32 q, u32 vm, u32 instance)
- {
- 	cik_srbm_select(adev, me, pipe, q, vm);
- }
-@@ -4187,6 +4187,7 @@ static void gfx_v7_0_select_me_pipe_q(struct amdgpu_device *adev,
- static const struct amdgpu_gfx_funcs gfx_v7_0_gfx_funcs = {
- 	.get_gpu_clock_counter = &gfx_v7_0_get_gpu_clock_counter,
- 	.select_se_sh = &gfx_v7_0_select_se_sh,
-+	.select_se_sh_instanced = NULL,
- 	.read_wave_data = &gfx_v7_0_read_wave_data,
- 	.read_wave_sgprs = &gfx_v7_0_read_wave_sgprs,
- 	.select_me_pipe_q = &gfx_v7_0_select_me_pipe_q
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 7f0b18b0d4c4..221fec5234c7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -3444,7 +3444,7 @@ static void gfx_v8_0_select_se_sh(struct amdgpu_device *adev,
- }
- 
- static void gfx_v8_0_select_me_pipe_q(struct amdgpu_device *adev,
--				  u32 me, u32 pipe, u32 q, u32 vm)
-+				  u32 me, u32 pipe, u32 q, u32 vm, u32 instance)
- {
- 	vi_srbm_select(adev, me, pipe, q, vm);
- }
-@@ -5279,6 +5279,7 @@ static void gfx_v8_0_read_wave_sgprs(struct amdgpu_device *adev, uint32_t simd,
- static const struct amdgpu_gfx_funcs gfx_v8_0_gfx_funcs = {
- 	.get_gpu_clock_counter = &gfx_v8_0_get_gpu_clock_counter,
- 	.select_se_sh = &gfx_v8_0_select_se_sh,
-+	.select_se_sh_instanced = NULL,
- 	.read_wave_data = &gfx_v8_0_read_wave_data,
- 	.read_wave_sgprs = &gfx_v8_0_read_wave_sgprs,
- 	.select_me_pipe_q = &gfx_v8_0_select_me_pipe_q
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 0320be4a5fc6..264213977986 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -761,6 +761,9 @@ static int gfx_v9_0_ras_error_inject(struct amdgpu_device *adev,
- 				     void *inject_if);
- static void gfx_v9_0_reset_ras_error_count(struct amdgpu_device *adev);
- 
-+static void gfx_v9_0_select_se_sh_instanced(struct amdgpu_device *adev, u32 se_num, u32 sh_num,
-+			   u32 instance, u32 gc_inst);
-+
- static void gfx_v9_0_kiq_set_resources(struct amdgpu_ring *kiq_ring,
- 				uint64_t queue_mask)
- {
-@@ -1888,7 +1891,7 @@ static void gfx_v9_0_read_wave_vgprs(struct amdgpu_device *adev, uint32_t simd,
- }
- 
- static void gfx_v9_0_select_me_pipe_q(struct amdgpu_device *adev,
--				  u32 me, u32 pipe, u32 q, u32 vm)
-+				  u32 me, u32 pipe, u32 q, u32 vm, u32 instance)
- {
- 	soc15_grbm_select(adev, me, pipe, q, vm);
- }
-@@ -1896,6 +1899,7 @@ static void gfx_v9_0_select_me_pipe_q(struct amdgpu_device *adev,
- static const struct amdgpu_gfx_funcs gfx_v9_0_gfx_funcs = {
-         .get_gpu_clock_counter = &gfx_v9_0_get_gpu_clock_counter,
-         .select_se_sh = &gfx_v9_0_select_se_sh,
-+	.select_se_sh_instanced = &gfx_v9_0_select_se_sh_instanced,
-         .read_wave_data = &gfx_v9_0_read_wave_data,
-         .read_wave_sgprs = &gfx_v9_0_read_wave_sgprs,
-         .read_wave_vgprs = &gfx_v9_0_read_wave_vgprs,
-@@ -2274,8 +2278,8 @@ static void gfx_v9_0_tiling_mode_table_init(struct amdgpu_device *adev)
- 	/* TODO */
- }
- 
--void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num,
--			   u32 instance)
-+static void gfx_v9_0_select_se_sh_instanced(struct amdgpu_device *adev, u32 se_num, u32 sh_num,
-+			   u32 instance, u32 gc_inst)
- {
- 	u32 data;
- 
-@@ -2294,7 +2298,13 @@ void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num,
- 	else
- 		data = REG_SET_FIELD(data, GRBM_GFX_INDEX, SH_INDEX, sh_num);
- 
--	WREG32_SOC15_RLC_SHADOW(GC, 0, mmGRBM_GFX_INDEX, data);
-+	WREG32_SOC15_RLC_SHADOW(GC, gc_inst, mmGRBM_GFX_INDEX, data);
-+}
-+
-+void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num,
-+			   u32 instance)
-+{
-+	gfx_v9_0_select_se_sh_instanced(adev, se_num, sh_num, instance, 0);
- }
- 
- static u32 gfx_v9_0_get_rb_active_bitmap(struct amdgpu_device *adev)
--- 
-2.34.1
+On 2022-09-21 17:20, Yunxiang Li wrote:
+> manage_dm_interrupts disable/enable vblank using drm_crtc_vblank_off/on
+> which causes drm_crtc_vblank_get in vrr_transition to fail, and later
+> when drm_crtc_vblank_put is called the refcount on vblank will be messed
+> up. Therefore move the call to after manage_dm_interrupts.
+> 
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1247
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1380
+> 
+> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+> ---
+> v2: check the return code for calls that might fail and warn on them
+> v3/v4: make the sequence closer to the original and remove redundant local variables
+> v5: add bug tracking info
+> 
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 55 +++++++++----------
+>   1 file changed, 26 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index ece2003a74cc..97cc8ceaeea0 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -7484,15 +7484,15 @@ static void amdgpu_dm_handle_vrr_transition(struct dm_crtc_state *old_state,
+>   		 * We also need vupdate irq for the actual core vblank handling
+>   		 * at end of vblank.
+>   		 */
+> -		dm_set_vupdate_irq(new_state->base.crtc, true);
+> -		drm_crtc_vblank_get(new_state->base.crtc);
+> +		WARN_ON(dm_set_vupdate_irq(new_state->base.crtc, true) != 0);
+> +		WARN_ON(drm_crtc_vblank_get(new_state->base.crtc) != 0);
+>   		DRM_DEBUG_DRIVER("%s: crtc=%u VRR off->on: Get vblank ref\n",
+>   				 __func__, new_state->base.crtc->base.id);
+>   	} else if (old_vrr_active && !new_vrr_active) {
+>   		/* Transition VRR active -> inactive:
+>   		 * Allow vblank irq disable again for fixed refresh rate.
+>   		 */
+> -		dm_set_vupdate_irq(new_state->base.crtc, false);
+> +		WARN_ON(dm_set_vupdate_irq(new_state->base.crtc, false) != 0);
+>   		drm_crtc_vblank_put(new_state->base.crtc);
+>   		DRM_DEBUG_DRIVER("%s: crtc=%u VRR on->off: Drop vblank ref\n",
+>   				 __func__, new_state->base.crtc->base.id);
+> @@ -8257,23 +8257,6 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+>   		mutex_unlock(&dm->dc_lock);
+>   	}
+>   
+> -	/* Count number of newly disabled CRTCs for dropping PM refs later. */
+> -	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
+> -				      new_crtc_state, i) {
+> -		if (old_crtc_state->active && !new_crtc_state->active)
+> -			crtc_disable_count++;
+> -
+> -		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+> -		dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
+> -
+> -		/* For freesync config update on crtc state and params for irq */
+> -		update_stream_irq_parameters(dm, dm_new_crtc_state);
+> -
+> -		/* Handle vrr on->off / off->on transitions */
+> -		amdgpu_dm_handle_vrr_transition(dm_old_crtc_state,
+> -						dm_new_crtc_state);
+> -	}
+> -
+>   	/**
+>   	 * Enable interrupts for CRTCs that are newly enabled or went through
+>   	 * a modeset. It was intentionally deferred until after the front end
+> @@ -8283,16 +8266,29 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+>   	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
+>   		struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+>   #ifdef CONFIG_DEBUG_FS
+> -		bool configure_crc = false;
+>   		enum amdgpu_dm_pipe_crc_source cur_crc_src;
+>   #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+> -		struct crc_rd_work *crc_rd_wrk = dm->crc_rd_wrk;
+> +		struct crc_rd_work *crc_rd_wrk;
+> +#endif
+> +#endif
+> +		/* Count number of newly disabled CRTCs for dropping PM refs later. */
+> +		if (old_crtc_state->active && !new_crtc_state->active)
+> +			crtc_disable_count++;
+> +
+> +		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+> +		dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
+> +
+> +		/* For freesync config update on crtc state and params for irq */
+> +		update_stream_irq_parameters(dm, dm_new_crtc_state);
+> +
+> +#ifdef CONFIG_DEBUG_FS
+> +#if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+> +		crc_rd_wrk = dm->crc_rd_wrk;
+>   #endif
+>   		spin_lock_irqsave(&adev_to_drm(adev)->event_lock, flags);
+>   		cur_crc_src = acrtc->dm_irq_params.crc_src;
+>   		spin_unlock_irqrestore(&adev_to_drm(adev)->event_lock, flags);
+>   #endif
+> -		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+>   
+>   		if (new_crtc_state->active &&
+>   		    (!old_crtc_state->active ||
+> @@ -8300,16 +8296,19 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+>   			dc_stream_retain(dm_new_crtc_state->stream);
+>   			acrtc->dm_irq_params.stream = dm_new_crtc_state->stream;
+>   			manage_dm_interrupts(adev, acrtc, true);
+> +		}
+> +		/* Handle vrr on->off / off->on transitions */
+> +		amdgpu_dm_handle_vrr_transition(dm_old_crtc_state, dm_new_crtc_state);
+>   
+>   #ifdef CONFIG_DEBUG_FS
+> +		if (new_crtc_state->active &&
+> +		    (!old_crtc_state->active ||
+> +		     drm_atomic_crtc_needs_modeset(new_crtc_state))) {
+>   			/**
+>   			 * Frontend may have changed so reapply the CRC capture
+>   			 * settings for the stream.
+>   			 */
+> -			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+> -
+>   			if (amdgpu_dm_is_valid_crc_source(cur_crc_src)) {
+> -				configure_crc = true;
+>   #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+>   				if (amdgpu_dm_crc_window_is_activated(crtc)) {
+>   					spin_lock_irqsave(&adev_to_drm(adev)->event_lock, flags);
+> @@ -8321,12 +8320,10 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+>   					spin_unlock_irqrestore(&adev_to_drm(adev)->event_lock, flags);
+>   				}
+>   #endif
+> -			}
+> -
+> -			if (configure_crc)
+>   				if (amdgpu_dm_crtc_configure_crc_source(
+>   					crtc, dm_new_crtc_state, cur_crc_src))
+>   					DRM_DEBUG_DRIVER("Failed to configure crc source");
+> +			}
+>   #endif
+>   		}
+>   	}
 
+Hi Yunxiang,
+
+This patch lgtm:
+
+Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+
+Daniel also tested it a few days ago in multiple ASICs and with IGT.
+
+I already applied this change to amd-staging-drm-next.
+
+Thanks.
+Siqueira
