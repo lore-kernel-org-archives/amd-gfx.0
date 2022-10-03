@@ -4,63 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C389C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Oct 2022 08:49:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E46E6C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Oct 2022 09:04:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E8E610E27B;
-	Mon,  3 Oct 2022 08:48:58 +0000 (UTC)
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CDDC10E27A;
- Mon,  3 Oct 2022 08:48:54 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id 25so5303406lft.9;
- Mon, 03 Oct 2022 01:48:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date;
- bh=XJuxdLtMzZgdeDGwXBg8KO2MAjByLw/Th/IxugrKiaY=;
- b=MubUDGN5MOKh387rWtQRqfig7TDM6eKw7vikyczLS4BG/K5bK82mxvoKEQ0ozvxva0
- 0PHShnYrZEkO1Pmh6apy6NqCDkcFUzqfNzzz4AHV64U4WRAwuSHrSuVqrWm2XTxl2KAs
- Uw8wZPYuURymp31B8rFaKsfAZjqhWNWC0J/tr0xY8719XYbdwiwI6hDo6iw0oPRcFZnb
- 3A6W6WcOCRf9+bxvukR7WNr2M7PwWhYSNLlHIVC6zo80Y/A+Y/fFDRwiWZvQukp5ApKB
- hkzC4PIxRy0ySZS5gXWNuHnZ6nvYuZvK1NGHzje+gSTUOuFIG8OWkn2Xqzblv+K8I087
- PD1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date;
- bh=XJuxdLtMzZgdeDGwXBg8KO2MAjByLw/Th/IxugrKiaY=;
- b=t6qWGTUhFovmDJ6M4MpakZjDM6Zazh9Z9LkwfhlXyLSa88cRama9ed5JQJ5fAD9HpF
- mB7H7vJwJZydUm655g+hvfqT6CwLgIbzYN+GVAP6jzCANBtvYh7tI8g9mSsCIkZ/j8jg
- iW1zdSalwBlRcY9TdnicGknVJTQjMubLhPVirMceLStjObpmP+np+IpkB3409/fMFQK6
- OoLoGuf1heb26l/AaqhQCHHqXdN9QxPK4fi4rMChJxS6GieWWXKjjuVY5CE0CWndywtU
- YPBy587AI5XLw8Aj9oqHa6j1imjAcDDDpfb3BKbJiXsFmHvtLbZTud6eYJDZJ/ecctnL
- 9yfA==
-X-Gm-Message-State: ACrzQf1wKjZNr+sFwh7U2XVBLmkPbcf1Hy0/zzlh9RAEXwRbM2fQF+pd
- EDkw7/zSRKkeFwPeqL8XPeM=
-X-Google-Smtp-Source: AMsMyM4MwN1HzZpFR+Jm8VBayrkVHNd1BN7GDZ6eJ+ZO2Xfy7KsDdnGW18aDsr+bwRj3HvjCxtJQlw==
-X-Received: by 2002:a05:6512:a86:b0:499:f794:5cc2 with SMTP id
- m6-20020a0565120a8600b00499f7945cc2mr6517108lfu.100.1664786932630; 
- Mon, 03 Oct 2022 01:48:52 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- f4-20020a05651c02c400b0026dcf238c50sm473428ljo.127.2022.10.03.01.48.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Oct 2022 01:48:52 -0700 (PDT)
-Date: Mon, 3 Oct 2022 11:48:49 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ED9510E290;
+	Mon,  3 Oct 2022 09:04:41 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA62310E28B;
+ Mon,  3 Oct 2022 09:04:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1664787875; x=1696323875;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=M+H6FCqmNsTak5exqUK5lVk7z/3fhyka/oNeFhEaO48=;
+ b=hVvTIUjijxQDJGOvE0DsigV1x/sb6x61yjPM0MLqSnTHv5UJyDKdZ1zZ
+ /WBMH1sLqmrEMd3inEp7srMXRBmjhRXU7RJ8OVI3duWdxx55QmEn9ij5C
+ 1DZRtrD6KXwwG3zihPzVvghZvOrSPT/lvubalFX0hhQlIXTn2hj8n2AKx
+ 80kAbkHK3k5Q1xwmiiRyX5krQBO6hQhLjRSPYa7LLzvFQjttllbe9Uf2/
+ 3t9S5En8FSu+gBR/GtebBEPNZKchLorarnLH/cX/UcSwgGZBUyM5tP9L1
+ IG93PFgUlrg4N3ALPXBEwgzK643uXTW4N8cuWmMFDQAVn1CV8melciJgp A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10488"; a="328978148"
+X-IronPort-AV: E=Sophos;i="5.93,365,1654585200"; d="scan'208";a="328978148"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Oct 2022 02:04:34 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10488"; a="712517556"
+X-IronPort-AV: E=Sophos;i="5.93,365,1654585200"; d="scan'208";a="712517556"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
+ by FMSMGA003.fm.intel.com with SMTP; 03 Oct 2022 02:04:29 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 03 Oct 2022 12:04:29 +0300
+Date: Mon, 3 Oct 2022 12:04:29 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>
 Subject: Re: KMS atomic state sets, full vs. minimal (Re: [PATCH v3 0/6] Add
  support for atomic async page-flips)
-Message-ID: <20221003114849.09265089@eldfell>
-In-Reply-To: <YzcPBfLBNzfbHG5W@intel.com>
+Message-ID: <YzqlnYrg+yAZ/SNt@intel.com>
 References: <20220929184307.258331-1-contact@emersion.fr>
  <Yzb0uNjB5FpjCIjq@intel.com> <Yzb6203nHF8fVH/W@intel.com>
  <YzcGw9myJotLRTVl@intel.com> <20220930183700.6cf64900@eldfell>
- <YzcPBfLBNzfbHG5W@intel.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ <YzcPBfLBNzfbHG5W@intel.com> <20221003114849.09265089@eldfell>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/7rTc+thoKbe+plQ2QWwlKpN";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20221003114849.09265089@eldfell>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,88 +71,79 @@ Cc: andrealmeid@igalia.com, Simon Ser <contact@emersion.fr>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/7rTc+thoKbe+plQ2QWwlKpN
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On Mon, Oct 03, 2022 at 11:48:49AM +0300, Pekka Paalanen wrote:
+> On Fri, 30 Sep 2022 18:45:09 +0300
+> Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+> 
+> > On Fri, Sep 30, 2022 at 06:37:00PM +0300, Pekka Paalanen wrote:
+> > > On Fri, 30 Sep 2022 18:09:55 +0300
+> > > Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+> > >   
+> > > > That would actively discourage people from even attempting the
+> > > > "just dump all the state into the ioctl" approach with async flips
+> > > > since even the props whose value isn't even changing would be rejected.  
+> > > 
+> > > About that.
+> > > 
+> > > To me it looks like just a classic case of broken communication.
+> > > 
+> > > The kernel developers assume that of course userspace will minimize the
+> > > state set to only those properties that change, because...?
+> > > 
+> > > Userspace developers think that of course the kernel will optimize the
+> > > state set into minimal changes, because the kernel actually has the
+> > > authoritative knowledge of what the current state is, and the driver
+> > > actually knows which properties are costly and need to be optimized and
+> > > which ones don't matter. It has never even occurred to me that the
+> > > kernel would not compare next state to current state.
+> > > 
+> > > No-one ever documented any expectations, did they?  
+> > 
+> > Do you really want that for async flips? Async flips can't be
+> > done atomically with anything else, so why are you even asking
+> > the kernel to do that?
+> 
+> I'm not talking about async flips only.
+> 
+> I'm talking about atomic commits in general. I don't think it's a good
+> idea to make async atomic commits behave fundamentally different from
+> sync atomic commits wrt. what non-changing state you are allowed to
+> list in your state set or not.
+> 
+> Isn't there common DRM code to convert an atomic commit state set into
+> state objects? It probably starts by copying the current state, and
+> then playing through the commit state set, setting all listed
+> properties to their new values? Why wouldn't that loop maintain the
+> knowledge of what actually changed?
 
-On Fri, 30 Sep 2022 18:45:09 +0300
-Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
+Any such book keeping is entirely ad-hoc atm. It's also not super
+obvious how much of it is actually useful.
 
-> On Fri, Sep 30, 2022 at 06:37:00PM +0300, Pekka Paalanen wrote:
-> > On Fri, 30 Sep 2022 18:09:55 +0300
-> > Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
-> >  =20
-> > > That would actively discourage people from even attempting the
-> > > "just dump all the state into the ioctl" approach with async flips
-> > > since even the props whose value isn't even changing would be rejecte=
-d. =20
-> >=20
-> > About that.
-> >=20
-> > To me it looks like just a classic case of broken communication.
-> >=20
-> > The kernel developers assume that of course userspace will minimize the
-> > state set to only those properties that change, because...?
-> >=20
-> > Userspace developers think that of course the kernel will optimize the
-> > state set into minimal changes, because the kernel actually has the
-> > authoritative knowledge of what the current state is, and the driver
-> > actually knows which properties are costly and need to be optimized and
-> > which ones don't matter. It has never even occurred to me that the
-> > kernel would not compare next state to current state.
-> >=20
-> > No-one ever documented any expectations, did they? =20
->=20
-> Do you really want that for async flips? Async flips can't be
-> done atomically with anything else, so why are you even asking
-> the kernel to do that?
+You have to do a real commit on the crtc anyway if the crtc (or
+on any of its associated objects) is listed in the commit, so
+there's not necessarily much to be gained by tracking chages in
+all properties.
 
-I'm not talking about async flips only.
+And that behaviour again enters very muddy waters when combined
+with the async flip flag for the entire commit. The current approach
+being proposed seems to suggest that we can instead short circuit
+async commits when nothing has changed. That is not at all how
+sync atomic commits work.
 
-I'm talking about atomic commits in general. I don't think it's a good
-idea to make async atomic commits behave fundamentally different from
-sync atomic commits wrt. what non-changing state you are allowed to
-list in your state set or not.
+> When you copy the current data, reset all changed-flags to false. When
+> you apply each property from the commit set, compare the value and set
+> the changed-flag only if the value changes.
+> 
+> This manufacturing of the new tentative state set happens at atomic
+> commit ioctl time before the ioctl returns, right? So the current state
+> is well-defined: any previous atomic sync or async commit can be assumed to
+> have succeeded even if it hasn't applied in hardware yet if the commit
+> ioctl for it succeeded, right?
 
-Isn't there common DRM code to convert an atomic commit state set into
-state objects? It probably starts by copying the current state, and
-then playing through the commit state set, setting all listed
-properties to their new values? Why wouldn't that loop maintain the
-knowledge of what actually changed?
+Yes. We could certainly try to fully track all changes in
+properties, but no has measured if there's any real benefit
+of doing so.
 
-When you copy the current data, reset all changed-flags to false. When
-you apply each property from the commit set, compare the value and set
-the changed-flag only if the value changes.
-
-This manufacturing of the new tentative state set happens at atomic
-commit ioctl time before the ioctl returns, right? So the current state
-is well-defined: any previous atomic sync or async commit can be assumed to
-have succeeded even if it hasn't applied in hardware yet if the commit
-ioctl for it succeeded, right?
-
-
-Thanks,
-pq
-
---Sig_/7rTc+thoKbe+plQ2QWwlKpN
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmM6ofEACgkQI1/ltBGq
-qqfzyxAAjNAvVIu5FAC3mNBWBNLaX4HciKodv1pyjk2n8JMLXa16NonnXvxeVot0
-G9bshOFU/6nsb8h9Y1RxJ9HLpuizGSSKLhnDKIsnKqtIZ8+wC5mnqYMRvJMCWGCa
-c4ASb9947rvK4zCM3n5R8PoQnzD1F6+/mHzQ5qkDUI8e0uCpyYj3TeVDZ3e8O0Pe
-S2I2NoSGRpD/uDObILXcgO6KjJ0XEUKw8fNLwNgrbHxFOuw8goPiiaOwnjYEU9W0
-vKvfWXJpxuMBqitx8XtkjR6jSKzYxgQeua3alL0N3hJPyvstDsArHLtEzKcMcUwG
-62o7crKB6Yoqnm/voXATax58bu2aEOcikvxaka16J3WJBtnlGoqu28uRwTKPZzna
-/TYZzp+uCunxyfYePzWaBxHpaGNvhshKl3yvIVh1NMu75VKXIsO6aS4qfm/nvdmF
-1CdgatPqV9EWvq6QUE/eD0RiG7fvhsaNW95PnM9W4QezX0ybpg8vDV5yskfQDrpd
-+01T0qsMbLxRFxe7QHInPMkdTwrAHdOuBBu31dlHW18zmo792+qkWD/cymDRvzrf
-swLJiRScZ/70gA7/ribrbNUhYxqi7MbLdBhIKnyQUgJ9KdCvkWwbPIxXbXoqyWKW
-JKF+5uRSJa/4FunGr/96J9Eh1WA8QZdqvYM7VzjwmRf2aLsUv8k=
-=Iuve
------END PGP SIGNATURE-----
-
---Sig_/7rTc+thoKbe+plQ2QWwlKpN--
+-- 
+Ville Syrjälä
+Intel
