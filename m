@@ -4,114 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EDFCC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Oct 2022 19:25:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E217C4321E
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Oct 2022 11:13:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4888710E4BB;
-	Mon,  3 Oct 2022 19:25:24 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2085.outbound.protection.outlook.com [40.107.220.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAB7310E4B8;
- Mon,  3 Oct 2022 19:25:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF39610E54A;
+	Tue,  4 Oct 2022 11:13:23 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2068.outbound.protection.outlook.com [40.107.92.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41F5410E54E
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Oct 2022 11:13:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HFMpotbArjlt993kuxuFjNwuNrRTxhVL+g/x0EBKhM38+/OUrK4c88ykFK1WqYvQIrRBIa5Xj6pFdFVEzSXTdUbl8ET+YL1L4BZSJhnylsvweV422FGN1EkQyHrqYuRbotM3F3ffGYj9t50oTHCFMGgJSfot57+VegzDiemgkdfQcx2PCUPKVnZKtv/E85H2LEyiuRktCfFlVV7KVgYU5co/yKggBzfKiyBDJgSPF0karDJjw68meQo1V+u0004eNU7cfduZDB1++hgHfK6hGNydh4SNEdK/pTlGjWbZ9gdIp7jNG9dMKk2s040b7cvRn65hWcW5MYZNA9flI6iPEg==
+ b=K7CnPuubpGDfKyfjMkgXc6rP9ItoiFJGyLTnsUn5GCzMmFYt/HXUjPpmOziVMo0yL4sg0R0kkcali0W8jMUZbg3opRdK03IcO2xb99tdY51sFoPOGZQdLud/LNHIG7ZIRi/AboU3a26hTMR64VRZ5HkLB/tv0TqeYGQhZnRehu2L/GbItUoYEncCXyctl9jTnOKSr5hLTnZ6jVDYef22Q9cGOcU39gruPqbi0Afn3YCD8Z6kvPb9GdIunZfBXYwlQ432rbup6MA+0mZhqJYdRmb9fnBCITTrX4Rv0sCub45kM5/5Amc4eiW5EMBl+i0IF2qxpnTmIi1S50Qz4LCpWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/afhisTO0PkXN6W1TijFmeM2+D6BnBxNpOvklgpLKJc=;
- b=VFcUnY+2z1NwvEJ6uveUTrrAQV7B1mA6j7tS1yOpNqqLMD0wUu16hMNBebXaWGB2KJW2pG57kbNtpj3bCm0AN9V4QAiQIkFA0Xkt77xpq/1+SSyUmcgDedUOcPB3GzdIzwbNR08pIVzoLnaaeELLV94aP8x+/HuE+1GlpWOveCg9TmeId3TEmI9nylUGQ8f8PhExyYGq6uU9lBJnt6TmUt+x8Yiintwrtv430/U1b+C/54tadRUd+yxvi0XeY+VvjSL9uhSsDzCzgupXe7mLvwOvs2s+8Omlp2xIVUeJgEYnna3lwKDo3ltFRFw4QoDyAkemgdUJbTbZzcTayordyQ==
+ bh=1/Lhgj0qHHymkh3UWeFIIHMXiXRHJ4Ss2EX2QHxdAtA=;
+ b=Kf+eiQxz8UHn+Qo3QqrIikmkiwdWslTsBO+wsunuTloTdq/yYJTTW/ESUXjD3gDYRKVVEtNgB2x8ozsBVL8/D5tUDEpnNLk8y85TSBdYudrKlr/zY6Pkz49O1Vdh+vqEMRjw3i4HIlvS3CLyNgpG/qLS2qvWdsts3Mu79kH/qkM5i0OVnjUtAI91uzN2Vm9ddSILqbf9LX9JHTL4QHeTFK37/fF6HiB2GJjFoDYfzUAGWSIpyZuPDskCZjj/4U3gXMRAQCTJ46A3cHI9XmBh5ZlTsTRUoIKgdW6BzWeZDgc4S+RNNksMAEggIfsQgb8NMPEuw4YfFnqU5r0A1hEqiA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/afhisTO0PkXN6W1TijFmeM2+D6BnBxNpOvklgpLKJc=;
- b=GmLcEq631HN1fUPdLRypwiyKdP+rMcVK66hvpg+Iu+YZtLjCM6LnGRdkzOfO2EIfDOpLyLls1o1/RnSDZfAB6E/uLby5vXd6DsR0AuRiLZcbDweuWxISqxMdUEs4YlXqRVo+WB70p5j7hTD1DM8xB7z5grIg1vF0Yff/4j5Xwcc=
+ bh=1/Lhgj0qHHymkh3UWeFIIHMXiXRHJ4Ss2EX2QHxdAtA=;
+ b=XJgizjWa5mKxwBDpnC40Dsvvv9aKwYx2au3chrs1UjGhLfBQmU3MmA0ExJGFdWnSspvUva2IN30ADTdI54Kt2v0PiIU+gchX5gnTBG4iVDkrDVrcJ7K2Dk7Nm4nFvylRq0gYWsGiOoIE7XK7uIMFcCSUXrnVEK+zKf+UO7+ZbGc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
- by BN9PR12MB5099.namprd12.prod.outlook.com (2603:10b6:408:118::11)
+Received: from BYAPR12MB3589.namprd12.prod.outlook.com (2603:10b6:a03:df::29)
+ by PH7PR12MB6660.namprd12.prod.outlook.com (2603:10b6:510:212::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.28; Mon, 3 Oct
- 2022 19:25:15 +0000
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::588c:ac12:d318:bfee]) by MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::588c:ac12:d318:bfee%7]) with mapi id 15.20.5676.028; Mon, 3 Oct 2022
- 19:25:15 +0000
-Message-ID: <0d0068aa-38b5-b258-36a6-98e10da9e8c4@amd.com>
-Date: Mon, 3 Oct 2022 15:25:13 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-Subject: Re: [PATCH] drm: amd: clean up dcn32_fpu.c kernel-doc
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.23; Tue, 4 Oct
+ 2022 11:13:17 +0000
+Received: from BYAPR12MB3589.namprd12.prod.outlook.com
+ ([fe80::9df1:3438:95:8347]) by BYAPR12MB3589.namprd12.prod.outlook.com
+ ([fe80::9df1:3438:95:8347%5]) with mapi id 15.20.5676.031; Tue, 4 Oct 2022
+ 11:13:16 +0000
+Message-ID: <60f3940e-c2c7-7854-a648-e3f1bc086d93@amd.com>
+Date: Tue, 4 Oct 2022 13:13:10 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 1/1] drm/amdgpu: Set vmbo destroy after pt bo is created
 Content-Language: en-US
-To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-References: <20221001043354.22608-1-rdunlap@infradead.org>
-From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20221001043354.22608-1-rdunlap@infradead.org>
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20221003172030.1389-1-Philip.Yang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20221003172030.1389-1-Philip.Yang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR04CA0011.namprd04.prod.outlook.com
- (2603:10b6:610:76::16) To MN2PR12MB2941.namprd12.prod.outlook.com
- (2603:10b6:208:a9::12)
+X-ClientProxiedBy: AS9PR07CA0017.eurprd07.prod.outlook.com
+ (2603:10a6:20b:46c::13) To BYAPR12MB3589.namprd12.prod.outlook.com
+ (2603:10b6:a03:df::29)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|BN9PR12MB5099:EE_
-X-MS-Office365-Filtering-Correlation-Id: 352d85f5-2222-4dc4-015e-08daa574fff1
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3589:EE_|PH7PR12MB6660:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6a6d7db5-5f4a-4e53-c55a-08daa5f96f6c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SKX0eB66DM80tHL39DcqeyRCbN288WiN/o2UCWHUGhl4kfRDyp0S3097KF2iaFFIg4Yi9R90TZYK/eTZr9PUTGxrnmZ5atLPyjGAn4PRfAUWE13nqEjAfkRtob0Put/gJLLULr5r/DefvJD50JaC4hZXAdrNqci6a7zfbaLX5QHa8Ali2pwijTFRKouIx+lki82y6ztsx4O3eSSBSTVvXkpZzYPm1NgItF22uhK8rdvuY5Xb5ZYh+QqyNSc/xnQlWzpVlxm+3ywDJYl8xx8RRO/F0SWWZaawnxGtYLGAnWf6lP4zV8nLU78TkEDatpWvDWGBgwENx+ovEARl5GqMtjzTGgv6bHiodMNN33gX6hOq54gOgsko9yXdQlMo9XlDtcL86JgOgRAj9N2BGHGsauxnK7dTagut7hbQUvCSwfegqPc42JxP7cgRzvLJDmX9sk3ZLwrmfG7s/jlz/ILUkDHOPlNbwlkUSMBmhd2gcpTdIdtHJrDr5Pn76z83tMH9Q5ondnF3lLyvIAgP/JN20MD2JZEh+aStqidQ+EBZX2TYZC6kMqStWcFmSp+QcIAz/etTIqGZp7pFRZCPbRBjtWS+BNAAvvU1jyCp1JkI8bo3APXvm9blTOrh3Y9l+xrJXq1IADuE6aJNE92Krjwq4fqQHDXcMJZ5MKhEptCHy2j6QaSu2/uXuIDRwa85eBhUcRTe5NBeFgF4NgqjedW+DySQ8d9HfR37LZ/G6ppTg/V+vk2O9e5rJ41RjXOSnZYYtzHKcyf2zL6Hwd5F4hoSYbOpyML6qQTefHP3NgYuwxY=
+X-Microsoft-Antispam-Message-Info: /SYOaKUhefzu1977tbWndXW3PQfh8v2pOEXUg3NEZ6CAlplGY3B1eEw0XWMy2bw8NZMcPEJfHY/RfhQk+MKEjQI3vYQjZovjxeEpvxV3/X8uQ1W8+dgUaF6TUyZkKvedopRlci1SUQ4DKqquPZHL55y0egVzLaSKN/ITf8gQ+Wcc0/NMfMceaP47ZjNxc8EVVSvTRp+Pd9Kc7ZMu7bSDEgRU3bNiZg1srtOq7dHkN426mBBSVvtzxtmwDZ51Q+VN8We7cPU2mK60DdVdJJtcdeBb/fj9DUpxf1dVVbifzVjpSDsGJTyjBZeWZLzlCsiiIlR3ItZMny8KgHRPDRQdt4/F/ul2wUaZDcNMSVLL2Gr9Pf198gumJIYEag6+U+LLE0kxwz0uEAR8TOOABiTXZoT1RmyHM+AbbFn67ssal4EjAkUv/wGXxLL+ZIqUGTWEfUKbmNFwJPMa3aSx24y5gjiYk8TP+dHEOY0c23z5J/Rqc8rXVDt0i6I/Ham4LOB+VAert8Iz6/f+ok0FZjrQCBcvwNswRma+Cb7DNbhWBGHd6XJdjDRg4KrPXFnEhb3NjtZH7RQLZo8GQEVGNSShcJkfQFPlZaKeeeObanel0nMA7891CivRSMbrgwKASZCWc2HAeQ0sdj1+Bj+be8a9mRRqfWaiwuUW41ZQqYFb5l6lVh4xUHIlS18r39a8UgCgmf+1S7U7V30YE0SjLtnrYM8FTTymCbZV2MbfaDeekHUk5hcsSmQOUn2Iqizf31Ar8UwgN76ira7SH6B7JXVq+MW1CuNqW312taYVVdwhE9E=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(136003)(376002)(39860400002)(366004)(346002)(451199015)(66946007)(66556008)(4326008)(8676002)(66476007)(66574015)(36756003)(316002)(6506007)(26005)(6512007)(53546011)(54906003)(2616005)(186003)(2906002)(5660300002)(8936002)(30864003)(38100700002)(41300700001)(31696002)(86362001)(83380400001)(31686004)(6486002)(478600001)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3589.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(366004)(376002)(396003)(346002)(39860400002)(136003)(451199015)(66899015)(31686004)(41300700001)(8936002)(5660300002)(2906002)(31696002)(6486002)(2616005)(66574015)(6506007)(186003)(38100700002)(478600001)(66556008)(66946007)(66476007)(4326008)(8676002)(83380400001)(6512007)(86362001)(26005)(36756003)(6666004)(316002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1VDUk0vNUsrS2twTnFHbm9KNXBLbFlLRnZHRlJVbXpUemZaQVhPdCtIRjR5?=
- =?utf-8?B?Rldwa210U0owcCszekU2ZzBPNCtzeHJkUG41ckdlZGs1TitWSlNpWFFSOGNl?=
- =?utf-8?B?MDQ2aFNoSE9uY1pycHQ1cUtEQ2d0MWtPTFRHVHVGcDhKbktnT2tZZjIxbFRG?=
- =?utf-8?B?UDBwQ09YbEQ4MmgxYmtZSXFkbDh5UEdPeDZlRnZabEVwekxxaGNYTjlhREY5?=
- =?utf-8?B?OSt6NEdmcTF2Uk4vQndxS1VmYXpsbTRiNEpFanR0OUc0OHhCeER3eUY4K3BF?=
- =?utf-8?B?Y3A5anROaUNZQjZhb0FlTHZlNHVxTUo0SkExR1J6RENMZ0Y1WjVydC9BMnhM?=
- =?utf-8?B?QzFwT1hSRkF0d3FuNzVJdGxtakR3ZXpnRHFGRzNsdlNDYkhnVDZKL3BmNVNK?=
- =?utf-8?B?Wi9iQno5Q3hwbHg5c052SWJINnc5azB5WDZreWZrNmN3NExZenZ0aDJuVTJO?=
- =?utf-8?B?Zys4SStqdG41cHE3QnV4M1JSallZSW9ZZGg2ak1XTW1aYklRekxQL056b3U4?=
- =?utf-8?B?ZHFRaXB2WTE5bzVVOUJwUGtIQ1YzakVNWlZzS29ySnd5c0VUaU0raVRTVlpP?=
- =?utf-8?B?RWZNaW1JWkNVWWhFZ3VIbmpkSmh4RDVTWUZsaHNOeVQxWklrcTJON3p5bXhS?=
- =?utf-8?B?Sm5YdDkveHZMY2w0T05OeHBQT0dCcjNKWFYzdG9pakw3WTVlL0dyVHNSSlVG?=
- =?utf-8?B?Zzg3NHFINnlzc0QrYjMrKzZwZmwyTXRpYWE0eUNvbnQyUC9QSW1KRmRHTHE0?=
- =?utf-8?B?TjhvNDZFbEwwaDJ3aHo5cXI5L3B0VlNYYjhBZ3p4WmZOL3JYcStRT0VyRlor?=
- =?utf-8?B?UEQrUlNSbG1Uc0NIZDVjelZNWHR2bCtOSUNkLzNKMmwrK204VnF2RUVZeG9v?=
- =?utf-8?B?c1ViNFZST0tNU09KTUhvYmlEWjV6Y09YVDlWN0FuRUxISEZybmFNdGR4UEM2?=
- =?utf-8?B?b2RnNmE0dGlOeGxIVUhmbk16VzUydGJScnkvbGkwVmFSeWsrMjBOeVZWcm5s?=
- =?utf-8?B?a0JPSCtod05WUFROT28vdUZxNXZXNnA4VXduMmRpemVIRnIwTUFkMzNmU3dJ?=
- =?utf-8?B?TTB1U2llRzQ0UUs0SjJQakNGK2lxSGNHUGxPNTVoSW51QzlkSjVsQm51WTZz?=
- =?utf-8?B?QXdJMGt4eCtSVVVDZmh6NmxJYTBhdDJSVk9NU28yYWp3VTBZMmhJUWFONExN?=
- =?utf-8?B?ekRpUTZXME5TME9DN1lCcDQ1Rm52TUNyUU9QYTNCQUlEY2ZCUzY4WEFDL1BI?=
- =?utf-8?B?bGZjQ2pLdXlaTXEyWFB6aXB6MmUxTWNHUWUxRFArdXZlRkdJeGJjSTh4MDdH?=
- =?utf-8?B?Z0dOUy95UkVxTUdrVXpFQkZUSTVhMTVsRVc5VFUzVFk5aExtaC9aWTlpem50?=
- =?utf-8?B?Uy9IYnVtd3FMNHZKM3JUaEIrbU9ITWNlNlg4SmpzaHJpa2s4Nk96VjdxQUhO?=
- =?utf-8?B?blFUSGdVb1k2bjZGcGhXYnJBM0lkMGNKVkV4NWJrYVBnUXVKWTllY3UrZWVJ?=
- =?utf-8?B?OEV1aXZrTUxmMCtLVzIyMUE0NXBiQUlWVDB1em9UV3Vpb00vR1VzR2tMUEVC?=
- =?utf-8?B?eGJIOS9PMFg3V0NmUFZCZWJDSW9uaTFGYkQ0NS9ieHVaU2RoanViT0NleTI3?=
- =?utf-8?B?MU5MMG84dUgrRU1GK3NvQTNDR053UXp1ampoU3dYRFhzSitpMElCN1dMZSt4?=
- =?utf-8?B?Qi9GU21DdjVteUNnNEVCeEtsVG02eDEweDVyQUR6dlk0SlMxd1owSEI3WHFD?=
- =?utf-8?B?bTdvc2V1cjZITWpIZ3c0eFZaVk0vTVdaRVNLR2xGalV0dE8xR2xPdDc1U0k2?=
- =?utf-8?B?MUF3cUs0aWVhZ2ZRS3kwUHR5TnVBdVh6ZVowOTkwckR5SExzOWphb0w5cE5x?=
- =?utf-8?B?MEVJN2d0ZjlwZUJKUDVJMG9YcmxzdFZIQU11STJtUk1oclp1MWI5YzAxNDFH?=
- =?utf-8?B?TEZLMVZSVncyanpYTjRlVDdpMEM5dC9kNjdxemY1M2dNZE5zUGJSeGZDVjFp?=
- =?utf-8?B?V25UbzNnZTNaOXdTem9hY1BDMlhpdGYwL2xIMklnYmlvQW9sbGdvWkpZYWRn?=
- =?utf-8?B?a3VJU2tLWTNleUNGNk5IWkd0NGVpUnU0T3p5cGFWc2JWQUJTTWJMeDgrbVFO?=
- =?utf-8?Q?nEgrr+7c5edo09IXijSsdx28n?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NjUvb3ZuK0FGREEwcVV0MkRLN0xDaE1BUDFQVmFRMld3Z0tOUGphTGNtNi9z?=
+ =?utf-8?B?M1lrcnA2QTJvYnhtREFiZE9VeDBQY3RQN1VwVjBOSHJjN2VLRHdZbnpWcTdr?=
+ =?utf-8?B?bFFkVGpFMnllQkpsVWRVWUpCbGo2WmM3eDl3OU5NN0pBMFpJOHliYmQrVmlC?=
+ =?utf-8?B?bVBNRDNkQlF2R01FL3JxVlhhR3hFWk5zelNXOUVZeFNoZnViYUJrMndpMS93?=
+ =?utf-8?B?M0hBVVh6ZXJCUjNTa2hoYzlmSzhlOEhKWHQ0WExWbWJzRThzSTdwQTBsVmlh?=
+ =?utf-8?B?MjgrcGVGcFA0V1lHMVh4Y1VBclppSk9BemRNOFl2QmNNdGdFd2cvRHltOS85?=
+ =?utf-8?B?U1Q1aEZvSkRubVdWWmZIc1FHWEplRmVvT2VyZUpSdElmOTZOVk1DUUhvYkFU?=
+ =?utf-8?B?WkhydmFlWGxydXoxelRJY0dnRklIcGFBMWFVYUh1NEwvOC83OExQaitiUy9k?=
+ =?utf-8?B?NDJmU2xabm1ueEJmOEcrZ1FMWDhMZFZlWHNKOUNvSGNxMXYxZXNMaGlZMVRS?=
+ =?utf-8?B?djlXc2dZNGZxODVDTDVZMmcxTGpILzdlOERQWkdYMWYzMU9ibWNqWFdMS09B?=
+ =?utf-8?B?bGsrSlp1QXlKUWZuY2paRTRoVEc0NWV4ckFsdkIrc1hCOWtsa0tISk5udFVs?=
+ =?utf-8?B?SXhTT3c3aTh6MDEySmdIZno3MEVCK1BXSjRWbG1xZXNydWFyVEN4LzJMaTdV?=
+ =?utf-8?B?eTQ4dTdhV1M2T2RCeW0rSEpNSXA5by9TTFNaQVVuandxR1drNzR0K3lrN0po?=
+ =?utf-8?B?Mmk3WTE3RWRETElES1huNk9BUjkyZDZ1cStXSGRBcUlDQVhBeDF1T2JENlQ1?=
+ =?utf-8?B?VE93eG81V3Bobmd1aXpoNmRtSXhnNG5HSEhMLytTREJCVEhjTWM5SU1qWFlB?=
+ =?utf-8?B?bmtOYk1kQlhnRW1Mb0xmS1hLdHh0T20zVnJTNCsvMjNEbE1CaElvTjZQcjV5?=
+ =?utf-8?B?L3R6VjhRUW9BWCsreDFyaFZQRjNZdTFzOTlyQ1Jocngwajl6NnpLRG1GQ3ZT?=
+ =?utf-8?B?aGdtdWU2NEdwNHFqVW1YZXI0UXNDaE5IeTR6UnV4UWY1TDhWQnRUeEFEZUds?=
+ =?utf-8?B?RmhyVE5LVVN6b2lsUDhBTHVGY3VFUkJsWHpZalFnRHpRRzA3bDZJTXFTV2J4?=
+ =?utf-8?B?b1Znd0hLdFl1bjc3MGdSRWJxKzRHZkFiMmxkRkRDcVkwejUvd084VnhJam8z?=
+ =?utf-8?B?alJvbThBVmhGRVRCWGpaZWVZNmtYdTlZSndjNmhyV25SU1JQdW1tRWY2V0tX?=
+ =?utf-8?B?TXViUjdONkdDOUgzdVI0SlkwVHIvd3RJdy8rWVN4M2Y3N2lzck92ajRjeW9M?=
+ =?utf-8?B?NzZjbVpaelF5bWF0M2VOZFQ3Y0wzNnk2eGE5ai9zQlNQOXRqRVVoc0J0alRT?=
+ =?utf-8?B?RHVGUlFBQWtJVHc5c2Ixa2VNaHZsSXNWbFlGYUxSM3pHbkp6R2RScytRY0Q3?=
+ =?utf-8?B?MTE3bi8va2Y1UnNsYTZFWHRiT2JCSUlnUmpBWjRvdHZIU3FRL2hDeXdTbnR3?=
+ =?utf-8?B?Z0tsUUpXcU5yWGZqcmxIaGVNMlFFZmRIdFJ3dTFLaXd3TDhVeG53L1hhbldG?=
+ =?utf-8?B?QjZ3MG5sQTNaZFVFbkd0WEhjS3dYY0I0SXExbU9BZUc2OUVaU1VxMTI4VUxa?=
+ =?utf-8?B?aDRlcVlmdTg5NXh1d2ZiRkhMUU9zbVJlWnR0NFcrYkQyRk9QcXExQmV5NWhU?=
+ =?utf-8?B?WmRPSjdheFhCK2VOcktnbWN0bDBHbVN5L0lEU3JmaFB2TFFPYnhpWnpISlBM?=
+ =?utf-8?B?eVduMHMvSXV1NXd3akkxU1lveEZEMjBqdVJiNzVQbzBYdFdQai9tNDdidTNW?=
+ =?utf-8?B?VVVEUTA0aUZ4WjJMdVc0NTYwU0pSODNFSkQ3U3NCazAyWFBmemsxdUpSQmNS?=
+ =?utf-8?B?NzJsRjIvN29KRDYvVDJ2azFtcVhLQjZBRlJIZXgySGQ0eGxRbTRac3A0MVhV?=
+ =?utf-8?B?NkpEY3VGOU9JOW5HeFg5OHZrdkxwQk81U0Q4dE4ycVN6MElLZGpXdFJOV3Fp?=
+ =?utf-8?B?YkdCU1pNc0Y1YU8vMHNrMnAwbDFiR0VEMDcyUHhLTHBrSlM0azZ2Y2Q3amVF?=
+ =?utf-8?B?aEtaMWRaUEdGV3RKWjM1bUNmS1lVbWRMWFlQVytFVFdwWTVIYi9ERmJJT0I0?=
+ =?utf-8?Q?HjLA4e9LaOnLNO6tOiR/DlsvO?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 352d85f5-2222-4dc4-015e-08daa574fff1
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a6d7db5-5f4a-4e53-c55a-08daa5f96f6c
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3589.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2022 19:25:15.6839 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2022 11:13:16.3997 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: u1DsM1kOmGc689IKapZdN2adgLtWEbUKk3DyVsvONYyCbAspZUkS/AAHTyEc+Q8cWfqMfVzBQ4CaPWnMW3po8A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5099
+X-MS-Exchange-CrossTenant-UserPrincipalName: xVuFTDRlNT6XzP5M0XN8PQEmFRMzZTVp7TiAyebOVLsBjI6boErC4Zxv8AFTFCT+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6660
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,323 +123,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, Leo Li <sunpeng.li@amd.com>,
- dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- amd-gfx@lists.freedesktop.org, Nevenko Stupar <Nevenko.Stupar@amd.com>,
- Alvin Lee <alvin.lee2@amd.com>, George Shen <george.shen@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 03.10.22 um 19:20 schrieb Philip Yang:
+> Under VRAM usage pression, map to GPU may fail to create pt bo and
+> vmbo->shadow_list is not initialized, then ttm_bo_release calling
+> amdgpu_bo_vm_destroy to access vmbo->shadow_list generates below
+> dmesg and NULL pointer access backtrace:
+>
+> Set vmbo destroy callback to amdgpu_bo_vm_destroy only after creating pt
+> bo successfully, otherwise use default callback amdgpu_bo_destroy.
+>
+> amdgpu: amdgpu_vm_bo_update failed
+> amdgpu: update_gpuvm_pte() failed
+> amdgpu: Failed to map bo to gpuvm
+> amdgpu 0000:43:00.0: amdgpu: Failed to map peer:0000:43:00.0 mem_domain:2
+> BUG: kernel NULL pointer dereference, address:
+>   RIP: 0010:amdgpu_bo_vm_destroy+0x4d/0x80 [amdgpu]
+>   Call Trace:
+>    <TASK>
+>    ttm_bo_release+0x207/0x320 [amdttm]
+>    amdttm_bo_init_reserved+0x1d6/0x210 [amdttm]
+>    amdgpu_bo_create+0x1ba/0x520 [amdgpu]
+>    amdgpu_bo_create_vm+0x3a/0x80 [amdgpu]
+>    amdgpu_vm_pt_create+0xde/0x270 [amdgpu]
+>    amdgpu_vm_ptes_update+0x63b/0x710 [amdgpu]
+>    amdgpu_vm_update_range+0x2e7/0x6e0 [amdgpu]
+>    amdgpu_vm_bo_update+0x2bd/0x600 [amdgpu]
+>    update_gpuvm_pte+0x160/0x420 [amdgpu]
+>    amdgpu_amdkfd_gpuvm_map_memory_to_gpu+0x313/0x1130 [amdgpu]
+>    kfd_ioctl_map_memory_to_gpu+0x115/0x390 [amdgpu]
+>    kfd_ioctl+0x24a/0x5b0 [amdgpu]
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 
+Mhm, quite some hack because or init and fini sequence is still not 
+ideal. Please add a code comment explaining why we do this.
 
-On 2022-10-01 00:33, Randy Dunlap wrote:
-> Rectify multiple kernel-doc warnings in dcn32_fpu.c.
-> E.g.:
-> 
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:247: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
->      * Finds dummy_latency_index when MCLK switching using firmware based
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:484: warning: Function parameter or member 'phantom_stream' not described in 'dcn32_set_phantom_stream_timing'
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:601: warning: Function parameter or member 'dc' not described in 'dcn32_assign_subvp_pipe'
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:601: warning: Function parameter or member 'context' not described in 'dcn32_assign_subvp_pipe'
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:601: warning: Function parameter or member 'index' not described in 'dcn32_assign_subvp_pipe'
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2140: warning: Function parameter or member 'dc' not described in 'dcn32_update_bw_bounding_box_fpu'
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2140: warning: Function parameter or member 'bw_params' not described in 'dcn32_update_bw_bounding_box_fpu'
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2140: warning: expecting prototype for dcn32_update_bw_bounding_box(). Prototype was for dcn32_update_bw_bounding_box_fpu() instead
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Cc: George Shen <george.shen@amd.com>
-> Cc: Alvin Lee <alvin.lee2@amd.com>
-> Cc: Nevenko Stupar <Nevenko.Stupar@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Leo Li <sunpeng.li@amd.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+With that done the patch is Reviewed-by: Christian König 
+<christian.koenig@amd.com>.
+
+Thanks,
+Christian.
+
 > ---
->   drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c |  116 ++++------
->   1 file changed, 49 insertions(+), 67 deletions(-)
-> 
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-> @@ -243,7 +243,7 @@ void dcn32_build_wm_range_table_fpu(stru
->   	clk_mgr->base.bw_params->wm_table.nv_entries[WM_D].pmfw_breakdown.max_uclk = 0xFFFF;
->   }
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index 4570ad449390..ae924db72b62 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -688,11 +688,11 @@ int amdgpu_bo_create_vm(struct amdgpu_device *adev,
+>   	 * num of amdgpu_vm_pt entries.
+>   	 */
+>   	BUG_ON(bp->bo_ptr_size < sizeof(struct amdgpu_bo_vm));
+> -	bp->destroy = &amdgpu_bo_vm_destroy;
+>   	r = amdgpu_bo_create(adev, bp, &bo_ptr);
+>   	if (r)
+>   		return r;
 >   
-> -/**
-> +/*
->    * Finds dummy_latency_index when MCLK switching using firmware based
->    * vblank stretch is enabled. This function will iterate through the
->    * table of dummy pstate latencies until the lowest value that allows
-> @@ -290,15 +290,14 @@ int dcn32_find_dummy_latency_index_for_f
->   /**
->    * dcn32_helper_populate_phantom_dlg_params - Get DLG params for phantom pipes
->    * and populate pipe_ctx with those params.
-> - *
-> - * This function must be called AFTER the phantom pipes are added to context
-> - * and run through DML (so that the DLG params for the phantom pipes can be
-> - * populated), and BEFORE we program the timing for the phantom pipes.
-> - *
->    * @dc: [in] current dc state
->    * @context: [in] new dc state
->    * @pipes: [in] DML pipe params array
->    * @pipe_cnt: [in] DML pipe count
-> + *
-> + * This function must be called AFTER the phantom pipes are added to context
-> + * and run through DML (so that the DLG params for the phantom pipes can be
-> + * populated), and BEFORE we program the timing for the phantom pipes.
->    */
->   void dcn32_helper_populate_phantom_dlg_params(struct dc *dc,
->   					      struct dc_state *context,
-> @@ -331,8 +330,9 @@ void dcn32_helper_populate_phantom_dlg_p
->   }
->   
->   /**
-> - * *******************************************************************************************
-> - * dcn32_predict_pipe_split: Predict if pipe split will occur for a given DML pipe
-> + * dcn32_predict_pipe_split - Predict if pipe split will occur for a given DML pipe
-> + * @context: [in] New DC state to be programmed
-> + * @pipe_e2e: [in] DML pipe end to end context
->    *
->    * This function takes in a DML pipe (pipe_e2e) and predicts if pipe split is required (both
->    * ODM and MPC). For pipe split, ODM combine is determined by the ODM mode, and MPC combine is
-> @@ -343,12 +343,7 @@ void dcn32_helper_populate_phantom_dlg_p
->    * - MPC combine is only chosen if there is no ODM combine requirements / policy in place, and
->    *   MPC is required
->    *
-> - * @param [in]: context: New DC state to be programmed
-> - * @param [in]: pipe_e2e: DML pipe end to end context
-> - *
-> - * @return: Number of splits expected (1 for 2:1 split, 3 for 4:1 split, 0 for no splits).
-> - *
-> - * *******************************************************************************************
-> + * Return: Number of splits expected (1 for 2:1 split, 3 for 4:1 split, 0 for no splits).
->    */
->   uint8_t dcn32_predict_pipe_split(struct dc_state *context,
->   				  display_e2e_pipe_params_st *pipe_e2e)
-> @@ -504,7 +499,14 @@ void insert_entry_into_table_sorted(stru
->   }
->   
->   /**
-> - * dcn32_set_phantom_stream_timing: Set timing params for the phantom stream
-> + * dcn32_set_phantom_stream_timing - Set timing params for the phantom stream
-> + * @dc: current dc state
-> + * @context: new dc state
-> + * @ref_pipe: Main pipe for the phantom stream
-> + * @phantom_stream: target phantom stream state
-> + * @pipes: DML pipe params
-> + * @pipe_cnt: number of DML pipes
-> + * @dc_pipe_idx: DC pipe index for the main pipe (i.e. ref_pipe)
->    *
->    * Set timing params of the phantom stream based on calculated output from DML.
->    * This function first gets the DML pipe index using the DC pipe index, then
-> @@ -517,13 +519,6 @@ void insert_entry_into_table_sorted(stru
->    * that separately.
->    *
->    * - Set phantom backporch = vstartup of main pipe
-> - *
-> - * @dc: current dc state
-> - * @context: new dc state
-> - * @ref_pipe: Main pipe for the phantom stream
-> - * @pipes: DML pipe params
-> - * @pipe_cnt: number of DML pipes
-> - * @dc_pipe_idx: DC pipe index for the main pipe (i.e. ref_pipe)
->    */
->   void dcn32_set_phantom_stream_timing(struct dc *dc,
->   				     struct dc_state *context,
-> @@ -592,16 +587,14 @@ void dcn32_set_phantom_stream_timing(str
->   }
->   
->   /**
-> - * dcn32_get_num_free_pipes: Calculate number of free pipes
-> + * dcn32_get_num_free_pipes - Calculate number of free pipes
-> + * @dc: current dc state
-> + * @context: new dc state
->    *
->    * This function assumes that a "used" pipe is a pipe that has
->    * both a stream and a plane assigned to it.
->    *
-> - * @dc: current dc state
-> - * @context: new dc state
-> - *
-> - * Return:
-> - * Number of free pipes available in the context
-> + * Return: Number of free pipes available in the context
->    */
->   static unsigned int dcn32_get_num_free_pipes(struct dc *dc, struct dc_state *context)
->   {
-> @@ -625,7 +618,10 @@ static unsigned int dcn32_get_num_free_p
->   }
->   
->   /**
-> - * dcn32_assign_subvp_pipe: Function to decide which pipe will use Sub-VP.
-> + * dcn32_assign_subvp_pipe - Function to decide which pipe will use Sub-VP.
-> + * @dc: current dc state
-> + * @context: new dc state
-> + * @index: [out] dc pipe index for the pipe chosen to have phantom pipes assigned
->    *
->    * We enter this function if we are Sub-VP capable (i.e. enough pipes available)
->    * and regular P-State switching (i.e. VACTIVE/VBLANK) is not supported, or if
-> @@ -639,12 +635,7 @@ static unsigned int dcn32_get_num_free_p
->    * for determining which should be the SubVP pipe (need a way to determine if a pipe / plane doesn't
->    * support MCLK switching naturally [i.e. ACTIVE or VBLANK]).
->    *
-> - * @param dc: current dc state
-> - * @param context: new dc state
-> - * @param index: [out] dc pipe index for the pipe chosen to have phantom pipes assigned
-> - *
-> - * Return:
-> - * True if a valid pipe assignment was found for Sub-VP. Otherwise false.
-> + * Return: True if a valid pipe assignment was found for Sub-VP. Otherwise false.
->    */
->   static bool dcn32_assign_subvp_pipe(struct dc *dc,
->   				    struct dc_state *context,
-> @@ -711,7 +702,9 @@ static bool dcn32_assign_subvp_pipe(stru
->   }
->   
->   /**
-> - * dcn32_enough_pipes_for_subvp: Function to check if there are "enough" pipes for SubVP.
-> + * dcn32_enough_pipes_for_subvp - Function to check if there are "enough" pipes for SubVP.
-> + * @dc: current dc state
-> + * @context: new dc state
->    *
->    * This function returns true if there are enough free pipes
->    * to create the required phantom pipes for any given stream
-> @@ -723,9 +716,6 @@ static bool dcn32_assign_subvp_pipe(stru
->    * pipe which can be used as the phantom pipe for the non pipe
->    * split pipe.
->    *
-> - * @dc: current dc state
-> - * @context: new dc state
-> - *
->    * Return:
->    * True if there are enough free pipes to assign phantom pipes to at least one
->    * stream that does not already have phantom pipes assigned. Otherwise false.
-> @@ -764,7 +754,9 @@ static bool dcn32_enough_pipes_for_subvp
->   }
->   
->   /**
-> - * subvp_subvp_schedulable: Determine if SubVP + SubVP config is schedulable
-> + * subvp_subvp_schedulable - Determine if SubVP + SubVP config is schedulable
-> + * @dc: current dc state
-> + * @context: new dc state
->    *
->    * High level algorithm:
->    * 1. Find longest microschedule length (in us) between the two SubVP pipes
-> @@ -772,11 +764,7 @@ static bool dcn32_enough_pipes_for_subvp
->    * pipes still allows for the maximum microschedule to fit in the active
->    * region for both pipes.
->    *
-> - * @dc: current dc state
-> - * @context: new dc state
-> - *
-> - * Return:
-> - * bool - True if the SubVP + SubVP config is schedulable, false otherwise
-> + * Return: True if the SubVP + SubVP config is schedulable, false otherwise
->    */
->   static bool subvp_subvp_schedulable(struct dc *dc, struct dc_state *context)
->   {
-> @@ -836,7 +824,10 @@ static bool subvp_subvp_schedulable(stru
->   }
->   
->   /**
-> - * subvp_drr_schedulable: Determine if SubVP + DRR config is schedulable
-> + * subvp_drr_schedulable - Determine if SubVP + DRR config is schedulable
-> + * @dc: current dc state
-> + * @context: new dc state
-> + * @drr_pipe: DRR pipe_ctx for the SubVP + DRR config
->    *
->    * High level algorithm:
->    * 1. Get timing for SubVP pipe, phantom pipe, and DRR pipe
-> @@ -845,12 +836,7 @@ static bool subvp_subvp_schedulable(stru
->    * 3.If (SubVP Active - Prefetch > Stretched DRR frame + max(MALL region, Stretched DRR frame))
->    * then report the configuration as supported
->    *
-> - * @dc: current dc state
-> - * @context: new dc state
-> - * @drr_pipe: DRR pipe_ctx for the SubVP + DRR config
-> - *
-> - * Return:
-> - * bool - True if the SubVP + DRR config is schedulable, false otherwise
-> + * Return: True if the SubVP + DRR config is schedulable, false otherwise
->    */
->   static bool subvp_drr_schedulable(struct dc *dc, struct dc_state *context, struct pipe_ctx *drr_pipe)
->   {
-> @@ -914,7 +900,9 @@ static bool subvp_drr_schedulable(struct
->   
->   
->   /**
-> - * subvp_vblank_schedulable: Determine if SubVP + VBLANK config is schedulable
-> + * subvp_vblank_schedulable - Determine if SubVP + VBLANK config is schedulable
-> + * @dc: current dc state
-> + * @context: new dc state
->    *
->    * High level algorithm:
->    * 1. Get timing for SubVP pipe, phantom pipe, and VBLANK pipe
-> @@ -922,11 +910,7 @@ static bool subvp_drr_schedulable(struct
->    * then report the configuration as supported
->    * 3. If the VBLANK display is DRR, then take the DRR static schedulability path
->    *
-> - * @dc: current dc state
-> - * @context: new dc state
-> - *
-> - * Return:
-> - * bool - True if the SubVP + VBLANK/DRR config is schedulable, false otherwise
-> + * Return: True if the SubVP + VBLANK/DRR config is schedulable, false otherwise
->    */
->   static bool subvp_vblank_schedulable(struct dc *dc, struct dc_state *context)
->   {
-> @@ -1003,20 +987,18 @@ static bool subvp_vblank_schedulable(str
->   }
->   
->   /**
-> - * subvp_validate_static_schedulability: Check which SubVP case is calculated and handle
-> - * static analysis based on the case.
-> + * subvp_validate_static_schedulability - Check which SubVP case is calculated
-> + * and handle static analysis based on the case.
-> + * @dc: current dc state
-> + * @context: new dc state
-> + * @vlevel: Voltage level calculated by DML
->    *
->    * Three cases:
->    * 1. SubVP + SubVP
->    * 2. SubVP + VBLANK (DRR checked internally)
->    * 3. SubVP + VACTIVE (currently unsupported)
->    *
-> - * @dc: current dc state
-> - * @context: new dc state
-> - * @vlevel: Voltage level calculated by DML
-> - *
-> - * Return:
-> - * bool - True if statically schedulable, false otherwise
-> + * Return: True if statically schedulable, false otherwise
->    */
->   static bool subvp_validate_static_schedulability(struct dc *dc,
->   				struct dc_state *context,
-> @@ -2275,7 +2257,7 @@ static int build_synthetic_soc_states(st
->   	return 0;
->   }
->   
-> -/**
-> +/*
->    * dcn32_update_bw_bounding_box
->    *
->    * This would override some dcn3_2 ip_or_soc initial parameters hardcoded from
-
-First of all, thanks a lot for your patch! It lgtm.
-
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-
-I already applied it to amd-staging-drm-next.
-
-P.s.: I made a tiny change in the commit title when I merged it.
-
-Thanks
-Siqueira
+> +	bo_ptr->tbo.destroy = &amdgpu_bo_vm_destroy;
+>   	*vmbo_ptr = to_amdgpu_bo_vm(bo_ptr);
+>   	INIT_LIST_HEAD(&(*vmbo_ptr)->shadow_list);
+>   	return r;
 
