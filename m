@@ -4,116 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6951DC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Oct 2022 20:46:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D574FC433FE
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Oct 2022 21:15:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 857A110E106;
-	Tue,  4 Oct 2022 20:46:54 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2073.outbound.protection.outlook.com [40.107.244.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB86410E106;
- Tue,  4 Oct 2022 20:46:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05A4610E16B;
+	Tue,  4 Oct 2022 21:15:13 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2040.outbound.protection.outlook.com [40.107.102.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1992010E00C;
+ Tue,  4 Oct 2022 21:15:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b2xVFTq9SNO7TFCg/aqpFv6VzKANSxYuww9Yjy9SBKW8EIoceAx71u7fvIuIX9iKVcZLYZIPmcdOqo3TpuI9No9U3fdjeRSN9w/H457C81YNMjMnqgUlO4As45wtwvLu1bcJVUQ0Ud+frikmZWKOga5OxVIVRbNM6vzASgLCog/SGAl0pwFuDxVlClhgGeaQBjEGtEEQybRRqqBcbIFaCYZlb9zsMbiSwxHH4zwVyI6h+QgfbgyX1qrS7V06p9XfoB/hFjdVqip47yuuhz4luUEesKn3/XlbRPmwd7kL21EG44WsmIlrSerIAl/8G3u5PjapEDscktn1HtK8vcNC8w==
+ b=Yplj1cyfwgKLcfvVYB2egMk0d22rF8F15g4joJWsp8hmMhymoc7v2/rKnLmnl/J5rtuVhzynND1kFN6h8G6z2XL45M9tW7fYaAeUhlE38b45JhVrYgPrlNptRKk+YITq8pVYRofjFz93o648WKLWwX2t+9HWzaQJ+yvAQYOpDhilYyBPsbI/ibV8isodGd8HYaoxVpDKU92ehbBbvW962XMgLcU/9q6LQ3ZqwDugJdasfDHEjG1RK1YbRh1tStECkD0GNXB1DZ/w7Qa76futTERF6Go1FUot6uX4kBhkfBrEhAthPJnTj/LgbKhzHtqUvOvTFjD30Sy1iCCnFvnkig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ks4OwvTKiwBw2ZIwzAKvBlF+TC6QLTJM4j3Jgj4qEfg=;
- b=UejUsGx5WlnJuNhnncTTxGSEFU9WoMnkAXpzfv+hztUqGaCyYcfDsTUFX6pyNGxVcR0/okask7aMGYllovsPSO5hNb5YFPNDCjG2dhi5jiBiENNjvh2xr0Mxv5fcjnO0uPA/zhscCyPDDjVsfnget0rNIIupTcNE85PoU2J1vDRSzCH0hYA+GD0LCV0BFOKHLihgANrh27npjzE5CgWkiTot9jrTBIDkqtYR0jRjC75C+42tKgkH0LCKu/TQf1Bjca05+GTI8BEyHJM2MSrNPt9+HZpidS+vUloRyvx0tGqrbheOcPQfiGXXNXwMKR1KVOGRx9nlppOtUAolynv9Rg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=e5sJcNIcOq/TBHIegE7qiYMrxO49NmaJH+RynZFBfFI=;
+ b=XLAWd7Quznq55S+vsLQImRoLgwTJZfacQrxvfHk+Qe28dT8JfvEInLXcQpndWWpO+4Ha5rRh1JHMkcHUxSM9nE2mK2du6IlRT3SYaqaO9YhyqpbPqB2ZfJCXxLTNdEsRJkGPXBodBUQmozG3x2bOKSHY+1kjz1AT/EgLKzERLWfgGLxHfDDWqYFGCAR3ccBKnYZFIhbI5qCyitycAXq37C5UhTmLs8elqvvVzqLD6xx8SCTWNG/bvmT8y/1bh+zu29j0i/Q/WeqrwmJxENJrqhRF9vpp9T4cZeZUIeFxoaPOwt1+SXBlh5E0c+xc/Ukv2Hj6xTQxZIqQGPvsF1l9AQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ks4OwvTKiwBw2ZIwzAKvBlF+TC6QLTJM4j3Jgj4qEfg=;
- b=qT2UI+J5X2Vj6dYg8DFPOJ75xJwOr4c/2QGmJzT99ZWIHFnZqWXCmFl2ykaPcpSW6PAL0ejosBIT3JbpVJpaJ0XxEzNwwOBg//LjFQvNl9XUGnyjN8MYNXB1jv6G3UzvYqXud35x8iDEexwEGT8ZFRsKvmVirfF6028Wyu2gr2Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
- by SJ0PR12MB5609.namprd12.prod.outlook.com (2603:10b6:a03:42c::12)
+ bh=e5sJcNIcOq/TBHIegE7qiYMrxO49NmaJH+RynZFBfFI=;
+ b=p5fShnu+SdT0f+tvV2D4wyHxoGRnYdDOBCLuW/F2Vi7OGLqPqawjcenzKemPouopLnZFlz2AZTLB0hYeGskaE6YofsMvZyw+DedBkWth39qh4tAEY+dUqU+y4hmj86zz/irq0fjFB+B0aZ3tVQ9YJs/IKZjE7dNOXqTw3vHkMU4=
+Received: from BN9PR03CA0320.namprd03.prod.outlook.com (2603:10b6:408:112::25)
+ by PH8PR12MB7374.namprd12.prod.outlook.com (2603:10b6:510:216::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.30; Tue, 4 Oct
- 2022 20:46:46 +0000
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::588c:ac12:d318:bfee]) by MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::588c:ac12:d318:bfee%7]) with mapi id 15.20.5676.031; Tue, 4 Oct 2022
- 20:46:46 +0000
-Message-ID: <d3b272e1-3b5d-c843-e8ac-57dc5e3a7ced@amd.com>
-Date: Tue, 4 Oct 2022 16:46:44 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-Subject: Re: [PATCH] drm/amdgpu/dm/mst: Fix incorrect usage of
- drm_dp_add_payload_part2()
-Content-Language: en-US
-To: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20221004202429.124422-1-lyude@redhat.com>
-From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20221004202429.124422-1-lyude@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR13CA0008.namprd13.prod.outlook.com
- (2603:10b6:208:160::21) To MN2PR12MB2941.namprd12.prod.outlook.com
- (2603:10b6:208:a9::12)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.24; Tue, 4 Oct
+ 2022 21:15:05 +0000
+Received: from BN8NAM11FT094.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:112:cafe::2d) by BN9PR03CA0320.outlook.office365.com
+ (2603:10b6:408:112::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.22 via Frontend
+ Transport; Tue, 4 Oct 2022 21:15:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT094.mail.protection.outlook.com (10.13.176.131) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5709.10 via Frontend Transport; Tue, 4 Oct 2022 21:15:04 +0000
+Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 4 Oct
+ 2022 16:15:03 -0500
+From: Alex Hung <alex.hung@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+Subject: [RFC PATCH 0/5] Proposal for Pre-blending 3D LUT interfaces
+Date: Tue, 4 Oct 2022 15:14:46 -0600
+Message-ID: <20221004211451.1475215-1-alex.hung@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|SJ0PR12MB5609:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd2af34a-b5a1-40f1-0c50-08daa6498dac
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT094:EE_|PH8PR12MB7374:EE_
+X-MS-Office365-Filtering-Correlation-Id: a5509521-fffb-47b1-ba55-08daa64d8205
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HKLwt0E7jjqPDQmxpWPq2P0tP3lRvA87JhK8u4E11sx/jAm2EhLDMrr3tlrHI/RVkMn5ryKI7V390O/O7qpxqAJGx0SxdYa8i/ceHZ4T2k61B4vsSmUcPmYrDRFOcb6nq+hNfYow51EVTL4rnFtrFFIUosLyQDDGavDa20g4rDWTPen6mTdV5LkN+q8cbZtr2q6+35IKvbWe1RzOw4NlzNH8CO1Nrt7rfuiMFmylSQqcW89yZfm5aFSIBltPIUazGVf3zFg+FTZU1kiC2qzq7zycy7zoE1nB2sL0nISvg9r+VwaQxsXxrVgZMWZhFxz0fj1v4en+S9lysGq7CXLclarqVVjtcuU5umTf/IXXVJX2tLBcp97jw8IygEQuroQJcU5pp6Pvl9rRKsiKTcHp3XUa7oBvBlXc2KSxnfBE84HzbIfoF/4gOAIwgDJlCyOwY06C59FnTxHF7NKZrHIuIqg5bASeDth9YXN43H6ZpqZuqu94CtIKs2s/0KyF61IIuO2m4A+6dBwhB0KNcOgn4jX2TPkU0GX50XxvoetaV5B/pizTRZhLTFCy9/aQgRDNT1UER0oSTXFnWFXq3KH2oCAoEN7dYRxkP9LeqeoaW0YL2DhnGItuLO06kSaswdzXpfe8HWG6OOrP8eg84OBXIMA1I7fTPAnXQvqyb6/OItAkRF77SeZDY0QXUIJ3CkpJ8tm8vxykPVXf1HbW8fy59XnkFiTmeQ+wtJIbxUmZJ/kY9uYjUisXV+zjvTVH4OO/
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(39860400002)(346002)(366004)(396003)(376002)(451199015)(4326008)(66556008)(8676002)(66476007)(186003)(83380400001)(41300700001)(36756003)(66946007)(6512007)(966005)(6486002)(38100700002)(26005)(53546011)(478600001)(86362001)(31696002)(6506007)(54906003)(316002)(2616005)(31686004)(2906002)(8936002)(5660300002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: l4fs5TnQDpxj9NioUlUe+HsVEOtbf5o3bErT1KuZxcht27ll1eFD1FvFIJQGLswPoJCLp/pMzk5mZf2NP8dajlQgb8RFiZbwkb3Hb9eIxgdWAzSndzHS1u+aZ8PLDnxWaYk+suvaBK6ImXArC3LHpx2L8Si5+q2ciTNyKKpupOizIyhd3QlE7VmKGFec61HZLRkpB9eQl8NAQaE+yLZk/XOXL1MH3xkzPyrq3kTm9MD2IGlAitib7qqxofg85kssNVXux8isc4OpZeArOo1rtPltCAOdIJpE9i6789klRvSjudTZOfwzbuYCwiO23gsq1fXo0BXsBVt5JhNlvFjpyxnzY2iVc2A2SZyDWoXEYuU/L2EWEIG6GYe9whFT9PPlgVyolqEMeECTTP72dlbn05lfw7HABWMCoxmMDIFh9pajay6TC+X6J0voxVgH7RPzQC70ThmCnWS9vU+Pa25ifyZblHz+CF/+z5Sp9PFe2ZcLYL+oLGbwaoZM5wp5ZQzYKafvMy/bbjC+DxxbQprvtWsR2My5NJgm+4u9dlfFmaDCa3GoW1HlyGQZMcbGonHt86Qx86um501KmWa1JFjpy8TI+60AY03tqwrk31gX45TthuXnKLMIFXCxReQaHy737b36ku63eS4yzNNtdqEOlpunf0cZzt6sYPmH5NMMAAIBE7CccVzwKpZbLe5OkKGd21l4oANWzLxpxqWU/qmwhFQ815/ciY8BOtcS/Dx2rslQrNzfyJyT6aQObQMlgrK8HwHz7lYIl1wHEfieKTwcQntu5ZofLi/ah9O5UWJNKcUoVMaY2NL4WIY+ZgTVYEHtDEw8Qx1iTBkHmb+ZjRoucQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(346002)(396003)(136003)(39860400002)(451199015)(40470700004)(46966006)(36840700001)(1076003)(186003)(16526019)(44832011)(336012)(2616005)(2906002)(7696005)(41300700001)(8936002)(5660300002)(26005)(82740400003)(81166007)(356005)(86362001)(40480700001)(82310400005)(83380400001)(426003)(47076005)(36756003)(36860700001)(40460700003)(54906003)(110136005)(316002)(966005)(478600001)(8676002)(4326008)(70206006)(70586007)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?amVMczhyNnZrUUVONzZoOHI0d0xTYlVuOG1PbFJDczV0NnlHRUJmMGtJSnRM?=
- =?utf-8?B?bjdVa09ocUZEb1piZzllYlBBK2ZnM3B3YnNHRHEzSnBSZlk4R3NadVN3TDVs?=
- =?utf-8?B?OUlFakszTUMxYzkxSDFhZk83MXZOaFY5Si9hZ1NEdkpqMkRaRldFdnNtR21F?=
- =?utf-8?B?R2hxNGRJWk9Xcnh0NTBLa3dKejZVOVFpNWQ3eS9XQURZWXBSTFhYK2JLcHZV?=
- =?utf-8?B?d2hKQ3RXaXY2QTlhZnEzMHRZQXAxaWZBbTZtR1RzYWxEQVdqd3ZLR3IzYWhH?=
- =?utf-8?B?aUtNb1FxUVB4RHZtZkRtYkRBTzd0YXByeTJBNnJkMVNYWm10Uk9OY1JNTjE3?=
- =?utf-8?B?bWVCb282Si9wdFBnd0l6VkZ2RXdnaURsN2ExTHMwUHFRdU1OMHBtclFWOVp6?=
- =?utf-8?B?d2pObXppV3lsNUlpYnlBUnAxK2IyekM2WE1VTU5iZWljVGtKc0JFdi9RUEYw?=
- =?utf-8?B?THQyT0g0Z3c1UGRLMktUY2F5TmhoVi9WUm1xblY2ZlBDSFJ2amozN1lZQ0gw?=
- =?utf-8?B?YmxLNTc2V1MyZy9Ydng3MFN3ZVlldnlQVVluSlhwQ25YdWxtQWRGczQ5RGlw?=
- =?utf-8?B?U2l5amdQZDg2T1BvTzlkRmFRbVdxeFlQSzNqTTcyT0F2QWhkalU2OHZOcERE?=
- =?utf-8?B?R2QzU01melRZaXh3VS9SWVg0dVoxM2MxQXBFNGxEMm03YmlNU3V5TkVoSkQ1?=
- =?utf-8?B?eFFOT2pmNDVtazhleFVCUU9VaXFkNWpnVmxIbDQ0ckdKU3VBY29WT1ZsbTJs?=
- =?utf-8?B?aU1XZ0Rhd28rdFhNMWpUT0FFeE9nV3FOR0FMdEE0VXhSN25NS2lnUGtLeXg4?=
- =?utf-8?B?S1loLzBYMG03NTEyT0FQYkRiYnRrYkNTc3RTZUE2TGFqUVZtWXFSNitKWmI4?=
- =?utf-8?B?NzNhZTBmV2NXeEJ1Wi9DOUduY2YxRzM5dEtjNlVaNlNxalRhb00yUCtuT290?=
- =?utf-8?B?QlpVU2YwTjhTLzhzdWRzQ1FiY2FocWhUb2tuQ1Btcllvb0dGUVhjUnJNVURm?=
- =?utf-8?B?cmlIRmxsRjNVUys4aitaWnJ4TXRMRVZmUHE2QVIvNVkzNzMrQzB0VmtucmRF?=
- =?utf-8?B?WUNGeTRUY1hsMzJjMVhsWExmRktIMlNCeXVsZXY4cFMzL1hWWVBZUnM1UDg0?=
- =?utf-8?B?bXFyZlMwdU5oVjZ4dWF1cHl1bkM5a3ZYb1kyS01tYTY5KzMySS9zY0s0OUZz?=
- =?utf-8?B?aXZKNEhIc2tZdjAxWk0wa2duckxOZE84ZlAxeGhpTllVUktEUFQwU2VidVkv?=
- =?utf-8?B?VGNBaUxvS0JRcTNYWW5aSUh3WVFTazlVUmkyVzV6bWgwVUxTNUYxbGE2WHM4?=
- =?utf-8?B?ZXRXbWZ4QU4xMWIwazZwam9EdDlOZDFYb2IxaTdqYy9sOCtoVDNneHUyVWtB?=
- =?utf-8?B?OVE2SjBCbHNLTTJzWCtTby9PNTZ1R0dXZnZzTFpabjRUVVQrY21oelNzSWNZ?=
- =?utf-8?B?Q0ZIc3MrVzNyaGx5bE5WdkJPQ3VkNVQwaTlyRjVvaWxuYzBmYnFBWEpMdXNG?=
- =?utf-8?B?aDArR3I0VU43b2dBbzk0L2V1bVNpL1ZYKzZubFJ3OGlZeGhkTVBHUlp5L2I1?=
- =?utf-8?B?Tyt5dTZidzJGKzEzTHRHTlRlVG1MdWIwblkyVTlsVWhONTRSYllSRW1TTkI1?=
- =?utf-8?B?UUVPaFFlL2xrL1laNkpsZ2dtTWUxakk1ZmQ0OUFGU3pucmZPaVBRdVVxU2da?=
- =?utf-8?B?YldWdWFQQzBJTEo1NlE3YllVN2o2WTAxNDVaZ0ZEVnN4VHpmN1d1b1ZOY1Uw?=
- =?utf-8?B?Q0JzM1hhcXkvWElVNzVGVlRBT2xVNFhscGJDMVZvVk8xLzZNUkxCWCtnbWZF?=
- =?utf-8?B?Ty9iUXdEWUxXYzRJSDY1K3VzVW56bUJ4VVhkbExRa0NMcmloNlo4VUc2RjRU?=
- =?utf-8?B?dlBzVFYzejVHUitPajNwNnliT25UdHpyNmRGNnkzaGVDRGdDeDFaTldsM09K?=
- =?utf-8?B?U1BPbVpXMGp0ZWdnM0Zud1RHVjE1eGJzZUx1RnVyakV5QjM3TlpOdENpeFBu?=
- =?utf-8?B?b1ZGeU9laGlXR2JVWWRwREUzOUl1Z0tjTTVjcThsQThRdjZ5VWNlaWs3d3dX?=
- =?utf-8?B?dHlteTFaaUdjUlB3QVhBNjkwOGZwTkI3cnZXVVZIV3hla2YzUkFGMVM5dmJi?=
- =?utf-8?Q?/3hv1TFhAcwdRzsWo2S1tvG4Y?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd2af34a-b5a1-40f1-0c50-08daa6498dac
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2022 20:46:46.7595 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2022 21:15:04.9671 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5509521-fffb-47b1-ba55-08daa64d8205
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p4Aw+IUpYpvt2/CziotvdWirUne9LQVozRkIE8xf2OcNdCelcD6CjH6bEbMFepvbSvonla+dpoLSYTJ8eRSe3g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5609
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT094.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7374
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,55 +97,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ian Chen <ian.chen@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Jani Nikula <jani.nikula@intel.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Claudio Suarez <cssk@net-c.es>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>, David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Colin Ian King <colin.i.king@gmail.com>
+Cc: mwen@igalia.com, bhawanpreet.lakha@amd.com, harry.wentland@amd.com,
+ Alex Hung <alex.hung@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This is an proposal and a draft implementation to enable 3D LUT on
+drm_plane. This proposal defines a new interface for userspace
+applications to query hardware capabilities and to pass/enable 3D LUT
+functions via this DRM/KMS APIs.
 
+Overviews:
 
-On 2022-10-04 16:24, Lyude Paul wrote:
-> Yikes, it appears somehow I totally made a mistake here. We're currently
-> checking to see if drm_dp_add_payload_part2() returns a non-zero value to
-> indicate success. That's totally wrong though, as this function only
-> returns a zero value on success - not the other way around.
-> 
-> So, fix that.
-> 
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Issue: https://gitlab.freedesktop.org/drm/amd/-/issues/2171
-> Fixes: 4d07b0bc4034 ("drm/display/dp_mst: Move all payload info into the atomic state")
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index b8077fcd4651..00598def5b39 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -297,7 +297,7 @@ bool dm_helpers_dp_mst_send_payload_allocation(
->   		clr_flag = MST_ALLOCATE_NEW_PAYLOAD;
->   	}
->   
-> -	if (enable && drm_dp_add_payload_part2(mst_mgr, mst_state->base.state, payload)) {
-> +	if (enable && drm_dp_add_payload_part2(mst_mgr, mst_state->base.state, payload) == 0) {
->   		amdgpu_dm_set_mst_status(&aconnector->mst_status,
->   			set_flag, false);
->   	} else {
+┌─────────┐    ┌─────────┐    ┌───┐    ┌──────────┐   ┌────────┐
+│Userspace│◄──►│3DLUT API│◄──►│DRM│◄──►│GPU driver├──►│hardware│
+└─────────┘    └─────────┘    └───┘    └──────────┘   └────────┘
 
-Hi Lyude,
+1. Userspace queries the 3DLUT mode (defined by drm_mode_3dlut_mode)
+   from the GPU drivers (ex. amdgpu).
 
-Maybe I'm missing something, but I can't find the 
-drm_dp_add_payload_part2() function on amd-staging-drm-next. Which repo 
-are you using?
+2. The GPU Driver replies sizes and the color depth of the
+   3DLUT modes, such as defined by struct lut_3d_mode_17_12bit.
 
-Thanks
-Siqueira
+3. If applicable, userspace selects and sets one of preferred 3DLUT
+   modes by "lut_3d_mode" to driver.
+
+4. Userspace passes 3D LUT via drm_property_blob "lut_3d". In the case
+   of the mode "lut_3d_mode_17_12bit", the 3D LUT should have a cube
+   size = 17x17x17 (lut_size), color depth = 12 bits (bit_depth), and
+   X/Y/Z axis = R/G/B (color_format).
+
+5. The GPU driver parses 3D LUT and passes it to hardware pipeline, and
+   enables 3D LUT accordingly.
+
+Notes:
+
+1. The patchset is based on the previous work on
+   https://gitlab.freedesktop.org/hwentland/linux/-/tree/color-and-hdr
+
+2. This interface can be part of the newly proposed DRM/KMS color pipeline
+   API (https://gitlab.freedesktop.org/pq/color-and-hdr/-/issues/11). A
+   future integration to the new API may be required or preferred, such
+   as the followings:
+
+  struct drm_color_pipeline_element {
+    drm_color_pipeline_element_type;
+    drm_color_pipeline_element_lut3d
+  };
+
+  struct drm_mode_3dlut_mode -> struct drm_color_pipeline_lut3d_config
+
+  struct drm_color_pipeline_lut3d {
+    lut_3d_mode_17_12bit;
+  };
+
+  struct drm_color_pipeline_lut3d_data {
+    *lut_3d;
+  };
+
+  and etc.
+
+3. A patchset "IGT tests for pre-blending 3D LUT interfaces" for this
+   proposal is sent to IGT mailing list.
+
+Related Work:
+ - Enable 3D LUT to AMD display drivers (https://www.spinics.net/lists/amd-gfx/msg83032.html)
+
+Alex Hung (5):
+  drm: Add 3D LUT mode and its attributes
+  drm: Add Plane 3DLUT and 3DLUT mode properties
+  drm/amd/display: Define 3D LUT struct for HDR planes
+  drm/amd/display: Enable plane 3DLUT mode
+  drm/amd/display: Fill 3D LUT from userspace
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  20 ++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   1 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 181 ++++++++++++++++++
+ .../amd/display/modules/color/color_gamma.h   |  12 ++
+ drivers/gpu/drm/drm_atomic_state_helper.c     |   3 +
+ drivers/gpu/drm/drm_atomic_uapi.c             |  11 ++
+ drivers/gpu/drm/drm_color_mgmt.c              |  68 +++++++
+ include/drm/drm_mode_object.h                 |   2 +-
+ include/drm/drm_plane.h                       |  33 ++++
+ include/uapi/drm/drm_mode.h                   |  17 ++
+ 10 files changed, 347 insertions(+), 1 deletion(-)
+
+-- 
+2.37.3
 
