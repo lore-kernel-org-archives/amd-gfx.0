@@ -4,115 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC2D9C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Oct 2022 16:43:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4569EC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Oct 2022 19:37:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB72F10E6E2;
-	Wed,  5 Oct 2022 16:43:35 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2054.outbound.protection.outlook.com [40.107.212.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E2B310E6E2
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Oct 2022 16:43:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LJac/vrROTkj37hgHrErJOO7rnTGe+ZZGh0mVaOJJTeoKzi5cz/eNPAsFM69OajD6mlF+toVnPoIgqtqc7pyS0ER7q5oVcKkGNKa3rNgYqpVr2IN4kRp0LxykmH2x3XNjcc6jUABXkxwqGv1U/30vYpW8FvkObEh+yz6hgDORtyuSI+ROeMdiBc4dbC0TX2Q5ebdbiOeNOLXIV7yV/viNFRKmmmpjAqtKF6dHDinJ9YuWUa7ld6AeqSf/QWsYm3tBofjLIypp0I/nrjGYPmHvSYYnBUKfaItDyUAEBcbtnbCKuHfpG3D8PpBLrztLynIv4LVAZ7y8PcEHoTBEF3a9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X+Pnrrj6BNl2bl4Y/TW/CNqU4sW47rVTrLmY+7pRsak=;
- b=gR/ctP0iwxai4eLktAgcMtR5pIrOktOWN3vdFWIGcyi4x3J9iHL4rN7V+IMO4adUsTpTug841KCP3/P1LycRAJzbmBN0hpuhCVIB48FS/aWv3ot6E1xa5OWiTswztFKgz64F/2jiWCzIGyfjpOKYiWs0RQ6xPZA0KZEtd3JC9iFxhghFKh/U3PH9XAeOaJ0juuCPNAExY1lLydc2fQPmRWEwW5IDvQAy5+zxtKLimBsLGrIccvVJbrKTTMCf7KYptUcedKIpztNX5ONjoUARHvWODRw98hyPbxdm2XCxRuiHkgP9dr19a5FLyhbzUJC7KdmYuaJRDScxzC74EqmUjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X+Pnrrj6BNl2bl4Y/TW/CNqU4sW47rVTrLmY+7pRsak=;
- b=d3zu4jLuz6jMICp6Pk6yRT3ByvRYI8GqSUcmXxCw4HetkN12JPj2d9lSXB42r9YtJlmlAhc35LRT4FAGJQ06ne4wEhge2kK9aOviW4YFX5kumZ1qNV4fCzFIZYdBgyi2cdojc09+M+ymtHDu12uFksnAUp0cKPGLyOo/CCJ/ewA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by PH7PR12MB5653.namprd12.prod.outlook.com (2603:10b6:510:132::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.28; Wed, 5 Oct
- 2022 16:43:28 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::3de4:456f:800d:e013]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::3de4:456f:800d:e013%5]) with mapi id 15.20.5676.032; Wed, 5 Oct 2022
- 16:43:28 +0000
-Message-ID: <97a4e0df-bd79-8c1d-c3b1-af88850e8d3e@amd.com>
-Date: Wed, 5 Oct 2022 12:43:26 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH v2] drm/amdgpu: set vm_update_mode=0 as default for Sienna
- Cichlid in SRIOV case
-To: amd-gfx@lists.freedesktop.org, "Slivka, Danijel" <Danijel.Slivka@amd.com>
-References: <20221005110325.31871-1-danijel.slivka@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20221005110325.31871-1-danijel.slivka@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT2PR01CA0009.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::14) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEE3310E767;
+	Wed,  5 Oct 2022 19:37:39 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BEA910E766
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Oct 2022 19:37:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1664998653;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=om/4sfRsXfwNwWQKPv9CFi8IwmnaiLcb7IYF4maF9ko=;
+ b=DVj83FICHny6CqspJfvzdW3umJ+iiVolVU6kWJWh+1ugUgfGfbHd3kmMDOG3MWsbNqBmDa
+ U+Jwukh542EWvqh6Y4FJYpxdbve086dhsvy9fcXEftJlfYN3DCDQVIwU95GdIf0zT7jsYm
+ P4sLlJrvc5TVy4rs48esbLT1xYi7h98=
+Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
+ [209.85.166.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-475-C5qK1GNyOeqBtv2uXsA-Sg-1; Wed, 05 Oct 2022 15:37:30 -0400
+X-MC-Unique: C5qK1GNyOeqBtv2uXsA-Sg-1
+Received: by mail-io1-f72.google.com with SMTP id
+ e19-20020a6b5013000000b006b3d18586c7so3026162iob.12
+ for <amd-gfx@lists.freedesktop.org>; Wed, 05 Oct 2022 12:37:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:user-agent:organization
+ :references:in-reply-to:date:cc:to:from:subject:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=om/4sfRsXfwNwWQKPv9CFi8IwmnaiLcb7IYF4maF9ko=;
+ b=4XoO5el+4FOeZb9hBQJXOzjxlE8Ak1XTXWlkWcwIFjtQkRaidompacEVA7PoYppsA4
+ RJKY2BNLW75yKlmKTv1X72M2VyoqGdapsoIyGqdoEyWnEELTfZtq4/9lkW7lCkkUZcqo
+ hx4llKLWCzLvALp8yFTbaRaFNNE1xyGxYl22G7Ah1H2IU+f6Fbl5jpyvoXUkRccCpE1t
+ kY97y8vX99lOIqleBUfX68fEeDyw39uksLUDDRiSvjPML9upXrZqfy8ErCiHPiiv4L1y
+ ZkfnNItET8veBJBXIudsZIrtWmWhdRc8c/8H7T2A0Mx7NxrsE34t52CDgfBte5KYIXUK
+ Fh+Q==
+X-Gm-Message-State: ACrzQf0LNozesI7kn3peh0OipecxzASpvS6nWNIKdTfKWhSn6pgu+UJK
+ WSNA7K/tj4RR8C+Ryiu6oQ6aPWFUIRatuEyFT6muIzZbjSQQPlTCC1VvYxv/zf3pbncUyRn77Av
+ /qQqMbfVtf/FKJoGHwHA4P6PFGg==
+X-Received: by 2002:a92:ca4c:0:b0:2f9:5143:faad with SMTP id
+ q12-20020a92ca4c000000b002f95143faadmr601810ilo.3.1664998649684; 
+ Wed, 05 Oct 2022 12:37:29 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM6XbJTCCAKAeqFGgRlGD4yz9P7kGpD2LZ94vAS1Q5FqKSmlWF3438/LCyxGKw4Wvc+9bqy0jQ==
+X-Received: by 2002:a92:ca4c:0:b0:2f9:5143:faad with SMTP id
+ q12-20020a92ca4c000000b002f95143faadmr601788ilo.3.1664998649468; 
+ Wed, 05 Oct 2022 12:37:29 -0700 (PDT)
+Received: from [10.56.18.113] ([140.209.96.86])
+ by smtp.gmail.com with ESMTPSA id
+ o9-20020a056e02068900b002f4ab5c3d7fsm6109000ils.62.2022.10.05.12.37.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 05 Oct 2022 12:37:28 -0700 (PDT)
+Message-ID: <128762cfb6524d17e6ee7308aa7e859dd350fa63.camel@redhat.com>
+Subject: Re: [PATCH] drm/amdgpu/dm/mst: Fix incorrect usage of
+ drm_dp_add_payload_part2()
+From: Lyude Paul <lyude@redhat.com>
+To: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Date: Wed, 05 Oct 2022 14:37:25 -0500
+In-Reply-To: <d3b272e1-3b5d-c843-e8ac-57dc5e3a7ced@amd.com>
+References: <20221004202429.124422-1-lyude@redhat.com>
+ <d3b272e1-3b5d-c843-e8ac-57dc5e3a7ced@amd.com>
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|PH7PR12MB5653:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62e35c08-de38-461c-cee5-08daa6f0bab5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZbDxWYJaR9RiYZVlpeHW1RswdJRpe9S/En2UY6IXJYByIAvA4h26k110jfOk2hT+pq8R6MYOC9IYhDbTY1Z5wjBgQm0rQADxFKm8q6mDLuBwi8qr3ECgvctWy8KgMl4/CgS450J40bbDbpw+xmOvXaFGboIsst6IYepIjSQZ2rMEaif5awhWQqXeamVte+Mywg30ijnmWgJkBgZLlh2TD4jt7rkfNopjUfaifKudZfHU+F+KC1Vj/K+apkg2A7DwMZs8P33cBWEaoqLJw5FPxCCqp0yGce9PNDvzkqWzGmbnYeTMLqn9ggbsBuih48+vB7VQ9IZF9uAZXTzdLtajZMVEw9aehAPV7Ehb+yS7m8HMisZ5vnXeN2IczQn07AaXgU7FVylFkRot6s81IGMazDH+E1rj/tG3e65Fe9TZe56w/3N3VLlKZJo6NUIx7vwiy4RasaVkFIhN4GDodHQF3dmRzHq+S/sMjLEJkpyfebt/5fqbU5q3YaUBtZ7QkrjHN1fvia8erdmPj7BF0uDXMIXUkncruBgLjT+aLwYlg5Ul0nzP1uq20jZ34ejwomW7lQg4UnB8Wud9AwFd4bXHgq/UZRSPvz6gMiGAasz9C9dCiJ04IpXW/9G7FXtgR/Depyh/Ibuaw8jCKUBRmam0Z3s78Ls40mnR3dVxNZKp+chdq8rGDgBLUoXkXFAU6PwFwFYJ7MvlELjYpXkqb0goAyUOuveFoUXBR+rdgeUaWsys+ghDSN6U44CB23swdRt/ZA8Aw7hxawsfuoJmUYhFOr4Qjlg4sswlvTpsq0YOj6A=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(346002)(366004)(376002)(136003)(39860400002)(451199015)(2906002)(31686004)(36756003)(66556008)(8936002)(66476007)(66946007)(6486002)(6862004)(31696002)(6636002)(37006003)(5660300002)(41300700001)(8676002)(86362001)(6506007)(83380400001)(44832011)(478600001)(6512007)(2616005)(26005)(316002)(186003)(38100700002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TlFNbmFqVmo5K2VKZzBMTEdtRWNBOFZpVGY1MHJCanNQVy9yRzh6WnUwZlRI?=
- =?utf-8?B?WTJSUHZLQzVuZWhhZGZNV3VlaEhjVmo1TFpMWnNwbG4xbW1ra21zSXVDejB1?=
- =?utf-8?B?OWpJOExjQjU2Q0ZCUDRGaWRQTzh6b3BkeDRmTERIZkxPK2t3eTBkZ1g3Qlp4?=
- =?utf-8?B?RldoRUUxY2thOXQyM2N0N25PSmdTTjZBTXBEdnh0ZHN3S2o2TGdnU0EzaGlo?=
- =?utf-8?B?MWNXWlp1YmM0bytCSGd2TjZPTmJDV1VDQVU3RVZ4akJMM1hqdGNYMENPK3ZE?=
- =?utf-8?B?QXh1ZEpPd3JOUktLZmphNkx2czEwZTg2endCbUZ0RGpXcnp5VlUyOHRCMWRo?=
- =?utf-8?B?bytBaE1MVm1lVllxZEFvOG9zRE9sZ3lncDhINXN3cTRjenZlQSs2bTBySzlo?=
- =?utf-8?B?eGZITHdBUitxY2c3MlpxZ3loT0FBekMxYStXdEdMcnVWNnFpSmVXNndTYTVG?=
- =?utf-8?B?TUswU2NNeHI0UkFjUzJlWXk3ZDQyRnN5OHhuNkY4MTN3MkdHYlpPcm1NUTVk?=
- =?utf-8?B?TXBHb2ZWaXVhdTUyS1NES3IyRWdxNzhJVTEydHFWR0FtRHk4dGEvOVUxWWM5?=
- =?utf-8?B?aTVFZGFqbWVnNjRtVUlHb0RscHVJd2xYMGNXUzJzZk5wUnMyL2N2aW5vOHNY?=
- =?utf-8?B?VEVDUmFHYTdlNjJWS3huNUUyRUNVbWJjZmdic0VXSGRYSHcxbFRwWThXSXJR?=
- =?utf-8?B?MC9MaC9CZG1aSFpnVGUzakNTdWZucnc0UWNmcTJlMFFvK3VyMTl4TWRpMDhN?=
- =?utf-8?B?bmt5RktjK3Q1SVV1c1dNM20ySWpBaGVRWURpK050OVFPM1pudnV4cUpYNER2?=
- =?utf-8?B?WHQzd1Y0bmdhakpqRkRlU2t4MlZLeXJ5aUhweTRkUE1CN0llTVVyQTN4NHdB?=
- =?utf-8?B?ZDBsWm5ZdTBLbE5sRkF1RnBqL04rZ2VCWGNJQzkvWjJXSHF1MW5ZMC92Q3NE?=
- =?utf-8?B?MnR6RSs4QnQyeVlOaFpyVnZ0Y0VQVmtwYldVdklxS0pXbXg3NTBhZGkvSHNS?=
- =?utf-8?B?NGRnMEF1YmUzUFNuUjBPRFJEL3hsMmVWQXN0VVJRTjVIaVZZakpLMzRRaW5k?=
- =?utf-8?B?WWRqNWdvdlJycVp5V1RxZzJCbGdhd041SGpCUjNNTlRua3dOM01hRzk5c1Z5?=
- =?utf-8?B?SVQwWEhEU092VG42cHBPZFJNUGZlVWNzbXQ5aklCVEp4aWNvd05mV3g2VGlj?=
- =?utf-8?B?QUJMT2ZlcktSd05oaE1KRjVYK1R3ZkpXb0VwdHpxWFIrOXRNL3RHSzlPNkRn?=
- =?utf-8?B?TllmejF1dWRZdlBVVHkvcmZlOURITUkyNG9ubWhpdCtnU0FhVFJWYjg5NFU1?=
- =?utf-8?B?VXppVVVoSWladUpTL2RhWjlCeG5IQ3pRU0dUV2VNbmRGQlF2a2NTWi9HVGIv?=
- =?utf-8?B?Ui92cUJDcUpia3pNVHZCNjZ1djZvd0duNHNoNFR3eWlmeVJRYmUrQVJGcUJv?=
- =?utf-8?B?SHVuTDJrMDN6VG1XL1FvY1JIdk95VlZDcUVaK3JYSXl4NWliaGliTlptaXlt?=
- =?utf-8?B?NE9ZUFh6cSt5d3pUK29KRWxKdUxwR01VTnhSNXdGVjlXQ0VrK3pMbk1seGY0?=
- =?utf-8?B?eDIvOHMrVWdYQnM0RlNTd0IzQ3dMZzdCR3N4VHUwY3QvaGtyenp5d0tJQkRL?=
- =?utf-8?B?WGlhMDVLQmZMYllXeWN6WENuVkRjcHkzbXltdFVPdEZ2bVRtM2VjRHJ0OFYv?=
- =?utf-8?B?U0VwUjVyc0J2YWt5N3BtQ2RTcHRNNkdSRStDbzJuUHIrOVZINXd5Qi9hbVZH?=
- =?utf-8?B?Rnh6T2lZRjE4a1ZGTEd4S0ZaWG5oMjNST0VtV0ZBdHhOUDR5Znl6ZlpiVjlT?=
- =?utf-8?B?dnZGSHZJdU85UUp4MG9LbXFpNS8vM29ScFAwcUpoRWZ2Rmp2QTNpMTZRbGF0?=
- =?utf-8?B?L0Nxckl4WlluVjc5czRKcXBFUUpxYUk1UGdNaVFpNGV6NVJ1d01VVXc5Z1dJ?=
- =?utf-8?B?MTN0SEw1UWNndlIxWHgyVVlWOGxxOXZFU3RNZHFSUVZuZVFCNTY3WFIrWTBN?=
- =?utf-8?B?eU1SVUtnNzFKTmkxU1NVcFcvdUw3MUxiUTliTU1EaGF5OVY2VkIvOEVXYi9G?=
- =?utf-8?B?NkNPZTlPekRuNSs5OS9DWkVvWE4vTEkxbEZuTWMxY2F1ZHRVZ0tLVnlnRWhT?=
- =?utf-8?Q?55GN9ZuZoSrZz9Kzp0ztnRSh1?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62e35c08-de38-461c-cee5-08daa6f0bab5
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2022 16:43:28.2591 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7wOY0MMTPM7FxECjEk6aTjYF65lUbkEN39yKbNmErC84x/pUmEYmMLknhetRLZp6okOk5CqRcqj65K570ANz7g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5653
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,48 +86,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Ian Chen <ian.chen@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ open list <linux-kernel@vger.kernel.org>, Jani Nikula <jani.nikula@intel.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Claudio Suarez <cssk@net-c.es>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Mikita Lipski <mikita.lipski@amd.com>, David Airlie <airlied@gmail.com>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Colin Ian King <colin.i.king@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-10-05 um 07:03 schrieb Danijel Slivka:
-> CPU pagetable updates have issues with HDP flush as VF MMIO access
-> protection is not allowing write during sriov runtime to
-> mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL
->
-> Signed-off-by: Danijel Slivka <danijel.slivka@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 83b0c5d86e48..32088ac0666c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2338,7 +2338,9 @@ void amdgpu_vm_manager_init(struct amdgpu_device *adev)
->   	 */
->   #ifdef CONFIG_X86_64
->   	if (amdgpu_vm_update_mode == -1) {
-> -		if (amdgpu_gmc_vram_full_visible(&adev->gmc))
-> +		if (amdgpu_gmc_vram_full_visible(&adev->gmc) &&
-> +		    !(adev->asic_type == CHIP_SIENNA_CICHLID &&
-> +		    amdgpu_sriov_vf(adev)))
+On Tue, 2022-10-04 at 16:46 -0400, Rodrigo Siqueira Jordao wrote:
+> 
+> On 2022-10-04 16:24, Lyude Paul wrote:
+> > Yikes, it appears somehow I totally made a mistake here. We're currently
+> > checking to see if drm_dp_add_payload_part2() returns a non-zero value to
+> > indicate success. That's totally wrong though, as this function only
+> > returns a zero value on success - not the other way around.
+> > 
+> > So, fix that.
+> > 
+> > Signed-off-by: Lyude Paul <lyude@redhat.com>
+> > Issue: https://gitlab.freedesktop.org/drm/amd/-/issues/2171
+> > Fixes: 4d07b0bc4034 ("drm/display/dp_mst: Move all payload info into the atomic state")
+> > ---
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> > index b8077fcd4651..00598def5b39 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> > @@ -297,7 +297,7 @@ bool dm_helpers_dp_mst_send_payload_allocation(
+> >   		clr_flag = MST_ALLOCATE_NEW_PAYLOAD;
+> >   	}
+> >   
+> > -	if (enable && drm_dp_add_payload_part2(mst_mgr, mst_state->base.state, payload)) {
+> > +	if (enable && drm_dp_add_payload_part2(mst_mgr, mst_state->base.state, payload) == 0) {
+> >   		amdgpu_dm_set_mst_status(&aconnector->mst_status,
+> >   			set_flag, false);
+> >   	} else {
+> 
+> Hi Lyude,
+> 
+> Maybe I'm missing something, but I can't find the 
+> drm_dp_add_payload_part2() function on amd-staging-drm-next. Which repo 
+> are you using?
 
-This would need at least a code comment. But I'd prefer a more general 
-solution that expresses that some ASICs don't allow any MMIO access 
-under SRIOV.
+If it's not on amd-staging-drm-next then it likely hasn't gotten backported to
+amd's branch yet and is in drm-misc-next
 
-I found that there is this function defined in amdgpu_virt.c/h: bool 
-amdgpu_virt_mmio_blocked(struct amdgpu_device *adev). Would this return 
-the correct result and could you use it here instead of a hard-coded 
-asic_type?
+> 
+> Thanks
+> Siqueira
+> 
 
-Or maybe this could be added as a flag in (adev)->virt.caps and get 
-initialized in some ASIC-specific code path.
+-- 
+Cheers,
+ Lyude Paul (she/her)
+ Software Engineer at Red Hat
 
-Regards,
-   Felix
-
-
->   			adev->vm_manager.vm_update_mode =
->   				AMDGPU_VM_USE_CPU_FOR_COMPUTE;
->   		else
