@@ -4,49 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9610EC43219
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Oct 2022 23:51:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B556C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Oct 2022 11:03:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E678F10E0B5;
-	Tue,  4 Oct 2022 23:51:49 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADA1710E0B5
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Oct 2022 23:51:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664927506; x=1696463506;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=j5j93ep56qWM4Aggptg3rLl2Drpk5XL00qe9ecX3sk8=;
- b=g1gf58HbYRDKaWGkO5+yk3tScaOipwCiJtt5oi7zUiJEHc4w3V7aGxCK
- Q/86B7351wM1II/cqh71JMqHDBWYjv2MPuJWBzgx/RAbgZKP6pFg5S0KB
- RmRKyDlTIjH8Ide8iyGPcj04xNzcmRohSiH0bHCh6a25E6WiUgHjTdLfw
- NHSm2EtMuo6CIo/tJbpfX8zLl6BrgPQ4aFr/4KY96jjQazkqhPr1X1VuT
- 8msslzoZ5EJ5C2a1Fd9gG1eNTjHXazRhYEgoX8Fz9Xuf7ucJCKDL/S+32
- Q8HwMLQaZM3A/qukPk2n2aDU2VYbTakPQEQ4Y6psPDZdtvbE/UfcX1TMJ g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10490"; a="364976690"
-X-IronPort-AV: E=Sophos;i="5.95,159,1661842800"; d="scan'208";a="364976690"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2022 16:51:45 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10490"; a="713229064"
-X-IronPort-AV: E=Sophos;i="5.95,159,1661842800"; d="scan'208";a="713229064"
-Received: from lkp-server01.sh.intel.com (HELO d4f44333118a) ([10.239.97.150])
- by FMSMGA003.fm.intel.com with ESMTP; 04 Oct 2022 16:51:42 -0700
-Received: from kbuild by d4f44333118a with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1ofrhN-0000ft-1y;
- Tue, 04 Oct 2022 23:51:41 +0000
-Date: Wed, 05 Oct 2022 07:51:12 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 4d80748d16c82a9c2c4ea5feea96e476de3cd876
-Message-ID: <633cc6f0.nUuOxmXokJvNe3YF%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7E710E4A1;
+	Wed,  5 Oct 2022 11:03:49 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2081.outbound.protection.outlook.com [40.107.96.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9447F10E4A1
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Oct 2022 11:03:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=L/AOXFCoWlscbSGV1bzW50dBrLvHcn3Wn6TobGKsTSC+1BRQkRw/iOhTzlqycHvw15nBfMiMAd4w1s7UGkadmRzq/npvX0IRa2Ml14maAjXU6tLK6Se+/edkUAdKNiFYO0H/dtdyGmEy+pI0FV5LL2iFRPfIrye1zIa9aSSPqtAWaaRuyO2LqToLkoWbwNhk+DmDGR5bYfC57WBvWenTlXififSxLUHCca0IAqTFHeBZR1gHNd7H1/zq60RACWIZVNwP+Xkoby/+xhi9vohWC9ZN5NayUR5xT2FKJQR9UXc5sEhqq4rC7WW758ZRpJB3JNwQZXOdyVEoVQY49OegJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ez8FKZoyi7C9jZlnMX6E34Tve0hPoGR2YcppfTP8K4Q=;
+ b=XjafRIXJoxn390deA2SO0/tMUJcaaPUD2DL7LjFe1BeFMAQGA7NfPKNOa56ubm9dFmSuzimfY0fosZ96PTQz4/y5zrq1LmnYHwrTZgaQYWbHiB5MFBVX0h0OTMY8eCWiNnNhu5DOEge2UlEqKbz7gaPlyCs3I6iIGrUkJK0mODK3aymzpbbEAa8jGtronb6vAeJLfQZ8cPzayKh0RXZay0Z0yuPz2/JudbSjn4vv+338zLGFk6mRIfLoOWcreU996eAxj8rmJX4pXu5xty2oQtNdPr2dgwlBp7HpBIGIw3mKa2lNPWymxSj9x0Ukvl5a+qb+ycOW5TlIAIVgEL37Kw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ez8FKZoyi7C9jZlnMX6E34Tve0hPoGR2YcppfTP8K4Q=;
+ b=FbNDuO6nV6ayPpKrLX21pL7MBYOI//3zqyclk52Vn7U4ancWpXXAmW3/YXDGikdnLcpDtzwPP5/3WlG4zcWZ8fJtVPgp/H+/plOhT3AT6eaPnXx5tdBGpQaiPFqlwgN8dp27xhSQZPL4xaizs3Sq/sFLvsadkg3LzINOCrS6o5s=
+Received: from BN8PR15CA0018.namprd15.prod.outlook.com (2603:10b6:408:c0::31)
+ by CY8PR12MB7124.namprd12.prod.outlook.com (2603:10b6:930:5f::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.23; Wed, 5 Oct
+ 2022 11:03:41 +0000
+Received: from BN8NAM11FT033.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:c0:cafe::60) by BN8PR15CA0018.outlook.office365.com
+ (2603:10b6:408:c0::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.31 via Frontend
+ Transport; Wed, 5 Oct 2022 11:03:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT033.mail.protection.outlook.com (10.13.177.149) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5709.10 via Frontend Transport; Wed, 5 Oct 2022 11:03:40 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 5 Oct
+ 2022 06:03:35 -0500
+Received: from sriov-MILEVA-7.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
+ Transport; Wed, 5 Oct 2022 06:03:34 -0500
+From: Danijel Slivka <danijel.slivka@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdgpu: set vm_update_mode=0 as default for Sienna
+ Cichlid in SRIOV case
+Date: Wed, 5 Oct 2022 13:03:25 +0200
+Message-ID: <20221005110325.31871-1-danijel.slivka@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT033:EE_|CY8PR12MB7124:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4c074ca-7b62-4036-5fc0-08daa6c14304
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vq/PggR3XLSK7xyZ5dLnA0R8Nsx9e6z11jXyJqXAD0ruwRZEdAI1nJk8B7t0KNui138kgFPatlCIseisSdqxcGBVaJowpow+xhgbWYmdOmJ2tf+VveawAI53VugpQWWC62AI3kHQS5Oa/ShCzik4fn8V5aifwe08QImLL23TC5MHZE2dKRVhhYDm/Su8cTVBSdzBh+LKuZzvCacPh7xVyRxZyqGb/XJnImxpCLU8FVpnivzdwrQx7FzMt9A6rpz9mab7DVfyDKXYFMKlvw1/UDDKi7LsBGjtO8P9X4tV/hTZ/ImpXzSBNvSt6oFFu3p+IhnxTcyMaB2X2IVYy+/+7VWtuHmOMu6TBe3fURSy8jxFJEwB39/pyDLbvZaTjIUJqZhEmQuN6rj8uOfxdQFEjlFS9mz2yoyxRCWKO0ThE4HdnAX4SJ9K7nSJ0jo1sGcaZofW603xarR60Dbjk4ee6enLaqt+1EGYZqcktFoDYMt1hcg+WeXBk+lUU42KsdP6knOmnbgBfY+DZj09tXYoS42pPNlfZ9Ivm0o1GYJ6+b1OadaXdLZXJR1yVOQJ9ISSezhDnhY0Om6BT48653yYEtuZa6CI1t3jvCsoTEGG7IwtiSxEiYArIHYXywwSApW2g/ZU5JbkdIpJHvHzW6P8LvNf4Vz9wtuT/QdbmuFuZ1Qos44kFvFPr0EaI/vldzXa2y634y3tjQNPQ+AianbqIPbG7wMFxSOUKlD7YseeEtHGVoSxhrKIyIeEAUywIFcKxGA8tKjDbY5Q2NWl2enTYOXkY+oyD1IErQYyt4BRcCsZaFMAaNS008QgxjH3kObz
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(136003)(376002)(39860400002)(396003)(451199015)(36840700001)(46966006)(40470700004)(6666004)(70586007)(6916009)(316002)(478600001)(4744005)(40460700003)(41300700001)(7696005)(70206006)(83380400001)(82310400005)(36756003)(8676002)(81166007)(4326008)(5660300002)(8936002)(82740400003)(2616005)(1076003)(336012)(47076005)(2906002)(356005)(44832011)(26005)(36860700001)(426003)(86362001)(186003)(40480700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2022 11:03:40.8980 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4c074ca-7b62-4036-5fc0-08daa6c14304
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT033.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7124
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,178 +98,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: netdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-spi@vger.kernel.org, Linux Memory Management List <linux-mm@kvack.org>,
- iommu@lists.linux.dev, linux-mediatek@lists.infradead.org,
- loongarch@lists.linux.dev, bpf@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+Cc: Danijel Slivka <danijel.slivka@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 4d80748d16c82a9c2c4ea5feea96e476de3cd876  Add linux-next specific files for 20221004
+CPU pagetable updates have issues with HDP flush as VF MMIO access
+protection is not allowing write during sriov runtime to
+mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL
 
-Error/Warning reports:
+Signed-off-by: Danijel Slivka <danijel.slivka@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-https://lore.kernel.org/linux-mm/202209150141.WgbAKqmX-lkp@intel.com
-https://lore.kernel.org/linux-mm/202209251400.1TMn7RdE-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210010718.2kaVANGb-lkp@intel.com
-https://lore.kernel.org/llvm/202209200834.EFwaTsIj-lkp@intel.com
-https://lore.kernel.org/llvm/202209220019.Yr2VuXhg-lkp@intel.com
-
-Error/Warning: (recently discovered and may have been fixed)
-
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/idma64.ko] undefined!
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/qcom/hdma.ko] undefined!
-ERROR: modpost: "devm_memremap" [drivers/misc/open-dice.ko] undefined!
-ERROR: modpost: "devm_memunmap" [drivers/misc/open-dice.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/char/xillybus/xillybus_of.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/clk/xilinx/clk-xlnx-clock-wizard.ko] undefined!
-ERROR: modpost: "ioremap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
-ERROR: modpost: "iounmap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
-ERROR: modpost: "iounmap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
-arch/arm64/kernel/alternative.c:199:6: warning: no previous prototype for 'apply_alternatives_vdso' [-Wmissing-prototypes]
-arch/arm64/kernel/alternative.c:295:14: warning: no previous prototype for 'alt_cb_patch_nops' [-Wmissing-prototypes]
-arch/loongarch/kernel/traps.c:250 die() warn: variable dereferenced before check 'regs' (see line 244)
-arch/loongarch/mm/init.c:166:24: warning: variable 'new' set but not used [-Wunused-but-set-variable]
-drivers/platform/loongarch/loongson-laptop.c:377 loongson_laptop_get_brightness() warn: impossible condition '(level < 0) => (0-255 < 0)'
-drivers/spi/spi.c:4215:33: warning: use of uninitialized value '((int *)_38 = PHI <&x(2), _91(3)>)[11]' [CWE-457] [-Wanalyzer-use-of-uninitialized-value]
-include/linux/compiler_types.h:357:45: error: call to '__compiletime_assert_417' declared with attribute error: FIELD_GET: mask is not constant
-kernel/bpf/memalloc.c:500 bpf_mem_alloc_destroy() error: potentially dereferencing uninitialized 'c'.
-net/dsa/port.c:1684 dsa_port_phylink_create() warn: passing zero to 'PTR_ERR'
-pahole: .tmp_vmlinux.btf: No such file or directory
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- arm-randconfig-c002-20221002
-|   `-- drivers-spi-spi.c:warning:use-of-uninitialized-value-((int-)_38-PHI-x()-_91()-)-CWE
-|-- arm64-allyesconfig
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
-|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
-|-- arm64-randconfig-r004-20221002
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
-|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
-|-- arm64-randconfig-r016-20221003
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
-|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
-|-- i386-randconfig-m021-20221003
-|   `-- net-dsa-port.c-dsa_port_phylink_create()-warn:passing-zero-to-PTR_ERR
-|-- loongarch-buildonly-randconfig-r006-20221003
-|   `-- arch-loongarch-mm-init.c:warning:variable-new-set-but-not-used
-|-- loongarch-randconfig-m031-20221002
-|   `-- arch-loongarch-mm-init.c:warning:variable-new-set-but-not-used
-|-- loongarch-randconfig-m041-20221002
-|   |-- arch-loongarch-kernel-traps.c-die()-warn:variable-dereferenced-before-check-regs-(see-line-)
-|   |-- arch-loongarch-mm-init.c:warning:variable-new-set-but-not-used
-|   |-- drivers-platform-loongarch-loongson-laptop.c-loongson_laptop_get_brightness()-warn:impossible-condition-(level-)-(-)
-|   `-- kernel-bpf-memalloc.c-bpf_mem_alloc_destroy()-error:potentially-dereferencing-uninitialized-c-.
-|-- loongarch-randconfig-r001-20221002
-|   `-- arch-loongarch-mm-init.c:warning:variable-new-set-but-not-used
-|-- m68k-randconfig-r004-20221003
-|   `-- pahole:.tmp_vmlinux.btf:No-such-file-or-directory
-|-- s390-allmodconfig
-|   |-- ERROR:devm_ioremap_resource-drivers-dma-fsl-edma.ko-undefined
-|   |-- ERROR:devm_ioremap_resource-drivers-dma-idma64.ko-undefined
-|   |-- ERROR:devm_ioremap_resource-drivers-dma-qcom-hdma.ko-undefined
-|   |-- ERROR:devm_memremap-drivers-misc-open-dice.ko-undefined
-|   |-- ERROR:devm_memunmap-drivers-misc-open-dice.ko-undefined
-|   |-- ERROR:devm_platform_ioremap_resource-drivers-char-xillybus-xillybus_of.ko-undefined
-|   |-- ERROR:devm_platform_ioremap_resource-drivers-clk-xilinx-clk-xlnx-clock-wizard.ko-undefined
-|   |-- ERROR:ioremap-drivers-tty-ipwireless-ipwireless.ko-undefined
-|   |-- ERROR:iounmap-drivers-net-ethernet-pcnet_cs.ko-undefined
-|   `-- ERROR:iounmap-drivers-tty-ipwireless-ipwireless.ko-undefined
-`-- x86_64-randconfig-a012-20221003
-    `-- include-linux-compiler_types.h:error:call-to-__compiletime_assert_NNN-declared-with-attribute-error:FIELD_GET:mask-is-not-constant
-clang_recent_errors
-|-- arm-randconfig-r022-20221003
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
-|   `-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
-|-- mips-randconfig-r003-20221002
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   `-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|-- s390-randconfig-r021-20221002
-|   |-- manage.c:(.text):undefined-reference-to-__tsan_memcpy
-|   |-- s39-linux-ld:setup.c:(.init.text):undefined-reference-to-__tsan_memcpy
-|   |-- s39-linux-ld:trace.c:(.init.text):undefined-reference-to-__tsan_memcpy
-|   |-- trace.c:(.init.text):undefined-reference-to-__tsan_memcpy
-|   `-- workqueue.c:(.init.text):undefined-reference-to-__tsan_memcpy
-|-- s390-randconfig-r026-20221002
-|   `-- ERROR:devm_ioremap_resource-drivers-dma-idma64.ko-undefined
-`-- x86_64-buildonly-randconfig-r005-20221003
-    |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-function-virtual_disable_link_output
-    `-- drivers-iommu-ipmmu-vmsa.c:warning:unused-variable-ipmmu_of_ids
-
-elapsed time: 726m
-
-configs tested: 58
-configs skipped: 3
-
-gcc tested configs:
-powerpc                           allnoconfig
-arc                                 defconfig
-alpha                               defconfig
-um                             i386_defconfig
-um                           x86_64_defconfig
-x86_64                          rhel-8.3-func
-x86_64                              defconfig
-x86_64                    rhel-8.3-kselftests
-sh                               allmodconfig
-s390                                defconfig
-s390                             allmodconfig
-riscv                randconfig-r042-20221003
-arc                  randconfig-r043-20221003
-x86_64                               rhel-8.3
-arc                              allyesconfig
-i386                                defconfig
-arm                                 defconfig
-alpha                            allyesconfig
-i386                 randconfig-a011-20221003
-x86_64                           rhel-8.3-syz
-i386                 randconfig-a012-20221003
-s390                 randconfig-r044-20221003
-mips                             allyesconfig
-s390                             allyesconfig
-m68k                             allmodconfig
-x86_64                         rhel-8.3-kunit
-powerpc                          allmodconfig
-i386                 randconfig-a013-20221003
-m68k                             allyesconfig
-i386                 randconfig-a015-20221003
-x86_64                           rhel-8.3-kvm
-i386                 randconfig-a014-20221003
-x86_64                           allyesconfig
-ia64                             allmodconfig
-x86_64               randconfig-a011-20221003
-arm                              allyesconfig
-x86_64               randconfig-a012-20221003
-arm64                            allyesconfig
-x86_64               randconfig-a013-20221003
-x86_64               randconfig-a015-20221003
-x86_64               randconfig-a014-20221003
-x86_64               randconfig-a016-20221003
-i386                             allyesconfig
-
-clang tested configs:
-hexagon              randconfig-r045-20221003
-i386                 randconfig-a004-20221003
-hexagon              randconfig-r041-20221003
-i386                 randconfig-a003-20221003
-i386                 randconfig-a002-20221003
-i386                 randconfig-a001-20221003
-i386                 randconfig-a006-20221003
-i386                 randconfig-a005-20221003
-x86_64               randconfig-a002-20221003
-x86_64               randconfig-a001-20221003
-x86_64               randconfig-a004-20221003
-x86_64               randconfig-a006-20221003
-x86_64               randconfig-a003-20221003
-x86_64               randconfig-a005-20221003
-x86_64                          rhel-8.3-rust
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 83b0c5d86e48..32088ac0666c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2338,7 +2338,9 @@ void amdgpu_vm_manager_init(struct amdgpu_device *adev)
+ 	 */
+ #ifdef CONFIG_X86_64
+ 	if (amdgpu_vm_update_mode == -1) {
+-		if (amdgpu_gmc_vram_full_visible(&adev->gmc))
++		if (amdgpu_gmc_vram_full_visible(&adev->gmc) &&
++		    !(adev->asic_type == CHIP_SIENNA_CICHLID &&
++		    amdgpu_sriov_vf(adev)))
+ 			adev->vm_manager.vm_update_mode =
+ 				AMDGPU_VM_USE_CPU_FOR_COMPUTE;
+ 		else
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.25.1
+
