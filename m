@@ -4,76 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4569EC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Oct 2022 19:37:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C97BDC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Oct 2022 20:58:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEE3310E767;
-	Wed,  5 Oct 2022 19:37:39 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BEA910E766
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Oct 2022 19:37:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1664998653;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=om/4sfRsXfwNwWQKPv9CFi8IwmnaiLcb7IYF4maF9ko=;
- b=DVj83FICHny6CqspJfvzdW3umJ+iiVolVU6kWJWh+1ugUgfGfbHd3kmMDOG3MWsbNqBmDa
- U+Jwukh542EWvqh6Y4FJYpxdbve086dhsvy9fcXEftJlfYN3DCDQVIwU95GdIf0zT7jsYm
- P4sLlJrvc5TVy4rs48esbLT1xYi7h98=
-Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
- [209.85.166.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-475-C5qK1GNyOeqBtv2uXsA-Sg-1; Wed, 05 Oct 2022 15:37:30 -0400
-X-MC-Unique: C5qK1GNyOeqBtv2uXsA-Sg-1
-Received: by mail-io1-f72.google.com with SMTP id
- e19-20020a6b5013000000b006b3d18586c7so3026162iob.12
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Oct 2022 12:37:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:user-agent:organization
- :references:in-reply-to:date:cc:to:from:subject:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=om/4sfRsXfwNwWQKPv9CFi8IwmnaiLcb7IYF4maF9ko=;
- b=4XoO5el+4FOeZb9hBQJXOzjxlE8Ak1XTXWlkWcwIFjtQkRaidompacEVA7PoYppsA4
- RJKY2BNLW75yKlmKTv1X72M2VyoqGdapsoIyGqdoEyWnEELTfZtq4/9lkW7lCkkUZcqo
- hx4llKLWCzLvALp8yFTbaRaFNNE1xyGxYl22G7Ah1H2IU+f6Fbl5jpyvoXUkRccCpE1t
- kY97y8vX99lOIqleBUfX68fEeDyw39uksLUDDRiSvjPML9upXrZqfy8ErCiHPiiv4L1y
- ZkfnNItET8veBJBXIudsZIrtWmWhdRc8c/8H7T2A0Mx7NxrsE34t52CDgfBte5KYIXUK
- Fh+Q==
-X-Gm-Message-State: ACrzQf0LNozesI7kn3peh0OipecxzASpvS6nWNIKdTfKWhSn6pgu+UJK
- WSNA7K/tj4RR8C+Ryiu6oQ6aPWFUIRatuEyFT6muIzZbjSQQPlTCC1VvYxv/zf3pbncUyRn77Av
- /qQqMbfVtf/FKJoGHwHA4P6PFGg==
-X-Received: by 2002:a92:ca4c:0:b0:2f9:5143:faad with SMTP id
- q12-20020a92ca4c000000b002f95143faadmr601810ilo.3.1664998649684; 
- Wed, 05 Oct 2022 12:37:29 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM6XbJTCCAKAeqFGgRlGD4yz9P7kGpD2LZ94vAS1Q5FqKSmlWF3438/LCyxGKw4Wvc+9bqy0jQ==
-X-Received: by 2002:a92:ca4c:0:b0:2f9:5143:faad with SMTP id
- q12-20020a92ca4c000000b002f95143faadmr601788ilo.3.1664998649468; 
- Wed, 05 Oct 2022 12:37:29 -0700 (PDT)
-Received: from [10.56.18.113] ([140.209.96.86])
- by smtp.gmail.com with ESMTPSA id
- o9-20020a056e02068900b002f4ab5c3d7fsm6109000ils.62.2022.10.05.12.37.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Oct 2022 12:37:28 -0700 (PDT)
-Message-ID: <128762cfb6524d17e6ee7308aa7e859dd350fa63.camel@redhat.com>
-Subject: Re: [PATCH] drm/amdgpu/dm/mst: Fix incorrect usage of
- drm_dp_add_payload_part2()
-From: Lyude Paul <lyude@redhat.com>
-To: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Date: Wed, 05 Oct 2022 14:37:25 -0500
-In-Reply-To: <d3b272e1-3b5d-c843-e8ac-57dc5e3a7ced@amd.com>
-References: <20221004202429.124422-1-lyude@redhat.com>
- <d3b272e1-3b5d-c843-e8ac-57dc5e3a7ced@amd.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20C9D10E780;
+	Wed,  5 Oct 2022 20:58:41 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC86210E780;
+ Wed,  5 Oct 2022 20:58:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1665003516; x=1696539516;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=5wlRgmXMX0YGl2ggsHILuTzXon7D/FQk/Yadywfyb3M=;
+ b=ktTtNZQ0pWludlu/99xnu2tOAVic6m0mvmS/CUAvrAenTGkIbElr56Un
+ SigpVqyM+TKWFSiYwhcauK5s7cFtdD3VhYpe6QK3qL3FZJpeNuRHBN4qX
+ QOZAQvtMf55ZL5ZC20ndusiS5vsJpv77vzz12p3Fux2RG6Z1a7WucCmj3
+ 7JsAmLblrwDKTJnswxFEJtlGoeevwC7387m4V+jk7MKyy4x/c5ofKXHnr
+ qKRx/BfkgsRVCFjZJpzmT40BXshONAFirP4XYK93b1O6EG49K7m0XGImt
+ wOv+G+Kd+8m5xrCrMTdErd4idCeHjsn9Ktp8X/ivts0vtglrORkQlBh5D w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10491"; a="329687226"
+X-IronPort-AV: E=Sophos;i="5.95,161,1661842800"; d="scan'208";a="329687226"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2022 13:58:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10491"; a="953343839"
+X-IronPort-AV: E=Sophos;i="5.95,161,1661842800"; d="scan'208";a="953343839"
+Received: from lkp-server01.sh.intel.com (HELO d4f44333118a) ([10.239.97.150])
+ by fmsmga005.fm.intel.com with ESMTP; 05 Oct 2022 13:58:32 -0700
+Received: from kbuild by d4f44333118a with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1ogBTM-0001d5-07;
+ Wed, 05 Oct 2022 20:58:32 +0000
+Date: Thu, 06 Oct 2022 04:58:28 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 67ae4f7434cee86ee318d46fb10b8a9840ad2e81
+Message-ID: <633deff4.q8bW3fyM79Uz0A/F%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,65 +58,274 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ian Chen <ian.chen@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Jani Nikula <jani.nikula@intel.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Claudio Suarez <cssk@net-c.es>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>, David Airlie <airlied@gmail.com>,
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Colin Ian King <colin.i.king@gmail.com>
+Cc: kvm@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-wireless@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>, iommu@lists.linux.dev,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ loongarch@lists.linux.dev, bpf@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2022-10-04 at 16:46 -0400, Rodrigo Siqueira Jordao wrote:
-> 
-> On 2022-10-04 16:24, Lyude Paul wrote:
-> > Yikes, it appears somehow I totally made a mistake here. We're currently
-> > checking to see if drm_dp_add_payload_part2() returns a non-zero value to
-> > indicate success. That's totally wrong though, as this function only
-> > returns a zero value on success - not the other way around.
-> > 
-> > So, fix that.
-> > 
-> > Signed-off-by: Lyude Paul <lyude@redhat.com>
-> > Issue: https://gitlab.freedesktop.org/drm/amd/-/issues/2171
-> > Fixes: 4d07b0bc4034 ("drm/display/dp_mst: Move all payload info into the atomic state")
-> > ---
-> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> > index b8077fcd4651..00598def5b39 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> > @@ -297,7 +297,7 @@ bool dm_helpers_dp_mst_send_payload_allocation(
-> >   		clr_flag = MST_ALLOCATE_NEW_PAYLOAD;
-> >   	}
-> >   
-> > -	if (enable && drm_dp_add_payload_part2(mst_mgr, mst_state->base.state, payload)) {
-> > +	if (enable && drm_dp_add_payload_part2(mst_mgr, mst_state->base.state, payload) == 0) {
-> >   		amdgpu_dm_set_mst_status(&aconnector->mst_status,
-> >   			set_flag, false);
-> >   	} else {
-> 
-> Hi Lyude,
-> 
-> Maybe I'm missing something, but I can't find the 
-> drm_dp_add_payload_part2() function on amd-staging-drm-next. Which repo 
-> are you using?
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 67ae4f7434cee86ee318d46fb10b8a9840ad2e81  Add linux-next specific files for 20221005
 
-If it's not on amd-staging-drm-next then it likely hasn't gotten backported to
-amd's branch yet and is in drm-misc-next
+Error/Warning reports:
 
-> 
-> Thanks
-> Siqueira
-> 
+https://lore.kernel.org/linux-mm/202209060229.dVuyxjBv-lkp@intel.com
+https://lore.kernel.org/llvm/202209220019.Yr2VuXhg-lkp@intel.com
+https://lore.kernel.org/llvm/202210041553.k9dc1Joc-lkp@intel.com
+https://lore.kernel.org/llvm/202210060148.UXBijOcS-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+ERROR: modpost: "devm_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
+ERROR: modpost: "devm_ioremap_resource" [drivers/dma/idma64.ko] undefined!
+ERROR: modpost: "devm_ioremap_resource" [drivers/dma/qcom/hdma.ko] undefined!
+ERROR: modpost: "devm_memremap" [drivers/misc/open-dice.ko] undefined!
+ERROR: modpost: "devm_memunmap" [drivers/misc/open-dice.ko] undefined!
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/char/xillybus/xillybus_of.ko] undefined!
+ERROR: modpost: "ioremap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
+ERROR: modpost: "ioremap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
+ERROR: modpost: "iounmap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
+ERROR: modpost: "iounmap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
+arch/arm64/kernel/alternative.c:199:6: warning: no previous prototype for 'apply_alternatives_vdso' [-Wmissing-prototypes]
+arch/arm64/kernel/alternative.c:295:14: warning: no previous prototype for 'alt_cb_patch_nops' [-Wmissing-prototypes]
+arch/loongarch/kernel/traps.c:250 die() warn: variable dereferenced before check 'regs' (see line 244)
+arch/loongarch/mm/init.c:166:24: warning: variable 'new' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/virtual/virtual_link_hwss.c:40:6: warning: no previous prototype for 'virtual_disable_link_output' [-Wmissing-prototypes]
+drivers/gpu/drm/bridge/ite-it6505.c:2712 it6505_extcon_work() warn: pm_runtime_get_sync() also returns 1 on success
+drivers/platform/loongarch/loongson-laptop.c:377 loongson_laptop_get_brightness() warn: impossible condition '(level < 0) => (0-255 < 0)'
+drivers/vfio/pci/vfio_pci_core.c:775 vfio_pci_ioctl_get_region_info() warn: potential spectre issue 'pdev->resource' [w]
+drivers/vfio/pci/vfio_pci_core.c:855 vfio_pci_ioctl_get_region_info() warn: potential spectre issue 'vdev->region' [r]
+fs/ext4/super.c:1744:19: warning: 'deprecated_msg' defined but not used [-Wunused-const-variable=]
+include/linux/compiler_types.h:357:45: error: call to '__compiletime_assert_417' declared with attribute error: FIELD_GET: mask is not constant
+kernel/bpf/memalloc.c:500 bpf_mem_alloc_destroy() error: potentially dereferencing uninitialized 'c'.
+net/mac80211/iface.c:251 ieee80211_can_powered_addr_change() warn: inconsistent returns '&local->mtx'.
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+ERROR: modpost: "__tsan_memcpy" [arch/s390/crypto/ghash_s390.ko] undefined!
+ERROR: modpost: "__tsan_memcpy" [arch/s390/crypto/sha512_s390.ko] undefined!
+ERROR: modpost: "__tsan_memcpy" [fs/binfmt_misc.ko] undefined!
+ERROR: modpost: "__tsan_memcpy" [fs/pstore/ramoops.ko] undefined!
+ERROR: modpost: "__tsan_memset" [arch/s390/crypto/ghash_s390.ko] undefined!
+ERROR: modpost: "__tsan_memset" [arch/s390/crypto/sha512_s390.ko] undefined!
+ERROR: modpost: "__tsan_memset" [fs/autofs/autofs4.ko] undefined!
+ERROR: modpost: "__tsan_memset" [fs/binfmt_misc.ko] undefined!
+ERROR: modpost: "__tsan_memset" [fs/cramfs/cramfs.ko] undefined!
+ERROR: modpost: "__tsan_memset" [fs/pstore/ramoops.ko] undefined!
+s390x-linux-ld: self.c:(.text+0xf6): undefined reference to `__tsan_memcpy'
+thread_self.c:(.text+0xe4): undefined reference to `__tsan_memcpy'
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- alpha-randconfig-s042-20221002
+|   |-- drivers-thermal-broadcom-ns-thermal.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-data-got-void-noderef-__iomem-assigned-pvtmon
+|   |-- drivers-thermal-broadcom-ns-thermal.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-noderef-__iomem-pvtmon-got-void
+|   |-- drivers-thermal-broadcom-ns-thermal.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-noderef-__iomem-pvtmon-got-void-devdata
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
+|   `-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
+|-- arc-randconfig-s051-20221002
+|   |-- drivers-gpu-drm-tiny-simpledrm.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-vaddr-got-void-noderef-__iomem-screen_base
+|   |-- drivers-gpu-drm-vkms-vkms_formats.c:sparse:sparse:cast-to-restricted-__le16
+|   |-- drivers-gpu-drm-vkms-vkms_formats.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-unsigned-short-usertype-got-restricted-__le16-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
+|   |-- kernel-bpf-hashtab.c:sparse:sparse:cast-removes-address-space-__percpu-of-expression
+|   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-noderef-__percpu-assigned-pptr-got-void
+|   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-ptr_to_pptr-got-void-noderef-__percpu-assigned-pptr
+|   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void
+|   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void-pptr
+|   `-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-pptr-got-void-noderef-__percpu
+|-- arc-randconfig-s053-20221002
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
+|   |-- kernel-bpf-hashtab.c:sparse:sparse:cast-removes-address-space-__percpu-of-expression
+|   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-noderef-__percpu-assigned-pptr-got-void
+|   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-ptr_to_pptr-got-void-noderef-__percpu-assigned-pptr
+|   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void
+|   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void-pptr
+|   `-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-pptr-got-void-noderef-__percpu
+|-- arm64-allyesconfig
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
+|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
+|-- arm64-randconfig-c023-20221005
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
+|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
+clang_recent_errors
+|-- arm-randconfig-r016-20221003
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-function-virtual_disable_link_output
+|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|   `-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|-- arm-randconfig-r033-20221002
+|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- arm64-buildonly-randconfig-r002-20221003
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-function-apply_alternatives_vdso
+|   `-- ld.lld:error:assignment-to-symbol-__efistub_kernel_size-does-not-converge
+|-- hexagon-randconfig-r013-20221002
+|   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmnewmap
+|   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmsetvec
+|   `-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-memset
+|-- hexagon-randconfig-r025-20221003
+|   |-- drivers-phy-mediatek-phy-mtk-tphy.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-c
+|   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmnewmap
+|   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmsetvec
+|   `-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-memset
+|-- hexagon-randconfig-r031-20221002
+|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|   `-- drivers-phy-mediatek-phy-mtk-tphy.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-c
+|-- hexagon-randconfig-r041-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- hexagon-randconfig-r045-20221002
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- i386-randconfig-a002-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- i386-randconfig-a005-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- i386-randconfig-a006-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- i386-randconfig-r001-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- mips-loongson1c_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- mips-randconfig-r006-20221002
+|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
+|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
+|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- powerpc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-function-virtual_disable_link_output
+|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
+|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
+|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+
+elapsed time: 729m
+
+configs tested: 94
+configs skipped: 3
+
+gcc tested configs:
+i386                                defconfig
+arc                                 defconfig
+x86_64                          rhel-8.3-func
+s390                             allmodconfig
+x86_64                    rhel-8.3-kselftests
+um                             i386_defconfig
+um                           x86_64_defconfig
+alpha                               defconfig
+s390                                defconfig
+powerpc                           allnoconfig
+powerpc                          allmodconfig
+x86_64                           rhel-8.3-syz
+mips                             allyesconfig
+s390                             allyesconfig
+x86_64                         rhel-8.3-kunit
+x86_64                              defconfig
+x86_64                           rhel-8.3-kvm
+arm                            pleb_defconfig
+alpha                             allnoconfig
+powerpc                      chrp32_defconfig
+i386                             allyesconfig
+arc                          axs101_defconfig
+x86_64                               rhel-8.3
+riscv                             allnoconfig
+arc                    vdk_hs38_smp_defconfig
+arm                                 defconfig
+powerpc                 linkstation_defconfig
+i386                 randconfig-a014-20221003
+sh                             espt_defconfig
+sh                               allmodconfig
+csky                              allnoconfig
+x86_64                           allyesconfig
+i386                 randconfig-a011-20221003
+arc                               allnoconfig
+arm                           h3600_defconfig
+x86_64               randconfig-a011-20221003
+i386                 randconfig-a012-20221003
+arm64                            allyesconfig
+s390                       zfcpdump_defconfig
+sparc64                             defconfig
+x86_64               randconfig-a015-20221003
+i386                 randconfig-a013-20221003
+sh                   sh7770_generic_defconfig
+m68k                             allmodconfig
+x86_64               randconfig-a014-20221003
+arm                              allyesconfig
+powerpc                       maple_defconfig
+arc                              allyesconfig
+sh                             shx3_defconfig
+ia64                             allmodconfig
+m68k                            q40_defconfig
+i386                 randconfig-a015-20221003
+x86_64               randconfig-a012-20221003
+arm                       imx_v6_v7_defconfig
+i386                 randconfig-a016-20221003
+mips                            ar7_defconfig
+alpha                            allyesconfig
+x86_64               randconfig-a013-20221003
+arm                          gemini_defconfig
+m68k                                defconfig
+x86_64               randconfig-a016-20221003
+m68k                             allyesconfig
+i386                          randconfig-c001
+mips                          rb532_defconfig
+riscv                randconfig-r042-20221003
+arc                  randconfig-r043-20221003
+arc                  randconfig-r043-20221002
+s390                 randconfig-r044-20221003
+riscv                            allyesconfig
+
+clang tested configs:
+x86_64               randconfig-a003-20221003
+x86_64               randconfig-a002-20221003
+x86_64               randconfig-a001-20221003
+x86_64               randconfig-a004-20221003
+x86_64               randconfig-a006-20221003
+arm                        neponset_defconfig
+x86_64               randconfig-a005-20221003
+i386                 randconfig-a003-20221003
+i386                 randconfig-a002-20221003
+i386                 randconfig-a001-20221003
+i386                 randconfig-a004-20221003
+riscv                          rv32_defconfig
+i386                 randconfig-a005-20221003
+hexagon              randconfig-r041-20221003
+x86_64                        randconfig-k001
+riscv                randconfig-r042-20221002
+i386                 randconfig-a006-20221003
+hexagon              randconfig-r041-20221002
+s390                 randconfig-r044-20221002
+mips                     loongson1c_defconfig
+hexagon              randconfig-r045-20221002
+powerpc                 mpc8272_ads_defconfig
+hexagon              randconfig-r045-20221003
+powerpc                          allyesconfig
+x86_64                          rhel-8.3-rust
 
 -- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp
