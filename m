@@ -4,57 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34818C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Oct 2022 19:57:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 987DFC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Oct 2022 20:09:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BFC110E888;
-	Thu,  6 Oct 2022 19:57:37 +0000 (UTC)
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B23B310E499;
- Thu,  6 Oct 2022 19:55:40 +0000 (UTC)
-Received: by mail-ej1-x632.google.com with SMTP id ot12so6993204ejb.1;
- Thu, 06 Oct 2022 12:55:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=qoNK9gOMUekLsnTTqNVMHHQjqI/P+O7lQ+POtGrsip4=;
- b=Nu0+z3x7BynDTW0WDQ023bafpHEoagL2OPoBRPup5QUxc9k9HMy6v19fdC3kUhLNXF
- vber1/xzSeZ/U5W8o9wrFt4TrLTqNjbUzDQ5TmC1jtZofrUOai8PSLRV3Mp9VnkwuQDo
- 8SLLuhhSNzGJTqsAnZfFRSyy9YV/drhTBzZBam6TxZCuwHduWa+RfhCHC+zNUPXrKQ2g
- 8QZIBmnJwKsIoKbNddHp/OjjJC+KWL6W+yNEiM8xxeZMIWCBdq9j9jxUJHdRD2p1IEeV
- XJ5n5bfyFIb6Yv5rY/+k+IyoZVAl7p68bGeilFE/JvyBeKXgVXkbcF/xxTDtsknKIvpy
- 7CPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=qoNK9gOMUekLsnTTqNVMHHQjqI/P+O7lQ+POtGrsip4=;
- b=KpzwQfUb/uuLiN+USTJfOHNtxQuhnfDogio+9pnF9OMP9+53ZP2t8gpdpXc559JAk3
- H96f/nYHxqu2CzcFJYWOp4oitnFp8Xa02rBAuUOHlpJQdTp0FiE/h48P1yV6bdWAF9KG
- pSjA7HevrExN23h8pOtExVus7vAtulrpyXNzNZeoWCFmrcHq6iES5X6gWnkvkPc/nmlw
- gHtiy91aclS9+HzF7J26Ni1PU9g+mY9Z1ObNXHvTuaTLeqcKlZcx2bf9R4s/PTudSQFp
- FcTSTkvH8RloImeTMUsgItWdwGBA/ksmATu+UTtwws+Dp03k1x1GVPz9HxV2VGbZvGhH
- qMNA==
-X-Gm-Message-State: ACrzQf29qylEBUmuV8/9XTEt3YZOSZSPPPHPJ+DrBBY/iBe3aa0R389F
- e91Er0QMKbfDfXHcjHDIguvZyJ6F5Qe1HIN+z0w=
-X-Google-Smtp-Source: AMsMyM4wckjg0HNozBCina8M5IoyBta1vET7P2VQk5+K5aDwDpwDZkT9csypQUMoBSklUdJDGwSStOOqBcVlKeoCRg0=
-X-Received: by 2002:a17:907:6087:b0:78d:2d1c:c050 with SMTP id
- ht7-20020a170907608700b0078d2d1cc050mr1242629ejc.481.1665086139135; Thu, 06
- Oct 2022 12:55:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FDCB10E889;
+	Thu,  6 Oct 2022 20:08:53 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3236310E886;
+ Thu,  6 Oct 2022 20:08:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1665086929; x=1696622929;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=swAucizbwUxhdAX/SMI13ZfrywiGOKfoDpdfjfgG+SE=;
+ b=cvhowiGEZR+HHAggjZyxXrWwteeDkROPxGp35ovR6H1T3oIpLZEy6zlT
+ aTaYN3OsKJ8CJRIO0qkw7WqIEMQ/L4fSlvFaj878RXu56ZTGtaZZE2mtG
+ vfAurVI//gYLU/G2Y0M6QXO5kKJnov+TXGBdW0rnh5YZPMBO6SGJXfSFu
+ OlXUzC516uBJjfZPrYMNbTwshlWnR7Sk+GJrsqQUL8ICH+o7aq66IcPHK
+ r+Hjd1bjtp8zFaUZUmuJ6hwGZh6VpTS3J69dS0+avhB+9FNlIkT0uXs0X
+ cD+uYiov4BhhJb37vzKYVzAC7c6SxVwDveo9Wc2bD1jkXtVuR+dwg7IUn A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="290820491"
+X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="290820491"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2022 13:08:47 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="953763896"
+X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="953763896"
+Received: from lkp-server01.sh.intel.com (HELO 3c15167049b7) ([10.239.97.150])
+ by fmsmga005.fm.intel.com with ESMTP; 06 Oct 2022 13:08:43 -0700
+Received: from kbuild by 3c15167049b7 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1ogXAh-0000QR-0v;
+ Thu, 06 Oct 2022 20:08:43 +0000
+Date: Fri, 07 Oct 2022 04:07:45 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 7da9fed0474b4cd46055dd92d55c42faf32c19ac
+Message-ID: <633f3591.GEF0zMh+7lpySqUP%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-References: <Yz6W+j+l0cJbr5dX@debian>
- <CAHk-=whR8T1x6DRnOMJsorajT3A-y9+j5Mpeh0zcUXcJiJWheg@mail.gmail.com>
-In-Reply-To: <CAHk-=whR8T1x6DRnOMJsorajT3A-y9+j5Mpeh0zcUXcJiJWheg@mail.gmail.com>
-From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Date: Thu, 6 Oct 2022 20:55:03 +0100
-Message-ID: <CADVatmNe49ZSkqX7E7K+GEk3crybRaAyz0nDwh_rzjkR51GegA@mail.gmail.com>
-Subject: Re: mainline build failure due to 5d8c3e836fc2 ("drm/amd/display: fix
- array-bounds error in dc_stream_remove_writeback()")
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 06 Oct 2022 19:57:33 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,56 +58,253 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kees Cook <keescook@chromium.org>, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Nathan Chancellor <nathan@kernel.org>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, kvm@vger.kernel.org, netdev@vger.kernel.org,
+ linux-nvme@lists.infradead.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ loongarch@lists.linux.dev, bpf@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 6, 2022 at 8:39 PM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> On Thu, Oct 6, 2022 at 1:51 AM Sudip Mukherjee (Codethink)
-> <sudipm.mukherjee@gmail.com> wrote:
-> >
-> > This is only seen with gcc-11, gcc-12 builds are ok.
->
-> Hmm. This seems to be some odd gcc issue.
->
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 7da9fed0474b4cd46055dd92d55c42faf32c19ac  Add linux-next specific files for 20221006
 
-<snip>
+Error/Warning reports:
 
->
-> The fix *MAY* be to just add a '&& i < MAX_DWB_PIPES' to that loop
-> too, and then gcc will see that both i and j are always 0, and that
-> the code is unreachable and not warn about it. Hmm? Can you test that?
+https://lore.kernel.org/linux-doc/202210070057.NpbaMyxB-lkp@intel.com
+https://lore.kernel.org/llvm/202209220019.Yr2VuXhg-lkp@intel.com
+https://lore.kernel.org/llvm/202210062012.XvdAjoOT-lkp@intel.com
 
-Builds fine with the change you suggested. Here is the diff.
+Error/Warning: (recently discovered and may have been fixed)
 
+ERROR: modpost: "devm_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
+ERROR: modpost: "devm_ioremap_resource" [drivers/dma/idma64.ko] undefined!
+ERROR: modpost: "devm_ioremap_resource" [drivers/dma/qcom/hdma.ko] undefined!
+ERROR: modpost: "devm_memremap" [drivers/misc/open-dice.ko] undefined!
+ERROR: modpost: "devm_memunmap" [drivers/misc/open-dice.ko] undefined!
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/char/xillybus/xillybus_of.ko] undefined!
+ERROR: modpost: "ioremap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
+ERROR: modpost: "ioremap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
+ERROR: modpost: "iounmap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
+ERROR: modpost: "iounmap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
+Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/mtd/amlogic,meson-nand.txt
+arch/arm64/kernel/alternative.c:199:6: warning: no previous prototype for 'apply_alternatives_vdso' [-Wmissing-prototypes]
+arch/arm64/kernel/alternative.c:295:14: warning: no previous prototype for 'alt_cb_patch_nops' [-Wmissing-prototypes]
+arch/loongarch/mm/init.c:166:24: warning: variable 'new' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/virtual/virtual_link_hwss.c:40:6: warning: no previous prototype for 'virtual_disable_link_output' [-Wmissing-prototypes]
+drivers/net/ethernet/freescale/fman/fman_memac.c:1246 memac_initialization() error: uninitialized symbol 'fixed_link'.
+drivers/nvme/target/loop.c:578 nvme_loop_create_ctrl() warn: 'opts->queue_size - 1' 4294967295 can't fit into 65535 'ctrl->ctrl.sqsize'
+drivers/vfio/pci/mlx5/cmd.c:432 combine_ranges() error: uninitialized symbol 'last'.
+drivers/vfio/pci/mlx5/cmd.c:453 combine_ranges() error: potentially dereferencing uninitialized 'comb_end'.
+drivers/vfio/pci/mlx5/cmd.c:453 combine_ranges() error: potentially dereferencing uninitialized 'comb_start'.
+drivers/vfio/pci/vfio_pci_core.c:1035 vfio_pci_ioctl_get_region_info() warn: potential spectre issue 'vdev->region' [r]
+drivers/vfio/pci/vfio_pci_core.c:958 vfio_pci_ioctl_get_region_info() warn: potential spectre issue 'pdev->resource' [w]
+fs/ext4/super.c:1744:19: warning: 'deprecated_msg' defined but not used [-Wunused-const-variable=]
+include/linux/compiler_types.h:357:45: error: call to '__compiletime_assert_417' declared with attribute error: FIELD_GET: mask is not constant
+lib/test_vmalloc.c:154 random_size_alloc_test() error: uninitialized symbol 'n'.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index ae13887756bf..51571245c49a 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -520,7 +520,7 @@ bool dc_stream_remove_writeback(struct dc *dc,
-        }
+Error/Warning ids grouped by kconfigs:
 
-        /* remove writeback info for disabled writeback pipes from stream */
--       for (i = 0, j = 0; i < stream->num_wb_info && j < MAX_DWB_PIPES; i++) {
-+       for (i = 0, j = 0; i < stream->num_wb_info && j <
-MAX_DWB_PIPES && i < MAX_DWB_PIPES; i++) {
-                if (stream->writeback_info[i].wb_enabled) {
-                        if (i != j)
-                                /* trim the array */
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- arc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- arm-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- arm64-allyesconfig
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- arm64-randconfig-r006-20221002
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
+|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
+|-- arm64-randconfig-r016-20221003
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- csky-buildonly-randconfig-r005-20221002
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-defconfig
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-a013-20221003
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-a014-20221003
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-a015-20221003
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-c001
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-c021
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-r024-20221003
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- ia64-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- ia64-randconfig-r026-20221003
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- loongarch-alldefconfig
+|   `-- arch-loongarch-mm-init.c:warning:variable-new-set-but-not-used
+|-- loongarch-randconfig-c024-20221002
+|   |-- arch-loongarch-mm-init.c:warning:variable-new-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- loongarch-randconfig-c44-20221002
+|   `-- arch-loongarch-mm-init.c:warning:variable-new-set-but-not-used
+|-- m68k-randconfig-c041-20221002
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- m68k-randconfig-s051-20221002
+clang_recent_errors
+|-- arm-omap1_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- arm-pcm027_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- hexagon-buildonly-randconfig-r005-20221003
+|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|   `-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|-- hexagon-randconfig-r011-20221002
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- hexagon-randconfig-r015-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- hexagon-randconfig-r041-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- i386-randconfig-a002-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- i386-randconfig-a005-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- i386-randconfig-a006-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- mips-malta_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- mips-rs90_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- powerpc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-function-virtual_disable_link_output
+|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
+|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
+|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+|   |-- drivers-phy-mediatek-phy-mtk-tphy.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-c
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- powerpc-mvme5100_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- riscv-buildonly-randconfig-r002-20221002
+|   `-- ERROR:riscv_cbom_block_size-arch-riscv-kvm-kvm.ko-undefined
+|-- riscv-randconfig-r031-20221003
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-function-virtual_disable_link_output
+|-- riscv-rv32_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- s390-randconfig-r005-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- x86_64-randconfig-a001-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- x86_64-randconfig-a003-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- x86_64-randconfig-a005-20221003
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+`-- x86_64-rhel-8.3-rust
+    `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
 
+elapsed time: 731m
 
+configs tested: 87
+configs skipped: 5
+
+gcc tested configs:
+arc                                 defconfig
+arc                               allnoconfig
+alpha                             allnoconfig
+alpha                               defconfig
+riscv                             allnoconfig
+um                             i386_defconfig
+powerpc                           allnoconfig
+csky                              allnoconfig
+um                           x86_64_defconfig
+arm                                 defconfig
+s390                             allmodconfig
+riscv                randconfig-r042-20221003
+i386                 randconfig-a014-20221003
+arc                  randconfig-r043-20221003
+s390                                defconfig
+i386                                defconfig
+x86_64                          rhel-8.3-func
+i386                 randconfig-a011-20221003
+x86_64               randconfig-a011-20221003
+i386                 randconfig-a012-20221003
+x86_64                           rhel-8.3-syz
+i386                 randconfig-a013-20221003
+arc                        nsim_700_defconfig
+arm                          simpad_defconfig
+i386                 randconfig-a015-20221003
+mips                        bcm47xx_defconfig
+x86_64                              defconfig
+s390                 randconfig-r044-20221003
+sh                          r7780mp_defconfig
+i386                 randconfig-a016-20221003
+s390                             allyesconfig
+x86_64                         rhel-8.3-kunit
+x86_64                               rhel-8.3
+x86_64               randconfig-a012-20221003
+x86_64                    rhel-8.3-kselftests
+x86_64                           rhel-8.3-kvm
+x86_64               randconfig-a013-20221003
+xtensa                              defconfig
+x86_64               randconfig-a016-20221003
+x86_64               randconfig-a015-20221003
+x86_64               randconfig-a014-20221003
+x86_64                           allyesconfig
+sh                               allmodconfig
+arm64                            allyesconfig
+m68k                             allmodconfig
+mips                  decstation_64_defconfig
+i386                             allyesconfig
+mips                             allyesconfig
+arm                              allyesconfig
+m68k                            q40_defconfig
+powerpc                          allmodconfig
+powerpc                     tqm8548_defconfig
+arc                              allyesconfig
+alpha                            allyesconfig
+m68k                             allyesconfig
+arc                           tb10x_defconfig
+powerpc                       eiger_defconfig
+powerpc                 mpc85xx_cds_defconfig
+powerpc                     taishan_defconfig
+ia64                             allmodconfig
+parisc                generic-64bit_defconfig
+loongarch                        alldefconfig
+arm                       omap2plus_defconfig
+i386                          randconfig-c001
+
+clang tested configs:
+hexagon              randconfig-r045-20221003
+arm                          pcm027_defconfig
+hexagon              randconfig-r041-20221003
+arm                           omap1_defconfig
+x86_64               randconfig-a003-20221003
+x86_64               randconfig-a005-20221003
+mips                           rs90_defconfig
+x86_64               randconfig-a002-20221003
+x86_64               randconfig-a001-20221003
+riscv                          rv32_defconfig
+x86_64               randconfig-a004-20221003
+x86_64               randconfig-a006-20221003
+powerpc                    mvme5100_defconfig
+powerpc                     ppa8548_defconfig
+mips                           ip28_defconfig
+i386                 randconfig-a004-20221003
+i386                 randconfig-a003-20221003
+i386                 randconfig-a002-20221003
+i386                 randconfig-a001-20221003
+i386                 randconfig-a005-20221003
+i386                 randconfig-a006-20221003
+mips                          malta_defconfig
+powerpc                          allmodconfig
+x86_64                          rhel-8.3-rust
 
 -- 
-Regards
-Sudip
+0-DAY CI Kernel Test Service
+https://01.org/lkp
