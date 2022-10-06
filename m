@@ -4,88 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43827C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Oct 2022 15:32:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97DE1C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Oct 2022 17:21:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 806F510E63A;
-	Thu,  6 Oct 2022 15:32:49 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2058.outbound.protection.outlook.com [40.107.102.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EDA610E63A
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Oct 2022 15:32:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69C1510E844;
+	Thu,  6 Oct 2022 17:21:48 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2044.outbound.protection.outlook.com [40.107.95.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AFE210E844
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Oct 2022 17:21:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iEnrkTzdGm1y5CJ0nCBiTb37tO0KzdwFcRdxrtkOBF8Ap9fs65dyQyx3SzWI2tWGhUNz8mx2tJRGdSopeplKVp5iSO2gYhODrg1Ek/jrauafD+EskswVtoFB8zmiu2YHoJXPHLzv49hab0WY8Mu+Ck9n+OmQclb0jTf9aBImGC+29zuzCS9dFWeorFHVCrW2wARDJXJGawUohky5G/rGNeEl7h18aaXBDx/WqyOEqGfn5tAYR1GK/+kFzm+VWXjVVRTMT5DNKsFPjiF8mJFXX5e1lQfcERJ4TrLLWdfpac7xf1aCm5aSZZotcEeVDwzfgmrDF3b8ZdXSFITopYB9iQ==
+ b=kjceg5B44lnmpqRiPEfqLa0BCkzBK6ZM1yFCtFhvhSc37EZX43CqJIvYFXfLlcwh4TNCQU0KppsEziXLa2ARw+gf/EOscvnLh9YjmKvCj1l5IpwSqn3IfPnTKtpLpuYO2aix9/haT3hW/cO6Ely5sEK8UC35nch1a8FM3JQYQfS8PBUY/8u1//mwR7NOOPry4mQyJc20KeDdM0oiw06J0TfSvnLILel6HsGRwowHf5TYdjwmuB0suIi13s5AVWvYavnPi7Aj65xxe8g3WTEhmOxqxepzeVMmpoqJMViQpDimoRG8nvd4mQ727LkdfMMP7MbFCviU228Q1E4BxaIdyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZV1opLHHnTqTOdxSZoS8sAZhgME8dLBRMQMf4GPw0CE=;
- b=Iaw9/mpYeBhfbVUtYXrozfpmHLCq/rjX6iqvLQMdWioTgQVXWvgNezYS+BiDixPuIiG2m2W9dJB+sSCZIhOlKACyg/2LtvgdBRlLJYzQchMe+dOUXMuuJiOc42DZ52T68JBzEAK0QVV7Nao7MeCGI4+rWvpTH4gNfQBCKKNfMzuUng+zKULIP72H46l8QHucS/+UM0hfmA0zDsqBcg7UVRuyztfBUtb66PIzFuqaIx3JbKC91rfQ/n3xBgoSuGrLnXkFAqcJ83AI5+M2qc5Nju1nTRHEs/QYN45etNskFIbvDaURiqTczGT6XCvjXf6C7bF+Lkb+2eoVdZBTHsU0bQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=eOoOlGQRFXJ0Bw26oo2p1p8lsf6dXE6pHFWhz5VqZq0=;
+ b=Xallb29hVeWQWau8uoe3IVahC8KUVNpPgokaf0ssihxr4BpzA4MoD4O5662LTL+1yvGkPQNOKyM58CpjpDo6YHGGWwIvFdT87mHB+tq6HRAOUyXPodvzb1pHU/bp4PSLY8DMv/Zhe9wCQwj92qVca0gO8YC6QNXWgQ6oAEG5PdbwS+tlofOgfcg5W3TkdoGU9hymwVbPPMet2WWJARhliLm+ImX2M01//rvnh/tYmZ0nazJ5Sz3lYOtuSAVYtxHMftSQq+1RnbMcmuCNOqEzquqAPKrMNPuQW64xhL3ApdHAKqCBaroQk+mGZ7XDW+w908vGca2daNCMZK57Ccysew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZV1opLHHnTqTOdxSZoS8sAZhgME8dLBRMQMf4GPw0CE=;
- b=e7L9rBp0xYT9n7D61mSxEMPAXerjn65tyepE0kxpbzhHCfI6bi/NcbXKJNaFEN9N6h3jpxOoAOtq3LdiYqhQ2YUZ0GpDvwVk4gQRnT0uBrPbeIg+4cqaH7vy2xy/mlK8nX9/ZwWv0J6SNfXtQgfusJV31WJzVPQ8ExJ9mDmfOSI=
-Received: from BN9P221CA0008.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::30)
- by BL3PR12MB6619.namprd12.prod.outlook.com (2603:10b6:208:38e::5)
+ bh=eOoOlGQRFXJ0Bw26oo2p1p8lsf6dXE6pHFWhz5VqZq0=;
+ b=L04OPCrgxHVYJXEDos2w6NE2w8/QjKO+p/A3k7wuQlqhHn8jGUez/TMsG+hHk1CB/pqTEa9U4FrbqqxabVQfgQmVPr8i2dohRNl4BZuMkRU4L1RHb1a/WwO2bTOqgINd/CdJMvDJnJZO1QWM4TY9bthP/iFe0qydS+15vxeXjl8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH0PR12MB5300.namprd12.prod.outlook.com (2603:10b6:610:d7::22)
+ by PH7PR12MB6564.namprd12.prod.outlook.com (2603:10b6:510:210::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.36; Thu, 6 Oct
- 2022 15:32:45 +0000
-Received: from BN8NAM11FT082.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10a:cafe::b4) by BN9P221CA0008.outlook.office365.com
- (2603:10b6:408:10a::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.36 via Frontend
- Transport; Thu, 6 Oct 2022 15:32:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT082.mail.protection.outlook.com (10.13.176.94) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5709.10 via Frontend Transport; Thu, 6 Oct 2022 15:32:45 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 6 Oct
- 2022 10:32:43 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: fix indentation in dc.c
-Date: Thu, 6 Oct 2022 11:32:15 -0400
-Message-ID: <20221006153215.450989-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.37.3
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.32; Thu, 6 Oct
+ 2022 17:21:43 +0000
+Received: from CH0PR12MB5300.namprd12.prod.outlook.com
+ ([fe80::d1e5:46f4:b532:aa7a]) by CH0PR12MB5300.namprd12.prod.outlook.com
+ ([fe80::d1e5:46f4:b532:aa7a%9]) with mapi id 15.20.5676.036; Thu, 6 Oct 2022
+ 17:21:43 +0000
+Message-ID: <dd02285a-8fc6-7951-30f8-1300ff3149f1@amd.com>
+Date: Thu, 6 Oct 2022 13:21:40 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Subject: Re: [PATCH] drm/amd/display: disable psr whenever applicable
+Content-Language: en-US
+To: "S, Shirish" <sshankar@amd.com>, Harry Wentland <hwentlan@amd.com>,
+ Shirish S <shirish.s@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Roman Li <Roman.Li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+References: <20220930102705.43367-1-shirish.s@amd.com>
+ <184d25c2-7af5-8a89-94bd-117c71c4c3fc@amd.com>
+ <39ecdc96-7fd5-d433-09f2-2af01a36315d@amd.com>
+ <8ac24a07-6255-3092-95af-40d3a0d3124f@amd.com>
+ <38b74412-dc3a-37da-55dd-e2327fe59769@amd.com>
+ <f840d24a-136a-81fb-1bd7-a0a75f6962e3@amd.com>
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <f840d24a-136a-81fb-1bd7-a0a75f6962e3@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: DS7PR03CA0289.namprd03.prod.outlook.com
+ (2603:10b6:5:3ad::24) To CH0PR12MB5300.namprd12.prod.outlook.com
+ (2603:10b6:610:d7::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT082:EE_|BL3PR12MB6619:EE_
-X-MS-Office365-Filtering-Correlation-Id: 379ea46a-3053-454f-2922-08daa7b00422
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5300:EE_|PH7PR12MB6564:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72d2ca69-f341-459b-fd1b-08daa7bf3d00
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0TtfAOfGQCSQAdrJNcQJIEN4EjQfx59mIC0aSSaGLuLYccMqWhFR2hlRT+LofBOxwun9Qm6aMD/CDq/YkfDQRKkK/0m07fZ4cA4Eaz0oa+cq9KeVcTcglMLoWugNOat0zTLRLwSbcd1uZBWjLsq6MXUIcm8X5Vsbd1iONbbUuAN6m41Z93D65r8hsrrmQUXGDKOUKWIeGFashYfYrZHkJgopZBmFv8SouJKeKWjFs7rVNQUp998rdYtWt/b0KVDn8maLnBUJX9Aqwhb47bxQtJV80886uPkD4roG4o48YmYesNz99W8WNZf+K3/yMjzC788g8SrT2/m14PzisaOMooXWbvdLX5tpERxJ9kiPQ3N71uSpcAl4toc1UwPThhP75KbHFFM/z/o/ASLwqCo9zJUC7yAX4Yxm37ig6I6heUskp/XxjsOj4k4NvPZ3vfIz3XjapdGwIbvDc732wEW2aBT+jJEcU7HnPAKXMj9wTm6xLXQk5w3+yt1+bPP0ZyRG9H9LJiZkyrBjLWMzb2v8u1SB8CUafBv91rsK9XYXPMysKbLG32LC3DjmyOYvNCGuy0+LTm984Q+4mKP25wAuEWTPLe+ygRxZhEAYyvZGbAI6RUge2WWvatyvoUn+m4xH6+AS1To5V5ToHSEKSZybZfkWYtk26Gnrlcz0J3kKO/qH4n7tLJItw6KTsH1PHQTPtcCdKxivbLz0nmJ0Qc8JBrvsyoEixERL373rs1wRCdccwfIV+PEnqSORAmTjmb/QwJLc/wPByrao1wERntafgvuq/9ExOCixr7afysZlpyfNU7MSu7vT78+ZV5MizIFS
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(39860400002)(396003)(136003)(346002)(451199015)(46966006)(40470700004)(36840700001)(83380400001)(2616005)(186003)(1076003)(336012)(16526019)(426003)(82740400003)(81166007)(356005)(36860700001)(4744005)(2906002)(41300700001)(5660300002)(47076005)(8936002)(82310400005)(40480700001)(40460700003)(86362001)(478600001)(26005)(7696005)(6666004)(70586007)(8676002)(70206006)(316002)(6916009)(4326008)(36756003)(36900700001);
+X-Microsoft-Antispam-Message-Info: JARHSZyn/QvPMRszR/Elsh9inBt/3rwvVByVHmkEhjaqVQowkNacy3spoiVCqpugIqGvEuZwJ42z0Y8tqtmo/5wYpz1GW6hJAHzEpVT7iHLUyOM1UuYIzcph44aeuPwQoZN2FYv9mGPbZI/GBQXpZQvSYzxBOC+Pha6sEzFBr8NT6sLxMhfZJREFLOna7ll2AiV0jE00bLXVKa5kmRkUBjCUwjCn4N4LAsOiSU7gufFfPwW/g+IIJtQuj8+S5P1EYQwvwca3Jz9xxcVyvv+SKnFL9UPqKmDTlw+MQLQUyjo1v2SbdVTbOtpD8b/l2/zv80WmYiAxjvMPmcrcH4UYgTg1mQedVn53n0ZJDC39LF6lZZDaU2OuqhNGnagQH1pl2DpD3O9gWVghYMXfd4IWPc/QL5KLIvzi/qA7r9O9FsG50bsWM13H98cXjf0wjaNXKKhJJ9zVOsGJ+x7AHBOtvjUgY2TJM+HyVZQCcp7bSiVBjZ+g1DRM3XQXda7EX511mnslokix/bPp3NMN/pzNX9A7/eqWDPQqkIhTJTmL/PSCQ8+WlGKlZn9m/bQ4Tb5+m2oPIfIYGp+vqrVmzTgQXdWf0NGK73NVTDCqiheXcWpu03KKecBY3GQIJAHr9w+Ov6CDHQvHtfnFC/kjZkR/ACN6fR9KoFMDGpEZtjcS9Vjmg4zAL2KD2kCmP10BMzLcjelz4+BxJRvx46n/ZBXmMNSwS2Xxnmb0fy2wrRFwp+byrpdcd7TW+dCjd8J43n1oqKCamawGz5oxe4sKJENexJtbGe1HY9XJ2ezuG96lL4+wZKRWCZ+4m7lCCCSrBmBXTQsHvWktrcXK4R8Wy1Al1iUeZX/kx/eeMMFlzGly9Rc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5300.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(366004)(396003)(376002)(39860400002)(136003)(346002)(451199015)(66556008)(6636002)(4326008)(31686004)(8676002)(110136005)(66946007)(66476007)(966005)(36756003)(6486002)(31696002)(38100700002)(6512007)(53546011)(6506007)(2906002)(26005)(41300700001)(8936002)(83380400001)(2616005)(478600001)(5660300002)(86362001)(316002)(186003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnVXNzJZMmhreWNjODlvandkYnFtS2t5eHJDYTV6MGZYaW94eklQZDBONkJq?=
+ =?utf-8?B?OUdHRHhvU0ZHcFV2QUJqTUFaYWFkRXFjdEZCbE8vSDNYTTNBUURmOTRxZ2Rz?=
+ =?utf-8?B?aVlCaDFIT2dxY0tHVXBmRVpyZks1Ykcvc0pBSUlCU1ZFeHp1VzZIbEo4L2Nr?=
+ =?utf-8?B?dk9UZTYyMEtKbTh5QkwvVUpxd2ZIRGFQZmF2elh1VGZiNnJSMEFlZURMckpu?=
+ =?utf-8?B?RVdwS0pJRDA3ZzFMVHQ1ekwwR0U4d3RDZXM1RkMrZzhkWDU3cE1YdEo1cTlr?=
+ =?utf-8?B?NWdNSVRyWFhtY094Q1l0SG9XTXdyL2JCQWpTSXU2dEs5QVZTTUMxaklwbnhl?=
+ =?utf-8?B?SXZQaDEva1VIcUpnZDFxMTJ3NVBabTQ0SlE4NUJ1bW53WHZOQktFWDl1a0R0?=
+ =?utf-8?B?OGpFclp5c0pvM0tmeEhsSUtKU2ZzQjduYnY4cGg0N2pHVFUzZTVyM29YT3pH?=
+ =?utf-8?B?U3lHbUxvbk40TmtBOVVDd0hTVnBPc0QzRzluNEp0c1hCU1ZmYzJ3TUVkV3gr?=
+ =?utf-8?B?UEdYOUlPaXpqSU0yeHJRV3N1RllqL1dnVFdQUG4vUzRZMnM1YTRsMVRqdUpT?=
+ =?utf-8?B?RmVvaGZSVS9VVzd6RUpUa1hpYW1rbmtZU0xTaTM1UDJnclJUS3czOGcwOS9a?=
+ =?utf-8?B?YW5mcUlYaWNuT01QeitwWUs5VGhGZXhGZUFXVE5lZFpQelBSVUJwUGwvcVR1?=
+ =?utf-8?B?NXNaY0t6dG1ueEtzdS9zUmozSFZIbGRyUmVOQ21nWW1NemtRVXRBM0ZtMUhT?=
+ =?utf-8?B?L1c4cmhSQWJmU1d4T2dkUHhnTVk3b2hIdWExelpVV2dySzZsK0lDZ0hzcjlH?=
+ =?utf-8?B?d1JnQUVRZTZrQVhhY3ZOM21QeEdFZ2RzdGFGZUpqTlQxdzNrV0NYSEdCVW5X?=
+ =?utf-8?B?UmxhNlMvMWxMWDJxR0IrOGd3WHVYbUhmY05qZmE0dWg4b3JNSUU4T3BHdk5j?=
+ =?utf-8?B?Qkw3cElNUDFFeXJ6Sy82T3BqZVp6RHU1TWFEcVRyNlZuS3p0bk1ReWhIOStN?=
+ =?utf-8?B?Nlh1bkg0V0RGckN2YUE1TzhaU3VYYmYrdkpSSEJ0dHI5b3FSL3lmWE53Q0J3?=
+ =?utf-8?B?cERwNUFYc2hxQjdBeVd0VTNaZk9LUDlTUDVnUTRDcEtucW83UCtVeVdMOEpP?=
+ =?utf-8?B?SC9YQnJON1pHNjNhamF3TjVUZFlIeUJ4YjdhTWZnUXJDWXFwbTRUdVZKUUpv?=
+ =?utf-8?B?S2kwR0x5TVdOUzArMkswVk95c2plek52RWZvZzhEVWQ0ZlIyckdPVXU3c0xq?=
+ =?utf-8?B?QVJBM0JVRm9vK0JkQzRUVFU5QUtmNGZVWDhrRG44bkNvSDJIVTdVUVF0UnNq?=
+ =?utf-8?B?WDJweGNhLy9kUEpjc2xTUlRtTm9YbGl0c2NmOGgyZzVkQ2JtejZBcTl3TEdF?=
+ =?utf-8?B?NCtzMmoraXhhaHVXUDJDZFBsQlBEVkpzS0c5YTFTbkZaWk5OdzNHMURqQ09E?=
+ =?utf-8?B?bE1YVzNWa21RWDkyb1JQYUFTTjNEWWlZNUJEd25RTVZobkpvaVBGYXFQQVFQ?=
+ =?utf-8?B?SXdYend5dGV3QTY2US9YUVBVaE5OSVJ0UjZxb3VDeGoreVlBQzE1WXhPMW1u?=
+ =?utf-8?B?azE3U2hheitrbmdweE1pWDhrWjA2N3oxdTM2L0lYVXVraHlDckc5c3p4V1hW?=
+ =?utf-8?B?aEl2VHRxS0pvdllGV2J4YnlJZmo4M2ZQZzRaUUxPeFhKSFBtcHBxV0xJS3NE?=
+ =?utf-8?B?Q2thUHN4VVo4REowckxmVit4UEQvUW1JZzZRaG9KenQwMlB4aHFmVUh0TktD?=
+ =?utf-8?B?MGZDYkdjclVXem1OZk1jTWFDc2N4eGQvSTZ3aXNzTkZ3SWhwQWoyZmxnK09S?=
+ =?utf-8?B?UmZWS05JZEh4Vk1nWnhHM3BwODUvaVpBenZBWGNhYzZWdVFmZTZTTnh3emNC?=
+ =?utf-8?B?L2xUQ0t4YTdaN0U3TFZMUm9BeFJldUdPUkNBZ3NuZlZnenh3Z0hjUGdaQmxQ?=
+ =?utf-8?B?c0VmaTdPaEJtbmFnQ09pMTJBYlRwQ1VkQmtCM1lDSEJVVTZvMkFBZWdsNGlQ?=
+ =?utf-8?B?UUhiNkdSRG5DbnIyQVJhWmhxNGtHSVJiVDNTRGVEVkpsWENnVWl1R0NsaUp2?=
+ =?utf-8?B?YUJ2YWdHT0FQZklrdGkrS2dIK1V3NU5uSFZtQWNxQzFWT01zMXd4MXQ0WUVZ?=
+ =?utf-8?Q?UCiw=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2022 15:32:45.0995 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 379ea46a-3053-454f-2922-08daa7b00422
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72d2ca69-f341-459b-fd1b-08daa7bf3d00
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5300.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2022 17:21:43.1507 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT082.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6619
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /LrvcQ1jLjo/dbYNlcbnwiMDqU2Mr66wVNO7qUjqPV6W0i8+lWEX3SyFmsyDX68u
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6564
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,34 +130,154 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes a warning in dc.c.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 40a34b600c8e..96bba1c8246f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3526,9 +3526,9 @@ static void commit_planes_for_stream(struct dc *dc,
- 
- 	if (update_type != UPDATE_TYPE_FAST)
- 		dc->hwss.post_unlock_program_front_end(dc, context);
--		if (update_type != UPDATE_TYPE_FAST)
--			if (dc->hwss.commit_subvp_config)
--				dc->hwss.commit_subvp_config(dc, context);
-+	if (update_type != UPDATE_TYPE_FAST)
-+		if (dc->hwss.commit_subvp_config)
-+			dc->hwss.commit_subvp_config(dc, context);
- 
- 	if (update_type != UPDATE_TYPE_FAST)
- 		if (dc->hwss.commit_subvp_config)
--- 
-2.37.3
 
+On 2022-10-06 03:46, S, Shirish wrote:
+> 
+> On 10/6/2022 4:33 AM, Leo Li wrote:
+>>
+>>
+>> On 2022-10-03 11:26, S, Shirish wrote:
+>>> Ping!
+>>>
+>>> Regards,
+>>>
+>>> Shirish S
+>>>
+>>> On 9/30/2022 7:17 PM, S, Shirish wrote:
+>>>>
+>>>>
+>>>> On 9/30/2022 6:59 PM, Harry Wentland wrote:
+>>>>> +Leo
+>>>>>
+>>>>> On 9/30/22 06:27, Shirish S wrote:
+>>>>>> [Why]
+>>>>>> psr feature continues to be enabled for non capable links.
+>>>>>>
+>>>>> Do you have more info on what issues you're seeing with this?
+>>>>
+>>>> Code wise without this change we end up setting 
+>>>> "vblank_disable_immediate" parameter to false for the failing links 
+>>>> also.
+>>>>
+>>>> Issue wise there is a remote chance of this leading to eDP/connected 
+>>>> monitor not lighting up.
+>>
+>> I'm surprised psr_settings.psr_feature_enabled can be 'true' before
+>> amdgpu_dm_set_psr_caps() runs. it should default to 'false', and it's
+>> set early on during amdgpu_dm_initialize_drm_device() before any other
+>> psr-related code runs.
+>>
+>> In other words, I don't expect psr_settings.psr_feature_enabled to be
+>> 'true' on early return of dm_set_psr_caps().
+>>
+>> What are the sequence of events that causes an issue for you?
+> 
+> psr_feature_enabled is set to true by default in 
+> https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L4264 for DCN 3.0 onwards
+> 
+> (Also, in ChromeOS wherein KMS driver is statically built in kernel, we 
+> set PSR feature  as enabled as command-line argument via 
+> amdgpu_dc_feature_mask.)
+> 
+> Hence, the variable is set to true while entering amdgpu_dm_set_psr_caps().
+
+Hmm, that is a local variable in the function, not the same as
+link->psr_settings.psr_feature_enabled. Unless I'm missing something, it
+looks like link->psr_settings.psr_feature_enabled is never set to true.
+
+More below,
+
+> 
+> 
+>>
+>>
+>>>>
+>>>>>> [How]
+>>>>>> disable the feature on links that are not capable of the same.
+>>>>>>
+>>>>>> Signed-off-by: Shirish S<shirish.s@amd.com>
+>>>>>> ---
+>>>>>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c | 10 
+>>>>>> ++++++++--
+>>>>>>   1 file changed, 8 insertions(+), 2 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c 
+>>>>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+>>>>>> index 8ca10ab3dfc1..f73af028f312 100644
+>>>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+>>>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+>>>>>> @@ -60,11 +60,17 @@ static bool link_supports_psrsu(struct dc_link 
+>>>>>> *link)
+>>>>>>    */
+>>>>>>   void amdgpu_dm_set_psr_caps(struct dc_link *link)
+>>>>>>   {
+>>>>>> -    if (!(link->connector_signal & SIGNAL_TYPE_EDP))
+>>>>>> +    if (!(link->connector_signal & SIGNAL_TYPE_EDP)) {
+>>>>>> +        DRM_ERROR("Disabling PSR as connector is not eDP\n")
+>>>>> I don't think we should log an error here.
+>>>>
+>>>> My objective of logging an error was to inform user/developer that 
+>>>> this boot PSR enablement had issues.
+>>
+>> It's not really an issue, PSR simply cannot be enabled on non-eDP or
+>> disconnected links. 
+> 
+> Agree, the idea here is to avoid decisions being taken presuming 
+> psr_feature_enabled being set on such links, like disabling 
+> vblank_disable_immediate 
+> <https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L4330>etc.,
+> 
+> Regards,
+> 
+> Shirish S
+> 
+>> However, it is concerning if we enter this function
+>> with psr_feature_enabled == true.
+>>
+>> Thanks,
+>> Leo
+>>
+>>>>
+>>>> Am fine with moving it to INFO or remove it, if you insist.
+>>>>
+>>>> Thanks for your comments.
+>>>>
+>>>> Regards,
+>>>>
+>>>> Shirish S
+>>>>
+>>>>>> + link->psr_settings.psr_feature_enabled = false;
+
+Never the less, explicitly setting to false rather than leaving it as
+default sounds like a good idea to me.
+
+But I don't see how this fixes an issue.
+
+If this is a readability fix, I suggest changing commit title and
+description to reflect that.
+
+Thanks,
+Leo
+
+>>>>>>           return;
+>>>>>> +    }
+>>>>>>   -    if (link->type == dc_connection_none)
+>>>>>> +    if (link->type == dc_connection_none) {
+>>>>>> +        DRM_ERROR("Disabling PSR as eDP connection type is 
+>>>>>> invalid\n")
+>>>>> Same here, this doesn't warrant an error log.
+>>>>>
+>>>>> Harry
+>>>>>
+>>>>>> + link->psr_settings.psr_feature_enabled = false;
+>>>>>>           return;
+>>>>>> +    }
+>>>>>>         if (link->dpcd_caps.psr_info.psr_version == 0) {
+>>>>>>           link->psr_settings.psr_version = 
+>>>>>> DC_PSR_VERSION_UNSUPPORTED;
