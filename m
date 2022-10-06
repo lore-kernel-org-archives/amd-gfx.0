@@ -4,120 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABED7C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Oct 2022 07:47:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92C3FC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Oct 2022 13:11:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E32AE10E7FB;
-	Thu,  6 Oct 2022 07:47:15 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2043.outbound.protection.outlook.com [40.107.212.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EDA310E7FB
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Oct 2022 07:47:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PF66s4sEyN9+60xJFnZpXNx8f25c24Lky6jL3iFB31kgiFkuzsSfW9MosR7PKUc/7pC1V6RjsGEHmpzGchY5ZQeR40hS7cXA6THUYYSuhuR+yX+NkSY3Gm1h+GHAHPR7RmfnTMiigemAayq9Y4O8cr+AulM0tolk+tr3UiMpe2ujf8inqnAWHRIk6s2YRlCYaHqXiCA3QM4TfJm620iIjbLW0yDw1ft4i9RZyV3Pi4Dp+x+wa+hxpf9ylOrbRmVQt4lG6S7SCs8oBm4b2Nc5enbBBLf7FVEb4IyHwwT083Rm8s34uHxO4b8YGFwN2KWvkCmLbVAyFnhTLOL9XzJDVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1qd7Kx+6XKhqdU0XLBJFeK296U150Zi6EaYcYr5s1J0=;
- b=KyCMjV2SJfdpOuS81esG5bCHAW1Ep4JPPMN2y1zcCkyYfs1zg2+p0R5Cn+HQZgFXRROL7agE4h0Uy/amQubkU3oOr4BieLTh/hndQ5w35e+xnW2UqfLTklfACvDHQDQ3ywvTslobrsoWiEYAXGw1mQIe2fOqTMGngI0K6Q7gcg7j5PTEHrsLz+X+M1UbUuWV5pIeIoF6jTQv8m3BbO/g5+sOVcs05NCXJ482D6ZIvfQzqCL2cgAdjjmwSu9fi4RB1E2amUxyLSqurBBsJ9sFrGbHdqSuLIpICsj9wkifPw+1JUpUZKapAg3MB5UhTF95ySz7q40rlDQVmZ41e9h/ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1qd7Kx+6XKhqdU0XLBJFeK296U150Zi6EaYcYr5s1J0=;
- b=widJrD5SahI2Wwaa3/7857dHOYn9Xv6RqZrihrQIge/KV0O1xqThoh8dJzsrhOuqofLOrmSRMl27vVXU2EB3K3DgHK+OeHrAx8gGo8N3qPJ0FnFvJprDtX6sJGjfU3iRjQ6hXD0DyA70NUfpNrfiUTd9wMazJqVUA13cWCVCHo0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MWHPR12MB1264.namprd12.prod.outlook.com (2603:10b6:300:d::16)
- by MW3PR12MB4412.namprd12.prod.outlook.com (2603:10b6:303:58::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.24; Thu, 6 Oct
- 2022 07:47:09 +0000
-Received: from MWHPR12MB1264.namprd12.prod.outlook.com
- ([fe80::5cee:a878:4d07:3ca6]) by MWHPR12MB1264.namprd12.prod.outlook.com
- ([fe80::5cee:a878:4d07:3ca6%8]) with mapi id 15.20.5676.031; Thu, 6 Oct 2022
- 07:47:09 +0000
-Content-Type: multipart/alternative;
- boundary="------------p5eWAevqLZuT3Z0K0A7XYpg0"
-Message-ID: <f840d24a-136a-81fb-1bd7-a0a75f6962e3@amd.com>
-Date: Thu, 6 Oct 2022 13:16:58 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: [PATCH] drm/amd/display: disable psr whenever applicable
-Content-Language: en-US
-To: Leo Li <sunpeng.li@amd.com>, Harry Wentland <hwentlan@amd.com>,
- Shirish S <shirish.s@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Roman Li <Roman.Li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-References: <20220930102705.43367-1-shirish.s@amd.com>
- <184d25c2-7af5-8a89-94bd-117c71c4c3fc@amd.com>
- <39ecdc96-7fd5-d433-09f2-2af01a36315d@amd.com>
- <8ac24a07-6255-3092-95af-40d3a0d3124f@amd.com>
- <38b74412-dc3a-37da-55dd-e2327fe59769@amd.com>
-From: "S, Shirish" <sshankar@amd.com>
-In-Reply-To: <38b74412-dc3a-37da-55dd-e2327fe59769@amd.com>
-X-ClientProxiedBy: PN2PR01CA0227.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:eb::14) To MWHPR12MB1264.namprd12.prod.outlook.com
- (2603:10b6:300:d::16)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E43B310E3BA;
+	Thu,  6 Oct 2022 13:11:13 +0000 (UTC)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D70AD10E7FD;
+ Thu,  6 Oct 2022 07:55:19 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 130-20020a1c0288000000b003b494ffc00bso2316012wmc.0; 
+ Thu, 06 Oct 2022 00:55:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=t0gHcHj95iQot3u9dJoUqW0N9thU/AXtlSvNItR2GnU=;
+ b=Xg5EbkkoECjKyMhve2o8QWXRInBF/7eHGahoOil5v2VGd+U3ER/Fg1rafVO4QYY6Ok
+ 0/FmT8reVmLkwrs8oNBUfJ8ZP96i5FcqfuJxeTmOvTAquWVKG8iwScJ4V8aEmbz/rOJG
+ i/dPpYO40FEmNV16LT4AzPN4EJlpB02k5it1WWTLGxE4kVllqXu2x6BfSPBiQ5qwjUkc
+ /GPmGeBIxHeMzNx/A8aEtFjQmTw+blvwly5o+9+tN0KTg6fwMgfhF7Y2GjEgcD03hn28
+ MBMupp6wO+TbmhcOriP2kMpH0XfTtrPA5SfkUYE19cSVgVIgAAOEheYdIMx0teDxc3q1
+ 9ggA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=t0gHcHj95iQot3u9dJoUqW0N9thU/AXtlSvNItR2GnU=;
+ b=0ZKNnU8AdgYJVD8dhLVvia3dC9paYxI4Ug4utDfv8PyG6VRcb1RJ/+aPRt4wHTtF3z
+ I/x1ADttelJmh9Z7a4t+BcA3RMT0nCnT2r0AIawSSBLZEdETvr95hThOTdOv/+msudSY
+ 8i04AZ2sxpoQqffjy4yd/ZkdVgESy/ro4MIFtDyyCOYJFDm57fsy1PbPcxTPxxuWcpWe
+ N4NzRwV/9jMTsn1qtWeERw1+MsBIOCAUTli+0J870jD1hHxfGPgLFnrY4lMbCr011qoo
+ kFLiuvo50MFARLSTFcvjjnhy257Tt3kxQXyAviawD1kGBbEhTvUF8GfVm/bcUIUkXscz
+ E4lw==
+X-Gm-Message-State: ACrzQf2LsihPm/Hs0Sgqk6Olofhw9J4/dy9zAXSpb8tWDIeMvz3RSDBP
+ 4T+aqvRzb4JSUDs2ZilCML0=
+X-Google-Smtp-Source: AMsMyM4yZuATsxI76joOkdOGKIW2YefUnFNV6FRsb/lH7FBatZ7Cl0qGBSX/NLEem/el3jbtQ2ZSUQ==
+X-Received: by 2002:a05:600c:4f55:b0:3b4:b687:a7b7 with SMTP id
+ m21-20020a05600c4f5500b003b4b687a7b7mr5783994wmq.185.1665042916799; 
+ Thu, 06 Oct 2022 00:55:16 -0700 (PDT)
+Received: from krava ([193.85.244.190]) by smtp.gmail.com with ESMTPSA id
+ x16-20020adfec10000000b0022a2dbc80fdsm17139125wrn.10.2022.10.06.00.55.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Oct 2022 00:55:16 -0700 (PDT)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Thu, 6 Oct 2022 09:55:13 +0200
+To: kernel test robot <lkp@intel.com>
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 67ae4f7434cee86ee318d46fb10b8a9840ad2e81
+Message-ID: <Yz6J4eMvHOnK+CXb@krava>
+References: <633deff4.q8bW3fyM79Uz0A/F%lkp@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1264:EE_|MW3PR12MB4412:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a77ef57-94fc-4142-d92b-08daa76ef8be
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dUE8LN0FzNZwz8ZVi9qp4xQrUM8kmUjwOz/EQKmjzcPuD7EeaWmqP88OoH7QsIlAYi1KsS8i8wBPLWWyGT0mb4R6LEoLcY+gfVdNnOVSfQE5PSN61/mzIk2y2c5UysC9S31wL5rccNIYRkaMHyZmSDwenRH2WpEkK+1ccjPArH5FasAp2XnIhZrM63H5xsPR/fRHoHy3u4weJORPY8fsN6KbjdGhY1FZ8VhBZCMI0UJ7YgjVplrPSE1m9hQSQOsHmPFMRX1LieDsyaxwBaQR7QjeOlSUEERdUQkSCOEJaPgSqbrAKiLWnD1AsbO1kqF88Kp5Fl7ADeWmvs4rEnuKKseo+BDPDwUjU0A76xQNYGJoi9H6viD8vwh64520zOp5EJClCQnmOWi8W/fOapnv14nUxPfd7A/K1S2slxd4aGVKZCFmRZ7NMDEAQzBQqGFCMNugR8MqnrL5SxTRWsY06tfxtCDl9qF4eIK9rQDmoI0lBJKAHsAzG/XCeLb/yYaVKG9cp7N4Jl+A9nUrotq5XqPjc6gkIO5Hzi4a6W/LY9vpQxw+Vxzr1FZV8MyLWdjJSxHTmL8S+/j0HwAcant4s4fNkIp6tFgxQdtlPDIcChKBPLhDV5Z8VzyIkiFWqbvg/OxlsSvpNmvQsBmCFFwrUghOsvCoPyLty3qq4lH1NaJi1XANzAySJzthjyZ4Hv3716l++1oYngO0VdmZCGS4pMvwloBfA+0aE3zNBUtAiPRcfEUKNc1dK+ZmF2Zi6amrAtwr7q1UNDwCNY7vXUzBsWpFoRkrbxOMLAkuJ6iHVRVZFzrVDrikN1bmyd56k3JCxE2sp8UtoLxPbL1U96iHmA21B0w9AZkWnYem1lQQy2BllcxobnbT8xubAZMYEHBq
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR12MB1264.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(396003)(346002)(39860400002)(136003)(366004)(451199015)(36756003)(31686004)(31696002)(83380400001)(38100700002)(186003)(166002)(2616005)(6486002)(53546011)(2906002)(6512007)(26005)(6506007)(478600001)(966005)(6666004)(4326008)(110136005)(316002)(5660300002)(8936002)(41300700001)(33964004)(66556008)(66946007)(66476007)(6636002)(8676002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WUdqWEYvODJtd0JmRHpLRzVEV0VmQ01CRGM4WFVBQ01uZ1RTdU1rMXJCbGk4?=
- =?utf-8?B?M0xZUkpKSFVkTWUvbHZuUkdYOFdDSVNKNWNGZU1BYTJIWnhvSzNUWStFNTB5?=
- =?utf-8?B?UlN6dkxZMkpmN0JtOWxqeW1CSVltdVpQYmhCL2VjYUZ6OUNNclZESm9nYjNW?=
- =?utf-8?B?Um1CYTVkUnloYm5USWM1Zk5VNW83bTkwWEoxTDBQWTIzRGF3cHl4d1RvM1Nk?=
- =?utf-8?B?VmIxQjMzam1tbW9ORFFXVUY0SzJjWU1jdmRXWFdFbUhHMVRhNmh1Y1dYVW1h?=
- =?utf-8?B?WWZqZWkvd3Zlc2lkVHpwZFBBa0N3WEZHNE4rbVl5cWgyRSsrb0I3NGdtZmhL?=
- =?utf-8?B?aHc0M0VlKzZ2Sk0yY3EyajBGa0c5NEJJczZrcERsYUdQUlZhVEFMbmJUaEtQ?=
- =?utf-8?B?ZHdEUTY0OEJ3d2xjejZQVkNUUXZWSmdoVUVGbnlGZmZyb1dPVnJUbjM2czNK?=
- =?utf-8?B?enM1VUdBRGtWZkNmc2Y5enhvQUZVck41NkNtVXNHUzVmOEc5cjFVeDV4WTc3?=
- =?utf-8?B?MzBGR08xd0lIcEJrT1dlR0lwaHplT0w0cGJ0VkU5OGJZUFFKOGRZVkprRHFm?=
- =?utf-8?B?UTlUWnRTOGhBL1FpL01jMU0yWUVGN1M1YUM3WVhXQzlUZ0V3bU9MUzNPbFZJ?=
- =?utf-8?B?UHhHN0NDQWxOcEFLUU1PV04xaUwwVkF2UXIyNFlMK1AvL3RBdy9YbUhQS1FG?=
- =?utf-8?B?RHBmdEEvbGNha1Q2bmkvV3BCZU9jMG5QSFd4YXl3Z01ZMTBFVU5VS0hQNGc5?=
- =?utf-8?B?QnNVZ0w3ZlFsRHNuemhpU044NkxZanUrK0Z5c0NsVkdnVWRNY2FGZVVOck9v?=
- =?utf-8?B?eHcvVXlGTVVTdjVTd3lFVnFadXJpcVBEbjB0eVZMTVdZdm9FUUJ4d0I5WU5o?=
- =?utf-8?B?ZklnUjJqOVFPYytCbS9ycVo3MCt4c2JHbmpzdkdhRlZvcDBHTmQyMyszeURT?=
- =?utf-8?B?RmViY3NDL1BnQTVQN2tndWFiMWFzaW83MjNiSWttaTlJNWpKRmt2Z1o4Wk9z?=
- =?utf-8?B?bVFNblJmQmZ0OTZveUVTMmFkaXV2cGFFUXVubU9DN3gyRzVCYVkrRmp6S3lG?=
- =?utf-8?B?dXBYRGtPZENuOHdxWEV1SVJEWjVseXhQV2dPbkJtRjlQbU4xSzdMTFJoQnNZ?=
- =?utf-8?B?NnJjNnRoV1JxMEJjNWNLaFIyQVBOWEhreXBqQ1hwYzZiL3FIczNtcGw1NXJt?=
- =?utf-8?B?S0puNFVQNlpXWFROWVNkckE3ZDJrbzg1UEVsZEdNcUlqSHphZFY2YnhOMHVG?=
- =?utf-8?B?b0JDQ1lmY3JuU2FyVmQ3OHdOcXFRcjVpSzdnTTEwQXJCTlpZRXZlMForcnl4?=
- =?utf-8?B?NytUMW5ZcWQrUnRlaDk1dzRKRDFaUkRGdmxENDBLOVJ4N2dWL3dOUG0yRTNK?=
- =?utf-8?B?Mkpla0FmNGdLR2JhYWN2TTFzUWk5UFluQ2puOVpPZzErZ25xNFVzcGZVbUxp?=
- =?utf-8?B?TldWYm9vRVNCUWFSaGx6bUkvTHo4K20wSEdjVHZsMm9KY0phWEhheXpjR3Q1?=
- =?utf-8?B?M0dxMXRMTG80TUZOZUlHQ3hMaG9MaXQ1a0RMTnlsLzRna1FVME5PSXV6NFhk?=
- =?utf-8?B?Nm9Cd1UxQ2pEemEzczZKbHpnRkI1Rlk1dkFSTVpoYTFBdWcvNlJZZnZlNGxY?=
- =?utf-8?B?ZisyMytoRnNveTJKTFZhM1NEQXlKa1B3WXdGbUNzWElNQ1YwU254OXR2aG50?=
- =?utf-8?B?WC9JWUM4emZkZVVFNTFOaFpkU3VnQVFtRWtjb28xaHZFOU5BVlRhSGk4QmJB?=
- =?utf-8?B?Zlh3Nko3bm5Ed2xVazFjbnZSRTlPNTRiaHovU3dZeHZpUUVLYTNWdEJtL2dp?=
- =?utf-8?B?Y1BRSE1Oek03U0laNFpDYjIzVW5iZnBNM2pzZ3g1Q2RIdVRtWHJad3F3WlRi?=
- =?utf-8?B?T3A0UW95a3lqL3E4L1B4bTRHUjVGeDZqYWlsMng1THNmN0lsZzdhSndmODAw?=
- =?utf-8?B?SFlpNjlLYmswcDBlc0ZRNVFmUGNZUzBvSGNyUTBRaDJ6ZURMRHhhNFZKeHRq?=
- =?utf-8?B?Q29PY0hOUjEreXVjMStYaHpWT0p1MS9Ka0hsZTlqSGY1WWJlQ3B5ZVZvU0E5?=
- =?utf-8?B?emNFVkFCb3p6NHpZNEtiSDRxZ3NwSUUyR1BJektqZVMydUt5OTRQRGNZRlUy?=
- =?utf-8?Q?Tq+YYAPjvn8zlbAa0u0gTCvoP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a77ef57-94fc-4142-d92b-08daa76ef8be
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1264.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2022 07:47:09.3000 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Uq5Pez6dW1PQStuX4s1xwXy3Kx+F10oMnkj2vjiGXs+tYSNM9Y/bQDt7rqQ9TlvXsgwv9T8UtcM+jFK1rG5pqg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4412
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <633deff4.q8bW3fyM79Uz0A/F%lkp@intel.com>
+X-Mailman-Approved-At: Thu, 06 Oct 2022 13:11:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,371 +72,282 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: kvm@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-wireless@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>, iommu@lists.linux.dev,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ loongarch@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+ linux-ext4@vger.kernel.org, bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------p5eWAevqLZuT3Z0K0A7XYpg0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On Thu, Oct 06, 2022 at 04:58:28AM +0800, kernel test robot wrote:
+> tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> branch HEAD: 67ae4f7434cee86ee318d46fb10b8a9840ad2e81  Add linux-next specific files for 20221005
+> 
+> Error/Warning reports:
+> 
+> https://lore.kernel.org/linux-mm/202209060229.dVuyxjBv-lkp@intel.com
+> https://lore.kernel.org/llvm/202209220019.Yr2VuXhg-lkp@intel.com
+> https://lore.kernel.org/llvm/202210041553.k9dc1Joc-lkp@intel.com
+> https://lore.kernel.org/llvm/202210060148.UXBijOcS-lkp@intel.com
+> 
+> Error/Warning: (recently discovered and may have been fixed)
+> 
+> ERROR: modpost: "devm_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
+> ERROR: modpost: "devm_ioremap_resource" [drivers/dma/idma64.ko] undefined!
+> ERROR: modpost: "devm_ioremap_resource" [drivers/dma/qcom/hdma.ko] undefined!
+> ERROR: modpost: "devm_memremap" [drivers/misc/open-dice.ko] undefined!
+> ERROR: modpost: "devm_memunmap" [drivers/misc/open-dice.ko] undefined!
+> ERROR: modpost: "devm_platform_ioremap_resource" [drivers/char/xillybus/xillybus_of.ko] undefined!
+> ERROR: modpost: "ioremap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
+> ERROR: modpost: "ioremap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
+> ERROR: modpost: "iounmap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
+> ERROR: modpost: "iounmap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
+> arch/arm64/kernel/alternative.c:199:6: warning: no previous prototype for 'apply_alternatives_vdso' [-Wmissing-prototypes]
+> arch/arm64/kernel/alternative.c:295:14: warning: no previous prototype for 'alt_cb_patch_nops' [-Wmissing-prototypes]
+> arch/loongarch/kernel/traps.c:250 die() warn: variable dereferenced before check 'regs' (see line 244)
+> arch/loongarch/mm/init.c:166:24: warning: variable 'new' set but not used [-Wunused-but-set-variable]
+> drivers/gpu/drm/amd/amdgpu/../display/dc/virtual/virtual_link_hwss.c:40:6: warning: no previous prototype for 'virtual_disable_link_output' [-Wmissing-prototypes]
+> drivers/gpu/drm/bridge/ite-it6505.c:2712 it6505_extcon_work() warn: pm_runtime_get_sync() also returns 1 on success
+> drivers/platform/loongarch/loongson-laptop.c:377 loongson_laptop_get_brightness() warn: impossible condition '(level < 0) => (0-255 < 0)'
+> drivers/vfio/pci/vfio_pci_core.c:775 vfio_pci_ioctl_get_region_info() warn: potential spectre issue 'pdev->resource' [w]
+> drivers/vfio/pci/vfio_pci_core.c:855 vfio_pci_ioctl_get_region_info() warn: potential spectre issue 'vdev->region' [r]
+> fs/ext4/super.c:1744:19: warning: 'deprecated_msg' defined but not used [-Wunused-const-variable=]
+> include/linux/compiler_types.h:357:45: error: call to '__compiletime_assert_417' declared with attribute error: FIELD_GET: mask is not constant
+> kernel/bpf/memalloc.c:500 bpf_mem_alloc_destroy() error: potentially dereferencing uninitialized 'c'.
 
+looks like false warning in here, c should always have value,
+not sure how to disable it in here
 
-On 10/6/2022 4:33 AM, Leo Li wrote:
->
->
-> On 2022-10-03 11:26, S, Shirish wrote:
->> Ping!
->>
->> Regards,
->>
->> Shirish S
->>
->> On 9/30/2022 7:17 PM, S, Shirish wrote:
->>>
->>>
->>> On 9/30/2022 6:59 PM, Harry Wentland wrote:
->>>> +Leo
->>>>
->>>> On 9/30/22 06:27, Shirish S wrote:
->>>>> [Why]
->>>>> psr feature continues to be enabled for non capable links.
->>>>>
->>>> Do you have more info on what issues you're seeing with this?
->>>
->>> Code wise without this change we end up setting 
->>> "vblank_disable_immediate" parameter to false for the failing links 
->>> also.
->>>
->>> Issue wise there is a remote chance of this leading to eDP/connected 
->>> monitor not lighting up.
->
-> I'm surprised psr_settings.psr_feature_enabled can be 'true' before
-> amdgpu_dm_set_psr_caps() runs. it should default to 'false', and it's
-> set early on during amdgpu_dm_initialize_drm_device() before any other
-> psr-related code runs.
->
-> In other words, I don't expect psr_settings.psr_feature_enabled to be
-> 'true' on early return of dm_set_psr_caps().
->
-> What are the sequence of events that causes an issue for you?
+jirka
 
-psr_feature_enabled is set to true by default in 
-https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L4264 
-for DCN 3.0 onwards
-
-(Also, in ChromeOS wherein KMS driver is statically built in kernel, we 
-set PSR feature  as enabled as command-line argument via 
-amdgpu_dc_feature_mask.)
-
-Hence, the variable is set to true while entering amdgpu_dm_set_psr_caps().
-
-
->
->
->>>
->>>>> [How]
->>>>> disable the feature on links that are not capable of the same.
->>>>>
->>>>> Signed-off-by: Shirish S<shirish.s@amd.com>
->>>>> ---
->>>>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c | 10 
->>>>> ++++++++--
->>>>>   1 file changed, 8 insertions(+), 2 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c 
->>>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
->>>>> index 8ca10ab3dfc1..f73af028f312 100644
->>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
->>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
->>>>> @@ -60,11 +60,17 @@ static bool link_supports_psrsu(struct dc_link 
->>>>> *link)
->>>>>    */
->>>>>   void amdgpu_dm_set_psr_caps(struct dc_link *link)
->>>>>   {
->>>>> -    if (!(link->connector_signal & SIGNAL_TYPE_EDP))
->>>>> +    if (!(link->connector_signal & SIGNAL_TYPE_EDP)) {
->>>>> +        DRM_ERROR("Disabling PSR as connector is not eDP\n")
->>>> I don't think we should log an error here.
->>>
->>> My objective of logging an error was to inform user/developer that 
->>> this boot PSR enablement had issues.
->
-> It's not really an issue, PSR simply cannot be enabled on non-eDP or
-> disconnected links. 
-
-Agree, the idea here is to avoid decisions being taken presuming 
-psr_feature_enabled being set on such links, like disabling 
-vblank_disable_immediate 
-<https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L4330>etc.,
-
-Regards,
-
-Shirish S
-
-> However, it is concerning if we enter this function
-> with psr_feature_enabled == true.
->
-> Thanks,
-> Leo
->
->>>
->>> Am fine with moving it to INFO or remove it, if you insist.
->>>
->>> Thanks for your comments.
->>>
->>> Regards,
->>>
->>> Shirish S
->>>
->>>>> + link->psr_settings.psr_feature_enabled = false;
->>>>>           return;
->>>>> +    }
->>>>>   -    if (link->type == dc_connection_none)
->>>>> +    if (link->type == dc_connection_none) {
->>>>> +        DRM_ERROR("Disabling PSR as eDP connection type is 
->>>>> invalid\n")
->>>> Same here, this doesn't warrant an error log.
->>>>
->>>> Harry
->>>>
->>>>> + link->psr_settings.psr_feature_enabled = false;
->>>>>           return;
->>>>> +    }
->>>>>         if (link->dpcd_caps.psr_info.psr_version == 0) {
->>>>>           link->psr_settings.psr_version = 
->>>>> DC_PSR_VERSION_UNSUPPORTED;
---------------p5eWAevqLZuT3Z0K0A7XYpg0
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 10/6/2022 4:33 AM, Leo Li wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:38b74412-dc3a-37da-55dd-e2327fe59769@amd.com">
-      <br>
-      <br>
-      On 2022-10-03 11:26, S, Shirish wrote:
-      <br>
-      <blockquote type="cite">Ping!
-        <br>
-        <br>
-        Regards,
-        <br>
-        <br>
-        Shirish S
-        <br>
-        <br>
-        On 9/30/2022 7:17 PM, S, Shirish wrote:
-        <br>
-        <blockquote type="cite">
-          <br>
-          <br>
-          On 9/30/2022 6:59 PM, Harry Wentland wrote:
-          <br>
-          <blockquote type="cite">+Leo
-            <br>
-            <br>
-            On 9/30/22 06:27, Shirish S wrote:
-            <br>
-            <blockquote type="cite">[Why]
-              <br>
-              psr feature continues to be enabled for non capable links.
-              <br>
-              <br>
-            </blockquote>
-            Do you have more info on what issues you're seeing with
-            this?
-            <br>
-          </blockquote>
-          <br>
-          Code wise without this change we end up setting
-          &quot;vblank_disable_immediate&quot; parameter to false for the failing
-          links also.
-          <br>
-          <br>
-          Issue wise there is a remote chance of this leading to
-          eDP/connected monitor not lighting up.
-          <br>
-        </blockquote>
-      </blockquote>
-      <br>
-      I'm surprised psr_settings.psr_feature_enabled can be 'true'
-      before
-      <br>
-      amdgpu_dm_set_psr_caps() runs. it should default to 'false', and
-      it's
-      <br>
-      set early on during amdgpu_dm_initialize_drm_device() before any
-      other
-      <br>
-      psr-related code runs.
-      <br>
-      <br>
-      In other words, I don't expect psr_settings.psr_feature_enabled to
-      be
-      <br>
-      'true' on early return of dm_set_psr_caps().
-      <br>
-      <br>
-      What are the sequence of events that causes an issue for you?
-      <br>
-    </blockquote>
-    <p>psr_feature_enabled is set to true by default in
-<a class="moz-txt-link-freetext" href="https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L4264">https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L4264</a>
-      for DCN 3.0 onwards<br>
-    </p>
-    <p>(Also, in ChromeOS wherein KMS driver is statically built in
-      kernel, we set PSR feature&nbsp; as enabled as command-line argument
-      via amdgpu_dc_feature_mask.)<br>
-    </p>
-    <p>Hence, the variable is set to true while entering
-      amdgpu_dm_set_psr_caps().</p>
-    <br>
-    <blockquote type="cite" cite="mid:38b74412-dc3a-37da-55dd-e2327fe59769@amd.com">
-      <br>
-      <br>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <br>
-          <blockquote type="cite">
-            <blockquote type="cite">[How]
-              <br>
-              disable the feature on links that are not capable of the
-              same.
-              <br>
-              <br>
-              Signed-off-by: Shirish S<a class="moz-txt-link-rfc2396E" href="mailto:shirish.s@amd.com">&lt;shirish.s@amd.com&gt;</a>
-              <br>
-              ---
-              <br>
-              &nbsp; drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |
-              10 ++++++++--
-              <br>
-              &nbsp; 1 file changed, 8 insertions(+), 2 deletions(-)
-              <br>
-              <br>
-              diff --git
-              a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-              b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-              <br>
-              index 8ca10ab3dfc1..f73af028f312 100644
-              <br>
-              ---
-              a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-              <br>
-              +++
-              b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-              <br>
-              @@ -60,11 +60,17 @@ static bool link_supports_psrsu(struct
-              dc_link *link)
-              <br>
-              &nbsp;&nbsp; */
-              <br>
-              &nbsp; void amdgpu_dm_set_psr_caps(struct dc_link *link)
-              <br>
-              &nbsp; {
-              <br>
-              -&nbsp;&nbsp;&nbsp; if (!(link-&gt;connector_signal &amp;
-              SIGNAL_TYPE_EDP))
-              <br>
-              +&nbsp;&nbsp;&nbsp; if (!(link-&gt;connector_signal &amp;
-              SIGNAL_TYPE_EDP)) {
-              <br>
-              +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Disabling PSR as connector is not
-              eDP\n&quot;)
-              <br>
-            </blockquote>
-            I don't think we should log an error here.
-            <br>
-          </blockquote>
-          <br>
-          My objective of logging an error was to inform user/developer
-          that this boot PSR enablement had issues.
-          <br>
-        </blockquote>
-      </blockquote>
-      <br>
-      It's not really an issue, PSR simply cannot be enabled on non-eDP
-      or
-      <br>
-      disconnected links. </blockquote>
-    <p>Agree, the idea here is to avoid decisions being taken presuming
-      psr_feature_enabled being set on such links, like disabling <a moz-do-not-send="true" href="https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L4330">vblank_disable_immediate
-      </a>etc.,</p>
-    <p>Regards,</p>
-    <p>Shirish S<br>
-    </p>
-    <blockquote type="cite" cite="mid:38b74412-dc3a-37da-55dd-e2327fe59769@amd.com">However,
-      it is concerning if we enter this function
-      <br>
-      with psr_feature_enabled == true.
-      <br>
-      <br>
-      Thanks,
-      <br>
-      Leo
-      <br>
-      <br>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <br>
-          Am fine with moving it to INFO or remove it, if you insist.
-          <br>
-          <br>
-          Thanks for your comments.
-          <br>
-          <br>
-          Regards,
-          <br>
-          <br>
-          Shirish S
-          <br>
-          <br>
-          <blockquote type="cite">
-            <blockquote type="cite">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              link-&gt;psr_settings.psr_feature_enabled = false;
-              <br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;
-              <br>
-              +&nbsp;&nbsp;&nbsp; }
-              <br>
-              &nbsp; -&nbsp;&nbsp;&nbsp; if (link-&gt;type == dc_connection_none)
-              <br>
-              +&nbsp;&nbsp;&nbsp; if (link-&gt;type == dc_connection_none) {
-              <br>
-              +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Disabling PSR as eDP connection type
-              is invalid\n&quot;)
-              <br>
-            </blockquote>
-            Same here, this doesn't warrant an error log.
-            <br>
-            <br>
-            Harry
-            <br>
-            <br>
-            <blockquote type="cite">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              link-&gt;psr_settings.psr_feature_enabled = false;
-              <br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;
-              <br>
-              +&nbsp;&nbsp;&nbsp; }
-              <br>
-              &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (link-&gt;dpcd_caps.psr_info.psr_version == 0)
-              {
-              <br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; link-&gt;psr_settings.psr_version =
-              DC_PSR_VERSION_UNSUPPORTED;
-              <br>
-            </blockquote>
-          </blockquote>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
---------------p5eWAevqLZuT3Z0K0A7XYpg0--
+> net/mac80211/iface.c:251 ieee80211_can_powered_addr_change() warn: inconsistent returns '&local->mtx'.
+> 
+> Unverified Error/Warning (likely false positive, please contact us if interested):
+> 
+> ERROR: modpost: "__tsan_memcpy" [arch/s390/crypto/ghash_s390.ko] undefined!
+> ERROR: modpost: "__tsan_memcpy" [arch/s390/crypto/sha512_s390.ko] undefined!
+> ERROR: modpost: "__tsan_memcpy" [fs/binfmt_misc.ko] undefined!
+> ERROR: modpost: "__tsan_memcpy" [fs/pstore/ramoops.ko] undefined!
+> ERROR: modpost: "__tsan_memset" [arch/s390/crypto/ghash_s390.ko] undefined!
+> ERROR: modpost: "__tsan_memset" [arch/s390/crypto/sha512_s390.ko] undefined!
+> ERROR: modpost: "__tsan_memset" [fs/autofs/autofs4.ko] undefined!
+> ERROR: modpost: "__tsan_memset" [fs/binfmt_misc.ko] undefined!
+> ERROR: modpost: "__tsan_memset" [fs/cramfs/cramfs.ko] undefined!
+> ERROR: modpost: "__tsan_memset" [fs/pstore/ramoops.ko] undefined!
+> s390x-linux-ld: self.c:(.text+0xf6): undefined reference to `__tsan_memcpy'
+> thread_self.c:(.text+0xe4): undefined reference to `__tsan_memcpy'
+> 
+> Error/Warning ids grouped by kconfigs:
+> 
+> gcc_recent_errors
+> |-- alpha-allyesconfig
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+> |-- alpha-randconfig-s042-20221002
+> |   |-- drivers-thermal-broadcom-ns-thermal.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-data-got-void-noderef-__iomem-assigned-pvtmon
+> |   |-- drivers-thermal-broadcom-ns-thermal.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-noderef-__iomem-pvtmon-got-void
+> |   |-- drivers-thermal-broadcom-ns-thermal.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-noderef-__iomem-pvtmon-got-void-devdata
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
+> |   `-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
+> |-- arc-randconfig-s051-20221002
+> |   |-- drivers-gpu-drm-tiny-simpledrm.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-vaddr-got-void-noderef-__iomem-screen_base
+> |   |-- drivers-gpu-drm-vkms-vkms_formats.c:sparse:sparse:cast-to-restricted-__le16
+> |   |-- drivers-gpu-drm-vkms-vkms_formats.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-unsigned-short-usertype-got-restricted-__le16-usertype
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
+> |   |-- kernel-bpf-hashtab.c:sparse:sparse:cast-removes-address-space-__percpu-of-expression
+> |   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-noderef-__percpu-assigned-pptr-got-void
+> |   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-ptr_to_pptr-got-void-noderef-__percpu-assigned-pptr
+> |   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void
+> |   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void-pptr
+> |   `-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-pptr-got-void-noderef-__percpu
+> |-- arc-randconfig-s053-20221002
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
+> |   |-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
+> |   |-- kernel-bpf-hashtab.c:sparse:sparse:cast-removes-address-space-__percpu-of-expression
+> |   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-noderef-__percpu-assigned-pptr-got-void
+> |   |-- kernel-bpf-hashtab.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-void-ptr_to_pptr-got-void-noderef-__percpu-assigned-pptr
+> |   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void
+> |   |-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__percpu-__pdata-got-void-pptr
+> |   `-- kernel-bpf-memalloc.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-void-pptr-got-void-noderef-__percpu
+> |-- arm64-allyesconfig
+> |   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
+> |   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
+> |-- arm64-randconfig-c023-20221005
+> |   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
+> |   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
+> clang_recent_errors
+> |-- arm-randconfig-r016-20221003
+> |   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-function-virtual_disable_link_output
+> |   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+> |   `-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+> |-- arm-randconfig-r033-20221002
+> |   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+> |   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+> |   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+> |-- arm64-buildonly-randconfig-r002-20221003
+> |   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-function-apply_alternatives_vdso
+> |   `-- ld.lld:error:assignment-to-symbol-__efistub_kernel_size-does-not-converge
+> |-- hexagon-randconfig-r013-20221002
+> |   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmnewmap
+> |   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmsetvec
+> |   `-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-memset
+> |-- hexagon-randconfig-r025-20221003
+> |   |-- drivers-phy-mediatek-phy-mtk-tphy.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-c
+> |   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmnewmap
+> |   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmsetvec
+> |   `-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-memset
+> |-- hexagon-randconfig-r031-20221002
+> |   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+> |   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+> |   `-- drivers-phy-mediatek-phy-mtk-tphy.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-c
+> |-- hexagon-randconfig-r041-20221003
+> |   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+> |-- hexagon-randconfig-r045-20221002
+> |   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+> |-- i386-randconfig-a002-20221003
+> |   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+> |-- i386-randconfig-a005-20221003
+> |   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+> |-- i386-randconfig-a006-20221003
+> |   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+> |-- i386-randconfig-r001-20221003
+> |   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+> |-- mips-loongson1c_defconfig
+> |   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+> |-- mips-randconfig-r006-20221002
+> |   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
+> |   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
+> |   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+> |   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+> |   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+> |-- powerpc-allyesconfig
+> |   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-function-virtual_disable_link_output
+> |   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
+> |   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
+> |   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+> |   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
+> 
+> elapsed time: 729m
+> 
+> configs tested: 94
+> configs skipped: 3
+> 
+> gcc tested configs:
+> i386                                defconfig
+> arc                                 defconfig
+> x86_64                          rhel-8.3-func
+> s390                             allmodconfig
+> x86_64                    rhel-8.3-kselftests
+> um                             i386_defconfig
+> um                           x86_64_defconfig
+> alpha                               defconfig
+> s390                                defconfig
+> powerpc                           allnoconfig
+> powerpc                          allmodconfig
+> x86_64                           rhel-8.3-syz
+> mips                             allyesconfig
+> s390                             allyesconfig
+> x86_64                         rhel-8.3-kunit
+> x86_64                              defconfig
+> x86_64                           rhel-8.3-kvm
+> arm                            pleb_defconfig
+> alpha                             allnoconfig
+> powerpc                      chrp32_defconfig
+> i386                             allyesconfig
+> arc                          axs101_defconfig
+> x86_64                               rhel-8.3
+> riscv                             allnoconfig
+> arc                    vdk_hs38_smp_defconfig
+> arm                                 defconfig
+> powerpc                 linkstation_defconfig
+> i386                 randconfig-a014-20221003
+> sh                             espt_defconfig
+> sh                               allmodconfig
+> csky                              allnoconfig
+> x86_64                           allyesconfig
+> i386                 randconfig-a011-20221003
+> arc                               allnoconfig
+> arm                           h3600_defconfig
+> x86_64               randconfig-a011-20221003
+> i386                 randconfig-a012-20221003
+> arm64                            allyesconfig
+> s390                       zfcpdump_defconfig
+> sparc64                             defconfig
+> x86_64               randconfig-a015-20221003
+> i386                 randconfig-a013-20221003
+> sh                   sh7770_generic_defconfig
+> m68k                             allmodconfig
+> x86_64               randconfig-a014-20221003
+> arm                              allyesconfig
+> powerpc                       maple_defconfig
+> arc                              allyesconfig
+> sh                             shx3_defconfig
+> ia64                             allmodconfig
+> m68k                            q40_defconfig
+> i386                 randconfig-a015-20221003
+> x86_64               randconfig-a012-20221003
+> arm                       imx_v6_v7_defconfig
+> i386                 randconfig-a016-20221003
+> mips                            ar7_defconfig
+> alpha                            allyesconfig
+> x86_64               randconfig-a013-20221003
+> arm                          gemini_defconfig
+> m68k                                defconfig
+> x86_64               randconfig-a016-20221003
+> m68k                             allyesconfig
+> i386                          randconfig-c001
+> mips                          rb532_defconfig
+> riscv                randconfig-r042-20221003
+> arc                  randconfig-r043-20221003
+> arc                  randconfig-r043-20221002
+> s390                 randconfig-r044-20221003
+> riscv                            allyesconfig
+> 
+> clang tested configs:
+> x86_64               randconfig-a003-20221003
+> x86_64               randconfig-a002-20221003
+> x86_64               randconfig-a001-20221003
+> x86_64               randconfig-a004-20221003
+> x86_64               randconfig-a006-20221003
+> arm                        neponset_defconfig
+> x86_64               randconfig-a005-20221003
+> i386                 randconfig-a003-20221003
+> i386                 randconfig-a002-20221003
+> i386                 randconfig-a001-20221003
+> i386                 randconfig-a004-20221003
+> riscv                          rv32_defconfig
+> i386                 randconfig-a005-20221003
+> hexagon              randconfig-r041-20221003
+> x86_64                        randconfig-k001
+> riscv                randconfig-r042-20221002
+> i386                 randconfig-a006-20221003
+> hexagon              randconfig-r041-20221002
+> s390                 randconfig-r044-20221002
+> mips                     loongson1c_defconfig
+> hexagon              randconfig-r045-20221002
+> powerpc                 mpc8272_ads_defconfig
+> hexagon              randconfig-r045-20221003
+> powerpc                          allyesconfig
+> x86_64                          rhel-8.3-rust
+> 
+> -- 
+> 0-DAY CI Kernel Test Service
+> https://01.org/lkp
