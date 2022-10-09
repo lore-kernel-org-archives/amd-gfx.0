@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17151C433F5
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:58:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A587C4332F
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:58:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63A2310E602;
-	Sun,  9 Oct 2022 23:58:00 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C01510E5FA;
- Sun,  9 Oct 2022 23:57:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67E4810E60F;
+	Sun,  9 Oct 2022 23:58:19 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B9D110E603;
+ Sun,  9 Oct 2022 23:58:06 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C1175B80DEE;
- Sun,  9 Oct 2022 23:57:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00D7C433C1;
- Sun,  9 Oct 2022 23:57:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2A9E660D57;
+ Sun,  9 Oct 2022 23:58:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F24C8C433D6;
+ Sun,  9 Oct 2022 23:58:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665359874;
- bh=IqXIc2zb1gPqjZAiZAuDXqBufstMjobSxTTlD79UXjo=;
+ s=k20201202; t=1665359885;
+ bh=x64p9PIf/71AI9EqI80e9YSybdV7Rzg21I92kH5YS6w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=C6bj9ZKLOmLY6A3mq/CyShhW5QQdWxdXqwVpCB17oM7RGAPUbjcLaS8i3n94iEHJ7
- 5LX1xVNhNeu2zhy1g8GMPs10o7D5EWqaw/zSr1Yte+KvzJuSDsiEVrRhR9G3xqkDnK
- KJpDJVlsYfm0udwvpj6GV5xYBAP/w7VP8Jz1e+tm/VnW+bZ/aYLDgdQbhltTUhiYSA
- akwDpSRPxflbQoU1eBdjx4Jc3kvKdAvG0bVt5EqpBPm6lbu18nDIBSXRK8G2ubJsMF
- 5ZoOFw/ZLSI0pxu0wu/KC6oqirhEGct7/OfBpIJKyblMXQTAgoUMT5IqkWA59FEp8t
- crAbbt9OL6J9w==
+ b=kup094IsubeVm3mUrxEkIrM/6d/Ifb/zX0SE8TObwsA4nuBqUQHMavDHMNQvOJlj6
+ lD9mrb6sflmJ5BCDfabTCxOfjKa7H9LWxFhNK3OuOtTsf+rk3sX+utnmE5z+C58zCE
+ q3jWMBZNBhD+iUsC0nhb6RLsNcqpGq07HGqixrYjzJbG5yFKE19qYgaThVF9PdhydN
+ B0pVWUVMuZ3yKY8aPxTPQf+ScwCOgOyE6Nw0Ehy4YqdbbwChvP0HcGyMd23lu9wHXH
+ ejM1b9PSq8+GISLWb9VV+x/fNeid5/WOSNAdrMBTeQcB2vEKx+aXkEIQ5MQAJiGr+E
+ ihUCz4Yb+POYA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 03/10] drm/amd/display: fix overflow on MIN_I64
- definition
-Date: Sun,  9 Oct 2022 19:57:38 -0400
-Message-Id: <20221009235746.1232129-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 09/10] drm/amdgpu: fix initial connector audio
+ value
+Date: Sun,  9 Oct 2022 19:57:44 -0400
+Message-Id: <20221009235746.1232129-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221009235746.1232129-1-sashal@kernel.org>
 References: <20221009235746.1232129-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -56,61 +55,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, daniel@ffwll.ch, sunpeng.li@amd.com,
- Tales Aparecida <tales.aparecida@gmail.com>, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, isabbasso@riseup.net,
- dri-devel@lists.freedesktop.org, David Gow <davidgow@google.com>,
- Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
+ tzimmermann@suse.de, harry.wentland@amd.com, dri-devel@lists.freedesktop.org,
+ Xinhui.Pan@amd.com, hongao <hongao@uniontech.com>, cssk@net-c.es,
+ maxime@cerno.tech, daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
+ zhou1615@umn.edu, airlied@gmail.com, christian.koenig@amd.com,
+ ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Gow <davidgow@google.com>
+From: hongao <hongao@uniontech.com>
 
-[ Upstream commit 6ae0632d17759852c07e2d1e0a31c728eb6ba246 ]
+[ Upstream commit 4bb71fce58f30df3f251118291d6b0187ce531e6 ]
 
-The definition of MIN_I64 in bw_fixed.c can cause gcc to whinge about
-integer overflow, because it is treated as a positive value, which is
-then negated. The temporary positive value is not necessarily
-representable.
+This got lost somewhere along the way, This fixes
+audio not working until set_property was called.
 
-This causes the following warning:
-../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/calcs/bw_fixed.c:30:19:
-warning: integer overflow in expression ‘-9223372036854775808’ of type
-‘long long int’ results in ‘-9223372036854775808’ [-Woverflow]
-  30 |         (int64_t)(-(1LL << 63))
-     |                   ^
-
-Writing out (-MAX_I64 - 1) works instead.
-
-Signed-off-by: David Gow <davidgow@google.com>
-Signed-off-by: Tales Aparecida <tales.aparecida@gmail.com>
+Signed-off-by: hongao <hongao@uniontech.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/calcs/bw_fixed.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/bw_fixed.c b/drivers/gpu/drm/amd/display/dc/calcs/bw_fixed.c
-index 6ca288fb5fb9..2d46bc527b21 100644
---- a/drivers/gpu/drm/amd/display/dc/calcs/bw_fixed.c
-+++ b/drivers/gpu/drm/amd/display/dc/calcs/bw_fixed.c
-@@ -26,12 +26,12 @@
- #include "bw_fixed.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+index 3e4305c3c983..86ceefb8b8fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+@@ -1638,10 +1638,12 @@ amdgpu_connector_add(struct amdgpu_device *adev,
+ 						   adev->mode_info.dither_property,
+ 						   AMDGPU_FMT_DITHER_DISABLE);
  
+-			if (amdgpu_audio != 0)
++			if (amdgpu_audio != 0) {
+ 				drm_object_attach_property(&amdgpu_connector->base.base,
+ 							   adev->mode_info.audio_property,
+ 							   AMDGPU_AUDIO_AUTO);
++				amdgpu_connector->audio = AMDGPU_AUDIO_AUTO;
++			}
  
--#define MIN_I64 \
--	(int64_t)(-(1LL << 63))
--
- #define MAX_I64 \
- 	(int64_t)((1ULL << 63) - 1)
- 
-+#define MIN_I64 \
-+	(-MAX_I64 - 1)
-+
- #define FRACTIONAL_PART_MASK \
- 	((1ULL << BW_FIXED_BITS_PER_FRACTIONAL_PART) - 1)
- 
+ 			subpixel_order = SubPixelHorizontalRGB;
+ 			connector->interlace_allowed = true;
+@@ -1746,6 +1748,7 @@ amdgpu_connector_add(struct amdgpu_device *adev,
+ 				drm_object_attach_property(&amdgpu_connector->base.base,
+ 							   adev->mode_info.audio_property,
+ 							   AMDGPU_AUDIO_AUTO);
++				amdgpu_connector->audio = AMDGPU_AUDIO_AUTO;
+ 			}
+ 			drm_object_attach_property(&amdgpu_connector->base.base,
+ 						   adev->mode_info.dither_property,
+@@ -1794,6 +1797,7 @@ amdgpu_connector_add(struct amdgpu_device *adev,
+ 				drm_object_attach_property(&amdgpu_connector->base.base,
+ 							   adev->mode_info.audio_property,
+ 							   AMDGPU_AUDIO_AUTO);
++				amdgpu_connector->audio = AMDGPU_AUDIO_AUTO;
+ 			}
+ 			drm_object_attach_property(&amdgpu_connector->base.base,
+ 						   adev->mode_info.dither_property,
+@@ -1839,6 +1843,7 @@ amdgpu_connector_add(struct amdgpu_device *adev,
+ 				drm_object_attach_property(&amdgpu_connector->base.base,
+ 							   adev->mode_info.audio_property,
+ 							   AMDGPU_AUDIO_AUTO);
++				amdgpu_connector->audio = AMDGPU_AUDIO_AUTO;
+ 			}
+ 			drm_object_attach_property(&amdgpu_connector->base.base,
+ 						   adev->mode_info.dither_property,
 -- 
 2.35.1
 
