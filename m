@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8702C4332F
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:52:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F70DC4332F
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:53:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81FBF10E584;
-	Sun,  9 Oct 2022 23:52:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9992210E594;
+	Sun,  9 Oct 2022 23:53:06 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67DB310E582;
- Sun,  9 Oct 2022 23:52:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 376DF10E58C;
+ Sun,  9 Oct 2022 23:52:59 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 17AACB80DED;
- Sun,  9 Oct 2022 23:52:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C84C43470;
- Sun,  9 Oct 2022 23:52:34 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D584AB80DE4;
+ Sun,  9 Oct 2022 23:52:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2FCDC43470;
+ Sun,  9 Oct 2022 23:52:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665359555;
- bh=Bl4G7PhvvFyNlas+R2mIUh5HCYKgCqnCPCHdtZQ7cm4=;
+ s=k20201202; t=1665359576;
+ bh=D57F51nhXs+6rwTKvULIB5lh9K58TqPulJrZALO2lFY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=n5u2GdpoEuQ1hrq+ket4vgqgcJ4KK9u34Al4553cdqAmurtpNwTLCayDzPLHPnLb6
- Ll4OO5nExbQy8Ny7SBonz8oo6c1N6XlCI/Q7dsEK6JYd+RWhpoD8BMwu+nBAH4J8lR
- kaUkCfoKddIgmV0Ak0XTYgruoBNZHVU05/G4KN4Z5TYXzxhYR6j1EQJzkBC5asBrc8
- 3LGE148NF2SQxubBPt0NVGZSkGKHcqOx/1ca/BFMaw2SE5QKFy0ct+yeuZY1KTZRWN
- Hw68yKdoQuTBtaNrCyYVlHBuCg8uvUMi8YKSYe5hVhVwsPTD+ik85zZT1AfuoRt7dy
- V3HtFaZSf9zpQ==
+ b=enQFCB6L9MIc5T3r0cwbsHiVtp1Nc0s/EcA5DmsQFPG0VilIxWFr3G4/j1CLF6JjE
+ 0X4eQ1HGMCPHZmNVDv+mNb6vyJeGxVDXfFradgrKG3CU5UctMZsjSeZupLIGv4pyiJ
+ mI8jBKanLb9gU9BnjAJgzKLRsrMu0xHckeb8nGslNDWV/gU3ZUL608KBermg2pvCMC
+ pMJiKHlKCPRKy6LCTBkQm0604xXukF2XuPTR8KD1cWN+mwQcPW6F91tOHmnTIqy2+5
+ Bsl+MNznd2WKI1ftn1XBJiYgOscyyOPs5ncn2+IrGNRnRVTM7MtZb1pzsd0Bn9eOGn
+ 9Yk1LLNIzZ1uA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 06/36] drm/amd/display: fix overflow on MIN_I64
- definition
-Date: Sun,  9 Oct 2022 19:51:52 -0400
-Message-Id: <20221009235222.1230786-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 11/36] drm/amdgpu: Skip the program of
+ MMMC_VM_AGP_* in SRIOV on MMHUB v3_0_0
+Date: Sun,  9 Oct 2022 19:51:57 -0400
+Message-Id: <20221009235222.1230786-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221009235222.1230786-1-sashal@kernel.org>
 References: <20221009235222.1230786-1-sashal@kernel.org>
@@ -56,61 +56,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, daniel@ffwll.ch, sunpeng.li@amd.com,
- Tales Aparecida <tales.aparecida@gmail.com>, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, isabbasso@riseup.net,
- dri-devel@lists.freedesktop.org, David Gow <davidgow@google.com>,
- Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Jack.Xiao@amd.com, tianci.yin@amd.com,
+ Jack.Gui@amd.com, Horace Chen <horace.chen@amd.com>, Xinhui.Pan@amd.com,
+ aaron.liu@amd.com, amd-gfx@lists.freedesktop.org, ray.huang@amd.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, Yifan Zha <Yifan.Zha@amd.com>,
+ evan.quan@amd.com, airlied@gmail.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Gow <davidgow@google.com>
+From: Yifan Zha <Yifan.Zha@amd.com>
 
-[ Upstream commit 6ae0632d17759852c07e2d1e0a31c728eb6ba246 ]
+[ Upstream commit c1026c6f319724dc88fc08d9d9d35bcbdf492b42 ]
 
-The definition of MIN_I64 in bw_fixed.c can cause gcc to whinge about
-integer overflow, because it is treated as a positive value, which is
-then negated. The temporary positive value is not necessarily
-representable.
+[Why]
+VF should not program these registers, the value were defined in the host.
 
-This causes the following warning:
-../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/calcs/bw_fixed.c:30:19:
-warning: integer overflow in expression ‘-9223372036854775808’ of type
-‘long long int’ results in ‘-9223372036854775808’ [-Woverflow]
-  30 |         (int64_t)(-(1LL << 63))
-     |                   ^
+[How]
+Skip writing them in SRIOV environment and program them on host side.
 
-Writing out (-MAX_I64 - 1) works instead.
-
-Signed-off-by: David Gow <davidgow@google.com>
-Signed-off-by: Tales Aparecida <tales.aparecida@gmail.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Yifan Zha <Yifan.Zha@amd.com>
+Signed-off-by: Horace Chen <horace.chen@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
-index 6ca288fb5fb9..2d46bc527b21 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
-@@ -26,12 +26,12 @@
- #include "bw_fixed.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
+index bc11b2de37ae..a1d26c4d80b8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
+@@ -169,17 +169,17 @@ static void mmhub_v3_0_init_system_aperture_regs(struct amdgpu_device *adev)
+ 	uint64_t value;
+ 	uint32_t tmp;
  
- 
--#define MIN_I64 \
--	(int64_t)(-(1LL << 63))
+-	/* Disable AGP. */
+-	WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_BASE, 0);
+-	WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_TOP, 0);
+-	WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_BOT, 0x00FFFFFF);
 -
- #define MAX_I64 \
- 	(int64_t)((1ULL << 63) - 1)
- 
-+#define MIN_I64 \
-+	(-MAX_I64 - 1)
+ 	if (!amdgpu_sriov_vf(adev)) {
+ 		/*
+ 		 * the new L1 policy will block SRIOV guest from writing
+ 		 * these regs, and they will be programed at host.
+ 		 * so skip programing these regs.
+ 		 */
++		/* Disable AGP. */
++		WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_BASE, 0);
++		WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_TOP, 0);
++		WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_BOT, 0x00FFFFFF);
 +
- #define FRACTIONAL_PART_MASK \
- 	((1ULL << BW_FIXED_BITS_PER_FRACTIONAL_PART) - 1)
- 
+ 		/* Program the system aperture low logical page number. */
+ 		WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_LOW_ADDR,
+ 			     adev->gmc.vram_start >> 18);
 -- 
 2.35.1
 
