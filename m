@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CA5BC433FE
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:54:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23317C43217
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97D2B10E5AD;
-	Sun,  9 Oct 2022 23:54:29 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE95210E5A6;
- Sun,  9 Oct 2022 23:54:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 101C110E5AE;
+	Sun,  9 Oct 2022 23:54:30 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51D1D10E5AE;
+ Sun,  9 Oct 2022 23:54:26 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 674A8B80DEA;
- Sun,  9 Oct 2022 23:54:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE03C433C1;
- Sun,  9 Oct 2022 23:54:17 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D53C660D57;
+ Sun,  9 Oct 2022 23:54:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF0B3C433D7;
+ Sun,  9 Oct 2022 23:54:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665359659;
- bh=Ol+2Xj2+b+tySJ+C/RyQP4TaRR4MLjLtzXy+zmFgurg=;
+ s=k20201202; t=1665359665;
+ bh=k1aIw9YxKECaGaO2jmbXqWliP/zH74AICWyaTZxJlzY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PptOsbV+up+4KrlAwuGM1Yx7JPSCY2IB+oI4JPWDwwyHDRZ7ifJIo6GTrp/N0exZX
- vWnb8TDTv25BNbOgtNZHqCmCCqkaBmARJHbdRWuX3jl+t8XuNH5ubHUIB7kh2cKBNY
- GLIIO5PY6BSIgaht1HGZpCUWvixlfFSdiLKUmElKZ6AeZ3tnJmhBD35FO9dzObW7ft
- 0tHG7yyp9FG9vk0HSPAhCZlvRGdcj/wb04lNeuCdGwtsOC3xAGlNtQqOciF0LXZ645
- U9SruJT09GAsUgFAtk2kgvjnTmbWQtgmDd44vSJ2hYmt2xCY/2bqAgc0YMhLFv7bY2
- ChetGnwWEkgeA==
+ b=YX+As//5fuL/ISwn9hP7eN+vAjV/ARtB/IK8Lj5ErKRk/Fu2tdOzeS+grE2AC1B9S
+ ZKq9e1+XwCy1vMD5p3zwIOhKZsasjUkq/xqLnG4TzzcatZPgVT062lWOAxpTF4Vajf
+ 47o/9SW/7G6xQrifAchZJC9+jshRcA9qOTAOi/GGx+mo9Ko5KwbSnQ9kVJ7FOU/mck
+ vInmDX1OFTRBUclciQG9MiQqbN2VrhVN77x5bJ/ntxiCOS5fHZN4mSdjZJz4MKQiov
+ yinHzgW+mJ4RAJm1eN6MDvVrFMjL2cg3jL0ivwP6PJvDr+4gGVr6leCx9QUU8i+Sgz
+ OaXrOHED2d8pw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.19 34/36] drm/amd/display: polling vid stream status
- in hpo dp blank
-Date: Sun,  9 Oct 2022 19:52:20 -0400
-Message-Id: <20221009235222.1230786-34-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 36/36] drm/amdkfd: Fix UBSAN shift-out-of-bounds
+ warning
+Date: Sun,  9 Oct 2022 19:52:22 -0400
+Message-Id: <20221009235222.1230786-36-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221009235222.1230786-1-sashal@kernel.org>
 References: <20221009235222.1230786-1-sashal@kernel.org>
@@ -55,53 +55,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, sunpeng.li@amd.com,
- Rodrigo.Siqueira@amd.com, Xinhui.Pan@amd.com,
- Wenjing Liu <wenjing.liu@amd.com>, Jerry.Zuo@amd.com,
- amd-gfx@lists.freedesktop.org, Daniel Wheeler <daniel.wheeler@amd.com>,
- Ariel Bernstein <Eric.Bernstein@amd.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Jasdeep Dhillon <jdhillon@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Ellis Michael <ellis@ellismichael.com>, Sasha Levin <sashal@kernel.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ christian.koenig@amd.com, Graham Sider <Graham.Sider@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Felix Kuehling <Felix.Kuehling@amd.com>
 
-[ Upstream commit e32df0c7ecead95d70ca89f39b1b2b02a59ff691 ]
+[ Upstream commit b292cafe2dd02d96a07147e4b160927e8399d5cc ]
 
-[why]
-vid stream control is double bufferred, if we don't wait for video
-stream enable set to 0, we may get temporary image corruption
-showing on the stream when setting PIXEL_TO_SYMBOL_FIFO_ENABLE to 0.
+This was fixed in initialize_cpsch before, but not in initialize_nocpsch.
+Factor sdma bitmap initialization into a helper function to apply the
+correct implementation in both cases without duplicating it.
 
-Reviewed-by: Ariel Bernstein <Eric.Bernstein@amd.com>
-Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+v2: Added a range check
+
+Reported-by: Ellis Michael <ellis@ellismichael.com>
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Graham Sider <Graham.Sider@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c  | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 45 +++++++++----------
+ 1 file changed, 21 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c
-index 23621ff08c90..52fb2bf3d578 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c
-@@ -150,9 +150,9 @@ static void dcn31_hpo_dp_stream_enc_dp_blank(
- 	 * 10us*5000=50ms. This covers 41.7ms of minimum 24 Hz mode +
- 	 * a little more because we may not trust delay accuracy.
- 	 */
--	//REG_WAIT(DP_SYM32_ENC_VID_STREAM_CONTROL,
--	//		VID_STREAM_STATUS, 0,
--	//		10, 5000);
-+	REG_WAIT(DP_SYM32_ENC_VID_STREAM_CONTROL,
-+			VID_STREAM_STATUS, 0,
-+			10, 5000);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index e1797657b04c..7d3fc5849466 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1232,6 +1232,24 @@ static void init_interrupts(struct device_queue_manager *dqm)
+ 			dqm->dev->kfd2kgd->init_interrupts(dqm->dev->adev, i);
+ }
  
- 	/* Disable SDP tranmission */
- 	REG_UPDATE(DP_SYM32_ENC_SDP_CONTROL,
++static void init_sdma_bitmaps(struct device_queue_manager *dqm)
++{
++	unsigned int num_sdma_queues =
++		min_t(unsigned int, sizeof(dqm->sdma_bitmap)*8,
++		      get_num_sdma_queues(dqm));
++	unsigned int num_xgmi_sdma_queues =
++		min_t(unsigned int, sizeof(dqm->xgmi_sdma_bitmap)*8,
++		      get_num_xgmi_sdma_queues(dqm));
++
++	if (num_sdma_queues)
++		dqm->sdma_bitmap = GENMASK_ULL(num_sdma_queues-1, 0);
++	if (num_xgmi_sdma_queues)
++		dqm->xgmi_sdma_bitmap = GENMASK_ULL(num_xgmi_sdma_queues-1, 0);
++
++	dqm->sdma_bitmap &= ~get_reserved_sdma_queues_bitmap(dqm);
++	pr_info("sdma_bitmap: %llx\n", dqm->sdma_bitmap);
++}
++
+ static int initialize_nocpsch(struct device_queue_manager *dqm)
+ {
+ 	int pipe, queue;
+@@ -1260,11 +1278,7 @@ static int initialize_nocpsch(struct device_queue_manager *dqm)
+ 
+ 	memset(dqm->vmid_pasid, 0, sizeof(dqm->vmid_pasid));
+ 
+-	dqm->sdma_bitmap = ~0ULL >> (64 - get_num_sdma_queues(dqm));
+-	dqm->sdma_bitmap &= ~(get_reserved_sdma_queues_bitmap(dqm));
+-	pr_info("sdma_bitmap: %llx\n", dqm->sdma_bitmap);
+-
+-	dqm->xgmi_sdma_bitmap = ~0ULL >> (64 - get_num_xgmi_sdma_queues(dqm));
++	init_sdma_bitmaps(dqm);
+ 
+ 	return 0;
+ }
+@@ -1442,9 +1456,6 @@ static int set_sched_resources(struct device_queue_manager *dqm)
+ 
+ static int initialize_cpsch(struct device_queue_manager *dqm)
+ {
+-	uint64_t num_sdma_queues;
+-	uint64_t num_xgmi_sdma_queues;
+-
+ 	pr_debug("num of pipes: %d\n", get_pipes_per_mec(dqm));
+ 
+ 	mutex_init(&dqm->lock_hidden);
+@@ -1453,24 +1464,10 @@ static int initialize_cpsch(struct device_queue_manager *dqm)
+ 	dqm->active_cp_queue_count = 0;
+ 	dqm->gws_queue_count = 0;
+ 	dqm->active_runlist = false;
+-
+-	num_sdma_queues = get_num_sdma_queues(dqm);
+-	if (num_sdma_queues >= BITS_PER_TYPE(dqm->sdma_bitmap))
+-		dqm->sdma_bitmap = ULLONG_MAX;
+-	else
+-		dqm->sdma_bitmap = (BIT_ULL(num_sdma_queues) - 1);
+-
+-	dqm->sdma_bitmap &= ~(get_reserved_sdma_queues_bitmap(dqm));
+-	pr_info("sdma_bitmap: %llx\n", dqm->sdma_bitmap);
+-
+-	num_xgmi_sdma_queues = get_num_xgmi_sdma_queues(dqm);
+-	if (num_xgmi_sdma_queues >= BITS_PER_TYPE(dqm->xgmi_sdma_bitmap))
+-		dqm->xgmi_sdma_bitmap = ULLONG_MAX;
+-	else
+-		dqm->xgmi_sdma_bitmap = (BIT_ULL(num_xgmi_sdma_queues) - 1);
+-
+ 	INIT_WORK(&dqm->hw_exception_work, kfd_process_hw_exception);
+ 
++	init_sdma_bitmaps(dqm);
++
+ 	return 0;
+ }
+ 
 -- 
 2.35.1
 
