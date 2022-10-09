@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA15AC433FE
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:50:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C871C433FE
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:50:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BAE710E1F8;
-	Sun,  9 Oct 2022 23:49:56 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FE7310E1E6;
- Sun,  9 Oct 2022 23:49:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D03A10E29F;
+	Sun,  9 Oct 2022 23:50:11 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D11210E204;
+ Sun,  9 Oct 2022 23:50:07 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 5672DCE100E;
- Sun,  9 Oct 2022 23:49:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 428CFC433D6;
- Sun,  9 Oct 2022 23:49:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 79DAE60D2B;
+ Sun,  9 Oct 2022 23:50:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3E1C433C1;
+ Sun,  9 Oct 2022 23:50:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665359385;
- bh=Bl4G7PhvvFyNlas+R2mIUh5HCYKgCqnCPCHdtZQ7cm4=;
+ s=k20201202; t=1665359405;
+ bh=flhMqOyp2jHHYjkvWABjQ6X28xgOgGeP/qWxCP2QoLs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=F4FzgYJUxGur39HhBtlcIPEsgP4L/q7AS082Ti5VVs36E4AlUQjmO0uKUrYipn+hu
- o0zdkCS4WJU19AsISMa3SMGLd3bEQ4vP2UCkq3mq/RnNTS1bwv7f4aU0a/hfTN99m4
- SOfmNUhHIr7hKNw2PxVf7qX08ul5d60z4F3Gzt9E4g2vm/J+cqrnDmBK9e2t+9dFyH
- Z9JoHwOW1qnoOGqxG0yNLQh08tA8n2SdCo1CSIi96lGmCmRiwwuGcDgN9ctH9GoYjY
- WIG5WQ7hUUWMUPVmBy8536EHVakezK2eutEU/2Rnm/1UKPvfyVwYQZjRdVHANT98CO
- mcFEm8v23Zwjw==
+ b=gXY7GBBUA9z8rwrz64Cv3ZJ4LLxHDaAHVnbqulwE9Eelp2Y4Io/x+MRYJT4/xaX08
+ 8jQKWq7d1u/wRkAUeJiNe05H+Re5SSxJbEcj1HlVIHNdCPSugeCWaOMYeFC1QjEjIf
+ FR/eUAVj/iQx4N522K+zYiTnz9VzArsZoX/6oSM9axZyUBDJgv69momh2+kBOxE6vu
+ VgRu0Aiyxnospb7A0xYI732PffR3NkW+TVf0KCiIIAeJuW6fVzRaI8/WJqstC3QgKv
+ AXQQma7W5bsgdFPXHjGP0dilwHWob9h075s6gFVsivI8TTq7FRfAsBVdF8ph5m+XUo
+ 5+QHZUe5iU8Aw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 06/44] drm/amd/display: fix overflow on MIN_I64
- definition
-Date: Sun,  9 Oct 2022 19:48:54 -0400
-Message-Id: <20221009234932.1230196-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.0 11/44] drm/amd: fix potential memory leak
+Date: Sun,  9 Oct 2022 19:48:59 -0400
+Message-Id: <20221009234932.1230196-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221009234932.1230196-1-sashal@kernel.org>
 References: <20221009234932.1230196-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -55,60 +54,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, daniel@ffwll.ch, sunpeng.li@amd.com,
- Tales Aparecida <tales.aparecida@gmail.com>, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, isabbasso@riseup.net,
- dri-devel@lists.freedesktop.org, David Gow <davidgow@google.com>,
+Cc: Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com, Eric.Yang2@amd.com,
+ sunpeng.li@amd.com, Bernard Zhao <bernard@vivo.com>, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
+ nicholas.kazlauskas@amd.com, mwen@igalia.com, michael.strauss@amd.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
  Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- harry.wentland@amd.com, christian.koenig@amd.com
+ harry.wentland@amd.com, christian.koenig@amd.com, agustin.gutierrez@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Gow <davidgow@google.com>
+From: Bernard Zhao <bernard@vivo.com>
 
-[ Upstream commit 6ae0632d17759852c07e2d1e0a31c728eb6ba246 ]
+[ Upstream commit 6160216fd2c97107e8a9ab39863b056d677fcd85 ]
 
-The definition of MIN_I64 in bw_fixed.c can cause gcc to whinge about
-integer overflow, because it is treated as a positive value, which is
-then negated. The temporary positive value is not necessarily
-representable.
+This patch fix potential memory leak (clk_src) when function run
+into last return NULL.
 
-This causes the following warning:
-../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/calcs/bw_fixed.c:30:19:
-warning: integer overflow in expression ‘-9223372036854775808’ of type
-‘long long int’ results in ‘-9223372036854775808’ [-Woverflow]
-  30 |         (int64_t)(-(1LL << 63))
-     |                   ^
+s/free/kfree/ - Alex
 
-Writing out (-MAX_I64 - 1) works instead.
-
-Signed-off-by: David Gow <davidgow@google.com>
-Signed-off-by: Tales Aparecida <tales.aparecida@gmail.com>
+Signed-off-by: Bernard Zhao <bernard@vivo.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
-index 6ca288fb5fb9..2d46bc527b21 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/bw_fixed.c
-@@ -26,12 +26,12 @@
- #include "bw_fixed.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
+index 44ac1c2aabf5..b96e8089aaa3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
+@@ -1719,6 +1719,7 @@ static struct clock_source *dcn30_clock_source_create(
+ 	}
  
- 
--#define MIN_I64 \
--	(int64_t)(-(1LL << 63))
--
- #define MAX_I64 \
- 	(int64_t)((1ULL << 63) - 1)
- 
-+#define MIN_I64 \
-+	(-MAX_I64 - 1)
-+
- #define FRACTIONAL_PART_MASK \
- 	((1ULL << BW_FIXED_BITS_PER_FRACTIONAL_PART) - 1)
+ 	BREAK_TO_DEBUGGER();
++	kfree(clk_src);
+ 	return NULL;
+ }
  
 -- 
 2.35.1
