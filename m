@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2AE7C433F5
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:50:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9DA3C433F5
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D40010E2BC;
-	Sun,  9 Oct 2022 23:50:38 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26A4710E2C7;
- Sun,  9 Oct 2022 23:50:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B6E610E556;
+	Sun,  9 Oct 2022 23:51:12 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D856510E551;
+ Sun,  9 Oct 2022 23:51:09 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 84ED060DBB;
- Sun,  9 Oct 2022 23:50:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CE13C433D7;
- Sun,  9 Oct 2022 23:50:30 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 84EFCB80DE0;
+ Sun,  9 Oct 2022 23:51:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B239C433C1;
+ Sun,  9 Oct 2022 23:51:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665359431;
- bh=mME9mzndmhSJSi2ktRj1yzveQYGUE9uDYtgIpq1E8RQ=;
+ s=k20201202; t=1665359467;
+ bh=Syyww4aE/A9q2YbgecUDjN7WhpYEeXohYESQpJiSY+w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TQTBozsHgXW7ytUw5A6Bf0qrI05+khsArmsSvuZxFuSRhOifJO3SOu+m9MNA1AO4F
- AL65bQhfHRFmg7e/3NS78sCum7yfmjsnt8LQcLKFC9QROz9X03ZFYWRILV0M8B+3jO
- Wyhoz1OXDehv/wVLng6lV38jxngIEqZEzvt3mBD1jx1KoB5rylqBnm+c31QLVxGCdr
- jgv5/2VpWUHwdj8NQUZyap+n8EIF1goun8GG5Ey+5ZveVpvaNign/y7kEW1KbuwfXd
- QiEhtmjAyKTBRQREPBXqciTrD/IHBKSduJxKYUH0NAscA5HsCKQrJYTc+zuV1RVhR4
- bHcNKhbC9fhZw==
+ b=Y3tlTlt4I8OFepj2T5UZ35Lqa6etCm/3lQCzcoaQrMfbiCWp5WcXnSvgGRIqG9o4T
+ A0HbUiF3eG3+8tEDjMu1I16J4C0LrUDZdLC+yoPZB5zAt8KUfOA3E7smFvuxSO6IPS
+ j4rhVMWQ1/npM/8l6+cBsG5BknsFW+JNDhcoQrRM1FjUkinBtFIUhP3TbsFx9kYlLM
+ upQEfjxGrBuLGtW6aVZ0qRRtHVZKie98+r/adZWBxFzTanPjdmBFyEZBBAZosg5z3u
+ BWZ7AnGj7gIspkDA5nYnP33t8o0GFAP6LpAxL8z7rmv9t8r2QB1IdVv5XqN7d2jndZ
+ w0AOqHz1tW2+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 15/44] drm/admgpu: Skip CG/PG on SOC21 under SRIOV
- VF
-Date: Sun,  9 Oct 2022 19:49:03 -0400
-Message-Id: <20221009234932.1230196-15-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.0 29/44] drm/amdgpu: SDMA update use unlocked
+ iterator
+Date: Sun,  9 Oct 2022 19:49:17 -0400
+Message-Id: <20221009234932.1230196-29-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221009234932.1230196-1-sashal@kernel.org>
 References: <20221009234932.1230196-1-sashal@kernel.org>
@@ -56,53 +56,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, tim.huang@amd.com, evan.quan@amd.com,
- kenneth.feng@amd.com, Likun.Gao@amd.com, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, sonny.jiang@amd.com, Stanley.Yang@amd.com,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, Yifan Zha <Yifan.Zha@amd.com>,
- James.Zhu@amd.com, airlied@gmail.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Philip Yang <Philip.Yang@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yifan Zha <Yifan.Zha@amd.com>
+From: Philip Yang <Philip.Yang@amd.com>
 
-[ Upstream commit 828418259254863e0af5805bd712284e2bd88e3b ]
+[ Upstream commit 3913f0179ba366f7d7d160c506ce00de1602bbc4 ]
 
-[Why]
-There is no CG(Clock Gating)/PG(Power Gating) requirement on SRIOV VF.
-For multi VF, VF should not enable any CG/PG features.
-For one VF, PF will program CG/PG related registers.
+SDMA update page table may be called from unlocked context, this
+generate below warning. Use unlocked iterator to handle this case.
 
-[How]
-Do not set any cg/pg flag bit at early init under sriov.
+WARNING: CPU: 0 PID: 1475 at
+drivers/dma-buf/dma-resv.c:483 dma_resv_iter_next
+Call Trace:
+ dma_resv_iter_first+0x43/0xa0
+ amdgpu_vm_sdma_update+0x69/0x2d0 [amdgpu]
+ amdgpu_vm_ptes_update+0x29c/0x870 [amdgpu]
+ amdgpu_vm_update_range+0x2f6/0x6c0 [amdgpu]
+ svm_range_unmap_from_gpus+0x115/0x300 [amdgpu]
+ svm_range_cpu_invalidate_pagetables+0x510/0x5e0 [amdgpu]
+ __mmu_notifier_invalidate_range_start+0x1d3/0x230
+ unmap_vmas+0x140/0x150
+ unmap_region+0xa8/0x110
 
-Acked-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Yifan Zha <Yifan.Zha@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Suggested-by: Felix Kuehling <felix.kuehling@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/soc21.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 6e564b549b9f..224fd7effd5c 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -583,6 +583,10 @@ static int soc21_common_early_init(void *handle)
- 			AMD_PG_SUPPORT_JPEG |
- 			AMD_PG_SUPPORT_ATHUB |
- 			AMD_PG_SUPPORT_MMHUB;
-+		if (amdgpu_sriov_vf(adev)) {
-+			adev->cg_flags = 0;
-+			adev->pg_flags = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 1fd3cbca20a2..718db7d98e5a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -211,12 +211,15 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
+ 	int r;
+ 
+ 	/* Wait for PD/PT moves to be completed */
+-	dma_resv_for_each_fence(&cursor, bo->tbo.base.resv,
+-				DMA_RESV_USAGE_KERNEL, fence) {
++	dma_resv_iter_begin(&cursor, bo->tbo.base.resv, DMA_RESV_USAGE_KERNEL);
++	dma_resv_for_each_fence_unlocked(&cursor, fence) {
+ 		r = amdgpu_sync_fence(&p->job->sync, fence);
+-		if (r)
++		if (r) {
++			dma_resv_iter_end(&cursor);
+ 			return r;
 +		}
- 		adev->external_rev_id = adev->rev_id + 0x1; // TODO: need update
- 		break;
- 	case IP_VERSION(11, 0, 2):
+ 	}
++	dma_resv_iter_end(&cursor);
+ 
+ 	do {
+ 		ndw = p->num_dw_left;
 -- 
 2.35.1
 
