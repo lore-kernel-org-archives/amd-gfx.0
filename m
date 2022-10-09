@@ -4,42 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A587C4332F
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:58:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94F10C433FE
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:58:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67E4810E60F;
-	Sun,  9 Oct 2022 23:58:19 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B9D110E603;
- Sun,  9 Oct 2022 23:58:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B936810E5F7;
+	Sun,  9 Oct 2022 23:58:46 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A28C10E5F7;
+ Sun,  9 Oct 2022 23:58:43 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2A9E660D57;
- Sun,  9 Oct 2022 23:58:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F24C8C433D6;
- Sun,  9 Oct 2022 23:58:03 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 04137B80DEA;
+ Sun,  9 Oct 2022 23:58:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C73CC433D7;
+ Sun,  9 Oct 2022 23:58:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665359885;
- bh=x64p9PIf/71AI9EqI80e9YSybdV7Rzg21I92kH5YS6w=;
+ s=k20201202; t=1665359920;
+ bh=1f/IIM22KhSPq/tEzKR9rXQnG4Nt9yGvBNVX09/3mEg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kup094IsubeVm3mUrxEkIrM/6d/Ifb/zX0SE8TObwsA4nuBqUQHMavDHMNQvOJlj6
- lD9mrb6sflmJ5BCDfabTCxOfjKa7H9LWxFhNK3OuOtTsf+rk3sX+utnmE5z+C58zCE
- q3jWMBZNBhD+iUsC0nhb6RLsNcqpGq07HGqixrYjzJbG5yFKE19qYgaThVF9PdhydN
- B0pVWUVMuZ3yKY8aPxTPQf+ScwCOgOyE6Nw0Ehy4YqdbbwChvP0HcGyMd23lu9wHXH
- ejM1b9PSq8+GISLWb9VV+x/fNeid5/WOSNAdrMBTeQcB2vEKx+aXkEIQ5MQAJiGr+E
- ihUCz4Yb+POYA==
+ b=Ndedgr/Ai16WObmLsdK7PNKtZc7UzRyYeu3Em8c4ntpBqjxBeCrZnAQIOoqKlHY5T
+ /N6GVwOXZmkaM3ri9DtmVO17m42fglODE6R2OYp3PppkG407gihEb0lmKyi+B19dtN
+ 5RnWIORcvLGFx1eNUOkXDenhG3hITrxwPNywKjbYk4xgrnU6GUMP11O7QE73w7K9NE
+ nEP8Sq3LD69/OrRhgm2Otezn+Diy/Wl/HJi3+0atpT3hVbFENoo2bsQEM3EJ6tm1NX
+ dsYtrA8t3aqvi8XDDkUcFaBhjl2Sq69f4dz89nYQPqtO/J5xtfkxr4nHuF0YAeNmbE
+ AsvkO/uxw7cKA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 09/10] drm/amdgpu: fix initial connector audio
- value
-Date: Sun,  9 Oct 2022 19:57:44 -0400
-Message-Id: <20221009235746.1232129-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.14 6/6] drm/amdgpu: fix initial connector audio value
+Date: Sun,  9 Oct 2022 19:58:08 -0400
+Message-Id: <20221009235808.1232269-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221009235746.1232129-1-sashal@kernel.org>
-References: <20221009235746.1232129-1-sashal@kernel.org>
+In-Reply-To: <20221009235808.1232269-1-sashal@kernel.org>
+References: <20221009235808.1232269-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -79,10 +77,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-index 3e4305c3c983..86ceefb8b8fb 100644
+index 0894bb98dc51..be3a384cc1cf 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-@@ -1638,10 +1638,12 @@ amdgpu_connector_add(struct amdgpu_device *adev,
+@@ -1678,10 +1678,12 @@ amdgpu_connector_add(struct amdgpu_device *adev,
  						   adev->mode_info.dither_property,
  						   AMDGPU_FMT_DITHER_DISABLE);
  
@@ -96,7 +94,7 @@ index 3e4305c3c983..86ceefb8b8fb 100644
  
  			subpixel_order = SubPixelHorizontalRGB;
  			connector->interlace_allowed = true;
-@@ -1746,6 +1748,7 @@ amdgpu_connector_add(struct amdgpu_device *adev,
+@@ -1786,6 +1788,7 @@ amdgpu_connector_add(struct amdgpu_device *adev,
  				drm_object_attach_property(&amdgpu_connector->base.base,
  							   adev->mode_info.audio_property,
  							   AMDGPU_AUDIO_AUTO);
@@ -104,7 +102,7 @@ index 3e4305c3c983..86ceefb8b8fb 100644
  			}
  			drm_object_attach_property(&amdgpu_connector->base.base,
  						   adev->mode_info.dither_property,
-@@ -1794,6 +1797,7 @@ amdgpu_connector_add(struct amdgpu_device *adev,
+@@ -1834,6 +1837,7 @@ amdgpu_connector_add(struct amdgpu_device *adev,
  				drm_object_attach_property(&amdgpu_connector->base.base,
  							   adev->mode_info.audio_property,
  							   AMDGPU_AUDIO_AUTO);
@@ -112,7 +110,7 @@ index 3e4305c3c983..86ceefb8b8fb 100644
  			}
  			drm_object_attach_property(&amdgpu_connector->base.base,
  						   adev->mode_info.dither_property,
-@@ -1839,6 +1843,7 @@ amdgpu_connector_add(struct amdgpu_device *adev,
+@@ -1879,6 +1883,7 @@ amdgpu_connector_add(struct amdgpu_device *adev,
  				drm_object_attach_property(&amdgpu_connector->base.base,
  							   adev->mode_info.audio_property,
  							   AMDGPU_AUDIO_AUTO);
