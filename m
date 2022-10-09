@@ -4,41 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A62DC433FE
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:55:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CF76C433F5
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Oct 2022 23:56:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B4F310E5D4;
-	Sun,  9 Oct 2022 23:55:50 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 844CA10E5D5;
- Sun,  9 Oct 2022 23:55:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90AA310E5DE;
+	Sun,  9 Oct 2022 23:56:28 +0000 (UTC)
+X-Greylist: delayed 391 seconds by postgrey-1.36 at gabe;
+ Sun, 09 Oct 2022 23:56:20 UTC
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAC6710E5DB;
+ Sun,  9 Oct 2022 23:56:20 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E2A6560DD1;
- Sun,  9 Oct 2022 23:55:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44218C433C1;
- Sun,  9 Oct 2022 23:55:38 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 317C8CE1044;
+ Sun,  9 Oct 2022 23:56:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E15C2C433D7;
+ Sun,  9 Oct 2022 23:56:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665359740;
- bh=qmVEbOkpk+LA8I1hlZC30Ru65c14HXPYd60NGXATpGA=;
+ s=k20201202; t=1665359777;
+ bh=IqXIc2zb1gPqjZAiZAuDXqBufstMjobSxTTlD79UXjo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=D5SvagtbzuNKj2oUI9cl6qsXJJYLVDlqhcXTLaF7Rg62YAl3zkff96HVO13OsWTxB
- lHk7wy/ghPe64zs+HoEcRzgkyfSW79R3JvBw1GJG+dqB24CiXFcqBXJ+wtugI4f+u2
- Pfkng+WMvHySQGhkx7k17bbdceDGjN5N761SWuVIgoBn8Prnps4Qhs9JgyVdAv5lrO
- ozNC5fAsxx9VPFQKNgca6nYPfuE6TQ6qVxw2MC3rrIK4xzKu8PxFAvO+2B7ZRQq58U
- pngecp/xTpMkikvM3txfRsv0QYeWWsHDG3erFh2X4fT/2Q/CeahiZAW37kjgsZVhjr
- gjLOmGZSZ8C+w==
+ b=vHoL5kBNDazaWPJCLoFqyom6jsACj53P4JdQ4cVIxCPge90Kjls3P0wFT9ecjLq2T
+ 2iirsr8mDjO9Lks7mTtlDfjbgko/EhI3ld8ANulKMIqJgJWMqPS3q88mrUyu5mqcaj
+ ibJqGCUrPb/HkumWx67oYktTeWNeEHCeaxu2V1b2umj66oyWPyEesrghJydT8UIIb9
+ fsacNaY8CG83BoMqrgiQQVOJ9O2DMrfRS4Qqir9AN03E3mi4Z5Isb9nTYEBKPOHNMM
+ 2YnIqgu0SHXCGo1IkzJubHbCRSQ3NiX2wMa/DPtiQTcubpLdbXCXkCuAQ1x6ONTx3E
+ jtKawdxl1oEFQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 25/25] drm/amd/display: fix array-bounds error in
- dc_stream_remove_writeback()
-Date: Sun,  9 Oct 2022 19:54:25 -0400
-Message-Id: <20221009235426.1231313-25-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 05/22] drm/amd/display: fix overflow on MIN_I64
+ definition
+Date: Sun,  9 Oct 2022 19:55:23 -0400
+Message-Id: <20221009235540.1231640-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221009235426.1231313-1-sashal@kernel.org>
-References: <20221009235426.1231313-1-sashal@kernel.org>
+In-Reply-To: <20221009235540.1231640-1-sashal@kernel.org>
+References: <20221009235540.1231640-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
@@ -55,59 +58,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
- sunpeng.li@amd.com, airlied@gmail.com, dri-devel@lists.freedesktop.org,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, hersenwu@amd.com,
- alex.hung@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- paul.hsieh@amd.com, Hamza Mahfooz <hamza.mahfooz@amd.com>, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, hanghong.ma@amd.com,
- Pavle.Kotarac@amd.com, harry.wentland@amd.com, christian.koenig@amd.com,
- Jimmy.Kizito@amd.com, Alvin.Lee2@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, daniel@ffwll.ch, sunpeng.li@amd.com,
+ Tales Aparecida <tales.aparecida@gmail.com>, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, isabbasso@riseup.net,
+ dri-devel@lists.freedesktop.org, David Gow <davidgow@google.com>,
+ Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+From: David Gow <davidgow@google.com>
 
-[ Upstream commit 5d8c3e836fc224dfe633e41f7f2856753b39a905 ]
+[ Upstream commit 6ae0632d17759852c07e2d1e0a31c728eb6ba246 ]
 
-Address the following error:
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c: In function ‘dc_stream_remove_writeback’:
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c:527:55: error: array subscript [0, 0] is outside array bounds of ‘struct dc_writeback_info[1]’ [-Werror=array-bounds]
-  527 |                                 stream->writeback_info[j] = stream->writeback_info[i];
-      |                                 ~~~~~~~~~~~~~~~~~~~~~~^~~
-In file included from ./drivers/gpu/drm/amd/amdgpu/../display/dc/dc.h:1269,
-                 from ./drivers/gpu/drm/amd/amdgpu/../display/dc/inc/core_types.h:29,
-                 from ./drivers/gpu/drm/amd/amdgpu/../display/dc/basics/dc_common.h:29,
-                 from drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c:27:
-./drivers/gpu/drm/amd/amdgpu/../display/dc/dc_stream.h:241:34: note: while referencing ‘writeback_info’
-  241 |         struct dc_writeback_info writeback_info[MAX_DWB_PIPES];
-      |
+The definition of MIN_I64 in bw_fixed.c can cause gcc to whinge about
+integer overflow, because it is treated as a positive value, which is
+then negated. The temporary positive value is not necessarily
+representable.
 
-Currently, we aren't checking to see if j remains within
-writeback_info[]'s bounds. So, add a check to make sure that we aren't
-overflowing the buffer.
+This causes the following warning:
+../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/calcs/bw_fixed.c:30:19:
+warning: integer overflow in expression ‘-9223372036854775808’ of type
+‘long long int’ results in ‘-9223372036854775808’ [-Woverflow]
+  30 |         (int64_t)(-(1LL << 63))
+     |                   ^
 
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Writing out (-MAX_I64 - 1) works instead.
+
+Signed-off-by: David Gow <davidgow@google.com>
+Signed-off-by: Tales Aparecida <tales.aparecida@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/calcs/bw_fixed.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index f0f54f4d3d9b..1f1f3d3c8884 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -519,7 +519,7 @@ bool dc_stream_remove_writeback(struct dc *dc,
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/calcs/bw_fixed.c b/drivers/gpu/drm/amd/display/dc/calcs/bw_fixed.c
+index 6ca288fb5fb9..2d46bc527b21 100644
+--- a/drivers/gpu/drm/amd/display/dc/calcs/bw_fixed.c
++++ b/drivers/gpu/drm/amd/display/dc/calcs/bw_fixed.c
+@@ -26,12 +26,12 @@
+ #include "bw_fixed.h"
  
- 	/* remove writeback info for disabled writeback pipes from stream */
--	for (i = 0, j = 0; i < stream->num_wb_info; i++) {
-+	for (i = 0, j = 0; i < stream->num_wb_info && j < MAX_DWB_PIPES; i++) {
- 		if (stream->writeback_info[i].wb_enabled) {
- 			if (i != j)
- 				/* trim the array */
+ 
+-#define MIN_I64 \
+-	(int64_t)(-(1LL << 63))
+-
+ #define MAX_I64 \
+ 	(int64_t)((1ULL << 63) - 1)
+ 
++#define MIN_I64 \
++	(-MAX_I64 - 1)
++
+ #define FRACTIONAL_PART_MASK \
+ 	((1ULL << BW_FIXED_BITS_PER_FRACTIONAL_PART) - 1)
+ 
 -- 
 2.35.1
 
