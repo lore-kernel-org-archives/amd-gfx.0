@@ -4,70 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C248EC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 19:08:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F002BC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 20:05:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 879B310E708;
-	Mon, 10 Oct 2022 19:08:50 +0000 (UTC)
-Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
- [IPv6:2607:f8b0:4864:20::72f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E60F10E6B5
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Oct 2022 18:56:40 +0000 (UTC)
-Received: by mail-qk1-x72f.google.com with SMTP id x13so4675446qkg.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Oct 2022 11:56:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=mfdinePb/h+FQryCI1VnJk1iVMwwW9XbS8GRZ1SXnEM=;
- b=Y1FJnNxKCCmUeBjERypSSpOT5hLZIa3B6ZfL7TmeBlDcYn7G53u+wzaqGztD4xstS6
- H56NjZrTnnAs/mwbv/53uHY1GhzxoFxOLWj+6+255TR+XIgzukZ2wrhnTPfXH4rpl0ll
- x20RYa7gkPKPOAB+2GjUbYRf86UKilK/+RP5mPzo1iTwxgbIcI/NL1hAwcQva+CI+c58
- wXQg1m452/c0qjzqE/xGhDgd9xycIGhUX5tiX7SJhqTWnYftDSAsnXqQ0qceqqSNwxFf
- a0gsQbHVGj7OQXKVN8LpCmOTHmcWT/lMPoHErC7k7GBXJjyyytJ8h/nDzI7STIfMcpme
- CGHA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4B5710E6DE;
+	Mon, 10 Oct 2022 20:05:32 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79BEC10E6DE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Oct 2022 20:05:30 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-1326637be6eso13606040fac.13
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Oct 2022 13:05:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=LMy48WEPSHI4WpuP6HY1mUNGQM8kiZYDwBlc5kM/aZ8=;
+ b=afGUN72DZfVxhiXBEc0OergFsOyMLWmxX9ziFUyS/dTOMou0alEcOG5VFWwaGGULQX
+ 1Tga5ABBFWaNXPDfGIcmtTfTlrcT8Fv9PNzIpuXVib2rPBfawT1tQvm/hrP3jRj3Ckw+
+ uUwlbNfVdU7kD0cEzEn1zzGpe2eLKJS1HwFxi8akWGCQnciigXpn/YF3/yQZRw5tHn8N
+ gAaaVJZmHqm6NoH7hqQa2oPge1WU52se1D7l8t0U8H/Y/89qRU59ekl3EGjoQjJYosRw
+ YvHkltLR42D7Q5wo2hzms1AD+9WGTYLT9qVkNJPZYxyJdEchYxdO9/FETU1Nhe7Q6M0v
+ atSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=mfdinePb/h+FQryCI1VnJk1iVMwwW9XbS8GRZ1SXnEM=;
- b=TrX2uxaaj0jX0qxEQ0z9Y2A95i5gDe6lrVy3qQjEYt9dPE7o0J5xaASQXKn9umb6j4
- RrjxaOhGf+nhW8y5daC86jboqDjmY61cM7M/Ve3NTBbZrLLyT5p0L7aKwsV78P54sjRy
- Itbwly5jeQLlADQQZKM0eE+XNQ01gEGHoGZWaYXOYGdkvQ6gsfj+WNiG5k7jpkjJdkK6
- xZJW4ZKfxEQkL78V8MaY+pY6hcGDGomPM3B5xwJldAYJDcXpZmFa95o14HtUwxyDpSjC
- yyKpA/z2DwC8QxLf6rutvDXCFe1tephDXFGXGFqXKxjLWYfERpGcKlJd96/5Td8reMKB
- z2IQ==
-X-Gm-Message-State: ACrzQf0A3KGdDx3bACBneuq0szVmS9rDiL9ALjg4dfNDXFTFvEMiZp2r
- P1A9aFZRYSEI1n9EHOjFn2JmZg==
-X-Google-Smtp-Source: AMsMyM4cq1ZiSompu2ffs6ddf24dPwkk/2Lnq1GVt1O6/KQn3scUPTnTqdwZ/uWcjL7riJrPyy9iDQ==
-X-Received: by 2002:a05:620a:4397:b0:6e1:345a:e080 with SMTP id
- a23-20020a05620a439700b006e1345ae080mr13783062qkp.677.1665428198984; 
- Mon, 10 Oct 2022 11:56:38 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-47-55-122-23.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [47.55.122.23]) by smtp.gmail.com with ESMTPSA id
- j8-20020a05620a288800b006bb2cd2f6d1sm10684472qkp.127.2022.10.10.11.56.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Oct 2022 11:56:38 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.95)
- (envelope-from <jgg@ziepe.ca>) id 1ohxx7-0012V5-CO;
- Mon, 10 Oct 2022 15:56:37 -0300
-Date: Mon, 10 Oct 2022 15:56:37 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Subject: Re: [PATCH v6 10/21] RDMA/umem: Prepare to dynamic dma-buf locking
- specification
-Message-ID: <Y0Rq5Zb9+63++2z/@ziepe.ca>
-References: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
- <20220928191600.5874-11-dmitry.osipenko@collabora.com>
- <e3ba146d-8153-add5-2cf4-02fe6519abee@collabora.com>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LMy48WEPSHI4WpuP6HY1mUNGQM8kiZYDwBlc5kM/aZ8=;
+ b=OnfQKm6vQVB9EYICwdyfr2qYu4SLJjVmNvz05ZvF6/u5y90u+JIHbnXrrzwmkSR6zo
+ EIgQg0LBcb93opFjsrDWd2mFi7sdrC5DMWMcVLF0OtSERh8CAp/1KmVFXU179uZxrQCw
+ LdtixzgjhzpCteCUI8d/WXuvU4wkJ91A9+kfVavsryjODPJ7MDsWMsIbnB8kryQRS3wt
+ Vh1UowhwCiZeyCZcJGoDtqmacw0fmhPoB1I3Z4V2y6AgTgpDomH2Jj/sT6eGXE9RfxpU
+ 9BSNEjf1wcurUSPUg9dXt3YmNPZbrC5iyopOgEiW+FbZBjkhcaMcJLo78To0QZENe3Kb
+ kxEA==
+X-Gm-Message-State: ACrzQf1tU2W32FromLjZf2wptRfYAMoljO+89Z/BU/56BEczNjbQOTsF
+ yP1dj7ytiq3HbG17ZB9AuIxmp0QI/CynUPv3Wf4=
+X-Google-Smtp-Source: AMsMyM7I/pKUEcC6io0V20vDlbYQdBURa7lm7uFTwWx1zbO8Rz0Sp7cTf3g0gkvC6FtRaVqOYyOYVC385cFquLAZ26E=
+X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
+ x36-20020a056870a7a400b001367c39979emr4658251oao.96.1665432329755; Mon, 10
+ Oct 2022 13:05:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e3ba146d-8153-add5-2cf4-02fe6519abee@collabora.com>
-X-Mailman-Approved-At: Mon, 10 Oct 2022 19:08:47 +0000
+References: <20221004081402.49069-1-aleksei.kodanev@bell-sw.com>
+ <20221004081402.49069-2-aleksei.kodanev@bell-sw.com>
+ <DM6PR12MB26196DC660A86E363EC4ECD8E45E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB26196DC660A86E363EC4ECD8E45E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 10 Oct 2022 16:05:17 -0400
+Message-ID: <CADnq5_P68bum9BP9fxdCC5bhwymX9C8dQXnzW0_JGERS6+Tm9A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/pm: smu7_hwmgr: fix potential off-by-one
+ overflow in 'performance_levels'
+To: "Quan, Evan" <Evan.Quan@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,87 +67,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- Ruhl Michael J <michael.j.ruhl@intel.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Gerd Hoffmann <kraxel@redhat.com>, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Leon Romanovsky <leon@kernel.org>,
- linux-rdma@vger.kernel.org,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
- Russell King <linux@armlinux.org.uk>, Daniel Stone <daniel@fooishbar.org>,
- Gustavo Padovan <gustavo.padovan@collabora.com>, Chia-I Wu <olvaffe@gmail.com>,
- linux-media@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Juergen Gross <jgross@suse.com>,
- David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
- Tomi Valkeinen <tomba@kernel.org>, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Rob Clark <robdclark@gmail.com>, Qiang Yu <yuq825@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>
+Cc: Alexey Kodanev <aleksei.kodanev@bell-sw.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Oct 09, 2022 at 03:08:56AM +0300, Dmitry Osipenko wrote:
-> On 9/28/22 22:15, Dmitry Osipenko wrote:
-> > Prepare InfiniBand drivers to the common dynamic dma-buf locking
-> > convention by starting to use the unlocked versions of dma-buf API
-> > functions.
-> > 
-> > Acked-by: Christian König <christian.koenig@amd.com>
-> > Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Applied.  Thanks!
+
+Alex
+
+On Sat, Oct 8, 2022 at 5:13 AM Quan, Evan <Evan.Quan@amd.com> wrote:
+>
+> Series is reviewed-by: Evan Quan <evan.quan@amd.com>
+>
+> > -----Original Message-----
+> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> > Alexey Kodanev
+> > Sent: Tuesday, October 4, 2022 4:14 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+> > Subject: [PATCH 2/2] drm/amd/pm: smu7_hwmgr: fix potential off-by-one
+> > overflow in 'performance_levels'
+> >
+> > Since 'hardwareActivityPerformanceLevels' is set to the size of the
+> > 'performance_levels' array in smu7_hwmgr_backend_init(), using the '<='
+> > assertion to check for the next index value is incorrect.
+> > Replace it with '<'.
+> >
+> > Detected using the static analysis tool - Svace.
+> > Fixes: 599a7e9fe1b6 ("drm/amd/powerplay: implement smu7 hwmgr to
+> > manager asics with smu ip version 7.")
+> > Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 > > ---
-> >  drivers/infiniband/core/umem_dmabuf.c | 7 ++++---
-> >  1 file changed, 4 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/infiniband/core/umem_dmabuf.c b/drivers/infiniband/core/umem_dmabuf.c
-> > index 04c04e6d24c3..43b26bc12288 100644
-> > --- a/drivers/infiniband/core/umem_dmabuf.c
-> > +++ b/drivers/infiniband/core/umem_dmabuf.c
-> > @@ -26,7 +26,8 @@ int ib_umem_dmabuf_map_pages(struct ib_umem_dmabuf *umem_dmabuf)
-> >  	if (umem_dmabuf->sgt)
-> >  		goto wait_fence;
-> >  
-> > -	sgt = dma_buf_map_attachment(umem_dmabuf->attach, DMA_BIDIRECTIONAL);
-> > +	sgt = dma_buf_map_attachment_unlocked(umem_dmabuf->attach,
-> > +					      DMA_BIDIRECTIONAL);
-> >  	if (IS_ERR(sgt))
-> >  		return PTR_ERR(sgt);
-> >  
-> > @@ -102,8 +103,8 @@ void ib_umem_dmabuf_unmap_pages(struct ib_umem_dmabuf *umem_dmabuf)
-> >  		umem_dmabuf->last_sg_trim = 0;
-> >  	}
-> >  
-> > -	dma_buf_unmap_attachment(umem_dmabuf->attach, umem_dmabuf->sgt,
-> > -				 DMA_BIDIRECTIONAL);
-> > +	dma_buf_unmap_attachment_unlocked(umem_dmabuf->attach, umem_dmabuf->sgt,
-> > +					  DMA_BIDIRECTIONAL);
-> >  
-> >  	umem_dmabuf->sgt = NULL;
-> >  }
-> 
-> Jason / Leon,
-> 
-> Could you please ack this patch?
-
-You probably don't need it, for something so simple, but sure
-
-Acked-by: Jason Gunthorpe <jgg@nvidia.com>
-
-Jason
+> >  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> > b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> > index e4fcbf8a7eb5..7ef7e81525a3 100644
+> > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> > @@ -3603,7 +3603,7 @@ static int
+> > smu7_get_pp_table_entry_callback_func_v1(struct pp_hwmgr *hwmgr,
+> >                       return -EINVAL);
+> >
+> >       PP_ASSERT_WITH_CODE(
+> > -                     (smu7_power_state->performance_level_count <=
+> > +                     (smu7_power_state->performance_level_count <
+> >                                       hwmgr-
+> > >platform_descriptor.hardwareActivityPerformanceLevels),
+> >                       "Performance levels exceeds Driver limit!",
+> >                       return -EINVAL);
+> > --
+> > 2.25.1
+>
