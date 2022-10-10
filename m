@@ -4,88 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEEE9C433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 14:42:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 287B0C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 17:21:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 223BB10E623;
-	Mon, 10 Oct 2022 14:42:46 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2063.outbound.protection.outlook.com [40.107.96.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7013210E623
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Oct 2022 14:42:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iEoC3hGKiXBAaLzF+Kr0BBpT7so0/0916JbfmbuclNFJrz63CB1MkswalAVZ5eL/FOQC8+qXtzapwTL3DmfY1Mpahovx/bK70L30LYP76Jd+ANTVdpxbCod+CYnTCve8U8ukSqSI22yg6dNXt57sb4rd981LX+uHzHH2meMQb7Enh/fjS4lw1b/lWzOrSTciYZ9sXY3SyGudwT7himXwClsxnoaycS4Xx6M7k4tqGwXn2MXPXEICyZNWYH1UvwM5JlRAePfA/pr6qTwKfPSUM/H7xHupcUxZWZw/VwKscnDahXF/smGNVIztAGvW3mq/pSn5n5aDdHjDCN49wlY6rQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cyNW78w9ZwHSdRoG/0pK4MYe9MtkvVdwSB1q4o0l12o=;
- b=PijQTNmzcb8Nh281omwJz5O8NGI1zw0pfOZcwF7kT/BOGKcUamAb9h30peng8qtGK3LFlCjB34YYODcuKXxC/9evOp4p8ZT3EQxYS/Jefeoy/TDBGRY/nxok9qsjZx6U4XZolv6PhiXc39WUoChBRbdLWk9EwQWfwCSLr2dVUygmtEzUI3syU7ZGIRgZrNNU7C6WNIPSegLOeRkewee4oDg4QyUXd+JNOzMfGIZIDNNytWMBrGq1ieSdaquOzfDwjCq4CpH6ZsLuITBPHhec3SvX9dFOgdqMCODkBRHZdx5xr6C68x6DGg08dbdQCK5RTxt78ultAJJypqDENV9hZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cyNW78w9ZwHSdRoG/0pK4MYe9MtkvVdwSB1q4o0l12o=;
- b=vqO1Jat5nPNOOw6k+MspyY1YIHv6O33qhfXJB1THAXdvIiVisu9v7HvsWJbRaF1WVBjEgOsW/zYYjhQBimC3upe3BDUMHd/z+cK/lVk6ds2EtOKwB9HdmOdVKkr1l10VaF+JXCfDRrATfztJWpiv65Fs03gmtVMmCJ83BzOzRDs=
-Received: from DM6PR06CA0054.namprd06.prod.outlook.com (2603:10b6:5:54::31) by
- MW3PR12MB4457.namprd12.prod.outlook.com (2603:10b6:303:2e::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5709.15; Mon, 10 Oct 2022 14:42:41 +0000
-Received: from DM6NAM11FT084.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:54:cafe::16) by DM6PR06CA0054.outlook.office365.com
- (2603:10b6:5:54::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.17 via Frontend
- Transport; Mon, 10 Oct 2022 14:42:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT084.mail.protection.outlook.com (10.13.172.132) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5709.10 via Frontend Transport; Mon, 10 Oct 2022 14:42:40 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 10 Oct
- 2022 09:42:36 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: make virtual_disable_link_output static
-Date: Mon, 10 Oct 2022 10:41:58 -0400
-Message-ID: <20221010144158.4025735-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.37.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C7D110E6A3;
+	Mon, 10 Oct 2022 17:21:06 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44A7010E6A4;
+ Mon, 10 Oct 2022 17:21:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1665422462; x=1696958462;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=M93sagOiE/afYlRfaYmB3FD+toccP4mfctXeQdrive4=;
+ b=YTwI4Cdem4KArIZVURF4KhdTlX6KtV+deY5TQ+2dv2HI7sIKQ1nP5X7q
+ w/7wiQxQeavoS0DlNIytuubKijW2kuXtL1NuY90VRyBM6FlXoO7dWaAaD
+ WhHxCGqL1n/FSNr7RuLoKmwOhjq6ItdxUXdQf8yzau1vD6Xwedm9GGkiN
+ jMW3t7egg6lz0XW9pRKtqHMO3Mn+0POaN5pL2VmpyeYcNeWeGW7qGZLZj
+ 12Sjqm4pmWlQqN86g8SAFqBmgggg9yu7GjETh2gmszV6vY/AR9Ofk23iT
+ CegzVgHOiUSh79C3AAjbn8Vy8qxw3UMm8QV7sAiqikRBDhUvslKOpjMa5 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="284666503"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="284666503"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2022 10:21:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="577125185"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="577125185"
+Received: from lkp-server01.sh.intel.com (HELO 2af0a69ca4e0) ([10.239.97.150])
+ by orsmga003.jf.intel.com with ESMTP; 10 Oct 2022 10:20:57 -0700
+Received: from kbuild by 2af0a69ca4e0 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1ohwSX-00024U-0X;
+ Mon, 10 Oct 2022 17:20:57 +0000
+Date: Tue, 11 Oct 2022 01:20:12 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ cd9fd78f5c11b5e165d9317ef11e613f4aef4dd1
+Message-ID: <6344544c.DxCKNhruy5lsz7YH%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT084:EE_|MW3PR12MB4457:EE_
-X-MS-Office365-Filtering-Correlation-Id: 937c9a62-1b82-4e8d-4a41-08daaacdaf31
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zUvOvmRxBE47oig7pJ9n8AzAschUy2r8C7VQefJ0eqnlFMj3v3rgFlluN7ANWi5FW/GKwcw7xztS5N8rNiW/ZxAFZ+rYkKCIf1DtZJRTW+3wBUOAIG8/ICwYyf2knDkoX/Cm7w9lxfWVpdI7LpVGVF6USlbqkxYi3om3YbUrCKrB2Avoo5/+auqK25n2EwO/33jdJO20nYrlk1pSkf+9GUjLPNmeRune1UqCOJCCHuxCKSzp/MIBmMAOAKAS2npCJeEiP1aZEMWJVUBBYscWXTuvtUaC3k4NHgKDxtJoJIp8TwSkC4uo+jS/UiHz4FgkFOOp3KIj13oyVE+8o9s77lnK/soFkt/S/+TKIBkYHz951ssy7eSEwTq3uf6K/FVhKoKE+lzmKB+BVnXKppMuyR07XyQOdP5+IIR1aOGu9vhnixvLCwqXvJLyYCOL0Nl+b0etpZKHygSTtYSjslgl/Djg2FWjOGAty3jH8l4jZRK1ok+0xcgAjpMca8uYBTtOFBDpuIIwT87+HvoEcqsJg95e8ENL9ERz8Zcv1uzx+Ijqt4L3RG+QjajZgAsnTjiE375diurh32U6JjiN7HCsT6LKcsIjbAFH33RXjfff7gSd16XLEruNXTV4cUluv8f5d8W7DXqZbMe4/xd4yPlzs8DZuEhiQxuMDFVBZ5ppnuHo7SCqj6Ho8xPrPaNKmITnU8rpPx2FyohPVjB9Iqd3m/TzzgLX6Aa+De6LykjVx5HC1y7+ezf3X/IQHyEStWgYRH/DTtSPJ6I+k/+gn8aGlaoJ8ytfXv9/rOMRfcpASdYq0Wu57OrLORTxJ5PahWCS
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(376002)(39860400002)(396003)(136003)(451199015)(46966006)(36840700001)(40470700004)(2616005)(40480700001)(426003)(86362001)(36860700001)(40460700003)(356005)(81166007)(70586007)(8676002)(70206006)(82310400005)(4326008)(6916009)(36756003)(6666004)(41300700001)(2906002)(82740400003)(47076005)(336012)(316002)(83380400001)(4744005)(478600001)(5660300002)(8936002)(1076003)(26005)(186003)(7696005)(16526019)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2022 14:42:40.9982 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 937c9a62-1b82-4e8d-4a41-08daaacdaf31
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT084.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4457
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,31 +58,232 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, linux-parisc@vger.kernel.org,
+ linux-iio@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-nvme@lists.infradead.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ dri-devel@lists.freedesktop.org, loongarch@lists.linux.dev,
+ linux-ext4@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It's not used outside of virtual_link_hwss.c.  Fixes
-a -Wmissing-prototypes warning.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: cd9fd78f5c11b5e165d9317ef11e613f4aef4dd1  Add linux-next specific files for 20221010
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/display/dc/virtual/virtual_link_hwss.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Error/Warning reports:
 
-diff --git a/drivers/gpu/drm/amd/display/dc/virtual/virtual_link_hwss.c b/drivers/gpu/drm/amd/display/dc/virtual/virtual_link_hwss.c
-index 9522fe0b36c9..4f7f99156897 100644
---- a/drivers/gpu/drm/amd/display/dc/virtual/virtual_link_hwss.c
-+++ b/drivers/gpu/drm/amd/display/dc/virtual/virtual_link_hwss.c
-@@ -37,7 +37,7 @@ void virtual_reset_stream_encoder(struct pipe_ctx *pipe_ctx)
- {
- }
- 
--void virtual_disable_link_output(struct dc_link *link,
-+static void virtual_disable_link_output(struct dc_link *link,
- 	const struct link_resource *link_res,
- 	enum signal_type signal)
- {
+https://lore.kernel.org/linux-doc/202209201326.sY9kHOLm-lkp@intel.com
+https://lore.kernel.org/linux-doc/202209231933.vcyETtUl-lkp@intel.com
+https://lore.kernel.org/linux-doc/202210070057.NpbaMyxB-lkp@intel.com
+https://lore.kernel.org/linux-mm/202210090954.pTR6m6rj-lkp@intel.com
+https://lore.kernel.org/llvm/202209220019.Yr2VuXhg-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+Warning: Documentation/translations/zh_CN/devicetree/kernel-api.rst references a file that doesn't exist: Documentation/Devicetree/kernel-api.rst
+Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/clock/microchip,mpfs.yaml
+Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/mtd/amlogic,meson-nand.txt
+arch/arm64/kernel/alternative.c:199:6: warning: no previous prototype for 'apply_alternatives_vdso' [-Wmissing-prototypes]
+arch/arm64/kernel/alternative.c:295:14: warning: no previous prototype for 'alt_cb_patch_nops' [-Wmissing-prototypes]
+arch/loongarch/mm/init.c:166:24: warning: variable 'new' set but not used [-Wunused-but-set-variable]
+arch/parisc/kernel/setup.c:78 setup_cmdline() warn: curly braces intended?
+drivers/gpu/drm/amd/amdgpu/../display/dc/virtual/virtual_link_hwss.c:40:6: warning: no previous prototype for 'virtual_disable_link_output' [-Wmissing-prototypes]
+drivers/iio/adc/mcp3911.c:252 mcp3911_write_raw() error: buffer overflow 'mcp3911_osr_table' 8 <= 31
+drivers/iio/adc/mcp3911.c:499 mcp3911_probe() warn: passing zero to 'PTR_ERR'
+drivers/nvme/target/loop.c:578 nvme_loop_create_ctrl() warn: 'opts->queue_size - 1' 18446744073709551615 can't fit into 65535 'ctrl->ctrl.sqsize'
+drivers/nvme/target/loop.c:578 nvme_loop_create_ctrl() warn: 'opts->queue_size - 1' 4294967295 can't fit into 65535 'ctrl->ctrl.sqsize'
+fs/ext4/super.c:1744:19: warning: 'deprecated_msg' defined but not used [-Wunused-const-variable=]
+include/linux/compiler_types.h:357:45: error: call to '__compiletime_assert_422' declared with attribute error: FIELD_GET: mask is not constant
+include/linux/thread_info.h:217: undefined reference to `riscv_cbom_block_size'
+riscv64-linux-ld: include/linux/thread_info.h:217: undefined reference to `riscv_cbom_block_size'
+security/apparmor/policy_unpack.c:1089 unpack_profile() warn: passing zero to 'ERR_PTR'
+security/apparmor/policy_unpack.c:548 unpack_trans_table() error: uninitialized symbol 'table'.
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-randconfig-r002-20221010
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- alpha-randconfig-r006-20221010
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- arm-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- arm64-allyesconfig
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- arm64-randconfig-c043-20221010
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
+|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-defconfig
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-a011-20221010
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-a012-20221010
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-a014-20221010
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-a016-20221010
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-c001-20221010
+|   `-- include-linux-compiler_types.h:error:call-to-__compiletime_assert_NNN-declared-with-attribute-error:FIELD_GET:mask-is-not-constant
+|-- i386-randconfig-c021-20221010
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-m021-20221010
+|   |-- arch-x86-kernel-apic-apic.c-generic_processor_info()-warn:always-true-condition-(num_processors-()-)-(-u32max-)
+|   |-- drivers-iio-adc-mcp3911.c-mcp3911_probe()-warn:passing-zero-to-PTR_ERR
+|   |-- drivers-iio-adc-mcp3911.c-mcp3911_write_raw()-error:buffer-overflow-mcp3911_osr_table
+|   |-- drivers-nvme-target-loop.c-nvme_loop_create_ctrl()-warn:opts-queue_size-can-t-fit-into-ctrl-ctrl.sqsize
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-s051-20221010
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- ia64-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- ia64-randconfig-r013-20221010
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-virtual_disable_link_output
+|-- ia64-randconfig-s041-20221010
+clang_recent_errors
+|-- arm-sama7_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- arm64-randconfig-r004-20221010
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-function-apply_alternatives_vdso
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- hexagon-defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- hexagon-randconfig-r041-20221010
+|   |-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmnewmap
+|   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmsetvec
+|   `-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-memset
+|-- i386-randconfig-a001-20221010
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- i386-randconfig-a003-20221010
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- i386-randconfig-a004-20221010
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- i386-randconfig-a005-20221010
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- powerpc-mpc512x_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- powerpc-mpc834x_itxgp_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- powerpc-mpc866_ads_defconfig
+|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-A_c-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-B_c-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- arch-powerpc-math-emu-fctiw.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- arch-powerpc-math-emu-fctiwz.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- arch-powerpc-math-emu-fsel.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- powerpc-mpc885_ads_defconfig
+|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-A_c-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-B_c-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- arch-powerpc-math-emu-fcmpu.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- arch-powerpc-math-emu-fctiw.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- arch-powerpc-math-emu-fctiwz.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
+|   `-- arch-powerpc-math-emu-fsel.c:error:variable-_fex-set-but-not-used-Werror-Wunused-but-set-variable
+|-- powerpc-randconfig-r033-20221010
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-function-virtual_disable_link_output
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- x86_64-randconfig-a001-20221010
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- x86_64-randconfig-a003-20221010
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- x86_64-randconfig-a004-20221010
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- x86_64-randconfig-r031-20221010
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+
+elapsed time: 733m
+
+configs tested: 70
+configs skipped: 27
+
+gcc tested configs:
+csky                              allnoconfig
+arm                           imxrt_defconfig
+i386                 randconfig-a012-20221010
+sh                           sh2007_defconfig
+arc                               allnoconfig
+alpha                             allnoconfig
+sh                                  defconfig
+riscv                             allnoconfig
+i386                 randconfig-a011-20221010
+arc                  randconfig-r043-20221010
+i386                 randconfig-a013-20221010
+powerpc                     tqm8541_defconfig
+m68k                       m5275evb_defconfig
+xtensa                    xip_kc705_defconfig
+x86_64               randconfig-a011-20221010
+i386                 randconfig-a015-20221010
+i386                 randconfig-a014-20221010
+x86_64                         rhel-8.3-kunit
+riscv                randconfig-r042-20221010
+x86_64               randconfig-a012-20221010
+x86_64               randconfig-a013-20221010
+sh                          sdk7780_defconfig
+x86_64               randconfig-a016-20221010
+m68k                                defconfig
+i386                 randconfig-a016-20221010
+arm                       omap2plus_defconfig
+x86_64               randconfig-a014-20221010
+mips                          rb532_defconfig
+x86_64               randconfig-a015-20221010
+s390                 randconfig-r044-20221010
+parisc64                         alldefconfig
+parisc                generic-64bit_defconfig
+arm                        oxnas_v6_defconfig
+powerpc                 linkstation_defconfig
+arm                         at91_dt_defconfig
+nios2                         10m50_defconfig
+nios2                            alldefconfig
+powerpc                     ep8248e_defconfig
+powerpc                    sam440ep_defconfig
+powerpc                     sequoia_defconfig
+i386                 randconfig-c001-20221010
+arm                                 defconfig
+i386                                defconfig
+arm                              allyesconfig
+arm64                            allyesconfig
+ia64                             allmodconfig
+i386                             allyesconfig
+
+clang tested configs:
+x86_64               randconfig-a002-20221010
+x86_64               randconfig-a001-20221010
+x86_64               randconfig-a003-20221010
+i386                 randconfig-a003-20221010
+i386                 randconfig-a002-20221010
+i386                 randconfig-a001-20221010
+x86_64               randconfig-a006-20221010
+i386                 randconfig-a006-20221010
+hexagon              randconfig-r045-20221010
+powerpc                     mpc512x_defconfig
+x86_64               randconfig-a004-20221010
+i386                 randconfig-a004-20221010
+hexagon                             defconfig
+arm                          collie_defconfig
+x86_64               randconfig-a005-20221010
+arm                       versatile_defconfig
+hexagon              randconfig-r041-20221010
+i386                 randconfig-a005-20221010
+arm                           sama7_defconfig
+powerpc               mpc834x_itxgp_defconfig
+mips                        bcm63xx_defconfig
+powerpc                  mpc866_ads_defconfig
+powerpc                  mpc885_ads_defconfig
+
 -- 
-2.37.3
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp
