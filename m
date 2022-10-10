@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A71ECC4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 20:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38AB7C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 20:57:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A671610E700;
-	Mon, 10 Oct 2022 20:16:23 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F2E810E700;
- Mon, 10 Oct 2022 20:16:18 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-132b8f6f1b2so13613270fac.11; 
- Mon, 10 Oct 2022 13:16:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3823310E1E7;
+	Mon, 10 Oct 2022 20:57:17 +0000 (UTC)
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [IPv6:2607:f8b0:4864:20::c2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA95910E1E7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Oct 2022 20:57:13 +0000 (UTC)
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ i25-20020a4a8d99000000b0047fa712fc6dso7579533ook.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Oct 2022 13:57:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=zQo9CpEQOxd8V/Gnq9d1IqgBFMZ32QQpuKIj7r7NKWU=;
- b=dSUXLhcRKIZVH3q5lAX9w1Sjipi2FBkD3S3AJw8zTLfOJybtcjQoPR1iTC7PLnVVuf
- TpaUyfjZ7mwW/0WOfIdM/KQYj8DsRzcXOQWCRdFRAsaNjYx4LhHo9LGEr2BXQo9SVB4c
- Vew7ExS55SDBCIQcUathisVLmkU5xfdBBZyByYFc59O2NtR/SFG3pELPoMILT7pHFkP2
- E5c7mWZIDNSQj6OojMGL1tRz9EcOy82oNgC8XMaGSYGz3UFFBzowfv9SRchUaD5xIi+J
- a5C4WmW5YAgqfam8iTjrfr7Zo6nPUor/YeKLZNRQvYWrPKTGKKqDY7E8tqE0SXPrLUJI
- FZGg==
+ bh=ScOfmmraf6k4B2HF1MblWcT1g+Ofd8fQZSVShQM1/cI=;
+ b=k0k6HlXOBHo7A51TuBNHZVU4PyOhYJ0wEBGFReTT7/O5uht/H6c1Z1c2lOKlEfM5oU
+ XtWRJ0Aw4Mz9aTn/hwOgFNbV0mWx1bbfcZcAy9AwhToxtMPoca/abhsSgWcyRpFOMq9n
+ O+L3p7NVwZe4vfl+atZ4tZKdmMWpPOTfb3+IKqmY/jPs1QmTMqdrdRsDQs8e81ISTnYd
+ YV3FHcvCIgvQPIHZh/vnxlw7lgOHJnv2RyK1s8hQkWhjx4HbcZioucmmx5Yr87T2Jqxg
+ dtL/L5GVccPD+VJSw+ouKAbzuODpul5ALJnj61YeHlqgDxViTA03VrczsK3sPfQE49+D
+ W5Tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=zQo9CpEQOxd8V/Gnq9d1IqgBFMZ32QQpuKIj7r7NKWU=;
- b=LdAiwp0m6tOqotj7fqE/+4uSWBDbD7OJaDSoEowhUOXBC3fmi+cCVlgrP3KVmYTNjt
- wqVGmLIdtUKhL8VFBCkgPcME988XeB8PBAwd3cFMkkeaoFOgyq7K60bm/ZdYtbJ8YBz3
- JPj0UCIHb4GSWHJRAEae6uwY3/B/bC5g5/Sa/TBKBSfqoySPBjXZamy5GKVIlYdtYIQf
- zNv1eHbraEpI83ZTzcZvsFO40zqh01BnT49CbOrIUHgE7IUeqJ1tFtWT/ZENy+siTtjv
- Cdw25ZY+d8M6kSj6x6+/e1QdCsYa2f8HcxgMsrobLWlNXfgFKrqUepEBvk5NMN7U7AsR
- xsUw==
-X-Gm-Message-State: ACrzQf1uUHK5waNfjBX2YCKtQb3uWg9hCXGfqRwrNNRWlyioJp+yQVqw
- 1DPsAd8GuayFg7I8xv2idZ+g73hEPkj5WSfW/yU=
-X-Google-Smtp-Source: AMsMyM4qJfDM7UUUcDtmV8h9gbgCQq1xrzkSI7eacitRYeX1RGvN1jyZLWCyX1jvdEm9guTjynYyZLTk48YwcyGMRtQ=
-X-Received: by 2002:a05:6870:40c8:b0:136:4389:1375 with SMTP id
- l8-20020a05687040c800b0013643891375mr7561495oal.46.1665432977966; Mon, 10 Oct
- 2022 13:16:17 -0700 (PDT)
+ bh=ScOfmmraf6k4B2HF1MblWcT1g+Ofd8fQZSVShQM1/cI=;
+ b=1dC2BYmcH4BFQ4BFr0OYK27FG0aOM5lJ3beTdJ1TG5nUKyEhuHwieCAvlclkbZVDUm
+ LrIx2Vfs+Y/uN1nH/fkpiL1SMrnbNXqiWGFZGyPEZNL/JfHNgKcQnfb+qoe7gUjq5QUb
+ aOxdYt6rUh1PwYoGlcpEAEf4eci8zw0Fgj0OvYZsAFBz0zSC26XSedPhXbFgB9oCXtm3
+ r+Pt13RYDEt9SZGH0VTLUDWrBYxKhpLqMikeK3v3X+pVe4FPPSPobHSgPBq30rIXdchQ
+ K20Nm8Qrhi+27F/oeneQn5nVzhyHiScI0Qo+QkwxSGhqFZKphMVlO2CqcocRseIaMviF
+ TWhw==
+X-Gm-Message-State: ACrzQf3PnL7aHZpkK7BK5Yxcb+HZJRBXN7a99T1H0LP4MN3FkSgjFGnD
+ lVEaODpeevvfqSTJeiDVl2Txj7HP4ev9eB1bLR0=
+X-Google-Smtp-Source: AMsMyM50Sunp5cTTHedA2ClszNsQISr2AmZXgxIzAeVHH/iuNgVd9OdVJUHm4AsjTZ3cyDHSo36WrrtHpDdi4lqQlNg=
+X-Received: by 2002:a05:6830:3708:b0:661:330:5837 with SMTP id
+ bl8-20020a056830370800b0066103305837mr9006041otb.233.1665435432878; Mon, 10
+ Oct 2022 13:57:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <20221010060512.3064524-1-linux@roeck-us.net>
-In-Reply-To: <20221010060512.3064524-1-linux@roeck-us.net>
+References: <20220919164334.1579973-1-alexander.deucher@amd.com>
+In-Reply-To: <20220919164334.1579973-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 10 Oct 2022 16:16:06 -0400
-Message-ID: <CADnq5_N5wLSnACnpuqVCMm7LGc20cdGdRhtnwRjUBq7vbrZn8A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix array-bounds error in
- dc_stream_remove_writeback() [take 2]
-To: Guenter Roeck <linux@roeck-us.net>
+Date: Mon, 10 Oct 2022 16:57:01 -0400
+Message-ID: <CADnq5_M90oOE4ttEiSGRnKQ=nKFdjyAso-qBufW8LqGPLrtBww@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix transfer function passed to
+ build_coefficients()
+To: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,80 +65,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: regressions@lists.linux.dev, Leo Li <sunpeng.li@amd.com>,
- Xinhui.Pan@amd.com, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>
+Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>, Zeng Heng <zengheng4@huawei.com>,
+ amd-gfx@lists.freedesktop.org, Jaehyun Chung <jaehyun.chung@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks.
+Ping?
 
 Alex
 
-On Mon, Oct 10, 2022 at 2:05 AM Guenter Roeck <linux@roeck-us.net> wrote:
+On Mon, Sep 19, 2022 at 12:44 PM Alex Deucher <alexander.deucher@amd.com> wrote:
 >
-> Commit 5d8c3e836fc2 ("drm/amd/display: fix array-bounds error in
-> dc_stream_remove_writeback()") tried to fix an array bounds error seen
-> with gcc 12.0. Unfortunately, that results in another array bounds error,
-> seen with older versions of gcc.
+> The default argument should be enum TRANSFER_FUNCTION_SRGB rather than
+> the current boolean value which improperly maps to
+> TRANSFER_FUNCTION_BT709.
 >
-> Building csky:allmodconfig ... failed
-> --------------
-> Error log:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c:
->         In function 'dc_stream_remove_writeback':
-> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c:527:83:
->         error: array subscript 1 is above array bounds of 'struct dc_writeback_info[1]' [-Werror=array-bounds]
->   527 |                                 stream->writeback_info[j] = stream->writeback_info[i];
->       |                                                             ~~~~~~~~~~~~~~~~~~~~~~^~~
-> In file included from drivers/gpu/drm/amd/amdgpu/../display/dc/dc.h:1269,
->                  from drivers/gpu/drm/amd/amdgpu/../display/dc/inc/core_types.h:29,
->                  from drivers/gpu/drm/amd/amdgpu/../display/dc/basics/dc_common.h:29,
->                  from drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c:27:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dc_stream.h:241:34: note: while referencing 'writeback_info'
->   241 |         struct dc_writeback_info writeback_info[MAX_DWB_PIPES];
+> Commit 9b3d76527f6e ("drm/amd/display: Revert adding degamma coefficients")
+> looks to have improperly reverted
+> commit d02097095916 ("drm/amd/display: Add regamma/degamma coefficients and set sRGB when TF is BT709")
+> replacing the enum value with a boolean value.
 >
-> We could check both i and j for overflow to fix the problem. That would,
-> however, be not make much sense since it is known and provable that j <= i.
-> Also, the check introduced with commit 5d8c3e836fc2 does not really add
-> value since it checks if j < MAX_DWB_PIPES. Since it is known that j <= i,
-> it would make more sense to check if i < MAX_DWB_PIPES. Unfortunately, that
-> does not help to solve the problem observed here: gcc still complains.
->
-> To solve the problem, replace the subsequent check for 'i != j' with
-> 'j < i'. This is identical to the original check since we know that j <= i,
-> and it makes all versions of gcc happy. Drop the check introduced with
-> commit 5d8c3e836fc2 since it is not really useful and does not solve the
-> problem.
->
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> Fixes: 5d8c3e836fc2 ("drm/amd/display: fix array-bounds error in dc_stream_remove_writeback()")
-> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+> Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>
+> Cc: Jaehyun Chung <jaehyun.chung@amd.com>
+> Cc: Zeng Heng <zengheng4@huawei.com>
+> Fixes: 9b3d76527f6e ("drm/amd/display: Revert adding degamma coefficients")
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> index ae13887756bf..9f568d618cd0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> @@ -520,9 +520,9 @@ bool dc_stream_remove_writeback(struct dc *dc,
->         }
+> diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+> index 04f7656906ca..447a0ec9cbe2 100644
+> --- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+> +++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+> @@ -1692,7 +1692,7 @@ static void apply_degamma_for_user_regamma(struct pwl_float_data_ex *rgb_regamma
+>         struct pwl_float_data_ex *rgb = rgb_regamma;
+>         const struct hw_x_point *coord_x = coordinates_x;
 >
->         /* remove writeback info for disabled writeback pipes from stream */
-> -       for (i = 0, j = 0; i < stream->num_wb_info && j < MAX_DWB_PIPES; i++) {
-> +       for (i = 0, j = 0; i < stream->num_wb_info; i++) {
->                 if (stream->writeback_info[i].wb_enabled) {
-> -                       if (i != j)
-> +                       if (j < i)
->                                 /* trim the array */
->                                 stream->writeback_info[j] = stream->writeback_info[i];
->                         j++;
+> -       build_coefficients(&coeff, true);
+> +       build_coefficients(&coeff, TRANSFER_FUNCTION_SRGB);
+>
+>         i = 0;
+>         while (i != hw_points_num + 1) {
 > --
-> 2.36.2
+> 2.37.3
 >
