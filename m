@@ -4,59 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBA91C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 14:19:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EF00C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 14:30:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D13110E813;
-	Tue, 11 Oct 2022 14:19:32 +0000 (UTC)
-Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
- [IPv6:2607:f8b0:4864:20::c35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FFA110E81F;
- Tue, 11 Oct 2022 14:19:26 +0000 (UTC)
-Received: by mail-oo1-xc35.google.com with SMTP id
- h1-20020a4aa741000000b004756c611188so10138217oom.4; 
- Tue, 11 Oct 2022 07:19:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yKcxW5jQIBggwtbWJ3tJfNqR5dgpzYr4Id9N6Ao1MoQ=;
- b=d6ue1vYeYddTbsXjDRi6gq7D7vMWvAyAmM9sXnR3DBvKbycsXk2TK6sIJazIl8gRSq
- WxvsImUv2Ubpd5EP0yC27fJHvvE9kyGLRjUYCjoiyPNpGa6guxgE0ZmDElow/1Osekkd
- Z8VyDWU8K1Gdal2i1GUjiS5p9FIDg3CePsJgCWnIUwwNdQRTFsnRgguzkTAR+f+bdkEB
- zVSVyip8o17m1eH3WgFoRFQ6oGm/DRhzi5WXNa+HIlnXCjHy/DsIW2+JCtK/ZzUN27IR
- Q2Xq36eVzOpMY/OJh7n5zRIYDoGenYZb5tNgerFXGCneJJIndsrRAZfG8FkUMq6fiwCU
- s55A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yKcxW5jQIBggwtbWJ3tJfNqR5dgpzYr4Id9N6Ao1MoQ=;
- b=y/Y0VifiahKgo/4bJ71JFMHFoEDnYiYeqlAS7QqndJnRNEP1QCuuvhRf4llcXfK+0G
- +LCGlEMBh/kq0tFT4OZIa1UPVUIFT27YNTLLcp4YfCvSmVSq+HrGqnOc8YjoQOOC0cXr
- i0cYa2rPKLW01YpKF+BSYIa0v2D6vRDXvFGhVHe2cXKFJEduvPjOOMqsTpFmrZzPFE4o
- mUjaKjEOaHcBBPFA1SxCu8FYfqYSGWG8YyiBhasliFRfk9cXUZHHMJgmLS4XHsP0rh3G
- Rs3h7Jx+GBbZdxccUeshGXULAFYrgzV4Pc9vdrW9J3JGn2Mocc1oXbTMrBemp4/l8LdZ
- XyPQ==
-X-Gm-Message-State: ACrzQf3+pUAXcEK8T+Wkft64BoQVRjyutPDuJHDkLxrRMvPeUFJ1mAyo
- yS75VgZjg6B3CDDewidhXz8wiWY5C4n7XjZeFtM=
-X-Google-Smtp-Source: AMsMyM5Hns/L7KGRSRFzm+03euir5VSOiwuzL+OL/6U5ycyJnX8wHWooiz6BKBAON3E8n+43oMW4GverGfZn9AG38g4=
-X-Received: by 2002:a4a:a78a:0:b0:472:a078:98d6 with SMTP id
- l10-20020a4aa78a000000b00472a07898d6mr9300258oom.97.1665497965815; Tue, 11
- Oct 2022 07:19:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6D9710E586;
+	Tue, 11 Oct 2022 14:30:56 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2071.outbound.protection.outlook.com [40.107.94.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22E5710E586
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Oct 2022 14:30:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iMKnLSeKUg3Y0EA5B3d4j7iF97be3y5e8KMkuUwCh6nVIeF1/mW5nKJkXSxgQEGAt1ntPhtOwXugasVE2oiw1GnoGUPb19Sj3LBFAxK1L+DahnArowAp9tuSxXvwsoVOCOSeoeVP7N/FTQqaD8eF6aGqkcUxHx3+6+9PjtIZtfOSYY4JwFzY/pgAqfVBqij2WPDAzzW2Lm0f40Hu1S5U07NLcQ0j9UWj8WhkUk/AFB65X4c3HXWqHI2kHhhiuKjptlEd7GBDfBTaldJHCqIEzBt7lT/7XyNoQi7IlWoarRmOEM8EtFB/WVesWdumOe4SPZaVFOq6eQwNfT/PBeMNyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8xha5JgMD7nsTyuV9pkRG+ChvlWTdTDpTCdInkbxUeA=;
+ b=mF/Q7wGeeymo2H8TPs0fW3xnjNsngnwU6box5+apC4v6x3pFgC7uJCJVjYc60O6gk35mv1gWXaDVXWbwIW6g8w+v193jvuZi2bzhREvCnYeixbEGR2npF2vj1LwGXyenj4Iy0UXRpApw9TWj8aXpA5khXiIn1rZIQoHH9kctx56XZDVsp1j3zaGGCw/uYUxJJOZ4hRNrVY1UEjMXAarHwvHZPjZDVBeSRf3aFBPqLbTVKTXY7BIiVUZHrkCWHjXO21TpKK9GI122gQTAPkz6+oJMmuyy31xguPRlIC0tK5ehsZFUQmeCbH9qSKaFp4osv5wFQhgNhtdQcotFc1p55Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8xha5JgMD7nsTyuV9pkRG+ChvlWTdTDpTCdInkbxUeA=;
+ b=lYX967AoXtMFYlI3e05CIp+U91a9w714N0aAlieppQbQpm9V0s3tMBaV9mA08eUN2pG2K1uNyEBRZoV9Bs7QG9dYf5VcPYWeAxXyjv4Uf16LnDMHYKTryOTuKX4+0ZkznTTAyuA9bBLLSi98dAHuoqZs4UaTjqbmtpz5cuA+xAo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by MW4PR12MB5643.namprd12.prod.outlook.com (2603:10b6:303:188::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.19; Tue, 11 Oct
+ 2022 14:30:48 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::aef3:6aae:b904:e395]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::aef3:6aae:b904:e395%6]) with mapi id 15.20.5709.019; Tue, 11 Oct 2022
+ 14:30:48 +0000
+Message-ID: <07a793ad-c932-d27b-a84a-08a693ec895c@amd.com>
+Date: Tue, 11 Oct 2022 10:30:44 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.2
+Subject: Re: [PATCH] drm/amd/display: make dcn32_split_stream_for_mpc_or_odm
+ static
+Content-Language: en-US
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20221011134148.982341-1-alexander.deucher@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20221011134148.982341-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0270.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:68::7) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-References: <cover.1665496046.git.jani.nikula@intel.com>
- <8620697ae6a13bb9202db9edbc26ff30d9f4e2e8.1665496046.git.jani.nikula@intel.com>
- <7724d8cc-54b9-1ef9-fe34-42fcbd9b93bf@amd.com> <877d16xxen.fsf@intel.com>
-In-Reply-To: <877d16xxen.fsf@intel.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 11 Oct 2022 10:19:14 -0400
-Message-ID: <CADnq5_M_vFFroxvjT4hBszg5fw8q+DMKi+u-JKayfCtbUSzZRQ@mail.gmail.com>
-Subject: Re: [PATCH 03/15] drm/amd/display: stop using connector->override_edid
-To: Jani Nikula <jani.nikula@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|MW4PR12MB5643:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47c23dc7-7e89-42c6-fc73-08daab953099
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bgtDcgYrIZzfTxNvJ7R9HNRPJC/OR33wifGCgpZqtIf2Y7dFVzJV67javF58xBIF1c4abgCqcIuVbICUETCiZXeEXlg1kETggazRHQXnS/qliNJJFl5HAiJSvGY6maiTcXeAMVmuUbrWy2sVXX3UAZZjU6aAXhSVewCJjWKwVOsxyEYCef3OTXgYVFgdTbSBdFLSomAT0YiRnpOmcg0pQD9aMpkPnIuBsSejShA6j8chth8miuK9gecHtk28Dr1JinzLsckL+cfjXNXzG/jtgcaDoKk6m0l6lBFwIleweRImXdaxeZ95gZKnsCYBf5nMIZf+w0pUVDFDCNzAta5Ezvo/EHRtHaoFS18GDR55LHTdHyt/GeKbeWrMcFa40KaKKU2nsWE5NCWlLLg7PDi3aFx7jfQrISwTLxLygmmteYZ/yNqc0RPEcSVI9kphRdOmNw7NigFl3r6sENpeLQzUJHrHBRiECG+IvSH2LxikO4l7xUWGgckQWmy92hONUqRVyvDHm1R4tpC07QI5RA72OTM5ERhJKwzXfu5e/es3cEDJGcoCkhMVCuwpMTvr4KmdctwjjGd/fw279hW7fIwVamzGIG5Q3cF66pidZNYIZuYPmGjqWsORzLQQzXZuf7ogQS+co/e8RUW9lMR7mj/Czd4d8fY4N3eTxRfDiGIJRQHusOAwHWjOfWkzXQopoxM7bwWREiTS8A8eW3oXJUmax3/u8op94IU+RpdvcJjLRpaHIcVQrTn1qxysFNxHDhuS8RmMle4O915i77qVphPxsQVW1Ya3GU//YmrPw81jhQM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(376002)(39860400002)(346002)(396003)(366004)(451199015)(6512007)(5660300002)(26005)(8936002)(36756003)(2616005)(4001150100001)(6506007)(44832011)(53546011)(6666004)(66946007)(66476007)(66556008)(4326008)(8676002)(41300700001)(86362001)(31696002)(38100700002)(2906002)(186003)(83380400001)(31686004)(316002)(478600001)(6486002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZFdIeXNOUC9NR0ZtYzRxK3VrVHlqdldtMkNkN2JXbnVGa1hVeUYvaFl4STUw?=
+ =?utf-8?B?NDIrdk5ESW9HS280b1VLOUVWUmxWT3d3UkdKT2gvUEtiQWhkV3N5d0pxWVJ0?=
+ =?utf-8?B?ekt2akRSUTk5Sys3b0ZpbWRGbFBUeTd6NEJVVGptUzJ2ZmMya3JmNDFaMWp0?=
+ =?utf-8?B?YmxLSkVFenRiYmxQS3F6RGJDVFRNV0VYUlZmbnlBZlhWcVlsdWdIWkxUUXhw?=
+ =?utf-8?B?WFluWmZsODBhK2N2cjc0TkhWb0FrNElMZ2dMeFlIVzNVMFNQYTFteEM5N2Zu?=
+ =?utf-8?B?dlVKZk12NFRBMU92a1phanJaWXhKMHlPZ2xXbklkRWQrbXFnUVFQa2JMdnBi?=
+ =?utf-8?B?NklmQzVxSWlkZTdoZ0FzNCtVNm93QmU3c1BVWnBkdmlDc09pYmw0NmcxT1ZB?=
+ =?utf-8?B?RWd0WXJ3dkdKSjZIUGt6czVSNWtkUTJSYXpoRjdLVVZMUmo3Y3M2cjVDc2Yy?=
+ =?utf-8?B?UDIyYmxVL3RpV1ZlMDRKOVNPZXFmTE5WSTFEWGNaZ1NGRHMrQnBkc0ZycExF?=
+ =?utf-8?B?YlN3Q0c3V1o4bnZWdm9vanhlMld5QUNVZXdVZ3hyV2dWcCtmODJFdFcvVlVj?=
+ =?utf-8?B?VlpuMzB5SlRBb3JuamlMN0RQSUljekhXSE4rN0h6Wmt6RzlUZFlPZm96MWs4?=
+ =?utf-8?B?OWl6L3VpUFZYZ3RoTjZPZUNxck1BTjU3RzlmaWx1SVo4dHdNSHlGNEhta1V0?=
+ =?utf-8?B?R0NJYkpQNjhnekl4VUVLS202NzNyMi8wVXpxRFVuZDJrdW40aWcwMGF4cDMr?=
+ =?utf-8?B?T1hmcG80RDF5WlJQdjlSTWRoM0NTUjNubzRIN00zc21WNk1yZEJ3SFBRRDJW?=
+ =?utf-8?B?M0R2NzVlQzd4dWFxbStteGVyOXNWRkdMV1EzRkx2RGpFR3dBdEhlOE90K3ho?=
+ =?utf-8?B?ZFByWDBaZktjaXU5cmlFV0tnL0VISXpkYStvUjc3eDdiQ1ppVFFMdVBueERW?=
+ =?utf-8?B?UjJ0ZmxsOTlyalQxVzFTZFozMmw3bGFSTmtzSUlYQTM3RnpyOXVSYXZUOGVM?=
+ =?utf-8?B?cFBCVE1DY01zRzhNQ29MNlRVN05WTXdaUWZNWENZYkk1aU1BU2R0bHVjeTdX?=
+ =?utf-8?B?Z1g3TlU2b3N6ckJQNCtMdlFNbEhkNHlmc2FGQmFMSGtKSVNYc0FkNHo1M3Zj?=
+ =?utf-8?B?SDhrZ3hUa1p3Qm4vVTJEVTNOK0EzUGFMRzNSbG1FTy9MTVJEVHI1d1I2SDJ6?=
+ =?utf-8?B?RUExUGJkcEFRdG5vbWxQdE5TejdXZ1UyNy9HNWJrNVlyalB3bWJpYm9JYVhR?=
+ =?utf-8?B?UEVVa2FqUEFWZGs4cXpRSUJZNmlQWlBRU3hzeXc1S2ZLKytUZXhrdDVJdXFz?=
+ =?utf-8?B?SllwVFJ2SjBCUTN2Vm56Q0xpa3Qxc0ZBRUlVbTNXcndDYTlDV2QyREF5Z3Zl?=
+ =?utf-8?B?Rk1lNDdoNzZ4OU1CbEtXTVRWby9hSm5XNDFuODJBU1owTWgyR0IvZ2R0ZE4x?=
+ =?utf-8?B?QlVCOFhzZ2tKSi9FZmgvNXRXZHNRWHFvTndnSCtaNHFVelNibk9LVjZ1NlNm?=
+ =?utf-8?B?MjVpUkR1SCt3TVRHd0RxeUl5VGFGb1JyUmtlbkx2Q1FLa3Zqc1RyZG1pSGs3?=
+ =?utf-8?B?elMxbjN4aDVPakZEeUZNeWRONXdtTnk1cGNEYllaT29mZFhpZE1XcEtSblF2?=
+ =?utf-8?B?ejE2VHhETGlNd0hKaEEzL2tlVStydTNaM0NUOGxBdm12VFY5UHNwd3RGME41?=
+ =?utf-8?B?VCsyenNxVi9URDZHYnd4S0tFcllia29IQjBlN2Y5QmN0V0hzWGVWMlNpS0Yx?=
+ =?utf-8?B?cExZaTlnRjNiVjMzUDFQRHNVTk9wT0t2YjFJNk13dDdsbWtuOVdYWU80a1VG?=
+ =?utf-8?B?aEtRaEF0MDR3L1ZWTWhURG9RZFZHUVVjT0xnaFZmWC9FQmdWaHVyTXVRVi9I?=
+ =?utf-8?B?dndSTWVhR2xpWjJEK0t2NU4rcTVLWEgycFZVSlFPUmFJa1BHQmhKRVZyMGJt?=
+ =?utf-8?B?UFp3V1NCV0pvU1ljTExUZzdxaWRhVGpyR3A0VUR6clE3WExXZHk1MTFQaHM2?=
+ =?utf-8?B?ODhoSGtFK3h2NUxEUmtudXdHbnBxN1JDOVlySkdsNzRNeEhSYngvZEw0U2l2?=
+ =?utf-8?B?bkZCckUrd1BLZVQ5bnZtL0UrV0N2MUhidGozMDNVeXA2Q1JDcVo1Q3RMZWFV?=
+ =?utf-8?Q?NJrIC6cLxOnkb/u7Z3C2OTnzA?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47c23dc7-7e89-42c6-fc73-08daab953099
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2022 14:30:48.2252 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XYZ6s3b4Or/Lrni1Sx39fnM7x73uC++07fO+qof/7hWKTnOnNxlu6AVcr8xUEYTRLd9GHR5C99jbFoS/a1UxyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5643
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,86 +124,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Xinhui Pan <Xinhui.Pan@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: kernel test robot <lkp@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 11, 2022 at 10:12 AM Jani Nikula <jani.nikula@intel.com> wrote:
->
-> On Tue, 11 Oct 2022, Harry Wentland <harry.wentland@amd.com> wrote:
-> > On 2022-10-11 09:49, Jani Nikula wrote:
-> >> The connector->override_edid flag is strictly for EDID override debugf=
-s
-> >> management, and drivers have no business using it.
-> >>
-> >> Cc: Alex Deucher <alexander.deucher@amd.com>
-> >> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >> Cc: Xinhui Pan <Xinhui.Pan@amd.com>
-> >> Cc: amd-gfx@lists.freedesktop.org
-> >> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> >>
-> >> ---
-> >>
-> >> I really have no idea what the functional impact here is. I can only
-> >> guess that the intention is to abuse ->override_edid to block EDID
-> >> property updates. In any case, this use needs to go.
-> >>
-> >> It also seems really curious we get here via connector .get_modes hook=
-!
-> >> ---
-> >>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ---
-> >>  1 file changed, 3 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drive=
-rs/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >> index 4c73727e0b7d..d96877196a7f 100644
-> >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >> @@ -6109,7 +6109,6 @@ static void create_eml_sink(struct amdgpu_dm_con=
-nector *aconnector)
-> >>                              aconnector->base.name);
-> >>
-> >>              aconnector->base.force =3D DRM_FORCE_OFF;
-> >> -            aconnector->base.override_edid =3D false;
-> >
-> > I'm not even sure the DRM_FORCE_OFF business is right.
-> >
-> > Either way, I don't think amdgpu should be messing with
-> > override_edid, so this is
-> > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->
-> Thanks for the swift review; is it okay to merge this via drm-misc-next
-> along with the rest (once they've been reviewed, of course)?
+On 2022-10-11 09:41, Alex Deucher wrote:
+> It's not used outside of dcn32_fpu.c.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Fixes: 20dad3813b3c15 ("drm/amd/display: Add a helper to map ODM/MPC/Multi-Plane resources")
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-Sure.  No problem.
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-Alex
+Harry
 
->
-> BR,
-> Jani.
->
-> >
-> > Harry
-> >
-> >>              return;
-> >>      }
-> >>
-> >> @@ -6144,8 +6143,6 @@ static void handle_edid_mgmt(struct amdgpu_dm_co=
-nnector *aconnector)
-> >>              link->verified_link_cap.link_rate =3D LINK_RATE_HIGH2;
-> >>      }
-> >>
-> >> -
-> >> -    aconnector->base.override_edid =3D true;
-> >>      create_eml_sink(aconnector);
-> >>  }
-> >>
-> >
->
-> --
-> Jani Nikula, Intel Open Source Graphics Center
+> ---
+>  drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+> index 2a3f5a485b2b..819de0f11012 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+> @@ -1372,7 +1372,7 @@ static struct pipe_ctx *dcn32_find_split_pipe(
+>  	return pipe;
+>  }
+>  
+> -bool dcn32_split_stream_for_mpc_or_odm(
+> +static bool dcn32_split_stream_for_mpc_or_odm(
+>  		const struct dc *dc,
+>  		struct resource_context *res_ctx,
+>  		struct pipe_ctx *pri_pipe,
+
