@@ -4,114 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEF3AC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 15:16:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84D9FC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 15:18:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 306E810E258;
-	Tue, 11 Oct 2022 15:16:59 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC00810E258
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Oct 2022 15:16:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=glY2Hj/sjf9jLhtXTzKuxLiE69ih25CkP5KgdkmCcGOJhSShlbslAgaa9zpegZOdGkqmDYAKoWF/YtjNjqqT/drN+WCLwMUJe94oTI99CUvGowYQen6bBL2+7Nz34FsxL/e7h88Q0WWhTnItPIFgbjpyQ6SZa7lBZXhnO2w1+Dh7CsJTnm4GX4DLhoGVDN8k8QRpk/FnMbUwTAlH+01g4DWJ1JxAt9lWGoizOkbswY4mZf9hLFukOOOB42tnaKs7dVX+7/6VMwUDFaQvo5MbB9QYQGCw3ZTLddKpNfDV1us9fxbst7mhLJBgNWa6qgO4hepRr3O893mpxZ7OpJiRvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yxtgL3fvvAOwyJ4DipLXEiFTKKlUCHrHBQDYcZyWIW0=;
- b=WR1R/9dfe+cJji5exNPJs/ISCFeJQghfmBHUDEZPloU8/uakEU0mDz6+6ew/SOYsPf5qMS6XwKp4sX8kgXafDnvfLVt7OyzPZ8NX6RvFw0Flklg+Fji5TVCK0QNo9DcDDmOuzRGKam4Uzn9QNpXw+ynF9E6p/vH/V+fYkUHZ7Qfbbn8VY/TtdgFETNyhBh89iy4qYKZo16acNTovZ9vFPTROTGm5NcJdu4ge4E+4HXypFXNPcKVOPjOP4ElpKkT+cj02Eo2LZcuVhNp/spXXg9XFM0QRczSz5Z8Ov+zsl324YvQEHjigk52epUnhmsuQVWssF6bFV+2tIF/teAUu+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yxtgL3fvvAOwyJ4DipLXEiFTKKlUCHrHBQDYcZyWIW0=;
- b=FRPr/RS0Mw6G4DlRRDRVIheUZH8byOx4kJlcPrPpEkkxT3trQQDKxlj+AAAX8Ce+gFmoB/C0nHCky0uqj34q3tPnEvFVK+NG2Svo/Tqwqu86jaIGYtDuN69PjRUL25PjSmcw12tuQKMebBQEK0HZTbO158b44ZTcb+f240fYEPo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by BL1PR12MB5754.namprd12.prod.outlook.com (2603:10b6:208:391::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.34; Tue, 11 Oct
- 2022 15:16:53 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::aef3:6aae:b904:e395]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::aef3:6aae:b904:e395%6]) with mapi id 15.20.5709.019; Tue, 11 Oct 2022
- 15:16:53 +0000
-Message-ID: <5ab9d75a-bb19-4d41-aacb-571b1f26708c@amd.com>
-Date: Tue, 11 Oct 2022 11:16:50 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.2
-Subject: Re: [PATCH] drm/amd/display: add a license to cursor_reg_cache.h
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221010213608.478280-1-alexander.deucher@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20221010213608.478280-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0123.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:5::26) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17BC510E845;
+	Tue, 11 Oct 2022 15:18:32 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E146110E845
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Oct 2022 15:18:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1665501505; x=1697037505;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=7wSP4TYlAxkaflihOJTFEcb8ISzoiRnXg100vqVWAvo=;
+ b=MXMw4wZ/5rbadCiJHvaEuQHz7w7Xf0ABQ2tFtS4hL4boxmdVneRpmo5k
+ uzEQSfn2pIvwKdgCBLcpoKsv99qYKw7ixIlW3kxi6kSmAzAt+HllhXzBl
+ 0Bii05mtdAbecmFLjAWl/piDSSOCtI62jXMrtXWzrH2FpVURQTxPbcPLR
+ TwlGpepxW7+4SXRnPBuIUQ5KY4pzIr5XPT5UX57gJcmLxq/gTlrzyTEsp
+ ZAFpJhmm/Or4AtU+365bzewS3JeWnqsUkQ5fyC0oBtrxoOMzStmHltrdr
+ 651VmCet+PhauzpE4Dl6DlMUsuWzb2TlhfvcDdoxDLoyQWKQlF4/X/VCc A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="305585774"
+X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="305585774"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2022 08:18:25 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="695098463"
+X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="695098463"
+Received: from lkp-server01.sh.intel.com (HELO 2af0a69ca4e0) ([10.239.97.150])
+ by fmsmga004.fm.intel.com with ESMTP; 11 Oct 2022 08:18:21 -0700
+Received: from kbuild by 2af0a69ca4e0 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1oiH1R-0002wR-00;
+ Tue, 11 Oct 2022 15:18:21 +0000
+Date: Tue, 11 Oct 2022 23:17:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ b9f85101cad3397ef1e509909602a90e257ab9d8
+Message-ID: <6345891e.N8YlqGQ6WJeXXn2f%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|BL1PR12MB5754:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce751deb-0c19-478d-831d-08daab9ba0b1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 35CD4W+hv0++lXU636JWs+9O1X6JgAOAWwlUJcAmrL9TqvJa79NKPN7RHiwk7awIWQWnp6fl2bzNy7RlVYYiQo+v8LYsrqsZ/BgZtGR2BWvohMC7cn9N/Q4aEd0EkzZe9WKG2g1IeSjZu3jPsMg7O66IIKoUxb/MXT2ZWQBOrzlCkhY4yEl/4pVcbCU1cab/LRVUecsh+HS+KavWsKcd2Y4lg40jUyyQGD9Ryfg/gH7cdOzF24UjQqhu/mtovdpiVUjvp4Ebm5HkMvcyP7+C26STkKSCBpFmPfjJsI+XVdxtZENCsYktdyN5XlG3YrqGF9ArchR17C08Ox/lZmG473hlqjR5tHGIVKqZ5iDQ6/lC5cFVSzpxOHK5uVCjtKw+fdfPN2r/TidsqIdVIUAoQtgkU/z25zwHX6l+4IhSRp4pI5aonQB9B93GDU42YCG7ak+VyhMgKEm7pajvqMLZxUCEOity7WhNDCEWW4kcg7hgNrUcXdzb6tknv/gBdgydr2ksPYOuXiJa6lsX2zIyfkgMOKigsB3rUFDOfgh4N6pwVUqb8nQCdZg5gQuIuiC6EbeEbNAeqWjIB91Eoonc6RBp3c+2H0tRRrodmzgkzmOfqPhfYeY7LZI6a3fSIMv1Q+f6XsJnGLo6SVFLui8rGA7MRTQSr8XrwPXqR+79WPRE7U7y5agCIwNENWXre//1NZ2MpaXVDV7vzWW4F7378Xh5EmkM/GzqyDdmHMaKUWcXGCz1aqCI+25aqly/1ZKLdKf1ZFOJel2phSZbRtzi0zyNDhnG80kntTC0xKm82IE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(376002)(136003)(39860400002)(366004)(396003)(451199015)(36756003)(4744005)(44832011)(8936002)(5660300002)(2906002)(4001150100001)(41300700001)(6512007)(2616005)(66946007)(38100700002)(66556008)(316002)(26005)(186003)(31696002)(8676002)(31686004)(86362001)(6486002)(53546011)(66476007)(6506007)(478600001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eHRuSC9YWkNTemJKeTkxQlNYNXVYcnBydHhWQXcxREZaMnczc2g5SFM0NHFS?=
- =?utf-8?B?Sm83ZFVkZW1CUTBUdmlvUkNQazFoWXZubXNaU1U5UjV6OW9QeGRiUGkwbllV?=
- =?utf-8?B?ZFVxMCtaZVhtK1dOczM2VHp4NE8vQTA1L2pmR3BzNDliWk9sTGlOdGhQaStF?=
- =?utf-8?B?allLKzlPcVA5ck1GUGxNVVVkRndLbG9HSy8yNmNxdnBWYjhjUmRleHNPTXVw?=
- =?utf-8?B?cVkxNDdUUkYvakNDQTJmREM0THhQcXhjYys4cVhVV05lTUw4Y3hEYURJMTJG?=
- =?utf-8?B?YmVTaUwyVUVWakE4aWV1VXgzTVNEcDhwUmUwMWU4S1hyczBndFNuYk1HNDJZ?=
- =?utf-8?B?dWh3YkdGc0czVllJTklvOUVFaHh4TFhPbVZUbHd5RCtWQTN4eW1sODVIaGlm?=
- =?utf-8?B?elduRjI5YmdONlpyMEExOFd5RlJOUEh0Q2dEOERtSmI2TXdnQ0s1NFhsc3FR?=
- =?utf-8?B?K0ZFWG11aVg2akdLaU93VkVKais2bE5aV0dsMVM4MUtsdGI2cVhBL0ZPY3N5?=
- =?utf-8?B?a0syR3NlUDhGU2wxbjVDRjhNMmE0ZDhXTjl3eUpEOXp6Z0o3VDhnWXFUN0cz?=
- =?utf-8?B?eGxjQTRpQ3pHNHFKQVNQRnpQNy9adWNNNXFFZnVMZ1hETm84Z2NiWlkrSXl2?=
- =?utf-8?B?QjhuMVhmL3B4NnFEbDg0Qmt4SHdkN1dleEFXZVgySnFmSDF0Q0gycXlCTGpM?=
- =?utf-8?B?RWJhRC9qSXVmRUEzUHBrVUNuczh6RDhvZlFXVUtTdGlLNWxIajl3UDhUL2Fp?=
- =?utf-8?B?M3RGbjljcjhleENTR09BUkRUK1hnV05zYkUzOEsrdnJpMVYvNG12S1RHRVRq?=
- =?utf-8?B?MmJ6SFhKaUxhVVd3M3RMV01KN0tpY3c5cVFFNzI1OWtmS2pmdVhDaWJJTmVB?=
- =?utf-8?B?blN1SmlQcHBRaWNodUZMRnVtRXBhUmp4bjk1SEJQczBTNG8yc0wyeThhSUYy?=
- =?utf-8?B?THFKcVh3WDBJZHJ0azFmMkppRHB5aFVNQWVDTjc0QURHRThucy9GUVdXRklG?=
- =?utf-8?B?b0cwdkhsQ3d0M1JMU3VZTThqVkMwT05ndmlPTnE2WFhSWUtNTnBpWlZqUEFN?=
- =?utf-8?B?QlRNRGV1VklPNmphWFNYaEFTQjZENTR4aE9VS3RsWE9yTEI0eTVnRlVpNmx1?=
- =?utf-8?B?dVc4MXZNZU1lUEgxdUxMUHJFWGFvWDdhL2ZTRjZ6Nlp4NVh1bUZ3akxENmRG?=
- =?utf-8?B?b2ZrNUdMV0FwS1VCdkJKVnJEdHhjemJqcW5rOUxGSlF4Q1dVTnhhd3podC9U?=
- =?utf-8?B?YnFwY1IxejBLeXRqem1MMkhIWUx5OTQ1U0NlbEJMenRESkRJN1RRYVB0ekxs?=
- =?utf-8?B?WlB2aW5QNUlQYTd2YjdTUFQxVWhVMTYvVkxKb1pQcDB2SFRVRGdmOVdMdSs3?=
- =?utf-8?B?NDFxaVNSOXp4dHdJeFQzWWJmQ1NMa1pSTUNDTzNGY0NxaVYyTXIvT1J5V1VX?=
- =?utf-8?B?MlRqcVRuSEhZNnJaYTYyK1VsWDRjQjdJeXpCTnN3MU1UMTUzWUZRbWxTK2ps?=
- =?utf-8?B?ck1hTy90a2c0QW5xTndtL1FzWG05K3pPSXJRU1krWWRzSXkzc0xNQ0VzYVVu?=
- =?utf-8?B?Z3g0MXZ5bGhEQmZKWHNhQzRzdlFyMGVKam14QWlselRqeDloamk0d1habXg4?=
- =?utf-8?B?aFlzemZ4d3gwVDhGdGRWdmhwWmlpQmE3SW9rMTgrRHp6V0NhYUxESDFqSkhR?=
- =?utf-8?B?L3duaHlYTE4zVkdhY2d4ODUzUDJOdmhFaE5MN1k3cEYveWJRNXErY2crTndW?=
- =?utf-8?B?dmJLZ0FVWkNoY3RCSkJhYWUySGRLU0M5blk2cW9uNjhJVitEZis2SWlrcHc2?=
- =?utf-8?B?WnF3UmQrV00rVmo5YU9sUlFuV2UxQWMrY25XVDQ4NHcyY0diYXl5MWl3VWl1?=
- =?utf-8?B?ZkZydVdsdUtvNmJHVkFBeE9yRTcxU1Frbm1DOEU1QVR5N3dCLzNXalk5M3pP?=
- =?utf-8?B?cXAvWDlOYXJ3cGdxSFMraFhaaE1GSEtBd25kN0ZGeXdQUm5naXJyVjhPam1I?=
- =?utf-8?B?dUZ0Q3dCRHhlK3VYajVGclF1ZjBMRjVHTllhRmxXUHRiTFloQ1o2enZwNTYr?=
- =?utf-8?B?SXVXOGx3bDRyWXFwSm4xd0RKR3VvQktadDBHQWdEMkI4M2p4aDNmTHJHUUZK?=
- =?utf-8?Q?FTAk106n1uCCQrXJNkfeTKZ+x?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce751deb-0c19-478d-831d-08daab9ba0b1
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2022 15:16:53.4973 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ji+zlEWHw8EiEVH11hEDOCd8v3UMXq5JmFOCSzjZNbA2/rOOtG4+rlKbtotsKPHoeJRTs6YRZdwJLI2f7ZdOXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5754
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,30 +58,250 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-ext4@vger.kernel.org, linux-iio@vger.kernel.org,
+ apparmor@lists.ubuntu.com, linux-nvme@lists.infradead.org,
+ linux-perf-users@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ amd-gfx@lists.freedesktop.org, loongarch@lists.linux.dev,
+ ntfs3@lists.linux.dev, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-10-10 17:36, Alex Deucher wrote:
-> It's MIT.
-> 
-> Fixes: b73353f7f3d434 ("drm/amd/display: Use the same cursor info across features")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: b9f85101cad3397ef1e509909602a90e257ab9d8  Add linux-next specific files for 20221011
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Error/Warning reports:
 
-Harry
+https://lore.kernel.org/linux-doc/202209201326.sY9kHOLm-lkp@intel.com
+https://lore.kernel.org/linux-doc/202210070057.NpbaMyxB-lkp@intel.com
+https://lore.kernel.org/linux-mm/202210090954.pTR6m6rj-lkp@intel.com
+https://lore.kernel.org/linux-mm/202210110857.9s0tXVNn-lkp@intel.com
+https://lore.kernel.org/linux-mm/202210111318.mbUfyhps-lkp@intel.com
+https://lore.kernel.org/llvm/202210111438.WT5u8Im6-lkp@intel.com
 
-> ---
->  drivers/gpu/drm/amd/display/dc/inc/hw/cursor_reg_cache.h | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/cursor_reg_cache.h b/drivers/gpu/drm/amd/display/dc/inc/hw/cursor_reg_cache.h
-> index 0e7c5880e867..45645f9fd86c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/inc/hw/cursor_reg_cache.h
-> +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/cursor_reg_cache.h
-> @@ -1,3 +1,4 @@
-> +/* SPDX-License-Identifier: MIT */
->  /* Copyright © 2022 Advanced Micro Devices, Inc. All rights reserved. */
->  
->  #ifndef __DAL_CURSOR_CACHE_H__
+Error/Warning: (recently discovered and may have been fixed)
 
+ERROR: modpost: "dcn20_acquire_dsc" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+ERROR: modpost: "dcn20_build_mapped_resource" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+ERROR: modpost: "devm_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
+ERROR: modpost: "devm_ioremap_resource" [drivers/dma/idma64.ko] undefined!
+ERROR: modpost: "devm_ioremap_resource" [drivers/dma/qcom/hdma.ko] undefined!
+ERROR: modpost: "devm_memremap" [drivers/misc/open-dice.ko] undefined!
+ERROR: modpost: "devm_memunmap" [drivers/misc/open-dice.ko] undefined!
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/char/xillybus/xillybus_of.ko] undefined!
+ERROR: modpost: "ioremap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
+ERROR: modpost: "ioremap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
+ERROR: modpost: "iounmap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
+ERROR: modpost: "iounmap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
+Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/clock/microchip,mpfs.yaml
+Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/mtd/amlogic,meson-nand.txt
+arch/arm64/kernel/alternative.c:199:6: warning: no previous prototype for 'apply_alternatives_vdso' [-Wmissing-prototypes]
+arch/arm64/kernel/alternative.c:295:14: warning: no previous prototype for 'alt_cb_patch_nops' [-Wmissing-prototypes]
+arch/loongarch/mm/init.c:166:24: warning: variable 'new' set but not used [-Wunused-but-set-variable]
+dc_resource.c:(.text.dc_resource_acquire_secondary_pipe_for_mpc_odm+0x21c): undefined reference to `dcn20_acquire_dsc'
+drivers/iio/adc/mcp3911.c:252 mcp3911_write_raw() error: buffer overflow 'mcp3911_osr_table' 8 <= 31
+drivers/iio/adc/mcp3911.c:499 mcp3911_probe() warn: passing zero to 'PTR_ERR'
+drivers/nvme/target/loop.c:578 nvme_loop_create_ctrl() warn: 'opts->queue_size - 1' 18446744073709551615 can't fit into 65535 'ctrl->ctrl.sqsize'
+drivers/nvme/target/loop.c:578 nvme_loop_create_ctrl() warn: 'opts->queue_size - 1' 4294967295 can't fit into 65535 'ctrl->ctrl.sqsize'
+fs/ext4/super.c:1744:19: warning: 'deprecated_msg' defined but not used [-Wunused-const-variable=]
+fs/ntfs3/namei.c:487 ntfs_d_compare() error: uninitialized symbol 'uni1'.
+include/linux/compiler_types.h:357:45: error: call to '__compiletime_assert_422' declared with attribute error: FIELD_GET: mask is not constant
+mips-linux-ld: dc_resource.c:(.text.dc_resource_acquire_secondary_pipe_for_mpc_odm+0x304): undefined reference to `dcn20_build_mapped_resource'
+mm/mmap.c:802 __vma_adjust() error: uninitialized symbol 'next_next'.
+security/apparmor/policy_unpack.c:1089 unpack_profile() warn: passing zero to 'ERR_PTR'
+security/apparmor/policy_unpack.c:548 unpack_trans_table() error: uninitialized symbol 'table'.
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- arm64-allyesconfig
+|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
+|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
+|-- csky-randconfig-m041-20221010
+|   `-- mm-mmap.c-__vma_adjust()-error:uninitialized-symbol-next_next-.
+|-- i386-allyesconfig
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-defconfig
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-a003
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-a005
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-a011-20221010
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-a012-20221010
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-a014-20221010
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-a016-20221010
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-c001-20221010
+|   `-- include-linux-compiler_types.h:error:call-to-__compiletime_assert_NNN-declared-with-attribute-error:FIELD_GET:mask-is-not-constant
+|-- i386-randconfig-c021-20221010
+|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|-- i386-randconfig-m021-20221010
+|   |-- arch-x86-kernel-apic-apic.c-generic_processor_info()-warn:always-true-condition-(num_processors-()-)-(-u32max-)
+|   |-- drivers-iio-adc-mcp3911.c-mcp3911_probe()-warn:passing-zero-to-PTR_ERR
+|   |-- drivers-iio-adc-mcp3911.c-mcp3911_write_raw()-error:buffer-overflow-mcp3911_osr_table
+|   |-- drivers-nvme-target-loop.c-nvme_loop_create_ctrl()-warn:opts-queue_size-can-t-fit-into-ctrl-ctrl.sqsize
+|   |-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
+|   `-- mm-mmap.c-__vma_adjust()-error:uninitialized-symbol-next_next-.
+|-- i386-randconfig-s052-20221010
+|   |-- fs-ntfs3-index.c:sparse:sparse:restricted-__le32-degrades-to-integer
+|   |-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s1-got-unsigned-short
+|   `-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s2-got-unsigned-short
+|-- loongarch-randconfig-r012-20221010
+|   `-- arch-loongarch-mm-init.c:warning:variable-new-set-but-not-used
+|-- loongarch-randconfig-s032-20221010
+|   |-- arch-loongarch-kernel-perf_event.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-ptr-got-int-noderef-__percpu
+|   `-- arch-loongarch-kernel-perf_event.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-ptr-got-unsigned-int-noderef-__percpu
+|-- mips-allyesconfig
+|   |-- dc_resource.c:(.text.dc_resource_acquire_secondary_pipe_for_mpc_odm):undefined-reference-to-dcn20_acquire_dsc
+|   `-- mips-linux-ld:dc_resource.c:(.text.dc_resource_acquire_secondary_pipe_for_mpc_odm):undefined-reference-to-dcn20_build_mapped_resource
+|-- powerpc-allmodconfig
+|   |-- ERROR:dcn20_acquire_dsc-drivers-gpu-drm-amd-amdgpu-amdgpu.ko-undefined
+|   `-- ERROR:dcn20_build_mapped_resource-drivers-gpu-drm-amd-amdgpu-amdgpu.ko-undefined
+|-- s390-allmodconfig
+|   |-- ERROR:devm_ioremap_resource-drivers-dma-fsl-edma.ko-undefined
+|   |-- ERROR:devm_ioremap_resource-drivers-dma-idma64.ko-undefined
+clang_recent_errors
+|-- arm-ep93xx_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- arm-imx_v4_v5_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- arm-ixp4xx_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- arm-randconfig-r026-20221010
+|   |-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
+|-- hexagon-randconfig-r041-20221010
+|   |-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|   |-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
+|   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmnewmap
+|   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmsetvec
+|   `-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-memset
+|-- i386-buildonly-randconfig-r006-20221010
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dml-dcn32-dcn32_fpu.c:warning:no-previous-prototype-for-function-dcn32_split_stream_for_mpc_or_odm
+|-- i386-randconfig-a002
+|   |-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
+|-- i386-randconfig-a004
+|   |-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
+|-- mips-cu1000-neo_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- powerpc-fsp2_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- riscv-randconfig-r042-20221011
+|   `-- ld.lld:error:undefined-symbol:riscv_cbom_block_size
+|-- riscv-rv32_defconfig
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|-- x86_64-randconfig-a001-20221010
+|   |-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
+|-- x86_64-randconfig-a003-20221010
+|   |-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
+|-- x86_64-randconfig-a004-20221010
+|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+`-- x86_64-rhel-8.3-rust
+    `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
+
+elapsed time: 725m
+
+configs tested: 85
+configs skipped: 3
+
+gcc tested configs:
+x86_64                              defconfig
+arc                                 defconfig
+alpha                               defconfig
+i386                                defconfig
+x86_64                               rhel-8.3
+i386                 randconfig-a011-20221010
+um                             i386_defconfig
+arc                  randconfig-r043-20221010
+s390                             allmodconfig
+x86_64               randconfig-a011-20221010
+um                           x86_64_defconfig
+arm                                 defconfig
+i386                          randconfig-a001
+i386                 randconfig-a013-20221010
+s390                             allyesconfig
+x86_64                          rhel-8.3-func
+i386                 randconfig-a015-20221010
+x86_64               randconfig-a016-20221010
+riscv                randconfig-r042-20221010
+s390                                defconfig
+i386                          randconfig-a003
+x86_64                           allyesconfig
+x86_64                    rhel-8.3-kselftests
+i386                 randconfig-a014-20221010
+x86_64               randconfig-a014-20221010
+i386                          randconfig-a005
+powerpc                           allnoconfig
+s390                 randconfig-r044-20221010
+i386                 randconfig-a016-20221010
+x86_64               randconfig-a015-20221010
+powerpc                     redwood_defconfig
+i386                 randconfig-a012-20221010
+powerpc                          allmodconfig
+xtensa                  cadence_csp_defconfig
+x86_64               randconfig-a012-20221010
+mips                             allyesconfig
+i386                             allyesconfig
+sh                          sdk7780_defconfig
+x86_64               randconfig-a013-20221010
+arm                              allyesconfig
+arc                               allnoconfig
+x86_64                           rhel-8.3-syz
+arm64                            allyesconfig
+sh                               allmodconfig
+alpha                             allnoconfig
+um                                  defconfig
+x86_64                         rhel-8.3-kunit
+xtensa                  audio_kc705_defconfig
+m68k                             allmodconfig
+riscv                             allnoconfig
+x86_64                           rhel-8.3-kvm
+csky                              allnoconfig
+arc                              allyesconfig
+alpha                            allyesconfig
+m68k                        stmark2_defconfig
+arc                 nsimosci_hs_smp_defconfig
+ia64                          tiger_defconfig
+powerpc                     asp8347_defconfig
+m68k                             allyesconfig
+ia64                             allmodconfig
+arm                            pleb_defconfig
+arc                      axs103_smp_defconfig
+m68k                             alldefconfig
+powerpc                  iss476-smp_defconfig
+arm                       omap2plus_defconfig
+i386                 randconfig-c001-20221010
+
+clang tested configs:
+hexagon              randconfig-r045-20221010
+hexagon              randconfig-r041-20221010
+riscv                             allnoconfig
+i386                          randconfig-a002
+x86_64               randconfig-a002-20221010
+x86_64               randconfig-a001-20221010
+x86_64               randconfig-a003-20221010
+i386                          randconfig-a006
+i386                          randconfig-a004
+x86_64               randconfig-a006-20221010
+x86_64               randconfig-a004-20221010
+x86_64               randconfig-a005-20221010
+arm                          ep93xx_defconfig
+mips                          ath25_defconfig
+arm                       imx_v4_v5_defconfig
+arm                          ixp4xx_defconfig
+mips                     cu1000-neo_defconfig
+x86_64                          rhel-8.3-rust
+powerpc                        fsp2_defconfig
+riscv                          rv32_defconfig
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
