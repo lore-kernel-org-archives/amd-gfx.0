@@ -4,78 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE5F1C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 17:34:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0037CC433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 17:37:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EE2510E837;
-	Tue, 11 Oct 2022 17:34:00 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7847610E835;
- Tue, 11 Oct 2022 17:31:53 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-119-114.nat.spd-mgts.ru
- [109.252.119.114])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id BECC86602358;
- Tue, 11 Oct 2022 18:31:47 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1665509511;
- bh=FbjwvyBn8Jk5nWNvSwUKiVg917Dtcke8nkTgpCuxGHg=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=j9FFZ8t9+K/yyb3uyYTMRMmOZwbPmrFNo2nLiwt+NaQZrbzcY4YA8uPgvq9KqKyKu
- qfSxAQSs3xdybENOLmYyju3gm2jzJes8ytBnen1UmrG70xGfL9X93PKjnudy4jAGU9
- gl+8JqZyTgX4VAz30gatLmK/w1aZ0uiSfREFVnx4BKEjtHICZB25vE8HLEsmHDTqCu
- yIpeJVFLrAb6mYjYFS9OIEMj1EcqLBHaz1mjNnYKGPhtHbHH9fs9DzhtYGqeU92wP3
- bGYgN3stcLAlbVz256MpW1wDubM6bGRxeP+1wxa5ae3PSGyqaSwxKah/5yl/VkpzQm
- rYhgIy9tlB8RA==
-Message-ID: <fd3baeeb-2277-768c-e0d1-f3adcecb848a@collabora.com>
-Date: Tue, 11 Oct 2022 20:31:45 +0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4698D10E98A;
+	Tue, 11 Oct 2022 17:37:51 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45C1210E981
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Oct 2022 17:37:48 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id l5so16634429oif.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Oct 2022 10:37:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=SwegHwqxbAThJG6XWfVepnm6pt7rZUYTNuZ6kky35wk=;
+ b=O9Mn2x2aRTltALQ1pOjn3xE9WqflEkVyQ9vS2lZSp74uZY61lhQ8yT2cxR2R4KYpv5
+ rA8n4iz4/AaBPPhK1nPJESphYE78S7El8o+IYtLK25gkz81bNsrzYRMgAJ1oT0v3tIiI
+ OIxOJnARDb0mNsT5Yffdp+Rs6jkqec1VHRJiFzFvqifm/hTjqsm/ufxLVVVBuNpAPxQW
+ YMOGk3zlqbRNKaPCF2taLg72080tYCHFhYyrtm4OhZmewU4B0M8fAg5CxMxlm83kZ/Cf
+ 45QqzKhwaAKDyf2thipcP4NjssJfZfXY/pgertxlSEr4hV6xU6saz2A6dAPTF8NpG59I
+ 6Tdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=SwegHwqxbAThJG6XWfVepnm6pt7rZUYTNuZ6kky35wk=;
+ b=qD/6opl9AAyHI3f6Zbe6PkEuIfMoTdZNQl2Z2LBuDzhy/HVT3SOVmFRUeb5j8xtAo1
+ POViD4s2ElHXKJy6ORhB2w5FY0Z98mZGiKD3Ghg07h/E0PudEFZlkY4LN3vWz6eUOp26
+ CGwvC4Q7NUSf6idtyc98xy7+GV6gVINLPzbzXEnY6fr70TzRcJgU8vaxh12n4QkjTkvJ
+ /RvrMwd6eMzgPJV8HNM+Hbxfde/SDZtr9CInWgoGD0/cCUhM+/Infk6Y0pm47l1H2KE6
+ 0ZH4zuZi/diLhJyhm7bD7WYlZ21Cend730epaZubbFOB4rK6/Er6ln7pc3QOGquAkqw/
+ dftw==
+X-Gm-Message-State: ACrzQf2rEgwGfZUT6n31Z9ShjRDD6jNF/+Sde//lQ6I/yV9DP4DlJDBq
+ AkTOamFyFUQ/DK5X5wVApwea+zIIZxuv/PLu0njdC7Gc
+X-Google-Smtp-Source: AMsMyM77EmvqJtJMxV53dT1OGryLI4kdKSvPoSaIKfUoWJy3BaSM1ao4HfAQIUqRYnzpRffjTKviPu3SgK4+DLESl/Q=
+X-Received: by 2002:a05:6808:2194:b0:350:cb3d:ecd2 with SMTP id
+ be20-20020a056808219400b00350cb3decd2mr146962oib.46.1665509867519; Tue, 11
+ Oct 2022 10:37:47 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Subject: Re: [PATCH v6 00/21] Move all drivers to a common dma-buf locking
- convention
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
- <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Ruhl Michael J <michael.j.ruhl@intel.com>
-References: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 11 Oct 2022 17:33:58 +0000
+References: <20221011173124.89534-1-Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20221011173124.89534-1-Rodrigo.Siqueira@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 11 Oct 2022 13:37:36 -0400
+Message-ID: <CADnq5_NwBAgFkqRqV6ECC3DeGbeCztYDG1=B=VUdme7x+iWbJQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Add HUBP surface flip interrupt handler
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,42 +63,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- linux-media@vger.kernel.org
+Cc: Leo Li <sunpeng.li@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/28/22 22:15, Dmitry Osipenko wrote:
-> Hello,
-> 
-> This series moves all drivers to a dynamic dma-buf locking specification.
-> From now on all dma-buf importers are made responsible for holding
-> dma-buf's reservation lock around all operations performed over dma-bufs
-> in accordance to the locking specification. This allows us to utilize
-> reservation lock more broadly around kernel without fearing of a potential
-> deadlocks.
-> 
-> This patchset passes all i915 selftests. It was also tested using VirtIO,
-> Panfrost, Lima, Tegra, udmabuf, AMDGPU and Nouveau drivers. I tested cases
-> of display+GPU, display+V4L and GPU+V4L dma-buf sharing (where appropriate),
-> which covers majority of kernel drivers since rest of the drivers share
-> same or similar code paths.
+On Tue, Oct 11, 2022 at 1:32 PM Rodrigo Siqueira
+<Rodrigo.Siqueira@amd.com> wrote:
+>
+> From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+>
+> Add the hubp surface flip handler. This fixes some flip timeout issues.
+>
+> Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-All the non-drm patches have been acked by the respective maintainers.
-I'm now feeling comfortable to take this series into drm-misc-next and
-going to do it later this week.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-If anyone have more comments to add, then please do it now. It won't be
-possible to drop out patches from drm-misc once they will be merged. All
-further changes will have to be made on top of the applied patches.
-
-Thanks to all who reviewed this patchset!
-
--- 
-Best regards,
-Dmitry
-
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubp.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubp.c
+> index f4b901d393eb..ac1c6458dd55 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubp.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hubp.c
+> @@ -181,6 +181,7 @@ static struct hubp_funcs dcn32_hubp_funcs = {
+>         .hubp_init = hubp3_init,
+>         .set_unbounded_requesting = hubp31_set_unbounded_requesting,
+>         .hubp_soft_reset = hubp31_soft_reset,
+> +       .hubp_set_flip_int = hubp1_set_flip_int,
+>         .hubp_in_blank = hubp1_in_blank,
+>         .hubp_update_force_pstate_disallow = hubp32_update_force_pstate_disallow,
+>         .phantom_hubp_post_enable = hubp32_phantom_hubp_post_enable,
+> --
+> 2.35.1
+>
