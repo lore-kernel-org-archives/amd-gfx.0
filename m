@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F18D2C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 12:48:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8992C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 12:48:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5925110E293;
-	Tue, 11 Oct 2022 12:48:02 +0000 (UTC)
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [IPv6:2a01:488:42:1000:50ed:8234::])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ED8E10E1E2;
- Tue, 11 Oct 2022 09:49:46 +0000 (UTC)
-Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1oiBtO-0002hh-32; Tue, 11 Oct 2022 11:49:42 +0200
-Message-ID: <c47b4831-597e-6876-6d53-24866c739237@leemhuis.info>
-Date: Tue, 11 Oct 2022 11:49:41 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3437A10E315;
+	Tue, 11 Oct 2022 12:48:03 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 653EC10E043;
+ Tue, 11 Oct 2022 12:41:34 +0000 (UTC)
+Received: from dggpemm500021.china.huawei.com (unknown [172.30.72.55])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MmwLN6p0XzpVZ8;
+ Tue, 11 Oct 2022 20:38:20 +0800 (CST)
+Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
+ dggpemm500021.china.huawei.com (7.185.36.109) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Tue, 11 Oct 2022 20:41:31 +0800
+Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
+ (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 11 Oct
+ 2022 20:41:30 +0800
+From: Yang Yingliang <yangyingliang@huawei.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH -next] drm/amd/display: fix build error on arm64
+Date: Tue, 11 Oct 2022 20:41:03 +0800
+Message-ID: <20221011124103.2123883-1-yangyingliang@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Content-Language: en-US, de-DE
-To: Guenter Roeck <linux@roeck-us.net>
-References: <20220927191200.216488-1-hamza.mahfooz@amd.com>
- <20221006064615.GA2817657@roeck-us.net>
- <20221006172337.GA753466@roeck-us.net>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: Re: [PATCH] drm/amd/display: fix array-bounds error in
- dc_stream_remove_writeback()
-In-Reply-To: <20221006172337.GA753466@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1665481786;
- 85a6ad21; 
-X-HE-SMSGID: 1oiBtO-0002hh-32
-X-Mailman-Approved-At: Tue, 11 Oct 2022 12:47:58 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ dggpemm500007.china.huawei.com (7.185.36.183)
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Tue, 11 Oct 2022 12:47:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,57 +48,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, regressions@lists.linux.dev
+Cc: alexander.deucher@amd.com, jun.lei@amd.com, yangyingliang@huawei.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[removed a lot of people from the list of recipients, as this is mainly
-for Guenter]
+dcn20_build_mapped_resource() and dcn20_acquire_dsc() is not defined,
+if CONFIG_DRM_AMD_DC_DCN is disabled.
 
-Hi Guenter!
+Fix the following build error on arm64:
 
-On 06.10.22 19:23, Guenter Roeck wrote:
-> On Wed, Oct 05, 2022 at 11:46:15PM -0700, Guenter Roeck wrote:
->> On Tue, Sep 27, 2022 at 03:12:00PM -0400, Hamza Mahfooz wrote:
->>> Address the following error:
->>> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c: In function ‘dc_stream_remove_writeback’:
->>> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c:527:55: error: array subscript [0, 0] is outside array bounds of ‘struct dc_writeback_info[1]’ [-Werror=array-bounds]
->>>   527 |                                 stream->writeback_info[j] = stream->writeback_info[i];
->>>       |                                 ~~~~~~~~~~~~~~~~~~~~~~^~~
->>> In file included from ./drivers/gpu/drm/amd/amdgpu/../display/dc/dc.h:1269,
->>>                  from ./drivers/gpu/drm/amd/amdgpu/../display/dc/inc/core_types.h:29,
->>>                  from ./drivers/gpu/drm/amd/amdgpu/../display/dc/basics/dc_common.h:29,
->>>                  from drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c:27:
->>> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dc_stream.h:241:34: note: while referencing ‘writeback_info’
->>>   241 |         struct dc_writeback_info writeback_info[MAX_DWB_PIPES];
->>>       |
->>>
->>> Currently, we aren't checking to see if j remains within
->>> writeback_info[]'s bounds. So, add a check to make sure that we aren't
->>> overflowing the buffer.
->>>
->>> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
->>
->> With gcc 11.3, this patch doesn't fix a problem, it introduces one.
->>
->> Building csky:allmodconfig ... failed
->> --------------
->> Error log:
->> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c: In function 'dc_stream_remove_writeback':
->> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c:527:83: error: array subscript 1 is above array bounds of 'struct dc_writeback_info[1]' [-Werror=array-bounds]
->>   527 |                                 stream->writeback_info[j] = stream->writeback_info[i];
->
-> [...]
->
-> #regzbot introduced: 5d8c3e836fc2
+  ERROR: modpost: "dcn20_build_mapped_resource" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+  ERROR: modpost: "dcn20_acquire_dsc" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
 
-Thx for using regzbot, much appreciated. JFYI, the initial report was
-your own mail you were replying to here, so a "#regzbot ^introduced:
-..."  would have been more appropriate. In this case it didn't matter
-anyway, as the fix didn't include a "Link:" tag to the initial report
-anyway. No worries, I just have to tell regzbot about the fix manually then:
+Fixes: 20dad3813b3c ("drm/amd/display: Add a helper to map ODM/MPC/Multi-Plane resources")
+Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-#regzbot fixed-by: faf4d8e07f5b67
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 4a6e867369b8..bbed5685d847 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -3721,12 +3721,16 @@ bool dc_resource_acquire_secondary_pipe_for_mpc_odm(
+ 		else
+ 			sec_pipe->stream_res.opp = sec_pipe->top_pipe->stream_res.opp;
+ 		if (sec_pipe->stream->timing.flags.DSC == 1) {
++#if defined(CONFIG_DRM_AMD_DC_DCN)
+ 			dcn20_acquire_dsc(dc, &state->res_ctx, &sec_pipe->stream_res.dsc, pipe_idx);
++#endif
+ 			ASSERT(sec_pipe->stream_res.dsc);
+ 			if (sec_pipe->stream_res.dsc == NULL)
+ 				return false;
+ 		}
++#if defined(CONFIG_DRM_AMD_DC_DCN)
+ 		dcn20_build_mapped_resource(dc, state, sec_pipe->stream);
++#endif
+ 	}
+ 
+ 	return true;
+-- 
+2.25.1
 
-Ciao, Thorsten
