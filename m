@@ -4,55 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37261C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 13:44:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6C48C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 13:55:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74BC210E3BD;
-	Tue, 11 Oct 2022 13:44:40 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78EC410E3BA;
- Tue, 11 Oct 2022 13:44:36 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-12c8312131fso15907060fac.4; 
- Tue, 11 Oct 2022 06:44:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=hdOgpXIVzr2EZYZkvsQiaauFi/fh0de5ZMVYZE7lDc8=;
- b=fHot2KzfzI6Yjztuqcs7KGUv1VniLbHFwrQWp42/onebcYB1h/acJ02L73XzFS2pfM
- G97du6iYZ0Y9TRwDLUXHW/3nS18bmSN7V+3KggIXkYvqix/UU9VeLvcy9Vtv2gKz6Y7P
- bS71/353KqYgtJZqSAbpI9VoUgVjx4tWrvdTxTNZphOe8zJ/ZpCwlZdbfcnZ1HDI4WUg
- 2dbpE3S5xvqPAU+c0aqESMthrux12t9RCcGdeQsf8fKXhzUm4sHTRg1kwB6XZ/qAx9uJ
- U8N+Vy6cCGs4dN3L2mjLTmWmW0MNxAntAg32BNMhofjbqV0rIALl41jvsOg9X+po8Zj5
- Fp2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=hdOgpXIVzr2EZYZkvsQiaauFi/fh0de5ZMVYZE7lDc8=;
- b=x3Gr1ctH0UnNgDCEPIbmxkTiZ4b/tHUip2fYb1Truy2bh7tQoeQ23ZGk3tx0Knrlnv
- IGbGODO1G2xP0mzHuvzi8yCQnEaCWvGLto/FZVQ06wcmQw/ewfrH0o0VBK165uYYAf8d
- fFLDd5KDBE/s/beoayhGZusibFtWdmwqtMy7uBQsG/wYqTqLJyMj95wvU+uxL2r49mua
- jgdIDpgfi3N1xDgq4X+LboPCkqSj+YNEjGsbxC99EhWQHrZZcz55uw9E08hz5HYnQB0O
- 0FI4oZmw6Oq7fNDXS1fOg+fcULnR4SIIMUpwEWZpbdbm1oQfjrjGz/CLxvSLBxZPiFXP
- RPLw==
-X-Gm-Message-State: ACrzQf2QQrgty6tx/+fMrEk1Wg0lxlfDeO81gvBCbVBNFv6Lv6k5Xaf6
- tyZ8O4sLGFTHtmmp/WMqZYJRP3XiXHbIxvMSz1s=
-X-Google-Smtp-Source: AMsMyM4ImNHwDo4PzM4b6LyAa/QX8U/OBf5aPIiIpkt3nta3iHvW75nISEIVdsNnW7PBSU4pknSYnWUUxZfH7ajrtA4=
-X-Received: by 2002:a05:6870:40c8:b0:136:4389:1375 with SMTP id
- l8-20020a05687040c800b0013643891375mr9662275oal.46.1665495875585; Tue, 11 Oct
- 2022 06:44:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E70010E805;
+	Tue, 11 Oct 2022 13:55:17 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 519EF10E5C2;
+ Tue, 11 Oct 2022 13:50:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1665496220; x=1697032220;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=sk4Ro592J8JB79hfrw0B4b6IJkogkXUF/Z2L3LTOxp4=;
+ b=cjwSRScvrGwmzJDXsLZCCPHLc1ieLAgup0znWV2RUprhUYEvDWZZYHmW
+ RnDA3dVXduZwbw3QOheQVQaO23+UD6ldVAzpEhKPKrdBx1HuOTZ3wraJE
+ iwOOvAGCnAKSkio3V7tUGZPKjTPtsrLTMEZIBwBOKRgCkd+/9TPqSzpLs
+ ikgTEyjhcPcisE4Qb4CmaKK/1/5NhlY7SBTpyCcjTo93c1KbQ1BTYOlDE
+ cOOronRI5DaCRCOPYsHEZXSsM1I2eMsXHLaCxJj0hrieRb7Z81jmUyTIA
+ gFSSQsaoyoZDLgRNJeGqkJdJpKNe65i+Xa4v85ZNjYSE5murQzUinXcDC g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="303244760"
+X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="303244760"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2022 06:50:19 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="871510048"
+X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="871510048"
+Received: from milawils-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.40.183])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2022 06:50:06 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH 03/15] drm/amd/display: stop using connector->override_edid
+Date: Tue, 11 Oct 2022 16:49:37 +0300
+Message-Id: <8620697ae6a13bb9202db9edbc26ff30d9f4e2e8.1665496046.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1665496046.git.jani.nikula@intel.com>
+References: <cover.1665496046.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-References: <20221011124103.2123883-1-yangyingliang@huawei.com>
-In-Reply-To: <20221011124103.2123883-1-yangyingliang@huawei.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 11 Oct 2022 09:44:24 -0400
-Message-ID: <CADnq5_Mm0=DNifw=+3hW_4YNRreMjtViLJikB6WsJsaJg+unmQ@mail.gmail.com>
-Subject: Re: [PATCH -next] drm/amd/display: fix build error on arm64
-To: Yang Yingliang <yangyingliang@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 11 Oct 2022 13:55:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,52 +59,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, jun.lei@amd.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
+ Xinhui Pan <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks.
+The connector->override_edid flag is strictly for EDID override debugfs
+management, and drivers have no business using it.
 
-Alex
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-On Tue, Oct 11, 2022 at 8:41 AM Yang Yingliang <yangyingliang@huawei.com> wrote:
->
-> dcn20_build_mapped_resource() and dcn20_acquire_dsc() is not defined,
-> if CONFIG_DRM_AMD_DC_DCN is disabled.
->
-> Fix the following build error on arm64:
->
->   ERROR: modpost: "dcn20_build_mapped_resource" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
->   ERROR: modpost: "dcn20_acquire_dsc" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
->
-> Fixes: 20dad3813b3c ("drm/amd/display: Add a helper to map ODM/MPC/Multi-Plane resources")
-> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> index 4a6e867369b8..bbed5685d847 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> @@ -3721,12 +3721,16 @@ bool dc_resource_acquire_secondary_pipe_for_mpc_odm(
->                 else
->                         sec_pipe->stream_res.opp = sec_pipe->top_pipe->stream_res.opp;
->                 if (sec_pipe->stream->timing.flags.DSC == 1) {
-> +#if defined(CONFIG_DRM_AMD_DC_DCN)
->                         dcn20_acquire_dsc(dc, &state->res_ctx, &sec_pipe->stream_res.dsc, pipe_idx);
-> +#endif
->                         ASSERT(sec_pipe->stream_res.dsc);
->                         if (sec_pipe->stream_res.dsc == NULL)
->                                 return false;
->                 }
-> +#if defined(CONFIG_DRM_AMD_DC_DCN)
->                 dcn20_build_mapped_resource(dc, state, sec_pipe->stream);
-> +#endif
->         }
->
->         return true;
-> --
-> 2.25.1
->
+---
+
+I really have no idea what the functional impact here is. I can only
+guess that the intention is to abuse ->override_edid to block EDID
+property updates. In any case, this use needs to go.
+
+It also seems really curious we get here via connector .get_modes hook!
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 4c73727e0b7d..d96877196a7f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6109,7 +6109,6 @@ static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
+ 				aconnector->base.name);
+ 
+ 		aconnector->base.force = DRM_FORCE_OFF;
+-		aconnector->base.override_edid = false;
+ 		return;
+ 	}
+ 
+@@ -6144,8 +6143,6 @@ static void handle_edid_mgmt(struct amdgpu_dm_connector *aconnector)
+ 		link->verified_link_cap.link_rate = LINK_RATE_HIGH2;
+ 	}
+ 
+-
+-	aconnector->base.override_edid = true;
+ 	create_eml_sink(aconnector);
+ }
+ 
+-- 
+2.34.1
+
