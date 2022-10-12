@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62317C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Oct 2022 06:35:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 691B4C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Oct 2022 06:35:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5DA810E360;
-	Wed, 12 Oct 2022 06:35:00 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2057.outbound.protection.outlook.com [40.107.237.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8792B10E360
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Oct 2022 06:34:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76E0A10E377;
+	Wed, 12 Oct 2022 06:35:27 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2058.outbound.protection.outlook.com [40.107.220.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 479B710E377
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Oct 2022 06:35:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J+TPMvgJZFjqyJrPispG5cmdyxYWqxu4C4jcbkg8qY96k3Id81OKLLnkYvHQm0n1iSujr70PFWpFmSOhxkq6je8iSoUlltAY7qlu15l10VBnK/PqWs/QhcdpBG4HVNTIBUGxNgpCoVyXRG+GgSkWTDpz0SdTBBAlUzQvk99WhCN++IFVClZTjhDM4P7L6ilQOqAOIDMqFTbAyJPh/zva9kjTv4+DfeA3IgZDSE7+7001dVLMPJJK0n2vTX+xHYxEXJAm1GXU5wvJMSIuFP4g4A7kAIIxJiijZzzUuC7qtNZnNQ7zUVXSFI4Z3kOM6QE8ndw28uaVg9kLUaHrjzk3aA==
+ b=iWsHGZ7AKn0P/R6UGOQlA79HenB3Ha1uDRjr/n1Jv3iv88tSM04ucJXfdI4X7UQpg6NBsLZmfIe54rZQkedhiwfyRtgQL+uks0p+ZdxCCJbSVikLVjhQq6EHk1CktidtWQTEENoA2wgUQr8ZFLu4qixiwT8umImGdKqaJUVcrOUxeEybDriWNhGdXaMB+cbr/DraYQoQBBmc1IcccnZZB/bIqwhxgufJCY2Jui+JNxA4e/QKZ7phO27mKPCP59S1Pw/LiH+MuCOcwwfSdT9UOmu5zIiHuhkjifzRmSuo+Yf6lFmOqHuVoTY9UIiCsmmrd9EIhxsyZ6IA4ITimW1cZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ofn15G4J339GUYL4cr+Wj7XvH+UXEU0Csna1HGzmYAs=;
- b=j+Tr8K3IniWCBrAbNA5b71Mc3XWmzB7bRvb/V9VjZeFqGrFOuCYPYJA1YFl0SfkgUyMsCn8ySyLuWlVIA65D8XQrnoVSZS0JXrS02YJW9CKsKsHEfT5/axj2x+w13CeyUUUU1Qgdu2XRfj0EXSIr3noFvxrkXQDjXicXdNO6FwHBDQJqZNFbmVwDiJyt8/Gu+RC2/lP2nKcuoFcCGe68xurgDKn+wKHfqCXvi5CQCkvZt6a2MfoeoTOEgbfRIPPBGhW/ujTABGywKfKQAvnEXpPwv1jZ4awnJ6fb1ei8IUv3SGLtaya9wzOty5Sl/ZFrmOZVc1RDQl1tj3dBpd78sQ==
+ bh=t7FOpm/qz8ebfnzjoS9dM/YF6rSEDPTrFw0b2zF8fqo=;
+ b=cnMpSMJkfhVheJ3Nw2VYul+r1iXV47+XllhLzaexTzPl2G5gP3aMc6mx2kBndS5ZbiIvuzg8xpaGH8v9FJgjL4RO5DLBVRang6XuQXyo2vYFalmvQzn5TJqjs3nMbDBJjuSKUWTvtyubcuEhz9TErR4Gx2iynWwTbveB6dd8D/1tOjOw382rpS7mRIKPtKoA7eBy9riaZyJJTzMM3WAJeWys0W28frJxs/KviB+/m3H5Q6ReZSZjzPafd1eYEj+4dHh3tbKHzOd0pATsK4vagbWxtmHgEbch0gyc0PVrQtzM68a8CiTD4b6ULTfiGXqRKvEItHXzWhtNYCtfUay12A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ofn15G4J339GUYL4cr+Wj7XvH+UXEU0Csna1HGzmYAs=;
- b=MHyoJJx84HG4yjcmm2KBJWQxvie56yP99Pnj1DckkdsCXKUluor+79dUoFVDUQ6/Y0VA1rThMBsfHcFAHVl8MC3YWEUmZ/f0t2QF28LT2MpphzGxamWjih1PwYxv7QlBNqZ5cNylRP8Vym4H0vDYIGZivEOP5Z7R+paa0XCIrqM=
-Received: from BN1PR13CA0015.namprd13.prod.outlook.com (2603:10b6:408:e2::20)
- by BL1PR12MB5995.namprd12.prod.outlook.com (2603:10b6:208:39b::20)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=t7FOpm/qz8ebfnzjoS9dM/YF6rSEDPTrFw0b2zF8fqo=;
+ b=KcEUznT255pJJbLpTEwUhVpq5wsjVP2hZYXjyhCT12q8WYCSk8zrStaQZbFuKlP3EYDz5OuYLiL/6Z9JaJZtCSVJV1Ek85cIUH2/BJZQ7t1qHXvCvpU0gUHC//MatIs/xUI0mC3cGlA8Q6WnHeZzoGdxEbnYyLlsB5TrhkV8RNA=
+Received: from BN1PR13CA0021.namprd13.prod.outlook.com (2603:10b6:408:e2::26)
+ by DM4PR12MB5793.namprd12.prod.outlook.com (2603:10b6:8:60::13) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.15; Wed, 12 Oct
- 2022 06:34:56 +0000
+ 2022 06:35:20 +0000
 Received: from BN8NAM11FT099.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e2:cafe::dd) by BN1PR13CA0015.outlook.office365.com
- (2603:10b6:408:e2::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.20 via Frontend
- Transport; Wed, 12 Oct 2022 06:34:56 +0000
+ (2603:10b6:408:e2:cafe::f8) by BN1PR13CA0021.outlook.office365.com
+ (2603:10b6:408:e2::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.16 via Frontend
+ Transport; Wed, 12 Oct 2022 06:35:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT099.mail.protection.outlook.com (10.13.177.197) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5723.20 via Frontend Transport; Wed, 12 Oct 2022 06:34:56 +0000
+ 15.20.5723.20 via Frontend Transport; Wed, 12 Oct 2022 06:35:20 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 12 Oct
- 2022 01:34:25 -0500
+ 2022 01:34:27 -0500
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V2 2/3] drm/amd/pm: fulfill SMU13.0.7 cstate control interface
-Date: Wed, 12 Oct 2022 14:32:54 +0800
-Message-ID: <20221012063255.67878-2-evan.quan@amd.com>
+Subject: [PATCH V2 3/3] drm/amd/pm: disable cstate feature during smu cleanup
+Date: Wed, 12 Oct 2022 14:32:55 +0800
+Message-ID: <20221012063255.67878-3-evan.quan@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221012063255.67878-1-evan.quan@amd.com>
 References: <20221012063255.67878-1-evan.quan@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT099:EE_|BL1PR12MB5995:EE_
-X-MS-Office365-Filtering-Correlation-Id: a3f33112-c48e-4c95-765a-08daac1be0d8
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT099:EE_|DM4PR12MB5793:EE_
+X-MS-Office365-Filtering-Correlation-Id: 11bb49ed-8c98-4bd6-2714-08daac1bef3e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ACbPe9WfvxnEIvWEiatgAJMx8MCANz6HMpNduXF7f9CXpJQscl+wRSVC4Y5Ufmp/k4HmNCbFH/mF3KI3m2S2W1QjMdCuiWjxZPT7bPC0VDbpBbFypwiLdet7bUDbOgMnivfheKG7EYfodHD2b82c6DoV2NBUHdqrX6rKV+y5PrskTQrgP6yOTBJFRIRztUP6n+sFcgp0SflO3XdCd6Q+pQAbgqeUSthJSyfNnegh2SUa2xZRw7SsTQ4Ofxfbmdu1i9gM+36V+F1ILjCFwXUBRScYvjl6bW9LyyYrGLGd5vNTVYjCbdgAcOUbYSZ8PNQa0BZ478Puk9rWDdMt4qKWrkUJqv/kPb7NM6NZNeoV9i9Z8Fu/2AtlJzktyhE1b63+C4LvC6VVAC2+hQPP3FA0B7RcjF2OYcxNypOX/wdVXiy6CvuS/AXZBueoQuyCyeoftz8+Yyzo+ijKAWlYam3KsAcKLHuQXTRCVmmS2gI+1Ecmnk7qZAOw5I/QyFwqqcGklmWoYp7MPqNBzyNewzdt7wcFb12sc5sb4ytpxblds01y0dudb8RWYdzeNrnbyCcCztlccdOfd2kA5bgVKfeQ8+8QqUhzmONQeiVgzwyJUN3Fr23H83GxShrHBQnQl91k2o1AokTGHsKIySMzYYobAbnoUN4Lx9nArbagRUYOe/F3VYCQf7Jv4m3cUH4kT+BURLzHpF1o11Pu0ON+jTqzzH7kKt/7pfd6ttmdNVHnx2qR7EPyd4B1AGksP50NQjQwdXfQD+N8jeZPiHuUFEupGxc0ZJfUMj4xBY8dkNaxNkPAgdc/fILyfg39yVZ5F2U5
+X-Microsoft-Antispam-Message-Info: /69m6S0P7eWqIf+zaFA3gyO53iCLT6c+ZZp1uTqog4rwkZnb4YX71dGNECDolFe2nW3P7rTETL5xucCmyRQQoxmPVN+vmiYwGN9s3+qxhvyKz3i+J3hBwOI7bW44Y68vGuES2tdhJ2cMY+o/9Zo8gos/tcOtXsIyKN0urzxBwNtKzC97eAmOxnZhNi7Le5U0/Q3tl+coo3OgWtFCL3GV78QtqGfw4zmoabZ8Cg6dMTIdj5PToSN2D2AWnCmZAq4ywDsIFJkwtOyusPlbCOkrwrd6D/gdUlFIj/8+cVIDBzfgA32aKaMA0IqkXsI4JgQYMxLLs/otk4VDlvDmK+PJOFCQu9/mfTGGO8lne5ktoyiuqzgDvvpLE6dGeT0kHPjzV07IwjhtC7vRskOacxhUlrzjO5OcgrT+tac8tKTG5lxp10LkWfxVZm5PXhyzeV4C9kYpcwqkC07NCwipZQUZeNMqphonS6rr+TqSHXvQR/PDL74Qjij7RWJ2Ccb4nGZXMretbFyCvbHMCgVZq7/6P14KKWhAMoaYas3mTlC4YFnFySMJ/x5zfVGKd+xoAOBE9XMZb6QSl13cR8rCFe8st+HdjOtjy19rUOAdQKqOU/IeNvu957q6aAIQwkUOUaqwxUg7FJCqcENAU8MA6cOc/5qSsUfDwcVDQ3B7UHduRc6zy+zpAVHVoqmeq0Nz0yyugjVDEFr7EFHPOTkrW4G3CiIWzB/Bu9OcvNqLWddZvraW5p7Pzvo6pN9CbsO0/9QVedYdFxQhxe/5wdyzB9dvUPiMOJzOGepFd86XBhineLA2ke5I9dXgfJDdnXPDGj07
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(39860400002)(396003)(346002)(136003)(451199015)(46966006)(40470700004)(36840700001)(83380400001)(2616005)(336012)(1076003)(16526019)(186003)(26005)(70206006)(70586007)(4326008)(2906002)(86362001)(5660300002)(8676002)(82310400005)(7696005)(6666004)(478600001)(36860700001)(316002)(54906003)(44832011)(47076005)(426003)(356005)(6916009)(8936002)(82740400003)(40480700001)(40460700003)(41300700001)(36756003)(81166007)(36900700001);
+ SFS:(13230022)(4636009)(346002)(39860400002)(376002)(136003)(396003)(451199015)(36840700001)(46966006)(40470700004)(47076005)(36860700001)(70586007)(8936002)(36756003)(83380400001)(44832011)(336012)(426003)(5660300002)(4326008)(2906002)(1076003)(40460700003)(16526019)(2616005)(86362001)(41300700001)(70206006)(186003)(8676002)(316002)(356005)(81166007)(6666004)(6916009)(54906003)(26005)(7696005)(82740400003)(40480700001)(478600001)(82310400005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2022 06:34:56.2254 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3f33112-c48e-4c95-765a-08daac1be0d8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2022 06:35:20.3643 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11bb49ed-8c98-4bd6-2714-08daac1bef3e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT099.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5995
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5793
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,52 +104,47 @@ Cc: Alexander.Deucher@amd.com, Lijo.Lazar@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fulfill the functionality for cstate control.
+This can address some reset failures observed on SMU13.0.0.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Change-Id: I3e7ec7d0434d3b34855a9267ab1989a3b85d5206
+Change-Id: Ieb4e204c49abd405b1dce559c2ff75bb3887b6f9
+--
+v1->v2:
+ - revise the code comments(Alex)
+ - limit this to SMU13.0.0 and 13.0.7
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index c422bf8a09b1..c4102cfb734c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -121,6 +121,7 @@ static struct cmn2asic_msg_mapping smu_v13_0_7_message_map[SMU_MSG_MAX_COUNT] =
- 	MSG_MAP(Mode1Reset,             PPSMC_MSG_Mode1Reset,                  0),
- 	MSG_MAP(PrepareMp1ForUnload,		PPSMC_MSG_PrepareMp1ForUnload,         0),
- 	MSG_MAP(SetMGpuFanBoostLimitRpm,	PPSMC_MSG_SetMGpuFanBoostLimitRpm,     0),
-+	MSG_MAP(DFCstateControl,		PPSMC_MSG_SetExternalClientDfCstateAllow, 0),
- };
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 13c5c7f1ecb9..b0310b2e24f8 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1443,13 +1443,20 @@ static int smu_disable_dpms(struct smu_context *smu)
+ 		 ((adev->in_runpm || adev->in_s4) && amdgpu_asic_supports_baco(adev)));
  
- static struct cmn2asic_mapping smu_v13_0_7_clk_map[SMU_CLK_COUNT] = {
-@@ -1587,6 +1588,16 @@ static bool smu_v13_0_7_is_mode1_reset_supported(struct smu_context *smu)
- 
- 	return true;
- }
-+
-+static int smu_v13_0_7_set_df_cstate(struct smu_context *smu,
-+				     enum pp_df_cstate state)
-+{
-+	return smu_cmn_send_smc_msg_with_param(smu,
-+					       SMU_MSG_DFCstateControl,
-+					       state,
-+					       NULL);
-+}
-+
- static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
- 	.get_allowed_feature_mask = smu_v13_0_7_get_allowed_feature_mask,
- 	.set_default_dpm_table = smu_v13_0_7_set_default_dpm_table,
-@@ -1649,6 +1660,7 @@ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
- 	.mode1_reset_is_support = smu_v13_0_7_is_mode1_reset_supported,
- 	.mode1_reset = smu_v13_0_mode1_reset,
- 	.set_mp1_state = smu_v13_0_7_set_mp1_state,
-+	.set_df_cstate = smu_v13_0_7_set_df_cstate,
- };
- 
- void smu_v13_0_7_set_ppt_funcs(struct smu_context *smu)
+ 	/*
+-	 * For SMU 13.0.0 and 13.0.7, PMFW will handle the DPM features(disablement or others)
+-	 * properly on suspend/reset/unload. Driver involvement may cause some unexpected issues.
++	 * For SMU 13.0.0 and 13.0.7, per PMFW team's suggestion,
++	 * driver needs to disable gfxoff and df cstate features(this
++	 * can address some mode1 reset failures). For other features,
++	 * PMFW will handle them properly.
+ 	 */
+ 	switch (adev->ip_versions[MP1_HWIP][0]) {
+ 	case IP_VERSION(13, 0, 0):
+ 	case IP_VERSION(13, 0, 7):
+-		return 0;
++		if (smu->ppt_funcs->set_df_cstate) {
++			ret = smu->ppt_funcs->set_df_cstate(smu, DF_CSTATE_DISALLOW);
++			if (ret)
++				dev_err(smu->adev->dev, "[SetDfCstate] failed!\n");
++		}
++		return ret;
+ 	default:
+ 		break;
+ 	}
 -- 
 2.34.1
 
