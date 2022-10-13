@@ -4,55 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A387C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Oct 2022 13:51:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4B32C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Oct 2022 16:03:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6903D10E250;
-	Thu, 13 Oct 2022 13:50:59 +0000 (UTC)
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [IPv6:2607:f8b0:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08A5B10E249
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Oct 2022 13:50:55 +0000 (UTC)
-Received: by mail-ot1-x32e.google.com with SMTP id
- cb2-20020a056830618200b00661b6e5dcd8so68092otb.8
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Oct 2022 06:50:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=GLKEIkf69T6/41YJhZRH9+trk97p+dvXNbCeOoIw+68=;
- b=ZnFPYqXgAp1//BrvhSO0GE99gosuXNrcLDTqG2bwQZKTYxukfa/RjV2ex3RWRSVYwo
- K7NI/cS2zs88PvNS4yBsXTiXSrhPCMLzDAe/b9n//n7u4dcRGoeOSx9h00vRadQa7eXG
- Cug1hFnYcgUcVRS19b/rVG4u5qxY64hLW5wpJYqVB9g+ZrdxCJenuH/OdvpCQIiCEwT5
- jRLykP73xCMH2asNVVV1Inbh5aLWl5C7DV30oqHHwvNEOBigJDuSszr/XvPrSGclpbAH
- 0rzY4diZtPUY7erenbXcrDG0Qrec0TePxE2PfKiLzfNU/6Z2v81fRqpaicHAg5bfRHTb
- VXlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=GLKEIkf69T6/41YJhZRH9+trk97p+dvXNbCeOoIw+68=;
- b=crDSVBCCGI2uZvpdzZB/FdQ8pWO0QEimw2CDL6xj1gG2oxObpO+FRD2EppOTfzbmKK
- M93dFP8p6udddRsEqCJ7G/GvEDCAtqwDzOij42rM/Supab8YluOVORAyU3BOXE+hJ2ES
- s90qGF5ULAv7Btj3EroKBj4fHP1jbI8YYXbPKMTWt8aBM4NGijcplC9zXXXjizVuuUvF
- urMSjDiQHLdYTVTS1qHXBzkPSfTU99o7JZTREz8mMxI/y49DrqDZ4wMvbITvyFH0fNkL
- Xo2RF/OSvYEVdOLzAhWHZHd5gNXObJQTxcqE5uKuaj2U+9E85faPsseGJ6079blMMpoo
- zd0w==
-X-Gm-Message-State: ACrzQf3RJ7TaxcMuKIeSiAtWULEYBV7/kkIJ/o3qVCyU/bjky4DLw6Gr
- 9OHH5pa6p4EhzZboVZ+ThjWxXN2jKGhnJxNHVHM=
-X-Google-Smtp-Source: AMsMyM4D+/shIZv7ID3EmKxLAsDhL6sZc4XDg9aWizpRDABAopA5wBv+Lk3y+5FnF62sVHa69is4Kr4isekU3yjkNo4=
-X-Received: by 2002:a9d:6645:0:b0:661:b778:41b8 with SMTP id
- q5-20020a9d6645000000b00661b77841b8mr28824otm.233.1665669054288; Thu, 13 Oct
- 2022 06:50:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2550D10E907;
+	Thu, 13 Oct 2022 16:02:57 +0000 (UTC)
+Received: from mail-4018.proton.ch (mail-4018.proton.ch [185.70.40.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BD8310E8FB;
+ Thu, 13 Oct 2022 16:02:54 +0000 (UTC)
+Date: Thu, 13 Oct 2022 16:02:39 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail3; t=1665676970; x=1665936170;
+ bh=zJQyuQkZTNJy13oIhq28i/TW2/ylTXSZQY69f1tPt1A=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID;
+ b=NFM8aBXb3uFEkTiPxTigwd+XLR4efbjsyxvCHG3nEAk2m/WgA4PTw1Uhx+lAuGjRh
+ FYVhyuXxala0b7uGrsN376cnj8ZxSF1SrIaaa2yKjFJ1Fpzu6PZQThPWR3dkfhjSZV
+ imQ1Bb+5c7K9zjA6rJzSO87olIJiQw2klCywpCaEScIPwcb7G+ebQDsdyg24N9blGZ
+ lFm4VOqUVYEANklzG8yVo9adg5u3Mit6kdIQ/Ud3SUyw1eZuWdfbs8mJgx+Excf2Jd
+ S+mrGNSXLBawYBDeZ+kf8dOImklJYGop3kciZGd33Gaqre3AXQ92K20WX8DLFiMt6q
+ RL+X3ikZYufCg==
+To: =?utf-8?Q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+From: Simon Ser <contact@emersion.fr>
+Subject: Re: [PATCH v3 0/6] Add support for atomic async page-flips
+Message-ID: <PJIfCPDOH8tzwE1mwv58g4ICBZbEgW44vwzW-JdUde6PjLDUeF_JNT0kUZ_Z8hZWqii_DTdDFfAYpRbO_T1Tu28wpjiwYlQpRdsrHJXLF58=@emersion.fr>
+In-Reply-To: <YzcGw9myJotLRTVl@intel.com>
+References: <20220929184307.258331-1-contact@emersion.fr>
+ <Yzb0uNjB5FpjCIjq@intel.com> <Yzb6203nHF8fVH/W@intel.com>
+ <YzcGw9myJotLRTVl@intel.com>
+Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
-References: <20221012093608.1496302-1-zhenguo.yin@amd.com>
-In-Reply-To: <20221012093608.1496302-1-zhenguo.yin@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 13 Oct 2022 09:50:42 -0400
-Message-ID: <CADnq5_NaHddp=Lhdjw6sXSvshp+urSSh=iYaQfqksUq8B3fboQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: Init pm_attr_list when dpm is disabled
-To: ZhenGuo Yin <zhenguo.yin@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,57 +48,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jingwen.chen@amd.com, amd-gfx@lists.freedesktop.org
+Cc: andrealmeid@igalia.com, daniel.vetter@ffwll.ch,
+ dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
+ mwen@igalia.com, amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ hwentlan@amd.com, nicholas.kazlauskas@amd.com, joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 12, 2022 at 5:36 AM ZhenGuo Yin <zhenguo.yin@amd.com> wrote:
->
-> [Why]
-> In SRIOV multi-vf, dpm is always disabled, and pm_attr_list won't
-> be initialized. There will be a NULL pointer call trace after
-> removing the dpm check condition in amdgpu_pm_sysfs_fini.
-> BUG: kernel NULL pointer dereference, address: 0000000000000000
-> RIP: 0010:amdgpu_device_attr_remove_groups+0x20/0x90 [amdgpu]
-> Call Trace:
->   <TASK>
->   amdgpu_pm_sysfs_fini+0x2f/0x40 [amdgpu]
->   amdgpu_device_fini_hw+0xdf/0x290 [amdgpu]
->
-> [How]
-> List pm_attr_list should be initialized when dpm is disabled.
->
-> Fiexes:894483d76ada ("drm/amd/pm: Remove redundant check condition")
-
-typo.  Should be:
-Fixes: 894483d76ada ("drm/amd/pm: Remove redundant check condition")
-
-Either this patch or reverting 894483d76ada is fine with me.  Either way:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-> Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> index 948cc75376f8..236657eece47 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -3362,11 +3362,11 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
->         if (adev->pm.sysfs_initialized)
->                 return 0;
->
-> +       INIT_LIST_HEAD(&adev->pm.pm_attr_list);
+> > > So no tests that actually verify that the kernel properly rejects
+> > > stuff stuff like modesets, gamma LUT updates, plane movement,
+> > > etc.?
+> >
+> > Pondering this a bit more, it just occurred to me the current driver
+> > level checks might easily lead to confusing behaviour. Eg. is
+> > the ioctl going to succeed if you ask for an async change of some
+> > random property while the crtc disabled, but fails if you ask for
+> > the same async property change when the crtc is active?
+> >
+> > So another reason why rejecting most properties already at
+> > the uapi level might be a good idea.
+>=20
+> And just to be clear this is pretty much what I suggest:
+>=20
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index 79730fa1dd8e..471a2c703847 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -1392,6 +1392,13 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+>  =09=09=09=09goto out;
+>  =09=09=09}
+>=20
+> +=09=09=09if (arg->flags & DRM_MODE_PAGE_FLIP_ASYNC &&
+> +=09=09=09    prop !=3D dev->mode_config.prop_fb_id) {
+> +=09=09=09=09drm_mode_object_put(obj);
+> +=09=09=09=09ret =3D -EINVAL;
+> +=09=09=09=09goto out;
+> +=09=09=09}
 > +
->         if (adev->pm.dpm_enabled == 0)
->                 return 0;
->
-> -       INIT_LIST_HEAD(&adev->pm.pm_attr_list);
-> -
->         adev->pm.int_hwmon_dev = hwmon_device_register_with_groups(adev->dev,
->                                                                    DRIVER_NAME, adev,
->                                                                    hwmon_groups);
-> --
-> 2.35.1
->
+>  =09=09=09if (copy_from_user(&prop_value,
+>  =09=09=09=09=09   prop_values_ptr + copied_props,
+>  =09=09=09=09=09   sizeof(prop_value))) {
+>=20
+>=20
+> That would actively discourage people from even attempting the
+> "just dump all the state into the ioctl" approach with async flips
+> since even the props whose value isn't even changing would be rejected.
+
+How does this sound?
+
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic=
+_uapi.c
+index 945761968428..ffd16bdc7b83 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -972,14 +972,26 @@ int drm_atomic_set_property(struct drm_atomic_state *=
+state,
+ =09=09=09    struct drm_file *file_priv,
+ =09=09=09    struct drm_mode_object *obj,
+ =09=09=09    struct drm_property *prop,
+-=09=09=09    uint64_t prop_value)
++=09=09=09    uint64_t prop_value,
++=09=09=09    bool async_flip)
+ {
+ =09struct drm_mode_object *ref;
+ =09int ret;
++=09uint64_t old_val;
+=20
+ =09if (!drm_property_change_valid_get(prop, prop_value, &ref))
+ =09=09return -EINVAL;
+=20
++=09if (async_flip && prop !=3D prop->dev->mode_config.prop_fb_id) {
++=09=09ret =3D drm_atomic_get_property(obj, prop, &old_val);
++=09=09if (ret !=3D 0 || old_val !=3D prop_value) {
++=09=09=09drm_dbg_atomic(prop->dev,
++=09=09=09=09       "[PROP:%d:%s] cannot be changed during async flip\n",
++=09=09=09=09       prop->base.id, prop->name);
++=09=09=09return -EINVAL;
++=09=09}
++=09}
++
+ =09switch (obj->type) {
+ =09case DRM_MODE_OBJECT_CONNECTOR: {
+ =09=09struct drm_connector *connector =3D obj_to_connector(obj);
