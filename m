@@ -4,61 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBAA5C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Oct 2022 18:26:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36D07C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Oct 2022 21:09:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FAEF10E331;
-	Thu, 13 Oct 2022 18:26:32 +0000 (UTC)
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19F3510E331;
- Thu, 13 Oct 2022 18:25:27 +0000 (UTC)
-Received: by mail-pf1-x430.google.com with SMTP id 67so2668905pfz.12;
- Thu, 13 Oct 2022 11:25:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C45010E956;
+	Thu, 13 Oct 2022 21:09:34 +0000 (UTC)
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C84E10E38A;
+ Thu, 13 Oct 2022 21:07:15 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id y14so6526364ejd.9;
+ Thu, 13 Oct 2022 14:07:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
- bh=4ZmXtZJMixqShxTQB3DrgCGxsvpU6XGpkMkCR/Be0Ns=;
- b=qxyiMOgrukOS5O+mSRxiWvsFQC6AMj1Zqs0Td/ugy5tePs+bYlKRfufbL1pcwymNcR
- iKuUX+lgmqhGLLM4ktWG8Oiwg3Df0g97Yc5kSgC27MDe7hnXOUsxVnAqqXlsMhFDPHzw
- HU8oRIhB2BekfzfsIrBP5wVILUigSiMxcV3ROgp+3cAmgcRGzOqFtVB2vFA8UxEdeTaU
- UxYU1jTJU00P6Vzd9Wy95vrFuujcHgsCOqQRTljGp20I52x078hXmi265i+dKPQWuMUs
- aDFvNTWnilolhZ9uTUa0tE6o917jEEWl6tdtSLne3qgyAt9Hs4l+9ja8btWuSCRLuVVZ
- UIoA==
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=IZ5njUsMjpaWj9YOz1Vm++un7O5+eC1XTxzvAZerpow=;
+ b=faWAR8yx9y/ximCfiagbNCy/0PAKrBsY8wEvnxUxd7VFrwze8WrW/LXuOEsD1B1MgC
+ bmzapz1zdHF1jE76T+mA54DNMXKki/cswG3sXkx6RAEOiC9LYHXvBWUkBqkVC/OutC6w
+ TBoPedYKZEP4+ld5ZJzts0nQv+3AjeM1WBzF9oIZsaGYMjz2koC525mlMh4cImsSStp6
+ XSWzJkXeoFofq4dZ0tkjtoHD4Jl4nliDAg9B+Vd6RKf38AjPS//hn7h+QcZjjgk0xM+g
+ X3Q+S3ElOX8GsPkSJbBAoFNFKK+vjKbNMwCVHL9RQlOConV4BRjaHXXF9yIEoDbdhF1L
+ 19Fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:sender:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4ZmXtZJMixqShxTQB3DrgCGxsvpU6XGpkMkCR/Be0Ns=;
- b=Fk5libtkp/9JMuGkKF1mJ3qoRFwvF5kmLEbqtNLeNTsTHQtd3FP4uO6aHoPOeAJIjf
- fZvUz0Pa91D/83IeJCTUJLcM/33hk9WfH9P7ucsW31sc9GkY386EHt12qR+l7MlP05ev
- yDSRM336etIC9TLDKinmwl5UZYhuMe1gusZ88oX/tabANWabqy8c1Vj0d2B8Lay+ZJBd
- LJAZ7Jq9xe61lNikcJ3LjKJGIE1ECyv8yZQiNJcxHKVvYJ/ruoI4AZ++q3oloiF65S7A
- wo+WXSoGz3ZvMBUzQUOArgcHyTNX/nDYN8/6o93xSCN0yFcRxu7ga+kXxpuSXRJPl23I
- 6wTQ==
-X-Gm-Message-State: ACrzQf0eSYl9ZA2KhxKD0RwP2Fr+h1C2jm4p1cP7aEv1xmOGeCEhokP1
- 2BsPMsjyOpNvb5NJimiQaPrluMcARxQ=
-X-Google-Smtp-Source: AMsMyM6nfb+LCE3hIBIYEG429GiMquSTqSafrbWPFqyACpogsLk9KK8howtZBBZSa9A+cVHFFyfApQ==
-X-Received: by 2002:a63:5f03:0:b0:460:b08a:8c00 with SMTP id
- t3-20020a635f03000000b00460b08a8c00mr1031226pgb.142.1665685526399; 
- Thu, 13 Oct 2022 11:25:26 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=IZ5njUsMjpaWj9YOz1Vm++un7O5+eC1XTxzvAZerpow=;
+ b=xSQePtiUUw6Z0pCNmLgAlT7Cm0XEEIgzQtQxDQbmiHaWvEGF0dJ/bRdrWMDeCKhnR+
+ e6kgPkcmITc0dKy2l37HCVm77KqaK2kBPCbH35Pu9CagZ6sxN233UifGgRZVOyO4mUHI
+ lbroKe86oF7w+Pb6/UfOXtZe4qAEkr2vXNXUqdk0iu03BKvNvq7ljNj/IvtNN3fwiGQ4
+ K0Xm/Y2qu7PJC75HhG5lBw2o18jdAJtlt7GpmI9QqpTz4TZbTxELQ0oEd7u5P8seya5F
+ AxI1or3W4biadFHJZ6T7MdOj6qrn+/07d882Wi/+3Ux7HVhMIDgDjkJ+Y9YrueTerW44
+ +U7A==
+X-Gm-Message-State: ACrzQf0t1h+LBae8MBVVnr2kzWY6Ln8S47uM/TVKIIj5oFZBlzQg2B9f
+ KDsY99OHfMKjROLBgv6rMak=
+X-Google-Smtp-Source: AMsMyM4cU3vLsTSiWCSsbEcY7UV+UJBrC5a07f1dY57EL9s1EUxZ5n3i98uvEdXbgJXpbA6zfUHWAw==
+X-Received: by 2002:a17:907:980e:b0:78d:b6d5:661e with SMTP id
+ ji14-20020a170907980e00b0078db6d5661emr1253849ejc.46.1665695233566; 
+ Thu, 13 Oct 2022 14:07:13 -0700 (PDT)
+Received: from localhost.localdomain
+ (host-95-250-231-122.retail.telecomitalia.it. [95.250.231.122])
  by smtp.gmail.com with ESMTPSA id
- v8-20020a654608000000b0044046aec036sm27713pgq.81.2022.10.13.11.25.25
+ v25-20020a17090651d900b0078da24ea9c7sm443973ejk.17.2022.10.13.14.07.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Oct 2022 11:25:25 -0700 (PDT)
-From: Guenter Roeck <linux@roeck-us.net>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/display: Increase frame size limit for
- display_mode_vba_util_32.o
-Date: Thu, 13 Oct 2022 11:25:23 -0700
-Message-Id: <20221013182523.835499-1-linux@roeck-us.net>
-X-Mailer: git-send-email 2.36.2
+ Thu, 13 Oct 2022 14:07:12 -0700 (PDT)
+From: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Christian Brauner <brauner@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Jean Delvare <jdelvare@suse.com>,
+ Guenter Roeck <linux@roeck-us.net>, Kees Cook <keescook@chromium.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-hwmon@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: [PATCH] drm/radeon: Replace kmap() with kmap_local_page()
+Date: Thu, 13 Oct 2022 23:07:14 +0200
+Message-Id: <20221013210714.16320-1-fmdefrancesco@gmail.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 13 Oct 2022 18:26:30 +0000
+X-Mailman-Approved-At: Thu, 13 Oct 2022 21:09:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,62 +79,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
- Xinhui.Pan@amd.com, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?=C5=81ukasz=20Bartosik?= <ukaszb@google.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Guenter Roeck <linux@roeck-us.net>
+Cc: Ira Weiny <ira.weiny@intel.com>, "Venkataramanan,
+ Anirudh" <anirudh.venkataramanan@intel.com>,
+ "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Building 32-bit images may fail with the following error.
+The use of kmap() is being deprecated in favor of kmap_local_page().
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_util_32.c:
-	In function ‘dml32_UseMinimumDCFCLK’:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_util_32.c:3142:1:
-	error: the frame size of 1096 bytes is larger than 1024 bytes
+There are two main problems with kmap(): (1) It comes with an overhead as
+the mapping space is restricted and protected by a global lock for
+synchronization and (2) it also requires global TLB invalidation when the
+kmap’s pool wraps and it might block when the mapping space is fully
+utilized until a slot becomes available.
 
-This is seen when building i386:allmodconfig with any of the following
-compilers.
+With kmap_local_page() the mappings are per thread, CPU local, can take
+page faults, and can be called from any context (including interrupts).
+It is faster than kmap() in kernels with HIGHMEM enabled. Furthermore,
+the tasks can be preempted and, when they are scheduled to run again, the
+kernel virtual addresses are restored and still valid.
 
-	gcc (Debian 12.2.0-3) 12.2.0
-	gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+Therefore, replace kmap() with kmap_local_page() in radeon_ttm_gtt_read().
 
-The problem is not seen if the compiler supports GCC_PLUGIN_LATENT_ENTROPY
-because in that case CONFIG_FRAME_WARN is already set to 2048 even for
-32-bit builds.
-
-dml32_UseMinimumDCFCLK() was introduced with commit dda4fb85e433
-("drm/amd/display: DML changes for DCN32/321"). It declares a large
-number of local variables. Increase the frame size for the affected
-file to 2048, similar to other files in the same directory, to enable
-32-bit build tests with affected compilers.
-
-Fixes: dda4fb85e433 ("drm/amd/display: DML changes for DCN32/321")
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Reported-by: Łukasz Bartosik <ukaszb@google.com>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Cc: "Venkataramanan, Anirudh" <anirudh.venkataramanan@intel.com>
+Suggested-by: Ira Weiny <ira.weiny@intel.com>
+Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/radeon/radeon_ttm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-index d70838edba80..ca7d24000621 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -77,7 +77,7 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/dcn30_fpu.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/dcn32_fpu.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_32.o := $(dml_ccflags) $(frame_warn_flag)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/display_rq_dlg_calc_32.o := $(dml_ccflags)
--CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_util_32.o := $(dml_ccflags)
-+CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_util_32.o := $(dml_ccflags) $(frame_warn_flag)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn321/dcn321_fpu.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn31/dcn31_fpu.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn301/dcn301_fpu.o := $(dml_ccflags)
+diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+index d33fec488713..bdb4c0e0736b 100644
+--- a/drivers/gpu/drm/radeon/radeon_ttm.c
++++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+@@ -869,11 +869,11 @@ static ssize_t radeon_ttm_gtt_read(struct file *f, char __user *buf,
+ 
+ 		page = rdev->gart.pages[p];
+ 		if (page) {
+-			ptr = kmap(page);
++			ptr = kmap_local_page(page);
+ 			ptr += off;
+ 
+ 			r = copy_to_user(buf, ptr, cur_size);
+-			kunmap(rdev->gart.pages[p]);
++			kunmap_local(ptr);
+ 		} else
+ 			r = clear_user(buf, cur_size);
+ 
 -- 
-2.36.2
+2.37.3
 
