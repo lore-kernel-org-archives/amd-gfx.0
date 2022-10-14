@@ -4,60 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CB43C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 08:47:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CA7EC43217
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 08:47:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0235D10EA9F;
-	Fri, 14 Oct 2022 08:47:00 +0000 (UTC)
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FCAF10E0C7;
- Fri, 14 Oct 2022 08:46:48 +0000 (UTC)
-Received: by mail-ed1-x52a.google.com with SMTP id u21so5893377edi.9;
- Fri, 14 Oct 2022 01:46:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C15A10EAA3;
+	Fri, 14 Oct 2022 08:47:01 +0000 (UTC)
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32ED910E1C0;
+ Fri, 14 Oct 2022 08:46:52 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id m15so5880630edb.13;
+ Fri, 14 Oct 2022 01:46:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SDd46E6BiGmJooreKj2b+XWntFRTxtYdkjPHDT9vfYk=;
- b=b/hecUmPjSmY2OOhVcYFuRex+2hJRfZgPq/2hnbJQ4M/G800Mw11FQzkj1TumGJc7e
- Tijjt3Y+8kskDyWIVE8gbzGy+zSDm313nKbLfPDINHxdcrNG7VwAl5DN176qDRUxLDd+
- XxYE7jpUJeIkd3AXavcWaUw1LqSSssyMVXNRrb1Dy4S3lvnkQbI7j6gn/HRziG7L5ZrD
- QoIGff2uqVmpZmSbqocg9HAW6T8XGzK7GZmGKlD5YF7Qs3T3TfWvPxnY53cW/k9aqCnj
- DgIc+tQsnQ7CMKV19UE741enSN8JNWdm/0fw4vQTavaEE4Q0px5vzL2D6JxkyWN9BetW
- 8QzQ==
+ bh=PHCWE0aCB3ElIJ6SsiFNbfcvWnwL4NkVRoOEsjD7AsQ=;
+ b=PCQiX7ys5VfHO9Hpp75AYcxbnizNjTQEeHKFda5DS0EszwW29sRXkSUHR+vFco/HcE
+ GxocSKAGk9ucL1giE5kX5hQbpwhD3HOsP72R9wGVkbZHlgV9ztyiZGbCTpzavkjNeafB
+ iXtFia/E9IV7pKQkkOVBNfhBXsGMU3d/bwyvtT3BXaRWdzXRCOxSXTrsjwKNz8K6fH6S
+ fgKW2tvFN98QtBkvIs1i9WAsrDxwrkjIUSlGu6SV7FWKf3tXLHiJoYl69LvKme7ZalnW
+ nZ2k3qN5w+1G8vamn+C1mfbEMaa9iuYMW/7IZOc0pYbZv8DngO2ExpNlYhZUSiB5EU8Q
+ kxug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=SDd46E6BiGmJooreKj2b+XWntFRTxtYdkjPHDT9vfYk=;
- b=OIpt2JWfJy6wmh//h3iHrRddlODnGxVpmAIdt9ZgMMu1cXi52pNwrY2ixnl/alP+qh
- E4l4G6dNIA7TIILkVNEyLMEdcfAm7c5q0TUJBTjkA04aN+QYLACAINZqtT6HQY9gsv2C
- bcgqBfGu9FzrbMMiUA8SND1852zInxTO87IJFrEWMedwDh/S+XdimVczu6r0EgXa9mlJ
- aHkNmqJELa9xXa9aEpiMBgb8hl0FVCSj8iAqFirAw8UmXcYU/QaWu/j1AYFjKZvxbvW6
- zse7jcwUPkmQEz9Q9Lh8rX7Hli7/rireqEEjFpeIa2y6Fndq/G6hwyXRROmjHuUXB5d5
- 4Uow==
-X-Gm-Message-State: ACrzQf3dEOPcgDctUQeDHd5pyyiR37OBeUJZt2UKlDomWj/k3HAX1YgI
- ZJcHuKGtJrjUIUPgetwW3fg=
-X-Google-Smtp-Source: AMsMyM6mpoKDvjSAmWRlZgkIdYKetsE/HILABvs8pdi2G6u49eMEyK0eTSE18CHYXHytIYKPkXfmZA==
-X-Received: by 2002:aa7:cc8a:0:b0:45b:f851:2943 with SMTP id
- p10-20020aa7cc8a000000b0045bf8512943mr3414539edt.103.1665737208147; 
- Fri, 14 Oct 2022 01:46:48 -0700 (PDT)
+ bh=PHCWE0aCB3ElIJ6SsiFNbfcvWnwL4NkVRoOEsjD7AsQ=;
+ b=12xZmTVo82Z9eJQkQlQKhJWDBju2OoOYQ2rSc+wWvF8HJQRJbZa+oEBRtMXE0dl4YX
+ /NnxunfNOOeqZ6ZuDRiYcTtRwH/D6KlRLmZZhQYvQFcdMQvGKH1Q85cB0hDtje5Gwb+k
+ x/fPcvy0KG8vL3PfSO8NWNzte7EI/wr60ZchSVsEJapuVJMCucGz5njWpy5hyB33UmXt
+ +q8YE3gaJkYqX8KYPLR/MVw1beiRvnNYJGu7DdEzkfa6ZLvuTdd/iGhgamtGUNpmJXHn
+ qs7oVWmmQJMHdobczpH25lGLcEC8pfITXyTtFMFdFEADdvSCSXIgcPAx1Gl8nM7MZwz/
+ 2hCw==
+X-Gm-Message-State: ACrzQf163vXup/cWyxciNLBVtd9dfKB77oT6ClJV+ZKOj2w3a3D5n2GU
+ hiqJFn2TAZQFIEm/N3t9PZnfRddaSF8=
+X-Google-Smtp-Source: AMsMyM4pY/8eUc//xnH238yHci/Dhny91mrwxRm8fUyuEGzLKdGhFzu98nZD06t39BC2lRUuH3sB2g==
+X-Received: by 2002:a05:6402:538a:b0:457:b602:d5a6 with SMTP id
+ ew10-20020a056402538a00b00457b602d5a6mr3381406edb.371.1665737210165; 
+ Fri, 14 Oct 2022 01:46:50 -0700 (PDT)
 Received: from able.fritz.box (p5b0eacfe.dip0.t-ipconnect.de. [91.14.172.254])
  by smtp.gmail.com with ESMTPSA id
- r26-20020aa7d59a000000b00457618d3409sm1379124edq.68.2022.10.14.01.46.47
+ r26-20020aa7d59a000000b00457618d3409sm1379124edq.68.2022.10.14.01.46.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Oct 2022 01:46:47 -0700 (PDT)
+ Fri, 14 Oct 2022 01:46:49 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: luben.tuikov@amd.com, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH 03/13] drm/amdgpu: use drm_sched_job_add_resv_dependencies for
- moves
-Date: Fri, 14 Oct 2022 10:46:31 +0200
-Message-Id: <20221014084641.128280-4-christian.koenig@amd.com>
+Subject: [PATCH 05/13] drm/amdgpu: drop amdgpu_sync from amdgpu_vmid_grab
+Date: Fri, 14 Oct 2022 10:46:33 +0200
+Message-Id: <20221014084641.128280-6-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221014084641.128280-1-christian.koenig@amd.com>
 References: <20221014084641.128280-1-christian.koenig@amd.com>
@@ -79,40 +78,203 @@ Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the new common scheduler functions to figure out what to wait for.
+Instead return the fence directly. Avoids memory allocation to store the
+fence.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 16 +++++-----------
- 1 file changed, 5 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 42 +++++++++++++------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 12 +++----
+ 3 files changed, 28 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 794062ab57fc..f898e870d157 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1984,17 +1984,11 @@ static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
- 							adev->gart.bo);
- 		(*job)->vm_needs_flush = true;
- 	}
--	if (resv) {
--		r = amdgpu_sync_resv(adev, &(*job)->sync, resv,
--				     AMDGPU_SYNC_ALWAYS,
--				     AMDGPU_FENCE_OWNER_UNDEFINED);
--		if (r) {
--			DRM_ERROR("sync failed (%d).\n", r);
--			amdgpu_job_free(*job);
--			return r;
--		}
--	}
--	return 0;
-+	if (!resv)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index b76294d4275b..2a9a2593dc18 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -170,26 +170,27 @@ bool amdgpu_vmid_had_gpu_reset(struct amdgpu_device *adev,
+  *
+  * @vm: vm to allocate id for
+  * @ring: ring we want to submit job to
+- * @sync: sync object where we add dependencies
+  * @idle: resulting idle VMID
++ * @fence: fence to wait for if no id could be grabbed
+  *
+  * Try to find an idle VMID, if none is idle add a fence to wait to the sync
+  * object. Returns -ENOMEM when we are out of memory.
+  */
+ static int amdgpu_vmid_grab_idle(struct amdgpu_vm *vm,
+ 				 struct amdgpu_ring *ring,
+-				 struct amdgpu_sync *sync,
+-				 struct amdgpu_vmid **idle)
++				 struct amdgpu_vmid **idle,
++				 struct dma_fence **fence)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+ 	unsigned vmhub = ring->funcs->vmhub;
+ 	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
+ 	struct dma_fence **fences;
+ 	unsigned i;
+-	int r;
+ 
+-	if (!dma_fence_is_signaled(ring->vmid_wait))
+-		return amdgpu_sync_fence(sync, ring->vmid_wait);
++	if (!dma_fence_is_signaled(ring->vmid_wait)) {
++		*fence = dma_fence_get(ring->vmid_wait);
 +		return 0;
-+
-+	return drm_sched_job_add_resv_dependencies(&(*job)->base, resv,
-+						   DMA_RESV_USAGE_BOOKKEEP);
++	}
+ 
+ 	fences = kmalloc_array(id_mgr->num_ids, sizeof(void *), GFP_KERNEL);
+ 	if (!fences)
+@@ -228,10 +229,10 @@ static int amdgpu_vmid_grab_idle(struct amdgpu_vm *vm,
+ 			return -ENOMEM;
+ 		}
+ 
+-		r = amdgpu_sync_fence(sync, &array->base);
++		*fence = dma_fence_get(&array->base);
+ 		dma_fence_put(ring->vmid_wait);
+ 		ring->vmid_wait = &array->base;
+-		return r;
++		return 0;
+ 	}
+ 	kfree(fences);
+ 
+@@ -243,17 +244,17 @@ static int amdgpu_vmid_grab_idle(struct amdgpu_vm *vm,
+  *
+  * @vm: vm to allocate id for
+  * @ring: ring we want to submit job to
+- * @sync: sync object where we add dependencies
+  * @job: job who wants to use the VMID
+  * @id: resulting VMID
++ * @fence: fence to wait for if no id could be grabbed
+  *
+  * Try to assign a reserved VMID.
+  */
+ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
+ 				     struct amdgpu_ring *ring,
+-				     struct amdgpu_sync *sync,
+ 				     struct amdgpu_job *job,
+-				     struct amdgpu_vmid **id)
++				     struct amdgpu_vmid **id,
++				     struct dma_fence **fence)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+ 	unsigned vmhub = ring->funcs->vmhub;
+@@ -280,7 +281,8 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
+ 		tmp = amdgpu_sync_peek_fence(&(*id)->active, ring);
+ 		if (tmp) {
+ 			*id = NULL;
+-			return amdgpu_sync_fence(sync, tmp);
++			*fence = dma_fence_get(tmp);
++			return 0;
+ 		}
+ 		needs_flush = true;
+ 	}
+@@ -302,17 +304,17 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
+  *
+  * @vm: vm to allocate id for
+  * @ring: ring we want to submit job to
+- * @sync: sync object where we add dependencies
+  * @job: job who wants to use the VMID
+  * @id: resulting VMID
++ * @fence: fence to wait for if no id could be grabbed
+  *
+  * Try to reuse a VMID for this submission.
+  */
+ static int amdgpu_vmid_grab_used(struct amdgpu_vm *vm,
+ 				 struct amdgpu_ring *ring,
+-				 struct amdgpu_sync *sync,
+ 				 struct amdgpu_job *job,
+-				 struct amdgpu_vmid **id)
++				 struct amdgpu_vmid **id,
++				 struct dma_fence **fence)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+ 	unsigned vmhub = ring->funcs->vmhub;
+@@ -367,13 +369,13 @@ static int amdgpu_vmid_grab_used(struct amdgpu_vm *vm,
+  *
+  * @vm: vm to allocate id for
+  * @ring: ring we want to submit job to
+- * @sync: sync object where we add dependencies
+  * @job: job who wants to use the VMID
++ * @fence: fence to wait for if no id could be grabbed
+  *
+  * Allocate an id for the vm, adding fences to the sync obj as necessary.
+  */
+ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+-		     struct amdgpu_sync *sync, struct amdgpu_job *job)
++		     struct amdgpu_job *job, struct dma_fence **fence)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+ 	unsigned vmhub = ring->funcs->vmhub;
+@@ -383,16 +385,16 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+ 	int r = 0;
+ 
+ 	mutex_lock(&id_mgr->lock);
+-	r = amdgpu_vmid_grab_idle(vm, ring, sync, &idle);
++	r = amdgpu_vmid_grab_idle(vm, ring, &idle, fence);
+ 	if (r || !idle)
+ 		goto error;
+ 
+ 	if (vm->reserved_vmid[vmhub]) {
+-		r = amdgpu_vmid_grab_reserved(vm, ring, sync, job, &id);
++		r = amdgpu_vmid_grab_reserved(vm, ring, job, &id, fence);
+ 		if (r || !id)
+ 			goto error;
+ 	} else {
+-		r = amdgpu_vmid_grab_used(vm, ring, sync, job, &id);
++		r = amdgpu_vmid_grab_used(vm, ring, job, &id, fence);
+ 		if (r)
+ 			goto error;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+index 1b1e7d04655c..57efe61dceed 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+@@ -84,7 +84,7 @@ void amdgpu_vmid_free_reserved(struct amdgpu_device *adev,
+ 			       struct amdgpu_vm *vm,
+ 			       unsigned vmhub);
+ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+-		     struct amdgpu_sync *sync, struct amdgpu_job *job);
++		     struct amdgpu_job *job, struct dma_fence **fence);
+ void amdgpu_vmid_reset(struct amdgpu_device *adev, unsigned vmhub,
+ 		       unsigned vmid);
+ void amdgpu_vmid_reset_all(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 13b752687b30..e187dc0ab898 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -238,12 +238,12 @@ int amdgpu_job_submit_direct(struct amdgpu_job *job, struct amdgpu_ring *ring,
+ 	return 0;
  }
  
- int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
+-static struct dma_fence *amdgpu_job_dependency(struct drm_sched_job *sched_job,
+-					       struct drm_sched_entity *s_entity)
++static struct dma_fence *
++amdgpu_job_dependency(struct drm_sched_job *sched_job,
++		      struct drm_sched_entity *s_entity)
+ {
+ 	struct amdgpu_ring *ring = to_amdgpu_ring(s_entity->rq->sched);
+ 	struct amdgpu_job *job = to_amdgpu_job(sched_job);
+-	struct amdgpu_vm *vm = job->vm;
+ 	struct dma_fence *fence;
+ 	int r;
+ 
+@@ -254,12 +254,10 @@ static struct dma_fence *amdgpu_job_dependency(struct drm_sched_job *sched_job,
+ 			DRM_ERROR("Error adding fence (%d)\n", r);
+ 	}
+ 
+-	while (fence == NULL && vm && !job->vmid) {
+-		r = amdgpu_vmid_grab(vm, ring, &job->sync, job);
++	while (fence == NULL && job->vm && !job->vmid) {
++		r = amdgpu_vmid_grab(job->vm, ring, job, &fence);
+ 		if (r)
+ 			DRM_ERROR("Error getting VM ID (%d)\n", r);
+-
+-		fence = amdgpu_sync_get_fence(&job->sync);
+ 	}
+ 
+ 	if (!fence && job->gang_submit)
 -- 
 2.25.1
 
