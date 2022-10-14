@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F23DC433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 08:47:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83D9BC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 08:47:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0429A10EAA8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A58C210EAA9;
 	Fri, 14 Oct 2022 08:47:03 +0000 (UTC)
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7357C10EA9C;
- Fri, 14 Oct 2022 08:46:55 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id a67so5866469edf.12;
- Fri, 14 Oct 2022 01:46:55 -0700 (PDT)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B8E210EA9F;
+ Fri, 14 Oct 2022 08:46:58 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id q9so9128033ejd.0;
+ Fri, 14 Oct 2022 01:46:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=N+fhjhNR5sjKd/t1mRZ3HvTFY2Se8EEvrqO/LVaiUTE=;
- b=nJ+odx2Vn2cZbOFQjVSEmJgG2T5zJG4id3EhP9FBLbiSSbfve4WgMCHCjohEy9dgaT
- KsbRkhlSnSb5ffQ1xihWSpximpM60bAYzLz7Ur5PG8Vb5bEayu7GO+DyzUCKNIu+sFOI
- yxO0bI6rSjJ50yw1mrLL5d8AbcFXfH935aZL63RgCzQgfEmqKRk0Szm8yWeg/w4crjEY
- QA9muddS7Y7j/9k4XyK2GxEECziaQcZ5XhgZA1d+B2Gmp0iPIbSFw1nfHu5vxJ9e0m7k
- 0HjmD22+X7TbXKaTjYtqoIWSS8B9M+rGH+VNhCtoapteUH3BA8SuRzG/3YQ2JLL7xP67
- uKjw==
+ bh=BCbxXocJQnXwu3iji5cPcGCLsWdkXkr+U1iyhGD62e4=;
+ b=ANT3l1Qxq+dz/boDWBmM83o4HvZZ33IVVhxT/kO+qNEq1Lc4gX98Eiu6YSIOzNkNnE
+ h58PUaPeCGwWJuG6Gd6tq/rGNNVbO2gc+YfQ4o3d9bRTT4OZcGD88OugD+9GlHO8h13S
+ tLfHhXtIkr0Wo6NPXB+xRglZGUftwIW08o6p7XtsZANeRlRMGofB3exB0u+orFLyIxLt
+ uiu0P74gk1svzQR1b6ZvXIYEGdhtpkVJqrxKT/iU4AIy69U3yzhuj1Tci8yiwAsSVFu7
+ +iPMtURiN/vZZQNMMnpSpbUvHtGy3+wFpBQHlwOeVW/48yFl1nu77SxKCcYQ8+wa0Ali
+ /3CQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=N+fhjhNR5sjKd/t1mRZ3HvTFY2Se8EEvrqO/LVaiUTE=;
- b=Xa4ArmOFOjix9hUGMhhvCv74JfmsJZlKWCCZDwVjkTG3koe96GU5y2ilKa6Y3wIv0h
- Q9AL6msk5mZLWQeyK4dW5GXidAxV2mkG2I13L9F6xz8JWN52dv+WZA2R+ObLe9DxdxwQ
- Ma3magyOQ46yl2k0yMpex5hq7B//n5tbWgWz+hWFoAyZQ/y2bCDq6hVki5e8+9/GHdp/
- S+9GrksOzurhNC4IGe1Oikb1a6rPKZ0NHPA3jsHJ4xxOnq7LIEQNY9DH/AiQYdid+ERP
- TZ8554DtV0Po5wqRuxe2feMYzaPhFODvQL58So41e4eVeAG1XuweA5K6/AKYuJwOw7q/
- pbuw==
-X-Gm-Message-State: ACrzQf0PdU9dArb1D5ksZ+YuA24eGYa9RuGGkJGtjvK7GqzS62ygaBgE
- eufNqlgZzdue9uzRo6s6PIQ=
-X-Google-Smtp-Source: AMsMyM5ZEIoHr9RoQP2o7GcFQrzEHMrWwqjxQnMywDy5xkRtLGxkiCPYM3vKv2DWkwm7JMs222iAvA==
-X-Received: by 2002:aa7:cd4f:0:b0:458:6077:c3ac with SMTP id
- v15-20020aa7cd4f000000b004586077c3acmr3443611edw.32.1665737213577; 
- Fri, 14 Oct 2022 01:46:53 -0700 (PDT)
+ bh=BCbxXocJQnXwu3iji5cPcGCLsWdkXkr+U1iyhGD62e4=;
+ b=prrAK4ihEV78ngtdvajgICYopoDRxsoG6CMP9xgI+EgafwdJdR/wRRO6QeMx6Uc3TG
+ Xivdb3QNcMROnkap0dSttfIfRo7+Ko684YM33pGik3BaCTIUBfd8SWG4jukeA5MWNmQI
+ GGyMrzzAsx381kKkHZ+TS+XRmtEi6ripZzntJ2buZNwTOA9lYFWU95gqTpCcA7MgeJpk
+ srpDAr9TfxSM6MhOHcy3aNd0d1InX5IQ/veFG9sCMXvmxCmokAyd3FtcNdhYXveeIpog
+ ev2MDau1nPqghZwWHROQo5UZ3tKHXtEKkZDe2nbWtPTzOeHXIsargbK9mot1GfDyCXSe
+ ersA==
+X-Gm-Message-State: ACrzQf2TTmxHMxLudg8JqUSgJUtxXdVH9x12OzPCt+n8w1s8mPfTB6be
+ WPcEkf6z5HKUr73R6Ul8e1s=
+X-Google-Smtp-Source: AMsMyM4BGQY04ESJZDg3DpwfN/7Z+W7TxACzuIW1gpxDF3I9iAmlWp1tgf65Tv7vUxEEZ/OjmhAqgg==
+X-Received: by 2002:a17:907:ea6:b0:782:1ace:9d5b with SMTP id
+ ho38-20020a1709070ea600b007821ace9d5bmr2616948ejc.770.1665737216653; 
+ Fri, 14 Oct 2022 01:46:56 -0700 (PDT)
 Received: from able.fritz.box (p5b0eacfe.dip0.t-ipconnect.de. [91.14.172.254])
  by smtp.gmail.com with ESMTPSA id
- r26-20020aa7d59a000000b00457618d3409sm1379124edq.68.2022.10.14.01.46.52
+ r26-20020aa7d59a000000b00457618d3409sm1379124edq.68.2022.10.14.01.46.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Oct 2022 01:46:53 -0700 (PDT)
+ Fri, 14 Oct 2022 01:46:56 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: luben.tuikov@amd.com, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH 08/13] drm/amdgpu: use scheduler depenencies for VM updates
-Date: Fri, 14 Oct 2022 10:46:36 +0200
-Message-Id: <20221014084641.128280-9-christian.koenig@amd.com>
+Subject: [PATCH 11/13] drm/scheduler: remove drm_sched_dependency_optimized
+Date: Fri, 14 Oct 2022 10:46:39 +0200
+Message-Id: <20221014084641.128280-12-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221014084641.128280-1-christian.koenig@amd.com>
 References: <20221014084641.128280-1-christian.koenig@amd.com>
@@ -78,171 +78,64 @@ Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of putting that into the job sync object.
+Not used any more.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c    | 56 +++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h    |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 10 +++-
- 3 files changed, 52 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/scheduler/sched_main.c | 26 --------------------------
+ include/drm/gpu_scheduler.h            |  2 --
+ 2 files changed, 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-index 090e66a1b284..bac7976975bd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-@@ -259,6 +259,14 @@ int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
- 	return 0;
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 6e2cd0f906b2..ae4aac6eb26e 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -197,32 +197,6 @@ static void drm_sched_job_done_cb(struct dma_fence *f, struct dma_fence_cb *cb)
+ 	drm_sched_job_done(s_job);
  }
  
-+/* Free the entry back to the slab */
-+static void amdgpu_sync_entry_free(struct amdgpu_sync_entry *e)
-+{
-+	hash_del(&e->node);
-+	dma_fence_put(e->fence);
-+	kmem_cache_free(amdgpu_sync_slab, e);
-+}
-+
+-/**
+- * drm_sched_dependency_optimized
+- *
+- * @fence: the dependency fence
+- * @entity: the entity which depends on the above fence
+- *
+- * Returns true if the dependency can be optimized and false otherwise
+- */
+-bool drm_sched_dependency_optimized(struct dma_fence* fence,
+-				    struct drm_sched_entity *entity)
+-{
+-	struct drm_gpu_scheduler *sched = entity->rq->sched;
+-	struct drm_sched_fence *s_fence;
+-
+-	if (!fence || dma_fence_is_signaled(fence))
+-		return false;
+-	if (fence->context == entity->fence_context)
+-		return true;
+-	s_fence = to_drm_sched_fence(fence);
+-	if (s_fence && s_fence->sched == sched)
+-		return true;
+-
+-	return false;
+-}
+-EXPORT_SYMBOL(drm_sched_dependency_optimized);
+-
  /**
-  * amdgpu_sync_peek_fence - get the next fence not signaled yet
+  * drm_sched_start_timeout - start timeout for reset worker
   *
-@@ -280,9 +288,7 @@ struct dma_fence *amdgpu_sync_peek_fence(struct amdgpu_sync *sync,
- 		struct drm_sched_fence *s_fence = to_drm_sched_fence(f);
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 2a6e261ea01e..b1698819ad38 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -506,8 +506,6 @@ void drm_sched_resubmit_jobs_ext(struct drm_gpu_scheduler *sched, int max);
+ void drm_sched_increase_karma(struct drm_sched_job *bad);
+ void drm_sched_reset_karma(struct drm_sched_job *bad);
+ void drm_sched_increase_karma_ext(struct drm_sched_job *bad, int type);
+-bool drm_sched_dependency_optimized(struct dma_fence* fence,
+-				    struct drm_sched_entity *entity);
+ void drm_sched_fault(struct drm_gpu_scheduler *sched);
+ void drm_sched_job_kickout(struct drm_sched_job *s_job);
  
- 		if (dma_fence_is_signaled(f)) {
--			hash_del(&e->node);
--			dma_fence_put(f);
--			kmem_cache_free(amdgpu_sync_slab, e);
-+			amdgpu_sync_entry_free(e);
- 			continue;
- 		}
- 		if (ring && s_fence) {
-@@ -355,15 +361,42 @@ int amdgpu_sync_clone(struct amdgpu_sync *source, struct amdgpu_sync *clone)
- 			if (r)
- 				return r;
- 		} else {
--			hash_del(&e->node);
--			dma_fence_put(f);
--			kmem_cache_free(amdgpu_sync_slab, e);
-+			amdgpu_sync_entry_free(e);
- 		}
- 	}
- 
- 	return 0;
- }
- 
-+/**
-+ * amdgpu_sync_push_to_job - push fences into job
-+ * @sync: sync object to get the fences from
-+ * @job: job to push the fences into
-+ *
-+ * Add all unsignaled fences from sync to job.
-+ */
-+int amdgpu_sync_push_to_job(struct amdgpu_sync *sync, struct amdgpu_job *job)
-+{
-+	struct amdgpu_sync_entry *e;
-+	struct hlist_node *tmp;
-+	struct dma_fence *f;
-+	int i, r;
-+
-+	hash_for_each_safe(sync->fences, i, tmp, e, node) {
-+		f = e->fence;
-+		if (dma_fence_is_signaled(f)) {
-+			amdgpu_sync_entry_free(e);
-+			continue;
-+		}
-+
-+		dma_fence_get(f);
-+		r = drm_sched_job_add_dependency(&job->base, f);
-+		if (r)
-+			return r;
-+	}
-+	return 0;
-+}
-+
- int amdgpu_sync_wait(struct amdgpu_sync *sync, bool intr)
- {
- 	struct amdgpu_sync_entry *e;
-@@ -375,9 +408,7 @@ int amdgpu_sync_wait(struct amdgpu_sync *sync, bool intr)
- 		if (r)
- 			return r;
- 
--		hash_del(&e->node);
--		dma_fence_put(e->fence);
--		kmem_cache_free(amdgpu_sync_slab, e);
-+		amdgpu_sync_entry_free(e);
- 	}
- 
- 	return 0;
-@@ -396,11 +427,8 @@ void amdgpu_sync_free(struct amdgpu_sync *sync)
- 	struct hlist_node *tmp;
- 	unsigned int i;
- 
--	hash_for_each_safe(sync->fences, i, tmp, e, node) {
--		hash_del(&e->node);
--		dma_fence_put(e->fence);
--		kmem_cache_free(amdgpu_sync_slab, e);
--	}
-+	hash_for_each_safe(sync->fences, i, tmp, e, node)
-+		amdgpu_sync_entry_free(e);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
-index 2d5c613cda10..cf1e9e858efd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
-@@ -30,6 +30,7 @@ struct dma_fence;
- struct dma_resv;
- struct amdgpu_device;
- struct amdgpu_ring;
-+struct amdgpu_job;
- 
- enum amdgpu_sync_mode {
- 	AMDGPU_SYNC_ALWAYS,
-@@ -54,6 +55,7 @@ struct dma_fence *amdgpu_sync_peek_fence(struct amdgpu_sync *sync,
- 				     struct amdgpu_ring *ring);
- struct dma_fence *amdgpu_sync_get_fence(struct amdgpu_sync *sync);
- int amdgpu_sync_clone(struct amdgpu_sync *source, struct amdgpu_sync *clone);
-+int amdgpu_sync_push_to_job(struct amdgpu_sync *sync, struct amdgpu_job *job);
- int amdgpu_sync_wait(struct amdgpu_sync *sync, bool intr);
- void amdgpu_sync_free(struct amdgpu_sync *sync);
- int amdgpu_sync_init(void);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-index 126364882d09..59cf64216fbb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-@@ -87,6 +87,7 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
- 				  struct dma_resv *resv,
- 				  enum amdgpu_sync_mode sync_mode)
- {
-+	struct amdgpu_sync sync;
- 	int r;
- 
- 	r = amdgpu_vm_sdma_alloc_job(p, 0);
-@@ -96,7 +97,12 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
- 	if (!resv)
- 		return 0;
- 
--	return amdgpu_sync_resv(p->adev, &p->job->sync, resv, sync_mode, p->vm);
-+	amdgpu_sync_create(&sync);
-+	r = amdgpu_sync_resv(p->adev, &sync, resv, sync_mode, p->vm);
-+	if (!r)
-+		r = amdgpu_sync_push_to_job(&sync, p->job);
-+	amdgpu_sync_free(&sync);
-+	return r;
- }
- 
- /**
-@@ -232,7 +238,7 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
- 	/* Wait for PD/PT moves to be completed */
- 	dma_resv_iter_begin(&cursor, bo->tbo.base.resv, DMA_RESV_USAGE_KERNEL);
- 	dma_resv_for_each_fence_unlocked(&cursor, fence) {
--		r = amdgpu_sync_fence(&p->job->sync, fence);
-+		r = drm_sched_job_add_dependency(&p->job->base, fence);
- 		if (r) {
- 			dma_resv_iter_end(&cursor);
- 			return r;
 -- 
 2.25.1
 
