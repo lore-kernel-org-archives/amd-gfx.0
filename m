@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2786C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 17:49:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FC9CC43217
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 17:49:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A53E910E6E7;
-	Mon, 17 Oct 2022 17:48:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 033E910E719;
+	Mon, 17 Oct 2022 17:48:44 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE96610E3AE;
- Mon, 17 Oct 2022 17:24:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B6C410E689;
+ Mon, 17 Oct 2022 17:24:37 +0000 (UTC)
 Received: from dimapc.. (109-252-119-114.nat.spd-mgts.ru [109.252.119.114])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 98A5666022A5;
- Mon, 17 Oct 2022 18:24:07 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 12D196602392;
+ Mon, 17 Oct 2022 18:24:32 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1666027452;
- bh=mNL0kzS7mxVONeStFeS1gkBIV+KbRD8Qq/CCfksLxq4=;
- h=From:To:Cc:Subject:Date:From;
- b=UdEuGpXb5Xu/a6MmAi6b2MMlKj5Wvx+FTlQsX0Y59Jh3ql7lpscKlJbw8pcejDtre
- zqzLS33zCMoGmgGiW5v8iVQj7wFGS8Hrhq/Klz8t7HeWwX6NiWmeqSmNnHevBSxcZM
- n39n+ALXvsoYD99LbV3mSWi/oLOMeye4RjIMnugQzh8FID2INWwoco7gBh4dInDQIb
- X7Zt0xC6g53pGk8YqjOzUh45LMoXS5j8pZSI2F6WKRNjw8DAdu6djBwqb+cnUpjP63
- LL75HeASuunvHFE+TVRCSPxWK55UxrGf+3guyeWFgJOnmFRhFlCgg7/UPLcy1l6QSh
- juEIhna4ogrNA==
+ s=mail; t=1666027476;
+ bh=bkOPdhT4KmbBTi13gT/RrmSvnfk+bsHbwFQx3BLv4fk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ZTl8vQ6RNKg4tkH3j//rMDlPsKNpFYgTzEw3glhFR6TsD4QrNExdA04WJryFTSqV1
+ d3gY6dgj4fMfQ46nQ0hXVezV69DyIEwKSnYDlVb6chnk4+1JXq7w3L59BrPTshDw7I
+ uivybEYIgLoEbm0g0CG3dVhxOT1ZZy3Zh40hEfIW/3SnAF1siV3rM+Ln3UDX8L4FHY
+ QKPGhJK3gZPCInCfam6pxxFs8MAPmgh+mTN2eNGfbB6/7VRGYeorz67fVg9MN85FAa
+ +Cz+BvSc/RYc6+T3UkIE3ca7gs7JYAK/SvuVz8KT6DBYAUYNf6yNk4Amq6bC+JTVG2
+ OKiYEqGMD8wOw==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -64,11 +64,13 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Subject: [PATCH v7 00/21] Move all drivers to a common dma-buf locking
- convention
-Date: Mon, 17 Oct 2022 20:22:08 +0300
-Message-Id: <20221017172229.42269-1-dmitry.osipenko@collabora.com>
+Subject: [PATCH v7 06/21] drm/i915: Prepare to dynamic dma-buf locking
+ specification
+Date: Mon, 17 Oct 2022 20:22:14 +0300
+Message-Id: <20221017172229.42269-7-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20221017172229.42269-1-dmitry.osipenko@collabora.com>
+References: <20221017172229.42269-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -93,154 +95,134 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Prepare i915 driver to the common dynamic dma-buf locking convention
+by starting to use the unlocked versions of dma-buf API functions
+and handling cases where importer now holds the reservation lock.
 
-This series moves all drivers to a dynamic dma-buf locking specification.
-From now on all dma-buf importers are made responsible for holding
-dma-buf's reservation lock around all operations performed over dma-bufs
-in accordance to the locking specification. This allows us to utilize
-reservation lock more broadly around kernel without fearing of a potential
-deadlocks.
+Acked-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Michael J. Ruhl <michael.j.ruhl@intel.com>
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c       |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object.c       | 14 ++++++++++++++
+ .../gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c | 16 ++++++++--------
+ 3 files changed, 23 insertions(+), 9 deletions(-)
 
-This patchset passes all i915 selftests. It was also tested using VirtIO,
-Panfrost, Lima, Tegra, udmabuf, AMDGPU and Nouveau drivers. I tested cases
-of display+GPU, display+V4L and GPU+V4L dma-buf sharing (where appropriate),
-which covers majority of kernel drivers since rest of the drivers share
-same or similar code paths.
-
-Changelog:
-
-v7: - Rebased on top of recent drm-misc-next.
-
-    - Added ack from Jason Gunthorpe to the RDMA patch.
-
-    - Added iosys_map_clear() to dma_buf_vmap_unlocked(), making it fully
-      consistent with dma_buf_vmap().
-
-v6: - Added r-b from Michael Ruhl to the i915 patch.
-
-    - Added acks from Sumit Semwal and updated commit message of the
-      "Move dma_buf_vmap() to dynamic locking specification" patch like
-      was suggested by Sumit.
-
-    - Added "!dmabuf" check to dma_buf_vmap_unlocked() to match the locked
-      variant of the function, for consistency.
-
-v5: - Added acks and r-bs that were given to v4.
-
-    - Changed i915 preparation patch like was suggested by Michael Ruhl.
-      The scope of reservation locking is smaller now.
-
-v4: - Added dma_buf_mmap() to the "locking convention" documentation,
-      which was missed by accident in v3.
-
-    - Added acks from Christian König, Tomasz Figa and Hans Verkuil that
-      they gave to couple v3 patches.
-
-    - Dropped the "_unlocked" postfix from function names that don't have
-      the locked variant, as was requested by Christian König.
-
-    - Factored out the per-driver preparations into separate patches
-      to ease reviewing of the changes, which is now doable without the
-      global dma-buf functions renaming.
-
-    - Factored out the dynamic locking convention enforcements into separate
-      patches which add the final dma_resv_assert_held(dmabuf->resv) to the
-      dma-buf API functions.
-
-v3: - Factored out dma_buf_mmap_unlocked() and attachment functions
-      into aseparate patches, like was suggested by Christian König.
-
-    - Corrected and factored out dma-buf locking documentation into
-      a separate patch, like was suggested by Christian König.
-
-    - Intel driver dropped the reservation locking fews days ago from
-      its BO-release code path, but we need that locking for the imported
-      GEMs because in the end that code path unmaps the imported GEM.
-      So I added back the locking needed by the imported GEMs, updating
-      the "dma-buf attachment locking specification" patch appropriately.
-
-    - Tested Nouveau+Intel dma-buf import/export combo.
-
-    - Tested udmabuf import to i915/Nouveau/AMDGPU.
-
-    - Fixed few places in Etnaviv, Panfrost and Lima drivers that I missed
-      to switch to locked dma-buf vmapping in the drm/gem: Take reservation
-      lock for vmap/vunmap operations" patch. In a result invalidated the
-      Christian's r-b that he gave to v2.
-
-    - Added locked dma-buf vmap/vunmap functions that are needed for fixing
-      vmappping of Etnaviv, Panfrost and Lima drivers mentioned above.
-      I actually had this change stashed for the drm-shmem shrinker patchset,
-      but then realized that it's already needed by the dma-buf patches.
-      Also improved my tests to better cover these code paths.
-
-v2: - Changed locking specification to avoid problems with a cross-driver
-      ww locking, like was suggested by Christian König. Now the attach/detach
-      callbacks are invoked without the held lock and exporter should take the
-      lock.
-
-    - Added "locking convention" documentation that explains which dma-buf
-      functions and callbacks are locked/unlocked for importers and exporters,
-      which was requested by Christian König.
-
-    - Added ack from Tomasz Figa to the V4L patches that he gave to v1.
-
-Dmitry Osipenko (21):
-  dma-buf: Add unlocked variant of vmapping functions
-  dma-buf: Add unlocked variant of attachment-mapping functions
-  drm/gem: Take reservation lock for vmap/vunmap operations
-  drm/prime: Prepare to dynamic dma-buf locking specification
-  drm/armada: Prepare to dynamic dma-buf locking specification
-  drm/i915: Prepare to dynamic dma-buf locking specification
-  drm/omapdrm: Prepare to dynamic dma-buf locking specification
-  drm/tegra: Prepare to dynamic dma-buf locking specification
-  drm/etnaviv: Prepare to dynamic dma-buf locking specification
-  RDMA/umem: Prepare to dynamic dma-buf locking specification
-  misc: fastrpc: Prepare to dynamic dma-buf locking specification
-  xen/gntdev: Prepare to dynamic dma-buf locking specification
-  media: videobuf2: Prepare to dynamic dma-buf locking specification
-  media: tegra-vde: Prepare to dynamic dma-buf locking specification
-  dma-buf: Move dma_buf_vmap() to dynamic locking specification
-  dma-buf: Move dma_buf_attach() to dynamic locking specification
-  dma-buf: Move dma_buf_map_attachment() to dynamic locking
-    specification
-  dma-buf: Move dma_buf_mmap() to dynamic locking specification
-  dma-buf: Document dynamic locking convention
-  media: videobuf2: Stop using internal dma-buf lock
-  dma-buf: Remove obsoleted internal lock
-
- Documentation/driver-api/dma-buf.rst          |   6 +
- drivers/dma-buf/dma-buf.c                     | 216 +++++++++++++++---
- drivers/gpu/drm/armada/armada_gem.c           |   8 +-
- drivers/gpu/drm/drm_client.c                  |   4 +-
- drivers/gpu/drm/drm_gem.c                     |  24 ++
- drivers/gpu/drm/drm_gem_dma_helper.c          |   6 +-
- drivers/gpu/drm/drm_gem_framebuffer_helper.c  |   6 +-
- drivers/gpu/drm/drm_gem_ttm_helper.c          |   9 +-
- drivers/gpu/drm/drm_prime.c                   |   6 +-
- drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |   2 +-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |   2 +-
- drivers/gpu/drm/i915/gem/i915_gem_object.c    |  14 ++
- .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |  16 +-
- drivers/gpu/drm/lima/lima_sched.c             |   4 +-
- drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c     |   4 +-
- drivers/gpu/drm/panfrost/panfrost_dump.c      |   4 +-
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c   |   6 +-
- drivers/gpu/drm/qxl/qxl_object.c              |  17 +-
- drivers/gpu/drm/qxl/qxl_prime.c               |   4 +-
- drivers/gpu/drm/tegra/gem.c                   |  17 +-
- drivers/infiniband/core/umem_dmabuf.c         |   7 +-
- .../common/videobuf2/videobuf2-dma-contig.c   |  22 +-
- .../media/common/videobuf2/videobuf2-dma-sg.c |  19 +-
- .../common/videobuf2/videobuf2-vmalloc.c      |  17 +-
- .../platform/nvidia/tegra-vde/dmabuf-cache.c  |   6 +-
- drivers/misc/fastrpc.c                        |   6 +-
- drivers/xen/gntdev-dmabuf.c                   |   8 +-
- include/drm/drm_gem.h                         |   3 +
- include/linux/dma-buf.h                       |  17 +-
- 29 files changed, 325 insertions(+), 155 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+index f5062d0c6333..07eee1c09aaf 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+@@ -72,7 +72,7 @@ static int i915_gem_dmabuf_vmap(struct dma_buf *dma_buf,
+ 	struct drm_i915_gem_object *obj = dma_buf_to_obj(dma_buf);
+ 	void *vaddr;
+ 
+-	vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
++	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
+ 	if (IS_ERR(vaddr))
+ 		return PTR_ERR(vaddr);
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 85482a04d158..7cab89618bad 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -290,7 +290,21 @@ void __i915_gem_object_pages_fini(struct drm_i915_gem_object *obj)
+ 	__i915_gem_object_free_mmaps(obj);
+ 
+ 	atomic_set(&obj->mm.pages_pin_count, 0);
++
++	/*
++	 * dma_buf_unmap_attachment() requires reservation to be
++	 * locked. The imported GEM shouldn't share reservation lock
++	 * and ttm_bo_cleanup_memtype_use() shouldn't be invoked for
++	 * dma-buf, so it's safe to take the lock.
++	 */
++	if (obj->base.import_attach)
++		i915_gem_object_lock(obj, NULL);
++
+ 	__i915_gem_object_put_pages(obj);
++
++	if (obj->base.import_attach)
++		i915_gem_object_unlock(obj);
++
+ 	GEM_BUG_ON(i915_gem_object_has_pages(obj));
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
+index 51ed824b020c..f2f3cfad807b 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
+@@ -213,7 +213,7 @@ static int igt_dmabuf_import_same_driver(struct drm_i915_private *i915,
+ 		goto out_import;
+ 	}
+ 
+-	st = dma_buf_map_attachment(import_attach, DMA_BIDIRECTIONAL);
++	st = dma_buf_map_attachment_unlocked(import_attach, DMA_BIDIRECTIONAL);
+ 	if (IS_ERR(st)) {
+ 		err = PTR_ERR(st);
+ 		goto out_detach;
+@@ -226,7 +226,7 @@ static int igt_dmabuf_import_same_driver(struct drm_i915_private *i915,
+ 		timeout = -ETIME;
+ 	}
+ 	err = timeout > 0 ? 0 : timeout;
+-	dma_buf_unmap_attachment(import_attach, st, DMA_BIDIRECTIONAL);
++	dma_buf_unmap_attachment_unlocked(import_attach, st, DMA_BIDIRECTIONAL);
+ out_detach:
+ 	dma_buf_detach(dmabuf, import_attach);
+ out_import:
+@@ -296,7 +296,7 @@ static int igt_dmabuf_import(void *arg)
+ 		goto out_obj;
+ 	}
+ 
+-	err = dma_buf_vmap(dmabuf, &map);
++	err = dma_buf_vmap_unlocked(dmabuf, &map);
+ 	dma_map = err ? NULL : map.vaddr;
+ 	if (!dma_map) {
+ 		pr_err("dma_buf_vmap failed\n");
+@@ -337,7 +337,7 @@ static int igt_dmabuf_import(void *arg)
+ 
+ 	err = 0;
+ out_dma_map:
+-	dma_buf_vunmap(dmabuf, &map);
++	dma_buf_vunmap_unlocked(dmabuf, &map);
+ out_obj:
+ 	i915_gem_object_put(obj);
+ out_dmabuf:
+@@ -358,7 +358,7 @@ static int igt_dmabuf_import_ownership(void *arg)
+ 	if (IS_ERR(dmabuf))
+ 		return PTR_ERR(dmabuf);
+ 
+-	err = dma_buf_vmap(dmabuf, &map);
++	err = dma_buf_vmap_unlocked(dmabuf, &map);
+ 	ptr = err ? NULL : map.vaddr;
+ 	if (!ptr) {
+ 		pr_err("dma_buf_vmap failed\n");
+@@ -367,7 +367,7 @@ static int igt_dmabuf_import_ownership(void *arg)
+ 	}
+ 
+ 	memset(ptr, 0xc5, PAGE_SIZE);
+-	dma_buf_vunmap(dmabuf, &map);
++	dma_buf_vunmap_unlocked(dmabuf, &map);
+ 
+ 	obj = to_intel_bo(i915_gem_prime_import(&i915->drm, dmabuf));
+ 	if (IS_ERR(obj)) {
+@@ -418,7 +418,7 @@ static int igt_dmabuf_export_vmap(void *arg)
+ 	}
+ 	i915_gem_object_put(obj);
+ 
+-	err = dma_buf_vmap(dmabuf, &map);
++	err = dma_buf_vmap_unlocked(dmabuf, &map);
+ 	ptr = err ? NULL : map.vaddr;
+ 	if (!ptr) {
+ 		pr_err("dma_buf_vmap failed\n");
+@@ -435,7 +435,7 @@ static int igt_dmabuf_export_vmap(void *arg)
+ 	memset(ptr, 0xc5, dmabuf->size);
+ 
+ 	err = 0;
+-	dma_buf_vunmap(dmabuf, &map);
++	dma_buf_vunmap_unlocked(dmabuf, &map);
+ out:
+ 	dma_buf_put(dmabuf);
+ 	return err;
 -- 
 2.37.3
 
