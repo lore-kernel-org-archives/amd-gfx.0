@@ -4,47 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36085C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 14:35:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3213BC433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 15:14:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEE9310E0A2;
-	Mon, 17 Oct 2022 14:35:39 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3326410E0A2;
- Mon, 17 Oct 2022 14:35:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=l1cE3d3Vd5VdDWCztqYjwRmjL7vyJBsSHh4D3EvX4V4=; b=Bw5Fxplj2V8diQirR+sz4NVLSV
- uF34e0lL3UsB32WeH8RMxJ7okIOpPcHKaOVUKchDtMtUkfJCQZaf85XMMQARBDVXvKq67Q5n61n13
- Dd5S9G3pKm8j+OiEbTVgte0uMTGya9kbzuO3t/GoNsin7iTxuvC9cP25VvnId/7dVRjvDxKqtNaDt
- 7BGjfD+D3DgNCyz58mqcA8FOAqCer/sH1yDO6K7qIYMISLTx7BMqeWZyL3NrjBdwpgQW46OOXFhaa
- b94xj3BDnIyjdzU9XF/aGXgBb/jL3h9081c4QZesRHGbNLqhLiH450WFh5NgSZP2T/34eG22TGn0y
- EwGbH0CA==;
-Received: from [177.139.44.8] (helo=[192.168.1.111])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1okRDA-000Psq-3Q; Mon, 17 Oct 2022 16:35:23 +0200
-Message-ID: <12c35cea-3837-9919-589f-0065c9180545@igalia.com>
-Date: Mon, 17 Oct 2022 11:35:00 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 543E210E718;
+	Mon, 17 Oct 2022 15:14:42 +0000 (UTC)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFEB310E517;
+ Mon, 17 Oct 2022 15:14:36 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-136b5dd6655so13614653fac.3; 
+ Mon, 17 Oct 2022 08:14:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=C0k/V94Hup9eBfg7SuZ2cCUb+ul85Fg6mc4OEJdv/0o=;
+ b=IEovFP95JMex4zXL1DQ0svc0+EUKLExxkV+mGn9ZeW8ZmD+uPQk3KCWXdbi6usPiQQ
+ hJwGqTiC0WcrQpvRXgjpclgnewXMVIWQC9bfvtBE0PDRO7d5LODnBzg+KwjT29k5T/zA
+ H3r1ZtTOh0iNS9fKJJ+VBpDOsuFTFPfa1lwh4TnCoXFR1JdCRQ6q6fAr44drW9gYwaQW
+ Gjr9QGr/M2/fJJjfzl+Jn9SECz7IxlODUjQKiuajPnSrDJ1BUJv0bu51QElJzP1Zjaok
+ Jgd+8lx0onVelr7PUXSRnVy1cbGdOZT8S/giqPPaIHa6AN114Kum2v80fKztL5tqbVFM
+ 1UMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=C0k/V94Hup9eBfg7SuZ2cCUb+ul85Fg6mc4OEJdv/0o=;
+ b=AYaKC/zVZA6EyTqbwXSIRMB1Cb7KuSpJG92YwhhV0qu0zCnpgzDCZJqm3yC5OTJsW8
+ EZfLcSFU5pwYXNMgH5GvDcnmkomO9LqYxGDDmkyQ5FiZmLArkTrvGnloKu4mM48mYNJI
+ t7y55/+Ow+5NA/D+EWYzbUgExi06gwAZttKLPNY2abUKhQ4kcda2AwJhVuUuo0DVoRoi
+ JCFjHR7BRheJ19ae4yfrzjJGCDn7jkIou773UCVCTRX7oeG10D2maJZLpE6yUFJEYHfN
+ PWRjtlHV7FMu/SIZuw4z0S6hNNATIQMqCTTpM5sxjMeW1NqdPqstD3x4fzP+/nwN9Vi0
+ AB4A==
+X-Gm-Message-State: ACrzQf1/02gl/d784SVQTKe0CkPZ/HV3K+hWcA/72x/JrZQyaiyE4vIV
+ Pcd26jTN0eIQYg/0xFxAYdRpsF8yMUUC1nB/Efg=
+X-Google-Smtp-Source: AMsMyM4pTI888ntuHyVZaruicFUJcVFq9AyzsZI2hRj+fKOygSc1PA8aUQ27gw/7RbbP5lHotTjyLcWG9kyjTxWFX6k=
+X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
+ x36-20020a056870a7a400b001367c39979emr6111763oao.96.1666019675897; Mon, 17
+ Oct 2022 08:14:35 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-Subject: Re: [PATCH v3 0/6] Add support for atomic async page-flips
-Content-Language: en-US
-To: Simon Ser <contact@emersion.fr>
-References: <20220929184307.258331-1-contact@emersion.fr>
- <Yzb0uNjB5FpjCIjq@intel.com> <Yzb6203nHF8fVH/W@intel.com>
- <YzcGw9myJotLRTVl@intel.com>
- <PJIfCPDOH8tzwE1mwv58g4ICBZbEgW44vwzW-JdUde6PjLDUeF_JNT0kUZ_Z8hZWqii_DTdDFfAYpRbO_T1Tu28wpjiwYlQpRdsrHJXLF58=@emersion.fr>
-From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <PJIfCPDOH8tzwE1mwv58g4ICBZbEgW44vwzW-JdUde6PjLDUeF_JNT0kUZ_Z8hZWqii_DTdDFfAYpRbO_T1Tu28wpjiwYlQpRdsrHJXLF58=@emersion.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20221017090352.117843-1-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <20221017090352.117843-1-jiapeng.chong@linux.alibaba.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 17 Oct 2022 11:14:24 -0400
+Message-ID: <CADnq5_PFgg=JhCzii=798zXmfjtatCWhWbYuMhDBctkmW6cY8g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Remove the unused function
+ amdgpu_ucode_print_imu_hdr()
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,89 +65,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, dri-devel@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org, mwen@igalia.com,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, joshua@froggi.es,
- hwentlan@amd.com, nicholas.kazlauskas@amd.com,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/13/22 13:02, Simon Ser wrote:
->>>> So no tests that actually verify that the kernel properly rejects
->>>> stuff stuff like modesets, gamma LUT updates, plane movement,
->>>> etc.?
->>>
->>> Pondering this a bit more, it just occurred to me the current driver
->>> level checks might easily lead to confusing behaviour. Eg. is
->>> the ioctl going to succeed if you ask for an async change of some
->>> random property while the crtc disabled, but fails if you ask for
->>> the same async property change when the crtc is active?
->>>
->>> So another reason why rejecting most properties already at
->>> the uapi level might be a good idea.
->>
->> And just to be clear this is pretty much what I suggest:
->>
->> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
->> index 79730fa1dd8e..471a2c703847 100644
->> --- a/drivers/gpu/drm/drm_atomic_uapi.c
->> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
->> @@ -1392,6 +1392,13 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
->>   				goto out;
->>   			}
->>
->> +			if (arg->flags & DRM_MODE_PAGE_FLIP_ASYNC &&
->> +			    prop != dev->mode_config.prop_fb_id) {
->> +				drm_mode_object_put(obj);
->> +				ret = -EINVAL;
->> +				goto out;
->> +			}
->> +
->>   			if (copy_from_user(&prop_value,
->>   					   prop_values_ptr + copied_props,
->>   					   sizeof(prop_value))) {
->>
->>
->> That would actively discourage people from even attempting the
->> "just dump all the state into the ioctl" approach with async flips
->> since even the props whose value isn't even changing would be rejected.
-> 
-> How does this sound?
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index 945761968428..ffd16bdc7b83 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -972,14 +972,26 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
->   			    struct drm_file *file_priv,
->   			    struct drm_mode_object *obj,
->   			    struct drm_property *prop,
-> -			    uint64_t prop_value)
-> +			    uint64_t prop_value,
-> +			    bool async_flip)
->   {
->   	struct drm_mode_object *ref;
->   	int ret;
-> +	uint64_t old_val;
->   
->   	if (!drm_property_change_valid_get(prop, prop_value, &ref))
->   		return -EINVAL;
->   
-> +	if (async_flip && prop != prop->dev->mode_config.prop_fb_id) {
-> +		ret = drm_atomic_get_property(obj, prop, &old_val);
-> +		if (ret != 0 || old_val != prop_value) {
-> +			drm_dbg_atomic(prop->dev,
-> +				       "[PROP:%d:%s] cannot be changed during async flip\n",
-> +				       prop->base.id, prop->name);
+On Mon, Oct 17, 2022 at 5:04 AM Jiapeng Chong
+<jiapeng.chong@linux.alibaba.com> wrote:
+>
+> The function amdgpu_ucode_print_imu_hdr() is defined in the amdgpu_ucode.c
+> file, but not called elsewhere, so delete this unused function.
+>
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c:129:6: warning: no previous prototype for function 'amdgpu_ucode_print_imu_hdr'.
+>
+> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2416
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 
-I would write this as "[PROP:%d:%s] No prop can be changed during async 
-flips" to make it clear that it's not just this prop that can't, but any.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> +			return -EINVAL;
-> +		}
-> +	}
-> +
->   	switch (obj->type) {
->   	case DRM_MODE_OBJECT_CONNECTOR: {
->   		struct drm_connector *connector = obj_to_connector(obj);
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 13 -------------
+>  1 file changed, 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+> index dd0bc649a57d..148cc2d475c5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+> @@ -126,19 +126,6 @@ void amdgpu_ucode_print_gfx_hdr(const struct common_firmware_header *hdr)
+>         }
+>  }
+>
+> -void amdgpu_ucode_print_imu_hdr(const struct common_firmware_header *hdr)
+> -{
+> -       uint16_t version_major = le16_to_cpu(hdr->header_version_major);
+> -       uint16_t version_minor = le16_to_cpu(hdr->header_version_minor);
+> -
+> -       DRM_DEBUG("IMU\n");
+> -       amdgpu_ucode_print_common_hdr(hdr);
+> -
+> -       if (version_major != 1) {
+> -               DRM_ERROR("Unknown GFX ucode version: %u.%u\n", version_major, version_minor);
+> -       }
+> -}
+> -
+>  void amdgpu_ucode_print_rlc_hdr(const struct common_firmware_header *hdr)
+>  {
+>         uint16_t version_major = le16_to_cpu(hdr->header_version_major);
+> --
+> 2.20.1.7.g153144c
+>
