@@ -4,36 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8869BC4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 16:02:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 382DAC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 16:14:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0D6E10E1DE;
-	Mon, 17 Oct 2022 16:02:05 +0000 (UTC)
-X-Greylist: delayed 301 seconds by postgrey-1.36 at gabe;
- Mon, 17 Oct 2022 15:31:04 UTC
-Received: from andre.telenet-ops.be (andre.telenet-ops.be
- [IPv6:2a02:1800:120:4::f00:15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DDBA10E44D
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Oct 2022 15:31:04 +0000 (UTC)
-Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed10:bdc5:2f22:6678:ef3])
- by andre.telenet-ops.be with bizsmtp
- id Z3Rx2800j0MC6vi013RxB9; Mon, 17 Oct 2022 17:26:00 +0200
-Received: from geert (helo=localhost)
- by ramsan.of.borg with local-esmtp (Exim 4.93)
- (envelope-from <geert@linux-m68k.org>)
- id 1okS00-0002Vj-S9; Mon, 17 Oct 2022 17:25:52 +0200
-Date: Mon, 17 Oct 2022 17:25:52 +0200 (CEST)
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-X-X-Sender: geert@ramsan.of.borg
-To: linux-kernel@vger.kernel.org
-Subject: Re: Build regressions/improvements in v6.1-rc1
-In-Reply-To: <20221017145157.1866351-1-geert@linux-m68k.org>
-Message-ID: <alpine.DEB.2.22.394.2210171653540.9136@ramsan.of.borg>
-References: <20221017145157.1866351-1-geert@linux-m68k.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 512B210E337;
+	Mon, 17 Oct 2022 16:14:19 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2088.outbound.protection.outlook.com [40.107.102.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FB3910E32D;
+ Mon, 17 Oct 2022 16:14:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XldIan6s6PAEbl9gskW7cX0cTpJi5bFpOYB6nBStPoaUbSK8vSO+kE43AuPreDWBmbuaOAQgQg60s0sb1YSSaHEoMB/jH3R5p/+T69hzhwSuj4JCjVBhKWkhD56PD3NLQXeyt+yX89l2Lt2wOZv4RFKT2CYydftcY9k6eIMP4Em/pylnJO8UcVkWuZNtMOX6N/jT0qk3hHJnW0TJMBNHTj106iKA2qhiN3JfRDv7HKnaneCeuE8PDrS0QydfNVATZWnFAG8yO04Z6ukydP6oPZkDfM2DEDku2eMu+AHxnIeURDsnXrc2NjzRCYWS1X+IOwNSXTXzHyr/3SOfz3KbxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ujfJIlq22G84VPkWfwNQ3i8i1u19Q82jUaBuh+exsCs=;
+ b=UvjkfwoyG/+vrrfXROOW2mCJkXTZhkuVuDTQ+D5FERwpBEHdMpRhJD80GTcjWpYBso8AJZV8Zd43smqTLOAkrrYUxlxeA0DDZuMcDNrqFrtSAwFupd0eZ5HLPKB15PyqAM5kcrdFyn799Mlr77PLglR+Bn6zsX2OtGAurzbzxow++F2CzWyJ3nFd4QYmgInXAmHrwtkpD3uH1I3Sh0gd4zTKb+5FkgNh4t+YMzoGRWU436gLMJ4hyHCX1Dk2fbN6w9d19hQsROKFq4eleu27YgbziA3mq/1qjOzjVafhvvoKzbbMk7mQIaVDvFqI0V5ipv2+e0+ggbHAfEi0bpco3A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ujfJIlq22G84VPkWfwNQ3i8i1u19Q82jUaBuh+exsCs=;
+ b=Ly85MXmdurpEmEcODq0BbmO7gQ2/AAeSlGtDkCu9SZ0V4NxXVdHcM0QJMiJyne+5fJZsTkVxHR1j6eJw89qyq5SwTo0IiW3hr5QYSMmuMoGtaqV1ddbTmxNsqdcTo0t5PUH3kGaxYRIvbbxKsx+XHuQ8gz87Ils/JMW8huPqzBY=
+Received: from DM6PR03CA0034.namprd03.prod.outlook.com (2603:10b6:5:40::47) by
+ MW4PR12MB6779.namprd12.prod.outlook.com (2603:10b6:303:20f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.26; Mon, 17 Oct
+ 2022 16:14:13 +0000
+Received: from DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:40:cafe::c7) by DM6PR03CA0034.outlook.office365.com
+ (2603:10b6:5:40::47) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.31 via Frontend
+ Transport; Mon, 17 Oct 2022 16:14:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT030.mail.protection.outlook.com (10.13.172.146) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5723.20 via Frontend Transport; Mon, 17 Oct 2022 16:14:13 +0000
+Received: from hamza-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 17 Oct
+ 2022 11:14:10 -0500
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v3] drm/amd/display: add an ASSERT() to irq service functions
+Date: Mon, 17 Oct 2022 12:13:22 -0400
+Message-ID: <20221017161322.95808-1-hamza.mahfooz@amd.com>
+X-Mailer: git-send-email 2.38.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
-X-Mailman-Approved-At: Mon, 17 Oct 2022 16:02:02 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT030:EE_|MW4PR12MB6779:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43cffad2-b170-449c-09e3-08dab05aa1ab
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: sqo4uldCXgFs1oi2wYAa5fscYiVrQ3wyR1tbvwYtq6EHYT2ScSJKUrUphIsf086HxYIkqm/olqHb0mjdxGmCUtkXV4NGeG6h+ar6P465wcAcYqmM6oOZKXJXgJqPZwjuVP+B/D4UR8g+AXEah2Nyhwxopa3vAd6TLDubeFNlliN6G4PS2UjeW+PUYadyZMyTGjYrmeCBuJlDcvhg67ot3ao43zxu2Gfrl7PPBR4DYaIA12Va7elRGyABcuQa03ALCL1mLaZlZ//GL9fFyulcvSe3QYKm3uAKmz09/WsCIf926jPu6yi/hhrl+sqwnautyHeCGXuwFwifidUJNjBbmjCCOnpWSWdpqs1WX2Rq2u/dvASRIJuOPD6+6YNos8L1qUgdNRsZtoc24aARQlCRV8XhvnfjNXXWu1bYtNdHp4jE2XYx2JZmN8DMBzY42mrLWST5cw8Cx6L22YppYaajSnGudScYxELm5V1XAlBo3e8uEr/RkwpiSRhgeZM8furtRfkAZ0kS4bdyFA2hIX5wZkLthcWjs5XG6MTOj/9PRPEzZvROplwzzy+9tyQHu7YsG109UFSoyIl14ui1R6jQ88SNb675k968cVwDAKaVC3fHdu9yulEN+wexN5B5PRu8+cixVaH5y+rbyyvn7AkkiXB7A/A0kstSOAYWYf2S6qqNESQ3U6DKGSpbR4liTz2m4bnsp2g0aKmUbRsDZwYeWuYye/heaWT6+HNM5GY8GMIVpG5K2EpzDKrRUTkD/3/AFZ5Y43+KqgjqKtYpko5bOClwULSBlAjH4oglJ88TleV3wv4Jyr44TsDj70rAuGmzhf8jD4gG5H2ueODvfzNe4A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(136003)(376002)(346002)(396003)(451199015)(46966006)(40470700004)(36840700001)(70586007)(70206006)(316002)(54906003)(478600001)(6916009)(8676002)(6666004)(4326008)(8936002)(2906002)(356005)(41300700001)(5660300002)(336012)(7696005)(1076003)(40460700003)(186003)(16526019)(26005)(36756003)(83380400001)(47076005)(81166007)(44832011)(82740400003)(36860700001)(2616005)(82310400005)(86362001)(40480700001)(426003)(36900700001)(16060500005);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2022 16:14:13.1451 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43cffad2-b170-449c-09e3-08dab05aa1ab
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6779
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,90 +97,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: D Scott Phillips <scott@os.amperecomputing.com>, linux-rdma@vger.kernel.org,
- linux-um@lists.infradead.org, linux-mips@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- kvm-riscv@lists.infradead.org, sparclinux@vger.kernel.org,
- linux-riscv@lists.infradead.org, "Maciej W. Rozycki" <macro@orcam.me.uk>,
- linux-arm-kernel@lists.infradead.org, Andrew Jones <ajones@ventanamicro.com>
+Cc: Stylon Wang <stylon.wang@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ linux-kernel@vger.kernel.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>, Rodrigo
+ Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
+ dri-devel@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ David Airlie <airlied@linux.ie>, Alex Hung <alex.hung@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Harry
+ Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 17 Oct 2022, Geert Uytterhoeven wrote:
-> Below is the list of build error/warning regressions/improvements in
-> v6.1-rc1[1] compared to v6.0[2].
->
-> Summarized:
->  - build errors: +25/-13
+Currently, if we encounter unimplemented functions, it is difficult to
+tell what caused them just by looking at dmesg and that is compounded by
+the fact that it is often hard to reproduce said issues, for instance we
+have had reports of this condition being triggered when removing a
+secondary display that is setup in mirror mode and is connected using
+usb-c. So, to have access to more detailed debugging information, add an
+ASSERT() to dal_irq_service_ack() and dal_irq_service_set() that only
+triggers when we encounter an unimplemented function.
 
-> [1] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/9abf2313adc1ca1b6180c508c25f22f9395cc780/ (all 149 configs)
-> [2] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/4fe89d07dcc2804c8b562f6c7896a45643d34b2f/ (135 out of 149 configs)
->
->
-> *** ERRORS ***
->
-> 25 error regressions:
->  + /kisskb/src/arch/arm64/include/asm/cputype.h: error: initializer element is not constant:  => 44:2
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+---
+v2: detail specific instance that I'm interested in and use ASSERT()
+    instead of WARN().
 
-arm64-gcc5/arm64-allmodconfig (arch/arm64/kernel/proton-pack.c:872)
+v3: move ASSERT()s inside the new if blocks.
+---
+ .../gpu/drm/amd/display/dc/irq/irq_service.c    | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
->  + /kisskb/src/arch/um/include/asm/processor-generic.h: error: called object is not a function or function pointer:  => 94:18
->  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: error: control reaches end of non-void function [-Werror=return-type]:  => 1934:1
->  + /kisskb/src/drivers/infiniband/hw/qib/qib_wc_x86_64.c: error: 'X86_VENDOR_AMD' undeclared (first use in this function):  => 149:37
->  + /kisskb/src/drivers/infiniband/hw/qib/qib_wc_x86_64.c: error: 'struct cpuinfo_um' has no member named 'x86_vendor':  => 149:22
->  + /kisskb/src/drivers/infiniband/hw/qib/qib_wc_x86_64.c: error: control reaches end of non-void function [-Werror=return-type]:  => 150:1
->  + /kisskb/src/drivers/infiniband/sw/rdmavt/qp.c: error: 'struct cpuinfo_um' has no member named 'x86_cache_size':  => 88:22
->  + /kisskb/src/drivers/infiniband/sw/rdmavt/qp.c: error: control reaches end of non-void function [-Werror=return-type]:  => 89:1
->  + /kisskb/src/drivers/infiniband/sw/rdmavt/qp.c: error: implicit declaration of function '__copy_user_nocache' [-Werror=implicit-function-declaration]:  => 100:2
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/irq_service.c b/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
+index 7bad39bba86b..d100edaedbbb 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/irq_service.c
+@@ -112,8 +112,15 @@ bool dal_irq_service_set(
+ 
+ 	dal_irq_service_ack(irq_service, source);
+ 
+-	if (info->funcs && info->funcs->set)
++	if (info->funcs && info->funcs->set) {
++		if (info->funcs->set == dal_irq_service_dummy_set) {
++			DC_LOG_WARNING("%s: src: %d, st: %d\n", __func__,
++				       source, enable);
++			ASSERT(0);
++		}
++
+ 		return info->funcs->set(irq_service, info, enable);
++	}
+ 
+ 	dal_irq_service_set_generic(irq_service, info, enable);
+ 
+@@ -146,8 +153,14 @@ bool dal_irq_service_ack(
+ 		return false;
+ 	}
+ 
+-	if (info->funcs && info->funcs->ack)
++	if (info->funcs && info->funcs->ack) {
++		if (info->funcs->ack == dal_irq_service_dummy_ack) {
++			DC_LOG_WARNING("%s: src: %d\n", __func__, source);
++			ASSERT(0);
++		}
++
+ 		return info->funcs->ack(irq_service, info);
++	}
+ 
+ 	dal_irq_service_ack_generic(irq_service, info);
+ 
+-- 
+2.38.0
 
-um-x86_64/um-all{mod,yes}config
-
->  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c: error: array subscript is above array bounds [-Werror=array-bounds]:  => 531:55
-
-arm64-gcc5/arm64-allmodconfig
-mipsel-gcc5/mips-allmodconfig
-powerpc-gcc5/powerpc-all{mod,yes}config
-powerpc-gcc5/ppc32_allmodconfig
-powerpc-gcc5/ppc64_book3e_allmodconfig
-powerpc-gcc5/ppc64le_allmodconfig
-sparc64-gcc5/sparc64-allmodconfig
-
->  + error: modpost: "ebus_dma_enable" [drivers/parport/parport_pc.ko] undefined!:  => N/A
->  + error: modpost: "ebus_dma_irq_enable" [drivers/parport/parport_pc.ko] undefined!:  => N/A
->  + error: modpost: "ebus_dma_prepare" [drivers/parport/parport_pc.ko] undefined!:  => N/A
->  + error: modpost: "ebus_dma_register" [drivers/parport/parport_pc.ko] undefined!:  => N/A
->  + error: modpost: "ebus_dma_request" [drivers/parport/parport_pc.ko] undefined!:  => N/A
->  + error: modpost: "ebus_dma_residue" [drivers/parport/parport_pc.ko] undefined!:  => N/A
->  + error: modpost: "ebus_dma_unregister" [drivers/parport/parport_pc.ko] undefined!:  => N/A
->  + error: modpost: "ns87303_lock" [drivers/parport/parport_pc.ko] undefined!:  => N/A
-
-sparc64-gcc5/sparc-allmodconfig
-
->  + error: modpost: "riscv_cbom_block_size" [arch/riscv/kvm/kvm.ko] undefined!:  => N/A
-
-riscv-gcc11/riscv-defconfig
-riscv-gcc11/rv32_defconfig
-
->  + {standard input}: Error: branch to a symbol in another ISA mode: 1339 => 2616, 2621
-
-mips-gcc11/micro32r2_defconfig
-mips-gcc11/micro32r2el_defconfig
-
->  + {standard input}: Error: displacement to undefined symbol .L377 overflows 12-bit field:  => 2286
->  + {standard input}: Error: displacement to undefined symbol .L378 overflows 8-bit field :  => 2302
->  + {standard input}: Error: displacement to undefined symbol .L382 overflows 8-bit field :  => 2213
->  + {standard input}: Error: pcrel too far:  => 2247, 2261, 2232, 2231, 2262, 2216, 2204, 2248, 2274, 2293, 2217, 2206, 2221, 2229, 2209, 2249, 2259, 2215
->  + {standard input}: Error: unknown pseudo-op: `.l':  => 2305
-
-sh4-gcc11/sh-all{mod,yes}config (ICE in drivers/net/pcs/pcs-xpcs.o)
-
-Gr{oetje,eeting}s,
-
- 						Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
- 							    -- Linus Torvalds
