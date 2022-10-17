@@ -4,30 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4526DC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 13:05:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5E32C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 13:05:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5637C10E438;
-	Mon, 17 Oct 2022 13:05:22 +0000 (UTC)
-X-Greylist: delayed 306 seconds by postgrey-1.36 at gabe;
- Mon, 17 Oct 2022 08:34:38 UTC
-Received: from out199-16.us.a.mail.aliyun.com (out199-16.us.a.mail.aliyun.com
- [47.90.199.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7C6310E85F;
- Mon, 17 Oct 2022 08:34:38 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D41FD10E43D;
+	Mon, 17 Oct 2022 13:05:27 +0000 (UTC)
+Received: from out30-132.freemail.mail.aliyun.com
+ (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D45C610ED02;
+ Mon, 17 Oct 2022 09:04:25 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
  DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046051;
  MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
- TI=SMTPD_---0VSLGo6w_1665995358; 
+ TI=SMTPD_---0VSLCnzl_1665997452; 
 Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VSLGo6w_1665995358) by smtp.aliyun-inc.com;
- Mon, 17 Oct 2022 16:29:27 +0800
+ fp:SMTPD_---0VSLCnzl_1665997452) by smtp.aliyun-inc.com;
+ Mon, 17 Oct 2022 17:04:21 +0800
 From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 To: alexander.deucher@amd.com
 Subject: [PATCH] drm/amdgpu: Remove the unused function
- get_umc_v6_7_channel_index()
-Date: Mon, 17 Oct 2022 16:27:28 +0800
-Message-Id: <20221017082728.73154-1-jiapeng.chong@linux.alibaba.com>
+ amdgpu_ucode_print_imu_hdr()
+Date: Mon, 17 Oct 2022 17:03:52 +0800
+Message-Id: <20221017090352.117843-1-jiapeng.chong@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -50,36 +48,42 @@ Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Xinhui.Pan@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function get_umc_v6_7_channel_index() is defined in the umc_v6_7.c
+The function amdgpu_ucode_print_imu_hdr() is defined in the amdgpu_ucode.c
 file, but not called elsewhere, so delete this unused function.
 
-drivers/gpu/drm/amd/amdgpu/umc_v6_7.c:60:24: warning: unused function 'get_umc_v6_7_channel_index'.
+drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c:129:6: warning: no previous prototype for function 'amdgpu_ucode_print_imu_hdr'.
 
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2413
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2416
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/amdgpu/umc_v6_7.c | 7 -------
- 1 file changed, 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 13 -------------
+ 1 file changed, 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-index 5d5d031c9e7d..6837fc89ba8f 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-@@ -57,13 +57,6 @@ static inline uint32_t get_umc_v6_7_reg_offset(struct amdgpu_device *adev,
- 	return adev->umc.channel_offs * ch_inst + UMC_V6_7_INST_DIST * umc_inst;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+index dd0bc649a57d..148cc2d475c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -126,19 +126,6 @@ void amdgpu_ucode_print_gfx_hdr(const struct common_firmware_header *hdr)
+ 	}
  }
  
--static inline uint32_t get_umc_v6_7_channel_index(struct amdgpu_device *adev,
--					      uint32_t umc_inst,
--					      uint32_t ch_inst)
+-void amdgpu_ucode_print_imu_hdr(const struct common_firmware_header *hdr)
 -{
--	return adev->umc.channel_idx_tbl[umc_inst * adev->umc.channel_inst_num + ch_inst];
+-	uint16_t version_major = le16_to_cpu(hdr->header_version_major);
+-	uint16_t version_minor = le16_to_cpu(hdr->header_version_minor);
+-
+-	DRM_DEBUG("IMU\n");
+-	amdgpu_ucode_print_common_hdr(hdr);
+-
+-	if (version_major != 1) {
+-		DRM_ERROR("Unknown GFX ucode version: %u.%u\n", version_major, version_minor);
+-	}
 -}
 -
- static void umc_v6_7_query_error_status_helper(struct amdgpu_device *adev,
- 						  uint64_t mc_umc_status, uint32_t umc_reg_offset)
+ void amdgpu_ucode_print_rlc_hdr(const struct common_firmware_header *hdr)
  {
+ 	uint16_t version_major = le16_to_cpu(hdr->header_version_major);
 -- 
 2.20.1.7.g153144c
 
