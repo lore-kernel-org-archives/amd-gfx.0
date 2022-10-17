@@ -4,31 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F691C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 17:49:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87C64C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 17:49:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A790C10E763;
-	Mon, 17 Oct 2022 17:48:44 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7571310EDDD;
- Mon, 17 Oct 2022 17:25:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8701E10EBA4;
+	Mon, 17 Oct 2022 17:48:45 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F231310E87B;
+ Mon, 17 Oct 2022 17:24:32 +0000 (UTC)
 Received: from dimapc.. (109-252-119-114.nat.spd-mgts.ru [109.252.119.114])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 09FA166023A3;
- Mon, 17 Oct 2022 18:25:09 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id C55A566022A5;
+ Mon, 17 Oct 2022 18:24:27 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1666027513;
- bh=tqLpeFJU2Utf7ZkDmJ6+Yo9KZW5+mtoG82+i9UwVYdE=;
+ s=mail; t=1666027471;
+ bh=Ov9ZX8VHbwHToZzjcmjiNJ0jjSTvXmYhNQje1p3xR4A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=c/m/3UKSAhvWZZMB6F3ciRlgqywUvzk0M2oKZRJ97q7dS5pgXIfI0goi0jXEVVxXT
- DCPsdIqyXkTrXE1CYoRrtYwgd0Uq0vfAuzdvHXaU0+c5DjnzsdLc7uwCz5qgQJCBBg
- T6HTSnLud0r/FbEMDJpiDyQUvZdS2Xy1Xc+lfs/qzyDI7DR6sGuyQHDNGuYan2qV7G
- 2b9Fy70+kL02cvGj3kPmhrmQm2jkgq6hjm4H7tgnPmXnWqPpODMKpOvvTEZBAM3OJ1
- 1jdwHv7T4n2thoOeSHgo5+FEHCvz2PtMw221fkSYukUlytADnRTwzd8Iffm6DV3FRB
- VRpWOgnXohnfg==
+ b=JfSEiFZ0bP/1PLxM6GvHz8c2tanrpN/nrTAMtAjaS+tiBEO2rTyRl2yV6inEdPTYz
+ filtgkfBWoHGG9we80879CphfgBgCm6DB6qPBvlIm4TSS8FvEMd0WD9UBv8W0TvnDQ
+ hNW/CRs1u5OAOaZwr87WYLuVN5Fu+0f0pNNuOMnhWDIpJLkvwUTudI5SGs/HaJ5lm+
+ 16HXJckBVf+u/EzHvS+seAwvWtLZA6OdJfWF8dFR+cv7DuFoyrtn6QGbSyHhUSH0Nw
+ lc7G1erOvRKc++n1Yv/355sd1xVVuLAdS2T77xsDQVAoImnQBJBhRtoOGTcX7SESkD
+ K39eW7DM3pE5g==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -64,10 +65,10 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Subject: [PATCH v7 16/21] dma-buf: Move dma_buf_attach() to dynamic locking
+Subject: [PATCH v7 05/21] drm/armada: Prepare to dynamic dma-buf locking
  specification
-Date: Mon, 17 Oct 2022 20:22:24 +0300
-Message-Id: <20221017172229.42269-17-dmitry.osipenko@collabora.com>
+Date: Mon, 17 Oct 2022 20:22:13 +0300
+Message-Id: <20221017172229.42269-6-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221017172229.42269-1-dmitry.osipenko@collabora.com>
 References: <20221017172229.42269-1-dmitry.osipenko@collabora.com>
@@ -95,79 +96,41 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move dma-buf attachment API functions to the dynamic locking specification
-by taking the reservation lock around the mapping operations. The strict
-locking convention prevents deadlock situations for dma-buf importers and
-exporters.
+Prepare Armada driver to the common dynamic dma-buf locking convention
+by starting to use the unlocked versions of dma-buf API functions.
 
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/dma-buf/dma-buf.c | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/armada/armada_gem.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 2c4381bb9478..d685a5adb122 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -859,8 +859,8 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
- 	    dma_buf_is_dynamic(dmabuf)) {
- 		struct sg_table *sgt;
- 
-+		dma_resv_lock(attach->dmabuf->resv, NULL);
- 		if (dma_buf_is_dynamic(attach->dmabuf)) {
--			dma_resv_lock(attach->dmabuf->resv, NULL);
- 			ret = dmabuf->ops->pin(attach);
- 			if (ret)
- 				goto err_unlock;
-@@ -873,8 +873,7 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
- 			ret = PTR_ERR(sgt);
- 			goto err_unpin;
- 		}
--		if (dma_buf_is_dynamic(attach->dmabuf))
--			dma_resv_unlock(attach->dmabuf->resv);
-+		dma_resv_unlock(attach->dmabuf->resv);
- 		attach->sgt = sgt;
- 		attach->dir = DMA_BIDIRECTIONAL;
+diff --git a/drivers/gpu/drm/armada/armada_gem.c b/drivers/gpu/drm/armada/armada_gem.c
+index 5430265ad458..26d10065d534 100644
+--- a/drivers/gpu/drm/armada/armada_gem.c
++++ b/drivers/gpu/drm/armada/armada_gem.c
+@@ -66,8 +66,8 @@ void armada_gem_free_object(struct drm_gem_object *obj)
+ 	if (dobj->obj.import_attach) {
+ 		/* We only ever display imported data */
+ 		if (dobj->sgt)
+-			dma_buf_unmap_attachment(dobj->obj.import_attach,
+-						 dobj->sgt, DMA_TO_DEVICE);
++			dma_buf_unmap_attachment_unlocked(dobj->obj.import_attach,
++							  dobj->sgt, DMA_TO_DEVICE);
+ 		drm_prime_gem_destroy(&dobj->obj, NULL);
  	}
-@@ -890,8 +889,7 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
- 		dmabuf->ops->unpin(attach);
  
- err_unlock:
--	if (dma_buf_is_dynamic(attach->dmabuf))
--		dma_resv_unlock(attach->dmabuf->resv);
-+	dma_resv_unlock(attach->dmabuf->resv);
+@@ -539,8 +539,8 @@ int armada_gem_map_import(struct armada_gem_object *dobj)
+ {
+ 	int ret;
  
- 	dma_buf_detach(dmabuf, attach);
- 	return ERR_PTR(ret);
-@@ -937,21 +935,19 @@ void dma_buf_detach(struct dma_buf *dmabuf, struct dma_buf_attachment *attach)
- 	if (WARN_ON(!dmabuf || !attach))
- 		return;
- 
-+	dma_resv_lock(attach->dmabuf->resv, NULL);
-+
- 	if (attach->sgt) {
--		if (dma_buf_is_dynamic(attach->dmabuf))
--			dma_resv_lock(attach->dmabuf->resv, NULL);
- 
- 		__unmap_dma_buf(attach, attach->sgt, attach->dir);
- 
--		if (dma_buf_is_dynamic(attach->dmabuf)) {
-+		if (dma_buf_is_dynamic(attach->dmabuf))
- 			dmabuf->ops->unpin(attach);
--			dma_resv_unlock(attach->dmabuf->resv);
--		}
- 	}
--
--	dma_resv_lock(dmabuf->resv, NULL);
- 	list_del(&attach->node);
-+
- 	dma_resv_unlock(dmabuf->resv);
-+
- 	if (dmabuf->ops->detach)
- 		dmabuf->ops->detach(dmabuf, attach);
- 
+-	dobj->sgt = dma_buf_map_attachment(dobj->obj.import_attach,
+-					   DMA_TO_DEVICE);
++	dobj->sgt = dma_buf_map_attachment_unlocked(dobj->obj.import_attach,
++						    DMA_TO_DEVICE);
+ 	if (IS_ERR(dobj->sgt)) {
+ 		ret = PTR_ERR(dobj->sgt);
+ 		dobj->sgt = NULL;
 -- 
 2.37.3
 
