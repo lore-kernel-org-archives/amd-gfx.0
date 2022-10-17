@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D498C43217
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 17:49:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4480C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 17:49:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0A0C10EDD2;
-	Mon, 17 Oct 2022 17:48:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1E4B10EDD6;
+	Mon, 17 Oct 2022 17:48:50 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77A1410EDDD;
- Mon, 17 Oct 2022 17:25:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED31710EDBB;
+ Mon, 17 Oct 2022 17:24:40 +0000 (UTC)
 Received: from dimapc.. (109-252-119-114.nat.spd-mgts.ru [109.252.119.114])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id ED1536602389;
- Mon, 17 Oct 2022 18:25:17 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 46CE76602389;
+ Mon, 17 Oct 2022 18:24:36 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1666027522;
- bh=slRsrx8jd5qqbp6acBFvPPDjrd/mCjdHRIup7TQFD18=;
+ s=mail; t=1666027479;
+ bh=GhuscwhnN1rEaoy5OISonfRJMlLjonYkZBtE9HRenG4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hOccsgzaEh3rdMESZPZR5rULMUeDBpxVACSlIxLMhXR05HQ8dwANMcFtVPSldPRYV
- jsKZ1H4HrLIjpNsMEt0DjMUD6YR7GPUj2UMWLxwE95EtuuwT1PXiZhuEHhctsq0jEQ
- hLDsnwmeCK5PaKpDaTl7VtDHd6oPep12PHvf1n7XRu2hYU+YqqE6TNHfdiy9ybHQlK
- zpavElnB/hMtNPMd/6dDXWDf3kWjLDf9D5f3F8bz9xai+TxkNrILVWXMq8JLmihYMm
- QGjMcBx5l1kkJdhpQGzIV+zRpK3oHs60xRnu8yH6nMdkFVcNHd1TkJn//9GGCACbEr
- 9Lnr6dcjrvw3Q==
+ b=mbNmR/ZZ1ghiOg+9AuA4spmRGWdqAG3Rc1gbu1Z1QueaPGDKs8z+jUOBG0vj/srEc
+ HWgofwdJeABqt+zPqMH51Wc6QruTUs/DECdvsbvSfYPHyQ7WU2bG4y3Im1PLK1RVl5
+ M8FKN1uGl8CnTtc4MBQRTiza32u+yw6UpeC9YOA2KUZKDHoh3hfbLkBruAQIdzszre
+ nCR7OkMVNEHakNZqIdhIjnbVA3X7pQCocL5hLwN53G4N+vFYJlKOShVp9efFH1VyyA
+ hG8afBb2XCFlFos0cC5VTcrF0sC4sT1U3hlrht2M61hubwh3VleTcctxQbVlH4q0/e
+ omndaVf3PKTvg==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -64,10 +64,10 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Subject: [PATCH v7 18/21] dma-buf: Move dma_buf_mmap() to dynamic locking
+Subject: [PATCH v7 07/21] drm/omapdrm: Prepare to dynamic dma-buf locking
  specification
-Date: Mon, 17 Oct 2022 20:22:26 +0300
-Message-Id: <20221017172229.42269-19-dmitry.osipenko@collabora.com>
+Date: Mon, 17 Oct 2022 20:22:15 +0300
+Message-Id: <20221017172229.42269-8-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221017172229.42269-1-dmitry.osipenko@collabora.com>
 References: <20221017172229.42269-1-dmitry.osipenko@collabora.com>
@@ -95,44 +95,37 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move dma_buf_mmap() function to the dynamic locking specification by
-taking the reservation lock. Neither of the today's drivers take the
-reservation lock within the mmap() callback, hence it's safe to enforce
-the locking.
+Prepare OMAP DRM driver to the common dynamic dma-buf locking convention
+by starting to use the unlocked versions of dma-buf API functions.
 
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
 Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/dma-buf/dma-buf.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index f54c649f922a..f149b384f4dd 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1390,6 +1390,8 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_end_cpu_access, DMA_BUF);
- int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 		 unsigned long pgoff)
- {
-+	int ret;
-+
- 	if (WARN_ON(!dmabuf || !vma))
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c b/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c
+index 393f82e26927..8e194dbc9506 100644
+--- a/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c
++++ b/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c
+@@ -125,7 +125,7 @@ struct drm_gem_object *omap_gem_prime_import(struct drm_device *dev,
  
-@@ -1410,7 +1412,11 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 	vma_set_file(vma, dmabuf->file);
- 	vma->vm_pgoff = pgoff;
+ 	get_dma_buf(dma_buf);
  
--	return dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_lock(dmabuf->resv, NULL);
-+	ret = dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_unlock(dmabuf->resv);
-+
-+	return ret;
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_mmap, DMA_BUF);
+-	sgt = dma_buf_map_attachment(attach, DMA_TO_DEVICE);
++	sgt = dma_buf_map_attachment_unlocked(attach, DMA_TO_DEVICE);
+ 	if (IS_ERR(sgt)) {
+ 		ret = PTR_ERR(sgt);
+ 		goto fail_detach;
+@@ -142,7 +142,7 @@ struct drm_gem_object *omap_gem_prime_import(struct drm_device *dev,
+ 	return obj;
  
+ fail_unmap:
+-	dma_buf_unmap_attachment(attach, sgt, DMA_TO_DEVICE);
++	dma_buf_unmap_attachment_unlocked(attach, sgt, DMA_TO_DEVICE);
+ fail_detach:
+ 	dma_buf_detach(dma_buf, attach);
+ 	dma_buf_put(dma_buf);
 -- 
 2.37.3
 
