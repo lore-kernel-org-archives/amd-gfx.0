@@ -4,88 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CC0FC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 16:47:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3296C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 16:50:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF19810E674;
-	Mon, 17 Oct 2022 16:47:55 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92B8410E674
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Oct 2022 16:47:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q956SZrCx96OExSu3w2SnyHHGntb4SGQOA8bzzmdleGm+J76AICFSTEqpEWf38FiY2j+8ffmOW2f2wI6+w56EiwLEEtt+tPyIJvZeZ+yqtqkP1OIoMPrwlmH2jHUmy2sEofKk78TL32fZkWGu1MJ17nxkewkjIoyqiWQzgc6dyK2sndewHDTlb2W5ooZXt1XReOsusVblqj5WUiEaTTL+zLBYAkgkc5MI6wFHEIdgWkPxmAz0nyiNfovssrQkCxDZ3cnDTReRfVW/2XIliLBDnxV9+86w4rCrNrSzmJCZHCtC3fLJ14HAoN2RGSnpator4QTTg0ElvTFAEefhiSnCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yOnF5+yw+aowJDZtRw5q9SbJti++OwVtQxfgZEThxes=;
- b=mXI7LxRDYkFvxyR/h17OF2HH06tGu/YuMyKgz3Gyo9lCQYtVH82tgksBr94G2FVRaFr80F7LIz4VOA2RbNfWQAucPhKcmT/E7DA0oEy7+5+O0+lc95/8trXBDEN25AcAuV6CvdsvWALsXjq+MYa6f3VdFQ6HFSHqBwKt4LySxi2gbh4HJbdxs4l5TkcvUD6V6JDP9aSPdv8OT/JdRL5A2wWKATLXvbQK34b0wN3JIn64rYmotJDjM3J9Z6XXvsXbjfimMuDM+jqczmaA0AIF2ItQRtHqjCT7gMrXFSZ4OOzWw/ubO1vcH7yUEaIpSXUYuKN9n2VeQwVZ2GCXOmxEig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yOnF5+yw+aowJDZtRw5q9SbJti++OwVtQxfgZEThxes=;
- b=KGaHEby3PxtfY5uh01nBH5bFSXz1jk2NlX5mUrWJao1H80zipae737AWDw4Xaxc/IN58VhSohh2BC8TehZTXHq82EP1mPdRJj0yRkjI70bnbIvkzAm0U1bPPNm0H0fbftFEKRVsgLjYOK+FahPW/gS5v98dKR+LsoxTmVPej5K8=
-Received: from DS7PR03CA0092.namprd03.prod.outlook.com (2603:10b6:5:3b7::7) by
- BY5PR12MB4949.namprd12.prod.outlook.com (2603:10b6:a03:1df::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5723.30; Mon, 17 Oct 2022 16:47:45 +0000
-Received: from DM6NAM11FT070.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b7:cafe::1b) by DS7PR03CA0092.outlook.office365.com
- (2603:10b6:5:3b7::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.32 via Frontend
- Transport; Mon, 17 Oct 2022 16:47:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT070.mail.protection.outlook.com (10.13.173.51) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5723.20 via Frontend Transport; Mon, 17 Oct 2022 16:47:44 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 17 Oct
- 2022 11:47:43 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu/sienna_cichlid: drop unused variables
-Date: Mon, 17 Oct 2022 12:47:31 -0400
-Message-ID: <20221017164731.1277472-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.37.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id C549910ED9C;
+	Mon, 17 Oct 2022 16:50:55 +0000 (UTC)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2B1110ED9C;
+ Mon, 17 Oct 2022 16:50:45 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ d18-20020a05683025d200b00661c6f1b6a4so6124007otu.1; 
+ Mon, 17 Oct 2022 09:50:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=03OOBwIKxfAvfZgEz0tjkK6Zty98m+iiULKAI7zle0I=;
+ b=LeUixK35Lz4eb4ehoG92ehI5rHPkRGWWsL1rGHGGqwBq+aO5eUo12PUEhNtifyYDw0
+ 8BbAgVMXx5Ocvomw34HW0sfe+NsbBkWYfWDl6A5RuHdKzxnP27+OakO9J7tOr+OSCfjM
+ F16DebD96GVk/V1oDX1IOkKminD0yMLzkF1L69NLyp16AMOQ7DLUOwE/vb5ZX4V76KX9
+ td2aP01nW49s5oyRf9GPG9u8QReE4xvJ9OujB8Oq1f6dLecu5R5EyR33ob0JBYxsgbEY
+ vGn8WKr0KoSBT6NuAtb4KONGythPHJazqk/T1w6EQxT0jL3ohu2mTbb0ypeZ2l7j471R
+ j7rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=03OOBwIKxfAvfZgEz0tjkK6Zty98m+iiULKAI7zle0I=;
+ b=ux3MRhEaTOwNWvJwPD1Nt5QLMHDejoxd1C+wmzsbnQLApkNWXwqN4GQubMe1rEL+6e
+ m243RcsH02VbNGz0nQq2bcP7y0IOguf4fhJ2jPY21zo5sF5GKP5VEGjH6MphVWPpGUey
+ jXzHD4sFXwnfPXevxQD8qzve9GUwOeqd5e9NRhRxgFKTKlmM06JKxAV4ttbtvXDJKHad
+ 8B+6aw4t3SWf8rTNMRB74amC9aw5LeeigcRCsHe8AoKnLvzZkNCy6J6ZHt5tfc7yHrNo
+ 8Hd21+A+EJGlKm/Je29EPJt+1iNYRbVtICb38JO10GIR1NTU4/c4GzpVZMM2LIdInJSZ
+ LV3A==
+X-Gm-Message-State: ACrzQf2A2GYk18bFxknGXHvMeJxHkB/IaD3UoQLkYGhCFnuA3XH33BPw
+ 7rfTffnzGsKUbsNbPiZbqk5wxs55LU2FuA0A6Vk=
+X-Google-Smtp-Source: AMsMyM4xmMTiSnYhq2DbjTqfjrqqGnz4gAdx5HsaAWlKW4ntV2o8HezI0fBr6GDQ+j4rblvtah3OohMAaqb71r2bBPU=
+X-Received: by 2002:a05:6830:2475:b0:661:b91c:f32a with SMTP id
+ x53-20020a056830247500b00661b91cf32amr5448586otr.123.1666025444903; Mon, 17
+ Oct 2022 09:50:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT070:EE_|BY5PR12MB4949:EE_
-X-MS-Office365-Filtering-Correlation-Id: 503fec68-0217-483a-f9c9-08dab05f50aa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OTzpkzeS9R9h9GyihOWXJjQQ/qgxyMPbu6LQma1jMo5KiHJJpihH9a4GuUI5sgkhbD+a8W4gPcH6tYYKS2rlsKTNdcmqKQa62AbCip/LrrMy7Hi3X93ymGfoMpjWXk0KTpycP/ZsJhD9Y9BjqQtHVWWsvT7paRX+kHDw3wtiNTWmZopnzqnD7/QtjVe535C609SdLs7l+uwvpCJZBlEXsg5ad6cJPH79CuRI3UQakb1bGafKWl4NilIP/Pcc9ZHcjn2o+Ya+GTJkauVQYjBtsfz30PQ5LtvM8VGQ9bHNixxQ0CQYKJr7atuiGj0822AVICfyTG5feC3AAz/w7HGrP8IBxwVvUDwmWBCYaOVddVmXNwtGCDjP351wiN3Ngp2IAF1zryey3SOFAJYAbxVVco2+yh7I3TeKwAZ3FUXvrNntrjwX4vbKl7tN2stmPoPXXkzUwiG6N3iNa2sfDlqot0/eqnIX1qPWPOy8405BttqWAaAuKaPPc360k4v16NLpif8VLeKgoOmVKE6fyaSnmQy9vfKpNnbfgmvBJQS7CPPrZHLZCAnzE6l7R5+q6MULv0Yqs6NCUUo69/V1WGBjGmH1Ur7petzqWfcXyTJR5tjzzIEyt6TD0KBcaoNlw8+tDHr6c0MyKsMer/ajcZEVikMGCsvWgOb22rhwZa+qwjDF9IkJfzFyNclSoPcqqFlHy1kiVoSahhVC9n9lGbjGGLs0DHn8oDMqHNcxk0dkLaBJpZ+bGoNXe/XPiZTNtaUcQqp2lVjwE+3qOwB4267/1KnwNpl0cVeQAWLCSTdebpqApF+cai7De2cCdFB9e7hK
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(136003)(376002)(39860400002)(346002)(451199015)(46966006)(36840700001)(40470700004)(54906003)(36756003)(36860700001)(86362001)(2906002)(5660300002)(82740400003)(336012)(2616005)(47076005)(426003)(1076003)(16526019)(186003)(6916009)(356005)(81166007)(83380400001)(26005)(7696005)(316002)(478600001)(8936002)(70206006)(70586007)(82310400005)(40480700001)(41300700001)(4326008)(6666004)(40460700003)(8676002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2022 16:47:44.7329 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 503fec68-0217-483a-f9c9-08dab05f50aa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT070.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4949
+References: <20221013182523.835499-1-linux@roeck-us.net>
+In-Reply-To: <20221013182523.835499-1-linux@roeck-us.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 17 Oct 2022 12:50:33 -0400
+Message-ID: <CADnq5_PLAVozmE4NjmWnPkwrmBoqSBeQRiQC5fhx3EYjzKpHng@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Increase frame size limit for
+ display_mode_vba_util_32.o
+To: Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,42 +67,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Victor Zhao <Victor.Zhao@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Xinhui.Pan@amd.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?=C5=81ukasz_Bartosik?= <ukaszb@google.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-They are no longer used so drop them.
+Applied.  Thanks!
 
-Fixes: 498acd86a942ae ("drm/amdgpu: Refactor mode2 reset logic for v11.0.7")
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: Victor Zhao <Victor.Zhao@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
-index a096f0b740ce..81a6d5b94987 100644
---- a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
-@@ -33,8 +33,9 @@
- 
- static bool sienna_cichlid_is_mode2_default(struct amdgpu_reset_control *reset_ctl)
- {
--	struct amdgpu_device *adev = (struct amdgpu_device *)reset_ctl->handle;
- #if 0
-+	struct amdgpu_device *adev = (struct amdgpu_device *)reset_ctl->handle;
-+
- 	if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(11, 0, 7) &&
- 	    adev->pm.fw_version >= 0x3a5500 && !amdgpu_sriov_vf(adev))
- 		return true;
-@@ -47,7 +48,6 @@ sienna_cichlid_get_reset_handler(struct amdgpu_reset_control *reset_ctl,
- 			    struct amdgpu_reset_context *reset_context)
- {
- 	struct amdgpu_reset_handler *handler;
--	struct amdgpu_device *adev = (struct amdgpu_device *)reset_ctl->handle;
- 
- 	if (reset_context->method != AMD_RESET_METHOD_NONE) {
- 		list_for_each_entry(handler, &reset_ctl->reset_handlers,
--- 
-2.37.3
-
+On Thu, Oct 13, 2022 at 2:25 PM Guenter Roeck <linux@roeck-us.net> wrote:
+>
+> Building 32-bit images may fail with the following error.
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_util_=
+32.c:
+>         In function =E2=80=98dml32_UseMinimumDCFCLK=E2=80=99:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_util_=
+32.c:3142:1:
+>         error: the frame size of 1096 bytes is larger than 1024 bytes
+>
+> This is seen when building i386:allmodconfig with any of the following
+> compilers.
+>
+>         gcc (Debian 12.2.0-3) 12.2.0
+>         gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+>
+> The problem is not seen if the compiler supports GCC_PLUGIN_LATENT_ENTROP=
+Y
+> because in that case CONFIG_FRAME_WARN is already set to 2048 even for
+> 32-bit builds.
+>
+> dml32_UseMinimumDCFCLK() was introduced with commit dda4fb85e433
+> ("drm/amd/display: DML changes for DCN32/321"). It declares a large
+> number of local variables. Increase the frame size for the affected
+> file to 2048, similar to other files in the same directory, to enable
+> 32-bit build tests with affected compilers.
+>
+> Fixes: dda4fb85e433 ("drm/amd/display: DML changes for DCN32/321")
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Reported-by: =C5=81ukasz Bartosik <ukaszb@google.com>
+> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dml/Makefile | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/dr=
+m/amd/display/dc/dml/Makefile
+> index d70838edba80..ca7d24000621 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> @@ -77,7 +77,7 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/dcn30_fpu.o :=3D $(dm=
+l_ccflags)
+>  CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/dcn32_fpu.o :=3D $(dml_ccflags)
+>  CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_32.o :=3D $(dml_ccfla=
+gs) $(frame_warn_flag)
+>  CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/display_rq_dlg_calc_32.o :=3D $(dml_cc=
+flags)
+> -CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_util_32.o :=3D $(dml_=
+ccflags)
+> +CFLAGS_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_util_32.o :=3D $(dml_=
+ccflags) $(frame_warn_flag)
+>  CFLAGS_$(AMDDALPATH)/dc/dml/dcn321/dcn321_fpu.o :=3D $(dml_ccflags)
+>  CFLAGS_$(AMDDALPATH)/dc/dml/dcn31/dcn31_fpu.o :=3D $(dml_ccflags)
+>  CFLAGS_$(AMDDALPATH)/dc/dml/dcn301/dcn301_fpu.o :=3D $(dml_ccflags)
+> --
+> 2.36.2
+>
