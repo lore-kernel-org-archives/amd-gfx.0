@@ -4,57 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA607C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 16:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 695B8C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 16:56:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F9C410EDAF;
-	Mon, 17 Oct 2022 16:53:50 +0000 (UTC)
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00AFA10EDAC;
- Mon, 17 Oct 2022 16:53:35 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id w74so12807572oie.0;
- Mon, 17 Oct 2022 09:53:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EEFC10EDBD;
+	Mon, 17 Oct 2022 16:56:38 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B809610EDB8;
+ Mon, 17 Oct 2022 16:56:31 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id p127so12118293oih.9;
+ Mon, 17 Oct 2022 09:56:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RJwuB0qtkB8zoE2oWU877oWOsBKFsfQDlsz6gYRn+Os=;
- b=YkgFn7Efk/acBxL1O4vJb+KLmVn/txovq8xX417fqtOTBuvCOTJmRX4avXm8uyGJp+
- ESib3VAvEh9SGWNvhy3ZoFPgrb9MabP0mdX/QXdfit5hpTbVV0YXusIin+V+L2KSX34H
- MCvsUaI4UI/hhdEDJmSHFarZF6IPk/V2iEw3oOL8jph5HjRbfL4vNc8Ha0jPi997T1Q3
- zeJXP4Nrcmf4MwssTlNI964xFhyPz9bbHxOsDkjQbNGrA5ge22LYi+uda+FIFiu0RY4+
- t4t2pBhMzaze1yvSQQIjjDi2LPcw/nHbjzUkvoTRi2DgYLNmakJT20qficrA5oD2Ypx2
- M8WQ==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=3QLDhIRdz0sgMNmEZO3qAZB5Hcd6D723MgF6zWOXrA4=;
+ b=STJ4KtOxuHBiY8sqzmqjWG/We7ki/vkSyusspW0vuRIT9tn38Y2+iqy2suZjq6CSBy
+ EJWVkXcDvqJ5hiUWUjp3QKrIqROXmqHc6HoQO+SdtzACVthaU6alEcjt5fdWRupi2Ys4
+ CGIizvFeSsSIK8Pe38heAtsHmhHWYHRSEKEx7JnFheyRyzmPm8rpAYWAeo9xdxXe1QrL
+ YBxyNZK6Ow84BYACkEEKOyzR9S3Dlr0FUNRiV/SnWE2c0097jwgQ9TnMUEyPP6OjlBmc
+ g/ZGtMPJ6XNWLiE5SfhJzAcceqkQhS9UT3Ow2ruriepg18cj/u7LMHOyylk+jn3hkw66
+ eusA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=RJwuB0qtkB8zoE2oWU877oWOsBKFsfQDlsz6gYRn+Os=;
- b=ko+yCRTJ9g3OtEeC7U3pYJC+ouvptAwprxw+rpAZ9+VNjZrLza+Gh7sOvO8RZ3j8qa
- ZjJRe793AlT+7QGBwgUSh1LCO+LOR6TbACPZJ/2JJmWxa6Ozrk9UC2ZZVm5f41ggWK6O
- XhzU1LY2fp5Zz5XwhM/DuDsznkmjwszIpG1HLvR/dIyYJbulgraDxOeiHEsaKNCdHBRe
- +SDt73F6Ot1Vmaodqt4Yn9qUfK1auDaL/m+47zil0/m83L2Hlp8zjkmCL5pYQT0yx1Ri
- b7/6gh7JO0P3yYqMwjxq6/2dv96HKk6YAT1rJCYLLGABhWFaGAJvU6VwPU7k8wcV+c/I
- j86g==
-X-Gm-Message-State: ACrzQf06CdzmXFhu4wKwXrW0tkrX2qoRhirXcUi9UF21vVmHD9PfaEih
- hnOatzDwh8Df4cLxsoWC4uzyBtxcy9lcWuIrcFO/lquW
-X-Google-Smtp-Source: AMsMyM5kqmCxFtwMwnMlU7bBP6InC/uujc+BhkaB/RHdfHwBB6yez3xtkRgTx5RyL1ujVP1sAhHfvQ1xxnT5Kif2Dww=
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3QLDhIRdz0sgMNmEZO3qAZB5Hcd6D723MgF6zWOXrA4=;
+ b=ALVmbuyyKBqryjHIINyKeJvXpzR+WTqLOkFgNmQG6WnOfhEqXuTqD+KJSX00BM8gee
+ 06rSQ1aVOhwmVdfv28/E7dmSvL3i6DN3SLFZDozuVWk0sWLu02RD7SQfKB+cR1EysBEs
+ xYbWOct6kNgmDPk5sidfZMAIVjjMssRmk9zLl0lvzK5+ZcGse7hW5693OB+bhYg+XeQs
+ XQkNY0m/idVFD48cqTJ8Ao9WN+SSnMu5TjXgzP3I7pYpAajcW4GCtHV948cweAzmmeoN
+ Knrnq/3BuTqzg25pmFAltNBTaNXG+xlTpPb5GyvH01B/p6r3nkmntEIyxMdcTw5gxsgJ
+ ctCw==
+X-Gm-Message-State: ACrzQf01hEQEnV8gI0YojEJOuCv0UWXlIONgZk1zTp+CssYP3KNO31oW
+ /ayZbPr8/LeQh0MUka7MBzm68DrheP8se8oZGjXLSsMb
+X-Google-Smtp-Source: AMsMyM69y3IS/obkTemFZFId5R/zGegZMQr+gk/q70dAfdIQn3OfAaogxMNkEHflvw8+jVeL43QchVYz2RTejG33v2I=
 X-Received: by 2002:a05:6808:14d2:b0:354:c733:abd3 with SMTP id
- f18-20020a05680814d200b00354c733abd3mr5580056oiw.96.1666025615182; Mon, 17
- Oct 2022 09:53:35 -0700 (PDT)
+ f18-20020a05680814d200b00354c733abd3mr5586270oiw.96.1666025791038; Mon, 17
+ Oct 2022 09:56:31 -0700 (PDT)
 MIME-Version: 1.0
-References: <20221016174158.16638-1-fmdefrancesco@gmail.com>
-In-Reply-To: <20221016174158.16638-1-fmdefrancesco@gmail.com>
+References: <20221017162837.3698-1-nathan@kernel.org>
+In-Reply-To: <20221017162837.3698-1-nathan@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Oct 2022 12:53:24 -0400
-Message-ID: <CADnq5_MDp6WUYTUO+Lo=XMSLdaYcwu5i2MWid9u1U2hKiyqoYg@mail.gmail.com>
-Subject: Re: [RESEND PATCH] drm/amd/amdgpu: Replace kmap() with
- kmap_local_page()
-To: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
+Date: Mon, 17 Oct 2022 12:56:19 -0400
+Message-ID: <CADnq5_P5e9nWWujT4f7TG_SQkvNA=MkwZJbuA=cWnDDCBqM5+w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Fix type of reset_type parameter in
+ hqd_destroy() callback
+To: Nathan Chancellor <nathan@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,84 +64,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Ira Weiny <ira.weiny@intel.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: llvm@lists.linux.dev, Kees Cook <keescook@chromium.org>,
+ Tom Rix <trix@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
+ patches@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Sami Tolvanen <samitolvanen@google.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Sun, Oct 16, 2022 at 1:42 PM Fabio M. De Francesco
-<fmdefrancesco@gmail.com> wrote:
+Alex
+
+On Mon, Oct 17, 2022 at 12:30 PM Nathan Chancellor <nathan@kernel.org> wrote:
 >
-> kmap() is being deprecated in favor of kmap_local_page().
+> When booting a kernel compiled with CONFIG_CFI_CLANG on a machine with
+> an RX 6700 XT, there is a CFI failure in kfd_destroy_mqd_cp():
 >
-> There are two main problems with kmap(): (1) It comes with an overhead as
-> mapping space is restricted and protected by a global lock for
-> synchronization and (2) it also requires global TLB invalidation when the
-> kmap=E2=80=99s pool wraps and it might block when the mapping space is fu=
-lly
-> utilized until a slot becomes available.
+>   [   12.894543] CFI failure at kfd_destroy_mqd_cp+0x2a/0x40 [amdgpu] (target: hqd_destroy_v10_3+0x0/0x260 [amdgpu]; expected type: 0x8594d794)
 >
-> With kmap_local_page() the mappings are per thread, CPU local, can take
-> page faults, and can be called from any context (including interrupts).
-> It is faster than kmap() in kernels with HIGHMEM enabled. Furthermore,
-> the tasks can be preempted and, when they are scheduled to run again, the
-> kernel virtual addresses are restored and are still valid.
+> Clang's kernel Control Flow Integrity (kCFI) makes sure that all
+> indirect call targets have a type that exactly matches the function
+> pointer prototype. In this case, hqd_destroy()'s third parameter,
+> reset_type, should have a type of 'uint32_t' but every implementation of
+> this callback has a third parameter type of 'enum kfd_preempt_type'.
 >
-> Since its use in amdgpu/amdgpu_ttm.c is safe, it should be preferred.
+> Update the function pointer prototype to match reality so that there is
+> no more CFI violation.
 >
-> Therefore, replace kmap() with kmap_local_page() in amdgpu/amdgpu_ttm.c.
->
-> Suggested-by: Ira Weiny <ira.weiny@intel.com>
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
+> Link: https://github.com/ClangBuiltLinux/linux/issues/1738
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 > ---
 >
-> I'm resending because I suspect that this patch might have been lost. In
-> the meantime I added an "Acked-by" tag from Christian K.. Obviviously,
-> there are no further changes in the code.
+> No Fixes tag, as I could not pin down exactly when this started. I
+> suspect it is
 >
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+> Fixes: 70539bd79500 ("drm/amd: Update MEC HQD loading code for KFD")
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index 3b4c19412625..c11657b5915f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -2301,9 +2301,9 @@ static ssize_t amdgpu_iomem_read(struct file *f, ch=
-ar __user *buf,
->                 if (p->mapping !=3D adev->mman.bdev.dev_mapping)
->                         return -EPERM;
+> but I did not want to add that without a second look. Feel free to add
+> it during patch application if it makes sense.
 >
-> -               ptr =3D kmap(p);
-> +               ptr =3D kmap_local_page(p);
->                 r =3D copy_to_user(buf, ptr + off, bytes);
-> -               kunmap(p);
-> +               kunmap_local(ptr);
->                 if (r)
->                         return -EFAULT;
+>  drivers/gpu/drm/amd/include/kgd_kfd_interface.h | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 >
-> @@ -2352,9 +2352,9 @@ static ssize_t amdgpu_iomem_write(struct file *f, c=
-onst char __user *buf,
->                 if (p->mapping !=3D adev->mman.bdev.dev_mapping)
->                         return -EPERM;
+> diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> index e85364dff4e0..5cb3e8634739 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> @@ -262,8 +262,9 @@ struct kfd2kgd_calls {
+>                                 uint32_t queue_id);
 >
-> -               ptr =3D kmap(p);
-> +               ptr =3D kmap_local_page(p);
->                 r =3D copy_from_user(ptr + off, buf, bytes);
-> -               kunmap(p);
-> +               kunmap_local(ptr);
->                 if (r)
->                         return -EFAULT;
+>         int (*hqd_destroy)(struct amdgpu_device *adev, void *mqd,
+> -                               uint32_t reset_type, unsigned int timeout,
+> -                               uint32_t pipe_id, uint32_t queue_id);
+> +                               enum kfd_preempt_type reset_type,
+> +                               unsigned int timeout, uint32_t pipe_id,
+> +                               uint32_t queue_id);
 >
+>         bool (*hqd_sdma_is_occupied)(struct amdgpu_device *adev, void *mqd);
+>
+>
+> base-commit: 9abf2313adc1ca1b6180c508c25f22f9395cc780
 > --
-> 2.37.1
+> 2.38.0
 >
