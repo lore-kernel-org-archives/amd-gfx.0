@@ -4,56 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB0F1C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 14:09:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36085C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 14:35:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8037710E109;
-	Mon, 17 Oct 2022 14:09:46 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB6EA10E0A2
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Oct 2022 14:09:38 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-132fb4fd495so13328425fac.12
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Oct 2022 07:09:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=hTN9SwpkLZT8bF7u2F8ocqiG8KtKFjdQYnrwYOVE4Eo=;
- b=d/pMNAV0Xn8ad8HH70yOtcRsgt6rsdqknrbQAi2WEs/hnKwN44iCv6ZUR8mDscmf7I
- SG/WHd/cx61r0g0nKUU+M+TST3iwU3VFqlVtul2B1oXUX0iV9/xrVPoYnqVfcxzxltI4
- zNsti5g7mM74AyfHLklSL/gcOqEx5zs4bjgKDtvI0WAJOk163CwouCh1V96PmK9pHOvc
- ApGmOFW3BBeuKAyVulLNUYdH8lOTgLcB5RfuyfWoGQs3GFPcAsnjHu7VzIUbVjLiO1JB
- UY6rXjpT9HF/S8mNNs2e/TzL+dWai6I9HgzQXlUTTq4rCIJKK6w8GMxtoVao3fu0R868
- ltug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=hTN9SwpkLZT8bF7u2F8ocqiG8KtKFjdQYnrwYOVE4Eo=;
- b=dVXH8MIsOSwPG7SB5229Pk7a8sK1Up5JD47PCjiGEeZi9t4oC4D8LZH8WI81ftw1ki
- QlYIV9xNkKgGAtjIQ7FwFcaYZ2HKImPv212PqO4T/plyZe2C36dkp3E5b48Zpkjpxe86
- H3/67vix9hFYoqPFMwlykOWkdj7yWyoPQ0h5hNbB6Hkf5tsmtrwX6zOTD/t2f4jWWmvI
- UNp4cE04IEOzOjYpPC86ubCpfyFP6S/oTlePNJzyzsVcVrLxI3l5k+gNfvkalOtMkZYQ
- MGNx/ZRQUzjQq3/SK/gnHrjRfY50tM8qpI78lXWlteQgCKh86AOstOwrMxTIjxFfw3gF
- gWZw==
-X-Gm-Message-State: ACrzQf1DI8dzOWQYdGlGaf8TVg5fzZT0HLt1uz/3UjVlmEczZSNuTKm6
- VjwyKutgPhXOR6jBVacckvNBDU6qjYvETfdA2Xg=
-X-Google-Smtp-Source: AMsMyM7ToIEtmxq8gLIaLZj5+DxL70xmdsBvy0CDeF9DvcnFwlZanmwK+ypvkVoxjvlVOTIackSUoTZNKZK5qp1su10=
-X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
- x36-20020a056870a7a400b001367c39979emr5942044oao.96.1666015778186; Mon, 17
- Oct 2022 07:09:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEE9310E0A2;
+	Mon, 17 Oct 2022 14:35:39 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3326410E0A2;
+ Mon, 17 Oct 2022 14:35:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=l1cE3d3Vd5VdDWCztqYjwRmjL7vyJBsSHh4D3EvX4V4=; b=Bw5Fxplj2V8diQirR+sz4NVLSV
+ uF34e0lL3UsB32WeH8RMxJ7okIOpPcHKaOVUKchDtMtUkfJCQZaf85XMMQARBDVXvKq67Q5n61n13
+ Dd5S9G3pKm8j+OiEbTVgte0uMTGya9kbzuO3t/GoNsin7iTxuvC9cP25VvnId/7dVRjvDxKqtNaDt
+ 7BGjfD+D3DgNCyz58mqcA8FOAqCer/sH1yDO6K7qIYMISLTx7BMqeWZyL3NrjBdwpgQW46OOXFhaa
+ b94xj3BDnIyjdzU9XF/aGXgBb/jL3h9081c4QZesRHGbNLqhLiH450WFh5NgSZP2T/34eG22TGn0y
+ EwGbH0CA==;
+Received: from [177.139.44.8] (helo=[192.168.1.111])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1okRDA-000Psq-3Q; Mon, 17 Oct 2022 16:35:23 +0200
+Message-ID: <12c35cea-3837-9919-589f-0065c9180545@igalia.com>
+Date: Mon, 17 Oct 2022 11:35:00 -0300
 MIME-Version: 1.0
-References: <20221017092059.68674-1-Yifan.Zha@amd.com>
-In-Reply-To: <20221017092059.68674-1-Yifan.Zha@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Oct 2022 10:09:26 -0400
-Message-ID: <CADnq5_N87aL3cbD5WLqa=K96gtWJ27M=xQG0MkOJ=07mdRZ1nQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Program GC registers through RLCG interface
- in gfx_v11/gmc_v11
-To: Yifan Zha <Yifan.Zha@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Subject: Re: [PATCH v3 0/6] Add support for atomic async page-flips
+Content-Language: en-US
+To: Simon Ser <contact@emersion.fr>
+References: <20220929184307.258331-1-contact@emersion.fr>
+ <Yzb0uNjB5FpjCIjq@intel.com> <Yzb6203nHF8fVH/W@intel.com>
+ <YzcGw9myJotLRTVl@intel.com>
+ <PJIfCPDOH8tzwE1mwv58g4ICBZbEgW44vwzW-JdUde6PjLDUeF_JNT0kUZ_Z8hZWqii_DTdDFfAYpRbO_T1Tu28wpjiwYlQpRdsrHJXLF58=@emersion.fr>
+From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <PJIfCPDOH8tzwE1mwv58g4ICBZbEgW44vwzW-JdUde6PjLDUeF_JNT0kUZ_Z8hZWqii_DTdDFfAYpRbO_T1Tu28wpjiwYlQpRdsrHJXLF58=@emersion.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,109 +56,89 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Horace.Chen@amd.com, Hawking.Zhang@amd.com,
- amd-gfx@lists.freedesktop.org, haijun.chang@amd.com
+Cc: daniel.vetter@ffwll.ch, dri-devel@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org, mwen@igalia.com,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, joshua@froggi.es,
+ hwentlan@amd.com, nicholas.kazlauskas@amd.com,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 17, 2022 at 5:21 AM Yifan Zha <Yifan.Zha@amd.com> wrote:
->
-> [Why]
-> L1 blocks most of GC registers accessing by MMIO.
->
-> [How]
-> Use RLCG interface to program GC registers under SRIOV VF in full access time.
+On 10/13/22 13:02, Simon Ser wrote:
+>>>> So no tests that actually verify that the kernel properly rejects
+>>>> stuff stuff like modesets, gamma LUT updates, plane movement,
+>>>> etc.?
+>>>
+>>> Pondering this a bit more, it just occurred to me the current driver
+>>> level checks might easily lead to confusing behaviour. Eg. is
+>>> the ioctl going to succeed if you ask for an async change of some
+>>> random property while the crtc disabled, but fails if you ask for
+>>> the same async property change when the crtc is active?
+>>>
+>>> So another reason why rejecting most properties already at
+>>> the uapi level might be a good idea.
+>>
+>> And just to be clear this is pretty much what I suggest:
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+>> index 79730fa1dd8e..471a2c703847 100644
+>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> @@ -1392,6 +1392,13 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+>>   				goto out;
+>>   			}
+>>
+>> +			if (arg->flags & DRM_MODE_PAGE_FLIP_ASYNC &&
+>> +			    prop != dev->mode_config.prop_fb_id) {
+>> +				drm_mode_object_put(obj);
+>> +				ret = -EINVAL;
+>> +				goto out;
+>> +			}
+>> +
+>>   			if (copy_from_user(&prop_value,
+>>   					   prop_values_ptr + copied_props,
+>>   					   sizeof(prop_value))) {
+>>
+>>
+>> That would actively discourage people from even attempting the
+>> "just dump all the state into the ioctl" approach with async flips
+>> since even the props whose value isn't even changing would be rejected.
+> 
+> How does this sound?
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index 945761968428..ffd16bdc7b83 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -972,14 +972,26 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+>   			    struct drm_file *file_priv,
+>   			    struct drm_mode_object *obj,
+>   			    struct drm_property *prop,
+> -			    uint64_t prop_value)
+> +			    uint64_t prop_value,
+> +			    bool async_flip)
+>   {
+>   	struct drm_mode_object *ref;
+>   	int ret;
+> +	uint64_t old_val;
+>   
+>   	if (!drm_property_change_valid_get(prop, prop_value, &ref))
+>   		return -EINVAL;
+>   
+> +	if (async_flip && prop != prop->dev->mode_config.prop_fb_id) {
+> +		ret = drm_atomic_get_property(obj, prop, &old_val);
+> +		if (ret != 0 || old_val != prop_value) {
+> +			drm_dbg_atomic(prop->dev,
+> +				       "[PROP:%d:%s] cannot be changed during async flip\n",
+> +				       prop->base.id, prop->name);
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+I would write this as "[PROP:%d:%s] No prop can be changed during async 
+flips" to make it clear that it's not just this prop that can't, but any.
 
->
-> Signed-off-by: Yifan Zha <Yifan.Zha@amd.com>
-> Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-> ---
->  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c |  2 +-
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c         |  2 +-
->  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c         | 18 +++++++++++-------
->  3 files changed, 13 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-> index 0b0a72ca5695..7e80caa05060 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-> @@ -111,7 +111,7 @@ static int init_interrupts_v11(struct amdgpu_device *adev, uint32_t pipe_id)
->
->         lock_srbm(adev, mec, pipe, 0, 0);
->
-> -       WREG32(SOC15_REG_OFFSET(GC, 0, regCPC_INT_CNTL),
-> +       WREG32_SOC15(GC, 0, regCPC_INT_CNTL,
->                 CP_INT_CNTL_RING0__TIME_STAMP_INT_ENABLE_MASK |
->                 CP_INT_CNTL_RING0__OPCODE_ERROR_INT_ENABLE_MASK);
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index 73106f53246d..e3842dc100d6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -1571,7 +1571,7 @@ static void gfx_v11_0_init_compute_vmid(struct amdgpu_device *adev)
->                 WREG32_SOC15(GC, 0, regSH_MEM_BASES, sh_mem_bases);
->
->                 /* Enable trap for each kfd vmid. */
-> -               data = RREG32(SOC15_REG_OFFSET(GC, 0, regSPI_GDBG_PER_VMID_CNTL));
-> +               data = RREG32_SOC15(GC, 0, regSPI_GDBG_PER_VMID_CNTL);
->                 data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, TRAP_EN, 1);
->         }
->         soc21_grbm_select(adev, 0, 0, 0, 0);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> index 846ccb6cf07d..66dfb574cc7d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> @@ -186,6 +186,10 @@ static void gmc_v11_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
->         /* Use register 17 for GART */
->         const unsigned eng = 17;
->         unsigned int i;
-> +       unsigned char hub_ip = 0;
+> +			return -EINVAL;
+> +		}
+> +	}
 > +
-> +       hub_ip = (vmhub == AMDGPU_GFXHUB_0) ?
-> +                  GC_HWIP : MMHUB_HWIP;
->
->         spin_lock(&adev->gmc.invalidate_lock);
->         /*
-> @@ -199,8 +203,8 @@ static void gmc_v11_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
->         if (use_semaphore) {
->                 for (i = 0; i < adev->usec_timeout; i++) {
->                         /* a read return value of 1 means semaphore acuqire */
-> -                       tmp = RREG32_NO_KIQ(hub->vm_inv_eng0_sem +
-> -                                           hub->eng_distance * eng);
-> +                       tmp = RREG32_RLC_NO_KIQ(hub->vm_inv_eng0_sem +
-> +                                           hub->eng_distance * eng, hub_ip);
->                         if (tmp & 0x1)
->                                 break;
->                         udelay(1);
-> @@ -210,12 +214,12 @@ static void gmc_v11_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
->                         DRM_ERROR("Timeout waiting for sem acquire in VM flush!\n");
->         }
->
-> -       WREG32_NO_KIQ(hub->vm_inv_eng0_req + hub->eng_distance * eng, inv_req);
-> +       WREG32_RLC_NO_KIQ(hub->vm_inv_eng0_req + hub->eng_distance * eng, inv_req, hub_ip);
->
->         /* Wait for ACK with a delay.*/
->         for (i = 0; i < adev->usec_timeout; i++) {
-> -               tmp = RREG32_NO_KIQ(hub->vm_inv_eng0_ack +
-> -                                   hub->eng_distance * eng);
-> +               tmp = RREG32_RLC_NO_KIQ(hub->vm_inv_eng0_ack +
-> +                                   hub->eng_distance * eng, hub_ip);
->                 tmp &= 1 << vmid;
->                 if (tmp)
->                         break;
-> @@ -229,8 +233,8 @@ static void gmc_v11_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
->                  * add semaphore release after invalidation,
->                  * write with 0 means semaphore release
->                  */
-> -               WREG32_NO_KIQ(hub->vm_inv_eng0_sem +
-> -                             hub->eng_distance * eng, 0);
-> +               WREG32_RLC_NO_KIQ(hub->vm_inv_eng0_sem +
-> +                             hub->eng_distance * eng, 0, hub_ip);
->
->         /* Issue additional private vm invalidation to MMHUB */
->         if ((vmhub != AMDGPU_GFXHUB_0) &&
-> --
-> 2.25.1
->
+>   	switch (obj->type) {
+>   	case DRM_MODE_OBJECT_CONNECTOR: {
+>   		struct drm_connector *connector = obj_to_connector(obj);
