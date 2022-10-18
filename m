@@ -4,117 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECDFDC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 11:25:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64A59C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 11:34:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C38A410E820;
-	Tue, 18 Oct 2022 11:25:09 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4067910E820
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 11:25:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DAEE10EF11;
+	Tue, 18 Oct 2022 11:34:37 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2048.outbound.protection.outlook.com [40.107.93.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E26510ED44;
+ Tue, 18 Oct 2022 11:34:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S66sU1JwDL2sGbpUt7kxyMkiXaFOieXrug8GBKP456hy/9JKh8KIN0W+ftO1ZvWOnBFr5E2eZQLNKa68p/38H60eiviUJRBXUMulkE4Z51aHU7mBqAM46KatEEW30Cn1dSI4slDj3Tnrn75tdSl8Ux5TKPl/vcmXEsSI44fJF1dvRw5i+Ck12EBZ7XEah0TknaVttQZcEYKw5Tm+II7FB221H0dAkCoIL4uxbpqTT70Aig7uzMOfyk+S3jrgj01ilbHJpSF4+LL46lwdqWNbM/TchTSgDfabVZ50xaA7Y33XNydMcSRJcJ6H0Xs6rOEoYRxyBQ2QJWtA7NtVNNcijg==
+ b=btgfvf4PypcK6USPCAngPmntT74fJASLccN/II8MNLlv6kFBYIsBsFsYMiM0qMrTqH8WlFpjWlQnPy/bwz3Rs0Swj/FYG1VRhCKaLSYkFYcEwKHn32Mwn4PtVkMz0Tvge8jH2oGTQuYIVwroyMcZDi7SrWyrWDv21nOSIivyH6FuO2UDoB+bwWI/mXKePpqqRJ8m0urJcYBzJdHESPUu4U7tHZ7IRv9kujUWfpOvKpm9McgXRawm65IR3sW1OYK0MmURHxtPDbcKbfq+PgucSL6SlYAhtHbQwdZ6WDUsGhdKElrsgrxGawntLlW34vmBq2Og4eI8F4043tlO6Dq66Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LWY82K55dN5aRAU5xObigCzvaUhHhUt9oKGDCjQSDFE=;
- b=BbHdRbunr2ijbHvCIdGUnfGRufY0jdWc3jSLUTC044Rb9EJHCZjJ6sP623n8D0BMDbr55gTryIIsGLmdt110a2ltLCdcw4uReYKOyeXbXbswZJyf3vcd8lpQB8LwAgr+sC6B2dXera5o6ukQdNzfc9RQznbzH5Lczlmh9fOCRQn76P6ZPKfn0sr8KFMDhcVduJ00Hr3B7DPQ1WVTkJ6ZnAkK/M59Z3+JZ40WBnYqgC+wr5AUiZqmS5O3Z5F2ikeX5h7Tv8TgpH8VQVNcPQlbWDGdy3LPMN9oQdNiz7C7BGvNfiAke/GE70jirg6pplgDwIAW/OjCY/UmynT/1O09rw==
+ bh=13uRgY/D7XlDTKeQPSz4XAAFNNCKoGyW++2oyD1gRQs=;
+ b=hPctN/UsSFmphzQE+L/3lCqWQNRQMlUsu2ZNCqimJLhT27WwYjhBmKHpXLCR/TH1QY/EqoTdAaNw/IjQDxcz+WuUD06YKsepWelQBzhiNg+BOGbuzITS3dHWcuEWqUelI22OVPTTHuLunNatAYYRYCB6JJF8uKtZy873FXBEa7CSR5LlOIb8jWACgSJXlH8Zpma/YvgLfHE82oLqzqbsv6h2h4YDrUr7hHKjkejaiz1mciH4rYNIdnTycEyb+xuSrFv9m0j635BxgVZJ0ao2t3pqhO6b0UdbcMr5gBAAKKSpM3RQcqsVbP93NiG+vmkGZ00z+8RfY5T33no80haazQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LWY82K55dN5aRAU5xObigCzvaUhHhUt9oKGDCjQSDFE=;
- b=ZO2XfXbjnhWaLaJARYG64ms2vZ4qN6wwborYFWJmV7y+FZYSJHT5UOHUfspmTy8chPo03F96uZ8LI6HJgzYsMBOLZqgcX582rDWZpWiJDjfu07Cn8H24I2Ux3YohLan7HqhbqQY5gknndnbUs8ggQPs6yKp1oVU+MLIcIwHiku8=
+ bh=13uRgY/D7XlDTKeQPSz4XAAFNNCKoGyW++2oyD1gRQs=;
+ b=wLNK0lzU9Fo4DAcivArOtiIoqnmRCQP1RSDXZ8t/erdLu9Y7/CAtBs4Pfi1oW9Ak5NeNG9xlbRF/cY4CYGvZJm3F8koFcE48sdhL4S6jl+UfEGcF467MKrDgbLR56ewkE1JQsBz+STl6NvkZ5oRoZMrlErKvpz3MolQ4Us3s8GA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SA0PR12MB4464.namprd12.prod.outlook.com (2603:10b6:806:9f::11)
+ by SA1PR12MB7245.namprd12.prod.outlook.com (2603:10b6:806:2bf::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34; Tue, 18 Oct
- 2022 11:25:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.33; Tue, 18 Oct
+ 2022 11:34:25 +0000
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::805b:58b6:1f27:d644]) by BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::805b:58b6:1f27:d644%6]) with mapi id 15.20.5723.033; Tue, 18 Oct 2022
- 11:25:01 +0000
-Message-ID: <6cde0148-b829-cc7e-ebf7-288b74ba8147@amd.com>
-Date: Tue, 18 Oct 2022 13:24:56 +0200
+ 11:34:25 +0000
+Message-ID: <ce1927b4-d6c5-0649-5ae4-270045aa319f@amd.com>
+Date: Tue, 18 Oct 2022 13:34:14 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH 5/5] drm/amdgpu: Improve the software ring priority
- scheduler
+Subject: Re: [PATCH v7 00/21] Move all drivers to a common dma-buf locking
+ convention
 Content-Language: en-US
-To: jiadong.zhu@amd.com, amd-gfx@lists.freedesktop.org
-References: <20221018090815.2662321-1-jiadong.zhu@amd.com>
- <20221018090815.2662321-5-jiadong.zhu@amd.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Ruhl Michael J <michael.j.ruhl@intel.com>
+References: <20221017172229.42269-1-dmitry.osipenko@collabora.com>
+ <d943fec8-a1ef-faa5-4132-c7618acb891f@collabora.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20221018090815.2662321-5-jiadong.zhu@amd.com>
+In-Reply-To: <d943fec8-a1ef-faa5-4132-c7618acb891f@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS8PR07CA0042.eurprd07.prod.outlook.com
- (2603:10a6:20b:459::29) To BN8PR12MB3587.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0172.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a0::10) To BN8PR12MB3587.namprd12.prod.outlook.com
  (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SA0PR12MB4464:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cbcc78d-26f1-46d0-b0e6-08dab0fb6583
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SA1PR12MB7245:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4682a26f-30b3-4504-4dd2-08dab0fcb558
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EuCNl2RFPhxXK5svwLCw08WaqulnMyEm+Q7lUGGQyBHS5PmxsFonyG6Wv+ZxAWKbqkILYW6RPZzvgeZKCJzWXKJYegBVwryb0brxw0p404/xP8+0j9XVRghz1UhrNIBO8Ml/4EEQpkGLxYjy0LdIlIJHRORDDcIbV6dQd5bAsKsLITDRoVUEG500mq/03YPXVfgutqg2/IV/l2bgIPXhJA1EBeqUQ2g2rnEUN7iPyJxJvi85BMpfcMj+Fas7Hksn7+zqwC9NJrbOHWH26aLEenQrNDvN8B3FmK1U483GbYvkCeETBMXsn17gW6nL/HcXSqKIp3DLdbHIper3v5PFAgHJhVGBlW23Y4D6tORjhanjfl+U+rRCf2xiesVS0DCITHynsO4/IPTLs1+ZNd8QIUi5bQGsj7EEixlH8Op31U45TlwUO8URa4ltxg5tw0FZYsty7lay2pLo/pgGZhQymgplcOZ6FA5IKim/BlK1uQrhNLbd0SNijAcKfH+zB3joO8hGYwfbRE1XsaxC6BWAProjBTS3HCWqlCsQ53Ut7lkb8y+A9mSn6Ppuwev47/773DYdUKFwRmxEumT1COH1LzCRIIT3U1/7hUZmo03Djd2AY1zyTbcOY1xlYaeo5qLZBuM7AoCBijaQ+1qLMeMRHVVESIc0A4GulgkZrUHQtahxuLCQ5+oNWR78xY1G+oNSwfuBFvX2/xvh731Wc45fH0yvZkWhl8kArMO1MA9XcNcT39NgS/3I3i0gExY+GHKcrMYx1eiwQat8HcvG6Dvt2X9bZAM/4OR6czSnhsLkOB8=
+X-Microsoft-Antispam-Message-Info: smren2V6AYejFy4U2PmVkpNNRLm+h1yS/f9r4JXcVfxfqGCm/FDGdTugxtvaDDiQzl0qTJXxZz63NCIecZkyeCVJa+kGW0Im4orNOXzolOI4qNuu3ZZKENXzNIHRMC0wOwxgdB2Wa7B6cEavCL25/DHZbzwCA9og88YKKUQyCbI8nCPKMN6PzUC/XlnSysQzOCtqMpAxdTmYFToRHXEh+piGUtnPVBmngP9ntqpHjBEKQ6skq8a+/gBB6MwWlsFEQuAxwOSRcvI6DfWZaWo9CajT/r6QYlVTA0urfhi6OwtaghJOEjbmL8RzgwBXSNIUBFXGxu1vJQ5tJMs11Uv2etcw82f3EdCzcEdBhSlzGu/EUX2aOdrsPavIx6MWJMzCtKY+qYugtL2bxenjy2jBt7d9Lnj65UkUtfBP2noQEYD7YIQh29p3yLVaIlIYS/mZx5Dq5AaxESo4nP6Xr6XZVSbeS847GPtweQ5USPfje+RZCXISxiOmDSt35tj5MitEQOvZHpUTL0HKz40XYue+zpKN3Dggw6uradIg1cqJ9xiZe6DD8702kL5FNoibu8XuKOjP1NyT7fg/UPu7KFn4/Y/ooE+YQGjjebqIrY5LMoUdVkRafXnq2zD0o6mMEWf+C5WxP4xD/LJcNSzZfaI52pxLzuMPhKeE18+B1U8lzYhAB1iattsVxTgGr0arADO+ShzDGCx5dStdGqSMxkkNBzPkPJ+o6zahUDIW1air+tIUPFepOHJyg+CKRiM4PEoqHpAQl9zfBiGLn3Hcp3LWYQZONzb4jZ5qOBX4JmEhimIfC508OrzfP6FHwMDfiw9s
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(39860400002)(366004)(346002)(376002)(136003)(451199015)(31696002)(38100700002)(5660300002)(86362001)(4326008)(66946007)(66556008)(66476007)(8676002)(316002)(2906002)(41300700001)(8936002)(66574015)(2616005)(186003)(83380400001)(6666004)(6486002)(478600001)(6512007)(6506007)(31686004)(36756003)(43740500002)(45980500001);
+ SFS:(13230022)(4636009)(376002)(39860400002)(346002)(136003)(366004)(396003)(451199015)(110136005)(31696002)(921005)(83380400001)(38100700002)(19627235002)(86362001)(316002)(41300700001)(8936002)(53546011)(6486002)(6512007)(6506007)(2906002)(6666004)(186003)(66574015)(478600001)(7406005)(2616005)(5660300002)(36756003)(7416002)(31686004)(66946007)(66476007)(66556008)(8676002)(4326008)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NzRwZHFrc2loSkwwUzVVeVBDRENldDBoQ251UXI2UXhzNzNLN0FWMmgwMnhr?=
- =?utf-8?B?Y0xUUWZaNzV2bjNZcS9XeDVjN3FlREFLK3liVDlSZnExM0p2elZpYlRlSVdJ?=
- =?utf-8?B?ZVdXaTBrcEJJQWVxWStkVER6eHc0akl0T1FzMWI3U0xBQjBWZUlrZEdxN0gy?=
- =?utf-8?B?bWpvaHhTTXlnR3ltZzZIQmdrY0JMZkkxVTkxRm1jYzY2MmpyRS9ZYjdOR01r?=
- =?utf-8?B?R1VHOFBYSCtJWHR2TkdhdC9ZQk9SRGsrRmRGMnE2QWhtQWlKSVZGWTJxdmpR?=
- =?utf-8?B?Mk14R3J1N0hDWTZMWFN0N2JMVG9wM3ZYSWtUV1hNb2I3ejZRUHZrNjFkV0Vr?=
- =?utf-8?B?aUhoYWhMdG8yWlN1c0dHeDBiRzVKc1Bqc25GWC9tNERsK2xERTNYQVVHcVlX?=
- =?utf-8?B?b05CTnZlWnprVTNjZ2MxMVZacDMvOTBpQWFSSXl1dHpoOCtNR2ExUko0WmdC?=
- =?utf-8?B?WFpZNW9MS3JnSWJkOG1jaU9NZ0VPM2dzWEN6TzNIT0lNQ0lOZTZnRURtbEdD?=
- =?utf-8?B?eEpONnVLdGM1RDFtZGpzdHV3NXkycEJScmVsZmpsalNiZmtaMm42TW56V1JB?=
- =?utf-8?B?aTE1dzAvNW1GWUhwd3dYZXF5U2NsaWdhbUxIZy9oVWl5WUxSc3JEay9mdVRJ?=
- =?utf-8?B?dS9oWnZ4UnJUZmdXZFkyNlRoMWM3OFhkZnlUa0lEVTBuQ0JJVTNiZ1JwSEFO?=
- =?utf-8?B?UnVsL1lHWkZMdURLVmNmdTNZSGFvNDV2eG1LMTJ0ZStaU0grV2VHN3hJQnhN?=
- =?utf-8?B?K0FLTm5ibHRPUFlFMjVMbDhiZWNReUxidElIMmtIZXZ0QjRWQ3pRLzA2V1Fq?=
- =?utf-8?B?SHNSYjVPQVBLVXliU003Z01ZVlVGdEJQdnRBVnorZkRmc04wQ2lJUFpLV2Er?=
- =?utf-8?B?YUNPQ0FpVnkyR0U4RWNiOWY4TGloRVZJN0YzY0hld3g0UmtDR0NIYWwxaFVl?=
- =?utf-8?B?M3poM1hpNldBUWlMM0RNNGhUbnBaN2R0UWhOUWFUYWtPQUtCUTdzdW52MlFJ?=
- =?utf-8?B?TnhjUVhrcEN5cmNkbWtYL2F2QXk4UWFSNkdCMERDSkVwTkcwdFMvTTFmOGNX?=
- =?utf-8?B?a3NsbmluU0pvOWRTaDdjRGNHRFAzQytRYjRXaSsvV3cxdnVJU3dERXlSeTY1?=
- =?utf-8?B?MG1zMEdCRVpqQmNrNXFEcUJnWGU4WFZnWGxkbXlIeDBVRzV2Y01jMFY2TkxF?=
- =?utf-8?B?OW5UUXg3NWpySkZvSGNhOGROalJhZ2lxcWtWRVg3aDA1bGVJME13czI0SnV5?=
- =?utf-8?B?OHJhdUVyNHhzNENlMkdGU2dlenZQZEZaM2Rab1NPNmx0a2lyVWthYWVxcGtk?=
- =?utf-8?B?SnRxZ1o0UUVKYlZ0bk14dFJ3N0ZGbXpNNXNJS0I3VXpKb2ZPRVhJT2w2VjdO?=
- =?utf-8?B?b01sWU5tZFEvOEptcXBWTnlkRWJRTlZOc3hVaXJQZVpPVkRXU1RQWjZ3Y0x4?=
- =?utf-8?B?YVhseWNaNU9vSE1Oa2pmcURMOEdHdndRUW04a3g1TG5McEc1OUdZV0pVMXVL?=
- =?utf-8?B?amlVcXZ2aHNRRFo5MjlWM0RqbzBnRjd3K2dCZGtnNDUrRmpUV3A0cTN0Z3Z6?=
- =?utf-8?B?Zys2Mk16bzkxcWNJY3BickhScjUwSjBUNVdXbkhxUDJDQ0JPUld6WnJ1cmg0?=
- =?utf-8?B?SXpjQlIwZ1c0MXBWRGhyeGFycXN0eXRHUWtUWWFJYTdrUy81cVpFYmVXUXl0?=
- =?utf-8?B?Rlc3dHZ6TzJYaGd5SndBRXZDUDh5azBKNXZrWGJibHJ3di9KQ1pONW82Uldv?=
- =?utf-8?B?cTlmUWZkN1oxbzlDMjRXL1BwK1RoSUtWcVBCYzVaaUh6Zmt4ZVE4RDVpa1Vu?=
- =?utf-8?B?a1dTS1VaSTNYS0ppK2x2dVc5NTkrdVlLeWxuNmZDWDZCR1EySy9waFlHdWpL?=
- =?utf-8?B?NTVKalRFU0p4Slc1UUlKMnZFUko0L2lndVczS0tCZG5GY3lPdGFSSVZqSGpZ?=
- =?utf-8?B?N3hBZTV4KzJxbUpnOEdrUjJTd3N1YVlOeERGZHJ0Yy9lcU9oMFdMMHFSbVo0?=
- =?utf-8?B?dTFNdVdzbmcvZThKWjF0ZGtKenRXaW4zSUJLbmwxSktwcmd5VU1RbEdpY09l?=
- =?utf-8?B?S3FCZDZKOWpwdllTWXJ4b29DUW9mZFZnVTRTRGlvaTNqSTVOWjgvT3ViTitu?=
- =?utf-8?B?MWZmWGNJQ0dicEcxSU1KUzE1UUVDWnV0MXFZSFBpb090di9mTmZJUVVldWhB?=
- =?utf-8?Q?4ohAiSbv7GYnyrPA04ZdbK+a6FGHv8ZU3aTHgqdDLuEB?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VG9nVGFtaEExRnkvV09FVVZlQ3QyQktKZTNieHlYSkJ6aHdTdkxhS2ZYeksv?=
+ =?utf-8?B?VXp2cmxzZUN0TXRDeEFQUmE4ZE8zWnBtcm9zMFN6dUhBUW9YTWlQR3FLUG01?=
+ =?utf-8?B?anF1SFJSSnJ3VGdTdTZ3aVJPUDE4MC8reFNieGk3aVBScThtTjVibG5maTRm?=
+ =?utf-8?B?THowYnBoM2s4aEIxZGVacEZ0UlZOdzA4YXpwdDdhVEk5eFZxblBya2FVUjFB?=
+ =?utf-8?B?YkVPMjBVVGNXWW45Zno4T2R6Y3FwT1JZZjgwNXFsT1ZXZ2dnSUUvSnFBdHB4?=
+ =?utf-8?B?bWp2bzBkc3NFTlRmUTBNSGpSeno4Rjlnd3Q5L1VpZVdlaFg3b29KT2xZMkhh?=
+ =?utf-8?B?K1dCME5aQlZTZUJPQnZnOFFrVGVOVlVheVZwOEo1aUxnU3kwTGRDSFZnVFVH?=
+ =?utf-8?B?KytQb3p3bGxOajlmd3I4Qk9NTG9FSFhOYzVmM2hBRGVqTUhFSlYxVWhxc2wx?=
+ =?utf-8?B?NzJ4ZUZ4Z2VLRk5lWUhRSXF6STJXRjlNb3IzV3hWazgrSGphaUZ3YkhqMUVJ?=
+ =?utf-8?B?OFBaSEloS1JLZjVDWXlYN2FJSFEzRXZFUTFwenliMDdsYWFORE0zVEpuMUZl?=
+ =?utf-8?B?cGprSkZhMm5veitQc1J5OGJyUk5vZzdHdjM5ZlB1VkdFdk9kWnBkVTVVQmYz?=
+ =?utf-8?B?NEI1Q2lXRFZ3cGRGV2pTcnVzN3ZXMFNmbUxxdFBSRGduNnFWRXJuZ3VURXRz?=
+ =?utf-8?B?RzVxR1AzYXdBMWlDZ0hDUGlYcTAxR2ZpMkoxck1RRU5wbGg0cFNxWmFuSXBm?=
+ =?utf-8?B?QW96QTg4SnVhcnJ3NGxjMFBvVWVUeXNvMmpvam8rdHV6S1JSSiszVUVQOGcv?=
+ =?utf-8?B?VEpaTEUwa1hDSDhZaVhtYStiMVYvRlBZTW1pdk5mVXluM1Btc3pKd0wrNXBq?=
+ =?utf-8?B?WlVTM2VKZnJhL3VPQXJRT1BPQ0p1WnFmQkR3VHRTVlZpSzh3RCs1OWo0U1FV?=
+ =?utf-8?B?eDJ1VE5tRFd3VjUrY00xamVNak1wTkRyaFlrcGhnZ3lNcDFLR2hwWHN1VDJh?=
+ =?utf-8?B?Z3puQUR6RksweVpPZGE4dTZBd1QzNVIyYld0dDFQdmZCSlJCNWYwVDBSR25r?=
+ =?utf-8?B?c29uaWtrZHlhKzJ3cmNDd3QrUTdoOEJMN2NlQ2dTTkdrN3N2M21scGxpc2Nn?=
+ =?utf-8?B?WURITjhKQlMxSGpzNkUwTmV4dWtYQ3VnMzVYVURBSUVDZHo1RXc2NXNJa1Vj?=
+ =?utf-8?B?MXhMd1FTUTMvUFNDODZURGdhVWNqZktkSk9CdS83U2Q0RWNRYW4xb3hRN2Fh?=
+ =?utf-8?B?NTdTVUUveW10UVVRUVZmc0FJaytNRWxDOExub2hzMkxtcG9MQ3NNZFpVNzNB?=
+ =?utf-8?B?dnZhSEUxRmhLbE5mWW1MM256WG9xZkgwZXpIMUFxTk1sNHhhcFJGTFVMT3Y0?=
+ =?utf-8?B?eDV0U1Q1bExKVzRiRnI3MG5NR0U3MEtCZ0kzcXJaOWJpUWRVaDEzSEdqMWZZ?=
+ =?utf-8?B?bEJnTk90cHBsREJISmZ5RHpBRStaYkplSjkzeCs3T1hEVW5qZjR2a0NDSkIw?=
+ =?utf-8?B?cTJHYmtyMUlVM3JTNU9ZV0VVODY1akRvTXRvYy9oemdEejZaK0pRUjV4ZFQx?=
+ =?utf-8?B?b1hIMzVDVzdiU1hjV0FEK2JxK0tYTjVxbURTSUx4cnhEYzVialB3STJodjND?=
+ =?utf-8?B?RmN1WWNkRXYrNWpscXBqWWE3eHR0RXNrZ3cyTkRDczVnSnp1Y2M3eTVsK3ZX?=
+ =?utf-8?B?ZWJ5WE5sbkhXVnlWKzh5dXg2L2JvTVhYVWlrdHJZZnlSVHdlVGIvVDh3V1Nn?=
+ =?utf-8?B?NFRjME1jZFMwREE3RzZ6U2FvcXhOcWVZY2h4YjltQmFvL1ZhWnJmRkh2eElF?=
+ =?utf-8?B?cUtMNHVLd2xDcVBLTmZEdXRoWjcwdDdvZlgwd2c0YkJndGpoOWxOeVZTTkVR?=
+ =?utf-8?B?Z3VPSUxSWlNjNmIwaGtRaWt5MWMyVnJjR1IrK3J0VzJjQVY2Q2d6a3JHbFU2?=
+ =?utf-8?B?RDhEUzdwRDdRbEcrRVRxSlVmWC9MeG9xQndNdGE5bGVOS2F6TldwOEpGY0Yx?=
+ =?utf-8?B?bGFMaUJjRWdZNnI3MEtFTnI4YUR1dXJaWHJJRTV4MmlHaFdpM2dvd0twVFJp?=
+ =?utf-8?B?d3dGaWRyWE5mSFJyS1BJWHpzNTFLTUdQV3B0UGRNV2l5RTk3L2JkN1cyb0hr?=
+ =?utf-8?B?ekxsN3cxREsrZ09nbzR5YnhzZWtwNVNnK1BFZ2FsaW9iTjRWMC9xVEs5QzND?=
+ =?utf-8?Q?1cDTCla2z5g/T+Bzuj5SzCK9R+0BkXnWKjtT65qrqwgw?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cbcc78d-26f1-46d0-b0e6-08dab0fb6583
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4682a26f-30b3-4504-4dd2-08dab0fcb558
 X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2022 11:25:01.3693 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2022 11:34:24.9244 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: a65gfJKoHyv6flcRBLg0DTjKFoXUJ1SEZfbo84vseKoUdwGYc0cwZ28ECMT+iRqy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4464
+X-MS-Exchange-CrossTenant-UserPrincipalName: jOYxdd3sJc9dkMTMTHC2+G6cGYD0shaYm1rJBGNooWitS8/2n3QnPL0azmwwnsvq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7245
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,242 +157,173 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.10.22 um 11:08 schrieb jiadong.zhu@amd.com:
-> From: Jiadong Zhu <Jiadong.Zhu@amd.com>
->
-> Using the drm scheduler, the software rings' scheduling threads with different
-> priorities have the same opportunity to get the spinlock and copy its packages
-> into the real ring. Though preemption may happen for the low priority ring, it
-> will catch up with the high priority ring by copying more data (the resubmit
-> package and the current ibs) on the next calling of set_wptr. As a result, the
-> priority is not quite effective.
->
-> Here are some details to improve the priority of software rings at the bottom
-> of drm scheduler by slowing down the low priority thread with following
-> strategy.
-> 1. If all the high priority fences are signaled which indicates gpu is idle
->     while there are low priority packages to submit, no delay happens.
-> 2. When there are unsignaled fences on high priority rings, we account for the
->     portion of the ibs sent from the low priority ring. If the portion exceeds
->     a certain threshold(eg, 30%), a timeout wait happens on low priority
->     threads till more high priority ibs submitted.
-> 3. The mechanism is started when the first time mcbp triggered, ended when all
->     the high priority fences are signaled.
+Am 18.10.22 um 01:07 schrieb Dmitry Osipenko:
+> On 10/17/22 20:22, Dmitry Osipenko wrote:
+>> Hello,
+>>
+>> This series moves all drivers to a dynamic dma-buf locking specification.
+>>  From now on all dma-buf importers are made responsible for holding
+>> dma-buf's reservation lock around all operations performed over dma-bufs
+>> in accordance to the locking specification. This allows us to utilize
+>> reservation lock more broadly around kernel without fearing of a potential
+>> deadlocks.
+>>
+>> This patchset passes all i915 selftests. It was also tested using VirtIO,
+>> Panfrost, Lima, Tegra, udmabuf, AMDGPU and Nouveau drivers. I tested cases
+>> of display+GPU, display+V4L and GPU+V4L dma-buf sharing (where appropriate),
+>> which covers majority of kernel drivers since rest of the drivers share
+>> same or similar code paths.
+>>
+>> Changelog:
+>>
+>> v7: - Rebased on top of recent drm-misc-next.
+>>
+>>      - Added ack from Jason Gunthorpe to the RDMA patch.
+>>
+>>      - Added iosys_map_clear() to dma_buf_vmap_unlocked(), making it fully
+>>        consistent with dma_buf_vmap().
+>>
+>> v6: - Added r-b from Michael Ruhl to the i915 patch.
+>>
+>>      - Added acks from Sumit Semwal and updated commit message of the
+>>        "Move dma_buf_vmap() to dynamic locking specification" patch like
+>>        was suggested by Sumit.
+>>
+>>      - Added "!dmabuf" check to dma_buf_vmap_unlocked() to match the locked
+>>        variant of the function, for consistency.
+>>
+>> v5: - Added acks and r-bs that were given to v4.
+>>
+>>      - Changed i915 preparation patch like was suggested by Michael Ruhl.
+>>        The scope of reservation locking is smaller now.
+>>
+>> v4: - Added dma_buf_mmap() to the "locking convention" documentation,
+>>        which was missed by accident in v3.
+>>
+>>      - Added acks from Christian König, Tomasz Figa and Hans Verkuil that
+>>        they gave to couple v3 patches.
+>>
+>>      - Dropped the "_unlocked" postfix from function names that don't have
+>>        the locked variant, as was requested by Christian König.
+>>
+>>      - Factored out the per-driver preparations into separate patches
+>>        to ease reviewing of the changes, which is now doable without the
+>>        global dma-buf functions renaming.
+>>
+>>      - Factored out the dynamic locking convention enforcements into separate
+>>        patches which add the final dma_resv_assert_held(dmabuf->resv) to the
+>>        dma-buf API functions.
+>>
+>> v3: - Factored out dma_buf_mmap_unlocked() and attachment functions
+>>        into aseparate patches, like was suggested by Christian König.
+>>
+>>      - Corrected and factored out dma-buf locking documentation into
+>>        a separate patch, like was suggested by Christian König.
+>>
+>>      - Intel driver dropped the reservation locking fews days ago from
+>>        its BO-release code path, but we need that locking for the imported
+>>        GEMs because in the end that code path unmaps the imported GEM.
+>>        So I added back the locking needed by the imported GEMs, updating
+>>        the "dma-buf attachment locking specification" patch appropriately.
+>>
+>>      - Tested Nouveau+Intel dma-buf import/export combo.
+>>
+>>      - Tested udmabuf import to i915/Nouveau/AMDGPU.
+>>
+>>      - Fixed few places in Etnaviv, Panfrost and Lima drivers that I missed
+>>        to switch to locked dma-buf vmapping in the drm/gem: Take reservation
+>>        lock for vmap/vunmap operations" patch. In a result invalidated the
+>>        Christian's r-b that he gave to v2.
+>>
+>>      - Added locked dma-buf vmap/vunmap functions that are needed for fixing
+>>        vmappping of Etnaviv, Panfrost and Lima drivers mentioned above.
+>>        I actually had this change stashed for the drm-shmem shrinker patchset,
+>>        but then realized that it's already needed by the dma-buf patches.
+>>        Also improved my tests to better cover these code paths.
+>>
+>> v2: - Changed locking specification to avoid problems with a cross-driver
+>>        ww locking, like was suggested by Christian König. Now the attach/detach
+>>        callbacks are invoked without the held lock and exporter should take the
+>>        lock.
+>>
+>>      - Added "locking convention" documentation that explains which dma-buf
+>>        functions and callbacks are locked/unlocked for importers and exporters,
+>>        which was requested by Christian König.
+>>
+>>      - Added ack from Tomasz Figa to the V4L patches that he gave to v1.
+>>
+>> Dmitry Osipenko (21):
+>>    dma-buf: Add unlocked variant of vmapping functions
+>>    dma-buf: Add unlocked variant of attachment-mapping functions
+>>    drm/gem: Take reservation lock for vmap/vunmap operations
+>>    drm/prime: Prepare to dynamic dma-buf locking specification
+>>    drm/armada: Prepare to dynamic dma-buf locking specification
+>>    drm/i915: Prepare to dynamic dma-buf locking specification
+>>    drm/omapdrm: Prepare to dynamic dma-buf locking specification
+>>    drm/tegra: Prepare to dynamic dma-buf locking specification
+>>    drm/etnaviv: Prepare to dynamic dma-buf locking specification
+>>    RDMA/umem: Prepare to dynamic dma-buf locking specification
+>>    misc: fastrpc: Prepare to dynamic dma-buf locking specification
+>>    xen/gntdev: Prepare to dynamic dma-buf locking specification
+>>    media: videobuf2: Prepare to dynamic dma-buf locking specification
+>>    media: tegra-vde: Prepare to dynamic dma-buf locking specification
+>>    dma-buf: Move dma_buf_vmap() to dynamic locking specification
+>>    dma-buf: Move dma_buf_attach() to dynamic locking specification
+>>    dma-buf: Move dma_buf_map_attachment() to dynamic locking
+>>      specification
+>>    dma-buf: Move dma_buf_mmap() to dynamic locking specification
+>>    dma-buf: Document dynamic locking convention
+>>    media: videobuf2: Stop using internal dma-buf lock
+>>    dma-buf: Remove obsoleted internal lock
+>>
+>>   Documentation/driver-api/dma-buf.rst          |   6 +
+>>   drivers/dma-buf/dma-buf.c                     | 216 +++++++++++++++---
+>>   drivers/gpu/drm/armada/armada_gem.c           |   8 +-
+>>   drivers/gpu/drm/drm_client.c                  |   4 +-
+>>   drivers/gpu/drm/drm_gem.c                     |  24 ++
+>>   drivers/gpu/drm/drm_gem_dma_helper.c          |   6 +-
+>>   drivers/gpu/drm/drm_gem_framebuffer_helper.c  |   6 +-
+>>   drivers/gpu/drm/drm_gem_ttm_helper.c          |   9 +-
+>>   drivers/gpu/drm/drm_prime.c                   |   6 +-
+>>   drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |   2 +-
+>>   drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |   2 +-
+>>   drivers/gpu/drm/i915/gem/i915_gem_object.c    |  14 ++
+>>   .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |  16 +-
+>>   drivers/gpu/drm/lima/lima_sched.c             |   4 +-
+>>   drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c     |   4 +-
+>>   drivers/gpu/drm/panfrost/panfrost_dump.c      |   4 +-
+>>   drivers/gpu/drm/panfrost/panfrost_perfcnt.c   |   6 +-
+>>   drivers/gpu/drm/qxl/qxl_object.c              |  17 +-
+>>   drivers/gpu/drm/qxl/qxl_prime.c               |   4 +-
+>>   drivers/gpu/drm/tegra/gem.c                   |  17 +-
+>>   drivers/infiniband/core/umem_dmabuf.c         |   7 +-
+>>   .../common/videobuf2/videobuf2-dma-contig.c   |  22 +-
+>>   .../media/common/videobuf2/videobuf2-dma-sg.c |  19 +-
+>>   .../common/videobuf2/videobuf2-vmalloc.c      |  17 +-
+>>   .../platform/nvidia/tegra-vde/dmabuf-cache.c  |   6 +-
+>>   drivers/misc/fastrpc.c                        |   6 +-
+>>   drivers/xen/gntdev-dmabuf.c                   |   8 +-
+>>   include/drm/drm_gem.h                         |   3 +
+>>   include/linux/dma-buf.h                       |  17 +-
+>>   29 files changed, 325 insertions(+), 155 deletions(-)
+>>
+> Applied to drm-misc-next
 
-This is a really big NAK for this approach since it will break GPU reset 
-and can lead to deadlocks. You can't sleep in any of the callbacks 
-waiting for the hardware to do something.
+Finally! Fingers crossed that all corner cases where fixed during the 
+review.
 
-What we could do instead is to insert a dependency for the low priority 
-ring. E.g. in amdgpu_job_dependency() return the latest high priority 
-fence whenever a low priority job is about to be scheduled.
+But if anything shows up feel free to loop me in to help fixing things.
 
-Regards,
+Thanks a lot for doing this,
 Christian.
 
->
-> Cc: Christian Koenig <Christian.Koenig@amd.com>
-> Cc: Michel Dänzer <michel@daenzer.net>
-> Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c | 93 ++++++++++++++++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h |  3 +
->   2 files changed, 90 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
-> index 41b057b9358e..eac89094f1d1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
-> @@ -27,7 +27,13 @@
->   #include "amdgpu_ring.h"
->   #include "amdgpu.h"
->   
-> +/* The jiffies fallback resubmission happens */
->   #define AMDGPU_MUX_RESUBMIT_JIFFIES_TIMEOUT (HZ / 2)
-> +
-> +/* Maximum waiting jiffies on low priority ring thread */
-> +#define AMDGPU_MUX_DELAY_JIFFIES_TIMEOUT (HZ / 10)
-> +
-> +/* The time threshold of unsignaled fence that trigger mcbp */
->   #define AMDGPU_MAX_LAST_UNSIGNALED_THRESHOLD_US 10000
->   
->   static const struct ring_info {
-> @@ -47,6 +53,69 @@ static inline struct amdgpu_mux_entry *amdgpu_ring_mux_sw_entry(struct amdgpu_ri
->   			&mux->ring_entry[ring->entry_index] : NULL;
->   }
->   
-> +static uint32_t ring_priority_to_ratio_pct(unsigned int hw_prio)
-> +{
-> +	uint32_t ratio;
-> +
-> +	switch (hw_prio) {
-> +	case AMDGPU_RING_PRIO_DEFAULT:
-> +		ratio = 30;
-> +		break;
-> +	case AMDGPU_RING_PRIO_2:
-> +		ratio = 100;
-> +		break;
-> +	default:
-> +		ratio = 100;
-> +	}
-> +	return ratio;
-> +}
-> +
-> +static void reset_wcnt_on_all_rings(struct amdgpu_ring_mux *mux)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < mux->num_ring_entries; i++)
-> +		mux->ring_entry[i].w_cnt = 0;
-> +}
-> +
-> +/**
-> + * Decide if the low priority ring task should be delayed when there are high
-> + * priority ibs ongoing. If all the high priority fences are signaled at that
-> + * time, gpu is idle, we do not need to wait. Otherwise we calculate the
-> + * percentage of portions copying ibs on the current ring and compare with the
-> + * threshold according to the priority.
-> + */
-> +static bool proceed_on_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
-> +{
-> +	struct amdgpu_ring *high_prio_ring;
-> +	u64 current_cnt, total_cnt = 0;
-> +	int i;
-> +
-> +	for (i = 0; i < mux->num_ring_entries; i++) {
-> +		if (mux->ring_entry[i].ring->hw_prio > AMDGPU_RING_PRIO_DEFAULT) {
-> +			high_prio_ring = mux->ring_entry[i].ring;
-> +			break;
-> +		}
-> +	}
-> +
-> +	/*All high priority fences signaled indicates gpu is idle.*/
-> +	if (amdgpu_fence_count_emitted(high_prio_ring) == 0) {
-> +		reset_wcnt_on_all_rings(mux);
-> +		return true;
-> +	}
-> +
-> +	for (i = 0; i < mux->num_ring_entries; i++) {
-> +		if (mux->ring_entry[i].ring->hw_prio == ring->hw_prio)
-> +			current_cnt = mux->ring_entry[i].w_cnt;
-> +		total_cnt += mux->ring_entry[i].w_cnt;
-> +	}
-> +
-> +	if (total_cnt == 0)
-> +		return true;
-> +
-> +	return ring_priority_to_ratio_pct(ring->hw_prio) > current_cnt * 100 / total_cnt;
-> +}
-> +
->   /* copy packages on sw ring range[begin, end) */
->   static void amdgpu_ring_mux_copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux,
->   						  struct amdgpu_ring *ring,
-> @@ -73,6 +142,13 @@ static void amdgpu_ring_mux_copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux,
->   	}
->   }
->   
-> +/* delay low priotiry task depending on high priority rings fence signal condition*/
-> +static void wait_on_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
-> +{
-> +	wait_event_interruptible_timeout(mux->wait, proceed_on_ring(mux, ring),
-> +					 AMDGPU_MUX_DELAY_JIFFIES_TIMEOUT);
-> +}
-> +
->   static void amdgpu_mux_resubmit_chunks(struct amdgpu_ring_mux *mux)
->   {
->   	struct amdgpu_mux_entry *e = NULL;
-> @@ -126,7 +202,6 @@ static void amdgpu_ring_mux_schedule_resubmit(struct amdgpu_ring_mux *mux)
->   static void amdgpu_mux_resubmit_fallback(struct timer_list *t)
->   {
->   	struct amdgpu_ring_mux *mux = from_timer(mux, t, resubmit_timer);
-> -
->   	if (!spin_trylock(&mux->lock)) {
->   		amdgpu_ring_mux_schedule_resubmit(mux);
->   		DRM_ERROR("reschedule resubmit\n");
-> @@ -158,6 +233,7 @@ int amdgpu_ring_mux_init(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
->   	}
->   
->   	spin_lock_init(&mux->lock);
-> +	init_waitqueue_head(&mux->wait);
->   	timer_setup(&mux->resubmit_timer, amdgpu_mux_resubmit_fallback, 0);
->   
->   	return 0;
-> @@ -205,8 +281,10 @@ void amdgpu_ring_mux_set_wptr(struct amdgpu_ring_mux *mux, struct amdgpu_ring *r
->   {
->   	struct amdgpu_mux_entry *e;
->   
-> -	spin_lock(&mux->lock);
-> +	if (ring->hw_prio <= AMDGPU_RING_PRIO_DEFAULT && !proceed_on_ring(mux, ring))
-> +		wait_on_ring(mux, ring);
->   
-> +	spin_lock(&mux->lock);
->   	if (ring->hw_prio <= AMDGPU_RING_PRIO_DEFAULT)
->   		amdgpu_mux_resubmit_chunks(mux);
->   
-> @@ -238,7 +316,12 @@ void amdgpu_ring_mux_set_wptr(struct amdgpu_ring_mux *mux, struct amdgpu_ring *r
->   	} else {
->   		e->end_ptr_in_hw_ring = mux->real_ring->wptr;
->   	}
-> +
-> +	e->w_cnt++;
->   	spin_unlock(&mux->lock);
-> +
-> +	if (ring->hw_prio > AMDGPU_RING_PRIO_DEFAULT)
-> +		wake_up_interruptible(&mux->wait);
->   }
->   
->   u64 amdgpu_ring_mux_get_wptr(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
-> @@ -373,7 +456,9 @@ int amdgpu_mcbp_trigger_preempt(struct amdgpu_ring_mux *mux)
->   	spin_lock(&mux->lock);
->   	mux->pending_trailing_fence_signaled = true;
->   	r = amdgpu_ring_preempt_ib(mux->real_ring);
-> +	reset_wcnt_on_all_rings(mux);
->   	spin_unlock(&mux->lock);
-> +
->   	return r;
->   }
->   
-> @@ -408,10 +493,6 @@ void amdgpu_ring_mux_start_ib(struct amdgpu_ring_mux *mux, struct amdgpu_ring *r
->   	struct amdgpu_mux_entry *e;
->   	struct amdgpu_mux_chunk *chunk;
->   
-> -	spin_lock(&mux->lock);
-> -	amdgpu_mux_resubmit_chunks(mux);
-> -	spin_unlock(&mux->lock);
-> -
->   	e = amdgpu_ring_mux_sw_entry(mux, ring);
->   	if (!e) {
->   		DRM_ERROR("cannot find entry!\n");
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
-> index aa758ebc86ae..a99647e33c9e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
-> @@ -39,6 +39,7 @@ struct amdgpu_ring;
->    * @sw_rptr: the read pointer in software ring.
->    * @sw_wptr: the write pointer in software ring.
->    * @list: list head for amdgpu_mux_chunk
-> + * @w_cnt: the write count of the current ring.
->    */
->   struct amdgpu_mux_entry {
->   	struct                  amdgpu_ring *ring;
-> @@ -48,6 +49,7 @@ struct amdgpu_mux_entry {
->   	u64                     sw_rptr;
->   	u64                     sw_wptr;
->   	struct list_head        list;
-> +	u64                     w_cnt;
->   };
->   
->   struct amdgpu_ring_mux {
-> @@ -64,6 +66,7 @@ struct amdgpu_ring_mux {
->   	struct timer_list       resubmit_timer;
->   
->   	bool                    pending_trailing_fence_signaled;
-> +	wait_queue_head_t       wait;
->   };
->   
->   /**
 
