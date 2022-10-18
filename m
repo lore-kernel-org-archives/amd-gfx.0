@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C127C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 12:28:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BC8AC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 12:28:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5C6E10EF2F;
-	Tue, 18 Oct 2022 12:28:41 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2070.outbound.protection.outlook.com [40.107.96.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 346C910EF26
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 12:28:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8517110EF2C;
+	Tue, 18 Oct 2022 12:28:44 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2084.outbound.protection.outlook.com [40.107.220.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAF7D10EF2F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 12:28:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S4NuPwKt33I7ZJhPW3zJkZX+C9CgQhZ6eSehNzeyZQSHakNEd1ZP4B+W+dXGvqNFQRp3VVPZQCDdkO1HwJos8CiAI02TnD8sKExASD1gpjqLn7IHnCH7iIbJNX42oofHZETVPaE+BVpi7Sl2WAw/njp7BDDEmuLBX+mW+Dd9ZIPT2ENaIOOzP1e+/h0yIo5WZzbB9ombAFAfJ2dGSk6CGMSgyEpwWA1IicPaKBtu200VocGjy8xwib5swT6L5Egww5l9fwM/NRKzaztIqGB33iDya5o54b4bVAu68/lTTZnHScI4XsDyiRNL6ZT6Iu3lKkIaKSBmv5tTS0zfyU+hVw==
+ b=XOJMnQ6Xw11QJa94wIoUoOtMjkp7DHns8H1TCp7JwTgSGVgDzUlC3g5psorJviXA0xqbPk0bBQiiccPMDzWCffxQaEllANqg9jFi9nR2YefJgQ0m5tEVepgq3hgnJ+rhgJgl0jSH9r3UwvwpcuDduxIGEt0MxEzZGUSUuXM9PTeRmIiyAvp3e/qo0NOEQJzlztRusGiC382zirx9/p1e9PlacS/SxF4Yg6VRDHH3sqmUcWdjtkKPu2yRPH/0z4AGSsrlkrFHwIihPIcoNXovP7s/k0hP1oY9e5qdMGM97sh/NjW86v2JjCzYz49mLrpaOjkmynx5xnnOCIUr2veEQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xiMjdMEzTFnLL8sR2FFsws5ctfixCkGKIEaykSywbh8=;
- b=Xw/KlUFwSAtdxhhX8WmGBVyBninYTsG8/U5+8eOzAscVqskwzVAOAumzxEijjETon6YDT8BzWgl0Q8qepYErBVlmrDkQi7r8a4x9Y9GSC33uPUV6TtlU8JDv8P3pcbjnlrl/AOYvUiFbOMWBhWRwhiKCF0rtLPKnPNfbZIdj1kIhOEj0SU+9qqcgbaiRxYZwdIX/YDic4kSTBzr5Vyb0HuYbV2WLbotKGGe/p9vBgZqi50J6RpxX2U9IfQFQNZ834Sq/SHM1uDBMkYDCKoccs4SOgtwQtd4WBeN613K9KtBA8Bp/4xGMjKgblqoq84ffkuXaEc2xTDko87NUEnpKHg==
+ bh=j+VWl/6axa9feevcewuITs3HEtGkVvU+KRlSbAdvUlY=;
+ b=c5afuImYdbrfxViDoR+bMeptthZsEMjxtCllrsQJZ1m/kOjYoa3gcOhfoLZH5wOG9CbEQmUC4+gTWddvHho2cjxM+NPZpWpGdfxoMpj3Jv80hXUZVNMrIn5WnlgDKv4oidVTsLPDnzwcMwNiLUUlvR21nldFvQkSQ3dq1zFwV+daxLhU1mHqM+3gYuzmwsSvNQlpvp85CEUdQCmoyg0jViq43rHu9f44rleK4g6byNLH5kzio4dCJ0ySPYEbENQNNjADQ+Kd5pkNjypSfPlXXp87ztrJTn+doeGaVhvEOuMDlpZLmFTMO7y+7L61/Da8TLnD9Ca0IV0O8dk/2KkG5g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xiMjdMEzTFnLL8sR2FFsws5ctfixCkGKIEaykSywbh8=;
- b=QZfLTNfwABUly4yiK3fpYj26+ISniSkRNagLVRnbxZOBHvMQd4b7M3fVOCv9bFd9G2IxWVs7XxXNxXTP/WfuKMhxMRma/IVosMOIYrtom/rrSnuQhKT5AWA4ZVQ2L4jo/1wXBEXIQzgOUNQdS4LrMrvkLIc2g/VBgIlnBNWf44U=
-Received: from MW4PR04CA0034.namprd04.prod.outlook.com (2603:10b6:303:6a::9)
- by SJ1PR12MB6243.namprd12.prod.outlook.com (2603:10b6:a03:456::13) with
+ bh=j+VWl/6axa9feevcewuITs3HEtGkVvU+KRlSbAdvUlY=;
+ b=D3b0OeqkVJLqwMKtkIWk2ZE3NIqYXjcwj3MKqXXrK0/hbE6b7ItpNDn0GUcy1nGOyY2Q/bkZTA/PSBEdo7emJQ9gHuCvYnDWvBjFMI2GW1gg4oZtnYIZTp9decNgTd336piSrOGcAPiJt1c3YZuFj26RC0fmqgspFfYr+UEKWwo=
+Received: from MW4PR04CA0039.namprd04.prod.outlook.com (2603:10b6:303:6a::14)
+ by DM6PR12MB4974.namprd12.prod.outlook.com (2603:10b6:5:1bb::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.33; Tue, 18 Oct
- 2022 12:28:32 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34; Tue, 18 Oct
+ 2022 12:28:38 +0000
 Received: from CO1NAM11FT011.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6a:cafe::97) by MW4PR04CA0034.outlook.office365.com
- (2603:10b6:303:6a::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.31 via Frontend
- Transport; Tue, 18 Oct 2022 12:28:32 +0000
+ (2603:10b6:303:6a:cafe::11) by MW4PR04CA0039.outlook.office365.com
+ (2603:10b6:303:6a::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.32 via Frontend
+ Transport; Tue, 18 Oct 2022 12:28:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,23 +47,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT011.mail.protection.outlook.com (10.13.175.186) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5723.20 via Frontend Transport; Tue, 18 Oct 2022 12:28:32 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ 15.20.5723.20 via Frontend Transport; Tue, 18 Oct 2022 12:28:38 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 18 Oct
- 2022 07:28:31 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 18 Oct
- 2022 05:28:31 -0700
+ 2022 07:28:37 -0500
 Received: from arch-sec.hitronhub.home (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31 via
- Frontend Transport; Tue, 18 Oct 2022 07:28:26 -0500
+ Frontend Transport; Tue, 18 Oct 2022 07:28:31 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 08/12] drm/amd/display: Handle seamless boot stream
-Date: Tue, 18 Oct 2022 08:28:22 -0400
-Message-ID: <20221018122826.1790114-9-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH v2 09/12] drm/amd/display: Update OTG instance in the commit
+ stream
+Date: Tue, 18 Oct 2022 08:28:23 -0400
+Message-ID: <20221018122826.1790114-10-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221018122826.1790114-1-Rodrigo.Siqueira@amd.com>
 References: <20221018122826.1790114-1-Rodrigo.Siqueira@amd.com>
@@ -72,26 +69,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT011:EE_|SJ1PR12MB6243:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc780c23-ded1-4bdf-9938-08dab1044547
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT011:EE_|DM6PR12MB4974:EE_
+X-MS-Office365-Filtering-Correlation-Id: db46558a-554e-4024-fec3-08dab10448c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JSixhKxs5oFUnjmXD7en242GIewNpHNcxVDfXJ1LO8ZyyXvlKXZnT9Q5hXPDu4rSF9fzZSd/sPJb4J22gvxcJ/fYs7ytALba9uSEn6R7hQ5Q0LBnlsYdnNVCk102q7zD44wBvitrhFnP1kY8bDsNqDD+iGzAB3rmkfSLYW6P951UHLzogFvZqFQAKCZVDazuHAzmS67JMcoiluylLPWszaN2e/wrZJxnq8Mv/kpCU5RUxPjFydWkatHuiXTyaCAXBJEqhZsmwb4UihmVPj4NUfPZtOT/Hjb+YLkqfi9j/QKzVoC2B7xnaLBLi+feMTd3+q6mdKP4ie52N4V/b/pwtUHjsDx7+spRgYJvOshXCl9JTzikS9s7yVzhFZ1V1XNvxlRp2ahA/F+/8AvETesxkXeffojvLb0nP39iAzYJyn5p1sx3EEPqmimCuopquChtVnJbLDhCzVUtP7ve7h4OIbg03rj5P7t/wkPTumFa4PvHEF5ooVkgDYhBOaB89KbNBUMbI/M58kBwmt8HYAC9Zho4R69xk/p08Hfnwhp8xZQgUBzbMk5djPRvlNuWM3SG4pcYEipVwGDXbkCeCFrY9mnjXz+xobThjGkzXk8Tv0BWqE3+6fOcr1+6zC8PSfxwptJ9h0YEu7P3uiOu+F1lMpjFtTzQ4mcbXl6JcrKz+nxjvq4JVE375DZ6GdSejBhQZpaoCCeDyYUCd8vmE57JeFFHaXQ1hMHcFSNxi3TERDWBO1St8Kf/HYADCrJflAjw80bUCvo8THIp2TIE2amUAU+96qaTstlfD2q72wCitZI=
+X-Microsoft-Antispam-Message-Info: N12jsxUClkKjRWC//YFGMI2OZP5iw9Ck3Kt8uveHnpKMwjxUmikTJWBLeWlea5zPQF9u2Hol/GqO9r2DiYo6nNOPsg4xmVib8du6gR8ZCQeKSMZZa0o/dyFeE09aKtkKqxDXifaLufGv7GJK598bcB4TZ3lLHXXKYID4D0vjHL9/6KLBkP5eF2jewZN090pCu5i1HKMlwwZlttNfjlKo4oK4SddLozhS92y2ygGQ2TxVfCDBMBgdF97LuBS5fh+7m+oMuerh382y6KWYcWzDD9HfHJXaLB3XjUhJMHhoM4Lk3XABSMUwMWsDaSfIAIoJYXAoy4rDtj69db/JJaRBIu1Yqut+rpDHIyIXI4Yn4Q0NsQVhtchaW8tf4zHs5wPkf0+hSqQ0TAZs6BLY4XRYgT1dpkx/5ds19khmvdrV6c/n3hDDgz/ijzI0REHNzTL2Xp4rEPXxEGX8//mCA5F7h2wDakdZDEJPINdqrQB6cgbBlozlCbJJ5e6/HKnSdcLTftcWE0hxM9mFxiTOBt6z3U516edx9cKcqobNxcW8xDV4WU50HSa0OJbeOOcLKWboRDCVuSO3YKDFnni90OQgxLNaowG8eYOitN163UcSWr/xKK0vD1foLhGg0Bvqqblzoa69c5GT+uE4jsq+QgUsjqG8A3fHdrh4W3KUa2GNkHxroUnl/ipBLVvkphMqqXFIJZNVg0B4cHFeQ5jxVdceMTu3SxL5Arf2zf2bwBVlwv9pEBfB9sZZoGTbN9ljBFfV49q2/63+dZ08JMrYy1K7PWFOm5DVhMAYPHT0tD7Y1RJ4MMEXJrwIcd7U8TnDUvlE
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(39860400002)(396003)(136003)(346002)(451199015)(46966006)(36840700001)(40470700004)(6916009)(54906003)(4326008)(8676002)(5660300002)(316002)(40460700003)(70206006)(70586007)(36860700001)(6666004)(478600001)(2906002)(86362001)(82310400005)(41300700001)(36756003)(8936002)(83380400001)(186003)(1076003)(336012)(426003)(47076005)(82740400003)(40480700001)(356005)(26005)(2616005)(81166007)(36900700001);
+ SFS:(13230022)(4636009)(396003)(39860400002)(376002)(346002)(136003)(451199015)(46966006)(36840700001)(40470700004)(86362001)(36756003)(81166007)(356005)(82740400003)(2906002)(336012)(40460700003)(15650500001)(5660300002)(40480700001)(6666004)(26005)(1076003)(186003)(2616005)(47076005)(426003)(83380400001)(36860700001)(478600001)(316002)(82310400005)(6916009)(54906003)(70586007)(70206006)(8676002)(4326008)(41300700001)(8936002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2022 12:28:32.4931 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc780c23-ded1-4bdf-9938-08dab1044547
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2022 12:28:38.3679 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: db46558a-554e-4024-fec3-08dab10448c7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT011.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6243
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4974
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,45 +107,36 @@ Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A seamless boot stream has hardware resources assigned to it, and adding
-a new stream means rebuilding the current assignment. It is desirable to
-avoid this situation since it may cause light-up issues on the VGA
-monitor on USB-C. This commit swaps the seamless boot stream to pipe 0
-(if necessary) to ensure that the pipe context matches.
+OTG instance is not updated in dc_commit_state_no_check for newly
+committed streams because mode_change is not set. Notice that OTG update
+is part of the software state, and after hardware programming, it must
+be updated; for this reason, this commit updates the OTG offset right
+after hardware programming.
 
 Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Co-developed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index e001b138b2ac..ba2d4347f722 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -2765,6 +2765,21 @@ enum dc_status dc_validate_with_context(struct dc *dc,
- 			goto fail;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index d568387c4bda..b7afada35b24 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -1949,6 +1949,12 @@ enum dc_status dc_commit_streams(struct dc *dc,
  
-+	/* Swap seamless boot stream to pipe 0 (if needed) to ensure pipe_ctx
-+	 * matches. This may change in the future if seamless_boot_stream can be
-+	 * multiple.
-+	 */
-+	for (i = 0; i < add_streams_count; i++) {
-+		mark_seamless_boot_stream(dc, add_streams[i]);
-+		if (add_streams[i]->apply_seamless_boot_optimization && i != 0) {
-+			struct dc_stream_state *temp = add_streams[0];
-+
-+			add_streams[0] = add_streams[i];
-+			add_streams[i] = temp;
-+			break;
-+		}
+ 	res = dc_commit_state_no_check(dc, context);
+ 
++	for (i = 0; i < stream_count; i++) {
++		for (j = 0; j < context->stream_count; j++)
++			if (streams[i]->stream_id == context->streams[j]->stream_id)
++				streams[i]->out.otg_offset = context->stream_status[j].primary_otg_inst;
 +	}
 +
- 	/* Add new streams and then add all planes for the new stream */
- 	for (i = 0; i < add_streams_count; i++) {
- 		calculate_phy_pix_clks(add_streams[i]);
+ fail:
+ 	dc_release_state(context);
+ 
 -- 
 2.38.0
 
