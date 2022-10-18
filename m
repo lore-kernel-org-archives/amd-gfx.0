@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91DC9C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 15:59:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5D95C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 16:02:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12CF510E620;
-	Tue, 18 Oct 2022 15:59:28 +0000 (UTC)
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
- [IPv6:2001:4860:4864:20::2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB71A10E620;
- Tue, 18 Oct 2022 15:59:21 +0000 (UTC)
-Received: by mail-oa1-x2e.google.com with SMTP id
- 586e51a60fabf-1322d768ba7so17316030fac.5; 
- Tue, 18 Oct 2022 08:59:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CF0D10ECE4;
+	Tue, 18 Oct 2022 16:02:17 +0000 (UTC)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A42B10ECE4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 16:02:11 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ a16-20020a056830101000b006619dba7fd4so7863426otp.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 09:02:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=1ZN69xuQm2c6PKH22c+9Q2bjVWUVl8bcz7rztLXwnaI=;
- b=oqhBCJCQNN0gNeu67PqXuDHNskdCnZHhJDplOmiEOXGQ1bfOrWsAhz3untjgRIkWGM
- yqCnYJQE3HjDVMxniL9hyPnV8fEbVvIqAV/b/m91zbZBGBStet2452A+P4cuiQEyq4ve
- bbq4r8BxCJ+Goak8YrJJPRnsObvkYx+Ynhex53/2ouiui+TJWbPL8E35bsjxWmueqPhh
- tTLELYlAwl5V6SLXrnAUS0jXkoDGV5TUMzBaLZEZFeTMHO8YX1CvOoqEIMGRCqMlmX3N
- sVd90AAQ7kRIDv5rgI7HFUjZYBSyiFzg7Tywq5yfEES4F2pNwXXWAx85A4+jNXfECMXk
- KKmg==
+ bh=8cfcNvMW2EpqGcY6ZImENXehZ3/0cOkmXALRFZ3ak1k=;
+ b=BCrRRydnuT9cZknXcVaENyviLkXujFqb+X4cYRmQAfhV2Wev/EpBzKI3MhihVfyjZ3
+ +UJVEuMuqL9nmFYD9eBXFE/Xa09oNcSwBo45BeIZTyc9jVx3l+SZkTY68KiecCzS+DeS
+ g/+J/PZqK4F2JH3ySib81pVeAKwMe2z4R1tY44mpAVlloL/MXSdR+3pKgB1UQmN7S78b
+ SIFierTINqmFS0iTELvbZSr+dei/kaPpcJbX3ZpH80tyEOyJDa8iJ48qWbmW9lS2REIn
+ VeaRk5c9BKB5RD1bbKdIXrnOzolaA+P1zS7hu0DeMxF+B30C0IYb9sJf1L2/fLux0mPb
+ 9jrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=1ZN69xuQm2c6PKH22c+9Q2bjVWUVl8bcz7rztLXwnaI=;
- b=AUR/qu4Cs3X9Yiiuh486iGSp/hPhKWwL8pkY9lAwRuDOJbJpAsjBWIlLXaOTZ71KRC
- EgeZpTOBlUyGVGyUnD7vislet/DL38lR8ewwEV9Hz3sr5E0Lt018W2dXeoAzLv6yHnm/
- SnhdlFN56t9yb8j2moneyH5R/7woE6UYwEcnDZaX6M745T0psHGOE3yNeklj9b+kzdlN
- IwnpI2ljKR4kA90t3/Y5XA1AdlCiP8gTst3+hHp/U2PPZGKJlwTM44g8nUk7enerQ+VZ
- hVOl6hf69riky3Sav8U3PKu+USrZ8dt4Ym1YF4MSVpqN7u/F87JjjZU6Cdejs7Q830pK
- R5sQ==
-X-Gm-Message-State: ACrzQf1yxHP32ZZXt+90/CLuDCNYCj17JXOlMkGKHvg1uArqQ9tjyItn
- 8e9YUmeZE2yNbag2mGT+2SRklyMTZL6Ayrmgqgg=
-X-Google-Smtp-Source: AMsMyM5oYHBWpOm3cQNeoGaH9Crfv+3DU6wqAoUt7+7GNbkl38+RHKBcvGqXlPFtc/c7DvCP1gY1VJKqGFe49u8A+f8=
-X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
- x36-20020a056870a7a400b001367c39979emr2076264oao.96.1666108761134; Tue, 18
- Oct 2022 08:59:21 -0700 (PDT)
+ bh=8cfcNvMW2EpqGcY6ZImENXehZ3/0cOkmXALRFZ3ak1k=;
+ b=dEWBvfHkOGjtukXH76Gn7mIU3opRUj/PsRRotX12l0IyznKWqVsJwdGUSMqA1UqTfI
+ luKhLhq1hMyUoBRMCxCtg0a7dx3TMuGdIRRIrHtJCF8oIy897u3b1Ba0ICgb5/FxSHxs
+ Jxl45RmazZsprpvWgWgLmHvg6ndCp9oNLF2hZtA89UynVzj8cjFRPCuJy3q98w4h+8mp
+ MkgQl+miN1d33wBxknhkdzFIyVQYMvpVyOQJVUGW2Quf17fpq51j8XezXnr+sPDd37CY
+ IfC1wKg0rrHlIV+yoeFghhQ8cFOZNAx/bY5HoBNb5MU7+n1BmTNwlsmHgx1RVBAEa8v6
+ mhIA==
+X-Gm-Message-State: ACrzQf2M/alru7p9SsVDFcjZ1qfbRGW4usWxz0j3nEZ+Rc9N/Df23t3u
+ L5eI2RmQb+ykSHXQ+oYqTyUPx2lUDeNIGDV3yWGBOcyLt3E=
+X-Google-Smtp-Source: AMsMyM5mndlZy/c3Nt9OWQSBA50H3DiQkZDYFNJQvLod5MVzCAnJT/VX2r/cGDfGtJzNbZd2eL66+3tWLKtxvFziy/w=
+X-Received: by 2002:a05:6830:2475:b0:661:b91c:f32a with SMTP id
+ x53-20020a056830247500b00661b91cf32amr1653701otr.123.1666108931210; Tue, 18
+ Oct 2022 09:02:11 -0700 (PDT)
 MIME-Version: 1.0
-References: <20221018005357.887009-1-rafaelmendsr@gmail.com>
- <DM6PR12MB261914D4B306F738E6CA9B27E4289@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB261914D4B306F738E6CA9B27E4289@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20221018091909.923288-1-yiqing.yao@amd.com>
+In-Reply-To: <20221018091909.923288-1-yiqing.yao@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 18 Oct 2022 11:59:09 -0400
-Message-ID: <CADnq5_PjcAHt=sDqes81F=j5j0p4o3tZEyPYk_2MgQku2XBBWg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/powerplay/psm: Fix memory leak in power state
- init
-To: "Quan, Evan" <Evan.Quan@amd.com>
+Date: Tue, 18 Oct 2022 12:01:59 -0400
+Message-ID: <CADnq5_N8+m3PfounwPYYcv_i+v5MfCHczhuoZdHDG4T06uMD=g@mail.gmail.com>
+Subject: Re: [PATCH v2] Adjust MES polling timeout for sriov worst case
+To: Yiqing Yao <yiqing.yao@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,69 +64,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rafael Mendonca <rafaelmendsr@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, David Airlie <airlied@gmail.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: alexander.deucher@amd.com, horace.chen@amd.com, haijun.chang@amd.com,
+ amd-gfx@lists.freedesktop.org, hawking.zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Tue, Oct 18, 2022 at 5:19 AM Yiqing Yao <yiqing.yao@amd.com> wrote:
+>
+> [why]
+> MES response time in sriov may be longer than default value
+> due to reset or init in other VF. A timeout value specific
+> to sriov is needed.
+>
+> [how]
+> When in sriov, adjust the timeout value to calculated
+> worst case scenario.
+>
+> Signed-off-by: Yiqing Yao <yiqing.yao@amd.com>
 
-Alex
+Please prefix your patch subject with drm/amdgpu:.  E.g.,
+drm/amdgpu: Adjust MES polling timeout for sriov worst case
 
-On Mon, Oct 17, 2022 at 9:07 PM Quan, Evan <Evan.Quan@amd.com> wrote:
+With that fixed:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
 >
-> [AMD Official Use Only - General]
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> index 1174dcc88db5..8d265598d4b3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -98,7 +98,14 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>         struct amdgpu_device *adev = mes->adev;
+>         struct amdgpu_ring *ring = &mes->ring;
+>         unsigned long flags;
+> +       signed long timeout = adev->usec_timeout;
 >
-> Reviewed-by: Evan Quan <evan.quan@amd.com>
+> +       if (amdgpu_emu_mode) {
+> +               timeout *= 100;
+> +       } else if (amdgpu_sriov_vf(adev)) {
+> +               /* Worst case in sriov where all other 15 VF timeout, each VF needs about 600ms */
+> +               timeout = 15 * 600 * 1000;
+> +       }
+>         BUG_ON(size % 4 != 0);
 >
-> > -----Original Message-----
-> > From: Rafael Mendonca <rafaelmendsr@gmail.com>
-> > Sent: Tuesday, October 18, 2022 8:54 AM
-> > To: Quan, Evan <Evan.Quan@amd.com>; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; Koenig, Christian
-> > <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David
-> > Airlie <airlied@gmail.com>; Daniel Vetter <daniel@ffwll.ch>
-> > Cc: Rafael Mendonca <rafaelmendsr@gmail.com>; amd-
-> > gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
-> > kernel@vger.kernel.org
-> > Subject: [PATCH] drm/amdgpu/powerplay/psm: Fix memory leak in power
-> > state init
-> >
-> > Commit 902bc65de0b3 ("drm/amdgpu/powerplay/psm: return an error in
-> > power state init") made the power state init function return early in case of
-> > failure to get an entry from the powerplay table, but it missed to clean up the
-> > allocated memory for the current power state before returning.
-> >
-> > Fixes: 902bc65de0b3 ("drm/amdgpu/powerplay/psm: return an error in
-> > power state init")
-> > Signed-off-by: Rafael Mendonca <rafaelmendsr@gmail.com>
-> > ---
-> >  drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
-> > b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
-> > index 67d7da0b6fed..1d829402cd2e 100644
-> > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
-> > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
-> > @@ -75,8 +75,10 @@ int psm_init_power_state_table(struct pp_hwmgr
-> > *hwmgr)
-> >       for (i = 0; i < table_entries; i++) {
-> >               result = hwmgr->hwmgr_func->get_pp_table_entry(hwmgr,
-> > i, state);
-> >               if (result) {
-> > +                     kfree(hwmgr->current_ps);
-> >                       kfree(hwmgr->request_ps);
-> >                       kfree(hwmgr->ps);
-> > +                     hwmgr->current_ps = NULL;
-> >                       hwmgr->request_ps = NULL;
-> >                       hwmgr->ps = NULL;
-> >                       return -EINVAL;
-> > --
-> > 2.34.1
+>         spin_lock_irqsave(&mes->ring_lock, flags);
+> @@ -118,7 +125,7 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>         DRM_DEBUG("MES msg=%d was emitted\n", x_pkt->header.opcode);
+>
+>         r = amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq,
+> -                     adev->usec_timeout * (amdgpu_emu_mode ? 100 : 1));
+> +                     timeout);
+>         if (r < 1) {
+>                 DRM_ERROR("MES failed to response msg=%d\n",
+>                           x_pkt->header.opcode);
+> --
+> 2.34.1
+>
