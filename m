@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A18CEC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 15:38:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91DC9C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 15:59:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C2CE10EF50;
-	Tue, 18 Oct 2022 15:38:04 +0000 (UTC)
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B1BB10EF50;
- Tue, 18 Oct 2022 15:38:01 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- a16-20020a056830101000b006619dba7fd4so7822050otp.12; 
- Tue, 18 Oct 2022 08:38:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12CF510E620;
+	Tue, 18 Oct 2022 15:59:28 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB71A10E620;
+ Tue, 18 Oct 2022 15:59:21 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-1322d768ba7so17316030fac.5; 
+ Tue, 18 Oct 2022 08:59:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9FVYFl3OeRImqDYuxVKVMdtUIZQ6+BesBZI4nsKHXk8=;
- b=AYpWLPiqoq2DH5/7La7E+zT32WMDwIMMuN9qlzheOd7FZHo3fW79ElVZ3H417YQMwq
- Gp/W/SmWfB0ISLUZzbdrzJnRCGXcB2sG542tp2BGAQg/mMA2UUdt6CKbXkpnkhl4WAWL
- /sIRwhDXj1lBfBHnMTxZULHtuZUwBiW3GX3AZN+Gmri/nF4BqiCN7UGz6TVnZPvMlsT+
- Z46f9VcQAYuAvsrymkB9Huh4IEPIoIU/RaORwS2TZmSyxsp5PxCgIeWZPvN8KGkx/REE
- y4vChrHfGDZccWH+9cn8mD2mE1wErTtGFFv5ttSw2s8Oo9iCnWhwLa0ibRSc45y4L5Zn
- JCRg==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=1ZN69xuQm2c6PKH22c+9Q2bjVWUVl8bcz7rztLXwnaI=;
+ b=oqhBCJCQNN0gNeu67PqXuDHNskdCnZHhJDplOmiEOXGQ1bfOrWsAhz3untjgRIkWGM
+ yqCnYJQE3HjDVMxniL9hyPnV8fEbVvIqAV/b/m91zbZBGBStet2452A+P4cuiQEyq4ve
+ bbq4r8BxCJ+Goak8YrJJPRnsObvkYx+Ynhex53/2ouiui+TJWbPL8E35bsjxWmueqPhh
+ tTLELYlAwl5V6SLXrnAUS0jXkoDGV5TUMzBaLZEZFeTMHO8YX1CvOoqEIMGRCqMlmX3N
+ sVd90AAQ7kRIDv5rgI7HFUjZYBSyiFzg7Tywq5yfEES4F2pNwXXWAx85A4+jNXfECMXk
+ KKmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9FVYFl3OeRImqDYuxVKVMdtUIZQ6+BesBZI4nsKHXk8=;
- b=i/dp4YF1qUh+5uzLFeOAjtiHj7SqbwPc92i3Hfr7DSJKOra54LFXMcA/Y6BvmJCiVY
- pclKbpxX0hUaxuFPHDIdZX3QLCqRaMzGgnmzQbSYQuL4jG9tk/tKoTJYcgQ0/jnh4yMh
- /O+Y8gy0u7V3SP0LjKjVxISxLSrBLtbhuGCNwtOGBa7m3wcBpVMQaHLSmNClGojtubZq
- GNSQynQ1PFif5YP4HfMu1I8Jm2X+hFY2PnWMuYiHbScFn7tTCZEPrwM549S/rbt0Q4ty
- D9kXrFphE1iDsRKO1a04pyTpkGzs91neNFPUobu8yNpWFreocvxQO1yIXkT0ZJbklcJ0
- GxbQ==
-X-Gm-Message-State: ACrzQf29ySd6K3TBN1VnI7LJEb2PRECY6oJSd92DkmdZogBFQJ52OdI6
- juEEaRPF5geYdBAAEoIMs4bYPKC8kVw4GAmpwFc=
-X-Google-Smtp-Source: AMsMyM6xa5Hwnj8DSFsjPkcyTA6tkKE0pH23kKIDBBzp/Fh8dVNPOlt95M1Ro9KbXK/sRcYugsYA/f55tr3beLNx2dk=
-X-Received: by 2002:a05:6830:2475:b0:661:b91c:f32a with SMTP id
- x53-20020a056830247500b00661b91cf32amr1601540otr.123.1666107480684; Tue, 18
- Oct 2022 08:38:00 -0700 (PDT)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=1ZN69xuQm2c6PKH22c+9Q2bjVWUVl8bcz7rztLXwnaI=;
+ b=AUR/qu4Cs3X9Yiiuh486iGSp/hPhKWwL8pkY9lAwRuDOJbJpAsjBWIlLXaOTZ71KRC
+ EgeZpTOBlUyGVGyUnD7vislet/DL38lR8ewwEV9Hz3sr5E0Lt018W2dXeoAzLv6yHnm/
+ SnhdlFN56t9yb8j2moneyH5R/7woE6UYwEcnDZaX6M745T0psHGOE3yNeklj9b+kzdlN
+ IwnpI2ljKR4kA90t3/Y5XA1AdlCiP8gTst3+hHp/U2PPZGKJlwTM44g8nUk7enerQ+VZ
+ hVOl6hf69riky3Sav8U3PKu+USrZ8dt4Ym1YF4MSVpqN7u/F87JjjZU6Cdejs7Q830pK
+ R5sQ==
+X-Gm-Message-State: ACrzQf1yxHP32ZZXt+90/CLuDCNYCj17JXOlMkGKHvg1uArqQ9tjyItn
+ 8e9YUmeZE2yNbag2mGT+2SRklyMTZL6Ayrmgqgg=
+X-Google-Smtp-Source: AMsMyM5oYHBWpOm3cQNeoGaH9Crfv+3DU6wqAoUt7+7GNbkl38+RHKBcvGqXlPFtc/c7DvCP1gY1VJKqGFe49u8A+f8=
+X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
+ x36-20020a056870a7a400b001367c39979emr2076264oao.96.1666108761134; Tue, 18
+ Oct 2022 08:59:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20221014081553.114899-1-christian.koenig@amd.com>
- <c8585fab-6e8d-de4b-eb2a-e8bff6e3fde8@amd.com>
-In-Reply-To: <c8585fab-6e8d-de4b-eb2a-e8bff6e3fde8@amd.com>
+References: <20221018005357.887009-1-rafaelmendsr@gmail.com>
+ <DM6PR12MB261914D4B306F738E6CA9B27E4289@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB261914D4B306F738E6CA9B27E4289@DM6PR12MB2619.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 18 Oct 2022 11:37:49 -0400
-Message-ID: <CADnq5_P9dZUUg_nwUikEM3T_sswFypk8tJPqayYEVtcNtnS5fA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/sched: add DRM_SCHED_FENCE_DONT_PIPELINE flag
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Date: Tue, 18 Oct 2022 11:59:09 -0400
+Message-ID: <CADnq5_PjcAHt=sDqes81F=j5j0p4o3tZEyPYk_2MgQku2XBBWg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/powerplay/psm: Fix memory leak in power state
+ init
+To: "Quan, Evan" <Evan.Quan@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,80 +66,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- luben.tuikov@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rafael Mendonca <rafaelmendsr@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 18, 2022 at 11:11 AM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> Gentle ping to others to get this reviewed.
->
-> Alex, this is fixing the TLB flush errors and I think we need to get it
-> into -fixes ASAP.
->
-> Christian.
->
-> Am 14.10.22 um 10:15 schrieb Christian K=C3=B6nig:
-> > Setting this flag on a scheduler fence prevents pipelining of jobs
-> > depending on this fence. In other words we always insert a full CPU
-> > round trip before dependen jobs are pushed to the pipeline.
+Applied.  Thanks!
 
-typo: dependen -> dependent
+Alex
 
+On Mon, Oct 17, 2022 at 9:07 PM Quan, Evan <Evan.Quan@amd.com> wrote:
+>
+> [AMD Official Use Only - General]
+>
+> Reviewed-by: Evan Quan <evan.quan@amd.com>
+>
+> > -----Original Message-----
+> > From: Rafael Mendonca <rafaelmendsr@gmail.com>
+> > Sent: Tuesday, October 18, 2022 8:54 AM
+> > To: Quan, Evan <Evan.Quan@amd.com>; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>; Koenig, Christian
+> > <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David
+> > Airlie <airlied@gmail.com>; Daniel Vetter <daniel@ffwll.ch>
+> > Cc: Rafael Mendonca <rafaelmendsr@gmail.com>; amd-
+> > gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
+> > kernel@vger.kernel.org
+> > Subject: [PATCH] drm/amdgpu/powerplay/psm: Fix memory leak in power
+> > state init
 > >
-> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > CC: stable@vger.kernel.org # 5.19+
-
-Please add a link to the bug as well for both patches.  With those
-fixed, series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+> > Commit 902bc65de0b3 ("drm/amdgpu/powerplay/psm: return an error in
+> > power state init") made the power state init function return early in case of
+> > failure to get an entry from the powerplay table, but it missed to clean up the
+> > allocated memory for the current power state before returning.
+> >
+> > Fixes: 902bc65de0b3 ("drm/amdgpu/powerplay/psm: return an error in
+> > power state init")
+> > Signed-off-by: Rafael Mendonca <rafaelmendsr@gmail.com>
 > > ---
-> >   drivers/gpu/drm/scheduler/sched_entity.c | 3 ++-
-> >   include/drm/gpu_scheduler.h              | 9 +++++++++
-> >   2 files changed, 11 insertions(+), 1 deletion(-)
+> >  drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c | 2 ++
+> >  1 file changed, 2 insertions(+)
 > >
-> > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm=
-/scheduler/sched_entity.c
-> > index 191c56064f19..43d337d8b153 100644
-> > --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> > @@ -385,7 +385,8 @@ static bool drm_sched_entity_add_dependency_cb(stru=
-ct drm_sched_entity *entity)
-> >       }
-> >
-> >       s_fence =3D to_drm_sched_fence(fence);
-> > -     if (s_fence && s_fence->sched =3D=3D sched) {
-> > +     if (s_fence && s_fence->sched =3D=3D sched &&
-> > +         !test_bit(DRM_SCHED_FENCE_DONT_PIPELINE, &fence->flags)) {
-> >
-> >               /*
-> >                * Fence is from the same scheduler, only need to wait fo=
-r
-> > diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> > index 0fca8f38bee4..f01d14b231ed 100644
-> > --- a/include/drm/gpu_scheduler.h
-> > +++ b/include/drm/gpu_scheduler.h
-> > @@ -32,6 +32,15 @@
-> >
-> >   #define MAX_WAIT_SCHED_ENTITY_Q_EMPTY msecs_to_jiffies(1000)
-> >
-> > +/**
-> > + * DRM_SCHED_FENCE_DONT_PIPELINE - Prefent dependency pipelining
-> > + *
-> > + * Setting this flag on a scheduler fence prevents pipelining of jobs =
-depending
-> > + * on this fence. In other words we always insert a full CPU round tri=
-p before
-> > + * dependen jobs are pushed to the hw queue.
-> > + */
-> > +#define DRM_SCHED_FENCE_DONT_PIPELINE        DMA_FENCE_FLAG_USER_BITS
-> > +
-> >   struct drm_gem_object;
-> >
-> >   struct drm_gpu_scheduler;
->
+> > diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
+> > b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
+> > index 67d7da0b6fed..1d829402cd2e 100644
+> > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
+> > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
+> > @@ -75,8 +75,10 @@ int psm_init_power_state_table(struct pp_hwmgr
+> > *hwmgr)
+> >       for (i = 0; i < table_entries; i++) {
+> >               result = hwmgr->hwmgr_func->get_pp_table_entry(hwmgr,
+> > i, state);
+> >               if (result) {
+> > +                     kfree(hwmgr->current_ps);
+> >                       kfree(hwmgr->request_ps);
+> >                       kfree(hwmgr->ps);
+> > +                     hwmgr->current_ps = NULL;
+> >                       hwmgr->request_ps = NULL;
+> >                       hwmgr->ps = NULL;
+> >                       return -EINVAL;
+> > --
+> > 2.34.1
