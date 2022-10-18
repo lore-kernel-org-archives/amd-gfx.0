@@ -4,148 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64A59C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 11:34:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B55F0C4167D
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 12:00:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DAEE10EF11;
-	Tue, 18 Oct 2022 11:34:37 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2048.outbound.protection.outlook.com [40.107.93.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E26510ED44;
- Tue, 18 Oct 2022 11:34:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77EF310EF29;
+	Tue, 18 Oct 2022 12:00:22 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2076.outbound.protection.outlook.com [40.107.94.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB89910E7DE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 12:00:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=btgfvf4PypcK6USPCAngPmntT74fJASLccN/II8MNLlv6kFBYIsBsFsYMiM0qMrTqH8WlFpjWlQnPy/bwz3Rs0Swj/FYG1VRhCKaLSYkFYcEwKHn32Mwn4PtVkMz0Tvge8jH2oGTQuYIVwroyMcZDi7SrWyrWDv21nOSIivyH6FuO2UDoB+bwWI/mXKePpqqRJ8m0urJcYBzJdHESPUu4U7tHZ7IRv9kujUWfpOvKpm9McgXRawm65IR3sW1OYK0MmURHxtPDbcKbfq+PgucSL6SlYAhtHbQwdZ6WDUsGhdKElrsgrxGawntLlW34vmBq2Og4eI8F4043tlO6Dq66Q==
+ b=j/mx5Kh7RN8Hq/P2p6O8eJPjIJ4INSonnFNiaIeOR7qweRL2Qqz/PzOl6Gj7RYD7Om0iisFAxKyaBo+0/5h9Y8yIqlccUT1pRO5seeO078W+pHupLKv77wD4mw36vQTWlUADkvu7zrpajffTSsRXkHeNrPv4eawrXQhaGdimtt1qHYipCSO828/nrhD6NtfbEwnP1P2LmhMcykfoFOGkPBn/sqHMZ64nTy3qFjYEJT4u3iB8VC5TutXbRQI6KQsVseKg48UHhheEKpW6Wds0XzSHmBX5O9C/L6OPmaBSMSkKD5ZTphpk77+Y/VLAXjgFtuV8oF0R3qX98QANLJ2ijg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=13uRgY/D7XlDTKeQPSz4XAAFNNCKoGyW++2oyD1gRQs=;
- b=hPctN/UsSFmphzQE+L/3lCqWQNRQMlUsu2ZNCqimJLhT27WwYjhBmKHpXLCR/TH1QY/EqoTdAaNw/IjQDxcz+WuUD06YKsepWelQBzhiNg+BOGbuzITS3dHWcuEWqUelI22OVPTTHuLunNatAYYRYCB6JJF8uKtZy873FXBEa7CSR5LlOIb8jWACgSJXlH8Zpma/YvgLfHE82oLqzqbsv6h2h4YDrUr7hHKjkejaiz1mciH4rYNIdnTycEyb+xuSrFv9m0j635BxgVZJ0ao2t3pqhO6b0UdbcMr5gBAAKKSpM3RQcqsVbP93NiG+vmkGZ00z+8RfY5T33no80haazQ==
+ bh=UpwEmiKFvlagaBNto32a3Z8ONG8UKPTs5po671kZoVQ=;
+ b=ofdFB8FE8or1snMCU0CqdDUm59Z40mt2jRZ48gZKaycHjJODx1bArjrGcV+cr7YrGvgWv1NXb+0nxk7hjDEWe0REgUiezkBU6/uX+OCn7eHTWRmfDrXAxXJO7cv3jmypuvTbQ67b55zLmIvxpGglSgqU/0rpIEC6fQEXHnoRh9kRYNkBbQ0P2kEQyGtIfBx8exUiib/pAjh4kTzZUKuDrvITvMBY6GzZSLtygTJpBWfXYTzogXIQwy+quS6lR3mkmrp5ldZZuqVommIpAblIKIjWYoMngnktBVHEuUaR7HH//Q+RpzbTosMf0HRgEdt1pp/5OWG2o9HHezekb2zU8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=13uRgY/D7XlDTKeQPSz4XAAFNNCKoGyW++2oyD1gRQs=;
- b=wLNK0lzU9Fo4DAcivArOtiIoqnmRCQP1RSDXZ8t/erdLu9Y7/CAtBs4Pfi1oW9Ak5NeNG9xlbRF/cY4CYGvZJm3F8koFcE48sdhL4S6jl+UfEGcF467MKrDgbLR56ewkE1JQsBz+STl6NvkZ5oRoZMrlErKvpz3MolQ4Us3s8GA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SA1PR12MB7245.namprd12.prod.outlook.com (2603:10b6:806:2bf::18)
+ bh=UpwEmiKFvlagaBNto32a3Z8ONG8UKPTs5po671kZoVQ=;
+ b=XIybhaBpFUmj6ZjnZV3+HReEMabwEIHeVAoG159addEXL3ulFkXZawhKnCLlESNAlt4lzKqPNk49+e0klMDonYE1kJaT9YBRs9QniqZq7EnuqwxcvOEv12zKArFPrlRLoK+aRGkPECKiZ4CfNhdc/aGTS9YEghP+1BIAF8Hosq4=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by SJ1PR12MB6121.namprd12.prod.outlook.com (2603:10b6:a03:45c::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.33; Tue, 18 Oct
- 2022 11:34:25 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::805b:58b6:1f27:d644]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::805b:58b6:1f27:d644%6]) with mapi id 15.20.5723.033; Tue, 18 Oct 2022
- 11:34:25 +0000
-Message-ID: <ce1927b4-d6c5-0649-5ae4-270045aa319f@amd.com>
-Date: Tue, 18 Oct 2022 13:34:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v7 00/21] Move all drivers to a common dma-buf locking
- convention
+ 2022 12:00:10 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::8bd7:b65c:13f4:9b]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::8bd7:b65c:13f4:9b%7]) with mapi id 15.20.5723.033; Tue, 18 Oct 2022
+ 12:00:10 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Yang, Stanley" <Stanley.Yang@amd.com>,
+ "Chai, Thomas" <YiPeng.Chai@amd.com>, "Li, Candice" <Candice.Li@amd.com>
+Subject: RE: [PATCH 1/4] drm/amdgpu: add RAS page retirement functions for MCA
+Thread-Topic: [PATCH 1/4] drm/amdgpu: add RAS page retirement functions for MCA
+Thread-Index: AQHY4swz9DktYLmRp0q5uP58o7qQOK4UCrhw
+Date: Tue, 18 Oct 2022 12:00:10 +0000
+Message-ID: <BN9PR12MB5257208364273EA4D1A44880FC289@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20221018083200.15597-1-tao.zhou1@amd.com>
+In-Reply-To: <20221018083200.15597-1-tao.zhou1@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
- <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Ruhl Michael J <michael.j.ruhl@intel.com>
-References: <20221017172229.42269-1-dmitry.osipenko@collabora.com>
- <d943fec8-a1ef-faa5-4132-c7618acb891f@collabora.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <d943fec8-a1ef-faa5-4132-c7618acb891f@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0172.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a0::10) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SA1PR12MB7245:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4682a26f-30b3-4504-4dd2-08dab0fcb558
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: smren2V6AYejFy4U2PmVkpNNRLm+h1yS/f9r4JXcVfxfqGCm/FDGdTugxtvaDDiQzl0qTJXxZz63NCIecZkyeCVJa+kGW0Im4orNOXzolOI4qNuu3ZZKENXzNIHRMC0wOwxgdB2Wa7B6cEavCL25/DHZbzwCA9og88YKKUQyCbI8nCPKMN6PzUC/XlnSysQzOCtqMpAxdTmYFToRHXEh+piGUtnPVBmngP9ntqpHjBEKQ6skq8a+/gBB6MwWlsFEQuAxwOSRcvI6DfWZaWo9CajT/r6QYlVTA0urfhi6OwtaghJOEjbmL8RzgwBXSNIUBFXGxu1vJQ5tJMs11Uv2etcw82f3EdCzcEdBhSlzGu/EUX2aOdrsPavIx6MWJMzCtKY+qYugtL2bxenjy2jBt7d9Lnj65UkUtfBP2noQEYD7YIQh29p3yLVaIlIYS/mZx5Dq5AaxESo4nP6Xr6XZVSbeS847GPtweQ5USPfje+RZCXISxiOmDSt35tj5MitEQOvZHpUTL0HKz40XYue+zpKN3Dggw6uradIg1cqJ9xiZe6DD8702kL5FNoibu8XuKOjP1NyT7fg/UPu7KFn4/Y/ooE+YQGjjebqIrY5LMoUdVkRafXnq2zD0o6mMEWf+C5WxP4xD/LJcNSzZfaI52pxLzuMPhKeE18+B1U8lzYhAB1iattsVxTgGr0arADO+ShzDGCx5dStdGqSMxkkNBzPkPJ+o6zahUDIW1air+tIUPFepOHJyg+CKRiM4PEoqHpAQl9zfBiGLn3Hcp3LWYQZONzb4jZ5qOBX4JmEhimIfC508OrzfP6FHwMDfiw9s
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(39860400002)(346002)(136003)(366004)(396003)(451199015)(110136005)(31696002)(921005)(83380400001)(38100700002)(19627235002)(86362001)(316002)(41300700001)(8936002)(53546011)(6486002)(6512007)(6506007)(2906002)(6666004)(186003)(66574015)(478600001)(7406005)(2616005)(5660300002)(36756003)(7416002)(31686004)(66946007)(66476007)(66556008)(8676002)(4326008)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-10-18T12:00:08Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=7c54ca06-8896-428a-9055-a71c360a333a;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SJ1PR12MB6121:EE_
+x-ms-office365-filtering-correlation-id: 14baa5c7-049b-4f55-0a98-08dab1004eb5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ne9MWDJm7/2IlkxCIbR9Sp/27OWZWJjhxjsboy+BpapewBGLSvjFU9Uu+ZcGAvIb1Yol1kb9/GjDBxlXh+uNkcgQrtXCiQRfcvogY7OJ94JHbEXHGBaqyrBVsJtO4j/9YC7EmF3Z1xn7e5W+oEqhGuYkzyPOKtlxBxsfXrsZP2JsskzRMdSnRXRPIZBe1uRhuEaQYMfn+5DNa9ohjvQrik6m7S0tIBRoRlyepGfcTmxuOM/h6lcqj68J+id8iUWcoH9DRXJH7RMhFRt/9Uf0UHdduYRPI6ubE7y5bk6q3mY6Fsbe/JI38mcIrjtMvlxyPxHK7bfi+QEMzJcKMXY6gMvFz0ifq7UXzrhiUuf9K7pIKhc4v8JBQIfqH+CEjo21YcSxhqafXUl3Rbj2X7bEjFlR2G2A6v5R7axaraCLzdsiQ7+vBh8EgmZmRShjWYxJAeYH6PdMPW/R3/NCs7iP/GLtYEBrIMrCvIAVJG99UGwo0+dzHvr7ZGRA9DgM3DhJCV1/eohpBbgaV0p0s7EJNRoAt62fxulBR0ESuPdocPkfNFXYxo0/O5K/yNwTJgHFDQpqRZAkyO9iWgzBVyK8rsicEoGiemCeimrYErwgD3U1TBcINeZzt3N2vOp5ipk7+6ZJskPVSvr550Dtl4S0vKGIXAtp8ipDJm9dWP4pLVprWxBiXXd+x7vulsc0ZMmQMHD5USEIsnIoJJlCyNgeR7RK9Ept9zeXNF4bnJirOia7kQAMVbL7buNzGpuvwdoeAS5AK8cUgb1MGYaIav4QuA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(376002)(346002)(366004)(396003)(39860400002)(451199015)(86362001)(33656002)(38070700005)(122000001)(38100700002)(2906002)(83380400001)(55016003)(5660300002)(7696005)(6506007)(53546011)(9686003)(186003)(26005)(6636002)(8936002)(316002)(71200400001)(478600001)(110136005)(76116006)(66556008)(66476007)(66446008)(64756008)(8676002)(66946007)(41300700001)(52536014);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VG9nVGFtaEExRnkvV09FVVZlQ3QyQktKZTNieHlYSkJ6aHdTdkxhS2ZYeksv?=
- =?utf-8?B?VXp2cmxzZUN0TXRDeEFQUmE4ZE8zWnBtcm9zMFN6dUhBUW9YTWlQR3FLUG01?=
- =?utf-8?B?anF1SFJSSnJ3VGdTdTZ3aVJPUDE4MC8reFNieGk3aVBScThtTjVibG5maTRm?=
- =?utf-8?B?THowYnBoM2s4aEIxZGVacEZ0UlZOdzA4YXpwdDdhVEk5eFZxblBya2FVUjFB?=
- =?utf-8?B?YkVPMjBVVGNXWW45Zno4T2R6Y3FwT1JZZjgwNXFsT1ZXZ2dnSUUvSnFBdHB4?=
- =?utf-8?B?bWp2bzBkc3NFTlRmUTBNSGpSeno4Rjlnd3Q5L1VpZVdlaFg3b29KT2xZMkhh?=
- =?utf-8?B?K1dCME5aQlZTZUJPQnZnOFFrVGVOVlVheVZwOEo1aUxnU3kwTGRDSFZnVFVH?=
- =?utf-8?B?KytQb3p3bGxOajlmd3I4Qk9NTG9FSFhOYzVmM2hBRGVqTUhFSlYxVWhxc2wx?=
- =?utf-8?B?NzJ4ZUZ4Z2VLRk5lWUhRSXF6STJXRjlNb3IzV3hWazgrSGphaUZ3YkhqMUVJ?=
- =?utf-8?B?OFBaSEloS1JLZjVDWXlYN2FJSFEzRXZFUTFwenliMDdsYWFORE0zVEpuMUZl?=
- =?utf-8?B?cGprSkZhMm5veitQc1J5OGJyUk5vZzdHdjM5ZlB1VkdFdk9kWnBkVTVVQmYz?=
- =?utf-8?B?NEI1Q2lXRFZ3cGRGV2pTcnVzN3ZXMFNmbUxxdFBSRGduNnFWRXJuZ3VURXRz?=
- =?utf-8?B?RzVxR1AzYXdBMWlDZ0hDUGlYcTAxR2ZpMkoxck1RRU5wbGg0cFNxWmFuSXBm?=
- =?utf-8?B?QW96QTg4SnVhcnJ3NGxjMFBvVWVUeXNvMmpvam8rdHV6S1JSSiszVUVQOGcv?=
- =?utf-8?B?VEpaTEUwa1hDSDhZaVhtYStiMVYvRlBZTW1pdk5mVXluM1Btc3pKd0wrNXBq?=
- =?utf-8?B?WlVTM2VKZnJhL3VPQXJRT1BPQ0p1WnFmQkR3VHRTVlZpSzh3RCs1OWo0U1FV?=
- =?utf-8?B?eDJ1VE5tRFd3VjUrY00xamVNak1wTkRyaFlrcGhnZ3lNcDFLR2hwWHN1VDJh?=
- =?utf-8?B?Z3puQUR6RksweVpPZGE4dTZBd1QzNVIyYld0dDFQdmZCSlJCNWYwVDBSR25r?=
- =?utf-8?B?c29uaWtrZHlhKzJ3cmNDd3QrUTdoOEJMN2NlQ2dTTkdrN3N2M21scGxpc2Nn?=
- =?utf-8?B?WURITjhKQlMxSGpzNkUwTmV4dWtYQ3VnMzVYVURBSUVDZHo1RXc2NXNJa1Vj?=
- =?utf-8?B?MXhMd1FTUTMvUFNDODZURGdhVWNqZktkSk9CdS83U2Q0RWNRYW4xb3hRN2Fh?=
- =?utf-8?B?NTdTVUUveW10UVVRUVZmc0FJaytNRWxDOExub2hzMkxtcG9MQ3NNZFpVNzNB?=
- =?utf-8?B?dnZhSEUxRmhLbE5mWW1MM256WG9xZkgwZXpIMUFxTk1sNHhhcFJGTFVMT3Y0?=
- =?utf-8?B?eDV0U1Q1bExKVzRiRnI3MG5NR0U3MEtCZ0kzcXJaOWJpUWRVaDEzSEdqMWZZ?=
- =?utf-8?B?bEJnTk90cHBsREJISmZ5RHpBRStaYkplSjkzeCs3T1hEVW5qZjR2a0NDSkIw?=
- =?utf-8?B?cTJHYmtyMUlVM3JTNU9ZV0VVODY1akRvTXRvYy9oemdEejZaK0pRUjV4ZFQx?=
- =?utf-8?B?b1hIMzVDVzdiU1hjV0FEK2JxK0tYTjVxbURTSUx4cnhEYzVialB3STJodjND?=
- =?utf-8?B?RmN1WWNkRXYrNWpscXBqWWE3eHR0RXNrZ3cyTkRDczVnSnp1Y2M3eTVsK3ZX?=
- =?utf-8?B?ZWJ5WE5sbkhXVnlWKzh5dXg2L2JvTVhYVWlrdHJZZnlSVHdlVGIvVDh3V1Nn?=
- =?utf-8?B?NFRjME1jZFMwREE3RzZ6U2FvcXhOcWVZY2h4YjltQmFvL1ZhWnJmRkh2eElF?=
- =?utf-8?B?cUtMNHVLd2xDcVBLTmZEdXRoWjcwdDdvZlgwd2c0YkJndGpoOWxOeVZTTkVR?=
- =?utf-8?B?Z3VPSUxSWlNjNmIwaGtRaWt5MWMyVnJjR1IrK3J0VzJjQVY2Q2d6a3JHbFU2?=
- =?utf-8?B?RDhEUzdwRDdRbEcrRVRxSlVmWC9MeG9xQndNdGE5bGVOS2F6TldwOEpGY0Yx?=
- =?utf-8?B?bGFMaUJjRWdZNnI3MEtFTnI4YUR1dXJaWHJJRTV4MmlHaFdpM2dvd0twVFJp?=
- =?utf-8?B?d3dGaWRyWE5mSFJyS1BJWHpzNTFLTUdQV3B0UGRNV2l5RTk3L2JkN1cyb0hr?=
- =?utf-8?B?ekxsN3cxREsrZ09nbzR5YnhzZWtwNVNnK1BFZ2FsaW9iTjRWMC9xVEs5QzND?=
- =?utf-8?Q?1cDTCla2z5g/T+Bzuj5SzCK9R+0BkXnWKjtT65qrqwgw?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?g0oConkXvNPkn2DAjhzjvQfSpmloWf5YmaW15ycLlY0r2FQH0VbL2aOTvQ5J?=
+ =?us-ascii?Q?vKWqz96mX67aWpixoK1Maf6HIjPVAppSuqjSkepM5v8o57bWHxiJgFVUE1wE?=
+ =?us-ascii?Q?ADz28TLrmX7G5RhF8dHlHs/WHjYXT4ottNbHFxSFJDKiaWSweGYEzQSaNs11?=
+ =?us-ascii?Q?Dhng705r2rxtQqSny6wQamIdfke9Kh0nkN1YvxKjV2tzKVSaWfstoI2h8KBr?=
+ =?us-ascii?Q?l+QwKgk9nP7D+0pqf0OcfwmhIMUCZ3I4t0UI+d6hwO1PbeyNeTWuxlXotoTJ?=
+ =?us-ascii?Q?bow65hqMOi9SMa0sLA877cUlEjwGH9IkeSqGEno36Lbpj9sLp0i71el/kNgB?=
+ =?us-ascii?Q?q1oqSdKGFQOrWlQYj7pnb7/blghGNy0y5bzq4oxgSWghkgE4rPvekHzgEJ71?=
+ =?us-ascii?Q?prgrW5ftHmZxLUwT5RjzyZgK2a8xhGEDDuIeI5ClEyn3x1OnTiHqKgGDxKzf?=
+ =?us-ascii?Q?vmqpc3r4a2LS5DeWn+Id7jOl2ufNGUN3oRd27uXfTvvObI7xXYiMorGRkBbj?=
+ =?us-ascii?Q?XPUC3VPr5lChmUGFwP0LPJFIuNvyOQlus26zapKXxSlal8xFi7vwi+mtpPuh?=
+ =?us-ascii?Q?2t2+Qbl5814EvUI7Y67xr/PuezcXoLn1L/OsDXDMeLrEsCR0U7NWnYqd9dEX?=
+ =?us-ascii?Q?80ZvHJER+Sf0grD33741HaKGFgZM7rCSHqYTrms9jng03l2shZAVcED0YmMQ?=
+ =?us-ascii?Q?HqzUEWMyMOkz44sG1WJARr/uh1Hzmj19IEOMHog2C+fR9VPDUi03TiSm4RgV?=
+ =?us-ascii?Q?xzk2VxIiJ4aH28KBQlf7Ru1uImbwctcna0E8ojz93+/enr215nfk4ihI902+?=
+ =?us-ascii?Q?PYDNyOZxiPo8RERYr0xH+msZ+aS8iNFRSFzPSPwNpQJ7ZJ0+W6yR6ki4zV1U?=
+ =?us-ascii?Q?zs2XYRDmN74IZ+eVPt5lGe/r5wqLxw1YfqzkLnPrqL/QTgZaY0Ql4UTlm10T?=
+ =?us-ascii?Q?YOQ/NnsMSH0l6eQmJI4AOQRdOOxCW93CwvgU1Mz1R5c1/cvNTwZuc2NPSYab?=
+ =?us-ascii?Q?Vo5s/rmXe7fCc2C7VtzRd0OfHPULTghMBWS3jRk8JbIDJKoOCqqAU5Jx7rbS?=
+ =?us-ascii?Q?gLZCIdhkd9lZjtrZFyPqymLqkmSU77ZzBM5eZBM6nqAmWwrUQBvi4SID6GJl?=
+ =?us-ascii?Q?VYM2vylLyUuUuGMkwq18Cc4nXsRLwdoYlhvR0MKx3ET7VJcSE8qYc5/xpKFO?=
+ =?us-ascii?Q?dxvCWd78aGMQJhwhv2TBQ9RwxLkjElYWTQeTG0QRZDK/Z00KypVnA9pX56V3?=
+ =?us-ascii?Q?yUoJWIN759+5upCeLOkCfPPDxBFNiFD28E8M0FaRzzLeRmRCKycoOwLvXyEy?=
+ =?us-ascii?Q?E20Yaq4Bn3GIApEVr4rdjnZzZNtfR3LdIQqfKPhCixoD+xQdqZvjnecavW72?=
+ =?us-ascii?Q?9isa1jLdUFpg6RCZI7aoCBNYlvJ1qIlitU33ezg8jUVCeG+s7rqbUXOVoyv+?=
+ =?us-ascii?Q?Br7SAQSVI2eZGwQUP2QkyUUVo1gB9Jpg4F6hKCtlN7xm7NPcn5lzmVvkX/db?=
+ =?us-ascii?Q?JPv1FoYIHDIW4Z28JmMz1wvqV/+a4p65Rsvu5CgPls4lRlvl/Zbwz+VjDgGK?=
+ =?us-ascii?Q?oPZrzd94EqzvkGaDus8WifC7IfsMthuM+PCzAOWu?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4682a26f-30b3-4504-4dd2-08dab0fcb558
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2022 11:34:24.9244 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jOYxdd3sJc9dkMTMTHC2+G6cGYD0shaYm1rJBGNooWitS8/2n3QnPL0azmwwnsvq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7245
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14baa5c7-049b-4f55-0a98-08dab1004eb5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Oct 2022 12:00:10.4794 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: M8Ybq42bE4sOw3FuY+gpN7zAyqR3WjTSFuAfgWJ/DS2ywI1nmgukl1rg0hnTMAjUFmo6s0JaR2QReTXFdpBSZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6121
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,173 +123,207 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.10.22 um 01:07 schrieb Dmitry Osipenko:
-> On 10/17/22 20:22, Dmitry Osipenko wrote:
->> Hello,
->>
->> This series moves all drivers to a dynamic dma-buf locking specification.
->>  From now on all dma-buf importers are made responsible for holding
->> dma-buf's reservation lock around all operations performed over dma-bufs
->> in accordance to the locking specification. This allows us to utilize
->> reservation lock more broadly around kernel without fearing of a potential
->> deadlocks.
->>
->> This patchset passes all i915 selftests. It was also tested using VirtIO,
->> Panfrost, Lima, Tegra, udmabuf, AMDGPU and Nouveau drivers. I tested cases
->> of display+GPU, display+V4L and GPU+V4L dma-buf sharing (where appropriate),
->> which covers majority of kernel drivers since rest of the drivers share
->> same or similar code paths.
->>
->> Changelog:
->>
->> v7: - Rebased on top of recent drm-misc-next.
->>
->>      - Added ack from Jason Gunthorpe to the RDMA patch.
->>
->>      - Added iosys_map_clear() to dma_buf_vmap_unlocked(), making it fully
->>        consistent with dma_buf_vmap().
->>
->> v6: - Added r-b from Michael Ruhl to the i915 patch.
->>
->>      - Added acks from Sumit Semwal and updated commit message of the
->>        "Move dma_buf_vmap() to dynamic locking specification" patch like
->>        was suggested by Sumit.
->>
->>      - Added "!dmabuf" check to dma_buf_vmap_unlocked() to match the locked
->>        variant of the function, for consistency.
->>
->> v5: - Added acks and r-bs that were given to v4.
->>
->>      - Changed i915 preparation patch like was suggested by Michael Ruhl.
->>        The scope of reservation locking is smaller now.
->>
->> v4: - Added dma_buf_mmap() to the "locking convention" documentation,
->>        which was missed by accident in v3.
->>
->>      - Added acks from Christian König, Tomasz Figa and Hans Verkuil that
->>        they gave to couple v3 patches.
->>
->>      - Dropped the "_unlocked" postfix from function names that don't have
->>        the locked variant, as was requested by Christian König.
->>
->>      - Factored out the per-driver preparations into separate patches
->>        to ease reviewing of the changes, which is now doable without the
->>        global dma-buf functions renaming.
->>
->>      - Factored out the dynamic locking convention enforcements into separate
->>        patches which add the final dma_resv_assert_held(dmabuf->resv) to the
->>        dma-buf API functions.
->>
->> v3: - Factored out dma_buf_mmap_unlocked() and attachment functions
->>        into aseparate patches, like was suggested by Christian König.
->>
->>      - Corrected and factored out dma-buf locking documentation into
->>        a separate patch, like was suggested by Christian König.
->>
->>      - Intel driver dropped the reservation locking fews days ago from
->>        its BO-release code path, but we need that locking for the imported
->>        GEMs because in the end that code path unmaps the imported GEM.
->>        So I added back the locking needed by the imported GEMs, updating
->>        the "dma-buf attachment locking specification" patch appropriately.
->>
->>      - Tested Nouveau+Intel dma-buf import/export combo.
->>
->>      - Tested udmabuf import to i915/Nouveau/AMDGPU.
->>
->>      - Fixed few places in Etnaviv, Panfrost and Lima drivers that I missed
->>        to switch to locked dma-buf vmapping in the drm/gem: Take reservation
->>        lock for vmap/vunmap operations" patch. In a result invalidated the
->>        Christian's r-b that he gave to v2.
->>
->>      - Added locked dma-buf vmap/vunmap functions that are needed for fixing
->>        vmappping of Etnaviv, Panfrost and Lima drivers mentioned above.
->>        I actually had this change stashed for the drm-shmem shrinker patchset,
->>        but then realized that it's already needed by the dma-buf patches.
->>        Also improved my tests to better cover these code paths.
->>
->> v2: - Changed locking specification to avoid problems with a cross-driver
->>        ww locking, like was suggested by Christian König. Now the attach/detach
->>        callbacks are invoked without the held lock and exporter should take the
->>        lock.
->>
->>      - Added "locking convention" documentation that explains which dma-buf
->>        functions and callbacks are locked/unlocked for importers and exporters,
->>        which was requested by Christian König.
->>
->>      - Added ack from Tomasz Figa to the V4L patches that he gave to v1.
->>
->> Dmitry Osipenko (21):
->>    dma-buf: Add unlocked variant of vmapping functions
->>    dma-buf: Add unlocked variant of attachment-mapping functions
->>    drm/gem: Take reservation lock for vmap/vunmap operations
->>    drm/prime: Prepare to dynamic dma-buf locking specification
->>    drm/armada: Prepare to dynamic dma-buf locking specification
->>    drm/i915: Prepare to dynamic dma-buf locking specification
->>    drm/omapdrm: Prepare to dynamic dma-buf locking specification
->>    drm/tegra: Prepare to dynamic dma-buf locking specification
->>    drm/etnaviv: Prepare to dynamic dma-buf locking specification
->>    RDMA/umem: Prepare to dynamic dma-buf locking specification
->>    misc: fastrpc: Prepare to dynamic dma-buf locking specification
->>    xen/gntdev: Prepare to dynamic dma-buf locking specification
->>    media: videobuf2: Prepare to dynamic dma-buf locking specification
->>    media: tegra-vde: Prepare to dynamic dma-buf locking specification
->>    dma-buf: Move dma_buf_vmap() to dynamic locking specification
->>    dma-buf: Move dma_buf_attach() to dynamic locking specification
->>    dma-buf: Move dma_buf_map_attachment() to dynamic locking
->>      specification
->>    dma-buf: Move dma_buf_mmap() to dynamic locking specification
->>    dma-buf: Document dynamic locking convention
->>    media: videobuf2: Stop using internal dma-buf lock
->>    dma-buf: Remove obsoleted internal lock
->>
->>   Documentation/driver-api/dma-buf.rst          |   6 +
->>   drivers/dma-buf/dma-buf.c                     | 216 +++++++++++++++---
->>   drivers/gpu/drm/armada/armada_gem.c           |   8 +-
->>   drivers/gpu/drm/drm_client.c                  |   4 +-
->>   drivers/gpu/drm/drm_gem.c                     |  24 ++
->>   drivers/gpu/drm/drm_gem_dma_helper.c          |   6 +-
->>   drivers/gpu/drm/drm_gem_framebuffer_helper.c  |   6 +-
->>   drivers/gpu/drm/drm_gem_ttm_helper.c          |   9 +-
->>   drivers/gpu/drm/drm_prime.c                   |   6 +-
->>   drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |   2 +-
->>   drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |   2 +-
->>   drivers/gpu/drm/i915/gem/i915_gem_object.c    |  14 ++
->>   .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |  16 +-
->>   drivers/gpu/drm/lima/lima_sched.c             |   4 +-
->>   drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c     |   4 +-
->>   drivers/gpu/drm/panfrost/panfrost_dump.c      |   4 +-
->>   drivers/gpu/drm/panfrost/panfrost_perfcnt.c   |   6 +-
->>   drivers/gpu/drm/qxl/qxl_object.c              |  17 +-
->>   drivers/gpu/drm/qxl/qxl_prime.c               |   4 +-
->>   drivers/gpu/drm/tegra/gem.c                   |  17 +-
->>   drivers/infiniband/core/umem_dmabuf.c         |   7 +-
->>   .../common/videobuf2/videobuf2-dma-contig.c   |  22 +-
->>   .../media/common/videobuf2/videobuf2-dma-sg.c |  19 +-
->>   .../common/videobuf2/videobuf2-vmalloc.c      |  17 +-
->>   .../platform/nvidia/tegra-vde/dmabuf-cache.c  |   6 +-
->>   drivers/misc/fastrpc.c                        |   6 +-
->>   drivers/xen/gntdev-dmabuf.c                   |   8 +-
->>   include/drm/drm_gem.h                         |   3 +
->>   include/linux/dma-buf.h                       |  17 +-
->>   29 files changed, 325 insertions(+), 155 deletions(-)
->>
-> Applied to drm-misc-next
+[AMD Official Use Only - General]
 
-Finally! Fingers crossed that all corner cases where fixed during the 
-review.
+Thinking about it more, I'm leaning toward *not* touching MCA_STATUS in poi=
+son consumption handler on MCA (A + A) platform.
 
-But if anything shows up feel free to loop me in to help fixing things.
+As discussed earlier, the asynchronous access between MCA driver and GPU dr=
+iver introduces the risk to break the message queue of bad address because =
+of the nature of MCA.
 
-Thanks a lot for doing this,
-Christian.
+We shall keep GPU driver away from any MCA operation. When poison is consum=
+ed, GPU driver is *only* responsible for unmap_queue, or mode-2 recovery as=
+ fallback, and only monitor MCA notifier for the bad page address retiremen=
+t. I guess we don't want trigger MCA reset and let MCA notifier report 0.
 
+Regards,
+Hawking
 
+-----Original Message-----
+From: Zhou1, Tao <Tao.Zhou1@amd.com>=20
+Sent: Tuesday, October 18, 2022 16:32
+To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; =
+Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; L=
+i, Candice <Candice.Li@amd.com>
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
+Subject: [PATCH 1/4] drm/amdgpu: add RAS page retirement functions for MCA
+
+Define page retirement functions for MCA platform.
+
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c | 112 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h |   2 +
+ drivers/gpu/drm/amd/amdgpu/umc_v6_7.c   |   2 +-
+ drivers/gpu/drm/amd/amdgpu/umc_v6_7.h   |   2 +
+ 4 files changed, 117 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_umc.c
+index aad3c8b4c810..e97b1bd343ee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+@@ -22,6 +22,118 @@
+  */
+=20
+ #include "amdgpu.h"
++#include "umc_v6_7.h"
++
++static int amdgpu_umc_convert_error_address(struct amdgpu_device *adev,
++				    struct ras_err_data *err_data, uint64_t err_addr,
++				    uint32_t ch_inst, uint32_t umc_inst) {
++	switch (adev->ip_versions[UMC_HWIP][0]) {
++	case IP_VERSION(6, 7, 0):
++		umc_v6_7_convert_error_address(adev,
++				err_data, err_addr, ch_inst, umc_inst);
++		break;
++	default:
++		dev_warn(adev->dev,
++			 "UMC address to Physical address translation is not supported\n");
++		return AMDGPU_RAS_FAIL;
++	}
++
++	return AMDGPU_RAS_SUCCESS;
++}
++
++static int amdgpu_umc_ecc_info_query_error_address(struct amdgpu_device *a=
+dev,
++					     struct ras_err_data *err_data) {
++	switch (adev->ip_versions[UMC_HWIP][0]) {
++	case IP_VERSION(6, 7, 0):
++		umc_v6_7_ecc_info_query_ras_error_address(adev,
++				err_data);
++		break;
++	default:
++		dev_warn(adev->dev,
++			 "UMC error address query is not supported\n");
++		return AMDGPU_RAS_FAIL;
++	}
++
++	return AMDGPU_RAS_SUCCESS;
++}
++
++int amdgpu_umc_page_retirement_mca(struct amdgpu_device *adev,
++			uint64_t err_addr, uint32_t ch_inst, uint32_t umc_inst) {
++	struct ras_err_data err_data =3D {0, 0, 0, NULL};
++	int ret =3D AMDGPU_RAS_FAIL;
++
++	err_data.err_addr =3D
++		kcalloc(adev->umc.max_ras_err_cnt_per_query,
++			sizeof(struct eeprom_table_record), GFP_KERNEL);
++	if (!err_data.err_addr) {
++		dev_warn(adev->dev,
++			"Failed to alloc memory for umc error record in MCA notifier!\n");
++		return AMDGPU_RAS_FAIL;
++	}
++
++	/*
++	 * Translate UMC channel address to Physical address
++	 */
++	ret =3D amdgpu_umc_convert_error_address(adev, &err_data, err_addr,
++					ch_inst, umc_inst);
++	if (ret)
++		goto out;
++
++	if (amdgpu_bad_page_threshold !=3D 0) {
++		amdgpu_ras_add_bad_pages(adev, err_data.err_addr,
++						err_data.err_addr_cnt);
++		amdgpu_ras_save_bad_pages(adev);
++	}
++
++out:
++	kfree(err_data.err_addr);
++	return ret;
++}
++
++static int amdgpu_umc_poison_handler_mca(struct amdgpu_device *adev,
++		struct ras_err_data *err_data, bool reset) {
++	int ret =3D AMDGPU_RAS_FAIL;
++
++	err_data->err_addr =3D
++		kcalloc(adev->umc.max_ras_err_cnt_per_query,
++			sizeof(struct eeprom_table_record), GFP_KERNEL);
++	if (!err_data->err_addr) {
++		dev_warn(adev->dev,
++			"Failed to alloc memory for MCA RAS poison handler!\n");
++		goto out2;
++	}
++
++	/*
++	 * Translate UMC channel address to Physical address
++	 */
++	ret =3D amdgpu_umc_ecc_info_query_error_address(adev, err_data);
++	if (ret)
++		goto out1;
++
++	if (amdgpu_bad_page_threshold !=3D 0) {
++		amdgpu_ras_add_bad_pages(adev, err_data->err_addr,
++						err_data->err_addr_cnt);
++		amdgpu_ras_save_bad_pages(adev);
++	}
++
++out1:
++	kfree(err_data->err_addr);
++out2:
++	/* trigger gpu reset even error count is 0 for CPU MCA RAS,
++	 * MCA notifier is responsible for page retirement if error
++	 * count can't be queried in poison handler.
++	 */
++	if (reset) {
++		kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
++		amdgpu_ras_reset_gpu(adev);
++	}
++
++	return ret;
++}
+=20
+ static int amdgpu_umc_do_page_retirement(struct amdgpu_device *adev,
+ 		void *ras_error_status,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_umc.h
+index 3629d8f292ef..659a10de29c9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+@@ -98,4 +98,6 @@ void amdgpu_umc_fill_error_record(struct ras_err_data *er=
+r_data,  int amdgpu_umc_process_ras_data_cb(struct amdgpu_device *adev,
+ 		void *ras_error_status,
+ 		struct amdgpu_iv_entry *entry);
++int amdgpu_umc_page_retirement_mca(struct amdgpu_device *adev,
++			uint64_t err_addr, uint32_t ch_inst, uint32_t umc_inst);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c b/drivers/gpu/drm/amd/am=
+dgpu/umc_v6_7.c
+index 72fd963f178b..b0da50d03af6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
+@@ -252,7 +252,7 @@ static void umc_v6_7_ecc_info_query_error_address(struc=
+t amdgpu_device *adev,
+ 	}
+ }
+=20
+-static void umc_v6_7_ecc_info_query_ras_error_address(struct amdgpu_device=
+ *adev,
++void umc_v6_7_ecc_info_query_ras_error_address(struct amdgpu_device=20
++*adev,
+ 					     void *ras_error_status)
+ {
+ 	struct ras_err_data *err_data =3D (struct ras_err_data *)ras_error_status=
+; diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h b/drivers/gpu/drm/amd/=
+amdgpu/umc_v6_7.h
+index 105245d5b6e5..24382e9e5814 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h
+@@ -74,4 +74,6 @@ extern const uint32_t
+ void umc_v6_7_convert_error_address(struct amdgpu_device *adev,
+                                     struct ras_err_data *err_data, uint64_=
+t err_addr,
+                                     uint32_t ch_inst, uint32_t umc_inst);
++void umc_v6_7_ecc_info_query_ras_error_address(struct amdgpu_device *adev,
++					     void *ras_error_status);
+ #endif
+--
+2.35.1
