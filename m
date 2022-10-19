@@ -4,61 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DC4CC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 20:30:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 644C3C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 21:32:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9729510EBB1;
-	Wed, 19 Oct 2022 20:30:14 +0000 (UTC)
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BCA210F261;
- Wed, 19 Oct 2022 15:15:51 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- d18-20020a05683025d200b00661c6f1b6a4so9674426otu.1; 
- Wed, 19 Oct 2022 08:15:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=YSVgaKNXyxpO41DTy0BTahGVEiOe5fIDHOgNw0HwhPM=;
- b=cCbTjFt+C5i0OVzcCHYuZzDRxMgeqNVGqFVUD+UeT4GQu+O1iPL9HnNphGCLOOyNa4
- XUCBZVDPXZK43OOd1YQMu/f/u3MszrQne0aFnaZT25PST6VaXIhdBHX1zEqXoGDrNf22
- 0eDyYL3UoK09bkfyDu+LL8pGout1AfknvWMdSY1pzTO94N18wXQ8izdfOvDnNsFqc3eA
- 18gWlcNlZx1efYPcchHg76f6MwoNpMOtK5KJocgCtPdFuJNn+NA6Q5kHZKKJmlblECbn
- UJeLDGLy/Z4fNpt7dvZuxcUntFpZnTa09GqFByKkqqYTWV+/PVGNGtkFnbV6JpLg82/D
- qNqg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64BD710E0DB;
+	Wed, 19 Oct 2022 21:32:22 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4046810E0BC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 21:32:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1666215135;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=iRo8z7I39TZ2xgzmOs0IkUPyEriKByUvdIr0+xvZt3Y=;
+ b=TnzEz5O7TBF/cuQchHjTG+IkTf/ga3y20rJ0WhJ5oZthmYA6JiDwjruCKHsVO7/U32NVY9
+ lPLkyQ+A923zsY0jdXSK+uyxMiV5pznmIaB98EoMiVih+pQszXZ9Ch/bovHuTuaTas5/eh
+ IhQgsCtYVBnTRkmR6pLMQ5iWk4GOprs=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-515-f4g4O7DSN1O2-YzWkT6DBA-1; Wed, 19 Oct 2022 17:32:14 -0400
+X-MC-Unique: f4g4O7DSN1O2-YzWkT6DBA-1
+Received: by mail-qv1-f69.google.com with SMTP id
+ mz8-20020a0562142d0800b004b18a95b180so11416799qvb.8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 14:32:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=YSVgaKNXyxpO41DTy0BTahGVEiOe5fIDHOgNw0HwhPM=;
- b=VlBowhvM8BT6PRAGWksmTuDI2Qze8dhbu1bmnRgE22fEeaMF7zWwSTdMtPPOW0dd6v
- E5kCyosykOMbgBshxxI3NmuhVXdpB/L6qVViI62svayB4dPEjJk0KGomkFx24JAi2ds6
- jf7Qwwm1EuMQ7BEdcG0TLsZch0UKDS+s3SMBj90iIbq+GwnIUeay3RjfuGjfLu95gvsV
- 7wJZHqIsGrai7vc7XuYvRptCJobyMWkUJA4yScmvP+UOmGX5Kn88QIAZPO8XfLRiP2LD
- iKapZmahSSnJm2qAtR4jdxU/sQk9W+mTD5csROALyQnAoKlWaChde2AjFJPa06JV6feU
- 4qhA==
-X-Gm-Message-State: ACrzQf3piKjBw6lvwHkma+eBhb6B5xG67miNFqPX41Uv6Hp8wySW0STc
- ZlikCUHS7FM+RIWESSIc4OI=
-X-Google-Smtp-Source: AMsMyM6rbHe6IbHaUmgRC1aH6iIMov2Nl64pN/edAXH6uoCOmsf2ixnJtpb4/cSPzWSKg7Mj8utmmQ==
-X-Received: by 2002:a05:6830:4b5:b0:661:d8ee:b4ac with SMTP id
- l21-20020a05683004b500b00661d8eeb4acmr4123516otd.296.1666192550659; 
- Wed, 19 Oct 2022 08:15:50 -0700 (PDT)
-Received: from smeagol.fibertel.com.ar ([201.235.4.68])
+ h=content-transfer-encoding:mime-version:user-agent:organization
+ :references:in-reply-to:date:cc:to:from:subject:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=iRo8z7I39TZ2xgzmOs0IkUPyEriKByUvdIr0+xvZt3Y=;
+ b=QC0fnxsE61LTlU3BTutXuPs7hY8B7KOY87oU4DuaAfFWfF0eidcpcEVvizzGvjVvjS
+ 37rD3w2JBCPRFPXMo4X2Qe1V+6kpBXIJdM6koYbr1nlTaOTpWMBdURpL4mZkIX3Ty5L5
+ 12j/kRfqdbKMeI9Mog1OLe0SOg3Qso8Ay6gtci5g+136U2pjePGF3g5f/MqLXZ5rwmgV
+ Zab1y/QUxY0NwtnAs7yNryxWQTFvHIvwiFBJ4+fuRvLM83UcRzMaQ7KgMLDhZcxsxm2o
+ aYBzlUGKSq8sSoQjbAzouak+XpIsBD+TXGuQ+sreb6YzEMFgNB1/A0xmo47NPuY10VCD
+ ncSg==
+X-Gm-Message-State: ACrzQf0Iq5G7TRJmMaL6dsXBjaTEyiABUozZm1GKtq1kFLtw1tV8XaTf
+ PO+v9CztlHT0hwujAGgMrTfLmcsquC1HMw3sHgp8HRSDiirV0jpgxYFvmgWas4kJOACZ/nlJ6hP
+ pfkNQmM1SBtUxHOGefRfumL4YDA==
+X-Received: by 2002:ac8:7e84:0:b0:35b:a902:57c3 with SMTP id
+ w4-20020ac87e84000000b0035ba90257c3mr8244627qtj.37.1666215133695; 
+ Wed, 19 Oct 2022 14:32:13 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM6n9BznDrKP2dQk6tJ1JIOGufLUsAqZJjny42w86LkBTeAVBcYMkps5A9DvXTIjQgO1LQYTSA==
+X-Received: by 2002:ac8:7e84:0:b0:35b:a902:57c3 with SMTP id
+ w4-20020ac87e84000000b0035ba90257c3mr8244601qtj.37.1666215133472; 
+ Wed, 19 Oct 2022 14:32:13 -0700 (PDT)
+Received: from ?IPv6:2600:4040:5c68:4300:fdba:af4a:bbcd:7e28?
+ ([2600:4040:5c68:4300:fdba:af4a:bbcd:7e28])
  by smtp.gmail.com with ESMTPSA id
- h5-20020a4aa9c5000000b00480e77f90f9sm707635oon.41.2022.10.19.08.15.47
+ d4-20020ac81184000000b00359961365f1sm4675476qtj.68.2022.10.19.14.32.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Oct 2022 08:15:49 -0700 (PDT)
-From: =?UTF-8?q?Joaqu=C3=ADn=20Ignacio=20Aramend=C3=ADa?= <samsagax@gmail.com>
-To: harry.wentland@amd.com
-Subject: [PATCH] drm/amd/display: Revert logic for plane modifiers
-Date: Wed, 19 Oct 2022 12:15:43 -0300
-Message-Id: <20221019151543.22753-1-samsagax@gmail.com>
-X-Mailer: git-send-email 2.38.0
+ Wed, 19 Oct 2022 14:32:12 -0700 (PDT)
+Message-ID: <41ffe32931a21961a3f368b30bd4335faa5ac6a4.camel@redhat.com>
+Subject: Re: [PATCH] drm/amdgpu/dm/mst: Fix incorrect usage of
+ drm_dp_add_payload_part2()
+From: Lyude Paul <lyude@redhat.com>
+To: "Lin, Wayne" <Wayne.Lin@amd.com>, "Siqueira, Rodrigo"
+ <Rodrigo.Siqueira@amd.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Date: Wed, 19 Oct 2022 17:32:11 -0400
+In-Reply-To: <CO6PR12MB548939841653ABD0EAA95DCAFC299@CO6PR12MB5489.namprd12.prod.outlook.com>
+References: <20221004202429.124422-1-lyude@redhat.com>
+ <d3b272e1-3b5d-c843-e8ac-57dc5e3a7ced@amd.com>
+ <128762cfb6524d17e6ee7308aa7e859dd350fa63.camel@redhat.com>
+ <CO6PR12MB548939841653ABD0EAA95DCAFC299@CO6PR12MB5489.namprd12.prod.outlook.com>
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 19 Oct 2022 20:30:11 +0000
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,104 +91,133 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- airlied@gmail.com, christian.koenig@amd.com,
- =?UTF-8?q?Joaqu=C3=ADn=20Ignacio=20Aramend=C3=ADa?= <samsagax@gmail.com>
+Cc: "Chen, Ian" <Ian.Chen@amd.com>, "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ open list <linux-kernel@vger.kernel.org>, Jani Nikula <jani.nikula@intel.com>,
+ "Zuo, Jerry" <Jerry.Zuo@amd.com>, Claudio Suarez <cssk@net-c.es>, "Mahfooz,
+ Hamza" <Hamza.Mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, Mikita Lipski <mikita.lipski@amd.com>,
+ David Airlie <airlied@gmail.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, Colin Ian King <colin.i.king@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This file was split in commit 5d945cbcd4b16a29d6470a80dfb19738f9a4319f
-("drm/amd/display: Create a file dedicated to planes") the logic in
-dm_plane_format_mod_supported() function got changed by a switch logic.
-That change broke drm_plane modifiers setting on series 5000 APUs
-(tested on OXP mini AMD 5800U and HP Dev One 5850U PRO)
-leading to Gamescope not working as reproted on GitHub[1]
+Gotcha, I'll take another look at this tomorrow
 
-To reproduce the issue, enter a TTY and run:
+On Mon, 2022-10-17 at 03:09 +0000, Lin, Wayne wrote:
+> [Public]
+> 
+> 
+> 
+> > -----Original Message-----
+> > From: Lyude Paul <lyude@redhat.com>
+> > Sent: Thursday, October 6, 2022 3:37 AM
+> > To: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; dri-
+> > devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org
+> > Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
+> > <Sunpeng.Li@amd.com>; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>; Koenig, Christian
+> > <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David
+> > Airlie <airlied@gmail.com>; Daniel Vetter <daniel@ffwll.ch>; Zuo, Jerry
+> > <Jerry.Zuo@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Chen, Ian
+> > <Ian.Chen@amd.com>; Mikita Lipski <mikita.lipski@amd.com>; Mahfooz,
+> > Hamza <Hamza.Mahfooz@amd.com>; Claudio Suarez <cssk@net-c.es>; Colin
+> > Ian King <colin.i.king@gmail.com>; Jani Nikula <jani.nikula@intel.com>; open
+> > list <linux-kernel@vger.kernel.org>
+> > Subject: Re: [PATCH] drm/amdgpu/dm/mst: Fix incorrect usage of
+> > drm_dp_add_payload_part2()
+> > 
+> > On Tue, 2022-10-04 at 16:46 -0400, Rodrigo Siqueira Jordao wrote:
+> > > 
+> > > On 2022-10-04 16:24, Lyude Paul wrote:
+> > > > Yikes, it appears somehow I totally made a mistake here. We're
+> > > > currently checking to see if drm_dp_add_payload_part2() returns a
+> > > > non-zero value to indicate success. That's totally wrong though, as
+> > > > this function only returns a zero value on success - not the other way
+> > around.
+> > > > 
+> > > > So, fix that.
+> > > > 
+> > > > Signed-off-by: Lyude Paul <lyude@redhat.com>
+> > > > Issue:
+> > > > 
+> > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgi
+> > > > tlab.freedesktop.org%2Fdrm%2Famd%2F-
+> > %2Fissues%2F2171&amp;data=05%7C0
+> > > > 
+> > 1%7Cwayne.lin%40amd.com%7Ccd5a63120e064f4bb6aa08daa7090baf%7C3d
+> > d8961
+> > > > 
+> > fe4884e608e11a82d994e183d%7C0%7C0%7C638005954559719396%7CUnkno
+> > wn%7CT
+> > > > 
+> > WFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLC
+> > JXV
+> > > > 
+> > CI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=nMIGnUKS6EDrdKJ0rR%2BAh
+> > FRa4ST0%2
+> > > > BYr9bILmXv40yv0%3D&amp;reserved=0
+> > > > Fixes: 4d07b0bc4034 ("drm/display/dp_mst: Move all payload info into
+> > > > the atomic state")
+> > > > ---
+> > > >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2
+> > +-
+> > > >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > 
+> > > > diff --git
+> > > > a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> > > > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> > > > index b8077fcd4651..00598def5b39 100644
+> > > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> > > > +++
+> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> > > > @@ -297,7 +297,7 @@ bool
+> > dm_helpers_dp_mst_send_payload_allocation(
+> > > >   		clr_flag = MST_ALLOCATE_NEW_PAYLOAD;
+> > > >   	}
+> > > > 
+> > > > -	if (enable && drm_dp_add_payload_part2(mst_mgr, mst_state-
+> > > base.state, payload)) {
+> > > > +	if (enable && drm_dp_add_payload_part2(mst_mgr,
+> > > > +mst_state->base.state, payload) == 0) {
+> 
+> Hi Lyude,
+> 
+> This line changes the original logic a bit. The 'if' case was trying to catch failure 
+> while sending ALLOCATE_PAYLOAD. If the msg fails, set the set_flag to false.
+> If succeed, set the set_flag to true and clear the clr_flag. 
+> 
+> Sorry if the code wording misleading. Thanks!
+> 
+> > > >   		amdgpu_dm_set_mst_status(&aconnector->mst_status,
+> > > >   			set_flag, false);
+> > > >   	} else {
+> > > 
+> > > Hi Lyude,
+> > > 
+> > > Maybe I'm missing something, but I can't find the
+> > > drm_dp_add_payload_part2() function on amd-staging-drm-next. Which
+> > > repo are you using?
+> > 
+> > If it's not on amd-staging-drm-next then it likely hasn't gotten backported to
+> > amd's branch yet and is in drm-misc-next
+> > 
+> > > 
+> > > Thanks
+> > > Siqueira
+> > > 
+> > 
+> > --
+> > Cheers,
+> >  Lyude Paul (she/her)
+> >  Software Engineer at Red Hat
+> --
+> Regards,
+> Wayne Lin
+> 
 
-$ gamescope -- vkcube
-
-With said commit applied it will abort. This one restores the old logic,
-fixing the issue that affects Gamescope.
-
-[1](https://github.com/Plagman/gamescope/issues/624)
-
-Signed-off-by: Joaquín Ignacio Aramendía <samsagax@gmail.com>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 50 +++----------------
- 1 file changed, 8 insertions(+), 42 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index dfd3be49eac8..81c1fc9468b8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1371,6 +1371,8 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
- 	const struct drm_format_info *info = drm_format_info(format);
- 	struct hw_asic_id asic_id = adev->dm.dc->ctx->asic_id;
- 
-+	int i;
-+
- 	enum dm_micro_swizzle microtile = modifier_gfx9_swizzle_mode(modifier) & 3;
- 
- 	if (!info)
-@@ -1386,49 +1388,13 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
- 		return true;
- 	}
- 
--	/* check if swizzle mode is supported by this version of DCN */
--	switch (asic_id.chip_family) {
--	case FAMILY_SI:
--	case FAMILY_CI:
--	case FAMILY_KV:
--	case FAMILY_CZ:
--	case FAMILY_VI:
--		/* asics before AI does not have modifier support */
--		return false;
--	case FAMILY_AI:
--	case FAMILY_RV:
--	case FAMILY_NV:
--	case FAMILY_VGH:
--	case FAMILY_YELLOW_CARP:
--	case AMDGPU_FAMILY_GC_10_3_6:
--	case AMDGPU_FAMILY_GC_10_3_7:
--		switch (AMD_FMT_MOD_GET(TILE, modifier)) {
--		case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_D:
--			return true;
--		default:
--			return false;
--		}
--		break;
--	case AMDGPU_FAMILY_GC_11_0_0:
--	case AMDGPU_FAMILY_GC_11_0_1:
--		switch (AMD_FMT_MOD_GET(TILE, modifier)) {
--		case AMD_FMT_MOD_TILE_GFX11_256K_R_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_D:
--			return true;
--		default:
--			return false;
--		}
--		break;
--	default:
--		ASSERT(0); /* Unknown asic */
--		break;
-+	/* Check that the modifier is on the list of the plane's supported modifiers. */
-+	for (i = 0; i < plane->modifier_count; i++) {
-+		if (modifier == plane->modifiers[i])
-+			break;
- 	}
-+	if (i == plane->modifier_count)
-+		return false;
- 
- 	/*
- 	 * For D swizzle the canonical modifier depends on the bpp, so check
 -- 
-2.38.0
+Cheers,
+ Lyude Paul (she/her)
+ Software Engineer at Red Hat
 
