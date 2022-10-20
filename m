@@ -4,73 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AC5DC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 13:14:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5E47C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 13:14:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FEC310EF67;
-	Thu, 20 Oct 2022 13:14:03 +0000 (UTC)
-X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
- Thu, 20 Oct 2022 11:10:57 UTC
-Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 761EC10E1DA;
- Thu, 20 Oct 2022 11:10:57 +0000 (UTC)
-Received: from [192.168.1.103] (31.173.87.29) by msexch01.omp.ru (10.188.4.12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.986.14; Thu, 20 Oct
- 2022 13:55:44 +0300
-Subject: Re: [PATCH 03/21] drm/ingenic: Don't set struct drm_driver.lastclose
-To: Thomas Zimmermann <tzimmermann@suse.de>, <daniel@ffwll.ch>,
- <airlied@gmail.com>, <sam@ravnborg.org>, <javierm@redhat.com>,
- <mripard@kernel.org>, <maarten.lankhorst@linux.intel.com>
-References: <20221020103755.24058-1-tzimmermann@suse.de>
- <20221020103755.24058-4-tzimmermann@suse.de>
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-Organization: Open Mobile Platform
-Message-ID: <013ea55b-3d51-c89c-eff8-b8d355ded352@omp.ru>
-Date: Thu, 20 Oct 2022 13:55:44 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id B242D10EF63;
+	Thu, 20 Oct 2022 13:14:04 +0000 (UTC)
+Received: from 186.whitelist.crbl.net (186.whitelist.crbl.net
+ [162.243.126.186])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB67010E375;
+ Thu, 20 Oct 2022 08:28:20 +0000 (UTC)
+Received: from ([60.208.111.195])
+ by ssh248.corpemail.net ((D)) with ASMTP (SSL) id PKP00123;
+ Thu, 20 Oct 2022 16:20:23 +0800
+Received: from localhost.localdomain (10.200.104.82) by
+ jtjnmail201605.home.langchao.com (10.100.2.5) with Microsoft SMTP Server id
+ 15.1.2507.12; Thu, 20 Oct 2022 16:20:24 +0800
+From: Deming Wang <wangdeming@inspur.com>
+To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
+ <daniel@ffwll.ch>
+Subject: [PATCH] drm/amdkfd: use vma_lookup() instead of find_vma()
+Date: Thu, 20 Oct 2022 04:20:20 -0400
+Message-ID: <20221020082020.1589-1-wangdeming@inspur.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <20221020103755.24058-4-tzimmermann@suse.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [31.173.87.29]
-X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
- (10.188.4.12)
-X-KSE-ServerInfo: msexch01.omp.ru, 9
-X-KSE-AntiSpam-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 10/20/2022 10:25:24
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 59
-X-KSE-AntiSpam-Info: Lua profiles 173210 [Oct 20 2022]
-X-KSE-AntiSpam-Info: Version: 5.9.20.0
-X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
-X-KSE-AntiSpam-Info: LuaCore: 502 502 69dee8ef46717dd3cb3eeb129cb7cc8dab9e30f6
-X-KSE-AntiSpam-Info: {rep_avail}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: {relay has no DNS name}
-X-KSE-AntiSpam-Info: {SMTP from is not routable}
-X-KSE-AntiSpam-Info: {Found in DNSBL: 31.173.87.29 in (user)
- b.barracudacentral.org}
-X-KSE-AntiSpam-Info: omp.ru:7.1.1; 127.0.0.199:7.1.2;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
-X-KSE-AntiSpam-Info: ApMailHostAddress: 31.173.87.29
-X-KSE-AntiSpam-Info: {DNS response errors}
-X-KSE-AntiSpam-Info: Rate: 59
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
- smtp.mailfrom=omp.ru;dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 10/20/2022 10:32:00
-X-KSE-AttachmentFiltering-Interceptor-Info: protection disabled
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: Clean, bases: 10/20/2022 7:12:00 AM
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.200.104.82]
+tUid: 202210201620236694c4ed1177b3ab6d2ed521f42be43e
+X-Abuse-Reports-To: service@corp-email.com
+Abuse-Reports-To: service@corp-email.com
+X-Complaints-To: service@corp-email.com
+X-Report-Abuse-To: service@corp-email.com
 X-Mailman-Approved-At: Thu, 20 Oct 2022 13:13:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,35 +48,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- xen-devel@lists.xenproject.org, linux-sunxi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- freedreno@lists.freedesktop.org
+Cc: Deming Wang <wangdeming@inspur.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello!
+Using vma_lookup() verifies the start address is contained in the found
+vma.  This results in easier to read the code.
 
-On 10/20/22 1:37 PM, Thomas Zimmermann wrote:
+Signed-off-by: Deming Wang <wangdeming@inspur.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
-> Don't set struct drm_mode_config.output_poll_changed. It's used to
-> inform the fbdev console about conncetor changes. But as ingenic
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 64fdf63093a0..0100812478b2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1586,8 +1586,8 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+ 		unsigned long npages;
+ 		bool readonly;
+ 
+-		vma = find_vma(mm, addr);
+-		if (!vma || addr < vma->vm_start) {
++		vma = vma_lookup(mm, addr);
++		if (!vma) {
+ 			r = -EFAULT;
+ 			goto unreserve_out;
+ 		}
+@@ -2542,8 +2542,8 @@ svm_range_get_range_boundaries(struct kfd_process *p, int64_t addr,
+ 	struct interval_tree_node *node;
+ 	unsigned long start_limit, end_limit;
+ 
+-	vma = find_vma(p->mm, addr << PAGE_SHIFT);
+-	if (!vma || (addr << PAGE_SHIFT) < vma->vm_start) {
++	vma = vma_lookup(p->mm, addr << PAGE_SHIFT);
++	if (!vma) {
+ 		pr_debug("VMA does not exist in address [0x%llx]\n", addr);
+ 		return -EFAULT;
+ 	}
+@@ -2871,8 +2871,8 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 	/* __do_munmap removed VMA, return success as we are handling stale
+ 	 * retry fault.
+ 	 */
+-	vma = find_vma(mm, addr << PAGE_SHIFT);
+-	if (!vma || (addr << PAGE_SHIFT) < vma->vm_start) {
++	vma = vma_lookup(mm, addr << PAGE_SHIFT);
++	if (!vma) {
+ 		pr_debug("address 0x%llx VMA is removed\n", addr);
+ 		r = 0;
+ 		goto out_unlock_range;
+@@ -3152,9 +3152,8 @@ svm_range_is_valid(struct kfd_process *p, uint64_t start, uint64_t size)
+ 	start <<= PAGE_SHIFT;
+ 	end = start + (size << PAGE_SHIFT);
+ 	do {
+-		vma = find_vma(p->mm, start);
+-		if (!vma || start < vma->vm_start ||
+-		    (vma->vm_flags & device_vma))
++		vma = vma_lookup(p->mm, start);
++		if (!vma || (vma->vm_flags & device_vma))
+ 			return -EFAULT;
+ 		start = min(end, vma->vm_end);
+ 	} while (start < end);
+-- 
+2.27.0
 
-   Connector. :-)
-
-> uses generic fbdev emulation, the console is being informed by the
-> DRM client helpers already. See the calls to drm_client_dev_hotplug()
-> in drm_probe_helper.c.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-[...]
-
-MBR, Sergey
