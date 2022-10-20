@@ -4,88 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBDB4C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 14:36:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 569AAC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 14:49:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6899C10E23A;
-	Thu, 20 Oct 2022 14:36:26 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2074.outbound.protection.outlook.com [40.107.94.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFADF10E1D6;
- Thu, 20 Oct 2022 14:36:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Afs0dzo/XLXPNVyHe/TUlnmXV1VTJtXNzOscja5iC1qpkxMmmgQ8BbG1RE3Xj+kfPUIaCAh9flY8lM8M821OdsoMxCWw9vhRV8tNvsrJMHLtjzpcLtnzs2yvAje04aErdKW2DY0f13ZzwO6snO2CmZf8UXkgQKqrQ7ckeY3MD1ozwFa9DgLVhxpjspT1/Qum0i0AKg/6G/RDbfosaztU/a6ta5I/v+xS/GinzPmFIT7vkA7wL4n6RJPxAywyFyMM2YuU1QyGBQg/CShLH1Oyj1mcrzKXeK9Gk4hdu7Gfkw0ukP9wMVuUnby79c9FXLvsJyJ5HVUKINWLbOiVOXhsMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vV6Enut9p2YVZpMOfNLVYwclnup9A1P6XCJ/EuKXOyQ=;
- b=gyyU+mWP3/D6AoG8t2Lmlf0qgGny7KWCh8gIzhyLk+ck4YeFplBFoM3EjG4BALDojI6cfc9rceFTb3otN1tUcukwFbeWu6G68CVko+E0oRF67A8YOld5khb6b7l7G5MtzyjOvBiAKySYjs9p5xWLMy9bOux1aBdm6nSHpArT2xIZ3bUM8nC9RLiSrpnyF8UuxVvKPCJsD0kF1zT1uR7oYAYhmaBIBhwyIlPSjlsfmQZNqjt8pVewxieqakcMAIXs9hQxoVjWO+T7M6AxHzAuu0Eyr/+qQYjR3ASZfVrmEWQvSFF09BXMACbE6weO89SIeN06I/oKhUwc2fLJ5euIYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vV6Enut9p2YVZpMOfNLVYwclnup9A1P6XCJ/EuKXOyQ=;
- b=loVYw8vp6cMibY110rvEwsqyc6pPAJQYHSZ2B2d1R0yB2uDfiVH839sZT0B9C7+uCLEcQir7JlXByN0UTAyW5Wj28UBPy1O5fP/VyNAlSvGmfnqBYeLIpIztu+WUFwSbMKQTFUTIRYhnHABagwDJCfAAAkgWwrtJQxJCMU+7fZM=
-Received: from BN9PR03CA0845.namprd03.prod.outlook.com (2603:10b6:408:13d::10)
- by BN9PR12MB5260.namprd12.prod.outlook.com (2603:10b6:408:101::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34; Thu, 20 Oct
- 2022 14:36:17 +0000
-Received: from BL02EPF0000C407.namprd05.prod.outlook.com
- (2603:10b6:408:13d:cafe::30) by BN9PR03CA0845.outlook.office365.com
- (2603:10b6:408:13d::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.35 via Frontend
- Transport; Thu, 20 Oct 2022 14:36:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0000C407.mail.protection.outlook.com (10.167.241.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5723.20 via Frontend Transport; Thu, 20 Oct 2022 14:36:17 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 20 Oct
- 2022 09:36:16 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: don't call drm_fb_helper_lastclose in lastclose()
-Date: Thu, 20 Oct 2022 10:36:03 -0400
-Message-ID: <20221020143603.563929-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.37.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD9C910E168;
+	Thu, 20 Oct 2022 14:49:23 +0000 (UTC)
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06D3D10E168
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Oct 2022 14:49:17 +0000 (UTC)
+Received: from thor ([85.2.99.24])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202210201649139195; Thu, 20 Oct 2022 16:49:13 +0200
+Received: from [127.0.0.1] by thor with esmtp (Exim 4.96)
+ (envelope-from <michel@daenzer.net>) id 1olWrA-0001ei-0j;
+ Thu, 20 Oct 2022 16:49:12 +0200
+Message-ID: <4046cec7-88a1-d91d-9553-678d5165d308@daenzer.net>
+Date: Thu, 20 Oct 2022 16:49:12 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.3
+To: jiadong.zhu@amd.com, amd-gfx@lists.freedesktop.org
+References: <20221018090815.2662321-1-jiadong.zhu@amd.com>
+Content-Language: en-CA
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH 1/5] drm/amdgpu: Introduce gfx software ring (v8)
+In-Reply-To: <20221018090815.2662321-1-jiadong.zhu@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0000C407:EE_|BN9PR12MB5260:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28cd8124-2eb1-4273-0ea3-08dab2a872be
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2VKFB+FMrf8CUWyureqhFuPdtn+u2NeY+kwRXAOOWOKw6wc8ATy5JOlUU3IdVZmyjz/NEq17w9JE9/arZiXoivGi4nkGdfKybpi46ihJ4a1Whm2ZESiWci9SI3DTkRkwi8vzzyGyUAIyWm/iRdELWBss4QsymD4cI2oYe4ekBQrfklm/Q6Q43ULU9n47Tf/ejbeTMcXHEX5jP1VYsmziuyCeJhLTrys4prEXr4Bent8PUxXKIWOHhs+EzKh0QnY+KlKTmKP/N7aO81nFhfG1a02pxfH2IReTjToMSw++ZB2J44ZkDJhxsZdE6OR0CKrBHSCEpz3ngkf14Xsjh1lSI43uGGW526P4su2RdCX13Bi8WNr2JuRE3OLv1S5i1e4z8bXeSDn0B0AR7u8pOIbGwP+eAHbve8tr3VG8pYSKxc7QQBM7kd2BfaRPo1g2oF4r5FgZL7RLiWj/C7lMci0FC/PuX/x0xH9fTqCd529W/Gv8aSIv3A04VRlcglMIcN7EUfXaOGR7IKZzcxTYYicpWNEmiVNudDnlKk+I/PRjpNoLO1EIinnmAYRvzUycU4ojDYIHMRAYbb16x7EV4+CrlgCE5I7wZbH0+s9Zjnm4uSOY+4fe+Ajmnj/PldksvL1zRa876b/rzf4ZyNsRefHSAfdY5RlEunaCWml3Bxo6nk01gFMswekpwlLRvM9OsVp7EIAiUEjvS9z0zGXO/x2dsVXyyzDLqxDtsQGWpAZK3GzXVZcQKKlyJRYUMZ2OgOkSu76ldbKmq13nOLif5aID+PWAFqj9Z8kiWxc6yGpnyaucyRJP6l8P7KYgBgczkclB
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199015)(36840700001)(46966006)(40470700004)(26005)(7696005)(41300700001)(86362001)(4744005)(426003)(83380400001)(47076005)(4326008)(54906003)(70586007)(110136005)(8676002)(5660300002)(36756003)(8936002)(6666004)(40480700001)(82740400003)(316002)(36860700001)(336012)(1076003)(2616005)(2906002)(81166007)(16526019)(186003)(356005)(70206006)(40460700003)(478600001)(82310400005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2022 14:36:17.5185 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28cd8124-2eb1-4273-0ea3-08dab2a872be
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000C407.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5260
+X-CTCH: RefID="str=0001.0A782F27.63515FEB.003A,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,35 +44,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Christian Koenig <Christian.Koenig@amd.com>,
+ Luben Tuikov <Luben.Tuikov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It's used to restore the fbdev console, but as amdgpu uses
-generic fbdev emulation, the console is being restored by the
-DRM client helpers already. See the call to drm_client_dev_restore()
-in drm_lastclose().
+On 2022-10-18 11:08, jiadong.zhu@amd.com wrote:
+> From: "Jiadong.Zhu" <Jiadong.Zhu@amd.com>
+> 
+> The software ring is created to support priority context while there is only
+> one hardware queue for gfx.
+> 
+> Every software ring has its fence driver and could be used as an ordinary ring
+> for the GPU scheduler.
+> Multiple software rings are bound to a real ring with the ring muxer. The
+> packages committed on the software ring are copied to the real ring.
+> 
+> v2: Use array to store software ring entry.
+> v3: Remove unnecessary prints.
+> v4: Remove amdgpu_ring_sw_init/fini functions,
+> using gtt for sw ring buffer for later dma copy
+> optimization.
+> v5: Allocate ring entry dynamically in the muxer.
+> v6: Update comments for the ring muxer.
+> v7: Modify for function naming.
+> v8: Combine software ring functions into amdgpu_ring_mux.c
 
-Fixes: 087451f372bf76 ("drm/amdgpu: use generic fb helpers instead of setting up AMD own's.")
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 1 -
- 1 file changed, 1 deletion(-)
+I tested patches 1-4 of this series (since Christian clearly nacked patch 5). I hit the oops below.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index fe23e09eec98..474b9f40f792 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1106,7 +1106,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
-  */
- void amdgpu_driver_lastclose_kms(struct drm_device *dev)
- {
--	drm_fb_helper_lastclose(dev);
- 	vga_switcheroo_process_delayed_switch();
- }
- 
+amdgpu_sw_ring_ib_begin+0x70/0x80 is in amdgpu_mcbp_trigger_preempt according to scripts/faddr2line, specifically line 376:
+
+	spin_unlock(&mux->lock);
+
+though I'm not sure why that would crash.
+
+
+Are you not able to reproduce this with a GNOME Wayland session?
+
+
+BUG: kernel NULL pointer dereference, address: 0000000000000000
+#PF: supervisor instruction fetch in kernel mode
+#PF: error_code(0x0010) - not-present page
+PGD 0 P4D 0
+Oops: 0010 [#1] PREEMPT SMP NOPTI
+CPU: 7 PID: 281 Comm: gfx_high Tainted: G            E      6.0.2+ #1
+Hardware name: LENOVO 20NF0000GE/20NF0000GE, BIOS R11ET36W (1.16 ) 03/30/2020
+RIP: 0010:0x0
+Code: Unable to access opcode bytes at RIP 0xffffffffffffffd6.
+RSP: 0018:ffffbd594073bdc8 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffff993c4a620000 RCX: 0000000000000000
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff993c4a62a350
+RBP: ffff993c4a62d530 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000114
+R13: ffff993c4a620000 R14: 0000000000000000 R15: ffff993c4a62d128
+FS:  0000000000000000(0000) GS:ffff993ef0bc0000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: ffffffffffffffd6 CR3: 00000001959fc000 CR4: 00000000003506e0
+Call Trace:
+ <TASK>
+ amdgpu_sw_ring_ib_begin+0x70/0x80 [amdgpu]
+ amdgpu_ib_schedule+0x15f/0x5d0 [amdgpu]
+ amdgpu_job_run+0x102/0x1c0 [amdgpu]
+ drm_sched_main+0x19a/0x440 [gpu_sched]
+ ? dequeue_task_stop+0x70/0x70
+ ? drm_sched_resubmit_jobs+0x10/0x10 [gpu_sched]
+ kthread+0xe9/0x110
+ ? kthread_complete_and_exit+0x20/0x20
+ ret_from_fork+0x22/0x30
+ </TASK>
+[...]
+note: gfx_high[281] exited with preempt_count 1
+[...]
+[drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx_low timeout, signaled seq=14864, emitted seq=14865
+[drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process information: process firefox.dpkg-di pid 3540 thread firefox:cs0 pid 4666
+amdgpu 0000:05:00.0: amdgpu: GPU reset begin!
+
+
 -- 
-2.37.3
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
