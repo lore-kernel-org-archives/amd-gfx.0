@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57D37C43217
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 15:48:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61D87C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 15:48:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A252A10E4CB;
-	Thu, 20 Oct 2022 15:48:05 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2052.outbound.protection.outlook.com [40.107.101.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B109A10E0BB
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Oct 2022 15:47:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D3F410E0BB;
+	Thu, 20 Oct 2022 15:48:08 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2065.outbound.protection.outlook.com [40.107.243.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8805610E177
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Oct 2022 15:47:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mB+SCR9o4+sBAqbtRnq7n38Zuow+UiE4YaFXm8W1Whb7XJLgozQ4yslAWE17Zv47dDuGAoq9mr8gzItmcNRtrBhcHt3KBEOac68JynagVoTjXlIKnzCJDx/F1Jf+NY8sdgJhxBHyVhjzcMkycenI/XA5rTGUTDGWTw3GXKMLgPgAyIUhD87C4HlKz4wxkoJgZew59alFp10mqsFvrSYfrjr18j7z6U2OjzstNJZOIgBFn3GS+4phHpUP6NCcQ+TyJlbscZo7yb+gM0q2qCp0Gd1RIINhzbglHl1xmI/K5raYb3cfxLQ3cO7DdUe6CQR66+VVKbpAu0hV0gxE+AjRSA==
+ b=WSpC080GGOtQpk7yikzRs5iYaI2FD8C8pyHSf7AiGM5lSyByu7DaAyETiOERsfNXSkxGaxRITWw2k6Bk1a2qGPy4HCxN8LsFzKRFnCb+7LQeaYn5XhRVe6mWV9GehBxyC02S6Jo8eLFCGUefjpauIhsmG745NXk3q4zuT0lzuQnaIE3BOQwrdrX/wvQVbh9PHTrvTNXqP7sn/5MpsPQ+f6VLptPnwwfFQBR3m+5AOsoJFUo6LU0QQFRYIYVH5u7nEiuigmK1zBAumZIAY4nP5HaD2wI7oK37hqb1fC2ReMTNnfFbJoKQhIH1L5BlTt/Uka51m/9Gpli5ob1CYDPZNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Akew1DZv5+6sR4KmDFbiEy4DE8fQwdfB2MIt/jBLGcI=;
- b=A9rIW7jjBqvfHP91Yu3xLNwdjxxGmj/OYzFt3xiF1lJO2mT03Ha8xx7U9Uchm5ORkPJD7Pl4rMYSgL8uWPH+5ncM3YN80kSJIp1t1M9UVcE5fYbC018AC9hMfK7jkdzkWtCU1w8uUzK83BTBUGKwdKiR90X/e4m6bB1qLZmnk0Zu/1EdOZcXLlLpysigxAosDCvyATQdzlPJTuIDrbVnoc2yeL5glY5j0T/ImDNAEfznUX8UI++IMZ3G/+uj/EC93F9ifTp9Tw9tZnjHTdJ24R7w881KPfzeoS+yNLvpeCMc/R7zbq7NhPZCREhidGfh1wnf1q/8YvJtaNBK35O/gQ==
+ bh=dOVAMp0X7Yk7HK8DeIqyp+taK1+rMNel45RgMgpcmqU=;
+ b=O1B+J43mm3i1MYQAvWxJc3NUVVFyfdZCa9u6DfWtyIvbHXZXBbRgngUxUs7oYqkw4ZqHFv38LVdldBod/ess5tUatLhJPuj+T2e9GNQmIva1MkZ1F/nKQzs/B2j0/7jV6Z8Uw0RcFWEbQG+qoT8g4EP6+59EUlOawhhgMFdBAyu1bKFiZ0TjENHZr2c3D0k3M7rFy5Yt5UBsWg9SGFsfUfa+p2w4LVYxi1bJedT8czR2rtAsPI3t7IelFMvaspSgrVP0bggs+O2krp0hz4RAR1+JjIb1faFQLvcw2kVvlvV5i1WFg4nZWDXe8X/1hA4GWQHgFEllaQrOWuo81q+Imw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Akew1DZv5+6sR4KmDFbiEy4DE8fQwdfB2MIt/jBLGcI=;
- b=0QYmU5Ka7JsCa4INn4CD39iAan/IAyHNcrR843/SU1FqNqwhKR5Rcb6Dx+s/QXPjdLOcskrrf8fjXJWvgXtKWXVNCsKpylWfLu3iF+GV8cFvcZAOoPqdq8O4cuIhenrPIzAaNNyfiAW25/J0QewX+zAkZSSuNADAbprSAWreRnI=
-Received: from DS7PR05CA0056.namprd05.prod.outlook.com (2603:10b6:8:2f::17) by
- MN2PR12MB4191.namprd12.prod.outlook.com (2603:10b6:208:1d3::7) with
+ bh=dOVAMp0X7Yk7HK8DeIqyp+taK1+rMNel45RgMgpcmqU=;
+ b=B8xLrPoU6N4Fzmk1hbYDLAfAiSORh1jor4tPATCvEupS9EnLy7/UOOVI0XIua7xY98rzRdZ/jm9NnFzEAiZ4Xx80lG0PNSfgOKhdMK9BN9pZpjCUS0UVrcsOTSlUoCp2AeWiRz6m1OONQZzyIXpaWP3WoI8GvFaIBwYiV7ApRqQ=
+Received: from DS7PR06CA0016.namprd06.prod.outlook.com (2603:10b6:8:2a::29) by
+ BY5PR12MB4034.namprd12.prod.outlook.com (2603:10b6:a03:205::9) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5723.34; Thu, 20 Oct 2022 15:47:41 +0000
-Received: from DM6NAM11FT055.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2f:cafe::3e) by DS7PR05CA0056.outlook.office365.com
- (2603:10b6:8:2f::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.11 via Frontend
- Transport; Thu, 20 Oct 2022 15:47:41 +0000
+ 15.20.5723.34; Thu, 20 Oct 2022 15:47:54 +0000
+Received: from DM6NAM11FT021.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2a:cafe::d8) by DS7PR06CA0016.outlook.office365.com
+ (2603:10b6:8:2a::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.35 via Frontend
+ Transport; Thu, 20 Oct 2022 15:47:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT055.mail.protection.outlook.com (10.13.173.103) with Microsoft SMTP
+ DM6NAM11FT021.mail.protection.outlook.com (10.13.173.76) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5746.16 via Frontend Transport; Thu, 20 Oct 2022 15:47:41 +0000
+ 15.20.5746.16 via Frontend Transport; Thu, 20 Oct 2022 15:47:54 +0000
 Received: from atma3.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 20 Oct
- 2022 10:47:39 -0500
+ 2022 10:47:51 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 06/33] drm/amd/display: correctly populate dcn315 clock table
-Date: Thu, 20 Oct 2022 11:46:35 -0400
-Message-ID: <20221020154702.503934-7-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 14/33] drm/amd/display: Drop struct crc_region and reuse
+ struct rect
+Date: Thu, 20 Oct 2022 11:46:43 -0400
+Message-ID: <20221020154702.503934-15-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221020154702.503934-1-Rodrigo.Siqueira@amd.com>
 References: <20221020154702.503934-1-Rodrigo.Siqueira@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT055:EE_|MN2PR12MB4191:EE_
-X-MS-Office365-Filtering-Correlation-Id: d57c2029-c3d9-4b69-9ddf-08dab2b26c16
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT021:EE_|BY5PR12MB4034:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3bc698cd-bac4-4eae-54c7-08dab2b273d5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7HPaVKNyONxXfYw8Mmoe7SxKgEHBXDcP11kUJ4q4zu7X0WClXJ5xe7+RLrKDMz8A8dW2wT4KiljIy2b/c2W2Cej3HqLqeqIvgzpTQfI2VetvZjKBMQWbmpnoGjUjNfk/GrPmLmquIryx0YSv/21cFKA//fsdddKvlW1PV6Mo+uNuS2H6d9EF1No8qX7NpV0fY/uvgX7yUemNYPxzJm6pZQY97bH7KD30u9L+eB6UuO4JMmeQ35RKMbYvKRk/gK252aiNj34ecyFcYfs+xnTZ92aKfKHWOfGyN73vyDyAPaIbNYJnFHpHQa7UmEPY1pxX5ib0/VfSZf8RSdeN8LxkNW9XsAIkooISgXblpMKPMiHA8Du+w6f8vwrTZouEp56htzrCe68fhu+r/yoK1pxQJ7LWL2yLbJo2Jr9n9ENkGBszrwBWTMHuXkOougywqRUGIde14sQ7wQjilRncdGmZtqlF862gnJ339hBEiEceVLOOjb9q/wTMtJN6+eKBc01BsUnoEzSC2hwJrVb9BssVHckA+Ky/TvHOyFOgeJZRiwkoZuIzUpTsDDN0tZyq/cL6GLDy/GeWOaaDFVrG9w+n6BCi3FnAJDzQghpB8qNdEgX9/C38zm61c0NFtYL9kU5oeg1pvQv17dWv3RtQoIoYiw3bnProMiyPsj+mpBmZKU6FyUT1fjhiu5VowssIw4nPuig3xat+dccFlxaOdgXAQl4Ot2sXkI3LMeDiLnmGcxiA81DfxH5q+VH2QueVD1fi/dn4DXPwPNSr58XdssF2w++bv7G9DJrUtBlXn5opeWD5SyTrJVoJMS67lhxOyuID
+X-Microsoft-Antispam-Message-Info: Iu1olwGBQ8WlziRdj//4OjFSy69ky1C/kg3HMA2wnSWbDPj6IalzVTS9aWo3XdHSgOUJpDrhiQ6+2o9l0Ee9pETjuN8Bb2NSe45J+GnPg0/WNkXQ2ZzcF4UkZ+aLvj1i9b2Vt1weO8qfhFG2Gnn+XGxOH0vVuFr/0Ru4bQXPsZWXvfHX3iFtm0DVtj81o55a8uBx2jAW4h1WxbyM3V+AB1pHPfejLSG6iFUk9iPzRffaaeIMGpYSCTt+5v/r5eVlFfeJxWlRzYkwLr6Bgv3RWkZ2R4Zy1u8j/Mp01C8CDnsDk41jNcDpZO5AGRo71OS+vYhnpZsORdu41tqmTwUGWohuMLk8eL/nsb5EiPJjCX+4KxULRxzOLJBYratkBDce9UX1K9PWn0ZQahXRw0x04hAnqP0A5SSD+AhIAJgVlwfbfm451mSjutAtk4niOKvlV8jcaf0xkeqeSTZxsq2JmjoWj9s0dDgFAkIM79TWC9SA4Bjh+TlY/XkcBzZp3kUtzMrpG7FtAHFu+z2Fx8kFR9XOHWQAiJ7x614bs2Cok5l4ha5wBKxV/Yy8gBxvxky45MBmlyaDYuvViMOKslVMu0uRn5XH+xpS/e4gv6/oJhIJwxvKDd5QWC1fkBtmpVO4nYJjo6udc5neKskTWei8SepXbbqARUf/gAoprgmTAbuQ2aVEVm49NCCOKo8EXkPkQFh5hcRS9G/Kx+HPKGhy7t7FgXMful4fqZwht6QDaL5IQq71yHK0FCu89+5S5neBcuR/UIFUkSH6VoLI+Pm2cY0ppXEzoq4pX0WmBb/TscDJk0cSLEFRLewzOBn/0MnK
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(39860400002)(346002)(376002)(136003)(451199015)(36840700001)(40470700004)(46966006)(186003)(81166007)(2906002)(356005)(1076003)(2616005)(16526019)(478600001)(40460700003)(82310400005)(54906003)(36756003)(70586007)(47076005)(70206006)(426003)(4326008)(8676002)(6916009)(41300700001)(26005)(83380400001)(82740400003)(86362001)(7696005)(316002)(40480700001)(36860700001)(336012)(8936002)(5660300002)(6666004)(36900700001);
+ SFS:(13230022)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199015)(40470700004)(46966006)(36840700001)(82740400003)(186003)(16526019)(336012)(2616005)(1076003)(7696005)(36860700001)(26005)(316002)(47076005)(6666004)(426003)(40460700003)(2906002)(83380400001)(40480700001)(5660300002)(30864003)(478600001)(82310400005)(41300700001)(70206006)(6916009)(70586007)(8676002)(8936002)(54906003)(4326008)(36756003)(86362001)(356005)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2022 15:47:41.2909 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d57c2029-c3d9-4b69-9ddf-08dab2b26c16
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2022 15:47:54.2848 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3bc698cd-bac4-4eae-54c7-08dab2b273d5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT055.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT021.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4191
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4034
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,146 +100,334 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Sunpeng.Li@amd.com,
+Cc: stylon.wang@amd.com, Alan Liu <HaoPing.Liu@amd.com>, Sunpeng.Li@amd.com,
  Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
  roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+ Wayne Lin <Wayne.Lin@amd.com>, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+From: Alan Liu <HaoPing.Liu@amd.com>
 
-Fix incorrect pstate read order as well as min and max state logic.
+[Why]
+reuse struct rect rather than adding a new struct.
 
-Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
+[How]
+- Userspace keeps inputting x_start, y_start, x_end, y_end
+- We translate data to x, y, width, height in code flow to store
+- translate back to x_start, y_start, x_end, y_end before programming HW
+
+Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Signed-off-by: Alan Liu <HaoPing.Liu@amd.com>
 ---
- .../dc/clk_mgr/dcn315/dcn315_clk_mgr.c        | 71 ++++++-------------
- 1 file changed, 23 insertions(+), 48 deletions(-)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 20 ++++++++++---------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h |  7 +++++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 16 +++++++--------
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 20 +++++++++----------
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |  7 -------
+ drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c | 14 +++++++++----
+ drivers/gpu/drm/amd/display/dc/inc/hw/dmcu.h  |  2 +-
+ 8 files changed, 46 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-index 893991a0eb97..07edd9777edf 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-@@ -458,19 +458,6 @@ static void dcn315_get_dpm_table_from_smu(struct clk_mgr_internal *clk_mgr,
- 	dcn315_smu_transfer_dpm_table_smu_2_dram(clk_mgr);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+index a857f6454753..fb077e9af99f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+@@ -89,10 +89,10 @@ static void amdgpu_dm_set_crc_window_default(struct drm_crtc *crtc)
+ 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+ 
+ 	spin_lock_irq(&drm_dev->event_lock);
+-	acrtc->dm_irq_params.window_param.roi.x_start = 0;
+-	acrtc->dm_irq_params.window_param.roi.y_start = 0;
+-	acrtc->dm_irq_params.window_param.roi.x_end = 0;
+-	acrtc->dm_irq_params.window_param.roi.y_end = 0;
++	acrtc->dm_irq_params.window_param.x_start = 0;
++	acrtc->dm_irq_params.window_param.y_start = 0;
++	acrtc->dm_irq_params.window_param.x_end = 0;
++	acrtc->dm_irq_params.window_param.y_end = 0;
+ 	acrtc->dm_irq_params.window_param.activated = false;
+ 	acrtc->dm_irq_params.window_param.update_win = false;
+ 	acrtc->dm_irq_params.window_param.skip_frame_cnt = 0;
+@@ -145,7 +145,7 @@ amdgpu_dm_forward_crc_window(struct work_struct *work)
+ 	dm = crc_fw_wrk->dm;
+ 
+ 	mutex_lock(&dm->dc_lock);
+-	dc_stream_forward_crc_window(dm->dc, &crc_fw_wrk->roi, crc_fw_wrk->stream, crc_fw_wrk->is_stop_cmd);
++	dc_stream_forward_crc_window(dm->dc, &crc_fw_wrk->rect, crc_fw_wrk->stream, crc_fw_wrk->is_stop_cmd);
+ 	mutex_unlock(&dm->dc_lock);
+ 
+ 	kfree(crc_fw_wrk);
+@@ -496,10 +496,12 @@ void amdgpu_dm_crtc_handle_crc_window_irq(struct drm_crtc *crtc)
+ 		INIT_WORK(&crc_fw_wrk->forward_roi_work, amdgpu_dm_forward_crc_window);
+ 		crc_fw_wrk->dm = &adev->dm;
+ 		crc_fw_wrk->stream = stream_state;
+-		crc_fw_wrk->roi.x_start = acrtc->dm_irq_params.window_param.roi.x_start;
+-		crc_fw_wrk->roi.y_start = acrtc->dm_irq_params.window_param.roi.y_start;
+-		crc_fw_wrk->roi.x_end = acrtc->dm_irq_params.window_param.roi.x_end;
+-		crc_fw_wrk->roi.y_end = acrtc->dm_irq_params.window_param.roi.y_end;
++		crc_fw_wrk->rect.x = acrtc->dm_irq_params.window_param.x_start;
++		crc_fw_wrk->rect.y = acrtc->dm_irq_params.window_param.y_start;
++		crc_fw_wrk->rect.width = acrtc->dm_irq_params.window_param.x_end -
++								acrtc->dm_irq_params.window_param.x_start;
++		crc_fw_wrk->rect.height = acrtc->dm_irq_params.window_param.y_end -
++								acrtc->dm_irq_params.window_param.y_start;
+ 		schedule_work(&crc_fw_wrk->forward_roi_work);
+ 
+ 		acrtc->dm_irq_params.window_param.update_win = false;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
+index 16bfc2dc35ab..71bce608d751 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
+@@ -41,7 +41,10 @@ enum amdgpu_dm_pipe_crc_source {
+ 
+ #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
+ struct crc_window_param {
+-	struct crc_region roi;
++	uint16_t x_start;
++	uint16_t y_start;
++	uint16_t x_end;
++	uint16_t y_end;
+ 	/* CRC windwo is activated or not*/
+ 	bool activated;
+ 	/* Update crc window during vertical blank or not */
+@@ -64,7 +67,7 @@ struct crc_fw_work {
+ 	struct work_struct forward_roi_work;
+ 	struct amdgpu_display_manager *dm;
+ 	struct dc_stream_state *stream;
+-	struct crc_region roi;
++	struct rect rect;
+ 	bool is_stop_cmd;
+ };
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index dcd47dd86303..cc8c2ea047ce 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -3100,7 +3100,7 @@ static int crc_win_x_start_set(void *data, u64 val)
+ 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+ 
+ 	spin_lock_irq(&drm_dev->event_lock);
+-	acrtc->dm_irq_params.window_param.roi.x_start = (uint16_t) val;
++	acrtc->dm_irq_params.window_param.x_start = (uint16_t) val;
+ 	acrtc->dm_irq_params.window_param.update_win = false;
+ 	spin_unlock_irq(&drm_dev->event_lock);
+ 
+@@ -3117,7 +3117,7 @@ static int crc_win_x_start_get(void *data, u64 *val)
+ 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+ 
+ 	spin_lock_irq(&drm_dev->event_lock);
+-	*val = acrtc->dm_irq_params.window_param.roi.x_start;
++	*val = acrtc->dm_irq_params.window_param.x_start;
+ 	spin_unlock_irq(&drm_dev->event_lock);
+ 
+ 	return 0;
+@@ -3137,7 +3137,7 @@ static int crc_win_y_start_set(void *data, u64 val)
+ 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+ 
+ 	spin_lock_irq(&drm_dev->event_lock);
+-	acrtc->dm_irq_params.window_param.roi.y_start = (uint16_t) val;
++	acrtc->dm_irq_params.window_param.y_start = (uint16_t) val;
+ 	acrtc->dm_irq_params.window_param.update_win = false;
+ 	spin_unlock_irq(&drm_dev->event_lock);
+ 
+@@ -3154,7 +3154,7 @@ static int crc_win_y_start_get(void *data, u64 *val)
+ 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+ 
+ 	spin_lock_irq(&drm_dev->event_lock);
+-	*val = acrtc->dm_irq_params.window_param.roi.y_start;
++	*val = acrtc->dm_irq_params.window_param.y_start;
+ 	spin_unlock_irq(&drm_dev->event_lock);
+ 
+ 	return 0;
+@@ -3173,7 +3173,7 @@ static int crc_win_x_end_set(void *data, u64 val)
+ 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+ 
+ 	spin_lock_irq(&drm_dev->event_lock);
+-	acrtc->dm_irq_params.window_param.roi.x_end = (uint16_t) val;
++	acrtc->dm_irq_params.window_param.x_end = (uint16_t) val;
+ 	acrtc->dm_irq_params.window_param.update_win = false;
+ 	spin_unlock_irq(&drm_dev->event_lock);
+ 
+@@ -3190,7 +3190,7 @@ static int crc_win_x_end_get(void *data, u64 *val)
+ 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+ 
+ 	spin_lock_irq(&drm_dev->event_lock);
+-	*val = acrtc->dm_irq_params.window_param.roi.x_end;
++	*val = acrtc->dm_irq_params.window_param.x_end;
+ 	spin_unlock_irq(&drm_dev->event_lock);
+ 
+ 	return 0;
+@@ -3209,7 +3209,7 @@ static int crc_win_y_end_set(void *data, u64 val)
+ 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+ 
+ 	spin_lock_irq(&drm_dev->event_lock);
+-	acrtc->dm_irq_params.window_param.roi.y_end = (uint16_t) val;
++	acrtc->dm_irq_params.window_param.y_end = (uint16_t) val;
+ 	acrtc->dm_irq_params.window_param.update_win = false;
+ 	spin_unlock_irq(&drm_dev->event_lock);
+ 
+@@ -3226,7 +3226,7 @@ static int crc_win_y_end_get(void *data, u64 *val)
+ 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+ 
+ 	spin_lock_irq(&drm_dev->event_lock);
+-	*val = acrtc->dm_irq_params.window_param.roi.y_end;
++	*val = acrtc->dm_irq_params.window_param.y_end;
+ 	spin_unlock_irq(&drm_dev->event_lock);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 58352de24061..20c16ca935f7 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -493,7 +493,7 @@ bool dc_stream_get_crtc_position(struct dc *dc,
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+ static inline void
+ dc_stream_forward_dmub_crc_window(struct dc_dmub_srv *dmub_srv,
+-		struct crc_region *roi, struct otg_phy_mux *mux_mapping, bool is_stop)
++		struct rect *rect, struct otg_phy_mux *mux_mapping, bool is_stop)
+ {
+ 	union dmub_rb_cmd cmd = {0};
+ 
+@@ -506,10 +506,10 @@ dc_stream_forward_dmub_crc_window(struct dc_dmub_srv *dmub_srv,
+ 	} else {
+ 		cmd.secure_display.header.type = DMUB_CMD__SECURE_DISPLAY;
+ 		cmd.secure_display.header.sub_type = DMUB_CMD__SECURE_DISPLAY_CRC_WIN_NOTIFY;
+-		cmd.secure_display.roi_info.x_start = roi->x_start;
+-		cmd.secure_display.roi_info.y_start = roi->y_start;
+-		cmd.secure_display.roi_info.x_end = roi->x_end;
+-		cmd.secure_display.roi_info.y_end = roi->y_end;
++		cmd.secure_display.roi_info.x_start = rect->x;
++		cmd.secure_display.roi_info.y_start = rect->y;
++		cmd.secure_display.roi_info.x_end = rect->x + rect->width;
++		cmd.secure_display.roi_info.y_end = rect->y + rect->height;
+ 	}
+ 
+ 	dc_dmub_srv_cmd_queue(dmub_srv, &cmd);
+@@ -518,17 +518,17 @@ dc_stream_forward_dmub_crc_window(struct dc_dmub_srv *dmub_srv,
+ 
+ static inline void
+ dc_stream_forward_dmcu_crc_window(struct dmcu *dmcu,
+-		struct crc_region *roi, struct otg_phy_mux *mux_mapping, bool is_stop)
++		struct rect *rect, struct otg_phy_mux *mux_mapping, bool is_stop)
+ {
+ 	if (is_stop)
+ 		dmcu->funcs->stop_crc_win_update(dmcu, mux_mapping);
+ 	else
+-		dmcu->funcs->forward_crc_window(dmcu, roi, mux_mapping);
++		dmcu->funcs->forward_crc_window(dmcu, rect, mux_mapping);
  }
  
--static uint32_t find_max_clk_value(const uint32_t clocks[], uint32_t num_clocks)
--{
--	uint32_t max = 0;
--	int i;
--
--	for (i = 0; i < num_clocks; ++i) {
--		if (clocks[i] > max)
--			max = clocks[i];
--	}
--
--	return max;
--}
--
- static void dcn315_clk_mgr_helper_populate_bw_params(
- 		struct clk_mgr_internal *clk_mgr,
- 		struct integrated_info *bios_info,
-@@ -478,29 +465,21 @@ static void dcn315_clk_mgr_helper_populate_bw_params(
+ bool
+ dc_stream_forward_crc_window(struct dc *dc,
+-		struct crc_region *roi, struct dc_stream_state *stream, bool is_stop)
++		struct rect *rect, struct dc_stream_state *stream, bool is_stop)
  {
- 	int i;
- 	struct clk_bw_params *bw_params = clk_mgr->base.bw_params;
--	uint32_t max_pstate = 0, max_fclk = 0, min_pstate = 0;
-+	uint32_t max_pstate = clock_table->NumDfPstatesEnabled - 1;
- 	struct clk_limit_table_entry def_max = bw_params->clk_table.entries[bw_params->clk_table.num_entries - 1];
+ 	struct dmcu *dmcu;
+ 	struct dc_dmub_srv *dmub_srv;
+@@ -554,10 +554,10 @@ dc_stream_forward_crc_window(struct dc *dc,
  
--	/* Find highest fclk pstate */
--	for (i = 0; i < clock_table->NumDfPstatesEnabled; i++) {
--		if (clock_table->DfPstateTable[i].FClk > max_fclk) {
--			max_fclk = clock_table->DfPstateTable[i].FClk;
--			max_pstate = i;
--		}
--	}
+ 	/* forward to dmub */
+ 	if (dmub_srv)
+-		dc_stream_forward_dmub_crc_window(dmub_srv, roi, &mux_mapping, is_stop);
++		dc_stream_forward_dmub_crc_window(dmub_srv, rect, &mux_mapping, is_stop);
+ 	/* forward to dmcu */
+ 	else if (dmcu && dmcu->funcs->is_dmcu_initialized(dmcu))
+-		dc_stream_forward_dmcu_crc_window(dmcu, roi, &mux_mapping, is_stop);
++		dc_stream_forward_dmcu_crc_window(dmcu, rect, &mux_mapping, is_stop);
+ 	else
+ 		return false;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index 26f8f18e675c..4d30ae0ca721 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -522,7 +522,7 @@ bool dc_stream_get_crtc_position(struct dc *dc,
+ 
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+ bool dc_stream_forward_crc_window(struct dc *dc,
+-		struct crc_region *roi,
++		struct rect *rect,
+ 		struct dc_stream_state *stream,
+ 		bool is_stop);
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index 27dd4304ce69..dc78e2404b48 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -994,13 +994,6 @@ struct display_endpoint_id {
+ };
+ 
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+-struct crc_region {
+-	uint16_t x_start;
+-	uint16_t y_start;
+-	uint16_t x_end;
+-	uint16_t y_end;
+-};
 -
- 	/* For 315 we want to base clock table on dcfclk, need at least one entry regardless of pmfw table */
- 	for (i = 0; i < clock_table->NumDcfClkLevelsEnabled; i++) {
- 		int j;
--		uint32_t min_fclk = clock_table->DfPstateTable[0].FClk;
+ struct otg_phy_mux {
+ 	uint8_t phy_output_num;
+ 	uint8_t otg_output_num;
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
+index fbb19e253f50..d3cc5ec46956 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
+@@ -927,19 +927,20 @@ static bool dcn10_recv_edid_cea_ack(struct dmcu *dmcu, int *offset)
  
--		for (j = 1; j < clock_table->NumDfPstatesEnabled; j++) {
--			if (clock_table->DfPstateTable[j].Voltage <= clock_table->SocVoltage[i]
--					&& clock_table->DfPstateTable[j].FClk < min_fclk) {
--				min_fclk = clock_table->DfPstateTable[j].FClk;
--				min_pstate = j;
--			}
-+		/* DF table is sorted with clocks decreasing */
-+		for (j = clock_table->NumDfPstatesEnabled - 2; j >= 0; j--) {
-+			if (clock_table->DfPstateTable[j].Voltage <= clock_table->SocVoltage[i])
-+				max_pstate = j;
- 		}
-+		/* Max DCFCLK should match up with max pstate */
-+		if (i == clock_table->NumDcfClkLevelsEnabled - 1)
-+			max_pstate = 0;
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+ static void dcn10_forward_crc_window(struct dmcu *dmcu,
+-					struct crc_region *crc_win,
++					struct rect *rect,
+ 					struct otg_phy_mux *mux_mapping)
+ {
+ 	struct dce_dmcu *dmcu_dce = TO_DCE_DMCU(dmcu);
+ 	unsigned int dmcu_max_retry_on_wait_reg_ready = 801;
+ 	unsigned int dmcu_wait_reg_ready_interval = 100;
+ 	unsigned int crc_start = 0, crc_end = 0, otg_phy_mux = 0;
++	int x_start, y_start, x_end, y_end;
  
- 		/* First search defaults for the clocks we don't read using closest lower or equal default dcfclk */
- 		for (j = bw_params->clk_table.num_entries - 1; j > 0; j--)
-@@ -511,9 +490,9 @@ static void dcn315_clk_mgr_helper_populate_bw_params(
- 		bw_params->clk_table.entries[i].dtbclk_mhz = bw_params->clk_table.entries[j].dtbclk_mhz;
+ 	/* If microcontroller is not running, do nothing */
+ 	if (dmcu->dmcu_state != DMCU_RUNNING)
+ 		return;
  
- 		/* Now update clocks we do read */
--		bw_params->clk_table.entries[i].fclk_mhz = min_fclk;
--		bw_params->clk_table.entries[i].memclk_mhz = clock_table->DfPstateTable[min_pstate].MemClk;
--		bw_params->clk_table.entries[i].voltage = clock_table->DfPstateTable[min_pstate].Voltage;
-+		bw_params->clk_table.entries[i].fclk_mhz = clock_table->DfPstateTable[max_pstate].FClk;
-+		bw_params->clk_table.entries[i].memclk_mhz = clock_table->DfPstateTable[max_pstate].MemClk;
-+		bw_params->clk_table.entries[i].voltage = clock_table->SocVoltage[i];
- 		bw_params->clk_table.entries[i].dcfclk_mhz = clock_table->DcfClocks[i];
- 		bw_params->clk_table.entries[i].socclk_mhz = clock_table->SocClocks[i];
- 		bw_params->clk_table.entries[i].dispclk_mhz = clock_table->DispClocks[i];
-@@ -521,25 +500,16 @@ static void dcn315_clk_mgr_helper_populate_bw_params(
- 		bw_params->clk_table.entries[i].wck_ratio = 1;
- 	}
+-	if (!crc_win)
++	if (!rect)
+ 		return;
  
--	/* Make sure to include at least one entry and highest pstate */
--	if (max_pstate != min_pstate || i == 0) {
--		bw_params->clk_table.entries[i].fclk_mhz = max_fclk;
--		bw_params->clk_table.entries[i].memclk_mhz = clock_table->DfPstateTable[max_pstate].MemClk;
--		bw_params->clk_table.entries[i].voltage = clock_table->DfPstateTable[max_pstate].Voltage;
--		bw_params->clk_table.entries[i].dcfclk_mhz = find_max_clk_value(clock_table->DcfClocks, NUM_DCFCLK_DPM_LEVELS);
-+	/* Make sure to include at least one entry */
-+	if (i == 0) {
-+		bw_params->clk_table.entries[i].fclk_mhz = clock_table->DfPstateTable[0].FClk;
-+		bw_params->clk_table.entries[i].memclk_mhz = clock_table->DfPstateTable[0].MemClk;
-+		bw_params->clk_table.entries[i].voltage = clock_table->DfPstateTable[0].Voltage;
-+		bw_params->clk_table.entries[i].dcfclk_mhz = clock_table->DcfClocks[0];
- 		bw_params->clk_table.entries[i].wck_ratio = 1;
- 		i++;
- 	}
--	bw_params->clk_table.num_entries = i--;
--
--	/* Make sure all highest clocks are included*/
--	bw_params->clk_table.entries[i].socclk_mhz = find_max_clk_value(clock_table->SocClocks, NUM_SOCCLK_DPM_LEVELS);
--	bw_params->clk_table.entries[i].dispclk_mhz = find_max_clk_value(clock_table->DispClocks, NUM_DISPCLK_DPM_LEVELS);
--	bw_params->clk_table.entries[i].dppclk_mhz = find_max_clk_value(clock_table->DppClocks, NUM_DPPCLK_DPM_LEVELS);
--	ASSERT(clock_table->DcfClocks[i] == find_max_clk_value(clock_table->DcfClocks, NUM_DCFCLK_DPM_LEVELS));
--	bw_params->clk_table.entries[i].phyclk_mhz = def_max.phyclk_mhz;
--	bw_params->clk_table.entries[i].phyclk_d18_mhz = def_max.phyclk_d18_mhz;
--	bw_params->clk_table.entries[i].dtbclk_mhz = def_max.dtbclk_mhz;
-+	bw_params->clk_table.num_entries = i;
+ 	/* waitDMCUReadyForCmd */
+@@ -947,9 +948,14 @@ static void dcn10_forward_crc_window(struct dmcu *dmcu,
+ 				dmcu_wait_reg_ready_interval,
+ 				dmcu_max_retry_on_wait_reg_ready);
  
- 	/* Set any 0 clocks to max default setting. Not an issue for
- 	 * power since we aren't doing switching in such case anyway
-@@ -565,6 +535,11 @@ static void dcn315_clk_mgr_helper_populate_bw_params(
- 		if (!bw_params->clk_table.entries[i].dtbclk_mhz)
- 			bw_params->clk_table.entries[i].dtbclk_mhz = def_max.dtbclk_mhz;
- 	}
++	x_start = rect->x;
++	y_start = rect->y;
++	x_end = x_start + rect->width;
++	y_end = y_start + rect->height;
 +
-+	/* Make sure all highest default clocks are included*/
-+	ASSERT(bw_params->clk_table.entries[i-1].phyclk_mhz == def_max.phyclk_mhz);
-+	ASSERT(bw_params->clk_table.entries[i-1].phyclk_d18_mhz == def_max.phyclk_d18_mhz);
-+	ASSERT(bw_params->clk_table.entries[i-1].dtbclk_mhz == def_max.dtbclk_mhz);
- 	ASSERT(bw_params->clk_table.entries[i-1].dcfclk_mhz);
- 	bw_params->vram_type = bios_info->memory_type;
- 	bw_params->num_channels = bios_info->ma_channel_number;
+ 	/* build up nitification data */
+-	crc_start = (((unsigned int) crc_win->x_start) << 16) | crc_win->y_start;
+-	crc_end = (((unsigned int) crc_win->x_end) << 16) | crc_win->y_end;
++	crc_start = (((unsigned int) x_start) << 16) | y_start;
++	crc_end = (((unsigned int) x_end) << 16) | y_end;
+ 	otg_phy_mux =
+ 		(((unsigned int) mux_mapping->otg_output_num) << 16) | mux_mapping->phy_output_num;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dmcu.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dmcu.h
+index 9a2432608ddf..de3113ecbc77 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/dmcu.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dmcu.h
+@@ -86,7 +86,7 @@ struct dmcu_funcs {
+ 	bool (*recv_edid_cea_ack)(struct dmcu *dmcu, int *offset);
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+ 	void (*forward_crc_window)(struct dmcu *dmcu,
+-			struct crc_region *crc_win,
++			struct rect *rect,
+ 			struct otg_phy_mux *mux_mapping);
+ 	void (*stop_crc_win_update)(struct dmcu *dmcu,
+ 			struct otg_phy_mux *mux_mapping);
 -- 
 2.35.1
 
