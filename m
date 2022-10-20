@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BD43C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 10:41:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47286C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 10:41:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1338610EAB7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C57D910EB2A;
 	Thu, 20 Oct 2022 10:38:37 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DAF010E717;
- Thu, 20 Oct 2022 10:38:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AF9110E6F6;
+ Thu, 20 Oct 2022 10:38:04 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DE84D1FA48;
- Thu, 20 Oct 2022 10:38:01 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E11901FA90;
+ Thu, 20 Oct 2022 10:38:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666262281; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1666262282; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TEgpl55AepC361EexBBEYuHLTFWdn6vIDOCsAIRAdbs=;
- b=AJq1HDi4mThCywNbsDoinhziCOvhwOWDf/KaqbLD9BIxZWF3RJc8Q6yjFbAYUctj7cT5ab
- ILadHlCgqINQgo4eRiMLMe6NNhv5ATaD+RplwNroGQ8btG2hXvSpioeoFAgK/zzzrH6ohw
- 0J+C55W94IIN5heAULo+EEO3yzDk4tI=
+ bh=YkMHENyFsh6/3SjkSTuYRYMbHc7R5XzWBBCbrwJgYhc=;
+ b=1iiK5H3VCq2QZPD9I6TaLe5/dMWlIhalrt5djJ2luVVaxnv1fAuIh/hwuw6a3/WNyh20Zx
+ q30hl/TTc5vv9pZ08LkTAQW5UIo5mgzBkMj6j3gzxw0Alyq38w6Ako/4EdwH437ov9gCMb
+ 69LE0q28P52yd357VRsNAHoJ7rSH73s=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666262281;
+ s=susede2_ed25519; t=1666262282;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TEgpl55AepC361EexBBEYuHLTFWdn6vIDOCsAIRAdbs=;
- b=AQCoFHh+2wQhVT9GDAYJbWIYQLcMCP63/l5NM1FsXeL6KZxteKRzRGp//IUiBz30//HCHF
- VtwNVvPmLxS4YkBw==
+ bh=YkMHENyFsh6/3SjkSTuYRYMbHc7R5XzWBBCbrwJgYhc=;
+ b=x46APQL1svgGc11HQOHFEs8osVroEdR2Ae3IDMhH3RiyBUJNS8G/LmoWWl6MsmYBLslbim
+ A0NNGlzosuhEQTBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5DB0613AF5;
- Thu, 20 Oct 2022 10:38:01 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 720DE13AF5;
+ Thu, 20 Oct 2022 10:38:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id YBkHFgklUWPPYwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 20 Oct 2022 10:38:01 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id aMgYGwolUWPPYwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 20 Oct 2022 10:38:02 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
  mripard@kernel.org, maarten.lankhorst@linux.intel.com
-Subject: [PATCH 09/21] drm/panel-ili9341: Include <linux/backlight.h>
-Date: Thu, 20 Oct 2022 12:37:43 +0200
-Message-Id: <20221020103755.24058-10-tzimmermann@suse.de>
+Subject: [PATCH 11/21] drm/fb-helper: Cleanup include statements in header file
+Date: Thu, 20 Oct 2022 12:37:45 +0200
+Message-Id: <20221020103755.24058-12-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221020103755.24058-1-tzimmermann@suse.de>
 References: <20221020103755.24058-1-tzimmermann@suse.de>
@@ -82,25 +82,31 @@ Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Include <linux/backlight.h> for devm_of_find_backlight().
+Only include what we have to.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/panel/panel-ilitek-ili9341.c | 1 +
- 1 file changed, 1 insertion(+)
+ include/drm/drm_fb_helper.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9341.c b/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
-index 39dc40cf681f0..b59472c29a40d 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
-@@ -18,6 +18,7 @@
-  * Copyright 2018 David Lechner <david@lechnology.com>
-  */
+diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
+index fddd0d1af6891..e923089522896 100644
+--- a/include/drm/drm_fb_helper.h
++++ b/include/drm/drm_fb_helper.h
+@@ -32,11 +32,9 @@
  
-+#include <linux/backlight.h>
- #include <linux/bitops.h>
- #include <linux/delay.h>
- #include <linux/gpio/consumer.h>
+ struct drm_fb_helper;
+ 
+-#include <drm/drm_client.h>
+-#include <drm/drm_crtc.h>
+-#include <drm/drm_device.h>
+ #include <linux/fb.h>
+-#include <linux/kgdb.h>
++
++#include <drm/drm_client.h>
+ 
+ enum mode_set_atomic {
+ 	LEAVE_ATOMIC_MODE_SET,
 -- 
 2.38.0
 
