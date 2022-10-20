@@ -4,43 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D005C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 07:31:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DADEC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 07:31:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 816BB10E603;
-	Fri, 21 Oct 2022 07:31:39 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AED4C10E54B
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 02:22:51 +0000 (UTC)
-Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.57])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MtpCN18FmzHvCF;
- Fri, 21 Oct 2022 10:22:40 +0800 (CST)
-Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
- dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Fri, 21 Oct 2022 10:22:44 +0800
-Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
- (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 21 Oct
- 2022 10:22:43 +0800
-From: Yang Yingliang <yangyingliang@huawei.com>
-To: <linux-kernel@vger.kernel.org>, <qemu-devel@nongnu.org>,
- <linux-f2fs-devel@lists.sourceforge.net>, <linux-erofs@lists.ozlabs.org>,
- <ocfs2-devel@oss.oracle.com>, <linux-mtd@lists.infradead.org>,
- <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 08/11] erofs: fix possible memory leak in erofs_init_sysfs()
-Date: Fri, 21 Oct 2022 10:20:59 +0800
-Message-ID: <20221021022102.2231464-9-yangyingliang@huawei.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221021022102.2231464-1-yangyingliang@huawei.com>
-References: <20221021022102.2231464-1-yangyingliang@huawei.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B91110E607;
+	Fri, 21 Oct 2022 07:31:41 +0000 (UTC)
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [IPv6:2607:f8b0:4864:20::b2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2537210E1D6;
+ Thu, 20 Oct 2022 14:52:27 +0000 (UTC)
+Received: by mail-yb1-xb2c.google.com with SMTP id 63so24916053ybq.4;
+ Thu, 20 Oct 2022 07:52:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=qZSF0rU/LadxcXivSMUu41VqTSGqH3cS7lnDUCpCbSE=;
+ b=V4bzuVfCQb8oZNc1313fCgiGezNI7Q0DGAHlDFbsq8DV9fiyV1nE0FOfGBM7Ra3GVs
+ j2yWvCoyZC/1wKa7k8vVGhSwdblPIIEYU0FJ6LzbUk8Pv44Xa4oSSJPAPZCHV+85QgJN
+ iFK1PYjlLgLzQbkgkTRKnmrMM4DExs8WD6MePBGzW18XKq0ejyDIem7dOn5IRA82I6Kd
+ W2VnNun5T0WIU1nqtozcRUmHyhNI7y/IkqnQMr9ab5ycczyl1lk2IAlxMm01TcWlAuUN
+ 4RlUfqIuWImjiAS7StfMe210fvnQmuZ7BihywSl9Hf9w6dpHNhX7iSJLv+eDOlIG1UN3
+ HUdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=qZSF0rU/LadxcXivSMUu41VqTSGqH3cS7lnDUCpCbSE=;
+ b=QB2G+YWmbcewzR6mZyxO2varwTgfCacZRMM5kbZy9OsGRY0F6CWpc2U7IN+OYghinZ
+ UkL/pAI7POTCMAgknkxtlw0aZdHWes+L8MJ6YvRWjGmObOQOJKqlo3wXNUyiOpE2mi6i
+ LLq+j4P3cj4VdOYUml02XIrwRYSwkBgIUarcoqKM6FTVO52Seqie2jE+KRM+DcOljgEL
+ K4ATf6S4Qy8gErJYHNpGXnxQ5tGrY+mULsQxpvLM/bxV/lMNoe4EUNVT2sNH0EzJWeyJ
+ sKhYzhGN7PSy93xyKaGeLRyd4wOtsHbD3x7Nx4a8uWljjM18tN99xkvMaxk/AYWX0sDn
+ UTJA==
+X-Gm-Message-State: ACrzQf3digYxTdb+Yi/fucuQnqvUbhSUVtcI1TLU8h+xKKPu3iol5MwP
+ mElLHeoMe7SflCP94EkrI/CkfZgxfJQ5KKa6eks=
+X-Google-Smtp-Source: AMsMyM6faIOERk3Qv0Bv0TKrmHhqO1XiIx0BoEMZsPkMj+hZHVLPGppqQbzCt2ntAkW5S16O3AjwZdeNXiflEnrWKqY=
+X-Received: by 2002:a25:1807:0:b0:6ca:4e8c:fa5e with SMTP id
+ 7-20020a251807000000b006ca4e8cfa5emr1100089yby.196.1666277546315; Thu, 20 Oct
+ 2022 07:52:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.103.91]
-X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
- dggpemm500007.china.huawei.com (7.185.36.183)
-X-CFilter-Loop: Reflected
+References: <20221019151543.22753-1-samsagax@gmail.com>
+ <ea5d60cd-8d0b-7018-425e-b91e5750a830@amd.com>
+In-Reply-To: <ea5d60cd-8d0b-7018-425e-b91e5750a830@amd.com>
+From: Joaquin Aramendia <samsagax@gmail.com>
+Date: Thu, 20 Oct 2022 11:52:14 -0300
+Message-ID: <CABgtM3igg8+Skj2YNqQN0egctWrLAo8HRrb25UFcbo8+r_P8eg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Revert logic for plane modifiers
+To: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+Content-Type: multipart/alternative; boundary="0000000000003ed4e105eb7879de"
 X-Mailman-Approved-At: Fri, 21 Oct 2022 07:30:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,55 +65,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, richard@nod.at, mst@redhat.com,
- gregkh@linuxfoundation.org, somlo@cmu.edu, chao@kernel.org,
- huangjianan@oppo.com, liushixin2@huawei.com, joseph.qi@linux.alibaba.com,
- luben.tuikov@amd.com, jlbec@evilplan.org, hsiangkao@linux.alibaba.com,
- rafael@kernel.org, jaegeuk@kernel.org, akpm@linux-foundation.org,
- mark@fasheh.com
+Cc: sunpeng.li@amd.com, airlied@gmail.com, Xinhui.Pan@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Inject fault while loading module, kset_register() may fail,
-if it fails, but the refcount of kobject is not decreased to
-0, the name allocated in kobject_set_name() is leaked. Fix
-this by calling kset_put(), so that name can be freed in
-callback function kobject_cleanup().
+--0000000000003ed4e105eb7879de
+Content-Type: text/plain; charset="UTF-8"
 
-unreferenced object 0xffff888101d228c0 (size 8):
-  comm "modprobe", pid 276, jiffies 4294722700 (age 13.151s)
-  hex dump (first 8 bytes):
-    65 72 6f 66 73 00 ff ff                          erofs...
-  backtrace:
-    [<00000000e2a9a4a6>] __kmalloc_node_track_caller+0x44/0x1b0
-    [<00000000b8ce02de>] kstrdup+0x3a/0x70
-    [<000000004a0e01d2>] kstrdup_const+0x63/0x80
-    [<00000000051b6cda>] kvasprintf_const+0x149/0x180
-    [<000000004dc51dad>] kobject_set_name_vargs+0x56/0x150
-    [<00000000b30f0bad>] kobject_set_name+0xab/0xe0
+Hello. Thanks for the reply, Rodrigo
+Will redo the patch and resubmit.
 
-Fixes: 168e9a76200c ("erofs: add sysfs interface")
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
----
- fs/erofs/sysfs.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Cheers
 
-diff --git a/fs/erofs/sysfs.c b/fs/erofs/sysfs.c
-index 783bb7b21b51..653b35001bc5 100644
---- a/fs/erofs/sysfs.c
-+++ b/fs/erofs/sysfs.c
-@@ -254,8 +254,10 @@ int __init erofs_init_sysfs(void)
- 	kobject_set_name(&erofs_root.kobj, "erofs");
- 	erofs_root.kobj.parent = fs_kobj;
- 	ret = kset_register(&erofs_root);
--	if (ret)
-+	if (ret) {
-+		kset_put(&erofs_root);
- 		goto root_err;
-+	}
- 
- 	ret = kobject_init_and_add(&erofs_feat, &erofs_feat_ktype,
- 				   NULL, "features");
--- 
-2.25.1
+--0000000000003ed4e105eb7879de
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"auto"><div data-smartmail=3D"gmail_signature" dir=3D"auto">Hell=
+o. Thanks for the reply, Rodrigo<br></div><div data-smartmail=3D"gmail_sign=
+ature" dir=3D"auto">Will redo the patch and resubmit.</div><div data-smartm=
+ail=3D"gmail_signature" dir=3D"auto"><br></div><div data-smartmail=3D"gmail=
+_signature" dir=3D"auto">Cheers</div></div>
+
+--0000000000003ed4e105eb7879de--
