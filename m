@@ -4,58 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CF6CC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 10:43:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64DBDC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 11:52:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C004C10ECC4;
-	Thu, 20 Oct 2022 10:38:46 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A6B210E731;
- Thu, 20 Oct 2022 10:38:08 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6426222B4D;
- Thu, 20 Oct 2022 10:38:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666262286; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mIcpJgbeqPNRftPv7Q4iDJZ6HW36+TLeNbJLj/Rhtmc=;
- b=N/8J0ZK8TlQrP5MuDUFT352ZqaEtcH54y/j5pTXt7N3TgI2w7bd+xrImKYdts233ORrkL5
- 96bET5hbW0jJYocJOqg4OzXHlCJPGxknEB/FVdDBHax7Y/eSp5Z4DXiaSbNfQsUqhKhOdj
- J2Jx0pUIYCEZPKgNcvZIeR4EGI3eKRI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666262286;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mIcpJgbeqPNRftPv7Q4iDJZ6HW36+TLeNbJLj/Rhtmc=;
- b=R0s5ULDxkJmC55xxZ8WO3j2KQleS938cWUVKLDjw3qyEeAZZSyml7D/dHNB+DzxT2LycZH
- zPCX9qzygK8x75DQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DF56E13B72;
- Thu, 20 Oct 2022 10:38:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gCa6NQ0lUWPPYwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 20 Oct 2022 10:38:05 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
- mripard@kernel.org, maarten.lankhorst@linux.intel.com
-Subject: [PATCH 18/21] drm/fb_helper: Minimize damage-helper overhead
-Date: Thu, 20 Oct 2022 12:37:52 +0200
-Message-Id: <20221020103755.24058-19-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.38.0
-In-Reply-To: <20221020103755.24058-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBC3410E45C;
+	Thu, 20 Oct 2022 11:51:43 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5494910E45C;
+ Thu, 20 Oct 2022 11:51:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eZGgRa3kdGSuCZRm+Hv4TjScY2SIvPHeWTGnviJGzfM7wLx+OVUHPdlhHOXQ1DuZrIMk9wSurTH+m5Jk5y9by2wfpSLowaS9ADSG0IlqTrGrZqf9gkwBqJ5IeAWknwaNaEVxArsqbiZAwhwipP/e1hdfbXMhR2+Ha3crfw5f1zP7wiWX23tx9AfSfg64vgM7IKtfOgyBgkLfhwu1btCayvtujR/pZ/tR0Mu/0n+F2u3UaBTu999vcMA8iQ2NBvuMm4eiRmRMvnMrHFl1koz3dMel9Jye6zhZquUMubYH//BaA9iEgntTdMvezAu1V3a3AlNx3e5ze15RxGQhQGudAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BkjpM06ND/1tPS8vCFaUA1j7bWQXJk3S6+Ma6y4+cfY=;
+ b=l8qbIUvirfxoM99SNeSfKNWvMb3dFtEv1yFv9HfbKP/Kb/MjjJAwfGOgu80xJ0NZF4XOXMrvUv/bi9H+ObYYX/N6ASiTlDCDhsG0DHQsOOGBKZ7FV4TNK12ykqA0gM4G8GLgqh41RN1pddJV/0s/Tq5CtykrPl/iRMJ3BZ+VXO06K5DbCIL2ImHFJiblER6bcwScDIHvSBWvZhFCCLCm7tmefa+1QKmhr5G5/X39vjIBoxZOnEG800ukSD3WDZNg5tX7pOvD6nc9bSGA0Kohtlj34nROReglIFe8eMVJdiIz4A2Wrj6t5uCaa4tdJxWXFmP4CEyiUPHrfKFGvRcZyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BkjpM06ND/1tPS8vCFaUA1j7bWQXJk3S6+Ma6y4+cfY=;
+ b=dsyeXoJNcHCjbzP4ZNAVYLXgu0pe8A+opYJYBFnk84JO9MhqSCoYaye+ObyrUo5CQTs87GSP0PNtSul5zL+fMn9m80yN9Mxs51/cR8XcXWLhiAc+tZwEOi1ysx62cUnD0AtYywf/MQYRwvuRQuJ9Nz9gX0iMj99ArryPoQtcey8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by MW4PR12MB6898.namprd12.prod.outlook.com (2603:10b6:303:207::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.29; Thu, 20 Oct
+ 2022 11:51:34 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::805b:58b6:1f27:d644]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::805b:58b6:1f27:d644%6]) with mapi id 15.20.5723.034; Thu, 20 Oct 2022
+ 11:51:31 +0000
+Message-ID: <b26e508b-7599-3953-6803-7db00b3cfbcb@amd.com>
+Date: Thu, 20 Oct 2022 13:48:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 01/21] drm/amdgpu: Don't set struct drm_driver.lastclose
+Content-Language: en-US
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com
 References: <20221020103755.24058-1-tzimmermann@suse.de>
+ <20221020103755.24058-2-tzimmermann@suse.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20221020103755.24058-2-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM5PR1001CA0013.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:206:2::26) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MW4PR12MB6898:EE_
+X-MS-Office365-Filtering-Correlation-Id: 34bb9327-0e2d-47ac-fb3c-08dab2916e16
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: djglQBEcOzQigVniLbe7Uf01Ze6y6L18CCWR2e3mm2E9AzSJ1dwV+R9sPDPXx1A0eWzcwN9YUwpJcH5t5lDYt8a2S3OOz4ouFnAvkOiZmwqnMV9iuwXW25FJ9kjsfDbwGJkT7TgyjGnN44KeQQjy4ZrJeyk/f0GIiIHR9a9IjFOhNx/Z1RfFqa0I/bhvNXRgm2zjwB7e01lEEn80TTf1cKy8g8hCCFE2XpfDIpG+0VwA3xQbDrCnNvu5FvJgW8iY6Vi4W5OSKweYsYGNp4n6gr6A0nKoez9CLbTESEbneiGYKRkE7a4biikyvj8Os0QTiSYK8AS5LUYhj7chpPGfZLuIYwy9CuJQTbs84z/GXy+7/1SzfhsrNnpgo0895gXIwmQt0rDnk7/jcw/6z8MsUC6Wohh4Tw1h7nvtCD+VKTbRR4Q2N3uRzI3fNHsn20o0DadkRUci7fmPE519U9990lvL3F7E/UmaWxTYjJffWnyuqRRK1+ble/q7/zQn37U3/ntUtHzCoJPUFWVQCNni+b+cNvUTis5Ko9VhihiorGXCPuberCeKqVHTN6dALg8D3TMOxJjAXyAxnFC9NmEb+9cpJ+n8JXn0MG+hlQYb5G9KtPOE73WJ/iLT3UkJehD07nkhzgdEx/e/DQegQMNTt52NXTPFUJRXTDl4Nswuq2u0jWPyF9pPEoLfSdAz1J2VKUnnvQTxlrYPx8i0GVW6DfSVsJX1ai9iEyELVV/jTK86xzG+FMW1Pqn5bj5xMFNxd8FRB78bF/t4oQZan14UkaO5EKNcXz1LE+k5omCyxfI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(366004)(39860400002)(136003)(346002)(396003)(376002)(451199015)(6512007)(26005)(6666004)(478600001)(83380400001)(186003)(7416002)(6506007)(5660300002)(2616005)(66556008)(316002)(41300700001)(4326008)(66946007)(6486002)(8936002)(66476007)(8676002)(31696002)(86362001)(36756003)(38100700002)(2906002)(31686004)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGR3cjIySk43T2JMVlU0NnRNVWdGcUFnNElKV3FWSlVncC8waUlFRlBPamls?=
+ =?utf-8?B?ckxnR1V4Y2JUYWhsZGFNemdrSXBYOUhlNldFZTZ1Q3NDOWtCelpQVkRwQkE5?=
+ =?utf-8?B?NDRTc2N3T3VydE1ma2pyaEdrcFZmZW1iVTlsY2ZYMXZuQ0FBYkF6aUFhZ3VI?=
+ =?utf-8?B?OE9JbFFXeDhVSTdsblY3cWdUUUh4TmorTFpPRm11eVFwYzgwU2J3UGpTUjdz?=
+ =?utf-8?B?TFdVSndhVDQxRVdxbVcrczA4YnpHWHZROHVncnJVckkyZHc4Q0tqM2V4VlBo?=
+ =?utf-8?B?Yk5WSFcxQVdEUzhXRm1TUHgyUnhZcnArZG5XQ2gyNFZYSzFlN3lBdmRUUEpk?=
+ =?utf-8?B?SkdmR29HNnNHWk9iWW0xUjZaWlltL1hmZE9NaVRKU2NSeUNkSkU3dGozbHFV?=
+ =?utf-8?B?alR4d3QrZnROOG5QU1p2dHNvbkozdWUvdjB5QThwZitmTi9lZEVnRm1Ra2hC?=
+ =?utf-8?B?anZETzJnUDRwQUtjSWMrQ3lFWjhjcTRzOHlPcVhndUF1OTBrYWt3V0JrYTBo?=
+ =?utf-8?B?d0ErU0xnWlpmbWJKcm94VEg2YVlmRnB0OFIvMkgxTEpvd05sbVhKRGkzL3JO?=
+ =?utf-8?B?Q1BEUWpsSVdXUnBTVkhYYjVmcllDdGhudjFjYkJ1OHFnTnE0MFprUzFGaFJt?=
+ =?utf-8?B?YTRWUUVCQ0NQczRjRjFjblRBTDdFZ3RoaXo1Yy9LS09MTGJIR1NLd0FmUTNS?=
+ =?utf-8?B?aFdXTXgyU0dTTVcrcGQ4NVhhUHNqZnNmWUUzbWlPdW00Y3ZyWUF1eE5sc1Nq?=
+ =?utf-8?B?ek50Q0pveXpxNmRIRWkwS3dhb3lmZFhJcHk0YnJPMU1DTXRMS05WWXlFdHpz?=
+ =?utf-8?B?RlZXRDA5c0x0Skt4SkEwZmUxWFZoZ205WUJsc2NVbXkvZFA0bDNQQmNvRFh6?=
+ =?utf-8?B?dmhwNzBFVDlXZ0puQ0I5Mi9Wb1V2QStybzVXSkJPUjErZ0hLbG02L2hnZDVx?=
+ =?utf-8?B?Tmt1TzVtbW5mM21Pb0hRSTl4Z2hUdEhBMzRTQTYzY1FNeGV3TWxtZXZzYTJN?=
+ =?utf-8?B?cnFEQkdUMWE1bGM2QzVPK3JoQWZLejNnc2pGYjhaZm5YQ2lrelhGei94djNo?=
+ =?utf-8?B?SkxCRDIzSUw1S21ZdXAzUW8zK25JTWd0OU1IbXZoZEg5QlFPWFhUZHpraDZn?=
+ =?utf-8?B?Q1ZNUG0vNm9jeEVSTTVKUTVQYzlvNDFnMklrK3ljZy9PcDA2cXhCSW14Z3Fl?=
+ =?utf-8?B?aE80WGxDb1o4NTBmV28wVXhzRGJRV0hoQk1pUnUzQ2U0VlFTZk9ZMlBaajBu?=
+ =?utf-8?B?T0wrV3U4VE16cW50VWE5M2YzdVJYRnFTMVllR0htK0RjTE1qNlR2TDhJa2N4?=
+ =?utf-8?B?aExYaGx1RDROOFRWdlAwWEFjYzIvM1VDNkRVWElESjZ2WUV6QVNjVW1nL2Uv?=
+ =?utf-8?B?SWhuVDExdzJKbnZPUkh0RHdlMnJGdFp3eUt4eitOckxyZXIwUEhEb0I0alBE?=
+ =?utf-8?B?TFQ3OUUwb21tWFVSZ2pFUDVMMkUxSlFEY0hoUkhJcXJIRTM4ZXJMRWRlVm5V?=
+ =?utf-8?B?d3FjTExlWm1lWHlpQjNpUW1Mc3p0SkRXK1l0QnFDRTZxZ2xpcXNQNjVvb1Q4?=
+ =?utf-8?B?SWtvTDhuU3pFcHZoQVVvUGp6d1RXOXZoT3pEbFBIcDZtYXNWaWNMMWMySStt?=
+ =?utf-8?B?NkhmRXU4ZFk4Mm5XWkJKZ2UvWmI4ZTMyVmQ3NTZYbFFzRnVjazllbm1wWFRz?=
+ =?utf-8?B?TVRSempBYzlXNThpcVBXQWY3QTYvSVVwMEw5dXRoUGIwd2lJSm9YMStnYTQr?=
+ =?utf-8?B?UUZYNnM2YzdlQ095d1ozZUk2ZXZqTXlsTERQZVN1aXp4QURrZEhQYnlCYUZl?=
+ =?utf-8?B?cjVNZWZ6N3hjbGF2ZXFxUFBOay8vWndOTXFIZFZVWUZUM3prQWNMM1Z5NFFN?=
+ =?utf-8?B?M09uczcvS3R6dVZzVEdzbGpMNWxvTWdMbTRVVUUwZFVUL3lGQU90V0kyRU52?=
+ =?utf-8?B?L2U5OUVzclpiYk05OHVFL29YSC9COTgvZzV2cDRFTnczOXFkUEQrRVdINmV4?=
+ =?utf-8?B?NUw1T3RjODJlVEE5Q2k2VUNaYXJWSEF6THFMK1VHQzMwTEZicy8vaXZFYTNB?=
+ =?utf-8?B?RWRJc3pGMjRzM3BiOURCZVQ2c3NwN0o1OTdxYVplS3pmakdpaUk1TXc1bUZs?=
+ =?utf-8?Q?81xaw8csJVBvRA3mTABTFHhlz?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34bb9327-0e2d-47ac-fb3c-08dab2916e16
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2022 11:51:31.6004 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5OeVYNFFTSt7GCUp4ykoNFJm7pu1DjoecANWmf//HoEVyDQ3WU2UDqJkXgyXYuB7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6898
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,235 +131,69 @@ Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  virtualization@lists.linux-foundation.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- xen-devel@lists.xenproject.org, linux-sunxi@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
  linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
+ freedreno@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Pull the test for fb_dirty into the caller to avoid extra work
-if no callback has been set. In this case no damage handling is
-required and no damage area needs to be computed. Print a warning
-if the damage worker runs without getting an fb_dirty callback.
+Am 20.10.22 um 12:37 schrieb Thomas Zimmermann:
+> Don't set struct drm_driver.lastclose. It's used to restore the
+> fbdev console. But as amdgpu uses generic fbdev emulation, the
+> console is being restored by the DRM client helpers already. See
+> the call to drm_client_dev_restore() in drm_lastclose().
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/drm_fb_helper.c | 90 ++++++++++++++++++++++-----------
- 1 file changed, 60 insertions(+), 30 deletions(-)
+???
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 836523aef6a27..fbc5c5445fdb0 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -449,12 +449,13 @@ static int drm_fb_helper_damage_blit(struct drm_fb_helper *fb_helper,
- static void drm_fb_helper_damage_work(struct work_struct *work)
- {
- 	struct drm_fb_helper *helper = container_of(work, struct drm_fb_helper, damage_work);
-+	struct drm_device *dev = helper->dev;
- 	struct drm_clip_rect *clip = &helper->damage_clip;
- 	struct drm_clip_rect clip_copy;
- 	unsigned long flags;
- 	int ret;
- 
--	if (!helper->funcs->fb_dirty)
-+	if (drm_WARN_ON_ONCE(dev, !helper->funcs->fb_dirty))
- 		return;
- 
- 	spin_lock_irqsave(&helper->damage_lock, flags);
-@@ -659,16 +660,12 @@ void drm_fb_helper_fini(struct drm_fb_helper *fb_helper)
- }
- EXPORT_SYMBOL(drm_fb_helper_fini);
- 
--static void drm_fb_helper_damage(struct fb_info *info, u32 x, u32 y,
-+static void drm_fb_helper_damage(struct drm_fb_helper *helper, u32 x, u32 y,
- 				 u32 width, u32 height)
- {
--	struct drm_fb_helper *helper = info->par;
- 	struct drm_clip_rect *clip = &helper->damage_clip;
- 	unsigned long flags;
- 
--	if (!helper->funcs->fb_dirty)
--		return;
--
- 	spin_lock_irqsave(&helper->damage_lock, flags);
- 	clip->x1 = min_t(u32, clip->x1, x);
- 	clip->y1 = min_t(u32, clip->y1, y);
-@@ -718,6 +715,7 @@ static void drm_fb_helper_memory_range_to_clip(struct fb_info *info, off_t off,
-  */
- void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagereflist)
- {
-+	struct drm_fb_helper *helper = info->par;
- 	unsigned long start, end, min_off, max_off;
- 	struct fb_deferred_io_pageref *pageref;
- 	struct drm_rect damage_area;
-@@ -733,17 +731,19 @@ void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagerefli
- 	if (min_off >= max_off)
- 		return;
- 
--	/*
--	 * As we can only track pages, we might reach beyond the end
--	 * of the screen and account for non-existing scanlines. Hence,
--	 * keep the covered memory area within the screen buffer.
--	 */
--	max_off = min(max_off, info->screen_size);
-+	if (helper->funcs->fb_dirty) {
-+		/*
-+		 * As we can only track pages, we might reach beyond the end
-+		 * of the screen and account for non-existing scanlines. Hence,
-+		 * keep the covered memory area within the screen buffer.
-+		 */
-+		max_off = min(max_off, info->screen_size);
- 
--	drm_fb_helper_memory_range_to_clip(info, min_off, max_off - min_off, &damage_area);
--	drm_fb_helper_damage(info, damage_area.x1, damage_area.y1,
--			     drm_rect_width(&damage_area),
--			     drm_rect_height(&damage_area));
-+		drm_fb_helper_memory_range_to_clip(info, min_off, max_off - min_off, &damage_area);
-+		drm_fb_helper_damage(helper, damage_area.x1, damage_area.y1,
-+				     drm_rect_width(&damage_area),
-+				     drm_rect_height(&damage_area));
-+	}
- }
- EXPORT_SYMBOL(drm_fb_helper_deferred_io);
- 
-@@ -877,6 +877,7 @@ static ssize_t drm_fb_helper_write_screen_buffer(struct fb_info *info, const cha
- ssize_t drm_fb_helper_sys_write(struct fb_info *info, const char __user *buf,
- 				size_t count, loff_t *ppos)
- {
-+	struct drm_fb_helper *helper = info->par;
- 	loff_t pos = *ppos;
- 	ssize_t ret;
- 	struct drm_rect damage_area;
-@@ -885,10 +886,12 @@ ssize_t drm_fb_helper_sys_write(struct fb_info *info, const char __user *buf,
- 	if (ret <= 0)
- 		return ret;
- 
--	drm_fb_helper_memory_range_to_clip(info, pos, ret, &damage_area);
--	drm_fb_helper_damage(info, damage_area.x1, damage_area.y1,
--			     drm_rect_width(&damage_area),
--			     drm_rect_height(&damage_area));
-+	if (helper->funcs->fb_dirty) {
-+		drm_fb_helper_memory_range_to_clip(info, pos, ret, &damage_area);
-+		drm_fb_helper_damage(helper, damage_area.x1, damage_area.y1,
-+				     drm_rect_width(&damage_area),
-+				     drm_rect_height(&damage_area));
-+	}
- 
- 	return ret;
- }
-@@ -904,8 +907,12 @@ EXPORT_SYMBOL(drm_fb_helper_sys_write);
- void drm_fb_helper_sys_fillrect(struct fb_info *info,
- 				const struct fb_fillrect *rect)
- {
-+	struct drm_fb_helper *helper = info->par;
-+
- 	sys_fillrect(info, rect);
--	drm_fb_helper_damage(info, rect->dx, rect->dy, rect->width, rect->height);
-+
-+	if (helper->funcs->fb_dirty)
-+		drm_fb_helper_damage(helper, rect->dx, rect->dy, rect->width, rect->height);
- }
- EXPORT_SYMBOL(drm_fb_helper_sys_fillrect);
- 
-@@ -919,8 +926,12 @@ EXPORT_SYMBOL(drm_fb_helper_sys_fillrect);
- void drm_fb_helper_sys_copyarea(struct fb_info *info,
- 				const struct fb_copyarea *area)
- {
-+	struct drm_fb_helper *helper = info->par;
-+
- 	sys_copyarea(info, area);
--	drm_fb_helper_damage(info, area->dx, area->dy, area->width, area->height);
-+
-+	if (helper->funcs->fb_dirty)
-+		drm_fb_helper_damage(helper, area->dx, area->dy, area->width, area->height);
- }
- EXPORT_SYMBOL(drm_fb_helper_sys_copyarea);
- 
-@@ -934,8 +945,12 @@ EXPORT_SYMBOL(drm_fb_helper_sys_copyarea);
- void drm_fb_helper_sys_imageblit(struct fb_info *info,
- 				 const struct fb_image *image)
- {
-+	struct drm_fb_helper *helper = info->par;
-+
- 	sys_imageblit(info, image);
--	drm_fb_helper_damage(info, image->dx, image->dy, image->width, image->height);
-+
-+	if (helper->funcs->fb_dirty)
-+		drm_fb_helper_damage(helper, image->dx, image->dy, image->width, image->height);
- }
- EXPORT_SYMBOL(drm_fb_helper_sys_imageblit);
- 
-@@ -1035,6 +1050,7 @@ static ssize_t fb_write_screen_base(struct fb_info *info, const char __user *buf
- ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
- 				size_t count, loff_t *ppos)
- {
-+	struct drm_fb_helper *helper = info->par;
- 	loff_t pos = *ppos;
- 	ssize_t ret;
- 	struct drm_rect damage_area;
-@@ -1043,10 +1059,12 @@ ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
- 	if (ret <= 0)
- 		return ret;
- 
--	drm_fb_helper_memory_range_to_clip(info, pos, ret, &damage_area);
--	drm_fb_helper_damage(info, damage_area.x1, damage_area.y1,
--			     drm_rect_width(&damage_area),
--			     drm_rect_height(&damage_area));
-+	if (helper->funcs->fb_dirty) {
-+		drm_fb_helper_memory_range_to_clip(info, pos, ret, &damage_area);
-+		drm_fb_helper_damage(helper, damage_area.x1, damage_area.y1,
-+				     drm_rect_width(&damage_area),
-+				     drm_rect_height(&damage_area));
-+	}
- 
- 	return ret;
- }
-@@ -1062,8 +1080,12 @@ EXPORT_SYMBOL(drm_fb_helper_cfb_write);
- void drm_fb_helper_cfb_fillrect(struct fb_info *info,
- 				const struct fb_fillrect *rect)
- {
-+	struct drm_fb_helper *helper = info->par;
-+
- 	cfb_fillrect(info, rect);
--	drm_fb_helper_damage(info, rect->dx, rect->dy, rect->width, rect->height);
-+
-+	if (helper->funcs->fb_dirty)
-+		drm_fb_helper_damage(helper, rect->dx, rect->dy, rect->width, rect->height);
- }
- EXPORT_SYMBOL(drm_fb_helper_cfb_fillrect);
- 
-@@ -1077,8 +1099,12 @@ EXPORT_SYMBOL(drm_fb_helper_cfb_fillrect);
- void drm_fb_helper_cfb_copyarea(struct fb_info *info,
- 				const struct fb_copyarea *area)
- {
-+	struct drm_fb_helper *helper = info->par;
-+
- 	cfb_copyarea(info, area);
--	drm_fb_helper_damage(info, area->dx, area->dy, area->width, area->height);
-+
-+	if (helper->funcs->fb_dirty)
-+		drm_fb_helper_damage(helper, area->dx, area->dy, area->width, area->height);
- }
- EXPORT_SYMBOL(drm_fb_helper_cfb_copyarea);
- 
-@@ -1092,8 +1118,12 @@ EXPORT_SYMBOL(drm_fb_helper_cfb_copyarea);
- void drm_fb_helper_cfb_imageblit(struct fb_info *info,
- 				 const struct fb_image *image)
- {
-+	struct drm_fb_helper *helper = info->par;
-+
- 	cfb_imageblit(info, image);
--	drm_fb_helper_damage(info, image->dx, image->dy, image->width, image->height);
-+
-+	if (helper->funcs->fb_dirty)
-+		drm_fb_helper_damage(helper, image->dx, image->dy, image->width, image->height);
- }
- EXPORT_SYMBOL(drm_fb_helper_cfb_imageblit);
- 
--- 
-2.38.0
+The commit message doesn't match what the patch is doing. You are 
+removing output_poll_changed instead of lastclose here.
+
+Did something got mixed up?
+
+Cheers,
+Christian.
+
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       | 1 -
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 --
+>   2 files changed, 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index 23998f727c7f9..fb7186c5ade2a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -1224,7 +1224,6 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
+>   
+>   const struct drm_mode_config_funcs amdgpu_mode_funcs = {
+>   	.fb_create = amdgpu_display_user_framebuffer_create,
+> -	.output_poll_changed = drm_fb_helper_output_poll_changed,
+>   };
+>   
+>   static const struct drm_prop_enum_list amdgpu_underscan_enum_list[] =
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index f6a9e8fdd87d6..e9a28a5363b9a 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -82,7 +82,6 @@
+>   #include <drm/drm_atomic_uapi.h>
+>   #include <drm/drm_atomic_helper.h>
+>   #include <drm/drm_blend.h>
+> -#include <drm/drm_fb_helper.h>
+>   #include <drm/drm_fourcc.h>
+>   #include <drm/drm_edid.h>
+>   #include <drm/drm_vblank.h>
+> @@ -2810,7 +2809,6 @@ const struct amdgpu_ip_block_version dm_ip_block =
+>   static const struct drm_mode_config_funcs amdgpu_dm_mode_funcs = {
+>   	.fb_create = amdgpu_display_user_framebuffer_create,
+>   	.get_format_info = amd_get_format_info,
+> -	.output_poll_changed = drm_fb_helper_output_poll_changed,
+>   	.atomic_check = amdgpu_dm_atomic_check,
+>   	.atomic_commit = drm_atomic_helper_commit,
+>   };
 
