@@ -4,115 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C335FC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 12:35:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBAD0C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 13:10:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15D4910EEEA;
-	Thu, 20 Oct 2022 12:35:33 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2052.outbound.protection.outlook.com [40.107.94.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81C3F10EE37;
- Thu, 20 Oct 2022 12:35:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WbPPDxy0yTnzm7g3nGAHC/6T8it/wuqeQLJHoRXg4WAkIQaMngjhc/QFHgyVY6k/EvmuIGUP4iTyp7R8Xa5u5kdRXiuqBWXxCuDW5o1U6y0aOm4Q+eCrTMLXNm0B6sicLufgpF2xeeDfjaP5bgaefeq5hSTIk9vaZzz/chKiDJlL864GawYibNxWgVFARTrWf0WYLsZbtz3Gp6z1NlLVTm6ouE4t9O1wT6Y7/DC63Cp5xPwofu5ktC+D3w/Jg0JSFDiIHYoZw+jf/GCCLQUqBi1IF6eDP3xjIshnuNN/8x+LST75Uj4S5r85LhyFkAFPUbbxrqinPQdnvoNuYb4dXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NdGS4KXe9XUKpLpxDALHM17c/IMunNGUpcyggSxe2YU=;
- b=d4DAV+/Eq4lwsLVA1fpHcJdYhWO2qiWvmr1H/s9vUzpgfM981CiKA8c7FvanRjMIt2K4OSpJNFpRDJKMuO7fU95j2K8GB6X/nDw7PDwIyMnN20cV9brzNYd+Re7vQH/yXFEtwLhqZbZYL5RP3Y3YOE6Thz1WmFgtC2XoSSBlM/36rTMil+q8JuHwD6HHeGwJLpxTItt0toRvuDR9Fh7bRM8s7eL3+KAFCo50gMpzCfpmJOzF2egxNnJr0ss/BZyd5K34zvQPtuE5aYWZl+lYkr0XWHrM7fPUvf/aTMUFDjOAq5xvW3N1XU4jEfPPhYzH2M4OOCuHUqn8/d6ZlCmOug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NdGS4KXe9XUKpLpxDALHM17c/IMunNGUpcyggSxe2YU=;
- b=YHEqvVNnXNH/XdpZknl5wlhuLwjR8l+Xdy6w6lBfU3pWYj3IOwGz9aWFcsgRJ/WMkYy012bVsQqwDXClgEt0OLDFly1TVhOGWxtZg1ymCqhnr0ip1mgGDlYzRHiRtH9lRtor+fyfDRejBIbGHpZDnSxDZi8UYHryrgtKiakF1h0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
- by PH8PR12MB7026.namprd12.prod.outlook.com (2603:10b6:510:1bd::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.35; Thu, 20 Oct
- 2022 12:35:25 +0000
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::588f:c941:4f62:9d89]) by MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::588f:c941:4f62:9d89%3]) with mapi id 15.20.5723.026; Thu, 20 Oct 2022
- 12:35:25 +0000
-Message-ID: <ea5d60cd-8d0b-7018-425e-b91e5750a830@amd.com>
-Date: Thu, 20 Oct 2022 08:35:23 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.2
-Subject: Re: [PATCH] drm/amd/display: Revert logic for plane modifiers
-Content-Language: en-US
-To: =?UTF-8?Q?Joaqu=c3=adn_Ignacio_Aramend=c3=ada?= <samsagax@gmail.com>,
- harry.wentland@amd.com
-References: <20221019151543.22753-1-samsagax@gmail.com>
-From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20221019151543.22753-1-samsagax@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH2PR11CA0008.namprd11.prod.outlook.com
- (2603:10b6:610:54::18) To MN2PR12MB2941.namprd12.prod.outlook.com
- (2603:10b6:208:a9::12)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 024BE10E902;
+	Thu, 20 Oct 2022 13:10:55 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46C9010EEC6;
+ Thu, 20 Oct 2022 13:10:46 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id w196so22757511oiw.8;
+ Thu, 20 Oct 2022 06:10:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=cemyxy4dpeRq0uuKNf5JWwjxkCluzhqG4ofmZbWFcZE=;
+ b=pIWWgwwDx0olKcKRAZURt9rk1dtYhXUpYLbqxX1PSAukl6Fajs7B35qn889P8hl02V
+ U7SmfroLVgIGpKqH4+EXDNZHvW8gKaTlIT5RpMLibSRVeQ/V4Ymbi7kWsLspGlYVezUC
+ rpz7NXnMiLECXuUpuAYjb/dKj/ydija5LzzQRW0fXst7pp43qqUW1m+lQY5givglzBzP
+ S+/HGdQxOzuhAs8v+l0okIbdmOvWQL7COFjYs//DD5L5CSpDrGEm0nEjL0uyrYLPnJaw
+ vWT8eKakqCBLO9UEDQAohlSOohzztQMCdIQF8BQaImnYLM/Y8hboha61zJNwZy7Lmgnl
+ 2t9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=cemyxy4dpeRq0uuKNf5JWwjxkCluzhqG4ofmZbWFcZE=;
+ b=Et0mknQU8cywSo1lJAkxF+9Ta4/QIJO2Hot5xnJeO6YCzmoJFvjz7JuJA3kBY46UVU
+ +rJZZrdrfJnF11WCKjG19aObV7KdQSvtbLdep+YluU5s9koqfxMSqPD3rEFGjvwax4ha
+ xAJs5JUZx3lU9Sug6LKix7bXFDGKrd3EqJNF9GjKS1DTcDfM/2mOqQ+k0+aeI04V3wBm
+ JwTLKEjLf0UqnBoxfgNxTQag5pXukuDG7IpRrriwVJGoMUhv/FqxejA/Tf0rYgevXjv6
+ 57GiUhtwqDBXg/GxdnvaH3rcQjpiNk3pV7dgZCjrz1hsaQLGEEBhPIkUGr4IBKtvETj2
+ yXQg==
+X-Gm-Message-State: ACrzQf3Bs8U2I0hPgI9rNXXdauDlRy7uPPGMh5/zJWJlEKXRK984PAqO
+ 5a6I7h6wcWb/GLsczm09RemMd+J/n8rpRbjvLMU=
+X-Google-Smtp-Source: AMsMyM4E8YbN2RSOu/jza6/DlhbYG1PvAv4swjyW6nf6REHYcBLavUnlzsdHrN7tRScCH/dzh53QEXmGgLCrdZTe3cs=
+X-Received: by 2002:a05:6808:14d2:b0:354:c733:abd3 with SMTP id
+ f18-20020a05680814d200b00354c733abd3mr7176564oiw.96.1666271445001; Thu, 20
+ Oct 2022 06:10:45 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|PH8PR12MB7026:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba5152b3-bd35-42c7-f4e6-08dab2978fbc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1AHt/4VaX6eNsFsOT3O5Z+JHFU2YrFRlhJFQLSrtK2ZgXPV02P8hVlmJjLpJTNB61axam8ge6jwF5FQsM9aZA+HeFUT0noNW7zoA1LyIQGDDfxZAmo6V7RHcQFsaWPd+kuaAM0LirwYqsLkIRFe39QHxP64OtQopNUXia0tBVUdmnqbK1PhYBMH6tPkWSv3ABwb73yWXY03P0iC8d9O3TN3GCY9yqSnJkvPOROzeYSLov9aD174Ywi8KGu1ubjnJ0zYz/IUOmm081T/AlWJDJYRPBbsnoqC1j/yRQrgDR9kewZfp8tgw0rf78rBzdpHT0S2ybFMIudGVxLNreDZYd4y2YQrtuhTdAyXOoJl4MahHml67XYSyqEvFC06rcNK51JXtFeDA6OHgjs0lyTe28SLksmJDTqv84nVNGjTzhA+Csz3xMOKgQVvyX7PPvhFr9j7MW31GAAAPFfQ0oX180XHBTgjaTMKvDYjOFEOg9ggOGLRmMPjN3TWLBRWoNfGzJGhed5EzbOnWG9YmQcUejCoXsgwoqckvPDwxy0Z6zTqJALJibByKCgNwTonZYclbUBLC9YOp0w/ydKdocV40uwP3/pdDCEoEtGStOtAgKfL+UUGaYxH34PQYC2DfkRCtTtRZkElOuKRtvwarVXp0cmyH0zkVBHUKvgdarTvTcRD7XQX1zqrsgen7E2OIDvTXqXVC2BC84gtf+gozwYVbQbbS4L6FUoftvC+7SeMw6a2G3AIC+MWZt/DNEecgy8Gyt3dc9HiHeLV4xPcs1ElG02cEbV8XaYNTpfxI/ffl47dpFDtL9VGi09PmtJhwaa1L
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(396003)(39860400002)(346002)(136003)(376002)(451199015)(316002)(83380400001)(2906002)(31696002)(86362001)(38100700002)(478600001)(41300700001)(8676002)(66946007)(66556008)(66476007)(4326008)(5660300002)(6486002)(8936002)(6636002)(2616005)(186003)(53546011)(26005)(6512007)(4001150100001)(6506007)(31686004)(36756003)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2ZQSU1yTEw1VUNKOFpZZm95YVo2QzNIeTZ5SDdMK2lmN2IzOEpQeUlIOThk?=
- =?utf-8?B?SVRMQVU1a0gzNzY1RVhTd0tjbGF0UERESEF6cmJNSko5WFhRNktqRXZWNTB2?=
- =?utf-8?B?a1FGMGZ3NmliTHkwRHM1Tk0raUZOSDRPUXhia2lwWFNZS0RsU2NKZ3FwTG9X?=
- =?utf-8?B?SEs1cG9uQ0ZkbzViMzk5YytacGpsYnZta1BIVXVYQ2FjYmV4bldoMXRNb0hq?=
- =?utf-8?B?WEtZbklWb2MrMS9yOTcwNnB6MERJUVNtTTNxQU9MbkpkRytqaFBidnVRaGxT?=
- =?utf-8?B?cDhzNWlIUFg1ejMrOFhTYUFnaDVhRThaL0NranUxWlVTeXZvaklyWHB3TjVL?=
- =?utf-8?B?eU5ZNHY5cEFBM1ZnSW9qNjRPcTNEZG9wS3VPcWVLZWZGaE5FUXdjWCtZWWYy?=
- =?utf-8?B?aXNiVDRDZm9TMzFGT1REMDYzMU5QcmdlVWFvNm8rTDFqQWZwTGl4TEFkYlRj?=
- =?utf-8?B?V2ZOR3lUL0VOUW1OdTI3bWIwZU14WmE4bGptb3BSZklvMWlWUGl3OHR3Q3pZ?=
- =?utf-8?B?QTZwM3hUM0JhWlEyOEh6V0NNQ1MrK0k0VUF6RjAwVnI3M3Q0SU5rZGpZVWwz?=
- =?utf-8?B?ampYN0R0Y0JRR2dJUHNneDl1VkVrTnJVZjU2cmFnTFhsa1Z4V2FFS09qYWR0?=
- =?utf-8?B?SUVZcG5oM1JJenZkbEV3dFg1aC81NEZLMU1tc2F6Z1RvaDRDeDcxVUZ5K1Mv?=
- =?utf-8?B?SDhKTTFaS0k4MVhXeGttY01xQ2d2b0hpK1hadVlmanIvR28vZHdKY3pvU1dn?=
- =?utf-8?B?L2QvVGhQUm1LcWJlUU1ieG05SlBpVXFWS1dteElFdkwrOVZ2QnpZOC9uTHpx?=
- =?utf-8?B?aTFVU3YzTWFVaXN5T0VFUGtyNks1Z0EzQW9VOVpSQTl5dU1yNUNIdGd0cElS?=
- =?utf-8?B?VHdFUEZJUW1sd3M4a1hkQmVaYUZkTFBpZzY0NkVVT0c5OVhoOFExQmREdzlJ?=
- =?utf-8?B?OEhIWFF6NjdlTHVEcllXdnp6S1hleGFlOHd4VUgwMXdNNmtXMWcvbUx5eXlD?=
- =?utf-8?B?T0pSNk9LVytmRkNkK0Q5aWhodmNTb0xaMms3dk4rQTRpRFJQUm55SjJBU3A0?=
- =?utf-8?B?VDh0d3dVa1BQM2dCMmtlTHFhZUZDNnFYY0FrQUc1SHRHd1QrVVZvaVY2bnRn?=
- =?utf-8?B?dVFscWVoWXRWL1IwREwwYW5nRGVwWEhVT3ZjZ2w5cjZDY1hiYmhGSkRnZ3Nm?=
- =?utf-8?B?d1E5ZG9OZTIwV2VxeUhXWGlteDNoUXI4cUtQWG1OZGQ5Q1JwZHdkUEVITnhZ?=
- =?utf-8?B?ZHFOVENjd2g4d2VzNlY2cFMyeHZBQVROdVQ4S3MvSmI0SEhKcEsyRmlkNHZ0?=
- =?utf-8?B?OGp4K1JkSEtUWmlrMkJnSjdQb0t1bDVCZVpMZ0FIQ2JVTWNsanJ1RHVoTTl6?=
- =?utf-8?B?SVVhQkVsaVRIOU4wZUJBc3pyZ2FFcnMvZGI2YVNIejNhZUtNRURScEdVNy8w?=
- =?utf-8?B?RXhFTmEzaUw3NTNkRGVMNER4ZTdQMFhQQlB2bHJpYWxUNlI2Y1ZmZmptQVRL?=
- =?utf-8?B?RDBqS2RWZ0t2dmx4clk0SHVRR0piSFgxbmFWYWRUUU1HbE1NMVM3eVl1UVFt?=
- =?utf-8?B?NzZhTi9Rd3lYZFRJdHpkSnA4RnBqRjZCOXV5U05nZGhnYWd0dW9ZZUd2S1Ar?=
- =?utf-8?B?dDd2b0dmUEQwY1hTSkUxUmlyZFgwdlQzMzlhWmJ0VFhWU0Y5Z0lOejdrS2ZD?=
- =?utf-8?B?RTVSSExZNk1DeDJ6T25oNjlXdHZKcmVGTVFJMW1iMGRySDhXMGF5STgreitZ?=
- =?utf-8?B?em5VdWZ4SjhPYTFUaW8wTUtoaXJxSTZ2b2VVODhDQ1BOK2hMWm9yUGpwTCtk?=
- =?utf-8?B?U05oSXVNZWIzWlJNSGRVUUl1SXVMR3daTGMyTEYwekdiZmk2eEhMODkrSklT?=
- =?utf-8?B?WW5iTUNmZkF0NTZEcVBUckYvYnlCVUQvMmpnRGREd1plS0lQVzcwVTlpZ01t?=
- =?utf-8?B?cEcyeTFnUEFxWGhYanY0UXJndEVDaW5wMk5oeGZHY2lSMUtGQTJVQzdnUUl3?=
- =?utf-8?B?QUVyOVVNMDh5OFJ0Q2ZNYWtsZ0hKTjNPTGREbjVtWVFMakJ0aDlDQk5hMmRw?=
- =?utf-8?B?d2VXKzRvdHBKOGhMQjJSc0FiTnZFRUZOSkZrNWpWWXlRWVJ4RjdiOGJ3QUk4?=
- =?utf-8?Q?uFyMMOPs1qqHJ+tsaPLps6Rjx?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba5152b3-bd35-42c7-f4e6-08dab2978fbc
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2022 12:35:25.1271 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GQ9gA7s3u3NarQPem5JMnZnnNAU6T/GjNoyMkMlBxhrJ9tfcuXxogxJue4Hdo3RpCfQ95IQMoJ3jXoVMwwCQTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7026
+References: <20221019074502.4048521-1-ruanjinjie@huawei.com>
+In-Reply-To: <20221019074502.4048521-1-ruanjinjie@huawei.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 20 Oct 2022 09:10:33 -0400
+Message-ID: <CADnq5_MTnK22v+NNB0iqY84ZGBP4eBV_w5QMN_2XuCHpSzxPiw@mail.gmail.com>
+Subject: Re: [PATCH -next] drm/amd/display: Make some symbols static
+To: ruanjinjie <ruanjinjie@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,113 +63,254 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+Cc: sunpeng.li@amd.com, airlied@gmail.com, qingqing.zhuo@amd.com,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
+ daniel@ffwll.ch, alexander.deucher@amd.com, harry.wentland@amd.com,
+ christian.koenig@amd.com, agustin.gutierrez@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Applied.  Thanks!
 
+Alex
 
-On 2022-10-19 11:15, Joaquín Ignacio Aramendía wrote:
-> This file was split in commit 5d945cbcd4b16a29d6470a80dfb19738f9a4319f
-> ("drm/amd/display: Create a file dedicated to planes") the logic in
-> dm_plane_format_mod_supported() function got changed by a switch logic.
-> That change broke drm_plane modifiers setting on series 5000 APUs
-> (tested on OXP mini AMD 5800U and HP Dev One 5850U PRO)
-> leading to Gamescope not working as reproted on GitHub[1]
-> 
-> To reproduce the issue, enter a TTY and run:
-> 
-> $ gamescope -- vkcube
-> 
-> With said commit applied it will abort. This one restores the old logic,
-> fixing the issue that affects Gamescope.
-> 
-> [1](https://github.com/Plagman/gamescope/issues/624>> 
-> Signed-off-by: Joaquín Ignacio Aramendía <samsagax@gmail.com>
+On Wed, Oct 19, 2022 at 3:48 AM ruanjinjie <ruanjinjie@huawei.com> wrote:
+>
+> These symbols qp_table_422_10bpc_min, qp_table_444_8bpc_max,
+> qp_table_420_12bpc_max, qp_table_444_10bpc_min, qp_table_420_8bpc_max,
+> qp_table_444_8bpc_min, qp_table_444_12bpc_min, qp_table_420_12bpc_min,
+> qp_table_422_12bpc_min, qp_table_422_12bpc_max, qp_table_444_12bpc_max,
+> qp_table_420_8bpc_min, qp_table_422_8bpc_min, qp_table_422_10bpc_max,
+> qp_table_420_10bpc_max, qp_table_420_10bpc_min, qp_table_444_10bpc_max,
+> qp_table_422_8bpc_max are not used outside of the file,
+> so mark them static.
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:28:18: warning:
+> symbol 'qp_table_422_10bpc_min' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:61:18: warning:
+> symbol 'qp_table_444_8bpc_max' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:102:18: warning:
+> symbol 'qp_table_420_12bpc_max' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:135:18: warning:
+> symbol 'qp_table_444_10bpc_min' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:188:18: warning:
+> symbol 'qp_table_420_8bpc_max' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:209:18: warning:
+> symbol 'qp_table_444_8bpc_min' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:250:18: warning:
+> symbol 'qp_table_444_12bpc_min' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:315:18: warning:
+> symbol 'qp_table_420_12bpc_min' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:348:18: warning:
+> symbol 'qp_table_422_12bpc_min' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:389:18: warning:
+> symbol 'qp_table_422_12bpc_max' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:430:18: warning:
+> symbol 'qp_table_444_12bpc_max' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:495:18: warning:
+> symbol 'qp_table_420_8bpc_min' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:516:18: warning:
+> symbol 'qp_table_422_8bpc_min' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:541:18: warning:
+> symbol 'qp_table_422_10bpc_max' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:574:16: warning:
+> symbol 'qp_table_420_10bpc_max' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:601:18: warning:
+> symbol 'qp_table_420_10bpc_min' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:628:18: warning:
+> symbol 'qp_table_444_10bpc_max' was not declared. Should it be static?
+>
+> ./drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/qp_tables.h:681:18: warning:
+> symbol 'qp_table_422_8bpc_max' was not declared. Should it be static?
+>
+> Signed-off-by: ruanjinjie <ruanjinjie@huawei.com>
 > ---
->   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 50 +++----------------
->   1 file changed, 8 insertions(+), 42 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index dfd3be49eac8..81c1fc9468b8 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1371,6 +1371,8 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
->   	const struct drm_format_info *info = drm_format_info(format);
->   	struct hw_asic_id asic_id = adev->dm.dc->ctx->asic_id;
-
-Hi,
-
-First of all, thanks a lot for this patch.
-
-You can drop asic_id since it is not used anymore.
-
-Thanks
-Siqueira
-
->   
-> +	int i;
-> +
->   	enum dm_micro_swizzle microtile = modifier_gfx9_swizzle_mode(modifier) & 3;
->   
->   	if (!info)
-> @@ -1386,49 +1388,13 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
->   		return true;
->   	}
->   
-> -	/* check if swizzle mode is supported by this version of DCN */
-> -	switch (asic_id.chip_family) {
-> -	case FAMILY_SI:
-> -	case FAMILY_CI:
-> -	case FAMILY_KV:
-> -	case FAMILY_CZ:
-> -	case FAMILY_VI:
-> -		/* asics before AI does not have modifier support */
-> -		return false;
-> -	case FAMILY_AI:
-> -	case FAMILY_RV:
-> -	case FAMILY_NV:
-> -	case FAMILY_VGH:
-> -	case FAMILY_YELLOW_CARP:
-> -	case AMDGPU_FAMILY_GC_10_3_6:
-> -	case AMDGPU_FAMILY_GC_10_3_7:
-> -		switch (AMD_FMT_MOD_GET(TILE, modifier)) {
-> -		case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
-> -		case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
-> -		case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
-> -		case AMD_FMT_MOD_TILE_GFX9_64K_D:
-> -			return true;
-> -		default:
-> -			return false;
-> -		}
-> -		break;
-> -	case AMDGPU_FAMILY_GC_11_0_0:
-> -	case AMDGPU_FAMILY_GC_11_0_1:
-> -		switch (AMD_FMT_MOD_GET(TILE, modifier)) {
-> -		case AMD_FMT_MOD_TILE_GFX11_256K_R_X:
-> -		case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
-> -		case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
-> -		case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
-> -		case AMD_FMT_MOD_TILE_GFX9_64K_D:
-> -			return true;
-> -		default:
-> -			return false;
-> -		}
-> -		break;
-> -	default:
-> -		ASSERT(0); /* Unknown asic */
-> -		break;
-> +	/* Check that the modifier is on the list of the plane's supported modifiers. */
-> +	for (i = 0; i < plane->modifier_count; i++) {
-> +		if (modifier == plane->modifiers[i])
-> +			break;
->   	}
-> +	if (i == plane->modifier_count)
-> +		return false;
->   
->   	/*
->   	 * For D swizzle the canonical modifier depends on the bpp, so check
-
+>  .../drm/amd/display/dc/dml/dsc/qp_tables.h    | 36 +++++++++----------
+>  1 file changed, 18 insertions(+), 18 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dsc/qp_tables.h b/drivers/gpu/drm/amd/display/dc/dml/dsc/qp_tables.h
+> index e5fac9f4181d..dcff0dd2b6a1 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dsc/qp_tables.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dsc/qp_tables.h
+> @@ -25,7 +25,7 @@
+>   */
+>
+>
+> -const qp_table   qp_table_422_10bpc_min = {
+> +static const qp_table   qp_table_422_10bpc_min = {
+>         {   6, { 0, 4, 5, 6, 6, 6, 6, 7, 7, 8, 9, 9, 9, 12, 16} },
+>         { 6.5, { 0, 4, 5, 6, 6, 6, 6, 7, 7, 8, 9, 9, 9, 12, 16} },
+>         {   7, { 0, 4, 5, 6, 6, 6, 6, 7, 7, 7, 9, 9, 9, 11, 15} },
+> @@ -58,7 +58,7 @@ const qp_table   qp_table_422_10bpc_min = {
+>  };
+>
+>
+> -const qp_table   qp_table_444_8bpc_max = {
+> +static const qp_table   qp_table_444_8bpc_max = {
+>         {   6, { 4, 6, 8, 8, 9, 9, 9, 10, 11, 12, 12, 12, 12, 13, 15} },
+>         { 6.5, { 4, 6, 7, 8, 8, 8, 9, 10, 11, 11, 12, 12, 12, 13, 15} },
+>         {   7, { 4, 5, 7, 7, 8, 8, 8, 9, 10, 11, 11, 12, 12, 13, 14} },
+> @@ -99,7 +99,7 @@ const qp_table   qp_table_444_8bpc_max = {
+>  };
+>
+>
+> -const qp_table   qp_table_420_12bpc_max = {
+> +static const qp_table   qp_table_420_12bpc_max = {
+>         {   4, {11, 12, 13, 14, 15, 15, 15, 16, 17, 18, 18, 19, 19, 21, 22} },
+>         { 4.5, {10, 11, 12, 13, 14, 15, 15, 16, 17, 18, 18, 19, 19, 20, 21} },
+>         {   5, { 9, 11, 12, 13, 14, 15, 15, 16, 17, 17, 18, 18, 19, 20, 21} },
+> @@ -132,7 +132,7 @@ const qp_table   qp_table_420_12bpc_max = {
+>  };
+>
+>
+> -const qp_table   qp_table_444_10bpc_min = {
+> +static const qp_table   qp_table_444_10bpc_min = {
+>         {   6, { 0, 4, 7, 7, 9, 9, 9, 9, 9, 10, 10, 10, 10, 12, 18} },
+>         { 6.5, { 0, 4, 6, 7, 8, 8, 9, 9, 9, 9, 10, 10, 10, 12, 18} },
+>         {   7, { 0, 4, 6, 6, 8, 8, 8, 8, 8, 9, 9, 10, 10, 12, 17} },
+> @@ -185,7 +185,7 @@ const qp_table   qp_table_444_10bpc_min = {
+>  };
+>
+>
+> -const qp_table   qp_table_420_8bpc_max = {
+> +static const qp_table   qp_table_420_8bpc_max = {
+>         {   4, { 4, 4, 5, 6, 7, 7, 7, 8, 9, 10, 10, 11, 11, 13, 14} },
+>         { 4.5, { 4, 4, 5, 6, 7, 7, 7, 8, 9, 10, 10, 11, 11, 12, 13} },
+>         {   5, { 3, 4, 5, 6, 7, 7, 7, 8, 9, 9, 10, 10, 11, 12, 13} },
+> @@ -206,7 +206,7 @@ const qp_table   qp_table_420_8bpc_max = {
+>  };
+>
+>
+> -const qp_table   qp_table_444_8bpc_min = {
+> +static const qp_table   qp_table_444_8bpc_min = {
+>         {   6, { 0, 1, 3, 3, 5, 5, 5, 5, 5, 6, 6, 6, 6, 9, 14} },
+>         { 6.5, { 0, 1, 2, 3, 4, 4, 5, 5, 5, 5, 6, 6, 6, 9, 14} },
+>         {   7, { 0, 0, 2, 2, 4, 4, 4, 4, 4, 5, 5, 6, 6, 9, 13} },
+> @@ -247,7 +247,7 @@ const qp_table   qp_table_444_8bpc_min = {
+>  };
+>
+>
+> -const qp_table   qp_table_444_12bpc_min = {
+> +static const qp_table   qp_table_444_12bpc_min = {
+>         {   6, { 0, 5, 11, 11, 13, 13, 13, 13, 13, 14, 14, 14, 14, 17, 22} },
+>         { 6.5, { 0, 5, 10, 11, 12, 12, 13, 13, 13, 13, 14, 14, 14, 17, 22} },
+>         {   7, { 0, 5, 10, 10, 12, 12, 12, 12, 12, 13, 13, 14, 14, 17, 21} },
+> @@ -312,7 +312,7 @@ const qp_table   qp_table_444_12bpc_min = {
+>  };
+>
+>
+> -const qp_table   qp_table_420_12bpc_min = {
+> +static const qp_table   qp_table_420_12bpc_min = {
+>         {   4, { 0, 4, 9, 10, 11, 11, 11, 11, 11, 11, 13, 13, 13, 15, 21} },
+>         { 4.5, { 0, 4, 8, 9, 10, 11, 11, 11, 11, 11, 13, 13, 13, 15, 20} },
+>         {   5, { 0, 4, 8, 9, 10, 11, 11, 11, 11, 11, 13, 13, 13, 15, 20} },
+> @@ -345,7 +345,7 @@ const qp_table   qp_table_420_12bpc_min = {
+>  };
+>
+>
+> -const qp_table   qp_table_422_12bpc_min = {
+> +static const qp_table   qp_table_422_12bpc_min = {
+>         {   6, { 0, 4, 9, 10, 11, 11, 11, 11, 11, 11, 13, 13, 13, 16, 20} },
+>         { 6.5, { 0, 4, 9, 10, 11, 11, 11, 11, 11, 11, 13, 13, 13, 16, 20} },
+>         {   7, { 0, 4, 9, 10, 11, 11, 11, 11, 11, 11, 13, 13, 13, 15, 19} },
+> @@ -386,7 +386,7 @@ const qp_table   qp_table_422_12bpc_min = {
+>  };
+>
+>
+> -const qp_table   qp_table_422_12bpc_max = {
+> +static const qp_table   qp_table_422_12bpc_max = {
+>         {   6, {12, 12, 13, 14, 15, 15, 15, 16, 17, 18, 18, 19, 19, 20, 21} },
+>         { 6.5, {12, 12, 13, 14, 15, 15, 15, 16, 17, 18, 18, 19, 19, 20, 21} },
+>         {   7, {11, 12, 13, 14, 15, 15, 15, 16, 17, 17, 18, 18, 19, 19, 20} },
+> @@ -427,7 +427,7 @@ const qp_table   qp_table_422_12bpc_max = {
+>  };
+>
+>
+> -const qp_table   qp_table_444_12bpc_max = {
+> +static const qp_table   qp_table_444_12bpc_max = {
+>         {   6, {12, 14, 16, 16, 17, 17, 17, 18, 19, 20, 20, 20, 20, 21, 23} },
+>         { 6.5, {12, 14, 15, 16, 16, 16, 17, 18, 19, 19, 20, 20, 20, 21, 23} },
+>         {   7, {12, 13, 15, 15, 16, 16, 16, 17, 18, 19, 19, 20, 20, 21, 22} },
+> @@ -492,7 +492,7 @@ const qp_table   qp_table_444_12bpc_max = {
+>  };
+>
+>
+> -const qp_table   qp_table_420_8bpc_min = {
+> +static const qp_table   qp_table_420_8bpc_min = {
+>         {   4, { 0, 0, 1, 1, 3, 3, 3, 3, 3, 3, 5, 5, 5, 9, 13} },
+>         { 4.5, { 0, 0, 1, 1, 3, 3, 3, 3, 3, 3, 5, 5, 5, 8, 12} },
+>         {   5, { 0, 0, 1, 1, 3, 3, 3, 3, 3, 3, 5, 5, 5, 8, 12} },
+> @@ -513,7 +513,7 @@ const qp_table   qp_table_420_8bpc_min = {
+>  };
+>
+>
+> -const qp_table   qp_table_422_8bpc_min = {
+> +static const qp_table   qp_table_422_8bpc_min = {
+>         {   6, { 0, 0, 1, 2, 3, 3, 3, 3, 3, 3, 5, 5, 5, 8, 12} },
+>         { 6.5, { 0, 0, 1, 2, 3, 3, 3, 3, 3, 3, 5, 5, 5, 8, 12} },
+>         {   7, { 0, 0, 1, 2, 3, 3, 3, 3, 3, 3, 5, 5, 5, 7, 11} },
+> @@ -538,7 +538,7 @@ const qp_table   qp_table_422_8bpc_min = {
+>  };
+>
+>
+> -const qp_table   qp_table_422_10bpc_max = {
+> +static const qp_table   qp_table_422_10bpc_max = {
+>         {   6, { 8, 8, 9, 10, 11, 11, 11, 12, 13, 14, 14, 15, 15, 16, 17} },
+>         { 6.5, { 8, 8, 9, 10, 11, 11, 11, 12, 13, 14, 14, 15, 15, 16, 17} },
+>         {   7, { 7, 8, 9, 10, 11, 11, 11, 12, 13, 13, 14, 14, 15, 15, 16} },
+> @@ -571,7 +571,7 @@ const qp_table   qp_table_422_10bpc_max = {
+>  };
+>
+>
+> -const qp_table qp_table_420_10bpc_max = {
+> +static const qp_table qp_table_420_10bpc_max = {
+>         {   4, { 8, 8, 9, 10, 11, 11, 11, 12, 13, 14, 14, 15, 15, 17, 18} },
+>         { 4.5, { 8, 8, 9, 10, 11, 11, 11, 12, 13, 14, 14, 15, 15, 16, 17} },
+>         {   5, { 7, 8, 9, 10, 11, 11, 11, 12, 13, 13, 14, 14, 15, 16, 17} },
+> @@ -598,7 +598,7 @@ const qp_table qp_table_420_10bpc_max = {
+>  };
+>
+>
+> -const qp_table   qp_table_420_10bpc_min = {
+> +static const qp_table   qp_table_420_10bpc_min = {
+>         {   4, { 0, 4, 4, 5, 7, 7, 7, 7, 7, 7, 9, 9, 9, 13, 17} },
+>         { 4.5, { 0, 4, 4, 5, 7, 7, 7, 7, 7, 7, 9, 9, 9, 12, 16} },
+>         {   5, { 0, 4, 4, 5, 7, 7, 7, 7, 7, 7, 9, 9, 9, 12, 16} },
+> @@ -625,7 +625,7 @@ const qp_table   qp_table_420_10bpc_min = {
+>  };
+>
+>
+> -const qp_table   qp_table_444_10bpc_max = {
+> +static const qp_table   qp_table_444_10bpc_max = {
+>         {   6, { 8, 10, 12, 12, 13, 13, 13, 14, 15, 16, 16, 16, 16, 17, 19} },
+>         { 6.5, { 8, 10, 11, 12, 12, 12, 13, 14, 15, 15, 16, 16, 16, 17, 19} },
+>         {   7, { 8, 9, 11, 11, 12, 12, 12, 13, 14, 15, 15, 16, 16, 17, 18} },
+> @@ -678,7 +678,7 @@ const qp_table   qp_table_444_10bpc_max = {
+>  };
+>
+>
+> -const qp_table   qp_table_422_8bpc_max = {
+> +static const qp_table   qp_table_422_8bpc_max = {
+>         {   6, { 4, 4, 5, 6, 7, 7, 7, 8, 9, 10, 10, 11, 11, 12, 13} },
+>         { 6.5, { 4, 4, 5, 6, 7, 7, 7, 8, 9, 10, 10, 11, 11, 12, 13} },
+>         {   7, { 3, 4, 5, 6, 7, 7, 7, 8, 9, 9, 10, 10, 11, 11, 12} },
+> --
+> 2.25.1
+>
