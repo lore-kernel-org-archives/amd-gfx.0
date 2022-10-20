@@ -4,39 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5E47C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 13:14:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F40EEC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 13:15:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B242D10EF63;
-	Thu, 20 Oct 2022 13:14:04 +0000 (UTC)
-Received: from 186.whitelist.crbl.net (186.whitelist.crbl.net
- [162.243.126.186])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB67010E375;
- Thu, 20 Oct 2022 08:28:20 +0000 (UTC)
-Received: from ([60.208.111.195])
- by ssh248.corpemail.net ((D)) with ASMTP (SSL) id PKP00123;
- Thu, 20 Oct 2022 16:20:23 +0800
-Received: from localhost.localdomain (10.200.104.82) by
- jtjnmail201605.home.langchao.com (10.100.2.5) with Microsoft SMTP Server id
- 15.1.2507.12; Thu, 20 Oct 2022 16:20:24 +0800
-From: Deming Wang <wangdeming@inspur.com>
-To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
- <daniel@ffwll.ch>
-Subject: [PATCH] drm/amdkfd: use vma_lookup() instead of find_vma()
-Date: Thu, 20 Oct 2022 04:20:20 -0400
-Message-ID: <20221020082020.1589-1-wangdeming@inspur.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0BB810EF94;
+	Thu, 20 Oct 2022 13:15:54 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDB5510EF94
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Oct 2022 13:15:48 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id x188so22820914oig.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Oct 2022 06:15:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=WKKWVbHWkfm2Lqw4QW5a8prM961Npy1CIVgqC7jAYiY=;
+ b=ePJFvnjTdfH9NNGXBFmC4fKsmSkXSRmvAgRt+41rPVQ3PpbMGcEISCwBnOuHumvVKF
+ zsXttCnc7cAdlCQhpP5+PpXfwt+qCrGJ4bYzNi4kxwIG8t4U7Gd5zyXaQs0x3Y5fkVfd
+ +yMH39V1XjkXmviIJwqkJ/SKJ7T+bQ1Y1X307qbCbeIAZbNkytAxnuInZExgLdiDQswm
+ 1rCmAF6hqSLlfCSyvCxh73aNtMNmizjmrBuoDGnxY9s10Dyfnf+Y/uMnitVB3jnjzlyh
+ x09q9IP7JZJGnRMdjRR5SSkO7SF1VNDWmXui3iW3+rG6BrJCQ9GC4X64t2CBLdjKiZzB
+ 0L6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=WKKWVbHWkfm2Lqw4QW5a8prM961Npy1CIVgqC7jAYiY=;
+ b=4MuUaJEi/b9z9efwToTkY0vudbfxmdD1Hut4XEywHfOhZdhJcdYR7RGbKcMtE0r8H5
+ he5/7lsKrUeohfX4md/8qfU2YfOBzdIIRJlBJ0PFCDQxWKj8N+T5nNjwjbAYwW6srswU
+ zhzKm9XV85M5UGQ/BuZiMZ5bxOmgtF4J8lVNvJ2jt/rawhmaA1GNqix40w2pE6RAvNNo
+ N8BBHBXASGaHN//+7cc6FbZApT0isRXpbk56V0yKDIzn5NJCUr68cNtNvufBwt/8edoh
+ NvlHJnYS7Om39L6kF1ukexsRT+rhwaCGosTqti/DgHIkS5kBhHqxqYPYiGpFrQwjHSaX
+ g0sw==
+X-Gm-Message-State: ACrzQf38UUcqU5iQXs8ifvksQwbPpzF/e0jFk3fwlyvjaBI7HJLxXkNj
+ 2nthxSh5CfHItELb0LqCpuGuG8aWyMG2/nFiEPo=
+X-Google-Smtp-Source: AMsMyM49qyX7nx/g2+4+bHKgvYvd1A9uTiZN+O9aafPkc3MttHVaSGEIfkWB4R775I0PCibOPa0T+jfnNgdtWTQmz2o=
+X-Received: by 2002:aca:ac88:0:b0:355:200f:b5ac with SMTP id
+ v130-20020acaac88000000b00355200fb5acmr15331377oie.46.1666271748049; Thu, 20
+ Oct 2022 06:15:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.200.104.82]
-tUid: 202210201620236694c4ed1177b3ab6d2ed521f42be43e
-X-Abuse-Reports-To: service@corp-email.com
-Abuse-Reports-To: service@corp-email.com
-X-Complaints-To: service@corp-email.com
-X-Report-Abuse-To: service@corp-email.com
-X-Mailman-Approved-At: Thu, 20 Oct 2022 13:13:54 +0000
+References: <20221020091515.2758445-1-Prike.Liang@amd.com>
+ <20221020091515.2758445-2-Prike.Liang@amd.com>
+In-Reply-To: <20221020091515.2758445-2-Prike.Liang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 20 Oct 2022 09:15:36 -0400
+Message-ID: <CADnq5_MBs7Cx9jGxBDNt0gv0ioT+N8jzKV3pRf2R2tfWzxZj8g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdkfd: update gfx1037 Lx cache setting
+To: Prike Liang <Prike.Liang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,68 +64,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Deming Wang <wangdeming@inspur.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Alexander.Deucher@amd.com, Yifan1.Zhang@amd.com, ray.huang@amd.com,
+ aaron.liu@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Using vma_lookup() verifies the start address is contained in the found
-vma.  This results in easier to read the code.
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Signed-off-by: Deming Wang <wangdeming@inspur.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 64fdf63093a0..0100812478b2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1586,8 +1586,8 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 		unsigned long npages;
- 		bool readonly;
- 
--		vma = find_vma(mm, addr);
--		if (!vma || addr < vma->vm_start) {
-+		vma = vma_lookup(mm, addr);
-+		if (!vma) {
- 			r = -EFAULT;
- 			goto unreserve_out;
- 		}
-@@ -2542,8 +2542,8 @@ svm_range_get_range_boundaries(struct kfd_process *p, int64_t addr,
- 	struct interval_tree_node *node;
- 	unsigned long start_limit, end_limit;
- 
--	vma = find_vma(p->mm, addr << PAGE_SHIFT);
--	if (!vma || (addr << PAGE_SHIFT) < vma->vm_start) {
-+	vma = vma_lookup(p->mm, addr << PAGE_SHIFT);
-+	if (!vma) {
- 		pr_debug("VMA does not exist in address [0x%llx]\n", addr);
- 		return -EFAULT;
- 	}
-@@ -2871,8 +2871,8 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 	/* __do_munmap removed VMA, return success as we are handling stale
- 	 * retry fault.
- 	 */
--	vma = find_vma(mm, addr << PAGE_SHIFT);
--	if (!vma || (addr << PAGE_SHIFT) < vma->vm_start) {
-+	vma = vma_lookup(mm, addr << PAGE_SHIFT);
-+	if (!vma) {
- 		pr_debug("address 0x%llx VMA is removed\n", addr);
- 		r = 0;
- 		goto out_unlock_range;
-@@ -3152,9 +3152,8 @@ svm_range_is_valid(struct kfd_process *p, uint64_t start, uint64_t size)
- 	start <<= PAGE_SHIFT;
- 	end = start + (size << PAGE_SHIFT);
- 	do {
--		vma = find_vma(p->mm, start);
--		if (!vma || start < vma->vm_start ||
--		    (vma->vm_flags & device_vma))
-+		vma = vma_lookup(p->mm, start);
-+		if (!vma || (vma->vm_flags & device_vma))
- 			return -EFAULT;
- 		start = min(end, vma->vm_end);
- 	} while (start < end);
--- 
-2.27.0
-
+On Thu, Oct 20, 2022 at 5:15 AM Prike Liang <Prike.Liang@amd.com> wrote:
+>
+> Update the gfx1037 L1/L2/L3 cache setting.
+>
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 53 +++++++++++++++++++++++++++
+>  1 file changed, 53 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> index 960046e43b7a..6e699cb9971f 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> @@ -795,6 +795,55 @@ static struct kfd_gpu_cache_info yellow_carp_cache_info[] = {
+>         },
+>  };
+>
+> +static struct kfd_gpu_cache_info gfx1037_cache_info[] = {
+> +       {
+> +               /* TCP L1 Cache per CU */
+> +               .cache_size = 16,
+> +               .cache_level = 1,
+> +               .flags = (CRAT_CACHE_FLAGS_ENABLED |
+> +                               CRAT_CACHE_FLAGS_DATA_CACHE |
+> +                               CRAT_CACHE_FLAGS_SIMD_CACHE),
+> +               .num_cu_shared = 1,
+> +       },
+> +       {
+> +               /* Scalar L1 Instruction Cache per SQC */
+> +               .cache_size = 32,
+> +               .cache_level = 1,
+> +               .flags = (CRAT_CACHE_FLAGS_ENABLED |
+> +                               CRAT_CACHE_FLAGS_INST_CACHE |
+> +                               CRAT_CACHE_FLAGS_SIMD_CACHE),
+> +               .num_cu_shared = 2,
+> +       },
+> +       {
+> +               /* Scalar L1 Data Cache per SQC */
+> +               .cache_size = 16,
+> +               .cache_level = 1,
+> +               .flags = (CRAT_CACHE_FLAGS_ENABLED |
+> +                               CRAT_CACHE_FLAGS_DATA_CACHE |
+> +                               CRAT_CACHE_FLAGS_SIMD_CACHE),
+> +               .num_cu_shared = 2,
+> +       },
+> +       {
+> +               /* GL1 Data Cache per SA */
+> +               .cache_size = 128,
+> +               .cache_level = 1,
+> +               .flags = (CRAT_CACHE_FLAGS_ENABLED |
+> +                               CRAT_CACHE_FLAGS_DATA_CACHE |
+> +                               CRAT_CACHE_FLAGS_SIMD_CACHE),
+> +               .num_cu_shared = 2,
+> +       },
+> +       {
+> +               /* L2 Data Cache per GPU (Total Tex Cache) */
+> +               .cache_size = 256,
+> +               .cache_level = 2,
+> +               .flags = (CRAT_CACHE_FLAGS_ENABLED |
+> +                               CRAT_CACHE_FLAGS_DATA_CACHE |
+> +                               CRAT_CACHE_FLAGS_SIMD_CACHE),
+> +               .num_cu_shared = 2,
+> +       },
+> +};
+> +
+> +
+>  static struct kfd_gpu_cache_info dummy_cache_info[] = {
+>         {
+>                 /* TCP L1 Cache per CU */
+> @@ -1565,6 +1614,10 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev,
+>                         pcache_info = yellow_carp_cache_info;
+>                         num_of_cache_types = ARRAY_SIZE(yellow_carp_cache_info);
+>                         break;
+> +               case IP_VERSION(10, 3, 7):
+> +                       pcache_info = gfx1037_cache_info;
+> +                       num_of_cache_types = ARRAY_SIZE(gfx1037_cache_info);
+> +                       break;
+>                 case IP_VERSION(11, 0, 0):
+>                 case IP_VERSION(11, 0, 1):
+>                 case IP_VERSION(11, 0, 2):
+> --
+> 2.25.1
+>
