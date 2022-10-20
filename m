@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BCFFC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 10:39:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C3C3C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 10:39:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B4F510E755;
-	Thu, 20 Oct 2022 10:38:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E555510E794;
+	Thu, 20 Oct 2022 10:38:16 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F01510E431;
- Thu, 20 Oct 2022 10:37:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4742210E5AC;
+ Thu, 20 Oct 2022 10:38:01 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B7C181FA26;
- Thu, 20 Oct 2022 10:37:57 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4D3251FA2F;
+ Thu, 20 Oct 2022 10:37:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666262277; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1666262279; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Ro4+Kd0RltbjMdu4OrI2uib0ho5AqwGxOtBXY8dS7Qg=;
- b=hTN4RHJE1PxuqFN5kOORkafwVSL1AHktl4otDV1rbos5DSJ5D0LXWxzf9Ke/RXxSVAMXJC
- bbEyIjc/qFuqiBk6LPkyF317wUWc8k/1yIswUZHcgLxfE9QsfT+4CEKHPhrtDjJtG6VhFy
- KPo1RuIGxz3LnsPOov3fRzdR4m8wnm8=
+ bh=sHEv3PMrKNnInemYrMBOWuesS2nTAxE1RBtBG3/fya4=;
+ b=A0Go8wc0pthGW821MuoZikUiXXtHq7ymZv2SSV9lTrmeXN1Yu4C7G6tnivAyJ9Sz9m6+AD
+ Zm6tr3TtXaNArHNJj+Sv9XmKhd3H7TiF+Os9Ff0MveRULnotL60eHIpU5X9rRPUBbPL1uL
+ Ft9F58IF15dCLP2XfZO4I3FgQoJUclY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666262277;
+ s=susede2_ed25519; t=1666262279;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Ro4+Kd0RltbjMdu4OrI2uib0ho5AqwGxOtBXY8dS7Qg=;
- b=WQRBhVwummZkW7YtUvgBUG6C4KPwGlTIFpcexjZJs8nWsclzJ/R0QWj5vc7b/l6wWQm5S1
- usWIWm27yZzJJcBQ==
+ bh=sHEv3PMrKNnInemYrMBOWuesS2nTAxE1RBtBG3/fya4=;
+ b=p2UIJ75nTMOoxRtiGSi2fv0IHNabxHTRxzd/SuQjnaHbwL4gc3z2PuPKKPd6TeO/w7i8Fc
+ IFCKarlQzfPAwNCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4709113B72;
- Thu, 20 Oct 2022 10:37:57 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CD72313AF5;
+ Thu, 20 Oct 2022 10:37:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IHRqEAUlUWPPYwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 20 Oct 2022 10:37:57 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id KDenMAYlUWPPYwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 20 Oct 2022 10:37:58 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
  mripard@kernel.org, maarten.lankhorst@linux.intel.com
-Subject: [PATCH 01/21] drm/amdgpu: Don't set struct drm_driver.lastclose
-Date: Thu, 20 Oct 2022 12:37:35 +0200
-Message-Id: <20221020103755.24058-2-tzimmermann@suse.de>
+Subject: [PATCH 04/21] drm/komeda: Don't set struct drm_driver.lastclose
+Date: Thu, 20 Oct 2022 12:37:38 +0200
+Message-Id: <20221020103755.24058-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221020103755.24058-1-tzimmermann@suse.de>
 References: <20221020103755.24058-1-tzimmermann@suse.de>
@@ -83,48 +83,35 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Don't set struct drm_driver.lastclose. It's used to restore the
-fbdev console. But as amdgpu uses generic fbdev emulation, the
+fbdev console. But as komeda uses generic fbdev emulation, the
 console is being restored by the DRM client helpers already. See
 the call to drm_client_dev_restore() in drm_lastclose().
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       | 1 -
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 --
- 2 files changed, 3 deletions(-)
+ drivers/gpu/drm/arm/display/komeda/komeda_kms.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 23998f727c7f9..fb7186c5ade2a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1224,7 +1224,6 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
- 
- const struct drm_mode_config_funcs amdgpu_mode_funcs = {
- 	.fb_create = amdgpu_display_user_framebuffer_create,
--	.output_poll_changed = drm_fb_helper_output_poll_changed,
- };
- 
- static const struct drm_prop_enum_list amdgpu_underscan_enum_list[] =
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f6a9e8fdd87d6..e9a28a5363b9a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -82,7 +82,6 @@
- #include <drm/drm_atomic_uapi.h>
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
+index 451746ebbe713..62dc64550793e 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
+@@ -10,7 +10,6 @@
+ #include <drm/drm_atomic.h>
  #include <drm/drm_atomic_helper.h>
- #include <drm/drm_blend.h>
+ #include <drm/drm_drv.h>
 -#include <drm/drm_fb_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_vblank.h>
-@@ -2810,7 +2809,6 @@ const struct amdgpu_ip_block_version dm_ip_block =
- static const struct drm_mode_config_funcs amdgpu_dm_mode_funcs = {
- 	.fb_create = amdgpu_display_user_framebuffer_create,
- 	.get_format_info = amd_get_format_info,
--	.output_poll_changed = drm_fb_helper_output_poll_changed,
- 	.atomic_check = amdgpu_dm_atomic_check,
- 	.atomic_commit = drm_atomic_helper_commit,
- };
+ #include <drm/drm_gem_dma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_managed.h>
+@@ -59,7 +58,6 @@ static irqreturn_t komeda_kms_irq_handler(int irq, void *data)
+ 
+ static const struct drm_driver komeda_kms_driver = {
+ 	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+-	.lastclose			= drm_fb_helper_lastclose,
+ 	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(komeda_gem_dma_dumb_create),
+ 	.fops = &komeda_cma_fops,
+ 	.name = "komeda",
 -- 
 2.38.0
 
