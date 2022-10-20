@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C40AAC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 10:39:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1B3BC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 10:40:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8574710E71B;
-	Thu, 20 Oct 2022 10:38:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B942C10EAFF;
+	Thu, 20 Oct 2022 10:38:37 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3DC510E6AC;
- Thu, 20 Oct 2022 10:38:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A156C10E431;
+ Thu, 20 Oct 2022 10:38:02 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3B59D22B3D;
- Thu, 20 Oct 2022 10:37:58 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D2CAA22B47;
+ Thu, 20 Oct 2022 10:38:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666262278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1666262280; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FmVfBkgQXeOJOs+lPsJuCl8bEsl7tdAgDeD2faGswnM=;
- b=xXdmWqIQfh0f0yJA3s0BPIeYEr3NNBygmE7VRKPJkQsM/g6E2+cV3BtvIsSHfPV/Zm2qX7
- r2clL0Fv/uWooja8TMsFYgvZciJRT0hTccsFr8g1QaD0IUJqiBlD+GdmvD0oilhw5kenke
- 6XqrCQkfvOQ9SsLQR9c+XaGqOPwxmz4=
+ bh=jWFK76GZFYsgYwc+6vxSArga9uMmZ2Tc8oMprbqiqw0=;
+ b=Ejd78jRSYmwnBxX2aipwC3Ox8skiLUbjtMay59sDp649DdHDOhbUxuiSAsJXDe59jzY039
+ 7m8t3LalhptMXwLVTrzVkCxp54leuuDcxIxewQ+X5Z1wJw/nYtKJ6C9nQ6NwMv8FXkTkGO
+ 3RqSYtiMQc/Rly3XWIlnJ+uGnR6kSNM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666262278;
+ s=susede2_ed25519; t=1666262280;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FmVfBkgQXeOJOs+lPsJuCl8bEsl7tdAgDeD2faGswnM=;
- b=4eKuWLJB4biZqfRWi8B+SJis28AqEs4YJSoTa7xFnBHPlmt1qY0h5xZ7aBvq6htSbFrV3z
- FgVjttMfW3hPpXAA==
+ bh=jWFK76GZFYsgYwc+6vxSArga9uMmZ2Tc8oMprbqiqw0=;
+ b=9Bhly1S29cGBzEZtlHvw8BUo8sDLPZ+WqFVhjceEyB7ynwh+OKfDst1qZxL/12nJNg8l+J
+ LjNHGoN0NcLl8OAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BBDBF13AF5;
- Thu, 20 Oct 2022 10:37:57 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 598D613AF5;
+ Thu, 20 Oct 2022 10:38:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EG0KLQUlUWPPYwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 20 Oct 2022 10:37:57 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id UMn+FAglUWPPYwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 20 Oct 2022 10:38:00 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
  mripard@kernel.org, maarten.lankhorst@linux.intel.com
-Subject: [PATCH 02/21] drm/imx: Don't set struct drm_driver.lastclose
-Date: Thu, 20 Oct 2022 12:37:36 +0200
-Message-Id: <20221020103755.24058-3-tzimmermann@suse.de>
+Subject: [PATCH 07/21] drm/rockchip: Don't set struct drm_driver.lastclose
+Date: Thu, 20 Oct 2022 12:37:41 +0200
+Message-Id: <20221020103755.24058-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221020103755.24058-1-tzimmermann@suse.de>
 References: <20221020103755.24058-1-tzimmermann@suse.de>
@@ -83,23 +83,31 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Don't set struct drm_driver.lastclose. It's used to restore the
-fbdev console. But as imx uses generic fbdev emulation, the
+fbdev console. But as rockchip uses generic fbdev emulation, the
 console is being restored by the DRM client helpers already. See
 the call to drm_client_dev_restore() in drm_lastclose().
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/imx/dcss/dcss-kms.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_fb.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/imx/dcss/dcss-kms.c b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-index b4f82ebca5325..1defd6a40f11d 100644
---- a/drivers/gpu/drm/imx/dcss/dcss-kms.c
-+++ b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-@@ -21,7 +21,6 @@ DEFINE_DRM_GEM_DMA_FOPS(dcss_cma_fops);
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_fb.c b/drivers/gpu/drm/rockchip/rockchip_drm_fb.c
+index 092bf863110b7..7de64b0ad047f 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_fb.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_fb.c
+@@ -9,7 +9,6 @@
+ #include <drm/drm.h>
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_damage_helper.h>
+-#include <drm/drm_fb_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+@@ -101,7 +100,6 @@ rockchip_fb_create(struct drm_device *dev, struct drm_file *file,
  
- static const struct drm_mode_config_funcs dcss_drm_mode_config_funcs = {
- 	.fb_create = drm_gem_fb_create,
+ static const struct drm_mode_config_funcs rockchip_drm_mode_config_funcs = {
+ 	.fb_create = rockchip_fb_create,
 -	.output_poll_changed = drm_fb_helper_output_poll_changed,
  	.atomic_check = drm_atomic_helper_check,
  	.atomic_commit = drm_atomic_helper_commit,
