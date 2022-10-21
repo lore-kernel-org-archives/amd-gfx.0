@@ -4,56 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C177C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 14:57:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D77D4C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 15:12:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CBEE10E20C;
-	Fri, 21 Oct 2022 14:57:47 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A190910E20C
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 14:57:39 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-13ae8117023so3824440fac.9
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 07:57:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ZPKg4nA1oQImeRsX+Bf1fIJhzf/8ugzuPiuwhtZ9+9M=;
- b=LMPpLv9WRIfSNxhfnzr1k88ioqlcKjKbuxNCpi1l35nNdNAiofnIwvd4zRegVLw7ff
- fMWxK5/TRyG6SFn7HNIrPT1B4A6dSxASzg3xCRP/X5etkkQlzdTAunQiNNXgOZjog+LM
- Hd+UH7aEZL1jSOfTJS7Uoup9ApMBpGR/dLIJXBGbPH7midH3EpjcdtgwXKGhOqsU7XNb
- aOLBNWcjQGsMMHx+z21YCP3QcPGf4WcBwFqNVr5u+7YCTSxXrW06E+LxFPXyd+3DfGAE
- dsmRtzFolMdvEPmWz6OZ6ZOJCVLj+j9dcLs1FmZtTnvGZCpedeax4ivymzT5qDHRoK/B
- H1Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZPKg4nA1oQImeRsX+Bf1fIJhzf/8ugzuPiuwhtZ9+9M=;
- b=6d8UR8/2ze2NkZXU8iUH2meD1OBMFMC2t38UR6AfKQfT2l1W20gZDWKhRTDWcmC+AO
- s9J8LPthzoyzRq/ug4ThZ75vFvnwvHuH9fk7GsMQ+x8dkKq5Vd/3SJrSI2PU5nIS7iXA
- fWLfhLl6BZ/p03NtFAtM1I3WbN9NRKAe7p8W1LDDvQouSRJ5NIlqWipzhP4fxwjLfHGd
- fv430TI1d+yYnXQ8m1abOGj/xjDRj53HIwDq5dNC/M2y6+8UlUMmD5xjqhJ2A9vHe6Dr
- hj3X4QkKPyNq72XG2pBAk0Uylj0DIRG/1Roya0I9p4q3Wq5UrxZqtQyT8nIA2ExZMS/M
- XMDA==
-X-Gm-Message-State: ACrzQf3c5Z6xb5qJnHIR3yZp1rK7cRqwPkstoxivOH+q8eQ4blKDw6nU
- F7KMtniT1Vi4dyj2le0gcze/+FbO2BqX1j8R8tJRpX8OyNc=
-X-Google-Smtp-Source: AMsMyM7NXKw772xlcjGM/Mr50EMPYa+Atnfg5C0gZW7CResOCC122gEe2Mv7oTAiCTUVDYxG2jnfOerMPll/Jy1inV0=
-X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
- x36-20020a056870a7a400b001367c39979emr12646976oao.96.1666364258956; Fri, 21
- Oct 2022 07:57:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAF9910E3EC;
+	Fri, 21 Oct 2022 15:12:14 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2063.outbound.protection.outlook.com [40.107.243.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42DB210E3BD;
+ Fri, 21 Oct 2022 15:12:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=l71cDup+ABqfUNVNnKDJaFx9gUmp6CodXFcM2RkV1NeTEA/6F6YJJEuyfkgFWXBjcb297H9a59sqAZZUVM462J25ASUGMrcDYTIZhrm+e7vTpsi5NACISnla79/LiNKyoO72QYHnHGOpseu/7gjXL4fQoCV9l7f/8sxk0NFKfV5ECzOroOdVKp36ZvOMyXdnQ2J/SR9YtcjBOTpyCa45VLVAKdj4zEb3IDqX9gDAOnxEZ/yrN7hZoD4zPazC2xpGDSwvQAgNc2ZBChVHO1MtLWxXisDsZwssz40OziMhWtWdsIaOt6gnlEOsm1phupG66lxg7x0MkppvTzhHYdP14Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tNvwI8i1NUcbzqkVoEV+4mdYMO/sGQGcqnXJMzL9D2c=;
+ b=lrkPAHEX7/60f4KPw5bibdwp+v1Jz3tDTNmQCzK6gFoTAIC13+2U7DOygyXQCCi3nz3ZQSrizCslUODgw9zWkAWIy0sLZduNurXi46P41TWu5gi4bZWIj8asO61DTSa2HvuDDn6H80qU+X6zxfxfamH98Py28LS12PY0+h1Yk/M6gQMOQOWPKI+fHFHqnwXt5US61ONxg7W7Q6DOXnMMeWbXxWAEEsCPaO0g/yPE6V4TEwgYW35f3+D+CMBYnCwaCdV8WTcahZS3FRr6L2kYTkYzawZqWDYBUgqt1cjkaBdyzAbzEQ+g25yKAhWARDcyZW9MLeAPzZd+A0DT3PU7ug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tNvwI8i1NUcbzqkVoEV+4mdYMO/sGQGcqnXJMzL9D2c=;
+ b=DFsvto04VcPBQqkBFH7lpssyKQvBhdYkgwZP97913/vwIYaCGQFgwMyE/I5PTocK9JyAMYkMHO5KClvypirPRscVQG6yrwiAy9LCCqKLFEpgQMnwD6WrKu88pguo+lwtC5/hcPEfn0hjAsAtxPWoPwaIY/MU9/q90LAKoPT+s24=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by MW4PR12MB7013.namprd12.prod.outlook.com (2603:10b6:303:218::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.32; Fri, 21 Oct
+ 2022 15:12:08 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::aef3:6aae:b904:e395]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::aef3:6aae:b904:e395%7]) with mapi id 15.20.5746.021; Fri, 21 Oct 2022
+ 15:12:08 +0000
+Message-ID: <cb1efdf9-3d68-df1c-a808-d971077a2666@amd.com>
+Date: Fri, 21 Oct 2022 11:12:04 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.3
+Subject: Re: [PATCH] drm/amd/display: Remove duplicate code for DCN314 DML
+ calculation
+Content-Language: en-US
+To: Rafael Mendonca <rafaelmendsr@gmail.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+References: <20221020221051.919704-1-rafaelmendsr@gmail.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20221020221051.919704-1-rafaelmendsr@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT3PR01CA0110.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:85::22) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-References: <20221021144728.2798803-1-Prike.Liang@amd.com>
-In-Reply-To: <20221021144728.2798803-1-Prike.Liang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 21 Oct 2022 10:57:27 -0400
-Message-ID: <CADnq5_O4Uw=OK_xtrfnS4idJUWU5MOjUMvn9Uzi2L9D8cskSiA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: disallow gfxoff until GC IP blocks
- complete s2idle resume
-To: Prike Liang <Prike.Liang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|MW4PR12MB7013:EE_
+X-MS-Office365-Filtering-Correlation-Id: 89c1df00-38df-437b-8b26-08dab3769ebd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: K0LPe37aLyir7dEGSsxuoU2o1asBeLSA+vfDJdVb0ycVJ4c++p8Cw4M825lz/KQUodGeJFyil8mz3vkuhuQxt5AzJNH7zFf2g+ODfBNvG1731N7Afv/cgllLNEHXPqkOvgKAZwWEZP78XZUAnc+MMX3SBNeu6X7N/ID/VqHzeVfWxEfl3KDsU9FmbyMOniLviw62jkjnBAcheV7wtmwqYLyoWF7GOmPblFVuycLHbRC49aK2MfMAzH29CVK3ekhw7OlZAZX5AG5tGwN3zO2FgPn6JYvjsHPl/umGJC98gMJxY6NPUA38oevkSxqaZs0ivsvi+3RtkvxfKcVB9rJSp0bmRKzxSK/IvXilmfrd40b0ISSB6+DVWh7W7dvv0pL4Skbjelbqd1wzKa4WAPH0hlZy1s6BR/QvWkCmEsJG1mr+8M8NSEXKR8FivEjo596XFo2Bn3NZRj95ONbkRWn/Mt5wjMlBulKQyDsrL9oluv/tMPzrb0MiSqd/07drT35SofBnAypPBhoTlU/RY4Vueq6QqhBQkbPuFBQUUhfl2PrykbWPOJISr6GtKzd4Zw1pW2lSl0b0yTggCqMTMEPQsUIqgg1QOiaDsLweieAJ1qvKDhON17Efu/c9sO+JuXONww8F9qdcRCuY+1dE0uFU/vmaoDlIU0edy9taMLTVbx9YNw+VTlw0amY6A3bbCSkEc5S4ar2YVLWm0sBAGO5ZRYVUoe6tJDRkr+mrNvz9yMAyq1ueHxa2L7bH1ay+Ia75EslA5irgrqlH0hZX16Jme+3h9xCXpbekl8LIzbGhohY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(376002)(136003)(39860400002)(366004)(396003)(451199015)(5660300002)(186003)(31686004)(4001150100001)(66556008)(2906002)(2616005)(6666004)(6506007)(110136005)(38100700002)(26005)(316002)(53546011)(86362001)(6512007)(8676002)(41300700001)(8936002)(30864003)(66476007)(83380400001)(4326008)(31696002)(478600001)(44832011)(6486002)(36756003)(66946007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VGRKeUE4Y2dDUXFrR1ZQeTUvVk05K1Z0TVNLanhwNzdOc3UrZTQ2YXVVNjB5?=
+ =?utf-8?B?am9NSXVURU5NQ0FwYUtWVnBzNlBFbncrUkNmVWhUd0YzR3NoOHVXK0NaaXJn?=
+ =?utf-8?B?TlRDOGxSd2lZYURIK2Fra0thMDY2YUk5T3g1QXB1cE9IMHRsem1LMC8vY0w4?=
+ =?utf-8?B?NmM3OUtnVDRZWTZ6cDBBTjE5ZzUyN2JJQWJjbDJYL0hJK2dnS2NvTExDb0xt?=
+ =?utf-8?B?U3E5K3h4ejd5S2JZUmpjdnBhNkdwem85YzRVWmdIeUNrUnhvWklLOU1kblFa?=
+ =?utf-8?B?U090dHBRRWQwVzQxT0dXTDk0WGRma1pkTVlCMW8vSHFRRjRucDFpUUhZeGxE?=
+ =?utf-8?B?OGZRUHNoOWFLMFFLSitxN3cydzlBeUlSUGs5NlJwOXptTVFlWnRWN3ZxaS94?=
+ =?utf-8?B?NHBxV1RNTlNWZGFtZi8vUG9hYjNxK09xUXN3a3lQMmxHV2VHWjRGcktGdU9y?=
+ =?utf-8?B?WjZVT0lpQVJqRysrQXpNelAvSU1Od2hBemZqME4zOEg0ek81OEtvcHFzV3JQ?=
+ =?utf-8?B?QnJFSlk3QWkzajlwbkphbzVmT2VVamlRYlNhUndVZlI4ZjdvV1RPN2VDS3M5?=
+ =?utf-8?B?Y2NKUTl2QjB6U0RERytzNkJtSTZhdmR1dzRlOFJudTBsWWpiWW1xNEJwekVz?=
+ =?utf-8?B?NnJDQks0dDhTZklXdHlnNUF6QVU2ekNGRHdkQnhXeC9pbCt1ZU42TzNLcGZn?=
+ =?utf-8?B?blFnZ0tRdjlYZnAxMkFxOFVqZGh2ZTBhYTFJVlY5WDNzTytya2hJSFU0Mzl6?=
+ =?utf-8?B?VXV3MDVXV1ZndVcreG1wSGh4QTRpSWw1NGVmU0wvU2huL2F4TG53dTBvaHhu?=
+ =?utf-8?B?SW42blZIempWY3RyOEQrL1pPM0RKeHBWdDJobHpnL0YyM3lPNXF4eHFjTlFC?=
+ =?utf-8?B?ek9HY1c4Q1N6NFdWSURNakF5RGxselF2NkxDdGtUdnQ0VmxGckM5bVN2Kzht?=
+ =?utf-8?B?dXVTdEVremZueWJqT0l3eDhqMTYvNDZzVFJQUUNCUkY0WG1NR1haYktpeTlz?=
+ =?utf-8?B?ZE5Iei9XOEJVbDAxUndXZElEaGdYRG0vcHc3ZStPZU56WlR1Y29rd1dnTUN2?=
+ =?utf-8?B?Ui9QNERncEFnRWwyREF6SW95YktSZjQxOXB3OGQxeGNkMTkvTFc2dnF6d05Q?=
+ =?utf-8?B?T2pjb1p5MjRmMnAzaUpPWndLSC9yZEFtVkQ3ZVBYcW5yZGs0a0Q5Ykt3NzdZ?=
+ =?utf-8?B?L3phdlhaY2Z3dGdISHFjSmR2eTVzUWV6S2hWTGpFbmF5MW9KMkVLaWdSOGZM?=
+ =?utf-8?B?Sm1BM1BHR0xaYVVpaExtL25FdFA0QUlCVG52WXJPNW1EMXdhQXNIaFQ0WjNX?=
+ =?utf-8?B?V2lTcW80WWhRcStTUlhPcm92UjlOQmRSYmVRSG1weFd4cTVLSXlyUzRhT1NR?=
+ =?utf-8?B?UTBSYSs4TFJKQlFnRGVSaEZjeVhpRnlxMFcxNTZpanh6VnR0SDJkSUErVzRY?=
+ =?utf-8?B?VktLVzNSYm5qYkljSzZVSW9CWlpROEkwY1F1T3cxc09RVnB5ZlZVTUltQnlW?=
+ =?utf-8?B?alpiMWxVTjAwM05WL1JyeTZWaHJkcTZpc3dnVXVveHA2bDF0RS9GUVJEOU95?=
+ =?utf-8?B?MXhJZGdDUldseVc5YzNDVlRSOGZhenBVL2kwWk5HcGRvakVjdjVDZDBEalY3?=
+ =?utf-8?B?NzdSVVpsQmRKT0w1SWN4WG5MSy9ubEZnUEVkYmU4Q3FpSnpPdjlxa29RbnZK?=
+ =?utf-8?B?UWxTVVlqTjhUamd5NU9hU2hyZkMxOGVoWVB3eUZJMG1PYUZUUjQwV2RiSjFi?=
+ =?utf-8?B?RnhyRTd3cG1qcFdMT0ZieE5rRTFrT05PaFBXOFp0TDcyTE1xVWJ2MnZrOHlj?=
+ =?utf-8?B?SWRUYmQyUGhuUW9QcTZNYUszS1RxK2VTbXlSRmtZVWZmUEJrWDVCUzU1RG1N?=
+ =?utf-8?B?YTE3M3dtMXNEV1FqRVNKU0tvbDE4dmdiVktkVGNGcDRXSGdJNzFpNForTU9B?=
+ =?utf-8?B?cGdMRmxTdHc3SUxPcXlBTVoxRGpDQU02ajlhZVNINk4rMUxta1NzWExFS2l2?=
+ =?utf-8?B?MmZIaE9OY1gzR3JMQ3E1Q3RpNTY1L2RJNzFXZDRLeHVwYXlIMHRVU25sbEt1?=
+ =?utf-8?B?SThjRGsyZFBPWlpvVWxjOUJ2YmlBQXc5L3AyZXYzWks4WXZOWnJ5TWNROUR4?=
+ =?utf-8?Q?cv2J42DZxccl0ktRPsMouqFFf?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89c1df00-38df-437b-8b26-08dab3769ebd
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2022 15:12:07.8968 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3DvBLva5zRk597RRZuQhMYpCvsqZjm3iNb/2eEliUUQvzp777HR0Yvo4xdsDHCX0yckd4HVRdgA+aAO9hKWzoQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7013
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,65 +129,320 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 21, 2022 at 10:47 AM Prike Liang <Prike.Liang@amd.com> wrote:
->
-> In the S2idle suspend/resume phase the gfxoff is keeping functional so
-> some IP blocks will be likely to reinitialize at gfxoff entry and that
-> will result in failing to program GC registers.Therefore, let disallow
-> gfxoff until AMDGPU IPs reinitialized completely.
->
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+
+
+On 2022-10-20 18:10, Rafael Mendonca wrote:
+> This is an extension of commit fd3bc691fc7b ("drm/amd/display: Remove
+> duplicate code across dcn30 and dcn31"), which removed duplicate code for
+> the function CalculateBytePerPixelAnd256BBlockSizes() across dcn30 and
+> dcn31. At the time the aforementioned commit was introduced, support for
+> DCN 3.1.4 was still not merged. Thus, this deletes duplicate code for
+> CalculateBytePerPixelAnd256BBlockSizes(), that was introduced later in
+> DCN314, in favor of using the respective functionality from
+> 'display_mode_vba_30.h'.
+> 
+> Additionally, by doing that, we also fix a duplicate argument issue
+> reported by coccinelle in 'display_rq_dlg_calc_314.c':
+> 
+>   static bool CalculateBytePerPixelAnd256BBlockSizes(...) {
+>     ...
+>     } else if (SourcePixelFormat == dm_444_16 || SourcePixelFormat == dm_444_16) {
+>     ...
+>   }
+> 
+
+A lot of the uglyness of this code and some of the duplicate nature
+of it are due to the fact that this comes directly from the HW
+designers and is consumed as HW gospel. Years ago we tried to write
+our own beautiful code to implement the HW bandwidth constraints and
+calculations. This proved problematic as we had an argument with
+HW designers each time there was a bug and first had to try to
+prove that our own code was good. Consuming their code (more-or-less)
+as-is short circuits any of these arguments and has lead to a
+more stable driver, even with HW where the bandwidth calculations
+have become more and more complex.
+
+We do want this code to be kosher for the kernel but beyond that
+we want to refactor this code as little as possible for the
+above-stated reasons.
+
+Note the "NOTE" at the top of the file regarding this.
+
+As for the specifics of this patch, I'll leave that to Siqueira,
+since he's been a lot deeper into this code than I have.
+
+Harry
+
+> Signed-off-by: Rafael Mendonca <rafaelmendsr@gmail.com>
 > ---
-> -v2: Move the operation of exiting gfxoff from smu to higer layer in amdgpu_device.c.
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 5b8362727226..36c44625932e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3210,6 +3210,12 @@ static int amdgpu_device_ip_resume_phase2(struct amdgpu_device *adev)
->                         return r;
->                 }
->                 adev->ip_blocks[i].status.hw = true;
-> +
-> +               if (adev->in_s0ix && adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SMC) {
+>  .../dc/dml/dcn314/display_mode_vba_314.c      | 106 +-----------------
+>  .../dc/dml/dcn314/display_rq_dlg_calc_314.c   |  91 +--------------
+>  2 files changed, 6 insertions(+), 191 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
+> index 0d12fd079cd6..6e43cd21a7d3 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
+> @@ -32,6 +32,7 @@
+>  #include "../display_mode_lib.h"
+>  #include "display_mode_vba_314.h"
+>  #include "../dml_inline_defs.h"
+> +#include "dml/dcn30/display_mode_vba_30.h"
+>  
+>  /*
+>   * NOTE:
+> @@ -90,17 +91,6 @@ typedef struct {
+>  #define BPP_INVALID 0
+>  #define BPP_BLENDED_PIPE 0xffffffff
+>  
+> -static bool CalculateBytePerPixelAnd256BBlockSizes(
+> -		enum source_format_class SourcePixelFormat,
+> -		enum dm_swizzle_mode SurfaceTiling,
+> -		unsigned int *BytePerPixelY,
+> -		unsigned int *BytePerPixelC,
+> -		double *BytePerPixelDETY,
+> -		double *BytePerPixelDETC,
+> -		unsigned int *BlockHeight256BytesY,
+> -		unsigned int *BlockHeight256BytesC,
+> -		unsigned int *BlockWidth256BytesY,
+> -		unsigned int *BlockWidth256BytesC);
+>  static void DisplayPipeConfiguration(struct display_mode_lib *mode_lib);
+>  static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation(struct display_mode_lib *mode_lib);
+>  static unsigned int dscceComputeDelay(
+> @@ -2178,7 +2168,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+>  	DTRACE("   return_bus_bw      = %f", v->ReturnBW);
+>  
+>  	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
+> -		CalculateBytePerPixelAnd256BBlockSizes(
+> +		dml30_CalculateBytePerPixelAnd256BBlockSizes(
+>  				v->SourcePixelFormat[k],
+>  				v->SurfaceTiling[k],
+>  				&v->BytePerPixelY[k],
+> @@ -3317,7 +3307,7 @@ static void DisplayPipeConfiguration(struct display_mode_lib *mode_lib)
+>  
+>  	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
+>  
+> -		CalculateBytePerPixelAnd256BBlockSizes(
+> +		dml30_CalculateBytePerPixelAnd256BBlockSizes(
+>  				v->SourcePixelFormat[k],
+>  				v->SurfaceTiling[k],
+>  				&BytePerPixY[k],
+> @@ -3371,94 +3361,6 @@ static void DisplayPipeConfiguration(struct display_mode_lib *mode_lib)
+>  			&dummysinglestring);
+>  }
+>  
+> -static bool CalculateBytePerPixelAnd256BBlockSizes(
+> -		enum source_format_class SourcePixelFormat,
+> -		enum dm_swizzle_mode SurfaceTiling,
+> -		unsigned int *BytePerPixelY,
+> -		unsigned int *BytePerPixelC,
+> -		double *BytePerPixelDETY,
+> -		double *BytePerPixelDETC,
+> -		unsigned int *BlockHeight256BytesY,
+> -		unsigned int *BlockHeight256BytesC,
+> -		unsigned int *BlockWidth256BytesY,
+> -		unsigned int *BlockWidth256BytesC)
+> -{
+> -	if (SourcePixelFormat == dm_444_64) {
+> -		*BytePerPixelDETY = 8;
+> -		*BytePerPixelDETC = 0;
+> -		*BytePerPixelY = 8;
+> -		*BytePerPixelC = 0;
+> -	} else if (SourcePixelFormat == dm_444_32 || SourcePixelFormat == dm_rgbe) {
+> -		*BytePerPixelDETY = 4;
+> -		*BytePerPixelDETC = 0;
+> -		*BytePerPixelY = 4;
+> -		*BytePerPixelC = 0;
+> -	} else if (SourcePixelFormat == dm_444_16) {
+> -		*BytePerPixelDETY = 2;
+> -		*BytePerPixelDETC = 0;
+> -		*BytePerPixelY = 2;
+> -		*BytePerPixelC = 0;
+> -	} else if (SourcePixelFormat == dm_444_8) {
+> -		*BytePerPixelDETY = 1;
+> -		*BytePerPixelDETC = 0;
+> -		*BytePerPixelY = 1;
+> -		*BytePerPixelC = 0;
+> -	} else if (SourcePixelFormat == dm_rgbe_alpha) {
+> -		*BytePerPixelDETY = 4;
+> -		*BytePerPixelDETC = 1;
+> -		*BytePerPixelY = 4;
+> -		*BytePerPixelC = 1;
+> -	} else if (SourcePixelFormat == dm_420_8) {
+> -		*BytePerPixelDETY = 1;
+> -		*BytePerPixelDETC = 2;
+> -		*BytePerPixelY = 1;
+> -		*BytePerPixelC = 2;
+> -	} else if (SourcePixelFormat == dm_420_12) {
+> -		*BytePerPixelDETY = 2;
+> -		*BytePerPixelDETC = 4;
+> -		*BytePerPixelY = 2;
+> -		*BytePerPixelC = 4;
+> -	} else {
+> -		*BytePerPixelDETY = 4.0 / 3;
+> -		*BytePerPixelDETC = 8.0 / 3;
+> -		*BytePerPixelY = 2;
+> -		*BytePerPixelC = 4;
+> -	}
+> -
+> -	if ((SourcePixelFormat == dm_444_64 || SourcePixelFormat == dm_444_32 || SourcePixelFormat == dm_444_16 || SourcePixelFormat == dm_444_8 || SourcePixelFormat == dm_mono_16
+> -			|| SourcePixelFormat == dm_mono_8 || SourcePixelFormat == dm_rgbe)) {
+> -		if (SurfaceTiling == dm_sw_linear) {
+> -			*BlockHeight256BytesY = 1;
+> -		} else if (SourcePixelFormat == dm_444_64) {
+> -			*BlockHeight256BytesY = 4;
+> -		} else if (SourcePixelFormat == dm_444_8) {
+> -			*BlockHeight256BytesY = 16;
+> -		} else {
+> -			*BlockHeight256BytesY = 8;
+> -		}
+> -		*BlockWidth256BytesY = 256U / *BytePerPixelY / *BlockHeight256BytesY;
+> -		*BlockHeight256BytesC = 0;
+> -		*BlockWidth256BytesC = 0;
+> -	} else {
+> -		if (SurfaceTiling == dm_sw_linear) {
+> -			*BlockHeight256BytesY = 1;
+> -			*BlockHeight256BytesC = 1;
+> -		} else if (SourcePixelFormat == dm_rgbe_alpha) {
+> -			*BlockHeight256BytesY = 8;
+> -			*BlockHeight256BytesC = 16;
+> -		} else if (SourcePixelFormat == dm_420_8) {
+> -			*BlockHeight256BytesY = 16;
+> -			*BlockHeight256BytesC = 8;
+> -		} else {
+> -			*BlockHeight256BytesY = 8;
+> -			*BlockHeight256BytesC = 8;
+> -		}
+> -		*BlockWidth256BytesY = 256U / *BytePerPixelY / *BlockHeight256BytesY;
+> -		*BlockWidth256BytesC = 256U / *BytePerPixelC / *BlockHeight256BytesC;
+> -	}
+> -	return true;
+> -}
+> -
+>  static double CalculateTWait(unsigned int PrefetchMode, double DRAMClockChangeLatency, double UrgentLatency, double SREnterPlusExitTime)
+>  {
+>  	if (PrefetchMode == 0) {
+> @@ -3948,7 +3850,7 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
+>  	/*Bandwidth Support Check*/
+>  
+>  	for (k = 0; k < v->NumberOfActivePlanes; k++) {
+> -		CalculateBytePerPixelAnd256BBlockSizes(
+> +		dml30_CalculateBytePerPixelAnd256BBlockSizes(
+>  				v->SourcePixelFormat[k],
+>  				v->SurfaceTiling[k],
+>  				&v->BytePerPixelY[k],
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_rq_dlg_calc_314.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_rq_dlg_calc_314.c
+> index 61ee9ba063a7..a373d35dd473 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_rq_dlg_calc_314.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_rq_dlg_calc_314.c
+> @@ -28,94 +28,7 @@
+>  #include "../display_mode_vba.h"
+>  #include "../dml_inline_defs.h"
+>  #include "display_rq_dlg_calc_314.h"
+> -
+> -static bool CalculateBytePerPixelAnd256BBlockSizes(
+> -		enum source_format_class SourcePixelFormat,
+> -		enum dm_swizzle_mode SurfaceTiling,
+> -		unsigned int *BytePerPixelY,
+> -		unsigned int *BytePerPixelC,
+> -		double *BytePerPixelDETY,
+> -		double *BytePerPixelDETC,
+> -		unsigned int *BlockHeight256BytesY,
+> -		unsigned int *BlockHeight256BytesC,
+> -		unsigned int *BlockWidth256BytesY,
+> -		unsigned int *BlockWidth256BytesC)
+> -{
+> -	if (SourcePixelFormat == dm_444_64) {
+> -		*BytePerPixelDETY = 8;
+> -		*BytePerPixelDETC = 0;
+> -		*BytePerPixelY = 8;
+> -		*BytePerPixelC = 0;
+> -	} else if (SourcePixelFormat == dm_444_32 || SourcePixelFormat == dm_rgbe) {
+> -		*BytePerPixelDETY = 4;
+> -		*BytePerPixelDETC = 0;
+> -		*BytePerPixelY = 4;
+> -		*BytePerPixelC = 0;
+> -	} else if (SourcePixelFormat == dm_444_16 || SourcePixelFormat == dm_444_16) {
+> -		*BytePerPixelDETY = 2;
+> -		*BytePerPixelDETC = 0;
+> -		*BytePerPixelY = 2;
+> -		*BytePerPixelC = 0;
+> -	} else if (SourcePixelFormat == dm_444_8) {
+> -		*BytePerPixelDETY = 1;
+> -		*BytePerPixelDETC = 0;
+> -		*BytePerPixelY = 1;
+> -		*BytePerPixelC = 0;
+> -	} else if (SourcePixelFormat == dm_rgbe_alpha) {
+> -		*BytePerPixelDETY = 4;
+> -		*BytePerPixelDETC = 1;
+> -		*BytePerPixelY = 4;
+> -		*BytePerPixelC = 1;
+> -	} else if (SourcePixelFormat == dm_420_8) {
+> -		*BytePerPixelDETY = 1;
+> -		*BytePerPixelDETC = 2;
+> -		*BytePerPixelY = 1;
+> -		*BytePerPixelC = 2;
+> -	} else if (SourcePixelFormat == dm_420_12) {
+> -		*BytePerPixelDETY = 2;
+> -		*BytePerPixelDETC = 4;
+> -		*BytePerPixelY = 2;
+> -		*BytePerPixelC = 4;
+> -	} else {
+> -		*BytePerPixelDETY = 4.0 / 3;
+> -		*BytePerPixelDETC = 8.0 / 3;
+> -		*BytePerPixelY = 2;
+> -		*BytePerPixelC = 4;
+> -	}
+> -
+> -	if ((SourcePixelFormat == dm_444_64 || SourcePixelFormat == dm_444_32 || SourcePixelFormat == dm_444_16 || SourcePixelFormat == dm_444_8 || SourcePixelFormat == dm_mono_16
+> -			|| SourcePixelFormat == dm_mono_8 || SourcePixelFormat == dm_rgbe)) {
+> -		if (SurfaceTiling == dm_sw_linear)
+> -			*BlockHeight256BytesY = 1;
+> -		else if (SourcePixelFormat == dm_444_64)
+> -			*BlockHeight256BytesY = 4;
+> -		else if (SourcePixelFormat == dm_444_8)
+> -			*BlockHeight256BytesY = 16;
+> -		else
+> -			*BlockHeight256BytesY = 8;
+> -
+> -		*BlockWidth256BytesY = 256U / *BytePerPixelY / *BlockHeight256BytesY;
+> -		*BlockHeight256BytesC = 0;
+> -		*BlockWidth256BytesC = 0;
+> -	} else {
+> -		if (SurfaceTiling == dm_sw_linear) {
+> -			*BlockHeight256BytesY = 1;
+> -			*BlockHeight256BytesC = 1;
+> -		} else if (SourcePixelFormat == dm_rgbe_alpha) {
+> -			*BlockHeight256BytesY = 8;
+> -			*BlockHeight256BytesC = 16;
+> -		} else if (SourcePixelFormat == dm_420_8) {
+> -			*BlockHeight256BytesY = 16;
+> -			*BlockHeight256BytesC = 8;
+> -		} else {
+> -			*BlockHeight256BytesY = 8;
+> -			*BlockHeight256BytesC = 8;
+> -		}
+> -		*BlockWidth256BytesY = 256U / *BytePerPixelY / *BlockHeight256BytesY;
+> -		*BlockWidth256BytesC = 256U / *BytePerPixelC / *BlockHeight256BytesC;
+> -	}
+> -	return true;
+> -}
+> +#include "dml/dcn30/display_mode_vba_30.h"
+>  
+>  static bool is_dual_plane(enum source_format_class source_format)
+>  {
+> @@ -468,7 +381,7 @@ static void get_meta_and_pte_attr(
+>  	double byte_per_pixel_det_y;
+>  	double byte_per_pixel_det_c;
+>  
+> -	CalculateBytePerPixelAnd256BBlockSizes(
+> +	dml30_CalculateBytePerPixelAnd256BBlockSizes(
+>  			(enum source_format_class) (source_format),
+>  			(enum dm_swizzle_mode) (tiling),
+>  			&bytes_per_element_y,
 
-Add a comment here something like:
-/* disable gfxoff for IP resume.  gfxoff is re-enabled in
-amdgpu_device_resume() after IP resume */
-
-> +                       amdgpu_gfx_off_ctrl(adev, false);
-> +                       DRM_DEBUG("will disable gfxoff for re-initializing other blocks\n");
-> +               }
-> +
->         }
->
->         return 0;
-> @@ -4185,6 +4191,10 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
->         /* Make sure IB tests flushed */
->         flush_delayed_work(&adev->delayed_init_work);
->
-> +       if (adev->in_s0ix) {
-
-Add a comment here something like:
-/* re-enable gfxoff after IP resume.  This re-enables gfxoff after it
-was disabled for IP resume in amdgpu_device_ip_resume_phase2() */
-
-This those comments added, the patch is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-> +               amdgpu_gfx_off_ctrl(adev, true);
-> +               DRM_DEBUG("will enable gfxoff for the mission mode\n");
-> +       }
->         if (fbcon)
->                 drm_fb_helper_set_suspend_unlocked(adev_to_drm(adev)->fb_helper, false);
->
-> --
-> 2.25.1
->
