@@ -4,116 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2485AC433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 08:24:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3944FC433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 08:33:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35B7910E638;
-	Fri, 21 Oct 2022 08:24:54 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E82B10E63B
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 08:24:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9882210E640;
+	Fri, 21 Oct 2022 08:33:02 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2043.outbound.protection.outlook.com [40.107.223.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 012D110E63E;
+ Fri, 21 Oct 2022 08:32:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=k8LvNUk9Q6pOhpphnuTNwUeYu09d8YUuPgDXbDg+ze/uKcbDlzFy/JuTASwD9bSFspUg+V5JoXYmEYEb2r4B6NPxc8enBnrjv/k5FRbn0YuKPsSMcvB5wOOnCVJibkws5STK7al5iLZqtowyK6e/goVn40hfNchm0hEEMUdHHWttMrj8d/TZB0IPfCcsi+pXK9TN+ZMxqlBNZg/U9ssM4hrSNgtQg62Oyys0ZcugEvuDcmW6ZI94J4B4Qal0EcJzBlgNkNwxGNkH+4m9N4naH/6Nqkwd/ePqomCyaMxydwWpQN5nKeAs6+OcdN7w/a1/1MESlIUHwqfXt56KEbuKkQ==
+ b=Pmi8nbP0SByiPR2HM15LhpddNeuZXid21w46iHX1dTMCWbboEqVg/3cIpjntyn/i4jAGsYJJP2xAicU5sXgrSiYWHGzHvCuazpWlBTZKtdmCd7jQ7rHecWBpv65vuBCg57a2SWV/kkZwQEKxwGUSNONwIo/vPjoglPajgJ1lLkYOiophDCJQddibTtpfexUyMIXBmSE/CvcBeDZbhV9uej7nBzElFnh7chj9cw4mv6ccICu8Q5BWdeDFvEIaH9EV364NMwUjaQxgxyQRrFPAyyoAINNd67Xdgb2nEehj/eiWLRk9eWmYUvA4qCFJwGIU1XMXADUyy56vVZ6MlLppMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jm07VsSBrPUaMVoSP5/z4wtVUIt6SaNnSvMM79M3Wug=;
- b=Z0FUYYOrA1t0EmfLjxL+FeOHNEAFy1h/aazisGg7BdWet3zvDU5PHmHKswdMQlRpy6nNkmwU5PdcchOOnrBBuIkRgjH33XH4/p/te2k0ebDZ7uRrzkkb8rnu9PqKeaCXLWMuk55ITRrSwvm8SwQhyfAwM9KQVLYYMXjpwNVjglTwRrywzga+zEqtEymbgZNYka6nQELCMZY2QbsLbNLQty4noGbpOM3y0CFhQo0lXHHU1g0ahZZIBHDBZ1a0jfV6378O7JU/8cDpFHTadAZZh6NiMGBtA30DkE3mKKe5/JiyGwD6ZqXUTrWpAXWEYQvcr/8Nocu7GAwOp9HmbwFdHw==
+ bh=t+Uy3Y0dTGncFBSagFU2k/2w9JT9jrNiVoien4RMo8E=;
+ b=h4awGoofjgSpgqmkoyZ0HvKVAWI/SOYbNTA0w7SxSmggaoNlgKe0eI+SMMn8vbx56l/FSKajP5oGdHM8MQMT9r7xlUpfp3m59uJTIlDL+1DhMmqQHfC4KFdpPUQ39lQTRrrelSLwcaI16L+idActuMNLdkNYVTbDDp7ohWymFtTO+Z7+G27dPn3PyGYPrziQrOHBXQtvYgTvhFEEBdRmeIuS3Jy6cN1fslNsDN4sQyxp4/sXJAWWHKe2L+fEezky9NwNy+GoF4cgbsa66e5Op+AjFr+ZPcXf/+a0r9P+0ugFDd7VqRS8b7il95n/4ahwp5d1oQcBBDXCqNb2A1t9CQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jm07VsSBrPUaMVoSP5/z4wtVUIt6SaNnSvMM79M3Wug=;
- b=X6QGUtbyJpVA3BvaL0EMBrYgvJt21z9pkjoiW5fMzSOR4rrkSsvBUgSYuxZF88/+/5BH9APvwzg+1Sy/2Lz/mfrUZubw32L3iZKZHDg6x1tynt39ndqlFNdOoO91lbpK0Aot2UQwrRtAzIhtpSOyaM7yvTG0CTeK6BBjbgUG2KQ=
+ bh=t+Uy3Y0dTGncFBSagFU2k/2w9JT9jrNiVoien4RMo8E=;
+ b=2BJrtYv1UerXHPVfNPPZ0/Fa+p6jfz9jZ3DaSeDAlKhT1xavfmaaJHjqSERHSjG5jYZwNBI/80D4Z1enL15Ys/BlUOKzR01fpp+TkH6cS4ZdxZonRKEwUzR4Ojzl2G0PthSfx8db2+7F3En14KYSVH30ub2bGJ+YoCevr4+pcB4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- BL1PR12MB5175.namprd12.prod.outlook.com (2603:10b6:208:318::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5723.30; Fri, 21 Oct 2022 08:24:40 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::d309:77d2:93d8:2425]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::d309:77d2:93d8:2425%7]) with mapi id 15.20.5723.035; Fri, 21 Oct 2022
- 08:24:40 +0000
-Message-ID: <35e66c7c-ff25-efd3-cfbc-d06130687aa7@amd.com>
-Date: Fri, 21 Oct 2022 04:24:37 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Subject: Re: [PATCH 00/11] fix memory leak while kset_register() fails
-Content-Language: en-CA
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20221021022102.2231464-1-yangyingliang@huawei.com>
- <d559793a-0ce4-3384-e74e-19855aa31f31@amd.com> <Y1IwLOUGayjT9p6d@kroah.com>
- <5efd73b0-d634-d34f-3d7a-13d674e40d04@amd.com> <Y1JV1wxf/7ERAMhl@kroah.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <Y1JV1wxf/7ERAMhl@kroah.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0053.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2e::22) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by BY5PR12MB4951.namprd12.prod.outlook.com (2603:10b6:a03:1d2::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.33; Fri, 21 Oct
+ 2022 08:32:55 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::805b:58b6:1f27:d644]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::805b:58b6:1f27:d644%6]) with mapi id 15.20.5723.035; Fri, 21 Oct 2022
+ 08:32:54 +0000
+Message-ID: <a67598e8-c826-2740-03bb-33d37c8c8e4b@amd.com>
+Date: Fri, 21 Oct 2022 10:32:49 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [6.1][regression] after commit
+ dd80d9c8eecac8c516da5b240d01a35660ba6cb6 some games (Cyberpunk 2077, Forza
+ Horizon 4/5) hang at start
+Content-Language: en-US
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>
+References: <CABXGCsOeQ7VYm98jRVaYp6KaNsFVsAnSb33ZT8JvZxcTcEGW0w@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CABXGCsOeQ7VYm98jRVaYp6KaNsFVsAnSb33ZT8JvZxcTcEGW0w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AM5PR1001CA0046.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:206:15::23) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|BL1PR12MB5175:EE_
-X-MS-Office365-Filtering-Correlation-Id: f866f92f-57b1-4b96-bbc8-08dab33db330
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|BY5PR12MB4951:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b418f0c-2d2e-4674-fcaf-08dab33ed955
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xMD/NPDP5VNlWVO8L/gKv33XptDJaT7her++bV0tVoGEmz1yUeMty5TG8n1K2gXde+W7EkiEN367m2gEgvBNwUMcuME58RiNPUsvFsAMDCERpj5UdNMz6NWLV4e5Gj7E1BE37qnz+1ztjG5WdXt2lym4x+cg2mFVjwHxx+igkbFOq9+RuNd81hvfbRjQtHbt3e5zXMZ5hdYVRUofamvKQTkkaZkPID3UYgV00NysiYGQM9eIOyv63rw+PgjoEaUiz6qyDmiDfIcIE6C34sMBzh58uKxqdSPNAXMiEpidUcOmC0qF97OU/OvDI3HgzYyf7owUf06pjr1SMsm+RUla8/zsZBA0Oy5fTiifPwdiNsSf5z3/loaGhoRUMFU0O8cwHPXp7hdfyvgQpqNT2/7tUt2set78I1ZpTZDxElHLKi6sxhycjy53ckTJX6iN5VF8J6YzXFzLLmHqd2DtlRkOVhd5Z2Fr2+opSkAzCRqIiPZlAkVHDEKjRfSW+eWSilEdJgt4nL1whJlYp4PSgkCYmUFbG0jNfcm2oF5SlYGul3GP2/uKMMRjAnEQ0BatPbZG9j/zqBuGZvAO69umJ4rOCMPuFvHkJrt8qHetYl6FLi2Vu4izx9ZzWt/7+iDqKYGdWJeAaV2qoks8hEfFUHHOQiSV9XVOzLJI/CX1833wk2d47H0vws1XT2Dm+0DCShnfKKgZDkUo92rJsiglJgfUK7r4BbOrXxf/6rGpzvvlzutJXgcrsK11XaOgQ+fPn9R9AZRF851kdKYID+pQ3SgEeJ0u2KizzRmlpvXJqtuqAN/HMim9WpTsnW1vEjGDfyDNqQRnrxKPL+R4r45sUMVigg==
+X-Microsoft-Antispam-Message-Info: OJ9kHB0irw1i6ZRhVqCcjqlrGfLKRPmWDu7ucMptaTg+yBZBeRYbNqJgPZgNf5rVhpeX2rfKh6F/IqeGI1T/p4B7T+tqKPWeSrVUnGgjgmqcbNnR7rPYjaZGfDARF9KsVvvZy6FEeYHfJE3Td8HHoviwV9sshMS4XyeAG3rC+kClJJtLhwpLOXUOxk9zfwyMYlO2AdMDXNGSEZTcVVNp8BAfYXoSyttk++oNnzyQCyjws/kOzI+hTism1NgFXilkH6mt5P9bqNzoD82F/t3VTbrx2aseapYgRcUumL9vFg4kZOozsx2toq7eimOPgoCFXw+0Wv5IMQvZyJFmUZYgXbg5jcHR5v1bLrNGC7zOl7qBdnW1JR5g2lk6UcSUPwEraFIZ8B991VddzISteKw4yNRGs2SMAulznyk4wF0nZ4zjj322/FBZ0o/KLfIQo0zPWFfwRhdIsoO012in0HEdGcHojNuZp626HvfECE+AlxWR/A4xcTotBwIY/Pk1B98qG/9pM/xGMCtr5zYT7wCzCmkcZovJ3gXgcb3/tg1aRlxe6LV20H1n3xOF8wK0SZ3AaA71dn7AYEiE5tes+PK1Cayn6ZBFNfiUcMJuOUVm7FQykpgSaQEMYrv+30Tu1GmqTn9Y5pb1AQNL73XUR537ZkaCWYjDftTTJo+gON32xF3cDp3/j+a0KI/KrvtH+OSaPLOqA3N0orvskH/NjhMZFsdwO8PneVMuMlnZDloY6zC6qZpiK+X+NI9+tszMuIXmmMANOMnU01xTm3K2ERHX7NhSfobB1Q2gFTufRf+BPJdnLi4nhBENx2sWG2jpkFRj
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(346002)(136003)(366004)(39860400002)(396003)(451199015)(41300700001)(53546011)(66946007)(6666004)(8676002)(66556008)(36756003)(31696002)(6916009)(7416002)(4326008)(316002)(6506007)(2906002)(6512007)(86362001)(26005)(5660300002)(66476007)(8936002)(66899015)(186003)(4001150100001)(2616005)(38100700002)(478600001)(45080400002)(44832011)(31686004)(6486002)(966005)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(39860400002)(366004)(136003)(396003)(376002)(451199015)(31696002)(2906002)(45080400002)(186003)(83380400001)(66574015)(66556008)(66946007)(2616005)(41300700001)(4326008)(5660300002)(8676002)(8936002)(316002)(38100700002)(110136005)(54906003)(6636002)(66476007)(31686004)(36756003)(86362001)(6666004)(6506007)(966005)(6512007)(478600001)(6486002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cHMzQS9wSFdaZGFqUlFUMC9weW9oMjlKaHpBNEJPcGVyOFNDejdEdVhSbmZm?=
- =?utf-8?B?QisxYTlpUGRZTUdSUmFQTkhZM25MQ1hNaDZaRmc2S05nQ1pteUlHRVg5QnVS?=
- =?utf-8?B?cHJYbFJRWFdqajBEVnllWTFDdk5IMkNMSDcyMEhnMXZ4V2dNYkRtQ1JwVkhj?=
- =?utf-8?B?WjhyNDJRaWxBdm0xV0dpbXBBV1B1ZHROWEJMOEtFOUJiM1JiekM1cW9KTjBF?=
- =?utf-8?B?V3ZTSVJCZ1VucGRxblVLZjhkZGpOMGdRQ1FxdXFUd3lvZU14cWY4aTVCc2F5?=
- =?utf-8?B?ZHhBNnZZTDBLMjNFaVVDTm1pSThid0hEZzVoblZwL05JNnFTVmJHMnVYTDJS?=
- =?utf-8?B?eDEycnc4V2wvRnpsOVBkdU1UcUpDZnhJWWlDbjZaVVA4bW1mSzBKcWU2NzRX?=
- =?utf-8?B?K2x4aURmRU5NalQvMGdqakRIWHlkMEgzVzhTRjRmZUhRam40NzgxcjlteFpB?=
- =?utf-8?B?Nk1EMHpqQm14ZklhOS9DZVNFV1VINWJwSzl3Y2lsMmpMa3RObjdzdEU3YTk3?=
- =?utf-8?B?VklMZWhWQzIraXZBVnc0L2lHNlY5MmdHMXY2K0dLTGpyQTlQWkt2eU1xQnRJ?=
- =?utf-8?B?a3hNUnVOUkcxNERRYUJQbnpSTlNJTlhGeVg2K0dCM2JhRTZWUzRCUy9tRll2?=
- =?utf-8?B?dGtHM0E0TUVDSXoyV3lmU3NoLzhPOGFDYlM3dmwrcE44cXAvSXBJWUF4QWRP?=
- =?utf-8?B?RnFmRzEwWXV4c3l4T2NMYWVFNWpJelR3SzN0Z3poVXhBbHhDYjJESXZWaEhl?=
- =?utf-8?B?NVJpY0xweWZiTkhMT1pmL0ExK2dIcFAxaE9jUWFiU1FQSWh5bkltSHc0di9V?=
- =?utf-8?B?dVhUS2YxU1dxWCtWZEFIbFBEWHpjUElkZGpDM2l2RThMSzg5L0s3WFdIVENI?=
- =?utf-8?B?K3c3ZCtYdm5oQytCUU1rQ3BCaEdxL2dhZXF2VWkvN3Fpb0M4WEFNL1JSVklu?=
- =?utf-8?B?KzVmMDhONXNlbjBUdEwzRTliMFdwbll4YXVaMEJJc2RBWWppWFRPdVRmSVhN?=
- =?utf-8?B?WERkZTRwd0tFck13Q3RDY0JmY1lMMVV0YnMzZ1NYRCswK2w3c2djS0xhYllD?=
- =?utf-8?B?eSs2Ym9uSklnUmNyRlZhbkFhUHFrK3JjRnNPZkIyK1dhaHo5d09BaXZOQlM2?=
- =?utf-8?B?amtEaWl0RVRpNlNPMHVramgwR21PRVdhZCs2NFZ0UHdwV2hkUENGdnFLa1VY?=
- =?utf-8?B?MkI4RGwwK3pGWXdOdmpCanV2THRFNkZnTURvT1FnRE95QVMwSFZMWDR4VFJp?=
- =?utf-8?B?R1NMS2htNWhJWGMvM2RzY2dqK0x0MTdXSStFZlJsSEFNMkNSVXNLeXdPU2tC?=
- =?utf-8?B?d2E5cjI4SldlWFhUcVYxU3cyRkF4cW1RNTdLbFV6ZTBNMlJBNWlQTEZaNlds?=
- =?utf-8?B?K1ZVeFAxQmp0Z1dra3hRNXJka29nVjFuU3JtWENoTkJQWlhmS25ET3FaZmFl?=
- =?utf-8?B?aFBHWFBsWkh2RkY4ZXJBaDhaekxZd3RIam52SGMvOVBrMmFIbUMyVWZwSDAy?=
- =?utf-8?B?LzFudDJKc0NRRHk3R2Y3Rkt0MnI3N3Bsak04T2NiS2ZqWTR1VW1CMk5xdVFn?=
- =?utf-8?B?OUk1WmJReTBMSXpIMDZwZEpBSzcwU2dUZGFWT2MwV1NaNkhvTndaWDJoMFd4?=
- =?utf-8?B?cFR0KzNIM3JNa3p3WXBpZU1DaDBBdHBLa0Zvall3Ni9aL2lYUUo0K3NVWFg4?=
- =?utf-8?B?WjRWQWNNblFSNFV6TVIxbFJvcWZFRFlPY00yMldkY1hnMGhGRnpVZkhyUlFZ?=
- =?utf-8?B?dHlJYWdrcHM3V2prNlpUcjZwaXkySi96ZVlkY3VsYU9RRThpZTRWUW96MW8r?=
- =?utf-8?B?c0owUUpZL2N2YmI3dmRiSjN3V2I0L3l5ZFlFY2dzaS9WWmEzR3VvNU9NeWgy?=
- =?utf-8?B?eVFoMTlFQWdYVCtGVU93UFA2ZHdZNkNhM1hIcHBseWN2T0lUN2tJOFhzWUF1?=
- =?utf-8?B?c2NYS29QejFSU2FOU2dUblREZHoreE92T2I1MDNGMWVBVU5sODlZRGZvZ2ov?=
- =?utf-8?B?V0VQd2Z1UlRRREJNWXVGSmhYeU41ckxoQkhZN2tTbnlaclprZmVOSk0xUXRR?=
- =?utf-8?B?by9sUkNEWlVEQ2pXVjIyTDBpTlp1dGIwb25MUXIxT3lTam1yL1ROeUx4cjdR?=
- =?utf-8?Q?Xbr5c0oknzn1MGy5QBaxVnPxS?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmZVQnAwSVZhbjB3WGZRNi9jd0dremVrTmdyU2VxbTVmSG1KaFQ3MG1vSk5O?=
+ =?utf-8?B?eTEyVmFBeEVXVVJsM2NaMW5hUmpSbytIWWNXQlZadGg5ZVhsdHp5RHYrUnli?=
+ =?utf-8?B?V2NsMHdNTzVTV20wdFB4Y0dtNWFDMUo4UmhMYkVtd2NIdlp6d3RDTGhNZWFu?=
+ =?utf-8?B?M0RTNWRXWmlwaEZLdWdkSkRVL0R0VFc0SFF5OG1yZXFNRzRSK2FtRm91Q3U0?=
+ =?utf-8?B?Vk1vTGJGbU5HL1N5STl5cUxIYzJlRm5ldGJPaWpKWUM4UWZMUytjOU00R1pY?=
+ =?utf-8?B?Z0FhaCswK1hYbFpLbEVEaUdoZk91cUdNL2tCQ2wveEJMOXVIbTBCaXdhdTVa?=
+ =?utf-8?B?NHpyd2s4NHplZmY5VnhKZGp6UytNem9nVlppSENkbzVLVUhVWWpYQmtkRFQ5?=
+ =?utf-8?B?NkkwaWVIT2FxK0V1bStXeXBkc0VJSHhuYjdUWGRiTFlqVEVxM0N1TlVmSzlE?=
+ =?utf-8?B?WnJSckJPUFJpVmsyRTF4c0F3RGJHdE00cEJrdlNOcTBNRkkyaEJJLzdzMkVV?=
+ =?utf-8?B?bEtBbXRwanRva0J5ZnIzSzJwSEQ0YXhRSGtRQ3hkOUZHNS9GNDRMTHpUV0RV?=
+ =?utf-8?B?bFhLTk9iZ0tlbUJIKzlZQk1zVFBBMWxDdnlQM1VpQXFaczVueStRSU9UOXF5?=
+ =?utf-8?B?Mzlhck84RnJrTUlsdEpwQmlYem1SWlZKQnhuU0N6VExldyt3a3N3SzBTVy9O?=
+ =?utf-8?B?MHlIRVorRHlPUWVYd3V5dDhKV0RBZVRBSWNKTnhxaGo1OXIrMC8wY2k2a1Rr?=
+ =?utf-8?B?bTJSY2RRdmF4ZjBRbGtpQm4ycWNlNWpqcXBtOFdxV1VoWmdPTjRvVVhBWVoy?=
+ =?utf-8?B?eFBwSjFuUmVrUEZndTZGa1BDQjgyZG5laUpUU01nYk1GRFZieWU3cS8ybHpH?=
+ =?utf-8?B?V3Vvd0JQNU9UcTVvYmc5dkozZXVkdVp0Tlc5SFZiWkVkNE5YRzdWY3ZKemc2?=
+ =?utf-8?B?ZHkzOVdQdGNIRnNPK3dVWXlYcWhHV3Fad1NuR1NOVzFodjlZSHpzVHUxVUFG?=
+ =?utf-8?B?b1haK29rYk1pMnNTQUhuVVhGK2E2R0dTWWVXQ0tVUGw1c1c4a0lpU0RvVk9E?=
+ =?utf-8?B?RDIwcU4ya3hqdC9zSDVqQXZOTDg4c3pyZmJ6S2tvUjFGeXgzTEVLSjB2RHRp?=
+ =?utf-8?B?Vm9oUDdCaXQwakhQanJJWmxIM29VL0JpMGxoTDlzb2x2aGhIWTJyeWpxaXRY?=
+ =?utf-8?B?M2dSdGJXYStEN2Nuc0F5REVNc0pQRjVScTBMMGIxLzlGWVNMNXRVNS84SElJ?=
+ =?utf-8?B?WjIzamxpMURqam84M2FzSytZbzg4L0UrUTRFZWtrSmg0UVBEK3dFbnJwbnUr?=
+ =?utf-8?B?QlRYUDAvd1NVTE5zSkFoODJabjBwVXRKemtlY2FSSitkTTNwRGNkZkZXMXIw?=
+ =?utf-8?B?aTdFMjBwUlJKRVp1cmFhZk94dkU2dGxPVFdwRFpwUXY4SFd2Q3hOcU9ZdXZk?=
+ =?utf-8?B?WFhseTFoai92b05MaEM1RzlyNlA5L3BYWDB5ZU1CdUJMOTdWL25XNFVTTjVY?=
+ =?utf-8?B?ck81SDFFKzNXYnUrM1JrdWVWUUFCQzhiVkVBQklHQnFqUEx3c2gxTXVRT3hK?=
+ =?utf-8?B?RHk0c3U1SlJHRnBnVGhCakQ1WWR5L1hCZFZ5aGpXejBlOFpkTksrS0JHbEtk?=
+ =?utf-8?B?K091RHRNNE5uRUU5aVprSEJiNkFqRDlVR2phVzFINkkzNzFzZXh0cE1xVHhG?=
+ =?utf-8?B?c1A2dzlpZFNHa0duVFhWTitRdmpvNWxQaW1ad3drRko2bUJXWlNSY0tGYUVz?=
+ =?utf-8?B?RlU4akt6V3lLN2R5VElUSFpnZk05S1NsUEY0V1NOc2lyR1hVZ0UwUmxVL2M4?=
+ =?utf-8?B?TXNIQ0VPa1VzelVWQmRTU25kSFArL3dBelVSa05tOVlsTUk4WURONURLVHo1?=
+ =?utf-8?B?YlE5aGlEa3FoaTZsOFBvSEpleEhabENCMWJuSzNlT24xclpMWjNWZUJqaGV3?=
+ =?utf-8?B?dTJCeW9kc0JDTElJZ2FubGZFcklvdVVQMmozWElYQ0s2YnVjbDFEZmhjckFR?=
+ =?utf-8?B?OUp6eFFtQ2QwcWVsT2lTZGd2Q1RqREI5Y3pUTEd1Y1VleGsrdkQ1RVNnNy9X?=
+ =?utf-8?B?ZWdqMmJTYUdkNTFtUG1hS0xMZFowVXR4a2U1YUkrNEVIbHRVRUFZR05rR3Vl?=
+ =?utf-8?B?eTczTXdVellUU3hOWlhUclpWbUU2dW4vWjlGU2V5QVdqM1NtK2xlT2RucXNX?=
+ =?utf-8?Q?GXC+GEzukXq1bmmjZRWeO6dGTDyOlTa4edjMmV/jo5hT?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f866f92f-57b1-4b96-bbc8-08dab33db330
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b418f0c-2d2e-4674-fcaf-08dab33ed955
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2022 08:24:40.8913 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2022 08:32:54.3700 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wYZHP5R30SRzVYiONYOV1e9prBEC9BTN2tK4W+nm7fRGf63YHyP6c1SQ2i5S282d
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5175
+X-MS-Exchange-CrossTenant-UserPrincipalName: uEMswCRr8c4X/GfMY5DYbG/ZzlCCoObILjkwzKA4lwqt2avNKPfV5Hl+j+4xyX8t
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4951
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,83 +127,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rafael@kernel.org, qemu-devel@nongnu.org, liushixin2@huawei.com,
- joseph.qi@linux.alibaba.com, linux-mtd@lists.infradead.org,
- huangjianan@oppo.com, richard@nod.at, mark@fasheh.com, mst@redhat.com,
- amd-gfx@lists.freedesktop.org, Yang Yingliang <yangyingliang@huawei.com>,
- hsiangkao@linux.alibaba.com, somlo@cmu.edu, chao@kernel.org,
- jlbec@evilplan.org, jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, alexander.deucher@amd.com,
- akpm@linux-foundation.org, linux-erofs@lists.ozlabs.org,
- ocfs2-devel@oss.oracle.com
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-10-21 04:18, Greg KH wrote:
-> On Fri, Oct 21, 2022 at 03:55:18AM -0400, Luben Tuikov wrote:
->> On 2022-10-21 01:37, Greg KH wrote:
->>> On Fri, Oct 21, 2022 at 01:29:31AM -0400, Luben Tuikov wrote:
->>>> On 2022-10-20 22:20, Yang Yingliang wrote:
->>>>> The previous discussion link:
->>>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Flkml%2F0db486eb-6927-927e-3629-958f8f211194%40huawei.com%2FT%2F&amp;data=05%7C01%7Cluben.tuikov%40amd.com%7Cd41da3fd6449492d01f808dab33cdb75%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638019371236833115%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=C%2Bj1THkHpzVGks5eqB%2Fm%2FPAkMRohR7CYvRnOCqUqdcM%3D&amp;reserved=0
->>>>
->>>> The very first discussion on this was here:
->>>>
->>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Fdri-devel%2Fmsg368077.html&amp;data=05%7C01%7Cluben.tuikov%40amd.com%7Cd41da3fd6449492d01f808dab33cdb75%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638019371236833115%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=pSR10abmK8nAMvKSezqWC0SPUBL4qEwtCCizyIKW7Dc%3D&amp;reserved=0
->>>>
->>>> Please use this link, and not the that one up there you which quoted above,
->>>> and whose commit description is taken verbatim from the this link.
->>>>
->>>>>
->>>>> kset_register() is currently used in some places without calling
->>>>> kset_put() in error path, because the callers think it should be
->>>>> kset internal thing to do, but the driver core can not know what
->>>>> caller doing with that memory at times. The memory could be freed
->>>>> both in kset_put() and error path of caller, if it is called in
->>>>> kset_register().
->>>>
->>>> As I explained in the link above, the reason there's
->>>> a memory leak is that one cannot call kset_register() without
->>>> the kset->kobj.name being set--kobj_add_internal() returns -EINVAL,
->>>> in this case, i.e. kset_register() fails with -EINVAL.
->>>>
->>>> Thus, the most common usage is something like this:
->>>>
->>>> 	kobj_set_name(&kset->kobj, format, ...);
->>>> 	kset->kobj.kset = parent_kset;
->>>> 	kset->kobj.ktype = ktype;
->>>> 	res = kset_register(kset);
->>>>
->>>> So, what is being leaked, is the memory allocated in kobj_set_name(),
->>>> by the common idiom shown above. This needs to be mentioned in
->>>> the documentation, at least, in case, in the future this is absolved
->>>> in kset_register() redesign, etc.
->>>
->>> Based on this, can kset_register() just clean up from itself when an
->>> error happens?  Ideally that would be the case, as the odds of a kset
->>> being embedded in a larger structure is probably slim, but we would have
->>> to search the tree to make sure.
->>
->> Looking at kset_register(), we can add kset_put() in the error path,
->> when kobject_add_internal(&kset->kobj) fails.
->>
->> See the attached patch. It needs to be tested with the same error injection
->> as Yang has been doing.
->>
->> Now, struct kset is being embedded in larger structs--see amdgpu_discovery.c
->> starting at line 575. If you're on an AMD system, it gets you the tree
->> structure you'll see when you run "tree /sys/class/drm/card0/device/ip_discovery/".
->> That shouldn't be a problem though.
-> 
-> Yes, that shouldn't be an issue as the kobject embedded in a kset is
-> ONLY for that kset itself, the kset structure should not be controling
-> the lifespan of the object it is embedded in, right?
+Hi,
 
-Yes, and it doesn't. It only does a kobject_get(parent) and kobject_put(parent).
-So that's fine and natural.
+yes Bas already reported this issue, but I couldn't reproduce it. Need 
+to come up with a patch to narrow this down further.
 
-Yang, do you want to try the patch in my previous email in this thread, since you've
-got the error injection set up already?
+Can I send you something to test?
 
-Regards,
-Luben
+Thanks for the help,
+Christian.
+
+Am 21.10.22 um 10:08 schrieb Mikhail Gavrilov:
+> Hi!
+> I found that some games (Cyberpunk 2077, Forza Horizon 4/5) hang at
+> start after commit dd80d9c8eecac8c516da5b240d01a35660ba6cb6.
+>
+> dd80d9c8eecac8c516da5b240d01a35660ba6cb6 is the first bad commit
+> commit dd80d9c8eecac8c516da5b240d01a35660ba6cb6
+> Author: Christian König <christian.koenig@amd.com>
+> Date:   Thu Jul 14 10:23:38 2022 +0200
+>
+>      drm/amdgpu: revert "partial revert "remove ctx->lock" v2"
+>
+>      This reverts commit 94f4c4965e5513ba624488f4b601d6b385635aec.
+>
+>      We found that the bo_list is missing a protection for its list entries.
+>      Since that is fixed now this workaround can be removed again.
+>
+>      Signed-off-by: Christian König <christian.koenig@amd.com>
+>      Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+>      Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  | 21 ++++++---------------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c |  2 --
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  1 -
+>   3 files changed, 6 insertions(+), 18 deletions(-)
+>
+>
+> And when it happening in kernel log appears a such backtrace:
+> [  231.331210] ------------[ cut here ]------------
+> [  231.331262] WARNING: CPU: 11 PID: 6555 at
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:675
+> amdgpu_ttm_tt_get_user_pages+0x14c/0x190 [amdgpu]
+> [  231.331424] Modules linked in: uinput rfcomm snd_seq_dummy
+> snd_hrtimer nft_objref nf_conntrack_netbios_ns nf_conntrack_broadcast
+> nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet
+> nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat
+> nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 ip_set nf_tables nfnetlink
+> qrtr bnep intel_rapl_msr intel_rapl_common snd_sof_amd_renoir
+> snd_sof_amd_acp snd_sof_pci snd_hda_codec_realtek snd_sof
+> snd_hda_codec_generic snd_hda_codec_hdmi snd_sof_utils mt7921e
+> snd_hda_intel sunrpc snd_intel_dspcfg mt7921_common binfmt_misc
+> snd_intel_sdw_acpi snd_hda_codec mt76_connac_lib edac_mce_amd btusb
+> snd_soc_core mt76 snd_hda_core btrtl snd_hwdep snd_compress kvm_amd
+> ac97_bus snd_seq btbcm snd_pcm_dmaengine btintel snd_rpl_pci_acp6x
+> mac80211 btmtk snd_pci_acp6x kvm snd_seq_device snd_pcm snd_pci_acp5x
+> libarc4 irqbypass bluetooth snd_rn_pci_acp3x snd_timer pcspkr
+> asus_nb_wmi rapl joydev wmi_bmof snd_acp_config cfg80211 snd_soc_acpi
+> vfat snd
+> [  231.331490]  snd_pci_acp3x i2c_piix4 soundcore fat k10temp amd_pmc
+> asus_wireless zram amdgpu drm_ttm_helper ttm hid_asus asus_wmi
+> iommu_v2 crct10dif_pclmul crc32_pclmul gpu_sched crc32c_intel
+> ledtrig_audio sparse_keymap polyval_clmulni platform_profile drm_buddy
+> polyval_generic hid_multitouch drm_display_helper rfkill nvme
+> ucsi_acpi ghash_clmulni_intel nvme_core video typec_ucsi serio_raw ccp
+> sha512_ssse3 sp5100_tco r8169 cec nvme_common typec wmi i2c_hid_acpi
+> i2c_hid ip6_tables ip_tables fuse
+> [  231.331532] CPU: 11 PID: 6555 Comm: GameThread Tainted: G        W
+>    L    -------  ---
+> 6.1.0-0.rc1.20221019gitaae703b02f92.17.fc38.x86_64 #1
+> [  231.331534] Hardware name: ASUSTeK COMPUTER INC. ROG Strix
+> G513QY_G513QY/G513QY, BIOS G513QY.318 03/29/2022
+> [  231.331537] RIP: 0010:amdgpu_ttm_tt_get_user_pages+0x14c/0x190 [amdgpu]
+> [  231.331654] Code: a8 d0 e9 32 ff ff ff 4c 89 e9 89 ea 48 c7 c6 40
+> 82 f3 c0 48 c7 c7 10 60 14 c1 e8 2f a0 f4 d0 eb 8e 66 90 bd f2 ff ff
+> ff eb 8d <0f> 0b eb f5 bd fd ff ff ff eb 82 bd f2 ff ff ff e9 62 ff ff
+> ff 48
+> [  231.331656] RSP: 0018:ffffaad4c705bae8 EFLAGS: 00010286
+> [  231.331659] RAX: ffff8e9cbdbe3200 RBX: ffff8e997e3f2440 RCX: 0000000000000000
+> [  231.331661] RDX: 0000000000000000 RSI: ffff8e9cbdbe3200 RDI: ffff8e9c31208000
+> [  231.331663] RBP: 0000000000000001 R08: 0000000000000dc0 R09: 00000000ffffffff
+> [  231.331665] R10: 0000000000000001 R11: 0000000000000000 R12: ffffaad4c705bb90
+> [  231.331666] R13: 0000000076510000 R14: ffff8e9c89f334e0 R15: ffff8e991fda8000
+> [  231.331668] FS:  000000007c2af6c0(0000) GS:ffff8ea7d8e00000(0000)
+> knlGS:000000007b2c0000
+> [  231.331671] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  231.331673] CR2: 00007ff65ffd8000 CR3: 00000004f90f0000 CR4: 0000000000750ee0
+> [  231.331674] PKRU: 55555554
+> [  231.331676] Call Trace:
+> [  231.331678]  <TASK>
+> [  231.331682]  amdgpu_cs_ioctl+0x87e/0x1fc0 [amdgpu]
+> [  231.331824]  ? amdgpu_cs_find_mapping+0xe0/0xe0 [amdgpu]
+> [  231.331981]  drm_ioctl_kernel+0xac/0x160
+> [  231.331990]  drm_ioctl+0x1e7/0x450
+> [  231.331994]  ? amdgpu_cs_find_mapping+0xe0/0xe0 [amdgpu]
+> [  231.332118]  amdgpu_drm_ioctl+0x4a/0x80 [amdgpu]
+> [  231.332233]  __x64_sys_ioctl+0x90/0xd0
+> [  231.332238]  do_syscall_64+0x5b/0x80
+> [  231.332243]  ? asm_exc_page_fault+0x22/0x30
+> [  231.332247]  ? lockdep_hardirqs_on+0x7d/0x100
+> [  231.332250]  entry_SYSCALL_64_after_hwframe+0x63/0xcd
+> [  231.332253] RIP: 0033:0x7ff677c5704f
+> [  231.332256] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24
+> 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00
+> 00 0f 05 <89> c2 3d 00 f0 ff ff 77 18 48 8b 44 24 18 64 48 2b 04 25 28
+> 00 00
+> [  231.332258] RSP: 002b:000000007c2ad470 EFLAGS: 00000246 ORIG_RAX:
+> 0000000000000010
+> [  231.332261] RAX: ffffffffffffffda RBX: 000000007c2ad718 RCX: 00007ff677c5704f
+> [  231.332263] RDX: 000000007c2ad540 RSI: 00000000c0186444 RDI: 00000000000000a7
+> [  231.332265] RBP: 000000007c2ad540 R08: 00007ff590048590 R09: 000000007c2ad510
+> [  231.332266] R10: 000000007e864ec0 R11: 0000000000000246 R12: 00000000c0186444
+> [  231.332268] R13: 00000000000000a7 R14: 000000007c2ad6f0 R15: 0000000000000005
+> [  231.332277]  </TASK>
+> [  231.332279] irq event stamp: 18035
+> [  231.332281] hardirqs last  enabled at (18043): [<ffffffff9118e8de>]
+> __up_console_sem+0x5e/0x70
+> [  231.332284] hardirqs last disabled at (18050): [<ffffffff9118e8c3>]
+> __up_console_sem+0x43/0x70
+> [  231.332287] softirqs last  enabled at (17864): [<ffffffff911012ed>]
+> __irq_exit_rcu+0xed/0x160
+> [  231.332289] softirqs last disabled at (17857): [<ffffffff911012ed>]
+> __irq_exit_rcu+0xed/0x160
+> [  231.332291] ---[ end trace 0000000000000000 ]---
+> [  231.332299] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
+> process the buffer list -14!
+>
+> [  231.332423] ================================================
+> [  231.332424] WARNING: lock held when returning to user space!
+> [  231.332425] 6.1.0-0.rc1.20221019gitaae703b02f92.17.fc38.x86_64 #1
+> Tainted: G        W    L    -------  ---
+> [  231.332426] ------------------------------------------------
+> [  231.332427] GameThread/6555 is leaving the kernel with locks still held!
+> [  231.332428] 1 lock held by GameThread/6555:
+> [  231.332429]  #0: ffff8e9cfbac64a8
+> (&list->bo_list_mutex){+.+.}-{3:3}, at: amdgpu_cs_ioctl+0x786/0x1fc0
+> [amdgpu]
+> [  389.428155] amdgpu 0000:03:00.0: amdgpu: free PSP TMR buffer
+>
+> Christian, any ideas?
+> Thanks.
+>
+> Full kernel log: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpastebin.com%2F6SEaDay8&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C27dd4aee42ce4c17b96408dab33b789a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638019365255948072%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=FWqD8yajUiBsCTlgqjF2Y%2BtC193YDFHocH3%2F46fiiOA%3D&amp;reserved=0
+> My hardware:
+> GPU: 6900XT, 6800M
+> CPU: 3950X, 5900HX
+>
+
