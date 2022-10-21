@@ -4,117 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BB68C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 08:22:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2485AC433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 08:24:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF8A210E491;
-	Fri, 21 Oct 2022 08:21:58 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2083.outbound.protection.outlook.com [40.107.220.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAD7D10E491
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 08:21:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35B7910E638;
+	Fri, 21 Oct 2022 08:24:54 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E82B10E63B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 08:24:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QIeU4fhX4HOUgsXjP8UWB0H1Vot/38d8Jhu8YMiHEzAeW04jKbE3zju2F1fLl6EetokM2/mv2kxDgZKYPRul/gPYIU+MpkpNdjeyMRm47E13sSoR8Yt+1AJ+Qt459ztIC98cvDGsoiVbz8c0URN625Bnq1M+QCG4V5kuRuhI+Tvu8IYTWJVf7HjtaUC9i2XfZfedfaHyxntKi0Dyh2fLbABsbnXs8Fxc2HgjxBHRDKUjR1Lk4veSqG9zQhfN3drMAum1pxpYeQOZEkqS4B9mf8yPFII8WZ6lVV8CcSfT/jhe9DsTOobaiiTDiWJH7AM1xDSurqlr1/AW5avQWDt6fA==
+ b=k8LvNUk9Q6pOhpphnuTNwUeYu09d8YUuPgDXbDg+ze/uKcbDlzFy/JuTASwD9bSFspUg+V5JoXYmEYEb2r4B6NPxc8enBnrjv/k5FRbn0YuKPsSMcvB5wOOnCVJibkws5STK7al5iLZqtowyK6e/goVn40hfNchm0hEEMUdHHWttMrj8d/TZB0IPfCcsi+pXK9TN+ZMxqlBNZg/U9ssM4hrSNgtQg62Oyys0ZcugEvuDcmW6ZI94J4B4Qal0EcJzBlgNkNwxGNkH+4m9N4naH/6Nqkwd/ePqomCyaMxydwWpQN5nKeAs6+OcdN7w/a1/1MESlIUHwqfXt56KEbuKkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qqWVlygds8ykFT9GjK4ksK7SFhZphvbAN/pzdPnDOVU=;
- b=QQqKMxRv2xAX4G+EAGi9QmN1Qax7epzEkQhW6VXesHxdRQd5vBz4ffKaUNumWClyLbJYN9FitXEgEyKLhZyi48sUVvqUf4NWm5EhHJ8O1CZ2KcLWQEnlL1K/JaPFFTSLiGOnQN2FarhN1NgMAFeYnaPDGK1R+RcsYWF0UWLIPAQ9v+yvAkxBYADLJIPR8wdwfwGfa2Xmexe+kAuY24VIBbCF1zRAlv0RkKOyx9pgYfXQj+jv6UECZNsc/iQ9/QhEyNVVbo67yRnnW4wjyD0QfvmihJ2fV44DNkDFbEUnMoVxN/b1pO6tR0JTagny+Mhn5YxdTRjjntEyLjuewpYYQA==
+ bh=jm07VsSBrPUaMVoSP5/z4wtVUIt6SaNnSvMM79M3Wug=;
+ b=Z0FUYYOrA1t0EmfLjxL+FeOHNEAFy1h/aazisGg7BdWet3zvDU5PHmHKswdMQlRpy6nNkmwU5PdcchOOnrBBuIkRgjH33XH4/p/te2k0ebDZ7uRrzkkb8rnu9PqKeaCXLWMuk55ITRrSwvm8SwQhyfAwM9KQVLYYMXjpwNVjglTwRrywzga+zEqtEymbgZNYka6nQELCMZY2QbsLbNLQty4noGbpOM3y0CFhQo0lXHHU1g0ahZZIBHDBZ1a0jfV6378O7JU/8cDpFHTadAZZh6NiMGBtA30DkE3mKKe5/JiyGwD6ZqXUTrWpAXWEYQvcr/8Nocu7GAwOp9HmbwFdHw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qqWVlygds8ykFT9GjK4ksK7SFhZphvbAN/pzdPnDOVU=;
- b=TFLDcDfLPcIx6zBJQCtLxgCUEEVtGLCdYh2ELVY3LOLbMMi8u87ngGxRnsoCw8uU2Jjx/efDzLG4l7MvolfajxCu/qN173g8YhyE5wrsMUHPuJ7bwXigvs5YoE1QnRezRDfNcumviXjKcFmBwwGwd665QNzBZcQpZPVZlsD0wes=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by SN7PR12MB6816.namprd12.prod.outlook.com (2603:10b6:806:264::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34; Fri, 21 Oct
- 2022 08:21:49 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::8bd7:b65c:13f4:9b]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::8bd7:b65c:13f4:9b%7]) with mapi id 15.20.5723.034; Fri, 21 Oct 2022
- 08:21:36 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Yang, Stanley" <Stanley.Yang@amd.com>,
- "Chai, Thomas" <YiPeng.Chai@amd.com>, "Li, Candice" <Candice.Li@amd.com>
-Subject: RE: [PATCH 4/4] drm/amdgpu: remove ras_error_status parameter for UMC
- poison handler
-Thread-Topic: [PATCH 4/4] drm/amdgpu: remove ras_error_status parameter for
- UMC poison handler
-Thread-Index: AQHY5R/cqnkK4bFvDE6BxoOG+vAxyq4YgaYA
-Date: Fri, 21 Oct 2022 08:21:35 +0000
-Message-ID: <BN9PR12MB52578665C378846F5C598DE7FC2D9@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20221021073605.20352-1-tao.zhou1@amd.com>
- <20221021073605.20352-4-tao.zhou1@amd.com>
-In-Reply-To: <20221021073605.20352-4-tao.zhou1@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-10-21T08:21:33Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=522b07b1-10cb-4429-a696-88051517adf1;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-authentication-results: dkim=none (message not signed)
+ bh=jm07VsSBrPUaMVoSP5/z4wtVUIt6SaNnSvMM79M3Wug=;
+ b=X6QGUtbyJpVA3BvaL0EMBrYgvJt21z9pkjoiW5fMzSOR4rrkSsvBUgSYuxZF88/+/5BH9APvwzg+1Sy/2Lz/mfrUZubw32L3iZKZHDg6x1tynt39ndqlFNdOoO91lbpK0Aot2UQwrRtAzIhtpSOyaM7yvTG0CTeK6BBjbgUG2KQ=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SN7PR12MB6816:EE_
-x-ms-office365-filtering-correlation-id: a7213868-7c3b-4eba-2887-08dab33d4521
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: +jUu3oiuIVysi/hGte0gZjxq7W76GrJ6vDgwgMxOFJaTYNJKBe//2XK2Aexu8W1mA5eiWeeebAX3U5AGUzOaKkxSX8O4apuQEEibWgVLDw5GkBDIi6SSYHPyrm/4EbiDsj7gpUKwD5cVsKZACOdsEVHcTfw2aO269FRal2OdWaFtlWmpBQ335QCrpeRnJKtinawkFbwkoPGLCbUjxgrUrCgIEDufvg/8S8tR9hT0sZxQrw20W3WohO+WTmqD/cqVZNMpyaAGbbQ1sba6vqzfxAqH5vbFEogSmOs0MlCgrCG3dgh2qgQ+o0nM7YPiNJkhEdsXFW1eD3m6fu3hl7Sc5dSoNS4VlNPP1PZ0jhmiIFW0RbEURucKg5qL86MAJD0824oAsAebNs1/bA8l8zKiJNzEZJMdiC7rxAnch9yry8z1EHd6lnZ+SkOUPM3jtpEeSl4NBo24+5fYV1T+LPjbJ76XCCPMfNDK8PP3+D9G7hA0WE7STgAEFkCHYoR5bvSNyv10iMjj+ItQUQgT0G1vWIGJTLa8Z+Ynhdl0CZh9qYMoYuQxBnaPud1RV6NUqT9Tt3SqJC7ZB5vvpT0lbEOq20gMp87pMQEUKPLDxy0o5+rmbQ4LEFxqsUegQIT7/1AKUBL+8en4KRpcuZcv0URygFX9+FKP+Mn90VlClEjK9JCOVHB84iAAJs31C5IHUwLRvLac6EibBbjVuMZWEM2YBsWJkIKxm4O//U6Tf7jQfXUR00KMf26Fa1jPJh53KV6DrsijxXiblWZVEB8tY52eOA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(376002)(136003)(396003)(366004)(39860400002)(451199015)(5660300002)(83380400001)(52536014)(8936002)(9686003)(26005)(6636002)(8676002)(64756008)(66446008)(66476007)(66946007)(110136005)(76116006)(41300700001)(122000001)(66556008)(53546011)(38100700002)(6506007)(7696005)(71200400001)(186003)(38070700005)(2906002)(33656002)(316002)(55016003)(86362001)(478600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?rTeMFGr8uLWnff0xpzzSsZw/iQWcRPnWj8LZeVYOL9FcS/S9JHOYfcVmtzog?=
- =?us-ascii?Q?VNfSvG9KX/ni7MKNPTl0SCVmF6l8K4E1dJkPWUqfmyRYtNq0PsxiOwl5VrYt?=
- =?us-ascii?Q?vR+ndM2Be4xwWLZaUWQY2kOi9WCwjCRtkMQhS6TWgUmYSKWuEF79UMoj6QLm?=
- =?us-ascii?Q?/zJ1PzHncS0IH6ZzvHWDXzwUn0887QsCLusrHmMxqUS46UATabNooR1pehBl?=
- =?us-ascii?Q?4tJUvthyDoBgQNMbxv8KJhQ+HBpSjFp/Ia3NFJyN+njNwaQXdxZKyr9K7HXW?=
- =?us-ascii?Q?Xzy/lMqa85eNH4ufBAItsd/OoX24cEMYFTq2ZSPAIYJ1zg/Azq2jwR0A12q9?=
- =?us-ascii?Q?j3n23RH0k6ukpg7PtgUie9stULo/rkKujhUJhYX/SUeJKaWPKqPO5B0ZPaNs?=
- =?us-ascii?Q?RPiYlyEvhIZPkq4hU5hcZARQjHSkI2TEku40p2GGwrusQwwha/aEEYrdWYMw?=
- =?us-ascii?Q?p979W7mZcqGZlKsxkInleo5zRfwG7ou6HXC5SQ5DPYMWOBaWOF8QFfgzz5hl?=
- =?us-ascii?Q?7pNr1lkSPFLFI+9zjQoA1zq+dZCjt4tTUjGrlBPcYi3PBaFrSZrKFpFjPoAM?=
- =?us-ascii?Q?t2otROlXEM7EayQ/Yl4EUd04tZEQeiBZiYLEKdioqFXpMFvo0IephXE/e5RC?=
- =?us-ascii?Q?P0LUhGq1ktXkjoLlxaEra8xGzusLYZp0z/ZZNOTzLvrz7BmTfw1AhVwbKr7T?=
- =?us-ascii?Q?b2TjUZjxs1o2oYR8+rlNcu/rMKIocaagZh+zNkBP7AuOxAS13CIPvqQStZ3S?=
- =?us-ascii?Q?pOajKnf6o1FaVxcv32dgCRBuxH1koqKYpFjggYlsEJujrzPBzgz1uNwnLPgj?=
- =?us-ascii?Q?/yNetpmIjPIFKmnijlcWm2I0eEVJ2nzGzCuJqLuV9/bP0Utb2OcuaiTzf3cn?=
- =?us-ascii?Q?NK11+e+C/RFo9LDDm1koyYq8uFtEh6KH4KCHsyQks0qRUG6GAS0vZ1qCgpPP?=
- =?us-ascii?Q?By43VeJTO5/N5d+chbT4DnyVMA5KmOwOioCGg4Uts92orNCORP6ahN6CC5QA?=
- =?us-ascii?Q?gp1pXurCeeuhrlb9BfjweZwJ1fywIT3NoyoZzsKIqKQUck7fQTidQu9uhTkz?=
- =?us-ascii?Q?itoXMSPxTOF5/gbdGeLouBsYVhwznFdpQ4AVpb/GSSITPN+4qSSog67eLDO3?=
- =?us-ascii?Q?XjmWxWBlgsSlg0qYhg1Vk8fh8V7W0/dUvsXV3cx0w18xu2WXvY7Zq4feO16Y?=
- =?us-ascii?Q?ZspFFqSKn+v6p+SstvPYCJWQPkuhQLXyGlzllyJbritEXP4NOotz2Ppw4mB+?=
- =?us-ascii?Q?rruBzROII00Hts8WL1UTmCOLm6onMI2cTycvsytduSdwrvH6D8ezRZL/sOIP?=
- =?us-ascii?Q?Oxsk7VTH0wGcNIcmrTLmfWtmkIliv8noE+u+d2Ac0mJpPaDLBeRRaR2Ya04J?=
- =?us-ascii?Q?Gh37RdI6Dxk7uptDlcuHRl5DQrhD7q3dSdvaSTdSb5ZbKCZaRqjKAbOBmduw?=
- =?us-ascii?Q?ViaFTeZ8co+UdTpT5+pQcTbLu0uGBwCDieJzjhB0FCLV97Phdc2ax2ZDIUxW?=
- =?us-ascii?Q?cVPyvEFN5nLhg9D4ZNHXy3rVcsLMYOoWMeR4xrc/nV7f+jI5pkXs/jGwRDHc?=
- =?us-ascii?Q?87R8sc8We+U38MF1ziws2J6J0H0kdk6Pe+rviVL1?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
+ BL1PR12MB5175.namprd12.prod.outlook.com (2603:10b6:208:318::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5723.30; Fri, 21 Oct 2022 08:24:40 +0000
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::d309:77d2:93d8:2425]) by DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::d309:77d2:93d8:2425%7]) with mapi id 15.20.5723.035; Fri, 21 Oct 2022
+ 08:24:40 +0000
+Message-ID: <35e66c7c-ff25-efd3-cfbc-d06130687aa7@amd.com>
+Date: Fri, 21 Oct 2022 04:24:37 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.3
+Subject: Re: [PATCH 00/11] fix memory leak while kset_register() fails
+Content-Language: en-CA
+To: Greg KH <gregkh@linuxfoundation.org>
+References: <20221021022102.2231464-1-yangyingliang@huawei.com>
+ <d559793a-0ce4-3384-e74e-19855aa31f31@amd.com> <Y1IwLOUGayjT9p6d@kroah.com>
+ <5efd73b0-d634-d34f-3d7a-13d674e40d04@amd.com> <Y1JV1wxf/7ERAMhl@kroah.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+In-Reply-To: <Y1JV1wxf/7ERAMhl@kroah.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT1PR01CA0053.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::22) To DM6PR12MB3370.namprd12.prod.outlook.com
+ (2603:10b6:5:38::25)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|BL1PR12MB5175:EE_
+X-MS-Office365-Filtering-Correlation-Id: f866f92f-57b1-4b96-bbc8-08dab33db330
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xMD/NPDP5VNlWVO8L/gKv33XptDJaT7her++bV0tVoGEmz1yUeMty5TG8n1K2gXde+W7EkiEN367m2gEgvBNwUMcuME58RiNPUsvFsAMDCERpj5UdNMz6NWLV4e5Gj7E1BE37qnz+1ztjG5WdXt2lym4x+cg2mFVjwHxx+igkbFOq9+RuNd81hvfbRjQtHbt3e5zXMZ5hdYVRUofamvKQTkkaZkPID3UYgV00NysiYGQM9eIOyv63rw+PgjoEaUiz6qyDmiDfIcIE6C34sMBzh58uKxqdSPNAXMiEpidUcOmC0qF97OU/OvDI3HgzYyf7owUf06pjr1SMsm+RUla8/zsZBA0Oy5fTiifPwdiNsSf5z3/loaGhoRUMFU0O8cwHPXp7hdfyvgQpqNT2/7tUt2set78I1ZpTZDxElHLKi6sxhycjy53ckTJX6iN5VF8J6YzXFzLLmHqd2DtlRkOVhd5Z2Fr2+opSkAzCRqIiPZlAkVHDEKjRfSW+eWSilEdJgt4nL1whJlYp4PSgkCYmUFbG0jNfcm2oF5SlYGul3GP2/uKMMRjAnEQ0BatPbZG9j/zqBuGZvAO69umJ4rOCMPuFvHkJrt8qHetYl6FLi2Vu4izx9ZzWt/7+iDqKYGdWJeAaV2qoks8hEfFUHHOQiSV9XVOzLJI/CX1833wk2d47H0vws1XT2Dm+0DCShnfKKgZDkUo92rJsiglJgfUK7r4BbOrXxf/6rGpzvvlzutJXgcrsK11XaOgQ+fPn9R9AZRF851kdKYID+pQ3SgEeJ0u2KizzRmlpvXJqtuqAN/HMim9WpTsnW1vEjGDfyDNqQRnrxKPL+R4r45sUMVigg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(346002)(136003)(366004)(39860400002)(396003)(451199015)(41300700001)(53546011)(66946007)(6666004)(8676002)(66556008)(36756003)(31696002)(6916009)(7416002)(4326008)(316002)(6506007)(2906002)(6512007)(86362001)(26005)(5660300002)(66476007)(8936002)(66899015)(186003)(4001150100001)(2616005)(38100700002)(478600001)(45080400002)(44832011)(31686004)(6486002)(966005)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cHMzQS9wSFdaZGFqUlFUMC9weW9oMjlKaHpBNEJPcGVyOFNDejdEdVhSbmZm?=
+ =?utf-8?B?QisxYTlpUGRZTUdSUmFQTkhZM25MQ1hNaDZaRmc2S05nQ1pteUlHRVg5QnVS?=
+ =?utf-8?B?cHJYbFJRWFdqajBEVnllWTFDdk5IMkNMSDcyMEhnMXZ4V2dNYkRtQ1JwVkhj?=
+ =?utf-8?B?WjhyNDJRaWxBdm0xV0dpbXBBV1B1ZHROWEJMOEtFOUJiM1JiekM1cW9KTjBF?=
+ =?utf-8?B?V3ZTSVJCZ1VucGRxblVLZjhkZGpOMGdRQ1FxdXFUd3lvZU14cWY4aTVCc2F5?=
+ =?utf-8?B?ZHhBNnZZTDBLMjNFaVVDTm1pSThid0hEZzVoblZwL05JNnFTVmJHMnVYTDJS?=
+ =?utf-8?B?eDEycnc4V2wvRnpsOVBkdU1UcUpDZnhJWWlDbjZaVVA4bW1mSzBKcWU2NzRX?=
+ =?utf-8?B?K2x4aURmRU5NalQvMGdqakRIWHlkMEgzVzhTRjRmZUhRam40NzgxcjlteFpB?=
+ =?utf-8?B?Nk1EMHpqQm14ZklhOS9DZVNFV1VINWJwSzl3Y2lsMmpMa3RObjdzdEU3YTk3?=
+ =?utf-8?B?VklMZWhWQzIraXZBVnc0L2lHNlY5MmdHMXY2K0dLTGpyQTlQWkt2eU1xQnRJ?=
+ =?utf-8?B?a3hNUnVOUkcxNERRYUJQbnpSTlNJTlhGeVg2K0dCM2JhRTZWUzRCUy9tRll2?=
+ =?utf-8?B?dGtHM0E0TUVDSXoyV3lmU3NoLzhPOGFDYlM3dmwrcE44cXAvSXBJWUF4QWRP?=
+ =?utf-8?B?RnFmRzEwWXV4c3l4T2NMYWVFNWpJelR3SzN0Z3poVXhBbHhDYjJESXZWaEhl?=
+ =?utf-8?B?NVJpY0xweWZiTkhMT1pmL0ExK2dIcFAxaE9jUWFiU1FQSWh5bkltSHc0di9V?=
+ =?utf-8?B?dVhUS2YxU1dxWCtWZEFIbFBEWHpjUElkZGpDM2l2RThMSzg5L0s3WFdIVENI?=
+ =?utf-8?B?K3c3ZCtYdm5oQytCUU1rQ3BCaEdxL2dhZXF2VWkvN3Fpb0M4WEFNL1JSVklu?=
+ =?utf-8?B?KzVmMDhONXNlbjBUdEwzRTliMFdwbll4YXVaMEJJc2RBWWppWFRPdVRmSVhN?=
+ =?utf-8?B?WERkZTRwd0tFck13Q3RDY0JmY1lMMVV0YnMzZ1NYRCswK2w3c2djS0xhYllD?=
+ =?utf-8?B?eSs2Ym9uSklnUmNyRlZhbkFhUHFrK3JjRnNPZkIyK1dhaHo5d09BaXZOQlM2?=
+ =?utf-8?B?amtEaWl0RVRpNlNPMHVramgwR21PRVdhZCs2NFZ0UHdwV2hkUENGdnFLa1VY?=
+ =?utf-8?B?MkI4RGwwK3pGWXdOdmpCanV2THRFNkZnTURvT1FnRE95QVMwSFZMWDR4VFJp?=
+ =?utf-8?B?R1NMS2htNWhJWGMvM2RzY2dqK0x0MTdXSStFZlJsSEFNMkNSVXNLeXdPU2tC?=
+ =?utf-8?B?d2E5cjI4SldlWFhUcVYxU3cyRkF4cW1RNTdLbFV6ZTBNMlJBNWlQTEZaNlds?=
+ =?utf-8?B?K1ZVeFAxQmp0Z1dra3hRNXJka29nVjFuU3JtWENoTkJQWlhmS25ET3FaZmFl?=
+ =?utf-8?B?aFBHWFBsWkh2RkY4ZXJBaDhaekxZd3RIam52SGMvOVBrMmFIbUMyVWZwSDAy?=
+ =?utf-8?B?LzFudDJKc0NRRHk3R2Y3Rkt0MnI3N3Bsak04T2NiS2ZqWTR1VW1CMk5xdVFn?=
+ =?utf-8?B?OUk1WmJReTBMSXpIMDZwZEpBSzcwU2dUZGFWT2MwV1NaNkhvTndaWDJoMFd4?=
+ =?utf-8?B?cFR0KzNIM3JNa3p3WXBpZU1DaDBBdHBLa0Zvall3Ni9aL2lYUUo0K3NVWFg4?=
+ =?utf-8?B?WjRWQWNNblFSNFV6TVIxbFJvcWZFRFlPY00yMldkY1hnMGhGRnpVZkhyUlFZ?=
+ =?utf-8?B?dHlJYWdrcHM3V2prNlpUcjZwaXkySi96ZVlkY3VsYU9RRThpZTRWUW96MW8r?=
+ =?utf-8?B?c0owUUpZL2N2YmI3dmRiSjN3V2I0L3l5ZFlFY2dzaS9WWmEzR3VvNU9NeWgy?=
+ =?utf-8?B?eVFoMTlFQWdYVCtGVU93UFA2ZHdZNkNhM1hIcHBseWN2T0lUN2tJOFhzWUF1?=
+ =?utf-8?B?c2NYS29QejFSU2FOU2dUblREZHoreE92T2I1MDNGMWVBVU5sODlZRGZvZ2ov?=
+ =?utf-8?B?V0VQd2Z1UlRRREJNWXVGSmhYeU41ckxoQkhZN2tTbnlaclprZmVOSk0xUXRR?=
+ =?utf-8?B?by9sUkNEWlVEQ2pXVjIyTDBpTlp1dGIwb25MUXIxT3lTam1yL1ROeUx4cjdR?=
+ =?utf-8?Q?Xbr5c0oknzn1MGy5QBaxVnPxS?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f866f92f-57b1-4b96-bbc8-08dab33db330
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7213868-7c3b-4eba-2887-08dab33d4521
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2022 08:21:36.0055 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eNhUqbrjOGLaVofcLNtUgnhlxsLCqMrwhtR9hBhLdYAVDC46w6JwtXkMYxaFhwGXlJ5/CTF1j69EzfczS36Qfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6816
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2022 08:24:40.8913 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wYZHP5R30SRzVYiONYOV1e9prBEC9BTN2tK4W+nm7fRGf63YHyP6c1SQ2i5S282d
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5175
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,130 +125,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: rafael@kernel.org, qemu-devel@nongnu.org, liushixin2@huawei.com,
+ joseph.qi@linux.alibaba.com, linux-mtd@lists.infradead.org,
+ huangjianan@oppo.com, richard@nod.at, mark@fasheh.com, mst@redhat.com,
+ amd-gfx@lists.freedesktop.org, Yang Yingliang <yangyingliang@huawei.com>,
+ hsiangkao@linux.alibaba.com, somlo@cmu.edu, chao@kernel.org,
+ jlbec@evilplan.org, jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, alexander.deucher@amd.com,
+ akpm@linux-foundation.org, linux-erofs@lists.ozlabs.org,
+ ocfs2-devel@oss.oracle.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+On 2022-10-21 04:18, Greg KH wrote:
+> On Fri, Oct 21, 2022 at 03:55:18AM -0400, Luben Tuikov wrote:
+>> On 2022-10-21 01:37, Greg KH wrote:
+>>> On Fri, Oct 21, 2022 at 01:29:31AM -0400, Luben Tuikov wrote:
+>>>> On 2022-10-20 22:20, Yang Yingliang wrote:
+>>>>> The previous discussion link:
+>>>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Flkml%2F0db486eb-6927-927e-3629-958f8f211194%40huawei.com%2FT%2F&amp;data=05%7C01%7Cluben.tuikov%40amd.com%7Cd41da3fd6449492d01f808dab33cdb75%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638019371236833115%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=C%2Bj1THkHpzVGks5eqB%2Fm%2FPAkMRohR7CYvRnOCqUqdcM%3D&amp;reserved=0
+>>>>
+>>>> The very first discussion on this was here:
+>>>>
+>>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Fdri-devel%2Fmsg368077.html&amp;data=05%7C01%7Cluben.tuikov%40amd.com%7Cd41da3fd6449492d01f808dab33cdb75%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638019371236833115%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=pSR10abmK8nAMvKSezqWC0SPUBL4qEwtCCizyIKW7Dc%3D&amp;reserved=0
+>>>>
+>>>> Please use this link, and not the that one up there you which quoted above,
+>>>> and whose commit description is taken verbatim from the this link.
+>>>>
+>>>>>
+>>>>> kset_register() is currently used in some places without calling
+>>>>> kset_put() in error path, because the callers think it should be
+>>>>> kset internal thing to do, but the driver core can not know what
+>>>>> caller doing with that memory at times. The memory could be freed
+>>>>> both in kset_put() and error path of caller, if it is called in
+>>>>> kset_register().
+>>>>
+>>>> As I explained in the link above, the reason there's
+>>>> a memory leak is that one cannot call kset_register() without
+>>>> the kset->kobj.name being set--kobj_add_internal() returns -EINVAL,
+>>>> in this case, i.e. kset_register() fails with -EINVAL.
+>>>>
+>>>> Thus, the most common usage is something like this:
+>>>>
+>>>> 	kobj_set_name(&kset->kobj, format, ...);
+>>>> 	kset->kobj.kset = parent_kset;
+>>>> 	kset->kobj.ktype = ktype;
+>>>> 	res = kset_register(kset);
+>>>>
+>>>> So, what is being leaked, is the memory allocated in kobj_set_name(),
+>>>> by the common idiom shown above. This needs to be mentioned in
+>>>> the documentation, at least, in case, in the future this is absolved
+>>>> in kset_register() redesign, etc.
+>>>
+>>> Based on this, can kset_register() just clean up from itself when an
+>>> error happens?  Ideally that would be the case, as the odds of a kset
+>>> being embedded in a larger structure is probably slim, but we would have
+>>> to search the tree to make sure.
+>>
+>> Looking at kset_register(), we can add kset_put() in the error path,
+>> when kobject_add_internal(&kset->kobj) fails.
+>>
+>> See the attached patch. It needs to be tested with the same error injection
+>> as Yang has been doing.
+>>
+>> Now, struct kset is being embedded in larger structs--see amdgpu_discovery.c
+>> starting at line 575. If you're on an AMD system, it gets you the tree
+>> structure you'll see when you run "tree /sys/class/drm/card0/device/ip_discovery/".
+>> That shouldn't be a problem though.
+> 
+> Yes, that shouldn't be an issue as the kobject embedded in a kset is
+> ONLY for that kset itself, the kset structure should not be controling
+> the lifespan of the object it is embedded in, right?
 
-Series is
+Yes, and it doesn't. It only does a kobject_get(parent) and kobject_put(parent).
+So that's fine and natural.
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Yang, do you want to try the patch in my previous email in this thread, since you've
+got the error injection set up already?
 
 Regards,
-Hawking
------Original Message-----
-From: Zhou1, Tao <Tao.Zhou1@amd.com>=20
-Sent: Friday, October 21, 2022 15:36
-To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; =
-Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; L=
-i, Candice <Candice.Li@amd.com>
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH 4/4] drm/amdgpu: remove ras_error_status parameter for UMC =
-poison handler
-
-Make the code more simple.
-
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  4 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    |  3 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c    | 13 +++++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h    |  4 +---
- 4 files changed, 8 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.c
-index 0561812aa0a4..37db39ba8718 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -753,9 +753,7 @@ bool amdgpu_amdkfd_have_atomics_support(struct amdgpu_d=
-evice *adev)
-=20
- void amdgpu_amdkfd_ras_poison_consumption_handler(struct amdgpu_device *ad=
-ev, bool reset)  {
--	struct ras_err_data err_data =3D {0, 0, 0, NULL};
--
--	amdgpu_umc_poison_handler(adev, &err_data, reset);
-+	amdgpu_umc_poison_handler(adev, reset);
- }
-=20
- bool amdgpu_amdkfd_ras_query_utcl2_poison_status(struct amdgpu_device *ade=
-v) diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ras.c
-index 28463b47ce33..693bce07eb46 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1561,7 +1561,6 @@ static void amdgpu_ras_interrupt_poison_consumption_h=
-andler(struct ras_manager *  {
- 	bool poison_stat =3D false;
- 	struct amdgpu_device *adev =3D obj->adev;
--	struct ras_err_data err_data =3D {0, 0, 0, NULL};
- 	struct amdgpu_ras_block_object *block_obj =3D
- 		amdgpu_ras_get_ras_block(adev, obj->head.block, 0);
-=20
-@@ -1584,7 +1583,7 @@ static void amdgpu_ras_interrupt_poison_consumption_h=
-andler(struct ras_manager *
- 	}
-=20
- 	if (!adev->gmc.xgmi.connected_to_cpu)
--		amdgpu_umc_poison_handler(adev, &err_data, false);
-+		amdgpu_umc_poison_handler(adev, false);
-=20
- 	if (block_obj->hw_ops->handle_poison_consumption)
- 		poison_stat =3D block_obj->hw_ops->handle_poison_consumption(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_umc.c
-index 758942150c09..f76c19fc0392 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -165,25 +165,22 @@ static int amdgpu_umc_do_page_retirement(struct amdgp=
-u_device *adev,
- 	return AMDGPU_RAS_SUCCESS;
- }
-=20
--int amdgpu_umc_poison_handler(struct amdgpu_device *adev,
--		void *ras_error_status,
--		bool reset)
-+int amdgpu_umc_poison_handler(struct amdgpu_device *adev, bool reset)
- {
- 	int ret =3D AMDGPU_RAS_SUCCESS;
-=20
- 	if (!adev->gmc.xgmi.connected_to_cpu) {
--		struct ras_err_data *err_data =3D (struct ras_err_data *)ras_error_statu=
-s;
-+		struct ras_err_data err_data =3D {0, 0, 0, NULL};
- 		struct ras_common_if head =3D {
- 			.block =3D AMDGPU_RAS_BLOCK__UMC,
- 		};
- 		struct ras_manager *obj =3D amdgpu_ras_find_obj(adev, &head);
-=20
--		ret =3D
--			amdgpu_umc_do_page_retirement(adev, ras_error_status, NULL, reset);
-+		ret =3D amdgpu_umc_do_page_retirement(adev, &err_data, NULL, reset);
-=20
- 		if (ret =3D=3D AMDGPU_RAS_SUCCESS && obj) {
--			obj->err_data.ue_count +=3D err_data->ue_count;
--			obj->err_data.ce_count +=3D err_data->ce_count;
-+			obj->err_data.ue_count +=3D err_data.ue_count;
-+			obj->err_data.ce_count +=3D err_data.ce_count;
- 		}
- 	} else if (reset) {
- 		/* MCA poison handler is only responsible for GPU reset, diff --git a/dr=
-ivers/gpu/drm/amd/amdgpu/amdgpu_umc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_u=
-mc.h
-index 659a10de29c9..a6951160f13a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-@@ -83,9 +83,7 @@ struct amdgpu_umc {
- };
-=20
- int amdgpu_umc_ras_late_init(struct amdgpu_device *adev, struct ras_common=
-_if *ras_block); -int amdgpu_umc_poison_handler(struct amdgpu_device *adev,
--		void *ras_error_status,
--		bool reset);
-+int amdgpu_umc_poison_handler(struct amdgpu_device *adev, bool reset);
- int amdgpu_umc_process_ecc_irq(struct amdgpu_device *adev,
- 		struct amdgpu_irq_src *source,
- 		struct amdgpu_iv_entry *entry);
---
-2.35.1
+Luben
