@@ -4,62 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 331EFC4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 07:31:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 639AFC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 07:31:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D117510E5FA;
-	Fri, 21 Oct 2022 07:30:51 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47AB010E042;
- Thu, 20 Oct 2022 20:55:33 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id u15so1040243oie.2;
- Thu, 20 Oct 2022 13:55:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=udeMwJR6RHU8GcCEPzr8LmpawXN04cnbwas6lSAlJBo=;
- b=KVeaHUE9jUea0XpTgtJ1rn6HLB6rg4ZxwSNVxLOW+RekAIAIa0w7ibtTvmZ1Dc/w8v
- EBjJJ6oUkVCbEoDvth0/lNO0SegakBo+Ra8ipV2bzD/4NFlGJwWkgM85g1L8XucV/qlP
- R8Oj9MEqLhM0BNB8rJOlAi5MGlV2hG5XomR3q0JI6rSaY7WYCJwm1WW61FxYaC9JsaXh
- PSKCR7cpBAdGnzxO2Rrdb7nM1ta0NDWjow6e9zF94ykwi/J5zin7vJE3qTm0wymkp1V5
- mub4o3P52y2p3URtUU/Mj/3VB3vIrQRRTfSTndMGA9SoSdq9w3P51Fa9jY5QH5PA4BoE
- c7yA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=udeMwJR6RHU8GcCEPzr8LmpawXN04cnbwas6lSAlJBo=;
- b=mW7zFOpAq/Wjc6kaFG3qRFF9gbSw3c5bu1QYTEHXVL9Uwlw2or+MAMRE8fCS6bhf5S
- v9oL2ROsB8MwC6HpvyICXKbEqBANTtVRY9A7qoL40HfO5rm5jdrDxy9iJAqc3bCnXalm
- KgGk2Dk/fqTAmdJ8zF9GHCw7VE24+O1ygE9GrehT3e/Witl/HHq+671KWapJpofoTlaf
- Reww+mRFfHLJpc1VChkU+vwMaW2p1eng4irRx9nT8A+JcOsFZt47ypYmw+/JSiAAbifY
- N/mtm+WgPpsmeaat3/f7yroswmb7kufdDGH7xgIu0fKJ+oZgkc1R0ec+WFPjd/iChUC/
- a1PA==
-X-Gm-Message-State: ACrzQf2xhUnumq7nOXWXdo5a5VCpJmvMUZuyhBQByhBgQmT1OIyZIqIp
- a3zfugFWX/FN4tn4gIMhMmo=
-X-Google-Smtp-Source: AMsMyM7JTAhKBFETi+TX2Um7WHi5Qv9p2x0L/gDsY8hD/VabFzthQFSlJTkKqGOCCYvsOoAdK14ydQ==
-X-Received: by 2002:a05:6808:1998:b0:355:3480:51b9 with SMTP id
- bj24-20020a056808199800b00355348051b9mr7658382oib.195.1666299331988; 
- Thu, 20 Oct 2022 13:55:31 -0700 (PDT)
-Received: from smeagol.fibertel.com.ar ([201.235.4.68])
- by smtp.gmail.com with ESMTPSA id
- h5-20020a4aa9c5000000b00480e77f90f9sm2129998oon.41.2022.10.20.13.55.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Oct 2022 13:55:31 -0700 (PDT)
-From: =?UTF-8?q?Joaqu=C3=ADn=20Ignacio=20Aramend=C3=ADa?= <samsagax@gmail.com>
-To: rodrigo.siqueira@amd.com
-Subject: [PATCH] drm/amd/display: Revert logic for plane modifiers
-Date: Thu, 20 Oct 2022 17:53:18 -0300
-Message-Id: <20221020205317.96136-1-samsagax@gmail.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <ea5d60cd-8d0b-7018-425e-b91e5750a830@amd.com>
-References: <ea5d60cd-8d0b-7018-425e-b91e5750a830@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 311E410E5FB;
+	Fri, 21 Oct 2022 07:31:01 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4AB110E0F8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 02:22:50 +0000 (UTC)
+Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MtpCM5YgKzHv3Y;
+ Fri, 21 Oct 2022 10:22:39 +0800 (CST)
+Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
+ dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Fri, 21 Oct 2022 10:22:40 +0800
+Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
+ (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 21 Oct
+ 2022 10:22:39 +0800
+From: Yang Yingliang <yangyingliang@huawei.com>
+To: <linux-kernel@vger.kernel.org>, <qemu-devel@nongnu.org>,
+ <linux-f2fs-devel@lists.sourceforge.net>, <linux-erofs@lists.ozlabs.org>,
+ <ocfs2-devel@oss.oracle.com>, <linux-mtd@lists.infradead.org>,
+ <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 04/11] kobject: fix possible memory leak in
+ kset_create_and_add()
+Date: Fri, 21 Oct 2022 10:20:55 +0800
+Message-ID: <20221021022102.2231464-5-yangyingliang@huawei.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221021022102.2231464-1-yangyingliang@huawei.com>
+References: <20221021022102.2231464-1-yangyingliang@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
+ dggpemm500007.china.huawei.com (7.185.36.183)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Fri, 21 Oct 2022 07:30:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,104 +54,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, harry.wentland@amd.com, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- airlied@gmail.com, christian.koenig@amd.com, samsagax@gmail.com
+Cc: alexander.deucher@amd.com, richard@nod.at, mst@redhat.com,
+ gregkh@linuxfoundation.org, somlo@cmu.edu, chao@kernel.org,
+ huangjianan@oppo.com, liushixin2@huawei.com, joseph.qi@linux.alibaba.com,
+ luben.tuikov@amd.com, jlbec@evilplan.org, hsiangkao@linux.alibaba.com,
+ rafael@kernel.org, jaegeuk@kernel.org, akpm@linux-foundation.org,
+ mark@fasheh.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This file was split in commit 5d945cbcd4b16a29d6470a80dfb19738f9a4319f
-("drm/amd/display: Create a file dedicated to planes") and the logic in
-dm_plane_format_mod_supported() function got changed by a switch logic.
-That change broke drm_plane modifiers setting on series 5000 APUs
-(tested on OXP mini AMD 5800U and HP Dev One 5850U PRO)
-leading to Gamescope not working as reported on GitHub[1]
+Inject fault while loading module (e.g. qemu_fw_cfg.ko), kset_register()
+may fail in kset_create_and_add(), if it fails, but the refcount of kobject
+is not decreased to 0, the name allocated in kset_create() is leaked. To fix
+this by calling kset_put(), so that name can be freed in callback function
+kobject_cleanup() and kset can be freed in kset_release().
 
-To reproduce the issue, enter a TTY and run:
+unreferenced object 0xffff888103cc8c08 (size 8):
+  comm "modprobe", pid 508, jiffies 4294915182 (age 120.020s)
+  hex dump (first 8 bytes):
+    62 79 5f 6e 61 6d 65 00                          by_name.
+  backtrace:
+    [<00000000572f97f9>] __kmalloc_track_caller+0x1ae/0x320
+    [<00000000a167a5cc>] kstrdup+0x3a/0x70
+    [<000000001cd0d05e>] kstrdup_const+0x68/0x80
+    [<00000000b9101e6d>] kvasprintf_const+0x10b/0x190
+    [<0000000088f2b8df>] kobject_set_name_vargs+0x56/0x150
+    [<000000003f8aca68>] kobject_set_name+0xab/0xe0
+    [<00000000249f7816>] kset_create_and_add+0x72/0x200
 
-$ gamescope -- vkcube
-
-With said commit applied it will abort. This one restores the old logic,
-fixing the issue that affects Gamescope.
-
-[1](https://github.com/Plagman/gamescope/issues/624)
-
-Signed-off-by: Joaquín Ignacio Aramendía <samsagax@gmail.com>
+Fixes: b727c702896f ("kset: add kset_create_and_add function")
+Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 51 +++----------------
- 1 file changed, 8 insertions(+), 43 deletions(-)
+ lib/kobject.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index dfd3be49eac8..1d47d2d69781 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1369,7 +1369,8 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
- {
- 	struct amdgpu_device *adev = drm_to_adev(plane->dev);
- 	const struct drm_format_info *info = drm_format_info(format);
--	struct hw_asic_id asic_id = adev->dm.dc->ctx->asic_id;
-+
-+	int i;
-
- 	enum dm_micro_swizzle microtile = modifier_gfx9_swizzle_mode(modifier) & 3;
-
-@@ -1386,49 +1387,13 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
- 		return true;
+diff --git a/lib/kobject.c b/lib/kobject.c
+index 6da04353d974..e77f37200876 100644
+--- a/lib/kobject.c
++++ b/lib/kobject.c
+@@ -985,7 +985,7 @@ struct kset *kset_create_and_add(const char *name,
+ 		return NULL;
+ 	error = kset_register(kset);
+ 	if (error) {
+-		kfree(kset);
++		kset_put(kset);
+ 		return NULL;
  	}
-
--	/* check if swizzle mode is supported by this version of DCN */
--	switch (asic_id.chip_family) {
--	case FAMILY_SI:
--	case FAMILY_CI:
--	case FAMILY_KV:
--	case FAMILY_CZ:
--	case FAMILY_VI:
--		/* asics before AI does not have modifier support */
--		return false;
--	case FAMILY_AI:
--	case FAMILY_RV:
--	case FAMILY_NV:
--	case FAMILY_VGH:
--	case FAMILY_YELLOW_CARP:
--	case AMDGPU_FAMILY_GC_10_3_6:
--	case AMDGPU_FAMILY_GC_10_3_7:
--		switch (AMD_FMT_MOD_GET(TILE, modifier)) {
--		case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_D:
--			return true;
--		default:
--			return false;
--		}
--		break;
--	case AMDGPU_FAMILY_GC_11_0_0:
--	case AMDGPU_FAMILY_GC_11_0_1:
--		switch (AMD_FMT_MOD_GET(TILE, modifier)) {
--		case AMD_FMT_MOD_TILE_GFX11_256K_R_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_D:
--			return true;
--		default:
--			return false;
--		}
--		break;
--	default:
--		ASSERT(0); /* Unknown asic */
--		break;
-+	/* Check that the modifier is on the list of the plane's supported modifiers. */
-+	for (i = 0; i < plane->modifier_count; i++) {
-+		if (modifier == plane->modifiers[i])
-+			break;
- 	}
-+	if (i == plane->modifier_count)
-+		return false;
-
- 	/*
- 	 * For D swizzle the canonical modifier depends on the bpp, so check
---
-2.38.1
+ 	return kset;
+-- 
+2.25.1
 
