@@ -4,40 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25C20C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 07:31:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB31CC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 07:31:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0B7210E602;
-	Fri, 21 Oct 2022 07:31:32 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4872810E5C0
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 05:37:00 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0B01061D9D;
- Fri, 21 Oct 2022 05:37:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD180C433C1;
- Fri, 21 Oct 2022 05:36:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1666330619;
- bh=C4x6hYFDAWi4DXcimrF67aLQPsZW93Mx96V0amCnWn8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QlbKpgGx1qrMgSdaJyivXXf5qor/X961lpc0yRR+woSzH3tCcgiu1gmz/NBYEXQfe
- K4vsmjcCVpegODndBu2vg9R9eT4zstEkXIb1SfoFeTNCPoQOhnVD+4siGARAhiytQw
- tUVK0o7ipMo473nLX2GyW5d8TYlaC0oYKW+aMHhw=
-Date: Fri, 21 Oct 2022 07:37:48 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Luben Tuikov <luben.tuikov@amd.com>
-Subject: Re: [PATCH 00/11] fix memory leak while kset_register() fails
-Message-ID: <Y1IwLOUGayjT9p6d@kroah.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D823110E380;
+	Fri, 21 Oct 2022 07:31:34 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8763910E0F8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 02:22:48 +0000 (UTC)
+Received: from dggpemm500024.china.huawei.com (unknown [172.30.72.54])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MtpCK4pJ1zHvCk;
+ Fri, 21 Oct 2022 10:22:37 +0800 (CST)
+Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
+ dggpemm500024.china.huawei.com (7.185.36.203) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Fri, 21 Oct 2022 10:22:46 +0800
+Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
+ (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 21 Oct
+ 2022 10:22:45 +0800
+From: Yang Yingliang <yangyingliang@huawei.com>
+To: <linux-kernel@vger.kernel.org>, <qemu-devel@nongnu.org>,
+ <linux-f2fs-devel@lists.sourceforge.net>, <linux-erofs@lists.ozlabs.org>,
+ <ocfs2-devel@oss.oracle.com>, <linux-mtd@lists.infradead.org>,
+ <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 10/11] drm/amdgpu/discovery: fix possible memory leak
+Date: Fri, 21 Oct 2022 10:21:01 +0800
+Message-ID: <20221021022102.2231464-11-yangyingliang@huawei.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221021022102.2231464-1-yangyingliang@huawei.com>
 References: <20221021022102.2231464-1-yangyingliang@huawei.com>
- <d559793a-0ce4-3384-e74e-19855aa31f31@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d559793a-0ce4-3384-e74e-19855aa31f31@amd.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
+ dggpemm500007.china.huawei.com (7.185.36.183)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Fri, 21 Oct 2022 07:30:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,60 +53,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rafael@kernel.org, qemu-devel@nongnu.org, liushixin2@huawei.com,
- joseph.qi@linux.alibaba.com, linux-mtd@lists.infradead.org,
- huangjianan@oppo.com, richard@nod.at, mark@fasheh.com, mst@redhat.com,
- amd-gfx@lists.freedesktop.org, Yang Yingliang <yangyingliang@huawei.com>,
- hsiangkao@linux.alibaba.com, somlo@cmu.edu, chao@kernel.org,
- jlbec@evilplan.org, jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, alexander.deucher@amd.com,
- akpm@linux-foundation.org, linux-erofs@lists.ozlabs.org,
- ocfs2-devel@oss.oracle.com
+Cc: alexander.deucher@amd.com, richard@nod.at, mst@redhat.com,
+ gregkh@linuxfoundation.org, somlo@cmu.edu, chao@kernel.org,
+ huangjianan@oppo.com, liushixin2@huawei.com, joseph.qi@linux.alibaba.com,
+ luben.tuikov@amd.com, jlbec@evilplan.org, hsiangkao@linux.alibaba.com,
+ rafael@kernel.org, jaegeuk@kernel.org, akpm@linux-foundation.org,
+ mark@fasheh.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 21, 2022 at 01:29:31AM -0400, Luben Tuikov wrote:
-> On 2022-10-20 22:20, Yang Yingliang wrote:
-> > The previous discussion link:
-> > https://lore.kernel.org/lkml/0db486eb-6927-927e-3629-958f8f211194@huawei.com/T/
-> 
-> The very first discussion on this was here:
-> 
-> https://www.spinics.net/lists/dri-devel/msg368077.html
-> 
-> Please use this link, and not the that one up there you which quoted above,
-> and whose commit description is taken verbatim from the this link.
-> 
-> > 
-> > kset_register() is currently used in some places without calling
-> > kset_put() in error path, because the callers think it should be
-> > kset internal thing to do, but the driver core can not know what
-> > caller doing with that memory at times. The memory could be freed
-> > both in kset_put() and error path of caller, if it is called in
-> > kset_register().
-> 
-> As I explained in the link above, the reason there's
-> a memory leak is that one cannot call kset_register() without
-> the kset->kobj.name being set--kobj_add_internal() returns -EINVAL,
-> in this case, i.e. kset_register() fails with -EINVAL.
-> 
-> Thus, the most common usage is something like this:
-> 
-> 	kobj_set_name(&kset->kobj, format, ...);
-> 	kset->kobj.kset = parent_kset;
-> 	kset->kobj.ktype = ktype;
-> 	res = kset_register(kset);
-> 
-> So, what is being leaked, is the memory allocated in kobj_set_name(),
-> by the common idiom shown above. This needs to be mentioned in
-> the documentation, at least, in case, in the future this is absolved
-> in kset_register() redesign, etc.
+If kset_register() fails, the refcount of kobject is not 0,
+the name allocated in kobject_set_name(&kset.kobj, ...) is
+leaked. Fix this by calling kset_put(), so that it will be
+freed in callback function kobject_cleanup().
 
-Based on this, can kset_register() just clean up from itself when an
-error happens?  Ideally that would be the case, as the odds of a kset
-being embedded in a larger structure is probably slim, but we would have
-to search the tree to make sure.
+Cc: stable@vger.kernel.org
+Fixes: a6c40b178092 ("drm/amdgpu: Show IP discovery in sysfs")
+Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-thanks,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 3993e6134914..638edcf70227 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -863,7 +863,7 @@ static int amdgpu_discovery_sysfs_ips(struct amdgpu_device *adev,
+ 				res = kset_register(&ip_hw_id->hw_id_kset);
+ 				if (res) {
+ 					DRM_ERROR("Couldn't register ip_hw_id kset");
+-					kfree(ip_hw_id);
++					kset_put(&ip_hw_id->hw_id_kset);
+ 					return res;
+ 				}
+ 				if (hw_id_names[ii]) {
+@@ -954,7 +954,7 @@ static int amdgpu_discovery_sysfs_recurse(struct amdgpu_device *adev)
+ 		res = kset_register(&ip_die_entry->ip_kset);
+ 		if (res) {
+ 			DRM_ERROR("Couldn't register ip_die_entry kset");
+-			kfree(ip_die_entry);
++			kset_put(&ip_die_entry->ip_kset);
+ 			return res;
+ 		}
+ 
+@@ -989,6 +989,7 @@ static int amdgpu_discovery_sysfs_init(struct amdgpu_device *adev)
+ 	res = kset_register(&adev->ip_top->die_kset);
+ 	if (res) {
+ 		DRM_ERROR("Couldn't register die_kset");
++		kset_put(&adev->ip_top->die_kset);
+ 		goto Err;
+ 	}
+ 
+-- 
+2.25.1
 
-greg k-h
