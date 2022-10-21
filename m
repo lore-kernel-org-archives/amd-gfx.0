@@ -4,49 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A5B0C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 09:18:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6271FC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 12:36:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B330610E671;
-	Fri, 21 Oct 2022 09:18:36 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F8F710E534;
- Fri, 21 Oct 2022 09:18:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666343906; x=1697879906;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=nVetjXHRfqyVKF1htzqfquwo9eva30/LnRsHGeRwraI=;
- b=h1V89JMANjYL2XQMmYSxMUTH2g3cNVPj6I58cc2nZjBpRv1itAziqdoJ
- Qq1z+Ye/kC7jhd8Z3gsyjbp2SJNCC4vQy1KcXNCchhAw6vR/HjRehjIqO
- D8t00Z+wLtUcUcLbY0SwjdIv96dUkoE+SmYTL/Xkgr5J3F5w+BiSIECcq
- oQxOM76yWXx1cDjchVd+L+nKP6mVTBP1H8JhHUMmH1ROHVCVEM5RlAGtp
- Hzxb70Ju4Iche2wvX4NSXzasY28l4Xxh07MYIlwn2kK4XP2aKZaLvKF1p
- w67hr2z2tNM1mYBGRhfmuXL3KraIwXscQ4Tl2WAXRIi35u7qVfQP8NZCQ Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10506"; a="290265067"
-X-IronPort-AV: E=Sophos;i="5.95,200,1661842800"; d="scan'208";a="290265067"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2022 02:18:25 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10506"; a="755707666"
-X-IronPort-AV: E=Sophos;i="5.95,200,1661842800"; d="scan'208";a="755707666"
-Received: from avilla3-mobl2.amr.corp.intel.com (HELO localhost)
- ([10.252.53.153])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2022 02:18:19 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Greg KH
- <gregkh@linuxfoundation.org>
-Subject: Re: [Intel-gfx] [PATCH v7 0/9] dyndbg: drm.debug adaptation
-In-Reply-To: <Y1Fyuh12g/gt3Izn@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220912052852.1123868-1-jim.cromie@gmail.com>
- <Yy7/6oTBW2lqVSK1@kroah.com> <Y1Fyuh12g/gt3Izn@intel.com>
-Date: Fri, 21 Oct 2022 12:18:17 +0300
-Message-ID: <87a65pfsbq.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0255110E0FE;
+	Fri, 21 Oct 2022 12:36:27 +0000 (UTC)
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49EEE10E0FE;
+ Fri, 21 Oct 2022 12:36:22 +0000 (UTC)
+Received: by mail-pj1-x102f.google.com with SMTP id h12so2379291pjk.0;
+ Fri, 21 Oct 2022 05:36:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5y/vcAMtKCVTrh+E/N/2LlgUlrNzauVl3aZ392iU3cU=;
+ b=Qbx4MGJiXE25WxekTP+L8fcKpnb7ojaiGvhvo3d6vwji70BKe+eSk5Xy4ztsbEqltX
+ JgFv9eOcepuc/9kqg+OMrrzN6GJi6fOMBVHc15DbxP0Ki+5+imQFlNiR7MChQJT+DHLq
+ g3VdB2hDAqIMIx1Nv/hPxNvbWZw2mcwkEpX3uaK7kh7Tqa2RytcaKWIQMKaKaj2iRm7e
+ lXKGNqWJE2FLTPXTTXenj/Rfhln9ZkivTorvGAgo9/H0GxqNBp/ydevjIwjnbCnYQ7K4
+ MhyUXQTtBIrtlv4Mp994DvJ2wwsN+9/K1dtuunw2YDWB70q8sYUq4gHpAOgRUoGcRgju
+ famA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=5y/vcAMtKCVTrh+E/N/2LlgUlrNzauVl3aZ392iU3cU=;
+ b=pfBpOGlZ2sVDMC5JI6VRgJR7qPPqqQy4fZxL2z08LonsvEXTHS+UusaArZnQIbbdV3
+ 7hyLPIWCiMHj+pl+v3P8azH8Oq+zfN3mnbykJYGEtc0y4WyNXjFkYLQwh8aN2MCZspok
+ sejy9KJmbSh81pRYem1VU9KccTrZHuEhvs2gk0n/ddNe15qiLKiNDyfOXBPECLpeO4nH
+ o1nUIMBqPYY6ldsYHar24zyXV+uv6enFK/71MoWmIqQ/cvhhzoqfwZKnDMdHZL2AA4bW
+ JDo6lvSmhbBBeeRtK+Tg1ddt5U7sYleDawa8yEkaNq7MvWDJcawgqCcFTkAGwfY+T9Al
+ yTRA==
+X-Gm-Message-State: ACrzQf3pytx+LM5hb136EanpA+tOsYx8sMjzYOU/32D4TeMnW5z3a9WY
+ qkkC+8w7KUFEGSzPp5LkKRbMc1t01V1Hqd2jmvFEQJPNZWjf4mHt
+X-Google-Smtp-Source: AMsMyM4PFfgcQnS/E9WHft1H10vtbxT+IX20E8TXQbHHzIHseDMNJJbDOkWxD3q+UVA89SBbO1sNpalqZc/gmECW2m8=
+X-Received: by 2002:a17:902:8549:b0:178:6399:3e0f with SMTP id
+ d9-20020a170902854900b0017863993e0fmr19363524plo.35.1666355781420; Fri, 21
+ Oct 2022 05:36:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <CABXGCsOeQ7VYm98jRVaYp6KaNsFVsAnSb33ZT8JvZxcTcEGW0w@mail.gmail.com>
+ <a67598e8-c826-2740-03bb-33d37c8c8e4b@amd.com>
+In-Reply-To: <a67598e8-c826-2740-03bb-33d37c8c8e4b@amd.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Fri, 21 Oct 2022 17:36:09 +0500
+Message-ID: <CABXGCsNvFvJz4=N=JKYSGVcd=dKfQ3Nv_zOssMb0Z6oK79xZ7g@mail.gmail.com>
+Subject: Re: [6.1][regression] after commit
+ dd80d9c8eecac8c516da5b240d01a35660ba6cb6
+ some games (Cyberpunk 2077, Forza Horizon 4/5) hang at start
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,47 +68,25 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
- intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, jbaron@akamai.com,
- seanpaul@chromium.org, dri-devel@lists.freedesktop.org, joe@perches.com,
- intel-gvt-dev@lists.freedesktop.org
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 20 Oct 2022, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
-> wrote:
-> On Sat, Sep 24, 2022 at 03:02:34PM +0200, Greg KH wrote:
->> On Sun, Sep 11, 2022 at 11:28:43PM -0600, Jim Cromie wrote:
->> > hi Greg, Dan, Jason, DRM-folk,
->> >=20
->> > heres follow-up to V6:
->> >   rebased on driver-core/driver-core-next for -v6 applied bits (thanks)
->> >   rework drm_debug_enabled{_raw,_instrumented,} per Dan.
->> >=20
->> > It excludes:
->> >   nouveau parts (immature)
->> >   tracefs parts (I missed --to=3DSteve on v6)
->> >   split _ddebug_site and de-duplicate experiment (way unready)
->> >=20
->> > IOW, its the remaining commits of V6 on which Dan gave his Reviewed-by.
->> >=20
->> > If these are good to apply, I'll rebase and repost the rest separately.
->>=20
->> All now queued up, thanks.
+On Fri, Oct 21, 2022 at 1:33 PM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> This stuff broke i915 debugs. When I first load i915 no debug prints are
-> produced. If I then go fiddle around in /sys/module/drm/parameters/debug
-> the debug prints start to suddenly work.
+> Hi,
+>
+> yes Bas already reported this issue, but I couldn't reproduce it. Need
+> to come up with a patch to narrow this down further.
+>
+> Can I send you something to test?
 
-Wait what? I always assumed the default behaviour would stay the same,
-which is usually how we roll. It's a regression in my books. We've got a
-CI farm that's not very helpful in terms of dmesg logging right now
-because of this.
-
-BR,
-Jani.
-
+I would appreciate to test any patches and ideas.
 
 --=20
-Jani Nikula, Intel Open Source Graphics Center
+Best Regards,
+Mike Gavrilov.
