@@ -4,118 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E7FAC43219
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 05:11:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9C65C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 05:29:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 459D410E440;
-	Fri, 21 Oct 2022 05:11:11 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2082.outbound.protection.outlook.com [40.107.95.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5BA410E440
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 05:11:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C96C910E5C1;
+	Fri, 21 Oct 2022 05:29:43 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C47DC10E5C1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 05:29:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FPZxa2m6P0mOVzqF6NHjGK2wHoa+4zK3dtFvIaCUYlH6Ilj7cTpBkWm2VctzpjrgOQIx6WITM8FolsHM3qV4D0XZ+rk9pIzGFraqsh+3RWrCOyrX3MCtEZ/B+1qK6eiBdvymP4uFgsdXFlmf4WdlyaZ56klinHLS2rHqJhav3eTIed3sV+XebD8QH0/DazvCm816j8JWsFlOgyNZoPflM7UFx7ooSsj4TMFc9rzPAZ1oNK+0daSwqsFSVFgudTCsk0hdZebSSJPrT46oJLeCIW21BSmgXtQ4u15Hle5MmfdsNSEbQjjKS5xENkZU4aaHBSsqEQlFjCZmj0eVl9Regg==
+ b=Cvqp3P3B8BLfAmpNZxHvh7i9DBRLxrF0L/Puf+VClskgfrGn6tLUXXdLD+sHtspD2l57WBbG2sjZXzUG6eiPg0fU4jRvyKPxdOw6GkssGXnsjsRrL9aZ4M6qGsrWDrN1J4VAE6nd64uj3ZIumGRMhdXMHTT8uIvxSkcOO6Hac8nLvgmtOx/DEf2WEwHPE4xZEhCUfM3uvaVO0tPrVnmu3szQEJAv0N6hVRs38BgnAA30Xd1hhOrzqwbj2MD4CZ06cYwpIMSiJRVJouM1O2UVPuLKefpkM8lBbJMVqnzgbK2k+ke7+RkXiWWZD0mY1Y291mXuICqnfv9gfQIbujqbeg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QSnbon57vfyVVoQlO5w1beHKujnCrHu/76ZM8T+GIZ0=;
- b=NtKmf/OdltrDGSLgfSJwnKaM5FiAcT3dZQB0lv+qPPhFLHNOtVbJZn3Jqtp8gHW4CMw2a4vmGXJO7LdBvku8kdx4kFH7SGdVbPM+r/SF5PiOgqmJojchnNLB5gS74F0pKcHt4+iu3blG+QEs/nDgZ47a06dyqtaR+6gRoiuF2M4zEzRHEuUtNeSArmZL3kL5fwNv7bwuZvYm93MfI7hykSna6PTA0mqEBtBt7SXBeaYbTxjnGBDOyJrCL83tTHFaHQvJZEyxn6AcyhXvTh7T7WUJnvjPX+ASb8A2XjACgpoXntaHAOtks3f3WAt3bqcX8HVBVWWso/tEkCF3NLC/XQ==
+ bh=c1p/x8XJ+Q362Wu9z4oBoXAVVel641qCZMxeygRMU98=;
+ b=mbQtjLOiAVIvijp3wfz9SNisohTWlTmCr+CaK2KbmRjNdggP7RN6VTe5KnTkk3Q9Na6J5WGrNntWGz4iFlAdTMFNvzSqkcdP9ZPwkWnjTj1xTOFM6DZFwrmpDiciNvlWtEe5G2CrwXG/CXWKYfQvvbSCnquY2VQwKNElLbwaxWx7z9QCaZJ9u2TgxZjwmijEoVfBoHs/zURaraT/erHU4XTzMVCZmpGB99rKRz46qwgCjnPjBcOX6xJ9yjY/Lqy1aa1bKS/Lw55thpRJ+fwE7RCFoyPVRWpJ/+S9+ijFYIAGBptPbVSpVkEzPGOqPBmpdfrPU7CX0x/BOhpPyfKppQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QSnbon57vfyVVoQlO5w1beHKujnCrHu/76ZM8T+GIZ0=;
- b=XFRD7EnKaZuNxCMN2mSkKOj8712uwKo1+2CE8n0+FONIrCMQgDLsEgPJURikEf+eP29LuTaxFx23ABYQyQqxGn1Omda5kPgWBTqBsQEjuYzgwXIM69Qdm+Bg2QosIem4aC9gMQrglHOqitQRR6lR/rH6BRqmYruHE7NYXMTbJek=
+ bh=c1p/x8XJ+Q362Wu9z4oBoXAVVel641qCZMxeygRMU98=;
+ b=5qc34ng+gRAm2isjW+n5AB+xpET61TNj1PNivsUyi2YfAKrHCEgoG+RV8GyZQoU/FRd7wl6/rY4hsKNJwqHP57KHUYGubRVhZ3HsoLDhdS3PP4UUDKAa95v5p7TK7lt3Qn4bWxlRHnbuzAVjoiqoky2DIOvPde++XR2UCUef75o=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DS7PR12MB6094.namprd12.prod.outlook.com (2603:10b6:8:9d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34; Fri, 21 Oct
- 2022 05:11:02 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::7e91:f457:9ec5:33be]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::7e91:f457:9ec5:33be%6]) with mapi id 15.20.5746.021; Fri, 21 Oct 2022
- 05:10:59 +0000
-Message-ID: <016ec155-12da-5a2d-9395-6941e332833d@amd.com>
-Date: Fri, 21 Oct 2022 01:10:56 -0400
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
+ DM4PR12MB5796.namprd12.prod.outlook.com (2603:10b6:8:63::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5723.26; Fri, 21 Oct 2022 05:29:35 +0000
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::d309:77d2:93d8:2425]) by DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::d309:77d2:93d8:2425%7]) with mapi id 15.20.5723.035; Fri, 21 Oct 2022
+ 05:29:34 +0000
+Message-ID: <d559793a-0ce4-3384-e74e-19855aa31f31@amd.com>
+Date: Fri, 21 Oct 2022 01:29:31 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH 1/2] drm/amdkfd: introduce dummy cache info for property
- asic
-To: "Liang, Prike" <Prike.Liang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20221020091515.2758445-1-Prike.Liang@amd.com>
- <e92f2184-73bc-eb3c-d903-5a46c5c34ac0@amd.com>
- <DS7PR12MB600544275C2AB15530224DC5FB2D9@DS7PR12MB6005.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <DS7PR12MB600544275C2AB15530224DC5FB2D9@DS7PR12MB6005.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0022.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:86::26) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ Thunderbird/102.3.3
+Subject: Re: [PATCH 00/11] fix memory leak while kset_register() fails
+Content-Language: en-CA
+To: Yang Yingliang <yangyingliang@huawei.com>, linux-kernel@vger.kernel.org,
+ qemu-devel@nongnu.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-erofs@lists.ozlabs.org, ocfs2-devel@oss.oracle.com,
+ linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org
+References: <20221021022102.2231464-1-yangyingliang@huawei.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+In-Reply-To: <20221021022102.2231464-1-yangyingliang@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT3PR01CA0006.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:86::11) To DM6PR12MB3370.namprd12.prod.outlook.com
+ (2603:10b6:5:38::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS7PR12MB6094:EE_
-X-MS-Office365-Filtering-Correlation-Id: a32b2561-c6a5-476c-03fa-08dab322a411
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|DM4PR12MB5796:EE_
+X-MS-Office365-Filtering-Correlation-Id: c28566e1-cfbf-4438-67ea-08dab3253d04
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zJEb3+K23C2wQGk7hUbJiveFFIi6vC1ctUhF2vAbwEzbKWoWn476gXcVj+yqrUjc0sDfcK7agDla6i6ncdyjFxA97FVS+WwzMy7h/rFBHznXARBYBu+i2eyoe/UEXhTzLzCH15OycePzMUtfyvKYzcmy6DtcNA8BPK7ogj1zrHrEQKausVDd2yMxWKoJ60WQlDi0Piw0HjkJHREle2VnXlRNLoA1APv86c57YRuWUIsqdVfSUkqG5I3XhuyOfhcJ6B5CoWEgWuGwvuxCCPygPDCb97dTTNPVjhaXDOO2loNkdhT6HUGLmCowCMr4bGsisvJVFiJtWNC2XQVfHkANu3S1ydLfv1fEJems7jIOfcSIwYZ3m4qPYhAOPSwBlFapIw47axbnWpa3QNgDd7WWrD1GuSzpxHGIL26qPg6U7n5VaGaE7/77t6W8LQVhfHSYWGay9VEbqoZvSUC6933aa2FDZ/cI36hoZruthHySv+BUx/DIFUQlJr+SDsrcNT3nosLNQ6ILt7dEYsnjOVQROS/BrtFWhO6g6fbUK2IsiAOECCDA2gd5LQpPlVjTdhRy7uFEpb8gp+GpsgGOF41kw6fuuvgAk4Ij6rdUu/HGO1O/rO84MI91ZC7W458lOQjXZl/N+nabn73zziUSDuhvuJVEAg3HiimOcmohpelTKM7KeIuvL2HDlBoQeAAMLn28MKADjSyEICa6iTmKO5S2mFZ1TUZV1F96QCLYCy/xye4NtISQpFCzrhkCBXORKyaDg24ZiUM5FGtOCZpXiABgY5CtFuthTumMVxpyYxwIxQQ=
+X-Microsoft-Antispam-Message-Info: mjWTlJ3Cv2/NULzy2Tc/vPlmV1pquOu9JJpHuBRHadPSWO9WG7mI5LRewAMLLM8Fwbt1IwxsJ7d63QBVd5/QMJ3xzdznICvg0MENoiuIBR3+FzawRsnpGezkk4+BDlVtwb6DSxRHE/QpV50QTyd2hHXLtU1Csld2td4wd+GPY1okb4Xj9sPSOc2hcU8WfdSxMG0blhkkjv4xMMnQZhT3pd04DroIdsH6NEQ51ibKfXcoDQbTQPfB6D/y7ZcI2oAiCjM5RIWLL2F1O8ouOBUvcHO5tb1FmYOx9osZXajXC9YtuVC3l/t9RJR9q/KhdXhMtzovyBRvvENKYIakR/j4pbZ2RdCZ9HWAmX8M/AS7VT1kVK2RAjVgOuhkQvbSWj8Qk69i0yXXZCTtTvgllUCwsVDK9+nSjtH9QUCeCuOf6aBMInSjslizYFzHulVZTBkQ0sE3uYM6utUh7+n0aNFpJs2STvSt2DCzBuxmr8ZzWCUzrK6UKK6hs3x1umkdWfFWf1EZXe2o7/jqKD7QbfZAqiTPPnqjC7Iq/HihwxIIl7UNTDXa+5ABMBvvYF6bW2pHRJG9xh48T02IyyZxcDZhlHhQA9J8/yuyNMauyQujmbyy8wgkeZP45quE09aJFQ05NkRWHDCsGkCuj+/2h0ZZEClofr5LSPMAtmWB9Zmyvm9e4uLF89Rr/Y8++k+fZ6AAxKJZBu/oL5AxjrG5kwMwU+3hiI2dAkPx2iwpnjrFEF71UrWU6F9cyzMY82azhObAQR8/BVRhj3wuICFWEWTQRhmGT7zJh/Iu0btVUHwtzyBzklJg9/atoyu9ZsWBhTfiHBZAC/IQVEtqF5f5NfajGw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(376002)(346002)(39860400002)(396003)(136003)(451199015)(4326008)(36756003)(110136005)(54906003)(316002)(6506007)(6666004)(66556008)(53546011)(8936002)(41300700001)(44832011)(5660300002)(38100700002)(66946007)(2616005)(8676002)(2906002)(4001150100001)(186003)(66476007)(31696002)(86362001)(83380400001)(478600001)(31686004)(26005)(6512007)(6486002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(376002)(346002)(396003)(39860400002)(366004)(451199015)(36756003)(31686004)(31696002)(86362001)(5660300002)(7416002)(38100700002)(4001150100001)(44832011)(26005)(41300700001)(2906002)(2616005)(83380400001)(186003)(316002)(6512007)(4326008)(6506007)(53546011)(478600001)(6666004)(66556008)(66946007)(66476007)(8936002)(966005)(8676002)(6486002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZmJQeTJaTzN3Qkh6aTY4OWh6eUkzaTlWUktUSC9oNTNBaDlBcWZFRmVuVkpj?=
- =?utf-8?B?eTZqeWZ1YmtMeGxqemJ2bTlCdVhLRm1vVEx6T0ZSOTlCcjlrM3VmaDlHd05E?=
- =?utf-8?B?bk9sbVJsa05HK3l6ZFhjS01aOFVXcGJPa21Ia2xuT2ZyN2ZaWkgzVEFvT2Zk?=
- =?utf-8?B?NTNVckJTN21xM2loSGxGd1ZGb214a21HdjFMalZWaVRoOFdzb2ZHQ2ZPUzBj?=
- =?utf-8?B?T1VCQW5Wb0c0SFQ3NFdpb3pma1BFdWpjdkxNeTNONjBLKzRLcmczaFhCRlk0?=
- =?utf-8?B?b0ZyVTF6Tjc1bEh5TDRZVnkxVnNxdFZvekJYc1dyY21qSTBHUnU3R1RZNnJL?=
- =?utf-8?B?UnNuVklzWGxRczFxRXpOa0pLZ1BwaXVRb0JwNVArZGpzb3AyQ20vZ3BGTENa?=
- =?utf-8?B?dHZ5V3BNZGlxYzZlNG5kVGNVOHlHQTRGQnhnS3lDWndPN3M4R1pFR2lxUUt4?=
- =?utf-8?B?UDJNNE1ZVXRYaUtJaFhBQTB2QnpSZDQyMG9YL0pyek0veHN3SFRBYU8zQ0xr?=
- =?utf-8?B?MENUeS9vcVl5bW9oRHdYNUZrUzBqTXBLZTFBOVhaNmd5dHlUNVlta095Vjlu?=
- =?utf-8?B?KzZWVUk5RmNQZ1hxcFUyeGRlQ2hNNGg0WVRhY2VKcVdkTXE5ZDRMUzNiditp?=
- =?utf-8?B?MGVKQTVIempCMWF2Vk1qaEJrUkcvLytWeXRjdnl5dDZ1eDRhWng3UnBDZUl0?=
- =?utf-8?B?YnE0T1hsMFF2aUttdmlwMnFFMkNmUFdGR0hlVFBqeSttOHh2aGhIbWpDdVNt?=
- =?utf-8?B?UVN0ZGh2MDc3SzFzMHkwTjFsczEzTjZ4YnZHdjcza25mOTl3ejNmeW16Z2l5?=
- =?utf-8?B?OVczNVNNMEtTT1dsMG45QjFEM2NxVHI5WGZWMmJkaGpnTWozcitmaGNYSkZ3?=
- =?utf-8?B?WDF2cjVyZ0ViMTVlZjZXSDdUR3FFVHppbzFiVkhTVlhRSmZZaGN6NFN3ZTdR?=
- =?utf-8?B?Q2VEZEtsZUNTazFyTVNIV2V0ZnkxQjA4dmNLYWZXK2swYkxwcVdTYmxHS3Ru?=
- =?utf-8?B?QythQ0VvRWI3L0s4NUZUMTF3aXdLRk9IUkhXTFA3dnpYWHg3Y256Z0dOVzZG?=
- =?utf-8?B?ZGsvMk1rSWFxYjFSS1VsMmpKYWZKT2UrUEJIT24vcVFHSFdkREtZd1hMREpK?=
- =?utf-8?B?ZG8vM2tibWhmUDdYY0VDLy9nSEhtWXJvOHU5S2dqdXpIVExKNUlFRmNmL0dp?=
- =?utf-8?B?Tm9WQ1ppUnVIVVh4V3VPS1cvUHVGc25rcm0yZ2VNY0l6RGo0K1VsOTkzR2F2?=
- =?utf-8?B?cjVPQUhLNXhJZTQrWVIxSTUrbUJpOWlKVjY1SGpYYVVaa1grTFJQUFJvK3p0?=
- =?utf-8?B?Vzg2WkVuNHlIOUxyelZRUTR5R3pQSDlHRTRibFJRaVdYcW9GYzJkMldVYVdI?=
- =?utf-8?B?aTBvZUZJZGQ2bUY1aUc2N2ZPMWRDM2VZS2wwdXBuc2NRbjVqbFlaWTlhZGlv?=
- =?utf-8?B?TlFTRTJHUjBtQWc1bkwwUk5kbVVCSjhuZHBjTGREdERFeGxMbEFwUWZCYkRL?=
- =?utf-8?B?SWQ3RUVkdGUzNDdPY08wL1ZnRnZRdWtDbXhUVGIvODBub2RNTm0rQlVyenlU?=
- =?utf-8?B?OEJreWR1THdiQzhuTUlGeis5RWJsSXFYYXdSc25DVE0wVXpqS0ZqeUNSZTlS?=
- =?utf-8?B?R2FoT3dUTCtxZTdkUUR1cm50a1V3OXE1SmhydVpiazV6WGFWQWIzbTYyajBN?=
- =?utf-8?B?Rk1udWtxeTJBNjY2dU9jNW1iWnNMUjhDYkY0Vnl0MUFQd0hWUXg1RWZib005?=
- =?utf-8?B?MTFMZXYydGsrR3lvbGo2eHBrVWQzWDZGQVJyK1lYUFBYc0o3MDlsY25EZFJo?=
- =?utf-8?B?YURVeW5Yc29pZ3dzMGl3YzR3QW02d3VVbHhtTFVXVHFibDBWaWJHRWcvNG5r?=
- =?utf-8?B?b05EK21uQmdXQ0tRQXFtQk5jTEZ6Z3dpaW5WVkJ2OG5xS0tPb0RpS0p6aktz?=
- =?utf-8?B?NE1EdTNJYlkzU0tHeTljMlVtQ2cyekJwNFdJdFV1Q3Jvblo5REtYMDJtOTd5?=
- =?utf-8?B?MUtHMUZWUTdpcTlDaDVIOTlucjZFWWs0THFzQVJ2Y1BCZjBLYUFkb2RDWUF2?=
- =?utf-8?B?Q0tBTksrTktEUDJ0cWtKR3g5QVlRM3Faa21LcWxkQ0lSYkNGeWV3d2MzZTRo?=
- =?utf-8?Q?wKkGxd+ruAEabRiji/7Onu3HN?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Wmw5T0xrR2xpTTQ4ZjNDOWYzeWgrNkovb3dEdlNNNXFOeXhLejVqc3duRkdU?=
+ =?utf-8?B?blFLY1VEa21IMEhlOHdTNGFJeHo1bzZQT3cvYW8waHJyUmFBS21NVGVNT0F4?=
+ =?utf-8?B?WVZRUjU3UXBUaTZ1MUlJQ3pSekhkTVVhR1hRUTJqQmJkM2VYWVVQWGYwMzhS?=
+ =?utf-8?B?VEc4SVJxcTg4aWZ3UGdrN2J3T3YwWUdacThiUW1kbjlXd3hEZEh4T3ZqU1Js?=
+ =?utf-8?B?a21QOWNkZXNFVk9JQklVRXJ1TDhPVGJ3NzE1UUhXaGE1MnlBYVpubERPUDdh?=
+ =?utf-8?B?K3J2eUl1WWNjc2NyK1RvdWI0NDRCM3M0eVVkWHhLODFnMFE5NUh6SUI5Tzl4?=
+ =?utf-8?B?cG5tVXZHbmpqQnU0dVp3L2RMRWpWL0NHOHcrRHV5Q21HWmFsQkFzYlExaGJp?=
+ =?utf-8?B?dlowS1Z2ZktlOUMyMzEwdGR5bDJ6ak9IR1JQRTQ4M0F1em95a25lRHZSUGwy?=
+ =?utf-8?B?Z3MzcHIzbFd2WUlqcm00WGFVOURDYUNjQWFlVGxUd2x4ZDNjdE9LSUpTVGtX?=
+ =?utf-8?B?VDFNK1hCYlQydGd0c2grYVUzVHFiWHBxdmpEQ2xSKzE5YjI5aHd2aE90ZjNF?=
+ =?utf-8?B?cnVxcGFLb21weGY0MmtyRVBWZmJYM05JaERTektIaHE0MmVqbklpbDVjdk04?=
+ =?utf-8?B?Zkw1bXJWeWdTdEgzMVJRNU5NKzlpMlBsTlZURkQxME5lcVUvRkUxYS9MVDZ1?=
+ =?utf-8?B?ZDBYNDBYQ1VuV0NuOThOZ0hzL0Y1dFltUG1PYitXbkZ2Q0hqM09ydktpd1lm?=
+ =?utf-8?B?cG00SzVTeDJTWWk5MVZnUTVoaC80cCtUMFQxUjJWWFdwRjdsdHhlVlFCT2JH?=
+ =?utf-8?B?YzBYTXJzSXozNitJck1IQkZqeFdWQjBvajNLYUFjditESDcya3hwd2MzUkE3?=
+ =?utf-8?B?WGVmLzkxNnNZNFFPVkRYS2RZYmxEN0NKcC82ZmhUdGNSVnc1TDFtQnJvZ1RI?=
+ =?utf-8?B?OEJ0M3Q1bTNlenBxSm1NRHhKQmdKNjFkYXp2eU5GeVI3VDJIYVB0SGZOODYv?=
+ =?utf-8?B?aTlnSURSVmp4YW9pRkh6RlkxZG9Fb2FKM254NkJjK1F3SnNHaU9Ibi9HTTYx?=
+ =?utf-8?B?TDlKY1Zvb1dESnJ6ZXliR1hLSTQ5NHo1RUNZOGFpZk9OQitWNFF1K2JhcHhv?=
+ =?utf-8?B?MVBwNE9lRmdsMHB6VlJ2b0xaR3VQK0owZzF4WWJkQ05zaEF2L1V0ZVpKSWN6?=
+ =?utf-8?B?bzFQOXh2MUFQZDBGNHBKVXRyZm42WnR5a3RaVHZCL1pabzVIb2I0OFhBTlVs?=
+ =?utf-8?B?UmY3RmdDcjN5SnFyU3BwRmJhcFUrNFppbDduL01RZFZRVDZFV2JPRXdic1Bl?=
+ =?utf-8?B?aU54c0huUDJrMWxkRmhUdVcwT1h3V0ZaMGJQS0pyb2FyWlBFMXZlVWc4SWNN?=
+ =?utf-8?B?ek9TYmJjZ0srZUZvOTF5MUdzeGk3eEZCaWp1aXBIaGJPMzJMcmU5K2Qrb2I5?=
+ =?utf-8?B?RThpNjdEZCtHQ2pDTUxQOGgvSGZOamMxWU1LNFJrQVo2TzZ2cWJqQlhmUnRj?=
+ =?utf-8?B?Si9vVTkwdzU0dnFzUld5RHdLS25yMEJ4ZWN3T2wzeVQ1Y1MrRWVER1BrOWJM?=
+ =?utf-8?B?cjdGdHBVcGpVdzlLZmptQUZSZ05WS3FwdERVckNVQWxHRDZudjYrK0NwcHRp?=
+ =?utf-8?B?c0ZpTVM4eTIyOHUzbmV4M1g1Zlo1QjFvb1ZPVjZCNmNqaXhSdVJzMVhZMTJ2?=
+ =?utf-8?B?b0xRdXpKOGVBcGlJelA5Y3UzQ3hNcWJ5SnkyRUUxa3RPUlZQQ0hkb0c4M05T?=
+ =?utf-8?B?NHJiQVF6bnhBbmpKSkZDaUZSSFhCdk5XR3orVFphVlhVZHdNZ2F3Q1dZNDBo?=
+ =?utf-8?B?c3pFMEVtaldJbGZmakFLSGUxWHFmV01XWUpBSklPWC9XUklVUVpGcXI5ZzBT?=
+ =?utf-8?B?VE1tdzlzLyttQllkRVB0aFBIbWFOMnZ4QkJaaVltajdMdW56Z1o0MDhBQjNh?=
+ =?utf-8?B?ZWFQWXdmL3RrVkpYeThFYzgxb2FBQmJqbFRUbXRoQlAyN3pqNmxUMUcvcTFZ?=
+ =?utf-8?B?YTZvQkQ1alFaUnRBOEJJWmh0VTlWRndCVVM5eDIrUXc5aHhRbjdrVWhDUlhB?=
+ =?utf-8?B?Tjh5NWJ3M3krOXRIWGhmM24ybzZWZjFLdGt4RkxsK3VsSHFOMXlHZUZqZktp?=
+ =?utf-8?Q?3UzzgtirfBpiDA4Ptxkl45avu?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a32b2561-c6a5-476c-03fa-08dab322a411
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c28566e1-cfbf-4438-67ea-08dab3253d04
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2022 05:10:59.0591 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2022 05:29:34.7082 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qqFqDY/sk0IQr7cb5xDjRJTqS2R7oIgzCCPB6//eelUo4IV5/wqlPgxWYTvM0tgwoVOo0zH90S1U/ZnQc//zIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6094
+X-MS-Exchange-CrossTenant-UserPrincipalName: Hbu/u6glgoW0HucQLPGQd6k/0y2eEgO7DiDM7flyTq6Wd4We8kaohSkQXEa+eJKK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5796
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,127 +126,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
- Yifan" <Yifan1.Zhang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Liu,
- Aaron" <Aaron.Liu@amd.com>
+Cc: alexander.deucher@amd.com, richard@nod.at, mst@redhat.com,
+ gregkh@linuxfoundation.org, somlo@cmu.edu, chao@kernel.org,
+ huangjianan@oppo.com, liushixin2@huawei.com, joseph.qi@linux.alibaba.com,
+ jlbec@evilplan.org, hsiangkao@linux.alibaba.com, rafael@kernel.org,
+ jaegeuk@kernel.org, akpm@linux-foundation.org, mark@fasheh.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-10-20 um 21:50 schrieb Liang, Prike:
-> [Public]
->
-> -----Original Message-----
-> From: Kuehling, Felix <Felix.Kuehling@amd.com>
-> Sent: Friday, October 21, 2022 12:03 AM
-> To: Liang, Prike <Prike.Liang@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>; Huang, Ray <Ray.Huang@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>
-> Subject: Re: [PATCH 1/2] drm/amdkfd: introduce dummy cache info for property asic
->
->
-> Am 2022-10-20 um 05:15 schrieb Prike Liang:
->> This dummy cache info will enable kfd base function support.
->>
->> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
->> ---
->>    drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 55 +++++++++++++++++++++++++--
->>    1 file changed, 52 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> index cd5f8b219bf9..960046e43b7a 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> @@ -795,6 +795,54 @@ static struct kfd_gpu_cache_info yellow_carp_cache_info[] = {
->>        },
->>    };
->>
->> +static struct kfd_gpu_cache_info dummy_cache_info[] = {
->> +     {
->> +             /* TCP L1 Cache per CU */
->> +             .cache_size = 16,
->> +             .cache_level = 1,
->> +             .flags = (CRAT_CACHE_FLAGS_ENABLED |
->> +                             CRAT_CACHE_FLAGS_DATA_CACHE |
->> +                             CRAT_CACHE_FLAGS_SIMD_CACHE),
->> +             .num_cu_shared = 1,
->> +     },
->> +     {
->> +             /* Scalar L1 Instruction Cache per SQC */
->> +             .cache_size = 32,
->> +             .cache_level = 1,
->> +             .flags = (CRAT_CACHE_FLAGS_ENABLED |
->> +                             CRAT_CACHE_FLAGS_INST_CACHE |
->> +                             CRAT_CACHE_FLAGS_SIMD_CACHE),
->> +             .num_cu_shared = 2,
->> +     },
->> +     {
->> +             /* Scalar L1 Data Cache per SQC */
->> +             .cache_size = 16,
->> +             .cache_level = 1,
->> +             .flags = (CRAT_CACHE_FLAGS_ENABLED |
->> +                             CRAT_CACHE_FLAGS_DATA_CACHE |
->> +                             CRAT_CACHE_FLAGS_SIMD_CACHE),
->> +             .num_cu_shared = 2,
->> +     },
->> +     {
->> +             /* GL1 Data Cache per SA */
->> +             .cache_size = 128,
->> +             .cache_level = 1,
->> +             .flags = (CRAT_CACHE_FLAGS_ENABLED |
->> +                             CRAT_CACHE_FLAGS_DATA_CACHE |
->> +                             CRAT_CACHE_FLAGS_SIMD_CACHE),
->> +             .num_cu_shared = 6,
->> +     },
->> +     {
->> +             /* L2 Data Cache per GPU (Total Tex Cache) */
->> +             .cache_size = 2048,
->> +             .cache_level = 2,
->> +             .flags = (CRAT_CACHE_FLAGS_ENABLED |
->> +                             CRAT_CACHE_FLAGS_DATA_CACHE |
->> +                             CRAT_CACHE_FLAGS_SIMD_CACHE),
->> +             .num_cu_shared = 6,
->> +     },
->> +};
->> +
->>    static void kfd_populated_cu_info_cpu(struct kfd_topology_device *dev,
->>                struct crat_subtype_computeunit *cu)
->>    {
->> @@ -1514,8 +1562,6 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev,
->>                        num_of_cache_types = ARRAY_SIZE(beige_goby_cache_info);
->>                        break;
->>                case IP_VERSION(10, 3, 3):
->> -             case IP_VERSION(10, 3, 6): /* TODO: Double check these on production silicon */
->> -             case IP_VERSION(10, 3, 7): /* TODO: Double check these on production silicon */
->>                        pcache_info = yellow_carp_cache_info;
->>                        num_of_cache_types = ARRAY_SIZE(yellow_carp_cache_info);
->>                        break;
->> @@ -1528,7 +1574,10 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev,
->>                                kfd_fill_gpu_cache_info_from_gfx_config(kdev, pcache_info);
->>                        break;
->>                default:
->> -                     return -EINVAL;
->> +                     pcache_info = dummy_cache_info;
->> +                     num_of_cache_types = ARRAY_SIZE(dummy_cache_info);
->> +                     pr_warn("dummy cache info is used temporarily and real cache info need update later.\n");
->> +                     break;
-> Could we make this return an error if the amdgpu.exp_hw_support module parameter is not set?
->
-> Regards,
->     Felix
->
-> [Prike] It's fine to protect this dummy info by checking the parameter amdgpu_exp_hw_support, but it may not friendly to end user by adding the parameter and some guys will still report KFD not enabled for this parameter setting problem. The original idea is the end user will not aware the dummy cache info and only alert the warning message to developer.
+On 2022-10-20 22:20, Yang Yingliang wrote:
+> The previous discussion link:
+> https://lore.kernel.org/lkml/0db486eb-6927-927e-3629-958f8f211194@huawei.com/T/
 
-I thought the intention was to simplify bring-up but make sure that 
-valid cache info is available by the time a chip goes into production. 
-Therefore, normal end users should never need to set the 
-amdgpu_exp_hw_support option. I think you're saying that we would go to 
-production with dummy info. That seems like a bad idea to me.
+The very first discussion on this was here:
+
+https://www.spinics.net/lists/dri-devel/msg368077.html
+
+Please use this link, and not the that one up there you which quoted above,
+and whose commit description is taken verbatim from the this link.
+
+> 
+> kset_register() is currently used in some places without calling
+> kset_put() in error path, because the callers think it should be
+> kset internal thing to do, but the driver core can not know what
+> caller doing with that memory at times. The memory could be freed
+> both in kset_put() and error path of caller, if it is called in
+> kset_register().
+
+As I explained in the link above, the reason there's
+a memory leak is that one cannot call kset_register() without
+the kset->kobj.name being set--kobj_add_internal() returns -EINVAL,
+in this case, i.e. kset_register() fails with -EINVAL.
+
+Thus, the most common usage is something like this:
+
+	kobj_set_name(&kset->kobj, format, ...);
+	kset->kobj.kset = parent_kset;
+	kset->kobj.ktype = ktype;
+	res = kset_register(kset);
+
+So, what is being leaked, is the memory allocated in kobj_set_name(),
+by the common idiom shown above. This needs to be mentioned in
+the documentation, at least, in case, in the future this is absolved
+in kset_register() redesign, etc.
 
 Regards,
-   Felix
+Luben
 
-
->
->>                }
->>        }
->>
+> 
+> So make the function documentation more explicit about calling
+> kset_put() in the error path of caller first, so that people
+> have a chance to know what to do here, then fixes this leaks
+> by calling kset_put() from callers.
+> 
+> Liu Shixin (1):
+>   ubifs: Fix memory leak in ubifs_sysfs_init()
+> 
+> Yang Yingliang (10):
+>   kset: fix documentation for kset_register()
+>   kset: add null pointer check in kset_put()
+>   bus: fix possible memory leak in bus_register()
+>   kobject: fix possible memory leak in kset_create_and_add()
+>   class: fix possible memory leak in __class_register()
+>   firmware: qemu_fw_cfg: fix possible memory leak in
+>     fw_cfg_build_symlink()
+>   f2fs: fix possible memory leak in f2fs_init_sysfs()
+>   erofs: fix possible memory leak in erofs_init_sysfs()
+>   ocfs2: possible memory leak in mlog_sys_init()
+>   drm/amdgpu/discovery: fix possible memory leak
+> 
+>  drivers/base/bus.c                            | 4 +++-
+>  drivers/base/class.c                          | 6 ++++++
+>  drivers/firmware/qemu_fw_cfg.c                | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 5 +++--
+>  fs/erofs/sysfs.c                              | 4 +++-
+>  fs/f2fs/sysfs.c                               | 4 +++-
+>  fs/ocfs2/cluster/masklog.c                    | 7 ++++++-
+>  fs/ubifs/sysfs.c                              | 2 ++
+>  include/linux/kobject.h                       | 3 ++-
+>  lib/kobject.c                                 | 5 ++++-
+>  10 files changed, 33 insertions(+), 9 deletions(-)
+> 
