@@ -4,114 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD93EC4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 07:55:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DC4DC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 08:09:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 330E010E62C;
-	Fri, 21 Oct 2022 07:55:30 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2046.outbound.protection.outlook.com [40.107.243.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43E0510E62C
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 07:55:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ATvZqhoNDTgmQDjui9UdC6sQJmcgaupRemuya8Di5wd6XtS9KLKhy19vpu9aUDTvmybdL1vLkNUDQsSV+s8GQQQlg2AF/TNDW22MUbQf9xUOQnuXsghTsg8fEn1uZeM9x6OeFYPJLWZZGgRj2OWl2Sei9MLnhbyiPR7ZLTE+mHNZI7hvKbuHgM3PHc0+vFdWqSyVekXY9RZAjfJIvtlBFRMqFz10UQWscVtDpDLyY296XHSbnnSIso6iTJ1uJpxb/bvvHSrlWFeI+HhxH7MkMgoPOk6dF4kDOPPYaYokWAd2aBK5/mOg/bsukj3AvlBFs3V8O/Fbb4+qyWd5rHeyYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fRACIIBShcs17dxhNMHJKvpK8tgIULqC76X2wJf8Or8=;
- b=nJVNZHhN8ycmpPVh69If9/Kl4T/A6A2qO4ux8e7w+Vp3mDpa+A274zroG4rNu3IVy3ZHGqstn1pattRlWlK0ebUmBMsoX00S8Y+AJowy0muds5d1hbYen/z6RLrCsrcuBNplGHV0OkqK12CAYq3REeLmtVVKXYROh1QBSGLWRzFntKQpU4GHMzKD6eA8aYTNLs7TUV1bm2sf8wCy0lxcLebGhgH8mBqDlx55epRqbmYzTQgwuGQy+LozB0rM/1s2dRDMPF/YBDUGEhB4QKnyUkFFSNyWkt6GqtLQMSG9upmaoWIyL6NFCIhRJfnorY4vbZUsIsgTBCehFv0m2CidUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fRACIIBShcs17dxhNMHJKvpK8tgIULqC76X2wJf8Or8=;
- b=eu5aPyobWzNkm2k0Dzjcbw9k29s3XuTWhNhJxlz0zsM/YoAlGi72fSLTGn7Q6G2AbOfjkCEcUBdgPqMfHz7FLtytsp8LiyvTHvXRaHnlb93Qh1eVkgRNMePaCBsMQJNxUHlQtLNjhZjrEWroA6fcmdCRQPdw3wM6yOz26wDMfME=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- DS0PR12MB6582.namprd12.prod.outlook.com (2603:10b6:8:d2::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5723.29; Fri, 21 Oct 2022 07:55:21 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::d309:77d2:93d8:2425]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::d309:77d2:93d8:2425%7]) with mapi id 15.20.5723.035; Fri, 21 Oct 2022
- 07:55:21 +0000
-Content-Type: multipart/mixed; boundary="------------9VtOs3mF29K0mdP7SyPs0VFr"
-Message-ID: <5efd73b0-d634-d34f-3d7a-13d674e40d04@amd.com>
-Date: Fri, 21 Oct 2022 03:55:18 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Subject: Re: [PATCH 00/11] fix memory leak while kset_register() fails
-Content-Language: en-CA
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20221021022102.2231464-1-yangyingliang@huawei.com>
- <d559793a-0ce4-3384-e74e-19855aa31f31@amd.com> <Y1IwLOUGayjT9p6d@kroah.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <Y1IwLOUGayjT9p6d@kroah.com>
-X-ClientProxiedBy: YT3PR01CA0085.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:84::16) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69ED010E631;
+	Fri, 21 Oct 2022 08:08:49 +0000 (UTC)
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
+ [IPv6:2607:f8b0:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E92B10E642;
+ Fri, 21 Oct 2022 08:08:42 +0000 (UTC)
+Received: by mail-pg1-x535.google.com with SMTP id 78so1869104pgb.13;
+ Fri, 21 Oct 2022 01:08:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=SlNzBRr71KbRRC/meb2KSsTKDW9Z4AtXjBafpUgGsnU=;
+ b=pLUuShaFX3eXC1Bi1qWcW7A8CwWV/I1ia+XiRTC3oqzAGjoF9QVh8CQeRo5T5ghzyA
+ QuySVqGJ7JAWas1fV8rS31ryj3HzD4Qp4lix+s+kH6EuwBu+pW9fvijz1JEn8WJNJ0w+
+ VEV5vwbIVg9/EQcj2C6KDUR7KSoA/ZxI+I0WQSCh/7ePjxJsVH6w1Tqhkv64JdR9fY/H
+ S/cR/cdJ0FBdD9HfkzWQqBFy4emk6yAsnp6HXG2vPRFwvt9WyvwEPR+gzHtNqa+kGE4D
+ zkJBIIWDADx2BKjynn2n1AXXzlrKwEENyWXgfjwrWapu3i3BCrQQ+Qnm09BjtuSKLgye
+ 6HkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=SlNzBRr71KbRRC/meb2KSsTKDW9Z4AtXjBafpUgGsnU=;
+ b=yNx2lYlTaW7/LLisAUqTsKJ1gImOkd0ncYzc1qyRAqytP7hh2cOWZ5l1zuxdRHxT8w
+ 49C0KRDr0K6VQ+HJGrDC2u7pCR7GgNnojcNQttA6/Qrc9tPt4JtQ0sOPtPqgy9Z39pyl
+ q7YXyp/11FrHTufzULeSq/duHqR4Vm5h9MR5Sv2dsSZdHAUhc7Zk2Zh7MnwAJBcEaZHu
+ MFUahmgGaRXuBrXqi6DsegVlE+vhb39cFxDFjucJl58q06Z85MUHlc9JehXal3/FYqI7
+ uiwUiKujcSdLnO+9K9XfJGq222ifQ9ELubxM4SajPGFrwV7PxB87nfnU363Rpak2pJrR
+ /z9w==
+X-Gm-Message-State: ACrzQf37LLBk4sJ73yvaaCGyttRLCU6ccZsGnHB9KqG44NhF/ylg3xfz
+ 3XV1fmMrt4aLqa3YzdsN3bK+g55lxRKzCPWVRUXaLvVPqGapS+nu
+X-Google-Smtp-Source: AMsMyM4z2OLcswJOs1OtWJ7zGV2n+kHV7vYtr68GqJ/4HdN7VOfP2L76EOdRDAFi2Ppn2/nrarkM0IBvLa7eFY2htV8=
+X-Received: by 2002:a05:6a00:13a1:b0:563:4c5:c3dd with SMTP id
+ t33-20020a056a0013a100b0056304c5c3ddmr18385526pfg.5.1666339721865; Fri, 21
+ Oct 2022 01:08:41 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|DS0PR12MB6582:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac1e6fa5-9788-4e1f-24b3-08dab3399a5b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: okpt7L5SEG56woasM5xJeTJ1nidp7lS0w9DZdMiCIOImiXifT4iHjbmrbqsztJz4zIZl0xeGE6jPoP8uSkPjNxnwUR1WyJ9EQGKLMxhMy209JndaDT6YchKwFcKkeM0j0aZBdJ2ZcAiv536fIK5NNmbGPM3tuZgT4FXYdZb8xjeymm0cy3Ec7zt6VcB7zmL1i1pTvz1abLWF2PoDRw+aSFKEw2OxW6okijr9Ihe1kt+84UQBqjIf9NqPVLXw7a2AfF3nH1UXYlrjs16ACWMQ5I1EOQx84UUiCOR2/QLkjmb4oOYyd+L1lxzqJFofg6MzeOe54GFfQULXEa/2iIaUTZIRvSqL1LeRoS1AkpwXqffdbqB/NTFJnN0PbY7wK3xEREA8Idr7Gi9sWXqOka77lRvh+0NrOPtHNo89LjiQeEEYT42+yPJBfyVBJsQtetGTFSOluhOZe9C7YyCHSZJHP1Ufe1F3zINjORwcuU/Ykc/h8xsY8lXOzAtlvL3tFcP1WGMKOPlT+jTv9Gj43vaelaXt4Z3nagLOjkN4hM6qPyIySJvcQGfvJZQj71nTqUW0rUHMfwEjovtKNU60CW9pyctGyrFTIWhKHdynLnGNbOjkmbomH/hWnIPg4+7Zcx+Jb0Z1m/WJp8CP+yENn7B7kb78UCii0bRhNp0zC9LqwaNGfucS56PpIlFZjz2ozr3MZFSaBzaTF5/6sFQXXW/q73GKDFRt0axqqYtwyFfAOMK87rcqDgrzQKcdShi5zLoqWpx/UyplcaUh9MxS3FONN10HoIa70t33tjg+V6u43L5Hq9d0HeBmBdLitvxOMaV19LbZu1E9jnHTdHwnGQU2vA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(366004)(396003)(346002)(376002)(39860400002)(451199015)(478600001)(6512007)(26005)(33964004)(6506007)(2906002)(6666004)(186003)(5660300002)(7416002)(2616005)(53546011)(44832011)(235185007)(66946007)(4001150100001)(6916009)(8676002)(45080400002)(966005)(6486002)(8936002)(4326008)(66556008)(41300700001)(66476007)(316002)(66899015)(31696002)(86362001)(36756003)(38100700002)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dHpQLzVNVFVFak5yTTZvbTQ3c0pEdi9Ob1p6MUVJZk1SWjJtNXpLaTNTOTJj?=
- =?utf-8?B?aVVIT0dnbExDcjczbnpKRDluY29UZWhvNmVrQUhwT25GclRnSEdhMDZYT1BX?=
- =?utf-8?B?WjkyY1cyMFpTWXl4RWF3cmV5R1VYNUcrcmt1U0syaVkzQ0NvZGxUT0VkaVdn?=
- =?utf-8?B?WDNKbnZrdzRyb09ScFIrR1lsNGJ3cEQxZi85Y0d1dUpFOGdkdkxVWDR1RzJo?=
- =?utf-8?B?S3pIbmNWV0NoRGxZWXd4clAxU1ViUnFQNlBnK2Zybjg3T3JVMk13Qzdka3Jh?=
- =?utf-8?B?ZFg1cDlsRGlxM0ludnZaV1A2NlJjVE83U1p0UmhOYVprUGdpbmVxNFpjcCtJ?=
- =?utf-8?B?NmV1aUVEaVZIVDhDMlk4ZEZxMWd4MEhCK1lBRjFsUUFNTWUyc1FNRjdzaDZ4?=
- =?utf-8?B?MTNZQ1RjcmVqck1PeENEd0tMTXRrSnd6YUQrTlBpclRSQ2ZJTUtuc0VhL0ZN?=
- =?utf-8?B?R0k1TURRdmNScWpZYURNQk1oY1I4dFJ6aWJNR29icWl3ajEwUHUxMkkyNTg2?=
- =?utf-8?B?cmhsc2JFcmNEVWVQODhiWFh3eDRXdGg2SzlNZXZ4MnQxU0MyLzYxU2xmZGVp?=
- =?utf-8?B?MDhoRGppZG9xanlDb3BHQjlSVWxHZHVLZjJIQlplNUMvVWg0a3RiTFFGUlBN?=
- =?utf-8?B?Y2dKUlZIQkc0M0krTEdZRFRCbW9GTWZObTZpNk1vaVVFNVYycXg2cnZPZWdL?=
- =?utf-8?B?dmc3VVRmalBNRTV1c3BzS1lQZ0kyZTJFVVVJM05RbGtrekdoMyt4NlliWmo5?=
- =?utf-8?B?ZmdEMnFwOUFiak43MWNZWk9nVlI0amN0R2IvOGhEa1FFZ0prVFNnaVlVdS8r?=
- =?utf-8?B?WGFiNjQwdk1VSkFRMTBxRmFuNSs0eEw0SlBPaW9VN1NqcFNDRDRZK09NZ0pn?=
- =?utf-8?B?Q1l4Ny8yd0JDb1J0VlhPY2hLRXJ3MGN3S255a0pMTjNyKytXeTk0MnJaT0tq?=
- =?utf-8?B?QnJxMWNxdTVWV3Vlc2N4aCtnenBnNjBJZmcxenFNYnFFbk5OWURQWFJpbWJC?=
- =?utf-8?B?ckRQUWVCeXp6dTljQ1Y3ck9LNk9qZ1lrK1dtSzJPcmFMV21EMWtiWEhIcFZC?=
- =?utf-8?B?ODZVa1d1NjlTTDREazRqUVo3RXdxai9JQTBCb25VYU84NWQ1QnNxTCtJUXBl?=
- =?utf-8?B?VGp1Kzd5T3NBOHBqRmQ1eU5adkJyMkdseHBmcG5sd3dqNm1USkhtZDVCa0xy?=
- =?utf-8?B?azlUSGw4RUQ5bUVTKzdUNnNmNWt2U2gyYTNLMHRJNU1OQzF2cmxZUDU1Qzly?=
- =?utf-8?B?OVRIUVpoL3JSenBVZG1QMi9UTDJQWjd2bTZRZzkwMWtHM0s1eHNZNXNBMENt?=
- =?utf-8?B?REg5UGRHRDNSc1lUMDdNWXdKeUJZWG4wc2k4MUg2UFd3VU5ZVkttM2dtOXJN?=
- =?utf-8?B?emJuL1BCaWFjd2MvcjdJSmJPaS9jc1dUVFUrKzVtR3pSK3ZKUk1QUzc1cVpO?=
- =?utf-8?B?bEFiWVViSXQzTnM4SkVoMTkvcm1VWTB5ZkY1ODFhOCs4S3FmRDNRcEdEM1dh?=
- =?utf-8?B?dVZCc2VIQ05BeXpCL3l5TVJXeE9ZZERYeTRRUGFTOUZzL1duNlBoMHMwMnZr?=
- =?utf-8?B?eEpaV29scDRZYlVFcGcyMkF4cCtqL3o2ZUwrTmpDc0szWGtOZVBrZnovdUxm?=
- =?utf-8?B?N0J3TUlqRnV2UUxINzRuVWtwZ1dWNHU5UUZlNGhWMktzUngzZkUrb3doNktH?=
- =?utf-8?B?K0dpa1BZbzl3eExnVTM4WS9RWkhyck56MzY5OGlUMm5LS0ZzLzRZdENoR2ZR?=
- =?utf-8?B?azVwVEtKVUc3ZW4wVHd1VWM4SkVFRXJwazZEUS9OR3Z2dDVDTzdzakh5OXpo?=
- =?utf-8?B?WmJWL2d3aFVDUXRKT0t2Y2k4WHV1Qk5HSytoWHdSTXRTYVFtMmdJcExuSHJo?=
- =?utf-8?B?RnE2cnZjbUtmczlmZEYrYmpGaHVXUHhjWEM3WkkzN21jNU5iM1k3OUkwSWhi?=
- =?utf-8?B?RzNmYzZMcVdlV2xvd1IrMTFMOE5qOUVZdDY0ZlFEZTR4ZGJZUnk0R3pGVDVx?=
- =?utf-8?B?VFB0NmhMQkkyUTlFVFFaTTZnYytac3Z0UzRpNFBuZWFvZjZKMi82Q0k1Tjcv?=
- =?utf-8?B?blpqckxoNmhHRXJGZTFjZnJtVmhMMGtOOTZyVkc1RnJ1Q1lqU2tYZDZpVXpB?=
- =?utf-8?Q?rHD4keo7VELYlXoW8XTJnROxt?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac1e6fa5-9788-4e1f-24b3-08dab3399a5b
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2022 07:55:21.2393 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8qc+2mMOM8ktWZqlUNOqGC2E7s39vqX1JDZkziPRqfJoYgYiV8bMo9eH7CaE+4Pc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6582
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Fri, 21 Oct 2022 13:08:30 +0500
+Message-ID: <CABXGCsOeQ7VYm98jRVaYp6KaNsFVsAnSb33ZT8JvZxcTcEGW0w@mail.gmail.com>
+Subject: [6.1][regression] after commit
+ dd80d9c8eecac8c516da5b240d01a35660ba6cb6
+ some games (Cyberpunk 2077, Forza Horizon 4/5) hang at start
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Deucher, Alexander" <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,106 +65,160 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rafael@kernel.org, qemu-devel@nongnu.org, liushixin2@huawei.com,
- joseph.qi@linux.alibaba.com, linux-mtd@lists.infradead.org,
- huangjianan@oppo.com, richard@nod.at, mark@fasheh.com, mst@redhat.com,
- amd-gfx@lists.freedesktop.org, Yang Yingliang <yangyingliang@huawei.com>,
- hsiangkao@linux.alibaba.com, somlo@cmu.edu, chao@kernel.org,
- jlbec@evilplan.org, jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, alexander.deucher@amd.com,
- akpm@linux-foundation.org, linux-erofs@lists.ozlabs.org,
- ocfs2-devel@oss.oracle.com
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------9VtOs3mF29K0mdP7SyPs0VFr
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Hi!
+I found that some games (Cyberpunk 2077, Forza Horizon 4/5) hang at
+start after commit dd80d9c8eecac8c516da5b240d01a35660ba6cb6.
 
-On 2022-10-21 01:37, Greg KH wrote:
-> On Fri, Oct 21, 2022 at 01:29:31AM -0400, Luben Tuikov wrote:
->> On 2022-10-20 22:20, Yang Yingliang wrote:
->>> The previous discussion link:
->>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Flkml%2F0db486eb-6927-927e-3629-958f8f211194%40huawei.com%2FT%2F&amp;data=05%7C01%7Cluben.tuikov%40amd.com%7C65b33f087ef245a9f23708dab3264840%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638019274318153227%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=1ZoieEob62iU9kI8fvpp20qGut9EeHKIHtCAT01t%2Bz8%3D&amp;reserved=0
->>
->> The very first discussion on this was here:
->>
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Fdri-devel%2Fmsg368077.html&amp;data=05%7C01%7Cluben.tuikov%40amd.com%7C65b33f087ef245a9f23708dab3264840%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638019274318153227%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=9joWxGLUxZZMvrfkxCR8KbkoXifsqoMK0vGR%2FyEG62w%3D&amp;reserved=0
->>
->> Please use this link, and not the that one up there you which quoted above,
->> and whose commit description is taken verbatim from the this link.
->>
->>>
->>> kset_register() is currently used in some places without calling
->>> kset_put() in error path, because the callers think it should be
->>> kset internal thing to do, but the driver core can not know what
->>> caller doing with that memory at times. The memory could be freed
->>> both in kset_put() and error path of caller, if it is called in
->>> kset_register().
->>
->> As I explained in the link above, the reason there's
->> a memory leak is that one cannot call kset_register() without
->> the kset->kobj.name being set--kobj_add_internal() returns -EINVAL,
->> in this case, i.e. kset_register() fails with -EINVAL.
->>
->> Thus, the most common usage is something like this:
->>
->> 	kobj_set_name(&kset->kobj, format, ...);
->> 	kset->kobj.kset = parent_kset;
->> 	kset->kobj.ktype = ktype;
->> 	res = kset_register(kset);
->>
->> So, what is being leaked, is the memory allocated in kobj_set_name(),
->> by the common idiom shown above. This needs to be mentioned in
->> the documentation, at least, in case, in the future this is absolved
->> in kset_register() redesign, etc.
-> 
-> Based on this, can kset_register() just clean up from itself when an
-> error happens?  Ideally that would be the case, as the odds of a kset
-> being embedded in a larger structure is probably slim, but we would have
-> to search the tree to make sure.
+dd80d9c8eecac8c516da5b240d01a35660ba6cb6 is the first bad commit
+commit dd80d9c8eecac8c516da5b240d01a35660ba6cb6
+Author: Christian K=C3=B6nig <christian.koenig@amd.com>
+Date:   Thu Jul 14 10:23:38 2022 +0200
 
-Looking at kset_register(), we can add kset_put() in the error path,
-when kobject_add_internal(&kset->kobj) fails.
+    drm/amdgpu: revert "partial revert "remove ctx->lock" v2"
 
-See the attached patch. It needs to be tested with the same error injection
-as Yang has been doing.
+    This reverts commit 94f4c4965e5513ba624488f4b601d6b385635aec.
 
-Now, struct kset is being embedded in larger structs--see amdgpu_discovery.c
-starting at line 575. If you're on an AMD system, it gets you the tree
-structure you'll see when you run "tree /sys/class/drm/card0/device/ip_discovery/".
-That shouldn't be a problem though.
+    We found that the bo_list is missing a protection for its list entries.
+    Since that is fixed now this workaround can be removed again.
 
-Regards,
-Luben
---------------9VtOs3mF29K0mdP7SyPs0VFr
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-kobject-Add-kset_put-if-kset_register-fails.patch"
-Content-Disposition: attachment;
- filename="0001-kobject-Add-kset_put-if-kset_register-fails.patch"
-Content-Transfer-Encoding: base64
+    Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+    Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+    Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-RnJvbSA3MWUwYTIyODAxYzA2OTlmNjdlYTQwZWQ5NmUwYTdkN2Q5ZTBmMzE4IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBMdWJlbiBUdWlrb3YgPGx1YmVuLnR1aWtvdkBhbWQuY29tPgpE
-YXRlOiBGcmksIDIxIE9jdCAyMDIyIDAzOjM0OjIxIC0wNDAwClN1YmplY3Q6IFtQQVRDSF0ga29i
-amVjdDogQWRkIGtzZXRfcHV0KCkgaWYga3NldF9yZWdpc3RlcigpIGZhaWxzClgtY2hlY2stc3Ry
-aW5nLWxlYWs6IHYxLjAKCklmIGtzZXRfcmVnaXN0ZXIoKSBmYWlscywgd2UgY2FsbCBrc2V0X3B1
-dCgpIGJlZm9yZSByZXR1cm5pbmcgdGhlCmVycm9yLiBUaGlzIG1ha2VzIHN1cmUgdGhhdCB3ZSBm
-cmVlIG1lbW9yeSBhbGxvY2F0ZWQgYnkga29ial9zZXRfbmFtZSgpCmZvciB0aGUga3NldCwgc2lu
-Y2Uga3NldF9yZWdpc3RlcigpIGNhbm5vdCBiZSBjYWxsZWQgdW5sZXNzIHRoZSBrc2V0IGhhcwph
-IG5hbWUsIHVzdWFsbHkgZ290dGVuIHZpYSBrb2JqX3NldF9uYW1lKCZrc2V0LT5rb2JqLCBmb3Jt
-YXQsIC4uLik7CgpDYzogR3JlZyBLcm9haC1IYXJ0bWFuIDxncmVna2hAbGludXhmb3VuZGF0aW9u
-Lm9yZz4KQ2M6IFJhZmFlbCBKLiBXeXNvY2tpIDxyYWZhZWxAa2VybmVsLm9yZz4KQ2M6IFlhbmcg
-WWluZ2xpYW5nIDx5YW5neWluZ2xpYW5nQGh1YXdlaS5jb20+CkNjOiBMaW51eCBLZXJuZWwgTWFp
-bGluZyBMaXN0IDxsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnPgpTaWduZWQtb2ZmLWJ5OiBM
-dWJlbiBUdWlrb3YgPGx1YmVuLnR1aWtvdkBhbWQuY29tPgotLS0KIGxpYi9rb2JqZWN0LmMgfCA0
-ICsrKy0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRp
-ZmYgLS1naXQgYS9saWIva29iamVjdC5jIGIvbGliL2tvYmplY3QuYwppbmRleCBhMGIyZGJmY2Zh
-MjMzNC4uYzEyMmI5NzlmMmI3NWUgMTAwNjQ0Ci0tLSBhL2xpYi9rb2JqZWN0LmMKKysrIGIvbGli
-L2tvYmplY3QuYwpAQCAtODQ0LDggKzg0NCwxMCBAQCBpbnQga3NldF9yZWdpc3RlcihzdHJ1Y3Qg
-a3NldCAqaykKIAogCWtzZXRfaW5pdChrKTsKIAllcnIgPSBrb2JqZWN0X2FkZF9pbnRlcm5hbCgm
-ay0+a29iaik7Ci0JaWYgKGVycikKKwlpZiAoZXJyKSB7CisJCWtzZXRfcHV0KGspOwogCQlyZXR1
-cm4gZXJyOworCX0KIAlrb2JqZWN0X3VldmVudCgmay0+a29iaiwgS09CSl9BREQpOwogCXJldHVy
-biAwOwogfQotLSAKMi4zOC4wLXJjMgoK
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  | 21 ++++++---------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c |  2 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  1 -
+ 3 files changed, 6 insertions(+), 18 deletions(-)
 
---------------9VtOs3mF29K0mdP7SyPs0VFr--
+
+And when it happening in kernel log appears a such backtrace:
+[  231.331210] ------------[ cut here ]------------
+[  231.331262] WARNING: CPU: 11 PID: 6555 at
+drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:675
+amdgpu_ttm_tt_get_user_pages+0x14c/0x190 [amdgpu]
+[  231.331424] Modules linked in: uinput rfcomm snd_seq_dummy
+snd_hrtimer nft_objref nf_conntrack_netbios_ns nf_conntrack_broadcast
+nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet
+nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat
+nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 ip_set nf_tables nfnetlink
+qrtr bnep intel_rapl_msr intel_rapl_common snd_sof_amd_renoir
+snd_sof_amd_acp snd_sof_pci snd_hda_codec_realtek snd_sof
+snd_hda_codec_generic snd_hda_codec_hdmi snd_sof_utils mt7921e
+snd_hda_intel sunrpc snd_intel_dspcfg mt7921_common binfmt_misc
+snd_intel_sdw_acpi snd_hda_codec mt76_connac_lib edac_mce_amd btusb
+snd_soc_core mt76 snd_hda_core btrtl snd_hwdep snd_compress kvm_amd
+ac97_bus snd_seq btbcm snd_pcm_dmaengine btintel snd_rpl_pci_acp6x
+mac80211 btmtk snd_pci_acp6x kvm snd_seq_device snd_pcm snd_pci_acp5x
+libarc4 irqbypass bluetooth snd_rn_pci_acp3x snd_timer pcspkr
+asus_nb_wmi rapl joydev wmi_bmof snd_acp_config cfg80211 snd_soc_acpi
+vfat snd
+[  231.331490]  snd_pci_acp3x i2c_piix4 soundcore fat k10temp amd_pmc
+asus_wireless zram amdgpu drm_ttm_helper ttm hid_asus asus_wmi
+iommu_v2 crct10dif_pclmul crc32_pclmul gpu_sched crc32c_intel
+ledtrig_audio sparse_keymap polyval_clmulni platform_profile drm_buddy
+polyval_generic hid_multitouch drm_display_helper rfkill nvme
+ucsi_acpi ghash_clmulni_intel nvme_core video typec_ucsi serio_raw ccp
+sha512_ssse3 sp5100_tco r8169 cec nvme_common typec wmi i2c_hid_acpi
+i2c_hid ip6_tables ip_tables fuse
+[  231.331532] CPU: 11 PID: 6555 Comm: GameThread Tainted: G        W
+  L    -------  ---
+6.1.0-0.rc1.20221019gitaae703b02f92.17.fc38.x86_64 #1
+[  231.331534] Hardware name: ASUSTeK COMPUTER INC. ROG Strix
+G513QY_G513QY/G513QY, BIOS G513QY.318 03/29/2022
+[  231.331537] RIP: 0010:amdgpu_ttm_tt_get_user_pages+0x14c/0x190 [amdgpu]
+[  231.331654] Code: a8 d0 e9 32 ff ff ff 4c 89 e9 89 ea 48 c7 c6 40
+82 f3 c0 48 c7 c7 10 60 14 c1 e8 2f a0 f4 d0 eb 8e 66 90 bd f2 ff ff
+ff eb 8d <0f> 0b eb f5 bd fd ff ff ff eb 82 bd f2 ff ff ff e9 62 ff ff
+ff 48
+[  231.331656] RSP: 0018:ffffaad4c705bae8 EFLAGS: 00010286
+[  231.331659] RAX: ffff8e9cbdbe3200 RBX: ffff8e997e3f2440 RCX: 00000000000=
+00000
+[  231.331661] RDX: 0000000000000000 RSI: ffff8e9cbdbe3200 RDI: ffff8e9c312=
+08000
+[  231.331663] RBP: 0000000000000001 R08: 0000000000000dc0 R09: 00000000fff=
+fffff
+[  231.331665] R10: 0000000000000001 R11: 0000000000000000 R12: ffffaad4c70=
+5bb90
+[  231.331666] R13: 0000000076510000 R14: ffff8e9c89f334e0 R15: ffff8e991fd=
+a8000
+[  231.331668] FS:  000000007c2af6c0(0000) GS:ffff8ea7d8e00000(0000)
+knlGS:000000007b2c0000
+[  231.331671] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  231.331673] CR2: 00007ff65ffd8000 CR3: 00000004f90f0000 CR4: 00000000007=
+50ee0
+[  231.331674] PKRU: 55555554
+[  231.331676] Call Trace:
+[  231.331678]  <TASK>
+[  231.331682]  amdgpu_cs_ioctl+0x87e/0x1fc0 [amdgpu]
+[  231.331824]  ? amdgpu_cs_find_mapping+0xe0/0xe0 [amdgpu]
+[  231.331981]  drm_ioctl_kernel+0xac/0x160
+[  231.331990]  drm_ioctl+0x1e7/0x450
+[  231.331994]  ? amdgpu_cs_find_mapping+0xe0/0xe0 [amdgpu]
+[  231.332118]  amdgpu_drm_ioctl+0x4a/0x80 [amdgpu]
+[  231.332233]  __x64_sys_ioctl+0x90/0xd0
+[  231.332238]  do_syscall_64+0x5b/0x80
+[  231.332243]  ? asm_exc_page_fault+0x22/0x30
+[  231.332247]  ? lockdep_hardirqs_on+0x7d/0x100
+[  231.332250]  entry_SYSCALL_64_after_hwframe+0x63/0xcd
+[  231.332253] RIP: 0033:0x7ff677c5704f
+[  231.332256] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24
+10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00
+00 0f 05 <89> c2 3d 00 f0 ff ff 77 18 48 8b 44 24 18 64 48 2b 04 25 28
+00 00
+[  231.332258] RSP: 002b:000000007c2ad470 EFLAGS: 00000246 ORIG_RAX:
+0000000000000010
+[  231.332261] RAX: ffffffffffffffda RBX: 000000007c2ad718 RCX: 00007ff677c=
+5704f
+[  231.332263] RDX: 000000007c2ad540 RSI: 00000000c0186444 RDI: 00000000000=
+000a7
+[  231.332265] RBP: 000000007c2ad540 R08: 00007ff590048590 R09: 000000007c2=
+ad510
+[  231.332266] R10: 000000007e864ec0 R11: 0000000000000246 R12: 00000000c01=
+86444
+[  231.332268] R13: 00000000000000a7 R14: 000000007c2ad6f0 R15: 00000000000=
+00005
+[  231.332277]  </TASK>
+[  231.332279] irq event stamp: 18035
+[  231.332281] hardirqs last  enabled at (18043): [<ffffffff9118e8de>]
+__up_console_sem+0x5e/0x70
+[  231.332284] hardirqs last disabled at (18050): [<ffffffff9118e8c3>]
+__up_console_sem+0x43/0x70
+[  231.332287] softirqs last  enabled at (17864): [<ffffffff911012ed>]
+__irq_exit_rcu+0xed/0x160
+[  231.332289] softirqs last disabled at (17857): [<ffffffff911012ed>]
+__irq_exit_rcu+0xed/0x160
+[  231.332291] ---[ end trace 0000000000000000 ]---
+[  231.332299] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
+process the buffer list -14!
+
+[  231.332423] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
+[  231.332424] WARNING: lock held when returning to user space!
+[  231.332425] 6.1.0-0.rc1.20221019gitaae703b02f92.17.fc38.x86_64 #1
+Tainted: G        W    L    -------  ---
+[  231.332426] ------------------------------------------------
+[  231.332427] GameThread/6555 is leaving the kernel with locks still held!
+[  231.332428] 1 lock held by GameThread/6555:
+[  231.332429]  #0: ffff8e9cfbac64a8
+(&list->bo_list_mutex){+.+.}-{3:3}, at: amdgpu_cs_ioctl+0x786/0x1fc0
+[amdgpu]
+[  389.428155] amdgpu 0000:03:00.0: amdgpu: free PSP TMR buffer
+
+Christian, any ideas?
+Thanks.
+
+Full kernel log: https://pastebin.com/6SEaDay8
+My hardware:
+GPU: 6900XT, 6800M
+CPU: 3950X, 5900HX
+
+--=20
+Best Regards,
+Mike Gavrilov.
