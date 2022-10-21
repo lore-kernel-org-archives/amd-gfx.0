@@ -4,25 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45136C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 13:09:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C22DC433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 13:09:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D82CE10E2B2;
-	Fri, 21 Oct 2022 13:09:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69B9710E2AA;
+	Fri, 21 Oct 2022 13:09:14 +0000 (UTC)
 Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 125E410E648
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 09:12:58 +0000 (UTC)
-Received: from dggpemm500024.china.huawei.com (unknown [172.30.72.57])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MtzJb6fMCzHvCS;
- Fri, 21 Oct 2022 17:12:47 +0800 (CST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F32210E5F6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 08:59:53 +0000 (UTC)
+Received: from dggpemm500023.china.huawei.com (unknown [172.30.72.56])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Mtz1T2m19zHvFM;
+ Fri, 21 Oct 2022 16:59:41 +0800 (CST)
 Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
- dggpemm500024.china.huawei.com (7.185.36.203) with Microsoft SMTP Server
+ dggpemm500023.china.huawei.com (7.185.36.83) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Fri, 21 Oct 2022 17:12:39 +0800
+ 15.1.2375.31; Fri, 21 Oct 2022 16:59:48 +0800
 Received: from [10.174.178.174] (10.174.178.174) by
  dggpemm500007.china.huawei.com (7.185.36.183) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Fri, 21 Oct 2022 17:12:38 +0800
+ 15.1.2375.31; Fri, 21 Oct 2022 16:59:47 +0800
 Subject: Re: [PATCH 00/11] fix memory leak while kset_register() fails
 To: Greg KH <gregkh@linuxfoundation.org>
 References: <20221021022102.2231464-1-yangyingliang@huawei.com>
@@ -30,8 +30,8 @@ References: <20221021022102.2231464-1-yangyingliang@huawei.com>
  <0591e66f-731a-5f81-fc9d-3a6d80516c65@huawei.com>
  <Y1JZ9IUPL6jZIQ8E@kroah.com>
 From: Yang Yingliang <yangyingliang@huawei.com>
-Message-ID: <1f3aa2ac-fba6-dc7a-d01d-7dd5331c8dc5@huawei.com>
-Date: Fri, 21 Oct 2022 17:12:37 +0800
+Message-ID: <f1210e20-d167-26c4-7aba-490d8fb7241e@huawei.com>
+Date: Fri, 21 Oct 2022 16:59:46 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
@@ -40,7 +40,7 @@ Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
 X-Originating-IP: [10.174.178.174]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
  dggpemm500007.china.huawei.com (7.185.36.183)
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Fri, 21 Oct 2022 13:08:22 +0000
@@ -116,44 +116,6 @@ On 2022/10/21 16:36, Greg KH wrote:
 >> kset_put() in error path in kset_register()
 > Yes you can as the kobject in the kset should NOT be controling the
 > lifespan of those larger objects.
-Read through the code the only leak in this case is the name, so can we 
-free it
-directly in kset_register():
-
---- a/lib/kobject.c
-+++ b/lib/kobject.c
-@@ -844,8 +844,11 @@ int kset_register(struct kset *k)
-
-         kset_init(k);
-         err = kobject_add_internal(&k->kobj);
--       if (err)
-+       if (err) {
-+               kfree_const(k->kobj.name);
-+               k->kobj.name = NULL;
-                 return err;
-+       }
-         kobject_uevent(&k->kobj, KOBJ_ADD);
-         return 0;
-  }
-
-or unset ktype of kobject, then call kset_put():
-
---- a/lib/kobject.c
-+++ b/lib/kobject.c
-@@ -844,8 +844,11 @@ int kset_register(struct kset *k)
-
-         kset_init(k);
-         err = kobject_add_internal(&k->kobj);
--       if (err)
-+       if (err) {
-+               k->kobj.ktype = NULL;
-+               kset_put(k);
-                 return err;
-+       }
-         kobject_uevent(&k->kobj, KOBJ_ADD);
-         return 0;
-  }
-
 >
 > If it is, please point out the call chain here as I don't think that
 > should be possible.
@@ -165,6 +127,49 @@ or unset ktype of kobject, then call kset_put():
 >
 > If you could test the patch posted with your error injection systems,
 > that could make this all much simpler to solve.
+
+The patch posted by Luben will cause double free in some cases.
+
+
+ From 71e0a22801c0699f67ea40ed96e0a7d7d9e0f318 Mon Sep 17 00:00:00 2001
+From: Luben Tuikov <luben.tuikov@amd.com>
+Date: Fri, 21 Oct 2022 03:34:21 -0400
+Subject: [PATCH] kobject: Add kset_put() if kset_register() fails
+X-check-string-leak: v1.0
+
+If kset_register() fails, we call kset_put() before returning the
+error. This makes sure that we free memory allocated by kobj_set_name()
+for the kset, since kset_register() cannot be called unless the kset has
+a name, usually gotten via kobj_set_name(&kset->kobj, format, ...);
+
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Rafael J. Wysocki <rafael@kernel.org>
+Cc: Yang Yingliang <yangyingliang@huawei.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+  lib/kobject.c | 4 +++-
+  1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/lib/kobject.c b/lib/kobject.c
+index a0b2dbfcfa2334..c122b979f2b75e 100644
+--- a/lib/kobject.c
++++ b/lib/kobject.c
+@@ -844,8 +844,10 @@ int kset_register(struct kset *k)
+
+      kset_init(k);
+      err = kobject_add_internal(&k->kobj);
+-    if (err)
++    if (err) {
++        kset_put(k);
+          return err;
++    }
+      kobject_uevent(&k->kobj, KOBJ_ADD);
+      return 0;
+  }
+-- 
+2.38.0-rc2
+
 >
 > thanks,
 >
