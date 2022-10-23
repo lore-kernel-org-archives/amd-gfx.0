@@ -4,63 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31530C3A59D
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 07:13:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5B0FC38A2D
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 07:13:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6865110E288;
-	Mon, 24 Oct 2022 07:13:34 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3D0D10E237;
- Mon, 24 Oct 2022 03:12:59 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-13b23e29e36so9809513fac.8; 
- Sun, 23 Oct 2022 20:12:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=k8/YknSbFQ9UGuXWJAjoOa3rxaDwNTtu301KrN7t33w=;
- b=UxW4It4842ubChhEIJFFyORGE03n8vikDzc0DCblWfILHwUmLC2KDL7Nawf2ibu/s4
- bJ3P4MNzCZS/3py1/tt6al5dqe2dkStiqrd7TpbROmT7ho/ta89ga7xaanV2IQU8zSA1
- U8H+WmKvzZHIjfDX2clipcOQuKPK2lP9vXjCo1jVfWozHFaiOSheRF2HnvE6VzR9cIZI
- /GDdt5Yhspedsy6f8xmqRJeme8Gqz4M2nIhRBQrA08CFsjdklwimZKTubIU3zjSM7NIE
- Nl/pdsUbbDYcqfKUdJEFeBxL4MzYtYtnlGVjwCbvnsd6zfaBljXJxLQZAI+LxRsGfH1j
- 65LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=k8/YknSbFQ9UGuXWJAjoOa3rxaDwNTtu301KrN7t33w=;
- b=D6RIrHgkbvVmzYK2v09nd5iEH55v19I4LPfzqFQ2tj3FHorts+1q5Q8AuUhLtxXzPU
- syrSvipLwGKPwuyyft5JmFYEDy0xQUQsvnCg1suRjsQ7FjQwnkdER0ElLhcRW3SiODtr
- xJwC5aK4bUn853uYd8gLuCEu0GKBT0Ic3kDS2ZUBk+AJ6c+U0WG8nlQDsgGD0Kj0u02A
- wiLS6oIaMk9O91ZpDd85okAGz7PychbqIzkBxPHlBHuf7m82KMJG08pvE3C3Qhe7MJiL
- CQOV/tWig5nqsz3ryM5G0+laCHN8ElC3O3COSO9dwHt7HisLP1UaT/d5rciYqovCFdZV
- 5Zgw==
-X-Gm-Message-State: ACrzQf0HrCAAupVxOBvm9/xa94BtkKCci7XePZFBhnnk/6iblSvair8n
- 7p6sk4Ine71iMfgmaYDghUw=
-X-Google-Smtp-Source: AMsMyM7L0LKAAY7nIqLru3fQ3w74W+rIn2GGQpRe5Auk6BgV2ePrtS3ZJuk5WtSyg/77xfECL2c5aQ==
-X-Received: by 2002:a05:6870:4284:b0:13b:91b7:89a8 with SMTP id
- y4-20020a056870428400b0013b91b789a8mr2946370oah.284.1666581179060; 
- Sun, 23 Oct 2022 20:12:59 -0700 (PDT)
-Received: from smeagol.fibertel.com.ar ([201.235.4.68])
- by smtp.gmail.com with ESMTPSA id
- a12-20020a056870618c00b0013b92b3ac64sm1599365oah.3.2022.10.23.20.12.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 23 Oct 2022 20:12:58 -0700 (PDT)
-From: =?UTF-8?q?Joaqu=C3=ADn=20Ignacio=20Aramend=C3=ADa?= <samsagax@gmail.com>
-To: bas@basnieuwenhuizen.nl
-Subject: [PATCH v2] drm/amd/display: Revert logic for plane modifiers
-Date: Mon, 24 Oct 2022 00:08:33 -0300
-Message-Id: <20221024030832.119039-1-samsagax@gmail.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <CAP+8YyFUoFhh1+CEKrs48JV5CiorSSfe6qg90TyUrDoBtzcPhA@mail.gmail.com>
-References: <CAP+8YyFUoFhh1+CEKrs48JV5CiorSSfe6qg90TyUrDoBtzcPhA@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42B1B10E289;
+	Mon, 24 Oct 2022 07:13:37 +0000 (UTC)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [IPv6:2a01:488:42:1000:50ed:8234::])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E94D10E1C0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 23 Oct 2022 13:20:50 +0000 (UTC)
+Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1omauE-0003Sb-6q; Sun, 23 Oct 2022 15:20:46 +0200
+Message-ID: <9ab8a042-d826-c9b5-9942-26e7f415085d@leemhuis.info>
+Date: Sun, 23 Oct 2022 15:20:45 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Content-Language: en-US, de-DE
+To: "regressions@lists.linux.dev" <regressions@lists.linux.dev>
+References: <CABXGCsOeQ7VYm98jRVaYp6KaNsFVsAnSb33ZT8JvZxcTcEGW0w@mail.gmail.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Subject: Re: [6.1][regression] after commit
+ dd80d9c8eecac8c516da5b240d01a35660ba6cb6 some games (Cyberpunk 2077, Forza
+ Horizon 4/5) hang at start #forregzbot
+In-Reply-To: <CABXGCsOeQ7VYm98jRVaYp6KaNsFVsAnSb33ZT8JvZxcTcEGW0w@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1666531250;
+ 69741f0c; 
+X-HE-SMSGID: 1omauE-0003Sb-6q
 X-Mailman-Approved-At: Mon, 24 Oct 2022 07:13:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,106 +47,189 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, Xinhui.Pan@amd.com, rodrigo.siqueira@amd.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- stable@vger.kernel.org, christian.koenig@amd.com, samsagax@gmail.com
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This file was split in commit 5d945cbcd4b16a29d6470a80dfb19738f9a4319f
-("drm/amd/display: Create a file dedicated to planes") and the logic in
-dm_plane_format_mod_supported() function got changed by a switch logic.
-That change broke drm_plane modifiers setting on series 5000 APUs
-(tested on OXP mini AMD 5800U and HP Dev One 5850U PRO)
-leading to Gamescope not working as reported on GitHub[1]
+[Note: this mail is primarily send for documentation purposes and/or for
+regzbot, my Linux kernel regression tracking bot. That's why I removed
+most or all folks from the list of recipients, but left any that looked
+like a mailing lists. These mails usually contain '#forregzbot' in the
+subject, to make them easy to spot and filter out.]
 
-To reproduce the issue, enter a TTY and run:
+[TLDR: I'm adding this regression report to the list of tracked
+regressions; all text from me you find below is based on a few templates
+paragraphs you might have encountered already already in similar form.]
 
-$ gamescope -- vkcube
+Hi, this is your Linux kernel regression tracker. CCing the regression
+mailing list, as it should be in the loop for all regressions, as
+explained here:
+https://www.kernel.org/doc/html/latest/admin-guide/reporting-issues.html
 
-With said commit applied it will abort. This one restores the old logic,
-fixing the issue that affects Gamescope.
 
-[1](https://github.com/Plagman/gamescope/issues/624)
+On 21.10.22 10:08, Mikhail Gavrilov wrote:
+> Hi!
+> I found that some games (Cyberpunk 2077, Forza Horizon 4/5) hang at
+> start after commit dd80d9c8eecac8c516da5b240d01a35660ba6cb6.
 
-Signed-off-by: Joaquín Ignacio Aramendía <samsagax@gmail.com>
-Reviewed-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
----
-Removed asic_id and excess newlines
----
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 50 +++----------------
- 1 file changed, 7 insertions(+), 43 deletions(-)
+Thanks for the report. To be sure below issue doesn't fall through the
+cracks unnoticed, I'm adding it to regzbot, my Linux kernel regression
+tracking bot:
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index dfd3be49eac8..e6854f7270a6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1369,7 +1369,7 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
- {
- 	struct amdgpu_device *adev = drm_to_adev(plane->dev);
- 	const struct drm_format_info *info = drm_format_info(format);
--	struct hw_asic_id asic_id = adev->dm.dc->ctx->asic_id;
-+	int i;
+#regzbot ^introduced dd80d9c8eecac
+#regzbot title drm: amdgpu: some games (Cyberpunk 2077, Forza Horizon
+4/5) hang at start
+#regzbot ignore-activity
 
- 	enum dm_micro_swizzle microtile = modifier_gfx9_swizzle_mode(modifier) & 3;
+This isn't a regression? This issue or a fix for it are already
+discussed somewhere else? It was fixed already? You want to clarify when
+the regression started to happen? Or point out I got the title or
+something else totally wrong? Then just reply -- ideally with also
+telling regzbot about it, as explained here:
+https://linux-regtracking.leemhuis.info/tracked-regression/
 
-@@ -1386,49 +1386,13 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
- 		return true;
- 	}
+Reminder for developers: When fixing the issue, add 'Link:' tags
+pointing to the report (the mail this one replies to), as explained for
+in the Linux kernel's documentation; above webpage explains why this is
+important for tracked regressions.
 
--	/* check if swizzle mode is supported by this version of DCN */
--	switch (asic_id.chip_family) {
--	case FAMILY_SI:
--	case FAMILY_CI:
--	case FAMILY_KV:
--	case FAMILY_CZ:
--	case FAMILY_VI:
--		/* asics before AI does not have modifier support */
--		return false;
--	case FAMILY_AI:
--	case FAMILY_RV:
--	case FAMILY_NV:
--	case FAMILY_VGH:
--	case FAMILY_YELLOW_CARP:
--	case AMDGPU_FAMILY_GC_10_3_6:
--	case AMDGPU_FAMILY_GC_10_3_7:
--		switch (AMD_FMT_MOD_GET(TILE, modifier)) {
--		case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_D:
--			return true;
--		default:
--			return false;
--		}
--		break;
--	case AMDGPU_FAMILY_GC_11_0_0:
--	case AMDGPU_FAMILY_GC_11_0_1:
--		switch (AMD_FMT_MOD_GET(TILE, modifier)) {
--		case AMD_FMT_MOD_TILE_GFX11_256K_R_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
--		case AMD_FMT_MOD_TILE_GFX9_64K_D:
--			return true;
--		default:
--			return false;
--		}
--		break;
--	default:
--		ASSERT(0); /* Unknown asic */
--		break;
-+	/* Check that the modifier is on the list of the plane's supported modifiers. */
-+	for (i = 0; i < plane->modifier_count; i++) {
-+		if (modifier == plane->modifiers[i])
-+			break;
- 	}
-+	if (i == plane->modifier_count)
-+		return false;
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
 
- 	/*
- 	 * For D swizzle the canonical modifier depends on the bpp, so check
---
-2.38.1
+P.S.: As the Linux kernel's regression tracker I deal with a lot of
+reports and sometimes miss something important when writing mails like
+this. If that's the case here, don't hesitate to tell me in a public
+reply, it's in everyone's interest to set the public record straight.
 
+> dd80d9c8eecac8c516da5b240d01a35660ba6cb6 is the first bad commit
+> commit dd80d9c8eecac8c516da5b240d01a35660ba6cb6
+> Author: Christian König <christian.koenig@amd.com>
+> Date:   Thu Jul 14 10:23:38 2022 +0200
+> 
+>     drm/amdgpu: revert "partial revert "remove ctx->lock" v2"
+> 
+>     This reverts commit 94f4c4965e5513ba624488f4b601d6b385635aec.
+> 
+>     We found that the bo_list is missing a protection for its list entries.
+>     Since that is fixed now this workaround can be removed again.
+> 
+>     Signed-off-by: Christian König <christian.koenig@amd.com>
+>     Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+>     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  | 21 ++++++---------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c |  2 --
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  1 -
+>  3 files changed, 6 insertions(+), 18 deletions(-)
+> 
+> 
+> And when it happening in kernel log appears a such backtrace:
+> [  231.331210] ------------[ cut here ]------------
+> [  231.331262] WARNING: CPU: 11 PID: 6555 at
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:675
+> amdgpu_ttm_tt_get_user_pages+0x14c/0x190 [amdgpu]
+> [  231.331424] Modules linked in: uinput rfcomm snd_seq_dummy
+> snd_hrtimer nft_objref nf_conntrack_netbios_ns nf_conntrack_broadcast
+> nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet
+> nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat
+> nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 ip_set nf_tables nfnetlink
+> qrtr bnep intel_rapl_msr intel_rapl_common snd_sof_amd_renoir
+> snd_sof_amd_acp snd_sof_pci snd_hda_codec_realtek snd_sof
+> snd_hda_codec_generic snd_hda_codec_hdmi snd_sof_utils mt7921e
+> snd_hda_intel sunrpc snd_intel_dspcfg mt7921_common binfmt_misc
+> snd_intel_sdw_acpi snd_hda_codec mt76_connac_lib edac_mce_amd btusb
+> snd_soc_core mt76 snd_hda_core btrtl snd_hwdep snd_compress kvm_amd
+> ac97_bus snd_seq btbcm snd_pcm_dmaengine btintel snd_rpl_pci_acp6x
+> mac80211 btmtk snd_pci_acp6x kvm snd_seq_device snd_pcm snd_pci_acp5x
+> libarc4 irqbypass bluetooth snd_rn_pci_acp3x snd_timer pcspkr
+> asus_nb_wmi rapl joydev wmi_bmof snd_acp_config cfg80211 snd_soc_acpi
+> vfat snd
+> [  231.331490]  snd_pci_acp3x i2c_piix4 soundcore fat k10temp amd_pmc
+> asus_wireless zram amdgpu drm_ttm_helper ttm hid_asus asus_wmi
+> iommu_v2 crct10dif_pclmul crc32_pclmul gpu_sched crc32c_intel
+> ledtrig_audio sparse_keymap polyval_clmulni platform_profile drm_buddy
+> polyval_generic hid_multitouch drm_display_helper rfkill nvme
+> ucsi_acpi ghash_clmulni_intel nvme_core video typec_ucsi serio_raw ccp
+> sha512_ssse3 sp5100_tco r8169 cec nvme_common typec wmi i2c_hid_acpi
+> i2c_hid ip6_tables ip_tables fuse
+> [  231.331532] CPU: 11 PID: 6555 Comm: GameThread Tainted: G        W
+>   L    -------  ---
+> 6.1.0-0.rc1.20221019gitaae703b02f92.17.fc38.x86_64 #1
+> [  231.331534] Hardware name: ASUSTeK COMPUTER INC. ROG Strix
+> G513QY_G513QY/G513QY, BIOS G513QY.318 03/29/2022
+> [  231.331537] RIP: 0010:amdgpu_ttm_tt_get_user_pages+0x14c/0x190 [amdgpu]
+> [  231.331654] Code: a8 d0 e9 32 ff ff ff 4c 89 e9 89 ea 48 c7 c6 40
+> 82 f3 c0 48 c7 c7 10 60 14 c1 e8 2f a0 f4 d0 eb 8e 66 90 bd f2 ff ff
+> ff eb 8d <0f> 0b eb f5 bd fd ff ff ff eb 82 bd f2 ff ff ff e9 62 ff ff
+> ff 48
+> [  231.331656] RSP: 0018:ffffaad4c705bae8 EFLAGS: 00010286
+> [  231.331659] RAX: ffff8e9cbdbe3200 RBX: ffff8e997e3f2440 RCX: 0000000000000000
+> [  231.331661] RDX: 0000000000000000 RSI: ffff8e9cbdbe3200 RDI: ffff8e9c31208000
+> [  231.331663] RBP: 0000000000000001 R08: 0000000000000dc0 R09: 00000000ffffffff
+> [  231.331665] R10: 0000000000000001 R11: 0000000000000000 R12: ffffaad4c705bb90
+> [  231.331666] R13: 0000000076510000 R14: ffff8e9c89f334e0 R15: ffff8e991fda8000
+> [  231.331668] FS:  000000007c2af6c0(0000) GS:ffff8ea7d8e00000(0000)
+> knlGS:000000007b2c0000
+> [  231.331671] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  231.331673] CR2: 00007ff65ffd8000 CR3: 00000004f90f0000 CR4: 0000000000750ee0
+> [  231.331674] PKRU: 55555554
+> [  231.331676] Call Trace:
+> [  231.331678]  <TASK>
+> [  231.331682]  amdgpu_cs_ioctl+0x87e/0x1fc0 [amdgpu]
+> [  231.331824]  ? amdgpu_cs_find_mapping+0xe0/0xe0 [amdgpu]
+> [  231.331981]  drm_ioctl_kernel+0xac/0x160
+> [  231.331990]  drm_ioctl+0x1e7/0x450
+> [  231.331994]  ? amdgpu_cs_find_mapping+0xe0/0xe0 [amdgpu]
+> [  231.332118]  amdgpu_drm_ioctl+0x4a/0x80 [amdgpu]
+> [  231.332233]  __x64_sys_ioctl+0x90/0xd0
+> [  231.332238]  do_syscall_64+0x5b/0x80
+> [  231.332243]  ? asm_exc_page_fault+0x22/0x30
+> [  231.332247]  ? lockdep_hardirqs_on+0x7d/0x100
+> [  231.332250]  entry_SYSCALL_64_after_hwframe+0x63/0xcd
+> [  231.332253] RIP: 0033:0x7ff677c5704f
+> [  231.332256] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24
+> 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00
+> 00 0f 05 <89> c2 3d 00 f0 ff ff 77 18 48 8b 44 24 18 64 48 2b 04 25 28
+> 00 00
+> [  231.332258] RSP: 002b:000000007c2ad470 EFLAGS: 00000246 ORIG_RAX:
+> 0000000000000010
+> [  231.332261] RAX: ffffffffffffffda RBX: 000000007c2ad718 RCX: 00007ff677c5704f
+> [  231.332263] RDX: 000000007c2ad540 RSI: 00000000c0186444 RDI: 00000000000000a7
+> [  231.332265] RBP: 000000007c2ad540 R08: 00007ff590048590 R09: 000000007c2ad510
+> [  231.332266] R10: 000000007e864ec0 R11: 0000000000000246 R12: 00000000c0186444
+> [  231.332268] R13: 00000000000000a7 R14: 000000007c2ad6f0 R15: 0000000000000005
+> [  231.332277]  </TASK>
+> [  231.332279] irq event stamp: 18035
+> [  231.332281] hardirqs last  enabled at (18043): [<ffffffff9118e8de>]
+> __up_console_sem+0x5e/0x70
+> [  231.332284] hardirqs last disabled at (18050): [<ffffffff9118e8c3>]
+> __up_console_sem+0x43/0x70
+> [  231.332287] softirqs last  enabled at (17864): [<ffffffff911012ed>]
+> __irq_exit_rcu+0xed/0x160
+> [  231.332289] softirqs last disabled at (17857): [<ffffffff911012ed>]
+> __irq_exit_rcu+0xed/0x160
+> [  231.332291] ---[ end trace 0000000000000000 ]---
+> [  231.332299] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
+> process the buffer list -14!
+> 
+> [  231.332423] ================================================
+> [  231.332424] WARNING: lock held when returning to user space!
+> [  231.332425] 6.1.0-0.rc1.20221019gitaae703b02f92.17.fc38.x86_64 #1
+> Tainted: G        W    L    -------  ---
+> [  231.332426] ------------------------------------------------
+> [  231.332427] GameThread/6555 is leaving the kernel with locks still held!
+> [  231.332428] 1 lock held by GameThread/6555:
+> [  231.332429]  #0: ffff8e9cfbac64a8
+> (&list->bo_list_mutex){+.+.}-{3:3}, at: amdgpu_cs_ioctl+0x786/0x1fc0
+> [amdgpu]
+> [  389.428155] amdgpu 0000:03:00.0: amdgpu: free PSP TMR buffer
+> 
+> Christian, any ideas?
+> Thanks.
+> 
+> Full kernel log: https://pastebin.com/6SEaDay8
+> My hardware:
+> GPU: 6900XT, 6800M
+> CPU: 3950X, 5900HX
+> 
