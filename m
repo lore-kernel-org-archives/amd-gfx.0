@@ -4,74 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B23DCC04A95
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 07:25:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B81AFA373E
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 07:25:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B01D310E18B;
-	Tue, 25 Oct 2022 07:25:11 +0000 (UTC)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B747510E0B0
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 03:23:49 +0000 (UTC)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 5307A5C014E;
- Mon, 24 Oct 2022 23:23:47 -0400 (EDT)
-Received: from imap47 ([10.202.2.97])
- by compute5.internal (MEProxy); Mon, 24 Oct 2022 23:23:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lunnova.dev; h=
- cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm1; t=1666668227; x=
- 1666754627; bh=PTO0nLnc0QQBliLpeSTBo+dWNW3ZR0ukG2MTy7ih80U=; b=r
- P1Zp3x2xtD6ceQST96JOfJ/L9kZuMoxlYMq3BsvSjJXOM1bAMfNkPA1147mlY85Q
- /r9TBMvYXe9HviXnCMaGxmf7tT4KH0ZpeGLIjLmNmr52clX6TBDhiRLUES4/jDhS
- 6LEP+xJC7x9Q/PAbUMwveyMAlE87O5nt4gUvhpKYdqqI+nEl0+WbziBirQK5moCC
- ePnwe2TbtCgZ7PMjqHWjzjALotHruPA7xpgrwpFohjvfFPzsqP7xq8NHWM+Jw7Bk
- a/Vqz0yry0RKyWx1wIsqSN5xuaMvnIFU35qwiH6XuZXr4n+0/CrM9IOxyrmyyG7Y
- CnZFuFSTffhu4baXzCf0Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:date:feedback-id:feedback-id:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1666668227; x=1666754627; bh=P
- TO0nLnc0QQBliLpeSTBo+dWNW3ZR0ukG2MTy7ih80U=; b=q8m8yuLMR4nlaZuS4
- wkaejhaIpRGyVwQjsXoj/BiyzUVEyryYTh6zj6EkHulFsx9m9zo+Z1Zv5b6cOyYv
- ahvpYiSUgHJiWKxKnY4jpfwZh1551noBlZBf3RYYeofhLWU3A31FUKcPLHkJKDsu
- CXrAQXzwtMpn+Lnv183s3FZ8ynCVD8AZ8BxSrLl2LRmJswxTR6eQ6XzkzsIv4jds
- DeVz8tygDbm/XZY3bQV/fKoVsfi9/4xeA5+1FzzxN4FxZDYXJ2esNAMvpyyGF+G5
- yXKaz4v9XixMveBfvWN/5r+AqL1sbaRr+uIUv7q6B2tQegWNd3kpJEKthYWCaJFJ
- lrPqA==
-X-ME-Sender: <xms:w1ZXYxjj2Fi064lFsORrHnw-QuZ1OTb23XtyDhTtyWUv9CIGh8rf3g>
- <xme:w1ZXY2BddiKFIg0cYw62PgdeDGORJBhez3P34R25dVenMu3FIN5UO_P5awx9svoDz
- plGb91g5_IzW1H8Pg4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrgedthedgjedvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefofgggkfgjfhffhffvufgtgfesth
- hqredtreerjeenucfhrhhomhepfdfnuhhnrgcupfhovhgrfdcuoehgihhtsehluhhnnhho
- vhgrrdguvghvqeenucggtffrrghtthgvrhhnpeejkeetveeluefgtefglefhvedtteelue
- dvfeehvdeltdeivefhheeugefffeevvdenucevlhhushhtvghrufhiiigvpedtnecurfgr
- rhgrmhepmhgrihhlfhhrohhmpehgihhtsehluhhnnhhovhgrrdguvghv
-X-ME-Proxy: <xmx:w1ZXYxFaKlANd-B2pxNLvGGOrH9fHM7-3k76k1NrjleeiY8Xu0VslA>
- <xmx:w1ZXY2QLgzlu3qlJ3Pb0EUPn9w5E-8JkJ6wjSaUgZO53b5u6DgEnLw>
- <xmx:w1ZXY-x1e60vugmFQdzsq9BBAOKa0WEUdlIgJHKMIdNo-3w-BqHXog>
- <xmx:w1ZXYzvc5IPTh0QZgb1Qi5XJGdj_QGZCow-bidoxH6s_4CeBfu-Q7A>
-Feedback-ID: i9ac946e8:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 1F8BBA6007C; Mon, 24 Oct 2022 23:23:47 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.7.0-alpha0-1047-g9e4af4ada4-fm-20221005.001-g9e4af4ad
-Mime-Version: 1.0
-Message-Id: <f49e6008-fd01-4942-b39a-ab605548ade2@app.fastmail.com>
-In-Reply-To: <20221014084641.128280-2-christian.koenig@amd.com>
-References: <20221014084641.128280-1-christian.koenig@amd.com>
- <20221014084641.128280-2-christian.koenig@amd.com>
-Date: Mon, 24 Oct 2022 20:23:26 -0700
-From: "Luna Nova" <git@lunnova.dev>
-To: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com
-Subject: Re: [PATCH 01/13] drm/scheduler: fix fence ref counting
-Content-Type: text/plain;charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0F7A10E18E;
+	Tue, 25 Oct 2022 07:25:12 +0000 (UTC)
+X-Greylist: delayed 595 seconds by postgrey-1.36 at gabe;
+ Mon, 24 Oct 2022 20:40:55 UTC
+Received: from cavan.codon.org.uk (irc.codon.org.uk [IPv6:2a00:1098:84:22e::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 794B910E09F;
+ Mon, 24 Oct 2022 20:40:55 +0000 (UTC)
+Received: by cavan.codon.org.uk (Postfix, from userid 1000)
+ id 9492F40A6A; Mon, 24 Oct 2022 21:30:57 +0100 (BST)
+Date: Mon, 24 Oct 2022 21:30:57 +0100
+From: Matthew Garrett <mjg59@srcf.ucam.org>
+To: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH v5 02/31] drm/i915: Don't register backlight when another
+ backlight should be used (v2)
+Message-ID: <20221024203057.GA28675@srcf.ucam.org>
+References: <20220825143726.269890-1-hdegoede@redhat.com>
+ <20220825143726.269890-3-hdegoede@redhat.com>
+ <f914ceb3-94bd-743c-f8b6-0334086e731a@gmail.com>
+ <42a5f2c9-a1dc-8fc0-7334-fe6c390ecfbb@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <42a5f2c9-a1dc-8fc0-7334-fe6c390ecfbb@redhat.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Tue, 25 Oct 2022 07:24:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,29 +43,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Pan@freedesktop.org, Karol Herbst <kherbst@redhat.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ Dmitry Osipenko <digetx@gmail.com>, amd-gfx@lists.freedesktop.org,
+ linux-acpi@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>,
+ David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>,
+ Daniel Dadap <ddadap@nvidia.com>, Jani Nikula <jani.nikula@intel.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Mark Gross <markgross@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Xinhui <Xinhui.Pan@amd.com>,
+ Lukas Wunner <lukas@wunner.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch doesn't apply nicely on 6.0, seems amd-staging-drm-next is mi=
-ssing 9b04369b060fd4885f728b7a4ab4851ffb1abb64 drm/scheduler: Don't kill=
- jobs in interrupt context
+On Tue, Sep 27, 2022 at 01:04:52PM +0200, Hans de Goede wrote:
 
-On Fri, 14 Oct 2022, at 01:46, Christian K=C3=B6nig wrote:
-> We leaked dependency fences when processes were beeing killed.
->=20
-> Additional to that grab a reference to the last scheduled fence.
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/dr=
-m/scheduler/sched_entity.c
-> index 43d337d8b153..243ff384cde8 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -207,6 +207,7 @@ static void drm_sched_entity_kill_jobs_cb(struct d=
-ma_fence *f,
-> struct drm_sched_job *job =3D container_of(cb, struct drm_sched_job,
-> finish_cb);
-> =20
-> + dma_fence_put(f);
-Conflict here, is INIT_WORK with that commit.
-> init_irq_work(&job->work, drm_sched_entity_kill_jobs_irq_work);
-> irq_work_queue(&job->work);
+> So to fix this we need to make acpi_video_get_backlight_type()
+> return native on the Acer Chromebook Spin 713.
 
+Isn't the issue broader than that? Unless the platform is Windows 8 or 
+later, we'll *always* (outside of some corner cases) return 
+acpi_backlight_vendor if there's no ACPI video interface. This is broken 
+for any platform that implements ACPI but relies on native video 
+control, which is going to include a range of Coreboot platforms, not 
+just Chromebooks. I think for this to work correctly you need to have 
+the infrastructure be aware of whether or not a vendor interface exists, 
+which means having to handle cleanup if a vendor-specific module gets 
+loaded later.
