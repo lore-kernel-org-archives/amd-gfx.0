@@ -4,49 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CA94ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 16:59:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B51DC38A2D
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 17:10:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B18EC10E3AE;
-	Mon, 24 Oct 2022 16:59:54 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45D9E10E3AE
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 16:59:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666630789; x=1698166789;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=9hFNN8FocKL1s+t62fqYOxCC2IjJmS0OeL8/lk60yi4=;
- b=hjf1T/H89YP93IB5xeeim5wAOGZ3nTFGoyDW/PLdIjfcbJnBV/P+pxF3
- WVNA+Xtube5et/Y5SGX0jQQVGJft4ljIe59olpGsq3A5EtGX0oOFxs5tA
- N8KmuYjTiEsGKSG02kOBi4MzDG93+c3OtJgPWfTkrXpRJ1m7SwW+VlPpi
- UqbYJ+OBMkmDEd2ue9HDYhd1RpP6+AbLQdZbYYZJPhx2a5CYPpkIyk4sp
- izVL/AcVTh9X2x7JXrT7K7+dcQPIsL+nORxO20ncrLVQ/HcY4X0quTIEl
- 0ZN4Yyx8MTEXygiHTfifjyApHrpTQeljyB+Nh3W1XRAazjgeiX8Le/7UM Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10510"; a="306203025"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="306203025"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 09:59:48 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10510"; a="662496666"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="662496666"
-Received: from lkp-server02.sh.intel.com (HELO b6d29c1a0365) ([10.239.97.151])
- by orsmga008.jf.intel.com with ESMTP; 24 Oct 2022 09:59:46 -0700
-Received: from kbuild by b6d29c1a0365 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1on0nh-0005Wl-1e;
- Mon, 24 Oct 2022 16:59:45 +0000
-Date: Tue, 25 Oct 2022 00:58:57 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD SUCCESS WITH WARNING
- 76cf65d1377f733af1e2a55233e3353ffa577f54
-Message-ID: <6356c451.pwLIF+9EvDUrDjTY%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id A625810E481;
+	Mon, 24 Oct 2022 17:10:48 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2078.outbound.protection.outlook.com [40.107.94.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6440D10E481
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 17:10:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XZzAzJygaBwgwop8IltVPRW9XMD5RgGx/xOtJ10kQSRsB2Sr9ai+s95s+aOd9Y5r6egE+81Uxq1snNyv3ySfb0PWA0AV2HsE4xtylJKQnzaCJtHS36dv42WiCjECA4Y5tLwJHUZIlMZPgDCsl4XWxMKCgClEOnItFy10MowG83uAlXHWkTi3Xl2dF+FD2nCst6tz5DAOjpT9uZxFncCr+/aEcT3TrbeMJpmvvH92UJVBxLYp/sPVhtv5g01+iw02dRfOCbsjKItGB4SfdXpnIT9PdM02ic+2weY5UyX9GFjSY0qe1XonUmz0nojhxT3JCLi58LQKVq0j/Pt1Cw2sxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wRMDqSWY3MwrKzs5CABChqUUJ6HIOe4bKUVi4ukKVaY=;
+ b=Xg+3lDTfDaMgDPvFqhdB9Acus93XTFzS7QI9PZCer4tvfZhEcn6MM1gWpaRWiD6g2fhnrqUZsVFG3JTUV+QcKPYca1E90RaUtIo1ZZKxFuI24T8n0RglqAG/8LnHnK/cx+20WhoQ3JNjmjYs+HlizsCqejMbHQqGNK5qzPvknJP29FFq8bp3gQrISbMeNMquZmzyNKZ9XHuQiv60EhA4ll1TqyhYlcJVhEpQV4hd0IxiggwvoMyzocuk350px8Zoy02HfawUshcSMVlY9WQ+pzvLXHRmkLtu87L6VfwKWxNBzKsdKkqnKMkAgIm/juqJ9mJxIh8hvKl0a09bpXDT3A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wRMDqSWY3MwrKzs5CABChqUUJ6HIOe4bKUVi4ukKVaY=;
+ b=y/5dGUFn8afWk9ReaODrQdoqZ+bG17B3ADpIZ2ip0c2HgDJEDOYuwoqWYtfljyqRqx85w7opJ9XJ19PzTYV5Jmg0td5I+3UR3xMSvd/crrLwauDJ6GxGFtwMr6cFG3eXPVCEvAZuiSeaafsdbMKLo6qFvDZocqfBQbZR5y3Cq48=
+Received: from MW4PR04CA0193.namprd04.prod.outlook.com (2603:10b6:303:86::18)
+ by DM4PR12MB6663.namprd12.prod.outlook.com (2603:10b6:8:bb::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5746.21; Mon, 24 Oct 2022 17:10:38 +0000
+Received: from CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:86:cafe::36) by MW4PR04CA0193.outlook.office365.com
+ (2603:10b6:303:86::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.27 via Frontend
+ Transport; Mon, 24 Oct 2022 17:10:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT023.mail.protection.outlook.com (10.13.175.35) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5746.16 via Frontend Transport; Mon, 24 Oct 2022 17:10:37 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 24 Oct
+ 2022 12:10:36 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: fix documentation warning
+Date: Mon, 24 Oct 2022 13:10:22 -0400
+Message-ID: <20221024171022.2270903-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT023:EE_|DM4PR12MB6663:EE_
+X-MS-Office365-Filtering-Correlation-Id: f09710d2-9406-4f5b-9f07-08dab5e2abfb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NM1uOQuXwBzCaVEKZMuT4MUGbPwQ2HPVUsZks9riJ9nUux5WKRKim8kJEzXj+bitslQ1uuYQAP4Eiesx6RmQfuiId4eOkiUAKQVajcEcZF1r0qkhswUbpvfgRTW0axU9eeBqs7xyEeoHadLh2HNJyOZosTjRMnHmA6dUzF2flhTHrDl49TaeZqVRMKs10R9VX8sEv6vDGl6RsAZFqX+hA+sfKPllWSTaALoj2k0sTyzSb5plzLvZmt9HwnXwVo/hnbAfV78itugslbENo50V5+UPHb/9E8HbIzxavMxHeb208ctqhBNlZWURgR5EXnZGPoTDoB+3OCDonh5C0vgQsEtCi54VkYeOKj36fuOvSYzalFs8jOg9flCetmVtgnWV0NjNjOa3HBM709UkTS12Czf8opRuOGNneIbDJTVRW0l08I1MMNvU2sB+CCRpyUAC+pFjlaVhbuR9CtOFmZI6n3XBWMbesnUN/8VaBBkm1xpLw0f1zZnbbXaOH8MKFPU75env519WUUQLGPxvRWYH429kZG7kyX4dUKtAipo+UrmIgipFLSMOeFmxBSU81Vjy+wdDkvi/L4Ovzi7z8TtbONrTHGqRLY+7RG/nfZqui8UYZuOmTOQhOxUO6YKPFKrepzuKqwV31xuGiH9MwkjqQAejxc5pnfQf42Dz2U2yFHO3SaHWDPfO9v5eA8scn7jwYfLb/I+/+Hz4s/lBrWFCoGwIVGKJgq5qDQHZ82AIvqD0fDk/5Cv9zoWq4t5Ky9Yqa4wLxZbJc9dkIKXz+Tpvj81yqG4+j9INybbHbJQcehixU6bg1ZI4UTU2hIu5toDO
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(396003)(376002)(346002)(39860400002)(451199015)(40470700004)(46966006)(36840700001)(8936002)(5660300002)(82740400003)(41300700001)(82310400005)(83380400001)(40480700001)(6916009)(54906003)(2906002)(81166007)(426003)(47076005)(70206006)(336012)(478600001)(7696005)(356005)(16526019)(1076003)(186003)(36756003)(4326008)(8676002)(70586007)(86362001)(6666004)(316002)(36860700001)(40460700003)(2616005)(26005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 17:10:37.7414 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f09710d2-9406-4f5b-9f07-08dab5e2abfb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6663
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,173 +97,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-parisc@vger.kernel.org, netdev@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- linux-mediatek@lists.infradead.org, ntfs3@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 76cf65d1377f733af1e2a55233e3353ffa577f54  Add linux-next specific files for 20221024
+build htmldocs produced this warning:
+drivers/gpu/drm/amd/display/dc/dc.h:1275: warning: cannot understand function prototype: 'struct dc_validation_set '
+The word "struct" was left out of the comment.
 
-Warning reports:
+Fixes: f4a59996c408 ("drm/amd/display: Include surface of unaffected streams")
+Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-https://lore.kernel.org/linux-mm/202210090954.pTR6m6rj-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210110857.9s0tXVNn-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210111318.mbUfyhps-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210240729.zs46Cfzo-lkp@intel.com
-
-Warning: (recently discovered and may have been fixed)
-
-arch/parisc/kernel/setup.c:78 setup_cmdline() warn: curly braces intended?
-drivers/net/phy/phylink.c:588 phylink_validate_mask_caps() warn: variable dereferenced before check 'state' (see line 583)
-
-Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- i386-randconfig-s041-20221024
-|   |-- fs-ntfs3-index.c:sparse:sparse:restricted-__le32-degrades-to-integer
-|   |-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s1-got-unsigned-short
-|   `-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s2-got-unsigned-short
-|-- microblaze-randconfig-m031-20221023
-|   `-- drivers-net-phy-phylink.c-phylink_validate_mask_caps()-warn:variable-dereferenced-before-check-state-(see-line-)
-|-- parisc-randconfig-m031-20221023
-|   `-- arch-parisc-kernel-setup.c-setup_cmdline()-warn:curly-braces-intended
-`-- x86_64-randconfig-m001
-    `-- arch-x86-kernel-apic-apic.c-generic_processor_info()-warn:always-true-condition-(num_processors-()-)-(-u32max-)
-clang_recent_errors
-|-- hexagon-randconfig-r045-20221023
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
-|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
-|   |-- drivers-phy-mediatek-phy-mtk-tphy.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-c
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- i386-randconfig-a001-20221024
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- i386-randconfig-a011
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- i386-randconfig-a015
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- powerpc-randconfig-r015-20221023
-|   |-- drivers-gpu-drm-amd-amdgpu-mmhub_v2_0.c:warning:variable-data-is-uninitialized-when-used-here
-|   |-- drivers-phy-mediatek-phy-mtk-tphy.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-c
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- riscv-randconfig-r042-20221023
-|   `-- ld.lld:error:undefined-symbol:dax_holder_notify_failure
-|-- s390-randconfig-r022-20221023
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- s390-randconfig-r044-20221023
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- x86_64-randconfig-a002-20221024
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- x86_64-randconfig-a004-20221024
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-`-- x86_64-randconfig-a005-20221024
-    `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-
-elapsed time: 726m
-
-configs tested: 91
-configs skipped: 3
-
-gcc tested configs:
-um                             i386_defconfig
-um                           x86_64_defconfig
-x86_64                    rhel-8.3-kselftests
-x86_64                              defconfig
-x86_64                          rhel-8.3-func
-i386                                defconfig
-x86_64               randconfig-a013-20221024
-x86_64                               rhel-8.3
-x86_64               randconfig-a012-20221024
-x86_64                           allyesconfig
-x86_64                           rhel-8.3-syz
-x86_64                           rhel-8.3-kvm
-m68k                        m5272c3_defconfig
-x86_64               randconfig-a016-20221024
-powerpc                           allnoconfig
-arm                                 defconfig
-mips                             allyesconfig
-x86_64               randconfig-a011-20221024
-i386                          randconfig-a014
-powerpc                          allmodconfig
-x86_64               randconfig-a015-20221024
-csky                              allnoconfig
-i386                             allyesconfig
-sh                          kfr2r09_defconfig
-sh                               allmodconfig
-x86_64               randconfig-a014-20221024
-i386                          randconfig-a012
-i386                          randconfig-a016
-arc                                 defconfig
-alpha                            allyesconfig
-powerpc                      makalu_defconfig
-arm                              allyesconfig
-arm                            xcep_defconfig
-m68k                             allmodconfig
-powerpc                    amigaone_defconfig
-sh                           sh2007_defconfig
-arm64                            allyesconfig
-arc                              allyesconfig
-arc                  randconfig-r043-20221024
-m68k                             allyesconfig
-arc                         haps_hs_defconfig
-alpha                               defconfig
-sh                            migor_defconfig
-mips                     loongson1b_defconfig
-riscv                randconfig-r042-20221024
-s390                                defconfig
-parisc                generic-64bit_defconfig
-arc                  randconfig-r043-20221023
-s390                             allmodconfig
-xtensa                          iss_defconfig
-s390                 randconfig-r044-20221024
-powerpc                      bamboo_defconfig
-ia64                             allmodconfig
-s390                             allyesconfig
-arm                        shmobile_defconfig
-arm                            hisi_defconfig
-arc                          axs103_defconfig
-powerpc                        cell_defconfig
-mips                        bcm47xx_defconfig
-sparc                       sparc64_defconfig
-x86_64                         rhel-8.3-kunit
-
-clang tested configs:
-i386                 randconfig-a001-20221024
-i386                 randconfig-a002-20221024
-i386                 randconfig-a003-20221024
-i386                 randconfig-a004-20221024
-i386                 randconfig-a005-20221024
-i386                 randconfig-a006-20221024
-hexagon              randconfig-r045-20221023
-i386                          randconfig-a013
-hexagon              randconfig-r041-20221024
-i386                          randconfig-a011
-riscv                randconfig-r042-20221023
-x86_64               randconfig-a001-20221024
-arm                          moxart_defconfig
-powerpc                      obs600_defconfig
-x86_64               randconfig-a005-20221024
-x86_64               randconfig-a003-20221024
-powerpc                       ebony_defconfig
-x86_64               randconfig-a006-20221024
-i386                          randconfig-a015
-hexagon              randconfig-r045-20221024
-x86_64               randconfig-a004-20221024
-arm                             mxs_defconfig
-s390                 randconfig-r044-20221023
-mips                       rbtx49xx_defconfig
-x86_64               randconfig-a002-20221024
-arm                          pxa168_defconfig
-powerpc                     tqm8540_defconfig
-powerpc                      ppc44x_defconfig
-hexagon              randconfig-r041-20221023
-arm                            dove_defconfig
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index bd7a896fab49..e4e41f2e5054 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -1269,7 +1269,7 @@ void dc_post_update_surfaces_to_stream(
+ #include "dc_stream.h"
+ 
+ /**
+- * dc_validation_set - Struct to store surface/stream associations for validation
++ * struct dc_validation_set - Struct to store surface/stream associations for validation
+  */
+ struct dc_validation_set {
+ 	/**
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.37.3
+
