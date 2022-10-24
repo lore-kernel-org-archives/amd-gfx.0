@@ -4,49 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C054EECAAA1
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:17:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13FD9C38A2D
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:17:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41FA410E635;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50C8510E649;
 	Mon, 24 Oct 2022 13:17:23 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4CCD10E443;
- Mon, 24 Oct 2022 12:34:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666614845; x=1698150845;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=fBzePSudItjjbOwIjzBK3a/c9M5JFhtRr9O6E/OG6I8=;
- b=kH3uYFpMKlw2N242f35rzUSstjJq7Etm8/OV7Hb9BPqKjsQLhVthv9It
- j2RwdcYCAIhEy48iI0VGThPSYihG4P2kfk4EXwmvQSb7Pg5Q2XKGOiXEb
- yt95U0roUC3yp6f3zft1/L1V4htjjWRA/l3rv2ypXnxpzec9kYe7CU5k3
- CnT//5uZMrO0p6GDgDxUd6guDWfN2ozz7ziQodye3fk+1VxXifbJpgKWM
- xBeDjymeLigi6V/llw6zEyqVbumeBB0eJvg1Lg8Z4P/+kbhYunnJXaoMo
- isIcPdE342y+hoRIP3usPxMWzbRgyWj8gnIRvr5S3YtHPR6M1PXUHiDCS Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="333989462"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="333989462"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 05:34:04 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="876418659"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="876418659"
-Received: from emontau-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.252.52.221])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 05:34:02 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 03/16] drm/amd/display: stop using connector->override_edid
-Date: Mon, 24 Oct 2022 15:33:31 +0300
-Message-Id: <c901869ff8a4e3aebc4abec99c7dd7b4c224f6e6.1666614699.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1666614699.git.jani.nikula@intel.com>
-References: <cover.1666614699.git.jani.nikula@intel.com>
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B7BC10E3E8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 12:20:24 +0000 (UTC)
+Received: from dggpemm500023.china.huawei.com (unknown [172.30.72.53])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MwvD90QZGzVhmf;
+ Mon, 24 Oct 2022 20:15:37 +0800 (CST)
+Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
+ dggpemm500023.china.huawei.com (7.185.36.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Mon, 24 Oct 2022 20:20:21 +0800
+Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
+ (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 24 Oct
+ 2022 20:20:20 +0800
+From: Yang Yingliang <yangyingliang@huawei.com>
+To: <linux-kernel@vger.kernel.org>, <qemu-devel@nongnu.org>,
+ <linux-f2fs-devel@lists.sourceforge.net>, <linux-erofs@lists.ozlabs.org>,
+ <ocfs2-devel@oss.oracle.com>, <linux-mtd@lists.infradead.org>,
+ <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] kset: fix memory leak when kset_register() returns error
+Date: Mon, 24 Oct 2022 20:19:10 +0800
+Message-ID: <20221024121910.1169801-1-yangyingliang@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ dggpemm500007.china.huawei.com (7.185.36.183)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 24 Oct 2022 13:17:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,50 +51,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
- Xinhui Pan <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexdeucher@gmail.com>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- ville.syrjala@linux.intel.com
+Cc: alexander.deucher@amd.com, richard@nod.at, mst@redhat.com,
+ gregkh@linuxfoundation.org, somlo@cmu.edu, chao@kernel.org,
+ huangjianan@oppo.com, liushixin2@huawei.com, joseph.qi@linux.alibaba.com,
+ luben.tuikov@amd.com, jlbec@evilplan.org, hsiangkao@linux.alibaba.com,
+ rafael@kernel.org, jaegeuk@kernel.org, akpm@linux-foundation.org,
+ mark@fasheh.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The connector->override_edid flag is strictly for EDID override debugfs
-management, and drivers have no business using it.
+Inject fault while loading module, kset_register() may fail.
+If it fails, the name allocated by kobject_set_name() which
+is called before kset_register() is leaked, because refcount
+of kobject is hold in kset_init().
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Xinhui Pan <Xinhui.Pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Acked-by: Alex Deucher <alexdeucher@gmail.com>
+As a kset may be embedded in a larger structure which needs
+be freed in release() function or error path in callers, we
+can not call kset_put() in kset_register(), or it will cause
+double free, so just call kfree_const() to free the name and
+set it to NULL.
+
+With this fix, the callers don't need to care about the name
+freeing and call an extra kset_put() if kset_register() fails.
+
+Suggested-by: Luben Tuikov <luben.tuikov@amd.com>
+Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ---
- 1 file changed, 3 deletions(-)
+v1 -> v2:
+  Free name inside of kset_register() instead of calling kset_put()
+  in drivers.
+---
+ lib/kobject.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 0db2a88cd4d7..3c072754738d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6108,7 +6108,6 @@ static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
- 				aconnector->base.name);
+diff --git a/lib/kobject.c b/lib/kobject.c
+index a0b2dbfcfa23..3409a89c81e5 100644
+--- a/lib/kobject.c
++++ b/lib/kobject.c
+@@ -834,6 +834,9 @@ EXPORT_SYMBOL_GPL(kobj_sysfs_ops);
+ /**
+  * kset_register() - Initialize and add a kset.
+  * @k: kset.
++ *
++ * NOTE: On error, the kset.kobj.name allocated by() kobj_set_name()
++ * which is called before kset_register() in caller need be freed.
+  */
+ int kset_register(struct kset *k)
+ {
+@@ -844,8 +847,11 @@ int kset_register(struct kset *k)
  
- 		aconnector->base.force = DRM_FORCE_OFF;
--		aconnector->base.override_edid = false;
- 		return;
- 	}
- 
-@@ -6143,8 +6142,6 @@ static void handle_edid_mgmt(struct amdgpu_dm_connector *aconnector)
- 		link->verified_link_cap.link_rate = LINK_RATE_HIGH2;
- 	}
- 
--
--	aconnector->base.override_edid = true;
- 	create_eml_sink(aconnector);
+ 	kset_init(k);
+ 	err = kobject_add_internal(&k->kobj);
+-	if (err)
++	if (err) {
++		kfree_const(k->kobj.name);
++		k->kobj.name = NULL;
+ 		return err;
++	}
+ 	kobject_uevent(&k->kobj, KOBJ_ADD);
+ 	return 0;
  }
- 
 -- 
-2.34.1
+2.25.1
 
