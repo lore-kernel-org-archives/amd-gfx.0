@@ -4,56 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91A9DECAAA1
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 15:27:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A86CFA373F
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 16:48:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADB1D10E859;
-	Mon, 24 Oct 2022 15:27:10 +0000 (UTC)
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE93910E86C;
- Mon, 24 Oct 2022 15:27:06 +0000 (UTC)
-Received: by mail-ot1-x333.google.com with SMTP id
- a16-20020a056830101000b006619dba7fd4so6049639otp.12; 
- Mon, 24 Oct 2022 08:27:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8E0710E110;
+	Mon, 24 Oct 2022 16:48:50 +0000 (UTC)
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7664810E110;
+ Mon, 24 Oct 2022 16:48:48 +0000 (UTC)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-13ae8117023so12501357fac.9; 
+ Mon, 24 Oct 2022 09:48:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=nub8BP8GK64yoOEOVp/VCw/GranT7qsuMJj9rUXtDDA=;
- b=iRF9APagwpOQ6U/BO5CHcMMIOGjLT4OwMWfaw5FBv5PbU/XHsctLi/oMCwvapYDdHf
- E1rOp4GbohVg1TLh57BEG2CoR0sZHDgQjrWr/7bvOINl2I6Dn0Av24R9WDQF1Osg3PAY
- vVqADyKG2vPSRe2gJfT2tkk2sPwfa/Mer+ALTFz002xD37BMLVQZSQlQ4EEwkw/rl8Oe
- SwasYlGv4ZH4vdRO2ST+9D5OuPA+KTn3z3WHcdfiLBSKjQROE+EyODHCfrX0sg2TkZpb
- Zl9mlCx3Eq/togle/IHwzYUqWoOMza2xA/Ry8Yc1sBhHCKGRF3/rdUL0htUh+obpr2Xz
- pNKg==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fShq1F8MCtr7H1rIrt9dF42VoxsVe4EiV73x1/8GfMQ=;
+ b=AZgGfvOK1KD08qsmji2S9sKDHIHWDZ2uTSX7b+y/9ACFeQ8zK64RdgYia5Pe5y2JQX
+ 9XAw1dnIsYVKmY0iM5NWcg9m9Po7a88B96Mace45+QsUFKcEvrTdawgtPbqCWibKvDNh
+ vNzUAPRrJoQDAmDWv9dUmrgnJTm7Tvj0DFnuoCExRL1Jf7gnPxijXwM3ZgQEEqr/4Rgl
+ 422FGAWgTLWbBBTGLNAiJtR782p+uGuuKrLUb3WrRakfv/90TJZjyYzt5d1LYWuZyM/H
+ GnG6N6yprSMQR6xncPQw4hgJob/g6LESGPY1uFHM5DcaTuzgRymnhFGlPTWWkhVi9T/O
+ u35Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=nub8BP8GK64yoOEOVp/VCw/GranT7qsuMJj9rUXtDDA=;
- b=IGBBFbOwBdUcdhCtK/7m9fptBch6nQF8Z4qcvVi07oxCUghNi63YFK7Ng9cSRxdm+T
- /iabJW5n8eM2pOkTEO+NE54Ij2uTYjG5u5Qnec4wFCU2k3B1Eu+2P3RpyB3uD33HpsKa
- P/k1+sT2zvZjNcbB8x4/eSPZCR/HdmKEj4/2c3JcrSeysMRzx3sLUstDDXpENDipPe3V
- 82Ae2HyuRRxhUqU8ciNgPf66XBoXTkMXTY56qqFz0TxZK07wqm1hXYgLgV40nBaw5Oo1
- 76Fcgp18vq27yZBuhvS8GjpP/TBuQOcCDZ/Qt/UdWfqF0qvkRVtxoKEBJTG+mfURE+Sh
- BHHQ==
-X-Gm-Message-State: ACrzQf0g8iiA0C/bHJhMBvayCNdTozc/HUjEqilKxY6ziKLSStuKGV12
- oiLKmvujMn5+VvsyajNE2s2k4yD6gumpAz1EKzY00QAG
-X-Google-Smtp-Source: AMsMyM4/bhQvenoyCezxgqiDKYW+75o2ItfjCqdf8xA2HZ030BPYzRlZPg6WCThDy7uDjX+ADkpnTzMDjEKqn02sK2c=
-X-Received: by 2002:a9d:6645:0:b0:661:b778:41b8 with SMTP id
- q5-20020a9d6645000000b00661b77841b8mr17129566otm.233.1666625226162; Mon, 24
- Oct 2022 08:27:06 -0700 (PDT)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fShq1F8MCtr7H1rIrt9dF42VoxsVe4EiV73x1/8GfMQ=;
+ b=aGbdUJmVRHmJdIJfCI/Ck3TF70JdCP/P87ZvWOmZHdRK3/0QyUu8xY0h1C/y+u8oaq
+ qVuuhXTSYKKod1aCC2B83W7TXbg965hJg7YG5Y2lDRpVSWUVVEllb++vcPTl6CD7Kc64
+ L3WjfNjeK+jQE0uuJrJxbihfQQ0fw2zqgV0/ohcDp+bGDAVVRvkpP0veKQ74Y5wizfHt
+ JeNU8YVIcrqcKAF4sEZKLQLpEi2VNQkj1E0MqON94Vb59Hb2usEOO8h5ZW4GzDm82BlE
+ siV52oeSWcBOk2dqmAOFn5Uo1SDAcIUHZo3+UrOCN9kG0Qv04D8o5WQATDwYd6gufJ7H
+ 89Zw==
+X-Gm-Message-State: ACrzQf2KetdzGytaNl9ZTNNCA4vQkz9xMhcQIvChRdsefpUugf1867L5
+ m9c0im/HwPtolMz8A3jLW/MTU5ALaaimIeziKvFUfehO3HE=
+X-Google-Smtp-Source: AMsMyM5elTbqhJRg2/4CxKTddWKEQFpt53OdEb9hNtHVIQShbQDVoJk9cV8eR64KPw+F2Nfuz9CEza+jV42Gnxi0qUw=
+X-Received: by 2002:a05:6870:a116:b0:13a:f9de:6fd0 with SMTP id
+ m22-20020a056870a11600b0013af9de6fd0mr13870435oae.46.1666630127719; Mon, 24
+ Oct 2022 09:48:47 -0700 (PDT)
 MIME-Version: 1.0
-References: <20221024151953.2238616-1-nathan@kernel.org>
-In-Reply-To: <20221024151953.2238616-1-nathan@kernel.org>
+References: <20221020143603.563929-1-alexander.deucher@amd.com>
+ <DM6PR12MB26194FC4A9B18912448DA8CEE42E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <e494d819-f960-f2bd-913e-83ee820ac399@suse.de>
+In-Reply-To: <e494d819-f960-f2bd-913e-83ee820ac399@suse.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 Oct 2022 11:26:52 -0400
-Message-ID: <CADnq5_PotEg3naWq111RKbRFsxSd_ETN4J8tE+V+fhhrJqCygg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix uninitialized warning in
- mmhub_v2_0_get_clockgating()
-To: Nathan Chancellor <nathan@kernel.org>
+Date: Mon, 24 Oct 2022 12:48:36 -0400
+Message-ID: <CADnq5_P7r71zETyJRZ+KVKFS+C56NAZaht5stVE=uZQ6tP6fdg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: don't call drm_fb_helper_lastclose in
+ lastclose()
+To: Thomas Zimmermann <tzimmermann@suse.de>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,57 +69,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Tom Rix <trix@redhat.com>,
- Lijo Lazar <lijo.lazar@amd.com>, llvm@lists.linux.dev, patches@lists.linux.dev,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan,
+ Evan" <Evan.Quan@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Mon, Oct 24, 2022 at 3:33 AM Thomas Zimmermann <tzimmermann@suse.de> wro=
+te:
+>
+> Hi
+>
+> Am 24.10.22 um 08:20 schrieb Quan, Evan:
+> > [AMD Official Use Only - General]
+> >
+> > Reviewed-by: Evan Quan <evan.quan@amd.com>
+> >
+> >> -----Original Message-----
+> >> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Ale=
+x
+> >> Deucher
+> >> Sent: Thursday, October 20, 2022 10:36 PM
+> >> To: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
+> >> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Thomas
+> >> Zimmermann <tzimmermann@suse.de>
+> >> Subject: [PATCH] drm/amdgpu: don't call drm_fb_helper_lastclose in
+> >> lastclose()
+> >>
+> >> It's used to restore the fbdev console, but as amdgpu uses
+> >> generic fbdev emulation, the console is being restored by the
+> >> DRM client helpers already. See the call to drm_client_dev_restore()
+> >> in drm_lastclose().
+> >>
+> >> Fixes: 087451f372bf76 ("drm/amdgpu: use generic fb helpers instead of
+> >> setting up AMD own's.")
+> >> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >> ---
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 1 -
+> >>   1 file changed, 1 deletion(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> >> index fe23e09eec98..474b9f40f792 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> >> @@ -1106,7 +1106,6 @@ int amdgpu_info_ioctl(struct drm_device *dev,
+> >> void *data, struct drm_file *filp)
+> >>    */
+> >>   void amdgpu_driver_lastclose_kms(struct drm_device *dev)
+> >>   {
+> >> -    drm_fb_helper_lastclose(dev);
+> >>      vga_switcheroo_process_delayed_switch();
+> >>   }
+>
+> Without the call to drm_fb_helper_lastclose(), the console emulation
+> will be restored by drm_client_dev_restore() from drm_lastclose(). [1]
+> It means that it's now changing order with the call to
+> vga_switcheroo_process_delay_switch(). Can this become a problem?
+>
+> I looked at the other callers of that function. Most restore the console
+> before doing the switcheroo. Nouveau doesn't seem to care about the
+> console at all.
+
+I don't know off hand.  I suppose if the switch powered down the GPU
+and then we tried to restore it's console state that would be a
+problem, but it looks like vga_switchto_stage2() just powers down the
+GPU without going through suspend so I'm not sure if this actually
+worked correctly?  What are the potential problems with calling
+drm_fb_helper_lastclose twice?
 
 Alex
 
-On Mon, Oct 24, 2022 at 11:20 AM Nathan Chancellor <nathan@kernel.org> wrote:
 >
-> Clang warns:
+> Best regards
+> Thomas
 >
->   drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c:686:3: error: variable 'data' is uninitialized when used here [-Werror,-Wuninitialized]
->                   data |= MM_ATC_L2_MISC_CG__ENABLE_MASK;
->                   ^~~~
->   drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c:674:10: note: initialize the variable 'data' to silence this warning
->           int data, data1;
->                   ^
->                   = 0
->   1 error generated.
+> [1]
+> https://elixir.bootlin.com/linux/v6.0.3/source/drivers/gpu/drm/drm_file.c=
+#L467
 >
-> This clearly should have just been a regular '=', as there was no prior
-> assignment.
+> >>
+> >> --
+> >> 2.37.3
 >
-> Fixes: 7a4fad619819 ("drm/amdgpu: Remove ATC L2 access for MMHUB 2.1.x")
-> Link: https://github.com/ClangBuiltLinux/linux/issues/1748
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-> index 5ec6d17fed09..998b5d17b271 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-> @@ -683,7 +683,7 @@ static void mmhub_v2_0_get_clockgating(struct amdgpu_device *adev, u64 *flags)
->                 /* There is no ATCL2 in MMHUB for 2.1.x. Keep the status
->                  * based on DAGB
->                  */
-> -               data |= MM_ATC_L2_MISC_CG__ENABLE_MASK;
-> +               data = MM_ATC_L2_MISC_CG__ENABLE_MASK;
->                 data1 = RREG32_SOC15(MMHUB, 0, mmDAGB0_CNTL_MISC2_Sienna_Cichlid);
->                 break;
->         default:
->
-> base-commit: fb5e487f910e1105019b883e8ed25e36e4bfd657
 > --
-> 2.38.1
->
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+> (HRB 36809, AG N=C3=BCrnberg)
+> Gesch=C3=A4ftsf=C3=BChrer: Ivo Totev
