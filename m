@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53C20EB6462
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 11:21:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB697EB6460
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 11:22:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B65210E430;
-	Mon, 24 Oct 2022 11:20:28 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1775C10E38E;
- Mon, 24 Oct 2022 11:20:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15AB610E3F1;
+	Mon, 24 Oct 2022 11:20:25 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF78F10E372;
+ Mon, 24 Oct 2022 11:20:02 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B4276220DA;
- Mon, 24 Oct 2022 11:20:06 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3791B21DE4;
+ Mon, 24 Oct 2022 11:20:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666610406; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1666610401; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=W2hXo1ZXw+fT7jNTQpjjai6MaQuUlFJ3x4yHM5t/NT8=;
- b=NmK2JPY7erjfISSjJHyuZn3S9M4HE0QY2DX64ewIKQkqdV4YW55dIfYZUFwsucHgK8EJWo
- 9OqpMMbfSr3Sj4qTG661IHslL7dTlOf47A0qYZ/yUtPD5rYrjiqIr2/K1pI8y8YSUIBX7A
- u/2NuQed3cKWK0fTF/Zshk2lHorpMOI=
+ bh=pDwG/2ZvVtedihuD7tm996Em6sMhLiO4FmD57P041QM=;
+ b=mdwZe4oCDl9UJvnRtuXrem4SfiiFBuEbsVuBcem6XZzeWKEvLFgh++5J+F0kFPZh2OwF2c
+ 8rR6QVpJvrZjvNSwkyboHHN0mwwyZ2/JI1FZUdMFbe0+p5YrXMyI6It+57tRSs7sXcQ/Ma
+ OZ806Nd+ViS++4+DGE9xm8GZLyhfO7g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666610406;
+ s=susede2_ed25519; t=1666610401;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=W2hXo1ZXw+fT7jNTQpjjai6MaQuUlFJ3x4yHM5t/NT8=;
- b=2HdzFY+hAc4IQyzPhbPzdnFAvNOMcpZCifG7L10kN4snoDQgnsRKjQRlxM4yHitxgDoIAD
- 6G6AQD9Zct0kBEBA==
+ bh=pDwG/2ZvVtedihuD7tm996Em6sMhLiO4FmD57P041QM=;
+ b=hxqccXaIzzUM0Q2daluFxMAfY0DJqTJ1PLIzkvZNd4Zm8xifYKdsxU+9OAw1FxBxz2U0YP
+ 1XAP5XUT21C9REAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 359A713A98;
- Mon, 24 Oct 2022 11:20:06 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C109713A98;
+ Mon, 24 Oct 2022 11:20:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UFgyDOZ0VmOYMgAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 24 Oct 2022 11:20:06 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8PxcLuB0VmOYMgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 24 Oct 2022 11:20:00 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
  mripard@kernel.org, maarten.lankhorst@linux.intel.com
-Subject: [PATCH v2 16/21] drm/fb-helper: Call fb_sync in I/O functions
-Date: Mon, 24 Oct 2022 13:19:48 +0200
-Message-Id: <20221024111953.24307-17-tzimmermann@suse.de>
+Subject: [PATCH v2 05/21] drm/imx/dcss: Don't set struct
+ drm_driver.output_poll_changed
+Date: Mon, 24 Oct 2022 13:19:37 +0200
+Message-Id: <20221024111953.24307-6-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221024111953.24307-1-tzimmermann@suse.de>
 References: <20221024111953.24307-1-tzimmermann@suse.de>
@@ -82,41 +83,32 @@ Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Call struct fb_ops.fb_sync in drm_fbdev_{read,write}() to mimic the
-behavior of fbdev. Fbdev implementations of fb_read and fb_write in
-struct fb_ops invoke fb_sync to synchronize with outstanding operations
-before I/O. Doing the same in DRM implementations will allow us to use
-them throughout DRM drivers.
+Don't set struct drm_driver.output_poll_changed. It's used to restore
+the fbdev console. But as DCSS uses generic fbdev emulation, the
+console is being restored by the DRM client helpers already. See the
+functions drm_kms_helper_hotplug_event() and
+drm_kms_helper_connector_hotplug_event() in drm_probe_helper.c.
+
+v2:
+	* fix commit description (Christian)
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/drm_fb_helper.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/imx/dcss/dcss-kms.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index f6d22cc4cd876..379e0d2f67198 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -2246,6 +2246,9 @@ static ssize_t drm_fbdev_fb_read(struct fb_info *info, char __user *buf,
- 	if (total_size - count < pos)
- 		count = total_size - pos;
+diff --git a/drivers/gpu/drm/imx/dcss/dcss-kms.c b/drivers/gpu/drm/imx/dcss/dcss-kms.c
+index b4f82ebca5325..1defd6a40f11d 100644
+--- a/drivers/gpu/drm/imx/dcss/dcss-kms.c
++++ b/drivers/gpu/drm/imx/dcss/dcss-kms.c
+@@ -21,7 +21,6 @@ DEFINE_DRM_GEM_DMA_FOPS(dcss_cma_fops);
  
-+	if (info->fbops->fb_sync)
-+		info->fbops->fb_sync(info);
-+
- 	if (drm_fbdev_use_iomem(info))
- 		ret = fb_read_screen_base(info, buf, count, pos);
- 	else
-@@ -2327,6 +2330,9 @@ static ssize_t drm_fbdev_fb_write(struct fb_info *info, const char __user *buf,
- 		count = total_size - pos;
- 	}
- 
-+	if (info->fbops->fb_sync)
-+		info->fbops->fb_sync(info);
-+
- 	/*
- 	 * Copy to framebuffer even if we already logged an error. Emulates
- 	 * the behavior of the original fbdev implementation.
+ static const struct drm_mode_config_funcs dcss_drm_mode_config_funcs = {
+ 	.fb_create = drm_gem_fb_create,
+-	.output_poll_changed = drm_fb_helper_output_poll_changed,
+ 	.atomic_check = drm_atomic_helper_check,
+ 	.atomic_commit = drm_atomic_helper_commit,
+ };
 -- 
 2.38.0
 
