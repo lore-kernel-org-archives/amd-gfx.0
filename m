@@ -4,64 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C908C38A2D
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 07:33:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7327ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 09:18:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6FB710E2B4;
-	Mon, 24 Oct 2022 07:33:04 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D3EE10E2B1;
- Mon, 24 Oct 2022 07:32:59 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27BF010E306;
+	Mon, 24 Oct 2022 09:18:17 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38DA410E2E5;
+ Mon, 24 Oct 2022 09:18:12 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3A1E41F85D;
- Mon, 24 Oct 2022 07:32:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666596778; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UNbUBSCX4rk2H5cwr4FfXQXC9SGGZVu1vcelLwGJsE0=;
- b=iurxrLgRkf+trXrOpuexDspZ/gH9dse8AKszLDNfnd8PIRYliRUSMV/Tbax62HfXc32Qu7
- Jm2/ToWOKC/gdVyiDUH0i45klmRSN0QABSxJM74mPHB6WrL9PwsNkoXyDGrBEiZ5IH5aes
- 55GP5/09R72uqng5sYiDsKjgu77FPU4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666596778;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UNbUBSCX4rk2H5cwr4FfXQXC9SGGZVu1vcelLwGJsE0=;
- b=v08iQFEvrrbncYy5/y4OxGmw5KKYlnJ9Xpu03DTAQLtm4KvMYuccQrag7PeJNgk2htCuYO
- X8OULeOssEhMfLAA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2058413A79;
- Mon, 24 Oct 2022 07:32:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 98X5Bqo/VmMgMgAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 24 Oct 2022 07:32:58 +0000
-Message-ID: <e494d819-f960-f2bd-913e-83ee820ac399@suse.de>
-Date: Mon, 24 Oct 2022 09:32:57 +0200
+ by ams.source.kernel.org (Postfix) with ESMTPS id C13D5B8100E;
+ Mon, 24 Oct 2022 09:18:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E91FC433D6;
+ Mon, 24 Oct 2022 09:18:00 +0000 (UTC)
+Message-ID: <9781200b-2d6e-b401-abc5-559410b1a435@xs4all.nl>
+Date: Mon, 24 Oct 2022 11:17:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Subject: Re: [PATCH] drm/amdgpu: don't call drm_fb_helper_lastclose in
- lastclose()
-To: "Quan, Evan" <Evan.Quan@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20221020143603.563929-1-alexander.deucher@amd.com>
- <DM6PR12MB26194FC4A9B18912448DA8CEE42E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ Thunderbird/102.3.2
+Subject: Re: [PATCH v7 14/21] media: tegra-vde: Prepare to dynamic dma-buf
+ locking specification
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <DM6PR12MB26194FC4A9B18912448DA8CEE42E9@DM6PR12MB2619.namprd12.prod.outlook.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------sT6EtzUC0gcP6otwZxFnKkDK"
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Ruhl Michael J <michael.j.ruhl@intel.com>
+References: <20221017172229.42269-1-dmitry.osipenko@collabora.com>
+ <20221017172229.42269-15-dmitry.osipenko@collabora.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+In-Reply-To: <20221017172229.42269-15-dmitry.osipenko@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,96 +77,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------sT6EtzUC0gcP6otwZxFnKkDK
-Content-Type: multipart/mixed; boundary="------------04DFWe79XCZNx3x3Udd5bTu0";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: "Quan, Evan" <Evan.Quan@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Message-ID: <e494d819-f960-f2bd-913e-83ee820ac399@suse.de>
-Subject: Re: [PATCH] drm/amdgpu: don't call drm_fb_helper_lastclose in
- lastclose()
-References: <20221020143603.563929-1-alexander.deucher@amd.com>
- <DM6PR12MB26194FC4A9B18912448DA8CEE42E9@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB26194FC4A9B18912448DA8CEE42E9@DM6PR12MB2619.namprd12.prod.outlook.com>
 
---------------04DFWe79XCZNx3x3Udd5bTu0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
 
-SGkNCg0KQW0gMjQuMTAuMjIgdW0gMDg6MjAgc2NocmllYiBRdWFuLCBFdmFuOg0KPiBbQU1E
-IE9mZmljaWFsIFVzZSBPbmx5IC0gR2VuZXJhbF0NCj4gDQo+IFJldmlld2VkLWJ5OiBFdmFu
-IFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPg0KPiANCj4+IC0tLS0tT3JpZ2luYWwgTWVzc2Fn
-ZS0tLS0tDQo+PiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgQWxleA0KPj4gRGV1Y2hlcg0KPj4gU2VudDogVGh1
-cnNkYXksIE9jdG9iZXIgMjAsIDIwMjIgMTA6MzYgUE0NCj4+IFRvOiBhbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj4g
-Q2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IFRo
-b21hcw0KPj4gWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4NCj4+IFN1YmplY3Q6
-IFtQQVRDSF0gZHJtL2FtZGdwdTogZG9uJ3QgY2FsbCBkcm1fZmJfaGVscGVyX2xhc3RjbG9z
-ZSBpbg0KPj4gbGFzdGNsb3NlKCkNCj4+DQo+PiBJdCdzIHVzZWQgdG8gcmVzdG9yZSB0aGUg
-ZmJkZXYgY29uc29sZSwgYnV0IGFzIGFtZGdwdSB1c2VzDQo+PiBnZW5lcmljIGZiZGV2IGVt
-dWxhdGlvbiwgdGhlIGNvbnNvbGUgaXMgYmVpbmcgcmVzdG9yZWQgYnkgdGhlDQo+PiBEUk0g
-Y2xpZW50IGhlbHBlcnMgYWxyZWFkeS4gU2VlIHRoZSBjYWxsIHRvIGRybV9jbGllbnRfZGV2
-X3Jlc3RvcmUoKQ0KPj4gaW4gZHJtX2xhc3RjbG9zZSgpLg0KPj4NCj4+IEZpeGVzOiAwODc0
-NTFmMzcyYmY3NiAoImRybS9hbWRncHU6IHVzZSBnZW5lcmljIGZiIGhlbHBlcnMgaW5zdGVh
-ZCBvZg0KPj4gc2V0dGluZyB1cCBBTUQgb3duJ3MuIikNCj4+IENjOiBUaG9tYXMgWmltbWVy
-bWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4NCj4+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1
-Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCj4+IC0tLQ0KPj4gICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgfCAxIC0NCj4+ICAgMSBmaWxlIGNo
-YW5nZWQsIDEgZGVsZXRpb24oLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jDQo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9rbXMuYw0KPj4gaW5kZXggZmUyM2UwOWVlYzk4Li40NzRiOWY0MGY3
-OTIgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-a21zLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMu
-Yw0KPj4gQEAgLTExMDYsNyArMTEwNiw2IEBAIGludCBhbWRncHVfaW5mb19pb2N0bChzdHJ1
-Y3QgZHJtX2RldmljZSAqZGV2LA0KPj4gdm9pZCAqZGF0YSwgc3RydWN0IGRybV9maWxlICpm
-aWxwKQ0KPj4gICAgKi8NCj4+ICAgdm9pZCBhbWRncHVfZHJpdmVyX2xhc3RjbG9zZV9rbXMo
-c3RydWN0IGRybV9kZXZpY2UgKmRldikNCj4+ICAgew0KPj4gLQlkcm1fZmJfaGVscGVyX2xh
-c3RjbG9zZShkZXYpOw0KPj4gICAJdmdhX3N3aXRjaGVyb29fcHJvY2Vzc19kZWxheWVkX3N3
-aXRjaCgpOw0KPj4gICB9DQoNCldpdGhvdXQgdGhlIGNhbGwgdG8gZHJtX2ZiX2hlbHBlcl9s
-YXN0Y2xvc2UoKSwgdGhlIGNvbnNvbGUgZW11bGF0aW9uIA0Kd2lsbCBiZSByZXN0b3JlZCBi
-eSBkcm1fY2xpZW50X2Rldl9yZXN0b3JlKCkgZnJvbSBkcm1fbGFzdGNsb3NlKCkuIFsxXSAN
-Ckl0IG1lYW5zIHRoYXQgaXQncyBub3cgY2hhbmdpbmcgb3JkZXIgd2l0aCB0aGUgY2FsbCB0
-byANCnZnYV9zd2l0Y2hlcm9vX3Byb2Nlc3NfZGVsYXlfc3dpdGNoKCkuIENhbiB0aGlzIGJl
-Y29tZSBhIHByb2JsZW0/DQoNCkkgbG9va2VkIGF0IHRoZSBvdGhlciBjYWxsZXJzIG9mIHRo
-YXQgZnVuY3Rpb24uIE1vc3QgcmVzdG9yZSB0aGUgY29uc29sZSANCmJlZm9yZSBkb2luZyB0
-aGUgc3dpdGNoZXJvby4gTm91dmVhdSBkb2Vzbid0IHNlZW0gdG8gY2FyZSBhYm91dCB0aGUg
-DQpjb25zb2xlIGF0IGFsbC4NCg0KQmVzdCByZWdhcmRzDQpUaG9tYXMNCg0KWzFdIA0KaHR0
-cHM6Ly9lbGl4aXIuYm9vdGxpbi5jb20vbGludXgvdjYuMC4zL3NvdXJjZS9kcml2ZXJzL2dw
-dS9kcm0vZHJtX2ZpbGUuYyNMNDY3DQoNCj4+DQo+PiAtLQ0KPj4gMi4zNy4zDQoNCi0tIA0K
-VGhvbWFzIFppbW1lcm1hbm4NCkdyYXBoaWNzIERyaXZlciBEZXZlbG9wZXINClNVU0UgU29m
-dHdhcmUgU29sdXRpb25zIEdlcm1hbnkgR21iSA0KTWF4ZmVsZHN0ci4gNSwgOTA0MDkgTsO8
-cm5iZXJnLCBHZXJtYW55DQooSFJCIDM2ODA5LCBBRyBOw7xybmJlcmcpDQpHZXNjaMOkZnRz
-ZsO8aHJlcjogSXZvIFRvdGV2DQo=
+On 10/17/22 19:22, Dmitry Osipenko wrote:
+> Prepare Tegra video decoder driver to the common dynamic dma-buf
+> locking convention by starting to use the unlocked versions of dma-buf
+> API functions.
+> 
+> Acked-by: Christian König <christian.koenig@amd.com>
 
---------------04DFWe79XCZNx3x3Udd5bTu0--
+Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
 
---------------sT6EtzUC0gcP6otwZxFnKkDK
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Thanks!
 
------BEGIN PGP SIGNATURE-----
+	Hans
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmNWP6kFAwAAAAAACgkQlh/E3EQov+Bq
-9g/6Ajk7FJLBgRAw2CLfrPtSkR0WoUPCJPXLi9Apxt5iURurX+tx96wr2yprV/QEUa7x9ND74JuH
-bEv9y5uZ874lkAkHAX36vtgCxxuiJaLiTHFDVy0wzP960UeJGh5rOM/ATk+1HoGFS5Cj/uEWVOUk
-Tm4qMy1oBRvLxbVUU3jbeGo4Kn/vGvO4x0DWIpkTd41cv4ClQdfCvrd/DwRaC4rk8pjEVirGsiy5
-U6BeUQKQxsY2Rbqk/qHC7K4IYeewfHICfuH0m6vbLtW2d9cpfvmdvgjicRKp23HaYkmJVzpFZW9y
-RnQRpD6L1nMc37qnKcXTH3JmArRvoAhfrVdf3GZ8x5ShF/gIB4izQpITGyP6rSoVCIBbpeLTZsR/
-5YwpaqGQHDFvGx4eoA2FlBt1vECwb2a3bDgsgHroIrtoYRGeGcQfwi6euD31PcxGGmqu/uu2gQMH
-QRCDkZ6sSdWoXmdE6AwEtjXaJ/1DTMFIRUtrLSBPnb1k/0aAeyNhg4dqI8g8jFswzU7AF0fNHQiJ
-r9hI+1ZJ53yVCYK7b3v1S3FVQJ0Rix5OO4PuCphv1ogwcKVwmW1gAL01EDmLSa4RVWw3z7HfBjRS
-+sTle8KYt0tET2PqTN3LBl7igKtxzrfXMAsyTngGamUC5xkQ5mMu4n76vHEgtAZLdKlfN8lUY7wY
-7/g=
-=IrX6
------END PGP SIGNATURE-----
-
---------------sT6EtzUC0gcP6otwZxFnKkDK--
+> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> ---
+>  drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c b/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c
+> index 69c346148070..1c5b94989aec 100644
+> --- a/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c
+> +++ b/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c
+> @@ -38,7 +38,7 @@ static void tegra_vde_release_entry(struct tegra_vde_cache_entry *entry)
+>  	if (entry->vde->domain)
+>  		tegra_vde_iommu_unmap(entry->vde, entry->iova);
+>  
+> -	dma_buf_unmap_attachment(entry->a, entry->sgt, entry->dma_dir);
+> +	dma_buf_unmap_attachment_unlocked(entry->a, entry->sgt, entry->dma_dir);
+>  	dma_buf_detach(dmabuf, entry->a);
+>  	dma_buf_put(dmabuf);
+>  
+> @@ -102,7 +102,7 @@ int tegra_vde_dmabuf_cache_map(struct tegra_vde *vde,
+>  		goto err_unlock;
+>  	}
+>  
+> -	sgt = dma_buf_map_attachment(attachment, dma_dir);
+> +	sgt = dma_buf_map_attachment_unlocked(attachment, dma_dir);
+>  	if (IS_ERR(sgt)) {
+>  		dev_err(dev, "Failed to get dmabufs sg_table\n");
+>  		err = PTR_ERR(sgt);
+> @@ -152,7 +152,7 @@ int tegra_vde_dmabuf_cache_map(struct tegra_vde *vde,
+>  err_free:
+>  	kfree(entry);
+>  err_unmap:
+> -	dma_buf_unmap_attachment(attachment, sgt, dma_dir);
+> +	dma_buf_unmap_attachment_unlocked(attachment, sgt, dma_dir);
+>  err_detach:
+>  	dma_buf_detach(dmabuf, attachment);
+>  err_unlock:
