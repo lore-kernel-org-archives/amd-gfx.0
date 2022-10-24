@@ -4,58 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43DCAECAAA1
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 17:13:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55BC9FA373F
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 19:22:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 570F110E5F9;
-	Mon, 24 Oct 2022 17:13:53 +0000 (UTC)
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
- [IPv6:2001:4860:4864:20::35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DE0210E03C;
- Mon, 24 Oct 2022 17:13:48 +0000 (UTC)
-Received: by mail-oa1-x35.google.com with SMTP id
- 586e51a60fabf-13b103a3e5dso12619636fac.2; 
- Mon, 24 Oct 2022 10:13:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xxzTjIKoWHzpXZkE15ZuSeCbJ7LXx6Uum8mVewcZBOg=;
- b=QAaRuGQ0VAKcMbmNeXi3Y+/OCrDNO4s8VSnES3ODLjDqJ1JAUFaCG3GiIn5a/T2eQm
- N7kqAThx3S2sj1FmZY1Rm3YK1l9g1ES2kCzYXI6zD3ruz/URkeFnqyHJL9pUA/fiLJgM
- fWOAwU9bpjNOgRX6Ziz+0SsSvTpZcbZX25WAbb2dk8Q8megbzYTnQSgUTp1T5Nu6ElJ1
- 1NPRMVZEfOCNtT5n8ZT9Hd9rlkDwZWiaR2iE5Tau3ik4rXankzq5eWcU7vuOSUmb2lqV
- hzIiVE2V+BrJnM4Tj4QbywtIOnQk31q+Njl6uxbr86pGLQvZzfoIqw1k0jbwPRWzbPIe
- Mxnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xxzTjIKoWHzpXZkE15ZuSeCbJ7LXx6Uum8mVewcZBOg=;
- b=faNi91f169CQYB4qHJ4pcIBQXxugwIajEiH+gEaFd6iHgxz6Zip7AuTbroqIhtH/Qy
- c0GbHgxcp9GDosM2e4gh89BV2h+G6ehXsZQjXdK6V5mQimehq+t4Q9nRzPv6RzUe8Sww
- /WtvklhZ1yXCve0CSJ5TukuomfUhJVQ5uD4xdz9ZE+In+u3zDH2/uWU0/sML0zOAzSlc
- SHB0bilZaVbtWMtX7ry4wO4xyWmXL/Ycy8YU6isx0wbeTJKCeoQv+RVOEzGPoAQWcfaF
- KnT738kRisfLJgdSxpI0pF42YZJl5kdLLY1vYOIBmszibpZMVk3RuEz4wkqR0evUELM+
- Kh9g==
-X-Gm-Message-State: ACrzQf0PLrwguC+gUlxjJQO1TRZNxAXt18hzpmUdf9KF7s70wgBBHr4N
- AL48+baUzVefFyfTM51UwCi2f8DHRSJ0GaHe6Pk=
-X-Google-Smtp-Source: AMsMyM7GsGsatWsLnXjmC7Huhqtn92xonppGcoyhsKjpgrd1gtKinzghr4K/o04hp5qNLGmswJyf0DHSLoZsyG2VbDk=
-X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
- x36-20020a056870a7a400b001367c39979emr21199731oao.96.1666631627779; Mon, 24
- Oct 2022 10:13:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EECD410E75B;
+	Mon, 24 Oct 2022 19:22:13 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2050.outbound.protection.outlook.com [40.107.94.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8954F10E75B;
+ Mon, 24 Oct 2022 19:22:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hRo/0MszIt0mFuvGMv76gBjTKd52BJCyAk7Lp7PXuAjonXjERB32CIbV/TYB3DnBHh3eHEEeuUWuB1UsTAK8fw3HHJi0BT+qH2YoGE9QvV9jF83PgUB6alw2hVSgAddCHzgY+R2HXVKsMIT8EiqHk8RoTJmvImoWsaKnSr6P7N2m5aA2z55GfYIFXmKTToTcYdvr8H6zGzq7O2zhHQKBNa7MejgCPgzKBv7tqrhtu5DBlhDVDt2NaeCfJqeJqoQqi2qTYGU2GFMP2yyR+v7STr1SPOBRSDKK562Dh4ct1sy39zlAJ4cNLcOIPtUbcg1qdcaGfjXwTaT+BUUTL/sRMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GL/1Le8oCy2H3t+2uzVA+mGJeHKilVMqGe2csm2b0GI=;
+ b=TsIQaR6zEM+NIEa9/CGhYhGHaenNvO9vFQs5eqPtCbIIwiHsBGXhECtwLQOuk9iJ+3hXrAjVuNurkP75ditCNvFeDlV0wadnFHn9cVDnnAoUPLsw783Shdklo7nMfZi7xO/Z4Fl1agr0aWdOwF9WTJhbbyI70DProlxIe0sv3HJvuKeyIVdsX+lFKWtC/G0YySlV/vSIOioI0JOUeTez3+ttZr96Xosw0koNJF3/LS2+JoiAiI4RpXyeSTYVroVo2rRyDSYA89jFGUbA9bX61wVwG1p9j2t5KPcZqjCupI+G4P/PeK8WJhxmQS8rLNyqUc+AxzcRwyS5orirRxsRyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GL/1Le8oCy2H3t+2uzVA+mGJeHKilVMqGe2csm2b0GI=;
+ b=OM0n41pmuhYK0BFarv4Cqk0UTHlLDDEzXqe8pIunbcFHTk4CMZ776qdWOxcUeLT6XLljIsQdRvrwA9pCgj0dzXvVeP+69DB1hiC9RgAXat1dBNT2gVpGa0Cy7OwF2Bm02tR/jIyfJ6vo+Jq8bKIBnDuFWHngIy/lKbDH/qNK5tk=
+Received: from BN0PR04CA0112.namprd04.prod.outlook.com (2603:10b6:408:ec::27)
+ by CH0PR12MB5156.namprd12.prod.outlook.com (2603:10b6:610:bb::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.21; Mon, 24 Oct
+ 2022 19:22:08 +0000
+Received: from BL02EPF0000C403.namprd05.prod.outlook.com
+ (2603:10b6:408:ec:cafe::48) by BN0PR04CA0112.outlook.office365.com
+ (2603:10b6:408:ec::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28 via Frontend
+ Transport; Mon, 24 Oct 2022 19:22:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000C403.mail.protection.outlook.com (10.167.241.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5723.20 via Frontend Transport; Mon, 24 Oct 2022 19:22:08 +0000
+Received: from hamza-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 24 Oct
+ 2022 14:22:06 -0500
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+To: <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/3] drm/edid: add a quirk for two LG monitors to get them to
+ work on 10bpc
+Date: Mon, 24 Oct 2022 15:22:21 -0400
+Message-ID: <20221024192224.180507-1-hamza.mahfooz@amd.com>
+X-Mailer: git-send-email 2.38.0
 MIME-Version: 1.0
-References: <CAP+8YyFUoFhh1+CEKrs48JV5CiorSSfe6qg90TyUrDoBtzcPhA@mail.gmail.com>
- <20221024113359.5575-1-samsagax@gmail.com>
-In-Reply-To: <20221024113359.5575-1-samsagax@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 Oct 2022 13:13:36 -0400
-Message-ID: <CADnq5_NKOn1BuTfrmyJNwwE_Owy-EAf0khXJ-AbT+5QiR6NuvA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/display: Revert logic for plane modifiers
-To: =?UTF-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0000C403:EE_|CH0PR12MB5156:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1c4de3bf-299e-4077-0122-08dab5f50b2e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Ea7FrIMOAWRj9FnKolmr2weZfpaX6zutlLQeepGjZGMyqcbkXQgaKjzn3mlm0pS2AyYjjccrZm89UBN7Z7QN7Ne5pHYL2u2Z8fJDwLKenD+rTBKHhHVuzwfkBPL4lO5+k4vDkSbqun1SYURCHOwHvvY1DsTjmY0AkSpT3uuBG2dE73kK9Zai5R5BicnllXebIyzLe+I4T2oeBv6Sl7zQMD4Vem/io4xYic1DjsgMweHQ8UJhYnTwPNgcObZOanw57vy9B5/4YT6KceFn4IJA0cyZKmR6lJQYFer3TkjrM90OUTvk1ap85JZS+pxlUKpMDu+hb+1Zk9/gD3DNT3vaPSXOMkhbgPChlSJlHmm+p7FHMOcB9aboMudpIGMKzD1adbSXsmobGC55+Rc6/7Xw1Zd67d0hmUwFvZn9cylJXwHZdvjRaCkIjPj8iFY94zJFfyw+TVJaT6/b3aUQlYkT4bUXnyOMxG9SSYgS/C5AKgtV2MxyWyBaW6SHonflkQn9Q/oBcSMtulYADGBVrEp+UFblS0xiTsZ5zS2u2H0LBPo8KdjhwnWP00F1Lt/8XBWrI2vxyPZtZ6rx+DPd+ZPJVdWVhLt1q0KNnQlNNELB8LDcbOOzS6U9fT72OKEcO8tn6EexSl+Cww2VVnB1k9/XeXOIssQwA8sO4EUc2QTvaE2at2HNadEOwcH06FVG5gfVl84TGrk11rNM8fy6ZNsxc15OLHDI0d0tGToktnyxIGajMBK/1i2LvxV7aHzgp04BuOVAKGW1lK7IrCst2OjrzZigTwTcdRAVDhu0Ri6p7DGTSC3KiR0WKkBIQSV8A9sZ3P95vWeE6nrSoMJYOyU8UA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(396003)(376002)(136003)(39860400002)(451199015)(36840700001)(40470700004)(46966006)(8936002)(82310400005)(426003)(40460700003)(47076005)(6916009)(54906003)(36756003)(26005)(82740400003)(45080400002)(40480700001)(86362001)(7696005)(356005)(478600001)(316002)(36860700001)(81166007)(41300700001)(7416002)(2616005)(336012)(5660300002)(8676002)(4326008)(2906002)(44832011)(16526019)(70586007)(1076003)(186003)(6666004)(70206006)(16060500005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 19:22:08.5057 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c4de3bf-299e-4077-0122-08dab5f50b2e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000C403.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5156
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,120 +98,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, Xinhui.Pan@amd.com, rodrigo.siqueira@amd.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, bas@basnieuwenhuizen.nl,
- alexander.deucher@amd.com, stable@vger.kernel.org, christian.koenig@amd.com
+Cc: Ian Chen <ian.chen@amd.com>, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Leo Li <sunpeng.li@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, hersen wu <hersenxs.wu@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Roman Li <roman.li@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Claudio Suarez <cssk@net-c.es>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Colin Ian King <colin.king@intel.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+The LG 27GP950 and LG 27GN950 have visible display corruption when
+trying to use 10bpc modes. So, to fix this, cap their maximum DSC
+target bitrate to 15bpp.
 
-Alex
+Suggested-by: Roman Li <roman.li@amd.com>
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+---
+ drivers/gpu/drm/drm_edid.c  | 12 ++++++++++++
+ include/drm/drm_connector.h |  6 ++++++
+ 2 files changed, 18 insertions(+)
 
-On Mon, Oct 24, 2022 at 9:17 AM Joaqu=C3=ADn Ignacio Aramend=C3=ADa
-<samsagax@gmail.com> wrote:
->
-> This file was split in commit 5d945cbcd4b16a29d6470a80dfb19738f9a4319f
-> ("drm/amd/display: Create a file dedicated to planes") and the logic in
-> dm_plane_format_mod_supported() function got changed by a switch logic.
-> That change broke drm_plane modifiers setting on series 5000 APUs
-> (tested on OXP mini AMD 5800U and HP Dev One 5850U PRO)
-> leading to Gamescope not working as reported on GitHub[1]
->
-> To reproduce the issue, enter a TTY and run:
->
-> $ gamescope -- vkcube
->
-> With said commit applied it will abort. This one restores the old logic,
-> fixing the issue that affects Gamescope.
->
-> [1](https://github.com/Plagman/gamescope/issues/624)
->
-> Cc: <stable@vger.kernel.org> # 6.0.x
-> Signed-off-by: Joaqu=C3=ADn Ignacio Aramend=C3=ADa <samsagax@gmail.com>
-> Reviewed-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> ---
-> Removed asic_id and excess newlines. Resend with correct Cc line.
-> ---
->  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 50 +++----------------
->  1 file changed, 7 insertions(+), 43 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index dfd3be49eac8..e6854f7270a6 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1369,7 +1369,7 @@ static bool dm_plane_format_mod_supported(struct dr=
-m_plane *plane,
->  {
->         struct amdgpu_device *adev =3D drm_to_adev(plane->dev);
->         const struct drm_format_info *info =3D drm_format_info(format);
-> -       struct hw_asic_id asic_id =3D adev->dm.dc->ctx->asic_id;
-> +       int i;
->
->         enum dm_micro_swizzle microtile =3D modifier_gfx9_swizzle_mode(mo=
-difier) & 3;
->
-> @@ -1386,49 +1386,13 @@ static bool dm_plane_format_mod_supported(struct =
-drm_plane *plane,
->                 return true;
->         }
->
-> -       /* check if swizzle mode is supported by this version of DCN */
-> -       switch (asic_id.chip_family) {
-> -       case FAMILY_SI:
-> -       case FAMILY_CI:
-> -       case FAMILY_KV:
-> -       case FAMILY_CZ:
-> -       case FAMILY_VI:
-> -               /* asics before AI does not have modifier support */
-> -               return false;
-> -       case FAMILY_AI:
-> -       case FAMILY_RV:
-> -       case FAMILY_NV:
-> -       case FAMILY_VGH:
-> -       case FAMILY_YELLOW_CARP:
-> -       case AMDGPU_FAMILY_GC_10_3_6:
-> -       case AMDGPU_FAMILY_GC_10_3_7:
-> -               switch (AMD_FMT_MOD_GET(TILE, modifier)) {
-> -               case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
-> -               case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
-> -               case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
-> -               case AMD_FMT_MOD_TILE_GFX9_64K_D:
-> -                       return true;
-> -               default:
-> -                       return false;
-> -               }
-> -               break;
-> -       case AMDGPU_FAMILY_GC_11_0_0:
-> -       case AMDGPU_FAMILY_GC_11_0_1:
-> -               switch (AMD_FMT_MOD_GET(TILE, modifier)) {
-> -               case AMD_FMT_MOD_TILE_GFX11_256K_R_X:
-> -               case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
-> -               case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
-> -               case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
-> -               case AMD_FMT_MOD_TILE_GFX9_64K_D:
-> -                       return true;
-> -               default:
-> -                       return false;
-> -               }
-> -               break;
-> -       default:
-> -               ASSERT(0); /* Unknown asic */
-> -               break;
-> +       /* Check that the modifier is on the list of the plane's supporte=
-d modifiers. */
-> +       for (i =3D 0; i < plane->modifier_count; i++) {
-> +               if (modifier =3D=3D plane->modifiers[i])
-> +                       break;
->         }
-> +       if (i =3D=3D plane->modifier_count)
-> +               return false;
->
->         /*
->          * For D swizzle the canonical modifier depends on the bpp, so ch=
-eck
-> --
-> 2.38.1
->
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index bc43e1b32092..f4f96115dce7 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -91,6 +91,8 @@ static int oui(u8 first, u8 second, u8 third)
+ #define EDID_QUIRK_FORCE_10BPC			(1 << 11)
+ /* Non desktop display (i.e. HMD) */
+ #define EDID_QUIRK_NON_DESKTOP			(1 << 12)
++/* Cap the DSC target bitrate to 15bpp */
++#define EDID_QUIRK_CAP_DSC_15BPP		(1 << 13)
+ 
+ #define MICROSOFT_IEEE_OUI	0xca125c
+ 
+@@ -151,6 +153,12 @@ static const struct edid_quirk {
+ 	EDID_QUIRK('F', 'C', 'M', 13600, EDID_QUIRK_PREFER_LARGE_75 |
+ 				       EDID_QUIRK_DETAILED_IN_CM),
+ 
++	/* LG 27GP950 */
++	EDID_QUIRK('G', 'S', 'M', 0x5bbf, EDID_QUIRK_CAP_DSC_15BPP),
++
++	/* LG 27GN950 */
++	EDID_QUIRK('G', 'S', 'M', 0x5b9a, EDID_QUIRK_CAP_DSC_15BPP),
++
+ 	/* LGD panel of HP zBook 17 G2, eDP 10 bpc, but reports unknown bpc */
+ 	EDID_QUIRK('L', 'G', 'D', 764, EDID_QUIRK_FORCE_10BPC),
+ 
+@@ -5511,6 +5519,7 @@ drm_reset_display_info(struct drm_connector *connector)
+ 
+ 	info->mso_stream_count = 0;
+ 	info->mso_pixel_overlap = 0;
++	info->max_dsc_bpp = 0;
+ }
+ 
+ u32 drm_add_display_info(struct drm_connector *connector, const struct edid *edid)
+@@ -5595,6 +5604,9 @@ u32 drm_add_display_info(struct drm_connector *connector, const struct edid *edi
+ 		info->non_desktop = true;
+ 	}
+ 
++	if (quirks & EDID_QUIRK_CAP_DSC_15BPP)
++		info->max_dsc_bpp = 15;
++
+ 	return quirks;
+ }
+ 
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 3ac4bf87f257..7a8fb486b6ab 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -634,6 +634,12 @@ struct drm_display_info {
+ 	 * @mso_pixel_overlap: eDP MSO segment pixel overlap, 0-8 pixels.
+ 	 */
+ 	u8 mso_pixel_overlap;
++
++	/**
++	 * @max_dsc_bpp: Maximum DSC target bitrate, if it is set to 0 the
++	 * monitor's default value is used instead.
++	 */
++	u32 max_dsc_bpp;
+ };
+ 
+ int drm_display_info_set_bus_formats(struct drm_display_info *info,
+-- 
+2.38.0
+
