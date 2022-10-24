@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA08AECAAA1
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 15:13:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9628FA3741
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 15:15:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA28810E834;
-	Mon, 24 Oct 2022 15:13:55 +0000 (UTC)
-Received: from mail-vs1-xe33.google.com (mail-vs1-xe33.google.com
- [IPv6:2607:f8b0:4864:20::e33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6077610E834;
- Mon, 24 Oct 2022 15:13:52 +0000 (UTC)
-Received: by mail-vs1-xe33.google.com with SMTP id 1so8162534vsx.1;
- Mon, 24 Oct 2022 08:13:52 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC33C10E844;
+	Mon, 24 Oct 2022 15:15:14 +0000 (UTC)
+Received: from mail-vs1-xe2a.google.com (mail-vs1-xe2a.google.com
+ [IPv6:2607:f8b0:4864:20::e2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E5B910E83D;
+ Mon, 24 Oct 2022 15:15:09 +0000 (UTC)
+Received: by mail-vs1-xe2a.google.com with SMTP id 1so8166465vsx.1;
+ Mon, 24 Oct 2022 08:15:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=J1gk2ep4Ye/CjOaUbmreqC0qY89txiP3E/LghUXF5LA=;
- b=akGSaltVfsVhRbxG28WOW2X8gO+wU+EznxNMhIIAuSXlPw266pmcqTSPvphoFig+GK
- 6AkDGxqzK1FJuKj+gGU8trve6h7F9gHybwYtN75fdc3LfBH7MtfTgz8qxq8CwCYlUKal
- qB0wtDVINyoNPBAV7ld9nZCkIhvnRXn7C3L1qTuA5XRKM2DxzDG/oeeQnzEj+6QNCTQd
- vNLfsqXPGOM4aOHEVG5gnpMP0+cf59pB02DgvrSrhyyfGzlSYzh7CVf3kW35Vm5Ogkv1
- SK6c+++qFxQAwPO234SxMhd1pNZ7S9ZL1CmXsT/zlHHQCq6UIhy7FTARmx1QlC57pCeM
- 0thg==
+ bh=MEsL7GbLrX3WUEBmKekLTRaPE8tL9JC4qHnSEJvzbHY=;
+ b=kbNzdGO1P0H9Vp7815DR3Ru36Md2jLdOFQaNkVS5lx5q5mRltCIan9YxjpJbudtBst
+ 50/9ewHrzS7KmPmJqEnCRKJS1W6Lj4KQOe9wdQgRm9bjtAPty/peHeoMh5LtJik67LYa
+ RsLobPc3yV60dp2X61Lr0+/NBHQigQmjueBNsMvkHGuXH9dsfUPtmwFqNHTCum53qm9h
+ 3VO+r+JNPpxta8OOQXbuI7ZfjzPPPLrJcOTyGuvIKByMjKfe2ltzx/e6IDtYpMKlU+tT
+ pE+Ec6d9kAiq9rBqPVGy4Rk5KIuSjfRng8aHkCv6aQZPl9US9a0xcST7BUQQ9hFOHNfJ
+ zKxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=J1gk2ep4Ye/CjOaUbmreqC0qY89txiP3E/LghUXF5LA=;
- b=fJ/Jz6S7+CEtlES0WS/q4Suze/yKKU0OvM4iqP1TFfDwdoHKSyG5kKJm4bJhsOIEXu
- vDYFSni26fdZBM6z+THz9RJ3cPw67hjfAdxjwOcC407hiw8PYBbeyRcfgQ/uuy/90MCJ
- sLVyE8X7dIrPyICXq+I9+m5khq/R5qP6bB+wq/cC59DTMqKqHIkbGuNfnXuf73mGiW8g
- giuFbfL7s6QQEpgLT0rg8r0kV2vX/MER89TpqtJkZKorCzjTNFMr3wnz+IYX2T5QMGqj
- LxaZW0VCLAY3nyrdSDfIFTCeidaqLlkGRdUd6xvkiL81A6dPH+t/uwjzKXziyAFDFWi2
- jT2A==
-X-Gm-Message-State: ACrzQf0ntNlhkbmuV1wLlN1NNtTG9jU8REj3f7eZd1nCaPEOi5FAX/Sd
- uCBppjxHvArkE+vdToNCK/rXHjinNRCLFTtmpx3YqVEz
-X-Google-Smtp-Source: AMsMyM4fNurfiqwrnpgoMx2P1f9YHXMbFRfipOkR+eGaYvPpVD3TyOfVsYBQuM/D/H05sOmqp3j6d2uvYxO3EKWY1CI=
-X-Received: by 2002:a67:b046:0:b0:3a7:965c:65f1 with SMTP id
- q6-20020a67b046000000b003a7965c65f1mr15621937vsh.40.1666624420991; Mon, 24
- Oct 2022 08:13:40 -0700 (PDT)
+ bh=MEsL7GbLrX3WUEBmKekLTRaPE8tL9JC4qHnSEJvzbHY=;
+ b=0Z5TabKgmsagqYWkIM5Eq9rO9uJ3uVS8D/aYrDq5TEhSB9osH7ssNxFwTIewS7125p
+ ATCLw7KL2ej7zPxW3nUsnjpHkw6pOyBACK8w1ONqhYCdssdNNSI22I0Q3s6yNoJWmwU6
+ rHYH+ChcMtmoa0xMjiakLwASXnnMa4hhTAa0vZm4o0E1IpODOrNHPpOKYBtuQkefU8Nv
+ c+PlbpaZkc5+x4xEggmv6d1ZPcQQP+rTUuAImz02I2Pu/6ZOXeRY9GgkrLQZoHO3AZVV
+ u9XVMydNaEtGD0A1IPCf5YtB0s+ItWHa8cM6OB4bEODKHhbVdFeZWE5PnrC9RC+NU0xM
+ Azhw==
+X-Gm-Message-State: ACrzQf2q25taDmfgY5wdv5pNUUOgCyzulETppRL4dZkHsaqcBHCfQAUT
+ +eEsgOb45qvMkP5vFuqch9Ggwo+xhCVU3eF73HI=
+X-Google-Smtp-Source: AMsMyM5o70JuycrOFnPPgJBHTwneEZBvQyg1y9bHbhYLTowaDWTNmWA2QueVCe0nZeUEVWrSmau+fRc0ZNRjBHkpmz4=
+X-Received: by 2002:a05:6102:224d:b0:3a7:68fc:9163 with SMTP id
+ e13-20020a056102224d00b003a768fc9163mr17666133vsb.74.1666624508640; Mon, 24
+ Oct 2022 08:15:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <20221022060155.52548-1-wangjianli@cdjrlc.com>
-In-Reply-To: <20221022060155.52548-1-wangjianli@cdjrlc.com>
+References: <20221022060417.55166-1-wangjianli@cdjrlc.com>
+In-Reply-To: <20221022060417.55166-1-wangjianli@cdjrlc.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 Oct 2022 11:13:29 -0400
-Message-ID: <CADnq5_OjwUOMa6RAfqT6B50wHQARtdL7uARcDzc+iMCthSsLgA@mail.gmail.com>
-Subject: Re: [PATCH] amd/amdgpu: fix repeated words in comments
+Date: Mon, 24 Oct 2022 11:14:56 -0400
+Message-ID: <CADnq5_PYbzXMptt8KebWuO5d8VErTkAB070Cp1AG88jHC8Xf+A@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: fix repeated words in comments
 To: wangjianli <wangjianli@cdjrlc.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,25 +69,24 @@ Cc: airlied@linux.ie, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Oct 22, 2022 at 2:02 AM wangjianli <wangjianli@cdjrlc.com> wrote:
->
-> Delete the redundant word 'the'.
->
-> Signed-off-by: wangjianli <wangjianli@cdjrlc.com>
-
 Applied.  Thanks!
 
 Alex
 
+On Sat, Oct 22, 2022 at 2:06 AM wangjianli <wangjianli@cdjrlc.com> wrote:
+>
+> Delete the redundant word 'the'.
+>
+> Signed-off-by: wangjianli <wangjianli@cdjrlc.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>  drivers/gpu/drm/radeon/radeon_device.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index e9155dc1c30c..3de990bbbf2f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1565,7 +1565,7 @@ static int amdgpu_device_check_arguments(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+> index 15692cb241fc..ff52b5f4c1e6 100644
+> --- a/drivers/gpu/drm/radeon/radeon_device.c
+> +++ b/drivers/gpu/drm/radeon/radeon_device.c
+> @@ -1206,7 +1206,7 @@ static void radeon_check_arguments(struct radeon_device *rdev)
 >   * @pdev: pci dev pointer
 >   * @state: vga_switcheroo state
 >   *
@@ -95,7 +94,7 @@ Alex
 > + * Callback for the switcheroo driver.  Suspends or resumes
 >   * the asics before or after it is powered up using ACPI methods.
 >   */
->  static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
+>  static void radeon_switcheroo_set_state(struct pci_dev *pdev, enum vga_switcheroo_state state)
 > --
 > 2.36.1
 >
