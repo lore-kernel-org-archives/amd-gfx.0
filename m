@@ -4,47 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD89CECAAA1
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 15:11:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA08AECAAA1
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 15:13:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48D1E10E82E;
-	Mon, 24 Oct 2022 15:11:08 +0000 (UTC)
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D781210E828
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 15:10:04 +0000 (UTC)
-Received: from dggpemm500020.china.huawei.com (unknown [172.30.72.57])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4Mwyzq5YM5z15M0P;
- Mon, 24 Oct 2022 23:05:11 +0800 (CST)
-Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
- dggpemm500020.china.huawei.com (7.185.36.49) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 24 Oct 2022 23:10:02 +0800
-Received: from [10.174.178.174] (10.174.178.174) by
- dggpemm500007.china.huawei.com (7.185.36.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 24 Oct 2022 23:10:01 +0800
-Subject: Re: [PATCH v2] kset: fix memory leak when kset_register() returns
- error
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20221024121910.1169801-1-yangyingliang@huawei.com>
- <Y1aYuLmlXBRvMP1Z@kroah.com>
- <8281fc72-948a-162d-6e5f-a9fe29d8ee46@huawei.com>
- <Y1am4mjS+obAbUTJ@kroah.com>
-From: Yang Yingliang <yangyingliang@huawei.com>
-Message-ID: <87e4e75b-a26e-6b4b-4799-c56c0b8891c0@huawei.com>
-Date: Mon, 24 Oct 2022 23:10:00 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA28810E834;
+	Mon, 24 Oct 2022 15:13:55 +0000 (UTC)
+Received: from mail-vs1-xe33.google.com (mail-vs1-xe33.google.com
+ [IPv6:2607:f8b0:4864:20::e33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6077610E834;
+ Mon, 24 Oct 2022 15:13:52 +0000 (UTC)
+Received: by mail-vs1-xe33.google.com with SMTP id 1so8162534vsx.1;
+ Mon, 24 Oct 2022 08:13:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=J1gk2ep4Ye/CjOaUbmreqC0qY89txiP3E/LghUXF5LA=;
+ b=akGSaltVfsVhRbxG28WOW2X8gO+wU+EznxNMhIIAuSXlPw266pmcqTSPvphoFig+GK
+ 6AkDGxqzK1FJuKj+gGU8trve6h7F9gHybwYtN75fdc3LfBH7MtfTgz8qxq8CwCYlUKal
+ qB0wtDVINyoNPBAV7ld9nZCkIhvnRXn7C3L1qTuA5XRKM2DxzDG/oeeQnzEj+6QNCTQd
+ vNLfsqXPGOM4aOHEVG5gnpMP0+cf59pB02DgvrSrhyyfGzlSYzh7CVf3kW35Vm5Ogkv1
+ SK6c+++qFxQAwPO234SxMhd1pNZ7S9ZL1CmXsT/zlHHQCq6UIhy7FTARmx1QlC57pCeM
+ 0thg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=J1gk2ep4Ye/CjOaUbmreqC0qY89txiP3E/LghUXF5LA=;
+ b=fJ/Jz6S7+CEtlES0WS/q4Suze/yKKU0OvM4iqP1TFfDwdoHKSyG5kKJm4bJhsOIEXu
+ vDYFSni26fdZBM6z+THz9RJ3cPw67hjfAdxjwOcC407hiw8PYBbeyRcfgQ/uuy/90MCJ
+ sLVyE8X7dIrPyICXq+I9+m5khq/R5qP6bB+wq/cC59DTMqKqHIkbGuNfnXuf73mGiW8g
+ giuFbfL7s6QQEpgLT0rg8r0kV2vX/MER89TpqtJkZKorCzjTNFMr3wnz+IYX2T5QMGqj
+ LxaZW0VCLAY3nyrdSDfIFTCeidaqLlkGRdUd6xvkiL81A6dPH+t/uwjzKXziyAFDFWi2
+ jT2A==
+X-Gm-Message-State: ACrzQf0ntNlhkbmuV1wLlN1NNtTG9jU8REj3f7eZd1nCaPEOi5FAX/Sd
+ uCBppjxHvArkE+vdToNCK/rXHjinNRCLFTtmpx3YqVEz
+X-Google-Smtp-Source: AMsMyM4fNurfiqwrnpgoMx2P1f9YHXMbFRfipOkR+eGaYvPpVD3TyOfVsYBQuM/D/H05sOmqp3j6d2uvYxO3EKWY1CI=
+X-Received: by 2002:a67:b046:0:b0:3a7:965c:65f1 with SMTP id
+ q6-20020a67b046000000b003a7965c65f1mr15621937vsh.40.1666624420991; Mon, 24
+ Oct 2022 08:13:40 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <Y1am4mjS+obAbUTJ@kroah.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Originating-IP: [10.174.178.174]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- dggpemm500007.china.huawei.com (7.185.36.183)
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Mon, 24 Oct 2022 15:11:05 +0000
+References: <20221022060155.52548-1-wangjianli@cdjrlc.com>
+In-Reply-To: <20221022060155.52548-1-wangjianli@cdjrlc.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 24 Oct 2022 11:13:29 -0400
+Message-ID: <CADnq5_OjwUOMa6RAfqT6B50wHQARtdL7uARcDzc+iMCthSsLgA@mail.gmail.com>
+Subject: Re: [PATCH] amd/amdgpu: fix repeated words in comments
+To: wangjianli <wangjianli@cdjrlc.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,97 +63,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rafael@kernel.org, qemu-devel@nongnu.org, liushixin2@huawei.com,
- joseph.qi@linux.alibaba.com, linux-mtd@lists.infradead.org,
- huangjianan@oppo.com, richard@nod.at, mark@fasheh.com, mst@redhat.com,
- amd-gfx@lists.freedesktop.org, luben.tuikov@amd.com, yangyingliang@huawei.com,
- hsiangkao@linux.alibaba.com, somlo@cmu.edu, chao@kernel.org,
- jlbec@evilplan.org, jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, alexander.deucher@amd.com,
- akpm@linux-foundation.org, linux-erofs@lists.ozlabs.org,
- ocfs2-devel@oss.oracle.com
+Cc: airlied@linux.ie, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Sat, Oct 22, 2022 at 2:02 AM wangjianli <wangjianli@cdjrlc.com> wrote:
+>
+> Delete the redundant word 'the'.
+>
+> Signed-off-by: wangjianli <wangjianli@cdjrlc.com>
 
-On 2022/10/24 22:53, Greg KH wrote:
-> On Mon, Oct 24, 2022 at 10:39:44PM +0800, Yang Yingliang wrote:
->> On 2022/10/24 21:52, Greg KH wrote:
->>> On Mon, Oct 24, 2022 at 08:19:10PM +0800, Yang Yingliang wrote:
->>>> Inject fault while loading module, kset_register() may fail.
->>>> If it fails, the name allocated by kobject_set_name() which
->>>> is called before kset_register() is leaked, because refcount
->>>> of kobject is hold in kset_init().
->>>>
->>>> As a kset may be embedded in a larger structure which needs
->>>> be freed in release() function or error path in callers, we
->>>> can not call kset_put() in kset_register(), or it will cause
->>>> double free, so just call kfree_const() to free the name and
->>>> set it to NULL.
->>>>
->>>> With this fix, the callers don't need to care about the name
->>>> freeing and call an extra kset_put() if kset_register() fails.
->>>>
->>>> Suggested-by: Luben Tuikov <luben.tuikov@amd.com>
->>>> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
->>>> ---
->>>> v1 -> v2:
->>>>     Free name inside of kset_register() instead of calling kset_put()
->>>>     in drivers.
->>>> ---
->>>>    lib/kobject.c | 8 +++++++-
->>>>    1 file changed, 7 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/lib/kobject.c b/lib/kobject.c
->>>> index a0b2dbfcfa23..3409a89c81e5 100644
->>>> --- a/lib/kobject.c
->>>> +++ b/lib/kobject.c
->>>> @@ -834,6 +834,9 @@ EXPORT_SYMBOL_GPL(kobj_sysfs_ops);
->>>>    /**
->>>>     * kset_register() - Initialize and add a kset.
->>>>     * @k: kset.
->>>> + *
->>>> + * NOTE: On error, the kset.kobj.name allocated by() kobj_set_name()
->>>> + * which is called before kset_register() in caller need be freed.
->>> This comment doesn't make any sense anymore.  No caller needs to worry
->>> about this, right?
->> With this fix, the name is freed inside of kset_register(), it can not be
->> accessed,
-> Agreed.
->
->> if it allocated dynamically, but callers don't know this if no comment here,
->> they may use it in error path (something like to print error message with
->> it),
->> so how about comment like this to tell callers not to use the name:
->>
->> NOTE: On error, the kset.kobj.name allocated by() kobj_set_name()
->> is freed, it can not be used any more.
-> Sure, that's a better way to word it.
->
->>>>     */
->>>>    int kset_register(struct kset *k)
->>>>    {
->>>> @@ -844,8 +847,11 @@ int kset_register(struct kset *k)
->>>>    	kset_init(k);
->>>>    	err = kobject_add_internal(&k->kobj);
->>>> -	if (err)
->>>> +	if (err) {
->>>> +		kfree_const(k->kobj.name);
->>>> +		k->kobj.name = NULL;
->>> Why are you setting the name here to NULL?
->> I set it to NULL to avoid accessing bad pointer in callers,
->> if callers use it in error path, current callers won't use this
->> name pointer in error path, so we can remove this assignment?
-> Ah, I didn't think about using it on error paths.  Ideally that would
-> never happen, but that's good to set just to make it obvious.  How about
-> adding a small comment here saying why you are setting it so we all
-> remember it in 5 years when we look at the code again.
-OK, I can add it in v3.
+Applied.  Thanks!
 
-Thanks,
-Yang
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> thanks,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index e9155dc1c30c..3de990bbbf2f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1565,7 +1565,7 @@ static int amdgpu_device_check_arguments(struct amdgpu_device *adev)
+>   * @pdev: pci dev pointer
+>   * @state: vga_switcheroo state
+>   *
+> - * Callback for the switcheroo driver.  Suspends or resumes the
+> + * Callback for the switcheroo driver.  Suspends or resumes
+>   * the asics before or after it is powered up using ACPI methods.
+>   */
+>  static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
+> --
+> 2.36.1
 >
-> greg k-h
-> .
