@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13FD9C38A2D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC8F6FA373E
 	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:17:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50C8510E649;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC95410E64E;
 	Mon, 24 Oct 2022 13:17:23 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B7BC10E3E8
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 12:20:24 +0000 (UTC)
-Received: from dggpemm500023.china.huawei.com (unknown [172.30.72.53])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MwvD90QZGzVhmf;
- Mon, 24 Oct 2022 20:15:37 +0800 (CST)
-Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
- dggpemm500023.china.huawei.com (7.185.36.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 24 Oct 2022 20:20:21 +0800
-Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
- (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 24 Oct
- 2022 20:20:20 +0800
-From: Yang Yingliang <yangyingliang@huawei.com>
-To: <linux-kernel@vger.kernel.org>, <qemu-devel@nongnu.org>,
- <linux-f2fs-devel@lists.sourceforge.net>, <linux-erofs@lists.ozlabs.org>,
- <ocfs2-devel@oss.oracle.com>, <linux-mtd@lists.infradead.org>,
- <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] kset: fix memory leak when kset_register() returns error
-Date: Mon, 24 Oct 2022 20:19:10 +0800
-Message-ID: <20221024121910.1169801-1-yangyingliang@huawei.com>
-X-Mailer: git-send-email 2.25.1
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0F0E10E3D8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 11:28:27 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6A6AAB81120;
+ Mon, 24 Oct 2022 11:28:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4AEEC433D7;
+ Mon, 24 Oct 2022 11:28:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1666610905;
+ bh=QP5uiwyreZ3nbpw9j/imqXRU4ENvsxOn9lrU9ONBWas=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=a8pkIK6RPTfnWXqxA/j2B711IxDKV83BvK3kgWZPGYnNJLuU0SNyFgbyEImzzN7MB
+ nlkRcE70aMhFTKblyf8d5lxBxWAcUmB4i1M8jgjv7YGa7l7L3FjFgT7Fwj/V3a/2Lf
+ LgNMbozfKiRTf0WNQDGpBBY+jCU1H31zPEdJhFEM=
+Date: Mon, 24 Oct 2022 13:28:22 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: Fwd: amdgpu: update from 5.10.145 to 5.10.146...149 breaks boot
+ on Ryzen based computers
+Message-ID: <Y1Z21g4C8xx2PTtB@kroah.com>
+References: <CAAfT2tdZN5s4WEG1q=VCOK7_1vgb6B8VuL+Jw3UqADMxerRMDA@mail.gmail.com>
+ <CAHk-=wghzRGZtwCU+tDSRGD2HC_7dMT6rnU-urD91gz_AkyCTg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.103.91]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- dggpemm500007.china.huawei.com (7.185.36.183)
-X-CFilter-Loop: Reflected
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wghzRGZtwCU+tDSRGD2HC_7dMT6rnU-urD91gz_AkyCTg@mail.gmail.com>
 X-Mailman-Approved-At: Mon, 24 Oct 2022 13:17:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,66 +50,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, richard@nod.at, mst@redhat.com,
- gregkh@linuxfoundation.org, somlo@cmu.edu, chao@kernel.org,
- huangjianan@oppo.com, liushixin2@huawei.com, joseph.qi@linux.alibaba.com,
- luben.tuikov@amd.com, jlbec@evilplan.org, hsiangkao@linux.alibaba.com,
- rafael@kernel.org, jaegeuk@kernel.org, akpm@linux-foundation.org,
- mark@fasheh.com
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Inject fault while loading module, kset_register() may fail.
-If it fails, the name allocated by kobject_set_name() which
-is called before kset_register() is leaked, because refcount
-of kobject is hold in kset_init().
+On Sun, Oct 23, 2022 at 10:23:53AM -0700, Linus Torvalds wrote:
+> This was sent to me, but should have gone to other people.
+> 
+> It may already be fixed, but note how the report is about -stable
+> kernels, including apparently the current 5.10 stable version (149(.
+> 
+>               Linus
+> 
+> ---------- Forwarded message ---------
+> From: Kevin Torkelson <kevin.torkelson@gmail.com>
+> Date: Thu, Oct 20, 2022 at 8:09 AM
+> Subject: amdgpu: update from 5.10.145 to 5.10.146...149 breaks boot on
+> Ryzen based computers
+> To: <torvalds@linux-foundation.org>
+> 
+> 
+> Linus,
+> 
+> --- Possibly Important ---
+> I know several people who are crashing with Debian Bullseye (stable)
+> with the most current kernel put out by the distribution. AMD put out
+> a fix that seems like it might be related here:
+> https://gitlab.freedesktop.org/drm/amd/-/issues/2216
 
-As a kset may be embedded in a larger structure which needs
-be freed in release() function or error path in callers, we
-can not call kset_put() in kset_register(), or it will cause
-double free, so just call kfree_const() to free the name and
-set it to NULL.
+We have fixes queued up for this in the stable tree for 5.10 already,
+thanks.
 
-With this fix, the callers don't need to care about the name
-freeing and call an extra kset_put() if kset_register() fails.
-
-Suggested-by: Luben Tuikov <luben.tuikov@amd.com>
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
----
-v1 -> v2:
-  Free name inside of kset_register() instead of calling kset_put()
-  in drivers.
----
- lib/kobject.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/lib/kobject.c b/lib/kobject.c
-index a0b2dbfcfa23..3409a89c81e5 100644
---- a/lib/kobject.c
-+++ b/lib/kobject.c
-@@ -834,6 +834,9 @@ EXPORT_SYMBOL_GPL(kobj_sysfs_ops);
- /**
-  * kset_register() - Initialize and add a kset.
-  * @k: kset.
-+ *
-+ * NOTE: On error, the kset.kobj.name allocated by() kobj_set_name()
-+ * which is called before kset_register() in caller need be freed.
-  */
- int kset_register(struct kset *k)
- {
-@@ -844,8 +847,11 @@ int kset_register(struct kset *k)
- 
- 	kset_init(k);
- 	err = kobject_add_internal(&k->kobj);
--	if (err)
-+	if (err) {
-+		kfree_const(k->kobj.name);
-+		k->kobj.name = NULL;
- 		return err;
-+	}
- 	kobject_uevent(&k->kobj, KOBJ_ADD);
- 	return 0;
- }
--- 
-2.25.1
-
+greg k-h
