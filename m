@@ -4,88 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B51DC38A2D
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 17:10:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43DCAECAAA1
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 17:13:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A625810E481;
-	Mon, 24 Oct 2022 17:10:48 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2078.outbound.protection.outlook.com [40.107.94.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6440D10E481
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 17:10:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XZzAzJygaBwgwop8IltVPRW9XMD5RgGx/xOtJ10kQSRsB2Sr9ai+s95s+aOd9Y5r6egE+81Uxq1snNyv3ySfb0PWA0AV2HsE4xtylJKQnzaCJtHS36dv42WiCjECA4Y5tLwJHUZIlMZPgDCsl4XWxMKCgClEOnItFy10MowG83uAlXHWkTi3Xl2dF+FD2nCst6tz5DAOjpT9uZxFncCr+/aEcT3TrbeMJpmvvH92UJVBxLYp/sPVhtv5g01+iw02dRfOCbsjKItGB4SfdXpnIT9PdM02ic+2weY5UyX9GFjSY0qe1XonUmz0nojhxT3JCLi58LQKVq0j/Pt1Cw2sxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wRMDqSWY3MwrKzs5CABChqUUJ6HIOe4bKUVi4ukKVaY=;
- b=Xg+3lDTfDaMgDPvFqhdB9Acus93XTFzS7QI9PZCer4tvfZhEcn6MM1gWpaRWiD6g2fhnrqUZsVFG3JTUV+QcKPYca1E90RaUtIo1ZZKxFuI24T8n0RglqAG/8LnHnK/cx+20WhoQ3JNjmjYs+HlizsCqejMbHQqGNK5qzPvknJP29FFq8bp3gQrISbMeNMquZmzyNKZ9XHuQiv60EhA4ll1TqyhYlcJVhEpQV4hd0IxiggwvoMyzocuk350px8Zoy02HfawUshcSMVlY9WQ+pzvLXHRmkLtu87L6VfwKWxNBzKsdKkqnKMkAgIm/juqJ9mJxIh8hvKl0a09bpXDT3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wRMDqSWY3MwrKzs5CABChqUUJ6HIOe4bKUVi4ukKVaY=;
- b=y/5dGUFn8afWk9ReaODrQdoqZ+bG17B3ADpIZ2ip0c2HgDJEDOYuwoqWYtfljyqRqx85w7opJ9XJ19PzTYV5Jmg0td5I+3UR3xMSvd/crrLwauDJ6GxGFtwMr6cFG3eXPVCEvAZuiSeaafsdbMKLo6qFvDZocqfBQbZR5y3Cq48=
-Received: from MW4PR04CA0193.namprd04.prod.outlook.com (2603:10b6:303:86::18)
- by DM4PR12MB6663.namprd12.prod.outlook.com (2603:10b6:8:bb::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5746.21; Mon, 24 Oct 2022 17:10:38 +0000
-Received: from CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:86:cafe::36) by MW4PR04CA0193.outlook.office365.com
- (2603:10b6:303:86::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.27 via Frontend
- Transport; Mon, 24 Oct 2022 17:10:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT023.mail.protection.outlook.com (10.13.175.35) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5746.16 via Frontend Transport; Mon, 24 Oct 2022 17:10:37 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 24 Oct
- 2022 12:10:36 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: fix documentation warning
-Date: Mon, 24 Oct 2022 13:10:22 -0400
-Message-ID: <20221024171022.2270903-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.37.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 570F110E5F9;
+	Mon, 24 Oct 2022 17:13:53 +0000 (UTC)
+Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
+ [IPv6:2001:4860:4864:20::35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DE0210E03C;
+ Mon, 24 Oct 2022 17:13:48 +0000 (UTC)
+Received: by mail-oa1-x35.google.com with SMTP id
+ 586e51a60fabf-13b103a3e5dso12619636fac.2; 
+ Mon, 24 Oct 2022 10:13:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xxzTjIKoWHzpXZkE15ZuSeCbJ7LXx6Uum8mVewcZBOg=;
+ b=QAaRuGQ0VAKcMbmNeXi3Y+/OCrDNO4s8VSnES3ODLjDqJ1JAUFaCG3GiIn5a/T2eQm
+ N7kqAThx3S2sj1FmZY1Rm3YK1l9g1ES2kCzYXI6zD3ruz/URkeFnqyHJL9pUA/fiLJgM
+ fWOAwU9bpjNOgRX6Ziz+0SsSvTpZcbZX25WAbb2dk8Q8megbzYTnQSgUTp1T5Nu6ElJ1
+ 1NPRMVZEfOCNtT5n8ZT9Hd9rlkDwZWiaR2iE5Tau3ik4rXankzq5eWcU7vuOSUmb2lqV
+ hzIiVE2V+BrJnM4Tj4QbywtIOnQk31q+Njl6uxbr86pGLQvZzfoIqw1k0jbwPRWzbPIe
+ Mxnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=xxzTjIKoWHzpXZkE15ZuSeCbJ7LXx6Uum8mVewcZBOg=;
+ b=faNi91f169CQYB4qHJ4pcIBQXxugwIajEiH+gEaFd6iHgxz6Zip7AuTbroqIhtH/Qy
+ c0GbHgxcp9GDosM2e4gh89BV2h+G6ehXsZQjXdK6V5mQimehq+t4Q9nRzPv6RzUe8Sww
+ /WtvklhZ1yXCve0CSJ5TukuomfUhJVQ5uD4xdz9ZE+In+u3zDH2/uWU0/sML0zOAzSlc
+ SHB0bilZaVbtWMtX7ry4wO4xyWmXL/Ycy8YU6isx0wbeTJKCeoQv+RVOEzGPoAQWcfaF
+ KnT738kRisfLJgdSxpI0pF42YZJl5kdLLY1vYOIBmszibpZMVk3RuEz4wkqR0evUELM+
+ Kh9g==
+X-Gm-Message-State: ACrzQf0PLrwguC+gUlxjJQO1TRZNxAXt18hzpmUdf9KF7s70wgBBHr4N
+ AL48+baUzVefFyfTM51UwCi2f8DHRSJ0GaHe6Pk=
+X-Google-Smtp-Source: AMsMyM7GsGsatWsLnXjmC7Huhqtn92xonppGcoyhsKjpgrd1gtKinzghr4K/o04hp5qNLGmswJyf0DHSLoZsyG2VbDk=
+X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
+ x36-20020a056870a7a400b001367c39979emr21199731oao.96.1666631627779; Mon, 24
+ Oct 2022 10:13:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT023:EE_|DM4PR12MB6663:EE_
-X-MS-Office365-Filtering-Correlation-Id: f09710d2-9406-4f5b-9f07-08dab5e2abfb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NM1uOQuXwBzCaVEKZMuT4MUGbPwQ2HPVUsZks9riJ9nUux5WKRKim8kJEzXj+bitslQ1uuYQAP4Eiesx6RmQfuiId4eOkiUAKQVajcEcZF1r0qkhswUbpvfgRTW0axU9eeBqs7xyEeoHadLh2HNJyOZosTjRMnHmA6dUzF2flhTHrDl49TaeZqVRMKs10R9VX8sEv6vDGl6RsAZFqX+hA+sfKPllWSTaALoj2k0sTyzSb5plzLvZmt9HwnXwVo/hnbAfV78itugslbENo50V5+UPHb/9E8HbIzxavMxHeb208ctqhBNlZWURgR5EXnZGPoTDoB+3OCDonh5C0vgQsEtCi54VkYeOKj36fuOvSYzalFs8jOg9flCetmVtgnWV0NjNjOa3HBM709UkTS12Czf8opRuOGNneIbDJTVRW0l08I1MMNvU2sB+CCRpyUAC+pFjlaVhbuR9CtOFmZI6n3XBWMbesnUN/8VaBBkm1xpLw0f1zZnbbXaOH8MKFPU75env519WUUQLGPxvRWYH429kZG7kyX4dUKtAipo+UrmIgipFLSMOeFmxBSU81Vjy+wdDkvi/L4Ovzi7z8TtbONrTHGqRLY+7RG/nfZqui8UYZuOmTOQhOxUO6YKPFKrepzuKqwV31xuGiH9MwkjqQAejxc5pnfQf42Dz2U2yFHO3SaHWDPfO9v5eA8scn7jwYfLb/I+/+Hz4s/lBrWFCoGwIVGKJgq5qDQHZ82AIvqD0fDk/5Cv9zoWq4t5Ky9Yqa4wLxZbJc9dkIKXz+Tpvj81yqG4+j9INybbHbJQcehixU6bg1ZI4UTU2hIu5toDO
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(396003)(376002)(346002)(39860400002)(451199015)(40470700004)(46966006)(36840700001)(8936002)(5660300002)(82740400003)(41300700001)(82310400005)(83380400001)(40480700001)(6916009)(54906003)(2906002)(81166007)(426003)(47076005)(70206006)(336012)(478600001)(7696005)(356005)(16526019)(1076003)(186003)(36756003)(4326008)(8676002)(70586007)(86362001)(6666004)(316002)(36860700001)(40460700003)(2616005)(26005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 17:10:37.7414 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f09710d2-9406-4f5b-9f07-08dab5e2abfb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6663
+References: <CAP+8YyFUoFhh1+CEKrs48JV5CiorSSfe6qg90TyUrDoBtzcPhA@mail.gmail.com>
+ <20221024113359.5575-1-samsagax@gmail.com>
+In-Reply-To: <20221024113359.5575-1-samsagax@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 24 Oct 2022 13:13:36 -0400
+Message-ID: <CADnq5_NKOn1BuTfrmyJNwwE_Owy-EAf0khXJ-AbT+5QiR6NuvA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/display: Revert logic for plane modifiers
+To: =?UTF-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,37 +67,120 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: sunpeng.li@amd.com, Xinhui.Pan@amd.com, rodrigo.siqueira@amd.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, bas@basnieuwenhuizen.nl,
+ alexander.deucher@amd.com, stable@vger.kernel.org, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-build htmldocs produced this warning:
-drivers/gpu/drm/amd/display/dc/dc.h:1275: warning: cannot understand function prototype: 'struct dc_validation_set '
-The word "struct" was left out of the comment.
+Applied.  Thanks!
 
-Fixes: f4a59996c408 ("drm/amd/display: Include surface of unaffected streams")
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index bd7a896fab49..e4e41f2e5054 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1269,7 +1269,7 @@ void dc_post_update_surfaces_to_stream(
- #include "dc_stream.h"
- 
- /**
-- * dc_validation_set - Struct to store surface/stream associations for validation
-+ * struct dc_validation_set - Struct to store surface/stream associations for validation
-  */
- struct dc_validation_set {
- 	/**
--- 
-2.37.3
-
+On Mon, Oct 24, 2022 at 9:17 AM Joaqu=C3=ADn Ignacio Aramend=C3=ADa
+<samsagax@gmail.com> wrote:
+>
+> This file was split in commit 5d945cbcd4b16a29d6470a80dfb19738f9a4319f
+> ("drm/amd/display: Create a file dedicated to planes") and the logic in
+> dm_plane_format_mod_supported() function got changed by a switch logic.
+> That change broke drm_plane modifiers setting on series 5000 APUs
+> (tested on OXP mini AMD 5800U and HP Dev One 5850U PRO)
+> leading to Gamescope not working as reported on GitHub[1]
+>
+> To reproduce the issue, enter a TTY and run:
+>
+> $ gamescope -- vkcube
+>
+> With said commit applied it will abort. This one restores the old logic,
+> fixing the issue that affects Gamescope.
+>
+> [1](https://github.com/Plagman/gamescope/issues/624)
+>
+> Cc: <stable@vger.kernel.org> # 6.0.x
+> Signed-off-by: Joaqu=C3=ADn Ignacio Aramend=C3=ADa <samsagax@gmail.com>
+> Reviewed-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> ---
+> Removed asic_id and excess newlines. Resend with correct Cc line.
+> ---
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 50 +++----------------
+>  1 file changed, 7 insertions(+), 43 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index dfd3be49eac8..e6854f7270a6 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -1369,7 +1369,7 @@ static bool dm_plane_format_mod_supported(struct dr=
+m_plane *plane,
+>  {
+>         struct amdgpu_device *adev =3D drm_to_adev(plane->dev);
+>         const struct drm_format_info *info =3D drm_format_info(format);
+> -       struct hw_asic_id asic_id =3D adev->dm.dc->ctx->asic_id;
+> +       int i;
+>
+>         enum dm_micro_swizzle microtile =3D modifier_gfx9_swizzle_mode(mo=
+difier) & 3;
+>
+> @@ -1386,49 +1386,13 @@ static bool dm_plane_format_mod_supported(struct =
+drm_plane *plane,
+>                 return true;
+>         }
+>
+> -       /* check if swizzle mode is supported by this version of DCN */
+> -       switch (asic_id.chip_family) {
+> -       case FAMILY_SI:
+> -       case FAMILY_CI:
+> -       case FAMILY_KV:
+> -       case FAMILY_CZ:
+> -       case FAMILY_VI:
+> -               /* asics before AI does not have modifier support */
+> -               return false;
+> -       case FAMILY_AI:
+> -       case FAMILY_RV:
+> -       case FAMILY_NV:
+> -       case FAMILY_VGH:
+> -       case FAMILY_YELLOW_CARP:
+> -       case AMDGPU_FAMILY_GC_10_3_6:
+> -       case AMDGPU_FAMILY_GC_10_3_7:
+> -               switch (AMD_FMT_MOD_GET(TILE, modifier)) {
+> -               case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
+> -               case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
+> -               case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
+> -               case AMD_FMT_MOD_TILE_GFX9_64K_D:
+> -                       return true;
+> -               default:
+> -                       return false;
+> -               }
+> -               break;
+> -       case AMDGPU_FAMILY_GC_11_0_0:
+> -       case AMDGPU_FAMILY_GC_11_0_1:
+> -               switch (AMD_FMT_MOD_GET(TILE, modifier)) {
+> -               case AMD_FMT_MOD_TILE_GFX11_256K_R_X:
+> -               case AMD_FMT_MOD_TILE_GFX9_64K_R_X:
+> -               case AMD_FMT_MOD_TILE_GFX9_64K_D_X:
+> -               case AMD_FMT_MOD_TILE_GFX9_64K_S_X:
+> -               case AMD_FMT_MOD_TILE_GFX9_64K_D:
+> -                       return true;
+> -               default:
+> -                       return false;
+> -               }
+> -               break;
+> -       default:
+> -               ASSERT(0); /* Unknown asic */
+> -               break;
+> +       /* Check that the modifier is on the list of the plane's supporte=
+d modifiers. */
+> +       for (i =3D 0; i < plane->modifier_count; i++) {
+> +               if (modifier =3D=3D plane->modifiers[i])
+> +                       break;
+>         }
+> +       if (i =3D=3D plane->modifier_count)
+> +               return false;
+>
+>         /*
+>          * For D swizzle the canonical modifier depends on the bpp, so ch=
+eck
+> --
+> 2.38.1
+>
