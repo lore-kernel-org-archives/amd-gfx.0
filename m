@@ -4,50 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BA0EC38A2D
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 13:12:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAD83C04A95
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 13:12:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF3110E385;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACC6610E398;
 	Tue, 25 Oct 2022 13:12:12 +0000 (UTC)
-X-Greylist: delayed 352 seconds by postgrey-1.36 at gabe;
- Tue, 25 Oct 2022 08:27:26 UTC
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
- [IPv6:2001:4d48:ad52:32c8:5054:ff:fe00:142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EAEC10E278
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 08:27:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=EtmojnUqnCVKWOh8C7J92DZrsq9/z0GK3KV0rT9mLpw=; b=BiKMTB/c8/919DvH6LZjZyf2T7
- Lk+Oc0WQgSHrU043Y+cnUTrcCAWFFIRwbP/gwShZJOH7Ph6ZjNkE4YzQLwl+rZ6FQMYOZVZ1KaAAv
- JrHnpzzBk58E6Bw1q1q6MogLgb0j7g2H4c3zZg9FWX17eaRq/RM83PQCbfJMvNXNS9KzKq0aINVsM
- KaygbGcRwn6F39U9DxcVpgeF99Nlne7F879RubTg63DmK7uq37EnDvG5KYZFfCKozoHb2sgk7eO4l
- lwO6xacAFy+7uJjlKmYCqjbyjVIn9IsBwGV8SHQv4hpDF3zC3DsR7nT9nOHu1R4lpXKIo3O5UJycU
- fdMcQzOw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:34940)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@armlinux.org.uk>)
- id 1onFBQ-0004Dt-7i; Tue, 25 Oct 2022 09:21:12 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1onFBL-0007xV-IX; Tue, 25 Oct 2022 09:21:07 +0100
-Date: Tue, 25 Oct 2022 09:21:07 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [linux-next:master] BUILD SUCCESS WITH WARNING
- 76cf65d1377f733af1e2a55233e3353ffa577f54
-Message-ID: <Y1eccygLSjEoPdHV@shell.armlinux.org.uk>
-References: <6356c451.pwLIF+9EvDUrDjTY%lkp@intel.com>
- <20221024145527.0eff7844@kernel.org>
+Received: from out30-43.freemail.mail.aliyun.com
+ (out30-43.freemail.mail.aliyun.com [115.124.30.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B46E8892E4;
+ Tue, 25 Oct 2022 07:28:28 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R201e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046059;
+ MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=11; SR=0;
+ TI=SMTPD_---0VT1uIFE_1666682903; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0VT1uIFE_1666682903) by smtp.aliyun-inc.com;
+ Tue, 25 Oct 2022 15:28:24 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH -next] drm/amdkfd: Fix NULL pointer dereference in
+ svm_migrate_to_ram()
+Date: Tue, 25 Oct 2022 15:28:22 +0800
+Message-Id: <20221025072822.129940-1-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221024145527.0eff7844@kernel.org>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 25 Oct 2022 13:12:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,38 +41,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, linux-parisc@vger.kernel.org,
- netdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
- ntfs3@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
+ Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Yang Li <yang.lee@linux.alibaba.com>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 24, 2022 at 02:55:27PM -0700, Jakub Kicinski wrote:
-> On Tue, 25 Oct 2022 00:58:57 +0800 kernel test robot wrote:
-> > drivers/net/phy/phylink.c:588 phylink_validate_mask_caps() warn: variable dereferenced before check 'state' (see line 583)
-> 
-> Hi Russell, I think the warning is semi-legit. Your commit f392a1846489
-> ("net: phylink: provide phylink_validate_mask_caps() helper") added an 
-> if (state) before defer'ing state but it's already deref'ed higher up
-> so can't be null.
+./drivers/gpu/drm/amd/amdkfd/kfd_migrate.c:985:58-62: ERROR: p is NULL but dereferenced.
 
-Not me, Sean. My original implementation of phylink_validate_mask_caps()
-doesn't know anything about rate matching, so my version didn't have
-this issue.
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2549
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Sean's version of my patch (which is what was submitted) added the
-dereference that causes this, so, it's up to Sean to figure out a fix -
-but he reading his follow up to the build bot's message, he seems to
-be passing it over to me to fix!
-
-I've got other issues to be worked on right now, and have no time to
-spare to fix other people's mistakes. Sorry.
-
-You can't always rely on the apparent author mentioned in the commit to
-be the actual person responsible for the changes in a patch.
-
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index cddf259875c0..405dd51521dc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -981,7 +981,8 @@ static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
+ out_mmput:
+ 	mmput(mm);
+ 
+-	pr_debug("CPU fault svms 0x%p address 0x%lx done\n", &p->svms, addr);
++	if (p)
++		pr_debug("CPU fault svms 0x%p address 0x%lx done\n", &p->svms, addr);
+ 
+ 	return r ? VM_FAULT_SIGBUS : 0;
+ }
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+2.20.1.7.g153144c
+
