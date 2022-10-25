@@ -4,63 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBBA9C38A2D
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 09:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78BFDC38A2D
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 10:18:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5781610E2FA;
-	Tue, 25 Oct 2022 09:31:01 +0000 (UTC)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F014A10E2F5
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 09:30:56 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id q9so11115129ejd.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 02:30:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=7MMc0plmxUX3qlQ8UsvGqe5KxwjObkNgnyXGsg1NJ88=;
- b=DhV7BGASma19V3rcWFsGhUhpY7TBIAui4VC4dQQvaxCWfqeIrr8jEzcd5PzJcqGtkk
- RQ/EkCvdQgzC6lC1/i8Uibqn2k+s2E7ph96rOopEaubjtGBzY9T4puoQQZXCsgWSEVLs
- 0Jv4CECzd1mXXxutmuWtzQZPYiMxKfZ52DJG0m+9AJMgImzfyAVtAHYMMf1vwI9YU1EN
- k+kPhB3uCAxWCOBKhhBx7m7ou6+/TiUPADagF2fVqfAZKHnAbBf/t8cLxfByZkU7oYNW
- TqA0op8o36kZuOO97geSG9L3jsgiGKEernwEJphyAKp6PB45rw3H0LQzIQRwdw9w2aW8
- MVPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7MMc0plmxUX3qlQ8UsvGqe5KxwjObkNgnyXGsg1NJ88=;
- b=tBOWamhVCMoaLw8+XRYoM1Fl8FLFy894N0Me99bxmMsunym5hAT+FLvQi54kKkEwey
- 3Gtnp2IOOGVORjdNVl1H3AscYAYlogIW5TBhZlr9mKNNMMlaB/pvzb7RYo86C7QJWtPv
- ftmqdQAJfGWIYCO1af1q5vnfVX7uL+S/ODUquyQPr3gUN8nxdc5A4OJJmXwURbiiREM9
- +TkL4oJkDKcezrMPGIKEsL8Us5LJEAVb0fKNROrKQftyLaIYnGXqTfPz66hnK0C3otN7
- sc+8jSfZ7bTHU6vTus4ZPl0cMJL3vKAY9Ed+6w3Pu10GDAkgBNOO8YA+/uCN6kdbdlsB
- 2XNA==
-X-Gm-Message-State: ACrzQf2F1BfMRf0zRIXY8BVYnWLbYRk0/QUfsCqsP/g/n7rHkgpmk1s/
- NBVQCQslcyTnuqgwYM7ERAa8ne6gXNo=
-X-Google-Smtp-Source: AMsMyM5hFq/jOgJD19wblkY/pK8cyP1WKHw6TDCvncgPaIYeLnyeR0SEAkbYOYoNOegVBHHe5h/jxA==
-X-Received: by 2002:a17:907:3f27:b0:78d:ad42:f733 with SMTP id
- hq39-20020a1709073f2700b0078dad42f733mr32376735ejc.320.1666690255420; 
- Tue, 25 Oct 2022 02:30:55 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea229.dip0.t-ipconnect.de. [91.14.162.41])
- by smtp.gmail.com with ESMTPSA id
- r21-20020a170906365500b0078d9c2c8250sm1085781ejb.84.2022.10.25.02.30.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Oct 2022 02:30:54 -0700 (PDT)
-Message-ID: <23e34f67-8de2-aee6-72ff-2a1caabc4be3@gmail.com>
-Date: Tue, 25 Oct 2022 11:30:53 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A25B10E31F;
+	Tue, 25 Oct 2022 10:17:58 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AA3910E31F;
+ Tue, 25 Oct 2022 10:17:50 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9B8C9B81CD1;
+ Tue, 25 Oct 2022 10:17:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AC4FC433C1;
+ Tue, 25 Oct 2022 10:17:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1666693067;
+ bh=loBjWPuoKTGF/gO56VzkKo6krQdgRby7JIrG/EzZOSQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=d6ZDNCAcK4F26u54xQf8kDBp/8b3DW5BfO6g1lzeUvpUqST0Kw+Ohe0820AGWKYi+
+ /7Iqw8NZ0p6eQ/pqwMi1Gu67j2R14VHUyxddgBClTRfmn7+eiBCfjsq3GSF79nNNGz
+ 0X7g+J7DfNAmhkRl2i3xi1iShD/jLXV9iOD0Aj/KAyEV5IbzhVMFLMbIuW+YD0HX3T
+ B8i2fs2s6CKT9WlZ6lTFZXa/hnB4DlVRnIIZi1IMECfFVAoF+8Q0qD/kHO/VT7rrxh
+ ahRkwDT3WUrOsLHpVfVQd0i2lzMAzWlJ4qQ4wL0BQod1CCuVzaQiHLp5VsXHdnMHQK
+ 2bogCqmt8gCvw==
+Message-ID: <f36153fe-214c-2904-e155-ab9cee8a2a2c@kernel.org>
+Date: Tue, 25 Oct 2022 12:17:43 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] drm/amdgpu: Disable GPU reset on SRIOV before remove pci.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.3
+Subject: Re: [PATCH v2 0/8] Fix several device private page reference counting
+ issues
 Content-Language: en-US
-To: Gavin Wan <Gavin.Wan@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221024202124.8592-1-Gavin.Wan@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20221024202124.8592-1-Gavin.Wan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Alistair Popple <apopple@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org
+References: <cover.60659b549d8509ddecafad4f498ee7f03bb23c69.1664366292.git-series.apopple@nvidia.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+In-Reply-To: <cover.60659b549d8509ddecafad4f498ee7f03bb23c69.1664366292.git-series.apopple@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,63 +56,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 9/28/22 14:01, Alistair Popple wrote:
+> This series aims to fix a number of page reference counting issues in
+> drivers dealing with device private ZONE_DEVICE pages. These result in
+> use-after-free type bugs, either from accessing a struct page which no
+> longer exists because it has been removed or accessing fields within the
+> struct page which are no longer valid because the page has been freed.
+> 
+> During normal usage it is unlikely these will cause any problems. However
+> without these fixes it is possible to crash the kernel from userspace.
+> These crashes can be triggered either by unloading the kernel module or
+> unbinding the device from the driver prior to a userspace task exiting. In
+> modules such as Nouveau it is also possible to trigger some of these issues
+> by explicitly closing the device file-descriptor prior to the task exiting
+> and then accessing device private memory.
 
+Hi, as this series was noticed to create a CVE [1], do you think a stable
+backport is warranted? I think the "It is possible to launch the attack
+remotely." in [1] is incorrect though, right?
 
-Am 24.10.22 um 22:21 schrieb Gavin Wan:
->    The change of the commit f5c7e7797060 ("Adjust removal control
->    flow for smu v13_0_2") brought a bug on SRIOV envrionment. It
->    caused unloading amdgpu failed on Guest VM. The reason is that
->    the VF FLR was requested while unloading amdgpu driver, but the
->    VF FLR of SRIOV sequence is wrong while removing PCI device.
->
->    Fixes: f5c7e7797060 ("drm/amdgpu: Adjust removal control flow
->           for smu v13_0_2")
+It looks to me that patch 1 would be needed since the CONFIG_DEVICE_PRIVATE
+introduction, while the following few only to kernels with 27674ef6c73f
+(probably not so critical as that includes no LTS)?
 
-The Fixes line should look like a Signed-off-by or Acked-by line.
+Thanks,
+Vlastimil
 
->
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Gavin Wan <Gavin.Wan@amd.com>
-> Change-Id: I1ff8dcbffd85d7f3d8267d660fd8292423d2f70f
+[1] https://nvd.nist.gov/vuln/detail/CVE-2022-3523
 
-The lines with : are noted in chronological order.
-
-E.g. in this case that should be:
-
-Signed-off-by: ....
-Fixes: ...
-Acked-by: ...
-...
-
-
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 16f6a313335e..ab0c856c13b0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2187,7 +2187,8 @@ amdgpu_pci_remove(struct pci_dev *pdev)
->   		pm_runtime_forbid(dev->dev);
->   	}
->   
-> -	if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 2)) {
-> +	if ((adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 2)) &&
-
-Please drop the extra () as long as you don't want to explicitly have an 
-assignment inside an "if", "for" or "while".
-
-Regards,
-Christian.
-
-> +			!amdgpu_sriov_vf(adev)) {
->   		bool need_to_reset_gpu = false;
->   
->   		if (adev->gmc.xgmi.num_physical_nodes > 1) {
+> This involves some minor changes to both PowerPC and AMD GPU code.
+> Unfortunately I lack hardware to test either of those so any help there
+> would be appreciated. The changes mimic what is done in for both Nouveau
+> and hmm-tests though so I doubt they will cause problems.
+> 
+> To: Andrew Morton <akpm@linux-foundation.org>
+> To: linux-mm@kvack.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: nouveau@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> 
+> Alistair Popple (8):
+>   mm/memory.c: Fix race when faulting a device private page
+>   mm: Free device private pages have zero refcount
+>   mm/memremap.c: Take a pgmap reference on page allocation
+>   mm/migrate_device.c: Refactor migrate_vma and migrate_deivce_coherent_page()
+>   mm/migrate_device.c: Add migrate_device_range()
+>   nouveau/dmem: Refactor nouveau_dmem_fault_copy_one()
+>   nouveau/dmem: Evict device private memory during release
+>   hmm-tests: Add test for migrate_device_range()
+> 
+>  arch/powerpc/kvm/book3s_hv_uvmem.c       |  17 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |  19 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.h |   2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c     |  11 +-
+>  drivers/gpu/drm/nouveau/nouveau_dmem.c   | 108 +++++++----
+>  include/linux/memremap.h                 |   1 +-
+>  include/linux/migrate.h                  |  15 ++-
+>  lib/test_hmm.c                           | 129 ++++++++++---
+>  lib/test_hmm_uapi.h                      |   1 +-
+>  mm/memory.c                              |  16 +-
+>  mm/memremap.c                            |  30 ++-
+>  mm/migrate.c                             |  34 +--
+>  mm/migrate_device.c                      | 239 +++++++++++++++++-------
+>  mm/page_alloc.c                          |   8 +-
+>  tools/testing/selftests/vm/hmm-tests.c   |  49 +++++-
+>  15 files changed, 516 insertions(+), 163 deletions(-)
+> 
+> base-commit: 088b8aa537c2c767765f1c19b555f21ffe555786
 
