@@ -4,34 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B81AFA373E
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 07:25:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8941AC04A95
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 07:25:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0F7A10E18E;
-	Tue, 25 Oct 2022 07:25:12 +0000 (UTC)
-X-Greylist: delayed 595 seconds by postgrey-1.36 at gabe;
- Mon, 24 Oct 2022 20:40:55 UTC
-Received: from cavan.codon.org.uk (irc.codon.org.uk [IPv6:2a00:1098:84:22e::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 794B910E09F;
- Mon, 24 Oct 2022 20:40:55 +0000 (UTC)
-Received: by cavan.codon.org.uk (Postfix, from userid 1000)
- id 9492F40A6A; Mon, 24 Oct 2022 21:30:57 +0100 (BST)
-Date: Mon, 24 Oct 2022 21:30:57 +0100
-From: Matthew Garrett <mjg59@srcf.ucam.org>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH v5 02/31] drm/i915: Don't register backlight when another
- backlight should be used (v2)
-Message-ID: <20221024203057.GA28675@srcf.ucam.org>
-References: <20220825143726.269890-1-hdegoede@redhat.com>
- <20220825143726.269890-3-hdegoede@redhat.com>
- <f914ceb3-94bd-743c-f8b6-0334086e731a@gmail.com>
- <42a5f2c9-a1dc-8fc0-7334-fe6c390ecfbb@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF8E610E193;
+	Tue, 25 Oct 2022 07:25:22 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB4810E18E;
+ Tue, 25 Oct 2022 07:25:10 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D8CBB1FD4D;
+ Tue, 25 Oct 2022 07:25:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1666682708; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=c1zBcQjlKqmAqONNyJStB2TFUvYljW90mDr6TmD2Gnc=;
+ b=f/GPpnciZhe/471afUnYxMiSXV1JEB4ZxIKgD4Imf6V86kY01ygFX84Fmg0IGfAM/UOEh6
+ DFQ3S9143G4BczdSnZzEVAnOX98Wx6OvCDjjSIhcJCKxEENFSkRLEnXURBaQULGEslLHNk
+ dyAtzWvZDOidtIVxjuA6Oeo62zJJW08=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1666682708;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=c1zBcQjlKqmAqONNyJStB2TFUvYljW90mDr6TmD2Gnc=;
+ b=GgbBBh3gZf2vjn4j1/kmRf7k87CRUqYHLD2rTbxIbwr1NX7rq0qbD8X1GjPdW2y4Jsf/Gh
+ qFd5oJZbYhM9H4CQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B856C13A64;
+ Tue, 25 Oct 2022 07:25:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id XGTmK1SPV2MwfAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 25 Oct 2022 07:25:08 +0000
+Message-ID: <ede1abed-d45f-6fb6-cf40-edbffece5eac@suse.de>
+Date: Tue, 25 Oct 2022 09:25:07 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <42a5f2c9-a1dc-8fc0-7334-fe6c390ecfbb@redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Tue, 25 Oct 2022 07:24:58 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.3
+Subject: Re: [PATCH] drm/amdgpu: don't call drm_fb_helper_lastclose in
+ lastclose()
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <20221020143603.563929-1-alexander.deucher@amd.com>
+ <DM6PR12MB26194FC4A9B18912448DA8CEE42E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <e494d819-f960-f2bd-913e-83ee820ac399@suse.de>
+ <CADnq5_P7r71zETyJRZ+KVKFS+C56NAZaht5stVE=uZQ6tP6fdg@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <CADnq5_P7r71zETyJRZ+KVKFS+C56NAZaht5stVE=uZQ6tP6fdg@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------77oQOgQwTOSLvMCTI7ygFwWj"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,38 +72,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pan@freedesktop.org, Karol Herbst <kherbst@redhat.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- Dmitry Osipenko <digetx@gmail.com>, amd-gfx@lists.freedesktop.org,
- linux-acpi@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>,
- David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>,
- Daniel Dadap <ddadap@nvidia.com>, Jani Nikula <jani.nikula@intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Mark Gross <markgross@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Andy Shevchenko <andy@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Xinhui <Xinhui.Pan@amd.com>,
- Lukas Wunner <lukas@wunner.de>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan,
+ Evan" <Evan.Quan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 27, 2022 at 01:04:52PM +0200, Hans de Goede wrote:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------77oQOgQwTOSLvMCTI7ygFwWj
+Content-Type: multipart/mixed; boundary="------------x6lyFpijeyUbKYEiuBYsA8VI";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Quan, Evan" <Evan.Quan@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Message-ID: <ede1abed-d45f-6fb6-cf40-edbffece5eac@suse.de>
+Subject: Re: [PATCH] drm/amdgpu: don't call drm_fb_helper_lastclose in
+ lastclose()
+References: <20221020143603.563929-1-alexander.deucher@amd.com>
+ <DM6PR12MB26194FC4A9B18912448DA8CEE42E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <e494d819-f960-f2bd-913e-83ee820ac399@suse.de>
+ <CADnq5_P7r71zETyJRZ+KVKFS+C56NAZaht5stVE=uZQ6tP6fdg@mail.gmail.com>
+In-Reply-To: <CADnq5_P7r71zETyJRZ+KVKFS+C56NAZaht5stVE=uZQ6tP6fdg@mail.gmail.com>
 
-> So to fix this we need to make acpi_video_get_backlight_type()
-> return native on the Acer Chromebook Spin 713.
+--------------x6lyFpijeyUbKYEiuBYsA8VI
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Isn't the issue broader than that? Unless the platform is Windows 8 or 
-later, we'll *always* (outside of some corner cases) return 
-acpi_backlight_vendor if there's no ACPI video interface. This is broken 
-for any platform that implements ACPI but relies on native video 
-control, which is going to include a range of Coreboot platforms, not 
-just Chromebooks. I think for this to work correctly you need to have 
-the infrastructure be aware of whether or not a vendor interface exists, 
-which means having to handle cleanup if a vendor-specific module gets 
-loaded later.
+SGkNCg0KQW0gMjQuMTAuMjIgdW0gMTg6NDggc2NocmllYiBBbGV4IERldWNoZXI6DQo+IE9u
+IE1vbiwgT2N0IDI0LCAyMDIyIGF0IDM6MzMgQU0gVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1t
+ZXJtYW5uQHN1c2UuZGU+IHdyb3RlOg0KPj4NCj4+IEhpDQo+Pg0KPj4gQW0gMjQuMTAuMjIg
+dW0gMDg6MjAgc2NocmllYiBRdWFuLCBFdmFuOg0KPj4+IFtBTUQgT2ZmaWNpYWwgVXNlIE9u
+bHkgLSBHZW5lcmFsXQ0KPj4+DQo+Pj4gUmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5x
+dWFuQGFtZC5jb20+DQo+Pj4NCj4+Pj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4+
+Pj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zz4gT24gQmVoYWxmIE9mIEFsZXgNCj4+Pj4gRGV1Y2hlcg0KPj4+PiBTZW50OiBUaHVyc2Rh
+eSwgT2N0b2JlciAyMCwgMjAyMiAxMDozNiBQTQ0KPj4+PiBUbzogYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmc7IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+Pj4g
+Q2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IFRo
+b21hcw0KPj4+PiBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KPj4+PiBTdWJq
+ZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6IGRvbid0IGNhbGwgZHJtX2ZiX2hlbHBlcl9sYXN0
+Y2xvc2UgaW4NCj4+Pj4gbGFzdGNsb3NlKCkNCj4+Pj4NCj4+Pj4gSXQncyB1c2VkIHRvIHJl
+c3RvcmUgdGhlIGZiZGV2IGNvbnNvbGUsIGJ1dCBhcyBhbWRncHUgdXNlcw0KPj4+PiBnZW5l
+cmljIGZiZGV2IGVtdWxhdGlvbiwgdGhlIGNvbnNvbGUgaXMgYmVpbmcgcmVzdG9yZWQgYnkg
+dGhlDQo+Pj4+IERSTSBjbGllbnQgaGVscGVycyBhbHJlYWR5LiBTZWUgdGhlIGNhbGwgdG8g
+ZHJtX2NsaWVudF9kZXZfcmVzdG9yZSgpDQo+Pj4+IGluIGRybV9sYXN0Y2xvc2UoKS4NCj4+
+Pj4NCj4+Pj4gRml4ZXM6IDA4NzQ1MWYzNzJiZjc2ICgiZHJtL2FtZGdwdTogdXNlIGdlbmVy
+aWMgZmIgaGVscGVycyBpbnN0ZWFkIG9mDQo+Pj4+IHNldHRpbmcgdXAgQU1EIG93bidzLiIp
+DQo+Pj4+IENjOiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4NCj4+
+Pj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQu
+Y29tPg0KPj4+PiAtLS0NCj4+Pj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2ttcy5jIHwgMSAtDQo+Pj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCAxIGRlbGV0aW9uKC0p
+DQo+Pj4+DQo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfa21zLmMNCj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+a21zLmMNCj4+Pj4gaW5kZXggZmUyM2UwOWVlYzk4Li40NzRiOWY0MGY3OTIgMTAwNjQ0DQo+
+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYw0KPj4+
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMNCj4+Pj4g
+QEAgLTExMDYsNyArMTEwNiw2IEBAIGludCBhbWRncHVfaW5mb19pb2N0bChzdHJ1Y3QgZHJt
+X2RldmljZSAqZGV2LA0KPj4+PiB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbHAp
+DQo+Pj4+ICAgICAqLw0KPj4+PiAgICB2b2lkIGFtZGdwdV9kcml2ZXJfbGFzdGNsb3NlX2tt
+cyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KQ0KPj4+PiAgICB7DQo+Pj4+IC0gICAgZHJtX2Zi
+X2hlbHBlcl9sYXN0Y2xvc2UoZGV2KTsNCj4+Pj4gICAgICAgdmdhX3N3aXRjaGVyb29fcHJv
+Y2Vzc19kZWxheWVkX3N3aXRjaCgpOw0KPj4+PiAgICB9DQo+Pg0KPj4gV2l0aG91dCB0aGUg
+Y2FsbCB0byBkcm1fZmJfaGVscGVyX2xhc3RjbG9zZSgpLCB0aGUgY29uc29sZSBlbXVsYXRp
+b24NCj4+IHdpbGwgYmUgcmVzdG9yZWQgYnkgZHJtX2NsaWVudF9kZXZfcmVzdG9yZSgpIGZy
+b20gZHJtX2xhc3RjbG9zZSgpLiBbMV0NCj4+IEl0IG1lYW5zIHRoYXQgaXQncyBub3cgY2hh
+bmdpbmcgb3JkZXIgd2l0aCB0aGUgY2FsbCB0bw0KPj4gdmdhX3N3aXRjaGVyb29fcHJvY2Vz
+c19kZWxheV9zd2l0Y2goKS4gQ2FuIHRoaXMgYmVjb21lIGEgcHJvYmxlbT8NCj4+DQo+PiBJ
+IGxvb2tlZCBhdCB0aGUgb3RoZXIgY2FsbGVycyBvZiB0aGF0IGZ1bmN0aW9uLiBNb3N0IHJl
+c3RvcmUgdGhlIGNvbnNvbGUNCj4+IGJlZm9yZSBkb2luZyB0aGUgc3dpdGNoZXJvby4gTm91
+dmVhdSBkb2Vzbid0IHNlZW0gdG8gY2FyZSBhYm91dCB0aGUNCj4+IGNvbnNvbGUgYXQgYWxs
+Lg0KPiANCj4gSSBkb24ndCBrbm93IG9mZiBoYW5kLiAgSSBzdXBwb3NlIGlmIHRoZSBzd2l0
+Y2ggcG93ZXJlZCBkb3duIHRoZSBHUFUNCj4gYW5kIHRoZW4gd2UgdHJpZWQgdG8gcmVzdG9y
+ZSBpdCdzIGNvbnNvbGUgc3RhdGUgdGhhdCB3b3VsZCBiZSBhDQo+IHByb2JsZW0sIGJ1dCBp
+dCBsb29rcyBsaWtlIHZnYV9zd2l0Y2h0b19zdGFnZTIoKSBqdXN0IHBvd2VycyBkb3duIHRo
+ZQ0KPiBHUFUgd2l0aG91dCBnb2luZyB0aHJvdWdoIHN1c3BlbmQgc28gSSdtIG5vdCBzdXJl
+IGlmIHRoaXMgYWN0dWFsbHkNCj4gd29ya2VkIGNvcnJlY3RseT8gIFdoYXQgYXJlIHRoZSBw
+b3RlbnRpYWwgcHJvYmxlbXMgd2l0aCBjYWxsaW5nDQo+IGRybV9mYl9oZWxwZXJfbGFzdGNs
+b3NlIHR3aWNlPw0KDQpJdCBzaG91bGQgZG8gZmJkZXYgY29uc29sZSBtb2Rlc2V0dGluZyB0
+d2ljZTsgc28gbm8gcHJvYmxlbS4NCg0KQUZBSVUgY2FsbGluZyB2Z2Egc3dpdGNoZXJvbyBk
+b2VzIG5vdGhpbmcgZm9yIGRldmljZXMgd2l0aG91dCBzdXBwb3J0LiANClNvIGxldCdzIGNh
+bGwgdmdhX3N3aXRjaGVyb29fcHJvY2Vzc19kZWxheWVkX3N3aXRjaCgpIGF0IHRoZSB2ZXJ5
+IGVuZCBvZiANCmRybV9sYXN0Y2xvc2UoKSBhbmQgcmVtb3ZlIHRoZSBhbWRncHUgY2FsbGJh
+Y2sgZW50aXJlbHkuIFsxXSAgVGhpcyANCnNob3VsZCBub3QgYmUgYSBwcm9ibGVtIGFuZCBp
+Ziwgd2UgY2FuIHJlZmFjdG9yIHRoZSB3aG9sZSBmdW5jdGlvbi4NCg0KQmVzdCByZWdhcmRz
+DQpUaG9tYXMNCg0KWzFdIA0KaHR0cHM6Ly9lbGl4aXIuYm9vdGxpbi5jb20vbGludXgvbGF0
+ZXN0L3NvdXJjZS9kcml2ZXJzL2dwdS9kcm0vZHJtX2ZpbGUuYyNMNDY4DQoNCj4gDQo+IEFs
+ZXgNCj4gDQo+Pg0KPj4gQmVzdCByZWdhcmRzDQo+PiBUaG9tYXMNCj4+DQo+PiBbMV0NCj4+
+IGh0dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L3Y2LjAuMy9zb3VyY2UvZHJpdmVy
+cy9ncHUvZHJtL2RybV9maWxlLmMjTDQ2Nw0KPj4NCj4+Pj4NCj4+Pj4gLS0NCj4+Pj4gMi4z
+Ny4zDQo+Pg0KPj4gLS0NCj4+IFRob21hcyBaaW1tZXJtYW5uDQo+PiBHcmFwaGljcyBEcml2
+ZXIgRGV2ZWxvcGVyDQo+PiBTVVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgN
+Cj4+IE1heGZlbGRzdHIuIDUsIDkwNDA5IE7DvHJuYmVyZywgR2VybWFueQ0KPj4gKEhSQiAz
+NjgwOSwgQUcgTsO8cm5iZXJnKQ0KPj4gR2VzY2jDpGZ0c2bDvGhyZXI6IEl2byBUb3Rldg0K
+DQotLSANClRob21hcyBaaW1tZXJtYW5uDQpHcmFwaGljcyBEcml2ZXIgRGV2ZWxvcGVyDQpT
+VVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgNCk1heGZlbGRzdHIuIDUsIDkw
+NDA5IE7DvHJuYmVyZywgR2VybWFueQ0KKEhSQiAzNjgwOSwgQUcgTsO8cm5iZXJnKQ0KR2Vz
+Y2jDpGZ0c2bDvGhyZXI6IEl2byBUb3Rldg0K
+
+--------------x6lyFpijeyUbKYEiuBYsA8VI--
+
+--------------77oQOgQwTOSLvMCTI7ygFwWj
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmNXj1MFAwAAAAAACgkQlh/E3EQov+AU
+iA//UPHlzRS1HScXqliH4rRY3M+yNSR3Yn4f2OnGGeRgjeKPe9IkGoVfFxkoqkX7v7XZ4WbZBAFH
+eTdcccCJcn8a1X8qk54bcDn6PUCcxpLcFTdy6tTSyL40k5CFC7KBGXXR4/KbhZ17ikV2yik6Ir2r
+Gi7gaZ1KNlNKyDCi7MZRRB74BMMXTus5N/uH5YhQHa9MLsZ2i20xWyt9xH+UtuHqzENMmWKp7shf
+kqqb+Az7e0jgJbWmgsOs+jFh93LwXyWB3kgKhRar6rsHOVBl5WdacnVpjI7xP+iy3Nad17iwktdJ
+dUapmGad05XQuLJTFFJDCv8/LkyvkrmuqXxl2JUURZ/6t7qGSWH6E4hwIwdNXuQcxT0Bp6DakwH6
+7NYhO7qPXoiuVgJM5JT2QzL3n2c5NmJp/egOWXYOqndvDWsIglw2wi86TssRuevI1gm5LHmSsQVM
+FFxNy9Gb9wj6Hn7UQ8A+86tJrDy6sghY17g2AWllnpx/WhcZjxAAgrh2xARZKozTB6l7ebDvA8c4
+vWl0/kZ+wRB9AB31Jb5xdN6/T3aoEKIveDxfD9EtSrj5BEg8EtQrUn8Rjm/lit64wwY4PY3rY7oK
+6JahxQuzzlQzRvAAIUFE3sU94duhDaH+Bew67OSUFrQuZ6W0hNMaqKPrTdoh+pFbUevCfbbxU8Yc
+nYc=
+=Sdr2
+-----END PGP SIGNATURE-----
+
+--------------77oQOgQwTOSLvMCTI7ygFwWj--
