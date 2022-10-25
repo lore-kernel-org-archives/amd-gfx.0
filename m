@@ -4,47 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78BFDC38A2D
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 10:18:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24903C38A2D
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 11:35:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A25B10E31F;
-	Tue, 25 Oct 2022 10:17:58 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AA3910E31F;
- Tue, 25 Oct 2022 10:17:50 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 9B8C9B81CD1;
- Tue, 25 Oct 2022 10:17:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AC4FC433C1;
- Tue, 25 Oct 2022 10:17:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666693067;
- bh=loBjWPuoKTGF/gO56VzkKo6krQdgRby7JIrG/EzZOSQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=d6ZDNCAcK4F26u54xQf8kDBp/8b3DW5BfO6g1lzeUvpUqST0Kw+Ohe0820AGWKYi+
- /7Iqw8NZ0p6eQ/pqwMi1Gu67j2R14VHUyxddgBClTRfmn7+eiBCfjsq3GSF79nNNGz
- 0X7g+J7DfNAmhkRl2i3xi1iShD/jLXV9iOD0Aj/KAyEV5IbzhVMFLMbIuW+YD0HX3T
- B8i2fs2s6CKT9WlZ6lTFZXa/hnB4DlVRnIIZi1IMECfFVAoF+8Q0qD/kHO/VT7rrxh
- ahRkwDT3WUrOsLHpVfVQd0i2lzMAzWlJ4qQ4wL0BQod1CCuVzaQiHLp5VsXHdnMHQK
- 2bogCqmt8gCvw==
-Message-ID: <f36153fe-214c-2904-e155-ab9cee8a2a2c@kernel.org>
-Date: Tue, 25 Oct 2022 12:17:43 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Subject: Re: [PATCH v2 0/8] Fix several device private page reference counting
- issues
+	by gabe.freedesktop.org (Postfix) with ESMTP id 642F110E1AA;
+	Tue, 25 Oct 2022 11:35:52 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5F3110E1AA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 11:35:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UuZ7NXEyC9KR0TBQnKeOrAVCsDfO9eUyCTXzDXa1zF/aiNVLuT8UYXaHqYGiv1KP8XfdgFkRJXDO9oYCJUY8cfBcVFIKFedQrhN0a8W8wEKYbS2sxXXrravOwlnAexuWC/v1nilDobwfsUJ4aJRT8264vVTq50++YtHxDB9Nd6+UIrRIV/ebNi0i8/YPkiqDEqpXX8fq01WIe9em3dlz9i7PGHofVk64ieiAVBOkAQdvM22jFr0TLaAr3FI9L3sp5DRX2Zqx+1orkNKB1iSN0ALJTffxH0KkwsaRrF6xlwfYDbXF+42vUoDHc9fuwn2hhTgzDUDDIJAWroeGksQ7+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ML9i9zt4l0WlpQq+CKWBHX1+t1I2HpHFmxOLXhms7hM=;
+ b=jb48hJTh9107ZykM0p7beG3jkSZVIbpHM48sRfA5YcFpoEsKBMmeanPE9WZ5crXnS+WBNjnAZQW4Tsc3iTmq6o0/c0Zu23K1dMD++AJmbD6TEjRh62NIP+/rDA6U2KyqoUWA9Dn4LRoCK573KJrJdl6F1l3RuLxec7fUPguXUkYWUMtk34eSjRJSpDtcrPIGGt09ra+P0b/EP9pj5HBEvSBqvquPFjcWHEd2UwMIxNkyM1HGJ777yfP/VKcPJBRW7ouQra4RPfKTaLVwLAVjp7634HsTT2Qp3E/IUW90yx6K9HPnuIw1tAY8PJFTOUFl+CYTyjXtxuSzWo0cZrrctg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ML9i9zt4l0WlpQq+CKWBHX1+t1I2HpHFmxOLXhms7hM=;
+ b=LD1SHVeoIYhiJFI7CbE27HQFw+xCtIFTrRqjfQ/3eoHSos27DpW33vmLAOFrG3oqq8ZmcBBkYNke/0XgkYuhkBwU74oMj3e8J0vcPxeUDgk2Z65OzKVneyycwNbv+eYdhbjr4F7PMXIrALxxAF97uTCjJUvHx7UPmMrQsUgOxsI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by IA1PR12MB6530.namprd12.prod.outlook.com (2603:10b6:208:3a5::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.21; Tue, 25 Oct
+ 2022 11:35:45 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::a350:f29a:f287:7279]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::a350:f29a:f287:7279%4]) with mapi id 15.20.5746.023; Tue, 25 Oct 2022
+ 11:35:45 +0000
+Message-ID: <735cc64d-05f6-273c-0236-d383e75a68e8@amd.com>
+Date: Tue, 25 Oct 2022 13:35:40 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 01/13] drm/scheduler: fix fence ref counting
 Content-Language: en-US
-To: Alistair Popple <apopple@nvidia.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org
-References: <cover.60659b549d8509ddecafad4f498ee7f03bb23c69.1664366292.git-series.apopple@nvidia.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-In-Reply-To: <cover.60659b549d8509ddecafad4f498ee7f03bb23c69.1664366292.git-series.apopple@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: Luna Nova <git@lunnova.dev>, amd-gfx@lists.freedesktop.org
+References: <20221014084641.128280-1-christian.koenig@amd.com>
+ <20221014084641.128280-2-christian.koenig@amd.com>
+ <f49e6008-fd01-4942-b39a-ab605548ade2@app.fastmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <f49e6008-fd01-4942-b39a-ab605548ade2@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0129.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::17) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|IA1PR12MB6530:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3178326c-86fc-4362-2c94-08dab67d0e32
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bIwFsFRgx5UoylKMmqdc3XsDkmzSBfNJvkxrk2nsieTifHXn3QrKFHnu9j14Mh3FVKNLpm/In4y4wwKpJUMGJ1jyIh0B+WxYXd1Uj0KyAbOE1cTidyYL7NZ2vjQE641kSwV5xSEL4g9LlC7UxwYrYDf5fZRwfoOwIBHE+FyDMQdPYv2dqhyJBeR3JjiO6Hpo/AKlQ5e8Q65PJ6Q/jR0ZTNT0WuYf52I+s9JXq6szA6NrFSmU6C0KpiWwBGgJ8gwIW31hk4L9AN7UF/1+mAAxMsee2U0WYb4ebbTs5AIynS9FO+O1cPAdM6hf4vyCqLRRT6Ylup5BYux2CkI3xr5f/g3H0nfTdEG9Yn7BJ2CElO6LX8rkqhMCx/4N7t6ihVh33NAIduHi6YR7l/XQbDengpPDc8GThgegTTxKMJyt/P3NpnHA0KXPoMysU+ZjHm47hZVjU6892oyQLremwDAHXw1UiC3cmYz9UYhTO1FZ6KJQaPC9zRE/ixdXiRe///mepA04jM2lf94YpN70aYoOd8fdY/IbKpr3/id7dcy7+J01OAz5bkNDm4rT0CI+ayG/AiPZlNxAowDAPWCUDTmLiwfiHiaL4++uyivItTmPtxDxwRk2NerEfF4B+cIMcx8blabpM6QmQS/JknKvUxdS0TRSFVSUMiak+0OCIypybdQ0/z6h/XqESWpvq9lj7kfie9s5Lz2avozruY0g8Bm5/QoYvv1uw4xLHk82sWaFW9QRiSigZi4rzx/NKDsdyWIWorp3qlDDMSy53mEb8OKGaN02hJfWqgWtyeWVC6JJ3mA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(39860400002)(136003)(376002)(366004)(396003)(451199015)(66946007)(6506007)(66476007)(8676002)(66574015)(2906002)(2616005)(36756003)(41300700001)(6512007)(26005)(5660300002)(186003)(31696002)(478600001)(8936002)(66556008)(86362001)(31686004)(38100700002)(6486002)(316002)(6666004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cFVONDlTK3p0SHhrK3dIdVZTcW1vRkMyNmdjTTlSK1g1NUhpRzNBeU44L2xC?=
+ =?utf-8?B?YUZWOXZiR0ltUHNoK052YjVUVXFLNEdBT05hbHpoWWlqcGJ6a29qanpWRUVn?=
+ =?utf-8?B?UEpMaXcya0ZFRDlSSkZISEM0b0owUThTTXRkMFhabmdqWjVRbjN1cGQvNlVS?=
+ =?utf-8?B?VENMTHAzRUNXRC9na0VEeCtaYzBDWkFXWHhYR2JsRTBnV1Vxa0xBTnNzb2R6?=
+ =?utf-8?B?UXhiRG5YeVhLaldXa2xMUkVGU3BnWEJUcjNZL0tQUWt5YTFQY2RaY2FPWTM4?=
+ =?utf-8?B?MnF3ZFF4YnNUWTNLSjlobmpUck94Q3d0RmRTSVVnQlpoYWV0ekZ4WHA4cmx0?=
+ =?utf-8?B?UDFKL3FzWDRxR2oxcUllZFd5ckwzbVU3UjRLTU1qTS9mQkEvOUU3NUFGRklk?=
+ =?utf-8?B?aFhsblJGN1NTbkRDckpPNXRCWmlSUDJhNFNUR1NFaUhtL0cwRm1NMHRndzlH?=
+ =?utf-8?B?Rm56TzVyMm5ETjY2d3JsTUtRdXFhZkc1em54azVnOEp3QlZUSU9uNVpWTlZh?=
+ =?utf-8?B?N1ZyWGxKMFNQZVJwZGswUkpNNzhRNDNBZlI5REViY2hwcmZ2eXBPOEV2WTVW?=
+ =?utf-8?B?ZmpyditaYmd3b3dkdDNSdUE5aWNZVnJMK3VYS29PWExSVlhHOFlpeXUyckNz?=
+ =?utf-8?B?YUhDT2VDN2ptOFVGWWxldVhXVkcyY1FranV1Vzczc2hrcVZuRGJ2U1pmbGtw?=
+ =?utf-8?B?dnlPdVM4OWF0WHJVK3RKWFpjLzZTWHNsVDJ3cFNybWVlZUcza3JFN2RwUjkx?=
+ =?utf-8?B?ZmNDS0x3OGxJM1IzRWdHVE5RZFZEZ3REVTVrYnlyUEVDVWxpNzdpOWZrTEZw?=
+ =?utf-8?B?SUd5b1BoY3lzUHM1QlovUGFnRFJ6TlpVcXU2ajk4NG9PMTBOTlRrZkZQbmh1?=
+ =?utf-8?B?NnI1ckJEVG1DTlFuTzByUkg3ME5kazhsSUhHUmUrMVBsdS9KaGtXSmY3c3h0?=
+ =?utf-8?B?aGR3Zm56VHMwbGo0SjZFNm9YSUFjWTdqOTNaK0ZRNi8xMGNPT0tyTkJpcUhn?=
+ =?utf-8?B?Nzh4UmRNZEJPY3dDQk9WZit2OVAzWUgyUTlKRUY0bThTeC8wRTEzNGpKbnF4?=
+ =?utf-8?B?WUhjWUVrZGp0aTVGTW93a1ByREZmV3NmazVubWJoR1JPdVZUZi80eWZadUJv?=
+ =?utf-8?B?Zk44R08rcWhNREY1MVY4eXVDU2FiVWh6WEhBbXdtYUZ4azROSHB5UU5INzNB?=
+ =?utf-8?B?OElHNE0xbEpEUWJnQkcza2tKOTBFazFyK3o3R1F5c3JJSEtrU2VRL2xFNko2?=
+ =?utf-8?B?R3J4d0ZHbzE0dkZhL095WGRQeTFmVTEwa0w5N2w3VVB3eGVTa2xLNSsyUFhs?=
+ =?utf-8?B?eXgzMFVWY2p3RG9yZGdKMzFyY2RwWDQrdU9hREFXblZBdUtOVmxYcWtQTVZr?=
+ =?utf-8?B?ajFWMTNNbVAxby9Ob3o2YjhrbVRTVzRzSlJkK1ZRVG9HSUhVSTZYWit5aEV4?=
+ =?utf-8?B?c2xkVHFOa0R3TkFFV1B1ZlMwaFVZZHBacEk0WXFDRWJuaHZNTlRWYUlxTHdI?=
+ =?utf-8?B?VjVvRml5Vk5pcmdCcHVFR2lGdmxvajdoYmlUcmlWSi9qNUVjVVk4UmMvUDJE?=
+ =?utf-8?B?QXNzM09GSmg5MEkyU1AwOEJyVlBvWkFCRk5Td1M1TjhTbFVmcmZ1UFdPTWlN?=
+ =?utf-8?B?YS9XdHJ6bHM3emZ0NzdiMm1OSkRhNnpFM3REckF2K2JsRHNaR3ZQUTA0Y1lj?=
+ =?utf-8?B?UitJdTMyTjhXTExLZ0U0WW55cEM2emt1Sk96cjY1RmxuSmhQeFFKWU5EQTIw?=
+ =?utf-8?B?T245a2F5U0txblhzOWVTN1BCSjg4MkNiTTd0TmMwRzFtV0tKSnBPZmlmM2lz?=
+ =?utf-8?B?VXRqUllRNnIvUndYc1R5eTlwSWVpNUtpY2pYdFMxUFg0cCs2YUl0Wm9qc3NB?=
+ =?utf-8?B?QVMyZURoVzU4aE9DRGVOTGEwMzFXMSt3VUJZS1BMTXFGUXBjNjBOVTBYbm14?=
+ =?utf-8?B?NFZHckxWQ010SzB4Y25Rb0ZPMm1JQVdsaUk4TmVPQ2tIUXM4T1ZoMElJYnZ1?=
+ =?utf-8?B?QjNJS2xqMHlzYmJSSU1NRHM4UEFBZDFuM3ZQWStuUGlRUVdObGJSMmpiTnlt?=
+ =?utf-8?B?NDN6L0RRTWpMbnFER1Fxa2dOMzJVUTc2U3VzdHdwaWdVVWhJNHY4T1NSaUpW?=
+ =?utf-8?Q?tQXmFvdWKHWbF7BDGtGLSPv8O?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3178326c-86fc-4362-2c94-08dab67d0e32
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2022 11:35:45.4182 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nKgxkT1W1VmsGBturhyDjq85M4kDspmN7lEqwWHDLIamTwCzi6HrBkc4Hc7YhM60
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6530
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,78 +125,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/28/22 14:01, Alistair Popple wrote:
-> This series aims to fix a number of page reference counting issues in
-> drivers dealing with device private ZONE_DEVICE pages. These result in
-> use-after-free type bugs, either from accessing a struct page which no
-> longer exists because it has been removed or accessing fields within the
-> struct page which are no longer valid because the page has been freed.
-> 
-> During normal usage it is unlikely these will cause any problems. However
-> without these fixes it is possible to crash the kernel from userspace.
-> These crashes can be triggered either by unloading the kernel module or
-> unbinding the device from the driver prior to a userspace task exiting. In
-> modules such as Nouveau it is also possible to trigger some of these issues
-> by explicitly closing the device file-descriptor prior to the task exiting
-> and then accessing device private memory.
+Am 25.10.22 um 05:23 schrieb Luna Nova:
+> This patch doesn't apply nicely on 6.0, seems amd-staging-drm-next is missing 9b04369b060fd4885f728b7a4ab4851ffb1abb64 drm/scheduler: Don't kill jobs in interrupt context
 
-Hi, as this series was noticed to create a CVE [1], do you think a stable
-backport is warranted? I think the "It is possible to launch the attack
-remotely." in [1] is incorrect though, right?
+Yeah, so what? This is a rebase on top of amd-staging-drm-next. I've 
+just pushed the original patch to drm-misc-fixes.
 
-It looks to me that patch 1 would be needed since the CONFIG_DEVICE_PRIVATE
-introduction, while the following few only to kernels with 27674ef6c73f
-(probably not so critical as that includes no LTS)?
+Regards,
+Christian.
 
-Thanks,
-Vlastimil
-
-[1] https://nvd.nist.gov/vuln/detail/CVE-2022-3523
-
-> This involves some minor changes to both PowerPC and AMD GPU code.
-> Unfortunately I lack hardware to test either of those so any help there
-> would be appreciated. The changes mimic what is done in for both Nouveau
-> and hmm-tests though so I doubt they will cause problems.
-> 
-> To: Andrew Morton <akpm@linux-foundation.org>
-> To: linux-mm@kvack.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: nouveau@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> 
-> Alistair Popple (8):
->   mm/memory.c: Fix race when faulting a device private page
->   mm: Free device private pages have zero refcount
->   mm/memremap.c: Take a pgmap reference on page allocation
->   mm/migrate_device.c: Refactor migrate_vma and migrate_deivce_coherent_page()
->   mm/migrate_device.c: Add migrate_device_range()
->   nouveau/dmem: Refactor nouveau_dmem_fault_copy_one()
->   nouveau/dmem: Evict device private memory during release
->   hmm-tests: Add test for migrate_device_range()
-> 
->  arch/powerpc/kvm/book3s_hv_uvmem.c       |  17 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |  19 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_migrate.h |   2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_svm.c     |  11 +-
->  drivers/gpu/drm/nouveau/nouveau_dmem.c   | 108 +++++++----
->  include/linux/memremap.h                 |   1 +-
->  include/linux/migrate.h                  |  15 ++-
->  lib/test_hmm.c                           | 129 ++++++++++---
->  lib/test_hmm_uapi.h                      |   1 +-
->  mm/memory.c                              |  16 +-
->  mm/memremap.c                            |  30 ++-
->  mm/migrate.c                             |  34 +--
->  mm/migrate_device.c                      | 239 +++++++++++++++++-------
->  mm/page_alloc.c                          |   8 +-
->  tools/testing/selftests/vm/hmm-tests.c   |  49 +++++-
->  15 files changed, 516 insertions(+), 163 deletions(-)
-> 
-> base-commit: 088b8aa537c2c767765f1c19b555f21ffe555786
+>
+> On Fri, 14 Oct 2022, at 01:46, Christian König wrote:
+>> We leaked dependency fences when processes were beeing killed.
+>>
+>> Additional to that grab a reference to the last scheduled fence.
+>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+>> index 43d337d8b153..243ff384cde8 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>> @@ -207,6 +207,7 @@ static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
+>> struct drm_sched_job *job = container_of(cb, struct drm_sched_job,
+>> finish_cb);
+>>   
+>> + dma_fence_put(f);
+> Conflict here, is INIT_WORK with that commit.
+>> init_irq_work(&job->work, drm_sched_entity_kill_jobs_irq_work);
+>> irq_work_queue(&job->work);
 
