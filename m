@@ -4,89 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6C80C38A2D
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 08:00:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F269DC04A95
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 08:29:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C81210E2A0;
-	Tue, 25 Oct 2022 08:00:05 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2088.outbound.protection.outlook.com [40.107.94.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98C3A10E226
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 08:00:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62D2A10E278;
+	Tue, 25 Oct 2022 08:29:18 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2087.outbound.protection.outlook.com [40.107.100.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A048310E296
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 08:29:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jPUoU/mQglTQ4hJOBGIrYNO9F23DpDXIIe33sZiWBbFuD1c67mbAGWVVGsetRvRottZJ0GRCnwGrMSywb9XpKuHdGSMk7Qg5HPx6XyYtOg5ZEebJeTqUWdRI7KeRzdHmyFtMJzFlko7dHfN187u7SDXdIkexb9h72eSIXgo+gJJM6+MFt3J6ynPV8s5seyO1dAiWxd0+0t1ULK7wgXy4qC7Zu/m+lsO97p9Gle5pcCHh6EwrHVPFD8/lfqJpHNgDAEEi6Pw19G3h+gRHWR3zgP8uyG9w3cd1SBDftRGh2IVfqjZOUd0vn8ZnndjegOrhlMko+BhPxEj1pvO1R4cSOQ==
+ b=k9gxMeK/1s/QzNx3hSmiMRbhOHQl2R+zmSEfLu+5WYxvS5CeXkgQW5xcyWVYEX9miPQ7KdrhIlGdtE7F0nP4QJgh20htd1hqXCVjBmshlkCCmCaNeC93lUSYoDw1QCfwhsdDwxPvTe/veVFJCuB5xVFoGzT9UfkpZyZZ6jjpAYxYUNdFY/+PNh1tKFYF5mpj05avbaCT/v2Z+sDulVDygxYgZ+sU8LlDufAON1Vvnlq+mRH33xJ+aLfnCMeqLcxh1SpibKc8zlcG5vt75dVnFePg8kDniz6Z1LQHSGS4lbDJWkvoq3kPf3Vx0NMtTmKO4u/q6Cnp4Y6m6qOihs7i9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iEgDMzOq6v48ifMUgxHQXk2w13qB3c7rWX/sXG/MRIY=;
- b=Jz+ZiWWgah68sfeSvHYHE88xajid0wHP47Z40a4ep5KEbZ8cew5Bz8Uf8XTFlaoAief4wWL0mQBNueUbvPS3jye0bC6FiALhr5HjSwSnEnQOCZOovWdXTrryrJvbY/cymIeM/4cYGUDwCcGhCMo9S1VUeCZd2FlQZxbUec2h1r0KBFuffYi4qH83feUDrycitEVMMSnK3tcaho2Do8VUDcjV7sUEouuPaoEl8RU4BEJqU4T+Odrd4TQndUxvM0f9xTxrHtl/UaC71an5soSpUEL1tTmjXHeyjeV3q//biPePhkOkW9lGxZoyBFMTvJ452c2X/HSq86FB8e8eZrH7WA==
+ bh=EkqLqLGN5mcRHrV6LqM+Y4WixD2/Lu6CvolLoNps0jU=;
+ b=Ox/hM6g9uh2b+4qWjZ0cWiGUEyyunL9gUPRcw6+n53TMwrs+ppg6FASd9Y159j6gdmDp+Tfo5uhdptXVqI1fykd3+vRdZvZAJXrTi3rGpoLVRPlv2qkunuWCRO91X0JFILR7jaouYsVgTld+o54s5ArrJp/FTYe3szz6YVuXHOAWry7fQTg5DiuSDbJZYOodSZ/bsUyGfVNz180x6gVbA7/7A40WH3G0IcTrFIHkMnLbAVMSrVqvPYjPRFbHra0sYIkMnWK/ZTdCsTcpaWwPS7aM6AoGYuo7nFhY/dJytVgENccm1vhzItlCEuQ4M4deL8Oe3lzNTpmg5QTJ5J8MEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iEgDMzOq6v48ifMUgxHQXk2w13qB3c7rWX/sXG/MRIY=;
- b=fD9Vp77ij/8r4Ty4SRvTzkUzMQ3haQLiGFsGu1LcaW9Nb1Wzrjz/rFEt0BhBjnJL3V21mROYVN8RqWYDkzyoUfg5MrV7YKL6MfuqlBabKDFNV3iaX6esCQTbGhDmW2alIqpsvDqWlpRoh0JiOU+fsxXcqwLKEinMQhNZWmaoUrE=
-Received: from BN9PR03CA0372.namprd03.prod.outlook.com (2603:10b6:408:f7::17)
- by BL3PR12MB6546.namprd12.prod.outlook.com (2603:10b6:208:38d::6)
+ bh=EkqLqLGN5mcRHrV6LqM+Y4WixD2/Lu6CvolLoNps0jU=;
+ b=eNz+gc3LI98QuR957GBkB8ymNvxSy0RaFlo2EkVtmXYvGKkPtftr3WjC9odEOJSkVcW8hUZFrSBhznj4awBleHhuGRt6ySp2lZD0sIe69K1kVFl9BSL/pxhJq+v+m+u5H0948LC3fGMQE30oBfBevFmy+09qv+PzY+veQnFLNwQ=
+Received: from MW4PR02CA0027.namprd02.prod.outlook.com (2603:10b6:303:16d::32)
+ by CY5PR12MB6322.namprd12.prod.outlook.com (2603:10b6:930:21::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28; Tue, 25 Oct
- 2022 07:59:58 +0000
-Received: from BN8NAM11FT095.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f7:cafe::98) by BN9PR03CA0372.outlook.office365.com
- (2603:10b6:408:f7::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.27 via Frontend
- Transport; Tue, 25 Oct 2022 07:59:58 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.23; Tue, 25 Oct
+ 2022 08:29:11 +0000
+Received: from CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:16d:cafe::8a) by MW4PR02CA0027.outlook.office365.com
+ (2603:10b6:303:16d::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.26 via Frontend
+ Transport; Tue, 25 Oct 2022 08:29:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT095.mail.protection.outlook.com (10.13.176.206) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT003.mail.protection.outlook.com (10.13.175.93) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5746.16 via Frontend Transport; Tue, 25 Oct 2022 07:59:58 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5746.18 via Frontend Transport; Tue, 25 Oct 2022 08:29:11 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 25 Oct
- 2022 02:59:20 -0500
-Received: from alan-new-dev.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
- Transport; Tue, 25 Oct 2022 02:59:14 -0500
-From: Alan Liu <HaoPing.Liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Move the mutex_lock to protect the return status
- of securedisplay command buffer
-Date: Tue, 25 Oct 2022 15:59:08 +0800
-Message-ID: <20221025075908.185288-1-HaoPing.Liu@amd.com>
+ 2022 03:29:09 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 25 Oct
+ 2022 03:29:09 -0500
+Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
+ Transport; Tue, 25 Oct 2022 03:29:07 -0500
+From: Yifan Zha <Yifan.Zha@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>
+Subject: [PATCH v2] drm/amdgpu: Skip program gfxhub_v3_0_3 system aperture
+ registers under SRIOV
+Date: Tue, 25 Oct 2022 16:28:25 +0800
+Message-ID: <20221025082824.1509079-1-Yifan.Zha@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT095:EE_|BL3PR12MB6546:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8b255e5-9225-4b12-f789-08dab65ee937
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT003:EE_|CY5PR12MB6322:EE_
+X-MS-Office365-Filtering-Correlation-Id: 528661d3-0a3e-453b-e1ed-08dab662fe29
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sdiF/ByGoLDDzSL8Xxt1Ckl8Q7FELJNJG8YoESBsEKemrYHRkp6RNw9Xe7SCa+dnb8mGdbfGxMd531FKt4jg5RoOHVczD61uFF1Pm9yCzkW+zWk76djGTJh76GDPRFimF1Qjb3mvcu2lHR06l3y05NCIocX0PXXYkxR7bU2ODMD4WiabHHHFZ3hS8aXtBLihtNWrri9lZiYHTpEy7updnIW8NLtpFkiMB+0r6GUbhlZIvvUXYA4hSyinhHXSYzCMlckjC8QR+2KAIOqSefPMvilNxwOJR6Z9oGJv2eo5WhlseTyN6qJEuE0V0VNoikoxTyHdccvyzWe15LNI7Yd8cqslYRxL57zGv58AF6r1l4MGhnln9YbChMuww8Gf2feWb3J5dz4tMfc5lPsIZFbPQ5gLmuAFlGFqQbBWdHDxmKLCeyIRLeO5zF5CgyqIKXHJaG1kcNzkzNf3S0P7dLc2r2TE8LGlircOB+aByQeFxGspgiPzb/W1G6/82YK09oYFkee8l4a7EkbE1LLL/GwaE8IIZ7TOaL+hIht7kSANfZ/SA80axWbKG0l2hFUe38v4IykWlIu7b8jxRZJfnllZ1yKvtr/FTdJ9Ltp1Lf8AYHiefC+sVwDk11Eq/lHSIsp31H/DbPs/b6B7A66mCGYk0w/k45xg4pBkYyq/m9h45KW6/4iJCijWxIoXn79D9uFP7fWhX0qXnJ+eBPbcgb30t/H8IlzSEkZn3nWT8Jr/FsaTkIRxV3p5zNICRvYXKLAbPVyXibnumPRJ83AMqpcLN2msrGBfcH+cgupnNTtOtsO4s6hO1O/aw/hi6VozEbv7
+X-Microsoft-Antispam-Message-Info: xDxDZDSzRy1ex1rVrAYK8LvvJjviRlZuELwLr+kxDLaZygU+7bH/HYcZu19H49tlgGl0xsI9T3YjDUufk80gq7j4PYQ7XEfjcvd1NzKl0oKp7jmTBhI92aPkUXv5A9fsUVCythEDK4K8pkVU2G0JcMTbr13BDNDVdlVchq8vsAGRj1swKV3/WQRLOe+LtFHwuXes/3vIxueKmQRJ6VjuHbh5X0OGW5QtvqNuXowfSDo/golK3lushe9BqEaJdblDJtmvCx5IqU2k/aYtLx86oox564QjmnQdWFRIPhtMX0VcGaHvc33pFIn8ESfYNSvWAbca4JfQab/0XxDXR7MJdl5w4npnXoG/RXoeNXMxFRXLYXCqj6U6pbyO6MNGvDyN7htRNnrigV7u3bS62Ng+w0o6Z7OLk28DPu7cx8b4JivIgKUYAhrzzsNbAPRl9ltKrdWzprq1rolabVvTIra9YYuVJJxiG9B7/y7Y/Fa8IsaEXtR4UuzIbYuvkc7urhqKPzM9qTZ+jVPwfPv5w1nJ5brc5tcqMAJMNFzxyzNC3VFYKSec6IQ6hoH9gIb5POe8vUvLqPjsSazakcf39TTM5ch9luHnc12I+B/huRcE4N2frjB9pYsPu7USpoDRcpYfLa7ge+5lnhIxrW8qZRJ47PHyu+vZi7QGgSwxumdm3Ii3gUvNj4pS4Mjd/vVtq/uzBh75P1jcilmhscBJrHHNDvL0aLBfptZqeyoPsSkHB1cNH0h05JZxwagvWFpSL45vl1UBTDwOusrE2JkJicP/8t7UBzapBWjV1ZI3owdwgOytbZL6mZ2mrRJyCTEPXnF+LYmoCFzrpLwYWG+TUnKUUg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(346002)(396003)(39860400002)(136003)(451199015)(40470700004)(36840700001)(46966006)(426003)(47076005)(83380400001)(86362001)(36860700001)(81166007)(356005)(5660300002)(82740400003)(70586007)(8936002)(70206006)(41300700001)(8676002)(4326008)(82310400005)(2906002)(7696005)(6666004)(40460700003)(186003)(26005)(2616005)(1076003)(54906003)(6916009)(316002)(478600001)(336012)(40480700001)(36756003)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(136003)(39860400002)(376002)(396003)(451199015)(46966006)(40470700004)(36840700001)(82740400003)(40460700003)(86362001)(36860700001)(8676002)(316002)(40480700001)(356005)(36756003)(70206006)(4326008)(70586007)(110136005)(6636002)(81166007)(2906002)(426003)(2616005)(8936002)(1076003)(5660300002)(83380400001)(4744005)(47076005)(336012)(186003)(478600001)(82310400005)(54906003)(26005)(41300700001)(6666004)(36900700001)(2101003);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2022 07:59:58.1818 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8b255e5-9225-4b12-f789-08dab65ee937
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2022 08:29:11.1992 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 528661d3-0a3e-453b-e1ed-08dab662fe29
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT095.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6546
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6322
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,121 +102,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Alan Liu <HaoPing.Liu@amd.com>,
- shane.xiao@amd.com, wayne.lin@amd.com
+Cc: Horace.Chen@amd.com, haijun.chang@amd.com, Yifan Zha <Yifan.Zha@amd.com>,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Why]
-Before we call psp_securedisplay_invoke(), we call
-psp_prep_securedisplay_cmd_buf() to prepare and initialize the command
-buffer.
-
-However, we didn't use the mutex_lock to protect the status of command
-buffer. So when multiple threads are using the command buffer, after
-thread A return from psp_securedisplay_invoke() and the command buffer
-status is set to SUCCESS, another thread B may call
-psp_prep_securedisplay_cmd_buf() and initialize the status to FAILURE
-again, and cause Thread A to get a failure return status.
+gfxhub_v3_0_3 system aperture registers are removed from RLCG register access range.
 
 [How]
-Move the mutex_lock out of psp_securedisplay_invoke() to its caller to
-cover psp_prep_securedisplay_cmd_buf() and the code checking the return
-status of command buffer.
+Skip access gfxhub_v3_0_3 system aperture registers under SRIOV VF.
+These registers will be programmed on host side.
 
-Signed-off-by: Alan Liu <HaoPing.Liu@amd.com>
+Signed-off-by: Yifan Zha <Yifan.Zha@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c               | 9 +++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c     | 4 ++++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 4 ++++
- 3 files changed, 13 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index effa7df3ddbf..7bbf869f4f0d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1938,10 +1938,15 @@ static int psp_securedisplay_initialize(struct psp_context *psp)
- 	} else
- 		return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
+index 5d3fffd4929f..716ae6f2aefe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
+@@ -154,6 +154,9 @@ static void gfxhub_v3_0_3_init_system_aperture_regs(struct amdgpu_device *adev)
+ {
+ 	uint64_t value;
  
-+	mutex_lock(&psp->securedisplay_context.mutex);
++	if (amdgpu_sriov_vf(adev))
++		return;
 +
- 	psp_prep_securedisplay_cmd_buf(psp, &securedisplay_cmd,
- 			TA_SECUREDISPLAY_COMMAND__QUERY_TA);
- 
- 	ret = psp_securedisplay_invoke(psp, TA_SECUREDISPLAY_COMMAND__QUERY_TA);
-+
-+	mutex_unlock(&psp->securedisplay_context.mutex);
-+
- 	if (ret) {
- 		psp_securedisplay_terminate(psp);
- 		/* free securedisplay shared memory */
-@@ -1990,12 +1995,8 @@ int psp_securedisplay_invoke(struct psp_context *psp, uint32_t ta_cmd_id)
- 	    ta_cmd_id != TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC)
- 		return -EINVAL;
- 
--	mutex_lock(&psp->securedisplay_context.mutex);
--
- 	ret = psp_ta_invoke(psp, ta_cmd_id, &psp->securedisplay_context.context);
- 
--	mutex_unlock(&psp->securedisplay_context.mutex);
--
- 	return ret;
- }
- /* SECUREDISPLAY end */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
-index cc7597a15fe9..2c1d82fc4c34 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
-@@ -121,6 +121,7 @@ static ssize_t amdgpu_securedisplay_debugfs_write(struct file *f, const char __u
- 
- 	switch (op) {
- 	case 1:
-+		mutex_lock(&psp->securedisplay_context.mutex);
- 		psp_prep_securedisplay_cmd_buf(psp, &securedisplay_cmd,
- 			TA_SECUREDISPLAY_COMMAND__QUERY_TA);
- 		ret = psp_securedisplay_invoke(psp, TA_SECUREDISPLAY_COMMAND__QUERY_TA);
-@@ -131,8 +132,10 @@ static ssize_t amdgpu_securedisplay_debugfs_write(struct file *f, const char __u
- 			else
- 				psp_securedisplay_parse_resp_status(psp, securedisplay_cmd->status);
- 		}
-+		mutex_unlock(&psp->securedisplay_context.mutex);
- 		break;
- 	case 2:
-+		mutex_lock(&psp->securedisplay_context.mutex);
- 		psp_prep_securedisplay_cmd_buf(psp, &securedisplay_cmd,
- 			TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC);
- 		securedisplay_cmd->securedisplay_in_message.send_roi_crc.phy_id = phy_id;
-@@ -146,6 +149,7 @@ static ssize_t amdgpu_securedisplay_debugfs_write(struct file *f, const char __u
- 				psp_securedisplay_parse_resp_status(psp, securedisplay_cmd->status);
- 			}
- 		}
-+		mutex_unlock(&psp->securedisplay_context.mutex);
- 		break;
- 	default:
- 		dev_err(adev->dev, "Invalid input: %s\n", str);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-index 8a441a22c46e..515352ba788e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-@@ -123,6 +123,8 @@ static void amdgpu_dm_crtc_notify_ta_to_read(struct work_struct *work)
- 	phy_id = crc_rd_wrk->phy_inst;
- 	spin_unlock_irq(&crc_rd_wrk->crc_rd_work_lock);
- 
-+	mutex_lock(&psp->securedisplay_context.mutex);
-+
- 	psp_prep_securedisplay_cmd_buf(psp, &securedisplay_cmd,
- 						TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC);
- 	securedisplay_cmd->securedisplay_in_message.send_roi_crc.phy_id =
-@@ -133,6 +135,8 @@ static void amdgpu_dm_crtc_notify_ta_to_read(struct work_struct *work)
- 			psp_securedisplay_parse_resp_status(psp, securedisplay_cmd->status);
- 		}
- 	}
-+
-+	mutex_unlock(&psp->securedisplay_context.mutex);
- }
- 
- bool amdgpu_dm_crc_window_is_activated(struct drm_crtc *crtc)
+ 	/* Disable AGP. */
+ 	WREG32_SOC15(GC, 0, regGCMC_VM_AGP_BASE, 0);
+ 	WREG32_SOC15(GC, 0, regGCMC_VM_AGP_TOP, 0);
 -- 
 2.25.1
 
