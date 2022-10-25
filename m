@@ -4,36 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B88DC38A2D
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 19:55:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7BF2C38A2D
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 20:03:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 135DA10E16C;
-	Tue, 25 Oct 2022 19:55:37 +0000 (UTC)
-X-Greylist: delayed 82910 seconds by postgrey-1.36 at gabe;
- Tue, 25 Oct 2022 19:32:49 UTC
-Received: from cavan.codon.org.uk (cavan.codon.org.uk [176.126.240.207])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA6DA890EA;
- Tue, 25 Oct 2022 19:32:49 +0000 (UTC)
-Received: by cavan.codon.org.uk (Postfix, from userid 1000)
- id 6C71B4245C; Tue, 25 Oct 2022 20:32:48 +0100 (BST)
-Date: Tue, 25 Oct 2022 20:32:48 +0100
-From: Matthew Garrett <mjg59@srcf.ucam.org>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH v5 02/31] drm/i915: Don't register backlight when another
- backlight should be used (v2)
-Message-ID: <20221025193248.GA21457@srcf.ucam.org>
-References: <20220825143726.269890-1-hdegoede@redhat.com>
- <20220825143726.269890-3-hdegoede@redhat.com>
- <f914ceb3-94bd-743c-f8b6-0334086e731a@gmail.com>
- <42a5f2c9-a1dc-8fc0-7334-fe6c390ecfbb@redhat.com>
- <20221024203057.GA28675@srcf.ucam.org>
- <8f53b8b6-ead2-22f5-16f7-65b31f7cc05c@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEC5510E156;
+	Tue, 25 Oct 2022 20:03:03 +0000 (UTC)
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA4FC10E156;
+ Tue, 25 Oct 2022 20:02:30 +0000 (UTC)
+Received: by mail-pj1-x102a.google.com with SMTP id
+ d59-20020a17090a6f4100b00213202d77e1so6044058pjk.2; 
+ Tue, 25 Oct 2022 13:02:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=sCSHnie7nbI2FMBFICWqa0omK7VXIgSVZ2dIjG4CBuc=;
+ b=aDA7BbR3Ja4cnhevsaBBMfimo/Tqn1gci6sqSUsju2slvTnC1KiNQk9xbZU3gEbdtG
+ qI9TpPQQtOxqFWJtSTb3KS8KmocPMKQxjmPQJj59Ulz12ko+3fQFa4taFNfv47qsFZtn
+ xF0RUcQ5abUG6fzu5mZ6ezoTn1NEYPmsiKvKdWsW2CRmXdryNnNbkKWd8X20GXv+tq3m
+ 9IEAc7JzIJICO2ywwtKdaB5Bhw9VSiwWdG/fmlwBQIp+03eAJbpjMKgPQvQSEnnOHY+n
+ SbcittWfXdXLk8G9hBut0LT3uIaCaqJ2/Z1/3iigRuYIHx/Of5Ow5GAJVZvZeaXJdDPS
+ 9klA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sCSHnie7nbI2FMBFICWqa0omK7VXIgSVZ2dIjG4CBuc=;
+ b=Q9u/bYzR24pJdPE6UFY5TReyBuyCW09YDurDYiEkRoC8GprugtVk8QImkszgMbOvnn
+ 2VKsrs4t8hwq7wxf392BWj5oonK7WN8Taiq/Tl4fs100wRSUwzm9EaysmhpLmRLWf1JY
+ 3KxWKI9vHkiXSIW9K5B6EcxxSE21Up9lI79nQr7EXwXYGNHL38CO3yzdMXgLC+CnlUPT
+ /QRXhuKCnUdhXD1THONd5sVUcZr2yuw61PX2WbucrXQ4rj9hCIjecEmWfU9W1/pbRy6Y
+ w3cwi5MF7HrBlwTmfPxjBcuDvYU3RVPTQ1TES7GalC0Vp1dg4VsMrH8TIhCa9o9ofXoJ
+ dIbg==
+X-Gm-Message-State: ACrzQf12xgGMHzw44zfxlz92mZh5Qeb0SdXxJvo4U5qV2Yvl39H+yjmP
+ DOSKR71TA9AyMQAAo9/iNS8=
+X-Google-Smtp-Source: AMsMyM7VHjIa+QWIXmuv84bgv56y/nQYtKVdDumpW7B1YOYtnW8N1UD6p4iJ0qgiSeDw4z4Z88LBTw==
+X-Received: by 2002:a17:902:db09:b0:184:ba4f:af28 with SMTP id
+ m9-20020a170902db0900b00184ba4faf28mr39823489plx.145.1666728150208; 
+ Tue, 25 Oct 2022 13:02:30 -0700 (PDT)
+Received: from mail.google.com (122-58-209-93-fibre.sparkbb.co.nz.
+ [122.58.209.93]) by smtp.gmail.com with ESMTPSA id
+ i12-20020a056a00004c00b0056bd737fdf3sm1743129pfk.123.2022.10.25.13.02.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Oct 2022 13:02:29 -0700 (PDT)
+Date: Wed, 26 Oct 2022 09:02:22 +1300
+From: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+To: Felix Kuehling <felix.kuehling@amd.com>
+Subject: Re: [PATCH] [next] amdkfd: remove unused kfd_pm4_headers_diq header
+ file
+Message-ID: <Y1hAzn9zXhQYj1NL@mail.google.com>
+References: <Y1eoYDDZWdyLNlBc@mail.google.com>
+ <f2b6f0e1-1ae0-21ec-372e-6e90827ccea6@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8f53b8b6-ead2-22f5-16f7-65b31f7cc05c@redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Tue, 25 Oct 2022 19:55:31 +0000
+In-Reply-To: <f2b6f0e1-1ae0-21ec-372e-6e90827ccea6@amd.com>
+X-Mailman-Approved-At: Tue, 25 Oct 2022 20:03:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,51 +73,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pan@freedesktop.org, Karol Herbst <kherbst@redhat.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- Dmitry Osipenko <digetx@gmail.com>, amd-gfx@lists.freedesktop.org,
- linux-acpi@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>,
- David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>,
- Daniel Dadap <ddadap@nvidia.com>, Jani Nikula <jani.nikula@intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Mark Gross <markgross@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Andy Shevchenko <andy@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Xinhui <Xinhui.Pan@amd.com>,
- Lukas Wunner <lukas@wunner.de>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 25, 2022 at 08:50:54PM +0200, Hans de Goede wrote:
-
-> That is a valid point, but keep in mind that this is only used on ACPI
-> platforms and then only on devices with a builtin LCD panel and then
-> only by GPU drivers which actually call acpi_video_get_backlight_type(),
-> so e.g. not by all the ARM specific display drivers.
+On Tue, Oct 25, 2022 at 03:48:33PM -0400, Felix Kuehling wrote:
+> Am 2022-10-25 um 05:12 schrieb Paulo Miguel Almeida:
+> > kfd_pm4_headers_diq.h header is a leftover from the old H/W debugger
+> > module support added on commit <fbeb661bfa895dc>. That implementation
+> > was removed after a while and the last file that included that header
+> > was removed on commit <5bdd3eb253544b1>.
+> > 
+> > This patch removes the unused header file kfd_pm4_headers_diq.h
+> > 
+> > Signed-off-by: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
 > 
-> So I believe that Chromebooks quite likely are the only devices with
-> this issue.
+> Thank you for this patch and the one that removes struct cdit_header. I am
+> applying both to our amd-staging-drm-next branch.
 
-My laptop is, uh, weird, but it falls into this category.
- 
-> > I think for this to work correctly you need to have 
-> > the infrastructure be aware of whether or not a vendor interface exists, 
-> > which means having to handle cleanup if a vendor-specific module gets 
-> > loaded later.
-> 
-> Getting rid of the whole ping-ponging of which backlight drivers
-> get loaded during boot was actually one of the goals of the rework
-> which landed in 6.1 this actually allowed us to remove some quirks
-> because some hw/firmware did not like us changing our mind and
-> switching backlight interfaces after first poking another one.
-> So we definitely don't want to go back to the ping-pong thing.
+Thanks!
 
-Defaulting to native but then having a vendor driver be able to disable 
-native drivers seems easiest? It shouldn't be a regression over the 
-previous state of affairs since both drivers were being loaded already.
+> <snip> I'm also fixing up the
+> prefix of the commit headline to match our usual convention: drm/amdkfd: ...
+
+Noted! (and much appreciated too). I will ensure I use the drm/amdkfd
+prefix from now onwards.
+
+Paulo A.
+
