@@ -4,37 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F7BAFA373D
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 07:14:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6CCFC433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 07:14:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9642610E47D;
-	Wed, 26 Oct 2022 07:14:48 +0000 (UTC)
-Received: from cavan.codon.org.uk (cavan.codon.org.uk [176.126.240.207])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 137F310E1A8;
- Tue, 25 Oct 2022 23:40:42 +0000 (UTC)
-Received: by cavan.codon.org.uk (Postfix, from userid 1000)
- id 9794340A8A; Wed, 26 Oct 2022 00:40:40 +0100 (BST)
-Date: Wed, 26 Oct 2022 00:40:40 +0100
-From: Matthew Garrett <mjg59@srcf.ucam.org>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH v5 02/31] drm/i915: Don't register backlight when another
- backlight should be used (v2)
-Message-ID: <20221025234040.GA27673@srcf.ucam.org>
-References: <20220825143726.269890-1-hdegoede@redhat.com>
- <20220825143726.269890-3-hdegoede@redhat.com>
- <f914ceb3-94bd-743c-f8b6-0334086e731a@gmail.com>
- <42a5f2c9-a1dc-8fc0-7334-fe6c390ecfbb@redhat.com>
- <20221024203057.GA28675@srcf.ucam.org>
- <8f53b8b6-ead2-22f5-16f7-65b31f7cc05c@redhat.com>
- <20221025193248.GA21457@srcf.ucam.org>
- <144cd47e-42dc-2b84-1a90-ea5e080e08a3@redhat.com>
- <20221025204043.GA23306@srcf.ucam.org>
- <cb5add36-c13c-ccd5-1b4b-71b45163a170@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D55F10E482;
+	Wed, 26 Oct 2022 07:14:53 +0000 (UTC)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68CFA10E042
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 21:20:23 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id a14so20445600wru.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 14:20:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dlhtoQ5ksxzE11itSjbh1jhWWzyLP1JiRj5gn1Oz5WE=;
+ b=HlkAMUnuAs6feBX8LU/jhNVGt8P5hEATStGpsyYyJH5pzfACUDmdwwdIw5KDgppctE
+ SxAcpGJ3/Nk0lt7N7HRdEM44u7DM0FWJIlk+tdSv2b6RR3btKMXMdISYPMilq2Q2atmK
+ 8goyFan9fIWBdA54wqb2s4ogdI220/8ua0YvjFt6pU4F80w8QSw/2LLm9aVBx2VYcNYK
+ nh0qqxucKXHejQHT0ycA9blhtpiSup7Fxr8Jq0cVoW83gCt0ce++z8XLJvEzVpkhTuAZ
+ +Sp69usSWRzQdrsYLSvk8RPeziaXERerwXaarghacqJ96b2cJ2GTyHn4QkL/P42rBSWt
+ 5flQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=dlhtoQ5ksxzE11itSjbh1jhWWzyLP1JiRj5gn1Oz5WE=;
+ b=BK956HYMqBqKHYwk+ssihx1v9svXv5sl1L8kVp59cTzEXWUMOpK6KBcChXuacuPZ2D
+ MbWrEP1nEcA+Rxq6cGvKlN+HBi83LeFhtHkuuTjXnR4wzqY5sCRs9neUYk4NPsR1JvZx
+ bgH7ubCpILwAXI89Go5OqyB1ecKYE9tiZh+rl1ggQoRcvqKjKLrjIcXXHNnX8yn1nLyr
+ KojFi7dkI/Dl5qM1XMPs6ZWNxzwXUBEk9rhMXJNwE81n53BHEffcLiPImOYKqDQPSNsF
+ +RR4MmjLQBzYan07JvrJTBePiGZTHOF54gwxCKilJWmGDpW43HWWqDzQHE1YDShplMh1
+ fKLQ==
+X-Gm-Message-State: ACrzQf2NwMN5Ot8f/lnV3f2AzBQXeGVUu4RAhJR8Y5PYXJhceMqeFykr
+ ckBiZBJme5apR5cy2YzZK5I=
+X-Google-Smtp-Source: AMsMyM61DG5ea5c1HhOipfPvX5vJsmi7aXlHGUkml2SR3m3QgJLPOLNfrmvJ8pbOqAgs1xm9XqPZ8Q==
+X-Received: by 2002:adf:e38a:0:b0:236:60c4:d1d2 with SMTP id
+ e10-20020adfe38a000000b0023660c4d1d2mr13141579wrm.653.1666732821213; 
+ Tue, 25 Oct 2022 14:20:21 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:908:4f6:d280::9a6])
+ by smtp.gmail.com with ESMTPSA id
+ j8-20020a05600c190800b003b47e8a5d22sm88174wmq.23.2022.10.25.14.20.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Oct 2022 14:20:20 -0700 (PDT)
+From: Ao Zhong <hacc1225@gmail.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Subject: [PATCH v2 1/2] drm/amd/display: move remaining FPU code to dml folder
+Date: Tue, 25 Oct 2022 23:17:47 +0200
+Message-Id: <20221025211746.16276-1-hacc1225@gmail.com>
+X-Mailer: git-send-email 2.37.4
+In-Reply-To: <8055465a-4a0e-722b-c436-f39d6818ec73@amd.com>
+References: <8055465a-4a0e-722b-c436-f39d6818ec73@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cb5add36-c13c-ccd5-1b4b-71b45163a170@redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 26 Oct 2022 07:14:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,77 +71,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pan@freedesktop.org, Karol Herbst <kherbst@redhat.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- Dmitry Osipenko <digetx@gmail.com>, amd-gfx@lists.freedesktop.org,
- linux-acpi@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>,
- David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>,
- Daniel Dadap <ddadap@nvidia.com>, Jani Nikula <jani.nikula@intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Mark Gross <markgross@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Andy Shevchenko <andy@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Xinhui <Xinhui.Pan@amd.com>,
- Lukas Wunner <lukas@wunner.de>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Ao Zhong <hacc1225@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 26, 2022 at 01:27:25AM +0200, Hans de Goede wrote:
+In the process of enabling DCN support for arm64, I found that the
+dcn10_resource_construct_fp function in dcn10/dcn10_resource.c still
+needs to use FPU. This will cause compilation to fail on ARM64 platforms
+because -mgeneral-regs-only is enabled by default to disable the
+hardware FPU. So move dcn10_resource_construct_fp from dcn10 folder to
+dml/dcn10 folder to enable hardware FPU for that function.
 
-> this code should actually set the ACPI_VIDEO_BACKLIGHT flag:
-> drivers/acpi/scan.c:
-> 
-> static acpi_status
-> acpi_backlight_cap_match(acpi_handle handle, u32 level, void *context,
->                           void **return_value)
-> {
->         long *cap = context;
-> 
->         if (acpi_has_method(handle, "_BCM") &&
->             acpi_has_method(handle, "_BCL")) {
->                 acpi_handle_debug(handle, "Found generic backlight support\n");
->                 *cap |= ACPI_VIDEO_BACKLIGHT;
->                 /* We have backlight support, no need to scan further */
->                 return AE_CTRL_TERMINATE;
->         }
->         return 0;
-> }
+Signed-off-by: Ao Zhong <hacc1225@gmail.com>
+---
+ .../drm/amd/display/dc/dcn10/dcn10_resource.c | 44 +------------------
+ .../drm/amd/display/dc/dml/dcn10/dcn10_fpu.c  | 38 ++++++++++++++++
+ .../drm/amd/display/dc/dml/dcn10/dcn10_fpu.h  |  2 +
+ 3 files changed, 42 insertions(+), 42 deletions(-)
 
-Ah, yeah, my local tree no longer matches the upstream behaviour because 
-I've hacked the EC firmware to remove the backlight trigger because it 
-had an extremely poor brightness curve and also automatically changed it 
-on AC events - as a result I removed the backlight code from the DSDT 
-and just fell back to the native control. Like I said I'm a long way 
-from the normal setup, but this did previously work.
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+index 56d30baf12df..6bfac8088ab0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+@@ -1295,47 +1295,6 @@ static uint32_t read_pipe_fuses(struct dc_context *ctx)
+ 	return value;
+ }
+ 
+-/*
+- * Some architectures don't support soft-float (e.g. aarch64), on those
+- * this function has to be called with hardfloat enabled, make sure not
+- * to inline it so whatever fp stuff is done stays inside
+- */
+-static noinline void dcn10_resource_construct_fp(
+-	struct dc *dc)
+-{
+-	if (dc->ctx->dce_version == DCN_VERSION_1_01) {
+-		struct dcn_soc_bounding_box *dcn_soc = dc->dcn_soc;
+-		struct dcn_ip_params *dcn_ip = dc->dcn_ip;
+-		struct display_mode_lib *dml = &dc->dml;
+-
+-		dml->ip.max_num_dpp = 3;
+-		/* TODO how to handle 23.84? */
+-		dcn_soc->dram_clock_change_latency = 23;
+-		dcn_ip->max_num_dpp = 3;
+-	}
+-	if (ASICREV_IS_RV1_F0(dc->ctx->asic_id.hw_internal_rev)) {
+-		dc->dcn_soc->urgent_latency = 3;
+-		dc->debug.disable_dmcu = true;
+-		dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 41.60f;
+-	}
+-
+-
+-	dc->dcn_soc->number_of_channels = dc->ctx->asic_id.vram_width / ddr4_dram_width;
+-	ASSERT(dc->dcn_soc->number_of_channels < 3);
+-	if (dc->dcn_soc->number_of_channels == 0)/*old sbios bug*/
+-		dc->dcn_soc->number_of_channels = 2;
+-
+-	if (dc->dcn_soc->number_of_channels == 1) {
+-		dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 19.2f;
+-		dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8 = 17.066f;
+-		dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72 = 14.933f;
+-		dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 = 12.8f;
+-		if (ASICREV_IS_RV1_F0(dc->ctx->asic_id.hw_internal_rev)) {
+-			dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 20.80f;
+-		}
+-	}
+-}
+-
+ static bool verify_clock_values(struct dm_pp_clock_levels_with_voltage *clks)
+ {
+ 	int i;
+@@ -1510,8 +1469,9 @@ static bool dcn10_resource_construct(
+ 	memcpy(dc->dcn_ip, &dcn10_ip_defaults, sizeof(dcn10_ip_defaults));
+ 	memcpy(dc->dcn_soc, &dcn10_soc_defaults, sizeof(dcn10_soc_defaults));
+ 
+-	/* Other architectures we build for build this with soft-float */
++	DC_FP_START();
+ 	dcn10_resource_construct_fp(dc);
++	DC_FP_END();
+ 
+ 	if (!dc->config.is_vmin_only_asic)
+ 		if (ASICREV_IS_RAVEN2(dc->ctx->asic_id.hw_internal_rev))
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.c
+index 99644d896222..8b5e6fff5444 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.c
+@@ -27,6 +27,8 @@
+ #include "dcn10/dcn10_resource.h"
+ 
+ #include "dcn10_fpu.h"
++#include "resource.h"
++#include "amdgpu_dm/dc_fpu.h"
+ 
+ /**
+  * DOC: DCN10 FPU manipulation Overview
+@@ -121,3 +123,39 @@ struct _vcs_dpi_soc_bounding_box_st dcn1_0_soc = {
+ 	.writeback_dram_clock_change_latency_us = 23.0,
+ 	.return_bus_width_bytes = 64,
+ };
++
++void dcn10_resource_construct_fp(struct dc *dc)
++{
++	dc_assert_fp_enabled();
++	if (dc->ctx->dce_version == DCN_VERSION_1_01) {
++		struct dcn_soc_bounding_box *dcn_soc = dc->dcn_soc;
++		struct dcn_ip_params *dcn_ip = dc->dcn_ip;
++		struct display_mode_lib *dml = &dc->dml;
++
++		dml->ip.max_num_dpp = 3;
++		/* TODO how to handle 23.84? */
++		dcn_soc->dram_clock_change_latency = 23;
++		dcn_ip->max_num_dpp = 3;
++	}
++	if (ASICREV_IS_RV1_F0(dc->ctx->asic_id.hw_internal_rev)) {
++		dc->dcn_soc->urgent_latency = 3;
++		dc->debug.disable_dmcu = true;
++		dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 41.60f;
++	}
++
++
++	dc->dcn_soc->number_of_channels = dc->ctx->asic_id.vram_width / ddr4_dram_width;
++	ASSERT(dc->dcn_soc->number_of_channels < 3);
++	if (dc->dcn_soc->number_of_channels == 0)/*old sbios bug*/
++		dc->dcn_soc->number_of_channels = 2;
++
++	if (dc->dcn_soc->number_of_channels == 1) {
++		dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 19.2f;
++		dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8 = 17.066f;
++		dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72 = 14.933f;
++		dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 = 12.8f;
++		if (ASICREV_IS_RV1_F0(dc->ctx->asic_id.hw_internal_rev)) {
++			dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 20.80f;
++		}
++	}
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.h
+index e74ed4b4ce5b..63219ecd8478 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.h
+@@ -27,4 +27,6 @@
+ #ifndef __DCN10_FPU_H__
+ #define __DCN10_FPU_H__
+ 
++void dcn10_resource_construct_fp(struct dc *dc);
++
+ #endif /* __DCN20_FPU_H__ */
+-- 
+2.37.4
 
-The "right" logic here seems pretty simple: if ACPI backlight control is 
-expected to work, use it. If it isn't, but there's a vendor interface, 
-use it. If there's no vendor interface, use the native interface. The 
-problem you're dealing with is that the knowledge of whether or not 
-there's a vendor interface isn't something the core kernel code knows 
-about. What you're proposing here is effectively for us to expose 
-additional information about whether or not there's a vendor interface 
-in the system firmware, but since we're talking in some cases about 
-hardware that's almost 20 years old, we're not realistically going to 
-get those old machines fixed. So, it feels like there's two choices:
-
-1) Make a default policy decision, but then allow that decision to be 
-altered later on (eg, when a vendor-specific platform driver has been 
-loaded) - you've said this poses additional complexities.
-
-2) Move the knowledge of whether or not there's a vendor interface into 
-the core code. Basically take every platform driver that exposes a 
-vendor interface, and move the detection code into the core.
-
-I think any other approach is going to result in machines that 
-previously worked no longer working (and you can't just make the 
-vendor/native split dependent on the Coreboot DMI BIOS string, because 
-there are some Coreboot platforms that implement the vendor interface 
-for compatibility, and you also can't ask all Coreboot users to update 
-their firmware to fix things)
