@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5042C38A2D
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 19:21:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66620FA373E
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 19:21:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00AA610E0E4;
-	Tue, 25 Oct 2022 19:21:29 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00BEA10E0DE
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0072110E161;
+	Tue, 25 Oct 2022 19:21:31 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32EA310E0DE
  for <amd-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 19:21:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dxidarpiTNNyr9dAdCk7ZX2S3av8xDBOLglinbqqUBBMJPiYYbsv+Yk9GWmpU6e8yJMaOZlj/cBU+p/elu8fDcrGTuJ9f1mwPUrzyF2xwMdIyvpaJpUvTg9h5k5H/z7QBXQZhwCSGPMiYIJnA3t1tvDZUNlKhegI7IMdJMi1oM4QP7lBQAD0ZOo/Ji9ZbCiZPEzKbUV4oxBDDPbU3Z6guNoy+7mdWDWh2L4C3LAX4hqXXCcCTXx83UKwTUVCV+UZJ1O6korkiANq4eOgClCMpfQWyfFPFryY243wJkW/pnw56pAKAxJYY+IZGWdT3xFz5sGFZgL/J9CWyk14TrgeTw==
+ b=iqwRfYGwdDAN3HZfLEFAcujQFIkkf16euN+uU4VJ+3OH1xzrAzx+xlqbRSoUflDF23AvjmMbrhaF4cdH7l9HdpMbYdTppb1QkhyVK6gHtYrskj1hjJSAOjUqprFs1P7xnyYoBY2R0cw7IShecXO1RBoM/nOCUpGq2Ga1XMU9n5rHn6djp0y+G0x1Hh1qqfWHVQJToYmUl6fCRJnNjOtvTH6nIpNk/gfpjmgZvsxWmotZltebUHLc5QzsJscF/g89Lo0VVMkyyOrdG5pXT6R9qXxla6J4KmKb1VViqsy2ToMZFrVmMIxeHE2vjSc/rrV9Vw3swFjkMXnZ1raRbtU7Mg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=COSHpe0B12x+2wXV1w3mYqnqrtYMiZibBM96MmsbyD0=;
- b=WNuJweo00KXKoMKxQI4H8nmoEcvZivf52XZ1uAUdwKaDPL/2u2Fv1xeAW0OAIlzc0RjJzTIzfcz0SONhzlcxeXij+vGbHDiCPxnoPqLK0ZPv9k4Qp3Sq5LzEdRUUkdgan89Yvx00XYcG0WJccQOKJlj8Xnj3K8ZwC/UAxKCJOSslECBF+uZxqk3aG0fE4zMhYgpg2yo/MFrm1pSnifd0HtpDlVn4fI7jDR04KFxjUiji3Iprb9yqmBr70a2rvmsIGkIpQXw3K9HkHTyzG+otQ6RjtZ6YOdWwr7xW6tvrGW346sCruWyIEA8PiPOXBk5o3pcRcPbRqYjEiIzSH8UDuA==
+ bh=U2dGRcRvsoKf4Xc5ZUgstgCsOyeI6o8gZBspcj8wdEo=;
+ b=L3JI/xJQMprb6KsC6ru/3Yu+872tkWXISdazp5D5/5QmsBhlxe/tHOVF4YXOkB0dXfO9QOzMPqLrr3YFPQ8NqZoR2WuOmW19QQS/QpW1EyvdyCi4Tw2Tqat0rF8qyzYOiUQNeVkjQz0OXsj9MHYeIlHZ+c6MR4TG9auePf6xhjcXfJKa66CMVkk01CHF7u7tB9JY1XZf9ZNbCuczg0JmrpMveHTX4rsUltgZ5/PBd+q3BmeXvylhj2b7MLp+e0uiaCBQcxI4RUYZ2lH2Bx5sfLX+0rKuFAWWOujrEDHiN9aLG05RNVjJm5hzdGUm5iKbKA6GQSfcupT31aAnce4MtQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=COSHpe0B12x+2wXV1w3mYqnqrtYMiZibBM96MmsbyD0=;
- b=CzySaLez+rw1gTancAy+CMi/qM468X5JAAJIIRCawBul3F6PYbZNTjF19exJQXICMaArSIJ+qJt+xP8x2t18CprHtqCx6aW0CM9ZI8QeGnmxP+XbK+woFSnWNyw1CPdUegVMg2Wvs+3i0d+jKdmxQY55EqLrtNRxcK9x0eMFN2k=
-Received: from DS7PR05CA0097.namprd05.prod.outlook.com (2603:10b6:8:56::26) by
- IA1PR12MB7616.namprd12.prod.outlook.com (2603:10b6:208:427::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.30; Tue, 25 Oct
- 2022 19:21:24 +0000
+ bh=U2dGRcRvsoKf4Xc5ZUgstgCsOyeI6o8gZBspcj8wdEo=;
+ b=Qqph6Pl35n2sHbPESdsq+D00iJVWS9SQdusJgoOCzlSb01Na2p4yYR2ghr7aJmezLHHam5PwwM88qWwa2/kPCq5bp7HlBcssf8E+KinPj4q6fU6Atp4q52nBp1rp9viDHn2Lqilc3Ttq+PNyXfhuAWwAW5IfRgj0qmFmrpk6zOk=
+Received: from DS7PR05CA0106.namprd05.prod.outlook.com (2603:10b6:8:56::24) by
+ CO6PR12MB5411.namprd12.prod.outlook.com (2603:10b6:5:356::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5746.23; Tue, 25 Oct 2022 19:21:24 +0000
 Received: from DM6NAM11FT112.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:56:cafe::91) by DS7PR05CA0097.outlook.office365.com
- (2603:10b6:8:56::26) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:8:56:cafe::24) by DS7PR05CA0106.outlook.office365.com
+ (2603:10b6:8:56::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.8 via Frontend
- Transport; Tue, 25 Oct 2022 19:21:24 +0000
+ Transport; Tue, 25 Oct 2022 19:21:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,19 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT112.mail.protection.outlook.com (10.13.173.77) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5746.16 via Frontend Transport; Tue, 25 Oct 2022 19:21:24 +0000
+ 15.20.5746.16 via Frontend Transport; Tue, 25 Oct 2022 19:21:23 +0000
 Received: from mkgs-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 25 Oct
- 2022 14:21:23 -0500
+ 2022 14:21:22 -0500
 From: Graham Sider <Graham.Sider@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdgpu: remove deprecated MES version vars
-Date: Tue, 25 Oct 2022 15:20:56 -0400
-Message-ID: <20221025192056.647389-2-Graham.Sider@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: correct MES debugfs versions
+Date: Tue, 25 Oct 2022 15:20:55 -0400
+Message-ID: <20221025192056.647389-1-Graham.Sider@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221025192056.647389-1-Graham.Sider@amd.com>
-References: <20221025192056.647389-1-Graham.Sider@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -68,26 +66,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT112:EE_|IA1PR12MB7616:EE_
-X-MS-Office365-Filtering-Correlation-Id: 83f8967b-0a4d-4263-4a23-08dab6be1b5f
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT112:EE_|CO6PR12MB5411:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0375643-fe2a-4b0a-3d93-08dab6be1aef
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lUtM+G977rXl7mbAid0FyJFRewdBSp5H4x2uITSEfeIU7JuqOPKLyzDbriU5G70qDftIyf0IMSvGd98zDZpFNNhDmtQ20OFQJOmiB0RIqjDbpI0L3D3QHjZD4SX96VM2BRKNnyOryj3hQ3/FqfzORGD+lAwoBLVvpph54xROHePb8J5TXTkt12gKWeLlu7cfriIbKrnJs0GT6D4Oc9NoolreJeqNvGryGI+yAk5O027Vq4BgSTrqlBA3/Gw4Evs6AxE14OLDWrN4dFUFlz0NwdlspBy1oe7cz5ZLs5cMBaIG2ESuPifx1ORBetvQlkvq9FHDUhWe/9UuFpCEhT4cT1mI2KdkhqDUXwini60MF6vC+RZ9s4R7ElOsK7y7imLcOzyy5G0KV0yI/nm2Fh/bf21D74hB88E8EmKUI2CY7oGSeZGpyMM2k3cDsjC8eGG+ngTPjABvsQ/rMKJ/XaPweVCXzyvGakW9qI815tHLmR8LaGVbCzWNjGT5IlH9zJ9gnDpuQDV+kZcrPlkbRoRO8A0gnbxD4cX8us2tUUd3NJACjoslrczkNy5ByMl9pDOMc8dGXFuK9xPCRzTORJugcwnQLoC0HNDKGsI6snAjsfrlodiZDOHtbUg9zpocb5myxEmec3R44moFhartRDy8+g18eSBtdKHTGFgbJ4X6ivP8z3j6H/Nz1IeWQxB9tfgFRtGsNxSD327SEoZ14OTn9CmWvNpgRPlD2IViTdbzk55McIwCHCV/9ZNxwq7If05YJNIw97if48YtjolKhjW/a7qj20YV1hEj4SXtCXI8QnjtHkL16GbY94Zcfi28XHPM
+X-Microsoft-Antispam-Message-Info: +iWm3jRacci6xREkTL7/q7hiIGi7hQHjYekrg0zimi8tyILtIzpDLNC2vWuHmAj6OOf6CbpUZiq4NJXuww5aWqK6PY44auLk7pcVfygizs/i9zUgZL1DMk/mrd0ERsG9h7j1WVsb7ooMK2guKp/t5bbAD4mWJY/znd0E78IKqZp/YFF8pQGXM5hWkL0Ckk8K3pwJHZba1Ga9vlNGKzbXtvKR5NvXbzqaOefbX+gS3ApGmnHcs6EWvdoQKd16MSOrPpa5UxoNBr6ZrWlO7tZMjXFeEoa/82o6jFn+YcsCj328aB9C8fdK4+usbZFG8fwbqMYu4v+lUI81YmhJdD7PmnmMOvyegYbapjrJ9ikkXjCDBsqSg3NQrJxmgEV8127g2RwI6MgyOORVR3ko0upoadPeknJEcWPTv+9eehE9ezoX9YzYX4F23aBh8WShfIn9hxaIIW7HLxoKtokZYNeQtCaMmV5gB/VWrcGBTx3GSAP5aJ6YgIiXQT+YFkuSfwFZ2l8pnIdv4ojhFQRZBSJ4qDqVDpP00B70MCtRxg5Emx0OnT9YuicAinr0m7/ks0965vUxVQqQF8ZALW4n5oIoEtER1KXvQR/nPnDvBiyXrCnVAimPpbx3hBB9OgGAnnj7LuzYRT2Hc2k4qMjElIWhjqpp+zAfHFD9euANTxqTWcZvwO1+5HVuhamCilw994PmlCsB6LQYkgLAlhc/C/hwVtrQVyOJp0gU0CKPprZgKj/kn/kht6IGvcYbHQv1GdLqDdy3Ly9Yi4YM/Jd9PuJoCj0hDvWJ2OaPDWpKd2CiNnY0mZawzq2qZv1ps/lUAXuC
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(396003)(376002)(136003)(39860400002)(451199015)(46966006)(36840700001)(40470700004)(16526019)(83380400001)(186003)(2616005)(336012)(1076003)(2906002)(4326008)(86362001)(7696005)(41300700001)(70206006)(40480700001)(40460700003)(8676002)(426003)(47076005)(82310400005)(478600001)(82740400003)(81166007)(356005)(36756003)(70586007)(316002)(6916009)(26005)(8936002)(36860700001)(54906003)(6666004)(5660300002)(36900700001);
+ SFS:(13230022)(4636009)(346002)(136003)(39860400002)(396003)(376002)(451199015)(40470700004)(36840700001)(46966006)(26005)(41300700001)(5660300002)(40480700001)(6916009)(8936002)(70586007)(7696005)(81166007)(36756003)(4326008)(8676002)(70206006)(336012)(6666004)(36860700001)(82740400003)(316002)(356005)(426003)(82310400005)(2616005)(47076005)(186003)(40460700003)(16526019)(2906002)(54906003)(1076003)(86362001)(83380400001)(478600001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2022 19:21:24.4992 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 83f8967b-0a4d-4263-4a23-08dab6be1b5f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2022 19:21:23.7649 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0375643-fe2a-4b0a-3d93-08dab6be1aef
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT112.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7616
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5411
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,68 +102,37 @@ Cc: Jack.Xiao@amd.com, Graham Sider <Graham.Sider@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-MES scheduler and kiq versions are stored in mes.sched_version and
-mes.kiq_version, respectively, which are read from a register after
-their queues are initialized. Remove mes.ucode_fw_version and
-mes.data_fw_version which tried to read this versioning info from the
-firmware headers (which don't contain this information).
+Use mes.sched_version, mes.kiq_version for debugfs as
+mes.ucode_fw_version does not contain correct versioning information.
 
 Signed-off-by: Graham Sider <Graham.Sider@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 2 --
- drivers/gpu/drm/amd/amdgpu/mes_v10_1.c  | 4 ----
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 4 ----
- 3 files changed, 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index ad980f4b66e1..97c05d08a551 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -91,14 +91,12 @@ struct amdgpu_mes {
- 	struct amdgpu_bo		*ucode_fw_obj[AMDGPU_MAX_MES_PIPES];
- 	uint64_t			ucode_fw_gpu_addr[AMDGPU_MAX_MES_PIPES];
- 	uint32_t			*ucode_fw_ptr[AMDGPU_MAX_MES_PIPES];
--	uint32_t                        ucode_fw_version[AMDGPU_MAX_MES_PIPES];
- 	uint64_t                        uc_start_addr[AMDGPU_MAX_MES_PIPES];
- 
- 	/* mes ucode data */
- 	struct amdgpu_bo		*data_fw_obj[AMDGPU_MAX_MES_PIPES];
- 	uint64_t			data_fw_gpu_addr[AMDGPU_MAX_MES_PIPES];
- 	uint32_t			*data_fw_ptr[AMDGPU_MAX_MES_PIPES];
--	uint32_t                        data_fw_version[AMDGPU_MAX_MES_PIPES];
- 	uint64_t                        data_start_addr[AMDGPU_MAX_MES_PIPES];
- 
- 	/* eop gpu obj */
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-index 067d10073a56..1abdf8b7ab50 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-@@ -415,10 +415,6 @@ static int mes_v10_1_init_microcode(struct amdgpu_device *adev,
- 
- 	mes_hdr = (const struct mes_firmware_header_v1_0 *)
- 		adev->mes.fw[pipe]->data;
--	adev->mes.ucode_fw_version[pipe] =
--		le32_to_cpu(mes_hdr->mes_ucode_version);
--	adev->mes.ucode_fw_version[pipe] =
--		le32_to_cpu(mes_hdr->mes_ucode_data_version);
- 	adev->mes.uc_start_addr[pipe] =
- 		le32_to_cpu(mes_hdr->mes_uc_start_addr_lo) |
- 		((uint64_t)(le32_to_cpu(mes_hdr->mes_uc_start_addr_hi)) << 32);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index e14f314902b1..27a330f51c7d 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -480,10 +480,6 @@ static int mes_v11_0_init_microcode(struct amdgpu_device *adev,
- 
- 	mes_hdr = (const struct mes_firmware_header_v1_0 *)
- 		adev->mes.fw[pipe]->data;
--	adev->mes.ucode_fw_version[pipe] =
--		le32_to_cpu(mes_hdr->mes_ucode_version);
--	adev->mes.ucode_fw_version[pipe] =
--		le32_to_cpu(mes_hdr->mes_ucode_data_version);
- 	adev->mes.uc_start_addr[pipe] =
- 		le32_to_cpu(mes_hdr->mes_uc_start_addr_lo) |
- 		((uint64_t)(le32_to_cpu(mes_hdr->mes_uc_start_addr_hi)) << 32);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 9c86a122eed5..363946de78f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -337,12 +337,14 @@ static int amdgpu_firmware_info(struct drm_amdgpu_info_firmware *fw_info,
+ 		fw_info->feature = adev->psp.cap_feature_version;
+ 		break;
+ 	case AMDGPU_INFO_FW_MES_KIQ:
+-		fw_info->ver = adev->mes.ucode_fw_version[0];
+-		fw_info->feature = 0;
++		fw_info->ver = adev->mes.kiq_version & AMDGPU_MES_VERSION_MASK;
++		fw_info->feature = (adev->mes.kiq_version & AMDGPU_MES_FEAT_VERSION_MASK)
++					>> AMDGPU_MES_FEAT_VERSION_SHIFT;
+ 		break;
+ 	case AMDGPU_INFO_FW_MES:
+-		fw_info->ver = adev->mes.ucode_fw_version[1];
+-		fw_info->feature = 0;
++		fw_info->ver = adev->mes.sched_version & AMDGPU_MES_VERSION_MASK;
++		fw_info->feature = (adev->mes.sched_version & AMDGPU_MES_FEAT_VERSION_MASK)
++					>> AMDGPU_MES_FEAT_VERSION_SHIFT;
+ 		break;
+ 	case AMDGPU_INFO_FW_IMU:
+ 		fw_info->ver = adev->gfx.imu_fw_version;
 -- 
 2.25.1
 
