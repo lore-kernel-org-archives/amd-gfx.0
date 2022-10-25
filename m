@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C97A8C38A2D
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 13:12:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60164C04A95
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 13:12:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5C1310E36D;
-	Tue, 25 Oct 2022 13:12:18 +0000 (UTC)
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC97F10E278;
- Tue, 25 Oct 2022 08:20:38 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id l5so13344366oif.7;
- Tue, 25 Oct 2022 01:20:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9E9D10E378;
+	Tue, 25 Oct 2022 13:12:19 +0000 (UTC)
+Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
+ [IPv6:2607:f8b0:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0B7189A5E;
+ Tue, 25 Oct 2022 09:12:09 +0000 (UTC)
+Received: by mail-pg1-x532.google.com with SMTP id g129so9291063pgc.7;
+ Tue, 25 Oct 2022 02:12:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :from:to:cc:subject:date:message-id:reply-to;
- bh=hvpi/0hv5kwOhSpI6auXNn4+exWXdyR8pJzRSsgKkfY=;
- b=SldVfq6UtUw8/E8uuD2Mv2nV74ZmTFj1gsPKITkVZY9Nny096pqIdCIDaZHvkvaHWB
- ila45Io6vb1LMjxDOP/K8zeIpPHQK1j716DNAdkkdmOhkQtej0hgW+YTExbLFCEroavx
- WcFvpgwU8/iNYALOa5sNqRndSqHB97ptGdbDoAgjyqSvLze/2U96HgSAB/UNKNiUQgVR
- jcFHwri1clWWl2qvpCDZ3OJIRdzvROQC66XFpJELNepSiaSrNgibfKqCH26T6RjlbfeV
- /Turt4TaWN9fntByk9k4LThOWfYGX9tE8wNmXyPuzKfVdLrLxhKKL3pjvFS7BWRwc6A2
- Gx7Q==
+ bh=xGVOD/2VPjGiBRav22AYMwWy4zxh7fmfTMDotebo6hU=;
+ b=IiF+9H7HDBvMko4kvyz08iL4jk0sxX0hNcDqSZOVzhEfkq3VldocjhlbifIuF33l4v
+ TISqYvzkqU5+iaXJnFpxZI4myVYsfqHxtJc5DN769q9+w+cEk6i5l5/pNf+17dpYTHoy
+ Yrq74N1XEG8LbDs9OVJwxcKUf6Z/5TXYk+U6zy/EVoUmmtvzE0+hF34oU2D7Kd6x8SFl
+ j3AnRhGmOnfYmPums2ywjIk/q8Tq4Kyv0conadgtJ19IHKu6wFvaALV0LfDXbzLnvKkg
+ 33+95aMWuJqWos8QpVVPgHLK42bBz7gvdVSLkCVxSvwH2GIyrqa7qz6XV6qfGPl/FKTq
+ nF8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hvpi/0hv5kwOhSpI6auXNn4+exWXdyR8pJzRSsgKkfY=;
- b=jBvJgF2/rVCOmWYKKReW1ABP+C1IOGYUPnbIh0TC7pB9sabHD6T7hc1XX1uHEt4Y5G
- cnlBcVtc7S5xMXkIGTxItX/1DHBZtrQlLMzU6+NWqVHXKfh19+ctgc3XOwskCTPrRTO0
- EqYd/fsxIqMkaRCjSKqMZ/xy41MBSTe5Ffr11KzkjoQtto81gsN10a6WLcF/wRkYI4fW
- Zlh8UYLdPR7cxwU59j3nDFtsKY2QoJhbNU8CmxkOUkMmV5IrctXdnrhvmbLy5RV7gh/X
- c+CQT9L159rSWrE5z2Xuu7jDJjw8703NmlLwXsH2d2lm6ahFMNOoCcgvBX/KMa9BfcOI
- zprA==
-X-Gm-Message-State: ACrzQf1eLxUaoxfBih0QRTYdKgECa5HatelrVo0OMAP6mJw0g8ArPa2C
- CLnAmnUNKpfF2tjFQmWhZHfuGzUToCZR73So
-X-Google-Smtp-Source: AMsMyM7N+qbk17bd86+vllWY1SC8PlOgZfEHTrcXMbf7VBSb7zi4qP1+z4oVr2S6VeXjNygOKCKVeg==
-X-Received: by 2002:a17:90a:7805:b0:20d:4fd9:9a0e with SMTP id
- w5-20020a17090a780500b0020d4fd99a0emr43652081pjk.169.1666686027363; 
- Tue, 25 Oct 2022 01:20:27 -0700 (PDT)
+ bh=xGVOD/2VPjGiBRav22AYMwWy4zxh7fmfTMDotebo6hU=;
+ b=Zh9MZSs0Mfe4IAd1z7EOkZdzTw7nRnMm9Z2ED6OyAy6/kQI9u8P/ymXq11p6cFdd/A
+ VmuNiR8BU6hlnoAIfYGc6C9lel0zT+yr0MR8/hjJgEySyvOWn2EErqMXxWjlcJzlUvIb
+ 92T2VPHYsIVSaB1qOqgrKg8eUb00PKmInBQ1bqf6Qf0/Wwgwha7gJtoACeH5splMh+wX
+ +IoOTWvKOnzd32Svs/eweR2Ck0CJRJMBEBoK9Ii2AzKoyQFV0jGXTy5eLCrBRoF/Ichw
+ eosa9MUJF8F/rTRe0qw+px+abJr/nIiqDiqtr2a9zM7NyCIV2CrkwB+jfAHpDGWwmwGg
+ ePwg==
+X-Gm-Message-State: ACrzQf00gHYtQH2txccZTfuUAd/46QwfijNKhqcxmfq9txxnH02Nmuuk
+ aGy+QeGkSiyyjC7eIAg7HVs=
+X-Google-Smtp-Source: AMsMyM7nReHG+DxExO3yNsZWg9FWsmN+c9TS6v6XjbAsRncGxUpOUqx69/NCOLmMtNa5fJw12Icl3g==
+X-Received: by 2002:aa7:838a:0:b0:536:101a:9ccf with SMTP id
+ u10-20020aa7838a000000b00536101a9ccfmr37281309pfm.18.1666689129044; 
+ Tue, 25 Oct 2022 02:12:09 -0700 (PDT)
 Received: from mail.google.com (122-58-209-93-fibre.sparkbb.co.nz.
  [122.58.209.93]) by smtp.gmail.com with ESMTPSA id
- b10-20020a170902650a00b0017f756563bcsm812496plk.47.2022.10.25.01.20.22
+ k1-20020a170902c40100b00186a8085382sm896604plk.43.2022.10.25.02.12.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Oct 2022 01:20:26 -0700 (PDT)
-Date: Tue, 25 Oct 2022 21:20:19 +1300
+ Tue, 25 Oct 2022 02:12:08 -0700 (PDT)
+Date: Tue, 25 Oct 2022 22:12:00 +1300
 From: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
 To: Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
@@ -55,8 +55,8 @@ To: Felix Kuehling <Felix.Kuehling@amd.com>,
  "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH] [next] amdkfd: remove unused struct cdit_header
-Message-ID: <Y1ecQ/cyIpun6eY8@mail.google.com>
+Subject: [PATCH] [next] amdkfd: remove unused kfd_pm4_headers_diq header file
+Message-ID: <Y1eoYDDZWdyLNlBc@mail.google.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -76,67 +76,316 @@ Cc: paulo.miguel.almeida.rodenas@gmail.com, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-struct cdit_header was never used across any of the amd drivers nor
-this is exposed to UAPI so it can be removed.
+kfd_pm4_headers_diq.h header is a leftover from the old H/W debugger
+module support added on commit <fbeb661bfa895dc>. That implementation
+was removed after a while and the last file that included that header
+was removed on commit <5bdd3eb253544b1>.
 
-This patch removes struct cdit_header and refactor code accordingly
+This patch removes the unused header file kfd_pm4_headers_diq.h
 
 Signed-off-by: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
 ---
+ .../gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h  | 291 ------------------
+ 1 file changed, 291 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h
 
-At some point, removing this structure was suggested during a review for
-a different patch but the clean up patch was never sent.
-
-https://lore.kernel.org/lkml/0eeaa0b7-7ae6-c244-cfcd-86333d8f9b8b@amd.com/
----
- drivers/gpu/drm/amd/amdkfd/kfd_crat.h | 24 +-----------------------
- 1 file changed, 1 insertion(+), 23 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-index 482ba84a728d..22893ff7b9a1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-@@ -29,11 +29,10 @@
- #pragma pack(1)
- 
- /*
-- * 4CC signature values for the CRAT and CDIT ACPI tables
-+ * 4CC signature value for the CRAT ACPI table
-  */
- 
- #define CRAT_SIGNATURE	"CRAT"
--#define CDIT_SIGNATURE	"CDIT"
- 
- /*
-  * Component Resource Association Table (CRAT)
-@@ -292,27 +291,6 @@ struct crat_subtype_generic {
- 	uint32_t	flags;
- };
- 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h
+deleted file mode 100644
+index f9cd28690151..000000000000
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h
++++ /dev/null
+@@ -1,291 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 OR MIT */
 -/*
-- * Component Locality Distance Information Table (CDIT)
+- * Copyright 2014-2022 Advanced Micro Devices, Inc.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
 - */
--#define CDIT_OEMID_LENGTH	6
--#define CDIT_OEMTABLEID_LENGTH	8
 -
--struct cdit_header {
--	uint32_t	signature;
--	uint32_t	length;
--	uint8_t		revision;
--	uint8_t		checksum;
--	uint8_t		oem_id[CDIT_OEMID_LENGTH];
--	uint8_t		oem_table_id[CDIT_OEMTABLEID_LENGTH];
--	uint32_t	oem_revision;
--	uint32_t	creator_id;
--	uint32_t	creator_revision;
--	uint32_t	total_entries;
--	uint16_t	num_domains;
--	uint8_t		entry[1];
+-#ifndef KFD_PM4_HEADERS_DIQ_H_
+-#define KFD_PM4_HEADERS_DIQ_H_
+-
+-/*--------------------_INDIRECT_BUFFER-------------------- */
+-
+-#ifndef _PM4__INDIRECT_BUFFER_DEFINED
+-#define _PM4__INDIRECT_BUFFER_DEFINED
+-enum _INDIRECT_BUFFER_cache_policy_enum {
+-	cache_policy___indirect_buffer__lru = 0,
+-	cache_policy___indirect_buffer__stream = 1,
+-	cache_policy___indirect_buffer__bypass = 2
 -};
 -
- #pragma pack()
- 
- struct kfd_dev;
+-enum {
+-	IT_INDIRECT_BUFFER_PASID = 0x5C
+-};
+-
+-struct pm4__indirect_buffer_pasid {
+-	union {
+-		union PM4_MES_TYPE_3_HEADER header;	/* header */
+-		unsigned int ordinal1;
+-	};
+-
+-	union {
+-		struct {
+-			unsigned int reserved1:2;
+-			unsigned int ib_base_lo:30;
+-		} bitfields2;
+-		unsigned int ordinal2;
+-	};
+-
+-	union {
+-		struct {
+-			unsigned int ib_base_hi:16;
+-			unsigned int reserved2:16;
+-		} bitfields3;
+-		unsigned int ordinal3;
+-	};
+-
+-	union {
+-		unsigned int control;
+-		unsigned int ordinal4;
+-	};
+-
+-	union {
+-		struct {
+-			unsigned int pasid:10;
+-			unsigned int reserved4:22;
+-		} bitfields5;
+-		unsigned int ordinal5;
+-	};
+-
+-};
+-
+-#endif
+-
+-/*--------------------_RELEASE_MEM-------------------- */
+-
+-#ifndef _PM4__RELEASE_MEM_DEFINED
+-#define _PM4__RELEASE_MEM_DEFINED
+-enum _RELEASE_MEM_event_index_enum {
+-	event_index___release_mem__end_of_pipe = 5,
+-	event_index___release_mem__shader_done = 6
+-};
+-
+-enum _RELEASE_MEM_cache_policy_enum {
+-	cache_policy___release_mem__lru = 0,
+-	cache_policy___release_mem__stream = 1,
+-	cache_policy___release_mem__bypass = 2
+-};
+-
+-enum _RELEASE_MEM_dst_sel_enum {
+-	dst_sel___release_mem__memory_controller = 0,
+-	dst_sel___release_mem__tc_l2 = 1,
+-	dst_sel___release_mem__queue_write_pointer_register = 2,
+-	dst_sel___release_mem__queue_write_pointer_poll_mask_bit = 3
+-};
+-
+-enum _RELEASE_MEM_int_sel_enum {
+-	int_sel___release_mem__none = 0,
+-	int_sel___release_mem__send_interrupt_only = 1,
+-	int_sel___release_mem__send_interrupt_after_write_confirm = 2,
+-	int_sel___release_mem__send_data_after_write_confirm = 3
+-};
+-
+-enum _RELEASE_MEM_data_sel_enum {
+-	data_sel___release_mem__none = 0,
+-	data_sel___release_mem__send_32_bit_low = 1,
+-	data_sel___release_mem__send_64_bit_data = 2,
+-	data_sel___release_mem__send_gpu_clock_counter = 3,
+-	data_sel___release_mem__send_cp_perfcounter_hi_lo = 4,
+-	data_sel___release_mem__store_gds_data_to_memory = 5
+-};
+-
+-struct pm4__release_mem {
+-	union {
+-		union PM4_MES_TYPE_3_HEADER header;	/*header */
+-		unsigned int ordinal1;
+-	};
+-
+-	union {
+-		struct {
+-			unsigned int event_type:6;
+-			unsigned int reserved1:2;
+-			enum _RELEASE_MEM_event_index_enum event_index:4;
+-			unsigned int tcl1_vol_action_ena:1;
+-			unsigned int tc_vol_action_ena:1;
+-			unsigned int reserved2:1;
+-			unsigned int tc_wb_action_ena:1;
+-			unsigned int tcl1_action_ena:1;
+-			unsigned int tc_action_ena:1;
+-			unsigned int reserved3:6;
+-			unsigned int atc:1;
+-			enum _RELEASE_MEM_cache_policy_enum cache_policy:2;
+-			unsigned int reserved4:5;
+-		} bitfields2;
+-		unsigned int ordinal2;
+-	};
+-
+-	union {
+-		struct {
+-			unsigned int reserved5:16;
+-			enum _RELEASE_MEM_dst_sel_enum dst_sel:2;
+-			unsigned int reserved6:6;
+-			enum _RELEASE_MEM_int_sel_enum int_sel:3;
+-			unsigned int reserved7:2;
+-			enum _RELEASE_MEM_data_sel_enum data_sel:3;
+-		} bitfields3;
+-		unsigned int ordinal3;
+-	};
+-
+-	union {
+-		struct {
+-			unsigned int reserved8:2;
+-			unsigned int address_lo_32b:30;
+-		} bitfields4;
+-		struct {
+-			unsigned int reserved9:3;
+-			unsigned int address_lo_64b:29;
+-		} bitfields5;
+-		unsigned int ordinal4;
+-	};
+-
+-	unsigned int address_hi;
+-
+-	unsigned int data_lo;
+-
+-	unsigned int data_hi;
+-
+-};
+-#endif
+-
+-
+-/*--------------------_SET_CONFIG_REG-------------------- */
+-
+-#ifndef _PM4__SET_CONFIG_REG_DEFINED
+-#define _PM4__SET_CONFIG_REG_DEFINED
+-
+-struct pm4__set_config_reg {
+-	union {
+-		union PM4_MES_TYPE_3_HEADER header;	/*header */
+-		unsigned int ordinal1;
+-	};
+-
+-	union {
+-		struct {
+-			unsigned int reg_offset:16;
+-			unsigned int reserved1:7;
+-			unsigned int vmid_shift:5;
+-			unsigned int insert_vmid:1;
+-			unsigned int reserved2:3;
+-		} bitfields2;
+-		unsigned int ordinal2;
+-	};
+-
+-	unsigned int reg_data[1];	/*1..N of these fields */
+-
+-};
+-#endif
+-
+-/*--------------------_WAIT_REG_MEM-------------------- */
+-
+-#ifndef _PM4__WAIT_REG_MEM_DEFINED
+-#define _PM4__WAIT_REG_MEM_DEFINED
+-enum _WAIT_REG_MEM_function_enum {
+-	function___wait_reg_mem__always_pass = 0,
+-	function___wait_reg_mem__less_than_ref_value = 1,
+-	function___wait_reg_mem__less_than_equal_to_the_ref_value = 2,
+-	function___wait_reg_mem__equal_to_the_reference_value = 3,
+-	function___wait_reg_mem__not_equal_reference_value = 4,
+-	function___wait_reg_mem__greater_than_or_equal_reference_value = 5,
+-	function___wait_reg_mem__greater_than_reference_value = 6,
+-	function___wait_reg_mem__reserved = 7
+-};
+-
+-enum _WAIT_REG_MEM_mem_space_enum {
+-	mem_space___wait_reg_mem__register_space = 0,
+-	mem_space___wait_reg_mem__memory_space = 1
+-};
+-
+-enum _WAIT_REG_MEM_operation_enum {
+-	operation___wait_reg_mem__wait_reg_mem = 0,
+-	operation___wait_reg_mem__wr_wait_wr_reg = 1
+-};
+-
+-struct pm4__wait_reg_mem {
+-	union {
+-		union PM4_MES_TYPE_3_HEADER header;	/*header */
+-		unsigned int ordinal1;
+-	};
+-
+-	union {
+-		struct {
+-			enum _WAIT_REG_MEM_function_enum function:3;
+-			unsigned int reserved1:1;
+-			enum _WAIT_REG_MEM_mem_space_enum mem_space:2;
+-			enum _WAIT_REG_MEM_operation_enum operation:2;
+-			unsigned int reserved2:24;
+-		} bitfields2;
+-		unsigned int ordinal2;
+-	};
+-
+-	union {
+-		struct {
+-			unsigned int reserved3:2;
+-			unsigned int memory_poll_addr_lo:30;
+-		} bitfields3;
+-		struct {
+-			unsigned int register_poll_addr:16;
+-			unsigned int reserved4:16;
+-		} bitfields4;
+-		struct {
+-			unsigned int register_write_addr:16;
+-			unsigned int reserved5:16;
+-		} bitfields5;
+-		unsigned int ordinal3;
+-	};
+-
+-	union {
+-		struct {
+-			unsigned int poll_address_hi:16;
+-			unsigned int reserved6:16;
+-		} bitfields6;
+-		struct {
+-			unsigned int register_write_addr:16;
+-			unsigned int reserved7:16;
+-		} bitfields7;
+-		unsigned int ordinal4;
+-	};
+-
+-	unsigned int reference;
+-
+-	unsigned int mask;
+-
+-	union {
+-		struct {
+-			unsigned int poll_interval:16;
+-			unsigned int reserved8:16;
+-		} bitfields8;
+-		unsigned int ordinal7;
+-	};
+-
+-};
+-#endif
+-
+-
+-#endif /* KFD_PM4_HEADERS_DIQ_H_ */
 -- 
 2.37.3
 
