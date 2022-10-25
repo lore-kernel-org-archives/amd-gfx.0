@@ -4,120 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD2A1C38A2D
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 19:48:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F7B4FA373E
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 19:55:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C780688A3E;
-	Tue, 25 Oct 2022 19:48:40 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2074.outbound.protection.outlook.com [40.107.101.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EBDC88EBA;
- Tue, 25 Oct 2022 19:48:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=li9D0SuCV7zGXZxOTVntQSSBVB1GfQtZ76JxxwXkCgDWBIs4g/ov8Xrg7XMR4Kku0RNrGGAYHXpe7D3rLS40MoeXu5Mgc7Od5Ge0giQcwXkm3goqvB930a4BIX66SLucrvRd0lva1zcIZU29dX3fiu1w87EOk/llbir+Yxqm1d2YdLtczRAxfR7rXhir9Q24fbct5WGKVvFpI+a+i8Q31XALp8DoN23d6ivse2d8xxRDvNAwgmcz3lafpMvtkmWrlq2jE3224gQAuPdEqwIYP1RKI+9vSMOS79FglE/t5j5famX60xAv+GmuOXRja8XkT/rhX6ajd0zt6uRtS6IEDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+7qvt/qm7mL/1fwAvKs5PmhGam1jTTa8uIajS4NyMG4=;
- b=nrISjIhim/M4AwYqFShFXIVVSqEQtuBbPSEmX8AN9X1IdNmrZRoirifhWkTZxvdHcuQNjwbxdHg5CHTKHSIrVwe/roXVoeeT2dh/Z33lQknuwxVLr86dVMteooIJZRFNtSeGUIWTtidg/p6+Qe/TPzPt8LB0PqN871U4Y4+wHbaIU4XDZa1ecs9iYRDg/KVGj/U5IPMV0IWOBr96aAghYTs5+/JfjTp0mzJQYcKGuZKgjNp27bBr988JQl+QSBieJ3y9Ym95No/em0CWaFDWW3C3l0ACdrtaDnAJYElU8ctt6qWfnSUI91iMbmy62qKc5S3IN2SG6f85dfdnW2i57g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+7qvt/qm7mL/1fwAvKs5PmhGam1jTTa8uIajS4NyMG4=;
- b=5YHOG6HZaJqlqJ6wS2HFR/rd1bZesxfJzfGhu88UANn/0yz2fFGngxE998fNLFENaoGmkqQzwzE/SHUmbUrZjzE/+lgn7fZxT6SJrXLdhvkZk8yDs0bq4dHP+Fon77Mxts0yqn00+Y6Eh4m2ITg68DLU4QVY4O5gNIa5M7qO4Dg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BL1PR12MB5192.namprd12.prod.outlook.com (2603:10b6:208:311::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28; Tue, 25 Oct
- 2022 19:48:34 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::7e91:f457:9ec5:33be]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::7e91:f457:9ec5:33be%6]) with mapi id 15.20.5746.026; Tue, 25 Oct 2022
- 19:48:34 +0000
-Message-ID: <f2b6f0e1-1ae0-21ec-372e-6e90827ccea6@amd.com>
-Date: Tue, 25 Oct 2022 15:48:33 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH] [next] amdkfd: remove unused kfd_pm4_headers_diq header
- file
-Content-Language: en-US
-To: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <Y1eoYDDZWdyLNlBc@mail.google.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <Y1eoYDDZWdyLNlBc@mail.google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0018.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:86::22) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E53310E158;
+	Tue, 25 Oct 2022 19:55:33 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D8B510E420
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 18:51:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1666723866;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=X4AgKJfraUOsPz3IaqgXDaTFp4AXZH1ZD31CAhgpw7g=;
+ b=S6HAhqxOs/oIwW0SUR4hQr55nXtsLUDZ35yZLQiF4WxzxQPdRsRVfq7DmxszMR0sS2ciTy
+ 4A5mr6DEs2PePX98GaSo+9EoxfObHDiPSqWirL7Fb3oxBYIbJP9ew0Hgp1Pyfis3jV3083
+ WLVA1uEI6eSBUauwXNYjXJkj2x3DEb8=
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-479-SpmoBK4WOOak6gTPwVVepg-1; Tue, 25 Oct 2022 14:51:04 -0400
+X-MC-Unique: SpmoBK4WOOak6gTPwVVepg-1
+Received: by mail-ed1-f69.google.com with SMTP id
+ z7-20020a05640235c700b0045d3841ccf2so12393021edc.9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 11:51:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=X4AgKJfraUOsPz3IaqgXDaTFp4AXZH1ZD31CAhgpw7g=;
+ b=yvAYJFRml02qGQqfnAMYHCpWpCxRI2GqdWxFGP34L7lePs+PhHxBBWgMlBQ2WlzIn+
+ T9mN/1MALOJOy+oNarBaj9EFGKqFw8nrTbz387KFmwGQ2kWAVFWjn8rxcswmByv1ToT8
+ UkqsnoGbQyxuM8r//MenJphRJxmmuP/3L3HsF628GQxA6Jb/dHMKdjjs/noq+Ma6VJWO
+ RI+pqNsIu4jPgHv6Y4sQ3BvtN5KPziDnaWdnr3b71Z4DWQukbciRfWyFNwArvJmDPJ3l
+ uMdAicaE2tRC5D8i6Tt6gHSO08EGyFgj4vyX3dJAixGqTfWdikdBuZyz6p604TVRbCCL
+ aUIw==
+X-Gm-Message-State: ACrzQf2Pjt7+uA+C7UvlW5APhQBQEPwpwHQ93MY1qjFG6pgy4ncxlnvJ
+ TElIDhp+cWoYZXchMys6wLLXzT8jDiJVDE7Vo8KSn9oqarGr5Eclx7YVBrULTLQXVmYJt48DPXl
+ JIMsyzQhEi3X4ccSKvCHg+OD16Q==
+X-Received: by 2002:a17:907:8a24:b0:795:bb7d:643b with SMTP id
+ sc36-20020a1709078a2400b00795bb7d643bmr28237637ejc.115.1666723863797; 
+ Tue, 25 Oct 2022 11:51:03 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM7+1cKY8mWLWZ9ZOJBRjb26mTKGhU8d2NvRoh1pdtCnyY5nFv4Rr2Wf3KkTj2dkWsEMUnUIxA==
+X-Received: by 2002:a17:907:8a24:b0:795:bb7d:643b with SMTP id
+ sc36-20020a1709078a2400b00795bb7d643bmr28237601ejc.115.1666723863548; 
+ Tue, 25 Oct 2022 11:51:03 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
+ (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
+ by smtp.gmail.com with ESMTPSA id
+ y18-20020a17090668d200b0079e11b8e891sm1802322ejr.125.2022.10.25.11.51.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 25 Oct 2022 11:51:02 -0700 (PDT)
+Message-ID: <8f53b8b6-ead2-22f5-16f7-65b31f7cc05c@redhat.com>
+Date: Tue, 25 Oct 2022 20:50:54 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BL1PR12MB5192:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d666c36-22c0-4f07-629f-08dab6c1e706
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: alHpmXimOCgu9VYeSK20RKpbR9j4SO0gg0zTIETOekSNHhgEBDUROaiS5GSFmbjvRmTLmb5ZoJaP0EUqwDxAqem67gItRPZ5EsWTRzUGZIGtsU/eS1vmNJhlr+vxQTuRiki9eMRRhK2NEHjEri9F7L/RICaJDu3VSLlfBupvENclIjESQ8y75gfSOV/wE3GNEuQYZfhDnWawD0rvcnNNxO74F/Agn3vDa3ey7ARXbtMC7LIBiDLnH7k3Iz6Ah8Pb+jqJu2hHf8MhTLOVzumtClUui9uxJINiJkBPMr9fiMLXI66m5PtD4ZqAbMeNk+54ikTJQuXZRjM8qai6SsEDTBWzuBHf+cuSehfNZzl2g/4bbwA7ELDbD3Jz/r6WYj4AyguL+qezRXgFRLSHSUc/RQRtMNJTK9wFHkt3Em7AX7kjruAvkKU1IO97mjz95pYhq1FHA21FzSHnXsJ7/GfnsHltWvUXxV1r7YMtU2D5MTyXqxHaJg4JifptB5BLDf9A3Hej81X33hsZfGjwPFh5Du1lOxCnasYlccOzv4V0L+DwpCAZ8Gj34NcOv+R3pTWuiK8tdlM1mLXwgXP+7u7MpZ8ntiz4PBFf+TmaJV3YSuHZJEnH+/p6DEUSkA856CLcMY6Amwyn0r7bWvQvYM+UMhlQFYcWIcvUVQDNS18lQ4MkrhJ0rUz3+GJoz4JERAYcaOSEHvlNqKXqt1b5If+/7HHIDxVL3y+gP+/caC69FYbek9RY2rBQLvO2szedNTd07L6tMSVWUY8bDGtawMfysAyOTd6ngrnD8w1SAfA/rbA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(39860400002)(366004)(346002)(136003)(396003)(451199015)(36756003)(66556008)(4001150100001)(44832011)(41300700001)(66946007)(66476007)(8676002)(5660300002)(478600001)(6486002)(8936002)(110136005)(2906002)(83380400001)(4326008)(38100700002)(316002)(6512007)(31696002)(6506007)(86362001)(26005)(186003)(31686004)(2616005)(66899015)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WkxsaWNmNzdlR2FITk1tZE1Benk1T3J1b2tOblBhbkwxd25TYVdUQWFxeG5O?=
- =?utf-8?B?U1lZNnV3TWtPOWZLdTV4dVJya0ltVUhWQ2s4cit1SHBxQUNXZ3hmR0pZTGd4?=
- =?utf-8?B?RjBVWkJmMWJ6TDVUVkRlcjBmYWJWbk9iZUF4MDNSY1JOWk04SXA0MGJZdkFi?=
- =?utf-8?B?dmg4cU9YemNWa2lFV295WnhzdWtpV1Q3Ri9wWVhiVlhIL0dIVmo2Y01zcG5v?=
- =?utf-8?B?TjYwRWMweEFCNVhTaWd6SWp2am9ybTV2RmhEbzFhVVFNL2UwbU9Ud1FXRlp5?=
- =?utf-8?B?MEs4NXREdjBzTzUrRFAwbHhqUkF3dXEveU1TODFmNU5TdVg1OWtMQmhSTHBq?=
- =?utf-8?B?NTVLUWNpZGlNOWlkUGtOZUdVYmpZQVRKc2kwWTJkQUtRVlRWNTNhZVlINHdm?=
- =?utf-8?B?ampaUy92aDdCaGMvb3JIREpLU1dKRTJ1MjdkZ3diZ2pvTmFQTjRWZTdSTEtI?=
- =?utf-8?B?WGEwbEJZdTkybGxoVnhxOEJ2a1QvZmlLWHZaQUdWcnJidk1YUTQyclBYbmlD?=
- =?utf-8?B?Mm5aVDk1a0k4MXBuY21JbVVGdUhtdzNzZmJUQURYTVJyNld3VEF5OXhaR1VG?=
- =?utf-8?B?RFpXeFZ6V3FLc2lKL3BDUUpMZE85dTJzOXlONmV2R2lOTWFKZEo0UUdOMmJR?=
- =?utf-8?B?MmowSHVMZ1ZJSTlhSGR1bkp3OEl2R2ZYRWxYYkFwcjJWV3FvUXZvdjBMaFdr?=
- =?utf-8?B?SVFicUlpa3VKeGZFWExJUHRsSXlaT2lkUVp4TUVaNlVidkx4ZnRaQWlJeGNF?=
- =?utf-8?B?TDVPOU5kaWxscXZyYmM5amVtajhsYXY1VTEvc3NSanB2RXFkNlc5R1d5ZWhw?=
- =?utf-8?B?NU4zVEZyZnpNZlhocHBucWhVTlRVWmFTZ0phTHk0MmRaRzNBa1E4eGkvMGJ0?=
- =?utf-8?B?UXJobEd3S0o4ZTYxU2F3WWQ0NGNUUFVOVVBVT1BicVI4VEZERFRCNmQvWEQ3?=
- =?utf-8?B?YlA4UTdoNTFOMmtVTTd2QVJUTUlnVnBNQzlqQWF3UlNvU1ZtSk1lVU8vY2dG?=
- =?utf-8?B?WnZTaURrZzZKMjBtMXQ4NHNmaXAwMkhKZTZvM2p2RzlzVHFqbXNQZTl4SUNa?=
- =?utf-8?B?VWRSaU5CRUJrL1VDRVRNUEZsOU1uSzd0RFdCQ2oxQVlKS0tqK2lId2s4MTZp?=
- =?utf-8?B?elc4cG1oZm9STEZRK29VbjcydlFWeWJZWVY1aG5mMCtwYlhiSzB0R2ZwWTls?=
- =?utf-8?B?SVRWQ0pxejNWVzBsUTRQa2ZEaGxSenpnTnBDZE1FRW1URGkxWFFkT2kxNUN5?=
- =?utf-8?B?SkhsQTRXRjkzUkJ2RGVLMXBJVy91Y0RTMXhvdlY3N3dGVFVWdC9JZ1NHUkhJ?=
- =?utf-8?B?b2RyZ2huNmxhY2FHTllwUkdxU0QwejFhUklZMmg1ZWUxRnhTRlVKZmhuSTJZ?=
- =?utf-8?B?dlNZbitzaG9YZVB0eXYvQjgvWnFjbE56cjk3U1crcWxQUWlhajR4bG1iTE9J?=
- =?utf-8?B?QW9ZWVFZaURUcjF6cHpYQi9nekIwaGxLaTluLzRlNEloYkNpYVUzNEZ1NWp2?=
- =?utf-8?B?M2tocDErR004Z2JRVmVnSXUrT0tzRGJFVDBMbW11bEtCeHpWQlY1V1VoUzc0?=
- =?utf-8?B?emVmZk1PcHkrQ1h3bjRDZDhZcmh2WWRrRGx6eTlsempaeUMwOTdCaWxXME5Q?=
- =?utf-8?B?YXZNeFovN0ZqaVJsbUx1bjJ6T25IcVVOMGd4alpFcWIrTnBQT01sVzQwSXE2?=
- =?utf-8?B?bWJBZWhoVmVIWlh4bTFpTkpjNmQ5NzRjNzJhVlNHY05qekhPM1gwRk14ZUl0?=
- =?utf-8?B?cmNLVXdvTU1MQy95ekJydWpNcWdSSmlCT24rMmpiY2FWLzF1SnF2clJXTXRq?=
- =?utf-8?B?elh2ODM3R2s3T2dXMjNMRWw3UTd4SDBOY0xMR3NLSHppQVVQRE0raGhBcEda?=
- =?utf-8?B?c1dGR1lmU1BPNFo3NXlYMHpicFdIZndxVHdiWlErMVVmeXhwVDR4SFoxRmxv?=
- =?utf-8?B?bUU0TkQ1WkZhLzJPekFLalJna21sY3kxbUpENWd2MFFrM1BvTmhlYWUwR1g2?=
- =?utf-8?B?UzRnRWxnck10M3VBbnJ4c0VhdUtzdjdpemUvc2VDbmZtcVFNN2pTOVhpQ3Iv?=
- =?utf-8?B?Z09ralR1UkZBR3RzWnY3eFlLQzJCakhnT2xmQmk5ZlNYTG1MSmhLbjAwSGZS?=
- =?utf-8?Q?lWlcwlpir2T2TVgg4bwmbBUrn?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d666c36-22c0-4f07-629f-08dab6c1e706
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2022 19:48:34.8182 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JrR5foe5KVMzFhG5qwKj2s/jEQkIyl8t90zy/bq6WB3SKTsGIRz4gl3gqbP2q+h4HT03dqtWNU/Cuyo+GX70TQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5192
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+Subject: Re: [PATCH v5 02/31] drm/i915: Don't register backlight when another
+ backlight should be used (v2)
+To: Matthew Garrett <mjg59@srcf.ucam.org>
+References: <20220825143726.269890-1-hdegoede@redhat.com>
+ <20220825143726.269890-3-hdegoede@redhat.com>
+ <f914ceb3-94bd-743c-f8b6-0334086e731a@gmail.com>
+ <42a5f2c9-a1dc-8fc0-7334-fe6c390ecfbb@redhat.com>
+ <20221024203057.GA28675@srcf.ucam.org>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <20221024203057.GA28675@srcf.ucam.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, nl
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 25 Oct 2022 19:55:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,329 +92,164 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org
+Cc: Pan@freedesktop.org, Karol Herbst <kherbst@redhat.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ Dmitry Osipenko <digetx@gmail.com>, amd-gfx@lists.freedesktop.org,
+ linux-acpi@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>,
+ David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>,
+ Daniel Dadap <ddadap@nvidia.com>, Jani Nikula <jani.nikula@intel.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Mark Gross <markgross@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Xinhui <Xinhui.Pan@amd.com>,
+ Lukas Wunner <lukas@wunner.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-10-25 um 05:12 schrieb Paulo Miguel Almeida:
-> kfd_pm4_headers_diq.h header is a leftover from the old H/W debugger
-> module support added on commit <fbeb661bfa895dc>. That implementation
-> was removed after a while and the last file that included that header
-> was removed on commit <5bdd3eb253544b1>.
->
-> This patch removes the unused header file kfd_pm4_headers_diq.h
->
-> Signed-off-by: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+Hi,
 
-Thank you for this patch and the one that removes struct cdit_header. I 
-am applying both to our amd-staging-drm-next branch. I'm also fixing up 
-the prefix of the commit headline to match our usual convention: 
-drm/amdkfd: ...
+On 10/24/22 22:30, Matthew Garrett wrote:
+> On Tue, Sep 27, 2022 at 01:04:52PM +0200, Hans de Goede wrote:
+> 
+>> So to fix this we need to make acpi_video_get_backlight_type()
+>> return native on the Acer Chromebook Spin 713.
+> 
+> Isn't the issue broader than that? Unless the platform is Windows 8 or 
+> later, we'll *always* (outside of some corner cases) return 
+> acpi_backlight_vendor if there's no ACPI video interface. This is broken 
+> for any platform that implements ACPI but relies on native video 
+> control, which is going to include a range of Coreboot platforms, not 
+> just Chromebooks.
 
-Both patches are
+That is a valid point, but keep in mind that this is only used on ACPI
+platforms and then only on devices with a builtin LCD panel and then
+only by GPU drivers which actually call acpi_video_get_backlight_type(),
+so e.g. not by all the ARM specific display drivers.
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+So I believe that Chromebooks quite likely are the only devices with
+this issue.
+
+We could do something like the patch which I have pasted at the end
+of this email, but as its commit message notes there is a real
+good chance this will cause regressions on some laptops.
+
+So if we ever decide to go with something like the patch below,
+I think we should at a minimum wait for the next cycle with that,
+because 6.1 already significantly reworks the ACPI backlight
+detect handling and I don't want to throw this into the mix
+on top of those changes.
+
+> I think for this to work correctly you need to have 
+> the infrastructure be aware of whether or not a vendor interface exists, 
+> which means having to handle cleanup if a vendor-specific module gets 
+> loaded later.
+
+Getting rid of the whole ping-ponging of which backlight drivers
+get loaded during boot was actually one of the goals of the rework
+which landed in 6.1 this actually allowed us to remove some quirks
+because some hw/firmware did not like us changing our mind and
+switching backlight interfaces after first poking another one.
+So we definitely don't want to go back to the ping-pong thing.
+
+Regards,
+
+Hans
 
 
-> ---
->   .../gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h  | 291 ------------------
->   1 file changed, 291 deletions(-)
->   delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h
-> deleted file mode 100644
-> index f9cd28690151..000000000000
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h
-> +++ /dev/null
-> @@ -1,291 +0,0 @@
-> -/* SPDX-License-Identifier: GPL-2.0 OR MIT */
-> -/*
-> - * Copyright 2014-2022 Advanced Micro Devices, Inc.
-> - *
-> - * Permission is hereby granted, free of charge, to any person obtaining a
-> - * copy of this software and associated documentation files (the "Software"),
-> - * to deal in the Software without restriction, including without limitation
-> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> - * and/or sell copies of the Software, and to permit persons to whom the
-> - * Software is furnished to do so, subject to the following conditions:
-> - *
-> - * The above copyright notice and this permission notice shall be included in
-> - * all copies or substantial portions of the Software.
-> - *
-> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> - * OTHER DEALINGS IN THE SOFTWARE.
-> - *
-> - */
-> -
-> -#ifndef KFD_PM4_HEADERS_DIQ_H_
-> -#define KFD_PM4_HEADERS_DIQ_H_
-> -
-> -/*--------------------_INDIRECT_BUFFER-------------------- */
-> -
-> -#ifndef _PM4__INDIRECT_BUFFER_DEFINED
-> -#define _PM4__INDIRECT_BUFFER_DEFINED
-> -enum _INDIRECT_BUFFER_cache_policy_enum {
-> -	cache_policy___indirect_buffer__lru = 0,
-> -	cache_policy___indirect_buffer__stream = 1,
-> -	cache_policy___indirect_buffer__bypass = 2
-> -};
-> -
-> -enum {
-> -	IT_INDIRECT_BUFFER_PASID = 0x5C
-> -};
-> -
-> -struct pm4__indirect_buffer_pasid {
-> -	union {
-> -		union PM4_MES_TYPE_3_HEADER header;	/* header */
-> -		unsigned int ordinal1;
-> -	};
-> -
-> -	union {
-> -		struct {
-> -			unsigned int reserved1:2;
-> -			unsigned int ib_base_lo:30;
-> -		} bitfields2;
-> -		unsigned int ordinal2;
-> -	};
-> -
-> -	union {
-> -		struct {
-> -			unsigned int ib_base_hi:16;
-> -			unsigned int reserved2:16;
-> -		} bitfields3;
-> -		unsigned int ordinal3;
-> -	};
-> -
-> -	union {
-> -		unsigned int control;
-> -		unsigned int ordinal4;
-> -	};
-> -
-> -	union {
-> -		struct {
-> -			unsigned int pasid:10;
-> -			unsigned int reserved4:22;
-> -		} bitfields5;
-> -		unsigned int ordinal5;
-> -	};
-> -
-> -};
-> -
-> -#endif
-> -
-> -/*--------------------_RELEASE_MEM-------------------- */
-> -
-> -#ifndef _PM4__RELEASE_MEM_DEFINED
-> -#define _PM4__RELEASE_MEM_DEFINED
-> -enum _RELEASE_MEM_event_index_enum {
-> -	event_index___release_mem__end_of_pipe = 5,
-> -	event_index___release_mem__shader_done = 6
-> -};
-> -
-> -enum _RELEASE_MEM_cache_policy_enum {
-> -	cache_policy___release_mem__lru = 0,
-> -	cache_policy___release_mem__stream = 1,
-> -	cache_policy___release_mem__bypass = 2
-> -};
-> -
-> -enum _RELEASE_MEM_dst_sel_enum {
-> -	dst_sel___release_mem__memory_controller = 0,
-> -	dst_sel___release_mem__tc_l2 = 1,
-> -	dst_sel___release_mem__queue_write_pointer_register = 2,
-> -	dst_sel___release_mem__queue_write_pointer_poll_mask_bit = 3
-> -};
-> -
-> -enum _RELEASE_MEM_int_sel_enum {
-> -	int_sel___release_mem__none = 0,
-> -	int_sel___release_mem__send_interrupt_only = 1,
-> -	int_sel___release_mem__send_interrupt_after_write_confirm = 2,
-> -	int_sel___release_mem__send_data_after_write_confirm = 3
-> -};
-> -
-> -enum _RELEASE_MEM_data_sel_enum {
-> -	data_sel___release_mem__none = 0,
-> -	data_sel___release_mem__send_32_bit_low = 1,
-> -	data_sel___release_mem__send_64_bit_data = 2,
-> -	data_sel___release_mem__send_gpu_clock_counter = 3,
-> -	data_sel___release_mem__send_cp_perfcounter_hi_lo = 4,
-> -	data_sel___release_mem__store_gds_data_to_memory = 5
-> -};
-> -
-> -struct pm4__release_mem {
-> -	union {
-> -		union PM4_MES_TYPE_3_HEADER header;	/*header */
-> -		unsigned int ordinal1;
-> -	};
-> -
-> -	union {
-> -		struct {
-> -			unsigned int event_type:6;
-> -			unsigned int reserved1:2;
-> -			enum _RELEASE_MEM_event_index_enum event_index:4;
-> -			unsigned int tcl1_vol_action_ena:1;
-> -			unsigned int tc_vol_action_ena:1;
-> -			unsigned int reserved2:1;
-> -			unsigned int tc_wb_action_ena:1;
-> -			unsigned int tcl1_action_ena:1;
-> -			unsigned int tc_action_ena:1;
-> -			unsigned int reserved3:6;
-> -			unsigned int atc:1;
-> -			enum _RELEASE_MEM_cache_policy_enum cache_policy:2;
-> -			unsigned int reserved4:5;
-> -		} bitfields2;
-> -		unsigned int ordinal2;
-> -	};
-> -
-> -	union {
-> -		struct {
-> -			unsigned int reserved5:16;
-> -			enum _RELEASE_MEM_dst_sel_enum dst_sel:2;
-> -			unsigned int reserved6:6;
-> -			enum _RELEASE_MEM_int_sel_enum int_sel:3;
-> -			unsigned int reserved7:2;
-> -			enum _RELEASE_MEM_data_sel_enum data_sel:3;
-> -		} bitfields3;
-> -		unsigned int ordinal3;
-> -	};
-> -
-> -	union {
-> -		struct {
-> -			unsigned int reserved8:2;
-> -			unsigned int address_lo_32b:30;
-> -		} bitfields4;
-> -		struct {
-> -			unsigned int reserved9:3;
-> -			unsigned int address_lo_64b:29;
-> -		} bitfields5;
-> -		unsigned int ordinal4;
-> -	};
-> -
-> -	unsigned int address_hi;
-> -
-> -	unsigned int data_lo;
-> -
-> -	unsigned int data_hi;
-> -
-> -};
-> -#endif
-> -
-> -
-> -/*--------------------_SET_CONFIG_REG-------------------- */
-> -
-> -#ifndef _PM4__SET_CONFIG_REG_DEFINED
-> -#define _PM4__SET_CONFIG_REG_DEFINED
-> -
-> -struct pm4__set_config_reg {
-> -	union {
-> -		union PM4_MES_TYPE_3_HEADER header;	/*header */
-> -		unsigned int ordinal1;
-> -	};
-> -
-> -	union {
-> -		struct {
-> -			unsigned int reg_offset:16;
-> -			unsigned int reserved1:7;
-> -			unsigned int vmid_shift:5;
-> -			unsigned int insert_vmid:1;
-> -			unsigned int reserved2:3;
-> -		} bitfields2;
-> -		unsigned int ordinal2;
-> -	};
-> -
-> -	unsigned int reg_data[1];	/*1..N of these fields */
-> -
-> -};
-> -#endif
-> -
-> -/*--------------------_WAIT_REG_MEM-------------------- */
-> -
-> -#ifndef _PM4__WAIT_REG_MEM_DEFINED
-> -#define _PM4__WAIT_REG_MEM_DEFINED
-> -enum _WAIT_REG_MEM_function_enum {
-> -	function___wait_reg_mem__always_pass = 0,
-> -	function___wait_reg_mem__less_than_ref_value = 1,
-> -	function___wait_reg_mem__less_than_equal_to_the_ref_value = 2,
-> -	function___wait_reg_mem__equal_to_the_reference_value = 3,
-> -	function___wait_reg_mem__not_equal_reference_value = 4,
-> -	function___wait_reg_mem__greater_than_or_equal_reference_value = 5,
-> -	function___wait_reg_mem__greater_than_reference_value = 6,
-> -	function___wait_reg_mem__reserved = 7
-> -};
-> -
-> -enum _WAIT_REG_MEM_mem_space_enum {
-> -	mem_space___wait_reg_mem__register_space = 0,
-> -	mem_space___wait_reg_mem__memory_space = 1
-> -};
-> -
-> -enum _WAIT_REG_MEM_operation_enum {
-> -	operation___wait_reg_mem__wait_reg_mem = 0,
-> -	operation___wait_reg_mem__wr_wait_wr_reg = 1
-> -};
-> -
-> -struct pm4__wait_reg_mem {
-> -	union {
-> -		union PM4_MES_TYPE_3_HEADER header;	/*header */
-> -		unsigned int ordinal1;
-> -	};
-> -
-> -	union {
-> -		struct {
-> -			enum _WAIT_REG_MEM_function_enum function:3;
-> -			unsigned int reserved1:1;
-> -			enum _WAIT_REG_MEM_mem_space_enum mem_space:2;
-> -			enum _WAIT_REG_MEM_operation_enum operation:2;
-> -			unsigned int reserved2:24;
-> -		} bitfields2;
-> -		unsigned int ordinal2;
-> -	};
-> -
-> -	union {
-> -		struct {
-> -			unsigned int reserved3:2;
-> -			unsigned int memory_poll_addr_lo:30;
-> -		} bitfields3;
-> -		struct {
-> -			unsigned int register_poll_addr:16;
-> -			unsigned int reserved4:16;
-> -		} bitfields4;
-> -		struct {
-> -			unsigned int register_write_addr:16;
-> -			unsigned int reserved5:16;
-> -		} bitfields5;
-> -		unsigned int ordinal3;
-> -	};
-> -
-> -	union {
-> -		struct {
-> -			unsigned int poll_address_hi:16;
-> -			unsigned int reserved6:16;
-> -		} bitfields6;
-> -		struct {
-> -			unsigned int register_write_addr:16;
-> -			unsigned int reserved7:16;
-> -		} bitfields7;
-> -		unsigned int ordinal4;
-> -	};
-> -
-> -	unsigned int reference;
-> -
-> -	unsigned int mask;
-> -
-> -	union {
-> -		struct {
-> -			unsigned int poll_interval:16;
-> -			unsigned int reserved8:16;
-> -		} bitfields8;
-> -		unsigned int ordinal7;
-> -	};
-> -
-> -};
-> -#endif
-> -
-> -
-> -#endif /* KFD_PM4_HEADERS_DIQ_H_ */
+
+>From 67ee5d7163e33e65dca06887befd0639b0345883 Mon Sep 17 00:00:00 2001
+From: Hans de Goede <hdegoede@redhat.com>
+Date: Tue, 25 Oct 2022 20:38:56 +0200
+Subject: [PATCH] ACPI: video: Simplify __acpi_video_get_backlight_type()
+
+Simplify __acpi_video_get_backlight_type() removing a nested if which
+makes the flow harder to follow.
+
+Note this will cause a behavior change on devices which do not have
+ACPI video support but do have both a vendor and native backlight
+driver available. This change will cause these devices to switch
+from vendor to native.
+
+This may not be desirable in all cases, this is likely to happen
+on significantly older laptops, where there very well might be
+cases where the native driver does not work because the backlight is
+controlled by the EC.
+
+This removes the need for the special handling of Chromebooks,
+these will now hit the if (native_available) return acpi_backlight_native;
+path.
+
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ drivers/acpi/video_detect.c | 36 +++++++++++-------------------------
+ 1 file changed, 11 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+index 9cd8797d12bb..9bd85b159e02 100644
+--- a/drivers/acpi/video_detect.c
++++ b/drivers/acpi/video_detect.c
+@@ -668,11 +668,6 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ 	{ },
+ };
+ 
+-static bool google_cros_ec_present(void)
+-{
+-	return acpi_dev_found("GOOG0004");
+-}
+-
+ /*
+  * Determine which type of backlight interface to use on this system,
+  * First check cmdline, then dmi quirks, then do autodetect.
+@@ -718,30 +713,21 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+ 	if (apple_gmux_present())
+ 		return acpi_backlight_apple_gmux;
+ 
+-	/* On systems with ACPI video use either native or ACPI video. */
+-	if (video_caps & ACPI_VIDEO_BACKLIGHT) {
+-		/*
+-		 * Windows 8 and newer no longer use the ACPI video interface,
+-		 * so it often does not work. If the ACPI tables are written
+-		 * for win8 and native brightness ctl is available, use that.
+-		 *
+-		 * The native check deliberately is inside the if acpi-video
+-		 * block on older devices without acpi-video support native
+-		 * is usually not the best choice.
+-		 */
+-		if (acpi_osi_is_win8() && native_available)
+-			return acpi_backlight_native;
+-		else
+-			return acpi_backlight_video;
+-	}
+-
+ 	/*
+-	 * Chromebooks that don't have backlight handle in ACPI table
+-	 * are supposed to use native backlight if it's available.
++	 * Pre Windows 8, Windows uses ACPI video, so prefer that over native
++	 * on pre-win8 systems (Windows 8+ no longer uses ACPI video).
+ 	 */
+-	if (google_cros_ec_present() && native_available)
++	if ((video_caps & ACPI_VIDEO_BACKLIGHT) && !acpi_osi_is_win8())
++		return acpi_backlight_video;
++
++	/* Use native backlight control if available */
++	if (native_available)
+ 		return acpi_backlight_native;
+ 
++	/* Use the ACPI video interface if available */
++	if (video_caps & ACPI_VIDEO_BACKLIGHT)
++		return acpi_backlight_video;
++
+ 	/* No ACPI video (old hw), use vendor specific fw methods. */
+ 	return acpi_backlight_vendor;
+ }
+-- 
+2.37.3
+
+
