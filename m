@@ -4,55 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2545C38A2D
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 01:32:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46353C38A2D
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 03:15:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D23610E1E7;
-	Wed, 26 Oct 2022 01:32:33 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1DCF10E1E7
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 01:32:30 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id k8so15304142wrh.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 18:32:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=DVVSLUf6xdfeGz47EfSVZGasRf0LZUbefLvgnRwj7Ek=;
- b=I5Ba1k+zb7UtkQ4KgNxP4r79dGGSQNMLf0yEV85j7g7QvNyErbraBav7Lzp00/zv2Y
- Jq/D9RrvOa0+TupuIVw3zumNLl79xYak4UFZp4JUnr/TEWVDZIURwfnAr9JAWQ3ZaVby
- tzfJPnDJsZkMeCIlJZGLO7HbOCt4K26PJeZBeFtfb1eCRdDirleaYKG63KTmVtN0Ma+d
- PzsXccdAnb30D5TSy2tmMxKAvGLFN9ahvkXVcS7Yielw15TjqVgVP3Squ4ULLgCZmfph
- Ky87zLy99/pMkMMdTqYyJ3wkIIvPRyoxBObv4CmoomHdKCcigpQMGfEMHw9VOjbH55oT
- LRXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DVVSLUf6xdfeGz47EfSVZGasRf0LZUbefLvgnRwj7Ek=;
- b=ERIpz0f8s/MfAr05ePE7WyVSPvZWTd3G5I6lPJIcjbKbMabbE5MS49JGva3KliN95s
- Cx2n72RKsvSOLbyfvdlNF2E+lMrkfvidZPjmRhnHmNpS8cK2RluYM8+0Vn6hmbwyYAIb
- UgtYeXj8/rvduk/87Zlc9SqEL/p22dJDumrxdamBi6Ag4RLA2gXI4nlf3Pmnqb484T46
- 99Hf9IR4eFkMuTKP0sFrQapg9ujWFmyGAy8pqxNsFkHIFG0MkMJx39ExkL+C13YdzKJ4
- M+XlbdKGH1AncIZ9zH/2F7oHSAL3UvU54sK35H1Zl9ck/3by5LrDSp+qh69nmO9ll8N5
- T66w==
-X-Gm-Message-State: ACrzQf3GwsaLxrhad6q0dt5KA9FEiLQ2Xb+FWAM96zamwhu3H39oa8uS
- Yxj4tE39RhdyZTSjzZQIMOVZf3pp4sUNizEC/Lo=
-X-Google-Smtp-Source: AMsMyM6E9Ej2rxbH7eUZ1AgJMohYD4xiFypT8D49yX/peME87P6rteVgV1pQIWVs4eG/6qRig71/x1XLIzKzxx7flMc=
-X-Received: by 2002:a5d:47a8:0:b0:231:ca77:ac57 with SMTP id
- 8-20020a5d47a8000000b00231ca77ac57mr27019878wrb.384.1666747949006; Tue, 25
- Oct 2022 18:32:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3315D10E0F8;
+	Wed, 26 Oct 2022 03:14:59 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A8C610E0F8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 03:14:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hvmRje5fEiROByspvW36W9v/FvN3rT78+YGp96Sm98EklXciMdM17vqjbMDekBwdPDB+OSN5mMv/LQTAk0KzmfLxuwYMkTPDmjqpeFSFSjbZ2g/YxEoSIfSxIOQwxg5Uu8QVdnGibg+atWiUYnDfy+PzzwAhdyakr0t0hBY0wANIYQYz4TUNQ4vZX3grwLZv5xH8eafhOeWGUCZG7QAihC5Dnj9Evm4pj+gTCFIS7HbalJNZC9uWyVd2NbvAAkdWfBCtkTMLk0jEB7KiMkAZLYrIhaIIGA2okHpN63LJLxonqbtU8suJNS4CD3IQ4o/nUa9KIQ9yURVaCpoWT4DrnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dFLO9lfcHgrKnMNJaLa8/M7KQdtc2gl5shpMPIC39OU=;
+ b=ndXMJXiWOiowZZ2JPoaM6/fP/jMhIlKlia3Oynz2a3zsrS1PoO4fEjCJJLRUTLE2q944fvf+Rlmezn2Chb7d++t+JHJbQ8aSZnsagzTi9aZGwjdjcLupmJLiuEOwrYZ/wdFYCLzPwpoDeI/desu+PEaOd0xa/mJ9QQNLSCFAk0sTro6g1FoUzwZIT8eTEyM62Tb6KGIBCgpUPwC4fbg1JWLt1d5qbnyMwE0g3rgly4N46cdQ+ylLElGcBVoGqrTaqGTNZq3NWBH9wnPlfJC+Sm2X9QNKt+wrHafHLhclBxwDoQ72Rc0kKt9HqOPxdbUvIVJXbnjk5siOMlhg+z8aLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dFLO9lfcHgrKnMNJaLa8/M7KQdtc2gl5shpMPIC39OU=;
+ b=TS53h0sCKMtiNrh3nfWYNvF2gYV0Vj6mWRRh50sF2DAf0fILoLf9whtbaCLmHhKIDzGcSTSKv4zXp4jljOmhEZmqLpazgMdfoofVqt1EJuVKNMF6fI/vhzEt7UUmw/d/xhiGIpd2YG50YgBDBobbJI4RqJ5ttkGWO08wBMZBKRc=
+Received: from BN7PR06CA0058.namprd06.prod.outlook.com (2603:10b6:408:34::35)
+ by LV2PR12MB5967.namprd12.prod.outlook.com (2603:10b6:408:170::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.33; Wed, 26 Oct
+ 2022 03:14:49 +0000
+Received: from BN8NAM11FT097.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:34:cafe::35) by BN7PR06CA0058.outlook.office365.com
+ (2603:10b6:408:34::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28 via Frontend
+ Transport; Wed, 26 Oct 2022 03:14:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT097.mail.protection.outlook.com (10.13.176.147) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5746.16 via Frontend Transport; Wed, 26 Oct 2022 03:14:49 +0000
+Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 25 Oct
+ 2022 22:14:14 -0500
+From: Yifan Zhang <yifan1.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: force read discovery file if set discovery=2
+Date: Wed, 26 Oct 2022 11:13:54 +0800
+Message-ID: <20221026031354.3230715-1-yifan1.zhang@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-References: <20221014041456.139813-1-Asher.Song@amd.com>
-In-Reply-To: <20221014041456.139813-1-Asher.Song@amd.com>
-From: Yury Zhuravlev <stalkerg@gmail.com>
-Date: Wed, 26 Oct 2022 10:31:01 +0900
-Message-ID: <CANiD2e8PHA7u1qs8YkWkbbjxqB7JCnLNdR5OcHTH=dpfBWe7rg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Revert "drm/amdgpu: getting fan speed pwm for
- vega10 properly"
-To: Asher Song <Asher.Song@amd.com>
-Content-Type: multipart/alternative; boundary="0000000000006e465305ebe5ff23"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT097:EE_|LV2PR12MB5967:EE_
+X-MS-Office365-Filtering-Correlation-Id: 74f06e01-13ca-4e58-7793-08dab7003e11
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bfCI0yx9Su5uX+A4NCrfHn/zayFxU/Cvi9Wl6RiF6vIcOtA4nzt005Mj6i8+g+eUzRcka9EY7lvgzTSQoQlOhBPEzDTQBkHUzSSxF5tBVla2ElW/UgcNGWgPJV+TKgRL7jKqMmZOX1ZFwshsMZvWC3MQKrNSjj9XZ/qJoUTo8aWpL8UWuT9WReGPQYbL7rAzYekUl6notCGzwGgf7l1+Trz4jlOKKWo2jbHphGNuyXTFCFJwoJBc4m62+eUWElq4XGgnkoOdIoqT5YHLj1d6qZ2eK1S45pDRgaxonRw4GkW8Qp99SHLCQMkQGveiO3+owcPCwCBobh8AdrkPXN7PMjQAMGQjBPari2Cso02o62YJ1kHQva8pzR/6ADISpfWOeqCbnwb3tcnXyuwziBzzib+Bljh/pIODB3u2kUxjJxhztDZWKYxzBkVRlv69pRwrhyPpa/2dNA7EQo+rHkejvXerDSE2dwDLQhv63ukjEcpP5pO8yyV2MylQAwbPDfBCI+iwoVyOe8Wa4uqWd6v2Yk+nu7uJCD2iC0CJwr2Mae0Ex+Ae2pIF47wQE2PKI2N+WcrMxQ/3guXo4A50hdZrW5bFVBAczhx2QxcfJGwKE6UN+aKRCdc5w635KW4FLf/HDw1scweaEE0VjM9C/n1Oz+9Ki9vqQsqmO9+kIz1LbDTn/2W1oeHtipD4GvAw2KZtiNOr8l59WcQWva/+jFUPqC2qp9bhwr9RhRtNmVml9WjuVRTz7l5Ra4m0oyFjTxgskylsqx/FhouV17Q1BLzx/KfWyU3mzVM44n3FfNeT2wUcBj+P7enbwJ5xqtgDMS6t
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(376002)(396003)(39860400002)(346002)(451199015)(40470700004)(36840700001)(46966006)(7696005)(6666004)(36756003)(82310400005)(316002)(26005)(40460700003)(478600001)(336012)(40480700001)(426003)(47076005)(86362001)(8936002)(83380400001)(2906002)(2616005)(54906003)(1076003)(36860700001)(6916009)(70586007)(41300700001)(356005)(16526019)(5660300002)(82740400003)(4326008)(70206006)(186003)(81166007)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2022 03:14:49.5092 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74f06e01-13ca-4e58-7793-08dab7003e11
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT097.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5967
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,168 +97,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, evan.quan@amd.com, amd-gfx@lists.freedesktop.org,
- Guchun.Chen@amd.com
+Cc: Alexander.Deucher@amd.com, Tim.Huang@amd.com, Aaron.Liu@amd.com,
+ Xiaojian.Du@amd.com, Yifan Zhang <yifan1.zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000006e465305ebe5ff23
-Content-Type: text/plain; charset="UTF-8"
+If discovery is set to 2 in module parameters explicitly, the
+intention is to use the discovery file in FW rather than the one in
+BIOS, usually because the latter is incorrect. This patch to force
+read discovery file if set discovery=2.
 
-Hello,
-Can you write here your card name and firmware version? Without this patch,
-my fan sensors are broken, and it's sensitive to my pc case with water
-cooling.
-My card is:  Sapphire Pulse Radeon RX Vega 56  vd6546 SA
-lspci name: [AMD/ATI] Vega 10 XL/XT [Radeon RX Vega 56/64] (rev c3)
-Firmware: ATOM BIOS: 113-376XL-UO2
-This patch is 100% working correct on my machine, and I tested it last 2
-months.
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Regards,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 3993e6134914..5ea9afaaf4f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -305,8 +305,13 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
+ 		goto out;
+ 	}
+ 
+-	if (!amdgpu_discovery_verify_binary_signature(adev->mman.discovery_bin)) {
+-		dev_warn(adev->dev, "get invalid ip discovery binary signature from vram\n");
++	if (!amdgpu_discovery_verify_binary_signature(adev->mman.discovery_bin) || amdgpu_discovery == 2) {
++		/* ignore the discovery binary from vram if discovery=2 in kernel module parameter */
++		if (amdgpu_discovery == 2)
++			dev_info(adev->dev,"force read ip discovery binary from file");
++		else
++			dev_warn(adev->dev, "get invalid ip discovery binary signature from vram\n");
++
+ 		/* retry read ip discovery binary from file */
+ 		r = amdgpu_discovery_read_binary_from_file(adev, adev->mman.discovery_bin);
+ 		if (r) {
+-- 
+2.37.3
 
-On Fri, Oct 14, 2022 at 1:15 PM Asher Song <Asher.Song@amd.com> wrote:
-
-> This reverts commit fe01cb24b81c0091d7e5668874d51ce913e44a97.
->
-> Unfortunately, that commit causes fan monitors can't be read and written
-> properly.
->
-> Signed-off-by: Asher Song <Asher.Song@amd.com>
-> ---
->  .../amd/pm/powerplay/hwmgr/vega10_thermal.c   | 25 ++++++++++---------
->  1 file changed, 13 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-> b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-> index 190af79f3236..dad3e3741a4e 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-> @@ -67,21 +67,22 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr
-> *hwmgr,
->  int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
->                 uint32_t *speed)
->  {
-> -       struct amdgpu_device *adev = hwmgr->adev;
-> -       uint32_t duty100, duty;
-> -       uint64_t tmp64;
-> +       uint32_t current_rpm;
-> +       uint32_t percent = 0;
->
-> -       duty100 = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL1),
-> -                               CG_FDO_CTRL1, FMAX_DUTY100);
-> -       duty = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_THERMAL_STATUS),
-> -                               CG_THERMAL_STATUS, FDO_PWM_DUTY);
-> +       if (hwmgr->thermal_controller.fanInfo.bNoFan)
-> +               return 0;
->
-> -       if (!duty100)
-> -               return -EINVAL;
-> +       if (vega10_get_current_rpm(hwmgr, &current_rpm))
-> +               return -1;
-> +
-> +       if (hwmgr->thermal_controller.
-> +                       advanceFanControlParameters.usMaxFanRPM != 0)
-> +               percent = current_rpm * 255 /
-> +                       hwmgr->thermal_controller.
-> +                       advanceFanControlParameters.usMaxFanRPM;
->
-> -       tmp64 = (uint64_t)duty * 255;
-> -       do_div(tmp64, duty100);
-> -       *speed = MIN((uint32_t)tmp64, 255);
-> +       *speed = MIN(percent, 255);
->
->         return 0;
->  }
-> --
-> 2.25.1
->
->
-
---0000000000006e465305ebe5ff23
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div>Hello,<br>Can you write here your card name and =
-firmware version? Without this patch, my fan sensors are broken, and it&#39=
-;s sensitive to my pc case with water cooling.<br>My card is: =C2=A0Sapphir=
-e Pulse Radeon RX Vega 56 =C2=A0vd6546 SA<br>lspci name: [AMD/ATI] Vega 10 =
-XL/XT [Radeon RX Vega 56/64] (rev c3)<br>Firmware: ATOM BIOS: 113-376XL-UO2=
-<br>This patch is 100% working correct on my machine, and I tested it last =
-2 months.<br><br></div><div>Regards,<br></div></div></div><br><div class=3D=
-"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Oct 14, 2022 at=
- 1:15 PM Asher Song &lt;<a href=3D"mailto:Asher.Song@amd.com">Asher.Song@am=
-d.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
-1ex">This reverts commit fe01cb24b81c0091d7e5668874d51ce913e44a97.<br>
-<br>
-Unfortunately, that commit causes fan monitors can&#39;t be read and writte=
-n<br>
-properly.<br>
-<br>
-Signed-off-by: Asher Song &lt;<a href=3D"mailto:Asher.Song@amd.com" target=
-=3D"_blank">Asher.Song@amd.com</a>&gt;<br>
----<br>
-=C2=A0.../amd/pm/powerplay/hwmgr/vega10_thermal.c=C2=A0 =C2=A0| 25 ++++++++=
-++---------<br>
-=C2=A01 file changed, 13 insertions(+), 12 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/driv=
-ers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c<br>
-index 190af79f3236..dad3e3741a4e 100644<br>
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c<br>
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c<br>
-@@ -67,21 +67,22 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr =
-*hwmgr,<br>
-=C2=A0int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t *speed)<br=
->
-=C2=A0{<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =3D hwmgr-&gt;adev;<=
-br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t duty100, duty;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t tmp64;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t current_rpm;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t percent =3D 0;<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0duty100 =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, =
-mmCG_FDO_CTRL1),<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0CG_FDO_CTRL1, FMAX_DUTY100);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0duty =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, mmC=
-G_THERMAL_STATUS),<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0CG_THERMAL_STATUS, FDO_PWM_DUTY);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (hwmgr-&gt;thermal_controller.fanInfo.bNoFan=
-)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!duty100)<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (vega10_get_current_rpm(hwmgr, &amp;current_=
-rpm))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -1;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (hwmgr-&gt;thermal_controller.<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0advanceFanControlParameters.usMaxFanRPM !=3D 0)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0percent =3D current=
-_rpm * 255 /<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0hwmgr-&gt;thermal_controller.<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0advanceFanControlParameters.usMaxFanRPM;<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0tmp64 =3D (uint64_t)duty * 255;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0do_div(tmp64, duty100);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0*speed =3D MIN((uint32_t)tmp64, 255);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0*speed =3D MIN(percent, 255);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
-=C2=A0}<br>
--- <br>
-2.25.1<br>
-<br>
-</blockquote></div>
-
---0000000000006e465305ebe5ff23--
