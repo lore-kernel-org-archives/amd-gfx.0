@@ -4,115 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A36B8C433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 05:19:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AED93C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 06:51:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D935310E379;
-	Wed, 26 Oct 2022 05:19:19 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2052.outbound.protection.outlook.com [40.107.244.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 403E410E375
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 05:19:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11A7710E459;
+	Wed, 26 Oct 2022 06:51:30 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2043.outbound.protection.outlook.com [40.107.92.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30A6610E459
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 06:51:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TID9DO1PpkoTFFgdwsvsRN6Z1flYvzEyscZ4RxlHcNHoXg51YbwaUsWZ0k50LHlfE97dQzmia94GCKUojw2tSgT/azWkteUZgmHmJpafGXpuYrashtetRzJFgO0cjtpftMT2/4sMQrneOBuu4n1NW9wUeGmS7//XyKvskSFr6w1PxPeBrRntcIZDvhxQoP/Ie2FNskAlXIrB9HzQMyKp/Jh+ZEoaKD+sDk2mLbAL+1laDslaXZeVB04Sxy5PufvtDERDonPBg/l6U++JPcP1orLEkr1YoN84DjiN1O9UhD2eqEbxd517uCUyopyi1GhhpLRZy3fnKpGC7gEFMgNwZg==
+ b=eOZ2wmkBHKH26Fj3Fv+1SDkhPBIAA6GVkYd2zpf9rHeXNgma3bIHLHiHQpVkVr/x0QTeRM9Cv9MOFspGWi9oRFw6Oa+HgrTL42up+cc88r4hK7NR4YeOlRi9zOjNJTMd9AUTLIrLg2rgcsFA8wrGIGPSdkSumgIu4kaELbb1baKvMQosHYTZmihqrSsVUISMhPfE+kUf1WMnNUBxSFV861kuB6p1Yhc5n8UHXVG4+DM7g80Aqfnz9qN2ZARllTGkF2YCLWHXT2oWkeY85U9Xr88A8pK47qkPzgQi5J2KN39LjgBVztlFLo9dSuT6i39cnzGPF0eA+bxcy9f96Z8TqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m2K/0lw+tSOuDbjyyMNAEJgt61j5o6e8+kQNtCvfWHY=;
- b=koc1yeMc61DawwhWUS7EbwKBhkiHg4iPjllUt5TOwxIxGAiRS84WKD+AWYdYxMXG81fvoKI5rO9epxdbEGXhGzyWaFJRv19PAQOb7gfK1aO/03PenFtyRl5M0Qye55iwteLqPJx5CgeTyxTOcEdssXTz6dFh7rYmcxqZBbgmYeEXDrsj7xJWHt2m2vbJX3AZ1HqWBLVfLDZ6isuRpomwOt858aVjfXZRwKKIBVJvvUQlvs9vxodcUvv+Jiiw4EAygq5WuoYGS8wPIUmdsQOAtd2PU0HurBPRFjErikY33TCrI00YH98yZUQH9Mx2Pr+CafFOfreMa/SZL+PvA8PgeQ==
+ bh=W+TtsAy3sDgc8c7K7fudY7dpRqarJ0cMc5QMUgM2sQ0=;
+ b=dNbnbfwNlksZu4hx45S197dZIYRtqVc4YcNxI4E+7tlwgN/raKrhwTXs01kJAczSO8CxP3aEb3ZVjYdRX9XRKAQUSDEaMjQNjpMy4IR3xiPvNyU6I07DycLtq/iYEZM37laPnkWLGgW/OWNT3p6YbgcYei8/rLn6URBBRZtSDfybcQAovO0rA4cF98TD16BnvBytC1N2bNU7qV4dlslszabRZ1ec4PPww4KAR/YUxMgLgLTUqyCtFSJj8dX51p99uhrzrfkI73c+9SAwadGpJs0L/KSuQ041c/BVGfkWSoTUZt/tVbVHgS8MEC6u2YWukovAejZApCXdrej1Ik3oAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m2K/0lw+tSOuDbjyyMNAEJgt61j5o6e8+kQNtCvfWHY=;
- b=QJjNWH2ZKD9746Uu95qsMwYUypEukEYGgaU9QnI1Dtv7TdNyz/xiSxFHB+SeWuFjS12CBUvOslw5O2MXqEkUeNkEHZqhYFHPPmH4EQLVYSE1AmIhgJfPK00dnOGDJEZbwBVl7UDxi7lArruZdshJyZVxJaHRsGeWDQksvkLzrQI=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by PH7PR12MB5829.namprd12.prod.outlook.com (2603:10b6:510:1d4::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.29; Wed, 26 Oct
- 2022 05:19:15 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::8bd7:b65c:13f4:9b]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::8bd7:b65c:13f4:9b%9]) with mapi id 15.20.5746.021; Wed, 26 Oct 2022
- 05:19:15 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Li, Candice" <Candice.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: Optimize TA load/unload/invoke debugfs
- interfaces
-Thread-Topic: [PATCH 2/2] drm/amdgpu: Optimize TA load/unload/invoke debugfs
- interfaces
-Thread-Index: AQHY6NUZMEqGrLeh4UWLRB/+ujSz364gINKQ
-Date: Wed, 26 Oct 2022 05:19:14 +0000
-Message-ID: <BN9PR12MB5257B6E5994246AE0B93ACD5FC309@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20221026005059.26249-1-candice.li@amd.com>
-In-Reply-To: <20221026005059.26249-1-candice.li@amd.com>
+ bh=W+TtsAy3sDgc8c7K7fudY7dpRqarJ0cMc5QMUgM2sQ0=;
+ b=sdj6tgbC+WVaO/9pd8Q0pCUDHZ7+zQbHhSvRUC53ybYNjJeCTSuoTJQDABjP/GuzfDny9ChESdqOI9Aci93J4IWvHcknWMh2IqURkbDYFhojE/UqvLFhzTcP0ekXexNkR9dhUKg4DLi2jQyT636+J0tGAY9dYDzLmdDwuYpFs+4=
+Received: from DM4PR12MB5136.namprd12.prod.outlook.com (2603:10b6:5:393::23)
+ by MW6PR12MB7086.namprd12.prod.outlook.com (2603:10b6:303:238::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.32; Wed, 26 Oct
+ 2022 06:51:23 +0000
+Received: from DM4PR12MB5136.namprd12.prod.outlook.com
+ ([fe80::d5cd:85d1:dfaf:7841]) by DM4PR12MB5136.namprd12.prod.outlook.com
+ ([fe80::d5cd:85d1:dfaf:7841%6]) with mapi id 15.20.5723.033; Wed, 26 Oct 2022
+ 06:51:23 +0000
+From: "Song, Asher" <Asher.Song@amd.com>
+To: Yury Zhuravlev <stalkerg@gmail.com>, "Meng, Xiaohu" <Xiaohu.Meng@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Revert "drm/amdgpu: getting fan speed pwm for
+ vega10 properly"
+Thread-Topic: [PATCH] drm/amdgpu: Revert "drm/amdgpu: getting fan speed pwm
+ for vega10 properly"
+Thread-Index: AQHY34OXdPRUpS5WbUm+C9DJEVs2ja4f9i+AgAAnmzA=
+Date: Wed, 26 Oct 2022 06:51:23 +0000
+Message-ID: <DM4PR12MB513603C468CE9BA8DC933D118B309@DM4PR12MB5136.namprd12.prod.outlook.com>
+References: <20221014041456.139813-1-Asher.Song@amd.com>
+ <CANiD2e8PHA7u1qs8YkWkbbjxqB7JCnLNdR5OcHTH=dpfBWe7rg@mail.gmail.com>
+In-Reply-To: <CANiD2e8PHA7u1qs8YkWkbbjxqB7JCnLNdR5OcHTH=dpfBWe7rg@mail.gmail.com>
 Accept-Language: en-US
 Content-Language: en-US
+X-Mentions: Xiaohu.Meng@amd.com
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-10-26T05:19:12Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-10-26T06:51:20Z; 
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=c63665fb-d8d3-4873-9f84-ea0c51b59e36;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=f452574f-b9df-431d-bc1f-e105c349f585;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|PH7PR12MB5829:EE_
-x-ms-office365-filtering-correlation-id: f10f523d-0ded-49e5-612e-08dab7119fd9
+x-ms-traffictypediagnostic: DM4PR12MB5136:EE_|MW6PR12MB7086:EE_
+x-ms-office365-filtering-correlation-id: d67ff647-3e87-4052-c9ef-08dab71e7ef6
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: yOGp916oQqNsW+bLaW7uMz8mE7iIvyROxf8rv9CN1gDLhbPF5lQKaWcsBMlkSoFhpXDGVTsu0UUfoZ2fHUuG97zPeNppa4aqmojhSXektu3wQ1kJHEsUC5iWX+WVM6dh5kfLZMP9a8bxAA+fFUxtkbnM4Rf2S+bk5IsdsZ3NTkJ4nejr2pt2u8bHb0Q5ldjslE+h8WY94XL7EpmhduMWWLtGNtDLA45Xi0H1UGg8b+lwCw55oVCEMD45LD49NIh77aSYJYnNBMNECz3wCcO6MIqEZAtwY3JUcxolCbaNjNcqVA0Ds/aNByuu3Msd5yVVBuyPLWNTvCE+rArgBDZj2yGhEuZZJ3d/PYBv6CTMCta/FSWQDyA5UfMW3qQObSKiceDt7xptsqDWK7O8bgiSVgvDP0PRpsncnckSHZWF1K/ajl5m2Icy98SYekc20ZzgkZezbJP/zgC60qFpc+xnuOYdLyrpQXAGJRfDpunzehGtf7mu6mAad7zhppVbIJuvirQcjuS7VFcNHFZuwLtY0EOxO04sLA6ik+p5yFhK42Ph7kk8GtPyKYi2BBa8PuerG65tDrRkwKD8Eckj6Iv5PBpASXmmTF6OZ6FuSKOrvCgjbvkE0A6lfOSLQUowpt6QHTJNC2rPicUhtTRErYe/Nd8xQM/l9H2vuvi4xAD7jOVmhoNIT6ean0s5KvbeC1AU10KLQclKqxgcEHJImNGJ3kan6oG0p/AldRBEoq1viq8GJgk5ITlHcZP1xqlQlWdG16Q3Wv6Kfvmu2lPPkv3InG0e3mrOStvNbPoxP4YWClc=
+x-microsoft-antispam-message-info: wP4gycyPaDGsBMSaZfkAwgWGwMImkjopzF6x5DIQouux6Ir6D8AxF21YtVEzyaljpw/vEzUE0oxgrztNJcAds+ts3ayIgaK9TKKnh1YbQYQOFbflDcbIhmlCFZwvwHj3lQfXatTeY3P/Woy4yoyjzsXor03ZP5gxlZ6ADTh22gIqK82gFrRdkOG0U5T/d3Dif0TCDfDxi2fpBqWb6oa0cyQZw6dwMY8Cf7Hhv79QFXQK1PNHIM5r1my9uINAnFzhu51LbccPdCa5T/8QjpDF8SwCbNMFdtAgIllLEPWg21PhJG+Zn2cXHmYllz2Au+qYekAzPblwhXr/sfO5EMGTotlxvHQuxUgdlNRAY/g9wgPvoK2fuetQ2m6p+GLU+fP0J4zDJ+C5bjrI8tGldItxMP7OH1SfQ4Fp5vAL/f2PkTy0XFkLd7K4xbFw2pPF+eg5dhsyBz9anTw3h4Wsmmi5jVBTjN0c55rD3UDU+rlikCthekr2mapLi7RyrP+zARzulfEJlmhS6c0Jq63xNuOZTeEUrPO03G9hcSdKsvm/wStSIq93kDrtQxa5T44nzUHdoT5ydZsfUmYnPllZBsew0r+Xhl+sDCxL/Rcm9gAnSDmO7Wob6iX3FQ57guhIH3H8Qv26hfmBiA/XxCH5zIjE0et2De6FJ8wbPvoZPRVJj+lxVpIhN784VfH79IVnWItib3SzbKhy846sJUI7NkxGPqYsqecR7vlgdO6nCKo0/xFgFHsdAd3rOXWS7+Us1s8CU/TEXryaz6IR48LqE8NYDw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(346002)(396003)(136003)(39860400002)(376002)(451199015)(41300700001)(66446008)(8676002)(76116006)(5660300002)(53546011)(316002)(38100700002)(4326008)(64756008)(86362001)(52536014)(30864003)(8936002)(7696005)(122000001)(26005)(66946007)(66476007)(9686003)(478600001)(71200400001)(6506007)(186003)(66556008)(110136005)(83380400001)(38070700005)(2906002)(33656002)(55016003)(461764006)(579004);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5136.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(346002)(136003)(39860400002)(396003)(366004)(451199015)(2906002)(186003)(83380400001)(55016003)(86362001)(33656002)(8676002)(6506007)(7696005)(41300700001)(9686003)(53546011)(66476007)(66446008)(64756008)(4326008)(26005)(66556008)(38070700005)(316002)(110136005)(38100700002)(122000001)(76116006)(71200400001)(8936002)(54906003)(52536014)(478600001)(6636002)(66946007)(5660300002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?TkyeCXLoZdz9Y5lKeqoH+3ROc8bShHahx2jSf2FXROBO8+JV1bKrSh12cWvp?=
- =?us-ascii?Q?hBHwlia8y1GQNNwto6N71h6LbMMWIS8PrUATX59+6A807f1X9DObdjf4EK7F?=
- =?us-ascii?Q?U3gOfApF4bATxTE4zrIAJAqu887GkIMoujZ8MkuY2SDKFFuf3CE8wlUsX41K?=
- =?us-ascii?Q?Gy7pXyztYo+XXYlCPuiHNxpuHinKy1pRfPs4nqJpGzBIiWS5uclkZcxGSSeL?=
- =?us-ascii?Q?UmgrVdunfQHZ2KSds3Y9f0gMHmdoo9XIv3R4QxrpcISn23MnDjkad4NRE/o/?=
- =?us-ascii?Q?U6eeYR1MNkxieXv0gZaoxCiNPUV+Tt+MSrM5uocsA3m8Lx3zJwXjNVFppqsN?=
- =?us-ascii?Q?hMF07S2yoCqkdi0YdJ8YYGwPVcL1CLZFoCfhnZdgLsa+odmyd1iBVrsGM1Xo?=
- =?us-ascii?Q?x3f/qxciPtIK4lBmvslAOHvZrG0r0r3Y4BDxqGLeS6C+pLrpbSOynIMnbzNP?=
- =?us-ascii?Q?wlOwFSjA2bmcdIsc/4I5LegA3DGqwESx7Pzi2mKdcQLuRxUwKNvkhRjoZ8/i?=
- =?us-ascii?Q?UI8PIUANRqIphDYoCj/m2e+c9+wJEFA8AAq81SnSRybNWGk9mWlvFHzLk0kD?=
- =?us-ascii?Q?I+5AM/kXnPNpK43P+3VFY+R7Ak5/DEe0BgMmI1z1p9Q9B7NAVXNBx4GZNPOz?=
- =?us-ascii?Q?OodlhtIk01rJBHxGcSR7GEX1paEvqnqGdoZcfA/6O7ymNLaeFsVumfquDNiP?=
- =?us-ascii?Q?J5VGJW35cBu/Kc1y+RptOVLb1uNucJP6uizQb5Gi2KqrCL42C+eCLeu3nx1Y?=
- =?us-ascii?Q?y1szr5ay4frw4fP03lS14CFrEt6EPJOpbKxJUh+eHHanUhGYQHdnpDVVxPaD?=
- =?us-ascii?Q?LNDCHY5RKL2GD1j4+B9Dm95X9MTHTPzMyt+dyv12RYZXEQIeTI8/77W62eJ1?=
- =?us-ascii?Q?FQnIy1oJv2EiAcib3w6ifPv48KLcp1gxXSR8EcWq7TGKhv56opI2Z/cSJtvz?=
- =?us-ascii?Q?Tu+iB7+NfE8y0wsSDBclMNCbhWGI4torCdtQRJ4YuuQM+8wBNio6pVh/AOh0?=
- =?us-ascii?Q?UKwOw5t5KCJtXDvxeRxQF4fzovWmONZJChJu/Qeo1lrUcgKbUYUhNmJp2m1v?=
- =?us-ascii?Q?nAPfGApEyUBtv/qO8khCLJnKq7c+Wi/NBikcYNjr2IyQ54IKW5rb5aIt6mV8?=
- =?us-ascii?Q?wd9uCsQPijszYfcHDjNKockvB8pYj01sR7Kf39YjOqvfh0xTgcf5kz++QNjt?=
- =?us-ascii?Q?PNOAHMQBErVQtmuUncgoEsH+qZy571U1zHbyG4r+CWx3k0Zl7h0XKUuKVREB?=
- =?us-ascii?Q?Tg5Lyvw1OY4fRpG/NdKRNQdAfxHvdPdFYe8by58xPqswbPiUUC0O3qlR+w4a?=
- =?us-ascii?Q?H8uu0WX5pg4gJZorGpvwUBUhXoV5ICIaPrtGAKjKsSPufxFhBK7LssSOz3nC?=
- =?us-ascii?Q?ZoDoHQIhmZMsGZg8hZX7ZLkJzUSGNET1pff5tFntZ6rmf+yVlUWxLFvbaTnf?=
- =?us-ascii?Q?WSN4yOEKCx4dOwfhkXtcxSUHyXOVeEHeFMghULS67H1YVXR09p8b+i8p110T?=
- =?us-ascii?Q?6AzNk0dD3O7+y/9exHubIiAST4pc+jC8UV3fvZB9ppTPdR49lYACWKekEFUt?=
- =?us-ascii?Q?SkmAZD+/rZQ4gYfaoK37W/x1L4lFJAGFVYYqC1II?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?R1TnrVC5NP1fSelCqVSNoPHJEQwrukxoioxGOJytQVahOWUQPmShWfIfdkc7?=
+ =?us-ascii?Q?OsvMea77IJVCkV2ChsUjRaRzywR22SZjJYmF70bjKfW9B5H/so59CmMxj99T?=
+ =?us-ascii?Q?TB/y9djnqIQ80p1EASv++rZfVDGnWaoVyp+F0CesvUpoyUfZVAYN3YIuKXnm?=
+ =?us-ascii?Q?zHu8Le8NRWJoB3sEw3lU2kGnN0Q3Z9U51i5++N43eFwY7xEPL5wrmhbT6RgE?=
+ =?us-ascii?Q?Xtuz8ZurUvKJE3QDqYBK6sXJf8LKmr9ZK8viJ/NbSbUVi0Blt+bQjaY9yjua?=
+ =?us-ascii?Q?5OubuSvBpmfqNiIcl/XEtMGEvzh2cjhD+AxJqmQqFiaxVUbWvt2YWCX4DRll?=
+ =?us-ascii?Q?UZ8Y4RLNiHEis1hU1P8dHegn+oHq5quRv8u3Ggi0LXwuTvxkSZOTbCnktSA4?=
+ =?us-ascii?Q?emclRCH7+XDdGB3FmYvj73PEioxKKVLvCJELmKV5iqRwZv3JBtAifz+BAI/S?=
+ =?us-ascii?Q?oQUGwAJiR73/D4ZjlQkrS62tlFMCpZLDUf0F46Z+lPNKA08jjlVfQTAdLzrD?=
+ =?us-ascii?Q?Hb9cnwF5azsTU9FrtEb+m57a+rhb2i4xif8LfnU7Bh7w78zp4Wnlt9VoO95G?=
+ =?us-ascii?Q?6+JkUi14X0IV3+5twNdkVYlxj3cPQ1KEvYJ71M6ytKZWIlJT3d2TwGtOvcE4?=
+ =?us-ascii?Q?URH/cbrCinrrukYXmmwteDsRRghSN3E73BdU4fzviUCY/NI1IgZJj798fE+6?=
+ =?us-ascii?Q?cGCg9KFkQQiK+WvRqbZSwRDmvHzfj09L2PH6INUdDQoIAQN7DA+8YqLNSxjK?=
+ =?us-ascii?Q?vPVadTqZ5xbOQnqWpMWQ173iK4EHE8WthOfeDRXGWuI6C68pObOgkT/gXde2?=
+ =?us-ascii?Q?ME0Cw/3HRb4Zt68fcT07U46JXd5bDjznE4G5xUKi2+Sjt0MuM0guB6eJ6zJw?=
+ =?us-ascii?Q?JD5EQoYgQ8GJJQiCTmHa6j6Ef2nEsy+NnTqYas8CjKYfsU3jr+MrNuEw/++v?=
+ =?us-ascii?Q?52iUUU2oI2x+KCQkyLwmDnWszsbeeuED9J9L2sYkCA5Kp0W/DTA9FVKvjru1?=
+ =?us-ascii?Q?NvIGxL7uj1YFHuBWYO4W7dwU0HVkPRhaT9ii8MbhVx+6LDC/E4guXf8eCUJO?=
+ =?us-ascii?Q?C8v83H76CiGWXC4KWzYWxQZn7XZu8JpKtrKKwr5t4yJoCqtkKuqKahD/QjtC?=
+ =?us-ascii?Q?obF8YlZU09pOvXhuUq2LT8Bf1UcA+hw27saxapGELv/wKnRc444vedGtUURJ?=
+ =?us-ascii?Q?NrJ4nqal6xS+7m3DdUppyorSAYRovRaZ1lObsQeKBsuzwZw7TeATqu9/Fw+q?=
+ =?us-ascii?Q?K0PNfik2kmsychQzdD3PTksZuPc/YVyRVogm/qUuv5PG54dtjQX1H0+tQI5H?=
+ =?us-ascii?Q?t34wNL7uzOEwcvqYrCEu9cQU2qH6e02t6ICOTQFLQ/omqozFNZXh21cQSnAs?=
+ =?us-ascii?Q?6rkN46K+GsCdzOY8CkjUUn14QWdD9HCV9hvcRQ8tMW17rFxyExyIrmrwoEJu?=
+ =?us-ascii?Q?iAbVL1h1Rxl+odUTLaiLyE4h46MGIUr7N0zD7e3b3jCwalu2Z/PEt9IR66TK?=
+ =?us-ascii?Q?dZcrsbrcCs3fJVp8AApRzB5pJvsJUgPV53lomZsj/BY1ZTFCMLwGKrdXN7BQ?=
+ =?us-ascii?Q?O01pmJpBID/knk54ANeUf/1X66QFLE2FuPBUX4bh?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM4PR12MB513603C468CE9BA8DC933D118B309DM4PR12MB5136namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f10f523d-0ded-49e5-612e-08dab7119fd9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Oct 2022 05:19:14.9872 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5136.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d67ff647-3e87-4052-c9ef-08dab71e7ef6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Oct 2022 06:51:23.2726 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DfM11aWgUBQq6ZXvBI2xlKFt0xsebodKn5lSbEqkRY+vncikF4PoXX9Szbo8e/UMicHMzIfRKXB955sJCa1+tg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5829
+X-MS-Exchange-CrossTenant-userprincipalname: S6XkQTNclrc9mQaWiMLGPXFM2FbdOh7B06XhwP1H9IbCcdcg+JqNnwsZ8g7AE/QH1ZVSneAfsxesFT3bsIzD1A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB7086
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,558 +125,324 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Li, Candice" <Candice.Li@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan,
+ Evan" <Evan.Quan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chen,
+ Guchun" <Guchun.Chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_DM4PR12MB513603C468CE9BA8DC933D118B309DM4PR12MB5136namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
 [AMD Official Use Only - General]
 
-I suggest you add comments here to remind people check whether set_ta_conte=
-xt_funcs is called *before* using the following macros. They seems general =
-ta related interfaces but now *only* used by tools.=20
++@Meng, Xiaohu<mailto:Xiaohu.Meng@amd.com>
 
-Going forward, we can a). introduce more TA type support, and b). move the =
-ta_funcs initialization to psp ip early_init. In such case, people can use =
-these macro anywhere in kernel driver and don't need to worry about referri=
-ng to NULL pointers.
+Hi Zhuravlev,
 
-+#define psp_fn_ta_initialize(psp)=20
-+((psp)->ta_funcs->fn_ta_initialze((psp)))
-+#define psp_fn_ta_invoke(psp, ta_cmd_id)=20
-+((psp)->ta_funcs->fn_ta_invoke((psp), (ta_cmd_id))) #define=20
-+psp_fn_ta_terminate(psp) ((psp)->ta_funcs->fn_ta_terminate((psp)))
-+
+The information of test card is as following:
+Lspci name: [AMD/ATI] Vega 10 [Radeon Instinct MI25 MxGPU] (rev 05)
+Firmware: ATOM BIOS: 113-D0531800-C04
 
-Apart from that, the series is
+When run test scripts compute-rocm-*/utils/run_rsmitst.sh, the below test c=
+ases fail.
+[  FAILED  ] 4 tests, listed below:
+[  FAILED  ] rsmitstReadOnly.TestOverdriveRead
+[  FAILED  ] rsmitstReadWrite.FanReadWrite
+[  FAILED  ] rsmitstReadWrite.TestOverdriveReadWrite
+[  FAILED  ] rsmitstReadWrite.TestPowerCapReadWrite
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Best Regards,
+Asher
+From: Yury Zhuravlev <stalkerg@gmail.com>
+Sent: Wednesday, October 26, 2022 9:31 AM
+To: Song, Asher <Asher.Song@amd.com>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Chen, Guchun <Guchun.Ch=
+en@amd.com>; Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amdgpu: Revert "drm/amdgpu: getting fan speed pwm =
+for vega10 properly"
 
+Hello,
+Can you write here your card name and firmware version? Without this patch,=
+ my fan sensors are broken, and it's sensitive to my pc case with water coo=
+ling.
+My card is:  Sapphire Pulse Radeon RX Vega 56  vd6546 SA
+lspci name: [AMD/ATI] Vega 10 XL/XT [Radeon RX Vega 56/64] (rev c3)
+Firmware: ATOM BIOS: 113-376XL-UO2
+This patch is 100% working correct on my machine, and I tested it last 2 mo=
+nths.
 Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Candice =
-Li
-Sent: Wednesday, October 26, 2022 08:51
-To: amd-gfx@lists.freedesktop.org
-Cc: Li, Candice <Candice.Li@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: Optimize TA load/unload/invoke debugfs int=
-erfaces
 
-1. Add a function pointer structure ta_funcs to psp context 2. Make the int=
-erfaces generic to all TAs 3. Leverage exisitng TA context and remove unuse=
-d functions 4. Fix return code bugs
+On Fri, Oct 14, 2022 at 1:15 PM Asher Song <Asher.Song@amd.com<mailto:Asher=
+.Song@amd.com>> wrote:
+This reverts commit fe01cb24b81c0091d7e5668874d51ce913e44a97.
 
-Signed-off-by: Candice Li <candice.li@amd.com>
+Unfortunately, that commit causes fan monitors can't be read and written
+properly.
+
+Signed-off-by: Asher Song <Asher.Song@amd.com<mailto:Asher.Song@amd.com>>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    |  38 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h    |  12 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c | 217 +++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h |   4 +
- 4 files changed, 167 insertions(+), 104 deletions(-)
+ .../amd/pm/powerplay/hwmgr/vega10_thermal.c   | 25 ++++++++++---------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c
-index 643810c4148120..cdb0605d04f7cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1071,42 +1071,6 @@ int psp_ta_init_shared_buf(struct psp_context *psp,
- 				      &mem_ctx->shared_buf);
- }
-=20
--static void psp_prep_ta_invoke_indirect_cmd_buf(struct psp_gfx_cmd_resp *c=
-md,
--				       uint32_t ta_cmd_id,
--				       struct ta_context *context)
--{
--	cmd->cmd_id                         =3D GFX_CMD_ID_INVOKE_CMD;
--	cmd->cmd.cmd_invoke_cmd.session_id  =3D context->session_id;
--	cmd->cmd.cmd_invoke_cmd.ta_cmd_id   =3D ta_cmd_id;
--
--	cmd->cmd.cmd_invoke_cmd.buf.num_desc   =3D 1;
--	cmd->cmd.cmd_invoke_cmd.buf.total_size =3D context->mem_context.shared_me=
-m_size;
--	cmd->cmd.cmd_invoke_cmd.buf.buf_desc[0].buf_size =3D context->mem_context=
-.shared_mem_size;
--	cmd->cmd.cmd_invoke_cmd.buf.buf_desc[0].buf_phy_addr_lo =3D
--				     lower_32_bits(context->mem_context.shared_mc_addr);
--	cmd->cmd.cmd_invoke_cmd.buf.buf_desc[0].buf_phy_addr_hi =3D
--				     upper_32_bits(context->mem_context.shared_mc_addr);
--}
--
--int psp_ta_invoke_indirect(struct psp_context *psp,
--		  uint32_t ta_cmd_id,
--		  struct ta_context *context)
--{
--	int ret;
--	struct psp_gfx_cmd_resp *cmd =3D acquire_psp_cmd_buf(psp);
--
--	psp_prep_ta_invoke_indirect_cmd_buf(cmd, ta_cmd_id, context);
--
--	ret =3D psp_cmd_submit_buf(psp, NULL, cmd,
--				 psp->fence_buf_mc_addr);
--
--	context->resp_status =3D cmd->resp.status;
--
--	release_psp_cmd_buf(psp);
--
--	return ret;
--}
--
- static void psp_prep_ta_invoke_cmd_buf(struct psp_gfx_cmd_resp *cmd,
- 				       uint32_t ta_cmd_id,
- 				       uint32_t session_id)
-@@ -1549,7 +1513,7 @@ int psp_ras_terminate(struct psp_context *psp)
- 	return ret;
- }
-=20
--static int psp_ras_initialize(struct psp_context *psp)
-+int psp_ras_initialize(struct psp_context *psp)
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/driv=
+ers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+index 190af79f3236..dad3e3741a4e 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+@@ -67,21 +67,22 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr =
+*hwmgr,
+ int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
+                uint32_t *speed)
  {
- 	int ret;
- 	uint32_t boot_cfg =3D 0xFF;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.h
-index 58ce3ebb446cf8..edc266f65b4e2b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -136,6 +136,12 @@ struct psp_funcs
- 	int (*vbflash_stat)(struct psp_context *psp);  };
-=20
-+struct ta_funcs {
-+	int (*fn_ta_initialze)(struct psp_context *psp);
-+	int (*fn_ta_invoke)(struct psp_context *psp, uint32_t ta_cmd_id);
-+	int (*fn_ta_terminate)(struct psp_context *psp); };
+-       struct amdgpu_device *adev =3D hwmgr->adev;
+-       uint32_t duty100, duty;
+-       uint64_t tmp64;
++       uint32_t current_rpm;
++       uint32_t percent =3D 0;
+
+-       duty100 =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL1),
+-                               CG_FDO_CTRL1, FMAX_DUTY100);
+-       duty =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_THERMAL_STATUS),
+-                               CG_THERMAL_STATUS, FDO_PWM_DUTY);
++       if (hwmgr->thermal_controller.fanInfo.bNoFan)
++               return 0;
+
+-       if (!duty100)
+-               return -EINVAL;
++       if (vega10_get_current_rpm(hwmgr, &current_rpm))
++               return -1;
 +
- #define AMDGPU_XGMI_MAX_CONNECTED_NODES		64
- struct psp_xgmi_node_info {
- 	uint64_t				node_id;
-@@ -309,6 +315,7 @@ struct psp_context
- 	struct psp_gfx_cmd_resp		*cmd;
-=20
- 	const struct psp_funcs		*funcs;
-+	const struct ta_funcs		*ta_funcs;
-=20
- 	/* firmware buffer */
- 	struct amdgpu_bo		*fw_pri_bo;
-@@ -463,9 +470,6 @@ int psp_ta_load(struct psp_context *psp, struct ta_cont=
-ext *context);  int psp_ta_invoke(struct psp_context *psp,
- 			uint32_t ta_cmd_id,
- 			struct ta_context *context);
--int psp_ta_invoke_indirect(struct psp_context *psp,
--		  uint32_t ta_cmd_id,
--		  struct ta_context *context);
-=20
- int psp_xgmi_initialize(struct psp_context *psp, bool set_extended_data, b=
-ool load_ta);  int psp_xgmi_terminate(struct psp_context *psp); @@ -479,7 +=
-483,7 @@ int psp_xgmi_get_topology_info(struct psp_context *psp,  int psp_x=
-gmi_set_topology_info(struct psp_context *psp,
- 			       int number_devices,
- 			       struct psp_xgmi_topology_info *topology);
--
-+int psp_ras_initialize(struct psp_context *psp);
- int psp_ras_invoke(struct psp_context *psp, uint32_t ta_cmd_id);  int psp_=
-ras_enable_features(struct psp_context *psp,
- 		union ta_ras_cmd_input *info, bool enable); diff --git a/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_psp_ta.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-index 0988e00612e515..93e1c07861e47b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-@@ -41,30 +41,46 @@ static uint32_t get_bin_version(const uint8_t *bin)
- 	return hdr->ucode_version;
++       if (hwmgr->thermal_controller.
++                       advanceFanControlParameters.usMaxFanRPM !=3D 0)
++               percent =3D current_rpm * 255 /
++                       hwmgr->thermal_controller.
++                       advanceFanControlParameters.usMaxFanRPM;
+
+-       tmp64 =3D (uint64_t)duty * 255;
+-       do_div(tmp64, duty100);
+-       *speed =3D MIN((uint32_t)tmp64, 255);
++       *speed =3D MIN(percent, 255);
+
+        return 0;
  }
-=20
--static void prep_ta_mem_context(struct psp_context *psp,
--					     struct ta_context *context,
-+static int prep_ta_mem_context(struct ta_mem_context *mem_context,
- 					     uint8_t *shared_buf,
- 					     uint32_t shared_buf_len)
- {
--	context->mem_context.shared_mem_size =3D PAGE_ALIGN(shared_buf_len);
--	psp_ta_init_shared_buf(psp, &context->mem_context);
-+	if (mem_context->shared_mem_size < shared_buf_len)
-+		return -EINVAL;
-+	memset(mem_context->shared_buf, 0, mem_context->shared_mem_size);
-+	memcpy((void *)mem_context->shared_buf, shared_buf, shared_buf_len);
-=20
--	memcpy((void *)context->mem_context.shared_buf, shared_buf, shared_buf_le=
-n);
-+	return 0;
- }
-=20
- static bool is_ta_type_valid(enum ta_type_id ta_type)  {
--	bool ret =3D false;
-+	switch (ta_type) {
-+	case TA_TYPE_RAS:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static const struct ta_funcs ras_ta_funcs =3D {
-+	.fn_ta_initialze =3D psp_ras_initialize,
-+	.fn_ta_invoke    =3D psp_ras_invoke,
-+	.fn_ta_terminate =3D psp_ras_terminate
-+};
-=20
-+static void set_ta_context_funcs(struct psp_context *psp,
-+						      enum ta_type_id ta_type,
-+						      struct ta_context **pcontext) {
- 	switch (ta_type) {
- 	case TA_TYPE_RAS:
--		ret =3D true;
-+		*pcontext =3D &psp->ras_context.context;
-+		psp->ta_funcs =3D &ras_ta_funcs;
- 		break;
- 	default:
- 		break;
- 	}
--
--	return ret;
- }
-=20
- static const struct file_operations ta_load_debugfs_fops =3D { @@ -85,8 +1=
-01,7 @@ static const struct file_operations ta_invoke_debugfs_fops =3D {
- 	.owner  =3D THIS_MODULE
- };
-=20
--
--/**
-+/*
-  * DOC: AMDGPU TA debugfs interfaces
-  *
-  * Three debugfs interfaces can be opened by a program to @@ -111,15 +126,=
-18 @@ static const struct file_operations ta_invoke_debugfs_fops =3D {
-  *
-  * - For TA invoke debugfs interface:
-  *   Transmit buffer:
-+ *    - TA type (4bytes)
-  *    - TA ID (4bytes)
-  *    - TA CMD ID (4bytes)
-- *    - TA shard buf length (4bytes)
-+ *    - TA shard buf length
-+ *      (4bytes, value not beyond TA shared memory size)
-  *    - TA shared buf
-  *   Receive buffer:
-  *    - TA shared buf
-  *
-  * - For TA unload debugfs interface:
-  *   Transmit buffer:
-+ *    - TA type (4bytes)
-  *    - TA ID (4bytes)
-  */
-=20
-@@ -131,59 +149,92 @@ static ssize_t ta_if_load_debugfs_write(struct file *=
-fp, const char *buf, size_t
- 	uint32_t copy_pos   =3D 0;
- 	int      ret        =3D 0;
-=20
--	struct amdgpu_device *adev   =3D (struct amdgpu_device *)file_inode(fp)->=
-i_private;
--	struct psp_context   *psp    =3D &adev->psp;
--	struct ta_context    context =3D {0};
-+	struct amdgpu_device *adev    =3D (struct amdgpu_device *)file_inode(fp)-=
->i_private;
-+	struct psp_context   *psp     =3D &adev->psp;
-+	struct ta_context    *context =3D NULL;
-=20
- 	if (!buf)
- 		return -EINVAL;
-=20
- 	ret =3D copy_from_user((void *)&ta_type, &buf[copy_pos], sizeof(uint32_t)=
-);
- 	if (ret || (!is_ta_type_valid(ta_type)))
--		return -EINVAL;
-+		return -EFAULT;
-=20
- 	copy_pos +=3D sizeof(uint32_t);
-=20
- 	ret =3D copy_from_user((void *)&ta_bin_len, &buf[copy_pos], sizeof(uint32=
-_t));
- 	if (ret)
--		return -EINVAL;
-+		return -EFAULT;
-=20
- 	copy_pos +=3D sizeof(uint32_t);
-=20
- 	ta_bin =3D kzalloc(ta_bin_len, GFP_KERNEL);
- 	if (!ta_bin)
--		ret =3D -ENOMEM;
-+		return -ENOMEM;
- 	if (copy_from_user((void *)ta_bin, &buf[copy_pos], ta_bin_len)) {
- 		ret =3D -EFAULT;
- 		goto err_free_bin;
- 	}
-=20
--	ret =3D psp_ras_terminate(psp);
--	if (ret) {
--		dev_err(adev->dev, "Failed to unload embedded RAS TA\n");
-+	/* Set TA context and functions */
-+	set_ta_context_funcs(psp, ta_type, &context);
-+
-+	if (!psp->ta_funcs || !psp->ta_funcs->fn_ta_terminate) {
-+		dev_err(adev->dev, "Unsupported function to terminate TA\n");
-+		ret =3D -EOPNOTSUPP;
- 		goto err_free_bin;
- 	}
-=20
--	context.ta_type             =3D ta_type;
--	context.ta_load_type        =3D GFX_CMD_ID_LOAD_TA;
--	context.bin_desc.fw_version =3D get_bin_version(ta_bin);
--	context.bin_desc.size_bytes =3D ta_bin_len;
--	context.bin_desc.start_addr =3D ta_bin;
-+	/*
-+	 * Allocate TA shared buf in case shared buf was freed
-+	 * due to loading TA failed before.
-+	 */
-+	if (!context->mem_context.shared_buf) {
-+		ret =3D psp_ta_init_shared_buf(psp, &context->mem_context);
-+		if (ret) {
-+			ret =3D -ENOMEM;
-+			goto err_free_bin;
-+		}
-+	}
-+
-+	ret =3D psp_fn_ta_terminate(psp);
-+	if (ret || context->resp_status) {
-+		dev_err(adev->dev,
-+			"Failed to unload embedded TA (%d) and status (0x%X)\n",
-+			ret, context->resp_status);
-+		if (!ret)
-+			ret =3D -EINVAL;
-+		goto err_free_ta_shared_buf;
-+	}
-+
-+	/* Prepare TA context for TA initialization */
-+	context->ta_type                     =3D ta_type;
-+	context->bin_desc.fw_version         =3D get_bin_version(ta_bin);
-+	context->bin_desc.size_bytes         =3D ta_bin_len;
-+	context->bin_desc.start_addr         =3D ta_bin;
-=20
--	ret =3D psp_ta_load(psp, &context);
-+	if (!psp->ta_funcs->fn_ta_initialze) {
-+		dev_err(adev->dev, "Unsupported function to initialize TA\n");
-+		ret =3D -EOPNOTSUPP;
-+		goto err_free_ta_shared_buf;
-+	}
-=20
--	if (ret || context.resp_status) {
--		dev_err(adev->dev, "TA load via debugfs failed (%d) status %d\n",
--			 ret, context.resp_status);
-+	ret =3D psp_fn_ta_initialize(psp);
-+	if (ret || context->resp_status) {
-+		dev_err(adev->dev, "Failed to load TA via debugfs (%d) and status (0x%X)=
-\n",
-+			ret, context->resp_status);
- 		if (!ret)
- 			ret =3D -EINVAL;
--		goto err_free_bin;
-+		goto err_free_ta_shared_buf;
- 	}
-=20
--	context.initialized =3D true;
--	if (copy_to_user((char *)buf, (void *)&context.session_id, sizeof(uint32_=
-t)))
-+	if (copy_to_user((char *)buf, (void *)&context->session_id,=20
-+sizeof(uint32_t)))
- 		ret =3D -EFAULT;
-=20
-+err_free_ta_shared_buf:
-+	/* Only free TA shared buf when returns error code */
-+	if (ret && context->mem_context.shared_buf)
-+		psp_ta_free_shared_buf(&context->mem_context);
- err_free_bin:
- 	kfree(ta_bin);
-=20
-@@ -192,58 +243,85 @@ static ssize_t ta_if_load_debugfs_write(struct file *=
-fp, const char *buf, size_t
-=20
- static ssize_t ta_if_unload_debugfs_write(struct file *fp, const char *buf=
-, size_t len, loff_t *off)  {
--	uint32_t ta_id  =3D 0;
--	int      ret    =3D 0;
-+	uint32_t ta_type    =3D 0;
-+	uint32_t ta_id      =3D 0;
-+	uint32_t copy_pos   =3D 0;
-+	int      ret        =3D 0;
-=20
--	struct amdgpu_device *adev   =3D (struct amdgpu_device *)file_inode(fp)->=
-i_private;
--	struct psp_context   *psp    =3D &adev->psp;
--	struct ta_context    context =3D {0};
-+	struct amdgpu_device *adev    =3D (struct amdgpu_device *)file_inode(fp)-=
->i_private;
-+	struct psp_context   *psp     =3D &adev->psp;
-+	struct ta_context    *context =3D NULL;
-=20
- 	if (!buf)
- 		return -EINVAL;
-=20
--	ret =3D copy_from_user((void *)&ta_id, buf, sizeof(uint32_t));
-+	ret =3D copy_from_user((void *)&ta_type, &buf[copy_pos], sizeof(uint32_t)=
-);
-+	if (ret || (!is_ta_type_valid(ta_type)))
-+		return -EFAULT;
-+
-+	copy_pos +=3D sizeof(uint32_t);
-+
-+	ret =3D copy_from_user((void *)&ta_id, &buf[copy_pos],=20
-+sizeof(uint32_t));
- 	if (ret)
--		return -EINVAL;
-+		return -EFAULT;
-=20
--	context.session_id =3D ta_id;
-+	set_ta_context_funcs(psp, ta_type, &context);
-+	context->session_id =3D ta_id;
-=20
--	ret =3D psp_ta_unload(psp, &context);
--	if (!ret)
--		context.initialized =3D false;
-+	if (!psp->ta_funcs || !psp->ta_funcs->fn_ta_terminate) {
-+		dev_err(adev->dev, "Unsupported function to terminate TA\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	ret =3D psp_fn_ta_terminate(psp);
-+	if (ret || context->resp_status) {
-+		dev_err(adev->dev, "Failed to unload TA via debugfs (%d) and status (0x%=
-X)\n",
-+			ret, context->resp_status);
-+		if (!ret)
-+			ret =3D -EINVAL;
-+	}
-+
-+	if (context->mem_context.shared_buf)
-+		psp_ta_free_shared_buf(&context->mem_context);
-=20
- 	return ret;
- }
-=20
- static ssize_t ta_if_invoke_debugfs_write(struct file *fp, const char *buf=
-, size_t len, loff_t *off)  {
-+	uint32_t ta_type        =3D 0;
- 	uint32_t ta_id          =3D 0;
- 	uint32_t cmd_id         =3D 0;
- 	uint32_t shared_buf_len =3D 0;
--	uint8_t	 *shared_buf    =3D NULL;
-+	uint8_t *shared_buf     =3D NULL;
- 	uint32_t copy_pos       =3D 0;
- 	int      ret            =3D 0;
-=20
--	struct amdgpu_device *adev   =3D (struct amdgpu_device *)file_inode(fp)->=
-i_private;
--	struct psp_context   *psp    =3D &adev->psp;
--	struct ta_context    context =3D {0};
-+	struct amdgpu_device *adev    =3D (struct amdgpu_device *)file_inode(fp)-=
->i_private;
-+	struct psp_context   *psp     =3D &adev->psp;
-+	struct ta_context    *context =3D NULL;
-=20
- 	if (!buf)
- 		return -EINVAL;
-=20
-+	ret =3D copy_from_user((void *)&ta_type, &buf[copy_pos], sizeof(uint32_t)=
-);
-+	if (ret)
-+		return -EFAULT;
-+	copy_pos +=3D sizeof(uint32_t);
-+
- 	ret =3D copy_from_user((void *)&ta_id, &buf[copy_pos], sizeof(uint32_t));
- 	if (ret)
--		return -EINVAL;
-+		return -EFAULT;
- 	copy_pos +=3D sizeof(uint32_t);
-=20
- 	ret =3D copy_from_user((void *)&cmd_id, &buf[copy_pos], sizeof(uint32_t))=
-;
- 	if (ret)
--		return -EINVAL;
-+		return -EFAULT;
- 	copy_pos +=3D sizeof(uint32_t);
-=20
- 	ret =3D copy_from_user((void *)&shared_buf_len, &buf[copy_pos], sizeof(ui=
-nt32_t));
- 	if (ret)
--		return -EINVAL;
-+		return -EFAULT;
- 	copy_pos +=3D sizeof(uint32_t);
-=20
- 	shared_buf =3D kzalloc(shared_buf_len, GFP_KERNEL); @@ -254,26 +332,39 @@=
- static ssize_t ta_if_invoke_debugfs_write(struct file *fp, const char *buf=
-, size
- 		goto err_free_shared_buf;
- 	}
-=20
--	context.session_id =3D ta_id;
-+	set_ta_context_funcs(psp, ta_type, &context);
-+
-+	if (!context->initialized) {
-+		dev_err(adev->dev, "TA is not initialized\n");
-+		ret =3D -EINVAL;
-+		goto err_free_shared_buf;
-+	}
-+
-+	if (!psp->ta_funcs || !psp->ta_funcs->fn_ta_invoke) {
-+		dev_err(adev->dev, "Unsupported function to invoke TA\n");
-+		ret =3D -EOPNOTSUPP;
-+		goto err_free_shared_buf;
-+	}
-=20
--	prep_ta_mem_context(psp, &context, shared_buf, shared_buf_len);
-+	context->session_id =3D ta_id;
-=20
--	ret =3D psp_ta_invoke_indirect(psp, cmd_id, &context);
-+	ret =3D prep_ta_mem_context(&context->mem_context, shared_buf, shared_buf=
-_len);
-+	if (ret)
-+		goto err_free_shared_buf;
-=20
--	if (ret || context.resp_status) {
--		dev_err(adev->dev, "TA invoke via debugfs failed (%d) status %d\n",
--			 ret, context.resp_status);
--		if (!ret)
-+	ret =3D psp_fn_ta_invoke(psp, cmd_id);
-+	if (ret || context->resp_status) {
-+		dev_err(adev->dev, "Failed to invoke TA via debugfs (%d) and status (0x%=
-X)\n",
-+			ret, context->resp_status);
-+		if (!ret) {
- 			ret =3D -EINVAL;
--		goto err_free_ta_shared_buf;
-+			goto err_free_shared_buf;
-+		}
- 	}
-=20
--	if (copy_to_user((char *)buf, context.mem_context.shared_buf, shared_buf_=
-len))
-+	if (copy_to_user((char *)buf, context->mem_context.shared_buf,=20
-+shared_buf_len))
- 		ret =3D -EFAULT;
-=20
--err_free_ta_shared_buf:
--	psp_ta_free_shared_buf(&context.mem_context);
--
- err_free_shared_buf:
- 	kfree(shared_buf);
-=20
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_psp_ta.h
-index cfc1542f63ef94..21f043bd3cbfff 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h
-@@ -24,6 +24,10 @@
- #ifndef __AMDGPU_PSP_TA_H__
- #define __AMDGPU_PSP_TA_H__
-=20
-+#define psp_fn_ta_initialize(psp)=20
-+((psp)->ta_funcs->fn_ta_initialze((psp)))
-+#define psp_fn_ta_invoke(psp, ta_cmd_id)=20
-+((psp)->ta_funcs->fn_ta_invoke((psp), (ta_cmd_id))) #define=20
-+psp_fn_ta_terminate(psp) ((psp)->ta_funcs->fn_ta_terminate((psp)))
-+
- void amdgpu_ta_if_debugfs_init(struct amdgpu_device *adev);
-=20
- #endif
 --
-2.17.1
+2.25.1
+
+--_000_DM4PR12MB513603C468CE9BA8DC933D118B309DM4PR12MB5136namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheaderdf3d92d6, li.msipheaderdf3d92d6, div.msipheaderdf3d92d6
+	{mso-style-name:msipheaderdf3d92d6;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
+k-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheaderdf3d92d6" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
+l Use Only - General]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">+<a id=3D"OWAAM2C3FD9A9EF544EB3A89BBBB72AF67D08" hre=
+f=3D"mailto:Xiaohu.Meng@amd.com"><span style=3D"font-family:&quot;Calibri&q=
+uot;,sans-serif;text-decoration:none">@Meng, Xiaohu</span></a><o:p></o:p></=
+p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Hi Zhuravlev,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">The information of test card is as following:<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">Lspci name: [AMD/ATI] Vega 10 [Radeon Instinct MI25 =
+MxGPU] (rev 05)<o:p></o:p></p>
+<p class=3D"MsoNormal">Firmware: ATOM BIOS: 113-D0531800-C04<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">When run test scripts compute-rocm-*/utils/run_rsmit=
+st.sh, the below test cases fail.
+<o:p></o:p></p>
+<p class=3D"MsoNormal">[&nbsp; FAILED&nbsp; ] 4 tests, listed below:<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">[&nbsp; FAILED&nbsp; ] rsmitstReadOnly.TestOverdrive=
+Read<o:p></o:p></p>
+<p class=3D"MsoNormal">[&nbsp; FAILED&nbsp; ] rsmitstReadWrite.FanReadWrite=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">[&nbsp; FAILED&nbsp; ] rsmitstReadWrite.TestOverdriv=
+eReadWrite<o:p></o:p></p>
+<p class=3D"MsoNormal">[&nbsp; FAILED&nbsp; ] rsmitstReadWrite.TestPowerCap=
+ReadWrite<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Best Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Asher<o:p></o:p></p>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Yury Zhuravlev &lt;stalkerg@gmail.com&g=
+t; <br>
+<b>Sent:</b> Wednesday, October 26, 2022 9:31 AM<br>
+<b>To:</b> Song, Asher &lt;Asher.Song@amd.com&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Chen, Guch=
+un &lt;Guchun.Chen@amd.com&gt;; Quan, Evan &lt;Evan.Quan@amd.com&gt;; amd-g=
+fx@lists.freedesktop.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Revert &quot;drm/amdgpu: getting fa=
+n speed pwm for vega10 properly&quot;<o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Hello,<br>
+Can you write here your card name and firmware version? Without this patch,=
+ my fan sensors are broken, and it's sensitive to my pc case with water coo=
+ling.<br>
+My card is: &nbsp;Sapphire Pulse Radeon RX Vega 56 &nbsp;vd6546 SA<br>
+lspci name: [AMD/ATI] Vega 10 XL/XT [Radeon RX Vega 56/64] (rev c3)<br>
+Firmware: ATOM BIOS: 113-376XL-UO2<br>
+This patch is 100% working correct on my machine, and I tested it last 2 mo=
+nths.<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+</div>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal">On Fri, Oct 14, 2022 at 1:15 PM Asher Song &lt;<a hr=
+ef=3D"mailto:Asher.Song@amd.com">Asher.Song@amd.com</a>&gt; wrote:<o:p></o:=
+p></p>
+</div>
+<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
+bottom:5.0pt">
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">This reverts commit f=
+e01cb24b81c0091d7e5668874d51ce913e44a97.<br>
+<br>
+Unfortunately, that commit causes fan monitors can't be read and written<br=
+>
+properly.<br>
+<br>
+Signed-off-by: Asher Song &lt;<a href=3D"mailto:Asher.Song@amd.com" target=
+=3D"_blank">Asher.Song@amd.com</a>&gt;<br>
+---<br>
+&nbsp;.../amd/pm/powerplay/hwmgr/vega10_thermal.c&nbsp; &nbsp;| 25 ++++++++=
+++---------<br>
+&nbsp;1 file changed, 13 insertions(+), 12 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/driv=
+ers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c<br>
+index 190af79f3236..dad3e3741a4e 100644<br>
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c<br>
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c<br>
+@@ -67,21 +67,22 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr =
+*hwmgr,<br>
+&nbsp;int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; uint32_t *speed)<br=
+>
+&nbsp;{<br>
+-&nbsp; &nbsp; &nbsp; &nbsp;struct amdgpu_device *adev =3D hwmgr-&gt;adev;<=
+br>
+-&nbsp; &nbsp; &nbsp; &nbsp;uint32_t duty100, duty;<br>
+-&nbsp; &nbsp; &nbsp; &nbsp;uint64_t tmp64;<br>
++&nbsp; &nbsp; &nbsp; &nbsp;uint32_t current_rpm;<br>
++&nbsp; &nbsp; &nbsp; &nbsp;uint32_t percent =3D 0;<br>
+<br>
+-&nbsp; &nbsp; &nbsp; &nbsp;duty100 =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, =
+mmCG_FDO_CTRL1),<br>
+-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CG_FDO_CTRL1, FMAX_DUTY100);<br>
+-&nbsp; &nbsp; &nbsp; &nbsp;duty =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, mmC=
+G_THERMAL_STATUS),<br>
+-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CG_THERMAL_STATUS, FDO_PWM_DUTY);<br>
++&nbsp; &nbsp; &nbsp; &nbsp;if (hwmgr-&gt;thermal_controller.fanInfo.bNoFan=
+)<br>
++&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return 0;<br>
+<br>
+-&nbsp; &nbsp; &nbsp; &nbsp;if (!duty100)<br>
+-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return -EINVAL;<br>
++&nbsp; &nbsp; &nbsp; &nbsp;if (vega10_get_current_rpm(hwmgr, &amp;current_=
+rpm))<br>
++&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return -1;<br>
++<br>
++&nbsp; &nbsp; &nbsp; &nbsp;if (hwmgr-&gt;thermal_controller.<br>
++&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp;advanceFanControlParameters.usMaxFanRPM !=3D 0)<br>
++&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;percent =3D current=
+_rpm * 255 /<br>
++&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp;hwmgr-&gt;thermal_controller.<br>
++&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp;advanceFanControlParameters.usMaxFanRPM;<br>
+<br>
+-&nbsp; &nbsp; &nbsp; &nbsp;tmp64 =3D (uint64_t)duty * 255;<br>
+-&nbsp; &nbsp; &nbsp; &nbsp;do_div(tmp64, duty100);<br>
+-&nbsp; &nbsp; &nbsp; &nbsp;*speed =3D MIN((uint32_t)tmp64, 255);<br>
++&nbsp; &nbsp; &nbsp; &nbsp;*speed =3D MIN(percent, 255);<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; return 0;<br>
+&nbsp;}<br>
+-- <br>
+2.25.1<o:p></o:p></p>
+</blockquote>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DM4PR12MB513603C468CE9BA8DC933D118B309DM4PR12MB5136namp_--
