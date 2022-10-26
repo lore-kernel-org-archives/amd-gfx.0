@@ -4,41 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B50B4C433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 14:21:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6848AFA3741
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 14:21:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CCC910E1DF;
-	Wed, 26 Oct 2022 14:21:06 +0000 (UTC)
-Received: from m12-11.163.com (m12-11.163.com [220.181.12.11])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3E57410E26A
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 10:07:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=uVhyx
- g9tFqJVC+JXQX6McT29RjtavAh5YjVtvhZD9RY=; b=kDaOuCV1QSjaab0OfFAq7
- IxoBo12DuJGfUT3HPHk2XfbSNSPxBQEPpodLz/8WQKoZKECuBMnnacRmV8Tp+WGc
- M5Wzy+PoqfDI0ENN+eNV9IU/8bTJbBvlzsnmb4ynCcSmeJzqPIzJIg7TXiqqoxYq
- O29lh3X+lDxMJ46A5weMOw=
-Received: from localhost.localdomain (unknown [111.48.58.12])
- by smtp7 (Coremail) with SMTP id C8CowABXQ_gvA1ljHKFvOA--.47014S2;
- Wed, 26 Oct 2022 17:51:44 +0800 (CST)
-From: gehao618@163.com
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, alex.hung@amd.com, HaoPing.Liu@amd.com,
- aurabindo.pillai@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [RESEND PATCH] drm/amd/display: prevent memory leak
-Date: Wed, 26 Oct 2022 17:54:05 +0800
-Message-Id: <20221026095405.51434-1-gehao618@163.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 950DA10E1F1;
+	Wed, 26 Oct 2022 14:21:07 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D012310E1CD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 09:59:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1666778374;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=88clgiauNntAl3Wz7H3JYTecCEZyzTGGOgZ+LgOj43I=;
+ b=eAmcIBZ2fJwuaQX2xZ1NE9RXLF7+9MTXgFNgUatjGChLQd+4F2NV08EAwr1F2jM5txspVz
+ 1iZjj8ggOcUqaO6/U9urOtgwPAMMr7EhOgY6zAujRYBB4dVPgA1bltHWzmlK3CdcoQ7aGF
+ I3spo7NoQa0wga+at26gd0GJ8ljvvQk=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-131-QYj_aNUgOFaZCCeW-WztLA-1; Wed, 26 Oct 2022 05:59:33 -0400
+X-MC-Unique: QYj_aNUgOFaZCCeW-WztLA-1
+Received: by mail-ed1-f70.google.com with SMTP id
+ b13-20020a056402350d00b0045d0fe2004eso13567815edd.18
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 02:59:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=88clgiauNntAl3Wz7H3JYTecCEZyzTGGOgZ+LgOj43I=;
+ b=zHIL3f0mtfHlZ6oLblEasSQpIlps6QkpAe6sNTc2l6PLoRisxz5pO7V4XT2PQC09eQ
+ MzmdhcydU0KhpMAYAO7uBQlAtWuKXKYFaP8A2YlyO3xQP+/Tz9M/srXBzhneUzkgBue7
+ tsXUBAJNVqhoZTWLl32J9Kkb7pegzwfpzAEKIwMxacUzltl46KJX4OW/KZraX/TSIIM1
+ /ZgQ7Lq5hNVgpqBnoyDQ2vcLZhjCabL+EiwQ4JwHHxMy84Ge8X6igrztRVfx4NcShak1
+ Xi538e0OCKJYg9EvJUOwV4tLNxoQ1pQKsPGtkfC8LfQXtSD9iCvLRspznXnfFzRe19Z5
+ d6gA==
+X-Gm-Message-State: ACrzQf1PGGff9NgdMqaDDYbXZc8DUXJ0xjcMjJl1PqNdoWE/y0qqmWv0
+ W43xualM45JQ/uMPJIpaRoe4eHWfC+6B/Z9g1yUvcDl1J8/Vx237Y4uLr3L6YRVnGMlJv00Rt0X
+ xwczhgjdCV+G1g4uly+er4moIVQ==
+X-Received: by 2002:a17:906:fe04:b0:777:b13d:30a6 with SMTP id
+ wy4-20020a170906fe0400b00777b13d30a6mr36058286ejb.248.1666778372108; 
+ Wed, 26 Oct 2022 02:59:32 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM778dCSL7x8318qzKenTU6R7Jp/heP0pFWsLg0Zjgt4GfqQod/XgRUMTGVY4TA8QIvtp3pSAg==
+X-Received: by 2002:a17:906:fe04:b0:777:b13d:30a6 with SMTP id
+ wy4-20020a170906fe0400b00777b13d30a6mr36058246ejb.248.1666778371810; 
+ Wed, 26 Oct 2022 02:59:31 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
+ (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
+ by smtp.gmail.com with ESMTPSA id
+ x10-20020a1709060eea00b007415f8ffcbbsm2706055eji.98.2022.10.26.02.59.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Oct 2022 02:59:29 -0700 (PDT)
+Message-ID: <fa6cc1d9-6740-b495-2c72-cae18c429ca6@redhat.com>
+Date: Wed, 26 Oct 2022 11:59:28 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: C8CowABXQ_gvA1ljHKFvOA--.47014S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tFy3WrW3JF13Gr17Ww47XFb_yoW8uF48pw
- 4xJ3yFkr1kX3W7trn8JF4UXFZ3ua4IgFW5Kry3twn3u3WrAry5Ary3Ja45WrW8WasFyrya
- qF1kJFW7XFnFkF7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jMyIUUUUUU=
-X-Originating-IP: [111.48.58.12]
-X-CM-SenderInfo: 5jhkt0qwryqiywtou0bp/xtbCoQimFlzmVrbJ3wAAsV
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+Subject: Re: [PATCH v5 02/31] drm/i915: Don't register backlight when another
+ backlight should be used (v2)
+To: Matthew Garrett <mjg59@srcf.ucam.org>
+References: <20220825143726.269890-1-hdegoede@redhat.com>
+ <20220825143726.269890-3-hdegoede@redhat.com>
+ <f914ceb3-94bd-743c-f8b6-0334086e731a@gmail.com>
+ <42a5f2c9-a1dc-8fc0-7334-fe6c390ecfbb@redhat.com>
+ <20221024203057.GA28675@srcf.ucam.org>
+ <8f53b8b6-ead2-22f5-16f7-65b31f7cc05c@redhat.com>
+ <20221025193248.GA21457@srcf.ucam.org>
+ <144cd47e-42dc-2b84-1a90-ea5e080e08a3@redhat.com>
+ <20221025204043.GA23306@srcf.ucam.org>
+ <cb5add36-c13c-ccd5-1b4b-71b45163a170@redhat.com>
+ <20221025234040.GA27673@srcf.ucam.org>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <20221025234040.GA27673@srcf.ucam.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, nl
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 26 Oct 2022 14:20:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,69 +98,167 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: gehao <gehao@kylinos.cn>
+Cc: Pan@freedesktop.org, Karol Herbst <kherbst@redhat.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ Dmitry Osipenko <digetx@gmail.com>, amd-gfx@lists.freedesktop.org,
+ linux-acpi@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>,
+ David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>,
+ Daniel Dadap <ddadap@nvidia.com>, Jani Nikula <jani.nikula@intel.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Mark Gross <markgross@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Xinhui <Xinhui.Pan@amd.com>,
+ Lukas Wunner <lukas@wunner.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: gehao <gehao@kylinos.cn>
+Hi,
 
-In dce6(0,1,4)_create_resource_pool and dce80_create_resource_pool
-the allocated memory should be released if construct pool fails.
+On 10/26/22 01:40, Matthew Garrett wrote:
+> On Wed, Oct 26, 2022 at 01:27:25AM +0200, Hans de Goede wrote:
+> 
+>> this code should actually set the ACPI_VIDEO_BACKLIGHT flag:
+>> drivers/acpi/scan.c:
+>>
+>> static acpi_status
+>> acpi_backlight_cap_match(acpi_handle handle, u32 level, void *context,
+>>                           void **return_value)
+>> {
+>>         long *cap = context;
+>>
+>>         if (acpi_has_method(handle, "_BCM") &&
+>>             acpi_has_method(handle, "_BCL")) {
+>>                 acpi_handle_debug(handle, "Found generic backlight support\n");
+>>                 *cap |= ACPI_VIDEO_BACKLIGHT;
+>>                 /* We have backlight support, no need to scan further */
+>>                 return AE_CTRL_TERMINATE;
+>>         }
+>>         return 0;
+>> }
+> 
+> Ah, yeah, my local tree no longer matches the upstream behaviour because 
+> I've hacked the EC firmware to remove the backlight trigger because it 
+> had an extremely poor brightness curve and also automatically changed it 
+> on AC events - as a result I removed the backlight code from the DSDT 
+> and just fell back to the native control. Like I said I'm a long way 
+> from the normal setup, but this did previously work.
 
-Signed-off-by: gehao <gehao@kylinos.cn>
----
- drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c | 3 +++
- drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c | 2 ++
- 2 files changed, 5 insertions(+)
+Ok, so this is a local customization to what is already a custom BIOS
+for a custom motherboard. There is a lot of custom in that sentence and
+TBH at some point things might become too custom for them to be expected
+to work OOTB.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-index fc6aa098bda0..8db9f7514466 100644
---- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-@@ -1128,6 +1128,7 @@ struct resource_pool *dce60_create_resource_pool(
- 	if (dce60_construct(num_virtual_links, dc, pool))
- 		return &pool->base;
- 
-+	kfree(pool);
- 	BREAK_TO_DEBUGGER();
- 	return NULL;
- }
-@@ -1325,6 +1326,7 @@ struct resource_pool *dce61_create_resource_pool(
- 	if (dce61_construct(num_virtual_links, dc, pool))
- 		return &pool->base;
- 
-+	kfree(pool);
- 	BREAK_TO_DEBUGGER();
- 	return NULL;
- }
-@@ -1518,6 +1520,7 @@ struct resource_pool *dce64_create_resource_pool(
- 	if (dce64_construct(num_virtual_links, dc, pool))
- 		return &pool->base;
- 
-+	kfree(pool);
- 	BREAK_TO_DEBUGGER();
- 	return NULL;
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-index b28025960050..5825e6f412bd 100644
---- a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-@@ -1137,6 +1137,7 @@ struct resource_pool *dce80_create_resource_pool(
- 	if (dce80_construct(num_virtual_links, dc, pool))
- 		return &pool->base;
- 
-+	kfree(pool);
- 	BREAK_TO_DEBUGGER();
- 	return NULL;
- }
-@@ -1336,6 +1337,7 @@ struct resource_pool *dce81_create_resource_pool(
- 	if (dce81_construct(num_virtual_links, dc, pool))
- 		return &pool->base;
- 
-+	kfree(pool);
- 	BREAK_TO_DEBUGGER();
- 	return NULL;
- }
--- 
-2.25.1
+Note that you can always just override the choses made by the heuristisc/
+quirks on the kernel commandline by adding:
+
+acpi_backlight=native   (I think you want this one?)
+
+or if you want the old thinkpad_acpi module vendor/EC interface:
+
+acpi_backlight=vendor
+
+Asking you to pass this on the commandline does not seem like a huge
+stretch given the large amount of hw/firmware customization you have done ?
+
+> The "right" logic here seems pretty simple: if ACPI backlight control is 
+> expected to work, use it. If it isn't, but there's a vendor interface, 
+> use it. If there's no vendor interface, use the native interface.
+
+I'm afraid things are not that simple. I assume that with
+"if ACPI backlight control is expected to work" you mean don't
+use ACPI backlight control when (acpi_osi_is_win8() && native_available)
+evaluates to true because it is known to be broken on some of
+those systems because Windows 8 stopped using it ?
+
+Unfortunately something similar applies to vendor interfaces,
+When Windows XP started using (and mandating for certification
+IIRC) ACPI backlight control, vendors still kept their own
+vendor specific EC/smbios/ACPI/WMI backlight interfaces around for
+a long long time, except they were often no longer tested.
+
+So basically we have 3 major backlight control methods:
+
+1. native GPU backlight control, which sometimes does not work
+on older laptops because the backlight is connected to the EC
+rather then the GPU there, yet often still enabled in the
+video-bios-tables so the GPU drivers will still try to use it.
+
+2. ACPI -> known to be always present on recent Windows laptops
+because mandated by the hardware certification requirements
+(even on Windows 8+), but regularly broken on Windows 8+ because
+their backlight control was moved from the core-os to the GPU
+drivers and those typically use the native method.
+
+3. Vendor specific EC/smbios/ACPI/WMI interfaces which work
+on older laptops, but are often present on newer laptops
+despite them no longer working and to get working backlight
+control either 1. or 2. should be used.
+
+So basically non of the 3 main backlight control methods can
+be trusted even if they are present. Which is why need to have
+a combination of heuristics + quirks.
+
+And I have been working on moving all this into a central
+place in drivers/acpi/video_detect.c because having
+the heuristics + quirks spread out all over the place does
+not help.
+
+> The 
+> problem you're dealing with is that the knowledge of whether or not 
+> there's a vendor interface isn't something the core kernel code knows 
+> about. What you're proposing here is effectively for us to expose 
+> additional information about whether or not there's a vendor interface 
+> in the system firmware, but since we're talking in some cases about 
+> hardware that's almost 20 years old, we're not realistically going to 
+> get those old machines fixed.
+
+I don't understand why you keep talking about the old vendor interfaces,
+at least for the chromebook part of this thread the issue is that
+the i915 driver no longer registers the intel_backlight device which
+is a native device type, which is caused by the patch this email
+thread is about (and old vendor interfaces do not come into play
+at all here). So AFAICT this is a native vs acpi backlight control
+issue ?
+
+I really want to resolve your bug, but I still lack a lot of info,
+like what backlight interface you were actually using in 6.0 ?
+
+Can you please provide the following info for your laptop:
+
+1. Output of "ls /sys/class/backlight" with 6.0  (working setup)
+2. Output of "ls /sys/class/backlight" with 6.1  (non-working setup)
+3. dmidecode output, so that I can check if this quirk:
+
+        {
+         .callback = video_detect_force_video,
+         /* ThinkPad X201s */
+         .matches = {
+                DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+                DMI_MATCH(DMI_PRODUCT_VERSION, "ThinkPad X201s"),
+                },
+        },
+
+will trigger.
+
+4. An acpidump. Although you already said that you have removed the
+ACPI video bus bits, so I guess I can just assume that
+the ACPI_VIDEO_BACKLIGHT flag won't get set.
+
+Regards,
+
+Hans
+
+
+p.s.
+
+This thread has made me wonder if the 6.1 changes don't cause
+regressions on other laptops flashed with a CoreOS BIOS, I will
+start a mail-thread asking for testing on the CoreOS mailinglist.
 
