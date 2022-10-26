@@ -4,59 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85C6EC38A2D
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 14:38:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 138F1FA373E
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 15:36:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8CFE10E27F;
-	Wed, 26 Oct 2022 14:38:26 +0000 (UTC)
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E96010E27F
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 14:38:24 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-13b23e29e36so19543115fac.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 07:38:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B85A410E56F;
+	Wed, 26 Oct 2022 15:36:09 +0000 (UTC)
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8BBC10E33F;
+ Wed, 26 Oct 2022 15:36:00 +0000 (UTC)
+Received: by mail-ed1-x52d.google.com with SMTP id y12so21874517edc.9;
+ Wed, 26 Oct 2022 08:36:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=S+8fX6A79f9sD8/3/GDvwe2Xy7TKGF4sInhMCEK7GO4=;
- b=XThFjJk8ISaXmS8GWS+s7iT+YqOhd+zSq0GAEw7hlOGudNTNZhkDmA49uTGcECbw2y
- 93WMVC0zVb5j6vgEz05J5N3jWRZE7No2mS4amMiczRCm3Zo0Px7OFrWeKt4vQ5Gm1blj
- lbETLfADkPKaKfygU+BurYZwrN/xhUNw2pA448G+2RYLK4k7TV4ySvMl+Ph8dLz5i1IZ
- OOa0aA9sY6z/JBwh8pcCxKqDUwbHYyOLWAawSfP+q4SML7VbP5yBlvNDOJ0IU5yO2ze8
- JrRm3BqOrOW714EAwvyjSCL3QYQ+1EzAJ27jND9727KvMPtxuumL8DeujWX/BCyMu6Ar
- WUZg==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=c3647PSQ+0vwPlvlNxC9ZlJ7mFZIN+KyoVoHuNp8XOg=;
+ b=BGgrYVNA6coWr0IKlzXepSLnk18pQh0FdKE0cHQvEEVjd4O74y3rtNnZNx6DDzLJZa
+ e7wSBQW9ZTCjnnkl0KLDlP9KwhIeneLVBAlrFg7RMhwnso/Xq/KIle2Gq6iXxUZgfEVV
+ irZjsDDkGNWbMKOw/f/PT2NLmVoGFjxZjwgoecSL2B/K9V2NO6ohGk27mdmYws1oZaLJ
+ WPkxeBSE+OQtdLZqwYCHtHfR+KdaWkNd49QJElORuFXE9ZrXxth0wOP/Fv+iBNldJlr+
+ xLc4YL6XfLZPItmzAxXJiLPG/5DN56DhJ2rqo3sBgQtBtkJrQqdUzTxX31PtB8QMdbpA
+ NN+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=S+8fX6A79f9sD8/3/GDvwe2Xy7TKGF4sInhMCEK7GO4=;
- b=qbJYLo+gnFdL8xX1ObuGZe6KyecdPtDqWDkba+T7f/XehzC5lDAwub20B9nmuCRwyS
- D+OoiCotbW3BXa3xsZz9dgDKKYNmzc/1jA6E0WSnxRd0TAlbiOPVpFmTD4Y0Ra6YDMDt
- OiMfdgUZj1owoP3G34nW1bgWwV44hcm1bcb6DnY0aApJLDk3h2KFOOENfX6mvNi7g8ei
- uBHf091P/u2Zmu31s+fkB6jbnel2lfajOTalNZPd7XjbuA/eBAyHjCHlvB967s2neQ4+
- lmQXVbx5Z4JKVoM2yCpvEqunM3FmgPwBwUH+BeXxbtG9NPaE7aI42hyhv4XNz1DthA+e
- miCQ==
-X-Gm-Message-State: ACrzQf1reY2u9bWY+laJVyTO9PyUM8X4slbKa9tQx03dNH4hSsUSwUNF
- RCXuaV/dQWCPugz7wRkA+WT6GJo/CUUdImxELjA=
-X-Google-Smtp-Source: AMsMyM53m1CKqw009iWjpb/xcwrmJ/CktxYvS4+fma2hXg2ZWSDUnmeomzu+8MvdTN2sCp2zJQXRhTfys+dPlIsMlIQ=
-X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
- x36-20020a056870a7a400b001367c39979emr2450654oao.96.1666795103148; Wed, 26
- Oct 2022 07:38:23 -0700 (PDT)
+ bh=c3647PSQ+0vwPlvlNxC9ZlJ7mFZIN+KyoVoHuNp8XOg=;
+ b=rXOBc5SvaXTwWdpvUzpv4gT8wMfYdvRoH9s7cXWN7DmAeoRQIguDon4//HDNMXE9QU
+ 6Lqt4kIEljYk5+CeTYOZf5BwwAbjGuCyLCdDkt9beRgfASnsIF1gFdXtubaiBEV0mPms
+ Nb1QWg/xBv3RKvv397eTL6YOvF3y9S6tJOlJ9ydy9I4p7yNBG3IIsjM8OlDv9N146xfZ
+ 8fboD+fr0Lu729jRWR1hUBeexztwOKo9/SC4pZVXL4/ayxh/2mqY+rCQ2FxIF2dL3Jui
+ Z82ssuzY7WIVYrgbB+4Dh0cp6FGvAclGMfJoYB6co18wmIUPDh/murD81J6P5HYAiLXI
+ 5Azw==
+X-Gm-Message-State: ACrzQf0n970V9KRMRKLDVv5u/Y4fKeZjVzBMNJpHjiB/UT4kSVX6RWEu
+ p/Hha7sOwoqIC1TbCOQE9kI=
+X-Google-Smtp-Source: AMsMyM52wHXFChyQUVxiCpzsXZQduYcsYgpf42c08n61jwsEJOFl/2s2mAShLlXJTmC9/e3BXbqs/A==
+X-Received: by 2002:a05:6402:4006:b0:461:f4e2:82e0 with SMTP id
+ d6-20020a056402400600b00461f4e282e0mr12073319eda.68.1666798559293; 
+ Wed, 26 Oct 2022 08:35:59 -0700 (PDT)
+Received: from able.fritz.box (p5b0ea229.dip0.t-ipconnect.de. [91.14.162.41])
+ by smtp.gmail.com with ESMTPSA id
+ la3-20020a170907780300b007abafe43c3bsm3066715ejc.86.2022.10.26.08.35.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Oct 2022 08:35:58 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: luben.tuikov@amd.com, vprosyak@amd.com, Alexander.Deucher@amd.com,
+ daniel.vetter@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH 1/5] drm/amd/amdgpu revert "implement tdr advanced mode"
+Date: Wed, 26 Oct 2022 17:35:53 +0200
+Message-Id: <20221026153557.63541-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20221014041456.139813-1-Asher.Song@amd.com>
- <CANiD2e8PHA7u1qs8YkWkbbjxqB7JCnLNdR5OcHTH=dpfBWe7rg@mail.gmail.com>
- <DM4PR12MB513603C468CE9BA8DC933D118B309@DM4PR12MB5136.namprd12.prod.outlook.com>
- <CANiD2e-jjJyycgmBUDirBD+pGjf+Etifbvj5aBa0Q8Zd=KFxOg@mail.gmail.com>
-In-Reply-To: <CANiD2e-jjJyycgmBUDirBD+pGjf+Etifbvj5aBa0Q8Zd=KFxOg@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 26 Oct 2022 10:38:11 -0400
-Message-ID: <CADnq5_PNhqNTnwkVTdhGXmJ=UNWwQQjuftA-zgdBXejPk4LKqg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Revert "drm/amdgpu: getting fan speed pwm for
- vega10 properly"
-To: Yury Zhuravlev <stalkerg@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,139 +72,333 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Chen, Guchun" <Guchun.Chen@amd.com>, "Meng, Xiaohu" <Xiaohu.Meng@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Song,
- Asher" <Asher.Song@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Quan, Evan" <Evan.Quan@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 26, 2022 at 5:07 AM Yury Zhuravlev <stalkerg@gmail.com> wrote:
->
-> Hello Asher,
->
-> Thanks for the information, is it open-source tests? Can I reproduce it?
->
-> Also, it seems like Radeon Instinct MI25 was released before Radeon RX Vega, is it possible that they have different PowerPlay subsystems?
+This reverts commit e6c6338f393b74ac0b303d567bb918b44ae7ad75.
 
-Same silicon, same powerplay implementation.
+This feature basically re-submits one job after another to
+figure out which one was the one causing a hang.
 
-Alex
+This is obviously incompatible with gang-submit which requires
+that multiple jobs run at the same time. It's also absolutely
+not helpful to crash the hardware multiple times if a clean
+recovery is desired.
 
-> On my Vega56, all these registers from vega20 are working very well.
-> Seems like we should split implementation somehow.
->
-> Regards,
->
-> On Wed, Oct 26, 2022 at 3:51 PM Song, Asher <Asher.Song@amd.com> wrote:
->>
->> [AMD Official Use Only - General]
->>
->>
->>
->> +@Meng, Xiaohu
->>
->>
->>
->> Hi Zhuravlev,
->>
->>
->>
->> The information of test card is as following:
->>
->> Lspci name: [AMD/ATI] Vega 10 [Radeon Instinct MI25 MxGPU] (rev 05)
->>
->> Firmware: ATOM BIOS: 113-D0531800-C04
->>
->>
->>
->> When run test scripts compute-rocm-*/utils/run_rsmitst.sh, the below test cases fail.
->>
->> [  FAILED  ] 4 tests, listed below:
->>
->> [  FAILED  ] rsmitstReadOnly.TestOverdriveRead
->>
->> [  FAILED  ] rsmitstReadWrite.FanReadWrite
->>
->> [  FAILED  ] rsmitstReadWrite.TestOverdriveReadWrite
->>
->> [  FAILED  ] rsmitstReadWrite.TestPowerCapReadWrite
->>
->>
->>
->> Best Regards,
->>
->> Asher
->>
->> From: Yury Zhuravlev <stalkerg@gmail.com>
->> Sent: Wednesday, October 26, 2022 9:31 AM
->> To: Song, Asher <Asher.Song@amd.com>
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>; Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
->> Subject: Re: [PATCH] drm/amdgpu: Revert "drm/amdgpu: getting fan speed pwm for vega10 properly"
->>
->>
->>
->> Hello,
->> Can you write here your card name and firmware version? Without this patch, my fan sensors are broken, and it's sensitive to my pc case with water cooling.
->> My card is:  Sapphire Pulse Radeon RX Vega 56  vd6546 SA
->> lspci name: [AMD/ATI] Vega 10 XL/XT [Radeon RX Vega 56/64] (rev c3)
->> Firmware: ATOM BIOS: 113-376XL-UO2
->> This patch is 100% working correct on my machine, and I tested it last 2 months.
->>
->> Regards,
->>
->>
->>
->> On Fri, Oct 14, 2022 at 1:15 PM Asher Song <Asher.Song@amd.com> wrote:
->>
->> This reverts commit fe01cb24b81c0091d7e5668874d51ce913e44a97.
->>
->> Unfortunately, that commit causes fan monitors can't be read and written
->> properly.
->>
->> Signed-off-by: Asher Song <Asher.Song@amd.com>
->> ---
->>  .../amd/pm/powerplay/hwmgr/vega10_thermal.c   | 25 ++++++++++---------
->>  1 file changed, 13 insertions(+), 12 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
->> index 190af79f3236..dad3e3741a4e 100644
->> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
->> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
->> @@ -67,21 +67,22 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr *hwmgr,
->>  int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
->>                 uint32_t *speed)
->>  {
->> -       struct amdgpu_device *adev = hwmgr->adev;
->> -       uint32_t duty100, duty;
->> -       uint64_t tmp64;
->> +       uint32_t current_rpm;
->> +       uint32_t percent = 0;
->>
->> -       duty100 = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL1),
->> -                               CG_FDO_CTRL1, FMAX_DUTY100);
->> -       duty = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_THERMAL_STATUS),
->> -                               CG_THERMAL_STATUS, FDO_PWM_DUTY);
->> +       if (hwmgr->thermal_controller.fanInfo.bNoFan)
->> +               return 0;
->>
->> -       if (!duty100)
->> -               return -EINVAL;
->> +       if (vega10_get_current_rpm(hwmgr, &current_rpm))
->> +               return -1;
->> +
->> +       if (hwmgr->thermal_controller.
->> +                       advanceFanControlParameters.usMaxFanRPM != 0)
->> +               percent = current_rpm * 255 /
->> +                       hwmgr->thermal_controller.
->> +                       advanceFanControlParameters.usMaxFanRPM;
->>
->> -       tmp64 = (uint64_t)duty * 255;
->> -       do_div(tmp64, duty100);
->> -       *speed = MIN((uint32_t)tmp64, 255);
->> +       *speed = MIN(percent, 255);
->>
->>         return 0;
->>  }
->> --
->> 2.25.1
+For testing and debugging environments we should rather disable
+recovery alltogether to be able to inspect the state with a hw
+debugger.
+
+Additional to that the sw implementation is clearly buggy and causes
+reference count issues for the hardware fence.
+
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 103 ---------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   2 +-
+ drivers/gpu/drm/scheduler/sched_main.c     |  58 ++----------
+ include/drm/gpu_scheduler.h                |   3 -
+ 4 files changed, 10 insertions(+), 156 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 6f958603c8cc..d4584e577b51 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5070,94 +5070,6 @@ static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
+-static void amdgpu_device_recheck_guilty_jobs(
+-	struct amdgpu_device *adev, struct list_head *device_list_handle,
+-	struct amdgpu_reset_context *reset_context)
+-{
+-	int i, r = 0;
+-
+-	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+-		struct amdgpu_ring *ring = adev->rings[i];
+-		int ret = 0;
+-		struct drm_sched_job *s_job;
+-
+-		if (!ring || !ring->sched.thread)
+-			continue;
+-
+-		s_job = list_first_entry_or_null(&ring->sched.pending_list,
+-				struct drm_sched_job, list);
+-		if (s_job == NULL)
+-			continue;
+-
+-		/* clear job's guilty and depend the folowing step to decide the real one */
+-		drm_sched_reset_karma(s_job);
+-		drm_sched_resubmit_jobs_ext(&ring->sched, 1);
+-
+-		if (!s_job->s_fence->parent) {
+-			DRM_WARN("Failed to get a HW fence for job!");
+-			continue;
+-		}
+-
+-		ret = dma_fence_wait_timeout(s_job->s_fence->parent, false, ring->sched.timeout);
+-		if (ret == 0) { /* timeout */
+-			DRM_ERROR("Found the real bad job! ring:%s, job_id:%llx\n",
+-						ring->sched.name, s_job->id);
+-
+-
+-			amdgpu_fence_driver_isr_toggle(adev, true);
+-
+-			/* Clear this failed job from fence array */
+-			amdgpu_fence_driver_clear_job_fences(ring);
+-
+-			amdgpu_fence_driver_isr_toggle(adev, false);
+-
+-			/* Since the job won't signal and we go for
+-			 * another resubmit drop this parent pointer
+-			 */
+-			dma_fence_put(s_job->s_fence->parent);
+-			s_job->s_fence->parent = NULL;
+-
+-			/* set guilty */
+-			drm_sched_increase_karma(s_job);
+-			amdgpu_reset_prepare_hwcontext(adev, reset_context);
+-retry:
+-			/* do hw reset */
+-			if (amdgpu_sriov_vf(adev)) {
+-				amdgpu_virt_fini_data_exchange(adev);
+-				r = amdgpu_device_reset_sriov(adev, false);
+-				if (r)
+-					adev->asic_reset_res = r;
+-			} else {
+-				clear_bit(AMDGPU_SKIP_HW_RESET,
+-					  &reset_context->flags);
+-				r = amdgpu_do_asic_reset(device_list_handle,
+-							 reset_context);
+-				if (r && r == -EAGAIN)
+-					goto retry;
+-			}
+-
+-			/*
+-			 * add reset counter so that the following
+-			 * resubmitted job could flush vmid
+-			 */
+-			atomic_inc(&adev->gpu_reset_counter);
+-			continue;
+-		}
+-
+-		/* got the hw fence, signal finished fence */
+-		atomic_dec(ring->sched.score);
+-		dma_fence_get(&s_job->s_fence->finished);
+-		dma_fence_signal(&s_job->s_fence->finished);
+-		dma_fence_put(&s_job->s_fence->finished);
+-
+-		/* remove node from list and free the job */
+-		spin_lock(&ring->sched.job_list_lock);
+-		list_del_init(&s_job->list);
+-		spin_unlock(&ring->sched.job_list_lock);
+-		ring->sched.ops->free_job(s_job);
+-	}
+-}
+-
+ static inline void amdgpu_device_stop_pending_resets(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+@@ -5178,7 +5090,6 @@ static inline void amdgpu_device_stop_pending_resets(struct amdgpu_device *adev)
+ 
+ }
+ 
+-
+ /**
+  * amdgpu_device_gpu_recover - reset the asic and recover scheduler
+  *
+@@ -5201,7 +5112,6 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	int i, r = 0;
+ 	bool need_emergency_restart = false;
+ 	bool audio_suspended = false;
+-	int tmp_vram_lost_counter;
+ 	bool gpu_reset_for_dev_remove = false;
+ 
+ 	gpu_reset_for_dev_remove =
+@@ -5347,7 +5257,6 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 		amdgpu_device_stop_pending_resets(tmp_adev);
+ 	}
+ 
+-	tmp_vram_lost_counter = atomic_read(&((adev)->vram_lost_counter));
+ 	/* Actual ASIC resets if needed.*/
+ 	/* Host driver will handle XGMI hive reset for SRIOV */
+ 	if (amdgpu_sriov_vf(adev)) {
+@@ -5372,18 +5281,6 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	/* Post ASIC reset for all devs .*/
+ 	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
+ 
+-		/*
+-		 * Sometimes a later bad compute job can block a good gfx job as gfx
+-		 * and compute ring share internal GC HW mutually. We add an additional
+-		 * guilty jobs recheck step to find the real guilty job, it synchronously
+-		 * submits and pends for the first job being signaled. If it gets timeout,
+-		 * we identify it as a real guilty job.
+-		 */
+-		if (amdgpu_gpu_recovery == 2 &&
+-			!(tmp_vram_lost_counter < atomic_read(&adev->vram_lost_counter)))
+-			amdgpu_device_recheck_guilty_jobs(
+-				tmp_adev, device_list_handle, reset_context);
+-
+ 		for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+ 			struct amdgpu_ring *ring = tmp_adev->rings[i];
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 16f6a313335e..f177d8e5b665 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -519,7 +519,7 @@ module_param_named(compute_multipipe, amdgpu_compute_multipipe, int, 0444);
+  * DOC: gpu_recovery (int)
+  * Set to enable GPU recovery mechanism (1 = enable, 0 = disable). The default is -1 (auto, disabled except SRIOV).
+  */
+-MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, (2 = advanced tdr mode, 1 = enable, 0 = disable, -1 = auto)");
++MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, (1 = enable, 0 = disable, -1 = auto)");
+ module_param_named(gpu_recovery, amdgpu_gpu_recovery, int, 0444);
+ 
+ /**
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index e0ab14e0fb6b..bb28f31bff6f 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -355,27 +355,6 @@ static void drm_sched_job_timedout(struct work_struct *work)
+ 	}
+ }
+ 
+- /**
+-  * drm_sched_increase_karma - Update sched_entity guilty flag
+-  *
+-  * @bad: The job guilty of time out
+-  *
+-  * Increment on every hang caused by the 'bad' job. If this exceeds the hang
+-  * limit of the scheduler then the respective sched entity is marked guilty and
+-  * jobs from it will not be scheduled further
+-  */
+-void drm_sched_increase_karma(struct drm_sched_job *bad)
+-{
+-	drm_sched_increase_karma_ext(bad, 1);
+-}
+-EXPORT_SYMBOL(drm_sched_increase_karma);
+-
+-void drm_sched_reset_karma(struct drm_sched_job *bad)
+-{
+-	drm_sched_increase_karma_ext(bad, 0);
+-}
+-EXPORT_SYMBOL(drm_sched_reset_karma);
+-
+ /**
+  * drm_sched_stop - stop the scheduler
+  *
+@@ -516,32 +495,15 @@ EXPORT_SYMBOL(drm_sched_start);
+  *
+  */
+ void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched)
+-{
+-	drm_sched_resubmit_jobs_ext(sched, INT_MAX);
+-}
+-EXPORT_SYMBOL(drm_sched_resubmit_jobs);
+-
+-/**
+- * drm_sched_resubmit_jobs_ext - helper to relunch certain number of jobs from mirror ring list
+- *
+- * @sched: scheduler instance
+- * @max: job numbers to relaunch
+- *
+- */
+-void drm_sched_resubmit_jobs_ext(struct drm_gpu_scheduler *sched, int max)
+ {
+ 	struct drm_sched_job *s_job, *tmp;
+ 	uint64_t guilty_context;
+ 	bool found_guilty = false;
+ 	struct dma_fence *fence;
+-	int i = 0;
+ 
+ 	list_for_each_entry_safe(s_job, tmp, &sched->pending_list, list) {
+ 		struct drm_sched_fence *s_fence = s_job->s_fence;
+ 
+-		if (i >= max)
+-			break;
+-
+ 		if (!found_guilty && atomic_read(&s_job->karma) > sched->hang_limit) {
+ 			found_guilty = true;
+ 			guilty_context = s_job->s_fence->scheduled.context;
+@@ -551,7 +513,6 @@ void drm_sched_resubmit_jobs_ext(struct drm_gpu_scheduler *sched, int max)
+ 			dma_fence_set_error(&s_fence->finished, -ECANCELED);
+ 
+ 		fence = sched->ops->run_job(s_job);
+-		i++;
+ 
+ 		if (IS_ERR_OR_NULL(fence)) {
+ 			if (IS_ERR(fence))
+@@ -567,7 +528,7 @@ void drm_sched_resubmit_jobs_ext(struct drm_gpu_scheduler *sched, int max)
+ 		}
+ 	}
+ }
+-EXPORT_SYMBOL(drm_sched_resubmit_jobs_ext);
++EXPORT_SYMBOL(drm_sched_resubmit_jobs);
+ 
+ /**
+  * drm_sched_job_init - init a scheduler job
+@@ -1081,13 +1042,15 @@ void drm_sched_fini(struct drm_gpu_scheduler *sched)
+ EXPORT_SYMBOL(drm_sched_fini);
+ 
+ /**
+- * drm_sched_increase_karma_ext - Update sched_entity guilty flag
++ * drm_sched_increase_karma - Update sched_entity guilty flag
+  *
+  * @bad: The job guilty of time out
+- * @type: type for increase/reset karma
+  *
++ * Increment on every hang caused by the 'bad' job. If this exceeds the hang
++ * limit of the scheduler then the respective sched entity is marked guilty and
++ * jobs from it will not be scheduled further
+  */
+-void drm_sched_increase_karma_ext(struct drm_sched_job *bad, int type)
++void drm_sched_increase_karma(struct drm_sched_job *bad)
+ {
+ 	int i;
+ 	struct drm_sched_entity *tmp;
+@@ -1099,10 +1062,7 @@ void drm_sched_increase_karma_ext(struct drm_sched_job *bad, int type)
+ 	 * corrupt but keep in mind that kernel jobs always considered good.
+ 	 */
+ 	if (bad->s_priority != DRM_SCHED_PRIORITY_KERNEL) {
+-		if (type == 0)
+-			atomic_set(&bad->karma, 0);
+-		else if (type == 1)
+-			atomic_inc(&bad->karma);
++		atomic_inc(&bad->karma);
+ 
+ 		for (i = DRM_SCHED_PRIORITY_MIN; i < DRM_SCHED_PRIORITY_KERNEL;
+ 		     i++) {
+@@ -1113,7 +1073,7 @@ void drm_sched_increase_karma_ext(struct drm_sched_job *bad, int type)
+ 				if (bad->s_fence->scheduled.context ==
+ 				    entity->fence_context) {
+ 					if (entity->guilty)
+-						atomic_set(entity->guilty, type);
++						atomic_set(entity->guilty, 1);
+ 					break;
+ 				}
+ 			}
+@@ -1123,4 +1083,4 @@ void drm_sched_increase_karma_ext(struct drm_sched_job *bad, int type)
+ 		}
+ 	}
+ }
+-EXPORT_SYMBOL(drm_sched_increase_karma_ext);
++EXPORT_SYMBOL(drm_sched_increase_karma);
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 0fca8f38bee4..c564be29c5ae 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -488,10 +488,7 @@ void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad);
+ void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery);
+ void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched);
+-void drm_sched_resubmit_jobs_ext(struct drm_gpu_scheduler *sched, int max);
+ void drm_sched_increase_karma(struct drm_sched_job *bad);
+-void drm_sched_reset_karma(struct drm_sched_job *bad);
+-void drm_sched_increase_karma_ext(struct drm_sched_job *bad, int type);
+ bool drm_sched_dependency_optimized(struct dma_fence* fence,
+ 				    struct drm_sched_entity *entity);
+ void drm_sched_fault(struct drm_gpu_scheduler *sched);
+-- 
+2.25.1
+
