@@ -4,49 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9831CFA3742
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 17:00:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CE0DC433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 17:07:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A6F210E54C;
-	Wed, 26 Oct 2022 17:00:11 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7BEF10E54C
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 17:00:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666803605; x=1698339605;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=5Z+ixCtjM9zP5Cjx5S+C528BMvr3OqmySU4CCYG0r0g=;
- b=Ordoadk9Sbt24ma0J4+SdqRCQy+ebXhi+O8jCjZRdFwdsaY5smLasA9e
- d6NTkft3KXfyNHWouSIgZEpZJQuDstbTqF0TLmsIIQTFjZ6U9or9I2xZu
- QvLDYr3ywtsLUyDLJjqP/zmrJ2qrr76j062MKMTdUzHZqatGJyIiwH6M7
- 0AEr59X2NQrNtq1SeZYP1NUi7ewVGWj4gp5jaan9hJnhXugZ+qd0qgWQW
- wprI0XWdCRZ1bakGZ4VRBY8pUpQebhALOYREI9k7iLx3HJdZw1JFLuZwr
- CGzKKMNu4wMYXgA5AxOkBGV/9hHGPQ2mRexi30dZthNwRXIhGlXJftOlM Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="288399100"
-X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="288399100"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2022 10:00:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="665361572"
-X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="665361572"
-Received: from lkp-server02.sh.intel.com (HELO b6d29c1a0365) ([10.239.97.151])
- by orsmga001.jf.intel.com with ESMTP; 26 Oct 2022 10:00:01 -0700
-Received: from kbuild by b6d29c1a0365 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1onjl2-0007dp-25;
- Wed, 26 Oct 2022 17:00:00 +0000
-Date: Thu, 27 Oct 2022 00:59:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD SUCCESS WITH WARNING
- 60eac8672b5b6061ec07499c0f1b79f6d94311ce
-Message-ID: <63596772.FFBtfld6wjE45SXv%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE71010E371;
+	Wed, 26 Oct 2022 17:07:28 +0000 (UTC)
+Received: from mail-yw1-x1130.google.com (mail-yw1-x1130.google.com
+ [IPv6:2607:f8b0:4864:20::1130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7AEF10E371
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 17:07:24 +0000 (UTC)
+Received: by mail-yw1-x1130.google.com with SMTP id
+ 00721157ae682-36cbcda2157so97388507b3.11
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 10:07:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZjDbarzxu4XYS5NgSw6p7Qc8Iv/b8DsoEBo4wINHXXg=;
+ b=jrbfzp9QvyG5SgK9HDLqcFcBk94XttViqqNWbUv3PaT12jHcT2CR3A9Xzy/RSnyJA0
+ fNO23PQqVhJAGzf4ILhVw7PWB2k2UtpErzQdnS2xLkKmtXBMqHd0xeOMHQ8d7EvuP9dS
+ utLFSnbEl/4lvA3b0nN7HJbWfxyDPPkIn3aI4XKESel9/mhs3/dxeL5A9v9oVMxPwVGY
+ r3tDIcPn7znZuJo5LS5N0ZVtmVas9tGw9xituTEHg9+QfrR/TEEe8ARSt4+wgPudJMGH
+ ag6l0/vlLvBTSDpueQnSujdyBLd3KZ3UGTV+wpdzCTfUvDR4kKADeEuZO8wgJK1npr6N
+ pYRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ZjDbarzxu4XYS5NgSw6p7Qc8Iv/b8DsoEBo4wINHXXg=;
+ b=U6YNuRFr1NA1aI4AxVvRN+EEqbzJsDVTQksm3Wyk/f2hcGh86yQkscRqkK0bfXxyic
+ Wk/884jItlZYwWBQJm3AqfVl2+d1AoiBH1z/P1eUbL1BiBKEjrOHTKZN4mvi81BQdL9l
+ xLdRgujmpwmkzjbynLw/78oFl7KdScC/nDxxsEsfGgF2gLDFzRuYtZm/CQCklf5wI464
+ w03x7WWkOv2fNk5QpAdxn2MCfb4HJmgEDPBOFkg7CJtrO6/0/NYbG8x82sgIZnNEUQE+
+ NNYEFzafdcw+TVyRG4wfG8oZRPoNh93XBtgG9veBWqrVRVuMAPPeeXxO52e5KEsVbRBV
+ 9XPA==
+X-Gm-Message-State: ACrzQf0NYoczQR+QMieO1+BBsKlpMV+nznSNh9zUFHAlySH9iv5MqijF
+ brFGeisN9I4IJqDHdz6dsrXOPT6oRye20MZsOGM=
+X-Google-Smtp-Source: AMsMyM6laHS/C6QV3GzReWQwFL/XTHeTlkukWobH6pG3myqUrCBH/KFXgq3bUXHRCj/lxoLaXhxfEL1cYPsXwT9Of28=
+X-Received: by 2002:a0d:fbc4:0:b0:367:2a77:b081 with SMTP id
+ l187-20020a0dfbc4000000b003672a77b081mr34961891ywf.234.1666804043565; Wed, 26
+ Oct 2022 10:07:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+References: <20221014041456.139813-1-Asher.Song@amd.com>
+ <CANiD2e8PHA7u1qs8YkWkbbjxqB7JCnLNdR5OcHTH=dpfBWe7rg@mail.gmail.com>
+ <DM4PR12MB513603C468CE9BA8DC933D118B309@DM4PR12MB5136.namprd12.prod.outlook.com>
+ <CANiD2e-jjJyycgmBUDirBD+pGjf+Etifbvj5aBa0Q8Zd=KFxOg@mail.gmail.com>
+ <CADnq5_PNhqNTnwkVTdhGXmJ=UNWwQQjuftA-zgdBXejPk4LKqg@mail.gmail.com>
+ <CANiD2e-wpom94j4UuqG7Et1DFyMwEafcLj1qCxwp5DyFwLSiYg@mail.gmail.com>
+In-Reply-To: <CANiD2e-wpom94j4UuqG7Et1DFyMwEafcLj1qCxwp5DyFwLSiYg@mail.gmail.com>
+From: =?UTF-8?Q?Ernst_Sj=C3=B6strand?= <ernstp@gmail.com>
+Date: Wed, 26 Oct 2022 19:07:12 +0200
+Message-ID: <CAD=4a=U21EJyPb9=qHO0oLwZB1a+jGOLDVdpYLExumbRxxQFPA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Revert "drm/amdgpu: getting fan speed pwm for
+ vega10 properly"
+To: Yury Zhuravlev <stalkerg@gmail.com>
+Content-Type: multipart/alternative; boundary="000000000000ed4fa605ebf30e4c"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,256 +70,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ntfs3@lists.linux.dev, netdev@vger.kernel.org, apparmor@lists.ubuntu.com,
- amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- linux-mediatek@lists.infradead.org, linux-ext4@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+Cc: "Chen, Guchun" <Guchun.Chen@amd.com>, "Meng, Xiaohu" <Xiaohu.Meng@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Song,
+ Asher" <Asher.Song@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, "Quan, Evan" <Evan.Quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 60eac8672b5b6061ec07499c0f1b79f6d94311ce  Add linux-next specific files for 20221026
+--000000000000ed4fa605ebf30e4c
+Content-Type: text/plain; charset="UTF-8"
 
-Warning reports:
+This stuff I assume:
 
-https://lore.kernel.org/linux-mm/202210090954.pTR6m6rj-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210110857.9s0tXVNn-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210111318.mbUfyhps-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210240729.zs46Cfzo-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210251946.eT92YAhG-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210261404.b6UlzG7H-lkp@intel.com
-https://lore.kernel.org/llvm/202210060148.UXBijOcS-lkp@intel.com
-https://lore.kernel.org/llvm/202210261759.MQ8VLHNW-lkp@intel.com
+https://github.com/RadeonOpenCompute/rocm_smi_lib/tree/master/tests/rocm_smi_test
 
-Warning: (recently discovered and may have been fixed)
+https://docs.amd.com/bundle/ROCm-System-Management-Interface-Guide/page/ROCm-System-Managment.html#building-tests
 
-lib/zstd/compress/huf_compress.c:460 HUF_getIndex() warn: the 'RANK_POSITION_LOG_BUCKETS_BEGIN' macro might need parens
-security/apparmor/policy_unpack_test.c:149 policy_unpack_test_unpack_array_with_null_name() error: uninitialized symbol 'array_size'.
-security/apparmor/policy_unpack_test.c:164 policy_unpack_test_unpack_array_with_name() error: uninitialized symbol 'array_size'.
+Regards
 
-Unverified Warning (likely false positive, please contact us if interested):
+Den ons 26 okt. 2022 kl 17:43 skrev Yury Zhuravlev <stalkerg@gmail.com>:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5230:16: warning: no previous prototype for function 'wake_up_aux_channel' [-Wmissing-prototypes]
-drivers/net/ethernet/microchip/vcap/vcap_api_kunit.c:207:24: sparse: sparse: symbol 'test_callbacks' was not declared. Should it be static?
-drivers/net/ethernet/microchip/vcap/vcap_api_kunit.c:219:21: sparse: sparse: symbol 'test_vctrl' was not declared. Should it be static?
-drivers/net/ethernet/microchip/vcap/vcap_api_kunit.c:245:23: sparse: sparse: Using plain integer as NULL pointer
-lib/zstd/decompress/zstd_decompress_block.c:1009 ZSTD_execSequence() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:894 ZSTD_execSequenceEnd() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:942 ZSTD_execSequenceEndSplitLitBuffer() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_internal.h:206 ZSTD_DCtx_get_bmi2() warn: inconsistent indenting
-mm/khugepaged.c:1729:3: warning: variable 'index' is used uninitialized whenever 'if' condition is true [-Wsometimes-uninitialized]
-mm/khugepaged.c:1729:3: warning: variable 'nr' is used uninitialized whenever 'if' condition is true [-Wsometimes-uninitialized]
-mm/khugepaged.c:1729:7: warning: variable 'index' is used uninitialized whenever 'if' condition is true [-Wsometimes-uninitialized]
-mm/khugepaged.c:1729:7: warning: variable 'nr' is used uninitialized whenever 'if' condition is true [-Wsometimes-uninitialized]
+>
+>
+> On Wed, Oct 26, 2022 at 11:38 PM Alex Deucher <alexdeucher@gmail.com>
+> wrote:
+>
+>> On Wed, Oct 26, 2022 at 5:07 AM Yury Zhuravlev <stalkerg@gmail.com>
+>> wrote:
+>> >
+>> > Hello Asher,
+>> >
+>> > Thanks for the information, is it open-source tests? Can I reproduce it?
+>> >
+>> > Also, it seems like Radeon Instinct MI25 was released before Radeon RX
+>> Vega, is it possible that they have different PowerPlay subsystems?
+>>
+>> Same silicon, same powerplay implementation.
+>>
+> Okay, what it means? Can I know what exactly you are tested by
+> "rsmitstReadWrite.FanReadWrite"?
+> I am working now with my patch, and I definitely can read and write fan
+> speed by PWM.
+> How can I help to solve this problem?
+>
+> Regards,
+>
+>
 
-Warning ids grouped by kconfigs:
+--000000000000ed4fa605ebf30e4c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-gcc_recent_errors
-|-- arc-randconfig-s051-20221023
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
-|   `-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|-- i386-randconfig-m021
-|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
-|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
-|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
-|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
-|   |-- lib-zstd-compress-huf_compress.c-HUF_getIndex()-warn:the-RANK_POSITION_LOG_BUCKETS_BEGIN-macro-might-need-parens
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
-|   `-- lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
-|-- loongarch-randconfig-s043-20221024
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|   |-- fs-ntfs3-index.c:sparse:sparse:restricted-__le32-degrades-to-integer
-|   |-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s1-got-unsigned-short
-|   `-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s2-got-unsigned-short
-|-- parisc-randconfig-m031-20221024
-|   |-- security-apparmor-policy_unpack_test.c-policy_unpack_test_unpack_array_with_name()-error:uninitialized-symbol-array_size-.
-|   `-- security-apparmor-policy_unpack_test.c-policy_unpack_test_unpack_array_with_null_name()-error:uninitialized-symbol-array_size-.
-|-- powerpc-randconfig-s053-20221023
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|   |-- fs-ntfs3-index.c:sparse:sparse:restricted-__le32-degrades-to-integer
-|   |-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s1-got-unsigned-short
-|   `-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s2-got-unsigned-short
-|-- riscv-randconfig-s051-20221026
-|   |-- drivers-net-ethernet-microchip-vcap-vcap_api_kunit.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|   |-- drivers-net-ethernet-microchip-vcap-vcap_api_kunit.c:sparse:sparse:symbol-test_callbacks-was-not-declared.-Should-it-be-static
-|   `-- drivers-net-ethernet-microchip-vcap-vcap_api_kunit.c:sparse:sparse:symbol-test_vctrl-was-not-declared.-Should-it-be-static
-`-- x86_64-randconfig-m001
-    |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
-    |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
-clang_recent_errors
-|-- arm-buildonly-randconfig-r002-20221026
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- arm-buildonly-randconfig-r006-20221024
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
-|   `-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
-|-- arm64-randconfig-r026-20221023
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:no-previous-prototype-for-function-wake_up_aux_channel
-|-- arm64-randconfig-r026-20221025
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- hexagon-randconfig-r014-20221024
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- hexagon-randconfig-r015-20221023
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   `-- drivers-phy-mediatek-phy-mtk-tphy.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-c
-|-- hexagon-randconfig-r045-20221023
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
-|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
-|   |-- drivers-phy-mediatek-phy-mtk-tphy.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-c
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- i386-buildonly-randconfig-r002-20221024
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   `-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|-- i386-randconfig-a001-20221024
-|   |-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|   |-- mm-khugepaged.c:warning:variable-index-is-used-uninitialized-whenever-if-condition-is-true
-|   `-- mm-khugepaged.c:warning:variable-nr-is-used-uninitialized-whenever-if-condition-is-true
-|-- i386-randconfig-a006-20221024
-|   |-- mm-khugepaged.c:warning:variable-index-is-used-uninitialized-whenever-if-condition-is-true
-|   `-- mm-khugepaged.c:warning:variable-nr-is-used-uninitialized-whenever-if-condition-is-true
-|-- mips-randconfig-r016-20221024
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- mips-randconfig-r034-20221023
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   |-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
-|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
-|   `-- drivers-phy-mediatek-phy-mtk-tphy.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-c
-|-- riscv-randconfig-r001-20221026
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-get_symbol_pos:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_num_syms
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-get_symbol_pos:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_offsets
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_lookup_name:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_num_syms
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_lookup_name:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_offsets
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_lookup_name:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_relative_base
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_on_each_symbol:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_num_syms
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_on_each_symbol:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_offsets
+<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:arial,he=
+lvetica,sans-serif">This stuff I assume:</div><div class=3D"gmail_default" =
+style=3D"font-family:arial,helvetica,sans-serif"><br></div><div class=3D"gm=
+ail_default" style=3D"font-family:arial,helvetica,sans-serif"><a href=3D"ht=
+tps://github.com/RadeonOpenCompute/rocm_smi_lib/tree/master/tests/rocm_smi_=
+test">https://github.com/RadeonOpenCompute/rocm_smi_lib/tree/master/tests/r=
+ocm_smi_test</a></div><div class=3D"gmail_default" style=3D"font-family:ari=
+al,helvetica,sans-serif"><br></div><div class=3D"gmail_default" style=3D"fo=
+nt-family:arial,helvetica,sans-serif"><a href=3D"https://docs.amd.com/bundl=
+e/ROCm-System-Management-Interface-Guide/page/ROCm-System-Managment.html#bu=
+ilding-tests">https://docs.amd.com/bundle/ROCm-System-Management-Interface-=
+Guide/page/ROCm-System-Managment.html#building-tests</a></div><div class=3D=
+"gmail_default" style=3D"font-family:arial,helvetica,sans-serif"><br></div>=
+<div class=3D"gmail_default" style=3D"font-family:arial,helvetica,sans-seri=
+f">Regards<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" c=
+lass=3D"gmail_attr">Den ons 26 okt. 2022 kl 17:43 skrev Yury Zhuravlev &lt;=
+<a href=3D"mailto:stalkerg@gmail.com">stalkerg@gmail.com</a>&gt;:<br></div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div dir=
+=3D"ltr"><br></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
+"gmail_attr">On Wed, Oct 26, 2022 at 11:38 PM Alex Deucher &lt;<a href=3D"m=
+ailto:alexdeucher@gmail.com" target=3D"_blank">alexdeucher@gmail.com</a>&gt=
+; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Wed,=
+ Oct 26, 2022 at 5:07 AM Yury Zhuravlev &lt;<a href=3D"mailto:stalkerg@gmai=
+l.com" target=3D"_blank">stalkerg@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Hello Asher,<br>
+&gt;<br>
+&gt; Thanks for the information, is it open-source tests? Can I reproduce i=
+t?<br>
+&gt;<br>
+&gt; Also, it seems like Radeon Instinct MI25 was released before Radeon RX=
+ Vega, is it possible that they have different PowerPlay subsystems?<br>
+<br>
+Same silicon, same powerplay implementation.<br></blockquote><div>Okay, wha=
+t it means? Can I know what exactly you are tested by &quot;rsmitstReadWrit=
+e.FanReadWrite&quot;? <br></div><div>I am working now with my patch, and I =
+definitely can read and write fan speed by PWM.</div><div>How can I help to=
+ solve this problem?</div><div><br></div><div>Regards,<br></div><div><br></=
+div></div></div>
+</blockquote></div>
 
-elapsed time: 724m
-
-configs tested: 93
-configs skipped: 2
-
-gcc tested configs:
-um                             i386_defconfig
-um                           x86_64_defconfig
-i386                                defconfig
-arm                                 defconfig
-x86_64                              defconfig
-x86_64                        randconfig-a013
-x86_64                        randconfig-a011
-x86_64                               rhel-8.3
-arc                  randconfig-r043-20221024
-x86_64                        randconfig-a015
-x86_64                           rhel-8.3-syz
-arm                              allyesconfig
-x86_64                           allyesconfig
-x86_64                         rhel-8.3-kunit
-arm64                            allyesconfig
-x86_64                          rhel-8.3-func
-ia64                             allmodconfig
-x86_64                           rhel-8.3-kvm
-arc                                 defconfig
-powerpc                   motionpro_defconfig
-s390                             allmodconfig
-i386                             allyesconfig
-riscv                randconfig-r042-20221024
-x86_64                    rhel-8.3-kselftests
-alpha                               defconfig
-s390                 randconfig-r044-20221024
-s390                                defconfig
-powerpc                           allnoconfig
-sh                        sh7785lcr_defconfig
-i386                 randconfig-a011-20221024
-sh                         ecovec24_defconfig
-m68k                        stmark2_defconfig
-i386                 randconfig-a015-20221024
-i386                 randconfig-a014-20221024
-powerpc                          allmodconfig
-ia64                          tiger_defconfig
-s390                             allyesconfig
-sh                               allmodconfig
-i386                 randconfig-a013-20221024
-mips                             allyesconfig
-arc                         haps_hs_defconfig
-i386                 randconfig-a012-20221024
-sparc                            alldefconfig
-i386                 randconfig-a016-20221024
-csky                                defconfig
-m68k                          hp300_defconfig
-arm                      footbridge_defconfig
-s390                       zfcpdump_defconfig
-loongarch                           defconfig
-mips                     loongson1b_defconfig
-arm                         axm55xx_defconfig
-m68k                          amiga_defconfig
-arm                          gemini_defconfig
-parisc                              defconfig
-m68k                             allmodconfig
-arc                              allyesconfig
-sh                        apsh4ad0a_defconfig
-alpha                            allyesconfig
-i386                          randconfig-c001
-m68k                             allyesconfig
-arc                  randconfig-r043-20221023
-x86_64               randconfig-a013-20221024
-x86_64               randconfig-a012-20221024
-riscv                            allmodconfig
-
-clang tested configs:
-i386                 randconfig-a004-20221024
-i386                 randconfig-a001-20221024
-hexagon              randconfig-r041-20221024
-x86_64                        randconfig-a012
-i386                 randconfig-a002-20221024
-x86_64               randconfig-a001-20221024
-hexagon              randconfig-r045-20221024
-x86_64               randconfig-a003-20221024
-i386                 randconfig-a005-20221024
-x86_64                        randconfig-a014
-x86_64                        randconfig-a016
-x86_64               randconfig-a004-20221024
-x86_64               randconfig-a002-20221024
-i386                 randconfig-a003-20221024
-x86_64               randconfig-a005-20221024
-x86_64               randconfig-a006-20221024
-i386                 randconfig-a006-20221024
-arm                       spear13xx_defconfig
-arm                      tct_hammer_defconfig
-mips                          rm200_defconfig
-riscv                          rv32_defconfig
-arm                         lpc32xx_defconfig
-powerpc                    socrates_defconfig
-arm                          pxa168_defconfig
-mips                      malta_kvm_defconfig
-riscv                randconfig-r042-20221023
-hexagon              randconfig-r041-20221023
-hexagon              randconfig-r045-20221023
-s390                 randconfig-r044-20221023
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+--000000000000ed4fa605ebf30e4c--
