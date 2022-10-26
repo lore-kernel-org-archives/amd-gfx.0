@@ -4,113 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A03B8C38A2D
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 09:05:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46820C38A2D
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 09:07:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E705910E49D;
-	Wed, 26 Oct 2022 09:05:07 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2044.outbound.protection.outlook.com [40.107.92.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED9A010E49D
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 09:05:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hqRRd+LJSCO0HzlrFSw7S0tU55qiJjllzMbs533IA9E36gmp5kdECmpzPERsQJ+6GlWvxPbm6m6bBVSEjp7RG1NfdAWlYB1YSsecnIXz6+cNTKtmXTptjp9/RMLTtgrVW4/eh2LmIDa7yiKna2SE0FHinDT1o5Iiuycj+yKMif0bkS1qLsF+nw9YrYE/G+LTDK2ChQBxv4fPI2CnJ4G/g5DDVQlLwXorBmpYvcu3a4F7bfDjcikHpzI3hIDbi6PoD7WgYk8olqj2h5VYUcJnyl8+uUpIX0MciwfMmD+uzBbmxo62EKk8x17XfkYT20rfqPvFdmmIYI/6zsSzA/ahtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EjjSVyp80DugGyHwYpF4Ug3TuRa0rVcyXe0SVQ8YlCg=;
- b=UwIdjMP3VuEJVoGlrXyXtcQgGrcMoNcoXI2AuHkePWacnJGanj2+ZMIGl+J2NUMPTr6QTN5vRNnm75luXBKp8hmY89I9gVkXBR7wcdcLQhIc055Qp+qJhpt/FakcsKYcpieySsTXCNVE/auDBLVi/rgjimYJIJ4dQmpvVNO3faqjw207nngqVruWzG7CwmCf34wEIg/5kcd33Cr20A4yiMBi9+q6/yc509NqqwNdA+i6Fbjvt87/Y1dClnE1CuB3R6u+BXrTqNGFVm/miieTzSbqKG7ZC837DNeqA8w8ptKdtz4iSBmu3jCGgtXgleHnJsLOsrONofiJcqSJVv+4mA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EjjSVyp80DugGyHwYpF4Ug3TuRa0rVcyXe0SVQ8YlCg=;
- b=MJv2hFV5xKBNbaYTpSkWHPXPrzXtDIVtXBwlbanp0R3gcxMn3TgHZaT2vOKDYCwy2yBy8W6WFgCqo8IqEMBUszVe1++t4uLhktY33wh3ywUnSy8iidwiffg52QiZlw/+YnGfZtlYHOIAwQXi9YWFOOzfalTmlq0Gf6XADcuTasU=
-Received: from MW3PR12MB4458.namprd12.prod.outlook.com (2603:10b6:303:5d::10)
- by PH7PR12MB7236.namprd12.prod.outlook.com (2603:10b6:510:207::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.30; Wed, 26 Oct
- 2022 09:05:00 +0000
-Received: from MW3PR12MB4458.namprd12.prod.outlook.com
- ([fe80::8ae1:2617:d5dc:60e7]) by MW3PR12MB4458.namprd12.prod.outlook.com
- ([fe80::8ae1:2617:d5dc:60e7%4]) with mapi id 15.20.5746.028; Wed, 26 Oct 2022
- 09:05:00 +0000
-From: "Xiao, Jack" <Jack.Xiao@amd.com>
-To: "Sider, Graham" <Graham.Sider@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: remove deprecated MES version vars
-Thread-Topic: [PATCH 2/2] drm/amdgpu: remove deprecated MES version vars
-Thread-Index: AQHY6Kb5M5BymSb+8kSb46n+l8tWvq4gYq6N
-Date: Wed, 26 Oct 2022 09:05:00 +0000
-Message-ID: <MW3PR12MB44589FDB98188F18D717BAD5EF309@MW3PR12MB4458.namprd12.prod.outlook.com>
-References: <20221025192056.647389-1-Graham.Sider@amd.com>
- <20221025192056.647389-2-Graham.Sider@amd.com>
-In-Reply-To: <20221025192056.647389-2-Graham.Sider@amd.com>
-Accept-Language: en-001, zh-CN, en-US
-Content-Language: aa
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-10-26T09:04:59.607Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW3PR12MB4458:EE_|PH7PR12MB7236:EE_
-x-ms-office365-filtering-correlation-id: 98f580b4-fa2e-48c7-0d0b-08dab731296d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: B8xu5koaIqFzNDJqu3an9u7w9a9xLnIxo5P5a74hPDQdml34kRwEG4nTmwI8eXzPEURzTiZO/545NfIAdHmO+TzC9o2YRCVSSGp4Q3PDohPwXY1UHc+GkbV1c+7xaKU+nsc12EEkZHQVmlynIQJ/olKX9LOGKc/bpfh2G4KxhxuVVZsfSlS1SKqy93bfGew9xdHanPT0unowVxncxatl7634d4nfQWwJClUxr1OhasrhbaEl7Hcnvh78rgwrhEiT/gsfmQZ0UZApgOIz5qwx7heR4pZNotTuf3oRPZy+9f8X0g3xmIW+UKgexASX1g7a3XAlHx066FU2TaeFM25Pr9ZjgBdFWtiWpOiumW84IJURa0CeGjRtqeaMIxS3HJ27aJDJJNWCkEIJhkzY3Se7PiYKQ3jWY/2kAhfyAf9sGcEowttR5GvGCkgoqPTqYB/HFp+8yxIpuyF6gTZHeVLgjQPwzATMEnGmRw67trLb2rKWhBQGGlFgvXG3I77qTbZVqJu6Vj0Ey/fJ4l133tmVOCV15P35TsH2sseGlCJN8ApgTMIHx8NoXdDkRX8xK8EH10hZifS+tv6lES363O/v/JGlrppeeivBwNOwiCifLoAZ4X4cKcVAcTbQKdjgGaXfG0vpEtyaNlixh5u8JbaiRGMNDs61+3X9McZ3J5otcZQV3vDSaG7whrc4cMpVQm1OJ0hRpX0M8Iz1TCnmZMUfb/srAp4O6VLnWARe0tk4A4ti/YxJ3s5Y5895atJWaV3wNpBK6k8WrFJmt4G4JsgPDg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR12MB4458.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(396003)(39860400002)(136003)(346002)(366004)(451199015)(7696005)(91956017)(53546011)(66446008)(66476007)(71200400001)(66946007)(8676002)(66556008)(4326008)(64756008)(33656002)(55016003)(38070700005)(316002)(6506007)(122000001)(86362001)(76116006)(9686003)(83380400001)(38100700002)(186003)(478600001)(19627405001)(41300700001)(52536014)(26005)(110136005)(5660300002)(2906002)(8936002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ijPEB+yVWIWV4xolIe0qG85b8/OUEmIRLUh6hUlgB5ZS4p6iHTO/RtnuI02v?=
- =?us-ascii?Q?S2kt1/3wyIJnfOKYbW9sc/6Mjg6SRpMa/tbKs3so+RCc897OIeZzCmTQYJNp?=
- =?us-ascii?Q?NX/rPArnk6cT6axaBaAhV8R37hotF51AYk7bk4Siy3VDNRJ4M+r0g0nXH785?=
- =?us-ascii?Q?DI22/aI2mm9DrLvZjtTyQKUYAGNBYnFyV+uRXw4JruRv4ZyXy38AIg13/xTE?=
- =?us-ascii?Q?GrLtLVswseqlWWJ7+2L9ARVlnfz3+lTqjl9T5roEo8ri/EiYPQ2edIVAoZN8?=
- =?us-ascii?Q?/h4FH9FHFtUHQ5m2XSkm5yDVmtSftB0N4CQu/XCOSyP7UJ5P4Knq0juD7zcA?=
- =?us-ascii?Q?Hlre1MxWCDo/aFIdbu9hY/IiexK0iw8W2sOqIo+tr830khln9rATkiJlP1Ox?=
- =?us-ascii?Q?wgKPC0QJl/s0bK5Fb6qKst0pcx+EVYOL8l29nidotvhNg4O5vWIl7VaTYev8?=
- =?us-ascii?Q?m+VZM5qgMs1AjmFvVAwhBHjK/59FpUDIk/KPTQzc5o6WHjAg+3HXBb25WH+r?=
- =?us-ascii?Q?+EI2C0lI2gjMbIXdGeJC8Tsh7GTV/2J/QXLZ2dPIlgZVIyHabDur0ehQNZk4?=
- =?us-ascii?Q?ROpmS/T2MjbRVhaBeiN+prGIePWfsqN9qTsp6nrN7F6S4zRmiyNTcuOU0Wts?=
- =?us-ascii?Q?+hThIlSPEXjKKHmSGD9Qsoor0uiaVFHzAWL3cVRucdNz6zKBqdCuyal1i43v?=
- =?us-ascii?Q?uEFl2Hn3Rcjh4IkTe0rpnoSkZ9sGvDr1+crWcKX5mPaU5NtxyhfrEZFnSySU?=
- =?us-ascii?Q?tdBDy2lT8zv28dRVOMChMe1UnPyy6DAyFTf5fbGxa2iZzRwiwJjP0WxQFPGa?=
- =?us-ascii?Q?JCldjc55o8fREFxNs0lqNLYVZcxKxcs9v47+R/0/7MWeNaWLsKBWFHHVUmEP?=
- =?us-ascii?Q?zgbiq5r2RBpZ7KdKTmSV8mF7u178juzOqbzmqeJ2nrol3IUlCzg0H7v+tQCi?=
- =?us-ascii?Q?CYi0DsZv7j2V/arXxZMhqIHB82zq1D34Lo7OPFhJqpwGuyZxf15xvTfuLZ/0?=
- =?us-ascii?Q?bnQZ96m1qE0W1oJtudJe0TbP8KHt9Ctr+J+XnVj7405+KY5pTwgIyyi/2m3Q?=
- =?us-ascii?Q?1UKTXn0CpHr4mQnEj56GN3DXuTdRGh2OK6SITl7GRqt5mpWDTrFvoQu0Redu?=
- =?us-ascii?Q?yigsNIFQzpdJIxhJKhBhqNRxTWZBZPLAuPKGBsNvtVEFJewIB9Bcl46QlcNB?=
- =?us-ascii?Q?GJlY4dA1LwMn41G8/HnMWPfyxqHQFYKhrSsBwiJ62lhN521RYO+gVIJWtPUB?=
- =?us-ascii?Q?D0Eo8b9Mf4dyA+Uc1KM8vDI6X8+mvzujXXt5IdvS0EJ+waq1Zpv803fIya5u?=
- =?us-ascii?Q?NhEMdXo1hnYsP4z7NI2wWWupDvVaGv/o64Op8b51MiV/gPAzBy5wBp/eSkHM?=
- =?us-ascii?Q?CzPE38B4m4PzCbyCjt/s416DwCARODpySS9RYA/JOHS9caNLRm4Gy0FG3M7C?=
- =?us-ascii?Q?GKG2q1AJ7aityXQY9fkFPUCNv8ZU1MrjklRZXLyAUauJO28XO5JCPpgl3ZnR?=
- =?us-ascii?Q?2XG7PQnzcRQeMwTcM7uoFL1av/BHHzhyHhRDkP0VeqxuIND//9TRXFDK7QLk?=
- =?us-ascii?Q?SxysEBklvZiLfzP28JI=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_MW3PR12MB44589FDB98188F18D717BAD5EF309MW3PR12MB4458namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0101A10E4A1;
+	Wed, 26 Oct 2022 09:07:52 +0000 (UTC)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6441F10E4A2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 09:07:46 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id bk15so25215409wrb.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 02:07:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=99Ikmff/ok2ie90X0nHk8GS8umihlNe/idqZiMW1vBc=;
+ b=mDOg3S6sR3jwv6cTqrarYYwZbXpUim2vzPSRm/aDKZXhxaAYKK92/VPiQaMDYdPAxw
+ TOd5JSsuCs16nxJVUlcQhiRvjhOy3eB6p0Tua8+rbJKUMm6GcbiCYM8kbaFi+TYDRHdR
+ j+ZMPI05+vC4S8NbsNj7KN+LlFOyVkhdl+TNGEkuUMBuvkWXwB8qORj+GgVt7oJfY5XW
+ Vv5H4gWP+97/aSE/yHR03mBb/k0NDGyybE4XMvK3KY77YXD4PqtUakPMxefvVLwQV80L
+ tPkpiDZxyEEYk8BuNJBWteYMOE0fGVIArH8Vu0qb1VsgyoUig1vAAwpnsxi8yBTU2bRH
+ xp0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=99Ikmff/ok2ie90X0nHk8GS8umihlNe/idqZiMW1vBc=;
+ b=k+AJs8+0lL0F8wqZ4MzCPThADr5tupKKqsXEGW6t9zmIYS3CTlg9oUJ409Qzc5/CTp
+ iG9p8gfGypAIMmsTzDfuN3HkWWA8y5iMf31DjwxFwtG8iaVgoysQ2Jg/sUgug7CVIda+
+ NZNVz7SmO8S9In1Jj5WgpHFTj44QQ/tR3NKZ8Edbha0yMejPE6GyiRM0b0Uufh723w+6
+ s2Uy81GgwDJaYtcywovgymJ6uH4onf2u8CGqgzO+59JskFapEybOzKf4X5qUefnu50Qq
+ H/mnLTe0U0HwO+hZxbpXkefgypIehz9ivtszdopBIrDZ7XwGBD/wBYYptzdbzMYKSOvT
+ rQsw==
+X-Gm-Message-State: ACrzQf1ezqkNUqCJj1TgqrpOOjiZNP2iniNFvtujFB5iChTqSXHDqMNV
+ VKmjY6zGleiObR10srCx98si0OfEGGF43kpmvFCFQagV8ZI=
+X-Google-Smtp-Source: AMsMyM6HrM2MdS4pZ7YTjxlsdKrcE7PTaIatD27tuc8FGypF/AFf75EMYUKwzPZr9o900QhIdXPYzRCe+VfrTEWteZo=
+X-Received: by 2002:a05:6000:23a:b0:236:71d7:5f90 with SMTP id
+ l26-20020a056000023a00b0023671d75f90mr9598924wrz.322.1666775264715; Wed, 26
+ Oct 2022 02:07:44 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4458.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98f580b4-fa2e-48c7-0d0b-08dab731296d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Oct 2022 09:05:00.2483 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hZoNnrQIhW9bEuIyWnZvKJ7sTm5O/dsnUyvh3vXL5tFvzF1ccGpLoNX3TiYfEdko
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7236
+References: <20221014041456.139813-1-Asher.Song@amd.com>
+ <CANiD2e8PHA7u1qs8YkWkbbjxqB7JCnLNdR5OcHTH=dpfBWe7rg@mail.gmail.com>
+ <DM4PR12MB513603C468CE9BA8DC933D118B309@DM4PR12MB5136.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB513603C468CE9BA8DC933D118B309@DM4PR12MB5136.namprd12.prod.outlook.com>
+From: Yury Zhuravlev <stalkerg@gmail.com>
+Date: Wed, 26 Oct 2022 18:07:32 +0900
+Message-ID: <CANiD2e-jjJyycgmBUDirBD+pGjf+Etifbvj5aBa0Q8Zd=KFxOg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Revert "drm/amdgpu: getting fan speed pwm for
+ vega10 properly"
+To: "Song, Asher" <Asher.Song@amd.com>
+Content-Type: multipart/alternative; boundary="00000000000092e97d05ebec5b9d"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,283 +66,328 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Meng,
+ Xiaohu" <Xiaohu.Meng@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chen,
+ Guchun" <Guchun.Chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_MW3PR12MB44589FDB98188F18D717BAD5EF309MW3PR12MB4458namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--00000000000092e97d05ebec5b9d
+Content-Type: text/plain; charset="UTF-8"
 
-[AMD Official Use Only - General]
+Hello Asher,
 
-The series is Reviewed-by: Jack Xiao <Jack.Xiao@amd.com>
+Thanks for the information, is it open-source tests? Can I reproduce it?
+
+Also, it seems like Radeon Instinct MI25 was released before Radeon RX
+Vega, is it possible that they have different PowerPlay subsystems?
+On my Vega56, all these registers from vega20 are working very well.
+Seems like we should split implementation somehow.
 
 Regards,
-Jack
-________________________________
-From: Sider, Graham <Graham.Sider@amd.com>
-Sent: Wednesday, 26 October 2022 03:20
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Xiao, Jack <Jack.Xiao@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>;=
- Sider, Graham <Graham.Sider@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: remove deprecated MES version vars
 
-MES scheduler and kiq versions are stored in mes.sched_version and
-mes.kiq_version, respectively, which are read from a register after
-their queues are initialized. Remove mes.ucode_fw_version and
-mes.data_fw_version which tried to read this versioning info from the
-firmware headers (which don't contain this information).
+On Wed, Oct 26, 2022 at 3:51 PM Song, Asher <Asher.Song@amd.com> wrote:
 
-Signed-off-by: Graham Sider <Graham.Sider@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 2 --
- drivers/gpu/drm/amd/amdgpu/mes_v10_1.c  | 4 ----
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 4 ----
- 3 files changed, 10 deletions(-)
+> [AMD Official Use Only - General]
+>
+>
+>
+> +@Meng, Xiaohu <Xiaohu.Meng@amd.com>
+>
+>
+>
+> Hi Zhuravlev,
+>
+>
+>
+> The information of test card is as following:
+>
+> Lspci name: [AMD/ATI] Vega 10 [Radeon Instinct MI25 MxGPU] (rev 05)
+>
+> Firmware: ATOM BIOS: 113-D0531800-C04
+>
+>
+>
+> When run test scripts compute-rocm-*/utils/run_rsmitst.sh, the below test
+> cases fail.
+>
+> [  FAILED  ] 4 tests, listed below:
+>
+> [  FAILED  ] rsmitstReadOnly.TestOverdriveRead
+>
+> [  FAILED  ] rsmitstReadWrite.FanReadWrite
+>
+> [  FAILED  ] rsmitstReadWrite.TestOverdriveReadWrite
+>
+> [  FAILED  ] rsmitstReadWrite.TestPowerCapReadWrite
+>
+>
+>
+> Best Regards,
+>
+> Asher
+>
+> *From:* Yury Zhuravlev <stalkerg@gmail.com>
+> *Sent:* Wednesday, October 26, 2022 9:31 AM
+> *To:* Song, Asher <Asher.Song@amd.com>
+> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; Chen, Guchun <
+> Guchun.Chen@amd.com>; Quan, Evan <Evan.Quan@amd.com>;
+> amd-gfx@lists.freedesktop.org
+> *Subject:* Re: [PATCH] drm/amdgpu: Revert "drm/amdgpu: getting fan speed
+> pwm for vega10 properly"
+>
+>
+>
+> Hello,
+> Can you write here your card name and firmware version? Without this
+> patch, my fan sensors are broken, and it's sensitive to my pc case with
+> water cooling.
+> My card is:  Sapphire Pulse Radeon RX Vega 56  vd6546 SA
+> lspci name: [AMD/ATI] Vega 10 XL/XT [Radeon RX Vega 56/64] (rev c3)
+> Firmware: ATOM BIOS: 113-376XL-UO2
+> This patch is 100% working correct on my machine, and I tested it last 2
+> months.
+>
+> Regards,
+>
+>
+>
+> On Fri, Oct 14, 2022 at 1:15 PM Asher Song <Asher.Song@amd.com> wrote:
+>
+> This reverts commit fe01cb24b81c0091d7e5668874d51ce913e44a97.
+>
+> Unfortunately, that commit causes fan monitors can't be read and written
+> properly.
+>
+> Signed-off-by: Asher Song <Asher.Song@amd.com>
+> ---
+>  .../amd/pm/powerplay/hwmgr/vega10_thermal.c   | 25 ++++++++++---------
+>  1 file changed, 13 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> index 190af79f3236..dad3e3741a4e 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> @@ -67,21 +67,22 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr
+> *hwmgr,
+>  int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
+>                 uint32_t *speed)
+>  {
+> -       struct amdgpu_device *adev = hwmgr->adev;
+> -       uint32_t duty100, duty;
+> -       uint64_t tmp64;
+> +       uint32_t current_rpm;
+> +       uint32_t percent = 0;
+>
+> -       duty100 = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL1),
+> -                               CG_FDO_CTRL1, FMAX_DUTY100);
+> -       duty = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_THERMAL_STATUS),
+> -                               CG_THERMAL_STATUS, FDO_PWM_DUTY);
+> +       if (hwmgr->thermal_controller.fanInfo.bNoFan)
+> +               return 0;
+>
+> -       if (!duty100)
+> -               return -EINVAL;
+> +       if (vega10_get_current_rpm(hwmgr, &current_rpm))
+> +               return -1;
+> +
+> +       if (hwmgr->thermal_controller.
+> +                       advanceFanControlParameters.usMaxFanRPM != 0)
+> +               percent = current_rpm * 255 /
+> +                       hwmgr->thermal_controller.
+> +                       advanceFanControlParameters.usMaxFanRPM;
+>
+> -       tmp64 = (uint64_t)duty * 255;
+> -       do_div(tmp64, duty100);
+> -       *speed = MIN((uint32_t)tmp64, 255);
+> +       *speed = MIN(percent, 255);
+>
+>         return 0;
+>  }
+> --
+> 2.25.1
+>
+>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_mes.h
-index ad980f4b66e1..97c05d08a551 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -91,14 +91,12 @@ struct amdgpu_mes {
-         struct amdgpu_bo                *ucode_fw_obj[AMDGPU_MAX_MES_PIPES=
-];
-         uint64_t                        ucode_fw_gpu_addr[AMDGPU_MAX_MES_P=
-IPES];
-         uint32_t                        *ucode_fw_ptr[AMDGPU_MAX_MES_PIPES=
-];
--       uint32_t                        ucode_fw_version[AMDGPU_MAX_MES_PIP=
-ES];
-         uint64_t                        uc_start_addr[AMDGPU_MAX_MES_PIPES=
-];
-
-         /* mes ucode data */
-         struct amdgpu_bo                *data_fw_obj[AMDGPU_MAX_MES_PIPES]=
-;
-         uint64_t                        data_fw_gpu_addr[AMDGPU_MAX_MES_PI=
-PES];
-         uint32_t                        *data_fw_ptr[AMDGPU_MAX_MES_PIPES]=
-;
--       uint32_t                        data_fw_version[AMDGPU_MAX_MES_PIPE=
-S];
-         uint64_t                        data_start_addr[AMDGPU_MAX_MES_PIP=
-ES];
-
-         /* eop gpu obj */
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v10_1.c
-index 067d10073a56..1abdf8b7ab50 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-@@ -415,10 +415,6 @@ static int mes_v10_1_init_microcode(struct amdgpu_devi=
-ce *adev,
-
-         mes_hdr =3D (const struct mes_firmware_header_v1_0 *)
-                 adev->mes.fw[pipe]->data;
--       adev->mes.ucode_fw_version[pipe] =3D
--               le32_to_cpu(mes_hdr->mes_ucode_version);
--       adev->mes.ucode_fw_version[pipe] =3D
--               le32_to_cpu(mes_hdr->mes_ucode_data_version);
-         adev->mes.uc_start_addr[pipe] =3D
-                 le32_to_cpu(mes_hdr->mes_uc_start_addr_lo) |
-                 ((uint64_t)(le32_to_cpu(mes_hdr->mes_uc_start_addr_hi)) <<=
- 32);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v11_0.c
-index e14f314902b1..27a330f51c7d 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -480,10 +480,6 @@ static int mes_v11_0_init_microcode(struct amdgpu_devi=
-ce *adev,
-
-         mes_hdr =3D (const struct mes_firmware_header_v1_0 *)
-                 adev->mes.fw[pipe]->data;
--       adev->mes.ucode_fw_version[pipe] =3D
--               le32_to_cpu(mes_hdr->mes_ucode_version);
--       adev->mes.ucode_fw_version[pipe] =3D
--               le32_to_cpu(mes_hdr->mes_ucode_data_version);
-         adev->mes.uc_start_addr[pipe] =3D
-                 le32_to_cpu(mes_hdr->mes_uc_start_addr_lo) |
-                 ((uint64_t)(le32_to_cpu(mes_hdr->mes_uc_start_addr_hi)) <<=
- 32);
---
-2.25.1
-
-
---_000_MW3PR12MB44589FDB98188F18D717BAD5EF309MW3PR12MB4458namp_
-Content-Type: text/html; charset="us-ascii"
+--00000000000092e97d05ebec5b9d
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
-=3D"elementToProof">
-The series is&nbsp;<span style=3D"font-size:12pt;margin:0px;color:black;bac=
-kground-color:rgb(255, 255, 255)" class=3D"ContentPasted0">Reviewed-by:&nbs=
-p;Jack Xiao &lt;Jack.Xiao@amd.com&gt;</span>
-<div style=3D"font-size:12pt;margin:0px;color:black;background-color:rgb(25=
-5, 255, 255)">
-<br class=3D"ContentPasted0">
-</div>
-<div style=3D"font-size:12pt;margin:0px;color:black;background-color:rgb(25=
-5, 255, 255)" class=3D"ContentPasted0">
-Regards,</div>
-<span style=3D"font-size:12pt;margin:0px;color:black;background-color:rgb(2=
-55, 255, 255)" class=3D"ContentPasted0">Jack</span></div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Sider, Graham &lt;Gra=
-ham.Sider@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, 26 October 2022 03:20<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Xiao, Jack &lt;Jack.Xiao@amd.com&gt;; Zhang, Hawking &lt;Hawking=
-.Zhang@amd.com&gt;; Sider, Graham &lt;Graham.Sider@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 2/2] drm/amdgpu: remove deprecated MES version vars<=
-/font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">MES scheduler and kiq versions are stored in mes.s=
-ched_version and<br>
-mes.kiq_version, respectively, which are read from a register after<br>
-their queues are initialized. Remove mes.ucode_fw_version and<br>
-mes.data_fw_version which tried to read this versioning info from the<br>
-firmware headers (which don't contain this information).<br>
-<br>
-Signed-off-by: Graham Sider &lt;Graham.Sider@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 2 --<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v10_1.c&nbsp; | 4 ----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v11_0.c&nbsp; | 4 ----<br>
-&nbsp;3 files changed, 10 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_mes.h<br>
-index ad980f4b66e1..97c05d08a551 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h<br>
-@@ -91,14 +91,12 @@ struct amdgpu_mes {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; *ucode_fw_obj[AMDGPU_MAX_MES_PIPES];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ucode_fw_gpu_addr[AMDGPU_MAX_=
-MES_PIPES];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *ucode_fw_ptr[AMDGPU_MAX_MES_=
-PIPES];<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ucode_fw_version[AMDGPU_MAX_MES_PIPES];<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uc_start_addr[AMDGPU_MAX_MES_=
-PIPES];<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* mes ucode data */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; *data_fw_obj[AMDGPU_MAX_MES_PIPES];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data_fw_gpu_addr[AMDGPU_MAX_M=
-ES_PIPES];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *data_fw_ptr[AMDGPU_MAX_MES_P=
-IPES];<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data_fw_version[AMDGPU_MAX_MES_PIPES];<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data_start_addr[AMDGPU_MAX_ME=
-S_PIPES];<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* eop gpu obj */<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v10_1.c<br>
-index 067d10073a56..1abdf8b7ab50 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c<br>
-@@ -415,10 +415,6 @@ static int mes_v10_1_init_microcode(struct amdgpu_devi=
-ce *adev,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mes_hdr =3D (const struct =
-mes_firmware_header_v1_0 *)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.fw[pipe]-&gt;data;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.ucode_fw_version[pipe] =
-=3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; le32_to_cpu(mes_hdr-&gt;mes_ucode_version);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.ucode_fw_version[pipe] =
-=3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; le32_to_cpu(mes_hdr-&gt;mes_ucode_data_version);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.uc_start_addr=
-[pipe] =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; le32_to_cpu(mes_hdr-&gt;mes_uc_start_addr_lo) |<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ((uint64_t)(le32_to_cpu(mes_hdr-&gt;mes_uc_start_addr=
-_hi)) &lt;&lt; 32);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v11_0.c<br>
-index e14f314902b1..27a330f51c7d 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
-@@ -480,10 +480,6 @@ static int mes_v11_0_init_microcode(struct amdgpu_devi=
-ce *adev,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mes_hdr =3D (const struct =
-mes_firmware_header_v1_0 *)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.fw[pipe]-&gt;data;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.ucode_fw_version[pipe] =
-=3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; le32_to_cpu(mes_hdr-&gt;mes_ucode_version);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.ucode_fw_version[pipe] =
-=3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; le32_to_cpu(mes_hdr-&gt;mes_ucode_data_version);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.uc_start_addr=
-[pipe] =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; le32_to_cpu(mes_hdr-&gt;mes_uc_start_addr_lo) |<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ((uint64_t)(le32_to_cpu(mes_hdr-&gt;mes_uc_start_addr=
-_hi)) &lt;&lt; 32);<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+<div dir=3D"ltr"><div><div><div><div><div>Hello Asher,<br><br></div>Thanks =
+for the information, is it open-source tests? Can I reproduce it? <br><br><=
+/div>Also, it seems like Radeon Instinct MI25 was released before Radeon RX=
+ Vega, is it possible that they have different PowerPlay subsystems? <br></=
+div>On my Vega56, all these registers from vega20 are working very well. <b=
+r></div>Seems like we should split implementation somehow. <br><br></div>Re=
+gards, <br></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"g=
+mail_attr">On Wed, Oct 26, 2022 at 3:51 PM Song, Asher &lt;<a href=3D"mailt=
+o:Asher.Song@amd.com">Asher.Song@amd.com</a>&gt; wrote:<br></div><blockquot=
+e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
+olid rgb(204,204,204);padding-left:1ex"><div class=3D"msg772269019603494117=
+3">
 
---_000_MW3PR12MB44589FDB98188F18D717BAD5EF309MW3PR12MB4458namp_--
+
+
+
+
+<div style=3D"overflow-wrap: break-word;" lang=3D"EN-US">
+<div class=3D"m_7722690196034941173WordSection1">
+<p class=3D"m_7722690196034941173msipheaderdf3d92d6" style=3D"margin:0in"><=
+span style=3D"font-size:10pt;font-family:&quot;Arial&quot;,sans-serif;color=
+:blue">[AMD Official Use Only - General]</span><u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">+<a id=3D"m_7722690196034941173OWAAM2C3FD9A9EF544EB3=
+A89BBBB72AF67D08" href=3D"mailto:Xiaohu.Meng@amd.com" target=3D"_blank"><sp=
+an style=3D"font-family:&quot;Calibri&quot;,sans-serif;text-decoration:none=
+">@Meng, Xiaohu</span></a><u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Hi Zhuravlev,<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">The information of test card is as following:<u></u>=
+<u></u></p>
+<p class=3D"MsoNormal">Lspci name: [AMD/ATI] Vega 10 [Radeon Instinct MI25 =
+MxGPU] (rev 05)<u></u><u></u></p>
+<p class=3D"MsoNormal">Firmware: ATOM BIOS: 113-D0531800-C04<u></u><u></u><=
+/p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">When run test scripts compute-rocm-*/utils/run_rsmit=
+st.sh, the below test cases fail.
+<u></u><u></u></p>
+<p class=3D"MsoNormal">[=C2=A0 FAILED=C2=A0 ] 4 tests, listed below:<u></u>=
+<u></u></p>
+<p class=3D"MsoNormal">[=C2=A0 FAILED=C2=A0 ] rsmitstReadOnly.TestOverdrive=
+Read<u></u><u></u></p>
+<p class=3D"MsoNormal">[=C2=A0 FAILED=C2=A0 ] rsmitstReadWrite.FanReadWrite=
+<u></u><u></u></p>
+<p class=3D"MsoNormal">[=C2=A0 FAILED=C2=A0 ] rsmitstReadWrite.TestOverdriv=
+eReadWrite<u></u><u></u></p>
+<p class=3D"MsoNormal">[=C2=A0 FAILED=C2=A0 ] rsmitstReadWrite.TestPowerCap=
+ReadWrite<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Best Regards,<u></u><u></u></p>
+<p class=3D"MsoNormal">Asher<u></u><u></u></p>
+<div style=3D"border-color:rgb(225,225,225) currentcolor currentcolor;borde=
+r-style:solid none none;border-width:1pt medium medium;padding:3pt 0in 0in"=
+>
+<p class=3D"MsoNormal"><b>From:</b> Yury Zhuravlev &lt;<a href=3D"mailto:st=
+alkerg@gmail.com" target=3D"_blank">stalkerg@gmail.com</a>&gt; <br>
+<b>Sent:</b> Wednesday, October 26, 2022 9:31 AM<br>
+<b>To:</b> Song, Asher &lt;<a href=3D"mailto:Asher.Song@amd.com" target=3D"=
+_blank">Asher.Song@amd.com</a>&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
+om" target=3D"_blank">Alexander.Deucher@amd.com</a>&gt;; Chen, Guchun &lt;<=
+a href=3D"mailto:Guchun.Chen@amd.com" target=3D"_blank">Guchun.Chen@amd.com=
+</a>&gt;; Quan, Evan &lt;<a href=3D"mailto:Evan.Quan@amd.com" target=3D"_bl=
+ank">Evan.Quan@amd.com</a>&gt;; <a href=3D"mailto:amd-gfx@lists.freedesktop=
+.org" target=3D"_blank">amd-gfx@lists.freedesktop.org</a><br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Revert &quot;drm/amdgpu: getting fa=
+n speed pwm for vega10 properly&quot;<u></u><u></u></p>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12pt">Hello,<br>
+Can you write here your card name and firmware version? Without this patch,=
+ my fan sensors are broken, and it&#39;s sensitive to my pc case with water=
+ cooling.<br>
+My card is: =C2=A0Sapphire Pulse Radeon RX Vega 56 =C2=A0vd6546 SA<br>
+lspci name: [AMD/ATI] Vega 10 XL/XT [Radeon RX Vega 56/64] (rev c3)<br>
+Firmware: ATOM BIOS: 113-376XL-UO2<br>
+This patch is 100% working correct on my machine, and I tested it last 2 mo=
+nths.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Regards,<u></u><u></u></p>
+</div>
+</div>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<div>
+<p class=3D"MsoNormal">On Fri, Oct 14, 2022 at 1:15 PM Asher Song &lt;<a hr=
+ef=3D"mailto:Asher.Song@amd.com" target=3D"_blank">Asher.Song@amd.com</a>&g=
+t; wrote:<u></u><u></u></p>
+</div>
+<blockquote style=3D"border-color:currentcolor currentcolor currentcolor rg=
+b(204,204,204);border-style:none none none solid;border-width:medium medium=
+ medium 1pt;padding:0in 0in 0in 6pt;margin:5pt 0in 5pt 4.8pt">
+<p class=3D"MsoNormal" style=3D"margin-bottom:12pt">This reverts commit fe0=
+1cb24b81c0091d7e5668874d51ce913e44a97.<br>
+<br>
+Unfortunately, that commit causes fan monitors can&#39;t be read and writte=
+n<br>
+properly.<br>
+<br>
+Signed-off-by: Asher Song &lt;<a href=3D"mailto:Asher.Song@amd.com" target=
+=3D"_blank">Asher.Song@amd.com</a>&gt;<br>
+---<br>
+=C2=A0.../amd/pm/powerplay/hwmgr/vega10_thermal.c=C2=A0 =C2=A0| 25 ++++++++=
+++---------<br>
+=C2=A01 file changed, 13 insertions(+), 12 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/driv=
+ers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c<br>
+index 190af79f3236..dad3e3741a4e 100644<br>
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c<br>
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c<br>
+@@ -67,21 +67,22 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr =
+*hwmgr,<br>
+=C2=A0int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t *speed)<br=
+>
+=C2=A0{<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =3D hwmgr-&gt;adev;<=
+br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t duty100, duty;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t tmp64;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t current_rpm;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t percent =3D 0;<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0duty100 =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, =
+mmCG_FDO_CTRL1),<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0CG_FDO_CTRL1, FMAX_DUTY100);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0duty =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, mmC=
+G_THERMAL_STATUS),<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0CG_THERMAL_STATUS, FDO_PWM_DUTY);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (hwmgr-&gt;thermal_controller.fanInfo.bNoFan=
+)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!duty100)<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (vega10_get_current_rpm(hwmgr, &amp;current_=
+rpm))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -1;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (hwmgr-&gt;thermal_controller.<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0advanceFanControlParameters.usMaxFanRPM !=3D 0)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0percent =3D current=
+_rpm * 255 /<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0hwmgr-&gt;thermal_controller.<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0advanceFanControlParameters.usMaxFanRPM;<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0tmp64 =3D (uint64_t)duty * 255;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0do_div(tmp64, duty100);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0*speed =3D MIN((uint32_t)tmp64, 255);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0*speed =3D MIN(percent, 255);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
+=C2=A0}<br>
+-- <br>
+2.25.1<u></u><u></u></p>
+</blockquote>
+</div>
+</div>
+</div>
+
+</div></blockquote></div>
+
+--00000000000092e97d05ebec5b9d--
