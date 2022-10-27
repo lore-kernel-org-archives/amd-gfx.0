@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68880FA3740
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 14:58:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78A97ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 14:58:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91CFE10E667;
-	Thu, 27 Oct 2022 14:58:56 +0000 (UTC)
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D06710E65E
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 14:45:56 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id jb18so1187106wmb.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 07:45:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21F8210E669;
+	Thu, 27 Oct 2022 14:58:57 +0000 (UTC)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C680D10E670
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 14:46:28 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id h9so2608128wrt.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 07:46:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=IAqC1HKVNV7rs1WtvU904YHZiDgWJOrzWfsvwETeujE=;
- b=ZQoJZJ2pk+FgSb1zhCFw99ZrOd1qW+do1Yf8a+dkAAlCE6k8NxK9xdhLHyUvvWW+jC
- huXB5GgpKQ+07AreOh+yv1jtXRuwazerG7nTymYzeFp1YTg1h67pgLfzqw5C8nXTlANS
- V4+npoMjBTsNgBH3HCLsIWar4Zn4p9UjD5w4h/Enc5RD6Zx+sgJ2A2WuDoemMh4AUXRj
- mjnzPLXDvZA3dZcMLwKPTuZhP1SmqCtDdUruxsPH3QEmlY+hjTnECpTXLnMJXIrVSqHE
- r7gLsfRtqm/UefSqqs3oBYTLIz9651i6IyQhukU2vuKK4uZgBZm47mCOAXUymAvgFVae
- 8plQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=boAryHnCv+r1jyRQmdAv8InqtytH0NrdoW3foDIFqi8=;
+ b=L3MzKq4OJIXgT3wprDjbyyKr6Kdg/Ovz7jQU4dS20SuL1nmNvPzq4+bCckt6VXoPBV
+ xvPA6wEXCIWBhbn3gVI8h94aKkQTDiwOhBoWJbUhj4zY0VBG4KZlS+CFQcHgr0JQ00Mf
+ 6iI4223WhIzNtHfzUtkQCB4jFVVmkx8kzSprPhhye2gpVH2CzPgt38J9uLnC6R4HQaKZ
+ KDUBiRWaFIAaJ0M/15XkVUy0awW2yEikpeAtqCuwmF53CdxdSseJGeM7h0Lv2gwLIsgO
+ CG/+TtYVBLCfIuQOC6cL50V+Z8xIPW1VbvTqw8TFVwzf/0hPxSpB8X36XjQQsNK/LRRP
+ P1ZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=IAqC1HKVNV7rs1WtvU904YHZiDgWJOrzWfsvwETeujE=;
- b=IJuQPVm1dPqPJpxAaFb3cQgLXMMIMcf7o2aZFRiiGMAc8wukIS8cGWZTxmJWf9NuhW
- kn186pUgWvnNkP2vTiKmUcjhAyDw9ADFRU90BCGJrTCibkn2dhojC2sqd0rp2sbbQFpx
- emjyPadeDRi3oVZiO8cQ7Qq59Gaq7AIX4BwbN8rzxt7qFQfgfk/gFoi7blQqiOvuEgRS
- MEs1fcNXgl5/z5skQ1hJ4LPdoy3jN7KiqrZhtKraxXYNVZf6RaS/hselO6BxIy0gTbkI
- E2IOtPxQEsiCGP0wyWKs5t8VKzZFpsF+YY72HNwOn8dMQJtIA30IgPcnlsNW5fHVUad7
- slcA==
-X-Gm-Message-State: ACrzQf0M+3IhVdzjG+zw8Dx7no9s6qAbs6lsRn6ixD3EKEgEHGUDEjk4
- T/ZmukksB7EhmYBcCZUffaw=
-X-Google-Smtp-Source: AMsMyM6keI129AiE2PP1FBIClELOYwSPfhUKJbouSNXbxR1dFjbffgYRhgYiL6wHA69bcp1B+gJ1gA==
-X-Received: by 2002:a05:600c:3545:b0:3cc:74b:736a with SMTP id
- i5-20020a05600c354500b003cc074b736amr6026791wmq.145.1666881954572; 
- Thu, 27 Oct 2022 07:45:54 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=boAryHnCv+r1jyRQmdAv8InqtytH0NrdoW3foDIFqi8=;
+ b=6vcJWT2jk48EeyUU+AXYDAlyML1uv/henYC5BtZx5YMLXZWvQYW02QizO0AIlgAN8d
+ Oy9OMIGVF4sF1ZmWmHnimOuUPgKh9QBHZnXV6+wSZYlRs4jHFYldsI5+o+BXTPXN930j
+ fBmX6sMG14bs2EsKkVNQDLbx6PWg4d2os7gSqyWr8AkONnYt8DyEnVBL7dXFJETO4PDl
+ S/BTCOuRF67KIqBT1aeW8ma3FqdeZ+iY1bN/oCNkdHp0usEkur7cUVNqKl5rkEAonrP6
+ OKnMZZIn0yVWZsd2eo6dceH1bW1t9PYT0itN6o7zPxzCZ8YAP7AEc1vQFnJToruc2hCC
+ dHJg==
+X-Gm-Message-State: ACrzQf3v0wYx2H60nOmr1OR59tGali0fTnWE4COMbTlL0og0x4GQci5T
+ N1JIqUo9QPwzI7U0yaSsvso=
+X-Google-Smtp-Source: AMsMyM5MiAsTNZF5Wu9pjxgcsmgm4D0VFWeQB2xxNpggzSa6MmrFAUgDVec4o/kpZriWEoZ8m6ViTw==
+X-Received: by 2002:a05:6000:1688:b0:22e:58cd:5a2b with SMTP id
+ y8-20020a056000168800b0022e58cd5a2bmr32178612wrd.365.1666881987036; 
+ Thu, 27 Oct 2022 07:46:27 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:908:4f6:d280::9a6])
  by smtp.gmail.com with ESMTPSA id
- f6-20020a5d50c6000000b00236576c8eddsm1340914wrt.12.2022.10.27.07.45.53
+ f6-20020a5d50c6000000b00236576c8eddsm1340914wrt.12.2022.10.27.07.46.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Oct 2022 07:45:54 -0700 (PDT)
+ Thu, 27 Oct 2022 07:46:26 -0700 (PDT)
 From: Ao Zhong <hacc1225@gmail.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Arnd Bergmann <arnd@arndb.de>,
@@ -55,10 +56,12 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Stephen Rothwell <sfr@canb.auug.org.au>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH v2 0/1] drm/amd/display: add DCN support for ARM64
-Date: Thu, 27 Oct 2022 16:45:27 +0200
-Message-Id: <20221027144527.4247-1-hacc1225@gmail.com>
+Subject: [PATCH v2 1/1] drm/amd/display: add DCN support for ARM64
+Date: Thu, 27 Oct 2022 16:45:29 +0200
+Message-Id: <20221027144527.4247-2-hacc1225@gmail.com>
 X-Mailer: git-send-email 2.37.4
+In-Reply-To: <20221027144527.4247-1-hacc1225@gmail.com>
+References: <20221027144527.4247-1-hacc1225@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 27 Oct 2022 14:58:52 +0000
@@ -78,45 +81,108 @@ Cc: Ao Zhong <hacc1225@gmail.com>, linux-arm-kernel@lists.infradead.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello everyone,
+After moving all FPU code to the DML folder, we can enable DCN support
+for the ARM64 platform. Remove the -mgeneral-regs-only CFLAG from the
+code in the DML folder that needs to use hardware FPU, and add a control
+mechanism for ARM Neon.
 
-Recently I got a SBSA ARM64 workstation, and try to use it as my daily
-drive machine after installing an AMD RX6400 graphics card.
-
-Since the newer AMD GPUs require DCN (Display Core Next) support to work
-properly, DCN is not supported on ARM64 platforms. Because some code in
-DCN needs to use FPU, and aarch64 has no soft floating-point toolchain.
-
-Displaycore developers have started isolating code that needs to use
-FPU, and most of the code has been isolated. In the process of trying to
-enable DCN support for the ARM64 platform, I found that there are two
-remaining code blocks that are not isolated. Due to -mgeneral-regs-only
-is enabled by default to compile the kernel on the ARM64 platform, these
-two code blocks will cause the compilation to fail after enabling DCN
-support.
-
-I have submitted two patches to isolate the remaining two code blocks
-that need to use the FPU.
-Links: https://patchwork.freedesktop.org/patch/508813/
-Links: https://patchwork.freedesktop.org/patch/508816/
-After merging these two patches, we can enable DCN support for ARM64
-platform.
-
-I removed -mgeneral-regs-only CFLAG in the dml/Makefile for the code
-that needs to use hardware FPU, and add a control mechanism in
-amdgpu_dm/dc_fpu.c for ARM Neon.
-
-Change Since V1:
-replace $(dml_rcflags_arm64) with $(dml_rcflags) in dml/Makefile
-
-Ao Zhong (1):
-  drm/amd/display: add DCN support for ARM64
-
+Signed-off-by: Ao Zhong <hacc1225@gmail.com>
+---
  drivers/gpu/drm/amd/display/Kconfig           |  2 +-
  .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    |  6 ++++++
  drivers/gpu/drm/amd/display/dc/dml/Makefile   | 21 ++++++++++++++++++-
  3 files changed, 27 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+index 0142affcdaa3..a7f1c4e51719 100644
+--- a/drivers/gpu/drm/amd/display/Kconfig
++++ b/drivers/gpu/drm/amd/display/Kconfig
+@@ -6,7 +6,7 @@ config DRM_AMD_DC
+ 	bool "AMD DC - Enable new display engine"
+ 	default y
+ 	select SND_HDA_COMPONENT if SND_HDA_CORE
+-	select DRM_AMD_DC_DCN if (X86 || PPC64)
++	select DRM_AMD_DC_DCN if (X86 || PPC64 || (ARM64 && KERNEL_MODE_NEON))
+ 	help
+ 	  Choose this option if you want to use the new display engine
+ 	  support for AMDGPU. This adds required support for Vega and
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+index ab0c6d191038..1743ca0a3641 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+@@ -31,6 +31,8 @@
+ #elif defined(CONFIG_PPC64)
+ #include <asm/switch_to.h>
+ #include <asm/cputable.h>
++#elif defined(CONFIG_ARM64)
++#include <asm/neon.h>
+ #endif
+ 
+ /**
+@@ -99,6 +101,8 @@ void dc_fpu_begin(const char *function_name, const int line)
+ 			preempt_disable();
+ 			enable_kernel_fp();
+ 		}
++#elif defined(CONFIG_ARM64)
++		kernel_neon_begin();
+ #endif
+ 	}
+ 
+@@ -136,6 +140,8 @@ void dc_fpu_end(const char *function_name, const int line)
+ 			disable_kernel_fp();
+ 			preempt_enable();
+ 		}
++#elif defined(CONFIG_ARM64)
++		kernel_neon_end();
+ #endif
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index d0c6cf61c676..4e6e1fc0650f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -33,6 +33,12 @@ ifdef CONFIG_PPC64
+ dml_ccflags := -mhard-float -maltivec
+ endif
+ 
++ifdef CONFIG_ARM64
++ifdef CONFIG_DRM_AMD_DC_DCN
++dml_rcflags := -mgeneral-regs-only
++endif
++endif
++
+ ifdef CONFIG_CC_IS_GCC
+ ifeq ($(call cc-ifversion, -lt, 0701, y), y)
+ IS_OLD_GCC = 1
+@@ -88,7 +94,6 @@ CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calcs.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_auto.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_ccflags) -Wno-tautological-compare
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn2x/dcn2x.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_rcflags)
+@@ -105,6 +110,20 @@ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_util_32.o := $(dml_rcf
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn301/dcn301_fpu.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dsc/rc_calc_fpu.o  := $(dml_rcflags)
++ifdef CONFIG_ARM64
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn10/dcn10_fpu.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/dcn20_fpu.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn314/display_mode_vba_314.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn314/display_rq_dlg_calc_314.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn314/dcn314_fpu.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/dcn30_fpu.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn32/dcn32_fpu.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn321/dcn321_fpu.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn31/dcn31_fpu.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn302/dcn302_fpu.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn303/dcn303_fpu.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_rcflags)
++endif
+ endif
+ CFLAGS_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_ccflags)
 -- 
 2.37.4
 
