@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87860ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 18:07:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58B14ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 18:14:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4CA810E6BB;
-	Thu, 27 Oct 2022 18:07:15 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8266210E6BB;
- Thu, 27 Oct 2022 18:07:11 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id y67so3217032oiy.1;
- Thu, 27 Oct 2022 11:07:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA62B10E6BF;
+	Thu, 27 Oct 2022 18:14:14 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6181710E04D;
+ Thu, 27 Oct 2022 18:14:09 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id y67so3244970oiy.1;
+ Thu, 27 Oct 2022 11:14:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DaxYGcocrZDHBDKCQpxYCj5Xn+ir2U1ZAi/BlPJdI84=;
- b=kyOswfpO9Lj4tJWAvnRsjJLvCg6xDvMU3Qrp/w56N2I8WcRqXCA/3W3+v5L1I4BdfX
- Sth8T77VBuVvpGdcnYlLjaaf+xJrNVIBfkrcso7WvlkSk1gL5vSo8Bufjqv/wq+M0uUm
- NsJ82J6/3AS6f6NervP7f5UaXrUl8rvJTCakYHdgGlxwYcf7kFgmBu4KTfYmFLnb9H8c
- HngshDz92uf9Y4SiNgjeGNZZM9+6R6S7MYFHGrsGi75wRkMeQh/YO7ouwc/UgUlV4vId
- JPWbQQofF3o6eZbj6e0Ms4JM+XP3liSmBcPOHIXWdXe3Y5KPGrJyreqioqlRl096zfp3
- Muzw==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=O9gqzuSFD8OHrR9IjrolL9UfkWIT9N31C4ipvtJhMW8=;
+ b=JuqTzzID34wq6D1oN12Cd6J4Zq0xzc0zuLcz6NUrrTu9+v7ofooLT1itaZcs9MzZC1
+ BCG3RGQpB22gU3Au43lu42WPhkdsUVfRTWPVEA3xcJ6YMMwI+I5EOtqCr5fLJ5R7blLA
+ urKyTSa0XqOGaw/Hu1yj3mY37fHb0qUEutsEEXtpZvmD0scdfh9OkPfzccjMRYE0y7Xg
+ heGrCoUmunHuaIkUrQcsCQX0GFZI1FIOdngfGdOsSI5gEZtaTLtuLIpa+8jEPT5etey0
+ ZU2BjmXhwgkY8QhWy5HogrSpZJn5RabKCUKX6xgyo6OWgPizrzYC/TeVKc8P67QJEnaS
+ uJZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DaxYGcocrZDHBDKCQpxYCj5Xn+ir2U1ZAi/BlPJdI84=;
- b=XYq78opzonCaw1cXYzUis5YX9UhVkgUSvjEUX1EEaKcj9DEr2eeK2dkdCobt2VRv6C
- 79q4K3KIIZMyTz9K+q/kP5/BmMYBulcifWOdfk+s8nPMoCVClxlZBX2xdnrCCE4HeZ8k
- JwQBuQmrCiYHcpCSF2PzEGJCqC4siQswh6+ctmZ6wRnBgHgAVb1R3j+yMOKfHHG98YIa
- i/gRVAFiTrrYGAsb8qG/0+izQ/BuAFkiwVrCwksOeGspS6ZXp1uPJxGiO4JHBMf0Jxdg
- YVo0JpLfjFD4VPLoI43HZ7cA+dleOkMngfuTO22hRtTQ9VOrCFjIKrRKfqyj9pNIa1La
- ubAw==
-X-Gm-Message-State: ACrzQf15yIwYAV1UbvEz87uA2xKsaLHfM08DjD7D0IP/MnRCAnWQL94I
- 0hqarUyHdmpIwUwueAYYQj9maCu/tODnWAxjbBE=
-X-Google-Smtp-Source: AMsMyM4G1gpkXGE5KpUjgt5/ZfWyZ65V/M02ZXhKo8wuaK0hvXtVDlOwHr0Iql2VZhIaEwZpqrBaiNvSL0rgSi9Hurg=
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=O9gqzuSFD8OHrR9IjrolL9UfkWIT9N31C4ipvtJhMW8=;
+ b=SUeCIHJ2NIwdj+1BD5S6UGk1MryzbUEzmdMSgyOBs+kcV1uJAS2TKdlDHShSvl9DvW
+ 0iV8msYmrumLfR1kMQKxM0mLHdunmLwBVj7ZJaEDJ7DNvV9D6Vjz9YgWAv3cbG+APZNq
+ 0DkOnqHEEXPLvjn6Iotdj7+Q/Spvfdu+gURdfvnuLHOKmBdgFGLVEi287bffHgJrjJL3
+ 4A4Z52NLqKCZkaZC7szShDdT8+f+DBr6Tsw5cWEWboyj46AcZNbgmqEquOK8CfLzb09t
+ mHJEPb+H5gpqI60EDgfmyZuYMjiDS/0mHW2396Zwe0WF8SpzeVLcs3ZKMUnegM7G/vm2
+ O6IQ==
+X-Gm-Message-State: ACrzQf0RF3j/9iMKPy/Llx5HleVniTGsB7+nZVqLJmvqFXiAj2bNP8oB
+ QLMJMf290+EEaYVEI3wAIOeXTNBcjTZJGRKxK3A=
+X-Google-Smtp-Source: AMsMyM4TkBtBzw97AttzykCWImSm8pLeapwXLsEUfoctb8c365GhyTENUYp7BGzF7yEEe04UhM5r8FrNGPbwWBbbzNM=
 X-Received: by 2002:a05:6808:14d2:b0:354:c733:abd3 with SMTP id
- f18-20020a05680814d200b00354c733abd3mr5705205oiw.96.1666894030862; Thu, 27
- Oct 2022 11:07:10 -0700 (PDT)
+ f18-20020a05680814d200b00354c733abd3mr5721852oiw.96.1666894448715; Thu, 27
+ Oct 2022 11:14:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <20221027061835.39784-1-luben.tuikov@amd.com>
-In-Reply-To: <20221027061835.39784-1-luben.tuikov@amd.com>
+References: <20221026070110.35364-1-jiapeng.chong@linux.alibaba.com>
+ <20221026070110.35364-2-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <20221026070110.35364-2-jiapeng.chong@linux.alibaba.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 27 Oct 2022 14:06:59 -0400
-Message-ID: <CADnq5_OVGPO6mhhjdOQUUZZmTybZVTW8y1o+LAo=UODvDPfocA@mail.gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: Update GPU Scheduler email
-To: Luben Tuikov <luben.tuikov@amd.com>
+Date: Thu, 27 Oct 2022 14:13:57 -0400
+Message-ID: <CADnq5_M4jCG4fuikkegn+PBMedW=xX=qLq86uFhwKNw7k_EsAw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/display: Modify mismatched function name
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,50 +64,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- AMD Graphics <amd-gfx@lists.freedesktop.org>,
- Direct Rendering Infrastructure - Development
- <dri-devel@lists.freedesktop.org>, Alex Deucher <Alexander.Deucher@amd.com>,
- Dave Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 27, 2022 at 2:19 AM Luben Tuikov <luben.tuikov@amd.com> wrote:
->
-> Update GPU Scheduler maintainer email.
->
-> Cc: Alex Deucher <Alexander.Deucher@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: Dave Airlie <airlied@gmail.com>
-> Cc: AMD Graphics <amd-gfx@lists.freedesktop.org>
-> Cc: Direct Rendering Infrastructure - Development <dri-devel@lists.freede=
-sktop.org>
-> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Applied the series.  Thanks!
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Alex
 
+On Wed, Oct 26, 2022 at 3:02 AM Jiapeng Chong
+<jiapeng.chong@linux.alibaba.com> wrote:
+>
+> No functional modification involved.
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:615: warning: expecting prototype for setup_subvp_dmub_command(). Prototype was for populate_subvp_cmd_pipe_info() instead.
+>
+> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2587
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 > ---
->  MAINTAINERS | 2 +-
+>  drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index b1f3d0893393bb..1997006d1e25a6 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -7109,7 +7109,7 @@ F:        drivers/gpu/drm/ttm/
->  F:     include/drm/ttm/
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+> index 774e06936661..67eef5beab95 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+> @@ -595,7 +595,7 @@ static void update_subvp_prefetch_end_to_mall_start(struct dc *dc,
+>  }
 >
->  DRM GPU SCHEDULER
-> -M:     Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> +M:     Luben Tuikov <luben.tuikov@amd.com>
->  L:     dri-devel@lists.freedesktop.org
->  S:     Maintained
->  T:     git git://anongit.freedesktop.org/drm/drm-misc
->
-> base-commit: e1e7bc481d49c3e3ada11029ce0d9b85a0a539d7
+>  /**
+> - * setup_subvp_dmub_command - Helper to populate the SubVP pipe info for the DMUB subvp command
+> + * populate_subvp_cmd_pipe_info - Helper to populate the SubVP pipe info for the DMUB subvp command
+>   *
+>   * @dc: [in] current dc state
+>   * @context: [in] new dc state
 > --
-> 2.38.1
+> 2.20.1.7.g153144c
 >
