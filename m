@@ -4,115 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14CCFECAAA1
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 16:05:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB48CFA3741
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 16:35:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6836010E696;
-	Thu, 27 Oct 2022 16:05:28 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71F7A10E6AC
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 16:05:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DR/0mJvI9ldjcZpZTGBuWdWj/0lL7Bd4ikLtbLMeDr4hX2zhbLUvW2xO66UiQE4A59cNL6aoDK0k5AvJlqnMfLTzeqYZ/cnNwOLt8oKfe7VTrwZaJNv1MfMXLBjkF+orv8adKxSXTAIRnLTTphm6KZvc1rh7W2DDZZKgW+TI+2wvqAYc+MAKQD9Iy1D928+kr1jtn2/229M3BKg/FRGraEN1oijlUWXLX19h52yQ7QpTP4EhLV6UOiuuYQn6x41vikYYQcOng3AdqWVOpe5M9dyi4WFFbHHcK3iJsmqhAIZH4N03SSny/Wq8bgyo08Lyix2LVLN3dzvdXY+7ZGMXAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NIGI6qlDSGSqCWcUCB62YcsCK428OnYeZwNgSVrelgU=;
- b=Cli5uSoPj91DP9mRkpH6YVadZy8BOXvAjhOJ2gAhHmFjE+ExluA8DH+d57XfgO/boulu8WMowlSjiViQ/umQW4jev365pGa0S+7qg77U/GRUK0e8HJQ5Gbm0QhX70NlTKDNV0DAnBeGPdrRIk8zvchp9dLBq7fxAtzOzjRfantc9cILaSviPbhd3RoLbywx20tKhUCkIr+rJoOCf1yo/3ALf1H8qBZo6OgAOSXnJFQwO9HhnDzgpgfk0g1oe7PTAo6yrQxyxZU4iWDITaQSfM8aD7d1Jh+vUudc0Biu5mAMN6lBCBihx8KYFrkie371AXrNFufM8S5Ip6V3Rh/FNxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NIGI6qlDSGSqCWcUCB62YcsCK428OnYeZwNgSVrelgU=;
- b=IPcfH3PhqrBmWEGkpryC2ulSEUdFsPBkLJbIF5P8X1tA8F439eJh6ccJvkvLWyutymOa0Q8YDuB1PQAFrK45S07q6qjhackuAoMDEeUKlIM23ugFDo+KtnirAt4xZHPmG7F02aWET/SD7xk/IdoxS3KQZnT44iFahhzbVyDCRRw=
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
- by DM4PR12MB6351.namprd12.prod.outlook.com (2603:10b6:8:a2::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5746.27; Thu, 27 Oct 2022 16:05:22 +0000
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::905d:6b27:ab75:97e3]) by CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::905d:6b27:ab75:97e3%6]) with mapi id 15.20.5746.028; Thu, 27 Oct 2022
- 16:05:22 +0000
-From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Sider, Graham"
- <Graham.Sider@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: disable GFXOFF during compute for GFX11
-Thread-Topic: [PATCH] drm/amdgpu: disable GFXOFF during compute for GFX11
-Thread-Index: AQHY6XcQRXC/5pNxdU2L8C7NGIyM864iROCAgAAj3FA=
-Date: Thu, 27 Oct 2022 16:05:22 +0000
-Message-ID: <CY8PR12MB70997C83CA4400B41968A4E88C339@CY8PR12MB7099.namprd12.prod.outlook.com>
-References: <20221026201042.989337-1-Graham.Sider@amd.com>
- <BL1PR12MB5144244F27BC7BEBC1C0D92EF7339@BL1PR12MB5144.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB5144244F27BC7BEBC1C0D92EF7339@BL1PR12MB5144.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-10-27T16:05:20Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=acd44952-dd67-4c52-9eea-0fb41ea122ed;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7099:EE_|DM4PR12MB6351:EE_
-x-ms-office365-filtering-correlation-id: dcc39ecb-1823-4738-4c60-08dab8350da7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: GNLLNFpTDzuKC1Tx/puZokrp92gDXikg/heg//BJtGtYgTjdFDjczd+2eWMnwv4MFvLJSK7aibyDJZUz/5OnWukUIFtU7G5q9oM4vjzW8fwR+cdGWENRroXFcf8vos6vpv/KxqnkpyZr2W9VQhOdCBijdjMdZDnzgE0KAxSkWhefZjX9GoQlrnw9AJRwZUbmpd2VzputfTGGRx9hNj0QPGsYa+m8E2bb1Jb+QjTGCjwRU9zsD7cFy3rZBvWVjfsH3lYttGmRQxY0mTTe025pTNogUW8QR2waI2XuTMuh/SwpTRkle7CJpu/1tg7F08sv/FDQSro5sdwUPpoHXKmvyVbdpjOEsh3nfMLtoXQnqp1g9/dSBjQtKXLtRbB0rJjusCyN4fquLX7S7xjea2Ggbhawf0uLFbci3QkQupBC0nsJp4Ni43v6kCy8SbEOW8x8e6qd5tIQVWp1PqHm2pLyXxFo5eJdyjrIPN67BBUNiTgMHG1SzTz5GkvD7EUgwWCZNyCsMNOC0SlIu65b17hpZ5TcjGdc8YrfQ5rhCbUwCqcdn/beNTmNacSgFChBiPJSocm/uhhHAEp9E1XCrBNEXAGYBGDQWkHra7H8EjzvMukr6hpVy59Vuf72BtTsb5epzuumGgQgiCw+gnT0fgg4+byOSfm47qNfOIxI68gv+MeLRZGThzmQbsUT+GsT8Ias8NfMjl+VOfCqNVyBTKYaExGI4ZrtB6BFutJzSHl9btby5kWmX3QIi8tbViUF6f5iBtJ++zzrI79YV8KO3Z1GLA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(376002)(346002)(39860400002)(366004)(396003)(451199015)(71200400001)(8676002)(316002)(38070700005)(110136005)(186003)(83380400001)(38100700002)(6506007)(9686003)(26005)(53546011)(41300700001)(122000001)(8936002)(478600001)(5660300002)(7696005)(86362001)(52536014)(76116006)(66556008)(33656002)(55016003)(2906002)(66946007)(66446008)(66476007)(64756008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XBni2Oebl1ljKogkV9GkpL73Goyv37x6SRDEYnbWQaEUYeYhfS+gWfXpKhFc?=
- =?us-ascii?Q?/sNnx40OwdkfV7uwOb41FUbOAn9U564NQ5r3ZFjY3ZIBnWUf5Qaa+xmaHqak?=
- =?us-ascii?Q?DAAH57mU8tICwYy3rOXDr1V/S6ug1LnjF2xdCPhyEgndwmbwmG+Y0l+Rs3P5?=
- =?us-ascii?Q?WE13y05INC0G0LKmOJI+Iz1rW2de/ZlA2it7zP4Ytg29hjbkr/u8TgBqsCVD?=
- =?us-ascii?Q?cab4gbnfSUo+3c3grCtF8kb88MZh8IqJt3su8036rhH47jts+2pJ2lrl+Jbx?=
- =?us-ascii?Q?bjHMxQnCTMTJIIjc3aCiBTkenmlfq/vzu0gRSddlvuEXgtMI8CoaoNGd/Ron?=
- =?us-ascii?Q?yquXMCssbyOXyfblxcCaH83f3Mg1qOQCZOXUguNpDCH5glMQiWzdx3H0NB7C?=
- =?us-ascii?Q?ZjqJeaLuFOIbkRJRWcXFhNxJNiv4fFF0cydasKigGjajPwFC2NAQ4Sp6ReKk?=
- =?us-ascii?Q?znzWrHNS4BkXCmXipjRViBH8GVpL3lIhA+JRKj06Ce2REn3dWrEEuc/1kv69?=
- =?us-ascii?Q?3i8d+Vox6odXYO3XjJEkJ2FS5tYORk49wX2iP66CxCb6JEKH8GtseaWklc4M?=
- =?us-ascii?Q?qgxazWQNzi42Gl954mk7FF7wF7XNWUKYOpYzD34ResI4/7YB7fuZPT6dXeHm?=
- =?us-ascii?Q?EYIcpR99sOVxlhlmm+X4h6o6mOT9xQViZ2SzgOIPr0DiQKt7ZVTL+EwXkw9G?=
- =?us-ascii?Q?arK12mjVSEv4e6xaOhxi1cOL+GkkF+jVES+Skzdjv67Mc7LajEl9UDUq+TKE?=
- =?us-ascii?Q?BRsfi/VhOqMUSe2jd9p7/3aItvUrLA6SKd+UR3JbNiD8K2K7tc5dvUxmveTr?=
- =?us-ascii?Q?LbB2e2e5jkwJxaqt/tW1Oa+Y2FaiOjsYEOWofDvQVpmgEpvc9xzHo3HaxU1v?=
- =?us-ascii?Q?eoENIBGZsdYpY806lutuFQ6KMUpULf8+YD/XDAUakTVedGEVWEIPGhma+i8u?=
- =?us-ascii?Q?aMQ0y5hbqyUFgANth9Fck1hQvCyAN45DzK1GDUXQoWXYFiDo5cRSIW4S0vcw?=
- =?us-ascii?Q?KcrWuG2fQgZZl8aLRzaEyKT3VvEzL0LM6voZhMxkehJyl7YYIHFytt1h5Y1e?=
- =?us-ascii?Q?zT18TmKOnmeqGfNHWDNwVdTxNAzsBJVaiizEknhhiFT626NUJ/hfcZk8EPK4?=
- =?us-ascii?Q?fyJNAlsMF9jszWJ9Gp4oLkHWqQDj6qsiveoKUimVtodqTDkEzO8pypAiuQzM?=
- =?us-ascii?Q?rfgHW8LhzV2NrB7QhRQ/QFeEZreWyvCwBXzmt+fOz2StS2dhL7Mr8ufrkFWF?=
- =?us-ascii?Q?omjYmOpQvFK+M6cDhELUfNGkidE1yedpZGJ2+67LO9PElfL4GLqwygh20Lm+?=
- =?us-ascii?Q?JLtetAcIcmBLjvH0dY3yMLBu2lmhOiFcDxkbkdIr7BKK0F0UwFI4TQROAjb2?=
- =?us-ascii?Q?2/iouxqLgMaWgby1DUDCKj4OyIrJ9akci95rfqZjZ1rHXZ6AXj+d0V7U4C54?=
- =?us-ascii?Q?HvppaL6HS1UxayYdTtDfJrYyqxXVmeE8LgpcPN2M9aVn87uwVP0csRZfW8KQ?=
- =?us-ascii?Q?rMJmG2gTul4Ip5VAdwfyMn6kiOsnEY6Z++AiW2tyovYAUur+YWTw1HSDFGlr?=
- =?us-ascii?Q?6yyy5yu3X7X/cwtkZFg=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CY8PR12MB70997C83CA4400B41968A4E88C339CY8PR12MB7099namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20F0D10E109;
+	Thu, 27 Oct 2022 16:35:24 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAFD810E109
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 16:35:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666888520; x=1698424520;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=g8JpxJ/7sThIg/BLIJ/mUFG37Ckprmp4RiCF2hAGE4k=;
+ b=By3efy2a14NTDjQDsk4GZG1JbiiJYFphOQPKb2i2RfIcrFdtL6V3R0F9
+ k10SZ1JUQKp+RKHywJXeIg9hMNaKoQRxSOqWu7edQx6yiVZfuviLDAuPx
+ RSp5l135itJZjCxy6bSljV/ukXb6Hg2gcgCdvyu+aE/ckPAsdaAmtAJkq
+ YsRH1AEqzYqBnBPBp0lGTXeogIRb49Q/e6mh9MFq+1Eq97YqP6yPZ7T8u
+ DTA0Pk4rOePZ33qat71W17AqblDtayo/tE0M6TYveExvL6KZ5LkHcma4v
+ Mbdwr/eY4MYG5RbTFjB/qXFDgt7SV0yU1R0dIS7aB3FJ8zsTjlL5E8HLt A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="307000895"
+X-IronPort-AV: E=Sophos;i="5.95,218,1661842800"; d="scan'208";a="307000895"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2022 09:35:20 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="757761930"
+X-IronPort-AV: E=Sophos;i="5.95,218,1661842800"; d="scan'208";a="757761930"
+Received: from lkp-server02.sh.intel.com (HELO b6d29c1a0365) ([10.239.97.151])
+ by orsmga004.jf.intel.com with ESMTP; 27 Oct 2022 09:35:16 -0700
+Received: from kbuild by b6d29c1a0365 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1oo5qe-0008zP-0K;
+ Thu, 27 Oct 2022 16:35:16 +0000
+Date: Fri, 28 Oct 2022 00:34:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD SUCCESS WITH WARNING
+ ecc4eeb2208ab537a3f3744984cd7f30ac971db8
+Message-ID: <635ab32d.6UouMR1hjiK2K4CL%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dcc39ecb-1823-4738-4c60-08dab8350da7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Oct 2022 16:05:22.8191 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: O3DA2KjenbUK91we+7gVPYKnFLXhFjiRswVEu8SG4P8Rc+pRAmZhovXdg49HBbG6+az8Usem083q8o11HYWmTA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6351
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,242 +58,203 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-hwmon@vger.kernel.org, linux-arch@vger.kernel.org,
+ ntfs3@lists.linux.dev, netdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ linux-mediatek@lists.infradead.org, loongarch@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CY8PR12MB70997C83CA4400B41968A4E88C339CY8PR12MB7099namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: ecc4eeb2208ab537a3f3744984cd7f30ac971db8  Add linux-next specific files for 20221027
 
-[Public]
+Warning reports:
 
-Reviewed-by: Harish Kasiviswanathan  <Harish.Kasiviswanathan@amd.com>
+https://lore.kernel.org/linux-mm/202210090954.pTR6m6rj-lkp@intel.com
+https://lore.kernel.org/linux-mm/202210111318.mbUfyhps-lkp@intel.com
+https://lore.kernel.org/linux-mm/202210261404.b6UlzG7H-lkp@intel.com
+https://lore.kernel.org/llvm/202210060148.UXBijOcS-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202210270637.Q5Y7FiKJ-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202210271517.snUEnhD0-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202210272129.7rvjxsdk-lkp@intel.com
 
-From: Deucher, Alexander <Alexander.Deucher@amd.com>
-Sent: Thursday, October 27, 2022 9:56 AM
-To: Sider, Graham <Graham.Sider@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: disable GFXOFF during compute for GFX11
+Warning: (recently discovered and may have been fixed)
 
+arch/loongarch/kernel/traps.c:250 die() warn: variable dereferenced before check 'regs' (see line 244)
+drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:615: warning: expecting prototype for setup_subvp_dmub_command(). Prototype was for populate_subvp_cmd_pipe_info() instead
+drivers/hwmon/jc42.c:384 jc42_write() warn: inconsistent returns '&data->update_lock'.
+drivers/net/ethernet/freescale/fman/fman_memac.c:1209 memac_initialization() warn: passing zero to 'PTR_ERR'
+include/asm-generic/div64.h:222:35: warning: comparison of distinct pointer types lacks a cast
+include/asm-generic/div64.h:234:32: warning: right shift count >= width of type [-Wshift-count-overflow]
+lib/zstd/compress/huf_compress.c:460 HUF_getIndex() warn: the 'RANK_POSITION_LOG_BUCKETS_BEGIN' macro might need parens
 
-[Public]
+Unverified Warning (likely false positive, please contact us if interested):
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com<mailto:alexander.deucher@=
-amd.com>>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Graham Sider <Graham.Sider@amd.com<ma=
-ilto:Graham.Sider@amd.com>>
-Sent: Wednesday, October 26, 2022 4:10 PM
-To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
-d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com<mailto:Harish.K=
-asiviswanathan@amd.com>>; Sider, Graham <Graham.Sider@amd.com<mailto:Graham=
-.Sider@amd.com>>
-Subject: [PATCH] drm/amdgpu: disable GFXOFF during compute for GFX11
+lib/zstd/decompress/zstd_decompress_block.c:1009 ZSTD_execSequence() warn: inconsistent indenting
+lib/zstd/decompress/zstd_decompress_block.c:894 ZSTD_execSequenceEnd() warn: inconsistent indenting
+lib/zstd/decompress/zstd_decompress_block.c:942 ZSTD_execSequenceEndSplitLitBuffer() warn: inconsistent indenting
+lib/zstd/decompress/zstd_decompress_internal.h:206 ZSTD_DCtx_get_bmi2() warn: inconsistent indenting
 
-Temporary workaround to fix issues observed in some compute applications
-when GFXOFF is enabled on GFX11.
+Warning ids grouped by kconfigs:
 
-Signed-off-by: Graham Sider <Graham.Sider@amd.com<mailto:Graham.Sider@amd.c=
-om>>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+gcc_recent_errors
+|-- arc-randconfig-m031-20221025
+|   `-- drivers-net-ethernet-freescale-fman-fman_memac.c-memac_initialization()-warn:passing-zero-to-PTR_ERR
+|-- arm-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:expecting-prototype-for-setup_subvp_dmub_command().-Prototype-was-for-populate_subvp_cmd_pipe_info()-instead
+|-- arm64-randconfig-s041-20221026
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
+|   `-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
+|-- i386-randconfig-m021
+|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
+|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
+|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
+|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
+|   |-- lib-zstd-compress-huf_compress.c-HUF_getIndex()-warn:the-RANK_POSITION_LOG_BUCKETS_BEGIN-macro-might-need-parens
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
+|   `-- lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
+|-- ia64-randconfig-s052-20221026
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
+|   `-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
+|-- loongarch-randconfig-m041-20221026
+|   |-- arch-loongarch-kernel-traps.c-die()-warn:variable-dereferenced-before-check-regs-(see-line-)
+|   |-- drivers-hwmon-jc42.c-jc42_write()-warn:inconsistent-returns-data-update_lock-.
+|   |-- lib-zstd-compress-huf_compress.c-HUF_getIndex()-warn:the-RANK_POSITION_LOG_BUCKETS_BEGIN-macro-might-need-parens
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
+|   `-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
+|-- mips-randconfig-r013-20221027
+|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
+|   `-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
+|-- nios2-randconfig-s042-20221026
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
+|   |-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
+|   |-- fs-ntfs3-index.c:sparse:sparse:restricted-__le32-degrades-to-integer
+|   |-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s1-got-unsigned-short
+clang_recent_errors
+|-- arm-buildonly-randconfig-r003-20221026
+|   |-- drivers-pinctrl-qcom-pinctrl-lpass-lpi.c:error:call-to-undeclared-function-FIELD_GET-ISO-C99-and-later-do-not-support-implicit-function-declarations
+|   |-- drivers-pinctrl-qcom-pinctrl-lpass-lpi.c:error:call-to-undeclared-function-u32_encode_bits-ISO-C99-and-later-do-not-support-implicit-function-declarations
+|   `-- drivers-pinctrl-qcom-pinctrl-lpass-lpi.c:error:call-to-undeclared-function-u32p_replace_bits-ISO-C99-and-later-do-not-support-implicit-function-declarations
+|-- hexagon-randconfig-r041-20221026
+|   `-- drivers-phy-mediatek-phy-mtk-tphy.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-c
+`-- riscv-randconfig-r001-20221026
+    |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-get_symbol_pos:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_num_syms
+    |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-get_symbol_pos:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_offsets
+    |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_lookup_name:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_num_syms
+    |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_lookup_name:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_offsets
+    |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_lookup_name:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_relative_base
+    |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_on_each_symbol:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_num_syms
+    |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_on_each_symbol:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_offsets
+    `-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_on_each_symbol:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_relative_base
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.c
-index 37db39ba8718..0d764c15f6bf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -706,6 +706,13 @@ int amdgpu_amdkfd_submit_ib(struct amdgpu_device *adev=
-,
+elapsed time: 721m
 
- void amdgpu_amdkfd_set_compute_idle(struct amdgpu_device *adev, bool idle)
- {
-+       /* Temporary workaround to fix issues observed in some
-+        * compute applications when GFXOFF is enabled on GFX11.
-+        */
-+       if (IP_VERSION_MAJ(adev->ip_versions[GC_HWIP][0]) =3D=3D 11) {
-+               pr_debug("GFXOFF is %s\n", idle ? "enabled" : "disabled");
-+               amdgpu_gfx_off_ctrl(adev, idle);
-+       }
-         amdgpu_dpm_switch_power_profile(adev,
-                                         PP_SMC_POWER_PROFILE_COMPUTE,
-                                         !idle);
---
-2.25.1
+configs tested: 79
+configs skipped: 2
 
---_000_CY8PR12MB70997C83CA4400B41968A4E88C339CY8PR12MB7099namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+gcc tested configs:
+um                           x86_64_defconfig
+um                             i386_defconfig
+x86_64                              defconfig
+i386                                defconfig
+i386                          randconfig-a014
+i386                          randconfig-a001
+i386                          randconfig-a012
+i386                          randconfig-a003
+x86_64                               rhel-8.3
+x86_64                           rhel-8.3-syz
+i386                          randconfig-a016
+x86_64                           allyesconfig
+x86_64                        randconfig-a002
+powerpc                           allnoconfig
+i386                             allyesconfig
+arm                                 defconfig
+arc                                 defconfig
+arm                              allyesconfig
+x86_64                         rhel-8.3-kunit
+x86_64                        randconfig-a006
+x86_64                        randconfig-a013
+x86_64                          rhel-8.3-func
+x86_64                        randconfig-a011
+i386                          randconfig-a005
+x86_64                        randconfig-a004
+x86_64                    rhel-8.3-kselftests
+powerpc                          allmodconfig
+x86_64                        randconfig-a015
+m68k                             allmodconfig
+x86_64                           rhel-8.3-kvm
+arm64                            allyesconfig
+sh                               allmodconfig
+arc                              allyesconfig
+alpha                               defconfig
+mips                             allyesconfig
+alpha                            allyesconfig
+m68k                             allyesconfig
+riscv                randconfig-r042-20221026
+s390                                defconfig
+s390                             allmodconfig
+arc                  randconfig-r043-20221026
+s390                 randconfig-r044-20221026
+s390                             allyesconfig
+m68k                        m5272c3_defconfig
+sparc                             allnoconfig
+xtensa                    smp_lx200_defconfig
+i386                          randconfig-c001
+m68k                           sun3_defconfig
+powerpc                 canyonlands_defconfig
+m68k                       m5208evb_defconfig
+riscv                               defconfig
+sh                        dreamcast_defconfig
+microblaze                      mmu_defconfig
+m68k                         amcore_defconfig
+openrisc                  or1klitex_defconfig
+mips                         bigsur_defconfig
+sh                             shx3_defconfig
+arm                           h5000_defconfig
+alpha                            alldefconfig
+m68k                          hp300_defconfig
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-p.msipheader23c54b6f, li.msipheader23c54b6f, div.msipheader23c54b6f
-	{mso-style-name:msipheader23c54b6f;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<div class=3D"WordSection1">
-<p class=3D"msipheader23c54b6f" style=3D"margin:0in"><span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:green">[Public]</s=
-pan><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Reviewed-by: Harish Kasiviswanathan &nbsp;&lt;Harish=
-.Kasiviswanathan@amd.com&gt;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Deucher, Alexander &lt;Alexander.Deuche=
-r@amd.com&gt; <br>
-<b>Sent:</b> Thursday, October 27, 2022 9:56 AM<br>
-<b>To:</b> Sider, Graham &lt;Graham.Sider@amd.com&gt;; amd-gfx@lists.freede=
-sktop.org<br>
-<b>Cc:</b> Kasiviswanathan, Harish &lt;Harish.Kasiviswanathan@amd.com&gt;<b=
-r>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: disable GFXOFF during compute for G=
-FX11<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
-t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
-12.0pt;color:black">Acked-by: Alex Deucher &lt;<a href=3D"mailto:alexander.=
-deucher@amd.com">alexander.deucher@amd.com</a>&gt;<o:p></o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
-.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt; on behalf o=
-f Graham Sider &lt;<a href=3D"mailto:Graham.Sider@amd.com">Graham.Sider@amd=
-.com</a>&gt;<br>
-<b>Sent:</b> Wednesday, October 26, 2022 4:10 PM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
-reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
--gfx@lists.freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Kasiviswanathan, Harish &lt;<a href=3D"mailto:Harish.Kasiviswana=
-than@amd.com">Harish.Kasiviswanathan@amd.com</a>&gt;; Sider, Graham &lt;<a =
-href=3D"mailto:Graham.Sider@amd.com">Graham.Sider@amd.com</a>&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: disable GFXOFF during compute for GFX11=
-</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Temporary workaround =
-to fix issues observed in some compute applications<br>
-when GFXOFF is enabled on GFX11.<br>
-<br>
-Signed-off-by: Graham Sider &lt;<a href=3D"mailto:Graham.Sider@amd.com">Gra=
-ham.Sider@amd.com</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 7 +++++++<br>
-&nbsp;1 file changed, 7 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.c<br>
-index 37db39ba8718..0d764c15f6bf 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
-@@ -706,6 +706,13 @@ int amdgpu_amdkfd_submit_ib(struct amdgpu_device *adev=
-,<br>
-&nbsp;<br>
-&nbsp;void amdgpu_amdkfd_set_compute_idle(struct amdgpu_device *adev, bool =
-idle)<br>
-&nbsp;{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Temporary workaround to fix issues=
- observed in some<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * compute applications when GFX=
-OFF is enabled on GFX11.<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (IP_VERSION_MAJ(adev-&gt;ip_versio=
-ns[GC_HWIP][0]) =3D=3D 11) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; pr_debug(&quot;GFXOFF is %s\n&quot;, idle ? &quot;enabled&quot; =
-: &quot;disabled&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_gfx_off_ctrl(adev, idle);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_switch_power_pr=
-ofile(adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; PP_SMC_POWER_PROFILE_COMPUTE,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; !idle);<br>
--- <br>
-2.25.1<o:p></o:p></p>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
+clang tested configs:
+i386                          randconfig-a013
+i386                          randconfig-a011
+i386                          randconfig-a002
+i386                          randconfig-a004
+x86_64                        randconfig-a005
+x86_64                        randconfig-a001
+i386                          randconfig-a015
+x86_64                        randconfig-a003
+x86_64                        randconfig-a012
+i386                          randconfig-a006
+x86_64                        randconfig-a014
+x86_64                        randconfig-a016
+hexagon              randconfig-r045-20221026
+hexagon              randconfig-r041-20221026
+arm                        mvebu_v5_defconfig
+powerpc                     ppa8548_defconfig
+arm                  colibri_pxa270_defconfig
+powerpc               mpc834x_itxgp_defconfig
+arm                           spitz_defconfig
 
---_000_CY8PR12MB70997C83CA4400B41968A4E88C339CY8PR12MB7099namp_--
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
