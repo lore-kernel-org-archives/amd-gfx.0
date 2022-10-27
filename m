@@ -4,89 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F07DFA3740
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 12:34:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C3BFECAAA1
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 12:52:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B02AF10E603;
-	Thu, 27 Oct 2022 12:33:59 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 252FF10E14F
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 09:39:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1666863583;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=SPLb3w6K7DrqCekqNfHb7k0C69BoLOUk/AH12Hh9eUE=;
- b=gfp3Dbk98LBVK0C55dZC2FOGanT9lklwOWaXY6b88Cq7cd3Jz23cxzbkU/dpBVA2pHhkBt
- lDkoUlavV5LagSIjYGPX0TrjW3T/zHDncZSJ/DDnNj6dtskCVI/Z5I+lVf/JN1ZGNsUE8R
- R8bp0DlkUuE1fExVxXZkkzKSWQT5cD4=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-191-jIunmupUOCGvmCxv_Ph0Vw-1; Thu, 27 Oct 2022 05:39:41 -0400
-X-MC-Unique: jIunmupUOCGvmCxv_Ph0Vw-1
-Received: by mail-ej1-f71.google.com with SMTP id
- he6-20020a1709073d8600b0078e20190301so667792ejc.22
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 02:39:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=SPLb3w6K7DrqCekqNfHb7k0C69BoLOUk/AH12Hh9eUE=;
- b=epkI0OMEBlpZ7ApcfpR0HuqEd6QT5wcuwPYXR582+9suF17OkJPxhRoKUSdpBL3hZj
- WQMUO0yBofnK4dL+rKCOO9wc95lFgeYha8sVQTKlluU3u6343+eb3tlF8hIyCqHXADH9
- tfvN2+NR9G7Hhw7nb6ow/55h1TDDlK8rJN0LlNZ1voRJSUY8TyMmIgDQyGkJG3jDZ2M0
- zdSs2pAmoa5yF72tLNE7q9iyIxBs0uH4uDoxBOOM+Y4xzQJlbFPSaKye4yP2po9BV4jg
- 8SlFdT2ZuVOQ6AWMXhAHj3Hu0FcNL0vPVXU3tooRUqptj47BlWr0Tip2iy9rUvDsNF+K
- 2EQA==
-X-Gm-Message-State: ACrzQf2d1dgeZwdA/0jBe4HPxaTbXgCweQfsDAL1a+xZbNqHSWlaG2t3
- PE8xdTCTNpkmeifCzHIa+Hn11LRtpmonagPM/FscH88z/1whc6+ud4QeFHyrTDG1VY8qg9fxxDP
- oG95ql71ei1o5VwzyZ0t6DLtaZA==
-X-Received: by 2002:a17:906:8a4b:b0:7a7:3e17:7f91 with SMTP id
- gx11-20020a1709068a4b00b007a73e177f91mr19223721ejc.331.1666863580814; 
- Thu, 27 Oct 2022 02:39:40 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM7QQCa4ZhbSxyNv8ySSfoneULT0DuJcUzkyJosCmR+F+sIN0nbLZtmTKn4Yv2n7c7oDN6G+Jg==
-X-Received: by 2002:a17:906:8a4b:b0:7a7:3e17:7f91 with SMTP id
- gx11-20020a1709068a4b00b007a73e177f91mr19223685ejc.331.1666863580511; 
- Thu, 27 Oct 2022 02:39:40 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
- (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
- by smtp.gmail.com with ESMTPSA id
- ds12-20020a0564021ccc00b00461aebb2fe2sm672031edb.54.2022.10.27.02.39.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Oct 2022 02:39:39 -0700 (PDT)
-Message-ID: <933be908-0bc2-56cc-8d6f-38f2d208ef20@redhat.com>
-Date: Thu, 27 Oct 2022 11:39:38 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Subject: Re: [PATCH v5 02/31] drm/i915: Don't register backlight when another
- backlight should be used (v2)
-To: Matthew Garrett <mjg59@srcf.ucam.org>
-References: <20221024203057.GA28675@srcf.ucam.org>
- <8f53b8b6-ead2-22f5-16f7-65b31f7cc05c@redhat.com>
- <20221025193248.GA21457@srcf.ucam.org>
- <144cd47e-42dc-2b84-1a90-ea5e080e08a3@redhat.com>
- <20221025204043.GA23306@srcf.ucam.org>
- <cb5add36-c13c-ccd5-1b4b-71b45163a170@redhat.com>
- <20221025234040.GA27673@srcf.ucam.org>
- <fa6cc1d9-6740-b495-2c72-cae18c429ca6@redhat.com>
- <20221026204920.GA15326@srcf.ucam.org>
- <099dee98-8aeb-af36-828c-110f5ac6e9a3@redhat.com>
- <20221027091123.GA28089@srcf.ucam.org>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20221027091123.GA28089@srcf.ucam.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, nl
-Content-Type: text/plain; charset=UTF-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DD2610E60E;
+	Thu, 27 Oct 2022 12:52:17 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2041.outbound.protection.outlook.com [40.107.243.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5943B10E60E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 12:52:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mLR3aJGnToa1XxkdRq1JSi0YFeW9Ujlh0EhcA4l4k6SK7kwUh+3JAP7py1BsOgbMyypu9JquMBncQrnZgSuhxzbXRJuFgBMjM9A7aNZTW0UjDPssM5v5okMIJYI5ZDxRZE9JC0UJfQnVb0BV2Ir7Vk1YlLL2T+raDEs3NJcPi5ChePBvWxNYFxPfs1hJ7GsTE3QN5xnvk8+HbvQgyT/YieMSwv2sAmA6nowYsfpb5zFklVt+Soea6CWPYv9mZ93OLV0Tu0x+o1bRg7MN8L+geipRv6omtBAPja6MTZb/z6koKbYfiHh3tSLy6d6A2CicjNseAgGqfdRClTsOALT1Gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ppj/vQ1wHTZwZOkft78fbzhnpo/PzUIaAFYobltofSM=;
+ b=QdqucI6nLkCgxRRVIdpz3760Mg58FE0OdmV9fhwK30TIt8829t20bIrf4ZgPSe/29ndOoFmgshJw95eUDTfeUAkWvrG64re9kTxiDPR8Q6BC2t0TXvAA3naOEp5i+JrsqFyDcshN1ftJ/ROe4WC+4MAfrCgGe/t/MCJnyRd1N70GS+8zMy3C2LP/6Rq81PLC/L3aQk5BtQac8uLjjd5Dgn24xzCzOJ4QDCRqkXO1htsreDzNbtE4rxOjZ1A79kp7SI6SHUk1Uz5mPvBvwZf4d77rQdCtkT22oJKYXtPRz2KUa/TweHcs/+HEs+8wwrv9KhiXA+YbkFn7K8wfHoweXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ppj/vQ1wHTZwZOkft78fbzhnpo/PzUIaAFYobltofSM=;
+ b=B5QE4Na2Pw0KLFFlOoDWyRSl27426YjLtALQcnkmBVLgQ2Re1T7odaFYXApBzJ2eexLqztquDj30BsXyNAwgQ8Zqeca66IOhYhMGy+Ihwt5DtVtKu+mCe5MnKU0gURNui9TFjLM16FqefEFHZwrNoyUF/YNxu+86AlrFJgYgDRI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DM4PR12MB5263.namprd12.prod.outlook.com (2603:10b6:5:39b::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.14; Thu, 27 Oct
+ 2022 12:52:12 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::a350:f29a:f287:7279]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::a350:f29a:f287:7279%4]) with mapi id 15.20.5746.023; Thu, 27 Oct 2022
+ 12:52:11 +0000
+Message-ID: <5ed240e0-34d2-d009-1142-2afc326a573a@amd.com>
+Date: Thu, 27 Oct 2022 14:52:05 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH RESEND 1/1] drm/amd/display: add DCN support for ARM64
+Content-Language: en-US
+To: Arnd Bergmann <arnd@arndb.de>, Ao Zhong <hacc1225@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>
+References: <20221027002528.15983-1-hacc1225@gmail.com>
+ <20221027002528.15983-2-hacc1225@gmail.com>
+ <c41b45cb-8a1a-4140-b7f9-08aa481a25c1@app.fastmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <c41b45cb-8a1a-4140-b7f9-08aa481a25c1@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 27 Oct 2022 12:33:43 +0000
+X-ClientProxiedBy: AM6P191CA0022.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:209:8b::35) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DM4PR12MB5263:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b323a48-46c8-4064-23c4-08dab81a10b4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: BsiZ2ZmrYKWKSeZ6ZsCFvFbu3OAyf8PDdaD6hSDb40WvqmyZUA9bSABJPyOlG4g8ODql/2rcKWqjopNnkogLhDlaL0XUAYsYJm5KqXxUN6qDQHfuLRbWcg3t0HcdVXV5fYMbEe4fSwZ+1TcDRj2c+dttbszV0j4Ck/lYvsrmU4Z1UZ2jx00WvGTFznJ0pR6MgD9eXbgGj/CZAhb/TcgzK9ZiJPEo4eD1WXHlJ6eCOki8AZ8yVjyi7b6VF3u+jhczN5IsBoQ2d8pZ3LQ+s3pc8AXMbWT3VOMiEhiUTDgOIAiV4J0Qyg12l3ngKNjKD7Eb5/RmpooatiZ/LYIid2LCdJhUP+HFARwu+As/33PyCBb1U1Ckb1i2vZ5I+RiHWoidZZnvro/TtiMmjc56ODD0afHLOjQuJSB2spapMJimU1ZA6b9YlNma8oE+aO0Rc706aj9nP9nK3GiSjhuRilcr7VWCzX5X1LaRSTedubacUio44o46FeRP0Pq/sseeukH6i+oNyuC8wwVUrBMfYqQheD77a3OYGnYGzPCZaLhS7rrJgbsvTjm3t4edGJETlQ6e9N5U6YyJpqX67i0VIGlWLd5HyKu3BlCwxwzhRZF3y+ABIAX4J8n3i6nEloj6Mbz9u+Ysah3oU6lftZaGibH42H+D/Bi6IJ6S7z7RFRfBFFQyJJvPsGaSDr5B1Bp+p02nzMphxQYng9TGJvCk71/8uVRXVy0qC5Ye/X6TVkcj9/J9MW88aGakLHQxz9gtP6SIKdU6OfNegb5IIHtMD+d9blXJnIFNt69wbSqyixSDqkw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(366004)(346002)(396003)(136003)(39860400002)(376002)(451199015)(316002)(38100700002)(86362001)(6666004)(31696002)(110136005)(8936002)(26005)(6512007)(5660300002)(2906002)(2616005)(186003)(6506007)(36756003)(4326008)(66556008)(66476007)(66946007)(8676002)(41300700001)(31686004)(6486002)(478600001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UWVIejI3YTRQdXppdlJJOEFXaGw2WnkrQ3ZHRXE4bW1SR2Qzcm43S1d0V0Np?=
+ =?utf-8?B?b0ticWg1WlQ5anBvTkc2RkMyR2o2WXBqZFk2MTdFd1pBN3VIK1NHWjBmRGZr?=
+ =?utf-8?B?Q3cvZzhMaElzb3VoNjJQUElvUm5TdHdEQThKMGdRMG8rR0w2OFZKeGRoeUhE?=
+ =?utf-8?B?QlBuS0NjUHhjemJNVkhZWXFYTGljRG1BZitRbytZSU5YUmd5dnBRV0NtNmVs?=
+ =?utf-8?B?eHJPNU1JLzRPRnEwSUlUV2EreWdqNlludmVud09yNnBuT1FwTVl2cGdsQnRR?=
+ =?utf-8?B?RXYvTnIxeGg1aEZOSExvUmNlTVBRMWlZMitYVjc2MUZiRFRmK0p5Y09FSGlW?=
+ =?utf-8?B?Wk1DMis4U1V0YU90b1hwbGZGN3dGY2ZmSnNwTDRzbkVBLy8yZkZleEFOaFB1?=
+ =?utf-8?B?Q3NJd1lzNDhmYkFaUUU5RTlVc2FnZURPMWwwRitTRGhQNUtSbXYxTTV2ZUtS?=
+ =?utf-8?B?NzlicTVDeWN2Z2xNSk5PbmgwSmUxMFZMcm5PZ2FqQ0FEVEF3bVZheE5lb3Zh?=
+ =?utf-8?B?UEV2Rk1INTZaNXFYSng5U2hVQ2pTRzRYVlN3d250NFZTOElsY0Q5cFBvZFp6?=
+ =?utf-8?B?S2d6WHFjZ3ZRRjhhODhQd1hqU2xXVlMzM05kRE9qZGQ1eUc2TVN6aDhoNEtm?=
+ =?utf-8?B?cmpoTUlMNWYvZ25aUkhuOUE4QlB5L2VmTTdreEpaVkUyQXFBTkhheENHcjBK?=
+ =?utf-8?B?T3NtdzVGWDBMSzh4Ukk1VVJpWWI1RHNrN05lWDIrZno1TUt1dXNOSW5pNitO?=
+ =?utf-8?B?ZFlQakxMdHRDdkxUVFFIUmRwSGJxdDR4NHBOelpnemhJZzVuQnNCSkdnWHZl?=
+ =?utf-8?B?ZzlCa0lza2NPS2FlbXczaU4wNkVsd2I3NXpUOHl2b1NwdUIwazRWQTNFVlBy?=
+ =?utf-8?B?MGJiL3NTb29nRUFVYkJ1MExUL2dBUHNBOEJEUi9FZktNa0FycFNaeEQ0MGNZ?=
+ =?utf-8?B?QXlvdjl0ZytsbzlRZDBmRjZ1THhrc3J5bWpoaUpLUERBYldIMmRJN1hPWHo3?=
+ =?utf-8?B?VDQzU0pwRmpCT05YVXNiVkFVZDRKQlBYTWRBWnIyYmlxOE5iNE1LUnV3amJm?=
+ =?utf-8?B?K3UwMndkN0REdEZ1eXhMSWkzUzNCMDM1VHZSWFp6MXN2T0laTUc4d2NSS0RT?=
+ =?utf-8?B?VlVyRDZxN2pLZ2pWUk83aGxZOTBBa1RRR0lVWW5OaTJVeWVFUG1EVkwwSXZM?=
+ =?utf-8?B?ajZ1bDhYNUdFa2thaDVFZVJ2djJPVmUwM0IvVEJoYjZ3dzlLQ2c3aUlHMkk5?=
+ =?utf-8?B?SzdDVGFyY0dOT3FaTzM3ckFyVDJXYjI2eHZ4cWRnbExkNEsvclBzRUlqdGFo?=
+ =?utf-8?B?Mmt1SHpPTitTL1FGeFJZMHZFaEhEWHRjeTFmWDJpTnBPTkw2bmVURzJMWmJJ?=
+ =?utf-8?B?NTZBajdMc2hwbXduZklaUTk3d1J4dUVXQ3dJd1g1dGk0QzIyVGdGa0VmVkwx?=
+ =?utf-8?B?U2l5YkpMZTZTYytseXBsWFFscjRjUjhJVlhneEtHcEVTYW9NeDlidDdmRVlK?=
+ =?utf-8?B?a3VXUXEvbm16Nk9EZ2J6blIwNzlsckowUDNjQkxWWTNTbjNSMnBRSEo0N3Ex?=
+ =?utf-8?B?OGplejVQcFZyUTFqUWc2N2JXMVZoRUZqOGRucjFNaGdOYkRyYWNuUG53dU1L?=
+ =?utf-8?B?aEplZjloUVNvMWxmU0NxaXorNHBRRjVUZnU5OHNFaEtxcVZBTlNtNElTc2gx?=
+ =?utf-8?B?dzJFSmpENmxhZlBaaVNqenYyNm4wZG5oMjczQi9aVktjdkJ1S2NOQ2xKZktr?=
+ =?utf-8?B?cDR6dFdkaXVVUEhhSGRLY2VYVHBQdzlOajZBSm1aemxTL1NnNElOaVQ2VjUv?=
+ =?utf-8?B?Q0pxeEk3TE5TTWh0ZjE1cFUyR0NqUzlmcjk0eXFsU2hPTEMvcllXZ1NSeFpQ?=
+ =?utf-8?B?Q1RNNFVBaFk1am4venc0Qit4Smp1OVZVeWt4NWdaNE0rbmRvcDVVNTI4blNl?=
+ =?utf-8?B?ODhZZkRlSFQvejBPWDJXS1Z1VVhMOGZMakRVWTNPNEQwdlV0TmpOeXFwUlFa?=
+ =?utf-8?B?RnVTZ2JzMVBNQUNBbW94eEJvTjlneDdmTmVPc01QQjJ3VE9ZMGtOOUpib3VW?=
+ =?utf-8?B?dnhhRWl4Z1NXbDNhay8xWUpObFhlTU0zWlpjUC9EbWVrb3lSK09iRWpBczhy?=
+ =?utf-8?Q?pGnLNtkWONbr5d7vkbRJm96hY?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b323a48-46c8-4064-23c4-08dab81a10b4
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2022 12:52:11.8841 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +ho7+jF2wu3pcCr1kqLkmilGUrLWEfkii9DNTEtuv78HWgQ7sjel/Qmb3Xhmwg6M
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5263
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,109 +130,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pan@freedesktop.org, Karol Herbst <kherbst@redhat.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- Dmitry Osipenko <digetx@gmail.com>, amd-gfx@lists.freedesktop.org,
- linux-acpi@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>,
- David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>,
- Daniel Dadap <ddadap@nvidia.com>, Jani Nikula <jani.nikula@intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Mark Gross <markgross@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Andy Shevchenko <andy@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Xinhui <Xinhui.Pan@amd.com>,
- Lukas Wunner <lukas@wunner.de>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Matthew,
-
-On 10/27/22 11:11, Matthew Garrett wrote:
-> On Thu, Oct 27, 2022 at 10:51:45AM +0200, Hans de Goede wrote:
-> 
->> In their backlight register paths and this has been present since
->> circa 2015.
+Am 27.10.22 um 12:52 schrieb Arnd Bergmann:
+> On Thu, Oct 27, 2022, at 02:25, Ao Zhong wrote:
+>> After moving all FPU code to the DML folder, we can enable DCN support
+>> for the ARM64 platform. Remove the -mgeneral-regs-only CFLAG from the
+>> code in the DML folder that needs to use hardware FPU, and add a control
+>> mechanism for ARM Neon.
 >>
->> So both before and after my 6.1 refactor vendor is only preferred
->> on devices which don't implement the ACPI video bus control method.
-> 
-> Sorry, yes, that's the case I meant.
-> 
->> Just because a vendor interface is present does not mean that it will
->> work. Unfortunately for none of the 3 main native/acpi_video/vendor
->> backlight control methods the control method being present also guarantees
->> that it will work. Which completely sucks, but it is the reality we
->> have to deal with.
-> 
-> But traditionally that's been logic that we've encoded into the vendor 
-> drivers, which can take other factors into account when determining 
-> whether the exposed interface works. You've now discarded that 
-> knowledge.
+>> Signed-off-by: Ao Zhong <hacc1225@gmail.com>
+> There have been problems with stack frame overflows on this code
+> in the past, how much have you tested this with random configurations
+> to see if we still hit them in corner cases on arm64 that may not
+> show up on x86 or powerpc? I would expect to see a few more of them
+> for every new architecture port.
 
-As I already mentioned in my previous email, the vendor drivers have
-been using something like:
+Our display team has worked quite a bit on those.
 
-	if (acpi_video_get_backlight_type() != acpi_backlight_vendor)
-		return;
+For example instead of putting large structures used for temporary 
+calculations on the stack we now either completely avoid or kmalloc them 
+as part of the CRTC structure.
 
-In their backlight register paths *since 2015* and even before
-then most of them called some acpi_video helper function to determine
-if ACPI video backlight control was available and skipped registering
-their backlight device if that returned true. And calling that
-acpi_video helper is as smart as they traditionally were. That +
-DMI quirks and we still have all those quirks.
+On the other hand I wouldn't put my hand into the fire that this has 
+fixed all the problematic call paths. So keeping an eye open for this is 
+certainly a good idea.
 
-I was very careful with the refactoring landing in 6.1 to *not*
-change any of this.
+Christian.
 
-The *only* behavior which actually is new in 6.1 is the native GPU
-drivers now doing the equivalent of:
-
-	if (acpi_video_get_backlight_type() != acpi_backlight_native)
-		return;
-
-In their backlight register paths (i), which is causing the native
-backlight to disappear on your custom laptop setup and on Chromebooks
-(with the Chromebooks case being already solved I hope.).
-
-I am fully aware that this may turn out to also impact other laptops.
-I'm keeping out an eye for this and I have specifically reached-out
-to the coreboot community asking them to test 6.1 .
-
-> The only way you can maintain the degree of functionality 
-> that 6.0 had is to move that determination into core code, or 
-> alternatively support dynamic reattachment of backlight interfaces based 
-> on vendor drivers loading later. An alternative would be to just revert 
-> all of this, and instead only use this logic for the output property 
-> interface (which would still result in different outcomes, but only for 
-> userland that's choosing to use the new interface, so that's a different 
-> problem).
-
-Yes I am considering dropping the "acpi_video_get_backlight_type() !=
-acpi_backlight_native" check from at least the i915 driver if we get more
-bug reports and then indeed only do the equivalent of that check in
-the code for the new output property.
-
-I agree this is a possible solution if this turns out to break more
-systems and there is no other easy/clean way to fix those. But I would
-greatly prefer to keep this change and stop the IMHO bad kernel behavior
-of "registering multiple backlight-devices for a single panel and then
-let userspace sort it out".
-
-Regards,
-
-Hans
-
-
-i) Before this, the kernel was relying on userspace preferring acpi_video
-or vendor backlight devices over native if both are present and the
-native backlight devices were registered unconditionally.
-
-
+>> index d0c6cf61c676..3cdd109189e0 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+>> @@ -33,6 +33,12 @@ ifdef CONFIG_PPC64
+>>   dml_ccflags := -mhard-float -maltivec
+>>   endif
+>>
+>> +ifdef CONFIG_ARM64
+>> +ifdef CONFIG_DRM_AMD_DC_DCN
+>> +dml_rcflags_arm64 := -mgeneral-regs-only
+>> +endif
+>> +endif
+>> +
+>>   CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calcs.o := $(dml_ccflags)
+>>   CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_auto.o := $(dml_ccflags)
+>>   CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_ccflags)
+>> -Wno-tautological-compare
+>> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_rcflags)
+>> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_vba.o :=
+>> $(dml_rcflags) $(dml_rcflags_arm64)
+> Why do you need separate $(dml_rcflags) and $(dml_rcflags_arm64)
+> rather than adding -mgeneral-regs-only to $(dml_rcflags) directly?
+>
+>      Arnd
 
