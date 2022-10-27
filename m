@@ -4,62 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E8DCECAAA1
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 18:15:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC061ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 18:38:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCDC710E6C0;
-	Thu, 27 Oct 2022 18:15:54 +0000 (UTC)
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11C6D10E6C0;
- Thu, 27 Oct 2022 18:15:52 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-13bd2aea61bso3301656fac.0; 
- Thu, 27 Oct 2022 11:15:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0+Wu+TPAjCZkDy5/YDkczMFpTvMVRYJJF5b2AjVvf4c=;
- b=UKED/P8RoCBwG7uMbqw+VJh4/5GQ41X17e8irn5D/U/qZQm2A9avme7jWirdsW1+el
- JdrUB2InoBB+hyMoh8hdvOsJ1gv50/8PwJBJn6Uvw7IuQCShCIxX0U2MHw2t8dqskLs/
- smeX1To1lSxeXiPXlRKb9sGggnxrvGEqqhJ+lRLjmm64IOKlzoenl4WQbaUqrT8GGUwp
- 5kPo+7YScLYdHpB5/VvgyaaIVzJ0zEjDDIntbd4upPPc0J8R0Tzt8xzkVvy8NvbxE/0p
- NPTIJAT5wfDaxFdSjmQaMgx+aw9NxjovJQ7InSACvF5XAQTHDcLMTAEoRxIjLYz90qe1
- sgfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=0+Wu+TPAjCZkDy5/YDkczMFpTvMVRYJJF5b2AjVvf4c=;
- b=WYV/JdyYJr1UiVKy/zajp/qGQZdTwAVNbeecCcn8JBYmanQ16T/dR5GGD997dlx6Ud
- r1n8cx7f6HLpS8E6qYi+JqHyIVBjUX6Xw8HGbhVUj1/mifgUrQCGIY8zMWzCkBr5XthB
- RqSBcXzcEySgjgFt0FVo1W4xlcmYIs/slW4XiGeKLBqpsfgtIb0joUbNoGeSAFpMwfDd
- 0uwTeY4gRXkrMc19f5DLNEhwLKv6oKs3KdAyl8o664AbJkMq1rqAy31/YF/TbDQ1Cd/4
- Vs5oCar40DMY3mtqBIu6pYAeH971mVrkqha49J04LBcQdSWKBfoeovhkzHzQ3RbeuWK0
- qGFg==
-X-Gm-Message-State: ACrzQf2K3lmOlhIvZc0sepvtJCdA5F6D3EL1oIOc8jyW7SfX4HGlHybf
- /boqY2HYR/rKYXP6hXbbV4PuS/PgEFn1joXT3Yq080sX
-X-Google-Smtp-Source: AMsMyM4eFch0KYGpchKeHX6VRLFe4NFJC68PZOtxyZYC+uuMxa86Oo7IGaqq7DKpRaoXWxGm0dRkY0X6CBQqrRwiV0I=
-X-Received: by 2002:a05:6870:a116:b0:13a:f9de:6fd0 with SMTP id
- m22-20020a056870a11600b0013af9de6fd0mr6449558oae.46.1666894551272; Thu, 27
- Oct 2022 11:15:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 299A710E0E2;
+	Thu, 27 Oct 2022 18:38:50 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0FA010E0E2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 18:38:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iIeQtHxvjwMzYFPyQAQDNf6rTUCWp75nm8bHEW2o1gVFNN65FUxz+Qf9FHr0uKTNJDzaPnbYxCYC4xggXlQf70Nm1N63vO3JkGEdwpPTfTWw55bL47yRM5WNlH159UTRUofSPCZ6Y51XF+8ARABr+QPaqlqHCIs0YBAKDR0C5TNvYhFynfjRNhlXPRN5aM7J6qMbMJK9VNq5T8AnnVtWh2kFQD31SK0f249pXlxaeVdFk9yL6v3c3dLka7xMWkfR8OYI6pCZjJiIS/ETUzekoFKp99o1q/3hL1f0otTDpV5GnwPAx5RxIByc5NhVcAihTJxvJ9eD2/gYgVdkB6be1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PLa+TdMQPKZfBm/S8r+O7A1jC8y2ySosV7ogIvWFAOo=;
+ b=SBKXDYDmgs/YHuJqdT1HVVPJwtZD78ZCgtN2P6Y1sj98k+YATg1PNLBVEmxYPDCWXMo0dhDWx56cdq7cA1tELQ7W12mAKRROXIeDztL2l11jAFYlj8NNseUTfjwcikP4fADr6Vjr6bO7UMei3bzjAp56ZUjyfVB48dseZEGySBc35QraYCJ89JiPmk5yxBvuewbh9ypY1J8mFz6OmQy/B0myDM2AfTDzDeGNf034m2i36cF2xw5TKo8kU18/gLn88zLdQqFCDLA21rU7uti8QbWN6hCbIFi0cRTdBoqvfwxWxF0KpiE8M7rAGwQueI1dhG8KYgCG8BUPIkCDIiZP+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PLa+TdMQPKZfBm/S8r+O7A1jC8y2ySosV7ogIvWFAOo=;
+ b=fkwGs1O9Kj9Gq8e1SVWn8sLNRhNIKQPtcfOE910WrLwjDVK0fQHQYgj7dJsyAYCbDxyU4JSwIyIVvsOS0LSmcIs669oe/UILZvV7A+dvOThvXgdtNVr5nISbxzIloHge9pvMlW4E5w4G1XLc82vtx/m7IMq47f1bvwvINEXZTsI=
+Received: from BN8PR07CA0030.namprd07.prod.outlook.com (2603:10b6:408:ac::43)
+ by BL1PR12MB5061.namprd12.prod.outlook.com (2603:10b6:208:310::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28; Thu, 27 Oct
+ 2022 18:38:43 +0000
+Received: from BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ac:cafe::5e) by BN8PR07CA0030.outlook.office365.com
+ (2603:10b6:408:ac::43) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.29 via Frontend
+ Transport; Thu, 27 Oct 2022 18:38:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT038.mail.protection.outlook.com (10.13.176.246) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5746.16 via Frontend Transport; Thu, 27 Oct 2022 18:38:43 +0000
+Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 27 Oct
+ 2022 13:38:41 -0500
+From: Alex Hung <alex.hung@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 00/18] DC Patches Oct 27, 2022
+Date: Thu, 27 Oct 2022 12:35:25 -0600
+Message-ID: <20221027183543.1117976-1-alex.hung@amd.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-References: <20221020143603.563929-1-alexander.deucher@amd.com>
- <DM6PR12MB26194FC4A9B18912448DA8CEE42E9@DM6PR12MB2619.namprd12.prod.outlook.com>
- <e494d819-f960-f2bd-913e-83ee820ac399@suse.de>
- <CADnq5_P7r71zETyJRZ+KVKFS+C56NAZaht5stVE=uZQ6tP6fdg@mail.gmail.com>
- <ede1abed-d45f-6fb6-cf40-edbffece5eac@suse.de>
-In-Reply-To: <ede1abed-d45f-6fb6-cf40-edbffece5eac@suse.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 27 Oct 2022 14:15:39 -0400
-Message-ID: <CADnq5_PNwJjizV816fKL4y69Mzp5sf3JyZ2caAuGPr-p61pP0w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: don't call drm_fb_helper_lastclose in
- lastclose()
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT038:EE_|BL1PR12MB5061:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8e202906-3cba-4775-b0c0-08dab84a79a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: /qrFZA8Fs/k+uUbIPUF4GUxqInoCSKfEeLvY7BQgxQtVSFoGzOzNC7NNvrE2CO9ymSKguKgQRIs+SM0aoxDmaxBXAPBlWBgKFmM1zwS4JyPsrkC8enfx2vCyHCem/LSuoISCMAqOBzYed/YYQZvFcRqpMGuiyOxvygoJ1lksAas3X0oQvfPe3KKcsUkKjLmnTgoLpCuAvk1nygx0MLgg23Ox8/2xdg4sCg6lRUbBHIMBPsG9k6Jpg/toQ1oV9S1yYDcdWorTti7O4q4dznqkkGhf58YXCdBxq+rAmUSW/kVrD1OWiw0smclOdOAFv/U/qaJgQvnPGv+U95MzWUweykyl+UhB7EsAFW+ZO590ZEa4E5fcaWMtEqp45zfWpvGWbTzEG5He7wyYU1e12228C665fylwHawnweLCIelmhWaQn2J86wP2OPkFyt6jL/e0n7fBpcdxQ71oPE1hv0ynkjjwIs3ARlEHs/koRJPsfejnrjjXk6HwyfauGa/AdsflOIiTW6K3HILSMNleWTPaBNz24ksN2Ex72G+TBRPJ6ih+biv/shZXGXnCG/o+3LygdrggsYJjFMhMihZSS0vJ/BtWaiDxw+8ZCQVcTTTO9tnScVJZ322Nsg3IOjMcjgPSQZLD7Afk3ri25Ah6T5Ib+veWTitYWY3jde1UKkD7A0pjMefePKPZ90PoOLG7DQUpWMstFq/w5XpUY2wscv5n4gK9auYt6xhdwefMSCU2bKCpLkpTUi+MXDC8ebI6ZJ4pQ/WPNo0IDxZ2bnlF/D3jWlvzOq/QVlCOIIX6hGyOdtwNNUEfsDu1WOfP9EK03oRn
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(39860400002)(346002)(136003)(376002)(451199015)(36840700001)(40470700004)(46966006)(82310400005)(44832011)(36756003)(2906002)(6666004)(8936002)(41300700001)(1076003)(86362001)(4326008)(70586007)(70206006)(8676002)(54906003)(26005)(426003)(7696005)(40480700001)(316002)(81166007)(356005)(82740400003)(5660300002)(36860700001)(6916009)(83380400001)(16526019)(2616005)(186003)(40460700003)(336012)(47076005)(478600001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2022 18:38:43.4132 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e202906-3cba-4775-b0c0-08dab84a79a9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5061
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,131 +97,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan,
- Evan" <Evan.Quan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Aurabindo.Pillai@amd.com, Alex Hung <alex.hung@amd.com>, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 25, 2022 at 3:25 AM Thomas Zimmermann <tzimmermann@suse.de> wro=
-te:
->
-> Hi
->
-> Am 24.10.22 um 18:48 schrieb Alex Deucher:
-> > On Mon, Oct 24, 2022 at 3:33 AM Thomas Zimmermann <tzimmermann@suse.de>=
- wrote:
-> >>
-> >> Hi
-> >>
-> >> Am 24.10.22 um 08:20 schrieb Quan, Evan:
-> >>> [AMD Official Use Only - General]
-> >>>
-> >>> Reviewed-by: Evan Quan <evan.quan@amd.com>
-> >>>
-> >>>> -----Original Message-----
-> >>>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of A=
-lex
-> >>>> Deucher
-> >>>> Sent: Thursday, October 20, 2022 10:36 PM
-> >>>> To: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
-> >>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Thomas
-> >>>> Zimmermann <tzimmermann@suse.de>
-> >>>> Subject: [PATCH] drm/amdgpu: don't call drm_fb_helper_lastclose in
-> >>>> lastclose()
-> >>>>
-> >>>> It's used to restore the fbdev console, but as amdgpu uses
-> >>>> generic fbdev emulation, the console is being restored by the
-> >>>> DRM client helpers already. See the call to drm_client_dev_restore()
-> >>>> in drm_lastclose().
-> >>>>
-> >>>> Fixes: 087451f372bf76 ("drm/amdgpu: use generic fb helpers instead o=
-f
-> >>>> setting up AMD own's.")
-> >>>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> >>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >>>> ---
-> >>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 1 -
-> >>>>    1 file changed, 1 deletion(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> >>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> >>>> index fe23e09eec98..474b9f40f792 100644
-> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> >>>> @@ -1106,7 +1106,6 @@ int amdgpu_info_ioctl(struct drm_device *dev,
-> >>>> void *data, struct drm_file *filp)
-> >>>>     */
-> >>>>    void amdgpu_driver_lastclose_kms(struct drm_device *dev)
-> >>>>    {
-> >>>> -    drm_fb_helper_lastclose(dev);
-> >>>>       vga_switcheroo_process_delayed_switch();
-> >>>>    }
-> >>
-> >> Without the call to drm_fb_helper_lastclose(), the console emulation
-> >> will be restored by drm_client_dev_restore() from drm_lastclose(). [1]
-> >> It means that it's now changing order with the call to
-> >> vga_switcheroo_process_delay_switch(). Can this become a problem?
-> >>
-> >> I looked at the other callers of that function. Most restore the conso=
-le
-> >> before doing the switcheroo. Nouveau doesn't seem to care about the
-> >> console at all.
-> >
-> > I don't know off hand.  I suppose if the switch powered down the GPU
-> > and then we tried to restore it's console state that would be a
-> > problem, but it looks like vga_switchto_stage2() just powers down the
-> > GPU without going through suspend so I'm not sure if this actually
-> > worked correctly?  What are the potential problems with calling
-> > drm_fb_helper_lastclose twice?
->
-> It should do fbdev console modesetting twice; so no problem.
->
-> AFAIU calling vga switcheroo does nothing for devices without support.
-> So let's call vga_switcheroo_process_delayed_switch() at the very end of
-> drm_lastclose() and remove the amdgpu callback entirely. [1]  This
-> should not be a problem and if, we can refactor the whole function.
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
-Sounds like a plan.  Thanks!
+    * Investigate tool reported FCLK P-state deviations
+    * Fix null pointer issues found in emulation
+    * Add DSC delay factor workaround
+    * Round up DST_after_scaler to nearest int
+    * Use forced DSC bpp in DML
+    * Fix DCN32 DSC delay calculation
+    * Use min transition for SubVP into MPO
+    * Add a debug option HBR2CP2520 over TPS4
+    * Stop waiting for vblank during pipe programming
+    * Modify checks to enable TPS3 pattern when required
+    * Remove rate check from pixel rate divider update
+    * Check validation passed after applying pipe split changes
+    * Update DML formula
+    * Don't enable ODM + MPO
+    * Include virtual signal to set k1 and k2 values
+    * Reinit DPG when exiting dynamic ODM
 
-Alex
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
 
->
-> Best regards
-> Thomas
->
-> [1]
-> https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/drm_file.c=
-#L468
->
-> >
-> > Alex
-> >
-> >>
-> >> Best regards
-> >> Thomas
-> >>
-> >> [1]
-> >> https://elixir.bootlin.com/linux/v6.0.3/source/drivers/gpu/drm/drm_fil=
-e.c#L467
-> >>
-> >>>>
-> >>>> --
-> >>>> 2.37.3
-> >>
-> >> --
-> >> Thomas Zimmermann
-> >> Graphics Driver Developer
-> >> SUSE Software Solutions Germany GmbH
-> >> Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-> >> (HRB 36809, AG N=C3=BCrnberg)
-> >> Gesch=C3=A4ftsf=C3=BChrer: Ivo Totev
->
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-> (HRB 36809, AG N=C3=BCrnberg)
-> Gesch=C3=A4ftsf=C3=BChrer: Ivo Totev
+Alvin Lee (2):
+  drm/amd/display: Don't enable ODM + MPO
+  drm/amd/display: Use min transition for SubVP into MPO
+
+Anthony Koo (1):
+  drm/amd/display: [FW Promotion] Release 0.0.141.0
+
+Aric Cyr (1):
+  drm/amd/display: 3.2.210
+
+Charlene Liu (2):
+  drm/amd/display: Update DML formula
+  drm/amd/display: Fix null pointer issues found in emulation
+
+Dillon Varone (2):
+  drm/amd/display: Reinit DPG when exiting dynamic ODM
+  drm/amd/display: Check validation passed after applying pipe split
+    changes
+
+Eric Bernstein (1):
+  drm/amd/display: Include virtual signal to set k1 and k2 values
+
+George Shen (4):
+  drm/amd/display: Fix DCN32 DSC delay calculation
+  drm/amd/display: Use forced DSC bpp in DML
+  drm/amd/display: Round up DST_after_scaler to nearest int
+  drm/amd/display: Add DSC delay factor workaround
+
+Iswara Nagulendran (1):
+  drm/amd/display: Modify checks to enable TPS3 pattern when required
+
+Leo Chen (1):
+  drm/amd/display: Add a debug option HBR2CP2520 over TPS4
+
+Martin Leung (1):
+  drm/amd/display: Stop waiting for vblank during pipe programming
+
+Nevenko Stupar (1):
+  drm/amd/display: Investigate tool reported FCLK P-state deviations
+
+Taimur Hassan (1):
+  drm/amd/display: Remove rate check from pixel rate divider update
+
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 43 +++++++++----------
+ drivers/gpu/drm/amd/display/dc/dc.h           |  4 +-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c |  6 ++-
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 24 ++++++++++-
+ .../drm/amd/display/dc/dcn31/dcn31_hwseq.c    |  6 ++-
+ .../drm/amd/display/dc/dcn31/dcn31_resource.c |  2 +
+ .../drm/amd/display/dc/dcn314/dcn314_dccg.c   |  2 +-
+ .../amd/display/dc/dcn314/dcn314_resource.c   |  2 +
+ .../amd/display/dc/dcn315/dcn315_resource.c   |  2 +
+ .../amd/display/dc/dcn316/dcn316_resource.c   |  2 +
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |  6 +--
+ .../drm/amd/display/dc/dcn32/dcn32_resource.c |  2 +
+ .../dc/dml/dcn31/display_mode_vba_31.c        |  3 +-
+ .../dc/dml/dcn314/display_mode_vba_314.c      |  3 +-
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 14 +++---
+ .../dc/dml/dcn32/display_mode_vba_32.c        | 10 +++--
+ .../dc/dml/dcn32/display_mode_vba_util_32.c   |  7 +--
+ .../dc/dml/dcn32/display_mode_vba_util_32.h   |  3 +-
+ .../dc/dml/dcn32/display_rq_dlg_calc_32.c     |  4 +-
+ .../amd/display/dc/dml/dcn321/dcn321_fpu.c    |  5 ++-
+ .../amd/display/dc/dml/display_mode_structs.h |  3 ++
+ .../drm/amd/display/dc/dml/display_mode_vba.c |  2 +-
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  6 +++
+ 23 files changed, 108 insertions(+), 53 deletions(-)
+
+-- 
+2.38.1
+
