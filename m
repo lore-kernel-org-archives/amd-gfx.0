@@ -4,71 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65EF5FA3742
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 12:33:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F80BFA3740
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 12:33:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 788C410E5F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE9CD10E5FC;
 	Thu, 27 Oct 2022 12:33:46 +0000 (UTC)
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [IPv6:2607:f8b0:4864:20::1033])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7407A10E58B;
- Thu, 27 Oct 2022 08:59:15 +0000 (UTC)
-Received: by mail-pj1-x1033.google.com with SMTP id h14so905225pjv.4;
- Thu, 27 Oct 2022 01:59:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KU8QUlmyL8K+kL2JWwcrY9MKfup5fHZG57Xenhinxbw=;
- b=KSYKzgO5bo3EHVAA36BTCInDIsYnBhnaVYPX+l79AEiJNHcUstKm85vMi+JzUs58uT
- KFiUXNGJ/611sUUzd3msbLK+C1jVwIw2PS9/nrxVQfwcoUCRYCxr3+ziWgsz9dXszTBS
- tJbRKzhe9vifba5gzjAE1VvW0iWAcxeEAKjsU6oOaZ8fhMAAfBmIDTBhl6t5XrM8r8cq
- zuErgoZ02sCkHxrTHNTz0VTnQapSoABy8hdOQCvFGV1OG0O+uvpVqcVXZ820awkYLViW
- cBcJbRq54zdVXKarPITq8c5P8AvJZ8F8Zv5sAliAdwQ/A2dYlQIKgZ59yjixxLsdAyVl
- /+VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KU8QUlmyL8K+kL2JWwcrY9MKfup5fHZG57Xenhinxbw=;
- b=aLKoToHD/hcO1KOQrzQ79F1vS3EcrR0CSzTrbhDACF6p32CEwLCzeEJLoLUDneERM+
- jxzrwceIiFqv0m4kOoS4WUUxuoRADUPxasmvh+X9M6ewcXrL4Lmn+Z/lmgOkRUyNPuWq
- crdmaIwioqeokogZvQ14bMJFIyRYs7o7ZLb8ybY6Jy4HAzGDWBXpsfgjCyPEO3o3utSA
- 4B4/7uaFiFqGBrghiuXb5izTKI3bJh7sx4Epo3IkLA4TJk0OfKH7FteRE4KWbJlGkASJ
- L3sXLOCMA2VIOrMXRZ04MlLQqrEJkYIK/O4YN5KRZ3EscnOYXfEQrlK//5J92RurAGVk
- ZSWA==
-X-Gm-Message-State: ACrzQf0hMwFVVtInIgUJAKKTRqHLq3a9NP27oC4uf+2ttlgIZuPAM5Py
- qFog2p4sS+G+Tq6PSr1D17I=
-X-Google-Smtp-Source: AMsMyM66ukX1ctNL2P50qsKqcWsCvPccrwS7iSlv8cUwHi9AKQis3RBSWyzfcOhwA1zmjNtdfZSwmw==
-X-Received: by 2002:a17:902:dac5:b0:186:a687:e082 with SMTP id
- q5-20020a170902dac500b00186a687e082mr20920145plx.84.1666861155009; 
- Thu, 27 Oct 2022 01:59:15 -0700 (PDT)
-Received: from mail.google.com (122-58-209-93-fibre.sparkbb.co.nz.
- [122.58.209.93]) by smtp.gmail.com with ESMTPSA id
- 23-20020a631357000000b0046f1e8cb30dsm635717pgt.26.2022.10.27.01.59.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Oct 2022 01:59:14 -0700 (PDT)
-Date: Thu, 27 Oct 2022 21:59:04 +1300
-From: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Hawking Zhang <Hawking.Zhang@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Victor Zhao <Victor.Zhao@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
- Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- Evan Quan <evan.quan@amd.com>,
- Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
- Isabella Basso <isabbasso@riseup.net>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH] [next] drm/amdgpu: clean up unused constants, macros and
- includes
-Message-ID: <Y1pIWKbPi1GtPfE9@mail.google.com>
+Received: from cavan.codon.org.uk (irc.codon.org.uk [IPv6:2a00:1098:84:22e::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DD1910E5B8;
+ Thu, 27 Oct 2022 09:52:50 +0000 (UTC)
+Received: by cavan.codon.org.uk (Postfix, from userid 1000)
+ id 841D440A8B; Thu, 27 Oct 2022 10:52:49 +0100 (BST)
+Date: Thu, 27 Oct 2022 10:52:49 +0100
+From: Matthew Garrett <mjg59@srcf.ucam.org>
+To: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH v5 02/31] drm/i915: Don't register backlight when another
+ backlight should be used (v2)
+Message-ID: <20221027095249.GA28666@srcf.ucam.org>
+References: <20221025193248.GA21457@srcf.ucam.org>
+ <144cd47e-42dc-2b84-1a90-ea5e080e08a3@redhat.com>
+ <20221025204043.GA23306@srcf.ucam.org>
+ <cb5add36-c13c-ccd5-1b4b-71b45163a170@redhat.com>
+ <20221025234040.GA27673@srcf.ucam.org>
+ <fa6cc1d9-6740-b495-2c72-cae18c429ca6@redhat.com>
+ <20221026204920.GA15326@srcf.ucam.org>
+ <099dee98-8aeb-af36-828c-110f5ac6e9a3@redhat.com>
+ <20221027091123.GA28089@srcf.ucam.org>
+ <933be908-0bc2-56cc-8d6f-38f2d208ef20@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <933be908-0bc2-56cc-8d6f-38f2d208ef20@redhat.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Thu, 27 Oct 2022 12:33:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,55 +47,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org
+Cc: Karol Herbst <kherbst@redhat.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ Dmitry Osipenko <digetx@gmail.com>, amd-gfx@lists.freedesktop.org,
+ linux-acpi@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>,
+ David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>,
+ Daniel Dadap <ddadap@nvidia.com>, Jani Nikula <jani.nikula@intel.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Mark Gross <markgross@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Xinhui <Xinhui.Pan@amd.com>,
+ Lukas Wunner <lukas@wunner.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove include directives in which header is already included via
-another header (atombios.h -> atom.h). Remove unused constants and
-macros.
+On Thu, Oct 27, 2022 at 11:39:38AM +0200, Hans de Goede wrote:
 
-Signed-off-by: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h              | 3 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 1 -
- 2 files changed, 4 deletions(-)
+> The *only* behavior which actually is new in 6.1 is the native GPU
+> drivers now doing the equivalent of:
+> 
+> 	if (acpi_video_get_backlight_type() != acpi_backlight_native)
+> 		return;
+> 
+> In their backlight register paths (i), which is causing the native
+> backlight to disappear on your custom laptop setup and on Chromebooks
+> (with the Chromebooks case being already solved I hope.).
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 0e6ddf05c23c..dc55e60c2e4a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -245,10 +245,8 @@ extern int amdgpu_vcnfw_log;
- #define AMDGPU_VM_MAX_NUM_CTX			4096
- #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
- #define AMDGPU_DEFAULT_GTT_SIZE_MB		3072ULL /* 3GB by default */
--#define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS	        3000
- #define AMDGPU_MAX_USEC_TIMEOUT			100000	/* 100 ms */
- #define AMDGPU_FENCE_JIFFIES_TIMEOUT		(HZ / 2)
--#define AMDGPU_DEBUGFS_MAX_COMPONENTS		32
- #define AMDGPUFB_CONN_LIMIT			4
- #define AMDGPU_BIOS_NUM_SCRATCH			16
- 
-@@ -1227,7 +1225,6 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
- #define amdgpu_asic_set_vce_clocks(adev, ev, ec) (adev)->asic_funcs->set_vce_clocks((adev), (ev), (ec))
- #define amdgpu_get_pcie_lanes(adev) (adev)->asic_funcs->get_pcie_lanes((adev))
- #define amdgpu_set_pcie_lanes(adev, l) (adev)->asic_funcs->set_pcie_lanes((adev), (l))
--#define amdgpu_asic_get_gpu_clock_counter(adev) (adev)->asic_funcs->get_gpu_clock_counter((adev))
- #define amdgpu_asic_read_disabled_bios(adev) (adev)->asic_funcs->read_disabled_bios((adev))
- #define amdgpu_asic_read_bios_from_rom(adev, b, l) (adev)->asic_funcs->read_bios_from_rom((adev), (b), (l))
- #define amdgpu_asic_read_register(adev, se, sh, offset, v)((adev)->asic_funcs->read_register((adev), (se), (sh), (offset), (v)))
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index b81b77a9efa6..0c3448dc4951 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -26,7 +26,6 @@
- #include "atomfirmware.h"
- #include "amdgpu_atomfirmware.h"
- #include "atom.h"
--#include "atombios.h"
- #include "soc15_hw_ip.h"
- 
- union firmware_info {
--- 
-2.37.3
+It's causing the backlight control to vanish on any machine that isn't 
+((acpi_video || vendor interface) || !acpi). Most machines that fall 
+into that are either weird or Chromebooks or old, but there are machines 
+that fall into that.
 
+(I wrote https://mjg59.livejournal.com/127103.html over 12 years ago, so 
+please do assume that I'm familiar with the complexities here :) )
+
+> I agree this is a possible solution if this turns out to break more
+> systems and there is no other easy/clean way to fix those. But I would
+> greatly prefer to keep this change and stop the IMHO bad kernel behavior
+> of "registering multiple backlight-devices for a single panel and then
+> let userspace sort it out".
+
+If we're not able to make a correct policy decision in the kernel then 
+punting it to userland seems like the right thing to do? The kernel 
+absolutely *should* make the right decision where it has enough 
+information to do so, but in this case the code that's making that 
+decision doesn't have the full set of information.
