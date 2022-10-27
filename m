@@ -4,64 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C46C67871
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 06:32:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD982C67871
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 06:41:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFC8C10E0CA;
-	Thu, 27 Oct 2022 06:32:56 +0000 (UTC)
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86FD310E0CA
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 06:32:53 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id b8so978011ljf.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 23:32:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ZDNdsffqdQciuXazvGIPKKu/b0B9lL4Q4veLWnXy99Q=;
- b=LZxfB4USkUpRfPGPq5remzOtpXbRx5DlcKIptqAZ3lkBPDwfAakqbtD88V+3m42H/W
- LxGlqKAKzQcJiQVs5TbtYuZCU1Z9yt/ymkP41XWr3LEP/DZazvAiOmHFXkCNCHw0v8Ww
- VEYagKG/6O+OOMVIxYqYgiyrP8Hw3DH2JRvWaAroWDNRx5tbgix47sFKTmZwZ57eF11q
- yPFeM4M2zv8KDTdh1Mzt4GaVXUF8km3Y2pLOQym2x1qQHkeXVU5rBO5ZGaA0ZiGx0rPi
- 31UScEoBkOR2XKRWeeCbr/h5+blckNLPaSyYuCA+wF+HsJm+no4cq8DZ7y4YK//pa6ct
- g7fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ZDNdsffqdQciuXazvGIPKKu/b0B9lL4Q4veLWnXy99Q=;
- b=hFlMflAcLKnRuFENuoe2j1d4hSzBlVhTpO/JdyNgx5q9pUvxaXJDCdTItccvUHzYYM
- WLqrvcbjHTLQEpchoXxaevnZ8bLbUjzyAiDpFHdP5LXjHuqi7kRfECLl3LkWzQEppjEn
- hdoC8nc/YkvTbbilLxws042keJ6c/JSprE7msjQR+bBKRU+VE+PC9KVEOsnGPDIAeinp
- p45MENPkySF7eYJpVOr4jhq5fGC/NE/WQTM0diPNsXvM+0RAFhZeXvhUUdON+8pwXTJF
- zyn7v7EVswslpzqYRNFmuL3IhfOrR/Y1X2CDj/oi717pkpZy6xcT4kuexz3TnPsDp62R
- 6juA==
-X-Gm-Message-State: ACrzQf0zB2Cmz/pUK+3r13ZN46mo6F2Y306tb79TKTHLROtJ8HYnaT7W
- EnVkRXyk6QoRhlpgFJ7LS7ppNQgJyYA=
-X-Google-Smtp-Source: AMsMyM4fgQApA7ZTb/qUJDJ2zMSXKiuEFP8inj6NPnPoQjYYw4LLNKF1VwNrpOmi2DdmFJbRaSkQJA==
-X-Received: by 2002:a17:907:74e:b0:74f:83d4:cf58 with SMTP id
- xc14-20020a170907074e00b0074f83d4cf58mr41399035ejb.178.1666852360777; 
- Wed, 26 Oct 2022 23:32:40 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea229.dip0.t-ipconnect.de. [91.14.162.41])
- by smtp.gmail.com with ESMTPSA id
- cd13-20020a170906b34d00b0077a1dd3e7b7sm278963ejb.102.2022.10.26.23.32.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Oct 2022 23:32:40 -0700 (PDT)
-Message-ID: <33d405d9-7ee7-873e-5a71-9c48cb0e5020@gmail.com>
-Date: Thu, 27 Oct 2022 08:32:39 +0200
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D22F410E2CF;
+	Thu, 27 Oct 2022 06:41:19 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2078.outbound.protection.outlook.com [40.107.94.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BE9E10E2CF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 06:41:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=i2nhhmCkNlw965vxoKCvMGEpqb9ubq/Z6I5ia3yELS6nZCBcLBxNuHcAFwuc84qqCcMPDTvju8U5rWuTDBbR626OXmKNlwjw4kR4NbdC5RP+96PPz03L9xDH9k4G/txq5h7lpljiH/tfylLBec/tIJmYKkJbw2Wmjra1bUPLbq991VDCxqAb/Dw3lyY7Ae61WDmJbjdCsT8eitr9/iylpkFhDlsGqK6NrOzGpy4soE4Zkzy7yuhlghcKmlkPEtHVCpXiW2zVsaAnAEx5Z3p6w5pt4Z/pgug+kFbd8nk40JwXYaw9Y80TGInLMNHw4i27PQKu8OpeFuCllJd2svMcuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=en1fqAyz0258Obvxq+f6Fe94sPUHfJHUXlW3A+3PRgI=;
+ b=SJutzUnGmjZnskuJwAi8uOEE44aTfUAYL+YzuUSlKnalAWpX9PZOS8FOItyV01iz2HSt8mfVq5kcRtv1eqTaGb4csYIsR/sJWwzEqYaWwgFmdNHZ+BKnnbgbxTsb096vzYn0yyU0cP3a07oxOEe2mBhFaZnuwNJIKR3xiFdqY5LxzfZW1oZDwGkPvmz4xOGWh0Ql2CxI83T1QuiW4y7BBcaKNsWl11pwmsfJ4+wcn21BEO/0T5yWeSxgl0G7Hv/yK+l8uPM9/lCfu/VrLu4biu44bq4K0XQYTdI7VDsHeMBUU12OsZI4UBDi+9hZWoU+CVKlxk98E7jXC/sgaj6MLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=en1fqAyz0258Obvxq+f6Fe94sPUHfJHUXlW3A+3PRgI=;
+ b=VS68TcK0BePkpuG7hE4iCfxlyAUDG5f59ZZKuaRsSyt3qN605zbIgmhWEdoaVRbwu2QC6qMXXmOUKFRfqoZNoPBTzbfJwwUQz/LmBcHM/DYCzpIGVwxcgHCfaa+moq2ku2dW5Ny/j8Bc58kEie9hdR7WS3jYOkg9ukiPJQDHR68=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by IA1PR12MB6067.namprd12.prod.outlook.com (2603:10b6:208:3ed::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.29; Thu, 27 Oct
+ 2022 06:41:14 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::a350:f29a:f287:7279]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::a350:f29a:f287:7279%4]) with mapi id 15.20.5746.023; Thu, 27 Oct 2022
+ 06:41:13 +0000
+Message-ID: <973a3ee2-164b-5ca7-40c2-b192e237c133@amd.com>
+Date: Thu, 27 Oct 2022 08:41:06 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH] drm/amdkfd: Cleanup kfd_dev struct
+Subject: Re: [PATCH RESEND 1/1] drm/amd/display: add DCN support for ARM64
 Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221026193645.4132096-1-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20221026193645.4132096-1-alexander.deucher@amd.com>
+To: Ao Zhong <hacc1225@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Arnd Bergmann <arnd@arndb.de>, Nathan Chancellor <nathan@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>
+References: <20221027002528.15983-1-hacc1225@gmail.com>
+ <20221027002528.15983-2-hacc1225@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20221027002528.15983-2-hacc1225@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS9PR06CA0049.eurprd06.prod.outlook.com
+ (2603:10a6:20b:463::24) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|IA1PR12MB6067:EE_
+X-MS-Office365-Filtering-Correlation-Id: c9081d59-b139-4bc8-1059-08dab7e63da6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: rUUfkJcZcIj09lI8bHmnXHjaQvB0Jzf9OgTYTVJ3qvbypM3eYgvnW/KYUiFLPS/dHzOzRkNntnCqroXJatFP9Y2BBfYY5g/qNedzWUk03EusVjVrisg934yKXgJLpIQCNLjP2JrR/25u4I260MPPEOubIdjhD54B1VVbhwvJNxSYKzExEvW9NvFB8RBp51D6zGWmTe/OaWak+iJAIOqtkh+ALW35pfAjMTPo73m4gU7OttBjTZDHjmxJdqPkGPoQT6qpCgmywt6QezIngo1ZPAnl8CegqznfdUr1rypzWE9D4j0nr18dY8ykLUwVpZi8hareVBBoikEuVpoiKarONHUmPv5vAFWcU/YK8L5MVPvV3lALjLo6drONlIqL/lXYECZkPyA/Z+yviQkUqJBjGGcxrzLGpgEVgOkHBVGMq8U5QXP3Sjl2SwC5c762UQ17/pDrEvRy08tQxOg202hQFawxrLsF87kfIxb+0DyJR9V8/YsYVAHE7y2nyu9DWghr69oglJf2zfNSiqJDM+BX47+rIkYfYXcdyegjzFDnrRRzZJDOJBwafldrILTx8d5/BB/vAWqOd4oo8d6sPyQGocv+El3kOxA8sCH5xV9Z1aYPId3Dj3Z5j7bpGRk8UDfSlZyAIwVX9/nUCcyqngkLSzIr+9hV5BkFV4Ks59sEsM5yoB33b0ADtcGAzDa4V+fBFM6RTH8E0YWhehKhBFIOBef0xI1Ln4XNPLpwCkDPKm7RfNqMQG4UJpwzYXK0cSqIZqmlsSEltnnIU53AofwKtGm49vAo6bIy3BST1Jidomw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(376002)(366004)(39860400002)(346002)(396003)(451199015)(31686004)(31696002)(66476007)(6486002)(4326008)(478600001)(8936002)(38100700002)(8676002)(36756003)(83380400001)(86362001)(2906002)(186003)(6666004)(2616005)(66556008)(41300700001)(5660300002)(316002)(6512007)(6506007)(26005)(66946007)(110136005)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ODJIVXRMbG1rL3gvRjhvR2tQdUtJYTN2dmJiVHBPK0F1a0hVWnlBVEw4NmtL?=
+ =?utf-8?B?WUs4WkJTSWlnbVhjSEF2YWZ2YXdRNXBLZkhpN2ZOaDBEUDE1YitNcXJtWDV2?=
+ =?utf-8?B?L052ZHI1SDd4THpPekNqNnBSNjZ2TWljc3ZyQVhkZHB5dVlYU1dFd3BFMTNl?=
+ =?utf-8?B?MXNQeG5lS3ZFbVlOR3l2Y1F5NjIvQW1iTUVwSTdyNDdYelVvRVhSakYxL2pY?=
+ =?utf-8?B?UjBUclNCdnE1RGczQ2ZkWXFNU3pjTkNFTUhpYnFmdXNWdnpPTm5Sb0pFWlJZ?=
+ =?utf-8?B?TXZLZVVvandXaGF6Ymd0OFpvTGVROWEyT2F1Uk5xL0lxL3NJc3pFeWxOVlVs?=
+ =?utf-8?B?b2RHRDRzdmZaTnhVbTltL0Q1SUQ2Z0hRZk9NV0dpTDMwb29VU1hJUURpUlR6?=
+ =?utf-8?B?ck5mbjBSY0szU3pmUURaU3dlb3A5M3BrZE1WdytkVXlEcFliWkdsM0w1SWt0?=
+ =?utf-8?B?aVh2OXBOb0Y2Z2hKSUZmWVZDWHVGakVYWllaNFgxOEovdHV2Zk10RGpJTVVM?=
+ =?utf-8?B?U3liQyt2V0I4R3RKcFZKVnlzOU5HalVOSi95UzVBT1VRUi9NWmxjU3EzM2R2?=
+ =?utf-8?B?L0dHSThMaTNVMGljVm0vdnU3TDhXd1k2azl0d1dtN0ZMYmFyakZvUmFmWE5j?=
+ =?utf-8?B?dVBkRWZyYlZpclQ5SnZFQ0djSTk2SHdMYlVUZyswMjNrenhmZ0FmWkxNMVRG?=
+ =?utf-8?B?YmsrK0s1SUgxQ0NjU3lQVTduRWpiUUxuTHM2cHhyZWZNbVlhZ3ZvMzZvSmVL?=
+ =?utf-8?B?ZStnZW5BOFo1OTRGUVB1dWpCK1BYdzI0a0F3eEhlM0hXemFVRHdWUm1NUGli?=
+ =?utf-8?B?UDBaUnFsWkJiaEpVaWFMdmhRWWdSNStlVkpJa3p6YTMySzkzZDlUK29ZdmVp?=
+ =?utf-8?B?Tkh5S0M0NzgxRUZZcW9SUVhCZld2eXBuUDBsRVBUQTZBWWRZOVdKenlTL0pI?=
+ =?utf-8?B?ZWIrOC96WHpZMVlreWVrYUxObkdDTE9SMmgrMlhsV0dObkUvaFl6Q2d6L1I4?=
+ =?utf-8?B?MHgvalEzWEZrc0R2cVYzR0VVcFlYODlrbUZ3YXR0VGp3WkhHOVovRnNnSkhY?=
+ =?utf-8?B?NFVxTnhRdkR2bS8wb2dQajVwZzhJcCtUMUorSGpLK3BLNGNJWjcyYXM3Nkpo?=
+ =?utf-8?B?ZERnNy8yU1Nodjg0bjVpN1k2MDlNajZVWnRGZEl1RnlETk40WmdlL3YwS1JW?=
+ =?utf-8?B?eFRzMFFMNUplQjFaTmlEZTBqbVUwZk5IZ0hEcTd0TjF3akg2VUt6Tzh5VVBr?=
+ =?utf-8?B?ZUNZWktkM3MvUDFzTVdJSTMvWktkRlVKTDZwd0cvT05mMC83UTZxZ2dtaDVR?=
+ =?utf-8?B?SGUwTi9YS1ZlMEtaYmMvV0xTOG5kcVhjSURDdG16SmIyMTA3bWd2enhicjRK?=
+ =?utf-8?B?eTlOMXlEMHJ0UFloMVBqTzlKL0pGZlpZbTYxTTFZSk5OQ2hhYjlkenJ0YkVl?=
+ =?utf-8?B?bENiQTU5amg4U3hseWxkaE40K3ZzR0NWemEwY09VcDdUZEI4RlpxRktuZTNs?=
+ =?utf-8?B?ajhTSGFZZS9aMWFsTmwzcHlQWjV3QndycU1nOER4OERDZ1JwUmZwS3FEY0p5?=
+ =?utf-8?B?QXA0a28rNHFwKzh4ekpjbEh6SkM2Tnlvb2JIWGFveFc0bXNqaDFuWUhBMkZ3?=
+ =?utf-8?B?NEZpaXVOT3Vja2E4Rk9wZ0E4SDFoSlkyWnZTdVl5OW42L21NR3FQTzMvS2Fa?=
+ =?utf-8?B?L2Q2NHBzc2pPWUVFZXM1QWRlcEJuNi82MUNBYnpUaEptZGpNOTZrL0g5WXp1?=
+ =?utf-8?B?VlhTV0tzVUFsSjU3SWJmSE95ekE3T1Y0UzdiNzhZUlJPOFFGS3dLdUZ0VWV4?=
+ =?utf-8?B?YmlJTTVrSjAxUTdZdGt2N2Q4cStERFdlOUN3YUtHRlpCYUtqNFRaUGpUMmhU?=
+ =?utf-8?B?Z2NGbzRwaDdVQWMwME5sM0x1akl4aG10Z1NJKy9uZ080eVV5SlhnRGJRaU4w?=
+ =?utf-8?B?MStJZitXeXdpeVpTNFA5VDRIK3ZkMEp0OFNXcjRCbkRMWnNYYlNHcXYxSCts?=
+ =?utf-8?B?b0VGTDdKYTA0d1NsU2N5VW5UZ3V6d1RKRzRrM2dtdXVJZ2s3SWlOSUxmaHow?=
+ =?utf-8?B?bCs3SGlRN0UzNlZwRllXWUxaRy9PaDZEdUpnZTdBdnhCcFc1ck9ka00vUUhV?=
+ =?utf-8?Q?B246Ph1J5YQb1q2MJHBUB/puQ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9081d59-b139-4bc8-1059-08dab7e63da6
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2022 06:41:13.5688 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iCJYDa72pvuiDxkLudXavhv4q4TOruLtusIfZwp0HZuj1QZi/v94XfQxiLXT23Vy
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6067
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,419 +128,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Amber Lin <Amber.Lin@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 26.10.22 um 21:36 schrieb Alex Deucher:
-> From: Mukul Joshi <mukul.joshi@amd.com>
->
-> Cleanup kfd_dev struct by removing ddev and pdev as both
-> drm_device and pci_dev can be fetched from amdgpu_device.
->
-> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-> Tested-by: Amber Lin <Amber.Lin@amd.com>
-> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Am 27.10.22 um 02:25 schrieb Ao Zhong:
+> After moving all FPU code to the DML folder, we can enable DCN support
+> for the ARM64 platform. Remove the -mgeneral-regs-only CFLAG from the
+> code in the DML folder that needs to use hardware FPU, and add a control
+> mechanism for ARM Neon.
+
+It's nice to see that the FPU isolation work is so fruitful :)
+
+> Signed-off-by: Ao Zhong <hacc1225@gmail.com>
 
 Acked-by: Christian König <christian.koenig@amd.com>
 
-Should we go even a step further and make the kfd dev a member of the 
-adev structure so that we can upcast?
-
-Regards,
-Christian.
-
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  3 +--
->   drivers/gpu/drm/amd/amdkfd/kfd_crat.c      | 12 ++++-----
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c    | 16 +++++-------
->   drivers/gpu/drm/amd/amdkfd/kfd_iommu.c     | 29 +++++++++++-----------
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  4 +--
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c   | 12 ++++-----
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c       |  2 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_topology.c  | 25 +++++++++----------
->   9 files changed, 49 insertions(+), 56 deletions(-)
+>   drivers/gpu/drm/amd/display/Kconfig           |  2 +-
+>   .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    |  6 ++
+>   drivers/gpu/drm/amd/display/dc/dml/Makefile   | 64 ++++++++++++-------
+>   3 files changed, 49 insertions(+), 23 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index 0561812aa0a4..e2b0f8049b9f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -195,7 +195,7 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
->   		}
->   
->   		adev->kfd.init_complete = kgd2kfd_device_init(adev->kfd.dev,
-> -						adev_to_drm(adev), &gpu_resources);
-> +							&gpu_resources);
->   
->   		amdgpu_amdkfd_total_mem_size += adev->gmc.real_vram_size;
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index 647220a8762d..f50e3ba4d7a5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -353,7 +353,6 @@ int kgd2kfd_init(void);
->   void kgd2kfd_exit(void);
->   struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf);
->   bool kgd2kfd_device_init(struct kfd_dev *kfd,
-> -			 struct drm_device *ddev,
->   			 const struct kgd2kfd_shared_resources *gpu_resources);
->   void kgd2kfd_device_exit(struct kfd_dev *kfd);
->   void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm);
-> @@ -381,7 +380,7 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
->   }
->   
->   static inline
-> -bool kgd2kfd_device_init(struct kfd_dev *kfd, struct drm_device *ddev,
-> +bool kgd2kfd_device_init(struct kfd_dev *kfd,
->   				const struct kgd2kfd_shared_resources *gpu_resources)
->   {
->   	return false;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> index 3c771d580098..acb8bc29218b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> @@ -2115,8 +2115,8 @@ static void kfd_find_numa_node_in_srat(struct kfd_dev *kdev)
->   	struct acpi_table_header *table_header = NULL;
->   	struct acpi_subtable_header *sub_header = NULL;
->   	unsigned long table_end, subtable_len;
-> -	u32 pci_id = pci_domain_nr(kdev->pdev->bus) << 16 |
-> -			pci_dev_id(kdev->pdev);
-> +	u32 pci_id = pci_domain_nr(kdev->adev->pdev->bus) << 16 |
-> +			pci_dev_id(kdev->adev->pdev);
->   	u32 bdf;
->   	acpi_status status;
->   	struct acpi_srat_cpu_affinity *cpu;
-> @@ -2191,7 +2191,7 @@ static void kfd_find_numa_node_in_srat(struct kfd_dev *kdev)
->   		numa_node = 0;
->   
->   	if (numa_node != NUMA_NO_NODE)
-> -		set_dev_node(&kdev->pdev->dev, numa_node);
-> +		set_dev_node(&kdev->adev->pdev->dev, numa_node);
->   }
+> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+> index 0142affcdaa3..a7f1c4e51719 100644
+> --- a/drivers/gpu/drm/amd/display/Kconfig
+> +++ b/drivers/gpu/drm/amd/display/Kconfig
+> @@ -6,7 +6,7 @@ config DRM_AMD_DC
+>   	bool "AMD DC - Enable new display engine"
+>   	default y
+>   	select SND_HDA_COMPONENT if SND_HDA_CORE
+> -	select DRM_AMD_DC_DCN if (X86 || PPC64)
+> +	select DRM_AMD_DC_DCN if (X86 || PPC64 || (ARM64 && KERNEL_MODE_NEON))
+>   	help
+>   	  Choose this option if you want to use the new display engine
+>   	  support for AMDGPU. This adds required support for Vega and
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> index ab0c6d191038..1743ca0a3641 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> @@ -31,6 +31,8 @@
+>   #elif defined(CONFIG_PPC64)
+>   #include <asm/switch_to.h>
+>   #include <asm/cputable.h>
+> +#elif defined(CONFIG_ARM64)
+> +#include <asm/neon.h>
 >   #endif
 >   
-> @@ -2252,14 +2252,14 @@ static int kfd_fill_gpu_direct_io_link_to_cpu(int *avail_size,
->   	sub_type_hdr->proximity_domain_from = proximity_domain;
->   
->   #ifdef CONFIG_ACPI_NUMA
-> -	if (kdev->pdev->dev.numa_node == NUMA_NO_NODE)
-> +	if (kdev->adev->pdev->dev.numa_node == NUMA_NO_NODE)
->   		kfd_find_numa_node_in_srat(kdev);
+>   /**
+> @@ -99,6 +101,8 @@ void dc_fpu_begin(const char *function_name, const int line)
+>   			preempt_disable();
+>   			enable_kernel_fp();
+>   		}
+> +#elif defined(CONFIG_ARM64)
+> +		kernel_neon_begin();
 >   #endif
->   #ifdef CONFIG_NUMA
-> -	if (kdev->pdev->dev.numa_node == NUMA_NO_NODE)
-> +	if (kdev->adev->pdev->dev.numa_node == NUMA_NO_NODE)
->   		sub_type_hdr->proximity_domain_to = 0;
->   	else
-> -		sub_type_hdr->proximity_domain_to = kdev->pdev->dev.numa_node;
-> +		sub_type_hdr->proximity_domain_to = kdev->adev->pdev->dev.numa_node;
->   #else
->   	sub_type_hdr->proximity_domain_to = 0;
+>   	}
+>   
+> @@ -136,6 +140,8 @@ void dc_fpu_end(const char *function_name, const int line)
+>   			disable_kernel_fp();
+>   			preempt_enable();
+>   		}
+> +#elif defined(CONFIG_ARM64)
+> +		kernel_neon_end();
 >   #endif
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index be7a0b5a2dbc..909397fdb7d8 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -228,7 +228,6 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
->   {
->   	struct kfd_dev *kfd = NULL;
->   	const struct kfd2kgd_calls *f2g = NULL;
-> -	struct pci_dev *pdev = adev->pdev;
->   	uint32_t gfx_target_version = 0;
->   
->   	switch (adev->asic_type) {
-> @@ -430,7 +429,6 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
->   
->   	kfd->adev = adev;
->   	kfd_device_info_init(kfd, vf, gfx_target_version);
-> -	kfd->pdev = pdev;
->   	kfd->init_complete = false;
->   	kfd->kfd2kgd = f2g;
->   	atomic_set(&kfd->compute_profile, 0);
-> @@ -512,12 +510,10 @@ static void kfd_smi_init(struct kfd_dev *dev)
->   }
->   
->   bool kgd2kfd_device_init(struct kfd_dev *kfd,
-> -			 struct drm_device *ddev,
->   			 const struct kgd2kfd_shared_resources *gpu_resources)
->   {
->   	unsigned int size, map_process_packet_size;
->   
-> -	kfd->ddev = ddev;
->   	kfd->mec_fw_version = amdgpu_amdkfd_get_fw_version(kfd->adev,
->   			KGD_ENGINE_MEC1);
->   	kfd->mec2_fw_version = amdgpu_amdkfd_get_fw_version(kfd->adev,
-> @@ -542,7 +538,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
->   	     kfd->mec_fw_version < kfd->device_info.no_atomic_fw_version)) {
->   		dev_info(kfd_device,
->   			 "skipped device %x:%x, PCI rejects atomics %d<%d\n",
-> -			 kfd->pdev->vendor, kfd->pdev->device,
-> +			 kfd->adev->pdev->vendor, kfd->adev->pdev->device,
->   			 kfd->mec_fw_version,
->   			 kfd->device_info.no_atomic_fw_version);
->   		return false;
-> @@ -651,8 +647,8 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
->   	kfd_smi_init(kfd);
->   
->   	kfd->init_complete = true;
-> -	dev_info(kfd_device, "added device %x:%x\n", kfd->pdev->vendor,
-> -		 kfd->pdev->device);
-> +	dev_info(kfd_device, "added device %x:%x\n", kfd->adev->pdev->vendor,
-> +		 kfd->adev->pdev->device);
->   
->   	pr_debug("Starting kfd with the following scheduling policy %d\n",
->   		kfd->dqm->sched_policy);
-> @@ -677,7 +673,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
->   		amdgpu_amdkfd_free_gws(kfd->adev, kfd->gws);
->   	dev_err(kfd_device,
->   		"device %x:%x NOT added due to errors\n",
-> -		kfd->pdev->vendor, kfd->pdev->device);
-> +		kfd->adev->pdev->vendor, kfd->adev->pdev->device);
->   out:
->   	return kfd->init_complete;
->   }
-> @@ -790,7 +786,7 @@ int kgd2kfd_resume_iommu(struct kfd_dev *kfd)
->   	if (err)
->   		dev_err(kfd_device,
->   			"Failed to resume IOMMU for device %x:%x\n",
-> -			kfd->pdev->vendor, kfd->pdev->device);
-> +			kfd->adev->pdev->vendor, kfd->adev->pdev->device);
->   	return err;
->   }
->   
-> @@ -802,7 +798,7 @@ static int kfd_resume(struct kfd_dev *kfd)
->   	if (err)
->   		dev_err(kfd_device,
->   			"Error starting queue manager for device %x:%x\n",
-> -			kfd->pdev->vendor, kfd->pdev->device);
-> +			kfd->adev->pdev->vendor, kfd->adev->pdev->device);
->   
->   	return err;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-> index fbd0afe4da42..ec1bf611624e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-> @@ -49,7 +49,7 @@ int kfd_iommu_check_device(struct kfd_dev *kfd)
->   		return -ENODEV;
->   
->   	iommu_info.flags = 0;
-> -	err = amd_iommu_device_info(kfd->pdev, &iommu_info);
-> +	err = amd_iommu_device_info(kfd->adev->pdev, &iommu_info);
->   	if (err)
->   		return err;
->   
-> @@ -71,7 +71,7 @@ int kfd_iommu_device_init(struct kfd_dev *kfd)
->   		return 0;
->   
->   	iommu_info.flags = 0;
-> -	err = amd_iommu_device_info(kfd->pdev, &iommu_info);
-> +	err = amd_iommu_device_info(kfd->adev->pdev, &iommu_info);
->   	if (err < 0) {
->   		dev_err(kfd_device,
->   			"error getting iommu info. is the iommu enabled?\n");
-> @@ -121,7 +121,7 @@ int kfd_iommu_bind_process_to_device(struct kfd_process_device *pdd)
->   		return -EINVAL;
 >   	}
 >   
-> -	err = amd_iommu_bind_pasid(dev->pdev, p->pasid, p->lead_thread);
-> +	err = amd_iommu_bind_pasid(dev->adev->pdev, p->pasid, p->lead_thread);
->   	if (!err)
->   		pdd->bound = PDD_BOUND;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> index d0c6cf61c676..3cdd109189e0 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> @@ -33,6 +33,12 @@ ifdef CONFIG_PPC64
+>   dml_ccflags := -mhard-float -maltivec
+>   endif
 >   
-> @@ -139,7 +139,8 @@ void kfd_iommu_unbind_process(struct kfd_process *p)
+> +ifdef CONFIG_ARM64
+> +ifdef CONFIG_DRM_AMD_DC_DCN
+> +dml_rcflags_arm64 := -mgeneral-regs-only
+> +endif
+> +endif
+> +
+>   ifdef CONFIG_CC_IS_GCC
+>   ifeq ($(call cc-ifversion, -lt, 0701, y), y)
+>   IS_OLD_GCC = 1
+> @@ -87,32 +93,46 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dsc/rc_calc_fpu.o := $(dml_ccflags)
+>   CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calcs.o := $(dml_ccflags)
+>   CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_auto.o := $(dml_ccflags)
+>   CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_ccflags) -Wno-tautological-compare
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_rcflags)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_rcflags) $(dml_rcflags_arm64)
+>   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn2x/dcn2x.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn31/display_mode_vba_31.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn31/display_rq_dlg_calc_31.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_32.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn32/display_rq_dlg_calc_32.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_util_32.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn301/dcn301_fpu.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dsc/rc_calc_fpu.o  := $(dml_rcflags)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn31/display_mode_vba_31.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn31/display_rq_dlg_calc_31.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_32.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn32/display_rq_dlg_calc_32.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_util_32.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn301/dcn301_fpu.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dsc/rc_calc_fpu.o  := $(dml_rcflags) $(dml_rcflags_arm64)
+> +ifdef CONFIG_ARM64
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn10/dcn10_fpu.o := $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/dcn20_fpu.o := $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn314/display_mode_vba_314.o := $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn314/display_rq_dlg_calc_314.o := $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn314/dcn314_fpu.o := $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/dcn30_fpu.o := $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn32/dcn32_fpu.o := $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn321/dcn321_fpu.o := $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn31/dcn31_fpu.o := $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn302/dcn302_fpu.o := $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn303/dcn303_fpu.o := $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_rcflags_arm64)
+> +endif
+>   endif
+>   CFLAGS_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_ccflags)
+>   CFLAGS_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_ccflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calcs.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_auto.o := $(dml_rcflags)
+> -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_rcflags)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calcs.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_auto.o := $(dml_rcflags) $(dml_rcflags_arm64)
+> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_rcflags) $(dml_rcflags_arm64)
 >   
->   	for (i = 0; i < p->n_pdds; i++)
->   		if (p->pdds[i]->bound == PDD_BOUND)
-> -			amd_iommu_unbind_pasid(p->pdds[i]->dev->pdev, p->pasid);
-> +			amd_iommu_unbind_pasid(p->pdds[i]->dev->adev->pdev,
-> +					       p->pasid);
->   }
+>   DML = calcs/dce_calcs.o calcs/custom_float.o calcs/bw_fixed.o
 >   
->   /* Callback for process shutdown invoked by the IOMMU driver */
-> @@ -222,7 +223,7 @@ static int kfd_bind_processes_to_device(struct kfd_dev *kfd)
->   			continue;
->   		}
->   
-> -		err = amd_iommu_bind_pasid(kfd->pdev, p->pasid,
-> +		err = amd_iommu_bind_pasid(kfd->adev->pdev, p->pasid,
->   				p->lead_thread);
->   		if (err < 0) {
->   			pr_err("Unexpected pasid 0x%x binding failure\n",
-> @@ -282,9 +283,9 @@ void kfd_iommu_suspend(struct kfd_dev *kfd)
->   
->   	kfd_unbind_processes_from_device(kfd);
->   
-> -	amd_iommu_set_invalidate_ctx_cb(kfd->pdev, NULL);
-> -	amd_iommu_set_invalid_ppr_cb(kfd->pdev, NULL);
-> -	amd_iommu_free_device(kfd->pdev);
-> +	amd_iommu_set_invalidate_ctx_cb(kfd->adev->pdev, NULL);
-> +	amd_iommu_set_invalid_ppr_cb(kfd->adev->pdev, NULL);
-> +	amd_iommu_free_device(kfd->adev->pdev);
->   }
->   
->   /** kfd_iommu_resume - Restore IOMMU after resume
-> @@ -302,20 +303,20 @@ int kfd_iommu_resume(struct kfd_dev *kfd)
->   
->   	pasid_limit = kfd_get_pasid_limit();
->   
-> -	err = amd_iommu_init_device(kfd->pdev, pasid_limit);
-> +	err = amd_iommu_init_device(kfd->adev->pdev, pasid_limit);
->   	if (err)
->   		return -ENXIO;
->   
-> -	amd_iommu_set_invalidate_ctx_cb(kfd->pdev,
-> +	amd_iommu_set_invalidate_ctx_cb(kfd->adev->pdev,
->   					iommu_pasid_shutdown_callback);
-> -	amd_iommu_set_invalid_ppr_cb(kfd->pdev,
-> +	amd_iommu_set_invalid_ppr_cb(kfd->adev->pdev,
->   				     iommu_invalid_ppr_cb);
->   
->   	err = kfd_bind_processes_to_device(kfd);
->   	if (err) {
-> -		amd_iommu_set_invalidate_ctx_cb(kfd->pdev, NULL);
-> -		amd_iommu_set_invalid_ppr_cb(kfd->pdev, NULL);
-> -		amd_iommu_free_device(kfd->pdev);
-> +		amd_iommu_set_invalidate_ctx_cb(kfd->adev->pdev, NULL);
-> +		amd_iommu_set_invalid_ppr_cb(kfd->adev->pdev, NULL);
-> +		amd_iommu_free_device(kfd->adev->pdev);
->   		return err;
->   	}
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index bf610e3b683b..552c3ac85a13 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -254,8 +254,6 @@ struct kfd_dev {
->   	struct amdgpu_device *adev;
->   
->   	struct kfd_device_info device_info;
-> -	struct pci_dev *pdev;
-> -	struct drm_device *ddev;
->   
->   	unsigned int id;		/* topology stub index */
->   
-> @@ -1365,7 +1363,7 @@ void kfd_dec_compute_active(struct kfd_dev *dev);
->   static inline int kfd_devcgroup_check_permission(struct kfd_dev *kfd)
->   {
->   #if defined(CONFIG_CGROUP_DEVICE) || defined(CONFIG_CGROUP_BPF)
-> -	struct drm_device *ddev = kfd->ddev;
-> +	struct drm_device *ddev = adev_to_drm(kfd->adev);
->   
->   	return devcgroup_check_permission(DEVCG_DEV_CHAR, DRM_MAJOR,
->   					  ddev->render->index,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index 951b63677248..a26257171ab7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -1050,8 +1050,8 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
->   		 * for auto suspend
->   		 */
->   		if (pdd->runtime_inuse) {
-> -			pm_runtime_mark_last_busy(pdd->dev->ddev->dev);
-> -			pm_runtime_put_autosuspend(pdd->dev->ddev->dev);
-> +			pm_runtime_mark_last_busy(adev_to_drm(pdd->dev->adev)->dev);
-> +			pm_runtime_put_autosuspend(adev_to_drm(pdd->dev->adev)->dev);
->   			pdd->runtime_inuse = false;
->   		}
->   
-> @@ -1633,9 +1633,9 @@ struct kfd_process_device *kfd_bind_process_to_device(struct kfd_dev *dev,
->   	 * pdd is destroyed.
->   	 */
->   	if (!pdd->runtime_inuse) {
-> -		err = pm_runtime_get_sync(dev->ddev->dev);
-> +		err = pm_runtime_get_sync(adev_to_drm(dev->adev)->dev);
->   		if (err < 0) {
-> -			pm_runtime_put_autosuspend(dev->ddev->dev);
-> +			pm_runtime_put_autosuspend(adev_to_drm(dev->adev)->dev);
->   			return ERR_PTR(err);
->   		}
->   	}
-> @@ -1655,8 +1655,8 @@ struct kfd_process_device *kfd_bind_process_to_device(struct kfd_dev *dev,
->   out:
->   	/* balance runpm reference count and exit with error */
->   	if (!pdd->runtime_inuse) {
-> -		pm_runtime_mark_last_busy(dev->ddev->dev);
-> -		pm_runtime_put_autosuspend(dev->ddev->dev);
-> +		pm_runtime_mark_last_busy(adev_to_drm(dev->adev)->dev);
-> +		pm_runtime_put_autosuspend(adev_to_drm(dev->adev)->dev);
->   	}
->   
->   	return ERR_PTR(err);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index af4140685bf3..39fbe19b978a 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -259,7 +259,7 @@ void svm_range_free_dma_mappings(struct svm_range *prange)
->   			pr_debug("failed to find device idx %d\n", gpuidx);
->   			continue;
->   		}
-> -		dev = &pdd->dev->pdev->dev;
-> +		dev = &pdd->dev->adev->pdev->dev;
->   		svm_range_dma_unmap(dev, dma_addr, 0, prange->npages);
->   		kvfree(dma_addr);
->   		prange->dma_addr[gpuidx] = NULL;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> index 3f0a4a415907..ec8c9c10d348 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -115,7 +115,7 @@ struct kfd_dev *kfd_device_by_pci_dev(const struct pci_dev *pdev)
->   	down_read(&topology_lock);
->   
->   	list_for_each_entry(top_dev, &topology_device_list, list)
-> -		if (top_dev->gpu && top_dev->gpu->pdev == pdev) {
-> +		if (top_dev->gpu && top_dev->gpu->adev->pdev == pdev) {
->   			device = top_dev->gpu;
->   			break;
->   		}
-> @@ -1169,13 +1169,12 @@ static uint32_t kfd_generate_gpu_id(struct kfd_dev *gpu)
->   
->   	local_mem_size = gpu->local_mem_info.local_mem_size_private +
->   			gpu->local_mem_info.local_mem_size_public;
-> -
-> -	buf[0] = gpu->pdev->devfn;
-> -	buf[1] = gpu->pdev->subsystem_vendor |
-> -		(gpu->pdev->subsystem_device << 16);
-> -	buf[2] = pci_domain_nr(gpu->pdev->bus);
-> -	buf[3] = gpu->pdev->device;
-> -	buf[4] = gpu->pdev->bus->number;
-> +	buf[0] = gpu->adev->pdev->devfn;
-> +	buf[1] = gpu->adev->pdev->subsystem_vendor |
-> +		(gpu->adev->pdev->subsystem_device << 16);
-> +	buf[2] = pci_domain_nr(gpu->adev->pdev->bus);
-> +	buf[3] = gpu->adev->pdev->device;
-> +	buf[4] = gpu->adev->pdev->bus->number;
->   	buf[5] = lower_32_bits(local_mem_size);
->   	buf[6] = upper_32_bits(local_mem_size);
->   
-> @@ -1269,7 +1268,7 @@ static void kfd_set_iolink_no_atomics(struct kfd_topology_device *dev,
->   	if (target_gpu_dev) {
->   		uint32_t cap;
->   
-> -		pcie_capability_read_dword(target_gpu_dev->gpu->pdev,
-> +		pcie_capability_read_dword(target_gpu_dev->gpu->adev->pdev,
->   				PCI_EXP_DEVCAP2, &cap);
->   
->   		if (!(cap & (PCI_EXP_DEVCAP2_ATOMIC_COMP32 |
-> @@ -1688,13 +1687,13 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
->   		cu_info.num_shader_arrays_per_engine;
->   
->   	dev->node_props.gfx_target_version = gpu->device_info.gfx_target_version;
-> -	dev->node_props.vendor_id = gpu->pdev->vendor;
-> -	dev->node_props.device_id = gpu->pdev->device;
-> +	dev->node_props.vendor_id = gpu->adev->pdev->vendor;
-> +	dev->node_props.device_id = gpu->adev->pdev->device;
->   	dev->node_props.capability |=
->   		((dev->gpu->adev->rev_id << HSA_CAP_ASIC_REVISION_SHIFT) &
->   			HSA_CAP_ASIC_REVISION_MASK);
-> -	dev->node_props.location_id = pci_dev_id(gpu->pdev);
-> -	dev->node_props.domain = pci_domain_nr(gpu->pdev->bus);
-> +	dev->node_props.location_id = pci_dev_id(gpu->adev->pdev);
-> +	dev->node_props.domain = pci_domain_nr(gpu->adev->pdev->bus);
->   	dev->node_props.max_engine_clk_fcompute =
->   		amdgpu_amdkfd_get_max_engine_clock_in_mhz(dev->gpu->adev);
->   	dev->node_props.max_engine_clk_ccompute =
 
