@@ -4,123 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 910D5C38A02
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Oct 2022 07:18:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFFD4C38A02
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Oct 2022 12:37:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F83510E78C;
-	Fri, 28 Oct 2022 07:18:50 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17F7A10E78C;
- Fri, 28 Oct 2022 07:18:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bPqFcMA5tcTJ0qJysyf5cbtGiVm6QDRafH7lIoJy+3vVfehguzTn7WX0VpWucQUYtTymrbivbkZnNdmVcjBy5sfDJuXjQ552GPyGJX4GNurDK6Xu+Yj0rpOxw4Qe9wLzYaYXYjxZttdJQ2J4fOT3nDi0mjPziETIQubySZtxjaT0rSz5+//K0fGtUEEtPosrhWWrtLqhvW/UKucqxqdIgzf9JhmAXYqq2sqgicgP1Qc4lNUUzv85QEiedFe2tXeFkdKa0QdQRvhNKR0lEVNyJDItBiSPmraz62WPucPtyVLBhAjFhRtx6RtZ8Bjlxv2k6su23UdTnj2ypLPZp73nyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=egPQCbKLzjcN7A8hd614nK/u0IGzk6xONpQyuPOJFrM=;
- b=JrK8WoGYJETjgJWvEKfpS86kV7lXT/HyidMjAYyK5B0PJwalch1dVPniPqLvm3Um0OyTZj8iDOInpFbrtAGdDH6llDWfQGf85ELxiC/Mkw4aEbxqk5xi+eGoUea+Ipz5ZSUmw/rDAKEHmmpbAyZwKxKPb+IrkxF8Ani15j3mqC/58mSp50EzMDJWokIIjmqtyhmYUUjlDJPEq18O63KGhXNqsDa1f0l5ZfP9r4Qq/m/DO25O/2iLT20F+ZR0y7EfKz93SYKb7M24E3FoLG2GP+0luPIsGxMDN3BcSxZpoDlE20jr+WA/UPfHKQDU8ISJ0YRWRz0x97/Rzy7KYN8BLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=egPQCbKLzjcN7A8hd614nK/u0IGzk6xONpQyuPOJFrM=;
- b=Lh9o2Ms/K7YO8CEXw7qO4q9ynqKtrdzgS3LjM8sBM3tYsu+a81OSCBSjKzM12664HrQwLtyjDDP84kh41ylmDDF7ZEMNjvsLzQZcldYp/SVhHTaX0crCqfzmfkDlx9mcEr4XLwTGDo+8l3m5jXoM9iGfrP8Ryz1LVWN+sm6S12E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SJ0PR12MB5664.namprd12.prod.outlook.com (2603:10b6:a03:42b::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28; Fri, 28 Oct
- 2022 07:18:45 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::a350:f29a:f287:7279]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::a350:f29a:f287:7279%4]) with mapi id 15.20.5746.023; Fri, 28 Oct 2022
- 07:18:44 +0000
-Message-ID: <04e37ee1-53b0-97ab-d6d7-a39edfbdc2ea@amd.com>
-Date: Fri, 28 Oct 2022 09:18:39 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH] [next] drm/amdgpu: Replace one-element array with
- flexible-array member
-Content-Language: en-US
-To: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Hans de Goede <hdegoede@redhat.com>,
- Grigory Vasilyev <h0tc0d3@gmail.com>, Claudio Suarez <cssk@net-c.es>,
- Slark Xiao <slark_xiao@163.com>, Rongguang Wei <weirongguang@kylinos.cn>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <Y1tkWdwPUp+UdpM0@mail.google.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <Y1tkWdwPUp+UdpM0@mail.google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0077.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1f::10) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 999EE10E82F;
+	Fri, 28 Oct 2022 12:36:59 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2593510E81D;
+ Fri, 28 Oct 2022 12:36:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+ Cc:To:Subject:From:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=7tja3LnZhdf+VqmgOUUf2d7+aTdwEAem7d1KgYKMcvg=; b=QBPpgjFSGUTArP+Tlx0ZjXrp+7
+ FFW2Tnep60LvrfIkAtKxJ+xTraRBTe4Tqdq9iyk5xfS4Yrrylay9eUlu/rfYYB/OskbbSFTQj30tX
+ 6iqpnPyVHpwR7jUvmPJgOt/x4doNhUtQYMBY2M3R5L9iJgqw26ufijmdXilUR96ysZNHOUw6kg+09
+ xbzlZnV6PQqok2NgH8tvSDXMEvmx6sePkBGx5xXCfm04d9dGFhQeOQO3vJfn2fhEN2mcLJoMSvU2x
+ wac1Z8XGAndkIuA0ucMoUK7RS6PV1BKG9ZshnXpeCYTyLEy+Cox5AVcqmNGMEuydAPDi/sg0Qhvja
+ Vk4Whf5Q==;
+Received: from [179.228.14.96] (helo=[192.168.1.111])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1ooObJ-0079fd-ET; Fri, 28 Oct 2022 14:36:41 +0200
+Message-ID: <24811067-45d0-5305-34ff-86eb5e7e50cc@igalia.com>
+Date: Fri, 28 Oct 2022 09:36:29 -0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SJ0PR12MB5664:EE_
-X-MS-Office365-Filtering-Correlation-Id: 73b92184-8cc0-437f-a39b-08dab8b4a5f2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: O/sMUdHnDrQu5EQkDryr7PxuWsJlZDdXA961aGtpi7sK2kZy3GIRInTz2gt0RQeYymUAhzqLqLGyqdPbFqbWgy24xX4FLLeGj/LC6yeXxGYjtNHCHb6sX3WYoDxncj76Uw5En1Y7wo0Qe2Q4ULqkhJplZDwTzokx/aFI6f0xaV/TdZj4lQYTPfcRtG0ljMdx5nlrTN9jfbt8SwzyH/b3/Xa6I2KfRkrJi8sYqa1ZukC4lf0P05ok9t+wQtcPX63K89lK8ORKI7kKi22js8rDJEr9qDub6+ZeBdpA7MpCqbBHqMSZZ9zOXHDimIedWI5o+BmpUYfr/jGvwGipbgndrbHb/kCt+FXOuL4RKXrrCgQm6emsHLq5s4NJtIRaZShELns8uZb3gZ8kiU8zPUQ9MsKspdLdFSQ9IRlDiP/R5VF4zXBUyjbfznBCze6hQmLNQLClD+JJv/KslV/BY6XTBJ3RmpuetXuBFhYiebMA78VR2O3SCsV4HQM1a8Zk6yW2peNrapkhuicpSREnKa89cgz2cJx/iJYRomn6U9mVzwLsDupq8pdD0ycTLsuXCVY5BsSksKwFGwdZ+LUWnA7NFVzDf3SaIf2uJvrof6eL843wXYnAm5VxoEL4T0mpGiSp8evrmxat96oXyPr5GwghJ0w4nE1n/OJklYo5zKvNxAhtCfe63k5y8bTsmjjwSuQHyumbhSOgWWKxRu7k/AS32U8z3s8XSiuVcnUQ4bgDJUW7UVxXYTMgXTx/oIP4KthdnoOAulCrAL3g9xX9gQbJdk7buzki/O4c1H2cHxJ00pC9kfY8CvP2hD5tNZPKlpi5IkhldVB91dLLRpGTwxnmiKoQPThOa28T8g5Q1ePJ0YY/jcErocUodxxy38Mrs8S4
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(376002)(346002)(39860400002)(366004)(396003)(451199015)(2906002)(6506007)(66556008)(316002)(110136005)(4326008)(6512007)(38100700002)(41300700001)(66946007)(36756003)(921005)(966005)(8676002)(6486002)(8936002)(66476007)(6666004)(2616005)(83380400001)(86362001)(7416002)(186003)(31686004)(5660300002)(31696002)(478600001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VHVEaENrRkJIMXdxZGYxUVRpRVBnY2h0TUZCT0lmREdvZHNlaE9NaWhKSWNw?=
- =?utf-8?B?dG10dGdpQXZ2VVJsazlkUkxjVDZleEtWMVNtdkIycnE2dXczNktyZ0ZTNENs?=
- =?utf-8?B?OExOeEtYYXl4Y25zS2JsTTdKbW9tMXI2UUxIQUtGa1U5QWQ3VktVNGFhS2lG?=
- =?utf-8?B?VW90ZSt5WlJLVmFGTytyQUJXQ09mQWh3ZytadGZ4SEx3RmtWaHZKd0pTZmJE?=
- =?utf-8?B?UmhNZHNjNDJYcExYUXpKempNK3dXSVhVdEx4VjBGaFRmNEdESGcvUk14eFpv?=
- =?utf-8?B?YU5jenRpYmtPeXZ5NUtXT01ja3J0ZFJKYUo4c0RyRVBnd0tkMENRODB2Q2g4?=
- =?utf-8?B?WUhrc2ZOSzFlTTVNb3QwWVcyMEM1UXJPRmNWaVJtWFJIYUl1N0EyVDU3Yzhu?=
- =?utf-8?B?SFpHSnliUkpsVkNxcHNWWFdNK0VOa1pLYlVjSHU2NzdCd1RjUTF4NkprUENr?=
- =?utf-8?B?THY3d0wxNTJyY1BZQnF3ZmsyUktFa3c0TVYvcG1ybkg5cTVjQ3NKMXVBb3lx?=
- =?utf-8?B?by8wSysxVWpYM0dHN2FQOUJsZ1dBelRmS2xXdFBOcnBxQUx5Ujc2aFJ6TVdr?=
- =?utf-8?B?dXMrRk9mbVM0ajJzTXQ4MXVsakNTLzV0cUtlNVlpc3QvTkhkOElSZWNocldt?=
- =?utf-8?B?NkZuazVlVGNWTDI1TTQ1NGFqVk4vTGFhemQvZGJ3Y3l6ZEhGenFYdkFJRGhN?=
- =?utf-8?B?dE1VYkRlWXRNZzlpVklQL2FRR0ZkNUc3Mm1HUjlpOG8zSGtsRUM1ejlRc21U?=
- =?utf-8?B?WTdNaU9FQkNkcHJUbVpCZjdyWGNLbHlCa3JmL2FPanpaVGZTbmtMZTl1UFdZ?=
- =?utf-8?B?T24ycE5nc3g5UjRwcEs3TklFU1FIRjN3andEb3pLZm9jZzVMblFqL0Y0WUI4?=
- =?utf-8?B?QXNvbnRPVVNoRE93RFErRldGSmVVdlpLYmxnVXNuOGVBTmxuZXA2ZHY0bjcr?=
- =?utf-8?B?bW5OaHhYajdibjNuZWRZOXY0TUFkcGxZUmhHMTVYUHhwUDAzc1ByeDNQOHdm?=
- =?utf-8?B?Vyt1Vkk5SWp0NTJHak1TSFZRN2pJZHMrOHkxSVhIZ1VGdU9PdEpueVdxZHRr?=
- =?utf-8?B?ODZXeXZMWk5ZbHA4WVhoMkE3NndNSG11djAwMFZjL1ZWZkx2WDl4SFV0ZHE4?=
- =?utf-8?B?b1ViY3IvQWt1eE5IcFk2UnRWTzZkajl0c2RGa0l2TkRIYUxCUWJCckR6WGVv?=
- =?utf-8?B?enMzMnZpQWloM1JYQkcwOWFPMGhLRUNpTmNLS3psbnoxdjlidW5vL29BM0VG?=
- =?utf-8?B?WEYydTFJbW9OSVY2ZUdlN2JXbE81T3RiNlZIcjVkdnhRenlXNDUzMHhyanpx?=
- =?utf-8?B?T2ZqVytJSFFScm0xUVNQTVFYK2hKb1pTYXRVWE9acmN1M1dFd1RkaTJLKzVF?=
- =?utf-8?B?S2wvUHJPNDdQV3VNc1pnak9DT1ZaR1c5U3djUHpvQ2tyTG00VGdkK3JJTG5v?=
- =?utf-8?B?dFJyQS9kUldjOHNoUGg1cFd5THhnc3pzZG84N1ZRakFjNE81T3lPRnUyZUdP?=
- =?utf-8?B?R1gxZEJ2VGllVHVrc3VxaEhXZXFKTFUxdUgrT3RNUFFWaTBTc1RTMUtkSlhl?=
- =?utf-8?B?RTZnWGMzK2VuVTliSGFnRmFibTBRQy9lMlZhUHNYY2ZxcXhLWnRGc1N2dWxw?=
- =?utf-8?B?YzJxN05kVXlJVHZ4MndJbHZYekxReWFIZEUxM1Z5UlBFTXF3Q290Y1FTWmd2?=
- =?utf-8?B?Uy9PZ2tVcGN3cHErZ1hMeW9LdURjdzhGd2wxbkZGWlJlWDdGcGlka0d0cFli?=
- =?utf-8?B?blh1eEhURjhXbDArUnY2a1hkU0ZSTnJPR3lVdTVVQzlaSFVEbDZ6L3cxczhL?=
- =?utf-8?B?cW9VbDh2QjNlWDlsN2JyaTY5UzJ4OTgzYjVhdDVZVlJPMmFwWFBURU9OSzgw?=
- =?utf-8?B?NTNQQ3VVbzFzQkUvT3JTc0FkT2xLdVZTajZVcDE0OUxBTGxBL2ZoYjNSMVda?=
- =?utf-8?B?VXhPdnJIampINUFvN05QZElWVTRKUDR0M25NdSs0SjVtcllvVTFVbDVqREF1?=
- =?utf-8?B?SkRjQkU1UXF0eVRuMHgzMzlqeGpxRW82N0F5eGk5SWU4QzhHSGhOWXRoZmRH?=
- =?utf-8?B?Rlh4aWdXMFI0K1R6VEdKTmhOZlpYd2lFQlE1WGk2R2I4QTZNOWFnU0VUY2I5?=
- =?utf-8?B?UUVWUm9SQ0Ywa1JwRGhuSFpGbWNzcGZPQTY0TVJySFFXOFhESVo1Yi95SGkv?=
- =?utf-8?Q?1GDWwS8mDjYfbOb3tw5S70j8HJZQgmMwjFnv8wVhyiVD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73b92184-8cc0-437f-a39b-08dab8b4a5f2
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2022 07:18:44.6768 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iK9kXa+bTlsSONqkfS9PzWou5oWz+vx+BLU+dJI7HQ87bzTDUWbIrdLxZ1SsgiIx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5664
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+Subject: Re: [PATCH v3 0/6] Add support for atomic async page-flips
+To: Simon Ser <contact@emersion.fr>
+References: <20220929184307.258331-1-contact@emersion.fr>
+ <Yzb0uNjB5FpjCIjq@intel.com> <Yzb6203nHF8fVH/W@intel.com>
+ <YzcGw9myJotLRTVl@intel.com>
+ <PJIfCPDOH8tzwE1mwv58g4ICBZbEgW44vwzW-JdUde6PjLDUeF_JNT0kUZ_Z8hZWqii_DTdDFfAYpRbO_T1Tu28wpjiwYlQpRdsrHJXLF58=@emersion.fr>
+Content-Language: en-US
+In-Reply-To: <PJIfCPDOH8tzwE1mwv58g4ICBZbEgW44vwzW-JdUde6PjLDUeF_JNT0kUZ_Z8hZWqii_DTdDFfAYpRbO_T1Tu28wpjiwYlQpRdsrHJXLF58=@emersion.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,75 +56,260 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Cc: daniel.vetter@ffwll.ch, dri-devel@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org, mwen@igalia.com,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, joshua@froggi.es, hwentlan@amd.com,
+ nicholas.kazlauskas@amd.com,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 28.10.22 um 07:10 schrieb Paulo Miguel Almeida:
-> One-element arrays are deprecated, and we are replacing them with
-> flexible array members instead. So, replace one-element array with
-> flexible-array member in struct _ATOM_FAKE_EDID_PATCH_RECORD and
-> refactor the rest of the code accordingly.
->
-> This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
-> routines on memcpy() and help us make progress towards globally
-> enabling -fstrict-flex-arrays=3 [1].
->
-> Link: https://github.com/KSPP/linux/issues/79
-> Link: https://github.com/KSPP/linux/issues/238
-> Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101836 [1]
-
-I'm not sure if that's a good idea. We had multiple attempts to refactor 
-this now and it always caused a regression.
-
-Additional to that the header in question came from our BIOS team and 
-isn't following Linux styles in general.
-
-Alex what do you think?
-
-Regards,
-Christian.
-
->
-> Signed-off-by: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/atombios_encoders.c | 10 +++++++---
->   drivers/gpu/drm/amd/include/atombios.h         |  2 +-
->   2 files changed, 8 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-> index 6be9ac2b9c5b..6b5abf1249db 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-> @@ -2079,10 +2079,14 @@ amdgpu_atombios_encoder_get_lcd_info(struct amdgpu_encoder *encoder)
->   							} else
->   								kfree(edid);
->   						}
-> +
-> +						record += struct_size(fake_edid_record,
-> +								      ucFakeEDIDString,
-> +								      fake_edid_record->ucFakeEDIDLength);
-> +					} else {
-> +						/* empty fake edid record must be 3 bytes long */
-> +						record += sizeof(ATOM_FAKE_EDID_PATCH_RECORD) + 1;
->   					}
-> -					record += fake_edid_record->ucFakeEDIDLength ?
-> -						fake_edid_record->ucFakeEDIDLength + 2 :
-> -						sizeof(ATOM_FAKE_EDID_PATCH_RECORD);
->   					break;
->   				case LCD_PANEL_RESOLUTION_RECORD_TYPE:
->   					panel_res_record = (ATOM_PANEL_RESOLUTION_PATCH_RECORD *)record;
-> diff --git a/drivers/gpu/drm/amd/include/atombios.h b/drivers/gpu/drm/amd/include/atombios.h
-> index 15943bc21bc5..b5b1d073f8e2 100644
-> --- a/drivers/gpu/drm/amd/include/atombios.h
-> +++ b/drivers/gpu/drm/amd/include/atombios.h
-> @@ -4107,7 +4107,7 @@ typedef struct _ATOM_FAKE_EDID_PATCH_RECORD
+On 10/13/22 13:02, Simon Ser wrote:
+>>>> So no tests that actually verify that the kernel properly rejects
+>>>> stuff stuff like modesets, gamma LUT updates, plane movement,
+>>>> etc.?
+>>>
+>>> Pondering this a bit more, it just occurred to me the current driver
+>>> level checks might easily lead to confusing behaviour. Eg. is
+>>> the ioctl going to succeed if you ask for an async change of some
+>>> random property while the crtc disabled, but fails if you ask for
+>>> the same async property change when the crtc is active?
+>>>
+>>> So another reason why rejecting most properties already at
+>>> the uapi level might be a good idea.
+>>
+>> And just to be clear this is pretty much what I suggest:
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+>> index 79730fa1dd8e..471a2c703847 100644
+>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> @@ -1392,6 +1392,13 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+>>   				goto out;
+>>   			}
+>>
+>> +			if (arg->flags & DRM_MODE_PAGE_FLIP_ASYNC &&
+>> +			    prop != dev->mode_config.prop_fb_id) {
+>> +				drm_mode_object_put(obj);
+>> +				ret = -EINVAL;
+>> +				goto out;
+>> +			}
+>> +
+>>   			if (copy_from_user(&prop_value,
+>>   					   prop_values_ptr + copied_props,
+>>   					   sizeof(prop_value))) {
+>>
+>>
+>> That would actively discourage people from even attempting the
+>> "just dump all the state into the ioctl" approach with async flips
+>> since even the props whose value isn't even changing would be rejected.
+> 
+> How does this sound?
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index 945761968428..ffd16bdc7b83 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -972,14 +972,26 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+>   			    struct drm_file *file_priv,
+>   			    struct drm_mode_object *obj,
+>   			    struct drm_property *prop,
+> -			    uint64_t prop_value)
+> +			    uint64_t prop_value,
+> +			    bool async_flip)
 >   {
->     UCHAR ucRecordType;
->     UCHAR ucFakeEDIDLength;       // = 128 means EDID length is 128 bytes, otherwise the EDID length = ucFakeEDIDLength*128
-> -  UCHAR ucFakeEDIDString[1];    // This actually has ucFakeEdidLength elements.
-> +  UCHAR ucFakeEDIDString[];     // This actually has ucFakeEdidLength elements.
->   } ATOM_FAKE_EDID_PATCH_RECORD;
+>   	struct drm_mode_object *ref;
+>   	int ret;
+> +	uint64_t old_val;
 >   
->   typedef struct  _ATOM_PANEL_RESOLUTION_PATCH_RECORD
+>   	if (!drm_property_change_valid_get(prop, prop_value, &ref))
+>   		return -EINVAL;
+>   
+> +	if (async_flip && prop != prop->dev->mode_config.prop_fb_id) {
+> +		ret = drm_atomic_get_property(obj, prop, &old_val);
+> +		if (ret != 0 || old_val != prop_value) {
+> +			drm_dbg_atomic(prop->dev,
+> +				       "[PROP:%d:%s] cannot be changed during async flip\n",
+> +				       prop->base.id, prop->name);
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+>   	switch (obj->type) {
+>   	case DRM_MODE_OBJECT_CONNECTOR: {
+>   		struct drm_connector *connector = obj_to_connector(obj);
+
+
+drm_atomic_get_property() needs the object lock to be used, so we need 
+to check the property inside the switch-case like this:
+
+-- >8 --
+
+ From f3ee5a1163bfe5a88109d7084208940fe5566967 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+Date: Thu, 27 Oct 2022 17:23:09 -0300
+Subject: [PATCH] drm: Check for prop changes in atomic async flip
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+No prop changes are allowed during an async flip via atomic DRM API, so
+make sure to reject them.
+
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
+---
+  drivers/gpu/drm/drm_atomic_uapi.c   | 47 +++++++++++++++++++++++++++--
+  drivers/gpu/drm/drm_crtc_internal.h |  2 +-
+  drivers/gpu/drm/drm_mode_object.c   |  2 +-
+  3 files changed, 47 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c 
+b/drivers/gpu/drm/drm_atomic_uapi.c
+index ee24ed7e2edb..f63f23305621 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -964,13 +964,28 @@ int drm_atomic_connector_commit_dpms(struct 
+drm_atomic_state *state,
+  	return ret;
+  }
+
++static bool drm_atomic_check_prop_changes(int ret, uint64_t old_val, 
+uint64_t prop_value,
++				  struct drm_property *prop)
++{
++	if (ret != 0 || old_val != prop_value) {
++		drm_dbg_atomic(prop->dev,
++			       "[PROP:%d:%s] No prop can be changed during async flip\n",
++			       prop->base.id, prop->name);
++		return true;
++	}
++
++	return false;
++}
++
+  int drm_atomic_set_property(struct drm_atomic_state *state,
+  			    struct drm_file *file_priv,
+  			    struct drm_mode_object *obj,
+  			    struct drm_property *prop,
+-			    uint64_t prop_value)
++			    uint64_t prop_value,
++			    bool async_flip)
+  {
+  	struct drm_mode_object *ref;
++	uint64_t old_val;
+  	int ret;
+
+  	if (!drm_property_change_valid_get(prop, prop_value, &ref))
+@@ -987,6 +1002,15 @@ int drm_atomic_set_property(struct 
+drm_atomic_state *state,
+  			break;
+  		}
+
++		if (async_flip) {
++			ret = drm_atomic_connector_get_property(connector, connector_state,
++					prop, &old_val);
++			if (drm_atomic_check_prop_changes(ret, old_val, prop_value, prop)) {
++				ret = -EINVAL;
++				break;
++			}
++		}
++
+  		ret = drm_atomic_connector_set_property(connector,
+  				connector_state, file_priv,
+  				prop, prop_value);
+@@ -1002,6 +1026,14 @@ int drm_atomic_set_property(struct 
+drm_atomic_state *state,
+  			break;
+  		}
+
++		if (async_flip) {
++			ret = drm_atomic_crtc_get_property(crtc, crtc_state, prop, &old_val);
++			if (drm_atomic_check_prop_changes(ret, old_val, prop_value, prop)) {
++				ret = -EINVAL;
++				break;
++			}
++		}
++
+  		ret = drm_atomic_crtc_set_property(crtc,
+  				crtc_state, prop, prop_value);
+  		break;
+@@ -1016,6 +1048,14 @@ int drm_atomic_set_property(struct 
+drm_atomic_state *state,
+  			break;
+  		}
+
++		if (async_flip && prop != prop->dev->mode_config.prop_fb_id) {
++			ret = drm_atomic_plane_get_property(plane, plane_state, prop, &old_val);
++			if (drm_atomic_check_prop_changes(ret, old_val, prop_value, prop)) {
++				ret = -EINVAL;
++				break;
++			}
++		}
++
+  		ret = drm_atomic_plane_set_property(plane,
+  				plane_state, file_priv,
+  				prop, prop_value);
+@@ -1304,6 +1344,7 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+  	struct drm_out_fence_state *fence_state;
+  	int ret = 0;
+  	unsigned int i, j, num_fences;
++	bool async = false;
+
+  	/* disallow for drivers not supporting atomic: */
+  	if (!drm_core_check_feature(dev, DRIVER_ATOMIC))
+@@ -1340,6 +1381,8 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+  				       "commit failed: DRM_MODE_PAGE_FLIP_ASYNC not supported with 
+atomic\n");
+  			return -EINVAL;
+  		}
++
++		async = true;
+  	}
+
+  	/* can't test and expect an event at the same time. */
+@@ -1420,7 +1463,7 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+  			}
+
+  			ret = drm_atomic_set_property(state, file_priv,
+-						      obj, prop, prop_value);
++						      obj, prop, prop_value, async);
+  			if (ret) {
+  				drm_mode_object_put(obj);
+  				goto out;
+diff --git a/drivers/gpu/drm/drm_crtc_internal.h 
+b/drivers/gpu/drm/drm_crtc_internal.h
+index 56041b604881..42ff11706fd4 100644
+--- a/drivers/gpu/drm/drm_crtc_internal.h
++++ b/drivers/gpu/drm/drm_crtc_internal.h
+@@ -250,7 +250,7 @@ int drm_atomic_set_property(struct drm_atomic_state 
+*state,
+  			    struct drm_file *file_priv,
+  			    struct drm_mode_object *obj,
+  			    struct drm_property *prop,
+-			    uint64_t prop_value);
++			    uint64_t prop_value, bool async_flip);
+  int drm_atomic_get_property(struct drm_mode_object *obj,
+  			    struct drm_property *property, uint64_t *val);
+
+diff --git a/drivers/gpu/drm/drm_mode_object.c 
+b/drivers/gpu/drm/drm_mode_object.c
+index ba1608effc0f..64f519254895 100644
+--- a/drivers/gpu/drm/drm_mode_object.c
++++ b/drivers/gpu/drm/drm_mode_object.c
+@@ -536,7 +536,7 @@ static int set_property_atomic(struct 
+drm_mode_object *obj,
+  						       obj_to_connector(obj),
+  						       prop_value);
+  	} else {
+-		ret = drm_atomic_set_property(state, file_priv, obj, prop, prop_value);
++		ret = drm_atomic_set_property(state, file_priv, obj, prop, 
+prop_value, false);
+  		if (ret)
+  			goto out;
+  		ret = drm_atomic_commit(state);
+-- 
+2.37.3
+
+
 
