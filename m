@@ -4,61 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48009C38A02
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 08:14:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEF78FA3740
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 08:14:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E966B10E14B;
-	Mon, 31 Oct 2022 08:14:37 +0000 (UTC)
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
- [IPv6:2607:f8b0:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCC2010E871
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Oct 2022 16:36:21 +0000 (UTC)
-Received: by mail-pf1-x433.google.com with SMTP id k22so5229911pfd.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Oct 2022 09:36:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=fiP/gtk1BinFFJgTXUZEj1NdMWlthKZ0OUfBLn7rLIU=;
- b=nimtRxz4mCnrDpP+awp+tQ1a53a8hyPg7iNtWXfhDq3ltrOL5UCs75i4rozXJGbMPX
- SDVQCO8PRkleubIaQin2/IPNBC4hc/yjrIa8pVbxkiahBacQ89eO+azcDW644Ub8H9WK
- rSEWZcGkj/DmpWCp2i1iWe6DBzQ+UBvL4XPl8=
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC3A510E13F;
+	Mon, 31 Oct 2022 08:14:38 +0000 (UTC)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 899F510E84E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Oct 2022 15:28:06 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id z14so7030694wrn.7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Oct 2022 08:28:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=6SejV+lvrszfH7A+FwQaeAvHFHP9xBrTzTJwTXgzIXY=;
+ b=UT0TtMfnYcM289g5Ylp5Rg1tVVsB8jbNMc3Mmb1eItbGw5+YKQkgWcJh0MS9RLVVee
+ 4kTLP8qDqXeBBZfUbrefLKNCVNpXiRFAXBaYWvZmsWYUtWtY2GpEXuNY7f23MAG5kgq2
+ FS38MFfTgB2+ci21OkYzeRoKK5/2zS+Zy2wEKoJNuXahYsFB+xTYJ1EdNByu8byOD6DK
+ Ma7oCOzkFOuMaZGpTKxuz8FIrMEMQk5+sgxnanViH36r8No6NKiDzHdjqNhg+P8W30de
+ 6uJhKRf24+LZNdS1ANCkMoVey6fLdaZDTrDDyPHn7szUEcKTStluxDkeVuSiapDNmx5W
+ jGeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fiP/gtk1BinFFJgTXUZEj1NdMWlthKZ0OUfBLn7rLIU=;
- b=F2bv8+1dWGE8nJNeFBI2e7CJPlIpJV86pU0ZDPNdodWWL/j0IDI3IL/1n5juXQCr1h
- kmQ4YOQforFmYCi3wrXVQ59ut2GhkrvAX7hHTRpfHOUZzEQkVDABKo9HOp4pQ4s0pP++
- 3aew9zyQ5pkqiQvDbLzPGNb01j7usA2I1URIju+ysyjdXPXdpoL8vQK8VzpS5DHhEVa2
- pH6DjEufmMkyHNxhBDQ9xEK4oB9QBwaSBMijS3wL+rbmNS/WGVFasaVeCkiDwFylQx0A
- EiPmoFhxq2/tTIpHsS945FjOjAqE1esL2lx1O2XwSeRn5BS4Uhl5KtpI/266xmGciyOw
- djuw==
-X-Gm-Message-State: ACrzQf0BiITMeIZFVzpf+h5CkdF5Sg+IOustux5VxsYAUS1CpnYGwdcO
- AicL64jna/lhk7UdqEQNvNfmwg==
-X-Google-Smtp-Source: AMsMyM4EYfEXFnyMkOYnJEcYhC2e5fufT2TqnDENGZXbTy1gPAt1ADSI1/a/kujO8yVT2unTkINrkA==
-X-Received: by 2002:a63:5a05:0:b0:434:23a5:a5ca with SMTP id
- o5-20020a635a05000000b0043423a5a5camr296969pgb.515.1666974981269; 
- Fri, 28 Oct 2022 09:36:21 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ bh=6SejV+lvrszfH7A+FwQaeAvHFHP9xBrTzTJwTXgzIXY=;
+ b=W0gQw89j/h36b+jdGPQ+r0WZNIAN2dSX9uWiq8dv3L2AgHTIuaPfyCDUw+fNJa3q/F
+ tyCUjWiaiK3jMRr7YLbEr+hLm2oWSOKDuC+zWq7vZE8H56jJot29KNvC1v31KHtl4yRp
+ 3F/WXzt1cFRJ8KFaJ1dqkOIskvgUyo+15UaJyCCRo9Q8sSk4xhLJhvu3PgGbuebHxCFL
+ ihAHePknzkTyEl3sinFya2/EPxhEHqw6I47opiaV9bnkJ9vITF71lhuLv9K6gc9bR5Jo
+ IZQWQTKxwpb7gUx0XDPBDYLMtOCpwat+sdR41Jjima8schDT42j6bCxgTdNnmsYEhQlS
+ mTFg==
+X-Gm-Message-State: ACrzQf2ajaMrmRUjcJYs+wGXGwtwNnTYWGWd/kl8Y0Y02sp4E49313Ui
+ XeqCg/L098LKHZU47xiPEvw=
+X-Google-Smtp-Source: AMsMyM6lERUYIVyXJtmoRASCZBLuEiUrcxgYTuHt5G9axNcdNlxk05TWxES/ITROpvAaJjUAX6+XaA==
+X-Received: by 2002:a5d:684a:0:b0:236:7930:a3e9 with SMTP id
+ o10-20020a5d684a000000b002367930a3e9mr15233783wrw.27.1666970884945; 
+ Fri, 28 Oct 2022 08:28:04 -0700 (PDT)
+Received: from ?IPV6:2a02:908:4f6:d280::9a6? ([2a02:908:4f6:d280::9a6])
  by smtp.gmail.com with ESMTPSA id
- v9-20020a170902ca8900b00180a7ff78ccsm3223888pld.126.2022.10.28.09.36.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Oct 2022 09:36:20 -0700 (PDT)
-Date: Fri, 28 Oct 2022 09:36:19 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH] [next] drm/amdgpu: Replace one-element array with
- flexible-array member
-Message-ID: <202210280855.9DF8E4D72@keescook>
-References: <Y1tkWdwPUp+UdpM0@mail.google.com>
- <04e37ee1-53b0-97ab-d6d7-a39edfbdc2ea@amd.com>
+ he11-20020a05600c540b00b003c6c5a5a651sm4481257wmb.28.2022.10.28.08.28.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 28 Oct 2022 08:28:04 -0700 (PDT)
+Message-ID: <dfc62a96-1953-27a3-3f8a-b7bab03f69aa@gmail.com>
+Date: Fri, 28 Oct 2022 17:28:03 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Subject: Re: [PATCH v3 1/1] drm/amd/display: add DCN support for ARM64
+Content-Language: en-US
+To: Nathan Chancellor <nathan@kernel.org>
+References: <20221027195227.5312-1-hacc1225@gmail.com>
+ <20221027195227.5312-2-hacc1225@gmail.com>
+ <Y1vwk3J3HPGugBJO@dev-arch.thelio-3990X>
+From: Ao Zhong <hacc1225@gmail.com>
+In-Reply-To: <Y1vwk3J3HPGugBJO@dev-arch.thelio-3990X>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <04e37ee1-53b0-97ab-d6d7-a39edfbdc2ea@amd.com>
 X-Mailman-Approved-At: Mon, 31 Oct 2022 08:14:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,59 +76,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
- Grigory Vasilyev <h0tc0d3@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Slark Xiao <slark_xiao@163.com>, Hans de Goede <hdegoede@redhat.com>,
- Claudio Suarez <cssk@net-c.es>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Rongguang Wei <weirongguang@kylinos.cn>,
- linux-hardening@vger.kernel.org
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 28, 2022 at 09:18:39AM +0200, Christian K�nig wrote:
-> Am 28.10.22 um 07:10 schrieb Paulo Miguel Almeida:
-> > One-element arrays are deprecated, and we are replacing them with
-> > flexible array members instead. So, replace one-element array with
-> > flexible-array member in struct _ATOM_FAKE_EDID_PATCH_RECORD and
-> > refactor the rest of the code accordingly.
-> > 
-> > This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
-> > routines on memcpy() and help us make progress towards globally
-> > enabling -fstrict-flex-arrays=3 [1].
-> > 
-> > Link: https://github.com/KSPP/linux/issues/79
-> > Link: https://github.com/KSPP/linux/issues/238
-> > Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101836 [1]
-> 
-> I'm not sure if that's a good idea. We had multiple attempts to refactor
-> this now and it always caused a regression.
-> 
-> Additional to that the header in question came from our BIOS team and isn't
-> following Linux styles in general.
-> 
-> Alex what do you think?
+Am 28.10.22 um 17:09 schrieb Nathan Chancellor:
 
-Fake flexible arrays (i.e. 1-element arrays) are deprecated in Linux[1]
-(and, frankly, deprecated in C since 1999 and even well before then given
-the 0-sized extension that was added in GCC), so we can't continue to
-bring them into kernel sources. Their use breaks both compile-time and
-run-time bounds checking efforts, etc.
+> Additionally, I see the following errors with GCC 12.2.1 from Fedora
+> when building allmodconfig. Seems like some $(dml_rcflags) might be
+> missing.
+>
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_resource.c: In function ‘dcn10_resource_construct_fp’:
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_resource.c:1313:52: error: ‘-mgeneral-regs-only’ is incompatible with the use of floating-point types
+>   1313 |                 dcn_soc->dram_clock_change_latency = 23;
+>         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_resource.c:1317:45: error: ‘-mgeneral-regs-only’ is incompatible with the use of floating-point types
+>   1317 |                 dc->dcn_soc->urgent_latency = 3;
+>         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_resource.c:1319:64: error: ‘-mgeneral-regs-only’ is incompatible with the use of floating-point types
+>   1319 |                 dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 41.60f;
+>         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_resource.c:1329:64: error: ‘-mgeneral-regs-only’ is incompatible with the use of floating-point types
+>   1329 |                 dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 19.2f;
+>         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_resource.c:1330:64: error: ‘-mgeneral-regs-only’ is incompatible with the use of floating-point types
+>   1330 |                 dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8 = 17.066f;
+>         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_resource.c:1331:65: error: ‘-mgeneral-regs-only’ is incompatible with the use of floating-point types
+>   1331 |                 dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72 = 14.933f;
+>         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_resource.c:1332:65: error: ‘-mgeneral-regs-only’ is incompatible with the use of floating-point types
+>   1332 |                 dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 = 12.8f;
+>         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_resource.c:1334:72: error: ‘-mgeneral-regs-only’ is incompatible with the use of floating-point types
+>   1334 |                         dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 20.80f;
+>         |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+>   make[6]: *** [scripts/Makefile.build:250: drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_resource.o] Error 1
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c: In function ‘dcn32_populate_dml_pipes_from_context’:
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c:1921:70: error: ‘-mgeneral-regs-only’ is incompatible with the use of floating-point types
+>   1921 |                 pipes[pipe_cnt].pipe.src.dcc_fraction_of_zs_req_luma = 0;
+>         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c:1922:72: error: ‘-mgeneral-regs-only’ is incompatible with the use of floating-point types
+>   1922 |                 pipes[pipe_cnt].pipe.src.dcc_fraction_of_zs_req_chroma = 0;
+>         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+>   make[6]: *** [scripts/Makefile.build:250: drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.o] Error 1
+Hi Nathan,
 
-All that said, converting away from them can be tricky, and I think such
-conversions need to explicitly show how they were checked for binary
-differences[2].
+it seems like you haven't merged my patch to isolate the remaining FPU code.
 
-Paulo, can you please check for deltas and report your findings in the
-commit log? Note that add struct_size() use in the same patch may result
-in binary differences, so for more complex cases, you may want to split
-the 1-element conversion from the struct_size() conversions.
+Links: https://patchwork.freedesktop.org/patch/508813/
+Links: https://patchwork.freedesktop.org/patch/508816/
 
--Kees
+Rodrigo says both patches have been applied, but I haven't seen them in the amd-staging-drm-next branch.
 
-[1] https://docs.kernel.org/process/deprecated.html#zero-length-and-one-element-arrays
-[2] https://outflux.net/blog/archives/2022/06/24/finding-binary-differences/
+This error occurs because the remaining FPU code in dcn10_resource.c has not been isolated.
 
--- 
-Kees Cook
+Ao
