@@ -4,49 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D935ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Oct 2022 16:57:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD567ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Oct 2022 17:33:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77FFD10E877;
-	Fri, 28 Oct 2022 16:57:53 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3D5610E873
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Oct 2022 16:57:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666976269; x=1698512269;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=CsAjO6F7Pf0KaWAvJqCa4wx+02xCaYRf2NDvydAD4zc=;
- b=gBZ8yMMORXGNIrRBq/kEFUydixGm6M4pPpOIuWwC0Un75Pee/EeFHuXP
- J15Wvpd3zMZSW11ijbobYvaWNC5vfyRo67aVrTHwYyU2GS8jTcooKhE0P
- GitJg59W7EFNTQD3mzBW9sXPiYn0XrjGAgSf290ADQNlTxcxJE3rVeKoq
- cErhzx6uxBufq24yfOd0P8Yy16+kuwoDQp2aZjIo+Os+4Xq3Rcw2aibp8
- 6gDQCjMRIZrM4gUgm92oztr3lw8cewJLUgVr5vSb2KQrFHI4CUF2f2+1Q
- JQ3BoDGkjs7lU5WeLj75rGtaLE4d789yvyGkN+0Ozy45y+bAK49s92mCc Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10514"; a="394850719"
-X-IronPort-AV: E=Sophos;i="5.95,221,1661842800"; d="scan'208";a="394850719"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2022 09:57:49 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10514"; a="583983809"
-X-IronPort-AV: E=Sophos;i="5.95,221,1661842800"; d="scan'208";a="583983809"
-Received: from lkp-server02.sh.intel.com (HELO b6d29c1a0365) ([10.239.97.151])
- by orsmga003.jf.intel.com with ESMTP; 28 Oct 2022 09:57:45 -0700
-Received: from kbuild by b6d29c1a0365 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1ooSfx-000A4N-0G;
- Fri, 28 Oct 2022 16:57:45 +0000
-Date: Sat, 29 Oct 2022 00:56:50 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- fd8dab197cca2746e1fcd399a218eec5164726d4
-Message-ID: <635c09d2.Uo03FEcDk/bchhMt%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 895DB10E882;
+	Fri, 28 Oct 2022 17:33:34 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2075.outbound.protection.outlook.com [40.107.243.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0C2910E887;
+ Fri, 28 Oct 2022 17:33:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ptp4F/aeX+FjX1jR6P9qEnLnUa6v7TKWJxnreTvS/ZIXybnePbFFp2Vse4JF9kuh/C3zL7sbcorZLWm7+xAXUjfuERaPvc3iXUXN8Aqh7u/LcJKa/cvke3bLhCby58di7teJfMmRwysL6KwR7LmceRQwoiOhnGq9xQP58PcQLLj4jnA0f7spWYklzVIZZFzbYcxomGtdovvHbkTUwA/O8lrq3RltaDIQrPuvWP+F1gsGC/rsEF5wE1XFFQDcs1JVSOBe27VcVmAbCXq6zeOZRbx7UVofYj/IaRjsRV5NAiCBkpT7amxsmDA6TzLf/nc59ddfdjYHKW2GRoPHOgRGVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UyBR4zRnDT9rtt+UQq7No9myDSgh0r3XINeBR7acMSs=;
+ b=fRgC2MHa+Xq/CGR1P9bbd2MJx7mE32x1+VtiyYDzxc8irl2yy/rrBDBXccXihsBtaPGgN1rq1bBrlGil4uPDU4l0q6dyybRgVx8QQZzihkFcc4qtyMC2TPbdbeiKrg3C1p9bfga4sR1vmpHqT2d9uubF3fWnEDwh45dnoVjlhVL19AtgUe29UgEUuHCwq4AAtgV0Gmoo2UW3XzSOcrB8DZoNVVF3InAuQS8o7OA1eCc2JpczSMd88JSOpRLAmU5NU7Eke1Qz5uL7cIjgqX2dMjcgUMrQ0Z8tnBiKW3Sk9EYgB/hZRDs+XiPmyfNQL0jia5VNWXS+UjR1Yd1KbvsmvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UyBR4zRnDT9rtt+UQq7No9myDSgh0r3XINeBR7acMSs=;
+ b=UN5FusP9I7Ge5lqlOAWHu9sqJkHr7VJQ4X+5E2S0jcd3pbLP5ajctlZ9KOGYXwBs03m4nPsjQXOdKZFVYFgYJgn7ljHw7iICH3eyKl7oFC/urI6cD/tHja5nkzvLlmHA1LpJU69Qai6KUbb61R7HEmStdnN0Wvo9KLgnBIq3RiM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by PH7PR12MB6785.namprd12.prod.outlook.com (2603:10b6:510:1ab::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.21; Fri, 28 Oct
+ 2022 17:33:23 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::a350:f29a:f287:7279]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::a350:f29a:f287:7279%4]) with mapi id 15.20.5746.023; Fri, 28 Oct 2022
+ 17:33:23 +0000
+Message-ID: <1052fba8-11ac-cec8-92e7-b994266c6970@amd.com>
+Date: Fri, 28 Oct 2022 19:33:17 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: [PATCH] [next] drm/amdgpu: Replace one-element array with
+ flexible-array member
+Content-Language: en-US
+To: Kees Cook <keescook@chromium.org>
+References: <Y1tkWdwPUp+UdpM0@mail.google.com>
+ <04e37ee1-53b0-97ab-d6d7-a39edfbdc2ea@amd.com>
+ <202210280855.9DF8E4D72@keescook>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <202210280855.9DF8E4D72@keescook>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0120.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a3::18) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH7PR12MB6785:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f425dba-0860-45fb-7434-08dab90a833f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OjIuNDcpGMo/6/uQ8Nr6JLaT8eHeGOIb7JIANzfk70FnjOSQl3jIoqifk92X7SqSfJYVTd13fwp1ojRXd361DLmCyVqt0XGxmgwoGy04D+lA0OP+JwKCTWe6ZVIRbuYSTv/J2NChgenDCwCy5vyOkje/EN/FqNHwzui7o58txJJ5SYg6DTt0Jv1zggaOQc8bKNJLCybfbbIIVWEbtGN35/Xz3ifMDO1pZ/sw9cxri0w50leHDwSJ1KXG1ocJrSavObc6SPtjgxaBgDqENtZZOjBM/rY5aOYD8syQv0+Hz89/ydvR7AezXMAvLQkoU0IZmm3eABMfIpPgAeUEqgIM9+G5a2qPyEovkmStiat17t9G7Ykdgp63I9SgqFrAZbq4U6yxzaQyKxVUJWugZNtH7WorWm+2X3ER0edZUdkwwCNMIbpq4DsE/xyLkD9oIa3rV4Ecvjm4Qsp4fnFvTNEOec+ClCxAYKEWtqaTY3a5yECDqhbAH+swxkRdtTsAhU+L8VMtcbE+Cl1ayG9V6th3e12usYsIlwQ0T5YQ1SKn3GcsLVT1fVb8Gm0H6vFK+uekfYu+Nc8L1KoL3bsiWM68hy+N6pxFZOWlI8nlanvjGct5TC46aHXhLKLYUp1IEzDV7mxIiIHRFvDZ/T7axUU9hy7tk3Yh566Flb06uQ8RjJa3DEk8CshrlgMmvMMKKxOqfGkt9ER8DBypM/nVnwOf9aHMTbumRQiDLKhY4ldPsFNgG+a2L/to/nyVHvj0AjiKOEu7OX4UNm+sw7Mzep6dCRKdVcaLD2qz7sTWY0Qxk3yin6atICHxxdEKZCOdnEoiy9817Ef6KhJvacUcvmn4jvWPDDqto9rWoFB6C/WNN8fLfejFf0SHAPa9b/lCf1+5
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(366004)(39860400002)(376002)(396003)(346002)(136003)(451199015)(316002)(31686004)(6506007)(8936002)(86362001)(2906002)(2616005)(36756003)(83380400001)(31696002)(66556008)(8676002)(6916009)(966005)(66476007)(45080400002)(6486002)(66946007)(7416002)(186003)(41300700001)(6666004)(54906003)(4326008)(6512007)(5660300002)(478600001)(38100700002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TkJVZU92WGZKVE8rcVdIVHNvbndzSzlmZFJOWHVvam1kTjltTThWZWQvbUdj?=
+ =?utf-8?B?TUs4SnRkbkFuKzJTQ1VaZitxU3VZZ1ZDWXkvSEtxb2R6TjNDdTBmM0prZ0ZW?=
+ =?utf-8?B?YWFuYmVrOUtZTXVYdEhqelhqSzZqOGl3bDc1Q3VqRGJBYWM0cWFPK095a2pR?=
+ =?utf-8?B?dlREbHYrZ2hKcm9HTldKNkRjTWhqSHdoN2JjOUpVd1B1dncyeDU4enNJRkJH?=
+ =?utf-8?B?Z2ZXdjg0S24zTWlwcVYvcjZWRk43cnFFZmxDVUF0WkJ1TVdBWm56dWZiSEtu?=
+ =?utf-8?B?NEo4SWpQWkpMZ1I3WWNOcllUbmJKc1lUVGlUYWo0bndDeC9TaithOW5pZTNY?=
+ =?utf-8?B?SHl6TG1QRkpnVGFoWjhEaWtYMDRqaVpwQkluRE91TmZyYXhkb0ppOXFTanNZ?=
+ =?utf-8?B?MmkzWHp1MVB1TVMxeXF3Y1JwTkFMT2ozS3JrSGRiZjcvMlJrRUlsNmVJK09R?=
+ =?utf-8?B?ZkNrWFZqMGE2MUp0Ym9iYzVUMWVUbW90SXdjVVFwNmpLTm5LSTJvM3JycVdt?=
+ =?utf-8?B?UlZtWlJ0NFRjQ2tsWE9vVHI3ak9mYzcySnNLWTJKT1lUNHM0WGRrSjNCbUR3?=
+ =?utf-8?B?SHUxNEdzR0xDYTJGRFhJYXVlNm1TM3djR0NOUi8xOE5aMjNVMi9EQU1CUUZm?=
+ =?utf-8?B?UHRid0xjVmF4alNFMERSMHFnOVp1ZnhTMHJUVGtUUFBOUWFwQTdsTk5uOWdR?=
+ =?utf-8?B?aW5YSU5jWXR4NGh2RTdPVVg3VThKNUxYcFc1T2oyOEg3VUt1V0psTVdVZFd4?=
+ =?utf-8?B?R0k2cENnWnMvM0s4a0hXME5GSzVCb2g1eG9hbTJWemFhbXFvcU1MSmE4Zm5r?=
+ =?utf-8?B?dmJQWVlFTVZkRkIyaXVNV2c1ZEZpREkzYy9aaGt0bnFEcEFYNTk4V1piR3Fl?=
+ =?utf-8?B?MFhxZ0pUbWREOU1qQm1aVVpTWXpDd3phMU9xRUlHeHpyV0tqc1BONjU3T0ZY?=
+ =?utf-8?B?Q1BDRW1MTHQyaE9pM3h4MUtOeFR2V1pLZjIrQ3V5QysxeFhoN3NFT2tKbHNI?=
+ =?utf-8?B?Yjg5ODlmcUtXUUZpck5sVWxraStRNlVHWlY4anlISEQveEYrVkVQOTZQRWRO?=
+ =?utf-8?B?b3VqcXEwaElCZEU3RGF5SmxqRTJsSjM2L0hvL2RrYmozbzVhRmdUa0ZkMnNz?=
+ =?utf-8?B?RHdDd0ZxTWVFWFRHdUlHZnZPQXIyTkFEVnpYSThOTTFBSGY1Yk1PQXZXS1VR?=
+ =?utf-8?B?cUtXU1JvVUtRcDUza1pxMW90cGhIMzVObHNlSlZ1RFljTXhzcUhMbnlSRDFS?=
+ =?utf-8?B?Q3V2MEo2TjNaRU9jL241alJEY3Ixd0F6QlllLzFETmxPc1BrYWc5N2pJZDU5?=
+ =?utf-8?B?MFBOQ3J6cUxFb0c4Q01kMENmUU5TTE84WktPa281aHFJSVhSVWlzR09kOUtp?=
+ =?utf-8?B?TXFmYVpWYzN2NHRMbWdvRFoycVFzQWFDcGp4UFpOdlZkdVpRc29aVDQrU0c3?=
+ =?utf-8?B?bWtkanMzTWdlVll6SC9SVzNQNjdCcTBHa3d6ay94Y0xRc1F1emxQNmI5QTRq?=
+ =?utf-8?B?NndkVmt4R3lKcytrcGJCOUhWcUhBNy9ocTkrUDJ6Y2dycGpmOGg3RmNnNG5i?=
+ =?utf-8?B?ZTlZNjNIdDZoalJnbW0xM0Q5S01QRmtYdVFYYkw4Ykk4c29MM0tYcWdrdjdP?=
+ =?utf-8?B?aWJPeEJHRXR0VkFBaEVtNFIwR05ra3BmRnVtRFgzdGJzcGhjdXQwak5iUGdO?=
+ =?utf-8?B?Y0ZpVUZMQXhIYjdnRDUrNkRBVGRXa3ZJRERRUFVxMGtqU0E5Yy9nNDBqelVw?=
+ =?utf-8?B?bFpaeThQRkhldHBrU2psS2p3b3lRQUVSbWpFNHFVZ1FiRnhzOFNCQmJNVXJ2?=
+ =?utf-8?B?cGhNSEF0U0hEekVRLzJyYUR0TlZiVitFd0x2bm5DTS9EUTlRaFNDanh0Lzg0?=
+ =?utf-8?B?RmlQQ0gxMHBMeVNIamFDYzFFbEF3dExtNEFzdzdNeHdaSXFQRDhMN2h6bW9C?=
+ =?utf-8?B?Y01GWlhTTGhKVVpDQ1JtK0h2U0RaWVRxTG1pWTVYMU03QTBuWC9HR3c1QXJm?=
+ =?utf-8?B?cEtyWDF5eVhkakZyRDlDK0poeEoxWmZUaVJFdk51R2RQNHREZVZPT1g5cS91?=
+ =?utf-8?B?VVBqb2EvVVFhdGdmU3VNQjhQSmhpdFl5akpKcnFpeG9uYlpHQmxhcVd0ck5s?=
+ =?utf-8?B?aTJ1cE80U3Y1azZXNHpBUjYrb09hemtuVmgzcnZvYnhiKzk0Tkxkc3huUjRY?=
+ =?utf-8?Q?qvvNadxVeKvNs9WQ7UAUvM7XsrVZews1Y+cJ+SUz5ymn?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f425dba-0860-45fb-7434-08dab90a833f
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2022 17:33:23.1006 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vgEMU8F7auCOwYZTN+MO7078u+8VJ1fRH/eXGrZUiFKpDnTWM9gg8Cz0GnnVuI0E
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6785
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,210 +127,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-ext4@vger.kernel.org, netdev@vger.kernel.org, linux-mips@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-can@vger.kernel.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- linux-mediatek@lists.infradead.org, ntfs3@lists.linux.dev,
- linux-wpan@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
+ Grigory Vasilyev <h0tc0d3@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Slark Xiao <slark_xiao@163.com>, Hans de Goede <hdegoede@redhat.com>,
+ Claudio Suarez <cssk@net-c.es>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Rongguang Wei <weirongguang@kylinos.cn>,
+ linux-hardening@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: fd8dab197cca2746e1fcd399a218eec5164726d4  Add linux-next specific files for 20221028
+Am 28.10.22 um 18:36 schrieb Kees Cook:
+> On Fri, Oct 28, 2022 at 09:18:39AM +0200, Christian König wrote:
+>> Am 28.10.22 um 07:10 schrieb Paulo Miguel Almeida:
+>>> One-element arrays are deprecated, and we are replacing them with
+>>> flexible array members instead. So, replace one-element array with
+>>> flexible-array member in struct _ATOM_FAKE_EDID_PATCH_RECORD and
+>>> refactor the rest of the code accordingly.
+>>>
+>>> This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
+>>> routines on memcpy() and help us make progress towards globally
+>>> enabling -fstrict-flex-arrays=3 [1].
+>>>
+>>> Link: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2FKSPP%2Flinux%2Fissues%2F79&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C600d3657cbe441ae969d08dab9028c1c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638025717852262567%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=h78kYVA3ee9fDDwD5XGNgYJuUAZtBitVpk2354cOLO4%3D&amp;reserved=0
+>>> Link: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2FKSPP%2Flinux%2Fissues%2F238&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C600d3657cbe441ae969d08dab9028c1c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638025717852262567%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=k1k7LwxIxIw5c9QM3gM2pA9DVGF4Kz20IJWs5tY4xzE%3D&amp;reserved=0
+>>> Link: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgcc.gnu.org%2Fbugzilla%2Fshow_bug.cgi%3Fid%3D101836&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C600d3657cbe441ae969d08dab9028c1c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638025717852262567%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=LJB4Rs1xOE82UpLbqtZOgPgi7OmvR02T9fikpKamdiY%3D&amp;reserved=0 [1]
+>> I'm not sure if that's a good idea. We had multiple attempts to refactor
+>> this now and it always caused a regression.
+>>
+>> Additional to that the header in question came from our BIOS team and isn't
+>> following Linux styles in general.
+>>
+>> Alex what do you think?
+> Fake flexible arrays (i.e. 1-element arrays) are deprecated in Linux[1]
+> (and, frankly, deprecated in C since 1999 and even well before then given
+> the 0-sized extension that was added in GCC), so we can't continue to
+> bring them into kernel sources. Their use breaks both compile-time and
+> run-time bounds checking efforts, etc.
 
-Error/Warning reports:
+I'm perfectly aware of that. The issue is that we have tried to fix this 
+multiple times now and reverted back to the original behavior because 
+some user with a 10-15 year old hardware complained that it broke his 
+system.
 
-https://lore.kernel.org/linux-mm/202210090954.pTR6m6rj-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210111318.mbUfyhps-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210261404.b6UlzG7H-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202210270637.Q5Y7FiKJ-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202210271517.snUEnhD0-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202210281745.XFMUiMEf-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202210282021.SKiobE3i-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202210282125.x112bh8U-lkp@intel.com
+We can't really test every hw generation of the last 15 years for 
+regressions.
 
-Error/Warning: (recently discovered and may have been fixed)
+> All that said, converting away from them can be tricky, and I think such
+> conversions need to explicitly show how they were checked for binary
+> differences[2].
 
-ERROR: modpost: "__ld_r13_to_r18_ret" [lib/zstd/zstd_decompress.ko] undefined!
-ERROR: modpost: "__ld_r13_to_r22" [lib/zstd/zstd_decompress.ko] undefined!
-arch/mips/pic32/pic32mzda/early_console.c:141:11: warning: result of comparison of constant -1 with expression of type 'char' is always false [-Wtautological-constant-out-of-range-compare]
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:4878: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
-drivers/hwmon/smpro-hwmon.c:378:2: warning: unannotated fall-through between switch labels [-Wimplicit-fallthrough]
-drivers/phy/mediatek/phy-mtk-hdmi-mt2701.c:116:2: warning: result of comparison of constant 18446744073709551615 with expression of type 'typeof (_Generic((mask_), char: (unsigned char)0, unsigned char: (unsigned char)0, signed char: (unsigned char)0, unsigned short: (unsigned short)0, short: (unsigned short)0, unsigned int: (unsigned int)0, int: (unsigned int)0, unsigned long: (unsigned long)0, long: (unsigned long)0, unsigned long long: (unsigned long long)0, long long: (unsigned long long)0, default: (mask_)))' (aka 'unsigned long') is always false [-Wtautological-constant-out-of-range-compare]
-drivers/phy/mediatek/phy-mtk-hdmi-mt8173.c:160:2: warning: result of comparison of constant 18446744073709551615 with expression of type 'typeof (_Generic((mask_), char: (unsigned char)0, unsigned char: (unsigned char)0, signed char: (unsigned char)0, unsigned short: (unsigned short)0, short: (unsigned short)0, unsigned int: (unsigned int)0, int: (unsigned int)0, unsigned long: (unsigned long)0, long: (unsigned long)0, unsigned long long: (unsigned long long)0, long long: (unsigned long long)0, default: (mask_)))' (aka 'unsigned long') is always false [-Wtautological-constant-out-of-range-compare]
-drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8173.c:207:2: warning: result of comparison of constant 18446744073709551615 with expression of type 'typeof (_Generic((mask_), char: (unsigned char)0, unsigned char: (unsigned char)0, signed char: (unsigned char)0, unsigned short: (unsigned short)0, short: (unsigned short)0, unsigned int: (unsigned int)0, int: (unsigned int)0, unsigned long: (unsigned long)0, long: (unsigned long)0, unsigned long long: (unsigned long long)0, long long: (unsigned long long)0, default: (mask_)))' (aka 'unsigned long') is always false [-Wtautological-constant-out-of-range-compare]
-drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8183.c:83:2: warning: result of comparison of constant 18446744073709551615 with expression of type 'typeof (_Generic((mask_), char: (unsigned char)0, unsigned char: (unsigned char)0, signed char: (unsigned char)0, unsigned short: (unsigned short)0, short: (unsigned short)0, unsigned int: (unsigned int)0, int: (unsigned int)0, unsigned long: (unsigned long)0, long: (unsigned long)0, unsigned long long: (unsigned long long)0, long long: (unsigned long long)0, default: (mask_)))' (aka 'unsigned long') is always false [-Wtautological-constant-out-of-range-compare]
-include/asm-generic/div64.h:222:35: warning: comparison of distinct pointer types lacks a cast
-include/asm-generic/div64.h:234:32: warning: right shift count >= width of type [-Wshift-count-overflow]
+Oh, that's a great idea! Yes, if this can be guaranteed then the change 
+is obviously perfectly ok.
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
+Thanks,
+Christian.
 
-drivers/net/can/usb/kvaser_usb/kvaser_usb_core.c:555:6: warning: Redundant initialization for 'err'. The initialized value is overwritten before it is read. [redundantInitialization]
-drivers/net/ethernet/microchip/lan743x_ethtool.c:442:33: warning: Parameter 'data' can be declared as pointer to const [constParameter]
-drivers/net/ethernet/microchip/lan743x_main.c:3522:49: warning: Operator '|' with one operand equal to zero is redundant. [badBitmaskCheck]
-drivers/net/ethernet/microchip/lan743x_main.c:532:6: warning: Redundant initialization for 'ret'. The initialized value is overwritten before it is read. [redundantInitialization]
-drivers/net/ieee802154/mcr20a.c:388:54: warning: Operator '|' with one operand equal to zero is redundant. [badBitmaskCheck]
-drivers/net/phy/micrel.c:2043:9: warning: Uninitialized variable: ret [uninitvar]
-drivers/net/phy/micrel.c:2323:24: warning: Uninitialized variable: &rx_ts->seq_id [uninitvar]
-lib/zstd/compress/huf_compress.c:460 HUF_getIndex() warn: the 'RANK_POSITION_LOG_BUCKETS_BEGIN' macro might need parens
-lib/zstd/decompress/zstd_decompress_block.c:1009 ZSTD_execSequence() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:894 ZSTD_execSequenceEnd() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:942 ZSTD_execSequenceEndSplitLitBuffer() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_internal.h:206 ZSTD_DCtx_get_bmi2() warn: inconsistent indenting
+>
+> Paulo, can you please check for deltas and report your findings in the
+> commit log? Note that add struct_size() use in the same patch may result
+> in binary differences, so for more complex cases, you may want to split
+> the 1-element conversion from the struct_size() conversions.
+>
+> -Kees
+>
+> [1] https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.kernel.org%2Fprocess%2Fdeprecated.html%23zero-length-and-one-element-arrays&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C600d3657cbe441ae969d08dab9028c1c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638025717852262567%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=6v1qt3zMrSTFDgnF9TO3aurqvG1fPjH2grRu47e2tEA%3D&amp;reserved=0
+> [2] https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Foutflux.net%2Fblog%2Farchives%2F2022%2F06%2F24%2Ffinding-binary-differences%2F&amp;data=05%7C01%7Cchristian.koenig%40amd.com%7C600d3657cbe441ae969d08dab9028c1c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638025717852262567%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=g3yCIXBAD0OJwK5EdxRfJVeSBevbA1WOeyFM%2BiZC%2F%2FM%3D&amp;reserved=0
+>
 
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- arc-allyesconfig
-|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
-|   `-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
-|-- arc-randconfig-r043-20221028
-|   |-- ERROR:__ld_r13_to_r18_ret-lib-zstd-zstd_decompress.ko-undefined
-|   `-- ERROR:__ld_r13_to_r22-lib-zstd-zstd_decompress.ko-undefined
-|-- arm-allyesconfig
-|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
-|   `-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
-|-- arm64-randconfig-s041-20221026
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
-|   `-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|-- arm64-randconfig-s053-20221026
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|   |-- fs-ntfs3-index.c:sparse:sparse:restricted-__le32-degrades-to-integer
-|   |-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s1-got-unsigned-short
-|   `-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s2-got-unsigned-short
-|-- csky-randconfig-r003-20221027
-|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
-|   `-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
-|-- csky-randconfig-s033-20221026
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-priv1-got-restricted-__le16-addressable-usertype-fc_len
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-int-tag-got-restricted-__le16-addressable-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-short-usertype-tag-got-restricted-__le16-addressable-usertype-fc_tag
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_len-got-unsigned-short-usertype
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-__le16-usertype-fc_tag-got-unsigned-short-usertype
-|   |-- fs-ext4-fast_commit.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-int-tag-got-restricted-__le16-usertype-fc_tag
-|   `-- fs-ext4-fast_commit.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|-- i386-randconfig-m021
-|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
-|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
-|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
-|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
-|   |-- lib-zstd-compress-huf_compress.c-HUF_getIndex()-warn:the-RANK_POSITION_LOG_BUCKETS_BEGIN-macro-might-need-parens
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
-|   `-- lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
-|-- ia64-randconfig-p001-20221026
-clang_recent_errors
-|-- hexagon-randconfig-r034-20221028
-|   `-- drivers-hwmon-smpro-hwmon.c:warning:unannotated-fall-through-between-switch-labels
-|-- hexagon-randconfig-r041-20221027
-|   |-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
-|   `-- drivers-phy-mediatek-phy-mtk-mipi-dsi-mt8183.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:
-|-- mips-pic32mzda_defconfig
-|   `-- arch-mips-pic32-pic32mzda-early_console.c:warning:result-of-comparison-of-constant-with-expression-of-type-char-is-always-false
-`-- powerpc-randconfig-r031-20221026
-    |-- drivers-phy-mediatek-phy-mtk-hdmi-mt2701.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-    `-- drivers-phy-mediatek-phy-mtk-hdmi-mt8173.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((mask_)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(uns
-
-elapsed time: 726m
-
-configs tested: 78
-configs skipped: 2
-
-gcc tested configs:
-um                             i386_defconfig
-um                           x86_64_defconfig
-x86_64                              defconfig
-i386                                defconfig
-i386                          randconfig-a001
-i386                          randconfig-a003
-arc                                 defconfig
-x86_64                           rhel-8.3-kvm
-x86_64                               rhel-8.3
-s390                             allmodconfig
-x86_64                           rhel-8.3-syz
-ia64                             allmodconfig
-x86_64                         rhel-8.3-kunit
-i386                          randconfig-a005
-arm                                 defconfig
-x86_64                        randconfig-a002
-x86_64                           allyesconfig
-alpha                               defconfig
-arc                  randconfig-r043-20221027
-arc                              allyesconfig
-powerpc                           allnoconfig
-x86_64                        randconfig-a013
-s390                             allyesconfig
-arm                            pleb_defconfig
-s390                                defconfig
-x86_64                          rhel-8.3-func
-arc                    vdk_hs38_smp_defconfig
-x86_64                        randconfig-a011
-alpha                            allyesconfig
-powerpc                    sam440ep_defconfig
-powerpc                          allmodconfig
-i386                             allyesconfig
-x86_64                        randconfig-a015
-x86_64                        randconfig-a006
-arm                              allyesconfig
-x86_64                    rhel-8.3-kselftests
-m68k                             allyesconfig
-sh                               allmodconfig
-i386                          randconfig-a014
-x86_64                        randconfig-a004
-m68k                             allmodconfig
-mips                             allyesconfig
-i386                          randconfig-a012
-arm64                            allyesconfig
-i386                          randconfig-a016
-m68k                        m5307c3_defconfig
-arm                        keystone_defconfig
-arm                        mvebu_v7_defconfig
-x86_64                           alldefconfig
-sh                           sh2007_defconfig
-powerpc                mpc7448_hpc2_defconfig
-riscv                            allmodconfig
-i386                          randconfig-c001
-loongarch                         allnoconfig
-ia64                        generic_defconfig
-
-clang tested configs:
-i386                          randconfig-a002
-x86_64                        randconfig-a014
-hexagon              randconfig-r041-20221027
-i386                          randconfig-a006
-x86_64                        randconfig-a005
-i386                          randconfig-a004
-x86_64                        randconfig-a016
-x86_64                        randconfig-a012
-hexagon              randconfig-r045-20221027
-s390                 randconfig-r044-20221027
-x86_64                        randconfig-a001
-riscv                randconfig-r042-20221027
-i386                          randconfig-a013
-powerpc                     tqm5200_defconfig
-i386                          randconfig-a015
-x86_64                        randconfig-a003
-i386                          randconfig-a011
-powerpc                 mpc836x_mds_defconfig
-arm                         mv78xx0_defconfig
-arm                      pxa255-idp_defconfig
-arm                   milbeaut_m10v_defconfig
-x86_64                          rhel-8.3-rust
-mips                        maltaup_defconfig
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
