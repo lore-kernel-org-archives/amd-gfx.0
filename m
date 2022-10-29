@@ -4,40 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A85BDFA3743
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 08:14:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D630FFA3740
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 08:14:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7607710E14D;
-	Mon, 31 Oct 2022 08:14:38 +0000 (UTC)
-X-Greylist: delayed 976 seconds by postgrey-1.36 at gabe;
- Sat, 29 Oct 2022 19:29:56 UTC
-Received: from moc6.cz (hosting.moc6.cz [IPv6:2a02:c60:c70:8900::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E4A310E2D8;
- Sat, 29 Oct 2022 19:29:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=moc6.cz;
- s=mail20201116; h=Message-ID:Subject:Cc:To:From:Date:Reply-To:In-Reply-To;
- bh=/KZ42D3HakbTGEBmYLFXIwAxUy17kAfEEriya9xR94A=; b=PI3A0ss1I9FqpoZTYN1cM8Pqlm
- gyf8SayurTBFU91SklIzKzQDvMU/BubynTVmXOqvH3HvWB5XrD3to50VSlCzfhy7skuIQMc7geuvu
- Bg1WoWqA7i9sXYpDj3239B+0qQwSC2RpObTCjmUtyfbGFmn3DB6pBvnmZtEc1CQSw8u3+xp7fKHmW
- xzrk2m/zwuDQ6wuw+/Ocu091I7BCTsb9WIHieLucVGZG5s/waUOBnzymCL7p2/m5kUj+49Cfmb/pk
- IbfKx+LlnS6G4DhglkJ8lx9t0MNSr3jnzkkouyiTL00dcaGXKbYqMKYeib17XZ8oYovwqW0wfhKux
- 2f+DF/D5Rk7FT0DzxLX0zWUCa2wVC1YW+58/aF5EJ8fUzUeB4kdqdGGasRfVlJEmtvrQpZVaRv10d
- MLB2IjGkQb7aXZkOzCAD9K00HwUdlUtC5ozBqCa2P5deRjm7RtRknRX112aBbgXAkLFNdRDq+H6vk
- qJQzcIs7iCao17FP288ypEopfQCg4TA9QDlCz1ucFGsVaXDkcYv4uft5PBKMwnmKjxumFILsH+Xhc
- 4Zw/nSVSYRcQVX7e28YdcDQBebcjfU1WA9rHo3OjmAI/3PuuxScdWvwmzZ9OAYq1woGB55yTQekd5
- UZKFq3qAZwgQxc64kt0GyFWueAXvF6BI57eNlok9Y=;
-Received: from Debian-exim by moc6.cz with local (Exim 4.94.2)
- (envelope-from <Debian-exim@moc6.cz>) authenticated: Debian-exim
- id 1oorGu-000siT-5T; Sat, 29 Oct 2022 21:13:32 +0200
-Date: Sat, 29 Oct 2022 21:13:32 +0200
-From: Filip Moc <dev@moc6.cz>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH] drm/amd/display: add parameter backlight_min
-Message-ID: <Y117XNaSP6/8bH+3@moc6.cz>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47B2810E14C;
+	Mon, 31 Oct 2022 08:14:39 +0000 (UTC)
+X-Greylist: delayed 429 seconds by postgrey-1.36 at gabe;
+ Sat, 29 Oct 2022 08:37:14 UTC
+Received: from outboundhk.mxmail.xiaomi.com (outboundhk.mxmail.xiaomi.com
+ [207.226.244.122])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0744B10E254;
+ Sat, 29 Oct 2022 08:37:13 +0000 (UTC)
+X-IronPort-AV: E=Sophos;i="5.95,223,1661788800"; d="scan'208,217";a="53076940"
+Received: from hk-mbx02.mioffice.cn (HELO xiaomi.com) ([10.56.8.122])
+ by outboundhk.mxmail.xiaomi.com with ESMTP; 29 Oct 2022 16:29:59 +0800
+Received: from BJ-MBX17.mioffice.cn (10.237.8.137) by HK-MBX02.mioffice.cn
+ (10.56.8.122) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Sat, 29 Oct
+ 2022 16:30:00 +0800
+Received: from BJ-MBX18.mioffice.cn (10.237.8.138) by BJ-MBX17.mioffice.cn
+ (10.237.8.137) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Sat, 29 Oct
+ 2022 16:30:00 +0800
+Received: from BJ-MBX18.mioffice.cn ([fe80::614c:39ef:1920:7898]) by
+ BJ-MBX18.mioffice.cn ([fe80::614c:39ef:1920:7898%16]) with mapi id
+ 15.02.0986.029; Sat, 29 Oct 2022 16:30:00 +0800
+From: =?gb2312?B?yfLR1Lfl?= <shenyanfeng@xiaomi.com>
+To: "airlied@gmail.com" <airlied@gmail.com>, "daniel@ffwll.ch"
+ <daniel@ffwll.ch>, "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>
+Subject: Subject: [PATCH] driver: gpu: add failure check for ftell
+Thread-Topic: Subject: [PATCH] driver: gpu: add failure check for ftell
+Thread-Index: AQHY62zacz3Gu5ZsB0W1NT/L5A964A==
+Date: Sat, 29 Oct 2022 08:30:00 +0000
+Message-ID: <dcbdea48b4554f1989b2b7c6ebc9e32d@xiaomi.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.237.8.11]
+Content-Type: multipart/alternative;
+ boundary="_000_dcbdea48b4554f1989b2b7c6ebc9e32dxiaomicom_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 X-Mailman-Approved-At: Mon, 31 Oct 2022 08:14:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,110 +57,143 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are some devices on which amdgpu won't allow user to set brightness
-to sufficiently low values even though the hardware would support it just
-fine.
+--_000_dcbdea48b4554f1989b2b7c6ebc9e32dxiaomicom_
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 
-This usually happens in two cases when either configuration of brightness
-levels via ACPI/ATIF is not available and amdgpu falls back to defaults
-(currently 12 for minimum level) which may be too high for some devices or
-even the configuration via ATIF is available but the minimum brightness
-level provided by the manufacturer is set to unreasonably high value.
+YWRkIHJldHVybi12YWx1ZSBjaGVjayBvZiBmdGVsbCB0byBpbXByb3ZlIHJvYnVzdG5lc3MoYW5k
+IGF2b2lkIGFibm9ybWFsIGJlaGF2aW9yKQ0KDQpTaWduZWQtb2ZmLWJ5OiBTUGVhayA8c3BlYWtz
+aGVuQDE2My5jb20+DQpTaWduZWQtb2ZmLWJ5OiBzaGVueWFuZmVuZyA8c2hlbnlhbmZlbmdAeGlh
+b21pLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vbWtyZWd0YWJsZS5jIHwgNSAr
+KystLQ0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQoN
+CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL21rcmVndGFibGUuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9yYWRlb24vbWtyZWd0YWJsZS5jDQppbmRleCA1MmE3MjQ2ZmUuLmMzMWM1OGU1
+ZiAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vbWtyZWd0YWJsZS5jDQorKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL21rcmVndGFibGUuYw0KQEAgLTE5Myw2ICsxOTMsNyBA
+QCBzdGF0aWMgaW50IHBhcnNlcl9hdXRoKHN0cnVjdCB0YWJsZSAqdCwgY29uc3QgY2hhciAqZmls
+ZW5hbWUpDQogIHJlZ21hdGNoX3QgbWF0Y2hbNF07DQogIGNoYXIgYnVmWzEwMjRdOw0KICBzaXpl
+X3QgZW5kOw0KKyBsb25nIHBvczsNCiAgaW50IGxlbjsNCiAgaW50IGRvbmUgPSAwOw0KICBpbnQg
+cjsNCkBAIC0yMjgsMTIgKzIyOSwxMiBAQCBzdGF0aWMgaW50IHBhcnNlcl9hdXRoKHN0cnVjdCB0
+YWJsZSAqdCwgY29uc3QgY2hhciAqZmlsZW5hbWUpDQogIGxhc3RfcmVnID0gc3RydG9sKGxhc3Rf
+cmVnX3MsIE5VTEwsIDE2KTsNCg0KICBkbyB7DQotIGlmIChmZ2V0cyhidWYsIDEwMjQsIGZpbGUp
+ID09IE5VTEwpIHsNCisgaWYgKChmZ2V0cyhidWYsIDEwMjQsIGZpbGUpID09IE5VTEwpIHx8IChw
+b3MgPSBmdGVsbChmaWxlKSkgPCAwKSB7DQogIGZjbG9zZShmaWxlKTsNCiAgcmV0dXJuIC0xOw0K
+ICB9DQogIGxlbiA9IHN0cmxlbihidWYpOw0KLSBpZiAoZnRlbGwoZmlsZSkgPT0gZW5kKQ0KKyBp
+ZiAocG9zID09IGVuZCkNCiAgZG9uZSA9IDE7DQogIGlmIChsZW4pIHsNCiAgciA9IHJlZ2V4ZWMo
+Jm1hc2tfcmV4LCBidWYsIDQsIG1hdGNoLCAwKTsNCi0tDQoyLjM3LjINCg0KIy8qKioqKiqxvtPK
+vP68sMbkuL28/rqs09DQocPXuavLvrXEsaPD3NDFz6KjrL32z97T2reiy824+MnPw+a12Na31tDB
+0LP2tcS49sjLu/LIutfpoaO9+9a5yM66zsbky/vIy9LUyM66ztDOyr3KudPDo6iw/MCotauyu8/e
+09rIq7K/u/Kyv7fWtdjQucK2oaK4tNbGoaK78smit6KjqbG+08q8/tbQtcTQxc+ioaPI57n7xPq0
+7crVwcuxvtPKvP6jrMfrxPrBory0tee7sLvy08q8/s2o1qq3orz+yMuyosm+s/2xvtPKvP6joSBU
+aGlzIGUtbWFpbCBhbmQgaXRzIGF0dGFjaG1lbnRzIGNvbnRhaW4gY29uZmlkZW50aWFsIGluZm9y
+bWF0aW9uIGZyb20gWElBT01JLCB3aGljaCBpcyBpbnRlbmRlZCBvbmx5IGZvciB0aGUgcGVyc29u
+IG9yIGVudGl0eSB3aG9zZSBhZGRyZXNzIGlzIGxpc3RlZCBhYm92ZS4gQW55IHVzZSBvZiB0aGUg
+aW5mb3JtYXRpb24gY29udGFpbmVkIGhlcmVpbiBpbiBhbnkgd2F5IChpbmNsdWRpbmcsIGJ1dCBu
+b3QgbGltaXRlZCB0bywgdG90YWwgb3IgcGFydGlhbCBkaXNjbG9zdXJlLCByZXByb2R1Y3Rpb24s
+IG9yIGRpc3NlbWluYXRpb24pIGJ5IHBlcnNvbnMgb3RoZXIgdGhhbiB0aGUgaW50ZW5kZWQgcmVj
+aXBpZW50KHMpIGlzIHByb2hpYml0ZWQuIElmIHlvdSByZWNlaXZlIHRoaXMgZS1tYWlsIGluIGVy
+cm9yLCBwbGVhc2Ugbm90aWZ5IHRoZSBzZW5kZXIgYnkgcGhvbmUgb3IgZW1haWwgaW1tZWRpYXRl
+bHkgYW5kIGRlbGV0ZSBpdCEqKioqKiovIw0K
 
-In either case user can use this new module parameter to adjust the
-minimum allowed backlight brightness level.
+--_000_dcbdea48b4554f1989b2b7c6ebc9e32dxiaomicom_
+Content-Type: text/html; charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=203439
-Signed-off-by: Filip Moc <dev@moc6.cz>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h               |  3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 15 +++++++++++++++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 +++++++++++++++
- 3 files changed, 33 insertions(+)
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p></p>
+<div>
+<div></div>
+<div>add return-value check of ftell to improve robustness(and avoid abnorm=
+al behavior)</div>
+<div><br>
+</div>
+<div>Signed-off-by: SPeak &lt;speakshen@163.com&gt;</div>
+<div><span style=3D"font-family: Calibri, Helvetica, sans-serif, EmojiFont,=
+ &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji,=
+ &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols; font=
+-size: 16px;">Signed-off-by: shenyanfeng &lt;shenyanfeng@xiaomi.com&gt;</sp=
+an><br>
+</div>
+<div>---</div>
+<div>&nbsp;drivers/gpu/drm/radeon/mkregtable.c | 5 &#43;&#43;&#43;--</div>
+<div>&nbsp;1 file changed, 3 insertions(&#43;), 2 deletions(-)</div>
+<div><br>
+</div>
+<div>diff --git a/drivers/gpu/drm/radeon/mkregtable.c b/drivers/gpu/drm/rad=
+eon/mkregtable.c</div>
+<div>index 52a7246fe..c31c58e5f 100644</div>
+<div>--- a/drivers/gpu/drm/radeon/mkregtable.c</div>
+<div>&#43;&#43;&#43; b/drivers/gpu/drm/radeon/mkregtable.c</div>
+<div>@@ -193,6 &#43;193,7 @@ static int parser_auth(struct table *t, const =
+char *filename)</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>regmatch_t match[4];</di=
+v>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>char buf[1024];</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>size_t end;</div>
+<div>&#43;<span style=3D"white-space:pre"> </span>long pos;</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>int len;</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>int done =3D 0;</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>int r;</div>
+<div>@@ -228,12 &#43;229,12 @@ static int parser_auth(struct table *t, cons=
+t char *filename)</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>last_reg =3D strtol(last=
+_reg_s, NULL, 16);</div>
+<div>&nbsp;</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>do {</div>
+<div>-<span style=3D"white-space:pre"> </span>if (fgets(buf, 1024, file) =
+=3D=3D NULL) {</div>
+<div>&#43;<span style=3D"white-space:pre"> </span>if ((fgets(buf, 1024, fil=
+e) =3D=3D NULL) || (pos =3D ftell(file)) &lt; 0) {</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>fclose(file);</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>return -1;</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>}</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>len =3D strlen(buf);</di=
+v>
+<div>-<span style=3D"white-space:pre"> </span>if (ftell(file) =3D=3D end)</=
+div>
+<div>&#43;<span style=3D"white-space:pre"> </span>if (pos =3D=3D end)</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>done =3D 1;</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>if (len) {</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>r =3D regexec(&amp;mask_=
+rex, buf, 4, match, 0);</div>
+<div>--&nbsp;</div>
+<div>2.37.2</div>
+</div>
+<p></p>
+</div>
+#/******=B1=BE=D3=CA=BC=FE=BC=B0=C6=E4=B8=BD=BC=FE=BA=AC=D3=D0=D0=A1=C3=D7=
+=B9=AB=CB=BE=B5=C4=B1=A3=C3=DC=D0=C5=CF=A2=A3=AC=BD=F6=CF=DE=D3=DA=B7=A2=CB=
+=CD=B8=F8=C9=CF=C3=E6=B5=D8=D6=B7=D6=D0=C1=D0=B3=F6=B5=C4=B8=F6=C8=CB=BB=F2=
+=C8=BA=D7=E9=A1=A3=BD=FB=D6=B9=C8=CE=BA=CE=C6=E4=CB=FB=C8=CB=D2=D4=C8=CE=BA=
+=CE=D0=CE=CA=BD=CA=B9=D3=C3=A3=A8=B0=FC=C0=A8=B5=AB=B2=BB=CF=DE=D3=DA=C8=AB=
+=B2=BF=BB=F2=B2=BF=B7=D6=B5=D8=D0=B9=C2=B6=A1=A2=B8=B4=D6=C6=A1=A2=BB=F2=C9=
+=A2=B7=A2=A3=A9=B1=BE=D3=CA=BC=FE=D6=D0=B5=C4=D0=C5=CF=A2=A1=A3=C8=E7=B9=FB=
+=C4=FA=B4=ED=CA=D5=C1=CB=B1=BE=D3=CA=BC=FE=A3=AC=C7=EB=C4=FA=C1=A2=BC=B4=B5=
+=E7=BB=B0=BB=F2=D3=CA=BC=FE=CD=A8=D6=AA=B7=A2=BC=FE=C8=CB=B2=A2=C9=BE=B3=FD=
+=B1=BE=D3=CA=BC=FE=A3=A1 This e-mail and its attachments contain confidenti=
+al information from XIAOMI, which is intended only for the person or entity=
+ whose address
+ is listed above. Any use of the information contained herein in any way (i=
+ncluding, but not limited to, total or partial disclosure, reproduction, or=
+ dissemination) by persons other than the intended recipient(s) is prohibit=
+ed. If you receive this e-mail in
+ error, please notify the sender by phone or email immediately and delete i=
+t!******/#
+</body>
+</html>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 0e6ddf05c23c..c5445402c49d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -200,6 +200,9 @@ extern uint amdgpu_dc_debug_mask;
- extern uint amdgpu_dc_visual_confirm;
- extern uint amdgpu_dm_abm_level;
- extern int amdgpu_backlight;
-+#ifdef CONFIG_DRM_AMD_DC
-+extern int amdgpu_backlight_override_min[];
-+#endif
- extern struct amdgpu_mgpu_info mgpu_info;
- extern int amdgpu_ras_enable;
- extern uint amdgpu_ras_mask;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 16f6a313335e..f2fb549ac52f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -43,6 +43,7 @@
- #include "amdgpu_irq.h"
- #include "amdgpu_dma_buf.h"
- #include "amdgpu_sched.h"
-+#include "amdgpu_dm.h"
- #include "amdgpu_fdinfo.h"
- #include "amdgpu_amdkfd.h"
- 
-@@ -853,6 +854,20 @@ int amdgpu_backlight = -1;
- MODULE_PARM_DESC(backlight, "Backlight control (0 = pwm, 1 = aux, -1 auto (default))");
- module_param_named(backlight, amdgpu_backlight, bint, 0444);
- 
-+/**
-+ * DOC: backlight_min (array of int)
-+ * Override minimum allowed backlight brightness signal (per display).
-+ * Must be less than the maximum brightness signal.
-+ * Negative value means no override.
-+ *
-+ * Defaults to all -1 (no override on any display).
-+ */
-+#ifdef CONFIG_DRM_AMD_DC
-+int amdgpu_backlight_override_min[AMDGPU_DM_MAX_NUM_EDP] = {[0 ... (AMDGPU_DM_MAX_NUM_EDP-1)] = -1};
-+MODULE_PARM_DESC(backlight_min, "Override minimum backlight brightness signal (0..max-1, -1 = no override (default))");
-+module_param_array_named(backlight_min, amdgpu_backlight_override_min, int, NULL, 0444);
-+#endif
-+
- /**
-  * DOC: tmz (int)
-  * Trusted Memory Zone (TMZ) is a method to protect data being written
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index eb4ce7216104..e2c36ba93d05 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3911,6 +3911,21 @@ static void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm,
- 	dm->backlight_caps[bl_idx].min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
- 	dm->backlight_caps[bl_idx].max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
- #endif
-+
-+	if (amdgpu_backlight_override_min[bl_idx] >= 0) {
-+		if (amdgpu_backlight_override_min[bl_idx] < dm->backlight_caps[bl_idx].max_input_signal) {
-+			DRM_INFO("amdgpu: backlight[%i]: overriding minimum brightness from %i to %i\n",
-+				  bl_idx,
-+				  dm->backlight_caps[bl_idx].min_input_signal,
-+				  amdgpu_backlight_override_min[bl_idx]);
-+			dm->backlight_caps[bl_idx].min_input_signal = amdgpu_backlight_override_min[bl_idx];
-+		} else {
-+			DRM_ERROR("amdgpu: backlight[%i]: minimum brightness override (%i) is not below maximum (%i)\n",
-+				  bl_idx,
-+				  amdgpu_backlight_override_min[bl_idx],
-+				  dm->backlight_caps[bl_idx].max_input_signal);
-+		}
-+	}
- }
- 
- static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
-
-base-commit: d8c03bfe146fd5e081a252cd34f3f12ca0255357
--- 
-2.30.2
-
+--_000_dcbdea48b4554f1989b2b7c6ebc9e32dxiaomicom_--
