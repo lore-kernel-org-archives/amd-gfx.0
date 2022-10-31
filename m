@@ -4,54 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21307FA3741
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 15:36:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EA0BFA3746
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 15:42:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F191A10E27F;
-	Mon, 31 Oct 2022 15:36:23 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 501D910E27F;
- Mon, 31 Oct 2022 15:36:21 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id r187so13135198oia.8;
- Mon, 31 Oct 2022 08:36:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=NZ9svVcqEpoCn/DRJRtqGJnzFfLnvgvZgnnPVTMjw9w=;
- b=LppIxaq+KxX4U647wlKAZCyxF03zXuJNg1ni4I2k2e8rpayHjUK+wZ3YxWl7pUcOvk
- xBa8PBokMuuYaZ9DTovzP1y4UV4vLCS0vAUffMLEXZdMHCbrpkPjv0LrcsNEpO3cHpyH
- AGXvBWE7uM0TDg26hKlpAqEJBAitI77xH1AZWH7LY/OqIA7qwoQ4o+0mgiKpYvoyWFVh
- /SJKdO3bSfLJzt4gGGrXTLIfJg10qqe023mBgY2uA5I1bTHcOT4pak8bG6wM7dnUNqFw
- Q4iWYA4zrS4zdDGOCzMMlM+px0g8tgN6ge7Vw6d7+4VRPmKDkvRL0d2WFiZD9IoWG3ag
- I16g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=NZ9svVcqEpoCn/DRJRtqGJnzFfLnvgvZgnnPVTMjw9w=;
- b=Y2nT4i+SnRWAFVWpNXpVGlkyMrvJG14MRVHuGlAI9thabdU+/wP7WhnEPd+B19Sv4m
- JYa4OBg3jsCBcNe3PpZ2B7u0cWWgdVXvaIYRd6cCDgHOnGFD4zAfbpCMlF6sJKUWoXhY
- dpcBgwNrSbdCNXYzeLaRHZ3ldFkgYOHK2wS28NPiyQfaKFbZBByKGYrB9ZEKl7hm99+w
- JvOsnN7qvU5JSu+NaQPdY2tZNIj6nsRzlFFYCFyzjCrUBkSBMgXxrW/1aGkVXR7+iEor
- daHllfgyPC2SNJMJMrMlD+5ru6kvEMVKyv2Q45yloHx13QL3llfFihe9l/+nMXC9YFG6
- qqNA==
-X-Gm-Message-State: ACrzQf0ACDq5Che2psn8YbkUQO607zr750xn24sFh/K8+zbBtJVEN1Xn
- Wj/XJYz6YlNEBnwF6s61VvFAZEJvUM5FvXBK1Q4=
-X-Google-Smtp-Source: AMsMyM7B0fndfG6nvizJp5E8j9Eh9Le4tnJvOWEdVadHUUjC2xmpwJzBNVXw9O/HZO/DkEoWrnPYXbaklDdIYB7rCT4=
-X-Received: by 2002:a05:6808:998:b0:359:c7f3:1ef8 with SMTP id
- a24-20020a056808099800b00359c7f31ef8mr11258816oic.46.1667230580537; Mon, 31
- Oct 2022 08:36:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 223DE10E2E4;
+	Mon, 31 Oct 2022 15:42:32 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2049.outbound.protection.outlook.com [40.107.94.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A572610E2E4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 15:42:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GAvrbLZK+wLZcYIOF1zuPQx72NbpAyVl5ygHpMb/K6UGG8USIbtbPlIuNBP/G+449qQbbHrbmXWGnA7FEIemOFvDVsu7Mn6wcM2tfpUzzM/rdivdZJehf3M9xniclGkEvWNmxTMXaZ35y/Ol1l2yihYhGNapbMlPrKfg2JUX/2uC1hbpO400O5CbO85lebjhhVgsMYCTOsj6SkU5uwyqHrjwmjlJ80LYCp4j/PGQwc1FdUdmNCLlS5I0NhWBFYkQDOtoooItJlHKwZfSk+WKra9XNLihpRf6kbL1CRZI9UMAwD662eA+Lafa0+G1lwiB6wnTpHrJn0uROGvvFz3T7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3t72GQ9X0ya4VgMBzYvBbpy22O8u9Nqxoy06V5WB0ok=;
+ b=TsPoBf+XaZK91KhquR9YGKkULqIhYyepnw+01W14EU0paPQmYLKbAgke37s/tOWvaIylCByyGBnQFT0oRmZ9IpeDNPOtcNtAUrSDnG3R2fwd5PW71npNHMetnaIQe80/AszRxBulpnv73LycAL+XrtIHnBiLjzSdkYpp04YfWciQBYHTqZ1nDC4SAPsLGRyMN1n3dJZEeIwupWhEwMFNucag48oQ7svT3GlbfFRXRIWwytgKoxuY1+iZZVgtGh/MtFQZQOLjKDp4TOhv+4xFDxIKVz+eSYavVrciJSUzXijduHdej1/HZJ1xKOjNNxEhx9C6faqrsJ1jvZEMVkaTOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3t72GQ9X0ya4VgMBzYvBbpy22O8u9Nqxoy06V5WB0ok=;
+ b=SBjpWu531tcTK0E7/e0CmcRnkDBSEFWbhr6tzg5gWMYi2/ik7iXo1XUI5dMkPjgZ8Qm1DGywovyDjlhcn55/6YCnhnp8N+nAN7Q5D+abulzliQ6tKiXhBOQ8DJfB/nm9vtjBmWAcs7kAF2gMuxPrVXTNFXMrpj7DW09BU3/6aAk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DM6PR12MB4861.namprd12.prod.outlook.com (2603:10b6:5:1bd::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19; Mon, 31 Oct
+ 2022 15:42:25 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2969:1cb0:4e83:5de1]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2969:1cb0:4e83:5de1%7]) with mapi id 15.20.5769.019; Mon, 31 Oct 2022
+ 15:42:24 +0000
+Message-ID: <97812dcf-482c-559e-21da-e033fc1e79d3@amd.com>
+Date: Mon, 31 Oct 2022 11:42:21 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: [PATCH] drm/amdkfd: Remove skiping userptr buffer mapping when
+ mmu notifier marks it as invalid
+To: "Xiaogang.Chen" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20221029002632.729783-1-xiaogang.chen@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20221029002632.729783-1-xiaogang.chen@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR01CA0049.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:2::21) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <Y117XNaSP6/8bH+3@moc6.cz>
-In-Reply-To: <Y117XNaSP6/8bH+3@moc6.cz>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 31 Oct 2022 11:36:09 -0400
-Message-ID: <CADnq5_Muegi+dvmrg5U=Cau_oeXQFjv_h2Pdn_j9AG0mRgE4=g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: add parameter backlight_min
-To: Filip Moc <dev@moc6.cz>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM6PR12MB4861:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1f02be45-9002-496c-aec8-08dabb56815c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: i2rGmWLAiv7baD944UqdndS25+nqKBLwASNLNoMI2VBF0TKoEblJI60RQlbMZInyKCsZ9mJxyN76NNABMXN5592G1izsx5gFI9/ukBaHO+XwRKhk63RCJHrQ2L1yU/FQmVs4rw5J570ItKwoywuy2Q0RN7qL1QKQW/QH9HeSLZDNNmA6JsjJ3V6INdpRiVFHEbYqf7YtpQ1Xz1YYblWdLcJl6/k0cVXP5Sb5fdECpN0dHZejl0IBCKEvMHkRX/QF14oe9A3Z0YnYajfsemLsGAiIuryyODE+cAQbB5n9DsMitgPS9Aon9y9tHjWLLm71MzhR+YCK4sLgjsVzhzuWTZDWbDE1eNcKYTgx1goFb6ETqVyC2ECzPwLW400eSOqVufXE2BlnFP7Yim4tmJiYHqod9H/AIe/iLD6vI9+2swS6C29fZIeapzR8q6D/v/pukIp+2ipXWVw4sflblzmi4P1AEydUYEmQNs09fzieb23EtdDl+ehAjwMbc2Jg8+UvmIt3ZgA2mLTE8rYkBrAf4IZz6uJBTa7tZSG2BYaOjAnOkE2cVqu//cb0Otv66ietgCGEZqv+EMFID05/lvKsPIN+ZWzm0FcVP+orczWYmevj4sID/F85uPFKP0gTDQtvPYhUXRdJCge3GQtgxPNDwVlsYZanVlqGgdFwmzkxhoOQVO1LGiznO23EQX8HeITVLaeM3nuPFXe648K10D4gkDIOys/4xdMWyFrPla7SpLo5RnYco50u9tDGnGUdJRXDSJWb2jd3KISAVE9MU09kZ5If6dpYh9ioDVAl8x6tp8c=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(376002)(136003)(396003)(366004)(346002)(451199015)(36756003)(31696002)(86362001)(38100700002)(4001150100001)(2906002)(6486002)(44832011)(6666004)(478600001)(6506007)(8676002)(316002)(66556008)(66946007)(66476007)(5660300002)(8936002)(41300700001)(6512007)(2616005)(186003)(26005)(31686004)(83380400001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cTFXMG1sdEZBUmJiaitzakRKSnFJckp0TGNHWWJtMHdjTDlXbU9EVFpKTmRT?=
+ =?utf-8?B?aGVpOE11RE9YeW83VTNxckx0alBISUNtQXdEVXV6OXA2RnlzZFNBNWd4aTF4?=
+ =?utf-8?B?cU41TVkyRjhpVGkwTmxXWHd4MEtVQk95OWlPTE1MZXJVaEFkWi8zeTd0dEVF?=
+ =?utf-8?B?T2JVMWNXdExuNHlVR2tTQktFMEtJaHh0dWg4eklmTUQwZXRGTEF0RUVnRWxq?=
+ =?utf-8?B?YWdDeEovelFrRmVzVzZpR1E3YnFiTE9XcEtIeDdkYzlFamc3WW1YR2ZoNGlT?=
+ =?utf-8?B?a1lBL3Z3RHovQUNwaXBTU01vVm1PTzdYSlgwa1lVRkVoRVp5OWpOTG1hZGs3?=
+ =?utf-8?B?Qk5pNGoxbmlSNndrTjRCbUxFYWdZaGhjamFSYUZsNWViSmcxc1FuWDJybWky?=
+ =?utf-8?B?d0I0M3FUQUhqcDdab2ZrR2JVM25lcmFrZy9yOUI3QjVrcEIydTVtdHlxcTA0?=
+ =?utf-8?B?Z3pFRGJ5elZuSkVXSFVEb0Y1TDdxTE9QYmRsS1RYay9Ceml5V3BxVDIyaDhP?=
+ =?utf-8?B?akc2TGRWcUlQS0x4NThOVm5YMVp1aWphN0RMVjNCTU50OXVyNWY3OFRsUFQz?=
+ =?utf-8?B?Y2lJS21FM3F1TDVSREhlM1BldlRxb01YN0wrN3NOSWpZMkJGMkN3NGpCRnpD?=
+ =?utf-8?B?SDd5Sk04SER4Sm5YRm5sOVRaM2crbkdmZWNqaFBSUDlDODdvb3ZQcDFxVFJt?=
+ =?utf-8?B?cng1bkJoWmF1RkJnMzVNb1ZzMjc1TnpxV1lFRHhtZ2xlVWNUcmhWRGlDNFUz?=
+ =?utf-8?B?T2QrWGhrY1pVbXRuaHcvZkxGNFU0U1FpdEZDRW91aXBiNWZ5d2dNbHZFU0FH?=
+ =?utf-8?B?VWRKeEd6STJORXQ5ZTJYM2FFZWMwVEtYZGxkbGFlOE1PMDN2NWZuZ3pUTW5Y?=
+ =?utf-8?B?bldSSFRjY0xZMEtCTjJ6bytETS9FS25OblVzS3Z3OXRCQmY2aXFVR0F3aWFU?=
+ =?utf-8?B?ckZ0bk84S3VjT1hyZzZSaVZWZG1jd1VQQ2ZIakdzQmlNbm9nR0NXYzdLeEM5?=
+ =?utf-8?B?Qm9XNWMyTzNpeityeGMwdnMvTVh5Zk9pQUlmc29nTXJ2NzZkcmVFcTdYWDNr?=
+ =?utf-8?B?UzV5OFZHRnF0cnUwejQ1MVI3eHAyL0w2QncwV2lMcDFzZWJxQTB4RzJkZnFE?=
+ =?utf-8?B?UURDRytCNm1vQTJ2VUo2bVVPR2VzVFg2ZzJ3U3VUVVNJTkYyc2dVbS9LMVJO?=
+ =?utf-8?B?ZkZMcnRtZGlQdVFXSGdHbEd4OXNTU2xxVkxIQzNJeStENW1JOVR2dWFLM0Jr?=
+ =?utf-8?B?bU9UbEdpZC9LZmEyZ1RTdmRxNFoyaDZlbnZhQUFBSmFQdjJxNGwxa0JwTzhU?=
+ =?utf-8?B?U052L3BiYnlaRHNkM3M1RzZmbEFqMmFMT0s5eHRxOUMvSXFLdnZpODFCYzg2?=
+ =?utf-8?B?MTFNcTZ2cUNSUThOSWdKU2kxL29SNXVGU21wSFBEZW14cTR5TTdKSldXTDJN?=
+ =?utf-8?B?ekJUdTBMbW1sUGRQQWZpMjdvU1laUmt0cGM5OG8yMUI1ODFmRTlMdWdnZE91?=
+ =?utf-8?B?ZkVsMGJ6N2JBU3JXSERMT0RFSzNOR0oxT2FpenhCVWpnV0lvY0MrZGtmay9r?=
+ =?utf-8?B?SGh0Tm8wdDc1UGNEVEhCczY4NC8vMXpBWVRrS0dKOW85Z3k2b1hQSTFMcS9R?=
+ =?utf-8?B?bFN6WUxyYkl5dmowWitsZDJmclV4Rll2VFRudTFNTVNFMGoyajRxeU9PZjAz?=
+ =?utf-8?B?RXdBWGxOdFI2K0lzMjFQVE9zV0V0UDdEZnFhaE5vMUYwNk1ieTg4Vmpjcm05?=
+ =?utf-8?B?MXVmczVvOXFiajFMYmxSdElZNHBDT3NNN2xZODhra1VTWFpqUWdiM3dOYTJv?=
+ =?utf-8?B?cDQ4aVQ1YUNNZGxRaThSYUFNd3Fwa0UxTjc1Y2RlZDB6MUR3SW1ncXBMcnRB?=
+ =?utf-8?B?OEVLNVRWdmNRMU1hcW15bWNxL09pRnNVUkRzaUNJZnBocUZaYURpZVNSamxw?=
+ =?utf-8?B?ZDF4NHFvSnRwN0doMkI0VDFMZnA1dlQ2UDcvN0s3bkNQNEs3Q3d5Y3JtbDY2?=
+ =?utf-8?B?MS95NFg5MDRSckFmS2hqRTBBdk1nK0tNZURjOExtaHhMNy9HUjhGb3hPbFVZ?=
+ =?utf-8?B?bHU4ejIxOG5ZMDRiem1pSS9OcHI3MVZBTTVNRDRHVkxEaGpDQ3dqZFlPNzFl?=
+ =?utf-8?Q?k3cVs3wP10dLr26XRxdjtPdFN?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f02be45-9002-496c-aec8-08dabb56815c
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2022 15:42:23.9356 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BTgJ0RHcMdIHL+a01rPb2245fQCRQAy/Bqua39iWVRfJiCzK2XlYSl3FrwQGhQa5YqnmpOSPLLxt1KyfqjoR5w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4861
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,122 +124,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Oct 30, 2022 at 5:26 AM Filip Moc <dev@moc6.cz> wrote:
+Am 2022-10-28 um 20:26 schrieb Xiaogang.Chen:
+> From: Xiaogang Chen <xiaogang.chen@amd.com>
 >
-> There are some devices on which amdgpu won't allow user to set brightness
-> to sufficiently low values even though the hardware would support it just
-> fine.
+> mmu notifier does not always hold mm->sem during call back. That causes a race condition
+> between kfd userprt buffer mapping and mmu notifier which leds to gpu shadder or SDMA access
+> userptr buffer before it has been mapped to gpu VM. Always map userptr buffer to avoid that
+> though it may make some userprt buffers mapped two times.
 >
-> This usually happens in two cases when either configuration of brightness
-> levels via ACPI/ATIF is not available and amdgpu falls back to defaults
-> (currently 12 for minimum level) which may be too high for some devices or
-> even the configuration via ATIF is available but the minimum brightness
-> level provided by the manufacturer is set to unreasonably high value.
->
-> In either case user can use this new module parameter to adjust the
-> minimum allowed backlight brightness level.
->
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=203439
-> Signed-off-by: Filip Moc <dev@moc6.cz>
+> Suggested-by:  Felix Kuehling <Felix.Kuehling@amd.com>
+> Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
 
-Does your system require an override and if so, what is it?  It would
-be good to add a quirk for your system as well so that other users of
-the same system wouldn't need to manually figure out an apply the
-settings.
-
-Alex
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h               |  3 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 15 +++++++++++++++
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 +++++++++++++++
->  3 files changed, 33 insertions(+)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 10 ----------
+>   1 file changed, 10 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 0e6ddf05c23c..c5445402c49d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -200,6 +200,9 @@ extern uint amdgpu_dc_debug_mask;
->  extern uint amdgpu_dc_visual_confirm;
->  extern uint amdgpu_dm_abm_level;
->  extern int amdgpu_backlight;
-> +#ifdef CONFIG_DRM_AMD_DC
-> +extern int amdgpu_backlight_override_min[];
-> +#endif
->  extern struct amdgpu_mgpu_info mgpu_info;
->  extern int amdgpu_ras_enable;
->  extern uint amdgpu_ras_mask;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 16f6a313335e..f2fb549ac52f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -43,6 +43,7 @@
->  #include "amdgpu_irq.h"
->  #include "amdgpu_dma_buf.h"
->  #include "amdgpu_sched.h"
-> +#include "amdgpu_dm.h"
->  #include "amdgpu_fdinfo.h"
->  #include "amdgpu_amdkfd.h"
->
-> @@ -853,6 +854,20 @@ int amdgpu_backlight = -1;
->  MODULE_PARM_DESC(backlight, "Backlight control (0 = pwm, 1 = aux, -1 auto (default))");
->  module_param_named(backlight, amdgpu_backlight, bint, 0444);
->
-> +/**
-> + * DOC: backlight_min (array of int)
-> + * Override minimum allowed backlight brightness signal (per display).
-> + * Must be less than the maximum brightness signal.
-> + * Negative value means no override.
-> + *
-> + * Defaults to all -1 (no override on any display).
-> + */
-> +#ifdef CONFIG_DRM_AMD_DC
-> +int amdgpu_backlight_override_min[AMDGPU_DM_MAX_NUM_EDP] = {[0 ... (AMDGPU_DM_MAX_NUM_EDP-1)] = -1};
-> +MODULE_PARM_DESC(backlight_min, "Override minimum backlight brightness signal (0..max-1, -1 = no override (default))");
-> +module_param_array_named(backlight_min, amdgpu_backlight_override_min, int, NULL, 0444);
-> +#endif
-> +
->  /**
->   * DOC: tmz (int)
->   * Trusted Memory Zone (TMZ) is a method to protect data being written
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index eb4ce7216104..e2c36ba93d05 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3911,6 +3911,21 @@ static void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm,
->         dm->backlight_caps[bl_idx].min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
->         dm->backlight_caps[bl_idx].max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
->  #endif
-> +
-> +       if (amdgpu_backlight_override_min[bl_idx] >= 0) {
-> +               if (amdgpu_backlight_override_min[bl_idx] < dm->backlight_caps[bl_idx].max_input_signal) {
-> +                       DRM_INFO("amdgpu: backlight[%i]: overriding minimum brightness from %i to %i\n",
-> +                                 bl_idx,
-> +                                 dm->backlight_caps[bl_idx].min_input_signal,
-> +                                 amdgpu_backlight_override_min[bl_idx]);
-> +                       dm->backlight_caps[bl_idx].min_input_signal = amdgpu_backlight_override_min[bl_idx];
-> +               } else {
-> +                       DRM_ERROR("amdgpu: backlight[%i]: minimum brightness override (%i) is not below maximum (%i)\n",
-> +                                 bl_idx,
-> +                                 amdgpu_backlight_override_min[bl_idx],
-> +                                 dm->backlight_caps[bl_idx].max_input_signal);
-> +               }
-> +       }
->  }
->
->  static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
->
-> base-commit: d8c03bfe146fd5e081a252cd34f3f12ca0255357
-> --
-> 2.30.2
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index da9d475d7ef2..ba72a910d0d5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -1907,16 +1907,6 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
+>   	 */
+>   	mutex_lock(&mem->process_info->lock);
+>   
+> -	/* Lock mmap-sem. If we find an invalid userptr BO, we can be
+> -	 * sure that the MMU notifier is no longer running
+> -	 * concurrently and the queues are actually stopped
+> -	 */
+> -	if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm)) {
+> -		mmap_write_lock(current->mm);
+> -		is_invalid_userptr = atomic_read(&mem->invalid);
+> -		mmap_write_unlock(current->mm);
+> -	}
+> -
+>   	mutex_lock(&mem->lock);
+>   
+>   	domain = mem->domain;
