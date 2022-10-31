@@ -4,115 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EA0BFA3746
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 15:42:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B07D5ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 16:24:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 223DE10E2E4;
-	Mon, 31 Oct 2022 15:42:32 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2049.outbound.protection.outlook.com [40.107.94.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A572610E2E4
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 15:42:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B241810E2E1;
+	Mon, 31 Oct 2022 16:24:30 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2089.outbound.protection.outlook.com [40.107.92.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B73BA10E2DA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 16:24:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GAvrbLZK+wLZcYIOF1zuPQx72NbpAyVl5ygHpMb/K6UGG8USIbtbPlIuNBP/G+449qQbbHrbmXWGnA7FEIemOFvDVsu7Mn6wcM2tfpUzzM/rdivdZJehf3M9xniclGkEvWNmxTMXaZ35y/Ol1l2yihYhGNapbMlPrKfg2JUX/2uC1hbpO400O5CbO85lebjhhVgsMYCTOsj6SkU5uwyqHrjwmjlJ80LYCp4j/PGQwc1FdUdmNCLlS5I0NhWBFYkQDOtoooItJlHKwZfSk+WKra9XNLihpRf6kbL1CRZI9UMAwD662eA+Lafa0+G1lwiB6wnTpHrJn0uROGvvFz3T7g==
+ b=J1LzS54rQx9kRyBQcMXDbp/M+9chIxErUknDmQFZiPhe8EUkOtFzdP/mjULvaCeTRgD9L0iLwyXR6a6NfNfbDJLxrz7dd9HF0Sg0rbF82ShAsVOpO+IO3biGbf1NICigDGtSxmVakN9aOBsEAseMqzIEPQVN8TEg3w5oqmDJV/TBs15APTxrIIPe1EVbt1NdwzAYQxZnKsgDlHcyGazCkgBT7RhtLPqtxntgdyD6/XX9n5koUZUHWPN3Jh3UwJk36JgcKLW0fLPdvbp1/PU5dJBAzPLvMPfJwIV5WFtmZ/K14GkZnyWAW5U+CigXyEhRup3AoZhWEqWO0Gmju/aBPA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3t72GQ9X0ya4VgMBzYvBbpy22O8u9Nqxoy06V5WB0ok=;
- b=TsPoBf+XaZK91KhquR9YGKkULqIhYyepnw+01W14EU0paPQmYLKbAgke37s/tOWvaIylCByyGBnQFT0oRmZ9IpeDNPOtcNtAUrSDnG3R2fwd5PW71npNHMetnaIQe80/AszRxBulpnv73LycAL+XrtIHnBiLjzSdkYpp04YfWciQBYHTqZ1nDC4SAPsLGRyMN1n3dJZEeIwupWhEwMFNucag48oQ7svT3GlbfFRXRIWwytgKoxuY1+iZZVgtGh/MtFQZQOLjKDp4TOhv+4xFDxIKVz+eSYavVrciJSUzXijduHdej1/HZJ1xKOjNNxEhx9C6faqrsJ1jvZEMVkaTOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=d+ZpmRNacIpw19s6pBb6amAvLMZ3m0UqvKMoVg9uvBE=;
+ b=EPqIjF3we7relgq/2IDk04laLPFlEgXzzRgN0jHpB9MDGxfhv/rQfUqUJ9Qrb9MXPcxRurOE/vJkKJL9F3jj7ndBHidwe8lmCEr/XHzKPvYLoTksgirblCCntNAX3klyAq9iP0M0BKF79TLjNA8pmN2ktDC0LSvqn3i1XLVKOGaVKspnNUiStKPMs8yIO/Qmsks88/NyEYYCJPrQMzVDGUnwqVWOXhsUpbjj/BZq8c6nXmPYSALehPvo3mMbmn5mDCO4MBpXCSzgXt6NjhjMp88/WQM4naVCA9pdxB5j6n8z3yWHVQGrNqtqoCQFVd4+o96LJ4b98pBsCXa1pB5pPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3t72GQ9X0ya4VgMBzYvBbpy22O8u9Nqxoy06V5WB0ok=;
- b=SBjpWu531tcTK0E7/e0CmcRnkDBSEFWbhr6tzg5gWMYi2/ik7iXo1XUI5dMkPjgZ8Qm1DGywovyDjlhcn55/6YCnhnp8N+nAN7Q5D+abulzliQ6tKiXhBOQ8DJfB/nm9vtjBmWAcs7kAF2gMuxPrVXTNFXMrpj7DW09BU3/6aAk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM6PR12MB4861.namprd12.prod.outlook.com (2603:10b6:5:1bd::12) with
+ bh=d+ZpmRNacIpw19s6pBb6amAvLMZ3m0UqvKMoVg9uvBE=;
+ b=KBjlJ/6DOgVBWLESKxFcjEkcY9UaflcJx44Z/HmnVhR4NvkHEsrWyR3+sml4WG8KPsAl5p6B4FX+9wgNqRJ2jXcTvHUyxAAgoQ0+B5QrPX3ujm11Qhr1m7IMmvzaugyjPorO21jneFNC1HoJYKXR+Qb11g7Vnf/A34sZHf0NW20=
+Received: from MW4PR04CA0096.namprd04.prod.outlook.com (2603:10b6:303:83::11)
+ by MW3PR12MB4378.namprd12.prod.outlook.com (2603:10b6:303:52::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19; Mon, 31 Oct
- 2022 15:42:25 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::2969:1cb0:4e83:5de1]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::2969:1cb0:4e83:5de1%7]) with mapi id 15.20.5769.019; Mon, 31 Oct 2022
- 15:42:24 +0000
-Message-ID: <97812dcf-482c-559e-21da-e033fc1e79d3@amd.com>
-Date: Mon, 31 Oct 2022 11:42:21 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH] drm/amdkfd: Remove skiping userptr buffer mapping when
- mmu notifier marks it as invalid
-To: "Xiaogang.Chen" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221029002632.729783-1-xiaogang.chen@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20221029002632.729783-1-xiaogang.chen@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR01CA0049.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:2::21) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ 2022 16:24:24 +0000
+Received: from CO1NAM11FT091.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:83:cafe::9f) by MW4PR04CA0096.outlook.office365.com
+ (2603:10b6:303:83::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.18 via Frontend
+ Transport; Mon, 31 Oct 2022 16:24:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT091.mail.protection.outlook.com (10.13.175.146) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5769.14 via Frontend Transport; Mon, 31 Oct 2022 16:24:23 +0000
+Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 31 Oct
+ 2022 11:24:22 -0500
+From: Jonathan Kim <jonathan.kim@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 02/29] drm/amdkfd: display debug capabilities
+Date: Mon, 31 Oct 2022 12:23:32 -0400
+Message-ID: <20221031162359.445805-2-jonathan.kim@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221031162359.445805-1-jonathan.kim@amd.com>
+References: <20221031162359.445805-1-jonathan.kim@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM6PR12MB4861:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f02be45-9002-496c-aec8-08dabb56815c
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT091:EE_|MW3PR12MB4378:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9b0eac5-d9be-48e9-a66c-08dabb5c5f87
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: i2rGmWLAiv7baD944UqdndS25+nqKBLwASNLNoMI2VBF0TKoEblJI60RQlbMZInyKCsZ9mJxyN76NNABMXN5592G1izsx5gFI9/ukBaHO+XwRKhk63RCJHrQ2L1yU/FQmVs4rw5J570ItKwoywuy2Q0RN7qL1QKQW/QH9HeSLZDNNmA6JsjJ3V6INdpRiVFHEbYqf7YtpQ1Xz1YYblWdLcJl6/k0cVXP5Sb5fdECpN0dHZejl0IBCKEvMHkRX/QF14oe9A3Z0YnYajfsemLsGAiIuryyODE+cAQbB5n9DsMitgPS9Aon9y9tHjWLLm71MzhR+YCK4sLgjsVzhzuWTZDWbDE1eNcKYTgx1goFb6ETqVyC2ECzPwLW400eSOqVufXE2BlnFP7Yim4tmJiYHqod9H/AIe/iLD6vI9+2swS6C29fZIeapzR8q6D/v/pukIp+2ipXWVw4sflblzmi4P1AEydUYEmQNs09fzieb23EtdDl+ehAjwMbc2Jg8+UvmIt3ZgA2mLTE8rYkBrAf4IZz6uJBTa7tZSG2BYaOjAnOkE2cVqu//cb0Otv66ietgCGEZqv+EMFID05/lvKsPIN+ZWzm0FcVP+orczWYmevj4sID/F85uPFKP0gTDQtvPYhUXRdJCge3GQtgxPNDwVlsYZanVlqGgdFwmzkxhoOQVO1LGiznO23EQX8HeITVLaeM3nuPFXe648K10D4gkDIOys/4xdMWyFrPla7SpLo5RnYco50u9tDGnGUdJRXDSJWb2jd3KISAVE9MU09kZ5If6dpYh9ioDVAl8x6tp8c=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(376002)(136003)(396003)(366004)(346002)(451199015)(36756003)(31696002)(86362001)(38100700002)(4001150100001)(2906002)(6486002)(44832011)(6666004)(478600001)(6506007)(8676002)(316002)(66556008)(66946007)(66476007)(5660300002)(8936002)(41300700001)(6512007)(2616005)(186003)(26005)(31686004)(83380400001)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: Nnumw2IAjvKqi2KQoR9brzkvxBDJPMIoWDJ2OUqmwdfqpPGF+6gPshX5u/2BDrEUIO4b0LPplQX8GST3V+a44xrLD5gIqxb/LL2JNjks/Ao1+X2fvVStWMNRaa07ZdKzGTgcoN4iPALouO+Va7/etNXr4GoBx0tLbpJ+16kqhPdN930OAqSjXf1aLQYbswcvycrxZ9K+8r8ejMp4LLF+qTeIaD4EJ5Qc7vyrua7Kcrt3zABSadPTzOHSpC3YpL/Y3B4M+kk5AaF2FAQxQibzOqcE6zPkFEvTKt9VScXeyx27iHwQvIrnTwIFWJE+2+wJSFDx186JWTnm0duYK9admEvd6doiJarJlM43WavKU7P31xUekuY79/cOuiNFM0p6G2fGx6p0Z0wJpZE64/RggGBV4Mn/+bVlP89cK2hh0uhoP1wNrIQHlPxSTECkW3ADmohSBnxH2BLIkr7ii5+RBNLTHILyVzvm8sEdJFtRpr2bcqizLslNfPXV7wSKVvezQZCU7el7dnFfQPpfLAsOXNVrRsc7oT43PVfosAbuBOfbbpMZ9OxQn/wNbExv2wOqlGZsBEOMtiABNr6G12ndSHPgeOQKHTXGm7BxodZCBafpQMSyAQf+nvDfQ55m1M47EBV8Rndu8trIGukCIEjgNmSjVnxwNPLkyI/w8ILB+tqWiIMY2L/OaXNvKqlTDcSArmmEU0+SlZ3rHrFG+tElqX1Ij/rcJu+f/HATJKgvJIWMpZB4wIVoP6B08BAK0Vaa/1ihv58JdzG5nt7hcuhvEgBWWg0NWbhG61jEf5iticZ37vgXq6B6rB+zHjNCSfk4
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(376002)(346002)(136003)(39860400002)(451199015)(46966006)(36840700001)(40470700004)(36756003)(86362001)(82740400003)(81166007)(356005)(1076003)(336012)(83380400001)(40460700003)(40480700001)(2906002)(44832011)(7696005)(26005)(2616005)(6666004)(478600001)(36860700001)(47076005)(426003)(186003)(16526019)(82310400005)(70206006)(41300700001)(316002)(6916009)(70586007)(4326008)(8676002)(5660300002)(8936002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cTFXMG1sdEZBUmJiaitzakRKSnFJckp0TGNHWWJtMHdjTDlXbU9EVFpKTmRT?=
- =?utf-8?B?aGVpOE11RE9YeW83VTNxckx0alBISUNtQXdEVXV6OXA2RnlzZFNBNWd4aTF4?=
- =?utf-8?B?cU41TVkyRjhpVGkwTmxXWHd4MEtVQk95OWlPTE1MZXJVaEFkWi8zeTd0dEVF?=
- =?utf-8?B?T2JVMWNXdExuNHlVR2tTQktFMEtJaHh0dWg4eklmTUQwZXRGTEF0RUVnRWxq?=
- =?utf-8?B?YWdDeEovelFrRmVzVzZpR1E3YnFiTE9XcEtIeDdkYzlFamc3WW1YR2ZoNGlT?=
- =?utf-8?B?a1lBL3Z3RHovQUNwaXBTU01vVm1PTzdYSlgwa1lVRkVoRVp5OWpOTG1hZGs3?=
- =?utf-8?B?Qk5pNGoxbmlSNndrTjRCbUxFYWdZaGhjamFSYUZsNWViSmcxc1FuWDJybWky?=
- =?utf-8?B?d0I0M3FUQUhqcDdab2ZrR2JVM25lcmFrZy9yOUI3QjVrcEIydTVtdHlxcTA0?=
- =?utf-8?B?Z3pFRGJ5elZuSkVXSFVEb0Y1TDdxTE9QYmRsS1RYay9Ceml5V3BxVDIyaDhP?=
- =?utf-8?B?akc2TGRWcUlQS0x4NThOVm5YMVp1aWphN0RMVjNCTU50OXVyNWY3OFRsUFQz?=
- =?utf-8?B?Y2lJS21FM3F1TDVSREhlM1BldlRxb01YN0wrN3NOSWpZMkJGMkN3NGpCRnpD?=
- =?utf-8?B?SDd5Sk04SER4Sm5YRm5sOVRaM2crbkdmZWNqaFBSUDlDODdvb3ZQcDFxVFJt?=
- =?utf-8?B?cng1bkJoWmF1RkJnMzVNb1ZzMjc1TnpxV1lFRHhtZ2xlVWNUcmhWRGlDNFUz?=
- =?utf-8?B?T2QrWGhrY1pVbXRuaHcvZkxGNFU0U1FpdEZDRW91aXBiNWZ5d2dNbHZFU0FH?=
- =?utf-8?B?VWRKeEd6STJORXQ5ZTJYM2FFZWMwVEtYZGxkbGFlOE1PMDN2NWZuZ3pUTW5Y?=
- =?utf-8?B?bldSSFRjY0xZMEtCTjJ6bytETS9FS25OblVzS3Z3OXRCQmY2aXFVR0F3aWFU?=
- =?utf-8?B?ckZ0bk84S3VjT1hyZzZSaVZWZG1jd1VQQ2ZIakdzQmlNbm9nR0NXYzdLeEM5?=
- =?utf-8?B?Qm9XNWMyTzNpeityeGMwdnMvTVh5Zk9pQUlmc29nTXJ2NzZkcmVFcTdYWDNr?=
- =?utf-8?B?UzV5OFZHRnF0cnUwejQ1MVI3eHAyL0w2QncwV2lMcDFzZWJxQTB4RzJkZnFE?=
- =?utf-8?B?UURDRytCNm1vQTJ2VUo2bVVPR2VzVFg2ZzJ3U3VUVVNJTkYyc2dVbS9LMVJO?=
- =?utf-8?B?ZkZMcnRtZGlQdVFXSGdHbEd4OXNTU2xxVkxIQzNJeStENW1JOVR2dWFLM0Jr?=
- =?utf-8?B?bU9UbEdpZC9LZmEyZ1RTdmRxNFoyaDZlbnZhQUFBSmFQdjJxNGwxa0JwTzhU?=
- =?utf-8?B?U052L3BiYnlaRHNkM3M1RzZmbEFqMmFMT0s5eHRxOUMvSXFLdnZpODFCYzg2?=
- =?utf-8?B?MTFNcTZ2cUNSUThOSWdKU2kxL29SNXVGU21wSFBEZW14cTR5TTdKSldXTDJN?=
- =?utf-8?B?ekJUdTBMbW1sUGRQQWZpMjdvU1laUmt0cGM5OG8yMUI1ODFmRTlMdWdnZE91?=
- =?utf-8?B?ZkVsMGJ6N2JBU3JXSERMT0RFSzNOR0oxT2FpenhCVWpnV0lvY0MrZGtmay9r?=
- =?utf-8?B?SGh0Tm8wdDc1UGNEVEhCczY4NC8vMXpBWVRrS0dKOW85Z3k2b1hQSTFMcS9R?=
- =?utf-8?B?bFN6WUxyYkl5dmowWitsZDJmclV4Rll2VFRudTFNTVNFMGoyajRxeU9PZjAz?=
- =?utf-8?B?RXdBWGxOdFI2K0lzMjFQVE9zV0V0UDdEZnFhaE5vMUYwNk1ieTg4Vmpjcm05?=
- =?utf-8?B?MXVmczVvOXFiajFMYmxSdElZNHBDT3NNN2xZODhra1VTWFpqUWdiM3dOYTJv?=
- =?utf-8?B?cDQ4aVQ1YUNNZGxRaThSYUFNd3Fwa0UxTjc1Y2RlZDB6MUR3SW1ncXBMcnRB?=
- =?utf-8?B?OEVLNVRWdmNRMU1hcW15bWNxL09pRnNVUkRzaUNJZnBocUZaYURpZVNSamxw?=
- =?utf-8?B?ZDF4NHFvSnRwN0doMkI0VDFMZnA1dlQ2UDcvN0s3bkNQNEs3Q3d5Y3JtbDY2?=
- =?utf-8?B?MS95NFg5MDRSckFmS2hqRTBBdk1nK0tNZURjOExtaHhMNy9HUjhGb3hPbFVZ?=
- =?utf-8?B?bHU4ejIxOG5ZMDRiem1pSS9OcHI3MVZBTTVNRDRHVkxEaGpDQ3dqZFlPNzFl?=
- =?utf-8?Q?k3cVs3wP10dLr26XRxdjtPdFN?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f02be45-9002-496c-aec8-08dabb56815c
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2022 15:42:23.9356 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2022 16:24:23.9051 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9b0eac5-d9be-48e9-a66c-08dabb5c5f87
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BTgJ0RHcMdIHL+a01rPb2245fQCRQAy/Bqua39iWVRfJiCzK2XlYSl3FrwQGhQa5YqnmpOSPLLxt1KyfqjoR5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4861
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT091.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4378
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,45 +99,198 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-10-28 um 20:26 schrieb Xiaogang.Chen:
-> From: Xiaogang Chen <xiaogang.chen@amd.com>
->
-> mmu notifier does not always hold mm->sem during call back. That causes a race condition
-> between kfd userprt buffer mapping and mmu notifier which leds to gpu shadder or SDMA access
-> userptr buffer before it has been mapped to gpu VM. Always map userptr buffer to avoid that
-> though it may make some userprt buffers mapped two times.
->
-> Suggested-by:  Felix Kuehling <Felix.Kuehling@amd.com>
-> Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
+Expose debug capabilities in the KFD topology node's HSA capabilities and
+debug properties flags.
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Ensure correct capabilities are exposed based on firmware support.
 
+Flag definitions can be referenced in uapi/linux/kfd_sysfs.h.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 10 ----------
->   1 file changed, 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index da9d475d7ef2..ba72a910d0d5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1907,16 +1907,6 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
->   	 */
->   	mutex_lock(&mem->process_info->lock);
->   
-> -	/* Lock mmap-sem. If we find an invalid userptr BO, we can be
-> -	 * sure that the MMU notifier is no longer running
-> -	 * concurrently and the queues are actually stopped
-> -	 */
-> -	if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm)) {
-> -		mmap_write_lock(current->mm);
-> -		is_invalid_userptr = atomic_read(&mem->invalid);
-> -		mmap_write_unlock(current->mm);
-> -	}
-> -
->   	mutex_lock(&mem->lock);
->   
->   	domain = mem->domain;
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 88 +++++++++++++++++++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.h |  6 ++
+ include/uapi/linux/kfd_sysfs.h            | 15 ++++
+ 3 files changed, 104 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 3f0a4a415907..cd5933a594de 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -551,6 +551,8 @@ static ssize_t node_show(struct kobject *kobj, struct attribute *attr,
+ 				      dev->gpu->mec_fw_version);
+ 		sysfs_show_32bit_prop(buffer, offs, "capability",
+ 				      dev->node_props.capability);
++		sysfs_show_64bit_prop(buffer, offs, "debug_prop",
++				      dev->node_props.debug_prop);
+ 		sysfs_show_32bit_prop(buffer, offs, "sdma_fw_version",
+ 				      dev->gpu->sdma_fw_version);
+ 		sysfs_show_64bit_prop(buffer, offs, "unique_id",
+@@ -1593,6 +1595,84 @@ static int kfd_dev_create_p2p_links(void)
+ 	return ret;
+ }
+ 
++static void kfd_topology_set_dbg_firmware_support(struct kfd_topology_device *dev)
++{
++	bool firmware_supported = true;
++
++	/*
++	 * Note: Any unlisted devices here are assumed to support exception handling.
++	 * Add additional checks here as needed.
++	 */
++	switch (KFD_GC_VERSION(dev->gpu)) {
++	case IP_VERSION(9, 0, 1): /* Vega10 */
++		firmware_supported = dev->gpu->mec_fw_version >= 459 + 32768;
++		break;
++	case IP_VERSION(9, 1, 0): /* Raven */
++	case IP_VERSION(9, 2, 1): /* Vega12 */
++	case IP_VERSION(9, 2, 2): /* Raven */
++	case IP_VERSION(9, 3, 0): /* Renoir */
++	case IP_VERSION(9, 4, 0): /* Vega20 */
++		firmware_supported = dev->gpu->mec_fw_version >= 459;
++		break;
++	case IP_VERSION(9, 4, 1): /* Arcturus */
++		firmware_supported = dev->gpu->mec_fw_version >= 60;
++		break;
++	case IP_VERSION(9, 4, 2): /* Aldebaran */
++		firmware_supported = dev->gpu->mec_fw_version >= 51;
++		break;
++	case IP_VERSION(10, 1, 10): /* Navi10 */
++	case IP_VERSION(10, 1, 2): /* Navi12 */
++	case IP_VERSION(10, 1, 1): /* Navi14 */
++		firmware_supported = dev->gpu->mec_fw_version >= 144;
++		break;
++	case IP_VERSION(10, 3, 0): /* Sieanna Cichlid */
++	case IP_VERSION(10, 3, 2): /* Navy Flounder */
++	case IP_VERSION(10, 3, 1): /* Van Gogh */
++	case IP_VERSION(10, 3, 4): /* Dimgrey Cavefish */
++	case IP_VERSION(10, 3, 5): /* Beige Goby */
++		firmware_supported = dev->gpu->mec_fw_version >= 89;
++		break;
++	case IP_VERSION(10, 1, 3): /* Cyan Skillfish */
++	case IP_VERSION(10, 3, 3): /* Yellow Carp*/
++		firmware_supported = false;
++		break;
++	default:
++		break;
++	}
++
++	if (firmware_supported)
++		dev->node_props.capability |= HSA_CAP_TRAP_DEBUG_FIRMWARE_SUPPORTED;
++}
++
++static void kfd_topology_set_capabilities(struct kfd_topology_device *dev)
++{
++	dev->node_props.capability |= ((HSA_CAP_DOORBELL_TYPE_2_0 <<
++				HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT) &
++				HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
++
++	dev->node_props.capability |= HSA_CAP_TRAP_DEBUG_SUPPORT |
++			HSA_CAP_TRAP_DEBUG_WAVE_LAUNCH_TRAP_OVERRIDE_SUPPORTED |
++			HSA_CAP_TRAP_DEBUG_WAVE_LAUNCH_MODE_SUPPORTED;
++
++	if (KFD_GC_VERSION(dev->gpu) < IP_VERSION(10, 0, 0)) {
++		dev->node_props.debug_prop |= HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX9 |
++						HSA_DBG_WATCH_ADDR_MASK_HI_BIT;
++
++		if (KFD_GC_VERSION(dev->gpu) < IP_VERSION(9, 4, 2))
++			dev->node_props.debug_prop |=
++				HSA_DBG_DISPATCH_INFO_ALWAYS_VALID;
++		else
++			dev->node_props.capability |=
++				HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED;
++	} else {
++		dev->node_props.debug_prop |= HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX10 |
++					HSA_DBG_WATCH_ADDR_MASK_HI_BIT |
++					HSA_DBG_DISPATCH_INFO_ALWAYS_VALID;
++	}
++
++	kfd_topology_set_dbg_firmware_support(dev);
++}
++
+ int kfd_topology_add_device(struct kfd_dev *gpu)
+ {
+ 	uint32_t gpu_id;
+@@ -1737,13 +1817,11 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+ 			HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
+ 		break;
+ 	default:
+-		if (KFD_GC_VERSION(dev->gpu) >= IP_VERSION(9, 0, 1))
+-			dev->node_props.capability |= ((HSA_CAP_DOORBELL_TYPE_2_0 <<
+-				HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT) &
+-				HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
+-		else
++		if (KFD_GC_VERSION(dev->gpu) < IP_VERSION(9, 0, 1))
+ 			WARN(1, "Unexpected ASIC family %u",
+ 			     dev->gpu->adev->asic_type);
++		else
++			kfd_topology_set_capabilities(dev);
+ 	}
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+index 9f6c949186c1..c089c26a0e77 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+@@ -31,6 +31,11 @@
+ 
+ #define KFD_TOPOLOGY_PUBLIC_NAME_SIZE 32
+ 
++#define HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX9	6
++#define HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX10	7
++#define HSA_DBG_WATCH_ADDR_MASK_HI_BIT  \
++			(29 << HSA_DBG_WATCH_ADDR_MASK_HI_BIT_SHIFT)
++
+ struct kfd_node_properties {
+ 	uint64_t hive_id;
+ 	uint32_t cpu_cores_count;
+@@ -42,6 +47,7 @@ struct kfd_node_properties {
+ 	uint32_t cpu_core_id_base;
+ 	uint32_t simd_id_base;
+ 	uint32_t capability;
++	uint64_t debug_prop;
+ 	uint32_t max_waves_per_simd;
+ 	uint32_t lds_size_in_kb;
+ 	uint32_t gds_size_in_kb;
+diff --git a/include/uapi/linux/kfd_sysfs.h b/include/uapi/linux/kfd_sysfs.h
+index 3e330f368917..a51b7331e0b4 100644
+--- a/include/uapi/linux/kfd_sysfs.h
++++ b/include/uapi/linux/kfd_sysfs.h
+@@ -43,6 +43,11 @@
+ #define HSA_CAP_DOORBELL_TYPE_2_0		0x2
+ #define HSA_CAP_AQL_QUEUE_DOUBLE_MAP		0x00004000
+ 
++#define HSA_CAP_TRAP_DEBUG_SUPPORT              0x00008000
++#define HSA_CAP_TRAP_DEBUG_WAVE_LAUNCH_TRAP_OVERRIDE_SUPPORTED  0x00010000
++#define HSA_CAP_TRAP_DEBUG_WAVE_LAUNCH_MODE_SUPPORTED           0x00020000
++#define HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED  0x00040000
++
+ /* Old buggy user mode depends on this being 0 */
+ #define HSA_CAP_RESERVED_WAS_SRAM_EDCSUPPORTED	0x00080000
+ 
+@@ -53,8 +58,18 @@
+ #define HSA_CAP_SRAM_EDCSUPPORTED		0x04000000
+ #define HSA_CAP_SVMAPI_SUPPORTED		0x08000000
+ #define HSA_CAP_FLAGS_COHERENTHOSTACCESS	0x10000000
++#define HSA_CAP_TRAP_DEBUG_FIRMWARE_SUPPORTED   0x20000000
+ #define HSA_CAP_RESERVED			0xe00f8000
+ 
++/* debug_prop bits in node properties */
++#define HSA_DBG_WATCH_ADDR_MASK_LO_BIT_MASK     0x0000000f
++#define HSA_DBG_WATCH_ADDR_MASK_LO_BIT_SHIFT    0
++#define HSA_DBG_WATCH_ADDR_MASK_HI_BIT_MASK     0x000003f0
++#define HSA_DBG_WATCH_ADDR_MASK_HI_BIT_SHIFT    4
++#define HSA_DBG_DISPATCH_INFO_ALWAYS_VALID      0x00000400
++#define HSA_DBG_WATCHPOINTS_EXCLUSIVE           0x00000800
++#define HSA_DBG_RESERVED                0xfffffffffffff000ull
++
+ /* Heap types in memory properties */
+ #define HSA_MEM_HEAP_TYPE_SYSTEM	0
+ #define HSA_MEM_HEAP_TYPE_FB_PUBLIC	1
+-- 
+2.25.1
+
