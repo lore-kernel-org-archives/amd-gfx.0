@@ -4,79 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A5B0FA3740
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 12:00:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 541EEFA3740
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 12:01:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C221D10E1BA;
-	Mon, 31 Oct 2022 12:00:30 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0569810E1CB
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 12:00:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1667217626;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=HRPxwW2zKPepuA8PR9mUAwCAVRj8pp1PiT5CedYG760=;
- b=A81TQWzRANSt9UBXkN6GWZECwAj2+GPLXn6gdwd5irFl8gEo3FGTWQ0tGgzwhMkxQ2lwHk
- 9EJ9dIXq62KH3h5oOwgKZ83yltwQfjYnOnaHOR1ePZXUP1C+hxUKtaADOJgdSnV4tlZcO1
- vZWbNYGFj0c0lpX1hv6hD75EP2wEoSM=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-307-7I-uWljmNd-ZRjgrJxg89w-1; Mon, 31 Oct 2022 08:00:25 -0400
-X-MC-Unique: 7I-uWljmNd-ZRjgrJxg89w-1
-Received: by mail-wm1-f71.google.com with SMTP id
- 83-20020a1c0256000000b003cf758f1617so143865wmc.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 05:00:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=HRPxwW2zKPepuA8PR9mUAwCAVRj8pp1PiT5CedYG760=;
- b=XWOZMlmES7rV9J2/qRg9rRHR3GJFt4c1s4freY7TmjoHvC2/sgDITrEUHn9agk0JkX
- qDl09OH3usKqecfdvM6TomxyjZGepbKsgYjY3gmqQUwAT+Z1e2jA3IU7MPSF0pztG5WC
- 658nkHrDS6rBL9e1V56J8eeqfS3nnbG8qvn3XoMmi0aTGzpFVvBQo2e9xRzHHoSop13i
- bL8AlykduUo/cXS+a0H1QWlE4MYdXd6SgFzq7/t1RToha4IN8+4nzNqu4Hb9Rn5MVo60
- BkQ0Z39ZZAJlYLfjLga7P+cwEjwv68sIEPe9XZt0yqMLfI9zW8iEvva3bs9IeeybGEkw
- F6Xg==
-X-Gm-Message-State: ACrzQf2f5YwyUNiV64dtfzbtB2Fh75dmQpxDt60mImZmmAdNpoLSXS5y
- 7PsphMYeioPOMUGQWTUg67g2gV/9AzsI6UzAqy2xgVLRTeypwsAakRJ8wcG1OZcSGxDpbRgyP+v
- 3uX5NUZixo44da+AwZ7RLwzWHbQ==
-X-Received: by 2002:a5d:560e:0:b0:236:c325:4858 with SMTP id
- l14-20020a5d560e000000b00236c3254858mr4606564wrv.259.1667217623939; 
- Mon, 31 Oct 2022 05:00:23 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM7SGo+SId6me5X0r4rljOgpSC8TPNcKC+21wfNb2F4dclcZs6G1cIUREq2tk/ot5/dgyLJVEQ==
-X-Received: by 2002:a5d:560e:0:b0:236:c325:4858 with SMTP id
- l14-20020a5d560e000000b00236c3254858mr4606520wrv.259.1667217623655; 
- Mon, 31 Oct 2022 05:00:23 -0700 (PDT)
-Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- bi19-20020a05600c3d9300b003c6c1686b10sm5388458wmb.7.2022.10.31.05.00.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Oct 2022 05:00:23 -0700 (PDT)
-Message-ID: <2e2e3915-a7b2-d030-2ffd-117b12deedb2@redhat.com>
-Date: Mon, 31 Oct 2022 13:00:21 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id A619C10E1AF;
+	Mon, 31 Oct 2022 12:01:55 +0000 (UTC)
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9A4B10E1AF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 12:01:51 +0000 (UTC)
+Received: from thor ([188.62.80.205])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202210311301471002; Mon, 31 Oct 2022 13:01:47 +0100
+Received: from [127.0.0.1] by thor with esmtp (Exim 4.96)
+ (envelope-from <michel@daenzer.net>) id 1opTUA-000eln-1B;
+ Mon, 31 Oct 2022 13:01:46 +0100
+Message-ID: <e5544150-5eae-7dae-b5db-dd9539df8198@daenzer.net>
+Date: Mon, 31 Oct 2022 13:01:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Subject: Re: [PATCH v2 03/21] drm/vboxvideo: Don't set struct
- drm_driver.lastclose
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com
-References: <20221024111953.24307-1-tzimmermann@suse.de>
- <20221024111953.24307-4-tzimmermann@suse.de>
-From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221024111953.24307-4-tzimmermann@suse.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+ Thunderbird/102.4.0
+Content-Language: de-CH-frami, en-CA
+To: jiadong.zhu@amd.com
+References: <20221018090815.2662321-1-jiadong.zhu@amd.com>
+ <20221018090815.2662321-4-jiadong.zhu@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH 4/5] drm/amdgpu: MCBP based on DRM scheduler (v8)
+In-Reply-To: <20221018090815.2662321-4-jiadong.zhu@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CTCH: RefID="str=0001.0A782F1A.635FB92D.0027,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,36 +45,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- xen-devel@lists.xenproject.org, linux-sunxi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- freedreno@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org,
+ Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Christian Koenig <Christian.Koenig@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/24/22 13:19, Thomas Zimmermann wrote:
-> Don't set struct drm_driver.lastclose. It's used to restore the
-> fbdev console. But as vboxvideo uses generic fbdev emulation, the
-> console is being restored by the DRM client helpers already. See
-> the call to drm_client_dev_restore() in drm_lastclose().
+On 2022-10-18 11:08, jiadong.zhu@amd.com wrote:
+> From: "Jiadong.Zhu" <Jiadong.Zhu@amd.com>
 > 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
+> Trigger Mid-Command Buffer Preemption according to the priority of the software
+> rings and the hw fence signalling condition.
+> 
+> The muxer saves the locations of the indirect buffer frames from the software
+> ring together with the fence sequence number in its fifo queue, and pops out
+> those records when the fences are signalled. The locations are used to resubmit
+> packages in preemption scenarios by coping the chunks from the software ring.
+> 
+> v2: Update comment style.
+> v3: Fix conflict caused by previous modifications.
+> v4: Remove unnecessary prints.
+> v5: Fix corner cases for resubmission cases.
+> v6: Refactor functions for resubmission, calling fence_process in irq handler.
+> v7: Solve conflict for removing amdgpu_sw_ring.c.
+> v8: Add time threshold to judge if preemption request is needed.
+> 
+> Cc: Christian Koenig <Christian.Koenig@amd.com>
+> Cc: Luben Tuikov <Luben.Tuikov@amd.com>
+> Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+> Cc: Michel Dänzer <michel@daenzer.net>
+> Signed-off-by: Jiadong.Zhu <Jiadong.Zhu@amd.com>
+> Acked-by: Luben Tuikov <luben.tuikov@amd.com>
+> Acked-by: Huang Rui <ray.huang@amd.com>
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+[...]
+
+> +/* Trigger Mid-Command Buffer Preemption (MCBP) and find if we need to resubmit. */
+> +int amdgpu_mcbp_trigger_preempt(struct amdgpu_ring_mux *mux)
+> +{
+> +	int r;
+> +
+> +	spin_lock(&mux->lock);
+> +	mux->pending_trailing_fence_signaled = true;
+> +	r = amdgpu_ring_preempt_ib(mux->real_ring);
+> +	spin_unlock(&mux->lock);
+> +	return r;
+> +}
+
+AFAICT amdgpu_mcbp_trigger_preempt is used only in this file, so it should be declared static.
+
+(I didn't audit the other new functions added by this series for this, just happened to notice this one)
+
 
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
