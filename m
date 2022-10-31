@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E46E7FA3746
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 16:25:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8DB2ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 16:25:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 690F910E2FF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB83B10E304;
 	Mon, 31 Oct 2022 16:25:55 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3353510E2EC
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 16:24:33 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2065.outbound.protection.outlook.com [40.107.102.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45DAE10E2DA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 16:24:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IEDQr6a/ObJa2Yd8Bd7n6dXOaP39Ao5XJzym/nkNyChcMhk0rMaLN5egPr8lo+0/ZkrNYftHCQoIEXDbNp7lnHP8GcVVf3hl24d9hy9mn2XOQ7fvbgvkY76fdzpJZsOrC13gRs2bfJbPetpj7Ba/2bMj9FGRNKQFa8JQGFIi3J+2fOj8NdrsRg8/35WeuXSBiv9L0yK1J4vgrG+kS/FiYziKiGsBs8bPt70Ee6wKt/KH+RSH2h+0PVDMjZVnqa9sZX1PIt49VN/OoZZYN+trcSj/tXr+RWlea5Vi+yiaMjtmhAt11N/spurGviZ3TimhqtJr1buH49rHRsJOnnwTYw==
+ b=ktejC2CtBQ5BtyIHSHxSxt4vsPQ/EHmRU2XyZvjEp+/4MTyq6tqCQGrzEDAfdveFIHKmpJVzotFtYLKFFDVVeVUAKW/mAprtN8JQTNGQjayTcv+p8gnwfKhCAkqC7DOfDUG+EIs/cZQJLYOLySfYKihKleKlHqz5htisWBxj+SQQg70day8b8yXM4S91Cq6k5quAe88GgIH6ha1X9aNGluonSwfYzaT0woRq3tQURss065l8tHhr0VEknTdK+Z/4v7i8gju9uC6c9MxTIb8sWGKRiZlZ3aVn1sI4VrRr1ZNRJkTnL6NJDqHYXlZ8+EADANjZBu8EEZ4tuX8f+CXM5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tj9HU1bahtXsSNOOyLWYvuvW0MVGspwQ8IljJW5lUQU=;
- b=HsszQzm/nbFcxR10e6AtAlhFr90pHDkug2UYcoBS91zqp2lNMrGE4n8Ts7qlpPpJ1TEFHD3hVIBa+U5I9x0HN1DVg6Y4afVECYWnjvE6z2AIcapJP6nXrQAHDtxAWKErlaTHMWWqiHPvtLWtLBiilPDRpZm4lxHCvKGREQly3sNGTTvzkgG9GOIjCos+DLHVWQmQ/u1Jxrj+uaSGALmS4PqHJyreztcNAPDG0L29USlFlp2Kbow2US+dd+2p0UhLvUhNMJzoJptuYfvhp2YtEF8fa4KDPkB7fakF9F/QKuzoJdiLxwkclyQBwvr/lGkn1y/J0Kpe12oteH52J1rA8A==
+ bh=iecUMeQ0qh06a+fx+n98DGy/P3gAyakBCKNKRXjHcg8=;
+ b=lcyWnZ0zp1f32OhdIM9pagZF0TYgKBHbebw6LSXDQDYTAcptqQGil9ACjcUcCRMqdBihpq9RIpUT8N8uYB1/vdPN9/fwXYkDRFFcx1s5b36MGK3tLkVbuDk2FyVfoUQMGeMOB1C8dQ/bCaltxqP09lynTz6PqvBQ5/sbRyfK+qJKI+BgHk6DMzEgXOeviX4dJ6fJBQlvPy7W/fRvHugcIE8lmw+3vyD3Fa1+p0scT8rIwTCaw+Mr7tlXcq/QEVDnUWv3sJj/j/7DI6NesDX+1fGISxdM0ZRsSB6OXmKO7eBnLlAGzts1vab0PZ3h1PB+lugEqD3keliDMFn7OfFmag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tj9HU1bahtXsSNOOyLWYvuvW0MVGspwQ8IljJW5lUQU=;
- b=Ajy6sTNQpIBFzqLhuS4Tv8KFV8qDtTn1saXKwPLvOY0HRTukKZjrtrgPuZFViEBDhNsvpl/KTQK7AEYQlrALcDTlprDRZ9YiNlgs7gaHVE9ZUlN5nrqLHW7CjRtr4yCoXSbpdR5le8keS4BCV95NR16ExPN9JgwXElU1sR03zJw=
-Received: from MW4PR04CA0117.namprd04.prod.outlook.com (2603:10b6:303:83::32)
- by MN2PR12MB4269.namprd12.prod.outlook.com (2603:10b6:208:1d4::7)
+ bh=iecUMeQ0qh06a+fx+n98DGy/P3gAyakBCKNKRXjHcg8=;
+ b=K0icmU/ZcObpy/ac7I93mKkOA/5dPS0COaDKEILDykFWieiK1ulMF6hwqepbf09uCpWQZkVaEkLWrjxkKrtGLgBtuNQ5h+0OowRbmMVeObieDkfNLApgRrVhsw8zmrvJjMJ/o5pQTocLZeC3zcBQD+2aVvzMEDMb3N2KJJLCyUc=
+Received: from MW4PR04CA0096.namprd04.prod.outlook.com (2603:10b6:303:83::11)
+ by BL0PR12MB4884.namprd12.prod.outlook.com (2603:10b6:208:1ca::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.16; Mon, 31 Oct
- 2022 16:24:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19; Mon, 31 Oct
+ 2022 16:24:33 +0000
 Received: from CO1NAM11FT091.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:83:cafe::e9) by MW4PR04CA0117.outlook.office365.com
- (2603:10b6:303:83::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19 via Frontend
- Transport; Mon, 31 Oct 2022 16:24:31 +0000
+ (2603:10b6:303:83:cafe::c) by MW4PR04CA0096.outlook.office365.com
+ (2603:10b6:303:83::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.18 via Frontend
+ Transport; Mon, 31 Oct 2022 16:24:33 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT091.mail.protection.outlook.com (10.13.175.146) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5769.14 via Frontend Transport; Mon, 31 Oct 2022 16:24:30 +0000
+ 15.20.5769.14 via Frontend Transport; Mon, 31 Oct 2022 16:24:33 +0000
 Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 31 Oct
- 2022 11:24:26 -0500
+ 2022 11:24:29 -0500
 From: Jonathan Kim <jonathan.kim@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 15/29] drm/amdkfd: add send exception operation
-Date: Mon, 31 Oct 2022 12:23:45 -0400
-Message-ID: <20221031162359.445805-15-jonathan.kim@amd.com>
+Subject: [PATCH 22/29] drm/amdkfd: add debug suspend and resume process queues
+ operation
+Date: Mon, 31 Oct 2022 12:23:52 -0400
+Message-ID: <20221031162359.445805-22-jonathan.kim@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221031162359.445805-1-jonathan.kim@amd.com>
 References: <20221031162359.445805-1-jonathan.kim@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT091:EE_|MN2PR12MB4269:EE_
-X-MS-Office365-Filtering-Correlation-Id: 620174f8-65ac-4807-11df-08dabb5c63b6
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT091:EE_|BL0PR12MB4884:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4917fbe4-e6f8-4e4b-e936-08dabb5c64f7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3gi0JmAGxSJVE08biQfT0Vzpi00bNuGxmPOKrnoFar3mCjFRfmsZulrE1/ng3acDtmvP8cQcZZe7UzxKnOA6b44se/ptgpxvhXSKE9LCnZMeJv6Tb2NtOyO8J1irvbm84tHlSiSppY3v4LZEduxhZbMln8hYdj6DuHlVDbMrm9toNQ38jhtKCA4+mV0v8+2rQtk7PqVIff+jRmmWcnQgw1NmNaWinZSULxNVIipICdZiGukjOO32E4nshb+jA68HFl1hW+rw/khAtVtcXpFh0s7IE7KJTDjECnt1gKi5U5+q7AuMm7unBlV/GhMkke0q1mxINx/vgVhRjPyNGoMPpwikYHJULQ24gzvj95zSBOBwI2DgLOvdHdDhXXn7L8fKZIfwe6vJAdTbqYjLoSfnvGbpoxjilkjsv8HfcNVHqsf05aZ626GDvzbiXRzbMEMtx0hMO8LdBtppQ3KfOwletkWjDU+2XWijPRySrJjqDgirUKLPyhGYW7L0jmWzcBTJKKPvuEr33D0nFuTC7bT3cSufsoAamDDnMZ5SPztijCTnW9kkLpU9Asrg1gXYeW4INsDFnz7Fqa5A2Z9Lg+Y+apdEkKXzuYzwutEjlbaWFewwonbI8S73CxEE61pfx0TAOjqq4xtgg3OFkdEjBuUMzQ8JLz6FE+7PYNSRtBKU7b7tQTBY9ukZBgfDCwDa0bwFw3l92QBF2P9rPL23tp3ClfdqcchMcO4HapH3/av2i+kbwjTZgsPAPjz7VfrpItNxZr23u4b66KNlOSelaVdkghPWHgIMcrmT1afrOFTBe94=
+X-Microsoft-Antispam-Message-Info: dwwK9bZb8BjD51lCD5iihJgywqmVW/ZxNZgoAAqJZnNxKmMspmAlQQZjVdd5Z68B8hm8XqOUI3+nHrQocJtQgy+r+m9lUa7UaBDc1Yyy0s0zijBEXB8Q8slyvws7lBQM7xdCLhX34hdvt5cY7fNGAiv19heTx1q5SL1njOvlJdoAB0bM600qd97nJ2TzLG+hv22qONd2/NCH67uY1CWhx/Z0piiGKfbpOeA719/x19sXLJkdNYD5raY1dwVDK3QDD3dnrKmteFF354ADi4Ate3dnCDgsbatcxCrUyDkcgDnUhD+WIqhoxcnXfERmGmh54uWfao9nKia7YnGGzY5BtSrtXUg1O+Lf+hDFfxWtFtmE+1faUbqh/rJWbyX0BDAuZIaYAHZxwdFLul8UxqCgMGBrHErf4LGsKmfRyihBUpCPvzgVy02dyia0HhFsDEltyONEBhgyZItgKOwE9PAQ976m8UGCumKBGAoMYMcwrv9nexeCGUX4BMfNznMerEhYtBmh9zSbcb4+9DsegOjL2oUOcrIpnNjtddiws7nRlxfDwGM20E6ZsMRWxfnsUK7Cqokn2LlXhNMGi5gBxPKheP7b7C3jnvmcMUQ8azUqyR28kq+J/UnUqVYOqOss7ZQ8kxucKr+P9U0n8a7KD3MTi10MV6b2HL/WBZjLhD3jHTzGAhhh18Y+LoT0eOGpmb12LUeFusarL7xyUThYQDOLAHEoPvKw1XXY7jrj+UyYObRsjl1VuyOtxfZuB8uB1UlhmNT9iH8ySQXoY6VSdVQGNBA9JRZluhEr9NDlKuHLTh1/6jd1w08DqlUiHZA2nkwP
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(136003)(346002)(39860400002)(396003)(451199015)(46966006)(36840700001)(40470700004)(478600001)(6666004)(82310400005)(26005)(316002)(7696005)(6916009)(40480700001)(36860700001)(82740400003)(47076005)(2616005)(336012)(186003)(16526019)(36756003)(1076003)(40460700003)(83380400001)(356005)(81166007)(426003)(86362001)(2906002)(4326008)(8676002)(70206006)(70586007)(41300700001)(44832011)(8936002)(5660300002)(36900700001);
+ SFS:(13230022)(4636009)(346002)(396003)(376002)(39860400002)(136003)(451199015)(36840700001)(46966006)(40470700004)(47076005)(426003)(16526019)(186003)(1076003)(81166007)(36756003)(41300700001)(356005)(6666004)(30864003)(44832011)(5660300002)(40460700003)(2906002)(2616005)(40480700001)(83380400001)(15650500001)(7696005)(26005)(8936002)(336012)(82310400005)(86362001)(6916009)(316002)(36860700001)(70206006)(4326008)(70586007)(8676002)(478600001)(82740400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2022 16:24:30.9202 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 620174f8-65ac-4807-11df-08dabb5c63b6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2022 16:24:33.0294 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4917fbe4-e6f8-4e4b-e936-08dabb5c64f7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT091.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4269
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4884
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,283 +104,653 @@ Cc: Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a debug operation that allows the debugger to send an exception
-directly to runtime through a payload address.
+In order to inspect waves from the saved context at any point during a
+debug session, the debugger must be able to preempt queues to trigger
+context save by suspending them.
 
-For memory violations, normal vmfault signals will be applied to
-notify runtime instead after passing in the saved exception data
-when a memory violation was raised to the debugger.
+On queue suspend, the KFD will copy the context save header information
+so that the debugger can correctly crawl the appropriate size of the saved
+context. The debugger must then also be allowed to resume suspended queues.
 
-For runtime exceptions, this will unblock the runtime enable
-function which will be explained and implemented in a follow up
-patch.
+A queue that is newly created cannot be suspended because queue ids are
+recycled after destruction so the debugger needs to know that this has
+occurred.  Query functions will be later added that will clear a given
+queue of its new queue status.
+
+A queue cannot be destroyed while it is suspended to preserve its saved
+context during debugger inspection.  Have queue destruction block while
+a queue is suspended and unblocked when it is resumed.  Likewise, if a
+queue is about to be destroyed, it cannot be suspended.
+
+Return the number of queues successfully suspended or resumed along with
+a per queue status array where the upper bits per queue status show that
+the request was invalid (new/destroyed queue suspend request, missing
+queue) or an error occurred (HWS in a fatal state so it can't suspend or
+resume queues).
 
 Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 ---
- .../gpu/drm/amd/amdkfd/cik_event_interrupt.c  |  4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  5 ++
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c        | 43 +++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_debug.h        |  5 ++
- drivers/gpu/drm/amd/amdkfd/kfd_events.c       |  3 +-
- .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  7 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 71 ++++++++++++++++++-
- 8 files changed, 134 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  12 +
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.c        |   7 +
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 401 +++++++++++++++++-
+ .../drm/amd/amdkfd/kfd_device_queue_manager.h |  11 +
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  10 +
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  14 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   5 +-
+ 7 files changed, 454 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
-index 5c8023cba196..62a38cd820fc 100644
---- a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
-+++ b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
-@@ -118,9 +118,9 @@ static void cik_event_interrupt_wq(struct kfd_dev *dev,
- 			return;
- 
- 		if (info.vmid == vmid)
--			kfd_signal_vm_fault_event(dev, pasid, &info);
-+			kfd_signal_vm_fault_event(dev, pasid, &info, NULL);
- 		else
--			kfd_signal_vm_fault_event(dev, pasid, NULL);
-+			kfd_signal_vm_fault_event(dev, pasid, NULL, NULL);
- 	}
- }
- 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index aeaedd0efa54..4b4c4200d8fb 100644
+index 63665279ce4d..ec26c51177f9 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -2739,6 +2739,11 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
- 		r = kfd_dbg_trap_disable(target);
+@@ -410,6 +410,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 	pr_debug("Write ptr address   == 0x%016llX\n",
+ 			args->write_pointer_address);
+ 
++	kfd_dbg_ev_raise(KFD_EC_MASK(EC_QUEUE_NEW), p, dev, queue_id, false, NULL, 0);
+ 	return 0;
+ 
+ err_create_queue:
+@@ -2903,7 +2904,18 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
+ 				args->launch_mode.launch_mode);
  		break;
- 	case KFD_IOC_DBG_TRAP_SEND_RUNTIME_EVENT:
-+		r = kfd_dbg_send_exception_to_runtime(target,
-+				args->send_runtime_event.gpu_id,
-+				args->send_runtime_event.queue_id,
-+				args->send_runtime_event.exception_mask);
+ 	case KFD_IOC_DBG_TRAP_SUSPEND_QUEUES:
++		r = suspend_queues(target,
++				args->suspend_queues.num_queues,
++				args->suspend_queues.grace_period,
++				args->suspend_queues.exception_mask,
++				(uint32_t *)args->suspend_queues.queue_array_ptr);
++
 +		break;
- 	case KFD_IOC_DBG_TRAP_SET_EXCEPTIONS_ENABLED:
- 	case KFD_IOC_DBG_TRAP_SET_WAVE_LAUNCH_OVERRIDE:
- 	case KFD_IOC_DBG_TRAP_SET_WAVE_LAUNCH_MODE:
+ 	case KFD_IOC_DBG_TRAP_RESUME_QUEUES:
++		r = resume_queues(target, false,
++				args->resume_queues.num_queues,
++				(uint32_t *)args->resume_queues.queue_array_ptr);
++		break;
+ 	case KFD_IOC_DBG_TRAP_SET_NODE_ADDRESS_WATCH:
+ 	case KFD_IOC_DBG_TRAP_CLEAR_NODE_ADDRESS_WATCH:
+ 	case KFD_IOC_DBG_TRAP_SET_FLAGS:
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-index b7a4b2ec5b36..87a23b1d4d49 100644
+index 210851f2cdb3..afa56aad316b 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-@@ -125,6 +125,49 @@ bool kfd_dbg_ev_raise(uint64_t event_mask,
- 	return is_subscribed;
+@@ -274,6 +274,13 @@ void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind
+ 
+ 		count++;
+ 	}
++
++	if (!unwind) {
++		int resume_count = resume_queues(target, true, 0, NULL);
++
++		if (resume_count)
++			pr_debug("Resumed %d queues\n", resume_count);
++	}
  }
  
-+int kfd_dbg_send_exception_to_runtime(struct kfd_process *p,
-+					unsigned int dev_id,
-+					unsigned int queue_id,
-+					uint64_t error_reason)
+ static void kfd_dbg_clean_exception_status(struct kfd_process *target)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index bf4787b4dc6c..589efbefc8dc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -921,6 +921,79 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
+ 	return retval;
+ }
+ 
++/* suspend_single_queue does not lock the dqm like the
++ * evict_process_queues_cpsch or evict_process_queues_nocpsch. You should
++ * lock the dqm before calling, and unlock after calling.
++ *
++ * The reason we don't lock the dqm is because this function may be
++ * called on multiple queues in a loop, so rather than locking/unlocking
++ * multiple times, we will just keep the dqm locked for all of the calls.
++ */
++static int suspend_single_queue(struct device_queue_manager *dqm,
++				      struct kfd_process_device *pdd,
++				      struct queue *q)
 +{
-+	if (error_reason & KFD_EC_MASK(EC_DEVICE_MEMORY_VIOLATION)) {
-+		struct kfd_process_device *pdd = NULL;
-+		struct kfd_hsa_memory_exception_data *data;
-+		int i;
++	bool is_new;
 +
-+		for (i = 0; i < p->n_pdds; i++) {
-+			if (p->pdds[i]->dev->id == dev_id) {
-+				pdd = p->pdds[i];
-+				break;
-+			}
-+		}
++	if (q->properties.is_suspended)
++		return 0;
 +
-+		if (!pdd)
-+			return -ENODEV;
++	pr_debug("Suspending PASID %u queue [%i]\n",
++			pdd->process->pasid,
++			q->properties.queue_id);
 +
-+		data = (struct kfd_hsa_memory_exception_data *)
-+						pdd->vm_fault_exc_data;
++	is_new = q->properties.exception_status & KFD_EC_MASK(EC_QUEUE_NEW);
 +
-+		kfd_dqm_evict_pasid(pdd->dev->dqm, p->pasid);
-+		kfd_signal_vm_fault_event(pdd->dev, p->pasid, NULL, data);
-+		error_reason &= ~KFD_EC_MASK(EC_DEVICE_MEMORY_VIOLATION);
++	if (is_new || q->properties.is_being_destroyed) {
++		pr_debug("Suspend: skip %s queue id %i\n",
++				is_new ? "new" : "destroyed",
++				q->properties.queue_id);
++		return -EBUSY;
 +	}
 +
-+	if (error_reason & (KFD_EC_MASK(EC_PROCESS_RUNTIME))) {
-+		/*
-+		 * block should only happen after the debugger receives runtime
-+		 * enable notice.
-+		 */
-+		up(&p->runtime_enable_sema);
-+		error_reason &= ~KFD_EC_MASK(EC_PROCESS_RUNTIME);
++	q->properties.is_suspended = true;
++	if (q->properties.is_active) {
++		decrement_queue_count(dqm, &pdd->qpd, q);
++		q->properties.is_active = false;
 +	}
-+
-+	if (error_reason)
-+		return kfd_send_exception_to_runtime(p, queue_id, error_reason);
 +
 +	return 0;
 +}
 +
- /* kfd_dbg_trap_deactivate:
-  *	target: target process
-  *	unwind: If this is unwinding a failed kfd_dbg_trap_enable()
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-index a288ca1941a6..8aa52cc3af17 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-@@ -38,6 +38,11 @@ int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
- 			void __user *runtime_info,
- 			uint32_t *runtime_info_size);
- 
-+int kfd_dbg_send_exception_to_runtime(struct kfd_process *p,
-+					unsigned int dev_id,
-+					unsigned int queue_id,
-+					uint64_t error_reason);
++/* resume_single_queue does not lock the dqm like the functions
++ * restore_process_queues_cpsch or restore_process_queues_nocpsch. You should
++ * lock the dqm before calling, and unlock after calling.
++ *
++ * The reason we don't lock the dqm is because this function may be
++ * called on multiple queues in a loop, so rather than locking/unlocking
++ * multiple times, we will just keep the dqm locked for all of the calls.
++ */
++static void resume_single_queue(struct device_queue_manager *dqm,
++				      struct qcm_process_device *qpd,
++				      struct queue *q)
++{
++	struct kfd_process_device *pdd;
++	uint64_t pd_base;
 +
- static inline bool kfd_dbg_is_per_vmid_supported(struct kfd_dev *dev)
++	if (!q->properties.is_suspended)
++		return;
++
++	pdd = qpd_to_pdd(qpd);
++	/* Retrieve PD base */
++	pd_base = amdgpu_amdkfd_gpuvm_get_process_page_dir(pdd->drm_priv);
++
++	pr_debug("Restoring from suspend PASID %u queue [%i]\n",
++			    pdd->process->pasid,
++			    q->properties.queue_id);
++
++	q->properties.is_suspended = false;
++
++	if (QUEUE_IS_ACTIVE(q->properties)) {
++		q->properties.is_active = true;
++		increment_queue_count(dqm, qpd, q);
++	}
++}
++
+ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
+ 					struct qcm_process_device *qpd)
  {
- 	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2); /* Aldebaran */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index 83e3ce9f6049..6958c5389fbe 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -1226,7 +1226,8 @@ void kfd_signal_hw_exception_event(u32 pasid)
+@@ -1885,6 +1958,31 @@ static int execute_queues_cpsch(struct device_queue_manager *dqm,
+ 	return map_queues_cpsch(dqm);
  }
  
- void kfd_signal_vm_fault_event(struct kfd_dev *dev, u32 pasid,
--				struct kfd_vm_fault_info *info)
-+				struct kfd_vm_fault_info *info,
-+				struct kfd_hsa_memory_exception_data *data)
- {
- 	struct kfd_event *ev;
- 	uint32_t id;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-index 0b75a37b689b..e092563f22de 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -362,7 +362,7 @@ static void event_interrupt_wq_v9(struct kfd_dev *dev,
- 
- 		kfd_smi_event_update_vmfault(dev, pasid);
- 		kfd_dqm_evict_pasid(dev->dqm, pasid);
--		kfd_signal_vm_fault_event(dev, pasid, &info);
-+		kfd_signal_vm_fault_event(dev, pasid, &info, NULL);
++static int wait_on_destroy_queue(struct device_queue_manager *dqm,
++				 struct queue *q)
++{
++	struct kfd_process_device *pdd = kfd_get_process_device_data(q->device,
++								q->process);
++	int ret = 0;
++
++	if (pdd->qpd.is_debug)
++		return ret;
++
++	q->properties.is_being_destroyed = true;
++
++	if (pdd->process->debug_trap_enabled && q->properties.is_suspended) {
++		dqm_unlock(dqm);
++		mutex_unlock(&q->process->mutex);
++		ret = wait_event_interruptible(dqm->destroy_wait,
++						!q->properties.is_suspended);
++
++		mutex_lock(&q->process->mutex);
++		dqm_lock(dqm);
++	}
++
++	return ret;
++}
++
+ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
+ 				struct qcm_process_device *qpd,
+ 				struct queue *q)
+@@ -1904,11 +2002,16 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
+ 				q->properties.queue_id);
  	}
- }
  
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 40a695619eab..b69f2f94a50e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -942,6 +942,7 @@ struct kfd_process {
- 	bool queues_paused;
+-	retval = 0;
+-
+ 	/* remove queue from list to prevent rescheduling after preemption */
+ 	dqm_lock(dqm);
  
- 	/* Tracks runtime enable status */
-+	struct semaphore runtime_enable_sema;
- 	struct kfd_runtime_info runtime_info;
++	retval = wait_on_destroy_queue(dqm, q);
++
++	if (retval) {
++		dqm_unlock(dqm);
++		return retval;
++	}
++
+ 	if (qpd->is_debug) {
+ 		/*
+ 		 * error, currently we do not allow to destroy a queue
+@@ -1954,7 +2057,17 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
  
- };
-@@ -1391,7 +1392,8 @@ int kfd_get_num_events(struct kfd_process *p);
- int kfd_event_destroy(struct kfd_process *p, uint32_t event_id);
+ 	dqm_unlock(dqm);
  
- void kfd_signal_vm_fault_event(struct kfd_dev *dev, u32 pasid,
--				struct kfd_vm_fault_info *info);
-+				struct kfd_vm_fault_info *info,
-+				struct kfd_hsa_memory_exception_data *data);
+-	/* Do free_mqd after dqm_unlock(dqm) to avoid circular locking */
++	/*
++	 * Do free_mqd and delete raise event after dqm_unlock(dqm) to avoid
++	 * circular locking
++	 */
++	kfd_dbg_ev_raise(KFD_EC_MASK(EC_DEVICE_QUEUE_DELETE),
++			qpd->pqm->process,
++			q->device,
++			-1,
++			false,
++			NULL,
++			0);
+ 	mqd_mgr->free_mqd(mqd_mgr, q->mqd, q->mqd_mem_obj);
  
- void kfd_signal_reset_event(struct kfd_dev *dev);
- 
-@@ -1407,6 +1409,9 @@ static inline bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
- 	       KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 0);
- }
- 
-+int kfd_send_exception_to_runtime(struct kfd_process *p,
-+				unsigned int queue_id,
-+				uint64_t error_reason);
- bool kfd_is_locked(void);
- 
- /* Compute profile */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 928fe5c42c1e..59c4c38833b6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1405,6 +1405,7 @@ static struct kfd_process *create_process(const struct task_struct *thread)
- 	process->debugger_process = NULL;
- 	process->exception_enable_mask = 0;
- 	atomic_set(&process->debugged_process_count, 0);
-+	sema_init(&process->runtime_enable_sema, 0);
- 
- 	process->pasid = kfd_pasid_alloc();
- 	if (process->pasid == 0) {
-@@ -2046,6 +2047,75 @@ void kfd_flush_tlb(struct kfd_process_device *pdd, enum TLB_FLUSH_TYPE type)
+ 	return retval;
+@@ -2418,8 +2531,10 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_dev *dev)
+ 		goto out_free;
  	}
+ 
+-	if (!dqm->ops.initialize(dqm))
++	if (!dqm->ops.initialize(dqm)) {
++		init_waitqueue_head(&dqm->destroy_wait);
+ 		return dqm;
++	}
+ 
+ out_free:
+ 	kfree(dqm);
+@@ -2557,6 +2672,284 @@ int release_debug_trap_vmid(struct device_queue_manager *dqm,
+ 	return r;
  }
  
-+struct send_exception_work_handler_workarea {
-+	struct work_struct work;
++#define QUEUE_NOT_FOUND		-1
++/* invalidate queue operation in array */
++static void q_array_invalidate(uint32_t num_queues, uint32_t *queue_ids)
++{
++	int i;
++
++	for (i = 0; i < num_queues; i++)
++		queue_ids[i] |= KFD_DBG_QUEUE_INVALID_MASK;
++}
++
++/* find queue index in array */
++static int q_array_get_index(unsigned int queue_id,
++		uint32_t num_queues,
++		uint32_t *queue_ids)
++{
++	int i;
++
++	for (i = 0; i < num_queues; i++)
++		if (queue_id == (queue_ids[i] & ~KFD_DBG_QUEUE_INVALID_MASK))
++			return i;
++
++	return QUEUE_NOT_FOUND;
++}
++
++struct copy_context_work_handler_workarea {
++	struct work_struct copy_context_work;
 +	struct kfd_process *p;
-+	unsigned int queue_id;
-+	uint64_t error_reason;
 +};
 +
-+static void send_exception_work_handler(struct work_struct *work)
++static void copy_context_work_handler (struct work_struct *work)
 +{
-+	struct send_exception_work_handler_workarea *workarea;
-+	struct kfd_process *p;
++	struct copy_context_work_handler_workarea *workarea;
++	struct mqd_manager *mqd_mgr;
 +	struct queue *q;
 +	struct mm_struct *mm;
-+	struct kfd_context_save_area_header __user *csa_header;
-+	uint64_t __user *err_payload_ptr;
-+	uint64_t cur_err;
-+	uint32_t ev_id;
++	struct kfd_process *p;
++	uint32_t tmp_ctl_stack_used_size, tmp_save_area_used_size;
++	int i;
 +
 +	workarea = container_of(work,
-+				struct send_exception_work_handler_workarea,
-+				work);
-+	p = workarea->p;
++			struct copy_context_work_handler_workarea,
++			copy_context_work);
 +
++	p = workarea->p;
 +	mm = get_task_mm(p->lead_thread);
 +
 +	if (!mm)
 +		return;
 +
 +	kthread_use_mm(mm);
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
++		struct device_queue_manager *dqm = pdd->dev->dqm;
++		struct qcm_process_device *qpd = &pdd->qpd;
 +
-+	q = pqm_get_user_queue(&p->pqm, workarea->queue_id);
++		list_for_each_entry(q, &qpd->queues_list, list) {
++			mqd_mgr = dqm->mqd_mgrs[KFD_MQD_TYPE_CP];
 +
-+	if (!q)
-+		goto out;
-+
-+	csa_header = (void __user *)q->properties.ctx_save_restore_area_address;
-+
-+	get_user(err_payload_ptr, (uint64_t __user **)&csa_header->err_payload_addr);
-+	get_user(cur_err, err_payload_ptr);
-+	cur_err |= workarea->error_reason;
-+	put_user(cur_err, err_payload_ptr);
-+	get_user(ev_id, &csa_header->err_event_id);
-+
-+	kfd_set_event(p, ev_id);
-+
-+out:
++			/* We ignore the return value from get_wave_state
++			 * because
++			 * i) right now, it always returns 0, and
++			 * ii) if we hit an error, we would continue to the
++			 *      next queue anyway.
++			 */
++			mqd_mgr->get_wave_state(mqd_mgr,
++					q->mqd,
++					(void __user *)	q->properties.ctx_save_restore_area_address,
++					&tmp_ctl_stack_used_size,
++					&tmp_save_area_used_size);
++		}
++	}
 +	kthread_unuse_mm(mm);
 +	mmput(mm);
 +}
 +
-+int kfd_send_exception_to_runtime(struct kfd_process *p,
-+			unsigned int queue_id,
-+			uint64_t error_reason)
++static uint32_t *get_queue_ids(uint32_t num_queues, uint32_t *usr_queue_id_array)
 +{
-+	struct send_exception_work_handler_workarea worker;
++	size_t array_size = num_queues * sizeof(uint32_t);
++	uint32_t *queue_ids = NULL;
 +
-+	INIT_WORK_ONSTACK(&worker.work, send_exception_work_handler);
++	if (!usr_queue_id_array)
++		return NULL;
 +
-+	worker.p = p;
-+	worker.queue_id = queue_id;
-+	worker.error_reason = error_reason;
++	queue_ids = kzalloc(array_size, GFP_KERNEL);
++	if (!queue_ids)
++		return ERR_PTR(-ENOMEM);
 +
-+	schedule_work(&worker.work);
-+	flush_work(&worker.work);
-+	destroy_work_on_stack(&worker.work);
++	if (copy_from_user(queue_ids, usr_queue_id_array, array_size))
++		return ERR_PTR(-EFAULT);
 +
-+	return 0;
++	return queue_ids;
 +}
 +
- struct kfd_process_device *kfd_process_device_data_by_id(struct kfd_process *p, uint32_t gpu_id)
++int resume_queues(struct kfd_process *p,
++		bool resume_all_queues,
++		uint32_t num_queues,
++		uint32_t *usr_queue_id_array)
++{
++	uint32_t *queue_ids = get_queue_ids(num_queues, usr_queue_id_array);
++	int total_resumed = 0;
++	int i;
++
++	if (!resume_all_queues && IS_ERR(queue_ids))
++		return PTR_ERR(queue_ids);
++
++	/* mask all queues as invalid.  unmask per successful request */
++	if (!resume_all_queues)
++		q_array_invalidate(num_queues, queue_ids);
++
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
++		struct device_queue_manager *dqm = pdd->dev->dqm;
++		struct qcm_process_device *qpd = &pdd->qpd;
++		struct queue *q;
++		int r, per_device_resumed = 0;
++
++		dqm_lock(dqm);
++
++		/* unmask queues that resume or already resumed as valid */
++		list_for_each_entry(q, &qpd->queues_list, list) {
++			int q_idx = QUEUE_NOT_FOUND;
++
++			if (queue_ids)
++				q_idx = q_array_get_index(
++						q->properties.queue_id,
++						num_queues,
++						queue_ids);
++
++			if (resume_all_queues || q_idx != QUEUE_NOT_FOUND) {
++				resume_single_queue(dqm, &pdd->qpd, q);
++				if (queue_ids)
++					queue_ids[q_idx] &=
++						~KFD_DBG_QUEUE_INVALID_MASK;
++				per_device_resumed++;
++			}
++		}
++
++		if (!per_device_resumed) {
++			dqm_unlock(dqm);
++			continue;
++		}
++
++		r = execute_queues_cpsch(dqm,
++					KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES,
++					0,
++					USE_DEFAULT_GRACE_PERIOD);
++		if (r) {
++			pr_err("Failed to resume process queues\n");
++			if (!resume_all_queues) {
++				list_for_each_entry(q, &qpd->queues_list, list) {
++					int q_idx = q_array_get_index(
++							q->properties.queue_id,
++							num_queues,
++							queue_ids);
++
++					/* mask queue as error on resume fail */
++					if (q_idx != QUEUE_NOT_FOUND)
++						queue_ids[q_idx] |=
++							KFD_DBG_QUEUE_ERROR_MASK;
++				}
++			}
++		} else {
++			wake_up_all(&dqm->destroy_wait);
++			total_resumed += per_device_resumed;
++		}
++
++		dqm_unlock(dqm);
++	}
++
++	if (copy_to_user((void __user *)usr_queue_id_array, queue_ids,
++			num_queues * sizeof(uint32_t)))
++		pr_err("copy_to_user failed on queue resume\n");
++
++	kfree(queue_ids);
++
++	return total_resumed;
++}
++
++int suspend_queues(struct kfd_process *p,
++			uint32_t num_queues,
++			uint32_t grace_period,
++			uint64_t exception_clear_mask,
++			uint32_t *usr_queue_id_array)
++{
++	uint32_t *queue_ids = get_queue_ids(num_queues, usr_queue_id_array);
++	int total_suspended = 0;
++	int i;
++
++	if (IS_ERR(queue_ids))
++		return PTR_ERR(queue_ids);
++
++	/* mask all queues as invalid.  umask on successful request */
++	q_array_invalidate(num_queues, queue_ids);
++
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
++		struct device_queue_manager *dqm = pdd->dev->dqm;
++		struct qcm_process_device *qpd = &pdd->qpd;
++		struct queue *q;
++		int r, per_device_suspended = 0;
++
++		mutex_lock(&p->event_mutex);
++		dqm_lock(dqm);
++
++		/* unmask queues that suspend or already suspended */
++		list_for_each_entry(q, &qpd->queues_list, list) {
++			int q_idx = q_array_get_index(q->properties.queue_id,
++							num_queues,
++							queue_ids);
++
++			if (q_idx != QUEUE_NOT_FOUND &&
++					!suspend_single_queue(dqm, pdd, q)) {
++				queue_ids[q_idx] &=
++					~KFD_DBG_QUEUE_INVALID_MASK;
++				per_device_suspended++;
++			}
++		}
++
++		if (!per_device_suspended) {
++			dqm_unlock(dqm);
++			mutex_unlock(&p->event_mutex);
++			continue;
++		}
++
++		r = execute_queues_cpsch(dqm,
++			KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0,
++			grace_period);
++
++		if (r)
++			pr_err("Failed to suspend process queues.\n");
++		else
++			total_suspended += per_device_suspended;
++
++		list_for_each_entry(q, &qpd->queues_list, list) {
++			int q_idx = q_array_get_index(q->properties.queue_id,
++						num_queues, queue_ids);
++
++			if (q_idx == QUEUE_NOT_FOUND)
++				continue;
++
++			/* mask queue as error on suspend fail */
++			if (r)
++				queue_ids[q_idx] |= KFD_DBG_QUEUE_ERROR_MASK;
++			else if (exception_clear_mask)
++				q->properties.exception_status &=
++							~exception_clear_mask;
++		}
++
++		dqm_unlock(dqm);
++		mutex_unlock(&p->event_mutex);
++		amdgpu_device_flush_hdp(dqm->dev->adev, NULL);
++	}
++
++	if (total_suspended) {
++		struct copy_context_work_handler_workarea copy_context_worker;
++
++		INIT_WORK_ONSTACK(
++				&copy_context_worker.copy_context_work,
++				copy_context_work_handler);
++
++		copy_context_worker.p = p;
++
++		schedule_work(&copy_context_worker.copy_context_work);
++
++
++		flush_work(&copy_context_worker.copy_context_work);
++		destroy_work_on_stack(&copy_context_worker.copy_context_work);
++	}
++
++	if (copy_to_user((void __user *)usr_queue_id_array, queue_ids,
++			num_queues * sizeof(uint32_t)))
++		pr_err("copy_to_user failed on queue suspend\n");
++
++	kfree(queue_ids);
++
++	return total_suspended;
++}
++
+ int debug_lock_and_unmap(struct device_queue_manager *dqm)
  {
- 	int i;
-@@ -2105,4 +2175,3 @@ int kfd_debugfs_mqds_by_process(struct seq_file *m, void *data)
+ 	int r;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+index bef3be84c5cc..12643528684c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+@@ -259,6 +259,8 @@ struct device_queue_manager {
+ 	struct kfd_mem_obj	hiq_sdma_mqd;
+ 	bool			sched_running;
+ 	uint32_t		wait_times;
++
++	wait_queue_head_t	destroy_wait;
+ };
+ 
+ void device_queue_manager_init_cik(
+@@ -286,6 +288,15 @@ int reserve_debug_trap_vmid(struct device_queue_manager *dqm,
+ 			struct qcm_process_device *qpd);
+ int release_debug_trap_vmid(struct device_queue_manager *dqm,
+ 			struct qcm_process_device *qpd);
++int suspend_queues(struct kfd_process *p,
++			uint32_t num_queues,
++			uint32_t grace_period,
++			uint64_t exception_clear_mask,
++			uint32_t *usr_queue_id_array);
++int resume_queues(struct kfd_process *p,
++		bool resume_all_queues,
++		uint32_t num_queues,
++		uint32_t *usr_queue_id_array);
+ int debug_lock_and_unmap(struct device_queue_manager *dqm);
+ int debug_map_and_unlock(struct device_queue_manager *dqm);
+ int debug_refresh_runlist(struct device_queue_manager *dqm);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+index cb484ace17de..d74862755213 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+@@ -237,6 +237,7 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+ 			  u32 *save_area_used_size)
+ {
+ 	struct v10_compute_mqd *m;
++	struct kfd_context_save_area_header header;
+ 
+ 	m = get_mqd(mqd);
+ 
+@@ -255,6 +256,15 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+ 	 * accessible to user mode
+ 	 */
+ 
++	header.control_stack_size = *ctl_stack_used_size;
++	header.wave_state_size = *save_area_used_size;
++
++	header.wave_state_offset = m->cp_hqd_wg_state_offset;
++	header.control_stack_offset = m->cp_hqd_cntl_stack_offset;
++
++	if (copy_to_user(ctl_stack, &header, sizeof(header)))
++		return -EFAULT;
++
+ 	return 0;
  }
  
- #endif
--
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index 86f1cf090246..f05a2bed655a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -289,6 +289,7 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+ 			  u32 *save_area_used_size)
+ {
+ 	struct v9_mqd *m;
++	struct kfd_context_save_area_header header;
+ 
+ 	/* Control stack is located one page after MQD. */
+ 	void *mqd_ctl_stack = (void *)((uintptr_t)mqd + PAGE_SIZE);
+@@ -300,7 +301,18 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+ 	*save_area_used_size = m->cp_hqd_wg_state_offset -
+ 		m->cp_hqd_cntl_stack_size;
+ 
+-	if (copy_to_user(ctl_stack, mqd_ctl_stack, m->cp_hqd_cntl_stack_size))
++	header.control_stack_size = *ctl_stack_used_size;
++	header.wave_state_size = *save_area_used_size;
++
++	header.wave_state_offset = m->cp_hqd_wg_state_offset;
++	header.control_stack_offset = m->cp_hqd_cntl_stack_offset;
++
++	if (copy_to_user(ctl_stack, &header, sizeof(header)))
++		return -EFAULT;
++
++	if (copy_to_user(ctl_stack + m->cp_hqd_cntl_stack_offset,
++				mqd_ctl_stack + m->cp_hqd_cntl_stack_offset,
++				*ctl_stack_used_size))
+ 		return -EFAULT;
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index bd3d8a0b61b7..3d529c7499f8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -477,6 +477,8 @@ struct queue_properties {
+ 	uint32_t doorbell_off;
+ 	bool is_interop;
+ 	bool is_evicted;
++	bool is_suspended;
++	bool is_being_destroyed;
+ 	bool is_active;
+ 	bool is_gws;
+ 	/* Not relevant for user mode queues in cp scheduling */
+@@ -499,7 +501,8 @@ struct queue_properties {
+ #define QUEUE_IS_ACTIVE(q) ((q).queue_size > 0 &&	\
+ 			    (q).queue_address != 0 &&	\
+ 			    (q).queue_percent > 0 &&	\
+-			    !(q).is_evicted)
++			    !(q).is_evicted &&		\
++			    !(q).is_suspended)
+ 
+ enum mqd_update_flag {
+ 	UPDATE_FLAG_CU_MASK = 0,
 -- 
 2.25.1
 
