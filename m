@@ -4,70 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38F0FC38A02
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 08:15:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3C31FA3740
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 11:42:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5627610E14E;
-	Mon, 31 Oct 2022 08:15:08 +0000 (UTC)
-Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
- [IPv6:2607:f8b0:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1248F10E216;
- Sat, 29 Oct 2022 01:30:56 +0000 (UTC)
-Received: by mail-pg1-x52e.google.com with SMTP id q71so6243399pgq.8;
- Fri, 28 Oct 2022 18:30:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Ljlq0wzNYgqZzF5mdTWeFZiAlKPfpNDbugOhA1C4lDM=;
- b=Usvn4pjF8UaseNiP1nOoO16Ro9ZiA0ZOISOYmwgLehKa4bT2egg41osfClkVncVUQy
- 4NfKfO8o4bK5UnxAb4H9XvjKODdFuK4+idk3dKS+wjCQsnKCtJQ5uDLVCqNxDCHeSnVJ
- lyhVMlcu7aibWoRgO6A3/FwsZNe48B5EnYyMBFdZCSpHdBl84r59UBYKkiAsF7fCRgO0
- D+WlD2rBYnK+Ff48EJf1xOgJQHiFO7T0AJbF8EG4Uv8Ugmb17v6dZJtY9ft2mXGdACRU
- +ho2IhzRkZx7XdXCuuyV8PbEF39c537enhvePSB6EE/V1RHroFJZ1I8Klf3q5Tk/scBU
- y8ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
- :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Ljlq0wzNYgqZzF5mdTWeFZiAlKPfpNDbugOhA1C4lDM=;
- b=goQnBFZEH+VJjOkYTgjka0hWaOEWyOYbiLRVORVJDYLlkLyfousVTeUIfLji5fPxuk
- YNhrgNGrupxiNl3EmtV1/RqKWJe8uTl98jHrrbNoWuuuHPlFFdf93YW0qUAZwCGPTDER
- l6Muo2iGrLeA1wM/zl38gMvkY/AMOKOxeyCreEgsDGmPpnC3si4/cwWCBJo6vVVR7bIh
- B5beqcTlMjbmXv4TCO+ejTUaxzQvN2y2qGXB+fwZ3NQqvu9xXGYaymHV9eiJ5g9s5Oq0
- 5sVtQHGU2wni3Vmc8m4z+Fv7atpzN74Pmc99y/834d+ou619c1lhdDiGO6P6ZaYoxDjP
- 6y6g==
-X-Gm-Message-State: ACrzQf3BojMys/qz14/I4Jp/X4f9omRsEvB0Spg07EQcLCsBTOM3L2xa
- sI5aPQ9ndCnLfmA5Tbs0ChU=
-X-Google-Smtp-Source: AMsMyM5syXaucmQoxfMV0w2n6EFA7QVHRHRLVaD6hhVGmXqZgpqqfhy3f/oHTSCt85ZKkJzWadmI4A==
-X-Received: by 2002:a63:cc43:0:b0:43a:2f12:d326 with SMTP id
- q3-20020a63cc43000000b0043a2f12d326mr2084263pgi.320.1667007055418; 
- Fri, 28 Oct 2022 18:30:55 -0700 (PDT)
-Received: from mail.google.com (122-58-209-93-fibre.sparkbb.co.nz.
- [122.58.209.93]) by smtp.gmail.com with ESMTPSA id
- o7-20020a17090a4b4700b002137d3da760sm70187pjl.39.2022.10.28.18.30.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Oct 2022 18:30:54 -0700 (PDT)
-Date: Sat, 29 Oct 2022 14:30:44 +1300
-From: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Hans de Goede <hdegoede@redhat.com>,
- Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
- Claudio Suarez <cssk@net-c.es>, Harry Wentland <harry.wentland@amd.com>,
- Grigory Vasilyev <h0tc0d3@gmail.com>, Slark Xiao <slark_xiao@163.com>,
- Rongguang Wei <weirongguang@kylinos.cn>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH v2] [next] drm/amdgpu: Replace one-element array with
- flexible-array member
-Message-ID: <Y1yCRHgx15ZOiCL4@mail.google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA1AB10E1A2;
+	Mon, 31 Oct 2022 11:42:57 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC10D10E1A2;
+ Mon, 31 Oct 2022 11:42:54 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 62FF2B815DB;
+ Mon, 31 Oct 2022 11:42:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5341EC433C1;
+ Mon, 31 Oct 2022 11:42:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1667216572;
+ bh=0Ny5jDHTsXvs2qGGUs+LNd/KCTTEaEmH3NAom76nAhY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=FD4dyCMIDDdkiz7eJlnhS4GEpm9MqWOmIdOBoQn5gLt4Og3ol/4LnVy4sTByeaySu
+ kn9YvxVB2LJUV0Xt+BxT/DENQ36OpbCaPgFmongTtCsaCFIWRwCPQ6s+8dh5Rl7kA7
+ Kmh292PDAdQpP1y6wHVzehrFIgY93EnBVv+uR1JwWPM1ocoUXPLy1p1/j8LcpDn8ds
+ yTmckj76GdGT58LkYH3a5whcB5SP2zgiw8QEak0Zr4uXCk5bL1gqdZyr8aBmrLvLbq
+ 5AXs3vbbj557ymKZCInk438btbO7k9TI/w/PZzbkseZasb+chf5aG8m1dqTRlhUxTx
+ n3rq/HPf0W3dw==
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+To: harry.wentland@amd.com
+Subject: [PATCH] drm/amd/display (gcc13): fix enum mismatch
+Date: Mon, 31 Oct 2022 12:42:47 +0100
+Message-Id: <20221031114247.10309-1-jirislaby@kernel.org>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Y1x3MtRJ8ckXxlJn@mail.google.com>
-X-Mailman-Approved-At: Mon, 31 Oct 2022 08:14:28 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,70 +50,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.miguel.almeida.rodenas@gmail.com, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
+Cc: Leo Li <sunpeng.li@amd.com>, "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Martin Liska <mliska@suse.cz>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-One-element arrays are deprecated, and we are replacing them with
-flexible array members instead. So, replace one-element array with
-flexible-array member in struct _ATOM_FAKE_EDID_PATCH_RECORD and
-refactor the rest of the code accordingly.
+rn_vbios_smu_set_dcn_low_power_state() produces a valid warning with
+gcc-13:
+  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c:237:6: error: conflicting types for 'rn_vbios_smu_set_dcn_low_power_state' due to enum/integer mismatch; have 'void(struct clk_mgr_internal *, enum dcn_pwr_state)'
+  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h:36:6: note: previous declaration of 'rn_vbios_smu_set_dcn_low_power_state' with type 'void(struct clk_mgr_internal *, int)'
 
-Important to mention is that doing a build before/after this patch
-results in no binary output differences.
+I.e. the type of the 2nd parameter of
+rn_vbios_smu_set_dcn_low_power_state() in the declaration is int, while
+the definition spells enum dcn_pwr_state. Synchronize them to the
+latter (and add a forward enum declaration).
 
-This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
-routines on memcpy() and help us make progress towards globally
-enabling -fstrict-flex-arrays=3 [1].
-
-Link: https://github.com/KSPP/linux/issues/79
-Link: https://github.com/KSPP/linux/issues/238
-Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101836 [1]
-
-Signed-off-by: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+Cc: Martin Liska <mliska@suse.cz>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
 ---
-Changelog:
+ .../drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h   | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-v2: no binary output differences patch; report binary changes findings
-    on commit log. Res: Kees Cook
-v1: https://lore.kernel.org/lkml/Y1tkWdwPUp+UdpM0@mail.google.com/
----
- drivers/gpu/drm/amd/amdgpu/atombios_encoders.c | 7 +++++--
- drivers/gpu/drm/amd/include/atombios.h         | 2 +-
- 2 files changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-index 6be9ac2b9c5b..18ae9433e463 100644
---- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-@@ -2081,8 +2081,11 @@ amdgpu_atombios_encoder_get_lcd_info(struct amdgpu_encoder *encoder)
- 						}
- 					}
- 					record += fake_edid_record->ucFakeEDIDLength ?
--						fake_edid_record->ucFakeEDIDLength + 2 :
--						sizeof(ATOM_FAKE_EDID_PATCH_RECORD);
-+						  struct_size(fake_edid_record,
-+							      ucFakeEDIDString,
-+							      fake_edid_record->ucFakeEDIDLength) :
-+						  /* empty fake edid record must be 3 bytes long */
-+						  sizeof(ATOM_FAKE_EDID_PATCH_RECORD) + 1;
- 					break;
- 				case LCD_PANEL_RESOLUTION_RECORD_TYPE:
- 					panel_res_record = (ATOM_PANEL_RESOLUTION_PATCH_RECORD *)record;
-diff --git a/drivers/gpu/drm/amd/include/atombios.h b/drivers/gpu/drm/amd/include/atombios.h
-index 15943bc21bc5..b5b1d073f8e2 100644
---- a/drivers/gpu/drm/amd/include/atombios.h
-+++ b/drivers/gpu/drm/amd/include/atombios.h
-@@ -4107,7 +4107,7 @@ typedef struct _ATOM_FAKE_EDID_PATCH_RECORD
- {
-   UCHAR ucRecordType;
-   UCHAR ucFakeEDIDLength;       // = 128 means EDID length is 128 bytes, otherwise the EDID length = ucFakeEDIDLength*128
--  UCHAR ucFakeEDIDString[1];    // This actually has ucFakeEdidLength elements.
-+  UCHAR ucFakeEDIDString[];     // This actually has ucFakeEdidLength elements.
- } ATOM_FAKE_EDID_PATCH_RECORD;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h
+index 3e5df27aa96f..1ce19d875358 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h
+@@ -26,6 +26,8 @@
+ #ifndef DAL_DC_RN_CLK_MGR_VBIOS_SMU_H_
+ #define DAL_DC_RN_CLK_MGR_VBIOS_SMU_H_
  
- typedef struct  _ATOM_PANEL_RESOLUTION_PATCH_RECORD
++enum dcn_pwr_state;
++
+ int rn_vbios_smu_get_smu_version(struct clk_mgr_internal *clk_mgr);
+ int rn_vbios_smu_set_dispclk(struct clk_mgr_internal *clk_mgr, int requested_dispclk_khz);
+ int rn_vbios_smu_set_dprefclk(struct clk_mgr_internal *clk_mgr);
+@@ -33,7 +35,7 @@ int rn_vbios_smu_set_hard_min_dcfclk(struct clk_mgr_internal *clk_mgr, int reque
+ int rn_vbios_smu_set_min_deep_sleep_dcfclk(struct clk_mgr_internal *clk_mgr, int requested_min_ds_dcfclk_khz);
+ void rn_vbios_smu_set_phyclk(struct clk_mgr_internal *clk_mgr, int requested_phyclk_khz);
+ int rn_vbios_smu_set_dppclk(struct clk_mgr_internal *clk_mgr, int requested_dpp_khz);
+-void rn_vbios_smu_set_dcn_low_power_state(struct clk_mgr_internal *clk_mgr, int display_count);
++void rn_vbios_smu_set_dcn_low_power_state(struct clk_mgr_internal *clk_mgr, enum dcn_pwr_state);
+ void rn_vbios_smu_enable_48mhz_tmdp_refclk_pwrdwn(struct clk_mgr_internal *clk_mgr, bool enable);
+ void rn_vbios_smu_enable_pme_wa(struct clk_mgr_internal *clk_mgr);
+ int rn_vbios_smu_is_periodic_retraining_disabled(struct clk_mgr_internal *clk_mgr);
 -- 
-2.37.3
+2.38.1
 
