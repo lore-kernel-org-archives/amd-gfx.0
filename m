@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FF61ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 16:24:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CBA6FA3743
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 16:24:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 476D310E2F4;
-	Mon, 31 Oct 2022 16:24:38 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2077.outbound.protection.outlook.com [40.107.220.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7286710E2EA
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 16:24:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DF4410E2EF;
+	Mon, 31 Oct 2022 16:24:39 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2042.outbound.protection.outlook.com [40.107.93.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F91410E2E1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 16:24:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DTm8yioZVRlHe/TgqsCFOdaDzniOWBbdSv0y1kPpv4V5Y0hbqLWyGlWTDRFZo8hy/ohjSie2ADi2rDVj4xUkmTly5rJSFXDr2SRoVpQ0X/FJwoN347zXkZmn92rCASYunAbE0a0acu7tMmKpZI3z5T/vM8l3IGR8gqGkHYftxwsgxTpg7P5nkXtjKaft/3QUfGo5P6wwLkNcE57nZHBRevS4CeVwAPtHNEiDdr6gi+0sLFy0TaTCbQyIgAvYtj40ueHo9ksgFtrfVO2z8Mbc8Z8cBgG+ulKH1UeKr3pzKKHQjeYqxBW9jqlE7XBrnrm3J71AJwG7x1jbI4Q/gv/G6A==
+ b=Jo49ngm3tr1oTzwpZhFt249AkvuG1p6Kl3UGBTqwu3QGb7DQVr8T1sRPnrJ6E+UneIDmEZTWRSMzmtjIdWxNzQcqOesW5kr0IFxrvd6NYpFpzXWll/W64dY2ANpDuiQD/n6fLY/q9jjqHlTDja+/eoio7grX8wXVTVmc7lSAIasPw9whWfHGS1GPGecEGz+2r8HFkY7qMMbw7wPjpXRH2DuZb7cHKo/gunzVJztNy8nsN5ybBD4zAfwDpnZUW8pKi5+uJB0Ey+IpV9GQQQ7efbW/HHZeIlfRat6XsdkL60rxCfyl++F/BkwxO1pk3jS+DSVT8E+2w29OpjntpQ8g1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ya9tw59Kie7WA8calVrrkPOjrIxn4i7bfvo3teUliCo=;
- b=FQSxnHGazkUTUrVNkIkbHo2zPJ2pBhDQRKZC+vLn0PIfAqBpMvgAfzjVj8RP3CgldC0Gi4FicnJh2WcljOnIbhm5MoGC1HAn4tP6UqHfEjzmvA8rtttAT4IsO9rSWRRIACvi2gQWiPz1D8CtmdMCJzNxnlly0+k0JlFb1rMsRwjKmXFmfCQyIUdQGd5ovq0mC8qSYXTmOxHRv9jFbl4abunNAGUGdHsSyYMUex7BKa0tYIey7i8ijwU9b+sdCzUENIlHUOdVU5O5VkySk1ftuhGxPeV+rfGEh0ekJ+xFQ88tzXKxbKGggZNbcRb48S0OnUY2WRXWXK7P3G7XFDBpug==
+ bh=4R4WBNFz8DZ0ka0LClZHCqTuSf8QkY4ZkqsnmNYSQrk=;
+ b=ge2eJJIlrARCBV+Nkz0Jh7lbMOAMD5MNrytLLeMkksmf1aE7FXhoURy7GDEZnnnxhlBedIBK3jbyr2qgAhOwzemA+thhDd8FDMduKtzfUOjlDml0UaaBVLGDuNqoRV0r+7La8CLDWjs45tGWX5S/eU2FNYoU3K1cwwt5jPn6ore7RY8aRLsfkA1PwJkMUVnlxvRu4kpbNsz2o2+/EjNcCIp4Zd6TmghwAQuzZGtnU9Q+qEfW0A6r72ffTALJ3OwTEmu5GOtPBIDOfJBLnh82kCbXofe4Sj38uZ0GN7VpULl4/T7z6/hDUJxVrlI1WvaVgaQQz1xcc8IW57LnV4EWoQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ya9tw59Kie7WA8calVrrkPOjrIxn4i7bfvo3teUliCo=;
- b=GsOe7aECsggtfUxgexP5tclOleJ3PYhWFFnlQnZ/YfVTwJNuPcroFAfmCp/PYrKYbYhWHfWjJqFffhN/PYVMlWIPZnbTwzXpjMyL5ufDCVV0v0iI/dv9Rve8Ol7iHbDwskI8XLTRvWl1NldTPqcF6Y6e4DkHgd0mClA9eZGCcro=
-Received: from MW4PR04CA0110.namprd04.prod.outlook.com (2603:10b6:303:83::25)
- by MN0PR12MB5907.namprd12.prod.outlook.com (2603:10b6:208:37b::17)
+ bh=4R4WBNFz8DZ0ka0LClZHCqTuSf8QkY4ZkqsnmNYSQrk=;
+ b=S+KA4ZC2QdVGIhORMRU8pfwpbdQgDnt3aJ2R9cueZzalM/HSdenmugV3++d+kppWlXzu+ZPa3hvVsSVvAPRK3hoTs6KYjp6Xs1E5BX5ZNaN+ZG5RrnB0EuERKEQ2c/DKqZmBagpc2e+KpI008sSIgl2+HV54zoF+33Ic7z/phbA=
+Received: from MW4PR04CA0106.namprd04.prod.outlook.com (2603:10b6:303:83::21)
+ by SA3PR12MB8024.namprd12.prod.outlook.com (2603:10b6:806:312::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.16; Mon, 31 Oct
- 2022 16:24:30 +0000
+ 2022 16:24:26 +0000
 Received: from CO1NAM11FT091.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:83:cafe::c8) by MW4PR04CA0110.outlook.office365.com
- (2603:10b6:303:83::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19 via Frontend
- Transport; Mon, 31 Oct 2022 16:24:30 +0000
+ (2603:10b6:303:83:cafe::99) by MW4PR04CA0106.outlook.office365.com
+ (2603:10b6:303:83::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.16 via Frontend
+ Transport; Mon, 31 Oct 2022 16:24:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT091.mail.protection.outlook.com (10.13.175.146) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5769.14 via Frontend Transport; Mon, 31 Oct 2022 16:24:29 +0000
+ 15.20.5769.14 via Frontend Transport; Mon, 31 Oct 2022 16:24:25 +0000
 Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 31 Oct
- 2022 11:24:26 -0500
+ 2022 11:24:23 -0500
 From: Jonathan Kim <jonathan.kim@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 14/29] drm/amdkfd: add raise exception event function
-Date: Mon, 31 Oct 2022 12:23:44 -0400
-Message-ID: <20221031162359.445805-14-jonathan.kim@amd.com>
+Subject: [PATCH 04/29] drm/amdgpu: add kgd hw debug mode setting interface
+Date: Mon, 31 Oct 2022 12:23:34 -0400
+Message-ID: <20221031162359.445805-4-jonathan.kim@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221031162359.445805-1-jonathan.kim@amd.com>
 References: <20221031162359.445805-1-jonathan.kim@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT091:EE_|MN0PR12MB5907:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe69afec-d543-4898-3071-08dabb5c630f
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT091:EE_|SA3PR12MB8024:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51d6ee4d-256e-44c6-9849-08dabb5c6060
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wrPlDISuxxcCiCsWMGRDF0WQbU/kxyN19bhL8ePrnVmQa5llhsTn1sVcCLXXssYO9DtVHIS/C4QL+nFM+ToIhoFcJfRiFtDl/eF3kbAyd7phrTznOsy7QdSJQzSidz4lJOzG6qa2iUD+wtKVCpRxpngaxBUKU/HJIycIGJBBf5v9exJkTeGjD0YzVRIpmIlL0GrlqFUJBxrJa8qQtNoKyg/ttYj63LX7WflgLj5k5axXeXygd7P5OAZmda5rtvyssvIg5X23hqjs3ZLY5CSVKlngPAzvEvH7FpV7/S8nFqeWhH8VUWdovaXTHHNSth+sk1jB4NMfDlePK8UqgE1+lDSl9xrM3TjjZGJiB0ILf8MdHeE5GixT5R1cxnHjb/Y2PgYBXkzn7wKo/hMGbiqISACw8k2tPAIjH5DLJb8kH/khqEtFacUoYcAHvNjE6w0220PWIzTQru4FgGJfiBCgtsIWM//O/he4DJbe3yAoqFwODzgGA/7iZrbkanlZI4IqT9/tWwFydSEHK0i7op+5otf1rKx4/inOI37dK0cYubX21tHe/p6uUHrIcKkT4H/FtMYlqtQED7iit0ftX7J/PNP7v+lgh9IHKm+yd0UjkybdIFCrHe2ZcyvvtfjoeQS6HwhkNMZymmBdqKSLDPpeZscdF0T+N+nnYuXYRML9JEOpYHfEYQUbUeepl8i3gOqtFYujxwcSVWOqbywUO/pQC4LQ8aygp/dhJcosNfykI0Kjo3YK6uSrnj81PJVSWxT83w7CndMEAgsRp7iH1fENPSGj027qPneWihf7oIRIDfa+m9XgI4W55+uKYbawiY9z
+X-Microsoft-Antispam-Message-Info: R1igsuoybqBgIkU7FQ6llWweeJTWKCa2kCC2FkHTrVcTrb32DFU18DlD79xJQhoKGAtaS6cNNnpBSOPdGNcr2b+5aFverqBWcexoWL7jm40wG8lcNL9AcKwjS0oVMdfBn0uHmeIuNqEA+DVLmBg9IFZXrAAV7hitjldCJdHN34f2lYCcCfhyrIyN0adtftq7wmNNEVwgWZOUrHQNbDNr3CAGphQhdCcsLFecFXD2U+CKrpHH0tmR3qxc05UxApV5IaMbAf8a0+JwgqunEC6kZ4CXhCG7LqPSSJRcvFRn4bc4+Vh4JTTfL4V8y9Cauo2PbZzhi+1Q+bn4N41FoJFS7ZWs2QhFzlJAoiIR4OUBYbQiqw1AqHW4MdxsGc2NNNvLb1cXwc5hT++F84HEs1tqYkWy70YRiTrnbYG0PICN7L7y4o7pvoJ2dQ3Cm+jehNDDlhTORlldg8BT4sPGBO/tHmDEBrp+NC6xtI0FF5ZGYNEgRbsp3kchvRJj06Hy2d9WlH8Uhx2YBbfGomIq58nzosBX5y+n2uRietEJII+bnDzNZuuHK/u3CiE8cZpVRdFZEotSk/9qr7qyCK/xjtlvtgKAXsjp8vsxo88w3xLUITjormiU15Bdl54FKbdLfw2I0GaDs7AWVdYxq7rrAYi+npswBImig0exm8QAea8RuXfeX2rGwqIIQ+FbQuL1UTtGALTfJQU/PGPYYAdSbnOEPmxxTRq/KZk4U91wgI4b+kWHPlIBHTuEVRxTq11S8A/gs4t3jFCpCDIqqgtXZsrnFjG7GcN3rAgot/9nGDWVXP/z8KLILZBEbMfW0qu+Fli8
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(376002)(396003)(346002)(136003)(451199015)(36840700001)(46966006)(40470700004)(5660300002)(82310400005)(478600001)(82740400003)(6916009)(86362001)(44832011)(70206006)(4326008)(6666004)(83380400001)(70586007)(36860700001)(40460700003)(8676002)(8936002)(1076003)(16526019)(316002)(186003)(36756003)(47076005)(81166007)(426003)(2906002)(356005)(2616005)(26005)(41300700001)(40480700001)(7696005)(336012)(36900700001);
+ SFS:(13230022)(4636009)(346002)(376002)(136003)(39860400002)(396003)(451199015)(40470700004)(46966006)(36840700001)(40480700001)(316002)(6916009)(478600001)(26005)(426003)(336012)(44832011)(7696005)(4326008)(8676002)(2616005)(70206006)(16526019)(70586007)(8936002)(6666004)(47076005)(1076003)(36756003)(186003)(5660300002)(2906002)(81166007)(356005)(83380400001)(40460700003)(82740400003)(36860700001)(41300700001)(86362001)(82310400005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2022 16:24:29.8265 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe69afec-d543-4898-3071-08dabb5c630f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2022 16:24:25.3268 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51d6ee4d-256e-44c6-9849-08dabb5c6060
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT091.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5907
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8024
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,181 +103,59 @@ Cc: Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Exception events can be generated from interrupts or queue activitity.
-
-The raise event function will save exception status of a queue, device
-or process then notify the debugger of the status change by writing to
-a debugger polled file descriptor that the debugger provides during
-debug attach.
-
-For memory violation exceptions, extra exception data will be saved.
-
-The debugger will be able to query the saved exception states by query
-operation that will be provided by follow up patches.
+Introduce the require KGD debug calls that will execute hardware debug
+mode setting.
 
 Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c | 90 ++++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_debug.h |  5 ++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h  |  7 ++
- 3 files changed, 102 insertions(+)
+ .../gpu/drm/amd/include/kgd_kfd_interface.h   | 34 +++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-index f5a5d17cde14..b7a4b2ec5b36 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-@@ -38,6 +38,93 @@ void debug_event_write_work_handler(struct work_struct *work)
- 	kernel_write(process->dbg_ev_file, &write_data, 1, &pos);
- }
+diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+index 5cb3e8634739..15e7a5c920a0 100644
+--- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+@@ -289,6 +289,40 @@ struct kfd2kgd_calls {
+ 			uint32_t vmid, uint64_t page_table_base);
+ 	uint32_t (*read_vmid_from_vmfault_reg)(struct amdgpu_device *adev);
  
-+/* update process/device/queue exception status, write to descriptor
-+ * only if exception_status is enabled.
-+ */
-+bool kfd_dbg_ev_raise(uint64_t event_mask,
-+			struct kfd_process *process, struct kfd_dev *dev,
-+			unsigned int source_id, bool use_worker,
-+			void *exception_data, size_t exception_data_size)
-+{
-+	struct process_queue_manager *pqm;
-+	struct process_queue_node *pqn;
-+	int i;
-+	static const char write_data = '.';
-+	loff_t pos = 0;
-+	bool is_subscribed = true;
-+
-+	if (!(process && process->debug_trap_enabled))
-+		return false;
-+
-+	mutex_lock(&process->event_mutex);
-+
-+	if (event_mask & KFD_EC_MASK_DEVICE) {
-+		for (i = 0; i < process->n_pdds; i++) {
-+			struct kfd_process_device *pdd = process->pdds[i];
-+
-+			if (pdd->dev != dev)
-+				continue;
-+
-+			pdd->exception_status |= event_mask & KFD_EC_MASK_DEVICE;
-+
-+			if (event_mask & KFD_EC_MASK(EC_DEVICE_MEMORY_VIOLATION)) {
-+				if (!pdd->vm_fault_exc_data) {
-+					pdd->vm_fault_exc_data = kmemdup(
-+							exception_data,
-+							exception_data_size,
-+							GFP_KERNEL);
-+					if (!pdd->vm_fault_exc_data)
-+						pr_debug("Failed to allocate exception data memory");
-+				} else {
-+					pr_debug("Debugger exception data not saved\n");
-+					print_hex_dump_bytes("exception data: ",
-+							DUMP_PREFIX_OFFSET,
-+							exception_data,
-+							exception_data_size);
-+				}
-+			}
-+			break;
-+		}
-+	} else if (event_mask & KFD_EC_MASK_PROCESS) {
-+		process->exception_status |= event_mask & KFD_EC_MASK_PROCESS;
-+	} else {
-+		pqm = &process->pqm;
-+		list_for_each_entry(pqn, &pqm->queues,
-+				process_queue_list) {
-+			int target_id;
-+
-+			if (!pqn->q)
-+				continue;
-+
-+			target_id = event_mask & KFD_EC_MASK(EC_QUEUE_NEW) ?
-+					pqn->q->properties.queue_id :
-+							pqn->q->doorbell_id;
-+
-+			if (pqn->q->device != dev || target_id != source_id)
-+				continue;
-+
-+			pqn->q->properties.exception_status |= event_mask;
-+			break;
-+		}
-+	}
-+
-+	if (process->exception_enable_mask & event_mask) {
-+		if (use_worker)
-+			schedule_work(&process->debug_event_workarea);
-+		else
-+			kernel_write(process->dbg_ev_file,
-+					&write_data,
-+					1,
-+					&pos);
-+	} else {
-+		is_subscribed = false;
-+	}
-+
-+	mutex_unlock(&process->event_mutex);
-+
-+	return is_subscribed;
-+}
-+
- /* kfd_dbg_trap_deactivate:
-  *	target: target process
-  *	unwind: If this is unwinding a failed kfd_dbg_trap_enable()
-@@ -50,6 +137,9 @@ static void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int
- {
- 	int i, count = 0;
- 
-+	if (!unwind)
-+		cancel_work_sync(&target->debug_event_workarea);
-+
- 	for (i = 0; i < target->n_pdds; i++) {
- 		struct kfd_process_device *pdd = target->pdds[i];
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-index 1053b7ca24c5..a288ca1941a6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-@@ -28,6 +28,11 @@
- void kgd_gfx_v9_set_wave_launch_stall(struct amdgpu_device *adev,
- 					uint32_t vmid,
- 					bool stall);
-+bool kfd_dbg_ev_raise(uint64_t event_mask,
-+			struct kfd_process *process, struct kfd_dev *dev,
-+			unsigned int source_id, bool use_worker,
-+			void *exception_data,
-+			size_t exception_data_size);
- int kfd_dbg_trap_disable(struct kfd_process *target);
- int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
- 			void __user *runtime_info,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 6360b365973c..40a695619eab 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -493,6 +493,7 @@ struct queue_properties {
- 	uint32_t ctl_stack_size;
- 	uint64_t tba_addr;
- 	uint64_t tma_addr;
-+	uint64_t exception_status;
- };
- 
- #define QUEUE_IS_ACTIVE(q) ((q).queue_size > 0 &&	\
-@@ -783,6 +784,11 @@ struct kfd_process_device {
- 	uint64_t page_in;
- 	uint64_t page_out;
- 
-+	/* Exception code status*/
-+	uint64_t exception_status;
-+	void *vm_fault_exc_data;
-+	size_t vm_fault_exc_data_size;
-+
- 	/* Tracks debug per-vmid request settings */
- 	uint32_t spi_dbg_override;
- 	uint32_t spi_dbg_launch_mode;
-@@ -918,6 +924,7 @@ struct kfd_process {
- 
- 	/* Exception code enable mask and status */
- 	uint64_t exception_enable_mask;
-+	uint64_t exception_status;
- 
- 	/* shared virtual memory registered by this process */
- 	struct svm_range_list svms;
++	uint32_t (*enable_debug_trap)(struct amdgpu_device *adev,
++					bool restore_dbg_registers,
++					uint32_t vmid);
++	uint32_t (*disable_debug_trap)(struct amdgpu_device *adev,
++					bool keep_trap_enabled,
++					uint32_t vmid);
++	int (*validate_trap_override_request)(struct amdgpu_device *adev,
++					uint32_t trap_override,
++					uint32_t *trap_mask_supported);
++	uint32_t (*set_wave_launch_trap_override)(struct amdgpu_device *adev,
++					     uint32_t vmid,
++					     uint32_t trap_override,
++					     uint32_t trap_mask_bits,
++					     uint32_t trap_mask_request,
++					     uint32_t *trap_mask_prev,
++					     uint32_t kfd_dbg_trap_cntl_prev);
++	uint32_t (*set_wave_launch_mode)(struct amdgpu_device *adev,
++					uint8_t wave_launch_mode,
++					uint32_t vmid);
++	uint32_t (*set_address_watch)(struct amdgpu_device *adev,
++					uint64_t watch_address,
++					uint32_t watch_address_mask,
++					uint32_t watch_id,
++					uint32_t watch_mode,
++					uint32_t debug_vmid);
++	uint32_t (*clear_address_watch)(struct amdgpu_device *adev,
++			uint32_t watch_id);
++	void (*get_iq_wait_times)(struct amdgpu_device *adev,
++			uint32_t *wait_times);
++	void (*build_grace_period_packet_info)(struct amdgpu_device *adev,
++			uint32_t wait_times,
++			uint32_t grace_period,
++			uint32_t *reg_offset,
++			uint32_t *reg_data);
+ 	void (*get_cu_occupancy)(struct amdgpu_device *adev, int pasid,
+ 			int *wave_cnt, int *max_waves_per_cu);
+ 	void (*program_trap_handler_settings)(struct amdgpu_device *adev,
 -- 
 2.25.1
 
