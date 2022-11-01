@@ -4,64 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 477CFC43217
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 21:15:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C61BC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 21:28:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B157B10E023;
-	Tue,  1 Nov 2022 21:15:52 +0000 (UTC)
-Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com
- [IPv6:2607:f8b0:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A479810E023;
- Tue,  1 Nov 2022 21:14:03 +0000 (UTC)
-Received: by mail-pg1-x536.google.com with SMTP id q71so14503908pgq.8;
- Tue, 01 Nov 2022 14:14:03 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7020710E421;
+	Tue,  1 Nov 2022 21:28:07 +0000 (UTC)
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [IPv6:2607:f8b0:4864:20::c2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD68A10E420;
+ Tue,  1 Nov 2022 21:28:03 +0000 (UTC)
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ r15-20020a4abf0f000000b004761c7e6be1so2240842oop.9; 
+ Tue, 01 Nov 2022 14:28:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=6indUiCprMB0zjMLWvS6nYLrTKO3j8yjpLRzZacHoFM=;
- b=RvakqeHbzhIjgHA0SHrXXMScjhxIrsj98u/WPUsnoZgBbiMepcA6jWfxYuNLJ7YZKl
- 7hQeN3cKsZHdgVa+by5PM9qwRAXlERGLBHtTYOATeumHcVBVJh12ijdH6hESg72b+wzw
- r27PIVAfsU6wsVC8jduamUDUDRQGWhqhfjL5fViN9pYW8AANiVCifGt4VRus4t71d8K3
- bh7W73of1dfjJMq65cWyAGs/0pzBnk7/j5SrDExP3MtP88tq0+DVqzpssHJq3RUnbrxN
- ZOeHFX75u3sTcdI+a70BLWQq/HCHg3+AiUVcjCfn2nTWdfUYiuiN2UIjcWOAoiGnLtrt
- Ah6w==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=7floQmYMzLgaddTMF2cgROiayJCZkDQQYG5jcMnB2Mg=;
+ b=CUfRAOLG/90T2J7O+9cTJGRFsZDOddWLZ7QygnM1H/0Jbr/5N8WQkUrvg0y0475BqV
+ OLHYPd+AvEyH95tkvnbCRYACyKOOuNcI0NhLCqN75HTpOJf0jGNkq21AxYSjahqZ2V9X
+ QDIuL9afXBV/pMjDnnax+Va9kqJtBB0qHFwswOtHzcEEKk21lYxKqwl/J/OYhyX+4XdU
+ 6A91pNXCQmqcNEPHtw6o7o0XtZP9tSZqYwDLczOkMLxjw5oobQ6u0kJ47dchzuOEFOyQ
+ UWEYvZ9OOM8x+FGIT/Zr19nCZ8ABgot0Ye01RImeViDtjA/t5gvRbpcpobmQlRaKJ7gM
+ sFQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6indUiCprMB0zjMLWvS6nYLrTKO3j8yjpLRzZacHoFM=;
- b=mefUC7t3XfDPs0bD3ad7VbnY7r7GseEo/As1e4RkFJoiU9G3H7pBNiv/dwdDuBumpQ
- hY9zXb/rZFgEdDnViUz2Qn/DLyQerMwvo1RusEYFp05vBX/fOLdBMyZAR4KR/BwKOGcw
- c4Zge5eq5faKWx6Epc8Q8ksMjUYFC375Wo0UOfih2k2FUEwAeI3yPv7971a1OXFWfC5w
- nsKJa89R0Wr4a0hWYIW9KKtLAXRFNjdU5pp3h6wHCU3/owvhtWJAHZB+12xoro86dz9N
- Lgf3a7TJAFZvJBt3KAkxvpJLFEXmwUDYzT47+WvW24z1nhbsYVYaCIFYm0cXpChUlMzi
- b8OA==
-X-Gm-Message-State: ACrzQf1ZLjrbPOLcTzacZF7Jd7vUtXttrWhAryb53ezdhoyeqJVFxBG3
- gvhDlOO1cjcJTBXUXHDpfMhOJukpumrrSg==
-X-Google-Smtp-Source: AMsMyM52pQddQpmtGf7qmD+beu+QOQ/6824R/3H3162dp/zW7VTCB30F2Ej07jtHrVsyBI0az0Lq5A==
-X-Received: by 2002:a05:6a00:234d:b0:561:ec04:e77e with SMTP id
- j13-20020a056a00234d00b00561ec04e77emr22151908pfj.14.1667337242960; 
- Tue, 01 Nov 2022 14:14:02 -0700 (PDT)
-Received: from mail.google.com ([103.229.249.253])
- by smtp.gmail.com with ESMTPSA id
- o20-20020a170903009400b0018685aaf41dsm6804056pld.18.2022.11.01.14.13.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Nov 2022 14:14:02 -0700 (PDT)
-Date: Wed, 2 Nov 2022 10:13:54 +1300
-From: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH v2] [next] drm/radeon: Replace one-element array with
- flexible-array member
-Message-ID: <Y2GMEjB4NQ3RYk2C@mail.google.com>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7floQmYMzLgaddTMF2cgROiayJCZkDQQYG5jcMnB2Mg=;
+ b=reHsLKEnvSUqpOrwfrJam/kYhZ2bu8EMTvbytIMNhbdOd07Y2Jaw5VFe4406iQlOBM
+ niai/DSU9/3RByVFX5pWkN2XuDkh/NIP73/irLAJgOltuAyLSY85dRWnWQA8xoPpHuJk
+ oTrqZGCUal/s30U/ULDCPMh9zmPbW5H6xRU6uB0zF/ygaxO6tNqwEzfYiEZzbX+BWNNl
+ TvDgANqek2hzY91vmVk4C8QT6j5T/tdRYuseuaDAK12tQRFtm6XQDd1PcyncX31yDKbV
+ eBjdGhqdvuQS8mn45yR9RjqlfR4Yh5beURx1yssmG03KfYy4HvkJZ9njDG+glZM41lyK
+ nqBg==
+X-Gm-Message-State: ACrzQf3dltRiPLkc7o1XM3D8XghoBLqkeip6AKwzLu7742q3T5KfA6pa
+ 583LYWZsIhBSeRvrrDtCQ7GMv9+rc9oSBTqK3/w=
+X-Google-Smtp-Source: AMsMyM7yk7X+Cj9EUIZxraYgPnAGIa0+Hu39Z7lSzBEzpctAS8fb7Y+6uxZLdnqcgfbWXEEUoo2awWK5pli6jW0aJmU=
+X-Received: by 2002:a4a:b913:0:b0:480:b3bf:7812 with SMTP id
+ x19-20020a4ab913000000b00480b3bf7812mr9031444ooo.97.1667338082817; Tue, 01
+ Nov 2022 14:28:02 -0700 (PDT)
+MIME-Version: 1.0
 References: <Y1trhRE3nK5iAY6q@mail.google.com>
  <Y1yetX1CHsr+fibp@mail.google.com>
  <CADnq5_Mod90O=tN26+Yi74WPYxpVtss+LG_+_HZyFv2EtzR+MA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CADnq5_Mod90O=tN26+Yi74WPYxpVtss+LG_+_HZyFv2EtzR+MA@mail.gmail.com>
-X-Mailman-Approved-At: Tue, 01 Nov 2022 21:15:49 +0000
+ <Y2GMEjB4NQ3RYk2C@mail.google.com>
+In-Reply-To: <Y2GMEjB4NQ3RYk2C@mail.google.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 1 Nov 2022 17:27:51 -0400
+Message-ID: <CADnq5_MuYmxOExeuhQAZ_KU4jfOdFhy1Jn4QBuawuL2Tq64n7w@mail.gmail.com>
+Subject: Re: [PATCH v2] [next] drm/radeon: Replace one-element array with
+ flexible-array member
+To: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,55 +72,72 @@ Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
  David Airlie <airlied@gmail.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  linux-hardening@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 01, 2022 at 10:42:14AM -0400, Alex Deucher wrote:
-> On Fri, Oct 28, 2022 at 11:32 PM Paulo Miguel Almeida
-> <paulo.miguel.almeida.rodenas@gmail.com> wrote:
+On Tue, Nov 1, 2022 at 5:14 PM Paulo Miguel Almeida
+<paulo.miguel.almeida.rodenas@gmail.com> wrote:
+>
+> On Tue, Nov 01, 2022 at 10:42:14AM -0400, Alex Deucher wrote:
+> > On Fri, Oct 28, 2022 at 11:32 PM Paulo Miguel Almeida
+> > <paulo.miguel.almeida.rodenas@gmail.com> wrote:
+> > >
+> > > One-element arrays are deprecated, and we are replacing them with
+> > > flexible array members instead. So, replace one-element array with
+> > > flexible-array member in struct _ATOM_FAKE_EDID_PATCH_RECORD and
+> > > refactor the rest of the code accordingly.
+> > >
+> > > It's worth mentioning that doing a build before/after this patch results
+> > > in no binary output differences.
+> > >
+> > > This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
+> > > routines on memcpy() and help us make progress towards globally
+> > > enabling -fstrict-flex-arrays=3 [1].
 > >
-> > One-element arrays are deprecated, and we are replacing them with
-> > flexible array members instead. So, replace one-element array with
-> > flexible-array member in struct _ATOM_FAKE_EDID_PATCH_RECORD and
-> > refactor the rest of the code accordingly.
+> > This seems like a worthy goal, and I'm not opposed to the patch per
+> > se, but it seems a bit at odds with what this header represents.
+> > atombios.h represents the memory layout of the data stored in the ROM
+> > on the GPU.  This changes the memory layout of that ROM.  We can work
+> > around that in the driver code, but if someone were to take this
+> > header to try and write some standalone tool or use it for something
+> > else in the kernel, it would not reflect reality.
 > >
-> > It's worth mentioning that doing a build before/after this patch results
-> > in no binary output differences.
+> > Alex
 > >
-> > This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
-> > routines on memcpy() and help us make progress towards globally
-> > enabling -fstrict-flex-arrays=3 [1].
-> 
-> This seems like a worthy goal, and I'm not opposed to the patch per
-> se, but it seems a bit at odds with what this header represents.
-> atombios.h represents the memory layout of the data stored in the ROM
-> on the GPU.  This changes the memory layout of that ROM.  We can work
-> around that in the driver code, but if someone were to take this
-> header to try and write some standalone tool or use it for something
-> else in the kernel, it would not reflect reality.
-> 
-> Alex
-> 
-Hi Alex, thanks for taking the time to review this patch.
+> Hi Alex, thanks for taking the time to review this patch.
+>
+> I see where you are coming from and why you may be apprehensive with the
+> approach. From my humble point of view, I think that the artificial line
+> that separates "what we can change at will" and "what we should be extra
+> careful not to break/confuse others" is whether the header file is part
+> of the UAPI. Given that atombios.h isn't publicly accessible, I tend to
+> gravitate towards the first one.
 
-I see where you are coming from and why you may be apprehensive with the
-approach. From my humble point of view, I think that the artificial line
-that separates "what we can change at will" and "what we should be extra
-careful not to break/confuse others" is whether the header file is part 
-of the UAPI. Given that atombios.h isn't publicly accessible, I tend to
-gravitate towards the first one.
+It may not be publicly accessible, but it describes a physical thing
+that is burned into millions of GPU boards out in the wild.  There are
+tons of open source tools out there that take these headers from the
+kernel to be able to parse the date in the ROM on the GPU.  If those
+applications sync up with the latest version of the header from the
+kernel, it will break their tools.  The next time someone from AMD
+syncs up the header with the version maintained by the vbios team, the
+change could accidently sneak back in and break the code.  It seems to
+me in this particular case that the header should reflect the physical
+layout of the ROM since that is what it describes.
 
-> > +  /* empty fake edid record must be 3 bytes long */
-> +    sizeof(ATOM_FAKE_EDID_PATCH_RECORD) + 1;
+Alex
 
-I am assuming that this is the part of the patch that makes you feel
-concerned about how devs will get it (should they copy this header),
-is that right? 
-
-If so, would a comment on the ATOM_FAKE_EDID_PATCH_RECORD struct
-specifying the size of the struct when empty do the trick? 
-
-- Paulo A.
-
+>
+> > > +  /* empty fake edid record must be 3 bytes long */
+> > +    sizeof(ATOM_FAKE_EDID_PATCH_RECORD) + 1;
+>
+> I am assuming that this is the part of the patch that makes you feel
+> concerned about how devs will get it (should they copy this header),
+> is that right?
+>
+> If so, would a comment on the ATOM_FAKE_EDID_PATCH_RECORD struct
+> specifying the size of the struct when empty do the trick?
+>
+> - Paulo A.
+>
