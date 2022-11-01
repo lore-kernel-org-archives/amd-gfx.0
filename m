@@ -4,49 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5590EFA3748
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 01:42:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8473EFA3741
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 01:45:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48F7B10E298;
-	Tue,  1 Nov 2022 01:42:28 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF0EC10E298
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Nov 2022 01:42:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667266943; x=1698802943;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=4OYGu0RKdW2L34vFwgyzV4Q3BN/6r7P6a5YCMK9FnSI=;
- b=TbxqET0+S+Pp+DCxMfnzCGfvxfAfXbCViGhpQ394H98lyXUcrXi6Fy+f
- o9XZVMdG5uHveEIz9F+Jp03aDl/IP0fsE6l/41lavlP3uAdixxXKjPPwk
- FNeDAOEHSi1W/zyuhs4bMAd/LdOrX9T1HpnAwHlOkUn28XWWjpMtPU/oc
- ePavYyz/1qIGXPyWQotnVHBpbm8pB6/jIjWjdUiJKLyaEn01rsp5ibIYO
- TlHZujfsmF3oe//GHHJrrX89ocyWrGXxbXWDnAuhlFHmuQz7paIkGV1ju
- gTGQsCa18o+DyO0zc03vfOaVz4qA6cmmoGn3Q58zTDNwxH+pL8eBw7YbH w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="296466600"
-X-IronPort-AV: E=Sophos;i="5.95,229,1661842800"; d="scan'208";a="296466600"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2022 18:42:22 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="628433612"
-X-IronPort-AV: E=Sophos;i="5.95,229,1661842800"; d="scan'208";a="628433612"
-Received: from lkp-server02.sh.intel.com (HELO b6d29c1a0365) ([10.239.97.151])
- by orsmga007.jf.intel.com with ESMTP; 31 Oct 2022 18:42:19 -0700
-Received: from kbuild by b6d29c1a0365 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1opgIF-000DBA-00;
- Tue, 01 Nov 2022 01:42:19 +0000
-Date: Tue, 01 Nov 2022 09:42:02 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 6fbda10ec6f8d70d0f4446f861f7db726c2f2e7c
-Message-ID: <6360796a.Im9eP1m6DSU/3Bdw%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EA8610E2BC;
+	Tue,  1 Nov 2022 01:45:51 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2045.outbound.protection.outlook.com [40.107.100.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C962F10E2BC
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Nov 2022 01:45:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ULBaajVmlbE9+piBNWAoEizr1HpAovDyp74ebcpo/1Kvn0i1ECHxIgzZjcjMRM0iqkYuW7WTvxH2mzyfHn9d4Q1ev+CN4y/F/MR8bgzoqyjdAitnhfTgRR9Ozslx3RjUVWW3HADYva0WQRlpjFVXBBxdhPISV47pxYA8aZp9YaX307pz/D5VF2Eq9WChErMKbn15bIyE5H/3aWk8kETn2OPcAZqvAhtN+f5UuP9aG4nu9QMeT9INmljEVhWXWNiIexsKlz2DvLgmBwEWN1+0Q/1vgCvWZ4+TRHLIAfeUPcKIMPflsdn1l4rG7OgUWHvcRBc6cs1eTH4t/j0nEXbkvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dL6hDMDnN7fh+oO/9/jK4EwbD7ylBS3l2yi8CVCN0bE=;
+ b=abfYoamTrCOxUd4KP87Ur2GYRabhn43G/1QUr3efi3meFlfqdRca7Tsv4iuhvoPYfysrwfwUwR9tDfeLAueMHf367hvHgnmF4kNajS1pcjhBbdrJJRj7LmiU/jJauD420qyGNnrvcQ4Cgab8cYcYJfGlMI/Ng9RMb9cmKmiC4C31IpqJdlBMsDuP4fb911qX7KhGXFGL+qMiK3mxiJgarrzRjkIMt33jhPDSJqJn8HKXEScZmayypUUoLT2gwJfdC+2BBbyGdz/V2GKtYX0K+0xWIcN/2YlZiS1oLcz2J1DlA0KpTIqhluGH8TU3fg9pP4LXnLc9MLetn3XeLUZ6zQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dL6hDMDnN7fh+oO/9/jK4EwbD7ylBS3l2yi8CVCN0bE=;
+ b=zoud7dxKgggXB6Kf0So3AtFzOY/OmYSGqGlLIahGZMI9m45YVqutry2qmA5qFpUs0C7+cACebX7y6eUz+yEvr96SDX3rYEanMBkeribPLii8VwcgKaaZZXNOQV4I+/mJOTccJ8qj3skb8s9ZTkR7kpCCnSj06dorGQW8rKWs/ZY=
+Received: from MW4PR04CA0188.namprd04.prod.outlook.com (2603:10b6:303:86::13)
+ by CH3PR12MB7619.namprd12.prod.outlook.com (2603:10b6:610:14b::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.15; Tue, 1 Nov
+ 2022 01:45:46 +0000
+Received: from CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:86:cafe::aa) by MW4PR04CA0188.outlook.office365.com
+ (2603:10b6:303:86::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19 via Frontend
+ Transport; Tue, 1 Nov 2022 01:45:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT016.mail.protection.outlook.com (10.13.175.141) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5769.14 via Frontend Transport; Tue, 1 Nov 2022 01:45:45 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 31 Oct
+ 2022 20:45:44 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 31 Oct
+ 2022 20:45:44 -0500
+Received: from z-bu18.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31 via Frontend
+ Transport; Mon, 31 Oct 2022 20:45:43 -0500
+From: Peng Ju Zhou <PengJu.Zhou@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Remove unnecessary register program in SRIOV
+Date: Tue, 1 Nov 2022 09:45:29 +0800
+Message-ID: <20221101014529.8842-1-PengJu.Zhou@amd.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT016:EE_|CH3PR12MB7619:EE_
+X-MS-Office365-Filtering-Correlation-Id: 042efd09-ea32-47d5-983d-08dabbaacb49
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7rohLy1ChbE4gw3/vhF1hNeo7FGdye6HNZL/TPcPN5lULGTrsvQT+88EZdrh+rsC/s36e0QSADfmmQWftK0OYX8/1QRxhqKfZbvMoC9jhDTcI/BoiVBj01mlgNi85ljynKMyhOWE+UxlVI7Nxt3Q5LYXyhLd4z7BOPugjKGF5r34UnL9uO1m+iprljn41rDidZ9AlPoVEWwWHsXa777CglO6SVEMBPDp6ouBEHlzQb+3dY7k00hwyEn0EHH2oaK9/phheK1AjmJpbMk+QMfIM6LVUgDVzWRsJlvp8tKjBs4L/cNRjVsliuF4SGIcfcIXfoDyxGZKB0sbL3ffbTxiLJymgKb2c18utubHgOnZsP+jHoi3DplKSGA07iFbYsdMveNdCuLf9KN3veiHdZHGFN/lmJnZ/Mqh/sXZWEL+6o7HheNjdlSymrvTs0dwQnPU/OL/Kl2kjngMob3cJBY50h99hePeGDwx8U0tl5T8+IRLF0EWwXh7ottUBQPIxa2FHX8NVO2hZOUPK5Xk5/fRNrVNST5xSa1CijtaKBjixQOy3ktBJL/3WV+UTU5WwSC3QLZPp3zne+apKr0uS30RK/0MJhrJ6I4kMuhuwE43Oo2YxFI0dIIYnXh3hwAWmIPsr892BL3V5B/i8w/zxEPC7Zb8tvmqBCzRMRIKfShYM+GY3ZfFEA1vmACGt9M8PM7273J9CfCjcCYtXFm3/tkZjU50Y9Iw390KaM69GJjquBLVHPsAkdT8DoH5Kys3U22lATfsj2ONzlZ8YuEtArp/EdMjnTI+YyI3Gjg6hypzJFiSUAv08Ubtar40LUze7vu/
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(376002)(39860400002)(396003)(346002)(451199015)(46966006)(36840700001)(40470700004)(478600001)(5660300002)(6666004)(4744005)(26005)(81166007)(356005)(426003)(2616005)(4326008)(1076003)(316002)(336012)(47076005)(7696005)(186003)(6916009)(82740400003)(36860700001)(41300700001)(36756003)(40480700001)(40460700003)(2906002)(70206006)(86362001)(8676002)(82310400005)(70586007)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2022 01:45:45.4060 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 042efd09-ea32-47d5-983d-08dabbaacb49
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7619
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,227 +102,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>, ntfs3@lists.linux.dev,
- sound-open-firmware@alsa-project.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 6fbda10ec6f8d70d0f4446f861f7db726c2f2e7c  Add linux-next specific files for 20221031
+Remove unnecessary register program in SRIOV
 
-Error/Warning reports:
+Signed-off-by: Peng Ju Zhou <PengJu.Zhou@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-https://lore.kernel.org/linux-mm/202210090954.pTR6m6rj-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210111318.mbUfyhps-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210261404.b6UlzG7H-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202210270637.Q5Y7FiKJ-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202210271517.snUEnhD0-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202210290926.rwDI063c-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202210300751.rG3UDsuc-lkp@intel.com
-
-Error/Warning: (recently discovered and may have been fixed)
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:4878: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5044:24: warning: implicit conversion from 'enum <anonymous>' to 'enum dc_status' [-Wenum-conversion]
-drivers/pinctrl/qcom/pinctrl-lpass-lpi.c:102:9: error: implicit declaration of function 'u32p_replace_bits' [-Werror=implicit-function-declaration]
-drivers/pinctrl/qcom/pinctrl-lpass-lpi.c:127:16: error: implicit declaration of function 'FIELD_GET' [-Werror=implicit-function-declaration]
-drivers/pinctrl/qcom/pinctrl-lpass-lpi.c:233:23: error: implicit declaration of function 'u32_encode_bits' [-Werror=implicit-function-declaration]
-include/asm-generic/div64.h:222:35: warning: comparison of distinct pointer types lacks a cast
-include/asm-generic/div64.h:234:32: warning: right shift count >= width of type [-Wshift-count-overflow]
-lib/test_maple_tree.c:453:12: warning: result of comparison of constant 4398046511104 with expression of type 'unsigned long' is always false [-Wtautological-constant-out-of-range-compare]
-mm/hugetlb_vmemmap.c:419:11: error: a function declaration without a prototype is deprecated in all versions of C [-Werror,-Wstrict-prototypes]
-mm/hugetlb_vmemmap.c:419:1: error: type specifier missing, defaults to 'int'; ISO C99 and later do not support implicit int [-Wimplicit-int]
-mm/hugetlb_vmemmap.c:419:59: error: expected ')' before 'bool'
-mm/hugetlb_vmemmap.c:419:60: error: unexpected type name 'bool': expected identifier
-mm/hugetlb_vmemmap.c:419:66: error: expected identifier
-sound/soc/sof/amd/../ops.h:309:56: error: too many arguments provided to function-like macro invocation
-sound/soc/sof/amd/../ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
-sound/soc/sof/amd/../ops.h:336:10: error: incompatible pointer to integer conversion returning 'u8 (*)(struct snd_sof_dev *, void *)' (aka 'unsigned char (*)(struct snd_sof_dev *, void *)') from a function with result type 'u8' (aka 'unsigned char') [-Wint-conversion]
-sound/soc/sof/amd/../ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
-sound/soc/sof/imx/../ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
-sound/soc/sof/imx/../ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
-sound/soc/sof/intel/../ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
-sound/soc/sof/intel/../ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
-sound/soc/sof/mediatek/../ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
-sound/soc/sof/mediatek/../ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
-sound/soc/sof/mediatek/mt8186/../../ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
-sound/soc/sof/mediatek/mt8186/../../ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
-sound/soc/sof/mediatek/mt8195/../../ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
-sound/soc/sof/mediatek/mt8195/../../ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
-sound/soc/sof/ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
-sound/soc/sof/ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/thermal/thermal_core.c:929 __thermal_cooling_device_register() warn: passing zero to 'ERR_PTR'
-lib/zstd/compress/huf_compress.c:460 HUF_getIndex() warn: the 'RANK_POSITION_LOG_BUCKETS_BEGIN' macro might need parens
-lib/zstd/decompress/zstd_decompress_block.c:1009 ZSTD_execSequence() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:894 ZSTD_execSequenceEnd() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:942 ZSTD_execSequenceEndSplitLitBuffer() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_internal.h:206 ZSTD_DCtx_get_bmi2() warn: inconsistent indenting
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- alpha-randconfig-m041-20221030
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-thermal-thermal_core.c-__thermal_cooling_device_register()-warn:passing-zero-to-ERR_PTR
-|   `-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
-|   |-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
-|   |-- sound-soc-sof-amd-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-amd-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-imx-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-imx-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-intel-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-intel-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-mediatek-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-mediatek-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-mediatek-mt8186-..-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-mediatek-mt8186-..-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-mediatek-mt8195-..-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-mediatek-mt8195-..-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-ops.h:error:macro-readb-passed-arguments-but-takes-just
-|   `-- sound-soc-sof-ops.h:error:macro-writeb-passed-arguments-but-takes-just
-|-- arc-randconfig-r043-20221030
-|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
-|   `-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-pinctrl-qcom-pinctrl-lpass-lpi.c:error:implicit-declaration-of-function-FIELD_GET
-|   |-- drivers-pinctrl-qcom-pinctrl-lpass-lpi.c:error:implicit-declaration-of-function-u32_encode_bits
-|   |-- drivers-pinctrl-qcom-pinctrl-lpass-lpi.c:error:implicit-declaration-of-function-u32p_replace_bits
-|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
-|   |-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
-|   |-- sound-soc-sof-amd-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-amd-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-imx-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-imx-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-intel-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-intel-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-mediatek-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-mediatek-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-mediatek-mt8186-..-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-mediatek-mt8186-..-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-mediatek-mt8195-..-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-mediatek-mt8195-..-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
-|   |-- sound-soc-sof-ops.h:error:macro-readb-passed-arguments-but-takes-just
-clang_recent_errors
-|-- hexagon-allmodconfig
-|   `-- lib-test_maple_tree.c:warning:result-of-comparison-of-constant-with-expression-of-type-unsigned-long-is-always-false
-|-- riscv-randconfig-r024-20221030
-|   |-- sound-soc-sof-amd-..-ops.h:error:incompatible-pointer-to-integer-conversion-returning-u8-(-)(struct-snd_sof_dev-void-)-(aka-unsigned-char-(-)(struct-snd_sof_dev-void-)-)-from-a-function-with-result-ty
-|   `-- sound-soc-sof-amd-..-ops.h:error:too-many-arguments-provided-to-function-like-macro-invocation
-`-- s390-randconfig-r044-20221030
-    |-- mm-hugetlb_vmemmap.c:error:a-function-declaration-without-a-prototype-is-deprecated-in-all-versions-of-C-Werror-Wstrict-prototypes
-    |-- mm-hugetlb_vmemmap.c:error:expected-identifier
-    |-- mm-hugetlb_vmemmap.c:error:type-specifier-missing-defaults-to-int-ISO-C99-and-later-do-not-support-implicit-int
-    `-- mm-hugetlb_vmemmap.c:error:unexpected-type-name-bool:expected-identifier
-
-elapsed time: 1039m
-
-configs tested: 85
-configs skipped: 3
-
-gcc tested configs:
-arm                                 defconfig
-um                           x86_64_defconfig
-arm                              allyesconfig
-um                             i386_defconfig
-x86_64                          rhel-8.3-func
-x86_64                    rhel-8.3-kselftests
-arm64                            allyesconfig
-i386                                defconfig
-x86_64                              defconfig
-x86_64               randconfig-a014-20221031
-x86_64               randconfig-a012-20221031
-x86_64               randconfig-a011-20221031
-x86_64               randconfig-a013-20221031
-i386                 randconfig-a011-20221031
-x86_64               randconfig-a016-20221031
-i386                 randconfig-a012-20221031
-x86_64               randconfig-a015-20221031
-x86_64                               rhel-8.3
-m68k                             allmodconfig
-powerpc                           allnoconfig
-arc                              allyesconfig
-x86_64                           allyesconfig
-i386                 randconfig-a013-20221031
-arm                     eseries_pxa_defconfig
-powerpc                          allmodconfig
-ia64                             allmodconfig
-i386                 randconfig-a015-20221031
-alpha                            allyesconfig
-m68k                             allyesconfig
-arc                      axs103_smp_defconfig
-sh                               allmodconfig
-i386                 randconfig-a014-20221031
-x86_64                           rhel-8.3-syz
-i386                             allyesconfig
-i386                 randconfig-a016-20221031
-arm                           stm32_defconfig
-mips                             allyesconfig
-powerpc                     ep8248e_defconfig
-m68k                       bvme6000_defconfig
-arc                  randconfig-r043-20221031
-riscv                randconfig-r042-20221031
-arc                  randconfig-r043-20221030
-arm                         cm_x300_defconfig
-s390                 randconfig-r044-20221031
-arm                        mvebu_v7_defconfig
-x86_64                           rhel-8.3-kvm
-m68k                            q40_defconfig
-powerpc                      chrp32_defconfig
-xtensa                           alldefconfig
-x86_64                         rhel-8.3-kunit
-loongarch                 loongson3_defconfig
-openrisc                 simple_smp_defconfig
-powerpc                    adder875_defconfig
-sh                                  defconfig
-sh                            hp6xx_defconfig
-i386                          randconfig-c001
-sh                           se7705_defconfig
-arc                                 defconfig
-alpha                               defconfig
-s390                                defconfig
-s390                             allmodconfig
-s390                             allyesconfig
-
-clang tested configs:
-i386                 randconfig-a003-20221031
-i386                 randconfig-a002-20221031
-i386                 randconfig-a004-20221031
-i386                 randconfig-a006-20221031
-i386                 randconfig-a005-20221031
-i386                 randconfig-a001-20221031
-hexagon              randconfig-r045-20221031
-hexagon              randconfig-r041-20221030
-arm                        mvebu_v5_defconfig
-riscv                randconfig-r042-20221030
-x86_64               randconfig-a004-20221031
-s390                 randconfig-r044-20221030
-x86_64               randconfig-a003-20221031
-hexagon              randconfig-r041-20221031
-x86_64               randconfig-a002-20221031
-hexagon              randconfig-r045-20221030
-x86_64               randconfig-a001-20221031
-x86_64               randconfig-a006-20221031
-x86_64               randconfig-a005-20221031
-arm                         lpc32xx_defconfig
-powerpc                       ebony_defconfig
-arm                        vexpress_defconfig
-x86_64                          rhel-8.3-rust
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+index ff738e9725ee..6aa02d835ecb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+@@ -395,6 +395,9 @@ static void gfxhub_v2_1_gart_disable(struct amdgpu_device *adev)
+ 			    ENABLE_ADVANCED_DRIVER_MODEL, 0);
+ 	WREG32_SOC15(GC, 0, mmGCMC_VM_MX_L1_TLB_CNTL, tmp);
+ 
++	if (amdgpu_sriov_vf(adev))
++		return;
++
+ 	/* Setup L2 cache */
+ 	WREG32_FIELD15(GC, 0, GCVM_L2_CNTL, ENABLE_L2_CACHE, 0);
+ 	WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL3, 0);
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.33.1
+
