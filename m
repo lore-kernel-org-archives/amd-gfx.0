@@ -4,65 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8188FA3741
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 22:12:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5053FA3740
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 01:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2613F10E1C3;
-	Mon, 31 Oct 2022 22:12:24 +0000 (UTC)
-Received: from mail-vs1-xe35.google.com (mail-vs1-xe35.google.com
- [IPv6:2607:f8b0:4864:20::e35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD83610E1C1;
- Mon, 31 Oct 2022 22:12:20 +0000 (UTC)
-Received: by mail-vs1-xe35.google.com with SMTP id t14so5157185vsr.9;
- Mon, 31 Oct 2022 15:12:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7A9DWGJjHNFasKu7G8yAZu4sLh9bHGFfFLXIlcIQijo=;
- b=EvDm9F2Jj9rM2D0C+ubMr1rYbB6l4W3fmEXNT05ONlCJSvE2u8prbCrrmTb7DAbxdF
- LMuO/3GikbzO4uxxSObGpPo17SaF2hr6Sfv05hZ3PAbbtxCLyYUhbTULH/ygKlXiEiob
- 6ESrXYRiVzEcPGXiINHhYDbqo/debd7qYBCMRrMAQzqxTUY6HBNvG+TFssFh07jlkFVq
- bc6WheWCbufV2MXTCF//tlMWFIpIRkiC0BxaFLkULDDk/PGfgqFcn3luuovEFmeU1UP2
- h7jI4Ptz+lq/9S9PYHWzDeJXvCSspA0Y5eswE7DcrSggRtKVuXwBmtAgCCaVbFhI16zh
- Za0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=7A9DWGJjHNFasKu7G8yAZu4sLh9bHGFfFLXIlcIQijo=;
- b=drR854UDYlTauKg3xnsJ7SQifnj/B2J9u/rMaz/QQ6b6SxYZ5Pi/IGQK45tmYZMITT
- IiOxlCf6WQNp6ltxhy61G+zTDcy38dvr8rjtQFhes07WFvyqCt9jllr/Dmo1UDoL5Hq5
- ifo4DTgzWGbs6uqEiqP2Jq9J43EINz1SjrnZnYxno0T5hP+vxUAF84Hf5bwhbSeKtdGC
- JpzgHgNSA0XXiSyHsJz7Fzf+/cbyC6zrrDYfonUABLlwyLsZ5sE2IHVw3dWbuIlPODuj
- IZb3V7NV5hGcQOUhp6GWbf+MIdnw4vNDMWdsh/L9iybzC2bx0ZI4YSef49LMXHyEFK9Y
- Ao6w==
-X-Gm-Message-State: ACrzQf3B7keRM/gKGKPr3q8Ctp8l8VIETJBotOeu2dNDXd3198ZigqzI
- 5E20osTV2c6cgdlw5+4zLUZA/LZSgWQ1ArGkrzQ=
-X-Google-Smtp-Source: AMsMyM6qFW3auipCo22Qx35noWxSNrRmq5+UxEFw0h7IC2/j4fPJ5p3ITVHoYrLaalFuVcKuBrWI+a3GDt2Xwjt6gWs=
-X-Received: by 2002:a67:7041:0:b0:3a9:6f82:60d3 with SMTP id
- l62-20020a677041000000b003a96f8260d3mr6305476vsc.23.1667254339741; Mon, 31
- Oct 2022 15:12:19 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220912052852.1123868-1-jim.cromie@gmail.com>
- <Yy7/6oTBW2lqVSK1@kroah.com> <Y1Fyuh12g/gt3Izn@intel.com>
- <87a65pfsbq.fsf@intel.com>
- <c1807585-f6c8-c05d-bc20-c6a540e59814@akamai.com>
- <CAJfuBxxWVBxL29sXS3XoE5Es9HTbVyFUi9bQFYNupJAERffAew@mail.gmail.com>
- <Y1qqurH/lG0u+3ky@intel.com>
- <CAJfuBxzpG+C1ARLs3c_znXECEU7Ldg8RhruLMUXA67w+DwcrOQ@mail.gmail.com>
- <Y1rllFeOnT9/PQVA@intel.com>
- <CAJfuBxw_YFvCtHMwVE0K0fa5GJbrZy4hTOSS9FebeDs6fxUUCA@mail.gmail.com>
- <Y1/In+ZBzNguVNoy@intel.com>
-In-Reply-To: <Y1/In+ZBzNguVNoy@intel.com>
-From: jim.cromie@gmail.com
-Date: Mon, 31 Oct 2022 16:11:53 -0600
-Message-ID: <CAJfuBxxHNXHEWCEPXnPTh64dq4igaddnrU27NT=OHASmnxgudA@mail.gmail.com>
-Subject: Re: [Intel-gfx] [PATCH v7 0/9] dyndbg: drm.debug adaptation
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2054C10E2B6;
+	Tue,  1 Nov 2022 01:04:18 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2056.outbound.protection.outlook.com [40.107.95.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B7E710E2B6
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Nov 2022 01:04:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J3ziYqQUy2azVNvVGypncTU6a0BHV2JzwsPoa0LNWZyewubxCBzrcwFhEdIX4hb0NKCWZ6d2sDStWTBNMz59/jMbwifHb07gZXUyVb7UN6B3KaxDc2NkPWfFNn85bJJKoZnrkhJkOLJFSUlifQy9EgMJAMz51ggL4deNQri9EMSs/WTSXihQ0e/MPZIYJ6NmWHMsKBZSMo3kBa+Wt5rOyPFps1LJTywlBodxX9Sj/0S6aLme4A9uD/ThZ11hJT3dZSGnDgXkOXX+XBd++ZmbxeXyJgLw/lOmpssSUQwl7k7QH2nI7ivrwexB1MaZyxvMtSzTJ8oobD0d9P7reW4SwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BBsUxj7nN04AeNB7rrKLcIlzhLmJ/tD5VFHhE8VGzNQ=;
+ b=R/iLCOd0pmLZa0Gu0jt2OD8X9Ko9yDd7r2ieOIzdS8SQt/XWeEITUF4doKgCXgtuePgSqQaUAS7E8JTJ7JFQ4QAvwBuA5ANCXlIOpIYOIDhNxmP9jWoos/6kkCIWLD6B5GSd0DXkow61Uxup/TMRqB3EEl3GqnvqAJrnGd7sI1g/5X0X02rdgn2UE7l72rJdvXDrIpLjhPKbhg8ziY7oH23e3YFZcOtqgDG4iP6OdhqQvywYYu00lauf37amR3F6NjdxWauxscGSGRSZRhRZv6Bb18nrbqNfi2IVmnjRm1t1bWeVMprB6BlOpIg/WFE2jFVh8lMaeIC+JPyglNuijw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BBsUxj7nN04AeNB7rrKLcIlzhLmJ/tD5VFHhE8VGzNQ=;
+ b=YAotCvXOnUIpKvhOJyoSSXAQCnmM9xI2HwWR+yW1EZZp6fMiCCMyaqzfIQwkw3esRS9v//FK4fMkyJPI561rRWIDZCu6ThtkVuAjCgV1DL3/n2SIx/lQTOSJHLZkdmwiVxmoPYcuYLhwjBMzah3hp1rl76VJFDc/Qq9zqyze8Cw=
+Received: from DS7PR12MB6333.namprd12.prod.outlook.com (2603:10b6:8:96::15) by
+ PH0PR12MB5436.namprd12.prod.outlook.com (2603:10b6:510:eb::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5769.19; Tue, 1 Nov 2022 01:04:11 +0000
+Received: from DS7PR12MB6333.namprd12.prod.outlook.com
+ ([fe80::9fe:10b1:7abb:dc01]) by DS7PR12MB6333.namprd12.prod.outlook.com
+ ([fe80::9fe:10b1:7abb:dc01%9]) with mapi id 15.20.5769.019; Tue, 1 Nov 2022
+ 01:04:11 +0000
+From: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>
+To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel@daenzer.net>
+Subject: RE: [PATCH 4/5] drm/amdgpu: MCBP based on DRM scheduler (v8)
+Thread-Topic: [PATCH 4/5] drm/amdgpu: MCBP based on DRM scheduler (v8)
+Thread-Index: AQHY4tFVpYvpMYHRLUurvXDdtV25kK4oe3YAgADSeqA=
+Date: Tue, 1 Nov 2022 01:04:10 +0000
+Message-ID: <DS7PR12MB6333A815A3C3EADFFA303E4FF4369@DS7PR12MB6333.namprd12.prod.outlook.com>
+References: <20221018090815.2662321-1-jiadong.zhu@amd.com>
+ <20221018090815.2662321-4-jiadong.zhu@amd.com>
+ <e5544150-5eae-7dae-b5db-dd9539df8198@daenzer.net>
+In-Reply-To: <e5544150-5eae-7dae-b5db-dd9539df8198@daenzer.net>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=249c1250-1037-4ce7-95a0-ef6a656e83ea;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-11-01T00:35:05Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6333:EE_|PH0PR12MB5436:EE_
+x-ms-office365-filtering-correlation-id: bd88d120-6efe-4c33-8955-08dabba4fc6b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Xn3OuAo77k06BKq2lv3RDURhPmSZgFC8T0k7si4RtkmC1lrjYbLTtO6e7zV4E7teEcs0BhZOd18VEJu2z9lS6R/rXGoNsy8ayvxWHxhA1+fe+WeZTAjM0QmjnFcQZE2qQqKMKsBT70DGAHkfq4f1+GP5wIUKbAak+JphSM62IJJI30W+wcAYk9wEnEh7aDcEDmhUPhw9XTs46eVyPttyXayQpEbh5PZiQeoSV9OKUfFkdvQTpNRaCxPYCzRXM2ssL4Ats6K4K5yZdPfXtbZe/iLS9Nd4j8O6WfrKLQBPelWQ2iKOe2d+JTSXplxq5E5seKIc/NhM4RsxN81W4L663JLoql6Kzi0S/nVgXMV3EjFYNUhWy/hgg8rCWDNKcUrJS9DXtdlpmJ1NlkVk4mHM1IFUS0d0tZ1xxjxRZnCk66GVoyk9VkJu0zL+7cOdF0d/wqbfRpAOx2j4o3DP/xbaHXH8sYYQCywudRmwaxTjKGavUZ+i54iKx9TcXWV+s7CB6b5JAW/a7zQQ5SXs1bRm9d17wF89PMT2fkJriEJdvImNIuDVnMGKBmvqVZT6ydZkCvWfa9LKjO0CR7qNFrP0YaT8hH19GI//OuFHOmZsfhhFEAYrR8jT0G2/g0zEfQsSpP1yegEajHdlzMhX6DeeafM5p+c6WAgT1FhtPhRTa38SnLnn7y5T2csY3nuKcf0GXUOnPKRR3aFuYQaWuEjUSZdHjKJHFIF1uN06ZCana9+IzAjrBqsYY4u24mcVnIjzUrSuqE540YH5WlMSfA8w8SMPYCxfZBGqOESaJ1cRM2g=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6333.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(366004)(376002)(346002)(39860400002)(136003)(451199015)(478600001)(5660300002)(186003)(966005)(71200400001)(7696005)(316002)(8676002)(83380400001)(33656002)(6506007)(66446008)(4326008)(76116006)(66556008)(66946007)(66476007)(64756008)(55016003)(54906003)(45080400002)(6916009)(53546011)(26005)(8936002)(86362001)(52536014)(38070700005)(2906002)(4001150100001)(9686003)(41300700001)(66574015)(38100700002)(122000001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?kpftrGYvJKlwKCwNSKN3Mlj9CseC+sf17hR+6MkqdRz23kWBDNPsB32KHX?=
+ =?iso-8859-1?Q?0uh2EZ8pgBMefgB04kt2r8/PfFQz2TWYzQt1pwYS1fBzro3wQ5TWbEwTzK?=
+ =?iso-8859-1?Q?1b1m8Bay0sspQufFYRp7epbExfEYapwm2ZTiKY5aDVLf62tjZ/sOzDGVSr?=
+ =?iso-8859-1?Q?IVpkV48Xk8ZkhGvtlvz8zRgxEI0V1poX8pyzspVfp4sTrLtnRtpZaR5OJa?=
+ =?iso-8859-1?Q?d454ugXPZvHRH37wVMKJVrd8YFju/nfl0nkzGPAbiX8Bf18sLRP0YP7cUj?=
+ =?iso-8859-1?Q?XYl5Pb2Jq7mI9mY+olnWDzetE4cI9xgFkYMqRVk3qj46eRGag2LRnnX0ut?=
+ =?iso-8859-1?Q?J23kzmBF+7OXDn84Dciha5uJhnmppyCAeNHsYLeZsh40hT5jhqizEl8GQv?=
+ =?iso-8859-1?Q?LgYSdZ4Dt86qw8A+TS9WJ17zCoIjGd27M4bezIvxq/k81Hu1NVWmY/SHth?=
+ =?iso-8859-1?Q?F7XwvqRYnYCdT3YQKEKZOuMzc8Aw+v5X2lGkGtu+XZi8E1gn5eEhMN0Kev?=
+ =?iso-8859-1?Q?c2DSOrrMsmOeH9Scpc6NxioxPNLegYtrGSFsWUt41h218M8EOn0FMEwu8n?=
+ =?iso-8859-1?Q?1OShYc+Fdjo46oqDhD7hD586RhR+xa7CfPbg+RYncE5FCeQl/bmii1N7L+?=
+ =?iso-8859-1?Q?udRnJo2r/wSLHsUG96+00JQLMR/hXFx3+Lgxh55aCZDbwTCNHMiGMqUbcy?=
+ =?iso-8859-1?Q?cdo9wpTGgUHntM7PH0Czr25VGEfGsGuVj3+y6DGqTcyZW7FlBB8XbyVQlB?=
+ =?iso-8859-1?Q?uNNYfZFjSO8rmzw8k0SpWrt7fsGE9VMyYIsr7EwNHPyDRDoz7+VJ3hwzvs?=
+ =?iso-8859-1?Q?eZRAx9NitQDOP1+MWBX45zbvUtamMsWU7/Kv4flvBrYw8rGc5YjEzHNF7u?=
+ =?iso-8859-1?Q?mT0RAm0QED6iuqtydEx61vZf1oBepw9i8PIAgfnp23j1sC8OJpR/Hb+r/E?=
+ =?iso-8859-1?Q?uHs+0WRknGF9OE0Tmz9/XWRzDoSt6kJ6m9hO5x+QP1fQ/StKCZiDK5v+OO?=
+ =?iso-8859-1?Q?2YZxNmIym32x+NYDijyhZ+HRXltvMjSyEu7oZscpbfM58AKkI/kdyj1iMr?=
+ =?iso-8859-1?Q?5dDuRjttMAxGqrbMA3V81kzGQrELtuGffCeIUnWNhRFwS44pbfJQnj+Ij3?=
+ =?iso-8859-1?Q?gmO0m44+HgmBXWkfKEoTmGCqajQWu+CW/qdM6sdEKcGbbT4oeRUBHv0S69?=
+ =?iso-8859-1?Q?O7a3ktc1KP/algMfqCyVoKLMM9biTZrpVadJX3gAu6HQ+L9BPEkOz8VGH4?=
+ =?iso-8859-1?Q?frlH2wfNXsw+7GAjSop17UcZpzFtpkIRTV4buPHddaMFWGPgN9yuQooFUK?=
+ =?iso-8859-1?Q?IDNE6suKAbpg+oYNuaU2uYtcWgqkZWRDKc4lsqg5HyO3Z3bWzOojjdrtea?=
+ =?iso-8859-1?Q?dRWWZs7YxjTyx16ZwkMj0vagl3R7yh/0NSLvgFg4H+4F1IWiHh2dPEQd8P?=
+ =?iso-8859-1?Q?h1XUxaHP4lFLtF8Lah0frJYqS4IF2JwKZEsb1cRufPtB8cvExGvQDKi9ec?=
+ =?iso-8859-1?Q?wkhtMcyohDDkkg7cbxqKT4RyWj7SGnQHsQo1TJFPi1is0JydUAVpEGRInG?=
+ =?iso-8859-1?Q?LfGysk3gaun8ezyfyHrq0OGUg0Q7v852eP2bt+N66PVlFt2GD2rQmpT/s4?=
+ =?iso-8859-1?Q?edsL8dgwhjPylLfiED7egP2FrKuuz8Kd4P?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6333.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd88d120-6efe-4c33-8955-08dabba4fc6b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Nov 2022 01:04:11.0126 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rZ5IsSIGA4/y4LOCRHgMEq0VQinm+UcwjWjpNHTtJilixp1AQosQY05sT4isvBJ5OMQuNp043u7ENwRifS1TLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5436
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,285 +124,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Greg KH <gregkh@linuxfoundation.org>,
- intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk,
- linux-kernel@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Jason Baron <jbaron@akamai.com>, seanpaul@chromium.org,
- amd-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch, joe@perches.com,
- intel-gvt-dev@lists.freedesktop.org
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, "Huang,
+ Ray" <Ray.Huang@amd.com>, "Koenig, 
+ Christian" <Christian.Koenig@amd.com>, "Tuikov, Luben" <Luben.Tuikov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 31, 2022 at 7:07 AM Ville Syrj=C3=A4l=C3=A4
-<ville.syrjala@linux.intel.com> wrote:
->
-> On Sun, Oct 30, 2022 at 08:42:52AM -0600, jim.cromie@gmail.com wrote:
-> > On Thu, Oct 27, 2022 at 2:10 PM Ville Syrj=C3=A4l=C3=A4
-> > <ville.syrjala@linux.intel.com> wrote:
-> > >
-> > > On Thu, Oct 27, 2022 at 01:55:39PM -0600, jim.cromie@gmail.com wrote:
-> > > > On Thu, Oct 27, 2022 at 9:59 AM Ville Syrj=C3=A4l=C3=A4
-> > > > <ville.syrjala@linux.intel.com> wrote:
-> > > > >
-> > > > > On Thu, Oct 27, 2022 at 09:37:52AM -0600, jim.cromie@gmail.com wr=
-ote:
-> > > > > > On Thu, Oct 27, 2022 at 9:08 AM Jason Baron <jbaron@akamai.com>=
- wrote:
-> > > > > > >
-> > > > > > >
-> > > > > > >
-> > > > > > > On 10/21/22 05:18, Jani Nikula wrote:
-> > > > > > > > On Thu, 20 Oct 2022, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala=
-@linux.intel.com> wrote:
-> > > > > > > >> On Sat, Sep 24, 2022 at 03:02:34PM +0200, Greg KH wrote:
-> > > > > > > >>> On Sun, Sep 11, 2022 at 11:28:43PM -0600, Jim Cromie wrot=
-e:
-> > > > > > > >>>> hi Greg, Dan, Jason, DRM-folk,
-> > > > > > > >>>>
-> > > > > > > >>>> heres follow-up to V6:
-> > > > > > > >>>>   rebased on driver-core/driver-core-next for -v6 applie=
-d bits (thanks)
-> > > > > > > >>>>   rework drm_debug_enabled{_raw,_instrumented,} per Dan.
-> > > > > > > >>>>
-> > > > > > > >>>> It excludes:
-> > > > > > > >>>>   nouveau parts (immature)
-> > > > > > > >>>>   tracefs parts (I missed --to=3DSteve on v6)
-> > > > > > > >>>>   split _ddebug_site and de-duplicate experiment (way un=
-ready)
-> > > > > > > >>>>
-> > > > > > > >>>> IOW, its the remaining commits of V6 on which Dan gave h=
-is Reviewed-by.
-> > > > > > > >>>>
-> > > > > > > >>>> If these are good to apply, I'll rebase and repost the r=
-est separately.
-> > > > > > > >>>
-> > > > > > > >>> All now queued up, thanks.
-> > > > > > > >>
-> > > > > > > >> This stuff broke i915 debugs. When I first load i915 no de=
-bug prints are
-> > > > > > > >> produced. If I then go fiddle around in /sys/module/drm/pa=
-rameters/debug
-> > > > > > > >> the debug prints start to suddenly work.
-> > > > > > > >
-> > > > > > > > Wait what? I always assumed the default behaviour would sta=
-y the same,
-> > > > > > > > which is usually how we roll. It's a regression in my books=
-. We've got a
-> > > > > > > > CI farm that's not very helpful in terms of dmesg logging r=
-ight now
-> > > > > > > > because of this.
-> > > > > > > >
-> > > > > > > > BR,
-> > > > > > > > Jani.
-> > > > > > > >
-> > > > > > > >
-> > > > > > >
-> > > > > > > That doesn't sound good - so you are saying that prior to thi=
-s change some
-> > > > > > > of the drm debugs were default enabled. But now you have to m=
-anually enable
-> > > > > > > them?
-> > > > > > >
-> > > > > > > Thanks,
-> > > > > > >
-> > > > > > > -Jason
-> > > > > >
-> > > > > >
-> > > > > > Im just seeing this now.
-> > > > > > Any new details ?
-> > > > >
-> > > > > No. We just disabled it as BROKEN for now. I was just today think=
-ing
-> > > > > about sending that patch out if no solutin is forthcoming soon si=
-nce
-> > > > > we need this working before 6.1 is released.
-> > > > >
-> > > > > Pretty sure you should see the problem immediately with any drive=
-r
-> > > > > (at least if it's built as a module, didn't try builtin). Or at l=
-east
-> > > > > can't think what would make i915 any more special.
-> > > > >
-> > > >
-> > > > So, I should note -
-> > > > 99% of my time & energy on this dyndbg + drm patchset
-> > > > has been done using virtme,
-> > > > so my world-view (and dev-hack-test env) has been smaller, simpler
-> > > > maybe its been fatally simplistic.
-> > > >
-> > > > ive just rebuilt v6.0  (before the trouble)
-> > > > and run it thru my virtual home box,
-> > > > I didnt see any unfamiliar drm-debug output
-> > > > that I might have inadvertently altered somehow
-> > > >
-> > > > I have some real HW I can put a reference kernel on,0
-> > > > to look for the missing output, but its all gonna take some time,
-> > > > esp to tighten up my dev-test-env
-> > > >
-> > > > in the meantime, there is:
-> > > >
-> > > > config DRM_USE_DYNAMIC_DEBUG
-> > > > bool "use dynamic debug to implement drm.debug"
-> > > > default y
-> > > > depends on DRM
-> > > > depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
-> > > > depends on JUMP_LABEL
-> > > > help
-> > > >   Use dynamic-debug to avoid drm_debug_enabled() runtime overheads.
-> > > >   Due to callsite counts in DRM drivers (~4k in amdgpu) and 56
-> > > >   bytes per callsite, the .data costs can be substantial, and
-> > > >   are therefore configurable.
-> > > >
-> > > > Does changing the default fix things for i915 dmesg ?
-> > >
-> > > I think we want to mark it BROKEN in addition to make sure no one
-> >
-> > Ok, I get the distinction now.
-> > youre spelling that
-> >   depends on BROKEN
-> >
-> > I have a notional explanation, and a conflating commit:
-> >
-> > can you eliminate
-> > git log -p ccc2b496324c13e917ef05f563626f4e7826bef1
-> >
-> > as the cause ?
->
-> Reverting that doesn't help.
->
+[AMD Official Use Only - General]
 
-thanks for eliminating it.
+It is a macro defined in amdgpu_ring.h, calling function pointer preempt_ib=
+ directly:
+#define amdgpu_ring_preempt_ib(r) (r)->funcs->preempt_ib(r)
 
-> >
-> > I do need to clarify, I dont know exactly what debug/logging output
-> > is missing such that CI is failing
->
-> CI isn't failing. But any logs it produces are 100% useless,
-> as are any user reported logs.
->
-> The debugs that are missing are anything not coming directly
-> from drm.ko.
->
-> The stuff that I see being printed by i915.ko are drm_info()
-> and the drm_printer stuff from i915_welcome_messages(). That
-> also implies that drm_debug_enabled(DRM_UT_DRIVER) does at
-> least still work correctly.
->
-> I suspect that the problem is just that the debug calls
-> aren't getting patched in when a module loads. And fiddling
-> with the modparam after the fact does trigger that somehow.
->
-
-ok, heres the 'tape' of a virtme boot,
-then modprobe going wrong.
-
-[    1.785873] dyndbg:   2 debug prints in module intel_rapl_msr
-[    2.040598] virtme-init: udev is done
-virtme-init: console is ttyS0
-
-> load drm driver
-bash-5.2# modprobe i915
-
-> drm module is loaded 1st
-
-[    6.549451] dyndbg: add-module: drm.302 sites
-[    6.549991] dyndbg: class[0]: module:drm base:0 len:10 ty:0
-[    6.550647] dyndbg:  0: 0 DRM_UT_CORE
-[    6.551097] dyndbg:  1: 1 DRM_UT_DRIVER
-[    6.551531] dyndbg:  2: 2 DRM_UT_KMS
-[    6.551931] dyndbg:  3: 3 DRM_UT_PRIME
-[    6.552402] dyndbg:  4: 4 DRM_UT_ATOMIC
-[    6.552799] dyndbg:  5: 5 DRM_UT_VBL
-[    6.553270] dyndbg:  6: 6 DRM_UT_STATE
-[    6.553634] dyndbg:  7: 7 DRM_UT_LEASE
-[    6.554043] dyndbg:  8: 8 DRM_UT_DP
-[    6.554392] dyndbg:  9: 9 DRM_UT_DRMRES
-[    6.554776] dyndbg: module:drm attached 1 classes
-[    6.555241] dyndbg: 302 debug prints in module drm
-
-> here modprobe reads /etc/modprobe.d/drm-test.conf:
-options drm dyndbg=3D"class DRM_UT_CORE +p; class DRM_UT_DRIVER +p"
-and dyndbg applies it
-
-[    6.564284] dyndbg: module: drm dyndbg=3D"class DRM_UT_CORE +p; class
-DRM_UT_DRIVER +p"
-[    6.564957] dyndbg: query 0: "class DRM_UT_CORE +p" mod:drm
-[    6.565348] dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
-[    6.565836] dyndbg: op=3D'+'
-[    6.566059] dyndbg: flags=3D0x1
-[    6.566321] dyndbg: *flagsp=3D0x1 *maskp=3D0xffffffff
-[    6.566875] dyndbg: parsed: func=3D"" file=3D"" module=3D"drm" format=3D=
-""
-lineno=3D0-0 class=3DDRM_UT_CORE
-[    6.568753] dyndbg: applied: func=3D"" file=3D"" module=3D"drm" format=
-=3D""
-lineno=3D0-0 class=3DDRM_UT_CORE
-[    6.569473] dyndbg: query 1: "class DRM_UT_DRIVER +p" mod:drm
-[    6.570139] dyndbg: split into words: "class" "DRM_UT_DRIVER" "+p"
-[    6.570522] dyndbg: op=3D'+'
-[    6.570699] dyndbg: flags=3D0x1
-[    6.570893] dyndbg: *flagsp=3D0x1 *maskp=3D0xffffffff
-[    6.571200] dyndbg: parsed: func=3D"" file=3D"" module=3D"drm" format=3D=
-""
-lineno=3D0-0 class=3DDRM_UT_DRIVER
-[    6.571778] dyndbg: no matches for query
-[    6.572031] dyndbg: no-match: func=3D"" file=3D"" module=3D"drm"
-format=3D"" lineno=3D0-0 class=3DDRM_UT_DRIVER
-[    6.572615] dyndbg: processed 2 queries, with 61 matches, 0 errs
-[    6.573286] ACPI: bus type drm_connector registered
-
-next required module is loaded, but drm.debug isnt propagated.
-
-[    6.578645] dyndbg: add-module: drm_kms_helper.94 sites
-[    6.579487] dyndbg: class[0]: module:drm_kms_helper base:0 len:10 ty:0
-[    6.580639] dyndbg:  0: 0 DRM_UT_CORE
-[    6.581135] dyndbg:  1: 1 DRM_UT_DRIVER
-[    6.581651] dyndbg:  2: 2 DRM_UT_KMS
-[    6.582178] dyndbg:  3: 3 DRM_UT_PRIME
-[    6.582927] dyndbg:  4: 4 DRM_UT_ATOMIC
-[    6.583627] dyndbg:  5: 5 DRM_UT_VBL
-[    6.584350] dyndbg:  6: 6 DRM_UT_STATE
-[    6.584999] dyndbg:  7: 7 DRM_UT_LEASE
-[    6.585699] dyndbg:  8: 8 DRM_UT_DP
-[    6.586354] dyndbg:  9: 9 DRM_UT_DRMRES
-[    6.587040] dyndbg: module:drm_kms_helper attached 1 classes
-[    6.588103] dyndbg:  94 debug prints in module drm_kms_helper
-
-and so on
-
-[    6.595628] dyndbg: add-module: drm_display_helper.150 sites
-[    6.596442] dyndbg: class[0]: module:drm_display_helper base:0 len:10 ty=
-:0
-[    6.597453] dyndbg:  0: 0 DRM_UT_CORE
+The real ring's hook is assigned  in gfx_v9_0.c:
+static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_gfx =3D {
 ...
-[    6.601678] dyndbg: module:drm_display_helper attached 1 classes
-[    6.602335] dyndbg: 150 debug prints in module drm_display_helper
+.preempt_ib =3D gfx_v9_0_ring_preempt_ib, //please have a check this line e=
+xisted.
+...
+}
 
-[    6.692760] dyndbg: add-module: i915.1657 sites
-[    6.693023] dyndbg: class[0]: module:i915 base:0 len:10 ty:0
-[    6.693323] dyndbg:  0: 0 DRM_UT_CORE
-....
-[    6.695220] dyndbg: module:i915 attached 1 classes
-[    6.695463] dyndbg: 1657 debug prints in module i915
-bash-5.2#
-bash-5.2#
+Here is the eglinfo on my board, I have once built mesa component (22.3.0-d=
+evel), which may update the libEGL_mesa.so
+EGL client extensions string:
+    EGL_EXT_device_base EGL_EXT_device_enumeration EGL_EXT_device_query
+    EGL_EXT_platform_base EGL_KHR_client_get_all_proc_addresses
+    EGL_EXT_client_extensions EGL_KHR_debug EGL_EXT_platform_device
+    EGL_EXT_platform_x11 EGL_KHR_platform_x11 EGL_EXT_platform_xcb
+    EGL_MESA_platform_gbm EGL_KHR_platform_gbm
+    EGL_MESA_platform_surfaceless
+
+GBM platform:
+EGL API version: 1.5
+EGL vendor string: Mesa Project
+EGL version string: 1.5
+EGL client APIs: OpenGL OpenGL_ES
+EGL extensions string:
+    EGL_ANDROID_blob_cache EGL_ANDROID_native_fence_sync
+    EGL_EXT_buffer_age EGL_EXT_create_context_robustness
+    EGL_EXT_image_dma_buf_import EGL_EXT_image_dma_buf_import_modifiers
+    EGL_EXT_protected_surface EGL_IMG_context_priority EGL_KHR_cl_event2
+    EGL_KHR_config_attribs EGL_KHR_context_flush_control
+    EGL_KHR_create_context EGL_KHR_create_context_no_error
+    EGL_KHR_fence_sync EGL_KHR_get_all_proc_addresses
+    EGL_KHR_gl_colorspace EGL_KHR_gl_renderbuffer_image
+    EGL_KHR_gl_texture_2D_image EGL_KHR_gl_texture_3D_image
+    EGL_KHR_gl_texture_cubemap_image EGL_KHR_image EGL_KHR_image_base
+    EGL_KHR_image_pixmap EGL_KHR_no_config_context EGL_KHR_reusable_sync
+    EGL_KHR_surfaceless_context EGL_EXT_pixel_format_float
+    EGL_KHR_wait_sync EGL_MESA_configless_context EGL_MESA_drm_image
+    EGL_MESA_image_dma_buf_export EGL_MESA_query_driver
+
+Thanks,
+Jiadong
+
+-----Original Message-----
+From: Michel D=E4nzer <michel@daenzer.net>
+Sent: Monday, October 31, 2022 8:02 PM
+To: Zhu, Jiadong <Jiadong.Zhu@amd.com>
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>; Huang, Ray <Ray.Huang@am=
+d.com>; Tuikov, Luben <Luben.Tuikov@amd.com>; Koenig, Christian <Christian.=
+Koenig@amd.com>; amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 4/5] drm/amdgpu: MCBP based on DRM scheduler (v8)
+
+On 2022-10-18 11:08, jiadong.zhu@amd.com wrote:
+> From: "Jiadong.Zhu" <Jiadong.Zhu@amd.com>
+>
+> Trigger Mid-Command Buffer Preemption according to the priority of the
+> software rings and the hw fence signalling condition.
+>
+> The muxer saves the locations of the indirect buffer frames from the
+> software ring together with the fence sequence number in its fifo
+> queue, and pops out those records when the fences are signalled. The
+> locations are used to resubmit packages in preemption scenarios by coping=
+ the chunks from the software ring.
+>
+> v2: Update comment style.
+> v3: Fix conflict caused by previous modifications.
+> v4: Remove unnecessary prints.
+> v5: Fix corner cases for resubmission cases.
+> v6: Refactor functions for resubmission, calling fence_process in irq han=
+dler.
+> v7: Solve conflict for removing amdgpu_sw_ring.c.
+> v8: Add time threshold to judge if preemption request is needed.
+>
+> Cc: Christian Koenig <Christian.Koenig@amd.com>
+> Cc: Luben Tuikov <Luben.Tuikov@amd.com>
+> Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+> Cc: Michel D=E4nzer <michel@daenzer.net>
+> Signed-off-by: Jiadong.Zhu <Jiadong.Zhu@amd.com>
+> Acked-by: Luben Tuikov <luben.tuikov@amd.com>
+> Acked-by: Huang Rui <ray.huang@amd.com>
+
+[...]
+
+> +/* Trigger Mid-Command Buffer Preemption (MCBP) and find if we need
+> +to resubmit. */ int amdgpu_mcbp_trigger_preempt(struct
+> +amdgpu_ring_mux *mux) {
+> +     int r;
+> +
+> +     spin_lock(&mux->lock);
+> +     mux->pending_trailing_fence_signaled =3D true;
+> +     r =3D amdgpu_ring_preempt_ib(mux->real_ring);
+> +     spin_unlock(&mux->lock);
+> +     return r;
+> +}
+
+AFAICT amdgpu_mcbp_trigger_preempt is used only in this file, so it should =
+be declared static.
+
+(I didn't audit the other new functions added by this series for this, just=
+ happened to notice this one)
 
 
-So, what I think I need to add:
+--
+Earthling Michel D=E4nzer            |                  https://nam11.safel=
+inks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fredhat.com%2F&amp;data=3D0=
+5%7C01%7Cjiadong.zhu%40amd.com%7Cfaca0a3e35964bcbb24708dabb37b284%7C3dd8961=
+fe4884e608e11a82d994e183d%7C0%7C0%7C638028145150743814%7CUnknown%7CTWFpbGZs=
+b3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C30=
+00%7C%7C%7C&amp;sdata=3DBcnmJQ5jUdI%2BGnKvUpn3agyxTD4iTSweGxEQKUlQpxI%3D&am=
+p;reserved=3D0
+Libre software enthusiast          |         Mesa and Xwayland developer
 
-ddebug_add_module()  scans the module being loaded,
-looking for a param thats wired to dyndbg's modparam callback.
-Then it calls that callback, with the val of the sysfs-node
-(drm.debug in this case), and the module (i915)
-
-the callback will then run the query to enable callsites per drm.debug.
-
-I'll guess the kparams I need to find are in a section somewhere
-Anyone want to toss a lawn-dart at the code I need to look at, copy ?
-
-> --
-> Ville Syrj=C3=A4l=C3=A4
-> Intel
-
-thanks again
-Jim
