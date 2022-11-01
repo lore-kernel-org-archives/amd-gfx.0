@@ -4,56 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3235C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 16:07:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC783C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 16:31:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0C8E10E0A2;
-	Tue,  1 Nov 2022 16:07:13 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDFBD10E3F6;
- Tue,  1 Nov 2022 16:07:08 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id p127so16337415oih.9;
- Tue, 01 Nov 2022 09:07:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=EIvCsNcYvM6/Hsp4ajqEM/CHCcHllUHTLyim4Fdl4PQ=;
- b=Ci/4R5cjQS65fqeKJcqsOF3dXNAO9yGdtsYGsGuG6ITYtLKDGXMZ+E54KSHs0x7TFv
- AAt7wWNEhTv6+eFgud0NrPs20ruzTbW0a65k7xxqrQ2iazFb3wG/04dj4shaKnfB+X3c
- 0W7nqGmDY+1Of3QtcY0DIcn72+gfYv5iuT0FN/65X4wLMhn1DM6ekTf53yVhcrqlbbiM
- lUoUVdaxThUqrBLHofdXdYett/2k9bUeau5FO/gxqqU2OSXusZrFV5cYl64o8YUSCFZE
- HWZZvC0OqfyAs2cOVBTyB19AMA0p3pFhXBNzxo+1DbQfF441S0eUWU+LocCKAIEEt8HN
- wMnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=EIvCsNcYvM6/Hsp4ajqEM/CHCcHllUHTLyim4Fdl4PQ=;
- b=B32rd29WhkLR9X8XQkIXu++CpklU3m/61Io3PZz5N4OJ/WJ6zqL0h0qvUPq66astf2
- sOy72zrCVwWnRnVIRDQzC71h9wXQrGE4PBW+QWEgdbEzsknPmtZ90j8J58AGScrTgXz/
- YeG4nUueRhnqJvMYLKCBUAuSL887qmWnI5DlggqAVI0zjR9IweIB8XFekfRl+A0wyGAg
- aJDp9xrEH7SgaPSyihMm5CVgX5QFuPw+cD47vSA0CjuE4AkV+F3i1GAQgscVW6rDIGcJ
- 7xse7iTkpBFs7izPENgsiDkqxzLEmkXGdCX9ntfDrKhwmy2xtRN57OK3WWxneaY8In5v
- lp0w==
-X-Gm-Message-State: ACrzQf3siFktrGdFgD16NnkLfYrjWWFSc+2zIqv6RIZpedIwBpD/lkk+
- +LEVqMmWRNPQqQnDdI1ca7cR9NHtivgz3Ixdp30=
-X-Google-Smtp-Source: AMsMyM7IKs5sFOzl9MgowQZ6B6fZPiPbgU9kAYR7sXxyETzysb5DoDPacdLtQlROr5xf93oUsQpLNIX+OX7pDz2Y1zU=
-X-Received: by 2002:a05:6808:14d2:b0:354:c733:abd3 with SMTP id
- f18-20020a05680814d200b00354c733abd3mr10488249oiw.96.1667318828044; Tue, 01
- Nov 2022 09:07:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25B4B10E3F9;
+	Tue,  1 Nov 2022 16:31:42 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4A9510E3F9
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Nov 2022 16:31:39 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D3F05616A1;
+ Tue,  1 Nov 2022 16:31:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FD84C433D6;
+ Tue,  1 Nov 2022 16:31:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1667320297;
+ bh=beFa7xg5aKgKvDxmomMDzpM1jKDB1WUzp4AeIHwRHDg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CSBeW+R6nBe/LlhwWE/3Q0Ij9d8HFwpxSqDuJqRFIfFkpmwCcbA4KHmW9OOiJmHYZ
+ lmdH8zE+ByZjcrvkT9vXZbTyPu39TFsnsCOm+t2dyq8n37TLE7yc7g2+mifetL8Zbv
+ E4gS1qDGvGaAPhzoYYsNaI4U7KPfRTugilCRGf0y8bm2A2gUWN5vTNguTXrFlPBKFY
+ Y9w47XB3kdfFcS1M1WjwncQY1Z53diLniwb/D8MfZExZ4LiGAA2fOLLkSHMXKvcydN
+ 4O0YHlNZSVtNNlQcsUEWSFq+4JucS+WBssNBflaYOevY7s19smEU4XaryP2BtTxy+S
+ RfQO+fYywLTbA==
+Date: Tue, 1 Nov 2022 09:31:35 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+Subject: Re: [PATCH v4 1/1] drm/amd/display: add DCN support for ARM64
+Message-ID: <Y2FJ5wXpEpKf9v/P@dev-arch.thelio-3990X>
+References: <20221031193738.23538-1-hacc1225@gmail.com>
+ <20221031193738.23538-2-hacc1225@gmail.com>
+ <6b5fb93f-fd23-c96d-0f1d-ba8bcd7a5079@amd.com>
 MIME-Version: 1.0
-References: <Y117XNaSP6/8bH+3@moc6.cz>
- <CADnq5_Muegi+dvmrg5U=Cau_oeXQFjv_h2Pdn_j9AG0mRgE4=g@mail.gmail.com>
- <Y2E+XUEPbQn2tMt+@moc6.cz>
-In-Reply-To: <Y2E+XUEPbQn2tMt+@moc6.cz>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 1 Nov 2022 12:06:55 -0400
-Message-ID: <CADnq5_PmwiOecVqfpy17V4viYA5wt8WbEDOFPo70VSdmGTjOew@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: add parameter backlight_min
-To: Filip Moc <dev@moc6.cz>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6b5fb93f-fd23-c96d-0f1d-ba8bcd7a5079@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,156 +53,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+Cc: Ao Zhong <hacc1225@gmail.com>, Stephen Rothwell <sfr@canb.auug.org.au>,
+ Arnd Bergmann <arnd@arndb.de>, Leo Li <sunpeng.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 1, 2022 at 11:42 AM Filip Moc <dev@moc6.cz> wrote:
->
-> Hello Alex,
->
-> thank you for your response.
->
-> Yes, I have HP ENVY x360 Convertible 13-ay1xxx, and backlight_min=2
-> seems to work the best in my case.
->
-> I added a dmi based quirk table. So far with support only for display 0
-> to make it simple. Support for more displays in quirk table can be added
-> later if ever needed.
->
-> According to [1] HP ENVY x360 Convertible 13-ag0xxx also needs a quirk
-> so I'm going to use this to cover both:
-> DMI_EXACT_MATCH(DMI_SYS_VENDOR, "HP")
-> DMI_MATCH(DMI_PRODUCT_NAME, "HP ENVY x360 Convertible 13-")
+On Tue, Nov 01, 2022 at 10:36:08AM -0400, Rodrigo Siqueira Jordao wrote:
+> 
+> 
+> On 2022-10-31 15:37, Ao Zhong wrote:
+> > After moving all FPU code to the DML folder, we can enable DCN support
+> > for the ARM64 platform. Remove the -mgeneral-regs-only CFLAG from the
+> > code in the DML folder that needs to use hardware FPU, and add a control
+> > mechanism for ARM Neon.
+> > 
+> > Signed-off-by: Ao Zhong <hacc1225@gmail.com>
+> > ---
+> >   drivers/gpu/drm/amd/display/Kconfig           |  3 ++-
+> >   .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    |  6 ++++++
+> >   drivers/gpu/drm/amd/display/dc/dml/Makefile   | 20 +++++++++++++++----
+> >   3 files changed, 24 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+> > index 0142affcdaa3..843a55a6a3ac 100644
+> > --- a/drivers/gpu/drm/amd/display/Kconfig
+> > +++ b/drivers/gpu/drm/amd/display/Kconfig
+> > @@ -6,7 +6,8 @@ config DRM_AMD_DC
+> >   	bool "AMD DC - Enable new display engine"
+> >   	default y
+> >   	select SND_HDA_COMPONENT if SND_HDA_CORE
+> > -	select DRM_AMD_DC_DCN if (X86 || PPC64)
+> > +	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
+> > +	select DRM_AMD_DC_DCN if (X86 || PPC64 || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
+> >   	help
+> >   	  Choose this option if you want to use the new display engine
+> >   	  support for AMDGPU. This adds required support for Vega and
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> > index ab0c6d191038..1743ca0a3641 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> > @@ -31,6 +31,8 @@
+> >   #elif defined(CONFIG_PPC64)
+> >   #include <asm/switch_to.h>
+> >   #include <asm/cputable.h>
+> > +#elif defined(CONFIG_ARM64)
+> > +#include <asm/neon.h>
+> >   #endif
+> >   /**
+> > @@ -99,6 +101,8 @@ void dc_fpu_begin(const char *function_name, const int line)
+> >   			preempt_disable();
+> >   			enable_kernel_fp();
+> >   		}
+> > +#elif defined(CONFIG_ARM64)
+> > +		kernel_neon_begin();
+> >   #endif
+> >   	}
+> > @@ -136,6 +140,8 @@ void dc_fpu_end(const char *function_name, const int line)
+> >   			disable_kernel_fp();
+> >   			preempt_enable();
+> >   		}
+> > +#elif defined(CONFIG_ARM64)
+> > +		kernel_neon_end();
+> >   #endif
+> >   	}
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> > index d0c6cf61c676..d4e93bed1c8e 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> > +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> > @@ -33,6 +33,10 @@ ifdef CONFIG_PPC64
+> >   dml_ccflags := -mhard-float -maltivec
+> >   endif
+> > +ifdef CONFIG_ARM64
+> > +dml_rcflags := -mgeneral-regs-only
+> > +endif
+> > +
+> >   ifdef CONFIG_CC_IS_GCC
+> >   ifeq ($(call cc-ifversion, -lt, 0701, y), y)
+> >   IS_OLD_GCC = 1
+> > @@ -55,8 +59,6 @@ frame_warn_flag := -Wframe-larger-than=2048
+> >   endif
+> >   CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_ccflags)
+> > -
+> > -ifdef CONFIG_DRM_AMD_DC_DCN
+> >   CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_ccflags)
+> >   CFLAGS_$(AMDDALPATH)/dc/dml/dcn10/dcn10_fpu.o := $(dml_ccflags)
+> >   CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/dcn20_fpu.o := $(dml_ccflags)
+> > @@ -88,7 +90,6 @@ CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calcs.o := $(dml_ccflags)
+> >   CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_auto.o := $(dml_ccflags)
+> >   CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_ccflags) -Wno-tautological-compare
+> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_rcflags)
+> > -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn2x/dcn2x.o := $(dml_rcflags)
+> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_rcflags)
+> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_rcflags)
+> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_rcflags)
+> > @@ -105,7 +106,18 @@ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_util_32.o := $(dml_rcf
+> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn301/dcn301_fpu.o := $(dml_rcflags)
+> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_rcflags)
+> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dsc/rc_calc_fpu.o  := $(dml_rcflags)
+> > -endif
+> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn10/dcn10_fpu.o := $(dml_rcflags)
+> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/dcn20_fpu.o := $(dml_rcflags)
+> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn314/display_mode_vba_314.o := $(dml_rcflags)
+> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn314/display_rq_dlg_calc_314.o := $(dml_rcflags)
+> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn314/dcn314_fpu.o := $(dml_rcflags)
+> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/dcn30_fpu.o := $(dml_rcflags)
+> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn32/dcn32_fpu.o := $(dml_rcflags)
+> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn321/dcn321_fpu.o := $(dml_rcflags)
+> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn31/dcn31_fpu.o := $(dml_rcflags)
+> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn302/dcn302_fpu.o := $(dml_rcflags)
+> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn303/dcn303_fpu.o := $(dml_rcflags)
+> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_rcflags)
+> >   CFLAGS_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_ccflags)
+> >   CFLAGS_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_ccflags)
+> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_rcflags)
+> 
+> lgtm,
+> 
+> Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> 
+> Nathan,
+> 
+> If it is ok for you, I can merge this change.
 
-You might want to add an additional check for the panel name/vendor
-from the EDID as well in case HP uses multiple panels from different
-vendors on that system.
+Yes, this version looks good to me, as the code can no longer be built
+for arm64 when using clang.
 
-Alex
-
->
-> So far it seems to be working fine.
-> I'll send this in v2 once I do some final tweaks and do more tests.
->
-> [1] https://bugzilla.kernel.org/show_bug.cgi?id=203439#c5
->
-> Filip
->
->
-> V Mon, Oct 31, 2022 at 11:36:09AM -0400, Alex Deucher napsal(a):
-> > On Sun, Oct 30, 2022 at 5:26 AM Filip Moc <dev@moc6.cz> wrote:
-> > >
-> > > There are some devices on which amdgpu won't allow user to set brightness
-> > > to sufficiently low values even though the hardware would support it just
-> > > fine.
-> > >
-> > > This usually happens in two cases when either configuration of brightness
-> > > levels via ACPI/ATIF is not available and amdgpu falls back to defaults
-> > > (currently 12 for minimum level) which may be too high for some devices or
-> > > even the configuration via ATIF is available but the minimum brightness
-> > > level provided by the manufacturer is set to unreasonably high value.
-> > >
-> > > In either case user can use this new module parameter to adjust the
-> > > minimum allowed backlight brightness level.
-> > >
-> > > Link: https://bugzilla.kernel.org/show_bug.cgi?id=203439
-> > > Signed-off-by: Filip Moc <dev@moc6.cz>
-> >
-> > Does your system require an override and if so, what is it?  It would
-> > be good to add a quirk for your system as well so that other users of
-> > the same system wouldn't need to manually figure out an apply the
-> > settings.
-> >
-> > Alex
-> >
-> >
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu.h               |  3 +++
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 15 +++++++++++++++
-> > >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 +++++++++++++++
-> > >  3 files changed, 33 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > > index 0e6ddf05c23c..c5445402c49d 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > > @@ -200,6 +200,9 @@ extern uint amdgpu_dc_debug_mask;
-> > >  extern uint amdgpu_dc_visual_confirm;
-> > >  extern uint amdgpu_dm_abm_level;
-> > >  extern int amdgpu_backlight;
-> > > +#ifdef CONFIG_DRM_AMD_DC
-> > > +extern int amdgpu_backlight_override_min[];
-> > > +#endif
-> > >  extern struct amdgpu_mgpu_info mgpu_info;
-> > >  extern int amdgpu_ras_enable;
-> > >  extern uint amdgpu_ras_mask;
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > index 16f6a313335e..f2fb549ac52f 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > @@ -43,6 +43,7 @@
-> > >  #include "amdgpu_irq.h"
-> > >  #include "amdgpu_dma_buf.h"
-> > >  #include "amdgpu_sched.h"
-> > > +#include "amdgpu_dm.h"
-> > >  #include "amdgpu_fdinfo.h"
-> > >  #include "amdgpu_amdkfd.h"
-> > >
-> > > @@ -853,6 +854,20 @@ int amdgpu_backlight = -1;
-> > >  MODULE_PARM_DESC(backlight, "Backlight control (0 = pwm, 1 = aux, -1 auto (default))");
-> > >  module_param_named(backlight, amdgpu_backlight, bint, 0444);
-> > >
-> > > +/**
-> > > + * DOC: backlight_min (array of int)
-> > > + * Override minimum allowed backlight brightness signal (per display).
-> > > + * Must be less than the maximum brightness signal.
-> > > + * Negative value means no override.
-> > > + *
-> > > + * Defaults to all -1 (no override on any display).
-> > > + */
-> > > +#ifdef CONFIG_DRM_AMD_DC
-> > > +int amdgpu_backlight_override_min[AMDGPU_DM_MAX_NUM_EDP] = {[0 ... (AMDGPU_DM_MAX_NUM_EDP-1)] = -1};
-> > > +MODULE_PARM_DESC(backlight_min, "Override minimum backlight brightness signal (0..max-1, -1 = no override (default))");
-> > > +module_param_array_named(backlight_min, amdgpu_backlight_override_min, int, NULL, 0444);
-> > > +#endif
-> > > +
-> > >  /**
-> > >   * DOC: tmz (int)
-> > >   * Trusted Memory Zone (TMZ) is a method to protect data being written
-> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > index eb4ce7216104..e2c36ba93d05 100644
-> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > @@ -3911,6 +3911,21 @@ static void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm,
-> > >         dm->backlight_caps[bl_idx].min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
-> > >         dm->backlight_caps[bl_idx].max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-> > >  #endif
-> > > +
-> > > +       if (amdgpu_backlight_override_min[bl_idx] >= 0) {
-> > > +               if (amdgpu_backlight_override_min[bl_idx] < dm->backlight_caps[bl_idx].max_input_signal) {
-> > > +                       DRM_INFO("amdgpu: backlight[%i]: overriding minimum brightness from %i to %i\n",
-> > > +                                 bl_idx,
-> > > +                                 dm->backlight_caps[bl_idx].min_input_signal,
-> > > +                                 amdgpu_backlight_override_min[bl_idx]);
-> > > +                       dm->backlight_caps[bl_idx].min_input_signal = amdgpu_backlight_override_min[bl_idx];
-> > > +               } else {
-> > > +                       DRM_ERROR("amdgpu: backlight[%i]: minimum brightness override (%i) is not below maximum (%i)\n",
-> > > +                                 bl_idx,
-> > > +                                 amdgpu_backlight_override_min[bl_idx],
-> > > +                                 dm->backlight_caps[bl_idx].max_input_signal);
-> > > +               }
-> > > +       }
-> > >  }
-> > >
-> > >  static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
-> > >
-> > > base-commit: d8c03bfe146fd5e081a252cd34f3f12ca0255357
-> > > --
-> > > 2.30.2
-> > >
+Cheers,
+Nathan
