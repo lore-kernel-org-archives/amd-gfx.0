@@ -4,112 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40723ECAAA1
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 13:29:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66695ECAAA1
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 13:30:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98D4310E0D1;
-	Tue,  1 Nov 2022 13:29:06 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2046.outbound.protection.outlook.com [40.107.93.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 228DE10E0D1
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Nov 2022 13:29:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ahOwkOZtQTx3joUGfl9UAwDmIGnfvO809XM+RIl/TmPZWZs8PWAUvsRFtzmvqcmOAEnqzfGvyK7tmW+QyFnnhIymI32l3+5qxoE73M3VWU0oE+qQRA6kWoT1YgJeibRG+fAI59mBHNrmU0S7YpC4SddLqOoVNm5MRiGWWQwqgT3bk2GR5sYOWAbFDjIkRWY4SkjYdbTGm/6q/QDnTmBv/8ysP+5oVwczEmhNuZJJ43cxiDIgO8W4opwOiqYr9jjVNZ03QcDZNSKH2RIbWCZc4ZRI6Wa/E/I9pPa5AlW8jFWIVdhcXnxJKlCjNpEgiXv4D7Wj5db5Mx1GEQuSXpnmlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T2olgsRWWgnOGaiuySO5MYdm3KZ4q0PrC/bjn+9Xioo=;
- b=lthvYl+BarAmxwbpCGtj8ptQVyZn/dCCYbzoSBSM42Fie27oYtQkMcmKxN10EboEKdCnRpib9lRJ/bslPPOlqTp/QiLTAtly/1Df/VZ54oHYgmartR1dqTpsniuRdmQ0fbXRJN4yLixmNnI6JZ9ANTz24RklKhUQb8DuOZI3NXIsLY0v4+cmen6BK7zn6Fb8BAhO49RjqVEAim3Fn1wxs2XGOysT5OgZgjtCGfoTrxUGt+jqncje3bZLWefSdt47Ertv+BfDrq0OL9GduH6+/OL+BEAq5e2zjLFaaD09rlLmKj/zaYakmVJzxQ9yke4QaWIJyyv6H/GI8YfbGLBIIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T2olgsRWWgnOGaiuySO5MYdm3KZ4q0PrC/bjn+9Xioo=;
- b=nhDlzap7vjiZvnGUki7UBMNffNwhvgnILPGZZINu2ko1OYQOSDmsvB5JyZ/E7jsrnCwuM8gZyb39dvHHBwq70Lb7icUT1L9PKJ9rlPvxT6DKH1wIybB9dkXLiwlaNJ7KUFjjogKeyAGkJM5H9TnSncVRSKJdkZNAaCGOh+xctYw=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by DM4PR12MB5341.namprd12.prod.outlook.com (2603:10b6:5:39e::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19; Tue, 1 Nov
- 2022 13:29:00 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::892:bccc:675a:6187]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::892:bccc:675a:6187%4]) with mapi id 15.20.5769.019; Tue, 1 Nov 2022
- 13:29:00 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Zhou, Peng Ju" <PengJu.Zhou@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Remove unnecessary register program in SRIOV
-Thread-Topic: [PATCH] drm/amdgpu: Remove unnecessary register program in SRIOV
-Thread-Index: AQHY7ZOufcaXrEwfBUeMnMKBaJ2RUq4qEJLz
-Date: Tue, 1 Nov 2022 13:29:00 +0000
-Message-ID: <BL1PR12MB5144D7DD702655EFAAE38079F7369@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20221101014529.8842-1-PengJu.Zhou@amd.com>
-In-Reply-To: <20221101014529.8842-1-PengJu.Zhou@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-11-01T13:28:59.696Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|DM4PR12MB5341:EE_
-x-ms-office365-filtering-correlation-id: 0eb41cf8-1604-4fe8-c156-08dabc0d097c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: bpQP7WfMV0ugsivPSghSMQzn5Z1C+KppMbLvCJDEl7vJNJiZjkPu4ANE/f/wjwrR4Cx2V1iy/nvATk/KEGB/buzhkIHTM7SGur30qCxEaKCH/+NAn1Fs1SYupDl9/9BbslTm4HBt/cZeetQkvfNO386FoHPLXrRETkC63GSO1JcYYbgxE2loTymtVyLZ/knmSYe6Z3YAibI75fPPVFhgnT+2ygD5kXw7BcqAy/2H26MVA/10MJO/ZcuB+WQ07QXKsBJnUqWVEIyA5JH/Um/fAyopkh3PLOYfOMnNCsWV/rU9YaBftrV7tauXe/4TXtVskRReY0ZHNAgzAQ3OAM8pucoPfkaFA1P0aaesiYq2DfDQP1xOZF/MNNmSvr7ldtiKTyk3h9gY9pRNEIV+tbRZbaUtDuNwLdOrFpV916vtHGEf2a/fNpd2x1KbBc0wfVWBI69y16YsU2rK88TbMHB4outNw95r5nFqi1sokdtlnEK8GZsql+aLtlyon1ir1KGqdUxQmX8EWJcL/LVmIShOexJQFHo4vbjzbHPTsn1wgS23H+q2PKWTSKXT87rIqC8ntRn063MpmhEkMJZ9R6X6uqNz3q23g6ukynQGGA7CKuhBlqnB2XUxhaVaCB6ClpOItB1XiXD3CMsLD2fs/cTmEbFPZcvPlOS3dOYpwL4qct5vSil7qlQi2N4qO4dotdyzmsFOqVY30TbSTg6vRy4b9VgAqQ0J6iQj2Qmd+sQxDePgQTuy5Brv5AQJC/utkq7RHgU25rtnLQFPSNGTdInI4g==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(346002)(366004)(39860400002)(376002)(396003)(451199015)(186003)(9686003)(53546011)(7696005)(66556008)(6506007)(26005)(478600001)(2906002)(55016003)(64756008)(316002)(66446008)(8936002)(66476007)(8676002)(71200400001)(52536014)(110136005)(5660300002)(66946007)(76116006)(41300700001)(33656002)(86362001)(38100700002)(122000001)(38070700005)(19627405001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PGyTcJvkZaVjDQo8O6RLgWZSem9MAelOlbkk7m1voBdBE47kWC5kpVbgK33t?=
- =?us-ascii?Q?ZFtPm1IMCwx4uOMZly9LTRkkDVFSqKDDcBoCT0MrlrYgzO9oZKWzRvEpZliV?=
- =?us-ascii?Q?qdCqOnQtQrAzqvYKkyj+bU6pchnwJf3svItnuoXb1OSwW2gvxgmIWWxn5viD?=
- =?us-ascii?Q?hoddf/TakZdjA+ZjFuYnjYsrvHFlFX2qB5RE5jIGsMHqCD4vkdrvDPRk0L8M?=
- =?us-ascii?Q?nOFsypTP1gzYyFFOM8GWZp5Fu8dFDS81IVl3F7nWzFbbpUic19THXMT4zVQg?=
- =?us-ascii?Q?wHRg1aXJehmXylnOtvX80PBLI/t0wCGcdCzbPrXBmstXjiOh6cAQnrlNqwF8?=
- =?us-ascii?Q?iREAtpT3jDOefUBV2973vWWsLQ91hSN3jqgp2Xi9wDccs4/vGj1hCqCHHyOo?=
- =?us-ascii?Q?SO/V1+0bAog5xRmIgHrwS3qq/d14jznB46MTqP3z5bn29vOUwY1e1SQakGPo?=
- =?us-ascii?Q?GBFE1Zi0gDkyes/3gHpk2y4nB5+e+K0RZ9GpGhk0DL6DbrRl8vXhk7a2jgKg?=
- =?us-ascii?Q?MdDlkmnHJU0H0VWohrvLXftGD93ng+I6qTCn7z0mvZG9I1njgtofeHC3sHN2?=
- =?us-ascii?Q?dodX/1Bve8Blgu3rv7JhsUo3CweVSM93lGXUaDaOEr8Zes3oj0MBZpPNKFzd?=
- =?us-ascii?Q?Ua/ALzS2OeltJG/cZr/6HGl7OA2xuOyhH9lZ7x1fIisCSGUvc4ZZiANSV+EW?=
- =?us-ascii?Q?FRa9zsxy9pSW5eLpy4ACzVp8RmvWWhwP+JqpjCIU2kINQMEqGIlV3wVDuhaR?=
- =?us-ascii?Q?jpUfU8WCjrbeW99P7UBuD5lFTM+M7JveZV+mtAw2IlkA4P5qDV65YxSvGGfu?=
- =?us-ascii?Q?n4OxohLcsjPysU3PfEhQ38UXb/FnEzEgqnDqaxiD6+3NbSpXoL+TEMjcpcZG?=
- =?us-ascii?Q?FBUSiemYO6aJ6jeWm7SRWLUfk2qHyCVAb89Lb6rJpBOXjtI7PeFrW6EvmBEf?=
- =?us-ascii?Q?zprvGimYx5BR0xCYxlvHANSSRrtJqEr9ePBhpGigYtimp9InaCdskd54FnS3?=
- =?us-ascii?Q?0dkaGxxE/0aOtxgXbG2LuW/AXSHFeauQ1HDccTpiYQNk0sXEn3XPF+swMhqs?=
- =?us-ascii?Q?4lBkB8LzoRrbICubIGj7i1OcxitRrJvxIy0pMix5eKjeGIWbtOLmMl+wVxl2?=
- =?us-ascii?Q?isRPkPmIgCXZOj6Q0Hzw2dYM+1NCRaMNlLvx/2jclUs/lYd3OZgV6OR7gLU7?=
- =?us-ascii?Q?ffgoGhQqCZIrsIBK0xUg8ReqcB3C7NTdc0l8ZsfRt91sbxX55iSl1nQrRZBs?=
- =?us-ascii?Q?5B4ytPO5jk0Mmflf2Ba0ZZMjb0I8Wx5RbzEY6IMmYBP54Oi7qdezt4uexOTx?=
- =?us-ascii?Q?tztQLNZZHsN3czuiLQZ+3N7hE44N4SDHCrRn6YkLMy1bXPd6P7tmA9mkrZag?=
- =?us-ascii?Q?X5I5v8Ul5SgcKyYmhIXQon6Z+FvUOwRSmooUjrnXlVv5SkuJGifxI8z3V51E?=
- =?us-ascii?Q?xxfZmZ2UAbpTdgndLZRxpgW1gljA/enrt7stei5F4t33WCJWPFarxUONI1R/?=
- =?us-ascii?Q?F20iqoeJE5JKR/ETefU3w75OtJgZa3kTUDpadtSYjRKfw5kOjnqNvhvi4cgY?=
- =?us-ascii?Q?SNvple/vLQVP83UnLW0=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144D7DD702655EFAAE38079F7369BL1PR12MB5144namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9298910E3B2;
+	Tue,  1 Nov 2022 13:30:09 +0000 (UTC)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB73D10E3B2
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Nov 2022 13:30:04 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ br15-20020a056830390f00b0061c9d73b8bdso8486398otb.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Nov 2022 06:30:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=DeossCrzOjjZPnG68JviF5JpsIBsDfvvHEqAf7YSRAk=;
+ b=nLSQr6KvdiGwPPGDifzGMovMgVRo7PeHnPUOps/vmychcmN41Nvf/ewXte5cVFaM5l
+ BPAwDeDQFknaDV2+Lh9x3ZwxrpHtEHERQhj4fVa+xU2jXIMWWkyZPVYIYVacbvI48BGl
+ zxP5/kKthmF4Goj6AlSGpjCCE8pcO2Psvy6LUkeo7DDtjU4UkN6Da3T/tLMBzqZpRR3Z
+ 1CHlb6Lf2mWddHp3YSblX7GtyqK1Jb7SWRjo5ZTJqIl1cKahKxd6Ere17AxrgyKVXt8b
+ mVhXf1QthhrN0Mi8i79Lg2RPS1EreUEOpQrjNMzYDCpPaNoK17bN0ULO3JoqjIWRU4kY
+ Cktg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=DeossCrzOjjZPnG68JviF5JpsIBsDfvvHEqAf7YSRAk=;
+ b=e7fbGTaQ78B30RxBzX8raUVUNmdakBptwJ8ZZnZmuKTRRdNGqvNXxglR90qX+gJq0S
+ m2919DFvLOwq37wbRyFnIfct5m4tPQ64RrhpX0pSroiyL7nvAmcQRUHpJv1GeRciofGW
+ wiGZzmKtOWutdA45b3fvbNtiSl7nwTxQ8e1BEPntdQIuoakwS5hEO0jlqhjo0rKS5TrH
+ lh9X9aSjrQD6ScugXIGZOU0zyUYHMuvjiHDgUF2/UkYAZpu5FzmWumwY7AJaw/owQ+cM
+ BP4/2KOxHS/1wXi6g9pHRuZ1W27Y0wTclgc05QNwufY/Qu51Mpc6RCUaJPEHb1Wu+UCv
+ MdBw==
+X-Gm-Message-State: ACrzQf29/EWo4PTUN9UbYcTKnDWvgSR6lF9jw7wcr1Nx6BYO98VfANKJ
+ cTt6D0e6ELQnKXc1NB82IfthfdMlv1ficbMlDQE=
+X-Google-Smtp-Source: AMsMyM7ypigvYRPfl3rJ+V+EBPlTr9WgO95S525uO2JT/cOGYs48KgvVIb6uEtrFmumz3su6syJ7JbTHLRSV7Bn98F4=
+X-Received: by 2002:a9d:17e2:0:b0:66a:df04:c198 with SMTP id
+ j89-20020a9d17e2000000b0066adf04c198mr9376262otj.123.1667309403837; Tue, 01
+ Nov 2022 06:30:03 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0eb41cf8-1604-4fe8-c156-08dabc0d097c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Nov 2022 13:29:00.5645 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6DDJ103wLoQQAi4Ld0WeN/RxQAFxJCGvldwUa8x5R9U7A1pwtYZIQhYxnvg5Tnd50ZC1pzahAXZ5raE8gUHdeQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5341
+References: <20221101084001.707650-1-yiqing.yao@amd.com>
+ <20221101084001.707650-2-yiqing.yao@amd.com>
+In-Reply-To: <20221101084001.707650-2-yiqing.yao@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 1 Nov 2022 09:29:52 -0400
+Message-ID: <CADnq5_MEtRsseGN-CV_jrSN0k+OtwZJfQ1Z6PxHo3n7Q+x_s2Q@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Disable MCBP from soc21 for SRIOV
+To: Yiqing Yao <yiqing.yao@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,124 +65,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alexander.deucher@amd.com, horace.chen@amd.com,
+ amd-gfx@lists.freedesktop.org, hawking.zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144D7DD702655EFAAE38079F7369BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[Public]
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Peng Ju =
-Zhou <PengJu.Zhou@amd.com>
-Sent: Monday, October 31, 2022 9:45 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Remove unnecessary register program in SRIOV
-
-Remove unnecessary register program in SRIOV
-
-Signed-off-by: Peng Ju Zhou <PengJu.Zhou@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd=
-/amdgpu/gfxhub_v2_1.c
-index ff738e9725ee..6aa02d835ecb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-@@ -395,6 +395,9 @@ static void gfxhub_v2_1_gart_disable(struct amdgpu_devi=
-ce *adev)
-                             ENABLE_ADVANCED_DRIVER_MODEL, 0);
-         WREG32_SOC15(GC, 0, mmGCMC_VM_MX_L1_TLB_CNTL, tmp);
-
-+       if (amdgpu_sriov_vf(adev))
-+               return;
-+
-         /* Setup L2 cache */
-         WREG32_FIELD15(GC, 0, GCVM_L2_CNTL, ENABLE_L2_CACHE, 0);
-         WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL3, 0);
---
-2.33.1
-
-
---_000_BL1PR12MB5144D7DD702655EFAAE38079F7369BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Tue, Nov 1, 2022 at 4:41 AM Yiqing Yao <yiqing.yao@amd.com> wrote:
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
-=3D"elementToProof">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Peng Ju Zhou &lt;PengJu.Zhou@=
-amd.com&gt;<br>
-<b>Sent:</b> Monday, October 31, 2022 9:45 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Remove unnecessary register program in =
-SRIOV</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Remove unnecessary register program in SRIOV<br>
-<br>
-Signed-off-by: Peng Ju Zhou &lt;PengJu.Zhou@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 3 +++<br>
-&nbsp;1 file changed, 3 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd=
-/amdgpu/gfxhub_v2_1.c<br>
-index ff738e9725ee..6aa02d835ecb 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c<br>
-@@ -395,6 +395,9 @@ static void gfxhub_v2_1_gart_disable(struct amdgpu_devi=
-ce *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; ENABLE_ADVANCED_DRIVER_MODEL, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmGCMC=
-_VM_MX_L1_TLB_CNTL, tmp);<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Setup L2 cache */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_FIELD15(GC, 0, GCVM=
-_L2_CNTL, ENABLE_L2_CACHE, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmGCVM=
-_L2_CNTL3, 0);<br>
--- <br>
-2.33.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> [why]
+> Start from soc21, CP does not support MCBP, so disable it.
+>
+> [how]
+> Used amgpu_mcbp flag alone instead of checking if is in SRIOV to
+> enable/disable MCBP.
+> Only set flag to enable on asic_type prior to soc21 in SRIOV.
+>
+> Signed-off-by: Yiqing Yao <yiqing.yao@amd.com>
 
---_000_BL1PR12MB5144D7DD702655EFAAE38079F7369BL1PR12MB5144namp_--
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 6 +++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 4 ++++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     | 4 ++--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     | 2 +-
+>  5 files changed, 11 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index ae10acede495..522820eeaa59 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2397,7 +2397,7 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+>                         adev->ip_blocks[i].status.hw = true;
+>
+>                         /* right after GMC hw init, we create CSA */
+> -                       if (amdgpu_mcbp || amdgpu_sriov_vf(adev)) {
+> +                       if (amdgpu_mcbp) {
+>                                 r = amdgpu_allocate_static_csa(adev, &adev->virt.csa_obj,
+>                                                                 AMDGPU_GEM_DOMAIN_VRAM,
+>                                                                 AMDGPU_CSA_SIZE);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 363946de78f1..c9595cf1dd0a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -796,7 +796,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>                 dev_info->ids_flags = 0;
+>                 if (adev->flags & AMD_IS_APU)
+>                         dev_info->ids_flags |= AMDGPU_IDS_FLAGS_FUSION;
+> -               if (amdgpu_mcbp || amdgpu_sriov_vf(adev))
+> +               if (amdgpu_mcbp)
+>                         dev_info->ids_flags |= AMDGPU_IDS_FLAGS_PREEMPTION;
+>                 if (amdgpu_is_tmz(adev))
+>                         dev_info->ids_flags |= AMDGPU_IDS_FLAGS_TMZ;
+> @@ -1172,7 +1172,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+>                 goto error_vm;
+>         }
+>
+> -       if (amdgpu_mcbp || amdgpu_sriov_vf(adev)) {
+> +       if (amdgpu_mcbp) {
+>                 uint64_t csa_addr = amdgpu_csa_vaddr(adev) & AMDGPU_GMC_HOLE_MASK;
+>
+>                 r = amdgpu_map_static_csa(adev, &fpriv->vm, adev->virt.csa_obj,
+> @@ -1236,7 +1236,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+>         if (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_VCE) != NULL)
+>                 amdgpu_vce_free_handles(adev, file_priv);
+>
+> -       if (amdgpu_mcbp || amdgpu_sriov_vf(adev)) {
+> +       if (amdgpu_mcbp) {
+>                 /* TODO: how to handle reserve failure */
+>                 BUG_ON(amdgpu_bo_reserve(adev->virt.csa_obj, true));
+>                 amdgpu_vm_bo_del(adev, fpriv->csa_va);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index c73abe54d974..dc032c44e924 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -64,6 +64,10 @@ void amdgpu_virt_init_setting(struct amdgpu_device *adev)
+>         ddev->driver_features &= ~DRIVER_ATOMIC;
+>         adev->cg_flags = 0;
+>         adev->pg_flags = 0;
+> +
+> +       /* enable mcbp for sriov asic_type before soc21 */
+> +       amdgpu_mcbp = (adev->asic_type < CHIP_IP_DISCOVERY) ? 1 : 0;
+> +
+>  }
+>
+>  void amdgpu_virt_kiq_reg_write_reg_wait(struct amdgpu_device *adev,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index af94ac580d3e..ff3c127cf70d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -8489,7 +8489,7 @@ static void gfx_v10_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
+>
+>         control |= ib->length_dw | (vmid << 24);
+>
+> -       if ((amdgpu_sriov_vf(ring->adev) || amdgpu_mcbp) && (ib->flags & AMDGPU_IB_FLAG_PREEMPT)) {
+> +       if (amdgpu_mcbp && (ib->flags & AMDGPU_IB_FLAG_PREEMPT)) {
+>                 control |= INDIRECT_BUFFER_PRE_ENB(1);
+>
+>                 if (flags & AMDGPU_IB_PREEMPTED)
+> @@ -8664,7 +8664,7 @@ static void gfx_v10_0_ring_emit_cntxcntl(struct amdgpu_ring *ring,
+>  {
+>         uint32_t dw2 = 0;
+>
+> -       if (amdgpu_mcbp || amdgpu_sriov_vf(ring->adev))
+> +       if (amdgpu_mcbp)
+>                 gfx_v10_0_ring_emit_ce_meta(ring,
+>                                     (!amdgpu_sriov_vf(ring->adev) && flags & AMDGPU_IB_PREEMPTED) ? true : false);
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index f68e13b6282c..84a76c36d9a7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -5326,7 +5326,7 @@ static void gfx_v11_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
+>
+>         control |= ib->length_dw | (vmid << 24);
+>
+> -       if ((amdgpu_sriov_vf(ring->adev) || amdgpu_mcbp) && (ib->flags & AMDGPU_IB_FLAG_PREEMPT)) {
+> +       if (amdgpu_mcbp && (ib->flags & AMDGPU_IB_FLAG_PREEMPT)) {
+>                 control |= INDIRECT_BUFFER_PRE_ENB(1);
+>
+>                 if (flags & AMDGPU_IB_PREEMPTED)
+> --
+> 2.34.1
+>
