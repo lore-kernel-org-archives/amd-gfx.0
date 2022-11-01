@@ -4,44 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC783C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 16:31:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5585EC433FE
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 17:52:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25B4B10E3F9;
-	Tue,  1 Nov 2022 16:31:42 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4A9510E3F9
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Nov 2022 16:31:39 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D3F05616A1;
- Tue,  1 Nov 2022 16:31:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FD84C433D6;
- Tue,  1 Nov 2022 16:31:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667320297;
- bh=beFa7xg5aKgKvDxmomMDzpM1jKDB1WUzp4AeIHwRHDg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CSBeW+R6nBe/LlhwWE/3Q0Ij9d8HFwpxSqDuJqRFIfFkpmwCcbA4KHmW9OOiJmHYZ
- lmdH8zE+ByZjcrvkT9vXZbTyPu39TFsnsCOm+t2dyq8n37TLE7yc7g2+mifetL8Zbv
- E4gS1qDGvGaAPhzoYYsNaI4U7KPfRTugilCRGf0y8bm2A2gUWN5vTNguTXrFlPBKFY
- Y9w47XB3kdfFcS1M1WjwncQY1Z53diLniwb/D8MfZExZ4LiGAA2fOLLkSHMXKvcydN
- 4O0YHlNZSVtNNlQcsUEWSFq+4JucS+WBssNBflaYOevY7s19smEU4XaryP2BtTxy+S
- RfQO+fYywLTbA==
-Date: Tue, 1 Nov 2022 09:31:35 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-Subject: Re: [PATCH v4 1/1] drm/amd/display: add DCN support for ARM64
-Message-ID: <Y2FJ5wXpEpKf9v/P@dev-arch.thelio-3990X>
-References: <20221031193738.23538-1-hacc1225@gmail.com>
- <20221031193738.23538-2-hacc1225@gmail.com>
- <6b5fb93f-fd23-c96d-0f1d-ba8bcd7a5079@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8459310E40C;
+	Tue,  1 Nov 2022 17:52:49 +0000 (UTC)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 192D510E40C;
+ Tue,  1 Nov 2022 17:52:46 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id k2so39015982ejr.2;
+ Tue, 01 Nov 2022 10:52:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=c2avhcvZqGJHzXUG3n7mmEHgSdhs0LnBOQLKLScDVAA=;
+ b=HCBhJGPBqq9tcd7hijDQhFC6XVk8pQAzGfYGUsbbcFWTHhR+2YZNDJgXE9mwtPf3PZ
+ 3VwpTls+ukFWn/YA9ilySSRavVV0u1ndYieZBTC1qjk9HPmEmJyMvroyPbK3SiXMbMBB
+ FTt7v92HoBH+PxAm2Ev6HcYIdv1qkx1jT67/vC/pNgBDy7OurpzpbRZ94qfrpePmoFvW
+ Oj0BO5CHRxt6QWbigl1RbVkAv5UyRlPWCZU4t0+Vd5RJJo2q9gckcKJgrcjeuXQl7wui
+ 4HelI4XaeiVpjopA/e3u9jETrZXoJ2wmqhnBhZZBuM3F8tKctDfBkglz1k6Zas4aR/VD
+ Hc6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=c2avhcvZqGJHzXUG3n7mmEHgSdhs0LnBOQLKLScDVAA=;
+ b=lAVhpU10le/AyVrtrLdbSlXNSOoWSeK0D2VcTnzkdv+3k/iVjcZ7F2okL/hBgpjEpD
+ auZpXNj+rHN0lYCfOYLgnLCBTIE/HukGec2DSdsW+ec5norEFyNXW2jqx9c3/jPdl+tH
+ t+ngehIg9i9OUVm40s6Dj/pZljcTF5rQwxcax1HJ4nK+Dhf5RWJCFLYfDprF1GppIREq
+ s8w6w0E/K6zNdKhrELuIBl+lvgSVKHkPwtX3rc0ihYU+TdbixkgNffoUNUOqAhg2+qz5
+ vk34e8QdY40/HpH3P+wKo2O3pGK7b3biQDPTiFscKCjMIDsn9V98vTpGuWaOa7y0VTjX
+ ruFg==
+X-Gm-Message-State: ACrzQf1nJIoT21PJBrN6bEMkn0sOehLOK7aF9Zg5g90wfcLyIxmg8QE1
+ 0g9zkPn3x5ePCKrNtzFFpCE=
+X-Google-Smtp-Source: AMsMyM6ErDiqmhlt0U94q7J7ycQEj+mZo55t6HWxn3UGmRk25t2+McXPbdxyjQ0fNlaHfERo1D/dhg==
+X-Received: by 2002:a17:907:da0:b0:7ad:9760:e1d2 with SMTP id
+ go32-20020a1709070da000b007ad9760e1d2mr18865951ejc.419.1667325164648; 
+ Tue, 01 Nov 2022 10:52:44 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:49b3:944:a1d4:4523?
+ ([2a02:908:1256:79a0:49b3:944:a1d4:4523])
+ by smtp.gmail.com with ESMTPSA id
+ w9-20020aa7da49000000b00461a98a2128sm4712666eds.26.2022.11.01.10.52.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 01 Nov 2022 10:52:44 -0700 (PDT)
+Message-ID: <ca6c98eb-fdb0-5fee-3925-5b697e3e6b50@gmail.com>
+Date: Tue, 1 Nov 2022 18:52:43 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6b5fb93f-fd23-c96d-0f1d-ba8bcd7a5079@amd.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: [6.1][regression] after commit
+ dd80d9c8eecac8c516da5b240d01a35660ba6cb6 some games (Cyberpunk 2077, Forza
+ Horizon 4/5) hang at start
+Content-Language: en-US
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+References: <CABXGCsOeQ7VYm98jRVaYp6KaNsFVsAnSb33ZT8JvZxcTcEGW0w@mail.gmail.com>
+ <a67598e8-c826-2740-03bb-33d37c8c8e4b@amd.com>
+ <CABXGCsNvFvJz4=N=JKYSGVcd=dKfQ3Nv_zOssMb0Z6oK79xZ7g@mail.gmail.com>
+ <a537212d-4b42-4ba4-7707-1e397234c8b7@amd.com>
+ <CABXGCsMCfACsJRDPqZDYQGMpaA_6LKhQ0XqAmDN04GSMeetXnA@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CABXGCsMCfACsJRDPqZDYQGMpaA_6LKhQ0XqAmDN04GSMeetXnA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,134 +81,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ao Zhong <hacc1225@gmail.com>, Stephen Rothwell <sfr@canb.auug.org.au>,
- Arnd Bergmann <arnd@arndb.de>, Leo Li <sunpeng.li@amd.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- linux-arm-kernel@lists.infradead.org
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 01, 2022 at 10:36:08AM -0400, Rodrigo Siqueira Jordao wrote:
-> 
-> 
-> On 2022-10-31 15:37, Ao Zhong wrote:
-> > After moving all FPU code to the DML folder, we can enable DCN support
-> > for the ARM64 platform. Remove the -mgeneral-regs-only CFLAG from the
-> > code in the DML folder that needs to use hardware FPU, and add a control
-> > mechanism for ARM Neon.
-> > 
-> > Signed-off-by: Ao Zhong <hacc1225@gmail.com>
-> > ---
-> >   drivers/gpu/drm/amd/display/Kconfig           |  3 ++-
-> >   .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    |  6 ++++++
-> >   drivers/gpu/drm/amd/display/dc/dml/Makefile   | 20 +++++++++++++++----
-> >   3 files changed, 24 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-> > index 0142affcdaa3..843a55a6a3ac 100644
-> > --- a/drivers/gpu/drm/amd/display/Kconfig
-> > +++ b/drivers/gpu/drm/amd/display/Kconfig
-> > @@ -6,7 +6,8 @@ config DRM_AMD_DC
-> >   	bool "AMD DC - Enable new display engine"
-> >   	default y
-> >   	select SND_HDA_COMPONENT if SND_HDA_CORE
-> > -	select DRM_AMD_DC_DCN if (X86 || PPC64)
-> > +	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
-> > +	select DRM_AMD_DC_DCN if (X86 || PPC64 || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
-> >   	help
-> >   	  Choose this option if you want to use the new display engine
-> >   	  support for AMDGPU. This adds required support for Vega and
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> > index ab0c6d191038..1743ca0a3641 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> > @@ -31,6 +31,8 @@
-> >   #elif defined(CONFIG_PPC64)
-> >   #include <asm/switch_to.h>
-> >   #include <asm/cputable.h>
-> > +#elif defined(CONFIG_ARM64)
-> > +#include <asm/neon.h>
-> >   #endif
-> >   /**
-> > @@ -99,6 +101,8 @@ void dc_fpu_begin(const char *function_name, const int line)
-> >   			preempt_disable();
-> >   			enable_kernel_fp();
-> >   		}
-> > +#elif defined(CONFIG_ARM64)
-> > +		kernel_neon_begin();
-> >   #endif
-> >   	}
-> > @@ -136,6 +140,8 @@ void dc_fpu_end(const char *function_name, const int line)
-> >   			disable_kernel_fp();
-> >   			preempt_enable();
-> >   		}
-> > +#elif defined(CONFIG_ARM64)
-> > +		kernel_neon_end();
-> >   #endif
-> >   	}
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> > index d0c6cf61c676..d4e93bed1c8e 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> > +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> > @@ -33,6 +33,10 @@ ifdef CONFIG_PPC64
-> >   dml_ccflags := -mhard-float -maltivec
-> >   endif
-> > +ifdef CONFIG_ARM64
-> > +dml_rcflags := -mgeneral-regs-only
-> > +endif
-> > +
-> >   ifdef CONFIG_CC_IS_GCC
-> >   ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-> >   IS_OLD_GCC = 1
-> > @@ -55,8 +59,6 @@ frame_warn_flag := -Wframe-larger-than=2048
-> >   endif
-> >   CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_ccflags)
-> > -
-> > -ifdef CONFIG_DRM_AMD_DC_DCN
-> >   CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_ccflags)
-> >   CFLAGS_$(AMDDALPATH)/dc/dml/dcn10/dcn10_fpu.o := $(dml_ccflags)
-> >   CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/dcn20_fpu.o := $(dml_ccflags)
-> > @@ -88,7 +90,6 @@ CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calcs.o := $(dml_ccflags)
-> >   CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_auto.o := $(dml_ccflags)
-> >   CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_ccflags) -Wno-tautological-compare
-> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_rcflags)
-> > -CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn2x/dcn2x.o := $(dml_rcflags)
-> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_rcflags)
-> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_rcflags)
-> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_rcflags)
-> > @@ -105,7 +106,18 @@ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn32/display_mode_vba_util_32.o := $(dml_rcf
-> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn301/dcn301_fpu.o := $(dml_rcflags)
-> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_rcflags)
-> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dsc/rc_calc_fpu.o  := $(dml_rcflags)
-> > -endif
-> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn10/dcn10_fpu.o := $(dml_rcflags)
-> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/dcn20_fpu.o := $(dml_rcflags)
-> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn314/display_mode_vba_314.o := $(dml_rcflags)
-> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn314/display_rq_dlg_calc_314.o := $(dml_rcflags)
-> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn314/dcn314_fpu.o := $(dml_rcflags)
-> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/dcn30_fpu.o := $(dml_rcflags)
-> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn32/dcn32_fpu.o := $(dml_rcflags)
-> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn321/dcn321_fpu.o := $(dml_rcflags)
-> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn31/dcn31_fpu.o := $(dml_rcflags)
-> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn302/dcn302_fpu.o := $(dml_rcflags)
-> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn303/dcn303_fpu.o := $(dml_rcflags)
-> > +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/calcs/dcn_calc_math.o := $(dml_rcflags)
-> >   CFLAGS_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_ccflags)
-> >   CFLAGS_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_ccflags)
-> >   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_rcflags)
-> 
-> lgtm,
-> 
-> Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> 
-> Nathan,
-> 
-> If it is ok for you, I can merge this change.
+Hi Mikhail,
 
-Yes, this version looks good to me, as the code can no longer be built
-for arm64 when using clang.
+Am 30.10.22 um 23:05 schrieb Mikhail Gavrilov:
+> On Wed, Oct 26, 2022 at 12:29 PM Christian König
+> <christian.koenig@amd.com> wrote:
+>> Attached is the original test patch rebased on current amd-staging-drm-next.
+>>
+>> Can you test if this is enough to make sure that the games start without
+>> crashing by fetching the userptrs?
+> 1. Over the past week the list of games affected by this issue updated
+> with new games: The Outlast Trials, Gotham Knights, Sackboy: A Big
+> Adventure.
+>
+> 2. I tested the patch and it really solves the problem with the launch
+> of all the listed games and does not create new problems.
+>
+> 3. The only thing I noticed is that in the game Sackboy: A Big
+> Adventure, when using the kernel built from the commit
+> b229b6ca5abbd63ff40c1396095b1b36b18139c3 + the attached patch, I can’t
+> connect to friend coop session due to the steam client hangs. The
+> kernel built from commit 736ec9fadd7a1fde8480df7e5cfac465c07ff6f3
+> (this is the commit prior to dd80d9c8eecac8c516da5b240d01a35660ba6cb6)
+> free of this problem.
+>
+> I need to spend some more time to find the commit after which leads to
+> hanging [3] the steam client.
 
-Cheers,
-Nathan
+Let's focus on one problem at a time.
+
+The issue here is that somehow userptr handling became racy after we 
+removed the lock, but I don't see why.
+
+We need to fix this ASAP since it is probably a much wider problem and 
+the additional lock just hides it somehow.
+
+Going to provide you with an updated patch tomorrow.
+
+Thanks,
+Christian.
+
+>
+> Thanks.
+>
+
