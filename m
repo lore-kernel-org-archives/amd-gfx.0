@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C44BEC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 18:49:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 331B3C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 19:16:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5755310E411;
-	Tue,  1 Nov 2022 18:49:39 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2064.outbound.protection.outlook.com [40.107.223.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F1B410E406
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Nov 2022 18:49:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 181F710E04D;
+	Tue,  1 Nov 2022 19:16:33 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2043.outbound.protection.outlook.com [40.107.92.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C325810E04D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Nov 2022 19:16:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=crlXeAc8CNovmxaBimodnCLnmyVQeB9uzFqtQMwutPbMLZTzlbfpAkDg0NH6jwmzKGX24N9h7kbEhzV7XX31P5G8+RyP23JkGiy6Q5SjWy7m+SDlffmHiEeZ96bJyCgTi8EDtpfKoVz36mWaR2DN7DvgtaSz7M/S0Ad8IaShqFbkzoMrL8/61OU7XhsPOWzmKsn4fBFF3fw1vSmiM67pX4K0vhp4xpL2sdLeWg+fosU71fcbQBfXcLu3bEI0SrTIDP09eJIhsabFeCSkxKykcW4h86BEIICEViDjOfs6mJC/Twz1TIMDWqG5jnYkkUOaekyyS+GLkg16uRDr6j2C+w==
+ b=FBAWaCBZh9u/bTAPwG2WHCpc0rZgk4361pMNjZ/iymwulF8cSANUsdZYwBT9k6+c6G3gCt1jG3TjCrkIobJYpi08EWskQphCEYDmsgefmCogTDEkhIJB4ABdYX0CI8zrSxVnrdLI/ztHoE41QjESIXJV6/pTqtAsFYSSyWR6wuVs//l6AxDLhLCY9W7nSe9vfAMUiSCuJ2Se/c1fQZSW/n7IISrSJ11bI7hvUO71xfCNgk+6BlaXmxDfuBjT8p58rS1BgCkBbNTHVv1rlLH1kRgHGUyaW/KDWXLPwxLJ66efa+Fl7OHBAoImV5K+myucx5NhepykEDq/4wCWxBNjnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1LNMLr2pBLQ+EyUgKV+C8i6/Y++NFxX9z52rj17Paww=;
- b=YfGmpxw/bIFeK6vC/m3hfMN9Ta+WF0c+IS00UnFF2YAUoi8t+Axcf7hDjkCxGfDLzTwgNereTbpLSQt2e1CCNBNyRCVjR16AOesV1Kj1T4qgFUsG7sHfhRdbJ4folYKe820UTVaBIEsIDwTqk+Ta/vP8nuIS/pciWQ8197zl1SzLL8wIQKV7Ee8FTcegaRTEWhx1UkadY9i9xd3NGErWb/ZQ5+Q++xjIV2dbDZuXDjbINH0c6nbRPJz0jp1ZPhiHCMZwciDpTeajhFQbDOzyeqLZS6DGZj/gO0GVrEsykEFOOkp1ZUULhgtwdK1C+Vubr9aJD8Boj6psJ3pSQw/3bQ==
+ bh=zcjefSyM90rIz22oIZh+rQKY3iOC/xf2Mk+IzMIcPfc=;
+ b=HG6NT0VxA9lPh6b3Z8yy83A1u23JR6PPYxJwvYHt1cDv9u08upCpuZ1EyTjhg32Ub/tksHWf/W8VpIhH1IgpKt2PMRGyiJ6Odq1Sx0VXa1eL3/D1Z1SCCBHsJAal9T5WQ7E1PUrPAPCkFFExl6/OyMLq2A6R7q3Yic3MltoamU8tBveXcF2EsdLBku4hiLv2tdxmPAxCJqoQaAFHSMo3E5shIAua8Lvg23IgepVoBL93rmROBEftCqROewobNg6EF628za53mfUqYBDimicRWzb13QCiIHuuKiHrtDWhlq1YCIDR3axEScFJwOC1ktjiEdSVl7hRmmU75cw5D8rexg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1LNMLr2pBLQ+EyUgKV+C8i6/Y++NFxX9z52rj17Paww=;
- b=Q/fz6BeFe9SdH0H7s4G2OH1IraFtdIPcwMqheN2k6etDYlmSrZbqxpKEpBvdD3kxcRuAe/ghOAPV+YGo8cNRPXAettC7vMEEvNukO4PEcUxJ7Xbsm+xYHk/qGJ01Ylq7eQCb7sb3TwybFi/qh0dTwu6zJQyYnSTzv7kqd1Bw2eU=
-Received: from DS7PR03CA0127.namprd03.prod.outlook.com (2603:10b6:5:3b4::12)
- by DS0PR12MB7583.namprd12.prod.outlook.com (2603:10b6:8:13f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.21; Tue, 1 Nov
- 2022 18:49:32 +0000
-Received: from DM6NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b4:cafe::64) by DS7PR03CA0127.outlook.office365.com
- (2603:10b6:5:3b4::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.21 via Frontend
- Transport; Tue, 1 Nov 2022 18:49:32 +0000
+ bh=zcjefSyM90rIz22oIZh+rQKY3iOC/xf2Mk+IzMIcPfc=;
+ b=hB1HFaiglg/55MzTuXMlHm8FvrFGqIOuwdSvNkksKUx5Z8CxSmYeZk8oWphlaw9gYdZcrAXrh0Pl/QQ4rWc0xsjvnVynIlZYocch432cwnQtQORS5BP/Tehiuw6yMqFXfP2AaEb7hWM6/Yh9XAS08zBWtByJm89fyWlHKkxd1N4=
+Received: from MW4PR03CA0149.namprd03.prod.outlook.com (2603:10b6:303:8c::34)
+ by MW5PR12MB5599.namprd12.prod.outlook.com (2603:10b6:303:194::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19; Tue, 1 Nov
+ 2022 19:16:26 +0000
+Received: from CO1NAM11FT031.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8c:cafe::31) by MW4PR03CA0149.outlook.office365.com
+ (2603:10b6:303:8c::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28 via Frontend
+ Transport; Tue, 1 Nov 2022 19:16:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,48 +45,47 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT023.mail.protection.outlook.com (10.13.173.96) with Microsoft SMTP
+ CO1NAM11FT031.mail.protection.outlook.com (10.13.174.118) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5769.14 via Frontend Transport; Tue, 1 Nov 2022 18:49:32 +0000
-Received: from vm-ubuntu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.5769.14 via Frontend Transport; Tue, 1 Nov 2022 19:16:26 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 1 Nov
- 2022 13:49:31 -0500
-From: Gavin Wan <Gavin.Wan@amd.com>
+ 2022 14:16:25 -0500
+From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Check hive->reset_domain not NULL before
- releasing it.
-Date: Tue, 1 Nov 2022 14:49:13 -0400
-Message-ID: <20221101184913.62291-1-Gavin.Wan@amd.com>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH] drm/amdkfd: Fix error handling in criu_checkpoint
+Date: Tue, 1 Nov 2022 15:15:59 -0400
+Message-ID: <20221101191559.302884-1-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT023:EE_|DS0PR12MB7583:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba8515cb-de96-469c-6ab6-08dabc39d07c
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT031:EE_|MW5PR12MB5599:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea8774d4-4009-430c-5a47-08dabc3d92c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sRSUZP3xTtaOVzOikdwVvNa/RmLtXFbgUY1+Po4+6VmTqmGhMKr7vypKPJhNnBIFCwnxIfOWq7dlHgQgEnE/MmcgpexDZ12NbPCEoEcLaqoj4dVyUB4O00Z0e7U+u+6XTetjqy9FfjMsAiyV94tFVfNwch/eiM52+eGvB6FYrdDjwxKOdloXYwixchMjZo6AKtLQY9zHyEqf576io1hLSfmHt2qH507naonh/Dlr56ouHUlB9jdu7nmwbeKjtG5nzdlD6r5x1FV/Lhra57iZGikupHEXTyXGrEnyj4TdPiVtaxpqsBwRjUCCp5gwY6uixh5Yv3+N9R6N5eZCwbqqWl/1H4CcQbBmNMOmyubtriqkN0skrc+Q8DyaoNtM+oEdveKZMCgMOxLIuqzc2duC0W9lwYtIDklE0/xs/1TR2JYuOjenXdARBj6f+XAQeweaJXVW+K7tdR8X7aPeq8xv/g54Nr8p7djJQcDeDbwYrAtA9/tCYiIX9paCofrJ6h+OYxCnCmRxOGd6Fc2kK8txZm5lgkiwIPQjRDJfRoyFBaT+fMXeazDdvnYZgBGEUNw3VLCdxcUNpxafKv5lCgVXtGAtRQNNQlLg81OANa7+zC3U02CGTcFnDRPbjBHhcLd0jIjvp4rRGCDU42lxj1UgVOoGFVd7JusSGIkx0Et5hMMgjQmeVZi3BVXwQLJv5PGxgd2Ezv9fv1Jv9Y8CARFuV84YCO0B3EdidsTvw7u4gJ4Dp7/G38GUhZuVdSg43A5PpekKC+QvHxWeTsc4vyt0qKfXXpe9kd0Lp3CWvgpA6R2ttunpTvisc+27wyYPjcT2
+X-Microsoft-Antispam-Message-Info: C4/mVc9nihWA+7J9ifpR81h3etGzc3Oa/IJOBKAiLHZSxnTeygYEZEsTrrQVR/cgd/SlayecYJwAxUfnEW4r6+J6Qb+TWXWRUL0ssVPi+6rtbzSoYgIeHQyXthCCtC2niNef0NiNd+9SFPoBLdg7dPUVgk9LEjWiFr9b+vjgqxp8z/V47sPEUASz9GNn+DEhY+Y7xfGK9OxMPFrc5rxlM6LTi+FqEIMTf1+Y/WM43h8uliSGSWNfLACfbcGchZwcitscacYsuWS1rA64JARNaLOsXdOD+td6c+7VQyseiGnAEME8Gqg4ivvyPvei2cDzedBUuJXgv+XIBN/M5AdDUUHwDBw5G+pV+1mY8Tb7HKBPpIrdQ80zi4QEr+qQXDB8DI93kUjRJNSmn+c+qJM52lAFBJhXrOA64pm+p/tRCWlayfX8x5uzXHe8f86LcYLcNWJONenlbOsv1dlKMlq3dlTV0f38sERP/DmuZJPcQbD1i5WcnQywzRYY15ak637AHDJb9qmdc1t7oBESPmPO0+3gwg2+iTcx8nQlkTm+pXGkaw3T7U6ruKy7Er5XQvXfk7/bkFUXSQV4vCn3zqQb3QWe+y1/oyF0hqK8ocY5NnkaHJCByJceUmV1EogVBz641FhpS7JKjGzzoB+yPwzhE8jvIsL01sp6TOPMx0KN7IcaBu1lBlcWROzyul6fA5KysPFeE+IZCYeCTEP0hkSlEKoUg2TtPkYc7o8QnrYNQAwXhwFc3p9LgujxgdjIVPfpIwqdqJx5kJ0zRPMdVM4wDjiyMhBPIUqgUpD4H7fO/ZCnRB3ibICADtJJEY6X81Ia
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(136003)(396003)(346002)(39860400002)(451199015)(36840700001)(40470700004)(46966006)(6916009)(316002)(478600001)(70586007)(41300700001)(1076003)(16526019)(186003)(8676002)(70206006)(7696005)(4326008)(36756003)(8936002)(5660300002)(26005)(2616005)(426003)(82310400005)(336012)(2906002)(47076005)(83380400001)(36860700001)(6666004)(356005)(40460700003)(81166007)(82740400003)(40480700001)(86362001)(36900700001);
+ SFS:(13230022)(4636009)(136003)(376002)(39860400002)(346002)(396003)(451199015)(36840700001)(46966006)(40470700004)(36860700001)(36756003)(478600001)(426003)(2616005)(47076005)(6666004)(40460700003)(41300700001)(7696005)(4326008)(70586007)(70206006)(6916009)(8676002)(316002)(356005)(336012)(82740400003)(81166007)(5660300002)(40480700001)(83380400001)(54906003)(1076003)(8936002)(186003)(82310400005)(16526019)(26005)(86362001)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2022 18:49:32.2225 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba8515cb-de96-469c-6ab6-08dabc39d07c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2022 19:16:26.6193 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea8774d4-4009-430c-5a47-08dabc3d92c7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT023.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT031.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7583
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5599
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,47 +97,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Gavin Wan <Gavin.Wan@amd.com>
+Cc: Rajneesh
+ Bhardwaj <Rajneesh.Bhardwaj@amd.com>, linux-kernel@vger.kernel.org,
+ Jann Horn <jannh@google.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The recent change brought a bug on SRIOV envrionment. It caused
-kernel crashing while unloading amdgpu on guest VM with hive
-configuration. The reason is that the hive->reset_domain is not
-used (hive->reset_domain is not initialized) for SRIOV, but the
-code did not check if hive->reset_domain before releasing.
+Checkpoint BOs last. That way we don't need to close dmabuf FDs if
+something else fails later. This avoids problematic access to user mode
+memory in the error handling code path.
 
-The hive->reset_domain need be checked not NULL before releasing.
+criu_checkpoint_bos has its own error handling and cleanup that does not
+depend on access to user memory.
 
-Fixed: d95e8e97e2d5 ("drm/amdgpu: refine create and release logic of hive info")
-Signed-off-by: Gavin Wan <Gavin.Wan@amd.com>
-Change-Id: I17189e4d7357e399c6b70e43c24051356c025a3a
+Fixes: be072b06c739 ("drm/amdkfd: CRIU export BOs as prime dmabuf objects")
+Reported-by: Jann Horn <jannh@google.com>
+CC: Rajneesh Bhardwaj <Rajneesh.Bhardwaj@amd.com>
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 27 +++++++-----------------
+ 1 file changed, 8 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 47159e9a0884..371c4f1aac2b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -217,8 +217,15 @@ static void amdgpu_xgmi_hive_release(struct kobject *kobj)
- 	struct amdgpu_hive_info *hive = container_of(
- 		kobj, struct amdgpu_hive_info, kobj);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 5feaba6a77de..aabab9010812 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1994,38 +1994,27 @@ static int criu_checkpoint(struct file *filep,
+ 	if (ret)
+ 		goto exit_unlock;
  
--	amdgpu_reset_put_reset_domain(hive->reset_domain);
--	hive->reset_domain = NULL;
-+	/**
-+	 * The hive->reset_domain is only initialized for none SRIOV
-+	 * configuration. It needs to check if hive->reset_domain is
-+	 * NULL.
+-	ret = criu_checkpoint_bos(p, num_bos, (uint8_t __user *)args->bos,
+-			    (uint8_t __user *)args->priv_data, &priv_offset);
+-	if (ret)
+-		goto exit_unlock;
+-
+ 	if (num_objects) {
+ 		ret = kfd_criu_checkpoint_queues(p, (uint8_t __user *)args->priv_data,
+ 						 &priv_offset);
+ 		if (ret)
+-			goto close_bo_fds;
++			goto exit_unlock;
+ 
+ 		ret = kfd_criu_checkpoint_events(p, (uint8_t __user *)args->priv_data,
+ 						 &priv_offset);
+ 		if (ret)
+-			goto close_bo_fds;
++			goto exit_unlock;
+ 
+ 		ret = kfd_criu_checkpoint_svm(p, (uint8_t __user *)args->priv_data, &priv_offset);
+ 		if (ret)
+-			goto close_bo_fds;
++			goto exit_unlock;
+ 	}
+ 
+-close_bo_fds:
+-	if (ret) {
+-		/* If IOCTL returns err, user assumes all FDs opened in criu_dump_bos are closed */
+-		uint32_t i;
+-		struct kfd_criu_bo_bucket *bo_buckets = (struct kfd_criu_bo_bucket *) args->bos;
+-
+-		for (i = 0; i < num_bos; i++) {
+-			if (bo_buckets[i].alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)
+-				close_fd(bo_buckets[i].dmabuf_fd);
+-		}
+-	}
++	/* This must be the last thing in this function that can fail.
++	 * Otherwise we leak dmabuf file descriptors.
 +	 */
-+	if (hive->reset_domain) {
-+		amdgpu_reset_put_reset_domain(hive->reset_domain);
-+		hive->reset_domain = NULL;
-+	}
++	ret = criu_checkpoint_bos(p, num_bos, (uint8_t __user *)args->bos,
++			   (uint8_t __user *)args->priv_data, &priv_offset);
  
- 	mutex_destroy(&hive->hive_lock);
- 	kfree(hive);
+ exit_unlock:
+ 	mutex_unlock(&p->mutex);
 -- 
-2.34.1
+2.32.0
 
