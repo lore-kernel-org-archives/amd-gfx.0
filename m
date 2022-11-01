@@ -4,72 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5585EC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 17:52:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2BA9C43217
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 18:44:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8459310E40C;
-	Tue,  1 Nov 2022 17:52:49 +0000 (UTC)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 192D510E40C;
- Tue,  1 Nov 2022 17:52:46 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id k2so39015982ejr.2;
- Tue, 01 Nov 2022 10:52:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=c2avhcvZqGJHzXUG3n7mmEHgSdhs0LnBOQLKLScDVAA=;
- b=HCBhJGPBqq9tcd7hijDQhFC6XVk8pQAzGfYGUsbbcFWTHhR+2YZNDJgXE9mwtPf3PZ
- 3VwpTls+ukFWn/YA9ilySSRavVV0u1ndYieZBTC1qjk9HPmEmJyMvroyPbK3SiXMbMBB
- FTt7v92HoBH+PxAm2Ev6HcYIdv1qkx1jT67/vC/pNgBDy7OurpzpbRZ94qfrpePmoFvW
- Oj0BO5CHRxt6QWbigl1RbVkAv5UyRlPWCZU4t0+Vd5RJJo2q9gckcKJgrcjeuXQl7wui
- 4HelI4XaeiVpjopA/e3u9jETrZXoJ2wmqhnBhZZBuM3F8tKctDfBkglz1k6Zas4aR/VD
- Hc6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=c2avhcvZqGJHzXUG3n7mmEHgSdhs0LnBOQLKLScDVAA=;
- b=lAVhpU10le/AyVrtrLdbSlXNSOoWSeK0D2VcTnzkdv+3k/iVjcZ7F2okL/hBgpjEpD
- auZpXNj+rHN0lYCfOYLgnLCBTIE/HukGec2DSdsW+ec5norEFyNXW2jqx9c3/jPdl+tH
- t+ngehIg9i9OUVm40s6Dj/pZljcTF5rQwxcax1HJ4nK+Dhf5RWJCFLYfDprF1GppIREq
- s8w6w0E/K6zNdKhrELuIBl+lvgSVKHkPwtX3rc0ihYU+TdbixkgNffoUNUOqAhg2+qz5
- vk34e8QdY40/HpH3P+wKo2O3pGK7b3biQDPTiFscKCjMIDsn9V98vTpGuWaOa7y0VTjX
- ruFg==
-X-Gm-Message-State: ACrzQf1nJIoT21PJBrN6bEMkn0sOehLOK7aF9Zg5g90wfcLyIxmg8QE1
- 0g9zkPn3x5ePCKrNtzFFpCE=
-X-Google-Smtp-Source: AMsMyM6ErDiqmhlt0U94q7J7ycQEj+mZo55t6HWxn3UGmRk25t2+McXPbdxyjQ0fNlaHfERo1D/dhg==
-X-Received: by 2002:a17:907:da0:b0:7ad:9760:e1d2 with SMTP id
- go32-20020a1709070da000b007ad9760e1d2mr18865951ejc.419.1667325164648; 
- Tue, 01 Nov 2022 10:52:44 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:49b3:944:a1d4:4523?
- ([2a02:908:1256:79a0:49b3:944:a1d4:4523])
- by smtp.gmail.com with ESMTPSA id
- w9-20020aa7da49000000b00461a98a2128sm4712666eds.26.2022.11.01.10.52.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Nov 2022 10:52:44 -0700 (PDT)
-Message-ID: <ca6c98eb-fdb0-5fee-3925-5b697e3e6b50@gmail.com>
-Date: Tue, 1 Nov 2022 18:52:43 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E4E710E42D;
+	Tue,  1 Nov 2022 18:44:15 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E68A610E411
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Nov 2022 18:44:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1667328251; x=1698864251;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=bQSMHznVBZB4rDVU8y/w9qHpcPgIeTyy6fMjKL2pzz8=;
+ b=D0ib9zlcMndHXar5EQC9ZhiaSRojktgSPNVJpnmItx+gNGzYB9qDxxhE
+ djGkYHXWH0IcN4EXHrVvFNf9CB849vmvlq0v8g1q1Ygrb64EMzHGebbWo
+ KWSbyZc/+pzdaOinHWfO/NRsuOR1j5ih7MfebjfvqHVuUx9fi6Zyvzmq4
+ 84kGv8WfEOGPIX1aIJA8oKVQVbrJnvtqhqTSQQVmsrxdke3SFTG6EFOce
+ 5gA67Kht1hd+JxaAYJHQpEMVB66AHbv6sRPJR09CXCk9kujcC223UYB1N
+ MToWPc+oTNtehSaHC6QqSh2n/WHQGgiw1L5W/J/P6bsHEPuNeL/qdfAmv A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10518"; a="310312130"
+X-IronPort-AV: E=Sophos;i="5.95,231,1661842800"; d="scan'208";a="310312130"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2022 11:44:10 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10518"; a="808996415"
+X-IronPort-AV: E=Sophos;i="5.95,231,1661842800"; d="scan'208";a="808996415"
+Received: from lkp-server02.sh.intel.com (HELO b6d29c1a0365) ([10.239.97.151])
+ by orsmga005.jf.intel.com with ESMTP; 01 Nov 2022 11:44:07 -0700
+Received: from kbuild by b6d29c1a0365 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1opwF4-000Dvo-2t;
+ Tue, 01 Nov 2022 18:44:06 +0000
+Date: Wed, 02 Nov 2022 02:43:37 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ e9d267f752f8ff62f0111cea90e3ced4fc595b4f
+Message-ID: <636168d9.QfrzhK0gRCwBz/jv%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [6.1][regression] after commit
- dd80d9c8eecac8c516da5b240d01a35660ba6cb6 some games (Cyberpunk 2077, Forza
- Horizon 4/5) hang at start
-Content-Language: en-US
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <CABXGCsOeQ7VYm98jRVaYp6KaNsFVsAnSb33ZT8JvZxcTcEGW0w@mail.gmail.com>
- <a67598e8-c826-2740-03bb-33d37c8c8e4b@amd.com>
- <CABXGCsNvFvJz4=N=JKYSGVcd=dKfQ3Nv_zOssMb0Z6oK79xZ7g@mail.gmail.com>
- <a537212d-4b42-4ba4-7707-1e397234c8b7@amd.com>
- <CABXGCsMCfACsJRDPqZDYQGMpaA_6LKhQ0XqAmDN04GSMeetXnA@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CABXGCsMCfACsJRDPqZDYQGMpaA_6LKhQ0XqAmDN04GSMeetXnA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,54 +58,206 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Cc: linux-arch@vger.kernel.org, kvm@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mikhail,
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: e9d267f752f8ff62f0111cea90e3ced4fc595b4f  Add linux-next specific files for 20221101
 
-Am 30.10.22 um 23:05 schrieb Mikhail Gavrilov:
-> On Wed, Oct 26, 2022 at 12:29 PM Christian König
-> <christian.koenig@amd.com> wrote:
->> Attached is the original test patch rebased on current amd-staging-drm-next.
->>
->> Can you test if this is enough to make sure that the games start without
->> crashing by fetching the userptrs?
-> 1. Over the past week the list of games affected by this issue updated
-> with new games: The Outlast Trials, Gotham Knights, Sackboy: A Big
-> Adventure.
->
-> 2. I tested the patch and it really solves the problem with the launch
-> of all the listed games and does not create new problems.
->
-> 3. The only thing I noticed is that in the game Sackboy: A Big
-> Adventure, when using the kernel built from the commit
-> b229b6ca5abbd63ff40c1396095b1b36b18139c3 + the attached patch, I can’t
-> connect to friend coop session due to the steam client hangs. The
-> kernel built from commit 736ec9fadd7a1fde8480df7e5cfac465c07ff6f3
-> (this is the commit prior to dd80d9c8eecac8c516da5b240d01a35660ba6cb6)
-> free of this problem.
->
-> I need to spend some more time to find the commit after which leads to
-> hanging [3] the steam client.
+Error/Warning reports:
 
-Let's focus on one problem at a time.
+https://lore.kernel.org/linux-mm/202210090954.pTR6m6rj-lkp@intel.com
+https://lore.kernel.org/linux-mm/202210261404.b6UlzG7H-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202210270637.Q5Y7FiKJ-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202210271517.snUEnhD0-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202210290926.rwDI063c-lkp@intel.com
 
-The issue here is that somehow userptr handling became racy after we 
-removed the lock, but I don't see why.
+Error/Warning: (recently discovered and may have been fixed)
 
-We need to fix this ASAP since it is probably a much wider problem and 
-the additional lock just hides it somehow.
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:4878: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5044:24: warning: implicit conversion from 'enum <anonymous>' to 'enum dc_status' [-Wenum-conversion]
+drivers/pinctrl/qcom/pinctrl-lpass-lpi.c:102:9: error: implicit declaration of function 'u32p_replace_bits' [-Werror=implicit-function-declaration]
+drivers/pinctrl/qcom/pinctrl-lpass-lpi.c:127:16: error: implicit declaration of function 'FIELD_GET' [-Werror=implicit-function-declaration]
+drivers/pinctrl/qcom/pinctrl-lpass-lpi.c:233:23: error: implicit declaration of function 'u32_encode_bits' [-Werror=implicit-function-declaration]
+include/asm-generic/div64.h:222:35: warning: comparison of distinct pointer types lacks a cast
+include/asm-generic/div64.h:234:32: warning: right shift count >= width of type [-Wshift-count-overflow]
+lib/test_maple_tree.c:453:12: warning: result of comparison of constant 4398046511104 with expression of type 'unsigned long' is always false [-Wtautological-constant-out-of-range-compare]
+sound/soc/sof/amd/../ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
+sound/soc/sof/amd/../ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
+sound/soc/sof/imx/../ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
+sound/soc/sof/imx/../ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
+sound/soc/sof/intel/../ops.h:309:56: error: too many arguments provided to function-like macro invocation
+sound/soc/sof/intel/../ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
+sound/soc/sof/intel/../ops.h:336:10: error: incompatible pointer to integer conversion returning 'u8 (*)(struct snd_sof_dev *, void *)' (aka 'unsigned char (*)(struct snd_sof_dev *, void *)') from a function with result type 'u8' (aka 'unsigned char') [-Wint-conversion]
+sound/soc/sof/intel/../ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
+sound/soc/sof/mediatek/../ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
+sound/soc/sof/mediatek/../ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
+sound/soc/sof/mediatek/mt8186/../../ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
+sound/soc/sof/mediatek/mt8186/../../ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
+sound/soc/sof/mediatek/mt8195/../../ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
+sound/soc/sof/mediatek/mt8195/../../ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
+sound/soc/sof/ops.h:309:75: error: macro "writeb" passed 3 arguments, but takes just 2
+sound/soc/sof/ops.h:336:74: error: macro "readb" passed 2 arguments, but takes just 1
 
-Going to provide you with an updated patch tomorrow.
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-Thanks,
-Christian.
+arc-rimi.c:(.exit.text+0x54): undefined reference to `iounmap'
+arc-rimi.c:(.init.text+0x5b6): undefined reference to `ioremap'
+arc-rimi.c:(.text+0x5a): undefined reference to `ioremap'
+drivers/iio/adc/at91-sama5d2_adc.c:892 at91_adc_config_emr() error: uninitialized symbol 'osr'.
+drivers/thermal/thermal_core.c:929 __thermal_cooling_device_register() warn: passing zero to 'ERR_PTR'
+drivers/vfio/pci/vfio_pci_core.c:958 vfio_pci_ioctl_get_region_info() warn: potential spectre issue 'pdev->resource' [w]
+lib/zstd/compress/huf_compress.c:460 HUF_getIndex() warn: the 'RANK_POSITION_LOG_BUCKETS_BEGIN' macro might need parens
+lib/zstd/decompress/zstd_decompress_block.c:1009 ZSTD_execSequence() warn: inconsistent indenting
+lib/zstd/decompress/zstd_decompress_block.c:894 ZSTD_execSequenceEnd() warn: inconsistent indenting
+lib/zstd/decompress/zstd_decompress_block.c:942 ZSTD_execSequenceEndSplitLitBuffer() warn: inconsistent indenting
+lib/zstd/decompress/zstd_decompress_internal.h:206 ZSTD_DCtx_get_bmi2() warn: inconsistent indenting
+s390x-linux-ld: arc-rimi.c:(.init.text+0x616): undefined reference to `iounmap'
+s390x-linux-ld: arc-rimi.c:(.init.text+0x954): undefined reference to `ioremap'
+s390x-linux-ld: arc-rimi.c:(.text+0xaa): undefined reference to `iounmap'
+s390x-linux-ld: main.c:(.text+0x374): undefined reference to `iounmap'
+s390x-linux-ld: main.c:(.text+0xf26): undefined reference to `ioremap'
 
->
-> Thanks.
->
+Error/Warning ids grouped by kconfigs:
 
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
+|   |-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
+|   |-- sound-soc-sof-amd-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-amd-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-imx-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-imx-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-intel-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-intel-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-mediatek-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-mediatek-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-mediatek-mt8186-..-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-mediatek-mt8186-..-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-mediatek-mt8195-..-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-mediatek-mt8195-..-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-ops.h:error:macro-readb-passed-arguments-but-takes-just
+|   `-- sound-soc-sof-ops.h:error:macro-writeb-passed-arguments-but-takes-just
+|-- arc-randconfig-m041-20221031
+|   |-- drivers-thermal-thermal_core.c-__thermal_cooling_device_register()-warn:passing-zero-to-ERR_PTR
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
+|   `-- lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
+|-- arc-randconfig-r043-20221101
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|   |-- drivers-pinctrl-qcom-pinctrl-lpass-lpi.c:error:implicit-declaration-of-function-FIELD_GET
+|   |-- drivers-pinctrl-qcom-pinctrl-lpass-lpi.c:error:implicit-declaration-of-function-u32_encode_bits
+|   |-- drivers-pinctrl-qcom-pinctrl-lpass-lpi.c:error:implicit-declaration-of-function-u32p_replace_bits
+|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
+|   |-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
+|   |-- sound-soc-sof-amd-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-amd-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-imx-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-imx-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-intel-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-intel-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-mediatek-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-mediatek-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-mediatek-mt8186-..-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-mediatek-mt8186-..-..-ops.h:error:macro-writeb-passed-arguments-but-takes-just
+|   |-- sound-soc-sof-mediatek-mt8195-..-..-ops.h:error:macro-readb-passed-arguments-but-takes-just
+clang_recent_errors
+|-- arm-randconfig-r012-20221031
+|   |-- sound-soc-sof-intel-..-ops.h:error:incompatible-pointer-to-integer-conversion-returning-u8-(-)(struct-snd_sof_dev-void-)-(aka-unsigned-char-(-)(struct-snd_sof_dev-void-)-)-from-a-function-with-result-
+|   `-- sound-soc-sof-intel-..-ops.h:error:too-many-arguments-provided-to-function-like-macro-invocation
+|-- hexagon-randconfig-r011-20221101
+|   `-- lib-test_maple_tree.c:warning:result-of-comparison-of-constant-with-expression-of-type-unsigned-long-is-always-false
+`-- s390-randconfig-r035-20221031
+    |-- arc-rimi.c:(.exit.text):undefined-reference-to-iounmap
+    |-- arc-rimi.c:(.init.text):undefined-reference-to-ioremap
+    |-- arc-rimi.c:(.text):undefined-reference-to-ioremap
+    |-- s39-linux-ld:arc-rimi.c:(.init.text):undefined-reference-to-ioremap
+    |-- s39-linux-ld:arc-rimi.c:(.init.text):undefined-reference-to-iounmap
+    |-- s39-linux-ld:arc-rimi.c:(.text):undefined-reference-to-iounmap
+    |-- s39-linux-ld:main.c:(.text):undefined-reference-to-ioremap
+    `-- s39-linux-ld:main.c:(.text):undefined-reference-to-iounmap
+
+elapsed time: 720m
+
+configs tested: 58
+configs skipped: 2
+
+gcc tested configs:
+um                           x86_64_defconfig
+um                             i386_defconfig
+i386                                defconfig
+x86_64                        randconfig-a013
+x86_64                        randconfig-a011
+x86_64                              defconfig
+arc                                 defconfig
+x86_64                        randconfig-a015
+s390                             allmodconfig
+alpha                               defconfig
+alpha                            allyesconfig
+arc                  randconfig-r043-20221101
+x86_64                               rhel-8.3
+arc                              allyesconfig
+x86_64                           allyesconfig
+s390                                defconfig
+m68k                             allyesconfig
+arm                                 defconfig
+x86_64                           rhel-8.3-kvm
+x86_64                          rhel-8.3-func
+x86_64                    rhel-8.3-kselftests
+powerpc                           allnoconfig
+x86_64                           rhel-8.3-syz
+s390                             allyesconfig
+powerpc                          allmodconfig
+m68k                             allmodconfig
+i386                             allyesconfig
+i386                          randconfig-a014
+mips                             allyesconfig
+x86_64                         rhel-8.3-kunit
+i386                          randconfig-a012
+sh                               allmodconfig
+i386                          randconfig-a016
+arm                              allyesconfig
+arm64                            allyesconfig
+
+clang tested configs:
+i386                 randconfig-a001-20221031
+i386                 randconfig-a003-20221031
+i386                 randconfig-a002-20221031
+i386                 randconfig-a004-20221031
+i386                 randconfig-a006-20221031
+i386                 randconfig-a005-20221031
+x86_64                        randconfig-a012
+x86_64                        randconfig-a014
+x86_64                        randconfig-a016
+hexagon              randconfig-r041-20221101
+hexagon              randconfig-r045-20221101
+riscv                randconfig-r042-20221101
+s390                 randconfig-r044-20221101
+x86_64               randconfig-a004-20221031
+x86_64               randconfig-a005-20221031
+x86_64               randconfig-a003-20221031
+i386                          randconfig-a013
+x86_64               randconfig-a002-20221031
+i386                          randconfig-a011
+x86_64               randconfig-a001-20221031
+x86_64               randconfig-a006-20221031
+i386                          randconfig-a015
+x86_64                          rhel-8.3-rust
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
