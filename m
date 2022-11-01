@@ -4,40 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB701C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 10:09:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 909E8C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 11:28:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B506710E36A;
-	Tue,  1 Nov 2022 10:09:48 +0000 (UTC)
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DE6110E36A
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Nov 2022 10:09:43 +0000 (UTC)
-Received: from thor ([188.62.80.205])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202211011109405300; Tue, 01 Nov 2022 11:09:40 +0100
-Received: from [127.0.0.1] by thor with esmtp (Exim 4.96)
- (envelope-from <michel@daenzer.net>) id 1opoDD-000oTM-0f;
- Tue, 01 Nov 2022 11:09:39 +0100
-Message-ID: <92da389f-3c26-6fe1-0525-d38730b6924a@daenzer.net>
-Date: Tue, 1 Nov 2022 11:09:39 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC7C10E380;
+	Tue,  1 Nov 2022 11:28:49 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0FB610E380;
+ Tue,  1 Nov 2022 11:28:46 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id DDFDEB81CC6;
+ Tue,  1 Nov 2022 11:28:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45361C433B5;
+ Tue,  1 Nov 2022 11:28:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1667302123;
+ bh=NfAJxd4Bqv2vNr3BhLdBe5Ud8ZRMp7uvqMlgv7Bpawg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=hb5Do8ymdsH/OShNhNgixCHkG+Kk0V5i8vYX4Cjtfk3mww/tkgs/+y+8JOwRwYbVo
+ jUx1qfESbzwP79/SjsoP3y7c/FApVOOH0z3yFsRreVYD3ZqqVjfmX6rH0RLWJS9RKv
+ Upq3muoxRD59fAZyBYlh2wv0WnGwLRMqoePsvpxH5GTQr5iTfRx1Ou94MSz6z46bdq
+ dyrp54N30gV8WIyl04j7ddRXid7bVbYQPzTX0wxuXUwipm/7hGyCxTEjhjwSq/EDPk
+ mlVgp1JCTMj3RlkNdpxh9ZkDJqYdLMVW6pRQc+J8Yn8160IJYL/C6FUV5UqayuDt2J
+ KfU25F5MsDx8Q==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.0 26/34] drm/amdgpu: set vm_update_mode=0 as default
+ for Sienna Cichlid in SRIOV case
+Date: Tue,  1 Nov 2022 07:27:18 -0400
+Message-Id: <20221101112726.799368-26-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20221101112726.799368-1-sashal@kernel.org>
+References: <20221101112726.799368-1-sashal@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Content-Language: de-CH-frami, en-CA
-To: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>
-References: <20221018090815.2662321-1-jiadong.zhu@amd.com>
- <20221018090815.2662321-4-jiadong.zhu@amd.com>
- <e5544150-5eae-7dae-b5db-dd9539df8198@daenzer.net>
- <DS7PR12MB6333A815A3C3EADFFA303E4FF4369@DS7PR12MB6333.namprd12.prod.outlook.com>
- <5a11969c-0996-8755-472a-11f9cf1705d1@daenzer.net>
- <SJ1PR12MB6338730B8B54AD01E4FEF86BF4369@SJ1PR12MB6338.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [PATCH 4/5] drm/amdgpu: MCBP based on DRM scheduler (v8)
-In-Reply-To: <SJ1PR12MB6338730B8B54AD01E4FEF86BF4369@SJ1PR12MB6338.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+X-stable: review
+X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-X-CTCH: RefID="str=0001.0A782F24.6360F065.005D,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
- Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,36 +55,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, "Tuikov,
- Luben" <Luben.Tuikov@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: lijo.lazar@amd.com, dri-devel@lists.freedesktop.org,
+ victor.skvortsov@amd.com, airlied@gmail.com, Sasha Levin <sashal@kernel.org>,
+ guchun.chen@amd.com, bernard@vivo.com, marmarek@invisiblethingslab.com,
+ amd-gfx@lists.freedesktop.org, Jingwen.Chen2@amd.com, Philip.Yang@amd.com,
+ Victor.Zhao@amd.com, qiang.yu@amd.com, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Danijel Slivka <danijel.slivka@amd.com>, Xinhui.Pan@amd.com, daniel@ffwll.ch,
+ Gavin.Wan@amd.com, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-11-01 10:58, Zhu, Jiadong wrote:
-> 
->> Patch 3 assigns preempt_ib in gfx_v9_0_sw_ring_funcs_gfx, but not in gfx_v9_0_ring_funcs_gfx. mux->real_ring in amdgpu_mcbp_trigger_preempt presumably uses the latter, which would explain why amdgpu_ring_preempt_ib ends up dereferencing a NULL pointer.
-> 
-> It's weird the assignment should be in gfx_v9_0_ring_funcs_gfx instead of gfx_v9_0_sw_ring_funcs_gfx.
-> 
-> [PATCH 3/5] drm/amdgpu: Modify unmap_queue format for gfx9 (v4):
-> @@ -6925,6 +7047,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_gfx = {
->         .emit_cntxcntl = gfx_v9_ring_emit_cntxcntl,
->         .init_cond_exec = gfx_v9_0_ring_emit_init_cond_exec,
->         .patch_cond_exec = gfx_v9_0_ring_emit_patch_cond_exec,
-> +       .preempt_ib = gfx_v9_0_ring_preempt_ib,
->         .emit_frame_cntl = gfx_v9_0_ring_emit_frame_cntl,
->         .emit_wreg = gfx_v9_0_ring_emit_wreg,
->         .emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15d.h b/drivers/gpu/drm/amd/amdgpu/soc15d.h
+From: Danijel Slivka <danijel.slivka@amd.com>
 
-Ah! Looks like stg applied patch 3 incorrectly for me. :(
+[ Upstream commit 65f8682b9aaae20c2cdee993e6fe52374ad513c9 ]
 
-I'll try and test with this fixed this week, and report back.
+For asic with VF MMIO access protection avoid using CPU for VM table updates.
+CPU pagetable updates have issues with HDP flush as VF MMIO access protection
+blocks write to mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL register
+during sriov runtime.
 
+v3: introduce virtualization capability flag AMDGPU_VF_MMIO_ACCESS_PROTECT
+which indicates that VF MMIO write access is not allowed in sriov runtime
 
+Signed-off-by: Danijel Slivka <danijel.slivka@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 6 ++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 4 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   | 6 +++++-
+ 3 files changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 9be57389301b..af5aeb0ec2e9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -726,6 +726,12 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+ 			adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
+ 	}
+ 
++	if (amdgpu_sriov_vf(adev) && adev->asic_type == CHIP_SIENNA_CICHLID)
++		/* VF MMIO access (except mailbox range) from CPU
++		 * will be blocked during sriov runtime
++		 */
++		adev->virt.caps |= AMDGPU_VF_MMIO_ACCESS_PROTECT;
++
+ 	/* we have the ability to check now */
+ 	if (amdgpu_sriov_vf(adev)) {
+ 		switch (adev->asic_type) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index 239f232f9c02..617d072275eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -31,6 +31,7 @@
+ #define AMDGPU_SRIOV_CAPS_IS_VF        (1 << 2) /* this GPU is a virtual function */
+ #define AMDGPU_PASSTHROUGH_MODE        (1 << 3) /* thw whole GPU is pass through for VM */
+ #define AMDGPU_SRIOV_CAPS_RUNTIME      (1 << 4) /* is out of full access mode */
++#define AMDGPU_VF_MMIO_ACCESS_PROTECT  (1 << 5) /* MMIO write access is not allowed in sriov runtime */
+ 
+ /* flags for indirect register access path supported by rlcg for sriov */
+ #define AMDGPU_RLCG_GC_WRITE_LEGACY    (0x8 << 28)
+@@ -294,6 +295,9 @@ struct amdgpu_video_codec_info;
+ #define amdgpu_passthrough(adev) \
+ ((adev)->virt.caps & AMDGPU_PASSTHROUGH_MODE)
+ 
++#define amdgpu_sriov_vf_mmio_access_protection(adev) \
++((adev)->virt.caps & AMDGPU_VF_MMIO_ACCESS_PROTECT)
++
+ static inline bool is_virtual_machine(void)
+ {
+ #if defined(CONFIG_X86)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 690fd4f639f1..04130f8813ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2301,7 +2301,11 @@ void amdgpu_vm_manager_init(struct amdgpu_device *adev)
+ 	 */
+ #ifdef CONFIG_X86_64
+ 	if (amdgpu_vm_update_mode == -1) {
+-		if (amdgpu_gmc_vram_full_visible(&adev->gmc))
++		/* For asic with VF MMIO access protection
++		 * avoid using CPU for VM table updates
++		 */
++		if (amdgpu_gmc_vram_full_visible(&adev->gmc) &&
++		    !amdgpu_sriov_vf_mmio_access_protection(adev))
+ 			adev->vm_manager.vm_update_mode =
+ 				AMDGPU_VM_USE_CPU_FOR_COMPUTE;
+ 		else
 -- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+2.35.1
 
