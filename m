@@ -4,81 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E003C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 10:47:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82E66C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 11:53:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A83510E475;
-	Wed,  2 Nov 2022 10:46:52 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1B4210E474
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 10:46:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1667386007;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iUJvEUx8gtjx3iaw6xY22YZZMkx+Fxj3A7QQSAUB80Y=;
- b=IdsGxcpc/b9eri3/F2vdOUh/cr0GJaUlcfrvfXm5M1ivFv5rIhWx6/D/pKE538YSPP5rTI
- dnD7I+fjmyuhuvWBoCiKKCvwlRz6YgWk+A/vS3qXmahAei/2tst2AFgeuCYRtXXo0TJL7L
- IuJ/qqE+hcToYJ3azmb4wt9N7PXsAw8=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-125-KbsG4JmnNxSK4bKhu40ODg-1; Wed, 02 Nov 2022 06:46:46 -0400
-X-MC-Unique: KbsG4JmnNxSK4bKhu40ODg-1
-Received: by mail-wm1-f72.google.com with SMTP id
- d13-20020a05600c34cd00b003ce1f62ac5aso921536wmq.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Nov 2022 03:46:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=iUJvEUx8gtjx3iaw6xY22YZZMkx+Fxj3A7QQSAUB80Y=;
- b=Cr6yHiUWkIJVIGKXHOCAwq0p9qFeXghno1vqE1tRcbAo6D6dGctzAMct+P+0hqk+pg
- Un50btmz9T9fq9+Y7OrUOxjY5UKZmll/kAkxp1DQU2XH1htrzs4e7vwuIUiuSF7467Dj
- DohwuNoiHR3hpiH7aggCEI/+SJhL1xGTiihmQEOr1iG5ayJUl3NlkK0OqrzxSI+R3j3d
- CIeZFTb2I3doYbSOAJc2HoPRzi/+EWAmG2n9ACoJr5IoGNZfaG4R6HfzIYzSqLCe3CdF
- enVsO01yygvyCm6kB5IeoXmSratZYdmFUXSesf3XlSAwzxPV5Kn7a62drIwgJZvwvIPc
- yqUA==
-X-Gm-Message-State: ACrzQf2yQGo2FMuC4crqPF+C9sAIV7XpOyLmp58znVeNDiVSfeYUvJ49
- Ilbj3ztK1634skBM2vtDz6J0UX0J/j/O1Q7U3gZ262D9EYXgPCehIZynGKKdYMawJDeQ9G2PmxT
- 7yW3pp7ROlvHOERGyeMUbkYXQAg==
-X-Received: by 2002:a05:600c:3556:b0:3ca:771d:701a with SMTP id
- i22-20020a05600c355600b003ca771d701amr14652031wmq.61.1667386004921; 
- Wed, 02 Nov 2022 03:46:44 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM5jzv0egtLEIAVaxEN/tayyZgqvKvq+1qzahuWoTfzpPIfJE04AyAO6MvJnCllXJsp0I0J18w==
-X-Received: by 2002:a05:600c:3556:b0:3ca:771d:701a with SMTP id
- i22-20020a05600c355600b003ca771d701amr14651998wmq.61.1667386004691; 
- Wed, 02 Nov 2022 03:46:44 -0700 (PDT)
-Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- c18-20020a05600c0a5200b003b3365b38f9sm1701531wmq.10.2022.11.02.03.46.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Nov 2022 03:46:44 -0700 (PDT)
-Message-ID: <5abf94d6-9a48-525e-c562-605529c5793a@redhat.com>
-Date: Wed, 2 Nov 2022 11:46:42 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17E6610E47F;
+	Wed,  2 Nov 2022 11:53:00 +0000 (UTC)
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A0DE10E47F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 11:52:56 +0000 (UTC)
+Received: from thor ([188.62.80.205])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202211021252505084
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Nov 2022 12:52:50 +0100
+Received: from [127.0.0.1] by thor with esmtp (Exim 4.96)
+ (envelope-from <michel@daenzer.net>) id 1oqBt9-0002JP-0i;
+ Wed, 02 Nov 2022 12:26:31 +0100
+Message-ID: <8b3240e6-c460-5dbd-eede-29ff4825e642@daenzer.net>
+Date: Wed, 2 Nov 2022 12:26:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Subject: Re: [PATCH v2 17/21] drm/fb-helper: Perform all fbdev I/O with the
- same implementation
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com
-References: <20221024111953.24307-1-tzimmermann@suse.de>
- <20221024111953.24307-18-tzimmermann@suse.de>
- <3ab32fc3-f2aa-1b42-fd87-557482ab56d5@redhat.com>
- <0ca70b76-c24a-4fdb-cf0d-2647d37379df@suse.de>
-From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <0ca70b76-c24a-4fdb-cf0d-2647d37379df@suse.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+ Thunderbird/102.4.1
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+To: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>
+References: <20221018090815.2662321-1-jiadong.zhu@amd.com>
+ <20221018090815.2662321-4-jiadong.zhu@amd.com>
+ <e5544150-5eae-7dae-b5db-dd9539df8198@daenzer.net>
+ <DS7PR12MB6333A815A3C3EADFFA303E4FF4369@DS7PR12MB6333.namprd12.prod.outlook.com>
+ <5a11969c-0996-8755-472a-11f9cf1705d1@daenzer.net>
+ <SJ1PR12MB6338730B8B54AD01E4FEF86BF4369@SJ1PR12MB6338.namprd12.prod.outlook.com>
+ <92da389f-3c26-6fe1-0525-d38730b6924a@daenzer.net>
+Content-Language: de-CH-frami, en-CA
+Subject: Re: [PATCH 4/5] drm/amdgpu: MCBP based on DRM scheduler (v8)
+In-Reply-To: <92da389f-3c26-6fe1-0525-d38730b6924a@daenzer.net>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CTCH: RefID="str=0001.0A782F1D.63625A14.000D,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,66 +51,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- xen-devel@lists.xenproject.org, linux-sunxi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- freedreno@lists.freedesktop.org
+Cc: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/2/22 11:33, Thomas Zimmermann wrote:
 
-[...]
+[ Dropping Andrey's no longer working address from Cc ]
 
+On 2022-11-01 11:09, Michel Dänzer wrote:
+> On 2022-11-01 10:58, Zhu, Jiadong wrote:
 >>
->>> +static ssize_t __drm_fb_helper_write(struct fb_info *info, const char __user *buf, size_t count,
->>> +				     loff_t *ppos, drm_fb_helper_write_screen write_screen)
->>> +{
+>>> Patch 3 assigns preempt_ib in gfx_v9_0_sw_ring_funcs_gfx, but not in gfx_v9_0_ring_funcs_gfx. mux->real_ring in amdgpu_mcbp_trigger_preempt presumably uses the latter, which would explain why amdgpu_ring_preempt_ib ends up dereferencing a NULL pointer.
 >>
->> [...]
+>> It's weird the assignment should be in gfx_v9_0_ring_funcs_gfx instead of gfx_v9_0_sw_ring_funcs_gfx.
 >>
->>> +	/*
->>> +	 * Copy to framebuffer even if we already logged an error. Emulates
->>> +	 * the behavior of the original fbdev implementation.
->>> +	 */
->>> +	ret = write_screen(info, buf, count, pos);
->>> +	if (ret < 0)
->>> +		return ret; /* return last error, if any */
->>> +	else if (!ret)
->>> +		return err; /* return previous error, if any */
->>> +
->>> +	*ppos += ret;
->>> +
->>
->> Should *ppos be incremented even if the previous error is returned?
+>> [PATCH 3/5] drm/amdgpu: Modify unmap_queue format for gfx9 (v4):
+>> @@ -6925,6 +7047,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_gfx = {
+>>         .emit_cntxcntl = gfx_v9_ring_emit_cntxcntl,
+>>         .init_cond_exec = gfx_v9_0_ring_emit_init_cond_exec,
+>>         .patch_cond_exec = gfx_v9_0_ring_emit_patch_cond_exec,
+>> +       .preempt_ib = gfx_v9_0_ring_preempt_ib,
+>>         .emit_frame_cntl = gfx_v9_0_ring_emit_frame_cntl,
+>>         .emit_wreg = gfx_v9_0_ring_emit_wreg,
+>>         .emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15d.h b/drivers/gpu/drm/amd/amdgpu/soc15d.h
 > 
-> Yes. It emulates the original fbdev code at [1]. Further down in that 
-> function, the position is being updated even if an error occured. We 
-> only return the initial error if no bytes got written.
+> Ah! Looks like stg applied patch 3 incorrectly for me. :(
 > 
-> It could happen that some userspace program hits to error, but still 
-> relies on the output and position being updated. IIRC I even added 
-> validation of this behavior to the IGT fbdev tests.  I agree that this 
-> is somewhat bogus behavior, but changing it would change long-standing 
-> userspace semantics.
->
+> I'll try and test with this fixed this week, and report back.
 
-Thanks for the explanation, feel free then to also add to this patch:
+I'm now running with patch 3 applied correctly, and with patch 5 as well.
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+The good news is that I'm now seeing a positive effect with GpuTest benchmarks which are GPU-limited at low frame rates. In particular, with the pixmark piano benchmark, the GNOME Wayland session now actually stays more responsive on this machine than it does on my work laptop with an Intel iGPU. However, with the plot3d benchmark (with /plot3d_vertex_density=1750 on the command line to increase GPU load), it still doesn't quite manage to keep the desktop running at full frame rate, in contrast to the Intel iGPU.
+
+The bad news is that this series still makes some things very slow. The most extreme examples so far are glxgears (runs at ~400 fps now, ~7000 fps before, i.e. almost 20x slowdown) and hexchat (scrolling one page now takes ~1 second, I can see it drawing line by line; before it was almost instantaneous). I suspect this series makes the overhead of running a single GPU job much bigger. On the bright side, I'm not noticing any significant intermittent freezes anymore.
+
+
+In summary, while the benefits are promising, the downsides are unacceptable for enabling this by default.
+
 
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
