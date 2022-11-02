@@ -4,60 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2964BC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 16:15:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA03BC433FE
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 16:59:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C81810E4FA;
-	Wed,  2 Nov 2022 16:15:36 +0000 (UTC)
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [IPv6:2001:4860:4864:20::34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBAF810E4FB;
- Wed,  2 Nov 2022 16:15:31 +0000 (UTC)
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-13b6c1c89bdso20791756fac.13; 
- Wed, 02 Nov 2022 09:15:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JgdHlgFUL52ZSlgJoR2BWxLy/c2ChtXsX4iM/BXcyqc=;
- b=ho8Lt6cCmihgvDFQsW1Yod9zxSYinMTGeBkJpi7Z9kRRm94PktrqsKojXGwz8PTa22
- ylgX6D5aVmt463Z5uEMjQ5mYf/FrjayBb94syCzgDLnttyg9Ph9Kzd6ZYgx9PNQ4B5+Z
- RKEflZvPevS8Y+vjindMbLmh3ku4RuY64NutN+HMb/lgzYK42JB9eRsb2SEilvLnPsmx
- sdBBL5lC/5ObFeW4jhfOQMtHraKfShq/EVfFhYdVFGx02ndLkGcbwxOtEsfttViwAh4g
- c5JHz3n4NrKqr5Vy+UmIcpuBZmX/zi8dcyXea4Jyn8WdzlRpzz7xFuFQzB+xOnp+wL3n
- 2Drw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JgdHlgFUL52ZSlgJoR2BWxLy/c2ChtXsX4iM/BXcyqc=;
- b=16v8bTnQfbRV+5+eqmwh2IKRuDSTaFeNxumG/8DdZRlaAxasxe6u7zhI7406UKUGLA
- jyJu+8+s6fs4YaPnoHkofPoIn3bpCZH2X2aV5SBgdfFzl60/WjNSn6LzcMXGaMr6yFdz
- PP237Sb3FCql81MAWGOQf9xBt/aCsZytI+BlsGGz6KUdKzXnKZQB3/C+3s+wKzkgzFWr
- krc4yGv9sVUIP9jdYLRihcGtd/z4F4NQ+Eafw/LwDfZuIq5HR4KnAOH+KBGgt/2fC5lY
- PoFYRxfdj4sSfZqQRUZSNwQTmrErfkss+dA19YuBUF2K40Dj3mxJyNEQoPD2288nqjN0
- T1AA==
-X-Gm-Message-State: ACrzQf2xZWMVVcpWuJxo2tQT6V4ib21ntqPevlOkSOFroW37pfKZ+QGw
- nd2ciYNCcImpjWsA25Kfeer3JqKEny+0ut/S3bo=
-X-Google-Smtp-Source: AMsMyM4e5KRS5+wtnu+5IMwyVsDM0J1Z9m0fl9VvwJLdX+CyYgyy3luD7SpqwqGASkuDfYCIT1DxBn+1OauaueJkz1Y=
-X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
- x36-20020a056870a7a400b001367c39979emr15352738oao.96.1667405731170; Wed, 02
- Nov 2022 09:15:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E64110E1F7;
+	Wed,  2 Nov 2022 16:59:36 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2080.outbound.protection.outlook.com [40.107.244.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3AD210E1F7
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 16:59:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bBZ5gigg/qS6OWvdkfcKGqZIjx2wORoDjzdq015rRlh1DpzaW9eA3kEEamiaRWFFJqpegr9YR3OqJtn3NOQiJL2BZim01tv6JTaxLBhg2A4detGPrrqpYX3CRPKylVFgiq6oTU+4TCaWSOLMOTuIqMOVbfyxKOOEWsQ6UkjT8fc6oS5gzAKH8orQoyQ/0xvWcX1UdiXT+R/Fb+D2ba+0yGc+qwpy3D8daByGoSa5YAHSXzryZR81YdzYEEbVeTcUsWKREJfgjYBInPqD7N7jG3yWL77FwgS9wmepvK7OGoOyFUJm2Ncl/nz5xxJN6acYMyucOk45ANEOwzP7E89iDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1wd6fFxOfAkgYU3Q2JdfSFR2j3B/UwwM7qmFT0m/wAA=;
+ b=jzmwbVunovaj6zL7B+eZsXsuqejf5/+Vp9bKHOj2h6xfREgI4h2Lh2RRMI4qwYOSWDne5DsrUXMPhEJY4z+Ak/2JdWzgZuwMF8pEqN1sj+kg0rWnRHZNxbN8WLp3zP/taVGhBnDbJrbH0OO6DOwXZp46bl3ikp1P5uahkFh3gk/FyLF5zKPAZ4A3BR7L9wUOMfg5Ja9nUGf3cMC736pXR49FILv0BkORPMAi01qG4SV2j/eybzl2Ptx6mij/pg4y/vWbYjYkfWrhdc7M3L537IkOawyilzn59xJbpH/TiD8oFuJ2texIAk0inyX13N0pdZEgisn72550fghGO7TYUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1wd6fFxOfAkgYU3Q2JdfSFR2j3B/UwwM7qmFT0m/wAA=;
+ b=FAwf2H0fLXhb4yEsXba8e5rn7NHi7fw5wDjFrXqj47sbk1IZsYACjfMfHxZG5IYNj/vdh6Rn8S310sS0k5939ABO1WqCefvxOBRnYm/Oo4wgPexetdMF7GVnHvuDBSlSwiVnZAyzNcKJrYCr0FWvc4/2oW4RopEqRw2KzaGuHM4=
+Received: from MW2PR2101CA0017.namprd21.prod.outlook.com (2603:10b6:302:1::30)
+ by SJ1PR12MB6242.namprd12.prod.outlook.com (2603:10b6:a03:457::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.20; Wed, 2 Nov
+ 2022 16:59:29 +0000
+Received: from CO1NAM11FT110.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:302:1:cafe::32) by MW2PR2101CA0017.outlook.office365.com
+ (2603:10b6:302:1::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.5 via Frontend
+ Transport; Wed, 2 Nov 2022 16:59:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT110.mail.protection.outlook.com (10.13.175.125) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5791.20 via Frontend Transport; Wed, 2 Nov 2022 16:59:29 +0000
+Received: from aerithdevpyuan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 2 Nov
+ 2022 11:59:27 -0500
+From: Perry Yuan <Perry.Yuan@amd.com>
+To: <Alexander.Deucher@amd.com>
+Subject: [PATCH v2 1/3] drm/amdgpu: add Vangogh APU flag to IP discovery path
+Date: Thu, 3 Nov 2022 00:59:12 +0800
+Message-ID: <20221102165914.1995657-1-Perry.Yuan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20221102152540.2389891-1-nathan@kernel.org>
- <20221102152540.2389891-2-nathan@kernel.org>
- <202211020842.8B8E29F8@keescook>
-In-Reply-To: <202211020842.8B8E29F8@keescook>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 2 Nov 2022 12:15:20 -0400
-Message-ID: <CADnq5_NFtZHzOC2o1yq6VjqT8DYB+q200R_xjf+b1qZonRh4=Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Fix type of second parameter in
- odn_edit_dpm_table() callback
-To: Kees Cook <keescook@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT110:EE_|SJ1PR12MB6242:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7f3767e-8c1a-448a-f439-08dabcf39b55
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: m87YJQ/Js4KE5YSai6pfqQSmRvycLz/E6j4SW+S9QRaN0NjabDIvlKGa7Oo2F/cAgOzlnQSVSUbz044RiUInrh0xojxIBn23JSrbPMEdKvLAJOvSKU62GuM6c2i4rA1DeRUJARgyGRf7XqnCLdRLR7r5cyPg6WSymPD+7ryVDkp7HXbWDWLTCLDuo6kYZmnrGtMisTHmZ+ZVRdW64LtMcJWnlTxwITvtkLKfeGaFn5qI73J1IlQfA4RNJxbsm7re5tfGHdexld8bzOUuEK3L6AHdl/uF1IuFLRb3sIL5F7Rh7vrQgqJvRSb3RzvsFw5qZuZJ8KSiK0MP2rmGlApg0GR9Ywj5j6yg5szY8bYn8LjKljdUzKaL+dqiLUwTpyPujEcr1+sDlR/CmA/eYsCsJ+0unoc0mobCh9oF1EJn9vPgUFrnkYD/y12dBAOKDX2aQudxFIr6CG00RE8qC9Mfm/ztKS3wc7/jWoNIkWniE5K0wvOwst/lrUjXKHRcWouR8QTonie5Pvc4o4NAiMxEbFHRaZK4IDoPDfe2TFLJgt5kTyHX/2zttDF8cZoCJ75s3Xju+jN6AiYxjFI8Yi/hfAxkSfilpoEkziryUjiHP+9/dRlES2PM0mVssmvmBKOdDl9ETAr3JRinIqwMKH3zlaB8Jtwo2Ud+xuDdmAR9eBK1ypQlM0+Flz+IrI5pRrFPQw1mLVL12QFOHW9LrZPUs4VmBfYBFcljrgF7G6b0SL+q0NjnOf9uThfKgWRRPSUPMymELkh/s1oWTI2YMzeDb/a+FfCwvNkrEwG4AXgpR5+jhm9IuzFbSb9eVH2hAgrU
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(136003)(346002)(39860400002)(376002)(451199015)(36840700001)(40470700004)(46966006)(82740400003)(40460700003)(81166007)(36756003)(86362001)(40480700001)(83380400001)(356005)(4744005)(478600001)(2906002)(6666004)(7696005)(8936002)(54906003)(316002)(4326008)(8676002)(70206006)(70586007)(6862004)(5660300002)(37006003)(6636002)(41300700001)(336012)(82310400005)(1076003)(2616005)(16526019)(36860700001)(186003)(26005)(47076005)(426003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2022 16:59:29.3960 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7f3767e-8c1a-448a-f439-08dabcf39b55
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT110.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6242
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,61 +97,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Tom Rix <trix@redhat.com>,
- llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- patches@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>,
- amd-gfx@lists.freedesktop.org, Sami Tolvanen <samitolvanen@google.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: richardqi.liang@amd.com, Shimmer.Huang@amd.com,
+ amd-gfx@lists.freedesktop.org, kun.liu2@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
+Add the missing apu flag for Vangogh when using IP discovery code path
+to initialize IPs
 
-Alex
+Signed-off-by: Perry Yuan <Perry.Yuan@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Wed, Nov 2, 2022 at 11:43 AM Kees Cook <keescook@chromium.org> wrote:
->
-> On Wed, Nov 02, 2022 at 08:25:40AM -0700, Nathan Chancellor wrote:
-> > With clang's kernel control flow integrity (kCFI, CONFIG_CFI_CLANG),
-> > indirect call targets are validated against the expected function
-> > pointer prototype to make sure the call target is valid to help mitigat=
-e
-> > ROP attacks. If they are not identical, there is a failure at run time,
-> > which manifests as either a kernel panic or thread getting killed. A
-> > proposed warning in clang aims to catch these at compile time, which
-> > reveals:
-> >
-> >   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:3008:29: error: i=
-ncompatible function pointer types initializing 'int (*)(void *, uint32_t, =
-long *, uint32_t)' (aka 'int (*)(void *, unsigned int, long *, unsigned int=
-)') with an expression of type 'int (void *, enum PP_OD_DPM_TABLE_COMMAND, =
-long *, uint32_t)' (aka 'int (void *, enum PP_OD_DPM_TABLE_COMMAND, long *,=
- unsigned int)') [-Werror,-Wincompatible-function-pointer-types-strict]
-> >           .odn_edit_dpm_table      =3D smu_od_edit_dpm_table,
-> >                                      ^~~~~~~~~~~~~~~~~~~~~
-> >   1 error generated.
-> >
-> > There are only two implementations of ->odn_edit_dpm_table() in 'struct
-> > amd_pm_funcs': smu_od_edit_dpm_table() and pp_odn_edit_dpm_table(). One
-> > has a second parameter type of 'enum PP_OD_DPM_TABLE_COMMAND' and the
-> > other uses 'u32'. Ultimately, smu_od_edit_dpm_table() calls
-> > ->od_edit_dpm_table() from 'struct pptable_funcs' and
-> > pp_odn_edit_dpm_table() calls ->odn_edit_dpm_table() from 'struct
-> > pp_hwmgr_func', which both have a second parameter type of 'enum
-> > PP_OD_DPM_TABLE_COMMAND'.
-> >
-> > Update the type parameter in both the prototype in 'struct amd_pm_funcs=
-'
-> > and pp_odn_edit_dpm_table() to 'enum PP_OD_DPM_TABLE_COMMAND', which
-> > cleans up the warning.
-> >
-> > Link: https://github.com/ClangBuiltLinux/linux/issues/1750
-> > Reported-by: Sami Tolvanen <samitolvanen@google.com>
-> > Signed-off-by: Nathan Chancellor <nathan@kernel.org>
->
-> Reviewed-by: Kees Cook <keescook@chromium.org>
->
-> --
-> Kees Cook
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 95d34590cad1..c1b1f223f3d0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -2153,6 +2153,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+ 		break;
+ 	case IP_VERSION(10, 3, 1):
+ 		adev->family = AMDGPU_FAMILY_VGH;
++		adev->apu_flags |= AMD_APU_IS_VANGOGH;
+ 		break;
+ 	case IP_VERSION(10, 3, 3):
+ 		adev->family = AMDGPU_FAMILY_YC;
+-- 
+2.34.1
+
