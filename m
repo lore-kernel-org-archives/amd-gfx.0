@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CD2DC433FE
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 09:40:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD740C43217
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 10:01:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B73BA10E465;
-	Wed,  2 Nov 2022 09:40:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EECBB10E46B;
+	Wed,  2 Nov 2022 10:01:30 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90BC410E467
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 09:40:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EEB310E46A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 10:01:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1667382019;
+ s=mimecast20190719; t=1667383286;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BsLrquRWckXT1s1aby8jZXWvTG60TzDOu2w8x1+2PdY=;
- b=eEAnBVkZJbwzOPCO+Ba00Yn0YLXfCYE/kW0GIiTKFGtZptXm2xdCv81hCkTt6G0W0+ckN1
- J3PQXDl4JZhhShU3rM6gg6Y9waiTMUIagw1GBGYxxmc2wXNu80JqKkN2IjYPSz5ToaFAtc
- JLhaW78yBy/xS+nq1+oPvVRgjM4PvtA=
+ bh=QoVTRIE06q1gLaA+FiGPh2NoY5TNtlfidxMdk3t+aTM=;
+ b=fuSs/eA4/7vZhV+X35FsnJlEhJ/20+W2k2LZenlQ7FIAvrb5mWjQpHZEEE3G7/vkuBezcY
+ ci/Smj7q/Z7hIgWVlQx1F2hNiJZQuFSvdEElWEudDf6CzncUGzYGNXoMcPmOQDpm4N2pDn
+ leC3TPAoQgZGNS5Qf5k3LtPYa4n+dVI=
 Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
  [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-315-WmEdEgYXMqGZp52l9jZNMw-1; Wed, 02 Nov 2022 05:40:18 -0400
-X-MC-Unique: WmEdEgYXMqGZp52l9jZNMw-1
+ us-mta-351-cfthFysMOIuboxqAUUIUoA-1; Wed, 02 Nov 2022 06:01:25 -0400
+X-MC-Unique: cfthFysMOIuboxqAUUIUoA-1
 Received: by mail-wm1-f71.google.com with SMTP id
- 1-20020a05600c028100b003cf7833293cso846796wmk.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Nov 2022 02:40:18 -0700 (PDT)
+ i7-20020a1c3b07000000b003c5e6b44ebaso860130wma.9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Nov 2022 03:01:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BsLrquRWckXT1s1aby8jZXWvTG60TzDOu2w8x1+2PdY=;
- b=CHTPZAluOIUeW1udJXnqBm8lsdOwoY86CZh03OEhMCSpnt2vak9QyUMGiRM5Hltn7W
- cAZ3ot1V1BC0SfioQm/33rk/O/8YFNvc2dqjHXVeUGVQVhEYjf2dJwJfnJEOQMKHsM9f
- eBCENo0x2V91/+VZe/iMC0y5f0jV2dZYiBlceqZIhEX5iAQK35rv57tv/tgoA1rF+aRj
- kGV/OjP5x6ustmOH+cXBvKBF/oSbQyLCiUzbRYYibp5xpZjV0FSeED3+vsh+l3l81W4Q
- oViVo4HXHkeEUiHloZLbzezkepyObMr6KTadte+P8XQzUnjJheRkaYGVDLOgkLdN6WlQ
- 2inA==
-X-Gm-Message-State: ACrzQf3wpQpuJ95YhORaWhwDSoYy0gQyFxdOPX5vmuQqFMXqPI/AFCqC
- Whc449l7MEIFQmBeCNs5ebLAwpXIt1ycGTf/EhNmG483QQn+D/8VQHtqWo/n3Vu6emvMJRRyW6V
- EwvSArWfSOaMUU5KySsw3WIDVEg==
-X-Received: by 2002:adf:ba8f:0:b0:22c:def3:1179 with SMTP id
- p15-20020adfba8f000000b0022cdef31179mr14547801wrg.571.1667382017690; 
- Wed, 02 Nov 2022 02:40:17 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM5M29YlmTkXAEgNYduNYpaEq18eaSYaR/je5Gn7y2xNrovwH6Pttvb6rYpMLmmOPDm/qr+vag==
-X-Received: by 2002:adf:ba8f:0:b0:22c:def3:1179 with SMTP id
- p15-20020adfba8f000000b0022cdef31179mr14547781wrg.571.1667382017447; 
- Wed, 02 Nov 2022 02:40:17 -0700 (PDT)
+ bh=QoVTRIE06q1gLaA+FiGPh2NoY5TNtlfidxMdk3t+aTM=;
+ b=kVO5lpAryKFHMG/9FUpipKbSJOz6hc9/wenV7OKK4TRXxrzZgaBphog+uTozbHQisD
+ LsEt0/lCwT6ceR3IkAUHhaS2gbD1R/8YxQVn6gEPjYa7T4L8/j4rRbv1LFFB1NFbkzhJ
+ 2Yrx2hRqEijLRQsBQAZ0tOM4fFHMrjEmcKcTak2cKn1De7ELA/ohFLzKa5As+CwtqsUV
+ DuApfbBPlYUvMjqTlFK3gkuj6Zn5rTyaMqK0EvFpLJYKSfiqj1urThgRTrV1IkUjtqAl
+ K0rcLYG808CRfeuJattZyqtlyMR30WmirFGfc5o89C6woYRXBCf+r78FPmhtn1fGeW7i
+ LEpQ==
+X-Gm-Message-State: ACrzQf020F2Z53ROockcyBi0eG6g5K/Kz+5hK2wDHMNXdl8ZvHUGRYm6
+ 0JuP6+vl87qhOAfbDxyHCIZhJXaxsgyTvGHUevJDv9mBa/SYqZneI0tZyL8btSLryNVSzfbU9mN
+ M498SRytDIztR1BF0OQyF1zwDjA==
+X-Received: by 2002:a5d:5505:0:b0:236:582b:7eb0 with SMTP id
+ b5-20020a5d5505000000b00236582b7eb0mr14405757wrv.68.1667383284403; 
+ Wed, 02 Nov 2022 03:01:24 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM5ieiweFPtXW5w3c0VZoUXMoQohTPuy1WtQBfT29g+UzlDhvHMzFOjUUUPFpm0LZwMa5DV8ag==
+X-Received: by 2002:a5d:5505:0:b0:236:582b:7eb0 with SMTP id
+ b5-20020a5d5505000000b00236582b7eb0mr14405736wrv.68.1667383284200; 
+ Wed, 02 Nov 2022 03:01:24 -0700 (PDT)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- j20-20020a05600c191400b003b47e8a5d22sm1924445wmq.23.2022.11.02.02.40.15
+ b13-20020a5d550d000000b002366b17ca8bsm14230263wrv.108.2022.11.02.03.01.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Nov 2022 02:40:16 -0700 (PDT)
-Message-ID: <7ac0da2c-0a43-4c02-4199-f48a50347171@redhat.com>
-Date: Wed, 2 Nov 2022 10:40:15 +0100
+ Wed, 02 Nov 2022 03:01:23 -0700 (PDT)
+Message-ID: <1d2b9809-857f-48cc-1177-72e6fc67b8e5@redhat.com>
+Date: Wed, 2 Nov 2022 11:01:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.1
-Subject: Re: [PATCH v2 19/21] drm/fb-helper: Always initialize generic fbdev
- emulation
+Subject: Re: [PATCH v2 20/21] drm/fb-helper: Move generic fbdev emulation into
+ separate source file
 To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
  airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
  maarten.lankhorst@linux.intel.com
 References: <20221024111953.24307-1-tzimmermann@suse.de>
- <20221024111953.24307-20-tzimmermann@suse.de>
+ <20221024111953.24307-21-tzimmermann@suse.de>
 From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221024111953.24307-20-tzimmermann@suse.de>
+In-Reply-To: <20221024111953.24307-21-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
@@ -104,16 +104,12 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 10/24/22 13:19, Thomas Zimmermann wrote:
-> Initialize the generic fbdev emulation even if it has been disabled
-> on the kernel command line. The hotplug and mode initialization will
-> fail accordingly.
-> 
-> The kernel parameter can still be changed at runtime and the emulation
-> will initialize after hotplugging the connector.
+> Move the generic fbdev implementation into its own source and header
+> file. Adapt drivers. No functonal changes, but some of the internal
+> helpers have been renamed to fit into the drm_fbdev_ naming scheme.
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
-
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
 -- 
