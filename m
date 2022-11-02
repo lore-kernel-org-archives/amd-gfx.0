@@ -4,57 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35986C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 16:08:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A02EC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 16:11:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C16E10E4F5;
-	Wed,  2 Nov 2022 16:08:30 +0000 (UTC)
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87E7010E4F2
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 16:08:26 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- a13-20020a9d6e8d000000b00668d65fc44fso10527459otr.9
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Nov 2022 09:08:26 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56C4010E4F6;
+	Wed,  2 Nov 2022 16:11:25 +0000 (UTC)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B37210E4F2;
+ Wed,  2 Nov 2022 16:11:22 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id g10so19668381oif.10;
+ Wed, 02 Nov 2022 09:11:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dBmsHeS2eZJAKNTW7cQ1+Qo5njaXgxxpurKAk/rvuk8=;
- b=YH2KVl2+AnpvKyawcd5MicxMkpD5frdhqL3XZi9yjzgCfEn4sXqjDMrkxJ0LkbD0BZ
- jY74i93aH+RbV1m0WSBUW7zQrhUXzrSpb8yW1In5UVJkWfBQ0z1qHqcYc6zD6tZ7vPgX
- jMu3RwV/ro9k+FJseFsR0B6kFLGi90dxaVvWZ7yCNheWaDmolwfN9RDS+1DDgOZB9WE6
- EcK1zN0f+R4WMGIWGoUH+iciJSR1C+U8NS69ZHrbnuuqve1H1l6Mg+sYCawrFadPok1b
- Z8EB9hNRURzUXyE7n5pu+RkJWEIbV8IbyQU8qCOUBNC20zratzea6++b/qk5vkefjK5m
- HuKQ==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=XMjYtLPQdk4k4exRzx1++JFQEjlm3E6Ooszo7YLrAmA=;
+ b=YkoMxrzgOzObQ1f1AQWermP6aRAMBxCVFdMmyaHzOTeZdtelfAESKiSIoV7kj77E+L
+ FTIkkriNPRtcD6CsHVUvxp1BM4/3GdHunszANw/koj97LixLFuphPtTERaQk3+dbAqCw
+ KipagSfLhrJT86JB/5YZNpquZy6KPER7d+Wc+5ls6kdX7kCKPEtrvMZ/MHv5yvbB75VX
+ aU88ms7Xjeqihyb0ExWs7VnJj0lFqqt96zTgIEE2W619V9smJhuW4oUZA54ExzPWVWKa
+ vUExZ6florDuPnSi9edzg/cQEAXZHnKivN1QvtxYHqottcJuJqIKCnSohrqJGqM/UwCu
+ VXgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dBmsHeS2eZJAKNTW7cQ1+Qo5njaXgxxpurKAk/rvuk8=;
- b=SFMETsYJ/i9lZNlhEExYrQwqOCMnqoWBGOnsmyJM5EM1xcQ2qWbSnLivKt+aOSNNH0
- LOP1pvSTn1tvmCV1/GU1dJU8h6Rz7dnOx/V1av3lJfXsvfScpQR/3bqVqTM4nVO5IPL7
- 6OC6CWZPmzdAaikhT66AVke52bAajYSnPcDQ8QLa0p+mMcztZfd7Pp+CAGtFXTX3NiDN
- u8DtgNm3dKIdGdFaqR4Phau0jxl3E0VXS979T5BUJEkoSuCzfxNq6Gm4uDCcQzmlwBS2
- 1pHusv/5PDQED3aMtM0JCLgAySvU81wu76ijLZxG/TFybiB+L4BYVU/85vYICIFkGy3d
- 0kVQ==
-X-Gm-Message-State: ACrzQf38HY6PaX8hVQDDf4tDFjEDe3Sg6rY95K99VR+bGb1x/eNvUcZb
- 4YBGOeJvE2AxL3J+aP/V0gEtMgUnVZ+5rnzFUN0=
-X-Google-Smtp-Source: AMsMyM49aLFQIkSUnCL8kAdbMp8sKy0J1fSHedR9/DlNBXKuS5wsyWpmMuPNusCTvHycv6/A1QDLXQOtfhYiG2hwX/Y=
-X-Received: by 2002:a9d:4592:0:b0:66c:6922:8629 with SMTP id
- x18-20020a9d4592000000b0066c69228629mr5224436ote.233.1667405305777; Wed, 02
- Nov 2022 09:08:25 -0700 (PDT)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XMjYtLPQdk4k4exRzx1++JFQEjlm3E6Ooszo7YLrAmA=;
+ b=i3iQU7GCss498Tz7LxdvSfs5pvmPuXAtPgOlv/6t9cu6HwIxsoOhRl7inmSlvWl+CG
+ R6zLz/MdA9zjyYUV16XI8DhCUJdlH0siYrqg9P7Uy2NAvNrijmjG3CF72RmoQiQH8Le2
+ OJT4WoavjiuHsVD8ebCBnUBUS2gk2kQ5bVJSB60/ETsVHBsstVgJHE5d/ZoGbnhBDJqW
+ +qC3k1QXJj1woyap5ElPtKcVRaAtUDpZTiyclAaQyqts9IO1/5+Ek6eHuQ0RGh671Z80
+ Iggu8yWcHDueyH0YTcmdI6lf28UIu4vVYn1+M97/rcYLhpiZMxRf0f+obFDcLHPTrDQ9
+ fIkg==
+X-Gm-Message-State: ACrzQf07zRAgPqO7ZntANguCQ3ae3DQcnEdLbGCEddbUnaHIbwKXkzPi
+ rYGrCQdhmPdmhfC3FX0LJRwgY4NMuUJppbUS0Ik=
+X-Google-Smtp-Source: AMsMyM59WbQ63bOK+8OGXBf3SLltf4ei4Oo8m8seRlp+EZkh24IHmapsiryJkmixwkTmQ1eeqhOn0KsvVt1S8ZNa3jc=
+X-Received: by 2002:a05:6808:14d2:b0:354:c733:abd3 with SMTP id
+ f18-20020a05680814d200b00354c733abd3mr13779461oiw.96.1667405481362; Wed, 02
+ Nov 2022 09:11:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20221102145811.17968-1-christian.koenig@amd.com>
-In-Reply-To: <20221102145811.17968-1-christian.koenig@amd.com>
+References: <Y1trhRE3nK5iAY6q@mail.google.com>
+ <Y1yetX1CHsr+fibp@mail.google.com>
+ <CADnq5_Mod90O=tN26+Yi74WPYxpVtss+LG_+_HZyFv2EtzR+MA@mail.gmail.com>
+ <202211011443.7BDB243D8D@keescook>
+ <CADnq5_Ou9HnZjQx5WaAZW+iu24g_eS2hh25xhExeQjdMOXYfCQ@mail.gmail.com>
+ <202211011538.B7548FDDE@keescook>
+In-Reply-To: <202211011538.B7548FDDE@keescook>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 2 Nov 2022 12:08:13 -0400
-Message-ID: <CADnq5_NyEfJspT=A3rRWh5+CH=9jPZFiDoTrXDa9gu+5fuR=Ng@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: workaround for TLB seq race
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Date: Wed, 2 Nov 2022 12:11:09 -0400
+Message-ID: <CADnq5_PxjyL9kqdge-SOMkjLk176sPbSxM9Ng+N8f_-zj9NMqw@mail.gmail.com>
+Subject: Re: [PATCH v2] [next] drm/radeon: Replace one-element array with
+ flexible-array member
+To: Kees Cook <keescook@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,65 +69,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-hardening@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 2, 2022 at 10:58 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
+On Tue, Nov 1, 2022 at 6:41 PM Kees Cook <keescook@chromium.org> wrote:
 >
-> It can happen that we query the sequence value before the callback
-> had a chance to run.
+> On Tue, Nov 01, 2022 at 06:09:16PM -0400, Alex Deucher wrote:
+> > On Tue, Nov 1, 2022 at 5:54 PM Kees Cook <keescook@chromium.org> wrote:
+> > > Does the ROM always only have a single byte there? This seems unlikely
+> > > given the member "ucFakeEDIDLength" (and the code below).
+> >
+> > I'm not sure.  I'm mostly concerned about this:
+> >
+> >             record += fake_edid_record->ucFakeEDIDLength ?
+> >                       fake_edid_record->ucFakeEDIDLength + 2 :
+> >                       sizeof(ATOM_FAKE_EDID_PATCH_RECORD);
 >
-> Work around that by grabbing the fence lock and releasing it again.
-
-workaround
-
-> Should be replaced by hw handling soon.
+> But this is exactly what the code currently does, as noted in the commit
+> log: "It's worth mentioning that doing a build before/after this patch
+> results in no binary output differences.
 >
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
+> > Presumably the record should only exist if ucFakeEDIDLength is non 0,
+> > but I don't know if there are some OEMs out there that just included
+> > an empty record for some reason.  Maybe the code is wrong today and
+> > there are some OEMs that include it and the array is already size 0.
+> > In that case, Paulo's original patches are probably more correct.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.h
-> index 9ecb7f663e19..e51a46c9582b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -485,6 +485,21 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm,=
- struct seq_file *m);
->   */
->  static inline uint64_t amdgpu_vm_tlb_seq(struct amdgpu_vm *vm)
->  {
-> +       unsigned long flags;
-> +       spinlock_t *lock;
-> +
-> +       /*
-> +        * Work around to stop racing between the fence signaling and han=
-dling
+> Right, but if true, that seems to be a distinctly separate bug fix?
 
-Workaround
+You've convinced me.  Applied.
 
-WIth that fixed up, the patch is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Thanks,
 
+Alex
 
-> +        * the cb. The lock is static after initially setting it up, just=
- make
-> +        * sure that the dma_fence structure isn't freed up.
-> +        */
-> +       rcu_read_lock();
-> +       lock =3D vm->last_tlb_flush->lock;
-> +       rcu_read_unlock();
-> +
-> +       spin_lock_irqsave(lock, flags);
-> +       spin_unlock_irqrestore(lock, flags);
-> +
->         return atomic64_read(&vm->tlb_seq);
->  }
 >
 > --
-> 2.34.1
->
+> Kees Cook
