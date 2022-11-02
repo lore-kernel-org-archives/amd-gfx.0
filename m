@@ -4,60 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4859C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 16:05:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35986C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 16:08:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0538A10E4F1;
-	Wed,  2 Nov 2022 16:05:06 +0000 (UTC)
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
- [IPv6:2607:f8b0:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 594BA10E4D0
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 15:43:01 +0000 (UTC)
-Received: by mail-pg1-x535.google.com with SMTP id 64so285898pgc.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Nov 2022 08:43:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=CbzfHUK/OIe01GljM+tYcwS2aLG1wlQhszOS90aIPbk=;
- b=TnvBNqsScJgJGa9F6e4NUp0WnQSFcyWRX8Px7ptg6cO6ctt1BRBZcdYb69cwPtIwyN
- QoHb48pAlpwFaQk7ewUS76qc4+cdspn2SEn24wD7ztEg1qPECfbSrnmQfKNybPMUuQua
- osc2GMsfESHWanbfjNZictRM04i534QWu1ZfY=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C16E10E4F5;
+	Wed,  2 Nov 2022 16:08:30 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87E7010E4F2
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 16:08:26 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ a13-20020a9d6e8d000000b00668d65fc44fso10527459otr.9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Nov 2022 09:08:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dBmsHeS2eZJAKNTW7cQ1+Qo5njaXgxxpurKAk/rvuk8=;
+ b=YH2KVl2+AnpvKyawcd5MicxMkpD5frdhqL3XZi9yjzgCfEn4sXqjDMrkxJ0LkbD0BZ
+ jY74i93aH+RbV1m0WSBUW7zQrhUXzrSpb8yW1In5UVJkWfBQ0z1qHqcYc6zD6tZ7vPgX
+ jMu3RwV/ro9k+FJseFsR0B6kFLGi90dxaVvWZ7yCNheWaDmolwfN9RDS+1DDgOZB9WE6
+ EcK1zN0f+R4WMGIWGoUH+iciJSR1C+U8NS69ZHrbnuuqve1H1l6Mg+sYCawrFadPok1b
+ Z8EB9hNRURzUXyE7n5pu+RkJWEIbV8IbyQU8qCOUBNC20zratzea6++b/qk5vkefjK5m
+ HuKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CbzfHUK/OIe01GljM+tYcwS2aLG1wlQhszOS90aIPbk=;
- b=F0YEI0E48NmOuLRFyv2zVC/bv6p1W5LS8g5tGDa02c3wBq0ojOS9qo9X6poeJbZ+uz
- 4auqqtj7yrcMY7pdnMn3OpLcU4P39057rU6cikHxsk4YfSUTRtCC6rXTgHUUO2klucRJ
- 3fVjU9an9bPu87TXhTdxxiSD74cySwTVdsNfLHzFiG775OQlxtIpP8I4qXO5izxKxavG
- nu1dZe+AimMXifXIi425tYGBseraUwOzuDXVsjRfyrMSoU4D7KemHMQK39BRR7l6QCyv
- 5MRU2fQyc+EzW8A5U07evf2dgbfIAqt7Q9Xvd7xTGzXV2i/7KLRi1q2nG2K515YNxzLc
- fj4A==
-X-Gm-Message-State: ACrzQf0IwM4JosBV8S4dTmuq2oQIaHZIAnmynpLm+Pb8flxvUjsknd3k
- ZDTuJny/zSy4ANtDMUmfOyHxYw==
-X-Google-Smtp-Source: AMsMyM7zf3RSyPAO0SeThAybZk/yt9Nw3pqPZ2/rk3+peKB5InTdiurM9tAyqpCR0+JSZHkWzA3xrw==
-X-Received: by 2002:a65:6b81:0:b0:461:4049:7df7 with SMTP id
- d1-20020a656b81000000b0046140497df7mr22347812pgw.593.1667403780934; 
- Wed, 02 Nov 2022 08:43:00 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id
- b5-20020a170902650500b00186afd756edsm8431471plk.283.2022.11.02.08.43.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Nov 2022 08:43:00 -0700 (PDT)
-Date: Wed, 2 Nov 2022 08:42:59 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Fix type of second parameter in
- odn_edit_dpm_table() callback
-Message-ID: <202211020842.8B8E29F8@keescook>
-References: <20221102152540.2389891-1-nathan@kernel.org>
- <20221102152540.2389891-2-nathan@kernel.org>
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=dBmsHeS2eZJAKNTW7cQ1+Qo5njaXgxxpurKAk/rvuk8=;
+ b=SFMETsYJ/i9lZNlhEExYrQwqOCMnqoWBGOnsmyJM5EM1xcQ2qWbSnLivKt+aOSNNH0
+ LOP1pvSTn1tvmCV1/GU1dJU8h6Rz7dnOx/V1av3lJfXsvfScpQR/3bqVqTM4nVO5IPL7
+ 6OC6CWZPmzdAaikhT66AVke52bAajYSnPcDQ8QLa0p+mMcztZfd7Pp+CAGtFXTX3NiDN
+ u8DtgNm3dKIdGdFaqR4Phau0jxl3E0VXS979T5BUJEkoSuCzfxNq6Gm4uDCcQzmlwBS2
+ 1pHusv/5PDQED3aMtM0JCLgAySvU81wu76ijLZxG/TFybiB+L4BYVU/85vYICIFkGy3d
+ 0kVQ==
+X-Gm-Message-State: ACrzQf38HY6PaX8hVQDDf4tDFjEDe3Sg6rY95K99VR+bGb1x/eNvUcZb
+ 4YBGOeJvE2AxL3J+aP/V0gEtMgUnVZ+5rnzFUN0=
+X-Google-Smtp-Source: AMsMyM49aLFQIkSUnCL8kAdbMp8sKy0J1fSHedR9/DlNBXKuS5wsyWpmMuPNusCTvHycv6/A1QDLXQOtfhYiG2hwX/Y=
+X-Received: by 2002:a9d:4592:0:b0:66c:6922:8629 with SMTP id
+ x18-20020a9d4592000000b0066c69228629mr5224436ote.233.1667405305777; Wed, 02
+ Nov 2022 09:08:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221102152540.2389891-2-nathan@kernel.org>
-X-Mailman-Approved-At: Wed, 02 Nov 2022 16:05:00 +0000
+References: <20221102145811.17968-1-christian.koenig@amd.com>
+In-Reply-To: <20221102145811.17968-1-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 2 Nov 2022 12:08:13 -0400
+Message-ID: <CADnq5_NyEfJspT=A3rRWh5+CH=9jPZFiDoTrXDa9gu+5fuR=Ng@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: workaround for TLB seq race
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,48 +66,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, Tom Rix <trix@redhat.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- patches@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- Sami Tolvanen <samitolvanen@google.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 02, 2022 at 08:25:40AM -0700, Nathan Chancellor wrote:
-> With clang's kernel control flow integrity (kCFI, CONFIG_CFI_CLANG),
-> indirect call targets are validated against the expected function
-> pointer prototype to make sure the call target is valid to help mitigate
-> ROP attacks. If they are not identical, there is a failure at run time,
-> which manifests as either a kernel panic or thread getting killed. A
-> proposed warning in clang aims to catch these at compile time, which
-> reveals:
-> 
->   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:3008:29: error: incompatible function pointer types initializing 'int (*)(void *, uint32_t, long *, uint32_t)' (aka 'int (*)(void *, unsigned int, long *, unsigned int)') with an expression of type 'int (void *, enum PP_OD_DPM_TABLE_COMMAND, long *, uint32_t)' (aka 'int (void *, enum PP_OD_DPM_TABLE_COMMAND, long *, unsigned int)') [-Werror,-Wincompatible-function-pointer-types-strict]
->           .odn_edit_dpm_table      = smu_od_edit_dpm_table,
->                                      ^~~~~~~~~~~~~~~~~~~~~
->   1 error generated.
-> 
-> There are only two implementations of ->odn_edit_dpm_table() in 'struct
-> amd_pm_funcs': smu_od_edit_dpm_table() and pp_odn_edit_dpm_table(). One
-> has a second parameter type of 'enum PP_OD_DPM_TABLE_COMMAND' and the
-> other uses 'u32'. Ultimately, smu_od_edit_dpm_table() calls
-> ->od_edit_dpm_table() from 'struct pptable_funcs' and
-> pp_odn_edit_dpm_table() calls ->odn_edit_dpm_table() from 'struct
-> pp_hwmgr_func', which both have a second parameter type of 'enum
-> PP_OD_DPM_TABLE_COMMAND'.
-> 
-> Update the type parameter in both the prototype in 'struct amd_pm_funcs'
-> and pp_odn_edit_dpm_table() to 'enum PP_OD_DPM_TABLE_COMMAND', which
-> cleans up the warning.
-> 
-> Link: https://github.com/ClangBuiltLinux/linux/issues/1750
-> Reported-by: Sami Tolvanen <samitolvanen@google.com>
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+On Wed, Nov 2, 2022 at 10:58 AM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> It can happen that we query the sequence value before the callback
+> had a chance to run.
+>
+> Work around that by grabbing the fence lock and releasing it again.
 
-Reviewed-by: Kees Cook <keescook@chromium.org>
+workaround
 
--- 
-Kees Cook
+> Should be replaced by hw handling soon.
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.h
+> index 9ecb7f663e19..e51a46c9582b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -485,6 +485,21 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm,=
+ struct seq_file *m);
+>   */
+>  static inline uint64_t amdgpu_vm_tlb_seq(struct amdgpu_vm *vm)
+>  {
+> +       unsigned long flags;
+> +       spinlock_t *lock;
+> +
+> +       /*
+> +        * Work around to stop racing between the fence signaling and han=
+dling
+
+Workaround
+
+WIth that fixed up, the patch is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+
+> +        * the cb. The lock is static after initially setting it up, just=
+ make
+> +        * sure that the dma_fence structure isn't freed up.
+> +        */
+> +       rcu_read_lock();
+> +       lock =3D vm->last_tlb_flush->lock;
+> +       rcu_read_unlock();
+> +
+> +       spin_lock_irqsave(lock, flags);
+> +       spin_unlock_irqrestore(lock, flags);
+> +
+>         return atomic64_read(&vm->tlb_seq);
+>  }
+>
+> --
+> 2.34.1
+>
