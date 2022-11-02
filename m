@@ -4,90 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24241C433FE
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 15:23:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CF39C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 15:26:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99AEF10E4BB;
-	Wed,  2 Nov 2022 15:23:56 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2050.outbound.protection.outlook.com [40.107.212.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 466DF10E4A9
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 15:23:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UpOn0VQfBSzs9UimmYsULjrQ2pWNnV9u92uLHNWgIhhgMvuk9qLwWrX5qp7Ca8aH9hmXF49F4yNxFZposUkKZpskP+1DYI9G0c4mvQA3RJN6l7dpT4GQ94iva5K2/Ks08dqR59B9owRoyj1RMCPlEyAGnbl+Blul4+8og3kqFFhwoL8nGFMQ+erQcWyjOp78jlO7FyECLxaXjZtCQ4SXP88kv4X00zjOOgTHYQq91QMhL8uoB2qjSkNEQMl4ACKXqN0l4SN+Ld7BxPXOb4/+nUzSBczZpmGMUg+lnTeVshcpYGt/zOhqFMXdzbnVwzib3g701taDZkK7rl3GIDMkLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qns/ECwMwYEuWnuH3192ueu8Fcftmsvl0SBLeu8R5fg=;
- b=YSMhC+h8FDAdOZ2z9+H5zGasWHkBhD9nflizRzfQ6icksNddVYCqkwpL+9ONrgLemUlLFV2//Dz94CQ2GbSerloTXMZ4BJPg8mPoo4BBCzlfxuIJQp8NqJzJJHUnFnZ3MUB9TadqPNiZgHrLOcjp346Ui7dNQVItxO2Cm3x35pckIdhBbeuf4iKaOpAx83eW1RcGheZn49iMqs2eVkOn+P9X7FRxDWsdXNyrDjMCGXyb7T2o2PitfOtSntsQcUxbCYunXZ4naAJlRG8eXQxD3y2OMkPei+AZkNKCzB7R9Q3JxcKxgiXmZ0UTvLRLDZH4BnG80j+RnVbf92w2y1Pftw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qns/ECwMwYEuWnuH3192ueu8Fcftmsvl0SBLeu8R5fg=;
- b=QGfXX0GzfM2f6hLfZh2nm6SPWmMsFXMPCeLy3b2CsNDd8qCUzQEG0UxtQMT0HahCn/d4dfkx3n79jeGj4qBY7immbV8tTCRGQXhZjJE1+Ehw0fc7RmAtpFpEvikPYfJhwpGu2RIVUwMTiXy4LoZObdjrgLdZmB6+6MDwL0+CepM=
-Received: from MW4PR02CA0015.namprd02.prod.outlook.com (2603:10b6:303:16d::6)
- by CO6PR12MB5441.namprd12.prod.outlook.com (2603:10b6:303:13b::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.20; Wed, 2 Nov
- 2022 15:23:50 +0000
-Received: from CO1NAM11FT018.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:16d:cafe::28) by MW4PR02CA0015.outlook.office365.com
- (2603:10b6:303:16d::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.21 via Frontend
- Transport; Wed, 2 Nov 2022 15:23:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT018.mail.protection.outlook.com (10.13.175.16) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5791.20 via Frontend Transport; Wed, 2 Nov 2022 15:23:50 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 2 Nov
- 2022 10:23:48 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/3] drm/amdgpu/gfx10: set gfx.funcs in early init
-Date: Wed, 2 Nov 2022 11:23:32 -0400
-Message-ID: <20221102152333.553521-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221102152333.553521-1-alexander.deucher@amd.com>
-References: <20221102152333.553521-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EFDB10E4BF;
+	Wed,  2 Nov 2022 15:26:01 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0C5710E4B2;
+ Wed,  2 Nov 2022 15:25:58 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2150F61920;
+ Wed,  2 Nov 2022 15:25:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD4FAC433B5;
+ Wed,  2 Nov 2022 15:25:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1667402757;
+ bh=hGx+6YDUsiGnguDXLfFqKT39GRFMP/Uu3APqDdfj8VI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=lZqy94Pqj8EW3jOLG3l7Bn5qWcflGeeQrQ2aXEPTTLim/2BOfS84/XDX9hZ1CA5MF
+ 07J5fQoAf+GOtybBC0b7RRqNwEGASwUUsX9zN89OaS3S8Mq/QHVCAhVcyxoeNL+jV8
+ ZXhn+p49r1Sp/gTlBogoGPdabtwT+XPsZdevJsh1QbiGgQSXRQQr0lPu8IA1sijYlm
+ 4UAXUZlyNRyvgBxm+xrASJGTAvejkT9j4qn9ujsoVP/Z8nPSqG+R7aYQhDKbHJuWlU
+ h3NOW80DaL+c/FOS47MxZJ+YOAJdo6Xnerom5o85kIdyH0JsaWVMGg211ndQfpn+DN
+ 4Ul89CjYwfcnw==
+From: Nathan Chancellor <nathan@kernel.org>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: Fix type of second parameter in
+ odn_edit_dpm_table() callback
+Date: Wed,  2 Nov 2022 08:25:40 -0700
+Message-Id: <20221102152540.2389891-2-nathan@kernel.org>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221102152540.2389891-1-nathan@kernel.org>
+References: <20221102152540.2389891-1-nathan@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT018:EE_|CO6PR12MB5441:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc8d7e98-ee8b-435e-9aec-08dabce63ecb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SeEKnSLV9kcoFSMYV3a6U71U0b57DYNH8SFCKP6GkrUCOdSgIlxfsIKNhU1ICdNCoUZu7FcfdPUepzY77ijNllKMrutNiEnvAV4YbZWB9jduNFbZnA3JaGRbxKtng6/KqmoT/y/rOmFVOfEcKTqded1XNIS+Aav/r179qPjSVm9y8MVck1QJnLb+AhZk0/VVhgLVOWB+Adm9sLUDMJiNhNucDX1GqObyUCsbL/QHuHl635n1U0IjL2oNEQAXGqlTJJviO56z6t65WlnTC9uGOhgy9Oue+pRvvOW0QNyrfRcHLYHCDfwel2ulz7CuHCMtenJLsz9tK8GhWsX0EWR3NcGDrO6uXODCL0HMHb+ExqoxMr9zJ57Gu8M3EBgnSN9jZngUMcos+dZyxHOIZmAX+73jj9BGSOR+pmw6IJVNQ0k0S+xfdD6umnXh8rvP2LImsiPSNE6p3qMX9xXDScLIqkzy2+wazsaynv9jNzsg/3OFvIRVndgqO9dmeSAZyUO4gnPWIX4Wca8w1OT4OrlvX57X2l8YfxxbanHR9HopKO6zxMN0qPTskyPFoRfFOBibsdA9lUbHe3iWJILJnakZdxZ2SXGRrEmkLWY8/E8dWNM5WWaseSnp28JEwuGuauGPa9szyVxD8+xZ/dfUU4zq0m9JPKvn0raupoLGBTd58dwiAwGQ8GwihK4EkmP3DNcSo+6oywQ3XIaQwI5hFdf5A6hy2dqFZXdN0TF40W+2erbcVmNfYVZ7b+CllL/0+Z0SIqKhewRJ43i3Bq0KgUDq8ZQ70RzZfcg1MyN9vMZhcCs=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(376002)(39860400002)(346002)(136003)(451199015)(36840700001)(40470700004)(46966006)(81166007)(82740400003)(36756003)(40460700003)(356005)(4326008)(86362001)(2906002)(40480700001)(7696005)(6666004)(4744005)(70586007)(70206006)(316002)(8676002)(5660300002)(8936002)(41300700001)(6916009)(1076003)(82310400005)(16526019)(36860700001)(2616005)(478600001)(26005)(186003)(336012)(426003)(47076005)(83380400001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2022 15:23:50.6658 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc8d7e98-ee8b-435e-9aec-08dabce63ecb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT018.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5441
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,39 +54,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Kees Cook <keescook@chromium.org>, Tom Rix <trix@redhat.com>,
+ llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ patches@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>,
+ amd-gfx@lists.freedesktop.org, Sami Tolvanen <samitolvanen@google.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-So the callbacks are set early in case we need them.
+With clang's kernel control flow integrity (kCFI, CONFIG_CFI_CLANG),
+indirect call targets are validated against the expected function
+pointer prototype to make sure the call target is valid to help mitigate
+ROP attacks. If they are not identical, there is a failure at run time,
+which manifests as either a kernel panic or thread getting killed. A
+proposed warning in clang aims to catch these at compile time, which
+reveals:
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+  drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:3008:29: error: incompatible function pointer types initializing 'int (*)(void *, uint32_t, long *, uint32_t)' (aka 'int (*)(void *, unsigned int, long *, unsigned int)') with an expression of type 'int (void *, enum PP_OD_DPM_TABLE_COMMAND, long *, uint32_t)' (aka 'int (void *, enum PP_OD_DPM_TABLE_COMMAND, long *, unsigned int)') [-Werror,-Wincompatible-function-pointer-types-strict]
+          .odn_edit_dpm_table      = smu_od_edit_dpm_table,
+                                     ^~~~~~~~~~~~~~~~~~~~~
+  1 error generated.
+
+There are only two implementations of ->odn_edit_dpm_table() in 'struct
+amd_pm_funcs': smu_od_edit_dpm_table() and pp_odn_edit_dpm_table(). One
+has a second parameter type of 'enum PP_OD_DPM_TABLE_COMMAND' and the
+other uses 'u32'. Ultimately, smu_od_edit_dpm_table() calls
+->od_edit_dpm_table() from 'struct pptable_funcs' and
+pp_odn_edit_dpm_table() calls ->odn_edit_dpm_table() from 'struct
+pp_hwmgr_func', which both have a second parameter type of 'enum
+PP_OD_DPM_TABLE_COMMAND'.
+
+Update the type parameter in both the prototype in 'struct amd_pm_funcs'
+and pp_odn_edit_dpm_table() to 'enum PP_OD_DPM_TABLE_COMMAND', which
+cleans up the warning.
+
+Link: https://github.com/ClangBuiltLinux/linux/issues/1750
+Reported-by: Sami Tolvanen <samitolvanen@google.com>
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h   | 3 ++-
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index af94ac580d3e..f69d6289347d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4453,8 +4453,6 @@ static void gfx_v10_0_gpu_early_init(struct amdgpu_device *adev)
- {
- 	u32 gb_addr_config;
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index a40ead44778a..d18162e9ed1d 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -354,7 +354,8 @@ struct amd_pm_funcs {
+ 	int (*get_power_profile_mode)(void *handle, char *buf);
+ 	int (*set_power_profile_mode)(void *handle, long *input, uint32_t size);
+ 	int (*set_fine_grain_clk_vol)(void *handle, uint32_t type, long *input, uint32_t size);
+-	int (*odn_edit_dpm_table)(void *handle, uint32_t type, long *input, uint32_t size);
++	int (*odn_edit_dpm_table)(void *handle, enum PP_OD_DPM_TABLE_COMMAND type,
++				  long *input, uint32_t size);
+ 	int (*set_mp1_state)(void *handle, enum pp_mp1_state mp1_state);
+ 	int (*smu_i2c_bus_access)(void *handle, bool acquire);
+ 	int (*gfx_state_change_set)(void *handle, uint32_t state);
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+index ec055858eb95..1159ae114dd0 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -838,7 +838,8 @@ static int pp_set_fine_grain_clk_vol(void *handle, uint32_t type, long *input, u
+ 	return hwmgr->hwmgr_func->set_fine_grain_clk_vol(hwmgr, type, input, size);
+ }
  
--	adev->gfx.funcs = &gfx_v10_0_gfx_funcs;
--
- 	switch (adev->ip_versions[GC_HWIP][0]) {
- 	case IP_VERSION(10, 1, 10):
- 	case IP_VERSION(10, 1, 1):
-@@ -7593,6 +7591,8 @@ static int gfx_v10_0_early_init(void *handle)
+-static int pp_odn_edit_dpm_table(void *handle, uint32_t type, long *input, uint32_t size)
++static int pp_odn_edit_dpm_table(void *handle, enum PP_OD_DPM_TABLE_COMMAND type,
++				 long *input, uint32_t size)
  {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	struct pp_hwmgr *hwmgr = handle;
  
-+	adev->gfx.funcs = &gfx_v10_0_gfx_funcs;
-+
- 	switch (adev->ip_versions[GC_HWIP][0]) {
- 	case IP_VERSION(10, 1, 10):
- 	case IP_VERSION(10, 1, 1):
 -- 
-2.37.3
+2.38.1
 
