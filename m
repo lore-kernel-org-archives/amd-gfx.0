@@ -4,49 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAE8BC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 17:17:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4673C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 20:53:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF3BF10E534;
-	Wed,  2 Nov 2022 17:17:11 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB51910E534
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 17:17:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667409428; x=1698945428;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=UMK2NX/oBDmrooKrh4Wg18WimdWEOzDYIRbKgmkpVdI=;
- b=jBTQqAF7Hwwhwv2/C86OahXv+AWxIj4hyuPtz0S+M/xXagZqCROqpy0z
- X9Cn7SZfrG+Mb6+Ug4Jqv+ir6RXqQRuJTvJpgbLOkP+Iryv1HEA1Bio0b
- RW+c+9xQnJDtScRdDMB8ZfgjWKHXBEuizIceWsnAbLJg7LsqkDgaHR8yY
- pq2r1j6MrjkFMYTL9Hhn7gcKcOK3UCClRDOkafbL8oPaVVBSa10KNtUBE
- Z7IADdncWpjOpbDzavTs9CWu7FFSa2Dp/Kk/4oHtdIJ/x8p6WqMPT2DW2
- o++I124ccZcZ06M+MBGaUSCgSN2/qjChqZNAFVBIHDsgoBIxyP2GI6hZs g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10519"; a="310579525"
-X-IronPort-AV: E=Sophos;i="5.95,234,1661842800"; d="scan'208";a="310579525"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2022 10:17:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10519"; a="634346989"
-X-IronPort-AV: E=Sophos;i="5.95,234,1661842800"; d="scan'208";a="634346989"
-Received: from lkp-server02.sh.intel.com (HELO b6d29c1a0365) ([10.239.97.151])
- by orsmga002.jf.intel.com with ESMTP; 02 Nov 2022 10:17:06 -0700
-Received: from kbuild by b6d29c1a0365 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oqHMP-000Exx-2I;
- Wed, 02 Nov 2022 17:17:05 +0000
-Date: Thu, 03 Nov 2022 01:16:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 61c3426aca2c71052ddcd06c32e29d92304990fd
-Message-ID: <6362a5f5.jxTLVW2fkVq53fOt%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A8CB10E62C;
+	Wed,  2 Nov 2022 20:53:38 +0000 (UTC)
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [IPv6:2001:4860:4864:20::2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36B0210E63A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 20:53:33 +0000 (UTC)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-13b6c1c89bdso21611469fac.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Nov 2022 13:53:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Rzv51xjwe/4pMW0GFnN45oROhk9IP7rHWqLvdqnWNbA=;
+ b=cKAFO6NkPVFlzTVNHOjy5tjFIXQi+9anBHqsy/eHmqUPS8QB7+76nWuuykaeiyaA6Y
+ 05LjSOpMFsY8aK8Az6x7YaH8GfQWOajRWRkF+wEz1Z2EdC+ApDlgmRmJxA+QYfOiz9k5
+ cmjchXuKhVMzqhTIZXGapZy3tym/RNZ+qQv8kz5dJXkOOahvw8y0f3Z66YGZPnDoTAbI
+ jwkQTql5iHfTz3ZFEYvmFQqzzDhmE4dOnUFkgYj9VqKPigTmMfZGaMbRNf+0G1w4OObH
+ CQuAH17H3kBda0zRXV4/JXy3gnB4qU08gCTWCm+0Ww6KlMSj30KkjpaNuKXLSkfQRCQN
+ knQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Rzv51xjwe/4pMW0GFnN45oROhk9IP7rHWqLvdqnWNbA=;
+ b=ZEaIpMNG36LKshKmF+Lb3PI+hX/Z0iURAM5/H1smMtB5bdVujYGekE2tIBKtIQ95mz
+ /jp/YwVw3DZ+l2ozlUxk/GgH0rZJ23/KsE/sriT5tRWwPQbMJJHe7VimayAtVnXYo4Wo
+ zhPCTJK6HaVNUGZPe073L3xWioY481Xdo8f0PufIhZ8Lyd98GEUFo104S/IJD+FnkF9i
+ xaY8+WkeGXfXFmHSe8QHCxucys+8+YGv3vWGuMm6I3l1ePNuEYd1fRdmVugjxag61XJL
+ d6m1kwEgVxsF7w2XAtCXEQz72kePi4nvMlX9tHf04N+suW4/gai29qeJBBJmlAgT+Ug5
+ 1AfA==
+X-Gm-Message-State: ACrzQf26v7v/UvYosZZAwA87TX+v+zl4SflA4lGNRtZ1Whhd+0MC7xwj
+ wYYLe5/lBM9Fy/NbMwjgGzQcjRceoG6SVO8r/vQ=
+X-Google-Smtp-Source: AMsMyM5Aq7+xJHT73wJq/SWEK13U2XCiU218RoBih30L6l/1jmBjbNCN9aLzqfpiWZ95RcMf3x0IJxhTR8K02wkPWZ4=
+X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
+ x36-20020a056870a7a400b001367c39979emr16071727oao.96.1667422412344; Wed, 02
+ Nov 2022 13:53:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+References: <20221020154702.503934-24-Rodrigo.Siqueira@amd.com>
+ <291a5ef1-d20b-43b2-9baa-9f1a5e75cc5b@amd.com>
+In-Reply-To: <291a5ef1-d20b-43b2-9baa-9f1a5e75cc5b@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 2 Nov 2022 16:53:20 -0400
+Message-ID: <CADnq5_O90kkpHEKxaedBDge2h2B8f0D3MBDqvr2Wctwy3MRUvg@mail.gmail.com>
+Subject: Re: [23/33] drm/amd/display: cursor update command incomplete
+To: "Limonciello, Mario" <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,168 +67,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- amd-gfx@lists.freedesktop.org
+Cc: stylon.wang@amd.com, timur.kristof@gmail.com, Leo Li <Sunpeng.Li@amd.com>,
+ Bhawanpreet.Lakha@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, roman.li@amd.com,
+ amd-gfx@lists.freedesktop.org, Max Tseng <max.tseng@amd.com>,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, agustin.gutierrez@amd.com,
+ wayne.lin@amd.com, Alexander Deucher <Alexander.Deucher@amd.com>,
+ Harry.Wentland@amd.com, Anthony Koo <Anthony.Koo@amd.com>,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 61c3426aca2c71052ddcd06c32e29d92304990fd  Add linux-next specific files for 20221102
+On Tue, Nov 1, 2022 at 3:27 PM Limonciello, Mario
+<mario.limonciello@amd.com> wrote:
+>
+> On 10/20/2022 10:46, Rodrigo Siqueira wrote:
+> > From: Max Tseng <max.tseng@amd.com>
+> >
+> > Missing send cursor_rect width & Height into DMUB. PSR-SU would use
+> > these information. But missing these assignment in last refactor commit
+> >
+> > Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+> > Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> > Signed-off-by: Max Tseng <max.tseng@amd.com>
+> > ---
+>
+> This was reported to help fix a PSR-SU hang found in 6.1-rc1 and later.
+>
+> Reported-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2227
+> Fixes: b73353f7f3d4 ("drm/amd/display: Use the same cursor info across
+> features")
+>
+> Alex,
+>
+> Can you please queue this for a future fixes PR for 6.1?
 
-Error/Warning reports:
+Yes, queued up.
 
-https://lore.kernel.org/oe-kbuild-all/202210271517.snUEnhD0-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211021422.8UpycNNp-lkp@intel.com
+Alex
 
-Error/Warning: (recently discovered and may have been fixed)
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:4878: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5044:24: warning: implicit conversion from 'enum <anonymous>' to 'enum dc_status' [-Wenum-conversion]
-include/asm-generic/div64.h:222:35: warning: comparison of distinct pointer types lacks a cast
-include/asm-generic/div64.h:234:32: warning: right shift count >= width of type [-Wshift-count-overflow]
-lib/test_maple_tree.c:453:12: warning: result of comparison of constant 4398046511104 with expression of type 'unsigned long' is always false [-Wtautological-constant-out-of-range-compare]
-vmlinux.o: warning: objtool: select_reloc_root+0x3a3: unreachable instruction
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-lib/zstd/compress/huf_compress.c:460 HUF_getIndex() warn: the 'RANK_POSITION_LOG_BUCKETS_BEGIN' macro might need parens
-lib/zstd/decompress/zstd_decompress_block.c:1009 ZSTD_execSequence() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:894 ZSTD_execSequenceEnd() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:942 ZSTD_execSequenceEndSplitLitBuffer() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_internal.h:206 ZSTD_DCtx_get_bmi2() warn: inconsistent indenting
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
-|   `-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
-|-- arc-randconfig-r024-20221031
-|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
-|   `-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
-|-- arc-randconfig-r043-20221101
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
-|   `-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- m68k-randconfig-m041-20221102
-|   |-- lib-zstd-compress-huf_compress.c-HUF_getIndex()-warn:the-RANK_POSITION_LOG_BUCKETS_BEGIN-macro-might-need-parens
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
-|   `-- lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
-|-- mips-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
-|   `-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
-|-- powerpc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- include-asm-generic-div64.h:warning:comparison-of-distinct-pointer-types-lacks-a-cast
-|   `-- include-asm-generic-div64.h:warning:right-shift-count-width-of-type
-|-- s390-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- sparc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-clang_recent_errors
-`-- mips-randconfig-r031-20221101
-    `-- lib-test_maple_tree.c:warning:result-of-comparison-of-constant-with-expression-of-type-unsigned-long-is-always-false
-
-elapsed time: 722m
-
-configs tested: 65
-configs skipped: 2
-
-gcc tested configs:
-um                             i386_defconfig
-arc                                 defconfig
-um                           x86_64_defconfig
-s390                             allmodconfig
-arc                  randconfig-r043-20221101
-alpha                               defconfig
-s390                                defconfig
-x86_64                        randconfig-a013
-x86_64                        randconfig-a004
-x86_64                        randconfig-a011
-x86_64                        randconfig-a002
-s390                             allyesconfig
-x86_64                        randconfig-a015
-powerpc                           allnoconfig
-x86_64                        randconfig-a006
-x86_64                           rhel-8.3-syz
-powerpc                          allmodconfig
-x86_64                          rhel-8.3-func
-arm                                 defconfig
-x86_64                    rhel-8.3-kselftests
-mips                             allyesconfig
-sh                               allmodconfig
-x86_64                              defconfig
-arm                              allyesconfig
-i386                                defconfig
-x86_64                           rhel-8.3-kvm
-x86_64                         rhel-8.3-kunit
-i386                          randconfig-a001
-arm64                            allyesconfig
-ia64                             allmodconfig
-i386                          randconfig-a003
-x86_64                               rhel-8.3
-i386                          randconfig-a014
-m68k                             allmodconfig
-arc                              allyesconfig
-x86_64                           allyesconfig
-alpha                            allyesconfig
-i386                          randconfig-a012
-m68k                             allyesconfig
-i386                          randconfig-a016
-i386                          randconfig-a005
-i386                             allyesconfig
-
-clang tested configs:
-hexagon              randconfig-r041-20221101
-hexagon              randconfig-r045-20221101
-riscv                randconfig-r042-20221101
-s390                 randconfig-r044-20221101
-x86_64                        randconfig-a016
-x86_64                        randconfig-a012
-x86_64                        randconfig-a005
-x86_64                        randconfig-a001
-x86_64                        randconfig-a014
-x86_64                        randconfig-a003
-i386                          randconfig-a002
-i386                          randconfig-a011
-x86_64                          rhel-8.3-rust
-i386                          randconfig-a013
-i386                          randconfig-a004
-i386                          randconfig-a015
-i386                          randconfig-a006
-x86_64               randconfig-a003-20221031
-x86_64               randconfig-a002-20221031
-x86_64               randconfig-a001-20221031
-x86_64               randconfig-a005-20221031
-x86_64               randconfig-a006-20221031
-x86_64               randconfig-a004-20221031
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+>
+> Thanks,
+>
+> >   drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c | 4 ++++
+> >   1 file changed, 4 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c b/driver=
+s/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+> > index 4996d2810edb..938dba5249d4 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+> > @@ -623,6 +623,10 @@ void hubp2_cursor_set_attributes(
+> >       hubp->att.size.bits.width    =3D attr->width;
+> >       hubp->att.size.bits.height   =3D attr->height;
+> >       hubp->att.cur_ctl.bits.mode  =3D attr->color_format;
+> > +
+> > +     hubp->cur_rect.w =3D attr->width;
+> > +     hubp->cur_rect.h =3D attr->height;
+> > +
+> >       hubp->att.cur_ctl.bits.pitch =3D hw_pitch;
+> >       hubp->att.cur_ctl.bits.line_per_chunk =3D lpc;
+> >       hubp->att.cur_ctl.bits.cur_2x_magnify =3D attr->attribute_flags.b=
+its.ENABLE_MAGNIFICATION;
+>
