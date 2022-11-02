@@ -4,42 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82E66C433FE
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 11:53:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62A36C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 13:01:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17E6610E47F;
-	Wed,  2 Nov 2022 11:53:00 +0000 (UTC)
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A0DE10E47F
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 11:52:56 +0000 (UTC)
-Received: from thor ([188.62.80.205])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202211021252505084
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Nov 2022 12:52:50 +0100
-Received: from [127.0.0.1] by thor with esmtp (Exim 4.96)
- (envelope-from <michel@daenzer.net>) id 1oqBt9-0002JP-0i;
- Wed, 02 Nov 2022 12:26:31 +0100
-Message-ID: <8b3240e6-c460-5dbd-eede-29ff4825e642@daenzer.net>
-Date: Wed, 2 Nov 2022 12:26:11 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3D510E49A;
+	Wed,  2 Nov 2022 13:01:53 +0000 (UTC)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C7B510E494;
+ Wed,  2 Nov 2022 13:01:51 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id s206so19136503oie.3;
+ Wed, 02 Nov 2022 06:01:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=yggPcK5TIy9S6ZT52DUYZYz36AXCmMT/bN7wqCeS1aw=;
+ b=GGoxflpeBD4PlWvUvbzWx/ExOWXpLVPaGPWsA5VJ7zBECqzFfKTDyYrSvR9QX44E4Z
+ 0L830fD72/n3XPMb//OpKzXSwLW7xNUJsHBkCLwIv6jFEFrgwTds5T1+dNAw7nyXDDHm
+ k9mxk85yYzWyn6/Rd23eT+G76vju+rvKmlLwP/KuJcMXJbojryZ92nsxTrvF79wZK+Zg
+ Speo3j7nNv7IaR4Ome2EJZ5jibL+lr5cXatvdXglwK/ALECdVLnwwsfaAegHCppkCo35
+ QPVVxDDOGjd3sb5iBw7cm0t9NtocEy4lGYfBuFEE94H/CLMO0la4smU+p2seJ4nwiY9O
+ Ty7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=yggPcK5TIy9S6ZT52DUYZYz36AXCmMT/bN7wqCeS1aw=;
+ b=d97ikuEk0yLsRTHQzQnncTh9N/EVzpo35KrWQ85MX/OZhB+zz/RuUtlw2ufMcFsVZN
+ Dx8cO0Q54z/Wmf7zx+g+gFnjhcCPGAkmhgBAJz3hTw3NljCfao7AhaEVKRHFw4GCQ1fj
+ bpGTtxq/F1BffWIBCoaMMAgi31DsHexVXIgoBgBb+m5gtlg73ZzifmEVZNq8s0J1do2l
+ gWe1OVbxRXaLvELN/1N/PVCVtzDwrpR5hFPbwqD/SEDf6KEwv+UmMCqoxAjeCsrD//Sb
+ nNfoAammtCcmgX/N1gJ7DmgK1Q0TsVNXVDLTeYu5qZ0z9M7aJSYnNifKfT9e3Lv59MvN
+ 4RCA==
+X-Gm-Message-State: ACrzQf1kfEnKGffR1JmFHuf6zZr3mjwwb7mAm5ZJqkJjbiJh7MOKX8v/
+ 9jWXzieqFtN2roGZbAKpyO28JRVC/jbKqj0K0i4=
+X-Google-Smtp-Source: AMsMyM6qZQxXTSO2TswGy9TB1D8Odto/9aPMXtUQBP2MbhygDgD/F+xKh7vTLDPRvs/CUg5hTSU2HPJ9sIao/ppsy6k=
+X-Received: by 2002:a05:6808:14d2:b0:354:c733:abd3 with SMTP id
+ f18-20020a05680814d200b00354c733abd3mr13266615oiw.96.1667394110491; Wed, 02
+ Nov 2022 06:01:50 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-To: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>
-References: <20221018090815.2662321-1-jiadong.zhu@amd.com>
- <20221018090815.2662321-4-jiadong.zhu@amd.com>
- <e5544150-5eae-7dae-b5db-dd9539df8198@daenzer.net>
- <DS7PR12MB6333A815A3C3EADFFA303E4FF4369@DS7PR12MB6333.namprd12.prod.outlook.com>
- <5a11969c-0996-8755-472a-11f9cf1705d1@daenzer.net>
- <SJ1PR12MB6338730B8B54AD01E4FEF86BF4369@SJ1PR12MB6338.namprd12.prod.outlook.com>
- <92da389f-3c26-6fe1-0525-d38730b6924a@daenzer.net>
-Content-Language: de-CH-frami, en-CA
-Subject: Re: [PATCH 4/5] drm/amdgpu: MCBP based on DRM scheduler (v8)
-In-Reply-To: <92da389f-3c26-6fe1-0525-d38730b6924a@daenzer.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CTCH: RefID="str=0001.0A782F1D.63625A14.000D,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
- Spam="Unknown"; VOD="Unknown"
+References: <20221016174158.16638-1-fmdefrancesco@gmail.com>
+ <CADnq5_MDp6WUYTUO+Lo=XMSLdaYcwu5i2MWid9u1U2hKiyqoYg@mail.gmail.com>
+ <1753145.VLH7GnMWUR@suse>
+In-Reply-To: <1753145.VLH7GnMWUR@suse>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 2 Nov 2022 09:01:38 -0400
+Message-ID: <CADnq5_MfEGsxKxh459DZsHUjUspQLd7zagtrEeFMC4Upk-zTEw@mail.gmail.com>
+Subject: Re: [RESEND PATCH] drm/amd/amdgpu: Replace kmap() with
+ kmap_local_page()
+To: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,49 +68,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Jack Xiao <Jack.Xiao@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ Ira Weiny <ira.weiny@intel.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Nov 1, 2022 at 7:21 PM Fabio M. De Francesco
+<fmdefrancesco@gmail.com> wrote:
+>
+> On luned=C3=AC 17 ottobre 2022 18:53:24 CET Alex Deucher wrote:
+> > Applied.  Thanks!
+> >
+>
+> The same report about which I just wrote in my previous email to you is a=
+lso
+> referring to this patch which later changed status to "Not Applicable".
+>
+> It points to https://patchwork.linuxtv.org/project/linux-media/patch/
+> 20220812175753.22926-1-fmdefrancesco@gmail.com/
+>
+> Can you please let me understand why?
 
-[ Dropping Andrey's no longer working address from Cc ]
+I'm not sure I understand what you are asking.  The patch is applied:
+https://gitlab.freedesktop.org/agd5f/linux/-/commit/a2c554262d39f81be7422fd=
+8bee2f2fe3779f7f5
 
-On 2022-11-01 11:09, Michel Dänzer wrote:
-> On 2022-11-01 10:58, Zhu, Jiadong wrote:
->>
->>> Patch 3 assigns preempt_ib in gfx_v9_0_sw_ring_funcs_gfx, but not in gfx_v9_0_ring_funcs_gfx. mux->real_ring in amdgpu_mcbp_trigger_preempt presumably uses the latter, which would explain why amdgpu_ring_preempt_ib ends up dereferencing a NULL pointer.
->>
->> It's weird the assignment should be in gfx_v9_0_ring_funcs_gfx instead of gfx_v9_0_sw_ring_funcs_gfx.
->>
->> [PATCH 3/5] drm/amdgpu: Modify unmap_queue format for gfx9 (v4):
->> @@ -6925,6 +7047,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_gfx = {
->>         .emit_cntxcntl = gfx_v9_ring_emit_cntxcntl,
->>         .init_cond_exec = gfx_v9_0_ring_emit_init_cond_exec,
->>         .patch_cond_exec = gfx_v9_0_ring_emit_patch_cond_exec,
->> +       .preempt_ib = gfx_v9_0_ring_preempt_ib,
->>         .emit_frame_cntl = gfx_v9_0_ring_emit_frame_cntl,
->>         .emit_wreg = gfx_v9_0_ring_emit_wreg,
->>         .emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
->> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15d.h b/drivers/gpu/drm/amd/amdgpu/soc15d.h
-> 
-> Ah! Looks like stg applied patch 3 incorrectly for me. :(
-> 
-> I'll try and test with this fixed this week, and report back.
+Alex
 
-I'm now running with patch 3 applied correctly, and with patch 5 as well.
-
-
-The good news is that I'm now seeing a positive effect with GpuTest benchmarks which are GPU-limited at low frame rates. In particular, with the pixmark piano benchmark, the GNOME Wayland session now actually stays more responsive on this machine than it does on my work laptop with an Intel iGPU. However, with the plot3d benchmark (with /plot3d_vertex_density=1750 on the command line to increase GPU load), it still doesn't quite manage to keep the desktop running at full frame rate, in contrast to the Intel iGPU.
-
-The bad news is that this series still makes some things very slow. The most extreme examples so far are glxgears (runs at ~400 fps now, ~7000 fps before, i.e. almost 20x slowdown) and hexchat (scrolling one page now takes ~1 second, I can see it drawing line by line; before it was almost instantaneous). I suspect this series makes the overhead of running a single GPU job much bigger. On the bright side, I'm not noticing any significant intermittent freezes anymore.
-
-
-In summary, while the benefits are promising, the downsides are unacceptable for enabling this by default.
-
-
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
-
+>
+> Thanks,
+>
+> Fabio
+>
+>
+>
