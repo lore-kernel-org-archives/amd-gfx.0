@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 800AEC433FE
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 16:04:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A511FC43219
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 16:04:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E76410E4E9;
-	Wed,  2 Nov 2022 16:04:19 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2044.outbound.protection.outlook.com [40.107.94.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 023B4895C1
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 16:04:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A745B10E4EA;
+	Wed,  2 Nov 2022 16:04:28 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2066.outbound.protection.outlook.com [40.107.244.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CEAD10E4EA
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 16:04:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SdnO5afcuUZUvxswNoPX5P4bb5P2nGpV7EYZWG7MJEi1CA6jaGKNQtRP3417GBxi7C43MUPCOxnVYrD+s8vKJ42vvTQRYR68S/BXdWHVjC/H7zJNfdzHaJm36KgN6KJ19CnY+erVB+TSsNPw0UGxUmIJTgo5QG5WTL9t0A8uIrboLgJZR7F4KcNUTa746BppbkgAWewyx+CAm9xUm24RAC2gDe76Ok+0LSGUcHpE4TuG47pBB7gm1fji2hiNRMJPDPPnJi0nMNTnzwcqHoKvNCzccXZMNOMuXojF4DDo6VfIKoeYk1cMt3dOMInLUeeOTBoog+sL5z5QcEnmsNkrow==
+ b=jUst7U7X2KjCQZ9RDaqpej/u5Y09NXj38TOlHbG+NBv/0I/7qdgf9ANstI8OIX/SQgEJlGMK6EnSL5YFeDFgQhAmxw3Og8rHmAQOT1hZvcffkEUxVmfszeJXYdy/J8JHDeYDTGa82h2m986EOwgP0SaX6mRsu4XJPNVG+TnYdWrJQH0cWTG6fQYPQ9/Cv6ztRCsQDQ9B8zhMiT/Pju39+bMn5ctXnup5rEQesZ+nJ6pV8vlcft69KddFFxjM7zrQMT4e5sA+CDFdGdp/09dzLM3O+rvA70Bi4hT6OTCz65kOPVo6ZGn6jyr1fva2gNoLrpRwoHU4d6u63zW0A998HQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GnWrM9EpC+9FQDDqhlx1TS9r6vx+4R+DsyzfyYmeNVk=;
- b=M9v6Mz5EcY0Xxk00XfTSmGnh0GNcNUul7nmQA5pvztklyR0FPq7P0RN9O+M7cWOdSmSwJcYLZO6vQaIzywiHHJFjATvudUVZRlNYcxzWQgUZuDCITMZbsE7WCRojO14+7pbTq/HJ/zyB/BSd2rdrFuNw86CoBO7Jpa36Yr39GcMF0nb3+BlGZmjhok2sWi5rywuR2uqVRqmOPcl8nYQa74cJrWB5f5jr5IazsnpL0A2Q9boxwHzCYNLMJ4ln00rRDbUXu53Q3aT/XGBZzrftsNm2aXoNGtdJROuTr1bTnvas8mUpLqAlQd8+5WDVZY1BlEEWCszUoxq2S5lJz6Kp2g==
+ bh=UBjLTSnZwnrFdJzPiQBip4Gl0hF2KfxiDJfcXeHIeOM=;
+ b=kHZWzRKUX78K647yNyKz36qFOgAnHrvr2d9K+e3xq/f+Ls0vqofQX4u6KL0d7mnYHGtJ1IHMxg3/ZxNlrbPximc5JGTf5TnJZs7eSei//e3VMXsC51TpUY4CgS449diNMKKXw1XO1NqkYoYgvhXpOtrrJaEBg2sHriAzJPVP0/OhPlo9KSPMs9ZReJB/g6E3TtSn/R2Vo3JFqjyzpBgV58dswM3f5o4y4rVieNDomonCFfK1fyU3USA9Uh47Nbc5lCukVI+xuTZEbJTXReEHJq9IFTCHaFMhN5BDleIp6DUVdSlsfOGUGeKXdbvEPHYQ/Wf1lD/YyDMneUtBx7UyzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GnWrM9EpC+9FQDDqhlx1TS9r6vx+4R+DsyzfyYmeNVk=;
- b=5UvyYP3dYeaSIH7MJ/QIinShuoKZsQiyXz6Ht9QslCwzf9DPM40f3QY9MeDC5/wgspDdA/Ar02p74ciu9vbJrZ1Zeox1w5Sj3SH3ClD6HszsTkf9uZ3DecLHqgLB2ZhlYnRQqFHuyIgE3Q89s4eCZh3jgK/p6jq5+c1xIeXcxzg=
-Received: from DM6PR11CA0018.namprd11.prod.outlook.com (2603:10b6:5:190::31)
- by SN7PR12MB7954.namprd12.prod.outlook.com (2603:10b6:806:344::7) with
+ bh=UBjLTSnZwnrFdJzPiQBip4Gl0hF2KfxiDJfcXeHIeOM=;
+ b=ybpV6C/eCn3QXc8tUt/dcHBhQFpsGTqGaO8oeIVLmUN+5Cld8yDxN3sovA2i4pTY3kEAKAvi7RLaIQ5buQ/EXpKKD+Cpx66pBMOXlSa04Xq7BJ0MU7lhIDpk6is5SaNrGNk7tivbMQ6JmDdLc5tAlgIoJQxvUF4RsaGbXwVeN0k=
+Received: from DM6PR02CA0091.namprd02.prod.outlook.com (2603:10b6:5:1f4::32)
+ by SJ1PR12MB6218.namprd12.prod.outlook.com (2603:10b6:a03:457::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19; Wed, 2 Nov
- 2022 16:04:14 +0000
-Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:190:cafe::a4) by DM6PR11CA0018.outlook.office365.com
- (2603:10b6:5:190::31) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 16:04:19 +0000
+Received: from DM6NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1f4:cafe::f5) by DM6PR02CA0091.outlook.office365.com
+ (2603:10b6:5:1f4::32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.21 via Frontend
- Transport; Wed, 2 Nov 2022 16:04:14 +0000
+ Transport; Wed, 2 Nov 2022 16:04:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,22 +45,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT006.mail.protection.outlook.com (10.13.173.104) with Microsoft SMTP
+ DM6NAM11FT003.mail.protection.outlook.com (10.13.173.162) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5791.20 via Frontend Transport; Wed, 2 Nov 2022 16:04:13 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ 15.20.5791.20 via Frontend Transport; Wed, 2 Nov 2022 16:04:18 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 2 Nov
- 2022 11:04:13 -0500
+ 2022 11:04:17 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 2 Nov
+ 2022 11:04:17 -0500
 Received: from alan-new-dev.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
- Transport; Wed, 2 Nov 2022 11:04:09 -0500
+ Transport; Wed, 2 Nov 2022 11:04:13 -0500
 From: Alan Liu <HaoPing.Liu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 17/22] drm/amd/display: Only update link settings after
- successful MST link train
-Date: Thu, 3 Nov 2022 00:01:12 +0800
-Message-ID: <20221102160117.506511-18-HaoPing.Liu@amd.com>
+Subject: [PATCH 18/22] drm/amd/display: Enforce minimum prefetch time for low
+ memclk on DCN32
+Date: Thu, 3 Nov 2022 00:01:13 +0800
+Message-ID: <20221102160117.506511-19-HaoPing.Liu@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221102160117.506511-1-HaoPing.Liu@amd.com>
 References: <20221102160117.506511-1-HaoPing.Liu@amd.com>
@@ -69,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT006:EE_|SN7PR12MB7954:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cdb8f4b-fe5e-498b-68d8-08dabcebe31a
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT003:EE_|SJ1PR12MB6218:EE_
+X-MS-Office365-Filtering-Correlation-Id: db366c61-82cf-4ebb-d886-08dabcebe5c2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qcVj4QoEQSe2widCURnGTb3boH4n1ZRxYzc9e4/9OErH1nwOgQNa/N2oot44klHIT6He0DB4mLl18uhnPMa+URkqcE+j805HOjl7iXkU1PwTfby4OMTdy1RA1UDFh3Idb2564xIDJhY0gM32hinUhcfnSOSWC+duxlzniH+sxstl2pDlcthhd+EMvQLby9i8xOaAOYz90H4f+ZiC8zILcLxMGwcFZtMOo8ibz1R4H6uokB0X+GT0wpaA2jADTC1klfcBa71BvibvyJcf2xPNpy11+xU+AM0KwC6tbN28WSoztyH6KCCrxX3o77JOTbKM8XAYmcb9t2tdLNnYwxW9Z4PJH8QB9XtFVWVJYTpNomY5ittrVASkY5jmaQlN/YJg//N+Hm6VOGGyTyAJ+k6lver4MSg9dX3l06yPyJimKDiTrOrrEgBnyRZxoUoUoMbdxHVOLWJhjKuiIlpFvAf+R7Ae1Mc0TM9/DDTpEy1tDhmI/SY4nGTQ72pg5XxOGOcK7Jf9UVMfQhIcvJ6rdtPITy8XY/3R8D7QdAVnJ782kAP4BKokDPWlbzlrkaa/B5rU+wC1hvEhUVCUzFiHz0JnvNGDG2HGIXsbpMSrzMEWIPnCAgMjzuHmZd9zPI2Xbrot6pg+bH9pzXbbfpddcPKwtpZsNoBHmUu1IloUASIE4wFWO6JBe64W93uaWpnPLPjTPPyH2k8aQTUV9SjbpqcGK7GkoY5ZRHT/uKJx8PShUTjbj4P1VYtxYCYpkLkSqJs98zqlgrAL+Ypk5IAErkufG/lNzsPf70kvzqh7MIRXXv+c4fF1imbjcTD/SpnxVCE7
+X-Microsoft-Antispam-Message-Info: ws5UJUs4YnjpLp13wgIHHeBfmeaSlsQ4q9R/3VyaQLHLqoGkvDlw0Jo9jgE7R6jgZ8FLTp1r+NkyfLZ8NrpiIB3InmsHIEBSzjbGlI3BFHINUZs4Mf8TzCRC6I7NMXvVHjfqxbFzoTeJ6trpODhzcEFxsdx9yczPWOpwWqx4nZzdbDHPdzMiyvIiONOCd/14n5DbBTIEnX+gdQqUlRmgVoJsep2lSQrn99ahwC9zB47/f3ysjFx3+fU36WmG91xFhb1yz6tEaM2/Yzyx2y/VLgEK4hHDq8+BPoPO8syqsOAYTiUWa5WL9smXL+kxpwvDnf2O6Cp1VDpHtesXqaGdt0Mp415UGzghrI99u284Wvqv7Pdzlsbrq3F1elmnqek5rSfZGVhqgVcXjbrjme2SLXlyPZxHrpt2iB4uP2TkTY//yX/e9VJtUTiwNdB1jrghSj7a6J/QcYaEsQ+sNhcAmW+ZmqUsWUfb+yDvoR7WTxbTn9Gd/NPjaWCuzMhOuYNZHKtzG6CswIKVmpwzy9b/gmhBRi4iPQofZv7qv++YDX6HpGGrP3u7iWLVS4Ag4P/IHXPemin1sd4QV0Gu4Ff1X4dC3l9WWfnXT9x4iW7KCwdBPjP6ScvwzbaaMwHl/gvKcG5Nc0zwhr8rsAvkBf7kXQhctjZIOMY6WTyh2ggKY4W7LTkZJHW0nH3OEpN6c+hnDErTupvSHdypKNTs4/I4WAyR3W4Vcq2SHTRXQooeHjbfmLceuLv+kCySa1M28K8bAg9aRAviPl6LWiYIE0M976VPe31AJvVIO8BTrNbZxkEN+Buo8mThbBs4Kvm34DTHrp2ojtLGOEKPsLVMLI4mOw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199015)(36840700001)(46966006)(40470700004)(82310400005)(2906002)(36860700001)(6916009)(83380400001)(41300700001)(81166007)(356005)(478600001)(36756003)(316002)(8936002)(2616005)(54906003)(70586007)(15650500001)(70206006)(40480700001)(8676002)(4326008)(5660300002)(186003)(336012)(40460700003)(47076005)(426003)(82740400003)(7696005)(6666004)(86362001)(26005)(1076003)(36900700001);
+ SFS:(13230022)(4636009)(136003)(376002)(346002)(39860400002)(396003)(451199015)(40470700004)(46966006)(36840700001)(36756003)(426003)(81166007)(83380400001)(70586007)(5660300002)(2906002)(41300700001)(356005)(82740400003)(36860700001)(86362001)(47076005)(2616005)(26005)(316002)(40480700001)(40460700003)(1076003)(186003)(478600001)(6916009)(336012)(8936002)(54906003)(82310400005)(4326008)(8676002)(70206006)(7696005)(36900700001)(44824005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2022 16:04:13.9060 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cdb8f4b-fe5e-498b-68d8-08dabcebe31a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2022 16:04:18.3653 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: db366c61-82cf-4ebb-d886-08dabcebe5c2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT003.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7954
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6218
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,101 +104,213 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Alan
- Liu <HaoPing.Liu@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- Michael Strauss <michael.strauss@amd.com>, wayne.lin@amd.com,
- Mustapha Ghaddar <Mustapha.Ghaddar@amd.com>, Bhawanpreet.Lakha@amd.com,
+Cc: stylon.wang@amd.com, Alan Liu <HaoPing.Liu@amd.com>,
+ Dillon Varone <Dillon.Varone@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ wayne.lin@amd.com, Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michael Strauss <michael.strauss@amd.com>
+From: Dillon Varone <Dillon.Varone@amd.com>
 
-[WHY]
-Currently driver reduces verified link caps on DPIA devices if a link is
-trained at a link rate below the max rate verified during link detection.
-This blocks high bandwidth modes after setting a low bandwidth mode.
+[WHY?]
+Data return times when using lowest memclk can be <= 60us, which can cause
+underflow on high bandwidth displays with a workload.
 
-[HOW]
-Only update link rate after a successful link train if link is MST.
+[HOW?]
+Enforce a minimum prefetch time during validation for low memclk modes.
 
-Reviewed-by: Mustapha Ghaddar <Mustapha.Ghaddar@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Alan Liu <HaoPing.Liu@amd.com>
-Signed-off-by: Michael Strauss <michael.strauss@amd.com>
+Signed-off-by: Dillon Varone <Dillon.Varone@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 8 ++++++++
- drivers/gpu/drm/amd/display/dc/core/dc_link.c             | 4 ++++
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c          | 7 +++++--
- drivers/gpu/drm/amd/display/dc/dm_helpers.h               | 5 +++++
- 4 files changed, 22 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h                  |  1 +
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.c    |  1 +
+ .../gpu/drm/amd/display/dc/dcn321/dcn321_resource.c  |  1 +
+ drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c |  2 ++
+ .../amd/display/dc/dml/dcn32/display_mode_vba_32.c   |  4 ++++
+ .../amd/display/dc/dml/dcn32/display_mode_vba_32.h   |  3 +++
+ .../display/dc/dml/dcn32/display_mode_vba_util_32.c  | 12 ++++++++++--
+ .../display/dc/dml/dcn32/display_mode_vba_util_32.h  |  1 +
+ .../gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c   |  2 ++
+ .../drm/amd/display/dc/dml/display_mode_structs.h    |  1 +
+ 10 files changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index a21e2ba77ddb..b433fab57670 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -1009,3 +1009,11 @@ void dm_helpers_enable_periodic_detection(struct dc_context *ctx, bool enable)
- {
- 	/* TODO: add periodic detection implementation */
- }
-+
-+void dm_helpers_dp_mst_update_branch_bandwidth(
-+		struct dc_context *ctx,
-+		struct dc_link *link)
-+{
-+	// TODO
-+}
-+
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 6990b64c0211..945e9ae4e630 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -4663,6 +4663,10 @@ void dc_link_set_preferred_training_settings(struct dc *dc,
- 		link->preferred_link_setting.link_rate = LINK_RATE_UNKNOWN;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 84c82d3a6761..d69121809524 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -864,6 +864,7 @@ struct dc_debug_options {
+ 	bool enable_dp_dig_pixel_rate_div_policy;
+ 	enum lttpr_mode lttpr_mode_override;
+ 	unsigned int dsc_delay_factor_wa_x1000;
++	unsigned int min_prefetch_in_strobe_ns;
+ };
  
-+	if (link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
-+			link->type == dc_connection_mst_branch)
-+		dm_helpers_dp_mst_update_branch_bandwidth(dc->ctx, link);
+ struct gpu_info_soc_bounding_box_v1_0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+index 4ba9a8662185..4bd861427b3c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+@@ -724,6 +724,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.enable_dp_dig_pixel_rate_div_policy = 1,
+ 	.allow_sw_cursor_fallback = false,
+ 	.alloc_extra_way_for_cursor = true,
++	.min_prefetch_in_strobe_ns = 60000, // 60us
+ };
+ 
+ static const struct dc_debug_options debug_defaults_diags = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+index 61087f2385a9..6292ac515d1a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+@@ -722,6 +722,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.enable_dp_dig_pixel_rate_div_policy = 1,
+ 	.allow_sw_cursor_fallback = false,
+ 	.alloc_extra_way_for_cursor = true,
++	.min_prefetch_in_strobe_ns = 60000, // 60us
+ };
+ 
+ static const struct dc_debug_options debug_defaults_diags = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index 0d704e302d03..853ffb704985 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -2351,6 +2351,8 @@ void dcn32_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_pa
+ 	/* DML DSC delay factor workaround */
+ 	dcn3_2_ip.dsc_delay_factor_wa = dc->debug.dsc_delay_factor_wa_x1000 / 1000.0;
+ 
++	dcn3_2_ip.min_prefetch_in_strobe_us = dc->debug.min_prefetch_in_strobe_ns / 1000.0;
 +
- 	/* Retrain now, or wait until next stream update to apply */
- 	if (skip_immediate_retrain == false)
- 		dc_link_set_preferred_link_settings(dc, &link->preferred_link_setting, link);
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index cf9191053365..24e1164b1bee 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -2771,8 +2771,11 @@ bool perform_link_training_with_retries(
- 					/* Update verified link settings to current one
- 					 * Because DPIA LT might fallback to lower link setting.
- 					 */
--					link->verified_link_cap.link_rate = link->cur_link_settings.link_rate;
--					link->verified_link_cap.lane_count = link->cur_link_settings.lane_count;
-+					if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST) {
-+						link->verified_link_cap.link_rate = link->cur_link_settings.link_rate;
-+						link->verified_link_cap.lane_count = link->cur_link_settings.lane_count;
-+						dm_helpers_dp_mst_update_branch_bandwidth(link->ctx, link);
-+					}
- 				}
- 			} else {
- 				status = dc_link_dp_perform_link_training(link,
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-index 6abbed22bb20..59ab4f392fc9 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-@@ -116,6 +116,11 @@ bool dm_helpers_dp_mst_start_top_mgr(
- bool dm_helpers_dp_mst_stop_top_mgr(
- 		struct dc_context *ctx,
- 		struct dc_link *link);
+ 	/* Override dispclk_dppclk_vco_speed_mhz from Clk Mgr */
+ 	dcn3_2_soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
+ 	dc->dml.soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+index ae6e6abc620b..244fd15d24b4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+@@ -786,6 +786,8 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 					v->SwathHeightY[k],
+ 					v->SwathHeightC[k],
+ 					TWait,
++					v->DRAMSpeedPerState[mode_lib->vba.VoltageLevel] <= MEM_STROBE_FREQ_MHZ ?
++							mode_lib->vba.ip.min_prefetch_in_strobe_us : 0,
+ 					/* Output */
+ 					&v->DSTXAfterScaler[k],
+ 					&v->DSTYAfterScaler[k],
+@@ -3245,6 +3247,8 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 							v->swath_width_chroma_ub_this_state[k],
+ 							v->SwathHeightYThisState[k],
+ 							v->SwathHeightCThisState[k], v->TWait,
++							v->DRAMSpeedPerState[i] <= MEM_STROBE_FREQ_MHZ ?
++									mode_lib->vba.ip.min_prefetch_in_strobe_us : 0,
+ 
+ 							/* Output */
+ 							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.DSTXAfterScaler[k],
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.h
+index c62e0991358b..f82e14cd9d8a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.h
+@@ -49,6 +49,9 @@
+ #define BPP_INVALID 0
+ #define BPP_BLENDED_PIPE 0xffffffff
+ 
++#define MEM_STROBE_FREQ_MHZ 1600
++#define MEM_STROBE_MAX_DELIVERY_TIME_US 60.0
 +
-+void dm_helpers_dp_mst_update_branch_bandwidth(
-+		struct dc_context *ctx,
-+		struct dc_link *link);
+ struct display_mode_lib;
+ 
+ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+index ab9217732a17..635fc54338fa 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+@@ -3417,6 +3417,7 @@ bool dml32_CalculatePrefetchSchedule(
+ 		unsigned int SwathHeightY,
+ 		unsigned int SwathHeightC,
+ 		double TWait,
++		double TPreReq,
+ 		/* Output */
+ 		double   *DSTXAfterScaler,
+ 		double   *DSTYAfterScaler,
+@@ -3474,6 +3475,7 @@ bool dml32_CalculatePrefetchSchedule(
+ 	double  min_Lsw;
+ 	double  Tsw_est1 = 0;
+ 	double  Tsw_est3 = 0;
++	double  TPreMargin = 0;
+ 
+ 	if (v->GPUVMEnable == true && v->HostVMEnable == true)
+ 		HostVMDynamicLevelsTrips = v->HostVMMaxNonCachedPageTableLevels;
+@@ -3699,6 +3701,8 @@ bool dml32_CalculatePrefetchSchedule(
+ 
+ 	dst_y_prefetch_equ = dml_floor(4.0 * (dst_y_prefetch_equ + 0.125), 1) / 4.0;
+ 	Tpre_rounded = dst_y_prefetch_equ * LineTime;
 +
- /**
-  * OS specific aux read callback.
-  */
++	TPreMargin = Tpre_rounded - TPreReq;
+ #ifdef __DML_VBA_DEBUG__
+ 	dml_print("DML::%s: dst_y_prefetch_equ: %f (after round)\n", __func__, dst_y_prefetch_equ);
+ 	dml_print("DML::%s: LineTime: %f\n", __func__, LineTime);
+@@ -3726,7 +3730,7 @@ bool dml32_CalculatePrefetchSchedule(
+ 	*VRatioPrefetchY = 0;
+ 	*VRatioPrefetchC = 0;
+ 	*RequiredPrefetchPixDataBWLuma = 0;
+-	if (dst_y_prefetch_equ > 1) {
++	if (dst_y_prefetch_equ > 1 && TPreMargin > 0.0) {
+ 		double PrefetchBandwidth1;
+ 		double PrefetchBandwidth2;
+ 		double PrefetchBandwidth3;
+@@ -3872,7 +3876,11 @@ bool dml32_CalculatePrefetchSchedule(
+ 		}
+ 
+ 		if (dst_y_prefetch_oto < dst_y_prefetch_equ) {
+-			*DestinationLinesForPrefetch = dst_y_prefetch_oto;
++			if (dst_y_prefetch_oto * LineTime < TPreReq) {
++				*DestinationLinesForPrefetch = dst_y_prefetch_equ;
++			} else {
++				*DestinationLinesForPrefetch = dst_y_prefetch_oto;
++			}
+ 			TimeForFetchingMetaPTE = Tvm_oto;
+ 			TimeForFetchingRowInVBlank = Tr0_oto;
+ 			*PrefetchBandwidth = prefetch_bw_oto;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
+index fdccaa93eb2e..3989c2a28fae 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
+@@ -743,6 +743,7 @@ bool dml32_CalculatePrefetchSchedule(
+ 		unsigned int SwathHeightY,
+ 		unsigned int SwathHeightC,
+ 		double TWait,
++		double TPreReq,
+ 		/* Output */
+ 		double   *DSTXAfterScaler,
+ 		double   *DSTYAfterScaler,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
+index ec0486efab14..432b4ecd01a7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
+@@ -544,6 +544,8 @@ void dcn321_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_p
+ 	/* DML DSC delay factor workaround */
+ 	dcn3_21_ip.dsc_delay_factor_wa = dc->debug.dsc_delay_factor_wa_x1000 / 1000.0;
+ 
++	dcn3_21_ip.min_prefetch_in_strobe_us = dc->debug.min_prefetch_in_strobe_ns / 1000.0;
++
+ 	/* Override dispclk_dppclk_vco_speed_mhz from Clk Mgr */
+ 	dcn3_21_soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
+ 	dc->dml.soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_structs.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_structs.h
+index d7be01ac0751..64d602e6412f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_structs.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_structs.h
+@@ -367,6 +367,7 @@ struct _vcs_dpi_ip_params_st {
+ 
+ 	/* DM workarounds */
+ 	double dsc_delay_factor_wa; // TODO: Remove after implementing root cause fix
++	double min_prefetch_in_strobe_us;
+ };
+ 
+ struct _vcs_dpi_display_xfc_params_st {
 -- 
 2.25.1
 
