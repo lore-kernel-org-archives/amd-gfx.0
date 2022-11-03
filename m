@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B21BC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 06:24:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DF55C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 06:24:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F1AE10E23F;
-	Thu,  3 Nov 2022 06:24:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 587BD10E240;
+	Thu,  3 Nov 2022 06:24:24 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 934AD10E237
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Nov 2022 06:24:18 +0000 (UTC)
+ (mail-mw2nam10on2086.outbound.protection.outlook.com [40.107.94.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E587F10E237
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Nov 2022 06:24:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A/orP397RlHGw8zRk9rWXjWm5hiu8NmpVfDdJjzI3qjnI6SPia9iIDLQ2dm0mbpYpJt6IVFowrYAUxKrxBko9fQy90NSMKu3HXNrk4qxyL3bEWsPl6Bs5hYrEjzVJEMVl7Rr08k5wcX4Wq4dpwGgc5jLKkaLntITlw4VimuhGxM9HqQ7xwTURtrB4bcjuRIG8KAz2OeQbiCwRMLVQnVXHBhxcuc7LcwfG9WK5ScdO+P/18re7Dy4iCAwTfGhJ3LReiU3Yh1ok6EzJO7Px0XPbq2V3+CAGfenGeFzJOFkG1Kba1ieYfKlpzsBielQgBl8vp49YMFYJCYmHMVcShL72Q==
+ b=kat3BjUlYlB/GwGz3SIgJX/cdN/6osgMgNSFAO/CkSD6EEAxL90YkjbjsPX/HWCR4/9oYbnUXvz+F6YiDSzQ1ggeYZUSM5D+aAXJoapyqHLcS0woNl3PnP/EkIgpJdxXi9fIRKbO+3CKB4RLvc2STUDfU7NAaUu19H2OS4GCdzzKpywVWjlKxv1iWc2ZuSjCO44KX0kTUCxkZNSIGgcReaCVFKZbPT7ZYPaoKkUidqOYbY93VviZCdDEqK/7WOUyGp9dF9m0hhOA2lP8PgcK+CvyeAt20Jetn04u9qeljpsVUq+IwEOdMXluMlKKwiTSpQWANJSo7naBEDpbe6vPKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wRJslP+0wnm6w5OExQK9PhOJ+A1OhMrvKWsRKcd9HzQ=;
- b=mdILk2tY45nz6sRY8ho9EYFd5WvhkxKBLfgMhlC82JjAMCWEXPxvcTrqPsPc20fEu9t9PBnVy4CZom6c+TntdjvRXksfRc9xjmoXHUEF3taYmwRLJxnpnapSaRjLRSGuynDRwulMVyb8Rou6Szq0JlMb4bdGz2MPW7FsCbDcGomBQjpebknzUim5eh3nvnZCAyhJvcyBQtOA75wZv8lg3g/vR84MjjRHl1+2jeu8eZi6mvaaK6y5GiDwtrWvt/F2F3lqmHwEZeY/y3fBVUFugTSkU1T20QXO1x0wn0hc0zpJViUItSd/dKC9CpRooXoNMsK3JbqCdtUsv1TRmV8wYQ==
+ bh=WJkfDrCfQz/ftUXGAX7PU54pyiMfDYhQDMMuJtuEaYc=;
+ b=l9PdHsw1sCgmhFEKKXhT1jayLXYKduoPcrlIvPMWyVLofWEvMpnWAfrh3PIUzgKgkp51ASTL+QHgvC1L4DWAwfpXF0iCdnyHuVqzWjBIFY6xntTEOkaPAVXOLwXa+Y0dt91Vvl/31u1y0Hdjag0bRlNrZnoLj80zxOm19Zwk3o/bHOxfxSdgIw/DE7YtZ8nnpyYG4wCC5FRjkcFBUEfouwyG9TiC4NVOUl8yIPsDxKMYtPMQEqAX7dq7Iwj7aUMD6xoxPo8XXgaZ8HJfluMPrv1J/o6DM3h+Xi0F+ndVFoecZg8eGjchQctnsrvbGBggop02bJF9QHIrk8m415V6dw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wRJslP+0wnm6w5OExQK9PhOJ+A1OhMrvKWsRKcd9HzQ=;
- b=Vbbtnv+BHZuOMhxly2qNu1aVze/kLJqnnPC3RInNOZW8pjjsb9eWhzDxRyPJ4ewIiPO+Gb9gec8a6hQIMBmgdvN3soa2rJQmKi5r9SbPJbBWybQSw9+Y1UweqdmMHvUoK0FrJAnnpzRa7Gg6A2OiGSp0YuvKpqOJVOkRvPlDs4w=
-Received: from BN9PR03CA0185.namprd03.prod.outlook.com (2603:10b6:408:f9::10)
- by IA1PR12MB7590.namprd12.prod.outlook.com (2603:10b6:208:42a::5)
+ bh=WJkfDrCfQz/ftUXGAX7PU54pyiMfDYhQDMMuJtuEaYc=;
+ b=gHnNxT7IIkLoyETHMF5ukFsx1/jBvEoHy3vLnO4opKj8Aa00o6/KrHwFDuhK9zWDsRLkJ+bL0uSLTqyjh0lKqAXOyjm6bW3psmnZJAKIOb8pQrBTuZliBQjklqqt562Y8AEIEb60fqSy4TubS6IiM2YEIViXYe8/uE9731BoFwE=
+Received: from BN9PR03CA0206.namprd03.prod.outlook.com (2603:10b6:408:f9::31)
+ by CO6PR12MB5441.namprd12.prod.outlook.com (2603:10b6:303:13b::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.20; Thu, 3 Nov
- 2022 06:24:17 +0000
+ 2022 06:24:16 +0000
 Received: from BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f9:cafe::22) by BN9PR03CA0185.outlook.office365.com
- (2603:10b6:408:f9::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.22 via Frontend
+ (2603:10b6:408:f9:cafe::27) by BN9PR03CA0206.outlook.office365.com
+ (2603:10b6:408:f9::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.20 via Frontend
  Transport; Thu, 3 Nov 2022 06:24:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -47,16 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT007.mail.protection.outlook.com (10.13.177.109) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5791.20 via Frontend Transport; Thu, 3 Nov 2022 06:24:16 +0000
+ 15.20.5791.20 via Frontend Transport; Thu, 3 Nov 2022 06:24:15 +0000
 Received: from aerithdevpyuan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 3 Nov
- 2022 01:24:15 -0500
+ 2022 01:24:13 -0500
 From: Perry Yuan <Perry.Yuan@amd.com>
 To: <Alexander.Deucher@amd.com>
-Subject: [PATCH v3 3/3] drm/amdgpu: remove the DID of Vangogh from pciidlist
-Date: Thu, 3 Nov 2022 14:20:56 +0800
-Message-ID: <20221103062056.2162715-3-Perry.Yuan@amd.com>
+Subject: [PATCH v3 2/3] drm/amd/display: change GPU match with IP version for
+ Vangogh
+Date: Thu, 3 Nov 2022 14:20:55 +0800
+Message-ID: <20221103062056.2162715-2-Perry.Yuan@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221103062056.2162715-1-Perry.Yuan@amd.com>
 References: <20221103062056.2162715-1-Perry.Yuan@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT007:EE_|IA1PR12MB7590:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a9fa18a-8e61-4ccb-5536-08dabd6408d5
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT007:EE_|CO6PR12MB5441:EE_
+X-MS-Office365-Filtering-Correlation-Id: aea56238-529b-4028-241f-08dabd64083f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TkRc0MjUOYs2IUOfMdZ3vL6vNAAO2CWp/mw6e9sjt7xPKKeMxw4xDi6qdUCc3zwHzbkTb+3+UjNOgUiYdh7eIMY7vKaQn5l23DaTqTTFmTZoAmJWbZLtMOsGoQLQsQUbEzL0cmqnTjQot2U5eLd8DbpUnLmENow/Od+nMA5mO3KoI5Vm176kxAlWmeiPqaJknqdbBZDjcsh53zyMa5LjPjuQ0YqUPMKhqMzcd9OR9FthpadVefM3YFdAu3bQMIfPEqEWq7Zk/I+X8H+M9ffO+JMYZcUvgk9FXbFgwKgEQRmEVz1fLJqrQ6H8nxt2Id4v2LISIR+Ej4kMoELlRZODTLU81uvhZTJLtoNwGePUqNXN6mprQPq3kmhFcKNvhy2jLNaYRR1DnkUaHP4ZzQGOfIrfLDutPnS7UK8j43j8/LMY+7XSenI8fK+hfLrqdSmOyBkWInyCyeRDA55CFJO6a0yp8Rwd6QjMYomoHHMOP2wFrPz7+AaS2suR5vLheWdAr4Mqe+Hm+Au2KdrLj7uJhNnTsXndwU4jwiGXcOL2+AFhcsw+ktLlCYYhRXmfqVULM0VyOwTT6o5s8piEmyIOsoLqG0Ft4ZbB5G5xiB9I1Jp1lGhpldcHOFvMu4c+hHARbLf29n6D3UEpU3+pVHpEbGLZB0pd2xkcg+z6752L5oGYc87h57nn6GK5Wflz/RST6rjwNK/JM/5WWpCvFalXvwVpdHEi/0P0LwHTRB5Sv7gN0r/tNOHhKN55mCSDSmJONlzKfWpnjEOlDAzG28GsN/Q4eKphgVVNHwgKRQ4jdIQ=
+X-Microsoft-Antispam-Message-Info: mKqsb6SY7EezyXBjzdEvhzO3aqHQP75FjVupd1dJdx1V0PKzhcqabR8256xwkak65hJ2c+iPNqmUAttoonAdy8KlGTRqGcXSe/alXDyhbnmvdxIkxu/W+s5f1yPn3cfGOzcCJakj0LEy289feA61FtAhA5MocAurqqqmI/h0oIdsWk7yKeF6ccM6B2SqtBAjwDtJHnWuKUWAwZknvi3LQopk7g+fInwMC3YEYl9bcQQ3qkA3X9QjDicdBNHaD3l2LvJaPloEWCJuhRRkvIRam0nx0l1EbYmKrqt925gI9YdzFcFuAuHRO0tQKdt0RtiUJGdffON40MYM4s4xK3a8EUWp0bDJ0eNlj68nRybzlVTzvBoSG50+wCaDCNvvUt1bMzeRN7PbcEZiWkP0AuJPZaQA8W8Y1dwlB1Z0SMDNSJiA86G0AQg7fAkNaEAmJuukh3GZMQbd706ejkThUwCH0cZZM8praNTyDKtLu7IFhToToCRMNYo/VDN9OJ4TYM8C0OMudTWt2BgDqdQ2cvLuk/pqI8nKlU4mf8dHtnO8+wkhSOSPI+ZszD5MYWHOyqqqQTwyGvvnWbsgq8z8cCSLcCHt10hpq/ohmT5ltOSJwrhD/fkGkSVTQ2PLdcFStSjByZyygP64fhzKnz3Mk5VvfITsgzHQKB0pOIUz9eMQUXzlyNEryyqvihQRFxYrVGT8APk9KCsM7/o9HiEggnraMU5o/Ky0+TFPiZDlVLUE5KbEGQZtIaDpH3y4LEuXuZwr/uY/PsaQsNi+Sp43MQTn5j6Qy1tr3t2OVxr9LUMicKIRmlEbEwRCSf0kW86uP73/
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(396003)(346002)(376002)(136003)(451199015)(46966006)(36840700001)(40470700004)(36756003)(47076005)(41300700001)(83380400001)(26005)(40460700003)(2906002)(16526019)(1076003)(2616005)(6862004)(5660300002)(8936002)(336012)(40480700001)(36860700001)(186003)(86362001)(426003)(81166007)(82310400005)(356005)(82740400003)(54906003)(6666004)(316002)(6636002)(37006003)(478600001)(70586007)(70206006)(7696005)(8676002)(4326008)(36900700001);
+ SFS:(13230022)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199015)(36840700001)(46966006)(40470700004)(82740400003)(81166007)(36756003)(356005)(40460700003)(4326008)(86362001)(7696005)(40480700001)(6666004)(2906002)(4744005)(8936002)(5660300002)(316002)(70586007)(37006003)(8676002)(70206006)(6636002)(6862004)(54906003)(41300700001)(1076003)(16526019)(82310400005)(36860700001)(478600001)(2616005)(26005)(186003)(336012)(426003)(47076005)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2022 06:24:16.8455 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a9fa18a-8e61-4ccb-5536-08dabd6408d5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2022 06:24:15.8612 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aea56238-529b-4028-241f-08dabd64083f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7590
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5441
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,29 +105,29 @@ Cc: richardqi.liang@amd.com, Shimmer.Huang@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-change the vangogh family to use IP discovery path to initialize IP
-list, this needs to remove the DID from the PCI ID list to allow the IP
-discovery path to set all the IP versions correctly.
+Use ip versions (10,3,1) to match the GPU after Vangogh switched to use IP
+discovery path.
 
 Signed-off-by: Perry Yuan <Perry.Yuan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 429fcdf28836..9c323405e3bb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1909,9 +1909,6 @@ static const struct pci_device_id pciidlist[] = {
- 	{0x1002, 0x73AF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
- 	{0x1002, 0x73BF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
- 
--	/* Van Gogh */
--	{0x1002, 0x163F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VANGOGH|AMD_IS_APU},
--
- 	/* Yellow Carp */
- 	{0x1002, 0x164D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_YELLOW_CARP|AMD_IS_APU},
- 	{0x1002, 0x1681, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_YELLOW_CARP|AMD_IS_APU},
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 1efe7fa5bc58..cfdcd8852ebc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -10202,8 +10202,8 @@ int amdgpu_dm_process_dmub_aux_transfer_sync(bool is_cmd_aux, struct dc_context
+  */
+ bool check_seamless_boot_capability(struct amdgpu_device *adev)
+ {
+-	switch (adev->asic_type) {
+-	case CHIP_VANGOGH:
++	switch (adev->ip_versions[DCE_HWIP][0]) {
++	case IP_VERSION(3, 0, 1):
+ 		if (!adev->mman.keep_stolen_vga_memory)
+ 			return true;
+ 		break;
 -- 
 2.34.1
 
