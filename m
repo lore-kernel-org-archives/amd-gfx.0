@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFB52C43217
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 15:17:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE411C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 15:17:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D32D10E691;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F01A710E69B;
 	Thu,  3 Nov 2022 15:15:19 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 586B510E617;
- Thu,  3 Nov 2022 15:14:55 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F3FB10E620;
+ Thu,  3 Nov 2022 15:14:57 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 181AB21DE2;
- Thu,  3 Nov 2022 15:14:54 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 27E9A1F8DC;
+ Thu,  3 Nov 2022 15:14:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1667488494; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1667488496; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=DAeMCwRCJM5hznGIXRhbDEzf9LOpLMgsqs12CnL2W3Y=;
- b=zCzHweR6BnCedpkcTlfiK+JVAZLFhSUtaTciouOpNU3CvL1HPp1mHw+SNd0AEa0gpfc8Gd
- dqd9mR7dMx4wPMwRBpSTBK10OvAW4U7cYCgkIYFln0/pKqhd/lWyqNF9/xv44+znJcgDcf
- 770aUvTU8jbIsmPqWEKZYQzdJNhMfds=
+ bh=B4aPgzZZorCQLl3vAvSSMp+NdFC9o0tszL97E4EWDSk=;
+ b=I/+haJyfr+gENHgrb5PmCYXiaIqSiRlc6gzw3E11wcwkELm+bxwmry634/+fD/O1hXtiY2
+ 3IJ7AOUJ6wo0W34ZbqvRpJrStx6TtNCANoQzS4TIU++Nsq9eRFXG2AoxtzUM6gNEZmAxPn
+ xbFTzGILmwQadcevn2+sH38LPYW4QkY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1667488494;
+ s=susede2_ed25519; t=1667488496;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=DAeMCwRCJM5hznGIXRhbDEzf9LOpLMgsqs12CnL2W3Y=;
- b=paKS2cvRRwa0Vi1ztoK9HitUEgaOXprUJdSvgtBEQ8sBWSJSo8uFGwcFxNSL6ZS1xGodf8
- 3VE/OD++GHQfnYCQ==
+ bh=B4aPgzZZorCQLl3vAvSSMp+NdFC9o0tszL97E4EWDSk=;
+ b=JReK5h56PGHBX9lsa3CqhzBTgE6WBJBvk5ZBwQ5LfSS97qrXGbiVWzt/wN10p1acycBkLN
+ /04HGKYEusyunADA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A1AEE13ADB;
- Thu,  3 Nov 2022 15:14:53 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AD01B13ADB;
+ Thu,  3 Nov 2022 15:14:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UCGuJu3aY2PBGgAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 03 Nov 2022 15:14:53 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8D5wKe/aY2PBGgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 03 Nov 2022 15:14:55 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
  mripard@kernel.org, maarten.lankhorst@linux.intel.com
-Subject: [PATCH v3 09/23] drm/panel-ili9341: Include <linux/backlight.h>
-Date: Thu,  3 Nov 2022 16:14:32 +0100
-Message-Id: <20221103151446.2638-10-tzimmermann@suse.de>
+Subject: [PATCH v3 13/23] drm/fb-helper: Rename drm_fb_helper_alloc_fbi() to
+ use _info postfix
+Date: Thu,  3 Nov 2022 16:14:36 +0100
+Message-Id: <20221103151446.2638-14-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221103151446.2638-1-tzimmermann@suse.de>
 References: <20221103151446.2638-1-tzimmermann@suse.de>
@@ -82,26 +83,205 @@ Cc: linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Include <linux/backlight.h> for devm_of_find_backlight().
+Rename drm_fb_helper_alloc_fbi() to drm_fb_helper_alloc_info() as
+part of unifying the naming within fbdev helpers. Adapt drivers. No
+functional changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/panel/panel-ilitek-ili9341.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/armada/armada_fbdev.c      | 2 +-
+ drivers/gpu/drm/drm_fb_helper.c            | 8 ++++----
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c  | 2 +-
+ drivers/gpu/drm/gma500/framebuffer.c       | 2 +-
+ drivers/gpu/drm/i915/display/intel_fbdev.c | 2 +-
+ drivers/gpu/drm/msm/msm_fbdev.c            | 2 +-
+ drivers/gpu/drm/nouveau/nouveau_fbcon.c    | 2 +-
+ drivers/gpu/drm/omapdrm/omap_fbdev.c       | 2 +-
+ drivers/gpu/drm/radeon/radeon_fb.c         | 2 +-
+ drivers/gpu/drm/tegra/fb.c                 | 2 +-
+ include/drm/drm_fb_helper.h                | 4 ++--
+ 11 files changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9341.c b/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
-index 39dc40cf681f0..b59472c29a40d 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
-@@ -18,6 +18,7 @@
-  * Copyright 2018 David Lechner <david@lechnology.com>
-  */
+diff --git a/drivers/gpu/drm/armada/armada_fbdev.c b/drivers/gpu/drm/armada/armada_fbdev.c
+index 38f5170c0fea6..eaae98d9377ae 100644
+--- a/drivers/gpu/drm/armada/armada_fbdev.c
++++ b/drivers/gpu/drm/armada/armada_fbdev.c
+@@ -72,7 +72,7 @@ static int armada_fbdev_create(struct drm_fb_helper *fbh,
+ 	if (IS_ERR(dfb))
+ 		return PTR_ERR(dfb);
  
-+#include <linux/backlight.h>
- #include <linux/bitops.h>
- #include <linux/delay.h>
- #include <linux/gpio/consumer.h>
+-	info = drm_fb_helper_alloc_fbi(fbh);
++	info = drm_fb_helper_alloc_info(fbh);
+ 	if (IS_ERR(info)) {
+ 		ret = PTR_ERR(info);
+ 		goto err_fballoc;
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 480bf4f568b7b..881e6a04fa706 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -558,7 +558,7 @@ int drm_fb_helper_init(struct drm_device *dev,
+ EXPORT_SYMBOL(drm_fb_helper_init);
+ 
+ /**
+- * drm_fb_helper_alloc_fbi - allocate fb_info and some of its members
++ * drm_fb_helper_alloc_info - allocate fb_info and some of its members
+  * @fb_helper: driver-allocated fbdev helper
+  *
+  * A helper to alloc fb_info and the members cmap and apertures. Called
+@@ -570,7 +570,7 @@ EXPORT_SYMBOL(drm_fb_helper_init);
+  * fb_info pointer if things went okay, pointer containing error code
+  * otherwise
+  */
+-struct fb_info *drm_fb_helper_alloc_fbi(struct drm_fb_helper *fb_helper)
++struct fb_info *drm_fb_helper_alloc_info(struct drm_fb_helper *fb_helper)
+ {
+ 	struct device *dev = fb_helper->dev->dev;
+ 	struct fb_info *info;
+@@ -609,7 +609,7 @@ struct fb_info *drm_fb_helper_alloc_fbi(struct drm_fb_helper *fb_helper)
+ 	framebuffer_release(info);
+ 	return ERR_PTR(ret);
+ }
+-EXPORT_SYMBOL(drm_fb_helper_alloc_fbi);
++EXPORT_SYMBOL(drm_fb_helper_alloc_info);
+ 
+ /**
+  * drm_fb_helper_unregister_fbi - unregister fb_info framebuffer device
+@@ -2440,7 +2440,7 @@ static int drm_fb_helper_generic_probe(struct drm_fb_helper *fb_helper,
+ 	fb_helper->fb = buffer->fb;
+ 	fb = buffer->fb;
+ 
+-	fbi = drm_fb_helper_alloc_fbi(fb_helper);
++	fbi = drm_fb_helper_alloc_info(fb_helper);
+ 	if (IS_ERR(fbi))
+ 		return PTR_ERR(fbi);
+ 
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+index 767afd2bfa822..8741eb0b1b604 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+@@ -63,7 +63,7 @@ static int exynos_drm_fbdev_update(struct drm_fb_helper *helper,
+ 	unsigned int size = fb->width * fb->height * fb->format->cpp[0];
+ 	unsigned long offset;
+ 
+-	fbi = drm_fb_helper_alloc_fbi(helper);
++	fbi = drm_fb_helper_alloc_info(helper);
+ 	if (IS_ERR(fbi)) {
+ 		DRM_DEV_ERROR(to_dma_dev(helper->dev),
+ 			      "failed to allocate fb info.\n");
+diff --git a/drivers/gpu/drm/gma500/framebuffer.c b/drivers/gpu/drm/gma500/framebuffer.c
+index 5f502a0048ab8..6d0e3bf6435ee 100644
+--- a/drivers/gpu/drm/gma500/framebuffer.c
++++ b/drivers/gpu/drm/gma500/framebuffer.c
+@@ -268,7 +268,7 @@ static int psbfb_create(struct drm_fb_helper *fb_helper,
+ 
+ 	memset(dev_priv->vram_addr + backing->offset, 0, size);
+ 
+-	info = drm_fb_helper_alloc_fbi(fb_helper);
++	info = drm_fb_helper_alloc_info(fb_helper);
+ 	if (IS_ERR(info)) {
+ 		ret = PTR_ERR(info);
+ 		goto err_drm_gem_object_put;
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index d533ecd451025..05b841343ea3e 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -254,7 +254,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
+ 		goto out_unlock;
+ 	}
+ 
+-	info = drm_fb_helper_alloc_fbi(helper);
++	info = drm_fb_helper_alloc_info(helper);
+ 	if (IS_ERR(info)) {
+ 		drm_err(&dev_priv->drm, "Failed to allocate fb_info (%pe)\n", info);
+ 		ret = PTR_ERR(info);
+diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+index b373e30003203..4d9a0fcbf95b6 100644
+--- a/drivers/gpu/drm/msm/msm_fbdev.c
++++ b/drivers/gpu/drm/msm/msm_fbdev.c
+@@ -93,7 +93,7 @@ static int msm_fbdev_create(struct drm_fb_helper *helper,
+ 		goto fail;
+ 	}
+ 
+-	fbi = drm_fb_helper_alloc_fbi(helper);
++	fbi = drm_fb_helper_alloc_info(helper);
+ 	if (IS_ERR(fbi)) {
+ 		DRM_DEV_ERROR(dev->dev, "failed to allocate fb info\n");
+ 		ret = PTR_ERR(fbi);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_fbcon.c b/drivers/gpu/drm/nouveau/nouveau_fbcon.c
+index ac4bd529ae2e8..fca40124fc17c 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_fbcon.c
++++ b/drivers/gpu/drm/nouveau/nouveau_fbcon.c
+@@ -362,7 +362,7 @@ nouveau_fbcon_create(struct drm_fb_helper *helper,
+ 		}
+ 	}
+ 
+-	info = drm_fb_helper_alloc_fbi(helper);
++	info = drm_fb_helper_alloc_info(helper);
+ 	if (IS_ERR(info)) {
+ 		ret = PTR_ERR(info);
+ 		goto out_unlock;
+diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+index 92d505be53e06..ab30c64e97043 100644
+--- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
++++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+@@ -161,7 +161,7 @@ static int omap_fbdev_create(struct drm_fb_helper *helper,
+ 		goto fail;
+ 	}
+ 
+-	fbi = drm_fb_helper_alloc_fbi(helper);
++	fbi = drm_fb_helper_alloc_info(helper);
+ 	if (IS_ERR(fbi)) {
+ 		dev_err(dev->dev, "failed to allocate fb info\n");
+ 		ret = PTR_ERR(fbi);
+diff --git a/drivers/gpu/drm/radeon/radeon_fb.c b/drivers/gpu/drm/radeon/radeon_fb.c
+index cc6754d88b819..0c6a227929db2 100644
+--- a/drivers/gpu/drm/radeon/radeon_fb.c
++++ b/drivers/gpu/drm/radeon/radeon_fb.c
+@@ -243,7 +243,7 @@ static int radeonfb_create(struct drm_fb_helper *helper,
+ 	rbo = gem_to_radeon_bo(gobj);
+ 
+ 	/* okay we have an object now allocate the framebuffer */
+-	info = drm_fb_helper_alloc_fbi(helper);
++	info = drm_fb_helper_alloc_info(helper);
+ 	if (IS_ERR(info)) {
+ 		ret = PTR_ERR(info);
+ 		goto out;
+diff --git a/drivers/gpu/drm/tegra/fb.c b/drivers/gpu/drm/tegra/fb.c
+index 6fe24535d0e43..a09c071f35120 100644
+--- a/drivers/gpu/drm/tegra/fb.c
++++ b/drivers/gpu/drm/tegra/fb.c
+@@ -243,7 +243,7 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
+ 	if (IS_ERR(bo))
+ 		return PTR_ERR(bo);
+ 
+-	info = drm_fb_helper_alloc_fbi(helper);
++	info = drm_fb_helper_alloc_info(helper);
+ 	if (IS_ERR(info)) {
+ 		dev_err(drm->dev, "failed to allocate framebuffer info\n");
+ 		drm_gem_object_put(&bo->gem);
+diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
+index d83e2d8e92eb9..5ec9d9c68d144 100644
+--- a/include/drm/drm_fb_helper.h
++++ b/include/drm/drm_fb_helper.h
+@@ -222,7 +222,7 @@ int drm_fb_helper_check_var(struct fb_var_screeninfo *var,
+ 
+ int drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper);
+ 
+-struct fb_info *drm_fb_helper_alloc_fbi(struct drm_fb_helper *fb_helper);
++struct fb_info *drm_fb_helper_alloc_info(struct drm_fb_helper *fb_helper);
+ void drm_fb_helper_unregister_fbi(struct drm_fb_helper *fb_helper);
+ void drm_fb_helper_fill_info(struct fb_info *info,
+ 			     struct drm_fb_helper *fb_helper,
+@@ -320,7 +320,7 @@ drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper)
+ }
+ 
+ static inline struct fb_info *
+-drm_fb_helper_alloc_fbi(struct drm_fb_helper *fb_helper)
++drm_fb_helper_alloc_info(struct drm_fb_helper *fb_helper)
+ {
+ 	return NULL;
+ }
 -- 
 2.38.0
 
