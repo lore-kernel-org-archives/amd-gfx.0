@@ -4,117 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61C05C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 08:00:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4C34C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 08:50:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1DC210E5C0;
-	Thu,  3 Nov 2022 08:00:17 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C434510E5B7
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Nov 2022 08:00:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60EC610E272;
+	Thu,  3 Nov 2022 08:50:52 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2083.outbound.protection.outlook.com [40.107.102.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2C3710E272
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Nov 2022 08:50:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jtXP1x2TPmk9xspuVswZ3XvHhPWNgM4b+j2jtYkLfUC8AwjbB0j7M4lSbdgFGuEzzA/OlQZJ/JCREcmhjo7hiEuGZE+vCm2isU0V08g9NI63EJv4rcRS7aEb/DZ7900pQvJl0AXq0uFbQkkvhom+608iDm57+HZhLrMx9ZVg109AiNChL9Y2HNx+TTXKPgiQ2G0BVOpomHT49NWRTXMs3DHAJBqed+BT/NtCs2C/XFLy2+eCHNhB/YA4UF8i4tHlfFu/tM7EWNxaJUdq65Bi15MsQysMNe1w46784f3hLUPGCWmVTOhcSC5Bz9SCJx89bxxQqOuJgHM9OMTfnaNoKw==
+ b=TO1YVWgF0SBAtoKfaXrvBwuYpk7qPdsd9S+khhRrsUHyhlA/KVKiSXCeRyVo7Kx95w7oPMGNAZXgSHs2EQ0PzSu/Q9KllqZPJWnzpRcPUmvK47s1mdehbGqeHHabL1UMBuvzY8WncpLuNdQ8ircPE246EQ0zRkxysxmpegEs6FohQzQftmlaXSBgLEazvhSH1JLFSZaByVUna0PLqB4c0tveTBTzTrWWAMgwG3MamzV0RHV7f0cJ4h7DHR1DdoQ5IMhsUHKNh758440nn9Z+U4RLPkExQUvrecFnenpsQS8ZdN5GDhwQnqxOuLIZWXY88uWx7mNyhkfsBrfwjFeJ+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GbfR3WJfTdgePkPxOTVcambHYHHfR2j0FDx6wPAy5Yo=;
- b=jqGkooAu/FlcMXSXoK2+I+yGfM+7Bv1xbX3NBp6qzmzx9mrdH2rAVz2JDsi+1w66t6HaTxi1AV6GQyH0AivC2MJnvmPRCuueJAw16PrYjmPHenKUVB1TSL+uyyW6x1hqGsixnjcwFusUx58M+n1EtOROSlRKnz+6tjLNKIiWyTY4DCtFiXwR/kfD2fvBY84m9UNKM4lDf5CGbOE4/krOemxWkAH1VmxWUxHq9Ef07vBn7oiHTSsI0AfVchJh93BKq9gwFxzAv/Y7PpiE4AAb1ijDFH45WOR/hkAKzg9aM4ZzdZvLxUXBIwBgzizlRnw0mQuk83mq2dxwWed5YQQNgg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=pLc+4LJ6XJElSmpKjdRbPb7PrthOFAbPW5/dR1H6o+E=;
+ b=Hh/1UA5MCksemF33p6QeWLsdDeVK0v47a9hNsOe5LSvKIvAyD8+C1eBgFerfxu1NONLNXMiD+pDMf571cQt/y+KJW6vNtsly2aiG+pvcN1IIf6zbgGrvb+LAnmi3IwcskLZhouh2JNEu1C6rJ3niWS1hl8mS7gLb0fXMDnkCEUifzXX79snVkx0s+qoi7RfdK5K2fAb1VK6ppUduyoGEXan0qVjHxotPT3W+y6GrDHP8+YykQ150Qf5bAfKLeqEKIRj0XxxVmFliAeFP9intWtdD8SxfCyUJDvUv2pucnUIKvhcb1/kHvvt42Pi1iN3oUnvYcq8pve7JX6w1fmTVAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GbfR3WJfTdgePkPxOTVcambHYHHfR2j0FDx6wPAy5Yo=;
- b=hlBSonCefY0XjmRaIIttflhRgvDBGVSh0t+m483OrTBj5qAqVOK8VgUnAH6CVnc+ZENS29cT9MNUnLg7Q47sPxvhOn7egg7fRd44NJ5yFzE0l6bNtHQqKAweGh9V1qxYV7sfr8jxoIdOCn29KWeMiGRvYUY47lGV708w3Rchwkc=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by DS7PR12MB6046.namprd12.prod.outlook.com (2603:10b6:8:85::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19; Thu, 3 Nov
- 2022 08:00:11 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::8bd7:b65c:13f4:9b]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::8bd7:b65c:13f4:9b%9]) with mapi id 15.20.5791.022; Thu, 3 Nov 2022
- 08:00:11 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Wang, YuBiao" <YuBiao.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Feng, Kenneth" <Kenneth.Feng@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Disable GFX RAS feature for SRIOV case
-Thread-Topic: [PATCH] drm/amdgpu: Disable GFX RAS feature for SRIOV case
-Thread-Index: AQHY7zImiLs/UJjSeU+sKNbRx2BA5K4sv4cAgAABHECAAAHy0IAAEoEAgAAA26A=
-Date: Thu, 3 Nov 2022 08:00:11 +0000
-Message-ID: <BN9PR12MB5257FE78BE3C16F2AAF1F498FC389@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20221103031157.3901004-1-YuBiao.Wang@amd.com>
- <BN8PR12MB302734B21648B3CD0C6D0039E5389@BN8PR12MB3027.namprd12.prod.outlook.com>
- <BN9PR12MB525734DF8D8626B32C26E772FC389@BN9PR12MB5257.namprd12.prod.outlook.com>
- <BN9PR12MB52571E57E64A3E1C8CDA0DBCFC389@BN9PR12MB5257.namprd12.prod.outlook.com>
- <DM6PR12MB3035194490B11F5161C61212E5389@DM6PR12MB3035.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB3035194490B11F5161C61212E5389@DM6PR12MB3035.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-11-03T08:00:06Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=663ae64c-b53a-4868-8d0c-019080713262;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|DS7PR12MB6046:EE_
-x-ms-office365-filtering-correlation-id: cfddbcb6-11a3-4d79-f76d-08dabd716ea0
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: lfUxaif01ajcYknxGInJRS3XR/NDPqzEaYgj5qW8bjBVCkcceIKax/CGU3iWCY5dOKX51KGAcQeIIhHRNMdpMB6CRNYoTT54ucMz8Rjc0kBCD0MGABxWg+SDvhU5XZBybmMarU76WE6NWRFxWxV2Uj2WaIHZxKhwskceS+qut/HHAmgbOW4/+JGfQ524Kt+YpoI+Jwv3ahw6Lirn1eQS0TCh4oiLjchg+owSrIWvg7JRv8z5WxWg+8oUuYDnYZvVLkQMeLeoKLlCL2WHDK56R893bAbH3tCZNKkcu4rD/+ndC0BmzQPBySp8oaNOV6zZDjN1P/j+sRGMEgPMf6PRucLmXvsvLns13QPBzVMx0HZiEKf4E2VnxstT0vZ6kMMShO26T2AGc/N1DwGgJdqBzg/nAau3rAwliZkKi/wEWfm05TggwqPykb28o9DMW0bLxjp6KG9Irng95Q/AUSgcgzP3f64FSUKKiO/lwImQ5Ra/1LsIpdBAYC/XAkmEIsnYpSPykyb7B818tM+jLza7nFcO/QzOp7plwIYSZmMT1d9s21+Z8T+I0+BypCYaSJPuk+EJ7+cYfjYUAxyJYjjrmGPIHXS1b//7idNNvlYLKv7Yo5Xmh6mRJRxVAaBScqeaLJOZaRthISIo1qzXlZBK2N7mrTT6/ZcwluBH9k8y+Yf/Ho8qBY1tFXq1AONvQx0gbiPvh1QTuNZkfuV3aJiqVlhewUnPPxipaqDdAT8q/ZJM9Zpt0ic3apZh0smqfIHcAQbBqo10TPwBC7bVJAkncQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(346002)(39860400002)(396003)(376002)(366004)(451199015)(66446008)(86362001)(33656002)(122000001)(38100700002)(38070700005)(186003)(2906002)(53546011)(55016003)(9686003)(110136005)(478600001)(26005)(83380400001)(7696005)(6506007)(66556008)(54906003)(41300700001)(6636002)(66946007)(64756008)(5660300002)(76116006)(316002)(4326008)(71200400001)(8936002)(8676002)(52536014)(66476007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?2vq6a0+xk7pZxTYxLA4w3o/BQGkawYr19ElAeFEeKRjk49No/SudNYRq/CI7?=
- =?us-ascii?Q?LYVXnFe/CcsyxsFNr8qAYinCQ+l5eDoi7cnXKWdIEz/h0nIDKEC8xKFi3Owx?=
- =?us-ascii?Q?wvkhWhC5Y5Al7U2u0S8NvB+VKcawcbwyZH7v3jyswAbl4h3b8vSqsaK+eDLA?=
- =?us-ascii?Q?GcLv8p6MEHARHTPNeV5AeaIYEs3G/OLxJBvOoe8n3rhFkw7YjspWKuDR4sFt?=
- =?us-ascii?Q?f8cyCw/S8kaqz9pzVc2GrOuXG9+6bzidwBGiEx3joF78TZln2+8IyTDJisBZ?=
- =?us-ascii?Q?rXhFyRJTKmbG2iJHN+ElYLyb7LE8dtQk6x0vGriakXJMbeA3vmQXt90ca3i9?=
- =?us-ascii?Q?jRRM6poccw+3/dZfWoFrUXbB5INIF+pXjhbcykj4lGtTj/iA/+dgmo39R74+?=
- =?us-ascii?Q?BChy3eJPn6OFJKDN6SSN9doQ+FQB6Wom5RkVfT0QMMcrAMHToYPPrXXv1ck0?=
- =?us-ascii?Q?6NimcMMgUCQpyXn/jy9eiEBrsANZGCmnTCSq/w4A28J0RLKtXRcloaCBOeKV?=
- =?us-ascii?Q?M4ZDmyl1d/OoLpGLGY/aEWDgubNLgtKN0ZJKnC1pfEyWM4aCsAUxhvRj05nt?=
- =?us-ascii?Q?A0uU1nYuthSlpFoZdTRKrKMPyAlrGodveIDfPT34KpZrVWevAvzMTScXoM11?=
- =?us-ascii?Q?Cz87oPEBw3IM3+pJmU8/7CYO9QR3buRT9sdgjIElTmzk4vzFpPg3/Sa5SVDZ?=
- =?us-ascii?Q?yhNXg27gLPmNATQP5jIWMNAZ2BgmgO001vBuCW3YMyNCYUtSJi8ZoNN20lHY?=
- =?us-ascii?Q?J2VD0tV+h7kmYZWhkN1JsXm+CCHAaWqe7gNTL7pejaTzea4UefeFPAQ86676?=
- =?us-ascii?Q?Tncs1dV0xIFMtHN35dd+eXZESvhv592HG3FRuw8HT06ZnCRXMh7Epb9DsUjm?=
- =?us-ascii?Q?3F508MXsMfI1oq/cMstAoMhPwPl2NToluPPsbpRly/Lf7zb9cGdQ78qZBPcE?=
- =?us-ascii?Q?UZneLUHsCm1a5ajYVaWnnvpiGjCjdhXI0WHdsaWMo4JCSUPUhpquY6CUAeFm?=
- =?us-ascii?Q?HT3KvMpFyfi6qSNu4ZBhiljxoOPZl35z/D71K3CfKBHiEwzUiOGQN1lhzCJN?=
- =?us-ascii?Q?NRkgfoSR/OqvcdfMEdbNkH1RVx1znrRv8kRNlFjF+8UDC4e5XI5Gh8tyiJ43?=
- =?us-ascii?Q?ruX4PrAboM98DEW+BsPV9Q1t1oPWS2CAxiMh0fKmRtaKJ+oxKdc61jXAW3Ag?=
- =?us-ascii?Q?y3LBLkVDP2WoToAg5l/7VN5RRf11eDnSH4vM7hecbXNYVaBfASxQtUHKdQx4?=
- =?us-ascii?Q?7K5m1nh0IvSSnJckxma/1DiePm7whu/uRE6H61q72scqhvLNxDDmzgPASlCH?=
- =?us-ascii?Q?gCpFQpGh1occuXL4W2J+I8IrAlpsIYF2X9yQ+Nw37/3AP2HutbmPoG1GvIQS?=
- =?us-ascii?Q?LZSJVmZk4TzYvZ+BxORFccdRHXCgRKfQznPZzrEcXf2QCJAsbFN584Qp83T1?=
- =?us-ascii?Q?bRuIOYuk182LfNLxrohCfpEz6MXTdbraA+UNgXZXE6YFeGPl4xtMEqY1njnV?=
- =?us-ascii?Q?DHaXYUv9eZQL/bXIEdweg10PpGS7wWQARn8g6MtTc8pLRmSwbQJrRc4Rq/YL?=
- =?us-ascii?Q?VgJ7wEj9ZGiPMM0zHaNVJhgoG1R3JRSUmHWcTGNJ?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=pLc+4LJ6XJElSmpKjdRbPb7PrthOFAbPW5/dR1H6o+E=;
+ b=VSDVx/3ElB9ugsEJzLqPEopNkIrOfJOKXgqu6s3cFScUC8/fT0nEttsCoVPtHj3+8XNBtRlBQVEAIloziFArEyyxVWJj8U/C0m4xG1QZatzDlbJnQtMe7aTuxHClgUXbhweht0awL/utZNwslQsoGhKx2tYoExZXoRIbBWHxb+o=
+Received: from MW4PR04CA0055.namprd04.prod.outlook.com (2603:10b6:303:6a::30)
+ by SA1PR12MB7443.namprd12.prod.outlook.com (2603:10b6:806:2b7::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.18; Thu, 3 Nov
+ 2022 08:50:47 +0000
+Received: from CO1NAM11FT085.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:6a:cafe::69) by MW4PR04CA0055.outlook.office365.com
+ (2603:10b6:303:6a::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.20 via Frontend
+ Transport; Thu, 3 Nov 2022 08:50:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT085.mail.protection.outlook.com (10.13.174.137) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5791.20 via Frontend Transport; Thu, 3 Nov 2022 08:50:46 +0000
+Received: from ldev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 3 Nov
+ 2022 03:50:43 -0500
+From: Tim Huang <tim.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: update SMU IP v13.0.4 msg interface header
+Date: Thu, 3 Nov 2022 16:50:13 +0800
+Message-ID: <20221103085013.527767-1-tim.huang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT085:EE_|SA1PR12MB7443:EE_
+X-MS-Office365-Filtering-Correlation-Id: 664bcf3d-3aaa-48f6-4b4c-08dabd787fd0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: s8CemDWY4RG5Ukf0XV/UwnMSirysVWVvTJBkyUMvHbWvdhW2A/77Lk/VpH7TCsvZqA1JiTR4cYbdmCyTPHnPNW6+8x85DJd9gwBYZYVT7zsPYHo1K6TqOR3ys9imWBlKRT0rg6r7d6F+4Y4p0Wi98rrFJxuKqw1z0GARUrA2g2Yjq3Ca6pCyDh+qXGMLVDx0p3MmK43DwnNReSamZkr5T7hoxVyHJubiFsE9EEROU1M4p4dfvuDhjVfLPPs6M/lz40/kWFGh8LcvZmsd7MeAbxMv3vNYzdCte+vEAeqpFcgHhRcQFhknE6ItVkCbqx7Dc+Y+h9p6SACJvv2oomCAkFz3+vm+/AjJQlLmxh+boZ3d40MKRh0e29n2m75isQJ1RKy4TpXMNVOuwNP+WttC19S9eI5oJKmItlUBVSW9n7HUmTcTd93lsN1XLU3NzYPKBtWf1oEqBYBHWAN7OlRVT9gxJ+tuXZagvON5k3hQ7LUs+RsKT2UujBBL5uuCoUKYi1UutKHpUaQJjsF1s8Aa6Jy0YMsGSL814JkFTgtK2BpI5ExzYdpLZLJBQkS2CukInr2Ch5RSCNhcv3dgB8zPi9Bxu8ZcVx0WJOkgPkR2O6D8OceVPyL1OixTtpsV+gFMB2flYdMuq9iwWD5seoRYi3VEA3sz044NLrNIqXcRs/m4sDME2VErjbZF0el1tDuHLlWWkkfotReHVngnigtFhcihj5BR9qRPrl6jnxcg6KJNHO4PYVL574pdVoJ5tGYYhKtwZFgCp9e1sPx9BA64ElBT3rjDpf5b7KhmIyHax4U=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(39860400002)(396003)(136003)(376002)(451199015)(46966006)(36840700001)(40470700004)(1076003)(15650500001)(336012)(83380400001)(47076005)(8936002)(26005)(16526019)(2616005)(426003)(2906002)(41300700001)(186003)(44832011)(36756003)(40460700003)(86362001)(40480700001)(5660300002)(356005)(36860700001)(81166007)(82740400003)(82310400005)(478600001)(54906003)(316002)(6916009)(6666004)(19627235002)(7696005)(70206006)(4326008)(70586007)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfddbcb6-11a3-4d79-f76d-08dabd716ea0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2022 08:00:11.1031 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: NUqeSEO5GZV+DeVDukwY/JNUbrUqPji9AGPRYTH68PyF12Bx+b5gG9KMhU0xNdQXIDWKKko+12TUYCPx3QLixg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6046
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2022 08:50:46.3022 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 664bcf3d-3aaa-48f6-4b4c-08dabd787fd0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT085.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7443
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,136 +97,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Xiao, Jack" <Jack.Xiao@amd.com>, "Wang,
- Yang\(Kevin\)" <KevinYang.Wang@amd.com>, "Xu, Feifei" <Feifei.Xu@amd.com>,
- "Chen, Horace" <Horace.Chen@amd.com>, "Tuikov, Luben" <Luben.Tuikov@amd.com>,
- "Deucher, 
- Alexander" <Alexander.Deucher@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>
+Cc: Alexander.Deucher@amd.com, Yifan1.zhang@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>, Xiaojian.Du@amd.com,
+ Tim Huang <tim.huang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Some of the unused messages that were used earlier in development have
+been freed up as spare messages, no intended functional changes.
 
-No worries. Let's know if you run into any RAS issue in SRIOV environment.
-
-Regards,
-Hawking
-
------Original Message-----
-From: Wang, YuBiao <YuBiao.Wang@amd.com>=20
-Sent: Thursday, November 3, 2022 15:56
-To: Zhang, Hawking <Hawking.Zhang@amd.com>; amd-gfx@lists.freedesktop.org; =
-Feng, Kenneth <Kenneth.Feng@amd.com>
-Cc: Xiao, Jack <Jack.Xiao@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.c=
-om>; Xu, Feifei <Feifei.Xu@amd.com>; Chen, Horace <Horace.Chen@amd.com>; Tu=
-ikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deucher@a=
-md.com>; Quan, Evan <Evan.Quan@amd.com>; Koenig, Christian <Christian.Koeni=
-g@amd.com>; Liu, Monk <Monk.Liu@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Disable GFX RAS feature for SRIOV case
-
-Hi Hawking,
-
-Yes I now noticed that. I was sending this patch since I found it as a regr=
-ession on my side. So this is caused by IFWI regression instead of a sriov-=
-only bug. Sorry for the misunderstanding. Thanks!
-
-Regards,
-Yubiao
-
------Original Message-----
-From: Zhang, Hawking <Hawking.Zhang@amd.com>=20
-Sent: Thursday, November 3, 2022 2:51 PM
-To: Zhang, Hawking <Hawking.Zhang@amd.com>; Wang, YuBiao <YuBiao.Wang@amd.c=
-om>; amd-gfx@lists.freedesktop.org; Feng, Kenneth <Kenneth.Feng@amd.com>
-Cc: Xiao, Jack <Jack.Xiao@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.c=
-om>; Xu, Feifei <Feifei.Xu@amd.com>; Chen, Horace <Horace.Chen@amd.com>; Tu=
-ikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deucher@a=
-md.com>; Quan, Evan <Evan.Quan@amd.com>; Koenig, Christian <Christian.Koeni=
-g@amd.com>; Liu, Monk <Monk.Liu@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Disable GFX RAS feature for SRIOV case
-
-[AMD Official Use Only - General]
-
-Btw, if the concern is the gfx_late_init failure caused by incorrect settin=
-g in IFWI. @Feng, Kenneth already have a workaround.
-
-Regards,
-Hawking
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhang, H=
-awking
-Sent: Thursday, November 3, 2022 14:46
-To: Wang, YuBiao <YuBiao.Wang@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Xiao, Jack <Jack.Xiao@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.c=
-om>; Xu, Feifei <Feifei.Xu@amd.com>; Chen, Horace <Horace.Chen@amd.com>; Tu=
-ikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deucher@a=
-md.com>; Quan, Evan <Evan.Quan@amd.com>; Koenig, Christian <Christian.Koeni=
-g@amd.com>; Liu, Monk <Monk.Liu@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Disable GFX RAS feature for SRIOV case
-
-[AMD Official Use Only - General]
-
-amdgpu_ras_feature_enable won't send RAS command to firmware if it is invok=
-ed from guest side. The change seems unnecessary.
-
-Regards,
-Hawking
-
------Original Message-----
-From: Wang, YuBiao <YuBiao.Wang@amd.com>=20
-Sent: Thursday, November 3, 2022 14:39
-To: Wang, YuBiao <YuBiao.Wang@amd.com>; amd-gfx@lists.freedesktop.org; Zhan=
-g, Hawking <Hawking.Zhang@amd.com>
-Cc: Quan, Evan <Evan.Quan@amd.com>; Chen, Horace <Horace.Chen@amd.com>; Tui=
-kov, Luben <Luben.Tuikov@amd.com>; Koenig, Christian <Christian.Koenig@amd.=
-com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Xiao, Jack <Jack.Xiao=
-@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Wa=
-ng, Yang(Kevin) <KevinYang.Wang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Disable GFX RAS feature for SRIOV case
-
-Hi Hawking,
-
-This patch is to skip ras init in sriov case. Please help review.
-
-Thanks,
-Yubiao
-
------Original Message-----
-From: YuBiao Wang <YuBiao.Wang@amd.com>=20
-Sent: Thursday, November 3, 2022 11:12 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>; Quan, Evan <Evan.Quan@am=
-d.com>; Chen, Horace <Horace.Chen@amd.com>; Tuikov, Luben <Luben.Tuikov@amd=
-.com>; Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Al=
-exander.Deucher@amd.com>; Xiao, Jack <Jack.Xiao@amd.com>; Zhang, Hawking <H=
-awking.Zhang@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Xu, Feifei <Feifei.Xu@=
-amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Wang, YuBiao <YuBiao.=
-Wang@amd.com>
-Subject: [PATCH] drm/amdgpu: Disable GFX RAS feature for SRIOV case
-
-In sriov guest side doesn't need init ras feature, so skip it.
-
-Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Tim Huang <tim.huang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../amd/pm/swsmu/inc/pmfw_if/smu_v13_0_4_ppsmc.h  | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v11_0.c
-index 84a76c36d9a7..be8ed617e269 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -4707,7 +4707,7 @@ static int gfx_v11_0_late_init(void *handle)
- 	if (r)
- 		return r;
-=20
--	if (adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(11, 0, 3)) {
-+	if (!amdgpu_sriov_vf(adev) && adev->ip_versions[GC_HWIP][0] =3D=3D IP_VER=
-SION(11, 0, 3)) {
- 		r =3D gfx_v11_0_ras_late_init(handle);
- 		if (r)
- 			return r;
---=20
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_4_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_4_ppsmc.h
+index d9b0cd752200..f4d6c07b56ea 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_4_ppsmc.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_4_ppsmc.h
+@@ -54,14 +54,14 @@
+ #define PPSMC_MSG_TestMessage                   0x01 ///< To check if PMFW is alive and responding. Requirement specified by PMFW team
+ #define PPSMC_MSG_GetPmfwVersion                0x02 ///< Get PMFW version
+ #define PPSMC_MSG_GetDriverIfVersion            0x03 ///< Get PMFW_DRIVER_IF version
+-#define PPSMC_MSG_EnableGfxOff                  0x04 ///< Enable GFXOFF
+-#define PPSMC_MSG_DisableGfxOff                 0x05 ///< Disable GFXOFF
++#define PPSMC_MSG_SPARE0                        0x04 ///< SPARE
++#define PPSMC_MSG_SPARE1                        0x05 ///< SPARE
+ #define PPSMC_MSG_PowerDownVcn                  0x06 ///< Power down VCN
+ #define PPSMC_MSG_PowerUpVcn                    0x07 ///< Power up VCN; VCN is power gated by default
+ #define PPSMC_MSG_SetHardMinVcn                 0x08 ///< For wireless display
+ #define PPSMC_MSG_SetSoftMinGfxclk              0x09 ///< Set SoftMin for GFXCLK, argument is frequency in MHz
+-#define PPSMC_MSG_ActiveProcessNotify           0x0A ///< Needs update
+-#define PPSMC_MSG_ForcePowerDownGfx             0x0B ///< Force power down GFX, i.e. enter GFXOFF
++#define PPSMC_MSG_SPARE2                        0x0A ///< SPARE
++#define PPSMC_MSG_SPARE3                        0x0B ///< SPARE
+ #define PPSMC_MSG_PrepareMp1ForUnload           0x0C ///< Prepare PMFW for GFX driver unload
+ #define PPSMC_MSG_SetDriverDramAddrHigh         0x0D ///< Set high 32 bits of DRAM address for Driver table transfer
+ #define PPSMC_MSG_SetDriverDramAddrLow          0x0E ///< Set low 32 bits of DRAM address for Driver table transfer
+@@ -73,8 +73,7 @@
+ #define PPSMC_MSG_SetSoftMinFclk                0x14 ///< Set hard min for FCLK
+ #define PPSMC_MSG_SetSoftMinVcn                 0x15 ///< Set soft min for VCN clocks (VCLK and DCLK)
+ 
+-
+-#define PPSMC_MSG_EnableGfxImu                  0x16 ///< Needs update
++#define PPSMC_MSG_EnableGfxImu                  0x16 ///< Enable GFX IMU
+ 
+ #define PPSMC_MSG_GetGfxclkFrequency            0x17 ///< Get GFX clock frequency
+ #define PPSMC_MSG_GetFclkFrequency              0x18 ///< Get FCLK frequency
+@@ -102,8 +101,8 @@
+ #define PPSMC_MSG_SetHardMinIspxclkByFreq       0x2C ///< Set HardMin by frequency for ISPXCLK
+ #define PPSMC_MSG_PowerDownUmsch                0x2D ///< Power down VCN.UMSCH (aka VSCH) scheduler
+ #define PPSMC_MSG_PowerUpUmsch                  0x2E ///< Power up VCN.UMSCH (aka VSCH) scheduler
+-#define PPSMC_Message_IspStutterOn_MmhubPgDis   0x2F ///< ISP StutterOn mmHub PgDis
+-#define PPSMC_Message_IspStutterOff_MmhubPgEn   0x30 ///< ISP StufferOff mmHub PgEn
++#define PPSMC_MSG_IspStutterOn_MmhubPgDis       0x2F ///< ISP StutterOn mmHub PgDis
++#define PPSMC_MSG_IspStutterOff_MmhubPgEn       0x30 ///< ISP StufferOff mmHub PgEn
+ 
+ #define PPSMC_Message_Count                     0x31 ///< Total number of PPSMC messages
+ /** @}*/
+-- 
 2.25.1
+
