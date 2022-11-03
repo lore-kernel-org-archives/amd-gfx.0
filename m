@@ -4,132 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94E52C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 15:12:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66606C63709
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 15:15:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B179610E2A9;
-	Thu,  3 Nov 2022 15:12:17 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2083.outbound.protection.outlook.com [40.107.101.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EDA510E2A9
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Nov 2022 15:12:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cnzJj7gh5qN5IEWAvue1CiFq67klu5xvieZCNG8yIob87YDn1DmvBzb/MNp/QItMpg0mym9DI7KMtHBR9wO3D0P+VyBNaVDyobi8E3QJ91THwBhfxKT/1GPEfjiEdkfvAaKwdLt9xQHm+RK8UDC1bmo/s1OHbXJ6Br7febCQDfJ8gEAcOVtRdY6sNvOph0VRn9okC7um231KWS0vCaFt/YZDOyrO9Ibmw873CI0lrgJnReZ/EdSfcxTqlgNu2n4nZxuay5UZxZ0YX2HR7HJoPKEW93yV5fRLHqw8lqEsnBJFzUNz1UfDpXG93TNamRdqOlFlPx7oowoF5NxvU9kXvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mIN33sxh2vSHt1ypUh5HolVGUDNyWCcoch72xscffWk=;
- b=L3tpqV288RY/HqcWO8BHSWFtG2wJr2A9nfdTBBjr8g6iLso1580+F/94Se2/7P2Wx6CzhrtLILZGCwrn1NP+7jVTJF5KoJPgy5VhmXqu8eOBXTjhS1H5jtx6DLQIY/QtzmEvIeDK5JpSr+sMcDtIlSMT2zjEaFmPWXy27q7gazf7eBNzuloXTXA8di7s8S1tLgn+D5bMdEpX8hsfaYf9Kd3ShYY3Q0R3nLJhCxx2UZJe8ZOt301NmYNsonc9IWU6zPjIbD2GxVC0RWjONMmIaT498qxq+mkA8B9UwqtnRCK1Yu+AlwOlBlCTerr63WbkW3aOu5EWM+87kSWMPaF1Ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mIN33sxh2vSHt1ypUh5HolVGUDNyWCcoch72xscffWk=;
- b=5fmOaWaaibIEfLgQpBfU8tHgVnSfmylYCSUd6KuoR/7THr2/fw+9ySOucjoHrx3cT5ZV19zx8+sMfwXZJpp+UK4OFVjgiGIbM6aaJW5Pvg50SMuVjpvLTHA9Z/2jpjZSNTUK9o5jOnIayLi2W6QpUAngFAWdEb0PcczJ7jJEoQA=
-Received: from DM4PR12MB5278.namprd12.prod.outlook.com (2603:10b6:5:39e::17)
- by DM6PR12MB4500.namprd12.prod.outlook.com (2603:10b6:5:28f::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.22; Thu, 3 Nov
- 2022 15:12:12 +0000
-Received: from DM4PR12MB5278.namprd12.prod.outlook.com
- ([fe80::3bf0:6f5b:fe42:4149]) by DM4PR12MB5278.namprd12.prod.outlook.com
- ([fe80::3bf0:6f5b:fe42:4149%5]) with mapi id 15.20.5791.022; Thu, 3 Nov 2022
- 15:12:12 +0000
-From: "Yuan, Perry" <Perry.Yuan@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: RE: [PATCH v3 3/3] drm/amdgpu: remove the DID of Vangogh from
- pciidlist
-Thread-Topic: [PATCH v3 3/3] drm/amdgpu: remove the DID of Vangogh from
- pciidlist
-Thread-Index: AQHY70zux7noSmTCp0ivefPliGJR2K4tLdqAgAAfDwA=
-Date: Thu, 3 Nov 2022 15:12:12 +0000
-Message-ID: <DM4PR12MB5278F7A57EE5C325251E95969C389@DM4PR12MB5278.namprd12.prod.outlook.com>
-References: <20221103062056.2162715-1-Perry.Yuan@amd.com>
- <20221103062056.2162715-3-Perry.Yuan@amd.com>
- <CADnq5_PhdXH90vo01f8zbGnwzQzy-tBtJn_+J9eO+HXO-vsChA@mail.gmail.com>
-In-Reply-To: <CADnq5_PhdXH90vo01f8zbGnwzQzy-tBtJn_+J9eO+HXO-vsChA@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-11-03T15:12:09Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=b5b0ab6d-ca0c-4f46-8b5f-34e00f0fde68;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-11-03T15:12:09Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: d1ebab35-c99a-4b10-99cb-14ad059b387a
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5278:EE_|DM6PR12MB4500:EE_
-x-ms-office365-filtering-correlation-id: d734215e-9337-4a9d-af50-08dabdadc8bf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: MUH+xgQtradHEJgH7Fz5uFTdpYozDP+S2fTlwxgTit49dSxb5cKpifJrOhv6NP87t5rejtS3RKWPb0ebih2wkVdjHqI9jrhnuCUl9TI5zjLRsrcMzTF+lbz7A2T3rBabUW+1fASuXEFyt0lmCM0MYFX1N6hYqhangog2BWWR3DjnC+jFNknSjAuc5IgOZAre/TCvcwEr/xaJY53MsibwuEVS/VPKdiUq21ewIg1O9jTKwh3kC+PlBRFpI5+Rt5fLSY85S7nB0gpwNvIFqsD0VQacNIiHxHA9dOU2zXer/oZPO3Mb7gp9QYhFjA2wrFQgkK1fWbyHYjBvFT42g4NCZdFZk3E35kqLMf6jhBOPeJ35SfuKoyIRyimUlcGDQJ80FeeXoUFFydUZaquHrXLsn7itExHX4GhADDbU7SFq/LJHpEAiiL2BZ0TxEDGGVXnQ2eOD+thcNovGZuCExTML5ioZ3bMDGDnWRIkAGh0kS2EWu/o6fNhkRBJtEaaY8iRRkL6C/xbAgTfu088XyOZa9yRDAURRMCz99rtdYjuCVjwkvXW9cV5nbwlX5ktQq3fDnOEcWLO9n+a5JKG9trQUj/1s2Niw9tTS8Yxf0uyHN765MkptU4XZ0UoTtZVRyPhNFtcWv2RvPSxSy1cl/hDkWGCpI+3DnTLJWaN7VQFbVCQLqrMxFK+XWuPwp/XdzafG8I8WS4mIeV21PAivTm0BwPxZ4RwlKrq2egKv0T9pbdG9vZQH1fXe2q7rTdjcLlCjR367xtlSZ1KAh/yFjszEAA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5278.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(346002)(136003)(366004)(39860400002)(396003)(451199015)(66556008)(66946007)(8676002)(66476007)(66446008)(478600001)(4326008)(76116006)(64756008)(186003)(5660300002)(54906003)(38100700002)(316002)(2906002)(71200400001)(6916009)(122000001)(83380400001)(33656002)(38070700005)(41300700001)(53546011)(7696005)(6506007)(8936002)(86362001)(55016003)(52536014)(26005)(9686003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MUE1LzNMZDlNaHN5V1d2WVpkYWdkZk9DZDQrc1UzMmpDQ2phZkR2T0JJa3A3?=
- =?utf-8?B?dUZiajNnS3g0bTFrcDNqTW11RWloZGN1YmpYYmdxUERHbzI5bzBURk95QWFi?=
- =?utf-8?B?YmJ1K3pTMHhUaHYzc1dxREw2Y1kzQXREM1ArSVYyVWwzMmd4SVBqaDZtbktI?=
- =?utf-8?B?cVU4ZDBxSCtPWGt2d1owT2tKdjI4YkZZV0hrY2tSMlNNajZTVFFiSWQ1cG1l?=
- =?utf-8?B?UE9nK0RhTE1SWEhtZTRpU1hNZnZyaHlYWHYrU3dtN0NMMlRqR3RuVllaTHc1?=
- =?utf-8?B?d0hHQlpad0NMN3ZYUzZmc1B4b0J1MlBVRFZiNFlFOHcza242a2R0WGJ5cVVy?=
- =?utf-8?B?bU5FbzlMVS9oVWR4RFcvYXowNmlodjRZS2U0dEZjbEFmQUZKdkpWTzl3Y0tH?=
- =?utf-8?B?RnhWQXFyWFVDV1RMcTNEckNVeFFoV3N2d0crL3BsMDNFRG9NOGsvMm1DTFRM?=
- =?utf-8?B?MktENFFBQjlwdGora3lXWVBWeEp4WUQ2ckxMeG1CejdpN2tUcW1sdUNkaUhS?=
- =?utf-8?B?SFRBZWNUMlFtTGtVTnY3aHRUSFRKV2JGd0hlRGUweEtabm9KK2FOVERPUXNQ?=
- =?utf-8?B?NmwrMklEb0RBMUVSVVAyc2xkWlZMRElzK3FwbmdJQWYxbVBoNEpsU08wR2NM?=
- =?utf-8?B?M3R4SHpRNGJVV2ZLeXBhblBVZmMrK091TnFxYTNVU2gyL3VTY2pPWEJWUndN?=
- =?utf-8?B?K2dUaUtkOU5Oem5oRVF6cVBHWUdENXppNjVIbGoyUUwxc0V1ZXI4bzdnUExN?=
- =?utf-8?B?cU4rTUxkdGtxVmhmbCtNcVViOUlsc0VOYnVoUnZVRC9jSEtVd3Q1aHZ0WnQr?=
- =?utf-8?B?QkZGWURTemF3dHRmUWpJNVFmcVRjZnhNaVNRSTZqblkvaWRRMVFyNDBWZjRL?=
- =?utf-8?B?bHdLWG52clFCZzNSRFREaWwzYXZ3M0JYMjNnTEFCUGRrZGpjdlh5UGh1KzBK?=
- =?utf-8?B?OFBDVm0vaXVrRkJwS1ZrMzJqcXhHUWU2ZWRQYXlEdjIyOGk3ZEpXdW5nQmpz?=
- =?utf-8?B?STlORFg3WGx1ZFBvZ2JqbVI5MHNwVERReklaaFduMG1GMzVrQnhLQlNUc1gw?=
- =?utf-8?B?V09kc3l4NUR4bnBvWCt4WWdQZ0pXRTlDcW13Yjlib2NEdXR0VjJpTUVwbm5x?=
- =?utf-8?B?TCszbWZlNHEvcHE2WXMxa0xKUWJlUllQYkd5bUFRc3p1TWZSeUVMTTZQQlhi?=
- =?utf-8?B?NjA1bWZCaTEyL29XWm15aTZJc0xKQmRmZHZ6Y0YwcWVseGtHMmlkOTJiZ1FU?=
- =?utf-8?B?Z3k0WlFsT0pyUWUwK1Iwdi9IRHhTa1Vjb2FpT2hGM3J0QTB0cG5tanliUG5G?=
- =?utf-8?B?OXR5UjBQMWF0dldsa3cvejdKeUt0RlRsZ25OcTVOMm8rUjRudUlTZ1ZTMkRJ?=
- =?utf-8?B?ZE10eFFYaG91Y002Tm0wYzZ6TFdSNTlBR0VpSG8yZHlXYis2eENWK09nNE1j?=
- =?utf-8?B?ZVdmKzFyS2ROZjMwcHc0VnJFLzhMc2RlcWt3WWFRVlcyZ2xqaXl6aFRTeVNj?=
- =?utf-8?B?Z045aVFOODlsMDE2YTNjNVJtOGR4ZnRkVVdlNFlHWGtPamFuUHhOOTEwVlh2?=
- =?utf-8?B?S1dqaFp2enFhQ3FEaFdGQWhMenBTajdhaDlKcDBtMGhsZHBBQ2xmdmNVemdL?=
- =?utf-8?B?dFF2SXoya24xZ2FvWmIvS0JkVVkxSUptaGYvdTc3VDUrL00xNUVYUzVlTmY5?=
- =?utf-8?B?djZIZXRIMmV1emxSckhqem5RNDdLdWpXTlJGK21yTWxrMzc4Z0JMTzRpbE52?=
- =?utf-8?B?RGF5MHk0Q2hacWgyTHdMWXBvdHZNTjhrVUVrUnVvbUU0L1RiM3RPUFdiUkpY?=
- =?utf-8?B?UjE3ZVNzcGltdVhOY1U4THVMUXRBN2J1ZkVYVHZIczlRZ1dUampYL3pkUVZi?=
- =?utf-8?B?WlJoQ0VPRitDOHNEV0ZyUG1aOUNuL0JNYk9LRjFwaFZ2NjdoTmNvZ3hNVlpY?=
- =?utf-8?B?cml0VkdmOURqM3dUODFBS1N0M2FBTDRwUjhRRDV1TUQ1Mmd4SXVzaWVTZHhR?=
- =?utf-8?B?WWp5a3dEL1JvdHJ6aGNHdXZrcnQ3NjN5S09BYU5jd0xBakFYbUdZYzFCQ2lh?=
- =?utf-8?B?R00rdm5zbzVVNFVqZXRxWi90emw0ZjJpb1ZoYTVSZ1lONHlydi9vWHdVelA5?=
- =?utf-8?Q?A0UU=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id B78FF10E637;
+	Thu,  3 Nov 2022 15:15:03 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F171E10E3C4;
+ Thu,  3 Nov 2022 15:14:50 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 77F601F88C;
+ Thu,  3 Nov 2022 15:14:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1667488489; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=HedAlrS8erHkRoHUc/nk9PZPahT98wWins1TZNQ+myo=;
+ b=ts+mFZqzw7nt496UOWxsBj/xG6sJKPY/ZWmHdFZxUG6ONqcbseLnVXu/wXRLAFn+VGn/YR
+ Rqass7K9e5Tf8KqeYY+gKZRv+JgfpuuYK6ggxjkZHiOpS0V3LO8NFAUASBN8QOA44nud45
+ u9o1mCiJIX4XReB+zkbZ4HbcduFUihs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1667488489;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=HedAlrS8erHkRoHUc/nk9PZPahT98wWins1TZNQ+myo=;
+ b=lsvt5cpyVTNQvpmzx5qsqs1XtiL2L/Eibv9TPCR/dY0Qky34DmnJAVBCZYMH6j2JOe7LS2
+ KLgvNS9ctlteh0Cg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E34DA13AAF;
+ Thu,  3 Nov 2022 15:14:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id oqOUNujaY2PBGgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 03 Nov 2022 15:14:48 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
+ mripard@kernel.org, maarten.lankhorst@linux.intel.com
+Subject: [PATCH v3 00/23] drm/fb-helper: Untangle fbdev emulation and helpers
+Date: Thu,  3 Nov 2022 16:14:23 +0100
+Message-Id: <20221103151446.2638-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.38.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5278.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d734215e-9337-4a9d-af50-08dabdadc8bf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2022 15:12:12.0875 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /3i7M7IAw78F892Ao/Zm/fy8OrrCKQ8uSleFtSkW3z23lPgyoITDhWPgtrBuJR/TrA/dtx994yei4Bpq427UJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4500
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,49 +61,220 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Huang,
- Shimmer" <Shimmer.Huang@amd.com>, "Liang,
- Richard qi" <Richardqi.Liang@amd.com>, "Liu, Kun" <Kun.Liu2@amd.com>
+Cc: linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ spice-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ xen-devel@lists.xenproject.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ "linux-hyperv@vger.kernel.orglinux-hyperv"@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCkhpIEFsZXguIA0KDQo+IC0tLS0t
-T3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJA
-Z21haWwuY29tPg0KPiBTZW50OiBUaHVyc2RheSwgTm92ZW1iZXIgMywgMjAyMiA5OjE1IFBNDQo+
-IFRvOiBZdWFuLCBQZXJyeSA8UGVycnkuWXVhbkBhbWQuY29tPg0KPiBDYzogRGV1Y2hlciwgQWxl
-eGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgTGlhbmcsIFJpY2hhcmQgcWkNCj4g
-PFJpY2hhcmRxaS5MaWFuZ0BhbWQuY29tPjsgSHVhbmcsIFNoaW1tZXINCj4gPFNoaW1tZXIuSHVh
-bmdAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBMaXUsIEt1bg0KPiA8
-S3VuLkxpdTJAYW1kLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2MyAzLzNdIGRybS9hbWRn
-cHU6IHJlbW92ZSB0aGUgRElEIG9mIFZhbmdvZ2ggZnJvbQ0KPiBwY2lpZGxpc3QNCj4gDQo+IENh
-dXRpb246IFRoaXMgbWVzc2FnZSBvcmlnaW5hdGVkIGZyb20gYW4gRXh0ZXJuYWwgU291cmNlLiBV
-c2UgcHJvcGVyDQo+IGNhdXRpb24gd2hlbiBvcGVuaW5nIGF0dGFjaG1lbnRzLCBjbGlja2luZyBs
-aW5rcywgb3IgcmVzcG9uZGluZy4NCj4gDQo+IA0KPiBPbiBUaHUsIE5vdiAzLCAyMDIyIGF0IDI6
-MjQgQU0gUGVycnkgWXVhbiA8UGVycnkuWXVhbkBhbWQuY29tPiB3cm90ZToNCj4gPg0KPiA+IGNo
-YW5nZSB0aGUgdmFuZ29naCBmYW1pbHkgdG8gdXNlIElQIGRpc2NvdmVyeSBwYXRoIHRvIGluaXRp
-YWxpemUgSVANCj4gPiBsaXN0LCB0aGlzIG5lZWRzIHRvIHJlbW92ZSB0aGUgRElEIGZyb20gdGhl
-IFBDSSBJRCBsaXN0IHRvIGFsbG93IHRoZQ0KPiA+IElQIGRpc2NvdmVyeSBwYXRoIHRvIHNldCBh
-bGwgdGhlIElQIHZlcnNpb25zIGNvcnJlY3RseS4NCj4gDQo+IEFzIGEgZm9sbG93IHVwIHBhdGNo
-LCBpdCBtYXkgbWFrZSBzZW5zZSB0byByZW1vdmUgQ0hJUF9WQU5HT0dIIGVudGlyZWx5DQo+IHNv
-IG5vIG9uZSBhY2NpZGVudGFsbHkgdHJpZXMgdG8gdXNlIGl0Lg0KPiANCj4gQWxleA0KDQpTdXJl
-LCBJIHdpbGwgY3JlYXRlIHNvbWUgZm9sbG93aW5nIHBhdGNoZXMgdG8gcmVtb3ZlIHRoZSBDSElQ
-X1ZBTkdPR0ggcmVsZXZhbnQgY29kZS4gDQoNClBlcnJ5LiANCg0KPiANCj4gDQo+ID4NCj4gPiBT
-aWduZWQtb2ZmLWJ5OiBQZXJyeSBZdWFuIDxQZXJyeS5ZdWFuQGFtZC5jb20+DQo+ID4gLS0tDQo+
-ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyB8IDMgLS0tDQo+ID4g
-IDEgZmlsZSBjaGFuZ2VkLCAzIGRlbGV0aW9ucygtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYw0KPiA+IGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jDQo+ID4gaW5kZXggNDI5ZmNkZjI4ODM2Li45YzMy
-MzQwNWUzYmIgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2Rydi5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ry
-di5jDQo+ID4gQEAgLTE5MDksOSArMTkwOSw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcGNpX2Rl
-dmljZV9pZCBwY2lpZGxpc3RbXSA9IHsNCj4gPiAgICAgICAgIHsweDEwMDIsIDB4NzNBRiwgUENJ
-X0FOWV9JRCwgUENJX0FOWV9JRCwgMCwgMCwNCj4gQ0hJUF9TSUVOTkFfQ0lDSExJRH0sDQo+ID4g
-ICAgICAgICB7MHgxMDAyLCAweDczQkYsIFBDSV9BTllfSUQsIFBDSV9BTllfSUQsIDAsIDAsDQo+
-ID4gQ0hJUF9TSUVOTkFfQ0lDSExJRH0sDQo+ID4NCj4gPiAtICAgICAgIC8qIFZhbiBHb2doICov
-DQo+ID4gLSAgICAgICB7MHgxMDAyLCAweDE2M0YsIFBDSV9BTllfSUQsIFBDSV9BTllfSUQsIDAs
-IDAsDQo+IENISVBfVkFOR09HSHxBTURfSVNfQVBVfSwNCj4gPiAtDQo+ID4gICAgICAgICAvKiBZ
-ZWxsb3cgQ2FycCAqLw0KPiA+ICAgICAgICAgezB4MTAwMiwgMHgxNjRELCBQQ0lfQU5ZX0lELCBQ
-Q0lfQU5ZX0lELCAwLCAwLA0KPiBDSElQX1lFTExPV19DQVJQfEFNRF9JU19BUFV9LA0KPiA+ICAg
-ICAgICAgezB4MTAwMiwgMHgxNjgxLCBQQ0lfQU5ZX0lELCBQQ0lfQU5ZX0lELCAwLCAwLA0KPiA+
-IENISVBfWUVMTE9XX0NBUlB8QU1EX0lTX0FQVX0sDQo+ID4gLS0NCj4gPiAyLjM0LjENCj4gPg0K
+Separate generic fbdev emulation from the helper code that is shared
+among the various fbdev implementations within DRM. Affects many drivers.
+
+It has become apparent that our fully generic fbdev emulation will
+never produce optimal results for all drivers. In its current form,
+it is also hard to maintain. The goal of this patchset is to improve
+readability and streamline the fbdev helper code within DRM. In the
+long term, we want to get to a point where drivers or memory managers
+can pick and combine the various helpers for optimal fbdev support.
+
+Patches 1 to 8 start by preparing drivers. Setting struct drm_driver's
+lastclose and output_poll_changed is not required by generic fbdev
+emulation.
+
+Two drivers depend on fb helpers implicitly including other Linux header
+files. Fixing this in patches 9 and 10 allows to remove unnecesary include
+statements from the fb-helper header in patch 11.
+
+Do some renaming in patches 12 to 14.
+
+There are currently various implementation of the fbdev I/O helpers
+with varying feature sets. The fb helpers for fbdev I/O should all call
+fb_sync, which is what fbdev's internal implementation does. For DRM,
+damage handling needs to be performed after updating a framebuffer. The
+damage worker is part of the fb helpers, but the actual update logic only
+works with generic fbdev emulation. Separate the two, which also gives
+other drivers an option to set their own damage handling if neccessary.
+The full-featured I/O helpers can be moved under a shared implementation
+and called by all drivers. Patches 15 to 18 resolve these issues.
+
+Patch 19 changes fbdev disablement to work at the level of display
+detection. If disabled, generic fbdev emulation will be initialized,
+but no display will be detected. It can later be enabled by changing
+the parameter in sysfs and plugging in a connector.
+
+Patches 20 to 22 move the generic fbdev emulation into their own source
+and header files and clean up the include statements throughout DRM. Many
+drivers only call drm_fbdev_generic_setup() and can avoid including other
+Linux header files.
+
+Patch 23 is a documentation update.
+
+Built on x86-64, aarch64, arm, ppc64le. Tested with various combinations
+of bochs, i915, simpledrm.
+
+v3:
+	* documentation fixes (Javier)
+	* rename drm_fbdev.{c,h} to drm_fbdev_generic.{c,h}
+	* keep drm_leak_fbdev_smem in drm_fb_helper.c
+	* fix several include statements
+	* rebases
+v2:
+      	* fixed commit descriptions (Christian, Sergey)
+
+Thomas Zimmermann (23):
+  drm/komeda: Don't set struct drm_driver.lastclose
+  drm/mcde: Don't set struct drm_driver.lastclose
+  drm/vboxvideo: Don't set struct drm_driver.lastclose
+  drm/amdgpu: Don't set struct drm_driver.output_poll_changed
+  drm/imx/dcss: Don't set struct drm_driver.output_poll_changed
+  drm/ingenic: Don't set struct drm_driver.output_poll_changed
+  drm/logicvc: Don't set struct drm_driver.output_poll_changed
+  drm/rockchip: Don't set struct drm_driver.output_poll_changed
+  drm/panel-ili9341: Include <linux/backlight.h>
+  drm/tve200: Include <linux/of.h>
+  drm/fb-helper: Cleanup include statements in header file
+  drm/fb_helper: Rename field fbdev to info in struct drm_fb_helper
+  drm/fb-helper: Rename drm_fb_helper_alloc_fbi() to use _info postfix
+  drm/fb-helper: Rename drm_fb_helper_unregister_fbi() to use _info
+    postfix
+  drm/fb-helper: Disconnect damage worker from update logic
+  drm/fb-helper: Call fb_sync in I/O functions
+  drm/fb-helper: Perform all fbdev I/O with the same implementation
+  drm/fb_helper: Minimize damage-helper overhead
+  drm/fb-helper: Always initialize generic fbdev emulation
+  drm/fb-helper: Set flag in struct drm_fb_helper for leaking physical
+    addresses
+  drm/fb-helper: Move generic fbdev emulation into separate source file
+  drm/fb-helper: Remove unnecessary include statements
+  drm/fb-helper: Clarify use of last_close and output_poll_changed
+
+ drivers/gpu/drm/Makefile                      |    4 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    |    1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |    3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |    1 -
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |    1 +
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |    1 +
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |    1 +
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |    1 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    2 -
+ .../gpu/drm/arm/display/komeda/komeda_drv.c   |    2 +-
+ .../gpu/drm/arm/display/komeda/komeda_kms.c   |    2 -
+ drivers/gpu/drm/arm/hdlcd_crtc.c              |    1 -
+ drivers/gpu/drm/arm/hdlcd_drv.c               |    2 +-
+ drivers/gpu/drm/arm/malidp_drv.c              |    2 +-
+ drivers/gpu/drm/armada/armada_fbdev.c         |    6 +-
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c       |    2 +-
+ drivers/gpu/drm/ast/ast_drv.c                 |    1 +
+ drivers/gpu/drm/ast/ast_drv.h                 |    1 -
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |    2 +-
+ drivers/gpu/drm/bridge/tc358762.c             |    2 +-
+ drivers/gpu/drm/drm_crtc_helper.c             |    1 -
+ drivers/gpu/drm/drm_fb_helper.c               | 1008 ++++++-----------
+ drivers/gpu/drm/drm_fbdev_generic.c           |  493 ++++++++
+ drivers/gpu/drm/drm_gem_framebuffer_helper.c  |    1 -
+ drivers/gpu/drm/drm_probe_helper.c            |    1 -
+ drivers/gpu/drm/etnaviv/etnaviv_drv.h         |    3 +-
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c     |    6 +-
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c     |    2 +-
+ drivers/gpu/drm/gma500/framebuffer.c          |    6 +-
+ drivers/gpu/drm/gud/gud_drv.c                 |    2 +-
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |    1 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |    1 -
+ .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |    2 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_drv.c       |    2 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |    1 -
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |    8 +-
+ drivers/gpu/drm/imx/dcss/dcss-kms.c           |    3 +-
+ drivers/gpu/drm/imx/imx-drm-core.c            |    2 +-
+ drivers/gpu/drm/imx/imx-ldb.c                 |    2 +-
+ drivers/gpu/drm/imx/imx-tve.c                 |    1 -
+ drivers/gpu/drm/imx/parallel-display.c        |    2 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |    3 +-
+ drivers/gpu/drm/kmb/kmb_drv.c                 |    2 +-
+ drivers/gpu/drm/kmb/kmb_plane.c               |    1 -
+ drivers/gpu/drm/logicvc/logicvc_drm.c         |    2 +-
+ drivers/gpu/drm/logicvc/logicvc_mode.c        |    2 -
+ drivers/gpu/drm/mcde/mcde_drv.c               |    3 +-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |    2 +-
+ drivers/gpu/drm/meson/meson_drv.c             |    2 +-
+ drivers/gpu/drm/mgag200/mgag200_drv.c         |    1 +
+ drivers/gpu/drm/mgag200/mgag200_drv.h         |    1 -
+ drivers/gpu/drm/msm/msm_fbdev.c               |    4 +-
+ drivers/gpu/drm/mxsfb/lcdif_drv.c             |    2 +-
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c             |    2 +-
+ drivers/gpu/drm/nouveau/nouveau_fbcon.c       |   27 +-
+ drivers/gpu/drm/omapdrm/omap_fbdev.c          |    6 +-
+ drivers/gpu/drm/panel/panel-ilitek-ili9341.c  |    3 +-
+ drivers/gpu/drm/pl111/pl111_drv.c             |    2 +-
+ drivers/gpu/drm/qxl/qxl_drv.c                 |    1 +
+ drivers/gpu/drm/qxl/qxl_drv.h                 |    1 -
+ drivers/gpu/drm/radeon/radeon_fb.c            |    6 +-
+ drivers/gpu/drm/rcar-du/rcar_du_drv.c         |    2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |    2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.h   |    2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_fb.c    |    2 -
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |    1 +
+ drivers/gpu/drm/solomon/ssd130x.c             |    2 +-
+ drivers/gpu/drm/sti/sti_drv.c                 |    2 +-
+ drivers/gpu/drm/stm/drv.c                     |    2 +-
+ drivers/gpu/drm/sun4i/sun4i_drv.c             |    2 +-
+ drivers/gpu/drm/tegra/fb.c                    |    8 +-
+ drivers/gpu/drm/tidss/tidss_drv.c             |    2 +-
+ drivers/gpu/drm/tidss/tidss_kms.c             |    1 -
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c           |    2 +-
+ drivers/gpu/drm/tiny/arcpgu.c                 |    2 +-
+ drivers/gpu/drm/tiny/bochs.c                  |    2 +-
+ drivers/gpu/drm/tiny/cirrus.c                 |    2 +-
+ drivers/gpu/drm/tiny/gm12u320.c               |    2 +-
+ drivers/gpu/drm/tiny/hx8357d.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9163.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9225.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9341.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9486.c                |    2 +-
+ drivers/gpu/drm/tiny/mi0283qt.c               |    2 +-
+ drivers/gpu/drm/tiny/ofdrm.c                  |    2 +-
+ drivers/gpu/drm/tiny/panel-mipi-dbi.c         |    2 +-
+ drivers/gpu/drm/tiny/repaper.c                |    2 +-
+ drivers/gpu/drm/tiny/simpledrm.c              |    2 +-
+ drivers/gpu/drm/tiny/st7586.c                 |    2 +-
+ drivers/gpu/drm/tiny/st7735r.c                |    2 +-
+ drivers/gpu/drm/tve200/tve200_drv.c           |    3 +-
+ drivers/gpu/drm/udl/udl_drv.c                 |    2 +-
+ drivers/gpu/drm/v3d/v3d_drv.c                 |    1 -
+ drivers/gpu/drm/vboxvideo/vbox_drv.c          |    4 +-
+ drivers/gpu/drm/vboxvideo/vbox_main.c         |    1 -
+ drivers/gpu/drm/vc4/vc4_drv.c                 |    2 +-
+ drivers/gpu/drm/virtio/virtgpu_drv.c          |    1 +
+ drivers/gpu/drm/virtio/virtgpu_drv.h          |    1 -
+ drivers/gpu/drm/vkms/vkms_drv.c               |    2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |    2 +-
+ drivers/gpu/drm/xen/xen_drm_front_gem.c       |    1 -
+ drivers/gpu/drm/xlnx/zynqmp_kms.c             |    2 +-
+ include/drm/drm_fb_helper.h                   |   61 +-
+ include/drm/drm_fbdev_generic.h               |   15 +
+ 107 files changed, 987 insertions(+), 835 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_fbdev_generic.c
+ create mode 100644 include/drm/drm_fbdev_generic.h
+
+
+base-commit: f5a9fb2d688dfc6efa1fd779a2d225048bfb10f9
+prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: 3f204510fcbf9530d6540bd8e6128cce598988b6
+prerequisite-patch-id: db1c43fc253bf3b55cfa09128a2d83d960599ead
+prerequisite-patch-id: 007fca7c89f5fe0e5279021fcac49fb621bf5708
+-- 
+2.38.0
+
