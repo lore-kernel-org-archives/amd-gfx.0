@@ -4,92 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9C94C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Nov 2022 16:24:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E7E6C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Nov 2022 18:31:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A10710E8ED;
-	Fri,  4 Nov 2022 16:24:08 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E0BB88F78
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Nov 2022 16:23:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1667579013;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=pp1gAvCv0S7a0+LbSi7mwLtPne5YYp7ectQ1uCFFxiU=;
- b=L6HsM5ivEw9LkL+eV7jSvjPWqezNwRECElHQBwxKAtQEzARasJRqpJanRCoCHX2wXTXzyx
- EqsVwINOCtAbfjPPHV4294rhiI5HWwT0jbN6GcKBDg2ZvPDEWHvUh88D8mAh0QvMzyH2ur
- g5Zh7VjrU8/4ZxqDtgqULpAuTT7q5Nc=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-389-tDkUHXu5MxOlyIj2mCp0Fw-1; Fri, 04 Nov 2022 12:23:31 -0400
-X-MC-Unique: tDkUHXu5MxOlyIj2mCp0Fw-1
-Received: by mail-ej1-f69.google.com with SMTP id
- hp16-20020a1709073e1000b007adf5a83df7so3660190ejc.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Nov 2022 09:23:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AF7410E844;
+	Fri,  4 Nov 2022 18:31:15 +0000 (UTC)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AC7C10E844;
+ Fri,  4 Nov 2022 18:31:13 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-13bef14ea06so6453211fac.3; 
+ Fri, 04 Nov 2022 11:31:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=HKJ9WatzyNtfXF7BVXmllxcQN2bm3sB9CdcLiAwUZbY=;
+ b=T4c6k/7XO/rAjKZ3yRM90vXh8Jw7UxtGhK+VuREKJ4+7i/9D29lbOUEw5mvyyd4/T/
+ xYc5PDDyVwU0CQTOwKKeLxy6PDGTWzvCgkXJ5JvnK2Cdn4eqHaEZINMJhl9hX3V7h0AT
+ IiuZR0u33wVKKB6h1mgU5fXm0jFWbqj/KkdPirlMtFLlvS7zuLAR6fFtskrDYELlBVqo
+ 18EsTGoH3AbVQPbLlWfUJDz5b5Qgm07Gw7bGnSokqZIe8XZD1ZiLiEhPTzdu8NF8DJT5
+ 43YPP0/H2yj1apsbNrUmphkjl7aCEP+5aibwUyLPO8nfxjsay2Ujp1+7Tk+SeuSSdEl4
+ BxRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pp1gAvCv0S7a0+LbSi7mwLtPne5YYp7ectQ1uCFFxiU=;
- b=duIlAfspoiwRJojQVDMkqKKn5w22KRWRWgzOYw034YL7nmKfkmpl3X9WDW+EBkrVPZ
- 6MLXl/dhkjt9rwE5iOuv/3QK3S81jO0kX7YgIjawetUyhLn6rz/tgYwdLqdDSTbrUSwW
- Zv+WD3HPPs7crpBVk6l/t7jzefuYOO2Az0j7wEbkRPIfoqNwvWgjQ8WNQOO4ou1F1l86
- F2XVfOimOSxMdxeTiZ4hsJGkZDpTQ7W3aMz90lz7PWHi2qafh6gxhmDbvrdFKKtuFgKG
- BXt4jYMiF4e9neaYRUZ9WaYGKcUA7Udmkjb4scOjRBpbNcel2il65sqapDkbBTdVCl95
- wC/A==
-X-Gm-Message-State: ACrzQf3fPK/PCVnaGUuVixel45xMNJV9Yh53zr2UNj/oCLPbrxzq9SF+
- 767Of1nbb14uJy+b4VMQAYwidXWj6IX5G882RKkCbZ534+Rm+8JJB7qnh1D6W5gWIsI4CBGV98u
- DgOu9D3qFLclwkiwg95C/F3GbqQ==
-X-Received: by 2002:a05:6402:616:b0:463:e2cd:a88d with SMTP id
- n22-20020a056402061600b00463e2cda88dmr16819435edv.400.1667579010674; 
- Fri, 04 Nov 2022 09:23:30 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM4/8CDlsJM8kAPum5+A8l+FVPBOMe0EiU2tBjdUeoP0F0C41kd0gCeOXJ3Aca9vhGBJ4ehIWQ==
-X-Received: by 2002:a05:6402:616:b0:463:e2cd:a88d with SMTP id
- n22-20020a056402061600b00463e2cda88dmr16819392edv.400.1667579010403; 
- Fri, 04 Nov 2022 09:23:30 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:2a07:3a01:67e5:daf9:cec0:df6?
- (2001-1c00-2a07-3a01-67e5-daf9-cec0-0df6.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:2a07:3a01:67e5:daf9:cec0:df6])
- by smtp.gmail.com with ESMTPSA id
- j1-20020a17090623e100b0078d46aa3b82sm1988678ejg.21.2022.11.04.09.23.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Nov 2022 09:23:29 -0700 (PDT)
-Message-ID: <09408910-e806-cf4d-1377-82ab5b2990d5@redhat.com>
-Date: Fri, 4 Nov 2022 17:23:28 +0100
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=HKJ9WatzyNtfXF7BVXmllxcQN2bm3sB9CdcLiAwUZbY=;
+ b=nEPM/ZEKGXqKLYvb3djxWjbRa9iu53PKRWcRQSKaQLJ2XaW8iEjzj9A+JlBRKg3Dzb
+ AeqCqcswejiP8H72FsWgUdMOVc6/MXhRWBoYrhENN1+gY9zkfN0JA601cEA87qjC1qi9
+ PIdAj6r5kMuu+/IWTwY5B610WvxTEq3IvzJPx8X5Qiy7EK4NZCjaU9bYhVQeXn7093y7
+ u5cvQRVoIlY79xbcFf1GcPzqNTHSQnpKPTQ84SQOApUGMEFFnfk+xQ84GxgzgrPWnJkS
+ Hf0uPo5REtfo5ft+OB4DiLRda0Zj3vFzSX26CIwJuTS9g+jtBr3Bbimu5AlExSJlZBOs
+ tsEw==
+X-Gm-Message-State: ACrzQf1V7wf2YKyXhaGAEVcqqfieR1mojKQ1bB7Z/KeDHaNnE5tUl5dE
+ lNON/0KQXxH7d3MXvDTJ0ydKV/1q63oj2eKmE4Y=
+X-Google-Smtp-Source: AMsMyM722qdkRdGq9Vqtgo+RsjYmIiZPHMiaYLSLOg+6somo0EHScuaqAQGbjtVVrebMUPUitt82AwvXGpttE1BV1qM=
+X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
+ x36-20020a056870a7a400b001367c39979emr22410779oao.96.1667586672683; Fri, 04
+ Nov 2022 11:31:12 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-From: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH v5 02/31] drm/i915: Don't register backlight when another
- backlight should be used (v2)
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
- Matthew Garrett <mjg59@srcf.ucam.org>
-References: <20221025193248.GA21457@srcf.ucam.org>
- <144cd47e-42dc-2b84-1a90-ea5e080e08a3@redhat.com>
- <20221025204043.GA23306@srcf.ucam.org>
- <cb5add36-c13c-ccd5-1b4b-71b45163a170@redhat.com>
- <20221025234040.GA27673@srcf.ucam.org>
- <fa6cc1d9-6740-b495-2c72-cae18c429ca6@redhat.com>
- <20221026204920.GA15326@srcf.ucam.org>
- <099dee98-8aeb-af36-828c-110f5ac6e9a3@redhat.com>
- <20221027091123.GA28089@srcf.ucam.org>
- <933be908-0bc2-56cc-8d6f-38f2d208ef20@redhat.com>
- <20221027095249.GA28666@srcf.ucam.org>
- <6df2016d-ed2d-57fa-dcad-48537732895f@redhat.com>
- <CAJZ5v0jM1JAySagv=u2be1bAmfTt3jJgVnOEjGzskBvZY7k6aw@mail.gmail.com>
-In-Reply-To: <CAJZ5v0jM1JAySagv=u2be1bAmfTt3jJgVnOEjGzskBvZY7k6aw@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Fri, 04 Nov 2022 16:24:04 +0000
+References: <1667555402-52866-1-git-send-email-guohanjun@huawei.com>
+In-Reply-To: <1667555402-52866-1-git-send-email-guohanjun@huawei.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 4 Nov 2022 14:31:01 -0400
+Message-ID: <CADnq5_OTt+FzNTiDWYS3_R2kwvXL_AUYY-86oS5_WGTtnjPEBQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/radeon: Using unsigned long instead of unsigned
+ to fix possible overflow
+To: Hanjun Guo <guohanjun@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,164 +65,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- Dmitry Osipenko <digetx@gmail.com>, amd-gfx@lists.freedesktop.org,
- linux-acpi@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>,
- David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>,
- Daniel Dadap <ddadap@nvidia.com>, Jani Nikula <jani.nikula@intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Mark Gross <markgross@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Andy Shevchenko <andy@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Xinhui <Xinhui.Pan@amd.com>,
- Lukas Wunner <lukas@wunner.de>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Matthew, Rafael,
+On Fri, Nov 4, 2022 at 6:05 AM Hanjun Guo <guohanjun@huawei.com> wrote:
+>
+> VBIOSImageOffset in struct UEFI_ACPI_VFCT is ULONG (unsigned long),
+> but it will be assigned to "unsigned offset", so use unsigned long
+> instead of unsigned for the offset, to avoid possible overflow.
 
-On 10/27/22 14:09, Rafael J. Wysocki wrote:
-> On Thu, Oct 27, 2022 at 12:37 PM Hans de Goede <hdegoede@redhat.com> wrote:
->>
->> Hi,
->>
->> On 10/27/22 11:52, Matthew Garrett wrote:
->>> On Thu, Oct 27, 2022 at 11:39:38AM +0200, Hans de Goede wrote:
->>>
->>>> The *only* behavior which actually is new in 6.1 is the native GPU
->>>> drivers now doing the equivalent of:
->>>>
->>>>      if (acpi_video_get_backlight_type() != acpi_backlight_native)
->>>>              return;
->>>>
->>>> In their backlight register paths (i), which is causing the native
->>>> backlight to disappear on your custom laptop setup and on Chromebooks
->>>> (with the Chromebooks case being already solved I hope.).
->>>
->>> It's causing the backlight control to vanish on any machine that isn't
->>> ((acpi_video || vendor interface) || !acpi). Most machines that fall
->>> into that are either weird or Chromebooks or old, but there are machines
->>> that fall into that.
->>
->> I acknowledge that their are machines that fall into this category,
->> but I expect / hope there to be so few of them that we can just DMI
->> quirk our way out if this.
->>
->> I believe the old group to be small because:
->>
->> 1. Generally speaking the "native" control method is usually not
->> present on the really old (pre ACPI video spec) mobile GPUs.
->>
->> 2. On most old laptops I would still expect there to be a vendor
->> interface too, and if both get registered standard desktop environments
->> will prefer the vendor one, so then we need a native DMI quirk to
->> disable the vendor interface anyways and we already have a bunch of
->> those, so some laptops in this group are already covered by DMI quirks.
->>
->> And a fix for the Chromebook case is already in Linus' tree, which
->> just leaves the weird case, of which there will hopefully be only
->> a few.
->>
->> I do share your worry that this might break some machines, but
->> the only way to really find out is to get this code out there
->> I'm afraid.
->>
->> I have just written a blog post asking for people to check if
->> their laptop might be affected; and to report various details
->> to me of their laptop is affected:
->>
->> https://hansdegoede.dreamwidth.org/26548.html
->>
->> Lets wait and see how this goes. If I get (too) many reports then
->> I will send a revert of the addition of the:
->>
->>         if (acpi_video_get_backlight_type() != acpi_backlight_native)
->>                 return;
->>
->> check to the i915 / radeon / amd / nouveau drivers.
->>
->> (And if I only get a couple of reports I will probably just submit
->> DMI quirks for the affected models).
-> 
-> Sounds reasonable to me, FWIW.
+ULONG in atombios is 32 bits so an int should be fine.
 
-I have received quite a few test reports as a result of my blogpost
-(and of the blogpost's mention in an arstechnica article).
+Alex
 
-Long story short, Matthew, you are right. Quite a few laptop models
-will end up with an empty /sys/class/backlight because of the native
-backlight class devices no longer registering when
-acpi_video_backlight_use_native() returns false.
-
-I will submit a patch-set later today to fix this (by making 
-cpi_video_backlight_use_native() always return true for now).
-
-More detailed summary/analysis of the received test reports:
-
--30 unaffected models
-
--The following laptop models:
- Acer Aspire 1640
- Apple MacBook 2.1
- Apple MacBook 4.1
- Apple MacBook Pro 7.1 (uses nv_backligh instead of intel_backlight!)
- HP Compaq nc6120
- IBM ThinkPad X40
- System76 Starling Star1
-
- All only have a native intel_backlight interface and the heuristics from
- acpi_video_get_backlight_type() return acpi_backlight_vendor there causing
- the changes in 6.1 to not register native backlights when
- acpi_video_backlight_use_native() returns false resulting in an empty
- /sys/class/backlight, breaking users ability to control their laptop
- panel's brightness.
-
- I will submit a patch to always make acpi_video_backlight_use_native()
- return true for now to work around this for 6.1.
-
- I do plan to try to re-introduce that change again later. First I need to
- change the heuristics to still native on more models so that on models
- where the native backlight is the only (working) entry they will
- return native.
-
--The Dell N1410 has acpi_video support and acpi_osi_is_win8() returns false
- so acpi_video_get_backlight_type() returns acpi_video, but acpi_video
- fails to register a backlight device due to a_BCM eval error.
- The intel_backlight interface works fine, but this model is going to need
- a DMI-use-native-quirk to avoid intel_backlight disappearing when
- acpi_video_backlight_use_native() is changed back.
-
--The following laptop models actually use a vendor backlight control method,
- while also having a native backlight entry under /sys/class/backlight:
-
- Asus EeePC 901       -> native backlight confirmed to also work
- Dell Latitude D610   -> native backlight confirmed to work better then vendor
- Sony Vaio PCG-FRV3   -> native backlight not tested
-
- Note these will keep working the same as before in 6.1, independent of
- the revert. I've tracked these seperately because they will likely be
- affected by future changes to the heuristics.
-
-
-Regards,
-
-Hans
-
-
-p.s.
-
-My plan is to try again with 6.2 by making native be preferred over vendor
-(when native is available).  It looks like native tends to work well when
-available even on systems so old that the don't have acpi_video
-backlight control support.
-
-I do plan to do another blogpost asking people to explicitly test
-that native works on laptops with a combination of vendor + native
-backlight control available.
-
+>
+> Signed-off-by: Hanjun Guo <guohanjun@huawei.com>
+> ---
+>  drivers/gpu/drm/radeon/radeon_bios.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+> index 3312165..520d1d6 100644
+> --- a/drivers/gpu/drm/radeon/radeon_bios.c
+> +++ b/drivers/gpu/drm/radeon/radeon_bios.c
+> @@ -611,7 +611,7 @@ static bool radeon_acpi_vfct_bios(struct radeon_device *rdev)
+>         struct acpi_table_header *hdr;
+>         acpi_size tbl_size;
+>         UEFI_ACPI_VFCT *vfct;
+> -       unsigned offset;
+> +       unsigned long offset;
+>
+>         if (!ACPI_SUCCESS(acpi_get_table("VFCT", 1, &hdr)))
+>                 return false;
+> --
+> 1.7.12.4
+>
