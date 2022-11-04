@@ -4,115 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E947C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Nov 2022 16:04:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9C94C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Nov 2022 16:24:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B129210E8C7;
-	Fri,  4 Nov 2022 16:04:29 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2051.outbound.protection.outlook.com [40.107.92.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F4B210E8C7
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Nov 2022 16:04:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VYLKSttEaDlXkjfd/DZVXMZwtBeu4MrMq7T8zgttrRfBMK7hGxBuIngT1QS6QjmZhhe1SdIGZDOx0h71l0Km6V7HxxDRZwkCWmQfdVrMby/ndvipAyj2vvkyfzsC+M3UuO7B7sC1mwH/S0AyUMIidseNMuqVS0BwkOMx3NPdCnMUPhm2GUsLUgNDodZI0jmxBxzDENGs0hXBBuoaJoBTNmNVXQMMUs+NxoXSMvnCFWtta5An8l6BS67PfgSlCZtZd+BUfkb5xfK2BU88SIdFBvA+0zriHxqKoW6DkTH29JrYScWOEfhv5P1g5KFMDLqhLbwq2x5uFAk5vdT2sLE0hQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qHRws6wahjLvOn+q2tGIVhLFfU1kgBcdFR4rLyOkmSg=;
- b=RmBIhNap8saxe7BwqrdSh4Mp615a0xzXTTBc8YFbj31TXfIoErwHCi4je76ntYuP1rBWtm9jmRcr6Fdd0XM6o6sHtUvU0k2nY1vhh1KAXKlGNprO/ZEDb+vQyw1OiGjlku7mOMAMam/hUFB3ZtFwm0z5EarYARQCUSFbWwUgLJHCGxJurgVJ16ZeVhaN4sIwhbMfc5rXTEQrJ+gz+QWfoAz1HmWVKDDf5aPgjouZueB+EJS93dzsosYxwLuLen+l7pUjy0cO8dSGCvJAFEEXnzbSrVT8oj2xetln/l6rF+oQeYKODMTJA3ASrtXHgJqSeYSP4qql2lRpYK4LmWW9SA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qHRws6wahjLvOn+q2tGIVhLFfU1kgBcdFR4rLyOkmSg=;
- b=Knj1mGsis7fgeqE5WGiQYKRKsQtQX6HoQEc05+6+9CArutvL6Br5ggW2czJLUlzFkVY6W/oDINfnNPm1Fc0ll6sWPTXr4A5Ryh2bePvpILTAV8vwzyqfMZREk8c6ppvuIOolAfImhdTIQhulyvnR1FDsXo5sdx5NSxMl/UOOhUE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SA0PR12MB4525.namprd12.prod.outlook.com (2603:10b6:806:92::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.22; Fri, 4 Nov
- 2022 16:04:25 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::7d43:3f30:4caf:7421]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::7d43:3f30:4caf:7421%7]) with mapi id 15.20.5791.022; Fri, 4 Nov 2022
- 16:04:25 +0000
-Message-ID: <fb7cef4b-bb22-f31e-9544-30543fa28abd@amd.com>
-Date: Fri, 4 Nov 2022 17:04:20 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH] drm/amdgpu: Inherit coherence flags on dmabuf import
-Content-Language: en-US
-To: Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221104154027.1019315-1-Felix.Kuehling@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20221104154027.1019315-1-Felix.Kuehling@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0061.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:49::16) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A10710E8ED;
+	Fri,  4 Nov 2022 16:24:08 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E0BB88F78
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Nov 2022 16:23:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1667579013;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=pp1gAvCv0S7a0+LbSi7mwLtPne5YYp7ectQ1uCFFxiU=;
+ b=L6HsM5ivEw9LkL+eV7jSvjPWqezNwRECElHQBwxKAtQEzARasJRqpJanRCoCHX2wXTXzyx
+ EqsVwINOCtAbfjPPHV4294rhiI5HWwT0jbN6GcKBDg2ZvPDEWHvUh88D8mAh0QvMzyH2ur
+ g5Zh7VjrU8/4ZxqDtgqULpAuTT7q5Nc=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-389-tDkUHXu5MxOlyIj2mCp0Fw-1; Fri, 04 Nov 2022 12:23:31 -0400
+X-MC-Unique: tDkUHXu5MxOlyIj2mCp0Fw-1
+Received: by mail-ej1-f69.google.com with SMTP id
+ hp16-20020a1709073e1000b007adf5a83df7so3660190ejc.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 04 Nov 2022 09:23:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=pp1gAvCv0S7a0+LbSi7mwLtPne5YYp7ectQ1uCFFxiU=;
+ b=duIlAfspoiwRJojQVDMkqKKn5w22KRWRWgzOYw034YL7nmKfkmpl3X9WDW+EBkrVPZ
+ 6MLXl/dhkjt9rwE5iOuv/3QK3S81jO0kX7YgIjawetUyhLn6rz/tgYwdLqdDSTbrUSwW
+ Zv+WD3HPPs7crpBVk6l/t7jzefuYOO2Az0j7wEbkRPIfoqNwvWgjQ8WNQOO4ou1F1l86
+ F2XVfOimOSxMdxeTiZ4hsJGkZDpTQ7W3aMz90lz7PWHi2qafh6gxhmDbvrdFKKtuFgKG
+ BXt4jYMiF4e9neaYRUZ9WaYGKcUA7Udmkjb4scOjRBpbNcel2il65sqapDkbBTdVCl95
+ wC/A==
+X-Gm-Message-State: ACrzQf3fPK/PCVnaGUuVixel45xMNJV9Yh53zr2UNj/oCLPbrxzq9SF+
+ 767Of1nbb14uJy+b4VMQAYwidXWj6IX5G882RKkCbZ534+Rm+8JJB7qnh1D6W5gWIsI4CBGV98u
+ DgOu9D3qFLclwkiwg95C/F3GbqQ==
+X-Received: by 2002:a05:6402:616:b0:463:e2cd:a88d with SMTP id
+ n22-20020a056402061600b00463e2cda88dmr16819435edv.400.1667579010674; 
+ Fri, 04 Nov 2022 09:23:30 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM4/8CDlsJM8kAPum5+A8l+FVPBOMe0EiU2tBjdUeoP0F0C41kd0gCeOXJ3Aca9vhGBJ4ehIWQ==
+X-Received: by 2002:a05:6402:616:b0:463:e2cd:a88d with SMTP id
+ n22-20020a056402061600b00463e2cda88dmr16819392edv.400.1667579010403; 
+ Fri, 04 Nov 2022 09:23:30 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:2a07:3a01:67e5:daf9:cec0:df6?
+ (2001-1c00-2a07-3a01-67e5-daf9-cec0-0df6.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:2a07:3a01:67e5:daf9:cec0:df6])
+ by smtp.gmail.com with ESMTPSA id
+ j1-20020a17090623e100b0078d46aa3b82sm1988678ejg.21.2022.11.04.09.23.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 04 Nov 2022 09:23:29 -0700 (PDT)
+Message-ID: <09408910-e806-cf4d-1377-82ab5b2990d5@redhat.com>
+Date: Fri, 4 Nov 2022 17:23:28 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SA0PR12MB4525:EE_
-X-MS-Office365-Filtering-Correlation-Id: cefa37d3-d390-4c2c-304a-08dabe7e3e6c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PnRQlGc4d7WcBuj8neF3rnIHqwhrcZdVCNnki81J5X+dLia3KY3y8nDY39a8/R4O6SwE53uSYSd4rKsgY5ETGJcligKeLLQawVOpwhoamXRSC6oVbYsLxq7KV1gCgbQOksWVsXIhkOMEHrN+XdeWXu0FaEMPf1dQyGFG/iFx8JYm7XLMTrxTgTtpJ3GvpqXC1184zH1p2T3NhzjAikI8TkJkaEWAfltFORcUVXJ69jsEBRddZ16ubq5pDXy/Iz2MBpzVPiTJyjnRDH9gVoNrSNOesJKCU/cz3Yg3dCGdeIcupSzv8Ty+5GpAvTynpDyiF1r64Jjaqu7vf9VrmpmrIVTeRyqO2UU1iHEHktYZyTtZEDu5vX5+FWcYeaM39lBqQ+FCiPnKcW1K5VIZ6EYFN0Y7xW8+PUIH2M2sHiiTZsOEJ0ZtdlP6pUV6G2E7QWf+q65t2mp+TgkkKwYZw1M73SyVccQniTTxh68V/vEL4cRFo+NRc4/pa3i7cM1tvllek5QCZzEs6ODag4xNXxbkzokPGqetCzAecCi/Mylge7EVhtulQ6SwjyVQKScC/DlK8/zJCHdPWyBK+oPbmFCti3YceQjWkeWHgD9IQ5tx8Wc+fYEPVAssuzrNFhsC5hzW5hPSvHDdNt00W7ZHCty57AxLW2XprO6nkDCsEZOKv/BW1mAfDYqXfGLsXLzcnTPopCMT6A/ZeTlhnpq0xZ4Leutk4wFweozMUsJ22cRWiSTXuKLSe3GmV7M5Y/rlDmzb26Ddsm0J/kvanlfQl9LzdibUzd3f5r+U3k2mhAU/rTQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(366004)(346002)(376002)(396003)(39860400002)(451199015)(66476007)(66556008)(4326008)(8676002)(66946007)(2616005)(316002)(2906002)(6666004)(38100700002)(66574015)(5660300002)(86362001)(6512007)(6506007)(6486002)(83380400001)(478600001)(31696002)(186003)(8936002)(41300700001)(31686004)(36756003)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?amxsdTdrY0VVeFpFSSs1SVh4b2pENnBLT05hRlZYdk9zWmJRTzJ3T0ZRVW02?=
- =?utf-8?B?ZmJ0YkQxcE5FMDU0UkwzNGd0KzNodE1UaEFLc0gvVGlSQVd6cDYwT0M0THdH?=
- =?utf-8?B?UmZjeGJDNnFWYTBPc2FLS20zK1RLemhmU3ZrYXR6bTZ0UDAzOW5nMW5UM1ZV?=
- =?utf-8?B?VU8wbERqaTNsWjFBbzE0M0F2T3hac2haTTlnK0ZSZUNkVTJ6WWNhdGh2VFJQ?=
- =?utf-8?B?cU10L1Foekh4K2poMTkraFpSbnkwdjdGU25SMXB5cUZKNDgxNlE4cDRqcHNu?=
- =?utf-8?B?cHJiZUJCbkpUME8zU0V0R1BZWVlkNHordEN1S3NnOE92SWVIaTAwNzF1QlBO?=
- =?utf-8?B?UGgxN1dhdWNJQ2dnMURzRG84SmVnTEREWmFscyt0VmUrRm51MXBlQ2RwWjhR?=
- =?utf-8?B?YjNjUmxLclJYbjRBdENqcVRNQlFHZEsycWYwUFgvUHVsR1dkOU5wblhLVVZN?=
- =?utf-8?B?OTlFSitMSFZ6dDZ6V3RSZjlkanQ1Zyt1eUppQ2ZPSFg0aWlsQ1V0Vm9yQUgx?=
- =?utf-8?B?dVhuT094TDlKbTlrejVzZHBpL09Qb2FuOEp3Sm8zK21KQnZVL1BMRVdmNEpi?=
- =?utf-8?B?ekEwR0pzUitqcjZzOE9DOE1Temx3cE12MVA2S3pDR2wwVWZiQUlkOXE1TUwr?=
- =?utf-8?B?UDJtbXdHUjZuVVBWbklQTnJ1bWRPMTRoS3lvUFYyT0xGRmNTdGRvSnAzYmw5?=
- =?utf-8?B?QVBMd1pLT2J4QnM4Z3BrOS9hVHZ1Z2ZTMmVDVzhKb1BIQ1FWc0VSVWZ4UERa?=
- =?utf-8?B?RUxvbDRva2NxSks4MDFtOHkxRXAwRVNxbXR4Q1ZucXNiTWhVS2dtb1lxRDdr?=
- =?utf-8?B?ajNsM3llcitLQ1hYam1uQnl6d2VCVEQ3Yk13aU5qeUU0QnNKSFNUeUszdmF4?=
- =?utf-8?B?alJ0aGNDcjVOY1FRSS9xenNtckI3M2VxK0Jtb1NDNTdpWm1FVXJuUDU1Mjhq?=
- =?utf-8?B?RXE3RWpGMmRyd3d2azlWcGFNclB1SDRMYnFHNzNWNmRVQUdNYi9XRkM3S3RY?=
- =?utf-8?B?a09nRkFCSWM5N29SRzJ4bk5PZWtVRUFqUVJBUXNiVUFaMEZqNTNnbGpwVkk3?=
- =?utf-8?B?ZVJjTEhNMVZxcEhWZmFTajJtT09sNStuR3Y5TDBaQ1lWUDVpTDh2SEZnTWF2?=
- =?utf-8?B?TVkrbGFDbGV1LzV3dGpGd3cvNnVDV2VDVjdpYkFLOUpZeURxL2xyTTZKN0Fr?=
- =?utf-8?B?bU56dngyWVZQOTVPd05TL3JYaVV1OS9xUDlYc1FEamdPUmZtTUpOaUs0dk5J?=
- =?utf-8?B?WjNEbUtKTjdZTi9hTzkydXZJMzlmOVQ5S29UbGx6WlpZQURXN053bmV0Vkk1?=
- =?utf-8?B?elVoais5ZExBaUVKUFYzSUtsZXFBRGlEaFhLU2dpaWRNb1JLSFRFQUtrL2pQ?=
- =?utf-8?B?bk5tcTZBbmdTMzdtOGtqcVZzSFJoeWttQWc1azJkcWd4dVJzdEV5Mm1xMFg5?=
- =?utf-8?B?eGZoQ2tzMmNvSTB0TXMyUUlTZ3R0aE5mQWw5K1ZjTCs0RFF6eGh0bTJDMjVG?=
- =?utf-8?B?WEt3UXlTWDg1VERwc3hGamNSV2RpYVJaOStOQ2VvbDJZOHVCT21Tc1czQUNP?=
- =?utf-8?B?YndYUmtLOFR2ejJuMGkyVEhsUHlpTHVtR1MxL09Md2VkZTlLdUk3ZzRnbzlu?=
- =?utf-8?B?c2dUOWF0WHhEK3ZDQ2kxc2pzeWJ2YW1wU3BWcVpsclBMOFNOeWlqTFlnWVpo?=
- =?utf-8?B?YU0zT3VwelZmNjVkOVJsUW9nbFVTdzZGQ2NEVmszU2oxeWJOeXkxTGNaWmRC?=
- =?utf-8?B?eWUvZko4MUZEbFlUV3BXN0hXL0pTUXZsZThsMWtHRDM0MTFZNWxkVlFieUVX?=
- =?utf-8?B?VWNNeGE5MXdSdWN4VGkzL3g3cjI2NmczMEhtVVhxakdibVQwMEpNL2svRG9I?=
- =?utf-8?B?YXYxQjlaeHo2MGRLUVN1U2VMZ0VIUW16MjlSUURvRW9vTVUza2U5eWZWZ3dq?=
- =?utf-8?B?QkhQYkFZQld0NjlIaEdMWU9lYmRzWjY0YXhSM3lBTkxrNlFlamlCd1g3ak81?=
- =?utf-8?B?bG9EQllxS1h5eTU0YnAzMjUyL3hvRkphUC9ybEp3ZzdQQjRaM0pSSTc4UWpx?=
- =?utf-8?B?TUkwR0pKVU0zNGZ2c1ZOOUZzSTI0TFJvNm5DL093MGg0SXp4T3l6TUM5VVQ4?=
- =?utf-8?B?U0JYYnoyMmtFcUNNSFdNdlgyY09wN2ZQQmJGT05EQkx3Smh6RXVQcUo1akZn?=
- =?utf-8?Q?fkhQWfp+wPzwXxDHL2oh2grZnc2OWH6w3qPkk5jcKKaM?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cefa37d3-d390-4c2c-304a-08dabe7e3e6c
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2022 16:04:25.0968 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /mYCWsvfVZRby2Vd68ISYLicFGFLBP1qIzKepezR9ZLN/1wbpPqnaxued9A3g8/F
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4525
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+From: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH v5 02/31] drm/i915: Don't register backlight when another
+ backlight should be used (v2)
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Matthew Garrett <mjg59@srcf.ucam.org>
+References: <20221025193248.GA21457@srcf.ucam.org>
+ <144cd47e-42dc-2b84-1a90-ea5e080e08a3@redhat.com>
+ <20221025204043.GA23306@srcf.ucam.org>
+ <cb5add36-c13c-ccd5-1b4b-71b45163a170@redhat.com>
+ <20221025234040.GA27673@srcf.ucam.org>
+ <fa6cc1d9-6740-b495-2c72-cae18c429ca6@redhat.com>
+ <20221026204920.GA15326@srcf.ucam.org>
+ <099dee98-8aeb-af36-828c-110f5ac6e9a3@redhat.com>
+ <20221027091123.GA28089@srcf.ucam.org>
+ <933be908-0bc2-56cc-8d6f-38f2d208ef20@redhat.com>
+ <20221027095249.GA28666@srcf.ucam.org>
+ <6df2016d-ed2d-57fa-dcad-48537732895f@redhat.com>
+ <CAJZ5v0jM1JAySagv=u2be1bAmfTt3jJgVnOEjGzskBvZY7k6aw@mail.gmail.com>
+In-Reply-To: <CAJZ5v0jM1JAySagv=u2be1bAmfTt3jJgVnOEjGzskBvZY7k6aw@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Fri, 04 Nov 2022 16:24:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,38 +101,164 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Gang Ba <Gang.Ba@amd.com>
+Cc: Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ Dmitry Osipenko <digetx@gmail.com>, amd-gfx@lists.freedesktop.org,
+ linux-acpi@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>,
+ David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>,
+ Daniel Dadap <ddadap@nvidia.com>, Jani Nikula <jani.nikula@intel.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Mark Gross <markgross@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Xinhui <Xinhui.Pan@amd.com>,
+ Lukas Wunner <lukas@wunner.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 04.11.22 um 16:40 schrieb Felix Kuehling:
-> When importing dmabufs from other amdgpu devices, inherit the coherence
-> flags from the exported BO. This ensures correct MTYPEs in the GPU PTEs
-> for multi-GPU mappings of shared BOs.
->
-> Fixes: 763fbebb20e1 ("drm/amdgpu: Set MTYPE in PTE based on BO flags")
-> Tested-by: Gang Ba <Gang.Ba@amd.com>
-> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Hi Matthew, Rafael,
 
-Acked-by: Christian König <christian.koenig@amd.com>
+On 10/27/22 14:09, Rafael J. Wysocki wrote:
+> On Thu, Oct 27, 2022 at 12:37 PM Hans de Goede <hdegoede@redhat.com> wrote:
+>>
+>> Hi,
+>>
+>> On 10/27/22 11:52, Matthew Garrett wrote:
+>>> On Thu, Oct 27, 2022 at 11:39:38AM +0200, Hans de Goede wrote:
+>>>
+>>>> The *only* behavior which actually is new in 6.1 is the native GPU
+>>>> drivers now doing the equivalent of:
+>>>>
+>>>>      if (acpi_video_get_backlight_type() != acpi_backlight_native)
+>>>>              return;
+>>>>
+>>>> In their backlight register paths (i), which is causing the native
+>>>> backlight to disappear on your custom laptop setup and on Chromebooks
+>>>> (with the Chromebooks case being already solved I hope.).
+>>>
+>>> It's causing the backlight control to vanish on any machine that isn't
+>>> ((acpi_video || vendor interface) || !acpi). Most machines that fall
+>>> into that are either weird or Chromebooks or old, but there are machines
+>>> that fall into that.
+>>
+>> I acknowledge that their are machines that fall into this category,
+>> but I expect / hope there to be so few of them that we can just DMI
+>> quirk our way out if this.
+>>
+>> I believe the old group to be small because:
+>>
+>> 1. Generally speaking the "native" control method is usually not
+>> present on the really old (pre ACPI video spec) mobile GPUs.
+>>
+>> 2. On most old laptops I would still expect there to be a vendor
+>> interface too, and if both get registered standard desktop environments
+>> will prefer the vendor one, so then we need a native DMI quirk to
+>> disable the vendor interface anyways and we already have a bunch of
+>> those, so some laptops in this group are already covered by DMI quirks.
+>>
+>> And a fix for the Chromebook case is already in Linus' tree, which
+>> just leaves the weird case, of which there will hopefully be only
+>> a few.
+>>
+>> I do share your worry that this might break some machines, but
+>> the only way to really find out is to get this code out there
+>> I'm afraid.
+>>
+>> I have just written a blog post asking for people to check if
+>> their laptop might be affected; and to report various details
+>> to me of their laptop is affected:
+>>
+>> https://hansdegoede.dreamwidth.org/26548.html
+>>
+>> Lets wait and see how this goes. If I get (too) many reports then
+>> I will send a revert of the addition of the:
+>>
+>>         if (acpi_video_get_backlight_type() != acpi_backlight_native)
+>>                 return;
+>>
+>> check to the i915 / radeon / amd / nouveau drivers.
+>>
+>> (And if I only get a couple of reports I will probably just submit
+>> DMI quirks for the affected models).
+> 
+> Sounds reasonable to me, FWIW.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index 7bd8e33b14be..271e30e34d93 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -328,7 +328,9 @@ amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
->   	if (dma_buf->ops == &amdgpu_dmabuf_ops) {
->   		struct amdgpu_bo *other = gem_to_amdgpu_bo(dma_buf->priv);
->   
-> -		flags |= other->flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC;
-> +		flags |= other->flags & (AMDGPU_GEM_CREATE_CPU_GTT_USWC |
-> +					 AMDGPU_GEM_CREATE_COHERENT |
-> +					 AMDGPU_GEM_CREATE_UNCACHED);
->   	}
->   
->   	ret = amdgpu_gem_object_create(adev, dma_buf->size, PAGE_SIZE,
+I have received quite a few test reports as a result of my blogpost
+(and of the blogpost's mention in an arstechnica article).
+
+Long story short, Matthew, you are right. Quite a few laptop models
+will end up with an empty /sys/class/backlight because of the native
+backlight class devices no longer registering when
+acpi_video_backlight_use_native() returns false.
+
+I will submit a patch-set later today to fix this (by making 
+cpi_video_backlight_use_native() always return true for now).
+
+More detailed summary/analysis of the received test reports:
+
+-30 unaffected models
+
+-The following laptop models:
+ Acer Aspire 1640
+ Apple MacBook 2.1
+ Apple MacBook 4.1
+ Apple MacBook Pro 7.1 (uses nv_backligh instead of intel_backlight!)
+ HP Compaq nc6120
+ IBM ThinkPad X40
+ System76 Starling Star1
+
+ All only have a native intel_backlight interface and the heuristics from
+ acpi_video_get_backlight_type() return acpi_backlight_vendor there causing
+ the changes in 6.1 to not register native backlights when
+ acpi_video_backlight_use_native() returns false resulting in an empty
+ /sys/class/backlight, breaking users ability to control their laptop
+ panel's brightness.
+
+ I will submit a patch to always make acpi_video_backlight_use_native()
+ return true for now to work around this for 6.1.
+
+ I do plan to try to re-introduce that change again later. First I need to
+ change the heuristics to still native on more models so that on models
+ where the native backlight is the only (working) entry they will
+ return native.
+
+-The Dell N1410 has acpi_video support and acpi_osi_is_win8() returns false
+ so acpi_video_get_backlight_type() returns acpi_video, but acpi_video
+ fails to register a backlight device due to a_BCM eval error.
+ The intel_backlight interface works fine, but this model is going to need
+ a DMI-use-native-quirk to avoid intel_backlight disappearing when
+ acpi_video_backlight_use_native() is changed back.
+
+-The following laptop models actually use a vendor backlight control method,
+ while also having a native backlight entry under /sys/class/backlight:
+
+ Asus EeePC 901       -> native backlight confirmed to also work
+ Dell Latitude D610   -> native backlight confirmed to work better then vendor
+ Sony Vaio PCG-FRV3   -> native backlight not tested
+
+ Note these will keep working the same as before in 6.1, independent of
+ the revert. I've tracked these seperately because they will likely be
+ affected by future changes to the heuristics.
+
+
+Regards,
+
+Hans
+
+
+p.s.
+
+My plan is to try again with 6.2 by making native be preferred over vendor
+(when native is available).  It looks like native tends to work well when
+available even on systems so old that the don't have acpi_video
+backlight control support.
+
+I do plan to do another blogpost asking people to explicitly test
+that native works on laptops with a combination of vendor + native
+backlight control available.
 
