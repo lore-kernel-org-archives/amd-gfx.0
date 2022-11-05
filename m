@@ -4,50 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7861FC433FE
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Nov 2022 23:59:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ABDCC4332F
+	for <amd-gfx@archiver.kernel.org>; Sat,  5 Nov 2022 21:46:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27D9510E8DC;
-	Fri,  4 Nov 2022 23:59:48 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE2F910E8D9
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Nov 2022 23:59:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1667606380;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ffbO6hwMXfi6ia/mJYNAheXY/Bx4C/bAtN/BCx8MV7k=;
- b=fopL5Khi4ykYYA9s79CnaLpbmB3cR9RB1KuJ3+BFlcXt+nFMOAqN1X1DnMK7LJgOh31fPu
- eDHSow8TutQJeKO/YrGYoC9CeInNnZoywAFbQwKNUWzn134bIr+g68ih7Euq63dTYA/t9m
- EG+6Ja+fz5mxp8NIy4FiyHb6LFn1rd4=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-640-Ef2jqjQmOPuPMfiIymyr5Q-1; Fri, 04 Nov 2022 19:59:37 -0400
-X-MC-Unique: Ef2jqjQmOPuPMfiIymyr5Q-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39928833AEC;
- Fri,  4 Nov 2022 23:59:36 +0000 (UTC)
-Received: from emerald.lyude.net (unknown [10.22.11.87])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 88C2F112132C;
- Fri,  4 Nov 2022 23:59:35 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/display/dp_mst: Fix
- drm_dp_mst_add_affected_dsc_crtcs() return code
-Date: Fri,  4 Nov 2022 19:59:26 -0400
-Message-Id: <20221104235926.302883-3-lyude@redhat.com>
-In-Reply-To: <20221104235926.302883-1-lyude@redhat.com>
-References: <20221104235926.302883-1-lyude@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC07C10E131;
+	Sat,  5 Nov 2022 21:46:37 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2067.outbound.protection.outlook.com [40.107.102.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9253D10E131
+ for <amd-gfx@lists.freedesktop.org>; Sat,  5 Nov 2022 21:46:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ggehtfoLylJSm+RvqhyLwsARJJ++GiTwy0v6AsydUAvWcoZhxTD7/V5PsUTDIg8Vm5C3X+WRJHPmmR7jFKx1bA+9bo9ag2FE2MQ+VjEgzEmfYXMTatCS8fIlUnJ7wqk20VP/LBa4bHkyRbQJk02DGqwYpXh1+7pudsia1Ju1inep8GY55pzi+7UP3h3AZmR0nHYSYivsJJhrFmYYEKdKLYJsH3esh/72UOh5EwiAaBy0Lk5lq8IHFQ2H2Bv5xhn7c+oENTiLriHcI4dMJ+7LlBoudDmNb81QNIBg6vyZgwl+O/6OUjM9JLsu1VFwcP7jA+OmiXU1QtSy67Q8MqwMMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FL0mPm+ttyj6GPQ0jrgHsy2g/NcxVbrjLNNe1xBU4uQ=;
+ b=AZe/e9OSz/WFGoz72aH2kQUMz4vhIP+9iu40PPBVSpxiffhFw4BNTP4YZY+Hd0WRI+JAuUASZb8NTUIBgvdpxtTdLSUVVc7uxF1JGg9j4nxqaU+zEXnCpuXYTiL1URRJeKsqgXMGQ8ABxSjmtHi+M80Ca5Vjw8cvYISSLoy/szlVUnSf6W6zttTE8xSwYYPt7I/SlI/Kvws9ZxDOirt47j+f1SldFpOcDrzh0vEfFCwud81KNGc/VeVO/AjwypsoP3dnx+h+Z1jc6MjtXbRuzpuzegsE+ZAJx4C579RH/RVlxihLtRBzOQpHMyGq8uEAMpTmZVDvIEy2WbBCEcP+Dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FL0mPm+ttyj6GPQ0jrgHsy2g/NcxVbrjLNNe1xBU4uQ=;
+ b=qIGvxgn0GkRhVHUGrNPFX+PFv8BRjHWJiSkpe4aEH1Q9GOpJhv1+xOVFqBD4bYXjybIWABKfg3UdXSJwiO0gNqKM/senOseJjG9bl9h6axfsGoyi76KSAVDyjlVgAFH1ZOI6rAnD8pTunKMo1khkb3UbthTyJzjMRP8LsVRbF7g=
+Received: from BN9PR03CA0330.namprd03.prod.outlook.com (2603:10b6:408:112::35)
+ by MN2PR12MB4126.namprd12.prod.outlook.com (2603:10b6:208:199::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.25; Sat, 5 Nov
+ 2022 21:46:29 +0000
+Received: from BN8NAM11FT039.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:112:cafe::78) by BN9PR03CA0330.outlook.office365.com
+ (2603:10b6:408:112::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.25 via Frontend
+ Transport; Sat, 5 Nov 2022 21:46:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT039.mail.protection.outlook.com (10.13.177.169) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5791.20 via Frontend Transport; Sat, 5 Nov 2022 21:46:29 +0000
+Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Sat, 5 Nov
+ 2022 16:46:28 -0500
+From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Fix the kerneldoc description
+Date: Sat, 5 Nov 2022 17:46:06 -0400
+Message-ID: <20221105214606.14892-1-rajneesh.bhardwaj@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT039:EE_|MN2PR12MB4126:EE_
+X-MS-Office365-Filtering-Correlation-Id: 702f185b-3759-4b4d-85b5-08dabf77328a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: AOfLGi4pTpwF1PBTAv/3GFq6zARwNsZJEGktGACCWU12+Sbf1XEIyXYC0tRjndz6KZ7zLY+2t3Cq+cGWdq/OOK45MpLTbNgi0be/DQETLoHdwq0PHFQAyu+5u6sF+ZqQzJjEpby2rdVBj/APGUhmEqT3mb9ZcU28EWkdCKizgeY/EQ4/CAuT7IIxZTbTYlNUwynkEwGzr5WFQ2CyzuCrcvLzGr3upN3kN91/bkgarmnfS9goo5BPy06LBijUrdzmKU/BK3n681AODwOf0s/T2PkUQxsipy2ybIfhmWGixdVWLsO/xDVZYeovBqJnP0t5S6JaeYYPjWft9SQUGBnpbrOLVKAGY3tSCIMKeu7vnq8pLpu7VMpSUmUt77Tavd1rF67X62sK/0a3LwxsIgdRdQggVRl8WZHYOeL54AMnQvaY3UMp1XLttqLKes2QwKWEyITHfewmWZimwwOvNnespe1gnzEtJJ7Nowm+wwmeIaQm2M+djKKOmXKgUeysF9iFXFEo0cAUryE5Db6DN7GOm34Ou7+/e1knNUc7ZL3HnjvsyUftOFiI/VZNqcjZkauslGRRpb7LO5gXcNl37D6KgXziy2zbv6g7P5e0QHbzBf0CSHmNUTA4kYyB3fTiKNzkmnShfMDDoNyBYNgVwYaCKEz+WBeJa+FQyW64uUNZB4Gck5pqD6gt65PJKFguw9g1q5iL4b2nEYZYEbbvZCzacn6tOZjDSUOZPXqJoy1we8jzqwN4mydBio9DnSrq8qzZf4gVzUnsit17er89ime5aE2b7XZnIhrVRnr1OlbJL7i5FRsAAQF1m7yYLFRwi5y2
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(39860400002)(376002)(346002)(136003)(451199015)(40470700004)(46966006)(36840700001)(316002)(6916009)(54906003)(82740400003)(2906002)(44832011)(36756003)(41300700001)(70586007)(70206006)(5660300002)(8676002)(4326008)(40460700003)(8936002)(47076005)(336012)(426003)(36860700001)(2616005)(186003)(1076003)(16526019)(83380400001)(81166007)(356005)(40480700001)(478600001)(7696005)(26005)(86362001)(6666004)(82310400005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2022 21:46:29.5830 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 702f185b-3759-4b4d-85b5-08dabf77328a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT039.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4126
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,42 +96,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@intel.com>,
- Imre Deak <imre.deak@intel.com>, open list <linux-kernel@vger.kernel.org>,
- stable@vger.kernel.org,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Wayne Lin <Wayne.Lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>, David Airlie <airlied@gmail.com>
+Cc: alexander.deucher@amd.com, Felix.Kuehling@amd.com,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Looks like that we're accidentally dropping a pretty important return code
-here. For some reason, we just return -EINVAL if we fail to get the MST
-topology state. This is wrong: error codes are important and should never
-be squashed without being handled, which here seems to have the potential
-to cause a deadlock.
+amdgpu_ttm_tt_set_userptr() is also called by the KFD as part it
+initializing the user pages for userptr BOs and also while initializing
+the GPUVM for a KFD process so update the function description.
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Fixes: 8ec046716ca8 ("drm/dp_mst: Add helper to trigger modeset on affected DSC MST CRTCs")
-Cc: <stable@vger.kernel.org> # v5.6+
+Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index ecd22c038c8c0..51a46689cda70 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -5186,7 +5186,7 @@ int drm_dp_mst_add_affected_dsc_crtcs(struct drm_atomic_state *state, struct drm
- 	mst_state = drm_atomic_get_mst_topology_state(state, mgr);
- 
- 	if (IS_ERR(mst_state))
--		return -EINVAL;
-+		return PTR_ERR(mst_state);
- 
- 	list_for_each_entry(pos, &mst_state->payloads, next) {
- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index ada57a37a020..bcad26a3b009 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1409,8 +1409,9 @@ int amdgpu_ttm_tt_get_userptr(const struct ttm_buffer_object *tbo,
+  * @addr:  The address in the current tasks VM space to use
+  * @flags: Requirements of userptr object.
+  *
+- * Called by amdgpu_gem_userptr_ioctl() to bind userptr pages
+- * to current task
++ * Called by amdgpu_gem_userptr_ioctl() and kfd_ioctl_alloc_memory_of_gpu() to
++ * bind userptr pages to current task and by kfd_ioctl_acquire_vm() to
++ * initialize GPU VM for a KFD process.
+  */
+ int amdgpu_ttm_tt_set_userptr(struct ttm_buffer_object *bo,
+ 			      uint64_t addr, uint32_t flags)
 -- 
-2.37.3
+2.17.1
 
