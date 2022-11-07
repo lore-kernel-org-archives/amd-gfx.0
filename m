@@ -4,93 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 394D5C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 14:37:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97E29C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 16:48:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4F6410E376;
-	Mon,  7 Nov 2022 14:37:25 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2075.outbound.protection.outlook.com [40.107.223.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38C4F10E2A6;
- Mon,  7 Nov 2022 14:37:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Pavp1dB6qhNeOGOgxLOnjukVUb4va/fjrYLu5EnBM8MIDeQXAE7VvxbMNGcoe9930pqQFaGhthjtD+fSi62E8ygYJS4ysskGmeZeWszVzO4tFW1s7H8N7EhkqlYTJuthwtRvvGFSEfB2eqzZ0kMOZkF/H6SHqWvKKCnl/lCbPItlXI44+xAZZaDxTDL0pvc7d/CzmXAsjmbtSbgdZSXorQSPv0SxzoQSbp5qx9qhfK8FDTty2DPNKGufWIxSagd6qWm4553NStE8Y6MOG1XqNX8CXOKSoQGqTnptsOPkvwGTxKpe9VGqFqoalpd69oAe+btJ6rZQvjkdKDQhoCYSWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6hf53wAag0K3+P3qF01o3nAmr5ztOjZkGCAlzmjwyhA=;
- b=PSrweUfHimTRNZzkDQfURx+TLky5AUqEYdlNjQwPN3bw8dD9TxKKbHEwsexPlyVLIEf9GZzqvS8ihjQTcxhv0xvvo5bFKWPTkR+bIuexFup3i25U3SNmTT3BFFjubAsV8lruXwmDXLEdHEDJnX3eaULvQB0rCUTh81gMJKn2t2uffp3vgZjO8ufPn5qe6HsyTLyV0JfM6B0X5x9hdHrV61Bs+lH0g1Vv/zrRpC54H2eN2vdS559ONFK86NN0fuApt1EuFj+cVgIc9bGWX2W5YjB1jhRILgTWF0Z7wjMht4D0S0bmphb5rayZ0K8PoHP6oRsY04s4bAxqwXh09bfcCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6hf53wAag0K3+P3qF01o3nAmr5ztOjZkGCAlzmjwyhA=;
- b=kOa3y8UEko4E1qnJ+ErXICxUgdDcWvuYms9wJc2MGceCv9VYL3Xh2ypyzq6WEcBlD7fo3NuEJu+youFmgylq5TFYvxbz4Q5N2U0WMQ5Mf30P6qRk8t0Q4VdbixpeUy+PbftViOP6FZNS+1tZ/mI1aLAp9SN/Zkp15XgV6kA+lQc=
-Received: from BN9PR03CA0226.namprd03.prod.outlook.com (2603:10b6:408:f8::21)
- by SN7PR12MB7297.namprd12.prod.outlook.com (2603:10b6:806:2ad::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.22; Mon, 7 Nov
- 2022 14:37:17 +0000
-Received: from BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f8:cafe::c3) by BN9PR03CA0226.outlook.office365.com
- (2603:10b6:408:f8::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.26 via Frontend
- Transport; Mon, 7 Nov 2022 14:37:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT062.mail.protection.outlook.com (10.13.177.34) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5791.20 via Frontend Transport; Mon, 7 Nov 2022 14:37:16 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 7 Nov
- 2022 08:37:16 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 7 Nov
- 2022 08:37:16 -0600
-Received: from iron-maiden.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
- Transport; Mon, 7 Nov 2022 08:37:15 -0600
-From: Carlos Bilbao <carlos.bilbao@amd.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH] drm/amd/display: Amend descriptions within enum
- pipe_split_policy
-Date: Mon, 7 Nov 2022 08:37:15 -0600
-Message-ID: <20221107143715.279841-1-carlos.bilbao@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9319F10E47F;
+	Mon,  7 Nov 2022 16:48:24 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29E2A10E47F;
+ Mon,  7 Nov 2022 16:48:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1667839699; x=1699375699;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ZlkYnRti0+UTe1aeerFDnAOYCAevO6FI6ZHWjCipoiU=;
+ b=eUFmfpSMjrkydjCyJIhFeGWc6OuQGRXYd99g12XqpH/LBn9cm1XDTvr3
+ vzz//6rUpvqY7rEp5HqIGpwLSaDNshM46Sc5uOpzYoXrTstHqRK6pCJOH
+ graE5Y+0CTL0Fi9qlg8X5abijXE4HhwN3UGbZFlGtMA4rAlPczT6EwIFI
+ LmEAYHguuKvQKhLOVqcLWW+I9qZZuATxKvvSZKt26g5HD0MMbpsMh/9ES
+ ZuIVUKVzqZWa0G1A+VHzwxVYg5Q1wripTuFEbjqT5Od6AfuG5P40ltodj
+ mW7jOS1Ai6Ze/aYfgLBIIAxYi/RZyJOECWFiHPBlOdTkkyj2r7l0bZ+q0 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="293808118"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="293808118"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2022 08:47:57 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="965218046"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="965218046"
+Received: from lkp-server01.sh.intel.com (HELO 462403710aa9) ([10.239.97.150])
+ by fmsmga005.fm.intel.com with ESMTP; 07 Nov 2022 08:47:54 -0800
+Received: from kbuild by 462403710aa9 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1os5Ht-0000pW-33;
+ Mon, 07 Nov 2022 16:47:53 +0000
+Date: Tue, 08 Nov 2022 00:47:02 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ d8e87774068af213ab5b058b1b114dc397b577aa
+Message-ID: <63693686.+ibq7thC8cVt3vzW%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT062:EE_|SN7PR12MB7297:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5f53e9a-392a-41f1-b67b-08dac0cd9187
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LuDCzdax19SpZWmbmIcio/9ICiKOBZZcmE9//te88IXlwb1QNTpMe7FAVKbZOcNQeU1k4urtwzwAUL0zSqLQUcHevnBd0XzztFUImhbChpD/ZNSRd1Ga9gThZALeNlVXJGw+heaEFY8Neq4lZoXqg7ZZcRoElRmC7Fqm5onjyKTp0C7+p92N0PRBpu0wLRdsiyqGyQOn4GgHS6OOPsWwS+Xy8fshQvZn2kQaMFxgeAJr9h4qLti89llLZQ6icVKQN9LMUVtoqSpyRytHzNP6EfhQM4HnfjfOlM959KF6RUT4d/6NxTnIeQAAipZREHW0OvQaQb1w8TqeUUtSZU94idgjTQCa7YN7Fy50T+58/14GQQ/0PT94hG0ID2IbSoaGSVNsEmsHaGCEzAKYvTuknnCV3zoGTbsEusKGM7RVE9Jq39khlb3Kx6h/oKvutg6vGUoiMuUfZCPH+ZhlRmTpxRrrbANjIOgYHD93zV6WsJx4jMkA2Io/oCWyXyBg+XHjQt3dTHryh4N4dtDGEc8ofe2cXQ+Bdy2hwkB34Co1h5CfuSOf7nFCvBQ9ScvRabqF+j80aLB0+/8nzhBYsWASCVreV6C3/jFTsFwPv/biA8RBWBqQUg2+COfW81isosQZTkqA/3Q/bYzjtIsXjPvJ+I4OB0gzce5nonf0jF9QjduBqNhJeNVRGn7qDdVjEuW6R1aYA6QnpsU9egPV47r4bQ38L3knF/0Zo/CP2tiVifxoUpmi6emqM1ZKEbj2uBFXWsSw8UoTEq8b/me4oqwkaEfH9fK9Cg10KU+gKpMKHYs=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(346002)(396003)(376002)(39860400002)(451199015)(36840700001)(46966006)(40470700004)(44832011)(41300700001)(8676002)(4326008)(5660300002)(8936002)(86362001)(2906002)(40480700001)(70206006)(82740400003)(2616005)(1076003)(336012)(186003)(83380400001)(54906003)(426003)(356005)(47076005)(110136005)(40460700003)(70586007)(36860700001)(81166007)(316002)(26005)(478600001)(6636002)(7696005)(36756003)(82310400005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2022 14:37:16.8296 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5f53e9a-392a-41f1-b67b-08dac0cd9187
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7297
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,46 +58,181 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: aric.cyr@amd.com, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Carlos Bilbao <carlos.bilbao@amd.com>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- jun.lei@amd.com, airlied@gmail.com, christian.koenig@amd.com, bilbao@vt.edu
+Cc: netdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
+ ntfs3@lists.linux.dev
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Correct descriptions of two last fields of enum pipe_split_policy, updating
-comments with proper field names.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: d8e87774068af213ab5b058b1b114dc397b577aa  Add linux-next specific files for 20221107
 
-Signed-off-by: Carlos Bilbao <carlos.bilbao@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dc.h | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+Error/Warning reports:
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index bfc5474c0f4c..277631a899d8 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -457,15 +457,16 @@ enum pipe_split_policy {
- 	MPC_SPLIT_DYNAMIC = 0,
- 
- 	/**
--	 * @MPC_SPLIT_DYNAMIC: Avoid pipe split, which means that DC will not
-+	 * @MPC_SPLIT_AVOID: Avoid pipe split, which means that DC will not
- 	 * try any sort of split optimization.
- 	 */
- 	MPC_SPLIT_AVOID = 1,
- 
- 	/**
--	 * @MPC_SPLIT_DYNAMIC: With this option, DC will only try to optimize
--	 * the pipe utilization when using a single display; if the user
--	 * connects to a second display, DC will avoid pipe split.
-+	 * @MPC_SPLIT_AVOID_MULT_DISP: With this option, DC will only try
-+	 * to optimize the pipe utilization when using a single display;
-+	 * if the user connects to a second display, DC will avoid pipe
-+	 * split.
- 	 */
- 	MPC_SPLIT_AVOID_MULT_DISP = 2,
- };
+https://lore.kernel.org/linux-mm/202210090954.pTR6m6rj-lkp@intel.com
+https://lore.kernel.org/linux-mm/202210111318.mbUfyhps-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211041320.coq8EELJ-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211071905.HjT4Cwsk-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211072023.hRrEPGnJ-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211072213.KSrsyiuE-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:4878: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5044:24: warning: implicit conversion from 'enum <anonymous>' to 'enum dc_status' [-Wenum-conversion]
+drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c:75:8: error: call to undeclared function 'readl'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c:80:2: error: call to undeclared function 'writel'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+lib/test_maple_tree.c:453:12: warning: result of comparison of constant 4398046511104 with expression of type 'unsigned long' is always false [-Wtautological-constant-out-of-range-compare]
+lib/test_objpool.c:106:6: warning: no previous prototype for function 'ot_vfree' [-Wmissing-prototypes]
+lib/test_objpool.c:80:7: warning: no previous prototype for function 'ot_kzalloc' [-Wmissing-prototypes]
+lib/test_objpool.c:89:6: warning: no previous prototype for function 'ot_kfree' [-Wmissing-prototypes]
+lib/test_objpool.c:97:7: warning: no previous prototype for function 'ot_vmalloc' [-Wmissing-prototypes]
+net/dcb/dcbnl.c:1230:1: warning: the frame size of 1244 bytes is larger than 1024 bytes [-Wframe-larger-than=]
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+drivers/input/touchscreen/hynitron_cstxxx.c:238 cst3xx_bootloader_enter() error: uninitialized symbol 'tmp'.
+lib/zstd/compress/huf_compress.c:460 HUF_getIndex() warn: the 'RANK_POSITION_LOG_BUCKETS_BEGIN' macro might need parens
+lib/zstd/decompress/zstd_decompress_block.c:1009 ZSTD_execSequence() warn: inconsistent indenting
+lib/zstd/decompress/zstd_decompress_block.c:894 ZSTD_execSequenceEnd() warn: inconsistent indenting
+lib/zstd/decompress/zstd_decompress_block.c:942 ZSTD_execSequenceEndSplitLitBuffer() warn: inconsistent indenting
+lib/zstd/decompress/zstd_decompress_internal.h:206 ZSTD_DCtx_get_bmi2() warn: inconsistent indenting
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- arc-randconfig-r002-20221106
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- i386-buildonly-randconfig-r006-20221107
+|   `-- net-dcb-dcbnl.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
+|-- i386-randconfig-m021-20221107
+|   |-- arch-x86-kernel-apic-apic.c-generic_processor_info()-warn:always-true-condition-(num_processors-()-)-(-u32max-)
+|   |-- lib-zstd-compress-huf_compress.c-HUF_getIndex()-warn:the-RANK_POSITION_LOG_BUCKETS_BEGIN-macro-might-need-parens
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
+|   `-- lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- loongarch-buildonly-randconfig-r001-20221106
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- loongarch-randconfig-r005-20221106
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- loongarch-randconfig-r032-20221107
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- m68k-randconfig-m041-20221107
+|   |-- drivers-input-touchscreen-hynitron_cstxxx.c-cst3xx_bootloader_enter()-error:uninitialized-symbol-tmp-.
+|   |-- lib-zstd-compress-huf_compress.c-HUF_getIndex()-warn:the-RANK_POSITION_LOG_BUCKETS_BEGIN-macro-might-need-parens
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
+|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
+|   `-- lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
+|-- microblaze-randconfig-s033-20221107
+|   |-- fs-ntfs3-index.c:sparse:sparse:restricted-__le32-degrades-to-integer
+|   |-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s1-got-unsigned-short
+|   `-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s2-got-unsigned-short
+clang_recent_errors
+|-- hexagon-randconfig-r041-20221106
+|   `-- lib-test_maple_tree.c:warning:result-of-comparison-of-constant-with-expression-of-type-unsigned-long-is-always-false
+|-- powerpc-buildonly-randconfig-r001-20221107
+|   |-- lib-test_objpool.c:warning:no-previous-prototype-for-function-ot_kfree
+|   |-- lib-test_objpool.c:warning:no-previous-prototype-for-function-ot_kzalloc
+|   |-- lib-test_objpool.c:warning:no-previous-prototype-for-function-ot_vfree
+|   `-- lib-test_objpool.c:warning:no-previous-prototype-for-function-ot_vmalloc
+|-- s390-randconfig-r021-20221107
+|   |-- drivers-gpu-drm-hisilicon-hibmc-hibmc_drm_vdac.c:error:call-to-undeclared-function-readl-ISO-C99-and-later-do-not-support-implicit-function-declarations
+|   `-- drivers-gpu-drm-hisilicon-hibmc-hibmc_drm_vdac.c:error:call-to-undeclared-function-writel-ISO-C99-and-later-do-not-support-implicit-function-declarations
+`-- x86_64-randconfig-a016
+    `-- vmlinux.o:warning:objtool:handle_bug:call-to-kmsan_unpoison_entry_regs()-leaves-.noinstr.text-section
+
+elapsed time: 723m
+
+configs tested: 58
+configs skipped: 2
+
+gcc tested configs:
+um                             i386_defconfig
+um                           x86_64_defconfig
+arc                                 defconfig
+s390                             allmodconfig
+alpha                               defconfig
+s390                             allyesconfig
+x86_64                           rhel-8.3-kvm
+s390                                defconfig
+x86_64                           rhel-8.3-syz
+x86_64                         rhel-8.3-kunit
+i386                                defconfig
+x86_64                              defconfig
+i386                 randconfig-a002-20221107
+x86_64                        randconfig-a013
+x86_64               randconfig-a004-20221107
+i386                 randconfig-a003-20221107
+ia64                             allmodconfig
+i386                 randconfig-a004-20221107
+arm                                 defconfig
+i386                 randconfig-a005-20221107
+x86_64               randconfig-a001-20221107
+i386                          randconfig-a014
+x86_64                               rhel-8.3
+x86_64                        randconfig-a011
+x86_64                           allyesconfig
+i386                          randconfig-a012
+x86_64               randconfig-a003-20221107
+powerpc                           allnoconfig
+x86_64               randconfig-a002-20221107
+i386                          randconfig-a016
+i386                 randconfig-a001-20221107
+arm                              allyesconfig
+x86_64                        randconfig-a015
+x86_64               randconfig-a005-20221107
+riscv                randconfig-r042-20221106
+i386                 randconfig-a006-20221107
+powerpc                          allmodconfig
+x86_64               randconfig-a006-20221107
+mips                             allyesconfig
+arm64                            allyesconfig
+sh                               allmodconfig
+arc                  randconfig-r043-20221106
+s390                 randconfig-r044-20221106
+x86_64                          rhel-8.3-func
+x86_64                    rhel-8.3-kselftests
+m68k                             allmodconfig
+arc                              allyesconfig
+alpha                            allyesconfig
+m68k                             allyesconfig
+i386                             allyesconfig
+
+clang tested configs:
+i386                          randconfig-a013
+i386                          randconfig-a011
+x86_64                        randconfig-a016
+x86_64                        randconfig-a012
+i386                          randconfig-a015
+x86_64                        randconfig-a014
+hexagon              randconfig-r045-20221106
+hexagon              randconfig-r041-20221106
+
 -- 
-2.34.1
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp
