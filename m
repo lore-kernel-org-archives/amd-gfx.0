@@ -4,49 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97E29C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 16:48:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 807AFC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 17:23:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9319F10E47F;
-	Mon,  7 Nov 2022 16:48:24 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29E2A10E47F;
- Mon,  7 Nov 2022 16:48:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667839699; x=1699375699;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=ZlkYnRti0+UTe1aeerFDnAOYCAevO6FI6ZHWjCipoiU=;
- b=eUFmfpSMjrkydjCyJIhFeGWc6OuQGRXYd99g12XqpH/LBn9cm1XDTvr3
- vzz//6rUpvqY7rEp5HqIGpwLSaDNshM46Sc5uOpzYoXrTstHqRK6pCJOH
- graE5Y+0CTL0Fi9qlg8X5abijXE4HhwN3UGbZFlGtMA4rAlPczT6EwIFI
- LmEAYHguuKvQKhLOVqcLWW+I9qZZuATxKvvSZKt26g5HD0MMbpsMh/9ES
- ZuIVUKVzqZWa0G1A+VHzwxVYg5Q1wripTuFEbjqT5Od6AfuG5P40ltodj
- mW7jOS1Ai6Ze/aYfgLBIIAxYi/RZyJOECWFiHPBlOdTkkyj2r7l0bZ+q0 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="293808118"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="293808118"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2022 08:47:57 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="965218046"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="965218046"
-Received: from lkp-server01.sh.intel.com (HELO 462403710aa9) ([10.239.97.150])
- by fmsmga005.fm.intel.com with ESMTP; 07 Nov 2022 08:47:54 -0800
-Received: from kbuild by 462403710aa9 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1os5Ht-0000pW-33;
- Mon, 07 Nov 2022 16:47:53 +0000
-Date: Tue, 08 Nov 2022 00:47:02 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- d8e87774068af213ab5b058b1b114dc397b577aa
-Message-ID: <63693686.+ibq7thC8cVt3vzW%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5EC010E506;
+	Mon,  7 Nov 2022 17:23:25 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2042.outbound.protection.outlook.com [40.107.237.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C20010E4F8
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Nov 2022 17:23:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=D/HcvNQb5yvs/n63Ypq8dD0GNAemAD5tDBnXDmNQ8vL96fF0mTnznBDWYqvg+G/UQuK0KNU4jIzSI+LpD6jhWlKlE56EvW8rRUM3exeiPrwUUCjjGtR1ozY4UuU5eWxAO2pMliHCiW9dXRRx5Q70FPr3wW7xOhLkFVylTztHmn9+5aZQcmVaFbpvsZftcMzbPR2cspHk6X2fZYBWmObL/lR5ii/6w4WHo1STWR0r0pd22Qx1Bu2YzKfQVY0JwQ2t+nRD9kjdMK07LsLWGJN6bEzOQgKH+jpvF2NEmgPQ2w2P+CBw7X3hp9D4YrZtSn5BW+S2JuNuxwRyVylua2k/Xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RoZCOCAkQkyM0vlnaVrVFn+BgG6c6R4f0qIdC0L9ilQ=;
+ b=HcM5MCFdCervbnIU3IdPh4Hiy8rS7Z3KtqgFZJ5IYYm1rZytBE8wXJipaxiUKa6Cvt5eVemSVl+UZ3bDJ5vTA45hg3JedvJUZ8uPhFdQHIwUiZbPbbujvHjcvkRs/n7cN+Q7w1sFdky3dkQ82WaA24t4J8uDOIDDB2Kfb+HCl6n//Hwhx47/6xiHvMWjpVaig1eLQ2tZ9TxDUzLaim5L3Yb1B2ycE6UrT4bu8ouLeEzyvr2p5MUl4EfjScKmsfZMwvf8jE+xBPmh9rSYUyVzrvNf46agp6y8bAE8yPNV3sSz8D7ivcZTW9f//3fBDP4Ahpekzub6u+FNPi+Ft/meaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RoZCOCAkQkyM0vlnaVrVFn+BgG6c6R4f0qIdC0L9ilQ=;
+ b=atq2JfxlqGv84DQC1VTVeEtwTn7+zrFJ/gV37DmiOQbhAX9QRHbZ4MfPdMi0tRR1uo1T/OXII2nP/l1lTp4tbIgjVN4omT7u7FsWqHRVWrdKrgSFrX1p57qRMdeUqXZjcYtxTyddIjm00sWokJPvtRR7i+DVnr03QsK+Tg0Z3OM=
+Received: from DM6PR08CA0039.namprd08.prod.outlook.com (2603:10b6:5:1e0::13)
+ by SJ1PR12MB6292.namprd12.prod.outlook.com (2603:10b6:a03:455::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.22; Mon, 7 Nov
+ 2022 17:23:17 +0000
+Received: from DM6NAM11FT011.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1e0:cafe::df) by DM6PR08CA0039.outlook.office365.com
+ (2603:10b6:5:1e0::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.26 via Frontend
+ Transport; Mon, 7 Nov 2022 17:23:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT011.mail.protection.outlook.com (10.13.172.108) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5791.20 via Frontend Transport; Mon, 7 Nov 2022 17:23:16 +0000
+Received: from fedora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 7 Nov
+ 2022 11:23:15 -0600
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: AMD Graphics <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Remove redundant I2C EEPROM address
+Date: Mon, 7 Nov 2022 12:22:53 -0500
+Message-ID: <20221107172253.155475-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+X-check-string-leak: v1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT011:EE_|SJ1PR12MB6292:EE_
+X-MS-Office365-Filtering-Correlation-Id: d169da92-5bed-4f98-89de-08dac0e4c22d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: rXyE2sSaY6u4j5g0QVsGwAKVjX11BUvB0hatarHEvFY3xxJXM32dsOsXgY5wtNB/hJdSC+4Dt+R9aMHFSjq0Orq5cBMNjnYT4Qy0hwSb9VCqD5EwfzRCP9Ff6MhO11+qb2H4XC+eb895Em49Qdx8OKF0Kg/XrjcwxUWlqav9/pWmG7HoEIe5vG93w11aswTX+XGyqdKdcx5Qz9eDYVqL101QXSQKLuzsilKJxgcWeguKiDN22ZEb0uRDjCyLYaC0mGprrIHTH4cdIU3sKcTREPmCIX4eCtcQnzZvWuMIAgCGH+UvXsfJzQiyBw5H0b/+UqJHmhHobib0p+qHwvxpLrUl0MUVTFWcuHb2jV8zFbZ6ggGUBn/bAqTAMSvKKdKgnBBiJ1bwVq8ndBiZfhO7dtWMKlGA1KTbkPWbHw6zJA0KpFCGFupCmwBwzqXGPkAadIVKyGCC3XbjPKxVfYSkOnNEuA/H3EHw91gIXmpoXrYpuVmdcPw72UGpiTJDnBnbu5/nZS8Eq1j4TyT0eMnzOvF88bz5syFFs0LkXrIX23tRPk/c2cTwybZbZnD/5seYoQZs983JHtyB5nCrHPeDNsn0uOImJs/Nta0LA0sbHdwiKJA+KrADwg35lEJyiklArZe/cfwd9coJDtk/gKV525t67unaIg/wok1ZdgEkzwMyetbzjADvq1eIf8my4b1w4BakqG1huWm2kr+AvKYvI+TUPVEFI/Szb81p0ui1CtMZqipOvdQr/S651JEL37+edruXT8gfFOAEHlzJlnKDKBpSMMBZa+ElaFLYa7ikMPZdpq8vfsLzB86cX4H4gSas
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199015)(40470700004)(36840700001)(46966006)(83380400001)(54906003)(6916009)(6666004)(5660300002)(70586007)(4326008)(8676002)(40460700003)(16526019)(1076003)(336012)(2616005)(70206006)(186003)(41300700001)(47076005)(40480700001)(8936002)(36756003)(86362001)(316002)(7696005)(426003)(26005)(2906002)(356005)(478600001)(44832011)(82740400003)(81166007)(36860700001)(82310400005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2022 17:23:16.8406 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d169da92-5bed-4f98-89de-08dac0e4c22d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT011.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6292
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,181 +98,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: netdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
- ntfs3@lists.linux.dev
+Cc: Tao Zhou <tao.zhou1@amd.com>, Alex Deucher <Alexander.Deucher@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>, Candice Li <candice.li@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: d8e87774068af213ab5b058b1b114dc397b577aa  Add linux-next specific files for 20221107
+Remove redundant EEPROM_I2C_MADDR_54H address, since we already have it
+represented (ARCTURUS), and since we don't include the I2C device type
+identifier in EEPROM memory addresses, i.e. that high up in the device
+abstraction--we only use EEPROM memory addresses, as memory is continuously
+represented by EEPROM device(s) on the I2C bus.
 
-Error/Warning reports:
+Add a comment describing what these memory addresses are, how they come
+about and how they're usually extracted from the device address byte.
 
-https://lore.kernel.org/linux-mm/202210090954.pTR6m6rj-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210111318.mbUfyhps-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211041320.coq8EELJ-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211071905.HjT4Cwsk-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211072023.hRrEPGnJ-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211072213.KSrsyiuE-lkp@intel.com
+Cc: Candice Li <candice.li@amd.com>
+Cc: Tao Zhou <tao.zhou1@amd.com>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+Fixes: 367a1ebddde5d0 ("drm/amdgpu: Add EEPROM I2C address support for ip discovery")
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c    |  2 ++
+ .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 24 ++++++++++++++++---
+ 2 files changed, 23 insertions(+), 3 deletions(-)
 
-Error/Warning: (recently discovered and may have been fixed)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+index 4d9eb0137f8c43..d6c4293829aab1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+@@ -79,6 +79,8 @@
+  * That is, for an I2C EEPROM driver everything is controlled by
+  * the "eeprom_addr".
+  *
++ * See also top of amdgpu_ras_eeprom.c.
++ *
+  * P.S. If you need to write, lock and read the Identification Page,
+  * (M24M02-DR device only, which we do not use), change the "7" to
+  * "0xF" in the macro below, and let the client set bit 20 to 1 in
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index 7268ae65c140c1..1bb92a64f24afc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -33,12 +33,30 @@
+ 
+ #include "amdgpu_reset.h"
+ 
++/* These are memory addresses as would be seen by one or more EEPROM
++ * chips strung on the I2C bus, usually by manipulating pins 1-3 of a
++ * set of EEPROM devices. They form a continuous memory space.
++ *
++ * The I2C device address includes the device type identifier, 1010b,
++ * which is a reserved value and indicates that this is an I2C EEPROM
++ * device. It also includes the top 3 bits of the 19 bit EEPROM memory
++ * address, namely bits 18, 17, and 16. This makes up the 7 bit
++ * address sent on the I2C bus with bit 0 being the direction bit,
++ * which is not represented here, and sent by the hardware directly.
++ *
++ * For instance,
++ *   50h = 1010000b => device type identifier 1010b, bits 18:16 = 000b, address 0.
++ *   54h = 1010100b => --"--, bits 18:16 = 100b, address 40000h.
++ *   56h = 1010110b => --"--, bits 18:16 = 110b, address 60000h.
++ * Depending on the size of the I2C EEPROM device(s), bits 18:16 may
++ * address memory in a device or a device on the I2C bus, depending on
++ * the status of pins 1-3. See top of amdgpu_eeprom.c.
++ */
+ #define EEPROM_I2C_MADDR_VEGA20         0x0
+ #define EEPROM_I2C_MADDR_ARCTURUS       0x40000
+ #define EEPROM_I2C_MADDR_ARCTURUS_D342  0x0
+ #define EEPROM_I2C_MADDR_SIENNA_CICHLID 0x0
+ #define EEPROM_I2C_MADDR_ALDEBARAN      0x0
+-#define EEPROM_I2C_MADDR_54H            (0x54UL << 16)
+ 
+ /*
+  * The 2 macros bellow represent the actual size in bytes that
+@@ -130,7 +148,7 @@ static bool __get_eeprom_i2c_addr_ip_discovery(struct amdgpu_device *adev,
+ 	switch (adev->ip_versions[MP1_HWIP][0]) {
+ 	case IP_VERSION(13, 0, 0):
+ 	case IP_VERSION(13, 0, 10):
+-		control->i2c_address = EEPROM_I2C_MADDR_54H;
++		control->i2c_address = EEPROM_I2C_MADDR_ARCTURUS;
+ 		return true;
+ 	default:
+ 		return false;
+@@ -185,7 +203,7 @@ static bool __get_eeprom_i2c_addr(struct amdgpu_device *adev,
+ 
+ 	switch (adev->ip_versions[MP1_HWIP][0]) {
+ 	case IP_VERSION(13, 0, 0):
+-		control->i2c_address = EEPROM_I2C_MADDR_54H;
++		control->i2c_address = EEPROM_I2C_MADDR_ARCTURUS;
+ 		break;
+ 
+ 	default:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:4878: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5044:24: warning: implicit conversion from 'enum <anonymous>' to 'enum dc_status' [-Wenum-conversion]
-drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c:75:8: error: call to undeclared function 'readl'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c:80:2: error: call to undeclared function 'writel'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-lib/test_maple_tree.c:453:12: warning: result of comparison of constant 4398046511104 with expression of type 'unsigned long' is always false [-Wtautological-constant-out-of-range-compare]
-lib/test_objpool.c:106:6: warning: no previous prototype for function 'ot_vfree' [-Wmissing-prototypes]
-lib/test_objpool.c:80:7: warning: no previous prototype for function 'ot_kzalloc' [-Wmissing-prototypes]
-lib/test_objpool.c:89:6: warning: no previous prototype for function 'ot_kfree' [-Wmissing-prototypes]
-lib/test_objpool.c:97:7: warning: no previous prototype for function 'ot_vmalloc' [-Wmissing-prototypes]
-net/dcb/dcbnl.c:1230:1: warning: the frame size of 1244 bytes is larger than 1024 bytes [-Wframe-larger-than=]
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/input/touchscreen/hynitron_cstxxx.c:238 cst3xx_bootloader_enter() error: uninitialized symbol 'tmp'.
-lib/zstd/compress/huf_compress.c:460 HUF_getIndex() warn: the 'RANK_POSITION_LOG_BUCKETS_BEGIN' macro might need parens
-lib/zstd/decompress/zstd_decompress_block.c:1009 ZSTD_execSequence() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:894 ZSTD_execSequenceEnd() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:942 ZSTD_execSequenceEndSplitLitBuffer() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_internal.h:206 ZSTD_DCtx_get_bmi2() warn: inconsistent indenting
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- arc-randconfig-r002-20221106
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- i386-buildonly-randconfig-r006-20221107
-|   `-- net-dcb-dcbnl.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
-|-- i386-randconfig-m021-20221107
-|   |-- arch-x86-kernel-apic-apic.c-generic_processor_info()-warn:always-true-condition-(num_processors-()-)-(-u32max-)
-|   |-- lib-zstd-compress-huf_compress.c-HUF_getIndex()-warn:the-RANK_POSITION_LOG_BUCKETS_BEGIN-macro-might-need-parens
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
-|   `-- lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- loongarch-buildonly-randconfig-r001-20221106
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- loongarch-randconfig-r005-20221106
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- loongarch-randconfig-r032-20221107
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- m68k-randconfig-m041-20221107
-|   |-- drivers-input-touchscreen-hynitron_cstxxx.c-cst3xx_bootloader_enter()-error:uninitialized-symbol-tmp-.
-|   |-- lib-zstd-compress-huf_compress.c-HUF_getIndex()-warn:the-RANK_POSITION_LOG_BUCKETS_BEGIN-macro-might-need-parens
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
-|   `-- lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
-|-- microblaze-randconfig-s033-20221107
-|   |-- fs-ntfs3-index.c:sparse:sparse:restricted-__le32-degrades-to-integer
-|   |-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s1-got-unsigned-short
-|   `-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s2-got-unsigned-short
-clang_recent_errors
-|-- hexagon-randconfig-r041-20221106
-|   `-- lib-test_maple_tree.c:warning:result-of-comparison-of-constant-with-expression-of-type-unsigned-long-is-always-false
-|-- powerpc-buildonly-randconfig-r001-20221107
-|   |-- lib-test_objpool.c:warning:no-previous-prototype-for-function-ot_kfree
-|   |-- lib-test_objpool.c:warning:no-previous-prototype-for-function-ot_kzalloc
-|   |-- lib-test_objpool.c:warning:no-previous-prototype-for-function-ot_vfree
-|   `-- lib-test_objpool.c:warning:no-previous-prototype-for-function-ot_vmalloc
-|-- s390-randconfig-r021-20221107
-|   |-- drivers-gpu-drm-hisilicon-hibmc-hibmc_drm_vdac.c:error:call-to-undeclared-function-readl-ISO-C99-and-later-do-not-support-implicit-function-declarations
-|   `-- drivers-gpu-drm-hisilicon-hibmc-hibmc_drm_vdac.c:error:call-to-undeclared-function-writel-ISO-C99-and-later-do-not-support-implicit-function-declarations
-`-- x86_64-randconfig-a016
-    `-- vmlinux.o:warning:objtool:handle_bug:call-to-kmsan_unpoison_entry_regs()-leaves-.noinstr.text-section
-
-elapsed time: 723m
-
-configs tested: 58
-configs skipped: 2
-
-gcc tested configs:
-um                             i386_defconfig
-um                           x86_64_defconfig
-arc                                 defconfig
-s390                             allmodconfig
-alpha                               defconfig
-s390                             allyesconfig
-x86_64                           rhel-8.3-kvm
-s390                                defconfig
-x86_64                           rhel-8.3-syz
-x86_64                         rhel-8.3-kunit
-i386                                defconfig
-x86_64                              defconfig
-i386                 randconfig-a002-20221107
-x86_64                        randconfig-a013
-x86_64               randconfig-a004-20221107
-i386                 randconfig-a003-20221107
-ia64                             allmodconfig
-i386                 randconfig-a004-20221107
-arm                                 defconfig
-i386                 randconfig-a005-20221107
-x86_64               randconfig-a001-20221107
-i386                          randconfig-a014
-x86_64                               rhel-8.3
-x86_64                        randconfig-a011
-x86_64                           allyesconfig
-i386                          randconfig-a012
-x86_64               randconfig-a003-20221107
-powerpc                           allnoconfig
-x86_64               randconfig-a002-20221107
-i386                          randconfig-a016
-i386                 randconfig-a001-20221107
-arm                              allyesconfig
-x86_64                        randconfig-a015
-x86_64               randconfig-a005-20221107
-riscv                randconfig-r042-20221106
-i386                 randconfig-a006-20221107
-powerpc                          allmodconfig
-x86_64               randconfig-a006-20221107
-mips                             allyesconfig
-arm64                            allyesconfig
-sh                               allmodconfig
-arc                  randconfig-r043-20221106
-s390                 randconfig-r044-20221106
-x86_64                          rhel-8.3-func
-x86_64                    rhel-8.3-kselftests
-m68k                             allmodconfig
-arc                              allyesconfig
-alpha                            allyesconfig
-m68k                             allyesconfig
-i386                             allyesconfig
-
-clang tested configs:
-i386                          randconfig-a013
-i386                          randconfig-a011
-x86_64                        randconfig-a016
-x86_64                        randconfig-a012
-i386                          randconfig-a015
-x86_64                        randconfig-a014
-hexagon              randconfig-r045-20221106
-hexagon              randconfig-r041-20221106
-
+base-commit: 03b61a92efbaf17ac3d9f82ae81aa4cf8ed40608
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.38.1
+
