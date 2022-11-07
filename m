@@ -4,118 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B9E6C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 06:41:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75990C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 07:08:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F4C010E030;
-	Mon,  7 Nov 2022 06:41:41 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60A6E10E030;
- Mon,  7 Nov 2022 06:41:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D665410E0C0;
+	Mon,  7 Nov 2022 07:08:42 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2048.outbound.protection.outlook.com [40.107.92.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14E1610E0FF
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Nov 2022 07:08:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hcd8ZP3ZjS4COsjJocf0kK789tnVhxFD3ROorrh1HvH185oW8FNJdE9Vd9QbWDxMHU6KQC8vDo1RitAK+4bfDIrMVKlFjBKU0cm1/oQ5BHYDhcE9PMetd10a82lvsvFztlbpnKSNg+0N30QnP/F8X8+nONa8wdUZQOLsCCsfNf1r+tjc69OXSVWt7oaEZxOn8cHbrVowc2zbf03g1h+bMx559rgqSCH/nnYSWQAr3yTIl/bu6BagDT1Nzn+BLuKxcBhKkpO4+OeAadd7p3gqYZL6ef2B+RSxhAqU66dO2EiIDgSYTLyaf93diaZFjVjhxybOq5iGG6DQZK6iMQ2RyQ==
+ b=akAePNRiZ9NxdbnjzM2wKwN4sg/9EEEvMHse8y3057Lcw8hJjkYNukJFzn38uB7wN5VUzXE4YqCEgWQN/yKiIi23HG5QA9gUY259nQRum2M2dgVHWkfHHVRCg6ZQGssDnON9wAWkgA9Y5uCLD+b74I6HcXPYomv8IR6XAxcPlOH/X7RFm+yc+kM25UUJHcw0XOR0ck7epxG4aRDqNOCc0Z34Fr2ZO1M+RPBDFUI2dHQKbsrSEpob+6ZsnAjnHSR2KvHNzbuLeCPeBMLzMUSZi18xmAxDk/F7fG/sehmIijgDBa72QL9KOZeaDU7V5DkDnZrYRQvaD6GRZHQZoC56qA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wXhZGnXlu7Lx+6S8ZI+KG+DKGc1mmAxUFtSW6bcvN88=;
- b=N5xYvSzd0geAQNYZPbryurH07V+lMZclRn/z3Fo1VWHeWGn1CEJaE1BWSdbfpEZb/z7aSG3Pbm8Q9QJMdL2IKftAK/9dJJ4QLhSuo0YTgOFFxE/5AqVyuWdLxWL3gC3hK7Pm6eXjfsuoPSXn8RXocQ+9uz5Wl6dKPxo8hEKCWIiBOPP2XumP35jMgQYIQfPxVJRPYV4vJE3sLesYsElaXGqir9bDfeoJH3KXeSGojAGQmlCarQuG0laY5RnHAlsxUO4IUF/VEPPo+Oq7CznmwJuM56bk4KpbEDFjIUL/hh9+ZLII1HRjBSaUGn7Kc/LDl/MMyz/dgM4qB8a9zRw0vQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=bFnJLG5/L87hMUBQPC2J0ss0Cw3IBjU0uKbmJ4FNlf8=;
+ b=dZPAW2snSGUfwv7mCRflbpjxpFvfVYIs8/ChkNIO6n/mNp88rf/S8ZI3p+vySNm8fdMZvpnLIE+0UB0OdYCeag8mvlVWzoWZWZzKP6Q55luIbi/csvTaQA3sU6YDnm3mtQ8KcfimFqU0hZxUAdH7kw9m7jfy+yG4+knLeyPopgbtCZtEZzhF+qn0M9CWjM6HGhC3vkl2WBpW2L0KAJhdxaKJlQZ1/p6K8WgRdGuMU1ann8tpgoxKy5bCHZtJXCuQG2///InAswVr0BcfOpcpyIhSc7VLQTDV+EeMPGnhQugfF1nrdDGGrBMYVUU9ZuWeWkniWI3KjS2tmRArc4xe4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wXhZGnXlu7Lx+6S8ZI+KG+DKGc1mmAxUFtSW6bcvN88=;
- b=ezBIJnFToc/+sMlnGd0Ql4QbJYOvH5IRnD27xFcnhwRlNYZuWfcHHqF5FHglUQ8CogaP01PzDKZmSnwUDOHAh6Md6eimTWU+9+nHDIMATzZDjMpbP21LVbikfJ/YexIPBQO8GIdKRykV3U+MdAmg8UYqMk3lIPBPfrAY370yMn0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6351.namprd12.prod.outlook.com (2603:10b6:8:a2::6) by
- SA1PR12MB7442.namprd12.prod.outlook.com (2603:10b6:806:2b5::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.25; Mon, 7 Nov
- 2022 06:41:33 +0000
-Received: from DM4PR12MB6351.namprd12.prod.outlook.com
- ([fe80::dda9:dc0a:4491:ac2]) by DM4PR12MB6351.namprd12.prod.outlook.com
- ([fe80::dda9:dc0a:4491:ac2%6]) with mapi id 15.20.5791.025; Mon, 7 Nov 2022
- 06:41:33 +0000
-Message-ID: <73594386-5c09-f2f3-dabc-6c2611849ba2@amd.com>
-Date: Mon, 7 Nov 2022 14:41:18 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: Coverity: kfd_parse_subtype_cache(): Memory - corruptions
-Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>,
- coverity-bot <keescook@chromium.org>,
- Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- "Ma, Jun" <Jun.Ma2@amd.com>
-References: <202211041239.2B98F280@keescook>
- <8bca88b8-e7cb-8458-01e9-544de44302b8@amd.com>
-From: "Ma, Jun" <majun@amd.com>
-In-Reply-To: <8bca88b8-e7cb-8458-01e9-544de44302b8@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI2P153CA0017.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::10) To DM4PR12MB6351.namprd12.prod.outlook.com
- (2603:10b6:8:a2::6)
+ bh=bFnJLG5/L87hMUBQPC2J0ss0Cw3IBjU0uKbmJ4FNlf8=;
+ b=cmp/N/nEWGGdpVHVdhRUjzTOFrmWC3uhKzFx7zNErW/rKdr+/dO6Lg1zQkxFY0vAyoaaqGeItQ8aYfofiBQiabMXfrhrn922lo2Csb5CDue7x9kcB+HTY1ow32TvVabO5bfBdg24KO37z/Plord5JOp/dcW3PIvPrpKXms+Xf3U=
+Received: from MN2PR19CA0034.namprd19.prod.outlook.com (2603:10b6:208:178::47)
+ by CY5PR12MB6624.namprd12.prod.outlook.com (2603:10b6:930:40::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.26; Mon, 7 Nov
+ 2022 07:08:37 +0000
+Received: from BL02EPF0000C408.namprd05.prod.outlook.com
+ (2603:10b6:208:178:cafe::df) by MN2PR19CA0034.outlook.office365.com
+ (2603:10b6:208:178::47) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.22 via Frontend
+ Transport; Mon, 7 Nov 2022 07:08:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000C408.mail.protection.outlook.com (10.167.241.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5813.11 via Frontend Transport; Mon, 7 Nov 2022 07:08:36 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 7 Nov
+ 2022 01:08:32 -0600
+From: Ma Jun <Jun.Ma2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <felix.kuehling@amd.com>,
+ <alexander.deucher@amd.com>, <keescook@chromium.org>
+Subject: [PATCH] drm/amdkfd: Fix the memory overrun
+Date: Mon, 7 Nov 2022 15:08:06 +0800
+Message-ID: <20221107070806.1217215-1-Jun.Ma2@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6351:EE_|SA1PR12MB7442:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a3eadd9-aa90-4b98-7bd2-08dac08b1c21
+X-MS-TrafficTypeDiagnostic: BL02EPF0000C408:EE_|CY5PR12MB6624:EE_
+X-MS-Office365-Filtering-Correlation-Id: f516d8d8-3e28-4896-5fd5-08dac08ee3b5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XDTQBMCticy2/F1NzjS3y5Axt4uQLybixqwDF30dgRZUj2+G34qyvvL6K2W/KcBxxrTAuyLaefxJTet+nYkI0kEcy/Sw7YU2z1q32aiH33iRkSoE9Ay1YhWP9mKTCK1+HHvYK6KnhkZJYTxc7clQuXx8JC7hR+dP8VOA4E6pFSdS7Od2bz9Pah4rKW3QoqZAIc8FZnstMHbHQH1uRBXC4wNFeXO/Z0VtRrSyQC/F2xyWg7Hwaa2ZLRUfL4/n/4fs/0TKCJ4j4G7cz/wv0HPZ1vBKleGd7YHEu2ldoiqJi3ZGl4l5696R6lvZ8VQF4TYG+SM8nk5YQYLEKf63trQK233Kw1uIdNxvBkpSCnu8bhEn5TYP+gGA99p4/i0ufRf8TwZ3hpoAC8RLWKoC+3EN+mbvFaWgIxP2C68Kux86/lreOhc/7lyt+q+g+q580dn8urpLJNVvdU8IUxM5Yjk5trIsL0CkVnRq1UgbYmlW82Jw9yiRn4a5TV2KCkk6lecAZ3PzjhTr5x1mQBtPZfmQfSWdQlp4oQ20AQ+pprsx221lTaemH1GBWUXZg8hye09T2hHCVIrqOKtrkKHxMJyaGC+LpLBv22ecT4JWgJKaHI/hQEPcpmfYEQW4sLxXgg1rUjXItaR9vJgGWtznlK6jDvzcM1QC9WWp+0TWl2IX8ha3wQT26m6UcVxJuVPALSE3s/o7nFMkdRR2uQJqDYXitQEOeNO74sMkaKtd9TAt4/vnh5zqviXmVj4BPSOOyaKL9enF+1AazzwHN+r0EPrTDWECq4zx8Ynwyz976ikfVbGDAOrLOyTLiVBo7NojM/tV
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6351.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(39860400002)(136003)(376002)(346002)(396003)(451199015)(36756003)(31686004)(38100700002)(6486002)(966005)(6636002)(54906003)(316002)(31696002)(478600001)(6512007)(6506007)(26005)(53546011)(6666004)(66556008)(8676002)(66946007)(4326008)(66476007)(5660300002)(8936002)(7416002)(83380400001)(186003)(2616005)(41300700001)(2906002)(110136005)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: 5BD3PELFBeg+u4RYVTIaKIswc6MnrgqYD08f99KrX++UQWrVyD79i1MdUYhC4cFwLuPG5m3qMsS+yuQGd5LVxp84Z8ABvgYZngwud+H49usfsJGIisbBWJurv8vObfNGxZlVXW6kSy2BidKm+wuWVizn63pUr2sFET6ZqLVeyNA1Mqk1FB5WqQnjOj4+m0Xb0xxO3puJ4PmvTLxBPKzduMCvMtrbfvJwspwuB3maEHFxxzEVE9V7RcAHjwMoDLSHHH/0Hx2oBdkfxtsPr/9wQZLjBOBPYy1T/yTko+pv1sVvQedlppazcHKath3Op6jHHkamRgcikDVbymJKo3AVrh70Fecbb86fn2e/xHMArU5UzSUmHAGLxXFBeMtmLz4Hb5TfZcAGCPsQnlNgxJ3jTfuy+KgXuRSWiney0tLhz2afhPzJx9UD2edSpfs7cupxX4URrcCYbSwqRi44dhzGT/Av5dMgSdwDbo7BSx5oyBOmxJBCf6MrLtaQEu7T7LzzWKjUfWWm1PTI4T1/9zWCwJTP24Dr0OHqJgJ1AvhpDexhPETNBAiIs4Uzr9IiMCygvLMKHWAtoAghO4Qe+4pvaMpFwdpC1SsNRLE1dejDOKx497+1I1MMEyyY8LxSH+JgYhulImbarZ2RXv0Ber5eCZPkD4KITFjxmfx9ukh2oDdakQQ2Z/iXUkNeUPgA4Bl6AUlfph2l3kvKjFZu2m86r9QYOhKO9/Qjr2An23steKq5wtPRjiPU2GJqSDRaZwlTJcVOnkELJJvgiw5X168anbv5T5xScP+TjghdvJfZdEEg75jA730dVF8LHmCnhL40
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(376002)(346002)(39860400002)(396003)(451199015)(40470700004)(46966006)(36840700001)(36860700001)(336012)(83380400001)(426003)(186003)(16526019)(1076003)(26005)(7696005)(2616005)(47076005)(82740400003)(5660300002)(4744005)(2906002)(40460700003)(40480700001)(82310400005)(6666004)(54906003)(478600001)(8936002)(41300700001)(316002)(110136005)(70206006)(70586007)(4326008)(8676002)(36756003)(81166007)(356005)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eUp4REJRQTRkaVBHRnJEbkRtSHdSWnBQMThKNVhMU1BtVFljSHFVREs4MENC?=
- =?utf-8?B?WUVLSG0yT1ppQW5sMFlEY3BCZ1g4UGpPYmJnYnpxVVI5eHpIdTI5SE1pQzdC?=
- =?utf-8?B?Nk94Yy9DZE1uUXpWeWhNUlFrclNZdWNscEwyUW0xL2l3UU5PUjh5RHZFaWVB?=
- =?utf-8?B?a0hFYjdJNmoyM2RuRTVkeVB0MUtBWGp1R2gweHpVaFpVbnNmSTBQYXY2bHNO?=
- =?utf-8?B?TngzelFiVWh6TVcwL2E5TllHVTFnbUlYS2NSVk9JdWpoNnY4bkRocVJTMjJa?=
- =?utf-8?B?Nk96SXdnMzNIaW5DRkFQUW0wWUtkWlV5dmMzQ2hOMjN4bkFnZk1XSElkdHdI?=
- =?utf-8?B?NTN5QjQ0RWhqUG1PY1JsemZPUlRRdU9LVkI5Tk54V1NQYU5XbjZWMlVjUWtM?=
- =?utf-8?B?cVROSGZzNmVBTXF0eG9WTTJRT3lBL2wzUlN5Wi8rTi9sZFF0cnJrQjMwUGNJ?=
- =?utf-8?B?NitUcE40Y3Q3c2VCZmNBZHdIYTU2MzZFZldXcCtOeTdvc2J0WkVPbHR2TXow?=
- =?utf-8?B?RzB2My9tcE5IdXp0WWVIRSs1alhyWjVhU1EzU3pabWFwYlVpNEJqMCtxclo5?=
- =?utf-8?B?OVVDT0ZrbWpBaDNaMllJYURRRWxDMTVpdit4UU4wSnMrL2JzMVNpSnBoQm8x?=
- =?utf-8?B?b1djQ0ppMGM4RkZNaitrcGVKc1IzaUMzcE1Xdy9vVm43WDVwVmgxejJIS1NW?=
- =?utf-8?B?Vlcza09FblZ0NXJleEJkOGcrUEJlSFh3YjYzOXhnekljcDdObDJlNFQzdU01?=
- =?utf-8?B?TkJxS3l4TnZIVnRvUnd4bGNBVEk2R0xvOE53MysxM0lLczlnMnZJZDA0ZEU1?=
- =?utf-8?B?aXVaWTM0amI2Y3NSTVk4a2NYRE5qbVdFR0xTMHduelJZZHBTcGxsbDZZY1pt?=
- =?utf-8?B?ZXpSeWFXNkoxS2ZWUFRaYTBwdSt3NmIxTWpPUHUrUUphTkN6NnlNdFo0d3Qy?=
- =?utf-8?B?aTZkZEJCR0FXc1VLaFRmZ3NCNUpkanBpajlwN0FQcy8yUTFBaVo2ekk1NGho?=
- =?utf-8?B?QndwbjViSjhyaXpqQXBNdC93RWljMlpSYnEzOHk0L0VGZTNiaXpUbEpmWExl?=
- =?utf-8?B?RXM4Zmk1cXVHbzVKdmtiTUZWNWpsU25adERQdXdkVStUS1VxZVV2eWlNYkJy?=
- =?utf-8?B?ZHRxK0gwSWFMRnFpcjJPUHNYS20rSHhJZXNPVlJ5MVVVTWptTWdBRk1kSDNm?=
- =?utf-8?B?WkZnOGRYQmFpVlozdExlV0hMLzhSTUR4ZFp4c00xOUJPTjVJN2l5NnVCZ0Jr?=
- =?utf-8?B?aFBwaGRxSlQ0bTVRbEpUWDd6WGY5bWlqRXdqMHRidW5KQTlpZkE2azhjaW5S?=
- =?utf-8?B?OEIyeE96enB1OG1nenBVbjdaZkFTa3NLL1BOZldNanFCQ2RudDdOV2xmclJs?=
- =?utf-8?B?SEV2M0NnY3N4ZzZrckpGUWtEYnRxaWhLS3V3Tjdwdnh1cVRmdkVaNW52d2sy?=
- =?utf-8?B?ZXo2a0h2cDZRKytOd05WSjRLZm5zZUR1RXRUeXhsZEF0NFdkTS9FK3RqSnVY?=
- =?utf-8?B?OVlIbjFoS25sU09FeHZpUjYyOWF6ZGN6V1NVb0hQeVJPS3lDZStNMllkeGxK?=
- =?utf-8?B?VWovdWJjVWFMN2VwcWRnOG9IOUxyMzZ1dHord1R4bkVJMlR5TWNEQ0tJNzh6?=
- =?utf-8?B?OUlNY0x0dTJkbmJBaW5uaUg2QlNFNk5IZTBQdmFRMEdRc0lqS2xpTE1Bb09V?=
- =?utf-8?B?dC9WeVlvdDZIdlhJb0dpcVJISXZZMXRYc1RwV0ZEWjJseStla2V4SjE5NWFD?=
- =?utf-8?B?dW5BNG5TZUttMENGSW4yblZ1Snc3RkcxSmk4UDhIY3FNYm9KV0dRamJCSnp1?=
- =?utf-8?B?N1Jtc2lzUFBDWCt2dUxGMjZZVHJKaHRIVEh2MitFRHJUZlN3eE9KT2RPdDkr?=
- =?utf-8?B?c0p3U2Eva2J1SnY2R2RjY0ZUNVVvZzBjeEV2K0VRdHBQSXMrYXVuQWdmNU5u?=
- =?utf-8?B?cFU0VmlMc095R0Y5WXhaemJDaU9kcXB6TG9DazJIQlJVTk5YVnkwL3l6eml6?=
- =?utf-8?B?VVNlWHMyRkR3SVlnWFZYN2JNNWtDcmJzaEkzUURPQXE3NHdjUWpMV2E0dHpB?=
- =?utf-8?B?akltMlVURDk2ZEc5NENtZERBK3hNRUdIY0JRSC8vTTdWYlorYVRzRUc3TXYr?=
- =?utf-8?Q?J3QdS72m4lBOr7DfB+6xPrSB7?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a3eadd9-aa90-4b98-7bd2-08dac08b1c21
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6351.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2022 06:41:33.4571 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2022 07:08:36.4081 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f516d8d8-3e28-4896-5fd5-08dac08ee3b5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7aZ6WGvAkjTtcdOYMNJNelBDiy1rnZAAIAU08zaE36zRxaOyd8ZD4lVzY41AQLUz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7442
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000C408.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6624
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,107 +98,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Oded Gabbay <oded.gabbay@gmail.com>, Jay Cornwall <Jay.Cornwall@amd.com>,
- Amber Lin <Amber.Lin@amd.com>, Ben Goz <ben.goz@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-next@vger.kernel.org, linux-hardening@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Kent Russell <kent.russell@amd.com>
+Cc: guchun.chen@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks, I will send the fix patch.
+Fix the memory overrun issue caused by wrong array size.
 
-Regards,
-Ma Jun
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+Reported-by: coverity-bot <keescook+coverity-bot@chromium.org>
+Addresses-Coverity-ID: 1527133 ("Memory - corruptions")
+Fixes: 6246000093863 ("drm/amdkfd: Fix the warning of array-index-out-of-bounds")
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On 11/5/2022 4:40 AM, Felix Kuehling wrote:
-> On 2022-11-04 15:41, coverity-bot wrote:
->> Hello!
->>
->> This is an experimental semi-automated report about issues detected by
->> Coverity from a scan of next-20221104 as part of the linux-next scan project:
->> https://scan.coverity.com/projects/linux-next-weekly-scan
->>
->> You're getting this email because you were associated with the identified
->> lines of code (noted below) that were touched by commits:
->>
->>    Fri Dec 8 23:08:59 2017 -0500
->>      3a87177eb141 ("drm/amdkfd: Add topology support for dGPUs")
->>
->> Coverity reported the following:
->>
->> *** CID 1527133:  Memory - corruptions  (OVERRUN)
->> drivers/gpu/drm/amd/amdkfd/kfd_crat.c:1113 in kfd_parse_subtype_cache()
->> 1107     			props->cache_size = cache->cache_size;
->> 1108     			props->cacheline_size = cache->cache_line_size;
->> 1109     			props->cachelines_per_tag = cache->lines_per_tag;
->> 1110     			props->cache_assoc = cache->associativity;
->> 1111     			props->cache_latency = cache->cache_latency;
->> 1112
->> vvv     CID 1527133:  Memory - corruptions  (OVERRUN)
->> vvv     Overrunning array "cache->sibling_map" of 32 bytes by passing it to a function which accesses it at byte offset 63 using argument "64UL". [Note: The source code implementation of the function has been overridden by a builtin model.]
->> 1113     			memcpy(props->sibling_map, cache->sibling_map,
->> 1114     					sizeof(props->sibling_map));
->> 1115
->> 1116     			/* set the sibling_map_size as 32 for CRAT from ACPI */
->> 1117     			props->sibling_map_size = CRAT_SIBLINGMAP_SIZE;
->> 1118
->>
->> If this is a false positive, please let us know so we can mark it as
->> such, or teach the Coverity rules to be smarter. If not, please make
->> sure fixes get into linux-next. :) For patches fixing this, please
->> include these lines (but double-check the "Fixes" first):
->>
->> Reported-by: coverity-bot <keescook+coverity-bot@chromium.org>
->> Addresses-Coverity-ID: 1527133 ("Memory - corruptions")
->> Fixes: 3a87177eb141 ("drm/amdkfd: Add topology support for dGPUs")
->>
->> I'm not sure why this suddenly appeared after 5 years, but the read
->> over-run looks legit:
-> 
-> 
-> I think this was introduced by a more recent patch that was in fact 
-> meant to fix an array overrun on HW that is outgrowing the CRAT sibling 
-> map size:
->
->> commit 0938fbeb6f53fc44bc9b19784dee28496e68ba0c
->> Author: Ma Jun <Jun.Ma2@amd.com>
->> Date:   Wed Nov 2 15:53:26 2022 +0800
->>
->>     drm/amdkfd: Fix the warning of array-index-out-of-bounds
->>
->>     For some GPUs with more CUs, the original sibling_map[32]
->>     in struct crat_subtype_cache is not enough
->>     to save the cache information when create the VCRAT table,
->>     so skip filling the struct crat_subtype_cache info instead
->>     fill struct kfd_cache_properties directly to fix this problem.
->>
->>     Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
->>     Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
->>     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> I added Ma Jun to the email.
-> 
-> Regards,
->    Felix
-> 
-> 
->>
->> struct crat_subtype_cache {
->>          ...
->>          uint8_t         sibling_map[CRAT_SIBLINGMAP_SIZE];
->>
->> #define CRAT_SIBLINGMAP_SIZE    32
->>
->>
->> struct kfd_cache_properties {
->>          ...
->>          uint8_t                 sibling_map[CACHE_SIBLINGMAP_SIZE];
->>
->> #define CACHE_SIBLINGMAP_SIZE 64
->>
->> Thanks for your attention!
->>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 7029e3bdff3e..6e81f50ad912 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -1111,7 +1111,7 @@ static int kfd_parse_subtype_cache(struct crat_subtype_cache *cache,
+ 			props->cache_latency = cache->cache_latency;
+ 
+ 			memcpy(props->sibling_map, cache->sibling_map,
+-					sizeof(props->sibling_map));
++					CRAT_SIBLINGMAP_SIZE);
+ 
+ 			/* set the sibling_map_size as 32 for CRAT from ACPI */
+ 			props->sibling_map_size = CRAT_SIBLINGMAP_SIZE;
+-- 
+2.25.1
+
