@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75990C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 07:08:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E325C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 08:05:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D665410E0C0;
-	Mon,  7 Nov 2022 07:08:42 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2048.outbound.protection.outlook.com [40.107.92.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14E1610E0FF
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Nov 2022 07:08:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7398B10E0D2;
+	Mon,  7 Nov 2022 08:05:46 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2048.outbound.protection.outlook.com [40.107.243.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 518F810E0D2
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Nov 2022 08:05:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=akAePNRiZ9NxdbnjzM2wKwN4sg/9EEEvMHse8y3057Lcw8hJjkYNukJFzn38uB7wN5VUzXE4YqCEgWQN/yKiIi23HG5QA9gUY259nQRum2M2dgVHWkfHHVRCg6ZQGssDnON9wAWkgA9Y5uCLD+b74I6HcXPYomv8IR6XAxcPlOH/X7RFm+yc+kM25UUJHcw0XOR0ck7epxG4aRDqNOCc0Z34Fr2ZO1M+RPBDFUI2dHQKbsrSEpob+6ZsnAjnHSR2KvHNzbuLeCPeBMLzMUSZi18xmAxDk/F7fG/sehmIijgDBa72QL9KOZeaDU7V5DkDnZrYRQvaD6GRZHQZoC56qA==
+ b=UXlV0lIpG+7up+jnCQSBSr0NKnK7hVk3fjORFw0LrW6S0YPcDKYXmiYVmeSYRJLFYZkGBdpwThKfynWgNQopo1Om2QbpTUtGT3EcZnyKzf0GWx20IvcVrEBlbhp6GcuC3sCMF98P5XoUEawnZF/4lOzIr8BP9mOlg3l3VYkgA98LYPDW/z26nadY5IrB5IN/aShHiUoeYGUEM1V4BB4SxzpdDaVmvx2HFIHv+e8hVQKnToyRmUuNdRAX0/6KaQnPrJT5yOwidBmUeYOR9b5KdRGKsxqmUyVedrNdUEqWjbfz2W6FeN2lrGjz+N9IGAor+88DwVVsBdNUnB3mbdYKIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bFnJLG5/L87hMUBQPC2J0ss0Cw3IBjU0uKbmJ4FNlf8=;
- b=dZPAW2snSGUfwv7mCRflbpjxpFvfVYIs8/ChkNIO6n/mNp88rf/S8ZI3p+vySNm8fdMZvpnLIE+0UB0OdYCeag8mvlVWzoWZWZzKP6Q55luIbi/csvTaQA3sU6YDnm3mtQ8KcfimFqU0hZxUAdH7kw9m7jfy+yG4+knLeyPopgbtCZtEZzhF+qn0M9CWjM6HGhC3vkl2WBpW2L0KAJhdxaKJlQZ1/p6K8WgRdGuMU1ann8tpgoxKy5bCHZtJXCuQG2///InAswVr0BcfOpcpyIhSc7VLQTDV+EeMPGnhQugfF1nrdDGGrBMYVUU9ZuWeWkniWI3KjS2tmRArc4xe4g==
+ bh=iLFB4MKrZ05ZEA0yg0cPzK8UXckDBkutwRJCQ1c/rhY=;
+ b=HIhPLPdhX77sx+SaBIMtIwVUWQpb4gsEHz27A9QE+ksu2CkB7wWwiNPR+7YRgckH//jcysjvDjuBRuHTuRn1S0w6MRqaxww6DpNF3CPbCSszBAo6WykIaqm6t9OiSclxZsmK+W9mMxt+1JM9uZpNgY0EFRgvYNG2lqSijDfTnFyeEItZKG6wZOSQCk0fKKnxJQjGsNT1p0Pr9BXYUU/iCEKDsN5K0lVtnlZ0et6MYpjBWElyjCSt3cJ2UBACa3s34pE+y4ZLENSbtv1nFQ3j7gfXSYBs8q5ybEX1ZlBIDsHqZW6hxwmic2BNvBUUyTWQFkUyPX9shu9/P+OsgRyyMw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bFnJLG5/L87hMUBQPC2J0ss0Cw3IBjU0uKbmJ4FNlf8=;
- b=cmp/N/nEWGGdpVHVdhRUjzTOFrmWC3uhKzFx7zNErW/rKdr+/dO6Lg1zQkxFY0vAyoaaqGeItQ8aYfofiBQiabMXfrhrn922lo2Csb5CDue7x9kcB+HTY1ow32TvVabO5bfBdg24KO37z/Plord5JOp/dcW3PIvPrpKXms+Xf3U=
-Received: from MN2PR19CA0034.namprd19.prod.outlook.com (2603:10b6:208:178::47)
- by CY5PR12MB6624.namprd12.prod.outlook.com (2603:10b6:930:40::14)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=iLFB4MKrZ05ZEA0yg0cPzK8UXckDBkutwRJCQ1c/rhY=;
+ b=uPR4i4/JdlTcrJsSwOSgiNYq+AYGoaEf8w38aSoWS5unyIG0Ixx9kTrRmsqxWQUv31kRQtFI+yH9zbn2g1cXfVAwqG5W7zP+Xlz8ddj+Kvr1myl+lTtCnbZjjriHzmCymLwzRaec7qLRGmnu33FapkJGGOyhM1vECaDZVwdKiyY=
+Received: from MW4P220CA0009.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::14)
+ by DM6PR12MB4880.namprd12.prod.outlook.com (2603:10b6:5:1bc::10) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.26; Mon, 7 Nov
- 2022 07:08:37 +0000
-Received: from BL02EPF0000C408.namprd05.prod.outlook.com
- (2603:10b6:208:178:cafe::df) by MN2PR19CA0034.outlook.office365.com
- (2603:10b6:208:178::47) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.22 via Frontend
- Transport; Mon, 7 Nov 2022 07:08:36 +0000
+ 2022 08:05:41 +0000
+Received: from CO1NAM11FT090.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:115:cafe::15) by MW4P220CA0009.outlook.office365.com
+ (2603:10b6:303:115::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.26 via Frontend
+ Transport; Mon, 7 Nov 2022 08:05:40 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0000C408.mail.protection.outlook.com (10.167.241.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5813.11 via Frontend Transport; Mon, 7 Nov 2022 07:08:36 +0000
-Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ CO1NAM11FT090.mail.protection.outlook.com (10.13.175.152) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5791.20 via Frontend Transport; Mon, 7 Nov 2022 08:05:40 +0000
+Received: from ETHANOL-3.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 7 Nov
- 2022 01:08:32 -0600
-From: Ma Jun <Jun.Ma2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <felix.kuehling@amd.com>,
- <alexander.deucher@amd.com>, <keescook@chromium.org>
-Subject: [PATCH] drm/amdkfd: Fix the memory overrun
-Date: Mon, 7 Nov 2022 15:08:06 +0800
-Message-ID: <20221107070806.1217215-1-Jun.Ma2@amd.com>
+ 2022 02:05:20 -0600
+From: Krunal Patel <krunalkumarmukeshkumar.patel@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>, 
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [PATCH] drm/amdgpu: Add support to clock gating for sdma 5.2.7
+Date: Mon, 7 Nov 2022 00:05:01 -0800
+Message-ID: <20221107080501.3205127-1-krunalkumarmukeshkumar.patel@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -67,26 +67,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0000C408:EE_|CY5PR12MB6624:EE_
-X-MS-Office365-Filtering-Correlation-Id: f516d8d8-3e28-4896-5fd5-08dac08ee3b5
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT090:EE_|DM6PR12MB4880:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69baca2d-9a5a-4954-fcfc-08dac096dcba
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5BD3PELFBeg+u4RYVTIaKIswc6MnrgqYD08f99KrX++UQWrVyD79i1MdUYhC4cFwLuPG5m3qMsS+yuQGd5LVxp84Z8ABvgYZngwud+H49usfsJGIisbBWJurv8vObfNGxZlVXW6kSy2BidKm+wuWVizn63pUr2sFET6ZqLVeyNA1Mqk1FB5WqQnjOj4+m0Xb0xxO3puJ4PmvTLxBPKzduMCvMtrbfvJwspwuB3maEHFxxzEVE9V7RcAHjwMoDLSHHH/0Hx2oBdkfxtsPr/9wQZLjBOBPYy1T/yTko+pv1sVvQedlppazcHKath3Op6jHHkamRgcikDVbymJKo3AVrh70Fecbb86fn2e/xHMArU5UzSUmHAGLxXFBeMtmLz4Hb5TfZcAGCPsQnlNgxJ3jTfuy+KgXuRSWiney0tLhz2afhPzJx9UD2edSpfs7cupxX4URrcCYbSwqRi44dhzGT/Av5dMgSdwDbo7BSx5oyBOmxJBCf6MrLtaQEu7T7LzzWKjUfWWm1PTI4T1/9zWCwJTP24Dr0OHqJgJ1AvhpDexhPETNBAiIs4Uzr9IiMCygvLMKHWAtoAghO4Qe+4pvaMpFwdpC1SsNRLE1dejDOKx497+1I1MMEyyY8LxSH+JgYhulImbarZ2RXv0Ber5eCZPkD4KITFjxmfx9ukh2oDdakQQ2Z/iXUkNeUPgA4Bl6AUlfph2l3kvKjFZu2m86r9QYOhKO9/Qjr2An23steKq5wtPRjiPU2GJqSDRaZwlTJcVOnkELJJvgiw5X168anbv5T5xScP+TjghdvJfZdEEg75jA730dVF8LHmCnhL40
+X-Microsoft-Antispam-Message-Info: 24rRi/Ad8QkcILdVLnGtahoJGH3KJWwi16bQ0KVf08/M7yCmL8Ls8NAyl7bEHpOHglhhYNcjBHfux8m0KvgUZU82JWLPGrdcaKVez+hBbZIIOpD/ep7DYIo8HsH38vNvH4Cp2CK0D3ZkgQDmgTz/hPmnNa5ELlnd0plPz7CTDa7SUsqJXMUumYekDZ+LlFASwlLbGllpIC+gofZBzQNbYFaTD26dox51TnCa6+ryNQM83CGhTdeYLNOXXdB8NJ9lt/ToelaBi6IgTBQqaUR1bwBgFKBQJa8P2/hx2zYA8YsC4D4Im0wVRk/UM+P57/3Bz5MrgisHtINSML0fqB7NzIGN5I+FhHge6euWch3uSly+whM4ft6rckKALZDrM+p8NznIlskUOb/8/CuanM5yK1CmW95588o+PnXcoAxRUA5ckkdqtMPomnOAzgGXtAqSGeEj/vgqm97lcHJELsoA/GhoV9jKstkn91ihMr0Aj+H2iF+TZShs2pYb5Ix5tE7GdBo4H5bPlqMJzaz/JkzRRvWHN01B42chmF3Px9bNd9BW+XZrhpau/hSOvWJO8INrPWiYm8VAe3e28bXAWDOwuZI7X6OwbPh576Vgl6+Cng0MtfYQJcx+sLxxDtMmJ7WnXv679yx35D9WWtP0WqEZRgGUy4Qa9tj39m8ynq9g5/G5L2EJnx2ek2mZUoO9HJGClBWowBsAxOicA1Y4sYnv8VlRS0a9PmyJk+2Ma1vy2HYu6CQK6TWd49nayxKfBzJ5+UlINsKTY7hRCHzUoRL56+cbylFiy8OWkJZVqia6cGP7DdAq0Ly/e4o+ubag7Tcs
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(376002)(346002)(39860400002)(396003)(451199015)(40470700004)(46966006)(36840700001)(36860700001)(336012)(83380400001)(426003)(186003)(16526019)(1076003)(26005)(7696005)(2616005)(47076005)(82740400003)(5660300002)(4744005)(2906002)(40460700003)(40480700001)(82310400005)(6666004)(54906003)(478600001)(8936002)(41300700001)(316002)(110136005)(70206006)(70586007)(4326008)(8676002)(36756003)(81166007)(356005)(86362001)(36900700001);
+ SFS:(13230022)(4636009)(136003)(39860400002)(396003)(346002)(376002)(451199015)(46966006)(40470700004)(36840700001)(36756003)(86362001)(356005)(81166007)(82740400003)(40460700003)(40480700001)(2906002)(426003)(26005)(16526019)(2616005)(186003)(1076003)(6666004)(336012)(47076005)(83380400001)(7696005)(36860700001)(70206006)(316002)(6636002)(54906003)(478600001)(82310400005)(8676002)(110136005)(8936002)(4326008)(70586007)(41300700001)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2022 07:08:36.4081 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f516d8d8-3e28-4896-5fd5-08dac08ee3b5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2022 08:05:40.5341 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69baca2d-9a5a-4954-fcfc-08dac096dcba
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000C408.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT090.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6624
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4880
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,33 +98,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: guchun.chen@amd.com
+Cc: Krunal
+ Patel <krunalkumarmukeshkumar.patel@amd.com>, amd-gfx@lists.freedesktop.org,
+ Shirish S <Shirish.S@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the memory overrun issue caused by wrong array size.
+With this change it will add support for clock gating for sdma 5.2.7
 
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-Reported-by: coverity-bot <keescook+coverity-bot@chromium.org>
-Addresses-Coverity-ID: 1527133 ("Memory - corruptions")
-Fixes: 6246000093863 ("drm/amdkfd: Fix the warning of array-index-out-of-bounds")
+- Additional changes are to re-arrange the chip version sequentially.
+
+Signed-off-by: Krunal Patel <krunalkumarmukeshkumar.patel@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 7029e3bdff3e..6e81f50ad912 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1111,7 +1111,7 @@ static int kfd_parse_subtype_cache(struct crat_subtype_cache *cache,
- 			props->cache_latency = cache->cache_latency;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index 809eca54fc61..404b255cb4e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -1647,12 +1647,13 @@ static int sdma_v5_2_set_clockgating_state(void *handle,
  
- 			memcpy(props->sibling_map, cache->sibling_map,
--					sizeof(props->sibling_map));
-+					CRAT_SIBLINGMAP_SIZE);
- 
- 			/* set the sibling_map_size as 32 for CRAT from ACPI */
- 			props->sibling_map_size = CRAT_SIBLINGMAP_SIZE;
+ 	switch (adev->ip_versions[SDMA0_HWIP][0]) {
+ 	case IP_VERSION(5, 2, 0):
+-	case IP_VERSION(5, 2, 2):
+ 	case IP_VERSION(5, 2, 1):
++	case IP_VERSION(5, 2, 2):
++	case IP_VERSION(5, 2, 3):
+ 	case IP_VERSION(5, 2, 4):
+ 	case IP_VERSION(5, 2, 5):
+ 	case IP_VERSION(5, 2, 6):
+-	case IP_VERSION(5, 2, 3):
++	case IP_VERSION(5, 2, 7):
+ 		sdma_v5_2_update_medium_grain_clock_gating(adev,
+ 				state == AMD_CG_STATE_GATE);
+ 		sdma_v5_2_update_medium_grain_light_sleep(adev,
 -- 
 2.25.1
 
