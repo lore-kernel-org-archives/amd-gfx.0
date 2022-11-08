@@ -4,55 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A596DC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Nov 2022 14:31:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CAE8C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Nov 2022 15:24:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D144810E246;
-	Tue,  8 Nov 2022 14:31:43 +0000 (UTC)
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
- [IPv6:2607:f8b0:4864:20::c36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0F5A10E246
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Nov 2022 14:31:39 +0000 (UTC)
-Received: by mail-oo1-xc36.google.com with SMTP id
- g10-20020a4ab4ca000000b00481082808cbso2051997ooo.10
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Nov 2022 06:31:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=hYA3dqOUdkHfzJbTp/TgJNUwRtPz/6wjiNLcl9HpIJc=;
- b=Ha+vC5/fovfd0yhFS8Baz5tzU3nmgqPqUhbSw+HGDErzlwCeU7312BzQu4aA3U6TQ7
- V3/KilmvWTB9x1by5uUdeR7fnQFLfCYmVsuac1vaTGK9oC1q2rpf9Nnkxz6TUx3/4nKh
- LdWqcN8TflT6GH2sTNd1TQkJs/JmIaZct2anMGAi5TEsbh9iOi/ywIBKiZZfq7DtodYc
- bQ3XsMUxIOD2smogLZ4vnU3TAdGQNTiGtBePwNH+X54oRG5cpAqQWcNDzU0i00veaSqb
- BmZuMgt1zGpG9pFkccbeoD6sYS5eXv+kZQnh7C79bxqaKA3naB/UN1ultdLBenIRUejD
- wtrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=hYA3dqOUdkHfzJbTp/TgJNUwRtPz/6wjiNLcl9HpIJc=;
- b=qo4K6SpnJYOGrd2qn+L37iTzjIVeY6nAduHeKZ+0TO4dLRacsCne5tkteeUfD2XAbD
- a8ZsaqZsnXOXaThU5oCpG8Ph43NASeemMaB4qsun5dfvk0FnueA65ujgIogXsGhXk/tc
- PA9CrIPPeabefLri/oAZ52xNsQPE74PQZBNIxNAkU8a2t/BQA+r2Mk6sr7Gi+bfKAzV7
- JK5fa5kh+GH3cWRJgMX+tVvPKUeKlvBVlfhm6u0hw6Jv2kiAIu7eLyoj7qafGw0E8nEx
- 4zEPEjR/f1BCrC4LzG/Jz1V+61kcB+Xdut1EA/nhwzGc5U3E3ifqJNQqu8IhrR7MB2LJ
- M4KA==
-X-Gm-Message-State: ACrzQf0FCvgFN3gvA2eOUxOLsOtmaq/DVWQlGIiesZffWgxhh4aMWmLx
- kOdZ/4yedsZMPtmYnjI/IJS5p6/nYs7bK0OGDeHNXYcqPSE=
-X-Google-Smtp-Source: AMsMyM5U4spTyjJriLAA4qfE69owHsZI34mOC8ZyQFjvKTd94fyArd0rLNi02BNJhi/yuVUcOMAhuw6nSDfAl0dsbig=
-X-Received: by 2002:a4a:b913:0:b0:480:b3bf:7812 with SMTP id
- x19-20020a4ab913000000b00480b3bf7812mr24031257ooo.97.1667917899104; Tue, 08
- Nov 2022 06:31:39 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BA9210E486;
+	Tue,  8 Nov 2022 15:24:31 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2055.outbound.protection.outlook.com [40.107.243.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DDA810E483
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Nov 2022 15:24:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GP3H7GmV6CMOUVW5dH/CD5iLKM7kcNXki/YBd5fSC1Zqy7+0NfWMb75ZO46nm7i9DMSjNSKDIZc/HPWS6sN+ZAhuG0f8jRSooot9CJ5HBTiGIG/ri2+A6s9rsPYlWMDO5uBNibsJeOt66oeHpTBpDdeghjK7vkCjhrur0zrPUt35J3HUkaNst3gKN34Sx5rYo2v+fMASc6lSLhEosFzGmiKJKE+oItXGEw6lG4Dwgz4bsASkTPv740zENLxfG1QE9ejxTx9mmlSK4XIDfrfcwn3FHZcZdcQZYUH4IeLNyCVdUccPJcPMWN2Z/PgoV9VIK1fkUto9GFlLlyhSDjhI6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rbM1P3b8rgRwKQA6Jr91azVH3I0hMvbEYCHGRvWUIUc=;
+ b=WXZKZK3cstBhRTmUeQ39ZqDpv5LdVArb5F4v2pK2ucd4tK0He84ryQ6xkKQJqDhC3YtDsXGpRo5vndQVaK9qhyHe+AkdegSsnOpYuOTf9Rq35H1u54KIJKSVXkFT/WGaXSWAhWY1L97kdsEu9MhdkSbwlk9WzI54ttylTcDRXqzdPa28QZ3DY+RSEnph0NpXaexs0+L9eSAUkckOVOv5cRG4zkYsz1MZUwiMK5ZR/rRF5RFCumfn4/Y/nIkdTmmaD0LAChTxSrx/DI2VbeFf+lvyz15tPKuq2V60LxZC/qUJ5EfBBu0hGbeFhpV9kxS3T4c3T5A0fGTxmLQkNQFBkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rbM1P3b8rgRwKQA6Jr91azVH3I0hMvbEYCHGRvWUIUc=;
+ b=jxHXrku0t4lQdFuUatO4oc4jiF34nuWbJtpqRrX/HycdSg4oSvDMkANK5yPyna0PMsP1QVHu3PgFczyzFitPUPPztWzia54PflW3WwSBSQHB144m/oP2j46Z2+BENMut1aQUBCNp6qAze+EpN8rIPbpGb+V00+5reXQAIkJI9H8=
+Received: from DM5PR12MB1308.namprd12.prod.outlook.com (2603:10b6:3:76::7) by
+ MW4PR12MB7286.namprd12.prod.outlook.com (2603:10b6:303:22f::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5791.27; Tue, 8 Nov 2022 15:24:16 +0000
+Received: from DM5PR12MB1308.namprd12.prod.outlook.com
+ ([fe80::d0c4:1f77:4dbd:811e]) by DM5PR12MB1308.namprd12.prod.outlook.com
+ ([fe80::d0c4:1f77:4dbd:811e%10]) with mapi id 15.20.5791.026; Tue, 8 Nov 2022
+ 15:24:16 +0000
+From: "Russell, Kent" <Kent.Russell@amd.com>
+To: "Tuikov, Luben" <Luben.Tuikov@amd.com>, AMD Graphics
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Decouple RAS EEPROM addresses from chips
+Thread-Topic: [PATCH] drm/amdgpu: Decouple RAS EEPROM addresses from chips
+Thread-Index: AQHY8tCxonaNXfQLVUCZSDIcXuSkqq41JplQ
+Date: Tue, 8 Nov 2022 15:24:15 +0000
+Message-ID: <DM5PR12MB130841CD83BCB65DFE911937853F9@DM5PR12MB1308.namprd12.prod.outlook.com>
+References: <20221107174411.168459-1-luben.tuikov@amd.com>
+In-Reply-To: <20221107174411.168459-1-luben.tuikov@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-11-08T15:24:14Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=7683f982-1271-4421-8b84-ce8e7707eef5;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM5PR12MB1308:EE_|MW4PR12MB7286:EE_
+x-ms-office365-filtering-correlation-id: 6fee0c08-3994-45aa-263d-08dac19d4c4c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: QipUYT9qi67U3nRxx43dnt8VdQVIbPm0RQuvdz+UFJi272349CGniBRNGAcERMTClU3HALnL/SdhY8EcEj2jjVfV/Vzj7F9c+SgxN96mb3ptEKGIBWT6sekp7ZC8tk0sAxPd5TQW59Nkc8OtzhSiUSPJLKZD+RaONQTdFIK2QBfnyI26AVQz+qpPfIcTe9ptQ5uB16mb8KzG/aze01RMbvBw7PYBYFaMQi+F9c7kHfkTB4dWBFsZipT3wA8TUY/xqv5e0NKn09OwBPQbhkZS9aSC0Llt+gI7L37SG+j96PLwlKqcPfaayt3YZyzH0UwEiMHiraeMfFIbyqfLa1gGWKN6ydgxEw5qO/jLmvepbo86IxBQ1HymrOtJu3gMcZlwJDZu4vhUJ/7VTZHwF1HcM/6TPQla9kPtuYvA4GntfAtaw1jP11+71jxb743VemrCK/r3hG32mr2gtYorVyDBQTpI0s/gOnrcJdo0iapc047o9hP05uLXXqf4BtIZYB8u0B4Tebe+yHOWRb2+w9v1DU3Yqid3COJykOi4EatO90D8sFO+KG6A2n+a3vNzV2Ew4Wbdrxy8QVPpxQgdxgU2wkizbFxDK/9P7pDsV/xQVXxx32YPwN8IEnoL2RSz/K6PCrlHpiuDZ78jQExOtH+jyANuKQIuo1y7M7XiJoxW5E7Sy2u9Yk9ZnQBW/5+1W45Bhu6DKkNz/4CgGlR6dTc8SOHjwIG8afhZKcXVAR7ssAa59IoSm0zkPVRxVSpedgPzi1BCrGcL2+gOugu1KDGZrw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1308.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(396003)(136003)(376002)(346002)(366004)(451199015)(71200400001)(478600001)(5660300002)(8936002)(53546011)(7696005)(6506007)(316002)(66446008)(64756008)(8676002)(4326008)(26005)(9686003)(41300700001)(52536014)(186003)(66476007)(76116006)(66556008)(66946007)(38100700002)(38070700005)(86362001)(55016003)(2906002)(122000001)(33656002)(83380400001)(54906003)(110136005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XwrpeKvOsLwYBJs88oyEmxucgp+MKWGHtwJqXmsM5h3Ods1YqBuE+rQIHFC8?=
+ =?us-ascii?Q?MPk7ZMHAeN3UCTdqjChS6QWt0ZpYa6TgZQiEvUGGwiIao2XE/onZ8DGTELsL?=
+ =?us-ascii?Q?GVR+orEENhEF2+wp3kgCHYuYXVRsktL+FKgmHPv7DD+44ATDtUEiAA8GZeRv?=
+ =?us-ascii?Q?YB18GCzUG27YbTHIh13ncA46WB3QFrFpSoKUelmsqSafLY8DFJChrEK+NpVO?=
+ =?us-ascii?Q?Yp6+NnILvZN1IzHKAc71EfyfPmYYaAnIm6iBvy8gFc9IpFBRx7SRUQbKP2gX?=
+ =?us-ascii?Q?xMA0aTrZ3bAkzBJqCxJ80mV/zdI3L+kH2aYpNKMkR7mDUqdDypx5lJcPGX9F?=
+ =?us-ascii?Q?wzA+J54EbgwXapATB/u08R0a1qs8dhwZwiz7VGFxjkWLq1kEVl+bDgWqVjgP?=
+ =?us-ascii?Q?XstJwKI9XUA3yPDWH82nm8/kHrMvFzvbyHy2s3PMs3MVpdK7Nt0XTGLtS9lN?=
+ =?us-ascii?Q?S4A9YsM9E4dkGRPsq2s2FhHNbe2OQiNbHic/fISJlU4pKtz3UlKOFjQWZT7S?=
+ =?us-ascii?Q?jeIVfp/1V4g94A0XsoZQpH7INxJyRuNUuBVsBhpS9yzwDeBkgpotpQ247U/X?=
+ =?us-ascii?Q?lIKv0VKQU6cMYyLbnDDtPOlghCGnQq5GOwRcODOTMGYYTvGvnmlrXcUAl6YE?=
+ =?us-ascii?Q?8j/nVcncnDix0MAtjT4siYGeslHebd47+N2CYDUw+uMnDTyFvntxUmy6b+2n?=
+ =?us-ascii?Q?5AVXTybeFG6COO3SotShZZJJszlWy4q33lGBKw4598MBx11JMtalfq5hDhas?=
+ =?us-ascii?Q?LDFpz3zRf96qIOXMZhrCQiogL1s+IidiWMoj4I3lePuB073LxRZzJRKiF4XN?=
+ =?us-ascii?Q?jA4xTOrTxXZFhYhZkZ5GeQWqYSLvaDDPHJ0OOFYfLUwnm2HVjphtwqItjGX5?=
+ =?us-ascii?Q?1+kos/LBYpptjbyAVQvc5SGMil9poCE4qtbFbiqKqAaq3LSs4eXbHGV0nSwJ?=
+ =?us-ascii?Q?CHm+TJpzbroOxE5YsklwOJu5yNQRuam5SBN7rQducIMF+I6c9om4EbDIY1u+?=
+ =?us-ascii?Q?oW0Kpuza9nRRfas7pS7mYn+hy53C1N0xP8+JES7ugUrzXP88QcHzi61EmZZx?=
+ =?us-ascii?Q?r/lXj0i7yONr9VuMgQG1MCmOWnlKV1ToBIlcxxF+iHu+NFIXnrYKxBm7w1q2?=
+ =?us-ascii?Q?E29LRVgjI4JUDqG0RtF9jvH8popwkwFeOmrEkXyOkyWKReCXVD6c4P783+3x?=
+ =?us-ascii?Q?ARTB6An67wHtubKUNkyP3F3G7Y6YIuo62dtDwB09PTqHM/wfimpwLJ8mwm9m?=
+ =?us-ascii?Q?UT1J0ZdNgXZdX+dL8YpwdJW0pllGjDLqrjz0TAPH0jnnNtbhaB1QyhwVDshB?=
+ =?us-ascii?Q?RCszFLC3CNYrRokaAZKj6m958F0Dnt5IU+B75ox5b8Tka7uIRZyeaKApPvkj?=
+ =?us-ascii?Q?mf+suLZPy50YjGwE0u5DyiB9Ksql8hvEj+dR3H+7AiPn27NN2jFK5+NsR4Qx?=
+ =?us-ascii?Q?7soMWaXAl1cEIs/f+PW8LPjmoojReRca4tiOKsTfrfYU7D6wfzKNCm88qBjU?=
+ =?us-ascii?Q?xokEag4DyCgjPh+04U0WLlVs0JPm1beY57FtK8lEIDWkTjukvmEAJ6Bvnmk+?=
+ =?us-ascii?Q?jXPuhEZihJJkurk/g9o=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <20221107172253.155475-1-luben.tuikov@amd.com>
-In-Reply-To: <20221107172253.155475-1-luben.tuikov@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 8 Nov 2022 09:31:27 -0500
-Message-ID: <CADnq5_OwEcfa6+Ggcv203X2iDTTVpquuT6R-zSpbeob6OX-9qw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Remove redundant I2C EEPROM address
-To: Luben Tuikov <luben.tuikov@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1308.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fee0c08-3994-45aa-263d-08dac19d4c4c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Nov 2022 15:24:16.0119 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: DjZ7W9ek+hv6/GL2DsWxPysalZGtMsRftJN9CNAZcvBeJdS94gnu0Os49+ShaNJQLBoAkMvGe/i3hyqe4JIDYg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7286
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,111 +122,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- AMD Graphics <amd-gfx@lists.freedesktop.org>, Candice Li <candice.li@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Tuikov,
+ Luben" <Luben.Tuikov@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Li, 
+ Candice" <Candice.Li@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 7, 2022 at 12:23 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
->
-> Remove redundant EEPROM_I2C_MADDR_54H address, since we already have it
-> represented (ARCTURUS), and since we don't include the I2C device type
-> identifier in EEPROM memory addresses, i.e. that high up in the device
-> abstraction--we only use EEPROM memory addresses, as memory is continuously
-> represented by EEPROM device(s) on the I2C bus.
->
-> Add a comment describing what these memory addresses are, how they come
-> about and how they're usually extracted from the device address byte.
->
+[AMD Official Use Only - General]
+
+
+
+Reviewed-by: Kent Russell <kent.russell@amd.com>
+
+
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Luben
+> Tuikov
+> Sent: Monday, November 7, 2022 12:44 PM
+> To: AMD Graphics <amd-gfx@lists.freedesktop.org>
+> Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Deucher, Alexander
+> <Alexander.Deucher@amd.com>; Tuikov, Luben <Luben.Tuikov@amd.com>; Li,
+> Candice <Candice.Li@amd.com>
+> Subject: [PATCH] drm/amdgpu: Decouple RAS EEPROM addresses from chips
+>=20
+> Abstract RAS I2C EEPROM addresses from chip names, and set their macro
+> definition names to the address they set, not the chip they attach
+> to. Since most chips either use I2C EEPROM address 0 or 40000h for the RA=
+S
+> table start offset, this leaves with only two macro definitions as oppose=
+d
+> to five, and removes the redundancy of four.
+>=20
 > Cc: Candice Li <candice.li@amd.com>
 > Cc: Tao Zhou <tao.zhou1@amd.com>
 > Cc: Alex Deucher <Alexander.Deucher@amd.com>
-> Fixes: 367a1ebddde5d0 ("drm/amdgpu: Add EEPROM I2C address support for ip discovery")
 > Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c    |  2 ++
->  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 24 ++++++++++++++++---
->  2 files changed, 23 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-> index 4d9eb0137f8c43..d6c4293829aab1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-> @@ -79,6 +79,8 @@
->   * That is, for an I2C EEPROM driver everything is controlled by
->   * the "eeprom_addr".
->   *
-> + * See also top of amdgpu_ras_eeprom.c.
-> + *
->   * P.S. If you need to write, lock and read the Identification Page,
->   * (M24M02-DR device only, which we do not use), change the "7" to
->   * "0xF" in the macro below, and let the client set bit 20 to 1 in
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> index 7268ae65c140c1..1bb92a64f24afc 100644
+>  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 23 +++++++++----------
+>  1 file changed, 11 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> index 1bb92a64f24afc..f63bd31e199c8e 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> @@ -33,12 +33,30 @@
->
->  #include "amdgpu_reset.h"
->
-> +/* These are memory addresses as would be seen by one or more EEPROM
-> + * chips strung on the I2C bus, usually by manipulating pins 1-3 of a
-> + * set of EEPROM devices. They form a continuous memory space.
+> @@ -51,12 +51,11 @@
+>   * Depending on the size of the I2C EEPROM device(s), bits 18:16 may
+>   * address memory in a device or a device on the I2C bus, depending on
+>   * the status of pins 1-3. See top of amdgpu_eeprom.c.
 > + *
-> + * The I2C device address includes the device type identifier, 1010b,
-> + * which is a reserved value and indicates that this is an I2C EEPROM
-> + * device. It also includes the top 3 bits of the 19 bit EEPROM memory
-> + * address, namely bits 18, 17, and 16. This makes up the 7 bit
-> + * address sent on the I2C bus with bit 0 being the direction bit,
-> + * which is not represented here, and sent by the hardware directly.
-> + *
-> + * For instance,
-> + *   50h = 1010000b => device type identifier 1010b, bits 18:16 = 000b, address 0.
-> + *   54h = 1010100b => --"--, bits 18:16 = 100b, address 40000h.
-> + *   56h = 1010110b => --"--, bits 18:16 = 110b, address 60000h.
-> + * Depending on the size of the I2C EEPROM device(s), bits 18:16 may
-> + * address memory in a device or a device on the I2C bus, depending on
-> + * the status of pins 1-3. See top of amdgpu_eeprom.c.
-> + */
->  #define EEPROM_I2C_MADDR_VEGA20         0x0
->  #define EEPROM_I2C_MADDR_ARCTURUS       0x40000
->  #define EEPROM_I2C_MADDR_ARCTURUS_D342  0x0
->  #define EEPROM_I2C_MADDR_SIENNA_CICHLID 0x0
->  #define EEPROM_I2C_MADDR_ALDEBARAN      0x0
-
-As a follow on patch maybe we can clean up the rest of these
-duplicates?  And rather than using the asic type, maybe just switch to
-the define to a more descriptive name?  E.g.,
-#define EEPROM_I2C_MADDR_0H       0x00000
-#define EEPROM_I2C_MADDR_4H       0x40000
-#define EEPROM_I2C_MADDR_6H       0x60000
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-> -#define EEPROM_I2C_MADDR_54H            (0x54UL << 16)
->
+> + * The RAS table lives either at address 0 or address 40000h of EEPROM.
+>   */
+> -#define EEPROM_I2C_MADDR_VEGA20         0x0
+> -#define EEPROM_I2C_MADDR_ARCTURUS       0x40000
+> -#define EEPROM_I2C_MADDR_ARCTURUS_D342  0x0
+> -#define EEPROM_I2C_MADDR_SIENNA_CICHLID 0x0
+> -#define EEPROM_I2C_MADDR_ALDEBARAN      0x0
+> +#define EEPROM_I2C_MADDR_0      0x0
+> +#define EEPROM_I2C_MADDR_4      0x40000
+>=20
 >  /*
 >   * The 2 macros bellow represent the actual size in bytes that
-> @@ -130,7 +148,7 @@ static bool __get_eeprom_i2c_addr_ip_discovery(struct amdgpu_device *adev,
->         switch (adev->ip_versions[MP1_HWIP][0]) {
->         case IP_VERSION(13, 0, 0):
->         case IP_VERSION(13, 0, 10):
-> -               control->i2c_address = EEPROM_I2C_MADDR_54H;
-> +               control->i2c_address = EEPROM_I2C_MADDR_ARCTURUS;
->                 return true;
->         default:
->                 return false;
-> @@ -185,7 +203,7 @@ static bool __get_eeprom_i2c_addr(struct amdgpu_device *adev,
->
->         switch (adev->ip_versions[MP1_HWIP][0]) {
->         case IP_VERSION(13, 0, 0):
-> -               control->i2c_address = EEPROM_I2C_MADDR_54H;
-> +               control->i2c_address = EEPROM_I2C_MADDR_ARCTURUS;
->                 break;
->
->         default:
->
+> @@ -135,9 +134,9 @@ static bool __get_eeprom_i2c_addr_arct(struct
+> amdgpu_device *adev,
+>  	if (strnstr(atom_ctx->vbios_version,
+>  	            "D342",
+>  		    sizeof(atom_ctx->vbios_version)))
+> -		control->i2c_address =3D
+> EEPROM_I2C_MADDR_ARCTURUS_D342;
+> +		control->i2c_address =3D EEPROM_I2C_MADDR_0;
+>  	else
+> -		control->i2c_address =3D EEPROM_I2C_MADDR_ARCTURUS;
+> +		control->i2c_address =3D EEPROM_I2C_MADDR_4;
+>=20
+>  	return true;
+>  }
+> @@ -148,7 +147,7 @@ static bool __get_eeprom_i2c_addr_ip_discovery(struct
+> amdgpu_device *adev,
+>  	switch (adev->ip_versions[MP1_HWIP][0]) {
+>  	case IP_VERSION(13, 0, 0):
+>  	case IP_VERSION(13, 0, 10):
+> -		control->i2c_address =3D EEPROM_I2C_MADDR_ARCTURUS;
+> +		control->i2c_address =3D EEPROM_I2C_MADDR_4;
+>  		return true;
+>  	default:
+>  		return false;
+> @@ -180,18 +179,18 @@ static bool __get_eeprom_i2c_addr(struct
+> amdgpu_device *adev,
+>=20
+>  	switch (adev->asic_type) {
+>  	case CHIP_VEGA20:
+> -		control->i2c_address =3D EEPROM_I2C_MADDR_VEGA20;
+> +		control->i2c_address =3D EEPROM_I2C_MADDR_0;
+>  		break;
+>=20
+>  	case CHIP_ARCTURUS:
+>  		return __get_eeprom_i2c_addr_arct(adev, control);
+>=20
+>  	case CHIP_SIENNA_CICHLID:
+> -		control->i2c_address =3D
+> EEPROM_I2C_MADDR_SIENNA_CICHLID;
+> +		control->i2c_address =3D EEPROM_I2C_MADDR_0;
+>  		break;
+>=20
+>  	case CHIP_ALDEBARAN:
+> -		control->i2c_address =3D EEPROM_I2C_MADDR_ALDEBARAN;
+> +		control->i2c_address =3D EEPROM_I2C_MADDR_0;
+>  		break;
+>=20
+>  	case CHIP_IP_DISCOVERY:
+> @@ -203,7 +202,7 @@ static bool __get_eeprom_i2c_addr(struct
+> amdgpu_device *adev,
+>=20
+>  	switch (adev->ip_versions[MP1_HWIP][0]) {
+>  	case IP_VERSION(13, 0, 0):
+> -		control->i2c_address =3D EEPROM_I2C_MADDR_ARCTURUS;
+> +		control->i2c_address =3D EEPROM_I2C_MADDR_4;
+>  		break;
+>=20
+>  	default:
+>=20
 > base-commit: 03b61a92efbaf17ac3d9f82ae81aa4cf8ed40608
+> prerequisite-patch-id: 6ba70460570b30bf3176058b399934e5e79b229e
 > --
 > 2.38.1
->
