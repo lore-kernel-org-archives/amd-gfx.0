@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B445CC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Nov 2022 16:00:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F579C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Nov 2022 16:04:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19FE010E4AA;
-	Tue,  8 Nov 2022 16:00:04 +0000 (UTC)
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9466D10E4AA;
- Tue,  8 Nov 2022 16:00:01 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id m204so15956338oib.6;
- Tue, 08 Nov 2022 08:00:01 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FC6A10E4AD;
+	Tue,  8 Nov 2022 16:04:15 +0000 (UTC)
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90EC510E4AD
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Nov 2022 16:04:12 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-1322d768ba7so16721542fac.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Nov 2022 08:04:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=rQWR9yg5CMjikZZ2r20JPexBcqtHeW0qLuMNX9N7j+c=;
- b=Sm3Qqvk7rpotxm8tMX6U4k6sAj6XTDWsi2J7WE3eOYE6moWIKRSqyw6AgOgZLjnoVp
- xCC7DmJqJxry4uE/y8F5JWLY0heCgbpPgWxyCgBv/Elq/BgU+/QWxnBqbx5HWu3JBNuB
- DZVXgn3uJugiOpGZuNbKzfEss2x8floIKKoZpnqg6cQKuPFKns8yJa7GGEY+L14UycWb
- S7/a+74tU6vBP6DLHAkOwJSZjFi/QsxaWpPWTBoUWjgk3OI4iy8l1ObMh6WOrbrN1PoS
- E14NThDYcy9X8fz+xjijyL8ZTOQEtjG8Llg7oLOFxJjMGXXc9NVct/rmtTQw2Pbbk9qk
- htaA==
+ bh=V9WW/Du0LmflcuOKD72qp9hdgPApATYBjvbbNnooJNM=;
+ b=pvW3ul5TA2U+eZJ2wXA2kdXoN89zJU48kYrRmknFgRokK0CzXywAVNV2Hxfj2PCFxN
+ 0rlLlWF6j/zEF9vfJdObccLk+GeRboCIP0gxau8ghbh6+zBR1GcYQWLzQelP9sEjjRxV
+ 2h9juXWNHAlGyabhFRGdTFYjXDL94RLaAtQfNemCBmfJU7e2xGs+Fatm5KgkLu6max91
+ 0gSL21e5n5Xci4zcn3DdLNJ+wtZlOTtBBA1z31+OpDcXSkIPCE1tnglr04qEHqONbbBw
+ +gi3ivWbEb0ezhYncRCP/P5sG8GubGDBP/RsJJsC+nhYDKeh7e7pqf8y7d1yQoqiux/g
+ QqwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=rQWR9yg5CMjikZZ2r20JPexBcqtHeW0qLuMNX9N7j+c=;
- b=igQFYqq/FR+rIdZkmLysm/T0ZcQIoXKaJAkKcD1LF80yg6v4k1zXzwPwtM9t+JBV2Y
- tGXC3IyX5rhFOHPWMYGYdR/y+oyVzVorRDsEqGgibKB5QnqzVbNafvPZ/+9u0KH4cYDS
- /MUlnK/rxpPFI8FZ61NTvMQeRLjX7+scxhepe+lXRGKWSFHl8Z9Tgx5kl2eg84F3t4m4
- b/TRmOBhmwiE9nzrpEYnGdmHyTvC2QVXzfwf6/vmNSs59t6+Rx4vRkzmeIPFcqfzy/vD
- 475oed5Tp7wjz/M4kZj9wki5+7pCQp3nWS5nbwYy2jb9JVi7tTWvQ8QbTvxy+Pk54xVw
- HfCQ==
-X-Gm-Message-State: ACrzQf14vGcrlgYLeIb42+ek7v0UUtQsXRXeS9BwmgY9rg3EmmNLsCLP
- TZ+iBih9Bp2MTN91bLYgJaHal70n3PH01vQGs1s=
-X-Google-Smtp-Source: AMsMyM7xaleGKPoZfpfaoNjmTRNkBto0+MBNOqoaWhcA2auPXlX8DcbOzRaxpoFsCjBS9kgxzXyZxbrD61rVDJXuiqI=
-X-Received: by 2002:aca:b655:0:b0:35a:4fb4:c3d2 with SMTP id
- g82-20020acab655000000b0035a4fb4c3d2mr15977595oif.96.1667923200813; Tue, 08
- Nov 2022 08:00:00 -0800 (PST)
+ bh=V9WW/Du0LmflcuOKD72qp9hdgPApATYBjvbbNnooJNM=;
+ b=zhsPIS5UysmygFzE3jQJyi25m7gl9XGnFT+oOBAAPh7nqtcSrmkxqmRN/DZ7rL0bMs
+ Bcbj7egstch8Ff8XPhd56r8wi1uAZlO3EgUxtWtLUWrPcgYKC6MRmq5tNCTcOHY6kNuj
+ Oq/xC6qPs3Oif74ELOm/kS/qhlD+qbtmV6rQxJXtImZ4GFJFzScv95oz4gNNl/+vUKFM
+ 4LhjktRc9KZr8Rl+yLpYK5ogwmBQ4fxR7QDZzsEZ9XAV5cua2oUrRMvzkO2yfM3XRzgz
+ 2ocd2oHeyYCwPdgqqcvYX4bfm/ikbgy1Egw1Oa/KbyUaTRZ1AWdPzlMoI9ZunuV/9Jdj
+ kIsA==
+X-Gm-Message-State: ACrzQf2VXEFBvT+/7ElCVQ6feupTIS0n0yN+c6pXnnDuKt3K48qsRUM5
+ u1EYruAWrF42ceACnFQuVStz7erYZdy7QFqckNI=
+X-Google-Smtp-Source: AMsMyM6BjPUKTgkeMdt975a7Gbd69NCGhbEeA3cnlPUJ5xqBsVxxF7ICZN+CcqXY0kaFQ3uibC2Wj5qVLNIBu6aorwQ=
+X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
+ x36-20020a056870a7a400b001367c39979emr33934235oao.96.1667923451842; Tue, 08
+ Nov 2022 08:04:11 -0800 (PST)
 MIME-Version: 1.0
-References: <Y2jQw6ve83Bvb/D9@mail.google.com>
-In-Reply-To: <Y2jQw6ve83Bvb/D9@mail.google.com>
+References: <20221104092931.20226-1-tanglongjun@kylinos.cn>
+In-Reply-To: <20221104092931.20226-1-tanglongjun@kylinos.cn>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 8 Nov 2022 10:59:48 -0500
-Message-ID: <CADnq5_Oi0ADZJ=_=DRLvRVF+q2qT_5f1H3nuTnZYh5PKpbXPPw@mail.gmail.com>
-Subject: Re: [PATCH] [next] drm/amdgpu: Replace 1-element array with
- flexible-array member
-To: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+Date: Tue, 8 Nov 2022 11:03:59 -0500
+Message-ID: <CADnq5_Pxh8G=xguW=wa9x2W_c67RD+5EGJXcTC99_sbUqsVLBA@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/amd/display: Have risk for memory exhaustion
+To: LongJun Tang <tanglongjun@kylinos.cn>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,167 +64,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Slark Xiao <slark_xiao@163.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Rongguang Wei <weirongguang@kylinos.cn>, linux-hardening@vger.kernel.org
+Cc: Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, lange_tang@163.com, aurabindo.pillai@amd.com,
+ alexander.deucher@amd.com, harry.wentland@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+
+On Fri, Nov 4, 2022 at 10:06 AM LongJun Tang <tanglongjun@kylinos.cn> wrote:
+>
+> In dcn*_clock_source_create when dcn*_clk_src_construct fails allocated
+> clk_src needs release. A local attack could use this to cause memory
+> exhaustion.
+>
+> Signed-off-by: LongJun Tang <tanglongjun@kylinos.cn>
 
 Applied.  Thanks!
 
 Alex
 
-On Mon, Nov 7, 2022 at 4:33 AM Paulo Miguel Almeida
-<paulo.miguel.almeida.rodenas@gmail.com> wrote:
->
-> One-element arrays are deprecated, and we are replacing them with
-> flexible array members instead. So, replace one-element array with
-> flexible-array member in structs _ATOM_GPIO_PIN_ASSIGNMENT,
-> _ATOM_DISPLAY_OBJECT_PATH, _ATOM_DISPLAY_OBJECT_PATH_TABLE,
-> _ATOM_OBJECT_TABLE and refactor the rest of the code accordingly.
->
-> Important to mention is that doing a build before/after this patch results
-> in no functional binary output differences.
->
-> This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
-> routines on memcpy() and help us make progress towards globally
-> enabling -fstrict-flex-arrays=3 [1].
->
-> Link: https://github.com/KSPP/linux/issues/79
-> Link: https://github.com/KSPP/linux/issues/238
-> Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101836 [1]
->
-> Signed-off-by: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
 > ---
+>  drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c   | 1 +
+>  drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 1 +
+>  drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c | 1 +
+>  drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c | 1 +
+>  drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c   | 1 +
+>  drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c | 1 +
+>  drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c   | 1 +
+>  drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c | 1 +
+>  8 files changed, 8 insertions(+)
 >
-> Binary difference findings:
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+> index 020f512e9690..9b7e786bd4a2 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+> @@ -1323,6 +1323,7 @@ static struct clock_source *dcn30_clock_source_create(
+>                 return &clk_src->base;
+>         }
 >
->         Some changes took more than a single line which changed the line
->         number parameter passed to the drm_dbg function (which leverages
->         kernel's dynamic debugging). Functionally-wise, nothing changed
->         after doing a before/after patch build.
+> +       kfree(clk_src);
+>         BREAK_TO_DEBUGGER();
+>         return NULL;
+>  }
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+> index f04595b750ab..7c1225046544 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+> @@ -1288,6 +1288,7 @@ static struct clock_source *dcn301_clock_source_create(
+>                 return &clk_src->base;
+>         }
 >
-> Additional one-element arrays to be changed:
+> +       kfree(clk_src);
+>         BREAK_TO_DEBUGGER();
+>         return NULL;
+>  }
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
+> index b925b6ddde5a..73ae1146dad5 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
+> @@ -458,6 +458,7 @@ static struct clock_source *dcn302_clock_source_create(struct dc_context *ctx, s
+>                 return &clk_src->base;
+>         }
 >
->         There are more instances of one-element arrays to be changed but
->         I will keep patches small so they are easy to review. [and I can
->         only dedicate a few hours per day on this :-) ]
+> +       kfree(clk_src);
+>         BREAK_TO_DEBUGGER();
+>         return NULL;
+>  }
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
+> index 527d5c902878..0ea97eeec5a6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
+> @@ -425,6 +425,7 @@ static struct clock_source *dcn303_clock_source_create(struct dc_context *ctx, s
+>                 return &clk_src->base;
+>         }
 >
-> ---
->  .../gpu/drm/amd/display/dc/bios/bios_parser.c | 23 ++++++++++++-------
->  drivers/gpu/drm/amd/include/atombios.h        |  8 +++----
->  2 files changed, 19 insertions(+), 12 deletions(-)
+> +       kfree(clk_src);
+>         BREAK_TO_DEBUGGER();
+>         return NULL;
+>  }
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> index fddc21a5a04c..b02aa8874efb 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> @@ -1625,6 +1625,7 @@ static struct clock_source *dcn31_clock_source_create(
+>                 return &clk_src->base;
+>         }
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-> index 9b8ea6e9a2b9..39dd8b2dc254 100644
-> --- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-> +++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-> @@ -138,7 +138,9 @@ static uint8_t get_number_of_objects(struct bios_parser *bp, uint32_t offset)
+> +       kfree(clk_src);
+>         BREAK_TO_DEBUGGER();
+>         return NULL;
+>  }
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+> index 58746c437554..b2ff29e5f93c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+> @@ -1623,6 +1623,7 @@ static struct clock_source *dcn31_clock_source_create(
+>                 return &clk_src->base;
+>         }
 >
->         uint32_t object_table_offset = bp->object_info_tbl_offset + offset;
+> +       kfree(clk_src);
+>         BREAK_TO_DEBUGGER();
+>         return NULL;
+>  }
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+> index a88dd7b3d1c1..71730b6666b0 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+> @@ -829,6 +829,7 @@ static struct clock_source *dcn32_clock_source_create(
+>                 return &clk_src->base;
+>         }
 >
-> -       table = GET_IMAGE(ATOM_OBJECT_TABLE, object_table_offset);
-> +       table = ((ATOM_OBJECT_TABLE *) bios_get_image(&bp->base,
-> +                               object_table_offset,
-> +                               struct_size(table, asObjects, 1)));
+> +       kfree(clk_src);
+>         BREAK_TO_DEBUGGER();
+>         return NULL;
+>  }
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+> index 61087f2385a9..d3980fc243c9 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+> @@ -828,6 +828,7 @@ static struct clock_source *dcn321_clock_source_create(
+>                 return &clk_src->base;
+>         }
 >
->         if (!table)
->                 return 0;
-> @@ -166,8 +168,9 @@ static struct graphics_object_id bios_parser_get_connector_id(
->         uint32_t connector_table_offset = bp->object_info_tbl_offset
->                 + le16_to_cpu(bp->object_info_tbl.v1_1->usConnectorObjectTableOffset);
->
-> -       ATOM_OBJECT_TABLE *tbl =
-> -               GET_IMAGE(ATOM_OBJECT_TABLE, connector_table_offset);
-> +       ATOM_OBJECT_TABLE *tbl = ((ATOM_OBJECT_TABLE *) bios_get_image(&bp->base,
-> +                               connector_table_offset,
-> +                               struct_size(tbl, asObjects, 1)));
->
->         if (!tbl) {
->                 dm_error("Can't get connector table from atom bios.\n");
-> @@ -1789,11 +1792,13 @@ static enum bp_result bios_parser_get_gpio_pin_info(
->         if (!DATA_TABLES(GPIO_Pin_LUT))
->                 return BP_RESULT_BADBIOSTABLE;
->
-> -       header = GET_IMAGE(ATOM_GPIO_PIN_LUT, DATA_TABLES(GPIO_Pin_LUT));
-> +       header = ((ATOM_GPIO_PIN_LUT *) bios_get_image(&bp->base,
-> +                               DATA_TABLES(GPIO_Pin_LUT),
-> +                               struct_size(header, asGPIO_Pin, 1)));
->         if (!header)
->                 return BP_RESULT_BADBIOSTABLE;
->
-> -       if (sizeof(ATOM_COMMON_TABLE_HEADER) + sizeof(ATOM_GPIO_PIN_LUT)
-> +       if (sizeof(ATOM_COMMON_TABLE_HEADER) + struct_size(header, asGPIO_Pin, 1)
->                         > le16_to_cpu(header->sHeader.usStructureSize))
->                 return BP_RESULT_BADBIOSTABLE;
->
-> @@ -1978,7 +1983,8 @@ static ATOM_OBJECT *get_bios_object(struct bios_parser *bp,
->
->         offset += bp->object_info_tbl_offset;
->
-> -       tbl = GET_IMAGE(ATOM_OBJECT_TABLE, offset);
-> +       tbl = ((ATOM_OBJECT_TABLE *) bios_get_image(&bp->base, offset,
-> +                               struct_size(tbl, asObjects, 1)));
->         if (!tbl)
->                 return NULL;
->
-> @@ -2709,8 +2715,9 @@ static enum bp_result get_bracket_layout_record(
->
->         genericTableOffset = bp->object_info_tbl_offset +
->                 bp->object_info_tbl.v1_3->usMiscObjectTableOffset;
-> -       object_table = (ATOM_OBJECT_TABLE *)
-> -               GET_IMAGE(ATOM_OBJECT_TABLE, genericTableOffset);
-> +       object_table = ((ATOM_OBJECT_TABLE *) bios_get_image(&bp->base,
-> +                               genericTableOffset,
-> +                               struct_size(object_table, asObjects, 1)));
->         if (!object_table)
->                 return BP_RESULT_FAILURE;
->
-> diff --git a/drivers/gpu/drm/amd/include/atombios.h b/drivers/gpu/drm/amd/include/atombios.h
-> index b5b1d073f8e2..55ae93c1e365 100644
-> --- a/drivers/gpu/drm/amd/include/atombios.h
-> +++ b/drivers/gpu/drm/amd/include/atombios.h
-> @@ -4386,7 +4386,7 @@ typedef struct _ATOM_GPIO_PIN_ASSIGNMENT
->  typedef struct _ATOM_GPIO_PIN_LUT
->  {
->    ATOM_COMMON_TABLE_HEADER  sHeader;
-> -  ATOM_GPIO_PIN_ASSIGNMENT   asGPIO_Pin[1];
-> +  ATOM_GPIO_PIN_ASSIGNMENT   asGPIO_Pin[];
->  }ATOM_GPIO_PIN_LUT;
->
->  /****************************************************************************/
-> @@ -4513,7 +4513,7 @@ typedef struct  _ATOM_DISPLAY_OBJECT_PATH
->    USHORT    usSize;                                        //the size of ATOM_DISPLAY_OBJECT_PATH
->    USHORT    usConnObjectId;                                //Connector Object ID
->    USHORT    usGPUObjectId;                                 //GPU ID
-> -  USHORT    usGraphicObjIds[1];                            //1st Encoder Obj source from GPU to last Graphic Obj destinate to connector.
-> +  USHORT    usGraphicObjIds[];                            //1st Encoder Obj source from GPU to last Graphic Obj destinate to connector.
->  }ATOM_DISPLAY_OBJECT_PATH;
->
->  typedef struct  _ATOM_DISPLAY_EXTERNAL_OBJECT_PATH
-> @@ -4530,7 +4530,7 @@ typedef struct _ATOM_DISPLAY_OBJECT_PATH_TABLE
->    UCHAR                           ucNumOfDispPath;
->    UCHAR                           ucVersion;
->    UCHAR                           ucPadding[2];
-> -  ATOM_DISPLAY_OBJECT_PATH        asDispPath[1];
-> +  ATOM_DISPLAY_OBJECT_PATH        asDispPath[];
->  }ATOM_DISPLAY_OBJECT_PATH_TABLE;
->
->  typedef struct _ATOM_OBJECT                                //each object has this structure
-> @@ -4545,7 +4545,7 @@ typedef struct _ATOM_OBJECT_TABLE                         //Above 4 object table
->  {
->    UCHAR               ucNumberOfObjects;
->    UCHAR               ucPadding[3];
-> -  ATOM_OBJECT         asObjects[1];
-> +  ATOM_OBJECT         asObjects[];
->  }ATOM_OBJECT_TABLE;
->
->  typedef struct _ATOM_SRC_DST_TABLE_FOR_ONE_OBJECT         //usSrcDstTableOffset pointing to this structure
+> +       kfree(clk_src);
+>         BREAK_TO_DEBUGGER();
+>         return NULL;
+>  }
 > --
-> 2.37.3
+> 2.17.1
 >
+>
+> No virus found
+>                 Checked by Hillstone Network AntiVirus
