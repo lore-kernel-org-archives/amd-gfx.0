@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F7B5C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Nov 2022 16:11:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1FFEC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Nov 2022 16:25:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 544A610E4BC;
-	Tue,  8 Nov 2022 16:11:34 +0000 (UTC)
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
- [IPv6:2001:4860:4864:20::35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 639C510E4BD;
- Tue,  8 Nov 2022 16:11:28 +0000 (UTC)
-Received: by mail-oa1-x35.google.com with SMTP id
- 586e51a60fabf-13b103a3e5dso16754833fac.2; 
- Tue, 08 Nov 2022 08:11:28 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E20ED10E4C2;
+	Tue,  8 Nov 2022 16:25:12 +0000 (UTC)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8380710E3C4;
+ Tue,  8 Nov 2022 16:25:05 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id h132so8155713oif.2;
+ Tue, 08 Nov 2022 08:25:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=IzZJtTel0h21j07X7KO7D0aS4ynI+dBJLPzqyI12t0g=;
- b=kGYypjiYLM1zxDrHFV/0AuzBeOBcAS6yYCv3LYXSDmK0rUoqT2G2X+gvdS/XNhWFS6
- qRSWLMfxifHeM4pOlul6jkx3TEzhkNEFXVCgiFOzRlB29hCMOH+lQ/7TadWLh6sVIzOs
- ZMdLqHttRFnsJwGyR0N/EBAyEgQHtXWVmfDQDwEyBZcLvEzh+RVjOxlFMwKFOXJQKdq8
- nGJIIsGZVmlwGOaxXRYoSTQvJiR2BPGVYi+4SXw+qT1VkckG4H+NAXyRVpYu0LFuYZvI
- pYQFdYgy+tWH7N9adacl1cYYRN6W2ai6z/+lm6yxzoZ+PDdwDJ4Vn1Uq5mY7E8SanEp/
- GFbA==
+ bh=a+8Yf/sZNwiNDUj/OMYT77J47waMsvsoaujY8tR8y14=;
+ b=EFa7PkfPRlnNLAkXTEiEnYgZ6Y/YaZgVL3Mejm9llw7t8k9z2FPghpxGNhbq6VFRz2
+ k7PwoEROsjYqFNWwtx5OsaxUU5VihVUmV33d3R8czegD4Rf9mz6bKtYLqY6LUL3yJ2kw
+ qyM56Dyue5UAeC1R+nQWfRqk54qAo78RUOhkcKka8uYp35x5E655VZB55hwSxBXKGtsk
+ x/YE+JhmfgoapqnX/pKbhmS+Sv7/WyGNIDFWvkvr1D7BohVGprfjMHJSclZc2dSIaVHN
+ 4AHbgUQrN6Mgqb0OFic4NvD3QVYHX5cT6tVHFXkG7c4aH5c91EF6OIz/o4cQLVa0iZcd
+ wneA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=IzZJtTel0h21j07X7KO7D0aS4ynI+dBJLPzqyI12t0g=;
- b=SIvIQw9RyEiL5LNMV41O1rVU0aPX/Pwe7o8czYtXUsrardJmuYm5mOBfoF1TA+/PTU
- oihvg6QmlQrqOvit4VgiPcwuxfoE9Fh4KWQqIxwJhmUUW3ObzMXaYVlTKdMAgN6pXY1b
- 0JzWPLLYPZDg4rSC4pnQSuAX5wCbWcwS7cTSIrVLIgPeRbmxMbluu6F9ucDZrMkBTiiH
- 4nt7/TVJBRcQTNznf12A6z8Rwy1og54TdZ5GiJT4o3cgD0xj5qGwPn8fmiUns2QBFLMq
- Gh9atedSpJLN7Fo53evUW8NqlWyVmuJOomfQ9G3ytW5naMrsQnJITrAViNN9WqvLsstw
- DulA==
-X-Gm-Message-State: ACrzQf0J1Jsv6kHGcDtR5/wyb2b7wVOfSdinXtdre6Il3F0ho9Vp7HUb
- 3rjAzDuYrAwSsdfHj6BsGS1+YD2f6+yvdpTS/8InD94L
-X-Google-Smtp-Source: AMsMyM5DYDrwKM88iEhZjq3W6qb4l9uo9kBAzUbmI6TcsLNvxj2thi71mu7FeCuohu/QXUQnRIhJinTr3KQkudY84dY=
-X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
- x36-20020a056870a7a400b001367c39979emr33954773oao.96.1667923887729; Tue, 08
- Nov 2022 08:11:27 -0800 (PST)
+ bh=a+8Yf/sZNwiNDUj/OMYT77J47waMsvsoaujY8tR8y14=;
+ b=x+2PxVCxTAiCrPGijX0BJOHkF4t8RfmqJdq/sdNrqlChHCRnXNNVNenyjFNLpM1aub
+ yKZpBtKGBUiHdq7QM/djGg81NVE3/iHQ4KAE6xLqRJTEsOzcfscF8fptj4CWshNaZjQO
+ IuYM69jZYHAZcix/ryzc+P5D1NCcNVDj2YMXi/Qg9aYy7iI5lQSEoayjT1IJqVoW3fDt
+ PXYt//ynjfiIXcHYl344OX4UbjxkuBK0z6kHlUj9QXXCA2gyYcTSi5SXlP/b8KupYkq/
+ S7HtFYghfNYVoxZvZOTgJZakKuFlO+FBGQ0e1I5nU475tJA0DRqAE8Ngw5af43aJYDlb
+ OBbw==
+X-Gm-Message-State: ACrzQf0n/Dbw1bsGPYXOQFVwpjY5WpVT1eIOCPtAMG0m/Sqje81bsyJh
+ VBqMfRvWE6p8ey/91oLHDin/3dROoboqsD/+cmQ=
+X-Google-Smtp-Source: AMsMyM6FnW3smzsc2vqX42JCVFSvKrKyc0iMu552UOAzqJ/Mwzlw4oMjND0EEJAJMN56tBl6uBS3XHec1Vjmj7CzLVM=
+X-Received: by 2002:aca:b655:0:b0:35a:4fb4:c3d2 with SMTP id
+ g82-20020acab655000000b0035a4fb4c3d2mr16042060oif.96.1667924704519; Tue, 08
+ Nov 2022 08:25:04 -0800 (PST)
 MIME-Version: 1.0
-References: <20221028224813.1466450-1-briannorris@chromium.org>
-In-Reply-To: <20221028224813.1466450-1-briannorris@chromium.org>
+References: <20221107143715.279841-1-carlos.bilbao@amd.com>
+In-Reply-To: <20221107143715.279841-1-carlos.bilbao@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 8 Nov 2022 11:11:12 -0500
-Message-ID: <CADnq5_O92ourfZJyEKjYh4k01fMw1MWiYQLkEQNYsx2sTXa7nQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Move racy global PMU list into device
-To: Brian Norris <briannorris@chromium.org>, "Kim,
- Jonathan" <Jonathan.Kim@amd.com>, 
- "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Date: Tue, 8 Nov 2022 11:24:52 -0500
+Message-ID: <CADnq5_M9EvboWq9Oi58S3Rgh_U2_sNXGDA57NCh-oJWUedAN4Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Amend descriptions within enum
+ pipe_split_policy
+To: Carlos Bilbao <carlos.bilbao@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,101 +64,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: sunpeng.li@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, alexander.deucher@amd.com, jun.lei@amd.com,
+ harry.wentland@amd.com, christian.koenig@amd.com, bilbao@vt.edu
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 28, 2022 at 6:48 PM Brian Norris <briannorris@chromium.org> wrote:
+On Mon, Nov 7, 2022 at 9:37 AM Carlos Bilbao <carlos.bilbao@amd.com> wrote:
 >
-> If there are multiple amdgpu devices, this list processing can be racy.
+> Correct descriptions of two last fields of enum pipe_split_policy, updating
+> comments with proper field names.
 >
-> We're really treating this like a per-device list, so make that explicit
-> and remove the global list.
->
-> Signed-off-by: Brian Norris <briannorris@chromium.org>
+> Signed-off-by: Carlos Bilbao <carlos.bilbao@amd.com>
 
-@Kuehling, Felix @Kim, Jonathan can you take a look at this patch?
-
-Thanks,
-
-Alex
-
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
+>  drivers/gpu/drm/amd/display/dc/dc.h | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
 >
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  4 ++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c | 12 +++++-------
->  2 files changed, 9 insertions(+), 7 deletions(-)
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+> index bfc5474c0f4c..277631a899d8 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
+> @@ -457,15 +457,16 @@ enum pipe_split_policy {
+>         MPC_SPLIT_DYNAMIC = 0,
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 0e6ddf05c23c..e968b7f2417c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1063,6 +1063,10 @@ struct amdgpu_device {
->         struct work_struct              reset_work;
+>         /**
+> -        * @MPC_SPLIT_DYNAMIC: Avoid pipe split, which means that DC will not
+> +        * @MPC_SPLIT_AVOID: Avoid pipe split, which means that DC will not
+>          * try any sort of split optimization.
+>          */
+>         MPC_SPLIT_AVOID = 1,
 >
->         bool                            job_hang;
-> +
-> +#if IS_ENABLED(CONFIG_PERF_EVENTS)
-> +       struct list_head pmu_list;
-> +#endif
+>         /**
+> -        * @MPC_SPLIT_DYNAMIC: With this option, DC will only try to optimize
+> -        * the pipe utilization when using a single display; if the user
+> -        * connects to a second display, DC will avoid pipe split.
+> +        * @MPC_SPLIT_AVOID_MULT_DISP: With this option, DC will only try
+> +        * to optimize the pipe utilization when using a single display;
+> +        * if the user connects to a second display, DC will avoid pipe
+> +        * split.
+>          */
+>         MPC_SPLIT_AVOID_MULT_DISP = 2,
 >  };
->
->  static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-> index 71ee361d0972..24f2055a2f23 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-> @@ -23,6 +23,7 @@
->
->  #include <linux/perf_event.h>
->  #include <linux/init.h>
-> +#include <linux/list.h>
->  #include "amdgpu.h"
->  #include "amdgpu_pmu.h"
->
-> @@ -72,9 +73,6 @@ static ssize_t amdgpu_pmu_event_show(struct device *dev,
->                         amdgpu_pmu_attr->event_str, amdgpu_pmu_attr->type);
->  }
->
-> -static LIST_HEAD(amdgpu_pmu_list);
-> -
-> -
->  struct amdgpu_pmu_attr {
->         const char *name;
->         const char *config;
-> @@ -558,7 +556,7 @@ static int init_pmu_entry_by_type_and_add(struct amdgpu_pmu_entry *pmu_entry,
->                 pr_info("Detected AMDGPU %d Perf Events.\n", total_num_events);
->
->
-> -       list_add_tail(&pmu_entry->entry, &amdgpu_pmu_list);
-> +       list_add_tail(&pmu_entry->entry, &pmu_entry->adev->pmu_list);
->
->         return 0;
->  err_register:
-> @@ -579,9 +577,7 @@ void amdgpu_pmu_fini(struct amdgpu_device *adev)
->  {
->         struct amdgpu_pmu_entry *pe, *temp;
->
-> -       list_for_each_entry_safe(pe, temp, &amdgpu_pmu_list, entry) {
-> -               if (pe->adev != adev)
-> -                       continue;
-> +       list_for_each_entry_safe(pe, temp, &adev->pmu_list, entry) {
->                 list_del(&pe->entry);
->                 perf_pmu_unregister(&pe->pmu);
->                 kfree(pe->pmu.attr_groups);
-> @@ -623,6 +619,8 @@ int amdgpu_pmu_init(struct amdgpu_device *adev)
->         int ret = 0;
->         struct amdgpu_pmu_entry *pmu_entry, *pmu_entry_df;
->
-> +       INIT_LIST_HEAD(&adev->pmu_list);
-> +
->         switch (adev->asic_type) {
->         case CHIP_VEGA20:
->                 pmu_entry_df = create_pmu_entry(adev, AMDGPU_PMU_PERF_TYPE_DF,
 > --
-> 2.38.1.273.g43a17bfeac-goog
+> 2.34.1
 >
