@@ -4,93 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3721CC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Nov 2022 02:47:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2CAFC433FE
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Nov 2022 03:46:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CA7E10E215;
-	Tue,  8 Nov 2022 02:47:46 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2043.outbound.protection.outlook.com [40.107.212.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8B4810E215
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Nov 2022 02:47:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEC3610E214;
+	Tue,  8 Nov 2022 03:46:05 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2067.outbound.protection.outlook.com [40.107.223.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4011D10E214
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Nov 2022 03:46:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MK5r+TcmURKdt5kttIMKXhV/Ey+UzAQM022s8B90WvV0XrOymQt/f+XcLkla23UD0cG5kZuuQGgN01mLQWffMqDEbL6ta6mXJka9xBsdZoE5kWdPjs0EyNSgZJFCspIk3kVT2OR321nWQTcdDe/SaWD1SyPAkOAKct9ZrToPIUuOESLFj3HLjR8oA9TTbqE4nAZa1IY71TOkZQ7HH/t8vkhk63wK1FQUbZwLDFOo0Lhk6R6tTJ+nfrXO2L5iwZguYfSFfEh62GuYq3FBPK2gmCsT42VTK8+5HpmWXtZPl7c83fEG3n7KEKP0LGgB+7Jx2VE2eSWpDTR/bw65yhlKSQ==
+ b=Os5i4Qo24yk91Blu0SAnBp8Zo81bQRz0RmqwlzHqPclrYQ3u4/gP5W8TZ9UibrAAse7zlp53jCtRaigTPCjyl6oRhneL9CCoOQXu626YRIaLOaj/GRW8kWBhu9RUT49ltUFC6GH+IRyl14z2FPSC9SSPxM6efzMtiQt6WTH1R2u8zhahGuEWhfKZOG7mUsUqCfwOiWqZXqDzbvHtzB/8XW5XBZnx+Rc25f9kbpMANt4zLhpq/9ycIyS/l9w5R+dOzHHT0MRvvQV7b5985XOw5eKYn/aLcHqgiiaiELNK7yRxiQC2o2vkcNrV67RlPi9iOmL897Z3MTVLaT8SeaiA6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PKv7V9nwK9jXsbs14QtfhNsPidp+YxcRmzC9fM2WD1s=;
- b=l1Mg2c2L/3NaqZMAokKY+HAVpFh9oWeluKmLGUItB+TRB3Yp3tAKrD1pNynDqsFeH/+M97cBekHUI7HP5c10agwdhaO0lt3mfwx3w9ZODUNgyM70ea4JLeJAy5w5I3fKgOpKQ/oYW/0gD7a/87R4t2bxXrbWbZxScF7JT6Sqllib1rgR/iWbFAatqBsshbQveUQByuz4X/3su4zIXAdLQH/PkakkdooJ/y6SIuMHSE56wJXq2CX6UT9AoiNpl+X4VzjieSH8X8hqlHYRbopIhLJ46WGp6JwbIctlZeKc6KgRRPTmu/SA0w8Mu6HyeL4TFgryJ7hUd08uK86mbvjgHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=RxxzofTSEO6lUP6v3TfcAmOqqxghbHLZ47n//Z3RrWw=;
+ b=Hdx8yVyia98kS95r274oyMi1DO4Ova9OpYV6fCK8oFy9Z6rs2LYy6w5hPOM2bRGTi4uLlkJSClxtJBpzobczQEzyKEl9Q7hF323Yw7pUJXqz5MY8zbjlZ+GLJdI2VIJ4+VqrvIdKqkFGJaqs2ZI2keViuCKXUZkzB0g4X1pjMAylSJ3XVV3lZmiH16d5xyS6L23SRdNf7JFOAoJB7qpkvwz0uKfKo9pPFWln3Xv+dfF690rsz6rBtZ86oFhjYiHyVu0zAinqgJ3IgS2mrZt8Nzprw34G8le0aVpcYKX30/wAHwoDzj8adPi4L7rCdFrzcoGlqNotXWiL+Rc2fzJcEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PKv7V9nwK9jXsbs14QtfhNsPidp+YxcRmzC9fM2WD1s=;
- b=pOQmAMDR5qQAmvEdJjdTlFH1tgYApIKL6N6GV9OG56/tmwcvUEa2TqapRMnvNSIsubBcX6BB4kj2DkgN1n8CLTpy+GXNrG7/Zni9gOWEXnQxkrBZ1FpSy5y7XW/6/vB/3FkJUDdw9p6LnJVwotMgW1+5KmJUbHI0lvyKao6D90g=
-Received: from MW4PR03CA0297.namprd03.prod.outlook.com (2603:10b6:303:b5::32)
- by DM4PR12MB6424.namprd12.prod.outlook.com (2603:10b6:8:be::16) with
+ bh=RxxzofTSEO6lUP6v3TfcAmOqqxghbHLZ47n//Z3RrWw=;
+ b=XvFH9t+lMRN2CdbkBgHlc7681/hMKAsf7UkD0StxH2V0pNsOe1us21xUWfQYoDI7s/Hzm2/sUYlUZiXAkfy9AFZdMDektAUQSEHkX76+h7hqQDgGZnoLWS2g6TSxfUIVQMt39lSu9GUFaC8y2bJtRJCBu7LpUXMe9RKslG4+lMs=
+Received: from DS0PR12MB6391.namprd12.prod.outlook.com (2603:10b6:8:cd::16) by
+ PH7PR12MB7138.namprd12.prod.outlook.com (2603:10b6:510:1ee::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.22; Tue, 8 Nov
- 2022 02:47:38 +0000
-Received: from CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b5:cafe::66) by MW4PR03CA0297.outlook.office365.com
- (2603:10b6:303:b5::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.26 via Frontend
- Transport; Tue, 8 Nov 2022 02:47:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT046.mail.protection.outlook.com (10.13.174.203) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5791.20 via Frontend Transport; Tue, 8 Nov 2022 02:47:37 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 7 Nov
- 2022 20:47:34 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 7 Nov
- 2022 20:47:02 -0600
-Received: from amd-SYS-7048GR-TR.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31
- via Frontend Transport; Mon, 7 Nov 2022 20:46:59 -0600
-From: Tong Liu01 <Tong.Liu01@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: add vram reservation logic based on
- vram_usagebyfirmware_v2_2
-Date: Tue, 8 Nov 2022 10:46:50 +0800
-Message-ID: <20221108024650.11787-1-Tong.Liu01@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT046:EE_|DM4PR12MB6424:EE_
-X-MS-Office365-Filtering-Correlation-Id: 795d0fb7-40e8-4d5e-3f0b-08dac13398c9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9+IWrDBFHVyHTwhhHdZREOfDmQQq48fJhwVWvXx2KUpnXasbzv/8Z5JmsPQZIxU7GLR3Xs3W2lbAWuBJgCk9kSmFY+yvieOqM63mDggoLWMDivPhMoOqX28uaRnxDuUb7KVh7I4xXuVSmTi5b44Su6F4WVq+QXjfFSLhNEgIhdjvdq7BALArBp0s1qlJ/G/3vO4ZzolYoV8ytgWp20mOD7h8DFe+biRi8Y+ct/QyNcxhAQ7uiuytN36RYxfePF0Eq9sSGudYlXClabklyJppH4BFiCqfk/seeb8CHgUM6w2sQ35etx8ASn/Up7D1tw+uDYZxZNkIc7SicGoysDUhh3ENMDfkE5aKPHukhWo3fLTBqy7p7v8uf4A5QQFvMhIVh7qgoj0/OZbMVDD0L4IQbOKKo2xKZF5UB6+raDSZhhITQ9o5HFOYG/CljNhQASAFt4hXxt3N4dw4d7WSDeJH3GB52Pe+HdA6K1OrjHPWT1sjviZY9u67GSTAdSUuz8+oijbYLS5PA9oxhR935nm0/iodDXUlMni0vFnbEMki3MnfbVDbBfZ6JeIyYZJNMCwdf0Yu1h+v8Y0+DDXT9Bp2C20Vrk5xq1lHkLOsQn4MwV2BDSQCS8azsNLpzQF9Dt58DaQvaRGw7eSSW+6oR5KQzgnL5YQwFQHhl+dzbLihRiIFMTX7C1/jBqdSKXyHjJtqoK9/X2ntTcbX9Ft825WfbuYAocrkP69kLMJCa89MY/NJoo2qMkWeCp5/JIeTiy7SfuRA4tPRPt/G/CKGNX1Gqh6gBuqztm7WiP2PNdiJYw6i23qSfa5i3ZKs7TPmcfNz
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199015)(36840700001)(46966006)(40470700004)(36860700001)(82740400003)(26005)(54906003)(70206006)(70586007)(4326008)(8676002)(1076003)(2906002)(40480700001)(316002)(30864003)(8936002)(6666004)(6916009)(5660300002)(2616005)(41300700001)(336012)(83380400001)(82310400005)(356005)(478600001)(47076005)(426003)(81166007)(40460700003)(186003)(86362001)(7696005)(36756003)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.25; Tue, 8 Nov
+ 2022 03:45:58 +0000
+Received: from DS0PR12MB6391.namprd12.prod.outlook.com
+ ([fe80::dca1:4eb:3107:d001]) by DS0PR12MB6391.namprd12.prod.outlook.com
+ ([fe80::dca1:4eb:3107:d001%5]) with mapi id 15.20.5791.025; Tue, 8 Nov 2022
+ 03:45:57 +0000
+From: "Patel, Krunalkumar Mukeshkumar" <KrunalkumarMukeshkumar.Patel@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Pan, Xinhui"
+ <Xinhui.Pan@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Gao,
+ Likun" <Likun.Gao@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Add support to clock gating for sdma 5.2.7
+Thread-Topic: [PATCH] drm/amdgpu: Add support to clock gating for sdma 5.2.7
+Thread-Index: AQHY8n+62brZrpXvBECas9xwelV5fa40Y8TN
+Date: Tue, 8 Nov 2022 03:45:57 +0000
+Message-ID: <DS0PR12MB63911377B20123352536679B9D3F9@DS0PR12MB6391.namprd12.prod.outlook.com>
+References: <20221107080501.3205127-1-krunalkumarmukeshkumar.patel@amd.com>
+In-Reply-To: <20221107080501.3205127-1-krunalkumarmukeshkumar.patel@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-11-08T03:44:19.6459053Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB6391:EE_|PH7PR12MB7138:EE_
+x-ms-office365-filtering-correlation-id: e2fa0afa-4226-475b-e054-08dac13bbf08
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: o/6Meu+Rkf3IKb+O/D4EXH6zqGObPAW3rgGbA/mR3SBmGVoCtnHvS+AlRlY9Kz9P3joNVUP4dY3NCSOVtB8hCDHOfFa52Sn6KM1sEg6+vEaqy3NM9MX2987j8rzL4fEqBILsLAM56B7TVeFnGcw5NBSyK99g8p5JlDEcx5OzQZZ8PCgir5G849WiSVCnEWyutIUXmsCro3karX3sGIJ5yig6GUW9r8BSya8XnWvpb6/fSiXbrdfDkyFIdCozs89VSlHk2OVNhtb6akeQOfFzlwHJLtdNsjoOUpEiX5Jazotgbq1wLuSh2+gy+MrmVmhM7wWuWD5beUwm+sKjUnBoWdDAzJX++afQg+pxB3duaEbAWIuotLhHRyLHtc0fIFjCG+6DulRuGxwumt+0gJYqqOfFrOa3Nddod5tdZrACOI6ThiSvpBaxY9szu67jaUmU+A2cloJQowjYLKJMEkEp77KMZkRZuzdt+GfePbEZK7rVoUU3HDF345c9/pHzP+At8ljMdR8xBvKYHH/JuPa6auJ1tt7FZy9c3r+KQK3JGBavq0j5PL3DJjwiA+c1ks/vAtBkdxydcB9z5xYLq3W6wdEIyXvQIl9xCU5NI6eZWwBpMJHEm1w5UlvdNgQCUf5gZCS9FDofMtJedZ58WW1SMeWjvAzDjAVsxDXMBA00BYbBbX4Ptdee3Gmds+oA9VXneKurte4uvIl0+zaVqy4+4x6YSbZrHgQHXadTb1hZATPGq+W8U3/uKIPT5SFxbhoG71/CLV5xnhRHcNWkhm5BcHohJnEKmgBj0oWh3Eeq474=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6391.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(376002)(346002)(39860400002)(136003)(366004)(451199015)(4326008)(66946007)(66446008)(55016003)(8676002)(64756008)(91956017)(66476007)(66556008)(316002)(71200400001)(76116006)(5660300002)(33656002)(110136005)(54906003)(6636002)(38100700002)(2906002)(122000001)(41300700001)(8936002)(52536014)(6506007)(7696005)(921005)(186003)(26005)(83380400001)(53546011)(478600001)(9686003)(86362001)(38070700005);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DQb6GEyiViDt6Ot/x2on19X5ck/lo/DYc0kauy/zzsDYRDJwngFWQUAg39wk?=
+ =?us-ascii?Q?668pyq0apCEd/g5UQJk2gE35STVNuImRDTLiRbAq+S2T+Y8gFGvAoVpHYEcK?=
+ =?us-ascii?Q?opxm5g17yr06Y2dqpfAonzNR0vxwCI41ZkXzd0hqIE/+YIwqsmq9r4i9vYjV?=
+ =?us-ascii?Q?FqKE87o6b32RjCu+WSHilrHIyX5ug7yTRtRRFIE2SGT4mucqvpZoGzgnQ9HL?=
+ =?us-ascii?Q?2CTNxFBygEklxT1fXgjjwQk5GCExpnDkdNFBsODua9EyCYB+gPnzeSG/KHop?=
+ =?us-ascii?Q?fyyNjkWpaWG4h8n90iru7SWkD1y6JEuYWsltyjehBiy+olIZ9siLjNhh+VZq?=
+ =?us-ascii?Q?90U1C2EPNF6Yy7jiAAnMcpZ+S0lIhr9D8LiPhzR8ruQtfGKWzZ5l3m43rDl/?=
+ =?us-ascii?Q?C+SLh1wlyc8eRFMp5O11VQL1udC8LOo0z15nw5g4s9o8H1UKBo7L422sIfJ2?=
+ =?us-ascii?Q?NvhdqmpRJQCdqMvtnK/z1KjpKJxSHoGZmKLmzxoTLdlI1QZo05lePdd3YdiM?=
+ =?us-ascii?Q?JIA3dFxhBiQprS8JH9zAdoNFkvBUQzKLxRvRod8qlexs9TYqXUKQWH3IYt58?=
+ =?us-ascii?Q?8EXEdP0d5imiX+hHuymOe7i6lzejcV5dy8S1PRChu5MkS+Fv1Wf9DSqaq/uL?=
+ =?us-ascii?Q?elzUmXrFTTJeA7PbrVBog/ikqd1UYwV3f5fQRvDPweVfn5p0Cf0/GcviQruh?=
+ =?us-ascii?Q?o4MARtGm6+TFpmtcuEQd+UPd9CWR1hzrcNU5ExBqKyOp7vOjXpPjahXciWVu?=
+ =?us-ascii?Q?V9BsK9i/SCdEdyr6kP+VmBVUvttVaX5qJSeRR87PX3Nn+AkVEMm6Z/rSOg0B?=
+ =?us-ascii?Q?KAZN31XOF3UBbJaFbe4nOrDmAOS5imCqvIlsEoIZkUy+nqHYJpR6+dQ8XuC1?=
+ =?us-ascii?Q?gUbq/Fbrdfi7PEy+JNN4JD2IKH2CLnEho3KXXxtm2PGP6IObDKT+JIo8poAN?=
+ =?us-ascii?Q?bvaLxWnIEWLPOUH2dSYwPooZpOgYV0TS7kjWXZ55hRyTWJev7NSXHDqH+YOq?=
+ =?us-ascii?Q?KKtkRkJu7R0A5ykSbfiSnL4/sn4y54d3XvLREsONsMZ2YAZ6hcb6lO1xRozS?=
+ =?us-ascii?Q?Ht6fkBpviMdmp+hjetbtKg46nOkExfJ5LX2j0duHCX47HSP5lgGVA59pErM3?=
+ =?us-ascii?Q?zN7ajCCW/qnEqZmrF4QhG/5ODioqpN6VAHwxSbQwSvwieV/sEu+OSXEL4Y1m?=
+ =?us-ascii?Q?w/V5kaZMJvilU3fsPE6uZ6+D5+Tpw3OdPprTJ+zYFixJdKnyWNVudPbDF3VP?=
+ =?us-ascii?Q?5G+e5JcW1Xpvra4FHoR1PheCVTequwT+NWPgvd1V2WS9+inblbdiJHdAUSfl?=
+ =?us-ascii?Q?E9GVNPO9DCWF6DjRKlXKshAUNdWcAIJ2fWsxD+mIWTC5Jmt/1Hamnq90r96R?=
+ =?us-ascii?Q?Np7vVnAnvOVbQl1RH5S2//S125UuaKTKaFfbrJFgDer3VqvabMSsPtp+Q240?=
+ =?us-ascii?Q?5/5Unf1MqteeooRRz2+eY7oPOhWlt32U4d0UWWM6A0ie8CRt8Ciu94LAZAh1?=
+ =?us-ascii?Q?AP3JjkdMYNNSFOVvtzz4FOOhsn0Z2lHcvDZeFInCKnuC30Wg0GqZqqQvGsnT?=
+ =?us-ascii?Q?5EwkQCGKlntkvhw81sEH4OBkw145T4Xzldvry5OyEtVHjAeEVd7i8oGTrySt?=
+ =?us-ascii?Q?dA=3D=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_DS0PR12MB63911377B20123352536679B9D3F9DS0PR12MB6391namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2022 02:47:37.5290 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 795d0fb7-40e8-4d5e-3f0b-08dac13398c9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6424
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6391.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2fa0afa-4226-475b-e054-08dac13bbf08
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Nov 2022 03:45:57.8295 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: SQcE4+V+OzDsMngloBp7Ke7K4rq1VjulKdY/lQAhToGdkxwCPr9FhruNEeqvg0RriOnlFrDjbWgtCMsbvN7vfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7138
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,331 +122,179 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
- horace.chen@amd.com, Kevin Wang <Kevin1.Wang@amd.com>,
- Tong Liu01 <Tong.Liu01@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Monk
- Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "S,
+ Shirish" <Shirish.S@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move TMR region from top of FB to 2MB for FFBM, so we need to reserve TMR
-region firstly to make sure TMR can be allocated at 2MB
+--_000_DS0PR12MB63911377B20123352536679B9D3F9DS0PR12MB6391namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Tong Liu01 <Tong.Liu01@amd.com>
+[AMD Official Use Only - General]
+
++Likun, Hawking
+
+Hi,
+
+Can you please help with the review of the patch?
+
+Thanks and regards
+Krunal
+________________________________
+From: Patel, Krunalkumar Mukeshkumar <KrunalkumarMukeshkumar.Patel@amd.com>
+Sent: Monday, November 7, 2022 1:35:01 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Pan, Xinhui <Xinhui.Pan=
+@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; S, Shiri=
+sh <Shirish.S@amd.com>; Patel, Krunalkumar Mukeshkumar <KrunalkumarMukeshku=
+mar.Patel@amd.com>
+Subject: [PATCH] drm/amdgpu: Add support to clock gating for sdma 5.2.7
+
+With this change it will add support for clock gating for sdma 5.2.7
+
+- Additional changes are to re-arrange the chip version sequentially.
+
+Signed-off-by: Krunal Patel <krunalkumarmukeshkumar.patel@amd.com>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 106 ++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  50 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |   5 +
- drivers/gpu/drm/amd/include/atomfirmware.h    |  62 ++++++++--
- 4 files changed, 192 insertions(+), 31 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index b81b77a9efa6..239c621feb0a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -101,39 +101,99 @@ void amdgpu_atomfirmware_scratch_regs_init(struct amdgpu_device *adev)
- 	}
- }
- 
-+static int amdgpu_atomfirmware_allocate_fb_v2_1(struct amdgpu_device *adev,
-+		struct vram_usagebyfirmware_v2_1 *firmware_usage_v2_1,
-+		int *usage_bytes)
-+{
-+	uint32_t start_addr, size;
-+
-+	DRM_DEBUG("atom firmware v2_1 requested %08x %dkb fw %dkb drv\n",
-+		le32_to_cpu(firmware_usage_v2_1->start_address_in_kb),
-+		le16_to_cpu(firmware_usage_v2_1->used_by_firmware_in_kb),
-+		le16_to_cpu(firmware_usage_v2_1->used_by_driver_in_kb));
-+
-+	start_addr = le32_to_cpu(firmware_usage_v2_1->start_address_in_kb);
-+	size = le16_to_cpu(firmware_usage_v2_1->used_by_firmware_in_kb);
-+
-+	if ((uint32_t)(start_addr & ATOM_VRAM_OPERATION_FLAGS_MASK) ==
-+		(uint32_t)(ATOM_VRAM_BLOCK_SRIOV_MSG_SHARE_RESERVATION <<
-+		ATOM_VRAM_OPERATION_FLAGS_SHIFT)) {
-+		/* Firmware request VRAM reservation for SR-IOV */
-+		adev->mman.fw_vram_usage_start_offset = (start_addr &
-+			(~ATOM_VRAM_OPERATION_FLAGS_MASK)) << 10;
-+		adev->mman.fw_vram_usage_size = size << 10;
-+		/* Use the default scratch size */
-+		*usage_bytes = 0;
-+	} else {
-+		*usage_bytes =
-+			le16_to_cpu(firmware_usage_v2_1->used_by_driver_in_kb) << 10;
-+	}
-+	return 0;
-+}
-+
-+static int amdgpu_atomfirmware_allocate_fb_v2_2(struct amdgpu_device *adev,
-+		struct vram_usagebyfirmware_v2_2 *firmware_usage_v2_2,
-+		int *usage_bytes)
-+{
-+	uint32_t fw_start_addr, fw_size, drv_start_addr, drv_size;
-+
-+	DRM_DEBUG("atom requested fw start at %08x %dkb and drv start at %08x %dkb\n",
-+		le32_to_cpu(firmware_usage_v2_2->fw_region_start_address_in_kb),
-+		le16_to_cpu(firmware_usage_v2_2->used_by_firmware_in_kb),
-+		le32_to_cpu(firmware_usage_v2_2->driver_region0_start_address_in_kb),
-+		le32_to_cpu(firmware_usage_v2_2->used_by_driver_region0_in_kb));
-+
-+	fw_start_addr = le32_to_cpu(firmware_usage_v2_2->fw_region_start_address_in_kb);
-+	fw_size = le16_to_cpu(firmware_usage_v2_2->used_by_firmware_in_kb);
-+
-+	drv_start_addr = le32_to_cpu(firmware_usage_v2_2->driver_region0_start_address_in_kb);
-+	drv_size = le32_to_cpu(firmware_usage_v2_2->used_by_driver_region0_in_kb);
-+
-+	if ((uint32_t)(fw_start_addr & (ATOM_VRAM_BLOCK_NEEDS_NO_RESERVATION << 30)) == 0) {
-+		/* Firmware request VRAM reservation for SR-IOV */
-+		adev->mman.fw_vram_usage_start_offset = (fw_start_addr &
-+			(~ATOM_VRAM_OPERATION_FLAGS_MASK)) << 10;
-+		adev->mman.fw_vram_usage_size = fw_size << 10;
-+	}
-+
-+	if ((uint32_t)(drv_start_addr & (ATOM_VRAM_BLOCK_NEEDS_NO_RESERVATION << 30)) == 0) {
-+		/* driver request VRAM reservation for SR-IOV */
-+		adev->mman.drv_vram_usage_start_offset = (drv_start_addr &
-+			(~ATOM_VRAM_OPERATION_FLAGS_MASK)) << 10;
-+		adev->mman.drv_vram_usage_size = drv_size << 10;
-+	}
-+
-+	*usage_bytes = 0;
-+	return 0;
-+}
-+
- int amdgpu_atomfirmware_allocate_fb_scratch(struct amdgpu_device *adev)
- {
- 	struct atom_context *ctx = adev->mode_info.atom_context;
- 	int index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
- 						vram_usagebyfirmware);
--	struct vram_usagebyfirmware_v2_1 *firmware_usage;
--	uint32_t start_addr, size;
-+	struct vram_usagebyfirmware_v2_1 *firmware_usage_v2_1;
-+	struct vram_usagebyfirmware_v2_2 *firmware_usage_v2_2;
- 	uint16_t data_offset;
-+	uint8_t frev, crev;
- 	int usage_bytes = 0;
- 
--	if (amdgpu_atom_parse_data_header(ctx, index, NULL, NULL, NULL, &data_offset)) {
--		firmware_usage = (struct vram_usagebyfirmware_v2_1 *)(ctx->bios + data_offset);
--		DRM_DEBUG("atom firmware requested %08x %dkb fw %dkb drv\n",
--			  le32_to_cpu(firmware_usage->start_address_in_kb),
--			  le16_to_cpu(firmware_usage->used_by_firmware_in_kb),
--			  le16_to_cpu(firmware_usage->used_by_driver_in_kb));
--
--		start_addr = le32_to_cpu(firmware_usage->start_address_in_kb);
--		size = le16_to_cpu(firmware_usage->used_by_firmware_in_kb);
--
--		if ((uint32_t)(start_addr & ATOM_VRAM_OPERATION_FLAGS_MASK) ==
--			(uint32_t)(ATOM_VRAM_BLOCK_SRIOV_MSG_SHARE_RESERVATION <<
--			ATOM_VRAM_OPERATION_FLAGS_SHIFT)) {
--			/* Firmware request VRAM reservation for SR-IOV */
--			adev->mman.fw_vram_usage_start_offset = (start_addr &
--				(~ATOM_VRAM_OPERATION_FLAGS_MASK)) << 10;
--			adev->mman.fw_vram_usage_size = size << 10;
--			/* Use the default scratch size */
--			usage_bytes = 0;
--		} else {
--			usage_bytes = le16_to_cpu(firmware_usage->used_by_driver_in_kb) << 10;
-+	if (amdgpu_atom_parse_data_header(ctx, index, NULL, &frev, &crev, &data_offset)) {
-+		if (frev == 2 && crev == 1) {
-+			firmware_usage_v2_1 =
-+				(struct vram_usagebyfirmware_v2_1 *)(ctx->bios + data_offset);
-+			amdgpu_atomfirmware_allocate_fb_v2_1(adev,
-+					firmware_usage_v2_1,
-+					&usage_bytes);
-+		} else if (frev >= 2 && crev >= 2) {
-+			firmware_usage_v2_2 =
-+				(struct vram_usagebyfirmware_v2_2 *)(ctx->bios + data_offset);
-+			amdgpu_atomfirmware_allocate_fb_v2_2(adev,
-+					firmware_usage_v2_2,
-+					&usage_bytes);
- 		}
- 	}
-+
- 	ctx->scratch_size_bytes = 0;
- 	if (usage_bytes == 0)
- 		usage_bytes = 20 * 1024;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 585460ab8dfd..4a73cb314086 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1578,6 +1578,22 @@ static void amdgpu_ttm_fw_reserve_vram_fini(struct amdgpu_device *adev)
- 		NULL, &adev->mman.fw_vram_usage_va);
- }
- 
-+/*
-+ * Driver Reservation functions
-+ */
-+/**
-+ * amdgpu_ttm_drv_reserve_vram_fini - free drv reserved vram
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * free drv reserved vram if it has been reserved.
-+ */
-+static void amdgpu_ttm_drv_reserve_vram_fini(struct amdgpu_device *adev)
-+{
-+	amdgpu_bo_free_kernel(&adev->mman.drv_vram_usage_reserved_bo,
-+		NULL, NULL);
-+}
-+
- /**
-  * amdgpu_ttm_fw_reserve_vram_init - create bo vram reservation from fw
-  *
-@@ -1604,6 +1620,31 @@ static int amdgpu_ttm_fw_reserve_vram_init(struct amdgpu_device *adev)
- 					  &adev->mman.fw_vram_usage_va);
- }
- 
-+/**
-+ * amdgpu_ttm_drv_reserve_vram_init - create bo vram reservation from driver
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * create bo vram reservation from drv.
-+ */
-+static int amdgpu_ttm_drv_reserve_vram_init(struct amdgpu_device *adev)
-+{
-+	uint64_t vram_size = adev->gmc.visible_vram_size;
-+
-+	adev->mman.drv_vram_usage_reserved_bo = NULL;
-+
-+	if (adev->mman.drv_vram_usage_size == 0 ||
-+	    adev->mman.drv_vram_usage_size > vram_size)
-+		return 0;
-+
-+	return amdgpu_bo_create_kernel_at(adev,
-+					  adev->mman.drv_vram_usage_start_offset,
-+					  adev->mman.drv_vram_usage_size,
-+					  AMDGPU_GEM_DOMAIN_VRAM,
-+					  &adev->mman.drv_vram_usage_reserved_bo,
-+					  NULL);
-+}
-+
- /*
-  * Memoy training reservation functions
-  */
-@@ -1771,6 +1812,14 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 		return r;
- 	}
- 
-+	/*
-+	 *The reserved vram for driver must be pinned to the specified
-+	 *place on the VRAM, so reserve it early.
-+	 */
-+	r = amdgpu_ttm_drv_reserve_vram_init(adev);
-+	if (r)
-+		return r;
-+
- 	/*
- 	 * only NAVI10 and onwards ASIC support for IP discovery.
- 	 * If IP discovery enabled, a block of memory should be
-@@ -1896,6 +1945,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
- 	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
- 					&adev->mman.sdma_access_ptr);
- 	amdgpu_ttm_fw_reserve_vram_fini(adev);
-+	amdgpu_ttm_drv_reserve_vram_fini(adev);
- 
- 	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index 9120ae80ef52..339838675b11 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -92,6 +92,11 @@ struct amdgpu_mman {
- 	struct amdgpu_bo	*fw_vram_usage_reserved_bo;
- 	void		*fw_vram_usage_va;
- 
-+	/* driver VRAM reservation */
-+	u64		drv_vram_usage_start_offset;
-+	u64		drv_vram_usage_size;
-+	struct amdgpu_bo	*drv_vram_usage_reserved_bo;
-+
- 	/* PAGE_SIZE'd BO for process memory r/w over SDMA. */
- 	struct amdgpu_bo	*sdma_access_bo;
- 	void			*sdma_access_ptr;
-diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
-index ff855cb21d3f..c0f56ae653f0 100644
---- a/drivers/gpu/drm/amd/include/atomfirmware.h
-+++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-@@ -705,20 +705,66 @@ struct atom_gpio_pin_lut_v2_1
- };
- 
- 
--/* 
--  ***************************************************************************
--    Data Table vram_usagebyfirmware  structure
--  ***************************************************************************
-+/*
-+  VBIOS/PRE-OS always reserve a FB region at the top of frame buffer. driver should not write access that region.
-+  driver can allocate their own reservation region as long as it does not overlap firwmare's reservation region.
-+  if( atom data table firmwareInfoTable version < 3.3) { //( pre-NV1X )
-+    in this case, atom data table vram_usagebyfirmwareTable version always <= 2.1
-+    if( VBIOS/UEFI GOP is posted ) {
-+      VBIOS/UEFIGOP update used_by_firmware_in_kb = total reserved size by VBIOS
-+      update start_address_in_kb = total_mem_size_in_kb - used_by_firmware_in_kb;  ( total_mem_size_in_kb = reg(CONFIG_MEMSIZE)<<10)
-+      driver can allocate driver reservation region under firmware reservation,
-+      used_by_driver_in_kb = driver reservation size
-+      driver reservation start address =  (start_address_in_kb - used_by_driver_in_kb)
-+    Comment1[hchan]: There is only one reservation at the beginning of the FB reserved by Host driver.
-+    Host driver would overwrite the table with the following
-+    used_by_firmware_in_kb = total reserved size for pf-vf info exchange and
-+    set SRIOV_MSG_SHARE_RESERVATION mask start_address_in_kb = 0
-+    } else {
-+      there is no VBIOS reservation region
-+      driver must allocate driver reservation region at top of FB.
-+      driver set used_by_driver_in_kb = driver reservation size
-+      driver reservation start address =  (total_mem_size_in_kb - used_by_driver_in_kb)
-+      same as Comment1
-+    }
-+  } else { //( NV1X and after)
-+    if( VBIOS/UEFI GOP is posted ) {
-+      VBIOS/UEFIGOP update used_by_firmware_in_kb = atom_firmware_Info_v3_3.fw_reserved_size_in_kb;
-+      update start_address_in_kb = total_mem_size_in_kb - used_by_firmware_in_kb;  ( total_mem_size_in_kb = reg(CONFIG_MEMSIZE)<<10  )
-+    }
-+    if( vram_usagebyfirmwareTable version <= 2.1 ) {
-+      driver can allocate driver reservation region under firmware reservation,
-+      driver set used_by_driver_in_kb = driver reservation size
-+      driver reservation start address =  (start_address_in_kb - used_by_driver_in_kb)
-+      same as Comment1
-+    } else {
-+      dirver can allocate it reservation any place as long as it does overlap pre-OS FW reservation area
-+      driver set used_by_driver_region0_in_kb = driver reservation size
-+      driver set driver_region0_start_address_in_kb =  driver reservation region start address
-+      Comment2[hchan]: Host driver can set used_by_firmware_in_kb and start_address_in_kb to zero
-+      as the reservation for VF as it doesn’t exist.  And Host driver should also
-+      update atom_firmware_Info table to remove the same VBIOS reservation as well.
-+    }
-+  }
- */
- 
- struct vram_usagebyfirmware_v2_1
- {
--  struct  atom_common_table_header  table_header;
--  uint32_t  start_address_in_kb;
--  uint16_t  used_by_firmware_in_kb;
--  uint16_t  used_by_driver_in_kb; 
-+	struct  atom_common_table_header  table_header;
-+	uint32_t  start_address_in_kb;
-+	uint16_t  used_by_firmware_in_kb;
-+	uint16_t  used_by_driver_in_kb;
- };
- 
-+struct vram_usagebyfirmware_v2_2 {
-+	struct  atom_common_table_header  table_header;
-+	uint32_t  fw_region_start_address_in_kb;
-+	uint16_t  used_by_firmware_in_kb;
-+	uint16_t  reserved;
-+	uint32_t  driver_region0_start_address_in_kb;
-+	uint32_t  used_by_driver_region0_in_kb;
-+	uint32_t  reserved32[7];
-+};
- 
- /* 
-   ***************************************************************************
--- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/a=
+mdgpu/sdma_v5_2.c
+index 809eca54fc61..404b255cb4e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -1647,12 +1647,13 @@ static int sdma_v5_2_set_clockgating_state(void *ha=
+ndle,
+
+         switch (adev->ip_versions[SDMA0_HWIP][0]) {
+         case IP_VERSION(5, 2, 0):
+-       case IP_VERSION(5, 2, 2):
+         case IP_VERSION(5, 2, 1):
++       case IP_VERSION(5, 2, 2):
++       case IP_VERSION(5, 2, 3):
+         case IP_VERSION(5, 2, 4):
+         case IP_VERSION(5, 2, 5):
+         case IP_VERSION(5, 2, 6):
+-       case IP_VERSION(5, 2, 3):
++       case IP_VERSION(5, 2, 7):
+                 sdma_v5_2_update_medium_grain_clock_gating(adev,
+                                 state =3D=3D AMD_CG_STATE_GATE);
+                 sdma_v5_2_update_medium_grain_light_sleep(adev,
+--
 2.25.1
 
+
+--_000_DS0PR12MB63911377B20123352536679B9D3F9DS0PR12MB6391namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body>
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
++Likun, Hawking</div>
+<div dir=3D"auto">
+<div><br>
+</div>
+</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto">Hi,</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto" style=3D"color: rgb(33=
+, 33, 33); background-color: rgb(255, 255, 255);">
+<br>
+</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto" style=3D"color: rgb(33=
+, 33, 33); background-color: rgb(255, 255, 255);">
+Can you please help with the review of the patch?</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto" style=3D"color: rgb(33=
+, 33, 33); background-color: rgb(255, 255, 255);">
+<br>
+</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto" style=3D"color: rgb(33=
+, 33, 33); background-color: rgb(255, 255, 255);">
+Thanks and regards</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto" style=3D"color: rgb(33=
+, 33, 33); background-color: rgb(255, 255, 255);">
+Krunal</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Patel, Krunalkumar Mu=
+keshkumar &lt;KrunalkumarMukeshkumar.Patel@amd.com&gt;<br>
+<b>Sent:</b> Monday, November 7, 2022 1:35:01 PM<br>
+<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Pan, Xinhu=
+i &lt;Xinhui.Pan@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.co=
+m&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; S, Shirish &lt;Shirish.S@amd.com&gt;; Patel, Krunalkumar Mukeshkumar &=
+lt;KrunalkumarMukeshkumar.Patel@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Add support to clock gating for sdma 5.=
+2.7</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">With this change it will add support for clock gat=
+ing for sdma 5.2.7<br>
+<br>
+- Additional changes are to re-arrange the chip version sequentially.<br>
+<br>
+Signed-off-by: Krunal Patel &lt;krunalkumarmukeshkumar.patel@amd.com&gt;<br=
+>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 5 +++--<br>
+&nbsp;1 file changed, 3 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/a=
+mdgpu/sdma_v5_2.c<br>
+index 809eca54fc61..404b255cb4e0 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c<br>
+@@ -1647,12 +1647,13 @@ static int sdma_v5_2_set_clockgating_state(void *ha=
+ndle,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;ip_versio=
+ns[SDMA0_HWIP][0]) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(5, 2, 0):<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(5, 2, 2):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(5, 2, 1):<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(5, 2, 2):<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(5, 2, 3):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(5, 2, 4):<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(5, 2, 5):<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(5, 2, 6):<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(5, 2, 3):<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(5, 2, 7):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; sdma_v5_2_update_medium_grain_clock_gating(adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state =3D=3D AMD_CG_STATE_GATE);=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; sdma_v5_2_update_medium_grain_light_sleep(adev,<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_DS0PR12MB63911377B20123352536679B9D3F9DS0PR12MB6391namp_--
