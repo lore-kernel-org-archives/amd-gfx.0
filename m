@@ -4,68 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 821CBC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 13:56:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFACFC433FE
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 13:56:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D43A210E5D3;
-	Wed,  9 Nov 2022 13:56:39 +0000 (UTC)
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0044510E592;
- Wed,  9 Nov 2022 07:33:43 +0000 (UTC)
-Received: by mail-pj1-x102d.google.com with SMTP id
- c15-20020a17090a1d0f00b0021365864446so1123585pjd.4; 
- Tue, 08 Nov 2022 23:33:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=VfaZWHmp3/7/i2FUcNx0O07NB6LAM0d+BKVvnY3XIXQ=;
- b=OxH7ylJeFIRsKDTt8VIrBbStjYgYgrC93Tuq1Ce85J8FaMUb331253zbKb/d+gz2CV
- S3BHwSUR9VEt/01g5dj7YZvuAZyPadh8mQRXt6IM8M0FB4G2uVQ7qoZw3iH3XWAnOMWk
- DR5iA9VuGZC1f56rYHWLX6xWDjZq0/JK2LIs+FCPyYGkK/OtTq0nYFxiKJfEiKvunL/J
- +0W5RS7MzpoxZFXoRFjpBhZNk9anROYWmyI1+3e6wg9wijWiEJQoTE9A95pVtTFzp2Qb
- wsG00051zMCpPfTU8PyVl8OwPpk4vd7I2d4Y8Pp33cQjQTNVa7kNQhySRgzRzq6w6Vhr
- mlcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VfaZWHmp3/7/i2FUcNx0O07NB6LAM0d+BKVvnY3XIXQ=;
- b=Vw3ged+VYW6xQGF4MESkP8XlakPBm48D1Z4kIMGXNZtuN+PV8L3kROxpSOyRzRJmRX
- OiXX+dFrOdouOQEt53gmUnQGXSr1Gs3X13TaHCat7fpUkcKufi+hEP/XmUBl3ctlSRrf
- ZpVzkAhNECZ0S3l8JUFQy6zsaoFc7c8/fUNeBnQw3E2nt+ksOTjmPwLp3t4s/VOTCCTl
- Sg29qssJOJFKq9rLIUIftcHcmv6PaRRaxkWQ0w8xTlUpeH8ngmOVEnw9el4uIConOIVO
- IpM/KmN7vuS4t0qjTC/LaHD7wRkFz0J+aU2odaE4cF+MVkfqNjkuYFakzD+swAx/tqo+
- 4ZzQ==
-X-Gm-Message-State: ACrzQf0vgfA9qPBo9ycaXTst74wCsJcaZ5Y17cbukqC/fli0aFdMVv+n
- SHNgkGYbjlU7yW3ggqgMSOg=
-X-Google-Smtp-Source: AMsMyM6iyKbmrHTGvEYKCrZ50oQgQv0Ff9njXJS1jo3Tv6lFn+hlfJwcat4xY6pODaaQZDQI2KIO6A==
-X-Received: by 2002:a17:90b:19d1:b0:213:7030:6bd9 with SMTP id
- nm17-20020a17090b19d100b0021370306bd9mr61643441pjb.43.1667979223474; 
- Tue, 08 Nov 2022 23:33:43 -0800 (PST)
-Received: from mail.google.com (125-237-50-34-fibre.sparkbb.co.nz.
- [125.237.50.34]) by smtp.gmail.com with ESMTPSA id
- h14-20020a056a00000e00b0056bc9294e1asm7579920pfk.24.2022.11.08.23.33.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Nov 2022 23:33:43 -0800 (PST)
-Date: Wed, 9 Nov 2022 20:33:34 +1300
-From: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
- Rongguang Wei <weirongguang@kylinos.cn>,
- Slark Xiao <slark_xiao@163.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH] [next] drm/amdgpu: Replace one-element array with flex-array
- member
-Message-ID: <Y2tXzlBDxgg9WMl7@mail.google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3B7F10E5D5;
+	Wed,  9 Nov 2022 13:56:42 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9220410E0A8;
+ Wed,  9 Nov 2022 09:24:22 +0000 (UTC)
+Received: from canpemm500010.china.huawei.com (unknown [172.30.72.57])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4N6fft0M8DzmVgY;
+ Wed,  9 Nov 2022 17:24:06 +0800 (CST)
+Received: from huawei.com (10.175.101.6) by canpemm500010.china.huawei.com
+ (7.192.105.118) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 9 Nov
+ 2022 17:24:18 +0800
+From: Liu Jian <liujian56@huawei.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
+ <Rodrigo.Siqueira@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
+ <daniel@ffwll.ch>, <nicholas.kazlauskas@amd.com>, <Charlene.Liu@amd.com>,
+ <alex.hung@amd.com>, <duncan.ma@amd.com>, <aurabindo.pillai@amd.com>,
+ <michael.strauss@amd.com>, <rdunlap@infradead.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: delete the duplicate .set_odm_bypass
+ initialization in dcn314_tg_funcs
+Date: Wed, 9 Nov 2022 17:31:22 +0800
+Message-ID: <20221109093122.6566-1-liujian56@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain
+X-Originating-IP: [10.175.101.6]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+ canpemm500010.china.huawei.com (7.192.105.118)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Wed, 09 Nov 2022 13:56:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,145 +50,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.miguel.almeida.rodenas@gmail.com, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
+Cc: liujian56@huawei.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-One-element arrays are deprecated, and we are replacing them with
-flexible array members instead. So, replace one-element array with
-flexible-array member in structs _ATOM_CONNECTOR_DEVICE_TAG_RECORD,
-_ATOM_OBJECT_GPIO_CNTL_RECORD, _ATOM_BRACKET_LAYOUT_RECORD,
-_ATOM_BRACKET_LAYOUT_RECORD, _ATOM_LEAKAGE_VOLTAGE_OBJECT_V3,
-_ATOM_FUSION_SYSTEM_INFO_V3, _ATOM_I2C_DATA_RECORD,
-_ATOM_I2C_DEVICE_SETUP_INFO, _ATOM_ASIC_MVDD_INFO and refactor the
-rest of the code accordingly. While at it, removed a redundant casting.
+Fix below sparse warning:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn314/dcn314_optc.c:244:18: warning: Initializer entry defined twice
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn314/dcn314_optc.c:257:18:   also defined here
 
-Important to mention is that doing a build before/after this patch results
-in no binary output differences.
-
-This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
-routines on memcpy() and help us make progress towards globally
-enabling -fstrict-flex-arrays=3 [1].
-
-Link: https://github.com/KSPP/linux/issues/79
-Link: https://github.com/KSPP/linux/issues/238
-Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101836 [1]
-
-Signed-off-by: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+Fixes: 5ade1b951dec ("drm/amd/display: Add OTG/ODM functions")
+Signed-off-by: Liu Jian <liujian56@huawei.com>
 ---
+ drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Alex, I noticed a few structs in atombios.h that were not referenced. Is
-there any appetite for removing them? Or is that one of those cases
-where the structs are there should one driver ever need it?
-
-Ex.:
-	struct _ATOM_I2C_DATA_RECORD
-	struct _ATOM_I2C_DEVICE_SETUP_INFO
-	struct _ATOM_ASIC_MVDD_INFO
----
- .../gpu/drm/amd/display/dc/bios/bios_parser.c    |  5 ++---
- drivers/gpu/drm/amd/include/atombios.h           | 16 ++++++++--------
- 2 files changed, 10 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-index 39dd8b2dc254..6b9e64cd4379 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-@@ -2606,8 +2606,7 @@ static enum bp_result update_slot_layout_info(
- 
- 	for (;;) {
- 
--		record_header = (ATOM_COMMON_RECORD_HEADER *)
--			GET_IMAGE(ATOM_COMMON_RECORD_HEADER, record_offset);
-+		record_header = GET_IMAGE(ATOM_COMMON_RECORD_HEADER, record_offset);
- 		if (record_header == NULL) {
- 			result = BP_RESULT_BADBIOSTABLE;
- 			break;
-@@ -2621,7 +2620,7 @@ static enum bp_result update_slot_layout_info(
- 
- 		if (record_header->ucRecordType ==
- 			ATOM_BRACKET_LAYOUT_RECORD_TYPE &&
--			sizeof(ATOM_BRACKET_LAYOUT_RECORD)
-+			struct_size(record, asConnInfo, 1)
- 			<= record_header->ucRecordSize) {
- 			record = (ATOM_BRACKET_LAYOUT_RECORD *)
- 				(record_header);
-diff --git a/drivers/gpu/drm/amd/include/atombios.h b/drivers/gpu/drm/amd/include/atombios.h
-index 55ae93c1e365..60c44a8a067f 100644
---- a/drivers/gpu/drm/amd/include/atombios.h
-+++ b/drivers/gpu/drm/amd/include/atombios.h
-@@ -4733,7 +4733,7 @@ typedef struct  _ATOM_CONNECTOR_DEVICE_TAG_RECORD
-   ATOM_COMMON_RECORD_HEADER   sheader;
-   UCHAR                       ucNumberOfDevice;
-   UCHAR                       ucReserved;
--  ATOM_CONNECTOR_DEVICE_TAG   asDeviceTag[1];         //This Id is same as "ATOM_DEVICE_XXX_SUPPORT", 1 is only for allocation
-+  ATOM_CONNECTOR_DEVICE_TAG   asDeviceTag[];	       //This Id is same as "ATOM_DEVICE_XXX_SUPPORT"
- }ATOM_CONNECTOR_DEVICE_TAG_RECORD;
- 
- 
-@@ -4793,7 +4793,7 @@ typedef struct  _ATOM_OBJECT_GPIO_CNTL_RECORD
-   ATOM_COMMON_RECORD_HEADER   sheader;
-   UCHAR                       ucFlags;                // Future expnadibility
-   UCHAR                       ucNumberOfPins;         // Number of GPIO pins used to control the object
--  ATOM_GPIO_PIN_CONTROL_PAIR  asGpio[1];              // the real gpio pin pair determined by number of pins ucNumberOfPins
-+  ATOM_GPIO_PIN_CONTROL_PAIR  asGpio[];               // the real gpio pin pair determined by number of pins ucNumberOfPins
- }ATOM_OBJECT_GPIO_CNTL_RECORD;
- 
- //Definitions for GPIO pin state
-@@ -4982,7 +4982,7 @@ typedef struct  _ATOM_BRACKET_LAYOUT_RECORD
-   UCHAR                       ucWidth;
-   UCHAR                       ucConnNum;
-   UCHAR                       ucReserved;
--  ATOM_CONNECTOR_LAYOUT_INFO  asConnInfo[1];
-+  ATOM_CONNECTOR_LAYOUT_INFO  asConnInfo[];
- }ATOM_BRACKET_LAYOUT_RECORD;
- 
- 
-@@ -5161,7 +5161,7 @@ typedef struct  _ATOM_GPIO_VOLTAGE_OBJECT_V3
-    UCHAR  ucPhaseDelay;                      // phase delay in unit of micro second
-    UCHAR  ucReserved;
-    ULONG  ulGpioMaskVal;                     // GPIO Mask value
--   VOLTAGE_LUT_ENTRY_V2 asVolGpioLut[1];
-+   VOLTAGE_LUT_ENTRY_V2 asVolGpioLut[];
- }ATOM_GPIO_VOLTAGE_OBJECT_V3;
- 
- typedef struct  _ATOM_LEAKAGE_VOLTAGE_OBJECT_V3
-@@ -5171,7 +5171,7 @@ typedef struct  _ATOM_LEAKAGE_VOLTAGE_OBJECT_V3
-    UCHAR    ucLeakageEntryNum;               // indicate the entry number of LeakageId/Voltage Lut table
-    UCHAR    ucReserved[2];
-    ULONG    ulMaxVoltageLevel;
--   LEAKAGE_VOLTAGE_LUT_ENTRY_V2 asLeakageIdLut[1];
-+   LEAKAGE_VOLTAGE_LUT_ENTRY_V2 asLeakageIdLut[];
- }ATOM_LEAKAGE_VOLTAGE_OBJECT_V3;
- 
- 
-@@ -6599,7 +6599,7 @@ typedef struct _ATOM_FUSION_SYSTEM_INFO_V3
- typedef struct _ATOM_I2C_DATA_RECORD
- {
-   UCHAR         ucNunberOfBytes;                                              //Indicates how many bytes SW needs to write to the external ASIC for one block, besides to "Start" and "Stop"
--  UCHAR         ucI2CData[1];                                                 //I2C data in bytes, should be less than 16 bytes usually
-+  UCHAR         ucI2CData[];                                                  //I2C data in bytes, should be less than 16 bytes usually
- }ATOM_I2C_DATA_RECORD;
- 
- 
-@@ -6610,14 +6610,14 @@ typedef struct _ATOM_I2C_DEVICE_SETUP_INFO
-   UCHAR                              ucSSChipID;             //SS chip being used
-   UCHAR                              ucSSChipSlaveAddr;      //Slave Address to set up this SS chip
-   UCHAR                           ucNumOfI2CDataRecords;  //number of data block
--  ATOM_I2C_DATA_RECORD            asI2CData[1];
-+  ATOM_I2C_DATA_RECORD            asI2CData[];
- }ATOM_I2C_DEVICE_SETUP_INFO;
- 
- //==========================================================================================
- typedef struct  _ATOM_ASIC_MVDD_INFO
- {
-   ATOM_COMMON_TABLE_HEADER         sHeader;
--  ATOM_I2C_DEVICE_SETUP_INFO      asI2CSetup[1];
-+  ATOM_I2C_DEVICE_SETUP_INFO      asI2CSetup[];
- }ATOM_ASIC_MVDD_INFO;
- 
- //==========================================================================================
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
+index 47eb162f1a75..58d38de6a0f8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
+@@ -241,7 +241,6 @@ static struct timing_generator_funcs dcn314_tg_funcs = {
+ 		.set_dsc_config = optc3_set_dsc_config,
+ 		.get_dsc_status = optc2_get_dsc_status,
+ 		.set_dwb_source = NULL,
+-		.set_odm_bypass = optc3_set_odm_bypass,
+ 		.set_odm_combine = optc314_set_odm_combine,
+ 		.get_optc_source = optc2_get_optc_source,
+ 		.set_out_mux = optc3_set_out_mux,
 -- 
-2.37.3
+2.17.1
 
