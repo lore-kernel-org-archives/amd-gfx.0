@@ -4,59 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D1C8C433FE
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 13:56:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 821CBC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 13:56:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 567B810E5D1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D43A210E5D3;
 	Wed,  9 Nov 2022 13:56:39 +0000 (UTC)
-Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
- [IPv6:2607:f8b0:4864:20::1035])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 761F510E557
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 01:22:04 +0000 (UTC)
-Received: by mail-pj1-x1035.google.com with SMTP id
- d59-20020a17090a6f4100b00213202d77e1so470711pjk.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Nov 2022 17:22:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=X/7LWEJz0+L5ZmpQmdaQTLywAe07bO1jBNMRgwCToFg=;
- b=JC3ABDrxqqlvCMQDvshcXI7nRZ2IAs+p1gg9FcQkt4gMOI9VtHZp/D/ggc8GJnMbX3
- 57F+7cto25IxlIv67TdOLlFXUpyGUJ8+EOqmQqRAtQvOBoQi58h9QNCO775JiLmnaA/P
- pQLrbKtIGYQLLa//xuwYo1MAQiTjan98e3oRk=
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0044510E592;
+ Wed,  9 Nov 2022 07:33:43 +0000 (UTC)
+Received: by mail-pj1-x102d.google.com with SMTP id
+ c15-20020a17090a1d0f00b0021365864446so1123585pjd.4; 
+ Tue, 08 Nov 2022 23:33:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=VfaZWHmp3/7/i2FUcNx0O07NB6LAM0d+BKVvnY3XIXQ=;
+ b=OxH7ylJeFIRsKDTt8VIrBbStjYgYgrC93Tuq1Ce85J8FaMUb331253zbKb/d+gz2CV
+ S3BHwSUR9VEt/01g5dj7YZvuAZyPadh8mQRXt6IM8M0FB4G2uVQ7qoZw3iH3XWAnOMWk
+ DR5iA9VuGZC1f56rYHWLX6xWDjZq0/JK2LIs+FCPyYGkK/OtTq0nYFxiKJfEiKvunL/J
+ +0W5RS7MzpoxZFXoRFjpBhZNk9anROYWmyI1+3e6wg9wijWiEJQoTE9A95pVtTFzp2Qb
+ wsG00051zMCpPfTU8PyVl8OwPpk4vd7I2d4Y8Pp33cQjQTNVa7kNQhySRgzRzq6w6Vhr
+ mlcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=X/7LWEJz0+L5ZmpQmdaQTLywAe07bO1jBNMRgwCToFg=;
- b=CTvxHZviItyNvCV1LFw/rVrBqw4ZVid2q4dUzUrXe1xKVc/g3Bb59mUWzqs6+3uB//
- lA8UfQi+sy0KCyIb2SM7wGDfnpxTPyoly4ETRKPVAUkuuE+Y78/FWoxIbGaRa7SjITUq
- AOXPwBfOKJeyN2PK3ksUV113RYYAlh/FmCE9bVCbkyjRyarPS7sxhbAW5Mlu1yeGWo8z
- yr0fdDpJYrZzbsuF8K457b9EqvP5dyVTRiOF/wObXhVnZuijmv7ygasb3IxQ05GWQ3K9
- +NyRDRcJA9an+21HCgyS1zNDlKmhfvUEfpU1igFEKhCCtefwEOI5VMsRcq4vjYyLfQKo
- a7DQ==
-X-Gm-Message-State: ACrzQf2b+nmMA6eHKemt7lEQsS53AALwYX41tsfpZeIiVRt4CcBRjyRY
- URFv8Wb3XN0ux/o40D0Rmv60LA==
-X-Google-Smtp-Source: AMsMyM79wV03PeOCgAWiXl4AktoLEnB0mGs99UWHXE5f72dWr3bJFMGh0MaQKuBmpYynGlRLpU9/BQ==
-X-Received: by 2002:a17:90b:2393:b0:213:ecb2:2e04 with SMTP id
- mr19-20020a17090b239300b00213ecb22e04mr47944640pjb.100.1667956924038; 
- Tue, 08 Nov 2022 17:22:04 -0800 (PST)
-Received: from google.com ([2620:15c:9d:2:953c:d63a:4da6:1064])
- by smtp.gmail.com with ESMTPSA id
- 21-20020a170902c11500b00174c1855cd9sm7545805pli.267.2022.11.08.17.22.02
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=VfaZWHmp3/7/i2FUcNx0O07NB6LAM0d+BKVvnY3XIXQ=;
+ b=Vw3ged+VYW6xQGF4MESkP8XlakPBm48D1Z4kIMGXNZtuN+PV8L3kROxpSOyRzRJmRX
+ OiXX+dFrOdouOQEt53gmUnQGXSr1Gs3X13TaHCat7fpUkcKufi+hEP/XmUBl3ctlSRrf
+ ZpVzkAhNECZ0S3l8JUFQy6zsaoFc7c8/fUNeBnQw3E2nt+ksOTjmPwLp3t4s/VOTCCTl
+ Sg29qssJOJFKq9rLIUIftcHcmv6PaRRaxkWQ0w8xTlUpeH8ngmOVEnw9el4uIConOIVO
+ IpM/KmN7vuS4t0qjTC/LaHD7wRkFz0J+aU2odaE4cF+MVkfqNjkuYFakzD+swAx/tqo+
+ 4ZzQ==
+X-Gm-Message-State: ACrzQf0vgfA9qPBo9ycaXTst74wCsJcaZ5Y17cbukqC/fli0aFdMVv+n
+ SHNgkGYbjlU7yW3ggqgMSOg=
+X-Google-Smtp-Source: AMsMyM6iyKbmrHTGvEYKCrZ50oQgQv0Ff9njXJS1jo3Tv6lFn+hlfJwcat4xY6pODaaQZDQI2KIO6A==
+X-Received: by 2002:a17:90b:19d1:b0:213:7030:6bd9 with SMTP id
+ nm17-20020a17090b19d100b0021370306bd9mr61643441pjb.43.1667979223474; 
+ Tue, 08 Nov 2022 23:33:43 -0800 (PST)
+Received: from mail.google.com (125-237-50-34-fibre.sparkbb.co.nz.
+ [125.237.50.34]) by smtp.gmail.com with ESMTPSA id
+ h14-20020a056a00000e00b0056bc9294e1asm7579920pfk.24.2022.11.08.23.33.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Nov 2022 17:22:03 -0800 (PST)
-Date: Tue, 8 Nov 2022 17:22:01 -0800
-From: Brian Norris <briannorris@chromium.org>
-To: Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Move racy global PMU list into device
-Message-ID: <Y2sAucYLR4FsGIfc@google.com>
-References: <20221028224813.1466450-1-briannorris@chromium.org>
- <6e237301-9c30-a463-0f28-5279e655646a@amd.com>
+ Tue, 08 Nov 2022 23:33:43 -0800 (PST)
+Date: Wed, 9 Nov 2022 20:33:34 +1300
+From: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
+ Rongguang Wei <weirongguang@kylinos.cn>,
+ Slark Xiao <slark_xiao@163.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH] [next] drm/amdgpu: Replace one-element array with flex-array
+ member
+Message-ID: <Y2tXzlBDxgg9WMl7@mail.google.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <6e237301-9c30-a463-0f28-5279e655646a@amd.com>
 X-Mailman-Approved-At: Wed, 09 Nov 2022 13:56:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,33 +78,145 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: paulo.miguel.almeida.rodenas@gmail.com, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 08, 2022 at 11:50:04AM -0500, Felix Kuehling wrote:
-> While you're making the pmu list per-device, I'd suggest removing adev from
-> the pmu entry because it is now redundant. The device is implied by the list
-> that the entry is on. Instead, add an adev parameter to
-> init_pmu_entry_by_type_and_add. Or you could move the list_add_tail to
-> amdgpu_pmu_init and remove "_and_add" from the function name.
+One-element arrays are deprecated, and we are replacing them with
+flexible array members instead. So, replace one-element array with
+flexible-array member in structs _ATOM_CONNECTOR_DEVICE_TAG_RECORD,
+_ATOM_OBJECT_GPIO_CNTL_RECORD, _ATOM_BRACKET_LAYOUT_RECORD,
+_ATOM_BRACKET_LAYOUT_RECORD, _ATOM_LEAKAGE_VOLTAGE_OBJECT_V3,
+_ATOM_FUSION_SYSTEM_INFO_V3, _ATOM_I2C_DATA_RECORD,
+_ATOM_I2C_DEVICE_SETUP_INFO, _ATOM_ASIC_MVDD_INFO and refactor the
+rest of the code accordingly. While at it, removed a redundant casting.
 
-Sorry if I'm being naive here, but does that mean trying to navigate the
-list pointers to move from a 'pmu_entry' to an 'adev'
-(list_first_entry(), etc.)? There are quite a few cases where we're
-trying to go between 'pmu_entry' and 'adev'. I guess I could turn that
-into a mini helper.
+Important to mention is that doing a build before/after this patch results
+in no binary output differences.
 
-I'll also need to scrounge around a bit to see if I have an amdgpu
-system around that actually supports PMU. I realized the one I tested on
-doesn't actually hit this code path... and this would be getting a
-little less obvious/trivial.
+This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
+routines on memcpy() and help us make progress towards globally
+enabling -fstrict-flex-arrays=3 [1].
 
-> Other than that, the patch looks good to me.
+Link: https://github.com/KSPP/linux/issues/79
+Link: https://github.com/KSPP/linux/issues/238
+Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101836 [1]
 
-Thanks for looking!
+Signed-off-by: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+---
 
-Brian
+Alex, I noticed a few structs in atombios.h that were not referenced. Is
+there any appetite for removing them? Or is that one of those cases
+where the structs are there should one driver ever need it?
+
+Ex.:
+	struct _ATOM_I2C_DATA_RECORD
+	struct _ATOM_I2C_DEVICE_SETUP_INFO
+	struct _ATOM_ASIC_MVDD_INFO
+---
+ .../gpu/drm/amd/display/dc/bios/bios_parser.c    |  5 ++---
+ drivers/gpu/drm/amd/include/atombios.h           | 16 ++++++++--------
+ 2 files changed, 10 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+index 39dd8b2dc254..6b9e64cd4379 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+@@ -2606,8 +2606,7 @@ static enum bp_result update_slot_layout_info(
+ 
+ 	for (;;) {
+ 
+-		record_header = (ATOM_COMMON_RECORD_HEADER *)
+-			GET_IMAGE(ATOM_COMMON_RECORD_HEADER, record_offset);
++		record_header = GET_IMAGE(ATOM_COMMON_RECORD_HEADER, record_offset);
+ 		if (record_header == NULL) {
+ 			result = BP_RESULT_BADBIOSTABLE;
+ 			break;
+@@ -2621,7 +2620,7 @@ static enum bp_result update_slot_layout_info(
+ 
+ 		if (record_header->ucRecordType ==
+ 			ATOM_BRACKET_LAYOUT_RECORD_TYPE &&
+-			sizeof(ATOM_BRACKET_LAYOUT_RECORD)
++			struct_size(record, asConnInfo, 1)
+ 			<= record_header->ucRecordSize) {
+ 			record = (ATOM_BRACKET_LAYOUT_RECORD *)
+ 				(record_header);
+diff --git a/drivers/gpu/drm/amd/include/atombios.h b/drivers/gpu/drm/amd/include/atombios.h
+index 55ae93c1e365..60c44a8a067f 100644
+--- a/drivers/gpu/drm/amd/include/atombios.h
++++ b/drivers/gpu/drm/amd/include/atombios.h
+@@ -4733,7 +4733,7 @@ typedef struct  _ATOM_CONNECTOR_DEVICE_TAG_RECORD
+   ATOM_COMMON_RECORD_HEADER   sheader;
+   UCHAR                       ucNumberOfDevice;
+   UCHAR                       ucReserved;
+-  ATOM_CONNECTOR_DEVICE_TAG   asDeviceTag[1];         //This Id is same as "ATOM_DEVICE_XXX_SUPPORT", 1 is only for allocation
++  ATOM_CONNECTOR_DEVICE_TAG   asDeviceTag[];	       //This Id is same as "ATOM_DEVICE_XXX_SUPPORT"
+ }ATOM_CONNECTOR_DEVICE_TAG_RECORD;
+ 
+ 
+@@ -4793,7 +4793,7 @@ typedef struct  _ATOM_OBJECT_GPIO_CNTL_RECORD
+   ATOM_COMMON_RECORD_HEADER   sheader;
+   UCHAR                       ucFlags;                // Future expnadibility
+   UCHAR                       ucNumberOfPins;         // Number of GPIO pins used to control the object
+-  ATOM_GPIO_PIN_CONTROL_PAIR  asGpio[1];              // the real gpio pin pair determined by number of pins ucNumberOfPins
++  ATOM_GPIO_PIN_CONTROL_PAIR  asGpio[];               // the real gpio pin pair determined by number of pins ucNumberOfPins
+ }ATOM_OBJECT_GPIO_CNTL_RECORD;
+ 
+ //Definitions for GPIO pin state
+@@ -4982,7 +4982,7 @@ typedef struct  _ATOM_BRACKET_LAYOUT_RECORD
+   UCHAR                       ucWidth;
+   UCHAR                       ucConnNum;
+   UCHAR                       ucReserved;
+-  ATOM_CONNECTOR_LAYOUT_INFO  asConnInfo[1];
++  ATOM_CONNECTOR_LAYOUT_INFO  asConnInfo[];
+ }ATOM_BRACKET_LAYOUT_RECORD;
+ 
+ 
+@@ -5161,7 +5161,7 @@ typedef struct  _ATOM_GPIO_VOLTAGE_OBJECT_V3
+    UCHAR  ucPhaseDelay;                      // phase delay in unit of micro second
+    UCHAR  ucReserved;
+    ULONG  ulGpioMaskVal;                     // GPIO Mask value
+-   VOLTAGE_LUT_ENTRY_V2 asVolGpioLut[1];
++   VOLTAGE_LUT_ENTRY_V2 asVolGpioLut[];
+ }ATOM_GPIO_VOLTAGE_OBJECT_V3;
+ 
+ typedef struct  _ATOM_LEAKAGE_VOLTAGE_OBJECT_V3
+@@ -5171,7 +5171,7 @@ typedef struct  _ATOM_LEAKAGE_VOLTAGE_OBJECT_V3
+    UCHAR    ucLeakageEntryNum;               // indicate the entry number of LeakageId/Voltage Lut table
+    UCHAR    ucReserved[2];
+    ULONG    ulMaxVoltageLevel;
+-   LEAKAGE_VOLTAGE_LUT_ENTRY_V2 asLeakageIdLut[1];
++   LEAKAGE_VOLTAGE_LUT_ENTRY_V2 asLeakageIdLut[];
+ }ATOM_LEAKAGE_VOLTAGE_OBJECT_V3;
+ 
+ 
+@@ -6599,7 +6599,7 @@ typedef struct _ATOM_FUSION_SYSTEM_INFO_V3
+ typedef struct _ATOM_I2C_DATA_RECORD
+ {
+   UCHAR         ucNunberOfBytes;                                              //Indicates how many bytes SW needs to write to the external ASIC for one block, besides to "Start" and "Stop"
+-  UCHAR         ucI2CData[1];                                                 //I2C data in bytes, should be less than 16 bytes usually
++  UCHAR         ucI2CData[];                                                  //I2C data in bytes, should be less than 16 bytes usually
+ }ATOM_I2C_DATA_RECORD;
+ 
+ 
+@@ -6610,14 +6610,14 @@ typedef struct _ATOM_I2C_DEVICE_SETUP_INFO
+   UCHAR                              ucSSChipID;             //SS chip being used
+   UCHAR                              ucSSChipSlaveAddr;      //Slave Address to set up this SS chip
+   UCHAR                           ucNumOfI2CDataRecords;  //number of data block
+-  ATOM_I2C_DATA_RECORD            asI2CData[1];
++  ATOM_I2C_DATA_RECORD            asI2CData[];
+ }ATOM_I2C_DEVICE_SETUP_INFO;
+ 
+ //==========================================================================================
+ typedef struct  _ATOM_ASIC_MVDD_INFO
+ {
+   ATOM_COMMON_TABLE_HEADER         sHeader;
+-  ATOM_I2C_DEVICE_SETUP_INFO      asI2CSetup[1];
++  ATOM_I2C_DEVICE_SETUP_INFO      asI2CSetup[];
+ }ATOM_ASIC_MVDD_INFO;
+ 
+ //==========================================================================================
+-- 
+2.37.3
+
