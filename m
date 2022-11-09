@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C2A4C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 06:15:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72B60C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 06:15:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94FB410E07B;
-	Wed,  9 Nov 2022 06:15:30 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2069.outbound.protection.outlook.com [40.107.102.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCF1910E07B
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 06:15:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8425B10E576;
+	Wed,  9 Nov 2022 06:15:32 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2075.outbound.protection.outlook.com [40.107.223.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0843910E07F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 06:15:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TbuhKbBNAsE2DoWeA1hVAESi/CsRaftozZP3hzFDXEFzKdiCMbHDjJZ8ucJkUZGq+L7iyiHTj7ZhiVl4DETJRoOIkDPkhx/Zv0kJpzhc8UdmBUllvyT06Yifp8icVpLDhd3jvGOR/e3O3J7QAvQEKos2XUKynLTqcsUoIWlsSe7T9mjvqDpbbu2GbNIoKHP2l8715nvjYxxpGFU4UB/qg1X2owu9/UyvwZhIRtUAH03zbpN/L1s1Zf+J3ZgmQNaeOe3/twfQsj6drHVa7TSIv3650eDZsQwx/4k2kbOTxiqhEcc6Ja1ybNDapIiNF/dlC4R2ochwsKjw4lmf3/7wow==
+ b=QSchK8KfvDol0rFGrHTu+hLCaaS2hrlU/eIb12O8rSmp4dLDlQ23Krvu1KZUqck6+8LxoB4o3N3BjbKs94AOef8b8VGvxbyU2/zLqAQElBPqgCTZ+XCzgUh4BYfQCWdmye9dgZDbiVPHPs+agmyNWvAFyNtvfXquRtstdDS6kkrrR97X05ZRYmyFaVcAo996NACWen2Wm+aneqSPWntwVuNZRqZC20AxtaMqec71GMNt/7sAf4Z94vQtWLKDEoZ9JWOB90ryQ0ycuVxje4+asMh7PG1xmxe6MV0TYSflBNz4HeeqmXfpSMV1K+ZfN4c5vyCdFLY68xUKxQsF8MOxLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=epYe+BPSd0M1vV5HcNBbgHHtDoEVB8uuHelavtZMlZI=;
- b=X9dXw6u1j76lkVmuaStadZXDmJ9Kh3lDtsC1XLwUev6nSFjRF4zhoeKhc1Sgu5YiFO7gpBQr6mMQNyBBbGM6/QBMpU9XcO+Au6Qr6HvxEg+OgI+8vjCOBw9E7kteb2d4ptN7rz85tFLUvKEFnXCskE54yPHPBgsElFicjhAlJ3tv6ti177718J3Xyu8SdhelD6fqs62bSCq0zVvz66zSUIUJYUiG3iTnNJ574sYtwXcts7bXO5Aq5vcmLu5rKkYBs3FH/ouE1F1jTHTUW1ZDd1JcMJXZ1w45IpBJs1y7IjZcPTjtqP2Q8qVHIdDKHFpSTVNt3DFVws1oxRoBghCJiQ==
+ bh=d2yB8mv+NtBDBGPCp4+OdESSnW6o3oqE7V5Z+VvP4zw=;
+ b=a+vVA3VAKUHarKT7enBUX15Ihenh0z4QmTAzHJcw52njD2u76cmj7RQwv1UTay1ZaIDazJiG+B/dAuw+ttmPJbrQ9L53odwzVWvzXmeli7ZrrYz10ewOJaUL4N92TogJQsTK3uSgw4ozD9Qh2ADn8BvTcCc4FmJtvNTnglH7kC2q2Uf8CHbjxsDXNLOG6Q6pk5XGAVhjz9ySVottWzroijGytPYyB/4O2viV4uhxqDE+i1ZteEugE7/H/7JBjUE5/SI4H6WZEdBphkayOM9tEp2uV7kbUOtqsqVUj1G+XWzuBvdm5PrA0gdgGjxrQpXBvOTRNVHnXx7K/qpt7Yd+hw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=epYe+BPSd0M1vV5HcNBbgHHtDoEVB8uuHelavtZMlZI=;
- b=gntbRshpHIrv38En6Ii++sachuJQjsqfCcRQzwB6n+JUX/flf+UJMYXN7DpV9SrS9FNhen944Juu2fmm5xdLBWZpkXvC3W+NhyjdoShOgxhfoKwgG3+frZOI1MKqkiTmB7bb9sNhDV00NhhjOtDA0yOGc0XhyJrM+YXwKBuAKwc=
-Received: from DS7PR05CA0100.namprd05.prod.outlook.com (2603:10b6:8:56::23) by
- DM4PR12MB5214.namprd12.prod.outlook.com (2603:10b6:5:395::22) with
+ bh=d2yB8mv+NtBDBGPCp4+OdESSnW6o3oqE7V5Z+VvP4zw=;
+ b=F0PuI1TlHrFBuzZr5w/VRreXhRAHgiWsY8ysKSf5+BowFiZgvgr/eAn13yjnE8oKhcNJHh5h3p5j+jYX+/inxoN+nnX3S7ptem5X087+3SL25IbI9Tuk4nAvhZCz/MxzhO8UqJv7D3Vtu5wyyrYDHnJwxXgTV0ekeoRHgnHCmV8=
+Received: from DM5PR07CA0084.namprd07.prod.outlook.com (2603:10b6:4:ad::49) by
+ CH2PR12MB5004.namprd12.prod.outlook.com (2603:10b6:610:62::16) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5791.25; Wed, 9 Nov 2022 06:15:26 +0000
-Received: from DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:56:cafe::15) by DS7PR05CA0100.outlook.office365.com
- (2603:10b6:8:56::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.8 via Frontend
- Transport; Wed, 9 Nov 2022 06:15:26 +0000
+ 15.20.5791.27; Wed, 9 Nov 2022 06:15:24 +0000
+Received: from DM6NAM11FT091.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:ad:cafe::d8) by DM5PR07CA0084.outlook.office365.com
+ (2603:10b6:4:ad::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.15 via Frontend
+ Transport; Wed, 9 Nov 2022 06:15:24 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,22 +45,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT053.mail.protection.outlook.com (10.13.173.74) with Microsoft SMTP
+ DM6NAM11FT091.mail.protection.outlook.com (10.13.173.108) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5813.12 via Frontend Transport; Wed, 9 Nov 2022 06:15:25 +0000
+ 15.20.5813.12 via Frontend Transport; Wed, 9 Nov 2022 06:15:24 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 9 Nov
- 2022 00:15:23 -0600
+ 2022 00:14:37 -0600
 Received: from tom-HP.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
- Transport; Wed, 9 Nov 2022 00:15:18 -0600
+ Transport; Wed, 9 Nov 2022 00:14:28 -0600
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 08/29] drm/amd/display: Use min transition for all SubVP plane
- add/remove
-Date: Wed, 9 Nov 2022 14:12:58 +0800
-Message-ID: <20221109061319.2870943-9-chiahsuan.chung@amd.com>
+Subject: [PATCH 01/29] drm/amd/display: Fix access timeout to DPIA AUX at boot
+ time
+Date: Wed, 9 Nov 2022 14:12:51 +0800
+Message-ID: <20221109061319.2870943-2-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221109061319.2870943-1-chiahsuan.chung@amd.com>
 References: <20221109061319.2870943-1-chiahsuan.chung@amd.com>
@@ -69,26 +69,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT053:EE_|DM4PR12MB5214:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ff0ac9b-6630-49fb-6b92-08dac219cabc
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT091:EE_|CH2PR12MB5004:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7fdf333-48ee-402b-e5a7-08dac219c9b9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yf2E5SOBIJNVlvLLXycBgp1aFW7j8w0i5OoFOS9DN+UzoIVU3JaHw0O4yBRx4xMEFEiGnbB2uxEmqO/l/HCT9iDHBN4DDj5cDJ6LnJAOJ6DMERC4jELNhIL5ykX+K2zIuZAEgFAugTrQb0ISQ4yMbW+oRapVW0MdDoKWPsCG2wZ400oRF2pPdG5IKZSJv3SqxBVgwiagJRzKK72MMRNVRL8DojJbt43JoWoU0MD5O5ub6stw6U7tYb5ToCtiUu/ks82MlIIiNitEIwlgJxCRMSILbkeQbKMj/Lp2OcOMaCwgODcAJwiso0QSgkqUmBP8SChFW6coPAlfAOuXxS5C9OgbCxuneeiaxA3r2TjJo94KOy93YTyLMSSij+hJKbzWytohTmSZQ73cD7ujD1b2CzMxWprbSeDhzY0f2o8+zvzMuR0QDg1/VueVChGsb+k7lmTxrhp99NIwGEjl9ARrJzLPupabexQTpdoW0h0gju0AhIdXJWYrog16yvvMXPrBhODUvVrEH/bigMZ+qJ187KDVFuMsycNhBFSDXM6AB/TQ7KMdOwA1uQx/qzRvD1b87KBWM9kqfRtdAzfZ6WZrlvyzQl/qmiPXvgc5fv12Nu/OlKSNRDZwEmJHPHDieGUxjVyCetlkccPwhIowYwzSwRwhrEUDegszYeegKRhkDx/LXajZh0pIq3wwLDIA9xQ5orHsEYSRxB259A749vnf9exzjI/OMcDkJKkUKy5qv0szKtyu26DZAbCD7e3H7oIX52aNuJXVWo7fS+mrsQtHQw2WW3j/rD7Hyz6nE+WOmIiJIMZKAiLwqtE6rEumotDO
+X-Microsoft-Antispam-Message-Info: cj4qP9UPX4CT0a6Y29mYkKuKVLa2YQJ38I5oz1EwX2EWN/Yjh9HAUE9t3e+nnlh8b4EsItvSGbqoiEsBiLSDw0rP/81XpW5LaCAYLdVF/fzC3JjZW1biWRfUPQS+9YpMKULWaPqdxh9se7U0cZZaw0/ge6Jq3yks3oiW0al3iywMfrYySKmg56sf8MH+3Fg1I417TQsMtHSc+c2go13nyXkkOwan2XNCDe33kxNj8G04QKyuWYfxQJxqqhGa5aI3/kcN4Sn0o0zOJgHAHwfWcsH3fuqfi6j/IKbE6ImoJvjn7MG+f9dyC0mIu6D/ZaQw+kOSORPsiQKXoJzPr3iT1V4CyiACPHjObPXzIzumeaJ+DkyxLHodR2rLJJJU6yD1+IIriFO5rs/+7xAvTdb8efeaECvn4jH5Jxqz/r+Cen0ySCuNCg4NCueO6ku2vZpcJy2b4zBwogwme9wYfjy0tj39e/JoHiDNU/rApXeZhl5sXFYpPuq8ZB1iBtqXx2WaCMi+9OOavz0ZtkvyVWEiGdieD9NAfGYMgGDWPRDYE1vcrlL6UIy7BJrLvZ3pRQuQILWZ4ClTLbNP7Dl9LYH4HfAgXktA/hdnSZCc8GLoucHUWCDCtzBLXOHL4YJhmPSOtU0xoBLBeuwoEto1rfSqVZcvaYnLpVW0+FAhc2/E3C37Yu1gMgKz8L9/Q3JwQxFkUl7s6j0jzGHOf/yKWByXgZGsjmroiUvip482JXgNK1eWy8yeIoQr435K4rJ/f4z17NJ7vGh8rzZnggu1EBYjazZLf1QRbfh2kAnklgpJA7iMwCbIpHL1LSJAgUcjzcKT
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(396003)(39860400002)(136003)(346002)(451199015)(36840700001)(40470700004)(46966006)(82310400005)(83380400001)(36860700001)(86362001)(81166007)(82740400003)(356005)(478600001)(5660300002)(8936002)(6916009)(40480700001)(41300700001)(4326008)(8676002)(70206006)(70586007)(186003)(316002)(54906003)(2616005)(6666004)(26005)(1076003)(426003)(40460700003)(336012)(2906002)(7696005)(47076005)(36756003)(36900700001);
+ SFS:(13230022)(4636009)(346002)(39860400002)(376002)(396003)(136003)(451199015)(36840700001)(40470700004)(46966006)(2616005)(426003)(26005)(7696005)(1076003)(336012)(186003)(47076005)(6666004)(83380400001)(54906003)(36860700001)(2906002)(40480700001)(40460700003)(82310400005)(478600001)(41300700001)(5660300002)(8676002)(8936002)(4326008)(70586007)(70206006)(316002)(6916009)(36756003)(86362001)(81166007)(356005)(82740400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2022 06:15:25.7038 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ff0ac9b-6630-49fb-6b92-08dac219cabc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2022 06:15:24.0095 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7fdf333-48ee-402b-e5a7-08dac219c9b9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT053.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT091.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5214
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5004
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,95 +102,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Tom Chung <chiahsuan.chung@amd.com>,
  Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>, wayne.lin@amd.com,
- Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, stable@vger.kernel.org,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Wayne Lin <Wayne.Lin@amd.com>,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Stylon Wang <stylon.wang@amd.com>
 
-[Description]
-- Whenever disabling a phantom pipe, we must run through the
-  minimal transition sequence
-- In the case where SetVisibility = false for the main pipe,
-  we also need to run through the min transtion when disabling
-  the phantom pipes
+[Why]
+Since introduction of patch "Query DPIA HPD status.", link detection at
+boot could be accessing DPIA AUX, which will not succeed until
+DMUB outbox messaging is enabled and results in below dmesg logs:
 
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+[  160.840227] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+
+[How]
+Enable DMUB outbox messaging before link detection at boot time.
+
+Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
 Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Signed-off-by: Stylon Wang <stylon.wang@amd.com>
+Cc: stable@vger.kernel.org #6.0.x
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 31 +++++++++++++++++-------
- 1 file changed, 22 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index d90ab1867ed7..0a252a65a678 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3749,17 +3749,17 @@ static bool could_mpcc_tree_change_for_active_pipes(struct dc *dc,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 66eb16fbe09f..4d90c5415d5c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1633,12 +1633,6 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
  		}
  	}
  
--	/* For SubVP when adding MPO video we need to add a minimal transition.
-+	/* For SubVP when adding or removing planes we need to add a minimal transition
-+	 * (even when disabling all planes). Whenever disabling a phantom pipe, we
-+	 * must use the minimal transition path to disable the pipe correctly.
- 	 */
- 	if (cur_stream_status && stream->mall_stream_config.type == SUBVP_MAIN) {
- 		/* determine if minimal transition is required due to SubVP*/
--		if (surface_count > 0) {
--			if (cur_stream_status->plane_count > surface_count) {
--				force_minimal_pipe_splitting = true;
--			} else if (cur_stream_status->plane_count < surface_count) {
--				force_minimal_pipe_splitting = true;
--				*is_plane_addition = true;
--			}
-+		if (cur_stream_status->plane_count > surface_count) {
-+			force_minimal_pipe_splitting = true;
-+		} else if (cur_stream_status->plane_count < surface_count) {
-+			force_minimal_pipe_splitting = true;
-+			*is_plane_addition = true;
- 		}
- 	}
+-	if (amdgpu_dm_initialize_drm_device(adev)) {
+-		DRM_ERROR(
+-		"amdgpu: failed to initialize sw for display support.\n");
+-		goto error;
+-	}
+-
+ 	/* Enable outbox notification only after IRQ handlers are registered and DMUB is alive.
+ 	 * It is expected that DMUB will resend any pending notifications at this point, for
+ 	 * example HPD from DPIA.
+@@ -1646,6 +1640,12 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	if (dc_is_dmub_outbox_supported(adev->dm.dc))
+ 		dc_enable_dmub_outbox(adev->dm.dc);
  
-@@ -3794,6 +3794,7 @@ static bool commit_minimal_transition_state(struct dc *dc,
- 	enum dc_status ret = DC_ERROR_UNEXPECTED;
- 	unsigned int i, j;
- 	unsigned int pipe_in_use = 0;
-+	bool subvp_in_use = false;
- 
- 	if (!transition_context)
- 		return false;
-@@ -3810,6 +3811,18 @@ static bool commit_minimal_transition_state(struct dc *dc,
- 			pipe_in_use++;
- 	}
- 
-+	/* If SubVP is enabled and we are adding or removing planes from any main subvp
-+	 * pipe, we must use the minimal transition.
-+	 */
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		struct pipe_ctx *pipe = &dc->current_state->res_ctx.pipe_ctx[i];
-+
-+		if (pipe->stream && pipe->stream->mall_stream_config.type == SUBVP_PHANTOM) {
-+			subvp_in_use = true;
-+			break;
-+		}
++	if (amdgpu_dm_initialize_drm_device(adev)) {
++		DRM_ERROR(
++		"amdgpu: failed to initialize sw for display support.\n");
++		goto error;
 +	}
 +
- 	/* When the OS add a new surface if we have been used all of pipes with odm combine
- 	 * and mpc split feature, it need use commit_minimal_transition_state to transition safely.
- 	 * After OS exit MPO, it will back to use odm and mpc split with all of pipes, we need
-@@ -3818,7 +3831,7 @@ static bool commit_minimal_transition_state(struct dc *dc,
- 	 * Reduce the scenarios to use dc_commit_state_no_check in the stage of flip. Especially
- 	 * enter/exit MPO when DCN still have enough resources.
- 	 */
--	if (pipe_in_use != dc->res_pool->pipe_count) {
-+	if (pipe_in_use != dc->res_pool->pipe_count && !subvp_in_use) {
- 		dc_release_state(transition_context);
- 		return true;
- 	}
+ 	/* create fake encoders for MST */
+ 	dm_dp_create_fake_mst_encoders(adev);
+ 
 -- 
 2.25.1
 
