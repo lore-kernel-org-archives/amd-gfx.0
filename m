@@ -4,89 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BAD9C433FE
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 23:46:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4C74C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 00:46:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7A8410E630;
-	Wed,  9 Nov 2022 23:46:18 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2085.outbound.protection.outlook.com [40.107.94.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F12510E62D;
- Wed,  9 Nov 2022 23:46:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M0xd77ZyqklQUztxAIU1RHz7s/zyl/CvuNLYt6cK4Jpt7fSB5h/8GWVYMqSAINrY4GOgEmfH7HwlYNqaT6T9zuD0UCm9VxxJDs+SPVW3panuaZYHtZufmH03ca0JPPbt6+RwHXqKnhR104bIFpruBMNnFlrqJmRmziZMeGZCpolsvntuyphh+yJKBanwWUZpXy1qFcP7A2Uoef0T9V4Li7ugAIZ6XrBn4J+BQTJ3rIx3iH3d5n825ytXo9DiXkNqTpAetKsVPyNvqh8KPZmP2skc/WopkcpclHamyzZUTUk/N/15p956Q+qH6iF1kojRY4WcMS0jIhAp8ibD6TIhog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kHIFcHO55Wm/EmfPah4QKXzTmLBdb0YtlLEX3WYWevw=;
- b=DrIAYYJbNjKpJxv4ciVHNdrU63FeSfjPe5enYdRNlf/FwLkZU7YW4qtc2808N9Ubq5+c4DP1F69q3Bt5FDvRaJCFXQfu3BU+Af3frDt4UBJYJf/sTzRGxVu3hBp/VJpCT0RMwK+MFJMdJFTIeQGJH1wskxA3vo5AVk1EKOou72k9zBrvVb1RTZY9NbfK47g1x2AyWAtTO4e+zQEhqccCmtCX5LwQCVV7aAKURzsyYteLQDLQrgrUZBJAEz2GkD82uGqlCQJ57cHDBcmCyr8r+EeSM/MQ8vcNSwpTRhOp63e8dpKT2SIl1PfFIGtOHKOW45m48UOQykXBdwzCyG+rQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kHIFcHO55Wm/EmfPah4QKXzTmLBdb0YtlLEX3WYWevw=;
- b=VR7D6YgNIArAfIoCa5VxW2jPMtjZljb+cEXloa1GyzJ3piS8L38mOUpYv+ETuDNl34TY9LwAQiSEyO4vTBWWcnOyesCjBfpaFZzIp5OUIVeg6u9uWUwz9q3WLt4BsU31/N3yDFBVSw9nSICqpOZqWUrzWGlkyIi2WoEueBnsA5U=
-Received: from BN9PR03CA0407.namprd03.prod.outlook.com (2603:10b6:408:111::22)
- by DM6PR12MB4925.namprd12.prod.outlook.com (2603:10b6:5:1b7::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.27; Wed, 9 Nov
- 2022 23:46:10 +0000
-Received: from BN8NAM11FT110.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:111:cafe::55) by BN9PR03CA0407.outlook.office365.com
- (2603:10b6:408:111::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.27 via Frontend
- Transport; Wed, 9 Nov 2022 23:46:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT110.mail.protection.outlook.com (10.13.176.156) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5813.12 via Frontend Transport; Wed, 9 Nov 2022 23:46:10 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 9 Nov
- 2022 17:46:09 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu, amdkfd drm-fixes-6.1
-Date: Wed, 9 Nov 2022 18:45:54 -0500
-Message-ID: <20221109234554.6028-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.38.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59EEB10E63D;
+	Thu, 10 Nov 2022 00:46:23 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52609897FB;
+ Thu, 10 Nov 2022 00:46:17 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 86C9361D2F;
+ Thu, 10 Nov 2022 00:46:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 217D6C433C1;
+ Thu, 10 Nov 2022 00:46:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1668041176;
+ bh=/64DKl5JdKWddMfBNEuX/xFnhy13CGDoKSQEmv62YSk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tvmkcUfMz4B//VNfTGKsBLlpHdgRo1r2zRcyXw15gAdVdmld25bq0CeGZtf3Aq0OO
+ vc+Q7tUaNHS8JJ8lvhJfHvZJhgWm6s9BG25WEgo6KWIita+OVnnwQl4onTXFOGQr8T
+ 2zWMfUxQ/EhsbRxDTQyzQgeP5uI8vDvdOtwkwhkoUVgJK2AbAfsfjof22KPgclo3g+
+ /un7N1jlaLS+jlLnV4ZQb013JuQfFeaJz5TbrsggEY/mAxScjH4F7CcIb6O3IzYbr2
+ zCsWJdDjmOHxbGk+qdlNdhUZFfIHGcS645/YEuBiDhsAYc+aC6W48HaZ8rZljwDlhR
+ iTw0ttHW7R5Qg==
+Date: Wed, 9 Nov 2022 18:45:57 -0600
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+Subject: Re: [RFC] Approaches to deal with a struct with multiple fake
+ flexible arrays members
+Message-ID: <Y2xJxUnDnesWYckj@work>
+References: <Y2siZmiTD40mTYpJ@mail.google.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT110:EE_|DM6PR12MB4925:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27d314a9-d51b-4daa-7730-08dac2ac9471
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dE+G8q4YonaZeQyhogBv79j+9HsvpVEPUoZ4xJBGLNLamN4VhGNz5SFJS5eNAJNbq7FLGPHZHWtz3vKZFGKK41JIHq/CJ0SjeTTJQIfS2dTdQZzWQFe6mnJ+audoGxf2iKhcZsHUNKp1YjGz8xd68y+f1axWPQoY9u1D/UAnYH8r3X0DC1KRoZV+AxwB3/mczMhX9Mfg3N8m4eWUUg4ex87lAl/tBMDbC6XbfD2b6x6v7XN77X3tjeQ02g9qLpx6DYNdmcpB8di0ePYi31ZpdtxS7714mFBHaZSbRAfcHoj5kEfrkY01uvyi7/liaYviBw2ZZpyBdpFdRJotjDKTUQhIobSY5qDhBkYDXozqJNuSrXKA0HWquupWuKcb+XiLMzqn/LagwmHAk9KpK6og8fiwY7AZgzBdQ/n529DFIqNYNvV65JFK2CmOn9mquGL3I6ODDpFfSjmef8c5+hHVZGfH2/V7wELdI99HajHDngbVjeoYa0QgWjPstf0qWGFb/dRrdyiOhxCkwisaJtUM1Nr2yDp2qez9zVbu03yj/CiW2Bh+LDcZwrItOR/XNF0HQ5Ow/mPIK2YN4yVV2u1yjILdVZYQIYVDINYIWITNYKiPqCe65SiGQbCtFod1MsujcX2w+RgWQ0r3b3j3oLfEy8dh3HzdFUa5bsumqK2ArO5F0+Ay3mAdDwCLFBynaM3MVTzGLvyUjuFyJ9au22EDg1epfrHRr7yeudyNZmzHNGsZeetVu7NOqyJUYeNVXMPo
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(346002)(39860400002)(396003)(376002)(451199015)(46966006)(40470700004)(36840700001)(86362001)(6666004)(478600001)(966005)(7696005)(70586007)(4326008)(26005)(316002)(5660300002)(70206006)(2616005)(16526019)(186003)(1076003)(36756003)(8936002)(110136005)(41300700001)(40460700003)(336012)(82740400003)(2906002)(40480700001)(66574015)(47076005)(8676002)(426003)(83380400001)(36860700001)(356005)(81166007)(82310400005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2022 23:46:10.6505 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27d314a9-d51b-4daa-7730-08dac2ac9471
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT110.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4925
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Y2siZmiTD40mTYpJ@mail.google.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,105 +51,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-hardening@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+On Wed, Nov 09, 2022 at 04:45:42PM +1300, Paulo Miguel Almeida wrote:
 
-Fixes for 6.1.
+Adding Alex, Christian and DRM lists to the thread.
 
-The following changes since commit 6295f1d8b4503ad8a18519b781dd2d1fe5e88c52:
+> Hi KSPP community,
+> 
+> I've been working on replacing 1-element arrays with flex array members
+> on the drm/amdgpu files. I came across one insteresting case which I
+> may need to pick your brains to find a solution for it.
+> 
+> The structure below has two fake flexible arrays but I would get an
+> error if I try make them both FAM. How should/could I deal with the
+> asRegIndexBuf in this case? In theory, DECLARE_FLEX_ARRAY would "work"
+> but that doesn't seem to be its intended usage as far I've searched.
+> (unless I got it wrong, if that's the case, feel free to set me straight)
+> 
+> Any ideas? 
+> 
+> struct _ATOM_INIT_REG_BLOCK {
+> 	USHORT                     usRegIndexTblSize;    /*     0     2 */
+> 	USHORT                     usRegDataBlkSize;     /*     2     2 */
+> 	ATOM_INIT_REG_INDEX_FORMAT asRegIndexBuf[1];     /*     4     3 */
+> 	ATOM_MEMORY_SETTING_DATA_BLOCK asRegDataBuf[1];  /*     7     8 */
 
-  Merge tag 'drm-intel-fixes-2022-11-03' of git://anongit.freedesktop.org/drm/drm-intel into drm-fixes (2022-11-04 09:30:18 +1000)
+I didn't find evidence that asRegDataBuf is used anywhere in the
+codebase[1].
 
-are available in the Git repository at:
+> 
+> 	/* size: 15, cachelines: 1, members: 4 */
+> 	/* last cacheline: 15 bytes */
+> } __attribute__((__packed__));
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.1-2022-11-09
+Alex, Christian,
 
-for you to fetch changes up to 675d84621a24490e1de3d59a4992a17fa9ff92b5:
+It looks like this structure is only being used as a template to populate
+instances of struct atom_mc_reg_table[2] and that these[3] are the only
+places where asRegIndexBuf[] is being used. Apparently, this array is only
+being used to retrieve it's address so that a pointer can jump[4] in chucks
+of size sizeof(ATOM_INIT_REG_INDEX_FORMAT):
 
-  drm/amd/display: only fill dirty rectangles when PSR is enabled (2022-11-09 18:07:59 -0500)
+drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c:1461:
+1461:	format = (ATOM_INIT_REG_INDEX_FORMAT *)
+1462:		((u8 *)format + sizeof(ATOM_INIT_REG_INDEX_FORMAT));
 
-----------------------------------------------------------------
-amd-drm-fixes-6.1-2022-11-09:
+up to (VBIOS_MC_REGISTER_ARRAY_SIZE * sizeof(ATOM_INIT_REG_INDEX_FORMAT))[5],
 
-amdgpu:
-- SMU 13.0.4 update
-- GPUVM TLB race fix
-- DCN 3.1.4 fixes
-- DCN 3.2.x fixes
-- Vega10 fan fix
-- BACO fix for Beige Goby board
-- PSR fix
-- GPU VM PT locking fixes
+As I pointed out above, I don't see asRegDataBuf[] being used in the
+codebase (of course it may describe firmware memory layout). Instead,
+there is this jump to a block of data past asRegIndexBuf[]:
 
-amdkfd:
-- CRIU fixes
+drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c:1444:
+1444:	ATOM_MEMORY_SETTING_DATA_BLOCK *reg_data =
+1445:		(ATOM_MEMORY_SETTING_DATA_BLOCK *)
+1446:		((u8 *)reg_block + (2 * sizeof(u16)) +
+1447:			 le16_to_cpu(reg_block->usRegIndexTblSize));
 
-----------------------------------------------------------------
-Asher Song (1):
-      Revert "drm/amdgpu: Revert "drm/amdgpu: getting fan speed pwm for vega10 properly""
+So, it seems the one relevant array, from the kernel side, is
+asRegIndexBuf[]. I wonder if we really need asRegDataBuf[] in that
+structure... or if we could try modifying that struct and only have
+asRegIndexBuf[] as last member? and then we can transform it into a
+flex-array member.
 
-Aurabindo Pillai (1):
-      drm/amd/display: Zeromem mypipe heap struct before using it
+If for any strong reasong we cannot remove asRegDataBuf[] then I think we
+could give it a try and use DECLARE_FLEX_ARRAY() to declare both arrays
+in the structure.
 
-Chaitanya Dhere (1):
-      drm/amd/display: Fix FCLK deviation and tool compile issues
+But first, of course, Alex, Christian, it'd be really great if we can
+have your input and feedback. :)
 
-Christian König (1):
-      drm/amdgpu: workaround for TLB seq race
+Thanks!
+--
+Gustavo
 
-Dillon Varone (1):
-      drm/amd/display: Enforce minimum prefetch time for low memclk on DCN32
+[1] https://elixir.bootlin.com/linux/latest/C/ident/asRegDataBuf
+[2] https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c#L1441
+[3] https://elixir.bootlin.com/linux/latest/C/ident/asRegIndexBuf
 
-Felix Kuehling (2):
-      drm/amdkfd: Fix error handling in kfd_criu_restore_events
-      drm/amdkfd: Fix error handling in criu_checkpoint
-
-Guchun Chen (1):
-      drm/amdgpu: disable BACO on special BEIGE_GOBY card
-
-Hamza Mahfooz (1):
-      drm/amd/display: only fill dirty rectangles when PSR is enabled
-
-Nicholas Kazlauskas (2):
-      drm/amd/display: Update SR watermarks for DCN314
-      drm/amd/display: Fix reg timeout in enc314_enable_fifo
-
-Philip Yang (2):
-      drm/amdgpu: Unlock bo_list_mutex after error handling
-      drm/amdgpu: Drop eviction lock when allocating PT BO
-
-Steve Su (1):
-      drm/amd/display: Fix gpio port mapping issue
-
-Tim Huang (1):
-      drm/amd/pm: update SMU IP v13.0.4 msg interface header
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             | 26 --------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             | 41 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c          |  2 ++
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           | 34 ++++++++----------
- drivers/gpu/drm/amd/amdkfd/kfd_events.c            |  3 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  7 ++--
- .../amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c | 32 ++++++++---------
- drivers/gpu/drm/amd/display/dc/dc.h                |  1 +
- .../display/dc/dcn314/dcn314_dio_stream_encoder.c  | 24 +++++++++----
- .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.c  |  1 +
- .../drm/amd/display/dc/dcn321/dcn321_resource.c    |  1 +
- .../gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c |  4 +--
- .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c   |  2 ++
- .../amd/display/dc/dml/dcn32/display_mode_vba_32.c |  5 +++
- .../amd/display/dc/dml/dcn32/display_mode_vba_32.h |  3 ++
- .../dc/dml/dcn32/display_mode_vba_util_32.c        | 14 ++++++--
- .../dc/dml/dcn32/display_mode_vba_util_32.h        |  3 +-
- .../gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c |  2 ++
- .../drm/amd/display/dc/dml/display_mode_structs.h  |  1 +
- .../amd/display/dc/gpio/dcn32/hw_factory_dcn32.c   | 14 ++++++++
- drivers/gpu/drm/amd/display/dc/gpio/hw_ddc.c       |  9 +++--
- .../drm/amd/pm/powerplay/hwmgr/vega10_thermal.c    | 25 +++++++------
- .../amd/pm/swsmu/inc/pmfw_if/smu_v13_0_4_ppsmc.h   | 15 ++++----
- .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |  4 ++-
- 25 files changed, 171 insertions(+), 103 deletions(-)
