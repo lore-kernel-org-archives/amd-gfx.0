@@ -4,115 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3A0AC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 03:02:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3638AC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 03:21:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26DA610E655;
-	Thu, 10 Nov 2022 03:02:46 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2089.outbound.protection.outlook.com [40.107.220.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C665E10E64B
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 03:02:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nKnWopLekqyK9a11701hOhZi7cQfuDuFeWLCXEuXOZced0LHhwcY8XfOYS213zN2AvTDjece2MvqBOZ9zWUde+dKSQT4TkzSxEPgfQgm6eVkmlP1/KW7pF7r+OqGsNHwFnBOp9wyFVRQIj0Tggl0mXHJjV361YQsYoJB/Q4JmE7VWNq04/Q5bj60JgrkybpV8iCUPCzZX12VAraHB+XgQizKXsuR6yLttSHkvCuQ/g+6wPI96rZMevFDCjIJyE8bvRS9GbBdFiaSIEGzdx2B5+dgof4b4Mwscem/wIVTmJurJP9251RzfGP0ZA3MIEVCFUKUfQTIGKXTePwes3+5Ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rRXNsiWThpQxSSs4v88urc35wXpGp+KnZwAtEfn+XlY=;
- b=QlDl4xcienODnTJ/f+P3wXDq7TQRQvgnY7hF+1w14G9r8hLPVNrTROKCg2GtB2hgLxhir/TVOT3Mg7dbvVW55WnCvmTC8pSyYzBtoHZ350e08IesASNVAoCytkwSQFO5fImvJSJjzndq5JAaUT+z7q3X5JlT36RQ/d/RQWTYvHETDzomoVeaDQRnGkazkSU2mgOupIpvP7vLUKjJFG06NM68/xqaCPYACDyZcUByuBbZ1Y08So1sHnvzRrUHUWrmy9P2xsNmoqkCQEmRjKHI4L/g+LC2jik13iSWj3l1WJbIyvto5txCZVYEFKJIdMRV6w33FYgd2z2AF2reJKSZZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rRXNsiWThpQxSSs4v88urc35wXpGp+KnZwAtEfn+XlY=;
- b=W84UOgMxlqAny1E0o3f9w/jgSAJ/A150Iqgj1nTr/LoY9E0cjBOXuhBAL1tMsWPbYVrxV6Ke0i2hlavVFi6a/C4eLwM+ij4acBmrdjk6Zz+f8MltnWchN4+J+E41n22JaoSC9uGryvRkzVuhr3OVRKNrRZ1Ydsro8CE5wdTmG8o=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by BY5PR12MB5013.namprd12.prod.outlook.com (2603:10b6:a03:1dc::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.27; Thu, 10 Nov
- 2022 03:02:40 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::8bd7:b65c:13f4:9b]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::8bd7:b65c:13f4:9b%8]) with mapi id 15.20.5791.027; Thu, 10 Nov 2022
- 03:02:40 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/pm: skip disabling all smu features on
- smu_v13_0_10 in suspend
-Thread-Topic: [PATCH] drm/amd/pm: skip disabling all smu features on
- smu_v13_0_10 in suspend
-Thread-Index: AQHY9K/dTaxpX1biRUWaWipkMLsF7q43eFFQ
-Date: Thu, 10 Nov 2022 03:02:40 +0000
-Message-ID: <BN9PR12MB525708FABAC06F348BE82355FC019@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20221110025442.63642-1-kenneth.feng@amd.com>
-In-Reply-To: <20221110025442.63642-1-kenneth.feng@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-11-10T03:02:36Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=ae8b97dc-ffab-4078-a6c7-a850c93df162;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|BY5PR12MB5013:EE_
-x-ms-office365-filtering-correlation-id: bb616d6c-ef14-43f5-6632-08dac2c807a1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: KDFbU0SuCNtho8LzIFyaOSV5O+8lxS1n01pHDwUA5gH0lCUjudIG34Ow4zUWYdnbVa4hFaGCe03hmErox9RXjNgx7bH4Py16Bt/8sq24bUH3fH4F0LlSAA3u43UO13jDPvaO9ZwNYx/JGJMY1Acxa85yyjML8+P7S+7LIIeVY8OvWQg+a1f3yUq0Wnumur3eYT6rjyqs2GsuWfn6JjzeEuw5OcnPL6pQB4xbi7Awd9xbp2RzmjV7BuAX2cVGRnuClybPBFf0+II9iCSJUIj+H1Ah/3JC6h1YzY3Sj24YdL65s8uS+tGGRNbVuPZcOhRzE/JMF96r9xibs1M0OB5VwfsGDlRINSzC30mIDwcsly9h49tZCjpjn1MQBZmnIES5W8bxATx5HLkVOHBZ99WkbCihskiQVy+xEuBVQh/yeTrkz73aROpfLXO0brjMHYO6iag/lCkqtTWCfuq7rkL/GT90N/4YMA8oJJ9sqGw2eGoF0Z0pmcY8DxJ9s/UZkAyTni4MOsm7KxRS31FgDWNdxeSW+RGrLNPBeY1Odj3li1a0HiwrtFV4l/Sjl/V5pr0h/a4ytMOvyNcrHXDDi9tzk8rkiNrff08FtkMaZX5K7NSiDovaIrFPw7Akq5YMjZooIp6oJ3rD3pSdzxRyxvJ3uPJgxfZ31Vg0kA3AoJixvfEFTZRvxzWi4GGBwkmAw+QmnD3LaemEomOPbPGZU1WIv2MZJwrEdTNqaf9+CXJEAleNjAl/p+gfvB16lv44ybPW+CngLMlKVJR+OhqAbJneZw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(396003)(376002)(39860400002)(346002)(136003)(451199015)(55016003)(33656002)(71200400001)(52536014)(38100700002)(38070700005)(86362001)(4326008)(8676002)(5660300002)(41300700001)(8936002)(122000001)(316002)(64756008)(66946007)(76116006)(66446008)(66476007)(66556008)(9686003)(4744005)(186003)(2906002)(110136005)(53546011)(7696005)(15650500001)(83380400001)(6506007)(26005)(478600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PQYNbT+rzQYpjQAYE6Qevq6bAGwlGza55OQZoYo51W4COTRaPXIPQRzcyNHB?=
- =?us-ascii?Q?SsjfUTonNEom6f3oebW2q+o5C9/netqVeRjgRsaR1OcwxHFIOManwA8AI6yT?=
- =?us-ascii?Q?TpT8NV4jtD/01If2d2WUb3E2sRb+/vOPP0KsT8FnY+k2dbE8MtLvqZjEVrd8?=
- =?us-ascii?Q?tl6yqOc7hPLLg5/Gl8Ioy26PmhG7pUS6SuQ467djEwmtbBJdGATrgxLOKrY7?=
- =?us-ascii?Q?ukvktAdbrfvZ0Jd6MmFo6OTbWpl/IlGAfYXs/1veTaI3udlw5+AGgVxYGBCL?=
- =?us-ascii?Q?40dLpdIQdD8M5ncIzmLoCsQRt0vdkvP8XCgsspArCtHXB5lOOl0x+KcTuCkR?=
- =?us-ascii?Q?jpqaPorsdyA1B+iZwefntVrTKubI3StgFYAFZKX23rld9CA5roP6I+rqk31M?=
- =?us-ascii?Q?zFIDPs3L7eWtTei5VNY2VVTOmxmlrqZw4hfBBUPcBjfLfrIk+ZGN7b7HmTgk?=
- =?us-ascii?Q?LnEuOw1GLx9aV/Cx6hEu0DzLNLPohDK2LEymOuefmgm1SzpvbnzZGNyH8P2k?=
- =?us-ascii?Q?CfNEEi/T+fXwitAyU+k8S97uUUFTElFQgkvT1KwwCyXkY0MY57hyoV0k4gHS?=
- =?us-ascii?Q?dTmt3+39kCuQyUT9QDrhvdsWTrXtHGE4fNQt1njKHv0f815LFxkq9pnKto22?=
- =?us-ascii?Q?aBEu+RxYX9StH3XWniE5OjY9+MOmKuJZIWfJbiZdhUTKKkjBAGrCWCvG54xY?=
- =?us-ascii?Q?DvHse1yNyQLMCO4emAx4vHZ+PC7Zv8aZjnOTyKRHmf42TFoTjpkxZMT6vYld?=
- =?us-ascii?Q?epxrQ6OxbqjBNNdIgyEwwFph3leJOKDF++0cwxQX94RtSoWWJBdtxTORW6u2?=
- =?us-ascii?Q?YtnqIiQe/sKOFfVTwOx/vPtRoB66Ve/2f/LEhZE3k8nvR0MVj/xEi2ZwUuFp?=
- =?us-ascii?Q?781QTFw47Id6oDm0ayxNvbi3CqdRWoRa90xsc7sTGpKoE0iABx50/b7rqQXy?=
- =?us-ascii?Q?L5m81bT1khcdV1k4cHElVQPX09DUeIWWbj/2trLxiyla3vQkE6cKVAijJkE5?=
- =?us-ascii?Q?PjDMMGbiD4Sbn10bBaZtFzZtTsJd8fN0sqSKMvysxDHS4CorqmtiE1nKORbt?=
- =?us-ascii?Q?YHC/R2h97y4Ezea0FGXVaUPQkUxWpJqK3LoRyuRsSQJ4Ou+Z5cVpiWokwva0?=
- =?us-ascii?Q?wNFjEtj0E/0nbCaxZz9SNyVnVkR65hYGA8XOxpEY8W8aISTXlyJIHaEpubEf?=
- =?us-ascii?Q?0T8qZggEgsq/8vXH3nYkAymiwJX/rVOdRQMv3tD5Ftv/+aNS3SZiAOdU0IJq?=
- =?us-ascii?Q?MQTyzqMqKn4Ag3F5640jMMqWbBaR+avJ2LUrq0CdkSOmDrlp04KW6gSsGc1d?=
- =?us-ascii?Q?navDU6JTWfj9UZyqUAYS4nxoryj3ItA3aLUY8paalXUWMQc3KJEQXm5fTXWz?=
- =?us-ascii?Q?xNIzMxH1itVBFK0PoCLhE43yi/8m+iz0rhDVz0nJs2fLI2VQ5mTLUyVaAbvH?=
- =?us-ascii?Q?rFBVeh1FiW91tAHQp9kwAc9CFCBv7G3Aaajr65a9tbtajO0zcFIzEAKaoEfi?=
- =?us-ascii?Q?U/4qrS1oSLj6/Eckq/Rz781UJrqzTQuUvKJH5sGL/ffV3QQe1yj765TFBAMs?=
- =?us-ascii?Q?AyDKFx7fjISAfT4OjVwC8FD+scgHnAbU2hi1AIpH?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD0DC10E658;
+	Thu, 10 Nov 2022 03:20:52 +0000 (UTC)
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E100F10E656;
+ Thu, 10 Nov 2022 03:20:47 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-13d9a3bb27aso901746fac.11; 
+ Wed, 09 Nov 2022 19:20:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=sKG4G9h9TOTqgYAsSpAovfgI8PcnagrrLPJ5Dk9nkwM=;
+ b=n4wtwl3i3PgLhMLKzXNZyDNN/91PNYF/iQdfqKTPEOylqZJVL9o0xC2pwZaIxbKexM
+ SR+QPhCjQ6xLqbw6ja5Pjj8+92+Iwjm0eC2Kt8Ij+l8JBPu7wrT+Pc33C6A+2jFvu+kg
+ x1PS/IdcF1JwfEXJ15aZBkchXsEkivh0MJMlkAniT3ZaVNBJr23/Qg7dzBAZYJx6dboE
+ 2fGMp9KJkHTnldkcR4Xixiw5cFCOV4LgQTwVXhRQ0kgGdkP7ObmLKEXKJsyOz5JSWCxo
+ TIBjGQLspF1YAqUUeZJbypIcaG6YEH2NvTtDJomz2aEGkpfceAJ5Ayp6cHTNcj6AOABc
+ 9ayQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=sKG4G9h9TOTqgYAsSpAovfgI8PcnagrrLPJ5Dk9nkwM=;
+ b=A8NpQF0Yrgm8of2heC6HQs2fw7BhjVyjx8rYOqNRgvVeaCBPbeNCc5RjkUBp9gL49o
+ MuJuN5LLEuX3o1RFvlkRJvAvhpv5yrUy934LU4Rt5C71lJDc3XfwnI6eKR+tVSSP1YVX
+ DNGTGH5E0fvTP20+P5LqmxX/ND0Fe4IQmGh4lkYI6UGdWdysFor9iwIK6UslsJSvgQno
+ hLoUqQWkYJAaby2lcQ0V7GM0UK7ud2vlgwsWrhx50DB/lr7bY5gxqrklNL4yeajGrTzo
+ 28p43qG6UXsQcik2c57sRHfIHOHsXZB/v49BJR1W3yfft8TYi9c7Tfkx1KEU2NKRwH7h
+ F0+A==
+X-Gm-Message-State: ACrzQf1wvKKT9L1R1CsVRLrNgZ2h3f3u8mh98qEBtqHDdqDpxK4dK3p6
+ gjlVXhQws288BgqcxfFu7OHei3cH3EauuimksBc=
+X-Google-Smtp-Source: AMsMyM5znauZhG62dW+SB19EIKJtR+jeY3ZOk38/PiLmhOxvQ2TETT3VRqjFEuDmG+dHN5beLp10tLOL2HF6BB9S8Wg=
+X-Received: by 2002:a05:6870:a7a4:b0:136:7c39:979e with SMTP id
+ x36-20020a056870a7a400b001367c39979emr37758133oao.96.1668050446788; Wed, 09
+ Nov 2022 19:20:46 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb616d6c-ef14-43f5-6632-08dac2c807a1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2022 03:02:40.2987 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fkxAZVGCgVa86use4qiHi4/uOqlzzgT14PG2BaUbpnRnTFTmqPxKY56JaXEsqkpEZfWTm0NU+qRokAd0tY1vMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5013
+References: <Y2siZmiTD40mTYpJ@mail.google.com> <Y2xJxUnDnesWYckj@work>
+ <Y2xUc9Q/+zTYbjaL@mail.google.com>
+In-Reply-To: <Y2xUc9Q/+zTYbjaL@mail.google.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 9 Nov 2022 22:20:34 -0500
+Message-ID: <CADnq5_NKeqFm9ysEC78gYFL_PKzgSfXBa6v6rB+sE8aYZffqfA@mail.gmail.com>
+Subject: Re: [RFC] Approaches to deal with a struct with multiple fake
+ flexible arrays members
+To: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,44 +66,107 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, amd-gfx@lists.freedesktop.org,
+ linux-hardening@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+On Wed, Nov 9, 2022 at 8:31 PM Paulo Miguel Almeida
+<paulo.miguel.almeida.rodenas@gmail.com> wrote:
+>
+> On Wed, Nov 09, 2022 at 06:45:57PM -0600, Gustavo A. R. Silva wrote:
+> > On Wed, Nov 09, 2022 at 04:45:42PM +1300, Paulo Miguel Almeida wrote:
+> >
+> > Adding Alex, Christian and DRM lists to the thread.
+>
+> Thanks so much for your reply Gustavo
+> Yep, that's a good idea.
+>
+> >
+> > > struct _ATOM_INIT_REG_BLOCK {
+> > >     USHORT                     usRegIndexTblSize;    /*     0     2 */
+> > >     USHORT                     usRegDataBlkSize;     /*     2     2 */
+> > >     ATOM_INIT_REG_INDEX_FORMAT asRegIndexBuf[1];     /*     4     3 */
+> > >     ATOM_MEMORY_SETTING_DATA_BLOCK asRegDataBuf[1];  /*     7     8 */
+> >
+> > I didn't find evidence that asRegDataBuf is used anywhere in the
+> > codebase[1].
+> > ...
+> > <snip>
+> > ...
+> > As I pointed out above, I don't see asRegDataBuf[] being used in the
+> > codebase (of course it may describe firmware memory layout). Instead,
+> > there is this jump to a block of data past asRegIndexBuf[]:
+> >
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c:1444:
+> > 1444: ATOM_MEMORY_SETTING_DATA_BLOCK *reg_data =
+> > 1445:         (ATOM_MEMORY_SETTING_DATA_BLOCK *)
+> > 1446:         ((u8 *)reg_block + (2 * sizeof(u16)) +
+> > 1447:                  le16_to_cpu(reg_block->usRegIndexTblSize));
+> >
+> > So, it seems the one relevant array, from the kernel side, is
+> > asRegIndexBuf[]. I wonder if we really need asRegDataBuf[] in that
+> > structure... or if we could try modifying that struct and only have
+> > asRegIndexBuf[] as last member? and then we can transform it into a
+> > flex-array member.
+>
+> I saw that one too. That would be the way it's currently accessing
+> asRegDataBuf member as the existing struct would make asRegDataBuf[0] point
+> to some index within the asRegIndexBuf member (as you probably got it too)
+>
+> you are right... asRegDataBuff isn't used from a static analysis
+> point of view but removing it make the code a bit cryptic, right?
+>
+> That's pickle, ay? :-)
+>
+> >
+> > If for any strong reasong we cannot remove asRegDataBuf[] then I think we
+> > could give it a try and use DECLARE_FLEX_ARRAY() to declare both arrays
+> > in the structure.
+> >
+>
+> Out of curiosity, why both rather than just asRegIndexBuf?
+>
+> > But first, of course, Alex, Christian, it'd be really great if we can
+> > have your input and feedback. :)
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+This header describes the layout of memory stored in the ROM on the
+GPU.  It's shared between vbios and driver so some parts aren't
+necessarily directly used by the driver.  As for what to do about it,
+I'm not sure.  This structure stores a set of register offsets
+(asRegIndexBuf) and data values (asRegDataBuf) for specific operations
+(e.g., walk this structure and program register X with value Y.  For a
+little background on atombios, it's a set of data and command tables
+stored in the vbios ROM image.  The driver has an interpreter for the
+command tables (see atom.c) so it can parse the command tables to
+initialize the asic to a usable state.  The various programming
+sequences vary depending on the components the AIB/OEM uses for the
+board (different vram vendors, different clock/voltage settings,
+etc.).  The legacy VGA/VBE and the GOP driver and the OS driver can
+use these tables, so this allows us to initialize any GPU in a generic
+way on any architecture even if the platform firmware doesn't post the
+card.  For the most part the driver doesn't have to deal with these
+particular tables directly, other than for some very specific cases
+where the driver needs to grab some elements from the tables to
+populate the power management controller for GPU memory reclocking
+parameters.  However, the command tables as interpreted by the parser
+very often will directly parse these tables.  So you might have a
+command table that the driver executes to initialize some part of the
+GPU which ultimately fetches the table from the ROM image and walks it
+programming registers based on the offset and values in that table.
+So if you were debugging something that involves the atombios parser
+and walking through one of the command tables, you may be confused if
+the data tables don't match what header says.  So ideally, we'd keep
+both arrays.
 
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Kenneth =
-Feng
-Sent: Thursday, November 10, 2022 10:55
-To: amd-gfx@lists.freedesktop.org
-Cc: Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH] drm/amd/pm: skip disabling all smu features on smu_v13_0_1=
-0 in suspend
+Alex
 
-skip disabling all smu features on smu_v13_0_10 in suspend
-
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
-d/pm/swsmu/amdgpu_smu.c
-index 4fe75dd2b329..320cfce1fef5 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1449,6 +1449,7 @@ static int smu_disable_dpms(struct smu_context *smu)
- 	switch (adev->ip_versions[MP1_HWIP][0]) {
- 	case IP_VERSION(13, 0, 0):
- 	case IP_VERSION(13, 0, 7):
-+	case IP_VERSION(13, 0, 10):
- 		return 0;
- 	default:
- 		break;
---=20
-2.25.1
+> >
+> > Thanks!
+> > --
+> > Gustavo
+> >
+>
+> - Paulo A.
