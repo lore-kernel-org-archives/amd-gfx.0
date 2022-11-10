@@ -4,49 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FAAAC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 21:34:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFC51C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 21:42:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9201C10E748;
-	Thu, 10 Nov 2022 21:34:47 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54A0310E157;
- Thu, 10 Nov 2022 21:34:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668116084; x=1699652084;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=aNUQvPldLT7UDcSnLyns2My1ZQw1aBleYnzEk9P0fh0=;
- b=ZYdrQoah9L69YyPZmSGk54musbFCkyJwGsZ+4J+qN7ai7hUzH52eCK/U
- 5XIkDgb/A2MZTH+jM8j3ZUUb/o0yIpPrwf3pEIlrbhDTtV9kgfDLJ6box
- 6h54QY/xaHdyCmYzhRsv89l+NGh7oiAWycF9bp5pTQy89ETcwHjpZoXcf
- 0ClA3rf0FCVbl5C6Q41zvjDpxuvsAAwnrXVxvTVqPqkDboW4h2UMou6al
- pkejz/TkgrlTXWPoW+STMlay5QEXPNNLs/NhGsEZnwUxRf23rSXg9FJEX
- m5Xby6h0j6arjuQMLHZJ6iFllUDH1m7tc34oekf4s1XurJ1AfwZ0FVeyj A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="294802182"
-X-IronPort-AV: E=Sophos;i="5.96,154,1665471600"; d="scan'208";a="294802182"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2022 13:34:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="779942138"
-X-IronPort-AV: E=Sophos;i="5.96,154,1665471600"; d="scan'208";a="779942138"
-Received: from lkp-server01.sh.intel.com (HELO e783503266e8) ([10.239.97.150])
- by fmsmga001.fm.intel.com with ESMTP; 10 Nov 2022 13:34:40 -0800
-Received: from kbuild by e783503266e8 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1otFC3-0003Gd-2O;
- Thu, 10 Nov 2022 21:34:39 +0000
-Date: Fri, 11 Nov 2022 05:34:31 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 382d2f9e739bc6f151c718b38537ae522ff848cd
-Message-ID: <636d6e67.HpQqom77xkNYoUGy%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14C3310E09A;
+	Thu, 10 Nov 2022 21:42:30 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2042.outbound.protection.outlook.com [40.107.94.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11BC810E09A;
+ Thu, 10 Nov 2022 21:42:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lG6jpeTmYGO+VEILGWOv/h5oTCr9rxFs9FydvOLMcX7RwLGckVPDKHQJ6pGTU/A04mHXuSfcjETaV7ypbp/qEZ/ZA5T8QzQgrVPlJ486NFAxUiiI0XiiLDuuiHuwbbQ5x6WFGmMAZrK3pmAZKzpAFfL8gRTrqVxMLeJSvr5qMhb16c9na7bzjGa5VzpPKFYggtFq4gq1bdJD+VsnvuUN2FqIZrR8gtWBLuyv3Vs9/b39FJF27VZSoK7GY/xDnSMAqh7HQJMOgDjpqIifvuoGbYUK9wa1GYtDKD9qsEs2S377hJjZSXv+pZxR1eHUQFLqg73/geqzTBS1MCSpoF+/Bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uRSklfj+G/hdcTVkvB/Y2jqaghh5ExQWPYY8X0nyJrk=;
+ b=bNfTB88mvDmEanrC6p6Euhi10Yx5tAd/KNtEgOAecp3gj1gQqXZLcDTodNIuGS3lqi7aLkWAAl1KkujNUpnfbaQDhXFGx4jFuI/EjL0fomP/gF/MhLryH7PIclpuTtE5tGWqp2hfjZ1XLYmTCtaty31voJodnVIdZGmjJo67A0l88VN24+Wh+W6CD+xjKvc5VK4HqmtkywF9cP9eyUebwz2GXFvminD2M511uNx3ZNWOJVBgzAradzWH9QRnPSrPKi1JMuM/RhoI7gSIgzA5M+0dlXLhygs4CvAFS9jMh1Qv8bBumQUc2mFRI00GOo1kggbzSP2fSCqdmlRuRannzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uRSklfj+G/hdcTVkvB/Y2jqaghh5ExQWPYY8X0nyJrk=;
+ b=OLj9v6SbsKl3RkrE44NH0xR8ychqst8uazqHylJvCVwX/FL7EgJP5e/re6uHQ48QXByvO2S4mPtUuBjoBo8uYSyRg/xIT9UvuBtzHrGwvzkYyaZCvgTExJ5t5G7YLeGU8l2PNrEpBwCcRBLbNKwZcFX8CfosQwDsaXCIqL94oOE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by SN7PR12MB6864.namprd12.prod.outlook.com (2603:10b6:806:263::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.27; Thu, 10 Nov
+ 2022 21:42:24 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::44a:a337:ac31:d657]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::44a:a337:ac31:d657%4]) with mapi id 15.20.5813.013; Thu, 10 Nov 2022
+ 21:42:24 +0000
+Message-ID: <76bae3bb-3cb5-dd9c-a1b0-bbe61721abbe@amd.com>
+Date: Thu, 10 Nov 2022 15:42:21 -0600
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Subject: Re: nbio_v7_4: Add pointer check
+Content-Language: en-US
+To: Denis Arefev <arefev@swemel.ru>, Alex Deucher <alexander.deucher@amd.com>
+References: <20221110122848.20207-1-arefev@swemel.ru>
+From: "Limonciello, Mario" <mario.limonciello@amd.com>
+In-Reply-To: <20221110122848.20207-1-arefev@swemel.ru>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA1P222CA0066.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:2c1::21) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SN7PR12MB6864:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d3e61ab-fb29-47c5-df0d-08dac364742f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 11w+zQkg5BN6AiK4hjyFckcpkiy+mra87h6Sgo04Rm5oprkd22Bzqx20rIIcIZ0S2sSmbC2oUcUehhKRKx+TtWtKcZjVq4NwMfqLubOk/u74VO9fkEyKb4GI92oKw0ishSuiB7/eDnwgZkAYwDOtcGtGGrUDg09o2LNW0or2vQ7pk9UIFefLgZoQNO2TtBjcDp/6Yt9GDKVE56jnQ3ZYMZ4ctU3khs0+wToCRdKAnMe9kQJHOhW5y1XnYnB8bgRHuE+4DRAJmdw2i9jRyfF/VrTR43dceqwEfpPiYjtdyUFemEED8xXl554TlX1b5weE2a9TunO3Z/rWCxbr0QDxTkI267oX/kicYP1Kd712MgSgFsgC0NnX5hdzkCGgzTXdbKa/+5NqqxZ8qzKOj7XHomx99qILvqcaVdf3XN2RlzN9UrNBIX0ltAylecFKJwex92TO9jBkhnjCDVO9NVyOOQPo+4LEwmw/ylL+xgmPckq44SqMRLZQ9ITSXNa/Y4hpGqTyuyqdlQJZMZ756RLNrVtFI25VHxNBjQixlfGkdl8vPystl/MZ3vHaEFsY/to+4mgU2CtIAzLdfXPiKH3hF2gHwd3gg0j26czQ2Ler3otijPjv3N2XLpmc1/GOAZ22Xb1xEs12FZ4dzgDm8zsZP34TwbSan5unkAuOQEi44z63BEK1JYJKxsTD1KdLXxo7SGMHsRmb2RO0fxRfgsSN4dF7AIX52vBhoahLELDwygsxwyCkZyie6Lf4d2g1HzsjHxISpsNerTB3IbeMsUb79WKVVTxlExIPRA4e5EK4zH0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(376002)(346002)(39860400002)(366004)(396003)(451199015)(478600001)(6486002)(54906003)(6666004)(6636002)(110136005)(31686004)(6506007)(31696002)(316002)(26005)(66476007)(66946007)(38100700002)(4326008)(66556008)(8676002)(53546011)(6512007)(86362001)(5660300002)(2616005)(2906002)(41300700001)(186003)(8936002)(36756003)(83380400001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MlNFSTN6azlxb2EwcnRvTnB3K0hTSS8xN0EwZmpURnVyeXNhVmhlaEQwdHFR?=
+ =?utf-8?B?emlPeEs4aEc0M1N6UTR6QUovaXduQjRnK3BuTjZlSUZrV3JmQzVEbGZTWFhS?=
+ =?utf-8?B?T3lIL3RCZEpObWhDMDdOcXd0VUgwMUdhUU8xZy8yRWJ6NVlXRDNPZlE2UHJl?=
+ =?utf-8?B?L2hQVlNwKzdLTG1sNEUwTHdMbFJKT3cvWkhGbUMvSysvVDBoWU9CR2pGNlBm?=
+ =?utf-8?B?VTRIdnhtQXE2L1hZMWhaMU0xb1EwUnoxdFNBRGVFbTdENjJENG01em8zUTB1?=
+ =?utf-8?B?dTBnaE9wNjJWUVNrQXZBeElIQ0lFR1NzallvMzdlMXA1TVB0TE9MclpDVC82?=
+ =?utf-8?B?UmtHaUszQjFhRlZ4MVdQeEZ4RElPUnFFR3RmY1dmcEdCNjFBZHpLbnFyQ1FS?=
+ =?utf-8?B?VWZ3VXhpYmtjOW1TU3A5TTJDQUNBWHRNbU1RU3hNZWJqMHROaUZxck94U2Vm?=
+ =?utf-8?B?Slp3c1hzT2JBVlVFY1RVWmlxN0RjcWVFSi9HdnZZK1JzdENDZ2pPemZlWVU0?=
+ =?utf-8?B?NHhYc3dKSllSU2RCY0pvRnBlTEdqc1EvejRVbmxLTjl2dDRwOHV5TkhrUUJW?=
+ =?utf-8?B?MlhZWlpSc1lHazlwT1pQM0ZQSzFDUHM2cFRWUjU4UXFMckZrY09LdzVjNkd3?=
+ =?utf-8?B?bU9YYWZBRHZSc1g1ZHViQVhXdDFYS3pNbVZpYVkzSnNEVGhsREN4SWFRSm1E?=
+ =?utf-8?B?QmQ0dDRrT3pITzV2Z1B6TnBVeTNhb1JvL09EY3gzRXpleHpKK01yd01saWwv?=
+ =?utf-8?B?cDBXUDJ5U1pEQ0sreHJJTWpsY0Izc2pNc3V5SWFsUC82dEYzalpWdFlZMnVa?=
+ =?utf-8?B?enRlWTg3VDJTVCs3VGlEKzZXcTh0ZUNqSlFFT2d0b0xNQXNlRnd0MExJOFFO?=
+ =?utf-8?B?T0JBcm13cGNRMWFydWFEdU5zNGsrWCszUlBCOGFRY2E2QWg0eURUWmJkeVkr?=
+ =?utf-8?B?RWs3RGwzTWVrZ0hPbjJOaEQ4U2xNQmdVcGsrU09Ec3FvekV3MGRmaEM3VDVu?=
+ =?utf-8?B?WVRFbEpNNHBkZXVSbVNEK3J1MExmcVNvQTBmcFMxamhDVEVla1VKTW9wZlNS?=
+ =?utf-8?B?cmlsY01JdHlFYlpNY0Q1clNpODg2cVlpdWhFWVFQdUVucFBXS1c5d0tra3I1?=
+ =?utf-8?B?ZFRvcHhUZ2Q0bnY2ODg0OERMSkllK1lwTWYyTlF5MVRFRS9kb3M5eERKTW9C?=
+ =?utf-8?B?YlpoNjVHTzc4cXpqNnZDUHhlQkI3T3A5TVVLUWVtMTY5aGM3VlVTNkFJaGl0?=
+ =?utf-8?B?ZS8ycnFUL0d1a0pmWTl5YjA1c3lNVy9XMjJvcVl2U3d4S2RTd01oemV1a1hu?=
+ =?utf-8?B?RGdTVzhMTWpGRGNEVkNNRWhqUnlFdXBVUWZmNWJ1NzhKYzR5a0JZM3o5ZTFz?=
+ =?utf-8?B?MHBlNnowaWVHbHUzRjB1Q3pmZlVSWjFwa2pPekZpZ1JIdVBLZG9HMTJFWGxX?=
+ =?utf-8?B?R1V3T0h6dUZZY2ViTWM1RG8wSmRmQUFtSm11RTM5aXlDNGVxcnc4aWVTLzJK?=
+ =?utf-8?B?aVZlU21ldjVOL012YkMzbGU0clhTTnBpR3RzNTNoWFdoN3FTUUw5SlZBT0Zl?=
+ =?utf-8?B?Q3NCUkRrMll2QTJaR0lkeEVxcHZuM2ZSTzJyd1c1MHRoeStzQUxuMnhka0Yy?=
+ =?utf-8?B?Y00zVUlGaGE1TytKN2pNSzFoOXQzaHVTbUxQSXlzWFFldWo1QTFCMTVqWDRP?=
+ =?utf-8?B?QmFoTkdiSjljaHc1dzVEb0JhcDVBcE51NHdidnc2U09mZG1NckFSLzYxdWlV?=
+ =?utf-8?B?amhLdGZlaE55Mm1tMndhVDZYZmxQbFNQLzIyVU9EUkxqcmVHcGQvYVJlQXY2?=
+ =?utf-8?B?dDczVlU4cUtoSTJPQjIyaFQ1RHEyOGJqcU44czN3Y2svYWFKaFliMzVUM1A2?=
+ =?utf-8?B?TDU3VVJjWTdiL1BPdTVEN2V3Sy9jZjlCUWZ6UDYyMlZnK1pxSzczNWNOWjFu?=
+ =?utf-8?B?ZmllbGIwSVVoQ0h0UUdZWkNKVFFraEsyaHBSV090WFNWUGVwVUJqeGpuc2hJ?=
+ =?utf-8?B?eW8xdlhCb0QvalBUZ01SMGN4a2JVc043dlVvQzlhNnl5anNlbng3ZWRsMG1n?=
+ =?utf-8?B?NEVQd1Z0a1Zka29VWTNkWTJURk9kR1NWRkVqcC9qZndmYXpYU1p5V3Fhalc0?=
+ =?utf-8?Q?dtZMO+2qMREXfdIe49PlOaIjI?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d3e61ab-fb29-47c5-df0d-08dac364742f
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2022 21:42:24.2911 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gA9OAr8ccaahLa2W5l5bVDJ819TykspIDaEFH3cltYLHoO15raGkeRsCTJhWdPt0kf+tHneK2w4VTVM6rw/a9w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6864
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,208 +123,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-efi@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>, coreteam@netfilter.org,
- netfilter-devel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Cc: avid Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 382d2f9e739bc6f151c718b38537ae522ff848cd  Add linux-next specific files for 20221110
+On 11/10/2022 06:28, Denis Arefev wrote:
+> Return value of a function 'amdgpu_ras_find_obj' is dereferenced at nbio_v7_4.c:325 without checking for null
 
-Error/Warning reports:
+This line is too long, you should be wrapping lines at 75 characters.
+Could you run your patch through checkpatch?
 
-https://lore.kernel.org/linux-mm/202210261404.b6UlzG7H-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202210270637.Q5Y7FiKJ-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211030513.ML6SdpUw-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211052104.11idvQu3-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211090634.RyFKK0WS-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211102047.QP7IThm4-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211102136.g5R1ioFx-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211110007.0ZmHwzMd-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211110149.0ETIfpy6-lkp@intel.com
+> 
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> 
+> Signed-off-by: Denis Arefev <arefev@swemel.ru>
 
-Error/Warning: (recently discovered and may have been fixed)
+Probably should include this tag:
 
-arch/arm/mach-s3c/devs.c:32:10: fatal error: linux/platform_data/dma-s3c24xx.h: No such file or directory
-arch/x86/platform/efi/runtime-map.c:138:5: warning: no previous prototype for 'efi_get_runtime_map_size' [-Wmissing-prototypes]
-arch/x86/platform/efi/runtime-map.c:143:5: warning: no previous prototype for 'efi_get_runtime_map_desc_size' [-Wmissing-prototypes]
-arch/x86/platform/efi/runtime-map.c:148:5: warning: no previous prototype for 'efi_runtime_map_copy' [-Wmissing-prototypes]
-drivers/firmware/efi/memmap.c:57:52: warning: suggest braces around empty body in an 'if' statement [-Wempty-body]
-drivers/firmware/efi/memmap.c:60:52: warning: suggest braces around empty body in an 'if' statement [-Wempty-body]
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:4887: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5073:24: warning: implicit conversion from 'enum <anonymous>' to 'enum dc_status' [-Wenum-conversion]
-drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c:178:1: warning: no previous prototype for 'gf100_fifo_nonstall_block' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c:178:1: warning: no previous prototype for function 'gf100_fifo_nonstall_block' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c:451:1: warning: no previous prototype for 'gf100_fifo_nonstall_block' [-Wmissing-prototypes]
-drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:1474:38: warning: unused variable 'mt8173_jpeg_drvdata' [-Wunused-const-variable]
-drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:1489:38: warning: unused variable 'mtk_jpeg_drvdata' [-Wunused-const-variable]
-drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:1859:38: warning: unused variable 'mtk8195_jpegdec_drvdata' [-Wunused-const-variable]
-vmlinux.o: warning: objtool: __btrfs_map_block+0x1e22: unreachable instruction
+Fixes: 28f87950d935e ("drm/amdgpu: clear ras controller status registers 
+when interrupt occurs")
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
+> ---
+>   drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+> index eadc9526d33f..0f2ac99de864 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+> @@ -304,6 +304,9 @@ static void nbio_v7_4_handle_ras_controller_intr_no_bifring(struct amdgpu_device
+>   	struct ras_err_data err_data = {0, 0, 0, NULL};
+>   	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+>   
+> +	if (!obj)
+> +	  return;
+>   
 
-lib/zstd/compress/../common/zstd_deps.h:34:28: warning: use of NULL '*zc.outBuff' where non-null expected [CWE-476] [-Wanalyzer-null-argument]
-lib/zstd/compress/huf_compress.c:460 HUF_getIndex() warn: the 'RANK_POSITION_LOG_BUCKETS_BEGIN' macro might need parens
-lib/zstd/compress/huf_compress.c:850:18: warning: shift by count ('32') >= precision of type ('32') [-Wanalyzer-shift-count-overflow]
-lib/zstd/decompress/zstd_decompress_block.c:1009 ZSTD_execSequence() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:894 ZSTD_execSequenceEnd() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:942 ZSTD_execSequenceEndSplitLitBuffer() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_internal.h:206 ZSTD_DCtx_get_bmi2() warn: inconsistent indenting
-mm/khugepaged.c:2038 collapse_file() warn: iterator used outside loop: 'page'
+Whitespace seems inconsistent here.
 
-Error/Warning ids grouped by kconfigs:
+>   	bif_doorbell_intr_cntl = RREG32_SOC15(NBIO, 0, mmBIF_DOORBELL_INT_CNTL);
+>   	if (REG_GET_FIELD(bif_doorbell_intr_cntl,
+>   		BIF_DOORBELL_INT_CNTL, RAS_CNTLR_INTERRUPT_STATUS)) {
 
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   `-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|-- alpha-buildonly-randconfig-r005-20221110
-|   `-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   `-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|-- arm-allyesconfig
-|   |-- arch-arm-mach-s3c-devs.c:fatal-error:linux-platform_data-dma-s3c24xx.h:No-such-file-or-directory
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- arm-randconfig-m031-20221109
-|   |-- lib-zstd-compress-huf_compress.c-HUF_getIndex()-warn:the-RANK_POSITION_LOG_BUCKETS_BEGIN-macro-might-need-parens
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
-|   `-- lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
-|-- arm64-allyesconfig
-|   |-- drivers-firmware-efi-memmap.c:warning:suggest-braces-around-empty-body-in-an-if-statement
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- arm64-randconfig-s042-20221110
-|   |-- drivers-firmware-efi-memmap.c:warning:suggest-braces-around-empty-body-in-an-if-statement
-|   `-- drivers-firmware-raspberrypi.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-restricted-__le32-usertype-id-got-unsigned-int-id
-|-- csky-randconfig-p001-20221110
-|   `-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|-- i386-allyesconfig
-|   |-- arch-x86-platform-efi-runtime-map.c:warning:no-previous-prototype-for-efi_get_runtime_map_desc_size
-|   |-- arch-x86-platform-efi-runtime-map.c:warning:no-previous-prototype-for-efi_get_runtime_map_size
-|   |-- arch-x86-platform-efi-runtime-map.c:warning:no-previous-prototype-for-efi_runtime_map_copy
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- i386-randconfig-c001
-|   |-- lib-zstd-compress-..-common-zstd_deps.h:warning:use-of-NULL-zc.outBuff-where-non-null-expected-CWE
-|   `-- lib-zstd-compress-huf_compress.c:warning:shift-by-count-(-)-precision-of-type-(-)
-|-- i386-randconfig-m021
-|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
-|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
-|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
-|   |-- arch-x86-boot-compressed-..-..-..-..-lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
-|   |-- lib-zstd-compress-huf_compress.c-HUF_getIndex()-warn:the-RANK_POSITION_LOG_BUCKETS_BEGIN-macro-might-need-parens
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequence()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEnd()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_block.c-ZSTD_execSequenceEndSplitLitBuffer()-warn:inconsistent-indenting
-|   |-- lib-zstd-decompress-zstd_decompress_internal.h-ZSTD_DCtx_get_bmi2()-warn:inconsistent-indenting
-|   `-- mm-khugepaged.c-collapse_file()-warn:iterator-used-outside-loop:page
-|-- ia64-allmodconfig
-|   |-- drivers-firmware-efi-memmap.c:warning:suggest-braces-around-empty-body-in-an-if-statement
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|-- ia64-randconfig-c031-20221110
-clang_recent_errors
-|-- hexagon-randconfig-r045-20221110
-|   |-- drivers-media-platform-mediatek-jpeg-mtk_jpeg_core.c:warning:unused-variable-mt8173_jpeg_drvdata
-|   |-- drivers-media-platform-mediatek-jpeg-mtk_jpeg_core.c:warning:unused-variable-mtk8195_jpegdec_drvdata
-|   `-- drivers-media-platform-mediatek-jpeg-mtk_jpeg_core.c:warning:unused-variable-mtk_jpeg_drvdata
-|-- hexagon-randconfig-r045-20221111
-|   |-- drivers-media-platform-mediatek-jpeg-mtk_jpeg_core.c:warning:unused-variable-mt8173_jpeg_drvdata
-|   `-- drivers-media-platform-mediatek-jpeg-mtk_jpeg_core.c:warning:unused-variable-mtk_jpeg_drvdata
-`-- s390-randconfig-r022-20221110
-    `-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-function-gf100_fifo_nonstall_block
-
-elapsed time: 736m
-
-configs tested: 77
-configs skipped: 2
-
-gcc tested configs:
-arm                            xcep_defconfig
-openrisc                         alldefconfig
-arm                               allnoconfig
-sh                        apsh4ad0a_defconfig
-powerpc                    adder875_defconfig
-powerpc                      arches_defconfig
-i386                             alldefconfig
-sh                          lboxre2_defconfig
-m68k                        mvme16x_defconfig
-sh                        edosk7760_defconfig
-powerpc                       holly_defconfig
-arm                             pxa_defconfig
-sh                         ap325rxa_defconfig
-sh                        sh7763rdp_defconfig
-um                             i386_defconfig
-um                           x86_64_defconfig
-arm                            pleb_defconfig
-x86_64                            allnoconfig
-powerpc                      bamboo_defconfig
-x86_64                              defconfig
-i386                          randconfig-a014
-x86_64                           rhel-8.3-kvm
-x86_64                           rhel-8.3-syz
-i386                          randconfig-a012
-arm                       imx_v6_v7_defconfig
-i386                                defconfig
-i386                          randconfig-a016
-ia64                             allmodconfig
-m68k                             allyesconfig
-arm                                 defconfig
-x86_64                         rhel-8.3-kunit
-powerpc                     tqm8541_defconfig
-x86_64                          rhel-8.3-func
-x86_64                               rhel-8.3
-arc                                 defconfig
-x86_64                        randconfig-a002
-x86_64                    rhel-8.3-kselftests
-riscv                          rv32_defconfig
-i386                             allyesconfig
-s390                             allmodconfig
-x86_64                           allyesconfig
-arm                              allyesconfig
-alpha                               defconfig
-i386                          randconfig-a001
-arc                  randconfig-r043-20221110
-x86_64                        randconfig-a004
-i386                          randconfig-a003
-s390                                defconfig
-x86_64                        randconfig-a006
-i386                          randconfig-a005
-powerpc                           allnoconfig
-arm64                            allyesconfig
-i386                          randconfig-c001
-s390                             allyesconfig
-sh                               allmodconfig
-m68k                             allmodconfig
-alpha                            allyesconfig
-arc                              allyesconfig
-mips                             allyesconfig
-powerpc                          allmodconfig
-
-clang tested configs:
-powerpc                    ge_imp3a_defconfig
-powerpc                     ppa8548_defconfig
-mips                        omega2p_defconfig
-powerpc                     kilauea_defconfig
-i386                          randconfig-a013
-i386                          randconfig-a011
-i386                          randconfig-a015
-powerpc                  mpc866_ads_defconfig
-x86_64                        randconfig-a001
-x86_64                        randconfig-a003
-hexagon              randconfig-r041-20221110
-riscv                randconfig-r042-20221110
-x86_64                        randconfig-a005
-i386                          randconfig-a002
-hexagon              randconfig-r045-20221110
-i386                          randconfig-a004
-s390                 randconfig-r044-20221110
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
