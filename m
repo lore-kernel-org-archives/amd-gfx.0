@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A7FDC43217
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 13:00:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D392C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 13:00:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3028E10E78E;
-	Thu, 10 Nov 2022 13:00:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3217D10E78B;
+	Thu, 10 Nov 2022 13:00:22 +0000 (UTC)
 Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
  [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84D0B10E066
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 13:00:15 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id bs21so2152195wrb.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 05:00:15 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8E0710E78B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 13:00:16 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id h9so2202635wrt.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 05:00:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=F5NQ6VJyp0baBXTljbwhIqk2j4TLXv8MVbL3XVH/SEM=;
- b=P7ljOBiw/qaMDVJwhvhruGG9ay2oDvHR2Jv3xW0BwgYuqbV2hvhqNPrhgqm5FsAnjq
- 3UFQsUW9kMbk075oMUkl80oQQNfp8XLr9Or739IGcPDiknpQ+lSmLIvs2wJTkRDjF5hu
- meotWdTX5OdlesRNlgVu4iNarcs/SOn3VnINnyiocatgdoYgYwDNpclVDK/Oo4qp2DdF
- XzCf8aM5IBEc+OvLQJK809J9rn767gkotPJ4QmQo8mmFqW6p0gVo2CgrX0gWv8OJTzmY
- RrQYqWAZzESvxupTMTWI5J8W84/DyMHLxXHrZBee25twYgSg7lCpF3e0jpdSnzQiliZw
- 37Gw==
+ bh=ekUWKjawwsGOP6J+e64C1gu2Y1hbNcSfzVVgXsAxLCM=;
+ b=dyvuzp93ydDX+c0TodPG1k6axQC8N1PXt5G5BCs4NQwtSHhI4flrB9XTKQeJB+ZrdT
+ wRErGZWUIPQ44aS2hYmqJfyLzNcbIVyk+rvJZINizonIdQ58nhmP1GbvypqZrxBTPZ3d
+ rZPp+63tf7RMe+BXq5+AH9jqWsCmqgW8jk/7NPrOlkcF5Xw2qEMsm9wgMF/dldY2iESZ
+ FmpYpNMbJs7Sh6sx4LxQQEiKJLOydcznJB30EWVEsAOpXsZlv3izIYDWrol6eWNwqyqF
+ MYJvEy/yAgNksAbcj4OWXXsx/goAXWRtjQvtSyt6UF+nvKbmzQ1PXT3On1mXkMpTsuak
+ wy+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=F5NQ6VJyp0baBXTljbwhIqk2j4TLXv8MVbL3XVH/SEM=;
- b=W4S+AsClSYQCu1ivl+FoFs4TeY514te5I13HpeoBqiGqhakkGNib+1Ml+7FjFzaZ7l
- PRiOHtrhwMReBC+CFwK5ZTOPppMtB8WzYlq9okGlRgEEpU0N34IlC9evRdpKHpuNqI6T
- 0Mltu242qRLYh7Un2RnkF/Mz3ij1Bm4GXNiGGSVuVFDLbexrcQadQ3li1KsVw2DB9+xL
- KOPqNOy5dM6LB1AVbrYCwuCkN9/bWi0yeVjhuyDr4MPnPIEfXIpZvfhv+4itIoiVrR11
- LhRFAoAmdGy95GXNjVJyLa0lwo2n0ZDoJjx8f59o6cOmvjMKp6q3nDnWX1bW2gjDxput
- 9a7w==
-X-Gm-Message-State: ACrzQf2YumTGSD6dBSszEBrmIVMWUrJbfRNtgGkv4McH1kKZg7e15eKS
- AG9jJdTyHvtsrOaR3vYjCZ+sRhPHQJU=
-X-Google-Smtp-Source: AMsMyM44ESie0Af+FF8oMD7Jx2Q/lkH8q0GnnzAIzjCZyjIdcw+ilG0t6T5kfVA+BCSchfXdBKpqsQ==
-X-Received: by 2002:a5d:498f:0:b0:236:55e9:6c16 with SMTP id
- r15-20020a5d498f000000b0023655e96c16mr42158212wrq.331.1668085213895; 
- Thu, 10 Nov 2022 05:00:13 -0800 (PST)
+ bh=ekUWKjawwsGOP6J+e64C1gu2Y1hbNcSfzVVgXsAxLCM=;
+ b=Uc6CMMOIUZKi4Y8otM43cdaj/mGn0Xxd9peKMGqTSWyaHhfVv6dxTliHiM8+ugQ831
+ j37bTYQkGVXuCWTjUBshE3V/+TnsRW5VUIeogv0aISCL1hR2i+q/EunmHVfqL5ZnENHY
+ 9ZBF9QIFNtM3D3QLzyt/RPnAS377oE2fP9ieiYE7m2iCH+rYbkKYxvlPygz1ZDvNNvin
+ LB4zrCbWUQ/ws6aCIO9ciCnvPleUu0Cvja+e4B5vAXvSziBXH/3+wEXUhQFXkEPrKsBw
+ VPGC9t8UpX6HVk+T1tsKt0KbJKbRgdM+1zzsQFYKlN2yqn4lpu59fw+7EduQeAfkvBX9
+ t8Pw==
+X-Gm-Message-State: ANoB5pkQPtBO1EXdzIwRHrbXJBQAIdZ9++G/Mj7u+sYMeaAlma93Vxf1
+ fGZmTtg03GLuFT6xrTjsK0w=
+X-Google-Smtp-Source: AA0mqf6051IDHctncY7HJutnZGcCU+A8uBzMntylg+Y88NpkolLmrwpAp+HGLJZ3fcYnXG0UWLHaKQ==
+X-Received: by 2002:a5d:640e:0:b0:23b:14c6:33be with SMTP id
+ z14-20020a5d640e000000b0023b14c633bemr20227459wru.418.1668085215044; 
+ Thu, 10 Nov 2022 05:00:15 -0800 (PST)
 Received: from able.fritz.box (p5b0ea229.dip0.t-ipconnect.de. [91.14.162.41])
  by smtp.gmail.com with ESMTPSA id
- az11-20020a05600c600b00b003b4cba4ef71sm5318965wmb.41.2022.11.10.05.00.12
+ az11-20020a05600c600b00b003b4cba4ef71sm5318965wmb.41.2022.11.10.05.00.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Nov 2022 05:00:13 -0800 (PST)
+ Thu, 10 Nov 2022 05:00:14 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: felix.kuehling@amd.com, Philip.Yang@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/4] drm/amdgpu: fix userptr HMM range handling
-Date: Thu, 10 Nov 2022 14:00:07 +0100
-Message-Id: <20221110130009.1835-2-christian.koenig@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu: rename the files for HMM handling
+Date: Thu, 10 Nov 2022 14:00:08 +0100
+Message-Id: <20221110130009.1835-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221110130009.1835-1-christian.koenig@amd.com>
 References: <20221110130009.1835-1-christian.koenig@amd.com>
@@ -73,331 +73,294 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- stable@vger.kernel.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The basic problem here is that it's not allowed to page fault while
-holding the reservation lock.
-
-So it can happen that multiple processes try to validate an userptr
-at the same time.
-
-Work around that by putting the HMM range object into the mutex
-protected bo list for now.
+Clean that up a bit, no functional change.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
-CC: stable@vger.kernel.org
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 12 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c   |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h   |  3 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  8 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  6 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 50 +++++--------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       | 14 ++++--
- 7 files changed, 43 insertions(+), 51 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/Makefile           |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 -
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  7 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  5 ++-
+ .../amd/amdgpu/{amdgpu_mn.c => amdgpu_hmm.c}  | 37 ++++++++++---------
+ .../amd/amdgpu/{amdgpu_mn.h => amdgpu_hmm.h}  |  8 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |  1 -
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  2 +-
+ 9 files changed, 33 insertions(+), 31 deletions(-)
+ rename drivers/gpu/drm/amd/amdgpu/{amdgpu_mn.c => amdgpu_hmm.c} (86%)
+ rename drivers/gpu/drm/amd/amdgpu/{amdgpu_mn.h => amdgpu_hmm.h} (87%)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 6ad39cf71bdd..712075a491f2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -250,7 +250,7 @@ endif
+ amdgpu-$(CONFIG_COMPAT) += amdgpu_ioc32.o
+ amdgpu-$(CONFIG_VGA_SWITCHEROO) += amdgpu_atpx_handler.o
+ amdgpu-$(CONFIG_ACPI) += amdgpu_acpi.o
+-amdgpu-$(CONFIG_HMM_MIRROR) += amdgpu_mn.o
++amdgpu-$(CONFIG_HMM_MIRROR) += amdgpu_hmm.o
+ 
+ include $(FULL_AMD_PATH)/pm/Makefile
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 9999c18e7d8e..06234cf13d14 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -82,7 +82,6 @@
+ #include "amdgpu_vce.h"
+ #include "amdgpu_vcn.h"
+ #include "amdgpu_jpeg.h"
+-#include "amdgpu_mn.h"
+ #include "amdgpu_gmc.h"
+ #include "amdgpu_gfx.h"
+ #include "amdgpu_sdma.h"
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index c5c9bfa2772e..83659e6419a8 100644
+index 83659e6419a8..48250a961582 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -940,6 +940,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
- 	struct amdkfd_process_info *process_info = mem->process_info;
- 	struct amdgpu_bo *bo = mem->bo;
- 	struct ttm_operation_ctx ctx = { true, false };
-+	struct hmm_range *range;
- 	int ret = 0;
- 
- 	mutex_lock(&process_info->lock);
-@@ -969,7 +970,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
- 		return 0;
+@@ -29,6 +29,7 @@
+ #include "amdgpu_object.h"
+ #include "amdgpu_gem.h"
+ #include "amdgpu_vm.h"
++#include "amdgpu_hmm.h"
+ #include "amdgpu_amdkfd.h"
+ #include "amdgpu_dma_buf.h"
+ #include <uapi/linux/kfd_ioctl.h>
+@@ -951,7 +952,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
+ 		goto out;
  	}
  
--	ret = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages);
-+	ret = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages, &range);
+-	ret = amdgpu_mn_register(bo, user_addr);
++	ret = amdgpu_hmm_register(bo, user_addr);
  	if (ret) {
- 		pr_err("%s: Failed to get user pages: %d\n", __func__, ret);
- 		goto unregister_out;
-@@ -987,7 +988,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
- 	amdgpu_bo_unreserve(bo);
- 
- release_out:
--	amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm);
-+	amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, range);
+ 		pr_err("%s: Failed to register MMU notifier: %d\n",
+ 		       __func__, ret);
+@@ -991,7 +992,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
+ 	amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, range);
  unregister_out:
  	if (ret)
- 		amdgpu_mn_unregister(bo);
-@@ -2319,6 +2320,8 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
- 	/* Go through userptr_inval_list and update any invalid user_pages */
- 	list_for_each_entry(mem, &process_info->userptr_inval_list,
- 			    validate_list.head) {
-+		struct hmm_range *range;
-+
- 		invalid = atomic_read(&mem->invalid);
- 		if (!invalid)
- 			/* BO hasn't been invalidated since the last
-@@ -2329,7 +2332,8 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
- 		bo = mem->bo;
+-		amdgpu_mn_unregister(bo);
++		amdgpu_hmm_unregister(bo);
+ out:
+ 	mutex_unlock(&process_info->lock);
+ 	return ret;
+@@ -1775,7 +1776,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
+ 	mutex_unlock(&process_info->lock);
  
- 		/* Get updated user pages */
--		ret = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages);
-+		ret = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages,
-+						   &range);
- 		if (ret) {
- 			pr_debug("Failed %d to get user pages\n", ret);
+ 	/* No more MMU notifiers */
+-	amdgpu_mn_unregister(mem->bo);
++	amdgpu_hmm_unregister(mem->bo);
  
-@@ -2348,7 +2352,7 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
- 			 * FIXME: Cannot ignore the return code, must hold
- 			 * notifier_lock
- 			 */
--			amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm);
-+			amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, range);
- 		}
- 
- 		/* Mark the BO as valid unless it was invalidated
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index 2168163aad2d..252a876b0725 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -209,6 +209,7 @@ void amdgpu_bo_list_get_list(struct amdgpu_bo_list *list,
- 			list_add_tail(&e->tv.head, &bucket[priority]);
- 
- 		e->user_pages = NULL;
-+		e->range = NULL;
- 	}
- 
- 	/* Connect the sorted buckets in the output list. */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-index 9caea1688fc3..e4d78491bcc7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-@@ -26,6 +26,8 @@
- #include <drm/ttm/ttm_execbuf_util.h>
- #include <drm/amdgpu_drm.h>
- 
-+struct hmm_range;
-+
- struct amdgpu_device;
- struct amdgpu_bo;
- struct amdgpu_bo_va;
-@@ -36,6 +38,7 @@ struct amdgpu_bo_list_entry {
- 	struct amdgpu_bo_va		*bo_va;
- 	uint32_t			priority;
- 	struct page			**user_pages;
-+	struct hmm_range		*range;
- 	bool				user_invalidated;
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index d371000a5727..7f9cedd8e157 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -910,7 +910,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 			goto out_free_user_pages;
- 		}
- 
--		r = amdgpu_ttm_tt_get_user_pages(bo, e->user_pages);
-+		r = amdgpu_ttm_tt_get_user_pages(bo, e->user_pages, &e->range);
- 		if (r) {
- 			kvfree(e->user_pages);
- 			e->user_pages = NULL;
-@@ -988,9 +988,10 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 
- 		if (!e->user_pages)
- 			continue;
--		amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm);
-+		amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, e->range);
- 		kvfree(e->user_pages);
- 		e->user_pages = NULL;
-+		e->range = NULL;
- 	}
- 	mutex_unlock(&p->bo_list->bo_list_mutex);
- 	return r;
-@@ -1265,7 +1266,8 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
- 	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
- 		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
- 
--		r |= !amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm);
-+		r |= !amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, e->range);
-+		e->range = NULL;
- 	}
- 	if (r) {
- 		r = -EAGAIN;
+ 	ret = reserve_bo_and_cond_vms(mem, NULL, BO_VM_ALL, &ctx);
+ 	if (unlikely(ret))
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 111484ceb47d..91571b1324f2 100644
+index 91571b1324f2..a0780a4e3e61 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -378,6 +378,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct drm_amdgpu_gem_userptr *args = data;
- 	struct drm_gem_object *gobj;
-+	struct hmm_range *range;
- 	struct amdgpu_bo *bo;
- 	uint32_t handle;
- 	int r;
-@@ -418,7 +419,8 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
+@@ -38,6 +38,7 @@
+ #include "amdgpu.h"
+ #include "amdgpu_display.h"
+ #include "amdgpu_dma_buf.h"
++#include "amdgpu_hmm.h"
+ #include "amdgpu_xgmi.h"
+ 
+ static const struct drm_gem_object_funcs amdgpu_gem_object_funcs;
+@@ -87,7 +88,7 @@ static void amdgpu_gem_object_free(struct drm_gem_object *gobj)
+ 	struct amdgpu_bo *robj = gem_to_amdgpu_bo(gobj);
+ 
+ 	if (robj) {
+-		amdgpu_mn_unregister(robj);
++		amdgpu_hmm_unregister(robj);
+ 		amdgpu_bo_unref(&robj);
+ 	}
+ }
+@@ -414,7 +415,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
+ 	if (r)
  		goto release_object;
  
- 	if (args->flags & AMDGPU_GEM_USERPTR_VALIDATE) {
--		r = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages);
-+		r = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages,
-+						 &range);
- 		if (r)
- 			goto release_object;
+-	r = amdgpu_mn_register(bo, args->addr);
++	r = amdgpu_hmm_register(bo, args->addr);
+ 	if (r)
+ 		goto release_object;
  
-@@ -441,7 +443,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+similarity index 86%
+rename from drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+rename to drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+index b86c0b8252a5..a68072f766c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+@@ -49,9 +49,10 @@
  
- user_pages_done:
- 	if (args->flags & AMDGPU_GEM_USERPTR_VALIDATE)
--		amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm);
-+		amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, range);
+ #include "amdgpu.h"
+ #include "amdgpu_amdkfd.h"
++#include "amdgpu_hmm.h"
  
- release_object:
- 	drm_gem_object_put(gobj);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 76a8ebfc9e71..a56d28bd23be 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -642,9 +642,6 @@ struct amdgpu_ttm_tt {
- 	struct task_struct	*usertask;
- 	uint32_t		userflags;
- 	bool			bound;
--#if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
--	struct hmm_range	*range;
--#endif
+ /**
+- * amdgpu_mn_invalidate_gfx - callback to notify about mm change
++ * amdgpu_hmm_invalidate_gfx - callback to notify about mm change
+  *
+  * @mni: the range (mm) is about to update
+  * @range: details on the invalidation
+@@ -60,9 +61,9 @@
+  * Block for operations on BOs to finish and mark pages as accessed and
+  * potentially dirty.
+  */
+-static bool amdgpu_mn_invalidate_gfx(struct mmu_interval_notifier *mni,
+-				     const struct mmu_notifier_range *range,
+-				     unsigned long cur_seq)
++static bool amdgpu_hmm_invalidate_gfx(struct mmu_interval_notifier *mni,
++				      const struct mmu_notifier_range *range,
++				      unsigned long cur_seq)
+ {
+ 	struct amdgpu_bo *bo = container_of(mni, struct amdgpu_bo, notifier);
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+@@ -83,12 +84,12 @@ static bool amdgpu_mn_invalidate_gfx(struct mmu_interval_notifier *mni,
+ 	return true;
+ }
+ 
+-static const struct mmu_interval_notifier_ops amdgpu_mn_gfx_ops = {
+-	.invalidate = amdgpu_mn_invalidate_gfx,
++static const struct mmu_interval_notifier_ops amdgpu_hmm_gfx_ops = {
++	.invalidate = amdgpu_hmm_invalidate_gfx,
  };
  
- #define ttm_to_amdgpu_ttm_tt(ptr)	container_of(ptr, struct amdgpu_ttm_tt, ttm)
-@@ -657,7 +654,8 @@ struct amdgpu_ttm_tt {
-  * Calling function must call amdgpu_ttm_tt_userptr_range_done() once and only
-  * once afterwards to stop HMM tracking
-  */
--int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
-+int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages,
-+				 struct hmm_range **range)
- {
- 	struct ttm_tt *ttm = bo->tbo.ttm;
- 	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
-@@ -673,10 +671,6 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
- 		return -EFAULT;
- 	}
- 
--	/* Another get_user_pages is running at the same time?? */
--	if (WARN_ON(gtt->range))
--		return -EFAULT;
--
- 	if (!mmget_not_zero(mm)) /* Happens during process shutdown */
- 		return -ESRCH;
- 
-@@ -694,7 +688,7 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
- 
- 	readonly = amdgpu_ttm_tt_is_readonly(ttm);
- 	r = amdgpu_hmm_range_get_pages(&bo->notifier, mm, pages, start,
--				       ttm->num_pages, &gtt->range, readonly,
-+				       ttm->num_pages, range, readonly,
- 				       true, NULL);
- out_unlock:
- 	mmap_read_unlock(mm);
-@@ -712,30 +706,24 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
+ /**
+- * amdgpu_mn_invalidate_hsa - callback to notify about mm change
++ * amdgpu_hmm_invalidate_hsa - callback to notify about mm change
   *
-  * Returns: true if pages are still valid
+  * @mni: the range (mm) is about to update
+  * @range: details on the invalidation
+@@ -97,9 +98,9 @@ static const struct mmu_interval_notifier_ops amdgpu_mn_gfx_ops = {
+  * We temporarily evict the BO attached to this range. This necessitates
+  * evicting all user-mode queues of the process.
   */
--bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm)
-+bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
-+				       struct hmm_range *range)
+-static bool amdgpu_mn_invalidate_hsa(struct mmu_interval_notifier *mni,
+-				     const struct mmu_notifier_range *range,
+-				     unsigned long cur_seq)
++static bool amdgpu_hmm_invalidate_hsa(struct mmu_interval_notifier *mni,
++				      const struct mmu_notifier_range *range,
++				      unsigned long cur_seq)
  {
- 	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
--	bool r = false;
- 
--	if (!gtt || !gtt->userptr)
-+	if (!gtt || !gtt->userptr || !range)
- 		return false;
- 
- 	DRM_DEBUG_DRIVER("user_pages_done 0x%llx pages 0x%x\n",
- 		gtt->userptr, ttm->num_pages);
- 
--	WARN_ONCE(!gtt->range || !gtt->range->hmm_pfns,
--		"No user pages to check\n");
-+	WARN_ONCE(!range->hmm_pfns, "No user pages to check\n");
- 
--	if (gtt->range) {
--		/*
--		 * FIXME: Must always hold notifier_lock for this, and must
--		 * not ignore the return code.
--		 */
--		r = amdgpu_hmm_range_get_pages_done(gtt->range);
--		gtt->range = NULL;
--	}
--
--	return !r;
-+	/*
-+	 * FIXME: Must always hold notifier_lock for this, and must
-+	 * not ignore the return code.
-+	 */
-+	return !amdgpu_hmm_range_get_pages_done(range);
+ 	struct amdgpu_bo *bo = container_of(mni, struct amdgpu_bo, notifier);
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+@@ -117,12 +118,12 @@ static bool amdgpu_mn_invalidate_hsa(struct mmu_interval_notifier *mni,
+ 	return true;
  }
+ 
+-static const struct mmu_interval_notifier_ops amdgpu_mn_hsa_ops = {
+-	.invalidate = amdgpu_mn_invalidate_hsa,
++static const struct mmu_interval_notifier_ops amdgpu_hmm_hsa_ops = {
++	.invalidate = amdgpu_hmm_invalidate_hsa,
+ };
+ 
+ /**
+- * amdgpu_mn_register - register a BO for notifier updates
++ * amdgpu_hmm_register - register a BO for notifier updates
+  *
+  * @bo: amdgpu buffer object
+  * @addr: userptr addr we should monitor
+@@ -130,25 +131,25 @@ static const struct mmu_interval_notifier_ops amdgpu_mn_hsa_ops = {
+  * Registers a mmu_notifier for the given BO at the specified address.
+  * Returns 0 on success, -ERRNO if anything goes wrong.
+  */
+-int amdgpu_mn_register(struct amdgpu_bo *bo, unsigned long addr)
++int amdgpu_hmm_register(struct amdgpu_bo *bo, unsigned long addr)
+ {
+ 	if (bo->kfd_bo)
+ 		return mmu_interval_notifier_insert(&bo->notifier, current->mm,
+ 						    addr, amdgpu_bo_size(bo),
+-						    &amdgpu_mn_hsa_ops);
++						    &amdgpu_hmm_hsa_ops);
+ 	return mmu_interval_notifier_insert(&bo->notifier, current->mm, addr,
+ 					    amdgpu_bo_size(bo),
+-					    &amdgpu_mn_gfx_ops);
++					    &amdgpu_hmm_gfx_ops);
+ }
+ 
+ /**
+- * amdgpu_mn_unregister - unregister a BO for notifier updates
++ * amdgpu_hmm_unregister - unregister a BO for notifier updates
+  *
+  * @bo: amdgpu buffer object
+  *
+  * Remove any registration of mmu notifier updates from the buffer object.
+  */
+-void amdgpu_mn_unregister(struct amdgpu_bo *bo)
++void amdgpu_hmm_unregister(struct amdgpu_bo *bo)
+ {
+ 	if (!bo->notifier.mm)
+ 		return;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
+similarity index 87%
+rename from drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h
+rename to drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
+index 14a3c1864085..4e596a16d288 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
+@@ -38,16 +38,16 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+ int amdgpu_hmm_range_get_pages_done(struct hmm_range *hmm_range);
+ 
+ #if defined(CONFIG_HMM_MIRROR)
+-int amdgpu_mn_register(struct amdgpu_bo *bo, unsigned long addr);
+-void amdgpu_mn_unregister(struct amdgpu_bo *bo);
++int amdgpu_hmm_register(struct amdgpu_bo *bo, unsigned long addr);
++void amdgpu_hmm_unregister(struct amdgpu_bo *bo);
+ #else
+-static inline int amdgpu_mn_register(struct amdgpu_bo *bo, unsigned long addr)
++static inline int amdgpu_hmm_register(struct amdgpu_bo *bo, unsigned long addr)
+ {
+ 	DRM_WARN_ONCE("HMM_MIRROR kernel config option is not enabled, "
+ 		      "add CONFIG_ZONE_DEVICE=y in config file to fix this\n");
+ 	return -ENODEV;
+ }
+-static inline void amdgpu_mn_unregister(struct amdgpu_bo *bo) {}
++static inline void amdgpu_hmm_unregister(struct amdgpu_bo *bo) {}
  #endif
  
-@@ -812,20 +800,6 @@ static void amdgpu_ttm_tt_unpin_userptr(struct ttm_device *bdev,
- 	/* unmap the pages mapped to the device */
- 	dma_unmap_sgtable(adev->dev, ttm->sg, direction, 0);
- 	sg_free_table(ttm->sg);
--
--#if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
--	if (gtt->range) {
--		unsigned long i;
--
--		for (i = 0; i < ttm->num_pages; i++) {
--			if (ttm->pages[i] !=
--			    hmm_pfn_to_page(gtt->range->hmm_pfns[i]))
--				break;
--		}
--
--		WARN((i == ttm->num_pages), "Missing get_user_page_done\n");
--	}
--#endif
- }
- 
- static void amdgpu_ttm_gart_bind(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index 6a70818039dd..a37207011a69 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -39,6 +39,8 @@
- 
- #define AMDGPU_POISON	0xd0bed0be
- 
-+struct hmm_range;
-+
- struct amdgpu_gtt_mgr {
- 	struct ttm_resource_manager manager;
- 	struct drm_mm mm;
-@@ -149,15 +151,19 @@ void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
- uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
- 
- #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
--int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages);
--bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm);
-+int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages,
-+				 struct hmm_range **range);
-+bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
-+				       struct hmm_range *range);
- #else
- static inline int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
--					       struct page **pages)
-+					       struct page **pages,
-+					       struct hmm_range **range)
- {
- 	return -EPERM;
- }
--static inline bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm)
-+static inline bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
-+						     struct hmm_range *range)
- {
- 	return false;
- }
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index a56d28bd23be..0668b09d7394 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -58,6 +58,7 @@
+ #include "amdgpu_amdkfd.h"
+ #include "amdgpu_sdma.h"
+ #include "amdgpu_ras.h"
++#include "amdgpu_hmm.h"
+ #include "amdgpu_atomfirmware.h"
+ #include "amdgpu_res_cursor.h"
+ #include "bif/bif_4_1_d.h"
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index a5095b3a0235..018fa4c61b85 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -28,7 +28,6 @@
+ #include "amdgpu_sync.h"
+ #include "amdgpu_object.h"
+ #include "amdgpu_vm.h"
+-#include "amdgpu_mn.h"
+ #include "amdgpu_res_cursor.h"
+ #include "kfd_priv.h"
+ #include "kfd_svm.h"
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 39fbe19b978a..d069e6c096b6 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -26,7 +26,7 @@
+ #include "amdgpu_sync.h"
+ #include "amdgpu_object.h"
+ #include "amdgpu_vm.h"
+-#include "amdgpu_mn.h"
++#include "amdgpu_hmm.h"
+ #include "amdgpu.h"
+ #include "amdgpu_xgmi.h"
+ #include "kfd_priv.h"
 -- 
 2.34.1
 
