@@ -4,68 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FE23C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 17:54:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59A04C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 18:08:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6127510E76D;
-	Thu, 10 Nov 2022 17:54:36 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A79610E76D
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 17:54:34 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-13d9a3bb27aso2922942fac.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 09:54:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QhUs5LDBzVM/uCBsu2q6GlPxhKBD8pUKkUZDeOW6kg0=;
- b=RLAYTigSZdm6c/kCaHC23uK8pLQPIHxiVXmbaJnAILcMd/OlVJyfdQTnaUkvrBbRVr
- mzIKpkK15+OJPmM8/MgBBpnvj6PR18upgEemt5LJlOS4dtFyEi1U//F8pYlvbdo/VtPF
- m7KYRoE+rSzRnWUhucqwOwPOAotX4WE2niHJSUnHVgrYTHgp9S15hX8WdX9H7lS1aJ0F
- o6TK4IsmS8R0Z5IP1z8vZIxLc/LNQoBcrjqPY7+MrHRHY3QJzNAAprBRyce3Vlb1YQLL
- 0CZW7Fo2kETNyo69jqub5qPkJP+BdR0dY769vFp1NSA5mCPRsOQeeyTOZas4vTANZ+XR
- wurA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=QhUs5LDBzVM/uCBsu2q6GlPxhKBD8pUKkUZDeOW6kg0=;
- b=Doqdj7wbK5vQih9h0EqFx5PdIEiIFMW63FqcheoaHPRp9NpPL+OjtgHTdOAB/RKM6e
- Lr8lT2zIoVmMTbmgC0lLJOUbtg3rL3LEOoaHTCaScKqH6WrOS2Kw1ZAk4JuY+/Su9VCC
- tTzFAE2zzmZuDHc5xCZaWzRYXktRMWn0+pc3q2+vz8sWzNM1M2lVfcYJZxK0wyD313Mc
- RVUzf2+j+VwUTPlorWqdZcv9mDZNcygEBPNEwhDnkm5deRYmeTSKBxVU+oErElWgFFqt
- BbfilpwbAh83opYmewp0yNA+6a1mC1fxcoRdzuQC6yZEbOqnDjCvTSP7hLDLm2I08CnC
- ELzQ==
-X-Gm-Message-State: ACrzQf1Mn86eXqctstDlHSJN1Op+dqRESx7mpvv8u+LlStzvwkpZkHrx
- KNEveJZ6s8/uiwVt+LeMOE1KjZXikLV3hcBj3dU=
-X-Google-Smtp-Source: AMsMyM7z8uduI7msP4Y+tLgb2x78lZFNzTmZbhZw3elRUeZg75xFJuCv1KZaXpZaVQPbKtmP13R/knXJAFVYULgFr9Q=
-X-Received: by 2002:a05:6870:6b86:b0:13b:d07f:f29d with SMTP id
- ms6-20020a0568706b8600b0013bd07ff29dmr1826772oab.96.1668102873567; Thu, 10
- Nov 2022 09:54:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F48E10E77E;
+	Thu, 10 Nov 2022 18:07:55 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1E4A10E76E;
+ Thu, 10 Nov 2022 18:07:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fJbXyhaiJPjmpBL2GaGbTrjjmevYGocat0cyukxSaOOtGh0/Bc7lSmHMLmjKMnWgDwLdjmmBz5PYNYeoEhgntj5aYQss5DQykLCU+chcTIaTe923w81YTEZ84Zjj/SFE8Hh+78lNimDEDVbKvpwLUe4i3DCv9M3dMVNDVevJsm+wHeVXDQjJhDzPO8BJg8OmJMHt4lyasDhzPAkg3oGlJnWxHTHKnsuyVuwqSF0LtN8QjRcBd5eFyo1eWppqtgQ0qB7cF2mQvfmGWQO7kSXdvQp2LJQTckcMl+GGGtxfk+c2dAh3WMZpVTvkfKdvF9XlQYeCqMhkAvc5RFf3SyXpNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Oqc+jBb1Leli+viV/ph9bW+0gxtmaRumZOp8fQCLuIw=;
+ b=NlLcHqJpQzUOc+T5doxhc55yISDfb1X8WZajVuoNvrNg1UzNRCkODxNbmtf9THQ87ou9Lfb/7lBO0D60Xo6GzzKgQ15kRZ96h9cl3BRRXA5euCmLSEfkV2I0HRmCN7vJ7lfoWt1Il1NrVtJev3BnNoM7uqN/+SmXIZQigRlJ8tHW5YSys/RQBJVblHTXcmWIKdyb1+QbGmF22mwdpEMCl1w0+U2y05ejhfx+ZGcY9/J/m+srjIogMRnZhzjO2xY/Ruwl5CU8I5bE2MlvqYgb7RmhrIjMcqxeuv2T7Fc9J2ohAIo1qkXKKXkcLPrWqgpwxKr3QMmUNA6tJppcXkfC0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Oqc+jBb1Leli+viV/ph9bW+0gxtmaRumZOp8fQCLuIw=;
+ b=ooDbqkbKcpfemSVlYMXbkmnp6HN4mEQ68eCfNEHcXq11d6GWETvZNPvbTm1RSNsH5o89EXOO5OCYxUv44b2YgplDRhccb7ukOUiWh+WacfPFRQxH6nGugtPceZ94f/mHcMfD0+YmTpZte5aHGMzIDD+WNVp4PqKK2dVHAB1IDis=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
+ LV2PR12MB5989.namprd12.prod.outlook.com (2603:10b6:408:171::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.23; Thu, 10 Nov
+ 2022 18:07:47 +0000
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::d309:77d2:93d8:2425]) by DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::d309:77d2:93d8:2425%7]) with mapi id 15.20.5791.026; Thu, 10 Nov 2022
+ 18:07:47 +0000
+Message-ID: <075b9979-e956-1f01-2a57-0ff0e15d9de6@amd.com>
+Date: Thu, 10 Nov 2022 13:07:45 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+To: Dong Chenchen <dongchenchen2@huawei.com>, airlied@gmail.com,
+ daniel@ffwll.ch
+References: <20221110143314.708434-1-dongchenchen2@huawei.com>
+Content-Language: en-CA
+From: Luben Tuikov <luben.tuikov@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix memory leak in amdgpu_cs_pass1
+In-Reply-To: <20221110143314.708434-1-dongchenchen2@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT3PR01CA0005.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:86::25) To DM6PR12MB3370.namprd12.prod.outlook.com
+ (2603:10b6:5:38::25)
 MIME-Version: 1.0
-References: <20221018090815.2662321-1-jiadong.zhu@amd.com>
- <20221018090815.2662321-4-jiadong.zhu@amd.com>
- <e5544150-5eae-7dae-b5db-dd9539df8198@daenzer.net>
- <DS7PR12MB6333A815A3C3EADFFA303E4FF4369@DS7PR12MB6333.namprd12.prod.outlook.com>
- <5a11969c-0996-8755-472a-11f9cf1705d1@daenzer.net>
- <SJ1PR12MB6338730B8B54AD01E4FEF86BF4369@SJ1PR12MB6338.namprd12.prod.outlook.com>
- <92da389f-3c26-6fe1-0525-d38730b6924a@daenzer.net>
- <8b3240e6-c460-5dbd-eede-29ff4825e642@daenzer.net>
- <DS7PR12MB63332B114E5E3B45F91178AFF4389@DS7PR12MB6333.namprd12.prod.outlook.com>
- <04361686-5bdd-8ca8-2ecd-c5dfdaa1a41b@daenzer.net>
- <DS7PR12MB63331E4430DC731D92B0A7CAF43F9@DS7PR12MB6333.namprd12.prod.outlook.com>
- <fb72d05b-dc74-fa84-51cf-3c3911aa46fc@daenzer.net>
-In-Reply-To: <fb72d05b-dc74-fa84-51cf-3c3911aa46fc@daenzer.net>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 10 Nov 2022 12:54:22 -0500
-Message-ID: <CADnq5_MKjxf-YngEVJe8AbZQ0Ss6ghGhVHUeSErwPsUg2paoYQ@mail.gmail.com>
-Subject: Re: [PATCH 4/5] drm/amdgpu: MCBP based on DRM scheduler (v8)
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|LV2PR12MB5989:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1faf3f76-56e2-4e81-2779-08dac3467932
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vAjS5P03ODaePUNjVBP1RJEqQ14IORX1wItD1JtitIqivaQ1NzV+l1a5jyNE/k73F55kRL9W+hoZ6HlXHnDOksf30Wn+lfnZXlS1NWyF4YOkuhL0CVoqwf6Zx5PwlXa+6mNP2E+zoF+3wPWAdiNt0WxOVWv7BBRtyjF+Tfy8XIYAlioVu+3QYarEmDfDZHemrUtjNSW1MujoDqH6OqrrBgQ09nL1LMEXdCqZsSou+vJ1kOqn81Ro3CIJgtvoGHjwJm1IHyreh/m32sOc4pMp2f/IqodIZqOAl4C5vK6m57+vec6r2dq41DlG7SdVg7wdG/55O6PSqYmsYs9cQEJdSOvB4DNyukqBV92erg7iKTKM9pmMRnU5FTaqYBabt7+KSBcpcCjmGwQNmE9xktXHsvel1t+9fNgNJdgdCqa7O6m41zDlEsj0yeqSkmmSov/dOwDW9JZ2ikpFq63QOP9Ya5RqMFmI1vS7gr7qw5ATUtD/PP7BLKFRx3V3LmET4lQr0EkSXfIY5BuqKgWz7iNpkq7xxdcR3Gy0fkRDlGFvRxbgEPNUy7H3khGtEuMV+8IdI6nXJbXc0IVjtNcbVYokBc0cvFqyULz4NZgLqfhM4O/hDqVopFyI7Op2k9Y3G9vODDOOtaImiC3+mk5AY0FwDLrinJRuBWg7DAhmsbHiq99+sCizX/MAC+Vv9Hy1Tpj8WhVMXeLexO3Byz7uYT7yBQcxUnwdEsjJ8+j7cFaMu2z0ktOMX+LMJDNDOGUIOPle7wbX9EDHNaCP9YBbUwX4CK86bO4ytEepZsXC3kkkLdU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(366004)(376002)(396003)(136003)(39860400002)(451199015)(2616005)(36756003)(6512007)(83380400001)(478600001)(38100700002)(41300700001)(6506007)(44832011)(4001150100001)(186003)(26005)(6486002)(31686004)(86362001)(8676002)(2906002)(66946007)(5660300002)(316002)(66476007)(31696002)(66556008)(4326008)(8936002)(53546011)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZzNScmhRNlJSRnQ5ejJLOGI0a3hsNzA2b2NRSHVvMFQvVmJHUExDMU8wTVpT?=
+ =?utf-8?B?WU83MzA1cGdJM2p5aHRBekQrMWhmeHNoMGZvQjlkYXYyWmtVcGtsalJSbGlD?=
+ =?utf-8?B?WEZRekxWc0syekpHRm8wVzFsajlOdUFwSXd5MlhRODRYb3FCK0U3TVBxVGNV?=
+ =?utf-8?B?cjFDK09FTlNDbWovbEczZ1lvWm1mcFdQNjdlY2hKREVzcWJEaXcyL3c2S0V0?=
+ =?utf-8?B?UGhTQWVFNDQ4TWxINDZvZGV2Q3BpVEdQbi9uNTNqWDV0STNOVHcwUzZoTWJt?=
+ =?utf-8?B?TkdicXZGMXJBNEROZjhJNURHb093ZTFQWTc4N0pPY3hNVE1XTWFEcnFhM0tX?=
+ =?utf-8?B?UEsxZjNTTDRuZ3UyeFlpRWN0Znk2Y3Z2RnVaYUZmZko0QWtUZGNJQ3NNdDd3?=
+ =?utf-8?B?c29JcnRxVjJlUms1NFRGbzIycDZJTUlJcmtNdzZhTDE0REhyS1NmN08zcTVS?=
+ =?utf-8?B?cm1zWUd2Vi9XSnVnOFpFc2FNS2NweEFGZ1ZOMXp4RlpmWkF3dUk3ZVdMQjB3?=
+ =?utf-8?B?V2krdFFldUNIdGFFaXlobG9ZWkNiaWlKYTlBTDVSZnRlS042NWlhaEtFUlpG?=
+ =?utf-8?B?OTBER0pnamVEalBDbUEyN3pyaEduNkU3TE82ZUo1dDZjV1BEREdnSEIxOGsz?=
+ =?utf-8?B?byttRysvcjlMVUxEWHppTXkweWs1MFhwVVI3dHhtcG5MbklENFQ4cVZ3UzUr?=
+ =?utf-8?B?QXpna1N0ZzFQRHJ2U0lCWWZKU3BXUEIvelJCK0hCM1FMQTZxbXZScE9yNXpH?=
+ =?utf-8?B?a3N1VE9oWTBCRVhENW4rMUFhVUxJbzVBMC9qVVVCUGNmRm9xUDM1a2V4em9T?=
+ =?utf-8?B?N1lKUXhra1NpZFFFbHdOd0tBbmV1N25uTzdPY2ZXVVRtSzF0c1dOWnNYNTBk?=
+ =?utf-8?B?WmREekpRQW56T3JiN0J5SnNmN0JmMVN0dmR3ZjBPeGZBSnVrN1Q4OTlzR2Fa?=
+ =?utf-8?B?blhjYTRvOUNLR284MnhLOUZITXlscVJFZ01TMzlHazRiZlhPR2pQcnBGQzVh?=
+ =?utf-8?B?b29vUDMyZHlZN0g3QnlGeC9vQ0NzaXllUGxLdXZNMFZsN0xKNVJQa2JGZEpG?=
+ =?utf-8?B?ajJQcUJHTEdzNjlyQUUwTUVDa3hzVHQrMnduWWlFZXBLZ3c2bXJiR1lmWGxm?=
+ =?utf-8?B?NU5sbFBkdDlhM1Y2bU40MEhxYU05RlVXS0p1VGt6RkZ3d3NUZS9QQkdudU1R?=
+ =?utf-8?B?cm43TEJGdTFiM0I1dkdhb2l1OUZWejZuWHJ5eHBUUHVVOVYzeUVodVJGMkt5?=
+ =?utf-8?B?Zm5Ra01DNVB1bGVlQ3lJeTM4MlNSUm0ydGtMN2RtemVLWEtEdHdWcjh2RU1h?=
+ =?utf-8?B?VkJRcUw5UTlCUmZNUUVicG1MN3RTRE1VNTVLK0lwbHdQNjdra3ByOW93cUxP?=
+ =?utf-8?B?THBzc0FuY3pEdlZjN0t0cHpHSnY4V2dGakZ5QWw1RWtZUi9PcC9yN3haZUZU?=
+ =?utf-8?B?dzlCYVBqczNEQnZlWnU0V1pkRytHR3hZMlkwS0orQjdJb0V6cWdnYUtFd1lS?=
+ =?utf-8?B?L2JPNjVmNFkzRFJGM2FJQTEvQTg1MU04U2svTU5Zc2lJTHc3bm1zcGhwOFdu?=
+ =?utf-8?B?eTNadlVOVE1xcVhVc0dEOU5IL0NIandQOHFVc1J2WjBkdERrUWEzdzNIamw0?=
+ =?utf-8?B?K0V2SHREZUtERXhnWUpudzFTM0ZjK3Vjd2FkZDV2MFJDQnlVYWFxeXBkOHdt?=
+ =?utf-8?B?Q1JuWld1ay91VWFIcW42czBJeVMvMlhRYy83NFdsSk1LemNnM2xHdlYvS2ZP?=
+ =?utf-8?B?K1BqWElJRmswS3cwQVRZNmsvN3hQWGhHOTJjUEVUb0xWVjlXb1JXTHNFZ3dC?=
+ =?utf-8?B?bEd5dHpBQ0ljRWF3aGNleVFzVHBjY0JOeWRUSzNqdVF0blJjdEpPd1dsOWNm?=
+ =?utf-8?B?c2ZVK2dKNWcrcHhRc2doRlNqUitjZWtCM1BPUDZTcVZ2SXlrZFNmZ1drQmg5?=
+ =?utf-8?B?aUdMSmgyQnRQaFBwTkVxUmltN3ZLcE00cVRKWHY5REpRc0dIVGlycmNRb2hF?=
+ =?utf-8?B?cG96L3lOZCsxRytsNkRhNWR1eG1Lc3M4VTU5dUZ3MVpZMnVlb0V0L01iM0hn?=
+ =?utf-8?B?Y01yQVV5U0UyMjdjZE15YXlmRElVNXQyWWNSSWJFU09FbXFFcHlsVjllYkFa?=
+ =?utf-8?Q?X11evZBL2Bq7iXyngJPewMOr1?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1faf3f76-56e2-4e81-2779-08dac3467932
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2022 18:07:47.6365 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VzkDuiX3rwtM1mvVfjzjoGjYlo3DrramO1DDoY0lDQZs39rnqZlAhkk8k6KPCIKq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5989
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,66 +124,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "Zhu,
- Jiadong" <Jiadong.Zhu@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Xinhui.Pan@amd.com, yuehaibing@huawei.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 10, 2022 at 12:00 PM Michel D=C3=A4nzer <michel@daenzer.net> wr=
-ote:
->
-> On 2022-11-08 09:01, Zhu, Jiadong wrote:> From: Michel D=C3=A4nzer <miche=
-l@daenzer.net>
-> >
-> >>>> The bad news is that this series still makes some things very slow. =
-The most extreme examples so far are glxgears (runs at ~400 fps now, ~7000 =
-fps before, i.e. almost 20x slowdown) and hexchat (scrolling one page now t=
-akes ~1 second, I can see it drawing line by line; before it was almost ins=
-tantaneous). I suspect this series makes the overhead of running a single G=
-PU job much bigger. On the bright side, I'm not noticing any significant in=
-termittent freezes anymore.
-> >>>
-> >>> Hi Michel,
-> >>>
-> >>> Thanks for the trying.
-> >>> Is there high priority jobs running while executing glxgears?
-> >>
-> >> Yes, mutter is submitting high priority jobs. However, I don't think t=
-hat can explain the problem by itself:
-> >>
-> >> mutter only draws once per display refresh cycle. Let's assume mutter'=
-s GPU work takes ~6-7ms (conservative example, should be less than that usu=
-ally). That leaves ~10ms per display refresh cycle (at 60 Hz refresh rate) =
-where GPU work from glxgears & Xwayland can run without getting preempted. =
-Since glxgears runs at ~7000 fps without this series, it should be able to =
-draw at least ~70 frames in 10ms[0], which corresponds to over 4000 fps. Ye=
-t it manages only 1/10 of that.
-> >>
-> >> [0] Worst case consideration, ignoring the fact that without this seri=
-es, glxgears runs at ~7000 fps while mutter sustains 60 fps.
-> >
-> > I reproduced the glxgears 400fps scenario locally. The issue is caused =
-by the patch5 "drm/amdgpu: Improve the software rings priority scheduler" w=
-hich slows down the low priority scheduler thread if high priority ib is un=
-der executing. I'll drop this patch as we cannot identify gpu bound accordi=
-ng to the unsignaled fence, etc.
->
-> Okay, I'm testing with patches 1-4 only now.
->
-> So far I haven't noticed any negative effects, no slowdowns or intermitte=
-nt freezes.
->
-> The only issue is that there's hardly any positive effect either. While c=
-onstantly moving the window of a GPU-limited GpuTest benchmark in circles, =
-most of the time it looks exactly the same as without these patches. Only o=
-ccasionally, at most every few seconds, I notice that the window movement b=
-ecomes smoother for an instant.
->
+Thanks for fixing this.
 
-I think it will largely depend on the workload.  The gfx pipe can only
-be preempted on draw boundaries so if most operations are a single
-draw, you probably won't see much difference.
+Please add a Cc tag to stable, and repost.
 
-Alex
+Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
+
+Regards,
+Luben
+
+On 2022-11-10 09:33, Dong Chenchen wrote:
+> When p->gang_size equals 0, amdgpu_cs_pass1() will return directly
+> without freeing chunk_array, which will cause a memory leak issue,
+> this patch fixes it.
+> 
+> Fixes: 4624459c84d7 ("drm/amdgpu: add gang submit frontend v6")
+> Signed-off-by: Dong Chenchen <dongchenchen2@huawei.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 1bbd39b3b0fc..0e24d6b80e0b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -287,8 +287,10 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+>  		}
+>  	}
+>  
+> -	if (!p->gang_size)
+> -		return -EINVAL;
+> +	if (!p->gang_size) {
+> +		ret = -EINVAL;
+> +		goto free_partial_kdata;
+> +	}
+>  
+>  	for (i = 0; i < p->gang_size; ++i) {
+>  		ret = amdgpu_job_alloc(p->adev, num_ibs[i], &p->jobs[i], vm);
+
