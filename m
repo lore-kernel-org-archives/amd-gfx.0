@@ -4,51 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6685C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 13:09:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D640C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 14:42:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13D5010E799;
-	Thu, 10 Nov 2022 13:09:40 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B68D010E799;
- Thu, 10 Nov 2022 13:09:35 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 751EA1F8F4;
- Thu, 10 Nov 2022 13:09:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1668085772; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=hLX1Kf1YwFIN5rhfEBJFleCYcI9ShWd8l3DAEB7UhgM=;
- b=BSyUDVgZSRZDIRTLntV01gt7BRNsEDF1S1rVWBu934pcVKgai0d+h9xcz8/z+UUk2c9XBB
- 6b5teQV4sLhE69UZYpUvMP2SURMGI8yFhzsr1GOLflTaXxoAICD2jZjEmB3M8OOuZfYPSX
- NdqEkedtPAQvqd6KGM0vSRDwO7quJa4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1668085772;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=hLX1Kf1YwFIN5rhfEBJFleCYcI9ShWd8l3DAEB7UhgM=;
- b=k9DZQTcYod/BQInLVlKPWzfMkW9nn5RpVcIbGDFUYwhrqGMVS3P5Yn1ZBD85JjrAuCkHTM
- aNi2Lmtnfz7TR9AQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5805913B58;
- Thu, 10 Nov 2022 13:09:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id W8ANFQz4bGMcbwAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 10 Nov 2022 13:09:32 +0000
-From: Takashi Iwai <tiwai@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99E9510E824;
+	Thu, 10 Nov 2022 14:42:29 +0000 (UTC)
+X-Greylist: delayed 332 seconds by postgrey-1.36 at gabe;
+ Thu, 10 Nov 2022 12:34:24 UTC
+Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E12AF10E13D;
+ Thu, 10 Nov 2022 12:34:24 +0000 (UTC)
+From: Denis Arefev <arefev@swemel.ru>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
+ t=1668083328;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=7WlUdsfMOy5TO2uhf3qJwEQ6rzC5Fr2IfSHr+eIJE1A=;
+ b=XW0fzSXEtVRSDSKDt6r/e4TCXRpIkBqcivXI9rVePzOz228606LrraZRIriS6qVh1+qA+3
+ jDIaRoaiKGafjLsICoah3glMUiU4WDqc60REDnuCPmYlDfWZmRvvtMMTf3YQxvyKnO0uBW
+ D2yxzSuuDD7DOYbQpvoB/HRLDOJSxZI=
 To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm: radeon: Fix audio get_eld callback
-Date: Thu, 10 Nov 2022 14:09:25 +0100
-Message-Id: <20221110130925.26928-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
+Subject: [PATCH] nbio_v7_4: Add pointer check
+Date: Thu, 10 Nov 2022 15:28:48 +0300
+Message-Id: <20221110122848.20207-1-arefev@swemel.ru>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 10 Nov 2022 14:42:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,64 +42,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: avid Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Check the availability of the audio capability and mode config before
-going to the loop for avoiding the access to an unusable state.  Also,
-change the loop iterations over encoder instead of connector in order
-to align with radeon_audio_enable().
+Return value of a function 'amdgpu_ras_find_obj' is dereferenced at nbio_v7_4.c:325 without checking for null
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2236
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
 ---
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Note: this is the additional fix on top of the previously submitted
-audio component support for radeon.
-
- drivers/gpu/drm/radeon/radeon_audio.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/radeon/radeon_audio.c
-index 71b67d4efe08..d6ccaf24ee0c 100644
---- a/drivers/gpu/drm/radeon/radeon_audio.c
-+++ b/drivers/gpu/drm/radeon/radeon_audio.c
-@@ -747,6 +747,7 @@ static int radeon_audio_component_get_eld(struct device *kdev, int port,
- 					  unsigned char *buf, int max_bytes)
- {
- 	struct drm_device *dev = dev_get_drvdata(kdev);
-+	struct radeon_device *rdev = dev->dev_private;
- 	struct drm_encoder *encoder;
- 	struct radeon_encoder *radeon_encoder;
- 	struct radeon_encoder_atom_dig *dig;
-@@ -754,19 +755,19 @@ static int radeon_audio_component_get_eld(struct device *kdev, int port,
- 	int ret = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+index eadc9526d33f..0f2ac99de864 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+@@ -304,6 +304,9 @@ static void nbio_v7_4_handle_ras_controller_intr_no_bifring(struct amdgpu_device
+ 	struct ras_err_data err_data = {0, 0, 0, NULL};
+ 	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
  
- 	*enabled = false;
--	list_for_each_entry(connector, &dev->mode_config.connector_list, head) {
--		const struct drm_connector_helper_funcs *connector_funcs =
--			connector->helper_private;
--		encoder = connector_funcs->best_encoder(connector);
-+	if (!rdev->audio.enabled || !rdev->mode_info.mode_config_initialized)
-+		return 0;
++	if (!obj)
++	  return;
  
--		if (!encoder)
--			continue;
-+	list_for_each_entry(encoder, &rdev->ddev->mode_config.encoder_list, head) {
- 		if (!radeon_encoder_is_digital(encoder))
- 			continue;
- 		radeon_encoder = to_radeon_encoder(encoder);
- 		dig = radeon_encoder->enc_priv;
- 		if (!dig->pin || dig->pin->id != port)
- 			continue;
-+		connector = radeon_get_connector_for_encoder(encoder);
-+		if (!connector)
-+			continue;
- 		*enabled = true;
- 		ret = drm_eld_size(connector->eld);
- 		memcpy(buf, connector->eld, min(max_bytes, ret));
+ 	bif_doorbell_intr_cntl = RREG32_SOC15(NBIO, 0, mmBIF_DOORBELL_INT_CNTL);
+ 	if (REG_GET_FIELD(bif_doorbell_intr_cntl,
+ 		BIF_DOORBELL_INT_CNTL, RAS_CNTLR_INTERRUPT_STATUS)) {
 -- 
-2.35.3
+2.25.1
 
