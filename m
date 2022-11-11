@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D2E3C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 22:17:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E5E0C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 22:17:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBFBF10E8C7;
-	Fri, 11 Nov 2022 22:17:33 +0000 (UTC)
-Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
- [IPv6:2607:f8b0:4864:20::d33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0574F10E1D8;
- Fri, 11 Nov 2022 22:17:26 +0000 (UTC)
-Received: by mail-io1-xd33.google.com with SMTP id p141so4535080iod.6;
- Fri, 11 Nov 2022 14:17:26 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8E4B10E8D1;
+	Fri, 11 Nov 2022 22:17:35 +0000 (UTC)
+Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
+ [IPv6:2607:f8b0:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3B3A10E1D8;
+ Fri, 11 Nov 2022 22:17:29 +0000 (UTC)
+Received: by mail-il1-x12f.google.com with SMTP id x16so3170811ilm.5;
+ Fri, 11 Nov 2022 14:17:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=pAqo2IY9qcxeeqd6VBniHfWVzxC9WIKztprXocMtHOo=;
- b=IHrxVqRzdOVlFgCJjcAHP7xGi6G+KpW9xsG8h0U1Eck/d76md+hJkTMGmQPz2h2Cm5
- 0LG8PJmGr0zHtZJkP2Ru3CasZbedM7LDLdU2jm6+058/wEuiTf6vkifSJ7b54BSDUG+F
- 8YpXArxd6M5DPYS+dvHgRKQciCwA+NrtuLzfmoI74XiBOUbhvg+y3bpH0bmWGXVd4BEj
- hcLANNGjawgGROMKx62vHjXJ/WRJ/X/XiDxiHHJIE2tWhdAdNd+RjlfjYdvcMqH35p4s
- z4x1jq6XHvn+Sz8V8sIh3bQ2ZlzJzejxLofs1WOCcfNkBIDOUCa1OOGr5GDdoHED1HUT
- 6YCQ==
+ bh=fUjShxaIiHk85i1hB/Op8E8p5ddWSfs+Wma1PGPikFA=;
+ b=ePqtQ+3P8xuuUT2qMIKVj3C58MIuBmAs/JSpDeoIZH5GlTWvZLlDgO5Zn8lN0zcT6z
+ z1oLNPXvLCXeUkQg4MmGUdSiIhyVldO9sDmm+CvSz07Ay/JgI1NLlzr8cVJGqDXEhSkX
+ HGs2sAOB78+EAFx8uY/q45a7BEcVdMq0sgzQRo+3tVUSv0Tz/zkAzz4OeGvB50pmZWx0
+ w/oQ+GbO6izGOnFR8/OV5iSolfskdwZcsG5ULxDO4AFQSOGhIf3hhpsobEkpE5oBpV9o
+ AmDn1ligKQCSTbyZ2YTuL+LMjHwtiqLTs5hKjXCaylKQ3c7VTdRlFEWRM4FKgzBaKAmj
+ aQ9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=pAqo2IY9qcxeeqd6VBniHfWVzxC9WIKztprXocMtHOo=;
- b=KViqBKjAGPN3MJjzmerF3//6da7emZtYXaVK3dnjhIZvVlwtKgmO3Sbm7ykI1TU14J
- Z1dOPVGBTpNAIbl7a+yGtacczSbiKTg1pWKgf/Ft0TGJs7xY/1GNtMtUWmaaxTCz1xTc
- Yde1oBWiAz3qhf0up7Er9dhd3RV/pYRUkzGfQ749AICjWzPXOrl2s/it5Xh8qtSr5DZ/
- mc8gMWrwkjf8/bttAWBrZ24kMOnenAJVetHWEHC5lsjHlXGmWQqzFG2vrIUw3M6TChGp
- LZ2l89OkKcIrkXXojeiPIC/7ATtKla2VjxLsz0ihfLzJmrIMIzgZxzF7CaOizUozR6R9
- 9dEQ==
-X-Gm-Message-State: ANoB5plfz7iEY0b9ukYX6Fh6EYYJ/efbaaHnJ0BP93LX0GCVuB5fqIg2
- 1eRb0/xPW4qynotxFWei3aM=
-X-Google-Smtp-Source: AA0mqf5Y4BJwj1yHUsxhbaxFIfRavIesvXu1ebRXuJGshO4Aa6jTAKpEkT88JgrZdvPOf0d+zkTISw==
-X-Received: by 2002:a05:6638:1a87:b0:375:2ff:b633 with SMTP id
- ce7-20020a0566381a8700b0037502ffb633mr1692439jab.100.1668205046232; 
- Fri, 11 Nov 2022 14:17:26 -0800 (PST)
+ bh=fUjShxaIiHk85i1hB/Op8E8p5ddWSfs+Wma1PGPikFA=;
+ b=VDQzcl6WRYTTVqxAr7TW5exvor05JXC0U8M8gqG9Gze7r3+sktLya24lII3pYkE3YJ
+ 8CTod2eE0gdt4gF7R6mP95elbG7xr+C88BvNXEE8zPTMYWeVVQmJ7MaIcb809UOI3/LZ
+ EKCIE0l0bgfHjj0EGSNP+enzZuOMVk2rtqakoNMneue+phRe4P5l+iEAwgxMhBV6K3Ho
+ hvMq93bzru9GYsnLIL2RhZm+9uEFdk5knhaRtDXyKG9Crx10HdkYghWX5GFlATX1fT/9
+ ahR8xOJKiaHInYIVXg4wZ7/s8laKvwnEbXyUH/yetcw9MlZ8RzMlRHzylR7FAAykXVhP
+ gdrg==
+X-Gm-Message-State: ANoB5pnUu0X0iERy7s4Z9J3m7hTtvNmGS6eNaQBfgo8WjEX5xdifNmJa
+ mwSy0a6Ai9HpsxMx0YtSmtM=
+X-Google-Smtp-Source: AA0mqf5V6I7rjValfJCm7SobEW6Jv5WqPA7gaXTsAHy/Mu5XugSgmpAIf00M1U5bpvrsVOEizJfqdg==
+X-Received: by 2002:a92:d12:0:b0:300:c3d4:e9f5 with SMTP id
+ 18-20020a920d12000000b00300c3d4e9f5mr1868728iln.317.1668205049139; 
+ Fri, 11 Nov 2022 14:17:29 -0800 (PST)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- c5-20020a928e05000000b002f611806ae9sm1113457ild.60.2022.11.11.14.17.25
+ c5-20020a928e05000000b002f611806ae9sm1113457ild.60.2022.11.11.14.17.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Nov 2022 14:17:25 -0800 (PST)
+ Fri, 11 Nov 2022 14:17:28 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 1/7] drm: mark drm.debug-on-dyndbg as BROKEN for now
-Date: Fri, 11 Nov 2022 15:17:09 -0700
-Message-Id: <20221111221715.563020-2-jim.cromie@gmail.com>
+Subject: [PATCH 4/7] test-dyndbg: show that DEBUG enables prdbgs at compiletime
+Date: Fri, 11 Nov 2022 15:17:12 -0700
+Message-Id: <20221111221715.563020-5-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221111221715.563020-1-jim.cromie@gmail.com>
 References: <20220912052852.1123868-1-jim.cromie@gmail.com>
@@ -80,46 +80,54 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm.debug-on-dyndbg has a regression, due to a chicken-egg
-initialization problem:
+Dyndbg is required to enable prdbgs at compile-time if DEBUG is
+defined.  Show this works; add the defn to test_dynamic_debug.c,
+and manually inspect/verify its effect at module load:
 
-1- modprobe i915
-   i915 needs drm.ko, which is loaded 1st
+[   15.292810] dyndbg: module:test_dynamic_debug attached 4 classes
+[   15.293189] dyndbg:  32 debug prints in module test_dynamic_debug
+[   15.293715] test_dd: init start
+[   15.293716] test_dd: doing categories
+[   15.293716] test_dd: LOW msg
+...
+[   15.293733] test_dd: L6 msg
+[   15.293733] test_dd: L7 msg
+[   15.293733] test_dd: init done
 
-2- "modprobe drm drm.debug=0x1ff" (virtual/implied)
-   drm.debug is set post-initialization, from boot-args etc
+NOTES:
 
-3- `modprobe i915` finishes
+As is observable above, define DEBUG enables all prdbgs, including
+those in mod_init-fn, and more notably, the "class"d ones (callsites
+with non-default class_ids).
 
-W/O drm.debug-on-dyndbg that just works, because all drm_dbg*
-callsites use drm_debug_enabled() to check __drm_debug & DEM_UT_<CAT>
-before printing.
+This differs from the >control interface, which in order to properly
+protect a client's class'd prdbgs, requires a "class FOO" in queries
+to change them.  Note that the DEBUG is in the module source file.
 
-But the whole point of drm.debug-on-dyndbg is to avoid that runtime
-test, by enabling (at post-modinit) a static-key at each callsite in
-the just-loaded module.
+This yields an occaisional surprise; the following disables all the
+compile-time enabled plain prdbgs, but leaves the class'd ones
+enabled.
 
-And since drm.ko is loaded before all dependent modules, none are
-"just-loaded", and no drm.debug callsites are present yet, except
-those in drm.ko itself.
+ :#> modprobe test_dynamic_debug dyndbg==_
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ lib/test_dynamic_debug.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 34f5a092c99e..0d1e59e6bb7e 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -54,6 +54,7 @@ config DRM_DEBUG_MM
- config DRM_USE_DYNAMIC_DEBUG
- 	bool "use dynamic debug to implement drm.debug"
- 	default y
-+	depends on BROKEN	# chicken-egg initial enable problem
- 	depends on DRM
- 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	depends on JUMP_LABEL
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index a01f0193a419..9d48689dc0ab 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -8,6 +8,8 @@
+ 
+ #define pr_fmt(fmt) "test_dd: " fmt
+ 
++#define DEBUG
++
+ #include <linux/module.h>
+ 
+ /* run tests by reading or writing sysfs node: do_prints */
 -- 
 2.38.1
 
