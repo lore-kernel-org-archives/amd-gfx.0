@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E28BC4167B
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 02:35:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CD93C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 02:35:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7189710E707;
-	Fri, 11 Nov 2022 02:34:55 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA38010E19C;
- Fri, 11 Nov 2022 02:34:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2AB910E71A;
+	Fri, 11 Nov 2022 02:35:05 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F58010E71B;
+ Fri, 11 Nov 2022 02:34:57 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 570B861E85;
- Fri, 11 Nov 2022 02:34:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56351C433C1;
- Fri, 11 Nov 2022 02:34:28 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4E938B823D9;
+ Fri, 11 Nov 2022 02:34:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47FFDC433B5;
+ Fri, 11 Nov 2022 02:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668134070;
- bh=ynJMAko0Cev1HJer0Gp6DI98RJFx5eN+7+bDY7lW7To=;
+ s=k20201202; t=1668134095;
+ bh=oidhLC0L4GAvaunSYFFtf10iPFYKvphjPeoVXma+CRA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=taLxIYMUqskDuabpr0Jh4SpNPZaQVvatYF6VgIYfBUKct+X/5RG6tL2uWkeF0Y1NG
- OqNpMiTQc4L0NNHmd+9WjqSlluOY9sSWaLrDH0Sqf2y3YJy2oBSqfO12MU8Pp8gThT
- 4FON6zEfZ16Ja8N5flsHQ7XR5j1pYedkt0Gqdfql1BJwAd0Qlkt8KK2yLI8yDKydbM
- 0ZbET2AuR0o8oXn9hqk+TeJ2IqgRUtLITRFSpAGSf9M4CtST4ldo4uAQFroCIVa2Pt
- aHkHypB9fzj/s1/zKlkJdimGV+Jdxc8cBjHRl17Nzwjf/ZLiBNB3zs+XB4Z3krjIk5
- QB49whQUflryg==
+ b=t1Uza1uvPt0PIm7fGK7q0UhxAJ+wf7XKXNtBliGQbjhyKWFt2/38nXNBXxob8dbPw
+ W2tcG0wm0GcxNKY5ZwKsk+YZ2SyQvSwzE0iTGDShQFNONIr25iJ24l3LTWcir+JKZU
+ t+xgjzgkdk/y4sF6a5pzIM4Io5HbyBtM5eym9tRCORMud0Du2v9ftICl8MIHuVRHwf
+ zR1DOIc2mDQ8BvNULjtP+sqMCcSWsoTHyoTq7uT1CPP12Bo0mnOPuuO83klVllc3+M
+ xpEX+EKmnFL/91rhusVSuPGvR7Lcn5xMD25s6hV5RH1+gJ7dt8SF1LISa9MiYPMdu7
+ AYhBURLbODv1Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 21/30] drm/amd: Fail the suspend if resources
- can't be evicted
-Date: Thu, 10 Nov 2022 21:33:29 -0500
-Message-Id: <20221111023340.227279-21-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.0 24/30] drm/amd/display: Round up DST_after_scaler
+ to nearest int
+Date: Thu, 10 Nov 2022 21:33:32 -0500
+Message-Id: <20221111023340.227279-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221111023340.227279-1-sashal@kernel.org>
 References: <20221111023340.227279-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -56,109 +55,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, andrey.grodzovsky@amd.com,
- Jack.Xiao@amd.com, Amaranath.Somalapuram@amd.com, airlied@gmail.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com, lang.yu@amd.com,
- amd-gfx@lists.freedesktop.org, Mario Limonciello <mario.limonciello@amd.com>,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com,
- post@davidak.de, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, jiapeng.chong@linux.alibaba.com,
+ Mark Broadworth <mark.broadworth@amd.com>, Alex Hung <alex.hung@amd.com>,
+ airlied@gmail.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
+ aurabindo.pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>, daniel@ffwll.ch,
+ George Shen <george.shen@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+From: George Shen <george.shen@amd.com>
 
-[ Upstream commit 8d4de331f1b24a22d18e3c6116aa25228cf54854 ]
+[ Upstream commit 8dc323133d74518e3b5b07242e2b2f088799ea6e ]
 
-If a system does not have swap and memory is under 100% usage,
-amdgpu will fail to evict resources.  Currently the suspend
-carries on proceeding to reset the GPU:
+[Why]
+The DST_after_scaler value that DML spreadsheet outputs is
+generally the driver value round up to the nearest int.
 
-```
-[drm] evicting device resources failed
-[drm:amdgpu_device_ip_suspend_phase2 [amdgpu]] *ERROR* suspend of IP block <vcn_v3_0> failed -12
-[drm] free PSP TMR buffer
-[TTM] Failed allocating page table
-[drm] evicting device resources failed
-amdgpu 0000:03:00.0: amdgpu: MODE1 reset
-amdgpu 0000:03:00.0: amdgpu: GPU mode1 reset
-amdgpu 0000:03:00.0: amdgpu: GPU smu mode1 reset
-```
-
-At this point if the suspend actually succeeded I think that amdgpu
-would have recovered because the GPU would have power cut off and
-restored.  However the kernel fails to continue the suspend from the
-memory pressure and amdgpu fails to run the "resume" from the aborted
-suspend.
-
-```
-ACPI: PM: Preparing to enter system sleep state S3
-SLUB: Unable to allocate memory on node -1, gfp=0xdc0(GFP_KERNEL|__GFP_ZERO)
-  cache: Acpi-State, object size: 80, buffer size: 80, default order: 0, min order: 0
-  node 0: slabs: 22, objs: 1122, free: 0
-ACPI Error: AE_NO_MEMORY, Could not update object reference count (20210730/utdelete-651)
-
-[drm:psp_hw_start [amdgpu]] *ERROR* PSP load kdb failed!
-[drm:psp_resume [amdgpu]] *ERROR* PSP resume failed
-[drm:amdgpu_device_fw_loading [amdgpu]] *ERROR* resume of IP block <psp> failed -62
-amdgpu 0000:03:00.0: amdgpu: amdgpu_device_ip_resume failed (-62).
-PM: dpm_run_callback(): pci_pm_resume+0x0/0x100 returns -62
-amdgpu 0000:03:00.0: PM: failed to resume async: error -62
-```
-
-To avoid this series of unfortunate events, fail amdgpu's suspend
-when the memory eviction fails.  This will let the system gracefully
-recover and the user can try suspend again when the memory pressure
-is relieved.
-
-Reported-by: post@davidak.de
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2223
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Acked-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
+Acked-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: George Shen <george.shen@amd.com>
+Tested-by: Mark Broadworth <mark.broadworth@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ .../gpu/drm/amd/display/dc/dml/dcn32/display_rq_dlg_calc_32.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 9170aeaad93e..e0c960cc1d2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4055,15 +4055,18 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
-  * at suspend time.
-  *
-  */
--static void amdgpu_device_evict_resources(struct amdgpu_device *adev)
-+static int amdgpu_device_evict_resources(struct amdgpu_device *adev)
- {
-+	int ret;
-+
- 	/* No need to evict vram on APUs for suspend to ram or s2idle */
- 	if ((adev->in_s3 || adev->in_s0ix) && (adev->flags & AMD_IS_APU))
--		return;
-+		return 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_rq_dlg_calc_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_rq_dlg_calc_32.c
+index a1276f6b9581..395ae8761980 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_rq_dlg_calc_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_rq_dlg_calc_32.c
+@@ -291,8 +291,8 @@ void dml32_rq_dlg_get_dlg_reg(struct display_mode_lib *mode_lib,
  
--	if (amdgpu_ttm_evict_resources(adev, TTM_PL_VRAM))
-+	ret = amdgpu_ttm_evict_resources(adev, TTM_PL_VRAM);
-+	if (ret)
- 		DRM_WARN("evicting device resources failed\n");
--
-+	return ret;
- }
+ 	dml_print("DML_DLG: %s: vready_after_vcount0 = %d\n", __func__, dlg_regs->vready_after_vcount0);
  
- /*
-@@ -4113,7 +4116,9 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
- 	if (!adev->in_s0ix)
- 		amdgpu_amdkfd_suspend(adev, adev->in_runpm);
+-	dst_x_after_scaler = get_dst_x_after_scaler(mode_lib, e2e_pipe_param, num_pipes, pipe_idx);
+-	dst_y_after_scaler = get_dst_y_after_scaler(mode_lib, e2e_pipe_param, num_pipes, pipe_idx);
++	dst_x_after_scaler = dml_ceil(get_dst_x_after_scaler(mode_lib, e2e_pipe_param, num_pipes, pipe_idx), 1);
++	dst_y_after_scaler = dml_ceil(get_dst_y_after_scaler(mode_lib, e2e_pipe_param, num_pipes, pipe_idx), 1);
  
--	amdgpu_device_evict_resources(adev);
-+	r = amdgpu_device_evict_resources(adev);
-+	if (r)
-+		return r;
- 
- 	amdgpu_fence_driver_hw_fini(adev);
- 
+ 	// do some adjustment on the dst_after scaler to account for odm combine mode
+ 	dml_print("DML_DLG: %s: input dst_x_after_scaler   = %d\n", __func__, dst_x_after_scaler);
 -- 
 2.35.1
 
