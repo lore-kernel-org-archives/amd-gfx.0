@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E5E0C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 22:17:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55074C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 22:17:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8E4B10E8D1;
-	Fri, 11 Nov 2022 22:17:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB84C10E1D8;
+	Fri, 11 Nov 2022 22:17:34 +0000 (UTC)
 Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
  [IPv6:2607:f8b0:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3B3A10E1D8;
- Fri, 11 Nov 2022 22:17:29 +0000 (UTC)
-Received: by mail-il1-x12f.google.com with SMTP id x16so3170811ilm.5;
- Fri, 11 Nov 2022 14:17:29 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF7CC10E1D8;
+ Fri, 11 Nov 2022 22:17:27 +0000 (UTC)
+Received: by mail-il1-x12f.google.com with SMTP id q5so3151058ilt.13;
+ Fri, 11 Nov 2022 14:17:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=fUjShxaIiHk85i1hB/Op8E8p5ddWSfs+Wma1PGPikFA=;
- b=ePqtQ+3P8xuuUT2qMIKVj3C58MIuBmAs/JSpDeoIZH5GlTWvZLlDgO5Zn8lN0zcT6z
- z1oLNPXvLCXeUkQg4MmGUdSiIhyVldO9sDmm+CvSz07Ay/JgI1NLlzr8cVJGqDXEhSkX
- HGs2sAOB78+EAFx8uY/q45a7BEcVdMq0sgzQRo+3tVUSv0Tz/zkAzz4OeGvB50pmZWx0
- w/oQ+GbO6izGOnFR8/OV5iSolfskdwZcsG5ULxDO4AFQSOGhIf3hhpsobEkpE5oBpV9o
- AmDn1ligKQCSTbyZ2YTuL+LMjHwtiqLTs5hKjXCaylKQ3c7VTdRlFEWRM4FKgzBaKAmj
- aQ9Q==
+ bh=B2uIhj+1kniLl98rxc2zGhFR3/ukaY2ppmVrEhlaB1M=;
+ b=eplYE5X6uNXmUiYQeBqfuI/BDxP9+t/E/ns/FxNcmLmjgfFnpJuJkKQJ0UmFT3qrs/
+ AwUE8VkjNjy9Vf85VXwHgfbS4fvL44x5SDItJFyqmnF5Jth0zUmgu2phi2/gQc2lQHG9
+ s1KqgxBf3KkIEnrK9RsBlDhO3BR+LDp+Gycfa+/sha6Ox54KfOMMC8et3UBKuiREJL/E
+ G9yvyErEP55T9w80uST+yv4ZdFV+waY/fCwV32PMwgxagO0HxDrsjzyVBuMZMFkuMUH+
+ su4Z70L+aqjJ426bfG5pHPxpgaBp2fp25DIc7yaSctwfmKGXticmkvwuoQWbFfwKLZQt
+ 9liA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=fUjShxaIiHk85i1hB/Op8E8p5ddWSfs+Wma1PGPikFA=;
- b=VDQzcl6WRYTTVqxAr7TW5exvor05JXC0U8M8gqG9Gze7r3+sktLya24lII3pYkE3YJ
- 8CTod2eE0gdt4gF7R6mP95elbG7xr+C88BvNXEE8zPTMYWeVVQmJ7MaIcb809UOI3/LZ
- EKCIE0l0bgfHjj0EGSNP+enzZuOMVk2rtqakoNMneue+phRe4P5l+iEAwgxMhBV6K3Ho
- hvMq93bzru9GYsnLIL2RhZm+9uEFdk5knhaRtDXyKG9Crx10HdkYghWX5GFlATX1fT/9
- ahR8xOJKiaHInYIVXg4wZ7/s8laKvwnEbXyUH/yetcw9MlZ8RzMlRHzylR7FAAykXVhP
- gdrg==
-X-Gm-Message-State: ANoB5pnUu0X0iERy7s4Z9J3m7hTtvNmGS6eNaQBfgo8WjEX5xdifNmJa
- mwSy0a6Ai9HpsxMx0YtSmtM=
-X-Google-Smtp-Source: AA0mqf5V6I7rjValfJCm7SobEW6Jv5WqPA7gaXTsAHy/Mu5XugSgmpAIf00M1U5bpvrsVOEizJfqdg==
-X-Received: by 2002:a92:d12:0:b0:300:c3d4:e9f5 with SMTP id
- 18-20020a920d12000000b00300c3d4e9f5mr1868728iln.317.1668205049139; 
- Fri, 11 Nov 2022 14:17:29 -0800 (PST)
+ bh=B2uIhj+1kniLl98rxc2zGhFR3/ukaY2ppmVrEhlaB1M=;
+ b=oZisYjmIJxNWFTBUttHfjjQYR5x79zQuVAUr5LhSy4V9XaJa7M5Y8OkKH/4HXc/Kg+
+ kQrujLgWo2jMTqIG1SKtAPMvnKBbEvoKjH5amfdY717a/aEIqd6GtFy2rakZ0ahXuUSJ
+ +sYj9Nz29Gkdf/Twxky8F+6VshoFxBUEiBdQUyhEKcEkX5jADcu4JYy62B039C8npOjx
+ ++GCOpydO8XLrHmz7iiOfbMNsR1ibshopHWiokLtZLadsN+MwhnAKmFNMpVLkfhJkm5s
+ xJ4viveVyfzcp4W/4cdJgRuEI0imTEMSiXUVCRWs2FTUHLEX6Q6KzxI1ElhdSR3ClHfL
+ LSZg==
+X-Gm-Message-State: ANoB5pkH2DZIMeN2S655AxtisU2A57hMn2jbU95qGznW+EK5EhDKz70Z
+ a7iWj/IJKfhZw1vEGUEho5o=
+X-Google-Smtp-Source: AA0mqf43Ej/2CvnoWy3aMeGYEZ2N6lV6eGpN+JDr5q1wxFnhlWtCr9BpR5BpvvdZgpLI0N+dBNEyBQ==
+X-Received: by 2002:a05:6e02:1c03:b0:2fa:52cd:80eb with SMTP id
+ l3-20020a056e021c0300b002fa52cd80ebmr1943790ilh.236.1668205047214; 
+ Fri, 11 Nov 2022 14:17:27 -0800 (PST)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- c5-20020a928e05000000b002f611806ae9sm1113457ild.60.2022.11.11.14.17.28
+ c5-20020a928e05000000b002f611806ae9sm1113457ild.60.2022.11.11.14.17.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Nov 2022 14:17:28 -0800 (PST)
+ Fri, 11 Nov 2022 14:17:26 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 4/7] test-dyndbg: show that DEBUG enables prdbgs at compiletime
-Date: Fri, 11 Nov 2022 15:17:12 -0700
-Message-Id: <20221111221715.563020-5-jim.cromie@gmail.com>
+Subject: [PATCH 2/7] drm_print: fixup improve stale comment
+Date: Fri, 11 Nov 2022 15:17:10 -0700
+Message-Id: <20221111221715.563020-3-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221111221715.563020-1-jim.cromie@gmail.com>
 References: <20220912052852.1123868-1-jim.cromie@gmail.com>
@@ -80,54 +80,38 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dyndbg is required to enable prdbgs at compile-time if DEBUG is
-defined.  Show this works; add the defn to test_dynamic_debug.c,
-and manually inspect/verify its effect at module load:
+Cited commit uses stale macro name, fix this.  And improve the explanation.
 
-[   15.292810] dyndbg: module:test_dynamic_debug attached 4 classes
-[   15.293189] dyndbg:  32 debug prints in module test_dynamic_debug
-[   15.293715] test_dd: init start
-[   15.293716] test_dd: doing categories
-[   15.293716] test_dd: LOW msg
-...
-[   15.293733] test_dd: L6 msg
-[   15.293733] test_dd: L7 msg
-[   15.293733] test_dd: init done
+When DRM_USE_DYNAMIC_DEBUG=y, DECLARE_DYNDBG_CLASSMAP() does the
+mapping of DRM_UT_* onto BITs in drm.debug.  While this is still using
+the drm_debug_category enum to do the mapping, its doing so somewhat
+indirectly, with the ordered set of DRM_UT_* enum-vals.  This requires
+that the macro args: DRM_UT_* list must be kept in sync.
 
-NOTES:
-
-As is observable above, define DEBUG enables all prdbgs, including
-those in mod_init-fn, and more notably, the "class"d ones (callsites
-with non-default class_ids).
-
-This differs from the >control interface, which in order to properly
-protect a client's class'd prdbgs, requires a "class FOO" in queries
-to change them.  Note that the DEBUG is in the module source file.
-
-This yields an occaisional surprise; the following disables all the
-compile-time enabled plain prdbgs, but leaves the class'd ones
-enabled.
-
- :#> modprobe test_dynamic_debug dyndbg==_
-
+fixes: f158936b60a7 (drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.)
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/test_dynamic_debug.c | 2 ++
- 1 file changed, 2 insertions(+)
+. emphasize ABI non-change despite enum val change - Jani
+---
+ include/drm/drm_print.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index a01f0193a419..9d48689dc0ab 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -8,6 +8,8 @@
- 
- #define pr_fmt(fmt) "test_dd: " fmt
- 
-+#define DEBUG
-+
- #include <linux/module.h>
- 
- /* run tests by reading or writing sysfs node: do_prints */
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index a44fb7ef257f..06deb58d5af4 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -276,7 +276,10 @@ static inline struct drm_printer drm_err_printer(const char *prefix)
+  *
+  */
+ enum drm_debug_category {
+-	/* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
++	/*
++	 * Keep DECLARE_DYNDBG_CLASSMAP args in sync with changes
++	 * here, the values define BIT()s in drm.debug, so are ABI.
++	 */
+ 	/**
+ 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+ 	 * drm_memory.c, ...
 -- 
 2.38.1
 
