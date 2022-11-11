@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26684C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 02:34:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67240C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 02:34:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D32EC10E1A4;
-	Fri, 11 Nov 2022 02:34:31 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0900310E199;
- Fri, 11 Nov 2022 02:34:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93BF210E1A5;
+	Fri, 11 Nov 2022 02:34:44 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8866A10E74A;
+ Fri, 11 Nov 2022 02:34:37 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8B5B761E8E;
- Fri, 11 Nov 2022 02:34:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D64C43143;
- Fri, 11 Nov 2022 02:34:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 00CED61E8E;
+ Fri, 11 Nov 2022 02:34:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69118C433C1;
+ Fri, 11 Nov 2022 02:34:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668134065;
- bh=gISBxv/LWiXRjrU9C/SlDLpioy9jyy9o+asTMKurs3k=;
+ s=k20201202; t=1668134076;
+ bh=rnuZN+iCie0gINOXbx+tLIEv5lK1RT+pR6UPa/vAJH0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fs9q+Fizgerd6WTzNc7qYADBcAwGdpM6/75grL5XhG6f5nJMjggfYJgMtmEdKuFE2
- LXoYqammSPrbCie9F5sFQNuOX0YpMtdGemME0keVdm8A6uSHrozmK4KmcUt6vEh9ub
- 5tA81Ci8dxdhqiyy8GunE+tScSit5U9f5c/2VDP3pG9f69hBU7gdNbCGZ4LDfV+xsn
- 0toXH2StQf80g1opqZjacZAG3KUtjkOrwt+6/HZXQVZpQynR51PuPjnAVXK55vWpQl
- TT7ENuqBPm4ksAqVqVujoYKDK0w0ZflX3cPr/JttizH7BaYt9JRfQGwF0aQA02YeUF
- qV4evzOyH3jAw==
+ b=uQ7GdlOinSk3Vhh6sPMJyw1GrXJ5/IWqT5MUHfxHR57cyD6ssQReZOa154ZLYQlEb
+ iYgbyUVrHzd1+FLMlKNK/bkSiUQYYhS3u1DG+OxUhw5pKJkop7BKzTrPYg/P8O1K2L
+ e3Xy7pae2pBOCCoLS9PFRwobMAUtFFCt/1SGDIBsKKXlWyxiTu8WAFeFiCF64IrEjk
+ YQMuDJmBrDvitFn77+7HlLhkswg23yXeEmOIpuG8mKXX4MVP7asEnUQj1VGQOoAxmP
+ vK/YslxotrQUMQAzN3cP9+vB6vCXO1NwYtS1qpFZCOvyETKIY65qo7nNamUd7SsiQF
+ vJ0sJNBA3LW3Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 20/30] drm/amdgpu: set fb_modifiers_not_supported
- in vkms
-Date: Thu, 10 Nov 2022 21:33:28 -0500
-Message-Id: <20221111023340.227279-20-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.0 22/30] drm/amd/display: Fix DCN32 DSC delay
+ calculation
+Date: Thu, 10 Nov 2022 21:33:30 -0500
+Message-Id: <20221111023340.227279-22-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221111023340.227279-1-sashal@kernel.org>
 References: <20221111023340.227279-1-sashal@kernel.org>
@@ -55,54 +54,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Yifan Zhang <yifan1.zhang@amd.com>,
- evan.quan@amd.com, Guchun Chen <guchun.chen@amd.com>,
- Tim Huang <Tim.Huang@amd.com>, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, Yuliang.Shi@amd.com,
- isabbasso@riseup.net, flora.cui@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Mark Broadworth <mark.broadworth@amd.com>,
+ chris.park@amd.com, wayne.lin@amd.com, Alex Hung <alex.hung@amd.com>,
+ airlied@gmail.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, nathan@kernel.org,
+ sunpeng.li@amd.com, aurabindo.pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>,
+ daniel@ffwll.ch, George Shen <george.shen@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, mairacanal@riseup.net,
+ harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yifan Zhang <yifan1.zhang@amd.com>
+From: George Shen <george.shen@amd.com>
 
-[ Upstream commit 89b3554782e6b65894f0551e9e0a82ad02dac94d ]
+[ Upstream commit bad610c97c08eef3ed1fa769a8b08b94f95b451e ]
 
-This patch to fix the gdm3 start failure with virual display:
+[Why]
+DCN32 DSC delay calculation had an unintentional integer division,
+resulting in a mismatch against the DML spreadsheet.
 
-/usr/libexec/gdm-x-session[1711]: (II) AMDGPU(0): Setting screen physical size to 270 x 203
-/usr/libexec/gdm-x-session[1711]: (EE) AMDGPU(0): Failed to make import prime FD as pixmap: 22
-/usr/libexec/gdm-x-session[1711]: (EE) AMDGPU(0): failed to set mode: Invalid argument
-/usr/libexec/gdm-x-session[1711]: (WW) AMDGPU(0): Failed to set mode on CRTC 0
-/usr/libexec/gdm-x-session[1711]: (EE) AMDGPU(0): Failed to enable any CRTC
-gnome-shell[1840]: Running GNOME Shell (using mutter 42.2) as a X11 window and compositing manager
-/usr/libexec/gdm-x-session[1711]: (EE) AMDGPU(0): failed to set mode: Invalid argument
+[How]
+Cast numerator to double before performing the division.
 
-vkms doesn't have modifiers support, set fb_modifiers_not_supported to bring the gdm back.
-
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-Acked-by: Guchun Chen <guchun.chen@amd.com>
-Reviewed-by: Tim Huang <Tim.Huang@amd.com>
+Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
+Acked-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: George Shen <george.shen@amd.com>
+Tested-by: Mark Broadworth <mark.broadworth@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index 576849e95296..f69827aefb57 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -500,6 +500,8 @@ static int amdgpu_vkms_sw_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+index 365d290bba99..67af8f4df8b8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+@@ -1746,7 +1746,7 @@ unsigned int dml32_DSCDelayRequirement(bool DSCEnabled,
+ 		}
  
- 	adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
+ 		DSCDelayRequirement_val = DSCDelayRequirement_val + (HTotal - HActive) *
+-				dml_ceil(DSCDelayRequirement_val / HActive, 1);
++				dml_ceil((double)DSCDelayRequirement_val / HActive, 1);
  
-+	adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
-+
- 	r = amdgpu_display_modeset_create_props(adev);
- 	if (r)
- 		return r;
+ 		DSCDelayRequirement_val = DSCDelayRequirement_val * PixelClock / PixelClockBackEnd;
+ 
 -- 
 2.35.1
 
