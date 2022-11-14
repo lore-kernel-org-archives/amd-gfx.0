@@ -4,43 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FCA1C433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 17:15:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A353FC433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 18:46:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 132AD10E057;
-	Mon, 14 Nov 2022 17:15:29 +0000 (UTC)
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C1E110E057
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 17:15:21 +0000 (UTC)
-Received: from [192.168.1.137] ([188.62.80.205])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202211141815178850; Mon, 14 Nov 2022 18:15:17 +0100
-Message-ID: <ddf6786a-7bdc-c8fa-e432-7e20498bb26d@daenzer.net>
-Date: Mon, 14 Nov 2022 18:15:16 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id E827010E09D;
+	Mon, 14 Nov 2022 18:46:12 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2062c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D29C10E09D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 18:46:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aK2KYWO8xHRNa2Jjo097StTwdtTqPG1+tziENij9MavkvSAPPTSbcUGsxkH9HWLhTwv2L3UKDGWz0BTBLIbsb/gRJTagC5xIkvRWXuZPVW/9lqVDroQYJzqcJIl1n4t4LhPkSvXkqwGMaya2m9uQmpNz2uMiaqmEnPZ3xfxxUUGtuAc+SMr0QZMshzsfOwHOt7vhrRz7d283BSOHI3NUHni0ghb8ji6zwuHqpEK1paYIvRnasxNQi/cQmDMdR56txaavC+PZrT98q3+Zy1OTeLtePfeMXt//iuSN9XWXZe7fvXdT49p2CaBsg9YkIjPYM2K/qs0oEmg9xp61EgQluA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wEYdz7HQM71blxMDL11bf0WfF/rO9WTkY+5S//enPRw=;
+ b=REm8dhSAjoJiz4Q5cegnBaqDCIDkBEAgYlJc4fhHU9fs0nSRz+kHwwEDhsnGX9H44hnErM5jquZStD9qun+qoxrDSFKJtTqWY5//xLrn4ve7ch07J20NYA9mVu1KaGst7tmG7H/qg4UG/rNJ/bPOZMBsq65Q1IQw5gPxZ2FYR0yoPW5QJ/wnhpRqePOkrR0xHZPTmlmIBF3SZPx+EQpOTjnnur0XUs6LLN6DH9uTeObjnRoO6iw+H6d0YGt/pwAxUHJR/abh9F1h9kgKUzQkTWW1CWaK6yTLhFwfFWfZYiaTvbEVR3PZEJK2qcISfkn6OPSZJjb5REUitDJ5KeFK1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wEYdz7HQM71blxMDL11bf0WfF/rO9WTkY+5S//enPRw=;
+ b=YxfwdDCLr+nVFTAaN9IiHERiWZ4gbtr02qwj/NYGuNEDEOsYmdT9lhmi9m2zc8WU2rrdfZ6gFdNPzY9oAfmxtPZyPcZGJJBFRgBWuTDyBDr8AsbPv0DdbkEPlthFiaiL/w9qhhkzuKwjiuYRpSXpYAbgfKa/mNFB8vQchF27+C4=
+Received: from MW4PR04CA0289.namprd04.prod.outlook.com (2603:10b6:303:89::24)
+ by SJ1PR12MB6076.namprd12.prod.outlook.com (2603:10b6:a03:45d::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.17; Mon, 14 Nov
+ 2022 18:46:04 +0000
+Received: from CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:89:cafe::e7) by MW4PR04CA0289.outlook.office365.com
+ (2603:10b6:303:89::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.17 via Frontend
+ Transport; Mon, 14 Nov 2022 18:46:04 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT006.mail.protection.outlook.com (10.13.174.246) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5813.12 via Frontend Transport; Mon, 14 Nov 2022 18:46:04 +0000
+Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Mon, 14 Nov 2022 12:46:03 -0600
+From: Eric Huang <jinhuieric.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] amd/amdkfd: Fix a memory limit issue
+Date: Mon, 14 Nov 2022 13:45:38 -0500
+Message-ID: <20221114184538.111848-1-jinhuieric.huang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-To: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>
-References: <20221018090815.2662321-1-jiadong.zhu@amd.com>
- <20221018090815.2662321-4-jiadong.zhu@amd.com>
- <e5544150-5eae-7dae-b5db-dd9539df8198@daenzer.net>
- <DS7PR12MB6333A815A3C3EADFFA303E4FF4369@DS7PR12MB6333.namprd12.prod.outlook.com>
- <5a11969c-0996-8755-472a-11f9cf1705d1@daenzer.net>
- <SJ1PR12MB6338730B8B54AD01E4FEF86BF4369@SJ1PR12MB6338.namprd12.prod.outlook.com>
- <92da389f-3c26-6fe1-0525-d38730b6924a@daenzer.net>
- <8b3240e6-c460-5dbd-eede-29ff4825e642@daenzer.net>
- <DS7PR12MB63332B114E5E3B45F91178AFF4389@DS7PR12MB6333.namprd12.prod.outlook.com>
- <04361686-5bdd-8ca8-2ecd-c5dfdaa1a41b@daenzer.net>
- <DS7PR12MB63331E4430DC731D92B0A7CAF43F9@DS7PR12MB6333.namprd12.prod.outlook.com>
- <fb72d05b-dc74-fa84-51cf-3c3911aa46fc@daenzer.net>
-Content-Language: de-CH-frami, en-CA
-Subject: Re: [PATCH 4/5] drm/amdgpu: MCBP based on DRM scheduler (v8)
-In-Reply-To: <fb72d05b-dc74-fa84-51cf-3c3911aa46fc@daenzer.net>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CTCH: RefID="str=0001.0A782F1C.637277A7.0012,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
- Spam="Unknown"; VOD="Unknown"
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT006:EE_|SJ1PR12MB6076:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5c745b9-2d17-43f6-e4ae-08dac6707c08
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: lryTx3wu4LXKQlG3qLh5p6L+sgwc+Ho/5qI8l6PrsXv6Bh17B4g8O5y5pVZWTQ7fyQv35w8ggIJ0fhc/mBxQ09FRPDgGOj0BiWPOGbR4SHZTloWxiWr4wkwe4jl0kkyD9B76vDkxOqwGnivdRp8ijMvWKyGeJaboi1i1oailTX1S4lB/wscnr4+wkroybZ8BOu1RbfCFQTXE9/1la/DvOld4a71rdk7NCopklq0WLTupsxYMUiI5X62efetiJPT1yaVvkOcfeKQR/xn79SkuZy2TnTXZyC2JhaICE0p4Kuq5IbzztGA5krQuaAWJ82TRR2GmTQBD9DgiIMxeY5DqnhLtkzs1kxKP4sIzwEtciyQ/MUEnTi0lD4lSyrnXos0Ymc01sUgRKpU2VgJo8k4QgXmBd1G0YtNI88Chp1wSKVdYtkw4SL1S5lcK7TpmNNIVJKCDJW6v3+3GPuQDJHQudcFQ6TPeoY/A4kNgZQKQ2MwzZySfgfj7ZehT/yiHMnG2oU/ZhyzwxIL2fROXMqLQQu6FOl5bfZyRFM0XAF/nyaXn31Se+YHZLPxz65gA7yEy/F4pr2UHgcP7B7qyWhsEhaJpg4c42sroimBzPRglfg9FWEKarvhdjW7W8a6bR6QpJSdIG+E57Bl+Cf3Nrzq2TCdIDk9MCpuVhlkGP28V6qlVzhEUYIn0IsrDdNuUnDpWCt/Gvv6QVFNP5zrcgiH/H78EWLpmznS8BTsDS8VG1PceNe1kwuwk8jGgCAruVTbiqzdX2NVhglFJOZf3pEFnV/d6Eq8VpmvjeGhsoFN6kHc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(346002)(136003)(39860400002)(376002)(451199015)(36840700001)(40470700004)(46966006)(2906002)(1076003)(4326008)(8676002)(70206006)(26005)(7696005)(70586007)(316002)(47076005)(336012)(186003)(8936002)(426003)(41300700001)(2616005)(36756003)(82740400003)(86362001)(82310400005)(356005)(81166007)(83380400001)(40460700003)(5660300002)(36860700001)(6666004)(478600001)(40480700001)(16526019)(54906003)(6916009)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2022 18:46:04.4378 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5c745b9-2d17-43f6-e4ae-08dac6707c08
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6076
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,64 +98,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Eric Huang <jinhuieric.huang@amd.com>, felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-11-10 18:00, Michel Dänzer wrote:
-> On 2022-11-08 09:01, Zhu, Jiadong wrote:
->>
->> I reproduced the glxgears 400fps scenario locally. The issue is caused by the patch5 "drm/amdgpu: Improve the software rings priority scheduler" which slows down the low priority scheduler thread if high priority ib is under executing. I'll drop this patch as we cannot identify gpu bound according to the unsignaled fence, etc.
-> 
-> Okay, I'm testing with patches 1-4 only now.
-> 
-> So far I haven't noticed any negative effects, no slowdowns or intermittent freezes.
+It is to resolve a regression, which fails to allocate
+VRAM due to no free memory in application, the reason
+is we add check of vram_pin_size for memory limit, and
+application is pinning the memory for Peerdirect, KFD
+should not count it in memory limit. So removing
+vram_pin_size will resolve it.
 
-I'm afraid I may have run into another issue. I just hit a GPU hang, see the
-journalctl excerpt below.
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-(I tried rebooting the machine via SSH after this, but it never seemed to
-complete, so I had to hard-power-off the machine by holding the power
-button for a few seconds)
-
-I can't be sure that the GPU hang is directly related to this series,
-but it seems plausible, and I hadn't hit a GPU hang in months if not
-over a year before. If this series results in potentially hitting a
-GPU hang every few days, it definitely doesn't provide enough benefit
-to justify that.
-
-
-Nov 14 17:21:22 thor kernel: [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx_high timeout, signaled seq=1166051, emitted seq=1166052
-Nov 14 17:21:22 thor kernel: [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process information: process gnome-shell pid 2828 thread gnome-shel:cs0 pid 2860
-Nov 14 17:21:22 thor kernel: amdgpu 0000:05:00.0: amdgpu: GPU reset begin!
-Nov 14 17:21:22 thor kernel: amdgpu 0000:05:00.0: amdgpu: free PSP TMR buffer
-Nov 14 17:21:22 thor kernel: amdgpu 0000:05:00.0: amdgpu: MODE2 reset
-Nov 14 17:21:22 thor kernel: amdgpu 0000:05:00.0: amdgpu: GPU reset succeeded, trying to resume
-Nov 14 17:21:22 thor kernel: [drm] PCIE GART of 1024M enabled.
-Nov 14 17:21:22 thor kernel: [drm] PTB located at 0x000000F400A00000
-Nov 14 17:21:22 thor kernel: [drm] VRAM is lost due to GPU reset!
-Nov 14 17:21:22 thor kernel: [drm] PSP is resuming...
-Nov 14 17:21:22 thor kernel: [drm] reserve 0x400000 from 0xf431c00000 for PSP TMR
-Nov 14 17:21:23 thor kernel: amdgpu 0000:05:00.0: amdgpu: RAS: optional ras ta ucode is not available
-Nov 14 17:21:23 thor kernel: amdgpu 0000:05:00.0: amdgpu: RAP: optional rap ta ucode is not available
-Nov 14 17:21:23 thor gnome-shell[3639]: amdgpu: The CS has been rejected (-125), but the context isn't robust.
-Nov 14 17:21:23 thor gnome-shell[3639]: amdgpu: The process will be terminated.
-Nov 14 17:21:23 thor kernel: [drm] kiq ring mec 2 pipe 1 q 0
-Nov 14 17:21:23 thor kernel: amdgpu 0000:05:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring kiq_2.1.0 test failed (-110)
-Nov 14 17:21:23 thor kernel: [drm:amdgpu_gfx_enable_kcq.cold [amdgpu]] *ERROR* KCQ enable failed
-Nov 14 17:21:23 thor kernel: [drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR* resume of IP block <gfx_v9_0> failed -110
-Nov 14 17:21:23 thor kernel: amdgpu 0000:05:00.0: amdgpu: GPU reset(2) failed
-Nov 14 17:21:23 thor kernel: amdgpu 0000:05:00.0: amdgpu: GPU reset end with ret = -110
-Nov 14 17:21:23 thor kernel: [drm:amdgpu_job_timedout [amdgpu]] *ERROR* GPU Recovery Failed: -110
-[...]
-Nov 14 17:21:33 thor kernel: [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx_high timeout, signaled seq=1166052, emitted seq=1166052
-Nov 14 17:21:33 thor kernel: [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process information: process gnome-shell pid 2828 thread gnome-shel:cs0 pid 2860
-Nov 14 17:21:33 thor kernel: amdgpu 0000:05:00.0: amdgpu: GPU reset begin!
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index db772942f7a6..fb1bb593312e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -172,9 +172,7 @@ int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+ 	    (kfd_mem_limit.ttm_mem_used + ttm_mem_needed >
+ 	     kfd_mem_limit.max_ttm_mem_limit) ||
+ 	    (adev && adev->kfd.vram_used + vram_needed >
+-	     adev->gmc.real_vram_size -
+-	     atomic64_read(&adev->vram_pin_size) -
+-	     reserved_for_pt)) {
++	     adev->gmc.real_vram_size - reserved_for_pt)) {
+ 		ret = -ENOMEM;
+ 		goto release;
+ 	}
 -- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+2.34.1
 
