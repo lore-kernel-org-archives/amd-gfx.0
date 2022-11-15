@@ -4,56 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBDE7C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Nov 2022 14:49:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB885C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Nov 2022 15:36:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4230110E40B;
-	Tue, 15 Nov 2022 14:49:30 +0000 (UTC)
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C90C10E407
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Nov 2022 14:32:57 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id d20so17713154ljc.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Nov 2022 06:32:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=to:subject:message-id:date:from:in-reply-to:references:mime-version
- :from:to:cc:subject:date:message-id:reply-to;
- bh=nmA9IQtPhmRiYmAcsIQmMUcPERu6ZRIIUxXn0bYa/6g=;
- b=QOwZqVs8fubRz/Zg6o+b7q8eps3gQUTNRxzgyILaWP+VaqiIxTZg8ykjhoGo7DlDF+
- 3eQpScJcdQuw8ZBRrhpEyfijoHttBOAJXDYPR9p/pk4j54GrccRdxmBiXsocfDcEt+n3
- VyQKgmn/JiZSbc0lQEuyM5DL6G6Mn6DAJD20JeUGna9WTfRmjh8NVtuJG+HijVxFDFzJ
- fTzXqTY43Cla0cq3V9CRqLWmLomaKaY56AfHSM69oggmPV7GINWLN54g0euKj2F3DWqI
- BZgj1XWGAS8OcLfd7s2tASE04yaFwLTB1NCVwcgYxeeMTgjXBIWVSTk7CXWAdd7vudx0
- a0eA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:subject:message-id:date:from:in-reply-to:references:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=nmA9IQtPhmRiYmAcsIQmMUcPERu6ZRIIUxXn0bYa/6g=;
- b=I31Jd1CJMwgtOzgAoDohdwlqNyDNavJ5Ka0JZDojIqXFQ8MoG+YCQQ2UU/Yulji53E
- 9lcYYRyJN8UIsPaMQN/PQZTyV2f+Z38DMV7vXbqffoQ0i04GZK7RbXriGrqL5ZMI1sGJ
- nbUgQTO6Y7MVoKBTnC2ucKyyf2L5cUMKEGZpjDTJBQug7kXjU4Nb4J0wTHv7MSma1/qV
- 0K3Lzc2dyV0PBV6jrJYrEZ6qEK+Lr3zSExEdobRM4BiO8Yx7l2WiMxqyk+adXoI+6Y2Z
- Bd6mWPuC691pudPMkv5zVlxKrWYBMGSA6L+i82Z8dwK4mtpykT7WVXQdZBQEZ3pwwhiR
- 22/w==
-X-Gm-Message-State: ANoB5pkQuKztuSktLF01J/LR31esJUeYVaOjmkZKyfzFmN4OvBwdiftX
- 4PbJPOf3EWRG5e/UJ3nIh4x8XNn/9HozvKKd7I+UHrQmRt5sZg==
-X-Google-Smtp-Source: AA0mqf7paaGtSGHjYd9UZgrJFgHQREhXIs9y5X0cJWf1FhybtFyqaPbQK0cmhuHrouM/mWdHgRkWnTNOOuGT3I9/eZ0=
-X-Received: by 2002:a2e:9109:0:b0:26e:9559:972 with SMTP id
- m9-20020a2e9109000000b0026e95590972mr6664284ljg.453.1668522775701; Tue, 15
- Nov 2022 06:32:55 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2D5C10E413;
+	Tue, 15 Nov 2022 15:36:51 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2079.outbound.protection.outlook.com [40.107.244.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 796AA10E41F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Nov 2022 15:36:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kibhOBx51C7r4ayxmwO2gsyULSnKVgU8PGouXamPellK6UkJCoaz7ckD3YQ7q7MkJfCeq8WwPr7P/X1C8qBWCM33JxRcsaB7TOYRw0FaO0HgyW6SR3acHFmMekeevofi5KHyu70g9KMjF4vsXYHZ6eKSw79F3wzwhrjOSjpyNKUhD/84efZvRby3N58nTkmH320fvzbhipuKe25bgT1cIwe/E+rk1EbnLexXHFK36QJ6TFO+zJvmw7IGLSdlYpXnzXR1B/e9hZKjRlM8bWmK0Q55W4wGh+Y9eah8ji3/YxE+ehFMKfKgxvulF0CfZdF0TjZxcgC5RV6Bk0z099CBxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/LoOXdfEE88UUE3g2qW33dwQB0Vg/GW5CNYCHBlQvCQ=;
+ b=ctk4InnkwE+ckASGT9KFCeHafALiWJw/rANghlZv45dhCxGpf6+QKaLCZ0UJFledUrskekx8/hR2yFoV8UxgqqcWB6kfCd6NHFvj5T5QQM5KfcSCPQtpTHhCvV3ry/xeyRcDqbDeJCuI7eV9DRNE1Ya/TZ0t47U4HauSh6QRtQH8w+ThhVCC30NKfnrbfXRRIVCyMBNCS1z3JVgLa+bP8HINVRstkv96anQeIwztt5oMq325q98tTI3gv5k3RPguKRQSL3jw0ZUsR1c41oc1Z8qHvrzh0v/JEdZeTb0nX6iAPoUx5jOpMdO3QgRDDK4M4hJbFAS/X/60DOhsZ1WGLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/LoOXdfEE88UUE3g2qW33dwQB0Vg/GW5CNYCHBlQvCQ=;
+ b=16GcNGnAQ6HKVHr3vbgbxIIdvRT5L8NkIk7urXHRoQV2cEaWq4QbPYkKo3tB14viV5GhsGni6VApmMkBU3bivyiPlClUwl/5SRNBZ2r8eIMAwr3wVu24RmcU10Q+5CBs7Mu5YcAwuTM7tEJeDh/F0+JSOD8lj6wy0hXY6gducEw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DM6PR12MB4385.namprd12.prod.outlook.com (2603:10b6:5:2a6::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.18; Tue, 15 Nov
+ 2022 15:36:47 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::5d8:f3f2:d940:5350]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::5d8:f3f2:d940:5350%3]) with mapi id 15.20.5813.017; Tue, 15 Nov 2022
+ 15:36:47 +0000
+Message-ID: <1df24ebe-1a93-c292-f637-7c9dea278aa2@amd.com>
+Date: Tue, 15 Nov 2022 10:36:43 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH 2/4] drm/amdgpu: fix userptr HMM range handling
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Philip.Yang@amd.com, amd-gfx@lists.freedesktop.org
+References: <20221110130009.1835-1-christian.koenig@amd.com>
+ <20221110130009.1835-2-christian.koenig@amd.com>
+ <aa3a76c2-e5f3-8e15-717a-a90a1d9c516f@amd.com>
+ <2093f939-1079-655a-b24c-f47fe1168eac@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <2093f939-1079-655a-b24c-f47fe1168eac@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0238.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:66::18) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <20221114231325.18698-1-jntesteves@gmail.com>
- <DM6PR12MB2619FDCED7C17F2B79166462E4049@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB2619FDCED7C17F2B79166462E4049@DM6PR12MB2619.namprd12.prod.outlook.com>
-From: Jonatas Esteves <jntesteves@gmail.com>
-Date: Tue, 15 Nov 2022 11:32:43 -0300
-Message-ID: <CAE+LsM--eb3uXAAbTFziETx4QaJ48PRVZaJ-V7-BHevOm0DpOg@mail.gmail.com>
-Subject: RE: [PATCH] drm/amd/pm: Fix output of pp_od_clk_voltage
-To: "Quan, Evan" <Evan.Quan@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Tue, 15 Nov 2022 14:49:26 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM6PR12MB4385:EE_
+X-MS-Office365-Filtering-Correlation-Id: b84f21a5-817f-42f0-5084-08dac71f33ff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: O56n3WHDJkND+vRG1fEnyqTs4Q7+3kMqcas2VhqJ4wR5/N9N3ryfd4lZ9sYlqoj4FKj/qB28ITgD+dC/IINvWzvtoG1g3XopFeic0SCEyF5BbfWDHsbpQwxoFNLcSu8m9xBoP1GyuynBgfM1YbuK4WijlNSBESqwE/4i+TYIr0DRGoJomLuA53tYtdITlLt/wvxzJZcs6cNaXvIWQ1JbKrxU6eXYBsityh+0lJUh5Sx8LatH3giyxRAjsqaAJ2G/pNM+liemsfn4r0DqsmrwxEzX3WPifGgkTsDIDUO1/l6cuHMOru3XP/NGRl+QhJ4A90Fq2awnDfiF5PuosgtTOxkH9hFzQOIjBrnG3phfkXYvq5br7cQksKsnrOvWeyeSNV/iByXhWw8XRnZZXH9m76WQr9BxG4o0IeolWb/0B/07i5Ht4VUOBLdyyDHsLFinWlKefCMrWG0O9vGVcwmTPwCHKWful7UFGE4yCb/k/U/L26Hj+4JRof1klZswz8gHscJ6cGNlYxL+LcZZBgyzKyZAgZYHOyLwWKd9sy/6x96IvJmshB0Ao5U82bUt8286izXzApZFeN0w7J+qzl4KpV/inqqJnu1iFZW9h21xt6BxJkFm2B50/khZRySojJjKx2hpCAzRIFaurBXfEiyiMV312Hc8Kz7+lutoHxr4eEFef12bFb00GnFjfzwY2bk3c1BBlPuHGIcY9sBlF021sknODMWgs7/ghLRp7igYgJ+dELZn/Ym8RtGZ153k/FQuw4Z/7/h6k1042br0n3kCktTPElr5CS41413/7vyj9FE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(366004)(376002)(39860400002)(396003)(136003)(451199015)(6512007)(26005)(31696002)(316002)(86362001)(66574015)(30864003)(44832011)(83380400001)(4001150100001)(2906002)(66946007)(66556008)(66476007)(41300700001)(8936002)(4326008)(36756003)(8676002)(38100700002)(5660300002)(186003)(2616005)(478600001)(31686004)(6486002)(6666004)(6506007)(110136005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0J3Q3pSb3AxZzh4RGNDWFFValVQaGN6bG5EVklaL1gwN09ndVlPek9CaGNa?=
+ =?utf-8?B?YTliQVluYmhOQ1p2NEwwWVJpUTQ3SmJYRExMU0VMK016bEU2aUhNckQwdVRE?=
+ =?utf-8?B?S1BHR09KT29zU2VQN1dnTzVrSUxXZUwreVNaOUNlaUlTWEtMNkpHaERJZkNJ?=
+ =?utf-8?B?Y1REUnd5L3dBcVhxSXNIVk14SHJLaEM4cmZjd09OcmF2bzhTZG9ORnpiU1Nn?=
+ =?utf-8?B?R2V0RVM3cWd4QjA4MHY0WjBkdzNOcGxCZEVtbHJNTWR0WDhvc2FUM1RaeXhh?=
+ =?utf-8?B?ZithSHFtcElyeXpTdTc3ZVVvSE95NDdHT2JXVUNNUDAraCtyZVJnTnRMTnEy?=
+ =?utf-8?B?MVIzc3VwSXoyWkhOblN0R2FkVS9QRVlNZXM5Q0phYlFpZ2dPd3hKNXBGTE9z?=
+ =?utf-8?B?SzI2d0NDNTVxdkZaeDRGRytXRjU2V1dFWmNiTllhc3ZCMk1aVlNtcTk4TkpQ?=
+ =?utf-8?B?TG02UHRMMFVVNWU3b3gzTFFjL0haK1JlYUFWQjIwVTlPUFZzSFpVdDJtSlZz?=
+ =?utf-8?B?OWFvMGxZODE0ODhaM1pvenpCcnJmWHBVSkxSVGtseW02Um5IWTFXVjdGMWpt?=
+ =?utf-8?B?VTI0cDNXMnVEcTBPbTlJdmlKandaSzY4OEk3a2o2V2N5TDRpdThncitJZlBx?=
+ =?utf-8?B?a1VRcHE5NGh0V1VvUWhoOWpMZ1IwS2hTUzJBQ1JIczlmblhnWXRmWEdCaW9H?=
+ =?utf-8?B?czFrS0tUWno5SXQ0b0pkUFFlRE9zZUhOcXFaK2FhUkVqSFlyWTlVVTBIQjFE?=
+ =?utf-8?B?T1N2bHdpRXZ2QzlUc3dxb2JUSis5WmRNeERaUXdoRmxnUkNtamFoZEpwdndY?=
+ =?utf-8?B?akczRTRBQWw4WkF6NGVrQUxWN2h0QThrYzlsOFZ6YUlCcW9BZlNobE91dG5Q?=
+ =?utf-8?B?Yi9LSVZHRW9EMmNMbEw3ZG5QMGdQWTVtM3hEV0toRHlndVdpMlpHMnBqUDFH?=
+ =?utf-8?B?WkdiYjB4dDNJekNCZzBsQ3I0UVowbXFBQnBvRDJycVZ6Z3B4dGhPeXgzQ1Ny?=
+ =?utf-8?B?NWhlaWZRZnVWbG9YUkFIUGpYeEQrbUxhaFpQY1MyRDI0cVEvbURBcHhhMXRo?=
+ =?utf-8?B?ZER6YWVMc1lhOGcvMElwbU9GQ0xMckxUenFYT0RONVQ4ZlVIYmdIU1RHN1ky?=
+ =?utf-8?B?NEtFZmVTaU1WTFBrY1JhZmp1bHVHNW9tZ25Gd2lJQ1ZrOVU5SkhvaHdYRnFt?=
+ =?utf-8?B?a0Q5N1BTVTUybjVITGFSNGxtNSt6amxocjVWRnFyVFE2a2NaYUdaUEtJL2g4?=
+ =?utf-8?B?UTJkVXd6OE9WaldLYkU3RmIvdUY5dkkrQ2JRbkVxZXRZWm01NGh0WDQrTEN3?=
+ =?utf-8?B?S3krTXA1TVNSZVdaYjdTN1NuVitDSldpZ0w2RHJ5SVFFdk9RUlZiS2RuRmdq?=
+ =?utf-8?B?ekZIYld1dkpFcSsxeThBSUhKcDdHYndMZTJsK0R2cVp4c3hVNXdyZTRRU053?=
+ =?utf-8?B?RHRmcExmaXlWYlVLVzVzQXdocDNCSnE2cklraWFRdmtnTE96UG96YTh2VFNa?=
+ =?utf-8?B?MGFQeWV1Sm1iT2R3Zm80M1VtaDQ4OXlrQmk2YjVvaHhwUkJCQUYzcnpkZzFV?=
+ =?utf-8?B?endhTG5FaVlnQU4rcm9yT1Z2Z0phcWlVZWhMS1BsRlkzbHJFWFBGTUIvQ0xl?=
+ =?utf-8?B?V3FvbVVrblh5OEdJY1hocjJXUGpIeFlEMWMxN1Q3QTNwL1VKNmJQODhwYytl?=
+ =?utf-8?B?OGVXeTBCUHQyT3Bpcng4RlZWL2Jra3NzU210c1BNTHZQOGFWMVdkUW50alFy?=
+ =?utf-8?B?WUdRakYxWU9raCtNY1RBemM0VnZLVUpMVWZraFhLai9aR3NwTVN0VGd5SkhJ?=
+ =?utf-8?B?K0NqYjBXWVRmS09tYjZ2cSt4ZjlyT0RiMldUK1RXc1NtYWVjQTE0am9nOEha?=
+ =?utf-8?B?VjdGVkUrSzROb3huRnVTMFl2NEtKRzlPaUl1RHJ1N1p2NHR1aE53WUZlbmFh?=
+ =?utf-8?B?eFNUSHdoK0JXWG1TcVhiQ1kvcHhySGJmRFBqTXVTQzhXZTBkMHE3VjBUVGho?=
+ =?utf-8?B?QXpBOHlLNytIbmlGU0ZoZzN5TUxwQjdYUHlsUlZmTFlJVHdNTkV4bUEwdUtO?=
+ =?utf-8?B?Ulp4aExhWVVKRTRIT1FUc2htWkQ1NTJsZ0FNb2wvaktkeUZpenZDR0Y1YjZG?=
+ =?utf-8?Q?0bEZuu82iNjUt9RUVDjzz98jL?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b84f21a5-817f-42f0-5084-08dac71f33ff
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2022 15:36:47.2267 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R9tmOZO/Q4hf0cGc8PdU8ZI9+9znvwsCzIOtQxh1AEUR9s3IPgEx1+xUYWyiao3YNGXJIQ9tK6uZI3+xOL7vkA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4385
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,169 +128,370 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: stable@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 2022-11-15 um 08:37 schrieb Christian König:
+> Am 10.11.22 um 22:55 schrieb Felix Kuehling:
+>>
+>> Am 2022-11-10 um 08:00 schrieb Christian König:
+>>> The basic problem here is that it's not allowed to page fault while
+>>> holding the reservation lock.
+>>>
+>>> So it can happen that multiple processes try to validate an userptr
+>>> at the same time.
+>>>
+>>> Work around that by putting the HMM range object into the mutex
+>>> protected bo list for now.
+>>>
+>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>>> CC: stable@vger.kernel.org
+>>> ---
+>>>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 12 +++--
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c   |  1 +
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h   |  3 ++
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  8 +--
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  6 ++-
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 50 
+>>> +++++--------------
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       | 14 ++++--
+>>>   7 files changed, 43 insertions(+), 51 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>> index c5c9bfa2772e..83659e6419a8 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>> @@ -940,6 +940,7 @@ static int init_user_pages(struct kgd_mem *mem, 
+>>> uint64_t user_addr,
+>>>       struct amdkfd_process_info *process_info = mem->process_info;
+>>>       struct amdgpu_bo *bo = mem->bo;
+>>>       struct ttm_operation_ctx ctx = { true, false };
+>>> +    struct hmm_range *range;
+>>
+>> I'd feel better if these local hmm_range pointers here and in 
+>> update_invalid_user_pages and amdgpu_gem_userptr_ioctl were 
+>> initialized to NULL. amdgpu_ttm_tt_get_user_pages leaves it 
+>> uninitialized in case of errors and amdgpu_ttm_tt_get_user_pages_done 
+>> checks for !range.
 >
-> [AMD Official Use Only - General]
+> I've opted to initializing range to NULL in case of an error.
 >
+>>
+>> With that fixed, the patch is
+>>
+>> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 >
+> Does that still counts?
+
+If you don't mind, please send the updated patch again. It's always good 
+to have a second pair of eyes on error handling.
+
+Thanks,
+   Felix
+
+
 >
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> > Jonatas Esteves
-> > Sent: Tuesday, November 15, 2022 7:13 AM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Jonatas Esteves <jntesteves@gmail.com>
-> > Subject: [PATCH] drm/amd/pm: Fix output of pp_od_clk_voltage
-> >
-> > Printing the other clock types should not be conditioned on being able
-> > to print OD_SCLK. Some GPUs currently have limited capability of only
-> > printing a subset of these.
-> >
-> > Since this condition was introduced in v5.18-rc1, reading from
-> > `pp_od_clk_voltage` has been returning empty on the Asus ROG Strix G15
-> > (2021).
-> What's the output then with this patch applied?
-```
-$ cat /sys/class/drm/card1/device/pp_od_clk_voltage
-OD_VDDGFX_OFFSET:
-0mV
-OD_RANGE:
-```
-
-Changing OD_VDDGFX_OFFSET works for this chip. Changing GFXCLK_LIMITS
-and UCLK_LIMITS is not supported as per the checks in
-sienna_cichlid_ppt.c -> sienna_cichlid_od_edit_dpm_table()
-
-> Meanwhile can you show me the 'lspci' output( I wonder which asic is used on your system)?
-The ASIC is a RX 6800M / NAVI22 / Navy Flounder / IP_VERSION(11, 0, 11)
-
-```
-$ lspci
-00:00.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir/Cezanne
-Root Complex
-00:00.2 IOMMU: Advanced Micro Devices, Inc. [AMD] Renoir/Cezanne IOMMU
-00:01.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir PCIe
-Dummy Host Bridge
-00:01.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Renoir PCIe GPP Bridge
-00:02.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir PCIe
-Dummy Host Bridge
-00:02.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Renoir/Cezanne
-PCIe GPP Bridge
-00:02.2 PCI bridge: Advanced Micro Devices, Inc. [AMD] Renoir/Cezanne
-PCIe GPP Bridge
-00:02.4 PCI bridge: Advanced Micro Devices, Inc. [AMD] Renoir/Cezanne
-PCIe GPP Bridge
-00:08.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir PCIe
-Dummy Host Bridge
-00:08.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Renoir Internal
-PCIe GPP Bridge to Bus
-00:14.0 SMBus: Advanced Micro Devices, Inc. [AMD] FCH SMBus Controller (rev 51)
-00:14.3 ISA bridge: Advanced Micro Devices, Inc. [AMD] FCH LPC Bridge (rev 51)
-00:18.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Cezanne Data
-Fabric; Function 0
-00:18.1 Host bridge: Advanced Micro Devices, Inc. [AMD] Cezanne Data
-Fabric; Function 1
-00:18.2 Host bridge: Advanced Micro Devices, Inc. [AMD] Cezanne Data
-Fabric; Function 2
-00:18.3 Host bridge: Advanced Micro Devices, Inc. [AMD] Cezanne Data
-Fabric; Function 3
-00:18.4 Host bridge: Advanced Micro Devices, Inc. [AMD] Cezanne Data
-Fabric; Function 4
-00:18.5 Host bridge: Advanced Micro Devices, Inc. [AMD] Cezanne Data
-Fabric; Function 5
-00:18.6 Host bridge: Advanced Micro Devices, Inc. [AMD] Cezanne Data
-Fabric; Function 6
-00:18.7 Host bridge: Advanced Micro Devices, Inc. [AMD] Cezanne Data
-Fabric; Function 7
-01:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI] Navi 10 XL
-Upstream Port of PCI Express Switch (rev c3)
-02:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI] Navi 10 XL
-Downstream Port of PCI Express Switch
-03:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI]
-Navi 22 [Radeon RX 6700/6700 XT/6750 XT / 6800M] (rev c3)
-03:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Navi
-21/23 HDMI/DP Audio Controller
-04:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd.
-RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 15)
-05:00.0 Network controller: MEDIATEK Corp. MT7921 802.11ax PCI Express
-Wireless Network Adapter
-06:00.0 Non-Volatile memory controller: Intel Corporation Device f1aa (rev 03)
-07:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
-[AMD/ATI] Cezanne [Radeon Vega Series / Radeon Vega Mobile Series]
-(rev c4)
-07:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Renoir
-Radeon High Definition Audio Controller
-07:00.2 Encryption controller: Advanced Micro Devices, Inc. [AMD]
-Family 17h (Models 10h-1fh) Platform Security Processor
-07:00.3 USB controller: Advanced Micro Devices, Inc. [AMD]
-Renoir/Cezanne USB 3.1
-07:00.4 USB controller: Advanced Micro Devices, Inc. [AMD]
-Renoir/Cezanne USB 3.1
-07:00.5 Multimedia controller: Advanced Micro Devices, Inc. [AMD]
-ACP/ACP3X/ACP6x Audio Coprocessor (rev 01)
-07:00.6 Audio device: Advanced Micro Devices, Inc. [AMD] Family
-17h/19h HD Audio Controller
-```
-
-Here are some SMU initialization logs I think might also be important:
-```
-[  970.119696] amdgpu 0000:03:00.0: amdgpu: SMU is resuming...
-[  970.119701] amdgpu 0000:03:00.0: amdgpu: smu driver if version =
-0x0000000e, smu fw if version = 0x00000012, smu fw program = 0,
-version = 0x00413700 (65.55.0)
-[  970.119704] amdgpu 0000:03:00.0: amdgpu: SMU driver if version not matched
-[  970.119751] amdgpu 0000:03:00.0: amdgpu: use vbios provided pptable
-[  970.183486] amdgpu 0000:03:00.0: amdgpu: SMU is resumed successfully!
-```
-
-Thanks for your attention on this.
-Jonatas
+> Thanks,
+> Christian.
 >
-> BR
-> Evan
-> >
-> > Fixes: 79c65f3fcbb1 ("drm/amd/pm: do not expose power implementation
-> > details to amdgpu_pm.c")
-> > ---
-> >  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 12 +++++-------
-> >  1 file changed, 5 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> > b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> > index 236657eece47..9d364bbc78e1 100644
-> > --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> > +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> > @@ -869,13 +869,11 @@ static ssize_t
-> > amdgpu_get_pp_od_clk_voltage(struct device *dev,
-> >       }
-> >       if (ret == -ENOENT) {
-> >               size = amdgpu_dpm_print_clock_levels(adev, OD_SCLK, buf);
-> > -             if (size > 0) {
-> > -                     size += amdgpu_dpm_print_clock_levels(adev,
-> > OD_MCLK, buf + size);
-> > -                     size += amdgpu_dpm_print_clock_levels(adev,
-> > OD_VDDC_CURVE, buf + size);
-> > -                     size += amdgpu_dpm_print_clock_levels(adev,
-> > OD_VDDGFX_OFFSET, buf + size);
-> > -                     size += amdgpu_dpm_print_clock_levels(adev,
-> > OD_RANGE, buf + size);
-> > -                     size += amdgpu_dpm_print_clock_levels(adev,
-> > OD_CCLK, buf + size);
-> > -             }
-> > +             size += amdgpu_dpm_print_clock_levels(adev, OD_MCLK,
-> > buf + size);
-> > +             size += amdgpu_dpm_print_clock_levels(adev,
-> > OD_VDDC_CURVE, buf + size);
-> > +             size += amdgpu_dpm_print_clock_levels(adev,
-> > OD_VDDGFX_OFFSET, buf + size);
-> > +             size += amdgpu_dpm_print_clock_levels(adev, OD_RANGE,
-> > buf + size);
-> > +             size += amdgpu_dpm_print_clock_levels(adev, OD_CCLK,
-> > buf + size);
-> >       }
-> >
-> >       if (size == 0)
-> > --
-> > 2.30.2
+>>
+>>
+>>>       int ret = 0;
+>>>         mutex_lock(&process_info->lock);
+>>> @@ -969,7 +970,7 @@ static int init_user_pages(struct kgd_mem *mem, 
+>>> uint64_t user_addr,
+>>>           return 0;
+>>>       }
+>>>   -    ret = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages);
+>>> +    ret = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages, 
+>>> &range);
+>>>       if (ret) {
+>>>           pr_err("%s: Failed to get user pages: %d\n", __func__, ret);
+>>>           goto unregister_out;
+>>> @@ -987,7 +988,7 @@ static int init_user_pages(struct kgd_mem *mem, 
+>>> uint64_t user_addr,
+>>>       amdgpu_bo_unreserve(bo);
+>>>     release_out:
+>>> -    amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm);
+>>> +    amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, range);
+>>>   unregister_out:
+>>>       if (ret)
+>>>           amdgpu_mn_unregister(bo);
+>>> @@ -2319,6 +2320,8 @@ static int update_invalid_user_pages(struct 
+>>> amdkfd_process_info *process_info,
+>>>       /* Go through userptr_inval_list and update any invalid 
+>>> user_pages */
+>>>       list_for_each_entry(mem, &process_info->userptr_inval_list,
+>>>                   validate_list.head) {
+>>> +        struct hmm_range *range;
+>>> +
+>>>           invalid = atomic_read(&mem->invalid);
+>>>           if (!invalid)
+>>>               /* BO hasn't been invalidated since the last
+>>> @@ -2329,7 +2332,8 @@ static int update_invalid_user_pages(struct 
+>>> amdkfd_process_info *process_info,
+>>>           bo = mem->bo;
+>>>             /* Get updated user pages */
+>>> -        ret = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages);
+>>> +        ret = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages,
+>>> +                           &range);
+>>>           if (ret) {
+>>>               pr_debug("Failed %d to get user pages\n", ret);
+>>>   @@ -2348,7 +2352,7 @@ static int update_invalid_user_pages(struct 
+>>> amdkfd_process_info *process_info,
+>>>                * FIXME: Cannot ignore the return code, must hold
+>>>                * notifier_lock
+>>>                */
+>>> - amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm);
+>>> +            amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, range);
+>>>           }
+>>>             /* Mark the BO as valid unless it was invalidated
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+>>> index 2168163aad2d..252a876b0725 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+>>> @@ -209,6 +209,7 @@ void amdgpu_bo_list_get_list(struct 
+>>> amdgpu_bo_list *list,
+>>>               list_add_tail(&e->tv.head, &bucket[priority]);
+>>>             e->user_pages = NULL;
+>>> +        e->range = NULL;
+>>>       }
+>>>         /* Connect the sorted buckets in the output list. */
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+>>> index 9caea1688fc3..e4d78491bcc7 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+>>> @@ -26,6 +26,8 @@
+>>>   #include <drm/ttm/ttm_execbuf_util.h>
+>>>   #include <drm/amdgpu_drm.h>
+>>>   +struct hmm_range;
+>>> +
+>>>   struct amdgpu_device;
+>>>   struct amdgpu_bo;
+>>>   struct amdgpu_bo_va;
+>>> @@ -36,6 +38,7 @@ struct amdgpu_bo_list_entry {
+>>>       struct amdgpu_bo_va        *bo_va;
+>>>       uint32_t            priority;
+>>>       struct page            **user_pages;
+>>> +    struct hmm_range        *range;
+>>>       bool                user_invalidated;
+>>>   };
+>>>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>> index d371000a5727..7f9cedd8e157 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>> @@ -910,7 +910,7 @@ static int amdgpu_cs_parser_bos(struct 
+>>> amdgpu_cs_parser *p,
+>>>               goto out_free_user_pages;
+>>>           }
+>>>   -        r = amdgpu_ttm_tt_get_user_pages(bo, e->user_pages);
+>>> +        r = amdgpu_ttm_tt_get_user_pages(bo, e->user_pages, 
+>>> &e->range);
+>>>           if (r) {
+>>>               kvfree(e->user_pages);
+>>>               e->user_pages = NULL;
+>>> @@ -988,9 +988,10 @@ static int amdgpu_cs_parser_bos(struct 
+>>> amdgpu_cs_parser *p,
+>>>             if (!e->user_pages)
+>>>               continue;
+>>> -        amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm);
+>>> +        amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, e->range);
+>>>           kvfree(e->user_pages);
+>>>           e->user_pages = NULL;
+>>> +        e->range = NULL;
+>>>       }
+>>>       mutex_unlock(&p->bo_list->bo_list_mutex);
+>>>       return r;
+>>> @@ -1265,7 +1266,8 @@ static int amdgpu_cs_submit(struct 
+>>> amdgpu_cs_parser *p,
+>>>       amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
+>>>           struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
+>>>   -        r |= !amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm);
+>>> +        r |= !amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, 
+>>> e->range);
+>>> +        e->range = NULL;
+>>>       }
+>>>       if (r) {
+>>>           r = -EAGAIN;
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>> index 111484ceb47d..91571b1324f2 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>> @@ -378,6 +378,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device 
+>>> *dev, void *data,
+>>>       struct amdgpu_device *adev = drm_to_adev(dev);
+>>>       struct drm_amdgpu_gem_userptr *args = data;
+>>>       struct drm_gem_object *gobj;
+>>> +    struct hmm_range *range;
+>>>       struct amdgpu_bo *bo;
+>>>       uint32_t handle;
+>>>       int r;
+>>> @@ -418,7 +419,8 @@ int amdgpu_gem_userptr_ioctl(struct drm_device 
+>>> *dev, void *data,
+>>>           goto release_object;
+>>>         if (args->flags & AMDGPU_GEM_USERPTR_VALIDATE) {
+>>> -        r = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages);
+>>> +        r = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages,
+>>> +                         &range);
+>>>           if (r)
+>>>               goto release_object;
+>>>   @@ -441,7 +443,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device 
+>>> *dev, void *data,
+>>>     user_pages_done:
+>>>       if (args->flags & AMDGPU_GEM_USERPTR_VALIDATE)
+>>> -        amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm);
+>>> +        amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, range);
+>>>     release_object:
+>>>       drm_gem_object_put(gobj);
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>> index 76a8ebfc9e71..a56d28bd23be 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>> @@ -642,9 +642,6 @@ struct amdgpu_ttm_tt {
+>>>       struct task_struct    *usertask;
+>>>       uint32_t        userflags;
+>>>       bool            bound;
+>>> -#if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
+>>> -    struct hmm_range    *range;
+>>> -#endif
+>>>   };
+>>>     #define ttm_to_amdgpu_ttm_tt(ptr)    container_of(ptr, struct 
+>>> amdgpu_ttm_tt, ttm)
+>>> @@ -657,7 +654,8 @@ struct amdgpu_ttm_tt {
+>>>    * Calling function must call amdgpu_ttm_tt_userptr_range_done() 
+>>> once and only
+>>>    * once afterwards to stop HMM tracking
+>>>    */
+>>> -int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page 
+>>> **pages)
+>>> +int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page 
+>>> **pages,
+>>> +                 struct hmm_range **range)
+>>>   {
+>>>       struct ttm_tt *ttm = bo->tbo.ttm;
+>>>       struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
+>>> @@ -673,10 +671,6 @@ int amdgpu_ttm_tt_get_user_pages(struct 
+>>> amdgpu_bo *bo, struct page **pages)
+>>>           return -EFAULT;
+>>>       }
+>>>   -    /* Another get_user_pages is running at the same time?? */
+>>> -    if (WARN_ON(gtt->range))
+>>> -        return -EFAULT;
+>>> -
+>>>       if (!mmget_not_zero(mm)) /* Happens during process shutdown */
+>>>           return -ESRCH;
+>>>   @@ -694,7 +688,7 @@ int amdgpu_ttm_tt_get_user_pages(struct 
+>>> amdgpu_bo *bo, struct page **pages)
+>>>         readonly = amdgpu_ttm_tt_is_readonly(ttm);
+>>>       r = amdgpu_hmm_range_get_pages(&bo->notifier, mm, pages, start,
+>>> -                       ttm->num_pages, &gtt->range, readonly,
+>>> +                       ttm->num_pages, range, readonly,
+>>>                          true, NULL);
+>>>   out_unlock:
+>>>       mmap_read_unlock(mm);
+>>> @@ -712,30 +706,24 @@ int amdgpu_ttm_tt_get_user_pages(struct 
+>>> amdgpu_bo *bo, struct page **pages)
+>>>    *
+>>>    * Returns: true if pages are still valid
+>>>    */
+>>> -bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm)
+>>> +bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
+>>> +                       struct hmm_range *range)
+>>>   {
+>>>       struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
+>>> -    bool r = false;
+>>>   -    if (!gtt || !gtt->userptr)
+>>> +    if (!gtt || !gtt->userptr || !range)
+>>>           return false;
+>>>         DRM_DEBUG_DRIVER("user_pages_done 0x%llx pages 0x%x\n",
+>>>           gtt->userptr, ttm->num_pages);
+>>>   -    WARN_ONCE(!gtt->range || !gtt->range->hmm_pfns,
+>>> -        "No user pages to check\n");
+>>> +    WARN_ONCE(!range->hmm_pfns, "No user pages to check\n");
+>>>   -    if (gtt->range) {
+>>> -        /*
+>>> -         * FIXME: Must always hold notifier_lock for this, and must
+>>> -         * not ignore the return code.
+>>> -         */
+>>> -        r = amdgpu_hmm_range_get_pages_done(gtt->range);
+>>> -        gtt->range = NULL;
+>>> -    }
+>>> -
+>>> -    return !r;
+>>> +    /*
+>>> +     * FIXME: Must always hold notifier_lock for this, and must
+>>> +     * not ignore the return code.
+>>> +     */
+>>> +    return !amdgpu_hmm_range_get_pages_done(range);
+>>>   }
+>>>   #endif
+>>>   @@ -812,20 +800,6 @@ static void 
+>>> amdgpu_ttm_tt_unpin_userptr(struct ttm_device *bdev,
+>>>       /* unmap the pages mapped to the device */
+>>>       dma_unmap_sgtable(adev->dev, ttm->sg, direction, 0);
+>>>       sg_free_table(ttm->sg);
+>>> -
+>>> -#if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
+>>> -    if (gtt->range) {
+>>> -        unsigned long i;
+>>> -
+>>> -        for (i = 0; i < ttm->num_pages; i++) {
+>>> -            if (ttm->pages[i] !=
+>>> - hmm_pfn_to_page(gtt->range->hmm_pfns[i]))
+>>> -                break;
+>>> -        }
+>>> -
+>>> -        WARN((i == ttm->num_pages), "Missing get_user_page_done\n");
+>>> -    }
+>>> -#endif
+>>>   }
+>>>     static void amdgpu_ttm_gart_bind(struct amdgpu_device *adev,
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>>> index 6a70818039dd..a37207011a69 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>>> @@ -39,6 +39,8 @@
+>>>     #define AMDGPU_POISON    0xd0bed0be
+>>>   +struct hmm_range;
+>>> +
+>>>   struct amdgpu_gtt_mgr {
+>>>       struct ttm_resource_manager manager;
+>>>       struct drm_mm mm;
+>>> @@ -149,15 +151,19 @@ void amdgpu_ttm_recover_gart(struct 
+>>> ttm_buffer_object *tbo);
+>>>   uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, 
+>>> uint32_t type);
+>>>     #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
+>>> -int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page 
+>>> **pages);
+>>> -bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm);
+>>> +int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page 
+>>> **pages,
+>>> +                 struct hmm_range **range);
+>>> +bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt *ttm,
+>>> +                       struct hmm_range *range);
+>>>   #else
+>>>   static inline int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+>>> -                           struct page **pages)
+>>> +                           struct page **pages,
+>>> +                           struct hmm_range **range)
+>>>   {
+>>>       return -EPERM;
+>>>   }
+>>> -static inline bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt 
+>>> *ttm)
+>>> +static inline bool amdgpu_ttm_tt_get_user_pages_done(struct ttm_tt 
+>>> *ttm,
+>>> +                             struct hmm_range *range)
+>>>   {
+>>>       return false;
+>>>   }
+>
