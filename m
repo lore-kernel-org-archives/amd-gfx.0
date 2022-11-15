@@ -4,89 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D89BC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Nov 2022 07:26:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 606CBC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Nov 2022 09:42:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4303110E05B;
-	Tue, 15 Nov 2022 07:26:22 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2078.outbound.protection.outlook.com [40.107.223.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D64510E05B
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Nov 2022 07:26:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fLv2G4A2xemEQa42q9GdvwvYuufGRelWXYati7uCd32CDJsckM+rrHkqsBG/ZSLAngj42tc1+1GY5PgN4Q5EjMnKOxlxqBjIpET7pj2iLly+dtd1lhDaZfaMqVMHzlJ2VS4h/1LHBfu6lMcd5PZCLvNmIs5CuxAiJ55BmZCvbtRvCWrO/s16x2ST6Yz6d8KUBwfr8GWPhz4jvwXMa8fvRmx6U5huKJbjHf4yJ4RdbrI0v7glA2IKfZjPzmTWU4lnTSenyYcQHsSCL1gYXKI+7m3KDBjIL5fGXJ8163ipVJa6spmgXSBVt7xFWG5LOxnVpoHz3uwLbfHc59YGbDCimA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3/ciu4wF4oxC14uZ5ZE0lm6jPAm/wz3I06m02BWymCw=;
- b=nyh1zOP/FYoWN2G1GD++rqwLF2EgIF371n8fkdXgTZSZslkxsLtkoOHDbQ9DiIOtQ6xlQmZ8Ws+wT72VpdHq5iXpLMK4uwxX3fbLR1qsFRVKEvTniUvycilNo8tRgpr3IFibs8R73p5cyKGfTlKh9Ng9ZQ3cbPCpoD8XFMITbqDNQP750cgGfnk63qr9u+NYMGp4ft6dSPRFyIh8iDFCxPXf1CaTXZEa9zN5pjSVxe0Fh08dNsgUnnXXVCKaH2rtUpPFu2IZUE/cdwjF33b7AhtfcIGie/nPU23qZnniWUOlYAhMIyh0vxxzUkIo5o3xFeinGjbEaW3YrC4gUlrTrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3/ciu4wF4oxC14uZ5ZE0lm6jPAm/wz3I06m02BWymCw=;
- b=JtO8vcvKvnlfvZogGzKAEBwaeGoiVrW6p52VB6ypKf7gWfKKW6VAJ73b3UDjSJt+uxJeax5Qu9RYACGmnAhYrsCkBkSMUI3RdX6vL3ehbao1jTV3ztqlsg4KxeVXoOF9rmSZM7g4w9NnouZIeRsEGQ3YoQsBTOM/t1wkVk86ksw=
-Received: from MW4P220CA0030.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::35)
- by BL0PR12MB4913.namprd12.prod.outlook.com (2603:10b6:208:1c7::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.18; Tue, 15 Nov
- 2022 07:26:15 +0000
-Received: from CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:115:cafe::a0) by MW4P220CA0030.outlook.office365.com
- (2603:10b6:303:115::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.17 via Frontend
- Transport; Tue, 15 Nov 2022 07:26:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT007.mail.protection.outlook.com (10.13.174.131) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5813.12 via Frontend Transport; Tue, 15 Nov 2022 07:26:14 +0000
-Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 15 Nov
- 2022 01:26:08 -0600
-From: YiPeng Chai <YiPeng.Chai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Enable mode-1 reset for RAS recovery in fatal
- error mode
-Date: Tue, 15 Nov 2022 15:25:41 +0800
-Message-ID: <20221115072541.4154199-1-YiPeng.Chai@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B45510E126;
+	Tue, 15 Nov 2022 09:42:15 +0000 (UTC)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 099EC10E126
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Nov 2022 09:42:10 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id bj12so34556075ejb.13
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Nov 2022 01:42:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=EF0/lMN9Rkk5PKUamW21+gNQpgIiteuhgstRDRq8mys=;
+ b=bu7l8+bub5+4I47cfCu0uw9nFl2SN4B3P28ktdrRiB9digTIW3D/FIPgx7IfLnYToB
+ L44I9VT+8XFe7B9BUtxOYBbCc8V4JF2mDpYTtsPtV7UusLXkSs5+5V5sqysWAUEWxKMl
+ +mvMP0GJkY2ek5xYXCx9zVU3j7zH2oqo4YHIcKksTvWNlXirKon6cQVjv02npNOfbXJ9
+ XkJBb/u0F1x92wkSKYLxFVk49GrZ/7Bi66X5mZ/0Yvx/Ynzdn0uATolnN/MKE+2SmLUc
+ bRPtWrmyu8w0j4DtAqErTdWqx/E+B/Vlg3nklDT546sSXiCrXQyyjsyH5NrJGBtHF2Kt
+ Ldcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=EF0/lMN9Rkk5PKUamW21+gNQpgIiteuhgstRDRq8mys=;
+ b=ImFQ5oKivuP74u6z1BlaN5mC6grkik9cSqhPa8iKajRQj9mnfXVW4fNIqn4h2S1Dd7
+ H0mSloxq9e+M91ih3sOtBmk91RAhP4C8/0g+gDSBFZU05iZ7OVdqz/I/tjtnfQZWXigF
+ nMaeoHXgI7Jho4d7I08OymhiuwhZssLJ6axr5KQAv+5BCybu6gR0bQXGWW7YLBp8YKsc
+ 92SuvmCNIgnAEpyHWHXSDqqIyKm6p53GFoOOP74UinJTcsiO+7eM7jJgFcne2Z4g1Ima
+ PIUvRlCw5tKuPkoV39Rv5np6vAD4Bs3t+ukYhtu8NKv8PcCFByzrB1ERrafwbG68086g
+ oHog==
+X-Gm-Message-State: ANoB5pkU51+TfiBjtABUraYKDUuuD6dTX3hevfUzKU4+9+hTH8YsweIb
+ 5sWY0mDfptxsxJ+pUmKbnO0UG10kXPE=
+X-Google-Smtp-Source: AA0mqf6SW59V2eaWriUVcKhOkmMa+6bE7tE47mQeepfN1cfYtM8yJWuiiIlSV3lhwAayuSg8iMSQyA==
+X-Received: by 2002:a17:906:4dc2:b0:7ae:50c6:fd0a with SMTP id
+ f2-20020a1709064dc200b007ae50c6fd0amr12915964ejw.184.1668505328410; 
+ Tue, 15 Nov 2022 01:42:08 -0800 (PST)
+Received: from able.fritz.box (p5b0ea229.dip0.t-ipconnect.de. [91.14.162.41])
+ by smtp.gmail.com with ESMTPSA id
+ up22-20020a170907cc9600b007acbac07f07sm5306900ejc.51.2022.11.15.01.42.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Nov 2022 01:42:07 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: use the last IB as gang leader v2
+Date: Tue, 15 Nov 2022 10:42:06 +0100
+Message-Id: <20221115094206.6181-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT007:EE_|BL0PR12MB4913:EE_
-X-MS-Office365-Filtering-Correlation-Id: 109f81da-fc9b-41f3-0685-08dac6daae01
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lCKZ8ZEIo6N4NqGwPT8Q6L8YkrFZjQ7Tbv+PlR5sJ97WiGnK0hOZl/1HjiJApgxJQQipnXvqy1mHDCQejHySKK1chuL5aGzM2TVvmDo5WDftps6Pzb4y31DtKMcwrhfpLqre7FqVElEOSRK8D7T1DG/HHLzjm0gNMyk6FImSON5TCQli77ntEIqAWk2d3a32u1Khn+s88Zp6T8rOGUvvCFyNA0fSIDoKddFf9+gr3JSQmbyuW1izRGYaa18dxMhAVRbB2F3uKzPAeyoCWnvq/ttDNTueBQz9Tjvb4FBJFajhMCJ9Tz+dmWZVNCDeysFnxoqCDTf6gC4nfTyWgGtQ1As9yqBm88Bw1vNh3hDoJ5Aq4Sm/nVcK/CT/1u5DmHp39rn2e0Sx5DXR9FG1JSBjbvUpTe7BSSjQTsTKXykbp/t5OzA+M/a5aqtHNlu5u75L335NwIHex6IwpUdPllzzsOEZO6MblmEr5o50R5lETZShORYx0SEIImPFkG/WrJjRBVuG10if5P+zcorvgTyXpb2dSU+nl/k6Appo9dV/UpRaQcRq80Rw+aoMVsjli4Cnyp33m/IwAtzjk1L0yZuMkDSm0NB3lp+H/+oj0uSedg3J4wiO9kiOb8If/tGZp2Q+lA5YVoQJl//CI89jMOT7pya2N7omC6U/muU3QYFpwP7yjSOgq4Eu4JQodk1cEKNgd8UZ6YhhfH0OeUvL4uVZmcR3jSsPkwKeVDqya6uSQSbvrlx2uIww6rtKu7fyVQ6bPGiYAF514UJThcLsdaFRCOqENoKxOCOrwy5/uCCTnfZMvEwS6M8SesEFzfPEs7q4
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(39860400002)(376002)(346002)(396003)(451199015)(40470700004)(46966006)(36840700001)(83380400001)(478600001)(26005)(1076003)(186003)(16526019)(2616005)(82310400005)(6666004)(336012)(47076005)(7696005)(426003)(86362001)(40460700003)(82740400003)(36860700001)(36756003)(40480700001)(356005)(81166007)(8936002)(41300700001)(2906002)(5660300002)(6916009)(54906003)(4326008)(8676002)(316002)(70586007)(70206006)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2022 07:26:14.9413 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 109f81da-fc9b-41f3-0685-08dac6daae01
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4913
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,54 +70,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>, Hawking.Zhang@amd.com,
- YiPeng Chai <YiPeng.Chai@amd.com>, Candice.Li@amd.com, yipechai@amd.com
+Cc: timur.kristof@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The patch is enabling mode-1 reset for RAS recovery in fatal error mode.
+It turned out that not the last IB specified is the gang leader,
+but instead the last job allocated.
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+This is a bit unfortunate and not very intuitive for the CS
+interface, so try to fix this.
+
+Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 7 ++++++-
- 2 files changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 23 ++++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h |  1 +
+ 2 files changed, 17 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 5b9f992e4607..ac824eb93285 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4582,6 +4582,10 @@ bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev)
- 	if (amdgpu_gpu_recovery == 0)
- 		goto disabled;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 1bbd39b3b0fc..fbdf139cf497 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -109,6 +109,7 @@ static int amdgpu_cs_p1_ib(struct amdgpu_cs_parser *p,
+ 		return r;
  
-+	/* Skip soft reset check in fatal error mode */
-+	if (!amdgpu_ras_is_poison_mode_supported(adev))
-+		return true;
-+
- 	if (!amdgpu_device_ip_check_soft_reset(adev)) {
- 		dev_info(adev->dev,"Timeout, but no hardware hang detected.\n");
- 		return false;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 693bce07eb46..8fca3cc273e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1948,7 +1948,12 @@ static void amdgpu_ras_do_recovery(struct work_struct *work)
+ 	++(num_ibs[r]);
++	p->gang_leader_idx = r;
+ 	return 0;
+ }
  
- 		reset_context.method = AMD_RESET_METHOD_NONE;
- 		reset_context.reset_req_dev = adev;
--		clear_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
-+
-+		/* Perform full reset in fatal error mode */
-+		if (!amdgpu_ras_is_poison_mode_supported(ras->adev))
-+			set_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
-+		else
-+			clear_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
- 
- 		amdgpu_device_gpu_recover(ras->adev, NULL, &reset_context);
+@@ -300,7 +301,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+ 		if (ret)
+ 			goto free_all_kdata;
  	}
+-	p->gang_leader = p->jobs[p->gang_size - 1];
++	p->gang_leader = p->jobs[p->gang_leader_idx];
+ 
+ 	if (p->ctx->vram_lost_counter != p->gang_leader->vram_lost_counter) {
+ 		ret = -ECANCELED;
+@@ -1194,16 +1195,18 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
+ 			return r;
+ 	}
+ 
+-	for (i = 0; i < p->gang_size - 1; ++i) {
++	for (i = 0; i < p->gang_size; ++i) {
++		if (p->jobs[i] == leader)
++			continue;
++
+ 		r = amdgpu_sync_clone(&leader->sync, &p->jobs[i]->sync);
+ 		if (r)
+ 			return r;
+ 	}
+ 
+-	r = amdgpu_ctx_wait_prev_fence(p->ctx, p->entities[p->gang_size - 1]);
++	r = amdgpu_ctx_wait_prev_fence(p->ctx, p->entities[p->gang_leader_idx]);
+ 	if (r && r != -ERESTARTSYS)
+ 		DRM_ERROR("amdgpu_ctx_wait_prev_fence failed.\n");
+-
+ 	return r;
+ }
+ 
+@@ -1237,9 +1240,12 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 	for (i = 0; i < p->gang_size; ++i)
+ 		drm_sched_job_arm(&p->jobs[i]->base);
+ 
+-	for (i = 0; i < (p->gang_size - 1); ++i) {
++	for (i = 0; i < p->gang_size; ++i) {
+ 		struct dma_fence *fence;
+ 
++		if (p->jobs[i] == leader)
++			continue;
++
+ 		fence = &p->jobs[i]->base.s_fence->scheduled;
+ 		r = amdgpu_sync_fence(&leader->sync, fence);
+ 		if (r)
+@@ -1275,7 +1281,10 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 	list_for_each_entry(e, &p->validated, tv.head) {
+ 
+ 		/* Everybody except for the gang leader uses READ */
+-		for (i = 0; i < (p->gang_size - 1); ++i) {
++		for (i = 0; i < p->gang_size; ++i) {
++			if (p->jobs[i] == leader)
++				continue;
++
+ 			dma_resv_add_fence(e->tv.bo->base.resv,
+ 					   &p->jobs[i]->base.s_fence->finished,
+ 					   DMA_RESV_USAGE_READ);
+@@ -1285,7 +1294,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 		e->tv.num_shared = 0;
+ 	}
+ 
+-	seq = amdgpu_ctx_add_fence(p->ctx, p->entities[p->gang_size - 1],
++	seq = amdgpu_ctx_add_fence(p->ctx, p->entities[p->gang_leader_idx],
+ 				   p->fence);
+ 	amdgpu_cs_post_dependencies(p);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
+index cbaa19b2b8a3..f80adf9069ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
+@@ -54,6 +54,7 @@ struct amdgpu_cs_parser {
+ 
+ 	/* scheduler job objects */
+ 	unsigned int		gang_size;
++	unsigned int		gang_leader_idx;
+ 	struct drm_sched_entity	*entities[AMDGPU_CS_GANG_SIZE];
+ 	struct amdgpu_job	*jobs[AMDGPU_CS_GANG_SIZE];
+ 	struct amdgpu_job	*gang_leader;
 -- 
-2.25.1
+2.34.1
 
