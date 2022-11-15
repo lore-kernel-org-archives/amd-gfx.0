@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86FAAC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Nov 2022 14:29:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8224FC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Nov 2022 14:49:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4DD010E160;
-	Tue, 15 Nov 2022 14:29:35 +0000 (UTC)
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D783910E160;
- Tue, 15 Nov 2022 14:29:33 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- 46-20020a9d0631000000b00666823da25fso8628307otn.0; 
- Tue, 15 Nov 2022 06:29:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE37B10E409;
+	Tue, 15 Nov 2022 14:48:58 +0000 (UTC)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5377710E407;
+ Tue, 15 Nov 2022 14:48:53 +0000 (UTC)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ p8-20020a056830130800b0066bb73cf3bcso8606935otq.11; 
+ Tue, 15 Nov 2022 06:48:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=YtBjd5U7Z4dTCeEF5mRs9dqAb2tBqOFIzxlotygUWsI=;
- b=UbDmeL2Egx+Mh0V06TI5gyHyoopyFExt4xM+IivRUp8/PPz6WnNm1L0/uujCqzwEKl
- 6ZbA3pRjszKvVUXCNLcq9KYtUHVC3DgwzKJY0c5cAQ9Ec3xYzLBRI4z4fcw1Sgx92A9T
- VHAewMwEzH7onmwHNXu+2NpyXeBGVL51i7M8zHkfI+knvg85jgHoOMFioxO8GjKTnuoy
- 7mAvE0aDMThpyyxpmurxQHnVsfeSDdbsujA8RlVy2AmvcYvqtqk1+zk7zaawjI0m54HV
- O7uNpKRRyDUgg4Ks1erMvJ18as2WI/yj1QhzuMb/9tCP2UNaf7uPsqSgoDAsh1t/E/NB
- ntRw==
+ bh=UFKvegKpCUAO6MgZ/qzUV5hf5B11JezYYr9cZvWjkGQ=;
+ b=lKzjf5PXGe1Bn+JDJFa1vd+nY6OQBXZFoKJXJ+Dt2SNQ7jHIw9sikj2GLcQuwqUARp
+ OgfE8JlG7I/T6As9/B6qcn6ULrr9G53J+EzyqY70Y+lhsNs4vBwf2ElG7HhNPTmXlB2j
+ 67wcR/h+f6Oi56Y4TgY5iy7hBQqe2hJlVlhtznXNt7UjBnDqG05o5mA95EVX6z871MfS
+ xvH67f2miDXhEfMdz+o6DSPWDFZgoG/1VFXrMX6F+pSl8FvWBvF01uEL8yFtQxTTcDtU
+ nr6NsbpuVs8NcUm+GSRf0rXGMpQfdkqZIOfSWcwQJkCrxTvhRPEchN11fqg+AuqTZexh
+ YmhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=YtBjd5U7Z4dTCeEF5mRs9dqAb2tBqOFIzxlotygUWsI=;
- b=k/Jy9xDmiVcB8AZSM0hwRF7+vPzRHgM2GXOS81QzPZaZPNJ4ilwWe7nwpf9r7n0zDe
- ESkAQeA6Cg/+1jhY8KTKdkQ0U7ClHHgzRje2LYeEQ45dkGfHPKdlIN2Q4H3xpJCjrqUl
- k1fu9xMobJ0bg9vwKD/4b7zWcIlJfAJXv+ZiUytvMR07qPtIDiSHFvvJpIRbFGuI/2mt
- h1IMM5LMiXeVVN1pGh/OQwDfXlx8WRqudgDVScx3QfDCaILcoJt+NKip+l3zkC4u5UtJ
- EnDHMbWFuElL+nvGAfT3gopl4veyyDI+2b14ZTAfkpcA1J76EKC/5tflfSQbzedTZS+z
- ZJKw==
-X-Gm-Message-State: ANoB5pkxHK1do6YfWivYabj6rIBY+IuIv8u/QpY/lpnf/M3TwWLI6reF
- mVbJivAZxhkqM/eQKgCp5LO1lcXi/yHgqIOV9Jw=
-X-Google-Smtp-Source: AA0mqf4oytRI4UtYdcHoBBqKQMpel6k+O4QaJylBxHl9qdx+9fAzQwD/KWuhlyO4SRWrNTanEsR3rFV6UbvC5l13RJ0=
-X-Received: by 2002:a05:6830:40af:b0:66c:6afa:5006 with SMTP id
- x47-20020a05683040af00b0066c6afa5006mr8974706ott.233.1668522573087; Tue, 15
- Nov 2022 06:29:33 -0800 (PST)
+ bh=UFKvegKpCUAO6MgZ/qzUV5hf5B11JezYYr9cZvWjkGQ=;
+ b=yAA+NLjZ6iVEQeIwVXaH0jOv+JblOytEKoaEIdTg0Sv9Q1gfEKJd9OQwVQa5ttCLO7
+ Z6c6sGktzjyXVhWJ/6s+hk4c0hfP+pIRAQzPOyBOwmQrkFDnSLgCJm3V9700rmXCkQ2P
+ COINPq2K5XA7FWKJBk8k+KBI9HMfj7ynUTE+VkMXGIcztyyo6/KXnDcuV+8fqFaFb5NA
+ IIZqrvcublpDUmmdfoVmSZUAYNdJLpqKFL7u/GYzj6f8Z/IgxQ5bm8TuQYpeMLPyoc1j
+ Uhn5sjD6UF7/Mnq1j9ABXlH7LQ3cwpKUGwtvUHyUVy9dEFAQA7qfsTZLpNmogfPc7OXF
+ Gn2Q==
+X-Gm-Message-State: ANoB5pkvzeRF2LjZDw0NJbO1pLTIBfVBbkgMus9uFkZZBw5BI4Law3He
+ amCwqVeehbJkU1xfLIl8mVlkHHhkYXjiVPoYkKTQoV6v
+X-Google-Smtp-Source: AA0mqf6fH/OmE1T3AB8Xx8ZsS8OzjaOPOa5/oK9LHJqmJMOjs3vfJYbmREd7PWHSZrBtVST7xciWzhewYsjrOIooCFs=
+X-Received: by 2002:a9d:32f:0:b0:66c:7982:2d45 with SMTP id
+ 44-20020a9d032f000000b0066c79822d45mr8876027otv.123.1668523732619; Tue, 15
+ Nov 2022 06:48:52 -0800 (PST)
 MIME-Version: 1.0
-References: <Y3CgReK3e519a7bs@mail.google.com>
-In-Reply-To: <Y3CgReK3e519a7bs@mail.google.com>
+References: <Y2ZH2FPSuX/msEL1@kili>
+In-Reply-To: <Y2ZH2FPSuX/msEL1@kili>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Nov 2022 09:29:21 -0500
-Message-ID: <CADnq5_PhL5DgHRrKbcniKuk064kJerT_Nau7kD2dGKCv3Mc3fQ@mail.gmail.com>
-Subject: Re: [PATCH] [next] drm/amdgpu: Replace one-elements array with
- flex-array members
-To: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+Date: Tue, 15 Nov 2022 09:48:41 -0500
+Message-ID: <CADnq5_Pmv54SoFRgYWF90GTE9vJ3PScqN2z1a=AUm_omFLo_9Q@mail.gmail.com>
+Subject: Re: [PATCH] amdgpu/pm: prevent array underflow in
+ vega20_odn_edit_dpm_table()
+To: Dan Carpenter <error27@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,140 +65,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Slark Xiao <slark_xiao@163.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Rongguang Wei <weirongguang@kylinos.cn>, linux-hardening@vger.kernel.org
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, kernel-janitors@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Darren Powell <darren.powell@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ Lang Yu <lang.yu@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks.
+Applied.  Thanks!
 
 Alex
 
-On Sun, Nov 13, 2022 at 2:44 AM Paulo Miguel Almeida
-<paulo.miguel.almeida.rodenas@gmail.com> wrote:
+On Tue, Nov 15, 2022 at 7:57 AM Dan Carpenter <error27@gmail.com> wrote:
 >
-> One-element arrays are deprecated, and we are replacing them with
-> flexible array members instead. So, replace one-element array with
-> flexible-array member in structs ATOM_I2C_VOLTAGE_OBJECT_V3,
-> ATOM_ASIC_INTERNAL_SS_INFO_V2, ATOM_ASIC_INTERNAL_SS_INFO_V3,
-> and refactor the rest of the code accordingly.
+> In the PP_OD_EDIT_VDDC_CURVE case the "input_index" variable is capped at
+> 2 but not checked for negative values so it results in an out of bounds
+> read.  This value comes from the user via sysfs.
 >
-> Important to mention is that doing a build before/after this patch
-> results in no functional binary output differences.
->
-> This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
-> routines on memcpy() and help us make progress towards globally
-> enabling -fstrict-flex-arrays=3 [1].
->
-> Link: https://github.com/KSPP/linux/issues/79
-> Link: https://github.com/KSPP/linux/issues/238
-> Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101836 [1]
->
-> Signed-off-by: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+> Fixes: d5bf26539494 ("drm/amd/powerplay: added vega20 overdrive support V3")
+> Signed-off-by: Dan Carpenter <error27@gmail.com>
 > ---
-> Binary difference findings:
+>  drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
->         Some changes took more than a single line which changed the line
->         number parameter passed to the drm_dbg function (which leverages
->         kernel's dynamic debugging). Functionally-wise, nothing changed
->         after doing a before/after patch build.
->
-> ---
->  .../gpu/drm/amd/display/dc/bios/bios_parser.c | 22 ++++++++++++-------
->  drivers/gpu/drm/amd/include/atombios.h        |  6 ++---
->  2 files changed, 17 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-> index 6b9e64cd4379..a1a00f432168 100644
-> --- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-> +++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-> @@ -665,8 +665,9 @@ static enum bp_result get_ss_info_v3_1(
->         if (!DATA_TABLES(ASIC_InternalSS_Info))
->                 return BP_RESULT_UNSUPPORTED;
->
-> -       ss_table_header_include = GET_IMAGE(ATOM_ASIC_INTERNAL_SS_INFO_V3,
-> -               DATA_TABLES(ASIC_InternalSS_Info));
-> +       ss_table_header_include = ((ATOM_ASIC_INTERNAL_SS_INFO_V3 *) bios_get_image(&bp->base,
-> +                               DATA_TABLES(ASIC_InternalSS_Info),
-> +                               struct_size(ss_table_header_include, asSpreadSpectrum, 1)));
->         table_size =
->                 (le16_to_cpu(ss_table_header_include->sHeader.usStructureSize)
->                                 - sizeof(ATOM_COMMON_TABLE_HEADER))
-> @@ -1032,8 +1033,10 @@ static enum bp_result get_ss_info_from_internal_ss_info_tbl_V2_1(
->         if (!DATA_TABLES(ASIC_InternalSS_Info))
->                 return result;
->
-> -       header = GET_IMAGE(ATOM_ASIC_INTERNAL_SS_INFO_V2,
-> -               DATA_TABLES(ASIC_InternalSS_Info));
-> +       header = ((ATOM_ASIC_INTERNAL_SS_INFO_V2 *) bios_get_image(
-> +                               &bp->base,
-> +                               DATA_TABLES(ASIC_InternalSS_Info),
-> +                               struct_size(header, asSpreadSpectrum, 1)));
->
->         memset(info, 0, sizeof(struct spread_spectrum_info));
->
-> @@ -1712,8 +1715,10 @@ static uint32_t get_ss_entry_number_from_internal_ss_info_tbl_v2_1(
->         if (!DATA_TABLES(ASIC_InternalSS_Info))
->                 return 0;
->
-> -       header_include = GET_IMAGE(ATOM_ASIC_INTERNAL_SS_INFO_V2,
-> -                       DATA_TABLES(ASIC_InternalSS_Info));
-> +       header_include = ((ATOM_ASIC_INTERNAL_SS_INFO_V2 *) bios_get_image(
-> +                               &bp->base,
-> +                               DATA_TABLES(ASIC_InternalSS_Info),
-> +                               struct_size(header_include, asSpreadSpectrum, 1)));
->
->         size = (le16_to_cpu(header_include->sHeader.usStructureSize)
->                         - sizeof(ATOM_COMMON_TABLE_HEADER))
-> @@ -1749,8 +1754,9 @@ static uint32_t get_ss_entry_number_from_internal_ss_info_tbl_V3_1(
->         if (!DATA_TABLES(ASIC_InternalSS_Info))
->                 return number;
->
-> -       header_include = GET_IMAGE(ATOM_ASIC_INTERNAL_SS_INFO_V3,
-> -                       DATA_TABLES(ASIC_InternalSS_Info));
-> +       header_include = ((ATOM_ASIC_INTERNAL_SS_INFO_V3 *) bios_get_image(&bp->base,
-> +                               DATA_TABLES(ASIC_InternalSS_Info),
-> +                               struct_size(header_include, asSpreadSpectrum, 1)));
->         size = (le16_to_cpu(header_include->sHeader.usStructureSize) -
->                         sizeof(ATOM_COMMON_TABLE_HEADER)) /
->                                         sizeof(ATOM_ASIC_SS_ASSIGNMENT_V3);
-> diff --git a/drivers/gpu/drm/amd/include/atombios.h b/drivers/gpu/drm/amd/include/atombios.h
-> index 60c44a8a067f..4dc738c51771 100644
-> --- a/drivers/gpu/drm/amd/include/atombios.h
-> +++ b/drivers/gpu/drm/amd/include/atombios.h
-> @@ -5146,7 +5146,7 @@ typedef struct  _ATOM_I2C_VOLTAGE_OBJECT_V3
->     UCHAR  ucVoltageControlOffset;
->     UCHAR  ucVoltageControlFlag;              // Bit0: 0 - One byte data; 1 - Two byte data
->     UCHAR  ulReserved[3];
-> -   VOLTAGE_LUT_ENTRY asVolI2cLut[1];         // end with 0xff
-> +   VOLTAGE_LUT_ENTRY asVolI2cLut[];         // end with 0xff
->  }ATOM_I2C_VOLTAGE_OBJECT_V3;
->
->  // ATOM_I2C_VOLTAGE_OBJECT_V3.ucVoltageControlFlag
-> @@ -6679,7 +6679,7 @@ typedef struct _ATOM_ASIC_INTERNAL_SS_INFO
->  typedef struct _ATOM_ASIC_INTERNAL_SS_INFO_V2
->  {
->    ATOM_COMMON_TABLE_HEADER         sHeader;
-> -  ATOM_ASIC_SS_ASSIGNMENT_V2        asSpreadSpectrum[1];      //this is point only.
-> +  ATOM_ASIC_SS_ASSIGNMENT_V2        asSpreadSpectrum[];      //this is point only.
->  }ATOM_ASIC_INTERNAL_SS_INFO_V2;
->
->  typedef struct _ATOM_ASIC_SS_ASSIGNMENT_V3
-> @@ -6701,7 +6701,7 @@ typedef struct _ATOM_ASIC_SS_ASSIGNMENT_V3
->  typedef struct _ATOM_ASIC_INTERNAL_SS_INFO_V3
->  {
->    ATOM_COMMON_TABLE_HEADER         sHeader;
-> -  ATOM_ASIC_SS_ASSIGNMENT_V3        asSpreadSpectrum[1];      //this is pointer only.
-> +  ATOM_ASIC_SS_ASSIGNMENT_V3        asSpreadSpectrum[];      //this is pointer only.
->  }ATOM_ASIC_INTERNAL_SS_INFO_V3;
->
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+> index 97b3ad369046..b30684c84e20 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+> @@ -2961,7 +2961,8 @@ static int vega20_odn_edit_dpm_table(struct pp_hwmgr *hwmgr,
+>                         data->od8_settings.od8_settings_array;
+>         OverDriveTable_t *od_table =
+>                         &(data->smc_state_table.overdrive_table);
+> -       int32_t input_index, input_clk, input_vol, i;
+> +       int32_t input_clk, input_vol, i;
+> +       uint32_t input_index;
+>         int od8_id;
+>         int ret;
 >
 > --
-> 2.37.3
+> 2.35.1
 >
