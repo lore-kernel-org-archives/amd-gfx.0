@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A766C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Nov 2022 14:04:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB52FC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Nov 2022 14:10:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 563C410E3FB;
-	Tue, 15 Nov 2022 14:04:03 +0000 (UTC)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 762B110E3C6
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Nov 2022 13:00:43 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id a14so24145702wru.5
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Nov 2022 05:00:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09AC710E3FC;
+	Tue, 15 Nov 2022 14:10:03 +0000 (UTC)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9FE210E3FC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Nov 2022 14:09:57 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ a7-20020a056830008700b0066c82848060so8556382oto.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Nov 2022 06:09:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Ma41XJunBhyIgsPx3H7ErRvUfPC4VUeu5EQ6kbxl/uk=;
- b=c+ZM938HZ+QENu55Aaq9JS6ysAGAAtOsB3XE/9+TCkYOOkFAssqR+Cckgppuf2nojI
- e8C0sC9bEl5DjKm6U8ckl3pKNcyBd/9FTv6v0gPT6G8v206xsUe5/EF3jGUsVrSAzg8W
- dUz1+ZLzYMqc167K1TLmCFAuso8VLUYOSlAJh8qYNNiXVBP3kbJd+L/j/qhlESjpgNtL
- 06NSimVlGzDG8s3fH4mjwBQVJH+a/NZ+7MxUFNulMo9dTL4d7IXd2nyZdyu6BIk5Jtjz
- 8YKYxTmxCJgDrfrVL2/ri4XW4wzk53JI9LIrg9Hmi91/XcSQ8EpxEeIuaNLvKsRZGy+a
- T7xA==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rTV+g6QX6TaV162aOnz2QZ30gJK8o3cHZnwovs7ziVI=;
+ b=Mc1R9KEaEfyHjpEJIJ9XwXrnosCBI2lIHjvPjz5tbJS38is+a9vay/BA76oVCyB1U6
+ Gym0uwurfxExlD4o6gKd6OSyEdkCqws4lDaH0XT5ujZi+4pE0wC2XNF2W0tEZrbFwft0
+ RE8LSNmvnVDmHYxE99+drhdHFKsGVQiHbUePJntWTiK27Fr6BqL3cB58jHfMKvYwMNlk
+ S0uLZYxaEE/+WR+X+PtVMMbShZtJaBVwd3qKCCokUjK0xor8Dnfe/YUYyzPkNGci5oVJ
+ usoqAAOIj6bzxmWsWAfO93RRo45udOnxNVVNmtjFqUZV/japCVLucXiENvPZJP5KjoZs
+ dlrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Ma41XJunBhyIgsPx3H7ErRvUfPC4VUeu5EQ6kbxl/uk=;
- b=MTlzt8APzcszf03F1SNXXOK39J0GeahWtvFwDimtuUtYfb6LCteOHLa2KCZVOtLoid
- i05CsnmlwK0jyRFIydKlr504EJaeqdh26tOV8L2KNuUaox3axb5S4RqJlNdu6DjRnyDS
- maNWP5iLhef5mrmoc0QH++fTABWSKuzNXhAzsr+6jYjJY35h21ikfiwSWZrtsZ8A9v4N
- m84JyrTTz9tK0j78F5gzT0i9es4A3agwsiKceXB+xLqzcPIoN61+lXsiW//7hizFq4vs
- 78ouLpjajliwOsmr/q4VR9gpDr9VZ63niMX9VrzX+xhqeKh8G+L1tmIXwseeBHtQacyO
- Oprg==
-X-Gm-Message-State: ANoB5pkvzFSgT0fIdcEL1VXrqpPvLPiFue5k7P3YyUzFlZPVW/XnG2yL
- sGSf31R2Gy+xX1hPtL0cL4orE/dnG/Zepw==
-X-Google-Smtp-Source: AA0mqf4+9wNC5J+agA6G81kKbTC90VtD4T0ixbIRYVWaxtStVzLT26gxMfRQPgKostDl10gLJu4jJg==
-X-Received: by 2002:a5d:4b0c:0:b0:236:6101:7b7d with SMTP id
- v12-20020a5d4b0c000000b0023661017b7dmr10412874wrq.484.1668517241730; 
- Tue, 15 Nov 2022 05:00:41 -0800 (PST)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- l16-20020a1c7910000000b003cfd4e6400csm11461635wme.19.2022.11.15.05.00.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Nov 2022 05:00:41 -0800 (PST)
-Date: Tue, 15 Nov 2022 16:00:37 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Jun.Ma2@amd.com
-Subject: [bug report] drm/amdkfd: Fix the warning of array-index-out-of-bounds
-Message-ID: <Y2oyylG+hW5tMWJN@kili>
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rTV+g6QX6TaV162aOnz2QZ30gJK8o3cHZnwovs7ziVI=;
+ b=mJXFxK0jz0seKoIANhEbTeKfhUvCVZ3LYKOdPzGrsa21rrVCha4QOyj6y0qaHiI0Ug
+ vI0mJA6hL02jfW1RXfCIU+PtxzW/p9aE9md6tGQGhibjIln6xrtD9Kc9kNzrH1eJF2Xs
+ S6Sd67oVvJzo43/+dJ869X8rTfjNiWXvv+Wv6f9xGfq/4iuZb/hFt+IvQPciE2bfk1/e
+ BLrK2qOaiwW5xXkZcHaMAMr9VWAiqctsA6A2iBsRaO16itjXJydn7jC1wWhOyNqjIFU+
+ Vjws5ekQqCne1fXHZ1hlqoDf+ZGSING8GsKgrLn/km5aRvRIjmnFgV+BtCFzDvzQ5bta
+ oiAg==
+X-Gm-Message-State: ANoB5plDMgOsl58KyOvxZ0+Z7FNXX89dHo0k6dRAsFv/A2xN8r2o3oPm
+ ZYqZbCuxnRqb37Mt9opbAbNLRD9KYSlVcUOv+JU=
+X-Google-Smtp-Source: AA0mqf480AGeh4plo+2ripmUpomSmVWJFmPQyN26Md/s/lz0O5SjNPnZtVEtFWr9T5HK7RWKzG0zaX/y3+G4LQcPK4w=
+X-Received: by 2002:a05:6830:40af:b0:66c:6afa:5006 with SMTP id
+ x47-20020a05683040af00b0066c6afa5006mr8926272ott.233.1668521397082; Tue, 15
+ Nov 2022 06:09:57 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailman-Approved-At: Tue, 15 Nov 2022 14:03:55 +0000
+References: <20221115094206.6181-1-christian.koenig@amd.com>
+ <fc7e683f-4983-8adb-b8ed-3c756e179ef8@amd.com>
+In-Reply-To: <fc7e683f-4983-8adb-b8ed-3c756e179ef8@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 15 Nov 2022 09:09:45 -0500
+Message-ID: <CADnq5_PXG=A4DUhfhnTAoZkCGnOKNm5oFrmZG-0vaxgbXz362w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: use the last IB as gang leader v2
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,118 +67,139 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <Alexander.Deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ timur.kristof@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[ Ugh...  My email messed up and I have to Resend all my emails for the
-  past two weeks. -dan ]
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Hello Ma Jun,
-
-The patch c0cc999f3c32: "drm/amdkfd: Fix the warning of
-array-index-out-of-bounds" from Nov 2, 2022, leads to the following
-Smatch static checker warning:
-
-	drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:2008 kfd_topology_add_device()
-	warn: inconsistent returns '&topology_lock'.
-
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c
-    1808 int kfd_topology_add_device(struct kfd_dev *gpu)
-    1809 {
-    1810         uint32_t gpu_id;
-    1811         struct kfd_topology_device *dev;
-    1812         struct kfd_cu_info cu_info;
-    1813         int res = 0;
-    1814         struct list_head temp_topology_device_list;
-    1815         void *crat_image = NULL;
-    1816         size_t image_size = 0;
-    1817         int proximity_domain;
-    1818         int i;
-    1819         const char *asic_name = amdgpu_asic_name[gpu->adev->asic_type];
-    1820 
-    1821         INIT_LIST_HEAD(&temp_topology_device_list);
-    1822 
-    1823         gpu_id = kfd_generate_gpu_id(gpu);
-    1824         pr_debug("Adding new GPU (ID: 0x%x) to topology\n", gpu_id);
-    1825 
-    1826         /* Check to see if this gpu device exists in the topology_device_list.
-    1827          * If so, assign the gpu to that device,
-    1828          * else create a Virtual CRAT for this gpu device and then parse that
-    1829          * CRAT to create a new topology device. Once created assign the gpu to
-    1830          * that topology device
-    1831          */
-    1832         down_write(&topology_lock);
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-Takes the lock.
-
-    1833         dev = kfd_assign_gpu(gpu);
-    1834         if (!dev) {
-    1835                 proximity_domain = ++topology_crat_proximity_domain;
-    1836 
-    1837                 res = kfd_create_crat_image_virtual(&crat_image, &image_size,
-    1838                                                     COMPUTE_UNIT_GPU, gpu,
-    1839                                                     proximity_domain);
-    1840                 if (res) {
-    1841                         pr_err("Error creating VCRAT for GPU (ID: 0x%x)\n",
-    1842                                gpu_id);
-    1843                         topology_crat_proximity_domain--;
-    1844                         return res;
-
-Does not drop the lock.
-
-    1845                 }
-    1846 
-    1847                 res = kfd_parse_crat_table(crat_image,
-    1848                                            &temp_topology_device_list,
-    1849                                            proximity_domain);
-    1850                 if (res) {
-    1851                         pr_err("Error parsing VCRAT for GPU (ID: 0x%x)\n",
-    1852                                gpu_id);
-    1853                         topology_crat_proximity_domain--;
-    1854                         goto err;
-
-Does not drop the lock.
-
-    1855                 }
-    1856 
-    1857                 kfd_topology_update_device_list(&temp_topology_device_list,
-    1858                         &topology_device_list);
-    1859 
-    1860                 dev = kfd_assign_gpu(gpu);
-    1861                 if (WARN_ON(!dev)) {
-    1862                         res = -ENODEV;
-    1863                         goto err;
-
-Does not drop the lock.
-
-    1864                 }
-    1865 
-    1866                 /* Fill the cache affinity information here for the GPUs
-    1867                  * using VCRAT
-    1868                  */
-    1869                 kfd_fill_cache_non_crat_info(dev, gpu);
-    1870 
-    1871                 /* Update the SYSFS tree, since we added another topology
-    1872                  * device
-    1873                  */
-    1874                 res = kfd_topology_update_sysfs();
-    1875                 if (!res)
-    1876                         sys_props.generation_count++;
-    1877                 else
-    1878                         pr_err("Failed to update GPU (ID: 0x%x) to sysfs topology. res=%d\n",
-    1879                                                 gpu_id, res);
-    1880         }
-    1881         up_write(&topology_lock);
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^
-Drops the lock.  The patch has some other locking changes which are
-not explained in the commit message and seem unrelated to the out of
-bounds issue.
-
-    1882 
-    1883         dev->gpu_id = gpu_id;
-    1884         gpu->id = gpu_id;
-
-regards,
-dan carpenter
-
+On Tue, Nov 15, 2022 at 4:44 AM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 15.11.22 um 10:42 schrieb Christian K=C3=B6nig:
+> > It turned out that not the last IB specified is the gang leader,
+> > but instead the last job allocated.
+> >
+> > This is a bit unfortunate and not very intuitive for the CS
+> > interface, so try to fix this.
+>
+> Alex could you take a look at this? I would really like to get this into
+> the next -rc.
+>
+> Thanks,
+> Christian.
+>
+> >
+> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 23 ++++++++++++++++-------
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h |  1 +
+> >   2 files changed, 17 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_cs.c
+> > index 1bbd39b3b0fc..fbdf139cf497 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > @@ -109,6 +109,7 @@ static int amdgpu_cs_p1_ib(struct amdgpu_cs_parser =
+*p,
+> >               return r;
+> >
+> >       ++(num_ibs[r]);
+> > +     p->gang_leader_idx =3D r;
+> >       return 0;
+> >   }
+> >
+> > @@ -300,7 +301,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser =
+*p,
+> >               if (ret)
+> >                       goto free_all_kdata;
+> >       }
+> > -     p->gang_leader =3D p->jobs[p->gang_size - 1];
+> > +     p->gang_leader =3D p->jobs[p->gang_leader_idx];
+> >
+> >       if (p->ctx->vram_lost_counter !=3D p->gang_leader->vram_lost_coun=
+ter) {
+> >               ret =3D -ECANCELED;
+> > @@ -1194,16 +1195,18 @@ static int amdgpu_cs_sync_rings(struct amdgpu_c=
+s_parser *p)
+> >                       return r;
+> >       }
+> >
+> > -     for (i =3D 0; i < p->gang_size - 1; ++i) {
+> > +     for (i =3D 0; i < p->gang_size; ++i) {
+> > +             if (p->jobs[i] =3D=3D leader)
+> > +                     continue;
+> > +
+> >               r =3D amdgpu_sync_clone(&leader->sync, &p->jobs[i]->sync)=
+;
+> >               if (r)
+> >                       return r;
+> >       }
+> >
+> > -     r =3D amdgpu_ctx_wait_prev_fence(p->ctx, p->entities[p->gang_size=
+ - 1]);
+> > +     r =3D amdgpu_ctx_wait_prev_fence(p->ctx, p->entities[p->gang_lead=
+er_idx]);
+> >       if (r && r !=3D -ERESTARTSYS)
+> >               DRM_ERROR("amdgpu_ctx_wait_prev_fence failed.\n");
+> > -
+> >       return r;
+> >   }
+> >
+> > @@ -1237,9 +1240,12 @@ static int amdgpu_cs_submit(struct amdgpu_cs_par=
+ser *p,
+> >       for (i =3D 0; i < p->gang_size; ++i)
+> >               drm_sched_job_arm(&p->jobs[i]->base);
+> >
+> > -     for (i =3D 0; i < (p->gang_size - 1); ++i) {
+> > +     for (i =3D 0; i < p->gang_size; ++i) {
+> >               struct dma_fence *fence;
+> >
+> > +             if (p->jobs[i] =3D=3D leader)
+> > +                     continue;
+> > +
+> >               fence =3D &p->jobs[i]->base.s_fence->scheduled;
+> >               r =3D amdgpu_sync_fence(&leader->sync, fence);
+> >               if (r)
+> > @@ -1275,7 +1281,10 @@ static int amdgpu_cs_submit(struct amdgpu_cs_par=
+ser *p,
+> >       list_for_each_entry(e, &p->validated, tv.head) {
+> >
+> >               /* Everybody except for the gang leader uses READ */
+> > -             for (i =3D 0; i < (p->gang_size - 1); ++i) {
+> > +             for (i =3D 0; i < p->gang_size; ++i) {
+> > +                     if (p->jobs[i] =3D=3D leader)
+> > +                             continue;
+> > +
+> >                       dma_resv_add_fence(e->tv.bo->base.resv,
+> >                                          &p->jobs[i]->base.s_fence->fin=
+ished,
+> >                                          DMA_RESV_USAGE_READ);
+> > @@ -1285,7 +1294,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_pars=
+er *p,
+> >               e->tv.num_shared =3D 0;
+> >       }
+> >
+> > -     seq =3D amdgpu_ctx_add_fence(p->ctx, p->entities[p->gang_size - 1=
+],
+> > +     seq =3D amdgpu_ctx_add_fence(p->ctx, p->entities[p->gang_leader_i=
+dx],
+> >                                  p->fence);
+> >       amdgpu_cs_post_dependencies(p);
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_cs.h
+> > index cbaa19b2b8a3..f80adf9069ec 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
+> > @@ -54,6 +54,7 @@ struct amdgpu_cs_parser {
+> >
+> >       /* scheduler job objects */
+> >       unsigned int            gang_size;
+> > +     unsigned int            gang_leader_idx;
+> >       struct drm_sched_entity *entities[AMDGPU_CS_GANG_SIZE];
+> >       struct amdgpu_job       *jobs[AMDGPU_CS_GANG_SIZE];
+> >       struct amdgpu_job       *gang_leader;
+>
