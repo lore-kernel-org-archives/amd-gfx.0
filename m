@@ -4,55 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D89A0C433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 16:38:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A2CAC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 16:40:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 836BD10E4DD;
-	Wed, 16 Nov 2022 16:38:47 +0000 (UTC)
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B630E10E4DC
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 16:38:42 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id s206so19108636oie.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 08:38:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=LoZKgZrnJUJH08Xr0uhn5WSBPxsaxRjz20Tz/F6tBHs=;
- b=eLpMYNr5QeCJMDL5XR3Qa9BhhFTRYQBAqVmFJklyPzoXcwPkz2zV1gkbfwgvK0kdXi
- LAZ+GOZ90HckDKOKzS7hM+aLWbTdwCE3bUK867HuHWSnEuHFdYCgzdMj52NABPTg2wY4
- 9uot78wC0Cy6wkpfhM7HXoAIK26ibIhnTxSMkMeAX0ZkTa3LpIi1/vPmi/KXJREB/tfd
- 0W7a1g+pSrQjtijCctj36rZ4uaSL1qFnsEln8Q59rcGjTivXfWEsWBtElKI5DjWsWnkW
- 05rb+SIKMYJMi05zPMNB0fjRwCp7kRc3cyhgSktnNW6pmbNqvQvfWE+jPH5EmYpEPUao
- hGLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=LoZKgZrnJUJH08Xr0uhn5WSBPxsaxRjz20Tz/F6tBHs=;
- b=3I9cL6s4pgRxo7//sSQ1GLH7of1DedTUueTZWPhDcjRAYJ+SnexjBjVVNUUueOYmBd
- YpId4/j35afjbhlf2ItTjgO4sJexpJ03THi0GavBpInHMqlB77mEAf8SNl0lSo01L4gW
- VrGqZMbN0lNsYv1yTi3yBhrMjaT2MhK/gHydUBehWEna/2Ytkt5JWM3wjbc+ruYdvjze
- z0wzj2azF/86kZ37xCzzy+cNyddWgB0ah0xoX9MJ6C17d7/B0J8CtYqVOwMlpUPoLYnu
- KkmMA8CVD1JIpXfMWCLo+cPKamsD1k5UYIldF3VQy3XLDNYDxH0Y4t9QHZN0TjF7YYrk
- XjBg==
-X-Gm-Message-State: ANoB5plvXNqPBTBovhoeT8K9wpwZjQ9GagjVhzP9UaqJjKD77mXAdXP0
- 8nIv0MP6lhedu/duddiNIGSXTKgTVwHZhN+SuSMAghZz
-X-Google-Smtp-Source: AA0mqf7PqxaEMEvE/YdAjGmVkgEt0BgmeNLyzmAE1ZBlC+Rr4KxailU7xryszda/wqQVqccrDKjRBuIx5YLu/FKIiqc=
-X-Received: by 2002:a05:6808:295:b0:357:670f:9e4e with SMTP id
- z21-20020a056808029500b00357670f9e4emr2118833oic.46.1668616721984; Wed, 16
- Nov 2022 08:38:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C84F10E4D9;
+	Wed, 16 Nov 2022 16:40:31 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 291AB10E4D9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 16:40:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Nxx0QDkquDuUVpg0TsHnjfh5K9tdchDHio0/uHtXIkfPpjjA2Xs3e9au5eiqk88ZSetTwLeqNomDDwj1/zKZCCroG43kYrPyT1Sdo5O2L8mvZBXgXE0AkRYEhK0noJzvQvkzXufZj5QTFZ12/aYdmCh0ebwloCRL/fWsZAKRP41p2h7Dl0Uo5Sh9P8XppGaa62RSJQsH1ZqxN+3g1o5bQmpdzs4ScRoZu0B01XeA7TojefNoef0piTnSFEaSg1VL6AezD3Nxrg66m+aQaa4J3bUdtB7z52ttMnd8l2YWPB6YRr4XNkmtcfyA46Y/9lJwwEdWPwNNGl/TLa3EF+wxZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MGA1pIB1p/e4vcLnWggTScq5l76zOHywKscwuAxpdfA=;
+ b=lgIKXtcvMj2a3reOkIWfTtRfnvJUAudS5PUHpR1y0/JS8rQ+ZXNYAKOQK1E9DcENPeZgH2KhJSdMwJ6vQuyCRC9jtcEIJeMOdHpY9jKxtwirM0ASYdyD2UHnFEH0GFplNAPVHa1kojdKGNr5r9XlNNBrXVEZMf6ZpcSSg+Ldp5Oki3LlMPc6BnRKsfp4kRC8mXp20NdHWDNxYRxm5iketnBB4S7uG8TSyGht24y4HBTj8qJqgTMtRCmwLNiXGHMHlvgszVwrXBWeWGDHYfdnOOhKtKZKAZNjYUl+Gxrp5POi6NPbWmL1h7wXXNxTp29C/iKvGnjFJ2zGfIrRuBGOVQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MGA1pIB1p/e4vcLnWggTScq5l76zOHywKscwuAxpdfA=;
+ b=q3dCw58wNXPQT9QkwyWMYuMum6PFaITXIK1PMxe1DYKpCZKnsjZsQ0ttEx++yvO8og7Aa2bGIU6sAfbOOI/aiLz1Gyz3UZzt/qzNRwXHa9dbUMiuEjb+oW7CWvdpNeGttgZd7ehKRdf1EpfxWpGSsU6shdDgR2xgxpRsFy3ebtU=
+Received: from BL0PR05CA0024.namprd05.prod.outlook.com (2603:10b6:208:91::34)
+ by PH0PR12MB5630.namprd12.prod.outlook.com (2603:10b6:510:146::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.18; Wed, 16 Nov
+ 2022 16:40:22 +0000
+Received: from BL02EPF0000EE3D.namprd05.prod.outlook.com
+ (2603:10b6:208:91:cafe::cf) by BL0PR05CA0024.outlook.office365.com
+ (2603:10b6:208:91::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.17 via Frontend
+ Transport; Wed, 16 Nov 2022 16:40:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000EE3D.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5813.11 via Frontend Transport; Wed, 16 Nov 2022 16:40:21 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 16 Nov
+ 2022 10:40:20 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/psp: don't free PSP buffers on suspend
+Date: Wed, 16 Nov 2022 11:40:06 -0500
+Message-ID: <20221116164006.2830029-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-References: <20221116160111.3226-1-christian.koenig@amd.com>
- <20221116160111.3226-2-christian.koenig@amd.com>
-In-Reply-To: <20221116160111.3226-2-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 16 Nov 2022 11:38:28 -0500
-Message-ID: <CADnq5_MccS8DkM9kLmamDH3wcNeJZeczAqqHc+gfxFLRrb-GSQ@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/amdgpu: stop freeing PSP buffers during suspend
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: multipart/mixed; boundary="000000000000fb230705ed991ac5"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0000EE3D:EE_|PH0PR12MB5630:EE_
+X-MS-Office365-Filtering-Correlation-Id: cfef69b9-ffcd-47c6-d405-08dac7f14125
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: LY7sd3wu3ldOSRCizpCQVJ04yoW7VfsO0bD8ge7e4mGdcbYSXNAaEjc6GAELaogI2wWAOiGI6FOFlBHlud2p+3tbMyi6QCKWMT9chBkQF2GBz/mHaAQDwdol4lOBR78cGe2PecyvyG+tdZqARXiW0ZzzClMULtEsISKbMzsfR56GDmRQ3XezWEOHefOo94U1DJtoVtBHMJumliBnuH5prsq47+Bv1Um8bZSQklwP0YIRTVg5nGfmMtcQhai3NeqT06q42NNRZa1TmYnll2J4GMv9YrpTQF64GYzk1Mk7Qk1Vx+LgRitaUQgDCszD0dfL+3VlpK3TGeQLBwQkiKsQ9eB4bKXkvhlI35KxtSv2nYAXFFW5FtW4fRn0VJifPQmEaQS8fPdLGRpBPXrMu6YiTnVyCUPRp6/4q+4S12TvuG4WgRljE7Q+ewfyzbP9X4yIZ79B5agiA8kcAntojZg/r6/g+4V8utGv0Y5+476tuX21MYVGgU7B46Qr4g/punFTsxG69SU7NeU9G6Sy9BB3kOBdnb0Gn44rXtNH+SGsM0KJdmjv7QHyjId8EdatlhJD0+rwhJLtxDervMvxk4GkTkbMJp+J7udlYzYRGU8EN+81DCQQCSYDmrbn+o7gCOAaxtyXCssnbWAqZX/n5Ylg96VKZgRl+dxZvPaYFvp5YglppIavBAfSfugx6EEctCuxkYkwZJeh2CaGiyr3cVapAZrwz3Zm4JB29h7u8M389BP6sSayFT41Uym10luRoxBsRRYad6OQmx2OC/+kgbzcfVUNMlg7yndsYrNYI0mNsnj3N9JEaJjkuypWty9BlIC3
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(136003)(346002)(396003)(39860400002)(451199015)(46966006)(40470700004)(36840700001)(36756003)(26005)(36860700001)(86362001)(81166007)(82740400003)(82310400005)(8936002)(356005)(1076003)(336012)(2616005)(40460700003)(47076005)(2906002)(426003)(83380400001)(186003)(16526019)(478600001)(7696005)(5660300002)(40480700001)(6666004)(41300700001)(6916009)(4326008)(70586007)(70206006)(8676002)(316002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2022 16:40:21.9921 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cfef69b9-ffcd-47c6-d405-08dac7f14125
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000EE3D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5630
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,198 +97,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, arunpravin.paneerselvam@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000fb230705ed991ac5
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+We can reuse the same buffers on resume.
 
-I was thinking something like this would be more straightforward.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 56 +++++++++++++------------
+ 1 file changed, 29 insertions(+), 27 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 0a8c30475dda..d9cb4c4b8289 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -172,6 +172,7 @@ void psp_ta_free_shared_buf(struct ta_mem_context *mem_ctx)
+ {
+ 	amdgpu_bo_free_kernel(&mem_ctx->shared_bo, &mem_ctx->shared_mc_addr,
+ 			      &mem_ctx->shared_buf);
++	mem_ctx->shared_bo = NULL;
+ }
+ 
+ static void psp_free_shared_bufs(struct psp_context *psp)
+@@ -182,6 +183,7 @@ static void psp_free_shared_bufs(struct psp_context *psp)
+ 	/* free TMR memory buffer */
+ 	pptr = amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
+ 	amdgpu_bo_free_kernel(&psp->tmr_bo, &psp->tmr_mc_addr, pptr);
++	psp->tmr_bo = NULL;
+ 
+ 	/* free xgmi shared memory */
+ 	psp_ta_free_shared_buf(&psp->xgmi_context.context.mem_context);
+@@ -743,37 +745,39 @@ static int psp_load_toc(struct psp_context *psp,
+ /* Set up Trusted Memory Region */
+ static int psp_tmr_init(struct psp_context *psp)
+ {
+-	int ret;
++	int ret = 0;
+ 	int tmr_size;
+ 	void *tmr_buf;
+ 	void **pptr;
+ 
+-	/*
+-	 * According to HW engineer, they prefer the TMR address be "naturally
+-	 * aligned" , e.g. the start address be an integer divide of TMR size.
+-	 *
+-	 * Note: this memory need be reserved till the driver
+-	 * uninitializes.
+-	 */
+-	tmr_size = PSP_TMR_SIZE(psp->adev);
+-
+-	/* For ASICs support RLC autoload, psp will parse the toc
+-	 * and calculate the total size of TMR needed */
+-	if (!amdgpu_sriov_vf(psp->adev) &&
+-	    psp->toc.start_addr &&
+-	    psp->toc.size_bytes &&
+-	    psp->fw_pri_buf) {
+-		ret = psp_load_toc(psp, &tmr_size);
+-		if (ret) {
+-			DRM_ERROR("Failed to load toc\n");
+-			return ret;
++	if (!psp->tmr_bo) {
++		/*
++		 * According to HW engineer, they prefer the TMR address be "naturally
++		 * aligned" , e.g. the start address be an integer divide of TMR size.
++		 *
++		 * Note: this memory need be reserved till the driver
++		 * uninitializes.
++		 */
++		tmr_size = PSP_TMR_SIZE(psp->adev);
++
++		/* For ASICs support RLC autoload, psp will parse the toc
++		 * and calculate the total size of TMR needed */
++		if (!amdgpu_sriov_vf(psp->adev) &&
++		    psp->toc.start_addr &&
++		    psp->toc.size_bytes &&
++		    psp->fw_pri_buf) {
++			ret = psp_load_toc(psp, &tmr_size);
++			if (ret) {
++				DRM_ERROR("Failed to load toc\n");
++				return ret;
++			}
+ 		}
+-	}
+ 
+-	pptr = amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
+-	ret = amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TMR_ALIGNMENT,
+-				      AMDGPU_GEM_DOMAIN_VRAM,
+-				      &psp->tmr_bo, &psp->tmr_mc_addr, pptr);
++		pptr = amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
++		ret = amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TMR_ALIGNMENT,
++					      AMDGPU_GEM_DOMAIN_VRAM,
++					      &psp->tmr_bo, &psp->tmr_mc_addr, pptr);
++	}
+ 
+ 	return ret;
+ }
+@@ -2701,8 +2705,6 @@ static int psp_suspend(void *handle)
+ 	}
+ 
+ out:
+-	psp_free_shared_bufs(psp);
+-
+ 	return ret;
+ }
+ 
+-- 
+2.38.1
 
-On Wed, Nov 16, 2022 at 11:01 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> That the PSP code tries to free the memory during suspend is quite
-> broken and leads to problems during resume.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 30 ++++++++++---------------
->  1 file changed, 12 insertions(+), 18 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> index 0a8c30475dda..470cd660c450 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -511,11 +511,10 @@ static int psp_sw_fini(void *handle)
->         kfree(cmd);
->         cmd =3D NULL;
->
-> -       if (psp->km_ring.ring_mem)
-> -               amdgpu_bo_free_kernel(&adev->firmware.rbuf,
-> -                                     &psp->km_ring.ring_mem_mc_addr,
-> -                                     (void **)&psp->km_ring.ring_mem);
-> -
-> +       psp_free_shared_bufs(psp);
-> +       amdgpu_bo_free_kernel(&adev->firmware.rbuf,
-> +                             &psp->km_ring.ring_mem_mc_addr,
-> +                             (void **)&psp->km_ring.ring_mem);
->         amdgpu_bo_free_kernel(&psp->fw_pri_bo,
->                               &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
->         amdgpu_bo_free_kernel(&psp->fence_buf_bo,
-> @@ -2635,8 +2634,6 @@ static int psp_hw_fini(void *handle)
->
->         psp_ring_destroy(psp, PSP_RING_TYPE__KM);
->
-> -       psp_free_shared_bufs(psp);
-> -
->         return 0;
->  }
->
-> @@ -2651,7 +2648,7 @@ static int psp_suspend(void *handle)
->                 ret =3D psp_xgmi_terminate(psp);
->                 if (ret) {
->                         DRM_ERROR("Failed to terminate xgmi ta\n");
-> -                       goto out;
-> +                       return ret;
->                 }
->         }
->
-> @@ -2659,40 +2656,40 @@ static int psp_suspend(void *handle)
->                 ret =3D psp_ras_terminate(psp);
->                 if (ret) {
->                         DRM_ERROR("Failed to terminate ras ta\n");
-> -                       goto out;
-> +                       return ret;
->                 }
->                 ret =3D psp_hdcp_terminate(psp);
->                 if (ret) {
->                         DRM_ERROR("Failed to terminate hdcp ta\n");
-> -                       goto out;
-> +                       return ret;
->                 }
->                 ret =3D psp_dtm_terminate(psp);
->                 if (ret) {
->                         DRM_ERROR("Failed to terminate dtm ta\n");
-> -                       goto out;
-> +                       return ret;
->                 }
->                 ret =3D psp_rap_terminate(psp);
->                 if (ret) {
->                         DRM_ERROR("Failed to terminate rap ta\n");
-> -                       goto out;
-> +                       return ret;
->                 }
->                 ret =3D psp_securedisplay_terminate(psp);
->                 if (ret) {
->                         DRM_ERROR("Failed to terminate securedisplay ta\n=
-");
-> -                       goto out;
-> +                       return ret;
->                 }
->         }
->
->         ret =3D psp_asd_terminate(psp);
->         if (ret) {
->                 DRM_ERROR("Failed to terminate asd\n");
-> -               goto out;
-> +               return ret;
->         }
->
->         ret =3D psp_tmr_terminate(psp);
->         if (ret) {
->                 DRM_ERROR("Failed to terminate tmr\n");
-> -               goto out;
-> +               return ret;
->         }
->
->         ret =3D psp_ring_stop(psp, PSP_RING_TYPE__KM);
-> @@ -2700,9 +2697,6 @@ static int psp_suspend(void *handle)
->                 DRM_ERROR("PSP ring stop failed\n");
->         }
->
-> -out:
-> -       psp_free_shared_bufs(psp);
-> -
->         return ret;
->  }
->
-> --
-> 2.34.1
->
-
---000000000000fb230705ed991ac5
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-drm-amdgpu-psp-don-t-free-PSP-buffers-on-suspend.patch"
-Content-Disposition: attachment; 
-	filename="0001-drm-amdgpu-psp-don-t-free-PSP-buffers-on-suspend.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_lajvaci00>
-X-Attachment-Id: f_lajvaci00
-
-RnJvbSBjZDczZjhhOTQwNzkyOTBlN2M5NDRmM2QzMTA1ZGRmNzVhYzFjNDNkIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
-b20+CkRhdGU6IFdlZCwgMTYgTm92IDIwMjIgMTE6MjY6NTMgLTA1MDAKU3ViamVjdDogW1BBVENI
-XSBkcm0vYW1kZ3B1L3BzcDogZG9uJ3QgZnJlZSBQU1AgYnVmZmVycyBvbiBzdXNwZW5kCgpXZSBj
-YW4gcmV1c2UgdGhlIHNhbWUgYnVmZmVycyBvbiByZXN1bWUuCgpTaWduZWQtb2ZmLWJ5OiBBbGV4
-IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jIHwgNTYgKysrKysrKysrKysrKy0tLS0tLS0tLS0tLQog
-MSBmaWxlIGNoYW5nZWQsIDI5IGluc2VydGlvbnMoKyksIDI3IGRlbGV0aW9ucygtKQoKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYwppbmRleCAwYThjMzA0NzVkZGEuLmQ5Y2I0
-YzRiODI4OSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Bz
-cC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYwpAQCAtMTcy
-LDYgKzE3Miw3IEBAIHZvaWQgcHNwX3RhX2ZyZWVfc2hhcmVkX2J1ZihzdHJ1Y3QgdGFfbWVtX2Nv
-bnRleHQgKm1lbV9jdHgpCiB7CiAJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZtZW1fY3R4LT5zaGFy
-ZWRfYm8sICZtZW1fY3R4LT5zaGFyZWRfbWNfYWRkciwKIAkJCSAgICAgICZtZW1fY3R4LT5zaGFy
-ZWRfYnVmKTsKKwltZW1fY3R4LT5zaGFyZWRfYm8gPSBOVUxMOwogfQogCiBzdGF0aWMgdm9pZCBw
-c3BfZnJlZV9zaGFyZWRfYnVmcyhzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCkKQEAgLTE4Miw2ICsx
-ODMsNyBAQCBzdGF0aWMgdm9pZCBwc3BfZnJlZV9zaGFyZWRfYnVmcyhzdHJ1Y3QgcHNwX2NvbnRl
-eHQgKnBzcCkKIAkvKiBmcmVlIFRNUiBtZW1vcnkgYnVmZmVyICovCiAJcHB0ciA9IGFtZGdwdV9z
-cmlvdl92Zihwc3AtPmFkZXYpID8gJnRtcl9idWYgOiBOVUxMOwogCWFtZGdwdV9ib19mcmVlX2tl
-cm5lbCgmcHNwLT50bXJfYm8sICZwc3AtPnRtcl9tY19hZGRyLCBwcHRyKTsKKwlwc3AtPnRtcl9i
-byA9IE5VTEw7CiAKIAkvKiBmcmVlIHhnbWkgc2hhcmVkIG1lbW9yeSAqLwogCXBzcF90YV9mcmVl
-X3NoYXJlZF9idWYoJnBzcC0+eGdtaV9jb250ZXh0LmNvbnRleHQubWVtX2NvbnRleHQpOwpAQCAt
-NzQzLDM3ICs3NDUsMzkgQEAgc3RhdGljIGludCBwc3BfbG9hZF90b2Moc3RydWN0IHBzcF9jb250
-ZXh0ICpwc3AsCiAvKiBTZXQgdXAgVHJ1c3RlZCBNZW1vcnkgUmVnaW9uICovCiBzdGF0aWMgaW50
-IHBzcF90bXJfaW5pdChzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCkKIHsKLQlpbnQgcmV0OworCWlu
-dCByZXQgPSAwOwogCWludCB0bXJfc2l6ZTsKIAl2b2lkICp0bXJfYnVmOwogCXZvaWQgKipwcHRy
-OwogCi0JLyoKLQkgKiBBY2NvcmRpbmcgdG8gSFcgZW5naW5lZXIsIHRoZXkgcHJlZmVyIHRoZSBU
-TVIgYWRkcmVzcyBiZSAibmF0dXJhbGx5Ci0JICogYWxpZ25lZCIgLCBlLmcuIHRoZSBzdGFydCBh
-ZGRyZXNzIGJlIGFuIGludGVnZXIgZGl2aWRlIG9mIFRNUiBzaXplLgotCSAqCi0JICogTm90ZTog
-dGhpcyBtZW1vcnkgbmVlZCBiZSByZXNlcnZlZCB0aWxsIHRoZSBkcml2ZXIKLQkgKiB1bmluaXRp
-YWxpemVzLgotCSAqLwotCXRtcl9zaXplID0gUFNQX1RNUl9TSVpFKHBzcC0+YWRldik7Ci0KLQkv
-KiBGb3IgQVNJQ3Mgc3VwcG9ydCBSTEMgYXV0b2xvYWQsIHBzcCB3aWxsIHBhcnNlIHRoZSB0b2MK
-LQkgKiBhbmQgY2FsY3VsYXRlIHRoZSB0b3RhbCBzaXplIG9mIFRNUiBuZWVkZWQgKi8KLQlpZiAo
-IWFtZGdwdV9zcmlvdl92Zihwc3AtPmFkZXYpICYmCi0JICAgIHBzcC0+dG9jLnN0YXJ0X2FkZHIg
-JiYKLQkgICAgcHNwLT50b2Muc2l6ZV9ieXRlcyAmJgotCSAgICBwc3AtPmZ3X3ByaV9idWYpIHsK
-LQkJcmV0ID0gcHNwX2xvYWRfdG9jKHBzcCwgJnRtcl9zaXplKTsKLQkJaWYgKHJldCkgewotCQkJ
-RFJNX0VSUk9SKCJGYWlsZWQgdG8gbG9hZCB0b2NcbiIpOwotCQkJcmV0dXJuIHJldDsKKwlpZiAo
-IXBzcC0+dG1yX2JvKSB7CisJCS8qCisJCSAqIEFjY29yZGluZyB0byBIVyBlbmdpbmVlciwgdGhl
-eSBwcmVmZXIgdGhlIFRNUiBhZGRyZXNzIGJlICJuYXR1cmFsbHkKKwkJICogYWxpZ25lZCIgLCBl
-LmcuIHRoZSBzdGFydCBhZGRyZXNzIGJlIGFuIGludGVnZXIgZGl2aWRlIG9mIFRNUiBzaXplLgor
-CQkgKgorCQkgKiBOb3RlOiB0aGlzIG1lbW9yeSBuZWVkIGJlIHJlc2VydmVkIHRpbGwgdGhlIGRy
-aXZlcgorCQkgKiB1bmluaXRpYWxpemVzLgorCQkgKi8KKwkJdG1yX3NpemUgPSBQU1BfVE1SX1NJ
-WkUocHNwLT5hZGV2KTsKKworCQkvKiBGb3IgQVNJQ3Mgc3VwcG9ydCBSTEMgYXV0b2xvYWQsIHBz
-cCB3aWxsIHBhcnNlIHRoZSB0b2MKKwkJICogYW5kIGNhbGN1bGF0ZSB0aGUgdG90YWwgc2l6ZSBv
-ZiBUTVIgbmVlZGVkICovCisJCWlmICghYW1kZ3B1X3NyaW92X3ZmKHBzcC0+YWRldikgJiYKKwkJ
-ICAgIHBzcC0+dG9jLnN0YXJ0X2FkZHIgJiYKKwkJICAgIHBzcC0+dG9jLnNpemVfYnl0ZXMgJiYK
-KwkJICAgIHBzcC0+ZndfcHJpX2J1ZikgeworCQkJcmV0ID0gcHNwX2xvYWRfdG9jKHBzcCwgJnRt
-cl9zaXplKTsKKwkJCWlmIChyZXQpIHsKKwkJCQlEUk1fRVJST1IoIkZhaWxlZCB0byBsb2FkIHRv
-Y1xuIik7CisJCQkJcmV0dXJuIHJldDsKKwkJCX0KIAkJfQotCX0KIAotCXBwdHIgPSBhbWRncHVf
-c3Jpb3ZfdmYocHNwLT5hZGV2KSA/ICZ0bXJfYnVmIDogTlVMTDsKLQlyZXQgPSBhbWRncHVfYm9f
-Y3JlYXRlX2tlcm5lbChwc3AtPmFkZXYsIHRtcl9zaXplLCBQU1BfVE1SX0FMSUdOTUVOVCwKLQkJ
-CQkgICAgICBBTURHUFVfR0VNX0RPTUFJTl9WUkFNLAotCQkJCSAgICAgICZwc3AtPnRtcl9ibywg
-JnBzcC0+dG1yX21jX2FkZHIsIHBwdHIpOworCQlwcHRyID0gYW1kZ3B1X3NyaW92X3ZmKHBzcC0+
-YWRldikgPyAmdG1yX2J1ZiA6IE5VTEw7CisJCXJldCA9IGFtZGdwdV9ib19jcmVhdGVfa2VybmVs
-KHBzcC0+YWRldiwgdG1yX3NpemUsIFBTUF9UTVJfQUxJR05NRU5ULAorCQkJCQkgICAgICBBTURH
-UFVfR0VNX0RPTUFJTl9WUkFNLAorCQkJCQkgICAgICAmcHNwLT50bXJfYm8sICZwc3AtPnRtcl9t
-Y19hZGRyLCBwcHRyKTsKKwl9CiAKIAlyZXR1cm4gcmV0OwogfQpAQCAtMjcwMSw4ICsyNzA1LDYg
-QEAgc3RhdGljIGludCBwc3Bfc3VzcGVuZCh2b2lkICpoYW5kbGUpCiAJfQogCiBvdXQ6Ci0JcHNw
-X2ZyZWVfc2hhcmVkX2J1ZnMocHNwKTsKLQogCXJldHVybiByZXQ7CiB9CiAKLS0gCjIuMzguMQoK
---000000000000fb230705ed991ac5--
