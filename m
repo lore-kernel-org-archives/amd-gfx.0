@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A2CAC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 16:40:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6F8CC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 16:41:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C84F10E4D9;
-	Wed, 16 Nov 2022 16:40:31 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 291AB10E4D9
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 16:40:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 019D210E4DC;
+	Wed, 16 Nov 2022 16:41:04 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2050.outbound.protection.outlook.com [40.107.92.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94BDC10E4DB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 16:40:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Nxx0QDkquDuUVpg0TsHnjfh5K9tdchDHio0/uHtXIkfPpjjA2Xs3e9au5eiqk88ZSetTwLeqNomDDwj1/zKZCCroG43kYrPyT1Sdo5O2L8mvZBXgXE0AkRYEhK0noJzvQvkzXufZj5QTFZ12/aYdmCh0ebwloCRL/fWsZAKRP41p2h7Dl0Uo5Sh9P8XppGaa62RSJQsH1ZqxN+3g1o5bQmpdzs4ScRoZu0B01XeA7TojefNoef0piTnSFEaSg1VL6AezD3Nxrg66m+aQaa4J3bUdtB7z52ttMnd8l2YWPB6YRr4XNkmtcfyA46Y/9lJwwEdWPwNNGl/TLa3EF+wxZA==
+ b=CKZ8jcbulXVamenMM1fwHjU6lcIQ222svM/w0mYdvHDu8LCAML7allJ6zyOS6N40zR9FmGuof9W3KKNN3REoZWREaG3SdnXhUNfLqOE8UBuQ/h7cRWDAIc+irNx8BBkOlrDveCl16dG7C5fZPCShmMakGT3HE4LJnPlYMr/Iid+RuORBvzj/ldZ+39HLqgvAbIsxJb7B2Klck9rfQe64S0XSFfM3rZ2tI1V1Zgpe7JUYGrkNWJTerljprCKXjYahEiaASZyfW/dxdKPGOBK3UzFt7w3+Z5FJean+daclNhWVTOHYEf9T0ST5Fj5ytORl8j1eVdiVtDLtw1OpVIzwwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MGA1pIB1p/e4vcLnWggTScq5l76zOHywKscwuAxpdfA=;
- b=lgIKXtcvMj2a3reOkIWfTtRfnvJUAudS5PUHpR1y0/JS8rQ+ZXNYAKOQK1E9DcENPeZgH2KhJSdMwJ6vQuyCRC9jtcEIJeMOdHpY9jKxtwirM0ASYdyD2UHnFEH0GFplNAPVHa1kojdKGNr5r9XlNNBrXVEZMf6ZpcSSg+Ldp5Oki3LlMPc6BnRKsfp4kRC8mXp20NdHWDNxYRxm5iketnBB4S7uG8TSyGht24y4HBTj8qJqgTMtRCmwLNiXGHMHlvgszVwrXBWeWGDHYfdnOOhKtKZKAZNjYUl+Gxrp5POi6NPbWmL1h7wXXNxTp29C/iKvGnjFJ2zGfIrRuBGOVQ==
+ bh=1j/UBkXTLgxpBEdpyv5+QdT1iJqe1hI8ab0sU1PFQyk=;
+ b=OEwcFZ6N/tc/qKFoU9vF75ActVZRo1Lm3PvRranqe0XbPIHODdJxN8bQ7TJPdZvRGrjk1PztvGVrwZYTprjtkTuy+/y4/1ROcq9ynhvmxCv/pnlIID97PbIcqVIRx9aO5DxE+dYDcViCIbGWMMfb357fGI24vOB4M2KvS1Oe3xn/8pPYiw/rF9A0k/LTj9pxTWeh4BiBCmWwgs6nJk36QJjc5qpr+Yyu2GGFH4EbbFg8/6pzHv/XykUOpin7yXnZ4pnVYOSDhX67sc0VwotnQ1m5mgGyQzrRiKK6Ejbwr0pp88XybsNDXuSli+d9gAih6NWm6b/AlXrLjIxnh0Cqvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MGA1pIB1p/e4vcLnWggTScq5l76zOHywKscwuAxpdfA=;
- b=q3dCw58wNXPQT9QkwyWMYuMum6PFaITXIK1PMxe1DYKpCZKnsjZsQ0ttEx++yvO8og7Aa2bGIU6sAfbOOI/aiLz1Gyz3UZzt/qzNRwXHa9dbUMiuEjb+oW7CWvdpNeGttgZd7ehKRdf1EpfxWpGSsU6shdDgR2xgxpRsFy3ebtU=
-Received: from BL0PR05CA0024.namprd05.prod.outlook.com (2603:10b6:208:91::34)
- by PH0PR12MB5630.namprd12.prod.outlook.com (2603:10b6:510:146::12)
+ bh=1j/UBkXTLgxpBEdpyv5+QdT1iJqe1hI8ab0sU1PFQyk=;
+ b=g8sstc6ZAoWNIqP56TIPBkgzb0VCXHNC6UQlZnD9hxITPeTJwaBzOMqr397LRJShgK8uYXGEkRiBX6c0Rij6SZDGGnaotNcsSXm5buyM9mx/utkBawik4yuPacTYiBDrZDjb/1J0njj9D6M12qdq9qW8HaVRqHK/gGcjQgLmFd0=
+Received: from BL0PR05CA0027.namprd05.prod.outlook.com (2603:10b6:208:91::37)
+ by BL1PR12MB5031.namprd12.prod.outlook.com (2603:10b6:208:31a::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.18; Wed, 16 Nov
- 2022 16:40:22 +0000
+ 2022 16:40:57 +0000
 Received: from BL02EPF0000EE3D.namprd05.prod.outlook.com
- (2603:10b6:208:91:cafe::cf) by BL0PR05CA0024.outlook.office365.com
- (2603:10b6:208:91::34) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:208:91:cafe::f0) by BL0PR05CA0027.outlook.office365.com
+ (2603:10b6:208:91::37) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.17 via Frontend
- Transport; Wed, 16 Nov 2022 16:40:22 +0000
+ Transport; Wed, 16 Nov 2022 16:40:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL02EPF0000EE3D.mail.protection.outlook.com (10.167.241.134) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5813.11 via Frontend Transport; Wed, 16 Nov 2022 16:40:21 +0000
+ 15.20.5813.11 via Frontend Transport; Wed, 16 Nov 2022 16:40:57 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 16 Nov
- 2022 10:40:20 -0600
+ 2022 10:40:56 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu/psp: don't free PSP buffers on suspend
-Date: Wed, 16 Nov 2022 11:40:06 -0500
-Message-ID: <20221116164006.2830029-1-alexander.deucher@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu/psp12: move ih_reroute into ring_create
+Date: Wed, 16 Nov 2022 11:40:41 -0500
+Message-ID: <20221116164042.2830086-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -66,26 +66,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0000EE3D:EE_|PH0PR12MB5630:EE_
-X-MS-Office365-Filtering-Correlation-Id: cfef69b9-ffcd-47c6-d405-08dac7f14125
+X-MS-TrafficTypeDiagnostic: BL02EPF0000EE3D:EE_|BL1PR12MB5031:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8960ac4-faf4-4a9f-58fc-08dac7f15639
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LY7sd3wu3ldOSRCizpCQVJ04yoW7VfsO0bD8ge7e4mGdcbYSXNAaEjc6GAELaogI2wWAOiGI6FOFlBHlud2p+3tbMyi6QCKWMT9chBkQF2GBz/mHaAQDwdol4lOBR78cGe2PecyvyG+tdZqARXiW0ZzzClMULtEsISKbMzsfR56GDmRQ3XezWEOHefOo94U1DJtoVtBHMJumliBnuH5prsq47+Bv1Um8bZSQklwP0YIRTVg5nGfmMtcQhai3NeqT06q42NNRZa1TmYnll2J4GMv9YrpTQF64GYzk1Mk7Qk1Vx+LgRitaUQgDCszD0dfL+3VlpK3TGeQLBwQkiKsQ9eB4bKXkvhlI35KxtSv2nYAXFFW5FtW4fRn0VJifPQmEaQS8fPdLGRpBPXrMu6YiTnVyCUPRp6/4q+4S12TvuG4WgRljE7Q+ewfyzbP9X4yIZ79B5agiA8kcAntojZg/r6/g+4V8utGv0Y5+476tuX21MYVGgU7B46Qr4g/punFTsxG69SU7NeU9G6Sy9BB3kOBdnb0Gn44rXtNH+SGsM0KJdmjv7QHyjId8EdatlhJD0+rwhJLtxDervMvxk4GkTkbMJp+J7udlYzYRGU8EN+81DCQQCSYDmrbn+o7gCOAaxtyXCssnbWAqZX/n5Ylg96VKZgRl+dxZvPaYFvp5YglppIavBAfSfugx6EEctCuxkYkwZJeh2CaGiyr3cVapAZrwz3Zm4JB29h7u8M389BP6sSayFT41Uym10luRoxBsRRYad6OQmx2OC/+kgbzcfVUNMlg7yndsYrNYI0mNsnj3N9JEaJjkuypWty9BlIC3
+X-Microsoft-Antispam-Message-Info: MYCRNSg61FCEtRnvxBXInuVWldTDp+cMjMNl2piCnNVwd53rGrnVCAWzZ7OwdEKknfTjM1aUgFLf4BLh/NKEi3r3zfKrbViChzoFyBjTxzlBDLGlbKcVSNLtehbHmqgCD6oyLiXmLCyJij+PpaWwdifPvqJ1Bl+fPmFbvUjxil18RRvU+oTUpbDFIkvjPpTirQ3xvYg5+wnGq4zWw9XMNWvCFWRpeo9jPh5rMIM+w67zD3qk9Cg4AQ7hlehO87ZhcWSOxJUE3sgqTMxdAGdsrh2s7iYvFidzMoqMLQDX3eMYQkPSsMmeQnfOBe108awfjluhLXr971FZN4+hoq/vhs/GGXv1bF04D91tIhQDygAAjUh1eHTV4uxHrtMIk2j4Hkp8VhfsZmkg3+khPLhtluP5QVA9sZXk/tu0SKgCvtqTuGFdbG2nyTGlljotiGtYdD2mZji1iPQZs5Ar6D7qwma1r/Eq/POjS99+ZsHlGPLUvrbECvOpTLT8BNravuw5TRJZLn/mVORxhlMUcJYnuWSJhEhfckHSoDscjqoieDjE6nsN9qR/95a6wcfrmVYrO1921j/4KmqXThlnmDr7ON1gDHdxKjg6o6mGGgiN8AxF7oi3X2zkftRqxppWOnWd1vgwxuS+L3GtNj5qTcTURj/nkBpr8b1vN4iq8GPYbfk1xK1nL/nrfRPCSrev+6kx1c+oHxDDRC/J+5D/5OHrFs/gt/HsetBEG9nirfS0MHSg87+IdSQehk/d2COEBQo59ijVJZfNdQPMk8pnj9RetW7UKkEunQyZ9WT5t1jq++5mx07U49VbEHNxmBeyzohU
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(136003)(346002)(396003)(39860400002)(451199015)(46966006)(40470700004)(36840700001)(36756003)(26005)(36860700001)(86362001)(81166007)(82740400003)(82310400005)(8936002)(356005)(1076003)(336012)(2616005)(40460700003)(47076005)(2906002)(426003)(83380400001)(186003)(16526019)(478600001)(7696005)(5660300002)(40480700001)(6666004)(41300700001)(6916009)(4326008)(70586007)(70206006)(8676002)(316002)(36900700001);
+ SFS:(13230022)(4636009)(396003)(39860400002)(346002)(136003)(376002)(451199015)(36840700001)(40470700004)(46966006)(82740400003)(36860700001)(356005)(82310400005)(81166007)(86362001)(40480700001)(6666004)(478600001)(7696005)(5660300002)(8936002)(316002)(8676002)(6916009)(4326008)(41300700001)(70206006)(70586007)(2616005)(47076005)(426003)(186003)(83380400001)(336012)(16526019)(1076003)(2906002)(40460700003)(26005)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2022 16:40:21.9921 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfef69b9-ffcd-47c6-d405-08dac7f14125
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2022 16:40:57.3521 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8960ac4-faf4-4a9f-58fc-08dac7f15639
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000EE3D.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5630
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5031
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,107 +101,36 @@ Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We can reuse the same buffers on resume.
+This matches what we do for psp 3.1 and makes ring_init
+common for all PSP versions.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 56 +++++++++++++------------
- 1 file changed, 29 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/psp_v12_0.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 0a8c30475dda..d9cb4c4b8289 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -172,6 +172,7 @@ void psp_ta_free_shared_buf(struct ta_mem_context *mem_ctx)
- {
- 	amdgpu_bo_free_kernel(&mem_ctx->shared_bo, &mem_ctx->shared_mc_addr,
- 			      &mem_ctx->shared_buf);
-+	mem_ctx->shared_bo = NULL;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+index 0b2ac418e4ac..d7dd84090c09 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+@@ -243,8 +243,6 @@ static int psp_v12_0_ring_init(struct psp_context *psp,
+ 	struct psp_ring *ring;
+ 	struct amdgpu_device *adev = psp->adev;
  
- static void psp_free_shared_bufs(struct psp_context *psp)
-@@ -182,6 +183,7 @@ static void psp_free_shared_bufs(struct psp_context *psp)
- 	/* free TMR memory buffer */
- 	pptr = amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
- 	amdgpu_bo_free_kernel(&psp->tmr_bo, &psp->tmr_mc_addr, pptr);
-+	psp->tmr_bo = NULL;
- 
- 	/* free xgmi shared memory */
- 	psp_ta_free_shared_buf(&psp->xgmi_context.context.mem_context);
-@@ -743,37 +745,39 @@ static int psp_load_toc(struct psp_context *psp,
- /* Set up Trusted Memory Region */
- static int psp_tmr_init(struct psp_context *psp)
- {
--	int ret;
-+	int ret = 0;
- 	int tmr_size;
- 	void *tmr_buf;
- 	void **pptr;
- 
--	/*
--	 * According to HW engineer, they prefer the TMR address be "naturally
--	 * aligned" , e.g. the start address be an integer divide of TMR size.
--	 *
--	 * Note: this memory need be reserved till the driver
--	 * uninitializes.
--	 */
--	tmr_size = PSP_TMR_SIZE(psp->adev);
+-	psp_v12_0_reroute_ih(psp);
 -
--	/* For ASICs support RLC autoload, psp will parse the toc
--	 * and calculate the total size of TMR needed */
--	if (!amdgpu_sriov_vf(psp->adev) &&
--	    psp->toc.start_addr &&
--	    psp->toc.size_bytes &&
--	    psp->fw_pri_buf) {
--		ret = psp_load_toc(psp, &tmr_size);
--		if (ret) {
--			DRM_ERROR("Failed to load toc\n");
--			return ret;
-+	if (!psp->tmr_bo) {
-+		/*
-+		 * According to HW engineer, they prefer the TMR address be "naturally
-+		 * aligned" , e.g. the start address be an integer divide of TMR size.
-+		 *
-+		 * Note: this memory need be reserved till the driver
-+		 * uninitializes.
-+		 */
-+		tmr_size = PSP_TMR_SIZE(psp->adev);
+ 	ring = &psp->km_ring;
+ 
+ 	ring->ring_type = ring_type;
+@@ -272,6 +270,8 @@ static int psp_v12_0_ring_create(struct psp_context *psp,
+ 	struct psp_ring *ring = &psp->km_ring;
+ 	struct amdgpu_device *adev = psp->adev;
+ 
++	psp_v12_0_reroute_ih(psp);
 +
-+		/* For ASICs support RLC autoload, psp will parse the toc
-+		 * and calculate the total size of TMR needed */
-+		if (!amdgpu_sriov_vf(psp->adev) &&
-+		    psp->toc.start_addr &&
-+		    psp->toc.size_bytes &&
-+		    psp->fw_pri_buf) {
-+			ret = psp_load_toc(psp, &tmr_size);
-+			if (ret) {
-+				DRM_ERROR("Failed to load toc\n");
-+				return ret;
-+			}
- 		}
--	}
- 
--	pptr = amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
--	ret = amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TMR_ALIGNMENT,
--				      AMDGPU_GEM_DOMAIN_VRAM,
--				      &psp->tmr_bo, &psp->tmr_mc_addr, pptr);
-+		pptr = amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
-+		ret = amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TMR_ALIGNMENT,
-+					      AMDGPU_GEM_DOMAIN_VRAM,
-+					      &psp->tmr_bo, &psp->tmr_mc_addr, pptr);
-+	}
- 
- 	return ret;
- }
-@@ -2701,8 +2705,6 @@ static int psp_suspend(void *handle)
- 	}
- 
- out:
--	psp_free_shared_bufs(psp);
--
- 	return ret;
- }
- 
+ 	if (amdgpu_sriov_vf(psp->adev)) {
+ 		/* Write low address of the ring to C2PMSG_102 */
+ 		psp_ring_reg = lower_32_bits(ring->ring_mem_mc_addr);
 -- 
 2.38.1
 
