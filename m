@@ -4,117 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F40F2C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 09:20:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9152EC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 10:20:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A3BD10E451;
-	Wed, 16 Nov 2022 09:20:22 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2041.outbound.protection.outlook.com [40.107.244.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6ED710E44A;
- Wed, 16 Nov 2022 09:20:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CbnkXRjgG6p9ioCf3uWzFAA+ppZDgZN2U9eWn9jVTFCa/+BF9zgVwveEQGlCniJDdnz5lm8ta+bo2I84hm8C2p+4GWI9T0N5QAJpxmKdml4d2m8FZ5C8n2xu58m/vIYPK2TuNSyICSJi02Z0Xw0z8nK1hcLEUQuyrW80hbT7jTc1e1NB/kOAH35JYlLKoMcBBlHGxO7PncuuyQK1LC9sT/fFLX2QCS5DDqSIZDltLTp4OK66/lGGdY2SCwzy8nTVDMMZbiXMQ3XSCYuv6W76JuTz5I0QpgsAEShNharVaWpf2VH4pJro8vGyPqmR34e3O5XnXiA7FY8ag9BqNza28g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rvS47Dk/EZ9Xtgexi+qmjUydjeAzHAc3P//gh5+Kyws=;
- b=WUxZehujsEdJzxNkIRX7jTaOf4AWY8762eBXJaVFvZQSqetd0Fh8qupenwMwF14GkVfUaYHPYztgdP7GRZz3rFmIR/SAzZ4FTv+VwIT/NCAfHBo7NoC0W+9pcBZIpV9NZ7aAgWC6CScWOuny39Grrz+qq/ywDlSPmJHqs7QYX/prcPo/tPl90X034XF+UhkBIdw7kxsZeyfPgYpF9UCfImyZ++dtvw7KGOKfbE3BvfXvVonOttV+Yc8vV1B67UZTHR4stbWf7Pub8SU8nYJoGFE6PX9r7KVu6pAR7LlDbfLvPR9PVZzj5Te4M+e0XMlaVzJovM9yCBfPS4Ihe2273Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rvS47Dk/EZ9Xtgexi+qmjUydjeAzHAc3P//gh5+Kyws=;
- b=Rz+vvSRXyi9Y/KqIIhpxo7GvPQA7nOBXT0s8hXt8mgVXLLj9yPt4Da/dzuVCXcLoAct3+6YyqsbRq1Q/9v5oX1h/GKcorgDUQql7XBCz4Z934fLz0WU7qxqTGhffnpOD/PuccubfLf1AkTaMOEgC+SYx9JixMyQDKLMXLaNJujQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
- by SA0PR12MB4591.namprd12.prod.outlook.com (2603:10b6:806:9d::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.18; Wed, 16 Nov
- 2022 09:20:15 +0000
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::6755:9455:2407:ea3e]) by MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::6755:9455:2407:ea3e%9]) with mapi id 15.20.5813.017; Wed, 16 Nov 2022
- 09:20:15 +0000
-Message-ID: <fa9ecb1f-17a9-c7ce-d25a-42c3860f1b8d@amd.com>
-Date: Wed, 16 Nov 2022 14:50:04 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH 2/2] drm/gem: Remove BUG_ON in drm_gem_private_object_init
+	by gabe.freedesktop.org (Postfix) with ESMTP id A298E10E458;
+	Wed, 16 Nov 2022 10:20:24 +0000 (UTC)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 075AD10E464
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 10:20:20 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id d9so24400863wrm.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 02:20:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=fJd/kPZe8tht3PZNMtoqvoX2LQTRKzrqogvzeSuaPoU=;
+ b=SBp78Dq4y2Emnd3ISqctjtnMRJC2dVxDfD1AQzTcZlXz89qzlXS7YvUGOHMr6zm8O7
+ agSp9ywJ6qu9XmPz1raO4hSEV5iiLNIecA9UlT8nEx/gfoGBon884wIK6GssuXvIRtog
+ iUbdWVb+piIyyR+/8imI7W4Ksn/mvFpVff13RzIhYLsnj29mqn8c2RW+SVTJ7ec5/lPh
+ dM9eMhpjHy/bXkjIgrJp5kvSqECu0ixUqYmh8pw+hZRHcGBG4qbHvy9Ct3ia3YBM3wnj
+ Z82g28B16IOcHnCegm7LJhmEoSNfixt9g0PhUsgKyQ6J6o32+BlO/OgUIAjh13dq9lng
+ bn7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=fJd/kPZe8tht3PZNMtoqvoX2LQTRKzrqogvzeSuaPoU=;
+ b=yHr/aenTL8w2mozEexUA9Jd/0TBoPNGAtXoXhQ01CZpDVg+34GdNYDNoEfw7JM1KQ4
+ en6uuUek/BIuOojm2T2aJIslV/Hq0dF5CnmSMpw1WMOUwgNIeeVJoqZap3eKrsfaEFs1
+ /58iOYMFz/vVU9E0icEEIaLRDSc7XJMa6+T9HjIJI3Li+N1YhqSw5dnad/Ns4luwKp6S
+ j3O5+6m7G4BePsyf/CeMpr3cgkuTetVihnwjgiJ1GUNs5bJfz+wlBorIYkdVc15RtMbh
+ UdAW/LEz1RCLFCgzv5lFJmpG9RDHvUmFvm9Jzki2TWi1vCM6Z+DfmJYWCdrC1C7hFXn1
+ WyAw==
+X-Gm-Message-State: ANoB5pn6wndF/GZd8uKQQBB7xafx6llSFr/w/AnsAC1g2oxRsj1jyHlr
+ 8rz9cfMkYV9kpBnLYK/BnWM=
+X-Google-Smtp-Source: AA0mqf6OcAlxfXV2/jDR+SQqtVt1cCRHsawBBL/P9JrtRlIYIfoo0OLHfK5G9ByODJUvBW6clfkqzw==
+X-Received: by 2002:a5d:590c:0:b0:22e:3c69:f587 with SMTP id
+ v12-20020a5d590c000000b0022e3c69f587mr13756212wrd.670.1668594018452; 
+ Wed, 16 Nov 2022 02:20:18 -0800 (PST)
+Received: from ?IPV6:2a02:908:1256:79a0:a719:712a:c9e4:718d?
+ ([2a02:908:1256:79a0:a719:712a:c9e4:718d])
+ by smtp.gmail.com with ESMTPSA id
+ bj19-20020a0560001e1300b0022cdb687bf9sm18304829wrb.0.2022.11.16.02.20.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Nov 2022 02:20:17 -0800 (PST)
+Message-ID: <269dd660-2d81-169e-3a20-5bd648a62271@gmail.com>
+Date: Wed, 16 Nov 2022 11:20:17 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: [PATCH v2] drm/amdgpu: Fix VRAM BO evicition issue on resume
 Content-Language: en-US
-To: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-References: <20221116085012.187756-1-Amaranath.Somalapuram@amd.com>
- <20221116085012.187756-2-Amaranath.Somalapuram@amd.com>
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <20221116085012.187756-2-Amaranath.Somalapuram@amd.com>
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ alexander.deucher@amd.com, gpiccoli@igalia.com
+References: <20221116054721.1008253-1-Arunpravin.PaneerSelvam@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20221116054721.1008253-1-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0217.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:ea::15) To MN2PR12MB4342.namprd12.prod.outlook.com
- (2603:10b6:208:264::7)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|SA0PR12MB4591:EE_
-X-MS-Office365-Filtering-Correlation-Id: 59364dff-8cbc-48de-8803-08dac7b3c472
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pgDXAP1d67XTrG3vTy8kIP0a1WrVG5N0Vqz1MUTwLcfBAc1uxeDI5CLxvsAzJczlFtXvyjxtt4G8F9BIoeJ4rFVkv8t7/NnLsvjnzG6bEuFCt7d5NI9JvEOeyBkDfP+P5+hWUifNjdCN/FfG/gT8S7YHeEvrWnP19+rQl47cfFkCUjt/+uJ2EDSikcDUNqwjxQYfvWB5hm/OugUmr2Q2WlgptDt9QHgdlZq+PcUgyWA5jAeRlV5kikWvYpWoOjza7hX4AlMzk3qCuilVQKZoSOsPerNtaB0jDQYOORZIRcX9Dz11vmMxAPWPapt6w6zKvq79QhLSGgWEwO0O1gDlXDrQmEEPnVcJOtC7IeZVX7dPmFI5xq6hF/OAJE4X75CU/6YnkRrEUuq6M6TWr5u+wdNT4hId3v+qnE+g3FElWHLOd3nA2f9chQ7tdeA4FArpCP/G4LhiY922/eqO3ZWmmaVotfIbmiZYYitqVWBqTq7DLz60418ofZgEEKoqzpWDgguQnyWlGm6tQQ4u+wdkGusnaSuPKVro61s4nBpLXqNeqptgbvvsYMwFeZB5ZU2aFDP5twGYnBotXJkPcx9buOQT9Q/NdbfpIUOAv4Kd+i7QnA+AUo/VQNfyv1O/b7+e6jnyM0R/enRFJXD5R8+do/Zi2xF5fcOKe17J8+Sje4HqQPw09ntSWFXwAgsJeCFq/uvwE/iWqj/003E7RYCaOefDQI0WShLGpz/IbmIealeuegbjSBYsEeisp6BRp3Z74JrAq15AQXkPhy6ip+JbWHZ6hF9QQBx0LdQG+vIBCFk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(376002)(346002)(396003)(366004)(39860400002)(451199015)(38100700002)(26005)(6512007)(2616005)(186003)(53546011)(6506007)(4744005)(5660300002)(2906002)(83380400001)(66476007)(6666004)(41300700001)(478600001)(316002)(4326008)(8936002)(8676002)(6486002)(66946007)(450100002)(66556008)(86362001)(31696002)(36756003)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QWxXblB3MUhBM0hxUTNTVndBbWhRVncvYWYxR055ZFNWYWQ4bmRoYmtWTDBs?=
- =?utf-8?B?VnpkSlROTVpFZVVTV1F6NExpcW1lcUdFUGIrblJIbEh6cHVMdTdjc0oyK2dr?=
- =?utf-8?B?djVvN1BUOW1aRWhzOHY5dEFOSThNMjBSdmltOGZNUDRSZGJYWlNXSTRrR2Jh?=
- =?utf-8?B?VjlJQTA1a2VQVTVqa0ZLaWtGN2lld0VoV2YvWk5hbGRKWHE4OWZuOTlnOVVq?=
- =?utf-8?B?QUt0dk43c1pwTVRNOUFuNEpIVUJBMWFPdkRYT3BHRVZFak9mQVZpbkRjcVp1?=
- =?utf-8?B?OFh4YytGSFRZK1NSc3F6R3VtYlJyanpVcUlNODB1T0J2TGtxK3d5aWtzMmRD?=
- =?utf-8?B?RjQzWll5VDh4QldWSjRRZHJTMFpidEVzUGtRRFlqUTJMay9wMHJvZXNiclJt?=
- =?utf-8?B?N3Z6MFpNWXNzQ1ZGWDZHdjVoenJuYUYvWlMrNGRjNnVvSENLdlQ2ckxPUzNH?=
- =?utf-8?B?VVI4aUZUMXc4TFpkQVhwd1RHWWp1U2lSYzk5eFZwVmF1YVZ2YmZXeEsza0po?=
- =?utf-8?B?L0laZFRPOHNIbWJ5VW9MeC9oZmtFUFUrOFQraVNLNzhhSmJYQ0IxdmVRb0pj?=
- =?utf-8?B?ODdCeVFTUzliQlB4SDFFTFo0NER0Y002RG9CQkZ2Yk5TR0xsVTlGdzhDNTRz?=
- =?utf-8?B?L3VPOGs5L1k4dFI1MmhNSDVVRjhrZGlDaFZpYm5rUE1zbTNxUE9GbFZQMDhj?=
- =?utf-8?B?ZmhVcGhOTUhLa3F0MVNxQVNXcXdXbnF0QXlTVFFrT1lOcHJvQkVTaDdrYjVX?=
- =?utf-8?B?MzhkWm9JbUdIN0pGNi9taEloRW9hUjFBa1ZJdnpoRG1yeUZZek9sN0ZkTGlY?=
- =?utf-8?B?dzMxelc4cjB2Q2RRNnByNjR4QW1paVY5c0h5eW00bXpoUmh4eFJTQ3gwaU1K?=
- =?utf-8?B?WjFsRUROWkNFOWZFUnBZOXJhcXlYVGl1Ukl4a0FOUVp1UXJJSE9DdDNHak15?=
- =?utf-8?B?ODNlNE1Edit5ZFhiZmg0bDB0aGZ5M0Z0TzR5Z1l0NHZYNWkxcVZEakdXQXFw?=
- =?utf-8?B?aWFEcUkrRlNlQ0k0N1NmWVQ1ZUpPMnpNNjhGQnRZUHhDNmcvZVl3SCtSMmJh?=
- =?utf-8?B?bE54K0VaR2gvaUZOakJYdHg5M0JkTTBMMklvNXdaMm1QeTU1ZUxoclZNMlRE?=
- =?utf-8?B?QnVWVzh1eTQrZ2N2dXlMN1Axbkl5OWdHNVlTdnNaSVgvMXBIRXBLYkxrWWlt?=
- =?utf-8?B?aWpXUmNIRFZEQlVCZUdsTUs4TXFoTXRML0liTXlUaU1uRUhlSjFBNmVoVi9C?=
- =?utf-8?B?WU0zbkNZUlFmanZtRkRFYzNPbXJ3cE5WRVhCMEI1a0lCY0JIaC9IYjgvZ040?=
- =?utf-8?B?ZlJSZnJHU0pjQ0JiSUtqcC9XSzBQZlZRQXhhbm9jWnJRTDFtL2FQRUc5bDVG?=
- =?utf-8?B?NGNGVHROZ3d0TXVxQnRlU044R0ltZGhUSjYrTlVZZmZFSVZFOEZsVWJ0cE1X?=
- =?utf-8?B?Vk5VUmJFelJVbDNqWjB1RCt3cUF4TW5HblBYZ2daV2FBVFVZT0RVY0JLOVh1?=
- =?utf-8?B?b0hzUFRqNmFBMmlEc29MLzRZUEFNdkJpb3ZBTzZGRnpLQ25SYWNwajltcXBh?=
- =?utf-8?B?U0ZZVm0rMUQ1Mnd5emFibUZFYVNrWUVBcndBV3VRblZvZDJVMzNkUG4zVlA1?=
- =?utf-8?B?OXRxYlVPSVZrYjE5MnBXaGdoTzBFMkFMTlRyZWVJQXlQWExwZVg4V280NG5j?=
- =?utf-8?B?cUdLYkNEMGNnMXZHRkhVV2NSclM1Ympoa3B4U2U3OVAveVJ3TGlHdWlXaHl4?=
- =?utf-8?B?ZVp4RXBmeG1PVzRmN2MwYmdNdG9OWEJvMWdNWW1XYUJtUVQwTjM2ZGU4SWxY?=
- =?utf-8?B?Wk5UTzFNOGNwY3ZsWFhzcEpPdkpYZ0hsVnRNc3hsNUc5U09hUFY5ZkpVSjVW?=
- =?utf-8?B?enJ4SUY3NmNacmtuTVNmNWVBY25sdnRlKzFreElGS2dna0VvcXp2MCtuVDlS?=
- =?utf-8?B?eTV4Rm9lMlkyVWdKUHRaOUlVU3pYMmlwcGpNdG4yaUJhSjNUWlk5bVJnd3pK?=
- =?utf-8?B?dzVMRVRISEoyeHZIYW5BNXVxZkViWVcrU3BGQ2I2bXJuTVRzdEdMaHFtelh5?=
- =?utf-8?B?Qk1xMlduay9ISEVYN1lvcmpYZ0drMzR4cERyd0FUai9FaVpBQmRwSmhBYTFa?=
- =?utf-8?Q?mumAO67N0npcfcBHalUs131gO?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59364dff-8cbc-48de-8803-08dac7b3c472
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2022 09:20:15.0885 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n8LvZ2UsQicauMCOFfl6nJMqAPzxqM9iLzKjcMw3890DHLV/HnwCE0+NBVjnu1ve28zG0NOYSEWwirBTJyzfuA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4591
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,36 +76,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- shashank.sharma@amd.com
+Cc: Mario.Limonciello@amd.com, stable@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Amar,
+Am 16.11.22 um 06:47 schrieb Arunpravin Paneer Selvam:
+> This patch fixes the VRAM BO eviction issue during resume when
+> playing the steam game cuphead.
+>
+> During psp resume, it requests a VRAM buffer of size 10240 KiB for
+> the trusted memory region, as part of this memory allocation we are
+> trying to evict few user buffers from VRAM to SYSTEM domain, the
+> eviction process fails as the selected resource doesn't have contiguous
+> blocks. Hence, the TMR memory request fails and the system stuck at
+> resume process.
+>
+> This change will skip the resource which has non-contiguous blocks and
+> goes to the next available resource until it finds the contiguous blocks
+> resource and moves the resource from VRAM to SYSTEM domain and proceed
+> for the successful TMR allocation in VRAM and thus system comes out of
+> resume process.
 
-On 11/16/2022 2:20 PM, Somalapuram Amaranath wrote:
-> ttm_resource allocate size in bytes i.e less than page size.
->
-> Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
-> ---
->   drivers/gpu/drm/drm_gem.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index b8db675e7fb5..a346e3b7f9a8 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -152,7 +152,7 @@ EXPORT_SYMBOL(drm_gem_object_init);
->   void drm_gem_private_object_init(struct drm_device *dev,
->   				 struct drm_gem_object *obj, size_t size)
->   {
-> -	BUG_ON((size & (PAGE_SIZE - 1)) != 0);
-> +	//BUG_ON((size & (PAGE_SIZE - 1)) != 0);
-This line is added by mistake?
+Well quite a big NAK to this.
+
+Eviction of not contiguous allocations is perfectly possible, it's just 
+not supposed to happen during resume when the DMA which is supposed to 
+do that is not available.
+
+The fundamental problem is that the PSP code frees and re-allocates the 
+TMR during suspend/resume. This is absolutely not supposed to happen.
+
+I'm going to propose a WARN_ON() to prevent subsystems from doing that. 
+And I strongly suggest to fix the PSP code instead.
 
 Regards,
-Arun
+Christian.
+
+>
+> v2:
+>    - Added issue link and fixes tag.
+>
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2213
+> Fixes: c9cad937c0c5 ("drm/amdgpu: add drm buddy support to amdgpu")
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Cc: stable@vger.kernel.org #6.0
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index aea8d26b1724..1964de6ac997 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1369,6 +1369,10 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+>   	    amdgpu_bo_encrypted(ttm_to_amdgpu_bo(bo)))
+>   		return false;
 >   
->   	obj->dev = dev;
->   	obj->filp = NULL;
+> +	if (bo->resource->mem_type == TTM_PL_VRAM &&
+> +	    !(bo->resource->placement & TTM_PL_FLAG_CONTIGUOUS))
+> +		return false;
+> +
+>   	return ttm_bo_eviction_valuable(bo, place);
+>   }
+>   
 
