@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2793C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 16:01:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DA4CC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 16:01:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A1E10E4CA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5699110E4CB;
 	Wed, 16 Nov 2022 16:01:24 +0000 (UTC)
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A871D10E4C7
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 16:01:16 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id bj12so45104046ejb.13
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 08:01:16 -0800 (PST)
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [IPv6:2a00:1450:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFC7810E4C9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 16:01:17 +0000 (UTC)
+Received: by mail-ed1-x52b.google.com with SMTP id u24so27182853edd.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 08:01:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Me88OlyUL6R6SVrsVozNhy3pnhRGlmW19xI4YzTYQ6o=;
- b=mnhFbD02hLugHSFV3zmfL2hrGY3zDSfaI3m4cQYXpf0HBWM2jPG/CmoiYw3gjn+aNz
- 0bKg8aAhKkXVXjBpBHlLIKbusphr+jx0wqiY671oCUB7lF5yXDZyGXT2/UmMOLvFYTA2
- 353f6+ZrFRbHqy/dcFDrCJ2qhGiR96SiE9I2DL8pinU7IS1Rt1AOLX5YEuYi/YLOJQaX
- pLTj1jXnxhCivtDS2aoy0cBJgUE1n+pC4sqTHcZ2uIyoFtaRXpXRocz34emChfSAMIpw
- c/Hn8Rez8Yl/PmqPomFosGP7o+Lx+ArsmrO7Lix0emhBLCE4MC2QQGqYGNYtxo8XdhLA
- sLUA==
+ :reply-to; bh=jXZxR7txebuE6mJuqrwkNeA50mGymdJ1FweY06K11Pw=;
+ b=WkYbbWUnRQRFdeXJGTbmqzaL3Vt0Epjt8PY9MyZdzQsMivhntIYT2Se50/undD+oXl
+ F7AXkr9PouKYVQRenawGKuXkSvEhYddmiDxS+s/pfJQgtiZVf/g6DQeZGdhMPwEfEN/P
+ zjHI9BXp7UI3sV1acbqzH+ZprerWX4+6nhefOHfH1vzdg3tfckXszxsbZ+A4NbC88wpi
+ V0LQEfWAg5xOgwWVOCJT8BQmECSrbFM23iDpywpdfGP+tErpdTJY0FmskpPm48N1mkBd
+ DNZHLPzsZ2EVjl/DpjON0V8VbapqagXwk+iDwc/2ffksGXS13Zwk3Asi5yDQDk7Zubhm
+ k3Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Me88OlyUL6R6SVrsVozNhy3pnhRGlmW19xI4YzTYQ6o=;
- b=KleyeE41BYlJSprIWk0uu/w5UpC8gTgOQAk3zEKzx7OTR7fHOiNHMyvUd4DCIdwZVk
- GHOMPrPZ/FE38m6xw4oFF5uA9der/nLlDUgvfumUG937c/S6JtPQ43Lg8DT42wpDiVfP
- yoCYYi6335ppoHVIs5Ko/xs5Lk5JRr6sL9NMzPT8n0W/FD5X++Y8LfyBMQsXXH4QhXYs
- 8VlfAufXMSMhT6JZXVFJv44KN93/U3JDAj3YHoIGOKoqrkRu8xGy918eigrsqnhpklh2
- Ig5zncOyKRfiE5IpzwcsaFDD51HryBv/pGBojQ6FaqcN2zLdR0yZD9YoXxFc8EbXAaJa
- LjZg==
-X-Gm-Message-State: ANoB5plP1zFqWZQFXYXjOHYaDMAKLASAx4sUhckHeqCf82adJkf7RiWY
- bgNmUC1sUvnQMwUHe/5PSOOMUR/ha3A=
-X-Google-Smtp-Source: AA0mqf5k6GprPQeO4wlXhVq8BNo/EnGb0+SxrxuwJL1cAczXfMp+ntDuHBr9qIRnTNIFfhr4FWDFqA==
-X-Received: by 2002:a17:906:b30d:b0:799:a731:b44d with SMTP id
- n13-20020a170906b30d00b00799a731b44dmr18185382ejz.405.1668614474938; 
- Wed, 16 Nov 2022 08:01:14 -0800 (PST)
+ bh=jXZxR7txebuE6mJuqrwkNeA50mGymdJ1FweY06K11Pw=;
+ b=5a8g2KUuPjGVjhUKiC6ML+zygIGTnY3Y0uI80+U2X2z4qkwih3smYKp6zV4kB6/huu
+ t3mnN66Xxg1+e+IACeHMD4U2d47ZHy324qwSxnw2j4bb//g0Fh+sWRXemveJCkF3lth9
+ w+VvPmyaPKseg1dciylPYu62t0RbOKKc1993sFiLSy60Ez1nY5F+fn6FbqeDPsVvdg32
+ p3ADLuSuhq+fZzacYpPr1r96j3hX3oEYEUgy75GE+fol8qjLh+BAdCefZuIhox8kPF6I
+ 0ERTNmSo553ttAtgHPQ5lTOQxHDYW9U+kFFFeMxXmFhnLMGqAItHI2DM3GzrpOvyaLds
+ /otQ==
+X-Gm-Message-State: ANoB5pnI4PhzTotIyaLIOO0gfnkPEW9lUbFbfGewWrOKt+ju0qHCij5k
+ +p7vsAnc+cTfALsxYLNapbcj43HNTZg=
+X-Google-Smtp-Source: AA0mqf6pg99Ra8YmoTF0mBFYR0o5TNKQROaJrc3fsfV7wyAZZetKGP7aNHgjU2FiK0XGjggjjmmLRw==
+X-Received: by 2002:a05:6402:60a:b0:461:92bd:21cf with SMTP id
+ n10-20020a056402060a00b0046192bd21cfmr18872271edv.405.1668614476141; 
+ Wed, 16 Nov 2022 08:01:16 -0800 (PST)
 Received: from able.fritz.box (p5b0ea229.dip0.t-ipconnect.de. [91.14.162.41])
  by smtp.gmail.com with ESMTPSA id
- lb17-20020a170907785100b00734bfab4d59sm7139097ejc.170.2022.11.16.08.01.13
+ lb17-20020a170907785100b00734bfab4d59sm7139097ejc.170.2022.11.16.08.01.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Nov 2022 08:01:14 -0800 (PST)
+ Wed, 16 Nov 2022 08:01:15 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org, arunpravin.paneerselvam@amd.com,
  alexdeucher@gmail.com
-Subject: [PATCH 2/3] drm/amdgpu: stop freeing PSP buffers during suspend
-Date: Wed, 16 Nov 2022 17:01:10 +0100
-Message-Id: <20221116160111.3226-2-christian.koenig@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: WARN when freeing kernel memory during suspend
+Date: Wed, 16 Nov 2022 17:01:11 +0100
+Message-Id: <20221116160111.3226-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221116160111.3226-1-christian.koenig@amd.com>
 References: <20221116160111.3226-1-christian.koenig@amd.com>
@@ -76,110 +76,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-That the PSP code tries to free the memory during suspend is quite
-broken and leads to problems during resume.
+When buffers are freed during suspend there is no guarantee that
+they can be re-allocated during resume.
+
+The PSP subsystem seems to be quite buggy regarding this, so add
+a WARN_ON() to point out those bugs.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 30 ++++++++++---------------
- 1 file changed, 12 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 0a8c30475dda..470cd660c450 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -511,11 +511,10 @@ static int psp_sw_fini(void *handle)
- 	kfree(cmd);
- 	cmd = NULL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index d0d53e83a318..063bf6f69918 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -428,6 +428,8 @@ void amdgpu_bo_free_kernel(struct amdgpu_bo **bo, u64 *gpu_addr,
+ 	if (*bo == NULL)
+ 		return;
  
--	if (psp->km_ring.ring_mem)
--		amdgpu_bo_free_kernel(&adev->firmware.rbuf,
--				      &psp->km_ring.ring_mem_mc_addr,
--				      (void **)&psp->km_ring.ring_mem);
--
-+	psp_free_shared_bufs(psp);
-+	amdgpu_bo_free_kernel(&adev->firmware.rbuf,
-+			      &psp->km_ring.ring_mem_mc_addr,
-+			      (void **)&psp->km_ring.ring_mem);
- 	amdgpu_bo_free_kernel(&psp->fw_pri_bo,
- 			      &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
- 	amdgpu_bo_free_kernel(&psp->fence_buf_bo,
-@@ -2635,8 +2634,6 @@ static int psp_hw_fini(void *handle)
- 
- 	psp_ring_destroy(psp, PSP_RING_TYPE__KM);
- 
--	psp_free_shared_bufs(psp);
--
- 	return 0;
- }
- 
-@@ -2651,7 +2648,7 @@ static int psp_suspend(void *handle)
- 		ret = psp_xgmi_terminate(psp);
- 		if (ret) {
- 			DRM_ERROR("Failed to terminate xgmi ta\n");
--			goto out;
-+			return ret;
- 		}
- 	}
- 
-@@ -2659,40 +2656,40 @@ static int psp_suspend(void *handle)
- 		ret = psp_ras_terminate(psp);
- 		if (ret) {
- 			DRM_ERROR("Failed to terminate ras ta\n");
--			goto out;
-+			return ret;
- 		}
- 		ret = psp_hdcp_terminate(psp);
- 		if (ret) {
- 			DRM_ERROR("Failed to terminate hdcp ta\n");
--			goto out;
-+			return ret;
- 		}
- 		ret = psp_dtm_terminate(psp);
- 		if (ret) {
- 			DRM_ERROR("Failed to terminate dtm ta\n");
--			goto out;
-+			return ret;
- 		}
- 		ret = psp_rap_terminate(psp);
- 		if (ret) {
- 			DRM_ERROR("Failed to terminate rap ta\n");
--			goto out;
-+			return ret;
- 		}
- 		ret = psp_securedisplay_terminate(psp);
- 		if (ret) {
- 			DRM_ERROR("Failed to terminate securedisplay ta\n");
--			goto out;
-+			return ret;
- 		}
- 	}
- 
- 	ret = psp_asd_terminate(psp);
- 	if (ret) {
- 		DRM_ERROR("Failed to terminate asd\n");
--		goto out;
-+		return ret;
- 	}
- 
- 	ret = psp_tmr_terminate(psp);
- 	if (ret) {
- 		DRM_ERROR("Failed to terminate tmr\n");
--		goto out;
-+		return ret;
- 	}
- 
- 	ret = psp_ring_stop(psp, PSP_RING_TYPE__KM);
-@@ -2700,9 +2697,6 @@ static int psp_suspend(void *handle)
- 		DRM_ERROR("PSP ring stop failed\n");
- 	}
- 
--out:
--	psp_free_shared_bufs(psp);
--
- 	return ret;
- }
- 
++	WARN_ON(amdgpu_ttm_adev((*bo)->tbo.bdev)->in_suspend);
++
+ 	if (likely(amdgpu_bo_reserve(*bo, true) == 0)) {
+ 		if (cpu_addr)
+ 			amdgpu_bo_kunmap(*bo);
 -- 
 2.34.1
 
