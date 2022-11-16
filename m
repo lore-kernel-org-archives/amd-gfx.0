@@ -4,56 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A6B6C433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 05:03:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64E43C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 05:48:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B55510E02A;
-	Wed, 16 Nov 2022 05:03:31 +0000 (UTC)
-Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
- [IPv6:2607:f8b0:4864:20::731])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3767C10E02A;
- Wed, 16 Nov 2022 05:03:27 +0000 (UTC)
-Received: by mail-qk1-x731.google.com with SMTP id i9so10949408qki.10;
- Tue, 15 Nov 2022 21:03:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MPeLbqUi2a5gDUer3CWiqeNQAfyAMzz9/ZrcnFvYAug=;
- b=VyEOGi39GEbiC5dSEGwuoH5SI68mp27/nSAHtoKmIn+tUS+9X2mYNsGbc05YchBvso
- UztGCUWM/Hx0hunnOA3LeAkEpuLrON7fmNK2RFxHVJQLp+5E+bwhKlyi63ipU7q+OH1I
- uIOfICqz8e447DKa1aG0+4Od22+b/0e9xvvtEc9UbfpKufYc9zDi3lV6Q/zjTxjRTFi2
- rdtzVRVMy3g3OzHdNFJOF2LTph7z5GQbPmDrwJLThpg6kBVeConDwfcz7yp6kZzNGdG6
- i1sqV3UgZW2Z9WjV97NIjW7o8WPK9NYv9jEXGjclMr5YldmsXhh+0Jz7nHX5u7we46vM
- vcxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MPeLbqUi2a5gDUer3CWiqeNQAfyAMzz9/ZrcnFvYAug=;
- b=Q+0iuK3A+vUF69gwCcW3fJo379NuHg7FMflS8169+OFKpPqfeEHhAY6qGyX3NlFPTT
- rlVX8QBaExkGI0anzCaK60UKNMaD9M0G05rkeD1tGC4CyoEVUJMmuSmTVp9Wr1iIOvy3
- ZxF/r7Cyywct9TCpHsWocn8jSdYaC89x52dkpKE2Cd2/N2Z4zBBRyIYWsiUjca3z6Kp8
- 2LOI9Y9A6SZYVhUwe3QqNAWPSRt9NMrp+Y4EgkO7FdVQ7DIFvv4xRtwocAJfNT+GWYp7
- epWTm2wWOZFc44FbeTR/QFlkUCmbSFd8215IkjUas1iKPD0M7bCSNDx7G6rELMBzxChh
- TCLQ==
-X-Gm-Message-State: ANoB5plRfi19J/skpwXg0ipHMzZ2ci9O3ier2NsFkNQVQK+TpVZqohDP
- TdWlx6GkD/k8wGOso+Srsf5tHsa0qXW+mT3owqw=
-X-Google-Smtp-Source: AA0mqf6H3MkTsZBEYVODQSCrC26TcSCRtqdv8xQPsTqVfZRXIAjJTWqj/kc5c0aSNsZSBn6uVeGJe5RA7XEKcrPDUcA=
-X-Received: by 2002:a05:620a:1009:b0:6fa:9812:42f2 with SMTP id
- z9-20020a05620a100900b006fa981242f2mr18325391qkj.754.1668575005977; Tue, 15
- Nov 2022 21:03:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EBEC10E186;
+	Wed, 16 Nov 2022 05:47:58 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE0E010E186
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 05:47:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XoLn8hyPUUrvBasnTeVyp0T1WMb/JezmitEniL+v/5FQ+iJem4N5WBd5DZ5sy44DBImE+6NV5t7jgPU5fIxl6yVy1AzJ6Klc/iwyOo0ZJK39IrW+45EMyfNNeLn+c55qZ3jbKA0V/+6ATRzDTIXwMDshp1x/sxVVSWG3KKBcEScwLWd3Pad5ZcufttjeUoTvxDKzyXHzmb1z+x9clm6Xg1fpDrdDgS7E1hnIDsD8kj30ZuRy20wZQjxls7vD6Voucf3kvPeemAyWubrp8o29sdir7xTayA0cIeAjyxczscWUXvQ4fEF6c5c6iM3fIO79+zUfr9Xy+gyonONDh7zmVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1T+0eRSEai10VWqpZTvwlAa4aL+IzmBOjry597QZxnE=;
+ b=KC7v9sKRhlE9+m9DwBgu5gH6NYpawzd6YWcwvwU5jTSWyj1Sc/aY5WOo6iSREZZpXgFsXQUxMjLlrpe/qJj6YVwmJ3cgE1M9kRaOWQuWe1DJXkJygoiZVzjzijA6DYQw0YOh0mB1Be1bMmL3shjj9ftG84KhmLW0sZlRBmR4wyb0hKRTwsEMVMekQWyNdVX+LwB4PSXO12thF0F5sdmQimPks3ECHgiAYg9WmjRh2uyha+//qi78dVgHa5OQ6GIPhaiFu0d0hVBMKIj4obIbw0/opqpiywFr0MIJGdRa4MDA8iyRHD8XXpQO31fdUBgGcZr4ibYKtT9leTYZzu2AMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1T+0eRSEai10VWqpZTvwlAa4aL+IzmBOjry597QZxnE=;
+ b=eIGi7x3GQKUxrqTArlq9lcd8LgTpzoiY8vBzAH6DAgniyaRHBdLnybUY3iTdQ38u2I3NdX5lP0wUDHmKKorXNc8is7S7oDPahee9CDpLi7SlisHkjmL/hjf4HO/7tfQwbvJA02RGmbOioyYejOt1VFFes45i0gqutbfSSC3bPMM=
+Received: from BN0PR04CA0095.namprd04.prod.outlook.com (2603:10b6:408:ec::10)
+ by CY5PR12MB6646.namprd12.prod.outlook.com (2603:10b6:930:41::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.18; Wed, 16 Nov
+ 2022 05:47:51 +0000
+Received: from BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ec:cafe::50) by BN0PR04CA0095.outlook.office365.com
+ (2603:10b6:408:ec::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.17 via Frontend
+ Transport; Wed, 16 Nov 2022 05:47:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT064.mail.protection.outlook.com (10.13.176.160) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5834.8 via Frontend Transport; Wed, 16 Nov 2022 05:47:50 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Tue, 15 Nov 2022 23:47:43 -0600
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
+ <alexander.deucher@amd.com>, <gpiccoli@igalia.com>
+Subject: [PATCH v2] drm/amdgpu: Fix VRAM BO evicition issue on resume
+Date: Tue, 15 Nov 2022 21:47:21 -0800
+Message-ID: <20221116054721.1008253-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20221111201852.6341-1-alexander.deucher@amd.com>
-In-Reply-To: <20221111201852.6341-1-alexander.deucher@amd.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Wed, 16 Nov 2022 15:03:13 +1000
-Message-ID: <CAPM=9twYU=moXfat4pYCyjs-Z+Edx_pAwcTP3xuvh39htqNpvg@mail.gmail.com>
-Subject: Re: [pull] amdgpu, amdkfd, radeon drm-next-6.2
-To: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT064:EE_|CY5PR12MB6646:EE_
+X-MS-Office365-Filtering-Correlation-Id: cbfe32c4-a23e-45b1-43cb-08dac7961930
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: G/JJ4VZQMkDaeqwK1S/feMVoO/yvBdeTqiQ3OapaapjPeaSXrv5/zYdxLBhN+jeuRpT7LMPTEuyssS8TUSqRBhb4XW9Qrti7XLdaS/djzlo2c5bgJAaMj+6qxJ7ah7LuSD8OWfeMcbvlUxc0YxdQn3+wpAH8GdSyx4eYToeHlvBIxMfN5w4h9r/6tyP8357/Dzl2NPWl5KiLGWsu7eC+mvB3k1VVybdkhw7rJzqwMJBd6Ap8qN7AuSoA6z/zSLyyhbXdJuvqa83oHapBXou0hw0EbozUbhGAPn/Bt29Z7FPajDJfi92i8j1RIzHygYnXZ+/iFFCV2N9FoVmnQetVzvnqTsiJdxRemX6r2n1i1gLzYD54Suv++WfWosMCWWJK7DY+nTOvvp1clNwBhfdB42RHMzfQVimThlbT0mfsjaH/zzC8hGXpulwe4zLHZAhf9HklBPtt1r5+nCebZrK6FM+PwSEG71nreG2vaP5V46rg6oQ7ErR3vuV3W+qKPYA5hSpvY3jELrWR0V1CfGL5lS69F4eVhvndcdIFwireq4KJCv0AaFyFoO/uzGewTgBkQETagnipJHi/XmJ4WS8EDs3L2AhLZ0tw9KoqEuFbJCIuG46TfWM8sznbbfMx3DqBYrnbvnQ4Q/v3gGfXUHKYgfyP/ebkNimqmlZaqKQpno5cZJEOipA/vTW9/s6v8O7/hLpF2kjNy6oET6jujX1fVqbIpdt4NWjdx1ALwIHfiyWwgCGPsZIMW6gAf5E71Hu1
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(396003)(39860400002)(346002)(376002)(451199015)(40470700004)(36840700001)(46966006)(81166007)(356005)(2906002)(40480700001)(8936002)(5660300002)(70206006)(4326008)(8676002)(70586007)(41300700001)(83380400001)(36756003)(6666004)(336012)(186003)(966005)(7696005)(26005)(16526019)(82310400005)(86362001)(2616005)(1076003)(47076005)(36860700001)(426003)(54906003)(316002)(478600001)(110136005)(40460700003)(82740400003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2022 05:47:50.7493 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbfe32c4-a23e-45b1-43cb-08dac7961930
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6646
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,331 +98,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: Mario.Limonciello@amd.com, stable@vger.kernel.org,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-arm32 build fails
+This patch fixes the VRAM BO eviction issue during resume when
+playing the steam game cuphead.
 
-/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/amd/amdgpu/../display/dc=
-/core/dc.c:
-In function =E2=80=98disable_dangling_plane=E2=80=99:
-/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/amd/amdgpu/../display/dc=
-/core/dc.c:1134:46:
-error: =E2=80=98const struct timing_generator_funcs=E2=80=99 has no member =
-named
-=E2=80=98disable_phantom_crtc=E2=80=99
- 1134 |                                 if (tg->funcs->disable_phantom_crtc=
-)
-      |                                              ^~
-/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/amd/amdgpu/../display/dc=
-/core/dc.c:1135:50:
-error: =E2=80=98const struct timing_generator_funcs=E2=80=99 has no member =
-named
-=E2=80=98disable_phantom_crtc=E2=80=99
- 1135 |
-tg->funcs->disable_phantom_crtc(tg);
-      |                                                  ^~
-make[6]: *** [/home/airlied/devel/kernel/dim/src/scripts/Makefile.build:250=
-:
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.o] Error 1
+During psp resume, it requests a VRAM buffer of size 10240 KiB for
+the trusted memory region, as part of this memory allocation we are
+trying to evict few user buffers from VRAM to SYSTEM domain, the
+eviction process fails as the selected resource doesn't have contiguous
+blocks. Hence, the TMR memory request fails and the system stuck at
+resume process.
 
-Dave.
+This change will skip the resource which has non-contiguous blocks and
+goes to the next available resource until it finds the contiguous blocks
+resource and moves the resource from VRAM to SYSTEM domain and proceed
+for the successful TMR allocation in VRAM and thus system comes out of
+resume process.
 
-On Sat, 12 Nov 2022 at 06:19, Alex Deucher <alexander.deucher@amd.com> wrot=
-e:
->
-> Hi Dave, Daniel,
->
-> More new stuff for 6.2.
->
-> The following changes since commit a143bc517bf31c4575191efbaac216a11ec016=
-e0:
->
->   Merge branch '00.06-gr-ampere' of https://gitlab.freedesktop.org/skeggs=
-b/nouveau into drm-next (2022-11-09 11:18:56 +1000)
->
-> are available in the Git repository at:
->
->   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.2-20=
-22-11-11
->
-> for you to fetch changes up to 2ebf61f2cfb9a11bc17db30df3e675a4cd7418d3:
->
->   drm/amdgpu: Fix memory leak in amdgpu_cs_pass1 (2022-11-10 15:30:34 -05=
-00)
->
-> ----------------------------------------------------------------
-> amd-drm-next-6.2-2022-11-11:
->
-> amdgpu:
-> - SMU 13.x updates
-> - GPUVM TLB race fix
-> - DCN 3.1.4 updates
-> - DCN 3.2.x updates
-> - PSR fixes
-> - Kerneldoc fix
-> - Vega10 fan fix
-> - GPUVM locking fixes in error pathes
-> - BACO fix for Beige Goby
-> - EEPROM I2C address cleanup
-> - GFXOFF fix
-> - Fix DC memory leak in error pathes
-> - Flexible array updates
-> - Mtype fix for GPUVM PTEs
-> - Move Kconfig into amdgpu directory
-> - SR-IOV updates
-> - Fix possible memory leak in CS IOCTL error path
->
-> amdkfd:
-> - Fix possible memory overrun
-> - CRIU fixes
->
-> radeon:
-> - ACPI ref count fix
-> - HDA audio notifier support
-> - Move Kconfig into radeon directory
->
-> UAPI:
-> - Add new GEM_CREATE flags to help to transition more KFD functionality t=
-o the DRM UAPI.
->   These are used internally in the driver to align location based memory =
-coherency
->   requirements from memory allocated in the KFD with how we manage GPUVM =
-PTEs.  They
->   are currently blocked in the GEM_CREATE IOCTL as we don't have a user r=
-ight now.
->   They are just used internally in the kernel driver for now for existing=
- KFD memory
->   allocations. So a change to the UAPI header, but no functional change i=
-n the UAPI.
->
-> ----------------------------------------------------------------
-> Alvin Lee (4):
->       drm/amd/display: Wait for VBLANK during pipe programming
->       drm/amd/display: Use min transition for SubVP into MPO
->       drm/amd/display: Disable phantom OTG after enable for plane disable
->       drm/amd/display: Add margin for max vblank time for SubVP + DRR
->
-> Andrew Davis (1):
->       drm: Move radeon and amdgpu Kconfig options into their directories
->
-> Aric Cyr (1):
->       drm/amd/display: 3.2.211
->
-> Asher Song (1):
->       Revert "drm/amdgpu: Revert "drm/amdgpu: getting fan speed pwm for v=
-ega10 properly""
->
-> Aurabindo Pillai (1):
->       drm/amd/display: Zeromem mypipe heap struct before using it
->
-> Chaitanya Dhere (1):
->       drm/amd/display: Fix FCLK deviation and tool compile issues
->
-> Christian K=C3=B6nig (1):
->       drm/amdgpu: workaround for TLB seq race
->
-> Dillon Varone (1):
->       drm/amd/display: Enforce minimum prefetch time for low memclk on DC=
-N32
->
-> Dong Chenchen (1):
->       drm/amdgpu: Fix memory leak in amdgpu_cs_pass1
->
-> Felix Kuehling (3):
->       drm/amdkfd: Fix error handling in kfd_criu_restore_events
->       drm/amdkfd: Fix error handling in criu_checkpoint
->       drm/amdgpu: Set MTYPE in PTE based on BO flags
->
-> Gavin Wan (1):
->       drm/amdgpu: Ignore stop rlc on SRIOV environment.
->
-> George Shen (1):
->       drm/amd/display: Populate DP2.0 output type for DML pipe
->
-> Guchun Chen (1):
->       drm/amdgpu: disable BACO on special BEIGE_GOBY card
->
-> Hamza Mahfooz (1):
->       drm/amd/display: only fill dirty rectangles when PSR is enabled
->
-> Hanjun Guo (1):
->       drm/radeon: Add the missed acpi_put_table() to fix memory leak
->
-> Harsh Jain (1):
->       drm/amdgpu: complete gfxoff allow signal during suspend without del=
-ay
->
-> Kenneth Feng (2):
->       drm/amd/pm: enable mode1 reset on smu_v13_0_10
->       drm/amd/pm: skip disabling all smu features on smu_v13_0_10 in susp=
-end
->
-> Leo Ma (1):
->       drm/amd/display: Adding HDMI SCDC DEVICE_ID define
->
-> Liu Jian (1):
->       drm/amd/display: delete the duplicate .set_odm_bypass initializatio=
-n in dcn314_tg_funcs
->
-> LongJun Tang (1):
->       drm/amd/display: Have risk for memory exhaustion
->
-> Luben Tuikov (2):
->       drm/amdgpu: Remove redundant I2C EEPROM address
->       drm/amdgpu: Decouple RAS EEPROM addresses from chips
->
-> Ma Jun (2):
->       drm/amdkfd: Fix the memory overrun
->       drm/amdkfd: Make kfd_fill_cache_non_crat_info() as static
->
-> Max Tseng (1):
->       drm/amd/display: Cursor update refactor: PSR-SU support condition
->
-> Michael Strauss (1):
->       drm/amd/display: Only update link settings after successful MST lin=
-k train
->
-> Mike Hsieh (1):
->       drm/amd/display: Set correct EOTF and Gamut flag in VRR info
->
-> Mustapha Ghaddar (1):
->       drm/amd/display: Fix fallback issues for DP LL 1.4a tests
->
-> Nawwar Ali (1):
->       drm/amd/display: Update 709 gamma to 2.222 as stated in the stander=
-d
->
-> Nicholas Kazlauskas (3):
->       drm/amd/display: Update SR watermarks for DCN314
->       drm/amd/display: Allow tuning DCN314 bounding box
->       drm/amd/display: Fix reg timeout in enc314_enable_fifo
->
-> Paulo Miguel Almeida (2):
->       drm/amdgpu: Replace 1-element array with flexible-array member
->       drm/amdgpu: Replace one-element array with flex-array member
->
-> Philip Yang (2):
->       drm/amdgpu: Unlock bo_list_mutex after error handling
->       drm/amdgpu: Drop eviction lock when allocating PT BO
->
-> Rajneesh Bhardwaj (1):
->       drm/amdgpu: Fix the kerneldoc description
->
-> Ryan Lin (1):
->       drm/amd/display: Waiting for 1 frame to fix the flash issue on PSR1
->
-> Steve Su (1):
->       drm/amd/display: Fix gpio port mapping issue
->
-> Takashi Iwai (1):
->       drm/radeon: Add HD-audio component notifier support (v6)
->
-> Tao Zhou (1):
->       drm/amdgpu: remove the check of init status in psp_ras_initialize
->
-> Tim Huang (1):
->       drm/amd/pm: update SMU IP v13.0.4 msg interface header
->
-> Tong Liu01 (1):
->       drm/amdgpu: add vram reservation based on vram_usagebyfirmware_v2_2
->
-> Ville Syrj=C3=A4l=C3=A4 (1):
->       drm/amdgpu: Use drm_mode_init() for on-stack modes
->
-> Wenjing Liu (1):
->       drm/amd/display: Consider dp cable id only when data is non zero
->
-> Wesley Chalmers (1):
->       drm/amd/display: Disable DRR actions during state commit
->
-> Yifan Zhang (1):
->       drm/amdgpu: force read discovery file if set discovery=3D2
->
->  drivers/gpu/drm/Kconfig                            |  56 ----------
->  drivers/gpu/drm/amd/amdgpu/Kconfig                 |  29 +++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |  59 ++---------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c   | 104 ++++++++++++++-=
+v2:
+  - Added issue link and fixes tag.
+
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2213
+Fixes: c9cad937c0c5 ("drm/amdgpu: add drm buddy support to amdgpu")
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Cc: stable@vger.kernel.org #6.0
 ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   7 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |   9 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c        |   4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c         |   2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |  10 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |   8 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     |  43 +++++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  56 +++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h            |   5 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  26 -----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |  41 ++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c          |   2 +
->  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c             |   7 ++
->  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c             |   7 ++
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  79 ++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/soc21.c                 |   1 +
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  34 +++---
->  drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |   2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_events.c            |   3 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_topology.c          |   2 +-
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  10 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |   8 ++
->  drivers/gpu/drm/amd/display/dc/bios/bios_parser.c  |  28 +++--
->  .../amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c |  32 +++---
->  drivers/gpu/drm/amd/display/dc/core/dc.c           |  55 ++++++----
->  drivers/gpu/drm/amd/display/dc/core/dc_link.c      |   4 +
->  drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c  |   1 +
->  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |  51 +++++++--
->  drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c |  15 ++-
->  drivers/gpu/drm/amd/display/dc/dc.h                |   4 +-
->  drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c       |  60 ++++++++++-
->  drivers/gpu/drm/amd/display/dc/dc_link.h           |   1 +
->  drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c      |   5 +
->  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c |   1 +
->  drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c |   3 -
->  .../gpu/drm/amd/display/dc/dcn30/dcn30_resource.c  |   1 +
->  .../drm/amd/display/dc/dcn301/dcn301_resource.c    |   1 +
->  .../drm/amd/display/dc/dcn302/dcn302_resource.c    |   1 +
->  .../drm/amd/display/dc/dcn303/dcn303_resource.c    |   1 +
->  .../gpu/drm/amd/display/dc/dcn31/dcn31_resource.c  |   1 +
->  .../display/dc/dcn314/dcn314_dio_stream_encoder.c  |  24 +++--
->  .../gpu/drm/amd/display/dc/dcn314/dcn314_optc.c    |   1 -
->  .../drm/amd/display/dc/dcn315/dcn315_resource.c    |   1 +
->  drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c  |   8 ++
->  .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.c  |   3 +
->  .../drm/amd/display/dc/dcn321/dcn321_resource.c    |   3 +
->  drivers/gpu/drm/amd/display/dc/dm_helpers.h        |   5 +
->  .../gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c   |   2 +
->  .../gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c |  11 +-
->  .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c   |   2 +
->  .../amd/display/dc/dml/dcn32/display_mode_vba_32.c |   5 +
->  .../amd/display/dc/dml/dcn32/display_mode_vba_32.h |   3 +
->  .../dc/dml/dcn32/display_mode_vba_util_32.c        |  14 ++-
->  .../dc/dml/dcn32/display_mode_vba_util_32.h        |   3 +-
->  .../gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c |   2 +
->  .../drm/amd/display/dc/dml/display_mode_structs.h  |   1 +
->  .../amd/display/dc/gpio/dcn32/hw_factory_dcn32.c   |  14 +++
->  drivers/gpu/drm/amd/display/dc/gpio/hw_ddc.c       |   9 +-
->  .../drm/amd/display/dc/inc/hw/timing_generator.h   |   1 +
->  drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |   6 +-
->  .../drm/amd/display/modules/color/color_gamma.c    |   2 +-
->  .../drm/amd/display/modules/freesync/freesync.c    |   8 +-
->  drivers/gpu/drm/amd/include/atombios.h             |  24 ++---
->  drivers/gpu/drm/amd/include/atomfirmware.h         |  63 +++++++++--
->  .../drm/amd/pm/powerplay/hwmgr/vega10_thermal.c    |  25 +++--
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |   3 +-
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |   4 +
->  .../amd/pm/swsmu/inc/pmfw_if/smu_v13_0_4_ppsmc.h   |  15 ++-
->  .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |   4 +-
->  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  53 +++++++++-
->  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |  18 ++++
->  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h             |   3 +
->  drivers/gpu/drm/radeon/Kconfig                     |  30 ++++++
->  drivers/gpu/drm/radeon/radeon.h                    |   8 ++
->  drivers/gpu/drm/radeon/radeon_audio.c              | 117 +++++++++++++++=
-++++++
->  drivers/gpu/drm/radeon/radeon_bios.c               |  18 ++--
->  drivers/gpu/drm/radeon/radeon_device.c             |   4 +
->  include/uapi/drm/amdgpu_drm.h                      |  14 +++
->  82 files changed, 1041 insertions(+), 369 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index aea8d26b1724..1964de6ac997 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1369,6 +1369,10 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 	    amdgpu_bo_encrypted(ttm_to_amdgpu_bo(bo)))
+ 		return false;
+ 
++	if (bo->resource->mem_type == TTM_PL_VRAM &&
++	    !(bo->resource->placement & TTM_PL_FLAG_CONTIGUOUS))
++		return false;
++
+ 	return ttm_bo_eviction_valuable(bo, place);
+ }
+ 
+-- 
+2.25.1
+
