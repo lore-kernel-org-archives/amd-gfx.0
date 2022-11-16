@@ -4,49 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58860C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Nov 2022 20:30:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42F67C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 00:50:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E671210E429;
-	Tue, 15 Nov 2022 20:30:28 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9758188FB2;
- Tue, 15 Nov 2022 20:30:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668544222; x=1700080222;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=nwVVHGJwYKY5kCjLKGilRmLEBJRYK6W7/9ysp6hMtaQ=;
- b=d9HHfMeTlUVRnoXO3UiE144L7AMM9YzXa6Qb719N+z5QJ8riwJTBaQIw
- 1+4CuDfweYnYM1qnv4S5CxBMbn1xBUGm6mJh12vreV9vwuBzxxAxPKFdZ
- Oy6ZZ6LPt0p4FpDvEJG7iaHXlHuVCTpAaSQC9XNEdREqsFwQNg8kSa89e
- ZDySZAOOXICcNChgBnkvlpiClcEM/gAXJ/Hzl2+EUYhN1IMam7KCrk8aq
- vJEdxEY9TnOSv0kTVUNeobefnnoI+EqxzJ+e/BnAjv0EzDuajbDraBcbb
- TGgmOLRB2iuQnVYyGkHrPc0JGGVbXl1R7cCXdC1049Fij2oG53sHyJ4je g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10532"; a="295728018"
-X-IronPort-AV: E=Sophos;i="5.96,166,1665471600"; d="scan'208";a="295728018"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Nov 2022 12:30:21 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10532"; a="813814464"
-X-IronPort-AV: E=Sophos;i="5.96,166,1665471600"; d="scan'208";a="813814464"
-Received: from lkp-server01.sh.intel.com (HELO ebd99836cbe0) ([10.239.97.150])
- by orsmga005.jf.intel.com with ESMTP; 15 Nov 2022 12:30:18 -0800
-Received: from kbuild by ebd99836cbe0 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1ov2ZV-0001e7-2k;
- Tue, 15 Nov 2022 20:30:17 +0000
-Date: Wed, 16 Nov 2022 04:30:07 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 3c1f24109dfc4fb1a3730ed237e50183c6bb26b3
-Message-ID: <6373f6cf.OhGqx4uDp+acnhuc%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80CA910E130;
+	Wed, 16 Nov 2022 00:50:03 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2062d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B63310E130
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 00:49:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Z6l+f9H+X31Z70EBBmEqZhB78l9a2eXzNxlSqjC2OIPsD9ZOfnyrY+yBN3sXrVQKZNeaIWEXpTd92PLQ04jX0XQOwge1lRU9DZLOxcwqtC8Qvp+oFmphUHSbTFjJeFxWgGvLhX+UkeUxrIHxCPDcCw/O6ZSJWTwAAII7ExdaHyir8Sx82/HfPpGkiPChn/jCtyKxvZl4RMYsY89/e+O/AIjy25KoeysNKXjOtNOhy/G5qRGWzWFtauVe3DgVUfw9NQYSoDBliONEDP/nw3xnr7g+lcRsaHAzrgb/Wo7MiMKBKyf4SXP4u4TuAYXL4GY3Za/Bw+8aNHvI+apE2VGGuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xJ+8OQqTtdpp4ZiPaU7jIbzC+M1UlrsEhOMg1eYON5E=;
+ b=VWLku276A20/TmFiI5szdTti+1+ltjb7giiWooxg1r7/NLSg2lKlauotkRsq7RZqDCF1BmQoJeEbUnes4vVqyNytsk7zXSpQRWchHIRge+RQFRosLaK3fXqsIf0LOPdsDbrgTF2RKxQadJKVdNBu/gtlSilcInm+a4sXVGZjqBCbZWcFhnzWsGPOKp6wAnqA9TWEuiQcwts5OMJhXBj7Fz+7XYcG4Fq5cE5Eb9/fjp12ltS9AvdGDmms/eCKdukvRcIuTS0Xn0C2zeJO9tKkwV1N9K5ON47H6Eu4W7ZVZiuZYh697D5opmIG8YVTEQRm+7+6gQIWQYHMS6RAeILeEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xJ+8OQqTtdpp4ZiPaU7jIbzC+M1UlrsEhOMg1eYON5E=;
+ b=SZTQWbZQEy3EewT2N+IaEArrG7j4UsMudQQU/kKcsIbxEm/EaZYlRQQyRq9x2MgaELUVrrWItQGw2es4k94bGbhczsIYnYNzVhELils2rsxO5NCx+XhhF4wc1CM0bpxu5YzMNkdmKIIvgnbXkEHP4PdtzQ839VWcXOxXLejlj/U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6351.namprd12.prod.outlook.com (2603:10b6:8:a2::6) by
+ DM4PR12MB6086.namprd12.prod.outlook.com (2603:10b6:8:b2::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5813.17; Wed, 16 Nov 2022 00:49:56 +0000
+Received: from DM4PR12MB6351.namprd12.prod.outlook.com
+ ([fe80::dda9:dc0a:4491:ac2]) by DM4PR12MB6351.namprd12.prod.outlook.com
+ ([fe80::dda9:dc0a:4491:ac2%6]) with mapi id 15.20.5813.018; Wed, 16 Nov 2022
+ 00:49:56 +0000
+Message-ID: <76813601-73d5-f218-8b76-590700273322@amd.com>
+Date: Wed, 16 Nov 2022 08:49:47 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [bug report] drm/amdkfd: Fix the warning of
+ array-index-out-of-bounds
+To: Dan Carpenter <error27@gmail.com>, Jun.Ma2@amd.com
+References: <Y2oyylG+hW5tMWJN@kili>
+Content-Language: en-US
+From: "Ma, Jun" <majun@amd.com>
+In-Reply-To: <Y2oyylG+hW5tMWJN@kili>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI1PR02CA0043.apcprd02.prod.outlook.com
+ (2603:1096:4:1f6::19) To DM4PR12MB6351.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::6)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6351:EE_|DM4PR12MB6086:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b0f07ab-cf9f-4569-49e4-08dac76c7b3d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: kPicE1TdgoH+5IF9MSZBZ0f/TBGcCl6178LZUpfV5/lUe5sCh8j0ljMyi8SKi4ELsjz+fAFYyPfwUXuxzpJqc+hh+j/96T3O+bRxlXdR+nQ6C0Af71fkuGGJ/M3GVxS39ew+tA+h3ADWNCt5eca6aTrNBGAFH3kjxf2W30eDrt7Z7vV2hFLvz5d6gEvLvDeA7bF6r5jfojCrfT8jcTC+c3afg266mJPdD5PPGcin9xUR2yqgYtVbC+ScBKbBy6yCNMGXzjptRjHISkxvefinE9EE7G/HdGUfM02Faz0j6YdMJvtTIfZGJ0EdGSPHNrfIk4OKfstNmEymujXaN27Isa55cZR9LUR+C9F+WsBMxHfpVYNZPeOttPP9PEoLjd906GHe8PVbMoqzHDUiqARnCfjUZ9xFGXk2GqwEne3lD16vETkLSDRS3v02lcZiUKwJfWe2CN8U8NsZ26ufIo+yz5tlethT/giRww4hCqA+V3jQb985Yp+y/pRkNngA4L9i8hMjy8W2ZJww4opWEELsj8SeGLBR0K4Oa1regrhLl6DsGSLI9X/kC1Ha1k8din0eNrycFVjToUwBtACcB1buxUVDT3AjgA8kciQmY+lLbf8GwMmjlCargXGBQ3Rj1pQE6wNMPbFPIeh62sQFliYLWPz+/MVX0KEx5oSZgFAOt+sAX1crwbqNi5tnSqQu0tZpX3/gRSmILxfKLFMa54nWZ+riYxjW/fpGH8L9CW7X+2bmuJbcL2PzwxWv32KpEHmQdnRBe6LOefEKr/0rOvqPsNQut4t6rzCY9o3GL2he5O6AuI0BMU+IUMI8o7lF/SWs
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6351.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(136003)(366004)(346002)(376002)(396003)(451199015)(478600001)(6636002)(6666004)(6506007)(31686004)(6486002)(26005)(6512007)(31696002)(53546011)(316002)(66946007)(8936002)(36756003)(38100700002)(8676002)(66556008)(41300700001)(2616005)(4326008)(83380400001)(66476007)(186003)(5660300002)(2906002)(116466002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ykp3bmRwL3NJV0RQcEtMZTJBQ2thYXZzUk5vZU5zTVJmUmp2QjZvNXpZSEd3?=
+ =?utf-8?B?K1BvVWJzcUtFaDNJZVN1SnhwbHBtS3E0ZGYwRFZydUh3cjJMalc0WnAzaDVm?=
+ =?utf-8?B?OEpTSkN4QkJHVTJYRGpzaWtBczJmdy9nRmo0WGNQd1lGMXBCNzRaYWU0bGQr?=
+ =?utf-8?B?T3F6Sjh0dnQwcnR5YmJaQ3NjME1wSW1zYXRxSktYTGQ4czhkN3N1YXBuYTN4?=
+ =?utf-8?B?a3puMTBjbHNvTXlaeWdKbytTYWtyVTFqUHp4MlRTc1pBN29OQ0luTEtYZkJZ?=
+ =?utf-8?B?TW5PbVA4MkRxZ044a2dUZzVBbnJvMWpaSllBZ25XYVBMeXhqV0IrUnFYMklq?=
+ =?utf-8?B?cEtpUjh3MG9aaWNVanQ0Mm5XblNSVUJaNC9ydFZ4RjZ5NTFmcW1HbmUzS0h0?=
+ =?utf-8?B?Wm5XRFZUZTkyalgrYlVPS3hldkhGNFJsNHFhZTZHSXNlalhFTTFQNUVidTZV?=
+ =?utf-8?B?S0MreUtxejRGWXpZZk94S1JuZ05mSm1laldKeDZXVlVEdDh5eG0xaTEvRVk4?=
+ =?utf-8?B?QnVUaVRidHlEZWNuOVV2QU1Tek5uQ3ZpUnhLZklmeXVXdFBrU21ZZ3pYOXRz?=
+ =?utf-8?B?MGd6R2JXMXJFY1lDdmxJNStkaTdIdUFmZWdITjduNDlWQnlhSXNaZ1dSQlNI?=
+ =?utf-8?B?ZG9jWG5BQmJSelcyUGN6YTQvNjRWK1FPcTJrbkZMeTZ3aisyUUYvTHF1U0hK?=
+ =?utf-8?B?K09WRGNMVlB5UFNBL3FJKzM3QkxJY1FiRDg1enp6SUJXWTl1bkhkdEJNSjdZ?=
+ =?utf-8?B?dVI2VWswTW5MQXZWUGFiNzVwUUxWVWgrTGZRRDlpWFhlRUF1QUJwOFA5TDY3?=
+ =?utf-8?B?aFhnK21LdlVxcDc1OE9GZ21kQ2RXSWFSTTRqMEl3aXVidGpBM01QNWkwdzVK?=
+ =?utf-8?B?alhXaStvZ3lHV1FwQXllUzV4cGVvVnhxSTZXZ2VHTTBiRkhlYitPZ0V1Wldp?=
+ =?utf-8?B?dWlUZ3E2Q1hNRXpCQTBtSkpWNVFTOTVONWZ5bjVKRmpxU3ovdUNUK3BxdmNV?=
+ =?utf-8?B?d01kckM4eUNmRDBublNUVnY0MmlzbEFsdS9yN3dwRFhXT05MNFpNTHdlYU9F?=
+ =?utf-8?B?VVhzQm01Z1YwT2E5TjBHeHExRTZjUE1FM2xPN0hIb1ZsUkR5OWVCdG5IMmpN?=
+ =?utf-8?B?VWV5TFVyQW4rby9FckY3U3FJTS9ITFBXMC9nbGMwY1E0MnRjVElKOU1jZEpv?=
+ =?utf-8?B?L3ZpM01vb0xaTm9MTW5GUjJBaS96eGkyK3RFVlN3eUgxRWJ1elJzblc4alU2?=
+ =?utf-8?B?eHNNQVlnRmwyMjlNaHFqa1hoRThLZ0ExUnpKcHZUUlI3V3VBMzBIR3RsNHBT?=
+ =?utf-8?B?cEUyNmRPU1ZNeFl3TERLUU9ibGpnWG16V3dmQ2JSTGtFOXdiZDhuanRyM2Qr?=
+ =?utf-8?B?Ync3M3dFR05HME5rSlB4U0JuWHp3YWRCbnV5c1JKejhwOFJEWXdhazBDcGVP?=
+ =?utf-8?B?V0hSTE4zeGJraTJITFc0b1BCTHlyN0J3clRlNEpTc05MUllBd1dNL0RNdU1a?=
+ =?utf-8?B?TUFEZGtIWVVrcFI1RDVGQUNiYXpldnMvcmFKZzJYZHVQMDlYU3U0OTh1L3Zi?=
+ =?utf-8?B?S2N6UTZvUUJ6ZVBnSTdlc3kwbWlyUFJ6NUFkTGhHalJoWk1PbGRjeDN0aHA1?=
+ =?utf-8?B?cUhya1NkazNxTnRWMTNnZ2xUUVRlcnRqdU5QYUwvakUyZXpjMXZLQmszUE1o?=
+ =?utf-8?B?TkZ0SWRFRjVVRk83K1NxTmVubjVaS0RSMlZrYldNVkxqU21IS2F1S1dxT0tw?=
+ =?utf-8?B?U1lDbHNEMXdIZCs0ZjlkVThYanVQMExGbEdxdm9GVjRLVm1HamV4eXZlRWhP?=
+ =?utf-8?B?MEpKU1Y1TldiUHl6emFmVmNjT0MrR3ZYeW52ZEdGaTEyS3l0cGxJTHQ4MStm?=
+ =?utf-8?B?WW5EWmUzelgrZ0ZSZHVqaS8vUXVSZFhoZEd0QUU0NFFIVkNlRnU2WGgrMjdP?=
+ =?utf-8?B?dldlR3V3dmEweW5yR0FDQzNYNDZuM0NjbTAzZ2hlMHRVd3crRGVNUXU1WnFm?=
+ =?utf-8?B?eEVGUVdHS3VHTm1xRTFsNm9sSmlSRC83Q1Q5RkZ2VVM5ekR3ZW5sS1lEUUJM?=
+ =?utf-8?B?NVhrcHh1cTYxbktVaERFTjdCL08wU0piL2dtMzAwMjlUVW1Kamc0TDV5bnNX?=
+ =?utf-8?Q?LkIYrnsLZIRRMevjRVUxGi1IS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b0f07ab-cf9f-4569-49e4-08dac76c7b3d
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6351.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2022 00:49:56.7636 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 76rVndkex+lNcf0PVBUeqIajkJ1OCcScIOmYGBco0YwaG8mzFrTsJitFv9sr4I4k
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6086
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,189 +125,126 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-pm@vger.kernel.org, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-afs@lists.infradead.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- amd-gfx@lists.freedesktop.org, netdev@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 3c1f24109dfc4fb1a3730ed237e50183c6bb26b3  Add linux-next specific files for 20221115
+Hi Dan,
 
-Error/Warning reports:
+Thanks for catching this. I'll check it and post a fix patch.
 
-https://lore.kernel.org/oe-kbuild-all/202211041320.coq8EELJ-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211090634.RyFKK0WS-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211130053.Np70VIdn-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211152134.2APMmViw-lkp@intel.com
+Regards,
+Ma Jun
 
-Error/Warning: (recently discovered and may have been fixed)
-
-arch/arm/mach-s3c/devs.c:32:10: fatal error: linux/platform_data/dma-s3c24xx.h: No such file or directory
-drivers/clk/clk.c:1022:5: error: redefinition of 'clk_prepare'
-drivers/clk/clk.c:1268:6: error: redefinition of 'clk_is_enabled_when_prepared'
-drivers/clk/clk.c:941:6: error: redefinition of 'clk_unprepare'
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:4887: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5073:24: warning: implicit conversion from 'enum <anonymous>' to 'enum dc_status' [-Wenum-conversion]
-drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c:451:1: warning: no previous prototype for 'gf100_fifo_nonstall_block' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:34:1: warning: no previous prototype for 'nvkm_engn_cgrp_get' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/engine/gr/tu102.c:210:1: warning: no previous prototype for 'tu102_gr_load' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/nvfw/acr.c:49:1: warning: no previous prototype for 'wpr_generic_header_dump' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/subdev/acr/lsfw.c:221:21: warning: variable 'loc' set but not used [-Wunused-but-set-variable]
-ld.lld: error: .btf.vmlinux.bin.o: unknown file type
-ld.lld: error: undefined symbol: ipv6_icmp_error
-net/rxrpc/local_object.c:36: undefined reference to `ipv6_icmp_error'
-vmlinux.o: warning: objtool: __btrfs_map_block+0x1e22: unreachable instruction
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/cpufreq/acpi-cpufreq.c:970 acpi_cpufreq_boost_init() error: uninitialized symbol 'ret'.
-lib/zstd/compress/huf_compress.c:460 HUF_getIndex() warn: the 'RANK_POSITION_LOG_BUCKETS_BEGIN' macro might need parens
-lib/zstd/decompress/zstd_decompress_block.c:1009 ZSTD_execSequence() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:894 ZSTD_execSequenceEnd() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_block.c:942 ZSTD_execSequenceEndSplitLitBuffer() warn: inconsistent indenting
-lib/zstd/decompress/zstd_decompress_internal.h:206 ZSTD_DCtx_get_bmi2() warn: inconsistent indenting
-mm/khugepaged.c:2038 collapse_file() warn: iterator used outside loop: 'page'
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- alpha-randconfig-r032-20221114
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arm-allyesconfig
-|   |-- arch-arm-mach-s3c-devs.c:fatal-error:linux-platform_data-dma-s3c24xx.h:No-such-file-or-directory
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arm-defconfig
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-clang_recent_errors
-|-- hexagon-randconfig-r041-20221114
-|   `-- ld.lld:error:undefined-symbol:ipv6_icmp_error
-|-- i386-randconfig-a015
-|   `-- ld.lld:error:undefined-symbol:ipv6_icmp_error
-|-- x86_64-randconfig-a005
-|   |-- ld.lld:error:.btf.vmlinux.bin.o:unknown-file-type
-|   `-- ld.lld:error:undefined-symbol:ipv6_icmp_error
-`-- x86_64-randconfig-a012-20221114
-    `-- vmlinux.o:warning:objtool:handle_bug:call-to-kmsan_unpoison_entry_regs()-leaves-.noinstr.text-section
-
-elapsed time: 734m
-
-configs tested: 64
-configs skipped: 2
-
-gcc tested configs:
-i386                                defconfig
-x86_64                        randconfig-a004
-um                             i386_defconfig
-x86_64                        randconfig-a002
-um                           x86_64_defconfig
-powerpc                          allmodconfig
-x86_64                        randconfig-a006
-i386                 randconfig-a001-20221114
-mips                             allyesconfig
-x86_64                              defconfig
-x86_64                           rhel-8.3-syz
-powerpc                           allnoconfig
-i386                 randconfig-a002-20221114
-x86_64                            allnoconfig
-x86_64                         rhel-8.3-kunit
-sh                               allmodconfig
-i386                 randconfig-a005-20221114
-i386                 randconfig-a006-20221114
-arc                  randconfig-r043-20221115
-x86_64                           rhel-8.3-kvm
-arc                                 defconfig
-riscv                randconfig-r042-20221115
-ia64                             allmodconfig
-i386                             allyesconfig
-arm                                 defconfig
-arc                  randconfig-r043-20221114
-i386                 randconfig-a003-20221114
-x86_64                    rhel-8.3-kselftests
-s390                 randconfig-r044-20221115
-x86_64                               rhel-8.3
-x86_64                          rhel-8.3-func
-i386                 randconfig-a004-20221114
-s390                             allmodconfig
-i386                          randconfig-a014
-alpha                               defconfig
-s390                                defconfig
-m68k                             allyesconfig
-m68k                             allmodconfig
-s390                             allyesconfig
-arc                              allyesconfig
-i386                          randconfig-a012
-x86_64                           allyesconfig
-i386                          randconfig-a016
-alpha                            allyesconfig
-arm                              allyesconfig
-arm64                            allyesconfig
-
-clang tested configs:
-x86_64                        randconfig-a005
-x86_64                        randconfig-a001
-x86_64                        randconfig-a003
-x86_64               randconfig-a014-20221114
-x86_64               randconfig-a012-20221114
-x86_64               randconfig-a013-20221114
-x86_64               randconfig-a011-20221114
-x86_64               randconfig-a016-20221114
-x86_64               randconfig-a015-20221114
-hexagon              randconfig-r045-20221114
-hexagon              randconfig-r045-20221115
-hexagon              randconfig-r041-20221114
-i386                          randconfig-a013
-s390                 randconfig-r044-20221114
-hexagon              randconfig-r041-20221115
-riscv                randconfig-r042-20221114
-i386                          randconfig-a011
-i386                          randconfig-a015
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+On 11/15/2022 9:00 PM, Dan Carpenter wrote:
+> [ Ugh...  My email messed up and I have to Resend all my emails for the
+>   past two weeks. -dan ]
+> 
+> Hello Ma Jun,
+> 
+> The patch c0cc999f3c32: "drm/amdkfd: Fix the warning of
+> array-index-out-of-bounds" from Nov 2, 2022, leads to the following
+> Smatch static checker warning:
+> 
+> 	drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:2008 kfd_topology_add_device()
+> 	warn: inconsistent returns '&topology_lock'.
+> 
+> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c
+>     1808 int kfd_topology_add_device(struct kfd_dev *gpu)
+>     1809 {
+>     1810         uint32_t gpu_id;
+>     1811         struct kfd_topology_device *dev;
+>     1812         struct kfd_cu_info cu_info;
+>     1813         int res = 0;
+>     1814         struct list_head temp_topology_device_list;
+>     1815         void *crat_image = NULL;
+>     1816         size_t image_size = 0;
+>     1817         int proximity_domain;
+>     1818         int i;
+>     1819         const char *asic_name = amdgpu_asic_name[gpu->adev->asic_type];
+>     1820 
+>     1821         INIT_LIST_HEAD(&temp_topology_device_list);
+>     1822 
+>     1823         gpu_id = kfd_generate_gpu_id(gpu);
+>     1824         pr_debug("Adding new GPU (ID: 0x%x) to topology\n", gpu_id);
+>     1825 
+>     1826         /* Check to see if this gpu device exists in the topology_device_list.
+>     1827          * If so, assign the gpu to that device,
+>     1828          * else create a Virtual CRAT for this gpu device and then parse that
+>     1829          * CRAT to create a new topology device. Once created assign the gpu to
+>     1830          * that topology device
+>     1831          */
+>     1832         down_write(&topology_lock);
+>                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+> Takes the lock.
+> 
+>     1833         dev = kfd_assign_gpu(gpu);
+>     1834         if (!dev) {
+>     1835                 proximity_domain = ++topology_crat_proximity_domain;
+>     1836 
+>     1837                 res = kfd_create_crat_image_virtual(&crat_image, &image_size,
+>     1838                                                     COMPUTE_UNIT_GPU, gpu,
+>     1839                                                     proximity_domain);
+>     1840                 if (res) {
+>     1841                         pr_err("Error creating VCRAT for GPU (ID: 0x%x)\n",
+>     1842                                gpu_id);
+>     1843                         topology_crat_proximity_domain--;
+>     1844                         return res;
+> 
+> Does not drop the lock.
+> 
+>     1845                 }
+>     1846 
+>     1847                 res = kfd_parse_crat_table(crat_image,
+>     1848                                            &temp_topology_device_list,
+>     1849                                            proximity_domain);
+>     1850                 if (res) {
+>     1851                         pr_err("Error parsing VCRAT for GPU (ID: 0x%x)\n",
+>     1852                                gpu_id);
+>     1853                         topology_crat_proximity_domain--;
+>     1854                         goto err;
+> 
+> Does not drop the lock.
+> 
+>     1855                 }
+>     1856 
+>     1857                 kfd_topology_update_device_list(&temp_topology_device_list,
+>     1858                         &topology_device_list);
+>     1859 
+>     1860                 dev = kfd_assign_gpu(gpu);
+>     1861                 if (WARN_ON(!dev)) {
+>     1862                         res = -ENODEV;
+>     1863                         goto err;
+> 
+> Does not drop the lock.
+> 
+>     1864                 }
+>     1865 
+>     1866                 /* Fill the cache affinity information here for the GPUs
+>     1867                  * using VCRAT
+>     1868                  */
+>     1869                 kfd_fill_cache_non_crat_info(dev, gpu);
+>     1870 
+>     1871                 /* Update the SYSFS tree, since we added another topology
+>     1872                  * device
+>     1873                  */
+>     1874                 res = kfd_topology_update_sysfs();
+>     1875                 if (!res)
+>     1876                         sys_props.generation_count++;
+>     1877                 else
+>     1878                         pr_err("Failed to update GPU (ID: 0x%x) to sysfs topology. res=%d\n",
+>     1879                                                 gpu_id, res);
+>     1880         }
+>     1881         up_write(&topology_lock);
+>                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+> Drops the lock.  The patch has some other locking changes which are
+> not explained in the commit message and seem unrelated to the out of
+> bounds issue.
+> 
+>     1882 
+>     1883         dev->gpu_id = gpu_id;
+>     1884         gpu->id = gpu_id;
+> 
+> regards,
+> dan carpenter
+> 
