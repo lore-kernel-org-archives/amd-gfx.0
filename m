@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 677F7C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 13:50:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1FC8C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 14:43:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86DE710E600;
-	Thu, 17 Nov 2022 13:50:49 +0000 (UTC)
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8452610E600
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Nov 2022 13:50:47 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id
- ja4-20020a05600c556400b003cf6e77f89cso4703962wmb.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Nov 2022 05:50:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=1HprMsMjyGfwxTXLPdfD0JV8T8pnKhgKKKVZzbvpgM4=;
- b=uq+g0mAsHWmh98cKS3D0tc9XkWwHZlYF9R4Pz+TASRtyQx/ijmUP+DksTYY/BknSMN
- Q4nGteFYpuvx7Z8eBHacDVGM7w9Y4weKX1ocPbmbFad45bo8FZetC4XISDa9i4qFWGRp
- IRmgkFy2N2r4DXB0VPbidtKmafHp1HDZ5CUrsgxGaltg0oCwNEdbrHvFFZmhY0vrZtHo
- grLQrGMEmjUsJJFRg3wUa5yEV59xr15uXiUUvfy4v8R2WKbRm3yTOOYfW+yQscyG6b4/
- aFIcvou2EwLydkI6F/VnToCRjC1XR893RnW1DsqxD/O//KqANuibcoAoyFksoe6LEWaN
- Sphw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=1HprMsMjyGfwxTXLPdfD0JV8T8pnKhgKKKVZzbvpgM4=;
- b=N3czpeOPpW9OD7QzWrJr21bfxERwv5EDJvAEt8drSidfIJBHX++Y3m5VEmqh1T46YY
- F+QDtzQU93q2WzpFKsxigzB6L+APLl50Dz67Th8c6UjgOVLmg0aRnzADzvaJbKnvRpGV
- 70ujARKDjjNdNlgeK3jnqtkH+P8nDiMn9lopbcAvNCX87bljoLeSUrbjcvwZQv3sSo2p
- wzTfm6eYXfZsd9/DclrP1FH+NRxlbhYAoQAM6lmNtZ8ViRKjHol2GCFwNWkPpB93lkBF
- yVWM3uJVwaPq2gftdNeBHiD7x0D18z+Ejg+IsQTU46gVyD5QSRJfs3KEOBD98it18UXA
- Euiw==
-X-Gm-Message-State: ANoB5pnLWqB+xVGULMLqiBnSFUxioux69Op4+MPcFQwS5oZy2oG6sSAD
- gdU2oBc/O+YhG1nFYe78NQO3hgguCBLaX4Z9sAvnDA==
-X-Google-Smtp-Source: AA0mqf6P87BoMm0VPSBjQMTY90giYVoxTOOtc02hJ7dXyIxbCXOtqi4SbKWYKRFCGyjpWtNGCqylQmSzhshrE3bXvXc=
-X-Received: by 2002:a1c:e917:0:b0:3cf:681a:43e1 with SMTP id
- q23-20020a1ce917000000b003cf681a43e1mr1671164wmc.126.1668693045906; Thu, 17
- Nov 2022 05:50:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1703D10E60A;
+	Thu, 17 Nov 2022 14:43:22 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F383410E60F;
+ Thu, 17 Nov 2022 14:41:31 +0000 (UTC)
+Received: from [192.168.2.32] (109-252-117-140.nat.spd-mgts.ru
+ [109.252.117.140])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 4025A6602AA5;
+ Thu, 17 Nov 2022 14:41:30 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1668696090;
+ bh=lvaIRdz0i9pdVzS+8oqK7lnk9saQpKoDeBlk0730jCg=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=GJ7pEQgHj7SN4oUrpoO6gYxyIXaj43jZtYvCSYrVlejoOs6X44Re0lJ2M0eksfiTr
+ hTKehpZw5TkKpOKTTTumss3D7algBQg8qMt9ILZXyjTM8YswX43y6ftTl/dpi5EyS+
+ s6j3qWqRfXBTNaQWCNwZK3p99kENxhUsAlNo05gl25Qyfj/RFDih2NqnZ8lO3NZx4a
+ iAu3JvM0SyfHdfDiLYIKRU4PPgy85CDu6wmnh8BHU7095VRzqAipFTgntMrx5CSLG/
+ KXnlkDJaPMKlllrCdiFtmmkM/srPEXbSNdqtaU2SifavtUs1jXL/wQP6Vhc2F02f75
+ aIOArEl+FuOew==
+Message-ID: <50308598-324f-f628-a4f1-55da3935a2f5@collabora.com>
+Date: Thu, 17 Nov 2022 17:41:25 +0300
 MIME-Version: 1.0
-References: <20221109061319.2870943-1-chiahsuan.chung@amd.com>
- <20221109061319.2870943-5-chiahsuan.chung@amd.com>
-In-Reply-To: <20221109061319.2870943-5-chiahsuan.chung@amd.com>
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Thu, 17 Nov 2022 13:50:34 +0000
-Message-ID: <CAHbf0-GWvsCiX8NtVvOPZuy+RUCwkcQgJy7pOs0v7Vi-C_QqjQ@mail.gmail.com>
-Subject: Re: [PATCH 04/29] drm/amd/display: fix dpms_off issue when disabling
- bios mode
-To: Tom Chung <chiahsuan.chung@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Subject: Re: [PATCH 12/13] drm/scheduler: rework entity flush, kill and fini
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ luben.tuikov@amd.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20221014084641.128280-1-christian.koenig@amd.com>
+ <20221014084641.128280-13-christian.koenig@amd.com>
+ <1b1fae07-a5c3-e982-94a2-c35ab26f0e91@collabora.com>
+ <da420e53-cafd-b46f-90df-ed54e6de09a3@amd.com>
+ <9722032c-f1b3-37ff-91d2-6ed965300047@collabora.com>
+ <ef732036-895b-0f5c-d06b-d7e4a739541a@gmail.com>
+ <74d74689-9c8e-1691-a232-c18271974f37@collabora.com>
+ <126a8c1e-69ec-5068-1aad-30f5e7c3ef21@collabora.com>
+ <4f5766ab-d31f-d0c8-6b1e-0c7e0fbabfed@amd.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <4f5766ab-d31f-d0c8-6b1e-0c7e0fbabfed@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 17 Nov 2022 14:43:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,58 +67,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Aric Cyr <Aric.Cyr@amd.com>, Sunpeng.Li@amd.com,
- Bhawanpreet.Lakha@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, amd-gfx@lists.freedesktop.org,
- Zhongwei Zhang <Zhongwei.Zhang@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Harry.Wentland@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 9 Nov 2022 at 06:15, Tom Chung <chiahsuan.chung@amd.com> wrote:
->
-> From: Zhongwei Zhang <Zhongwei.Zhang@amd.com>
->
-> [Why]
-> disable_vbios_mode_if_required() will set dpms_off to false
-> during boot when pixel clk dismatches with driver requires.
-> This will cause extra backlight on and off if OS call 2
-> times setmode.
->
-> [How]
-> Set dpms_off to true to keep power_off and
-> let OS control BL by display's powerState.
->
-> Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
-> Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-> Signed-off-by: Zhongwei Zhang <Zhongwei.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index 9c3704c4d7e4..9f42adc234e3 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -1192,7 +1192,7 @@ static void disable_vbios_mode_if_required(
->
->                                         if (pix_clk_100hz != requested_pix_clk_100hz) {
->                                                 core_link_disable_stream(pipe);
-> -                                               pipe->stream->dpms_off = false;
-> +                                               pipe->stream->dpms_off = true;
->                                         }
->                                 }
->                         }
-> --
-> 2.25.1
->
+On 11/17/22 16:11, Christian König wrote:
+> Am 17.11.22 um 14:00 schrieb Dmitry Osipenko:
+>> On 11/17/22 15:59, Dmitry Osipenko wrote:
+>>> On 11/17/22 15:55, Christian König wrote:
+>>>> Am 17.11.22 um 13:47 schrieb Dmitry Osipenko:
+>>>>> On 11/17/22 12:53, Christian König wrote:
+>>>>>> Am 17.11.22 um 03:36 schrieb Dmitry Osipenko:
+>>>>>>> Hi,
+>>>>>>>
+>>>>>>> On 10/14/22 11:46, Christian König wrote:
+>>>>>>>> +/* Remove the entity from the scheduler and kill all pending
+>>>>>>>> jobs */
+>>>>>>>> +static void drm_sched_entity_kill(struct drm_sched_entity *entity)
+>>>>>>>> +{
+>>>>>>>> +    struct drm_sched_job *job;
+>>>>>>>> +    struct dma_fence *prev;
+>>>>>>>> +
+>>>>>>>> +    if (!entity->rq)
+>>>>>>>> +        return;
+>>>>>>>> +
+>>>>>>>> +    spin_lock(&entity->rq_lock);
+>>>>>>>> +    entity->stopped = true;
+>>>>>>>> +    drm_sched_rq_remove_entity(entity->rq, entity);
+>>>>>>>> +    spin_unlock(&entity->rq_lock);
+>>>>>>>> +
+>>>>>>>> +    /* Make sure this entity is not used by the scheduler at the
+>>>>>>>> moment */
+>>>>>>>> +    wait_for_completion(&entity->entity_idle);
+>>>>>>> I'm always hitting lockup here using Panfrost driver on terminating
+>>>>>>> Xorg. Revering this patch helps. Any ideas how to fix it?
+>>>>>>>
+>>>>>> Well is the entity idle or are there some unsubmitted jobs left?
+>>>>> Do you mean unsubmitted to h/w? IIUC, there are unsubmitted jobs left.
+>>>>>
+>>>>> I see that there are 5-6 incomplete (in-flight) jobs when
+>>>>> panfrost_job_close() is invoked.
+>>>>>
+>>>>> There are 1-2 jobs that are constantly scheduled and finished once
+>>>>> in a
+>>>>> few seconds after the lockup happens.
+>>>> Well what drm_sched_entity_kill() is supposed to do is to prevent
+>>>> pushing queued up stuff to the hw when the process which queued it is
+>>>> killed. Is the process really killed or is that just some incorrect
+>>>> handling?
+>>> It's actually 5-6 incomplete jobs of Xorg that are hanging when Xorg
+>>> process is closed.
+>>>
+>>> The two re-scheduled jobs are from sddm, so it's only the Xorg context
+>>> that hangs.
+>>>
+>>>> In other words I see two possibilities here, either we have a bug in
+>>>> the
+>>>> scheduler or panfrost isn't using it correctly.
+>>>>
+>>>> Does panfrost calls drm_sched_entity_flush() before it calls
+>>>> drm_sched_entity_fini()? (I don't have the driver source at hand at the
+>>>> moment).
+>>> Panfrost doesn't use drm_sched_entity_flush(), nor
+>>> drm_sched_entity_flush().
+>> *nor drm_sched_entity_fini()
+> 
+> Well that would mean that this is *really* buggy! How do you then end up
+> in drm_sched_entity_kill()? From drm_sched_entity_destroy()?
 
-Hi, this patch gives me a blank screen when booting my Asus G513QY /
-6800M. apart from the screen being of I can ssh in just fine
+Yes, from drm_sched_entity_destroy().
 
-Reverting it puts things back to normal
+> drm_sched_entity_flush() should be called from the flush callback from
+> the file_operations structure of panfrost. See amdgpu_flush() and
+> amdgpu_ctx_mgr_entity_flush(). This makes sure that we wait for all
+> entities of the process/file descriptor to be flushed out.
+> 
+> drm_sched_entity_fini() must be called before you free the memory the
+> entity structure or otherwise we would run into an use after free.
 
-Cheers
+Right, drm_sched_entity_destroy() invokes these two functions and
+Panfrost uses drm_sched_entity_destroy().
 
-Mike
+-- 
+Best regards,
+Dmitry
+
