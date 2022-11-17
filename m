@@ -4,40 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0099C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 07:56:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCF02C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 08:19:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E329D10E56E;
-	Thu, 17 Nov 2022 07:56:25 +0000 (UTC)
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C621E10E56E
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Nov 2022 07:56:21 +0000 (UTC)
-Date: Thu, 17 Nov 2022 07:56:09 +0000
-Authentication-Results: mail-4321.protonmail.ch;
- dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
- header.b="MbZLgtY/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail3; t=1668671775; x=1668930975;
- bh=WYuRefUyKGr6lMweRSCbo3l2TIHxHgZBvU3a5FItoNs=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=MbZLgtY/j47Dw22xljN6e7r0bo46ItdP5YGdDrUUoDwx6Vnv8jDKfuXZnGrstuC3x
- MrHMiAlWFV7z1yHgl5Yjf+JQ+4oIv4TF3dGbHvnDY7uYS11pj/zEwCyfodhhPl8obV
- fClzkIiWGaUBDf4yB7/vFfMAsc7579C+XbsN3PecMDD9b04G7juRtBxeZGDHYYsHdR
- pj1GHcMKxAze5bslODwcSfFQCAJDdPSNFgzIePH8rGNj5gQ5RzKI50KsuPHSBnmvuE
- zX0rDm03ODf+NYZKwUAy7Wm3f9I/VZLVfeXcwptLOZ8AcDdrgZJb+TAWW08bHtO1wU
- zwCHQS9vdlR8Q==
-To: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-From: Simon Ser <contact@emersion.fr>
-Subject: Re: [PATCH] drm/amd/display: rewrite the check for mods
-Message-ID: <rCi2ckxzcwtJsZr86hXMQnk3b1ARq6wXXoNiQe-6cQzinJ7CSzUABqf7k5GfIhKoLQ3wXGOQJPR0TjW2Ddn5sM5ht61w_NEHHeSPdGaIwc0=@emersion.fr>
-In-Reply-To: <20221117073258.21214-1-jiasheng@iscas.ac.cn>
-References: <20221117073258.21214-1-jiasheng@iscas.ac.cn>
-Feedback-ID: 1358184:user:proton
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B80F10E030;
+	Thu, 17 Nov 2022 08:19:55 +0000 (UTC)
+Received: from out30-130.freemail.mail.aliyun.com
+ (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AC1F10E54D;
+ Thu, 17 Nov 2022 07:07:06 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R391e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045176;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
+ TI=SMTPD_---0VV.5Etf_1668668818; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0VV.5Etf_1668668818) by smtp.aliyun-inc.com;
+ Thu, 17 Nov 2022 15:07:02 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH 1/2] drm/amd/display: Remove set but unused variable
+ 'TPreMargin'
+Date: Thu, 17 Nov 2022 15:06:54 +0800
+Message-Id: <20221117070655.52749-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 17 Nov 2022 08:19:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,12 +42,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, airlied@gmail.com, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, dri-devel@lists.freedesktop.org,
- nicholas.kazlauskas@amd.com, Jerry.Zuo@amd.com, aurabindo.pillai@amd.com,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com, linux-kernel@vger.kernel.org
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Xinhui.Pan@amd.com,
+ Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This breaks the "size" out-parameter.
+Variable TPreMargin is not effectively used in the function, so delete it.
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_util_32.c:3478:10: warning: variable ‘TPreMargin’ set but not used.
+
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3144
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ .../gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+index d967264e25cf..7f840c20d213 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+@@ -3475,7 +3475,6 @@ bool dml32_CalculatePrefetchSchedule(
+ 	double  min_Lsw;
+ 	double  Tsw_est1 = 0;
+ 	double  Tsw_est3 = 0;
+-	double  TPreMargin = 0;
+ 
+ 	if (v->GPUVMEnable == true && v->HostVMEnable == true)
+ 		HostVMDynamicLevelsTrips = v->HostVMMaxNonCachedPageTableLevels;
+@@ -3703,7 +3702,6 @@ bool dml32_CalculatePrefetchSchedule(
+ 	dst_y_prefetch_equ = dml_floor(4.0 * (dst_y_prefetch_equ + 0.125), 1) / 4.0;
+ 	Tpre_rounded = dst_y_prefetch_equ * LineTime;
+ 
+-	TPreMargin = Tpre_rounded - TPreReq;
+ #ifdef __DML_VBA_DEBUG__
+ 	dml_print("DML::%s: dst_y_prefetch_equ: %f (after round)\n", __func__, dst_y_prefetch_equ);
+ 	dml_print("DML::%s: LineTime: %f\n", __func__, LineTime);
+-- 
+2.20.1.7.g153144c
+
