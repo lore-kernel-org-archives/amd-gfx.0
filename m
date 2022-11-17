@@ -4,117 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C39DC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 10:25:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDB99C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 12:55:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90DDC10E05D;
-	Thu, 17 Nov 2022 10:25:57 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2078.outbound.protection.outlook.com [40.107.95.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 282B710E05D
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Nov 2022 10:25:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iczmhL/PJQXQzGuCgI2ZDD74LYOqOe+aUsn9hltXG/PZU9oCYQR5Oc/JbVHiNDCp+/X+b1AL5Ll7XlAO6PFyeOkZcTmyGV5LkbY9GmXleRc1GlZCjwDHMdhM99PSSAJf7SREJuGcHzlAPJSXz3ifPSI2ZBLPqusMcv7LZPRORYOdqzXM8Cde0NSBFmPDik3xfFlp2UNpf64Dbg0o8UI9+9g+iC1heKBB+lAcxLBXdkbM6uN0GUmeE/A54qGKswRGsOFo85CpNrsTEiF3C/0HECy/0uQ4FeHDCrV0s43L4sziHjvYc5t+WO/tXO7XzCcE/Ya7dmjTLFQpfMtqm0brFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ughz0ZBnBCXc/lAC5xp8tAPoiJ/rH2UOL/VRO4cPZsk=;
- b=K4pYPvaZoV1xUcfVZLlq8jPLYYwMf3H/3CvKLbBqgW+8X2A90pad8rmZoT21ds5eQPxNc+RdpefK3sZ6cW465eu8yZBUbrW+EzZY4sLDfLtsTqS0ET02U26a43zSZDqUIZkGnJrDAEwQld58O1sd5ywY5M7Ld5+NbeIb/OqGqbao66MkSB1eQ6SZwTnT3jQQexXFG9dq4A4zqIIDA6oThJaDphM0eRkCN0FNkjM8Bo9o+K84D3Dc3DNl59DUDJcENzP6yGpPfmXZypBbcvyRibN/TI2nj1uZbbCZ0yqygYRm9ZWvO4yfWqQnpGZB5azVPdF34cw7RsPvSmcYW/Fucw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ughz0ZBnBCXc/lAC5xp8tAPoiJ/rH2UOL/VRO4cPZsk=;
- b=Pz3MaMswrm0SAK6lbZcyMG17zzOlaIUkbLjF14Mqi3xcOGARoEIy544u3XcCmk1X/VsnMA8NEZtd59KXLq2qNEcFilGSZ6q2pYWIeyCBZohauF96SO9BH/aa43dKw9J3xUEBzNOwOKgOWUA/BimS00OdHq9ZoPn6mwa4/HJ9y38=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SJ0PR12MB5664.namprd12.prod.outlook.com (2603:10b6:a03:42b::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.20; Thu, 17 Nov
- 2022 10:25:50 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::7d43:3f30:4caf:7421]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::7d43:3f30:4caf:7421%7]) with mapi id 15.20.5813.017; Thu, 17 Nov 2022
- 10:25:49 +0000
-Message-ID: <dbdf8cef-f075-80cc-90e6-a38b61f179eb@amd.com>
-Date: Thu, 17 Nov 2022 11:25:45 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 781CF10E0D8;
+	Thu, 17 Nov 2022 12:55:49 +0000 (UTC)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A04210E0D8;
+ Thu, 17 Nov 2022 12:55:47 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id v1so3630851wrt.11;
+ Thu, 17 Nov 2022 04:55:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=pXXriTWBh+RZ1Dut5lvpuNwiP5L4De5MnkmJJ6JIojM=;
+ b=YY1P2f1N5uoG0pIDn9vmQ7WsXsjXk1itjjwswiKCfn2XVjY3IzOLgpKPFHMMi08dQQ
+ +931PgQkP/05uer+UEIODUV/+hj4dRe+hM6ooEgPeRIoZSYMDO85r/vzs3hOAK4F4sHJ
+ rtQlAL1QmB5uMVnwem8CQmJ37wmCBU5w36Qulop0U9EJjNq+rhMdvXUOJY4+YFuCAdng
+ vsJb+nStn5XVK4IwfYhWv10NGYi6u51qDIvTomrpKxB5j/uVEsuWamuLZ0lVAp+KT45+
+ HFx8HeAI+UOsE8xozt2XoodQIaoeQqtcaIE/Dvm+Trp78h5mtXYFyBl8aTX1an85OcDg
+ pqDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=pXXriTWBh+RZ1Dut5lvpuNwiP5L4De5MnkmJJ6JIojM=;
+ b=fqQZ5vUa95oHIRxJJ+R004XK7dZii2IM2sr3JnIAS9d2N/HYTHQCGfylbV2FxGMQpf
+ adEPE8YCobvnQkTQxv1SAjCPvyn5n1upOZy3YsX2UivZIu/920VK9ox54YMT81/Bs1+o
+ z+tEEQOi0IYDtL5vRYe9EEj20ljyrjCMKHzKz5VkIJ2LZTK7GDIZD6uJ/D0/yIsdB1GE
+ dLkAWs/8pB7flNiHnoVgEsz7fRtCWOL7afuCxTI8WeDWKuvwx4XGPh9FsdtUKXER1pwx
+ 80b7HID0KMIrFTpoCV3TDkun0F0xbo8v1oGRi2z+opqjpwYS9nnb5E566hmsZ2fAXaXp
+ BLQw==
+X-Gm-Message-State: ANoB5pn72l0u0LvBE+q7+/s4CxkfMBfQ5tlIE5iNDWPCw/NxI1z3oKec
+ blN7qSAjVXKBpp2iLWRBJuw=
+X-Google-Smtp-Source: AA0mqf4C8Ii3XHeHK6Fn3d493uT88fbdfNrEf4OC2XUIQIdvj/s85gI/9/drVWYTlN9GiEO75vmmqA==
+X-Received: by 2002:a5d:564d:0:b0:225:2e65:7440 with SMTP id
+ j13-20020a5d564d000000b002252e657440mr1447305wrw.6.1668689745600; 
+ Thu, 17 Nov 2022 04:55:45 -0800 (PST)
+Received: from [192.168.178.21] (p5b0ea229.dip0.t-ipconnect.de. [91.14.162.41])
+ by smtp.gmail.com with ESMTPSA id
+ q3-20020adfcd83000000b0022eafed36ebsm937567wrj.73.2022.11.17.04.55.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Nov 2022 04:55:45 -0800 (PST)
+Message-ID: <ef732036-895b-0f5c-d06b-d7e4a739541a@gmail.com>
+Date: Thu, 17 Nov 2022 13:55:43 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH] drm/amd/amdgpu: reserve vm invalidation engine for
- firmware
+Subject: Re: [PATCH 12/13] drm/scheduler: rework entity flush, kill and fini
 Content-Language: en-US
-To: Jack Xiao <Jack.Xiao@amd.com>, amd-gfx@lists.freedesktop.org,
- Alexander.Deucher@amd.com, Hawking.Zhang@amd.com, Xinhui.Pan@amd.com,
- Graham.Sider@amd.com
-References: <20221117091119.106597-1-Jack.Xiao@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20221117091119.106597-1-Jack.Xiao@amd.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ luben.tuikov@amd.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20221014084641.128280-1-christian.koenig@amd.com>
+ <20221014084641.128280-13-christian.koenig@amd.com>
+ <1b1fae07-a5c3-e982-94a2-c35ab26f0e91@collabora.com>
+ <da420e53-cafd-b46f-90df-ed54e6de09a3@amd.com>
+ <9722032c-f1b3-37ff-91d2-6ed965300047@collabora.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <9722032c-f1b3-37ff-91d2-6ed965300047@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0077.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1e::16) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SJ0PR12MB5664:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7aba6906-16da-4cb5-f707-08dac88618f3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: W2mqX0neIvaDCgz4ekfga7UFLSCasTCBR1ItwdDJxvbbtt3w1Pz8EEfaQ8DjJLEulPiQchS7as0DdY5EIrTndIAZfG6ybu+BSx54sCUPh+xDmRM1Y999QdNeNXgiBVvI9/KOmzWN/52bE90u2+MPwatr4YmTwY0hNxbLhNDI8aqADsokfjw176U+LrX8K6iH5PTKi//RqbgQdzulto0tF9ExujBjQXsmlLdZuz2XPckkJcH8a/8reWi6J3fFjRh/EcV2zwdILEc0vbGa9I0r1DIbOIg17uw1SN4ATma02oTlySpJWY49Bg6vwNyZYJtMgQhsZNgqRcT//XJM0JFlKZaw838I5GSfZm5qpzQrFtIk9lbZDsDmLv2LdJoHgrEcy8B+TNz9qc9o5XpTV1+u+Pedqxh7Bm/ctm4/nhQubsdsFlWOX858MKIN0qq04HpjUVx3/H+azJxq15tblt4jerUHwtV4orbpgTH8/M9HLNhgMCDlVlgPlRPn1IpGOx/ZhoME+4tOcO4EKWdZ0+9HyhPMq4bEzK2aaBPM8N/4ZnfE6UcmVaUJWLhfzXNg5zT+dpFyYkrjrHyM136WqcafR6orRuD6CooIYuTWxIp6EWnw20JanJoOwOCv5dhSmGBAStWm6FGkYGJsXK1FRe3u2OlJBrbnpJ16ONHwW9ypjUoYgd6O1CMk8LI/a8Tn5Ws3SMLghOLj5/IHBE2HdPfn/kGmB49ps9dwrlsZ/krOmvw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(136003)(396003)(346002)(376002)(366004)(451199015)(86362001)(31696002)(38100700002)(8936002)(4744005)(2906002)(66946007)(66556008)(66476007)(8676002)(41300700001)(5660300002)(6666004)(6512007)(6506007)(26005)(2616005)(186003)(6636002)(316002)(478600001)(6486002)(36756003)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OGtsaDBvQkRON2Nya2t0NWx5VzRhSEYzMkk0QnRjR3VDUnoyMWVDT0g3TzN4?=
- =?utf-8?B?Z2VsbFVNWU1jUnFsTkt1bms5aFVzYnJsdkJORHJDRUQ5cWp6bTI0V0RDaXRt?=
- =?utf-8?B?eHEyUnFIQ1BZNk1pWUVBa240T2d1MkdkSHdYR0dOdnNqMjI0VnV2aG5mQkxo?=
- =?utf-8?B?K1EzbWNvUW82WllKa0JBQVEwL1F1QTVoM2RXSmpmdUVrek1wMUJnNE4xWlMr?=
- =?utf-8?B?cGs0dU82YUJqWkoxVG82Z2VGSDlDZ3pmYjkrMnJ0TWtlci9JdEE5KytSU1Jx?=
- =?utf-8?B?YUJoVFlwcTk5ZGlibkJzV0dhdWhqU2JkWWNPaS9VTnh5V1Fja1U1TWc2aDdT?=
- =?utf-8?B?NFI0ZzNWNGhqVm1jOEVtcmZaV1VvcDVzYWZvWlloZnppNmsxeUdDTmx1aGZm?=
- =?utf-8?B?a0t6N1dleGNGYmp6dTB5Ukc2MUxXNHZkcTlRMkZuR1pmOEUvTk9qVlNCY2t5?=
- =?utf-8?B?emdoVjFHSnhodHhDcWhGYmlxVy9CSkRIc2ZXYWxCUXVYZnVpUnVPRzViTVEz?=
- =?utf-8?B?MnpyaEpXRGdOdUZ6Z2RpZWFQSlNySGRDanRFd2phUzdhNkVodzJVQWtZVTgz?=
- =?utf-8?B?QUV6SkxlNis3YnIyMnhkRjc1QlF2MFlZUUtnRnEwdHJhbTNXY1RSOTl2TDlz?=
- =?utf-8?B?N1FLQnJsNG5YNk1tZzg5OE1PSWFzS0gxWk5qSTR1UFpDRmszUTVDRzU5ekdO?=
- =?utf-8?B?R1NmZXRMaDJWdUlraDM2ZUlsTm5vQ2dvbVlPTXViWkU3MERWSThFNWtmd1My?=
- =?utf-8?B?YzdKbi9BVVdhbmpScDFKQzRBckM1VDJxeVVtcDUvOHNjN05TM2xic1N1VGhS?=
- =?utf-8?B?UkFuVjRPdzBXMXhMa1RkNzVwb1d5V0gxRXdzb3kway9DRWI3T05YQW1abndT?=
- =?utf-8?B?eWVNNG5tWWJlVEMxU0o5bUhJV0s1Z25xMG5KYmxPNmVaTGNRcGtNUUFwNEll?=
- =?utf-8?B?NjgwTXBmRk0vVjRLeGVxeFJHN01WYVVyMFJrRExudy9zUk5xTzNUbHZhaFpw?=
- =?utf-8?B?Z0wveHEvajYydG83NDJCNGJIeFd2WU9jcC9IVTF0Q1RkNVZ1RTEyWWlCZ1Zl?=
- =?utf-8?B?SzlhSGtxalFYYjM0b1NIMG4rL1RwSWZ6ZU9qdXUwem5hSmEzbnBpa21LWHZK?=
- =?utf-8?B?eWFZcHk3cElmTlR3dDJuakk4OVdGRU85MThTR3NuVUtFYUJRU1hXamVGZXUx?=
- =?utf-8?B?NjdXQUZGSS9zWkRRdmNMK1AvdFI4Z3FaSDlmY01qNWpyUmVkMjZXVGhhN25B?=
- =?utf-8?B?VEhlb2F4Wm81WDVqN3NtNlN5ZEZSWWVmcUF5SWhINitucytaMU5udDV5dG5h?=
- =?utf-8?B?MHhTRHFPQU5YbnBoL2J4YlRid2VEbFY4Q1NkZGRvbDhhaXFJd09jTGR2bUNr?=
- =?utf-8?B?eFM1U1QwQ1c4U3Exc20yV3FWNWZUTitHZTFuNWNPUU9LUHZ2ckR4MlBvMGVx?=
- =?utf-8?B?YllOaXpUaXU1L0FDWjVQYVo0WEhQTTdvN1J2REtRREZqTkFWNU5qT2EzTjZa?=
- =?utf-8?B?Q2piUi9EQXBLQVlJTjgyM3Qzdll5NnhFWWg0M1FGcmRGRUhWS3JCc25ZTDNG?=
- =?utf-8?B?QThsVm5WWjI1eDkyYVBQbk9YeDBBQ0dDR3RoWHVJVk50US9YdlhDRUhCM0ll?=
- =?utf-8?B?c1pZU0lET3R3eFY4TGQwdWpwYjhIWTdkUkVhZEprVzVpUDAyV2Q4V05VQ1FP?=
- =?utf-8?B?TjZnTGdsUktIbWtWQ0pWdGZtUzRmc2c1Qk1odHBvbTYyOXcrYnVxL0NpcjBt?=
- =?utf-8?B?cHNvYU9VOEpULys3RHBaV29ENVRZUmhWeitqUURjRVk3dDh3OUVPRUVhSGZk?=
- =?utf-8?B?N2F4YlN3bU5Za2dhdGszNlVnZStZWE9EcGtWamxQSlhleWNmT29kZE9ib3Vm?=
- =?utf-8?B?UlZXUy9tV2VWWEtxRG81dFdYSG1QM09kWEhpMlc4NGNBQVFuV1hYNnkxWE9y?=
- =?utf-8?B?SlNXVmFMenpIdklkTy85QStvdkxMbFVtYzZTZ1FKNWo3NzJHcjd5RDBocXY5?=
- =?utf-8?B?UXFIN056TVcvUzJ3RWoyTWdlTVhkVEdldEtaQlRUMDNaVG5pNk1jUUFHK1FG?=
- =?utf-8?B?VUJiaWI2UXhKWEJ1VG9tUnFUYVlzdjFUNjB2QzlwYlJKbnNZTHVmL1N2SHEv?=
- =?utf-8?Q?Axk5VXQXRR0YX0JA/9ngckqpG?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7aba6906-16da-4cb5-f707-08dac88618f3
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2022 10:25:49.8192 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wBJSncXbP5I7w6gXSJXk6+z+OQ/VeykJ77BHhn6JY5Cy2kgDfjgXhIUQtpR21sIT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5664
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,38 +83,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-Am 17.11.22 um 10:11 schrieb Jack Xiao:
-> If mes enabled, reserve VM invalidation engine 5 for firmware.
+Am 17.11.22 um 13:47 schrieb Dmitry Osipenko:
+> On 11/17/22 12:53, Christian König wrote:
+>> Am 17.11.22 um 03:36 schrieb Dmitry Osipenko:
+>>> Hi,
+>>>
+>>> On 10/14/22 11:46, Christian König wrote:
+>>>> +/* Remove the entity from the scheduler and kill all pending jobs */
+>>>> +static void drm_sched_entity_kill(struct drm_sched_entity *entity)
+>>>> +{
+>>>> +    struct drm_sched_job *job;
+>>>> +    struct dma_fence *prev;
+>>>> +
+>>>> +    if (!entity->rq)
+>>>> +        return;
+>>>> +
+>>>> +    spin_lock(&entity->rq_lock);
+>>>> +    entity->stopped = true;
+>>>> +    drm_sched_rq_remove_entity(entity->rq, entity);
+>>>> +    spin_unlock(&entity->rq_lock);
+>>>> +
+>>>> +    /* Make sure this entity is not used by the scheduler at the
+>>>> moment */
+>>>> +    wait_for_completion(&entity->entity_idle);
+>>> I'm always hitting lockup here using Panfrost driver on terminating
+>>> Xorg. Revering this patch helps. Any ideas how to fix it?
+>>>
+>> Well is the entity idle or are there some unsubmitted jobs left?
+> Do you mean unsubmitted to h/w? IIUC, there are unsubmitted jobs left.
 >
-> Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 6 ++++++
->   1 file changed, 6 insertions(+)
+> I see that there are 5-6 incomplete (in-flight) jobs when
+> panfrost_job_close() is invoked.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index 4365ede42855..e970e3760cec 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -479,6 +479,12 @@ int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev)
->   	unsigned i;
->   	unsigned vmhub, inv_eng;
->   
-> +	if (adev->enable_mes) {
-> +		/* reserve engine 5 for firmware */
-> +		for (vmhub = 0; vmhub < AMDGPU_MAX_VMHUBS; vmhub++)
-> +			vm_inv_engs[vmhub] &= ~(1 << 5);
-> +	}
-> +
+> There are 1-2 jobs that are constantly scheduled and finished once in a
+> few seconds after the lockup happens.
 
-Is that fixed and nailed down with the fw team? If yes the patch is rb 
-by me.
+Well what drm_sched_entity_kill() is supposed to do is to prevent 
+pushing queued up stuff to the hw when the process which queued it is 
+killed. Is the process really killed or is that just some incorrect 
+handling?
+
+In other words I see two possibilities here, either we have a bug in the 
+scheduler or panfrost isn't using it correctly.
+
+Does panfrost calls drm_sched_entity_flush() before it calls 
+drm_sched_entity_fini()? (I don't have the driver source at hand at the 
+moment).
 
 Regards,
 Christian.
-
->   	for (i = 0; i < adev->num_rings; ++i) {
->   		ring = adev->rings[i];
->   		vmhub = ring->funcs->vmhub;
-
