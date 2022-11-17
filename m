@@ -4,40 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6F91C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 08:20:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E11B9C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 08:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAE2E10E1CE;
-	Thu, 17 Nov 2022 08:19:59 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E9E410E544;
- Thu, 17 Nov 2022 06:29:17 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A3071B81E98;
- Thu, 17 Nov 2022 06:29:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5F55C433D6;
- Thu, 17 Nov 2022 06:29:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1668666554;
- bh=k7mSpJJ0WM6ewes40AUp3GUJji+8y5DOYEMIWFBBoEo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DJ8QBLnMiZ4mKv7YRncrXPoLUYkMOvxv0AEKeJ4mEiAuKHxVrB0jkpuaS0lOdZiS1
- XA6SHPwNyF3LP/PUz9Mrobo6+cO8IozvOnVijp3bf6sBgb1MIIxTBWol7n5CnhOl/2
- IFsAYnPcafc3vKUzAL/IaT97mSlVQg2fjBJZ+rnw=
-Date: Thu, 17 Nov 2022 07:29:11 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jim Cromie <jim.cromie@gmail.com>
-Subject: Re: [PATCH 0/7] DYNAMIC_DEBUG fixups for rc
-Message-ID: <Y3XUtx2JUIuQLNmU@kroah.com>
-References: <20220912052852.1123868-1-jim.cromie@gmail.com>
- <20221111221715.563020-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED8CC10E585;
+	Thu, 17 Nov 2022 08:58:37 +0000 (UTC)
+X-Greylist: delayed 3737 seconds by postgrey-1.36 at gabe;
+ Thu, 17 Nov 2022 08:58:34 UTC
+Received: from mail-4317.proton.ch (mail-4317.proton.ch [185.70.43.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B19810E585
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Nov 2022 08:58:34 +0000 (UTC)
+Date: Thu, 17 Nov 2022 08:58:27 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail3; t=1668675511; x=1668934711;
+ bh=6KGa/c+LMHT5tzDXZrMiZV13nLyC2Z5bX9/nNvvGSSA=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=IsbOVE3OljD4lBU7e8xDRptlfqX+XsvAo8wyAwtXznt3uMixo6cq/eHgCr/iIQVFH
+ sNEyunTIAS2YPznnr2g5pjdaJfm1a9S8w8sROsxA7GNESbjAxxxuC9Zn3GBzbYiEzz
+ VL1gqkwDnLMtCt9GtK3oUl8RYU+SahE4MOp1+I5wQDI92ePULvRNGGJ6TyyqUvdqCG
+ pMKvvXV3drAWe8GjncHHb0Tzhsx3/hefeqxocm7dReRTLx6F6tr0X0Vk0taaONKTzj
+ lCp/FpxKokYcGAi2TclAAPAlCNzaXSVMcs27IzC3YCXgic6SwORhlSQtSqIInLVgnI
+ Pxn/Es5gpPhkg==
+To: =?utf-8?Q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+From: Simon Ser <contact@emersion.fr>
+Subject: Re: [PATCH v3 0/6] Add support for atomic async page-flips
+Message-ID: <2gTBGn0MFrQeE-GBD4weUAgOHEYiLDD5_hqTLNxOYKYIOfD1HL_84sEVhjftn7nR3kr0of-bONvg55mHNDCuOiwAhCcKexGrD9RvIN-OHw8=@emersion.fr>
+In-Reply-To: <PJIfCPDOH8tzwE1mwv58g4ICBZbEgW44vwzW-JdUde6PjLDUeF_JNT0kUZ_Z8hZWqii_DTdDFfAYpRbO_T1Tu28wpjiwYlQpRdsrHJXLF58=@emersion.fr>
+References: <20220929184307.258331-1-contact@emersion.fr>
+ <Yzb0uNjB5FpjCIjq@intel.com> <Yzb6203nHF8fVH/W@intel.com>
+ <YzcGw9myJotLRTVl@intel.com>
+ <PJIfCPDOH8tzwE1mwv58g4ICBZbEgW44vwzW-JdUde6PjLDUeF_JNT0kUZ_Z8hZWqii_DTdDFfAYpRbO_T1Tu28wpjiwYlQpRdsrHJXLF58=@emersion.fr>
+Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221111221715.563020-1-jim.cromie@gmail.com>
-X-Mailman-Approved-At: Thu, 17 Nov 2022 08:19:54 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,31 +51,11 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@gmail.com, daniel.vetter@ffwll.ch,
- intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, jbaron@akamai.com,
- seanpaul@chromium.org, dri-devel@lists.freedesktop.org, joe@perches.com,
- intel-gvt-dev@lists.freedesktop.org
+Cc: andrealmeid@igalia.com, daniel.vetter@ffwll.ch,
+ dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
+ mwen@igalia.com, amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ hwentlan@amd.com, nicholas.kazlauskas@amd.com, joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 11, 2022 at 03:17:08PM -0700, Jim Cromie wrote:
-> hi Jason, Greg, DRM-folk,
-> 
-> drm.debug-on-dyndbg has a regression due to a chicken-&-egg problem;
-> drm.debug is applied to enable dyndbg callsites before the dependent
-> modules' callsites are available to be enabled.
-> 
-> My "fixes" are unready, so lets just mark it BROKEN for now.
-> 
-> Meanwhile, heres some other fixes, a comment tweak, a proof of
-> non-bug, an internal simplification, and a cleanup/improvement to the
-> main macro (API):
-> 
-> Split DECLARE_DYNDBG_CLASSMAP in 1/2; REFERENCE_DYNDBG_CLASSMAP now
-> refers to a classmap DECLARE'd just once.  I think this gives a path
-> away from the coordination-by-identical-classmaps "feature" that Jani
-> and others thought was "weird" (my term).
-> 
-
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Ville, any news on this?
