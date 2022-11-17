@@ -4,33 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10960C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 08:19:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6C9FC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 08:20:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22EB710E03A;
-	Thu, 17 Nov 2022 08:19:56 +0000 (UTC)
-Received: from out30-44.freemail.mail.aliyun.com
- (out30-44.freemail.mail.aliyun.com [115.124.30.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0A6110E550;
- Thu, 17 Nov 2022 07:07:18 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046049;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
- TI=SMTPD_---0VV-tMJ4_1668668827; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VV-tMJ4_1668668827) by smtp.aliyun-inc.com;
- Thu, 17 Nov 2022 15:07:12 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH 2/2] drm/amd/display: Remove set but unused variable cursor_bpp
-Date: Thu, 17 Nov 2022 15:06:55 +0800
-Message-Id: <20221117070655.52749-2-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
-In-Reply-To: <20221117070655.52749-1-jiapeng.chong@linux.alibaba.com>
-References: <20221117070655.52749-1-jiapeng.chong@linux.alibaba.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18A6310E1C3;
+	Thu, 17 Nov 2022 08:19:58 +0000 (UTC)
+X-Greylist: delayed 478 seconds by postgrey-1.36 at gabe;
+ Thu, 17 Nov 2022 07:41:03 UTC
+Received: from cstnet.cn (smtp23.cstnet.cn [159.226.251.23])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4381F10E560;
+ Thu, 17 Nov 2022 07:41:03 +0000 (UTC)
+Received: from localhost.localdomain (unknown [124.16.138.125])
+ by APP-03 (Coremail) with SMTP id rQCowAD3_8Or43VjaDtaCQ--.57293S2;
+ Thu, 17 Nov 2022 15:33:00 +0800 (CST)
+From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, nicholas.kazlauskas@amd.com,
+ roman.li@amd.com, aurabindo.pillai@amd.com, Jerry.Zuo@amd.com
+Subject: [PATCH] drm/amd/display: rewrite the check for mods
+Date: Thu, 17 Nov 2022 15:32:58 +0800
+Message-Id: <20221117073258.21214-1-jiasheng@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowAD3_8Or43VjaDtaCQ--.57293S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZFW5Cr45Kr1kWr1UWF4fGrg_yoW8GF1Dpr
+ 4xGF1DX34vva1Iqa4UAF1rZFWa9a4xGrWjkrWUCw1qqw15trZ8WryYkF9Ygrs7WFW8u343
+ tFy7J3y7ZF1qvF7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+ 0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_Wryl
+ IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
+ AFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
+ 6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUq38
+ nUUUUU=
+X-Originating-IP: [124.16.138.125]
+X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Thu, 17 Nov 2022 08:19:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -43,56 +59,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Xinhui.Pan@amd.com,
- Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, airlied@gmail.com, christian.koenig@amd.com
+Cc: Jiasheng Jiang <jiasheng@iscas.ac.cn>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Variable cursor_bpp is not effectively used in the function, so delete it.
+When the *mods is NULL, it should be better to return error immediately,
+rather than continue with redundant operations.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hwseq.c:217:10: warning: variable ‘cursor_bpp’ set but not used.
-
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3120
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-index 763311ffb967..311be35de315 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-@@ -214,7 +214,6 @@ static uint32_t dcn32_calculate_cab_allocation(struct dc *dc, struct dc_state *c
- 	uint32_t lines_per_way = 0;
- 	uint8_t num_ways = 0;
- 	uint8_t bytes_per_pixel = 0;
--	uint8_t cursor_bpp = 0;
- 	uint16_t mblk_width = 0;
- 	uint16_t mblk_height = 0;
- 	uint16_t mall_alloc_width_blk_aligned = 0;
-@@ -288,19 +287,16 @@ static uint32_t dcn32_calculate_cab_allocation(struct dc *dc, struct dc_state *c
- 				switch (pipe->stream->cursor_attributes.color_format) {
- 				case CURSOR_MODE_MONO:
- 					cursor_size /= 2;
--					cursor_bpp = 4;
- 					break;
- 				case CURSOR_MODE_COLOR_1BIT_AND:
- 				case CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA:
- 				case CURSOR_MODE_COLOR_UN_PRE_MULTIPLIED_ALPHA:
- 					cursor_size *= 4;
--					cursor_bpp = 4;
- 					break;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index e6854f7270a6..05efc76b2226 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -638,11 +638,14 @@ static int get_plane_modifiers(struct amdgpu_device *adev, unsigned int plane_ty
+ 		return 0;
  
- 				case CURSOR_MODE_COLOR_64BIT_FP_PRE_MULTIPLIED:
- 				case CURSOR_MODE_COLOR_64BIT_FP_UN_PRE_MULTIPLIED:
- 					cursor_size *= 8;
--					cursor_bpp = 8;
- 					break;
- 				}
+ 	*mods = kmalloc(capacity * sizeof(uint64_t), GFP_KERNEL);
++	if (!*mods)
++		return -ENOMEM;
++
+ 
+ 	if (plane_type == DRM_PLANE_TYPE_CURSOR) {
+ 		add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
+ 		add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
+-		return *mods ? 0 : -ENOMEM;
++		return 0;
+ 	}
+ 
+ 	switch (adev->family) {
+@@ -671,9 +674,6 @@ static int get_plane_modifiers(struct amdgpu_device *adev, unsigned int plane_ty
+ 	/* INVALID marks the end of the list. */
+ 	add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
+ 
+-	if (!*mods)
+-		return -ENOMEM;
+-
+ 	return 0;
+ }
  
 -- 
-2.20.1.7.g153144c
+2.25.1
 
