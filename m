@@ -4,49 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6C9FC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 08:20:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59530C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 08:20:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A6310E1C3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D4E810E1CC;
 	Thu, 17 Nov 2022 08:19:58 +0000 (UTC)
-X-Greylist: delayed 478 seconds by postgrey-1.36 at gabe;
- Thu, 17 Nov 2022 07:41:03 UTC
-Received: from cstnet.cn (smtp23.cstnet.cn [159.226.251.23])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4381F10E560;
- Thu, 17 Nov 2022 07:41:03 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.138.125])
- by APP-03 (Coremail) with SMTP id rQCowAD3_8Or43VjaDtaCQ--.57293S2;
- Thu, 17 Nov 2022 15:33:00 +0800 (CST)
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, nicholas.kazlauskas@amd.com,
- roman.li@amd.com, aurabindo.pillai@amd.com, Jerry.Zuo@amd.com
-Subject: [PATCH] drm/amd/display: rewrite the check for mods
-Date: Thu, 17 Nov 2022 15:32:58 +0800
-Message-Id: <20221117073258.21214-1-jiasheng@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9C3910E52E;
+ Thu, 17 Nov 2022 06:29:06 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D1E6AB81F9E;
+ Thu, 17 Nov 2022 06:29:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 020CEC433D6;
+ Thu, 17 Nov 2022 06:29:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1668666543;
+ bh=2lL2hzaia/cJFGMAWXRGKglaIEpZyNeP9+ahgQNP4kA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=c249IZd66Tr+XAm2SsQCHdhz1pBIhYWCzc81bpqF0pv9NC/oJGCZ/1CwjofM/9N9U
+ yZdZvpQinoxqQ7JUoKuHEGzZrLOlz7vufcjxKkzuKhENk52HDOrr/9ttoLvi6FJpPW
+ rkWtdmUMnQsx26P43tugym2GArfJW2LQmgLG39y4=
+Date: Thu, 17 Nov 2022 07:29:00 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jim Cromie <jim.cromie@gmail.com>
+Subject: Re: [PATCH 1/7] drm: mark drm.debug-on-dyndbg as BROKEN for now
+Message-ID: <Y3XUrOGAV4I7bB3M@kroah.com>
+References: <20220912052852.1123868-1-jim.cromie@gmail.com>
+ <20221111221715.563020-1-jim.cromie@gmail.com>
+ <20221111221715.563020-2-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowAD3_8Or43VjaDtaCQ--.57293S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZFW5Cr45Kr1kWr1UWF4fGrg_yoW8GF1Dpr
- 4xGF1DX34vva1Iqa4UAF1rZFWa9a4xGrWjkrWUCw1qqw15trZ8WryYkF9Ygrs7WFW8u343
- tFy7J3y7ZF1qvF7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
- n2kIc2xKxwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
- 0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_Wryl
- IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
- AFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
- 6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUq38
- nUUUUU=
-X-Originating-IP: [124.16.138.125]
-X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221111221715.563020-2-jim.cromie@gmail.com>
 X-Mailman-Approved-At: Thu, 17 Nov 2022 08:19:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,49 +51,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiasheng Jiang <jiasheng@iscas.ac.cn>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: robdclark@gmail.com, daniel.vetter@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, jbaron@akamai.com,
+ seanpaul@chromium.org, dri-devel@lists.freedesktop.org, joe@perches.com,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When the *mods is NULL, it should be better to return error immediately,
-rather than continue with redundant operations.
+On Fri, Nov 11, 2022 at 03:17:09PM -0700, Jim Cromie wrote:
+> drm.debug-on-dyndbg has a regression, due to a chicken-egg
+> initialization problem:
+> 
+> 1- modprobe i915
+>    i915 needs drm.ko, which is loaded 1st
+> 
+> 2- "modprobe drm drm.debug=0x1ff" (virtual/implied)
+>    drm.debug is set post-initialization, from boot-args etc
+> 
+> 3- `modprobe i915` finishes
+> 
+> W/O drm.debug-on-dyndbg that just works, because all drm_dbg*
+> callsites use drm_debug_enabled() to check __drm_debug & DEM_UT_<CAT>
+> before printing.
+> 
+> But the whole point of drm.debug-on-dyndbg is to avoid that runtime
+> test, by enabling (at post-modinit) a static-key at each callsite in
+> the just-loaded module.
+> 
+> And since drm.ko is loaded before all dependent modules, none are
+> "just-loaded", and no drm.debug callsites are present yet, except
+> those in drm.ko itself.
+> 
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> ---
+>  drivers/gpu/drm/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 34f5a092c99e..0d1e59e6bb7e 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -54,6 +54,7 @@ config DRM_DEBUG_MM
+>  config DRM_USE_DYNAMIC_DEBUG
+>  	bool "use dynamic debug to implement drm.debug"
+>  	default y
+> +	depends on BROKEN	# chicken-egg initial enable problem
+>  	depends on DRM
+>  	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
+>  	depends on JUMP_LABEL
+> -- 
+> 2.38.1
 
-Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+This should go through the drm tree now.  The rest probably should also
+go that way and not through my tree as well.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index e6854f7270a6..05efc76b2226 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -638,11 +638,14 @@ static int get_plane_modifiers(struct amdgpu_device *adev, unsigned int plane_ty
- 		return 0;
- 
- 	*mods = kmalloc(capacity * sizeof(uint64_t), GFP_KERNEL);
-+	if (!*mods)
-+		return -ENOMEM;
-+
- 
- 	if (plane_type == DRM_PLANE_TYPE_CURSOR) {
- 		add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
- 		add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
--		return *mods ? 0 : -ENOMEM;
-+		return 0;
- 	}
- 
- 	switch (adev->family) {
-@@ -671,9 +674,6 @@ static int get_plane_modifiers(struct amdgpu_device *adev, unsigned int plane_ty
- 	/* INVALID marks the end of the list. */
- 	add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
- 
--	if (!*mods)
--		return -ENOMEM;
--
- 	return 0;
- }
- 
--- 
-2.25.1
+thanks,
 
+greg k-h
