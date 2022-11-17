@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6FE4C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 01:25:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD471C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 01:25:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8657A10E51A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAC2D10E51E;
 	Thu, 17 Nov 2022 01:24:58 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2088.outbound.protection.outlook.com [40.107.94.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4917810E513
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Nov 2022 01:24:53 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::600])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03AA910E513
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Nov 2022 01:24:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UTGBfkWg93M8XgWnnqd2y5OxQIEJtikk5F/vG2t60GttHFi8QDshEKrTlyprtG5ZOMlrFfHaq5xbEOY5SnsoB4bpf0kxL9jNumAmp//RWLAWQF2jx7UOfMvmUOGOQ8XfLdipzy1PMug01IFp+DsdPsl+s9MAlLQqMiPKPxDTVxQ9c16WCNCY/I1Ws+sxRiXakTRz7A+QOhhfG/WNNNrl8+uMAc4bf6wQAU9IHTmFxik6EI8Bl6EGeSsswMXtsSJarimJfsFC2mIzDWqckDri0DSmJNRorxIA9eOz4t0natn9NcMQhMSeeWQ6KkUo1fxKJ2ayLY/XokPXXtQ7HcLocQ==
+ b=GK2a+UR0VW1W2PfzqtaVyGggYuzhyhhlNkNwwXmfjq9Bl31jZR71THTqyvTrDQ3vcnYMDhlMeqWBg0RX9NBJHfuKXG9thDb0YZxf+lHi0LReslI/ZJBHJQUl1UeMKvp2o1+T/rGk7Pe1AFGgcG0y7izGkeV2BaLHB2AMXuZFPFiW2PuxdCWv2ijVi09D19QQQi1DNfaOW1RNfCLUBTKn4kryZznvKEgWP0CvKbZCf9Jk0LwnNj5F/9BXVptN+zFaZ7JxrTOKrC5JU8TghIwvj7Pxo2ZUDFUFnBnPN+NdzNuf3JGRGpXXeIQSWc1At1XOeG/8/FKp6WdmXXaGILKjEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I3vO93D02uPhYp5GYoILvYiOEFtmvUwwaSqXZJ4K6sk=;
- b=ZbB5EzCp8gTgrEaveElSo2+43hIvY0uTK8Uahc+7Hh3JMMgGlL3q3R0DSZY3nhSgAUGUcXnmlRUmla2R+3qgdsxrNTL5lLVcQUnM4UbzNCbB4DcPKhpYNTbENenSrdkqAJ2kNDZXvQGL/Akea1x/SP0RAFyth1wWzYtlnAlpL9IkKdjjE853vimvWgHW5IVDdom9PQ1wfsjuoZe+c9QLGVRtFhXTdFj7wE+9nCB9+TlnWrjfoTyWWZsls60pQy+VJTQDflPQRxJ/kFtmZAtpkNp62QgiSsvpd7CSDd5Ot+Ow9uC0kXY5Isx0Np/x/gsTaWa3QntBz+6OqmoOZGxo0g==
+ bh=V14UnLrUVsNSwZcdDulM0M3PUijl/EAXOVmt+wgAJlA=;
+ b=ITutcBl6i+6+N5220WiaJn5BwnQNVTpWhkXdpdoDng51Gl0aJ5Ra8m9NyK/Su03dSOgeCYkxsmrUMyyBbUD6wSbD84cbzznSGIhj1Cn9TA3q6lYOebb321j7wqJmBHyGa3UOaQo9hQ3NeHrTDyLKry5mAfr4uod2Qk0xgsyZs5et17pqyE7ufEfHmp7hQnyfBM9TNDXIkPh0ZVDyHwy9onDDb+xqVEbMefL2rakA+GZ9uqPKgJYAb3fAcoLkd9QsE+FLNPdzNsJvHNcmVT/HTkQZui8efaZoWp8cflm2fQG9kXYqsTQZoN2Kao2FZGsqlZsEkZCAgXcqXalznlNblA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I3vO93D02uPhYp5GYoILvYiOEFtmvUwwaSqXZJ4K6sk=;
- b=nQ/XdVnestrVq+/XobUVny/re8+AbrY+WazWBfGMN0ADKuOFB++beycT8h9AKt1Na4SNzBafr9TF/5l7y6hTWPWADVCp5o3wWJRIt8oTMZT9P2iCGDS45uTcrAo2qyc8YndBvgOr1YGldwM8cPpIomsCjVFtyw/92GlUVSiyuPk=
-Received: from MW4PR03CA0170.namprd03.prod.outlook.com (2603:10b6:303:8d::25)
- by CH3PR12MB7668.namprd12.prod.outlook.com (2603:10b6:610:14d::5)
+ bh=V14UnLrUVsNSwZcdDulM0M3PUijl/EAXOVmt+wgAJlA=;
+ b=E8LrmusVu9SeoSE7IogEkHBR9Kn3t5qggURVFK7w5Z4Z0RWIfWK3J/A/Bdncl0/LQOn5nR0dVXJZ/pjcG/JzaOX7/qWIrQfvJwSP614vewoaW88XKV85tSWd4aAlaEjYMb1NlabqV7cNNI/VRa5aLUmGxnc3qhK0Et+xTBd/QaQ=
+Received: from MW4PR03CA0191.namprd03.prod.outlook.com (2603:10b6:303:b8::16)
+ by CY8PR12MB7290.namprd12.prod.outlook.com (2603:10b6:930:55::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.19; Thu, 17 Nov
- 2022 01:24:49 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.18; Thu, 17 Nov
+ 2022 01:24:52 +0000
 Received: from CO1NAM11FT111.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8d:cafe::c5) by MW4PR03CA0170.outlook.office365.com
- (2603:10b6:303:8d::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.19 via Frontend
- Transport; Thu, 17 Nov 2022 01:24:49 +0000
+ (2603:10b6:303:b8:cafe::4f) by MW4PR03CA0191.outlook.office365.com
+ (2603:10b6:303:b8::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.17 via Frontend
+ Transport; Thu, 17 Nov 2022 01:24:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +48,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT111.mail.protection.outlook.com (10.13.174.61) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5834.8 via Frontend Transport; Thu, 17 Nov 2022 01:24:48 +0000
+ 15.20.5834.8 via Frontend Transport; Thu, 17 Nov 2022 01:24:52 +0000
 Received: from localhost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 16 Nov
- 2022 19:24:47 -0600
+ 2022 19:24:49 -0600
 From: Luben Tuikov <luben.tuikov@amd.com>
 To: AMD Graphics <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 0/4] Fix reading IPMI data on newer boards
-Date: Wed, 16 Nov 2022 20:24:02 -0500
-Message-ID: <20221117012406.33268-1-luben.tuikov@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: Add support for RAS table at 0x40000
+Date: Wed, 16 Nov 2022 20:24:06 -0500
+Message-ID: <20221117012406.33268-5-luben.tuikov@amd.com>
 X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221117012406.33268-1-luben.tuikov@amd.com>
+References: <20221117012406.33268-1-luben.tuikov@amd.com>
 MIME-Version: 1.0
 X-check-string-leak: v1.0
 Content-Transfer-Encoding: 8bit
@@ -67,26 +70,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT111:EE_|CH3PR12MB7668:EE_
-X-MS-Office365-Filtering-Correlation-Id: a0dc193e-dea0-4275-bd0a-08dac83a84e2
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT111:EE_|CY8PR12MB7290:EE_
+X-MS-Office365-Filtering-Correlation-Id: 087a7558-577f-4d40-c307-08dac83a8717
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6CHWeArgJSDlWOjoZ42SLAX4NR9tnfapjxwIm8K0tCc3RSEtKIW+jOrz7/5zDH0szG3jOCdTMTGkDqudstVM0wOAwYhXiv6IiwZDt1/LVkxJI1IN6mDyqYwPv6PUXK7ATfWVKZ4T7FGGhftNZ3iq6RXDpoVDrw5o4ck7DJVd98N6R+12airUOYntYU2XcWm2/ytOurZYy2BcXh2uKeF1Kp8Y6Cqt16VDF8xPPFY6fwpFK96U8qfyQFMcCXFebYLayTdhrrj1OZtLNMv3qeYXQ/UZuyqA/WBfh4+2UvvgYmIh0gsj2szDxJKqNowcsTdsHMspBfnj5N5mIhN04Hv7w5cMJKoqGg2d6DoLiyEa/M/D6Qd7IsJ67teUJyG3zKSHeHCFnybseCgcD6SO1u354n8R0Q+xACfNObKVRj2f8MMFB5xNblH++nsWBB2tR7fw/mXx88pjQj9NQ5VyPAvQCTrnIf7J1xiDLb8v9t5NGBO4VfQfIO36Dq3TOlCq/+rqVkuORowoJYJUddbgvdwFnHL15x3aYG4O67AW6S9LwQNO4ij/KpA5Eb6qL2Oyuo4gJk4hCnDyKhp8atAJP/oO9Sw6rXnuj3o+yYKfOv4cSritwuoi9BtwUhyTMBRqZxSCCzbOtZzqsn8IawVlMl1htEN8AhR70LsspqkAOdI5XfxW5hEKT4Azp814PwWtHstuhN9TNmJjvmD5oAVhAossBHkQ11GKr7TdGC3KFM7FPq2LXax12dSzQ75zsk3DFSKKrxCTTRHONU2JjAZqi87Ni0fH2+DYjgr7ZaJFLmPTevw=
+X-Microsoft-Antispam-Message-Info: 4HzTNqEl2YqnDRzar/XLRrdQjiqDvCnaxa6Rl2FuK33Ohy7nYETTNypFtRMxtOJ8NtQ7AhJwzcNvKVqN+fKTGAkic/7aeoHj+agtAzKg+dF+AtTC+eVkcKWWjiv1fdUt/HB6QkR2x67VT+rLVg1IkyaAQAnJTeVJrlNkIYtkjewMZcnGLxwT1zLWHbG3mIjF314jwWcb2FUsiMfNY2DoSdIZ2TJGq+tUOlaGigk3F13cuDuLtCOxxjzjnzYKmBFM9V07QF2xInnu2ABGu2kOMsnJiBFISw489ta3LJpgNgdNes2c9Dup/Zr2HlxLsc/5oLkq4sDs8jE/EaQQYRa+yQ3zMVXj8y/SPWOP9Dk/o8nlzGOfWrzOhUCZ7E5Ay03+hsrZNN2pUUqRl9kSeR/dwJTegVa0rPEBY5O8xhrUMZH4xAohwTtgw6F9hju8YPgRW0xwW7gcceP29dmRx6cNjwE1mQJLd0zaEn3eubfVNNVm0FDd0TB/YiLg0kK8cv5MXWSXH2/+nWVGs3kk8EfG4dtx8GjCS1p0ijMeCEWrizhBMr/XkMDHxVp4oCmRZYElFKSztVzqNhkrAp1fDQDGrXc/EuQE/UoQ6jEogX8RSff81ggXIxgEwPriYEJztYqX++claK8SDaFJPlleVAkSjVmBYMZXMKfJALZHZY/bv4xDVeOqPTisgVW916dIlH2smGpyPgsj78AoJFUgx75Xm2QxwgqLpSJ3X74zZ1Q8pN/GUvevepnZdI13t+Q1znF808HnCwT0MvcH+gzACauWwcsEfmBoYCxE7IwVenWu2NI=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(396003)(376002)(39860400002)(346002)(451199015)(40470700004)(46966006)(36840700001)(82740400003)(40480700001)(478600001)(356005)(81166007)(83380400001)(40460700003)(36860700001)(82310400005)(86362001)(8936002)(44832011)(5660300002)(47076005)(426003)(4744005)(336012)(2906002)(36756003)(8676002)(70206006)(4326008)(70586007)(7696005)(6666004)(26005)(2616005)(1076003)(16526019)(186003)(41300700001)(316002)(54906003)(6916009)(36900700001);
+ SFS:(13230022)(4636009)(346002)(376002)(39860400002)(396003)(136003)(451199015)(46966006)(36840700001)(40470700004)(83380400001)(4326008)(70586007)(86362001)(70206006)(8676002)(5660300002)(44832011)(41300700001)(8936002)(26005)(36860700001)(82740400003)(186003)(16526019)(36756003)(478600001)(1076003)(82310400005)(356005)(7696005)(81166007)(2616005)(54906003)(426003)(6666004)(47076005)(316002)(40480700001)(336012)(6916009)(40460700003)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2022 01:24:48.7738 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0dc193e-dea0-4275-bd0a-08dac83a84e2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2022 01:24:52.4767 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 087a7558-577f-4d40-c307-08dac83a8717
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT111.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7668
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7290
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,30 +106,44 @@ Cc: Alex Deucher <Alexander.Deucher@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Bug fix reading the product name, product number, and serial number
-on newer boards, especially new Aldebaran boards.
+Add support for RAS table at I2C EEPROM address of 0x40000, since on some
+ASICs it is not at 0, but at 0x40000.
 
-This edition fixes reading the actual serial number rather than the
-product version, in patch 3. Also rebase to latest
-amd-staging-drm-next.
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+Cc: Kent Russell <kent.russell@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+Tested-by: Kent Russell <kent.russell@amd.com>
+Reviewed-by: Kent Russell <kent.russell@amd.com>
+Reviewed-by: Alex Deucher <Alexander.Deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Clarify changes in commits 1-3.
-
-Add tags we've received so far.
-
-Luben Tuikov (4):
-  drm/amdgpu: Allow non-standard EEPROM I2C address
-  drm/amdgpu: Bug-fix: Reading I2C FRU data on newer ASICs
-  drm/amdgpu: Interpret IPMI data for product information (v2)
-  drm/amdgpu: Add support for RAS table at 0x40000
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c    |   2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 215 +++++++++---------
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    |   7 +-
- 3 files changed, 115 insertions(+), 109 deletions(-)
-
-
-base-commit: f9cb9d9b7cfde813d3b2d19dc0016645f985b543
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index f63bd31e199c8e..2d9f3f4cd79e92 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -157,6 +157,7 @@ static bool __get_eeprom_i2c_addr_ip_discovery(struct amdgpu_device *adev,
+ static bool __get_eeprom_i2c_addr(struct amdgpu_device *adev,
+ 				  struct amdgpu_ras_eeprom_control *control)
+ {
++	struct atom_context *atom_ctx = adev->mode_info.atom_context;
+ 	u8 i2c_addr;
+ 
+ 	if (!control)
+@@ -190,7 +191,11 @@ static bool __get_eeprom_i2c_addr(struct amdgpu_device *adev,
+ 		break;
+ 
+ 	case CHIP_ALDEBARAN:
+-		control->i2c_address = EEPROM_I2C_MADDR_0;
++		if (strnstr(atom_ctx->vbios_version, "D673",
++			    sizeof(atom_ctx->vbios_version)))
++			control->i2c_address = EEPROM_I2C_MADDR_4;
++		else
++			control->i2c_address = EEPROM_I2C_MADDR_0;
+ 		break;
+ 
+ 	case CHIP_IP_DISCOVERY:
 -- 
 2.38.1
 
