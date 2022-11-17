@@ -4,61 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49A7EC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 04:57:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2925C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 06:08:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D844210E021;
-	Thu, 17 Nov 2022 04:57:25 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E64F810E52E
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Nov 2022 04:28:07 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id l14so1483358wrw.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 20:28:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=am1pqej90LN9oUfPY/QamDYoHeiS9DBo2YTNmvO0b9g=;
- b=HC8Kanw+P8hs6VYc3PycEHdaThpTn+ehJM2GlPIEZPfi+W7h+ASgO7GM8w6kLy2bxI
- wGZDAMRHgLDJk0M9FIyjbBJ/OjcEoo6jD4hrvYiIjxKWzzDYf6of2gRdixlC1DqEcbJ/
- DgVWBqjnXmtgNd4Hfx3h0DE6GNNePXvg+vYnK29EgC2kRaIRe2irszREPFe+VZjfZmVu
- sruZjS0rh46F3bDGfJUarxtyV+G3KqHtuMcYgA/HhJaHAky6MqRZff8gWkdpohgUCWZV
- 60l6VHeTBt+tgVw/3ENzFrcf+h0/P3XYPFXFvCiBj0b33h8mg5a1+cUxJTnzJWuRJb3W
- ZpOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=am1pqej90LN9oUfPY/QamDYoHeiS9DBo2YTNmvO0b9g=;
- b=M1KZdSlbvL9ig5DMnnRCPhmASN5s7/kSB0WDWmoQsGyoNnohVvqUpkPIYAGlXAETOq
- l6pHN+sopFjCkRahWx9wtda2+rB8tNQXy/SZrQGCHD/XxLBjxQHjXuQ3hBMNwkNLPib/
- ZiD255E7bzt5nA7goqNyzafDfdmGcItT0x+iuCJUBEHil3oT85PaN9BMojXZQJbYjNns
- indiky4JrPzGpGjlltgrAFUE59DzBjBW6daf303/d1k8IX/LJLqlX4yM0kfRTMCFVxhv
- 2F47GjMBFu+d99Q9eCN0vdU9Q431LnNlQkFXXYASMXSbyMCjPkul/3SPz8pfH8AHiAaZ
- UwFg==
-X-Gm-Message-State: ANoB5pm4pL3/GeGWqRyrVv5aHBK7pkh6IZWkyZKjdqzCUdzPX2rH78cZ
- jEUtMMu4hlhIeb0svxvZTyk=
-X-Google-Smtp-Source: AA0mqf66hYYs9t3KKlr2fxAbVFzMVvD9zPX7z9FyyAKQv4/nSSzvaJnHJdd87MJ57cFkGT8QK7MoxQ==
-X-Received: by 2002:a05:6000:1e0f:b0:238:3d2a:cd12 with SMTP id
- bj15-20020a0560001e0f00b002383d2acd12mr310027wrb.172.1668659286279; 
- Wed, 16 Nov 2022 20:28:06 -0800 (PST)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- n7-20020adffe07000000b002366f9bd717sm19909773wrr.45.2022.11.16.20.28.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Nov 2022 20:28:05 -0800 (PST)
-Date: Thu, 17 Nov 2022 07:28:02 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [PATCH] drm/amdkfd: Release the topology_lock in error case
-Message-ID: <Y3W4UhsDA9oL6W8o@kadam>
-References: <20221116080415.593223-1-Jun.Ma2@amd.com>
- <13c82533-6cb1-2bcb-405c-f81123807fcb@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C00389023;
+	Thu, 17 Nov 2022 06:08:54 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2061.outbound.protection.outlook.com [40.107.93.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D02710E54A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Nov 2022 06:08:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NGRkqWo/L2iHu5DvFiaujGQ8JTPXfMyi3jXY2IVAt3BlOFt4qZv4J8ju8XhhWVI7Qs5fXhtGEw5S72xQJxSr649+MqQeqY5EWFAeOQbvYzo+YysjdB+ix5Mkat1Z4/FFurgXNZ3oIUNZ3V/ZByhpK3XgpS1LzjRGUbXoeOshSMivYILMrKDpxqYIqtIUje0L0h3NTAhl+8k+27JM25TNnymo+/UwByPkCT8WcdD+4e4T4CqJTdgHE2GuEqHwvoDgM5PbAIYgnuuP+fdrcAHBPorRbDJTzwFczPTMVbQEU/ElHvfCZ9ymqqOnH6JuspYSB37owDB0TKOm8d7/DZgjag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SPU/eohzac7V1d8Y0hjUaNlnM3ISbvS6yT/zMrpqd0E=;
+ b=B9zdXqEfBJvf7ZxB+XfhgvrCaQhssUIgxAr5QMoja+PnsECszWONGMDGhkTMHXMrYmdVCObreOggkR7jTW+CUtDwE7VSgmjZXJ/mqvYuECOur/wV3zoNrYIa+ZgXC8FfuzzhKEeCLwpSTinyf8IEZSDrHee3GIN4mAnT5csZINaUVPKdDcOuBUGoVRaVg6eZBOTN0/vGDJm2gHBIAYKRTHWlITracZ2sJMuWdUIyXWi4NBayp8+eEm5/Fv1QTcmU/t6z9H4xF31T5ipHPtb6r+mMGB7tfAdBy3IEYW3Z93ypkc1E92Ly2BQ7gRx7DHKhrfNKr6HWgKJbAeYRV0QSxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SPU/eohzac7V1d8Y0hjUaNlnM3ISbvS6yT/zMrpqd0E=;
+ b=iiojmF26lxhzB9z/IqJGOhboaRNuawQHpQrxRimds0K6jeU1QRHiyPD+nHfpJ5zjHcYWZxlQ6n9R0fEjoIdlz0roojj4OxLzgAs1E3c2w4vbawqxinGjZNlTEnDV25SjhJhHbBUKqHYAB1HQTKdgi2z2Y4LakF3KgniaLDm6m6o=
+Received: from BN9PR03CA0851.namprd03.prod.outlook.com (2603:10b6:408:13d::16)
+ by DM4PR12MB6662.namprd12.prod.outlook.com (2603:10b6:8:bb::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.17; Thu, 17 Nov
+ 2022 06:08:45 +0000
+Received: from BN8NAM11FT063.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13d:cafe::a1) by BN9PR03CA0851.outlook.office365.com
+ (2603:10b6:408:13d::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.19 via Frontend
+ Transport; Thu, 17 Nov 2022 06:08:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT063.mail.protection.outlook.com (10.13.177.110) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5834.8 via Frontend Transport; Thu, 17 Nov 2022 06:08:44 +0000
+Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 17 Nov
+ 2022 00:08:42 -0600
+From: Tao Zhou <tao.zhou1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
+ <Alexander.Deucher@amd.com>, <Lijo.Lazar@amd.com>
+Subject: [PATCH 1/8] drm/amdgpu: enable RAS for VCN/JPEG v4.0
+Date: Thu, 17 Nov 2022 14:07:48 +0800
+Message-ID: <20221117060755.13655-1-tao.zhou1@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <13c82533-6cb1-2bcb-405c-f81123807fcb@amd.com>
-X-Mailman-Approved-At: Thu, 17 Nov 2022 04:57:21 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT063:EE_|DM4PR12MB6662:EE_
+X-MS-Office365-Filtering-Correlation-Id: b44d3cc3-c1b1-46f9-adfe-08dac8622f20
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: co2t/iqHLWjK8A5tNa6woirJJquaiJZ3U12T9KIqxlFhCQMpXRRxMIoUWSCx5oM4o8NP7noQZ05vFHkBwo7TIf66sfZUFzVBKQsk3B8jsUVSgOl3lXflZmgYRvvnGja9wd2DNQ22bXbHOCMvLly1dI24HEPF7IdhtZMoLNKs553E/3TwTu4qzfjfRhzbpjN645sW4/MPDoo+V8wnUQKr5930XGdpiYFraYgDiHYMXX08rQD/MC+c4azEPkBq3TdGJMV++mjoIX1eTy2YgjabB/jhVGosLNlKclhuSz/DFt+iJD1ME74de7voHGJMEzbBkShQg2Kk8d3llOfPYn6eYXtsPeSUPuCkR7Wasm+mPOaO07W2TqZhhLS+GszXnui15jiicmdElkzRya30uz/YdUgigagO4DuZglMX/juTERQLuZPSY83EC+z1apQroc03DVEVA9Yr4WP/Dp5R3r7xCoIBhqdl5yjSnjmS7xeLuoeHX/aqUbrtgDaLabjjpIyXsmANz/o7NNGdMmfcn493yUFD0B3dJtlGcpgq1ZlnrzwnsE4vY7s9G2MMfOHUfANyYp3v4uUveKVq9myjpv/9YJebZIiSQq0WVZ8fl9MfCkKIOziLzE3EmmTeNKHfYnusbszYE6czN+DyzbhAjSgHHUf/22uVcCvRZUaav98CBXhKzqVkarumt+Lqw6HtOrxLOmJEFg7b5SbSJ8/FUHerqimq/QkhVX5n+wQj3vKVAp8=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(346002)(136003)(376002)(39860400002)(451199015)(36840700001)(46966006)(40470700004)(8936002)(82310400005)(70206006)(36756003)(40460700003)(2616005)(1076003)(86362001)(40480700001)(41300700001)(8676002)(82740400003)(70586007)(426003)(47076005)(4744005)(186003)(16526019)(4326008)(336012)(26005)(5660300002)(478600001)(316002)(110136005)(7696005)(54906003)(81166007)(83380400001)(6636002)(356005)(2906002)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2022 06:08:44.8898 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b44d3cc3-c1b1-46f9-adfe-08dac8622f20
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT063.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6662
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,25 +98,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ma Jun <Jun.Ma2@amd.com>, Dan Carpenter <dan.carpenter@oracle.com>,
- guchun.chen@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Tao Zhou <tao.zhou1@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 16, 2022 at 03:49:18PM -0500, Felix Kuehling wrote:
-> Am 2022-11-16 um 03:04 schrieb Ma Jun:
-> > Release the topology_lock in error case
-> > 
-> > Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-> > Reported-by: Dan Carpenter <error27@gmail.com>
-> Dan, did you change your email address, is this one correct?
-> 
+Set support flag for VCN/JPEG 4.0.
 
-Yep.
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-I'm still around doing Smatch stuff though:
-https://lore.kernel.org/all/Y1qf7w%2Fjo8FH5I8G@kadam/
-
-regards,
-dan carpenter
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 693bce07eb46..e6feb2750a89 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2343,7 +2343,8 @@ static void amdgpu_ras_check_supported(struct amdgpu_device *adev)
+ 				adev->ras_hw_enabled |= ~(1 << AMDGPU_RAS_BLOCK__UMC |
+ 							    1 << AMDGPU_RAS_BLOCK__DF);
+ 
+-				if (adev->ip_versions[VCN_HWIP][0] == IP_VERSION(2, 6, 0))
++				if (adev->ip_versions[VCN_HWIP][0] == IP_VERSION(2, 6, 0) ||
++				    adev->ip_versions[VCN_HWIP][0] == IP_VERSION(4, 0, 0))
+ 					adev->ras_hw_enabled |= (1 << AMDGPU_RAS_BLOCK__VCN |
+ 							1 << AMDGPU_RAS_BLOCK__JPEG);
+ 				else
+-- 
+2.35.1
 
