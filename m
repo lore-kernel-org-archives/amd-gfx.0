@@ -4,59 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C353C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 15:28:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35069C43217
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 15:28:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA10C10E62E;
-	Thu, 17 Nov 2022 15:28:33 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0890810E627;
- Thu, 17 Nov 2022 15:11:49 +0000 (UTC)
-Received: from [192.168.2.32] (109-252-117-140.nat.spd-mgts.ru
- [109.252.117.140])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 649B96602AA5;
- Thu, 17 Nov 2022 15:11:47 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1668697907;
- bh=wn7Cy/ZPgoMUXLEJ3MBjrTC/FWisYchJvN8Zlkkx/q8=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=UrHRMvoLGMClM5GSD8MdmpFQScwEEstNHrK0qA5NTLWvhhP05AheU9H8pzInFs6V+
- Pu7/oasHF1j7xTEJz3KUkcMp93WHfn1N4bLDKgkHvvD9zlnfjEVfBTx8et1MVhCSjN
- 6OznL7KDQHTBpDo1NOTH+/3pkJ9ousPrLkTmaqfuKtyfJ0HC9DW2Z1piBm+MQ6swa8
- Eblr7elzXlr4kPxoKKeEq4gXL1/V6KuhQcdo/HQXHM7XvVJvTUzgUGoX8lsXh1Js++
- Q0iwnIVlP17Zml15bpVLfuEpT4P3+n+XgmhPAS0idIncq56z/QLcn65BdRakG2xLXc
- +AVQRAU7wFp2Q==
-Message-ID: <647e876a-9710-c6bd-9cf3-a513d879c36a@collabora.com>
-Date: Thu, 17 Nov 2022 18:11:44 +0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 564D110E632;
+	Thu, 17 Nov 2022 15:28:34 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC86410E61C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Nov 2022 15:01:41 +0000 (UTC)
+Received: from dggpemm500024.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4NCjmD3FgPzRpCx;
+ Thu, 17 Nov 2022 23:01:16 +0800 (CST)
+Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
+ dggpemm500024.china.huawei.com (7.185.36.203) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Thu, 17 Nov 2022 23:01:37 +0800
+Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
+ (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 17 Nov
+ 2022 23:01:37 +0800
+From: Yang Yingliang <yangyingliang@huawei.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: fix pci device refcount leak
+Date: Thu, 17 Nov 2022 23:00:03 +0800
+Message-ID: <20221117150003.397385-1-yangyingliang@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-Subject: Re: [PATCH 12/13] drm/scheduler: rework entity flush, kill and fini
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- luben.tuikov@amd.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20221014084641.128280-1-christian.koenig@amd.com>
- <20221014084641.128280-13-christian.koenig@amd.com>
- <1b1fae07-a5c3-e982-94a2-c35ab26f0e91@collabora.com>
- <da420e53-cafd-b46f-90df-ed54e6de09a3@amd.com>
- <9722032c-f1b3-37ff-91d2-6ed965300047@collabora.com>
- <ef732036-895b-0f5c-d06b-d7e4a739541a@gmail.com>
- <74d74689-9c8e-1691-a232-c18271974f37@collabora.com>
- <126a8c1e-69ec-5068-1aad-30f5e7c3ef21@collabora.com>
- <4f5766ab-d31f-d0c8-6b1e-0c7e0fbabfed@amd.com>
- <50308598-324f-f628-a4f1-55da3935a2f5@collabora.com>
- <067ffcf2-5d46-fd37-3df8-0de1714573e4@amd.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <067ffcf2-5d46-fd37-3df8-0de1714573e4@amd.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+ dggpemm500007.china.huawei.com (7.185.36.183)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Thu, 17 Nov 2022 15:28:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,31 +48,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alexander.deucher@amd.com, evan.quan@amd.com, yangyingliang@huawei.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/17/22 18:09, Christian König wrote:
-> Am 17.11.22 um 15:41 schrieb Dmitry Osipenko:
->> [SNIP]
->>> drm_sched_entity_flush() should be called from the flush callback from
->>> the file_operations structure of panfrost. See amdgpu_flush() and
->>> amdgpu_ctx_mgr_entity_flush(). This makes sure that we wait for all
->>> entities of the process/file descriptor to be flushed out.
->>>
->>> drm_sched_entity_fini() must be called before you free the memory the
->>> entity structure or otherwise we would run into an use after free.
->> Right, drm_sched_entity_destroy() invokes these two functions and
->> Panfrost uses drm_sched_entity_destroy().
-> 
-> Than I have no idea what's going wrong here.
-> 
-> The scheduler should trivially finish with the entity and call
-> complete(&entity->entity_idle) in it's main loop. No idea why this
-> doesn't happen. Can you investigate?
+As comment of pci_get_domain_bus_and_slot() says, it returns
+a pci device with refcount increment, when finish using it,
+the caller must decrement the reference count by calling
+pci_dev_put().
 
-I'll take a closer look. Hoped you may have a quick idea of what's wrong :)
+So before returning from amdgpu_device_resume|suspend_display_audio(),
+pci_dev_put() is called to avoid refcount leak.
 
+Fixes: 3f12acc8d6d4 ("drm/amdgpu: put the audio codec into suspend state before gpu reset V3")
+Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 64510898eedd..69e73fef1ab2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5027,6 +5027,8 @@ static void amdgpu_device_resume_display_audio(struct amdgpu_device *adev)
+ 		pm_runtime_enable(&(p->dev));
+ 		pm_runtime_resume(&(p->dev));
+ 	}
++
++	pci_dev_put(p);
+ }
+ 
+ static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
+@@ -5065,6 +5067,7 @@ static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
+ 
+ 		if (expires < ktime_get_mono_fast_ns()) {
+ 			dev_warn(adev->dev, "failed to suspend display audio\n");
++			pci_dev_put(p);
+ 			/* TODO: abort the succeeding gpu reset? */
+ 			return -ETIMEDOUT;
+ 		}
+@@ -5072,6 +5075,7 @@ static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
+ 
+ 	pm_runtime_disable(&(p->dev));
+ 
++	pci_dev_put(p);
+ 	return 0;
+ }
+ 
 -- 
-Best regards,
-Dmitry
+2.25.1
 
