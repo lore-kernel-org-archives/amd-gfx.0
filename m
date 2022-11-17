@@ -4,59 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A80EC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 15:55:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E243C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Nov 2022 17:24:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DDD810E641;
-	Thu, 17 Nov 2022 15:55:33 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94DA910E642
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Nov 2022 15:55:30 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-13b6c1c89bdso2571996fac.13
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Nov 2022 07:55:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ChmUvSXCkQktxkWwFvIF8i2hGji06NSqTmii2L0yGLA=;
- b=MikH5UuySH76tLJFMbstvf5KWbVhh3HIdTvuD769q+uxXS9Sh9HNNnuelv/ieuc1DQ
- rwgInq963VpCXdglaeH7xchy+UM9abqdYfXL7rzmpGOPm+az0QP5rxBTYwwGU12wdY9h
- ExQGL7SqQdnMpzugWmtyKPjk3gayrojFx5EhbC+/cs4HPOPqJueGZwQWHbYF7vUsWRcX
- BmROgr0f571d/oI1WZ8N0JD/LX/iECuE4CwQBaOn48zd1QqUamGBaepaGVXryZ2tc0vu
- obLFN09GYLKPOhsCqC8J+Ze8qPVImcFslPQsTZZwhSlWvElluxEPREQd39kUm8L8Dgid
- NOOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ChmUvSXCkQktxkWwFvIF8i2hGji06NSqTmii2L0yGLA=;
- b=8RUMRj1N3UZ/KFoHEM80Dls2J3+eJpSX3XDCUGey8FNl6eEWRWL/3WKF2f4siZKUCA
- 5jJDTzjmJYkfwkGPJ5bwwgdbgVdcO0J/06xzbG/5PK2nfGrDe1LB9Knvl7DtgGm9mlKT
- lJm8phPeco3Ek7grsENoQpLZAZreUq9wWhyeBy9Pg1HLrDzPACYT1xwIAtDYzunBuScN
- x/6xgOs7fmjZDUhSzJnGofHKAiOF+Wp1fL0V4dzWRHDZWgtvXkG8DLsz4BZ/TpSx9gna
- Gj3RPYqfDZ81arxCPI3AhdIzSUSqwsouLJJVBwVXhhCUVGFVgO9XyaQyIGGxZ9+rlFDl
- HS8Q==
-X-Gm-Message-State: ANoB5pkv+vQUXbwQJGe/bz8PGvCkJiip3K+r8VExVBXU1CwcEpf35WIB
- UqVeUTrlhJ9BpeV7i4iC5m635Fb3a+O9HWe2GNg=
-X-Google-Smtp-Source: AA0mqf6kDTYVB7Jxe/Rsq+rrh/g3xEbjgFbubP5P7zV2fOnEGNhcGqi/ne8jtCaIZSOYAWBvXKEoOrkH30LrmwRYrZs=
-X-Received: by 2002:a05:6870:2b05:b0:12d:58c1:33f9 with SMTP id
- ld5-20020a0568702b0500b0012d58c133f9mr4831234oab.46.1668700529815; Thu, 17
- Nov 2022 07:55:29 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75FB910E650;
+	Thu, 17 Nov 2022 17:24:09 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64E5910E64D;
+ Thu, 17 Nov 2022 17:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
+ Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:In-Reply-To:References;
+ bh=smL2Rmie4NiQV8CZsOPNkcR6M+ljD18RGFuWqIoGNYg=; b=h/G6IEwklW9pY5On6uKrLDOWJs
+ Sxa8FqSCOBfPrIyBSn/0sK8oO552McbCLO0z/zNalJFABZ/hnVF8c+o/iYfVt7pPXQx7I9NmFmQhO
+ 698RdHcYytKebOyYTMIfQRjlGM8jRyYnWxm4bRJiCl/tN+e0kGdkXsVsLETlPEucmrDUhEu4W46r4
+ BHDnu0wFMKbAsyw8A3EKfWjAyevpojxce1qbyUHJRV7iM2DXN8o82jdgBuPyvBeIEQNeol9QYfkjV
+ WqUhSWs/+f9s5eyZ7Nz0xSktH2MKG6FBv4oygJdnLm6bnmd5B3YLWfScMUHmRsjE4v7c7p+lSCxXl
+ dpiBIhfQ==;
+Received: from [2601:1c2:d80:3110::a2e7] (helo=casper.infradead.org)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1oviYm-001FKW-Gy; Thu, 17 Nov 2022 17:20:21 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH -next] drm/amd/display: fix kernel-doc issues in dc.h
+Date: Thu, 17 Nov 2022 09:20:09 -0800
+Message-Id: <20221117172009.28207-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-References: <20221116160111.3226-1-christian.koenig@amd.com>
- <20221116160111.3226-2-christian.koenig@amd.com>
- <CADnq5_MccS8DkM9kLmamDH3wcNeJZeczAqqHc+gfxFLRrb-GSQ@mail.gmail.com>
-In-Reply-To: <CADnq5_MccS8DkM9kLmamDH3wcNeJZeczAqqHc+gfxFLRrb-GSQ@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 17 Nov 2022 10:55:18 -0500
-Message-ID: <CADnq5_OtYNV2AtKxK1ZPsv_usM5kbwtm66PT5ZyCV657MHRfdA@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/amdgpu: stop freeing PSP buffers during suspend
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 17 Nov 2022 17:24:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,134 +46,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, arunpravin.paneerselvam@amd.com
+Cc: Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hey Christian,
+Fix these kernel-doc complaints:
 
-Do you have a preference on which solution we go with?  I'm inclined
-to go with my patch just because it's more self-contained and easier
-to deal with for stable, but I could be convinced otherwise.
+drivers/gpu/drm/amd/display/dc/dc.h:505: warning: cannot understand function prototype: 'struct dc_clocks '
+dc.h:472: warning: Enum value 'MPC_SPLIT_AVOID' not described in enum 'pipe_split_policy'
+dc.h:472: warning: Enum value 'MPC_SPLIT_AVOID_MULT_DISP' not described in enum 'pipe_split_policy'
+dc.h:532: warning: Incorrect use of kernel-doc format:          * @fw_based_mclk_switching
 
-Alex
+Fixes: ea76895ffab1 ("drm/amd/display: Document pipe split policy")
+Fixes: 1682bd1a6b5f ("drm/amd/display: Expand kernel doc for DC")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+---
+ drivers/gpu/drm/amd/display/dc/dc.h |   12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-On Wed, Nov 16, 2022 at 11:38 AM Alex Deucher <alexdeucher@gmail.com> wrote=
-:
->
-> I was thinking something like this would be more straightforward.
->
-> Alex
->
-> On Wed, Nov 16, 2022 at 11:01 AM Christian K=C3=B6nig
-> <ckoenig.leichtzumerken@gmail.com> wrote:
-> >
-> > That the PSP code tries to free the memory during suspend is quite
-> > broken and leads to problems during resume.
-> >
-> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 30 ++++++++++---------------
-> >  1 file changed, 12 insertions(+), 18 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_psp.c
-> > index 0a8c30475dda..470cd660c450 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > @@ -511,11 +511,10 @@ static int psp_sw_fini(void *handle)
-> >         kfree(cmd);
-> >         cmd =3D NULL;
-> >
-> > -       if (psp->km_ring.ring_mem)
-> > -               amdgpu_bo_free_kernel(&adev->firmware.rbuf,
-> > -                                     &psp->km_ring.ring_mem_mc_addr,
-> > -                                     (void **)&psp->km_ring.ring_mem);
-> > -
-> > +       psp_free_shared_bufs(psp);
-> > +       amdgpu_bo_free_kernel(&adev->firmware.rbuf,
-> > +                             &psp->km_ring.ring_mem_mc_addr,
-> > +                             (void **)&psp->km_ring.ring_mem);
-> >         amdgpu_bo_free_kernel(&psp->fw_pri_bo,
-> >                               &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
-> >         amdgpu_bo_free_kernel(&psp->fence_buf_bo,
-> > @@ -2635,8 +2634,6 @@ static int psp_hw_fini(void *handle)
-> >
-> >         psp_ring_destroy(psp, PSP_RING_TYPE__KM);
-> >
-> > -       psp_free_shared_bufs(psp);
-> > -
-> >         return 0;
-> >  }
-> >
-> > @@ -2651,7 +2648,7 @@ static int psp_suspend(void *handle)
-> >                 ret =3D psp_xgmi_terminate(psp);
-> >                 if (ret) {
-> >                         DRM_ERROR("Failed to terminate xgmi ta\n");
-> > -                       goto out;
-> > +                       return ret;
-> >                 }
-> >         }
-> >
-> > @@ -2659,40 +2656,40 @@ static int psp_suspend(void *handle)
-> >                 ret =3D psp_ras_terminate(psp);
-> >                 if (ret) {
-> >                         DRM_ERROR("Failed to terminate ras ta\n");
-> > -                       goto out;
-> > +                       return ret;
-> >                 }
-> >                 ret =3D psp_hdcp_terminate(psp);
-> >                 if (ret) {
-> >                         DRM_ERROR("Failed to terminate hdcp ta\n");
-> > -                       goto out;
-> > +                       return ret;
-> >                 }
-> >                 ret =3D psp_dtm_terminate(psp);
-> >                 if (ret) {
-> >                         DRM_ERROR("Failed to terminate dtm ta\n");
-> > -                       goto out;
-> > +                       return ret;
-> >                 }
-> >                 ret =3D psp_rap_terminate(psp);
-> >                 if (ret) {
-> >                         DRM_ERROR("Failed to terminate rap ta\n");
-> > -                       goto out;
-> > +                       return ret;
-> >                 }
-> >                 ret =3D psp_securedisplay_terminate(psp);
-> >                 if (ret) {
-> >                         DRM_ERROR("Failed to terminate securedisplay ta=
-\n");
-> > -                       goto out;
-> > +                       return ret;
-> >                 }
-> >         }
-> >
-> >         ret =3D psp_asd_terminate(psp);
-> >         if (ret) {
-> >                 DRM_ERROR("Failed to terminate asd\n");
-> > -               goto out;
-> > +               return ret;
-> >         }
-> >
-> >         ret =3D psp_tmr_terminate(psp);
-> >         if (ret) {
-> >                 DRM_ERROR("Failed to terminate tmr\n");
-> > -               goto out;
-> > +               return ret;
-> >         }
-> >
-> >         ret =3D psp_ring_stop(psp, PSP_RING_TYPE__KM);
-> > @@ -2700,9 +2697,6 @@ static int psp_suspend(void *handle)
-> >                 DRM_ERROR("PSP ring stop failed\n");
-> >         }
-> >
-> > -out:
-> > -       psp_free_shared_bufs(psp);
-> > -
-> >         return ret;
-> >  }
-> >
-> > --
-> > 2.34.1
-> >
+diff -- a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -458,15 +458,15 @@ enum pipe_split_policy {
+ 	MPC_SPLIT_DYNAMIC = 0,
+ 
+ 	/**
+-	 * @MPC_SPLIT_DYNAMIC: Avoid pipe split, which means that DC will not
++	 * @MPC_SPLIT_AVOID: Avoid pipe split, which means that DC will not
+ 	 * try any sort of split optimization.
+ 	 */
+ 	MPC_SPLIT_AVOID = 1,
+ 
+ 	/**
+-	 * @MPC_SPLIT_DYNAMIC: With this option, DC will only try to optimize
+-	 * the pipe utilization when using a single display; if the user
+-	 * connects to a second display, DC will avoid pipe split.
++	 * @MPC_SPLIT_AVOID_MULT_DISP: With this option, DC will only try to
++	 * optimize the pipe utilization when using a single display; if the
++	 * user connects to a second display, DC will avoid pipe split.
+ 	 */
+ 	MPC_SPLIT_AVOID_MULT_DISP = 2,
+ };
+@@ -497,7 +497,7 @@ enum dcn_zstate_support_state {
+ };
+ 
+ /**
+- * dc_clocks - DC pipe clocks
++ * struct dc_clocks - DC pipe clocks
+  *
+  * For any clocks that may differ per pipe only the max is stored in this
+  * structure
+@@ -528,7 +528,7 @@ struct dc_clocks {
+ 	bool fclk_prev_p_state_change_support;
+ 	int num_ways;
+ 
+-	/**
++	/*
+ 	 * @fw_based_mclk_switching
+ 	 *
+ 	 * DC has a mechanism that leverage the variable refresh rate to switch
