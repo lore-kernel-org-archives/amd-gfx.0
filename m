@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2D73C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Nov 2022 20:11:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35521C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Nov 2022 20:12:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC6D10E7C4;
-	Fri, 18 Nov 2022 20:11:31 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 335C210E7C4;
- Fri, 18 Nov 2022 20:11:29 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-13be3ef361dso7173476fac.12; 
- Fri, 18 Nov 2022 12:11:29 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B903F10E7C7;
+	Fri, 18 Nov 2022 20:12:51 +0000 (UTC)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AF4210E7C7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Nov 2022 20:12:50 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id b124so6529107oia.4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Nov 2022 12:12:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=J3I3CkdX4BAay5C0IaiSoCWmkDjQWfYtrKIg7MfvyUY=;
- b=Q/x00Xs+INcK9wrEmPasiROezIpYZC96sD9AlGuzIT/Z3B5xav8JQrZLsf0bVIgp5+
- 5Q+2qjQy3fS+GISqFZJhFMnzu47CkNAZE7m71SW9UQ17vnGUQpwiS9OKW6/MUhhtScw5
- rmQE+jvC32tw6PE3xkMOHh8unguMDvvorOw4YTLgyM14YhM+ybgTfJCq5rWOqyrj2Ap3
- 0/J11dqVCnkqj+XSIJQ+DxDn4vpz+4MOBl12IFG7tH8JhO7TnWt2jfOI1cmSB1SxSAjN
- 3paOxl0zP4YAjdfDjVQFzbaNMzytEaPUXeT1hSYrktGE7oTwcUpZPOnfTAvg/bpL13nL
- mF5w==
+ bh=dEwXcfV+IM5e3f2vpVaga+CjFFdG1DHalyNIM+YmWHc=;
+ b=cNmVAiZTaVhgGoLp7W7WDDKMjSHeMWBtvXl3All51hSRKhAwOusEB5aZiy5xJTb1jC
+ KT6ZYoS/Zsydlly4hmzDTt4WlcsYYPDDYeEvNkmstUy56XBkr7s0UCQHySUi+EXc1Xxn
+ Jvlbe01/HFLKCip+JQHxfKtKDCg9zgPiUmMcOYXnpmuYQvKrDirGlnk4wqqsAcn5JvDd
+ ye7c4nLtD2uWJLXyuAhcMWzzUS7HRh9WZIscCOyf/85daBVM2VdYXOnmN40SbglsvR6N
+ TIclL5B1ELwCDyifsQ9CsaXWYZFYltFi2p2hZ2ueGP+5Qpi7mAdNJgUeqb4ghzNhTP5a
+ 6zOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=J3I3CkdX4BAay5C0IaiSoCWmkDjQWfYtrKIg7MfvyUY=;
- b=SfbpnO5e1Tb+mfy8k/94ybPP/3yhQxkEyfs2wSzL7q7guh8DquBxumLEkVV3afb+WF
- sueFulcv+4dpOZFkf1jboLvjhgDshlJt53Iqvj81YelMmC/GrUJyssR5xtvYv/Sf2bXM
- whZ9CuxziMaziAYl7BX4PdPATuM2Ttp/AZ0osq8xDyxi7I/trCWXok6baIG++xZ/72l5
- 4vHJNQj4FTGFO2/dQId8zvYxjAZ6fc135r0aJ8ooiIfp4AgJLrW6wahCvq3/b/k5P6lH
- 4umGxlU7eAGQ1rOOjwnq9rcACNt4dyCJ9U7rO3M50CPV5qaZhH4/cdpn8ksCmF+MqaeU
- oO9A==
-X-Gm-Message-State: ANoB5pm5d4aR/c7iC65T1vwf1UayoPZOEOkwJizndWNf51YWU0GvQNhk
- XXd8LA87gNkYS5I1sC89nY2SVSttK1xoNJyQCMY=
-X-Google-Smtp-Source: AA0mqf4HAPt5v1Yu7vw9aDVSNnvY2xhI05VAW34pXE3l0dIiWaEtvxVZJXNOHwbRMWzNZ+ydN1qTwgQIHgLOBuRB8/A=
-X-Received: by 2002:a05:6870:2b05:b0:12d:58c1:33f9 with SMTP id
- ld5-20020a0568702b0500b0012d58c133f9mr8296943oab.46.1668802288282; Fri, 18
- Nov 2022 12:11:28 -0800 (PST)
+ bh=dEwXcfV+IM5e3f2vpVaga+CjFFdG1DHalyNIM+YmWHc=;
+ b=2PDObOJh5FRBOFOLRxq0XDtVKRhJRg1gn7U81+0XL0mXV5V2KBt2r5242/g2oOhWBi
+ zU8r8XbF1m9vpL/TMbEpkVWoshjufTOJBxhr2Rkjb+Oh96dSA8UpJZRunLihceVRrLqr
+ W+tufU7jzQ4v257EHfw+JiOFSMMBm2TCH2cf7LbXfGJslwwxjLdhZeXN4kh8Y6N8xsSh
+ Qn4m3vqk9zjpC3SH5xJ+ZXJ1zh4dGK4j14vFYxByiEtROl2Z9hr4pnccCmKrEVtr98mh
+ 97lqHlI/6MGzMFjQDExD2Bci9ttLuTpzfiQrATvDv1sTA+h5b7i1fQA0MUrd2CPfalk5
+ geZA==
+X-Gm-Message-State: ANoB5pkHVSMoeo9vW6poZzynG11jleR3pIEcJj33p1VGwKxRPXmAkXCU
+ BZTzUHTSaHY09RD6wNNOMiDCdsJkaBZH5vRWMlqBMp9bbvk=
+X-Google-Smtp-Source: AA0mqf6rtbp1zr7w+fAJYnThBXRzkLp9vFEF0vuaTEcyF4+JiKRFmk8a613GGy7S5ehkELflqDVaO8kbOQuBJzswJ+s=
+X-Received: by 2002:a05:6808:9b8:b0:34f:97ea:14d with SMTP id
+ e24-20020a05680809b800b0034f97ea014dmr4400017oig.96.1668802369810; Fri, 18
+ Nov 2022 12:12:49 -0800 (PST)
 MIME-Version: 1.0
-References: <20221118195406.95779-1-lyude@redhat.com>
- <b7c8a41d-6657-2646-4f18-ed13293369b2@amd.com>
-In-Reply-To: <b7c8a41d-6657-2646-4f18-ed13293369b2@amd.com>
+References: <20221118125935.4013669-1-Brian.Chang@amd.com>
+ <20221118125935.4013669-23-Brian.Chang@amd.com>
+In-Reply-To: <20221118125935.4013669-23-Brian.Chang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 18 Nov 2022 15:11:16 -0500
-Message-ID: <CADnq5_M0zdoSe3w1A-XxLc4G_x4-a2RT6CkRfhwP_4OLdP=Uow@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/dm/mst: Fix uninitialized var in
- pre_compute_mst_dsc_configs_for_state()
-To: Harry Wentland <harry.wentland@amd.com>
+Date: Fri, 18 Nov 2022 15:12:38 -0500
+Message-ID: <CADnq5_NuC1imDa9kRdr2fKY3HFdC7huMNhnW4_SB0FNs=JEyqA@mail.gmail.com>
+Subject: Re: [PATCH 22/22] SWDEV-1 - dc: 3.2.213
+To: brichang <Brian.Chang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,49 +64,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>, Leo Li <sunpeng.li@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Roman Li <Roman.Li@amd.com>, amd-gfx@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- hersen wu <hersenxs.wu@amd.com>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Wayne Lin <Wayne.Lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>
+Cc: stylon.wang@amd.com, Aric Cyr <Aric.Cyr@amd.com>, Sunpeng.Li@amd.com,
+ Bhawanpreet.Lakha@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, amd-gfx@lists.freedesktop.org, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Harry.Wentland@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Please fix the subject.  E.g., drm/amd/display: dc: 3.2.213
+or something like that.
 
-Alex
-
-On Fri, Nov 18, 2022 at 3:03 PM Harry Wentland <harry.wentland@amd.com> wrote:
+On Fri, Nov 18, 2022 at 12:02 PM brichang <Brian.Chang@amd.com> wrote:
 >
-> On 11/18/22 14:54, Lyude Paul wrote:
-> > Coverity noticed this one, so let's fix it.
-> >
-> > Signed-off-by: Lyude Paul <lyude@redhat.com>
+> From: Aric Cyr <Aric.Cyr@amd.com>
 >
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> Signed-off-by: Aric Cyr <Aric.Cyr@amd.com>
 >
-> Harry
+> This version brings along following fixes:
+> -Add configuration 2 for ABM 2.3/2.4.
+> -Add margin for HUBP for SubVp + DRR.
+> -Fix no display after resume from WB/CB.
+> -Limit HW cursor size to be less than 64 x 64 bytes when the stream is >= 4K.
+> -Lower watermarks for enter/enter+exit latency.
+> -Update support types for DCN314 to include z8 only and z8_z10 only state.
+> -Add new value for soc bounding box and dummy pstate.
+> -Override fclk chang latency when calculating prefetch schedule for subvp with low uclk.
+> -Add check for DET fetch latency for dcn32.
+> -Add check if PSR enabled when entering MALL.
+> -Use base MALL allocation size calculations off vewport height.
+> -Add YCBCR2020 to CSC matrix.
+> -Implement DP-Tx portion to interact with DPIA.
+> -Add debug option for increasing phantom lines.
+> -Fix phantom plane/stream retain after fail validation.
+> -Fix display corruption with VSR enable.
+> -Set valid divider value for virtual and FRL/DP2.
+> -Add new num clk levels struct for max mclk index.
+> -Fix check for phantom BPP.
+> -Fix rotated cursor offset calculation.
+> ---
+>  drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> > ---
-> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> > index 59648f5ffb59..6483ba266893 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> > @@ -1180,7 +1180,7 @@ static int pre_compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
-> >       struct amdgpu_dm_connector *aconnector;
-> >       struct drm_dp_mst_topology_mgr *mst_mgr;
-> >       int link_vars_start_index = 0;
-> > -     int ret;
-> > +     int ret = 0;
-> >
-> >       for (i = 0; i < dc_state->stream_count; i++)
-> >               computed_streams[i] = false;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+> index e827cee94e5e..feb7a7f2734e 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
+> @@ -47,7 +47,7 @@ struct aux_payload;
+>  struct set_config_cmd_payload;
+>  struct dmub_notification;
+>
+> -#define DC_VER "3.2.212"
+> +#define DC_VER "3.2.213"
+>
+>  #define MAX_SURFACES 3
+>  #define MAX_PLANES 6
+> --
+> 2.25.1
 >
