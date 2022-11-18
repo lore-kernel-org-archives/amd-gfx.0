@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 817ECC433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Nov 2022 17:01:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D6FCC433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Nov 2022 17:01:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D60AF10E78A;
-	Fri, 18 Nov 2022 17:01:09 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2081.outbound.protection.outlook.com [40.107.101.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFE3D10E78A
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Nov 2022 17:01:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40B5B10E794;
+	Fri, 18 Nov 2022 17:01:20 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2042.outbound.protection.outlook.com [40.107.94.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9569810E791
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Nov 2022 17:01:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NrygjsGlK9rU7c6lnlDTYZ7JxNoyVH0mSq/4s1hYBIbimN/oRguSNMaJ6CQcRqYdGm4okwsTXEP/jyZn+u2DUm2PjuicPU2bNWhJOHjiI5kKCcOu4ms5kcbzgceSZtGzGP11a4YRphJum+COTjvAPVq9xu7csD33Ra6T9JuD3zKzTfMEmZmKH6z7bAcERenV18/3bI7N0HeiyYZexhlCyHXd070OU9wENHHG7zrCIkzdl3KN4b50uIIMyfIEVxCuHqxnC8ND4FJyU/76joIleV9Y3C+2CARAa+RlIHTBgEJT+LTL583dQqgRPpGrw7H4rYQyCPUyjOIzomINdKsGHg==
+ b=fOJymM2WMqe6rggT1eIjdgATnTnqYq89uTnn10tzubnYw1p1dNNttk7ZnoL3830Hedw6dx7mZ/6rrOwW5u8qPp8On+hGt8vWznzs6IVa0FnjDkxz/T5kkofYrCJ5cKO/xjU19JmVA7zLC2z6UXN7ZKJnyY1UjCL1scSU1IcpzyuA6XJi3fvnGM1qlHnmNmNCjZKkEOTf51cTO+0L8dfRq59e+eVOdAhb3V1bCM49bi5bERfag3hA9LIYk00osrRFNsVbMDFPiW8hC7Ll1sTWH/KN+ItvS/sKaDqOfoJz9MqTycuf2/tsPtIMo09hBHHorlHNjRxvmSfU+FoMTlkTaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xdoqz9Tn3zCKY6wJfB1YUq9Az1UveqkJw2eDzngI73g=;
- b=alDTNAx7Wiyk1xmvrgiIxOQKeuS9kIdTP+WKo6Ki6ruiR6q2jnFhnBFrm82A5k8218vnFcRFF0RckWXALIeGSNn2q4eHvoKojR1nsbQ54Yq2dic8iNiFqnhnlzX5wjIP573jh5qjV9lPMYhHzjjN6z0xVvRloGffWrBviWmc3rNEeGGJoFCuOyPWciQXUozGnEhzzvI9UzVJLp4D1NNxhfH1Bo5f/rmMqBn2bg+bxTuSLYQt59gEtxtw40REOn6nJiLNwM8bdJ1QCN8r2WHpIOZyraAnJ+T7r2mfhlxEbadwN64sRYWJVbunW14MKTi57oyULuvTsUZI19k3kHK8Ww==
+ bh=nch+upXnrPxwdXafZ2ch8WgEgT2YBmKQ0wqlSGssF38=;
+ b=C5uSOvboXVEo0dqgwyc04Z1jc2HA7eFS04V0jLx5h1JiJvChkImZR1iF9l3i+Ub28/h6PJSV54G8wDyLQ3krLGmTmHeugG3MV4KMj7Widrape+2bcfUdPZAucffLV4uFKnn0MR2eVPRmJjF+4ujeU5abEq+hpjwwPyboXzdht1kouNGb5qaaORKKTcWvPP8yXyXXT9emcKWpeacVv8sUAt4S+SMtkxjk/cK0YIEFZxGba/1mK9UYwOtZl91J0W6lK+QulilgV8L/SGygKm5wXpn94Be/w8j97EZbjbk2ruTi5C1XJqK5eF3YZxAnDIFXNWAwh84KOVFOQ06Na7XEKQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xdoqz9Tn3zCKY6wJfB1YUq9Az1UveqkJw2eDzngI73g=;
- b=ADq0Y436wnFgwosq/ccnJYCg7SK1hxjlQkOAB6hSdaoNEDla7loSkJuO8e4LIvbnv9exCffhKjtWGqfer12c5WkyDqNB7u5qVZ9PKJ1zxkdp8pCxQqI92rNX/N2CYrGO+GMDKe1ZZjCxrtOaiyQe8/2Tx2LNF0/UZ2segnemRb4=
-Received: from DS7PR05CA0079.namprd05.prod.outlook.com (2603:10b6:8:57::9) by
- BY5PR12MB4965.namprd12.prod.outlook.com (2603:10b6:a03:1c4::16) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=nch+upXnrPxwdXafZ2ch8WgEgT2YBmKQ0wqlSGssF38=;
+ b=HoqI18VsKPV1ya+KQt/qZ0ur+t5QCGpnaHxdZkh0zCmm20G41cR/qwdegkRoVORs6vKXKGHhDHNmtpv97hWPmNrJp9VKu3ZZ5z7lMnTAwGtdR7kVLPDkJZEyS2eB16EapAs2wYnkVdY1eA4IpispmYmQx3zFbkovOnVs3eNzEo0=
+Received: from MW4PR03CA0204.namprd03.prod.outlook.com (2603:10b6:303:b8::29)
+ by SJ0PR12MB6687.namprd12.prod.outlook.com (2603:10b6:a03:47a::19)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.20; Fri, 18 Nov
- 2022 17:01:04 +0000
-Received: from DM6NAM11FT019.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:57:cafe::55) by DS7PR05CA0079.outlook.office365.com
- (2603:10b6:8:57::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.8 via Frontend
- Transport; Fri, 18 Nov 2022 17:01:04 +0000
+ 2022 17:01:11 +0000
+Received: from CO1NAM11FT094.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b8:cafe::ef) by MW4PR03CA0204.outlook.office365.com
+ (2603:10b6:303:b8::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.20 via Frontend
+ Transport; Fri, 18 Nov 2022 17:01:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT019.mail.protection.outlook.com (10.13.172.172) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT094.mail.protection.outlook.com (10.13.174.161) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5834.8 via Frontend Transport; Fri, 18 Nov 2022 17:01:04 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5813.18 via Frontend Transport; Fri, 18 Nov 2022 17:01:11 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 18 Nov
- 2022 11:00:27 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 11:01:10 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 18 Nov
- 2022 09:00:00 -0800
+ 2022 11:01:09 -0600
 Received: from brianchang-HP-EliteDesk-805-G6-Small-Form-Factor-PC.amd.com
  (10.180.168.240) by SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP
- Server id 15.1.2375.34 via Frontend Transport; Fri, 18 Nov 2022 10:59:56
+ Server id 15.1.2375.34 via Frontend Transport; Fri, 18 Nov 2022 11:01:05
  -0600
 From: brichang <Brian.Chang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 10/22] drm/amd/display: Check if PSR enabled when entering MALL
-Date: Fri, 18 Nov 2022 20:59:23 +0800
-Message-ID: <20221118125935.4013669-11-Brian.Chang@amd.com>
+Subject: [PATCH 16/22] drm/amd/display: Retain phantom plane/stream if
+ validation fails
+Date: Fri, 18 Nov 2022 20:59:29 +0800
+Message-ID: <20221118125935.4013669-17-Brian.Chang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221118125935.4013669-1-Brian.Chang@amd.com>
 References: <20221118125935.4013669-1-Brian.Chang@amd.com>
@@ -73,26 +74,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT019:EE_|BY5PR12MB4965:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9594c57b-b34a-4e03-5ccd-08dac9867a87
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT094:EE_|SJ0PR12MB6687:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75b38990-bb42-4943-9318-08dac9867ed9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3QDXPdufm3HzN38mWSln+II2HZxyMwbhMPTPDX/Uo7O4yXKZg+gMxY4burvg3ivfSjzL5si4UGeIfhd0TqIwYeEf4w3jU0VFm2M0aqmNF9/6CF9CC//KK1zuA+54fjJolZ5iP70Bq3dzKILYS6tvIOZ9gzTb4mxG9GFV60EJgv4cFuHIGdhtTiyMOhKYUyJ6sTTNkAel0earRVt3lZRpZ4FpN18yluqpS7osIuDiRE6QVLxnSypVWd5uvdvYMj4wH4UQXD1DHAUT9tBHI9cI7dh2gN5Kcn2HM8QMmzY1F+TWBeLWoRVJhN/jwWG2pzU8NMz+GjZRuuFIVVYpkwNu9aVkkZ9NabBftyZN5ZTrYdK9aKuMz45yVIlQqjAbvLmfOkavtId1cT5nJg4dLcwMgR4li3rbZS3lXMyLUgyvdMOo+J+3Gc33e3LDx2j/ymsDvmtqyHTXHHawPZzjgrYkc24A1WjWXWDTYe16sO0fH/dsFn6VKn/ce9DJ2/hDKyptWKVEhKpbEkhkXd+ESyv0VodZ1tpAiSBuEkPV50dlwEOaZeHRuSTWldoHKlhGtnXyEcZM71oAHaxdtGVlxJ9hwLpSxsX8PXYqhr/m3liIH6V6BbLE25zZ/+quIDUQWj8Cq3j+UN3yaY5IgcrtyUloLlOH7qI68Ndiz4BkdxdHGedk+4/6OT5+DNW2SLdAyn00KE9s6QfnkMGowad1hUDbmmBh9TjfyA/zkWU+IAyTXynxF9prmbGb/iljLIQ32Ul6GXqmWGpDKKoGdSZfFryPOA==
+X-Microsoft-Antispam-Message-Info: XnAxMljtg/9LsXMravgjOJxYgy8XhL7zmPbaRvHTPnO6npXGr0L10TNo2VhqB0uQff16hYjs3uHKzPv/AMntXjpsY6eJl3yf3GQSI7ySUgN5+fO5KBb7XIAtqRRpp8dU1mRWMCjiuo61LRkT4BKbypNSHB2eWTKSxTriBZ/9lYWsf2Htcs4xDGEibevEZwn712JnF6uQsg04PSZ6m2XdMDxirw/35XfJNVncaazPd+FX31b+n07PKyN9PFg8Wm5NGdA2mmt3xl7tzarNr4aE5HYoSr9zbwa99eIgFW2XI3pM7Z813S/gWiDz03DvYIliHle0ak6Bmm4Diji2sLTN0kDi+w5Hjw1z5eWgV0TxADSeY2CD8IuGEqHYN9uwpzDrlATeUHQC1Vzv3PVoTZIKB9KT3ablZqknNYFUWZ6nkM6tdt0bTRI53nwoKkcc4Tlz1vGWvuI2ENoVtaNrAlKfe1yBloEhGdqCdkYIrzglwnsQLguDC72wkQJrNNoeoACmyeimQpASYTKKQjoADCuT8oHYkJL8aRYYoEQ6ovX8h8UoShFkaCf19ry8NvqpvMSnUIrVS9cO+Adz55f4n3oKQEldmZ2fBwLmTXs9mcFz7Sf9RdNGB00Qs66vdvlQm686Y2f/Y/QveB6WLoY+HNLZVerH6Xhfg8pHIcA/CNvDWNECfKORBqoYXJWw/eODxt6IO7oBk726YxGgNKLb2Pu1Ggi0eAxgCL9Vu45SBtH3HaTxL39wG1zA55TU+h4I4yEeSBieNVZ56ZlTlpyW7dVopQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(39860400002)(136003)(346002)(396003)(451199015)(40470700004)(46966006)(36840700001)(6666004)(478600001)(86362001)(6916009)(54906003)(316002)(26005)(41300700001)(2616005)(8676002)(4326008)(70586007)(8936002)(70206006)(186003)(40460700003)(1076003)(7696005)(36756003)(82740400003)(2906002)(47076005)(83380400001)(40480700001)(5660300002)(336012)(426003)(82310400005)(36860700001)(81166007)(356005)(43062005)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(39860400002)(376002)(346002)(136003)(451199015)(46966006)(40470700004)(36840700001)(478600001)(6666004)(26005)(70206006)(4326008)(8936002)(36756003)(8676002)(70586007)(2616005)(5660300002)(1076003)(186003)(336012)(7696005)(6916009)(40460700003)(316002)(54906003)(83380400001)(2906002)(86362001)(82740400003)(40480700001)(426003)(47076005)(36860700001)(82310400005)(41300700001)(81166007)(356005)(43062005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2022 17:01:04.4057 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9594c57b-b34a-4e03-5ccd-08dac9867a87
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2022 17:01:11.5929 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75b38990-bb42-4943-9318-08dac9867ed9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT019.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT094.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4965
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6687
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,60 +116,128 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alvin Lee <Alvin.Lee2@amd.com>
 
 [Description]
-- When attempting to enter MALL SS when a PSR panel
-  is connected, we have to check that the PSR panel
-  has already entered PSR because the vsync interrupt
-  call is per display index (can be called for the
-  non-PSR panel first)
-- Also don't override link settings when programming
-  phantom stream (main and phantom pipe share the same link)
+- If we fail validation, we should retain the phantom
+  stream/planes
+- Full updates assume that phantom pipes will be fully
+  removed, but if validation fails we keep the phantom
+  pipes
+- Therefore we have to retain the plane/stream if validation
+  fails (since the refcount is decremented before validation,
+  and the expectation is that it's fully freed when the  old
+  dc_state is released)
 
 Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Brian Chang <Brian.Chang@amd.com>
 Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c  | 9 +++++++--
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c       | 7 ++++++-
- 2 files changed, 13 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 13 +++++++++++
+ .../drm/amd/display/dc/dcn32/dcn32_resource.c | 22 +++++++++++++++++++
+ .../drm/amd/display/dc/dcn32/dcn32_resource.h |  3 +++
+ .../amd/display/dc/dcn321/dcn321_resource.c   |  1 +
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  1 +
+ 5 files changed, 40 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index c5380ce70653..913a1fe6b3da 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -1561,8 +1561,13 @@ static enum dc_status apply_single_controller_ctx_to_hw(
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 42840ce9bf4b..4aec13f0d5ca 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3098,6 +3098,19 @@ static bool update_planes_and_stream_state(struct dc *dc,
  
- 	pipe_ctx->plane_res.scl_data.lb_params.alpha_en = pipe_ctx->bottom_pipe != NULL;
- 
--	pipe_ctx->stream->link->psr_settings.psr_feature_enabled = false;
--
-+	/* Phantom and main stream share the same link (because the stream
-+	 * is constructed with the same sink). Make sure not to override
-+	 * and link programming on the main.
-+	 */
-+	if (pipe_ctx->stream->mall_stream_config.type != SUBVP_PHANTOM) {
-+		pipe_ctx->stream->link->psr_settings.psr_feature_enabled = false;
-+	}
- 	return DC_OK;
+ 	if (update_type == UPDATE_TYPE_FULL) {
+ 		if (!dc->res_pool->funcs->validate_bandwidth(dc, context, false)) {
++			/* For phantom pipes we remove and create a new set of phantom pipes
++			 * for each full update (because we don't know if we'll need phantom
++			 * pipes until after the first round of validation). However, if validation
++			 * fails we need to keep the existing phantom pipes (because we don't update
++			 * the dc->current_state).
++			 *
++			 * The phantom stream/plane refcount is decremented for validation because
++			 * we assume it'll be removed (the free comes when the dc_state is freed),
++			 * but if validation fails we have to increment back the refcount so it's
++			 * consistent.
++			 */
++			if (dc->res_pool->funcs->retain_phantom_pipes)
++				dc->res_pool->funcs->retain_phantom_pipes(dc, dc->current_state);
+ 			BREAK_TO_DEBUGGER();
+ 			goto fail;
+ 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+index c40dccef6843..827eef7e1787 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+@@ -1721,6 +1721,27 @@ static struct dc_stream_state *dcn32_enable_phantom_stream(struct dc *dc,
+ 	return phantom_stream;
  }
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-index 763311ffb967..61f129faf251 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-@@ -227,8 +227,13 @@ static uint32_t dcn32_calculate_cab_allocation(struct dc *dc, struct dc_state *c
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
- 		struct pipe_ctx *pipe = &dc->current_state->res_ctx.pipe_ctx[i];
++void dcn32_retain_phantom_pipes(struct dc *dc, struct dc_state *context)
++{
++	int i;
++	struct dc_plane_state *phantom_plane = NULL;
++	struct dc_stream_state *phantom_stream = NULL;
++
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
++
++		if (!pipe->top_pipe && !pipe->prev_odm_pipe &&
++				pipe->plane_state && pipe->stream &&
++				pipe->stream->mall_stream_config.type == SUBVP_PHANTOM) {
++			phantom_plane = pipe->plane_state;
++			phantom_stream = pipe->stream;
++
++			dc_plane_state_retain(phantom_plane);
++			dc_stream_retain(phantom_stream);
++		}
++	}
++}
++
+ // return true if removed piped from ctx, false otherwise
+ bool dcn32_remove_phantom_pipes(struct dc *dc, struct dc_state *context)
+ {
+@@ -2033,6 +2054,7 @@ static struct resource_funcs dcn32_res_pool_funcs = {
+ 	.update_soc_for_wm_a = dcn30_update_soc_for_wm_a,
+ 	.add_phantom_pipes = dcn32_add_phantom_pipes,
+ 	.remove_phantom_pipes = dcn32_remove_phantom_pipes,
++	.retain_phantom_pipes = dcn32_retain_phantom_pipes,
+ };
  
-+		/* If PSR is supported on an eDP panel that's connected, but that panel is
-+		 * not in PSR at the time of trying to enter MALL SS, we have to include it
-+		 * in the static screen CAB calculation
-+		 */
- 		if (!pipe->stream || !pipe->plane_state ||
--				pipe->stream->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED ||
-+				(pipe->stream->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED &&
-+				pipe->stream->link->psr_settings.psr_allow_active) ||
- 				pipe->stream->mall_stream_config.type == SUBVP_PHANTOM)
- 			continue;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
+index f6bc9bd5da31..c50bb34b515f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.h
+@@ -83,6 +83,9 @@ bool dcn32_release_post_bldn_3dlut(
+ bool dcn32_remove_phantom_pipes(struct dc *dc,
+ 		struct dc_state *context);
+ 
++void dcn32_retain_phantom_pipes(struct dc *dc,
++		struct dc_state *context);
++
+ void dcn32_add_phantom_pipes(struct dc *dc,
+ 		struct dc_state *context,
+ 		display_e2e_pipe_params_st *pipes,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+index 06f144189e9d..b66fe62cbd99 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+@@ -1621,6 +1621,7 @@ static struct resource_funcs dcn321_res_pool_funcs = {
+ 	.update_soc_for_wm_a = dcn30_update_soc_for_wm_a,
+ 	.add_phantom_pipes = dcn32_add_phantom_pipes,
+ 	.remove_phantom_pipes = dcn32_remove_phantom_pipes,
++	.retain_phantom_pipes = dcn32_retain_phantom_pipes,
+ };
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+index 85495ef026f5..aac1b3989c95 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+@@ -241,6 +241,7 @@ struct resource_funcs {
+             unsigned int index);
+ 
+ 	bool (*remove_phantom_pipes)(struct dc *dc, struct dc_state *context);
++	void (*retain_phantom_pipes)(struct dc *dc, struct dc_state *context);
+ 	void (*get_panel_config_defaults)(struct dc_panel_config *panel_config);
+ };
  
 -- 
 2.25.1
