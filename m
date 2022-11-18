@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3BE9C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Nov 2022 16:59:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8620FC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Nov 2022 16:59:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0284310E77D;
-	Fri, 18 Nov 2022 16:59:28 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2072.outbound.protection.outlook.com [40.107.220.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A03A710E77D
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Nov 2022 16:59:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5CD510E783;
+	Fri, 18 Nov 2022 16:59:30 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::600])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2228F10E77D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Nov 2022 16:59:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bnX8cNCd+u5yAtm77FGX9t/hCHRqtAAGcjdkzsJ3blFUM32u1IW6EDjATN5EWMQytLQjvlXRkHkVIgKay778NQHx/gcX0cgphoDd0p+aeBj3Ynz94fHuPofXNN+JpZFVySbPFaeno/vinIuXA/kukLCf3vffEFf1d2j2VEAW7Ad13aIw8xO0YbSbUkniRUZqQHqWRYhcmG013pfivVJvgbcXY5NDY1UApvo0zPSiQTwSn9czSDIC/UxtgLu/f3QU8fwF2fYvpx5s4t7vdmwEqWuZTHE66g/SxakUzmD6jweNeLvlEj7IhKQE2lSg0gXpqBBwNw4QZ+XTzjWasDqJZQ==
+ b=guIY88W1BKWIa/GFz3fqdl50gdRGUP5jV/RSbxlrXRwhly9Yqrmp5k2Vp+FCYH2Kt8TRYRVD1OCq1McXA1Ut5PmwbbNULgQib9/oWJlKMkqKQLixa08DglJY/4caV2TFHT33r56AS6amhc3FJQjYy6527LKMSbFOZimXlCDBUZ6MuTQlM7KJ64fJIMtQA6NVRUDKoF4sjJwB6ntS6lCKqt9JgWrwl0RjEJoqpykHC7uaMDWDSLxrYkCMc90jVua2+JMkV74B+MFvWKTbPQ+Ze38VkdmGumrA4CFe+8N67GC/NrLBU5W0pPeKlwyFKnxJTGfYqI9APKFcJCc7cnlnGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2b15Vm8c/DFpkEKcqt30UsPCJkNmVICiwo0cOQviMBk=;
- b=PqDpL2ucHEXzqux/LQkm+VcO4Eqvyu5mDB7fKOsjPFMe4YXw+VJ6BclCka1H4kE/x/AlY0nGdwpI9arJna9o/yt1EzTDAEozpkpeURad0RBWD53bvWGci5P1ZA5T8HR2t2nCLTXinZovLbAxMyMnr2vOFIdK22AFD0d9i/rC/bTSuOsKft3Y0jDUq8Ay6sVqWeQ8NzSz2BKmoZQZRnUKGSSoEF71DS3c0Sl2AuABL9NTLQP0Z9aYrR5iAs7gibM//TYk/hM+kp1Hhi2M+Au3zskNBK/vYppdaTtAZsSh712tmJy91aMOciI+4kUredr2ltbxCNu6UnMxQXxSYYAnAw==
+ bh=YW2kCxuHEx1e1ZMtAvHi+bGR0U/Wwy1NKWmGXG5MrHc=;
+ b=IdTiAx/cTApak/Jx4R4QRNvCl4mEl6R8Bgm92HcAD90JvdljmyAr3vP3V0N5CWe9pwKlPpeN+f8hCZzoIPsej0+GthnfuRL/YKCN13zfhcDmKBRgouHTjBETY+6VSi7Kqtm3bIcBNNdDYq9pyanCG6ABbsv8a2jjeRgOAWkPNeEuUEtv5WpRoy+ictuhHp5L4EMuWo54bzJ1UZhFWytSJXb2Ws0G0T2Dei8p41MQWsUlUtRugqsl5mNxg+3VVHWWF8NfVTpfwdTDqTjq0zlqkgKJkI/ryRbc7ueQbUDi30+kqAW9gt6YABIcpf+Z6COHsVFQuSGDLv2KZPiY0gKwQg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2b15Vm8c/DFpkEKcqt30UsPCJkNmVICiwo0cOQviMBk=;
- b=qOe4zCDATGk4BDE35LibZe0R3P02DQOsP6Bvpwoo0GmSmPH1Y1kn3K4mjKYm9SWoBCFgO4SmLCrp8kJeL186UgYzApNsBhrcHMU831DDcq7ZcayQqIm1qD15uL1px6OKV1gJ+m0iYWQoFcB6dG0hbLGleCcahx3EoW/3OmMC3xo=
-Received: from MW4PR04CA0353.namprd04.prod.outlook.com (2603:10b6:303:8a::28)
- by LV2PR12MB5752.namprd12.prod.outlook.com (2603:10b6:408:14d::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.19; Fri, 18 Nov
- 2022 16:59:14 +0000
-Received: from CO1NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8a:cafe::e1) by MW4PR04CA0353.outlook.office365.com
- (2603:10b6:303:8a::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.20 via Frontend
- Transport; Fri, 18 Nov 2022 16:59:14 +0000
+ bh=YW2kCxuHEx1e1ZMtAvHi+bGR0U/Wwy1NKWmGXG5MrHc=;
+ b=yDXUym6Akx7bitXGkF9myoN+SnM3mu3ypfuAfwrdeaWi1YK0F43SskRQt9jqYNOByKeci6QUPrNw7YEsL84so3v2paM1Tlj688lRg4DocaGSKEtRCaDPuQImGbzxp/yr6e0hMoZXov3veVr54G43x/t1BvNvgQThePz7kLsglz0=
+Received: from MW2PR16CA0043.namprd16.prod.outlook.com (2603:10b6:907:1::20)
+ by DS0PR12MB7582.namprd12.prod.outlook.com (2603:10b6:8:13c::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.16; Fri, 18 Nov
+ 2022 16:59:23 +0000
+Received: from CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:907:1:cafe::6d) by MW2PR16CA0043.outlook.office365.com
+ (2603:10b6:907:1::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.15 via Frontend
+ Transport; Fri, 18 Nov 2022 16:59:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,48 +46,55 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT037.mail.protection.outlook.com (10.13.174.91) with Microsoft SMTP
+ CO1NAM11FT003.mail.protection.outlook.com (10.13.175.93) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5834.8 via Frontend Transport; Fri, 18 Nov 2022 16:59:14 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ 15.20.5834.8 via Frontend Transport; Fri, 18 Nov 2022 16:59:22 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 18 Nov
- 2022 10:59:10 -0600
+ 2022 10:59:21 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 18 Nov
+ 2022 10:59:21 -0600
 Received: from brianchang-HP-EliteDesk-805-G6-Small-Form-Factor-PC.amd.com
  (10.180.168.240) by SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP
- Server id 15.1.2375.34 via Frontend Transport; Fri, 18 Nov 2022 10:59:06
+ Server id 15.1.2375.34 via Frontend Transport; Fri, 18 Nov 2022 10:59:17
  -0600
 From: brichang <Brian.Chang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 00/22] DC Patches November 19, 2022
-Date: Fri, 18 Nov 2022 20:59:13 +0800
-Message-ID: <20221118125935.4013669-1-Brian.Chang@amd.com>
+Subject: [PATCH 02/22] drm/amd/display: Add margin on DRR vblank start for
+ subvp
+Date: Fri, 18 Nov 2022 20:59:15 +0800
+Message-ID: <20221118125935.4013669-3-Brian.Chang@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221118125935.4013669-1-Brian.Chang@amd.com>
+References: <20221118125935.4013669-1-Brian.Chang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT037:EE_|LV2PR12MB5752:EE_
-X-MS-Office365-Filtering-Correlation-Id: b1019bf2-5c88-4ff4-c342-08dac9863909
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT003:EE_|DS0PR12MB7582:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35eb8b49-2884-4b61-92ba-08dac9863df2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: x0y+5e6Sm3oAcLpFGZtccitvgmALBwi7qxspmAtyImL3kUWWhSM3JrGd1tSvJv62KDQXtnpQPf5GrsjaQJsBGrylCzjzK154eG+VRHhAhDZWotrlfDECfIw7ThZmkGXCQuBjrSwti8W2MWk9PKyQpX8nQzYsBm3do2Kprn0dinqOChtaPvfEdgGka2ofI4K9C6bDcoMKgre6lJAIHAElxe79MRzOTXqRTMtkTg1qhh5PAWqBuJRt9rpDM8fbYxHieyW8JiStxmRn6qqmTgnT5RW/JugH+PFDAomp9tlY+BGHeqY5aBvLl13GuF8UshT/0CQATWCdAKYEaBbsTF46QzN2A/60Z5Yamq3+l5ureMbRDfWvRM7xF1w0djv0IT2z1Q56JRkFNfXx6FIF1I1gRQ6Sa2KYmm4Hwh/biDvigXWS/BaKNNzsEUZknoxokZ8d7tbld9kuUFTAd1wbqP9oDlxsVKSv1zb0sK4yvRlKOSsm1yY0ms48gomYU5+MRVCkewZMPlakvJlHoq3k6IMvzmf32yElV6Nh94ZZNVogMuXnFk2FbNik+Xg27Nzjg3fDH7UEIXIAOceM9CrC6ZN5q7NmugNPCObAT0De4j6Nshqw2HWyjhNSzwiSDRzTQ96K4AS8DSOru9xhJtnB05UbFaSPYUqyYLacmTvXfffMRdKXgH/dsRPhJEffBvwfGN0s0ErMr7rt5uVuSaVTzacMZs8TcjUv76/BLmQdFhhs2tp6INKJCzQgHyRw8vbD4+Nr
+X-Microsoft-Antispam-Message-Info: 3cIXNLD7BNWDw0r5VO4DchXpiYvGR1+ISpkS0bUYdi72YwcZhINjCfwq0pTcQojvfMIyHoNC2+gXtCFmXBrkiD/jtLtAdOLHNxeZImNLOXNVR5lqHKhzgpEiFnS+Ovnd87PYMNG0qZOwK+eYqcYC1VBSm+AWI/p9acjG2SS9G9771gcf4fLwrckKss/l9D3xwBMaF+pBZOyg5JeljmEtFuuNJYUdCzzeHNWGlWFDTpthWJSx1LFBnzcoxfIX17/p1lhBRX3QVvbEpKTDHT1svW1qzJbPpYwiapNd1/r4mhPSdxYDbyWGSy9i7Jm82UC4z6qwcLlg6Wh1x9gT6MYj079EhSs6QImTjoE/8KVLEK+/Wu8/ZxcPcovDPrt+WJQNNilzZigxIUcjEQd2l9+REFqQYsxX5K4kgcma1hAsgpM0D9VnK/YvXBjH3ivtKM8fx5JaJ+9e0U7M5Dm6BuMrlR2HuxO/dZzu0FFrdBLM6G72I8uK/Yibto7nKx9wD5w7wWhmFovZ5ThaFxRjTdbNwugrxNGmjD8kqUnoLUm5zbCE1P47fq0UdgiHCnN+HdUth67B84Bf9ygZqWdNvvR6iBtGd2T+E3yOdTtGHHBigalgSo3s52X9RzZSw40KuJe308Yjus+AcBklg6bYc/zXUgazLWJqdYsdpcEdhvKvml8qn5qI1wlFAUdOTzzsht4/kfCynEPVNNX7afd6/13bz4+INse+TSUmegABIHzq+aag9zV6qm4zuVizYzgfXAnKoO1x08V1Em2RbvCBJ+qwBw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(376002)(136003)(346002)(396003)(451199015)(46966006)(36840700001)(40470700004)(36860700001)(83380400001)(86362001)(82740400003)(356005)(81166007)(8936002)(2906002)(4326008)(40480700001)(82310400005)(8676002)(40460700003)(41300700001)(5660300002)(26005)(70206006)(7696005)(6666004)(186003)(336012)(2616005)(426003)(316002)(70586007)(6916009)(54906003)(1076003)(47076005)(478600001)(36756003)(43062005)(36900700001);
+ SFS:(13230022)(4636009)(346002)(136003)(39860400002)(376002)(396003)(451199015)(36840700001)(46966006)(40470700004)(8676002)(70586007)(36756003)(478600001)(82310400005)(81166007)(36860700001)(41300700001)(8936002)(4326008)(86362001)(70206006)(47076005)(7696005)(186003)(316002)(26005)(1076003)(2616005)(336012)(426003)(40460700003)(54906003)(83380400001)(6916009)(356005)(2906002)(5660300002)(40480700001)(82740400003)(43062005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2022 16:59:14.4369 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1019bf2-5c88-4ff4-c342-08dac9863909
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2022 16:59:22.7048 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35eb8b49-2884-4b61-92ba-08dac9863df2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT037.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5752
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7582
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,125 +106,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, brichang <Brian.Chang@amd.com>, Sunpeng.Li@amd.com,
+Cc: stylon.wang@amd.com, Brian Chang <Brian.Chang@amd.com>, Sunpeng.Li@amd.com,
  Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>, Aurabindo.Pillai@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, "Lee,
+ Alvin" <Alvin.Lee2@amd.com>, wayne.lin@amd.com, Jun Lei <Jun.Lei@amd.com>,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we highlight:
+From: "Lee, Alvin" <Alvin.Lee2@amd.com>
 
-*Add configuration 2 for ABM 2.3/2.4.
-*Add margin for HUBP for SubVp + DRR.
-*Fix no display after resume from WB/CB.
-*Limit HW cursor size to be less than 64 x 64 bytes when the stream is >= 4K.
-*Lower watermarks for enter/enter+exit latency.
-*Update support types for DCN314 to include z8 only and z8_z10 only state.
-*Add new value for soc bounding box and dummy pstate.
-*Override fclk chang latency when calculating prefetch schedule for subvp with low uclk.
-*Add check for DET fetch latency for dcn32.
-*Add check if PSR enabled when entering MALL.
-*Use base MALL allocation size calculations off vewport height.
-*Add YCBCR2020 to CSC matrix.
-*Implement DP-Tx portion to interact with DPIA.
-*Add debug option for increasing phantom lines.
-*Fix phantom plane/stream retain after fail validation.
-*Fix display corruption with VSR enable.
-*Set valid divider value for virtual and FRL/DP2.
-*Add new num clk levels struct for max mclk index.
-*Fix check for phantom BPP.
+[Description]
+- Add margin for HUBP "jitter" for SubVp + DRR case
+- Also do a min transition even if MPO is added on a
+  non SubVP pipe (i.e. added on DRR pipe for SubVP + DRR)
 
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Acked-by: Brian Chang <Brian.Chang@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c       | 18 +++++++++++++++++-
+ drivers/gpu/drm/amd/display/dc/dc.h            |  1 +
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c   |  1 +
+ drivers/gpu/drm/amd/display/dc/dc_stream.h     |  2 +-
+ .../drm/amd/display/dc/dcn32/dcn32_resource.c  |  1 +
+ .../amd/display/dc/dcn321/dcn321_resource.c    |  1 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |  3 ++-
+ 7 files changed, 24 insertions(+), 3 deletions(-)
 
-Alvin Lee (5):
-  drm/amd/display: Limit HW cursor size of >= 4k
-  drm/amd/display: Check if PSR enabled when entering MALL
-  drm/amd/display: Add debug options for increasing phantom lines
-  drm/amd/display: Retain phantom plane/stream if validation fails
-  drm/amd/display: Revert check for phantom BPP
-
-Aric Cyr (1):
-  SWDEV-1 - dc: 3.2.213
-
-Camille Cho (1):
-  drm/amd/display: new ABM config 2
-
-David Galiffi (1):
-  drm/amd/display: Fix rotated cursor offset calculation
-
-Dillon Varone (5):
-  drm/amd/display: Update soc bounding box for dcn32/dcn321
-  drm/amd/display: Use dummy pstate latency for subvp when needed on
-    dcn32
-  drm/amd/display: Add check for DET fetch latency hiding for dcn32
-  drm/amd/display: Use viewport height for subvp mall allocation size
-  drm/amd/display: Use new num clk levels struct for max mclk index
-
-Ilya Bakoulin (1):
-  drm/amd/display: Fix display corruption w/ VSR enable
-
-Lee, Alvin (1):
-  drm/amd/display: Add margin on DRR vblank start for subvp
-
-Mustapha Ghaddar (1):
-  drm/amd/display: Phase 1 Add Bw Allocation source and header files
-
-Nicholas Kazlauskas (2):
-  drm/amd/display: Update Z8 watermarks for DCN314
-  drm/amd/display: Add Z8 allow states to z-state support list
-
-Rodrigo Siqueira (1):
-  drm/amd/display: Add YCBCR2020 coefficients to CSC matrix
-
-Taimur Hassan (1):
-  drm/amd/display: Avoid setting pixel rate divider to N/A
-
-Tsung-hua Lin (2):
-  drm/amd/display: No display after resume from WB/CB
-  drm/amd/display: No display after resume from WB/CB[modify]
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 37 ++++++++++
- .../amd/display/dc/clk_mgr/dcn31/dcn31_smu.c  |  4 +-
- .../display/dc/clk_mgr/dcn314/dcn314_smu.c    | 12 +++-
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 31 +++++++-
- .../gpu/drm/amd/display/dc/core/dc_stream.c   | 16 ++++-
- drivers/gpu/drm/amd/display/dc/dc.h           |  6 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  1 +
- drivers/gpu/drm/amd/display/dc/dc_link.h      | 14 ++++
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |  2 +-
- .../display/dc/dce110/dce110_hw_sequencer.c   |  9 ++-
- .../gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c  | 34 ++++++---
- .../gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c | 28 +++++---
- .../gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c | 32 ++++++---
- .../drm/amd/display/dc/dcn314/dcn314_dccg.c   |  7 ++
- .../drm/amd/display/dc/dcn314/dcn314_hwseq.c  |  6 +-
- .../gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c |  4 +-
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    | 11 +--
- .../drm/amd/display/dc/dcn32/dcn32_resource.c | 27 ++++++-
- .../drm/amd/display/dc/dcn32/dcn32_resource.h |  3 +
- .../display/dc/dcn32/dcn32_resource_helpers.c |  2 +-
- .../amd/display/dc/dcn321/dcn321_resource.c   |  4 +-
- .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  | 12 +++-
- .../amd/display/dc/dml/dcn314/dcn314_fpu.c    |  4 +-
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 72 ++++++++++++++-----
- .../dc/dml/dcn32/display_mode_vba_32.c        | 41 ++++++++++-
- .../dc/dml/dcn32/display_mode_vba_util_32.c   | 69 ++++++++++++++++++
- .../dc/dml/dcn32/display_mode_vba_util_32.h   | 18 +++++
- .../amd/display/dc/dml/dcn321/dcn321_fpu.c    |  8 +--
- .../drm/amd/display/dc/dml/display_mode_vba.h |  2 +
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  1 +
- drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   |  9 ++-
- .../drm/amd/display/dc/link/link_dp_dpia_bw.c | 28 ++++++++
- .../drm/amd/display/dc/link/link_dp_dpia_bw.h | 69 ++++++++++++++++++
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  3 +-
- .../amd/display/modules/power/power_helpers.c |  9 +++
- 35 files changed, 552 insertions(+), 83 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/link/link_dp_dpia_bw.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/link/link_dp_dpia_bw.h
-
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 1c3de3a1671e..42840ce9bf4b 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3740,6 +3740,8 @@ static bool could_mpcc_tree_change_for_active_pipes(struct dc *dc,
+ 
+ 	struct dc_stream_status *cur_stream_status = stream_get_status(dc->current_state, stream);
+ 	bool force_minimal_pipe_splitting = false;
++	bool subvp_active = false;
++	uint32_t i;
+ 
+ 	*is_plane_addition = false;
+ 
+@@ -3771,11 +3773,25 @@ static bool could_mpcc_tree_change_for_active_pipes(struct dc *dc,
+ 		}
+ 	}
+ 
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		struct pipe_ctx *pipe = &dc->current_state->res_ctx.pipe_ctx[i];
++
++		if (pipe->stream && pipe->stream->mall_stream_config.type != SUBVP_NONE) {
++			subvp_active = true;
++			break;
++		}
++	}
++
+ 	/* For SubVP when adding or removing planes we need to add a minimal transition
+ 	 * (even when disabling all planes). Whenever disabling a phantom pipe, we
+ 	 * must use the minimal transition path to disable the pipe correctly.
++	 *
++	 * We want to use the minimal transition whenever subvp is active, not only if
++	 * a plane is being added / removed from a subvp stream (MPO plane can be added
++	 * to a DRR pipe of SubVP + DRR config, in which case we still want to run through
++	 * a min transition to disable subvp.
+ 	 */
+-	if (cur_stream_status && stream->mall_stream_config.type == SUBVP_MAIN) {
++	if (cur_stream_status && subvp_active) {
+ 		/* determine if minimal transition is required due to SubVP*/
+ 		if (cur_stream_status->plane_count > surface_count) {
+ 			force_minimal_pipe_splitting = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index b02d1f3d3e7c..1f6dff9904f3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -267,6 +267,7 @@ struct dc_caps {
+ 	uint16_t subvp_pstate_allow_width_us;
+ 	uint16_t subvp_vertical_int_margin_us;
+ 	bool seamless_odm;
++	uint8_t subvp_drr_vblank_start_margin_us;
+ };
+ 
+ struct dc_bug_wa {
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index 097556f7b32c..6ccf477d1c4d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -493,6 +493,7 @@ static void populate_subvp_cmd_drr_info(struct dc *dc,
+ 
+ 	pipe_data->pipe_config.vblank_data.drr_info.min_vtotal_supported = min_vtotal_supported;
+ 	pipe_data->pipe_config.vblank_data.drr_info.max_vtotal_supported = max_vtotal_supported;
++	pipe_data->pipe_config.vblank_data.drr_info.drr_vblank_start_margin = dc->caps.subvp_drr_vblank_start_margin_us;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index f4dfd3a49b68..e0cee9666c48 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -144,7 +144,7 @@ struct test_pattern {
+ 	unsigned int cust_pattern_size;
+ };
+ 
+-#define SUBVP_DRR_MARGIN_US 500 // 500us for DRR margin (SubVP + DRR)
++#define SUBVP_DRR_MARGIN_US 600 // 600us for DRR margin (SubVP + DRR)
+ 
+ enum mall_stream_type {
+ 	SUBVP_NONE, // subvp not in use
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+index cdeff6de725d..0c13fe0239d8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+@@ -2124,6 +2124,7 @@ static bool dcn32_resource_construct(
+ 	dc->caps.subvp_swath_height_margin_lines = 16;
+ 	dc->caps.subvp_pstate_allow_width_us = 20;
+ 	dc->caps.subvp_vertical_int_margin_us = 30;
++	dc->caps.subvp_drr_vblank_start_margin_us = 100; // 100us margin
+ 
+ 	dc->caps.max_slave_planes = 2;
+ 	dc->caps.max_slave_yuv_planes = 2;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+index 6c79a47b6336..d17d0f22be1f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+@@ -1711,6 +1711,7 @@ static bool dcn321_resource_construct(
+ 	dc->caps.subvp_swath_height_margin_lines = 16;
+ 	dc->caps.subvp_pstate_allow_width_us = 20;
+ 	dc->caps.subvp_vertical_int_margin_us = 30;
++	dc->caps.subvp_drr_vblank_start_margin_us = 100; // 100us margin
+ 	dc->caps.max_slave_planes = 1;
+ 	dc->caps.max_slave_yuv_planes = 1;
+ 	dc->caps.max_slave_rgb_planes = 1;
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index 795d8811af9a..33907feefebb 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -1029,13 +1029,14 @@ struct dmub_cmd_fw_assisted_mclk_switch_pipe_data_v2 {
+ 			uint16_t vtotal;
+ 			uint16_t htotal;
+ 			uint8_t vblank_pipe_index;
+-			uint8_t padding[2];
++			uint8_t padding[1];
+ 			struct {
+ 				uint8_t drr_in_use;
+ 				uint8_t drr_window_size_ms;	// Indicates largest VMIN/VMAX adjustment per frame
+ 				uint16_t min_vtotal_supported;	// Min VTOTAL that supports switching in VBLANK
+ 				uint16_t max_vtotal_supported;	// Max VTOTAL that can support SubVP static scheduling
+ 				uint8_t use_ramping;		// Use ramping or not
++				uint8_t drr_vblank_start_margin;
+ 			} drr_info;				// DRR considered as part of SubVP + VBLANK case
+ 		} vblank_data;
+ 	} pipe_config;
 -- 
 2.25.1
 
