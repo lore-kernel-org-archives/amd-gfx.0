@@ -4,76 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68818C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Nov 2022 19:56:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4D5CC433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Nov 2022 20:03:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C378A10E7BA;
-	Fri, 18 Nov 2022 19:56:28 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B20E510E7BA
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Nov 2022 19:56:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1668801380;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=CEyx53gZXx39r5ZzEsUmHHGc7+WMh+K1iTS4aj34mp4=;
- b=dOWySEU1/bP8XwYRhiDmi0Y5NgapoAydafJTnvQdMLgJW//z86gaNBgiK5LwkmWy0CvSfy
- tAcZgTMOtKEvgDTSti090ILsE7jkb6FeritdbKfCKXM8n7rCvVHiQHuA6hwnoka95DAPsn
- /+kUC4kJcPUQyGXXGpVRn88tBehqv/0=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-615-rYF15VQkNj-2XgPeaROn6Q-1; Fri, 18 Nov 2022 14:56:17 -0500
-X-MC-Unique: rYF15VQkNj-2XgPeaROn6Q-1
-Received: by mail-qk1-f198.google.com with SMTP id
- w13-20020a05620a424d00b006e833c4fb0dso7400202qko.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Nov 2022 11:56:17 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:user-agent:organization
- :references:in-reply-to:date:cc:to:from:subject:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=CEyx53gZXx39r5ZzEsUmHHGc7+WMh+K1iTS4aj34mp4=;
- b=n58FCOOof7NQNdOqpcchKtOGl+CpfoLsScc/Uq90ynnKgHpLITageRf7kHvZdYRaZv
- pnbuxxkVXFS7Fl1Zoz0qhVOfYa0YDf8k3vrGVvZDHPnXa4Jo7E6atycycEXAHKoVf4MW
- XfBAnyzFXoFE0Gsf3jnu5GMLBzqcdZSqSG69EY/Ev1MgFF+RgLTSUWNHCy3AQ1DCY8RV
- eEtjZoaFaifExm3fwN6LeFDhvZ3BtUdHOvWaZbIjZordMIu2wKpVzW35Dkh6xZAGAjgR
- bSsP9kOqwooiVQNt6m5GyYa1NWWlt3vhlq9kN0qyXiM+ZYfg1I67BHuprUHL3VkLXFSV
- tKFQ==
-X-Gm-Message-State: ANoB5pkRwVGEPRwHjdC/3E3yWbvQ07rge96+vWsz5TZjQqL6qtzCy1jn
- 2GksaXjbiHSJiNdsmqoAITQEmQWtNbWsXO9FhVjzRPNXooCcXNcIWlN82/d2hdOhfSyzhDW5sMD
- KkMnMUnsfPuA4bXHNRtFAAFORCw==
-X-Received: by 2002:a37:ad0a:0:b0:6fa:2c9a:ae20 with SMTP id
- f10-20020a37ad0a000000b006fa2c9aae20mr7362121qkm.582.1668801376803; 
- Fri, 18 Nov 2022 11:56:16 -0800 (PST)
-X-Google-Smtp-Source: AA0mqf6jVEmgdXsUXSppWKoJ7M9sbgjAsYF7Ypp5NpRxswZIuJCBfKdIHXU/TUOh60v5/BUpKijHZw==
-X-Received: by 2002:a37:ad0a:0:b0:6fa:2c9a:ae20 with SMTP id
- f10-20020a37ad0a000000b006fa2c9aae20mr7362096qkm.582.1668801376361; 
- Fri, 18 Nov 2022 11:56:16 -0800 (PST)
-Received: from ?IPv6:2600:4040:5c6c:9200::feb? ([2600:4040:5c6c:9200::feb])
- by smtp.gmail.com with ESMTPSA id
- z15-20020a05622a124f00b003a51e6b6c95sm2517759qtx.14.2022.11.18.11.56.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Nov 2022 11:56:15 -0800 (PST)
-Message-ID: <29f76fbb9d19c34f573b9c9a7123148227491c51.camel@redhat.com>
-Subject: Re: [v3] drm/amdgpu/mst: Stop ignoring error codes and deadlocking
-From: Lyude Paul <lyude@redhat.com>
-To: "Limonciello, Mario" <mario.limonciello@amd.com>, 
- amd-gfx@lists.freedesktop.org
-Date: Fri, 18 Nov 2022 14:56:13 -0500
-In-Reply-To: <3cc891d9-f136-2381-cc8e-016a2ad9a967@amd.com>
-References: <20221118192546.87475-1-lyude@redhat.com>
- <3cc891d9-f136-2381-cc8e-016a2ad9a967@amd.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id D611D10E7C1;
+	Fri, 18 Nov 2022 20:03:31 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2077.outbound.protection.outlook.com [40.107.92.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CBD910E7C0;
+ Fri, 18 Nov 2022 20:03:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QVeNucwssZGfzY3+AZZ0zeTkjwuviNhS6BHJKZxC9kLqjsTXhsw1vq7Tv8fnLamB14+LIqodgqBRU4pemjXAzZxKSMaqnCwrdR8w+j3TLcAF53BvfrG9RRgpj3SHTu9HEKsre4cBuuS3ciTAPTbpWfjLybUfxRoaYgf2VCTXHbRlgQjMokBXptmYRj1kZd1eXUT1NBaSMushIjIvSLEomzR0ToiknT9/NylqfuFPLojIDkgFdbouAbDy4FvRKtait5l8bElWsHSSScZoAcynVuCVj8u0IVsaJ1UExHleR4Y3QQ4JSrIDzgoVwMr1m/pZwqZDbB8zdMVkO/lrSHnJqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qFJB86B9ZBYA7ZjpupTspgY4fsa6DOadxe9kGeokKPs=;
+ b=WWfESxSRfcC1eBWxYnQNPu4KKa8RTnPy8K67CopDir5P0gX/Bu7/24pYA6rTiHlIVRZ8rF5oOZBW8sRrGHcy6al9y5FEz6/2hAii1UbAtJdoqXp4nIv05mJWm9YHKkRyR5T3z3C/ASfCkk/rDaEpT+7NByE3rMIiFX76lc7bK/d9pIa9W8qRtYwEsWawKhvBF6eqZL8Z3n1gtFZq07VHd9kTESxeQ7vP4cciC67txH2m19sN/e50gxPZ1BKtz7zkSVV3ScOwui3ebhCFkoZ96ceyMuUCFsK4IcL4pa+aTk+juN+nFTN9rtMYW07bFnUIbF79y6j+JO90hf71l782Sg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qFJB86B9ZBYA7ZjpupTspgY4fsa6DOadxe9kGeokKPs=;
+ b=rnMddoYJTBU18KeAQ1NF+cuky8EZdsig1kd1dVLvckHDBWmga4pV+GiQ2Mbfsc2F4YSOp4ae8AxMSMFpMy1THHqGZ8ugXBbESYt7p9Sda9+t5DAu1sJLdRyMnezAlLz+Oaaml9s0x40uhV4MbrntfgWp0CmjRzKKFTPzAS/j3L8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by DM4PR12MB7646.namprd12.prod.outlook.com (2603:10b6:8:106::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.20; Fri, 18 Nov
+ 2022 20:03:27 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::2d6a:70d0:eb90:9dca]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::2d6a:70d0:eb90:9dca%8]) with mapi id 15.20.5813.019; Fri, 18 Nov 2022
+ 20:03:27 +0000
+Message-ID: <b7c8a41d-6657-2646-4f18-ed13293369b2@amd.com>
+Date: Fri, 18 Nov 2022 15:03:22 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH] drm/amdgpu/dm/mst: Fix uninitialized var in
+ pre_compute_mst_dsc_configs_for_state()
+Content-Language: en-US
+To: Lyude Paul <lyude@redhat.com>, amd-gfx@lists.freedesktop.org
+References: <20221118195406.95779-1-lyude@redhat.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20221118195406.95779-1-lyude@redhat.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4P288CA0002.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d4::6) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|DM4PR12MB7646:EE_
+X-MS-Office365-Filtering-Correlation-Id: 119e1b1b-f5e7-4297-34fc-08dac99ff49e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EJAZtF5RwLoKJYyyNcMIBSqRWkTr4sKRRJcq5nHAMziusci/e2VLR7RykeH9bA6DmDN0v8hbU9TkSQq9PL68W+zvAMSyCAB1USiBV6HDm7brtypd3Q3UvJguctp5BItSmwjUOl26om3OFWBA5adnHUikA9Gt3W2OleosNA9IFwzbg/BOxjAy9C9tVtVQ7k6IMSaJZht3Eib40UnwEWSLjrW22I3PYTUj92eOWMq/P7iGY87HaQERByWn8ACATlTeOystAVNIPpIa1tdLru4kRDOdYSTvGWeLngXfWv6j5HAIfDX0vBcrytaqCYKRnxi8ehgUSy9tdtYO5nMbQxrM5+1pk2rSFk6w+oytbn1uD6Yh3WmIG952fqxCidsXQQrNZdA6OQqR0Iw2aKypAuQWuElXKXrNyqOvJIbDlYv2/G5XDHHRMLO437JXX5cZX3C1ZqHBAOMK5w5KWaitz5QUzdBLjoFcthkn2K1aXgNF8VqOksAPNomiV/mbcIBQMFG5UsScvIkfUWq2jGOT29fypuvUfzYDjikpurD481WfM+shk+FaAkdfMTiUoEox0dciyeanQ7usvRQZZutjxLbS6jCTWmtQ8W6U+FTOtZ3tDQGSbf1jBc9kQQaiZCFKqdESaPA0PdGEesLFTiDj7ApGENxcU8eZIdvxqSJ6ye/nz0FQrMKR/Pl8A7/zZ11XQBToQ8LvHkzXZZBXeYLFwGcMClAbgBxDT9fbATWY6ILSs7U=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(366004)(136003)(396003)(39860400002)(376002)(346002)(451199015)(31686004)(36756003)(38100700002)(66476007)(2906002)(41300700001)(44832011)(4744005)(83380400001)(86362001)(66946007)(31696002)(6512007)(4326008)(186003)(26005)(316002)(6486002)(8676002)(54906003)(5660300002)(8936002)(66556008)(2616005)(478600001)(6506007)(53546011)(6666004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?azhzWm1KM25CeFZ1N25jMkFLSXVMZ3VWWjhRb3M1MnFzMTFobERMOTBDbS9L?=
+ =?utf-8?B?ZTlmMERYelVuNjBzY2JxNEllKzh6ZTZ0MWtZOWF2Mzg3WlVkemE3SWVvUDNz?=
+ =?utf-8?B?MW1aeVovRGVMTHROdy9uUUtEYWdoVzBZVTN1TnBhc3h2NzlxUFpaakt3RENq?=
+ =?utf-8?B?b0dTNTFYRENHSkVuR2M4Q1d3amRSWm44UHVFNCtMNTN6dGhqUVJFd0pHRjhS?=
+ =?utf-8?B?ckFWeDZia3dCT0Q2VFJGdE44VnN0QkZyVjhzWlVlUUw3SWpiZ3V1QktlNXRO?=
+ =?utf-8?B?U3FSbGV2eGV3YlJPc0VTa3hIOENzMjhUZ0IrSG82N3Z4SHZWSjNSV25zM3FK?=
+ =?utf-8?B?NmNZM1dmMjYwZmtEUTMzZjhXWGg1WEZiUEpMcTZNcmxBQXlRVEZidFFJNkYv?=
+ =?utf-8?B?a0pWRXFWajVsTUZac2h1c2NTN01Fb0Z3QTZ2a2xoVXg5N0d6Z2RTVGZiQzBz?=
+ =?utf-8?B?SEMrQkFXb0VpT0NFaGpOcnZxQ3RsSDE4Q3ZteElUNDZYSVV3OUpraFZ2VDRn?=
+ =?utf-8?B?aHUrU1QycGgwdmpXbzRoYTlmMmVtUFdCc29qNXd1NzZ6VFIrKzk2NG1YNUJq?=
+ =?utf-8?B?U3g5NWsrQzZiT2tJUWRSSUdVMGFYZHNnQXpFM1h3SGdqQXp2ckZYbEdWbC93?=
+ =?utf-8?B?SGoySWhkRDJQVGF4RUwraFJjdG80OXBwcThydDRZQlcwOEtjd1IzcS83V1Q0?=
+ =?utf-8?B?cmZMY09NeEdmaE1CS2dteTlhVHVTaDI0S2xjR3IzS0IzNzZNRkdsSk9HcXh0?=
+ =?utf-8?B?Z3VXbjdWdjRnblFBR0paa3RWQ3E5NUdoY1llQnh6bUsxYTN3azNyK3R4b0J6?=
+ =?utf-8?B?U0ovNXVqWmlGc1RmVWxMTExaeC9zclovRmZ3cUxTTW9MVXdNY015dlIwWFdM?=
+ =?utf-8?B?VkV6UDdIUmxMWk9ENUJzK0lDRTV0OTlYWE5zSDVpRTZmRDR2bzY4U28wczg3?=
+ =?utf-8?B?Z29rU1RudVlUNXV3QWkwNUxXZ0hVWDJvb1hmUndpckZtWDJQZkZKRnptWDVH?=
+ =?utf-8?B?ME51by9XWXZXbEZheW0zbmZZU0wwOFJ3dHArN3RqVzRBaHI2eURtL2tjTlhj?=
+ =?utf-8?B?a29INnhPeHkzL3F3VG5RL3pDWk5jTzZqY2I1cDRsbWJvWlJ3aUdKSVpKTTlI?=
+ =?utf-8?B?NTg2MDlDVzNyMDVCS3VDQUNJbmVSbERnaEp1eWFYOWVBa21ObXZhamVvUGVv?=
+ =?utf-8?B?N2FwVENCYkdac2tBc3JOalVlbDhRWklLMnFoUEphVzI2ZitCcUNyc3AxNkdP?=
+ =?utf-8?B?Yk8zeWpNTnp5ZzdLWFFCR2l0S2JEc2xreHZ6dWlRSlF1ZTlGMFBkcEtwYld4?=
+ =?utf-8?B?ejlPNVh1anF3Z2VKamtvanpvU2tqSkFxYnlrZ080UlVHYS84dTJxait5YWIz?=
+ =?utf-8?B?T08yOEVvc1UrS0dQOGxFUFJCZUpwSmo0M3RvTGRtdGttbm00WXcvd0tNQVRB?=
+ =?utf-8?B?bnhJODNvNkNRZHRaQzk1Nm1xOVlyZTJiQUhOclRJRkE3OUdiVm9QT2lFNTZk?=
+ =?utf-8?B?amtPRmp4SU5HU2sraG5rNzdSMXphampXS0JJTlVuOVV1MWlyMTJDRG5QRnRN?=
+ =?utf-8?B?ZHhkMkhLak9ONlA3UDF1UFFDTUcyeDRzSEk5eTVGc3g1UzZNVklHM0hPR1l5?=
+ =?utf-8?B?RmZQUHBCWWdjdHp1U0xBemJwUHlLYXNNckxPVmpCbm9oNXF2ZHpQMlZsUDZj?=
+ =?utf-8?B?cjB1UDhRZ0lXb1lPd1djU3VSd1Y1NEFBKzdpWWdNNGtTUzJFOFh0ZTkzMEpN?=
+ =?utf-8?B?UXZtdEFERTlxajBKUng5aVhuUFd2TCtzbWJwdlgwa0RoY2JzTGozbnJiRG9K?=
+ =?utf-8?B?YzlwTThjWUdGbWt6cUNjaWs3NHlSWDJxWm9rL3VxMDExamZUTDB2Vmk3MkFP?=
+ =?utf-8?B?OUVsQjBnS0ZLVFpTUFBQRnVtUVB0Z2dDdnMvTnEvK0lubjI5OWh5bDkyYnFV?=
+ =?utf-8?B?SFI1RGVxQmJjK05CVDdtalZZblhpUDFoTktXVUwrS3lLOHFNUUQ5NXBra2o2?=
+ =?utf-8?B?czdpeXhNZFdKUXJyOEJYYWpOenRLbnRpQTZsNXRJRjZPUGV1bHJqNDJIVUZ5?=
+ =?utf-8?B?cHJZUzFZdDRKQWJ2a2diZ00reWxYQ3hLalNFOTExQ1NZSFBCamR1N3dYTmlJ?=
+ =?utf-8?Q?cTfTEo2B59iZi8958LEulI/L3?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 119e1b1b-f5e7-4297-34fc-08dac99ff49e
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2022 20:03:26.9681 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: js73RyAuHeH7vb5kjK7+7Q9Oe7VZ5tUXvf1vOs21pAIHefiVcNWmiE9ZNGbHWfFUmCduoFlQq3GSu69tpho76w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7646
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,586 +124,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wenjing Liu <Wenjing.Liu@amd.com>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Leo Li <sunpeng.li@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Roman Li <Roman.Li@amd.com>,
  "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Roman Li <roman.li@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- David Airlie <airlied@gmail.com>, David Francis <David.Francis@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Hung <alex.hung@amd.com>, hersen wu <hersenxs.wu@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- open list <linux-kernel@vger.kernel.org>, stable@vger.kernel.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Wayne Lin <Wayne.Lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+ open list <linux-kernel@vger.kernel.org>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ hersen wu <hersenxs.wu@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2022-11-18 at 13:54 -0600, Limonciello, Mario wrote:
-> On 11/18/2022 13:25, Lyude Paul wrote:
-> > It appears that amdgpu makes the mistake of completely ignoring the return
-> > values from the DP MST helpers, and instead just returns a simple
-> > true/false. In this case, it seems to have come back to bite us because as
-> > a result of simply returning false from
-> > compute_mst_dsc_configs_for_state(), amdgpu had no way of telling when a
-> > deadlock happened from these helpers. This could definitely result in some
-> > kernel splats.
-> > 
-> > V2:
-> > * Address Wayne's comments (fix another bunch of spots where we weren't
-> >    passing down return codes)
-> > V3:
-> > * Fix uninitialized var in pre_compute_mst_dsc_configs_for_state()
+On 11/18/22 14:54, Lyude Paul wrote:
+> Coverity noticed this one, so let's fix it.
 > 
-> FYI v2 was just merged recently, it's in the 6.2 pull request that was 
-> sent out and Alex planned to add it to 6.1-fixes next week too.
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Can you send just the delta from v2->v3 as another patch so it can layer 
-> in cleanly?
-
-Just did that :), it should be on the list now
-
-> > 
-> > Signed-off-by: Lyude Paul <lyude@redhat.com>
-> > Fixes: 8c20a1ed9b4f ("drm/amd/display: MST DSC compute fair share")
-> > Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
-> > Cc: Harry Wentland <harry.wentland@amd.com>
-> > Cc: <stable@vger.kernel.org> # v5.6+
-> > ---
-> >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  18 +-
-> >   .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 235 ++++++++++--------
-> >   .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |  12 +-
-> >   3 files changed, 147 insertions(+), 118 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index 0db2a88cd4d7..852a2100c6b3 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -6462,7 +6462,7 @@ static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
-> >   	struct drm_connector_state *new_con_state;
-> >   	struct amdgpu_dm_connector *aconnector;
-> >   	struct dm_connector_state *dm_conn_state;
-> > -	int i, j;
-> > +	int i, j, ret;
-> >   	int vcpi, pbn_div, pbn, slot_num = 0;
-> >   
-> >   	for_each_new_connector_in_state(state, connector, new_con_state, i) {
-> > @@ -6509,8 +6509,11 @@ static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
-> >   			dm_conn_state->pbn = pbn;
-> >   			dm_conn_state->vcpi_slots = slot_num;
-> >   
-> > -			drm_dp_mst_atomic_enable_dsc(state, aconnector->port, dm_conn_state->pbn,
-> > -						     false);
-> > +			ret = drm_dp_mst_atomic_enable_dsc(state, aconnector->port,
-> > +							   dm_conn_state->pbn, false);
-> > +			if (ret < 0)
-> > +				return ret;
-> > +
-> >   			continue;
-> >   		}
-> >   
-> > @@ -9523,10 +9526,9 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
-> >   
-> >   #if defined(CONFIG_DRM_AMD_DC_DCN)
-> >   	if (dc_resource_is_dsc_encoding_supported(dc)) {
-> > -		if (!pre_validate_dsc(state, &dm_state, vars)) {
-> > -			ret = -EINVAL;
-> > +		ret = pre_validate_dsc(state, &dm_state, vars);
-> > +		if (ret != 0)
-> >   			goto fail;
-> > -		}
-> >   	}
-> >   #endif
-> >   
-> > @@ -9621,9 +9623,9 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
-> >   		}
-> >   
-> >   #if defined(CONFIG_DRM_AMD_DC_DCN)
-> > -		if (!compute_mst_dsc_configs_for_state(state, dm_state->context, vars)) {
-> > +		ret = compute_mst_dsc_configs_for_state(state, dm_state->context, vars);
-> > +		if (ret) {
-> >   			DRM_DEBUG_DRIVER("compute_mst_dsc_configs_for_state() failed\n");
-> > -			ret = -EINVAL;
-> >   			goto fail;
-> >   		}
-> >   
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> > index 6ff96b4bdda5..2f72745660fb 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> > @@ -703,13 +703,13 @@ static int bpp_x16_from_pbn(struct dsc_mst_fairness_params param, int pbn)
-> >   	return dsc_config.bits_per_pixel;
-> >   }
-> >   
-> > -static bool increase_dsc_bpp(struct drm_atomic_state *state,
-> > -			     struct drm_dp_mst_topology_state *mst_state,
-> > -			     struct dc_link *dc_link,
-> > -			     struct dsc_mst_fairness_params *params,
-> > -			     struct dsc_mst_fairness_vars *vars,
-> > -			     int count,
-> > -			     int k)
-> > +static int increase_dsc_bpp(struct drm_atomic_state *state,
-> > +			    struct drm_dp_mst_topology_state *mst_state,
-> > +			    struct dc_link *dc_link,
-> > +			    struct dsc_mst_fairness_params *params,
-> > +			    struct dsc_mst_fairness_vars *vars,
-> > +			    int count,
-> > +			    int k)
-> >   {
-> >   	int i;
-> >   	bool bpp_increased[MAX_PIPES];
-> > @@ -719,6 +719,7 @@ static bool increase_dsc_bpp(struct drm_atomic_state *state,
-> >   	int remaining_to_increase = 0;
-> >   	int link_timeslots_used;
-> >   	int fair_pbn_alloc;
-> > +	int ret = 0;
-> >   
-> >   	for (i = 0; i < count; i++) {
-> >   		if (vars[i + k].dsc_enabled) {
-> > @@ -757,52 +758,60 @@ static bool increase_dsc_bpp(struct drm_atomic_state *state,
-> >   
-> >   		if (initial_slack[next_index] > fair_pbn_alloc) {
-> >   			vars[next_index].pbn += fair_pbn_alloc;
-> > -			if (drm_dp_atomic_find_time_slots(state,
-> > -							  params[next_index].port->mgr,
-> > -							  params[next_index].port,
-> > -							  vars[next_index].pbn) < 0)
-> > -				return false;
-> > -			if (!drm_dp_mst_atomic_check(state)) {
-> > +			ret = drm_dp_atomic_find_time_slots(state,
-> > +							    params[next_index].port->mgr,
-> > +							    params[next_index].port,
-> > +							    vars[next_index].pbn);
-> > +			if (ret < 0)
-> > +				return ret;
-> > +
-> > +			ret = drm_dp_mst_atomic_check(state);
-> > +			if (ret == 0) {
-> >   				vars[next_index].bpp_x16 = bpp_x16_from_pbn(params[next_index], vars[next_index].pbn);
-> >   			} else {
-> >   				vars[next_index].pbn -= fair_pbn_alloc;
-> > -				if (drm_dp_atomic_find_time_slots(state,
-> > -								  params[next_index].port->mgr,
-> > -								  params[next_index].port,
-> > -								  vars[next_index].pbn) < 0)
-> > -					return false;
-> > +				ret = drm_dp_atomic_find_time_slots(state,
-> > +								    params[next_index].port->mgr,
-> > +								    params[next_index].port,
-> > +								    vars[next_index].pbn);
-> > +				if (ret < 0)
-> > +					return ret;
-> >   			}
-> >   		} else {
-> >   			vars[next_index].pbn += initial_slack[next_index];
-> > -			if (drm_dp_atomic_find_time_slots(state,
-> > -							  params[next_index].port->mgr,
-> > -							  params[next_index].port,
-> > -							  vars[next_index].pbn) < 0)
-> > -				return false;
-> > -			if (!drm_dp_mst_atomic_check(state)) {
-> > +			ret = drm_dp_atomic_find_time_slots(state,
-> > +							    params[next_index].port->mgr,
-> > +							    params[next_index].port,
-> > +							    vars[next_index].pbn);
-> > +			if (ret < 0)
-> > +				return ret;
-> > +
-> > +			ret = drm_dp_mst_atomic_check(state);
-> > +			if (ret == 0) {
-> >   				vars[next_index].bpp_x16 = params[next_index].bw_range.max_target_bpp_x16;
-> >   			} else {
-> >   				vars[next_index].pbn -= initial_slack[next_index];
-> > -				if (drm_dp_atomic_find_time_slots(state,
-> > -								  params[next_index].port->mgr,
-> > -								  params[next_index].port,
-> > -								  vars[next_index].pbn) < 0)
-> > -					return false;
-> > +				ret = drm_dp_atomic_find_time_slots(state,
-> > +								    params[next_index].port->mgr,
-> > +								    params[next_index].port,
-> > +								    vars[next_index].pbn);
-> > +				if (ret < 0)
-> > +					return ret;
-> >   			}
-> >   		}
-> >   
-> >   		bpp_increased[next_index] = true;
-> >   		remaining_to_increase--;
-> >   	}
-> > -	return true;
-> > +	return 0;
-> >   }
-> >   
-> > -static bool try_disable_dsc(struct drm_atomic_state *state,
-> > -			    struct dc_link *dc_link,
-> > -			    struct dsc_mst_fairness_params *params,
-> > -			    struct dsc_mst_fairness_vars *vars,
-> > -			    int count,
-> > -			    int k)
-> > +static int try_disable_dsc(struct drm_atomic_state *state,
-> > +			   struct dc_link *dc_link,
-> > +			   struct dsc_mst_fairness_params *params,
-> > +			   struct dsc_mst_fairness_vars *vars,
-> > +			   int count,
-> > +			   int k)
-> >   {
-> >   	int i;
-> >   	bool tried[MAX_PIPES];
-> > @@ -810,6 +819,7 @@ static bool try_disable_dsc(struct drm_atomic_state *state,
-> >   	int max_kbps_increase;
-> >   	int next_index;
-> >   	int remaining_to_try = 0;
-> > +	int ret;
-> >   
-> >   	for (i = 0; i < count; i++) {
-> >   		if (vars[i + k].dsc_enabled
-> > @@ -840,49 +850,52 @@ static bool try_disable_dsc(struct drm_atomic_state *state,
-> >   			break;
-> >   
-> >   		vars[next_index].pbn = kbps_to_peak_pbn(params[next_index].bw_range.stream_kbps);
-> > -		if (drm_dp_atomic_find_time_slots(state,
-> > -						  params[next_index].port->mgr,
-> > -						  params[next_index].port,
-> > -						  vars[next_index].pbn) < 0)
-> > -			return false;
-> > +		ret = drm_dp_atomic_find_time_slots(state,
-> > +						    params[next_index].port->mgr,
-> > +						    params[next_index].port,
-> > +						    vars[next_index].pbn);
-> > +		if (ret < 0)
-> > +			return ret;
-> >   
-> > -		if (!drm_dp_mst_atomic_check(state)) {
-> > +		ret = drm_dp_mst_atomic_check(state);
-> > +		if (ret == 0) {
-> >   			vars[next_index].dsc_enabled = false;
-> >   			vars[next_index].bpp_x16 = 0;
-> >   		} else {
-> >   			vars[next_index].pbn = kbps_to_peak_pbn(params[next_index].bw_range.max_kbps);
-> > -			if (drm_dp_atomic_find_time_slots(state,
-> > -							  params[next_index].port->mgr,
-> > -							  params[next_index].port,
-> > -							  vars[next_index].pbn) < 0)
-> > -				return false;
-> > +			ret = drm_dp_atomic_find_time_slots(state,
-> > +							    params[next_index].port->mgr,
-> > +							    params[next_index].port,
-> > +							    vars[next_index].pbn);
-> > +			if (ret < 0)
-> > +				return ret;
-> >   		}
-> >   
-> >   		tried[next_index] = true;
-> >   		remaining_to_try--;
-> >   	}
-> > -	return true;
-> > +	return 0;
-> >   }
-> >   
-> > -static bool compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
-> > -					     struct dc_state *dc_state,
-> > -					     struct dc_link *dc_link,
-> > -					     struct dsc_mst_fairness_vars *vars,
-> > -					     struct drm_dp_mst_topology_mgr *mgr,
-> > -					     int *link_vars_start_index)
-> > +static int compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
-> > +					    struct dc_state *dc_state,
-> > +					    struct dc_link *dc_link,
-> > +					    struct dsc_mst_fairness_vars *vars,
-> > +					    struct drm_dp_mst_topology_mgr *mgr,
-> > +					    int *link_vars_start_index)
-> >   {
-> >   	struct dc_stream_state *stream;
-> >   	struct dsc_mst_fairness_params params[MAX_PIPES];
-> >   	struct amdgpu_dm_connector *aconnector;
-> >   	struct drm_dp_mst_topology_state *mst_state = drm_atomic_get_mst_topology_state(state, mgr);
-> >   	int count = 0;
-> > -	int i, k;
-> > +	int i, k, ret;
-> >   	bool debugfs_overwrite = false;
-> >   
-> >   	memset(params, 0, sizeof(params));
-> >   
-> >   	if (IS_ERR(mst_state))
-> > -		return false;
-> > +		return PTR_ERR(mst_state);
-> >   
-> >   	mst_state->pbn_div = dm_mst_get_pbn_divider(dc_link);
-> >   #if defined(CONFIG_DRM_AMD_DC_DCN)
-> > @@ -933,7 +946,7 @@ static bool compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
-> >   
-> >   	if (count == 0) {
-> >   		ASSERT(0);
-> > -		return true;
-> > +		return 0;
-> >   	}
-> >   
-> >   	/* k is start index of vars for current phy link used by mst hub */
-> > @@ -947,13 +960,17 @@ static bool compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
-> >   		vars[i + k].pbn = kbps_to_peak_pbn(params[i].bw_range.stream_kbps);
-> >   		vars[i + k].dsc_enabled = false;
-> >   		vars[i + k].bpp_x16 = 0;
-> > -		if (drm_dp_atomic_find_time_slots(state, params[i].port->mgr, params[i].port,
-> > -						  vars[i + k].pbn) < 0)
-> > -			return false;
-> > +		ret = drm_dp_atomic_find_time_slots(state, params[i].port->mgr, params[i].port,
-> > +						    vars[i + k].pbn);
-> > +		if (ret < 0)
-> > +			return ret;
-> >   	}
-> > -	if (!drm_dp_mst_atomic_check(state) && !debugfs_overwrite) {
-> > +	ret = drm_dp_mst_atomic_check(state);
-> > +	if (ret == 0 && !debugfs_overwrite) {
-> >   		set_dsc_configs_from_fairness_vars(params, vars, count, k);
-> > -		return true;
-> > +		return 0;
-> > +	} else if (ret != -ENOSPC) {
-> > +		return ret;
-> >   	}
-> >   
-> >   	/* Try max compression */
-> > @@ -962,31 +979,36 @@ static bool compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
-> >   			vars[i + k].pbn = kbps_to_peak_pbn(params[i].bw_range.min_kbps);
-> >   			vars[i + k].dsc_enabled = true;
-> >   			vars[i + k].bpp_x16 = params[i].bw_range.min_target_bpp_x16;
-> > -			if (drm_dp_atomic_find_time_slots(state, params[i].port->mgr,
-> > -							  params[i].port, vars[i + k].pbn) < 0)
-> > -				return false;
-> > +			ret = drm_dp_atomic_find_time_slots(state, params[i].port->mgr,
-> > +							    params[i].port, vars[i + k].pbn);
-> > +			if (ret < 0)
-> > +				return ret;
-> >   		} else {
-> >   			vars[i + k].pbn = kbps_to_peak_pbn(params[i].bw_range.stream_kbps);
-> >   			vars[i + k].dsc_enabled = false;
-> >   			vars[i + k].bpp_x16 = 0;
-> > -			if (drm_dp_atomic_find_time_slots(state, params[i].port->mgr,
-> > -							  params[i].port, vars[i + k].pbn) < 0)
-> > -				return false;
-> > +			ret = drm_dp_atomic_find_time_slots(state, params[i].port->mgr,
-> > +							    params[i].port, vars[i + k].pbn);
-> > +			if (ret < 0)
-> > +				return ret;
-> >   		}
-> >   	}
-> > -	if (drm_dp_mst_atomic_check(state))
-> > -		return false;
-> > +	ret = drm_dp_mst_atomic_check(state);
-> > +	if (ret != 0)
-> > +		return ret;
-> >   
-> >   	/* Optimize degree of compression */
-> > -	if (!increase_dsc_bpp(state, mst_state, dc_link, params, vars, count, k))
-> > -		return false;
-> > +	ret = increase_dsc_bpp(state, mst_state, dc_link, params, vars, count, k);
-> > +	if (ret < 0)
-> > +		return ret;
-> >   
-> > -	if (!try_disable_dsc(state, dc_link, params, vars, count, k))
-> > -		return false;
-> > +	ret = try_disable_dsc(state, dc_link, params, vars, count, k);
-> > +	if (ret < 0)
-> > +		return ret;
-> >   
-> >   	set_dsc_configs_from_fairness_vars(params, vars, count, k);
-> >   
-> > -	return true;
-> > +	return 0;
-> >   }
-> >   
-> >   static bool is_dsc_need_re_compute(
-> > @@ -1087,15 +1109,16 @@ static bool is_dsc_need_re_compute(
-> >   	return is_dsc_need_re_compute;
-> >   }
-> >   
-> > -bool compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
-> > -				       struct dc_state *dc_state,
-> > -				       struct dsc_mst_fairness_vars *vars)
-> > +int compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
-> > +				      struct dc_state *dc_state,
-> > +				      struct dsc_mst_fairness_vars *vars)
-> >   {
-> >   	int i, j;
-> >   	struct dc_stream_state *stream;
-> >   	bool computed_streams[MAX_PIPES];
-> >   	struct amdgpu_dm_connector *aconnector;
-> >   	int link_vars_start_index = 0;
-> > +	int ret = 0;
-> >   
-> >   	for (i = 0; i < dc_state->stream_count; i++)
-> >   		computed_streams[i] = false;
-> > @@ -1118,17 +1141,19 @@ bool compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
-> >   			continue;
-> >   
-> >   		if (dcn20_remove_stream_from_ctx(stream->ctx->dc, dc_state, stream) != DC_OK)
-> > -			return false;
-> > +			return -EINVAL;
-> >   
-> >   		if (!is_dsc_need_re_compute(state, dc_state, stream->link))
-> >   			continue;
-> >   
-> >   		mutex_lock(&aconnector->mst_mgr.lock);
-> > -		if (!compute_mst_dsc_configs_for_link(state, dc_state, stream->link, vars,
-> > -						      &aconnector->mst_mgr,
-> > -						      &link_vars_start_index)) {
-> > +
-> > +		ret = compute_mst_dsc_configs_for_link(state, dc_state, stream->link, vars,
-> > +						       &aconnector->mst_mgr,
-> > +						       &link_vars_start_index);
-> > +		if (ret != 0) {
-> >   			mutex_unlock(&aconnector->mst_mgr.lock);
-> > -			return false;
-> > +			return ret;
-> >   		}
-> >   		mutex_unlock(&aconnector->mst_mgr.lock);
-> >   
-> > @@ -1143,22 +1168,22 @@ bool compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
-> >   
-> >   		if (stream->timing.flags.DSC == 1)
-> >   			if (dc_stream_add_dsc_to_resource(stream->ctx->dc, dc_state, stream) != DC_OK)
-> > -				return false;
-> > +				return -EINVAL;
-> >   	}
-> >   
-> > -	return true;
-> > +	return ret;
-> >   }
-> >   
-> > -static bool
-> > -	pre_compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
-> > -					      struct dc_state *dc_state,
-> > -					      struct dsc_mst_fairness_vars *vars)
-> > +static int pre_compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
-> > +						 struct dc_state *dc_state,
-> > +						 struct dsc_mst_fairness_vars *vars)
-> >   {
-> >   	int i, j;
-> >   	struct dc_stream_state *stream;
-> >   	bool computed_streams[MAX_PIPES];
-> >   	struct amdgpu_dm_connector *aconnector;
-> >   	int link_vars_start_index = 0;
-> > +	int ret = 0;
-> >   
-> >   	for (i = 0; i < dc_state->stream_count; i++)
-> >   		computed_streams[i] = false;
-> > @@ -1184,11 +1209,12 @@ static bool
-> >   			continue;
-> >   
-> >   		mutex_lock(&aconnector->mst_mgr.lock);
-> > -		if (!compute_mst_dsc_configs_for_link(state, dc_state, stream->link, vars,
-> > -						      &aconnector->mst_mgr,
-> > -						      &link_vars_start_index)) {
-> > +		ret = compute_mst_dsc_configs_for_link(state, dc_state, stream->link, vars,
-> > +						       &aconnector->mst_mgr,
-> > +						       &link_vars_start_index);
-> > +		if (ret != 0) {
-> >   			mutex_unlock(&aconnector->mst_mgr.lock);
-> > -			return false;
-> > +			return ret;
-> >   		}
-> >   		mutex_unlock(&aconnector->mst_mgr.lock);
-> >   
-> > @@ -1198,7 +1224,7 @@ static bool
-> >   		}
-> >   	}
-> >   
-> > -	return true;
-> > +	return ret;
-> >   }
-> >   
-> >   static int find_crtc_index_in_state_by_stream(struct drm_atomic_state *state,
-> > @@ -1253,9 +1279,9 @@ static bool is_dsc_precompute_needed(struct drm_atomic_state *state)
-> >   	return ret;
-> >   }
-> >   
-> > -bool pre_validate_dsc(struct drm_atomic_state *state,
-> > -		      struct dm_atomic_state **dm_state_ptr,
-> > -		      struct dsc_mst_fairness_vars *vars)
-> > +int pre_validate_dsc(struct drm_atomic_state *state,
-> > +		     struct dm_atomic_state **dm_state_ptr,
-> > +		     struct dsc_mst_fairness_vars *vars)
-> >   {
-> >   	int i;
-> >   	struct dm_atomic_state *dm_state;
-> > @@ -1264,11 +1290,12 @@ bool pre_validate_dsc(struct drm_atomic_state *state,
-> >   
-> >   	if (!is_dsc_precompute_needed(state)) {
-> >   		DRM_INFO_ONCE("DSC precompute is not needed.\n");
-> > -		return true;
-> > +		return 0;
-> >   	}
-> > -	if (dm_atomic_get_state(state, dm_state_ptr)) {
-> > +	ret = dm_atomic_get_state(state, dm_state_ptr);
-> > +	if (ret != 0) {
-> >   		DRM_INFO_ONCE("dm_atomic_get_state() failed\n");
-> > -		return false;
-> > +		return ret;
-> >   	}
-> >   	dm_state = *dm_state_ptr;
-> >   
-> > @@ -1280,7 +1307,7 @@ bool pre_validate_dsc(struct drm_atomic_state *state,
-> >   
-> >   	local_dc_state = kmemdup(dm_state->context, sizeof(struct dc_state), GFP_KERNEL);
-> >   	if (!local_dc_state)
-> > -		return false;
-> > +		return -ENOMEM;
-> >   
-> >   	for (i = 0; i < local_dc_state->stream_count; i++) {
-> >   		struct dc_stream_state *stream = dm_state->context->streams[i];
-> > @@ -1316,9 +1343,9 @@ bool pre_validate_dsc(struct drm_atomic_state *state,
-> >   	if (ret != 0)
-> >   		goto clean_exit;
-> >   
-> > -	if (!pre_compute_mst_dsc_configs_for_state(state, local_dc_state, vars)) {
-> > +	ret = pre_compute_mst_dsc_configs_for_state(state, local_dc_state, vars);
-> > +	if (ret != 0) {
-> >   		DRM_INFO_ONCE("pre_compute_mst_dsc_configs_for_state() failed\n");
-> > -		ret = -EINVAL;
-> >   		goto clean_exit;
-> >   	}
-> >   
-> > @@ -1349,7 +1376,7 @@ bool pre_validate_dsc(struct drm_atomic_state *state,
-> >   
-> >   	kfree(local_dc_state);
-> >   
-> > -	return (ret == 0);
-> > +	return ret;
-> >   }
-> >   
-> >   static unsigned int kbps_from_pbn(unsigned int pbn)
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-> > index b92a7c5671aa..97fd70df531b 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-> > @@ -53,15 +53,15 @@ struct dsc_mst_fairness_vars {
-> >   	struct amdgpu_dm_connector *aconnector;
-> >   };
-> >   
-> > -bool compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
-> > -				       struct dc_state *dc_state,
-> > -				       struct dsc_mst_fairness_vars *vars);
-> > +int compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
-> > +				      struct dc_state *dc_state,
-> > +				      struct dsc_mst_fairness_vars *vars);
-> >   
-> >   bool needs_dsc_aux_workaround(struct dc_link *link);
-> >   
-> > -bool pre_validate_dsc(struct drm_atomic_state *state,
-> > -		      struct dm_atomic_state **dm_state_ptr,
-> > -		      struct dsc_mst_fairness_vars *vars);
-> > +int pre_validate_dsc(struct drm_atomic_state *state,
-> > +		     struct dm_atomic_state **dm_state_ptr,
-> > +		     struct dsc_mst_fairness_vars *vars);
-> >   
-> >   enum dc_status dm_dp_mst_is_port_support_mode(
-> >   	struct amdgpu_dm_connector *aconnector,
-> 
-
--- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index 59648f5ffb59..6483ba266893 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -1180,7 +1180,7 @@ static int pre_compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
+>  	struct amdgpu_dm_connector *aconnector;
+>  	struct drm_dp_mst_topology_mgr *mst_mgr;
+>  	int link_vars_start_index = 0;
+> -	int ret;
+> +	int ret = 0;
+>  
+>  	for (i = 0; i < dc_state->stream_count; i++)
+>  		computed_streams[i] = false;
 
