@@ -4,46 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3943FC43217
-	for <amd-gfx@archiver.kernel.org>; Sat, 19 Nov 2022 02:14:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58D2BC433FE
+	for <amd-gfx@archiver.kernel.org>; Sat, 19 Nov 2022 04:42:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8748C10E7E1;
-	Sat, 19 Nov 2022 02:14:45 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B469E10E7E1;
- Sat, 19 Nov 2022 02:14:42 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 370EEB82670;
- Sat, 19 Nov 2022 02:14:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82E92C433D7;
- Sat, 19 Nov 2022 02:14:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668824079;
- bh=gGLteT8K6TxzFC9zMhFubn3DVHcCYF7LsJcYHZfDbXY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=i5GnVJJ2rrpc8ucgFRBIs8bpFLHBOic371niLl6zYAXQ2SLukSmJxbdvdjpdoWPYT
- iyel7ahj7i6804IUwLLmlI8t8WtoVjEgr9XTsOmUQBwsQXcya321ws982Oah7eEz9o
- h3Lx+v1cwn3UDT4c9ivZwMpET3CyYEpeI7TTztCi3+jGxV72FkHi8DXgFIAYbDeaUX
- TcLaOiXfHPsdn41HXAkBXT8qab/bqZPHMTUEw+Q00mNTnjzpM32h6566gf3o2FczSr
- pBgNjPbpodAfpMvRjZ8oG3MH4w7hXd1nV5OXfc7XgTVLQEkAFVtW/AVy5Iwg69O4iw
- H1fwV/pzaIJKQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 24/27] Revert "drm/amdgpu: Revert "drm/amdgpu:
- getting fan speed pwm for vega10 properly""
-Date: Fri, 18 Nov 2022 21:13:49 -0500
-Message-Id: <20221119021352.1774592-24-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221119021352.1774592-1-sashal@kernel.org>
-References: <20221119021352.1774592-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B7E810E25B;
+	Sat, 19 Nov 2022 04:42:52 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20607.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::607])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BFBE10E25B
+ for <amd-gfx@lists.freedesktop.org>; Sat, 19 Nov 2022 04:42:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PdHcs32MWe1mfv6tOb5uf7r7fdI13uru15ccx27ExZS91UeT4hrpmKn+salvzXlZBghvJO1nqP1CE81l76MSOrkha/Kr3TFaIVqBNVCXtYk6kIWQp7qeJ9QERO6XCQ1LwhU9ikc0TRoykNvwqZ/FgM3Rd1TjHM7Z22fiIGHGgxHhUm1Pm5tvM50OucD9CrFM9E9/EBPBeeK7InE06ZE5afdUvvCAVPuxMnWrKDvy5xosRR4sSEUnV4DwsaqtYZS0Y2wYAH7NRWlyQZ8BS+5zl4jFSnc/XtWkkw45NSPYNh3vLZo9/++YV5psnbkdxrYgaJG5LRu7pruBTJ+94CdTVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=twNAvoTYVsb6kNGcquuFKTjion+kP2VMN3KGDgXpoDE=;
+ b=mdWPZFhPO3VRMDcOHkr45/U2PEwttcY37zU2nVcxdz7yi/NwjPA6UNL8rs8aG+6UuPoEm4byZkvhtEFYlDiu/kkE8MXHWN/9cjw1P85GztZKRxOyWlHr96udiyf70o6CVXzX0/ZU7FdBNkuKN7wPw23fZKaZXElV+kg7iX4lbErD8eO3oSsvuWwtCEVh6AVJzI/IzvqK+zns1r6VvT5dZnNZF9MuL7NcM3uN0MIaJdO5VD1U+3MPv46oarxNi20HChsRhMLnTdv5uMynO7l3WgcTNGDKfaak35RSN/lcv8DvXIx3WrCIAcUxfG7X9SiIUzxlSbyvV7cqHBkCnvSFdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=twNAvoTYVsb6kNGcquuFKTjion+kP2VMN3KGDgXpoDE=;
+ b=prXi6rjNwPbOc3KVSma9+U5dB4Cq98VZRVnRTcROtYvh8F4DXeMZ+0bjtTt7+yOI6+wVoYEeYUekNxraqbmV6JEi2gQJFGNJ3yZp/+Ft1loNwqMd1UBGpMCXO5x0QyVJHus1zGMZ9ILTSQTspXv/sID4yaltfdbKeNR3NNfKg7M=
+Received: from DS7PR05CA0082.namprd05.prod.outlook.com (2603:10b6:8:57::23) by
+ DM4PR12MB5914.namprd12.prod.outlook.com (2603:10b6:8:67::21) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5834.9; Sat, 19 Nov 2022 04:42:46 +0000
+Received: from DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:57:cafe::44) by DS7PR05CA0082.outlook.office365.com
+ (2603:10b6:8:57::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.8 via Frontend
+ Transport; Sat, 19 Nov 2022 04:42:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT008.mail.protection.outlook.com (10.13.172.85) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5834.8 via Frontend Transport; Sat, 19 Nov 2022 04:42:46 +0000
+Received: from candice-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 18 Nov
+ 2022 22:42:44 -0600
+From: Candice Li <candice.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: Enable bad memory page/channel recording support
+ for smu v13_0_0
+Date: Sat, 19 Nov 2022 12:42:09 +0800
+Message-ID: <20221119044209.3881428-1-candice.li@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT008:EE_|DM4PR12MB5914:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56c91eaa-e180-4c16-bf49-08dac9e88115
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: CaHvf9WU/KvSUHgYshEXaLKrOEMkc0XgIbbpgw59elRdUSUfPvhteKM8V+oTHDqL5DrJbIqv4yZFKIIMz3irPSRPvscF4ABCtY+Ht6srZipHAq+LA+yOY0pNmwQlUIGVvDw7mBgzucKsz43rZBoq6s2EkyYDk+cFZ31tDSCEgFTNT024FEDWbONTE4ZnHNHR8uGr7sisiO4Yi/7i6p1ukTjQHTpsXQ4yMugSrnfWCS1A/pj5o5HYsAECDVpueZ5aTsyJS90EalzFfZx4rOBgPEGp8qgiqAAthoqQBLkKzTJB0q8n8NHaImJhOGIiCqw7WWIZ3mZcW8+sAvdpJGKhUkiE0/3PgcrO5JHMIThbsGbhB1eHL87jK7abT34ac5UBQ6j/etObXZIxll3ovWVYbkHvygzpBH1e/VuCeMOGZJ/aBqimyqaQTO3vm6XYSt3RKE62zPQyQ2zgF8vgj4hyA76aEoHG/Zw2ffVbuwBxZ/6dBwFdDBzWWHeIKoqcrKI+xdF6M4uveszhlsQQvGeS/tHTXxMHXKq1dinW8NO7qVIyd1l0YdulKkRO9WENm9YbtKUMFlVEZgOK8dPLuRro/do0QfyPFIJj2q3v9on143w0Yb1R4btgxph1mKvnyKW458DOLqNOlk3GjjImPfHJj1nGCnAWPmvhW1RISBZ68PdjwamtuxwHbfQ7TOmG0QjB+G4WRvnJJR0M5YaV4uEdwj88LZCNmZQCN8vfH2OkgSI=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(396003)(136003)(376002)(346002)(451199015)(36840700001)(46966006)(40470700004)(356005)(6916009)(81166007)(316002)(8676002)(2616005)(47076005)(186003)(426003)(336012)(54906003)(1076003)(40460700003)(5660300002)(44832011)(16526019)(8936002)(36860700001)(2906002)(83380400001)(82740400003)(4326008)(70206006)(70586007)(40480700001)(36756003)(41300700001)(478600001)(26005)(6666004)(7696005)(86362001)(82310400005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2022 04:42:46.0534 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56c91eaa-e180-4c16-bf49-08dac9e88115
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5914
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,71 +99,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, stalkerg@gmail.com,
- Guchun Chen <guchun.chen@amd.com>, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, Asher Song <Asher.Song@amd.com>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: Candice Li <candice.li@amd.com>, Evan Quan <evan.quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Asher Song <Asher.Song@amd.com>
+Send message to SMU to update bad memory page and bad channel info.
 
-[ Upstream commit 30b8e7b8ee3be003e0df85c857c5cd0e0bd58b82 ]
-
-This reverts commit 4545ae2ed3f2f7c3f615a53399c9c8460ee5bca7.
-
-The origin patch "drm/amdgpu: getting fan speed pwm for vega10 properly" works fine.
-Test failure is caused by test case self.
-
-Signed-off-by: Asher Song <Asher.Song@amd.com>
-Reviewed-by: Guchun Chen <guchun.chen@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Candice Li <candice.li@amd.com>
+Reviewed-by: Evan Quan <evan.quan@amd.com>
 ---
- .../amd/pm/powerplay/hwmgr/vega10_thermal.c   | 25 +++++++++----------
- 1 file changed, 12 insertions(+), 13 deletions(-)
+ .../pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h  |  8 +++-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |  4 +-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 39 +++++++++++++++++++
+ 3 files changed, 49 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-index dad3e3741a4e..190af79f3236 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
-@@ -67,22 +67,21 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr *hwmgr,
- int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
- 		uint32_t *speed)
- {
--	uint32_t current_rpm;
--	uint32_t percent = 0;
--
--	if (hwmgr->thermal_controller.fanInfo.bNoFan)
--		return 0;
-+	struct amdgpu_device *adev = hwmgr->adev;
-+	uint32_t duty100, duty;
-+	uint64_t tmp64;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h
+index 9ebb8f39732a0e..8b8266890a1002 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h
+@@ -131,7 +131,13 @@
+ #define PPSMC_MSG_EnableAudioStutterWA           0x44
+ #define PPSMC_MSG_PowerUpUmsch                   0x45
+ #define PPSMC_MSG_PowerDownUmsch                 0x46
+-#define PPSMC_Message_Count                      0x47
++#define PPSMC_MSG_SetDcsArch                     0x47
++#define PPSMC_MSG_TriggerVFFLR                   0x48
++#define PPSMC_MSG_SetNumBadMemoryPagesRetired    0x49
++#define PPSMC_MSG_SetBadMemoryPagesRetiredFlagsPerChannel 0x4A
++#define PPSMC_MSG_SetPriorityDeltaGain           0x4B
++#define PPSMC_MSG_AllowIHHostInterrupt           0x4C
++#define PPSMC_Message_Count                      0x4D
  
--	if (vega10_get_current_rpm(hwmgr, &current_rpm))
--		return -1;
-+	duty100 = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL1),
-+				CG_FDO_CTRL1, FMAX_DUTY100);
-+	duty = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_THERMAL_STATUS),
-+				CG_THERMAL_STATUS, FDO_PWM_DUTY);
+ //Debug Dump Message
+ #define DEBUGSMC_MSG_TestMessage                    0x1
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+index 58098b82df660c..a4e3425b1027c2 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+@@ -239,7 +239,9 @@
+ 	__SMU_DUMMY_MAP(DriverMode2Reset), \
+ 	__SMU_DUMMY_MAP(GetGfxOffStatus),		 \
+ 	__SMU_DUMMY_MAP(GetGfxOffEntryCount),		 \
+-	__SMU_DUMMY_MAP(LogGfxOffResidency),
++	__SMU_DUMMY_MAP(LogGfxOffResidency),			\
++	__SMU_DUMMY_MAP(SetNumBadMemoryPagesRetired),		\
++	__SMU_DUMMY_MAP(SetBadMemoryPagesRetiredFlagsPerChannel),
  
--	if (hwmgr->thermal_controller.
--			advanceFanControlParameters.usMaxFanRPM != 0)
--		percent = current_rpm * 255 /
--			hwmgr->thermal_controller.
--			advanceFanControlParameters.usMaxFanRPM;
-+	if (!duty100)
-+		return -EINVAL;
+ #undef __SMU_DUMMY_MAP
+ #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 5bcb61f77e4193..87d7c66e49ef28 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -141,6 +141,9 @@ static struct cmn2asic_msg_mapping smu_v13_0_0_message_map[SMU_MSG_MAX_COUNT] =
+ 	MSG_MAP(PrepareMp1ForUnload,		PPSMC_MSG_PrepareMp1ForUnload,         0),
+ 	MSG_MAP(DFCstateControl,		PPSMC_MSG_SetExternalClientDfCstateAllow, 0),
+ 	MSG_MAP(ArmD3,				PPSMC_MSG_ArmD3,                       0),
++	MSG_MAP(SetNumBadMemoryPagesRetired,	PPSMC_MSG_SetNumBadMemoryPagesRetired,   0),
++	MSG_MAP(SetBadMemoryPagesRetiredFlagsPerChannel,
++			    PPSMC_MSG_SetBadMemoryPagesRetiredFlagsPerChannel,   0),
+ };
  
--	*speed = MIN(percent, 255);
-+	tmp64 = (uint64_t)duty * 255;
-+	do_div(tmp64, duty100);
-+	*speed = MIN((uint32_t)tmp64, 255);
- 
- 	return 0;
+ static struct cmn2asic_mapping smu_v13_0_0_clk_map[SMU_CLK_COUNT] = {
+@@ -1838,6 +1841,40 @@ static void smu_v13_0_0_set_smu_mailbox_registers(struct smu_context *smu)
+ 	smu->debug_resp_reg = SOC15_REG_OFFSET(MP1, 0, mmMP1_SMN_C2PMSG_54);
  }
+ 
++static int smu_v13_0_0_smu_send_bad_mem_page_num(struct smu_context *smu,
++		uint32_t size)
++{
++	int ret = 0;
++
++	/* message SMU to update the bad page number on SMUBUS */
++	ret = smu_cmn_send_smc_msg_with_param(smu,
++					  SMU_MSG_SetNumBadMemoryPagesRetired,
++					  size, NULL);
++	if (ret)
++		dev_err(smu->adev->dev,
++			  "[%s] failed to message SMU to update bad memory pages number\n",
++			  __func__);
++
++	return ret;
++}
++
++static int smu_v13_0_0_send_bad_mem_channel_flag(struct smu_context *smu,
++		uint32_t size)
++{
++	int ret = 0;
++
++	/* message SMU to update the bad channel info on SMUBUS */
++	ret = smu_cmn_send_smc_msg_with_param(smu,
++				  SMU_MSG_SetBadMemoryPagesRetiredFlagsPerChannel,
++				  size, NULL);
++	if (ret)
++		dev_err(smu->adev->dev,
++			  "[%s] failed to message SMU to update bad memory pages channel info\n",
++			  __func__);
++
++	return ret;
++}
++
+ static const struct pptable_funcs smu_v13_0_0_ppt_funcs = {
+ 	.get_allowed_feature_mask = smu_v13_0_0_get_allowed_feature_mask,
+ 	.set_default_dpm_table = smu_v13_0_0_set_default_dpm_table,
+@@ -1908,6 +1945,8 @@ static const struct pptable_funcs smu_v13_0_0_ppt_funcs = {
+ 	.mode1_reset = smu_v13_0_0_mode1_reset,
+ 	.set_mp1_state = smu_v13_0_0_set_mp1_state,
+ 	.set_df_cstate = smu_v13_0_0_set_df_cstate,
++	.send_hbm_bad_pages_num = smu_v13_0_0_smu_send_bad_mem_page_num,
++	.send_hbm_bad_channel_flag = smu_v13_0_0_send_bad_mem_channel_flag,
+ };
+ 
+ void smu_v13_0_0_set_ppt_funcs(struct smu_context *smu)
 -- 
-2.35.1
+2.25.1
 
