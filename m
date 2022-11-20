@@ -4,65 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83C34C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 08:25:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0100CC433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 08:26:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0B1610E15D;
-	Mon, 21 Nov 2022 08:25:55 +0000 (UTC)
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [IPv6:2607:f8b0:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6BAA10E145;
- Mon, 21 Nov 2022 07:26:07 +0000 (UTC)
-Received: by mail-pg1-x529.google.com with SMTP id f3so10401643pgc.2;
- Sun, 20 Nov 2022 23:26:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=C1MiOaGlNC43gZkqyEAf4nEibj9lSNJWEeV4vVtbOJE=;
- b=JGYzC6xqmct/PfIsIWjPN63rryv70dobhe3MPkw8h85uVfj85DjOITM2umZT/uEIkW
- fQzlMlsoFaL/uDPE4PT3MotMLZ16xLqfQI5uR/mmqez22GVROEiHybxzj5ET/9EwdImy
- w6dDvpnxM4xgSpoJltBFyuKs6JANcGcU9ycLlLc1Dv6IFuQh/yYY23EIFMymed2xZ7Y0
- 7Jcwri8zMp3DyzoqYyU1XNAU39kV0w4zwcexZiV8iY98BSigxr9R/U+PBr+7hyxH9gCa
- KJIS/B2pBx2tY25R8qhNj6MYXUQLJT2ollMY1N+w0dAvPs2UydLM49HJFFwa5pAfhJKu
- Vg0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=C1MiOaGlNC43gZkqyEAf4nEibj9lSNJWEeV4vVtbOJE=;
- b=y2ZH4Yd64x1Z5LoKdiqrxJU+wonW5fYXmzpeGg253WQCRqJU6r76e1XHBjK+x0g9Mn
- GGbiHUKTgqevGsM69p75k6Q8+gflfD1BNNZNoSLztKg+clYnQwiGI9TaVxWmZAwUwM96
- NIrAWrg7/I8O15VzXYB4Z+hrG0ixJzu2y6QqLR43kLHJ/TCQ06RfiZt1GTLNx1+sVQO2
- qZkRUV81eJqrK77rO09fuY2A+QjV/V5vRwLqW6783iTVvLG8BPVP4JR3HauRzk6RkN0S
- ZgQ9vLJT83y5c5N2Y8a85U4nLuLAx8kMGU7aqON25HhxCNS+IBe1LFZQ+PYvCVJRdBID
- 3pcA==
-X-Gm-Message-State: ANoB5pkGRazl+fH1xVpT8ZZmtP0QA7QbaUyeuc9wRu6zHmuj//8iAmVc
- uU/Qnl+iBlAtcvEPDBgAtcU=
-X-Google-Smtp-Source: AA0mqf4FdlwzUnYoZupo+TMdLcrqocwbaFhD1CVO4P3v50a87ag8Ulr8W9ot/Fuo4EzzPkiR+iLexQ==
-X-Received: by 2002:a62:f24e:0:b0:572:149c:e278 with SMTP id
- y14-20020a62f24e000000b00572149ce278mr19200844pfl.8.1669015567395; 
- Sun, 20 Nov 2022 23:26:07 -0800 (PST)
-Received: from mail.google.com (125-237-50-34-fibre.sparkbb.co.nz.
- [125.237.50.34]) by smtp.gmail.com with ESMTPSA id
- z18-20020a170902ccd200b0017a032d7ae4sm8933920ple.104.2022.11.20.23.26.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 20 Nov 2022 23:26:07 -0800 (PST)
-Date: Mon, 21 Nov 2022 20:25:58 +1300
-From: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
- Rongguang Wei <weirongguang@kylinos.cn>,
- Slark Xiao <slark_xiao@163.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH] [next] drm/amdgpu: Replace remaining 1-element array with
- flex-array
-Message-ID: <Y3soBt1jmXHUKhW9@mail.google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A09A10E160;
+	Mon, 21 Nov 2022 08:26:01 +0000 (UTC)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [IPv6:2a01:488:42:1000:50ed:8234::])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E55AA10E136
+ for <amd-gfx@lists.freedesktop.org>; Sun, 20 Nov 2022 17:25:40 +0000 (UTC)
+Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1owo4V-0000vZ-Ly; Sun, 20 Nov 2022 18:25:35 +0100
+Message-ID: <acb1c70c-0155-4d8b-205e-42514b95ebc8@leemhuis.info>
+Date: Sun, 20 Nov 2022 18:25:33 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Subject: Re: [6.1][regression] after commit
+ dd80d9c8eecac8c516da5b240d01a35660ba6cb6 some games (Cyberpunk 2077, Forza
+ Horizon 4/5) hang at start #forregzbot
+Content-Language: en-US, de-DE
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>
+References: <CABXGCsOeQ7VYm98jRVaYp6KaNsFVsAnSb33ZT8JvZxcTcEGW0w@mail.gmail.com>
+ <a67598e8-c826-2740-03bb-33d37c8c8e4b@amd.com>
+ <CABXGCsNvFvJz4=N=JKYSGVcd=dKfQ3Nv_zOssMb0Z6oK79xZ7g@mail.gmail.com>
+ <a537212d-4b42-4ba4-7707-1e397234c8b7@amd.com>
+ <CABXGCsMCfACsJRDPqZDYQGMpaA_6LKhQ0XqAmDN04GSMeetXnA@mail.gmail.com>
+ <ca6c98eb-fdb0-5fee-3925-5b697e3e6b50@gmail.com>
+ <CABXGCsPJFvNXfbdR=_sb4gLdd2E30aRN9usSiZc2XYmZNSKBcQ@mail.gmail.com>
+ <dc802bd0-ed77-d268-25e2-1cf162202912@gmail.com>
+ <c5c4f572-4720-04ff-3c70-30bba9c37202@amd.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+In-Reply-To: <c5c4f572-4720-04ff-3c70-30bba9c37202@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1668965141;
+ dea48303; 
+X-HE-SMSGID: 1owo4V-0000vZ-Ly
 X-Mailman-Approved-At: Mon, 21 Nov 2022 08:25:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,50 +55,26 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.miguel.almeida.rodenas@gmail.com, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
+Cc: dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-One-element arrays are deprecated, and we are replacing them with
-flexible array members instead. So, replace one-element array with
-flexible-array member in struct GOP_VBIOS_CONTENT and refactor the
-rest of the code accordingly.
+[Note: this mail is primarily send for documentation purposes and/or for
+regzbot, my Linux kernel regression tracking bot. That's why I removed
+most or all folks from the list of recipients, but left any that looked
+like a mailing lists. These mails usually contain '#forregzbot' in the
+subject, to make them easy to spot and filter out.]
 
-Important to mention is that doing a build before/after this patch
-results in no functional binary output differences.
+On 14.11.22 14:22, Christian König wrote:
+> 
+> I've found and fixed a few problems around the userptr handling which
+> might explain what you see here.
+> 
+> A series of four patches starting with "drm/amdgpu: always register an
+> MMU notifier for userptr" is under review now.
 
-This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
-routines on memcpy() and help us make progress towards globally
-enabling -fstrict-flex-arrays=3 [1].
+#regzbot monitor:
+https://lore.kernel.org/all/20221115133853.7950-1-christian.koenig@amd.com/
+#regzbot fixed-by: fec8fdb54e8f
 
-Link: https://github.com/KSPP/linux/issues/79
-Link: https://github.com/KSPP/linux/issues/238
-Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101836 [1]
-
-Signed-off-by: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
----
-This should be the last one-element array that had references in source
-code. Given the way it was used, no *.c code change was required.
-
-I will move on to the atombios.h in the radeon driver.
----
- drivers/gpu/drm/amd/include/atombios.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/include/atombios.h b/drivers/gpu/drm/amd/include/atombios.h
-index 4dc738c51771..b78360a71bc9 100644
---- a/drivers/gpu/drm/amd/include/atombios.h
-+++ b/drivers/gpu/drm/amd/include/atombios.h
-@@ -9292,7 +9292,7 @@ typedef struct {
- 
- typedef struct {
-   VFCT_IMAGE_HEADER   VbiosHeader;
--  UCHAR   VbiosContent[1];
-+  UCHAR   VbiosContent[];
- }GOP_VBIOS_CONTENT;
- 
- typedef struct {
--- 
-2.37.3
 
