@@ -4,45 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD46AC43217
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 08:26:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55D50C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 09:58:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A619210E164;
-	Mon, 21 Nov 2022 08:26:01 +0000 (UTC)
-Received: from cstnet.cn (smtp23.cstnet.cn [159.226.251.23])
- by gabe.freedesktop.org (Postfix) with ESMTP id 83F0410E077;
- Sat, 19 Nov 2022 13:17:02 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.138.125])
- by APP-03 (Coremail) with SMTP id rQCowACXn5dD13hjEbIYAA--.22946S2;
- Sat, 19 Nov 2022 21:16:51 +0800 (CST)
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-To: contact@emersion.fr
-Subject: [PATCH] drm/amd/display: rewrite the check for mods
-Date: Sat, 19 Nov 2022 21:16:50 +0800
-Message-Id: <20221119131650.21525-1-jiasheng@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5CDB10E19C;
+	Mon, 21 Nov 2022 09:58:03 +0000 (UTC)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3856A10E19C;
+ Mon, 21 Nov 2022 09:57:59 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4NG2rK4SWLz9sTV;
+ Mon, 21 Nov 2022 10:57:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1669024673;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=iKWoYQiC0VAkiUCGzxBqoBdAdK+x56nxwPF3bP38f5U=;
+ b=oNEvH4skY4TBp/Ebbs17fzLDKLt1MO3gpxbnmrfFp/zJjTgU4pjE7N3OiqekH5FeIqyj14
+ Vibdkb7NEiCkA0c8x/bAEq61vtdDZjV5fBgPHwwB0/53H4ssd4oM1NDsDM7627fRISwR08
+ QQhKSCJaD2rLD5ZBlplgNtABFnAHvKT+LzWfmKLa5UDIk45bk7BVdUtqdQLSZRGhWrbKMx
+ UkSreraXxBo7Yee9MP52QLJcvR0kxljqM0aGHasWFZUwRlqChBTSWJiHrepV1Vf+s9lMQM
+ b6+GdB5MumediOvZHBudK+QTJpn1zlLGMg2SjK3gHQ/EW56BazjA2UxiMMYdFw==
+Message-ID: <e08c0d60-45d1-85a6-9c55-38c8e87b56c3@mailbox.org>
+Date: Mon, 21 Nov 2022 10:57:51 +0100
 MIME-Version: 1.0
+Subject: Re: [PATCH AUTOSEL 6.0 38/44] drm/amdgpu: Unlock bo_list_mutex after
+ error handling
+Content-Language: en-CA
+To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20221119021124.1773699-1-sashal@kernel.org>
+ <20221119021124.1773699-38-sashal@kernel.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <20221119021124.1773699-38-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowACXn5dD13hjEbIYAA--.22946S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrur1fCrW7JF1UZrykKFWxJFb_yoWkKwb_WF
- 1kC3WDuw1DuF1Fvrs5G343CwsIyF4kJr1IgFs3tw4Dtwn8WrZ5Xr92v3s3Ga1xur4ftrsr
- GF1qv343Xw1DujkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbV8FF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
- Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
- n2IY04v7MxkIecxEwVAFwVW5GwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
- W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
- 1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
- IIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
- x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvj
- DU0xZFpf9x0JU3uc_UUUUU=
-X-Originating-IP: [124.16.138.125]
-X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
-X-Mailman-Approved-At: Mon, 21 Nov 2022 08:25:53 +0000
+X-MBO-RS-META: f8ftg7acuaueygqxyku7kzfg6jpuxt7h
+X-MBO-RS-ID: ffdceb14de5baed1f1c
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,50 +58,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiasheng Jiang <jiasheng@iscas.ac.cn>, sunpeng.li@amd.com,
- airlied@gmail.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, dri-devel@lists.freedesktop.org, nicholas.kazlauskas@amd.com,
- Jerry.Zuo@amd.com, aurabindo.pillai@amd.com, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, harry.wentland@amd.com,
- christian.koenig@amd.com, linux-kernel@vger.kernel.org
+Cc: Philip Yang <Philip.Yang@amd.com>, Xinhui.Pan@amd.com,
+ dri-devel@lists.freedesktop.org, luben.tuikov@amd.com,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 17 Nov 2022 15:56:09 +0800, Simon Ser wrote:
->> @@ -638,11 +638,14 @@ static int get_plane_modifiers(struct amdgpu_device *adev, unsigned int plane_ty
->>  		return 0;
->>  
->>  	*mods = kmalloc(capacity * sizeof(uint64_t), GFP_KERNEL);
->> +	if (!*mods)
->> +		return -ENOMEM;
->> +
->>  
->>  	if (plane_type == DRM_PLANE_TYPE_CURSOR) {
->>  		add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
->>  		add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
->> -		return *mods ? 0 : -ENOMEM;
->> +		return 0;
->>  	}
->>  
->>  	switch (adev->family) {
->> @@ -671,9 +674,6 @@ static int get_plane_modifiers(struct amdgpu_device *adev, unsigned int plane_ty
->>  	/* INVALID marks the end of the list. */
->>  	add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
->>  
->> -	if (!*mods)
->> -		return -ENOMEM;
->> -
->>  	return 0;
->>  }
- 
-> This breaks the "size" out-parameter.
+On 11/19/22 03:11, Sasha Levin wrote:
+> From: Philip Yang <Philip.Yang@amd.com>
+> 
+> [ Upstream commit 64f65135c41a75f933d3bca236417ad8e9eb75de ]
+> 
+> Get below kernel WARNING backtrace when pressing ctrl-C to kill kfdtest
+> application.
+> 
+> If amdgpu_cs_parser_bos returns error after taking bo_list_mutex, as
+> caller amdgpu_cs_ioctl will not unlock bo_list_mutex, this generates the
+> kernel WARNING.
+> 
+> Add unlock bo_list_mutex after amdgpu_cs_parser_bos error handling to
+> cleanup bo_list userptr bo.
+> 
+>  WARNING: kfdtest/2930 still has locks held!
+>  1 lock held by kfdtest/2930:
+>   (&list->bo_list_mutex){+.+.}-{3:3}, at: amdgpu_cs_ioctl+0xce5/0x1f10 [amdgpu]
+>   stack backtrace:
+>    dump_stack_lvl+0x44/0x57
+>    get_signal+0x79f/0xd00
+>    arch_do_signal_or_restart+0x36/0x7b0
+>    exit_to_user_mode_prepare+0xfd/0x1b0
+>    syscall_exit_to_user_mode+0x19/0x40
+>    do_syscall_64+0x40/0x80
+> 
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index b7bae833c804..9d59f83c8faa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -655,6 +655,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+>  		}
+>  		mutex_unlock(&p->bo_list->bo_list_mutex);
+>  	}
+> +	mutex_unlock(&p->bo_list->bo_list_mutex);
+>  	return r;
+>  }
+>  
 
-No, it will not change the value of the "size".
-The "size" can only be modified by add_modifier().
-However, when the "*mods" is NULL, add_modifier() will return immediately,
-without the execution of "*size += 1;".
-Therefore, when the "*mods" is NULL, the rest of the function is useless,
-which should be better to skip.
+Looks doubtful that this is a correct backport — there's an identical mutex_unlock call just above.
 
-Jiang
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
