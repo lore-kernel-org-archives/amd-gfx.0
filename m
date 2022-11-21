@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB3CDC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 17:22:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A30C3C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 17:23:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D15910E30E;
-	Mon, 21 Nov 2022 17:22:05 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE3CF10E30E
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 17:22:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1749E10E314;
+	Mon, 21 Nov 2022 17:23:26 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2076.outbound.protection.outlook.com [40.107.243.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA5EC10E314
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 17:23:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bFxTVqBACS9MSvcFCzUjIO8cSeWIJl7xe+1M5LJPvknxD5mx712TvnFrSKa+Q2nFnPYAMMs+5Xx2nc5CjLnNBUN8faG85sjx8bG0/JxjQX/S8jfUl8OjQJcZVoOwALBCIJpNaJTtfRB/dl0X06Tx5q+Udl3OS/VCUb4GW8H0TbDtEhmFq+ivNNp4Qz2Si4qfWzhREEM0Ych9qRxkQqxWT1UHAOSLER+A/s6fGLNiEcTAjz8JuA8yUniZKjcldfwoIGoOWXy2oF0SQQrF1wtT+kn2F88R3LW/LX7g8FQHC/tdJoQAixQoIID0O1k9czBiQmURflYHgrC15PddgWkuKA==
+ b=la/hs2lN1iK8F7Xor6YvxjOLFwxiecmAixI0l54ibw3Mn8ity+wC2ifMZaFGasPpz3zl0us9kLzOM1X4QuwCR+qUAGOr4axLMyWb/tdrVHTlIIYxtSJm0Ktd+DFnouFbvVmztpS7Lipu3DUgHN2r3SiMG1Xak3poxqnP75uaVfhlIvX/MzT+1q8t/CYRcpjkpQEWCzEqH7C20VytmhAhZ7DuLsg6vpwWFPDDg6U/M7fy/P/+vhbT2W6d6jmnKPpw1l9hOxnpS/uupptE0COX030Du52AYIg5ig+DIXPgPAEwJvm0NHx4p/fLd2TxBtbBGjfo8cxZ3rJ12sBgdyMCQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1JuPq/DoHp8mAGbJG72Bevf+XlwkJGdaKLlvBIYr7uU=;
- b=iJkNXhdq+LDLN9vYSzycuBq5FYHug0F6YAvUCtQp/q/MNfM2pf6kKiDFJx9uqfRVLsvSPHg8/0Dm7HPq2g5IxYZ4r8p3bBrD0pMJsBnvvCtpVPtgFp7x5EwRt6OqbnBFF6B2J7FS7fhzo5ejKwusjbOE4QuABkHfuVmxm2WgjbS9dTFoMDtdCPE8+I+G4/PeQuqlOdpTJgK6iRAZr7vLxkdizDnIJk0o5qC1L1Fj9I61HNrQO+bQQEXt7RIxyKeyR1PsfWsoF2n7duOE8q2HSg04ar3UwS/dkhZ1ifgXAyyg9bM4ic+wazl0T2X8qEoZxxQybulkUjrpKDvIeO2csg==
+ bh=v/WAJrXwSWKy2mgDnbGL6bLjwHtoS9LRm1rsrRl2iJs=;
+ b=EpahEkCnqrQG2xE1oCwsbknRdTmP/36y4yn9yRSnY324F8IZRgFkLmh8/D5mLOeZMBGkrFB1K3dyRM3TI46K2eUb856xNODecc3uQsl4EZxb4+AZkdeTXi8PfHpekPSL9wXtO0Xssqh+h72uIu/hR8LS6CLi4VIzWZgTX533xiB5ucdSDGYJlUerYZlTpxYnp9ta5/QySOBljxzB4anKCc+gLC4Em7Mbj/6eVHZYxatQ4sI/yXu8g420iitazFq6mKXJx3caQnXLtd0dwABZZK8EC6urjcCI/hhw4MXkVF0VepXQaKSphTyUsiQZ0cRF5TR71QQgPti2vbF7kBaD8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1JuPq/DoHp8mAGbJG72Bevf+XlwkJGdaKLlvBIYr7uU=;
- b=IkB3C+9KEwWHfTPvrDjZSfbIzhBBE5R45GyYxXcf8zLCF9QdFHpHALvOJA8IoTPHiWQGay8zbljzXuWj/5P9peDOLqaM7FVtZyX/arxOR/3T+G3wN/1/oVwN5R1FdQrVCTEQxiVvO26nFaRjnCObkxeOllHx3qAhYyOpPj9OozQ=
-Received: from MW4PR03CA0042.namprd03.prod.outlook.com (2603:10b6:303:8e::17)
- by SA0PR12MB4494.namprd12.prod.outlook.com (2603:10b6:806:94::20)
+ bh=v/WAJrXwSWKy2mgDnbGL6bLjwHtoS9LRm1rsrRl2iJs=;
+ b=T/bMjKrkg4WzO14UG6zMiDWuY+wOYMn5ixqy4ud28CMTaRzHCHI8beewy2CIMTWhEmEd8Fsgwu0PQt9Dl+fPhS3tAcmAlicKkW5LXFPXgfA5TpYMkdEWkwYummJmtJ/x1CtFf5uDS4oZKcYaltay/pOTBumBnvrDr29YiAwSSXo=
+Received: from MW4PR04CA0161.namprd04.prod.outlook.com (2603:10b6:303:85::16)
+ by PH7PR12MB8153.namprd12.prod.outlook.com (2603:10b6:510:2b0::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Mon, 21 Nov
- 2022 17:21:58 +0000
-Received: from CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8e:cafe::da) by MW4PR03CA0042.outlook.office365.com
- (2603:10b6:303:8e::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.20 via Frontend
- Transport; Mon, 21 Nov 2022 17:21:57 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.20; Mon, 21 Nov
+ 2022 17:23:21 +0000
+Received: from CO1NAM11FT096.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:85:cafe::81) by MW4PR04CA0161.outlook.office365.com
+ (2603:10b6:303:85::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15 via Frontend
+ Transport; Mon, 21 Nov 2022 17:23:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,20 +45,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT036.mail.protection.outlook.com (10.13.174.124) with Microsoft SMTP
+ CO1NAM11FT096.mail.protection.outlook.com (10.13.175.84) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5834.8 via Frontend Transport; Mon, 21 Nov 2022 17:21:57 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.5834.8 via Frontend Transport; Mon, 21 Nov 2022 17:23:21 +0000
+Received: from localhost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 21 Nov
- 2022 11:21:54 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: add missing license to some files
-Date: Mon, 21 Nov 2022 12:20:58 -0500
-Message-ID: <20221121172058.694436-1-alexander.deucher@amd.com>
+ 2022 11:23:20 -0600
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: AMD Graphics <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Fix minmax warning
+Date: Mon, 21 Nov 2022 12:22:42 -0500
+Message-ID: <20221121172242.57717-1-luben.tuikov@amd.com>
 X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
+X-check-string-leak: v1.0
+X-check-string-leak: v1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
@@ -66,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT036:EE_|SA0PR12MB4494:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29b6d381-2f87-4adf-7170-08dacbe4e49d
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT096:EE_|PH7PR12MB8153:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e64e26c-3fcd-46c8-0041-08dacbe516d2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zTLp/j0vQRP7V7zJ+/TjDf8tl9ef/Txi9kWGEXARL2w4UqlO4o3TUykhgktadVLj818+rLPZcp9UzsuW429bdnJQUT3IJjH5Mh/p+HKXDI18X3adGolEkDFgY0O0LgTwOAn9H+/OXyHji3gcZ97EtNUWn7bksL5E11nw+DY6YNWwh4xKcxYyHz5Rb1bHAESRDNHYjPNRZpXRdoYpT1hKY5cstMAw3MQyl7YUKFMyoe72T0zmWhaEo+dYfCx7A8BIpmyYWDVyGmlw2T4nPnG3jqvE+XzLTYXc9EBXz+TkclqKr+ZeKDg/0fzx++LtShknq5KhOMinzDnRbS0fKvoq28EMaSiv2QUtxeCZs0MXJ+dy72fk1QvUMSMGROGxjecFk/ge5MAuAc0VDOMlX6OtTbqJiapWUYKkOx8L570+Z2Pw5J7ZdAwYr2XL1OD+0KpUjLyV42VosxIrRR1KbMTMK6BVhwXz5Cs+T+fmYTrCfngdI66hTVH0yG+iKuOAJ0PjygG1rjK5ckAl+t5AjIWuuGMs8E5KgXVLf3Pg5urHjCdBU2Zud8VUmbJSOv46bkaS+8c9/w9Q3nPyrkDtuhr4DZu+ggcSQphNIFxWc4aBhNfXXGaleBHNR2sIzs27+kqj03pJvgKG1qwVJfUIaGT1Q2Aa4CBLUwmOyGz7i8pYQA4kIFm7JhBi1JXsgwWXl0yN
+X-Microsoft-Antispam-Message-Info: UX/cYgIbxY9sgtlx46YuQKW3czlj6XrrfFUiuglgSr67BfWVqM++SK1y0kYcnrEFWlDYP1N2YdJgc/IsDOH9H1lO/9TcSlRlzDE1/QOApzVNyzfcVDB0LJDN/1C0oRKVaR8SyZlXYLuDlbyz+wUxAmzTd2V6SbrTfUJe1kI+1l7CNVdOxyNittSsfGKvpXqwOqvSBW4cp8SkMbiU9DvQdZ9heKDbwzgvaRIZ04ECkU9IG/YgsWUGK1RI9F5ypID0uXBmo/yavMJpKVh/oOd8IAAIP9CW7qG8UVQ5riA/AZL1NfOog03djeroiCBIPldJA1xnlpo0YlyEGSmSX33GnrlRN+c6HLMJCuScpBaZVWT2UajBX4J6AfRmUq1mCD6vZyW+RrV08hW7ngi2PoZTENi+qxhmcZtbbT1v+V9nanHuuYN+LBRbg3BX1qNeVFZtgSZDx/eJExZQPIoQC7r7wDBK/XVZKFtERrBtH97i3XeTLx/U02XdcVum6sIxMsW544GmiKJ7JbDB6q4+yjjWlA1Ex0BTMDBO5dmEtQhT7uspKbKl/CFT4O4CubMmVsTBXafG9LVdogbWeVJSjnY3LfniPLwKWDnVo9LGS1JPC7swMYl1x1NKAVkGVsO+eD87Lpr0rI/no+0dxvCVUkcsMuKSRi70M239YSlcAodneDLSRMNHBpjavaRN8LwESrWzZZfOstab6QlReVRxuu6TNKCPl8uFu3ergzZ9cU/jn1I=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(39860400002)(346002)(136003)(396003)(451199015)(36840700001)(40470700004)(46966006)(36756003)(86362001)(36860700001)(7696005)(40480700001)(40460700003)(5660300002)(2906002)(26005)(47076005)(16526019)(2616005)(426003)(1076003)(186003)(82740400003)(81166007)(336012)(356005)(6916009)(70586007)(966005)(82310400005)(8936002)(41300700001)(70206006)(316002)(478600001)(4326008)(8676002)(36900700001);
+ SFS:(13230022)(4636009)(136003)(396003)(376002)(346002)(39860400002)(451199015)(36840700001)(40470700004)(46966006)(81166007)(356005)(70586007)(82740400003)(8936002)(2906002)(4326008)(40480700001)(86362001)(36860700001)(83380400001)(40460700003)(426003)(336012)(44832011)(41300700001)(2616005)(36756003)(316002)(8676002)(186003)(1076003)(47076005)(5660300002)(478600001)(16526019)(6916009)(82310400005)(26005)(7696005)(70206006)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2022 17:21:57.3133 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29b6d381-2f87-4adf-7170-08dacbe4e49d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2022 17:23:21.5594 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e64e26c-3fcd-46c8-0041-08dacbe516d2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT096.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4494
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8153
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,67 +99,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Luben Tuikov <luben.tuikov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The driver is MIT, so add the licenses.
+Fix minmax warning by using min_t() macro and
+explicitly specifying the assignment type.
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2265
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
- .../gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h | 1 +
- .../gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_smu13_driver_if.h | 1 +
- drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h      | 1 +
- drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h     | 1 +
- drivers/gpu/drm/amd/include/yellow_carp_offset.h                 | 1 +
- 5 files changed, 5 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h
-index 8ea8ee57b39f..61bb1d86182e 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h
-@@ -1,3 +1,4 @@
-+// SPDX-License-Identifier: MIT
- // This is a stripped-down version of the smu11_driver_if.h file for the relevant DAL interfaces.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index 5a905002252d7d..53abd770924229 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -1436,7 +1436,9 @@ static int smu_v13_0_irq_process(struct amdgpu_device *adev,
+ 			case 0x8:
+ 				high = smu->thermal_range.software_shutdown_temp +
+ 					smu->thermal_range.software_shutdown_temp_offset;
+-				high = min(SMU_THERMAL_MAXIMUM_ALERT_TEMP, high);
++				high = min_t(typeof(high),
++					     SMU_THERMAL_MAXIMUM_ALERT_TEMP,
++					     high);
+ 				dev_emerg(adev->dev, "Reduce soft CTF limit to %d (by an offset %d)\n",
+ 							high,
+ 							smu->thermal_range.software_shutdown_temp_offset);
+@@ -1449,8 +1451,9 @@ static int smu_v13_0_irq_process(struct amdgpu_device *adev,
+ 				WREG32_SOC15(THM, 0, regTHM_THERMAL_INT_CTRL, data);
+ 				break;
+ 			case 0x9:
+-				high = min(SMU_THERMAL_MAXIMUM_ALERT_TEMP,
+-					smu->thermal_range.software_shutdown_temp);
++				high = min_t(typeof(high),
++					     SMU_THERMAL_MAXIMUM_ALERT_TEMP,
++					     smu->thermal_range.software_shutdown_temp);
+ 				dev_emerg(adev->dev, "Recover soft CTF limit to %d\n", high);
  
- #define SMU11_DRIVER_IF_VERSION 0x40
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_smu13_driver_if.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_smu13_driver_if.h
-index d30fbbdd1792..d3d5a8caccf8 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_smu13_driver_if.h
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_smu13_driver_if.h
-@@ -1,3 +1,4 @@
-+// SPDX-License-Identifier: MIT
- // This is a stripped-down version of the smu13_driver_if.h file for the relevant DAL interfaces.
- 
- #define SMU13_DRIVER_IF_VERSION  0x18
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h
-index 483769fb1736..537aee0536d3 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h
-@@ -1,3 +1,4 @@
-+// SPDX-License-Identifier: MIT
- #ifndef _dcn_3_0_0_OFFSET_HEADER
- #define _dcn_3_0_0_OFFSET_HEADER
- 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h
-index b79be3a25a80..f9d90b098519 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h
-@@ -1,3 +1,4 @@
-+// SPDX-License-Identifier: MIT
- #ifndef _dcn_3_0_0_SH_MASK_HEADER
- #define _dcn_3_0_0_SH_MASK_HEADER
- 
-diff --git a/drivers/gpu/drm/amd/include/yellow_carp_offset.h b/drivers/gpu/drm/amd/include/yellow_carp_offset.h
-index 28a56b56bcaf..0fea6a746611 100644
---- a/drivers/gpu/drm/amd/include/yellow_carp_offset.h
-+++ b/drivers/gpu/drm/amd/include/yellow_carp_offset.h
-@@ -1,3 +1,4 @@
-+// SPDX-License-Identifier: MIT
- #ifndef YELLOW_CARP_OFFSET_H
- #define YELLOW_CARP_OFFSET_H
- 
+ 				data = RREG32_SOC15(THM, 0, regTHM_THERMAL_INT_CTRL);
+
+base-commit: 51005ef41b7e91d1e24e2defec22bc4f1eeb7040
 -- 
 2.38.1
 
