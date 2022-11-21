@@ -4,122 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C9FFC4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 02:47:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CE16C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 05:14:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5BE910E119;
-	Mon, 21 Nov 2022 02:47:08 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2054.outbound.protection.outlook.com [40.107.237.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33B6810E119
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 02:47:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0F5610E004;
+	Mon, 21 Nov 2022 05:14:07 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20603.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::603])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B1B010E004
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 05:14:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MwzkJGhhLqMmfLFNeQ7fd6AtPwr7wwVkoYYdB5RgWYc9WofEtZ+vlsMS0a/MXQ0oo0Uyknbos7Up6pObxVVvlaAKkWVlKliFR478DkRf3LDXTh05ooX+cXsEI4914BjAwRmh87LL/+6Oikb5mmZbm+ppiZZfYNbVFktPQHtdfVaM83G/+KTcB+cFmsV9el51ID8qwlhBtL49n5mzeOoK+mqZL48SgofUOoNMdu0Qeck6J4KTpts5WO46m1nUsVQNBlTuL4TEvneXlpdr0VvLV7VvwxgXZqpbDaAPtKs4ULxkHVfS5lqrcYwSNxTql1VxYG9/jJ8Rt5F1WUbniuOqCg==
+ b=cz096yA10387RuTGnnevzf3KKToMw/IrLHHyY3jCw/BN9xUCk+SNgamGYTJCwMr/jyqb/uC/IaGzrm1xeOqP7iQ+b60fpbX9S6U+dfHo/wRs5YjEQ6kf6Bg4hGzXcjiUQbL/RPelMZx+NkZhJkfdR3nwGnI1pb8QviiRODLOwBNfYu2hrhp1xjI0N+lS0rZYcsL5Yq49gTjYr6ruk2QeHIYX/8E8lDvF5aezih096CcTPcKsQD3kYwisYc4t3cbX7W4Ws5VDFsVVCd7KOJ7XSKVmOvINyDd5/0BAOVV611bPRXqXX8Cj4weeIqkd2z6QVnVWKHJqsJ5O6Q6TMgZoOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ma5Awb075EJDNMyxFyh8mE9LJziVhVoBbEGKxHRgg0w=;
- b=co+3VIl3xE6fJZxvVFc0Km1MaPg2Mt7WVj+sMYBAmnp3EXN1DZd4Ium7hiXz3s2/lTe61Bh1SemTm+0DRKD7dKbEepm+SFRXroS+0Xjeyasxoxf/Y0bQnSjKREaiNN7WwkqQu9bJVsApl2SXna5lxujZQS66TDMkq3MY+/i430u161v1dhg0hltnrng0NjKf0fMkinCesip37+YJewAcBN58NlArd2OOMCdlE9kXzDdhKmbd2VzgyPUti8c99nXOqhIgf5sTgtE8qd7V6fXZ6d4iatXekGoPD3Astl6hZuPk7lH8/JtxI5788gX6oQBMJs7n1u1u0YlYiOxkqO8Hgg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Kj78oYnLyi9KIS8w19o7VtitqCjeEPHiTtscRfLiCZ0=;
+ b=Y5+nN0oHMWGYczb7K12uU618SgB/jn5e7vamH3fW/IfM12MwtwBu6jBdZmjelUu3KN1c9hGD2F2y3s96R4UIDRCusUTbke0J7ybWZfiEJg7YiLPeFkcY1jxV2/aubxD0DV0w3xRm1fjgKOnfZnedHSSWPZpbFWJ5jIXSTYPEvU5+MQCSLYLhAs8aV9bYCnjvxi/Z9e/Hx2FgyVv5aFRQvNfggOnUKOuG//RfPZ4ilXQt3dW2Kvt5My87WAiTS8/5E7Dh5ylBYEnPHXME6XGroVuy+/gLvmgtzn3CFOAxNLZbeB2MDp23j9cqvbG/LnldqPPsFNMfEhja5KLgQN2cPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ma5Awb075EJDNMyxFyh8mE9LJziVhVoBbEGKxHRgg0w=;
- b=xS+80kCRF6LyeIEwMm2ai+SsqR3aiVfodJNp3eyou/V+sEEejjjgA+jB5whpuMdZL16vSksLbhAq4JYBsRQFei7uF0rkVuMfBYGD0nyUTetE5sPffah/Q82ywcSwiosgyN2kz14UolzvR0egNXees7xtZ51ROvlZhc1qk3x9Ux4=
-Received: from DM5PR12MB1770.namprd12.prod.outlook.com (2603:10b6:3:108::22)
- by DM6PR12MB4185.namprd12.prod.outlook.com (2603:10b6:5:216::13) with
+ bh=Kj78oYnLyi9KIS8w19o7VtitqCjeEPHiTtscRfLiCZ0=;
+ b=l9l6zLrPOiw2oIlbvSZFEPzUDEJ0BAny9+V30aSHt9wcgQpLcihpY+dVR4t7O2Ft4HchZZ2EYEzZ0HXqVl7yK3lmzaHoEe/P+yCwRKJfJ+wMA/s1M2ix7cs9r4aNO5rsMfz63mDIIEVZ45kXO1KXh5g216dq16zSPhemxKHzoxE=
+Received: from DS7PR03CA0263.namprd03.prod.outlook.com (2603:10b6:5:3b3::28)
+ by SA1PR12MB7342.namprd12.prod.outlook.com (2603:10b6:806:2b3::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Mon, 21 Nov
- 2022 02:47:03 +0000
-Received: from DM5PR12MB1770.namprd12.prod.outlook.com
- ([fe80::10ba:448f:9342:8ae5]) by DM5PR12MB1770.namprd12.prod.outlook.com
- ([fe80::10ba:448f:9342:8ae5%10]) with mapi id 15.20.5834.015; Mon, 21 Nov
- 2022 02:47:00 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH Reivew 1/1] drm/amdgpu: fix use-after-free during gpu
- recovery
-Thread-Topic: [PATCH Reivew 1/1] drm/amdgpu: fix use-after-free during gpu
- recovery
-Thread-Index: AQHY+jDu3mlyMPh4sU6Bai7m78pHNa5IscEw
-Date: Mon, 21 Nov 2022 02:47:00 +0000
-Message-ID: <DM5PR12MB17703014798FFEFF70053B32B00A9@DM5PR12MB1770.namprd12.prod.outlook.com>
-References: <20221117030048.21200-1-Stanley.Yang@amd.com>
-In-Reply-To: <20221117030048.21200-1-Stanley.Yang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-11-21T02:43:47Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=21fc2d6b-9db1-428e-9fbb-bc5e5e8aa9f4;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-11-21T02:46:12Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: b34bb756-8846-4f0c-bbdf-102955533960
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM5PR12MB1770:EE_|DM6PR12MB4185:EE_
-x-ms-office365-filtering-correlation-id: 4c3a06ea-70b2-4b0b-3c8d-08dacb6aaa37
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 6+T89HljD+AWtYPM7L3uNUUGA05bW1+xNY5BacqBWMCEofC8ZcuZiTqZB44yzKuWcjlechfRwcBGZ9zBiyfijHtZzMGJjO7yShz7O+dDe6y2ZLdeH63ZhWQ4T2z3dWuKt9VU9pTIsvzUf1lzYYF/Qqh1staZhMyRqYmNzgLiJ60zJbjROmWQR+JBcGwyWH2QuI2POOHsPfuORdUPn45pYW+Sk8d+lOMirD8uNJ2Gq4B71DWv5cV4B5VCC5TDhNcRNnTydwVxVg7uPHIUc8nl4MdXOHcA511YsCIiHgK87yIgUqnXe61mpFzVORNa57kkVmt1y1Jko1zi2T8F9QlwvLfXaSramhsg5+fvgvlGb1WkZr+kbQM/k9Odm+kwc+dujXKrrhc7Lm/lFuEqkDtf6ZvamiZCXjDwG8Qian/p694YqaCZZWqHsrRvnhDka4w1vsEwRsMVBzxPMXcs9nc2JW5TDV/OfTulPn/w2IZ3NozIbdLIehKKoQoATOczKfgABkv1VaOQm5eyAmGwd52GJEwmi7YRw/NW31QfBDVPpQdZkfGOK231AFgGWwjHJrdl0blZHL5CnKTXlWudDbNBSQ+U0diyK+8AI9dNw30uqhcqxMfdBDDZAvSRaPMR/Oc0/oVDtfXj3u9rwZRCq5wmwJsaipcgMdBDAitOfIE//39TzQnpQDD+JxIB3s+75J6IljNYjGLcmm6QV6roPBgI0Q==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1770.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(346002)(366004)(376002)(39860400002)(136003)(451199015)(71200400001)(478600001)(53546011)(26005)(9686003)(7696005)(76116006)(66556008)(64756008)(110136005)(8676002)(6506007)(66446008)(4326008)(66946007)(66476007)(41300700001)(54906003)(316002)(38100700002)(122000001)(186003)(83380400001)(55016003)(5660300002)(2906002)(52536014)(8936002)(33656002)(86362001)(38070700005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+VG635gFHfT4hqGjvhATHyPOfvhgg3nvf7yzNwwLK9/Tko+8KZPXaWreY6AA?=
- =?us-ascii?Q?MnPXD0DNjIAubO4TugDfrB8UyM/CQh3g+d96dm3s6PNSu4cr9CzbRkzNd9cr?=
- =?us-ascii?Q?BzQ+tfMWT/a+j40HQJiWyWLemRQr9No7jaVGVV0+KEqVbFMQl/CTIVa2SkZO?=
- =?us-ascii?Q?g078jHB47FvFnWCZAypqNMU4E4FdsZSd2Zxi7IsvR59/0pg9gOERbIBh4sHi?=
- =?us-ascii?Q?Ef1E1NdW+be4BXdYuHghifSpMUbF97zWuZY4fKpyZ4RAsJIHRX8eIZEqT3Qd?=
- =?us-ascii?Q?A7JMK/RAnuTIdR4uWKwLk0mUeGx+Kb36gVUUEWOx7/mNg4WjGm0Vu7ed9BDN?=
- =?us-ascii?Q?2fCfzy8IPh0w52nB4Vmmt1V/cZiSkI4nnQvLteTXfWT5l3XfIKnvfrCBpqg8?=
- =?us-ascii?Q?pz//L25LKntW7Ay92sKERL89q/RO90HPrgmBFNQz/DRWodLzgG7JkNW0BKNk?=
- =?us-ascii?Q?eTfKnD+MB/WSP83C9eQfXrXO1EDQTHUSkoFDlwrcCIESTaBVxKdP7VV+5TLr?=
- =?us-ascii?Q?MofTk6bE64w19+3R2SYaTmR/s2Xrass6rZH7QOnT77MSv/DJgjC7UYJ47DG3?=
- =?us-ascii?Q?vNYLm5SYTTowcbaUYr099aqxKJVosqUXa3Tr3zc+y8IYBwQIT417fBcUtzdz?=
- =?us-ascii?Q?4EQwhuhvXosN3GFH/GKAVeJxkcDYlXZcbpo3H8L/xRNmOXE/qTrVEr7VDUpA?=
- =?us-ascii?Q?grB2heaAqSZ7A6IwrpXidEfyucFNybep132JjiFyx54aHFC77ztPMqXT+gvx?=
- =?us-ascii?Q?geBwROxRzmn8Pp1oNHGTytu3nIi/YM0vk1l2lRKzIxxUqwv95gYF9bPWKuL0?=
- =?us-ascii?Q?y5Ew7NFXkaOEfHDfv83rxbkXtcUZPvQacC9SsBWm5uCieIUwx5k4ZuzrXxU5?=
- =?us-ascii?Q?kX/TDkIKuiWOQR6VERrzwxs8XXdKtg1plTJEzV9x0qUIQg33gKiL5yMEVMs8?=
- =?us-ascii?Q?LbjU/fUKJV+AW+r2Otf4rl7ykPS55WH0lm4h7DDCX4q97BwezyDqMshG2Uy+?=
- =?us-ascii?Q?PNtv/W/CB67z4cvn7fpVgVPElzOQmAIMLRvPRjV5HHgkth+P/7BGSzw1ONuB?=
- =?us-ascii?Q?ZdQ/Xh+ex/eSU3C4uFW7/SsMGGk89IumhWsy/L0ZxvwqXe5JdZMr/WKmySEL?=
- =?us-ascii?Q?fkDvTyA05fOFVJHye4xusV008uQoQIGy72ABPa02tW1xHWO+mreILc7tpaWq?=
- =?us-ascii?Q?4AnY3Bz8CMfHC2EcW/DbSp8BkVvWM50cN/jBRsdHAzHA4tNvQzqcUvgcGQRs?=
- =?us-ascii?Q?e3QqAG9nQy3UD2m+tcrFDd+T2qQ8N1Apsr4+E5t7p8LKV/PLmTRvHGkPHl21?=
- =?us-ascii?Q?36zvuroH7EsbNkwMBCYVMNsz2iC3E82i8+dKobkHBkxTRO8BHNFNl34inrQ1?=
- =?us-ascii?Q?49cJLb49kStwYHYBn2E6g8S6DJlIXGUkWBCMH7DJnG4tfkaPE43lS1tYCN+z?=
- =?us-ascii?Q?iksDu9s0u8bYm6L7zmGeZV5LWJn8RkBlO6Ef7rR2EmPOgvF/59Hk50crty7i?=
- =?us-ascii?Q?5zrdVOd9rjHuh7A2jML8VtmsjGmbALDumc6HXLKCN8R8RFoAS+J6nOZlXOzo?=
- =?us-ascii?Q?oovld45Zwf+WmeWTlq4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2022 05:13:59 +0000
+Received: from DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b3:cafe::42) by DS7PR03CA0263.outlook.office365.com
+ (2603:10b6:5:3b3::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15 via Frontend
+ Transport; Mon, 21 Nov 2022 05:13:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT051.mail.protection.outlook.com (10.13.172.243) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5834.8 via Frontend Transport; Mon, 21 Nov 2022 05:13:59 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 20 Nov
+ 2022 23:13:56 -0600
+From: Ma Jun <Jun.Ma2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <felix.kuehling@amd.com>
+Subject: [PATCH] drm/amdkfd: Release the topology_lock in error case
+Date: Mon, 21 Nov 2022 13:13:40 +0800
+Message-ID: <20221121051340.1213970-1-Jun.Ma2@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT051:EE_|SA1PR12MB7342:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5bc730ae-ca47-4308-261e-08dacb7f3278
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: mGwhiRsZMmLFaSDbEWprVeUmbFVPLvqMLEG8RsxrBiayVxapkpOjXR1gWSaoj6DA7OZjTWMr6zT3UkK9KKTlCvRmLXC6NA4C+CEWzeYg6g7Vlw0RWuX1eTUSuhAkw0vWWoGMcgv8KK1pqCD1kC+uu688lQvtI7jpiHzT/ptDIb5ebYVjOjjVg1RRSQInkVRMQb0rx+4KofUhjkQzIF2w7AA+ViPs/rayXZyY/cuPpSEz9ufhThruKw5UGmdWkcc4CdiV9o/yp0w47nWnWmYzVcLAwvd56mdpQ7ZFI0Nj5tY7a36hMvV5cJWUAQy2ZIufAnchk4MGsTiaD3vtE8UJE/DzVxkOk+yIUkpwrvHfDeVfOoO7BZEGYNuOyyKHrgHvCwE1y7oc4VZ3LjoU8ngm0RrHK2N4nfs9tddua+O0W4IYq6AE4RpbPEipEQPtoy5wnSF+O7mgmgzEMl1IIa5TgMJXw79dxy095d92/seJsXFDf2lDEss7Zb/UEa+czXc9x6rrm5IObboqCzh9XNAV3WTX/GunpozP1ruKBa4E7UXdu4jKSpEXxdxJssd9nnYbceCYLYx0+rCfB8s7cDluRoU+VxV8dgfTE130O2gnMd5qxY3Z8l6pSpext99wp7O8o/1HOud5U9VogzRkIf5w86ezOqoBwGFF3IC6yIAyXF3GYwnbrZH6SH+IcMxqnv2B1UFIv53TtnTBvt0lwXLdhiORwlB+GfLH8DqjZSE7KPc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(136003)(39860400002)(346002)(376002)(451199015)(36840700001)(40470700004)(46966006)(36860700001)(6636002)(356005)(316002)(54906003)(110136005)(36756003)(40480700001)(47076005)(40460700003)(426003)(1076003)(83380400001)(16526019)(2616005)(186003)(336012)(7696005)(6666004)(81166007)(26005)(478600001)(41300700001)(8936002)(86362001)(5660300002)(82740400003)(2906002)(70206006)(4326008)(70586007)(8676002)(82310400005)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1770.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c3a06ea-70b2-4b0b-3c8d-08dacb6aaa37
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Nov 2022 02:47:00.8752 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ex0P4FGVctEKKQSRYByx5QICtUTstNH/mGTEiKLFiUMYwuevr+NxhDkvmdp1t5Q/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4185
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2022 05:13:59.3585 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bc730ae-ca47-4308-261e-08dacb7f3278
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7342
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,60 +98,178 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, YuBiao" <YuBiao.Wang@amd.com>,
- "andrey.grodzovsky@amd.com" <andrey.grodzovsky@amd.com>, "Yang,
- Stanley" <Stanley.Yang@amd.com>
+Cc: error27@gmail.com, guchun.chen@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+From: Felix Kuehling <felix.kuehling@gmail.com>
 
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Move the topology-locked part of kfd_topology_add_device into a separate
+function to simlpify error handling and release the topology lock
+consistently.
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Stanley.Yang
-> Sent: Thursday, November 17, 2022 11:01 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Wang, YuBiao <YuBiao.Wang@amd.com>; andrey.grodzovsky@amd.com;
-> Yang, Stanley <Stanley.Yang@amd.com>
-> Subject: [PATCH Reivew 1/1] drm/amdgpu: fix use-after-free during gpu
-> recovery
->=20
-> [Why]
->     [  754.862560] refcount_t: underflow; use-after-free.
->     [  754.862898] Call Trace:
->     [  754.862903]  <TASK>
->     [  754.862913]  amdgpu_job_free_cb+0xc2/0xe1 [amdgpu]
->     [  754.863543]  drm_sched_main.cold+0x34/0x39 [amd_sched]
->=20
-> [How]
->     The fw_fence may be not init, check whether dma_fence_init
->     is performed before job free
->=20
-> Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index 8771df97d590..ddee6a6b133d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -169,7 +169,11 @@ static void amdgpu_job_free_cb(struct drm_sched_job
-> *s_job)
->  	amdgpu_sync_free(&job->sync);
->  	amdgpu_sync_free(&job->sched_sync);
->=20
-> -	dma_fence_put(&job->hw_fence);
-> +	/* only put the hw fence if has embedded fence */
-> +	if (!job->hw_fence.ops)
-> +		kfree(job);
-> +	else
-> +		dma_fence_put(&job->hw_fence);
->  }
->=20
->  void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
-> --
-> 2.17.1
+Reported-by: Dan Carpenter <error27@gmail.com>
+Signed-off-by: Felix Kuehling <felix.kuehling@gmail.com>
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 120 ++++++++++++----------
+ 1 file changed, 65 insertions(+), 55 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 8c555c32ea70..7d6fbfbfeb79 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1938,21 +1938,75 @@ static void kfd_fill_cache_non_crat_info(struct kfd_topology_device *dev, struct
+ 	pr_debug("Added [%d] GPU cache entries\n", num_of_entries);
+ }
+ 
++static int kfd_topology_add_device_locked(struct kfd_dev *gpu, uint32_t gpu_id,
++					  struct kfd_topology_device **dev)
++{
++	int proximity_domain = ++topology_crat_proximity_domain;
++	struct list_head temp_topology_device_list;
++	void *crat_image = NULL;
++	size_t image_size = 0;
++	int res;
++
++	res = kfd_create_crat_image_virtual(&crat_image, &image_size,
++					    COMPUTE_UNIT_GPU, gpu,
++					    proximity_domain);
++	if (res) {
++		pr_err("Error creating VCRAT for GPU (ID: 0x%x)\n",
++		       gpu_id);
++		topology_crat_proximity_domain--;
++		goto err;
++	}
++
++	INIT_LIST_HEAD(&temp_topology_device_list);
++
++	res = kfd_parse_crat_table(crat_image,
++				   &temp_topology_device_list,
++				   proximity_domain);
++	if (res) {
++		pr_err("Error parsing VCRAT for GPU (ID: 0x%x)\n",
++		       gpu_id);
++		topology_crat_proximity_domain--;
++		goto err;
++	}
++
++	kfd_topology_update_device_list(&temp_topology_device_list,
++					&topology_device_list);
++
++	*dev = kfd_assign_gpu(gpu);
++	if (WARN_ON(!*dev)) {
++		res = -ENODEV;
++		goto err;
++	}
++
++	/* Fill the cache affinity information here for the GPUs
++	 * using VCRAT
++	 */
++	kfd_fill_cache_non_crat_info(*dev, gpu);
++
++	/* Update the SYSFS tree, since we added another topology
++	 * device
++	 */
++	res = kfd_topology_update_sysfs();
++	if (!res)
++		sys_props.generation_count++;
++	else
++		pr_err("Failed to update GPU (ID: 0x%x) to sysfs topology. res=%d\n",
++		       gpu_id, res);
++
++err:
++	kfd_destroy_crat_image(crat_image);
++	return res;
++}
++
+ int kfd_topology_add_device(struct kfd_dev *gpu)
+ {
+ 	uint32_t gpu_id;
+ 	struct kfd_topology_device *dev;
+ 	struct kfd_cu_info cu_info;
+ 	int res = 0;
+-	struct list_head temp_topology_device_list;
+-	void *crat_image = NULL;
+-	size_t image_size = 0;
+-	int proximity_domain;
+ 	int i;
+ 	const char *asic_name = amdgpu_asic_name[gpu->adev->asic_type];
+ 
+-	INIT_LIST_HEAD(&temp_topology_device_list);
+-
+ 	gpu_id = kfd_generate_gpu_id(gpu);
+ 	pr_debug("Adding new GPU (ID: 0x%x) to topology\n", gpu_id);
+ 
+@@ -1964,54 +2018,11 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+ 	 */
+ 	down_write(&topology_lock);
+ 	dev = kfd_assign_gpu(gpu);
+-	if (!dev) {
+-		proximity_domain = ++topology_crat_proximity_domain;
+-
+-		res = kfd_create_crat_image_virtual(&crat_image, &image_size,
+-						    COMPUTE_UNIT_GPU, gpu,
+-						    proximity_domain);
+-		if (res) {
+-			pr_err("Error creating VCRAT for GPU (ID: 0x%x)\n",
+-			       gpu_id);
+-			topology_crat_proximity_domain--;
+-			return res;
+-		}
+-
+-		res = kfd_parse_crat_table(crat_image,
+-					   &temp_topology_device_list,
+-					   proximity_domain);
+-		if (res) {
+-			pr_err("Error parsing VCRAT for GPU (ID: 0x%x)\n",
+-			       gpu_id);
+-			topology_crat_proximity_domain--;
+-			goto err;
+-		}
+-
+-		kfd_topology_update_device_list(&temp_topology_device_list,
+-			&topology_device_list);
+-
+-		dev = kfd_assign_gpu(gpu);
+-		if (WARN_ON(!dev)) {
+-			res = -ENODEV;
+-			goto err;
+-		}
+-
+-		/* Fill the cache affinity information here for the GPUs
+-		 * using VCRAT
+-		 */
+-		kfd_fill_cache_non_crat_info(dev, gpu);
+-
+-		/* Update the SYSFS tree, since we added another topology
+-		 * device
+-		 */
+-		res = kfd_topology_update_sysfs();
+-		if (!res)
+-			sys_props.generation_count++;
+-		else
+-			pr_err("Failed to update GPU (ID: 0x%x) to sysfs topology. res=%d\n",
+-						gpu_id, res);
+-	}
++	if (!dev)
++		res = kfd_topology_add_device_locked(gpu, gpu_id, &dev);
+ 	up_write(&topology_lock);
++	if (res)
++		return res;
+ 
+ 	dev->gpu_id = gpu_id;
+ 	gpu->id = gpu_id;
+@@ -2134,8 +2145,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+ 
+ 	if (!res)
+ 		kfd_notify_gpu_change(gpu_id, 1);
+-err:
+-	kfd_destroy_crat_image(crat_image);
++
+ 	return res;
+ }
+ 
+-- 
+2.25.1
+
