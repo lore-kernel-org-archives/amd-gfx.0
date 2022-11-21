@@ -4,117 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B01B8C43217
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 13:18:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9366FC433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 14:06:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B0EC10E0AC;
-	Mon, 21 Nov 2022 13:18:50 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2081.outbound.protection.outlook.com [40.107.93.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35D1E89FA5
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 13:18:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FB9710E2CD;
+	Mon, 21 Nov 2022 14:06:58 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8561610E2CD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 14:06:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E6hAHUgr6gmP5d2mHoKkdnGEXLF8Ujigi7ZdSenNl17nZErHzbUziuY59xtFd+CoGFS4bv2BAT1OBXkazWXroHcIIoF1Audx9Ie2qKy2FovB69Yc/BfdQzkUaxB2TU8+UWxihnQds1lrHtAcEuIbx/K+3Dpz3Uy9SboOUsy9FTfeMnQZZHkzyObLciZdgW7Q8VneGmRgxEWdsEwDMl1sXo48Sbq49lotFq2Z1zuvSKMXgrHrX9cZvG+YG9V/4ceksfFDF4lrmsKZ0GT5btMQLdqbWhG7vlJaEooKGAt1+c0w3clHTknCRFGF+oLDNHG7ROQtOxLagsChx+QV37E77g==
+ b=c/wmu+6tOntyLVeRgn3PSkzKTFgBlfWqxNGaoT1Ppsaq0by0mHrUeNWF5xzFmIbvQQgs3etF9bHZLLPm62pnE5VB36V6HwdBwWlz4mNmhtrBQeJx9O8AcalWYXUbCTDJBzA9ckrMKfL1dfo1YXoo+Z5++YF8/4R3xHr3bM71rkeen5/e8/7eZQJEv1oJSuQ3vYRU+dpAr+vegcfOmtRtBMTQvRH8HL5U7JZzl1DQYWZdokr579suU3uJlo59DiCjPeLfU8tDWuDp6ZtAJINgpPQViH0no1rkG33mjqQqox/SqeR9kWSONlIAv304GRGUwZ6WJ+9+S5wnweVig6V5VA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J30pe44hTilO8yscgxmC6HLCziGT+PeSz7ZVlL3v3D8=;
- b=Z3tNrfv2YYKfF2mQfnBvu6cOek255uQgByZNmoWNdZB2ZY6k8S7m7jn/A0YJXihv2px0+Q24taMHGfhJmt4LVC80I7+cRD8ks40OJrqD4mJ2TSN22cdPPmoz364gAPstx7nD1g77qGHvTBpUkDk/jvyEski+8+7y5QJTmCopPpTVFhU3lPvs6vZoL6hoZbQvW7ybBZp6nr0v4IIszS/HfcFHSsEujW1GaaljXD35ZhQbJI3lOFTG2hoM7UI9BO3y4Q+QBxd5TlOQA4aErWBEU+Yoe1BO0BjYJkI2I1OZ0tdnhyH603/B5EVt569WBvUdxT3bTdwTq2v348eLJ/s0SA==
+ bh=QWUU3xtq6zbO7c4j/e0XatYHzTufXlDcZoW/J6xp/tc=;
+ b=SJ+hTaGfOhSdKaac3SkVSRphWJsXd2oSwcghkYK0QC/mp2DlAYBw/ak9kvKB+v/tM7c5f6sH0aveNQt0FTeG7nwCIc/BGOsQVH2RCGhlk0RWgNdGseMNkvTVsjm+13OXbfvYyZHOQyA2SE5MbzJXXul8RdCgBjtQ9DhD6hbp66Jty5dzZY2IxoinkCvVQWLtkLpBf2CZZGtYCbdMvpwnDcwU7qFNyXp/2v2Gtn2WL7D9Iw/+gSQ/VS2wWh7wnugOmEUYm7GwEmm3+TRkn41xOORcQF1HDdWwgboGozr4zR8ZuRqeHBayUjlwUS+nZKGN5vg/bMCp4CUkuY7H443lQA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J30pe44hTilO8yscgxmC6HLCziGT+PeSz7ZVlL3v3D8=;
- b=b4PhMcjAoQHHH2gsZpfTF14v9ItvsN0wlm6IPxiUWgXNz7GMzZojWTAxNu1X2Q96z6I49yJJYNXul4d4tDO/O08pv/yCbDOSpiatGID+yFuxVyivRPy5soSFzyqyoo7g8Bc/kXIXfq+44gr1skKqIHOcPRHSdW4WM9W+Hc6PfWg=
+ bh=QWUU3xtq6zbO7c4j/e0XatYHzTufXlDcZoW/J6xp/tc=;
+ b=EZuUEhJVyk5HRRGA8S9KsXo6C98IDysj37wHu23/vwjn/rrgEQkPF69XAM+jt5ZOelS+LPerb2wFuCIvjlcZaPlPMJkVmobBNrsfNw5vcRl6cpk9YZEmVLTgxxwtymp38hUK4LBzP0lE7Bc6CMILRbTYjmo5P1sihJ0cEJGCo6g=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SJ1PR12MB6098.namprd12.prod.outlook.com (2603:10b6:a03:45f::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.11; Mon, 21 Nov
- 2022 13:18:44 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::7d43:3f30:4caf:7421]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::7d43:3f30:4caf:7421%7]) with mapi id 15.20.5834.009; Mon, 21 Nov 2022
- 13:18:44 +0000
-Message-ID: <950574a1-ca9b-c99c-fd9b-8fed2105a043@amd.com>
-Date: Mon, 21 Nov 2022 14:18:40 +0100
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DM4PR12MB6208.namprd12.prod.outlook.com (2603:10b6:8:a5::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Mon, 21 Nov
+ 2022 14:06:51 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::5d8:f3f2:d940:5350]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::5d8:f3f2:d940:5350%3]) with mapi id 15.20.5834.015; Mon, 21 Nov 2022
+ 14:06:51 +0000
+Message-ID: <aef0c654-d7d7-6933-ad13-276a3844341b@amd.com>
+Date: Mon, 21 Nov 2022 09:06:48 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH v2] drm/amdgpu: fix stall on CPU when allocate large
- system memory
+Subject: Re: [PATCH] drm/amdkfd: Release the topology_lock in error case
+To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20221121051340.1213970-1-Jun.Ma2@amd.com>
 Content-Language: en-US
-To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org,
- Felix.kuehling@amd.com, philip.yang@amd.com
-References: <20221117213829.24861-1-James.Zhu@amd.com>
- <20221121131356.119508-1-James.Zhu@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20221121131356.119508-1-James.Zhu@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20221121051340.1213970-1-Jun.Ma2@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0066.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::10) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+X-ClientProxiedBy: YQBPR01CA0151.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:7e::9) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SJ1PR12MB6098:EE_
-X-MS-Office365-Filtering-Correlation-Id: d74f12d7-633c-4bfe-a2f6-08dacbc2ea6f
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB6208:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0b5c41f-cd83-4c62-23ba-08dacbc9a2ef
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8frRbw1AZ15jjCkQY2OyBt5uyXmP9mdTYqYUF2ykhCjhF79BO4OmqGoRILncLhPQ3NwBX6CcU0rKolMEqahlNov5s96pNPRHk6yf3V7wHAZMzGH9XpC5j8NotMROp48lKNl62dV6CkpgmJ327tDMT7EKm3lLSl7+JcgUcGJgPHJzff5Ayqbw9pCGeR74UOTnBag6IkSShdbnK31Wo12Uiiy6qKMVmS8oneT1VwQNdUehBeVvarowUqmnpVo30MV4vQ35Zws/tV74NWKbp1G3sM56jAAm2sUbkWYRQYFYhAilS/WrTMYuodXnGJU/T7ca5gSSQTz88eCd9gDCNU6kf/Zo4bLhbBsRjzQpIjQTP4pkby4ihKtH3FdssVCfKlJ4goVFiVZP/ThiLNgS5iZ1uW3ASzqSZgrW1Xbdpf6o4Pjcl4KL2fPXh4S2GEGS5qBC06bAf/FXVay336lLcvMgbSbgkIO47/pWwyIiKi6vXJlfEYphPtqck0C+ZQQnkF2GaxmInrBGFeMks8vSIt0q0cD4gQzbDyaqkAQATAATC+fncb1Y+OAv2FmS/4nYAb3Deu11bq7saHjr4bcb1pMNYuvj3nsKTCZ3mdZjD1Z/Fr6LWVciO57qmgNABrrvxAtSmHFtLW+MIW4E3EUWVHt9wl27IBxwuqK9igbGcfLnbTj95iE4R4p0cp0io9P7TrqMrLGzHKY5nM/+2Mwyx1JBm9LPfIAhayAYetTKTXfQDx8=
+X-Microsoft-Antispam-Message-Info: UG5GEBj1cwLkKDdRlbsa9009uNnWe/6OprMkAv+XD9e+cntpzlEmbWHFt6sgROOa06JKrnWUTSca/NrYNSw+jT0t+WdNSKsAWlfBffPpUNV98xE6wMEWbbimShlLWPTUKmmw9g/ABURrEkxbbrOc9mS8l9/BJEvv/YKNISRInl2uoZOAgUFPKV2HVHBu2UXKqvi3u9IPGyWo9QXJ+0Ia59DuKGW4AtvLdizT0xoLGNmBJGCD0TdhvqO+LD0e0nXiT0pTdfu+qs3BcJ1tiTyzLLLZ3USb9BXe4d/c3b6keVsabm6pQJDJTblkBrLAbIlry6EvdQA3e+duI4zHwtPl7WmfeYmsr+kbihcjmmmQ7Q1GAtrls6cSOYkx9HWK84hqdUZuMcsBcPdO8qA4l9mAALtMKwPWyxzpL0VOquG4qZIlFGPwjg+QsRfHdxJqfr2GxpYoZBfYfMw7th9ZMfd7cA+6bMES+u2Lenwe3M/9JB2t4JnXMpAJoJ7R2SLj5W8A+i4+jfHgRPZcsrxD6JGsnHm3S/0uD5bA8gLGoRH7oHIVzsWC5dhl7sqUzX3hz4Mf6PlZ+2R3Ct6raCx25/waOPkZ/WHO3R5ege/+rMYT9s6WuJliIqcC+RdVr4LqWDYTPBSpYnaL3Vs65amE7iHs9mnLLF/RBCNslrGEierLYvYXckPaygBJ8WAKuNsMHy8k4MFQtgYXffaoGpUCG6uFBeND8b/KAebsWan4bri3Nek=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(39860400002)(376002)(396003)(366004)(346002)(451199015)(2906002)(2616005)(478600001)(186003)(41300700001)(8936002)(8676002)(66476007)(66556008)(66946007)(83380400001)(5660300002)(6636002)(31686004)(4326008)(316002)(31696002)(86362001)(6486002)(38100700002)(6666004)(36756003)(6506007)(26005)(6512007)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(366004)(396003)(376002)(136003)(346002)(39860400002)(451199015)(6486002)(26005)(2906002)(86362001)(36756003)(6506007)(6666004)(31696002)(478600001)(83380400001)(6512007)(38100700002)(2616005)(186003)(4001150100001)(44832011)(8936002)(41300700001)(31686004)(66556008)(4326008)(66476007)(8676002)(5660300002)(66946007)(316002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzdXdFY2V1U3aUJKbUJ0NUJCQjc2MXE5bE1EL09ZSDloYVRXbVFFKzl4aU81?=
- =?utf-8?B?RkdOdGtvdGFoTGV3YkJ0N0Zma0JFQVV5M1pRM3VHYmRselh2VHo2ZlF2MVJG?=
- =?utf-8?B?QnRaT0ZsY2hwMENHVG9vZkxtZ1c1YUl2OW5TK1Zwenp3aU9XY0ZHeFFUQlha?=
- =?utf-8?B?NTZCcnkxTnBqc0ZwcHZpZHhNVkxVeSt6RE9BS0t4c0xUU041cFRWZWlOTGF5?=
- =?utf-8?B?QkYrRE9vQ012UXgyZEwyZ3BrdXA0TEtidmx5eHpFSUlvb0UzaUdybGpGK2px?=
- =?utf-8?B?SWRaZFlOZ0o3MHowc3NrZ1YwNjRGaXJwV09aTzhHMm9FSTE0OFViTGVCc0RR?=
- =?utf-8?B?VlNwek0zR3U4UC9RbG1YR1h5b2xHRUlwV0taRWFMLzJXYnRpcHlNbk5OMmRD?=
- =?utf-8?B?Qjk1REoreFVRRW9mS2NvRnZUWjhWWThLU0Q1YkJiZjh5Rzh6Zlo0YURtQnZU?=
- =?utf-8?B?UFJvREU3STQ2UEE0Vk5Ca216WlMyUEM4ZWExeWhHYzIycFVKQ2IyeGF4ak50?=
- =?utf-8?B?NjQvSW43U0tiak9mMnRWU2xxejJaWjFtYmxNQmZvdTlYSUZSWEE4OWhqSVhO?=
- =?utf-8?B?c3VKN2xOZHRHVjFlaHgyV3VsT2RNSHoxUzA3NFRlMTFrZ0pDQ2EzaHhpUXJO?=
- =?utf-8?B?eHFLVkJNeG03TkdKWnNkWVFrdGNMcG9IWXZOMFZOcml1UWd2UlZrOHRrYldz?=
- =?utf-8?B?N3ZOYStoWXo4d3ovZVg2emllTHZpU0M1MEtPTkV0Sk1Ub3oxUnozSHFJVlBy?=
- =?utf-8?B?dUdQVmJkZzJhSFBlN1RzdjU3dFFQNmJCaXpZc2RuV0FIY1ZNVURMV0NJVlpH?=
- =?utf-8?B?UkdETW15VjZsNzJNVWx2RGxwVDk1MzhYVHZjblZGS1dpc3JLeFdoVUphZ0pm?=
- =?utf-8?B?VEFJaTVBYUNsUUhSR0Fxb2VKRENLckpVTitVM0RnRjB3SkpHcEJCOFhzcVlU?=
- =?utf-8?B?bS9QcXhUMUhOZzQyV1E5ME1vZG13VDd0Y0VMczRsc2RnM3BkRGRpQWsyRVRr?=
- =?utf-8?B?c2ZqcUcyUG5ER21oL3dKWFRmY2QvbFJBdjNnNExqRXU2Ujg3clRmL1JBeTRn?=
- =?utf-8?B?dHMrVGxMcFVSYjZiT1BmeEp5TWxEcUU2SnlqRGxaUW5mU2VZdnNyTGJFTk5R?=
- =?utf-8?B?TnF2Sk5NR3pRbU1WdzQ3d1gvNHJ4d09jNVRqMEhxMXVhVEd1K1ZXUVZwOTI5?=
- =?utf-8?B?MVpMQmhEYjRaTDh2KzlBRTE5cS80cnVybGVNRzViS2lReGRCenVKNU5ZYTFL?=
- =?utf-8?B?bHhUaFJhRnhmOFdZNzVueDdrbnB2VzJJZnFyTGE4RFhDZDNzR2pNa0VBTm9o?=
- =?utf-8?B?aUpPa1o2T2p6cU1Sa3hMZnQ4cFgydUVxNUZGRHpwRFpIb1E4MkhBK3FFbWhI?=
- =?utf-8?B?RXU0d0U4S1RqMnFBTG56b2xXZ0YveFdvWmZ2TVRML3Q4RUFuYjJuMWhzZXhH?=
- =?utf-8?B?Y21uQ2FuK1RaMEExVXBWL2VGajdkWXJHQnY2c1FjQzE0Y2xUN2hrOGpIK21l?=
- =?utf-8?B?N3U5bU9Ob1VuM3hheWJPN1ZRRDdvblJpV3RMcys2OXdQNkJibnFULzliODcv?=
- =?utf-8?B?dXZNUGM1SWtQaUpZb1dXT2NoSDdDU0dCQVgycE1PU0g3QlJ3TGg2cEkwU1d5?=
- =?utf-8?B?eGI5VjJYbis0MFRWSXlTMXFiKzVDTTd1S25kWTU2VnRXdjhMU2tuUVFOdGE0?=
- =?utf-8?B?Z2R5eHNJbjZFcTZ4TzZXRmkyL2tvcWVpaXNoN2hpb0ptL004dHVNTjV2bGhk?=
- =?utf-8?B?OU8yVDFTMzVDYjU4MkJNakJVRXUwc2tYSFc2UmovY0lQZU5kUTV3MXhwNFpr?=
- =?utf-8?B?VVc0WnlPS0FaZFRWWnFxZ1YxQVRQWWtjVEt1U2J2Yk5USHA5SGRIY3Q3UFV6?=
- =?utf-8?B?T2cyc0RaTmFOTHlTMlBrVU9WSDU4Y0RjSU1PZkxHOU9Bam81eHE3cTdxMWJh?=
- =?utf-8?B?b29HcDYvcEtrbk9mNThqSFgwK01ZZFYzZHFxM2FtekNhVmttWUtUR0xxL1VK?=
- =?utf-8?B?MXZTL2MvY01HTWNQL1h1alBFRHM3cWJnRWFVOTJPazNSbHlLLzFwbFErdGh5?=
- =?utf-8?B?aFBUSnZGR1Y0akpjb0dlRGxwaVA3RzJmOEhtQ25ENVVEeGp5QU12b0pCektR?=
- =?utf-8?Q?JXkk=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d3NXcFVKdi9UM3RKZk9jd1VZK1dRVVdqMVQvNEcrTnpvQ1hpM3hkQVc5Nnh3?=
+ =?utf-8?B?NDh3WEFQTWk4WENEMWd0T29aMHhjYXZZOExqVlpRTHkzVGMxQkc5S0hKbGhz?=
+ =?utf-8?B?SVk3U3pEY1BuZmJjMlpaVEdxYjdrWVZOR2dCTW9abnNDT2hFV0tRZmp5SS9O?=
+ =?utf-8?B?SHk5djMwOWJEeUIyM0xRVGpBNTc2N1FJOTkrRFMyM0JGS1FLR1dWaW03Wm5G?=
+ =?utf-8?B?Rmx2bTB1ZzRjNmpjNDdQS0ZvTmhNMVp6UHR0SS9ZNVpjZU8vZ3RHdDRJdEl6?=
+ =?utf-8?B?U2d1ZWorSzhPZmhjTExFeEtkN01salhvTjlUQ2dqOVplRWI2bGNiVjhkanNn?=
+ =?utf-8?B?MURTdU1UN0t6VWFRYTNNU1lWc0xJbGJCbmtNNjA4U016c1B3bEpWSXVLZU9Z?=
+ =?utf-8?B?NWUvMHdTK053N0ZRSFZRT3VvZ0lwdTdGWkNpTmlPa3pWTTNwNEpnTHdteEln?=
+ =?utf-8?B?blY0TzIwOG5qWjJpSHQ5VW9DSVNRUGl0aDZSa1duY0I2MEVOQnpoL1pmaEcx?=
+ =?utf-8?B?Ujc5WXdSdE9qSGZBaEFJMUMzdHI5OHpoUlFyZDFEUzRsbGZrRG9KUHZzUGVN?=
+ =?utf-8?B?dHBUMW1UWTFQSVhnU3R4TXJzOGVFUEVZaWJjWmFzZUVManZEckwrOTUzQk1i?=
+ =?utf-8?B?Z2Nlb3F1bXRjMHJzemVoaVllWWRweE4za1ZaS0VnK2VRVkxOWkdaWjBwVzF5?=
+ =?utf-8?B?ZWlEc2dJSU1hK0R6OGxyeEtRdFZnOGtLT0V1OHd0WTloMGtlWjRJUVh6VWlx?=
+ =?utf-8?B?Ry81MnNRQ1A3WlRnTTNXeHlMRnBXdDBZOTU1V1ZTTUpOWDcvdEdFZFczVDNy?=
+ =?utf-8?B?cWNTSnVOdy9BNWZYS1NVRGMwQ01VR0RHK0xlMWN6c09lRTZkQzY2VTFJVThu?=
+ =?utf-8?B?Z0x6ekZmZFptNTdvYyswOHFrbTdvZHVHNy9RQ3Z3aGNMb0FRTHhUbmYwditM?=
+ =?utf-8?B?c1ZRWGE1MzBQUjBZN1hZdDljS0FZN29GaVlndGI4M2IrNGlTWnV2NkRkc1Q4?=
+ =?utf-8?B?LzJRaUdZeEtDdUlySWFuaXdyVGk2MlQ1dVNBRE4vdCs4TC9Zejg4UzBPT1Jw?=
+ =?utf-8?B?aGw0Vnp0eUJTb0JJSithbDZ6QTAwL3pmTmhuWHprL3FmM1kyRGNxQ0ZvalA2?=
+ =?utf-8?B?aVZmRUN2bmF4dnBGSWYvaGhJVUMrSVFGNzR3ckNvYjlGUk1jTVZ5dCtuNDM3?=
+ =?utf-8?B?S2hoMy8rcGJ4VXIvU25jNlNHUG1NS1FicGF2RE9iUyt1bFg2ellZdzlkSW5H?=
+ =?utf-8?B?MGhzemdFVnVBVkx4V0tONVV2MGhGMTBaUEtLMkZwZk83WlR1anpQV0UrYnVN?=
+ =?utf-8?B?NXRXQkEvYmExZE03M2tPSjRDSkxSUFlZL3VyWFErd3IxZkNSdUdWdkg2MWFq?=
+ =?utf-8?B?VFBJb1dYTnduRnNkcXBpLzNJbzYvMHVQWFJRaHlPcTZYeXlsRGQvNytjMk9K?=
+ =?utf-8?B?WjBxb1BGNm1lN0RVQVhCT0hoSjdKNU13NWNneVQ2TGozTmZqMTVmazJDRlZ5?=
+ =?utf-8?B?bFBjcFJyVmsyZ3pmZTVyT0VVVHVrbWNRd1R1akhXN2l0Z2hWT1VqOEJaN2Vz?=
+ =?utf-8?B?Z1RCOStzR24wMXRFSkEzdjUyOTBXczFQOFE4NmhlV1QxVkRPeGxnZ1dXaW1W?=
+ =?utf-8?B?TWs1ZEpiSHA5RzMzZHRobkZCVFJTRW0wSEpZT0pNaW8wZ2ZtMU9lanVYOG1S?=
+ =?utf-8?B?Tld4MTlHWHkrbjR5YnN0R0kvOGpsTGp3TEdsbEo4eVdURlZBQ1kzNnFHNjRu?=
+ =?utf-8?B?SEtyRmNSeEFsZzByM2hobTVjeUxCN0RqdkR6VlBodGk5Ri9yN3d1eVNmbmNn?=
+ =?utf-8?B?UnQ4ajF0WWtMblY4TzRWajFoRVBicFpCYjhXTktPRDRPUjIxTGFNRm9aRitD?=
+ =?utf-8?B?UGZpcVNpTzdMVmJwZnkwbnFmVzczVk5xemlYQ0lLMW1hMDN4MDhXQzFoNlI0?=
+ =?utf-8?B?RlRmSFJmRWcrYW9XVmxjOVVtbGw5eStyMndxMmh4eWZ2K1J3a2tKWGVKRHlp?=
+ =?utf-8?B?Tnplb2drdC9aYjkwOVdyNVdtenJCVFhYTjYyZzNJbGgzZmJER3Z3WHZ1U3di?=
+ =?utf-8?B?UnhyajJxUU9pMENPNXI1OExrMDBlbkc2ZFZkSXgxS25IK2RnanViTXFFK0gz?=
+ =?utf-8?Q?JDTSITDHrGvDh1aV7TW8GiMJ/?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d74f12d7-633c-4bfe-a2f6-08dacbc2ea6f
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0b5c41f-cd83-4c62-23ba-08dacbc9a2ef
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2022 13:18:44.5968 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2022 14:06:51.0042 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gi0DFRpnuJRWF0/9ud/dY3E6PGxw98763Uar3H7j3tVAe21Niv1i7gRDJh/uM1Yz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6098
+X-MS-Exchange-CrossTenant-UserPrincipalName: pJoYmU2xjV6w8HbvTXDmHiqERviddBiTnIsVjO9Avt4pxAKMm+Anc26duLMHuZ0Z90+zMcQnT+G1MfAZzI1DNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6208
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,146 +123,180 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jamesz@amd.com
+Cc: error27@gmail.com, guchun.chen@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 2022-11-21 um 00:13 schrieb Ma Jun:
+> From: Felix Kuehling <felix.kuehling@gmail.com>
+>
+> Move the topology-locked part of kfd_topology_add_device into a separate
+> function to simlpify error handling and release the topology lock
+> consistently.
+>
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Signed-off-by: Felix Kuehling <felix.kuehling@gmail.com>
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
 
-Am 21.11.22 um 14:13 schrieb James Zhu:
-> When applications try to allocate large system (more than > 128GB),
-> "stall cpu" is reported.
->
-> for such large system memory, walk_page_range takes more than 20s usually.
-> The warning message can be removed when splitting hmm range into smaller
-> ones which is not more 64GB for each walk_page_range.
->
-> [  164.437617] amdgpu:amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu:1753: amdgpu: 	create BO VA 0x7f63c7a00000 size 0x2f16000000 domain CPU
-> [  164.488847] amdgpu:amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu:1785: amdgpu: creating userptr BO for user_addr = 7f63c7a00000
-> [  185.439116] rcu: INFO: rcu_sched self-detected stall on CPU
-> [  185.439125] rcu: 	8-....: (20999 ticks this GP) idle=e22/1/0x4000000000000000 softirq=2242/2242 fqs=5249
-> [  185.439137] 	(t=21000 jiffies g=6325 q=1215)
-> [  185.439141] NMI backtrace for cpu 8
-> [  185.439143] CPU: 8 PID: 3470 Comm: kfdtest Kdump: loaded Tainted: G           O      5.12.0-0_fbk5_zion_rc1_5697_g2c723fb88626 #1
-> [  185.439147] Hardware name: HPE ProLiant XL675d Gen10 Plus/ProLiant XL675d Gen10 Plus, BIOS A47 11/06/2020
-> [  185.439150] Call Trace:
-> [  185.439153]  <IRQ>
-> [  185.439157]  dump_stack+0x64/0x7c
-> [  185.439163]  nmi_cpu_backtrace.cold.7+0x30/0x65
-> [  185.439165]  ? lapic_can_unplug_cpu+0x70/0x70
-> [  185.439170]  nmi_trigger_cpumask_backtrace+0xf9/0x100
-> [  185.439174]  rcu_dump_cpu_stacks+0xc5/0xf5
-> [  185.439178]  rcu_sched_clock_irq.cold.97+0x112/0x38c
-> [  185.439182]  ? tick_sched_handle.isra.21+0x50/0x50
-> [  185.439185]  update_process_times+0x8c/0xc0
-> [  185.439189]  tick_sched_timer+0x63/0x70
-> [  185.439192]  __hrtimer_run_queues+0xff/0x250
-> [  185.439195]  hrtimer_interrupt+0xf4/0x200
-> [  185.439199]  __sysvec_apic_timer_interrupt+0x51/0xd0
-> [  185.439201]  sysvec_apic_timer_interrupt+0x69/0x90
-> [  185.439206]  </IRQ>
-> [  185.439207]  asm_sysvec_apic_timer_interrupt+0x12/0x20
-> [  185.439211] RIP: 0010:clear_page_rep+0x7/0x10
-> [  185.439214] Code: e8 fe 7c 51 00 44 89 e2 48 89 ee 48 89 df e8 60 ff ff ff c6 03 00 5b 5d 41 5c c3 cc cc cc cc cc cc cc cc b9 00 02 00 00 31 c0 <f3> 48 ab c3 0f 1f 44 00 00 31 c0 b9 40 00 00 00 66 0f 1f 84 00 00
-> [  185.439218] RSP: 0018:ffffc9000f58f818 EFLAGS: 00000246
-> [  185.439220] RAX: 0000000000000000 RBX: 0000000000000881 RCX: 000000000000005c
-> [  185.439223] RDX: 0000000000100dca RSI: 0000000000000000 RDI: ffff88a59e0e5d20
-> [  185.439225] RBP: ffffea0096783940 R08: ffff888118c35280 R09: ffffea0096783940
-> [  185.439227] R10: ffff888000000000 R11: 0000160000000000 R12: ffffea0096783980
-> [  185.439228] R13: ffffea0096783940 R14: ffff88b07fdfdd00 R15: 0000000000000000
-> [  185.439232]  prep_new_page+0x81/0xc0
-> [  185.439236]  get_page_from_freelist+0x13be/0x16f0
-> [  185.439240]  ? release_pages+0x16a/0x4a0
-> [  185.439244]  __alloc_pages_nodemask+0x1ae/0x340
-> [  185.439247]  alloc_pages_vma+0x74/0x1e0
-> [  185.439251]  __handle_mm_fault+0xafe/0x1360
-> [  185.439255]  handle_mm_fault+0xc3/0x280
-> [  185.439257]  hmm_vma_fault.isra.22+0x49/0x90
-> [  185.439261]  __walk_page_range+0x692/0x9b0
-> [  185.439265]  walk_page_range+0x9b/0x120
-> [  185.439269]  hmm_range_fault+0x4f/0x90
-> [  185.439274]  amdgpu_hmm_range_get_pages+0x24f/0x260 [amdgpu]
-> [  185.439463]  amdgpu_ttm_tt_get_user_pages+0xc2/0x190 [amdgpu]
-> [  185.439603]  amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu+0x49f/0x7a0 [amdgpu]
-> [  185.439774]  kfd_ioctl_alloc_memory_of_gpu+0xfb/0x410 [amdgpu]
->
-> Signed-off-by: James Zhu <James.Zhu@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 49 +++++++++++++++++--------
->   1 file changed, 34 insertions(+), 15 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 120 ++++++++++++----------
+>   1 file changed, 65 insertions(+), 55 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> index a48ea62b12b0..fb51144ab77e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> @@ -163,6 +163,7 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
->   			       struct hmm_range **phmm_range)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index 8c555c32ea70..7d6fbfbfeb79 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -1938,21 +1938,75 @@ static void kfd_fill_cache_non_crat_info(struct kfd_topology_device *dev, struct
+>   	pr_debug("Added [%d] GPU cache entries\n", num_of_entries);
+>   }
+>   
+> +static int kfd_topology_add_device_locked(struct kfd_dev *gpu, uint32_t gpu_id,
+> +					  struct kfd_topology_device **dev)
+> +{
+> +	int proximity_domain = ++topology_crat_proximity_domain;
+> +	struct list_head temp_topology_device_list;
+> +	void *crat_image = NULL;
+> +	size_t image_size = 0;
+> +	int res;
+> +
+> +	res = kfd_create_crat_image_virtual(&crat_image, &image_size,
+> +					    COMPUTE_UNIT_GPU, gpu,
+> +					    proximity_domain);
+> +	if (res) {
+> +		pr_err("Error creating VCRAT for GPU (ID: 0x%x)\n",
+> +		       gpu_id);
+> +		topology_crat_proximity_domain--;
+> +		goto err;
+> +	}
+> +
+> +	INIT_LIST_HEAD(&temp_topology_device_list);
+> +
+> +	res = kfd_parse_crat_table(crat_image,
+> +				   &temp_topology_device_list,
+> +				   proximity_domain);
+> +	if (res) {
+> +		pr_err("Error parsing VCRAT for GPU (ID: 0x%x)\n",
+> +		       gpu_id);
+> +		topology_crat_proximity_domain--;
+> +		goto err;
+> +	}
+> +
+> +	kfd_topology_update_device_list(&temp_topology_device_list,
+> +					&topology_device_list);
+> +
+> +	*dev = kfd_assign_gpu(gpu);
+> +	if (WARN_ON(!*dev)) {
+> +		res = -ENODEV;
+> +		goto err;
+> +	}
+> +
+> +	/* Fill the cache affinity information here for the GPUs
+> +	 * using VCRAT
+> +	 */
+> +	kfd_fill_cache_non_crat_info(*dev, gpu);
+> +
+> +	/* Update the SYSFS tree, since we added another topology
+> +	 * device
+> +	 */
+> +	res = kfd_topology_update_sysfs();
+> +	if (!res)
+> +		sys_props.generation_count++;
+> +	else
+> +		pr_err("Failed to update GPU (ID: 0x%x) to sysfs topology. res=%d\n",
+> +		       gpu_id, res);
+> +
+> +err:
+> +	kfd_destroy_crat_image(crat_image);
+> +	return res;
+> +}
+> +
+>   int kfd_topology_add_device(struct kfd_dev *gpu)
 >   {
->   	struct hmm_range *hmm_range;
-> +	unsigned long end;
->   	unsigned long timeout;
->   	unsigned long i;
->   	unsigned long *pfns;
-> @@ -184,25 +185,43 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
->   		hmm_range->default_flags |= HMM_PFN_REQ_WRITE;
->   	hmm_range->hmm_pfns = pfns;
->   	hmm_range->start = start;
-> -	hmm_range->end = start + npages * PAGE_SIZE;
-> +	end = start + npages * PAGE_SIZE;
->   	hmm_range->dev_private_owner = owner;
+>   	uint32_t gpu_id;
+>   	struct kfd_topology_device *dev;
+>   	struct kfd_cu_info cu_info;
+>   	int res = 0;
+> -	struct list_head temp_topology_device_list;
+> -	void *crat_image = NULL;
+> -	size_t image_size = 0;
+> -	int proximity_domain;
+>   	int i;
+>   	const char *asic_name = amdgpu_asic_name[gpu->adev->asic_type];
 >   
-> -	/* Assuming 512MB takes maxmium 1 second to fault page address */
-> -	timeout = max(npages >> 17, 1ULL) * HMM_RANGE_DEFAULT_TIMEOUT;
-> -	timeout = jiffies + msecs_to_jiffies(timeout);
-> +#define MAX_WALK_BYTE	(64ULL<<30)
-
-Please don't add any defines in the middle of the code.
-
-> +	do {
-> +		hmm_range->end = min(hmm_range->start + MAX_WALK_BYTE, end);
-> +
-> +		pr_debug("hmm range: start = 0x%lx, end = 0x%lx",
-> +			hmm_range->start, hmm_range->end);
-> +
-> +		/* Assuming 512MB takes maxmium 1 second to fault page address */
-> +		timeout = max((hmm_range->end - hmm_range->start) >> 29, 1ULL) *
-> +			HMM_RANGE_DEFAULT_TIMEOUT;
-> +		timeout = jiffies + msecs_to_jiffies(timeout);
+> -	INIT_LIST_HEAD(&temp_topology_device_list);
+> -
+>   	gpu_id = kfd_generate_gpu_id(gpu);
+>   	pr_debug("Adding new GPU (ID: 0x%x) to topology\n", gpu_id);
 >   
->   retry:
-> -	hmm_range->notifier_seq = mmu_interval_read_begin(notifier);
-> -	r = hmm_range_fault(hmm_range);
-> -	if (unlikely(r)) {
-> -		/*
-> -		 * FIXME: This timeout should encompass the retry from
-> -		 * mmu_interval_read_retry() as well.
+> @@ -1964,54 +2018,11 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+>   	 */
+>   	down_write(&topology_lock);
+>   	dev = kfd_assign_gpu(gpu);
+> -	if (!dev) {
+> -		proximity_domain = ++topology_crat_proximity_domain;
+> -
+> -		res = kfd_create_crat_image_virtual(&crat_image, &image_size,
+> -						    COMPUTE_UNIT_GPU, gpu,
+> -						    proximity_domain);
+> -		if (res) {
+> -			pr_err("Error creating VCRAT for GPU (ID: 0x%x)\n",
+> -			       gpu_id);
+> -			topology_crat_proximity_domain--;
+> -			return res;
+> -		}
+> -
+> -		res = kfd_parse_crat_table(crat_image,
+> -					   &temp_topology_device_list,
+> -					   proximity_domain);
+> -		if (res) {
+> -			pr_err("Error parsing VCRAT for GPU (ID: 0x%x)\n",
+> -			       gpu_id);
+> -			topology_crat_proximity_domain--;
+> -			goto err;
+> -		}
+> -
+> -		kfd_topology_update_device_list(&temp_topology_device_list,
+> -			&topology_device_list);
+> -
+> -		dev = kfd_assign_gpu(gpu);
+> -		if (WARN_ON(!dev)) {
+> -			res = -ENODEV;
+> -			goto err;
+> -		}
+> -
+> -		/* Fill the cache affinity information here for the GPUs
+> -		 * using VCRAT
 > -		 */
-> -		if (r == -EBUSY && !time_after(jiffies, timeout))
-> -			goto retry;
-> -		goto out_free_pfns;
+> -		kfd_fill_cache_non_crat_info(dev, gpu);
+> -
+> -		/* Update the SYSFS tree, since we added another topology
+> -		 * device
+> -		 */
+> -		res = kfd_topology_update_sysfs();
+> -		if (!res)
+> -			sys_props.generation_count++;
+> -		else
+> -			pr_err("Failed to update GPU (ID: 0x%x) to sysfs topology. res=%d\n",
+> -						gpu_id, res);
 > -	}
-> +		hmm_range->notifier_seq = mmu_interval_read_begin(notifier);
-> +		r = hmm_range_fault(hmm_range);
-> +		if (unlikely(r)) {
-> +			/*
-> +			 * FIXME: This timeout should encompass the retry from
-> +			 * mmu_interval_read_retry() as well.
-> +			 */
-> +			if (r == -EBUSY && !time_after(jiffies, timeout))
-> +				goto retry;
-> +			goto out_free_pfns;
-> +		}
-> +
-> +		if (hmm_range->end == end)
-> +			break;
-> +		hmm_range->hmm_pfns += MAX_WALK_BYTE >> PAGE_SHIFT;
-> +		hmm_range->start = hmm_range->end;
-> +		schedule();
-> +	} while (hmm_range->end < end);
-> +
-> +	hmm_range->start = start;
-> +	hmm_range->hmm_pfns = pfns;
+> +	if (!dev)
+> +		res = kfd_topology_add_device_locked(gpu, gpu_id, &dev);
+>   	up_write(&topology_lock);
+> +	if (res)
+> +		return res;
 >   
->   	/*
->   	 * Due to default_flags, all pages are HMM_PFN_VALID or
-
+>   	dev->gpu_id = gpu_id;
+>   	gpu->id = gpu_id;
+> @@ -2134,8 +2145,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+>   
+>   	if (!res)
+>   		kfd_notify_gpu_change(gpu_id, 1);
+> -err:
+> -	kfd_destroy_crat_image(crat_image);
+> +
+>   	return res;
+>   }
+>   
