@@ -4,113 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEDA3C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 02:29:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C9FFC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 02:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2883610E115;
-	Mon, 21 Nov 2022 02:29:04 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2047.outbound.protection.outlook.com [40.107.101.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24F1410E115
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 02:29:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5BE910E119;
+	Mon, 21 Nov 2022 02:47:08 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2054.outbound.protection.outlook.com [40.107.237.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33B6810E119
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 02:47:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ay54bf+K+8L7h8rrXDZbZh5QYgVa8OvvpsvvViSqWV8KHYZi3KI4JjMyqhU8Cdj3xNNw4SRuWXvGgT7Osbfz5NNzSfLu5EBL8hst4Litetlkxiy6mrFwrYpxx9zIz4KO9ENVHgr+fy2Ps0AhhxpqeCFKTY3YWwt+u7GYOshgjVczoZL9U8hOGarKk4MflqcUqOaWnOOHwL2LWs2SIm5qoj8boMZbkR9XnJmoCTuyCHpd5DotT1cAdF1UoW2nzX7HzEmRtOhhcRGohfvP9c6z+l+tfWK+AYBzehT+PybXjsFCZFbrbDWdzM29fyjOg+DvLZ6oZqtJpcxBw/iBSPfIHA==
+ b=MwzkJGhhLqMmfLFNeQ7fd6AtPwr7wwVkoYYdB5RgWYc9WofEtZ+vlsMS0a/MXQ0oo0Uyknbos7Up6pObxVVvlaAKkWVlKliFR478DkRf3LDXTh05ooX+cXsEI4914BjAwRmh87LL/+6Oikb5mmZbm+ppiZZfYNbVFktPQHtdfVaM83G/+KTcB+cFmsV9el51ID8qwlhBtL49n5mzeOoK+mqZL48SgofUOoNMdu0Qeck6J4KTpts5WO46m1nUsVQNBlTuL4TEvneXlpdr0VvLV7VvwxgXZqpbDaAPtKs4ULxkHVfS5lqrcYwSNxTql1VxYG9/jJ8Rt5F1WUbniuOqCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VFbVudoRqbnYx9jpfnZfKPB3PS1kxYS7KowGzfpO4Sc=;
- b=CszJlty6sxIzG9JK7GtNdUDOV72umCFFnqQYd0teNl46eUoLyEfhBboczjh0b/fkkUt72S4pogCm+yCWry3bgB1Y+tYBmlYTTTsmn03+jLL0jcLWMU/BYLbKCjZoPSXyY/OL02f8SwMcMp4b2NNiWD0yCFiRZAS7TO1n5/Rd0KYUWEWg3bI/2tzz5buv5LLzDwQ3r2pDSjek0e9bUrm8oMKCkavyORhp4AEBaVWC6j3kjpsKuo4jqOOO5wS0teGRgQFSnaV0nuMWturnE4Ma6uLYr22MEH3JKt8cKqS/ShwT+yK7zPjWKHyNTu5mmOOKv6++qYCy7ljn9pUff8vKVw==
+ bh=Ma5Awb075EJDNMyxFyh8mE9LJziVhVoBbEGKxHRgg0w=;
+ b=co+3VIl3xE6fJZxvVFc0Km1MaPg2Mt7WVj+sMYBAmnp3EXN1DZd4Ium7hiXz3s2/lTe61Bh1SemTm+0DRKD7dKbEepm+SFRXroS+0Xjeyasxoxf/Y0bQnSjKREaiNN7WwkqQu9bJVsApl2SXna5lxujZQS66TDMkq3MY+/i430u161v1dhg0hltnrng0NjKf0fMkinCesip37+YJewAcBN58NlArd2OOMCdlE9kXzDdhKmbd2VzgyPUti8c99nXOqhIgf5sTgtE8qd7V6fXZ6d4iatXekGoPD3Astl6hZuPk7lH8/JtxI5788gX6oQBMJs7n1u1u0YlYiOxkqO8Hgg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VFbVudoRqbnYx9jpfnZfKPB3PS1kxYS7KowGzfpO4Sc=;
- b=LVFJstFplhDXXpBVvI5u/gPNIk6fqW3kf+aKTrPUiRRPeVIq5mzaXREAFm64MPatbu9SbuMKOGolMddkDQcK2qiik8wX/9cMfOxvd41vUMvegSxwUW/WodUtSm2sbLXoyUubjb9nxLjlVLfcyyfCUKLJafx5UProNqWaOMP0POc=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DS7PR12MB6141.namprd12.prod.outlook.com (2603:10b6:8:9b::15) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5834.9; Mon, 21 Nov 2022 02:28:59 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::9440:1b9b:2878:832a]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::9440:1b9b:2878:832a%3]) with mapi id 15.20.5834.011; Mon, 21 Nov 2022
- 02:28:59 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Li, Lyndon" <Lyndon.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
+ bh=Ma5Awb075EJDNMyxFyh8mE9LJziVhVoBbEGKxHRgg0w=;
+ b=xS+80kCRF6LyeIEwMm2ai+SsqR3aiVfodJNp3eyou/V+sEEejjjgA+jB5whpuMdZL16vSksLbhAq4JYBsRQFei7uF0rkVuMfBYGD0nyUTetE5sPffah/Q82ywcSwiosgyN2kz14UolzvR0egNXees7xtZ51ROvlZhc1qk3x9Ux4=
+Received: from DM5PR12MB1770.namprd12.prod.outlook.com (2603:10b6:3:108::22)
+ by DM6PR12MB4185.namprd12.prod.outlook.com (2603:10b6:5:216::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Mon, 21 Nov
+ 2022 02:47:03 +0000
+Received: from DM5PR12MB1770.namprd12.prod.outlook.com
+ ([fe80::10ba:448f:9342:8ae5]) by DM5PR12MB1770.namprd12.prod.outlook.com
+ ([fe80::10ba:448f:9342:8ae5%10]) with mapi id 15.20.5834.015; Mon, 21 Nov
+ 2022 02:47:00 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 1/2] drm/amd/pm: update driver if header for smu_13_0_7
-Thread-Topic: [PATCH 1/2] drm/amd/pm: update driver if header for smu_13_0_7
-Thread-Index: AQHY/Uqt4QZRFvGBuESn2Bbo3Mfm/65Iptfg
-Date: Mon, 21 Nov 2022 02:28:59 +0000
-Message-ID: <DM6PR12MB2619C4CEA4ECD5A4D0DE8A60E40A9@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20221121014253.2101022-1-Lyndon.Li@amd.com>
-In-Reply-To: <20221121014253.2101022-1-Lyndon.Li@amd.com>
-Accept-Language: en-US, zh-CN
+Subject: RE: [PATCH Reivew 1/1] drm/amdgpu: fix use-after-free during gpu
+ recovery
+Thread-Topic: [PATCH Reivew 1/1] drm/amdgpu: fix use-after-free during gpu
+ recovery
+Thread-Index: AQHY+jDu3mlyMPh4sU6Bai7m78pHNa5IscEw
+Date: Mon, 21 Nov 2022 02:47:00 +0000
+Message-ID: <DM5PR12MB17703014798FFEFF70053B32B00A9@DM5PR12MB1770.namprd12.prod.outlook.com>
+References: <20221117030048.21200-1-Stanley.Yang@amd.com>
+In-Reply-To: <20221117030048.21200-1-Stanley.Yang@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-11-21T02:28:56Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-11-21T02:43:47Z; 
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=c13b5f64-e641-4394-8a3e-2152451049a8;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=21fc2d6b-9db1-428e-9fbb-bc5e5e8aa9f4;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-11-21T02:46:12Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: b34bb756-8846-4f0c-bbdf-102955533960
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2619:EE_|DS7PR12MB6141:EE_
-x-ms-office365-filtering-correlation-id: 8fef8534-8777-4b6a-9870-08dacb6825bb
+x-ms-traffictypediagnostic: DM5PR12MB1770:EE_|DM6PR12MB4185:EE_
+x-ms-office365-filtering-correlation-id: 4c3a06ea-70b2-4b0b-3c8d-08dacb6aaa37
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: MHXe/Xcwfh5x+R5puFFakSSMVHR4bK+gB7cA2UNHNRhO45Wo0lbtUvfOd3mYqGJrU82WnWGVZ/+c+KRJeVs3EybR6kAVSjZMZRU3rJp16uiJ8TKFoIGuX8ePmC0rc1+2itrGvrrEVJ65Gitx9PtSRtNvrf51sBsiq0C8W0iZ1gfEVr9PuyeZFeH3UZlsWNC3DLzosWRa4v5TKRel5uxKqscq3MIOEveHNQIjA0xyLi3EgOO2vDl3Ae2trEo3Nfga91dQ+PVRjwImokJbCMdQ09QOzGO64jqaCJmxUeN/YcosnoRRIbwxzSPwwjG1gMzOJamMoI3uDD1XPpTXwLrhfJdPOLpL6DKvOMjxK6et/Mxlt6RnU89un6K3YWaD1M/eh2tnP06FwG2ilm4QNH30vW6zD5mVanpYdJhPxyx1b6W2GpFXhIv2UI4WEJvFQdvn1otTCrHSYhcdZj2MzGxilR9WhYnoxnjMQv81tEWydRYPJQxy/+INuIuShRD5+xMNl8n/2jzUtLSljLOrCWES+1tdQAzsr5DtXtaoEqExe1kZZgjyr0ZlIGcLXG8fN7Lr/9WxHDSKrIGrlfUihkorr0O8c3lwP2lDctmm16akEjZ4qSapFt0FPBz59RY7l9WDB3GwrYtBtK0Fdeg57ywx0TKlxV+Sr/bztUiUuFR4Vq14M/E9K87NRYiyBqdceeVFZl2WAJlRfLbBRj6u3i9mAQ==
+x-microsoft-antispam-message-info: 6+T89HljD+AWtYPM7L3uNUUGA05bW1+xNY5BacqBWMCEofC8ZcuZiTqZB44yzKuWcjlechfRwcBGZ9zBiyfijHtZzMGJjO7yShz7O+dDe6y2ZLdeH63ZhWQ4T2z3dWuKt9VU9pTIsvzUf1lzYYF/Qqh1staZhMyRqYmNzgLiJ60zJbjROmWQR+JBcGwyWH2QuI2POOHsPfuORdUPn45pYW+Sk8d+lOMirD8uNJ2Gq4B71DWv5cV4B5VCC5TDhNcRNnTydwVxVg7uPHIUc8nl4MdXOHcA511YsCIiHgK87yIgUqnXe61mpFzVORNa57kkVmt1y1Jko1zi2T8F9QlwvLfXaSramhsg5+fvgvlGb1WkZr+kbQM/k9Odm+kwc+dujXKrrhc7Lm/lFuEqkDtf6ZvamiZCXjDwG8Qian/p694YqaCZZWqHsrRvnhDka4w1vsEwRsMVBzxPMXcs9nc2JW5TDV/OfTulPn/w2IZ3NozIbdLIehKKoQoATOczKfgABkv1VaOQm5eyAmGwd52GJEwmi7YRw/NW31QfBDVPpQdZkfGOK231AFgGWwjHJrdl0blZHL5CnKTXlWudDbNBSQ+U0diyK+8AI9dNw30uqhcqxMfdBDDZAvSRaPMR/Oc0/oVDtfXj3u9rwZRCq5wmwJsaipcgMdBDAitOfIE//39TzQnpQDD+JxIB3s+75J6IljNYjGLcmm6QV6roPBgI0Q==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(39860400002)(396003)(346002)(376002)(136003)(451199015)(2906002)(55016003)(86362001)(76116006)(66556008)(66446008)(66476007)(66946007)(41300700001)(33656002)(122000001)(6506007)(38100700002)(53546011)(54906003)(4326008)(83380400001)(38070700005)(7696005)(110136005)(8936002)(5660300002)(186003)(64756008)(71200400001)(8676002)(15650500001)(19627235002)(316002)(26005)(9686003)(478600001)(52536014);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1770.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(346002)(366004)(376002)(39860400002)(136003)(451199015)(71200400001)(478600001)(53546011)(26005)(9686003)(7696005)(76116006)(66556008)(64756008)(110136005)(8676002)(6506007)(66446008)(4326008)(66946007)(66476007)(41300700001)(54906003)(316002)(38100700002)(122000001)(186003)(83380400001)(55016003)(5660300002)(2906002)(52536014)(8936002)(33656002)(86362001)(38070700005);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?yIgSyzxWL6J2rPFQkjkkn9hLGmvlk7A/uHVJ+xlyRQYxA7kPRp9xKz9ONCHR?=
- =?us-ascii?Q?JKa801UXGJeXBprWyJJbY875X0tl6yQyBjfP+zqzX8szhs3+OIXlsgrvt3si?=
- =?us-ascii?Q?7CTRSF8Hw5uHNcjqhEfSSGI3Xm5/DfZqVglUfmp+JlzQlxchJYP3gIFFKa+E?=
- =?us-ascii?Q?WNFVsCGrlrg7PHwKpYcinyY+14wZMAZdjuw1liPs8Mms3pap17xf/h5KXEdh?=
- =?us-ascii?Q?oqPWuzcThNhVhwgu18oT2kqbBPWu0GCCDFMbNot+odgAZIN+uFNm5qsoyiG8?=
- =?us-ascii?Q?FAizsz/QyV5LQpTwiOh8r0WPPUUnJdo04WcmGOQ0SnXh7nsU8uLQ9z4do3+d?=
- =?us-ascii?Q?Gh2/NwtDu/HS412Fn7LiZeQGlw3VIkneEuOZcllywbTAI/Q9c6FZKwYqFGh0?=
- =?us-ascii?Q?r/dmVHS4LBXN4LcWMDFG0FBr3+Ecp1HY2ZQvAQAIJs3vWT6rjfBv5ixRrC6N?=
- =?us-ascii?Q?pbzGLd6RY25A5Dd67AuE/nVQ+H+oe9IjrpigQnwZDlBgA6ZDlMZtXz183vEH?=
- =?us-ascii?Q?Iefu+5BsQtS4jocPFYRXTc9gzUJP1ncOComVUdt7xL4eKnuspH7yY1QIv319?=
- =?us-ascii?Q?kFDJIkDsEoEInVNIicPaq1b5jxxVfbLY3crXjPNxjStH/2EFpVQc2UuH2oZ2?=
- =?us-ascii?Q?CIXYQ97+4aLdiosRALlTb5AAWsMoH3Nf9VMijeqVKykiO6aiYWjmqacOmTnz?=
- =?us-ascii?Q?eljR4Jly9O7AK1MYm2WA44ZM+zz+SoUNlWgQlEHeHeVMbWTXGWZ92FJn+kdu?=
- =?us-ascii?Q?b9/mG8o9wZNPRSVUqEOy5/3N6y0VQv7kbSGEctb34kWVINUNHUPPQvz1IwWZ?=
- =?us-ascii?Q?E2ogvLuDwEjHLGOYld9jrxvVaek0/U3E4JCM3TkUY3iRHickGePtyU3B1yVw?=
- =?us-ascii?Q?Cz6NkXipiV+PZeSWAztOJYW08ErL+Rl5JXi/LADmmGX5zKw4bybCwH4SSAPT?=
- =?us-ascii?Q?6dw8VFAssR5d5URXjNVZOi/HfBVzRO8metNdcmZKvg/qDRJj+wOnFpQbgv9I?=
- =?us-ascii?Q?gJxJUNiKln+byFYjiC4TzdYBWCz3YhnhMUIwOEV20nmiNVzYOJj6XRRsO/hQ?=
- =?us-ascii?Q?EKpLZXgtcVRWEuRhY6X75GL5B6scGQOI421Vt1zqHqNMMrYYxQFYI3vOu1yz?=
- =?us-ascii?Q?NgmNv3gb6l5s6ZbXRIdoEj/DuBUy6u8fKZsT1J7+Gn2XzKYVbc4dLtQBUrg1?=
- =?us-ascii?Q?KI1EOiATG0VM8CGJq9ENB0YxUElFoL6l3KFrECHoA2uMPP1YQbPA3c296vEf?=
- =?us-ascii?Q?+HOgt0KogPKLAqh33Q9Ic9x+pyjLf2kxtOn/nc4knpVbpohPKUATAx5cmUON?=
- =?us-ascii?Q?zLAOCd0iQN/GXde71ibE40bFqye+P4aXVv90VtmkAVIk3Z09D5uP9z2EcN7d?=
- =?us-ascii?Q?SYEaSuZesrtxUnIgH/Sx7FQxODSofR0PvX2R1oQAdBfE00JYGgf+xFTMQSIJ?=
- =?us-ascii?Q?AAWzEPHrkVHOObkZT2hDe32RE90L335J+sKPtSRGSRc1mgwP6vYSH3N75Cff?=
- =?us-ascii?Q?zjJoPkxP6uW00cvM/IlLEApycQwGFkJeNpBN9vTGlHtojxi0EQ0hbuhDHh//?=
- =?us-ascii?Q?mbUA7vpA9z5x3U4TVSU=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+VG635gFHfT4hqGjvhATHyPOfvhgg3nvf7yzNwwLK9/Tko+8KZPXaWreY6AA?=
+ =?us-ascii?Q?MnPXD0DNjIAubO4TugDfrB8UyM/CQh3g+d96dm3s6PNSu4cr9CzbRkzNd9cr?=
+ =?us-ascii?Q?BzQ+tfMWT/a+j40HQJiWyWLemRQr9No7jaVGVV0+KEqVbFMQl/CTIVa2SkZO?=
+ =?us-ascii?Q?g078jHB47FvFnWCZAypqNMU4E4FdsZSd2Zxi7IsvR59/0pg9gOERbIBh4sHi?=
+ =?us-ascii?Q?Ef1E1NdW+be4BXdYuHghifSpMUbF97zWuZY4fKpyZ4RAsJIHRX8eIZEqT3Qd?=
+ =?us-ascii?Q?A7JMK/RAnuTIdR4uWKwLk0mUeGx+Kb36gVUUEWOx7/mNg4WjGm0Vu7ed9BDN?=
+ =?us-ascii?Q?2fCfzy8IPh0w52nB4Vmmt1V/cZiSkI4nnQvLteTXfWT5l3XfIKnvfrCBpqg8?=
+ =?us-ascii?Q?pz//L25LKntW7Ay92sKERL89q/RO90HPrgmBFNQz/DRWodLzgG7JkNW0BKNk?=
+ =?us-ascii?Q?eTfKnD+MB/WSP83C9eQfXrXO1EDQTHUSkoFDlwrcCIESTaBVxKdP7VV+5TLr?=
+ =?us-ascii?Q?MofTk6bE64w19+3R2SYaTmR/s2Xrass6rZH7QOnT77MSv/DJgjC7UYJ47DG3?=
+ =?us-ascii?Q?vNYLm5SYTTowcbaUYr099aqxKJVosqUXa3Tr3zc+y8IYBwQIT417fBcUtzdz?=
+ =?us-ascii?Q?4EQwhuhvXosN3GFH/GKAVeJxkcDYlXZcbpo3H8L/xRNmOXE/qTrVEr7VDUpA?=
+ =?us-ascii?Q?grB2heaAqSZ7A6IwrpXidEfyucFNybep132JjiFyx54aHFC77ztPMqXT+gvx?=
+ =?us-ascii?Q?geBwROxRzmn8Pp1oNHGTytu3nIi/YM0vk1l2lRKzIxxUqwv95gYF9bPWKuL0?=
+ =?us-ascii?Q?y5Ew7NFXkaOEfHDfv83rxbkXtcUZPvQacC9SsBWm5uCieIUwx5k4ZuzrXxU5?=
+ =?us-ascii?Q?kX/TDkIKuiWOQR6VERrzwxs8XXdKtg1plTJEzV9x0qUIQg33gKiL5yMEVMs8?=
+ =?us-ascii?Q?LbjU/fUKJV+AW+r2Otf4rl7ykPS55WH0lm4h7DDCX4q97BwezyDqMshG2Uy+?=
+ =?us-ascii?Q?PNtv/W/CB67z4cvn7fpVgVPElzOQmAIMLRvPRjV5HHgkth+P/7BGSzw1ONuB?=
+ =?us-ascii?Q?ZdQ/Xh+ex/eSU3C4uFW7/SsMGGk89IumhWsy/L0ZxvwqXe5JdZMr/WKmySEL?=
+ =?us-ascii?Q?fkDvTyA05fOFVJHye4xusV008uQoQIGy72ABPa02tW1xHWO+mreILc7tpaWq?=
+ =?us-ascii?Q?4AnY3Bz8CMfHC2EcW/DbSp8BkVvWM50cN/jBRsdHAzHA4tNvQzqcUvgcGQRs?=
+ =?us-ascii?Q?e3QqAG9nQy3UD2m+tcrFDd+T2qQ8N1Apsr4+E5t7p8LKV/PLmTRvHGkPHl21?=
+ =?us-ascii?Q?36zvuroH7EsbNkwMBCYVMNsz2iC3E82i8+dKobkHBkxTRO8BHNFNl34inrQ1?=
+ =?us-ascii?Q?49cJLb49kStwYHYBn2E6g8S6DJlIXGUkWBCMH7DJnG4tfkaPE43lS1tYCN+z?=
+ =?us-ascii?Q?iksDu9s0u8bYm6L7zmGeZV5LWJn8RkBlO6Ef7rR2EmPOgvF/59Hk50crty7i?=
+ =?us-ascii?Q?5zrdVOd9rjHuh7A2jML8VtmsjGmbALDumc6HXLKCN8R8RFoAS+J6nOZlXOzo?=
+ =?us-ascii?Q?oovld45Zwf+WmeWTlq4=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fef8534-8777-4b6a-9870-08dacb6825bb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Nov 2022 02:28:59.5810 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1770.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c3a06ea-70b2-4b0b-3c8d-08dacb6aaa37
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Nov 2022 02:47:00.8752 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wjbzues1Qlzm27ranaCH9HDWAwtgaTllUR8x2x7lGUoZXWigRpqi0wfrjb6Ohm1y
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6141
+X-MS-Exchange-CrossTenant-userprincipalname: ex0P4FGVctEKKQSRYByx5QICtUTstNH/mGTEiKLFiUMYwuevr+NxhDkvmdp1t5Q/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4185
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,341 +131,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Xu, Feifei" <Feifei.Xu@amd.com>,
- "enneth.feng@amd.com" <enneth.feng@amd.com>, "Li, Lyndon" <Lyndon.Li@amd.com>
+Cc: "Wang, YuBiao" <YuBiao.Wang@amd.com>,
+ "andrey.grodzovsky@amd.com" <andrey.grodzovsky@amd.com>, "Yang,
+ Stanley" <Stanley.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only - General]
 
-
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 
 > -----Original Message-----
-> From: lyndonli <Lyndon.Li@amd.com>
-> Sent: Monday, November 21, 2022 9:43 AM
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> Stanley.Yang
+> Sent: Thursday, November 17, 2022 11:01 AM
 > To: amd-gfx@lists.freedesktop.org
-> Cc: enneth.feng@amd.com; Xu, Feifei <Feifei.Xu@amd.com>; Quan, Evan
-> <Evan.Quan@amd.com>; Li, Lyndon <Lyndon.Li@amd.com>
-> Subject: [PATCH 1/2] drm/amd/pm: update driver if header for smu_13_0_7
+> Cc: Wang, YuBiao <YuBiao.Wang@amd.com>; andrey.grodzovsky@amd.com;
+> Yang, Stanley <Stanley.Yang@amd.com>
+> Subject: [PATCH Reivew 1/1] drm/amdgpu: fix use-after-free during gpu
+> recovery
 >=20
-> update driver if header for smu_13_0_7
+> [Why]
+>     [  754.862560] refcount_t: underflow; use-after-free.
+>     [  754.862898] Call Trace:
+>     [  754.862903]  <TASK>
+>     [  754.862913]  amdgpu_job_free_cb+0xc2/0xe1 [amdgpu]
+>     [  754.863543]  drm_sched_main.cold+0x34/0x39 [amd_sched]
 >=20
-> Signed-off-by: lyndonli <Lyndon.Li@amd.com>
+> [How]
+>     The fw_fence may be not init, check whether dma_fence_init
+>     is performed before job free
+>=20
+> Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
 > ---
->  .../inc/pmfw_if/smu13_driver_if_v13_0_7.h     | 117 ++++++++++++------
->  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |   2 +-
->  2 files changed, 81 insertions(+), 38 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 >=20
-> diff --git
-> a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7
-> .h
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7
-> .h
-> index 25c08f963f49..efb270cee1e0 100644
-> ---
-> a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7
-> .h
-> +++
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7
-> .h
-> @@ -25,10 +25,10 @@
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> index 8771df97d590..ddee6a6b133d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -169,7 +169,11 @@ static void amdgpu_job_free_cb(struct drm_sched_job
+> *s_job)
+>  	amdgpu_sync_free(&job->sync);
+>  	amdgpu_sync_free(&job->sched_sync);
 >=20
->  // *** IMPORTANT ***
->  // PMFW TEAM: Always increment the interface version on any change to
-> this file
-> -#define SMU13_DRIVER_IF_VERSION  0x2C
-> +#define SMU13_DRIVER_IF_VERSION  0x35
+> -	dma_fence_put(&job->hw_fence);
+> +	/* only put the hw fence if has embedded fence */
+> +	if (!job->hw_fence.ops)
+> +		kfree(job);
+> +	else
+> +		dma_fence_put(&job->hw_fence);
+>  }
 >=20
->  //Increment this version if SkuTable_t or BoardTable_t change
-> -#define PPTABLE_VERSION 0x20
-> +#define PPTABLE_VERSION 0x27
->=20
->  #define NUM_GFXCLK_DPM_LEVELS    16
->  #define NUM_SOCCLK_DPM_LEVELS    8
-> @@ -96,7 +96,7 @@
->  #define FEATURE_MEM_TEMP_READ_BIT             47
->  #define FEATURE_ATHUB_MMHUB_PG_BIT            48
->  #define FEATURE_SOC_PCC_BIT                   49
-> -#define FEATURE_SPARE_50_BIT                  50
-> +#define FEATURE_EDC_PWRBRK_BIT                50
->  #define FEATURE_SPARE_51_BIT                  51
->  #define FEATURE_SPARE_52_BIT                  52
->  #define FEATURE_SPARE_53_BIT                  53
-> @@ -282,15 +282,15 @@ typedef enum {
->  } I2cControllerPort_e;
->=20
->  typedef enum {
-> -  I2C_CONTROLLER_NAME_VR_GFX =3D 0,
-> -  I2C_CONTROLLER_NAME_VR_SOC,
-> -  I2C_CONTROLLER_NAME_VR_VMEMP,
-> -  I2C_CONTROLLER_NAME_VR_VDDIO,
-> -  I2C_CONTROLLER_NAME_LIQUID0,
-> -  I2C_CONTROLLER_NAME_LIQUID1,
-> -  I2C_CONTROLLER_NAME_PLX,
-> -  I2C_CONTROLLER_NAME_OTHER,
-> -  I2C_CONTROLLER_NAME_COUNT,
-> +	I2C_CONTROLLER_NAME_VR_GFX =3D 0,
-> +	I2C_CONTROLLER_NAME_VR_SOC,
-> +	I2C_CONTROLLER_NAME_VR_VMEMP,
-> +	I2C_CONTROLLER_NAME_VR_VDDIO,
-> +	I2C_CONTROLLER_NAME_LIQUID0,
-> +	I2C_CONTROLLER_NAME_LIQUID1,
-> +	I2C_CONTROLLER_NAME_PLX,
-> +	I2C_CONTROLLER_NAME_FAN_INTAKE,
-> +	I2C_CONTROLLER_NAME_COUNT,
->  } I2cControllerName_e;
->=20
->  typedef enum {
-> @@ -302,6 +302,7 @@ typedef enum {
->    I2C_CONTROLLER_THROTTLER_LIQUID0,
->    I2C_CONTROLLER_THROTTLER_LIQUID1,
->    I2C_CONTROLLER_THROTTLER_PLX,
-> +  I2C_CONTROLLER_THROTTLER_FAN_INTAKE,
->    I2C_CONTROLLER_THROTTLER_INA3221,
->    I2C_CONTROLLER_THROTTLER_COUNT,
->  } I2cControllerThrottler_e;
-> @@ -309,8 +310,9 @@ typedef enum {
->  typedef enum {
->    I2C_CONTROLLER_PROTOCOL_VR_XPDE132G5,
->    I2C_CONTROLLER_PROTOCOL_VR_IR35217,
-> -  I2C_CONTROLLER_PROTOCOL_TMP_TMP102A,
-> +  I2C_CONTROLLER_PROTOCOL_TMP_MAX31875,
->    I2C_CONTROLLER_PROTOCOL_INA3221,
-> +  I2C_CONTROLLER_PROTOCOL_TMP_MAX6604,
->    I2C_CONTROLLER_PROTOCOL_COUNT,
->  } I2cControllerProtocol_e;
->=20
-> @@ -690,6 +692,9 @@ typedef struct {
->  #define PP_OD_FEATURE_UCLK_BIT      8
->  #define PP_OD_FEATURE_ZERO_FAN_BIT      9
->  #define PP_OD_FEATURE_TEMPERATURE_BIT 10
-> +#define PP_OD_FEATURE_POWER_FEATURE_CTRL_BIT 11
-> +#define PP_OD_FEATURE_ASIC_TDC_BIT 12
-> +#define PP_OD_FEATURE_COUNT 13
->=20
->  typedef enum {
->    PP_OD_POWER_FEATURE_ALWAYS_ENABLED,
-> @@ -697,6 +702,11 @@ typedef enum {
->    PP_OD_POWER_FEATURE_ALWAYS_DISABLED,
->  } PP_OD_POWER_FEATURE_e;
->=20
-> +typedef enum {
-> +  FAN_MODE_AUTO =3D 0,
-> +  FAN_MODE_MANUAL_LINEAR,
-> +} FanMode_e;
-> +
->  typedef struct {
->    uint32_t FeatureCtrlMask;
->=20
-> @@ -708,8 +718,8 @@ typedef struct {
->    uint8_t                RuntimePwrSavingFeaturesCtrl;
->=20
->    //Frequency changes
-> -  int16_t               GfxclkFmin;           // MHz
-> -  int16_t               GfxclkFmax;           // MHz
-> +  int16_t                GfxclkFmin;           // MHz
-> +  int16_t                GfxclkFmax;           // MHz
->    uint16_t               UclkFmin;             // MHz
->    uint16_t               UclkFmax;             // MHz
->=20
-> @@ -730,7 +740,12 @@ typedef struct {
->    uint8_t                MaxOpTemp;
->    uint8_t                Padding[4];
->=20
-> -  uint32_t               Spare[12];
-> +  uint16_t               GfxVoltageFullCtrlMode;
-> +  uint16_t               GfxclkFullCtrlMode;
-> +  uint16_t               UclkFullCtrlMode;
-> +  int16_t                AsicTdc;
-> +
-> +  uint32_t               Spare[10];
->    uint32_t               MmHubPadding[8]; // SMU internal use. Adding he=
-re
-> instead of external as a workaround
->  } OverDriveTable_t;
->=20
-> @@ -748,8 +763,8 @@ typedef struct {
->    uint8_t                IdlePwrSavingFeaturesCtrl;
->    uint8_t                RuntimePwrSavingFeaturesCtrl;
->=20
-> -  uint16_t               GfxclkFmin;           // MHz
-> -  uint16_t               GfxclkFmax;           // MHz
-> +  int16_t                GfxclkFmin;           // MHz
-> +  int16_t                GfxclkFmax;           // MHz
->    uint16_t               UclkFmin;             // MHz
->    uint16_t               UclkFmax;             // MHz
->=20
-> @@ -769,7 +784,12 @@ typedef struct {
->    uint8_t                MaxOpTemp;
->    uint8_t                Padding[4];
->=20
-> -  uint32_t               Spare[12];
-> +  uint16_t               GfxVoltageFullCtrlMode;
-> +  uint16_t               GfxclkFullCtrlMode;
-> +  uint16_t               UclkFullCtrlMode;
-> +  int16_t                AsicTdc;
-> +
-> +  uint32_t               Spare[10];
->=20
->  } OverDriveLimits_t;
->=20
-> @@ -903,7 +923,8 @@ typedef struct {
->    uint16_t  FanStartTempMin;
->    uint16_t  FanStartTempMax;
->=20
-> -  uint32_t Spare[12];
-> +  uint16_t  PowerMinPpt0[POWER_SOURCE_COUNT];
-> +  uint32_t  Spare[11];
->=20
->  } MsgLimits_t;
->=20
-> @@ -1086,11 +1107,13 @@ typedef struct {
->    uint32_t        GfxoffSpare[15];
->=20
->    // GFX GPO
-> -  float           DfllBtcMasterScalerM;
-> +  uint32_t        DfllBtcMasterScalerM;
->    int32_t         DfllBtcMasterScalerB;
-> -  float           DfllBtcSlaveScalerM;
-> +  uint32_t        DfllBtcSlaveScalerM;
->    int32_t         DfllBtcSlaveScalerB;
-> -  uint32_t        GfxGpoSpare[12];
-> +  uint32_t        DfllPccAsWaitCtrl; //GDFLL_AS_WAIT_CTRL_PCC register v=
-alue
-> to be passed to RLC msg
-> +  uint32_t        DfllPccAsStepCtrl; //GDFLL_AS_STEP_CTRL_PCC register v=
-alue
-> to be passed to RLC msg
-> +  uint32_t        GfxGpoSpare[10];
->=20
->    // GFX DCS
->=20
-> @@ -1106,7 +1129,10 @@ typedef struct {
->    uint16_t        DcsTimeout;           //This is the amount of time SMU=
- FW waits
-> for RLC to put GFX into GFXOFF before reverting to the fallback mechanism
-> of throttling GFXCLK to Fmin.
->=20
->=20
-> -  uint32_t        DcsSpare[16];
-> +  uint32_t        DcsSpare[14];
-> +
-> +  // UCLK section
-> +  uint16_t     ShadowFreqTableUclk[NUM_UCLK_DPM_LEVELS];     // In MHz
->=20
->    // UCLK section
->    uint8_t      UseStrobeModeOptimizations; //Set to indicate that FW sho=
-uld
-> use strobe mode optimizations
-> @@ -1163,13 +1189,14 @@ typedef struct {
->    uint16_t IntakeTempHighIntakeAcousticLimit;
->    uint16_t IntakeTempAcouticLimitReleaseRate;
->=20
-> -  uint16_t FanStalledTempLimitOffset;
-> +  int16_t FanAbnormalTempLimitOffset;
->    uint16_t FanStalledTriggerRpm;
-> -  uint16_t FanAbnormalTriggerRpm;
-> -  uint16_t FanPadding;
-> -
-> -  uint32_t     FanSpare[14];
-> +  uint16_t FanAbnormalTriggerRpmCoeff;
-> +  uint16_t FanAbnormalDetectionEnable;
->=20
-> +  uint8_t      FanIntakeSensorSupport;
-> +  uint8_t      FanIntakePadding[3];
-> +  uint32_t     FanSpare[13];
->    // SECTION: VDD_GFX AVFS
->=20
->    uint8_t      OverrideGfxAvfsFuses;
-> @@ -1238,8 +1265,22 @@ typedef struct {
->    // SECTION: Advanced Options
->    uint32_t          DebugOverrides;
->=20
-> +  // Section: Total Board Power idle vs active coefficients
-> +  uint8_t     TotalBoardPowerSupport;
-> +  uint8_t     TotalBoardPowerPadding[3];
-> +
-> +  int16_t     TotalIdleBoardPowerM;
-> +  int16_t     TotalIdleBoardPowerB;
-> +  int16_t     TotalBoardPowerM;
-> +  int16_t     TotalBoardPowerB;
-> +
-> +  //PMFW-11158
-[Quan, Evan] Please drop this internal link reference.=20
-Other than that, the series is Reviewed-by: Evan Quan <evan.quan@amd.com>
-
-Evan
-> +  QuadraticInt_t qFeffCoeffGameClock[POWER_SOURCE_COUNT];
-> +  QuadraticInt_t qFeffCoeffBaseClock[POWER_SOURCE_COUNT];
-> +  QuadraticInt_t qFeffCoeffBoostClock[POWER_SOURCE_COUNT];
-> +
->    // SECTION: Sku Reserved
-> -  uint32_t         Spare[64];
-> +  uint32_t         Spare[43];
->=20
->    // Padding for MMHUB - do not modify this
->    uint32_t     MmHubPadding[8];
-> @@ -1304,7 +1345,8 @@ typedef struct {
->    // SECTION: Clock Spread Spectrum
->=20
->    // UCLK Spread Spectrum
-> -  uint16_t     UclkSpreadPadding;
-> +  uint8_t      UclkTrainingModeSpreadPercent; // Q4.4
-> +  uint8_t      UclkSpreadPadding;
->    uint16_t     UclkSpreadFreq;      // kHz
->=20
->    // UCLK Spread Spectrum
-> @@ -1317,11 +1359,7 @@ typedef struct {
->=20
->    // Section: Memory Config
->    uint8_t      DramWidth; // Width of interface to the channel for each =
-DRAM
-> module. See DRAM_BIT_WIDTH_TYPE_e
-> -  uint8_t      PaddingMem1[3];
-> -
-> -  // Section: Total Board Power
-> -  uint16_t     TotalBoardPower;     //Only needed for TCP Estimated case=
-,
-> where TCP =3D TGP+Total Board Power
-> -  uint16_t     BoardPowerPadding;
-> +  uint8_t      PaddingMem1[7];
->=20
->    // SECTION: UMC feature flags
->    uint8_t      HsrEnabled;
-> @@ -1423,8 +1461,11 @@ typedef struct {
->    uint16_t Vcn1ActivityPercentage  ;
->=20
->    uint32_t EnergyAccumulator;
-> -  uint16_t AverageSocketPower    ;
-> +  uint16_t AverageSocketPower;
-> +  uint16_t AverageTotalBoardPower;
-> +
->    uint16_t AvgTemperature[TEMP_COUNT];
-> +  uint16_t AvgTemperatureFanIntake;
->=20
->    uint8_t  PcieRate               ;
->    uint8_t  PcieWidth              ;
-> @@ -1592,5 +1633,7 @@ typedef struct {
->  #define IH_INTERRUPT_CONTEXT_ID_AUDIO_D0            0x5
->  #define IH_INTERRUPT_CONTEXT_ID_AUDIO_D3            0x6
->  #define IH_INTERRUPT_CONTEXT_ID_THERMAL_THROTTLING  0x7
-> +#define IH_INTERRUPT_CONTEXT_ID_FAN_ABNORMAL        0x8
-> +#define IH_INTERRUPT_CONTEXT_ID_FAN_RECOVERY        0x9
->=20
->  #endif
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> index b7f4569aff2a..865d6358918d 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> @@ -31,7 +31,7 @@
->  #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_4 0x07
->  #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_5 0x04
->  #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_0_10 0x32
-> -#define SMU13_DRIVER_IF_VERSION_SMU_V13_0_7 0x2C
-> +#define SMU13_DRIVER_IF_VERSION_SMU_V13_0_7 0x35
->  #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_10 0x1D
->=20
->  #define SMU13_MODE1_RESET_WAIT_TIME_IN_MS 500  //500ms
+>  void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
 > --
-> 2.25.1
+> 2.17.1
