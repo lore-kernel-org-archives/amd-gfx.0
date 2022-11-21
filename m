@@ -4,115 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43D61C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 02:21:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB527C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 02:26:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E230C10E10D;
-	Mon, 21 Nov 2022 02:21:51 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2052.outbound.protection.outlook.com [40.107.93.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85E5810E113
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 02:21:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2654910E113;
+	Mon, 21 Nov 2022 02:26:34 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2080.outbound.protection.outlook.com [40.107.220.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB97010E113
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 02:26:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MPbjyzWZvQSuAI+fuuPYaGUXbqmDBI5vEdHyOjRVLPVN4R0VkXuUeltGSg1Om+Fz/DjFItysxzX1q4UttY/i9bxo3sdPg1RPOIK18sF50izXgJnxUYtVRH43b2+Z50oZNh5umDYqgB51qRUDZcOvjMUfAhsIl7zbxfs0RsJydxae/s4uYo2UHtJaNDZtM8RqLwDHncyQSi2/uU2nESHYk+gAFuZOEICoKPxKRgfvsow81Q4dRkJ5uZ9Rf8Cz5GfMZTVUT78Dh4XD2x2ujt1Q5HBeiUJL9Cegv9n3+dZtsdM0pNlz2yG/wazbuG6JAbB9pwNhZNqq2QqUVfvNsxL07g==
+ b=QJDoFxCrQhouCC9rwR0i8FZGJTSeP7AWn2Eii3wvOE1YSzU6DuEmG0RlbAjW5oMpskkHb0NBw1Wlhc7Tiq882/ts3/fwmulY/p0UG5kRTrwpnIWhKIh9hON6lUfFb8QcB3M+ynHQHzqoqQcGhVO0uqzI0Nq8CwnPuNolmgKR9gu9ZCSDctdsK+ws7VaChtS7QsUkb1VverxCQxH14DBb/6sQyf/N88vWDPtyl7EmjfeRtLuUL7GZ4KVKB1DvBaoIt64HWWb6jQLvfRsKtLoXaThEvnbhTLWimjR/CBg8wODKFIKcCk5FhBsohrkbkHZ7e0JEzxUNxrkY65TjnsLl2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=In2QT+c2RVH1WhArtCxvReOCgCP78Zn53ncWfyt8v/s=;
- b=OYmKqrJ5Gxc0kv66PSpcffBdZMzX2q/nIXxnrSnN4qUMqzhEteVTgYvZwdEiRbW/7tSbf7eO+O1EArCCfa+knePSdqGSvrCnGxwOX2DSUjgLGd7SDIxjn5kTEodMMWRJtvkHUNHtjjhNm71itANfsG0VAR1x24gPg0sszX5h/wnECfdHTCGl+xR8RyqzRePLkpxFQaubd9aaCUQmCojvZ4eM5iUTVcb20+O1JegxOnOe8TWoaLaE6Les9mxRANcz+Q9zirxJTkUPFPZ7CU2fWcvaOpTi8HEvQt6JvfcBQFsVBqFAyvd4UT7bi1qnq4Eo0y64P96r4oSu6GVHlMyP1g==
+ bh=6kejfiKw0+YkO5KwleC0Yw483LBPcCO2OldGosKjFug=;
+ b=MwlbLM3doGyhAZj6KqmKUF8Z5thmOeq3LXXs+dMkzMdPbaH+nj8H1eSPi6D3dnhCt5n2RR9i3FvaQCW8R32vkREoI7amMKKFhmytSxI0BCzCGriW4LL1uAfDJ+o+O/lTl3Kbcjh1OmL6UdOrplTCCH3qizfB6Qw7S1OGW7FTIRGPN4jT66Zg0VAt8+dP7u0Yb2KxhRDuA5VOd28XUNJo1lKOI9Gv/V1kPWFPMYfBzZGAc3CpNvRZv2NQF2Tu+xWvDBAcZLr6UczC7rBY5+8DuEEfGSQyK4FpOI3FdrBvBkD6KgnhmH6OVrKiwrFyfyegdFJGYmV2ogYP6ycWLLwdsw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=In2QT+c2RVH1WhArtCxvReOCgCP78Zn53ncWfyt8v/s=;
- b=p6plpF4yQC/s+tMUPgfOrZ+C5VuSHp24a7joO1Dma1qNliN26Fpfwu6NHlSWn9me6miDhUNbLd/Qo9sFZe5xIHRIk8vRyDkbIka+gpNW4wfpVqXpRTcmMq1LeMYntY9l1ua6iaskKC335ljt6uaM4zM815mOS+2ZxTHtj6F7MPM=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- SN7PR12MB7226.namprd12.prod.outlook.com (2603:10b6:806:2a9::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=6kejfiKw0+YkO5KwleC0Yw483LBPcCO2OldGosKjFug=;
+ b=kJoEHGp5CHXskeNLAvr+sz2o/jf0MjUg91gVG4+rFzlMJKmr2GkT/4R+aNSIte0YzBqsuyYySfBUC+y2Ou3S2Dt2N5HxehjNKo1/XMQGFhRHfNz88+UTMX+o8PbQ/371OJ8PIt6yAb+MoR87TYaK1A4kbezXzx3cV8MepylSjok=
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by SJ0PR12MB7067.namprd12.prod.outlook.com (2603:10b6:a03:4ae::9)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Mon, 21 Nov
- 2022 02:21:45 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::9440:1b9b:2878:832a]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::9440:1b9b:2878:832a%3]) with mapi id 15.20.5834.011; Mon, 21 Nov 2022
- 02:21:44 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
+ 2022 02:26:29 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::3959:cdff:85bc:f148]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::3959:cdff:85bc:f148%4]) with mapi id 15.20.5834.009; Mon, 21 Nov 2022
+ 02:26:26 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
 To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "Lazar, Lijo" <Lijo.Lazar@amd.com>
-Subject: RE: [PATCH 2/2] drm/amdgpu: poll BACO status after RPM BACO exits
-Thread-Topic: [PATCH 2/2] drm/amdgpu: poll BACO status after RPM BACO exits
-Thread-Index: AQHY/UHCjBcEPxSBdU2lz64uG9LCaq5IpLQQ
-Date: Mon, 21 Nov 2022 02:21:44 +0000
-Message-ID: <DM6PR12MB261999E51C1BE24AD3B4F56DE40A9@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20221121003929.3296266-1-guchun.chen@amd.com>
-In-Reply-To: <20221121003929.3296266-1-guchun.chen@amd.com>
-Accept-Language: en-US, zh-CN
+ <Alexander.Deucher@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Quan, 
+ Evan" <Evan.Quan@amd.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: use rpm_mode as runtime pm check flag
+Thread-Topic: [PATCH 1/2] drm/amdgpu: use rpm_mode as runtime pm check flag
+Thread-Index: AQHY/UGvHVCN6kbBEkqaRMC0JPuQCa5IplVf
+Date: Mon, 21 Nov 2022 02:26:26 +0000
+Message-ID: <BYAPR12MB4614CF63A50968A29AB037A3970A9@BYAPR12MB4614.namprd12.prod.outlook.com>
+References: <20221121003858.3296035-1-guchun.chen@amd.com>
+In-Reply-To: <20221121003858.3296035-1-guchun.chen@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-11-21T02:21:41Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=681b7b4c-b919-4527-877a-32e39fdb70e6;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-11-21T02:24:46.6738656Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2619:EE_|SN7PR12MB7226:EE_
-x-ms-office365-filtering-correlation-id: 8ab96bca-ae41-4e43-fc08-08dacb67225d
+x-ms-traffictypediagnostic: BYAPR12MB4614:EE_|SJ0PR12MB7067:EE_
+x-ms-office365-filtering-correlation-id: 5f0022f3-dd33-455c-cd08-08dacb67ca9d
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: BZ1IXfIO9vZ+CeIjFWn3/oVcxl8CUsZlsTMWhaZyBR15g48is0UgILGBu15niHkSdWL8GM3XGLFWQYqFpDQVmpBziyM/yfa8clDFxsC8h5mnygGbkirqQXPhpZj/8ye/4N6aTjgKnUEb8O5xJJdlgADc1uiG6a66Xej3bZCUkTRHv7WQFEc/nPmTLG6O91eJT/RgZ8pJlGXalyUPB7DeJi6lmTdS6+3gqaaKq6zD+mVf98qyNrNbzdgVSah/D7FdY8wBXzD63fHL2711i+ztRg3yknlOt0g++s2iuPdAsUgLFkdJrBciI8lxnAQQJFczyVnCOcJk9YeGN6Y9LF5gnk7es6BEu/wZWo8yvUzEnYnM8drM3JavBbOTcURD38nN4uLWKKWr3xs3AjjgaocjlwMb4xoioiONdWI2q2toymwSK8QXOQDjYi43JSjmCDhL8IGAJxM3gPRnZbZsmSe+Bx9fsflUeboWkJt2KpUmPGmshklY1BJNTU/YjzEfKzSN0ytWTvcWoxms0Mu5Ojt2pSC086uc27dxI5F8XKDyEk85zhrk1fSGflV5h0hPIL1ElwRj9DOp6GLyLHr2PPw87VPdGPTIALF6wCDOMPCdyPC7jhmAPlV4yVBbdyBdDKX+s6WzxRghI6YpCEPvjjuFIQaJH2yIthc54zmpv5Lpc2+Ag1okjroTxjd4z2W5y4XpG+TbzvjApaBEamyjWS6ljA==
+x-microsoft-antispam-message-info: /75RfxqcYum2erF4azUmLA4poUO4A+LNIfaojKh5qWIxRMowucZcmaoFRAhihK2m3y3HK8cxW8lU5litT8rfZf3mV3jlBSY24ZLTnATNnSKP7mm1yVv1unEsxSqQxW44R+WWvZkbe9E4Ts9D1hjmWYyBiaf7VqJaRkMw0lX897hdmlrMhWpiI89NLet/+fVZr4gjgleOo4tWF7aGqe/xQKW3+f/PScd24bkRg5aFZuyHkHeZaWeOj3Kj3eXSycVAawMzF8lRREFN5cNZe3bL7qjC2j+RGKJrbijx9FRwsJ+UTD+4Fc3WEDkIn4muXjV6YAeVc1WnJfL4U903M34ZK6cOxckZnYxRlKSulaXoWVdliAbD+HbZRCrx9XJQ6EjUQCkwIuf9gNaONei2gb8AOMOKA6Tof2dmFaiyhI/fibzWbvBt6Fn/hcD/KjUjYF2qBnxMf94D25dg39iaA+62pN+Tkuh8qjLNlHUa5UfvU6p3goWocWtAbsOfwPgrvM0ydEERinRv7nv7LM2lNef0gKflMQ7+qmfCiwgsvpfVAsoEpgclIEf6a3BF7AByyRIQ5hZEfqFdGO+Me3tQr9/Urd9VOdq0uvsf3ik7CB5l5t45m2mA4B+XLCb+bsIX2Vd1WupdBLX5FZ9Ls56tEkCBuvJT/wlkZ1NDxHT9oAPEQxD6BeCOD/+q9bQkKxtuWGnv
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(396003)(376002)(39860400002)(136003)(346002)(451199015)(83380400001)(33656002)(8936002)(5660300002)(55016003)(86362001)(478600001)(38100700002)(26005)(9686003)(122000001)(38070700005)(71200400001)(52536014)(41300700001)(186003)(2906002)(7696005)(6506007)(8676002)(64756008)(66446008)(66476007)(66946007)(76116006)(66556008)(53546011)(6636002)(316002)(110136005);
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(346002)(136003)(396003)(366004)(376002)(451199015)(41300700001)(76116006)(8936002)(52536014)(91956017)(6636002)(316002)(66946007)(66446008)(5660300002)(64756008)(8676002)(66556008)(4326008)(66476007)(478600001)(71200400001)(55016003)(86362001)(6506007)(83380400001)(38070700005)(26005)(110136005)(2906002)(33656002)(7696005)(9686003)(186003)(122000001)(38100700002)(53546011);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7+KNKGG452hwWJjEi/MxZMGxPeOfeXduwA0dzySH+xnR2Wqk0xYuY3a5WjWl?=
- =?us-ascii?Q?DB2UQCe4zIiEDHP6KcWiACgGW1UsvIxZ9bsNolQrw6k/z9Wb3UF1lrf31D3X?=
- =?us-ascii?Q?HJjH9ZMEPD0QZ1X0GfP7iYqipQlDyuvR8Ub9M30XDxrNgfR3vet7pqw+TI+6?=
- =?us-ascii?Q?CJLc5Phn0/kuabuXrvNIlQLpLyo2pHn6FM505h1OrPLPPldyCW5W7UDIhrlS?=
- =?us-ascii?Q?ieQuW5b036MpijN70k2aqvSWMHnU/D2lvlEEyM/XGuazmfVovf3VeI/iSsuc?=
- =?us-ascii?Q?9SbpruCu+vV2BUSZ1KmEWDCleEapZkO3DEoDVHPDFhLFH4xachTQBgLNdFYo?=
- =?us-ascii?Q?e0SEPOMxjDTMq4XvZ1Cb6PKvby9hWHPBPCtCr2puhp3FSiVhmY7G6LrId55D?=
- =?us-ascii?Q?mXp6mk3Y5ozwfh5i2WSZzpeZt+i/B0BOXKAgWdXY8dscrIc+m99546SnNwAk?=
- =?us-ascii?Q?13AXiQTVAs70tJNfYve68hiD0v0in5kzNs3c1Pw4EJBf6DdqJ4tvwdfnIV0U?=
- =?us-ascii?Q?Og+WsLzoQZj3hCFACSqqGhslH4W9J/Yzr/IPabPJRS0HdvYvXHp3hTs55KK6?=
- =?us-ascii?Q?pVFqRHcNRSMcVbMum/Hfmq6o2AHe747uF3MZud/JiKNlq6m34foHBZiFJ14Y?=
- =?us-ascii?Q?jGWt95PA17yZ+T7Ay5xJupugqOg6BvTs4kVA108v6w9QOuwRKFBnHMdE35Fi?=
- =?us-ascii?Q?vKd5a0B4fpgVjSZb1depPWGBz+qmpOxC3t2raRf+UvLHg2kt1OlaO2mSKdlk?=
- =?us-ascii?Q?s4/2wA9qIJTnu+m6XU6DqwEusglqLy/VNM4nL0aZzZvImUDMg70S6GXSQnG5?=
- =?us-ascii?Q?DWBoB90olyWxnseWT4NbCLWY8o0D3ywbL55nFSTafp4DyY8T9hlo1lxd51kB?=
- =?us-ascii?Q?+meP25/W/3A4O48yLX8/+dzWiMnQxp0mx4LkZNpcPPZEJ48EC2Zd/71tC/ZJ?=
- =?us-ascii?Q?FfX9V62C311nchLUy0aEgSVQv0pZpTM3bZmzg1dbF03W8pP/OudsMR728WRZ?=
- =?us-ascii?Q?V6iOu5gwqdaU6vINWTrpRjvc80JIw+NW58of1FM3fVGZX37RsY2ZCe9PoEOC?=
- =?us-ascii?Q?7SN8QBpGQlhitMvuLK0z7ncBZ9WhQiP9pqJ5cfet/eF3aX4M1ddfuVbmBjYL?=
- =?us-ascii?Q?T9J5Cz38ApnPGg718KZuT3hUNndh97CakfbVIWC6HggQrlFxxBCuh/SIKzFc?=
- =?us-ascii?Q?3e4KMJfq2jWJu/nto4aY7kG94tmsJunIVeHPn22oybFWHJ+UZkhuIa5XmcUR?=
- =?us-ascii?Q?2lPM5ZXrj9474dX27DQ1aBo8ZuFvra6vCEGEN0T4kpXKn7Z0G9rs3KK3ysED?=
- =?us-ascii?Q?z/a6vhTHL/w/e1myU5ZVJZq7+jvhpJ6yyGtOL2MwIXnmzPa8BCwASDoh56E8?=
- =?us-ascii?Q?6Z5QDpdij7x7FP/xOkvj18JuEN2fAKyJ8Dnx4lqqpklUBnVi8z1wHgkKbLy2?=
- =?us-ascii?Q?/spB2a0VB0birN0ObwhvInzJgbXJs8PYcw5uwkfX8JrjgrUYbFnHcghaOvLf?=
- =?us-ascii?Q?jgEokm/m1uvP+edSdAQ++rS0FXbeeXtLbUmqaKTB+dmsW1XoTZaR12kahM7U?=
- =?us-ascii?Q?YHf/txoz+VpLZUXgbYA=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?xAb31nijgduRj6qkGLKuw9Fcf3AlgdRUAGX+j0vLSCYnXHfkkVuAgHExxqSh?=
+ =?us-ascii?Q?K6BDCknovG8wQg83fIJ7+GkkET5gYUNcjK8Y9/LT/VzxTiT2Pr2MUAtmPkLW?=
+ =?us-ascii?Q?Fuu6G/9iJYTxVzZDx09iFk8zgprPTCsNc+qDzMgk2nrHcOumzTHm8eT2LV10?=
+ =?us-ascii?Q?5fKHPWMV7ReGKrJhiA7jfQgrPf9HgJbzVSOOyVMJ+n2P5KxXXZXp5jSV8yWw?=
+ =?us-ascii?Q?aIxLirN3BrLjeX+3JweXWosgyg4vcbWMaLqOJgjzYI2LOuhffRuVjALAwVUi?=
+ =?us-ascii?Q?tTG/djPmEOgCHRixbAN1JfiaH1lfKz56IYD1Z/KFOEA8maSLVMGI4Ds+rSPW?=
+ =?us-ascii?Q?XX8wI64UhIsALUESfIWXBOV0dpR8fg8EykyFaALJkKELF6EpHLh3lbJN4HWb?=
+ =?us-ascii?Q?kri2myKnUuMYHOTCIo56mwq3g/sT0IHmXLznXxqvyTbpO19Hhdg2T+tVU0bl?=
+ =?us-ascii?Q?2kNj+PbwPtdDXRcHXB4kDMZNnLTLT8sfh+OUYREdNXygHp87PjU4mjpW8ZkE?=
+ =?us-ascii?Q?fkn/PO4gXw0aZBYdNZ4aUJFyXDjZ4u5wRnQfo7IKGE36SBqOxVrg3G7AAmpU?=
+ =?us-ascii?Q?pf/ucQDQipHygIMavGoOWx6OmS8sjZmX46Qrq38AwkvSRqH35UfNCxRL1fEt?=
+ =?us-ascii?Q?SiRl6aIowwk95sZr0n8qza7Geb57kD+OpkDZ6bC3Y6WzCzEh5oc4oOirt8M6?=
+ =?us-ascii?Q?5PR+BpCW1CW5Ci2rUE78jb80v9tVmppPu+XZsUVcyjBgQGrhKOKDrnf6lgLx?=
+ =?us-ascii?Q?JUZN+Kw4GhajV4BPLtCLhLM9BzAY+z7z2a7kIgUH/gtO1CvxPARCmbl7GzjC?=
+ =?us-ascii?Q?TUhrEpGTsB35TL4vHWHwY/M5IEIvJoFIoyerzeLl4j+hXrPjnAZbTjnHeNep?=
+ =?us-ascii?Q?Lgkx0Kd59oOBjKWrkfFHiW/pbau4+Bj37SMa7LDY3U9UuPWMMYI6qFbGKEnN?=
+ =?us-ascii?Q?np0Zu+v01KlB7d+LSAnUB7eF2s6lzji/TK4PhFx75hKHG9EVAMQJpK/zDWx7?=
+ =?us-ascii?Q?MkxYXo+uZVjTOp18VD0UDkiYyktJXTA372hlZwdIpbPZN6AI+CKA5CwOXLaH?=
+ =?us-ascii?Q?l2eU5C+/DzEqHUHcqaCfBfyl+Z4L76u3FfpRrSkTRKx8yL0NUwZGvI3pM8LE?=
+ =?us-ascii?Q?Xq3fYloIC9468vqWRihpgEShb2UEkHsZp2ryIPF0oapDalvXRverFe8/mKPE?=
+ =?us-ascii?Q?ULL73auIwuSdzq/sHcXIxyf25p8zvuG0G+zkytH4mi9UpH6C5leCfygP8+Rz?=
+ =?us-ascii?Q?pYDMGgBhzp7le7JEY29ZiGXYtw8eBoR3sOtAN8h+FP0RjnTTTLOnpapbynvW?=
+ =?us-ascii?Q?Eebbq6bsjqnOnv3mEgwlv3TphZNT6Jhb1xTGQatdcoPRupUFibm+v/AHM03x?=
+ =?us-ascii?Q?NDXkWCLgL/2JwOw5VBC42V5yYHEa/ZKt07htCj6DhhT+qk++dij2HNZDyKyg?=
+ =?us-ascii?Q?cDjNhZpdLxxQfZm7D2jpPzGlYRgroimHh8cwwr5Lr4UVYB6e7qzBfBgTgD6j?=
+ =?us-ascii?Q?LGsxy89ZVM8pvo9YST7HqgLWSzOxFKC/1KmdN9W0JgKRUz1ujzLxfklb2YqF?=
+ =?us-ascii?Q?EZsWjhac5qAWZ+Hy2vN8E7MjRzimtpmu3JO+rZU+?=
+Content-Type: multipart/alternative;
+ boundary="_000_BYAPR12MB4614CF63A50968A29AB037A3970A9BYAPR12MB4614namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ab96bca-ae41-4e43-fc08-08dacb67225d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Nov 2022 02:21:44.4532 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f0022f3-dd33-455c-cd08-08dacb67ca9d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Nov 2022 02:26:26.7599 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4tD4CojVT0s4a9/47xoFUlAi/aCtqoXss8f58Nh3kMH21fDYkIpj7PUQv+Hj2/vS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7226
+X-MS-Exchange-CrossTenant-userprincipalname: RGeSDvqsOA1v0LFffZ6URf/W8JPPt6srHgMqqsXeWr+xuHEA2cJaWCsUgJFpyq2z
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7067
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,81 +122,432 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Chen, Guchun" <Guchun.Chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_BYAPR12MB4614CF63A50968A29AB037A3970A9BYAPR12MB4614namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
 [AMD Official Use Only - General]
 
+Runtime PM can be disabled with a module param. BACO state is supported for=
+ non-RPM use cases also like regular suspend or a reset. Relying on RPM mod=
+e for BACO state is not the right thing to do.
+
+Thanks,
+Lijo
+________________________________
+From: Chen, Guchun <Guchun.Chen@amd.com>
+Sent: Monday, November 21, 2022 6:08:58 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
+ Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
+om>; Lazar, Lijo <Lijo.Lazar@amd.com>; Quan, Evan <Evan.Quan@amd.com>
+Cc: Chen, Guchun <Guchun.Chen@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: use rpm_mode as runtime pm check flag
+
+Driver was not calling BACO exit at all in runtime pm
+resume, and it caused the timing issue leading to a PCI
+AER error, as once system enters BACO, it's not reliable
+to check runtime pm mode by talking to SMU. So use rpm_mode
+instead as a general pm mode check to ensure driver executes
+BACO exit in runtime pm resume.
+
+Fixes: 8795e182b02d ("PCI/portdrv: Don't disable AER reporting in get_port_=
+device_capability()")
+
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 25 +++++++++++-----------
+ 2 files changed, 15 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index ab8f970b2849..40af21040b47 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5619,7 +5619,7 @@ int amdgpu_device_baco_enter(struct drm_device *dev)
+         struct amdgpu_device *adev =3D drm_to_adev(dev);
+         struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+
+-       if (!amdgpu_device_supports_baco(adev_to_drm(adev)))
++       if (adev->pm.rpm_mode !=3D AMDGPU_RUNPM_BACO)
+                 return -ENOTSUPP;
+
+         if (ras && adev->ras_enabled &&
+@@ -5635,7 +5635,7 @@ int amdgpu_device_baco_exit(struct drm_device *dev)
+         struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+         int ret =3D 0;
+
+-       if (!amdgpu_device_supports_baco(adev_to_drm(adev)))
++       if (adev->pm.rpm_mode !=3D AMDGPU_RUNPM_BACO)
+                 return -ENOTSUPP;
+
+         ret =3D amdgpu_dpm_baco_exit(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index 3c9fecdd6b2f..be03f7b1cee1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2532,7 +2532,7 @@ static int amdgpu_pmops_runtime_suspend(struct device=
+ *dev)
+         }
+
+         adev->in_runpm =3D true;
+-       if (amdgpu_device_supports_px(drm_dev))
++       if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_PX)
+                 drm_dev->switch_power_state =3D DRM_SWITCH_POWER_CHANGING;
+
+         /*
+@@ -2542,21 +2542,21 @@ static int amdgpu_pmops_runtime_suspend(struct devi=
+ce *dev)
+          * platforms.
+          * TODO: this may be also needed for PX capable platform.
+          */
+-       if (amdgpu_device_supports_boco(drm_dev))
++       if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_BOCO)
+                 adev->mp1_state =3D PP_MP1_STATE_UNLOAD;
+
+         ret =3D amdgpu_device_suspend(drm_dev, false);
+         if (ret) {
+                 adev->in_runpm =3D false;
+-               if (amdgpu_device_supports_boco(drm_dev))
++               if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_BOCO)
+                         adev->mp1_state =3D PP_MP1_STATE_NONE;
+                 return ret;
+         }
+
+-       if (amdgpu_device_supports_boco(drm_dev))
++       if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_BOCO)
+                 adev->mp1_state =3D PP_MP1_STATE_NONE;
+
+-       if (amdgpu_device_supports_px(drm_dev)) {
++       if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_PX) {
+                 /* Only need to handle PCI state in the driver for ATPX
+                  * PCI core handles it for _PR3.
+                  */
+@@ -2565,9 +2565,9 @@ static int amdgpu_pmops_runtime_suspend(struct device=
+ *dev)
+                 pci_ignore_hotplug(pdev);
+                 pci_set_power_state(pdev, PCI_D3cold);
+                 drm_dev->switch_power_state =3D DRM_SWITCH_POWER_DYNAMIC_O=
+FF;
+-       } else if (amdgpu_device_supports_boco(drm_dev)) {
++       } else if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_BOCO) {
+                 /* nothing to do */
+-       } else if (amdgpu_device_supports_baco(drm_dev)) {
++       } else {
+                 amdgpu_device_baco_enter(drm_dev);
+         }
+
+@@ -2588,7 +2588,7 @@ static int amdgpu_pmops_runtime_resume(struct device =
+*dev)
+         if (!pci_device_is_present(adev->pdev))
+                 adev->no_hw_access =3D true;
+
+-       if (amdgpu_device_supports_px(drm_dev)) {
++       if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_PX) {
+                 drm_dev->switch_power_state =3D DRM_SWITCH_POWER_CHANGING;
+
+                 /* Only need to handle PCI state in the driver for ATPX
+@@ -2600,22 +2600,23 @@ static int amdgpu_pmops_runtime_resume(struct devic=
+e *dev)
+                 if (ret)
+                         return ret;
+                 pci_set_master(pdev);
+-       } else if (amdgpu_device_supports_boco(drm_dev)) {
++       } else if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_BOCO) {
+                 /* Only need to handle PCI state in the driver for ATPX
+                  * PCI core handles it for _PR3.
+                  */
+                 pci_set_master(pdev);
+-       } else if (amdgpu_device_supports_baco(drm_dev)) {
++       } else {
+                 amdgpu_device_baco_exit(drm_dev);
+         }
++
+         ret =3D amdgpu_device_resume(drm_dev, false);
+         if (ret) {
+-               if (amdgpu_device_supports_px(drm_dev))
++               if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_PX)
+                         pci_disable_device(pdev);
+                 return ret;
+         }
+
+-       if (amdgpu_device_supports_px(drm_dev))
++       if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_PX)
+                 drm_dev->switch_power_state =3D DRM_SWITCH_POWER_ON;
+         adev->in_runpm =3D false;
+         return 0;
+--
+2.25.1
 
 
-> -----Original Message-----
-> From: Chen, Guchun <Guchun.Chen@amd.com>
-> Sent: Monday, November 21, 2022 8:39 AM
-> To: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Zhang, Hawking
-> <Hawking.Zhang@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Quan, Evan
-> <Evan.Quan@amd.com>
-> Cc: Chen, Guchun <Guchun.Chen@amd.com>
-> Subject: [PATCH 2/2] drm/amdgpu: poll BACO status after RPM BACO exits
->=20
-> After executing BACO exit, driver needs to poll the status
-> to ensure FW has completed BACO exit sequence to prevent
-> timing issue.
->=20
-> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
-> ---
->  .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 23
-> ++++++++++++++++++-
->  1 file changed, 22 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> index dccbd9f70723..796c8179bfbf 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> @@ -79,6 +79,16 @@
-> MODULE_FIRMWARE("amdgpu/beige_goby_smc.bin");
->  #define mmTHM_BACO_CNTL_ARCT			0xA7
->  #define mmTHM_BACO_CNTL_ARCT_BASE_IDX		0
->=20
-> +static void smu_v11_0_poll_baco_exit(struct smu_context *smu)
-> +{
-> +	uint32_t data, loop =3D 0;
-> +
-> +	do {
-> +		msleep(1);
-> +		data =3D RREG32_SOC15(THM, 0, mmTHM_BACO_CNTL);
-> +	} while ((data & 0x100) && (++loop < 100));
-> +}
-[Quan, Evan] Better to update the msleep with udelay. Otherwise, you might =
-hit some checkpatch.pl errors.
-Other than that, the series is Reviewed-by: Evan Quan <evan.quan@amd.com>
+--_000_BYAPR12MB4614CF63A50968A29AB037A3970A9BYAPR12MB4614namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Evan
-> +
->  int smu_v11_0_init_microcode(struct smu_context *smu)
->  {
->  	struct amdgpu_device *adev =3D smu->adev;
-> @@ -1685,7 +1695,18 @@ int smu_v11_0_baco_enter(struct smu_context
-> *smu)
->=20
->  int smu_v11_0_baco_exit(struct smu_context *smu)
->  {
-> -	return smu_v11_0_baco_set_state(smu, SMU_BACO_STATE_EXIT);
-> +	int ret =3D 0;
-> +
-> +	ret =3D smu_v11_0_baco_set_state(smu, SMU_BACO_STATE_EXIT);
-> +	if (!ret) {
-> +		/*
-> +		 * Poll BACO exit status to ensure FW has completed
-> +		 * BACO exit process to avoid timing issues.
-> +		 */
-> +		smu_v11_0_poll_baco_exit(smu);
-> +	}
-> +
-> +	return ret;
->  }
->=20
->  int smu_v11_0_mode1_reset(struct smu_context *smu)
-> --
-> 2.25.1
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body>
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+Runtime PM can be disabled with a module param. BACO state is supported for=
+ non-RPM use cases also like regular suspend or a reset. Relying on RPM mod=
+e for BACO state is not the right thing to do.</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto">
+<div><br>
+</div>
+Thanks,<br>
+Lijo</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Chen, Guchun &lt;Guch=
+un.Chen@amd.com&gt;<br>
+<b>Sent:</b> Monday, November 21, 2022 6:08:58 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Hawking &=
+lt;Hawking.Zhang@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Quan,=
+ Evan &lt;Evan.Quan@amd.com&gt;<br>
+<b>Cc:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;<br>
+<b>Subject:</b> [PATCH 1/2] drm/amdgpu: use rpm_mode as runtime pm check fl=
+ag</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Driver was not calling BACO exit at all in runtime=
+ pm<br>
+resume, and it caused the timing issue leading to a PCI<br>
+AER error, as once system enters BACO, it's not reliable<br>
+to check runtime pm mode by talking to SMU. So use rpm_mode<br>
+instead as a general pm mode check to ensure driver executes<br>
+BACO exit in runtime pm resume.<br>
+<br>
+Fixes: 8795e182b02d (&quot;PCI/portdrv: Don't disable AER reporting in get_=
+port_device_capability()&quot;)<br>
+<br>
+Signed-off-by: Guchun Chen &lt;guchun.chen@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |&nbsp; 4 ++--<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&nbsp; | 25 ++++++=
++++++-----------<br>
+&nbsp;2 files changed, 15 insertions(+), 14 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index ab8f970b2849..40af21040b47 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -5619,7 +5619,7 @@ int amdgpu_device_baco_enter(struct drm_device *dev)<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D drm_to_adev(dev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ras *ras =3D=
+ amdgpu_ras_get_context(adev);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_device_supports_baco(adev=
+_to_drm(adev)))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.rpm_mode !=3D AMDGPU_=
+RUNPM_BACO)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -ENOTSUPP;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ras &amp;&amp; adev-&g=
+t;ras_enabled &amp;&amp;<br>
+@@ -5635,7 +5635,7 @@ int amdgpu_device_baco_exit(struct drm_device *dev)<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ras *ras =3D=
+ amdgpu_ras_get_context(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_device_supports_baco(adev=
+_to_drm(adev)))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.rpm_mode !=3D AMDGPU_=
+RUNPM_BACO)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -ENOTSUPP;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_dpm_baco_ex=
+it(adev);<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c<br>
+index 3c9fecdd6b2f..be03f7b1cee1 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+@@ -2532,7 +2532,7 @@ static int amdgpu_pmops_runtime_suspend(struct device=
+ *dev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;in_runpm =3D true=
+;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_device_supports_px(drm_dev=
+))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.rpm_mode =3D=3D AMDGP=
+U_RUNPM_PX)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; drm_dev-&gt;switch_power_state =3D DRM_SWITCH_POWER_C=
+HANGING;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+@@ -2542,21 +2542,21 @@ static int amdgpu_pmops_runtime_suspend(struct devi=
+ce *dev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * platforms.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * TODO: this may be =
+also needed for PX capable platform.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_device_supports_boco(drm_d=
+ev))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.rpm_mode =3D=3D AMDGP=
+U_RUNPM_BOCO)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;mp1_state =3D PP_MP1_STATE_UNLOAD;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_device_susp=
+end(drm_dev, false);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;in_runpm =3D false;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (amdgpu_device_supports_boco(drm_dev))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (adev-&gt;pm.rpm_mode =3D=3D AMDGPU_RUNPM_BOCO)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-=
+&gt;mp1_state =3D PP_MP1_STATE_NONE;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_device_supports_boco(drm_d=
+ev))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.rpm_mode =3D=3D AMDGP=
+U_RUNPM_BOCO)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;mp1_state =3D PP_MP1_STATE_NONE;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_device_supports_px(drm_dev=
+)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.rpm_mode =3D=3D AMDGP=
+U_RUNPM_PX) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* Only need to handle PCI state in the driver for AT=
+PX<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; * PCI core handles it for _PR3.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+@@ -2565,9 +2565,9 @@ static int amdgpu_pmops_runtime_suspend(struct device=
+ *dev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pci_ignore_hotplug(pdev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pci_set_power_state(pdev, PCI_D3cold);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; drm_dev-&gt;switch_power_state =3D DRM_SWITCH_POWER_D=
+YNAMIC_OFF;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (amdgpu_device_supports_boc=
+o(drm_dev)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (adev-&gt;pm.rpm_mode =3D=
+=3D AMDGPU_RUNPM_BOCO) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* nothing to do */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (amdgpu_device_supports_bac=
+o(drm_dev)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_device_baco_enter(drm_dev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+@@ -2588,7 +2588,7 @@ static int amdgpu_pmops_runtime_resume(struct device =
+*dev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!pci_device_is_present=
+(adev-&gt;pdev))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;no_hw_access =3D true;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_device_supports_px(drm_dev=
+)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.rpm_mode =3D=3D AMDGP=
+U_RUNPM_PX) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; drm_dev-&gt;switch_power_state =3D DRM_SWITCH_POWER_C=
+HANGING;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* Only need to handle PCI state in the driver for AT=
+PX<br>
+@@ -2600,22 +2600,23 @@ static int amdgpu_pmops_runtime_resume(struct devic=
+e *dev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n ret;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pci_set_master(pdev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (amdgpu_device_supports_boc=
+o(drm_dev)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (adev-&gt;pm.rpm_mode =3D=
+=3D AMDGPU_RUNPM_BOCO) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* Only need to handle PCI state in the driver for AT=
+PX<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; * PCI core handles it for _PR3.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pci_set_master(pdev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (amdgpu_device_supports_bac=
+o(drm_dev)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_device_baco_exit(drm_dev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_device_resu=
+me(drm_dev, false);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (amdgpu_device_supports_px(drm_dev))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (adev-&gt;pm.rpm_mode =3D=3D AMDGPU_RUNPM_PX)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pci_d=
+isable_device(pdev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_device_supports_px(drm_dev=
+))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.rpm_mode =3D=3D AMDGP=
+U_RUNPM_PX)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; drm_dev-&gt;switch_power_state =3D DRM_SWITCH_POWER_O=
+N;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;in_runpm =3D fals=
+e;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BYAPR12MB4614CF63A50968A29AB037A3970A9BYAPR12MB4614namp_--
