@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36A22C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 05:52:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9410BC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 05:53:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94CD710E37C;
-	Tue, 22 Nov 2022 05:52:50 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2041.outbound.protection.outlook.com [40.107.93.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40B8C10E379
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 05:52:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0FEB10E37D;
+	Tue, 22 Nov 2022 05:53:04 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20604.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eab::604])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E486C10E37E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 05:53:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bRtulczq0iYrMuvP9fet3klPwGwIWmpkFmq8LGAPTowlnA3M+TIpeOPLLAzS4TRogZaKUyuxIvlzWNat42EHZlJ0IrleZKZVNg0gn2eeljLvayT8gc4Zj4dLOSXl6KJQzl/93MgYay0HfBHBPcNJI8a0oqBtXirre6V9OgzxWgVykmKam2g/5Gd7Z3SeTe6M+E78ioEiZJvlXwSYSqkaTxsrKf07iBlSMKBNWf0sFvbn4cVx4AOZ07H+8doWmaEiQYw+QmowzKXUGGZlTqIbVeFO6mHKn3L8/ohVHbfTq+SM+rpST/YN+nC0Ootc3Bmll3yvYQ6avYUa20UWNOBPRw==
+ b=hujY1PNdJ4O36MyPLPiRNoLNpZ8n1tCniojhvUonUyHFZ45o0E15hGMi69+zhEf88GpsUXsq8Pdn7wzFV3RbuMGV/zIYmGsC7hW8MTCBE7jNd61f908X3DCmhA05HaJP1X1pOf5MmwGmsXAaw8sPSbJJDWvK+rt/ior0bCRfGfmHt6XJyQMz8FaWyJS/yaHwuGO0YbJi6QVenFBhkhP8l1OsHaynsI99lDmLr7F7udVxLFGyUICN70jXyhPP7mQM47xG2b2i1fQMzq2ZaqthJNSpDcr3/2XOfSH5Ff03u16+amiUJswr0+OflODGWqL3Ap3jmZbDf8Ec3ICTkoOVDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f6+OZWUhxNjwkTNkF+IPsjy5OEv0UXwQJYeYt1P3rto=;
- b=c9gEMbSoYyLxyJPmVWC+gAT34OlGS1kDk9VAmOAyS7O9l1XTTwGOze64fS76fUpUwvY0bT8rqJBEWlr8wVQybgn0Wu0ZS7iTKyrQz4RCH789CdC9VS4UqeBwW29QlqSX9z8SagGH489ed+dkGH3KvJ6w3d6Y7+x2Q9HdowXQ5kJdO/zPHcsO2G84AVKCtTkzyqX0ifJU2CNyIRVWqal3ONKdn6CJiHnsHZzgVDFgLv24l6N7VshA4gzVBZMMH8QrwoPLfeX8WyYNbQN5mxoZftSBVeaziUh9YoDeCOP2Ey1tm32k0G7H91APBhGSWQJmS0S5nAHZ56A1o/f4td6nBA==
+ bh=Z7XZPPNTwVDTgUmYXdst7TnnX1D1u+KgbaldailPu7Y=;
+ b=IWlCVwkcgf1JLoYH85SPAra/GmrDieVYGxmZ3RwQqnmVcL0KNYGCp6mq8KeJF1s0QfFjpjyGj6of66PlBr/Vc8kTI6dNxxi7q5APRidHC02JrGSooS2wE3CyGPzidwIxbIFkV7hZM4Tafl8vt8btsCGE7uW6SL8ABT78fboU87mBhUKnTTNRHHN8Rs455CU2iIqE1tIucJ/wxj7Oum1qJQr2iVI8hj1rHGaHsnnTZOBUsu/JPl40XwHUsQGBwtEr1RuPld5NCCz4g6EUxe1bqpBGdjqZZBzbe6e381kEoc0rYNnrcLzdIFoH8+DZR/xpnVxizahja6JtvPBvwjDPXw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f6+OZWUhxNjwkTNkF+IPsjy5OEv0UXwQJYeYt1P3rto=;
- b=H5kAaPB1kB9x4mtx3ZQHE9yQBU6M+TmBrUh5A7HZi3K8SOA0GT/zzUsPU3jYtNw3zIoSxwH6Dh1cARDV7t0MHvYY7cj8uD64NTlsJ7sfIqD5D8Kz6nNfP93V3raEUV7LCRe8IKoAy1Vg8RjK2F43+SDxAzkQrwLBkpE+XkEjY6Q=
-Received: from DM6PR02CA0091.namprd02.prod.outlook.com (2603:10b6:5:1f4::32)
- by DS0PR12MB6608.namprd12.prod.outlook.com (2603:10b6:8:d0::10) with
+ bh=Z7XZPPNTwVDTgUmYXdst7TnnX1D1u+KgbaldailPu7Y=;
+ b=im8l9riEz86AUwNT/tZTdjTyy4jhz4n0aAnMKrf32Ck0S0Y9vf4CNJv+XOqsm/FXgMeZyw2cPbet3I0sVSfeUEN+IfEg1Gc7q5gxyM9p6GsC1zpMYYTxuzCcEA5+iaIzVlPybhaF0GDhweOA+BLz4JWR9nWQPm+d0HGkpkIrX18=
+Received: from DM6PR03CA0074.namprd03.prod.outlook.com (2603:10b6:5:333::7) by
+ BY5PR12MB4887.namprd12.prod.outlook.com (2603:10b6:a03:1c6::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Tue, 22 Nov
- 2022 05:52:37 +0000
-Received: from DM6NAM11FT039.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1f4:cafe::4e) by DM6PR02CA0091.outlook.office365.com
- (2603:10b6:5:1f4::32) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 05:53:00 +0000
+Received: from DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:333:cafe::9) by DM6PR03CA0074.outlook.office365.com
+ (2603:10b6:5:333::7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15 via Frontend
- Transport; Tue, 22 Nov 2022 05:52:37 +0000
+ Transport; Tue, 22 Nov 2022 05:53:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +46,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT039.mail.protection.outlook.com (10.13.172.83) with Microsoft SMTP
+ DM6NAM11FT029.mail.protection.outlook.com (10.13.173.23) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5834.8 via Frontend Transport; Tue, 22 Nov 2022 05:52:37 +0000
+ 15.20.5834.8 via Frontend Transport; Tue, 22 Nov 2022 05:52:59 +0000
 Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 21 Nov
- 2022 23:52:06 -0600
+ 2022 23:52:36 -0600
 From: Yifan Zhang <yifan1.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/19] drm/amdgpu/discovery: set the APU flag for GC 11.0.4
-Date: Tue, 22 Nov 2022 13:50:13 +0800
-Message-ID: <20221122055025.2104075-7-yifan1.zhang@amd.com>
+Subject: [PATCH 08/19] drm/amdgpu: add gfx support for GC 11.0.4
+Date: Tue, 22 Nov 2022 13:50:14 +0800
+Message-ID: <20221122055025.2104075-8-yifan1.zhang@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221122055025.2104075-1-yifan1.zhang@amd.com>
 References: <20221122055025.2104075-1-yifan1.zhang@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT039:EE_|DS0PR12MB6608:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6aa1ced-9b97-4db5-9440-08dacc4dc2b6
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT029:EE_|BY5PR12MB4887:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a5181f0-bbe5-480d-4d31-08dacc4dcff2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: X47OphXTK1Y7TfUOeE1VYpipYcFZ5gh7BXtLPQR9+5mGOq3/is3VdXPGFew/TiOV+K966VOP93qI4toT2eCQ5DZOGKK3hkXKI3H7Vf0VFWCltnXMMCITC3/AyCS5HsvrFomh5J+Rw29mJDLMkTyPVBuYEmQY+L8axvzL6glHp0mZzBF3elvYT5v23tFH6v8QnKA2Z0DjGAenPjRzPpKEUvE8XHI1esAwd8EwMXscH/3vGJVUpDKyN8sdqgLb/nH69iCeM6WwVkPm0fPiFVkbrOCkV+CY6XlrJi6fLLdkJF5wTTtyvkZH15d+TYv8g0KGPw5RGiZweFaXbnRDcVvCsoUyZ0EfGDPgx4hXLAzRf8izOwm8huLOkMKR6xJbV4Dh/RFDGrt/JCgxXsIH+KpVrFY+imDShDt9QZoqJJBpfDLSQl0e27uKtx0an/tRBxv4OgWGVNGbfpAtmIrqeecOan1kKHWN70a2MPj06OVUBx4A+FNcHDPj8qPF6ZI+cznSgr+vhqRlVoYkSnf+MNzcVUO0PNYjTMtgG5AEw4NNDjTmrI8zDG42b6nI4UEZ36PCQem44JXYi3KTKLQ0/sKUMYTczkxsDrupGTxgAjlDq3ePgXK1kvojWRobo2z7hhAOyPUjZ3u35qiIrP/6OXMOLJCTArJH3Meaf0EYVmGXK/9EW18YpoSp6g3/ExMWFvPEu3nRYu6qRXLuhTF4/3uv3biAYqvxrSdScATWCpDrXw8=
+X-Microsoft-Antispam-Message-Info: iPY39QUCiA+MqreEIPmQe74eZmnb0k3+iZs/J1fBWOo2PSZwC/HpBjUNA4JvJcjqWZmFKreoPJK+X3zGQy7Ej9sm+tdAXJsqwila8mQvqAqfi5NFS+Fa1DWwDyfc0PieFcXJ1sOQ4TP7A989QPPrZFIW/3aIN6dotQtYdqpBaiuqv4UGka/CvzncE/ZAMxM95bhLLfL2sOAQbWixWdEz+AMvx8MJzH2/KguNyVv84AMmxkRsejUYgE0ie+Pu+DVkKd7RI2kPsZNWUmD5JWDluDV38Jyh3BxHinppDddQZSuFTX27YesNN1stSlb1+Hb71Yk3+ekadWED5LlbnsHfDpa1RzGwFTyzmsvZyPV84+2LWZYVOYFE1n94LDZvlqPd2ZQtpBR+u+sXFbDwzMG4wh6eV4UZul4KXThg3fHCsNABjFcS3PdBypPKfmyzP0mVK40cZxnIeK0ndWMxmm7dTu2iJ5lfZ27VaMNTZ/xHKhr2aYj8B5TuR0p507ZYpxWyJpEZly8KneYENvPN9niPpTtMzrpbbH0tuc638xb1NGWgzsBaNMhaHHNOSkb47UR9tQBBhoqIzttrzA9y/lxtCzxZTwlpuoBJWwhCg66tqILwoQaQBykOwKM4NKCSG1wf7ei8YIHkm+gLZNa9lDcR2aV7Lzf5QZCi2J7LNIr1fdyW28jQp75I5ETZKsjwFrrnMdjVuyLR43xXLtBBBCrgXA/Irlaj8v3/nY+XUZRj3Xg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(396003)(39860400002)(346002)(376002)(451199015)(36840700001)(46966006)(40470700004)(2906002)(4744005)(8936002)(41300700001)(316002)(6916009)(5660300002)(82310400005)(40460700003)(36860700001)(54906003)(478600001)(8676002)(70206006)(4326008)(70586007)(36756003)(86362001)(186003)(1076003)(47076005)(26005)(7696005)(336012)(6666004)(2616005)(426003)(83380400001)(356005)(16526019)(82740400003)(81166007)(40480700001)(36900700001);
+ SFS:(13230022)(4636009)(136003)(39860400002)(346002)(376002)(396003)(451199015)(46966006)(40470700004)(36840700001)(36860700001)(2906002)(40460700003)(1076003)(70586007)(2616005)(70206006)(41300700001)(40480700001)(36756003)(82310400005)(86362001)(4326008)(7696005)(6916009)(54906003)(356005)(83380400001)(81166007)(426003)(82740400003)(8936002)(47076005)(5660300002)(16526019)(8676002)(186003)(478600001)(316002)(6666004)(26005)(336012)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2022 05:52:37.6858 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6aa1ced-9b97-4db5-9440-08dacc4dc2b6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2022 05:52:59.8876 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a5181f0-bbe5-480d-4d31-08dacc4dcff2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT039.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6608
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4887
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,25 +105,62 @@ Cc: Alexander.Deucher@amd.com, Tim.Huang@amd.com, Xiaojian.Du@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Set the APU flag appropriately for GC 11.0.4.
+this patch to add GC 11.0.4 gfx support to gfx11 implementation.
 
 Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 524e2aa849c0..19dbd75a6176 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -2220,6 +2220,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(10, 3, 6):
- 	case IP_VERSION(10, 3, 7):
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 9d2c6523f546..bf78440e1e70 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -77,6 +77,10 @@ MODULE_FIRMWARE("amdgpu/gc_11_0_3_pfp.bin");
+ MODULE_FIRMWARE("amdgpu/gc_11_0_3_me.bin");
+ MODULE_FIRMWARE("amdgpu/gc_11_0_3_mec.bin");
+ MODULE_FIRMWARE("amdgpu/gc_11_0_3_rlc.bin");
++MODULE_FIRMWARE("amdgpu/gc_11_0_4_pfp.bin");
++MODULE_FIRMWARE("amdgpu/gc_11_0_4_me.bin");
++MODULE_FIRMWARE("amdgpu/gc_11_0_4_mec.bin");
++MODULE_FIRMWARE("amdgpu/gc_11_0_4_rlc.bin");
+ 
+ static const struct soc15_reg_golden golden_settings_gc_11_0_1[] =
+ {
+@@ -262,6 +266,7 @@ static void gfx_v11_0_init_golden_registers(struct amdgpu_device *adev)
+ {
+ 	switch (adev->ip_versions[GC_HWIP][0]) {
  	case IP_VERSION(11, 0, 1):
 +	case IP_VERSION(11, 0, 4):
- 		adev->flags |= AMD_IS_APU;
+ 		soc15_program_register_sequence(adev,
+ 						golden_settings_gc_11_0_1,
+ 						(const u32)ARRAY_SIZE(golden_settings_gc_11_0_1));
+@@ -855,6 +860,7 @@ static int gfx_v11_0_gpu_early_init(struct amdgpu_device *adev)
+ 		adev->gfx.config.sc_earlyz_tile_fifo_size = 0x4C0;
  		break;
- 	default:
+ 	case IP_VERSION(11, 0, 1):
++	case IP_VERSION(11, 0, 4):
+ 		adev->gfx.config.max_hw_contexts = 8;
+ 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
+ 		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
+@@ -1284,6 +1290,7 @@ static int gfx_v11_0_sw_init(void *handle)
+ 	case IP_VERSION(11, 0, 1):
+ 	case IP_VERSION(11, 0, 2):
+ 	case IP_VERSION(11, 0, 3):
++	case IP_VERSION(11, 0, 4):
+ 		adev->gfx.me.num_me = 1;
+ 		adev->gfx.me.num_pipe_per_me = 1;
+ 		adev->gfx.me.num_queue_per_pipe = 1;
+@@ -2486,7 +2493,8 @@ static int gfx_v11_0_wait_for_rlc_autoload_complete(struct amdgpu_device *adev)
+ 	for (i = 0; i < adev->usec_timeout; i++) {
+ 		cp_status = RREG32_SOC15(GC, 0, regCP_STAT);
+ 
+-		if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(11, 0, 1))
++		if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(11, 0, 1) ||
++				adev->ip_versions[GC_HWIP][0] == IP_VERSION(11, 0, 4))
+ 			bootload_status = RREG32_SOC15(GC, 0,
+ 					regRLC_RLCS_BOOTLOAD_STATUS_gc_11_0_1);
+ 		else
 -- 
 2.37.3
 
