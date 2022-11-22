@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 317EFC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 13:55:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D40AC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 14:12:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF34410E3D2;
-	Tue, 22 Nov 2022 13:55:36 +0000 (UTC)
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
- [IPv6:2607:f8b0:4864:20::c36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D1C010E3D0;
- Tue, 22 Nov 2022 13:55:29 +0000 (UTC)
-Received: by mail-oo1-xc36.google.com with SMTP id
- j6-20020a4ab1c6000000b004809a59818cso2273657ooo.0; 
- Tue, 22 Nov 2022 05:55:29 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECA6310E1D3;
+	Tue, 22 Nov 2022 14:12:19 +0000 (UTC)
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4646A10E1D3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 14:12:16 +0000 (UTC)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-14286d5ebc3so14052240fac.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 06:12:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=2SBGeqgV8aQ4ClE1rxARDUjCn/QaGrg5bogBswoE+Gk=;
- b=SnJrJJJB+uAOWpogJlqoVY6znPbePuzs8v8E+Jasq1bg9moQq8Gbla8WPFPotFYdUs
- rdiNTyjJgUOpZ//qEmNSffWMfpXCemCqV4jqqOLcafNGMG3y7VzHk2z9V6YfIYYTp81D
- df5NkH3zm4zUw3PzBRdPGQ4f8CJIBaeUTQh9hasrwmNEXQM/Q4hIQ6dVrmQyovTykNlk
- RNdlw5G+f5UCJDWk4RkG0HUq6cWwz+Pat2UDROelcqWZxV0KlNgJCCVHtdzbVNto0nKe
- fES8l3XJEdiw4y/2lEdykL46NhCsN3MbN/y7RDB/FanhyNqBLX9zLaQeCHNrj9s0p+p2
- fKaQ==
+ bh=fnk6I4i+IQT7oC3cvWQnuIHaKdiQ8/CvwU8yPeOGi7E=;
+ b=HtnFBx/tlb5CmtOvRGDkitL8H50pAfHWR6xK6+Rl4EV7lbJA4zF7yQjwACcnlm2/I8
+ 2/W84MitFTMRRidwsxgqiCt8b84YXsNVeAALbOzCdrZeO6lWvDPrMu35zfCiP9apOA7U
+ vv6HJVA/trdviUUno/jP5MciGFjvknVFKwnmlvTlTk0SL/IH0TQe4S82sGY/ZPvVTcAv
+ vCvuR4hoD5+b1dVn6+uD/cuuZoiD2R8w4behZnUHcJLpPtwfI5/ItAIXaPM/yO1Vgqip
+ mIveLGeHtHLDUfZBBu7xwmaOgU2qlFzBz31aNGE+0dH6+4ueb7d+XPjmOD4uPzHddktz
+ +EaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=2SBGeqgV8aQ4ClE1rxARDUjCn/QaGrg5bogBswoE+Gk=;
- b=L+bvtEpxChyu0ZNZ/uDI2qRlHbmE7xc4HtnlA0Ai69lopH1n2pK2QPK4HPJfSVvNWR
- lg3e1vwEl+8PpbEIl2UZ6Az5hlHB8YRUqJlrXoIEoX3MgThrNg5BqQEJm3aH7dZgOMcG
- heejroBw6Kda6oXVhVXjtL/wpMmELBkBsjWApyXRxs3H6d9uNe7Yl9Q3j2MX7zu3NHzF
- zrz4dnWZMlsN+TgQOWold63XgcaWCIk5vxAdTNRdK33aSS3sMdd14P7MIpvkNuksVu/m
- rPNV0D/AotV9r5ujcgk/YJAgye4b3QzJ1HlD17RX1KAsJ1zPxh7niu3ZGmIETNk03VXd
- R7pQ==
-X-Gm-Message-State: ANoB5pneuZjRAQ/ylRwWJtsuG3yXpu7SzOkVUPhMbVLsq33xeK/ur8/v
- hoyX7N78fl6OwpLK+2m0skKCavk9EqcqCn4+/MU=
-X-Google-Smtp-Source: AA0mqf7ykzweR9BqX2Z1bFr3kRAAU5C3xDVsZgtZl+Svh5PRx1RmM9Dz5FRt4dxqYY1KiJhP24NikZC0YwM35U5Onhk=
-X-Received: by 2002:a4a:d1b2:0:b0:498:ce46:9fb1 with SMTP id
- z18-20020a4ad1b2000000b00498ce469fb1mr6131515oor.97.1669125328656; Tue, 22
- Nov 2022 05:55:28 -0800 (PST)
+ bh=fnk6I4i+IQT7oC3cvWQnuIHaKdiQ8/CvwU8yPeOGi7E=;
+ b=75i2yWOMtH4iYstL5F3FKyX+JotOVmrflU/t0pMOCiA/IvMWhhdo0y/EYbvGUCuRQb
+ 4BHpzGdCnw9gp3UjJm+V25Pmd0OxGzG8JADQuzBIJHvhk02h2kbH5ceq6MqNdT9DsaJK
+ DhcVidz4JXQkhNazGQppC8DGf2tLPgwY1pVrBmumBykX8RLNn9GlqNmEYwb8YPJ5SIha
+ Dcy/t7LuHyvuwbzeFAisKw7mGNA1BAMsqm2T6Ye5S+YWcNbY5fhH57nzhq4zGCekWlwq
+ HNBnwPUvDUHKer9t/ltQRFe5KXonb/s9Ggqe4EcMnOFtFLMMlNa/5JlyZW5UuMkOj7wh
+ ID3w==
+X-Gm-Message-State: ANoB5pm3Bh3DW4kxCs0GMKnAE5X+Ilxf7EL2jjhknQjGmVdZe5K3cUq/
+ +/x34VAiguJnH/6MBEHY+gNZpedhHQXrXuLsMSE=
+X-Google-Smtp-Source: AA0mqf7u12LQ/o2l/pToTc96vlIsp8jB0Ndut4/lqjf315L/h+hgkUG+njS6VJtHXZjQWYO99k80lwdTuwyXANdstDc=
+X-Received: by 2002:a05:6870:b07:b0:13b:d07f:f29d with SMTP id
+ lh7-20020a0568700b0700b0013bd07ff29dmr2079655oab.96.1669126335372; Tue, 22
+ Nov 2022 06:12:15 -0800 (PST)
 MIME-Version: 1.0
-References: <CAHk-=wjKJyzfJmOzBdEOqCFRc8Fh-rdGM4tvMXfW0WXbbHwV0w@mail.gmail.com>
- <20221122105054.4062213-1-geert@linux-m68k.org>
- <alpine.DEB.2.22.394.2211221154280.284524@ramsan.of.borg>
-In-Reply-To: <alpine.DEB.2.22.394.2211221154280.284524@ramsan.of.borg>
+References: <622f20c5-5c24-d1c5-f874-6cb80b365e2e@collabora.com>
+In-Reply-To: <622f20c5-5c24-d1c5-f874-6cb80b365e2e@collabora.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 22 Nov 2022 08:55:17 -0500
-Message-ID: <CADnq5_PvouSKugXxJXqkVeZf+kbP8+hhUKFgVALSO=MOW3jzvA@mail.gmail.com>
-Subject: Re: Build regressions/improvements in v6.1-rc6
-To: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 22 Nov 2022 09:12:03 -0500
+Message-ID: <CADnq5_PKxfk9wEbQp8Mcxszp8R02qqe6ZtuonZ-TH4Zg9Lhrdg@mail.gmail.com>
+Subject: Re: Help debug amdgpu faults
+To: Robert Beckett <bob.beckett@collabora.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,49 +64,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-um@lists.infradead.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Dmitrii Osipenko <dmitry.osipenko@collabora.com>,
+ =?UTF-8?Q?Adri=C3=A1n_Mart=C3=ADnez_Larumbe?=
+ <adrian.larumbe@collabora.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Stone <daniels@collabora.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 22, 2022 at 5:56 AM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+On Tue, Nov 22, 2022 at 6:53 AM Robert Beckett
+<bob.beckett@collabora.com> wrote:
 >
-> On Tue, 22 Nov 2022, Geert Uytterhoeven wrote:
-> > JFYI, when comparing v6.1-rc6[1] to v6.1-rc5[3], the summaries are:
-> >  - build errors: +6/-0
+> Hi,
 >
->    + /kisskb/src/arch/sh/include/asm/io.h: error: cast to pointer from integer of different size [-Werror=int-to-pointer-cast]:  => 239:34
 >
-> sh4-gcc11/sh-allmodconfig (in cvm_oct_free_hw_memory())
->
->    + /kisskb/src/arch/um/include/asm/processor-generic.h: error: called object is not a function or function pointer:  => 94:18
->    + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: error: control reaches end of non-void function [-Werror=return-type]:  => 1934:1
->
-> um-x86_64/um-all{mod,yes}config (in kfd_cpumask_to_apic_id())
+> does anyone know any documentation, or can provide advice on debugging amdgpu fault reports?
 
-Presumably cpu_data is not defined on um-x86_64?  Does it even make
-sense to build drivers on um-x86_64?
+This is a GPU page fault so it refers the the GPU virtual address
+space of the application .  Each process (well fd really), gets its
+own GPU virtual address space into which system memory, system mmio
+space, or vram can be mapped.  The user mode drivers control their GPU
+virtual address space.
+
+>
+>
+> e.g:
+>
+> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: [gfxhub] page fault (src_id:0 ring:8 vmid:1 pasid:32769, for process vkcube pid 999 thread vkcube pid 999)
+
+This is the process that caused the fault.
+
+> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:   in page starting at address 0x0000800100700000 from client 0x1b (UTCL2)
+
+This is the virtual address that faulted.
+
+> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: GCVM_L2_PROTECTION_FAULT_STATUS:0x00101A10
+> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          Faulty UTCL2 client ID: SDMA0 (0xd)
+
+The fault came from the SDMA engine.
+
+> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          MORE_FAULTS: 0x0
+> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          WALKER_ERROR: 0x0
+> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          PERMISSION_FAULTS: 0x1
+
+The page was not marked as valid in the GPU page table.
+
+> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          MAPPING_ERROR: 0x0
+> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          RW: 0x0
+
+SDMA attempted to read an invalid page.
+
+>
+>
+>
+> see https://gitlab.freedesktop.org/drm/amd/-/issues/2267 for more context.
+>
+> We have a complicated setup involving rendering then blitting to virtio-gpu exported dmabufs, with plenty of hacks in the mesa and xwayland stacks, so we are considering this our issue to debug, and not an issue with the driver at this point.
+> However, having debugged all the interesting parts leading to these faults, I am unable to decode the fault report to correlate to a buffer.
+>
+> in the fault report, what address space is the address from?
+> given that the fault handler shifts the reported addres up by 12, I assume it is a 4K pfn which makes me assume a physical address is this correct?
+> if so, is that a vram pa or a host system memory pa?
+> is there any documentation for the other fields reported like the fault status etc?
+
+See the comments above.  There is some kernel doc as well:
+https://docs.kernel.org/gpu/amdgpu/driver-core.html#amdgpu-virtual-memory
+
+>
+> I'd appreciate any advice you could give to help us debug further.
+
+Some operation you are doing in the user mode driver is reading an
+invalid page.  Possibly reading past the end of a buffer or something
+mis-aligned.  Compare the faulting GPU address to the GPU virtual
+address space in the application and you should be able to track down
+what is happening.
 
 Alex
 
 >
->    + /kisskb/src/drivers/infiniband/hw/qib/qib_wc_x86_64.c: error: 'X86_VENDOR_AMD' undeclared (first use in this function):  => 149:37
->    + /kisskb/src/drivers/infiniband/hw/qib/qib_wc_x86_64.c: error: 'struct cpuinfo_um' has no member named 'x86_vendor':  => 149:22
->    + /kisskb/src/drivers/infiniband/hw/qib/qib_wc_x86_64.c: error: control reaches end of non-void function [-Werror=return-type]:  => 150:1
+> Thanks
 >
-> um-x86_64/um-allyesconfig
+> Bob
 >
-> > [1] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/eb7081409f94a9a8608593d0fb63a1aa3d6f95d8/ (all 149 configs)
-> > [3] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/094226ad94f471a9f19e8f8e7140a09c2625abaa/ (all 149 configs)
->
-> Gr{oetje,eeting}s,
->
->                                                 Geert
->
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
->
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                                             -- Linus Torvalds
