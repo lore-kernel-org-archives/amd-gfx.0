@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0650FC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 08:28:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A01FC43217
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 08:28:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6348C10E3A4;
-	Tue, 22 Nov 2022 08:28:29 +0000 (UTC)
-X-Greylist: delayed 1886 seconds by postgrey-1.36 at gabe;
- Tue, 22 Nov 2022 04:37:28 UTC
-Received: from mail-m964.mail.126.com (mail-m964.mail.126.com [123.126.96.4])
- by gabe.freedesktop.org (Postfix) with ESMTP id C2A0310E0C6;
- Tue, 22 Nov 2022 04:37:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E30F10E3A6;
+	Tue, 22 Nov 2022 08:28:30 +0000 (UTC)
+X-Greylist: delayed 1909 seconds by postgrey-1.36 at gabe;
+ Tue, 22 Nov 2022 05:01:04 UTC
+Received: from m15113.mail.126.com (m15113.mail.126.com [220.181.15.113])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1F7DA10E14F;
+ Tue, 22 Nov 2022 05:01:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=hyMHQ
- +IQ32aYWO8By/rlk0gemkXtyhJVeG299Uy/CdE=; b=Buu1gI/xzxN+FGpkpOVil
- Pr8/W/5UQMo3Wo+YbArVotj0x+IvygZ0kCSrRrPye5AM8p7v2W32sCIV3+tsvBaZ
- 0v5uGbKbJOF49pxiS30+yk4wuQxqXqimPdlRn6Lmj5nHDz8eewDnCp80RGqTf1Dn
- 0REiR0GuIsZ511P5uitK1o=
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=koqsT
+ aHahdJV3/sqTaGV9Vo1ZB6Wj3j4JgWQBS8SK1I=; b=BpIOM0eXLlk9Oxr6Aunei
+ 497zmEwZ53YiiAXyeZmOUJ7W88coW1J68AHW1tN0EQSoh94PUlN5jm/f5shguJWi
+ uJgv3kK2Ml4WzOVsrcK62U5qhapUACnIac1DrtGLxqlQ71D1RjnUBrBRXxlrFLK3
+ YCLqoy5C5mVpZLFZmoeLGo=
 Received: from localhost.localdomain (unknown [124.16.139.61])
- by smtp9 (Coremail) with SMTP id NeRpCgAHVxOfSnxjPhmIGA--.14582S2;
- Tue, 22 Nov 2022 12:05:52 +0800 (CST)
+ by smtp3 (Coremail) with SMTP id DcmowABHTbEBUHxjRgpAEg--.33943S2;
+ Tue, 22 Nov 2022 12:28:50 +0800 (CST)
 From: Liang He <windhl@126.com>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, daniel@ffwll.ch, sumit.semwal@linaro.org,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  windhl@126.com
-Subject: [PATCH] drm/amdgpu: Fix Double Free,
- Null Pointer Dereference and MemLeak
-Date: Tue, 22 Nov 2022 12:05:50 +0800
-Message-Id: <20221122040550.1096952-1-windhl@126.com>
+Subject: [PATCH v2] drm/amdgpu: Fix potential double free and null pointer
+ dereference
+Date: Tue, 22 Nov 2022 12:28:49 +0800
+Message-Id: <20221122042849.1097369-1-windhl@126.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: NeRpCgAHVxOfSnxjPhmIGA--.14582S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Cr4xWw4rZF1DGF13Ar4kXrb_yoW8tFW3pF
- 4fXr1UtrWDZF4xtw1Du3WrZasxtw12ga4Skr4UuwnI9wn8JF95Gw15JFWjqr1kJFZ2kr43
- tFZrX3yUZF1qvFJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi1xRxUUUUU=
+X-CM-TRANSID: DcmowABHTbEBUHxjRgpAEg--.33943S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Cr4xWw4rZr4fGr4DKF1UGFg_yoW8Zry7pF
+ 4fXF1UtrWDZF4xtry7Z3WrZasxt3W2ga4rKr48uwnI9wn8JF95Jw15JFWjqr1kuFZ2kr43
+ tF9rJ3y8ZF1qvFJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UIg4hUUUUU=
 X-Originating-IP: [124.16.139.61]
-X-CM-SenderInfo: hzlqvxbo6rjloofrz/1tbiHgDBF2IxpqDwSQAAsk
+X-CM-SenderInfo: hzlqvxbo6rjloofrz/1tbiHgPBF2IxpqEIIgAAs1
 X-Mailman-Approved-At: Tue, 22 Nov 2022 08:28:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,18 +58,20 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 In amdgpu_get_xgmi_hive(), we should not call kfree() after
-kobject_put() as the PUT will call kfree(). Besides, we should
-not call kobject_get() again for the new *alloced* as its
-refcount will be initialized to 1 for the returned *hive*.
+kobject_put() as the PUT will call kfree().
 
 In amdgpu_device_ip_init(), we need to check the returned *hive*
 which can be NULL before we dereference it.
 
 Signed-off-by: Liang He <windhl@126.com>
 ---
+ v1->v2: we need the extra GET to keep *hive* alive, it is
+ my fault to remove the GET in v1.
+
+
  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   | 4 ----
- 2 files changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   | 2 --
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 index f1e9663b4051..00976e15b698 100644
@@ -88,7 +90,7 @@ index f1e9663b4051..00976e15b698 100644
  				    !amdgpu_reset_get_reset_domain(hive->reset_domain)) {
  					r = -ENOENT;
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 47159e9a0884..26adc7293468 100644
+index 47159e9a0884..4b9e7b050ccd 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
 @@ -386,7 +386,6 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
@@ -107,15 +109,6 @@ index 47159e9a0884..26adc7293468 100644
  				hive = NULL;
  				goto pro_end;
  			}
-@@ -437,8 +435,6 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
- 	list_add_tail(&hive->node, &xgmi_hive_list);
- 
- pro_end:
--	if (hive)
--		kobject_get(&hive->kobj);
- 	mutex_unlock(&xgmi_mutex);
- 	return hive;
- }
 -- 
 2.25.1
 
