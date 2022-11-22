@@ -4,30 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92047C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 16:12:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC4F4C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 16:12:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8152A10E413;
-	Tue, 22 Nov 2022 16:12:03 +0000 (UTC)
-Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CABA10E40C;
- Tue, 22 Nov 2022 15:36:59 +0000 (UTC)
-From: Denis Arefev <arefev@swemel.ru>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
- t=1669131416;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=f8yks6Nly8vAvHQB6r3QpAU5Ke7J6yBlMIAgEuvrAOM=;
- b=asKczoD4dJp2+N/Cet6LXyR2LzNIHadPUGMIXX2juB59YA0JHdumreH3Kubgw7sEnvsdW8
- UM5OcWzjMxxzqqXdFna0SjdvLqC3MtIdwy47eC3YGmhY9QxD4DIZsENrLZmFvYvj+Aapzj
- bUTrydDqt/QnwHnRZeGR7/0eXRcnpr8=
-To: Evan Quan <evan.quan@amd.com>
-Subject: [PATCH] drm/amd/pm: added result check
-Date: Tue, 22 Nov 2022 18:36:56 +0300
-Message-Id: <20221122153656.28495-1-arefev@swemel.ru>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C82110E416;
+	Tue, 22 Nov 2022 16:12:04 +0000 (UTC)
+X-Greylist: delayed 2324 seconds by postgrey-1.36 at gabe;
+ Tue, 22 Nov 2022 15:39:32 UTC
+Received: from sipsolutions.net (s3.sipsolutions.net
+ [IPv6:2a01:4f8:191:4433::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C9E910E407;
+ Tue, 22 Nov 2022 15:39:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+ Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+ Resent-Cc:Resent-Message-ID; bh=+NFpLSd8ScOHEVd4DHTztoyZ+UkB3J/9rUIzBb7GyY0=; 
+ t=1669131572; x=1670341172; b=k9v/HSIelAbs/W+qToz4dQTNvHMGnsiZQIQuxS6OfKL4fe7
+ XN3SoRP2zwCtFLeqpWr7DNkreKGwmU+4n9B55OI0AyoUWIJERoWNlq6xvSM2Yng54CfucAmWF00ke
+ wf7D1qwLmm7As8HOKvc/brBKseBg4tmOI+vnq0Hi8qelUcHDMMvGNPPC5qPcVibtpbKw3F1JbOJcg
+ D/OOT0n0S7NDxj8qQmjt7FiXlAzZ6UQBCNuLGH7vHpfVyxpOwrnSi1Xpc/LeOkGGgu5NLkpOyaQ1C
+ m87clPyZW/z2qasBBy164STPsks0X9uoqOHaj6pW4XCe3gX6//JMQyf3wsUvI53Q==;
+Received: by sipsolutions.net with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.96) (envelope-from <johannes@sipsolutions.net>)
+ id 1oxUlH-006Ngc-2Z; Tue, 22 Nov 2022 16:00:35 +0100
+Message-ID: <021efb6c9295402cf05406bb319c441c0b0229b3.camel@sipsolutions.net>
+Subject: Re: Build regressions/improvements in v6.1-rc6
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Alex Deucher <alexdeucher@gmail.com>, Geert Uytterhoeven
+ <geert@linux-m68k.org>
+Date: Tue, 22 Nov 2022 16:00:34 +0100
+In-Reply-To: <CADnq5_PvouSKugXxJXqkVeZf+kbP8+hhUKFgVALSO=MOW3jzvA@mail.gmail.com>
+References: <CAHk-=wjKJyzfJmOzBdEOqCFRc8Fh-rdGM4tvMXfW0WXbbHwV0w@mail.gmail.com>
+ <20221122105054.4062213-1-geert@linux-m68k.org>
+ <alpine.DEB.2.22.394.2211221154280.284524@ramsan.of.borg>
+ <CADnq5_PvouSKugXxJXqkVeZf+kbP8+hhUKFgVALSO=MOW3jzvA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4 (3.44.4-2.fc36) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-malware-bazaar: not-scanned
 X-Mailman-Approved-At: Tue, 22 Nov 2022 16:11:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -40,52 +57,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: trufanov@swemel.ru, lvc-project@linuxtesting.org, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, vfh@swemel.ru, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-um@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The return value of the 'div64_s64'
-function called in ppevvmath.h:371
-was not checked.
+On Tue, 2022-11-22 at 08:55 -0500, Alex Deucher wrote:
+> >=20
+> >    + /kisskb/src/arch/um/include/asm/processor-generic.h: error: called=
+ object is not a function or function pointer:  =3D> 94:18
+> >    + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: e=
+rror: control reaches end of non-void function [-Werror=3Dreturn-type]:  =
+=3D> 1934:1
+> >=20
+> > um-x86_64/um-all{mod,yes}config (in kfd_cpumask_to_apic_id())
+>=20
+> Presumably cpu_data is not defined on um-x86_64?  Does it even make
+> sense to build drivers on um-x86_64?
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Drivers in general yes ;-)
 
-Signed-off-by: Denis Arefev <arefev@swemel.ru>
----
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+This driver, probably not.
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
-index dac29fe6cfc6..82aa7130d143 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
-@@ -357,6 +357,7 @@ static fInt fDivide (fInt X, fInt Y)
- {
- 	fInt fZERO, fQuotient;
- 	int64_t longlongX, longlongY;
-+	int64_t result;
- 
- 	fZERO = ConvertToFraction(0);
- 
-@@ -367,10 +368,11 @@ static fInt fDivide (fInt X, fInt Y)
- 	longlongY = (int64_t)Y.full;
- 
- 	longlongX = longlongX << 16; /*Q(16,16) -> Q(32,32) */
-+	longlongY = longlongY << 16;
- 
--	div64_s64(longlongX, longlongY); /*Q(32,32) divided by Q(16,16) = Q(16,16) Back to original format */
-+	result = div64_s64(longlongX, longlongY);
- 
--	fQuotient.full = (int)longlongX;
-+	fQuotient = ConvertToFraction((int)result);
- 	return fQuotient;
- }
- 
--- 
-2.25.1
+But the issue is that a lot of drivers "depends on X86_64" or such,
+where only "X86" is the arch symbol. You could add "X86 && X86_64" to
+really build on x86 64-bit only.
+
+I didn't check this driver, but this has mostly popped up since UM got
+PCI support some time ago (which I added.)
+
+johannes
+
 
