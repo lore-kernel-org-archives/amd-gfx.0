@@ -4,37 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECC38C43217
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 14:37:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E823C43219
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 14:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF80010E3F0;
-	Tue, 22 Nov 2022 14:37:45 +0000 (UTC)
-X-Greylist: delayed 301 seconds by postgrey-1.36 at gabe;
- Tue, 22 Nov 2022 11:01:36 UTC
-Received: from albert.telenet-ops.be (albert.telenet-ops.be
- [IPv6:2a02:1800:110:4::f00:1a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FB5210E3C2
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 11:01:36 +0000 (UTC)
-Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed10:4821:1ba5:2638:5c3a])
- by albert.telenet-ops.be with bizsmtp
- id nNwZ2800A5WXlCv06NwZjj; Tue, 22 Nov 2022 11:56:33 +0100
-Received: from geert (helo=localhost)
- by ramsan.of.borg with local-esmtp (Exim 4.93)
- (envelope-from <geert@linux-m68k.org>)
- id 1oxQx6-001C3A-OH; Tue, 22 Nov 2022 11:56:32 +0100
-Date: Tue, 22 Nov 2022 11:56:32 +0100 (CET)
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-X-X-Sender: geert@ramsan.of.borg
-To: linux-kernel@vger.kernel.org
-Subject: Re: Build regressions/improvements in v6.1-rc6
-In-Reply-To: <20221122105054.4062213-1-geert@linux-m68k.org>
-Message-ID: <alpine.DEB.2.22.394.2211221154280.284524@ramsan.of.borg>
-References: <CAHk-=wjKJyzfJmOzBdEOqCFRc8Fh-rdGM4tvMXfW0WXbbHwV0w@mail.gmail.com>
- <20221122105054.4062213-1-geert@linux-m68k.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA63C10E3FE;
+	Tue, 22 Nov 2022 14:49:55 +0000 (UTC)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AFBF10E3FB;
+ Tue, 22 Nov 2022 14:49:50 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id h132so16071277oif.2;
+ Tue, 22 Nov 2022 06:49:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Hwgro+Mm4grcLsTI4z1CQ0gU6+UP66+rkYIgqXTF/rQ=;
+ b=hpFYUH249Ic1nL0AqhXFotGqEgkRx8sf1g9pza49gOxeUJLCAzb7JsbpO3oHEz+XD6
+ bJ+nyZAFg/XR2OtRO39KOI2/1fyZO2t9F5ils9Cvn5xnt7X2MItbBMvK8bwg+jPsny9c
+ xrJ4NdhFWaDAi8XLrj600h/Jqjn2uoJqlhnPBAim2UFijNX9DyAX+beFBHuocfyRB5Gv
+ nhfh5AaREN84WTay/HtyFpBVv8RUl5iad7XIrEOZcIVtYS2utU/lPMSmCFnSa9/zbXwm
+ cclPBnUkkSp/TjxpaxXfkqv3z1HRQdrHOi75bn4h0ISfioHrk/XMnY0s1LXtbmoiQYAR
+ N40Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Hwgro+Mm4grcLsTI4z1CQ0gU6+UP66+rkYIgqXTF/rQ=;
+ b=5AqDavWvFMecW3ARH28M1v44+DA9Ti8hSsQ1KbG/4vB3+Lybh1G18Mu2pFnoZKJQ20
+ uZxpzqdbh81nzKIj2ftvn19PLjQI6YvL9QGMQN8acsu6l3uKpW15ifz2SD0ppySEsH54
+ Q1YCG7VuBCwdFZnGuAWM5XzjQiC32LKIVQFRoBGrwpyuF4Z7hHXPJtAggpf917Es4VMa
+ RqPrt/vrO1Z3O3Pa7MEKiAhR5VAQfwY607f7D4PIDQyJrR6ChmoeX1sUKw3lBrM36N42
+ pRp30XpB+RLFky5KQr0p4pw+RDifwUZFClHYHj0bmhULXNZyjtMReqbLShzFQFROBhCd
+ +QlQ==
+X-Gm-Message-State: ANoB5pngXMOL58Yt3AUx+sN5I39OIEB3U8CnNZkf456FoheT2p9NY3Eh
+ +1pXniftrZ+xDBHZSup+YoFLCX8OPwz2U7F7t3k=
+X-Google-Smtp-Source: AA0mqf6pR02AvMqIQNHUy/xIW6cpnuZtBTZtDyYB2bN4HiiF4twoE9RF3lIvW3txzEnSq0pOHz2WFAjBVHIA3Tbj5tk=
+X-Received: by 2002:a05:6808:9b8:b0:34f:97ea:14d with SMTP id
+ e24-20020a05680809b800b0034f97ea014dmr1764935oig.96.1669128589816; Tue, 22
+ Nov 2022 06:49:49 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
-X-Mailman-Approved-At: Tue, 22 Nov 2022 14:37:39 +0000
+References: <20221122113043.18715-1-wangxiongfeng2@huawei.com>
+ <20221122113043.18715-2-wangxiongfeng2@huawei.com>
+In-Reply-To: <20221122113043.18715-2-wangxiongfeng2@huawei.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 22 Nov 2022 09:49:38 -0500
+Message-ID: <CADnq5_NxLhU+zeNv4Esm=3Wn-=qHkRCzOmqT9a208BVZUn29pw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/radeon: Fix PCI device refcount leak in
+ radeon_atrm_get_bios()
+To: Xiongfeng Wang <wangxiongfeng2@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,41 +65,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-um@lists.infradead.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: Xinhui.Pan@amd.com, lijo.lazar@amd.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, yangyingliang@huawei.com,
+ alexander.deucher@amd.com, airlied@gmail.com, christian.koenig@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 22 Nov 2022, Geert Uytterhoeven wrote:
-> JFYI, when comparing v6.1-rc6[1] to v6.1-rc5[3], the summaries are:
->  - build errors: +6/-0
+On Tue, Nov 22, 2022 at 6:12 AM Xiongfeng Wang
+<wangxiongfeng2@huawei.com> wrote:
+>
+> As comment of pci_get_class() says, it returns a pci_device with its
+> refcount increased and decreased the refcount for the input parameter
+> @from if it is not NULL.
+>
+> If we break the loop in radeon_atrm_get_bios() with 'pdev' not NULL, we
+> need to call pci_dev_put() to decrease the refcount. Add the missing
+> pci_dev_put() to avoid refcount leak.
 
-   + /kisskb/src/arch/sh/include/asm/io.h: error: cast to pointer from integer of different size [-Werror=int-to-pointer-cast]:  => 239:34
+For both patches, I think pci_dev_put() needs to go into the loops.
+There are 2 or more GPUs on the systems where this is relevant.
 
-sh4-gcc11/sh-allmodconfig (in cvm_oct_free_hw_memory())
+Alex
 
-   + /kisskb/src/arch/um/include/asm/processor-generic.h: error: called object is not a function or function pointer:  => 94:18
-   + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: error: control reaches end of non-void function [-Werror=return-type]:  => 1934:1
-
-um-x86_64/um-all{mod,yes}config (in kfd_cpumask_to_apic_id())
-
-   + /kisskb/src/drivers/infiniband/hw/qib/qib_wc_x86_64.c: error: 'X86_VENDOR_AMD' undeclared (first use in this function):  => 149:37
-   + /kisskb/src/drivers/infiniband/hw/qib/qib_wc_x86_64.c: error: 'struct cpuinfo_um' has no member named 'x86_vendor':  => 149:22
-   + /kisskb/src/drivers/infiniband/hw/qib/qib_wc_x86_64.c: error: control reaches end of non-void function [-Werror=return-type]:  => 150:1
-
-um-x86_64/um-allyesconfig
-
-> [1] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/eb7081409f94a9a8608593d0fb63a1aa3d6f95d8/ (all 149 configs)
-> [3] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/094226ad94f471a9f19e8f8e7140a09c2625abaa/ (all 149 configs)
-
-Gr{oetje,eeting}s,
-
- 						Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
- 							    -- Linus Torvalds
+>
+> Fixes: d8ade3526b2a ("drm/radeon: handle non-VGA class pci devices with ATRM")
+> Fixes: c61e2775873f ("drm/radeon: split ATRM support out from the ATPX handler (v3)")
+> Signed-off-by: Xiongfeng Wang <wangxiongfeng2@huawei.com>
+> ---
+>  drivers/gpu/drm/radeon/radeon_bios.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+> index 33121655d50b..2df6ce3e32cb 100644
+> --- a/drivers/gpu/drm/radeon/radeon_bios.c
+> +++ b/drivers/gpu/drm/radeon/radeon_bios.c
+> @@ -227,6 +227,7 @@ static bool radeon_atrm_get_bios(struct radeon_device *rdev)
+>
+>         if (!found)
+>                 return false;
+> +       pci_dev_put(pdev);
+>
+>         rdev->bios = kmalloc(size, GFP_KERNEL);
+>         if (!rdev->bios) {
+> --
+> 2.20.1
+>
