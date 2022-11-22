@@ -4,64 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36C69C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 07:35:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01A2EC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 07:53:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67D6C10E021;
-	Tue, 22 Nov 2022 07:35:06 +0000 (UTC)
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2719B10E021
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 07:35:02 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id l11so19415047edb.4
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 23:35:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cr2e9hCHe0sYJZF0mfSX1K31JRXYhZs4Ar283/6vmlI=;
- b=evFX0LKBi9j7npewvGiuWrNq/RKmYBnGc8vkFIH2iUwg39uwdp4uKfPeH0j4UmgsVT
- tfuy1lzBBdhzCL8vD7+UysLEggGFNQmCZJOsMD4cCB1Dvf7GWsCqh6ELKXGjK9TTF/6l
- QN2oYS/apI/bzhYkpcA4SPCLsI6cD9lIF3Ar+XdchwTx2qd+Ga9f0QW4lGfRWBvxMq7C
- Omtu2ONFXQHiNjUdGfwyYFeLinc0OA4jfUTEcUEWQKUQqvN/Gl6+zoo85QE3RaZT0V1g
- 2ut26WNbNV+FSGnS8ttegN46qufww6BXad2hWYx3elnLTXkEm8atAawnTjZGu5f4TgtF
- UfgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cr2e9hCHe0sYJZF0mfSX1K31JRXYhZs4Ar283/6vmlI=;
- b=4P2sCopQZ4KvJbnS+vc1cx2KjgLJfU5YPoQvHqtRqkKtaK2G6MMMPFZpZV8zaka8d8
- csJzkoGGf96+MhHN+AAXCd8KAwCGmmnWTx2YQjgpEMQF46m6/X36pov/s5zYwd5ze6NN
- 6s60m40jYj4YGSsldXfWOkIQ7iNjgXUiP8bpS/JM+0Kh9FkRKPVmjAgR55kUF8bMmnVp
- yfOFd74ysPnXs6yBqeJ2i0QIjExH2fS1jEghp+ZZ9P+YvrRT4GpB7kVsIT6cFXtZLI0/
- rPBE9oursoCdBHL1vC9Uo9SPII6oYdnlzSw1K8ugh+ysnY9p3VhUKFmU5bHsH3qYCofY
- ItmQ==
-X-Gm-Message-State: ANoB5plN7TW8Zv124GcipnNd3FqNZ/6pmTDw6BFGClzMbbLcDsVHif7V
- XmO8AlqrPjl8VTwEweJBg48=
-X-Google-Smtp-Source: AA0mqf525f2FUBILH7knXk9lH3XWWh4AvlO4AaNz9Zf8GFuVK7pDe2fPKxod94HGqtsyS//uKFYNjQ==
-X-Received: by 2002:a05:6402:1381:b0:468:5b78:6381 with SMTP id
- b1-20020a056402138100b004685b786381mr7308704edv.373.1669102500538; 
- Mon, 21 Nov 2022 23:35:00 -0800 (PST)
-Received: from [192.168.178.21] (p5b0ea229.dip0.t-ipconnect.de. [91.14.162.41])
- by smtp.gmail.com with ESMTPSA id
- u3-20020a05640207c300b004587c2b5048sm6137598edy.52.2022.11.21.23.34.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Nov 2022 23:35:00 -0800 (PST)
-Message-ID: <c8879c5d-0a90-3290-9e0b-6b02c08440a3@gmail.com>
-Date: Tue, 22 Nov 2022 08:34:58 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id C67B910E008;
+	Tue, 22 Nov 2022 07:53:17 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20605.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::605])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFC7910E008;
+ Tue, 22 Nov 2022 07:53:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FlMTvbAdZeJruWyr/VNzVzeqAKm3Kw/WjlA/ky/X7VchvrHJkqhqE36w3LmFIxBh31XgE2WPpMQpB5w52H7hOMEAbDnkWdlfUFniTXxLY4rQXz6AnpLeLhzhOsUS6GDKMqUpvq8B1gLtxeeLwHwNIYsskAX4AnIlf2lLh9KZSKTv8ertV742lkh9ibzjEHa/3W+8IKgejTxbMr072Lmc7FSOh6XWY3NWTM3Jk3GVDzZ1rguozGH+Ufrwqh800CCveZYeDYaEvnS3odL2cBkjuveDCDwXvL+F6JgGTQ1Jssen0Uj/CeOnxxvVnUV8DACoSJ+7Il/euCaC00F+GA6dow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aVSzKv7uSbgsCPu3eG4kq2yM5z8SnjztdwZKsK204SA=;
+ b=KFdnEy/24mHH8MzweRpcdfB8dTq2kfDYVFLG2pdwiEzpWIWie1qTwOc92DX0Z4sdsS8f6tLEWNTjQ2QuvR2abH/FUOwTTPKcjJMxwHt97N8YkxVMNYRgmrLEAcOaQv0fUQ2QU4BHdx72NTL0RXLMn2VSV63iB6o0DcSIDlbvsV+uo6YzJYr5dYv2bVNSZ0x0/ICzbTdJWSoFZ7z3IIMWF4KzN5OlX9PApeWoLj3AVOQh8/NXS+eC0FQKt4+lVFLJs0qlrOhxhW9DtWRjM94mtpR1S2HYnks8pfskm5A0ad5HZtjGFH0LXhzSOG+Q5BF5bqG/25YBe2nrQIhkooz3iQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aVSzKv7uSbgsCPu3eG4kq2yM5z8SnjztdwZKsK204SA=;
+ b=0hkOkTYNjd3M62r4st/GmAt/M23aQYt/uXK6YDkxp6LM5S3bji2HQukKEXemk17/17UZyWsyC5gA2yY103Itc87t4jEZnOMgdDwva6RFdYLJQNzvCfKvfCHUhjmeV1Q45RYR3shXidwiBspt8rUxvRgRv02mvovQ7AbJXU3lulo=
+Received: from BL0PR02CA0009.namprd02.prod.outlook.com (2603:10b6:207:3c::22)
+ by IA0PR12MB7532.namprd12.prod.outlook.com (2603:10b6:208:43e::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Tue, 22 Nov
+ 2022 07:53:12 +0000
+Received: from BL02EPF0000EE3D.namprd05.prod.outlook.com
+ (2603:10b6:207:3c:cafe::27) by BL0PR02CA0009.outlook.office365.com
+ (2603:10b6:207:3c::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15 via Frontend
+ Transport; Tue, 22 Nov 2022 07:53:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000EE3D.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5834.9 via Frontend Transport; Tue, 22 Nov 2022 07:53:12 +0000
+Received: from amar-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Tue, 22 Nov 2022 01:52:35 -0600
+From: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>
+Subject: [PATCH v1] drm/ttm: Clean up page shift operation
+Date: Tue, 22 Nov 2022 13:21:44 +0530
+Message-ID: <20221122075144.505736-1-Amaranath.Somalapuram@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH] drm/amdgpu: add missing license to some files
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221121172058.694436-1-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20221121172058.694436-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0000EE3D:EE_|IA0PR12MB7532:EE_
+X-MS-Office365-Filtering-Correlation-Id: 053ce8f6-0860-4756-d3c2-08dacc5e9ae5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2oa8tc05965mTsCm+DmJbLMvQ+x3WTPja3cNBMOoBx32x2LvhqE8exgZmDZ7ZVS7C/lsSXCqMaMH/KANCUrLx7gx7PDTGJLHu9HvXEiwbhJWAFf9vcoPc6hJZfRpKboVJltq8HMoy1YU3jqZ+xajGxFVkD4izzb3q0p1x+3aUNiJz0mmW9vm3gfGxh8Oqy7paR6pFUgstpnxqcdxrrpQuX0mfQ2xfX9CNaF8fNk3aVMj+ctNB1hnUC/2FPZouQYWKP7dNL8rC+n1K/B1PRudes6DOU/YnhXsNMmbl26wVfEtbxO6fZWUvwPMnHnA+2Gw92hFijUwGmSRIcu+XZOEOa7GweViZ1Xl++k51uzqfP/M9x5tX+QXhNMfR+EacIPrXQgaatCUUDHFUczrGZn25vX8BjrEnPiHyhGSBik3Fr9XFpnMpcPQXk9rNsI6tgSONPLOw0kDKJjOPQGqHMFxgEPty51PGOBAzayVBdoYz2rQu+jrn/pqokUtRBreRdxJZ2EymkQEuJ6E8QGp5NxOOEM+GjtCmonwjNrNeawI4/m8n6RPKjlu7Gt5e0acvBHhaQ9iEdKGkjXVWWeVe0J76z8GFKvpkY8UBKcNEX+pRVGzQ/QbL0vArySv7j/NzVmXPh3iOC7TdENE9aSE74eTXxv2G6IrHkd4RdEayiHYls6SpEypFRsEZxHbYX97u60iY1Jh7d0tCigczkWHsYJ8skdYLQ+nGmYY60gPFEMzsDE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(396003)(376002)(39860400002)(346002)(451199015)(40470700004)(36840700001)(46966006)(40480700001)(81166007)(478600001)(70586007)(356005)(36756003)(41300700001)(70206006)(82740400003)(8676002)(110136005)(54906003)(4326008)(450100002)(316002)(186003)(47076005)(426003)(1076003)(2616005)(336012)(40460700003)(83380400001)(36860700001)(82310400005)(26005)(6666004)(86362001)(7696005)(16526019)(2906002)(5660300002)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2022 07:53:12.3623 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 053ce8f6-0860-4756-d3c2-08dacc5e9ae5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000EE3D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7532
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,68 +99,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alexander.deucher@amd.com, Somalapuram
+ Amaranath <Amaranath.Somalapuram@amd.com>, arunpravin.paneerselvam@amd.com,
+ christian.koenig@amd.com, shashank.sharma@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.11.22 um 18:20 schrieb Alex Deucher:
-> The driver is MIT, so add the licenses.
->
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2265
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Remove page shift operations as ttm_resource moved
+from num_pages to size_t size in bytes.
+v1 -> v2: fix missing page shift to fpfn and lpfn
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  4 +---
+ drivers/gpu/drm/ttm/ttm_range_manager.c    | 13 ++++++-------
+ 2 files changed, 7 insertions(+), 10 deletions(-)
 
-> ---
->   .../gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h | 1 +
->   .../gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_smu13_driver_if.h | 1 +
->   drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h      | 1 +
->   drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h     | 1 +
->   drivers/gpu/drm/amd/include/yellow_carp_offset.h                 | 1 +
->   5 files changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h
-> index 8ea8ee57b39f..61bb1d86182e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h
-> @@ -1,3 +1,4 @@
-> +// SPDX-License-Identifier: MIT
->   // This is a stripped-down version of the smu11_driver_if.h file for the relevant DAL interfaces.
->   
->   #define SMU11_DRIVER_IF_VERSION 0x40
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_smu13_driver_if.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_smu13_driver_if.h
-> index d30fbbdd1792..d3d5a8caccf8 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_smu13_driver_if.h
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_smu13_driver_if.h
-> @@ -1,3 +1,4 @@
-> +// SPDX-License-Identifier: MIT
->   // This is a stripped-down version of the smu13_driver_if.h file for the relevant DAL interfaces.
->   
->   #define SMU13_DRIVER_IF_VERSION  0x18
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h
-> index 483769fb1736..537aee0536d3 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h
-> @@ -1,3 +1,4 @@
-> +// SPDX-License-Identifier: MIT
->   #ifndef _dcn_3_0_0_OFFSET_HEADER
->   #define _dcn_3_0_0_OFFSET_HEADER
->   
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h
-> index b79be3a25a80..f9d90b098519 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h
-> @@ -1,3 +1,4 @@
-> +// SPDX-License-Identifier: MIT
->   #ifndef _dcn_3_0_0_SH_MASK_HEADER
->   #define _dcn_3_0_0_SH_MASK_HEADER
->   
-> diff --git a/drivers/gpu/drm/amd/include/yellow_carp_offset.h b/drivers/gpu/drm/amd/include/yellow_carp_offset.h
-> index 28a56b56bcaf..0fea6a746611 100644
-> --- a/drivers/gpu/drm/amd/include/yellow_carp_offset.h
-> +++ b/drivers/gpu/drm/amd/include/yellow_carp_offset.h
-> @@ -1,3 +1,4 @@
-> +// SPDX-License-Identifier: MIT
->   #ifndef YELLOW_CARP_OFFSET_H
->   #define YELLOW_CARP_OFFSET_H
->   
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 974e85d8b6cc..19ad365dc159 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -541,12 +541,10 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+ 	if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA)) {
+ 		/* GWS and OA don't need any alignment. */
+ 		page_align = bp->byte_align;
+-		size <<= PAGE_SHIFT;
+-
+ 	} else if (bp->domain & AMDGPU_GEM_DOMAIN_GDS) {
+ 		/* Both size and alignment must be a multiple of 4. */
+ 		page_align = ALIGN(bp->byte_align, 4);
+-		size = ALIGN(size, 4) << PAGE_SHIFT;
++		size = ALIGN(size, 4);
+ 	} else {
+ 		/* Memory should be aligned at least to a page size. */
+ 		page_align = ALIGN(bp->byte_align, PAGE_SIZE) >> PAGE_SHIFT;
+diff --git a/drivers/gpu/drm/ttm/ttm_range_manager.c b/drivers/gpu/drm/ttm/ttm_range_manager.c
+index 0a8bc0b7f380..6ac38092dd2a 100644
+--- a/drivers/gpu/drm/ttm/ttm_range_manager.c
++++ b/drivers/gpu/drm/ttm/ttm_range_manager.c
+@@ -83,9 +83,10 @@ static int ttm_range_man_alloc(struct ttm_resource_manager *man,
+ 
+ 	spin_lock(&rman->lock);
+ 	ret = drm_mm_insert_node_in_range(mm, &node->mm_nodes[0],
+-					  PFN_UP(node->base.size),
++					  node->base.size,
+ 					  bo->page_alignment, 0,
+-					  place->fpfn, lpfn, mode);
++					  place->fpfn << PAGE_SHIFT,
++					  lpfn << PAGE_SHIFT, mode);
+ 	spin_unlock(&rman->lock);
+ 
+ 	if (unlikely(ret)) {
+@@ -119,11 +120,10 @@ static bool ttm_range_man_intersects(struct ttm_resource_manager *man,
+ 				     size_t size)
+ {
+ 	struct drm_mm_node *node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
+-	u32 num_pages = PFN_UP(size);
+ 
+ 	/* Don't evict BOs outside of the requested placement range */
+-	if (place->fpfn >= (node->start + num_pages) ||
+-	    (place->lpfn && place->lpfn <= node->start))
++	if ((place->fpfn << PAGE_SHIFT) >= (node->start + size) ||
++	    (place->lpfn && (place->lpfn << PAGE_SHIFT) <= node->start))
+ 		return false;
+ 
+ 	return true;
+@@ -135,10 +135,9 @@ static bool ttm_range_man_compatible(struct ttm_resource_manager *man,
+ 				     size_t size)
+ {
+ 	struct drm_mm_node *node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
+-	u32 num_pages = PFN_UP(size);
+ 
+ 	if (node->start < place->fpfn ||
+-	    (place->lpfn && (node->start + num_pages) > place->lpfn))
++	    (place->lpfn && (node->start + size) > place->lpfn << PAGE_SHIFT))
+ 		return false;
+ 
+ 	return true;
+-- 
+2.32.0
 
