@@ -4,55 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D40AC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 14:12:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA5A4C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 14:37:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECA6310E1D3;
-	Tue, 22 Nov 2022 14:12:19 +0000 (UTC)
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4646A10E1D3
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 14:12:16 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-14286d5ebc3so14052240fac.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 06:12:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=fnk6I4i+IQT7oC3cvWQnuIHaKdiQ8/CvwU8yPeOGi7E=;
- b=HtnFBx/tlb5CmtOvRGDkitL8H50pAfHWR6xK6+Rl4EV7lbJA4zF7yQjwACcnlm2/I8
- 2/W84MitFTMRRidwsxgqiCt8b84YXsNVeAALbOzCdrZeO6lWvDPrMu35zfCiP9apOA7U
- vv6HJVA/trdviUUno/jP5MciGFjvknVFKwnmlvTlTk0SL/IH0TQe4S82sGY/ZPvVTcAv
- vCvuR4hoD5+b1dVn6+uD/cuuZoiD2R8w4behZnUHcJLpPtwfI5/ItAIXaPM/yO1Vgqip
- mIveLGeHtHLDUfZBBu7xwmaOgU2qlFzBz31aNGE+0dH6+4ueb7d+XPjmOD4uPzHddktz
- +EaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=fnk6I4i+IQT7oC3cvWQnuIHaKdiQ8/CvwU8yPeOGi7E=;
- b=75i2yWOMtH4iYstL5F3FKyX+JotOVmrflU/t0pMOCiA/IvMWhhdo0y/EYbvGUCuRQb
- 4BHpzGdCnw9gp3UjJm+V25Pmd0OxGzG8JADQuzBIJHvhk02h2kbH5ceq6MqNdT9DsaJK
- DhcVidz4JXQkhNazGQppC8DGf2tLPgwY1pVrBmumBykX8RLNn9GlqNmEYwb8YPJ5SIha
- Dcy/t7LuHyvuwbzeFAisKw7mGNA1BAMsqm2T6Ye5S+YWcNbY5fhH57nzhq4zGCekWlwq
- HNBnwPUvDUHKer9t/ltQRFe5KXonb/s9Ggqe4EcMnOFtFLMMlNa/5JlyZW5UuMkOj7wh
- ID3w==
-X-Gm-Message-State: ANoB5pm3Bh3DW4kxCs0GMKnAE5X+Ilxf7EL2jjhknQjGmVdZe5K3cUq/
- +/x34VAiguJnH/6MBEHY+gNZpedhHQXrXuLsMSE=
-X-Google-Smtp-Source: AA0mqf7u12LQ/o2l/pToTc96vlIsp8jB0Ndut4/lqjf315L/h+hgkUG+njS6VJtHXZjQWYO99k80lwdTuwyXANdstDc=
-X-Received: by 2002:a05:6870:b07:b0:13b:d07f:f29d with SMTP id
- lh7-20020a0568700b0700b0013bd07ff29dmr2079655oab.96.1669126335372; Tue, 22
- Nov 2022 06:12:15 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 324E010E3E3;
+	Tue, 22 Nov 2022 14:37:41 +0000 (UTC)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CD2210E3C7;
+ Tue, 22 Nov 2022 11:12:50 +0000 (UTC)
+Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.56])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4NGhRj6mN8z15Mq2;
+ Tue, 22 Nov 2022 19:12:17 +0800 (CST)
+Received: from dggpemm500002.china.huawei.com (7.185.36.229) by
+ dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Tue, 22 Nov 2022 19:12:47 +0800
+Received: from localhost.localdomain.localdomain (10.175.113.25) by
+ dggpemm500002.china.huawei.com (7.185.36.229) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Tue, 22 Nov 2022 19:12:46 +0800
+From: Xiongfeng Wang <wangxiongfeng2@huawei.com>
+To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <lijo.lazar@amd.com>, <Hawking.Zhang@amd.com>
+Subject: [PATCH 1/2] drm/radeon: Fix PCI device refcount leak in
+ radeon_atrm_get_bios()
+Date: Tue, 22 Nov 2022 19:30:42 +0800
+Message-ID: <20221122113043.18715-2-wangxiongfeng2@huawei.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20221122113043.18715-1-wangxiongfeng2@huawei.com>
+References: <20221122113043.18715-1-wangxiongfeng2@huawei.com>
 MIME-Version: 1.0
-References: <622f20c5-5c24-d1c5-f874-6cb80b365e2e@collabora.com>
-In-Reply-To: <622f20c5-5c24-d1c5-f874-6cb80b365e2e@collabora.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 22 Nov 2022 09:12:03 -0500
-Message-ID: <CADnq5_PKxfk9wEbQp8Mcxszp8R02qqe6ZtuonZ-TH4Zg9Lhrdg@mail.gmail.com>
-Subject: Re: Help debug amdgpu faults
-To: Robert Beckett <bob.beckett@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.113.25]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ dggpemm500002.china.huawei.com (7.185.36.229)
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Tue, 22 Nov 2022 14:37:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,85 +53,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmitrii Osipenko <dmitry.osipenko@collabora.com>,
- =?UTF-8?Q?Adri=C3=A1n_Mart=C3=ADnez_Larumbe?=
- <adrian.larumbe@collabora.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Daniel Stone <daniels@collabora.com>
+Cc: wangxiongfeng2@huawei.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, yangyingliang@huawei.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 22, 2022 at 6:53 AM Robert Beckett
-<bob.beckett@collabora.com> wrote:
->
-> Hi,
->
->
-> does anyone know any documentation, or can provide advice on debugging amdgpu fault reports?
+As comment of pci_get_class() says, it returns a pci_device with its
+refcount increased and decreased the refcount for the input parameter
+@from if it is not NULL.
 
-This is a GPU page fault so it refers the the GPU virtual address
-space of the application .  Each process (well fd really), gets its
-own GPU virtual address space into which system memory, system mmio
-space, or vram can be mapped.  The user mode drivers control their GPU
-virtual address space.
+If we break the loop in radeon_atrm_get_bios() with 'pdev' not NULL, we
+need to call pci_dev_put() to decrease the refcount. Add the missing
+pci_dev_put() to avoid refcount leak.
 
->
->
-> e.g:
->
-> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: [gfxhub] page fault (src_id:0 ring:8 vmid:1 pasid:32769, for process vkcube pid 999 thread vkcube pid 999)
+Fixes: d8ade3526b2a ("drm/radeon: handle non-VGA class pci devices with ATRM")
+Fixes: c61e2775873f ("drm/radeon: split ATRM support out from the ATPX handler (v3)")
+Signed-off-by: Xiongfeng Wang <wangxiongfeng2@huawei.com>
+---
+ drivers/gpu/drm/radeon/radeon_bios.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-This is the process that caused the fault.
+diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+index 33121655d50b..2df6ce3e32cb 100644
+--- a/drivers/gpu/drm/radeon/radeon_bios.c
++++ b/drivers/gpu/drm/radeon/radeon_bios.c
+@@ -227,6 +227,7 @@ static bool radeon_atrm_get_bios(struct radeon_device *rdev)
+ 
+ 	if (!found)
+ 		return false;
++	pci_dev_put(pdev);
+ 
+ 	rdev->bios = kmalloc(size, GFP_KERNEL);
+ 	if (!rdev->bios) {
+-- 
+2.20.1
 
-> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:   in page starting at address 0x0000800100700000 from client 0x1b (UTCL2)
-
-This is the virtual address that faulted.
-
-> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: GCVM_L2_PROTECTION_FAULT_STATUS:0x00101A10
-> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          Faulty UTCL2 client ID: SDMA0 (0xd)
-
-The fault came from the SDMA engine.
-
-> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          MORE_FAULTS: 0x0
-> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          WALKER_ERROR: 0x0
-> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          PERMISSION_FAULTS: 0x1
-
-The page was not marked as valid in the GPU page table.
-
-> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          MAPPING_ERROR: 0x0
-> Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          RW: 0x0
-
-SDMA attempted to read an invalid page.
-
->
->
->
-> see https://gitlab.freedesktop.org/drm/amd/-/issues/2267 for more context.
->
-> We have a complicated setup involving rendering then blitting to virtio-gpu exported dmabufs, with plenty of hacks in the mesa and xwayland stacks, so we are considering this our issue to debug, and not an issue with the driver at this point.
-> However, having debugged all the interesting parts leading to these faults, I am unable to decode the fault report to correlate to a buffer.
->
-> in the fault report, what address space is the address from?
-> given that the fault handler shifts the reported addres up by 12, I assume it is a 4K pfn which makes me assume a physical address is this correct?
-> if so, is that a vram pa or a host system memory pa?
-> is there any documentation for the other fields reported like the fault status etc?
-
-See the comments above.  There is some kernel doc as well:
-https://docs.kernel.org/gpu/amdgpu/driver-core.html#amdgpu-virtual-memory
-
->
-> I'd appreciate any advice you could give to help us debug further.
-
-Some operation you are doing in the user mode driver is reading an
-invalid page.  Possibly reading past the end of a buffer or something
-mis-aligned.  Compare the faulting GPU address to the GPU virtual
-address space in the application and you should be able to track down
-what is happening.
-
-Alex
-
->
-> Thanks
->
-> Bob
->
