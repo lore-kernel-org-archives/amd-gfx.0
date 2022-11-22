@@ -4,59 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D15CC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 11:35:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBBCDC433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 11:53:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 451D510E08F;
-	Tue, 22 Nov 2022 11:35:17 +0000 (UTC)
-Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
- [IPv6:2607:f8b0:4864:20::82c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0D2110E08F;
- Tue, 22 Nov 2022 11:35:12 +0000 (UTC)
-Received: by mail-qt1-x82c.google.com with SMTP id a27so9020444qtw.10;
- Tue, 22 Nov 2022 03:35:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=to:subject:message-id:date:from:in-reply-to:references:mime-version
- :from:to:cc:subject:date:message-id:reply-to;
- bh=yjcaEIU8aaszVdE2YJFXT5V87395aETVGSUxQ01ZdKA=;
- b=iGmNWndvUeaZGjqbr+ZMN0HCB7sowPojucwRe5nzbbkZjp2gkNI6GeOVVqdl2+XZQu
- bpgxuU1nTZ+O/CQ2xwq8g+ZxYDAQTkn/bo8sLC2gULM3gFHhr0+fiExG/57/5Qe1TMYB
- 7UFKRmZtL2OUxyZwQsgRJXmqnh9vCK2Wf0CW89C6rk/1qgaCBGFQsW8MhGAAEnYpos69
- OIv9qlMf9r7uG1dMjFfHr/N9yL3AbZsq+A1QqLlW9QPFlUQudfZXhqPFMC3Fura0H91u
- De98fi3JvpFJ5YcJscDjA80WbQHcm+/ci0rZN3PSQNdQkkdPxkvySXRhgxb4Y4w29+cq
- RI3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:subject:message-id:date:from:in-reply-to:references:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=yjcaEIU8aaszVdE2YJFXT5V87395aETVGSUxQ01ZdKA=;
- b=VegSwh8TLZR4u5gMFflKF2w5mvSXRS8/DipzoM9FAOJ4g8KVge3nn0wueopvmwuzI1
- uHl1H8rbx5YzX7PHRgOokfaAO7qYKotizEKuYXJHgMNzmROe0yKr1EhAbk8lIuARBGNg
- WFDxZ51iT4+zNQ2anYzRaWvZv5iQvemyQv33aSDP/JxN6wt6hLL5NyAzi/QKzH1l3nO8
- RcbXk4MUrSQ9jCTXWVQJNXIpmdByNadnK5kpuX1KN34svp1V80rNbwj1g6EQNzo9HUUr
- BsE0QKvaHFKizjhR7yELNZUyst/hCRfjhxecpvb5fUMddDWyk8fs+NPKPrSIwAtKxWJX
- tDVA==
-X-Gm-Message-State: ANoB5pl0wTkgZzG084UeleGcvCN2v8GsCPSG5MJ8Nj6leAPnY4MNpWXj
- 2Ipkpe0cLf1pLVvIl5F+sa+ZYm7k75Jloak/23MBPDOotAMqF9C9aCQ=
-X-Google-Smtp-Source: AA0mqf4s/tmixJs7XFTUNXmYEIqSfZaZ+o3bkQmJ0pO+hCd0Zlcrm7DU5ubR77tUpZsMXto5dpdCfITM+2Ajbk4WwAI=
-X-Received: by 2002:ac8:480c:0:b0:3a4:f1c1:49a9 with SMTP id
- g12-20020ac8480c000000b003a4f1c149a9mr5452589qtq.464.1669116911696; Tue, 22
- Nov 2022 03:35:11 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0830A10E3CD;
+	Tue, 22 Nov 2022 11:53:28 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C34B710E07E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 11:53:23 +0000 (UTC)
+Received: from [192.168.178.53] (82-71-8-225.dsl.in-addr.zen.co.uk
+ [82.71.8.225])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbeckett)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 265876602AD8;
+ Tue, 22 Nov 2022 11:53:22 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1669118002;
+ bh=Aovf2CwNDzFui7lUmvufMoQOABRhlN8HJreRHfDIgys=;
+ h=Date:To:Cc:From:Subject:From;
+ b=odgL/lqPh2qovKbnpD5q/VBlbdR9GkPBhr0D6gS2htkmk7cOVZIAlrcWAElGuI5PW
+ NZjbsaDjjuJLFuT3xWVAzvVxtQ00NI/O8UzJPWg0Kc583csJgNOMwllaqIU8GlvmeS
+ Zek+WpmM8VwRZkvA97iZU3UJvrnkGs7mtn2YH+gx8FMyv1UQdhljmHz4pE3okJ66nM
+ fk7c7wAP644HP16qW1KzZA4Ymy+3gWEZOwplcpqlrPH8gZIlIxriUSFH2vD4h+P2+C
+ A35mg9nRo0G+RDB+3HTjQ37tOIRSIaimV/P8v8XEHpm70uY1ThnFeh2Cw7N/kJGOsO
+ s00dj73yH9ZWg==
+Content-Type: multipart/alternative;
+ boundary="------------g9ekZyd0eKzlxu70zP0O3wcz"
+Message-ID: <622f20c5-5c24-d1c5-f874-6cb80b365e2e@collabora.com>
+Date: Tue, 22 Nov 2022 11:53:19 +0000
 MIME-Version: 1.0
-References: <CABXGCsNFRQ9A1Vx6_qsP7NqedhG7QScOG4-Eupvz3etgykJt=Q@mail.gmail.com>
-In-Reply-To: <CABXGCsNFRQ9A1Vx6_qsP7NqedhG7QScOG4-Eupvz3etgykJt=Q@mail.gmail.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Tue, 22 Nov 2022 16:35:00 +0500
-Message-ID: <CABXGCsNvLzTMaYqcTM6Wn+uC__H3S94eiHTDLVqAeQByw3fqPg@mail.gmail.com>
-Subject: Re: [regression][6.0] After commit
- b261509952bc19d1012cf732f853659be6ebc61e
- I see WARNING message at drivers/gpu/drm/drm_modeset_lock.c:276
- drm_modeset_drop_locks+0x63/0x70
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- Harry Wentland <hwentlan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+To: amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Christian_K=c3=b6nig?=
+ <christian.koenig@amd.com>
+Content-Language: en-US
+From: Robert Beckett <bob.beckett@collabora.com>
+Subject: Help debug amdgpu faults
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,32 +52,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: =?UTF-8?Q?Adri=c3=a1n_Mart=c3=adnez_Larumbe?=
+ <adrian.larumbe@collabora.com>, Daniel Stone <daniels@collabora.com>,
+ Dmitrii Osipenko <dmitry.osipenko@collabora.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 13, 2022 at 6:36 PM Mikhail Gavrilov
-<mikhail.v.gavrilov@gmail.com> wrote:
->
-> Hi!
-> I bisected an issue of the 6.0 kernel which started happening after
-> 6.0-rc7 on all my machines.
->
-> Backtrace of this issue looks like as:
->
-> [ 2807.339439] ------------[ cut here ]------------
-> [ 2807.339445] WARNING: CPU: 11 PID: 2061 at
-> drivers/gpu/drm/drm_modeset_lock.c:276
-> drm_modeset_drop_locks+0x63/0x70
->
-> bisect points to this commit: b261509952bc19d1012cf732f853659be6ebc61e.
->
-> After reverting this commit the WARNING messages described here disappeared.
->
+This is a multi-part message in MIME format.
+--------------g9ekZyd0eKzlxu70zP0O3wcz
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Harry, Christian says that you can help with it.
+Hi,
 
-Thanks.
 
--- 
-Best Regards,
-Mike Gavrilov.
+does anyone know any documentation, or can provide advice on debugging 
+amdgpu fault reports?
+
+
+e.g:
+
+Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: [gfxhub] 
+page fault (src_id:0 ring:8 vmid:1 pasid:32769, for process vkcube pid 
+999 thread vkcube pid 999)
+Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: in page 
+starting at address 0x0000800100700000 from client 0x1b (UTCL2)
+Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: 
+GCVM_L2_PROTECTION_FAULT_STATUS:0x00101A10
+Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: Faulty UTCL2 
+client ID: SDMA0 (0xd)
+Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: MORE_FAULTS: 0x0
+Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: 
+WALKER_ERROR: 0x0
+Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: 
+PERMISSION_FAULTS: 0x1
+Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: 
+MAPPING_ERROR: 0x0
+Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: RW: 0x0
+
+
+
+seehttps://gitlab.freedesktop.org/drm/amd/-/issues/2267  for more context.
+
+We have a complicated setup involving rendering then blitting to virtio-gpu exported dmabufs, with plenty of hacks in the mesa and xwayland stacks, so we are considering this our issue to debug, and not an issue with the driver at this point.
+However, having debugged all the interesting parts leading to these faults, I am unable to decode the fault report to correlate to a buffer.
+
+in the fault report, what address space is the address from?
+given that the fault handler shifts the reported addres up by 12, I assume it is a 4K pfn which makes me assume a physical address is this correct?
+if so, is that a vram pa or a host system memory pa?
+is there any documentation for the other fields reported like the fault status etc?
+
+I'd appreciate any advice you could give to help us debug further.
+
+Thanks
+
+Bob
+
+--------------g9ekZyd0eKzlxu70zP0O3wcz
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>Hi,</p>
+    <p><br>
+    </p>
+    <p>does anyone know any documentation, or can provide advice on
+      debugging amdgpu fault reports?</p>
+    <p><br>
+    </p>
+    <p>e.g:</p>
+    <pre class="code highlight" lang="plaintext"><span id="LC1" class="line" lang="plaintext">Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: [gfxhub] page fault (src_<a class="moz-txt-link-freetext" href="id:0">id:0</a> <a class="moz-txt-link-freetext" href="ring:8">ring:8</a> <a class="moz-txt-link-freetext" href="vmid:1">vmid:1</a> <a class="moz-txt-link-freetext" href="pasid:32769">pasid:32769</a>, for process vkcube pid 999 thread vkcube pid 999)                                                                                                                                                        </span>
+<span id="LC2" class="line" lang="plaintext">Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:   in page starting at address 0x0000800100700000 from client 0x1b (UTCL2)                   </span>
+<span id="LC3" class="line" lang="plaintext">Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: GCVM_L2_PROTECTION_FAULT_<a class="moz-txt-link-freetext" href="STATUS:0x00101A10">STATUS:0x00101A10</a>                                                                                                                                                                                                                        </span>
+<span id="LC4" class="line" lang="plaintext">Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          Faulty UTCL2 client ID: SDMA0 (0xd)                 </span>
+<span id="LC5" class="line" lang="plaintext">Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          MORE_FAULTS: 0x0</span>
+<span id="LC6" class="line" lang="plaintext">Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          WALKER_ERROR: 0x0</span>
+<span id="LC7" class="line" lang="plaintext">Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          PERMISSION_FAULTS: 0x1</span>
+<span id="LC8" class="line" lang="plaintext">Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          MAPPING_ERROR: 0x0</span>
+<span id="LC9" class="line" lang="plaintext">Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          RW: 0x0</span>
+
+
+
+see <a class="moz-txt-link-freetext" href="https://gitlab.freedesktop.org/drm/amd/-/issues/2267">https://gitlab.freedesktop.org/drm/amd/-/issues/2267</a> for more context.
+
+We have a complicated setup involving rendering then blitting to virtio-gpu exported dmabufs, with plenty of hacks in the mesa and xwayland stacks, so we are considering this our issue to debug, and not an issue with the driver at this point.
+However, having debugged all the interesting parts leading to these faults, I am unable to decode the fault report to correlate to a buffer.
+
+in the fault report, what address space is the address from?
+given that the fault handler shifts the reported addres up by 12, I assume it is a 4K pfn which makes me assume a physical address is this correct?
+if so, is that a vram pa or a host system memory pa?
+is there any documentation for the other fields reported like the fault status etc?
+
+I'd appreciate any advice you could give to help us debug further.
+
+Thanks
+
+Bob
+
+</pre>
+    <p></p>
+  </body>
+</html>
+
+--------------g9ekZyd0eKzlxu70zP0O3wcz--
