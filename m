@@ -4,46 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08B04C4167D
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 12:43:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A45E3C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 13:58:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2414D10E541;
-	Wed, 23 Nov 2022 12:43:23 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9689D10E3F8;
- Wed, 23 Nov 2022 12:43:18 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 12CB161C55;
- Wed, 23 Nov 2022 12:43:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2490C433C1;
- Wed, 23 Nov 2022 12:43:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669207397;
- bh=be7RItbymvFf9t9+XrPeDGdWk6wnSf3Lociabth5Pj4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WjxkFtMaCqxe8jj33SxseFpOU+NFLFxWgqZT0Jv9x3Y8XKYxphByC+FLRY024XcMF
- BwYKdgpDKc2pSyGc8AU/bLGQLnsgQBtIkZybcqkkO9ZdICYfpPWN3Iw9sudNOCZu29
- rTM0BR/kzztPIgO5aM0cuymir37b6lmGZUUGOwD8wvcwgy6a7oEIo5v1jI4DEaqGBA
- JkEG0b4VcdMQTZgyUf0M9rZlGsJAMXRyeYOO3kTqwoxEjvgsp78RPfVHCMQJXFxNWV
- zQe9k0pms74hr+te2dWaNIduEchGPIQKCrub7eVh0A8Xm5kaILozQ+LoNQyEm6fOgZ
- Tg7KDImNEpbVQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 17/31] drm/amdgpu: disable BACO support on more
- cards
-Date: Wed, 23 Nov 2022 07:42:18 -0500
-Message-Id: <20221123124234.265396-17-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221123124234.265396-1-sashal@kernel.org>
-References: <20221123124234.265396-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81C5D10E558;
+	Wed, 23 Nov 2022 13:58:08 +0000 (UTC)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 052CB10E57A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 13:58:04 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4NHN4T0gR6z9sW1;
+ Wed, 23 Nov 2022 14:58:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1669211881;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=DT5Wc1bXYwX1SLznej3PLe1bw76NCL70kW9YZv8SMkU=;
+ b=xxCMqV/CfCS7cvK+/7AbggnTB9Mz05FCCmsSipNfNK1rPgmbJyMzASw5rh749CIN3vIhKG
+ 2IwE0xwVDI/3gE0D2XNerXpT2U6oghk9I0K0wzGt4U9arqQ8AVPeFe50jmzPE+2NU4Ko9A
+ UHJ9EpT3SX9WVqLPGoV8Hn7oP/pk/dL3criAThfTLoXrR+lKRITpDNeIbTIWFJ6AX2YfJk
+ BJwUnh/2QtNZBjT9BA98E1DZm6e482bqvFWNsvrfQk51afYPpxmJrqeyhAIwKg8UJFV02W
+ g5d3qK59vLUfSzo/GBnWRrNWAyDvZq75ZM4dMXdMVk2Z+XSnpxDcuKay6+XBQw==
+Message-ID: <8827a1e7-c3a1-9a7d-d774-918bf373c07e@mailbox.org>
+Date: Wed, 23 Nov 2022 14:57:59 +0100
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
+Subject: Re: [PATCH 3/3] drm/amdgpu: add printing to indicate rpm completeness
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>
+References: <20221123014408.263645-1-guchun.chen@amd.com>
+ <24eb1835-d49f-f938-c0cc-ac8cfedaba4b@amd.com>
+ <DM5PR12MB2469BEB165320703CC12E1B5F10C9@DM5PR12MB2469.namprd12.prod.outlook.com>
+Content-Language: en-CA
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <DM5PR12MB2469BEB165320703CC12E1B5F10C9@DM5PR12MB2469.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: nqb8izwmxwcm7xx9s3y3ywzg6ikp4rwd
+X-MBO-RS-ID: 19ef2550fbf17fe255e
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,45 +59,18 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, sathishkumar.sundararaju@amd.com,
- lijo.lazar@amd.com, Guchun Chen <guchun.chen@amd.com>, danijel.slivka@amd.com,
- Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org, luben.tuikov@amd.com,
- Mohammadzafar.ziya@amd.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Guchun Chen <guchun.chen@amd.com>
+On 11/23/22 07:09, Chen, Guchun wrote:
+> Hi Lijo,
+> 
+> Thanks for your review. The cause for this change is, so far, except one line printing like "amdgpu: free PSP TMR buffer", there are no other printings once system completes rpm suspend. And moreover, "free PSP TMR buffer" sometimes confuses audiences.
 
-[ Upstream commit 192039f12233c9063d040266e7c98188c7c89dec ]
+How about making those messages not printed by default then, instead of adding more?
 
-Otherwise, some unexpected PCIE AER errors will be observed
-in runtime suspend/resume cycle.
 
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index ca6fa133993c..82a8c184526d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -368,6 +368,10 @@ static void sienna_cichlid_check_bxco_support(struct smu_context *smu)
- 		    ((adev->pdev->device == 0x73BF) &&
- 		    (adev->pdev->revision == 0xCF)) ||
- 		    ((adev->pdev->device == 0x7422) &&
-+		    (adev->pdev->revision == 0x00)) ||
-+		    ((adev->pdev->device == 0x73A3) &&
-+		    (adev->pdev->revision == 0x00)) ||
-+		    ((adev->pdev->device == 0x73E3) &&
- 		    (adev->pdev->revision == 0x00)))
- 			smu_baco->platform_support = false;
- 
 -- 
-2.35.1
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
