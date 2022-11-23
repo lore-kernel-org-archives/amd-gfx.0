@@ -4,115 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1AA1C433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 01:44:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46370C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 01:44:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C22B10E4C1;
-	Wed, 23 Nov 2022 01:44:35 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2071.outbound.protection.outlook.com [40.107.94.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C9F510E4C1
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 01:44:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60BDB10E4C5;
+	Wed, 23 Nov 2022 01:44:42 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2050.outbound.protection.outlook.com [40.107.237.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78E6210E4C4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 01:44:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bhfs8jzBJXX4+FdhE9gmz8/8qmWRVioYmeMBT2jHBMJBSiQeo9b/cy9yFAHatOhdQcVF2A/Jajvg6r4qPT4Oit8c3oNRm8Iq0NKTmGtXbfmnpcTKJcodJlvVrPPeEaXDjo9cMTNeXZjE801Zq20H5q11S4hiAXJFqKz8pWVs/aq5+3tJVh0dwVAgPbFYT4WP80tfDT1ifzaEEVMFFHTeCDJfFuz5nnSWK1/Eh9hV8Ka629nfDIPzFMz6vzjfbS8ilDlS02EfP3x1JhyUKH3zDErFhT886Qw7kUHIZrZiO/HyYG7IkqSn95onpzX7+72qIr/4TnL0PEIn5v0h7b2STA==
+ b=h08ZOGv0Qpeoma1SQImlBV3f5dMqHPhV7+aJxhDwS3g+4WyPMEMIb0nBJQVbmMsfNphfScgheAkN7QU7gshYjp0xIokuC3y7/h75/JhHwSB3SDryw6Wj6xECDODTxPvEKPtA+8fGv0G4ra4VUal1+KsAvOfW4a975KHjkCzGW55fVtyQ3FFY/ha0MMDsxAEnHHUxzBf84ApE9BiuZcfjwIRqz60Gr7cxCQxX4+/N2uyYm25Yglud6SBxTdT+dO3TAkF5+lFXPV12E8+YKc7+rXXx0si0WVP7VZvN924MHc+EDud8icafipMBKNj9ZzQblbvf/cns5Ae22vxU7t42Lg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0MaLYsOw20Qjtk47gVndEH+HC4TjoHWrzB2vsVp5oMI=;
- b=nlxZkFrQ15W1GMSK1OA3n8dJvVk7b82eaF06r9dc8kRAu8y7J1x4a2xLKbN8Hihc/78UvSQxgL35UIdbkxHdT9BD6JUGCZFvmF7HpelelupkjAhEM4MKHPykIIxZXYjlc1JGLAWlZOEDDFH0IHGflugHkcQOQ/cbUAEKWCYmQ5Iu4OguZGQAUgyZnLK5boGi1O3YTMaGEO7neD/FaIkZDuPjI050E+tRDPSoqO5dJAm+Mc6WDnD/sig6ni3qGkZ6TWkqg/3JeqszY1eleaLo05n7B3lZUmh25NX8lEko8JESEiqg9TPZL2F/w64ib5ikGZ/6XFcBfnuRHGGCCpvdkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=zVxASfR3JW2hNXkBJ4lsiHAfNbmeFYvQPtOZRZzcqL0=;
+ b=W3bangqldzdjY6p05T5hVa5s9FOz4wOzFg9CBGB8aDQGrlKA6yV3qiLKoRcg2izAIoWqQDTEuNqn+TpkCFTHwDwH8vs2Da6fgDmvHeAa99EJ787WlinLthXfVg7ZAZYAqVspiJCWOlVl9af+uIuWED0EKm0+Rr5i6ugkyMJ4aYEB3YxagfVdDlVGUePIZrMaJgvQgX4RJdKBn3CQK97pr84zcc6uAl1QepJeGwEKP0Y1kjxia9ICnfIXdjGuHilPUwGqC4r7YOlDYRcfzKHKMVZ/BKLu+W4MRiV/+APzl5xs+0oVW6YlkU8tcH/+sHKTiA9v2XOg+1gETm1Rn+k5sA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0MaLYsOw20Qjtk47gVndEH+HC4TjoHWrzB2vsVp5oMI=;
- b=HW+kVfhQwXQUSIYiUGbj0/3MWx1EWIkhP5uxalMcXuUskyDdoHRKkg81E7pjj7nk29E3dlr/vpPIQPNOMGKafdP85cNAcDVCgKfQ+BjpMYUe3bWXxowNCKG3gKmMM7qZTFcQ4LWuEjLTAChiir1d4pdnf4H1Ce4/HBE5Wo7ecpQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CH2PR12MB4296.namprd12.prod.outlook.com (2603:10b6:610:af::10)
+ bh=zVxASfR3JW2hNXkBJ4lsiHAfNbmeFYvQPtOZRZzcqL0=;
+ b=UYUFj0bg/DJ3fEOXEKNZBdKjfPFdG9798HKXiQO3nfi7FBPYJ9R5ZkbsRTYtBmtv2hTEmDlhmENiG5el30H4Y9BYB2yc1EbVMvz4s2S/KyVqAHI9DJd3TUR8e5T7XPmXiV4/ITjrZZONOhCspHfSB9eLmF8ad2SHYBOmPYi1vj0=
+Received: from MW2PR2101CA0015.namprd21.prod.outlook.com (2603:10b6:302:1::28)
+ by MN2PR12MB4406.namprd12.prod.outlook.com (2603:10b6:208:268::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Wed, 23 Nov
- 2022 01:44:30 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::5d8:f3f2:d940:5350]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::5d8:f3f2:d940:5350%3]) with mapi id 15.20.5834.015; Wed, 23 Nov 2022
- 01:44:30 +0000
-Message-ID: <dfacdf0c-d608-b507-e477-1ddc1a8b7af1@amd.com>
-Date: Tue, 22 Nov 2022 18:08:44 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Subject: Re: [PATCH 02/29] drm/amdkfd: display debug capabilities
-Content-Language: en-US
-To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221031162359.445805-1-jonathan.kim@amd.com>
- <20221031162359.445805-2-jonathan.kim@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20221031162359.445805-2-jonathan.kim@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BYAPR02CA0049.namprd02.prod.outlook.com
- (2603:10b6:a03:54::26) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ 2022 01:44:35 +0000
+Received: from CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:302:1:cafe::9d) by MW2PR2101CA0015.outlook.office365.com
+ (2603:10b6:302:1::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.2 via Frontend
+ Transport; Wed, 23 Nov 2022 01:44:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT064.mail.protection.outlook.com (10.13.175.77) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5834.8 via Frontend Transport; Wed, 23 Nov 2022 01:44:34 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Tue, 22 Nov 2022 19:44:21 -0600
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
+ <hawking.zhang@amd.com>, <lijo.lazar@amd.com>, <evan.quan@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: add printing to indicate rpm completeness
+Date: Wed, 23 Nov 2022 09:44:08 +0800
+Message-ID: <20221123014408.263645-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH2PR12MB4296:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1fc2241e-c492-4aef-6abb-08daccf4438e
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT064:EE_|MN2PR12MB4406:EE_
+X-MS-Office365-Filtering-Correlation-Id: 55ba3956-b8da-4974-f906-08daccf445e7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1rlQQuxfr/7sqgQn4qEWG3CJyoXky1rccgAKl9WZ6Fp+ib8oKA87SbIYBXUmJ4kTpBTces9mlhosh8frAe0GdoUZD8ZFATggq2Sk4B550MnN8816ZcexTOIkPAXHRv07h5y4yQbj2fdrTWByq+sv1cmEh/Rb9VUEZML5slQSXN/6rr5BjS3OYK4sxvpn0UgLWuUqdePWHyXUs6CgHAI9h99ElOP9Q69XSRNAXXi7s8iO1FIHQ78KtNcxR+oZfpwqbEClNj4jJBmjjRV2fPj/JCsJfOVn3ZIur2IhOziLSqnXG7KZ/ey1E3cgqCyUzMUldMnkz+DARlet23NgWBo/SySXED6z+UBKJLW0gyudwi8Z+ZB6bJKMce+uxl4+FS1oBLuDYA7zD+7PupcIZOktveqFyFfjei9UEL1hNc0q3iasMo+A06kMzWnRPyoLELdQ0fBmZsm1u9PkyJkjFeV2lODRJFJjLZiGt/zxy9XkJaHlya4mOYDp4IUfIHN+F2m/NckJGmAiX85cZ6/RzUWNopRvIsgc+yl60cY4dpGt05wxoiMZ5DuaycQbwwI3EjzyVnLS7LAtX2kf69T9lxA83i0GSw7L/DeKA3BSWUofQiHzqK9e4y3z+dLnvLHSABUFsFiJx2uI6mnoBo6lGfakU0VoFHZb1K74dtxyHahftJkWzqIMVoFMytQG4DbuR/4IGc78cO62hq0nr6dsdGZKr2urDgdjSIiN4Ws+81sT04Y=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(376002)(136003)(39860400002)(396003)(346002)(451199015)(66946007)(83380400001)(36756003)(26005)(6512007)(66476007)(41300700001)(316002)(6506007)(2616005)(53546011)(66556008)(8676002)(6666004)(6486002)(44832011)(38100700002)(2906002)(186003)(478600001)(4001150100001)(5660300002)(8936002)(31686004)(31696002)(86362001)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: zRoW4DtxfqlgdC/AC01q0PuDhHwjqeXzoD0NZu3ytSVlc627AUu3E4qpX7/trw0lLCx//PvLLLJUwq+MoKPlTae2NAw3dETwurvQDDVw3QyfyvVPRHpi5pxi16KX8QBQkIjK3C1563MkZZmIav+kGyAcGUFLsJKM80Tqiz8XYmHDQwn6yPrLKj/zEirC6RZoC7Cip1qDSCTTRLRNc8g/vK6HaK3JWCDZ3MqxEmoYGLjRWl0OZSF2CmX7K0s3J3hWvOk+OxaLwlWiSfuUWayZEulomaHX3trssdnS/kauQxyjKsJjYxe8C3+3YXhIuC9wOb9WCFvOVO8Gj29v8Qm1r4/URFlWe0dcK82pSGGHkPjy0XyRRh7XgzRhQFIjAEwvrtjuhpNYCGwKFoWsqO5Q/s/7e4Odh74TIQP7+yILHKe0zBaj5HiBR/2Bl+Zw56/JjrUuxa1zulyMnHuAGtVj6qE4xSWBFZQ0Jy76K5e7RHSERyjh613EHDDihrF2S2T0oxHHC3+VOAHd8nmhsMEak+XqQxYo7knw22wjRjNDnFwAGdvFQ2XMCTszdZKBm2srruWUTBu1KOD4oh0gFsNJr8RJltQ6QWQ1+Xn17NPEuYcWEI34B+ihah9Qqq8Bg041OyFkVVjn71QTFqqHhf8W9+J4VJjYji/x93xJ8+/PRsYLqACeyOV0jFw7p27uEEPH+zcmlMRnGxrraQkOX2ZDuGvZRHIVF08cSUP6LcRKBBa72mlW1cI20G7+QR9LqiA0
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(396003)(39860400002)(346002)(136003)(451199015)(36840700001)(46966006)(40470700004)(478600001)(82310400005)(7696005)(6666004)(356005)(40480700001)(36756003)(81166007)(1076003)(186003)(16526019)(26005)(6636002)(110136005)(86362001)(41300700001)(82740400003)(40460700003)(2906002)(83380400001)(5660300002)(70206006)(316002)(44832011)(2616005)(4326008)(36860700001)(70586007)(4744005)(426003)(8676002)(47076005)(8936002)(336012)(2101003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDFqdWJyOHlFZjVDZXp4N05uZHkwQldnaVBRYzhXbzJldWhRcUdCVXlXQjNY?=
- =?utf-8?B?MW1aRGUxTDV2dnlYMHZxcmVEUUNJQm10ZDZSMXg2U1VZRWRiZlFuSEo0OThl?=
- =?utf-8?B?NDlNbXQ0MUFDWlRhMTRpUkJkNzlac2tjQmhxRXJmNDdYbXVvTHVXdWVYdjZp?=
- =?utf-8?B?cmRjRG9GQ1U0Qks0VXdqUFNMdGU2TEd3cSsyaHdiVzBDVGdGUVBJUUhTZnA1?=
- =?utf-8?B?bHdWTlUrL255MUxFMUw0bVVYVWRHZjB6WWhQbmR5SmcyOHdJaFBWMmtQNzBQ?=
- =?utf-8?B?Y20zdWNhMFlQajVzS0JzamkxaEtqV2R2OEIzNThXSVgrMElSdVNtVjBiMGtk?=
- =?utf-8?B?eUQvMGdsdmQzZUwvdDFJOG1RRlc0NStDNU85UW5oaWE1NjFSQ0NpaFRzT09r?=
- =?utf-8?B?a2xRbU5NQkV5TXFRVWh2SUNEU3ZsRG1Fd2lkdXhEd1ZWcmxJQU5sSkhNM2w1?=
- =?utf-8?B?ZG9QeUxxQXBPa085TmtmUS9RN3dvMUVPZnpzbnJyZ3dmcmZXQjY0ZUs2azdN?=
- =?utf-8?B?TlFpenJVeVo3cHphVVF1RnZQaFF3V2lKK3hKaENMNDJZaGZRc0UwVFR5MTlX?=
- =?utf-8?B?cXZ3cys1MndlYmF5ZUx3ajI1SkU4Qm1URGJiRGNjVWt6NGNMeUhES0ZTNjFa?=
- =?utf-8?B?bWMrVUI3cHkxalZnNjFXU1h0K2M3RlNJUmJ1WXZia0Z1RUQ3TlVESkd6MGdM?=
- =?utf-8?B?R1ZpSWUxdTdEZ3k4aDBWMzZnc1d2OUVkcUovVHpZTElsYnEvVFRvdXY1WXpW?=
- =?utf-8?B?dkROeVVJaGVqK0pyd0kzanhhdnUxSlk1eTRvbG9WMldVTlpPQVUyeUJ5b0RR?=
- =?utf-8?B?aFJPVXhwaGRKK2pzZWtLNDA3cm5yak8vODBEWVlDWW1udWpTaFltY1RKWnVC?=
- =?utf-8?B?azN5MlVzUzJ4VllmbEdBeURremM0TDNQUWZaOTYyekljNnA5N2UxNG9BeFhn?=
- =?utf-8?B?UE93QkJWYUNPT0ZMVXA3eUxmbEFxNHhMdi9qR0QyT1MwRzF4NHE5MHVuVmlG?=
- =?utf-8?B?NTFPL2ZCZSsyOU5zZUhlNnBRTGQyWTNzdHgzMGRXRitybnd6MjI4eTZybTAz?=
- =?utf-8?B?NG5XRG1jb045Q2JoQnNBNHRBL01TaTYraEM5M2dsay9zQnF4Vm9XS281anNZ?=
- =?utf-8?B?SVJtS3IzL253K0QyeGpuSGE2VmNwdUhiWksxVGlldXl5NlkyeURTVjh2enVK?=
- =?utf-8?B?ZWlCejROUkluZ0d0cVRWTnNTazJVejNhbHVRbmJKSk5EeVVxSXpqTnM2UHg1?=
- =?utf-8?B?OTVGd0JFZGR1V25wOGppQit6b0xTUFFTM1lzNEtXaFFPcUF4L1VHTk9rT0hU?=
- =?utf-8?B?Tm1Xem43N1lNeFRjb29xMjBOMnFHdXlsM0lpcnZDbkdzRy90UWdQMGs0TDNE?=
- =?utf-8?B?Myt6L00yaHNENWlUL3QycUtYdWVrWFA1QS9HZFZndXZvZ2xwNmdlbzVXL0p1?=
- =?utf-8?B?R1l4OTh5cWR6aG9nSFhGN0VFTWxJRDl3eWhkdnJqQmtlRlNSYW0xM0xFUklH?=
- =?utf-8?B?VlFDL3p5andlaHVqTllRL2hxRXFCOFZLdmR2djZCRldDbTRjRVlGZnhuWnZm?=
- =?utf-8?B?SGljeWVDVlBTR3pzM0YzMWwweldQeXV1SjcvL2F3d0Vma2h5WXJnaGFhTVM0?=
- =?utf-8?B?NGNIRmV2WmtISkljcHU2bmN2bzdPbnl1a0dQdlMveXFvZWdJNWVJd2kya1d4?=
- =?utf-8?B?Z2tPVXBGWHM3U0FuR0RpUDdPOVJlTElKWFY1Y2NlZyt2eXRxZVJkRW9ZZ0da?=
- =?utf-8?B?ZE9Kd0tQV3kyeVQwSEU2eG5ITFErVkp0cTNzVlVZNFIyL3owUXYrYnVvQjhT?=
- =?utf-8?B?bCtrTitNYlR5YXBVSHR0THBSaFoxLzErdW5uY2RWbDI1MFZCY0puNDJVcW9F?=
- =?utf-8?B?WER0THZFdWhWU0RSazF6Rmo2UVVOQUlINmFJZm5DTEFNOE84dVhvSTFibGVT?=
- =?utf-8?B?OVRJYytHZVVHdFE3Sk9wUlFOeGFJbFNsSGlmL0txUmt2anRjTkhiQ1UxMEJj?=
- =?utf-8?B?dmZnZTRhVGhRVmJtNUF5OGNnbnNvR2NSNnBjR3NKajZIZ0JVazlzM1haMmhu?=
- =?utf-8?B?WVNjcEdzelBUSXZUUGNKWDZjaFJrK1dlMTRMZTQzQkFKQXZzQlhwNjRpOEYv?=
- =?utf-8?Q?khQh5CgFj7AbipAeDqM+HH5eA?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1fc2241e-c492-4aef-6abb-08daccf4438e
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2022 01:44:30.5089 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2022 01:44:34.1857 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55ba3956-b8da-4974-f906-08daccf445e7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OHJcNO8wjycMoP1A+RNGm1OdqPztd1tsHzQ3lnqrvteV+W2fe6iGy9WHjC/tXnQnaQPWISNBLzZ9h6ny7/H7ZA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4296
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4406
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,200 +98,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Add an explicit printing to tell when finishing rpm execution
+in amdgpu.
 
-On 2022-10-31 12:23, Jonathan Kim wrote:
-> Expose debug capabilities in the KFD topology node's HSA capabilities and
-> debug properties flags.
->
-> Ensure correct capabilities are exposed based on firmware support.
->
-> Flag definitions can be referenced in uapi/linux/kfd_sysfs.h.
->
-> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index bf2d50c8c92a..fa42c0fcf848 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2572,6 +2572,8 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 		amdgpu_device_baco_enter(drm_dev);
+ 	}
+ 
++	dev_info(&pdev->dev, "amdgpu finishes runtime suspend\n");
++
+ 	return 0;
+ }
+ 
+-- 
+2.25.1
 
-
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 88 +++++++++++++++++++++--
->   drivers/gpu/drm/amd/amdkfd/kfd_topology.h |  6 ++
->   include/uapi/linux/kfd_sysfs.h            | 15 ++++
->   3 files changed, 104 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> index 3f0a4a415907..cd5933a594de 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -551,6 +551,8 @@ static ssize_t node_show(struct kobject *kobj, struct attribute *attr,
->   				      dev->gpu->mec_fw_version);
->   		sysfs_show_32bit_prop(buffer, offs, "capability",
->   				      dev->node_props.capability);
-> +		sysfs_show_64bit_prop(buffer, offs, "debug_prop",
-> +				      dev->node_props.debug_prop);
->   		sysfs_show_32bit_prop(buffer, offs, "sdma_fw_version",
->   				      dev->gpu->sdma_fw_version);
->   		sysfs_show_64bit_prop(buffer, offs, "unique_id",
-> @@ -1593,6 +1595,84 @@ static int kfd_dev_create_p2p_links(void)
->   	return ret;
->   }
->   
-> +static void kfd_topology_set_dbg_firmware_support(struct kfd_topology_device *dev)
-> +{
-> +	bool firmware_supported = true;
-> +
-> +	/*
-> +	 * Note: Any unlisted devices here are assumed to support exception handling.
-> +	 * Add additional checks here as needed.
-> +	 */
-> +	switch (KFD_GC_VERSION(dev->gpu)) {
-> +	case IP_VERSION(9, 0, 1): /* Vega10 */
-> +		firmware_supported = dev->gpu->mec_fw_version >= 459 + 32768;
-> +		break;
-> +	case IP_VERSION(9, 1, 0): /* Raven */
-> +	case IP_VERSION(9, 2, 1): /* Vega12 */
-> +	case IP_VERSION(9, 2, 2): /* Raven */
-> +	case IP_VERSION(9, 3, 0): /* Renoir */
-> +	case IP_VERSION(9, 4, 0): /* Vega20 */
-> +		firmware_supported = dev->gpu->mec_fw_version >= 459;
-> +		break;
-> +	case IP_VERSION(9, 4, 1): /* Arcturus */
-> +		firmware_supported = dev->gpu->mec_fw_version >= 60;
-> +		break;
-> +	case IP_VERSION(9, 4, 2): /* Aldebaran */
-> +		firmware_supported = dev->gpu->mec_fw_version >= 51;
-> +		break;
-> +	case IP_VERSION(10, 1, 10): /* Navi10 */
-> +	case IP_VERSION(10, 1, 2): /* Navi12 */
-> +	case IP_VERSION(10, 1, 1): /* Navi14 */
-> +		firmware_supported = dev->gpu->mec_fw_version >= 144;
-> +		break;
-> +	case IP_VERSION(10, 3, 0): /* Sieanna Cichlid */
-> +	case IP_VERSION(10, 3, 2): /* Navy Flounder */
-> +	case IP_VERSION(10, 3, 1): /* Van Gogh */
-> +	case IP_VERSION(10, 3, 4): /* Dimgrey Cavefish */
-> +	case IP_VERSION(10, 3, 5): /* Beige Goby */
-> +		firmware_supported = dev->gpu->mec_fw_version >= 89;
-> +		break;
-> +	case IP_VERSION(10, 1, 3): /* Cyan Skillfish */
-> +	case IP_VERSION(10, 3, 3): /* Yellow Carp*/
-> +		firmware_supported = false;
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	if (firmware_supported)
-> +		dev->node_props.capability |= HSA_CAP_TRAP_DEBUG_FIRMWARE_SUPPORTED;
-> +}
-> +
-> +static void kfd_topology_set_capabilities(struct kfd_topology_device *dev)
-> +{
-> +	dev->node_props.capability |= ((HSA_CAP_DOORBELL_TYPE_2_0 <<
-> +				HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT) &
-> +				HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
-> +
-> +	dev->node_props.capability |= HSA_CAP_TRAP_DEBUG_SUPPORT |
-> +			HSA_CAP_TRAP_DEBUG_WAVE_LAUNCH_TRAP_OVERRIDE_SUPPORTED |
-> +			HSA_CAP_TRAP_DEBUG_WAVE_LAUNCH_MODE_SUPPORTED;
-> +
-> +	if (KFD_GC_VERSION(dev->gpu) < IP_VERSION(10, 0, 0)) {
-> +		dev->node_props.debug_prop |= HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX9 |
-> +						HSA_DBG_WATCH_ADDR_MASK_HI_BIT;
-> +
-> +		if (KFD_GC_VERSION(dev->gpu) < IP_VERSION(9, 4, 2))
-> +			dev->node_props.debug_prop |=
-> +				HSA_DBG_DISPATCH_INFO_ALWAYS_VALID;
-> +		else
-> +			dev->node_props.capability |=
-> +				HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED;
-> +	} else {
-> +		dev->node_props.debug_prop |= HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX10 |
-> +					HSA_DBG_WATCH_ADDR_MASK_HI_BIT |
-> +					HSA_DBG_DISPATCH_INFO_ALWAYS_VALID;
-> +	}
-> +
-> +	kfd_topology_set_dbg_firmware_support(dev);
-> +}
-> +
->   int kfd_topology_add_device(struct kfd_dev *gpu)
->   {
->   	uint32_t gpu_id;
-> @@ -1737,13 +1817,11 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
->   			HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
->   		break;
->   	default:
-> -		if (KFD_GC_VERSION(dev->gpu) >= IP_VERSION(9, 0, 1))
-> -			dev->node_props.capability |= ((HSA_CAP_DOORBELL_TYPE_2_0 <<
-> -				HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT) &
-> -				HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
-> -		else
-> +		if (KFD_GC_VERSION(dev->gpu) < IP_VERSION(9, 0, 1))
->   			WARN(1, "Unexpected ASIC family %u",
->   			     dev->gpu->adev->asic_type);
-> +		else
-> +			kfd_topology_set_capabilities(dev);
->   	}
->   
->   	/*
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-> index 9f6c949186c1..c089c26a0e77 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-> @@ -31,6 +31,11 @@
->   
->   #define KFD_TOPOLOGY_PUBLIC_NAME_SIZE 32
->   
-> +#define HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX9	6
-> +#define HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX10	7
-> +#define HSA_DBG_WATCH_ADDR_MASK_HI_BIT  \
-> +			(29 << HSA_DBG_WATCH_ADDR_MASK_HI_BIT_SHIFT)
-> +
->   struct kfd_node_properties {
->   	uint64_t hive_id;
->   	uint32_t cpu_cores_count;
-> @@ -42,6 +47,7 @@ struct kfd_node_properties {
->   	uint32_t cpu_core_id_base;
->   	uint32_t simd_id_base;
->   	uint32_t capability;
-> +	uint64_t debug_prop;
->   	uint32_t max_waves_per_simd;
->   	uint32_t lds_size_in_kb;
->   	uint32_t gds_size_in_kb;
-> diff --git a/include/uapi/linux/kfd_sysfs.h b/include/uapi/linux/kfd_sysfs.h
-> index 3e330f368917..a51b7331e0b4 100644
-> --- a/include/uapi/linux/kfd_sysfs.h
-> +++ b/include/uapi/linux/kfd_sysfs.h
-> @@ -43,6 +43,11 @@
->   #define HSA_CAP_DOORBELL_TYPE_2_0		0x2
->   #define HSA_CAP_AQL_QUEUE_DOUBLE_MAP		0x00004000
->   
-> +#define HSA_CAP_TRAP_DEBUG_SUPPORT              0x00008000
-> +#define HSA_CAP_TRAP_DEBUG_WAVE_LAUNCH_TRAP_OVERRIDE_SUPPORTED  0x00010000
-> +#define HSA_CAP_TRAP_DEBUG_WAVE_LAUNCH_MODE_SUPPORTED           0x00020000
-> +#define HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED  0x00040000
-> +
->   /* Old buggy user mode depends on this being 0 */
->   #define HSA_CAP_RESERVED_WAS_SRAM_EDCSUPPORTED	0x00080000
->   
-> @@ -53,8 +58,18 @@
->   #define HSA_CAP_SRAM_EDCSUPPORTED		0x04000000
->   #define HSA_CAP_SVMAPI_SUPPORTED		0x08000000
->   #define HSA_CAP_FLAGS_COHERENTHOSTACCESS	0x10000000
-> +#define HSA_CAP_TRAP_DEBUG_FIRMWARE_SUPPORTED   0x20000000
->   #define HSA_CAP_RESERVED			0xe00f8000
->   
-> +/* debug_prop bits in node properties */
-> +#define HSA_DBG_WATCH_ADDR_MASK_LO_BIT_MASK     0x0000000f
-> +#define HSA_DBG_WATCH_ADDR_MASK_LO_BIT_SHIFT    0
-> +#define HSA_DBG_WATCH_ADDR_MASK_HI_BIT_MASK     0x000003f0
-> +#define HSA_DBG_WATCH_ADDR_MASK_HI_BIT_SHIFT    4
-> +#define HSA_DBG_DISPATCH_INFO_ALWAYS_VALID      0x00000400
-> +#define HSA_DBG_WATCHPOINTS_EXCLUSIVE           0x00000800
-> +#define HSA_DBG_RESERVED                0xfffffffffffff000ull
-> +
->   /* Heap types in memory properties */
->   #define HSA_MEM_HEAP_TYPE_SYSTEM	0
->   #define HSA_MEM_HEAP_TYPE_FB_PUBLIC	1
