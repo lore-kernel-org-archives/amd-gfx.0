@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6787CC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 12:42:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8411CC433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 12:42:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDA8510E2DF;
-	Wed, 23 Nov 2022 12:42:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BDD410E2E3;
+	Wed, 23 Nov 2022 12:42:18 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B537D10E2DF;
- Wed, 23 Nov 2022 12:42:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34DF210E2E3;
+ Wed, 23 Nov 2022 12:42:12 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 5DB21B81F38;
- Wed, 23 Nov 2022 12:42:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039FCC433D6;
- Wed, 23 Nov 2022 12:42:01 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5D665B81F3F;
+ Wed, 23 Nov 2022 12:42:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1E0AC433D6;
+ Wed, 23 Nov 2022 12:42:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669207324;
- bh=1Rfb2oc7NrSB4db+j1UuO7mUlYzt+qjigoSBnL2+3Ng=;
+ s=k20201202; t=1669207330;
+ bh=9CdGFcI6NSYYFit7v8Tf2qp4SHvPUavvWg7w2trO2Qg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IomrmY4nk6xz2vOfwy+4+S8rqoFJHkK/h2Cv31c3YqHt3e5ESPM23fAZYJbwfyevT
- pSYasLFpiB3tv+eFVRM0ISLhAf06vxYBWKT15PxjN/g+2GGCFaQkJ6UsFODNp/T8uK
- C3pCgGmRYt0Iadczohd1jCBsXMX91G7wElba9AMHS1evSsD2rbtGUciqAqFCMUSf+Y
- m//SHea4ZeTYkbYx0JMSc/YfoxIiw3d5sESRenCKeHOU2St8itgsO56so4IJMtx+NS
- u37qkYjC2NSq5KTK2Vn3kGIcb50XGdpC1/cShM8SBCaWdgW62Ptst8ZFdSXnuPLOWh
- MA7bAgDXvOArw==
+ b=SDQueprYJALAkgiJ/N91J6zEo5mBZETwnY/8vK5FNoEqo+wagX5nMJ2tOj9MISGZa
+ 0bmNh32AxG4br64Xv1avrk9e5Tqa9qgiwU1Mmc1rm3zoj3O7MDCcTAhLNud4aEPtRK
+ CVmu438goyqB6KhTAeI9s1uP6rk3DHxqWorGVD53EUqqNXYTOxApSRKmt45qM+3qAp
+ nmbfSl+NXj50vlZltcZ4uEDF/XBAiIG1e+or2Hj0nwRhdfM9XZTj9KbgsEv+lX6ZPO
+ xNQNezsy+vU8zN936WEuoXoZD2p4LIOGtOgaFsMyjZ5q+rd5suZ+ybTPZLS5xP79sX
+ p5wJj+YbdyJOQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 26/44] drm/amd/display: use uclk pstate latency
- for fw assisted mclk validation dcn32
-Date: Wed, 23 Nov 2022 07:40:35 -0500
-Message-Id: <20221123124057.264822-26-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.0 28/44] drm/amdkfd: Fix a memory limit issue
+Date: Wed, 23 Nov 2022 07:40:37 -0500
+Message-Id: <20221123124057.264822-28-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221123124057.264822-1-sashal@kernel.org>
 References: <20221123124057.264822-1-sashal@kernel.org>
@@ -55,81 +54,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Dillon Varone <Dillon.Varone@amd.com>,
- David.Galiffi@amd.com, Tom Chung <chiahsuan.chung@amd.com>,
- amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com, airlied@gmail.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- samson.tam@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
- rdunlap@infradead.org, Alvin.Lee2@amd.com, daniel@ffwll.ch,
- george.shen@amd.com, Alex Deucher <alexander.deucher@amd.com>, jun.lei@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Eric Huang <jinhuieric.huang@amd.com>, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dillon Varone <Dillon.Varone@amd.com>
+From: Eric Huang <jinhuieric.huang@amd.com>
 
-[ Upstream commit c149947b188c651b943c1d8ca1494d1a98a3e27f ]
+[ Upstream commit 6f9eea4392a178af19360694b1db64f985d0b459 ]
 
-[WHY?]
-DCN32 uses fclk pstate watermarks for dummy pstate, and must always be
-supported.
+It is to resolve a regression, which fails to allocate
+VRAM due to no free memory in application, the reason
+is we add check of vram_pin_size for memory limit, and
+application is pinning the memory for Peerdirect, KFD
+should not count it in memory limit. So removing
+vram_pin_size will resolve it.
 
-[HOW?]
-Validation needs to be run with fclk pstate latency set
-as the dummy pstate latency to get correct prefetch and bandwidth outputs.
-
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
-Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Dillon Varone <Dillon.Varone@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-index b9d3a4000c3d..6ed76e194423 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-@@ -1700,6 +1700,12 @@ void dcn32_calculate_wm_and_dlg_fpu(struct dc *dc, struct dc_state *context,
- 			 */
- 			context->bw_ctx.dml.soc.dram_clock_change_latency_us =
- 					dc->clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.pstate_latency_us;
-+			/* For DCN32/321 need to validate with fclk pstate change latency equal to dummy so
-+			 * prefetch is scheduled correctly to account for dummy pstate.
-+			 */
-+			if (dummy_latency_index == 0)
-+				context->bw_ctx.dml.soc.fclk_change_latency_us =
-+						dc->clk_mgr->bw_params->dummy_pstate_table[dummy_latency_index].dummy_pstate_latency_us;
- 			dcn32_internal_validate_bw(dc, context, pipes, &pipe_cnt, &vlevel, false);
- 			maxMpcComb = context->bw_ctx.dml.vba.maxMpcComb;
- 			dcfclk = context->bw_ctx.dml.vba.DCFCLKState[vlevel][context->bw_ctx.dml.vba.maxMpcComb];
-@@ -1879,6 +1885,10 @@ void dcn32_calculate_wm_and_dlg_fpu(struct dc *dc, struct dc_state *context,
- 
- 	context->perf_params.stutter_period_us = context->bw_ctx.dml.vba.StutterPeriod;
- 
-+	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching && dummy_latency_index == 0)
-+		context->bw_ctx.dml.soc.fclk_change_latency_us =
-+				dc->clk_mgr->bw_params->dummy_pstate_table[dummy_latency_index].dummy_pstate_latency_us;
-+
- 	dcn32_calculate_dlg_params(dc, context, pipes, pipe_cnt, vlevel);
- 
- 	if (!pstate_en)
-@@ -1886,8 +1896,12 @@ void dcn32_calculate_wm_and_dlg_fpu(struct dc *dc, struct dc_state *context,
- 		context->bw_ctx.dml.soc.dram_clock_change_latency_us =
- 				dc->clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.pstate_latency_us;
- 
--	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching)
-+	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching) {
- 		dcn30_setup_mclk_switch_using_fw_based_vblank_stretch(dc, context);
-+		if (dummy_latency_index == 0)
-+			context->bw_ctx.dml.soc.fclk_change_latency_us =
-+					dc->clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.fclk_change_latency_us;
-+	}
- }
- 
- static void dcn32_get_optimal_dcfclk_fclk_for_uclk(unsigned int uclk_mts,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 93ad00453f4b..7db4aef9c45c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -170,9 +170,7 @@ int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+ 	    (kfd_mem_limit.ttm_mem_used + ttm_mem_needed >
+ 	     kfd_mem_limit.max_ttm_mem_limit) ||
+ 	    (adev && adev->kfd.vram_used + vram_needed >
+-	     adev->gmc.real_vram_size -
+-	     atomic64_read(&adev->vram_pin_size) -
+-	     reserved_for_pt)) {
++	     adev->gmc.real_vram_size - reserved_for_pt)) {
+ 		ret = -ENOMEM;
+ 		goto release;
+ 	}
 -- 
 2.35.1
 
