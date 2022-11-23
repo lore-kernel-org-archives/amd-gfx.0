@@ -4,115 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1245BC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 15:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A6B5C4167D
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 15:48:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B8D010E070;
-	Wed, 23 Nov 2022 15:48:22 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5000B10E070
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 15:48:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AqtId4a6GDFytHQlnTZ5DfkSZvjoJKxGjTMdpTDdd6Hn+RzJaUUW0dzJEBFWQcFMi0U2AOOkGjgSm7q3s5Gy6IS166968ShMLMib4Cn4bxZ3vtyxl8Zqjpo7kWlnTS3fcWOC6xbUiXUgGnPNdEa8LZVXhtGqQBtFqfttpIwZocO0HzMWF4L3FFMixFyeMTEdAdfmGvEXH8m2O5dOqD2k8HILKeTY+x8IBZ8O1+bjgVLLAByhJAq7ur3qNUzbT7dtaK81KcXeaym2INIBqkVNHCvm7By2EkPgko6hLfPFXAslTO6ITU40yApbCp871G0rIQ2aAfFA70uSd1++XHi2fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SEQZh8WeEvcUsEJa8bGUDenVmBWBoBvoX5paXMrhcKU=;
- b=RXGhqgQ0V0QzZDSDS11/aFiM+uR0294WXTqHPW4gcEuqvyiDTcs0k6bZzwoIt/xwyexAsGmfTJDI0o9gOySSj8sIeSWyrZQYjoW7HZGbDHRz8d4RXqAhzV2c+weiwCFr3Vsdcl35R3xhcnwbAIaN2rJ2oC/23XaVx01wxCPhKFaciOIVP2B4HkgiaN0i+QJu+fUclRFWu8PrhTCWhfuVM69nAff10rv2yVItPkHNWJ1yXMqXqzN9BNm1EYVXDpLKkukkiTskP68YeW/S3eWUcsdRDcowKXHWn5grsTZK/zUzO/GO0thrTOPeLyMlcmG1l38mOdE/c773ZzRlx//3eg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SEQZh8WeEvcUsEJa8bGUDenVmBWBoBvoX5paXMrhcKU=;
- b=apv9JtRm7c0jo/vxsBcPOw2tvYLWWYnF4KzlqERw3S69eQV12xygyTHOVHZR5JY/efQqaLkH8Iw2N4c0ayjYCE7nB2eCia+YoJqbataGZ1XekMaHFgmDpPI1p//4V4qTV1f51Gk8zLKdPB+deycZOB87cOmUEr5ARcC3mmdcLwY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- BY5PR12MB4291.namprd12.prod.outlook.com (2603:10b6:a03:20c::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Wed, 23 Nov
- 2022 15:48:14 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178%3]) with mapi id 15.20.5857.018; Wed, 23 Nov 2022
- 15:48:14 +0000
-Message-ID: <a45fac55-7bcc-bac1-7687-c56406d8d416@amd.com>
-Date: Wed, 23 Nov 2022 10:48:12 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Content-Language: en-CA
-To: veerabadhran.gopalakrishnan@amd.com, amd-gfx@lists.freedesktop.org
-References: <20221123145139.1944700-1-veerabadhran.gopalakrishnan@amd.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-Subject: Re: [PATCH] amdgpu/nv.c: Corrected typo in the video capabilities
- resolution
-In-Reply-To: <20221123145139.1944700-1-veerabadhran.gopalakrishnan@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0050.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:82::24) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2520C10E5A4;
+	Wed, 23 Nov 2022 15:48:32 +0000 (UTC)
+Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
+ [IPv6:2607:f8b0:4864:20::c2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73ED810E5A4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 15:48:29 +0000 (UTC)
+Received: by mail-oo1-xc2b.google.com with SMTP id
+ r10-20020a4aa2ca000000b0049dd7ad4128so2750937ool.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 07:48:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=URtPdizckGSzCQz6vC2bWXOgsWd2yx15WdbVIDj6XBY=;
+ b=qI5AuRtvscsCylSci8T0qRhQO//lG4wyHx521pfcUuAnanx3xY/o/G1XJZiBKCL6ru
+ Cn7Vz08WjbPQFmG5es1eQeSNhZLvUbWakT5lJQC7m2Rf7JAYt0kxwsEnpHTFRbHf7CsE
+ 3wvPMH0WJnT7wr/sIhqRK6CvRA/Ex5v3CUALovHWRPcgwa7ZIq0/dgvP/v9fTj0DFiMg
+ X8Sbqa+X+Vj4HOddZqTx49jTVdtnbsafQnGptFy5D+A0BfBhBj9tMP3LZLCyCM3mqW9u
+ xPYiLOwPH7+GC7lvFzmo0gyxVU6hPXIZQjAEg7ZBO6bYL0cuMdhg+xZRDEAgBAbsjX2J
+ hMyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=URtPdizckGSzCQz6vC2bWXOgsWd2yx15WdbVIDj6XBY=;
+ b=WC26wm3ulxyQ2ZRQw26kR1gCodU86lFw/+X2ffNg/Kic9ec10zpVVr0VDgtL1X89tx
+ 0iX/TBg2SjNnv5AkEMxP0osNAcMkDNuGUoEQuwzn4N5bYBbySgRLR+BPH68aGqS9lyUT
+ VZAepJe87FbFQV6wMZmjBtK4xC7STy5IOq2T1C2HeeGMSD5Ap+t2yM6UIzEenMd9vYjV
+ zjRxDU94lOKoNE98q+DKA0t5B3kzwaODsdE2vXXR1rpMuypKZ3EDCQ3e67gniDia7PLJ
+ 8moghJQkmNOe+Bvu47aW7vEwhwufgKv/6fFSRBIaqYg/tN7jFZ9Ez04emCZOnLqm1aet
+ 2pdg==
+X-Gm-Message-State: ANoB5pkHYg5I3pnDPjPZg71C/258QMotvZSgMcBBz+K+MqfcFnDtmKPR
+ JYCzGoiV3wqnAVi+2zTG4QFBjSbdh54HcwoqbsU=
+X-Google-Smtp-Source: AA0mqf6eOcps2Un+ERXlxm1O4XV3ruVNIDwvoSpD4qfI26ngJnL+/zmi0PHsB3AHiTdICIlyE8Qej8rruq18K7yeoh4=
+X-Received: by 2002:a4a:4005:0:b0:49f:4579:ccc8 with SMTP id
+ n5-20020a4a4005000000b0049f4579ccc8mr3889637ooa.70.1669218508692; Wed, 23 Nov
+ 2022 07:48:28 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|BY5PR12MB4291:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa99d44f-e677-4b2e-9e3d-08dacd6a21e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: i2GeZcyiDDBcXjFvUaDMNj5W0VDP6O3GK8lZuFIq5pq5RcyzkJNFOgCY807i9oDy0fs6AUh51BrZ6WBqfKLICD+ZZCNWS8qvO5yac/47KxiJUryCEAOiEa7K3k8SLOYKxtGvu9weVtny/K1iebW3P1Ocs4Hs11F+ucRwLRE3Orx20H+xuFsQLTXw1nYBIFSnSiRzD5BFg7viFSVWc3rRFJX3Aa4ks2SdhAnLOmz5D+3NKcwNbvZVGG/pgpQ8V05wgMdZwLhiOEuGjj29xYsiGN2pP0zjV71Jk76lNPgwgPogec19oXFAQFWfgrK6BDSlUgBFaPMCLItQOA4k9+8ZiBtF8eGLKtqGidMOoyet1i5g95BIVU1JwV18z+NelPw2YzfT2j6qXYumHjH1IPO5+qy7b9eYp8jY082qH51icG2M8kbNCsvxx7ex6N4hIiP0gZuOJqnQlRpyVPhBp4YP875XRptsSmrP1u6ugqGybbMsiRiVW74Y4+lw7ILE0CIRPrORhNscW8/9RU6UVVQILXSzw9GGpkJZWPXHf7xbEwIIbApeSY4QyXBKBc1V30wujI20lW5CGuwoN5jIRgDDqUIjGGwvgJ+mzGa6aO9LGi/SEden9TfYU6pwV6FU1iA75S4brXk7Lf1dzg9idJpUYv5KISVNslnI0AeZuzV64oE0Nffdm7+7LVvKPtamFmgWZcF/H5u8EySA4vyASOR0KDqWd4I2IRyhav04Est3uGo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(39860400002)(376002)(346002)(396003)(366004)(451199015)(31686004)(36756003)(8676002)(2906002)(31696002)(4326008)(86362001)(8936002)(4001150100001)(5660300002)(38100700002)(83380400001)(186003)(2616005)(316002)(6486002)(66556008)(66476007)(66946007)(478600001)(53546011)(6512007)(44832011)(26005)(6506007)(41300700001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MXhBc01lWWlCcS9pTk9iSGNHY0FMVG11ZXQvSE9SSUE1MTVJSyt5YUx3cDBz?=
- =?utf-8?B?aXNFNjFCTkkxd0RmbTRUMnFTLzB2b2RxOW4vSVUrcGEwOW5kODVpViswaGw0?=
- =?utf-8?B?dEx3TTJQR0l6TURjK2RKQ3RkYllRUnJiKzlHTXBuL3VmNW1taTFzcng0Z2l4?=
- =?utf-8?B?NkpUR2RxWkZuUGVEZjN0YUIyT0hweG1FcmlmMDlxa1IvWVl1OVFySUFadjh2?=
- =?utf-8?B?OVVmcFhvcXpQSUd2UElYWUxXWUlRbER5emRaNmhCYTZCRmJSRXk3Wk5GK1Aw?=
- =?utf-8?B?aUZ5TDF4amJ4U25IR01Tc2JKZ20xKzV6VGxiNndrREtzT2R3RExHanZrNXJ5?=
- =?utf-8?B?OVF2eW5zdXl6L3FnSGxWVFQ3Uk9yWVdtZkUrZTQ3YXNqZlRtTkRPK0JCZURQ?=
- =?utf-8?B?OTl0eEcrQjAyaGdjVWs2NVc4cGJ4VlNFdjdDbjFlSjFlN01MekNLWTQ2Y2JW?=
- =?utf-8?B?Mmllb3U2dDN3VW9RaHdWRGE0M1lsNVRVakJKNXIwQ2gyZGRLMWJ0cE11a2sw?=
- =?utf-8?B?cG5tNm1CN3RPMHFUb1ppSFZLMHIyMFEwZ0ZUUDRrdEVCWUtNRXNlQ3F5TTcv?=
- =?utf-8?B?ZmkxbGF0UWEyeCszUzNXMUU1cHFid0JGYldRUWptNXdtRURsTk5CaXpIV1Bj?=
- =?utf-8?B?K21QVlltZGxtRXBYV2t6YU13eGJZL1hBcU5Oa25PSmJTODJnclB0VkEwZVdY?=
- =?utf-8?B?TzMzZU91MDhqOWJyUk40bURPUEpxSElYdWNrenROQ24vc3R5ZFRzOExzMy9N?=
- =?utf-8?B?UHdMa0RKR0ZhOGxtUWRrc0NvWTJXQUliMk90cHZ2Uy9BbUVaMFBSQmpXZFNl?=
- =?utf-8?B?WlkxTFlwYkhkcDViNWtONy9iRXhyM1FhaDB5bGtLMjhXMU1YN21GS3BVRkNZ?=
- =?utf-8?B?a0xwSlcxWC9GeGtnZUphdEhtaFp4Z21lcjRubEtPcVM5eEY3LzhpWXRXMmEy?=
- =?utf-8?B?YjRNZ3NheTdkZ1VBVnhnWEVRUlBYeHIweHpUbGZwSkJZQUpHSkpjWE4yVmVN?=
- =?utf-8?B?a0g0cENmVnVoZDQzSGpFa2FlL1JSOFE2Q05OcW41MUxEOWRTYWpKL1cwZ1VP?=
- =?utf-8?B?QVhxdU9hRXNLcXYreW8xd3lMNDdTSWN1dW5nTHNGVVVhZzFZU3JvN3paWitr?=
- =?utf-8?B?YXFDUEZlRXBZcU9PVXcyVlJCbFVGZ1dRUmRvQVVuNjhjc0Q0b3hNcjd2NDd6?=
- =?utf-8?B?a2QwTTEwSkxTNFdKUitzMk9CYkk3Ym5lYVdWY3U5V0RSTGNTMStJWEllM21S?=
- =?utf-8?B?N2Z2dDhDcUt3Sm83MUhhQ0RqK2g2am90UzNabnNGRXVCaEdRMlBlOXVzS3Mv?=
- =?utf-8?B?RGlFNVNKcHRnSG1HMFI2cUdUNWZxUVg3NWdoanh3WXR3VXhBa3RrMUtZeGls?=
- =?utf-8?B?Y3poR3lLSXZibTlaVjNLK0FPSVNJTXZNKy95dUs3cTBBVGJuYUlOdlRtS2JS?=
- =?utf-8?B?alNjcDNuZTliOHRPaTdyS00vcEJEY3RBbjUvclBPUTZJQi9FMWtQa0Mwd3pM?=
- =?utf-8?B?d0RhK2d6OFdKQ21yQytNOUlwV3hXUVJhMWtTTGlVL3VBK2srcTBnWXN6ZGVE?=
- =?utf-8?B?S1ZYMEQ5VkpmMjZKV2RJSXlOeFhIWTR4UU1aK0txOHBhczRoR1ZuTC80djB0?=
- =?utf-8?B?WXg2R01YODZJbk8vcVh1VWlmVDg2WUhXU2cyUlRLWDBYYmtoazFtWGFaWU9j?=
- =?utf-8?B?ZmdwRExBNzBqWFZndXFvdERiK1Y4Q2NkaWFNck9CSmlXTkZNeTAyTkJLS0pt?=
- =?utf-8?B?blhNV0N3ek9YeThDU3RrN0xNazc5NGd2R1lCSUlpWXJldHJJVVpsbTBYWDVK?=
- =?utf-8?B?SkYyYmlsSldIb05sZ2d5d0d2L2hFWE9vKzBFTnpGbnlQelQ2VHpRWDNHSWEw?=
- =?utf-8?B?akhYeTRCTnNFRFhMYUFVMXNFZ3FjL0ZubHRXcGo4MDBHbmNSc29paTFhU1pm?=
- =?utf-8?B?cTFHdUthN1JzTzhMSUJCcDZjbERGZW1QYTJ3S3grenptcWVENE5XQlhWb01I?=
- =?utf-8?B?VUxMaFVPNzA5WG54QkZwV2xrTnFyWGplelV5WnhJU0Y0Rm5QMTF5VGo1YjJE?=
- =?utf-8?B?NFVxVkhnelp5bXpLeXQ5VHhxOFRPRDVTN0RDZXUvT21pckQvT0dSeEhERldr?=
- =?utf-8?Q?RBG1xgr7H+/zAC1Or5bCuHe2I?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa99d44f-e677-4b2e-9e3d-08dacd6a21e7
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2022 15:48:14.6807 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ECIT5PAHa2Rbk9j5KaDp/igzNgwi39vkdFjN5Opg2wEeChrVJbap0R28PWACSDsp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4291
+References: <622f20c5-5c24-d1c5-f874-6cb80b365e2e@collabora.com>
+ <CADnq5_PKxfk9wEbQp8Mcxszp8R02qqe6ZtuonZ-TH4Zg9Lhrdg@mail.gmail.com>
+ <PH7PR12MB5596F7B8DB291973C6190917930C9@PH7PR12MB5596.namprd12.prod.outlook.com>
+In-Reply-To: <PH7PR12MB5596F7B8DB291973C6190917930C9@PH7PR12MB5596.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 23 Nov 2022 10:48:17 -0500
+Message-ID: <CADnq5_PJBp0_MTbFYLXmsACBTSuiG_erJpE_s2hSxARcP6gL_Q@mail.gmail.com>
+Subject: Re: Help debug amdgpu faults
+To: "Khatri, Sunil" <Sunil.Khatri@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,164 +68,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Boyuan.Zhang@amd.com, leo.liu@amd.com, "Koenig,
- Christian" <Christian.Koenig@amd.com>, thong.thai@amd.com
+Cc: Robert Beckett <bob.beckett@collabora.com>,
+ Daniel Stone <daniels@collabora.com>,
+ =?UTF-8?Q?Adri=C3=A1n_Mart=C3=ADnez_Larumbe?= <adrian.larumbe@collabora.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Dmitrii Osipenko <dmitry.osipenko@collabora.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-11-23 09:51, veerabadhran.gopalakrishnan@amd.com wrote:
-> From: Veerabadhran Gopalakrishnan <veerabadhran.gopalakrishnan@amd.com>
-> 
-> Corrected the typo in the 4K resolution parameters.
-> 
-> Signed-off-by: Veerabadhran Gopalakrishnan <veerabadhran.gopalakrishnan@amd.com>
+On Wed, Nov 23, 2022 at 2:50 AM Khatri, Sunil <Sunil.Khatri@amd.com> wrote:
+>
+> [AMD Official Use Only - General]
+>
+> Hello Alex, Robert
+>
+> I too have similar issues which I am facing on chrome. Are there any tool=
+s in linux environment which can help debug such issues like page faults, k=
+ernel panic caused by invalid pointer access.
+>
+> I have used tools like ramdump parser which can be used to use the ramdum=
+p after a crash and check a lot of static data in the memory and even the p=
+age table could be checked by walking through them manually. We used to loa=
+d the kernel symbols along with ramdump to go line by line.
+>
+> Appreciate if you can point to some document or some tools which is alrea=
+dy used by linux graphics teams either UMD or KMD drivers so chrome team ca=
+n also exploit those to debug issues.
+>
 
-Please add the following Fixes tags. The first is where the 4906 first appeared, and latter
-is where it got duplicated.
+UMR has a number of tools for dumping GPU page tables and debugging page fa=
+ults:
+https://gitlab.freedesktop.org/tomstdenis/umr
 
-Fixes: b3a24461f9fb15 ("amdgpu/nv.c - Added codec query for Beige Goby")
-Fixes: 9075096b09e590 ("amdgpu/nv.c - Optimize code for video codec support structure")
+Alex
 
-With these tags added, this patch is:
 
-Acked-by: Luben Tuikov <luben.tuikov@amd.com>
-
-Regards,
-Luben
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/nv.c    | 28 ++++++++++++++--------------
->  drivers/gpu/drm/amd/amdgpu/soc15.c | 24 ++++++++++++------------
->  drivers/gpu/drm/amd/amdgpu/soc21.c |  2 +-
->  3 files changed, 27 insertions(+), 27 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-> index b3fba8dea63c..6853b93ac82e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -82,10 +82,10 @@ static const struct amdgpu_video_codecs nv_video_codecs_encode =
->  /* Navi1x */
->  static const struct amdgpu_video_codec_info nv_video_codecs_decode_array[] =
->  {
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4906, 3)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4906, 5)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4906, 52)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4906, 4)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4096, 3)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4096, 5)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4096, 4)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
-> @@ -100,10 +100,10 @@ static const struct amdgpu_video_codecs nv_video_codecs_decode =
->  /* Sienna Cichlid */
->  static const struct amdgpu_video_codec_info sc_video_codecs_decode_array[] =
->  {
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4906, 3)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4906, 5)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4906, 52)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4906, 4)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4096, 3)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4096, 5)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4096, 4)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
-> @@ -125,10 +125,10 @@ static struct amdgpu_video_codec_info sriov_sc_video_codecs_encode_array[] =
->  
->  static struct amdgpu_video_codec_info sriov_sc_video_codecs_decode_array[] =
->  {
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4906, 3)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4906, 5)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4906, 52)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4906, 4)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4096, 3)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4096, 5)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4096, 4)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
-> @@ -149,7 +149,7 @@ static struct amdgpu_video_codecs sriov_sc_video_codecs_decode =
->  
->  /* Beige Goby*/
->  static const struct amdgpu_video_codec_info bg_video_codecs_decode_array[] = {
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4906, 52)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
->  };
-> @@ -166,7 +166,7 @@ static const struct amdgpu_video_codecs bg_video_codecs_encode = {
->  
->  /* Yellow Carp*/
->  static const struct amdgpu_video_codec_info yc_video_codecs_decode_array[] = {
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4906, 52)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index e3b2b6b4f1a6..7cd17dda32ce 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -103,10 +103,10 @@ static const struct amdgpu_video_codecs vega_video_codecs_encode =
->  /* Vega */
->  static const struct amdgpu_video_codec_info vega_video_codecs_decode_array[] =
->  {
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4906, 3)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4906, 5)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4906, 52)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4906, 4)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4096, 3)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4096, 5)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4096, 4)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 4096, 186)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
->  };
-> @@ -120,10 +120,10 @@ static const struct amdgpu_video_codecs vega_video_codecs_decode =
->  /* Raven */
->  static const struct amdgpu_video_codec_info rv_video_codecs_decode_array[] =
->  {
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4906, 3)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4906, 5)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4906, 52)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4906, 4)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4096, 3)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4096, 5)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4096, 4)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 4096, 186)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 4096, 4096, 0)},
-> @@ -138,10 +138,10 @@ static const struct amdgpu_video_codecs rv_video_codecs_decode =
->  /* Renoir, Arcturus */
->  static const struct amdgpu_video_codec_info rn_video_codecs_decode_array[] =
->  {
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4906, 3)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4906, 5)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4906, 52)},
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4906, 4)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4096, 3)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, 4096, 4096, 5)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, 4096, 4096, 4)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> index b258e9aa0558..5f19b85ccbb7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> @@ -61,7 +61,7 @@ static const struct amdgpu_video_codecs vcn_4_0_0_video_codecs_encode =
->  
->  static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_decode_array[] =
->  {
-> -	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4906, 52)},
-> +	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
->  	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
-
+> Regards
+> Sunil Khatri
+>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex D=
+eucher
+> Sent: Tuesday, November 22, 2022 7:42 PM
+> To: Robert Beckett <bob.beckett@collabora.com>
+> Cc: Dmitrii Osipenko <dmitry.osipenko@collabora.com>; Adri=C3=A1n Mart=C3=
+=ADnez Larumbe <adrian.larumbe@collabora.com>; Koenig, Christian <Christian=
+.Koenig@amd.com>; amd-gfx@lists.freedesktop.org; Daniel Stone <daniels@coll=
+abora.com>
+> Subject: Re: Help debug amdgpu faults
+>
+> On Tue, Nov 22, 2022 at 6:53 AM Robert Beckett <bob.beckett@collabora.com=
+> wrote:
+> >
+> > Hi,
+> >
+> >
+> > does anyone know any documentation, or can provide advice on debugging =
+amdgpu fault reports?
+>
+> This is a GPU page fault so it refers the the GPU virtual address space o=
+f the application .  Each process (well fd really), gets its own GPU virtua=
+l address space into which system memory, system mmio space, or vram can be=
+ mapped.  The user mode drivers control their GPU virtual address space.
+>
+> >
+> >
+> > e.g:
+> >
+> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: [gfxhub]
+> > page fault (src_id:0 ring:8 vmid:1 pasid:32769, for process vkcube pid
+> > 999 thread vkcube pid 999)
+>
+> This is the process that caused the fault.
+>
+> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:   in page s=
+tarting at address 0x0000800100700000 from client 0x1b (UTCL2)
+>
+> This is the virtual address that faulted.
+>
+> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: GCVM_L2_PRO=
+TECTION_FAULT_STATUS:0x00101A10
+> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          Fa=
+ulty UTCL2 client ID: SDMA0 (0xd)
+>
+> The fault came from the SDMA engine.
+>
+> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          MO=
+RE_FAULTS: 0x0
+> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          WA=
+LKER_ERROR: 0x0
+> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          PE=
+RMISSION_FAULTS: 0x1
+>
+> The page was not marked as valid in the GPU page table.
+>
+> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          MA=
+PPING_ERROR: 0x0
+> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          RW=
+: 0x0
+>
+> SDMA attempted to read an invalid page.
+>
+> >
+> >
+> >
+> > see https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2=
+Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F2267&amp;data=3D05%7C01%=
+7Csunil.khatri%40amd.com%7Cd7778c40bff6443c2af708dacc9394c6%7C3dd8961fe4884=
+e608e11a82d994e183d%7C0%7C0%7C638047231486449634%7CUnknown%7CTWFpbGZsb3d8ey=
+JWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%=
+7C%7C&amp;sdata=3Dvep6PKgDjRz02A3xYI8f7600QV2%2B7GYXsx%2FVYPY1M2I%3D&amp;re=
+served=3D0 for more context.
+> >
+> > We have a complicated setup involving rendering then blitting to virtio=
+-gpu exported dmabufs, with plenty of hacks in the mesa and xwayland stacks=
+, so we are considering this our issue to debug, and not an issue with the =
+driver at this point.
+> > However, having debugged all the interesting parts leading to these fau=
+lts, I am unable to decode the fault report to correlate to a buffer.
+> >
+> > in the fault report, what address space is the address from?
+> > given that the fault handler shifts the reported addres up by 12, I ass=
+ume it is a 4K pfn which makes me assume a physical address is this correct=
+?
+> > if so, is that a vram pa or a host system memory pa?
+> > is there any documentation for the other fields reported like the fault=
+ status etc?
+>
+> See the comments above.  There is some kernel doc as well:
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fdocs.=
+kernel.org%2Fgpu%2Famdgpu%2Fdriver-core.html%23amdgpu-virtual-memory&amp;da=
+ta=3D05%7C01%7Csunil.khatri%40amd.com%7Cd7778c40bff6443c2af708dacc9394c6%7C=
+3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638047231486449634%7CUnknown%7CT=
+WFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%=
+3D%7C3000%7C%7C%7C&amp;sdata=3Ddd971OoEZSJl%2FJif4%2Bypv9Dp0deeMVsQuCMc2o9B=
+gQk%3D&amp;reserved=3D0
+>
+> >
+> > I'd appreciate any advice you could give to help us debug further.
+>
+> Some operation you are doing in the user mode driver is reading an invali=
+d page.  Possibly reading past the end of a buffer or something mis-aligned=
+.  Compare the faulting GPU address to the GPU virtual address space in the=
+ application and you should be able to track down what is happening.
+>
+> Alex
+>
+> >
+> > Thanks
+> >
+> > Bob
+> >
