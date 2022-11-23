@@ -4,59 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A6B5C4167D
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 15:48:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AC7AC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 17:05:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2520C10E5A4;
-	Wed, 23 Nov 2022 15:48:32 +0000 (UTC)
-Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
- [IPv6:2607:f8b0:4864:20::c2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73ED810E5A4
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 15:48:29 +0000 (UTC)
-Received: by mail-oo1-xc2b.google.com with SMTP id
- r10-20020a4aa2ca000000b0049dd7ad4128so2750937ool.13
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 07:48:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=URtPdizckGSzCQz6vC2bWXOgsWd2yx15WdbVIDj6XBY=;
- b=qI5AuRtvscsCylSci8T0qRhQO//lG4wyHx521pfcUuAnanx3xY/o/G1XJZiBKCL6ru
- Cn7Vz08WjbPQFmG5es1eQeSNhZLvUbWakT5lJQC7m2Rf7JAYt0kxwsEnpHTFRbHf7CsE
- 3wvPMH0WJnT7wr/sIhqRK6CvRA/Ex5v3CUALovHWRPcgwa7ZIq0/dgvP/v9fTj0DFiMg
- X8Sbqa+X+Vj4HOddZqTx49jTVdtnbsafQnGptFy5D+A0BfBhBj9tMP3LZLCyCM3mqW9u
- xPYiLOwPH7+GC7lvFzmo0gyxVU6hPXIZQjAEg7ZBO6bYL0cuMdhg+xZRDEAgBAbsjX2J
- hMyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=URtPdizckGSzCQz6vC2bWXOgsWd2yx15WdbVIDj6XBY=;
- b=WC26wm3ulxyQ2ZRQw26kR1gCodU86lFw/+X2ffNg/Kic9ec10zpVVr0VDgtL1X89tx
- 0iX/TBg2SjNnv5AkEMxP0osNAcMkDNuGUoEQuwzn4N5bYBbySgRLR+BPH68aGqS9lyUT
- VZAepJe87FbFQV6wMZmjBtK4xC7STy5IOq2T1C2HeeGMSD5Ap+t2yM6UIzEenMd9vYjV
- zjRxDU94lOKoNE98q+DKA0t5B3kzwaODsdE2vXXR1rpMuypKZ3EDCQ3e67gniDia7PLJ
- 8moghJQkmNOe+Bvu47aW7vEwhwufgKv/6fFSRBIaqYg/tN7jFZ9Ez04emCZOnLqm1aet
- 2pdg==
-X-Gm-Message-State: ANoB5pkHYg5I3pnDPjPZg71C/258QMotvZSgMcBBz+K+MqfcFnDtmKPR
- JYCzGoiV3wqnAVi+2zTG4QFBjSbdh54HcwoqbsU=
-X-Google-Smtp-Source: AA0mqf6eOcps2Un+ERXlxm1O4XV3ruVNIDwvoSpD4qfI26ngJnL+/zmi0PHsB3AHiTdICIlyE8Qej8rruq18K7yeoh4=
-X-Received: by 2002:a4a:4005:0:b0:49f:4579:ccc8 with SMTP id
- n5-20020a4a4005000000b0049f4579ccc8mr3889637ooa.70.1669218508692; Wed, 23 Nov
- 2022 07:48:28 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95AB410E0A3;
+	Wed, 23 Nov 2022 17:05:23 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::601])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C79210E0A3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 17:05:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Rwqwh5p1fWDoEklhWu41r4jMilPGtcwyFWQ8gJGvFF3r9FhUDTJi8ujbsFcPmiz7dQbSa/i0CLLSPmWQc6TOC+bAEtjf0SBQgwePzIZTKrVvGIcqdlAXyrDkkyhPC+uuyYdyYfyiOYEqRk4PREIsEIuDpbiYprTLiKW/lif4jva8HgkNfDWM7j0FnVYzhV83ZgHcPf9s6spihiqG+xzAmV9w7cVEgRF+P10oYDqKoj9MpTcNZtgzTk5Uff9bBqgDsxMTXF+m9OwRW9S5iPJr0JUC/8hrte5sPfNf4pQRbXVYY0CZ1sFlgmeL5Beal0UWhBRp0lXv5mGhLY8cXfzdRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w/83j5aeKAslI8Q3C4x31wwaBFDkPzZlyZkKSLdwK38=;
+ b=MZ7FxXB6rriREwNWPIK8SD9BtuN3zB8vthnvkQi4O7U36SD8gvwS/VVHqGkqdsmDw1bRuPF2IGPIE72yNjsXb/Bisw//k73uaEWnabt3FQqkZHCDzdSmKC72he799ZGTSmMoc+7m09FHSYeZbsN//IILBOncAm51ILyXp6rmg0GETJ1F+tJ2IZ+tUqWYZQWykph7/D6v4b8h4snPoXHmjVXGijSw1nGnMNecucpmaIPcTGPqqYV2205dkxQwq8bMfm7+EMjsnCc0y5o6w1kUFpdLtpTP7XWjnZIZQnv0GPPbIG3iyA+2a8IubKSYjWUllDwwPPK7PSTv/UqYvKuYwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w/83j5aeKAslI8Q3C4x31wwaBFDkPzZlyZkKSLdwK38=;
+ b=0Ad30mXW8Jl/9fE74obC+U1BzhVcO4T4jZLZ6mBjb9i97MAmGoLJFCoCowJGi4VAwM800gyBDN9ZtJ/pTG5Oig7hUIOBJMI4YSbH8sBKheTFEqTV8Qs83UaxIOUWZIrsMrDoRtUl+gYXrTRbIjNRPu7okB2aKakHQCaIDHS2NTo=
+Received: from MW4PR04CA0194.namprd04.prod.outlook.com (2603:10b6:303:86::19)
+ by CH3PR12MB7620.namprd12.prod.outlook.com (2603:10b6:610:150::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Wed, 23 Nov
+ 2022 17:05:17 +0000
+Received: from CO1NAM11FT038.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:86:cafe::28) by MW4PR04CA0194.outlook.office365.com
+ (2603:10b6:303:86::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15 via Frontend
+ Transport; Wed, 23 Nov 2022 17:05:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT038.mail.protection.outlook.com (10.13.174.231) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5857.17 via Frontend Transport; Wed, 23 Nov 2022 17:05:17 +0000
+Received: from fedora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 23 Nov
+ 2022 11:05:14 -0600
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: AMD Graphics <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] CI: Fix VERSION_REV and VERSION_BRANCH
+Date: Wed, 23 Nov 2022 12:04:52 -0500
+Message-ID: <20221123170452.27927-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-References: <622f20c5-5c24-d1c5-f874-6cb80b365e2e@collabora.com>
- <CADnq5_PKxfk9wEbQp8Mcxszp8R02qqe6ZtuonZ-TH4Zg9Lhrdg@mail.gmail.com>
- <PH7PR12MB5596F7B8DB291973C6190917930C9@PH7PR12MB5596.namprd12.prod.outlook.com>
-In-Reply-To: <PH7PR12MB5596F7B8DB291973C6190917930C9@PH7PR12MB5596.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 23 Nov 2022 10:48:17 -0500
-Message-ID: <CADnq5_PJBp0_MTbFYLXmsACBTSuiG_erJpE_s2hSxARcP6gL_Q@mail.gmail.com>
-Subject: Re: Help debug amdgpu faults
-To: "Khatri, Sunil" <Sunil.Khatri@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT038:EE_|CH3PR12MB7620:EE_
+X-MS-Office365-Filtering-Correlation-Id: 12153f7e-ef79-4d2c-0f9a-08dacd74e536
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: gdR6PaK5cIWUosuA4KbXAJ5ZxQM5WDIUeMrBf9JHKZCzsTbqakUNtayzZgH9kTTIOZajqXpLakPgVYtSQiYbxcyqUhyj0lRnT5m0w8LUrY8IxQOlmXJ3Ip16IYxZ/NIbV2JwPVEB7qMmnWC5M8HuS7udMYpTW+ZqY5uMvHsULqQFqVQpHY5EGMZm6lPQPdDF6sxbBhCgQdrGRFeghnYj2cJ1++dT7VboQC66F6yKtDKzdMGMm+4PNQAfZfhMWb2fYCMz26kfzUUtnuAr2MyVXdN5bLsrCFW4A6v6MuanVvIO3YfKzaTAgCXobuZoBs0woTsNIvbra3RBqsSkkVJ6BZbgXvWQDL8PSz73mVtD7v1ARDrK9immPBYm2JRx1zmzT0534Rz26xB9M7Mec2zW1aj69MCSKve2yq9pOk2+0pxth8NuGp3/pM0N80ZC2hNwA9t7O26VHMp5y40BobmFowRPBSVN09Ec0TOAWYN/zZ5AL3CwTmrnwJW7q0WerKgcM1phNIiw/2ZqR1QKBsQJpcwF92Za0ITD/D/Xxbbzrgped0XY119CVk0SdoH3lTDaZB81cUrlTixxrVgjpVP9DXWvJff9njue3qLL+qdEz7TB7LNhybG238Nt22JJ/ZdIb04TMVtqrT8uZ/Yxi9XimHCQIVDUCnf2ba+OY+FIUnFnEXyoCXwW50D0flG5WHlo2IIO7yNv/CFLP9uI1T0TFCUlelKf2j/caitif6VjfIo=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(376002)(136003)(346002)(396003)(451199015)(46966006)(40470700004)(36840700001)(1076003)(4744005)(2906002)(83380400001)(356005)(336012)(186003)(426003)(47076005)(36860700001)(82740400003)(16526019)(2616005)(81166007)(36756003)(6666004)(7696005)(26005)(54906003)(478600001)(6916009)(40480700001)(316002)(4326008)(70586007)(5660300002)(41300700001)(82310400005)(8676002)(44832011)(70206006)(40460700003)(8936002)(86362001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2022 17:05:17.0053 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 12153f7e-ef79-4d2c-0f9a-08dacd74e536
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT038.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7620
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,155 +98,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Robert Beckett <bob.beckett@collabora.com>,
- Daniel Stone <daniels@collabora.com>,
- =?UTF-8?Q?Adri=C3=A1n_Mart=C3=ADnez_Larumbe?= <adrian.larumbe@collabora.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Dmitrii Osipenko <dmitry.osipenko@collabora.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: Tom StDenis <tom.stdenis@amd.com>,
+ Dmitrii Galantsev <dmitrii.galantsev@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 23, 2022 at 2:50 AM Khatri, Sunil <Sunil.Khatri@amd.com> wrote:
->
-> [AMD Official Use Only - General]
->
-> Hello Alex, Robert
->
-> I too have similar issues which I am facing on chrome. Are there any tool=
-s in linux environment which can help debug such issues like page faults, k=
-ernel panic caused by invalid pointer access.
->
-> I have used tools like ramdump parser which can be used to use the ramdum=
-p after a crash and check a lot of static data in the memory and even the p=
-age table could be checked by walking through them manually. We used to loa=
-d the kernel symbols along with ramdump to go line by line.
->
-> Appreciate if you can point to some document or some tools which is alrea=
-dy used by linux graphics teams either UMD or KMD drivers so chrome team ca=
-n also exploit those to debug issues.
->
+Fix the output of the version revision and version branch, so that they're no
+longer empty after the listed change below.
 
-UMR has a number of tools for dumping GPU page tables and debugging page fa=
-ults:
-https://gitlab.freedesktop.org/tomstdenis/umr
+Cc: Dmitrii Galantsev <dmitrii.galantsev@amd.com>
+Cc: Tom StDenis <tom.stdenis@amd.com>
+Fixes: 7facf591681772 ("CI: Release RPM and DEB packages")
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ cmake_modules/GitVersion.cmake | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Alex
+diff --git a/cmake_modules/GitVersion.cmake b/cmake_modules/GitVersion.cmake
+index 7db3ab32130bdc..44c0a67bbad3b0 100644
+--- a/cmake_modules/GitVersion.cmake
++++ b/cmake_modules/GitVersion.cmake
+@@ -137,9 +137,9 @@ function(get_version_from_tag DEFAULT_VERSION_STRING)
+         "${VERSION_MINOR}"
+         PARENT_SCOPE)
+     set(VERSION_REV
+-        "${VERSION_REV}"
++        "${GIT_TAG_STRING}"
+         PARENT_SCOPE)
+     set(VERSION_BRANCH
+-        "${VERSION_BRANCH}"
++        "${GIT_BRANCH}"
+         PARENT_SCOPE)
+ endfunction()
 
+base-commit: ae9fc1ded740af789ea56c93a7a946b6206fed9a
+-- 
+2.38.1
 
-> Regards
-> Sunil Khatri
->
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex D=
-eucher
-> Sent: Tuesday, November 22, 2022 7:42 PM
-> To: Robert Beckett <bob.beckett@collabora.com>
-> Cc: Dmitrii Osipenko <dmitry.osipenko@collabora.com>; Adri=C3=A1n Mart=C3=
-=ADnez Larumbe <adrian.larumbe@collabora.com>; Koenig, Christian <Christian=
-.Koenig@amd.com>; amd-gfx@lists.freedesktop.org; Daniel Stone <daniels@coll=
-abora.com>
-> Subject: Re: Help debug amdgpu faults
->
-> On Tue, Nov 22, 2022 at 6:53 AM Robert Beckett <bob.beckett@collabora.com=
-> wrote:
-> >
-> > Hi,
-> >
-> >
-> > does anyone know any documentation, or can provide advice on debugging =
-amdgpu fault reports?
->
-> This is a GPU page fault so it refers the the GPU virtual address space o=
-f the application .  Each process (well fd really), gets its own GPU virtua=
-l address space into which system memory, system mmio space, or vram can be=
- mapped.  The user mode drivers control their GPU virtual address space.
->
-> >
-> >
-> > e.g:
-> >
-> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: [gfxhub]
-> > page fault (src_id:0 ring:8 vmid:1 pasid:32769, for process vkcube pid
-> > 999 thread vkcube pid 999)
->
-> This is the process that caused the fault.
->
-> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:   in page s=
-tarting at address 0x0000800100700000 from client 0x1b (UTCL2)
->
-> This is the virtual address that faulted.
->
-> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu: GCVM_L2_PRO=
-TECTION_FAULT_STATUS:0x00101A10
-> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          Fa=
-ulty UTCL2 client ID: SDMA0 (0xd)
->
-> The fault came from the SDMA engine.
->
-> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          MO=
-RE_FAULTS: 0x0
-> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          WA=
-LKER_ERROR: 0x0
-> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          PE=
-RMISSION_FAULTS: 0x1
->
-> The page was not marked as valid in the GPU page table.
->
-> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          MA=
-PPING_ERROR: 0x0
-> > Nov 21 19:17:06 fedora kernel: amdgpu 0000:01:00.0: amdgpu:          RW=
-: 0x0
->
-> SDMA attempted to read an invalid page.
->
-> >
-> >
-> >
-> > see https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2=
-Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F2267&amp;data=3D05%7C01%=
-7Csunil.khatri%40amd.com%7Cd7778c40bff6443c2af708dacc9394c6%7C3dd8961fe4884=
-e608e11a82d994e183d%7C0%7C0%7C638047231486449634%7CUnknown%7CTWFpbGZsb3d8ey=
-JWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%=
-7C%7C&amp;sdata=3Dvep6PKgDjRz02A3xYI8f7600QV2%2B7GYXsx%2FVYPY1M2I%3D&amp;re=
-served=3D0 for more context.
-> >
-> > We have a complicated setup involving rendering then blitting to virtio=
--gpu exported dmabufs, with plenty of hacks in the mesa and xwayland stacks=
-, so we are considering this our issue to debug, and not an issue with the =
-driver at this point.
-> > However, having debugged all the interesting parts leading to these fau=
-lts, I am unable to decode the fault report to correlate to a buffer.
-> >
-> > in the fault report, what address space is the address from?
-> > given that the fault handler shifts the reported addres up by 12, I ass=
-ume it is a 4K pfn which makes me assume a physical address is this correct=
-?
-> > if so, is that a vram pa or a host system memory pa?
-> > is there any documentation for the other fields reported like the fault=
- status etc?
->
-> See the comments above.  There is some kernel doc as well:
-> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fdocs.=
-kernel.org%2Fgpu%2Famdgpu%2Fdriver-core.html%23amdgpu-virtual-memory&amp;da=
-ta=3D05%7C01%7Csunil.khatri%40amd.com%7Cd7778c40bff6443c2af708dacc9394c6%7C=
-3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638047231486449634%7CUnknown%7CT=
-WFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%=
-3D%7C3000%7C%7C%7C&amp;sdata=3Ddd971OoEZSJl%2FJif4%2Bypv9Dp0deeMVsQuCMc2o9B=
-gQk%3D&amp;reserved=3D0
->
-> >
-> > I'd appreciate any advice you could give to help us debug further.
->
-> Some operation you are doing in the user mode driver is reading an invali=
-d page.  Possibly reading past the end of a buffer or something mis-aligned=
-.  Compare the faulting GPU address to the GPU virtual address space in the=
- application and you should be able to track down what is happening.
->
-> Alex
->
-> >
-> > Thanks
-> >
-> > Bob
-> >
