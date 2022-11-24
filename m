@@ -4,117 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04C0AC43219
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Nov 2022 21:24:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76583C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Nov 2022 22:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 392C210E280;
-	Thu, 24 Nov 2022 21:24:50 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20609.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::609])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25EF910E280
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Nov 2022 21:24:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AFF410E09C;
+	Thu, 24 Nov 2022 22:04:17 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0590210E09C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Nov 2022 22:04:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I9bTsm7i3RhXGbdXswhc5yjuB3y0HNLdNEe4tMY/7FN7GtW5yAGMzHe2Bgb678C/F9jV6/sdrgkUYsaKwyiv6T+16Woc+FSXA8BWfHucqj3p9OOrAx6l3vAdpOiyykgjMYwe7isgtcgimQuciMgJlaD5A78dNuKl+E9yBPBNjIQCDzD+/Gwc1XPfJk3UJzkA9sos40AzBjcBd6O42TywbmiH8mNU945PhwprAnyhJxQtFi0t4Ns1BZnJGwig3ADI6Tnm86KkxLm1wrhNXFaQyty2h/dz/f2u70guIr8g9FcTHgXQWlfYaDWe/mqH93/Nvy2zU/nuUlqYwcKPPydWIw==
+ b=PX1ltO3eUG+LUbHzF2LPwdXaBoqEcEAfG/9+PQTrkUi8cm4i3EcoWMw8VP+eJUHicKuSRG2aw8bxfXp3PtMrrDl/KyWnDJuP3wtPKLM3Yf2qHDPFxhP5wkTH2p22NOLRzAL8gIg3q1wmLJAVgJeX4Dc7FeS3qFO5MnVJw54l28my2/OyfDEwjqSh9AZDo5jcxKGYG5SdDW/OxkafpGGNTAVfSaJWpfTVO1i7t1vTtPSM7mMHJAe6bpG5ZICIEMpfzV8/G2YJyzFSRUJ3lYhW0ZfmVsxAgNTVV9Iazn6wA18cHEzO+jKdp73SiD/bi90bYxIF2apeJkkz9nMJ//i8NA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k13U3s3Rwzyva8YIjrNWGyHTybJkZD9R0F8mCQOQqTU=;
- b=ZqAnzHDkGuTuAojsgw8RQgWAeVz+YmP96qQcA+voVNxlBKzEAhVRb1k0IeJg8YXlmK/+C7Cm3TZkYOSzhXyjgu4P0nsbrNzdYFC1MLEC6Q+itlGptGs8GH0tiyOc33WxhnFh5B7AwRonPqSJjqpTRLvZlJCi/TILmBCtcxra0cvlcv/yFVcmO3xrsDqv75WHOYbZxheafDC095jYLoMApJ0umb1E5Bz9KP/2dD27eJzCAHkuOmNJPH7FGXwQ3/Vqg2FpM1PyzdLrztN1fvw8tukyh9Zba+iVMiDyPtRAbymjMHyUEKU/wvJe1I3TVIdiaMJOGtewMUD8lckRcWXsjg==
+ bh=0eJpMdghwoqFo7FTtuPUgqUzeq4N9kPLGQY1Yo3+lE0=;
+ b=mqP4HKOKQKPuSR2HM/+5lsReRb6DUssWuLhMT1/EHXUoItuGnhXewpRoVetLfd2rGkV6Nba4DLJZuipRdxYPe/STyZ25S1UpTNf+0DdzgBtRKd+1aolxdsllniYZ2ft1a7Q3292rKVL+9P0Fc+HYwsOs+tg4jqaWXaKfHUl5G7Y08EZEhsGp8ETsdn4dYgqLdo9b++QJsFggmQ2CN0L9xABdO/ggsE0TOJJ2iEttx/goNBCO9x62iYThdNST5Hy9jsg+bS7sLBt83Q/QlC7dITiPHCgXXMgvYHaFSgd1YjYfYt0Ulv872anyHMMzoAdRMwY+MtGek++oPe4VwuDfyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k13U3s3Rwzyva8YIjrNWGyHTybJkZD9R0F8mCQOQqTU=;
- b=e38EBllONG6ZXq+J0m/qEWNCR+eucM7jv9uNxnaBuVnKW95m72gOdrJOq+nGIzqImcYzwdEw8i3B8SaN3fo5mGbp2BULRCKmpsPvzsFTDgeYfq/tmstDzSNv4HsPwBoRHs72Rjusy3eQcWnpphiSJNs0Gm589DP8WYPqPNXcZSQ=
+ bh=0eJpMdghwoqFo7FTtuPUgqUzeq4N9kPLGQY1Yo3+lE0=;
+ b=2fFOI0zs6AhSPnB61BC2eDex8jUiFTlxgfdcUrMdvH1qVNkfJT0StoCpml5IFXy0wvAq0R2DQQ7wjV5bqdAbitYwOWK9biBWmTeKdVCW77z+oJyuMvkXKeS0beLBuo/j2r8+T9dEzbtDLwdrW1rry7irkTHylC3gE4do42No/Ms=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM4PR12MB6373.namprd12.prod.outlook.com (2603:10b6:8:a4::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5857.18; Thu, 24 Nov 2022 21:24:45 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::5d8:f3f2:d940:5350]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::5d8:f3f2:d940:5350%3]) with mapi id 15.20.5857.019; Thu, 24 Nov 2022
- 21:24:44 +0000
-Message-ID: <a4bcafff-1e5a-9b2a-6d36-b3eba6a9792e@amd.com>
-Date: Thu, 24 Nov 2022 16:24:43 -0500
+Received: from DM5PR12MB1753.namprd12.prod.outlook.com (2603:10b6:3:10d::16)
+ by MW3PR12MB4587.namprd12.prod.outlook.com (2603:10b6:303:5d::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.19; Thu, 24 Nov
+ 2022 22:04:09 +0000
+Received: from DM5PR12MB1753.namprd12.prod.outlook.com
+ ([fe80::5eeb:3e6f:7509:b20b]) by DM5PR12MB1753.namprd12.prod.outlook.com
+ ([fe80::5eeb:3e6f:7509:b20b%12]) with mapi id 15.20.5857.019; Thu, 24 Nov
+ 2022 22:04:07 +0000
+Content-Type: multipart/alternative;
+ boundary="------------H3f89ISPCK2B66sMRHRS7aX7"
+Message-ID: <f3a3c6e9-1664-459a-d615-78d22b9799c9@amd.com>
+Date: Thu, 24 Nov 2022 17:04:05 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 19/29] drm/amdkfd: add debug set exceptions enabled
- operation
+ Thunderbird/102.5.0
+Subject: Re: [PATCH] drm/amdgpu: Fix minmax error
+To: Luben Tuikov <luben.tuikov@amd.com>,
+ AMD Graphics <amd-gfx@lists.freedesktop.org>
+References: <20221124211956.264282-1-luben.tuikov@amd.com>
 Content-Language: en-US
-To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221031162359.445805-1-jonathan.kim@amd.com>
- <20221031162359.445805-19-jonathan.kim@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20221031162359.445805-19-jonathan.kim@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4P288CA0009.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d4::14) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+From: James Zhu <jamesz@amd.com>
+Organization: AMD RTG
+In-Reply-To: <20221124211956.264282-1-luben.tuikov@amd.com>
+X-ClientProxiedBy: BL1PR13CA0415.namprd13.prod.outlook.com
+ (2603:10b6:208:2c2::30) To DM5PR12MB1753.namprd12.prod.outlook.com
+ (2603:10b6:3:10d::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB6373:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b17f018-d253-43dc-2259-08dace624ea8
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1753:EE_|MW3PR12MB4587:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a67a582-ff5c-4415-b0ca-08dace67ceeb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3vPYSh/nO7ygzsoO+4hUtUHGE49e0jX8arRIWiradVw1lwZMyTbwJ5kAQwRweieDqq6ot6jX3vCmGGMg0WsuTXE0foPTEErXjqdJoqqGERabUxVzWuscm0Dn7lJACvjgwkanjlayksf/N5dsjmDgZFrGKROlg8ytcfuDyLU+5Rx+W8XtRJDjIopsDf4Mhwm4cUpBCIzCDvHMfcB/gaiV8kzKYTFXEYRcIMgpevpTucY0UE+EB/gkY/WuF4d1JzoVfBAJaWa/+2R5LxLxQwEtmD1/SA/GCmvCkAhIFMRseQAses3BrepvKvJ5N44n2qKZLIi5Eu4HirNdR11w/YkIoXpiyNYZ4mv3L/K+eLVEPZSeN52go1Ly7LHApBsCxtZdAIYmMR6Khsft8Uhlr4W+02R7iMR/8+nsE43zXgc+d0pkKcx9ePbPqw8g24SxqKxR8eaBRTtXpu1XXyKemiYyF4sr/rJjbHxJOjBMiJTnX15wQYsRvWewrNnqhpet0hfvc0vDcsgocVmyyRr2ZzYmYrfufRciyGix/psYXjgRh1g4yZFhBwwDMQ8HABf7LrMvpfVzsj6LJ2b4c5dJ4zTTPTmQ1h6Vh3YxsLWmyHIZayyiwho0KhKY1BNA6UAU2zxNRPGrnVomXLKXQjkRaxfXxeJDTc5qap6QIh7shr6hu6rSajssHa/l5PqPw1LyDrtdmMrT7ZKjQDJ9JkX/MnsuIso2NohGEb3JslNKpXSp838=
+X-Microsoft-Antispam-Message-Info: vaFxxKri/PZVCS9fZzBItqBslTuGhivJMcXwx5NFp91QjUt5dH0dzEmMnHgT0O4YwfLyOWQW5SlbuLIJBgAgOQM0hu5Qs8y8rUhsemoUuMP3vv58ywXSp5ZLq+kP40CB1ESolLc7u0K2TNlFnYP/Q95atMkKEeRgiinwR8tH3ZiZX/yEapFyzAKnxyZhd+VHkHCJUKgFpdbTG13dDwNeGKlC6Y2Rjd0wNW8P8QfXgnZk9Lg654eV0CNvcxNJEKav6qCmmhbMqb05Ehb93akt9mtuEh2kQO7Y0siSnMZQlkOy+i1fj81b26huxoSV8FCTF+m+DH67yoUYMm25zok7I8CYYPvmLug0f6Opl6lF8HdJMPwPMUVesmkDn9/7JhHXydo+c3yPHoj/0nIgNIWHNmtwG7fTcSOM1E45wX1cvHtZr3d0naeMCiuv88iYBSh8v1/HZptvUierGfXW7KgszpAaPSv0Wh2F3cUaermA7tu1jBOSomPrxQ3YYf7Rf9YoR97gJ7M34Jb57B5ErB6oecgQHkbpgyqlxdQgrcM+nhtuHHP7BGQIivU6zQmzpnLhopHP9B6Hfh32sFHkcZFb0QBABwrlhzXeXnYMdhXvFicnOTE+C7E9QFjFkHrl1OnL9lou5eTdBWXGqsmisFQPylWiFLlRF7Td1sx6DnHKvG7UTYoU51FWL3o4siMH+0Gh9cj0x5OPpErw5rWXJCzePgkMMc/mymOeuI2M0rsWFZk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(366004)(376002)(396003)(39860400002)(136003)(451199015)(36756003)(86362001)(31696002)(6486002)(6506007)(478600001)(5660300002)(26005)(2906002)(8936002)(66476007)(4001150100001)(316002)(66946007)(44832011)(8676002)(66556008)(41300700001)(6512007)(38100700002)(186003)(2616005)(83380400001)(31686004)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(39860400002)(136003)(366004)(346002)(376002)(451199015)(36756003)(31696002)(36916002)(6486002)(54906003)(110136005)(33964004)(6506007)(26005)(6512007)(53546011)(478600001)(66476007)(5660300002)(8936002)(4326008)(66946007)(4001150100001)(41300700001)(316002)(8676002)(66556008)(2906002)(38100700002)(2616005)(186003)(83380400001)(31686004)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Mjl6bmJlaUxUZmZrTmNsWW9TNmR4Z1JadjlPVllackFIeXZJNkNkSWc3UzZm?=
- =?utf-8?B?S0d5WWhjSWswQWpIVzdQdUVjaFd1Z3QzdmVoRlVoa0Zjb0lOUVRvSUhvZU5U?=
- =?utf-8?B?WUhJMUhTSmhoM2FET2xXRW9SdHYxUEh1eEVTRjlCRUVBbjFYS0l3VnV1d0RZ?=
- =?utf-8?B?MXVrVG01OVRlTjlHdlUwZUF5bm40MXliQU9IT2tnVGF0TG9WRGV1VE9zK29k?=
- =?utf-8?B?TWFFREp2YWkzc2IrK0Roamt4ZnNVaG5zZkNpc2lpR2gvVlYxYnZUL3RDU2NO?=
- =?utf-8?B?YnliYXlIbU1Ebi9HTWVITDJJa0N4cXFLL3VISlpYQVMxMHJ3RnpGSnRpc2xY?=
- =?utf-8?B?ZUlXRVRDcnB1QnVLWWNGTDgxMHlkdkNMMnphU21HQ2o4OFh0VmxhYUwzTmFK?=
- =?utf-8?B?UjlWQXFTZXM3VGZFVk1ja2cyK28vdG1iNXMwdk8yczNRckpTd0NZb0NjWCs4?=
- =?utf-8?B?dHdUa2puME1TMGFqL0lUMXdsdGRLYVFIc0FzdGNlVnlZay9Ed1VPYllUQWdJ?=
- =?utf-8?B?ekxJNlFPNmJRYWxpU0ZpYzI3dkFRdjNwNDNZQk1xTThJeWNjVW1GL0M4V2Ri?=
- =?utf-8?B?a0FBSERvbURnVk5aMVVlNGxFbmdPMTdEb0NHVkI4NHN6d05UNUdzblpONFBL?=
- =?utf-8?B?Mi9CRVFVWTR0RmtFRllrakdkU2gxZ01nZ24wcVZYM1JlemYyUE85QXVyaW1U?=
- =?utf-8?B?bUJqZG16cjBpWFlmRk9JTXNKbStDbVpJVXo1bGFsRXBYNkNsdmw4eStRMUg0?=
- =?utf-8?B?MGd0SDdETGo1UmhMQUxJeGRHUDRXV0o5WWNJdUdUTnV1cXVuSEk2ckNYSjNw?=
- =?utf-8?B?bHJkM21MYU5iR0YrTnJLUTVVSE9XenZLQ0drYmdKNnhGbGJDWGIxNlVqVFRv?=
- =?utf-8?B?aHZETWVVREFIVTM4VFhBYkxNTExWUnlEazA1RUJNR1hSTnN3b25NSUovZkha?=
- =?utf-8?B?YjJUVC9hb1pObXl6aXYybDBhS05mR2t4NUZHNDhtTkk5QUtiWVZZeVhVeElT?=
- =?utf-8?B?RHNKR1hCcE9mWXozTVQvdk9Zc1hlMUtOZGFKYTZocVkrRFpYTThuOGpQR3Np?=
- =?utf-8?B?NnBkeUlrd29SL3NXOHV1aElZcDYyOVNlbUZ1U2dXWm9OWnhrdGVPZGJWd1BR?=
- =?utf-8?B?VzlkYVZsVHdrNFkxajB1Rk55M25NMnJoTk4zWDVlSkFhRi9hLzNMTHJkdzZ1?=
- =?utf-8?B?ekltL0lJS0ZJTk1HbGtnZ29SVE1xajNHM1I4ZTJFZW5hMWFCaHl4cGhsc1px?=
- =?utf-8?B?Vml6dzZDSnllbVR4VXdGUFVhZTFBT093anNvZ3d6VWdKV0hydmVlbjdMREww?=
- =?utf-8?B?ZzRHOUhRc2NTeUpNMjUvbnBWZGlJRTlRLy9RMHN5cGluYW5GejlVN1VTbWxl?=
- =?utf-8?B?S2IwY09SR2h6SG1kVXlqZkFLaGZoaVJiTmwrVEh2Zng3V09ueHhUelRQcHdH?=
- =?utf-8?B?eFlPblpwRkZJU0IrbkJXSjZRWk5QUkpKQlNiVVBja0hyUG9MekpvaVRKcU1K?=
- =?utf-8?B?M1ovUWtuaThGNHMyRVZBODkyclpnZHNnWTI3V3k5QmNHcHI5Y0tOcnI1K0Ry?=
- =?utf-8?B?Z3VlRnNZQ0FUaGxhL1NCZWcrWFJBaWZBcm44NU8vNmZkUE12K1VYMVdKTzhj?=
- =?utf-8?B?NVlQNjdHYldITTdDL00vYTNMVjlzVmUyWTNTWXhCSjY1Y1FXZFpxMTBINUNE?=
- =?utf-8?B?T3BBbm1Yald3WG1haTVrU1NoMk1SUEg2MUo4U21xUzJIYVp0N09yU1ZKank2?=
- =?utf-8?B?elJjdHg1SFl3U1dOemxabmZjbUVPcWJjQmlzelNYRGd5dm9aSUNXYXUwWFdv?=
- =?utf-8?B?bmhuY3haekJzNTg0WGRBOXpHaDBHdC84THlzSGtoMHFmUlhYRFFSR3U2VElq?=
- =?utf-8?B?WENBNXdQSHB3b0ZGN00wVXl6ODc1ellOKzJmemxMVXg5T1dTSk9oVXBQUWs1?=
- =?utf-8?B?U0luRS9mYzhDQmN6RllqWERGaGV2VkZZTGVjMjZNU3VJdURtMEFPSzE3ZmY5?=
- =?utf-8?B?OER5cjZwNGN4NWJwU01nLzNZUCtWMXJmckgxeFRvb1JNYTZaMUZYM0dsVDVF?=
- =?utf-8?B?VkJCTjZSWHNseWsxc0VJbThabjlCbDE3aXliaHVyL1k5LzkvTjV2TWtRSVM1?=
- =?utf-8?Q?ivffK3LP+cMLxrsaW0gJmNEec?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZlpEb2Jlc1MwV1FneTZ0MjRIS2FvYmFSSU5NRWZ2VFZUbFV1OTdVVkF3QllP?=
+ =?utf-8?B?bkg3a01mN0x1WmY3Uzg3UEdySkRlNlJkM3VJbXBDMXFPRW9QRGFsb2lBYTBr?=
+ =?utf-8?B?TmtqK0ZHV0t5RzhLd3d6NkdUQ2NUa2p3Wmp2RkI4ZGhPL1o5YUN1RWVCNnRy?=
+ =?utf-8?B?TlI5a0xaYmdDZ1JNaTVvZWhXWm51ZWRqK29YODhwYmxSOXo4TTdpaHJUN01l?=
+ =?utf-8?B?Y0s2Z0tkTGdPM2JzWkhIdmJjVVQ3T2JEQk02ZTBjbUpHaVlCdlNWWDVqRW53?=
+ =?utf-8?B?akhaZWY3TGpUTWFEZjV6Ky9hMllUOS9kTGZUN1NYVUFOWmFXZlRBUWRIU21U?=
+ =?utf-8?B?T3BiY0hvc2RtVkJvS0Vhb2pXQzdReFdUZGdLMmZKY0tVM2s0andJcVFBcVZN?=
+ =?utf-8?B?TmttRmVxNmxUS3dQQnlSdzhzZ3NSQWVjV3ZnWFhwTnREdDNRem9URnJSMjBY?=
+ =?utf-8?B?R3hlNlhhcUk5WEI5clFOK2NROEE3MDN3NWNPYnhDcFlKVHFoSTdYOHNPWnZ4?=
+ =?utf-8?B?SUlxa0E0c0VEbXJVeVZRVEdHMTlhTE9RN2RpejhFZVFnMmZ3K2lSamZxWUg5?=
+ =?utf-8?B?Mk4yY1BCbTZxalMzcGFBRXlVK0Z3Mys4RTRab0owZ0RGL0NOczJ4WlljamJ6?=
+ =?utf-8?B?Wk1ISnVRUzJUNk5MWmhGSmFuTXl1eFRpWHVmdDB0MjJDTU50U29NbGlobm5U?=
+ =?utf-8?B?dGV5Z3A1YXpVVzJKdisvS2RvV1hOc1I0L0JSQ2dPU3pPODZjR09xV2x2RkNP?=
+ =?utf-8?B?aElrVWM3aHJUMjVTM2xnU0czNDUxWHp0WVhiQ0dTRkNMN25JSXltcDV4OWFQ?=
+ =?utf-8?B?WW5QZXZGdW0xdGNaZVoreTViNWFnRTlPd1hwN0UrQW54d1YwcUpsNDhjblRz?=
+ =?utf-8?B?MDNLcG5YNGxlK0ZwazdQcWFTUUtuTW1YUTRERVVHYnpBc3NJTUxDRG5NYllN?=
+ =?utf-8?B?WGQ5UllMdHVSRjNUYi9OemFQTjdzYTNHSnNjVytsd25yWUdqOEo5WTkyQ1VR?=
+ =?utf-8?B?UVBqUVZ4U3RRelpiamdhUHNLaVdaVUhHcUJtZjZLSW5OTGZ5aVpHdzFRQzJI?=
+ =?utf-8?B?bVk3NVVuYWp0T0hLZWlJOWdIbS95NHFaV0k1d2VNbitFTk1oQmxRR1Y0blU2?=
+ =?utf-8?B?Uk1vb2hITTQ3MjZSWjZVa1J1Y1RpbGRyelp0dDlqZmpUbnczS3ViL3d1WElX?=
+ =?utf-8?B?c3l6NlhUSlRYMWVzL0hxUHBIcEQwRzI0L2pCNVB2SVA0YlNONXRTNUs4Zm9R?=
+ =?utf-8?B?dkhKcXV6enBGelh0SGxkVzBNaHFvZ05ZSHZkU2luSkE3SU84bFUyVXFiRWNm?=
+ =?utf-8?B?eFdwNnMzbEJFbUczeEozelNsUmpyakhLNk9OMzFFSlI5QkJzTWZ4K04rRFBk?=
+ =?utf-8?B?ZlgzVjNpN3U4WGJDeWdjVWZoOU1sSWlaclJGY3VubEZsLzJDOURvT0w5UUR5?=
+ =?utf-8?B?UXJ1c1JRUWxlVHBDS3BubWdleFVZYnpHaHZHSExpZzNQRFJNWEZ0STJGYk5s?=
+ =?utf-8?B?akUvTGxoZlRobTM2YituS1gvOVdCNEsweXNsSklRTFlZMi8wZVk2R0VicWsw?=
+ =?utf-8?B?TXJMaXVsU3hMRUxOUC9rVmVtL1VRVUJSdGlSR0dLdzArSjdVbU5UV0p6bm1R?=
+ =?utf-8?B?YlIrekRPdERXOGkwZnlwTFh6ZzlqeFljRWFPelVKTEkwUFNFcjgrYjVKaFd2?=
+ =?utf-8?B?enFOOVJ4dVFaWU9OKzg3QVhaTUJiUFFOWjZLMkpTVnNHekFUU1FBTnZXQTIv?=
+ =?utf-8?B?K3RaUkZNSDNkNmk0YXQ2UHNHOWRFc0tJbFRmUTUxY3Q0Z3VRV0JkNTVjVDZT?=
+ =?utf-8?B?alpwZW1RakdYWXd1anRSRFhWNEVIOTJGTUhLWmkyVEl4NkRhNEkwYTN1UFVa?=
+ =?utf-8?B?L2FrcDNpeTl1WnFSTkIxd1dZdFM1V2JzNlZsdkszM2FVMnZRRTdqUk5XT1V3?=
+ =?utf-8?B?Vi9teHA5cUloRnFsWFZhVGFhaElYM0FtVnczYi9xVGJicnladHRiaGNxL1pv?=
+ =?utf-8?B?bkdNTWFJTGtkWHNyRmRxOUtaNDhDTFdoNGxjUno1WGkwY0h6Z3hmSmdLV3Nu?=
+ =?utf-8?B?cmZkL2l1TUxHSm4vNTBJcSsvVWtjL0doUUhqc05XSkFqek1JSmgvMllqb1Y0?=
+ =?utf-8?Q?BW3n+YCJifYRNI0dEBv8OkEb4?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b17f018-d253-43dc-2259-08dace624ea8
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a67a582-ff5c-4415-b0ca-08dace67ceeb
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1753.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2022 21:24:44.8780 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2022 22:04:07.6571 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mJr3Xz1hftf/0KN2wckENQO2wtX7cRjHEAXF+4s9o1FIs2IP+wfeUmepHj9DYY7Z6ywDVOOGWVdDqqZW8n7mTA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6373
+X-MS-Exchange-CrossTenant-UserPrincipalName: CHiznnsa83t7PqSpx7/CutCykYq6COSjmiUXUQV+gRhI3sLArhJ6pSwY19KkF2oO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4587
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,92 +125,114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>, James Zhu <James.Zhu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-10-31 um 12:23 schrieb Jonathan Kim:
-> The debugger subscibes to nofication for requested exceptions on attach.
-> Allow the debugger to change its subsciption later on.
+--------------H3f89ISPCK2B66sMRHRS7aX7
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+ThispatchisReviewed-by:JamesZhu<James.Zhu@amd.com>
+
+On 2022-11-24 16:19, Luben Tuikov wrote:
+> Fix minmax compilation error by using min_t()/max_t(), of the assignment type.
 >
-> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
+> Cc: James Zhu<James.Zhu@amd.com>
+> Cc: Felix Kuehling<Felix.Kuehling@amd.com>
+> Fixes: 58170a7a002ad6 ("drm/amdgpu: fix stall on CPU when allocate large system memory")
+> Signed-off-by: Luben Tuikov<luben.tuikov@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  3 ++
->   drivers/gpu/drm/amd/amdkfd/kfd_debug.c   | 36 ++++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdkfd/kfd_debug.h   |  2 ++
->   3 files changed, 41 insertions(+)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 10 +++++++---
+>   1 file changed, 7 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 27cd5af72521..61612b9bdf8c 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -2887,6 +2887,9 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
->   				args->send_runtime_event.exception_mask);
->   		break;
->   	case KFD_IOC_DBG_TRAP_SET_EXCEPTIONS_ENABLED:
-> +		kfd_dbg_set_enabled_debug_exception_mask(target,
-> +				args->set_exceptions_enabled.exception_mask);
-> +		break;
->   	case KFD_IOC_DBG_TRAP_SET_WAVE_LAUNCH_OVERRIDE:
->   	case KFD_IOC_DBG_TRAP_SET_WAVE_LAUNCH_MODE:
->   	case KFD_IOC_DBG_TRAP_SUSPEND_QUEUES:
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> index 3d304e8c286e..594ccca25cae 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> @@ -441,3 +441,39 @@ int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+> index 8a2e5716d8dba2..d22d14b0ef0c84 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+> @@ -191,14 +191,18 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+>   	hmm_range->dev_private_owner = owner;
 >   
->   	return r;
->   }
-> +
-> +void kfd_dbg_set_enabled_debug_exception_mask(struct kfd_process *target,
-> +					uint64_t exception_set_mask)
-> +{
-> +	uint64_t found_mask = 0;
-> +	struct process_queue_manager *pqm;
-> +	struct process_queue_node *pqn;
-> +	static const char write_data = '.';
-> +	loff_t pos = 0;
-> +	int i;
-> +
-> +	mutex_lock(&target->event_mutex);
-> +
-> +	found_mask |= target->exception_status;
-> +
-> +	pqm = &target->pqm;
-> +	list_for_each_entry(pqn, &pqm->queues, process_queue_list) {
-> +		if (!pqn)
-> +			continue;
-> +
-> +		found_mask |= pqn->q->properties.exception_status;
-> +	}
-> +
-> +	for (i = 0; i < target->n_pdds; i++) {
-> +		struct kfd_process_device *pdd = target->pdds[i];
-> +
-> +		found_mask |= pdd->exception_status;
-> +	}
-> +
-> +	if (exception_set_mask & found_mask)
-> +		kernel_write(target->dbg_ev_file, &write_data, 1, &pos);
-> +
-> +	target->exception_enable_mask = exception_set_mask;
-> +
-> +	mutex_unlock(&target->event_mutex);
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-> index 5270d5749828..837e09491a76 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-> @@ -58,6 +58,8 @@ static inline bool kfd_dbg_is_per_vmid_supported(struct kfd_dev *dev)
+>   	do {
+> -		hmm_range->end = min(hmm_range->start + MAX_WALK_BYTE, end);
+> +		hmm_range->end = min_t(typeof(hmm_range->end),
+> +				       hmm_range->start + MAX_WALK_BYTE,
+> +				       end);
 >   
->   void debug_event_write_work_handler(struct work_struct *work);
+>   		pr_debug("hmm range: start = 0x%lx, end = 0x%lx",
+>   			hmm_range->start, hmm_range->end);
 >   
-> +void kfd_dbg_set_enabled_debug_exception_mask(struct kfd_process *target,
-> +					uint64_t exception_set_mask);
->   /*
->    * If GFX off is enabled, chips that do not support RLC restore for the debug
->    * registers will disable GFX off temporarily for the entire debug session.
+>   		/* Assuming 512MB takes maxmium 1 second to fault page address */
+> -		timeout = max((hmm_range->end - hmm_range->start) >> 29, 1ULL) *
+> -			HMM_RANGE_DEFAULT_TIMEOUT;
+> +		timeout = max_t(typeof(timeout),
+> +				(hmm_range->end - hmm_range->start) >> 29,
+> +				1ULL);
+> +		timeout *= HMM_RANGE_DEFAULT_TIMEOUT;
+>   		timeout = jiffies + msecs_to_jiffies(timeout);
+>   
+>   retry:
+>
+> base-commit: d5e8f4912061ad2e577b4909556e1364e2c2018e
+> prerequisite-patch-id: 6024d0c36cae3e4a995a8fcf787b91f511a37486
+--------------H3f89ISPCK2B66sMRHRS7aX7
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <br>
+    <pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">This<span style=" color:#c0c0c0;"> </span>patch<span style=" color:#c0c0c0;"> </span>is<span style=" color:#c0c0c0;"> </span>Reviewed-by:<span style=" color:#c0c0c0;"> </span>James<span style=" color:#c0c0c0;"> </span>Zhu<span style=" color:#c0c0c0;"> </span><a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a></pre>
+    <p><style type="text/css">p, li { white-space: pre-wrap; }</style></p>
+    <div class="moz-cite-prefix">On 2022-11-24 16:19, Luben Tuikov
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20221124211956.264282-1-luben.tuikov@amd.com">
+      <pre class="moz-quote-pre" wrap="">Fix minmax compilation error by using min_t()/max_t(), of the assignment type.
+
+Cc: James Zhu <a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a>
+Cc: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
+Fixes: 58170a7a002ad6 (&quot;drm/amdgpu: fix stall on CPU when allocate large system memory&quot;)
+Signed-off-by: Luben Tuikov <a class="moz-txt-link-rfc2396E" href="mailto:luben.tuikov@amd.com">&lt;luben.tuikov@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+index 8a2e5716d8dba2..d22d14b0ef0c84 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+@@ -191,14 +191,18 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+ 	hmm_range-&gt;dev_private_owner = owner;
+ 
+ 	do {
+-		hmm_range-&gt;end = min(hmm_range-&gt;start + MAX_WALK_BYTE, end);
++		hmm_range-&gt;end = min_t(typeof(hmm_range-&gt;end),
++				       hmm_range-&gt;start + MAX_WALK_BYTE,
++				       end);
+ 
+ 		pr_debug(&quot;hmm range: start = 0x%lx, end = 0x%lx&quot;,
+ 			hmm_range-&gt;start, hmm_range-&gt;end);
+ 
+ 		/* Assuming 512MB takes maxmium 1 second to fault page address */
+-		timeout = max((hmm_range-&gt;end - hmm_range-&gt;start) &gt;&gt; 29, 1ULL) *
+-			HMM_RANGE_DEFAULT_TIMEOUT;
++		timeout = max_t(typeof(timeout),
++				(hmm_range-&gt;end - hmm_range-&gt;start) &gt;&gt; 29,
++				1ULL);
++		timeout *= HMM_RANGE_DEFAULT_TIMEOUT;
+ 		timeout = jiffies + msecs_to_jiffies(timeout);
+ 
+ retry:
+
+base-commit: d5e8f4912061ad2e577b4909556e1364e2c2018e
+prerequisite-patch-id: 6024d0c36cae3e4a995a8fcf787b91f511a37486
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------H3f89ISPCK2B66sMRHRS7aX7--
