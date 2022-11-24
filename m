@@ -4,59 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43C13C43219
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Nov 2022 10:03:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E4CDC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Nov 2022 10:03:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C54210E062;
-	Thu, 24 Nov 2022 10:02:59 +0000 (UTC)
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3F0B10E6BC;
- Thu, 24 Nov 2022 10:02:56 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id f7so1855664edc.6;
- Thu, 24 Nov 2022 02:02:56 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61ED510E6C0;
+	Thu, 24 Nov 2022 10:03:04 +0000 (UTC)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1423D10E6BC;
+ Thu, 24 Nov 2022 10:02:59 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id kt23so3013952ejc.7;
+ Thu, 24 Nov 2022 02:02:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=DT10+AQ/j/4DvlFjT8UnEtNOMNUpt6M8DZNmbpzF/A0=;
- b=WFqwyYUyhxbL3lFsqrxUHpNo0eaH//hHIoFKnMaV21L6U0PXIJt+CEFFcy+++Q8sO6
- Qkt3N3T8dwdRaXsPlvpFup7L8T6f8TKKp2VrtLB58o2O593lciFnPWlN3ZSVJuPDojWu
- GZxa6KHL8tjCjp6FFBNOOuica+AZhSh8XUVqQTkry4TMKtffZNkC4Y+KsI7XL5vGvRHC
- 3XqvPLIlTUXHC173R4qpF5aAEz+HjI1opmS7kruy4Di9ICFgJPq9QlkG6xUdsdc87BOa
- 8E5PTNFPrkRQGsmXUsUer+yfiWEWkGZ7obeB8IQv47fhM97ARidTogfrF6fzxBcIwMnW
- IJEQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DDurF+iNH5v+x/TrEN0UdvMI8v4GH8id9dWHUg8Rht8=;
+ b=olWB5d7Js/mPoMwLuUMdZHUWgpDnfw6EPizHH+uJZPJ4bcgr2KByZP4KWtzLW8coZq
+ CSZRCk8VPkC8nO/2ZMlY1NcfK5HQTXjg5FeK4CZBeD0Fe6x3JtAJ6zHqVu76qBCt2kva
+ ahvQF2F3MC9B+L0dzd7e6M9J2dW5Odkftb/iLqxCxXLEKr0IiKEr1AyClvyUfbfcYGHi
+ atbwFMnxFNMcEAFzkJ8U/0O4p2lG0VaTA73AGlKCgZCAi6/J6K1KFB4QyrQMD1v9fD7V
+ ouTiDeMdY2Vt2Xaj+167/5jvoyVlFAOBavo3XR54pqVywUNFcJRLFlJnsUma1N1zPgWp
+ Xibw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DT10+AQ/j/4DvlFjT8UnEtNOMNUpt6M8DZNmbpzF/A0=;
- b=HDE2LVSGNKRMqs/ooIhBoelgpDEt4XMG59hIwcY10FBF++1KlU7BOELBkb5NrKimfm
- v4qjSczx3f+FbSFykHF777EMqemy11qIEKBsgwKC/AGLZeBFCn9Yy9F1/uPp7kxRKCGm
- U/TAamn4sdVhLlHnD2Q9jJEm9/wQY/O/gTcPdGGN3PHijfsCkc9zQFDTOheiOQYvtFHj
- Q0rzLtNsNHZvSlfwcV2xDPFsAlpcrZNUnA7xQTUwQvfXxRYfxqCIoFKCGvh1xemi1otp
- ej93ZvbcyBW++fMO3qWwSntRiTX8eQFLaxe9jzUxI/HboMxOvHcAIqzm4SJFKB8R2TDU
- fe+g==
-X-Gm-Message-State: ANoB5pmTKecZ2j/hLDDTvEsvNrpy8CaKtNR90YcRdedDsdTXlbX/4XR7
- t2rv3sfxBQILaCG+soNfPkY=
-X-Google-Smtp-Source: AA0mqf52Ks63ZCGsp25loumAzgQn8HAaA/1r3X1TbLtPsSVW2css9G+RrWeM1RF8Ju/r0U+pZOaXjg==
-X-Received: by 2002:aa7:dd0f:0:b0:46a:40f5:aca with SMTP id
- i15-20020aa7dd0f000000b0046a40f50acamr5011361edv.427.1669284175074; 
- Thu, 24 Nov 2022 02:02:55 -0800 (PST)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=DDurF+iNH5v+x/TrEN0UdvMI8v4GH8id9dWHUg8Rht8=;
+ b=j0qlaPWC9yD/TDekpkQCjTYQ3o0lQLrDpjNbJ/zojW6zo07zrT/F83oH64oyHynzrn
+ 5UtzOb/NA6BY2V1WrpifMUHloIWkr9M584iPPPBbb7IKwP9p6RfgmBQiqoJ2OLIZQ0WY
+ G7WUBiA0I6l9OWSbvtgOt5S48FDRNbyMufU+b2PsckW8NBXhGpkUobGppN8v7y/tIlYx
+ CYNHgQRbOFKZS9iG8ZsV+udT0a/ifekEAbKMH5QR32WvIhXWDk8xBL0pvN6jYAFh9WRZ
+ qoJXuiz81ZSZpvlK5Eq2HyR4iDoj13jI7e4857iwg8CNW0N53gAqd4d4bBrzuHk9ZpBF
+ HOuw==
+X-Gm-Message-State: ANoB5pk6tYJpy1p3Vysv+/ucF/S16g5NBZDroCk50TY2MrgvNLQbXJxY
+ p8lrgQdI3I2tv/fvyCJxZPvTmld9Scs=
+X-Google-Smtp-Source: AA0mqf75kzfNGxUTNFmMsajt9ldHTGMTK4pJvrw6dLwk325iZbRteHhOHOq3ApCCaQjFbq4KauC77Q==
+X-Received: by 2002:a17:907:8d02:b0:7ad:f43a:cb07 with SMTP id
+ tc2-20020a1709078d0200b007adf43acb07mr3306342ejc.562.1669284177543; 
+ Thu, 24 Nov 2022 02:02:57 -0800 (PST)
 Received: from able.fritz.box (p5b0ea229.dip0.t-ipconnect.de. [91.14.162.41])
  by smtp.gmail.com with ESMTPSA id
- ey3-20020a0564022a0300b00461816beef9sm328907edb.14.2022.11.24.02.02.53
+ ey3-20020a0564022a0300b00461816beef9sm328907edb.14.2022.11.24.02.02.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Nov 2022 02:02:54 -0800 (PST)
+ Thu, 24 Nov 2022 02:02:57 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: Alexander.Deucher@amd.com, Marek.Olsak@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/ttm: remove ttm_bo_(un)lock_delayed_workqueue
-Date: Thu, 24 Nov 2022 11:02:50 +0100
-Message-Id: <20221124100252.2744-1-christian.koenig@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: generally allow over-commit during BO
+ allocation
+Date: Thu, 24 Nov 2022 11:02:52 +0100
+Message-Id: <20221124100252.2744-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20221124100252.2744-1-christian.koenig@amd.com>
+References: <20221124100252.2744-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -75,174 +79,76 @@ Cc: Amaranath.Somalapuram@amd.com, Arunpravin.PaneerSelvam@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Those functions never worked correctly since it is still perfectly
-possible that a buffer object is released and the background worker
-restarted even after calling them.
+We already fallback to a dummy BO with no backing store when we
+allocate GDS,GWS and OA resources and to GTT when we allocate VRAM.
+
+Drop all those workarounds and generalize this for GTT as well. This
+fixes ENOMEM issues with runaway applications which try to allocate/free
+GTT in a loop and are otherwise only limited by the CPU speed.
+
+The CS will wait for the cleanup of freed up BOs to satisfy the
+various domain specific limits and so effectively throttle those
+buggy applications down to a sane allocation behavior again.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  6 +-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  4 +---
- drivers/gpu/drm/radeon/radeon_device.c      |  5 -----
- drivers/gpu/drm/radeon/radeon_pm.c          |  4 +---
- drivers/gpu/drm/ttm/ttm_bo.c                | 14 --------------
- include/drm/ttm/ttm_bo_api.h                | 16 ----------------
- 6 files changed, 3 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 16 +++-------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  6 +-----
+ 2 files changed, 4 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index de61a85c4b02..8c57a5b7ecba 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1717,7 +1717,7 @@ static void amdgpu_ib_preempt_mark_partial_job(struct amdgpu_ring *ring)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 8ef31d687ef3..286509e5e17e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -112,7 +112,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
+ 	bp.resv = resv;
+ 	bp.preferred_domain = initial_domain;
+ 	bp.flags = flags;
+-	bp.domain = initial_domain;
++	bp.domain = initial_domain | AMDGPU_GEM_DOMAIN_CPU;
+ 	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
  
- static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- {
--	int r, resched, length;
-+	int r, length;
- 	struct amdgpu_ring *ring;
- 	struct dma_fence **fences = NULL;
- 	struct amdgpu_device *adev = (struct amdgpu_device *)data;
-@@ -1747,8 +1747,6 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- 	/* stop the scheduler */
- 	kthread_park(ring->sched.thread);
- 
--	resched = ttm_bo_lock_delayed_workqueue(&adev->mman.bdev);
--
- 	/* preempt the IB */
- 	r = amdgpu_ring_preempt_ib(ring);
- 	if (r) {
-@@ -1785,8 +1783,6 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- 
- 	up_read(&adev->reset_domain->sem);
- 
--	ttm_bo_unlock_delayed_workqueue(&adev->mman.bdev, resched);
--
- pro_end:
- 	kfree(fences);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index cc65df9f2419..ff2ae0be2c28 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3965,10 +3965,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ 	r = amdgpu_bo_create_user(adev, &bp, &ubo);
+@@ -331,20 +331,10 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
  	}
- 	amdgpu_fence_driver_hw_fini(adev);
  
--	if (adev->mman.initialized) {
-+	if (adev->mman.initialized)
- 		flush_delayed_work(&adev->mman.bdev.wq);
--		ttm_bo_lock_delayed_workqueue(&adev->mman.bdev);
--	}
- 
- 	if (adev->pm_sysfs_en)
- 		amdgpu_pm_sysfs_fini(adev);
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index a556b6be1137..ea10306809cf 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1768,7 +1768,6 @@ int radeon_gpu_reset(struct radeon_device *rdev)
- 	bool saved = false;
- 
- 	int i, r;
--	int resched;
- 
- 	down_write(&rdev->exclusive_lock);
- 
-@@ -1780,8 +1779,6 @@ int radeon_gpu_reset(struct radeon_device *rdev)
- 	atomic_inc(&rdev->gpu_reset_counter);
- 
- 	radeon_save_bios_scratch_regs(rdev);
--	/* block TTM */
--	resched = ttm_bo_lock_delayed_workqueue(&rdev->mman.bdev);
- 	radeon_suspend(rdev);
- 	radeon_hpd_fini(rdev);
- 
-@@ -1840,8 +1837,6 @@ int radeon_gpu_reset(struct radeon_device *rdev)
- 	/* reset hpd state */
- 	radeon_hpd_init(rdev);
- 
--	ttm_bo_unlock_delayed_workqueue(&rdev->mman.bdev, resched);
+ 	initial_domain = (u32)(0xffffffff & args->in.domains);
+-retry:
+ 	r = amdgpu_gem_object_create(adev, size, args->in.alignment,
+-				     initial_domain,
+-				     flags, ttm_bo_type_device, resv, &gobj);
++				     initial_domain, flags, ttm_bo_type_device,
++				     resv, &gobj);
+ 	if (r && r != -ERESTARTSYS) {
+-		if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
+-			flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+-			goto retry;
+-		}
 -
- 	rdev->in_reset = true;
- 	rdev->needs_reset = false;
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_pm.c b/drivers/gpu/drm/radeon/radeon_pm.c
-index 04c693ca419a..cbc554928bcc 100644
---- a/drivers/gpu/drm/radeon/radeon_pm.c
-+++ b/drivers/gpu/drm/radeon/radeon_pm.c
-@@ -1853,11 +1853,10 @@ static bool radeon_pm_debug_check_in_vbl(struct radeon_device *rdev, bool finish
- static void radeon_dynpm_idle_work_handler(struct work_struct *work)
- {
- 	struct radeon_device *rdev;
--	int resched;
-+
- 	rdev = container_of(work, struct radeon_device,
- 				pm.dynpm_idle_work.work);
- 
--	resched = ttm_bo_lock_delayed_workqueue(&rdev->mman.bdev);
- 	mutex_lock(&rdev->pm.mutex);
- 	if (rdev->pm.dynpm_state == DYNPM_STATE_ACTIVE) {
- 		int not_processed = 0;
-@@ -1908,7 +1907,6 @@ static void radeon_dynpm_idle_work_handler(struct work_struct *work)
- 				      msecs_to_jiffies(RADEON_IDLE_LOOP_MS));
+-		if (initial_domain == AMDGPU_GEM_DOMAIN_VRAM) {
+-			initial_domain |= AMDGPU_GEM_DOMAIN_GTT;
+-			goto retry;
+-		}
+ 		DRM_DEBUG("Failed to allocate GEM object (%llu, %d, %llu, %d)\n",
+ 				size, initial_domain, args->in.alignment, r);
  	}
- 	mutex_unlock(&rdev->pm.mutex);
--	ttm_bo_unlock_delayed_workqueue(&rdev->mman.bdev, resched);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 974e85d8b6cc..919bbea2e3ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -581,11 +581,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+ 		bo->flags |= AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
  
- /*
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index c3f4b33136e5..b77262a623e0 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -418,20 +418,6 @@ void ttm_bo_put(struct ttm_buffer_object *bo)
- }
- EXPORT_SYMBOL(ttm_bo_put);
+ 	bo->tbo.bdev = &adev->mman.bdev;
+-	if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA |
+-			  AMDGPU_GEM_DOMAIN_GDS))
+-		amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU);
+-	else
+-		amdgpu_bo_placement_from_domain(bo, bp->domain);
++	amdgpu_bo_placement_from_domain(bo, bp->domain);
+ 	if (bp->type == ttm_bo_type_kernel)
+ 		bo->tbo.priority = 1;
  
--int ttm_bo_lock_delayed_workqueue(struct ttm_device *bdev)
--{
--	return cancel_delayed_work_sync(&bdev->wq);
--}
--EXPORT_SYMBOL(ttm_bo_lock_delayed_workqueue);
--
--void ttm_bo_unlock_delayed_workqueue(struct ttm_device *bdev, int resched)
--{
--	if (resched)
--		schedule_delayed_work(&bdev->wq,
--				      ((HZ / 100) < 1) ? 1 : HZ / 100);
--}
--EXPORT_SYMBOL(ttm_bo_unlock_delayed_workqueue);
--
- static int ttm_bo_bounce_temp_buffer(struct ttm_buffer_object *bo,
- 				     struct ttm_resource **mem,
- 				     struct ttm_operation_ctx *ctx,
-diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
-index 44a538ee5e2a..7758347c461c 100644
---- a/include/drm/ttm/ttm_bo_api.h
-+++ b/include/drm/ttm/ttm_bo_api.h
-@@ -290,22 +290,6 @@ void ttm_bo_move_to_lru_tail(struct ttm_buffer_object *bo);
- void ttm_bo_set_bulk_move(struct ttm_buffer_object *bo,
- 			  struct ttm_lru_bulk_move *bulk);
- 
--/**
-- * ttm_bo_lock_delayed_workqueue
-- *
-- * Prevent the delayed workqueue from running.
-- * Returns
-- * True if the workqueue was queued at the time
-- */
--int ttm_bo_lock_delayed_workqueue(struct ttm_device *bdev);
--
--/**
-- * ttm_bo_unlock_delayed_workqueue
-- *
-- * Allows the delayed workqueue to run.
-- */
--void ttm_bo_unlock_delayed_workqueue(struct ttm_device *bdev, int resched);
--
- /**
-  * ttm_bo_eviction_valuable
-  *
 -- 
 2.34.1
 
