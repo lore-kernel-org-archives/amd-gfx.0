@@ -4,116 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D527C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Nov 2022 21:00:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E600C43219
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Nov 2022 21:14:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAB2B10E0F6;
-	Thu, 24 Nov 2022 21:00:23 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2046.outbound.protection.outlook.com [40.107.93.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A45BD10E02C;
- Thu, 24 Nov 2022 21:00:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C640C10E259;
+	Thu, 24 Nov 2022 21:14:07 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eab::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5624F10E259
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Nov 2022 21:14:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OVJMlVaN8acN3OsmfNwa5r1LUhSNxjE0k3UcEPZpX8zSJUbIHVSi93JhvNbpkB3I6aD3C4TeYZ+FyB+AUU7EmPfzV6FhmIbgu383j/mGzKauw1hfDHKmtQxG4TV2KKpyyBYLgFIy8kCafirsLPmou7E5JZN4HQ/AAsFSh4FcFipEJRvpHJ+nBtt5+Xw7eXS7Ty2B20GHDmuaQcHI+wQMe/LIc21Lznu3QV/tWC0tHc/SL+0CfKtn+l8EcWXpGT0xBMnpnEhssEJjhkzV8rpwmgIsVaBxolMOFug+t/83sCC0OLG7oDPFez/48tA8LSG0i1lj0OlCympefNEoVY+2Yw==
+ b=nYNb9KJz0bTBsJo0amLuJgQutLgBolklsESvC3DrK/uOS/oGFxnNSZr9o3aBxJy7Pa+YcgsX84V5fvhLpWP3cY6TAzs3fgCdKJDgioYco8636Qd55zudmvMFQwYT9Xhurhryl0pDDBBILLDzfym97WqEy4Bwz82kBGkIROmBF1N6zM/C4SLMEaqA0tqliRbMUAOd1foBRQFIKjDMKqN5TJS3m+SyNiVUSEbNneIpFrgRAGK/oWhC930GZk/x3mcUMTpa1qiL4iG5lkT9tE01Y6Z+dOA2TZiP7E8IHEMMuBkWIsAQRtj139I61xVz+YHsX0T9WHDenfieLR17X3m4aQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k9mQk3BOu8mPD7RUR+TJUTe4SU2u7Vp8p4DCGq0n7dU=;
- b=TtF7BVt33Toj6l6NcVRwRRlJvinOGmPsx3GaD2ukYjDRGLLNBZmeojc706iQ7YyHXHMeSCdvMBmOi+0yitGMmT3Af1pX1astagwYCeHoIYexjfy3jvpFHfjv92QJDPB105RyBtbs+XHK6GIgUxdqAbIIYFfIM7yv2hqxcfwktnWgLyhMRzr5lcHPtLAfmK90ld2RedFbkxx19cT3fJywatVK4BCstgR2X00BEdK+YKd9YshI/1x/MEdSwMlui6xKqiCLqgQzVwHMzrcGPO1vEtTb74KNDMZ2vSAuR5YSskZOlxqJpHEq9V1aqenYRvuxY402sDQipMycPRlGWFJfiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=P3vpifUYqNs9Tz/4abRfwNO29Tk6tFTWAovZwsAZInE=;
+ b=GnVgihXMWKXZwJuQayQY/2fLmroqa9BnGzIN938HEjPoBOq+RL36b/Kv77GW8rXo12uGfLwWY1QsZQtMF/SEQFL26RBQ6WxE8AYpW3/PvGfBHrIbxSyl4UZlTuQhiNuYp+uqfAVjuV5Lpgrw6YCF8YA8ma6icjeUg4Nh9D33ptJneXzSkoc0JgXLUG12R9CO8QkuIpw06rKK48YnxsXqfxN1I9oA+lU5GDwxIKTKhVyLVHvrnboWA3ihXoKE6UlpTfkKHaGFIXxO4z0tUButhVlc6oocpdPOUYt9vZt9k2Zp7Pzi//iPn0sc8jcWqNYohXdHC+GXrkcBFbmsUVQW0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k9mQk3BOu8mPD7RUR+TJUTe4SU2u7Vp8p4DCGq0n7dU=;
- b=0eBpK9/RMoN1iG2OwSvvbEqC2YckoXtpENRghV00SNXIz4dlfR7MpKHajHEnQt4iVWGEckBgtcgCENWjULT5N1AbkR35jPCs3Vd+am7l5YG5hHoYbXAC09MHInkEhgIJiJ7hhRlgr3UYushyDZliOmlOzFCBQ0/oWlrNLkwTISM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- CH0PR12MB5252.namprd12.prod.outlook.com (2603:10b6:610:d3::24) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5857.20; Thu, 24 Nov 2022 21:00:18 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178%3]) with mapi id 15.20.5857.018; Thu, 24 Nov 2022
- 21:00:18 +0000
-Message-ID: <0f352a00-88ea-ab17-7a6f-3d8f32c70ce3@amd.com>
-Date: Thu, 24 Nov 2022 16:00:15 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH] drm/amdgpu: remove redundant NULL check
-Content-Language: en-CA
-To: zys.zljxml@gmail.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-References: <20221123074437.1841014-1-zys.zljxml@gmail.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <20221123074437.1841014-1-zys.zljxml@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL0PR02CA0116.namprd02.prod.outlook.com
- (2603:10b6:208:35::21) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+ bh=P3vpifUYqNs9Tz/4abRfwNO29Tk6tFTWAovZwsAZInE=;
+ b=NUAHV89dbgXq+ceZZN9BeEPDX3sRlmEdJrrpFGEJ4/XE/IvK1MXZg9gf62oH73cZyixAH2ML4Jdum/d9TB8QetaWKyS5+IJP32/4viaLzn2TKv3dEWAXQWMAh/0oulkzG0cCZFP/2INa/6HIFfSazt6sKoqO/L07n+zTpFY6N2Y=
+Received: from BN9PR03CA0465.namprd03.prod.outlook.com (2603:10b6:408:139::20)
+ by BN9PR12MB5354.namprd12.prod.outlook.com (2603:10b6:408:103::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.19; Thu, 24 Nov
+ 2022 21:14:03 +0000
+Received: from BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:139:cafe::e2) by BN9PR03CA0465.outlook.office365.com
+ (2603:10b6:408:139::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.19 via Frontend
+ Transport; Thu, 24 Nov 2022 21:14:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT007.mail.protection.outlook.com (10.13.177.109) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5857.19 via Frontend Transport; Thu, 24 Nov 2022 21:14:02 +0000
+Received: from jasdeep-System-Product-Name.phub.net.cable.rogers.com
+ (10.180.168.240) by SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Thu, 24 Nov 2022 15:14:01 -0600
+From: jdhillon <jdhillon@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 02/12] drm/amd/display: Use the largest vready_offset in pipe
+ group
+Date: Thu, 24 Nov 2022 16:13:38 -0500
+Message-ID: <20221124211348.214136-3-jdhillon@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20221124211348.214136-1-jdhillon@amd.com>
+References: <20221124211348.214136-1-jdhillon@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|CH0PR12MB5252:EE_
-X-MS-Office365-Filtering-Correlation-Id: 222b646f-10cb-4467-9dab-08dace5ee43b
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT007:EE_|BN9PR12MB5354:EE_
+X-MS-Office365-Filtering-Correlation-Id: 55057fe6-c42e-4774-fa51-08dace60cff6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LMblSM++VGDg+0xyk2wjCy6fYfKyfbjFCVlkYU+pwtRKz/ebvPihsNAiuYNKUzV9HJy+eQ/ufzLd5YecNEvuIQhc6A+afb8DB4Y6xia4TrLDNNII/Y8XeBIdX6pYfYG1KabgnKfDF8KGJj7cKIoyXXdk+t1WIsvWaMQZ54WRECKyr/xu1jrUEW8CqpNGkWjSY2ExfKW6g4djuFlZI9b2SvEewjNTRDzwJlK9efxlL3qbzI87sB3N02b2VffVaaxI33IoaffmpP7zdwG3j93Os7YAweCceWsSDX0ReeNe85+RLf7+PGw51owIrjRkwVHcv8am03HpQuR6UxYXLl6+EGzLoq7TGE+LwCziuDmRbeRPHyOarqAAgPOaG+Fijo7qXcZ0n+BZADmaQEtup00sBbX6pX7lCHc5iAxBiHcOdGOhDtpuzA5BDakEcwCI0RczKWl/uawSPhMVVaDAtxyRZGV+JHQFl4WkGWHOdpI3gq6Rd/Bwgdbi/bujTu3tOQCh/24tb7zulVi9YG6SfCcwxO53+2jhTbJnsbDnTRGGgKbUoJ7gpJhj4frO2BF16s699xWvliZjmXok8sA/0ShyM54/Bgub3USgMUwXr8cUNaWAuFVVo8PD8fZJrTLtMFxb023EFsLG6M4aanSVkQiG9Mf9QgWh2ee5krvp2sInJCZjnafQ+MkrEMEQEjxCb8Ps03YJuBMw4g8tgsoSXr0QvUwVMvgl/a//1+rXtZvX+3k=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(39860400002)(396003)(376002)(366004)(136003)(451199015)(2906002)(31686004)(83380400001)(8936002)(36756003)(26005)(41300700001)(316002)(86362001)(31696002)(2616005)(186003)(5660300002)(6506007)(4001150100001)(53546011)(6666004)(44832011)(6512007)(478600001)(38100700002)(8676002)(66556008)(6486002)(66476007)(4326008)(66946007)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: kntYipJJxgqnh4BwTxIo0ATYWBVVj/ksMh32d9NivT937rBjkJlE/vaYUimO2xqgnKCd40nJ9EQ+4oO0OGh9BZp9KvGFYjWLjlrMVVy2zC2u8SMfksRdHhjRXGEriRQU8TZNZZPKdtw2eDn0q0kH9dvN/uy9ZdngGStfanrn1Mq7Pfd51L5FJyagq9mrLeaXJVUlli5PLHg5KyRqEmv7bDpYn3IDoLEaoDcg1UipBIUcanF7mWfqkfiim23fb17JIGDLH19IEDlpf3BM1ioGLqy/OsAbXMnIERaporjpd9xs7rhT322whSQIOno+YGdMp+y/UN8OawKZWxFkmf4jfOOdT7rMSKWlnrCV9oa6lqYCL3E7bjy2ZhV1Pn6RORMgrNEt3iZ1r5RRW0TYCHen2aadQ1TnxndGvVEnAzM2+GY/hbCC0lynXP9/ODXHjEEp6N0a44ADLI1ANHPZUVITiQORn0tjk0086axxG9h6+W2Fcs2vl6DbDmfoW9fhmfSA3WIshs5JPG519kGmQD0ueUirspE1IHYt42tngv0oH9sVs3jk3Wvf+JtAEYL20wxTmomVXflbQdj2uqxNZqR9mNXNDNDjUxclQUnwxFapvcbVheXBybKdomkahs9ebY3W+haE4y47QPCf8MEeXmRbAy2EL5V6KUAltv9qDfNzHWYU0xAmVUnO1Gr3knZcBN2VcWzGmyU5gdadaQtmxwpZr8V6/INmIWes2god1SI6GF0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(39860400002)(136003)(376002)(396003)(451199015)(36840700001)(40470700004)(46966006)(36756003)(8936002)(83380400001)(2906002)(40460700003)(1076003)(2616005)(41300700001)(426003)(47076005)(5660300002)(336012)(16526019)(186003)(40480700001)(82740400003)(36860700001)(82310400005)(81166007)(6916009)(356005)(26005)(316002)(6666004)(54906003)(4326008)(70586007)(478600001)(70206006)(8676002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cmM4TUFIYmNMQ0JzT3BDSHNIdFNFUzNUSyttT2dFSlB3QVc1aGNqVUdVeWI5?=
- =?utf-8?B?UmtSTUIwak9jaERNKzVQOURZcWtaUStORExZUVgxOU9QV3IyTmtmUU1VQk9Y?=
- =?utf-8?B?OC9aNURQc2tMUFg3dnhHK0FGVyt4cWpvTW5tVllXc1ZvblRac1p4RHAxdUZV?=
- =?utf-8?B?bEdoMFgyTk9yUHErNVZsOVFKZU9PK2lWRFFBR2sybzV1eXFLUmpaR0tBb2d2?=
- =?utf-8?B?UXp0ZlRhbDl6U01EUU9kOVBKTW9iREdJUGd5NWFRWlhVQllVYzUxdHRIc3dF?=
- =?utf-8?B?U2kydDRLcERhUFZWMWhRV3BKZEl2am9FT3NUbzloc0NxNDRxVXpZTi9kTHVI?=
- =?utf-8?B?M1B0VURHQkhmUWM3YlNmbkFkUVI1UGVXZmw0NGNzTzlyZUNicWgwVmtkeHQx?=
- =?utf-8?B?Y2ovbnpZR05KZ1EzNWROemN5WkNvVGVsWkdXTGJNYXEwbm1qS2QyZDlGTTB3?=
- =?utf-8?B?bnpjUzQyUFV2cDVHWDJLUW5MVE9YRGpVQ1U3OFB0akw3UDkxZDdLMGcvSW9K?=
- =?utf-8?B?YzdjZ0E2QU1KYitKM25kOVltYzlxZ251T2djOVpHWlg5UUlad1RCL1ZWTFZY?=
- =?utf-8?B?RXlkbjFEUGV5dTFvbUQ4Z01KaEpsNVVoK3R0bHZCckxjYU5FUjNMM2lmVXhV?=
- =?utf-8?B?RVFoYlFhS0hzbW1GLy9rb3AvL0ZEY0NRcytKMjZwbEpRMUFjWDlhZHRnTmcz?=
- =?utf-8?B?bFNYYThqY3ZrQm5jM3dzaFZWWDVqanRCUFRCbXBWbjQ1V09mblJGckc2d29i?=
- =?utf-8?B?WUkyRVFzeEFnUUE5Q09TbE5wYmJ5SHJTNGdDT05PUkIxdHdKQjhBM2NUdk45?=
- =?utf-8?B?SWZGV1BpSHQ5N1hPSVpFWHFZUHk5ang3WGNDM05QS2pZZVBCcjFlOUYvdnFY?=
- =?utf-8?B?OHRZSlpwKzRxQnJ0TE1hc3JKWkRKY3lLN0p4N2p6SGtSaDhVa3ovcEtaOWtp?=
- =?utf-8?B?TXpkRDVXN1l2Szc4cndNT21RQWpORlVHNlo4YVFuZmpJVFFKdkpVNm5NbFlR?=
- =?utf-8?B?cUFhUWhjQkVEWk1hU3lNYlhVTFA3Rm1CNzJrQ2JZZHlFN05Cd3IvbUlBeVBD?=
- =?utf-8?B?YXNWTW1GYmEzbnBGUitMLy84YTJSeDZrOTNMM2RlYnZROUtMbnZUNmU5ZHpS?=
- =?utf-8?B?aTk2eHRJQTZNaDNORzZ3akxBaE1BK3NCOGVNY1VFSGpGV2NUbUk4cFZ2LzVR?=
- =?utf-8?B?dDhMVDNUYnFZTGFoTHZRTDN6YzJRdm9BaUxOZ2RFaW1jNWRtU0FSMFJMSzRN?=
- =?utf-8?B?WXgzc1dyWUtTVnBHRUhjdUwyWldoRWRqb3MzNU1sMDhZZDR3TjZoVlBPUzZ6?=
- =?utf-8?B?RndHbjBmMVdwbWhuN1d5M2lGWDhnYWxtbWxtV05EN1lFQ0daSFIyM2szSGNo?=
- =?utf-8?B?SG9STWdPVVFDL2dpZU9rSFBWemI0R0RXOVVpMGlFTWMzTXc2eHA2ZkVzNEpk?=
- =?utf-8?B?V1hHcG1jaGdtYmZkQnhlUFNMMmpLZU1DZnFBZlFXVCs5S2lxamV3MW9tKzBU?=
- =?utf-8?B?UVdHQjVGRWRMdmp1WHFYTDlZbnorbVN2NlgxK3ZWcXlrTWw5VXZ3S3E1VW9z?=
- =?utf-8?B?akZSSi9ReThwVDh0RnJoL3JhVEQxOE10cmJhdXloMlJ1SDBoazVLdWZvR0JG?=
- =?utf-8?B?elVWbzhrU0xMUUc3bWRPUHJVcmxGZE80OE9nZUNCZld6T2kzV1l4TGZqQk1Y?=
- =?utf-8?B?NkozcEViVVlMWWJJT29zVUVnVlY1WGhJRnlZeDR3S0JsYU1ubGxVTE1uWGJq?=
- =?utf-8?B?N01KMUVDQTA1cDRyOW0rTVpFeHNqaFZrT0ZKditvSE5HWmtOVjBucjVlUWND?=
- =?utf-8?B?Z1FNYUtWVXVtZ2F0SVNWVzlObkhISk90Z1c1L2ZQNFFDdEk3aUdlNm9iMnVI?=
- =?utf-8?B?bjV1NnVvMzB2b3FJV1NJMlpKdmdhN1c5aFV1b1l2b0JCNzd2OVhZQUliSW1h?=
- =?utf-8?B?bUcvNGg1M1hSUlFnUEVyV3V6cnBUdnB1THhuRUFscTRUdEtCcEtVRWRHSHlj?=
- =?utf-8?B?NDNyK2tsdjBTMldTSklVcVFFaEJ5Zm9Pa0hISE9tbXRpaTJzWEY5Mm5haVN5?=
- =?utf-8?B?SWw2Z2E4MVo1R0J4dHJEcXI1dHZTT28xanRncUpyOEhMT0Q5bWVBdXBHWWtC?=
- =?utf-8?Q?d5sVCPmRvYk6GN3GOYpPNJzGp?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 222b646f-10cb-4467-9dab-08dace5ee43b
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2022 21:00:17.9893 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2022 21:14:02.7129 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55057fe6-c42e-4774-fa51-08dace60cff6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MxFCNbSfQbswh+Rk5obpyUWqyV7ih3Qq3NdHoGsTeufpabvYX8RMpVUNsKZr+j0H
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5252
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5354
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,72 +101,144 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Yushan Zhou <katrinzhou@tencent.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: stylon.wang@amd.com, Dillon Varone <Dillon.Varone@amd.com>,
+ Wesley Chalmers <Wesley.Chalmers@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Jasdeep
+ Dhillon <jdhillon@amd.com>, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.
+From: Wesley Chalmers <Wesley.Chalmers@amd.com>
 
-Thanks,
-Luben
+[WHY]
+Corruption can occur in LB if vready_offset is not large enough.
+DML calculates vready_offset for each pipe, but we currently select the
+top pipe's vready_offset, which is not necessarily enough for all pipes
+in the group.
 
-On 2022-11-23 02:44, zys.zljxml@gmail.com wrote:
-> From: Yushan Zhou <katrinzhou@tencent.com>
-> 
-> release_firmware() checks whether firmware pointer is NULL.
-> Remove the redundant NULL check in psp_sw_fini().
-> 
-> Signed-off-by: Yushan Zhou <katrinzhou@tencent.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 36 +++++++++++--------------
->  1 file changed, 16 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index effa7df3ddbf..77b966ab5439 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -484,26 +484,22 @@ static int psp_sw_fini(void *handle)
->  	struct psp_gfx_cmd_resp *cmd = psp->cmd;
->  
->  	psp_memory_training_fini(psp);
-> -	if (psp->sos_fw) {
-> -		release_firmware(psp->sos_fw);
-> -		psp->sos_fw = NULL;
-> -	}
-> -	if (psp->asd_fw) {
-> -		release_firmware(psp->asd_fw);
-> -		psp->asd_fw = NULL;
-> -	}
-> -	if (psp->ta_fw) {
-> -		release_firmware(psp->ta_fw);
-> -		psp->ta_fw = NULL;
-> -	}
-> -	if (psp->cap_fw) {
-> -		release_firmware(psp->cap_fw);
-> -		psp->cap_fw = NULL;
-> -	}
-> -	if (psp->toc_fw) {
-> -		release_firmware(psp->toc_fw);
-> -		psp->toc_fw = NULL;
-> -	}
-> +
-> +	release_firmware(psp->sos_fw);
-> +	psp->sos_fw = NULL;
-> +
-> +	release_firmware(psp->asd_fw);
-> +	psp->asd_fw = NULL;
-> +
-> +	release_firmware(psp->ta_fw);
-> +	psp->ta_fw = NULL;
-> +
-> +	release_firmware(psp->cap_fw);
-> +	psp->cap_fw = NULL;
-> +
-> +	release_firmware(psp->toc_fw);
-> +	psp->toc_fw = NULL;
-> +
->  	if (adev->ip_versions[MP0_HWIP][0] == IP_VERSION(11, 0, 0) ||
->  	    adev->ip_versions[MP0_HWIP][0] == IP_VERSION(11, 0, 7))
->  		psp_sysfs_fini(adev);
+[HOW]
+Wherever program_global_sync is currently called, iterate through the
+entire pipe group and find the highest vready_offset.
+
+Reviewed-by: Dillon Varone <Dillon.Varone@amd.com>
+Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
+Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
+---
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 30 +++++++++++++++++--
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 29 ++++++++++++++++--
+ 2 files changed, 55 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 0db02e76dcc5..355ffed7380b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -869,6 +869,32 @@ static void false_optc_underflow_wa(
+ 		tg->funcs->clear_optc_underflow(tg);
+ }
+ 
++static int calculate_vready_offset_for_group(struct pipe_ctx *pipe)
++{
++	struct pipe_ctx *other_pipe;
++	int vready_offset = pipe->pipe_dlg_param.vready_offset;
++
++	/* Always use the largest vready_offset of all connected pipes */
++	for (other_pipe = pipe->bottom_pipe; other_pipe != NULL; other_pipe = other_pipe->bottom_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++	for (other_pipe = pipe->top_pipe; other_pipe != NULL; other_pipe = other_pipe->top_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++	for (other_pipe = pipe->next_odm_pipe; other_pipe != NULL; other_pipe = other_pipe->next_odm_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++	for (other_pipe = pipe->prev_odm_pipe; other_pipe != NULL; other_pipe = other_pipe->prev_odm_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++
++	return vready_offset;
++}
++
+ enum dc_status dcn10_enable_stream_timing(
+ 		struct pipe_ctx *pipe_ctx,
+ 		struct dc_state *context,
+@@ -912,7 +938,7 @@ enum dc_status dcn10_enable_stream_timing(
+ 	pipe_ctx->stream_res.tg->funcs->program_timing(
+ 			pipe_ctx->stream_res.tg,
+ 			&stream->timing,
+-			pipe_ctx->pipe_dlg_param.vready_offset,
++			calculate_vready_offset_for_group(pipe_ctx),
+ 			pipe_ctx->pipe_dlg_param.vstartup_start,
+ 			pipe_ctx->pipe_dlg_param.vupdate_offset,
+ 			pipe_ctx->pipe_dlg_param.vupdate_width,
+@@ -2908,7 +2934,7 @@ void dcn10_program_pipe(
+ 
+ 		pipe_ctx->stream_res.tg->funcs->program_global_sync(
+ 				pipe_ctx->stream_res.tg,
+-				pipe_ctx->pipe_dlg_param.vready_offset,
++				calculate_vready_offset_for_group(pipe_ctx),
+ 				pipe_ctx->pipe_dlg_param.vstartup_start,
+ 				pipe_ctx->pipe_dlg_param.vupdate_offset,
+ 				pipe_ctx->pipe_dlg_param.vupdate_width);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 3f3d4daa6294..db57b17061ae 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1652,6 +1652,31 @@ static void dcn20_update_dchubp_dpp(
+ 		hubp->funcs->phantom_hubp_post_enable(hubp);
+ }
+ 
++static int calculate_vready_offset_for_group(struct pipe_ctx *pipe)
++{
++	struct pipe_ctx *other_pipe;
++	int vready_offset = pipe->pipe_dlg_param.vready_offset;
++
++	/* Always use the largest vready_offset of all connected pipes */
++	for (other_pipe = pipe->bottom_pipe; other_pipe != NULL; other_pipe = other_pipe->bottom_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++	for (other_pipe = pipe->top_pipe; other_pipe != NULL; other_pipe = other_pipe->top_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++	for (other_pipe = pipe->next_odm_pipe; other_pipe != NULL; other_pipe = other_pipe->next_odm_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++	for (other_pipe = pipe->prev_odm_pipe; other_pipe != NULL; other_pipe = other_pipe->prev_odm_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++
++	return vready_offset;
++}
+ 
+ static void dcn20_program_pipe(
+ 		struct dc *dc,
+@@ -1670,7 +1695,7 @@ static void dcn20_program_pipe(
+ 			&& !pipe_ctx->prev_odm_pipe) {
+ 		pipe_ctx->stream_res.tg->funcs->program_global_sync(
+ 				pipe_ctx->stream_res.tg,
+-				pipe_ctx->pipe_dlg_param.vready_offset,
++				calculate_vready_offset_for_group(pipe_ctx),
+ 				pipe_ctx->pipe_dlg_param.vstartup_start,
+ 				pipe_ctx->pipe_dlg_param.vupdate_offset,
+ 				pipe_ctx->pipe_dlg_param.vupdate_width);
+@@ -2067,7 +2092,7 @@ bool dcn20_update_bandwidth(
+ 
+ 			pipe_ctx->stream_res.tg->funcs->program_global_sync(
+ 					pipe_ctx->stream_res.tg,
+-					pipe_ctx->pipe_dlg_param.vready_offset,
++					calculate_vready_offset_for_group(pipe_ctx),
+ 					pipe_ctx->pipe_dlg_param.vstartup_start,
+ 					pipe_ctx->pipe_dlg_param.vupdate_offset,
+ 					pipe_ctx->pipe_dlg_param.vupdate_width);
+-- 
+2.34.1
 
