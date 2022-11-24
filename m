@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09D86C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Nov 2022 21:14:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2BD4C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Nov 2022 21:14:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BCF110E265;
-	Thu, 24 Nov 2022 21:14:08 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2059.outbound.protection.outlook.com [40.107.100.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23F3A10E259
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Nov 2022 21:14:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 885C010E26E;
+	Thu, 24 Nov 2022 21:14:14 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2064.outbound.protection.outlook.com [40.107.244.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6935510E259
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Nov 2022 21:14:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n7BiVs6NvfO6iftujCZxhemmOk/Uqeh4nAPRi2ZcuqifgDvf7B10vxxevBHdwWHEUrEyfySQOxDaNahl6z82w7nHyuOr4xtyX8PUPNyHPlqvgRq2c3uYdYmN4C5FRipbCyllnfmVl0ZoL80k3gUW5WDj5p14HEYh/uzia/bU0AwVnI96DkunxzQkeapzUONjp52OoWIlASg9wd55qbq2yTQXN+Sv4wZwI9sunaS/nAw9uAy8PLjdwz8oOV7wsC8JjKPToetK6KeiDqTe5G/zqIgrYG8p07AqwPTwWwAeUlTtfVWto0w+LoWzZglgP814Ij83AuQztO4Sy2miU7YDSQ==
+ b=AVRkOC3lzuLU6Y+lUSgAOv3dLeSdPfOWfgcdoEVMSngvV/6gp2vb7PRDOl6AfRk3cY09ZvW8eDoiPq7/yyG60IyTv8wMAkVRBHM906aGuD+e8k3lNr/8dEWXrUeAXoBWmQgHBGdNAdycTZRAGElnfUslcYwmD5UAIruKsBQ0g8B6oDcmSVWhQ43x/lwVOoY9kAlnlOH0AY/yXFIuZDiQEaXOBqHkZwgdzZnGwen2vyLe5+s6BZKwun/uCh0YtEuIQVEysxBM1DdCw3SB5JnCo7zf2BSw1UMWCXyrAV9JoLdhxCbKzxt3mCX3Pa8p73bToAKem5haqpJSX8YvGOkNsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A0L9GVi7ZhC/cPh5L+uzbHbG0K9UbJRf40P79lgvPx0=;
- b=Q5mTtVxPtSF02csjckPWplbgY9bmCFRD8pt/22IfrsxDHTx+F1dMZgYl8hYZoCgxek0MzN8txfIjD94j1NYyX4H+VdfYL5wnbyctUaml7T09MjhBO4kz5c4RL2y7Rffw+UrmeTFLpU1NdfEIIV3knPNfkyZR66vfwAFHFoX2mYaJefQofuC2pTxRtim6KJP8cK5F2VOPyQjbUwlepxGgdBHZaxquGQ++hEwrfZDSb+36Db95ChtDBAw4ObqjD22uXV4+Jl8xvgQPyNwSGwk1Xhf/eG9RdoaWUuBMlNirJRMj7tgefkb/m6MmxlRVN1whLDqxD6qxvwQ8NL67wcUzdA==
+ bh=8e5fAxjp7v6GF3o4yh8IF+ZADBdA9pePNyzPuO5mGGk=;
+ b=cgZZo7ogRxh+1vcs7xJDUBPbw7ZaY9NDCgR7mX5f5X4mi5MSjzZ0/dsiQc+Jam8oXivJ8g4/60Zf3Nu1+if39K1TQgQ7+aSVCVKR/YFzL7ZNjaxL7TG0m+H6gFGdYr9ekCZB2bNAwmyf4Hb8ZiDK1EisS1bZnX9hTFf/Sj8fvaHRAt9Lt50pFhl/9waUBmoDeyXvwRXUjuk6T9ofomGPCsMVelmKlFxewpMDhRBJ5XGXfuEOM4BnOgCnuTmzDU459gxB+SOFT92Gn50RnEzMod9plaIFxCSljubeCr7thjML1b32tBBc4jxIcsSPTQGgA3tytD64mRpul+knzZHjPg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A0L9GVi7ZhC/cPh5L+uzbHbG0K9UbJRf40P79lgvPx0=;
- b=rYupydPAeZ96ZIEq9RqtQszMLeRdVQw22u0YM6ZcVvDij5l2dCMqVnHLkuJPUKbLGj8kpQrg8U4CymeGo5gA3nX0XFWHfj6FGn06dvDxOSIGKmNkK8lj9UXrqDwAcFcNoDWkkO0S6rrkY8sMyHUvbGu2sUyb7YbTlPFcp0NxZL4=
-Received: from BN9PR03CA0460.namprd03.prod.outlook.com (2603:10b6:408:139::15)
- by CY5PR12MB6371.namprd12.prod.outlook.com (2603:10b6:930:f::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.19; Thu, 24 Nov
- 2022 21:14:01 +0000
-Received: from BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:139:cafe::db) by BN9PR03CA0460.outlook.office365.com
- (2603:10b6:408:139::15) with Microsoft SMTP Server (version=TLS1_2,
+ bh=8e5fAxjp7v6GF3o4yh8IF+ZADBdA9pePNyzPuO5mGGk=;
+ b=o+joLL04aTxlHcR8W21Edis57uak3mjTi9DVh9veWHtx1peQVh+hAmUsYFZv1jTWYcAbMC3/fdiGbNQoyR3cwK7EGnKA99bZI359S6xgbpzYMkQu5Cs1qrOc0O/p18w6RUMvxkyfeCV49QEngqSYORMQF9AvUADCWObXj9J85Ig=
+Received: from BN9PR03CA0406.namprd03.prod.outlook.com (2603:10b6:408:111::21)
+ by SJ1PR12MB6025.namprd12.prod.outlook.com (2603:10b6:a03:48c::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Thu, 24 Nov
+ 2022 21:14:04 +0000
+Received: from BN8NAM11FT083.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:111:cafe::bd) by BN9PR03CA0406.outlook.office365.com
+ (2603:10b6:408:111::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.19 via Frontend
- Transport; Thu, 24 Nov 2022 21:14:01 +0000
+ Transport; Thu, 24 Nov 2022 21:14:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT007.mail.protection.outlook.com (10.13.177.109) with Microsoft SMTP
+ BN8NAM11FT083.mail.protection.outlook.com (10.13.177.75) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5857.19 via Frontend Transport; Thu, 24 Nov 2022 21:14:00 +0000
+ 15.20.5857.18 via Frontend Transport; Thu, 24 Nov 2022 21:14:03 +0000
 Received: from jasdeep-System-Product-Name.phub.net.cable.rogers.com
  (10.180.168.240) by SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Thu, 24 Nov 2022 15:13:59 -0600
+ 15.1.2375.34; Thu, 24 Nov 2022 15:14:02 -0600
 From: jdhillon <jdhillon@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 00/12] DC Patches November 28 2022
-Date: Thu, 24 Nov 2022 16:13:36 -0500
-Message-ID: <20221124211348.214136-1-jdhillon@amd.com>
+Subject: [PATCH 03/12] drm/amd/display: Create debugfs to tell if connector is
+ DPIA link
+Date: Thu, 24 Nov 2022 16:13:39 -0500
+Message-ID: <20221124211348.214136-4-jdhillon@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20221124211348.214136-1-jdhillon@amd.com>
+References: <20221124211348.214136-1-jdhillon@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT007:EE_|CY5PR12MB6371:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6688dbd5-5047-4811-aa9b-08dace60cedd
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT083:EE_|SJ1PR12MB6025:EE_
+X-MS-Office365-Filtering-Correlation-Id: ddb711a1-0c63-4220-68ee-08dace60d087
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KvGi0rbBePJ4rARgYqlrlqCr3uwTAtwbgVlPC1VqMZ4lEOJ3KD3JW5GjvBRU5A+r1V8+Vf5qugyokqSeiqBBet7dC7yXLl38iiSkS77gYlkRvHmRGFEWOB+BhopmafrYr3gvn6faJow8AnVKmsxALqj51a2TFwNAiPweN+0a4Yk7/7AhHcOJDmq0B1/EC/+ijPLNv0Ybiu7b2+UZ+EXEmhbeqsZou0QE/zt2QMKtR4Z4QSEU7clP4921vuqlXw++nb86Nee1SvcUL+4d9Ufp5YZGOMHYHB5g0cmNKZYGSBG2gWp7sDJL4lDQlwn9k0kG08r4kS8Xf6KkJjZnFav/6XYnfCAwty+sbsKvBydif9vUgiBQljiH4TirMaYstH3rEQD0FkYUtJ/Ohw8SmHmdii0QarlWWNJ+/ZIbDx7C7fSgEjpOIr1eknN+Zs/Xq7Ggh1CWcdJU7SFu95nQBl7WwfFCtlhWErE29JvY0LcOPIbhbMfCoHMj45Q7amRMc5cNA8xykhC+vBkq6eP58bSNZuzgRUZEvdWyumRbMVsI8gVCTLmEWPwbC1ZYQjiR2OdZaANAl7/jY6zPnaWpd5hruIaphfWI0Kc50blPj9oNYi1mC5r3oml8S0WkxaJuZHnQh5AorMGPGN9h8234msUArE/rJftgbqbzIUtokZu0BA9x93/kXcdh2HylScwAnhtPri5hi1SuncNG8ZGiOKzymt75WNDc/NYNfcF0B9kBb98=
+X-Microsoft-Antispam-Message-Info: ELjMkMYZlcXiAO4vQGKFiKbKHQy55iI1j/b0H2HwEHv2TQC6iHN2yv2kKy0f8HLqF3FWA8OfoHiePbUrsTo+0wNSRpnb+ipulVgzMzwBQW/yVWolc6Ox5I1ykaNcTr9x6TKgXNaIuqo2z+QNulf/f80KF4JVK4YvxyNwWZXxIhLiSfGeCm6/TPP9LMekxgXwXLoyjMlaS/fTkHq1EEDsgDMEFfOsxdO/L9Ms5Z8i+c90L4V5qbUjJmpGLO/1qE5Q+DYebikaNa1ZZ8mikdj2Uu8ZD69R2tgrEL85lPMkikOaafDLtC9AUPTN018MrSloG8RRy6p74BviaUmBR240e2xyyBzwtlwxKpyHNeQRiV3pX2I4tviydphbhT19lrdr0Wo6Wqe42hRnPxL6VFvyFm+ezUW0SdVH1XU1gWTkwM5N0zRvV8XXm++3q9qcFSIpD/FjZokM+qf4+HIoK36v5PN6Ce2OK/g28FFHI+KwjEuEYfn8kmvMjqAerCgTGrKkGAdnF4p+CyFhYnzRDkl7wrJK43cQjYZhHEOdDBi+odaxJkuAZoMiRl8WIUXiC1ObX5KS0EZ3O5pGbAZ22HNoSfCf5b4mfCbUtyiXyncOG11+fIUPwbvT4efcEb+lAByTIC2gDyLCKvb+UgATFjxjcpIy+LkH+IOqh5S4R9tsOiDpCEHOuNHSatbCCu/JYrFlbVGDQ/bvBu+MjtoDzluy1a/3DxWNAPEfy5LEzKYG0Rw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(346002)(376002)(39860400002)(396003)(451199015)(46966006)(40470700004)(36840700001)(26005)(36756003)(356005)(54906003)(81166007)(41300700001)(4326008)(82310400005)(8676002)(82740400003)(40460700003)(70206006)(70586007)(40480700001)(36860700001)(336012)(16526019)(2616005)(186003)(1076003)(6666004)(478600001)(316002)(6916009)(8936002)(83380400001)(47076005)(426003)(2906002)(5660300002)(36900700001);
+ SFS:(13230022)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199015)(46966006)(40470700004)(36840700001)(356005)(83380400001)(336012)(186003)(2616005)(426003)(1076003)(81166007)(82740400003)(316002)(47076005)(36860700001)(2906002)(8936002)(5660300002)(82310400005)(4326008)(478600001)(40460700003)(41300700001)(26005)(70586007)(8676002)(40480700001)(6666004)(70206006)(45080400002)(6916009)(16526019)(54906003)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2022 21:14:00.8693 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6688dbd5-5047-4811-aa9b-08dace60cedd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2022 21:14:03.6751 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddb711a1-0c63-4220-68ee-08dace60d087
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT083.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6371
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6025
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,74 +101,78 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, jdhillon <jdhillon@amd.com>, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>, Aurabindo.Pillai@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+ qingqing.zhuo@amd.com, Jasdeep Dhillon <jdhillon@amd.com>,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, Wayne Lin <Wayne.Lin@amd.com>,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we have:
+From: Stylon Wang <stylon.wang@amd.com>
 
-* Program output transfer function when required
-* Fix arthmetic errror in MALL size caluclations for subvp 
-* DCC Meta pitch used for MALL allocation 
-* Debugfs entry to tell if connector is DPIA link 
-* Use largest vready_offset in pipe group 
-* Fixes race condition in DPIA Aux transfer
+[Why]
+Tests need to tell if display is connected via USB4 DPIA link.
+Currently this is only possible via analyzing dmesg logs.
 
+[How]
+Create a per-connector debugfs entry to report if the link is
+tunneled via USB4 DPIA.
 
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
+Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
+Signed-off-by: Stylon Wang <stylon.wang@amd.com>
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 23 ++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-
-Alvin Lee (3):
-  drm/amd/display: Retain phantom pipes when min transition into subvp
-  drm/amd/display: Don't overwrite subvp pipe info in fast updates
-  drm/amd/display: Fix DTBCLK disable requests and SRC_SEL programming
-
-Aric Cyr (1):
-  drm/amd/display: 3.2.214
-
-Dillon Varone (4):
-  drm/amd/display: MALL SS calculations should iterate over all pipes
-    for cursor
-  drm/amd/display: Use DCC meta pitch for MALL allocation requirements
-  drm/amd/display: Fix arithmetic error in MALL size calculations for
-    subvp
-  drm/amd/display: program output tf when required
-
-Dmytro Laktyushkin (1):
-  drm/amd/display: set per pipe dppclk to 0 when dpp is off
-
-Stylon Wang (2):
-  drm/amd/display: Fix race condition in DPIA AUX transfer
-  drm/amd/display: Create debugfs to tell if connector is DPIA link
-
-Wesley Chalmers (1):
-  drm/amd/display: Use the largest vready_offset in pipe group
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 151 +++++++++---------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  17 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  23 ++-
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  10 +-
- .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  |   2 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  23 ++-
- drivers/gpu/drm/amd/display/dc/dc.h           |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |  11 ++
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  30 +++-
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  34 +++-
- .../gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c |   6 +-
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |   8 +-
- .../drm/amd/display/dc/dcn32/dcn32_resource.c |  66 +++++---
- .../drm/amd/display/dc/dcn32/dcn32_resource.h |  13 +-
- .../display/dc/dcn32/dcn32_resource_helpers.c |  15 +-
- .../amd/display/dc/dcn321/dcn321_resource.c   |   2 +
- .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.c  |   3 +
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |   9 +-
- .../gpu/drm/amd/display/dc/inc/core_types.h   |   4 +-
- 19 files changed, 277 insertions(+), 152 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 2c43cdd2e707..461037a3dd75 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -2639,6 +2639,25 @@ static int dp_mst_progress_status_show(struct seq_file *m, void *unused)
+ 	return 0;
+ }
+ 
++/*
++ * Reports whether the connected display is a USB4 DPIA tunneled display
++ * Example usage: cat /sys/kernel/debug/dri/0/DP-8/is_dpia_link
++ */
++static int is_dpia_link_show(struct seq_file *m, void *data)
++{
++	struct drm_connector *connector = m->private;
++	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
++	struct dc_link *link = aconnector->dc_link;
++
++	if (connector->status != connector_status_connected)
++		return -ENODEV;
++
++	seq_printf(m, "%s\n", (link->ep_type == DISPLAY_ENDPOINT_USB4_DPIA) ? "yes" :
++				(link->ep_type == DISPLAY_ENDPOINT_PHY) ? "no" : "unknown");
++
++	return 0;
++}
++
+ DEFINE_SHOW_ATTRIBUTE(dp_dsc_fec_support);
+ DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
+ DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
+@@ -2650,6 +2669,7 @@ DEFINE_SHOW_ATTRIBUTE(internal_display);
+ DEFINE_SHOW_ATTRIBUTE(psr_capability);
+ DEFINE_SHOW_ATTRIBUTE(dp_is_mst_connector);
+ DEFINE_SHOW_ATTRIBUTE(dp_mst_progress_status);
++DEFINE_SHOW_ATTRIBUTE(is_dpia_link);
+ 
+ static const struct file_operations dp_dsc_clock_en_debugfs_fops = {
+ 	.owner = THIS_MODULE,
+@@ -2794,7 +2814,8 @@ static const struct {
+ 		{"max_bpc", &dp_max_bpc_debugfs_fops},
+ 		{"dsc_disable_passthrough", &dp_dsc_disable_passthrough_debugfs_fops},
+ 		{"is_mst_connector", &dp_is_mst_connector_fops},
+-		{"mst_progress_status", &dp_mst_progress_status_fops}
++		{"mst_progress_status", &dp_mst_progress_status_fops},
++		{"is_dpia_link", &is_dpia_link_fops}
+ };
+ 
+ #ifdef CONFIG_DRM_AMD_DC_HDCP
 -- 
 2.34.1
 
