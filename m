@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CF1EC4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 16:36:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96347C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 16:36:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F6F110E107;
-	Fri, 25 Nov 2022 16:36:42 +0000 (UTC)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8028510E7B3;
- Fri, 25 Nov 2022 13:58:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D8A510E108;
+	Fri, 25 Nov 2022 16:36:45 +0000 (UTC)
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D112110E747;
+ Fri, 25 Nov 2022 12:12:08 +0000 (UTC)
 Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 0B0A65C00EE;
- Fri, 25 Nov 2022 08:58:16 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 937175C00A0;
+ Fri, 25 Nov 2022 07:12:05 -0500 (EST)
 Received: from imap51 ([10.202.2.101])
- by compute3.internal (MEProxy); Fri, 25 Nov 2022 08:58:16 -0500
+ by compute3.internal (MEProxy); Fri, 25 Nov 2022 07:12:05 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
  :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
  :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm3; t=1669384696; x=1669471096; bh=HZFW0Q6ily
- rDold9b9ca9gHjKB3WJYu7yBNi/OLlm4s=; b=KGJZiKitRl3OE1rk8bBGc/1ZQ3
- Ma4nnuK/qC4S+Z7c21rN3BBkmmsOTu1iSi306GclQlD1aLoZAI7bxy/Zyf2WWL/c
- T9YvWuOmeJrBE27O8hLQcZnBIRtt9zF029V8GJQjvRIz05T4SrutfObIB2+ecPmU
- aBmXNBORU+7plARbIQUQSQ5mPoXPc7wapieq5aUFQwuQ3c9l+7X8Di1Tkd2WkPey
- JXi606GY2/woLA7wakeS7nNMMWQZj5pAhDMaidzPb4bOqwDKNFBbYuTD93yeC7H7
- nYJlejZXEmApA5wxfE4OEZtGDMbpTAe+VgMh0H2DdXH/wJsvYNw8sBVsSGiw==
+ :subject:to:to; s=fm3; t=1669378325; x=1669464725; bh=16pI4cvoR6
+ Cm8Z1b252QgFiejtIcKliu1zHdyEzNiUk=; b=dOp9WAx9t90OFDJfgKC86m1C9I
+ AL78p2tpYjvbuJbOBosBZMP6sBYREUeJw2PUykGpOa4glhQ8aKt4cw1vHWHUJXzK
+ MpYj1KycdGZvMXSnplO4CweY6vVikgF/RQwnU5l1FaY7nOzAk6ckKuoFRCdxpZRf
+ +653sK3GiMfCORxnfU+ckIgNoOL2xZxFp4k7P2AR69gjO21huI2zBN9Q620wVjCf
+ JUghQQ8jPlKe3iBDWZY4dN8eF1To4C0VSY49VDu395yV2j4ddGQTjcW/YUjPBo7t
+ O1Fb65NAKwD1bSqCEQKBx+HsLlPNO3WzKxH3qTXyqczqKfEwTrdCzlRFkPHg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
  :feedback-id:from:from:in-reply-to:in-reply-to:message-id
  :mime-version:references:reply-to:sender:subject:subject:to:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; t=1669384696; x=1669471096; bh=HZFW0Q6ilyrDold9b9ca9gHjKB3W
- JYu7yBNi/OLlm4s=; b=WCy1IAOAaD2q1pazTB73ladozixKckhwGuvVzqadnlJP
- 8J01lU3w9VknC9kPGp3I7gOJrs8GiLfpRxTIkKd6S5jJAjCWwHIQhYJNTTJSZTEz
- i3nXo0D2H947sSrNaGRGnq5Kp8vW1eQ1zBUysveDTiTrDXCVrwt/ul8GqKybWKtD
- 7V/BtIkBcO16XL/6LR4PoTIzudeUJeTt85YvzVW28dvqxomIk2wSGU5DV1WHXU3H
- ZWgvNxf3+yDutaJgJ/WYFSUUhTJYy/wuxE/IPkXCtHQMWBNM1T3RQXY8C1aaSYps
- 39J8LX+2CdwIwUPL7WGG4cv2wSM6DmRkvi8McvKdtg==
-X-ME-Sender: <xms:98mAYwTQQTPGZUCY5Ecf99OxN3NiVm8yFLqj-xE3583Zb1FwbQfQdQ>
- <xme:98mAY9xFj3fZePOmQeLVotqhpGpJT82FlInXycwbBhS05dxL7D2bG8b9TqWBgvUHn
- mZ3bCgl9dGb2ra3WG4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrieehgdehlecutefuodetggdotefrodftvf
+ fm1; t=1669378325; x=1669464725; bh=16pI4cvoR6Cm8Z1b252QgFiejtIc
+ Kliu1zHdyEzNiUk=; b=EWf8cOtW3sUb0+ScPFQBR3cwK7rQrBE2mmYIiMeRiAsb
+ PtAh7y2Tv5nXVlxGWA92WTU4UiqRKEu9z+n1IKWL3nNczhDvOfXD0BYgLOQD2aB7
+ hmi/McGZ4vom9quGXL4KjWXoKxlHYYF6NrAiGmv9oG1eYrjNvCAm6Kzr8rpb9P0H
+ iqjoh02e8gM3o9r+uzgUZv+p+njJi5W0dFliwy51nnqUB0i8+jDZ/BxMuY5YmRcT
+ 8xSVpwFhhRNtwe8UXzFteYrL3aGMhucGTnqjJJl870oyofeAgN0lVMzE1TOJgUTu
+ +frCIlpKKByf+e4W7Me5Qm5FfFuCNhNHGqsuSI9E/w==
+X-ME-Sender: <xms:FLGAY_vhTbvGiEgPNu9wjdy4ayaqvoA76z5DetlxIN4oaM9vJM3zpQ>
+ <xme:FLGAYwfWiv4gWgTAn2V0uJHcplsVrlYQ5MYLJRAr7n9U6dAtigqBcLB6SpYBTQBXH
+ PTB-ZGLSDd4Ed1O9hI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrieehgdefkecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
  fjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdetrhhn
  ugcuuegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrghtth
- gvrhhnpeffheeugeetiefhgeethfejgfdtuefggeejleehjeeutefhfeeggefhkedtkeet
- ffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrrh
- hnugesrghrnhgusgdruggv
-X-ME-Proxy: <xmx:98mAY92-9MacwOWeuopHJrwvwn8LiAnzE5Y0q9lTofBIjOxjSE_S2Q>
- <xmx:98mAY0A-T3hqUI6pt_PcBXnOum7WDdCLnvk4tFP0rF6WahVCDRCXwQ>
- <xmx:98mAY5jF7orPhyh-LUci3Lcj-EVZkKEk81Hfz_gu9sIAR7uraz74FA>
- <xmx:-MmAYyZ2dEuifH96GuYTNE97AmSuYSQT7jhv1i24XaZPX_o4hKDJ7A>
+ gvrhhnpeejvddvvdduleduheejiedtheehiedvjefgleelffeigfevhffhueduhfegfeef
+ heenucffohhmrghinhepghhithhhuhgsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
+ enucfrrghrrghmpehmrghilhhfrhhomheprghrnhgusegrrhhnuggsrdguvg
+X-ME-Proxy: <xmx:FLGAYyzDO3Va5xeSrAjC1KNdruRp0ASvEk-tTF6XsTEBhGfJ1QZkKw>
+ <xmx:FLGAY-MNP_U09Xh62Fns-TBdrY9tMRl92JtNcXHWK4rLDMWe-BxiBQ>
+ <xmx:FLGAY_-f2vWD8L3c3ExdUpbLwwygcAi8mzR1j8KCNey-ML2fQC2FYQ>
+ <xmx:FbGAYy022faaAw7g1pBLbqq4l1HcWG24gIuU50nLw40GJONYIoP7jQ>
 Feedback-ID: i56a14606:Fastmail
 Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 90CCFB60086; Fri, 25 Nov 2022 08:58:15 -0500 (EST)
+ id C62B6B60086; Fri, 25 Nov 2022 07:12:04 -0500 (EST)
 X-Mailer: MessagingEngine.com Webmail Interface
 User-Agent: Cyrus-JMAP/3.7.0-alpha0-1115-g8b801eadce-fm-20221102.001-g8b801ead
 Mime-Version: 1.0
-Message-Id: <347df991-4755-4f11-b530-4d0e3994a9db@app.fastmail.com>
-In-Reply-To: <Y4DFx20YXDLcuVJm@google.com>
+Message-Id: <9ff2ed97-dd26-4af9-a943-d2c5b917a4e4@app.fastmail.com>
+In-Reply-To: <20221125120750.3537134-2-lee@kernel.org>
 References: <20221125120750.3537134-1-lee@kernel.org>
- <20221125120750.3537134-3-lee@kernel.org> <Y4DFx20YXDLcuVJm@google.com>
-Date: Fri, 25 Nov 2022 14:57:55 +0100
+ <20221125120750.3537134-2-lee@kernel.org>
+Date: Fri, 25 Nov 2022 13:11:43 +0100
 From: "Arnd Bergmann" <arnd@arndb.de>
 To: "Lee Jones" <lee@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>, 
  "Nathan Chancellor" <nathan@kernel.org>,
@@ -78,8 +78,8 @@ To: "Lee Jones" <lee@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>,
  "Alex Deucher" <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Xinhui.Pan@amd.com
-Subject: Re: [PATCH v2 2/2] Kconfig.debug: Provide a little extra FRAME_WARN
- leeway when KASAN is enabled
+Subject: Re: [PATCH v2 1/2] drm/amdgpu: Temporarily disable broken Clang
+ builds due to blown stack-frame
 Content-Type: text/plain
 X-Mailman-Approved-At: Fri, 25 Nov 2022 16:36:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -99,39 +99,14 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 25, 2022, at 14:40, Lee Jones wrote:
-> On Fri, 25 Nov 2022, Lee Jones wrote:
+On Fri, Nov 25, 2022, at 13:07, Lee Jones wrote:
+> calculate_bandwidth() is presently broken on all !(X86_64 || SPARC64 || ARM64)
+> architectures built with Clang (all released versions), whereby the stack
+> frame gets blown up to well over 5k.  This would cause an immediate kernel
+> panic on most architectures.  We'll revert this when the following bug report
+> has been resolved: https://github.com/llvm/llvm-project/issues/41896.
 >
->> When enabled, KASAN enlarges function's stack-frames.  Pushing quite a
->> few over the current threshold.  This can mainly be seen on 32-bit
->> architectures where the present limit (when !GCC) is a lowly
->> 1024-Bytes.
->> 
->> Signed-off-by: Lee Jones <lee@kernel.org>
->> ---
->>  lib/Kconfig.debug | 1 +
->>  1 file changed, 1 insertion(+)
->> 
->> diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
->> index c3c0b077ade33..82d475168db95 100644
->> --- a/lib/Kconfig.debug
->> +++ b/lib/Kconfig.debug
->> @@ -399,6 +399,7 @@ config FRAME_WARN
->>  	default 2048 if GCC_PLUGIN_LATENT_ENTROPY
->>  	default 2048 if PARISC
->>  	default 1536 if (!64BIT && XTENSA)
->> +	default 1280 if KASAN && !64BIT
->>  	default 1024 if !64BIT
->>  	default 2048 if 64BIT
->>  	help
->
-> Note this also fixes 61 warnings when
->
->   (GCC && !GCC_PLUGIN_LATENT_ENTROPY)
->
-> ... which as Arnd says should not be enabled by default.  We'll
-> address that issue once this set has been applied.
+> Suggested-by: Arnd Bergmann <arnd@arndb.de>
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-Thanks a lot for checking this!
-
-Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+Acked-by: Arnd Bergmann <arnd@arndb.de>
