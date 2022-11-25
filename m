@@ -4,58 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3706C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 18:19:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B279C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 18:37:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE9D410E78D;
-	Fri, 25 Nov 2022 18:19:03 +0000 (UTC)
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94DF110E789;
- Fri, 25 Nov 2022 18:18:58 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- t19-20020a9d7753000000b0066d77a3d474so3115118otl.10; 
- Fri, 25 Nov 2022 10:18:58 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2B3F10E138;
+	Fri, 25 Nov 2022 18:37:19 +0000 (UTC)
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [IPv6:2607:f8b0:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A5EC10E138;
+ Fri, 25 Nov 2022 18:37:16 +0000 (UTC)
+Received: by mail-oi1-x233.google.com with SMTP id q83so5225028oib.10;
+ Fri, 25 Nov 2022 10:37:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Mud0IdWnZA5/vZw/T0Fn4wNfLRdDkVHWWgkfE744iwg=;
- b=dnawR48LjXCGw6CfXW2m3FxrrPVwm3/fdiJIwDKzBAayRKjgtYviH59l1ynnJS0+sQ
- 3dIBMeSc7JYwl0ry1oe1FNBcDUE9arWH5rM/zjwqnFSEkMQ/d8q/Ni9eydxGrussopKu
- f8Zz9JUwpdQjkR+m8TsTG0Ptti+OmGYnwwOUe1WrzFqrqDvuUMFon16L6ApxpBt2EQj2
- z8aO5153+5paPG6mdBilKhDViIHNvK4OuLkHvodbCeWIeb+8ByZ9JLz1sgcBef2LWgtz
- QWSIUmI/NB4w4vI1hqcpMAVYnogFpV+0oW7+wQpefTjx6J38z7KbL7hUmFHNS05XqvEH
- WcuA==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=JrIWWTArvfw6qlTZXNbMb50dkrBaGnKBPGMIkmPfyYs=;
+ b=C4P2Vrl7hEIEB7F7Xtn4OUTi1QbIyZ6edjOOihE8vmHswgNMfx3/VNBIdAJgmHIj8z
+ E3KcZ+hHke0dsBtKfjT4rXUpuC0mSZvHvcePwIIXAf8NuA/gPTF3+fByN/FpBD/BioNC
+ q4674HA5KKMBc4ctZbPNqUi+bbUEn1L0f3L3ja1qdVD+Su/nR1RGsFayuHBBJuEpDaHe
+ 30929pdB0fofxGKMYoB5BUuyFnDbv0NGtrQssBDSc/5ISYBj2iOxRhJSc2q6H8OeQqBw
+ 0TjSpeWLX3DTci40Mi0gkC0TRkcAuC6XvGq704rK4EelFkjLXzEN+1OzgKxpaKMYPDhx
+ gwog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Mud0IdWnZA5/vZw/T0Fn4wNfLRdDkVHWWgkfE744iwg=;
- b=0qAr2hiB7w51NpVqJP1dLbZqIqERDeceQDp3jYtCAe/BKDouNeP1jmNyWz+aHGJa1v
- IHWjlk9p75JDuOmjI41qPBh6xapfBI0va4xGwlkc0r8YY9FuFBIb+pOh/v/F5Znopl/t
- wJKTGIByIsu+p9rFQpqCemCAy9Iorc5Ujqrjpu0IIcb5wf07CsH/chxdARKDgR6Fk4v1
- vg9k/eHx8wutSemk9Sgd8iLsukXvZX4D3qkDOVZvOsGzby3tkaOOJUa5NjMnD3g5O57C
- Zv8RQlU+Xl6A/OFGI77kOpnysrWAbK4l1ZOh3Bxx0k+mIipvSn3hSMilOCvMDaBwsvxV
- vkoQ==
-X-Gm-Message-State: ANoB5pl2SVHqY/ljRPRBNFrXlRky37ojld14bFHlTVyRTZq4dMJA4dYC
- V35lspWAkfI+spU83JN4mRN9X28LE/yTipb1Ogg=
-X-Google-Smtp-Source: AA0mqf5+jo7+zTlV4KtcgCDY+3kGfkbcSdUNGqt0t3QS5cBwjBZfBJf0VoatwfXE6OnVwNmHxM5Tj6JbNfeS1aioTRU=
-X-Received: by 2002:a05:6830:1b62:b0:66c:7982:2d45 with SMTP id
- d2-20020a0568301b6200b0066c79822d45mr9930336ote.123.1669400337678; Fri, 25
- Nov 2022 10:18:57 -0800 (PST)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=JrIWWTArvfw6qlTZXNbMb50dkrBaGnKBPGMIkmPfyYs=;
+ b=XSBKMe/AMFOsa0K8JSujkvTLJ/FJAWeWm4LWYGulYp1GbK2Yo++q6WWQsQLzM8pvU8
+ lIeSZGA9ySi1aGXQYjKD/zIKUIVYsVisOpoUd6TKMGeWM3jvl6/eyfpPbi+L+PyW+hFr
+ yqxcZVn1Qpl4r4HhIYhIqzTU/wuYepFsXlIxaPQj5NF+CRsUi5X8U/SZfaTr+ODiiWTv
+ sdZ/q+xFJQr0VwU3xSa7ZgDj4wJNjrkDrRl8mAWSeo35b4NMW6JscK1191nY7lamuuKw
+ khNiIEGvIzG75/cgKdr/+r1y1JlY6C4epu7kFL/hAxwtks8A5PlH6wj8j0aV39VeF2Dc
+ QR3Q==
+X-Gm-Message-State: ANoB5pkHeMDMci6d6ta5LbtJHj+LAV49tm1d3qC3B3Fd2vGgB/SKIg9a
+ X4koc01QuPHg1+xu9NybPd9+8KRYcj9S560grx4=
+X-Google-Smtp-Source: AA0mqf7G6q+3dXnRLytPX3s0qOai1gefxjo8z+tNKT990k/9qYMqWR+fuE1aVHZuVFgWAr0e/o58PBt/0dLnzzJKDgw=
+X-Received: by 2002:a05:6808:9b8:b0:34f:97ea:14d with SMTP id
+ e24-20020a05680809b800b0034f97ea014dmr9477171oig.96.1669401435418; Fri, 25
+ Nov 2022 10:37:15 -0800 (PST)
 MIME-Version: 1.0
-References: <20221125102137.1801-1-christian.koenig@amd.com>
-In-Reply-To: <20221125102137.1801-1-christian.koenig@amd.com>
+References: <20221122113043.18715-1-wangxiongfeng2@huawei.com>
+ <20221122113043.18715-3-wangxiongfeng2@huawei.com>
+In-Reply-To: <20221122113043.18715-3-wangxiongfeng2@huawei.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 25 Nov 2022 13:18:46 -0500
-Message-ID: <CADnq5_NFXJCOD7bLS7Ax5W09To_J6bBfCj4_+1tDP5r9kFxnvQ@mail.gmail.com>
-Subject: Re: [PATCH 1/9] drm/amdgpu: generally allow over-commit during BO
- allocation
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Date: Fri, 25 Nov 2022 13:37:04 -0500
+Message-ID: <CADnq5_Piq=o_OHh=tdLs8UZQGbYd8SAPBswoZHytE+MnD7Mvag@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Fix PCI device refcount leak in
+ amdgpu_atrm_get_bios()
+To: Xiongfeng Wang <wangxiongfeng2@huawei.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,98 +65,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Xinhui.Pan@amd.com, lijo.lazar@amd.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, yangyingliang@huawei.com,
+ alexander.deucher@amd.com, airlied@gmail.com, christian.koenig@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 25, 2022 at 5:21 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> We already fallback to a dummy BO with no backing store when we
-> allocate GDS,GWS and OA resources and to GTT when we allocate VRAM.
->
-> Drop all those workarounds and generalize this for GTT as well. This
-> fixes ENOMEM issues with runaway applications which try to allocate/free
-> GTT in a loop and are otherwise only limited by the CPU speed.
->
-> The CS will wait for the cleanup of freed up BOs to satisfy the
-> various domain specific limits and so effectively throttle those
-> buggy applications down to a sane allocation behavior again.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Applied the series.  Thanks!
 
-This looks like a good bug fix and unrelated to the rest of this series.
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Alex
 
+On Tue, Nov 22, 2022 at 6:13 AM Xiongfeng Wang
+<wangxiongfeng2@huawei.com> wrote:
+>
+> As comment of pci_get_class() says, it returns a pci_device with its
+> refcount increased and decreased the refcount for the input parameter
+> @from if it is not NULL.
+>
+> If we break the loop in amdgpu_atrm_get_bios() with 'pdev' not NULL, we
+> need to call pci_dev_put() to decrease the refcount. Add the missing
+> pci_dev_put() to avoid refcount leak.
+>
+> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+> Signed-off-by: Xiongfeng Wang <wangxiongfeng2@huawei.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 16 +++-------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  6 +-----
->  2 files changed, 4 insertions(+), 18 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gem.c
-> index a0780a4e3e61..62e98f1ad770 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -113,7 +113,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *ad=
-ev, unsigned long size,
->         bp.resv =3D resv;
->         bp.preferred_domain =3D initial_domain;
->         bp.flags =3D flags;
-> -       bp.domain =3D initial_domain;
-> +       bp.domain =3D initial_domain | AMDGPU_GEM_DOMAIN_CPU;
->         bp.bo_ptr_size =3D sizeof(struct amdgpu_bo);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> index e363f56c72af..30c28a69e847 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> @@ -317,6 +317,7 @@ static bool amdgpu_atrm_get_bios(struct amdgpu_device *adev)
 >
->         r =3D amdgpu_bo_create_user(adev, &bp, &ubo);
-> @@ -332,20 +332,10 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev,=
- void *data,
->         }
+>         if (!found)
+>                 return false;
+> +       pci_dev_put(pdev);
 >
->         initial_domain =3D (u32)(0xffffffff & args->in.domains);
-> -retry:
->         r =3D amdgpu_gem_object_create(adev, size, args->in.alignment,
-> -                                    initial_domain,
-> -                                    flags, ttm_bo_type_device, resv, &go=
-bj);
-> +                                    initial_domain, flags, ttm_bo_type_d=
-evice,
-> +                                    resv, &gobj);
->         if (r && r !=3D -ERESTARTSYS) {
-> -               if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
-> -                       flags &=3D ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED=
-;
-> -                       goto retry;
-> -               }
-> -
-> -               if (initial_domain =3D=3D AMDGPU_GEM_DOMAIN_VRAM) {
-> -                       initial_domain |=3D AMDGPU_GEM_DOMAIN_GTT;
-> -                       goto retry;
-> -               }
->                 DRM_DEBUG("Failed to allocate GEM object (%llu, %d, %llu,=
- %d)\n",
->                                 size, initial_domain, args->in.alignment,=
- r);
->         }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_object.c
-> index 974e85d8b6cc..919bbea2e3ac 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -581,11 +581,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->                 bo->flags |=3D AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
->
->         bo->tbo.bdev =3D &adev->mman.bdev;
-> -       if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA |
-> -                         AMDGPU_GEM_DOMAIN_GDS))
-> -               amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU=
-);
-> -       else
-> -               amdgpu_bo_placement_from_domain(bo, bp->domain);
-> +       amdgpu_bo_placement_from_domain(bo, bp->domain);
->         if (bp->type =3D=3D ttm_bo_type_kernel)
->                 bo->tbo.priority =3D 1;
->
+>         adev->bios = kmalloc(size, GFP_KERNEL);
+>         if (!adev->bios) {
 > --
-> 2.34.1
+> 2.20.1
 >
