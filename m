@@ -4,63 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55534C4321E
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 10:22:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C90B8C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 11:14:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 566F910E71B;
-	Fri, 25 Nov 2022 10:22:03 +0000 (UTC)
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B7A010E627;
- Fri, 25 Nov 2022 10:21:48 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id o30so3102036wms.2;
- Fri, 25 Nov 2022 02:21:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=ThoC9BlA4uS4+BJNMy5V7KH5AR+BD77ENoFY2rH+hUc=;
- b=H2qMSFsxldnwxvc2sxGcBsHzaEz+N6vNI6ZhHVgifIbPqBfPAN4E/8E/OX12Nx55Hk
- VuQuNDCWwQtPUvPsMNFXmuyAk1AlVz2ZGKl8TG8PP0OjiLQtu4/1nUVz2JmgkdUBWaYK
- v3ac8clJ9hhw3EXtlGk5fS4YIYC9rh9IozCScHGST/h1pJg2T1U5nDFcLT3Wmor+DNGS
- KQBLO8JHqBxIwUJSSiDFbnVrG2rULQQq7NPlnh22bKpPkV12yk5xL6PXOTlGLTazrPgL
- y27GPD0n/ZOAIVn5gApa6clJqCBjtkoX+CwpU3FNsBIk3Q4BjkjM4Wfcm7bekH4kic00
- kEAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ThoC9BlA4uS4+BJNMy5V7KH5AR+BD77ENoFY2rH+hUc=;
- b=M07hDhIJbGAlRQ8F4smwBaYb3e4/zC1FmPSsPCJZB3KFabneMRW/Q9cum/22+uiSSf
- b3OPWLQDfLobpkO8Q7A4DZrwPfpQtxfwoN1t3zf4+hC6Mo6zNrp0nVi7Ppv2xk3o2Dt/
- kfUzfHBtNY7aH67k8tB/gmjCIA6KRqLJtUCXhAkn2Lx1lX5xVL4VrAfYHJeZ2pEQXB2I
- RtWIRAQ7wU/e0HVG3Ay1igfv+XNL4OKgTA1cKvMkAtmcPGsC+Hx1/RTZ8srmz2GCGD+j
- wdS/eZxByCcymV7bviLY3gSPfZlUwz6xwSuZP31bA400pLLbCpJ/jcd5Z4/NpmwpmcFG
- qetQ==
-X-Gm-Message-State: ANoB5pnWxjUjnWbPdoyolcuSjL67YBhfKF9odkUnQEzZ7uAREESDCh/m
- w+c1mZGJKAXM7bR2kuJKdKZ0FONoQrY=
-X-Google-Smtp-Source: AA0mqf4cGoMfIGODx1aFJKkRXq9EvQGvcTRP7x/5Zkg4ldqc8sxA0I31KExdlqkTQ1d9Q2WPaqTmuQ==
-X-Received: by 2002:a05:600c:19cc:b0:3cf:7bdd:e014 with SMTP id
- u12-20020a05600c19cc00b003cf7bdde014mr21042693wmq.1.1669371706306; 
- Fri, 25 Nov 2022 02:21:46 -0800 (PST)
-Received: from able.fritz.box (p5b0ea229.dip0.t-ipconnect.de. [91.14.162.41])
- by smtp.gmail.com with ESMTPSA id
- u2-20020a056000038200b00241cfe6e286sm3351193wrf.98.2022.11.25.02.21.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Nov 2022 02:21:45 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 8/9] drm/ttm: use ttm_bo_wait_ctx instead of ttm_bo_wait
-Date: Fri, 25 Nov 2022 11:21:36 +0100
-Message-Id: <20221125102137.1801-8-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221125102137.1801-1-christian.koenig@amd.com>
-References: <20221125102137.1801-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEF5610E72C;
+	Fri, 25 Nov 2022 11:14:49 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E50DD10E72C;
+ Fri, 25 Nov 2022 11:14:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1669374887; x=1700910887;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=6vQDUUCmN97OeyrTkEtUVUUPMl1l0TNrYP591bjYOJs=;
+ b=HEC2rmH0nXZJEiKB69E/ywYwPQ4mjCRd5NygK7PRne6bCn3f7GHCv8cD
+ 4kdDj4i0wKtxlc987IG/jK8hm8t9IPXyl3n1cG/7oWkrktKBxRorbE1Ij
+ Xgw0NTEvWR0XF9t5p2qQbZ+znwi2vgZxv7FdvQWTnRw+JEeejqZWeQsQg
+ RxxzkWqqYTGHYRI1Gs9hb+TcR5ByZhRTn/sGkCuyNy6NMl3iAMKaWVvAH
+ FV9Zm5mhFnpgIr71qzF3GMoyvefSwjeH6wswgIzZ5FovIeKzOzRTbalbX
+ TNHn5l6RfHvaqwRjfHNgAQkZ6Kl5NINHf6Y3a2Sohlwm0h0VDz6SJuVeH g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10541"; a="376607627"
+X-IronPort-AV: E=Sophos;i="5.96,193,1665471600"; d="scan'208";a="376607627"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2022 03:14:46 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10541"; a="620310984"
+X-IronPort-AV: E=Sophos;i="5.96,193,1665471600"; d="scan'208";a="620310984"
+Received: from jbrophy1-mobl1.amr.corp.intel.com (HELO [10.213.194.13])
+ ([10.213.194.13])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2022 03:14:44 -0800
+Message-ID: <d92312af-3c84-8bd9-108b-719fb1ec3a6b@linux.intel.com>
+Date: Fri, 25 Nov 2022 11:14:41 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [Intel-gfx] [PATCH 7/9] drm/i915: stop using ttm_bo_wait
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Matthew Auld <matthew.auld@intel.com>
+References: <20221125102137.1801-1-christian.koenig@amd.com>
+ <20221125102137.1801-7-christian.koenig@amd.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20221125102137.1801-7-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,35 +67,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make sure that we use the correct settings from the context.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/ttm/ttm_bo.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
++ Matt
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index f9d9fd2d865d..cd266a067773 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -439,7 +439,7 @@ static int ttm_bo_evict(struct ttm_buffer_object *bo,
- 	bdev->funcs->evict_flags(bo, &placement);
- 
- 	if (!placement.num_placement && !placement.num_busy_placement) {
--		ret = ttm_bo_wait(bo, true, false);
-+		ret = ttm_bo_wait_ctx(bo, ctx);
- 		if (ret)
- 			return ret;
- 
-@@ -1190,7 +1190,7 @@ int ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
- 	/*
- 	 * Make sure BO is idle.
- 	 */
--	ret = ttm_bo_wait(bo, false, false);
-+	ret = ttm_bo_wait_ctx(bo, ctx);
- 	if (unlikely(ret != 0))
- 		goto out;
- 
--- 
-2.34.1
+On 25/11/2022 10:21, Christian König wrote:
+> TTM is just wrapping core DMA functionality here, remove the mid-layer.
+> No functional change.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 9 ++++++---
+>   1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> index 5247d88b3c13..d409a77449a3 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> @@ -599,13 +599,16 @@ i915_ttm_resource_get_st(struct drm_i915_gem_object *obj,
+>   static int i915_ttm_truncate(struct drm_i915_gem_object *obj)
+>   {
+>   	struct ttm_buffer_object *bo = i915_gem_to_ttm(obj);
+> -	int err;
+> +	long err;
+>   
+>   	WARN_ON_ONCE(obj->mm.madv == I915_MADV_WILLNEED);
+>   
+> -	err = ttm_bo_wait(bo, true, false);
+> -	if (err)
+> +	err = dma_resv_wait_timeout(bo->base.resv, DMA_RESV_USAGE_BOOKKEEP,
+> +				    true, 15 * HZ);
 
+This 15 second stuck out a bit for me and then on a slightly deeper look 
+it seems this timeout will "leak" into a few of i915 code paths. If we 
+look at the difference between the legacy shmem and ttm backend I am not 
+sure if the legacy one is blocking or not - but if it can block I don't 
+think it would have an arbitrary timeout like this. Matt your thoughts?
+
+Regards,
+
+Tvrtko
+
+> +	if (err < 0)
+>   		return err;
+> +	if (err == 0)
+> +		return -EBUSY;
+>   
+>   	err = i915_ttm_move_notify(bo);
+>   	if (err)
