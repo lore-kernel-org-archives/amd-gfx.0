@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49E69C43219
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 16:36:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFDF2C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 16:36:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D378E10E10B;
-	Fri, 25 Nov 2022 16:36:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33E6E10E10F;
+	Fri, 25 Nov 2022 16:36:46 +0000 (UTC)
 Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F26410E5D5;
- Fri, 25 Nov 2022 10:05:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB47E10E5EB;
+ Fri, 25 Nov 2022 10:10:09 +0000 (UTC)
 Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id E5F2B5C0097;
- Fri, 25 Nov 2022 05:05:46 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id C968D5C011C;
+ Fri, 25 Nov 2022 05:10:08 -0500 (EST)
 Received: from imap51 ([10.202.2.101])
- by compute3.internal (MEProxy); Fri, 25 Nov 2022 05:05:46 -0500
+ by compute3.internal (MEProxy); Fri, 25 Nov 2022 05:10:08 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
  :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
  :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm3; t=1669370746; x=1669457146; bh=nCUDBJBJHd
- ePT/oDuUKf6UFCDmSjLUzfGVmKPcZYTHc=; b=oc85BrLut4eMUnLgtSRs1dBRTq
- yTswdBUuAAzRMymMAHCp/TQIRDoBx518DMQgvdN0tkYLQJpNvtdYuXNpOQesU0I+
- oRLgfx53QU9qBPgO7jaUGNLiJeQGDpik4jgwggvcyPCGzcdvSg+OtH3Ttk6zJbtT
- PCPek/BYIY+11yocO7hR6Gqs5UHpbXoLhXqS4Fz/99rnMxXfdBXPv1CB216C4LOm
- F5EVAtvkGVYzC9NsMSCA55+arEPPG4yXyg1HXi0uYp7j+K6qOdXBKmQkRHQZhGzZ
- Q3IXjBaj2FpFr0oL3GgWK5EOwHIDITpVSqgSzCViu/6hKxGsj0zQ1A0BXVUw==
+ :subject:to:to; s=fm3; t=1669371008; x=1669457408; bh=sHNDwussAO
+ DPs0bMRD5Q0+uhuwgj3HV2Euo1WwhXFms=; b=WvsTSkpj57FeW2bCYcSxBN7GZB
+ RPS6+d8Z0kwTQY+YsMFHTPYXUhPpmBpzM6Ijib4RH+CthsoBH7d7qhVMs1xPpKOl
+ 2msAxkxW77eYdm2K+gLQ0VsnVBk9bGZ2/vXTok/XmP5Z2RTc49gyR91hY2Dutp89
+ pmMyj8xAAHD9Ei7QsNpCxzgtGSitxX37UY50av3jRTQZqAf97Nqus9dH7vJloAA4
+ mA5yBq3AZwT2LO9UzIbwtgZEHk/aqVk2qpMCm+Eph1c10hKDzhaA2VF2JsaihDhn
+ gxRStJZabserBvI47e8uqsnYBhjRfSbEtv5fdFn8H5ywNOjxUiWDXlLN09eg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
  :feedback-id:from:from:in-reply-to:in-reply-to:message-id
  :mime-version:references:reply-to:sender:subject:subject:to:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; t=1669370746; x=1669457146; bh=nCUDBJBJHdePT/oDuUKf6UFCDmSj
- LUzfGVmKPcZYTHc=; b=ggjyDftopnn52yQ2dDvZS842qcWdpe2HJmciqGNBdASv
- pNuccXdeNieJIhwXCRb09AHgoOg9k/z3sqKT7kT+ekaYpfqaywl7agbgTTiIlF3+
- WSHZGyjwnK/JFMXWbK98v94+qUcJnpAoU2WWhud10sTVXfe3tYLarAzoJFCeoWED
- s/Jvbh+gkf4WCnyn1qiLsXayabbm7irh8J7kTXEJmJC+PoheT71zl69x5M3BRkhy
- pgh6dzcj03fFnzCpZLLNAIwaDoSz9dJwPJkO+SigUonK+JegC22mEy110GII/zet
- D9yxsIrf8q+KwtM5Qcs8i0v7r7DzI1HZzsgvUoBDlw==
-X-ME-Sender: <xms:epOAY-3Eda9GKDnL0an58UF2OVpH0x6YAVoG1C_Sdtgb3vikBvwipA>
- <xme:epOAYxHjg9wa3ByCOZWnpG1N28dOcQDleoLQhy88eiqhIEAxBPDOIrfj7cFFVoDtR
- QdTOMhYUGeiMy5y4qQ>
+ fm1; t=1669371008; x=1669457408; bh=sHNDwussAODPs0bMRD5Q0+uhuwgj
+ 3HV2Euo1WwhXFms=; b=fJ0rcyJaeCm/CRMm12MXRsYMFCzv8arZ6TCxIh6NDMHI
+ sjkPltkiy/h8jKPZ1JHPlMFQGY4T0jDmahKzTjKV2bsRsoJwt0tJfHM44j7uBde+
+ ngcbjypLIGe6x3NS7MQBrgkvFDOM9hIfoDOpRxbht78CWJqpp0Hdr3lehW/PRbjB
+ 7NEYapsfiSDLaubOarcX6k+XFLJu6zwmRZ9DP2jsgtc0TTxHdZYG+2tz61qdFOvy
+ OCV/5ev7CA0mR/KQRqtZeQCZ15bJJdGOXxAUMCOMSY9y8TVzSEscgaFRKtD45xLp
+ SEr+bSwi2fmXxZUJEU2s/wBNLwl0sW+/oue2/+yYNA==
+X-ME-Sender: <xms:gJSAY6qPRPh2Cq0b0CQ4lAsfnMviHcWLAs58MPV8e0TF2CUpuvom4w>
+ <xme:gJSAY4oD8nKYgXIRUH0L7piwat9Elpsj2GRtCZ2am-87NsahTxTBWGyq-hstdhC_5
+ KoVtwi__B9LGLIsYF4>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrieehgdduvdcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
  fjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdetrhhn
  ugcuuegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrghtth
  gvrhhnpeffheeugeetiefhgeethfejgfdtuefggeejleehjeeutefhfeeggefhkedtkeet
- ffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrrh
+ ffenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepmhgrihhlfhhrohhmpegrrh
  hnugesrghrnhgusgdruggv
-X-ME-Proxy: <xmx:epOAY25MNWvqDiJnbPXQ9uy9Y4zHwqSgeaRqeB54Mf9XjqKdBspppA>
- <xmx:epOAY_3Kp6Z2JNnZpur8lT89l6uifeBJU4CvKOGt1Fwvyj5RD9NjMA>
- <xmx:epOAYxGAUHlSw1G2EmHIdcsjKUDlArxIcMu4YFSxe0lU3ZpzeaufaA>
- <xmx:epOAY__-3AAdEaTnWCpWNS3s6huDcSrM1uHPHzV-rz-3qU8_cyt-Sg>
+X-ME-Proxy: <xmx:gJSAY_PV0UbOXz3I4CW9JTI6t5UnpXlfGz0UH1yHmC1kHeUHVdG9PA>
+ <xmx:gJSAY57Wd-iPEEnDS3buE8trakr2m4IKvgvhNMf_PHZTwmdgnbzP_Q>
+ <xmx:gJSAY54ZxL8mrHTzz1YoGTjQeBrGOBoNxFWlONFZAxBWL1F6W9Pdng>
+ <xmx:gJSAY2xCO-nom1RUTGjMIMPJYnJnrp_FGykf51NJev0fCcENkTfvWQ>
 Feedback-ID: i56a14606:Fastmail
 Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 96163B60086; Fri, 25 Nov 2022 05:05:46 -0500 (EST)
+ id 6CDCEB60086; Fri, 25 Nov 2022 05:10:08 -0500 (EST)
 X-Mailer: MessagingEngine.com Webmail Interface
 User-Agent: Cyrus-JMAP/3.7.0-alpha0-1115-g8b801eadce-fm-20221102.001-g8b801ead
 Mime-Version: 1.0
-Message-Id: <aec6ed25-6999-45a7-90d0-121ce315f45d@app.fastmail.com>
-In-Reply-To: <20221125092517.3074989-4-lee@kernel.org>
+Message-Id: <fdce9233-b547-43c9-aea9-3038a1a84a1d@app.fastmail.com>
+In-Reply-To: <20221125092517.3074989-2-lee@kernel.org>
 References: <20221125092517.3074989-1-lee@kernel.org>
- <20221125092517.3074989-4-lee@kernel.org>
-Date: Fri, 25 Nov 2022 11:05:25 +0100
+ <20221125092517.3074989-2-lee@kernel.org>
+Date: Fri, 25 Nov 2022 11:09:48 +0100
 From: "Arnd Bergmann" <arnd@arndb.de>
 To: "Lee Jones" <lee@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>, 
  "Nathan Chancellor" <nathan@kernel.org>,
@@ -78,8 +78,8 @@ To: "Lee Jones" <lee@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>,
  "Alex Deucher" <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Xinhui.Pan@amd.com
-Subject: Re: [PATCH 3/3] Kconfig.debug: Provide a little extra FRAME_WARN
- leeway when KASAN is enabled
+Subject: Re: [PATCH 1/3] drm/amd/display/dc/calcs/dce_calcs: Break-out a
+ stack-heavy chunk of code
 Content-Type: text/plain
 X-Mailman-Approved-At: Fri, 25 Nov 2022 16:36:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -100,34 +100,32 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Fri, Nov 25, 2022, at 10:25, Lee Jones wrote:
-> When enabled, KASAN enlarges function's stack-frames.  Pushing quite a
-> few over the current threshold.  This can mainly be seen on 32-bit
-> architectures where the present limit (when !GCC) is a lowly
-> 1024-Bytes.
+> bw_calcs() presently blows the stack-frame limit by calling functions
+> inside a argument list which return quite a bit of data to be passed
+> onto sub-functions.  Simply breaking out this hunk reduces the
+> stack-frame use by 500 Bytes, preventing the following compiler
+> warning:
+>
+>     drivers/gpu/drm/amd/amdgpu/../display/dc/dml/calcs/dce_calcs.c:3285:6:
+>       warning: stack frame size (1384) exceeds limit (1024)
+>         in 'bw_calcs' [-Wframe-larger-than]
+>     bool bw_calcs(struct dc_context *ctx,
+>          ^
+>     1 warning generated.
+>
+> This resolves the issue and takes us one step closer towards a
+> successful allmodconfig WERROR build.
 >
 > Signed-off-by: Lee Jones <lee@kernel.org>
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+Is this still needed with the patch to turn off the display engine
+on most architectures? On which architecture and with which compiler
+do you still observe the problem?
 
-If this affects only clang but not gcc, I wonder if we could
-limit the scope and keep the 1024 byte limit on gcc builds.
+Note that this probably doesn't actually solve the potential stack
+overflow by itself, since the function that is now split out
+is still called with the parent stack active. Splitting out multiple
+smaller bits however would solve it since then the stack frames
+could overlap.
 
-> ---
->  lib/Kconfig.debug | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-> index c3c0b077ade33..82d475168db95 100644
-> --- a/lib/Kconfig.debug
-> +++ b/lib/Kconfig.debug
-> @@ -399,6 +399,7 @@ config FRAME_WARN
->  	default 2048 if GCC_PLUGIN_LATENT_ENTROPY
-
-This is actually a related bug that we should fix: allmodconfig
-with gcc turns on GCC_PLUGIN_LATENT_ENTROPY, so the limit
-ends up being way too high. I think we need to either ensure
-that allmodconfig turns off the latent entropy plugin,
-or that the limit gets lowered again to something that is
-not any higher than the KASAN limit.
-
-     Arnd
+    Arnd
