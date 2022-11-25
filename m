@@ -4,70 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C47DC4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 09:57:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3EC5C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 10:21:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC09710E5C3;
-	Fri, 25 Nov 2022 09:57:50 +0000 (UTC)
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C1C010E5C3
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Nov 2022 09:57:46 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id n20so9272699ejh.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Nov 2022 01:57:46 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FC8C10E60A;
+	Fri, 25 Nov 2022 10:21:47 +0000 (UTC)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E68A510E607;
+ Fri, 25 Nov 2022 10:21:40 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id n7so6034815wrr.13;
+ Fri, 25 Nov 2022 02:21:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KP+pdLfey8myM74LUSEWqRilU7o29NDYyjn315Ums6o=;
- b=cV5ihGfwibCxopGQmoPcj7JA0D2DaJKCcWKNxulJTMTR6PE04PfOuzI1WIAsdsW/Ww
- eoSzbKoN3cgBOxAUQOU8kYd0KwjkexwqqSYyBmUE389ZchiJQr4EI+oCT0JnUBJAwBDH
- i6jip+PQuZV9q1pWIF5kzrhkqLU0yKcBNowrTE7y8p6Qot82gnQ80b0ADUPS7traLjwt
- KrVULafrvL52Zqem0ME3YGYmMrvv7rOcQFaByYKn0cT9LC+xfzJgOOxPB2amxN6hGyve
- hmqUyode8/zI75R/KUhZg8q2lqB9Rz0qaIJOdDI8SirQWXI/J6/3YiRV8KwFKODrb+wL
- UWdQ==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ew8M0PkxgyobeEwJ5uJ+RaPpgEkLlL9vZ8bbzJQpK5g=;
+ b=X6xsPsWINWOSAfY9hPpBorv7Z0WCK8r5TrALjl4x9wyjMeN1+VVmmtPo3vU0f5I4wK
+ jdVorSyh/AWuallSiiEOwxxwhcyI4ojYSFbIpcjg261sH3oasNhmUjCwfzUCwj6ebEbQ
+ vISeT83wmwsyrFyMrWXqslevhIUsI+CUGJyTOOLfhLgV00dzUlHJh1Gpc75LFcp71cql
+ aXBVJi2/PJFhe5Ms92B2CFi1eh1N5/VnrYQEPlxRdZlaxKaPSRdEVLBa5cC3OJqX80II
+ IrAfwMvv7hKYFM8hK99AOrRZPtEjAmSguRINf/lTAVTNDn7kx559UzGTVaMldLTRJuOp
+ +M+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KP+pdLfey8myM74LUSEWqRilU7o29NDYyjn315Ums6o=;
- b=wi33WKmR2bZXCL4fRW53AzuEBbu0VB2JWYLSzmBUO5tjUy6wg+DBsnBljjh0TPkQqn
- PjJ1FhSbZge1yBJCX59MQ+H5W7Be1ftIuEtJKXuYdP2LnzakERSAKI/L3KXqqqY5ZuIM
- 3/xalDGt42xQb8xvMxL4togl9A1QnXyqSOmr433gFONzXjybcDa3vZDvhRQOBNR+osPk
- FIKctFMk/zmldQdhdYNINezuSleLA1P3jb7Jc5R/+a/p+iz7GhaliTc9yNBmgKSl5P2l
- c74o4tH0izsy5A10GUIaCYEpD+1UI7cJxV71AGyGc1iy81XesKD6p3LHFTWIFiFpIMbo
- U8bA==
-X-Gm-Message-State: ANoB5plkat8nA7uYJY1+dxV5saJr40jyyOAmeQto4huMttiQ73eapFkU
- IP/kC2pE3yz1OPFSpZqH7tE=
-X-Google-Smtp-Source: AA0mqf6oVVPNdUHqowhoFUqpa84+LWEO/v4AgGaz+KQNCbMEiMgDic8+inqemx+mQlV3Rfmk4t21Bg==
-X-Received: by 2002:a17:907:8d03:b0:7ae:1d34:4da5 with SMTP id
- tc3-20020a1709078d0300b007ae1d344da5mr27431361ejc.340.1669370264533; 
- Fri, 25 Nov 2022 01:57:44 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:24a6:d989:49bb:611a?
- ([2a02:908:1256:79a0:24a6:d989:49bb:611a])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ew8M0PkxgyobeEwJ5uJ+RaPpgEkLlL9vZ8bbzJQpK5g=;
+ b=WH+0mZVSdRq14Lje4VJLzxSGjtR/z03eyJvCxGvrDRHoC4Lyo7e5DEfm6rffHlua+c
+ Ve1/jO24s5JsCdq56QAeiSjDqOa3Qbuc3inDkKOCSvgqMxahQnB6xbbojt4roensMfEQ
+ j487n+MgDrWa4y8IfQ2QxNgdyYQLPtaSFpVN/m9wgN+7RJ0sD7rX6s1X+c728bXynkdz
+ r9HG1WhfKERyY7rXkKAeh0tqC2MqxJt27GtkVAQ9EPKCNfqvS4ZbyGmxy9HXJvEi5s5K
+ +MVG6/wcJRC135TBQhQp5Z729kFmLRHRZF8j4uf05dAaOI8mTvQL3j0ro84PYSLaUnrK
+ 0nNQ==
+X-Gm-Message-State: ANoB5pmOazNpXC6Uurd5ADC3UZ8X7aX84J7N3xM7zHIxF8fj7xYBiWkl
+ ROQ3CYQsKb+u8h7RF3hkZQgioEZjj6Q=
+X-Google-Smtp-Source: AA0mqf6g1+4ACRi0mg/NkSnOj4jRe/IFu2qMW4OULjNf0AjDL4JFFzD0XfinhDL8/d7XYd20hJ0Tcw==
+X-Received: by 2002:a5d:620e:0:b0:241:e32f:8371 with SMTP id
+ y14-20020a5d620e000000b00241e32f8371mr9827636wru.156.1669371699275; 
+ Fri, 25 Nov 2022 02:21:39 -0800 (PST)
+Received: from able.fritz.box (p5b0ea229.dip0.t-ipconnect.de. [91.14.162.41])
  by smtp.gmail.com with ESMTPSA id
- p27-20020a17090628db00b007ae4717bef1sm1405438ejd.15.2022.11.25.01.57.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Nov 2022 01:57:43 -0800 (PST)
-Message-ID: <22425c61-9a95-a650-d113-396aa35e52cc@gmail.com>
-Date: Fri, 25 Nov 2022 10:57:42 +0100
+ u2-20020a056000038200b00241cfe6e286sm3351193wrf.98.2022.11.25.02.21.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Nov 2022 02:21:38 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/9] drm/amdgpu: generally allow over-commit during BO
+ allocation
+Date: Fri, 25 Nov 2022 11:21:29 +0100
+Message-Id: <20221125102137.1801-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH] drm/amdgpu: Fix minmax error
-Content-Language: en-US
-To: Luben Tuikov <luben.tuikov@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- AMD Graphics <amd-gfx@lists.freedesktop.org>
-References: <20221124211956.264282-1-luben.tuikov@amd.com>
- <3333dfb6-cc7b-ff6b-e416-62c07cf62740@amd.com>
- <5319277f-5841-4051-2684-93b3a985197a@amd.com>
- <fc5238a2-b30d-579e-ec7d-3686238f8b12@amd.com>
- <52eed51e-e234-aa36-3d74-3a4f39bb1dad@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <52eed51e-e234-aa36-3d74-3a4f39bb1dad@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,115 +71,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>, James Zhu <James.Zhu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+We already fallback to a dummy BO with no backing store when we
+allocate GDS,GWS and OA resources and to GTT when we allocate VRAM.
 
+Drop all those workarounds and generalize this for GTT as well. This
+fixes ENOMEM issues with runaway applications which try to allocate/free
+GTT in a loop and are otherwise only limited by the CPU speed.
 
-Am 25.11.22 um 09:33 schrieb Luben Tuikov:
-> On 2022-11-25 02:59, Christian König wrote:
->> Am 25.11.22 um 08:56 schrieb Luben Tuikov:
->>> On 2022-11-25 02:45, Christian König wrote:
->>>> Am 24.11.22 um 22:19 schrieb Luben Tuikov:
->>>>> Fix minmax compilation error by using min_t()/max_t(), of the assignment type.
->>>>>
->>>>> Cc: James Zhu <James.Zhu@amd.com>
->>>>> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
->>>>> Fixes: 58170a7a002ad6 ("drm/amdgpu: fix stall on CPU when allocate large system memory")
->>>>> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
->>>>> ---
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 10 +++++++---
->>>>>     1 file changed, 7 insertions(+), 3 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
->>>>> index 8a2e5716d8dba2..d22d14b0ef0c84 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
->>>>> @@ -191,14 +191,18 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
->>>>>     	hmm_range->dev_private_owner = owner;
->>>>>     
->>>>>     	do {
->>>>> -		hmm_range->end = min(hmm_range->start + MAX_WALK_BYTE, end);
->>>>> +		hmm_range->end = min_t(typeof(hmm_range->end),
->>>>> +				       hmm_range->start + MAX_WALK_BYTE,
->>>>> +				       end);
->>>> Since end is a local variable I would strongly prefer to just have it
->>>> use the correct type for it.
->>>>
->>>> Otherwise we might end up using something which doesn't work on all
->>>> architectures.
->>> They all appear to be "unsigned long". I thought, since we assign to
->>> hmm_range->end, we use that type.
->> Mhm, then why does the compiler complain here?
-> Right... so MAX_WALK_BYTE is 2^36 ULL (diabolically defined as 64ULL<<30 :-) ),
-> and this is why the minmax check complains.
->
-> So, since the left-hand expression is unsigned long,
-> i.e.,
-> 	hmm_range->end = min(hmm_range->start + MAX_WALK_BYTE, end);
-> is,
-> 	unsigned long = min(unsigned long long, unsigned long);
-> The compiler complains.
->
-> I'd really prefer MAX_WALK_BYTE be less than or equal to ULONG_MAX,
+The CS will wait for the cleanup of freed up BOs to satisfy the
+various domain specific limits and so effectively throttle those
+buggy applications down to a sane allocation behavior again.
 
-That's not only a preference, but a must have. Otherwise the code maybe 
-won't work as expected on 32bit architectures.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 16 +++-------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  6 +-----
+ 2 files changed, 4 insertions(+), 18 deletions(-)
 
-> and be defined as <literal>UL. I mean, why is everything in struct hmm_range
-> "unsigned long", but we set a high limit of 10_0000_0000h for an end, and
-> compare it to "end" to find the smaller? If our "end" could potentially
-> be 10_0000_0000h then shouldn't the members in struct hmm_range be
-> unsigned long long as well?
-
-No, that the hmm range depends on the address space bits of the CPU is 
-perfectly correct. Essentially this is just an userspace address range.
-
-Our problem here is that this code needs to work on both 32bit and 64bit 
-systems. And on a 32bit system limiting the types wouldn't work 
-correctly as far as I can see.
-
-So the compiler is complaining for rather good reasons and by using 
-"min_t(UL" we just hide that instead of fixing the problem.
-
-I suggest to use "min_t(u64" instead. An intelligent compiler should 
-even be capable of optimizing this away by looking at the input types on 
-32bit archs.
-
->
-> And for the timeout, we have the (now) obvious,
->
-> 	timeout = max((hmm_range->end - hmm_range->start) >> 29, 1ULL);
->
-> and I don't know why we necessarily need a "1ULL", when 1UL would do just fine,
-> and then compilation passes for that statement. I can set this to 1UL, instead
-> of using max_t().
-
-I think just changing this to 1UL should be sufficient.
-
-Regards,
-Christian.
-
->
-> Regards,
-> Luben
->
->
->> As far as I can see "unsigned long" is correct here, but if we somehow
->> have a typecast then something is not working as expected.
->>
->> Is MAX_WALK_BYTE maybe of signed type?
->>
->>> Would you prefer at the top of the function to define "timeout" and "end" as,
->>> 	typeof(hmm_range->end) end, timeout;
->> Well for end that might make sense, but timeout is independent of the
->> hmm range.
->>
->> Regards,
->> Christian.
->>
->>> Regards,
->>> Luben
->>>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index a0780a4e3e61..62e98f1ad770 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -113,7 +113,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
+ 	bp.resv = resv;
+ 	bp.preferred_domain = initial_domain;
+ 	bp.flags = flags;
+-	bp.domain = initial_domain;
++	bp.domain = initial_domain | AMDGPU_GEM_DOMAIN_CPU;
+ 	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
+ 
+ 	r = amdgpu_bo_create_user(adev, &bp, &ubo);
+@@ -332,20 +332,10 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+ 	}
+ 
+ 	initial_domain = (u32)(0xffffffff & args->in.domains);
+-retry:
+ 	r = amdgpu_gem_object_create(adev, size, args->in.alignment,
+-				     initial_domain,
+-				     flags, ttm_bo_type_device, resv, &gobj);
++				     initial_domain, flags, ttm_bo_type_device,
++				     resv, &gobj);
+ 	if (r && r != -ERESTARTSYS) {
+-		if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
+-			flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+-			goto retry;
+-		}
+-
+-		if (initial_domain == AMDGPU_GEM_DOMAIN_VRAM) {
+-			initial_domain |= AMDGPU_GEM_DOMAIN_GTT;
+-			goto retry;
+-		}
+ 		DRM_DEBUG("Failed to allocate GEM object (%llu, %d, %llu, %d)\n",
+ 				size, initial_domain, args->in.alignment, r);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 974e85d8b6cc..919bbea2e3ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -581,11 +581,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+ 		bo->flags |= AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
+ 
+ 	bo->tbo.bdev = &adev->mman.bdev;
+-	if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA |
+-			  AMDGPU_GEM_DOMAIN_GDS))
+-		amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU);
+-	else
+-		amdgpu_bo_placement_from_domain(bo, bp->domain);
++	amdgpu_bo_placement_from_domain(bo, bp->domain);
+ 	if (bp->type == ttm_bo_type_kernel)
+ 		bo->tbo.priority = 1;
+ 
+-- 
+2.34.1
 
