@@ -4,121 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A66AEC4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 19:42:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85177C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 20:50:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D281310E795;
-	Fri, 25 Nov 2022 19:42:42 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8304A10E795
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Nov 2022 19:42:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D621E10E7A2;
+	Fri, 25 Nov 2022 20:50:38 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2050.outbound.protection.outlook.com [40.107.220.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2574D10E7A0;
+ Fri, 25 Nov 2022 20:50:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jJRMgyJnnOIh69gxBzXSiVGtWjn8v8YMtZHoUVCWtt6zxjS+tsGCq6cWLrveK6EhoWEa0N/J1Oon8camHrqDKmA+Dio2Mg8NYjlJVQwCNQRyfvbQaw5TnpwIZn1TVp5O+zOtL31PV94Z/sQaZ1sTx9OmdmWYP0IHgAJn2bp4YHoCPaSWjZq9NF4jHeEHxOFVdH+f/piiwWpZiIlsDlarSCWmGwe6Nk2umZJBZMqq8flpqma6tmcWmPzo5/7TpulaqzahAFNdEfrreo1EiDi39NYNKUXt9aSn9S1Qyb5EPBqpo5tJC53bPKiM3Ulr9XsHmYzhQHQop6CCCPgQ91xUVw==
+ b=Sz11yNfESJsM0dqsfqOgaigxjrrWlYyyhYoDvUzm4meUHbjzitCEYxXsHqtmljUBGKsWIhotYdWEBu6bjFGQImmF0+akD+peghofl0SVG2uRYjVhtPCRwetCveN8nUt6GqMoiFsX8GPSi1LI84xrI/9kwy6OZxtVi4NoNcrkKjz95nAwvq3cle9p7eLxxg581aUWc2M9B2+16eHRueiE1K7yUo0cIMxr9j4q2GOtybVC/paMT61ObQ4wMsNfHtuxIQ6ZrR4vTpFo29A5tQ0bcXx0/TSTOuazafi2vTY34WWk/fm3IRsZk2CaEi9kJOg/IUAH0G3QhHjmWUO52egXMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GfZY8QKzh1iNyozkaDdUSh6JPd+KmetOsMXGJHSzTsI=;
- b=f5sDeADjgI4sDEq3d2otH3TmzLxAUkdMbPIY/5sIyhQl/7YDuJwrkKovdBhaJN8hRzhk2rRM1PiiblAUzN5DVDZWVrHuDlfu3NkUB89DAUCAgOuiTc1UzyjNfRtuKfPjWXWQx0l86WHd/7V8kn+yI2nGfmrih8GAUZ6zpZu0uZCBuMSKDlmjdoa7588ua15hCT/OlFy/S77WXCrq6Q62eyt8RXfLXG6EY7NFipOzhA2JEhxHxbobEQe0wGml89c6pTNJHyq5PuXtFNDOij/1Ql7z695zYT+P4ov9E7LxxvU2zf7SoCyQHw2pkBZbjRRIXgtYI3HUgME3EnGKwEKrYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=/0cFnfo5yY4w9ku9swtap4o8e+iJji+2dML7/E3t5iw=;
+ b=bHIZKweHge5GFMlw7VvwXBUbDpQ9uB5uPKQh1rjSmn6YvoCyaMDsgL53xTciWGY6+x0u25XgRxiCy/jH306Q2mbj1AMj6wBqpq+9Ko/ZlQMASDbBEodv0O5R8yvXmhzBSm+F7Jcyj7IAQzKwDOdIuejTq4+iy5qGpxiejQAjzt3Gs7ytIl5UFGoy/drF8+eNKkRpYu/ulpeVolVqEAS3orOu+DVJ+s15QI7S04sYdhQmOB/CXeykk5YreyuHacnOmKqWbIxYTFWXJZirHHqD9IrBOaYhlCOygdJnqZ8u9bBEw70ThmB0CfIYRUca5hahSK0kNbrGXMfbajpJBZXX6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GfZY8QKzh1iNyozkaDdUSh6JPd+KmetOsMXGJHSzTsI=;
- b=jTLlVtfiY1SWyNoh69X7bizs9fXJvM2fxJx48fbcriJZpXnigf0uPBJ/0r4UbOrY2FFXQ80hHPYYcd9mkynPhWhs24ffmwdv+1YhYUTvpAuqbJZCaKnZI2cE/N8drMwnXCF39Wa4f80t7KN1wDGfZL9oWikDWBcnfG6gRRjtSgg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- MW6PR12MB7085.namprd12.prod.outlook.com (2603:10b6:303:238::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5857.20; Fri, 25 Nov 2022 19:42:36 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178%3]) with mapi id 15.20.5857.018; Fri, 25 Nov 2022
- 19:42:36 +0000
-Message-ID: <856f03cb-a226-1525-bccb-79bab4c6f6df@amd.com>
-Date: Fri, 25 Nov 2022 14:42:34 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH] drm/amdgpu: Fix minmax error
-Content-Language: en-CA
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- AMD Graphics <amd-gfx@lists.freedesktop.org>
-References: <20221124211956.264282-1-luben.tuikov@amd.com>
- <3333dfb6-cc7b-ff6b-e416-62c07cf62740@amd.com>
- <5319277f-5841-4051-2684-93b3a985197a@amd.com>
- <fc5238a2-b30d-579e-ec7d-3686238f8b12@amd.com>
- <52eed51e-e234-aa36-3d74-3a4f39bb1dad@amd.com>
- <22425c61-9a95-a650-d113-396aa35e52cc@gmail.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <22425c61-9a95-a650-d113-396aa35e52cc@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0065.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2e::34) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+ bh=/0cFnfo5yY4w9ku9swtap4o8e+iJji+2dML7/E3t5iw=;
+ b=js5YjPYc38frnUDV9rbK3IvykQ3aKIKDiE7W3T6GC8552eVjeMvmnHjpTDBtYfVA+U2ESNAOjLx6rog1cjWDGlQ2E6qU6cWJ3/LqbB7BuQIdvvpx3YUVZNnnOUwkThDARsAfFM8jpK6yX927lNugCwBFEt+zU2D6DqVw4PTer4Y=
+Received: from DM6PR11CA0016.namprd11.prod.outlook.com (2603:10b6:5:190::29)
+ by PH0PR12MB7905.namprd12.prod.outlook.com (2603:10b6:510:28b::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.19; Fri, 25 Nov
+ 2022 20:50:33 +0000
+Received: from DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:190:cafe::c7) by DM6PR11CA0016.outlook.office365.com
+ (2603:10b6:5:190::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.20 via Frontend
+ Transport; Fri, 25 Nov 2022 20:50:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT020.mail.protection.outlook.com (10.13.172.224) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5857.18 via Frontend Transport; Fri, 25 Nov 2022 20:50:32 +0000
+Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 25 Nov
+ 2022 14:50:31 -0600
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: fix PSR-SU/DSC interoperability support
+Date: Fri, 25 Nov 2022 15:50:43 -0500
+Message-ID: <20221125205043.373331-1-hamza.mahfooz@amd.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|MW6PR12MB7085:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b8275bd-3381-44b2-8533-08dacf1d346a
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT020:EE_|PH0PR12MB7905:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b65d604-60f3-4425-174c-08dacf26b20a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YrtylW4sJetIchju7BVVmdkqCpk+f4M3X+17utR49uhlYHqaJPjMur3HppkdREUDup0CI7TmKxO5AohF/rpdER3ttPRNkJfKLreNNbM0kxJ3tLxG3oKIGfamfCyYCC3sRnPj82nSbrxyoTpdkvKysPgBcWqMUWiqvpx1MjgWwh5d90qYSGB+w0uwFLL3tcFkrt0Cul6J/Nffdk5J7CYnhS9tiDrj01Hw7aoraWVPHGh+3aax5GtNRQ4i/BFkOYzpJpegMulkXarOEZ6Fxs14gc0f/feVh6b/zKOjETyZ3iN7VyT+4w5P8BZvhDrLEbjWC79qeJg5hOyQXdb08ZsEJnvinUwTFiYzxxwLYvP8osmOqqPuJqXKt7S6ZDE6+lemUU58o4Ho/ynP7ienL8TmYf5Phm7mqQRz8bEAJwZC9ZlviPgvsiTsUhDWuDtiy3d4xp/WmURmMH5Kfe6TvHIR1Wptz05h14lzUg/ZIPxZvb0dx3OAP+9w/1LHsUwak4Mvu9+88vdXkeBCGS3hxDqRHmXvZa7tEfQhE5txFY1ZYn1ftbJt2bM7MM0lWMxbWvjLiGFwm2mQRf1yhxwUjptPzluOmN+Y9hC100Zz15GA5JDePU+AoUAQBwf3JFQ3J36Ttq9Xy32H+adNmWjBvgt10J3qkhbWxYCQHKlUB4e0ltuTWoIoiPr17N/jNQUdaPBsCb0rZ2Qi3C5QBhfodCfjDV5IwNO7ThLOxz6WCiuTk44=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(136003)(376002)(346002)(396003)(366004)(451199015)(186003)(66574015)(6512007)(53546011)(26005)(6506007)(36756003)(6486002)(4326008)(110136005)(66946007)(66556008)(66476007)(8676002)(5660300002)(41300700001)(54906003)(2906002)(4001150100001)(478600001)(38100700002)(44832011)(31686004)(83380400001)(2616005)(31696002)(86362001)(8936002)(316002)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: sv3NUxJUjDw7KK0hEqxdArv2lIA4xnmPjLlTOBsVfVMXsGHwZ58SpKEsFUcjzoJIQGM5PvS4DYEOMBlM3iO1UxEeGLDcWbhhQPhJVawE8Q7gLE2lTaU6YLD/7rENoLnkFofaGfiIEuW/vO9H4wn43JbFDkvj9DN3D7On+LHwhyvdSmOKkvDiA0Z9x6K08KsjWRN0RiH7yGgD/18F82xctft3jv3e1KAZl/k3XubpjP36CM7AcNId3ng00gTyUBMM02HhXLsuwAhkQYrML+uj0ltcJHgyGiEYMRWMMShtj4mjqo1UP3flfq7+Jz2NeVp4hMSW6byiybKsfWk/86gmLZ652lhelAJ//ejoqOALY8l6D01duoxRMYFhbo1EzaXsGE0/F6u6J9+4lV6sremQFFZiuE5NP33LnDo04lVsLZRvgJjPNzO2KuTbCh573pvxNYvbRooxIZUQS5INRqmzphrRuxYFoABe49dI13C8ph8cKaJMtdvTGG3H4G6mm9sUJOnWWChcFwen2hcZWslJJbJv7chZDOBwDXfKCyI0xfyyJ/Wlaj1BYBCXJkcm1/QINfvOfPYUX6qvRhQtTyEmYjyeZuTTE+bg7zbKZSMO/a2Hrl2SB5+w+rBbf73bJpXaP3YchovZ98O3dUT1Ui9NSIyS6RkMpbLrsXQZ+j8HpnzT8U8PWLgdy43TOWHzcAsIGvtda7sQPGzzYZBdGyeP4mT3dCHqhhRhhlU5uwQarQYoSxdkYacx5uRXvE7sB6mmoLGlakPuLrrksjiniTtZPQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(396003)(346002)(376002)(136003)(451199015)(40470700004)(36840700001)(46966006)(86362001)(70586007)(40460700003)(70206006)(41300700001)(356005)(36860700001)(82740400003)(54906003)(8676002)(4326008)(82310400005)(81166007)(8936002)(316002)(6916009)(5660300002)(426003)(47076005)(83380400001)(44832011)(2906002)(40480700001)(478600001)(6666004)(1076003)(186003)(16526019)(2616005)(336012)(26005)(36756003)(16060500005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QjN0U04vQkhNQytBY2dPV2ozUzRFWWxjRUp2ZW9MaXU0ZE1pOVljdm4yUU1U?=
- =?utf-8?B?elZIWkJyTHhlaFM2YzVITTJBaHdTZ0Zoa2dXdGNsRHQrV1RPSUU2NmJkVno3?=
- =?utf-8?B?Rkp2KytPWU41ZkhBdGM5R2FVMGpmVng5ZlJEY1g1Z0cxc2xaYk12VzJVNDJD?=
- =?utf-8?B?NDNqdWM2VEdyVSs3OU1sZVpIYk01N0Q5TkthNlkxVnJ1WXZMUmJXeURPRllM?=
- =?utf-8?B?a3ZCT1VEU0VnTWVoL3RnYUJoekZIc0lTSzJtUng3dTI0UHIzbUU4T095MDFH?=
- =?utf-8?B?SkpNWDdlbjNxVVg0dU9FODB5UDEwaFRrSGZNdnNOeFdtZHR3RmdQZU9KbmZO?=
- =?utf-8?B?VWU5ZXNVQUJ6SlFHY0Jrd3BnSGxvaEhKZ2RtMGs3bEdxSXVzSEVKS0RPcFF0?=
- =?utf-8?B?a0lCaFFyZFp3ZUNwd3VKNXA3SThPL284ekJqK2N4S254N0R0VmZ6TCtiUmt0?=
- =?utf-8?B?SWUrUnY3V0hyd1R5RWZtZEpyNisreCt2K1orR2N5UkpBWjR1YkQzc3JUd3Q3?=
- =?utf-8?B?cmNpV1JyVzJsY0VaN3hmZmV0cVYzL2RVcVY1ekdMT2Rkb0czWGtQL0dOcHcz?=
- =?utf-8?B?am9QMFBwbU9hUi9kUEZVbmlhODBDYjhUMVZDUGFrNHh4WFhCOEFHTThkMkJ5?=
- =?utf-8?B?K0RIL2lyZDdMTUhLOHRsNGVFcUZPWlVwNEtjZlFwN0lmN2RabVhtUllpRDlv?=
- =?utf-8?B?amhlTG8zRnkyTURNMDdmVlFHcGZzTkFFbTgwQmV6SUdSUmRINktPNlp1cTlH?=
- =?utf-8?B?cFM1LzBGbkgrZGo4aVhpcld2bjFmRnMwTzJCOWxucE9tU3RTTDVIZ2pFN09E?=
- =?utf-8?B?RkRnY2lvSzZSVGttbVdZUG15aHhTeC9RbG5WUlN5ODNma2xBU205bW5EOGFG?=
- =?utf-8?B?SWY4bkJxbHNLRnhvNXFoVGtsWFZyYXZBRnhyR1I5akJ6N05nelA1TlRmMVNa?=
- =?utf-8?B?eUdqZTk5MFYzZnBDSGJybE1CUmZrZUtoOHYxUmtrcEt1bDBLajRFcGJxbnFP?=
- =?utf-8?B?QTBFQ1ZuZmI3blBFK3JEOGV4b0lZYUY0K1RYK0UyNGV0MmN0eDJhNDl5Z0xk?=
- =?utf-8?B?S09xc1NYUmRhaFcxRllYMjZJdDcvd1EwcmJuYkdHNE1aMGdBZVNXcC8wc3Zl?=
- =?utf-8?B?dzVya05JYytjcUZQTFkrZlBldnhvTDAvTFpBRGxuUENud25wSzJoUHRueTlS?=
- =?utf-8?B?K3QzWmM4cTcvcitXL0RNT0cyUHZSNG9hS2g4L05lQ0VucjJ0MnlORzBIb3VP?=
- =?utf-8?B?WEVLRXZCTXMxem96UlFTd2t5NE41OU03RlZ6QXlJZFBSNDZxcXdJNWtrVjZB?=
- =?utf-8?B?RzBSRXJvQzc5ZTJjeGtWUzZTeWtmK3daWklxVGNNTjJ2QitzMlhtYUN1NUxU?=
- =?utf-8?B?SDRwWndhU1pFNUlSTG1qK3FkWTNlVHIyZXJxZkREMnFLaVlqNTVnRnJyc1A4?=
- =?utf-8?B?QXRCOTZ4YjIrTVlPOCszZ3c5Z0c3ZTZLVk5ObjVSeUlMaU5ONE81SEtXcmt5?=
- =?utf-8?B?UHBtcHFrTFNER3VlTDlReUdkazJwVmhzWGhvL2hvY29QUmE3eGxYUnhMbXYw?=
- =?utf-8?B?RlhtSlU3eDMwU1c1VklUbzl1c2FrL2kwSVV3YkErY2FOWXBDWkxiQlVTUmdp?=
- =?utf-8?B?b2JOZytkUmdnbm1RNFNkNE05SXZCT0l4SGVTYkhVRklJSFJRK3ZhQlY3ZDRH?=
- =?utf-8?B?aDNHK1NxZGZ1LzlDT3p4ZkhaWGNpQlcydmFibnVBOEJ2NzIwazVhdWcxWUxH?=
- =?utf-8?B?dHVpdWRxS2ZJQ2NvV005aU1QRXJRSEtlUzdoVmE1Z0tzMFYzVG1EZDNoQk1z?=
- =?utf-8?B?SGZpVXBOOGFrMHlaSmZmRjZBNG9xNit1YkxvWjBpZ3VXZ2dQWnZ5RCtlZ1hr?=
- =?utf-8?B?TkxKamN0TmdiMjE0UGZrc2tGbjBUaHNlT3dIVTZnYnN5cUpkb0dLQ2o1Qzgv?=
- =?utf-8?B?SVU3eGZQNW1xZ1JYekpSenRkQ1NUR2FKQXI3QkhxTkI0MXlDZi9zQnFETDZO?=
- =?utf-8?B?SjJFdlFTWlNmNGROUmcvQTN5Kzl2aGpxMHBIMWtKYjI5NE5UNnJvQis4NVJz?=
- =?utf-8?B?MlNUUWJ0a05pWGpWQlBiZThqK3pGd0dDdmY3NlAwNnErVDFjcmpQdWQ3QjVk?=
- =?utf-8?Q?mmGLXSe6gBKkAezi47eUqawII?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b8275bd-3381-44b2-8533-08dacf1d346a
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2022 19:42:36.7993 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2022 20:50:32.8434 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b65d604-60f3-4425-174c-08dacf26b20a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OTasgk7yscPdH2WGv75Ehp/3ACix5o5UCN6ADpPqsO++dtaAiDYf3+YBoS1JztwA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB7085
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7905
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,130 +97,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>, James Zhu <James.Zhu@amd.com>
+Cc: Po Ting Chen <robin.chen@amd.com>, David Zhang <dingchen.zhang@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ David Airlie <airlied@linux.ie>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Mikita Lipski <mikita.lipski@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Pavle Kotarac <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-11-25 04:57, Christian König wrote:
-> 
-> 
-> Am 25.11.22 um 09:33 schrieb Luben Tuikov:
->> On 2022-11-25 02:59, Christian König wrote:
->>> Am 25.11.22 um 08:56 schrieb Luben Tuikov:
->>>> On 2022-11-25 02:45, Christian König wrote:
->>>>> Am 24.11.22 um 22:19 schrieb Luben Tuikov:
->>>>>> Fix minmax compilation error by using min_t()/max_t(), of the assignment type.
->>>>>>
->>>>>> Cc: James Zhu <James.Zhu@amd.com>
->>>>>> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
->>>>>> Fixes: 58170a7a002ad6 ("drm/amdgpu: fix stall on CPU when allocate large system memory")
->>>>>> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
->>>>>> ---
->>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 10 +++++++---
->>>>>>     1 file changed, 7 insertions(+), 3 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
->>>>>> index 8a2e5716d8dba2..d22d14b0ef0c84 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
->>>>>> @@ -191,14 +191,18 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
->>>>>>     	hmm_range->dev_private_owner = owner;
->>>>>>     
->>>>>>     	do {
->>>>>> -		hmm_range->end = min(hmm_range->start + MAX_WALK_BYTE, end);
->>>>>> +		hmm_range->end = min_t(typeof(hmm_range->end),
->>>>>> +				       hmm_range->start + MAX_WALK_BYTE,
->>>>>> +				       end);
->>>>> Since end is a local variable I would strongly prefer to just have it
->>>>> use the correct type for it.
->>>>>
->>>>> Otherwise we might end up using something which doesn't work on all
->>>>> architectures.
->>>> They all appear to be "unsigned long". I thought, since we assign to
->>>> hmm_range->end, we use that type.
->>> Mhm, then why does the compiler complain here?
->> Right... so MAX_WALK_BYTE is 2^36 ULL (diabolically defined as 64ULL<<30 :-) ),
->> and this is why the minmax check complains.
->>
->> So, since the left-hand expression is unsigned long,
->> i.e.,
->> 	hmm_range->end = min(hmm_range->start + MAX_WALK_BYTE, end);
->> is,
->> 	unsigned long = min(unsigned long long, unsigned long);
->> The compiler complains.
->>
->> I'd really prefer MAX_WALK_BYTE be less than or equal to ULONG_MAX,
-> 
-> That's not only a preference, but a must have. Otherwise the code maybe 
-> won't work as expected on 32bit architectures.
+Currently, there are issues with enabling PSR-SU + DSC. This stems from
+the fact that DSC imposes a slice height on transmitted video data and
+we are not conforming to that slice height in PSR-SU regions. So, pass
+slice_height into su_y_granularity to feed the DSC slice height into
+PSR-SU code.
 
-Well, I don't know what to change MAX_WALK_BYTE to, and given the suggestion
-below to change to min_t(u64, ...), I wonder if messing with MAX_WALK_BYTE
-even matters--it wouldn't matter so long as the type in min_t() is u64.
-It's a macro at the moment.
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+---
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c | 38 +++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
-However, the LHS--struct hmm_range's members are all
-unsigned long and then we're essentially doing (unsigned long) = (u64),
-which on 32-bit is (u32) = (u64).
-
-Regards,
-Luben
-
-> 
->> and be defined as <literal>UL. I mean, why is everything in struct hmm_range
->> "unsigned long", but we set a high limit of 10_0000_0000h for an end, and
->> compare it to "end" to find the smaller? If our "end" could potentially
->> be 10_0000_0000h then shouldn't the members in struct hmm_range be
->> unsigned long long as well?
-> 
-> No, that the hmm range depends on the address space bits of the CPU is 
-> perfectly correct. Essentially this is just an userspace address range.
-> 
-> Our problem here is that this code needs to work on both 32bit and 64bit 
-> systems. And on a 32bit system limiting the types wouldn't work 
-> correctly as far as I can see.
-> 
-> So the compiler is complaining for rather good reasons and by using 
-> "min_t(UL" we just hide that instead of fixing the problem.
-> 
-> I suggest to use "min_t(u64" instead. An intelligent compiler should 
-> even be capable of optimizing this away by looking at the input types on 
-> 32bit archs.
-> 
->>
->> And for the timeout, we have the (now) obvious,
->>
->> 	timeout = max((hmm_range->end - hmm_range->start) >> 29, 1ULL);
->>
->> and I don't know why we necessarily need a "1ULL", when 1UL would do just fine,
->> and then compilation passes for that statement. I can set this to 1UL, instead
->> of using max_t().
-> 
-> I think just changing this to 1UL should be sufficient.
-> 
-> Regards,
-> Christian.
-> 
->>
->> Regards,
->> Luben
->>
->>
->>> As far as I can see "unsigned long" is correct here, but if we somehow
->>> have a typecast then something is not working as expected.
->>>
->>> Is MAX_WALK_BYTE maybe of signed type?
->>>
->>>> Would you prefer at the top of the function to define "timeout" and "end" as,
->>>> 	typeof(hmm_range->end) end, timeout;
->>> Well for end that might make sense, but timeout is independent of the
->>> hmm range.
->>>
->>> Regards,
->>> Christian.
->>>
->>>> Regards,
->>>> Luben
->>>>
-> 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+index 26291db0a3cf..55acadf0b63f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+@@ -53,6 +53,41 @@ static bool link_supports_psrsu(struct dc_link *link)
+ 	return true;
+ }
+ 
++static bool psr_su_set_y_granularity(struct dc *dc, struct dc_link *link,
++				     struct dc_stream_state *stream,
++				     struct psr_config *config)
++{
++	u16 pic_height;
++	u8 slice_height;
++
++	if (!dc->caps.edp_dsc_support ||
++	    link->panel_config.dsc.disable_dsc_edp ||
++	    !link->dpcd_caps.dsc_caps.dsc_basic_caps.fields.dsc_support.DSC_SUPPORT ||
++	    !stream->timing.dsc_cfg.num_slices_v)
++		return true;
++
++	pic_height = stream->timing.v_addressable +
++		stream->timing.v_border_top + stream->timing.v_border_bottom;
++	slice_height = pic_height / stream->timing.dsc_cfg.num_slices_v;
++
++	if (slice_height) {
++		if (config->su_y_granularity &&
++		    (slice_height % config->su_y_granularity)) {
++			WARN(1,
++			     "%s: dsc: %d, slice_height: %d, num_slices_v: %d\n",
++			     __func__,
++			     stream->sink->dsc_caps.dsc_dec_caps.is_dsc_supported,
++			     slice_height,
++			     stream->timing.dsc_cfg.num_slices_v);
++			return false;
++		}
++
++		config->su_y_granularity = slice_height;
++	}
++
++	return true;
++}
++
+ /*
+  * amdgpu_dm_set_psr_caps() - set link psr capabilities
+  * @link: link
+@@ -122,6 +157,9 @@ bool amdgpu_dm_link_setup_psr(struct dc_stream_state *stream)
+ 		psr_config.allow_multi_disp_optimizations =
+ 			(amdgpu_dc_feature_mask & DC_PSR_ALLOW_MULTI_DISP_OPT);
+ 
++		if (!psr_su_set_y_granularity(dc, link, stream, &psr_config))
++			return false;
++
+ 		ret = dc_link_setup_psr(link, stream, &psr_config, &psr_context);
+ 
+ 	}
+-- 
+2.38.1
 
