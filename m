@@ -4,70 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80DA6C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 12:46:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC364C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 13:40:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AA4110E74C;
-	Fri, 25 Nov 2022 12:46:52 +0000 (UTC)
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E016610E74C;
- Fri, 25 Nov 2022 12:46:45 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id z18so6226631edb.9;
- Fri, 25 Nov 2022 04:46:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=+bgi7f3JR0DWZOQubVbmHHeupq5WRhW3huMpC6kFZe0=;
- b=qdFwZ1fV1XfWWgv9yQMtXnLDI0ZwnsxnZ+uzKPHt0t3i424R1cZ9eWPXSUSV1nN3WU
- yV7MhG7w9PWyxQr8MBbHR2rHVbDERRdX/HMilXzD5h80vreonnSaAqvLrt+2in2fnuwU
- 0PSxK87Bpx2DTTr14I6pCMx9Cc2jf4fpuG+egRjRzeGq0t1P5fQ42oLPb9mO1WhL/r8o
- 81aezcDuc2BMteSXbgNu3wCrciXfa73RvJbkaV9wCaV9xThCcF1Xjj/k8yyBhvXrTQe3
- DIlof7mNkZp3y5D7HJsNAU6HJeOzaamf48hN0GpH74Za5tRKVstgy6KmtMNUu8Pd+EBI
- j+bA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+bgi7f3JR0DWZOQubVbmHHeupq5WRhW3huMpC6kFZe0=;
- b=aAF9fHMVj44DiFMxQd8U3D7CvM41RFNCb7DDpazbteLJrk2ovA+g8f+jvZGOWF9yfC
- vV9OqNFoQH+FsXnbfPG2X+eAsXUA1IQwoL8xuf/jJTuVpdkQFgUSJYbCutZwf8SZmCaJ
- 5a/nTuXQnrz8x7znvOXvm1L1ElJ0DeFlHd6NliVTN4cwzj491dg+wSFIXrScsw6Krn9C
- uBvJdKcwyyncTwsjpgujGRiqsJ90cEwsvSs0LlPmm4rLLEI1fHzJaQC/34EakCbtSq2I
- fHA6IDH/HUxIJ64UcOer2FdsqlvwAmF0cfMV3nQLnctPRTZeVjw0Soq/od3w/x1mIEQK
- HeNw==
-X-Gm-Message-State: ANoB5pltwVxqbCir2sjYF9UHuwXcuRWzAIBUKgvG5oqHKWeFCc251ENm
- +nXKzXBfJfijdXQjNXnpHibFx/SFv1Q=
-X-Google-Smtp-Source: AA0mqf6N5r+og4tlDu/GKMmnVv1qWHz6JYRDymEQfel5ULDVvXHP9Mf8EcfmT3TuG5cNxH7U+0nUrw==
-X-Received: by 2002:a05:6402:1a:b0:467:30ad:c4ca with SMTP id
- d26-20020a056402001a00b0046730adc4camr35211827edu.285.1669380404288; 
- Fri, 25 Nov 2022 04:46:44 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:24a6:d989:49bb:611a?
- ([2a02:908:1256:79a0:24a6:d989:49bb:611a])
- by smtp.gmail.com with ESMTPSA id
- ue5-20020a170907c68500b0079dbf06d558sm1520964ejc.184.2022.11.25.04.46.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Nov 2022 04:46:43 -0800 (PST)
-Message-ID: <5d1d5a9d-7301-e53c-e051-a24c5629d887@gmail.com>
-Date: Fri, 25 Nov 2022 13:46:42 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB2D310E79D;
+	Fri, 25 Nov 2022 13:40:35 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC50E10E79D;
+ Fri, 25 Nov 2022 13:40:32 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0838C62430;
+ Fri, 25 Nov 2022 13:40:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56DFAC433C1;
+ Fri, 25 Nov 2022 13:40:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1669383631;
+ bh=1Vi9cYPQdsFlwN2CupqS3SDHphAahEkfEFQ47zI6WhI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=IDp9FDBQ2WGmmAcEkiW2GHNzyxAljeKVhmaOAfdahPkFsZNnZiasCvP1PntCi4W3e
+ GdEz0mFYBRPy29WZVxfhOBAawsChZgsLOoIHfTYwMmbtZgGsChvUcST6MfaW/s71Vo
+ KPJQ3//yg32O0vdIclPMxYCXM+ljCguSNfdSwUXYNjOmf+qT6NHGo5PyWc3UREuH0i
+ yrNz5x8nhfPJBgCw34SrK4K9MvyJBb1fzwr60V9x2oKu7nn4A13dTR9IDNT0yE8v2c
+ JKWdqpz1CGd8tfrzaFv9GQFw9/2u6iBVY2eFAHDM3ewlUT63r2qYYtKupXIZC0FjC9
+ WeArEEzwpq4eA==
+Date: Fri, 25 Nov 2022 13:40:23 +0000
+From: Lee Jones <lee@kernel.org>
+To: arnd@arndb.de, akpm@linux-foundation.org, nathan@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch,
+ ndesaulniers@google.com, trix@redhat.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com
+Subject: Re: [PATCH v2 2/2] Kconfig.debug: Provide a little extra FRAME_WARN
+ leeway when KASAN is enabled
+Message-ID: <Y4DFx20YXDLcuVJm@google.com>
+References: <20221125120750.3537134-1-lee@kernel.org>
+ <20221125120750.3537134-3-lee@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [Intel-gfx] [PATCH 7/9] drm/i915: stop using ttm_bo_wait
-Content-Language: en-US
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Matthew Auld <matthew.auld@intel.com>
-References: <20221125102137.1801-1-christian.koenig@amd.com>
- <20221125102137.1801-7-christian.koenig@amd.com>
- <d92312af-3c84-8bd9-108b-719fb1ec3a6b@linux.intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <d92312af-3c84-8bd9-108b-719fb1ec3a6b@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20221125120750.3537134-3-lee@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,66 +59,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 25.11.22 um 12:14 schrieb Tvrtko Ursulin:
->
-> + Matt
->
-> On 25/11/2022 10:21, Christian König wrote:
->> TTM is just wrapping core DMA functionality here, remove the mid-layer.
->> No functional change.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 9 ++++++---
->>   1 file changed, 6 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c 
->> b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
->> index 5247d88b3c13..d409a77449a3 100644
->> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
->> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
->> @@ -599,13 +599,16 @@ i915_ttm_resource_get_st(struct 
->> drm_i915_gem_object *obj,
->>   static int i915_ttm_truncate(struct drm_i915_gem_object *obj)
->>   {
->>       struct ttm_buffer_object *bo = i915_gem_to_ttm(obj);
->> -    int err;
->> +    long err;
->>         WARN_ON_ONCE(obj->mm.madv == I915_MADV_WILLNEED);
->>   -    err = ttm_bo_wait(bo, true, false);
->> -    if (err)
->> +    err = dma_resv_wait_timeout(bo->base.resv, DMA_RESV_USAGE_BOOKKEEP,
->> +                    true, 15 * HZ);
->
-> This 15 second stuck out a bit for me and then on a slightly deeper 
-> look it seems this timeout will "leak" into a few of i915 code paths. 
-> If we look at the difference between the legacy shmem and ttm backend 
-> I am not sure if the legacy one is blocking or not - but if it can 
-> block I don't think it would have an arbitrary timeout like this. Matt 
-> your thoughts?
+On Fri, 25 Nov 2022, Lee Jones wrote:
 
-That's exactly the reason why I try to remove the ttm_bo_wait() as mid 
-layer here. It hides the fact that we don't wait forever for BOs to 
-become idle.
+> When enabled, KASAN enlarges function's stack-frames.  Pushing quite a
+> few over the current threshold.  This can mainly be seen on 32-bit
+> architectures where the present limit (when !GCC) is a lowly
+> 1024-Bytes.
+> 
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
+>  lib/Kconfig.debug | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+> index c3c0b077ade33..82d475168db95 100644
+> --- a/lib/Kconfig.debug
+> +++ b/lib/Kconfig.debug
+> @@ -399,6 +399,7 @@ config FRAME_WARN
+>  	default 2048 if GCC_PLUGIN_LATENT_ENTROPY
+>  	default 2048 if PARISC
+>  	default 1536 if (!64BIT && XTENSA)
+> +	default 1280 if KASAN && !64BIT
+>  	default 1024 if !64BIT
+>  	default 2048 if 64BIT
+>  	help
 
-This is functional identical to the old code. If you want some other 
-behavior feel free to note what's desired and I will implement it.
+Note this also fixes 61 warnings when
 
-Regards,
-Christian.
+  (GCC && !GCC_PLUGIN_LATENT_ENTROPY)
 
->
-> Regards,
->
-> Tvrtko
->
->> +    if (err < 0)
->>           return err;
->> +    if (err == 0)
->> +        return -EBUSY;
->>         err = i915_ttm_move_notify(bo);
->>       if (err)
+... which as Arnd says should not be enabled by default.  We'll
+address that issue once this set has been applied.
 
+-- 
+Lee Jones [李琼斯]
