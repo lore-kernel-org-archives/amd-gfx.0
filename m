@@ -4,46 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A347C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 17:40:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D94E2C4321E
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 20:23:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 276AF10E311;
-	Mon, 28 Nov 2022 17:40:31 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8022010E318;
- Mon, 28 Nov 2022 17:40:26 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7184BB80E9D;
- Mon, 28 Nov 2022 17:40:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 881EBC433C1;
- Mon, 28 Nov 2022 17:40:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669657223;
- bh=lXZiz06nGUFjpl4Sg8z+2Fdo2Vj99GtqplC0GDDwru4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZedoSuM8V4gtX2UuYy3Rw4gkTAKxSR1yvz4TmHV+IUFyjv7QmVfP0iz3D2Naae8vt
- KMfnYBNAxyzuGyoXPpedW1n4fVIv93KjrcWUkSrqDBTBCyN8huJA3jeBzMpryzn/dQ
- cHkubCfl3eLMGwbV+zugL5w8UHO/GPDo5I23u4KW0GxY1hW2PmyqWf5qr2RIPUxMMF
- O6RP3b/dRCa/ajflvQA0ijQgSQglToqAkldM9Y1cdCFEd0+x1UxLyQ6Odo+K2JoSS7
- AsCm8lyXzP6kqUS/O7dOOoKSRQR6aN2HGtCJ16maGKIwWvLE8gYIZwiWRiXeIhktp8
- f+rKsssPCpJ7Q==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 39/39] drm/amdgpu: fix use-after-free during gpu
- recovery
-Date: Mon, 28 Nov 2022 12:36:19 -0500
-Message-Id: <20221128173642.1441232-39-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221128173642.1441232-1-sashal@kernel.org>
-References: <20221128173642.1441232-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 598A710E335;
+	Mon, 28 Nov 2022 20:23:32 +0000 (UTC)
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75FCD10E34D;
+ Mon, 28 Nov 2022 20:23:26 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id t62so12862162oib.12;
+ Mon, 28 Nov 2022 12:23:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dCa69YdEtMn4spqO3MAiWVwYikmJqS2nm+0NXq6y6Ck=;
+ b=Yc4MyIuW2yggdapxAdcen0pJDpU/eLlafTPt80WvP733RUnpDMNqpoY5ETncKVt0EB
+ N9qM7f119WFnJRV4ANVDHKZyi/F8TcWSz+jbOHn49QmLz0NgT7BIOsIri3BAfBMyAKw1
+ 5QC6Ov3Hh7HAowwolK8nIN+ZDe59lDcE5VTGd45Q0KYmHZbNlPPl832j2vlOAJOD8Rb9
+ DvoeqKwWM8Ni+2xMFFAAhnNI8KWDPMnCdiUAv+mfkD/76psDAXrM4ecg+SNRk4Nbcb1v
+ 7YOtUSJggoEeiegNwhjbxFB0Uq/63+mmNZ8DH7cSn02DoMH4GHbXFjeCN2N+94Oi0DIZ
+ ZCOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=dCa69YdEtMn4spqO3MAiWVwYikmJqS2nm+0NXq6y6Ck=;
+ b=kTvpqR9R26AmAPHLBzZHa9kPtR62XVlSgBAKVKkpcXJOAeiTP8flAzyRjQ/jHgqMW5
+ bq8TT1zFJARfnOanyIDD8rI9TNrgCD3726/zFEypCmA7W013VbtHG+84vYkRGkzLn58b
+ YuN91iw7xYGMJJziWulbAONJboxod7YQOeJ/glRRTAN98IFLbQNM/SvbiFgjQwSijclI
+ Yo68lEAFIs+5MICcr/frS2lv3jjcoJB9/ACSt96IhvbBDueGe7fjUR3eDLqU9pEZ329v
+ esDXAWVKrPOtgKclX/jLsBFZgegfKk2DwCCPBeWJVKHyiw90DkSBRtwhX/PQqIwg9XlX
+ 3ang==
+X-Gm-Message-State: ANoB5pkm2LBLWFC/qsPxNDTZ+tTNUHODTzFpf1y+j/q7jJppwOYNOA2v
+ wv70FEgs3GyAkEmsBO6W6vR64Zrpg2+Uu/7UC+djLTA1
+X-Google-Smtp-Source: AA0mqf6KOpkpp4yLsP+YGWSjXQZkjzqtYGUWdHBw22rjkoo5Mx5ec1jUOGue9xiXqjF0rVRwCM/EibS6SFlNovCm9r0=
+X-Received: by 2002:a05:6808:9b8:b0:34f:97ea:14d with SMTP id
+ e24-20020a05680809b800b0034f97ea014dmr15773971oig.96.1669667005543; Mon, 28
+ Nov 2022 12:23:25 -0800 (PST)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
+References: <20221125210055.16333-1-rdunlap@infradead.org>
+In-Reply-To: <20221125210055.16333-1-rdunlap@infradead.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 28 Nov 2022 15:23:14 -0500
+Message-ID: <CADnq5_NaHGrEM++_vRH0n3XKB-ON8ked4YMaFuPBYGv=PQ0xhA@mail.gmail.com>
+Subject: Re: [PATCH -next] drm/amdgpu: update docum. filename following rename
+To: Randy Dunlap <rdunlap@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,56 +65,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, andrey.grodzovsky@amd.com,
- Tao Zhou <tao.zhou1@amd.com>, strochuk@ispras.ru,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com, YuBiao.Wang@amd.com,
- surbhi.kakarya@amd.com, "Stanley.Yang" <Stanley.Yang@amd.com>,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, Likun.Gao@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: Jonathan Corbet <corbet@lwn.net>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ linux-doc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Stanley.Yang" <Stanley.Yang@amd.com>
+Applied.  Thanks!
 
-[ Upstream commit 3cb93f390453cde4d6afda1587aaa00e75e09617 ]
+Alex
 
-[Why]
-    [  754.862560] refcount_t: underflow; use-after-free.
-    [  754.862898] Call Trace:
-    [  754.862903]  <TASK>
-    [  754.862913]  amdgpu_job_free_cb+0xc2/0xe1 [amdgpu]
-    [  754.863543]  drm_sched_main.cold+0x34/0x39 [amd_sched]
-
-[How]
-    The fw_fence may be not init, check whether dma_fence_init
-    is performed before job free
-
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index c2fd6f3076a6..e9583a58cce0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -150,7 +150,11 @@ static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
- 	amdgpu_sync_free(&job->sync);
- 	amdgpu_sync_free(&job->sched_sync);
- 
--	dma_fence_put(&job->hw_fence);
-+	/* only put the hw fence if has embedded fence */
-+	if (!job->hw_fence.ops)
-+		kfree(job);
-+	else
-+		dma_fence_put(&job->hw_fence);
- }
- 
- void amdgpu_job_free(struct amdgpu_job *job)
--- 
-2.35.1
-
+On Fri, Nov 25, 2022 at 4:01 PM Randy Dunlap <rdunlap@infradead.org> wrote:
+>
+> Fix documentation build errors for amdgpu: correct the filename.
+>
+> Error: Cannot open file ../drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+> Error: Cannot open file ../drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+> Error: Cannot open file ../drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+>
+> WARNING: kernel-doc '../scripts/kernel-doc -rst -enable-lineno -sphinx-ve=
+rsion 5.3.0 -function MMU Notifier ../drivers/gpu/drm/amd/amdgpu/amdgpu_mn.=
+c' failed with return code 1
+> WARNING: kernel-doc '../scripts/kernel-doc -rst -enable-lineno -sphinx-ve=
+rsion 5.3.0 -internal ../drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c' failed wit=
+h return code 2
+>
+> Fixes: d9483ecd327b ("drm/amdgpu: rename the files for HMM handling")
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Jonathan Corbet <corbet@lwn.net>
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> ---
+>  Documentation/gpu/amdgpu/driver-core.rst |    4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff -- a/Documentation/gpu/amdgpu/driver-core.rst b/Documentation/gpu/am=
+dgpu/driver-core.rst
+> --- a/Documentation/gpu/amdgpu/driver-core.rst
+> +++ b/Documentation/gpu/amdgpu/driver-core.rst
+> @@ -148,10 +148,10 @@ PRIME Buffer Sharing
+>  MMU Notifier
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> -.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+> +.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+>     :doc: MMU Notifier
+>
+> -.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+> +.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+>     :internal:
+>
+>  AMDGPU Virtual Memory
