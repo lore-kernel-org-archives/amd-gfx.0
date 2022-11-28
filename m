@@ -4,49 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3F09C433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 17:24:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE880C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 17:39:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE32B10E30A;
-	Mon, 28 Nov 2022 17:24:55 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A94D110E30A;
- Mon, 28 Nov 2022 17:24:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669656293; x=1701192293;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=gIMxSjThOc3wgINTlCZhq7K2sOjoP/XFk+2wqF2Rc0o=;
- b=Rj4yN/C27YSLBwhI8Lom3D9C+slSCL9Wf4e1GMF0vC/gYnms7fviQ3KR
- ojISGtJC7ifP5LUHI89orb90Xlqgkr+tcYOFuSVwaaQrZE6TQvUBWXF77
- 5P0Hxi9RiWmFcs7Wcx+ZngeU+SqLioY1R3SY7N6OyyPPO+wEu7X6JLc4q
- SqJfO+QqNzDyjqN1xJ4fVQOtMv/v1zktkADY4Q3jtmiNmyG7N58YAa04B
- zTxOgJ7tMq0V0zELmVuMqr/oIQdNfvFfC3za3iHzw4vGLUe0GQKXw+E2c
- tf/LbPqP2ZgjaJ4/IWcfJDrbvHTvapcUjipxHoAREEpiqmEdeHK0jchLQ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10545"; a="316730690"
-X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="316730690"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2022 09:24:52 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10545"; a="768117946"
-X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="768117946"
-Received: from lkp-server01.sh.intel.com (HELO 64a2d449c951) ([10.239.97.150])
- by orsmga004.jf.intel.com with ESMTP; 28 Nov 2022 09:24:50 -0800
-Received: from kbuild by 64a2d449c951 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1ozhs9-0008B1-2O;
- Mon, 28 Nov 2022 17:24:49 +0000
-Date: Tue, 29 Nov 2022 01:24:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 15f2f20ccbf2d04cb14e3e7635aa0447208c71e7
-Message-ID: <6384eed7.JsneE+FPasGJScWk%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4D8C10E30F;
+	Mon, 28 Nov 2022 17:39:44 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B32B510E30E;
+ Mon, 28 Nov 2022 17:39:41 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5AF6CB80E9D;
+ Mon, 28 Nov 2022 17:39:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE365C433C1;
+ Mon, 28 Nov 2022 17:39:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1669657179;
+ bh=FdHzm1ZvsF1Ap/UO72Req/MoTEbJHBn8Dzxrp/8s6T8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=hutTi1Rj/MIaCD4pIu2e2kdgATMjsa464IMNFgLWB3iiB30eg1o1dp+0DgRPH/IRM
+ k3J37Hc0672HwqFIBPHNA4sLfF8Kqz1C60G3qDT4mgqDGKT9LmRrId0AlhLhcxIJ+c
+ yDvZUvX1QUpyepjd31ulNgM6icNmpvn3FROCRt+5sQ8hPqzCPE8QntPfZzgK1C5r8U
+ P01+KaMV63Rg6Azji6XTOkAC+groutkqe+h0zv86uMEp6jokaR2u1BoaRMObjeiPCO
+ vCabEKrCrEr9rmY/3SoonrquUYBxqg6GThq7pW7c+L0qf8/EXhIPNfqsWrI/+GGQM1
+ l+oSB1ueXNExA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.0 36/39] drm/amd/display: Use viewport height for
+ subvp mall allocation size
+Date: Mon, 28 Nov 2022 12:36:16 -0500
+Message-Id: <20221128173642.1441232-36-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20221128173642.1441232-1-sashal@kernel.org>
+References: <20221128173642.1441232-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,160 +54,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- dri-devel@lists.freedesktop.org, linuxppc-dev@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org
+Cc: Sasha Levin <sashal@kernel.org>, Brian Chang <Brian.Chang@amd.com>,
+ Ethan.Wellenreiter@amd.com, Dillon Varone <Dillon.Varone@amd.com>,
+ sunpeng.li@amd.com, airlied@gmail.com, dri-devel@lists.freedesktop.org,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, Syed.Hassan@amd.com,
+ amd-gfx@lists.freedesktop.org, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Alvin Lee <Alvin.Lee2@amd.com>, daniel@ffwll.ch,
+ Martin Leung <Martin.Leung@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Jun.Lei@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 15f2f20ccbf2d04cb14e3e7635aa0447208c71e7  Add linux-next specific files for 20221128
+From: Dillon Varone <Dillon.Varone@amd.com>
 
-Error/Warning reports:
+[ Upstream commit dd2c028c1395d622df7ddd6837f8ab2dc94008ee ]
 
-https://lore.kernel.org/oe-kbuild-all/202211041320.coq8EELJ-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211080348.BOsishom-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211090634.RyFKK0WS-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211242120.MzZVGULn-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211282102.QUr7HHrW-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211282244.c1FaAVIO-lkp@intel.com
+[WHY?]
+MALL allocation size depends on the viewport height, not the addressable
+vertical lines, which will not match when scaling.
 
-Error/Warning: (recently discovered and may have been fixed)
+[HOW?]
+Base MALL allocation size calculations off viewport height.
 
-arch/arm/mach-s3c/devs.c:32:10: fatal error: linux/platform_data/dma-s3c24xx.h: No such file or directory
-arch/powerpc/kernel/kvm_emul.o: warning: objtool: kvm_template_end(): can't find starting instruction
-arch/powerpc/kernel/optprobes_head.o: warning: objtool: optprobe_template_end(): can't find starting instruction
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5075:24: warning: implicit conversion from 'enum <anonymous>' to 'enum dc_status' [-Wenum-conversion]
-drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:40:20: warning: no previous prototype for 'to_dal_irq_source_dcn201' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c:451:1: warning: no previous prototype for 'gf100_fifo_nonstall_block' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:34:1: warning: no previous prototype for 'nvkm_engn_cgrp_get' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/engine/gr/tu102.c:210:1: warning: no previous prototype for 'tu102_gr_load' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/nvfw/acr.c:49:1: warning: no previous prototype for 'wpr_generic_header_dump' [-Wmissing-prototypes]
-drivers/gpu/drm/nouveau/nvkm/subdev/acr/lsfw.c:221:21: warning: variable 'loc' set but not used [-Wunused-but-set-variable]
-vmlinux.o: warning: objtool: __btrfs_map_block+0x21ad: unreachable instruction
-vmlinux.o: warning: objtool: btrfs_calc_avail_data_space+0x4f: unreachable instruction
+Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
+Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+Acked-by: Brian Chang <Brian.Chang@amd.com>
+Signed-off-by: Dillon Varone <Dillon.Varone@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- alpha-randconfig-r031-20221128
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arc-randconfig-r024-20221127
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arm-allyesconfig
-|   |-- arch-arm-mach-s3c-devs.c:fatal-error:linux-platform_data-dma-s3c24xx.h:No-such-file-or-directory
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arm-defconfig
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
-|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
-|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
-|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
-clang_recent_errors
-|-- powerpc-buildonly-randconfig-r003-20221128
-|   `-- arch-powerpc-kernel-kvm_emul.o:warning:objtool:kvm_template_end():can-t-find-starting-instruction
-|-- x86_64-randconfig-a013-20221128
-|   `-- vmlinux.o:warning:objtool:handle_bug:call-to-kmsan_unpoison_entry_regs()-leaves-.noinstr.text-section
-`-- x86_64-randconfig-a015-20221128
-    `-- vmlinux.o:warning:objtool:handle_bug:call-to-kmsan_unpoison_entry_regs()-leaves-.noinstr.text-section
-
-elapsed time: 729m
-
-configs tested: 50
-configs skipped: 2
-
-gcc tested configs:
-um                             i386_defconfig
-um                           x86_64_defconfig
-i386                 randconfig-a002-20221128
-i386                 randconfig-a003-20221128
-i386                                defconfig
-i386                 randconfig-a001-20221128
-x86_64                          rhel-8.3-func
-x86_64                              defconfig
-x86_64                    rhel-8.3-kselftests
-i386                 randconfig-a005-20221128
-i386                 randconfig-a004-20221128
-i386                 randconfig-a006-20221128
-x86_64                         rhel-8.3-kunit
-x86_64               randconfig-a001-20221128
-x86_64               randconfig-a003-20221128
-x86_64               randconfig-a004-20221128
-x86_64               randconfig-a002-20221128
-x86_64               randconfig-a005-20221128
-x86_64               randconfig-a006-20221128
-powerpc                           allnoconfig
-arc                                 defconfig
-s390                             allmodconfig
-alpha                               defconfig
-s390                                defconfig
-s390                             allyesconfig
-x86_64                               rhel-8.3
-x86_64                           rhel-8.3-syz
-x86_64                           rhel-8.3-kvm
-x86_64                           allyesconfig
-arm                                 defconfig
-arm                              allyesconfig
-i386                             allyesconfig
-sh                               allmodconfig
-arm64                            allyesconfig
-mips                             allyesconfig
-m68k                             allyesconfig
-powerpc                          allmodconfig
-m68k                             allmodconfig
-arc                              allyesconfig
-alpha                            allyesconfig
-
-clang tested configs:
-hexagon              randconfig-r041-20221128
-riscv                randconfig-r042-20221128
-s390                 randconfig-r044-20221128
-hexagon              randconfig-r045-20221128
-i386                 randconfig-a012-20221128
-i386                 randconfig-a011-20221128
-x86_64               randconfig-a016-20221128
-x86_64               randconfig-a015-20221128
-x86_64               randconfig-a014-20221128
-x86_64               randconfig-a013-20221128
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
+index 13cd1f2e50ca..902c69d126d5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
+@@ -101,7 +101,7 @@ uint32_t dcn32_helper_calculate_num_ways_for_subvp(struct dc *dc, struct dc_stat
+ 			mall_alloc_width_blk_aligned = full_vp_width_blk_aligned;
+ 
+ 			/* mall_alloc_height_blk_aligned_l/c = CEILING(sub_vp_height_l/c - 1, blk_height_l/c) + blk_height_l/c */
+-			mall_alloc_height_blk_aligned = (pipe->stream->timing.v_addressable - 1 + mblk_height - 1) /
++			mall_alloc_height_blk_aligned = (pipe->plane_res.scl_data.viewport.height - 1 + mblk_height - 1) /
+ 					mblk_height * mblk_height + mblk_height;
+ 
+ 			/* full_mblk_width_ub_l/c = mall_alloc_width_blk_aligned_l/c;
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.35.1
+
