@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D383AC43217
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 14:51:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 792AEC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 16:18:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 449F010E1E0;
-	Mon, 28 Nov 2022 14:51:05 +0000 (UTC)
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8113610E1EB;
- Mon, 28 Nov 2022 14:51:02 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id v81so11791197oie.5;
- Mon, 28 Nov 2022 06:51:02 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13CD388DE5;
+	Mon, 28 Nov 2022 16:18:17 +0000 (UTC)
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 815BE88DA9;
+ Mon, 28 Nov 2022 16:18:12 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id r76so12080478oie.13;
+ Mon, 28 Nov 2022 08:18:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=BAhpgkWtb27JDtIM4e/PkuR3x636EOTJL8nQoLk+Uhk=;
- b=aigTvy3KjmwUBIq0FoMsCdBItS1XdrRKOAbMxw7ewkc2VCZfNFguHxQKiTuxzWu2OQ
- AQxLCqlxs0omEV1wNs8UfkdONjhXlKt50noagFx9LowJa4e1Xr/cyN7vwq0thqduIpLm
- Up98KjvAMe2th89U0lQW5b15akHC6vrVbkxnLsazr6vT0AiGOeVJ/fENaLv7FdRk3VrE
- 47cy4IqLT5aGNyrXsZNZNEyNERAfRWionWXldyvsQYbp0aVVIxWSClr5hhDJpsVJr/wb
- uKURK246AMNyXiEQWpH9yWy+OM/C6qIkBfDxggLAHzgs31ZWGefd1uBpox04/mfQ8yPY
- HZDA==
+ bh=dUmDKm1BpvIA6b7fg9TAsV7I3v/dDsa2Ew5AZiuOYPE=;
+ b=nhYgjDRaG8GIB07OWuhluoflnp2AgXdKFYUlqJTAkGKb7OBUwRf5JaXc99kv5rIjzB
+ XibHDK5QistPDLVZdQUldDUKgNxEvSutDoZZqK0kKp7RV07NZMTEQPbQe1wQb3y9Hel1
+ uL4o2thCCSgT17Vzp9QYA69pu/F2Q7rxd5HwKCcfIlVzMr7rsGnLk+i1rSeVPSGwF438
+ 49ZNUQN/7ffCQId7bVcCc2XPQXdJjdUpK527oC86VDrn1zeybvep0YYkblwvbRrfKCB5
+ M2uireOApJqO6XIh6W1pk41FKOl9rEZVTIjfHHDDJ4SklUmvb6N7GNl4dxCXDg8/hiob
+ MzJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=BAhpgkWtb27JDtIM4e/PkuR3x636EOTJL8nQoLk+Uhk=;
- b=0vUj/Ccn2usnaQ+bVUp7xbHD1zEp/Wh7MsGjP+mG/cYpVGfNID+WmIYwiqYY58g4wB
- 7NsVCRw/lq2fmDS2KZk3xRWbsOhMNo7CzccIjLxgDfKM9YxlqwHEpTf086tjmv171+I/
- AMVoFKS7jTIBAMJ2RhY1CF/mrb2uDUhtnivEslzLhh5OACAPZQ5cPHDMQ1RQd8klix/P
- gpylazf18KQ4Ss4XEqGaP9N/Tf9VisUfJT9yWpO+VyaInvGSRjSZBR49vuwlI2uALkay
- J08pqF/22JX2MkTw9dHpULOZK2K1RMdV89k+rY1Zos7dtZa9/xWqQ6Ia5URlOSq4XWqZ
- DEfw==
-X-Gm-Message-State: ANoB5pnrkbIMUUg6cJtg6NmoPst9seeMlk/ELxV/XQfIOhsD2bdKv2Ae
- XeL0orH4zdfowdXbh5VxoC1IYX3zgvXrCzKsIKwJbOnc
-X-Google-Smtp-Source: AA0mqf48AL1I4hFx/jyrt29KGiP2osdLGUitNy8F+Ahyzm5aat9b+ux3F5Il1tvN4v12K94/a0sulMbnkSB7dnCRdfU=
+ bh=dUmDKm1BpvIA6b7fg9TAsV7I3v/dDsa2Ew5AZiuOYPE=;
+ b=Zq4SQYEaGp2PeZfxOmENiGOLwAWoxC5FY39zO4yiFqbF8KS2Xk3Xamr+/PsEMpyExG
+ LAn2+CItF8eXT2oAfOlEeaqP9ThKg/I0sQCV/wzAzvvwpVJcIpEHrw5eGGAw/HfwfTn5
+ qjHjyLZz3ukTM+zaIfvyFsUWN1c+Ytx2F4OI/sNnj8jIX/AlbZVAZPICvaz7w807gDTp
+ MOzJjglCKuMr/yh6ksVUTKvUHys11lcuqEuhXbaK8GNmvAhDXjhvXjicl0znMYia/wrq
+ KhQTJ9d5LVFIUCHrDPSQ0B1bYffOY3xFwhKnY8NU/M+OlZj7bQmuwyxA4ZrSt6vfvDZL
+ jOLA==
+X-Gm-Message-State: ANoB5plGo4jyUXXPNYu1RXP0U+LAhimZmSHYAA46Lm3+HjLtsGyYts6g
+ vqd/llVFBmUNd5ijfuVliqkPzOH+83TaXHu08lc=
+X-Google-Smtp-Source: AA0mqf43Ny6wktI/b9zIB2jtXO0sK5QhF8mG/bYbdBhNFrS7Wia5GSy7m9AunvQEeQE5S237dX5kciTIzTmPiM/Pgtk=
 X-Received: by 2002:a05:6808:9b8:b0:34f:97ea:14d with SMTP id
- e24-20020a05680809b800b0034f97ea014dmr14834951oig.96.1669647061772; Mon, 28
- Nov 2022 06:51:01 -0800 (PST)
+ e24-20020a05680809b800b0034f97ea014dmr15155644oig.96.1669652292076; Mon, 28
+ Nov 2022 08:18:12 -0800 (PST)
 MIME-Version: 1.0
-References: <20220423193145.3301ed06@desktop>
- <CADnq5_PXgFBXZ03LXE8qOdimzfKYGhzX1JnycJQcHWcMZdgJug@mail.gmail.com>
- <Y4TGOb3UGmDslyYF@sqrt.uni.cx>
-In-Reply-To: <Y4TGOb3UGmDslyYF@sqrt.uni.cx>
+References: <Y4Mz0glMNwDPaFPO@itl-email>
+In-Reply-To: <Y4Mz0glMNwDPaFPO@itl-email>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 28 Nov 2022 09:50:50 -0500
-Message-ID: <CADnq5_NTyvZR16_N0TzMo3f9Mg6EwOuwuBgYzDA=U7tur7Fmnw@mail.gmail.com>
-Subject: Re: Screen corruption using radeon kernel driver
-To: Mikhail Krylov <sqarert@gmail.com>
+Date: Mon, 28 Nov 2022 11:18:00 -0500
+Message-ID: <CADnq5_NfupG-DzNDJfntg+uSWH2m_8mLfj=ddkMdnNYNRhXWUw@mail.gmail.com>
+Subject: Re: AMD GPU problems under Xen
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,81 +63,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 28, 2022 at 9:31 AM Mikhail Krylov <sqarert@gmail.com> wrote:
+On Mon, Nov 28, 2022 at 2:18 AM Demi Marie Obenour
+<demi@invisiblethingslab.com> wrote:
 >
-> On Mon, Apr 25, 2022 at 01:22:04PM -0400, Alex Deucher wrote:
-> > + dri-devel
-> >
-> > On Mon, Apr 25, 2022 at 3:33 AM Krylov Michael <sqarert@gmail.com> wrote:
-> > >
-> > > Hello!
-> > >
-> > > After updating my Linux kernel from version 4.19 (Debian 10 version) to
-> > > 5.10 (packaged with Debian 11), I've noticed that the image
-> > > displayed on my older computer, 32-bit Pentium 4 using ATI Radeon X1950
-> > > AGP video card is severely corrupted in the graphical (Xorg and Wayland)
-> > > mode: all kinds of black and white stripes across the screen, some
-> > > letters missing, etc.
-> > >
-> > > I've checked several options (Xorg drivers, Wayland instead of
-> > > Xorg, radeon.agpmode=-1 in kernel command line and so on), but the
-> > > problem persisted. I've managed to find that the problem was in the
-> > > kernel, as everything worked well with 4.19 kernel with everything
-> > > else being from Debian 11.
-> > >
-> > > I have managed to find the culprit of that corruption, that is the
-> > > commit 33b3ad3788aba846fc8b9a065fe2685a0b64f713 on the linux kernel.
-> > > Reverting this commit and building the kernel with that commit reverted
-> > > fixes the problem. Disabling HIMEM also gets rid of that problem. But it
-> > > also leaves the system with less that 1G of RAM, which is, of course,
-> > > undesirable.
-> > >
-> > > Apparently this problem is somewhat known, as I can tell after googling
-> > > for the commit id, see this link for example:
-> > > https://lkml.org/lkml/2020/1/9/518
-> > >
-> > > Mageia distro, for example, reverted this commit in the kernel they are
-> > > building:
-> > >
-> > > http://sophie.zarb.org/distrib/Mageia/7/i586/by-pkgid/b9193a4f85192bc57f4d770fb9bb399c/files/32
-> > >
-> > > I've reported this bug to Debian bugtracker, checked the recent verion
-> > > of the kernel (5.17), bug still persists. Here's a link to the Debian
-> > > bug page:
-> > >
-> > > https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=993670
-> > >
-> > > I'm not sure if reverting this commit is the correct way to go, so if
-> > > you need to check any changes/patches that I could apply and test on
-> > > the real hardware, I'll be glad to do that (but please keep in mind
-> > > that testing could take some time, I don't have access to this computer
-> > > 24/7, but I'll do my best to respond ASAP).
-> >
-> > I would be happy to revert that commit.  I attempted to revert it a
-> > year or so ago, but Christoph didn't want to.  He was going to look
-> > further into it.  I was not able to repro the issue.  It seemed to be
-> > related to highmem support.  You might try disabling that.  Here is
-> > the previous thread for reference:
-> > https://lists.freedesktop.org/archives/amd-gfx/2020-September/053922.html
-> >
-> > Alex
+> Dear Christian:
 >
-> So, is there any progress on this issue? I do understand it's not a high
-> priority one, and today I've checked it on 6.0 kernel, and
-> unfortunately, it still persists...
->
-> I'm considering writing a patch that will allow user to override
-> need_dma32/dma_bits setting with a module parameter. I'll have some time
-> after the New Year for that.
->
-> Is it at all possible that such a patch will be merged into kernel?
+> What is the status of the AMDGPU work for Xen dom0?  That was mentioned in
+> https://lore.kernel.org/dri-devel/b2dec9b3-03a7-e7ac-306e-1da024af8982@amd.com/
+> and there have been bug reports to Qubes OS about problems with AMDGPU
+> under Xen (such as https://github.com/QubesOS/qubes-issues/issues/7648).
 
-Unless someone familiar with HIMEM can figure out what is going wrong
-we should just revert the patch.
+I would say it's a work in progress.  It depends what GPU  you have
+and what type of xen setup you are using (PV vs PVH, etc.).  In
+general, your best bet currently is dGPU add in boards because they
+are largely self contained.  APUs and platforms with integrated dGPUs
+are a bit more complicated as they tend to have more platform
+dependencies like ACPI tables and methods in order for the driver to
+be able to initialize the hardware properly.  Additionally, GPUs map a
+lot of system memory so bounce buffers aren't really viable.  You'll
+really need IOMMU,
 
 Alex
+
+> --
+> Sincerely,
+> Demi Marie Obenour (she/her/hers)
+> Invisible Things Lab
