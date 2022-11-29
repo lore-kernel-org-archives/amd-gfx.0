@@ -4,58 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30BD7C4321E
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 14:07:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20C44C46467
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 14:33:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F7E610E077;
-	Tue, 29 Nov 2022 14:07:38 +0000 (UTC)
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
- [IPv6:2001:4860:4864:20::2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 416CB10E03F;
- Tue, 29 Nov 2022 14:07:35 +0000 (UTC)
-Received: by mail-oa1-x2e.google.com with SMTP id
- 586e51a60fabf-14279410bf4so17109897fac.8; 
- Tue, 29 Nov 2022 06:07:35 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49C1710E068;
+	Tue, 29 Nov 2022 14:33:11 +0000 (UTC)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0D6F10E068;
+ Tue, 29 Nov 2022 14:33:07 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id v13so579721oie.3;
+ Tue, 29 Nov 2022 06:33:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=n+Gx0LMLOcjHUeGcLpNChIem5hR5zVu45lf2JDHJKUo=;
- b=Nrys2ATlqgKSV5/iunJeF2MPgpIgrsVsMfo/q5YlIhfPupHgOyuiTlt7PmeZse4IiM
- rCqXxkaOv+eU+Nl6Jzyd+kyXweW0FMNe2omP3/cabCaUYu5LkfPFIjG0tGszf4SLEeoo
- uLZQvaW3rE29aPwK1miJ+ERe/gVynNlIwb2V5fT/V1UTESmivNoOm4AppAUhFvTDJJ0h
- h5lldDnUJIhty+h9HifTc0MnBEaUpf71n2gRFJv8qhHoS+wPFshbyp8ORLSCVS5ONjc2
- StqiMGsAOx16nJcadqwLNMFOkfAZWTCtPdRLkQiDI/iDjo0XR6b5gAq90JY54Wg1YLCa
- 9u+A==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=AlmTEqK3obGypOIeoBM6UEH5n1+C5l9b9H7iWEpLH6A=;
+ b=T/LZqpzYOLPC+SZBUJ97PsVPVerwBk1U08wSBBHEf59T/BeIJk7uDC6xo9oqgB+kk8
+ jKRa0UFcCdD0RXnXzE+hKzXSTggvAkErCA/ygSqBkdWPTBzdMA7lMTUI0ahU9ywh7fmv
+ EMxzwIpJ4uMOzUXjIE7u+QeSNQBjIfVEYDMNYL796FCjAjgIxCNz6ejxPALDvqwK6hCZ
+ vizWC3c+uMBTdBXWX1YdDSxogjWCFcJXqXTr1JkV7IY1Jp9PaOh/1ClELRuwDaUJvF7C
+ Tq/j64LLphVJBbhZwuvpOQl8VNrDWHqFCAV0rIlLaai7wzmvgPYfjrPsMOjlasP2KBb7
+ SPtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=n+Gx0LMLOcjHUeGcLpNChIem5hR5zVu45lf2JDHJKUo=;
- b=47mrAzu93MUME0S7TYy2OGU2M7TvVfn6ka5lWKtMwSlnholJGb2NkG5ifVZj/8UjWF
- zPXrKKe6DGYWMnMzSpuVfUcXJvJwc4bsxZWvRKVZiqSPHIKN0fujDI+s+WGy72E8X8DX
- EVHmaj2AmgYVTyqknMZLeEPGcWmKfKtt2q2l61vprZCeTzjjmWWvJG0Wqa89nZNOZ6lK
- tQ9SX5v7WcrL1898JGH9I1rsGzfuKJJdoihUUybLrVFq1sE+zalOUXuyICp5eMZwXZMj
- cBjcVt4AzMAviNKIzJWvfhiLHmIHCnGJLGRW18EMJkDEr0OGprdFPICi/ac3tKbRvdVm
- 58bg==
-X-Gm-Message-State: ANoB5pk9Vxy6qoOgzdrc2E6YdabK8+dgfDdW6vlh2Ys5ZeCKKDjKK0cK
- WNNgthsWvtWzGMF6YqPeImHKlYiKNSdRIWgYMgLwYXJLCW4=
-X-Google-Smtp-Source: AA0mqf6X7/2sjENwUXQ9/pOfiqzb/aJ0jK/F8dQAxVZWQXnl7KiktOV2Rzd6QwDYbbSZ8yXa9YGuwDNiRf4bSWGH2gk=
-X-Received: by 2002:a05:6870:2b05:b0:12d:58c1:33f9 with SMTP id
- ld5-20020a0568702b0500b0012d58c133f9mr21990892oab.46.1669730854511; Tue, 29
- Nov 2022 06:07:34 -0800 (PST)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=AlmTEqK3obGypOIeoBM6UEH5n1+C5l9b9H7iWEpLH6A=;
+ b=r8+ppRWd5ovhhBI4fminG1jcA9tyCwBmFBmQOGL+km5yCJPqH81iqntzeZj8XBYls2
+ aiZiUX6ehqzDly1TUJ3ckjHM7mglPOeebaBbLyeMe4hi4ZWvz5LKyMFJEK0miNtRwYE4
+ f7p7DOY48RJoJhuswPjnAcqvqdcg863WjzvyKF9PFzVl9raBZC96Sba1ZMVy86N5vGLw
+ EB5JkADJidVby9gg7SKs8TwYfy73B5LwHzUMHwlQmWFwQNdh2l9ckHqwJAv1IuqxoX7P
+ 7YHEjkNBPjkqfI4JwzpVc6/XeqK5BVX40fFc5QnhkQDg0430bGapem6lb7Yl7rwH4pTo
+ CVmA==
+X-Gm-Message-State: ANoB5pmQXih/UPCG0S1tLzCwgabV5NMzapG/+M3WqPqqvmiml6uJ5nQJ
+ gmDZ+WqOLFthjNePONIr/dKcaoSK85kUEGjAG4U=
+X-Google-Smtp-Source: AA0mqf7wcKy4cktH/5nqgVCvLUDw6AoK1wuY7UTYnVx4X7TPkCjyyLY89WuLCnrPeXqUh/OBJXIaTNio8vMumqL4bVw=
+X-Received: by 2002:aca:d17:0:b0:35b:c9e7:b124 with SMTP id
+ 23-20020aca0d17000000b0035bc9e7b124mr730939oin.46.1669732386601; Tue, 29 Nov
+ 2022 06:33:06 -0800 (PST)
 MIME-Version: 1.0
-References: <20221125175203.52481-1-andrealmeid@igalia.com>
- <20221125175203.52481-2-andrealmeid@igalia.com>
-In-Reply-To: <20221125175203.52481-2-andrealmeid@igalia.com>
+References: <Y4Mz0glMNwDPaFPO@itl-email>
+ <CADnq5_NfupG-DzNDJfntg+uSWH2m_8mLfj=ddkMdnNYNRhXWUw@mail.gmail.com>
+ <Y4Vngz5tTA74Qr8L@itl-email>
+In-Reply-To: <Y4Vngz5tTA74Qr8L@itl-email>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 29 Nov 2022 09:07:23 -0500
-Message-ID: <CADnq5_MxQd5RDeAFe4j5J14Czk5YB7e-1=JFWxQAD=z-vFuQ-w@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] drm: Add GPU reset sysfs event
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Date: Tue, 29 Nov 2022 09:32:54 -0500
+Message-ID: <CADnq5_P8kuSsSFatMq4g0r2yE3TW0Rqzm07+Kpv9wKTi0GGS-Q@mail.gmail.com>
+Subject: Re: AMD GPU problems under Xen
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,140 +65,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com, contactshashanksharma@gmail.com,
- kernel-dev@igalia.com, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Simon Ser <contact@emersion.fr>,
- amaranath.somalapuram@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, alexander.deucher@amd.com,
- Dave Airlie <airlied@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
- Shashank Sharma <shashank.sharma@amd.com>, christian.koenig@amd.com,
- "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>
+Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 25, 2022 at 12:52 PM Andr=C3=A9 Almeida <andrealmeid@igalia.com=
-> wrote:
+On Mon, Nov 28, 2022 at 8:59 PM Demi Marie Obenour
+<demi@invisiblethingslab.com> wrote:
 >
-> From: Shashank Sharma <shashank.sharma@amd.com>
+> On Mon, Nov 28, 2022 at 11:18:00AM -0500, Alex Deucher wrote:
+> > On Mon, Nov 28, 2022 at 2:18 AM Demi Marie Obenour
+> > <demi@invisiblethingslab.com> wrote:
+> > >
+> > > Dear Christian:
+> > >
+> > > What is the status of the AMDGPU work for Xen dom0?  That was mentioned in
+> > > https://lore.kernel.org/dri-devel/b2dec9b3-03a7-e7ac-306e-1da024af8982@amd.com/
+> > > and there have been bug reports to Qubes OS about problems with AMDGPU
+> > > under Xen (such as https://github.com/QubesOS/qubes-issues/issues/7648).
+> >
+> > I would say it's a work in progress.  It depends what GPU  you have
+> > and what type of xen setup you are using (PV vs PVH, etc.).
 >
-> Add a sysfs event to notify userspace about GPU resets providing:
-> - PID that triggered the GPU reset, if any. Resets can happen from
->   kernel threads as well, in that case no PID is provided
-> - Information about the reset (e.g. was VRAM lost?)
+> The current situation is:
 >
-> Co-developed-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> ---
+> - dom0 is PV.
+> - VMs with assigned PCI devices are HVM and use a Linux-based stubdomain
+>   QEMU does not run in dom0.
+> - Everything else is PVH.
 >
-> V3:
->    - Reduce information to just PID and flags
->    - Use pid pointer instead of just pid number
->    - BUG() if no reset info is provided
+> In the future, I believe the goal is to move away from PV and HVM in
+> favor of PVH, though HVM support will remain for compatibility with
+> guests (such as Windows) that need emulated devices.
 >
-> V2:
->    - Addressed review comments from Christian and Amar
->    - move the reset information structure to DRM layer
->    - drop _ctx from struct name
->    - make pid 32 bit(than 64)
->    - set flag when VRAM invalid (than valid)
->    - add process name as well (Amar)
-> ---
->  drivers/gpu/drm/drm_sysfs.c | 26 ++++++++++++++++++++++++++
->  include/drm/drm_sysfs.h     | 13 +++++++++++++
->  2 files changed, 39 insertions(+)
+> > In general, your best bet currently is dGPU add in boards because they
+> > are largely self contained.
 >
-> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-> index 430e00b16eec..85777abf4194 100644
-> --- a/drivers/gpu/drm/drm_sysfs.c
-> +++ b/drivers/gpu/drm/drm_sysfs.c
-> @@ -409,6 +409,32 @@ void drm_sysfs_hotplug_event(struct drm_device *dev)
->  }
->  EXPORT_SYMBOL(drm_sysfs_hotplug_event);
->
-> +/**
-> + * drm_sysfs_reset_event - generate a DRM uevent to indicate GPU reset
-> + * @dev: DRM device
-> + * @reset_info: The contextual information about the reset (like PID, fl=
-ags)
-> + *
-> + * Send a uevent for the DRM device specified by @dev. This informs
-> + * user that a GPU reset has occurred, so that an interested client
-> + * can take any recovery or profiling measure.
-> + */
-> +void drm_sysfs_reset_event(struct drm_device *dev, struct drm_reset_even=
-t_info *reset_info)
-> +{
-> +       unsigned char pid_str[13];
-> +       unsigned char flags_str[18];
-> +       unsigned char reset_str[] =3D "RESET=3D1";
-> +       char *envp[] =3D { reset_str, pid_str, flags_str, NULL };
-> +
-> +       DRM_DEBUG("generating reset event\n");
-> +
-> +       BUG_ON(!reset_info);
-> +
-> +       snprintf(pid_str, sizeof(pid_str), "PID=3D%u", pid_vnr(reset_info=
-->pid));
-> +       snprintf(flags_str, sizeof(flags_str), "FLAGS=3D0x%llx", reset_in=
-fo->flags);
-> +       kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
-> +}
-> +EXPORT_SYMBOL(drm_sysfs_reset_event);
-> +
->  /**
->   * drm_sysfs_connector_hotplug_event - generate a DRM uevent for any con=
-nector
->   * change
-> diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
-> index 6273cac44e47..dbb0ac6230b8 100644
-> --- a/include/drm/drm_sysfs.h
-> +++ b/include/drm/drm_sysfs.h
-> @@ -2,15 +2,28 @@
->  #ifndef _DRM_SYSFS_H_
->  #define _DRM_SYSFS_H_
->
-> +#define DRM_RESET_EVENT_VRAM_LOST (1 << 0)
+> The main problem is that for the trusted GUI to work, there needs to
+> be at least one GPU attached to a trusted VM, such as the host or a
+> dedicated GUI VM.  That VM will typically not be running graphics-
+> intensive workloads, so the compute power of a dGPU is largely wasted.
+> SR-IOV support would help with that, but the only GPU vendor with open
+> source SR-IOV support is Intel and it is still not upstream.  I am also
+> not certain if the support extends to Arc dGPUs.
 
-I was thinking about this a bit more last night, and I think we should add:
-DRM_RESET_EVENT_APP_ROBUSTNESS
-When an application that supports robustness extensions starts, the
-UMD can set a flag when it creates the context with the KMD.  That way
-if the app causes a GPU hang, the reset daemon would see this flag if
-the guilty app supports robustness and adjust it's behavior as
-appropriate.  E.g., rather than killing the app, it might let it run
-or set some grace period, etc.
+Can you elaborate on this?  Why wouldn't you just want to pass-through
+a dGPU to a domU to use directly in the guest?
+Are you sure?  I didn't think intel's GVT solution was actually
+SR-IOV.  I think GVT is just a paravirtualized solution.  That aside,
+we are working on enabling virtio gpu with our GPUs on xen in addition
+to domU passthrough.
+
+>
+> > APUs and platforms with integrated dGPUs
+> > are a bit more complicated as they tend to have more platform
+> > dependencies like ACPI tables and methods in order for the driver to
+> > be able to initialize the hardware properly.
+>
+> Is Xen dom0/domU support for such GPUs being worked on?  Is there an
+> estimate as to when the needed support will be available upstream?  This
+> is mostly directed at Christian and other people who work for hardware
+> vendors.
+
+Yes, there are some minor fixes in the driver required which we'll be
+sending out soon and we had to add some ACPI tables to the whitelist
+in xen, but unfortunately the ACPI tables are AMD platform specific so
+there has been pushback from the xen maintainers on accepting them
+because they are not an official part of the ACPI spec.
 
 Alex
 
-
-> +
->  struct drm_device;
->  struct device;
->  struct drm_connector;
->  struct drm_property;
 >
-> +/**
-> + * struct drm_reset_event_info - Information about a GPU reset event
-> + * @pid: Process that triggered the reset, if any
-> + * @flags: Extra information around the reset event (e.g. is VRAM lost?)
-> + */
-> +struct drm_reset_event_info {
-> +       struct pid *pid;
-> +       uint64_t flags;
-> +};
-> +
->  int drm_class_device_register(struct device *dev);
->  void drm_class_device_unregister(struct device *dev);
+> > Additionally, GPUs map a
+> > lot of system memory so bounce buffers aren't really viable.  You'll
+> > really need IOMMU,
 >
->  void drm_sysfs_hotplug_event(struct drm_device *dev);
-> +void drm_sysfs_reset_event(struct drm_device *dev, struct drm_reset_even=
-t_info *reset_info);
->  void drm_sysfs_connector_hotplug_event(struct drm_connector *connector);
->  void drm_sysfs_connector_status_event(struct drm_connector *connector,
->                                       struct drm_property *property);
+> Qubes OS already needs an IOMMU so that is not a concern.
 > --
-> 2.38.1
->
+> Sincerely,
+> Demi Marie Obenour (she/her/hers)
+> Invisible Things Lab
