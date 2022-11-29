@@ -4,115 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D14C6C4167B
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 11:32:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 727B5C4321E
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 11:46:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E03C10E3B9;
-	Tue, 29 Nov 2022 11:32:38 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2074.outbound.protection.outlook.com [40.107.102.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B329A10E3B9;
- Tue, 29 Nov 2022 11:32:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C07C410E3C0;
+	Tue, 29 Nov 2022 11:46:53 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2042.outbound.protection.outlook.com [40.107.244.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 659DD10E028
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Nov 2022 11:46:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kn1AABDOj9NOFCzX9FdO2bUtPChvKcgOOTFo2dCguPM9aHUL1mTu7mlNgVx+vWg8SAJnGT7dcLkoJvVwGZ1+jXR37r70/9P3GlrHRz6VIOw18ht1Qd5SzLkZzWfEd7wJH4rGs1gP4etvoRgkT8LImk9W/0gEqxmMUVhHXEgl+PtaYDHglQaQJEXu0oTaFJC3S+IuBjjVNfbhAXmfgfsl+4t2Ulcipd72pV8Ib+Eeqxq2kgBQMKl4VTBEjPKV2s0sLLORdTWPXy7lyjVItWrp7/XOJ+euSIIoMd50VCaF/IM4ohohVpHTRkXWoh5j/7uDSXi2AIhCzgo8sOJn9Iq1oA==
+ b=R2T6eqzl5ePGYIZjPCiopDmRQNqcKkcaNoDCgesE4rh8YPfmAUVSUoAPT+B+JpEP2P1lENoGV7A87CalOcnk/4z9vuHDv7LZrXo+KO0m9Z4hqSPzg3g1+8obfYTUfqD+IGohisW/6HW9/QqAvHmnQuigqO5406LVc/r5wg43k2rdYpUaemq0ltrjewOtazOcGML/hX4VJiRD4fyc/ddOP6fMLls0tE/DQ9nBq9a6ebjL2kcj45sOJNgdAQEvTa/d2mbQoElMBmefSl8neXfLq+RnN5WmnEiYKnfrVYZc5bBezpjDkmzQxQIp54QpM/Kh4y9gXb5zC9gnGnE0//NDew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L26ixCG8rTLzSsP8JoVF9GGgTnHDLNVOyhfBwhq4tX8=;
- b=M986cS4Vqh2ozmT1x4NgxH051oIWCbDzkgEt/xFb3ZvVvANiYeAI7GjeMdmyBRAY7GZ4HblGrj8lXaoCMfASpsH0HOrxxTcNfuCKGniyIK43eqUZSLaDj5qBdRCjpIYHHpsPYCKzBGsjjUlgxYEPQ6817sCY83g9v8JcOlhqucVzykmqC1ReXHEQP885ay4dj9a3CSuC3e/NkX0rPfjxs/LEets1WFvBkERm1mqjGmKIHW/hREhJ/lEPYEdChmUPPTmhKGExhxP+jyH5AU1oWUWmJ5M23VQc5+lVHBecKx0Adng6prwSXIomUtWb/I4etBRSPgNf4q00lq+XjloSjw==
+ bh=sPgAGpuFwuHvROh3wS3ZnLPucyQSLOGeTsj+Fo5LYdk=;
+ b=X5XLo6szvrvjcOSWrK4gxWZdnU3m6aSPUTVPkRRUefV846S0xfp48fkvaSTypzEbVtBzz0zHP1O5QiHZ430XqE+RBlghja5AJT7lRifJlDy8oBVs4nxDjDeQZFYq1l3m0y0tiZmYapsQ0hKyMTpJDqzqKU4HVjFUKw8lmfzkIL0aZxtFbP2uL/IUXNeG1gDxllFjz9aVN+EemPEf28lfHAfff1/SdGhTidmBvfcobbT/Na+rUR/MbtO2rooDsH/DtSe38DjG7VeuaCQhp8SFK9G7cq6IxOehiDLtnKHTCqnmwYz0104c4p09vQaRuz6QLbFOid3JSXXogVCIf6W2QQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L26ixCG8rTLzSsP8JoVF9GGgTnHDLNVOyhfBwhq4tX8=;
- b=5DZ6Vp/3s1i33S7+R0ykJuVOpGcGUnVzbwgmvBjZCiVu6SkLvzNZHNHcdsMsuEnVOfGXXnRvuTtC5y8DcKTlLf4f9VeA/v68OXLLw9Y/EItgLXCusXkZ8SKl0R/MJVig/Lf0hlVtpSskMKTt+udbMy+nsRXvAPL6KoHBngRHW1Y=
+ bh=sPgAGpuFwuHvROh3wS3ZnLPucyQSLOGeTsj+Fo5LYdk=;
+ b=ZJzXQ7rWl0Fdnr+iUs3CV1LXGXKjLRiUlALkCgIpUQoFXBBO4+aoVSMVqtoNtPOk8AChEBVhzAOPScvVgTUjWFJsqKe9RHddmeWEKelxJ2LPjhTwLnn67Secu7ruyRweTaxC/WlZVkoRAThKb5B6KzDkLVSgsCfKd2jnxiAE4w4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by PH7PR12MB5653.namprd12.prod.outlook.com (2603:10b6:510:132::10)
+ by SN7PR12MB8170.namprd12.prod.outlook.com (2603:10b6:806:32c::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Tue, 29 Nov
- 2022 11:32:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Tue, 29 Nov
+ 2022 11:46:45 +0000
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::7d43:3f30:4caf:7421]) by BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::7d43:3f30:4caf:7421%7]) with mapi id 15.20.5857.023; Tue, 29 Nov 2022
- 11:32:31 +0000
-Message-ID: <fe127690-9dbb-797f-c0c3-f1e05657293f@amd.com>
-Date: Tue, 29 Nov 2022 12:32:26 +0100
+ 11:46:45 +0000
+Message-ID: <d5b42708-da04-b52c-8719-a8bc5faea286@amd.com>
+Date: Tue, 29 Nov 2022 12:46:41 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH v4] drm: Optimise for continuous memory allocation
+Subject: Re: [PATCH 1/4] drm/amdgpu: Introduce gfx software ring (v9)
 Content-Language: en-US
-To: xinhui pan <xinhui.pan@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221129105655.125571-1-xinhui.pan@amd.com>
+To: jiadong.zhu@amd.com, amd-gfx@lists.freedesktop.org
+References: <20221129071037.531124-1-jiadong.zhu@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20221129105655.125571-1-xinhui.pan@amd.com>
+In-Reply-To: <20221129071037.531124-1-jiadong.zhu@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0080.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1f::15) To BN8PR12MB3587.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0042.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4a::13) To BN8PR12MB3587.namprd12.prod.outlook.com
  (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH7PR12MB5653:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31da54e3-c2ba-42d3-6a4b-08dad1fd6722
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SN7PR12MB8170:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47e41581-9040-448a-dfff-08dad1ff6453
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +wXXZWFoEDG6wkeFbM8RC4aYmrvurwffkcGRqoYsTbVIe8B+npYxCive19Vmljt6bhTov1WG3PKgyM/hblY27JXraXs9nm72yDtefFn6laLhdEFjv+pkA3BuPNYdg88e5Ldlspajd47Qo1AqlBKlJS8MNpyWqUuyaLpP3DAfGW53ol0Ne1hszc2Vd3oT+ypr1bcTZpd8qY/4pvh5bPKB849Hn+ywNhvLHKEIqn0VXrwNIOJsXw4Zj/MxnYRAPHFkF7vGIcH6STsxUkqB6BmVDOYT9uIdZYcy1PP72O4HK0nW1sxQa/5meh9pztQE+gJj9WYwZzn5i8BT1Wjbw30AQBFI2GBSWmCawwaO2XzADYfhZ0jYiKCzF9vUlykdTKE3he+A+oXHNZv9eCLdwPk536YW6NdD4kaVr9ah0Yc3Cg9Te+oyvBkAayAgdAbbVgx/i/Ja+caBdsVTFxl3kcTrxb9vDEhmNS5JzTvnQey9U8/Yl9xJ+SC755UI/7GWyAIKMHOCy/bddn7QfqqzMpK9qLvB/+ovrNU0z+zNJ8aKlUq8txOVdiRXgJp/tOBVDtRmCIEvJvsjEKNfmXGmdCLWE25MsBi/VY7cEzsxyfh/mTXHqExKV87GMNXG4wTfdzC6u86o6WWm+3/7A8/3l7kGEW8wUsy22xaGl/i3uBbwtIXnE4z9KcY7hpeBJdXLUiYOKF6n+RX+sJ4gnyZO9kejz5Eq5k7ix6otXeA63PlVark=
+X-Microsoft-Antispam-Message-Info: hsrqgGOTRtOpqD5YY6zgnmeV8Py+S3NBQi50L+t9+y/RBreyh5bhNsKJ7XhE1AOdsvW5VfuJfmv6DsICFhcH0Y5yjNQxlh+AXIFpIeGRdMaDtjQ7CoYuKNUXkvrvHcU2InB1sNiE0lZZKsHWJlPD8SZZIC6grCkasurkLoBkAAr3iqXz9HjnKJudIbwfMDYo2dyeYKnmzTuPnEvp62CKZC46bKBEPmE5t1f/q4GRQVj6h4RO45PlB6FsFgHE4121SCEAXRsBonaKd0pCvgYxN+udp4IkodJTIAx4+fyWYErOAwjRFNpCIfGhFuVrrOjMLymMPAq7HiIhhVZdV1PTUHslX2HN+D6FnB6DEL6qfO7R3GT1/cWx0VtlZOykuqM3kaj2kB9YvFnfzSvJoo/jivGAuW4EJy6a6YCpJqmpjN70q5pcNh9gwuuk4KRN3H/rkeKCJBL8xxNsSOlbM7lfZOD8dQfROu6xYxY/Y7rjEP1q9ASWqqcsx3nqkcFAyY1XEMU2S1e/LjDagvpIMvKrxPGTqty7TrrwNT6lGgrY0mZ54bnrDJZMsA5ClxumUyXrDNEgh0MlfXvL8/pOVJkg3W0Hj8+Mpev3vEyoCdAqqC3GQTRuSCAckVwlqQnIAIiHbETVF1+4P5tnZLKg8p8jctwuCfr/rDxQXUF2OD/SmQ509Gybybggi65i1oCPvFQCHdOkbOIgCfoOkZpoxhEXoetOhY4kgFv5lWAOFr74zXU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(346002)(136003)(366004)(396003)(39860400002)(451199015)(36756003)(66899015)(31696002)(86362001)(8676002)(2906002)(83380400001)(4326008)(478600001)(8936002)(31686004)(2616005)(186003)(66556008)(66946007)(6486002)(316002)(38100700002)(66476007)(6512007)(6506007)(5660300002)(41300700001)(6666004)(45980500001)(43740500002);
+ SFS:(13230022)(4636009)(396003)(366004)(39860400002)(376002)(136003)(346002)(451199015)(66899015)(36756003)(8936002)(38100700002)(2906002)(5660300002)(30864003)(66574015)(186003)(2616005)(83380400001)(86362001)(31696002)(54906003)(66556008)(31686004)(316002)(8676002)(6506007)(478600001)(6486002)(66476007)(66946007)(4326008)(6666004)(6512007)(41300700001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aTh2c0twSXd2c3ZMeWswSENCQ09TOGdYbUtmSUNzTU9zdEpoNGFOTjJ6L3Nz?=
- =?utf-8?B?R2NlUVdwN1JtbFo4T2VNMmdFSUtOZnh4SVpyeStIOUw2ZGwrN0FUTUpjWmRx?=
- =?utf-8?B?SUJFZisrbjF6aDFzWGtpVzVqbFpXNlVPVHBpWmNlZWpZOGprdmNvRnFjcVU1?=
- =?utf-8?B?MUJIaG5wd1MyY1A0SEZ2dDlBaHRtVDBMSUgrQ1RldzVEQzkxQzVuSmkvaTJp?=
- =?utf-8?B?VW0xRldhbDNiM2tMRkFVbXp4MnRWMUNHeGJXRFVQTElPdUVwdngvRlZUUkZZ?=
- =?utf-8?B?OG0zd2JuU3dDd0lwNHQrRTVWTm1nZUFOaXpBSzNrUWkyWEx4OW1JSVY5RTlt?=
- =?utf-8?B?VEpJWjF4a1ZMQk00YmsrN0hSQUtVdkxtamxBOFRUVkV2K20wL0E2eHNzeDBZ?=
- =?utf-8?B?WUdlWVpxUjI2N09GOVdzUGxRU2V4aDJjK2N3ZlN2TzhXdFQ2bndxbGU2UE4y?=
- =?utf-8?B?L1NBOUk1YzBiTmVrUVJacUR3Zy85VXVFVTZyVFRnTnFLRC8vSVg3aGpOdlFp?=
- =?utf-8?B?TmtZWnAxRDM0THp6RHNYdEJYdUpuYXZiWDczQUJtOFNJSGNHMXZzcGc4aEpD?=
- =?utf-8?B?OVd4dVUrdHFDV3Z3YW5SWnc0K1NVSHloNjQybFo3NThpWHFkcjlFVi9wK254?=
- =?utf-8?B?bG1JWnNnUUgwVlN1bWdMYzhacHEyejZrK1R2QXBkKzBxdTVFVW14ZlkyMktn?=
- =?utf-8?B?OTVQWTJVSjEwNDBFV2k3NWFsRldWSjhJcXRacGF2WlFXL1ZDa2F3UDRTRTdS?=
- =?utf-8?B?WDE4NW9BVnlkbTQ5c2pGNFhGQmpTeVdvVjhZOHpxOHN0NDJwSjlWSzBETDBz?=
- =?utf-8?B?T1d4SFUzeUtMYVU4Zmd2WjNKMmdTVy94UE4xbkNFRklCOWdtNUt2L2Z4aCsz?=
- =?utf-8?B?VEdleFZ3NmExSXBIQmszaUZ6MnBXZElxTjVTZmlnUjUvbktEak1sK0pXL0R2?=
- =?utf-8?B?SWh1eUNDdGQ4N244WU94V3VHbGw4Rmc3b3krbTh6d29lUnZRQ1hOSk44ZlIz?=
- =?utf-8?B?bFYwb0FQYVpYUUx2Tm5lRnpXd2lwRHhrNTRUZmtkOGNXdU44azZZa25qRGFL?=
- =?utf-8?B?YzFiWE1sbXFnNG9SbWVyendrZTRkcnJTV1RsOEVZSmc0ZVJmbUZmZXNLb2c1?=
- =?utf-8?B?VFlLT25TQW5ac3h0M01QRHFUQUJoOHB1c05EdzlncVV0T2NselJ1eDZadzdG?=
- =?utf-8?B?TVlyZGdBRGllRUhIaHR5VnVjUzllNU5NQWRtd0VsUkkzOCtkMkVrM0sra0hQ?=
- =?utf-8?B?ZW5zYjNPUFJ5RVQyVWYrZHJLRkM2TTNjZ1NXS3gwV0F1SE5OVU0yanFENG04?=
- =?utf-8?B?YzhCWllmZk0rdks0VmlGT3NRRlc3Q0ZuNjYrQUk0blFSSVk1VW14amZtQTkv?=
- =?utf-8?B?R1plWlAvR3R1Z3ZLNzZtck5RdStNS0JteXRVWkVNVGUxbDJ4eGVDRkRsR1NL?=
- =?utf-8?B?T1pFcU5weDMwdm85bFNoVzlmUXRwZjFoOVhEKzZIbHRjbTZiMVBncUx5ZXRz?=
- =?utf-8?B?MHdyaHd2ZmVKSmZVN0lzczFhcHV5UW9vR0VPZlpOVk9TTzRvQW54M0NZQUl5?=
- =?utf-8?B?UXJGckh0d0pBWE42eGJRRGNqVlExalNtNy9Sck41QkVZRTZxYTZkT1B0OEZr?=
- =?utf-8?B?MXhONzl2UkdOeHpzNmZKUFV5VmlRZUM2ZkxqTnkxUUlCdVZ6YzFPTG16aEtV?=
- =?utf-8?B?OEpKSGhJMkFoYWtLb1V3ZHYvbXZNQ1FseDluWmlYczlKUzBNcDg2UC93MkR3?=
- =?utf-8?B?azN5MFRTb1g2aklaeG5FVTdLUUFjaUdJL1BpYXBIWjB5blBiTmEzS2svbytZ?=
- =?utf-8?B?UGpHL29DRHVBS2JROG1pYzl3dFNUOUhDcmNHR2k5enkzSHNnVDN6YmkrZk8z?=
- =?utf-8?B?N3hOdTJZN3llTS9UNlpCQndNc25adE1sdnF0Wlg4SDVFSUVsaTZOL0lWbkFX?=
- =?utf-8?B?T0l5VjRFNm56Zmd6YW1SdXg5ajRLZmxiT203VTFGYlM4U0xOdUY1cGxSbDFw?=
- =?utf-8?B?Qkx3NmtaMkk3elZUWHg3ZTFBSWRiMGpUUTRETHlVU2RKQkgwcExiS3RtVml4?=
- =?utf-8?B?M3hRejBrVFBpTGdOZ0NoY3p3RGt2ODB5Y1lhcXlBRkFUZUJnZzlaR0hlS21W?=
- =?utf-8?B?aHk2cTJIQzVUZlJCY25MNmdodjVBdUh3NE4xQ1FIdDhGbHVwTitKellWWlhr?=
- =?utf-8?Q?2rJ7mKDlfYPjSFpp6hjxX7ZplJf8VrRY12plo62B3jES?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Tnh0WHpsYWNseW5DV0EwZTNwdDc0Q3pYUjlSR0wvOXhQWXZHSnMyakhLWCtY?=
+ =?utf-8?B?Rnd2U1FwaldXSWk5d1AvMHQxQzNyL2lWUjlkenVpTjhYRUswcDdyVlpQZmFR?=
+ =?utf-8?B?TG54OFpzTy9nRHB4S3hiQmNLUlF3bW1lSTlCRW9WS3pGUk1SaG9NRnpSdFJF?=
+ =?utf-8?B?Mk14RWNDVGNtV1hhZ0hyNm0xNGllNlR1UlFiUkZYTzFndlp2SG5DV01zN2tL?=
+ =?utf-8?B?TzZMT1NPa0oyMFg0V3pYcW1CeWN3b0Y5SUFRdFNjQ2NaUStRZVJwTFY3bDlU?=
+ =?utf-8?B?YnhjSm8vRFQybXh4dWVVdklUZTNUbG1OWjVQSmljV0Q3d3pKZDhQUkl0c1dD?=
+ =?utf-8?B?QWZUOERWT1gzeFdsNWZHQVRFTWwxT1Z3VXJoMTVDVGpqcG9TYXdZUEZ6QVJz?=
+ =?utf-8?B?Ym1qK0RjN3lHK1hsY0tQT1BqUFNjQVBHOEV5TjNJWmFGQndORlBPVXFoakJp?=
+ =?utf-8?B?alp2a2FLRjRmaHc0cXlDQlB0MldmVlVoVHNCK0JHQnMyZjhIeXptRDIzVnRR?=
+ =?utf-8?B?TjF5aW9tZzg0SXQyZFRhT1o2VDFoV21ZNGdoWnAweGtoVm9CZ0dmRC9ETlox?=
+ =?utf-8?B?UlE0RE9ZL3FrMHlUcGwrc0o5cjlFYVJXV3pGQnBKNlJIeU1DZlVIMmQrcWg4?=
+ =?utf-8?B?ejlld1YvSUFta1pJNTFURkU4U3FhTHRJM1RCMitURTdQM0toMHY3VnllUWdo?=
+ =?utf-8?B?WitkbXVHblJ0YnVwejVHNlN2em5IRmN6WDlrUTNKcDJvbkR1ZW54aXFTdFNF?=
+ =?utf-8?B?cUdld2dUeWJLVER2VW81QkJqOGs1eDdXN2JWTDkxQzhtTi81ZjRTYm5uRXJn?=
+ =?utf-8?B?bnJ6ZnJaVE1WVkREb0hOemsxV3g1b3pEMmYwOWIyL0htbmxtQm1sd3JYZlVV?=
+ =?utf-8?B?Q1BOdjE4clRLK1JwcEN3UmNMeHJReU9nZ0lUa2p2Nkp0bkc2MnEyUUdocEl2?=
+ =?utf-8?B?VWhlSHdHNXlleGUrWGRxNmFjcDNKV1hhM1pnTzl2LzlMeVE0ZUhlRGJRVlRU?=
+ =?utf-8?B?dWgzRDZyY2k1Ry9UQkIrVEYvMU5sZWExcnNhU1gwckZXamIxTEFveWRkZC9M?=
+ =?utf-8?B?ek5jL1hiTkpwODR2b2VBbEVUS0RkaGVHeng2endObm5UQW83dTBOS1hIMVVM?=
+ =?utf-8?B?SUxzRFhYQ0ZKem5rdE1MYk9ES2U3TVBoaWpaTHNHcE5PN2lPeEppd3NnQyt2?=
+ =?utf-8?B?UHh5eE1WSEp3UTVHQTdleHZRQzFjOFBodk52QUZDNmEvK09Ub0NrY2dOS3dv?=
+ =?utf-8?B?c2xyRFUxZ2l0ZkE2TldQcHV5LzFsbWJTdE9GZGhvZ0xlMWQvQXl1RlB2bzI3?=
+ =?utf-8?B?N2xxVTQ4WEZUc28xN3NhL0FzS2szbkdxN0FsRk8xK3ozRTgxSWpOaFNGdExZ?=
+ =?utf-8?B?MWNuWTRZUlhlZGR4bTZlU3BraWZyMHREK2xXWm9BV3VFY3A0Ukc4eWJ1RTBo?=
+ =?utf-8?B?eHJRMHRGZzRoRmNIM2tId0Z1U2ZLOHJ5WUc4RjFldEwxNGVyczR0TmJOSHVS?=
+ =?utf-8?B?cmswN0VuQlRYQWNSbzltY1VNSVo4d0Fic0JJb2NUb1lHUlhpZUdMNWN3K3Nz?=
+ =?utf-8?B?ZEl3bEtBZURzWDNQRmp0TTcrWHZJSmlLUFFKd3lweU4wZ1VrWGhLOVd2aTBt?=
+ =?utf-8?B?dko3djRSUDJNeWk3MkNyWjNBa0JGUlpCVGhBbFIrMzhlTTltdTQ2QlZQeFBt?=
+ =?utf-8?B?a09BcWhKVEtkYmFDSmdTVFpVUmVralBLS2NwZzEwdVpYclF2b2tjd1ZPSlJa?=
+ =?utf-8?B?Nm01cmJjRm9zWFc5bzlWUUZnYW5UZ2V6MU1aOXF1Z1I3KzJCR0NOWlhFNUV5?=
+ =?utf-8?B?RWtiSWJBRWxNVWdoYU9BMVJndzJjVEpycFlWMm9IWXlwenFRT0F6YjhJRmhj?=
+ =?utf-8?B?dkF1TTY2d1VFTncxcWV2ZDQ5aFZ5WHc5NitidzgzTTloUHpWQzgwdFJhQ3ZW?=
+ =?utf-8?B?c01KZXhFUFJwN0xMNi9wRDVJRWdhQ0Jwa1VPd0Q4MWpLZXhDRjB0WHk2LzN6?=
+ =?utf-8?B?bi8rUnNhb2ZUOG9QdEN5YjFwMlRoakg4Yk5JV242ZXplQnRKWW83RjZEMDJS?=
+ =?utf-8?B?N252Q2JkS3RaQTYybEVoSnhUZHdzUWZzZWNubVRBWDE3QlZpZ0xDeTljSHBl?=
+ =?utf-8?B?eUl5Q2JUdTBWaGpZVjFYUWI3eUU3RFA3dnpxbzdvK2l2UDFBRGg4R0ZNWHds?=
+ =?utf-8?Q?yaPFhuAprvUYqHmdRkP8nZxCx68m88V0x769YOvyWfzZ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31da54e3-c2ba-42d3-6a4b-08dad1fd6722
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47e41581-9040-448a-dfff-08dad1ff6453
 X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2022 11:32:31.4992 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2022 11:46:45.8149 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aDn1otAcjPHkS4RSQCMYQbfCcWm0I350f9lVus9ZvaAxYDJpVx9W0/YMrz+7/EMz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5653
+X-MS-Exchange-CrossTenant-UserPrincipalName: qsP79XYLoBWnoxn7opAsF8FthV4vX5tjb5UnKPq5kFHezl9akGqtx77yzVZyRNnW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8170
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,243 +124,411 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: arunpravin.paneerselvam@amd.com, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- matthew.auld@intel.com, daniel@ffwll.ch
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+ =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ Luben Tuikov <Luben.Tuikov@amd.com>, Huang Rui <ray.huang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 29.11.22 um 11:56 schrieb xinhui pan:
-> Currently drm-buddy does not have full knowledge of continuous memory.
+Am 29.11.22 um 08:10 schrieb jiadong.zhu@amd.com:
+> From: "Jiadong.Zhu" <Jiadong.Zhu@amd.com>
 >
-> Lets consider scenario below.
-> order 1:    L		    R
-> order 0: LL	LR	RL	RR
-> for order 1 allocation, it can offer L or R or LR+RL.
+> The software ring is created to support priority context while there is only
+> one hardware queue for gfx.
 >
-> For now, we only implement L or R case for continuous memory allocation.
-> So this patch aims to implement the rest cases.
+> Every software ring has its fence driver and could be used as an ordinary ring
+> for the GPU scheduler.
+> Multiple software rings are bound to a real ring with the ring muxer. The
+> packages committed on the software ring are copied to the real ring.
 >
-> Adding a new member leaf_link which links all leaf blocks in asceding
-> order. Now we can find more than 2 sub-order blocks easier.
-> Say, order 4 can be combined with corresponding order 4, 2+2, 1+2+1,
-> 0+1+2+0, 0+2+1+0.
-
-Well that description is a bit confusing and doesn't make to much sense 
-to me.
-
-When you have two adjacent free order 0 blocks then those should be 
-automatically combined into an order 1. This is a fundamental property 
-of the buddy allocator, otherwise the whole algorithm won't work.
-
-When you have the case of a free order 1 block with two adjacent free 
-order 0 blocks then we a fragmented address space. In this case the best 
-approach is to fail the allocation and start to swap things out.
-
-So what exactly is the goal here?
-
-Regards,
-Christian.
-
+> v2: Use array to store software ring entry.
+> v3: Remove unnecessary prints.
+> v4: Remove amdgpu_ring_sw_init/fini functions,
+> using gtt for sw ring buffer for later dma copy
+> optimization.
+> v5: Allocate ring entry dynamically in the muxer.
+> v6: Update comments for the ring muxer.
+> v7: Modify for function naming.
+> v8: Combine software ring functions into amdgpu_ring_mux.c
+> v9: Use kernel-doc comment on the get_rptr function.
 >
-> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+> Cc: Christian Koenig <Christian.Koenig@amd.com>
+> Cc: Luben Tuikov <Luben.Tuikov@amd.com>
+> Cc: Andrey Grodzovsky  <Andrey.Grodzovsky@amd.com>
+> Cc: Michel Dänzer <michel@daenzer.net>
+> Signed-off-by: Jiadong.Zhu <Jiadong.Zhu@amd.com>
+> Acked-by: Huang Rui <ray.huang@amd.com>
+> Acked-by: Luben Tuikov <luben.tuikov@amd.com>
+
+Acked-by: Christian König <christian.koenig@amd.com> for the series.
+
 > ---
-> change from v3:
-> reworked totally. adding leaf_link.
+>   drivers/gpu/drm/amd/amdgpu/Makefile          |   3 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h      |   3 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h     |   4 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c | 221 +++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h |  76 +++++++
+>   5 files changed, 306 insertions(+), 1 deletion(-)
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
 >
-> change from v2:
-> search continuous block in nearby root if needed
->
-> change from v1:
-> implement top-down continuous allocation
-> ---
->   drivers/gpu/drm/drm_buddy.c | 108 +++++++++++++++++++++++++++++++++---
->   include/drm/drm_buddy.h     |   1 +
->   2 files changed, 102 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index 11bb59399471..8edafb99b02c 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -80,6 +80,7 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
->   {
->   	unsigned int i;
->   	u64 offset;
-> +	LIST_HEAD(leaf);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index 74f109a56d90..f58aa5d2e83e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -62,7 +62,8 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+>   	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
+>   	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
+>   	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
+> -	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o
+> +	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
+> +	amdgpu_ring_mux.o
 >   
->   	if (size < chunk_size)
->   		return -EINVAL;
-> @@ -136,6 +137,7 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
->   			goto out_free_roots;
+>   amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
 >   
->   		mark_free(mm, root);
-> +		list_add_tail(&root->leaf_link, &leaf);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> index 1e6e35ff3f13..7c2692f29311 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -33,6 +33,7 @@
+>   #include "amdgpu_imu.h"
+>   #include "soc15.h"
+>   #include "amdgpu_ras.h"
+> +#include "amdgpu_ring_mux.h"
 >   
->   		BUG_ON(i > mm->max_order);
->   		BUG_ON(drm_buddy_block_size(mm, root) < chunk_size);
-> @@ -147,6 +149,7 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
->   		i++;
->   	} while (size);
+>   /* GFX current status */
+>   #define AMDGPU_GFX_NORMAL_MODE			0x00000000L
+> @@ -363,6 +364,8 @@ struct amdgpu_gfx {
+>   	struct amdgpu_gfx_ras		*ras;
 >   
-> +	list_del(&leaf);
->   	return 0;
->   
->   out_free_roots:
-> @@ -205,6 +208,9 @@ static int split_block(struct drm_buddy *mm,
->   	mark_free(mm, block->left);
->   	mark_free(mm, block->right);
->   
-> +	list_add(&block->right->leaf_link, &block->leaf_link);
-> +	list_add(&block->left->leaf_link, &block->leaf_link);
-> +	list_del(&block->leaf_link);
->   	mark_split(block);
->   
->   	return 0;
-> @@ -256,6 +262,9 @@ static void __drm_buddy_free(struct drm_buddy *mm,
->   			break;
->   
->   		list_del(&buddy->link);
-> +		list_add(&parent->leaf_link, &block->leaf_link);
-> +		list_del(&buddy->leaf_link);
-> +		list_del(&block->leaf_link);
->   
->   		drm_block_free(mm, block);
->   		drm_block_free(mm, buddy);
-> @@ -386,6 +395,78 @@ alloc_range_bias(struct drm_buddy *mm,
->   	return ERR_PTR(err);
->   }
->   
-> +static struct drm_buddy_block *
-> +find_continuous_blocks(struct drm_buddy *mm,
-> +		       int order,
-> +		       unsigned long flags,
-> +		       struct drm_buddy_block **rblock)
-> +{
-> +	struct list_head *head = &mm->free_list[order];
-> +	struct drm_buddy_block *free_block, *max_block = NULL, *end, *begin;
-> +	u64 pages = BIT(order + 1);
-> +	u64 cur_pages;
+>   	bool				is_poweron;
 > +
-> +	list_for_each_entry(free_block, head, link) {
-> +		if (max_block) {
-> +			if (!(flags & DRM_BUDDY_TOPDOWN_ALLOCATION))
-> +				break;
-> +
-> +			if (drm_buddy_block_offset(free_block) <
-> +			    drm_buddy_block_offset(max_block))
-> +				continue;
-> +		}
-> +
-> +		cur_pages = BIT(order);
-> +		begin = end = free_block;
-> +		while (true) {
-> +			struct drm_buddy_block *prev, *next;
-> +			int prev_order, next_order;
-> +
-> +			prev = list_prev_entry(begin, leaf_link);
-> +			if (!drm_buddy_block_is_free(prev) ||
-> +			    drm_buddy_block_offset(prev) >
-> +			    drm_buddy_block_offset(begin)) {
-> +				prev = NULL;
-> +			}
-> +			next = list_next_entry(end, leaf_link);
-> +			if (!drm_buddy_block_is_free(next) ||
-> +			    drm_buddy_block_offset(next) <
-> +			    drm_buddy_block_offset(end)) {
-> +				next = NULL;
-> +			}
-> +			if (!prev && !next)
-> +				break;
-> +
-> +			prev_order = prev ? drm_buddy_block_order(prev) : -1;
-> +			next_order = next ? drm_buddy_block_order(next) : -1;
-> +			if (next_order >= prev_order) {
-> +				BUG_ON(drm_buddy_block_offset(end) +
-> +				       drm_buddy_block_size(mm, end) !=
-> +				       drm_buddy_block_offset(next));
-> +				end = next;
-> +				cur_pages += BIT(drm_buddy_block_order(next));
-> +			}
-> +			if (prev_order >= next_order) {
-> +				BUG_ON(drm_buddy_block_offset(prev) +
-> +				       drm_buddy_block_size(mm, prev) !=
-> +				       drm_buddy_block_offset(begin));
-> +				begin = prev;
-> +				cur_pages += BIT(drm_buddy_block_order(prev));
-> +			}
-> +			if (pages == cur_pages)
-> +				break;
-> +			BUG_ON(pages < cur_pages);
-> +		}
-> +
-> +		if (pages > cur_pages)
-> +			continue;
-> +
-> +		*rblock = end;
-> +		max_block = begin;
-> +	}
-> +	return max_block;
-> +}
-> +
->   static struct drm_buddy_block *
->   get_maxblock(struct list_head *head)
->   {
-> @@ -637,7 +718,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   			   struct list_head *blocks,
->   			   unsigned long flags)
->   {
-> -	struct drm_buddy_block *block = NULL;
-> +	struct drm_buddy_block *block = NULL, *rblock = NULL;
->   	unsigned int min_order, order;
->   	unsigned long pages;
->   	LIST_HEAD(allocated);
-> @@ -689,17 +770,30 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   				break;
->   
->   			if (order-- == min_order) {
-> +				if (!(flags & DRM_BUDDY_RANGE_ALLOCATION) &&
-> +				    min_order != 0 && pages == BIT(order + 1)) {
-> +					block = find_continuous_blocks(mm,
-> +								       order,
-> +								       flags,
-> +								       &rblock);
-> +					if (block)
-> +						break;
-> +				}
->   				err = -ENOSPC;
->   				goto err_free;
->   			}
->   		} while (1);
->   
-> -		mark_allocated(block);
-> -		mm->avail -= drm_buddy_block_size(mm, block);
-> -		kmemleak_update_trace(block);
-> -		list_add_tail(&block->link, &allocated);
-> -
-> -		pages -= BIT(order);
-> +		do {
-> +			mark_allocated(block);
-> +			mm->avail -= drm_buddy_block_size(mm, block);
-> +			kmemleak_update_trace(block);
-> +			list_add_tail(&block->link, &allocated);
-> +			pages -= BIT(drm_buddy_block_order(block));
-> +			if (block == rblock || !rblock)
-> +				break;
-> +			block = list_next_entry(block, leaf_link);
-> +		} while (true);
->   
->   		if (!pages)
->   			break;
-> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-> index 572077ff8ae7..c5437bd4f4f3 100644
-> --- a/include/drm/drm_buddy.h
-> +++ b/include/drm/drm_buddy.h
-> @@ -50,6 +50,7 @@ struct drm_buddy_block {
->   	 */
->   	struct list_head link;
->   	struct list_head tmp_link;
-> +	struct list_head leaf_link;
+> +	struct amdgpu_ring_mux          muxer;
 >   };
 >   
->   /* Order-zero must be at least PAGE_SIZE */
+>   #define amdgpu_gfx_get_gpu_clock_counter(adev) (adev)->gfx.funcs->get_gpu_clock_counter((adev))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> index 82c178a9033a..8be51ebfedd5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -279,6 +279,10 @@ struct amdgpu_ring {
+>   	bool			is_mes_queue;
+>   	uint32_t		hw_queue_id;
+>   	struct amdgpu_mes_ctx_data *mes_ctx;
+> +
+> +	bool            is_sw_ring;
+> +	unsigned int    entry_index;
+> +
+>   };
+>   
+>   #define amdgpu_ring_parse_cs(r, p, job, ib) ((r)->funcs->parse_cs((p), (job), (ib)))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+> new file mode 100644
+> index 000000000000..6fbf71451e29
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+> @@ -0,0 +1,221 @@
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +#include <linux/slab.h>
+> +#include <drm/drm_print.h>
+> +
+> +#include "amdgpu_ring_mux.h"
+> +#include "amdgpu_ring.h"
+> +#include "amdgpu.h"
+> +
+> +#define AMDGPU_MUX_RESUBMIT_JIFFIES_TIMEOUT (HZ / 2)
+> +
+> +int amdgpu_ring_mux_init(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
+> +			 unsigned int entry_size)
+> +{
+> +	mux->real_ring = ring;
+> +	mux->num_ring_entries = 0;
+> +	mux->ring_entry = kcalloc(entry_size, sizeof(struct amdgpu_mux_entry), GFP_KERNEL);
+> +	if (!mux->ring_entry)
+> +		return -ENOMEM;
+> +
+> +	mux->ring_entry_size = entry_size;
+> +	spin_lock_init(&mux->lock);
+> +
+> +	return 0;
+> +}
+> +
+> +void amdgpu_ring_mux_fini(struct amdgpu_ring_mux *mux)
+> +{
+> +	kfree(mux->ring_entry);
+> +	mux->ring_entry = NULL;
+> +	mux->num_ring_entries = 0;
+> +	mux->ring_entry_size = 0;
+> +}
+> +
+> +int amdgpu_ring_mux_add_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_mux_entry *e;
+> +
+> +	if (mux->num_ring_entries >= mux->ring_entry_size) {
+> +		DRM_ERROR("add sw ring exceeding max entry size\n");
+> +		return -ENOENT;
+> +	}
+> +
+> +	e = &mux->ring_entry[mux->num_ring_entries];
+> +	ring->entry_index = mux->num_ring_entries;
+> +	e->ring = ring;
+> +
+> +	mux->num_ring_entries += 1;
+> +	return 0;
+> +}
+> +
+> +static inline struct amdgpu_mux_entry *amdgpu_ring_mux_sw_entry(struct amdgpu_ring_mux *mux,
+> +								struct amdgpu_ring *ring)
+> +{
+> +	return ring->entry_index < mux->ring_entry_size ?
+> +			&mux->ring_entry[ring->entry_index] : NULL;
+> +}
+> +
+> +/* copy packages on sw ring range[begin, end) */
+> +static void amdgpu_ring_mux_copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux,
+> +						  struct amdgpu_ring *ring,
+> +						  u64 s_start, u64 s_end)
+> +{
+> +	u64 start, end;
+> +	struct amdgpu_ring *real_ring = mux->real_ring;
+> +
+> +	start = s_start & ring->buf_mask;
+> +	end = s_end & ring->buf_mask;
+> +
+> +	if (start == end) {
+> +		DRM_ERROR("no more data copied from sw ring\n");
+> +		return;
+> +	}
+> +	if (start > end) {
+> +		amdgpu_ring_alloc(real_ring, (ring->ring_size >> 2) + end - start);
+> +		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[start],
+> +					   (ring->ring_size >> 2) - start);
+> +		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[0], end);
+> +	} else {
+> +		amdgpu_ring_alloc(real_ring, end - start);
+> +		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[start], end - start);
+> +	}
+> +}
+> +
+> +void amdgpu_ring_mux_set_wptr(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring, u64 wptr)
+> +{
+> +	struct amdgpu_mux_entry *e;
+> +
+> +	e = amdgpu_ring_mux_sw_entry(mux, ring);
+> +	if (!e) {
+> +		DRM_ERROR("cannot find entry for sw ring\n");
+> +		return;
+> +	}
+> +
+> +	spin_lock(&mux->lock);
+> +	e->sw_cptr = e->sw_wptr;
+> +	e->sw_wptr = wptr;
+> +	e->start_ptr_in_hw_ring = mux->real_ring->wptr;
+> +
+> +	amdgpu_ring_mux_copy_pkt_from_sw_ring(mux, ring, e->sw_cptr, wptr);
+> +	e->end_ptr_in_hw_ring = mux->real_ring->wptr;
+> +	amdgpu_ring_commit(mux->real_ring);
+> +
+> +	spin_unlock(&mux->lock);
+> +}
+> +
+> +u64 amdgpu_ring_mux_get_wptr(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_mux_entry *e;
+> +
+> +	e = amdgpu_ring_mux_sw_entry(mux, ring);
+> +	if (!e) {
+> +		DRM_ERROR("cannot find entry for sw ring\n");
+> +		return 0;
+> +	}
+> +
+> +	return e->sw_wptr;
+> +}
+> +
+> +/**
+> + * amdgpu_ring_mux_get_rptr - get the readptr of the software ring
+> + * @mux: the multiplexer the software rings attach to
+> + * @ring: the software ring of which we calculate the readptr
+> + *
+> + * The return value of the readptr is not precise while the other rings could
+> + * write data onto the real ring buffer.After overwriting on the real ring, we
+> + * can not decide if our packages have been excuted or not read yet. However,
+> + * this function is only called by the tools such as umr to collect the latest
+> + * packages for the hang analysis. We assume the hang happens near our latest
+> + * submit. Thus we could use the following logic to give the clue:
+> + * If the readptr is between start and end, then we return the copy pointer
+> + * plus the distance from start to readptr. If the readptr is before start, we
+> + * return the copy pointer. Lastly, if the readptr is past end, we return the
+> + * write pointer.
+> + */
+> +u64 amdgpu_ring_mux_get_rptr(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_mux_entry *e;
+> +	u64 readp, offset, start, end;
+> +
+> +	e = amdgpu_ring_mux_sw_entry(mux, ring);
+> +	if (!e) {
+> +		DRM_ERROR("no sw entry found!\n");
+> +		return 0;
+> +	}
+> +
+> +	readp = amdgpu_ring_get_rptr(mux->real_ring);
+> +
+> +	start = e->start_ptr_in_hw_ring & mux->real_ring->buf_mask;
+> +	end = e->end_ptr_in_hw_ring & mux->real_ring->buf_mask;
+> +	if (start > end) {
+> +		if (readp <= end)
+> +			readp += mux->real_ring->ring_size >> 2;
+> +		end += mux->real_ring->ring_size >> 2;
+> +	}
+> +
+> +	if (start <= readp && readp <= end) {
+> +		offset = readp - start;
+> +		e->sw_rptr = (e->sw_cptr + offset) & ring->buf_mask;
+> +	} else if (readp < start) {
+> +		e->sw_rptr = e->sw_cptr;
+> +	} else {
+> +		/* end < readptr */
+> +		e->sw_rptr = e->sw_wptr;
+> +	}
+> +
+> +	return e->sw_rptr;
+> +}
+> +
+> +u64 amdgpu_sw_ring_get_rptr_gfx(struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_device *adev = ring->adev;
+> +	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
+> +
+> +	WARN_ON(!ring->is_sw_ring);
+> +	return amdgpu_ring_mux_get_rptr(mux, ring);
+> +}
+> +
+> +u64 amdgpu_sw_ring_get_wptr_gfx(struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_device *adev = ring->adev;
+> +	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
+> +
+> +	WARN_ON(!ring->is_sw_ring);
+> +	return amdgpu_ring_mux_get_wptr(mux, ring);
+> +}
+> +
+> +void amdgpu_sw_ring_set_wptr_gfx(struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_device *adev = ring->adev;
+> +	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
+> +
+> +	WARN_ON(!ring->is_sw_ring);
+> +	amdgpu_ring_mux_set_wptr(mux, ring, ring->wptr);
+> +}
+> +
+> +/* Override insert_nop to prevent emitting nops to the software rings */
+> +void amdgpu_sw_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+> +{
+> +	WARN_ON(!ring->is_sw_ring);
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+> new file mode 100644
+> index 000000000000..f58672a8e0ad
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+> @@ -0,0 +1,76 @@
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#ifndef __AMDGPU_RING_MUX__
+> +#define __AMDGPU_RING_MUX__
+> +
+> +#include <linux/timer.h>
+> +#include <linux/spinlock.h>
+> +#include "amdgpu_ring.h"
+> +
+> +struct amdgpu_ring;
+> +/**
+> + * struct amdgpu_mux_entry - the entry recording software rings copying information.
+> + * @ring: the pointer to the software ring.
+> + * @start_ptr_in_hw_ring: last start location copied to in the hardware ring.
+> + * @end_ptr_in_hw_ring: last end location copied to in the hardware ring.
+> + * @sw_cptr: the position of the copy pointer in the sw ring.
+> + * @sw_rptr: the read pointer in software ring.
+> + * @sw_wptr: the write pointer in software ring.
+> + */
+> +struct amdgpu_mux_entry {
+> +	struct amdgpu_ring      *ring;
+> +	u64                     start_ptr_in_hw_ring;
+> +	u64                     end_ptr_in_hw_ring;
+> +	u64                     sw_cptr;
+> +	u64                     sw_rptr;
+> +	u64                     sw_wptr;
+> +};
+> +
+> +struct amdgpu_ring_mux {
+> +	struct amdgpu_ring      *real_ring;
+> +
+> +	struct amdgpu_mux_entry *ring_entry;
+> +	unsigned int            num_ring_entries;
+> +	unsigned int            ring_entry_size;
+> +	/*the lock for copy data from different software rings*/
+> +	spinlock_t              lock;
+> +};
+> +
+> +int amdgpu_ring_mux_init(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
+> +			 unsigned int entry_size);
+> +void amdgpu_ring_mux_fini(struct amdgpu_ring_mux *mux);
+> +int amdgpu_ring_mux_add_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
+> +void amdgpu_ring_mux_set_wptr(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring, u64 wptr);
+> +u64 amdgpu_ring_mux_get_wptr(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
+> +u64 amdgpu_ring_mux_get_rptr(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
+> +
+> +u64 amdgpu_sw_ring_get_rptr_gfx(struct amdgpu_ring *ring);
+> +u64 amdgpu_sw_ring_get_wptr_gfx(struct amdgpu_ring *ring);
+> +void amdgpu_sw_ring_set_wptr_gfx(struct amdgpu_ring *ring);
+> +
+> +void amdgpu_sw_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count);
+> +void amdgpu_sw_ring_ib_begin(struct amdgpu_ring *ring);
+> +void amdgpu_sw_ring_ib_end(struct amdgpu_ring *ring);
+> +
+> +#endif
 
