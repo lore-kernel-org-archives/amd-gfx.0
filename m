@@ -4,89 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF5FBC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 07:56:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32672C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 08:22:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 299EF89CCE;
-	Tue, 29 Nov 2022 07:56:10 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2062e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D62D89CCE
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Nov 2022 07:56:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nctf7zSMu33l7YoGw/51QAaQx7hNLq/+moFfpNAI3/CblQdQH1ZybDG9Yl4zvdjHFMG8ArMvkBs0O50I8ZYae1/UGayTD9B3pKPfSkz9yGZUdrIpBmBnSu9hgeM5RKqwJdw3yH6SV5mjt8W8IFrEkSXrmGfrbMX/wHj0LIwd23f987xqcPFJxTlPAz79zoxXgbZwxz/FaYQ19OQ1ES5tsgbOadNDdwMl5fprI3pDdoswn1x4cc7LWrnScDQbNLLcugsnVytRZMev43WAWoKaSZLH30BwgUFfWbJru0u9qXk8pkJrx83OULQQ+gBpeVgDCg7nUG0O17M1pC2A/b7pfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HnwY6zUBM6hJRVcpawmvLRjNWl9/s80g4ajl9fKbMS0=;
- b=UwR+GYbNCHy/YenoylIP3mt0EpTZsQqvhg4rDjvLmZYNL+8n7NsMcE4vsWtyNMYLgu/sYAYAlgB7hJZ1msU3GNbM52blyqbTxFJHYwOW8cNvI2XjYkZdDrCNmiOMzsr7lUVu8y6qdhMUqxmcDy6nKzC65BNtZ6LkHRekh8gwYJV2Nz/zYJ81t//NnyL2IT5R1/O0/VwvIugXNMsvJ1PIPfGPIa4AH6hlA5Zwo1RzHei6+2TiSxKvUtDGi7OFnxTHwAPqT4m0RPL7yQhvave5I0cNPvJ3smrylV4S31nxDZeZUcy4qTrn+cv8ogV8+xPQW1s9CfddF6uuQY2YLw41cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HnwY6zUBM6hJRVcpawmvLRjNWl9/s80g4ajl9fKbMS0=;
- b=tkusdD9C/wP5CDF0+BNJ+Xnu2n0C9h4myVoXzNvQMtY83S+x/JMCE4aMRk1uqkn0wWLGuJcJgjUN2jPokS2TeiN7XU4lA/+zI9TS6OCTgovWwXkzhJZbY/s82dT+48qoYyWlYeTu5qjxkRu+FhGk2d0cFdCa1DxtCchoY+xvWZk=
-Received: from MW4P222CA0012.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::17)
- by PH7PR12MB7210.namprd12.prod.outlook.com (2603:10b6:510:205::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Tue, 29 Nov
- 2022 07:56:05 +0000
-Received: from CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:114:cafe::ae) by MW4P222CA0012.outlook.office365.com
- (2603:10b6:303:114::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23 via Frontend
- Transport; Tue, 29 Nov 2022 07:56:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT064.mail.protection.outlook.com (10.13.175.77) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5834.8 via Frontend Transport; Tue, 29 Nov 2022 07:56:04 +0000
-Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 29 Nov
- 2022 01:56:03 -0600
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: enable VCN RAS poison for VCN v4.0
-Date: Tue, 29 Nov 2022 15:55:54 +0800
-Message-ID: <20221129075554.30067-1-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39E5E10E05F;
+	Tue, 29 Nov 2022 08:22:11 +0000 (UTC)
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CE0810E1B1;
+ Tue, 29 Nov 2022 01:59:37 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 470565C00C1;
+ Mon, 28 Nov 2022 20:59:34 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Mon, 28 Nov 2022 20:59:34 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to; s=fm1; t=1669687174; x=
+ 1669773574; bh=bCzCW4/+DVi1mzJ0xQmcTMOHmu4kfPgKqlGu0numccY=; b=U
+ RmYDHJ3F7x35fkfLBKI1Yo7XVUTRRsN45Ny5R/P3xVK3+G0SBNwwIHAcqpMuRKdQ
+ oWxfudlkLYSzENGbXPCCcNO5ekFGmsd6aPoNy7AaMB9FqtCymC46XybioL8bgckH
+ /6CIO84fjtTQ0nVg2Zh5FHy4ilJFX4eS0tv23Y5jorCPXWJdHfLjuzdwHw8JpiHP
+ bLLQGV2pNBlVNdfg/EmDh3zO5I9VOM+YTjwSCm92rfLmegjIjh+MayTgjDDB03WS
+ 5c4wUeb2wa9IX6pcPWYm8u1tBK1ismm0DPcot1aTE52IDMlslGQbsJoBOGJGR5/6
+ nnMcAfcYSVLJOvksNY69g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; t=1669687174; x=1669773574; bh=bCzCW4/+DVi1mzJ0xQmcTMOHmu4k
+ fPgKqlGu0numccY=; b=NIJS1wT1ugY8hKu5vKDZbYa4OE4PqOrDqCRC5w+GcxXq
+ aFS2t6g9r87n2OeMeAhK01dyokuD8pPfNaNthqDB4oQMB92nLotQ3aPIWL4owj5h
+ 7qeu9XOcv1WZRgo6uBMn00VmZENQAxl+NjPEpFSj3cVsOqlWnoX2AqBkoLKUy5mz
+ Kl1cBr931HsTm4dyYvAaFbF9dQikX23UJQtAV3GMR+Z0DOa8OrTRegTKoNBtUijy
+ hLyq3b0zMgctvuAA3O6adHmIvH3Xkz7dptacZ7QxI7rOmqpqDibR4j7ouVa6sET3
+ kRYGd91pkl7LX+1kW8YiKNuV9D2cIvTf+YMf4hIDQA==
+X-ME-Sender: <xms:hmeFYxTHm_9kBPzYBGxkgu86VYLchQqD9KX3nBkrEVzijL26XL57Jg>
+ <xme:hmeFY6zXlfBGJkg0d--OA7d7zbqg6We1E4aq5Hd1ElOlJBzuvC2TAthVUQwKtnnrL
+ urGoZCivaEytMQ>
+X-ME-Received: <xmr:hmeFY220gQECshzXv-scsal88PUAQC37Jg3ZJIUJ-PXog7krHOTZrdlZZRiR>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrjeefgdegfecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghmihcu
+ ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
+ hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvvefhlefhhfetledvgefhvddukeet
+ jeffvdeigeeiteetjefhjefgvdelveehgfenucffohhmrghinhepkhgvrhhnvghlrdhorh
+ hgpdhgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
+ mhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
+ hm
+X-ME-Proxy: <xmx:hmeFY5Ass0uI--XdYAk0U_TS5KrJ9Sm7xFbOfLTlPAc2qv5koRidJg>
+ <xmx:hmeFY6gdV2ZwIfbTJpU2ybTrfI7S8-9L34VUB8p6QeJnKe9c1COtAQ>
+ <xmx:hmeFY9osg18XXGjnvK1Ok0mmRpr46-7ODtZLRjRFDuG5okFgcFDNKg>
+ <xmx:hmeFY7uT7o_FHUYHmNTsyoQy3Q_TgyEhh3piLsTpX8udzlraq3ecyg>
+Feedback-ID: iac594737:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Nov 2022 20:59:33 -0500 (EST)
+Date: Mon, 28 Nov 2022 20:59:28 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: AMD GPU problems under Xen
+Message-ID: <Y4Vngz5tTA74Qr8L@itl-email>
+References: <Y4Mz0glMNwDPaFPO@itl-email>
+ <CADnq5_NfupG-DzNDJfntg+uSWH2m_8mLfj=ddkMdnNYNRhXWUw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT064:EE_|PH7PR12MB7210:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec37e98e-3762-4c67-c8ca-08dad1df2aad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Byz5O+E52IHrqVXs2WTPY8s/ht4a26pAK9DdoAGDiprOuvhI9WbzCNa8c4I8QdmbZCQWHgMl/gzWrsL3zzbYgL6Skj7jSigef67oeY1o1JlzD3jvk6MMV5UWOrsMjmCu4PBqmggtH+p4quGulBy4V96Sv6NzWPa4ltYkXj6Fz5SUUbISHrdBaRqHrOQshbiNy1pSwGpFY4hmegvg5YCn+je2YEh4sG+8mse1XjRJcVqezG2Atd5Ev0HcK+lk/5Bwrt3lLswRuxyRUeIhuQDpIKmDkL62ajX9MIcU+SSQLMUm2HZo7jMdua5VlPZUY1kJSnaHvYbjoehiwUBNm9TbrVg6bigrla9M1mYqpViq/lt8HhjjQnSNTfFXnBuo25OTuhXu8GXeppRtMOQ5y+l6i+6i75Tt30nn2qaGGdCQ1V8GLuadXPW9Jmt25obzK5IEptrl+kpMpnUBgy2wwVsplYBY1Rq+nDxo2SDIQnqurD5+U/tBRJ1oXaH27ts+NeMxgIgAVDK22UBrLZakJBgJ9qxO6952DcfiBGWF4tTwVa4Z/1NN+Q70doPM1lYd/37S2Al2tNpqSRwj09rSdfzE4Z4Lg0BoenExaXlSjr2sAfDNHKoGcdk7HW/mqx08erDtKaqea6toPRAQ28EzfEVw1pQvKxt7uT9YxyWtvDv6MXWd/lcjK2+dBRi9dj3Ig7V2EilO9u2gE67ftmmKxCHt1YoSYWVHIuy8QCOITD7V2js=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(376002)(39860400002)(396003)(136003)(451199015)(36840700001)(40470700004)(46966006)(2906002)(83380400001)(82310400005)(36860700001)(478600001)(47076005)(70206006)(81166007)(7696005)(426003)(82740400003)(1076003)(86362001)(6666004)(8676002)(4326008)(356005)(70586007)(40480700001)(36756003)(26005)(316002)(16526019)(186003)(40460700003)(5660300002)(110136005)(2616005)(41300700001)(6636002)(8936002)(336012)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2022 07:56:04.8572 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec37e98e-3762-4c67-c8ca-08dad1df2aad
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7210
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="wz46AtdtDi0AOdbm"
+Content-Disposition: inline
+In-Reply-To: <CADnq5_NfupG-DzNDJfntg+uSWH2m_8mLfj=ddkMdnNYNRhXWUw@mail.gmail.com>
+X-Mailman-Approved-At: Tue, 29 Nov 2022 08:22:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,56 +86,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>
+Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org,
+ Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Configure related registers.
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+--wz46AtdtDi0AOdbm
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 28 Nov 2022 20:59:28 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: christian.koenig@amd.com,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: AMD GPU problems under Xen
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index 66b3f42764df..0bc65b2f0ce8 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -862,6 +862,25 @@ static void vcn_v4_0_enable_clock_gating(struct amdgpu_device *adev, int inst)
- 	return;
- }
- 
-+static void vcn_v4_0_enable_ras(struct amdgpu_device *adev, int inst_idx,
-+				bool indirect)
-+{
-+	uint32_t tmp;
-+
-+	tmp = VCN_RAS_CNTL__VCPU_VCODEC_REARM_MASK |
-+	      VCN_RAS_CNTL__VCPU_VCODEC_IH_EN_MASK |
-+	      VCN_RAS_CNTL__VCPU_VCODEC_PMI_EN_MASK |
-+	      VCN_RAS_CNTL__VCPU_VCODEC_STALL_EN_MASK;
-+	WREG32_SOC15_DPG_MODE(inst_idx,
-+			      SOC15_DPG_MODE_OFFSET(VCN, 0, regVCN_RAS_CNTL),
-+			      tmp, 0, indirect);
-+
-+	tmp = UVD_SYS_INT_EN__RASCNTL_VCPU_VCODEC_EN_MASK;
-+	WREG32_SOC15_DPG_MODE(inst_idx,
-+			      SOC15_DPG_MODE_OFFSET(VCN, 0, regUVD_SYS_INT_EN),
-+			      tmp, 0, indirect);
-+}
-+
- /**
-  * vcn_v4_0_start_dpg_mode - VCN start with dpg mode
-  *
-@@ -950,6 +969,8 @@ static int vcn_v4_0_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
- 	WREG32_SOC15_DPG_MODE(inst_idx, SOC15_DPG_MODE_OFFSET(
- 		VCN, inst_idx, regUVD_LMI_CTRL2), tmp, 0, indirect);
- 
-+	vcn_v4_0_enable_ras(adev, inst_idx, indirect);
-+
- 	/* enable master interrupt */
- 	WREG32_SOC15_DPG_MODE(inst_idx, SOC15_DPG_MODE_OFFSET(
- 		VCN, inst_idx, regUVD_MASTINT_EN),
--- 
-2.35.1
+On Mon, Nov 28, 2022 at 11:18:00AM -0500, Alex Deucher wrote:
+> On Mon, Nov 28, 2022 at 2:18 AM Demi Marie Obenour
+> <demi@invisiblethingslab.com> wrote:
+> >
+> > Dear Christian:
+> >
+> > What is the status of the AMDGPU work for Xen dom0?  That was mentioned=
+ in
+> > https://lore.kernel.org/dri-devel/b2dec9b3-03a7-e7ac-306e-1da024af8982@=
+amd.com/
+> > and there have been bug reports to Qubes OS about problems with AMDGPU
+> > under Xen (such as https://github.com/QubesOS/qubes-issues/issues/7648).
+>=20
+> I would say it's a work in progress.  It depends what GPU  you have
+> and what type of xen setup you are using (PV vs PVH, etc.).
 
+The current situation is:
+
+- dom0 is PV.
+- VMs with assigned PCI devices are HVM and use a Linux-based stubdomain
+  QEMU does not run in dom0.
+- Everything else is PVH.
+
+In the future, I believe the goal is to move away from PV and HVM in
+favor of PVH, though HVM support will remain for compatibility with
+guests (such as Windows) that need emulated devices.
+
+> In general, your best bet currently is dGPU add in boards because they
+> are largely self contained.
+
+The main problem is that for the trusted GUI to work, there needs to
+be at least one GPU attached to a trusted VM, such as the host or a
+dedicated GUI VM.  That VM will typically not be running graphics-
+intensive workloads, so the compute power of a dGPU is largely wasted.
+SR-IOV support would help with that, but the only GPU vendor with open
+source SR-IOV support is Intel and it is still not upstream.  I am also
+not certain if the support extends to Arc dGPUs.
+
+> APUs and platforms with integrated dGPUs
+> are a bit more complicated as they tend to have more platform
+> dependencies like ACPI tables and methods in order for the driver to
+> be able to initialize the hardware properly.
+
+Is Xen dom0/domU support for such GPUs being worked on?  Is there an
+estimate as to when the needed support will be available upstream?  This
+is mostly directed at Christian and other people who work for hardware
+vendors.
+
+> Additionally, GPUs map a
+> lot of system memory so bounce buffers aren't really viable.  You'll
+> really need IOMMU,
+
+Qubes OS already needs an IOMMU so that is not a concern. =20
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--wz46AtdtDi0AOdbm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOFZ4MACgkQsoi1X/+c
+IsHybQ//VsSMy5gMOlPDvJX8SVGfDZwZ0OEKd3sBJjaGIsMRg4BtgxkDu1qH2oKw
+cV0ADVylb7KnBZtpGDeeAChhi7TQ8Jty8OKgzTuxQ/lkDOVJo1rZ5mxe70kVDfww
+6Vyn9kWkG0P1ht0IZqpqwjTis0yrqvlmwauEcxmZtWMo/wL/EZwoPSCadF6ch3Mv
+JGvIbiXdNbVRVQAIU0wyl/jYvXDxGxgtcZWWChp6RoHZfu7zzjbUY5UirKtIRBbH
+q/lyplg3VjDkvd6iSwu7SbfgorjmFa/bIRL5JAL4QQGmyUYORjbsozXpTA8gzQt0
+8dEZzD2NRcFX+6m10m45sQKjKY7FWoeWlOIRzag/5uYTpe0ay9gu5FNjVlLWzgQp
+Hyml5L8MutGMp0+Zy7dSwdrZXU4iAVMctNDSDIPKkKngXG2fcHgNc6QeaHbX075z
+FbjPyItnZt5XnUMkUpdvElJYvKJkzVb9WkzOUgnN8j9Nmm+h8T1sQFzNF4i/Mlv/
+9eywtNvN4jn9Qtb4DaRz3n4Gtactx3sjNcaaqK4MG6rYFKuW0FghEzdz2W1Sgoil
+kIVyuaTwcbq+SL+m8PlmTnL765/tKyV6pWWvaqiDsxm0Y8bSrvnumPCtnzADdn1F
+Eb71xoPQH8Idhrftp+DjU2O7TaOPogKg5e8iPkBUm8hQCSltDpE=
+=rqwd
+-----END PGP SIGNATURE-----
+
+--wz46AtdtDi0AOdbm--
