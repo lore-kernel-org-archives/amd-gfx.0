@@ -4,69 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0717CC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 17:18:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 648B3C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 17:52:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3309D10E0B8;
-	Tue, 29 Nov 2022 17:18:08 +0000 (UTC)
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A620910E0A1;
- Tue, 29 Nov 2022 17:11:34 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id a7so18010579ljq.12;
- Tue, 29 Nov 2022 09:11:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB7D110E123;
+	Tue, 29 Nov 2022 17:52:49 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17A0E10E123
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Nov 2022 17:52:46 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ p8-20020a056830130800b0066bb73cf3bcso9604177otq.11
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Nov 2022 09:52:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=6SteAwUAUCgIRYXNNmtZkw/nMqCarAX3ZBQIfUV2s5s=;
- b=pjNINGpRvxyUiXVXmfnb/wNr0bYZ6AzQGLG3v89Vv6jpCKBd/yWZZbucH5nRaaLurg
- CAYjnYhalu6Wzaj6wceb/G0kao5blSHJQb9DjmQNdUmaFed6LqmCOFEWJz3nNzGVSIW3
- rPVDNHKG8B63HgTUc1Z1Tk0w0naN/3P4eTKwv49HjInEe2RVUgcYXNwPtWpgV4Yc9UwT
- HXcmxAVllayB43I0HFXPMGkXzbArQSxMmkx7FXPO8rNkqbesf2CLCzhlvkp0mWm61S9F
- X7FyC0/igPHtDuaomnWS/4Z0DSujtVVj9zHYjlxUykG/3z3cymEL8ys/YK5A+gt10dyM
- uKpw==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=LKXx/HCJK7bUt8Tm5w0jZbAv03pJDavtP/WOl/qetUI=;
+ b=M2WhLkEiTpLoYzoeHt1u/eADVHCV4OrPqd32MrUWHEjSkUUt6yOJxwMuUjFV2lTGPI
+ T68qLzi78H6z6OHyR/iUq1whuy1xSPAuT4MNC8FqyAa7oZ6/ThHOQwEHTNdy9DADzDgZ
+ Wdc/r+av/S1ORJIaQOFNx3DjO8RJ7Oowsrqw7rqvfqLgSRGD+8p9e0LbwXCTYvrsFcnr
+ bHKSrifOUVRL0ogvgfuWjrVwXFy0ETl7mOLMonMiPTy4m/a/n3EmsI2SMJ30Gq0xaT2l
+ T9TDk3oUptpNkYYjRMeaQxaLz1BPOyyo0PZgLeBY0M8rPqP+AMZnj2Jjiz0e7Mj+1YN0
+ AVbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6SteAwUAUCgIRYXNNmtZkw/nMqCarAX3ZBQIfUV2s5s=;
- b=jbbI3IcpPzqUb72IwDIrOJO2oljFmzmhwxfhYmb+3l7ZZV0qHxQ4gzTAgreUPLt/rA
- 9NdX1ZcRhTGuHVnUyxCTUjBNEdzjJHMeEsKHpTeMZnJ9RBG5qC8rCSXOYxmCDnq57tBR
- eSUuz1SJEK1pULxuJYospdTqAb2mWUVN4NScyfwF4TO1cacsBASjEOlaB8YpCij+CCO6
- 4yP5k4Yx18g76wThQbGft5gHxwX67U/l76E1uG2/9bp6MIbyb6eSw79JcP9v0t9Gjutl
- fIcWQplksdBUE1n5Pzr4DuXzWL9fJLAz7yvwD7WANNKQO4DWMSvI8HIO7+lKwBDzX+6e
- CBCA==
-X-Gm-Message-State: ANoB5plhtYTjOCjzJHQXs1xIwccc/s0YWxHhGxT2Usdiq1SIHECYQn+g
- LU/AeIZPWm2Otod2bdK2PtpI3i2mXA==
-X-Google-Smtp-Source: AA0mqf4rA3Cz5Wta+szAsI8J8dMV0Stkg+e73CKnI1bZwe27t8CYpA+LWst8FrVrRVprm+9XWjb2Ug==
-X-Received: by 2002:a2e:9806:0:b0:279:97ef:c1ee with SMTP id
- a6-20020a2e9806000000b0027997efc1eemr6150070ljj.165.1669741892827; 
- Tue, 29 Nov 2022 09:11:32 -0800 (PST)
-Received: from sqrt.uni.cx (0854358661.static.corbina.ru. [95.31.0.167])
- by smtp.gmail.com with ESMTPSA id
- c13-20020a2e9d8d000000b0026dd4be2290sm1586553ljj.90.2022.11.29.09.11.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Nov 2022 09:11:32 -0800 (PST)
-Date: Tue, 29 Nov 2022 20:11:36 +0300
-From: Mikhail Krylov <sqarert@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: Screen corruption using radeon kernel driver
-Message-ID: <Y4Y9SJC7gtUxP4+R@sqrt.uni.cx>
-References: <20220423193145.3301ed06@desktop>
- <CADnq5_PXgFBXZ03LXE8qOdimzfKYGhzX1JnycJQcHWcMZdgJug@mail.gmail.com>
- <Y4TGOb3UGmDslyYF@sqrt.uni.cx>
- <CADnq5_NTyvZR16_N0TzMo3f9Mg6EwOuwuBgYzDA=U7tur7Fmnw@mail.gmail.com>
- <Y4UelMnRkY7/0G6U@sqrt.uni.cx>
- <CADnq5_MactA_n4sTKZ_-TpYFZnOfEeygHF3r+zH94By2Dm86cA@mail.gmail.com>
- <Y4YsWo8MPAeg9DRQ@sqrt.uni.cx>
- <CADnq5_MNmOHVuszVfCZ8Ajm85Wb5roe4-20BEXXzsEVpAC_Rkg@mail.gmail.com>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LKXx/HCJK7bUt8Tm5w0jZbAv03pJDavtP/WOl/qetUI=;
+ b=2b08MIlyvhE4uaZubnp5jxwtScrDS7ZB7PW9ZhFdZsXQH5n4XDmK2xJvAtiYm4pt/g
+ cAiy56aecln+IybfvcVglysx+wjoTRBgRfKu9wgCTFQjkpV+XSUMY08JmgVytpyntagY
+ w9JUkpiUEc6PR9B7tm1Eg+CpENa7r4CknBw+hBNOsHsZ85OUp83o6rc3BswrIzgVFzEe
+ hD+uAhP29Hbhp6mKNRXiNs0llrwOEToWWa5lnC3Qh942VbWsk5+rg70AjMoNGE5WkSKP
+ +I955PEF8xnUjX4HAA1oeWfKdi/MoH6qcoumXQ9gDwS4Zhq9UDkB02nwzIBz4QQ7DNdT
+ yyYw==
+X-Gm-Message-State: ANoB5pmCB15/D1eisFJpLQvvux4+V+PYBJTlQV3zl/f1EjgJxOCABDUO
+ zg0hiMER12fzLsS9o+j6IhIbFXCcHYC8UV0Ii8jxpscbmTc=
+X-Google-Smtp-Source: AA0mqf52F+Ezcd4DKmI0+vvauze8QlDxTdGk82BDTOnTg3OH0qWUSed6RzR4QgO4ToELKehM1/FO8y9vioW4FdQq9B4=
+X-Received: by 2002:a9d:628b:0:b0:66c:6afa:5006 with SMTP id
+ x11-20020a9d628b000000b0066c6afa5006mr22466418otk.233.1669744365319; Tue, 29
+ Nov 2022 09:52:45 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="XglWa2+FEr8HAz/a"
-Content-Disposition: inline
-In-Reply-To: <CADnq5_MNmOHVuszVfCZ8Ajm85Wb5roe4-20BEXXzsEVpAC_Rkg@mail.gmail.com>
-X-Mailman-Approved-At: Tue, 29 Nov 2022 17:18:05 +0000
+References: <20221123014341.263439-1-guchun.chen@amd.com>
+In-Reply-To: <20221123014341.263439-1-guchun.chen@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 29 Nov 2022 12:52:33 -0500
+Message-ID: <CADnq5_MKhpns=vUGYjZLG4-k+7m9E3SSKWS+Vjb3Nb7cV0z-Fw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] drm/amd/pm/smu11: poll BACO status after RPM BACO
+ exits
+To: Guchun Chen <guchun.chen@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,97 +65,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Cc: alexander.deucher@amd.com, lijo.lazar@amd.com, evan.quan@amd.com,
+ amd-gfx@lists.freedesktop.org, hawking.zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Once these patches land, can we revert these changes?
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0c85c067c9d9d7a1b2cc2e01a236d5d0d4a872b5
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=192039f12233c9063d040266e7c98188c7c89dec
 
---XglWa2+FEr8HAz/a
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Alex
 
-On Tue, Nov 29, 2022 at 11:05:28AM -0500, Alex Deucher wrote:
-> On Tue, Nov 29, 2022 at 10:59 AM Mikhail Krylov <sqarert@gmail.com> wrote:
-> >
-> > On Tue, Nov 29, 2022 at 09:44:19AM -0500, Alex Deucher wrote:
-> > > On Mon, Nov 28, 2022 at 3:48 PM Mikhail Krylov <sqarert@gmail.com> wr=
-ote:
-> > > >
-> > > > On Mon, Nov 28, 2022 at 09:50:50AM -0500, Alex Deucher wrote:
-> > > >
-> > > > >>> [excessive quoting removed]
-> > > >
-> > > > >> So, is there any progress on this issue? I do understand it's no=
-t a high
-> > > > >> priority one, and today I've checked it on 6.0 kernel, and
-> > > > >> unfortunately, it still persists...
-> > > > >>
-> > > > >> I'm considering writing a patch that will allow user to override
-> > > > >> need_dma32/dma_bits setting with a module parameter. I'll have s=
-ome time
-> > > > >> after the New Year for that.
-> > > > >>
-> > > > >> Is it at all possible that such a patch will be merged into kern=
-el?
-> > > > >>
-> > > > > On Mon, Nov 28, 2022 at 9:31 AM Mikhail Krylov <sqarert@gmail.com=
-> wrote:
-> > > > > Unless someone familiar with HIMEM can figure out what is going w=
-rong
-> > > > > we should just revert the patch.
-> > > > >
-> > > > > Alex
-> > > >
-> > > >
-> > > > Okay, I was suggesting that mostly because
-> > > >
-> > > > a) it works for me with dma_bits =3D 40 (I understand that's what i=
-t is
-> > > > without the original patch applied);
-> > > >
-> > > > b) there's a hint of uncertainity on this line
-> > > > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-tree/drivers/gpu/drm/radeon/radeon_device.c#n1359
-> > > > saying that for AGP dma_bits =3D 32 is the safest option, so appare=
-ntly there are
-> > > > setups, unlike mine, where dma_bits =3D 32 is better than 40.
-> > > >
-> > > > But I'm in no position to argue, just wanted to make myself clear.
-> > > > I'm okay with rebuilding the kernel for my machine until the origin=
-al
-> > > > patch is reverted or any other fix is applied.
-> > >
-> > > What GPU do you have and is it AGP?  If it is AGP, does setting
-> > > radeon.agpmode=3D-1 also fix it?
-> > >
-> > > Alex
-> >
-> > That is ATI Radeon X1950, and, unfortunately, radeon.agpmode=3D-1 doesn=
-'t
-> > help, it just makes 3D acceleration in games such as OpenArena stop
-> > working.
->=20
-> Just to confirm, is the board AGP or PCIe?
->=20
-> Alex
-
-It is AGP. That's an old machine.
-
---XglWa2+FEr8HAz/a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEq9zNqT9shXHTn/gRzNfc0dbmrQAFAmOGPUgACgkQzNfc0dbm
-rQCzHgf9Fh8dzbPLCyANDpCP91JuB5vQnGyYEAy9YuSuIWyUIjSzv+8sP5yISpJr
-5HqQYxDCag4+AF5Cnr9TceFX/0X4LmeCcrgVn9hh+gB3YmRyBaeuajLPXibNa7Uc
-bGIYeyF3YuANWHhvfeVJY7JINGtwCS/AUR8L37PTTm7DwmYzuLBwO8AaPlP6ZYRe
-yS4V1NWz0ZDt2rlrLPH7r2ObEBuZh11b8VsNfiF0fOqTwdWoBalKwcL2R2ZFYSbb
-7Lhvre/cUXUAwqMsWYSlZrRZdixfEhzhVTzpkeCKDTKaBHkNQqGJk7QC3UvAY6gh
-Bk4xDrEWlpwAix4DtHmqtl7bmTTwgg==
-=5sCM
------END PGP SIGNATURE-----
-
---XglWa2+FEr8HAz/a--
+On Tue, Nov 22, 2022 at 8:44 PM Guchun Chen <guchun.chen@amd.com> wrote:
+>
+> After executing BACO exit, driver needs to poll the status
+> to ensure FW has completed BACO exit sequence to prevent
+> timing issue.
+>
+> v2: use usleep_range to replace msleep to fix checkpatch.pl warnings
+>
+> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+> ---
+>  .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 24 ++++++++++++++++++-
+>  1 file changed, 23 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> index ad5f6a15a1d7..ad66d57aa102 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> @@ -79,6 +79,17 @@ MODULE_FIRMWARE("amdgpu/beige_goby_smc.bin");
+>  #define mmTHM_BACO_CNTL_ARCT                   0xA7
+>  #define mmTHM_BACO_CNTL_ARCT_BASE_IDX          0
+>
+> +static void smu_v11_0_poll_baco_exit(struct smu_context *smu)
+> +{
+> +       struct amdgpu_device *adev = smu->adev;
+> +       uint32_t data, loop = 0;
+> +
+> +       do {
+> +               usleep_range(1000, 1100);
+> +               data = RREG32_SOC15(THM, 0, mmTHM_BACO_CNTL);
+> +       } while ((data & 0x100) && (++loop < 100));
+> +}
+> +
+>  int smu_v11_0_init_microcode(struct smu_context *smu)
+>  {
+>         struct amdgpu_device *adev = smu->adev;
+> @@ -1689,7 +1700,18 @@ int smu_v11_0_baco_enter(struct smu_context *smu)
+>
+>  int smu_v11_0_baco_exit(struct smu_context *smu)
+>  {
+> -       return smu_v11_0_baco_set_state(smu, SMU_BACO_STATE_EXIT);
+> +       int ret;
+> +
+> +       ret = smu_v11_0_baco_set_state(smu, SMU_BACO_STATE_EXIT);
+> +       if (!ret) {
+> +               /*
+> +                * Poll BACO exit status to ensure FW has completed
+> +                * BACO exit process to avoid timing issues.
+> +                */
+> +               smu_v11_0_poll_baco_exit(smu);
+> +       }
+> +
+> +       return ret;
+>  }
+>
+>  int smu_v11_0_mode1_reset(struct smu_context *smu)
+> --
+> 2.25.1
+>
