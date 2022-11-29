@@ -4,55 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20C44C46467
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 14:33:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A4BCC4167B
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 14:44:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49C1710E068;
-	Tue, 29 Nov 2022 14:33:11 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0D6F10E068;
- Tue, 29 Nov 2022 14:33:07 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id v13so579721oie.3;
- Tue, 29 Nov 2022 06:33:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16C5A10E094;
+	Tue, 29 Nov 2022 14:44:37 +0000 (UTC)
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [IPv6:2001:4860:4864:20::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1465E10E08A;
+ Tue, 29 Nov 2022 14:44:31 +0000 (UTC)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-14279410bf4so17250737fac.8; 
+ Tue, 29 Nov 2022 06:44:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=AlmTEqK3obGypOIeoBM6UEH5n1+C5l9b9H7iWEpLH6A=;
- b=T/LZqpzYOLPC+SZBUJ97PsVPVerwBk1U08wSBBHEf59T/BeIJk7uDC6xo9oqgB+kk8
- jKRa0UFcCdD0RXnXzE+hKzXSTggvAkErCA/ygSqBkdWPTBzdMA7lMTUI0ahU9ywh7fmv
- EMxzwIpJ4uMOzUXjIE7u+QeSNQBjIfVEYDMNYL796FCjAjgIxCNz6ejxPALDvqwK6hCZ
- vizWC3c+uMBTdBXWX1YdDSxogjWCFcJXqXTr1JkV7IY1Jp9PaOh/1ClELRuwDaUJvF7C
- Tq/j64LLphVJBbhZwuvpOQl8VNrDWHqFCAV0rIlLaai7wzmvgPYfjrPsMOjlasP2KBb7
- SPtg==
+ bh=GTT71fzhlAVQrxanQsYv6n1IH/tvy5re3/N8VyfEuuk=;
+ b=gdzpsJj/s9xkVg/MfDoGp+K9C13k0tezbx4E77bOWZt2B1LW42rAgO6qMN+XltV0Dr
+ KpEJIFvb4S9LHDwDkzIFTdhGNKfDEgowAGSSGLa1N58tJwYVWHj918AwlCyqFqrVKrKe
+ mgqRsCJRnX7b2mQdFFoy/6honFmfUf8FvozjJLJkskmbCEAMrttwQQvQaxUVkeV/h1Ah
+ N+76Y9ZiGF/lSH22f1j06wGeMqC4Dp2IaArA26/zO85NlbSy2juKCDKHMK6QgfKt0083
+ P8jgQKKARms97GDa8CHJYoqZOGapsGylseW10VBJVu/KQ2VnHn4TkLZCuT6/14Qt1Xhm
+ nuuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=AlmTEqK3obGypOIeoBM6UEH5n1+C5l9b9H7iWEpLH6A=;
- b=r8+ppRWd5ovhhBI4fminG1jcA9tyCwBmFBmQOGL+km5yCJPqH81iqntzeZj8XBYls2
- aiZiUX6ehqzDly1TUJ3ckjHM7mglPOeebaBbLyeMe4hi4ZWvz5LKyMFJEK0miNtRwYE4
- f7p7DOY48RJoJhuswPjnAcqvqdcg863WjzvyKF9PFzVl9raBZC96Sba1ZMVy86N5vGLw
- EB5JkADJidVby9gg7SKs8TwYfy73B5LwHzUMHwlQmWFwQNdh2l9ckHqwJAv1IuqxoX7P
- 7YHEjkNBPjkqfI4JwzpVc6/XeqK5BVX40fFc5QnhkQDg0430bGapem6lb7Yl7rwH4pTo
- CVmA==
-X-Gm-Message-State: ANoB5pmQXih/UPCG0S1tLzCwgabV5NMzapG/+M3WqPqqvmiml6uJ5nQJ
- gmDZ+WqOLFthjNePONIr/dKcaoSK85kUEGjAG4U=
-X-Google-Smtp-Source: AA0mqf7wcKy4cktH/5nqgVCvLUDw6AoK1wuY7UTYnVx4X7TPkCjyyLY89WuLCnrPeXqUh/OBJXIaTNio8vMumqL4bVw=
-X-Received: by 2002:aca:d17:0:b0:35b:c9e7:b124 with SMTP id
- 23-20020aca0d17000000b0035bc9e7b124mr730939oin.46.1669732386601; Tue, 29 Nov
- 2022 06:33:06 -0800 (PST)
+ bh=GTT71fzhlAVQrxanQsYv6n1IH/tvy5re3/N8VyfEuuk=;
+ b=LhV6bEXQ9Fgv1ib7tRVUB4oikJEwY5tQ8ppVAlfqdB0oqABWsX+9VysF/HC5qlerAn
+ LsjeUL3V/Vm14VvDL0oMzwWY00iior09nhX1C0uB/F1PZZg8gNopPT81Hn1e3i0yqnBW
+ 71SW1DsFfVR3P+AwCd9UEMMqTffsa74gNIhvXAFI+rGKTJSRn6KnJLp/gOU9u9QZvp4Y
+ AZtHCe+cM+0z0bVzkvi2anWOaPNSYlqRA+OIgXEPivLctBBAOKWXI2yc028fhBk81ts9
+ gRGmzO38NpdqqesU482s5iook/hzQufXgcNgwC+UcidhC4xeFpsoIUtuOdhvwVOqg1Zn
+ HKlg==
+X-Gm-Message-State: ANoB5plYfLo+IXHTHJGPKTL2LrlSyAbCW36Yd6C236+dlyH6q+5FGkhs
+ bM2HP1vTXuRiOMAkshBDyFHSRVFsJ7/osH78hRuO9wtl
+X-Google-Smtp-Source: AA0mqf7ilLd/qqCUgbGPXMZjoiYaX1jIh0rZdDUb5Xh4T3vCc6dLAk1OSaF3skdpF8XOnlFw00xvxu2eJ66ZTHUUscM=
+X-Received: by 2002:a05:6870:7a0c:b0:143:8a81:116c with SMTP id
+ hf12-20020a0568707a0c00b001438a81116cmr9158747oab.96.1669733070358; Tue, 29
+ Nov 2022 06:44:30 -0800 (PST)
 MIME-Version: 1.0
-References: <Y4Mz0glMNwDPaFPO@itl-email>
- <CADnq5_NfupG-DzNDJfntg+uSWH2m_8mLfj=ddkMdnNYNRhXWUw@mail.gmail.com>
- <Y4Vngz5tTA74Qr8L@itl-email>
-In-Reply-To: <Y4Vngz5tTA74Qr8L@itl-email>
+References: <20220423193145.3301ed06@desktop>
+ <CADnq5_PXgFBXZ03LXE8qOdimzfKYGhzX1JnycJQcHWcMZdgJug@mail.gmail.com>
+ <Y4TGOb3UGmDslyYF@sqrt.uni.cx>
+ <CADnq5_NTyvZR16_N0TzMo3f9Mg6EwOuwuBgYzDA=U7tur7Fmnw@mail.gmail.com>
+ <Y4UelMnRkY7/0G6U@sqrt.uni.cx>
+In-Reply-To: <Y4UelMnRkY7/0G6U@sqrt.uni.cx>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 29 Nov 2022 09:32:54 -0500
-Message-ID: <CADnq5_P8kuSsSFatMq4g0r2yE3TW0Rqzm07+Kpv9wKTi0GGS-Q@mail.gmail.com>
-Subject: Re: AMD GPU problems under Xen
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Date: Tue, 29 Nov 2022 09:44:19 -0500
+Message-ID: <CADnq5_MactA_n4sTKZ_-TpYFZnOfEeygHF3r+zH94By2Dm86cA@mail.gmail.com>
+Subject: Re: Screen corruption using radeon kernel driver
+To: Mikhail Krylov <sqarert@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,86 +68,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 28, 2022 at 8:59 PM Demi Marie Obenour
-<demi@invisiblethingslab.com> wrote:
+On Mon, Nov 28, 2022 at 3:48 PM Mikhail Krylov <sqarert@gmail.com> wrote:
 >
-> On Mon, Nov 28, 2022 at 11:18:00AM -0500, Alex Deucher wrote:
-> > On Mon, Nov 28, 2022 at 2:18 AM Demi Marie Obenour
-> > <demi@invisiblethingslab.com> wrote:
-> > >
-> > > Dear Christian:
-> > >
-> > > What is the status of the AMDGPU work for Xen dom0?  That was mentioned in
-> > > https://lore.kernel.org/dri-devel/b2dec9b3-03a7-e7ac-306e-1da024af8982@amd.com/
-> > > and there have been bug reports to Qubes OS about problems with AMDGPU
-> > > under Xen (such as https://github.com/QubesOS/qubes-issues/issues/7648).
+> On Mon, Nov 28, 2022 at 09:50:50AM -0500, Alex Deucher wrote:
+>
+> >>> [excessive quoting removed]
+>
+> >> So, is there any progress on this issue? I do understand it's not a high
+> >> priority one, and today I've checked it on 6.0 kernel, and
+> >> unfortunately, it still persists...
+> >>
+> >> I'm considering writing a patch that will allow user to override
+> >> need_dma32/dma_bits setting with a module parameter. I'll have some time
+> >> after the New Year for that.
+> >>
+> >> Is it at all possible that such a patch will be merged into kernel?
+> >>
+> > On Mon, Nov 28, 2022 at 9:31 AM Mikhail Krylov <sqarert@gmail.com> wrote:
+> > Unless someone familiar with HIMEM can figure out what is going wrong
+> > we should just revert the patch.
 > >
-> > I would say it's a work in progress.  It depends what GPU  you have
-> > and what type of xen setup you are using (PV vs PVH, etc.).
+> > Alex
 >
-> The current situation is:
 >
-> - dom0 is PV.
-> - VMs with assigned PCI devices are HVM and use a Linux-based stubdomain
->   QEMU does not run in dom0.
-> - Everything else is PVH.
+> Okay, I was suggesting that mostly because
 >
-> In the future, I believe the goal is to move away from PV and HVM in
-> favor of PVH, though HVM support will remain for compatibility with
-> guests (such as Windows) that need emulated devices.
+> a) it works for me with dma_bits = 40 (I understand that's what it is
+> without the original patch applied);
 >
-> > In general, your best bet currently is dGPU add in boards because they
-> > are largely self contained.
+> b) there's a hint of uncertainity on this line
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/radeon/radeon_device.c#n1359
+> saying that for AGP dma_bits = 32 is the safest option, so apparently there are
+> setups, unlike mine, where dma_bits = 32 is better than 40.
 >
-> The main problem is that for the trusted GUI to work, there needs to
-> be at least one GPU attached to a trusted VM, such as the host or a
-> dedicated GUI VM.  That VM will typically not be running graphics-
-> intensive workloads, so the compute power of a dGPU is largely wasted.
-> SR-IOV support would help with that, but the only GPU vendor with open
-> source SR-IOV support is Intel and it is still not upstream.  I am also
-> not certain if the support extends to Arc dGPUs.
+> But I'm in no position to argue, just wanted to make myself clear.
+> I'm okay with rebuilding the kernel for my machine until the original
+> patch is reverted or any other fix is applied.
 
-Can you elaborate on this?  Why wouldn't you just want to pass-through
-a dGPU to a domU to use directly in the guest?
-Are you sure?  I didn't think intel's GVT solution was actually
-SR-IOV.  I think GVT is just a paravirtualized solution.  That aside,
-we are working on enabling virtio gpu with our GPUs on xen in addition
-to domU passthrough.
-
->
-> > APUs and platforms with integrated dGPUs
-> > are a bit more complicated as they tend to have more platform
-> > dependencies like ACPI tables and methods in order for the driver to
-> > be able to initialize the hardware properly.
->
-> Is Xen dom0/domU support for such GPUs being worked on?  Is there an
-> estimate as to when the needed support will be available upstream?  This
-> is mostly directed at Christian and other people who work for hardware
-> vendors.
-
-Yes, there are some minor fixes in the driver required which we'll be
-sending out soon and we had to add some ACPI tables to the whitelist
-in xen, but unfortunately the ACPI tables are AMD platform specific so
-there has been pushback from the xen maintainers on accepting them
-because they are not an official part of the ACPI spec.
+What GPU do you have and is it AGP?  If it is AGP, does setting
+radeon.agpmode=-1 also fix it?
 
 Alex
-
->
-> > Additionally, GPUs map a
-> > lot of system memory so bounce buffers aren't really viable.  You'll
-> > really need IOMMU,
->
-> Qubes OS already needs an IOMMU so that is not a concern.
-> --
-> Sincerely,
-> Demi Marie Obenour (she/her/hers)
-> Invisible Things Lab
