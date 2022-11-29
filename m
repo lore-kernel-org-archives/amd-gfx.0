@@ -4,37 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 074AAC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 07:11:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94183C4167B
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 07:11:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C2C910E25E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC52D10E260;
 	Tue, 29 Nov 2022 07:11:26 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 994EC10E260
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2047.outbound.protection.outlook.com [40.107.101.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 757AD10E25E
  for <amd-gfx@lists.freedesktop.org>; Tue, 29 Nov 2022 07:11:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MRMBG1D2I3o7RulP8x33rv/lRTPYzEzJV8QLNbx2dERC3NmwUUWLCSfQ/X/deSv6Tsf9WRXc+8nes0AM9Xd97sSfV50gs4EF+iyRoOWvBYjpI9yY/YeRL+Z30JYIp1Vv5GsXW4aGjkE/y4UWG7FyT9206lq2PknJY/fPVQLxPUAWwhephRdLUTBKordSLPtafCXbTdFMSxubFOo1r9Id7ZDJsM6C9/3i6LYFvAKhEYIWBLqx1HaG7WspDZLK0m1z4MsY3/tANcueVJFRLl8n2TDyD0+wNCOskblFBRZx0e34WIS1MqrOcFtLwWJwDdpLaeQf9n0dZ4vk+xLqoQli4A==
+ b=EwkGRY8C3e3aYya203Bw+YNIwvHa7Rw0tl4qaD4uSUPieVw+0gnV6R/2bNsJtjFnitZGrkTOUtQ1LANdAL1LTr7BSyQuUpZWRLZDtAsF0kaRkURJEAmXqP3zV+rYDO7Hd8Ncn8c7yh7/ceqr++f2mn8lMn85wJEbWcESy5oJeiZAdzGvRaHUDGMD/nk2sRoKxxgbMSzUPQ2mnDbE0U+85rouX4JvU+dTvgD787y5CJ/S5DMEsZj7q3KRhvsUS2TQS6QgDg/sHI9IZGtSsrP7M+EJUZRiPFIuqf2ceL6PdKDzYfarw0ZnB4WwIA9iYa/TJuhgoHoag0WB8oXZMsbdKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=txljYqAY9zOh6hCHol3aGozgPDvbyj1GZ6CsVGeaD7M=;
- b=CRN+FXoVJitckPJjy2ammnXpTOOfZs9kxpP/bpFhO75aKN0VcmbWmCiz5Ixk7xt1fFO1yI8DQ92C1TRNysdqNe0CkR0Dm/alv15yTKmZy99poCIgn29jVPEHCTPVbcSqYnLbE2cOPn06rVbhSXYpq4TaGlEvDfskJ0IQZg8Mwq99R9xYTg+Vu4hvOboaC1Oq35AbbiCXWWYOPLINwej0P2L+EA6qsJgEedAtb2j6mjfvVnJmFhGedQrBQ06lTn4hRv2HWzkjacGWUBM+XCiEOZ9G9FM6hlmTYd+tNNHRJF4sMrXNJKQjGfK/h7ed7gqMvVamCa4B/M9AoAPEvk55JA==
+ bh=wZVz8WtAXJQhCWvuI0mMW9wveunhEpUcz1EV0TKgWrs=;
+ b=oZzgFf8wp2gregHxhMXdtu832FQwY+lidZBnocksP7K7XpS/HSPLPAmsywn4rQl+CVe2hQb3z8vrPWxz07t71KKWjeSwCNcbg6QCHNjoQK++oqUYX4IHvYqetC+zG5uMk07OxzNwZZn1NPoOFSy6rI7wHL4eBzz556FR2CtJJzHAJ8Ym/RN7umGB3IzMUWrhuojv175v4idxweWtCj/TLXFl4K6IW2TVrq7zcjTUI1yp6i01JpUeWAdWYbF+gA6sKq64CiKuc0s44v5aB0FfYKYaKYqZVOe7A4R3lGc92ugAHUfX0TGr5N8IQ/7IgQxJS6oSJzeUOfiPeaSQIQjlbA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=txljYqAY9zOh6hCHol3aGozgPDvbyj1GZ6CsVGeaD7M=;
- b=w2Cm+UnmWCapYpCWE7k6iIygAkmaUVbp0JfTznuoYmH5AfQvaOS6qBJ4OSMAGpKTi8qWFkCztK2uDhnNCW7eQf0UeHlxXW457zHjq9V1BugpcvRIVGkw/+gC2r3SOJKkBK5RnPkfVXuiv3gL1ODx9y78MvBMlTN+NC8X1JElHEY=
-Received: from DM6PR14CA0045.namprd14.prod.outlook.com (2603:10b6:5:18f::22)
- by DS7PR12MB5837.namprd12.prod.outlook.com (2603:10b6:8:78::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5857.23; Tue, 29 Nov 2022 07:11:20 +0000
+ bh=wZVz8WtAXJQhCWvuI0mMW9wveunhEpUcz1EV0TKgWrs=;
+ b=CjLpZa/vfEVjiZyXwoH785VnngVVfDvpW7fCtlLfy8D1AWwy8gUdRG48deQgmfe9OUECkCtlC78ontG3aebAmcQMRrO1l6dFsPAPvbHmH2p8PKX/47vQ4veYfFEQ9FG01/6ZHi3e+FipGJ7P3PmWKprMDSyia9tQBANBXf13SRg=
+Received: from DM6PR14CA0071.namprd14.prod.outlook.com (2603:10b6:5:18f::48)
+ by DM6PR12MB4073.namprd12.prod.outlook.com (2603:10b6:5:217::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Tue, 29 Nov
+ 2022 07:11:20 +0000
 Received: from DM6NAM11FT028.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:18f:cafe::df) by DM6PR14CA0045.outlook.office365.com
- (2603:10b6:5:18f::22) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:5:18f:cafe::5e) by DM6PR14CA0071.outlook.office365.com
+ (2603:10b6:5:18f::48) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23 via Frontend
  Transport; Tue, 29 Nov 2022 07:11:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -46,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT028.mail.protection.outlook.com (10.13.173.140) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5857.18 via Frontend Transport; Tue, 29 Nov 2022 07:11:20 +0000
+ 15.20.5857.18 via Frontend Transport; Tue, 29 Nov 2022 07:11:19 +0000
 Received: from jenkins-jiadong-1.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Tue, 29 Nov 2022 01:11:09 -0600
+ 15.1.2375.34; Tue, 29 Nov 2022 01:11:12 -0600
 From: <jiadong.zhu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 3/4] drm/amdgpu: Modify unmap_queue format for gfx9 (v6)
-Date: Tue, 29 Nov 2022 15:10:36 +0800
-Message-ID: <20221129071037.531124-3-jiadong.zhu@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: MCBP based on DRM scheduler (v9)
+Date: Tue, 29 Nov 2022 15:10:37 +0800
+Message-ID: <20221129071037.531124-4-jiadong.zhu@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221129071037.531124-1-jiadong.zhu@amd.com>
 References: <20221129071037.531124-1-jiadong.zhu@amd.com>
@@ -67,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT028:EE_|DS7PR12MB5837:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45cd40a4-35d3-4e7f-69d7-08dad1d8ea79
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT028:EE_|DM6PR12MB4073:EE_
+X-MS-Office365-Filtering-Correlation-Id: 485840d4-af0a-4c94-bbb8-08dad1d8ea49
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5sYAPPvQQa5rVihuP8h0tidg8wTTRB4g+P9a/BKD3fQADbF4T6XiAGOofg+smFYpwIZG7N28vFmc+gf+ajgyJFCEzrUdEu4p5XkgHBVAopTkiOGy8uHDGEuOdM4DjtuLY7XhzTlXnT6rneYN6IVDbgvv52nNNi1aKaenySoLcYue4CylcakdN9GPWyRo7H7F4Xy2CGrmwlrBckw7Ne3NCTZfJ2uJ9x5jtXDMiFzYs51Yt+nqFBhTWY7UULZgd7aUXRsHedYO7EfdaVLB/Df4fNPjZeDOUKIvOHy7dUDJazHsCrJ3w8SKqx0e8VEWpijUmWg+mP2pNLMh7XJ8TQ1gdg/o8lG7+ZlOSoUqypMWMpn0Ekkrm6De1L1f5dlLmPs8AbFAyl+zvkmqhfpl3LMj7jFnWURcZzWpDC54VaLEpMqtrPvEbvSvJDlsUE9f1i3Obrl52rnzpIA59BJvb0O9Qr4j4JEZwOYDIu/xSr2yxuLTbOuHx6gWJc82pVeVrkMdddYd7vTrwtlhDEzATLrQ+5+TOn3Bf+XDV7gMTdL2HImrYvhjJHcsi+AGtn6jIah+j7LL+K76L/5St2ES3QN/HrOFGpoC9gWdyWkbF+HxZg/qHFOS3ybeV3qXrgjGplUabI3rSDaX/8w94fOLiBpCKstB1ZVps7VnxTp1SCsrgM08+g4aV0S1AACEEZXjfoA33VDb5peYnNJduL3Xdh3hiRAqA9hPnMIzqlX0U9yB584=
+X-Microsoft-Antispam-Message-Info: hmsVmKPUd/RQNMxIfiPvLBvFFUlquf9klV46EsvPlCOYlN0iDAWZNego4ltEPHVB9Boq0RUFLu/7tsRSbBKWdN8BzVrNlyqFQiH4b3VEFDOCK0k7HqJWhHpgMqA09M8hNb+QPEpAavLyBSEK9wUSK8/uwbYfv7A1s6Rq5dJYtv3zOjNjK+xy91ucWWRsMvjNrR53km3TXQA21mRhrvOQqlyM1QYx0nVr3hKaY0klrXrFRz8LRtHD6aBkvPUH3UcF7YunD0DxxB55CaANXwYyYjAHJvl2zIphUvQnfpRsETncV+VohnU1c979/OmGkSz1virUiLT0npKYW1kn4O7TfsoVnstfQOY8qAGDMxNTCKHZ79psL6JF/+iD46hvehC6xpORNFgJDKPc9xW3qjXZNcBa2oorpOXqeqfrH45M7ObDlsxaWqqAFbYQ/6N6arL5cXG74aHWpY3iBNTC2a92LQf6uwVmVEFfpNjMT1EU3q3BhdqlSHxYwxhZJ2/E6PzWSqkkHuDtPeHzWkuWfP3hcOJV+iKKKH26mKwEvdHxkwzrRo4MThPltUgIyESagyfdsiDmo/MSl+6YKTpNx0Y8Cbg04gS30rQu4yx9sVv16LlQFny4z0xht87pGAFmJEozexqvKe+Nr6kcu5/jEnjo8p7g0CYMmYkpbyglT0Hx+PrW8Ti+thyHekDO3515Vz0X14gw5YdAcItVKwtkfmZs723z1upUAYX9sNGa86dykLM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(376002)(136003)(39860400002)(346002)(451199015)(36840700001)(46966006)(40470700004)(6916009)(316002)(54906003)(81166007)(356005)(6666004)(7696005)(1076003)(82740400003)(36756003)(70586007)(16526019)(41300700001)(2616005)(82310400005)(336012)(30864003)(5660300002)(66574015)(186003)(47076005)(426003)(8936002)(86362001)(26005)(4326008)(2876002)(8676002)(40480700001)(40460700003)(70206006)(2906002)(83380400001)(478600001)(36860700001)(36900700001);
+ SFS:(13230022)(4636009)(136003)(346002)(376002)(396003)(39860400002)(451199015)(40470700004)(46966006)(36840700001)(70586007)(478600001)(316002)(70206006)(36756003)(2876002)(2906002)(6916009)(356005)(54906003)(336012)(1076003)(40460700003)(81166007)(47076005)(426003)(66574015)(83380400001)(82310400005)(36860700001)(82740400003)(6666004)(40480700001)(26005)(86362001)(7696005)(186003)(2616005)(16526019)(8936002)(30864003)(5660300002)(41300700001)(4326008)(8676002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2022 07:11:20.2531 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45cd40a4-35d3-4e7f-69d7-08dad1d8ea79
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2022 07:11:19.9407 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 485840d4-af0a-4c94-bbb8-08dad1d8ea49
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT028.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5837
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4073
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,334 +99,733 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Luben Tuikov <Luben.Tuikov@amd.com>,
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
  =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>,
- "Jiadong.Zhu" <Jiadong.Zhu@amd.com>, Huang Rui <ray.huang@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+ Huang Rui <ray.huang@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ "Jiadong.Zhu" <Jiadong.Zhu@amd.com>,
+ Christian Koenig <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: "Jiadong.Zhu" <Jiadong.Zhu@amd.com>
 
-1. Modify the unmap_queue package on gfx9. Add trailing fence to track the
-   preemption done.
-2. Modify emit_ce_meta emit_de_meta functions for the resumed ibs.
+Trigger Mid-Command Buffer Preemption according to the priority of the software
+rings and the hw fence signalling condition.
 
-v2: Restyle code not to use ternary operator.
-v3: Modify code format.
-v4: Enable Mid-Command Buffer Preemption for gfx9 by default.
-v5: Optimize the flag bit set for emit_fence.
-v6: Modify log message for preemption timeout.
+The muxer saves the locations of the indirect buffer frames from the software
+ring together with the fence sequence number in its fifo queue, and pops out
+those records when the fences are signalled. The locations are used to resubmit
+packages in preemption scenarios by coping the chunks from the software ring.
+
+v2: Update comment style.
+v3: Fix conflict caused by previous modifications.
+v4: Remove unnecessary prints.
+v5: Fix corner cases for resubmission cases.
+v6: Refactor functions for resubmission, calling fence_process in irq handler.
+v7: Solve conflict for removing amdgpu_sw_ring.c.
+v8: Add time threshold to judge if preemption request is needed.
+v9: Correct comment spelling. Set fence emit timestamp before rsu assignment.
 
 Cc: Christian Koenig <Christian.Koenig@amd.com>
-Cc: Michel Dänzer <michel@daenzer.net>
 Cc: Luben Tuikov <Luben.Tuikov@amd.com>
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Cc: Michel Dänzer <michel@daenzer.net>
 Signed-off-by: Jiadong.Zhu <Jiadong.Zhu@amd.com>
-Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Luben Tuikov <luben.tuikov@amd.com>
 Acked-by: Huang Rui <ray.huang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |   1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 182 +++++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/soc15d.h      |   2 +
- 3 files changed, 156 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c    |  54 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c       |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c     |  12 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h     |   8 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c | 351 +++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h |  29 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c       |   2 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c        |   7 +-
+ 8 files changed, 422 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index a744aa9bac95..073e767c057f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -60,6 +60,7 @@ enum amdgpu_ring_priority_level {
- #define AMDGPU_FENCE_FLAG_64BIT         (1 << 0)
- #define AMDGPU_FENCE_FLAG_INT           (1 << 1)
- #define AMDGPU_FENCE_FLAG_TC_WB_ONLY    (1 << 2)
-+#define AMDGPU_FENCE_FLAG_EXEC          (1 << 3)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index 2f8784396e89..ca6a47792dcb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -55,6 +55,7 @@ struct amdgpu_fence {
  
- #define to_amdgpu_ring(s) container_of((s), struct amdgpu_ring, sched)
+ 	/* RB, DMA, etc. */
+ 	struct amdgpu_ring		*ring;
++	ktime_t				start_timestamp;
+ };
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index ec80047b1b41..ec528b1d82e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -755,7 +755,7 @@ static void gfx_v9_0_set_rlc_funcs(struct amdgpu_device *adev);
- static int gfx_v9_0_get_cu_info(struct amdgpu_device *adev,
- 				struct amdgpu_cu_info *cu_info);
- static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev);
--static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring);
-+static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume);
- static u64 gfx_v9_0_ring_get_rptr_compute(struct amdgpu_ring *ring);
- static void gfx_v9_0_query_ras_error_count(struct amdgpu_device *adev,
- 					  void *ras_error_status);
-@@ -828,9 +828,10 @@ static void gfx_v9_0_kiq_unmap_queues(struct amdgpu_ring *kiq_ring,
- 			PACKET3_UNMAP_QUEUES_DOORBELL_OFFSET0(ring->doorbell_index));
- 
- 	if (action == PREEMPT_QUEUES_NO_UNMAP) {
--		amdgpu_ring_write(kiq_ring, lower_32_bits(gpu_addr));
--		amdgpu_ring_write(kiq_ring, upper_32_bits(gpu_addr));
--		amdgpu_ring_write(kiq_ring, seq);
-+		amdgpu_ring_write(kiq_ring, lower_32_bits(ring->wptr & ring->buf_mask));
-+		amdgpu_ring_write(kiq_ring, 0);
-+		amdgpu_ring_write(kiq_ring, 0);
-+
- 	} else {
- 		amdgpu_ring_write(kiq_ring, 0);
- 		amdgpu_ring_write(kiq_ring, 0);
-@@ -5326,11 +5327,17 @@ static void gfx_v9_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
- 
- 	control |= ib->length_dw | (vmid << 24);
- 
--	if (amdgpu_sriov_vf(ring->adev) && (ib->flags & AMDGPU_IB_FLAG_PREEMPT)) {
-+	if (ib->flags & AMDGPU_IB_FLAG_PREEMPT) {
- 		control |= INDIRECT_BUFFER_PRE_ENB(1);
- 
-+		if (flags & AMDGPU_IB_PREEMPTED)
-+			control |= INDIRECT_BUFFER_PRE_RESUME(1);
-+
- 		if (!(ib->flags & AMDGPU_IB_FLAG_CE) && vmid)
--			gfx_v9_0_ring_emit_de_meta(ring);
-+			gfx_v9_0_ring_emit_de_meta(ring,
-+						   (!amdgpu_sriov_vf(ring->adev) &&
-+						   flags & AMDGPU_IB_PREEMPTED) ?
-+						   true : false);
+ static struct kmem_cache *amdgpu_fence_slab;
+@@ -199,6 +200,8 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f, struct amd
+ 		}
  	}
  
- 	amdgpu_ring_write(ring, header);
-@@ -5385,17 +5392,24 @@ static void gfx_v9_0_ring_emit_fence(struct amdgpu_ring *ring, u64 addr,
- 	bool write64bit = flags & AMDGPU_FENCE_FLAG_64BIT;
- 	bool int_sel = flags & AMDGPU_FENCE_FLAG_INT;
- 	bool writeback = flags & AMDGPU_FENCE_FLAG_TC_WB_ONLY;
-+	bool exec = flags & AMDGPU_FENCE_FLAG_EXEC;
-+	uint32_t dw2 = 0;
- 
- 	/* RELEASE_MEM - flush caches, send int */
- 	amdgpu_ring_write(ring, PACKET3(PACKET3_RELEASE_MEM, 6));
--	amdgpu_ring_write(ring, ((writeback ? (EOP_TC_WB_ACTION_EN |
--					       EOP_TC_NC_ACTION_EN) :
--					      (EOP_TCL1_ACTION_EN |
--					       EOP_TC_ACTION_EN |
--					       EOP_TC_WB_ACTION_EN |
--					       EOP_TC_MD_ACTION_EN)) |
--				 EVENT_TYPE(CACHE_FLUSH_AND_INV_TS_EVENT) |
--				 EVENT_INDEX(5)));
++	to_amdgpu_fence(fence)->start_timestamp = ktime_get();
 +
-+	if (writeback) {
-+		dw2 = EOP_TC_NC_ACTION_EN;
-+	} else {
-+		dw2 = EOP_TCL1_ACTION_EN | EOP_TC_ACTION_EN |
-+				EOP_TC_MD_ACTION_EN;
-+	}
-+	dw2 |= EOP_TC_WB_ACTION_EN | EVENT_TYPE(CACHE_FLUSH_AND_INV_TS_EVENT) |
-+				EVENT_INDEX(5);
-+	if (exec)
-+		dw2 |= EOP_EXEC;
-+
-+	amdgpu_ring_write(ring, dw2);
- 	amdgpu_ring_write(ring, DATA_SEL(write64bit ? 2 : 1) | INT_SEL(int_sel ? 2 : 0));
- 
- 	/*
-@@ -5500,33 +5514,135 @@ static void gfx_v9_ring_emit_sb(struct amdgpu_ring *ring)
- 	amdgpu_ring_write(ring, 0);
+ 	/* This function can't be called concurrently anyway, otherwise
+ 	 * emitting the fence would mess up the hardware ring buffer.
+ 	 */
+@@ -415,6 +418,57 @@ unsigned amdgpu_fence_count_emitted(struct amdgpu_ring *ring)
+ 	return lower_32_bits(emitted);
  }
  
--static void gfx_v9_0_ring_emit_ce_meta(struct amdgpu_ring *ring)
-+static void gfx_v9_0_ring_emit_ce_meta(struct amdgpu_ring *ring, bool resume)
- {
-+	struct amdgpu_device *adev = ring->adev;
- 	struct v9_ce_ib_state ce_payload = {0};
--	uint64_t csa_addr;
-+	uint64_t offset, ce_payload_gpu_addr;
-+	void *ce_payload_cpu_addr;
- 	int cnt;
- 
- 	cnt = (sizeof(ce_payload) >> 2) + 4 - 2;
--	csa_addr = amdgpu_csa_vaddr(ring->adev);
++/**
++ * amdgpu_fence_last_unsignaled_time_us - the time fence emited until now
++ * @ring: ring the fence is associated with
++ *
++ * Find the earlist fence unsignaled until now, calculate the time delta
++ * between the time fence emitted and now.
++ */
++u64 amdgpu_fence_last_unsignaled_time_us(struct amdgpu_ring *ring)
++{
++	struct amdgpu_fence_driver *drv = &ring->fence_drv;
++	struct dma_fence *fence;
++	uint32_t last_seq, sync_seq;
 +
-+	if (ring->is_mes_queue) {
-+		offset = offsetof(struct amdgpu_mes_ctx_meta_data,
-+				  gfx[0].gfx_meta_data) +
-+			offsetof(struct v9_gfx_meta_data, ce_payload);
-+		ce_payload_gpu_addr =
-+			amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
-+		ce_payload_cpu_addr =
-+			amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
-+	} else {
-+		offset = offsetof(struct v9_gfx_meta_data, ce_payload);
-+		ce_payload_gpu_addr = amdgpu_csa_vaddr(ring->adev) + offset;
-+		ce_payload_cpu_addr = adev->virt.csa_cpu_addr + offset;
-+	}
- 
- 	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, cnt));
- 	amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(2) |
- 				 WRITE_DATA_DST_SEL(8) |
- 				 WR_CONFIRM) |
- 				 WRITE_DATA_CACHE_POLICY(0));
--	amdgpu_ring_write(ring, lower_32_bits(csa_addr + offsetof(struct v9_gfx_meta_data, ce_payload)));
--	amdgpu_ring_write(ring, upper_32_bits(csa_addr + offsetof(struct v9_gfx_meta_data, ce_payload)));
--	amdgpu_ring_write_multiple(ring, (void *)&ce_payload, sizeof(ce_payload) >> 2);
-+	amdgpu_ring_write(ring, lower_32_bits(ce_payload_gpu_addr));
-+	amdgpu_ring_write(ring, upper_32_bits(ce_payload_gpu_addr));
++	last_seq = atomic_read(&ring->fence_drv.last_seq);
++	sync_seq = READ_ONCE(ring->fence_drv.sync_seq);
++	if (last_seq == sync_seq)
++		return 0;
 +
-+	if (resume)
-+		amdgpu_ring_write_multiple(ring, ce_payload_cpu_addr,
-+					   sizeof(ce_payload) >> 2);
-+	else
-+		amdgpu_ring_write_multiple(ring, (void *)&ce_payload,
-+					   sizeof(ce_payload) >> 2);
++	++last_seq;
++	last_seq &= drv->num_fences_mask;
++	fence = drv->fences[last_seq];
++	if (!fence)
++		return 0;
++
++	return ktime_us_delta(ktime_get(),
++		to_amdgpu_fence(fence)->start_timestamp);
 +}
 +
-+static int gfx_v9_0_ring_preempt_ib(struct amdgpu_ring *ring)
++/**
++ * amdgpu_fence_update_start_timestamp - update the timestamp of the fence
++ * @ring: ring the fence is associated with
++ * @seq: the fence seq number to update.
++ * @timestamp: the start timestamp to update.
++ *
++ * The function called at the time the fence and related ib is about to
++ * resubmit to gpu in MCBP scenario. Thus we do not consider race condition
++ * with amdgpu_fence_process to modify the same fence.
++ */
++void amdgpu_fence_update_start_timestamp(struct amdgpu_ring *ring, uint32_t seq, ktime_t timestamp)
 +{
-+	int i, r = 0;
-+	struct amdgpu_device *adev = ring->adev;
-+	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
-+	struct amdgpu_ring *kiq_ring = &kiq->ring;
-+	unsigned long flags;
++	struct amdgpu_fence_driver *drv = &ring->fence_drv;
++	struct dma_fence *fence;
 +
-+	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
-+		return -EINVAL;
++	seq &= drv->num_fences_mask;
++	fence = drv->fences[seq];
++	if (!fence)
++		return;
 +
-+	spin_lock_irqsave(&kiq->ring_lock, flags);
++	to_amdgpu_fence(fence)->start_timestamp = timestamp;
++}
 +
-+	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
-+		spin_unlock_irqrestore(&kiq->ring_lock, flags);
+ /**
+  * amdgpu_fence_driver_start_ring - make the fence driver
+  * ready for use on the requested ring.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index 9dc1487c6fb2..bc70d1e3efd6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -219,6 +219,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 		}
+ 	}
+ 
++	amdgpu_ring_ib_begin(ring);
+ 	if (job && ring->funcs->init_cond_exec)
+ 		patch_offset = amdgpu_ring_init_cond_exec(ring);
+ 
+@@ -293,6 +294,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 	    ring->hw_prio == AMDGPU_GFX_PIPE_PRIO_HIGH)
+ 		ring->funcs->emit_wave_limit(ring, false);
+ 
++	amdgpu_ring_ib_end(ring);
+ 	amdgpu_ring_commit(ring);
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index 3e316b013fd9..5163cad5b35f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -572,3 +572,15 @@ int amdgpu_ring_init_mqd(struct amdgpu_ring *ring)
+ 
+ 	return mqd_mgr->init_mqd(adev, ring->mqd_ptr, &prop);
+ }
++
++void amdgpu_ring_ib_begin(struct amdgpu_ring *ring)
++{
++	if (ring->is_sw_ring)
++		amdgpu_sw_ring_ib_begin(ring);
++}
++
++void amdgpu_ring_ib_end(struct amdgpu_ring *ring)
++{
++	if (ring->is_sw_ring)
++		amdgpu_sw_ring_ib_end(ring);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 073e767c057f..f752c7ae7f60 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -145,8 +145,13 @@ signed long amdgpu_fence_wait_polling(struct amdgpu_ring *ring,
+ 				      uint32_t wait_seq,
+ 				      signed long timeout);
+ unsigned amdgpu_fence_count_emitted(struct amdgpu_ring *ring);
++
+ void amdgpu_fence_driver_isr_toggle(struct amdgpu_device *adev, bool stop);
+ 
++u64 amdgpu_fence_last_unsignaled_time_us(struct amdgpu_ring *ring);
++void amdgpu_fence_update_start_timestamp(struct amdgpu_ring *ring, uint32_t seq,
++					 ktime_t timestamp);
++
+ /*
+  * Rings.
+  */
+@@ -313,6 +318,9 @@ struct amdgpu_ring {
+ #define amdgpu_ring_preempt_ib(r) (r)->funcs->preempt_ib(r)
+ 
+ int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned ndw);
++void amdgpu_ring_ib_begin(struct amdgpu_ring *ring);
++void amdgpu_ring_ib_end(struct amdgpu_ring *ring);
++
+ void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count);
+ void amdgpu_ring_generic_pad_ib(struct amdgpu_ring *ring, struct amdgpu_ib *ib);
+ void amdgpu_ring_commit(struct amdgpu_ring *ring);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+index a52c4e7e8c39..3348337379da 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+@@ -28,6 +28,7 @@
+ #include "amdgpu.h"
+ 
+ #define AMDGPU_MUX_RESUBMIT_JIFFIES_TIMEOUT (HZ / 2)
++#define AMDGPU_MAX_LAST_UNSIGNALED_THRESHOLD_US 10000
+ 
+ static const struct ring_info {
+ 	unsigned int hw_pio;
+@@ -37,23 +38,145 @@ static const struct ring_info {
+ 	{ AMDGPU_RING_PRIO_2, "gfx_high"},
+ };
+ 
++static struct kmem_cache *amdgpu_mux_chunk_slab;
++
++static inline struct amdgpu_mux_entry *amdgpu_ring_mux_sw_entry(struct amdgpu_ring_mux *mux,
++								struct amdgpu_ring *ring)
++{
++	return ring->entry_index < mux->ring_entry_size ?
++			&mux->ring_entry[ring->entry_index] : NULL;
++}
++
++/* copy packages on sw ring range[begin, end) */
++static void amdgpu_ring_mux_copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux,
++						  struct amdgpu_ring *ring,
++						  u64 s_start, u64 s_end)
++{
++	u64 start, end;
++	struct amdgpu_ring *real_ring = mux->real_ring;
++
++	start = s_start & ring->buf_mask;
++	end = s_end & ring->buf_mask;
++
++	if (start == end) {
++		DRM_ERROR("no more data copied from sw ring\n");
++		return;
++	}
++	if (start > end) {
++		amdgpu_ring_alloc(real_ring, (ring->ring_size >> 2) + end - start);
++		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[start],
++					   (ring->ring_size >> 2) - start);
++		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[0], end);
++	} else {
++		amdgpu_ring_alloc(real_ring, end - start);
++		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[start], end - start);
++	}
++}
++
++static void amdgpu_mux_resubmit_chunks(struct amdgpu_ring_mux *mux)
++{
++	struct amdgpu_mux_entry *e = NULL;
++	struct amdgpu_mux_chunk *chunk;
++	uint32_t seq, last_seq;
++	int i;
++
++	/*find low priority entries:*/
++	if (!mux->s_resubmit)
++		return;
++
++	for (i = 0; i < mux->num_ring_entries; i++) {
++		if (mux->ring_entry[i].ring->hw_prio <= AMDGPU_RING_PRIO_DEFAULT) {
++			e = &mux->ring_entry[i];
++			break;
++		}
++	}
++
++	if (!e) {
++		DRM_ERROR("%s no low priority ring found\n", __func__);
++		return;
++	}
++
++	last_seq = atomic_read(&e->ring->fence_drv.last_seq);
++	seq = mux->seqno_to_resubmit;
++	if (last_seq < seq) {
++		/*resubmit all the fences between (last_seq, seq]*/
++		list_for_each_entry(chunk, &e->list, entry) {
++			if (chunk->sync_seq > last_seq && chunk->sync_seq <= seq) {
++				amdgpu_fence_update_start_timestamp(e->ring,
++								    chunk->sync_seq,
++								    ktime_get());
++				amdgpu_ring_mux_copy_pkt_from_sw_ring(mux, e->ring,
++								      chunk->start,
++								      chunk->end);
++				mux->wptr_resubmit = chunk->end;
++				amdgpu_ring_commit(mux->real_ring);
++			}
++		}
++	}
++
++	del_timer(&mux->resubmit_timer);
++	mux->s_resubmit = false;
++}
++
++static void amdgpu_ring_mux_schedule_resubmit(struct amdgpu_ring_mux *mux)
++{
++	mod_timer(&mux->resubmit_timer, jiffies + AMDGPU_MUX_RESUBMIT_JIFFIES_TIMEOUT);
++}
++
++static void amdgpu_mux_resubmit_fallback(struct timer_list *t)
++{
++	struct amdgpu_ring_mux *mux = from_timer(mux, t, resubmit_timer);
++
++	if (!spin_trylock(&mux->lock)) {
++		amdgpu_ring_mux_schedule_resubmit(mux);
++		DRM_ERROR("reschedule resubmit\n");
++		return;
++	}
++	amdgpu_mux_resubmit_chunks(mux);
++	spin_unlock(&mux->lock);
++}
++
+ int amdgpu_ring_mux_init(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
+ 			 unsigned int entry_size)
+ {
+ 	mux->real_ring = ring;
+ 	mux->num_ring_entries = 0;
++
+ 	mux->ring_entry = kcalloc(entry_size, sizeof(struct amdgpu_mux_entry), GFP_KERNEL);
+ 	if (!mux->ring_entry)
+ 		return -ENOMEM;
+ 
+ 	mux->ring_entry_size = entry_size;
++	mux->s_resubmit = false;
++
++	amdgpu_mux_chunk_slab = kmem_cache_create("amdgpu_mux_chunk",
++						  sizeof(struct amdgpu_mux_chunk), 0,
++						  SLAB_HWCACHE_ALIGN, NULL);
++	if (!amdgpu_mux_chunk_slab) {
++		DRM_ERROR("create amdgpu_mux_chunk cache failed\n");
 +		return -ENOMEM;
 +	}
 +
-+	/* assert preemption condition */
-+	amdgpu_ring_set_preempt_cond_exec(ring, false);
-+
-+	ring->trail_seq += 1;
-+	amdgpu_ring_alloc(ring, 13);
-+	gfx_v9_0_ring_emit_fence(ring, ring->trail_fence_gpu_addr,
-+				 ring->trail_seq, AMDGPU_FENCE_FLAG_EXEC);
-+	/*reset the CP_VMID_PREEMPT after trailing fence*/
-+	amdgpu_ring_emit_wreg(ring,
-+			      SOC15_REG_OFFSET(GC, 0, mmCP_VMID_PREEMPT),
-+			      0x0);
-+
-+	/* assert IB preemption, emit the trailing fence */
-+	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
-+				   ring->trail_fence_gpu_addr,
-+				   ring->trail_seq);
-+
-+	amdgpu_ring_commit(kiq_ring);
-+	spin_unlock_irqrestore(&kiq->ring_lock, flags);
-+
-+	/* poll the trailing fence */
-+	for (i = 0; i < adev->usec_timeout; i++) {
-+		if (ring->trail_seq ==
-+			le32_to_cpu(*ring->trail_fence_cpu_addr))
-+			break;
-+		udelay(1);
-+	}
-+
-+	if (i >= adev->usec_timeout) {
-+		r = -EINVAL;
-+		DRM_WARN("ring %d timeout to preempt ib\n", ring->idx);
-+	}
-+
-+	amdgpu_ring_commit(ring);
-+
-+	/* deassert preemption condition */
-+	amdgpu_ring_set_preempt_cond_exec(ring, true);
-+	return r;
+ 	spin_lock_init(&mux->lock);
++	timer_setup(&mux->resubmit_timer, amdgpu_mux_resubmit_fallback, 0);
+ 
+ 	return 0;
  }
  
--static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring)
-+static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume)
+ void amdgpu_ring_mux_fini(struct amdgpu_ring_mux *mux)
  {
-+	struct amdgpu_device *adev = ring->adev;
- 	struct v9_de_ib_state de_payload = {0};
--	uint64_t csa_addr, gds_addr;
-+	uint64_t offset, gds_addr, de_payload_gpu_addr;
-+	void *de_payload_cpu_addr;
- 	int cnt;
- 
--	csa_addr = amdgpu_csa_vaddr(ring->adev);
--	gds_addr = csa_addr + 4096;
-+	if (ring->is_mes_queue) {
-+		offset = offsetof(struct amdgpu_mes_ctx_meta_data,
-+				  gfx[0].gfx_meta_data) +
-+			offsetof(struct v9_gfx_meta_data, de_payload);
-+		de_payload_gpu_addr =
-+			amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
-+		de_payload_cpu_addr =
-+			amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
++	struct amdgpu_mux_entry *e;
++	struct amdgpu_mux_chunk *chunk, *chunk2;
++	int i;
 +
-+		offset = offsetof(struct amdgpu_mes_ctx_meta_data,
-+				  gfx[0].gds_backup) +
-+			offsetof(struct v9_gfx_meta_data, de_payload);
-+		gds_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
++	for (i = 0; i < mux->num_ring_entries; i++) {
++		e = &mux->ring_entry[i];
++		list_for_each_entry_safe(chunk, chunk2, &e->list, entry) {
++			list_del(&chunk->entry);
++			kmem_cache_free(amdgpu_mux_chunk_slab, chunk);
++		}
++	}
++	kmem_cache_destroy(amdgpu_mux_chunk_slab);
+ 	kfree(mux->ring_entry);
+ 	mux->ring_entry = NULL;
+ 	mux->num_ring_entries = 0;
+@@ -73,62 +196,48 @@ int amdgpu_ring_mux_add_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring
+ 	ring->entry_index = mux->num_ring_entries;
+ 	e->ring = ring;
+ 
++	INIT_LIST_HEAD(&e->list);
+ 	mux->num_ring_entries += 1;
+ 	return 0;
+ }
+ 
+-static inline struct amdgpu_mux_entry *amdgpu_ring_mux_sw_entry(struct amdgpu_ring_mux *mux,
+-								struct amdgpu_ring *ring)
+-{
+-	return ring->entry_index < mux->ring_entry_size ?
+-			&mux->ring_entry[ring->entry_index] : NULL;
+-}
+-
+-/* copy packages on sw ring range[begin, end) */
+-static void amdgpu_ring_mux_copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux,
+-						  struct amdgpu_ring *ring,
+-						  u64 s_start, u64 s_end)
+-{
+-	u64 start, end;
+-	struct amdgpu_ring *real_ring = mux->real_ring;
+-
+-	start = s_start & ring->buf_mask;
+-	end = s_end & ring->buf_mask;
+-
+-	if (start == end) {
+-		DRM_ERROR("no more data copied from sw ring\n");
+-		return;
+-	}
+-	if (start > end) {
+-		amdgpu_ring_alloc(real_ring, (ring->ring_size >> 2) + end - start);
+-		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[start],
+-					   (ring->ring_size >> 2) - start);
+-		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[0], end);
+-	} else {
+-		amdgpu_ring_alloc(real_ring, end - start);
+-		amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[start], end - start);
+-	}
+-}
+-
+ void amdgpu_ring_mux_set_wptr(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring, u64 wptr)
+ {
+ 	struct amdgpu_mux_entry *e;
+ 
++	spin_lock(&mux->lock);
++
++	if (ring->hw_prio <= AMDGPU_RING_PRIO_DEFAULT)
++		amdgpu_mux_resubmit_chunks(mux);
++
+ 	e = amdgpu_ring_mux_sw_entry(mux, ring);
+ 	if (!e) {
+ 		DRM_ERROR("cannot find entry for sw ring\n");
++		spin_unlock(&mux->lock);
++		return;
++	}
++
++	/* We could skip this set wptr as preemption in process. */
++	if (ring->hw_prio <= AMDGPU_RING_PRIO_DEFAULT && mux->pending_trailing_fence_signaled) {
++		spin_unlock(&mux->lock);
+ 		return;
+ 	}
+ 
+-	spin_lock(&mux->lock);
+ 	e->sw_cptr = e->sw_wptr;
++	/* Update cptr if the package already copied in resubmit functions */
++	if (ring->hw_prio <= AMDGPU_RING_PRIO_DEFAULT && e->sw_cptr < mux->wptr_resubmit)
++		e->sw_cptr = mux->wptr_resubmit;
+ 	e->sw_wptr = wptr;
+ 	e->start_ptr_in_hw_ring = mux->real_ring->wptr;
+ 
+-	amdgpu_ring_mux_copy_pkt_from_sw_ring(mux, ring, e->sw_cptr, wptr);
+-	e->end_ptr_in_hw_ring = mux->real_ring->wptr;
+-	amdgpu_ring_commit(mux->real_ring);
+-
++	/* Skip copying for the packages already resubmitted.*/
++	if (ring->hw_prio > AMDGPU_RING_PRIO_DEFAULT || mux->wptr_resubmit < wptr) {
++		amdgpu_ring_mux_copy_pkt_from_sw_ring(mux, ring, e->sw_cptr, wptr);
++		e->end_ptr_in_hw_ring = mux->real_ring->wptr;
++		amdgpu_ring_commit(mux->real_ring);
 +	} else {
-+		offset = offsetof(struct v9_gfx_meta_data, de_payload);
-+		de_payload_gpu_addr = amdgpu_csa_vaddr(ring->adev) + offset;
-+		de_payload_cpu_addr = adev->virt.csa_cpu_addr + offset;
-+
-+		gds_addr = ALIGN(amdgpu_csa_vaddr(ring->adev) +
-+				 AMDGPU_CSA_SIZE - adev->gds.gds_size,
-+				 PAGE_SIZE);
++		e->end_ptr_in_hw_ring = mux->real_ring->wptr;
 +	}
-+
- 	de_payload.gds_backup_addrlo = lower_32_bits(gds_addr);
- 	de_payload.gds_backup_addrhi = upper_32_bits(gds_addr);
- 
-@@ -5536,9 +5652,15 @@ static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring)
- 				 WRITE_DATA_DST_SEL(8) |
- 				 WR_CONFIRM) |
- 				 WRITE_DATA_CACHE_POLICY(0));
--	amdgpu_ring_write(ring, lower_32_bits(csa_addr + offsetof(struct v9_gfx_meta_data, de_payload)));
--	amdgpu_ring_write(ring, upper_32_bits(csa_addr + offsetof(struct v9_gfx_meta_data, de_payload)));
--	amdgpu_ring_write_multiple(ring, (void *)&de_payload, sizeof(de_payload) >> 2);
-+	amdgpu_ring_write(ring, lower_32_bits(de_payload_gpu_addr));
-+	amdgpu_ring_write(ring, upper_32_bits(de_payload_gpu_addr));
-+
-+	if (resume)
-+		amdgpu_ring_write_multiple(ring, de_payload_cpu_addr,
-+					   sizeof(de_payload) >> 2);
-+	else
-+		amdgpu_ring_write_multiple(ring, (void *)&de_payload,
-+					   sizeof(de_payload) >> 2);
+ 	spin_unlock(&mux->lock);
  }
  
- static void gfx_v9_0_ring_emit_frame_cntl(struct amdgpu_ring *ring, bool start,
-@@ -5554,8 +5676,9 @@ static void gfx_v9_ring_emit_cntxcntl(struct amdgpu_ring *ring, uint32_t flags)
- {
- 	uint32_t dw2 = 0;
+@@ -239,3 +348,169 @@ unsigned int amdgpu_sw_ring_priority(int idx)
+ 	return idx < ARRAY_SIZE(sw_ring_info) ?
+ 		sw_ring_info[idx].hw_pio : AMDGPU_RING_PRIO_DEFAULT;
+ }
++
++/*Scan on low prio rings to have unsignaled fence and high ring has no fence.*/
++int amdgpu_mcbp_scan(struct amdgpu_ring_mux *mux)
++{
++	struct amdgpu_ring *ring;
++	int i, need_preempt;
++
++	need_preempt = 0;
++	for (i = 0; i < mux->num_ring_entries; i++) {
++		ring = mux->ring_entry[i].ring;
++		if (ring->hw_prio > AMDGPU_RING_PRIO_DEFAULT &&
++		    amdgpu_fence_count_emitted(ring) > 0)
++			return 0;
++		if (ring->hw_prio <= AMDGPU_RING_PRIO_DEFAULT &&
++		    amdgpu_fence_last_unsignaled_time_us(ring) >
++		    AMDGPU_MAX_LAST_UNSIGNALED_THRESHOLD_US)
++			need_preempt = 1;
++	}
++	return need_preempt && !mux->s_resubmit;
++}
++
++/* Trigger Mid-Command Buffer Preemption (MCBP) and find if we need to resubmit. */
++int amdgpu_mcbp_trigger_preempt(struct amdgpu_ring_mux *mux)
++{
++	int r;
++
++	spin_lock(&mux->lock);
++	mux->pending_trailing_fence_signaled = true;
++	r = amdgpu_ring_preempt_ib(mux->real_ring);
++	spin_unlock(&mux->lock);
++	return r;
++}
++
++void amdgpu_sw_ring_ib_begin(struct amdgpu_ring *ring)
++{
++	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
++
++	WARN_ON(!ring->is_sw_ring);
++	if (ring->hw_prio > AMDGPU_RING_PRIO_DEFAULT) {
++		if (amdgpu_mcbp_scan(mux) > 0)
++			amdgpu_mcbp_trigger_preempt(mux);
++		return;
++	}
++
++	amdgpu_ring_mux_start_ib(mux, ring);
++}
++
++void amdgpu_sw_ring_ib_end(struct amdgpu_ring *ring)
++{
++	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_ring_mux *mux = &adev->gfx.muxer;
++
++	WARN_ON(!ring->is_sw_ring);
++	if (ring->hw_prio > AMDGPU_RING_PRIO_DEFAULT)
++		return;
++	amdgpu_ring_mux_end_ib(mux, ring);
++}
++
++void amdgpu_ring_mux_start_ib(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
++{
++	struct amdgpu_mux_entry *e;
++	struct amdgpu_mux_chunk *chunk;
++
++	spin_lock(&mux->lock);
++	amdgpu_mux_resubmit_chunks(mux);
++	spin_unlock(&mux->lock);
++
++	e = amdgpu_ring_mux_sw_entry(mux, ring);
++	if (!e) {
++		DRM_ERROR("cannot find entry!\n");
++		return;
++	}
++
++	chunk = kmem_cache_alloc(amdgpu_mux_chunk_slab, GFP_KERNEL);
++	if (!chunk) {
++		DRM_ERROR("alloc amdgpu_mux_chunk_slab failed\n");
++		return;
++	}
++
++	chunk->start = ring->wptr;
++	list_add_tail(&chunk->entry, &e->list);
++}
++
++static void scan_and_remove_signaled_chunk(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
++{
++	uint32_t last_seq, size = 0;
++	struct amdgpu_mux_entry *e;
++	struct amdgpu_mux_chunk *chunk, *tmp;
++
++	e = amdgpu_ring_mux_sw_entry(mux, ring);
++	if (!e) {
++		DRM_ERROR("cannot find entry!\n");
++		return;
++	}
++
++	last_seq = atomic_read(&ring->fence_drv.last_seq);
++
++	list_for_each_entry_safe(chunk, tmp, &e->list, entry) {
++		if (chunk->sync_seq <= last_seq) {
++			list_del(&chunk->entry);
++			kmem_cache_free(amdgpu_mux_chunk_slab, chunk);
++		} else {
++			size++;
++		}
++	}
++}
++
++void amdgpu_ring_mux_end_ib(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring)
++{
++	struct amdgpu_mux_entry *e;
++	struct amdgpu_mux_chunk *chunk;
++
++	e = amdgpu_ring_mux_sw_entry(mux, ring);
++	if (!e) {
++		DRM_ERROR("cannot find entry!\n");
++		return;
++	}
++
++	chunk = list_last_entry(&e->list, struct amdgpu_mux_chunk, entry);
++	if (!chunk) {
++		DRM_ERROR("cannot find chunk!\n");
++		return;
++	}
++
++	chunk->end = ring->wptr;
++	chunk->sync_seq = READ_ONCE(ring->fence_drv.sync_seq);
++
++	scan_and_remove_signaled_chunk(mux, ring);
++}
++
++bool amdgpu_mcbp_handle_trailing_fence_irq(struct amdgpu_ring_mux *mux)
++{
++	struct amdgpu_mux_entry *e;
++	struct amdgpu_ring *ring = NULL;
++	int i;
++
++	if (!mux->pending_trailing_fence_signaled)
++		return false;
++
++	if (mux->real_ring->trail_seq != le32_to_cpu(*mux->real_ring->trail_fence_cpu_addr))
++		return false;
++
++	for (i = 0; i < mux->num_ring_entries; i++) {
++		e = &mux->ring_entry[i];
++		if (e->ring->hw_prio <= AMDGPU_RING_PRIO_DEFAULT) {
++			ring = e->ring;
++			break;
++		}
++	}
++
++	if (!ring) {
++		DRM_ERROR("cannot find low priority ring\n");
++		return false;
++	}
++
++	amdgpu_fence_process(ring);
++	if (amdgpu_fence_count_emitted(ring) > 0) {
++		mux->s_resubmit = true;
++		mux->seqno_to_resubmit = ring->fence_drv.sync_seq;
++		amdgpu_ring_mux_schedule_resubmit(mux);
++	}
++
++	mux->pending_trailing_fence_signaled = false;
++	return true;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+index f67970dc3dbd..4be45fc14954 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+@@ -29,6 +29,7 @@
+ #include "amdgpu_ring.h"
  
--	if (amdgpu_sriov_vf(ring->adev))
--		gfx_v9_0_ring_emit_ce_meta(ring);
-+	gfx_v9_0_ring_emit_ce_meta(ring,
-+				   (!amdgpu_sriov_vf(ring->adev) &&
-+				   flags & AMDGPU_IB_PREEMPTED) ? true : false);
+ struct amdgpu_ring;
++
+ /**
+  * struct amdgpu_mux_entry - the entry recording software rings copying information.
+  * @ring: the pointer to the software ring.
+@@ -37,6 +38,7 @@ struct amdgpu_ring;
+  * @sw_cptr: the position of the copy pointer in the sw ring.
+  * @sw_rptr: the read pointer in software ring.
+  * @sw_wptr: the write pointer in software ring.
++ * @list: list head for amdgpu_mux_chunk
+  */
+ struct amdgpu_mux_entry {
+ 	struct amdgpu_ring      *ring;
+@@ -45,6 +47,7 @@ struct amdgpu_mux_entry {
+ 	u64                     sw_cptr;
+ 	u64                     sw_rptr;
+ 	u64                     sw_wptr;
++	struct list_head        list;
+ };
  
- 	dw2 |= 0x80000000; /* set load_enable otherwise this package is just NOPs */
- 	if (flags & AMDGPU_HAVE_CTX_SWITCH) {
-@@ -6908,6 +7031,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_gfx = {
- 	.emit_cntxcntl = gfx_v9_ring_emit_cntxcntl,
- 	.init_cond_exec = gfx_v9_0_ring_emit_init_cond_exec,
- 	.patch_cond_exec = gfx_v9_0_ring_emit_patch_cond_exec,
-+	.preempt_ib = gfx_v9_0_ring_preempt_ib,
- 	.emit_frame_cntl = gfx_v9_0_ring_emit_frame_cntl,
- 	.emit_wreg = gfx_v9_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15d.h b/drivers/gpu/drm/amd/amdgpu/soc15d.h
-index 799925d22fc8..2357ff39323f 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15d.h
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15d.h
-@@ -162,6 +162,7 @@
- 		 * 2 - Bypass
- 		 */
- #define     INDIRECT_BUFFER_PRE_ENB(x)		 ((x) << 21)
-+#define     INDIRECT_BUFFER_PRE_RESUME(x)               ((x) << 30)
- #define	PACKET3_COPY_DATA				0x40
- #define	PACKET3_PFP_SYNC_ME				0x42
- #define	PACKET3_COND_WRITE				0x45
-@@ -184,6 +185,7 @@
- #define		EOP_TC_ACTION_EN                        (1 << 17) /* L2 */
- #define		EOP_TC_NC_ACTION_EN			(1 << 19)
- #define		EOP_TC_MD_ACTION_EN			(1 << 21) /* L2 metadata */
-+#define		EOP_EXEC				(1 << 28) /* For Trailing Fence */
+ struct amdgpu_ring_mux {
+@@ -55,6 +58,26 @@ struct amdgpu_ring_mux {
+ 	unsigned int            ring_entry_size;
+ 	/*the lock for copy data from different software rings*/
+ 	spinlock_t              lock;
++	bool                    s_resubmit;
++	uint32_t                seqno_to_resubmit;
++	u64                     wptr_resubmit;
++	struct timer_list       resubmit_timer;
++
++	bool                    pending_trailing_fence_signaled;
++};
++
++/**
++ * struct amdgpu_mux_chunk - save the location of indirect buffer's package on softare rings.
++ * @entry: the list entry.
++ * @sync_seq: the fence seqno related with the saved IB.
++ * @start:- start location on the software ring.
++ * @end:- end location on the software ring.
++ */
++struct amdgpu_mux_chunk {
++	struct list_head        entry;
++	uint32_t                sync_seq;
++	u64                     start;
++	u64                     end;
+ };
  
- #define		DATA_SEL(x)                             ((x) << 29)
- 		/* 0 - discard
+ int amdgpu_ring_mux_init(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring,
+@@ -64,15 +87,17 @@ int amdgpu_ring_mux_add_sw_ring(struct amdgpu_ring_mux *mux, struct amdgpu_ring
+ void amdgpu_ring_mux_set_wptr(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring, u64 wptr);
+ u64 amdgpu_ring_mux_get_wptr(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
+ u64 amdgpu_ring_mux_get_rptr(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
++void amdgpu_ring_mux_start_ib(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
++void amdgpu_ring_mux_end_ib(struct amdgpu_ring_mux *mux, struct amdgpu_ring *ring);
++bool amdgpu_mcbp_handle_trailing_fence_irq(struct amdgpu_ring_mux *mux);
+ 
+ u64 amdgpu_sw_ring_get_rptr_gfx(struct amdgpu_ring *ring);
+ u64 amdgpu_sw_ring_get_wptr_gfx(struct amdgpu_ring *ring);
+ void amdgpu_sw_ring_set_wptr_gfx(struct amdgpu_ring *ring);
+-
+ void amdgpu_sw_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count);
+ void amdgpu_sw_ring_ib_begin(struct amdgpu_ring *ring);
+ void amdgpu_sw_ring_ib_end(struct amdgpu_ring *ring);
+-
+ const char *amdgpu_sw_ring_name(int idx);
+ unsigned int amdgpu_sw_ring_priority(int idx);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 7ad3e51bad40..5cafba788e6c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -582,6 +582,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 	if (!vm_flush_needed && !gds_switch_needed && !need_pipe_sync)
+ 		return 0;
+ 
++	amdgpu_ring_ib_begin(ring);
+ 	if (ring->funcs->init_cond_exec)
+ 		patch_offset = amdgpu_ring_init_cond_exec(ring);
+ 
+@@ -642,6 +643,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 		amdgpu_ring_emit_switch_buffer(ring);
+ 		amdgpu_ring_emit_switch_buffer(ring);
+ 	}
++	amdgpu_ring_ib_end(ring);
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index ec528b1d82e5..4cb939ead783 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -5578,7 +5578,7 @@ static int gfx_v9_0_ring_preempt_ib(struct amdgpu_ring *ring)
+ 	ring->trail_seq += 1;
+ 	amdgpu_ring_alloc(ring, 13);
+ 	gfx_v9_0_ring_emit_fence(ring, ring->trail_fence_gpu_addr,
+-				 ring->trail_seq, AMDGPU_FENCE_FLAG_EXEC);
++				 ring->trail_seq, AMDGPU_FENCE_FLAG_EXEC | AMDGPU_FENCE_FLAG_INT);
+ 	/*reset the CP_VMID_PREEMPT after trailing fence*/
+ 	amdgpu_ring_emit_wreg(ring,
+ 			      SOC15_REG_OFFSET(GC, 0, mmCP_VMID_PREEMPT),
+@@ -6004,8 +6004,9 @@ static int gfx_v9_0_eop_irq(struct amdgpu_device *adev,
+ 
+ 	switch (me_id) {
+ 	case 0:
+-		/* Fence signals are handled on the software rings*/
+-		if (adev->gfx.num_gfx_rings) {
++		if (adev->gfx.num_gfx_rings &&
++		    !amdgpu_mcbp_handle_trailing_fence_irq(&adev->gfx.muxer)) {
++			/* Fence signals are handled on the software rings*/
+ 			for (i = 0; i < GFX9_NUM_SW_GFX_RINGS; i++)
+ 				amdgpu_fence_process(&adev->gfx.sw_gfx_ring[i]);
+ 		}
 -- 
 2.25.1
 
