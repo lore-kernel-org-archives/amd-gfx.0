@@ -4,61 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F66DC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 16:05:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C0CFC433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 16:06:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D52FB890EB;
-	Tue, 29 Nov 2022 16:05:45 +0000 (UTC)
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 716E9890CE;
- Tue, 29 Nov 2022 16:05:41 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-1432a5f6468so17548396fac.12; 
- Tue, 29 Nov 2022 08:05:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95BCC10E023;
+	Tue, 29 Nov 2022 16:06:03 +0000 (UTC)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50E9F89C0A;
+ Tue, 29 Nov 2022 15:59:20 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id d3so17816125ljl.1;
+ Tue, 29 Nov 2022 07:59:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=dNf6TkvS51dxu1kxTM36uob0jsWyAiwJA7/CSWsnRCE=;
- b=gufcSf5qihAu68M+xQWjMAI1uqs99uNjn6zAPeSuNPeFrKl83BJIwWYkFL84DSiGnA
- k+33jSyfWwG4JHvc0O/h4fDUFmMLKWE6NyE4kyPSj3roRmVAVSWQfxdxzq1iZWiqHRAF
- FhEpsbL6S3mZlck+553WhGnGDLEsPSVhOuTDWMbQyxLrmVz2oLaVk3oBLVskerwxs/Kv
- mgcnazFN9rjTkAHhBoPizQkEwi+DBsRbD9HqY3P4i1gFHysHLhYEWenKgUSktiI2WOkR
- vEKRNPQWia14yjqGlvWhW8dgyyetDq6Jezw7HY/bZu5YmNPEg1GLwftfnKA/FJhpEjQZ
- cKwg==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=yqnfIuSDQKCEiPKD062OYSflOWrksUiNSTHq0tI10t4=;
+ b=JIngX6u137zKvw27fj6KpK79RHcWiq2QboIbiRSzIfr2sWiJUbLawqNXBM912nwhLf
+ oMblgi/Hm2cAdz3mbybwJMxoHsXk8QrGyQQzYPHCBz8+tTDBUpmLpzLc5cGFI+8bQ/aQ
+ pcbApY+aWVR7wmJmS6lnaU7MNhR3QVraZNXFPPhffM8pSem0sBz5zckNUwEIT/iW+wks
+ oEsJj7CJ0UZEciod8iDqde8gGqEZ9V7KjSESz5BCvpjZSQgHTe6aaTAiiQCYlD6wPM5E
+ dkr46AAW51vZ5RR0zmswFTOy4SyqYGxplxAU+jXoFUD/fXxrt7Cm80Wv2M/EwCyq3WK7
+ gOfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=dNf6TkvS51dxu1kxTM36uob0jsWyAiwJA7/CSWsnRCE=;
- b=aGkaHWjKaMCPmvNMwSTaLA+rBR0kA4jjmW1IsEkPT2JkWEkHoRRK/a1FmeMc6TuSzv
- M327xSrkw4nvVomXR522Fe+fXMiuXiZ4kRdtJJpRgR5lRE8xXjehG2T+zU8McR5YnelQ
- T7a0y3bfRZyNlRWRbn3UZHTsITKEmjP98ngxam+KhNOJYnUS7m4vTTaxTIgBpQ2idplT
- YMU5w9umoe30lxSi1Dgyr+kciYlHkMd4YdhbCZkZzepirJJtwzc8FFmpQTVIl5j/0YXJ
- YTSwzq91+qbIqw90Y5H9loh2yjAvTJ6xGgwWfwX/zyVLatSi+nTwtcEQbgadrBBmIvqh
- JOjA==
-X-Gm-Message-State: ANoB5pm5GqC08eNx/8VQdB7OKAj0taqB3+LHS4VEdxeKE6HJevx0l17b
- +mQiZW8S1aicwj2iuLm9Bvfw9IX/FTeISE/L1Zk=
-X-Google-Smtp-Source: AA0mqf4d8tnUKNpVxZcsxAjHtSvqfkg5QhU/RRCiVgG8afexxxVhN3+z4vLDLGjAceJy7yPkL0wN23z83UfzRXXwYNY=
-X-Received: by 2002:a05:6870:2b05:b0:12d:58c1:33f9 with SMTP id
- ld5-20020a0568702b0500b0012d58c133f9mr22363269oab.46.1669737940482; Tue, 29
- Nov 2022 08:05:40 -0800 (PST)
-MIME-Version: 1.0
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=yqnfIuSDQKCEiPKD062OYSflOWrksUiNSTHq0tI10t4=;
+ b=RQU8jlMjH41Bfpv41qtZKgsyKSRfivj5Cmx/sg6YKIycrVQZR/pddbPk01+Wer9g/c
+ LCC++Fp3coatgfwa4tO07yYxHA6SbWRc8agwS4ozhakATGE0pa6FPepV0sERf/LNO8n3
+ K7YeWMp88zYoFG0H5SNyEmVutcK+Lh2czNRXCFlfXh9BMupWxlYbsbwCDtvQLN0x5646
+ o3/Ner0ybIKri646CrCQLD/6Jv9vFVckoSCoPTSX9XvJTyuTQBr71EsOT+hxJ8YTxRMq
+ 85PtdTLAC4MHcbCqsfWDwG7zSZ5JqBw1PaQcnm1OGUmE4nYGI2eWvGdkspKJ4yil8Hrx
+ 6y3g==
+X-Gm-Message-State: ANoB5pnxLPcjvj9AIroWZKzXfcCFUATX27h14NuEfi5gq8TVOapAEdPN
+ B0RmxfZm0SGW2liczw9n0w==
+X-Google-Smtp-Source: AA0mqf4brFARYtga1lZL3Db0FT52U+x0zaZEPrUap2UpN6ip5DxglgvTfXaig3FGhU37/ZLC2elExw==
+X-Received: by 2002:a2e:b80c:0:b0:279:78b7:fbed with SMTP id
+ u12-20020a2eb80c000000b0027978b7fbedmr10086994ljo.308.1669737558422; 
+ Tue, 29 Nov 2022 07:59:18 -0800 (PST)
+Received: from sqrt.uni.cx (0854358661.static.corbina.ru. [95.31.0.167])
+ by smtp.gmail.com with ESMTPSA id
+ o18-20020a056512053200b00497b198987bsm2256957lfc.26.2022.11.29.07.59.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Nov 2022 07:59:17 -0800 (PST)
+Date: Tue, 29 Nov 2022 18:59:22 +0300
+From: Mikhail Krylov <sqarert@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: Screen corruption using radeon kernel driver
+Message-ID: <Y4YsWo8MPAeg9DRQ@sqrt.uni.cx>
 References: <20220423193145.3301ed06@desktop>
  <CADnq5_PXgFBXZ03LXE8qOdimzfKYGhzX1JnycJQcHWcMZdgJug@mail.gmail.com>
  <Y4TGOb3UGmDslyYF@sqrt.uni.cx>
  <CADnq5_NTyvZR16_N0TzMo3f9Mg6EwOuwuBgYzDA=U7tur7Fmnw@mail.gmail.com>
  <Y4UelMnRkY7/0G6U@sqrt.uni.cx>
  <CADnq5_MactA_n4sTKZ_-TpYFZnOfEeygHF3r+zH94By2Dm86cA@mail.gmail.com>
- <Y4YsWo8MPAeg9DRQ@sqrt.uni.cx>
-In-Reply-To: <Y4YsWo8MPAeg9DRQ@sqrt.uni.cx>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 29 Nov 2022 11:05:28 -0500
-Message-ID: <CADnq5_MNmOHVuszVfCZ8Ajm85Wb5roe4-20BEXXzsEVpAC_Rkg@mail.gmail.com>
-Subject: Re: Screen corruption using radeon kernel driver
-To: Mikhail Krylov <sqarert@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="pgcHRYxw9gu8M9se"
+Content-Disposition: inline
+In-Reply-To: <CADnq5_MactA_n4sTKZ_-TpYFZnOfEeygHF3r+zH94By2Dm86cA@mail.gmail.com>
+X-Mailman-Approved-At: Tue, 29 Nov 2022 16:05:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,55 +81,77 @@ Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 29, 2022 at 10:59 AM Mikhail Krylov <sqarert@gmail.com> wrote:
->
-> On Tue, Nov 29, 2022 at 09:44:19AM -0500, Alex Deucher wrote:
-> > On Mon, Nov 28, 2022 at 3:48 PM Mikhail Krylov <sqarert@gmail.com> wrote:
-> > >
-> > > On Mon, Nov 28, 2022 at 09:50:50AM -0500, Alex Deucher wrote:
-> > >
-> > > >>> [excessive quoting removed]
-> > >
-> > > >> So, is there any progress on this issue? I do understand it's not a high
-> > > >> priority one, and today I've checked it on 6.0 kernel, and
-> > > >> unfortunately, it still persists...
-> > > >>
-> > > >> I'm considering writing a patch that will allow user to override
-> > > >> need_dma32/dma_bits setting with a module parameter. I'll have some time
-> > > >> after the New Year for that.
-> > > >>
-> > > >> Is it at all possible that such a patch will be merged into kernel?
-> > > >>
-> > > > On Mon, Nov 28, 2022 at 9:31 AM Mikhail Krylov <sqarert@gmail.com> wrote:
-> > > > Unless someone familiar with HIMEM can figure out what is going wrong
-> > > > we should just revert the patch.
-> > > >
-> > > > Alex
-> > >
-> > >
-> > > Okay, I was suggesting that mostly because
-> > >
-> > > a) it works for me with dma_bits = 40 (I understand that's what it is
-> > > without the original patch applied);
-> > >
-> > > b) there's a hint of uncertainity on this line
-> > > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/radeon/radeon_device.c#n1359
-> > > saying that for AGP dma_bits = 32 is the safest option, so apparently there are
-> > > setups, unlike mine, where dma_bits = 32 is better than 40.
-> > >
-> > > But I'm in no position to argue, just wanted to make myself clear.
-> > > I'm okay with rebuilding the kernel for my machine until the original
-> > > patch is reverted or any other fix is applied.
-> >
-> > What GPU do you have and is it AGP?  If it is AGP, does setting
-> > radeon.agpmode=-1 also fix it?
-> >
-> > Alex
->
-> That is ATI Radeon X1950, and, unfortunately, radeon.agpmode=-1 doesn't
-> help, it just makes 3D acceleration in games such as OpenArena stop
-> working.
 
-Just to confirm, is the board AGP or PCIe?
+--pgcHRYxw9gu8M9se
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Alex
+On Tue, Nov 29, 2022 at 09:44:19AM -0500, Alex Deucher wrote:
+> On Mon, Nov 28, 2022 at 3:48 PM Mikhail Krylov <sqarert@gmail.com> wrote:
+> >
+> > On Mon, Nov 28, 2022 at 09:50:50AM -0500, Alex Deucher wrote:
+> >
+> > >>> [excessive quoting removed]
+> >
+> > >> So, is there any progress on this issue? I do understand it's not a =
+high
+> > >> priority one, and today I've checked it on 6.0 kernel, and
+> > >> unfortunately, it still persists...
+> > >>
+> > >> I'm considering writing a patch that will allow user to override
+> > >> need_dma32/dma_bits setting with a module parameter. I'll have some =
+time
+> > >> after the New Year for that.
+> > >>
+> > >> Is it at all possible that such a patch will be merged into kernel?
+> > >>
+> > > On Mon, Nov 28, 2022 at 9:31 AM Mikhail Krylov <sqarert@gmail.com> wr=
+ote:
+> > > Unless someone familiar with HIMEM can figure out what is going wrong
+> > > we should just revert the patch.
+> > >
+> > > Alex
+> >
+> >
+> > Okay, I was suggesting that mostly because
+> >
+> > a) it works for me with dma_bits =3D 40 (I understand that's what it is
+> > without the original patch applied);
+> >
+> > b) there's a hint of uncertainity on this line
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/drivers/gpu/drm/radeon/radeon_device.c#n1359
+> > saying that for AGP dma_bits =3D 32 is the safest option, so apparently=
+ there are
+> > setups, unlike mine, where dma_bits =3D 32 is better than 40.
+> >
+> > But I'm in no position to argue, just wanted to make myself clear.
+> > I'm okay with rebuilding the kernel for my machine until the original
+> > patch is reverted or any other fix is applied.
+>=20
+> What GPU do you have and is it AGP?  If it is AGP, does setting
+> radeon.agpmode=3D-1 also fix it?
+>=20
+> Alex
+
+That is ATI Radeon X1950, and, unfortunately, radeon.agpmode=3D-1 doesn't
+help, it just makes 3D acceleration in games such as OpenArena stop
+working.
+
+--pgcHRYxw9gu8M9se
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEq9zNqT9shXHTn/gRzNfc0dbmrQAFAmOGLFkACgkQzNfc0dbm
+rQAjoQf8CjDlgzMTdVgUKYS4o/aHNm0ZwLJ99nWQSINizpvxDStg8TAu5MAf7R51
++7+UN6jC3QiRgHsbAQqrYzXq+5qemlPZYEz3Fp8m5Rz9XwoD7cn13AICSH2Vmyy7
+S+HpuaDMebo5ir+ZgMQy4nOPxB8EK3WOBTVvXj38penim3a+D7ic/P2e/WR9LDwv
+bDRJqMJ44QWVQQcgYGkff8Fw7eUJ2vqco7VR+azqGTxu/G2Wsr+olcOUgUmDx2+/
+W8kiQqNQZBNNs9e1o6oWEqfgB+/s/Ry4xdkcwUZJw66NB9iCD6Y6LHsspsvj08F4
+lto1wQKx948p+VPnpkOetziWkjHHbQ==
+=POA3
+-----END PGP SIGNATURE-----
+
+--pgcHRYxw9gu8M9se--
