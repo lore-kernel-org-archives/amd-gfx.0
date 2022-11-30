@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A6C4C4321E
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 06:40:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EA6EC4321E
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 06:40:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B44C310E296;
-	Wed, 30 Nov 2022 06:40:52 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062f.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A236610E296
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Nov 2022 06:40:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6054F10E414;
+	Wed, 30 Nov 2022 06:40:56 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2049.outbound.protection.outlook.com [40.107.223.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0366510E411
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Nov 2022 06:40:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XQ684GzG8rv3wfLgiT6HpoZ7jpjqbm0w6NwJHkJAyfp1TpV1pLXAipdZwWOJjdWD51cZE2EHw9NP8IEzzXVVVXs9opmhJ2YrJzAdu13x0PEwGnrF4QlfI0k/PZ+6LFvUsO+kwmMUb1zas5nk7qPaCFGbYE9UbtcusNflVcyAzJ1H3J0p7x1/MOpOCj9NyEQdB2WGh9lGpHY6KeSDq1Mt+NGmSzCxt9R39RVtQFxd/6D6DBIWbd02/JQA3nXivLvoUB6UuCk6c+0NlgHphcVyMD5eQ/NOJwJs63jtiyW6PhnWClSNADK/EX/oEYDa5JbaFTsvgh/CKPvkpxo5lE7B5Q==
+ b=l3uvZQ+ogpKyc7B5lWIL4KSviCapNDalXbyfSkq4ektw10zV+2GEeKzd0nKlgO4kIAVsiOzRj0kvw5+9CTnmDffo132t4QLzY9W4gBb5CtpM4YQTnsjpwH5Gmq6JBD7KkwSLAUKrzj8RCbTqchEVGmjr2alRdmND6Kh7z9Tq6agkT10pAaiY4qvKYqQ1twN22P80rm9fxLaybo55gYXyBDHu6rMp2a5hhCEcpoHYHuLNpDsL5JwRCIkqgegRIHUWHimUfJ1eeAuGmRwiwBiYVtDDqv2fGfgq6tHIsnj7dP37RVf1jILM177rRX5ewUMxuZ2MB4jdu+oi8WkSJRQlKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IHLdosuS8WKivoHPjdZE80I2uYpR36NiyW585fqIj8E=;
- b=JY0Jy3MY/X2aap+4Qsu4F/MlLCfLqp9UbtAiyuk7Sl43bDf0Y07xLlD0UhczJDQDhcQQ5w/DD6KJJWcU+jt+PZPju13HysywB/d+MsBzI6DX1HpGFlR2XHe5UHfETOuWwzic0CvRV9J24p/t2FDEzRzlbXTawMVCDWBj4J+tEHUlhcxpVtIPFSPqgK/crdUF+4xsS6j3hqfUPgYvzcWYge49jgHSlgvVQFSpkkRd4HyogFNjUhken29L3ofNIu7xnZijoRjqZ6xLvW32CZ/2PAu7uV0LdldKRs67CRI2bYn45KD2JqQwg7fAWGE9pp3Zes2UQyJLkuDXyTyocwP4eQ==
+ bh=qjLfiWthQQ5DI6KPjOumMwV6DvfKxZpUUY4CmHLhFfk=;
+ b=PRyRjbhm7uBoxJ8QZLyJeQ+GOjliBh/IZMjoi7uTOhRDEJAVga+BIaH/4j/TljILMohXMqfJYlz2jR6e9XlRjibZKgUVmuWTzuS39Y3O+U2/Ku2ftnL3q4mFKK+m7bIL2mmb10C/Xc3mpbqbAyTrWgxgHn5DRCg3sA+aKrX8iSaL+pejC+Kx/suUQKiP+p9KO+O6eFrjEWTd8An6wItitY89e3Jgk3tbye+fDHexFSuE/Q6pnSOwX3MKRHT3FKHHEGFNS678E/S6kwEtOH4dhzmCzFe+xKuwrNyLbFyTxyXnkvL5DQPIhjKvoCxzgKtX68P/gJCxz2KjP23DuVpu7g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IHLdosuS8WKivoHPjdZE80I2uYpR36NiyW585fqIj8E=;
- b=fi9WBfvg1tX6d5qmlL3qqhb4gWsLsNl8VbbbqBYiTHPPuZ67YPqSqunVljDmRYMLc1kywyyExBFlUM555THp6/Iyc7lAmDHaxiPpteW2nJhErC0vxiBK7uO6thbjsSP4MlwBOOpWFLO271f2MaR3Pr2F/Bf/oF/4PVraqI7vBx4=
-Received: from BN9PR03CA0760.namprd03.prod.outlook.com (2603:10b6:408:13a::15)
- by SN7PR12MB8130.namprd12.prod.outlook.com (2603:10b6:806:32e::12)
+ bh=qjLfiWthQQ5DI6KPjOumMwV6DvfKxZpUUY4CmHLhFfk=;
+ b=SBzS5mim1CRlR1MDBZq2L/HnOv5ec6/PqNBE+b97or/vPXuZrxUkDI8sKDFKlI/Tb7YWazRjdaTMsGCGV5VPodvAWCljhLPn7ghbB9zWeDkwUQzjsny3NeT2KIihmMR2LJQO1/06hK/EXKVDMR16b8ARBoE572PS4z/ETsJRQNM=
+Received: from BN9PR03CA0757.namprd03.prod.outlook.com (2603:10b6:408:13a::12)
+ by PH7PR12MB6443.namprd12.prod.outlook.com (2603:10b6:510:1f9::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Wed, 30 Nov
- 2022 06:40:46 +0000
+ 2022 06:40:50 +0000
 Received: from BN8NAM11FT021.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13a:cafe::4e) by BN9PR03CA0760.outlook.office365.com
- (2603:10b6:408:13a::15) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:13a:cafe::dc) by BN9PR03CA0757.outlook.office365.com
+ (2603:10b6:408:13a::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23 via Frontend
- Transport; Wed, 30 Nov 2022 06:40:46 +0000
+ Transport; Wed, 30 Nov 2022 06:40:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT021.mail.protection.outlook.com (10.13.177.114) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5834.8 via Frontend Transport; Wed, 30 Nov 2022 06:40:46 +0000
+ 15.20.5834.8 via Frontend Transport; Wed, 30 Nov 2022 06:40:50 +0000
 Received: from stylon-EliteDesk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 30 Nov
- 2022 00:40:42 -0600
+ 2022 00:40:46 -0600
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 12/14] drm/amd/display: Add debug option to skip PSR CRTC
- disable
-Date: Wed, 30 Nov 2022 14:36:25 +0800
-Message-ID: <20221130063627.2398341-13-stylon.wang@amd.com>
+Subject: [PATCH 13/14] drm/amd/display: set optimized required for comp buf
+ changes
+Date: Wed, 30 Nov 2022 14:36:26 +0800
+Message-ID: <20221130063627.2398341-14-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221130063627.2398341-1-stylon.wang@amd.com>
 References: <20221130063627.2398341-1-stylon.wang@amd.com>
@@ -70,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT021:EE_|SN7PR12MB8130:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c6e0a56-82cb-43c3-c2df-08dad29dcfe1
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT021:EE_|PH7PR12MB6443:EE_
+X-MS-Office365-Filtering-Correlation-Id: d28ea323-d857-420b-ee2b-08dad29dd1fe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3HwBqi56DLMWsDGiYWS0Cdt0Lbnv13+TCWoCLE7eogdu5esL9yS5W97TSY/tTVoqVwuLOhJNFJf78SwRzqN5v+rgjTkbcNhHy1bTlzxZX57EAoyRXxCPUbTdtUdz+MaUGE2JfCy3FWPMCNxN7Jck7nCKiw+OW6/+0tFIjf+yOSKDAmxdxUaK7LLTe87Yv2P5UNpEdzYj0cxlV3czWwjuTsz7iMmIINF2/fO4TFxJWXQkgKRcKAdqKj8gTYtRkzESzRdpQesrtRVPuqSz3tLVJ9tbREaWjP31AL2S9RYrlNegEhJsnlDFmW1Oni4qJKAlD9dhmiAA9cShEpZkIHTKJeJgBvrd/0i9h9Yi684loFQ9d5P9b2/MkjeJbg9WKs0X9cpK15Lqi4Nyh83RDxuSJSM81eE7lGx+kA49ZKbm6ssXYD9TEHcWyaQ3+wVQI+3+rqKwKW4BEfDeKEShgVdEtiNKjlWVyMyG4OZveExFNZtLY1xE3eA8fpKLTizL93a0UDDDNPdmv+CrU1CuPfE8W09w2uRb0hGFY2ss0AN1UiWHjhMmgZe0FqLvI27mJr7l+0qq8PTsP5/gkO4xLkeWDBOZNEAhkLr+npG/f8LDkv3I2TGTPw60GdENxWBvHJQ+6AooogtaH908f5DY+yhd2T+0wlRmX8B7bsBC4tPsShV+zZfbQNDWVTBUyz5PmCvG+J1ExU8U06etkKIDzJYNjOHDwEQrZR0yqGCB2j5nlOg=
+X-Microsoft-Antispam-Message-Info: j2AE6rCH+JhxL6Gz1B7OoeaOGNBupkJ3kITvGb8Bb1w9xs9gxzl/HtSTlHBNpYWUH0YQgX5M6KXHSzH0Vi2iHGtEgyBh70iUGE+zJ7mY48TRKqwaR4dS7JNfY+TmAIEd8VT2aGPB8jr34t9mYDNF4v7Ei6xGO3dLdympw5Z7Bjc0DcYtN4K4wHSKcMqe1108NlGZaOSGOfW2vMPPw/OLdZmc0iHIyoJlJf++4mMp4dhx7uW2WcA7DShvRUE5uxLe8QuQGjbFnTjWqXcC6Y9ieDo2ZsORyA3OvrdJKO+3CCJ3mRZqxhOlawc6SHNuDjC/mcjnwn6qwNR2zSz90xdjg2SAIFUAkpyeoFhs+B4J0bsJY2OdT+ECHIGuxDTWY6kyGRlHXlIKNWlTwiOWPzcx0sLwozXCEFK7XpnDtnOQtLL+jO5Xo0u6o80cY3Hz2yzkQoZboUudXfyJn0tlimDxPIBCNeXtobNCeKY/5UPMxSfBWDs/B4mVB3qeab+UT5xxH3kL77B24Lyos8e6tqRcL84WVwXPBHEo/yHMj6OT3HUMlSKMPkr9GDBk2c81CoEwBqUC5/aDw4V2ayxGIMWdQl5GsHI9IgPJIQoQx/cY0spFjubX1wBKWz+MYJ3qqiQ4zyOonyD+YrMX+H73du+gL56j+tE09mJI7qjapuEPQKPj4+jmVuLYwmndIk+HP6gVSIjx6x63L7mkSeBYpTtJFZZoNQt2qj7OXpY6MJbFw90=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(39860400002)(396003)(376002)(136003)(451199015)(36840700001)(40470700004)(46966006)(8936002)(44832011)(5660300002)(8676002)(70206006)(70586007)(4326008)(2906002)(41300700001)(54906003)(1076003)(6916009)(316002)(2616005)(7696005)(36756003)(26005)(478600001)(186003)(82310400005)(336012)(83380400001)(6666004)(40480700001)(40460700003)(36860700001)(16526019)(356005)(47076005)(81166007)(426003)(82740400003)(86362001)(36900700001);
+ SFS:(13230022)(4636009)(39860400002)(136003)(376002)(396003)(346002)(451199015)(40470700004)(36840700001)(46966006)(81166007)(356005)(2906002)(40480700001)(40460700003)(36756003)(7696005)(6666004)(86362001)(16526019)(478600001)(44832011)(26005)(41300700001)(316002)(70586007)(36860700001)(6916009)(5660300002)(70206006)(54906003)(8676002)(4326008)(8936002)(82740400003)(2616005)(186003)(1076003)(336012)(83380400001)(82310400005)(47076005)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2022 06:40:46.5255 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c6e0a56-82cb-43c3-c2df-08dad29dcfe1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2022 06:40:50.0721 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d28ea323-d857-420b-ee2b-08dad29dd1fe
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT021.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8130
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6443
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,73 +100,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Robin Chen <robin.chen@amd.com>, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, agustin.gutierrez@amd.com,
+Cc: stylon.wang@amd.com, Aric Cyr <Aric.Cyr@amd.com>,
+ Dillon Varone <Dillon.Varone@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
  pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Dillon Varone <Dillon.Varone@amd.com>
 
-[Why]
-It's currently tied to Z10 support, and is required for Z10, but
-we can still support Z10 display off without PSR.
+[Description]
+When compressed buffer allocation changes, optimized required flag should be
+set to trigger an update in optimize bandwidth.
 
-We currently need to skip the PSR CRTC disable to prevent stuttering
-and underflow from occuring during PSR-SU.
-
-[How]
-Add a debug option to allow specifying this separately.
-
-Reviewed-by: Robin Chen <robin.chen@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Dillon Varone <Dillon.Varone@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c           | 2 +-
- drivers/gpu/drm/amd/display/dc/dc.h                     | 1 +
- drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c | 1 +
- 3 files changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 5304e9daf90a..342e906ae26e 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -3378,7 +3378,7 @@ bool dc_link_setup_psr(struct dc_link *link,
- 		case FAMILY_YELLOW_CARP:
- 		case AMDGPU_FAMILY_GC_10_3_6:
- 		case AMDGPU_FAMILY_GC_11_0_1:
--			if (dc->debug.disable_z10)
-+			if (dc->debug.disable_z10 || dc->debug.psr_skip_crtc_disable)
- 				psr_context->psr_level.bits.SKIP_CRTC_DISABLE = true;
- 			break;
- 		default:
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 4a7c0356d9c7..3cb8cf065204 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -844,6 +844,7 @@ struct dc_debug_options {
- 	int crb_alloc_policy_min_disp_count;
- 	bool disable_z10;
- 	bool enable_z9_disable_interface;
-+	bool psr_skip_crtc_disable;
- 	union dpia_debug_options dpia_debug;
- 	bool disable_fixed_vs_aux_timeout_wa;
- 	bool force_disable_subvp;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
-index 4fffc7bb8088..f9ea1e86707f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
-@@ -886,6 +886,7 @@ static const struct dc_plane_cap plane_cap = {
- static const struct dc_debug_options debug_defaults_drv = {
- 	.disable_z10 = false,
- 	.enable_z9_disable_interface = true,
-+	.psr_skip_crtc_disable = true,
- 	.disable_dmcu = true,
- 	.force_abm_enable = false,
- 	.timing_trace = false,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index bc4a303cd864..6291a241158a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -2011,10 +2011,13 @@ void dcn20_prepare_bandwidth(
+ 
+ 	/* decrease compbuf size */
+ 	if (hubbub->funcs->program_compbuf_size) {
+-		if (context->bw_ctx.dml.ip.min_comp_buffer_size_kbytes)
++		if (context->bw_ctx.dml.ip.min_comp_buffer_size_kbytes) {
+ 			compbuf_size_kb = context->bw_ctx.dml.ip.min_comp_buffer_size_kbytes;
+-		else
++			dc->wm_optimized_required |= (compbuf_size_kb != dc->current_state->bw_ctx.dml.ip.min_comp_buffer_size_kbytes);
++		} else {
+ 			compbuf_size_kb = context->bw_ctx.bw.dcn.compbuf_size_kb;
++			dc->wm_optimized_required |= (compbuf_size_kb != dc->current_state->bw_ctx.bw.dcn.compbuf_size_kb);
++		}
+ 
+ 		hubbub->funcs->program_compbuf_size(hubbub, compbuf_size_kb, false);
+ 	}
 -- 
 2.25.1
 
