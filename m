@@ -4,87 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2546DC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 15:46:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8EB4C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 15:55:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D82910E492;
-	Wed, 30 Nov 2022 15:46:50 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A442210E492
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Nov 2022 15:46:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NXJNj3RJEs6+nchqxCuVrVnolgoAVGukWHdaUCXbGTqU8di96kLioQnq/nLu4OKpci+CeYyBoF9U7BmTXW/A6VAh5L41Hznrq2Mezo9ix3Wl6JSIDQRaPSWmn70xhvkzepKF9JmeU3MSm2737mJ4WL57d35rQK2IQOMmTuJnsHEuGSd9JBF8OjiDtZao8uhWUAasHcPLwtA4A+i8osgxeElEuGRJaXplU3RUMSeBnJTsTSIRdFbdS5iHrIHPsInM2ZqZ5KDCCThwjbPPhEeMEE12ZM6EG/sw8X3TLKUqRdyjRNPxLmpFso3PK+D9Bij89gZE2Q152RO20symjYH43Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TkOy99M5nMFSoJ/FC6IvjxEspX41Q4PXTMOSyTDo/3I=;
- b=LvcrgWz/Fq2lF0xQqM4PlYpAg4eWJgxW/pbNzX9YXsztgrOOCXdqMObV8DFtFnOe8jVmCyF3ufgVzQVyZeITDZQqikZmV4ZXFjABNbQhTPhSt0IfH2iFoMc4HSOqhCWtz8WeaDfApQ50hJ2mIgjjdGgCfan/lFWmfTHpkXKHGgpp5kCNAkp8N4UgDCXTWkNbrgNVcNeuJHCDuJO3qjVc2XyPWYti0yuBTeu/hi6+ovT1TPwu/InPIjQukrCFc7R9DybTaM+v6Y70MOAxQwE7sQ8LEls6qyLjPCccd26Mh9ld79YD4RoG1O0I/RBweIT9ZmBlp2tfKPjpFoy2s7JxZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TkOy99M5nMFSoJ/FC6IvjxEspX41Q4PXTMOSyTDo/3I=;
- b=egfIc4pn34rTc78HTr/n0pxEN87EC33hSxoIX4I06yxmP06mHdJp3KaZbMQ5LuTk6unQtfBPT7ScBfU126XtR3VZnMezF4OOzHjOFchTHrIPYlxshHpTOB1eyYEo0cG2ifMgS3/URHi47ntkvA8Y1RaYJHMNQuuu6LzZOmtzbUI=
-Received: from DM6PR01CA0012.prod.exchangelabs.com (2603:10b6:5:296::17) by
- DS7PR12MB8348.namprd12.prod.outlook.com (2603:10b6:8:e5::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5880.6; Wed, 30 Nov 2022 15:46:46 +0000
-Received: from DM6NAM11FT085.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:296:cafe::2c) by DM6PR01CA0012.outlook.office365.com
- (2603:10b6:5:296::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.19 via Frontend
- Transport; Wed, 30 Nov 2022 15:46:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT085.mail.protection.outlook.com (10.13.172.236) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5834.8 via Frontend Transport; Wed, 30 Nov 2022 15:46:45 +0000
-Received: from fedora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 30 Nov
- 2022 09:46:45 -0600
-From: Luben Tuikov <luben.tuikov@amd.com>
-To: Tom StDenis <tom.stdenis@amd.com>
-Subject: [PATCH] umr: Fix a couple of options in the help output
-Date: Wed, 30 Nov 2022 10:46:20 -0500
-Message-ID: <20221130154620.25281-1-luben.tuikov@amd.com>
-X-Mailer: git-send-email 2.39.0.rc0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93EE710E496;
+	Wed, 30 Nov 2022 15:55:36 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3C67E10E48D;
+ Wed, 30 Nov 2022 15:42:54 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 26FE7D6E;
+ Wed, 30 Nov 2022 07:42:59 -0800 (PST)
+Received: from [10.57.71.118] (unknown [10.57.71.118])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C8CE63F67D;
+ Wed, 30 Nov 2022 07:42:51 -0800 (PST)
+Message-ID: <adf4a9b2-c30d-1e74-9848-7a63b3e0c674@arm.com>
+Date: Wed, 30 Nov 2022 15:42:47 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT085:EE_|DS7PR12MB8348:EE_
-X-MS-Office365-Filtering-Correlation-Id: 756c0fb2-6ff3-48ef-9e13-08dad2ea160a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4Pyynu0qmAXWEvpE2Y66AQqi3G2OcbJaVWiGLuoKB3I0zxIzZCG8wOC+G6AM/4t3XZuaPXh+fv6XfqVnyI6QpRDbaEFBwT7Zjn+hFkd6rfsxEvBPqA1SlCWOXZjDEkMggYnZgjUFUZSVUlrgw1d9Q6HjCmx2suia9+zOYafcN58JO8L/hvXA6o418aWxyog9pFfqk3LH7Q/ZtvoEwFUoo+tTtvQEN79ueoQXhCVNRjR2FZKPuxcMMOIgE1ivlXuR5IQTQPXwJPTbL9PCSlg1ZtDM81RbpAN0Rll3V3XBfZ6iUNjEFTDZ1Ggl+ZzWX1QqgV7Vtip8UfEEVsOEuvnif6MKM6AmtVSXxY3bQEA7XyzUrcygDDS5Fba7bNUGscRWCL4889Ob2wN9QKSOUYMIEctLMHPk0WU6DJ2A2oNxaR+xbLfzntaoexdUBKL8DVni9T8ZI1l5iLrtUeL1H6Ru8+25hKJihSMRH6xcuyXwC0opZGuHHCoTumiZ+Txym9qbtI7MyS2t3QfOdRIKcL4iNvOjR8cEwbg7L4fjdzU4dtuCUdmGJkDLv3iTNyXwpH2QRjfSwxSgmf4e1FkdVOsb3pqJJmPGN8V3PdM0m9/S8e3+4VahnRer3gsE2MiqhHvRKbdehPcPDS7tVjB20JKnOX9NLb4TcIfdoJtVztcVlZ34M7cIyBqgk+vS3er3fhnL6YDnYnP/rcZkfGKDvPUKw0UWnLC5w6hoI5HvMqTM9Kk=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(376002)(39860400002)(346002)(136003)(451199015)(46966006)(36840700001)(40470700004)(426003)(47076005)(36860700001)(83380400001)(82740400003)(41300700001)(356005)(81166007)(44832011)(40460700003)(2906002)(336012)(6862004)(82310400005)(6666004)(5660300002)(7696005)(8936002)(1076003)(4326008)(26005)(40480700001)(16526019)(186003)(70206006)(6636002)(2616005)(37006003)(70586007)(316002)(478600001)(8676002)(54906003)(86362001)(36756003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2022 15:46:45.9540 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 756c0fb2-6ff3-48ef-9e13-08dad2ea160a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT085.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8348
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: Screen corruption using radeon kernel driver
+Content-Language: en-GB
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <20220423193145.3301ed06@desktop>
+ <CADnq5_PXgFBXZ03LXE8qOdimzfKYGhzX1JnycJQcHWcMZdgJug@mail.gmail.com>
+ <Y4TGOb3UGmDslyYF@sqrt.uni.cx>
+ <CADnq5_NTyvZR16_N0TzMo3f9Mg6EwOuwuBgYzDA=U7tur7Fmnw@mail.gmail.com>
+ <Y4UelMnRkY7/0G6U@sqrt.uni.cx>
+ <CADnq5_MactA_n4sTKZ_-TpYFZnOfEeygHF3r+zH94By2Dm86cA@mail.gmail.com>
+ <Y4YsWo8MPAeg9DRQ@sqrt.uni.cx>
+ <CADnq5_MNmOHVuszVfCZ8Ajm85Wb5roe4-20BEXXzsEVpAC_Rkg@mail.gmail.com>
+ <Y4Y9SJC7gtUxP4+R@sqrt.uni.cx> <a5f73cfa-bd2a-3ab8-1e5c-253cfd832ea7@arm.com>
+ <CADnq5_M5ScTd0AYddRBRiEupxRsV16eHFnLnZ3QYzE5gyMPqhw@mail.gmail.com>
+From: Robin Murphy <robin.murphy@arm.com>
+In-Reply-To: <CADnq5_M5ScTd0AYddRBRiEupxRsV16eHFnLnZ3QYzE5gyMPqhw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 30 Nov 2022 15:55:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,40 +52,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Luben Tuikov <luben.tuikov@amd.com>,
- AMD Graphics <amd-gfx@lists.freedesktop.org>
+Cc: Mikhail Krylov <sqarert@gmail.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The man page was updated in the listed changes below, but the help output was
-forgotten.
+On 2022-11-30 14:28, Alex Deucher wrote:
+> On Wed, Nov 30, 2022 at 7:54 AM Robin Murphy <robin.murphy@arm.com> wrote:
+>>
+>> On 2022-11-29 17:11, Mikhail Krylov wrote:
+>>> On Tue, Nov 29, 2022 at 11:05:28AM -0500, Alex Deucher wrote:
+>>>> On Tue, Nov 29, 2022 at 10:59 AM Mikhail Krylov <sqarert@gmail.com> wrote:
+>>>>>
+>>>>> On Tue, Nov 29, 2022 at 09:44:19AM -0500, Alex Deucher wrote:
+>>>>>> On Mon, Nov 28, 2022 at 3:48 PM Mikhail Krylov <sqarert@gmail.com> wrote:
+>>>>>>>
+>>>>>>> On Mon, Nov 28, 2022 at 09:50:50AM -0500, Alex Deucher wrote:
+>>>>>>>
+>>>>>>>>>> [excessive quoting removed]
+>>>>>>>
+>>>>>>>>> So, is there any progress on this issue? I do understand it's not a high
+>>>>>>>>> priority one, and today I've checked it on 6.0 kernel, and
+>>>>>>>>> unfortunately, it still persists...
+>>>>>>>>>
+>>>>>>>>> I'm considering writing a patch that will allow user to override
+>>>>>>>>> need_dma32/dma_bits setting with a module parameter. I'll have some time
+>>>>>>>>> after the New Year for that.
+>>>>>>>>>
+>>>>>>>>> Is it at all possible that such a patch will be merged into kernel?
+>>>>>>>>>
+>>>>>>>> On Mon, Nov 28, 2022 at 9:31 AM Mikhail Krylov <sqarert@gmail.com> wrote:
+>>>>>>>> Unless someone familiar with HIMEM can figure out what is going wrong
+>>>>>>>> we should just revert the patch.
+>>>>>>>>
+>>>>>>>> Alex
+>>>>>>>
+>>>>>>>
+>>>>>>> Okay, I was suggesting that mostly because
+>>>>>>>
+>>>>>>> a) it works for me with dma_bits = 40 (I understand that's what it is
+>>>>>>> without the original patch applied);
+>>>>>>>
+>>>>>>> b) there's a hint of uncertainity on this line
+>>>>>>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/radeon/radeon_device.c#n1359
+>>>>>>> saying that for AGP dma_bits = 32 is the safest option, so apparently there are
+>>>>>>> setups, unlike mine, where dma_bits = 32 is better than 40.
+>>>>>>>
+>>>>>>> But I'm in no position to argue, just wanted to make myself clear.
+>>>>>>> I'm okay with rebuilding the kernel for my machine until the original
+>>>>>>> patch is reverted or any other fix is applied.
+>>>>>>
+>>>>>> What GPU do you have and is it AGP?  If it is AGP, does setting
+>>>>>> radeon.agpmode=-1 also fix it?
+>>>>>>
+>>>>>> Alex
+>>>>>
+>>>>> That is ATI Radeon X1950, and, unfortunately, radeon.agpmode=-1 doesn't
+>>>>> help, it just makes 3D acceleration in games such as OpenArena stop
+>>>>> working.
+>>>>
+>>>> Just to confirm, is the board AGP or PCIe?
+>>>>
+>>>> Alex
+>>>
+>>> It is AGP. That's an old machine.
+>>
+>> Can you check whether dma_addressing_limited() is actually returning the
+>> expected result at the point of radeon_ttm_init()? Disabling highmem is
+>> presumably just hiding whatever problem exists, by throwing away all
+>>   >32-bit RAM such that use_dma32 doesn't matter.
+> 
+> The device in question only supports a 32 bit DMA mask so
+> dma_addressing_limited() should return true.  Bounce buffers are not
+> really usable on GPUs because they map so much memory.  If
+> dma_addressing_limited() returns false, that would explain it.
 
-Cc: Tom StDenis <tom.stdenis@amd.com>
-Fixes: 04393f2a68fd88 ("umr: Add support for "--ppt-read"")
-Fixes: dc5efe99e19028 ("umr: Add command line support for "--gpu-metrics"")
-Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
----
- src/app/main.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Right, it appears to be the only part of the offending commit that 
+*could* reasonably make any difference, so I'm primarily wondering if 
+dma_get_required_mask() somehow gets confused.
 
-diff --git a/src/app/main.c b/src/app/main.c
-index aa2152f977367e..adcbcb17fcd0ef 100644
---- a/src/app/main.c
-+++ b/src/app/main.c
-@@ -1065,9 +1065,9 @@ printf(
- "\n\t--clock-high, -ch\n\t\tSet power_dpm_force_performance_level to high.\n"
- "\n\t--clock-low, -cl\n\t\tSet power_dpm_force_performance_level to low.\n"
- "\n\t--clock-auto, -ca\n\t\tSet power_dpm_force_performance_level to auto.\n"
--"\n\t--ppt_read, -pptr [ppt_field_name]\n\t\tRead powerplay table value and print it to stdout."
-+"\n\t--ppt-read, -pptr [ppt_field_name]\n\t\tRead powerplay table value and print it to stdout."
- 	"\n\t\tThis command will print all the powerplay table information or the corresponding string in powerplay table.\n"
--"\n\t--gpu_metrics, -gm"
-+"\n\t--gpu-metrics, -gm"
- 	"\n\t\tPrint the GPU metrics table for the device."
- "\n\t--power, -p \n\t\tRead the conetent of clocks, temperature, gpu loading at runtime"
- 	"\n\t\toptions 'use_colour' to colourize output \n"
-
-base-commit: 0fd552b95b5ccca7f28b5e767d830b47037a5acd
--- 
-2.39.0.rc0
-
+Thanks,
+Robin.
