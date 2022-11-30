@@ -4,90 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAC6DC433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 15:22:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 380DFC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 15:24:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E3AA10E483;
-	Wed, 30 Nov 2022 15:22:36 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2070.outbound.protection.outlook.com [40.107.100.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C775E10E482
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Nov 2022 15:22:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IIwifV3Sdhk0l7Gz4xh/2o4SA0MvDpvVsvmmsDbZDNnnCceHnbrObQsTr9hmyps7AKl2BDnTW9nchzA86JZAWp6XMriiFUkxf2Ga0usHpjSnf05BRXZ5VLiNey1tEeNQ0Rn+Cn+ptSmrq1fOKlAWpGPdVk6JhyJ5twaeHJ5Ly+8YMRJcceG5mJ+r0H0JHrkZ25JsOuqggr4Jz3oAxltBUKKieckHgBuynxyy88illNK3wmQhQoxT17eltgG9t549MMmSZHuyNWv9WJSuW8jfWXI+zzuZA8gDjkQ5z8wLp38IVsEaS9IH1eNC0RZtRkNZoFznFiwSIJN91ujGQBbkkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YqrxXswd+PP2UsFft4js9v/o/niMzpkn/pGhiF2t7zE=;
- b=Yp4zQ3bZDG/KVfkyk9xPd+HFTWgE1uEqLxWxCe1prZM2qJrgG2qVRPX3B3nO3eQ+Vr34OWw+KQC6YB5+oH1JHB9GgTGOCdNt/MMfrgRn5RcjwUGh4buorws4apCfQp0ihT0CnkCOtYN1vKgfEDfGL6s0Si5w8cvhm4/Snks/Ftm85OBwJMkinvC6ZPphizIkoWnsIrp98HQdUPZ12gZylPdrZMX979iKPfe+967gMebN4buenn6VFfnJko+V0P/9S8nMnUVVYjx8E6arw5HKSVirmNz1o/4EH07Vz1Pe8ziNpt1rLz+u3zuRc4RyyiUliGc6N+U1/HBxHaIuvQ3ZIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YqrxXswd+PP2UsFft4js9v/o/niMzpkn/pGhiF2t7zE=;
- b=m7qTSz0Krx9GBcpkCzoyE3Hkpd/6vq3FDDxebz2xKqhj8fWYJvqYFWj1cIUzv00jK/31zFJBNgIAlxsCevA5S9HL2TDtSo9cGlKTJIAeLIpfl966eROwNu1ANGx5jjaPFrKs61L1qryRJlpaHrRb8pAoDBtuKBjI4s8Sgj+V+UY=
-Received: from MW4PR04CA0096.namprd04.prod.outlook.com (2603:10b6:303:83::11)
- by BL1PR12MB5378.namprd12.prod.outlook.com (2603:10b6:208:31d::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Wed, 30 Nov
- 2022 15:22:28 +0000
-Received: from CO1NAM11FT066.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:83:cafe::a9) by MW4PR04CA0096.outlook.office365.com
- (2603:10b6:303:83::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23 via Frontend
- Transport; Wed, 30 Nov 2022 15:22:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT066.mail.protection.outlook.com (10.13.175.18) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5857.18 via Frontend Transport; Wed, 30 Nov 2022 15:22:28 +0000
-Received: from fedora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 30 Nov
- 2022 09:22:26 -0600
-From: Luben Tuikov <luben.tuikov@amd.com>
-To: Tom StDenis <tom.stdenis@amd.com>
-Subject: [PATCH 2/2] umr: Get rid of unused variable warning
-Date: Wed, 30 Nov 2022 10:22:12 -0500
-Message-ID: <20221130152212.16913-2-luben.tuikov@amd.com>
-X-Mailer: git-send-email 2.39.0.rc0
-In-Reply-To: <20221130152212.16913-1-luben.tuikov@amd.com>
-References: <20221130152212.16913-1-luben.tuikov@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C5F010E488;
+	Wed, 30 Nov 2022 15:24:06 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED5B410E48C;
+ Wed, 30 Nov 2022 15:24:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=oQ9dPsuO3NH7LD/dPayMRzr2bJuPWc28ti+5YXyo6Lo=; b=h6hMWKg1nF8fxST1CkhnfvYovh
+ ufRy684CUnMt5QyuAmcYo14AF5YDB2vyNT3O42Y2fKH3Q5GISG6rqCI2F2uaQQyTjkgg4F5hfT0rN
+ AqEX9MH+8uyV/K6AYPa177HqQBd1+gAcIlkcHi9V5/LP69UppHI4YcS1ldcG6v8XEYuA0jQmyQrvV
+ KOV5ZtWRl/nprilkrGXDr0LbaXCkIiTY0YAsg+3qFD99cefkB5WTRQ6j8shE87MNfmdYij4h5J2F2
+ Wes50rDCDJBtwWKV8XVn9aJN8jPs8Qa0B+3fgkvOqfUdA43xW5JDhmp5CSbcziKlhyRqVfX+RZDxw
+ t9Ci+U7w==;
+Received: from 200-207-99-62.dsl.telesp.net.br ([200.207.99.62]
+ helo=[192.168.1.111]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1p0OwH-00BgmO-9q; Wed, 30 Nov 2022 16:23:57 +0100
+Message-ID: <2dbf222e-7694-ea5e-c35d-663011c16e84@igalia.com>
+Date: Wed, 30 Nov 2022 12:23:35 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: [PATCH v3 0/2] drm: Add GPU reset sysfs
+Content-Language: en-US
+To: Simon Ser <contact@emersion.fr>, Pekka Paalanen <ppaalanen@gmail.com>
+References: <20221125175203.52481-1-andrealmeid@igalia.com>
+ <20221128112528.1206b1f5@eldfell>
+ <584UdQAqoPr4vSxCTJg70LFQm--HpHH-EhnAo78lRAZ89OnrDkUeKlTnDGT_DMzDT3PeEtmXNsrqB6GuiV4TsZv3pBU8kFWjyPLWGrevIMw=@emersion.fr>
+From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <584UdQAqoPr4vSxCTJg70LFQm--HpHH-EhnAo78lRAZ89OnrDkUeKlTnDGT_DMzDT3PeEtmXNsrqB6GuiV4TsZv3pBU8kFWjyPLWGrevIMw=@emersion.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT066:EE_|BL1PR12MB5378:EE_
-X-MS-Office365-Filtering-Correlation-Id: e73404ed-632e-417a-8001-08dad2e6b156
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ldDKVquqJZJ0EOmr54UhAzKTfLIhFS+D7QIARLK1Np8K+eZfzBtDq47dFCVepFIXPvpcpYyxAfj9p8PGZykzVle/l2he+GaRdZQVayU1w1mHD38SiyFI1RE7ukmQtVjfRCFxgN9QU6UdAVJJlStrFnmzSTJxdXVF8mKEArad6nZUms13jbglxuxX+k3dym+fM1JCBABi4+pN4hu4rTcQ9vhP/xvZz/+lWVWvG+mqhSyHR4DjsqpV+UM9s9s8UIH5+NEPjLHYBbxod5FycsLQV6v3wAuijgRmL6ZOysKRUxdCiTaSs/ezNVXryDP2lRZt4BVjPqYP1/NE0N7KWtiqGiBsU1yCSX8HCZf/RIfksmCRo3SCo6v6ehrHoYehLEjRAsj6GyVTG8tHLBITVEBIcOU6/2fUQpKCNv9XEiHU5D2kWlRYfd2O6GPEtYlisKietg5zwELEEOmSFO6QJvOeE8p5S/8RzzalPJlTUBjGsVYn0pSJNc1FiDv/BIw4M/V22C5AcuYjD6mtMiuYEOpKfZqUnosSITMZQZ88bX/0v223gpSWTho6Fp7xLyOzTDIaRLCDrfpVN340df1t5vxnsHb8LxXzX+FGxOdwrrWmfdzCRSur1uAAghQORprNjKZynqtZtraUXFeYk7M3s35TlnmXbw1WvBqT2yagVOL8kLdaoLrFInR/QUxD3eu2cLEtZeNuc+VNrJBAoma7sjodtoDzXjG7XHlxgNkiORzousd5hn7apAaQrLh6HOMCFIpUVIXpO1IcNYJTQYtcwIFriirrr9Bl7b7umnbacPW7BA4=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(396003)(346002)(376002)(136003)(451199015)(46966006)(36840700001)(40470700004)(356005)(40480700001)(6636002)(81166007)(86362001)(16526019)(2616005)(8936002)(41300700001)(336012)(70206006)(40460700003)(6862004)(8676002)(26005)(6666004)(478600001)(7696005)(4326008)(316002)(70586007)(36860700001)(44832011)(83380400001)(82740400003)(4744005)(54906003)(2906002)(426003)(37006003)(47076005)(186003)(5660300002)(1076003)(36756003)(82310400005)(26583001)(36900700001)(358055004);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2022 15:22:28.4331 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e73404ed-632e-417a-8001-08dad2e6b156
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT066.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5378
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,32 +55,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Luben Tuikov <luben.tuikov@amd.com>,
- AMD Graphics <amd-gfx@lists.freedesktop.org>
+Cc: pierre-eric.pelloux-prayer@amd.com, Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, amaranath.somalapuram@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, contactshashanksharma@gmail.com,
+ Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com,
+ "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Get rid of unused variable ‘limit_ptr’ warning.
+On 11/28/22 06:30, Simon Ser wrote:
+> The PID is racy, the user-space daemon could end up killing an
+> unrelated process… Is there any way we could use a pidfd instead?
 
-Cc: Tom StDenis <tom.stdenis@amd.com>
-Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
----
- src/app/server.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Is the PID race condition something that really happens or rather 
+something theoretical?
 
-diff --git a/src/app/server.c b/src/app/server.c
-index 07fa42425765af..e1966b426b1775 100644
---- a/src/app/server.c
-+++ b/src/app/server.c
-@@ -1352,7 +1352,7 @@ JSON_Value *umr_process_json_request(JSON_Object *request)
- 		char *ring_name = (char*)json_object_get_string(request, "ring");
- 		uint32_t wptr, rptr, drv_wptr, ringsize, value, *ring_data;
- 		int halt_waves = json_object_get_boolean(request, "halt_waves");
--		int limit_ptr = json_object_get_boolean(request, "rptr_wptr");
-+		/* int limit_ptr = json_object_get_boolean(request, "rptr_wptr"); */
- 
- 		/* Disable gfxoff */
- 		value = 0;
--- 
-2.39.0.rc0
+Anyway, I can't see how pidfd and uevent would work together. Since 
+uevent it's kind of a broadcast and pidfd is an anon file, it wouldn't 
+be possible to say to userspace which is the fd to be used giving that 
+file descriptors are per process resources.
 
+On the other hand, this interface could be converted to be an ioctl that 
+userspace would block waiting for a reset notification, then the kernel 
+could create a pidfd and give to the blocked process the right fd. We 
+would probably need a queue to make sure no event is lost.
+
+Thanks
+	André
