@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 919A3C4321E
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 06:39:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A92BBC433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 06:39:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E196010E291;
-	Wed, 30 Nov 2022 06:39:42 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2068.outbound.protection.outlook.com [40.107.243.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A49BA10E28F
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Nov 2022 06:39:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 308A910E292;
+	Wed, 30 Nov 2022 06:39:47 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20622.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::622])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4BA110E28F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Nov 2022 06:39:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LxSXYAyYGgdAxVrs9vYf3KgUr40HHOlVflZ0pnC4G5EiEU4GrGSQepwzj3l4vcUYo68nDPk2UxtubZyfv7ZJNLE8KD1i9t3TeHN+iic6DvAN+8BE1eiP+66OueBQE3sMwUyuTZ6Wn9agJXgMxZBlM6L0yjtMQQcaMqtO/qn+CtCl+O2mX/P2BsKoEFvxkY0NMYvenk45j3uRXA+bNfyBuJhc3510TQAkUx45AkXsdGnSXFBTkJzcaKgsEeV9IGdL2CbejgXkopuH+1n5BtXYd/nuAubxjlQkmz/TBkLpptIDzJlBanKW09jKM2Aj8+kM0Y1LAT8eR3uiyJOMk0MR9g==
+ b=midJ8nDLP6v3nuSsfhZ19tq0XaXl6vRtK8/rQtbF0qohGNTD987+z7IPVF9w3bdT/yXa6KKP3Seop9i9yg0FlvVErumbcZ8ky4cTdyGsXdC0ej+5K8GRUvtNUDa0qjGu27AAQSlMh0q9PJeJ+fSiYV+CQRZ480a/WqXVggOwkykxFwWv6uGG7nSkgSbP06Rv/AiMewa1WsfyiQk92BPyIy1oTl8xxYpvKa4edJ+gf2TR3Ea+TzCcAqLpES4kFdS2Lnh7t9r5KIvkDM5W82ytL1ctJX+6rpp01ASdRhr+di3q0lGAqZ0Ahc3snYOO5R6O4VqFm6frIpCYPR2Qt/wo1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OU4ucoz3b+J8ePF53keCxPAZpm3rXwJ4OHrs5LpAx+M=;
- b=DXBfh+dtl30raX1izh3goY+d72IY7l+egi4pJGhZNxEOp2owpcqUjR1bP3sAXCY0q3dvCPB114dfnLT5KlGaYEBBNmkC0FLbMYDdDon8zVXfdHHmh/ASA4dZARac1CPjNsc5IqAByPdai0exp+7ahW14mxZqtPuXuKdoFdrckKG5sDUJW6ZO1wAfugbtYwtPC9scRxaXxelWfC1Qya8690Su9xS6UI1xXHl+/ibw1ZhiAk0gtGkkrhAuxINxNvWjzQdOotuXhr7DJvCfnc1kT99h33IrUcZJkRKczx+psIZcNJnaacAbyTMAn42pWiVEWbITOoJrH0PKStNxQOk8nQ==
+ bh=crfGytAIEgGTYheHNRqE/4BQbMuRzYl3umhWW47T0Zk=;
+ b=ZdPre9+fqBhDlImnLJ3UdlHnNK0Eev6ju3EuJdiTCPmBQN4X96CmKZiplrQyIIfXBwIQpYQ6CGD3u/53yklgh+loIALEk7Kv3VKRISpi4qo1KQ+Lqp74MTdAG6DUMBXKdC7vL8soyUw0BWIbBusEYQf+5lJbK/PEI9QNUPLIGZn0fpOPuLHtxr1Rs9A08iF+yUreAGXVpewTr1I3wjAtTCT8GZZb+09P3ZJ9XCFoW85zTgwM3be6tnxXl4lzPCJJR8Fvz/5vc3j9TJVHyFR2FIdZQXTHtSAvBR5TwsqOBAX9OZgpb02MxAn46Icq1C+RA8eUkZoz9vYnm25kF4/KQg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OU4ucoz3b+J8ePF53keCxPAZpm3rXwJ4OHrs5LpAx+M=;
- b=4EN42ki7T1yIpiGr91OksVZUTy/1eA6xLHV+tAWLUlo2Wdi5ZcrIvUOKeIMiASoTkifNTEZAssQT3jb/crynug1fEwXN9JjTSEGboMFUG0hxtLchNaXvuRr5cVf02UfL7kkgdnBSgTVcwUpvj+JxhU1AJ8W0/5yicOJEpuuiESc=
-Received: from MW4PR02CA0011.namprd02.prod.outlook.com (2603:10b6:303:16d::28)
- by DM4PR12MB5248.namprd12.prod.outlook.com (2603:10b6:5:39c::15) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=crfGytAIEgGTYheHNRqE/4BQbMuRzYl3umhWW47T0Zk=;
+ b=C0+2PwUtRdQuO1rHOgL7UD5TA+W0uHQGpzSwCmh5ZTlcfZ/ibL8H5Msl8HumJt0824IvkDUBKZrQJHLENVdhModEhfou+XqGLNDr7hg7u5FpEsYwMKn+Ue484YL2zNqOwQAgzgc6qbGQA5CYRFUDkncbMsUaQ/DAPnKnSkPEtnY=
+Received: from MW4PR02CA0023.namprd02.prod.outlook.com (2603:10b6:303:16d::16)
+ by SN7PR12MB7910.namprd12.prod.outlook.com (2603:10b6:806:34b::18)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Wed, 30 Nov
- 2022 06:39:36 +0000
+ 2022 06:39:38 +0000
 Received: from CO1NAM11FT014.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:16d:cafe::53) by MW4PR02CA0011.outlook.office365.com
- (2603:10b6:303:16d::28) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:303:16d:cafe::98) by MW4PR02CA0023.outlook.office365.com
+ (2603:10b6:303:16d::16) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23 via Frontend
- Transport; Wed, 30 Nov 2022 06:39:36 +0000
+ Transport; Wed, 30 Nov 2022 06:39:37 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +48,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT014.mail.protection.outlook.com (10.13.175.99) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5857.18 via Frontend Transport; Wed, 30 Nov 2022 06:39:35 +0000
+ 15.20.5857.18 via Frontend Transport; Wed, 30 Nov 2022 06:39:37 +0000
 Received: from stylon-EliteDesk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 30 Nov
- 2022 00:39:18 -0600
+ 2022 00:39:33 -0600
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 04/14] drm/amd/display: Enable dp_hdmi21_pcon support
-Date: Wed, 30 Nov 2022 14:36:17 +0800
-Message-ID: <20221130063627.2398341-5-stylon.wang@amd.com>
+Subject: [PATCH 05/14] drm/amd/display: Fix DCN2.1 default DSC clocks
+Date: Wed, 30 Nov 2022 14:36:18 +0800
+Message-ID: <20221130063627.2398341-6-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221130063627.2398341-1-stylon.wang@amd.com>
 References: <20221130063627.2398341-1-stylon.wang@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT014:EE_|DM4PR12MB5248:EE_
-X-MS-Office365-Filtering-Correlation-Id: abdadd8f-0649-4bcb-5758-08dad29da5ca
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT014:EE_|SN7PR12MB7910:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce817188-9845-4af4-48c0-08dad29da6c2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Y725hPk0JV9V9Bl6PL0eVTlK+KjFkxyhpjSF7OzlUdS3udXO9Xr7va19qRzhD6Qhaq1F9qOB+mLUjEdi0chqOWS8MHqZtm7HDTL4s/F92XlCgv4IP2iBXGfc6EE3znUt7MhkPYvKiKewqinn3OF0g7XnmGuXjiyj+HxWXtvZfcy9vTGtAYRS5NZfPF1Er74QJF3N7T49VSydpi+bQnA4/JVrfrt7KsUbNOnh5IQMM/7U0hlnpKjMNV8uLVxlq+2vQyEVUL+ck4BAsL3e5WJ0tIeASNr66wcJ5pHq7aXD84o3O0GX7+IKBLyBw9uvORGREWk/LT1BHoyv9+O9OwFJiQAXjnvPn7/cjSLdoy5oaWg5JuPDnbqczAZj2YyUwAjypxmzo6vkxkkpe6mgN5eyEM0rNj/JQ3JKhTbXuiY5B1y0Q6PvubSheQFzvXaC9JMnt51rXXo+i5KbEQsxosuugTWJ5nSKtCblfMPBT5ZCgxU1GtyHoD8KoMv913A9w59Glv+E2RfhuxkMh6wdorb7MV7ccxm631dMNqRYbgmwiE02kzfWjrkoHgj8Ef0iAsUwjV6Ew5jB3WgJc0jolZpmIDEjYzopN/Uv8JPEqwDNVqqYUikVO72DIhqceh6N5ep0iPT+ZSUS4MbLEPkFLVq7nWvtMGSA9fWKRRcHZ0TBHRUSfijiNY/rYuqKoxGpnzJ3/GdivmhjX7pTAQr9rIfOJogqoQ9tlW8yMMisfGe6DE8=
+X-Microsoft-Antispam-Message-Info: PEBBwZyiVyj1G2OOHE1GBAVJO6Xx7ZJ408qGqW8ecrIZPS/tOLRyV3eoUoHzA8ToXfuccECeIGpJbaL9j8w59PPqVBqELaLYJ3zXtpphSa/LNlEb0z2jkNsXtNNU2dbfWp6YxpAZlvOvGkz2cAlpGdYmt+NV2m+oqgsU6Z6w3BbzrxU1ncQbiOt4qWHdRyAM+PR1nVm3b03aQti1Bu34KzLyLCaSjZOMp2EMX+20GM3m/GK1k46ZvYwf0J8wgL1I+OC4Auay05itfe/cneqjdCNvrgh7RaU81jHIcn90s88xBZ4Mxsg5Zspzq5ebfQpyt+AJOvcIpSr0FTgWSIB+NGDYQ066qGf9sPM7iq+HEq6b9LC+Vk67FzWRxMPlbYRngaGKM7WFL9zjOaS7JCV0yId+2yWCx1CSKMdfYH+BCqCoMZwSoqV41gaSiVUZv4H5JtwdkwFNxg0w7Ub7UPpZRyRi+eJrOmD0W/t3mqk/6TPHaiDUA1BzrqUDTCF/fhqnBs7K0qQRVZf2elcw0ML76Zv5UfSEhdFecXS/YM6lbSP9pdSrYy3URlxlv4Wb3FT6cUbKKiqbW86UH6AENz/iSUnCZ9PS3uAxwKhHXbTlmIJaMETQrYe9sruOwdC4Z74tt2ugwAeqHIsQjDeXxkPOgqmwQqWheP3gvnF+bbwIfA15mcm1CEiQ3ftmWTZo5rmvnaw3Wt9PKY6IdR1oQ07us7aWOat30pSHbPKiytZ5G7Q=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(346002)(396003)(136003)(39860400002)(451199015)(46966006)(40470700004)(36840700001)(316002)(478600001)(70586007)(70206006)(2906002)(40460700003)(356005)(6916009)(81166007)(54906003)(36756003)(426003)(82740400003)(47076005)(26005)(82310400005)(40480700001)(36860700001)(16526019)(2616005)(336012)(86362001)(1076003)(7696005)(186003)(44832011)(5660300002)(41300700001)(8936002)(4326008)(8676002)(36900700001);
+ SFS:(13230022)(4636009)(396003)(376002)(346002)(39860400002)(136003)(451199015)(36840700001)(46966006)(40470700004)(83380400001)(478600001)(7696005)(86362001)(36860700001)(6666004)(26005)(8936002)(54906003)(336012)(40460700003)(2616005)(41300700001)(316002)(426003)(5660300002)(47076005)(40480700001)(44832011)(356005)(81166007)(2906002)(6916009)(82740400003)(186003)(1076003)(36756003)(70206006)(8676002)(16526019)(70586007)(82310400005)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2022 06:39:35.7827 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: abdadd8f-0649-4bcb-5758-08dad29da5ca
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2022 06:39:37.4076 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce817188-9845-4af4-48c0-08dad29da6c2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT014.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5248
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7910
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,71 +100,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, David Galiffi <David.Galiffi@amd.com>,
+Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
  Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Martin Leung <Martin.Leung@amd.com>, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, Michael Strauss <michael.strauss@amd.com>,
  wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
  pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Galiffi <David.Galiffi@amd.com>
+From: Michael Strauss <michael.strauss@amd.com>
 
-[Why]
-It is not enabled for DCN3.0.1, 3.0.2, 3.0.3.
+[WHY]
+Low dscclk in high vlevels blocks some DSC modes.
 
-[How]
-Add `dc->caps.dp_hdmi21_pcon_support = true` to these DCN versions.
+[HOW]
+Update dscclk to 1/3 of dispclk.
 
-Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
-Signed-off-by: David Galiffi <David.Galiffi@amd.com>
+Signed-off-by: Michael Strauss <michael.strauss@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 2 ++
- drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c | 2 ++
- drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c | 2 ++
- 3 files changed, 6 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-index 480145f09246..8cf10351f271 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-@@ -1493,6 +1493,8 @@ static bool dcn301_resource_construct(
- 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
- 	dc->caps.color.mpc.ocsc = 1;
- 
-+	dc->caps.dp_hdmi21_pcon_support = true;
-+
- 	/* read VBIOS LTTPR caps */
- 	if (ctx->dc_bios->funcs->get_lttpr_caps) {
- 		enum bp_result bp_query_result;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-index 7d11c2a43cbe..47cffd0e6830 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-@@ -1281,6 +1281,8 @@ static bool dcn302_resource_construct(
- 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
- 	dc->caps.color.mpc.ocsc = 1;
- 
-+	dc->caps.dp_hdmi21_pcon_support = true;
-+
- 	/* read VBIOS LTTPR caps */
- 	if (ctx->dc_bios->funcs->get_lttpr_caps) {
- 		enum bp_result bp_query_result;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-index 92393b04cc44..c14d35894b2e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-@@ -1212,6 +1212,8 @@ static bool dcn303_resource_construct(
- 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
- 	dc->caps.color.mpc.ocsc = 1;
- 
-+	dc->caps.dp_hdmi21_pcon_support = true;
-+
- 	/* read VBIOS LTTPR caps */
- 	if (ctx->dc_bios->funcs->get_lttpr_caps) {
- 		enum bp_result bp_query_result;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+index c4eca10587a6..c26da3bb2892 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+@@ -565,7 +565,7 @@ struct _vcs_dpi_soc_bounding_box_st dcn2_1_soc = {
+ 				.dppclk_mhz = 847.06,
+ 				.phyclk_mhz = 810.0,
+ 				.socclk_mhz = 953.0,
+-				.dscclk_mhz = 489.0,
++				.dscclk_mhz = 300.0,
+ 				.dram_speed_mts = 2400.0,
+ 			},
+ 			{
+@@ -576,7 +576,7 @@ struct _vcs_dpi_soc_bounding_box_st dcn2_1_soc = {
+ 				.dppclk_mhz = 960.00,
+ 				.phyclk_mhz = 810.0,
+ 				.socclk_mhz = 278.0,
+-				.dscclk_mhz = 287.67,
++				.dscclk_mhz = 342.86,
+ 				.dram_speed_mts = 2666.0,
+ 			},
+ 			{
+@@ -587,7 +587,7 @@ struct _vcs_dpi_soc_bounding_box_st dcn2_1_soc = {
+ 				.dppclk_mhz = 1028.57,
+ 				.phyclk_mhz = 810.0,
+ 				.socclk_mhz = 715.0,
+-				.dscclk_mhz = 318.334,
++				.dscclk_mhz = 369.23,
+ 				.dram_speed_mts = 3200.0,
+ 			},
+ 			{
 -- 
 2.25.1
 
