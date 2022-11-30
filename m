@@ -4,57 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0568BC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 14:06:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D13B3C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 14:17:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C38E510E46C;
-	Wed, 30 Nov 2022 14:06:18 +0000 (UTC)
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [IPv6:2607:f8b0:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85B0F10E46A
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Nov 2022 14:06:15 +0000 (UTC)
-Received: by mail-pl1-x634.google.com with SMTP id k7so16753962pll.6
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Nov 2022 06:06:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=c+w1CB5xGwRz+sGqhDvoeBpotJLJv3AvOhdkFgNyxWw=;
- b=MD5v08Ibj5XNOKlKXscF8lS0TL4Amkkm0ESrPONzMB7T7EefzMF8nPzvfw10V8JfHL
- 0CtMsriBCkR4v6Qult+ueTCvoBGhmw+xEBqjOqTaPht1S9JrQ8XYAWWMIlqe8UooRrYJ
- Z1nwazl7vUaqagUTf2w90722cXkh3p83UyiZs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=c+w1CB5xGwRz+sGqhDvoeBpotJLJv3AvOhdkFgNyxWw=;
- b=xtbZvn449IFilUzjZz5OSMWRCLfdl4aq99YPCefiNvb8qPueDL+uy80a5zhZ12PGIb
- uLZuEbluigixGoki5bp0LaHLFeQeWA/5FBAQTjOU5NFgib392hNVgyEL7Tva4SUEuC/r
- icOlW94FoWMSkwNiGwtGpuCEooR91OlwS7ZAXy0zNsfo6oaXXJr3oXHiGFWoBEVMDk0M
- w/VnIPWTtcThVX32mesRoP0ykRGWZaibSY2IUkS3MuqOF7dSIaWWtQ8meD1CaH+xSkq8
- td3/HfnBuVJjMeJjRoYvBBtki5X9m96V403iYKG9YuG7n11ayOiuVt1T9TkUCIyjcfRR
- wvDw==
-X-Gm-Message-State: ANoB5pkYTmKHBZk8Fm6892ikNa4m18XngdZRhIS7VL9yCF8H+1VLu6ji
- hNZdlMKMhKBGaxZz7ACmBtahvGqkyNWeOJUrBu2n/A==
-X-Google-Smtp-Source: AA0mqf6Cge/4u+9gze2KtWfVZZyLFzbW2NVD+mbREm2cL/+UzrqplcEE41lrFeXbYJn9cZjDjnXT/j+9vxjPiXW1DwQ=
-X-Received: by 2002:a17:902:820c:b0:189:505b:73dd with SMTP id
- x12-20020a170902820c00b00189505b73ddmr35150355pln.143.1669817175110; Wed, 30
- Nov 2022 06:06:15 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EF3E10E0F8;
+	Wed, 30 Nov 2022 14:17:35 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 59A6610E096;
+ Wed, 30 Nov 2022 12:54:51 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6B102D6E;
+ Wed, 30 Nov 2022 04:54:57 -0800 (PST)
+Received: from [10.57.71.118] (unknown [10.57.71.118])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 17D8E3F73D;
+ Wed, 30 Nov 2022 04:54:49 -0800 (PST)
+Message-ID: <a5f73cfa-bd2a-3ab8-1e5c-253cfd832ea7@arm.com>
+Date: Wed, 30 Nov 2022 12:54:49 +0000
 MIME-Version: 1.0
-References: <20221125102137.1801-1-christian.koenig@amd.com>
- <20221125102137.1801-7-christian.koenig@amd.com>
- <d92312af-3c84-8bd9-108b-719fb1ec3a6b@linux.intel.com>
- <CAM0jSHMKBb3orp8Ez4sC8TNcjPZF9y-4e12Jy6SPqbJonhYVhw@mail.gmail.com>
- <d03545c9-d0cb-5bdb-24e8-9eadcda51b83@linux.intel.com>
-In-Reply-To: <d03545c9-d0cb-5bdb-24e8-9eadcda51b83@linux.intel.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Wed, 30 Nov 2022 15:06:03 +0100
-Message-ID: <CAKMK7uHf1yvpS5JWzF2JASkXuZwyvpzWw66w9sYe19_+VqMHeA@mail.gmail.com>
-Subject: Re: [Intel-gfx] [PATCH 7/9] drm/i915: stop using ttm_bo_wait
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: Screen corruption using radeon kernel driver
+Content-Language: en-GB
+To: Mikhail Krylov <sqarert@gmail.com>, Alex Deucher <alexdeucher@gmail.com>
+References: <20220423193145.3301ed06@desktop>
+ <CADnq5_PXgFBXZ03LXE8qOdimzfKYGhzX1JnycJQcHWcMZdgJug@mail.gmail.com>
+ <Y4TGOb3UGmDslyYF@sqrt.uni.cx>
+ <CADnq5_NTyvZR16_N0TzMo3f9Mg6EwOuwuBgYzDA=U7tur7Fmnw@mail.gmail.com>
+ <Y4UelMnRkY7/0G6U@sqrt.uni.cx>
+ <CADnq5_MactA_n4sTKZ_-TpYFZnOfEeygHF3r+zH94By2Dm86cA@mail.gmail.com>
+ <Y4YsWo8MPAeg9DRQ@sqrt.uni.cx>
+ <CADnq5_MNmOHVuszVfCZ8Ajm85Wb5roe4-20BEXXzsEVpAC_Rkg@mail.gmail.com>
+ <Y4Y9SJC7gtUxP4+R@sqrt.uni.cx>
+From: Robin Murphy <robin.murphy@arm.com>
+In-Reply-To: <Y4Y9SJC7gtUxP4+R@sqrt.uni.cx>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 30 Nov 2022 14:17:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,89 +51,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Matthew Auld <matthew.william.auld@gmail.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Matthew Auld <matthew.auld@intel.com>
+Cc: Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 30 Nov 2022 at 14:03, Tvrtko Ursulin
-<tvrtko.ursulin@linux.intel.com> wrote:
-> On 29/11/2022 18:05, Matthew Auld wrote:
-> > On Fri, 25 Nov 2022 at 11:14, Tvrtko Ursulin
-> > <tvrtko.ursulin@linux.intel.com> wrote:
-> >>
-> >>
-> >> + Matt
-> >>
-> >> On 25/11/2022 10:21, Christian K=C3=B6nig wrote:
-> >>> TTM is just wrapping core DMA functionality here, remove the mid-laye=
-r.
-> >>> No functional change.
-> >>>
-> >>> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >>> ---
-> >>>    drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 9 ++++++---
-> >>>    1 file changed, 6 insertions(+), 3 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/dr=
-m/i915/gem/i915_gem_ttm.c
-> >>> index 5247d88b3c13..d409a77449a3 100644
-> >>> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> >>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> >>> @@ -599,13 +599,16 @@ i915_ttm_resource_get_st(struct drm_i915_gem_ob=
-ject *obj,
-> >>>    static int i915_ttm_truncate(struct drm_i915_gem_object *obj)
-> >>>    {
-> >>>        struct ttm_buffer_object *bo =3D i915_gem_to_ttm(obj);
-> >>> -     int err;
-> >>> +     long err;
-> >>>
-> >>>        WARN_ON_ONCE(obj->mm.madv =3D=3D I915_MADV_WILLNEED);
-> >>>
-> >>> -     err =3D ttm_bo_wait(bo, true, false);
-> >>> -     if (err)
-> >>> +     err =3D dma_resv_wait_timeout(bo->base.resv, DMA_RESV_USAGE_BOO=
-KKEEP,
-> >>> +                                 true, 15 * HZ);
-> >>
-> >> This 15 second stuck out a bit for me and then on a slightly deeper lo=
-ok
-> >> it seems this timeout will "leak" into a few of i915 code paths. If we
-> >> look at the difference between the legacy shmem and ttm backend I am n=
-ot
-> >> sure if the legacy one is blocking or not - but if it can block I don'=
-t
-> >> think it would have an arbitrary timeout like this. Matt your thoughts=
-?
-> >
-> > Not sure what is meant by leak here, but the legacy shmem must also
-> > wait/block when unbinding each VMA, before calling truncate. It's the
->
-> By "leak" I meant if 15s timeout propagates into some code paths visible
-> from userspace which with a legacy backend instead have an indefinite
-> wait. If we have that it's probably not very good to have this
-> inconsistency, or to apply an arbitrary timeout to those path to start wi=
-th.
->
-> > same story for the ttm backend, except slightly more complicated in
-> > that there might be no currently bound VMA, and yet the GPU could
-> > still be accessing the pages due to async unbinds, kernel moves etc,
-> > which the wait here (and in i915_ttm_shrink) is meant to protect
-> > against. If the wait times out it should just fail gracefully. I guess
-> > we could just use MAX_SCHEDULE_TIMEOUT here? Not sure if it really
-> > matters though.
->
-> Right, depends if it can leak or not to userspace and diverge between
-> backends.
+On 2022-11-29 17:11, Mikhail Krylov wrote:
+> On Tue, Nov 29, 2022 at 11:05:28AM -0500, Alex Deucher wrote:
+>> On Tue, Nov 29, 2022 at 10:59 AM Mikhail Krylov <sqarert@gmail.com> wrote:
+>>>
+>>> On Tue, Nov 29, 2022 at 09:44:19AM -0500, Alex Deucher wrote:
+>>>> On Mon, Nov 28, 2022 at 3:48 PM Mikhail Krylov <sqarert@gmail.com> wrote:
+>>>>>
+>>>>> On Mon, Nov 28, 2022 at 09:50:50AM -0500, Alex Deucher wrote:
+>>>>>
+>>>>>>>> [excessive quoting removed]
+>>>>>
+>>>>>>> So, is there any progress on this issue? I do understand it's not a high
+>>>>>>> priority one, and today I've checked it on 6.0 kernel, and
+>>>>>>> unfortunately, it still persists...
+>>>>>>>
+>>>>>>> I'm considering writing a patch that will allow user to override
+>>>>>>> need_dma32/dma_bits setting with a module parameter. I'll have some time
+>>>>>>> after the New Year for that.
+>>>>>>>
+>>>>>>> Is it at all possible that such a patch will be merged into kernel?
+>>>>>>>
+>>>>>> On Mon, Nov 28, 2022 at 9:31 AM Mikhail Krylov <sqarert@gmail.com> wrote:
+>>>>>> Unless someone familiar with HIMEM can figure out what is going wrong
+>>>>>> we should just revert the patch.
+>>>>>>
+>>>>>> Alex
+>>>>>
+>>>>>
+>>>>> Okay, I was suggesting that mostly because
+>>>>>
+>>>>> a) it works for me with dma_bits = 40 (I understand that's what it is
+>>>>> without the original patch applied);
+>>>>>
+>>>>> b) there's a hint of uncertainity on this line
+>>>>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/radeon/radeon_device.c#n1359
+>>>>> saying that for AGP dma_bits = 32 is the safest option, so apparently there are
+>>>>> setups, unlike mine, where dma_bits = 32 is better than 40.
+>>>>>
+>>>>> But I'm in no position to argue, just wanted to make myself clear.
+>>>>> I'm okay with rebuilding the kernel for my machine until the original
+>>>>> patch is reverted or any other fix is applied.
+>>>>
+>>>> What GPU do you have and is it AGP?  If it is AGP, does setting
+>>>> radeon.agpmode=-1 also fix it?
+>>>>
+>>>> Alex
+>>>
+>>> That is ATI Radeon X1950, and, unfortunately, radeon.agpmode=-1 doesn't
+>>> help, it just makes 3D acceleration in games such as OpenArena stop
+>>> working.
+>>
+>> Just to confirm, is the board AGP or PCIe?
+>>
+>> Alex
+> 
+> It is AGP. That's an old machine.
 
-Generally lock_timeout() is a design bug. It's either
-lock_interruptible (or maybe lock_killable) or try_lock, but
-lock_timeout is just duct-tape. I haven't dug in to figure out what
-should be here, but it smells fishy.
--Daniel
---=20
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Can you check whether dma_addressing_limited() is actually returning the 
+expected result at the point of radeon_ttm_init()? Disabling highmem is 
+presumably just hiding whatever problem exists, by throwing away all 
+ >32-bit RAM such that use_dma32 doesn't matter.
+
+Robin.
