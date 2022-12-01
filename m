@@ -4,114 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E62D5C43217
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Dec 2022 16:12:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A81BC43217
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Dec 2022 16:23:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE8D110E62F;
-	Thu,  1 Dec 2022 16:12:27 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2075.outbound.protection.outlook.com [40.107.244.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAC4D10E62F;
- Thu,  1 Dec 2022 16:12:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0716C10E631;
+	Thu,  1 Dec 2022 16:23:29 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2043.outbound.protection.outlook.com [40.107.94.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3B4210E631
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Dec 2022 16:23:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cwZ2zMzF1nUdkI+DF+YVsbVyYJKYVOuSbGIXz/bh6TGoZroAqbyrFeyoOMJQvQj5hoH8QNphT9pKSmJAOLnLXLMOCSnTILxymM85RLhuQylFZ6DpxkX2zOosljFJkpvdHZv3FNEdWF2Ok8lwV42P5TKY457qzkGP5ogJZl/w4wty7Dg6DMMgKAzHgNVVphnMj1heqr8kC/p7rJtLrz9YBM+i58smXfjqpYKhaq6Cb9nHZsfqihP6jN3JsfkJ7UdvHJ3fpKiC3zdmhvU5IEYwqxt7eIv2ey97eM6SyldDdn8BUpvqJYBaPtb+Btg4G9qjkAOuyphKPfOrZpsGyBFmIg==
+ b=Q0CBvWJc/ZLCmY03AqcXsIFJybo6F9y/XaBmVQWWmRp71vq3RoH/D3ctuVVTiXljWtQ1vnh0rHjQEW/e4v4WySCHTjdJHzqRyKQl/I+VEmstnXPhjUwCvxYocTMZRWZ3gy6oxrq7j64X6xycseJl4aA4nyliWQbC7dAF52gt481Yv9tqA/dBl7oC4hx8dpIT2+nC/mDpk08HPoZaH38WaOllKPOx3+x8Zcg0cGKtAMUu08XrB7DcdruuV+qmxgL5nSo926+I4yiLeq/Y1Z5/9u4N2Hn1X9bHwsLwrFq80V+HmUfifwmBNsA94s5W0sScLtuRttboapTHr1msqqn+cQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Im/GABGCWNQolzsPGit5fXE2XpR8dTqI61EI3rheDUU=;
- b=lnLBenCwV5ygo+lN9efxnqesbrKq+AHIiP5pChZd7jXZUmjurUezGTd246FGqjxuqurhaEHufUR6G3k4ldIyCP1ydCKVlT3KRN7sh/RAt+m6Gvkwe8HqzrJNpAp/cXJsb3JRKTLFbCGy8U1nXzC+BXL1WO+3v5WBvGs9XCzlPcvpiy7hTcOZYknEN2AJKDdMxgKw5Rdi9XeBxCC7MCkM8iXVKFCZHli3NTuUkavKoYgsPjcH31MDaxrVF9HCYU76WfxK5VbPeQa99ObJ9WTq+4l7qizXAtvGoF0f7ecvieiZ07qWe3ygYW+br/ngR20Ul/SZz7Jrfl96zULjzPGiGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=neCBboD5dO7rLydivVVcfky8itG13UQWKYPDMh5Fnr8=;
+ b=W69fr+crY6vipHpV9o2i2X64KBKNQRpvzThej4R8y0kh0ejFnnCEYCLV253YYBMwH0SZcFm+yVZAt/hi3AYwekKSabY1e4ebGox9RIzh9Bear3RFRQzi7bqxHjgFD5FT7xPgKSoeEMRqHIZW2lJBXY5syX/rm6nETRG1nno1aK12BjrDK3xXNKRNJ3/kNpCfaLWLHkmeKW/WTEgn7+GjagD9gbfopEut0uKaminqAw0TTYkd+6HWXlay+vw/xWEOaLVZE7QKo4c60H6i+h14a4TIvqmZi1cXGC9ClhMLmwNdiqDl1lBsDMuMXyWaE0gPjhBRPnuoGOGKqJirVMqX0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Im/GABGCWNQolzsPGit5fXE2XpR8dTqI61EI3rheDUU=;
- b=41Kly0U+YYe1AAsIVMysIX5Xgy2lpMms7rqJIUbUOFa9aTrmP4k4XZDW7FxIkNM3PpkT0NG+4gvXZy1NWbewqy853+2fRQPWoYyA3JvPm7YA7ZDwtOPKpXHjVbGA6W7AXwns7ZjmQkFWzA7pOf0fmv/HIxXsxILI3rzYslJ7oYg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com (2603:10b6:5:39f::7) by
- SA1PR12MB7224.namprd12.prod.outlook.com (2603:10b6:806:2bb::20) with
+ bh=neCBboD5dO7rLydivVVcfky8itG13UQWKYPDMh5Fnr8=;
+ b=OHHMBMYoPP3PVkNhSL/woJ0Rw+MZa9iyqiakvYVNlzSBRRlWmNflajjuQUYh3BHFAtmpVFE+8MewQXPr+PkjAaT3mGgM0nGuY1lb1AVLKQY1HhXSJ+oiiGHV2K+FQLcslBrGkjbZfJPqJLfeXc8agwdMJGMvmqWeLStXtiDPQSE=
+Received: from MN2PR05CA0022.namprd05.prod.outlook.com (2603:10b6:208:c0::35)
+ by DS0PR12MB6605.namprd12.prod.outlook.com (2603:10b6:8:d3::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Thu, 1 Dec
- 2022 16:12:22 +0000
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::1e6c:6695:7097:c0c]) by DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::1e6c:6695:7097:c0c%6]) with mapi id 15.20.5880.008; Thu, 1 Dec 2022
- 16:12:22 +0000
-Message-ID: <a221ee69-0afd-ea36-1ca1-c5540da0091b@amd.com>
-Date: Thu, 1 Dec 2022 11:12:16 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH v2] drm/amd/display: add FB_DAMAGE_CLIPS support
-Content-Language: en-US
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221118215137.384884-1-hamza.mahfooz@amd.com>
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <20221118215137.384884-1-hamza.mahfooz@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BLAPR03CA0040.namprd03.prod.outlook.com
- (2603:10b6:208:32d::15) To DM4PR12MB5311.namprd12.prod.outlook.com
- (2603:10b6:5:39f::7)
+ 2022 16:23:25 +0000
+Received: from BL02EPF0000EE3D.namprd05.prod.outlook.com
+ (2603:10b6:208:c0:cafe::8) by MN2PR05CA0022.outlook.office365.com
+ (2603:10b6:208:c0::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.8 via Frontend
+ Transport; Thu, 1 Dec 2022 16:23:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000EE3D.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5880.8 via Frontend Transport; Thu, 1 Dec 2022 16:23:25 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 1 Dec
+ 2022 10:23:24 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: add GART, GPUVM, and GTT to glossary
+Date: Thu, 1 Dec 2022 11:23:09 -0500
+Message-ID: <20221201162309.3112713-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5311:EE_|SA1PR12MB7224:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0084f37d-47d0-4152-0834-08dad3b6d2c9
+X-MS-TrafficTypeDiagnostic: BL02EPF0000EE3D:EE_|DS0PR12MB6605:EE_
+X-MS-Office365-Filtering-Correlation-Id: 049cf72e-f9b2-4086-9814-08dad3b85f42
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: alFxGGxytkJvwLOl4L0RJUggtufTdNqHil/gjQ8I4II+DPmBEOv1OEcKcCfEkwUhedF4clCBp5YIx0sfYKDT6pX8ok5Z5ctm7cd5oirgVUDPOapHLrwu/tMqv01vH4aFstYFdoXptm1Ni4SaD7WkIuM1NinGyYyUMXiM27+FWTsODHWSJi6yWVRf3ijjd13IthcgrrSdFHU6eMIToTDPk+fdhhtAyVZQBQjFVJDGsTC91Tfabj99mvSVd1vpvJjk2iJbbhNSAeZnJdMJxT1kIfbvt9iXPKC8tuXOEE/KW640+ngcVdJmj6cssPeokfiLzRz4U9evrFF1oKA1Q4kmx7oy4LXFZJmSrA4axVWQfP/CZnfeylEjUDcNsBnJwPN+EiDNFemOBv+uvqxbkiI9v/rxhiu4Nj3Jpj2qQhnKKKDQL9l6zGFYsXtG7bsaHNHhNmz1vxOFsrQJfw8OHoSRubbEZHG6SZRe/wWirZo3GS9HT7ERP1Gc30PUcC9nMnT4+OWRk2dpJ5Sc/fmkiDnnS9wxQczzQCbk/843a5LJbRgABv5jGwLIMB+misKqjg27G6OOX+1CmMDPgY/4dyoUYz3gBsEmSarflmxrgRkcWQ85qOLRSOqkAwfkp9I7w3WN8Uc3dP9dVDPElRe3EO6Ij+sFuLYTMWqO4Mw9SK6PjLW8hZA2NILrbVbJvLyV9xKOfVgHE1BtIV9rljydVoekpJ5015/2lWr9p604UvtkoLA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5311.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(366004)(396003)(346002)(39860400002)(376002)(451199015)(6666004)(2906002)(36756003)(2616005)(86362001)(31696002)(6486002)(478600001)(26005)(316002)(6506007)(66556008)(5660300002)(41300700001)(4326008)(8676002)(8936002)(66476007)(54906003)(66946007)(38100700002)(6512007)(186003)(53546011)(83380400001)(31686004)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: Gb+6vLbyHTpPiLbbTTXalmZqg0On/vueHxNBpauYDuOAs4ejfEEqzZmoAyqAPPc48p05G8EBQr/CObsUr2RWvWEEjC7bU73Jg+xDbJ6IHFvvcVt/uEalDtYor/QBUsu1G291YKZwh17RpHR1w4YvI8rHlCNOXzRlkaYdWLOCqkWuhS9dFbdcwxtKzWDYAvvuhONaCANFIvTt9ika8x3pBgfkFbYHbcoEvPdEltdVq4vnW4902qkRgn65v3Jhbjjv+Fg++LBP+gQePDllHERx8J60ZS9SZ23JlIGgkI0sHfei6p5EnS6mdDNPe/Tkz9663bj17hYHHrnEBWx9ithGbtwr5JIelWcXTiWkLzAcDTPwZ6vx7uOZxKRPUHC3l3pYAHaywjLSRey+se2BkVhbJnmJek36uMtqAsUCvPyW4Dht9sPMpNPtd0ObirLwdaglgM+ZDukoOe4iWT0aVPbWoGJ+ohHkNpKQhu7tH467a0b8FsrzPHXJ12aDtqXj/C95K8mPkgeMytt3JGT064h6+ejm6ZTVH/VE6XBXfYdOYlKKlXCgQyBhTiUJUCKMsh4S2lwPCerX2ELi7W3plH+hjXVeS14k7oDnnGApw4XYpe3vdOoMMWuIjjIhx0TvPl9eMhogwzqDB8YkU7tOg9kNuR9hGfyfhKsrnEUZb1+i2AS0mKivDi9GQRaUvUjAaNccgPZo0VT/UVfmVgwsYacU+89Gh5o7dtixuytsRkSoGrs=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(136003)(396003)(376002)(346002)(451199015)(36840700001)(46966006)(40470700004)(83380400001)(8676002)(316002)(40460700003)(86362001)(4326008)(70586007)(70206006)(1076003)(47076005)(2616005)(54906003)(36756003)(356005)(16526019)(81166007)(6916009)(336012)(5660300002)(40480700001)(8936002)(426003)(82740400003)(41300700001)(2906002)(36860700001)(186003)(6666004)(478600001)(82310400005)(26005)(7696005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NnhHa253dzJYN0phN1R4M2lEUDlWSnM0VDdxanZZN2xkTkZ2RXBTLzBrV1hm?=
- =?utf-8?B?bDYzMWpXRWJKRVpxV3poMVJMeHR5NlBWMWNjK3VSU2xhYjJBR1M4aTBVOWt0?=
- =?utf-8?B?UzBuT2FTV01FUXFMeVY1ajJnaFlLUkMwRmh3d3Brb1A5dTlDOWRhK1FlcUU3?=
- =?utf-8?B?SnZnOUU3dUNmS1hBTkFTdnlqcHQwbkFCNjJ3YnFvMkNLSXIrY1ZJcE12Ylc1?=
- =?utf-8?B?d01Ec1BCMUlIWnVQR2pUZ2o3MVkwOUdSanFic1ptQ2FMbVJheVVNZVpicWFv?=
- =?utf-8?B?Y3k1OTF1dWFNbWZCcUZwbUNjNUZCTkt0bVVCU3hqQjRTeUZBRDU2anFBVWJv?=
- =?utf-8?B?d1hXT2V5V0RJZUMzNVVWcmRPVGZ0NkJodFBUOFFIR2s1U0YyazBoeHFabXVq?=
- =?utf-8?B?eUNFYndacUVSSHJTYXZSY3lLOTB4c1E1eFQ3VEZneWNhaSt6Zy9WOEphZ09x?=
- =?utf-8?B?eEhrUVJHQmJqNG1LREl6RnRiNnlEQXdVbERvNlQ0dFhHaE8rZmtJNHBEWVE3?=
- =?utf-8?B?T25sblFyb2ZRVkgwTVhHamtxMGkwRUx4ZzJ1VTRvNFZ2dFc2UkRudXZ6Rkw3?=
- =?utf-8?B?Mm1IbXpDUU9SamNRM0F4clMwOGhHcWZrdmtBcmF0dVhrRU9rcTUyZHVNRlFP?=
- =?utf-8?B?V2tHeWNHMmNqNTNuQVJudkgyT3J3dVZLVXBybXQ1bFhiRWNlb3AzSXhpWE14?=
- =?utf-8?B?WHcyUlBYNTVYSVVnenZoVzhCN0JKeUxJM2VrL0JYREo5eFdqdm5DN1g1NkVY?=
- =?utf-8?B?Z0VlZE9UU2R1SkkyRzdXZlJaVGh6dDhPdTZyTHc3bFNXWlJGQkF3Mk1Tcmhh?=
- =?utf-8?B?cDNKR0tCdHdXK21ubFpLa3dLdUp0bzQvSDBEakJ5OHJWcEFoU2ZYNEFwZStH?=
- =?utf-8?B?Vkl1MmM0cWpKcGU3dlkwTFM4ZCtmU3VCeWhhVnk3VnBCUCtMUGp2WlUzTXd2?=
- =?utf-8?B?OGxLVHN6eDE5clZpWXc5ZTY0c1RsS3U0YVU2cm5mZnFKYWRtMC8xWEZoOG9k?=
- =?utf-8?B?SnhPRjF4alQ2aHorUzJicERCakxDeFNFZm0rbHhZRnROWUc1ZjVmcGIyS3Q0?=
- =?utf-8?B?R3pvVnE5MGs0cDZISi82TmRhbitEdkMrMjQ5dVN5Zit4YzYyZGpEV3lhR2pJ?=
- =?utf-8?B?Z2xxQnBPMFVkRmFVTjd1NVdPQ0xmajdZOVFweWFUMG5SV1kzOTJDdFNzWXpz?=
- =?utf-8?B?YmlwWUlFUFlsdWduY0daMEZBTWtUOEREZFZLVkM3dkkzN0F3c0xlb2FYMXZn?=
- =?utf-8?B?cUw1UlJiNUlLdExmZG1GbEVhMWdXU0FSTm1YRmpKMnRtanA4ckhhajhndm9I?=
- =?utf-8?B?dW9pZno5clFaa3hPK1ZSRVZIa0FjbkNNMDhtV0NyTEQxdURiYVVSOTFTeCtM?=
- =?utf-8?B?THFlSFhRU2xwTVdxblg0STVDdFRwdVVoOVlvYno2Y2lXci8veXRmSkJ5Wm9K?=
- =?utf-8?B?ejZ4RmxXamNWUmg3SWhXTkJuMWxCUDZseGNUWEhtbXFadGFkRXJmMUIvUk5t?=
- =?utf-8?B?eFB3YXo3UzhLdjJiTXdjSjArT1g4K1MyUkZRRzJ1b0NmUWNNOFNoSzRNY3A1?=
- =?utf-8?B?NU9OaGNvYjBxQldXanF5dTRuSnpISjNGL05oTFBqa1NSR3dVQkdmOE9IT1Nr?=
- =?utf-8?B?ckVEeFdxM3hNNXZ6SXdONXhPTENDSnE0ZElMelU1VUYrV0U2UGVkTmUvUUR1?=
- =?utf-8?B?MFh0RldlSEYvaXpkTmNVelo1WkJ4dXRDdnAxYnp2Q3VWVVd4N2FQK09iMjlh?=
- =?utf-8?B?MUNQdUtqNDNFRUFkeDIzSkRKSzMyZVkzNVk0dUdnVXNLMkw4T3MwZnNoUkFQ?=
- =?utf-8?B?eWNOMG9uUGxIQ2FrVTV1bFd5N1hYSEdFTWVkbWs2RzJaa0ZNSTJwTklVN2Vz?=
- =?utf-8?B?TmxLaEZrWnZPd1dKbHRVNUlOckthN1dDZC9FRWtJTk50dnBxcjRjTms0c3Nh?=
- =?utf-8?B?L2h6SGQ4SERYNkg4MDhsZ0tlY1VoWjI1VytuOGJiQVhhNSt6TXdyeFhqZUJn?=
- =?utf-8?B?a2s3ZFhLWml0TGRxU0NnM1p5US9BMGJhckV3UzNuS2NlODdKRi9nWmhtcHJF?=
- =?utf-8?B?REVrU05QVmdoSjVLNk9lTzZtWTVReWlOMG9OWlFqRUNiYzZvVFhUU1FlZ09s?=
- =?utf-8?Q?LfWNGxC3ukpkCMTFmRQDSBdwe?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0084f37d-47d0-4152-0834-08dad3b6d2c9
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5311.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2022 16:12:22.3552 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2022 16:23:25.1520 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 049cf72e-f9b2-4086-9814-08dad3b85f42
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jJ64BNkyAMCzaE7kD1oegvmDgLiI/reO0bUqYq+xdCwimC1SuyHtZWwTXb0yHwlE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7224
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000EE3D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6605
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,248 +97,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yifan Zhang <yifan1.zhang@amd.com>, David Airlie <airlied@linux.ie>,
- =?UTF-8?Q?Ma=c3=adra_Canal?= <maira.canal@usp.br>,
- dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
- =?UTF-8?Q?Joaqu=c3=adn_Ignacio_Aramend=c3=ada?= <samsagax@gmail.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, bellosilicio@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Add definitions to clarify GPU virtual memory.
 
+Suggested-by: Peter Maucher <bellosilicio@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ Documentation/gpu/amdgpu/amdgpu-glossary.rst | 21 ++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-On 11/18/22 16:51, Hamza Mahfooz wrote:
-> Currently, userspace doesn't have a way to communicate selective updates
-> to displays. So, enable support for FB_DAMAGE_CLIPS for DCN ASICs newer
-> than DCN301, convert DRM damage clips to dc dirty rectangles and fill
-> them into dirty_rects in fill_dc_dirty_rects().
-> 
-> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+index 326896e9800d..944ebcef1d28 100644
+--- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
++++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+@@ -30,12 +30,33 @@ we have a dedicated glossary for Display Core at
+     EOP
+       End Of Pipe/Pipeline
+ 
++    GART
++      Graphics Address Remapping Table.  This is a GPUVM page table that maps
++      system resources (memory or MMIO space) into the GPU's address space so
++      the GPU can access them.  In the GPU kernel driver's virtual address
++      space is referred to as the GART for legacy reasons going back to AGP
++      and the early GPU remapping hardware.
++
+     GC
+       Graphics and Compute
+ 
+     GMC
+       Graphic Memory Controller
+ 
++    GPUVM
++      GPU Virtual Memory.  The GPU supports multiple virtual address spaces
++      that can be in flight at any given time.  These allow the GPU to remap
++      VRAM and system resources into GPU virtual address spaces for use by
++      the GPU kernel driver and applications using the GPU.  These provide
++      memory protection for different applications using the GPU.
++
++    GTT
++      Graphics Translation Tables.  This is a memory pool managed through TTM
++      which provides access to system resources (memory or MMIO space) for
++      use by the GPU. These addresses can be mapped into the GART GPUVM page
++      table for use by the kernel driver or into per process GPUVM page tables
++      for application usage.
++
+     IH
+       Interrupt Handler
+ 
+-- 
+2.38.1
 
-Thanks for the patch, it LGTM.
-
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
-
-It would be good to add an IGT case to cover combinations of MPO & 
-damage clip commits. Perhaps something that covers the usecase of moving 
-a MPO video, while desktop UI updates. We'd expect the SU region to 
-cover both the MPO plane + UI damage clips, or fallback to FFU.
-
-Thanks,
-Leo
-> ---
-> v2: fallback to FFU if we run into too many dirty rectangles, consider
->      dirty rectangles in non MPO case and always add a dirty rectangle
->      for the new plane if there are bb changes in the MPO case.
-> ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 130 +++++++++++-------
->   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |   4 +
->   2 files changed, 88 insertions(+), 46 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 4eb8201a2608..7af94a2c6237 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4842,6 +4842,35 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
->   	return 0;
->   }
->   
-> +static inline void fill_dc_dirty_rect(struct drm_plane *plane,
-> +				      struct rect *dirty_rect, int32_t x,
-> +				      int32_t y, int32_t width, int32_t height,
-> +				      int *i, bool ffu)
-> +{
-> +	if (*i > DC_MAX_DIRTY_RECTS)
-> +		return;
-> +
-> +	if (*i == DC_MAX_DIRTY_RECTS)
-> +		goto out;
-> +
-> +	dirty_rect->x = x;
-> +	dirty_rect->y = y;
-> +	dirty_rect->width = width;
-> +	dirty_rect->height = height;
-> +
-> +	if (ffu)
-> +		drm_dbg(plane->dev,
-> +			"[PLANE:%d] PSR FFU dirty rect size (%d, %d)\n",
-> +			plane->base.id, width, height);
-> +	else
-> +		drm_dbg(plane->dev,
-> +			"[PLANE:%d] PSR SU dirty rect at (%d, %d) size (%d, %d)",
-> +			plane->base.id, x, y, width, height);
-> +
-> +out:
-> +	(*i)++;
-> +}
-> +
->   /**
->    * fill_dc_dirty_rects() - Fill DC dirty regions for PSR selective updates
->    *
-> @@ -4862,10 +4891,6 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
->    * addition, certain use cases - such as cursor and multi-plane overlay (MPO) -
->    * implicitly provide damage clips without any client support via the plane
->    * bounds.
-> - *
-> - * Today, amdgpu_dm only supports the MPO and cursor usecase.
-> - *
-> - * TODO: Also enable for FB_DAMAGE_CLIPS
->    */
->   static void fill_dc_dirty_rects(struct drm_plane *plane,
->   				struct drm_plane_state *old_plane_state,
-> @@ -4876,12 +4901,11 @@ static void fill_dc_dirty_rects(struct drm_plane *plane,
->   	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
->   	struct rect *dirty_rects = flip_addrs->dirty_rects;
->   	uint32_t num_clips;
-> +	struct drm_mode_rect *clips;
->   	bool bb_changed;
->   	bool fb_changed;
->   	uint32_t i = 0;
->   
-> -	flip_addrs->dirty_rect_count = 0;
-> -
->   	/*
->   	 * Cursor plane has it's own dirty rect update interface. See
->   	 * dcn10_dmub_update_cursor_data and dmub_cmd_update_cursor_info_data
-> @@ -4889,20 +4913,20 @@ static void fill_dc_dirty_rects(struct drm_plane *plane,
->   	if (plane->type == DRM_PLANE_TYPE_CURSOR)
->   		return;
->   
-> -	/*
-> -	 * Today, we only consider MPO use-case for PSR SU. If MPO not
-> -	 * requested, and there is a plane update, do FFU.
-> -	 */
-> +	num_clips = drm_plane_get_damage_clips_count(new_plane_state);
-> +	clips = drm_plane_get_damage_clips(new_plane_state);
-> +
->   	if (!dm_crtc_state->mpo_requested) {
-> -		dirty_rects[0].x = 0;
-> -		dirty_rects[0].y = 0;
-> -		dirty_rects[0].width = dm_crtc_state->base.mode.crtc_hdisplay;
-> -		dirty_rects[0].height = dm_crtc_state->base.mode.crtc_vdisplay;
-> -		flip_addrs->dirty_rect_count = 1;
-> -		DRM_DEBUG_DRIVER("[PLANE:%d] PSR FFU dirty rect size (%d, %d)\n",
-> -				 new_plane_state->plane->base.id,
-> -				 dm_crtc_state->base.mode.crtc_hdisplay,
-> -				 dm_crtc_state->base.mode.crtc_vdisplay);
-> +		if (!num_clips || num_clips > DC_MAX_DIRTY_RECTS)
-> +			goto ffu;
-> +
-> +		for (; flip_addrs->dirty_rect_count < num_clips; clips++)
-> +			fill_dc_dirty_rect(new_plane_state->plane,
-> +					   &dirty_rects[i], clips->x1,
-> +					   clips->y1, clips->x2 - clips->x1,
-> +					   clips->y2 - clips->y1,
-> +					   &flip_addrs->dirty_rect_count,
-> +					   false);
->   		return;
->   	}
->   
-> @@ -4913,7 +4937,6 @@ static void fill_dc_dirty_rects(struct drm_plane *plane,
->   	 * If plane is moved or resized, also add old bounding box to dirty
->   	 * rects.
->   	 */
-> -	num_clips = drm_plane_get_damage_clips_count(new_plane_state);
->   	fb_changed = old_plane_state->fb->base.id !=
->   		     new_plane_state->fb->base.id;
->   	bb_changed = (old_plane_state->crtc_x != new_plane_state->crtc_x ||
-> @@ -4921,36 +4944,51 @@ static void fill_dc_dirty_rects(struct drm_plane *plane,
->   		      old_plane_state->crtc_w != new_plane_state->crtc_w ||
->   		      old_plane_state->crtc_h != new_plane_state->crtc_h);
->   
-> -	DRM_DEBUG_DRIVER("[PLANE:%d] PSR bb_changed:%d fb_changed:%d num_clips:%d\n",
-> -			 new_plane_state->plane->base.id,
-> -			 bb_changed, fb_changed, num_clips);
-> -
-> -	if (num_clips || fb_changed || bb_changed) {
-> -		dirty_rects[i].x = new_plane_state->crtc_x;
-> -		dirty_rects[i].y = new_plane_state->crtc_y;
-> -		dirty_rects[i].width = new_plane_state->crtc_w;
-> -		dirty_rects[i].height = new_plane_state->crtc_h;
-> -		DRM_DEBUG_DRIVER("[PLANE:%d] PSR SU dirty rect at (%d, %d) size (%d, %d)\n",
-> -				 new_plane_state->plane->base.id,
-> -				 dirty_rects[i].x, dirty_rects[i].y,
-> -				 dirty_rects[i].width, dirty_rects[i].height);
-> -		i += 1;
-> -	}
-> +	drm_dbg(plane->dev,
-> +		"[PLANE:%d] PSR bb_changed:%d fb_changed:%d num_clips:%d\n",
-> +		new_plane_state->plane->base.id,
-> +		bb_changed, fb_changed, num_clips);
->   
-> -	/* Add old plane bounding-box if plane is moved or resized */
->   	if (bb_changed) {
-> -		dirty_rects[i].x = old_plane_state->crtc_x;
-> -		dirty_rects[i].y = old_plane_state->crtc_y;
-> -		dirty_rects[i].width = old_plane_state->crtc_w;
-> -		dirty_rects[i].height = old_plane_state->crtc_h;
-> -		DRM_DEBUG_DRIVER("[PLANE:%d] PSR SU dirty rect at (%d, %d) size (%d, %d)\n",
-> -				old_plane_state->plane->base.id,
-> -				dirty_rects[i].x, dirty_rects[i].y,
-> -				dirty_rects[i].width, dirty_rects[i].height);
-> -		i += 1;
-> -	}
-> +		fill_dc_dirty_rect(new_plane_state->plane, &dirty_rects[i],
-> +				   new_plane_state->crtc_x,
-> +				   new_plane_state->crtc_y,
-> +				   new_plane_state->crtc_w,
-> +				   new_plane_state->crtc_h, &i, false);
-> +
-> +		/* Add old plane bounding-box if plane is moved or resized */
-> +		fill_dc_dirty_rect(new_plane_state->plane, &dirty_rects[i],
-> +				   old_plane_state->crtc_x,
-> +				   old_plane_state->crtc_y,
-> +				   old_plane_state->crtc_w,
-> +				   old_plane_state->crtc_h, &i, false);
-> +	}
-> +
-> +	if (num_clips) {
-> +		for (; i < num_clips; clips++)
-> +			fill_dc_dirty_rect(new_plane_state->plane,
-> +					   &dirty_rects[i], clips->x1,
-> +					   clips->y1, clips->x2 - clips->x1,
-> +					   clips->y2 - clips->y1, &i, false);
-> +	} else if (fb_changed && !bb_changed) {
-> +		fill_dc_dirty_rect(new_plane_state->plane, &dirty_rects[i],
-> +				   new_plane_state->crtc_x,
-> +				   new_plane_state->crtc_y,
-> +				   new_plane_state->crtc_w,
-> +				   new_plane_state->crtc_h, &i, false);
-> +	}
-> +
-> +	if (i > DC_MAX_DIRTY_RECTS)
-> +		goto ffu;
->   
->   	flip_addrs->dirty_rect_count = i;
-> +	return;
-> +
-> +ffu:
-> +	fill_dc_dirty_rect(new_plane_state->plane, &dirty_rects[0], 0, 0,
-> +			   dm_crtc_state->base.mode.crtc_hdisplay,
-> +			   dm_crtc_state->base.mode.crtc_vdisplay,
-> +			   &flip_addrs->dirty_rect_count, true);
->   }
->   
->   static void update_stream_scaling_settings(const struct drm_display_mode *mode,
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index e6854f7270a6..3c50b3ff7954 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1600,6 +1600,10 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
->   		drm_plane_create_rotation_property(plane, DRM_MODE_ROTATE_0,
->   						   supported_rotations);
->   
-> +	if (dm->adev->ip_versions[DCE_HWIP][0] > IP_VERSION(3, 0, 1) &&
-> +	    plane->type != DRM_PLANE_TYPE_CURSOR)
-> +		drm_plane_enable_fb_damage_clips(plane);
-> +
->   	drm_plane_helper_add(plane, &dm_plane_helper_funcs);
->   
->   #ifdef CONFIG_DRM_AMD_DC_HDR
