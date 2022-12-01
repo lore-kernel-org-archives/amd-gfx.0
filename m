@@ -4,55 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 430C3C43217
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Dec 2022 20:28:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D65E4C4321E
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Dec 2022 21:42:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47DF110E157;
-	Thu,  1 Dec 2022 20:28:25 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 345DA10E157
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Dec 2022 20:28:21 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id e205so3245500oif.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 01 Dec 2022 12:28:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=lJc4HIJxpTsJbXXJtzYwpDjAQEMTKZohr+b8gbcdv5g=;
- b=QTFyE7fs5uernv7ZxOzPAzzdauq8HBaYeqlT0M6C1OtsyD5icArSoRjPvtZ6iFWzqg
- aQf34CGbBMJOE8qSu6dJDIiT0i7IDyEthDOOIx5mIfpklLAnyRofHp08WDa7X1BJaBUj
- HwIPhASWDbuOkGP3BN5ohHhafgS/UWJcbIjERTR1CVY1cZbpaelobkqTcQTMhh7mAVa+
- wgqgNzIWnnjVQm+ZaHXawhny/+zqhhsuB6AR4kaCwh8Z/dYjgcFGcDN+PDMRHpSrCfWs
- 23DAymwK/7MajllCJubvblsni/RwSeobDwPfSJ2jhZxYC6e5EsuDbrYCJRx7v3ZnrzbL
- +mXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=lJc4HIJxpTsJbXXJtzYwpDjAQEMTKZohr+b8gbcdv5g=;
- b=JsZfjj4ffx36iTsx8Sx9Q3ZKAwi79FJ6MEhC2L9vcuPWqGOb08W9RCH5greO521+Dj
- TkLZkA/WqyLzaLgg3KPdvwBckgyAvqCuU84QrTD88AdEZy2n01pQKBO/PYC7fXvjm81u
- umt/lT9QrOELUoq21G2TasVbgrqrboupTkl4dilh2xvimCSJXkHGdr2XKmSCGF3LjxTy
- qdjd/5CjZgXPgW+P+z9basIjUvbTuucOxjeNd995YEdCH4nY4tkMJG7MWak13Ej4hXlT
- yEJzKEdSxYunZcX7EL9xm6KiTlaIB/es+SXTsp3Y9J08gnY0O6LiAjEIwjxEGHVoMrlE
- UbHA==
-X-Gm-Message-State: ANoB5plaLgqX6ge6RkYdJxxGHDjXHqNgaY26Z8lrlDpKgKN3TdNbqsrG
- ju9In7aVnsmxrruQ3C8ja4+G/m8PjmQu8nJcMR8=
-X-Google-Smtp-Source: AA0mqf79enL1xpLhwzpJ0nsjnpRG4cDODCraXG4/qxRuiwZzCnPZWZgjjlQl0bnRm5XMyolr6tJyAf0U+G20xqSmw7s=
-X-Received: by 2002:aca:d17:0:b0:35b:c9e7:b124 with SMTP id
- 23-20020aca0d17000000b0035bc9e7b124mr6531770oin.46.1669926500407; Thu, 01 Dec
- 2022 12:28:20 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB44510E17D;
+	Thu,  1 Dec 2022 21:42:15 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2062.outbound.protection.outlook.com [40.107.93.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EE6810E17D
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Dec 2022 21:42:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=i+CHtg+RkxXRnAQdTddxpc4bhpvXvlPn8qoag+8wczkLTiBnNzlMXr8oR+JVUNfm/Zyyvskm9SfaIABXjB46TJbew7fIauJgO44/6nwOnpHIBZlI+rwcUiDS5JVGs26hOe8YKOn4Qhc3TKP8XCrvQdXjZAVn0V2CtyRL7VJWlwJfNctqmps+zewHPMz4LVxoPD03gS2A2gIXe5riIKmdRb8/WocmKErmjKNCMV8Nv1XTRBKGAsMgWOK5qfYrfptvaLR5qEqYj/VMnpDFtD9d8/+gp6CxYQiIkVrGwZOxRWCfL29Wj8pKXj6bNC6bdXG4MlCM1tSfkTCrb2kbmW7j8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GzRmZJv7klLKsK8F7GbE2jfr23XsqfeQNj6jkqA3ztQ=;
+ b=i6+eQLqBnsB0tFXsqTKAqOXxIPc+rrtYn/hMdiGiui+xH2SvITE9bpOUMlrYRW+PGPI6ZZNbsToGzWDX86ez/f5UukPLhXuOZ9FoZTLvQ75s8qq/lNtsX8UiuQEfl+rVB8zSOm1n/UrgtMDHk90arZxSXzd+UwwmGFVYVachV4l5mIxjQwc7n3ObCNTSLSQm3Knlltkyo7oJ22rETGb+fxYfnCmSZRBkKQLx3dgXneEqQ8929ZaGGGm1V6aDpEhF8oIvKoxd78CsLLTrWIzdS0AWSIZ6S1Q9SH9l4LyBIjIYT9Y4FLIJ2I+FNezGzgE8eMhOR7e+Yp7rNcohTPzhow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GzRmZJv7klLKsK8F7GbE2jfr23XsqfeQNj6jkqA3ztQ=;
+ b=dlhYbaNPzsUZv2UB8W/ooWy2ua0AjSf4Ael+IVhZFZ5z5U2JaGZgYQrN7Hj00YngWSgyzZqQecFJTHLnsuPkPDoZ21XA16eiP1jKhMDLoO0ikLJF+g9hQ0xh4YBn4rv3uy8TwnPtTeNA+F40G2PjrHd2VOSDh3+/ZVNc94ujIGM=
+Received: from MWH0EPF00056D19.namprd21.prod.outlook.com
+ (2603:10b6:30f:fff2:0:1:0:1a) by CH2PR12MB4149.namprd12.prod.outlook.com
+ (2603:10b6:610:7c::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Thu, 1 Dec
+ 2022 21:42:11 +0000
+Received: from CO1NAM11FT107.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::203) by MWH0EPF00056D19.outlook.office365.com
+ (2603:1036:d20::b) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.2 via Frontend
+ Transport; Thu, 1 Dec 2022 21:42:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT107.mail.protection.outlook.com (10.13.175.97) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5880.8 via Frontend Transport; Thu, 1 Dec 2022 21:42:10 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 1 Dec
+ 2022 15:42:10 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: add GART, GPUVM, and GTT to glossary
+Date: Thu, 1 Dec 2022 16:41:52 -0500
+Message-ID: <20221201214153.8453-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-References: <20221201162309.3112713-1-alexander.deucher@amd.com>
- <774af616-0781-a4fb-116b-9d5da9a78fa7@amd.com>
-In-Reply-To: <774af616-0781-a4fb-116b-9d5da9a78fa7@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 1 Dec 2022 15:28:08 -0500
-Message-ID: <CADnq5_On-e_=SELkL7fJmKCRajP4AetN10=Gst2u_r+VNW6PVA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: add GART, GPUVM, and GTT to glossary
-To: Luben Tuikov <luben.tuikov@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT107:EE_|CH2PR12MB4149:EE_
+X-MS-Office365-Filtering-Correlation-Id: f80b02c6-045e-4f58-e77f-08dad3e4e727
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Du5k+lunXrVFfsG5BnqOuWi9cweCG7CsMQ4MV8xtFuZuBwxensRnu/bdOAuS1CaG46dasoqRsxAdy8lGAkTaIc126VlI897pJ4P/yfwT8YDJJbZ7KMufLjM2nW5W4dVLTVY9Nf1oio0sU5DZd+S+bGsITzNXjJ1SHL25OUFNY1WQ+bvUIrP735VUcWp2t65Z+acS5WnVPbmnwKpEeUjQrX4Sp6HPwF1rFa5Z4qBZkPl41C8aOniUqElQzW0bTpXdDIHg31sj8aOhOnLbOwMoHGv64mU6jV6wtF78JOB9viqeEEnfy3LWnO1GCMqoGmqOErputYb/pLnHUKoMPDjXSnYC5jt8W4Ci1FRKsM6P/LYmSnz4cq7jzDEhRuhveDcdEC+ahgpeF9m5pGzBeJy+oGK4Zklxa7A0LKHjXVlte5Fi+mNJQoLBUxlPVBVa7HBm4M4t547DbgZ0VdT2rgrF5kICKVS/vwXzwie48MR/LMlsnFyBfSUTj0pASUir+09IKBUq08NSFJnZ/cMAEPPYlYtOvj5CJsxWBzd/ScBnLItyxEJ9av8IbYhzQUOLx3QA4IRUrfW2pihOOLn0rZe0CM7emFvwXhDMK8s2IRJ0lql+phIvKjXMtstltS/h50ycpVUuaHJy/2Vm8bMAzKk53vub/DTzdmpd6trSUnmiyf7vtS17v6ax8bmDDVcT4WsO45Q4UjtYBMyl3vH0S9cdZHLp7Wjsp74IgZEK0DTRmlU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(346002)(39860400002)(136003)(376002)(451199015)(36840700001)(40470700004)(46966006)(7696005)(86362001)(83380400001)(36860700001)(478600001)(6666004)(54906003)(26005)(316002)(47076005)(6916009)(2616005)(70206006)(41300700001)(186003)(426003)(5660300002)(40480700001)(8936002)(1076003)(40460700003)(2906002)(356005)(16526019)(82740400003)(81166007)(4326008)(336012)(82310400005)(8676002)(36756003)(70586007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2022 21:42:10.8784 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f80b02c6-045e-4f58-e77f-08dad3e4e727
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT107.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4149
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,105 +97,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, bellosilicio@gmail.com,
- amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Peter
+ Maucher <bellosilicio@gmail.com>, luben.tuikov@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 1, 2022 at 12:20 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
->
-> On 2022-12-01 11:23, Alex Deucher wrote:
-> > Add definitions to clarify GPU virtual memory.
-> >
-> > Suggested-by: Peter Maucher <bellosilicio@gmail.com>
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  Documentation/gpu/amdgpu/amdgpu-glossary.rst | 21 ++++++++++++++++++++
-> >  1 file changed, 21 insertions(+)
-> >
-> > diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> > index 326896e9800d..944ebcef1d28 100644
-> > --- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> > +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> > @@ -30,12 +30,33 @@ we have a dedicated glossary for Display Core at
-> >      EOP
-> >        End Of Pipe/Pipeline
-> >
-> > +    GART
-> > +      Graphics Address Remapping Table.  This is a GPUVM page table that maps
-> > +      system resources (memory or MMIO space) into the GPU's address space so
-> > +      the GPU can access them.  In the GPU kernel driver's virtual address
-> > +      space is referred to as the GART for legacy reasons going back to AGP
-> > +      and the early GPU remapping hardware.
-> > +
->
-> I'd probably mention that this is an actual IOMMU IP.
+Add definitions to clarify GPU virtual memory.
 
-Ack.
+v2: clarify the terms a bit more
 
->
-> >      GC
-> >        Graphics and Compute
-> >
-> >      GMC
-> >        Graphic Memory Controller
-> >
-> > +    GPUVM
-> > +      GPU Virtual Memory.  The GPU supports multiple virtual address spaces
-> > +      that can be in flight at any given time.  These allow the GPU to remap
-> > +      VRAM and system resources into GPU virtual address spaces for use by
-> > +      the GPU kernel driver and applications using the GPU.  These provide
-> > +      memory protection for different applications using the GPU.
-> > +
->
-> I'd probably add something like:
->
-> "... These allow the GPU to remap VRAM, using GMC, and system resources,
->      using AGP or GART, into GPU virtual address spaces ..."
+Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
+Suggested-by: Peter Maucher <bellosilicio@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ Documentation/gpu/amdgpu/amdgpu-glossary.rst | 23 ++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-Well, that's not entirely true.  The GPUVM address space is unified so
-you can map a vram page next to a system ram page.  The only
-difference is how you set up the PTEs.  We just happen to set up VMID
-0 (the kernel driver's GPUVM) slightly differently due to some
-extended capabilities in that context.  But you could map vram via the
-GART (vmid 0) page table if you wanted to.  AGP isn't really a thing
-anymore, but we still have the aperture on the GPU, but we use it for
-other things now.
+diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+index 326896e9800d..00a47ebb0b0f 100644
+--- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
++++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+@@ -30,12 +30,35 @@ we have a dedicated glossary for Display Core at
+     EOP
+       End Of Pipe/Pipeline
+ 
++    GART
++      Graphics Address Remapping Table.  This is the name we use for the GPUVM
++      page table used by the GPU kernel driver.  It remaps system resources
++      (memory or MMIO space) into the GPU's address space so the GPU can access
++      them.  The name GART harkens back to the days of AGP when the platform
++      provided an MMU that the GPU could use to get a contiguous view of
++      scattered pages for DMA.  The MMU has since moved on to the GPU, but the
++      name stuck.
++
+     GC
+       Graphics and Compute
+ 
+     GMC
+       Graphic Memory Controller
+ 
++    GPUVM
++      GPU Virtual Memory.  This is the GPU's MMU.  The GPU supports multiple
++      virtual address spaces that can be in flight at any given time.  These
++      allow the GPU to remap VRAM and system resources into GPU virtual address
++      spaces for use by the GPU kernel driver and applications using the GPU.
++      These provide memory protection for different applications using the GPU.
++
++    GTT
++      Graphics Translation Tables.  This is a memory pool managed through TTM
++      which provides access to system resources (memory or MMIO space) for
++      use by the GPU. These addresses can be mapped into the "GART" GPUVM page
++      table for use by the kernel driver or into per process GPUVM page tables
++      for application usage.
++
+     IH
+       Interrupt Handler
+ 
+-- 
+2.38.1
 
->
-> > +    GTT
-> > +      Graphics Translation Tables.  This is a memory pool managed through TTM
-> > +      which provides access to system resources (memory or MMIO space) for
-> > +      use by the GPU. These addresses can be mapped into the GART GPUVM page
-> > +      table for use by the kernel driver or into per process GPUVM page tables
-> > +      for application usage.
-> > +
->
-> I'd probably clarify this simply by adding something like:
->
-> "This is system memory, mapped by GART or AGP, into the GPUVM, for access by the GPU."
->
-> I'm ambivalent if you want to add these, but it might make things clearer, as I'd
-> struggled with what something is, as opposed to what it does.
-
-I'll see if I can clarify things a bit more.
-
->
-> Having said this, this patch is generally,
->
-> Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
->
-> Thanks for doing this.
-
-Thanks!
-
-Alex
-
->
-> Regards,
-> Luben
->
-> >      IH
-> >        Interrupt Handler
-> >
->
