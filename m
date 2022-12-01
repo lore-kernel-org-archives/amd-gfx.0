@@ -4,89 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8BC7C43217
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Dec 2022 20:20:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 430C3C43217
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Dec 2022 20:28:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E045110E00F;
-	Thu,  1 Dec 2022 20:20:39 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2080.outbound.protection.outlook.com [40.107.223.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 392B810E00F;
- Thu,  1 Dec 2022 20:20:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KC3IU9PxIS5ESVMS8W+pWFdjkp8G8Qqdmp5cGOv2UTOUJUYm/ndpWR2618wFySvWUv7HC3LVNrMx19LeS1COpy2wSe7s4ZlFLRxE48vCOu3j4WgvAOZJJpgIDJYp80IDVIISoIfLG6zTDqJSt2r+6P8lRVuUd1B009tkol8RIwEUpV2mYoGaBaObBhS5eDpshiqDEPikfExhGXIP5/HYRMANUuMW/SzIDG1wTEeYDGiZ7tBHsr9vllEV1tk0wYklVbVJIldDaciWDfkTqzApbnzsYoyzqOl65FzdJGtVHXyqloNvEaSAHQjVqrKYxhLUoh6VdwKR64CgECvfiDEdiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dfYrJEEEka1SPcGTFeia0HVbrU/Z22c77Z98T4275nM=;
- b=g7X+C+Z2RVVc1UcggziPVLgDq2wVZJTvnxBKloRu8bsiqtI2VPycx+vvW66ET61ntcek18yIeV2uzVjtFXbDL7V++EVsWv+uEGPJj9vSebRkwm2IIlSr8vwXg+agViJNa5XwEAaucuPgdOyF0T36ybrp3Co4ycU0ekXQMf57bLqyU9x6C0ygT72pY8bxTpKyZ1TC3WVP1EnEDPG7+XeY/mkkpXn+7BahKJFDobkFnebN8bZPHzFnaMUA4GdzmiISmji5E9YxKCrdPNJAyHN1/1fBbLU9b3XP+OEe3jTZe3TI0F5fdFImEAM1GOyfpFoWcFiUsxxrVEH2NIyrEsfc/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dfYrJEEEka1SPcGTFeia0HVbrU/Z22c77Z98T4275nM=;
- b=RVOmZqQ46VPtEluLmtWpBvoCT+jyCtyjM5B99roCZ/RxpHhFv+ECDQH0qdrfcuEXFdEn9p4p/fWzjtVrtShj59sBHOGTfIpkMnZTY+vDf8i6OOPEiyBDS8cnisvxUgCejktcH2SsVNsPJyKxy5KddNq5HA5G7OQ6WpPxiKteFw8=
-Received: from BYAPR07CA0037.namprd07.prod.outlook.com (2603:10b6:a03:60::14)
- by MN2PR12MB4175.namprd12.prod.outlook.com (2603:10b6:208:1d3::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Thu, 1 Dec
- 2022 20:20:34 +0000
-Received: from CO1PEPF00001A63.namprd05.prod.outlook.com
- (2603:10b6:a03:60:cafe::41) by BYAPR07CA0037.outlook.office365.com
- (2603:10b6:a03:60::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.8 via Frontend
- Transport; Thu, 1 Dec 2022 20:20:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF00001A63.mail.protection.outlook.com (10.167.241.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5857.17 via Frontend Transport; Thu, 1 Dec 2022 20:20:33 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 1 Dec
- 2022 14:20:30 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu drm-fixes-6.1
-Date: Thu, 1 Dec 2022 15:20:15 -0500
-Message-ID: <20221201202015.5931-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.38.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47DF110E157;
+	Thu,  1 Dec 2022 20:28:25 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 345DA10E157
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Dec 2022 20:28:21 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id e205so3245500oif.11
+ for <amd-gfx@lists.freedesktop.org>; Thu, 01 Dec 2022 12:28:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=lJc4HIJxpTsJbXXJtzYwpDjAQEMTKZohr+b8gbcdv5g=;
+ b=QTFyE7fs5uernv7ZxOzPAzzdauq8HBaYeqlT0M6C1OtsyD5icArSoRjPvtZ6iFWzqg
+ aQf34CGbBMJOE8qSu6dJDIiT0i7IDyEthDOOIx5mIfpklLAnyRofHp08WDa7X1BJaBUj
+ HwIPhASWDbuOkGP3BN5ohHhafgS/UWJcbIjERTR1CVY1cZbpaelobkqTcQTMhh7mAVa+
+ wgqgNzIWnnjVQm+ZaHXawhny/+zqhhsuB6AR4kaCwh8Z/dYjgcFGcDN+PDMRHpSrCfWs
+ 23DAymwK/7MajllCJubvblsni/RwSeobDwPfSJ2jhZxYC6e5EsuDbrYCJRx7v3ZnrzbL
+ +mXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=lJc4HIJxpTsJbXXJtzYwpDjAQEMTKZohr+b8gbcdv5g=;
+ b=JsZfjj4ffx36iTsx8Sx9Q3ZKAwi79FJ6MEhC2L9vcuPWqGOb08W9RCH5greO521+Dj
+ TkLZkA/WqyLzaLgg3KPdvwBckgyAvqCuU84QrTD88AdEZy2n01pQKBO/PYC7fXvjm81u
+ umt/lT9QrOELUoq21G2TasVbgrqrboupTkl4dilh2xvimCSJXkHGdr2XKmSCGF3LjxTy
+ qdjd/5CjZgXPgW+P+z9basIjUvbTuucOxjeNd995YEdCH4nY4tkMJG7MWak13Ej4hXlT
+ yEJzKEdSxYunZcX7EL9xm6KiTlaIB/es+SXTsp3Y9J08gnY0O6LiAjEIwjxEGHVoMrlE
+ UbHA==
+X-Gm-Message-State: ANoB5plaLgqX6ge6RkYdJxxGHDjXHqNgaY26Z8lrlDpKgKN3TdNbqsrG
+ ju9In7aVnsmxrruQ3C8ja4+G/m8PjmQu8nJcMR8=
+X-Google-Smtp-Source: AA0mqf79enL1xpLhwzpJ0nsjnpRG4cDODCraXG4/qxRuiwZzCnPZWZgjjlQl0bnRm5XMyolr6tJyAf0U+G20xqSmw7s=
+X-Received: by 2002:aca:d17:0:b0:35b:c9e7:b124 with SMTP id
+ 23-20020aca0d17000000b0035bc9e7b124mr6531770oin.46.1669926500407; Thu, 01 Dec
+ 2022 12:28:20 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00001A63:EE_|MN2PR12MB4175:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20461f8e-4eb3-41f1-1a3b-08dad3d97fcb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Pp1OlJyL+wkCdzSjMt1HDW7boSLJ1QQqqZOmVfApD8ZZ3fHfNkBmQJLmej/ZLIicXJqdWWb+HUlD+4OocCY8dX7BxyfUCbhAZJ1D2awihVMMK3a3uWo3nsL8aLZSjn7Z17TLskHaGRoRyzYhOXUaH/fBu1ZONE4uEkMEt4bO781LshbR/LjUdO6w/z0qG9r7YZxIPpIl8zoxU0OMvVn/n4M+8N73GynBsDOsdswoV4u8CsF411LYZ+xwsdlexQXiT/azW9cSy4oStt18I6kn9Vzks8TgpM9EmzGn/kp4124rlRrVNdoRg2xWfumf6vMH5UCEBvYt6zEgXuMEs8ETJAfChcxzUuUQQp1lwtYjolnb4GF3l23lY7AKMwZbedXZyAQfzBuVtmy77FDebX4oKPZ8zPbdJMegYXIctiKCWkxREk2mAixHfWpT6VNWss74mKtysJuNxz095fD/1rOzSVdp0phTdAbJygShbZ9bbyoQ9P/BOC7tlt8qQ0KwrlPbamc1GovnqOy7WLrG+tjxWWg/M5idBtd82fwUeuCTfKbBVZeRsfRljaisLKpTCrpRD8drlMmZzhREGZs9YHuZtXyG+EUCB5F+AsYoyEoS4TqXRrNSzZYC4k0QSVGgbIi0d4OavRlsnAN3GwRnx5EHkSt/bs1ycFDsBHUR11AAseHLdU6t/M68LiR/MrHubc7J
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(346002)(396003)(136003)(39860400002)(451199015)(46966006)(40470700004)(36840700001)(426003)(47076005)(86362001)(7696005)(81166007)(966005)(478600001)(16526019)(356005)(6666004)(40460700003)(40480700001)(2616005)(36756003)(2906002)(4001150100001)(82740400003)(186003)(82310400005)(1076003)(336012)(70586007)(5660300002)(26005)(316002)(4744005)(36860700001)(8676002)(110136005)(8936002)(4326008)(70206006)(41300700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2022 20:20:33.0321 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20461f8e-4eb3-41f1-1a3b-08dad3d97fcb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00001A63.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4175
+References: <20221201162309.3112713-1-alexander.deucher@amd.com>
+ <774af616-0781-a4fb-116b-9d5da9a78fa7@amd.com>
+In-Reply-To: <774af616-0781-a4fb-116b-9d5da9a78fa7@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 1 Dec 2022 15:28:08 -0500
+Message-ID: <CADnq5_On-e_=SELkL7fJmKCRajP4AetN10=Gst2u_r+VNW6PVA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: add GART, GPUVM, and GTT to glossary
+To: Luben Tuikov <luben.tuikov@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,35 +64,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, bellosilicio@gmail.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+On Thu, Dec 1, 2022 at 12:20 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
+>
+> On 2022-12-01 11:23, Alex Deucher wrote:
+> > Add definitions to clarify GPU virtual memory.
+> >
+> > Suggested-by: Peter Maucher <bellosilicio@gmail.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  Documentation/gpu/amdgpu/amdgpu-glossary.rst | 21 ++++++++++++++++++++
+> >  1 file changed, 21 insertions(+)
+> >
+> > diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> > index 326896e9800d..944ebcef1d28 100644
+> > --- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> > +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> > @@ -30,12 +30,33 @@ we have a dedicated glossary for Display Core at
+> >      EOP
+> >        End Of Pipe/Pipeline
+> >
+> > +    GART
+> > +      Graphics Address Remapping Table.  This is a GPUVM page table that maps
+> > +      system resources (memory or MMIO space) into the GPU's address space so
+> > +      the GPU can access them.  In the GPU kernel driver's virtual address
+> > +      space is referred to as the GART for legacy reasons going back to AGP
+> > +      and the early GPU remapping hardware.
+> > +
+>
+> I'd probably mention that this is an actual IOMMU IP.
 
-Just one last fix for 6.1.
+Ack.
 
-The following changes since commit b7b275e60bcd5f89771e865a8239325f86d9927d:
+>
+> >      GC
+> >        Graphics and Compute
+> >
+> >      GMC
+> >        Graphic Memory Controller
+> >
+> > +    GPUVM
+> > +      GPU Virtual Memory.  The GPU supports multiple virtual address spaces
+> > +      that can be in flight at any given time.  These allow the GPU to remap
+> > +      VRAM and system resources into GPU virtual address spaces for use by
+> > +      the GPU kernel driver and applications using the GPU.  These provide
+> > +      memory protection for different applications using the GPU.
+> > +
+>
+> I'd probably add something like:
+>
+> "... These allow the GPU to remap VRAM, using GMC, and system resources,
+>      using AGP or GART, into GPU virtual address spaces ..."
 
-  Linux 6.1-rc7 (2022-11-27 13:31:48 -0800)
+Well, that's not entirely true.  The GPUVM address space is unified so
+you can map a vram page next to a system ram page.  The only
+difference is how you set up the PTEs.  We just happen to set up VMID
+0 (the kernel driver's GPUVM) slightly differently due to some
+extended capabilities in that context.  But you could map vram via the
+GART (vmid 0) page table if you wanted to.  AGP isn't really a thing
+anymore, but we still have the aperture on the GPU, but we use it for
+other things now.
 
-are available in the Git repository at:
+>
+> > +    GTT
+> > +      Graphics Translation Tables.  This is a memory pool managed through TTM
+> > +      which provides access to system resources (memory or MMIO space) for
+> > +      use by the GPU. These addresses can be mapped into the GART GPUVM page
+> > +      table for use by the kernel driver or into per process GPUVM page tables
+> > +      for application usage.
+> > +
+>
+> I'd probably clarify this simply by adding something like:
+>
+> "This is system memory, mapped by GART or AGP, into the GPUVM, for access by the GPU."
+>
+> I'm ambivalent if you want to add these, but it might make things clearer, as I'd
+> struggled with what something is, as opposed to what it does.
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.1-2022-12-01
+I'll see if I can clarify things a bit more.
 
-for you to fetch changes up to 9a8cc8cabc1e351614fd7f9e774757a5143b6fe8:
+>
+> Having said this, this patch is generally,
+>
+> Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
+>
+> Thanks for doing this.
 
-  drm/amdgpu: enable Vangogh VCN indirect sram mode (2022-12-01 15:09:49 -0500)
+Thanks!
 
-----------------------------------------------------------------
-amd-drm-fixes-6.1-2022-12-01:
+Alex
 
-amdgpu:
-- VCN fix for vangogh
-
-----------------------------------------------------------------
-Leo Liu (1):
-      drm/amdgpu: enable Vangogh VCN indirect sram mode
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 3 +++
- 1 file changed, 3 insertions(+)
+>
+> Regards,
+> Luben
+>
+> >      IH
+> >        Interrupt Handler
+> >
+>
