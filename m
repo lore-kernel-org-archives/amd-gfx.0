@@ -4,115 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A85FC47088
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Dec 2022 17:20:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46371C47089
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Dec 2022 18:00:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EACA10E655;
-	Thu,  1 Dec 2022 17:20:38 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::600])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A6BF10E655
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Dec 2022 17:20:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jsCaCxep5Dj5DhQrXozqtkeHbjI02gKfMd6pu3HWXeeaQlhiKNRO2ImR+hhnnZt9roq+5ShfAK39kYdplVQDYREy4FT91iH6ka+XyEj8lS1Q6RmJ4HqyzWJSJYzHCwO96DMvAD01NsJbnxvWOqLMWZM/Ov1HQnPPmCFcHJatZwlT7Pvu9up01huU1E2n93p7z998NmI7Yi/pU40kQniBIyOtR6XbGiJGk7wxAHoRfaR2q3s+MF74Kjj0RP8zwYzwjgk7+TzDDkEcCvNXx5KRDpr2BFGrbMPPlENkb70q0w7r8caCCzDdfqhuss/VOyXo2qHFrYNCyr5JH7RU2u9hXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FfSKjB5VBMWXgYqKL89LmEU9y3jLk5WmgZNGhFHNVXE=;
- b=he0RLO1B2AIz0n61cNRWf3XC0tnmqNEGGtMLjA4io0EGk6zE3bts9sj6p8g9ftSAnuzor2rzByce/W+UuIuTZ8E7zjAytzBr86lEFe64VnbxCOo5RDLSKO59OwMbky24edADMhTjp4lA9i4p53QUwPnqn7vRyt9AKlESeCTsEvLWH0ZES5lTwN3IlmumScQ0ReJBZV4102ABGL2q4PvBodUcRNAyInxqx0xDhtx2R6KDUaFP9ahZtHG6Mm38nem7iZnSOECbzko6FR3sQsoQmpjg0MUpF1V1EPbEQ75B42JFWiViWrR5wNIBkQiP2M4ZLIkJMwJ9Zm+Xd3drF6NKTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FfSKjB5VBMWXgYqKL89LmEU9y3jLk5WmgZNGhFHNVXE=;
- b=kSam0Pt5GA1Rm7oFe5tNSLRpZPIVAWmI3iRemE7w3Qu3K90kV2FZ/pRh0+6BN+mBjkWb8XKvHAqV+pKUGfYv4s7WNgYpIp6fsh5NPxrk2H77fyjW6F1mUXNGn4dcRURkEwkaHOidbig3D8zGPAfrucAdNbK5sgc1HCKd5jrCWIU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- LV2PR12MB5917.namprd12.prod.outlook.com (2603:10b6:408:175::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Thu, 1 Dec
- 2022 17:20:34 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178%3]) with mapi id 15.20.5857.023; Thu, 1 Dec 2022
- 17:20:34 +0000
-Message-ID: <774af616-0781-a4fb-116b-9d5da9a78fa7@amd.com>
-Date: Thu, 1 Dec 2022 12:20:32 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Content-Language: en-CA
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221201162309.3112713-1-alexander.deucher@amd.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: add GART, GPUVM, and GTT to glossary
-In-Reply-To: <20221201162309.3112713-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR18CA0030.namprd18.prod.outlook.com
- (2603:10b6:208:23c::35) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD8D10E662;
+	Thu,  1 Dec 2022 18:00:45 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE3010E662;
+ Thu,  1 Dec 2022 18:00:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1669917642; x=1701453642;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=7JbfxM0BIJTQeM0nqxSmNKYTXO3qQdt9sUjsZ0/oGGE=;
+ b=jHMZL/U8WDKsZDJOupEUiH4lpO0xGQeUKXLscWeSMapWNbH6qVscjlSc
+ +oge1Syfyuw1mPJzgi8Mq9DUDLJc4LKLFAknhi8K31eGrRgQ0/A9ro/AR
+ ZAw/Ng7kbcQ8gi/i7jNkxF5vCJku6WqNcPMkU29OGyRsnnxKckJwpWkbi
+ LtCIh2wxMNPuJC6bljTfMdpN4WRfU7ukjiTvRgKk1O3MkV8X11xqDv2Ux
+ xWvjuBftrYGF07G1RYfRQev5EnDvuX2fBvE+jMNZl4OaYrl9nQmMqI+1K
+ /R0Qu1CjKGKNzejC03QUXw1oppgiuuVF5HypAIqUAMZ5ldQUTmvd93hvz A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="317623782"
+X-IronPort-AV: E=Sophos;i="5.96,209,1665471600"; d="scan'208";a="317623782"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2022 10:00:41 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="750911949"
+X-IronPort-AV: E=Sophos;i="5.96,209,1665471600"; d="scan'208";a="750911949"
+Received: from lkp-server01.sh.intel.com (HELO 64a2d449c951) ([10.239.97.150])
+ by fmsmga002.fm.intel.com with ESMTP; 01 Dec 2022 10:00:37 -0800
+Received: from kbuild by 64a2d449c951 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1p0nrQ-000CnL-1t;
+ Thu, 01 Dec 2022 18:00:36 +0000
+Date: Fri, 02 Dec 2022 02:00:20 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 2934ceb4e967b9233d0f97732e47175574a11406
+Message-ID: <6388ebb4.4fWHGaE8GeH20VVN%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|LV2PR12MB5917:EE_
-X-MS-Office365-Filtering-Correlation-Id: 37292abd-6619-49a0-56db-08dad3c05b3b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9eogui7Z77qH9lv3kRWp74Tb6FilQHgsxOvJHfD3X/P6phHd5ZD4gSc1OoWIcWCqk7Tt36s53LGvb2WXoxQIotC1YbK1vosIrc3uF82L/R66SzAs8UEeKmUVLQPfz6kPUiwPPL7XNN19O+XZ7ubBG7Z1FG3BK0lSgiArROZkejcqDCYuqn3u/vyTeb8K//pVFeN+yePBIsHkGpxssSnuxS+mpsffo9GMiIL2iLciSBI3p5rftxDdL/o3bg99uoys3/f5kfqipGqZSyQe8WmquqODN3W0p6S4AmyNFdEYFRy1Qji8kXET3jypTN4KmFlf+0ZgPAw2kfTjebZ6XHTScqJ/SB8YvIRDXx6xzaHeu75IIhhEWhjxu1jIE4EuvWh0wAXpLdnceOOQqjNbskznkmgqH0W0v5wIvd7PHwPRt7xWk86mNzEYHtrEGrtLvVIQkzanbjv5210LGDAFvQGEJV9cFqtzWX0iS4Esx6TBZeWWqZ6LyYvS7rkR68qYOp3+i7BE/xtY2fTAY9pZYo6Cq/DcEfOTzcVqjO5YpGahTBmoDyZ3x2jl1pWrVpR6BvmmiQz4PlfEFmmlCPElIgfEMLJcwVqE46+haqPf48HlF198K5ICUR5EmRjBiOGgZeqr13tBIGrf3XUBPhal8k/yqKo0Fa47f6YpkQ4oJlBMsIuEN3DKJf6e8vDpOJe7rD+ORzYv4gsJqfv8nm2PgCX4UwqokS3SzJfp5Q4/VhPqv8s=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(39860400002)(376002)(366004)(396003)(136003)(451199015)(2906002)(6512007)(316002)(6506007)(53546011)(66556008)(26005)(66946007)(36756003)(478600001)(6486002)(41300700001)(8676002)(83380400001)(66476007)(44832011)(4326008)(186003)(2616005)(31696002)(8936002)(5660300002)(31686004)(86362001)(38100700002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TXJWaHhoT09sRi85QUJoNjh3YWdDMGJpNGdSdytNRFE0TVYzOTQ5WWhuelhV?=
- =?utf-8?B?YUVPOG1BNGtQeEU2L1QrR2hWSlV1RUJCeHpqU20vK0MwTWtjVXd2SDlHME5i?=
- =?utf-8?B?d3kzdEs1STJobkJKb3hZZnF2YmJNeHkxcERWeUo0ayt3MU1GbU5ndndmaHpC?=
- =?utf-8?B?MkY5K3BOVUcrY1g0VTBrdmQ1MC9tSEU0U2I0NWdVRE5QK0xXRWEzSGV2cGhj?=
- =?utf-8?B?VCtxUkpDVXR0SUxKdkJabzRDNURBZDBUVGRKUk90T1E3WS9Ga1J6U3NWY1dm?=
- =?utf-8?B?OTA2Nm5oM2VTRDZFY0YvTGJkaDNVaXFkdnl6aEhuNU5NbVJJMjc4L3l6MVRE?=
- =?utf-8?B?VG5XSDlPQ3I5aVlGQ0xtcE9iRllFZm5lejBLdEZiWk42OVhkR2ZsQ002NlJU?=
- =?utf-8?B?RnJhdlU0T3c2dTZrQWdLclU0ZlVxYTlMZ3pnRWJCQTREekZiN1Nhc2NFMjRk?=
- =?utf-8?B?Y1NKUjZ4ekpLK1BiSis2R291L2piU2FHV3RSK0FCcjYzVlROOTAwUHYyaUZ0?=
- =?utf-8?B?WERjTnFBS1RmbXEzN1Zib2F6MlU3MHE0T0d4cVliWnFmNXFqRUhZcS82YjdE?=
- =?utf-8?B?RWxmSndnVTNOSWtNR0xnRTgwdzRhSFlpZEZHR1RYUERaOEwzK2lxaDJzeEpS?=
- =?utf-8?B?RGhzVWppOWl2aW1aRThuTWdoU0t6N2xSSDFLeHcwTFk4TVc5UDZNM3N6bnFj?=
- =?utf-8?B?MitPR0V0ZEVtYUdlbGVqYUtzQzJvOS9rWGdCdFJxZk1uVXZvdXRZaVREdFRQ?=
- =?utf-8?B?QnpybkJlWnpqMFNyM3VFYWpDYzR1OVFDYzhDKzZiNWpuVmxDTWtCbS9Od1Zz?=
- =?utf-8?B?OGxSenBTRjFtaUd1RWZHTFc5aUVhd1hDbzRwOWdGZ0RDU1E5eElFVkgrVDFn?=
- =?utf-8?B?NEw3aGdoelJ6R25jaWtCK2g2OEFJZWR1ZGl1Zm0zVGlkdjhvMUt6a0N2cWkz?=
- =?utf-8?B?M2tQd1J1WDVmL1pXOXVKOGY3TUxNUDVhc1JqakhQMFdzZTJZcjJLNFZoV0tm?=
- =?utf-8?B?U1pQem9zQlFOd0JuMFpyU3paRXZob0hmMWl5VGNTQ3NoU0l0bXVuckl2ZWpI?=
- =?utf-8?B?T3B6VjZmeHBGdmNOTTdRcEJlVEVWNGxVc3NkREtLN1RiK21RM2RsdHVrV0Q3?=
- =?utf-8?B?RVU0ZldNTjZIMVNTV1UvdzRWTWVJYXJSTWJXWmphYmlrNUErcnBnd0k5eDQ5?=
- =?utf-8?B?ci9jVXEwTFJ2ZUZSeTJjNUw2TEEraEhlemtWcXpIOXFJZXpwalJPdHFTK0pS?=
- =?utf-8?B?T2NQdU16ZVRaQlJhVDFFTTlPaUFwS1NBREhVdHBPdlNzSmhVdmVxTDBpZGpL?=
- =?utf-8?B?aWNTMndYNFFPcGRUUTdWWXNWZVEvVGx2UGFzT05zdkJXbzMxcDBTd2t3UUNK?=
- =?utf-8?B?Zk8xSDZzQU5mMGtaazR0TGgrWDVFU2VlQy9HcnVTT3hObW1DdzY2RENwQ0Fv?=
- =?utf-8?B?Tzd0ZGM3NVNnRmRUU0NXY2E4dGpUZldMSUFMdDhORlNMVmV4cld1cURicjZO?=
- =?utf-8?B?UEVTby9IWEx6R0xHNFpQVmhidEFKd0VYcmFWd2VoNEhyWmxLZUl0ZGl4OXEr?=
- =?utf-8?B?ZWZhd2NyNFVVOHhMR1dXSHpad1VuOWJxK0ZRWU42YXNFSjBYcGZYdDhjRk12?=
- =?utf-8?B?bzZreWtDdzhNYmc4bTdIVkx3L0FxeUZpbVhyUXJpTEtEOFNySHYwTVJvZXhL?=
- =?utf-8?B?bVpHZEp2aVk1ZXZnK3hSZ0lDNExMZUo5UGhSRGNYcDROQlM4NDd2Q3R3QXJC?=
- =?utf-8?B?czYvZk5aSTZ2Q0k3VjdtRDZKRkZIUUxkMEUyUWRtUXNqa0pEZGJXRVU5SWdM?=
- =?utf-8?B?MnZhSTg0emRSY0k1WmFBNnozOFl3UkVLUFJrSlg5WUttblZrbWNYMU9LQmE1?=
- =?utf-8?B?ZFVPRTNqYmFtMklDZGQ1aktQT1BFeHZ5WWZ4Wk42YzRlcFp4SlgyQlQyakM1?=
- =?utf-8?B?RVZlWTQ3TTlDUzU1WkU1Z04wM0pORXVuYlptdGtza0N6ZkkyY1daMm81emk5?=
- =?utf-8?B?eWlGOFM2N2hkelQxbjVnT2U2YUlrYXpYeWwvQnhSQVJsdFZoRWVTM0FiQnE1?=
- =?utf-8?B?OUpwbFBBWkJuYjRDR0hTZk5iOUpqbGR0TlRtVyt6MVYxd3RrYnhWUThxM1Bw?=
- =?utf-8?Q?aZjxmt+ZQPi/OXQQKpp0yvexX?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37292abd-6619-49a0-56db-08dad3c05b3b
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2022 17:20:34.5705 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: obf6c6OKSVYqUalRePKNTicbH7U8kwKlX51btSm7TtsLqIOV4TnmI1s46VEB+BQA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5917
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,81 +58,199 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: bellosilicio@gmail.com
+Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>, coreteam@netfilter.org,
+ netfilter-devel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ loongarch@lists.linux.dev, linux-omap@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-12-01 11:23, Alex Deucher wrote:
-> Add definitions to clarify GPU virtual memory.
-> 
-> Suggested-by: Peter Maucher <bellosilicio@gmail.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  Documentation/gpu/amdgpu/amdgpu-glossary.rst | 21 ++++++++++++++++++++
->  1 file changed, 21 insertions(+)
-> 
-> diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> index 326896e9800d..944ebcef1d28 100644
-> --- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> @@ -30,12 +30,33 @@ we have a dedicated glossary for Display Core at
->      EOP
->        End Of Pipe/Pipeline
->  
-> +    GART
-> +      Graphics Address Remapping Table.  This is a GPUVM page table that maps
-> +      system resources (memory or MMIO space) into the GPU's address space so
-> +      the GPU can access them.  In the GPU kernel driver's virtual address
-> +      space is referred to as the GART for legacy reasons going back to AGP
-> +      and the early GPU remapping hardware.
-> +
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 2934ceb4e967b9233d0f97732e47175574a11406  Add linux-next specific files for 20221201
 
-I'd probably mention that this is an actual IOMMU IP.
+Error/Warning reports:
 
->      GC
->        Graphics and Compute
->  
->      GMC
->        Graphic Memory Controller
->  
-> +    GPUVM
-> +      GPU Virtual Memory.  The GPU supports multiple virtual address spaces
-> +      that can be in flight at any given time.  These allow the GPU to remap
-> +      VRAM and system resources into GPU virtual address spaces for use by
-> +      the GPU kernel driver and applications using the GPU.  These provide
-> +      memory protection for different applications using the GPU.
-> +
+https://lore.kernel.org/oe-kbuild-all/202211041320.coq8EELJ-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211090634.RyFKK0WS-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211242021.FDZRFNA8-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211242120.MzZVGULn-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211301840.y7rROb13-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202212011005.7X5XAsmG-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202212020122.myyqvrXj-lkp@intel.com
 
-I'd probably add something like:
+Error/Warning: (recently discovered and may have been fixed)
 
-"... These allow the GPU to remap VRAM, using GMC, and system resources,
-     using AGP or GART, into GPU virtual address spaces ..."
+arch/arm/mach-s3c/devs.c:32:10: fatal error: linux/platform_data/dma-s3c24xx.h: No such file or directory
+arch/loongarch/kernel/ftrace_dyn.c:47:36: error: invalid use of undefined type 'struct module'
+arch/powerpc/kernel/kvm_emul.o: warning: objtool: kvm_template_end(): can't find starting instruction
+arch/powerpc/kernel/optprobes_head.o: warning: objtool: optprobe_template_end(): can't find starting instruction
+drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:40:20: warning: no previous prototype for 'to_dal_irq_source_dcn201' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c:451:1: warning: no previous prototype for 'gf100_fifo_nonstall_block' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c:451:1: warning: no previous prototype for function 'gf100_fifo_nonstall_block' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:34:1: warning: no previous prototype for 'nvkm_engn_cgrp_get' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:34:1: warning: no previous prototype for function 'nvkm_engn_cgrp_get' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/engine/gr/tu102.c:210:1: warning: no previous prototype for 'tu102_gr_load' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/engine/gr/tu102.c:210:1: warning: no previous prototype for function 'tu102_gr_load' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/nvfw/acr.c:49:1: warning: no previous prototype for 'wpr_generic_header_dump' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/nvfw/acr.c:49:1: warning: no previous prototype for function 'wpr_generic_header_dump' [-Wmissing-prototypes]
+drivers/gpu/drm/nouveau/nvkm/subdev/acr/lsfw.c:221:21: warning: variable 'loc' set but not used [-Wunused-but-set-variable]
+drivers/irqchip/irq-loongarch-cpu.c:96:12: warning: no previous prototype for 'loongarch_cpu_irq_of_init' [-Wmissing-prototypes]
+drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:1849:38: warning: unused variable 'mt8173_jpeg_drvdata' [-Wunused-const-variable]
+drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:1864:38: warning: unused variable 'mtk_jpeg_drvdata' [-Wunused-const-variable]
+drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:1890:38: warning: unused variable 'mtk8195_jpegdec_drvdata' [-Wunused-const-variable]
+drivers/regulator/tps65219-regulator.c:310:60: warning: parameter 'dev' set but not used [-Wunused-but-set-parameter]
+drivers/regulator/tps65219-regulator.c:370:26: warning: ordered comparison of pointer with integer zero [-Wextra]
+net/netfilter/nf_conntrack_netlink.c:2674:6: warning: unused variable 'mark' [-Wunused-variable]
+vmlinux.o: warning: objtool: __btrfs_map_block+0x1d77: unreachable instruction
 
-> +    GTT
-> +      Graphics Translation Tables.  This is a memory pool managed through TTM
-> +      which provides access to system resources (memory or MMIO space) for
-> +      use by the GPU. These addresses can be mapped into the GART GPUVM page
-> +      table for use by the kernel driver or into per process GPUVM page tables
-> +      for application usage.
-> +
+Error/Warning ids grouped by kconfigs:
 
-I'd probably clarify this simply by adding something like:
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
+|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
+|   |-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- alpha-randconfig-r005-20221128
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
+|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
+|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
+|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
+|   |-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- arm-allyesconfig
+|   |-- arch-arm-mach-s3c-devs.c:fatal-error:linux-platform_data-dma-s3c24xx.h:No-such-file-or-directory
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
+|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
+|   |-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- arm-defconfig
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
+|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
+|   `-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-tu102_gr_load
+|   |-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-wpr_generic_header_dump
+|   |-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-lsfw.c:warning:variable-loc-set-but-not-used
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- i386-allyesconfig
+clang_recent_errors
+|-- arm64-randconfig-r016-20221128
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-function-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-function-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-function-tu102_gr_load
+|   `-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-function-wpr_generic_header_dump
+|-- hexagon-randconfig-r041-20221128
+|   |-- drivers-media-platform-mediatek-jpeg-mtk_jpeg_core.c:warning:unused-variable-mt8173_jpeg_drvdata
+|   |-- drivers-media-platform-mediatek-jpeg-mtk_jpeg_core.c:warning:unused-variable-mtk8195_jpegdec_drvdata
+|   `-- drivers-media-platform-mediatek-jpeg-mtk_jpeg_core.c:warning:unused-variable-mtk_jpeg_drvdata
+|-- i386-randconfig-a013
+|   `-- net-netfilter-nf_conntrack_netlink.c:warning:unused-variable-mark
+|-- powerpc-randconfig-r024-20221128
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-function-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-function-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-function-tu102_gr_load
+|   `-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-function-wpr_generic_header_dump
+|-- s390-randconfig-r044-20221128
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-gf100.c:warning:no-previous-prototype-for-function-gf100_fifo_nonstall_block
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-fifo-runl.c:warning:no-previous-prototype-for-function-nvkm_engn_cgrp_get
+|   |-- drivers-gpu-drm-nouveau-nvkm-engine-gr-tu102.c:warning:no-previous-prototype-for-function-tu102_gr_load
+|   `-- drivers-gpu-drm-nouveau-nvkm-nvfw-acr.c:warning:no-previous-prototype-for-function-wpr_generic_header_dump
+`-- x86_64-randconfig-a016
+    `-- vmlinux.o:warning:objtool:handle_bug:call-to-kmsan_unpoison_entry_regs()-leaves-.noinstr.text-section
 
-"This is system memory, mapped by GART or AGP, into the GPUVM, for access by the GPU."
+elapsed time: 738m
 
-I'm ambivalent if you want to add these, but it might make things clearer, as I'd
-struggled with what something is, as opposed to what it does.
+configs tested: 59
+configs skipped: 2
 
-Having said this, this patch is generally,
+gcc tested configs:
+powerpc                           allnoconfig
+i386                 randconfig-a002-20221128
+i386                 randconfig-a003-20221128
+i386                 randconfig-a001-20221128
+i386                 randconfig-a004-20221128
+x86_64                              defconfig
+ia64                             allmodconfig
+arc                  randconfig-r043-20221128
+x86_64                           rhel-8.3-syz
+i386                 randconfig-a005-20221128
+um                             i386_defconfig
+x86_64                         rhel-8.3-kunit
+m68k                             allyesconfig
+um                           x86_64_defconfig
+arc                                 defconfig
+m68k                             allmodconfig
+i386                 randconfig-a006-20221128
+s390                             allmodconfig
+x86_64                           rhel-8.3-kvm
+arc                              allyesconfig
+x86_64                        randconfig-a004
+alpha                               defconfig
+i386                                defconfig
+x86_64                        randconfig-a002
+s390                                defconfig
+alpha                            allyesconfig
+x86_64                               rhel-8.3
+arm                                 defconfig
+x86_64                    rhel-8.3-kselftests
+x86_64                           allyesconfig
+x86_64                        randconfig-a006
+s390                             allyesconfig
+x86_64                          rhel-8.3-func
+arm                              allyesconfig
+arm64                            allyesconfig
+x86_64                        randconfig-a013
+x86_64                        randconfig-a011
+x86_64                        randconfig-a015
+i386                          randconfig-a014
+i386                          randconfig-a012
+i386                          randconfig-a016
+sh                               allmodconfig
+mips                             allyesconfig
+powerpc                          allmodconfig
+i386                             allyesconfig
 
-Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
+clang tested configs:
+hexagon              randconfig-r045-20221128
+hexagon              randconfig-r041-20221128
+riscv                randconfig-r042-20221128
+s390                 randconfig-r044-20221128
+x86_64                        randconfig-a001
+x86_64                        randconfig-a003
+x86_64                        randconfig-a005
+x86_64                        randconfig-a014
+x86_64                        randconfig-a012
+x86_64                        randconfig-a016
+i386                          randconfig-a013
+i386                          randconfig-a011
+i386                          randconfig-a015
+x86_64                          rhel-8.3-rust
 
-Thanks for doing this.
-
-Regards,
-Luben
-
->      IH
->        Interrupt Handler
->  
-
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
