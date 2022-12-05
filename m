@@ -4,56 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98E4EC4332F
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Dec 2022 15:41:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF62BC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Dec 2022 16:10:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5C1C10E241;
-	Mon,  5 Dec 2022 15:41:36 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6CD610E248
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Dec 2022 15:41:31 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-144bd860fdbso734099fac.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 05 Dec 2022 07:41:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B47B10E24B;
+	Mon,  5 Dec 2022 16:10:28 +0000 (UTC)
+Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
+ [IPv6:2607:f8b0:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F2B810E0B5;
+ Mon,  5 Dec 2022 16:10:21 +0000 (UTC)
+Received: by mail-il1-x130.google.com with SMTP id d14so5278571ilq.11;
+ Mon, 05 Dec 2022 08:10:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=1xpU1MzFqk0ORUp/TJBm0xqhGVwvaY9vu6yXO3W0Kfw=;
- b=EbqX+5acoW1A+iXyxNTYlayKmhr+JZ9ypIwBwx1T9NMuiqWNM7v5/4Iu+OosuI9fRY
- 81Dl6e4ORLwSblwPC5NyBiqixdJgJeUGu2fNjdV6B+AsZN+wGFJGmdCkIFa3IDrVxLem
- n2Xt5o45l2Vv6zqzndKmkVrnUvW8fdeskijkBGIym/eILyqyxrOwO4d3V302PxRvmN/1
- OXjxvijFIKK4HBJlL1kG/Wk0Ack4a2iVos0CQ7V3KheO6ntQYop9fW2WqTc5obCvzn1j
- Xud2ZDq81sYj702OqZEPQOEfUvrasIYjE0oaeKjauGOHYyyLPqt+N4GpmTnY2H1QnFla
- WjGA==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=DbmxPiWbeCY24/0fxJySXsMJKh2ule5cB9SoQHkfWSI=;
+ b=oY7/tOVLT7ZaLoT67yYMq/eFqiehA24XdsIwGpNNYf+B8gCqmI8rWNcYImF64zepQg
+ EgP+CUYLXZwEwIaKz874gILPZKH7AvEEzblLoo3wQR0cZKrgEzTZOAtxTO5LkySkZMCY
+ /LceIecIJ3BFUCfsRoLyp7J7dBxHj5l4+2yLX84O7D3aOEsLRXjU+l8/pnzXRvkYGUbH
+ kROvjQd9BxaztDCnKiZQS+ZZPR9GnR7IC1FLaRzxPePdVcnGaJ8xWqwcFRXvZI4GgvE0
+ 1ehmr9j2fcfQ9fOI/WL5nhYUdAQyNyp8mtdB1mSgV+3P3wyn5XBrp/CiaI0G+feng159
+ rWnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=1xpU1MzFqk0ORUp/TJBm0xqhGVwvaY9vu6yXO3W0Kfw=;
- b=D2paB6TcL/II/EAIXq9Wm+bldgPWzTH9GO6BOuARHXg/VkcKV0j0r+9Rwtb+lm8EKY
- SgW6yoOLtpvW7LtbJS/4CTUPFvJSF4mWLRdPfczquHLS2ta4aKLk6tpIznHHxMiPvhqL
- o+NmDkc0lZPHvVJsW7XuOrRguyLXAjvhFpFAF21NS7BtEtBMfSx407gicUPLCgDdQ2Be
- bmr8sfaHYgxEJJOXWPMq+WWFy0j7I1enqsfESDbDKJ/4SNQcM/VCW5pZX/JBbiMEDGEA
- p05PGJWs1LIKZegfcewU2+LQwj4eiIA3GJFB0dMPD+TpfegxymwnkQtzN2jlxbHSAs+F
- hLPg==
-X-Gm-Message-State: ANoB5pn47iA+D6As/mEo0uB/+KRH95iMpC/oXLTqaiRyY3hG46o+Z4GN
- Zl9DRwET8W3Lmh8vmODqOhlaIgyxTdUFb6OJpkdOc/Ns
-X-Google-Smtp-Source: AA0mqf7KLLnbV5xRO0Tz8TkShAkA8478I3kRcMFxp8koDQjtKjfHSl2UkVxhZsP2WeIpH+/1Mw+x9OKDclL2MKR5Y9s=
-X-Received: by 2002:a05:6870:2b05:b0:12d:58c1:33f9 with SMTP id
- ld5-20020a0568702b0500b0012d58c133f9mr37109448oab.46.1670254891032; Mon, 05
- Dec 2022 07:41:31 -0800 (PST)
+ bh=DbmxPiWbeCY24/0fxJySXsMJKh2ule5cB9SoQHkfWSI=;
+ b=QGn4K426SMqROAQCuzOpb2fko6/CJ2t4bpFSsLdLUut0mGa/oHOaPIBgpiHP0qqH3g
+ urAHUTBrkWA0BZQqi0FRR7aTW/+9W3G1R13H6rLALJIo2+MyCWP7IuzUij+J6AIobYHy
+ 4XCnAF1BuHu9r+yatR3Y+9FJFoyNK9+MJU6qv8AaiY0aZmT3Q54867CU5Qv8GLxqQgQ4
+ 3INTDaesW3RwYMKIW4sp2B262MiliAn9ettfmfsFgUw2rqIkyMyF9uH/qhnvdiy8jkLo
+ IyZE4hTbkWbV2+ksfr29EoExWC64H2FxFt9mYbbuBD3BZDSQuq/8FlbqPmb4jFSsvt4r
+ bplg==
+X-Gm-Message-State: ANoB5pkQZa6svI8vAmbwVY5JFSiPJDxlAzzEnazQAsRtKSUvlLQi3bBS
+ hS0q7dyEPtnEK4td6zY2Odo=
+X-Google-Smtp-Source: AA0mqf4EKMXBFjNrHPrB0JsxhSsyuLXuw60uEbtHeYkPjibNFJuD7jtEaYQc3AG9lCKffBLKz9xALw==
+X-Received: by 2002:a92:c6d2:0:b0:303:40e4:5f7 with SMTP id
+ v18-20020a92c6d2000000b0030340e405f7mr6079770ilm.185.1670256620713; 
+ Mon, 05 Dec 2022 08:10:20 -0800 (PST)
+Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
+ by smtp.googlemail.com with ESMTPSA id
+ g19-20020a05660226d300b006bcd45fe42bsm6017753ioo.29.2022.12.05.08.10.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Dec 2022 08:10:20 -0800 (PST)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Subject: [PATCH 0/2] DRM - avoid regression in -rc, fix comment
+Date: Mon,  5 Dec 2022 09:10:03 -0700
+Message-Id: <20221205161005.222274-1-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-References: <20221205094126.2190885-1-tim.huang@amd.com>
- <20221205094126.2190885-4-tim.huang@amd.com>
-In-Reply-To: <20221205094126.2190885-4-tim.huang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 5 Dec 2022 10:41:19 -0500
-Message-ID: <CADnq5_NHDPPnyYQqOQuFXbgzxsxb13-g4V0F2yLHHBdjRL_2Lg@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amdgpu: add tmz support for GC IP v11.0.4
-To: Tim Huang <tim.huang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,35 +69,25 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Yifan1.zhang@amd.com, Xiaojian.Du@amd.com,
- li.ma@amd.com, amd-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch,
+ Jim Cromie <jim.cromie@gmail.com>, robdclark@gmail.com, seanpaul@chromium.org,
+ ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+hi DRM-folks,
 
-On Mon, Dec 5, 2022 at 4:43 AM Tim Huang <tim.huang@amd.com> wrote:
->
-> Add tmz support for GC 11.0.4.
->
-> Signed-off-by: Tim Huang <tim.huang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index e970e3760cec..02a4c93673ce 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -549,6 +549,7 @@ void amdgpu_gmc_tmz_set(struct amdgpu_device *adev)
->         /* YELLOW_CARP*/
->         case IP_VERSION(10, 3, 3):
->         case IP_VERSION(11, 0, 1):
-> +       case IP_VERSION(11, 0, 4):
->                 /* Don't enable it by default yet.
->                  */
->                 if (amdgpu_tmz < 1) {
-> --
-> 2.25.1
->
+DRM_USE_DYNAMIC_DEBUG has regression, mark as BROKEN for now.
+Also correct a comment.
+
+Jim Cromie (2):
+  drm: mark CONFIG_DRM_USE_DYNAMIC_DEBUG as BROKEN for now
+  drm_print: fix stale macro-name in comment
+
+ drivers/gpu/drm/Kconfig | 3 ++-
+ include/drm/drm_print.h | 5 ++++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+-- 
+2.38.1
+
