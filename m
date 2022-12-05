@@ -4,58 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF62BC4332F
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Dec 2022 16:10:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 595FAC47089
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Dec 2022 16:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B47B10E24B;
-	Mon,  5 Dec 2022 16:10:28 +0000 (UTC)
-Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
- [IPv6:2607:f8b0:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F2B810E0B5;
- Mon,  5 Dec 2022 16:10:21 +0000 (UTC)
-Received: by mail-il1-x130.google.com with SMTP id d14so5278571ilq.11;
- Mon, 05 Dec 2022 08:10:21 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B941010E250;
+	Mon,  5 Dec 2022 16:10:33 +0000 (UTC)
+Received: from mail-il1-x12c.google.com (mail-il1-x12c.google.com
+ [IPv6:2607:f8b0:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F6D910E0B5;
+ Mon,  5 Dec 2022 16:10:24 +0000 (UTC)
+Received: by mail-il1-x12c.google.com with SMTP id q13so5287318ild.3;
+ Mon, 05 Dec 2022 08:10:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=DbmxPiWbeCY24/0fxJySXsMJKh2ule5cB9SoQHkfWSI=;
- b=oY7/tOVLT7ZaLoT67yYMq/eFqiehA24XdsIwGpNNYf+B8gCqmI8rWNcYImF64zepQg
- EgP+CUYLXZwEwIaKz874gILPZKH7AvEEzblLoo3wQR0cZKrgEzTZOAtxTO5LkySkZMCY
- /LceIecIJ3BFUCfsRoLyp7J7dBxHj5l4+2yLX84O7D3aOEsLRXjU+l8/pnzXRvkYGUbH
- kROvjQd9BxaztDCnKiZQS+ZZPR9GnR7IC1FLaRzxPePdVcnGaJ8xWqwcFRXvZI4GgvE0
- 1ehmr9j2fcfQ9fOI/WL5nhYUdAQyNyp8mtdB1mSgV+3P3wyn5XBrp/CiaI0G+feng159
- rWnA==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=M9ZyX2rEEt8xF2wnMR144cVYnIHvQWhY/Asi+jCe8jQ=;
+ b=BbF+/9gxLsIAvlzG5e99rniqZ8QtSEy3GUPRMo4iUlbF7n9TKdMzRkhwGZr0pZd83n
+ BYSrKV8Z0spcFDmyZ5FkEKG78cH16hQo67px8xAk8O6oKXLKv1ko8/6J52VllQ/W4DM8
+ pb84giAl7+/Am6D/aSKiqNwJGp/2XqSLKCiVmJNIM8GTRXqvc+mwZ5nRSYDp9HC4nOWV
+ JvN8sK2Cb4S/uzfEx1kCXSOfMkuBWHLYSPDeGXEjJYS3iVhxhC9EVsKKcpIFRJk0lw8Z
+ XNYraRQUc6f8ZuPEZWCWHcqDcihYp5aTyh3XOsSwLQrObF3DOFgig2vf83ntzXv4Skfw
+ jPsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DbmxPiWbeCY24/0fxJySXsMJKh2ule5cB9SoQHkfWSI=;
- b=QGn4K426SMqROAQCuzOpb2fko6/CJ2t4bpFSsLdLUut0mGa/oHOaPIBgpiHP0qqH3g
- urAHUTBrkWA0BZQqi0FRR7aTW/+9W3G1R13H6rLALJIo2+MyCWP7IuzUij+J6AIobYHy
- 4XCnAF1BuHu9r+yatR3Y+9FJFoyNK9+MJU6qv8AaiY0aZmT3Q54867CU5Qv8GLxqQgQ4
- 3INTDaesW3RwYMKIW4sp2B262MiliAn9ettfmfsFgUw2rqIkyMyF9uH/qhnvdiy8jkLo
- IyZE4hTbkWbV2+ksfr29EoExWC64H2FxFt9mYbbuBD3BZDSQuq/8FlbqPmb4jFSsvt4r
- bplg==
-X-Gm-Message-State: ANoB5pkQZa6svI8vAmbwVY5JFSiPJDxlAzzEnazQAsRtKSUvlLQi3bBS
- hS0q7dyEPtnEK4td6zY2Odo=
-X-Google-Smtp-Source: AA0mqf4EKMXBFjNrHPrB0JsxhSsyuLXuw60uEbtHeYkPjibNFJuD7jtEaYQc3AG9lCKffBLKz9xALw==
-X-Received: by 2002:a92:c6d2:0:b0:303:40e4:5f7 with SMTP id
- v18-20020a92c6d2000000b0030340e405f7mr6079770ilm.185.1670256620713; 
- Mon, 05 Dec 2022 08:10:20 -0800 (PST)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=M9ZyX2rEEt8xF2wnMR144cVYnIHvQWhY/Asi+jCe8jQ=;
+ b=gssfs6I9ta2w0QfxmeWgb4GGGa5R027rUYnGG6munkbFZagepIudXtA2Ez7GvaPydR
+ Ma+7at/7m7ipn5SogSIMpRcdZKnh3qr3esceHdNaiLZoAbvSMQ+nwVVdVgPAWgKKtvj8
+ qJkyZuSNg/v3reqSxlBOT8ys+VilYGS7elWsZbVCynGsLhzxC+MNNorfBxdeQZ0S/v5R
+ xDJ+AQqULBiSq3R16u8hjQQ+9qRj+fKQQD/p1U56z3GHXDYoy4cWhYtdrcKzVaUhaN+L
+ Zgr0LPa2mCTODqZt6Kbfw17a8Dr5s+mUARAb0D1cvQdZksCgUoGllUkpoGt05eAcuLIj
+ 0Fiw==
+X-Gm-Message-State: ANoB5pkb+5lDgfWnM5b/zmJS90834vcBb1Amk1cQBz7az2K2pVMeu6M+
+ Nr8Rn13lJWJKXLFVOhrAkslv1jy7h5Q=
+X-Google-Smtp-Source: AA0mqf7gyM+3GXVNt+XxI7afuxs5bxazGf+dEtxuz9uSFRi6e0cSSJYTYUXq+1dhcZil9FTD4PvjiA==
+X-Received: by 2002:a05:6e02:1e05:b0:302:cc74:920c with SMTP id
+ g5-20020a056e021e0500b00302cc74920cmr31013025ila.262.1670256623097; 
+ Mon, 05 Dec 2022 08:10:23 -0800 (PST)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- g19-20020a05660226d300b006bcd45fe42bsm6017753ioo.29.2022.12.05.08.10.19
+ g19-20020a05660226d300b006bcd45fe42bsm6017753ioo.29.2022.12.05.08.10.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Dec 2022 08:10:20 -0800 (PST)
+ Mon, 05 Dec 2022 08:10:22 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH 0/2] DRM - avoid regression in -rc, fix comment
-Date: Mon,  5 Dec 2022 09:10:03 -0700
-Message-Id: <20221205161005.222274-1-jim.cromie@gmail.com>
+Subject: [PATCH 2/2] drm_print: fix stale macro-name in comment
+Date: Mon,  5 Dec 2022 09:10:05 -0700
+Message-Id: <20221205161005.222274-3-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221205161005.222274-1-jim.cromie@gmail.com>
+References: <20221205161005.222274-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -75,19 +78,39 @@ Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-hi DRM-folks,
+Cited commit uses stale macro name, fix this, and explain better.
 
-DRM_USE_DYNAMIC_DEBUG has regression, mark as BROKEN for now.
-Also correct a comment.
+When DRM_USE_DYNAMIC_DEBUG=y, DYNDBG_CLASSMAP_DEFINE() maps DRM_UT_*
+onto BITs in drm.debug.  This still uses enum drm_debug_category, but
+it is somewhat indirect, with the ordered set of DRM_UT_* enum-vals.
+This requires that the macro args: DRM_UT_* list must be kept in sync
+and in order.
 
-Jim Cromie (2):
-  drm: mark CONFIG_DRM_USE_DYNAMIC_DEBUG as BROKEN for now
-  drm_print: fix stale macro-name in comment
-
- drivers/gpu/drm/Kconfig | 3 ++-
+Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+. emphasize ABI non-change despite enum val change - Jani Nikula
+. reorder to back of patchset to follow API name changes.
+---
  include/drm/drm_print.h | 5 ++++-
- 2 files changed, 6 insertions(+), 2 deletions(-)
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index a44fb7ef257f..e4c0c7e6d49d 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -276,7 +276,10 @@ static inline struct drm_printer drm_err_printer(const char *prefix)
+  *
+  */
+ enum drm_debug_category {
+-	/* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
++	/*
++	 * Keep DYNDBG_CLASSMAP_DEFINE args in sync with changes here,
++	 * the enum-values define BIT()s in drm.debug, so are ABI.
++	 */
+ 	/**
+ 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+ 	 * drm_memory.c, ...
 -- 
 2.38.1
 
