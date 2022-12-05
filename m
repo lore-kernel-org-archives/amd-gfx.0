@@ -4,67 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F249C4708C
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Dec 2022 13:41:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98E4EC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Dec 2022 15:41:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D59F10E220;
-	Mon,  5 Dec 2022 13:41:12 +0000 (UTC)
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0A9F10E223;
- Mon,  5 Dec 2022 13:41:07 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id y16so18650944wrm.2;
- Mon, 05 Dec 2022 05:41:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5C1C10E241;
+	Mon,  5 Dec 2022 15:41:36 +0000 (UTC)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6CD610E248
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Dec 2022 15:41:31 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-144bd860fdbso734099fac.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 05 Dec 2022 07:41:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=fE4lMQQ090KmPjanKoQ75JrjLoy64NK7MppP1jX30FQ=;
- b=e1vl3bbKWX9GL1wnmH/INR76R8wQjSAWlZztJ9goEoHCs4qrQmwJpahpJsr127Lu3w
- zJdX9hP4ijQ8Q2LmiASWe518f6NMEFusqrtStstRHhdgLGRgfXoVLSoydWvfOD5KZZmm
- PbLtS7qu34Do9VRPvnv3HGtNrgOcaElC/4oQ1OntCJcKvJ2UTDt6hIxtLLCqjGry4CVo
- PyUQBXGpIp3p90UcbTWInl4Y6cjoACoCIKGtuBgoFA5me8Aog/Ls1Y92ke2MrpTRP9uG
- obxcw/5LkzI5SB6EGGTCnkUiI9eIWRh5nprYtHz6aqJFZeugKOULPDbjwHBodXviDamG
- NfCw==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=1xpU1MzFqk0ORUp/TJBm0xqhGVwvaY9vu6yXO3W0Kfw=;
+ b=EbqX+5acoW1A+iXyxNTYlayKmhr+JZ9ypIwBwx1T9NMuiqWNM7v5/4Iu+OosuI9fRY
+ 81Dl6e4ORLwSblwPC5NyBiqixdJgJeUGu2fNjdV6B+AsZN+wGFJGmdCkIFa3IDrVxLem
+ n2Xt5o45l2Vv6zqzndKmkVrnUvW8fdeskijkBGIym/eILyqyxrOwO4d3V302PxRvmN/1
+ OXjxvijFIKK4HBJlL1kG/Wk0Ack4a2iVos0CQ7V3KheO6ntQYop9fW2WqTc5obCvzn1j
+ Xud2ZDq81sYj702OqZEPQOEfUvrasIYjE0oaeKjauGOHYyyLPqt+N4GpmTnY2H1QnFla
+ WjGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fE4lMQQ090KmPjanKoQ75JrjLoy64NK7MppP1jX30FQ=;
- b=WisXb4h7szsHlglmVcO7QIjuI+W/hqkzHhpWZsHOAWh4TOjFID/OK7BnXiAzBoELKe
- rvZSOPWWz+/2az8KhFPNQMGrXMlFhxL6/FwQBaulNWly6AshYw+isdiEek4004xP/rzk
- Yj7Qi5Mpniog0gRQnLSgQMCMdZ/lmYrKdWqXNeLL70mlMzgMmaKDBSusIUiRI8iE0xYE
- LlRQ4Vaf4apPFyTX0NgaWHB+j0hBFvkSsNNS7zoabySDwc0yg7SN4apHO6QS6EjtPGf6
- 2+n6qIgY5yU7aQaEVCWeuWmNxJKo0p7dJXcbyyJOq2P5eGwflE9zufw+6DZv5lc4/M4X
- JEJQ==
-X-Gm-Message-State: ANoB5plIZ/SMoorVyp71kmMTtMXrZ9RKxbznjHVpyCySnjHZADaJm9pb
- +XaCwIq2kYXZzm9mjxsGXSE=
-X-Google-Smtp-Source: AA0mqf453ftm/ynNui+GhaPEKjrTQOS6NHU4gZQb15pmX1jpvh6hx2U9GhS/Oi56a2WLjdLV265GGg==
-X-Received: by 2002:adf:f752:0:b0:242:3afe:a9b4 with SMTP id
- z18-20020adff752000000b002423afea9b4mr11017264wrp.579.1670247666228; 
- Mon, 05 Dec 2022 05:41:06 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:2deb:ad55:c010:ff66?
- ([2a02:908:1256:79a0:2deb:ad55:c010:ff66])
- by smtp.gmail.com with ESMTPSA id
- n19-20020a05600c305300b003cf6a55d8e8sm16684987wmh.7.2022.12.05.05.41.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Dec 2022 05:41:05 -0800 (PST)
-Message-ID: <d7df935b-6c8b-e5ae-0da3-76c107ce9dd6@gmail.com>
-Date: Mon, 5 Dec 2022 14:41:04 +0100
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=1xpU1MzFqk0ORUp/TJBm0xqhGVwvaY9vu6yXO3W0Kfw=;
+ b=D2paB6TcL/II/EAIXq9Wm+bldgPWzTH9GO6BOuARHXg/VkcKV0j0r+9Rwtb+lm8EKY
+ SgW6yoOLtpvW7LtbJS/4CTUPFvJSF4mWLRdPfczquHLS2ta4aKLk6tpIznHHxMiPvhqL
+ o+NmDkc0lZPHvVJsW7XuOrRguyLXAjvhFpFAF21NS7BtEtBMfSx407gicUPLCgDdQ2Be
+ bmr8sfaHYgxEJJOXWPMq+WWFy0j7I1enqsfESDbDKJ/4SNQcM/VCW5pZX/JBbiMEDGEA
+ p05PGJWs1LIKZegfcewU2+LQwj4eiIA3GJFB0dMPD+TpfegxymwnkQtzN2jlxbHSAs+F
+ hLPg==
+X-Gm-Message-State: ANoB5pn47iA+D6As/mEo0uB/+KRH95iMpC/oXLTqaiRyY3hG46o+Z4GN
+ Zl9DRwET8W3Lmh8vmODqOhlaIgyxTdUFb6OJpkdOc/Ns
+X-Google-Smtp-Source: AA0mqf7KLLnbV5xRO0Tz8TkShAkA8478I3kRcMFxp8koDQjtKjfHSl2UkVxhZsP2WeIpH+/1Mw+x9OKDclL2MKR5Y9s=
+X-Received: by 2002:a05:6870:2b05:b0:12d:58c1:33f9 with SMTP id
+ ld5-20020a0568702b0500b0012d58c133f9mr37109448oab.46.1670254891032; Mon, 05
+ Dec 2022 07:41:31 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 1/9] drm/amdgpu: generally allow over-commit during BO
- allocation
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20221125102137.1801-1-christian.koenig@amd.com>
- <CADnq5_NFXJCOD7bLS7Ax5W09To_J6bBfCj4_+1tDP5r9kFxnvQ@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CADnq5_NFXJCOD7bLS7Ax5W09To_J6bBfCj4_+1tDP5r9kFxnvQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20221205094126.2190885-1-tim.huang@amd.com>
+ <20221205094126.2190885-4-tim.huang@amd.com>
+In-Reply-To: <20221205094126.2190885-4-tim.huang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 5 Dec 2022 10:41:19 -0500
+Message-ID: <CADnq5_NHDPPnyYQqOQuFXbgzxsxb13-g4V0F2yLHHBdjRL_2Lg@mail.gmail.com>
+Subject: Re: [PATCH 4/4] drm/amdgpu: add tmz support for GC IP v11.0.4
+To: Tim Huang <tim.huang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,99 +65,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Yifan1.zhang@amd.com, Xiaojian.Du@amd.com,
+ li.ma@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 25.11.22 um 19:18 schrieb Alex Deucher:
-> On Fri, Nov 25, 2022 at 5:21 AM Christian König
-> <ckoenig.leichtzumerken@gmail.com> wrote:
->> We already fallback to a dummy BO with no backing store when we
->> allocate GDS,GWS and OA resources and to GTT when we allocate VRAM.
->>
->> Drop all those workarounds and generalize this for GTT as well. This
->> fixes ENOMEM issues with runaway applications which try to allocate/free
->> GTT in a loop and are otherwise only limited by the CPU speed.
->>
->> The CS will wait for the cleanup of freed up BOs to satisfy the
->> various domain specific limits and so effectively throttle those
->> buggy applications down to a sane allocation behavior again.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
-> This looks like a good bug fix and unrelated to the rest of this series.
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Yeah, this was just in the tree because I tried to address some bug report.
-
-The TTM changes mitigated the bugs, but this patch here is the real 
-underlying fix.
-
-I've cherry picked it over to amd-staging-drm-next and pushed it.
-
-Thanks,
-Christian.
-
+On Mon, Dec 5, 2022 at 4:43 AM Tim Huang <tim.huang@amd.com> wrote:
 >
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 16 +++-------------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  6 +-----
->>   2 files changed, 4 insertions(+), 18 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> index a0780a4e3e61..62e98f1ad770 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> @@ -113,7 +113,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
->>          bp.resv = resv;
->>          bp.preferred_domain = initial_domain;
->>          bp.flags = flags;
->> -       bp.domain = initial_domain;
->> +       bp.domain = initial_domain | AMDGPU_GEM_DOMAIN_CPU;
->>          bp.bo_ptr_size = sizeof(struct amdgpu_bo);
->>
->>          r = amdgpu_bo_create_user(adev, &bp, &ubo);
->> @@ -332,20 +332,10 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
->>          }
->>
->>          initial_domain = (u32)(0xffffffff & args->in.domains);
->> -retry:
->>          r = amdgpu_gem_object_create(adev, size, args->in.alignment,
->> -                                    initial_domain,
->> -                                    flags, ttm_bo_type_device, resv, &gobj);
->> +                                    initial_domain, flags, ttm_bo_type_device,
->> +                                    resv, &gobj);
->>          if (r && r != -ERESTARTSYS) {
->> -               if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
->> -                       flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
->> -                       goto retry;
->> -               }
->> -
->> -               if (initial_domain == AMDGPU_GEM_DOMAIN_VRAM) {
->> -                       initial_domain |= AMDGPU_GEM_DOMAIN_GTT;
->> -                       goto retry;
->> -               }
->>                  DRM_DEBUG("Failed to allocate GEM object (%llu, %d, %llu, %d)\n",
->>                                  size, initial_domain, args->in.alignment, r);
->>          }
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> index 974e85d8b6cc..919bbea2e3ac 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> @@ -581,11 +581,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->>                  bo->flags |= AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
->>
->>          bo->tbo.bdev = &adev->mman.bdev;
->> -       if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA |
->> -                         AMDGPU_GEM_DOMAIN_GDS))
->> -               amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU);
->> -       else
->> -               amdgpu_bo_placement_from_domain(bo, bp->domain);
->> +       amdgpu_bo_placement_from_domain(bo, bp->domain);
->>          if (bp->type == ttm_bo_type_kernel)
->>                  bo->tbo.priority = 1;
->>
->> --
->> 2.34.1
->>
-
+> Add tmz support for GC 11.0.4.
+>
+> Signed-off-by: Tim Huang <tim.huang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index e970e3760cec..02a4c93673ce 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -549,6 +549,7 @@ void amdgpu_gmc_tmz_set(struct amdgpu_device *adev)
+>         /* YELLOW_CARP*/
+>         case IP_VERSION(10, 3, 3):
+>         case IP_VERSION(11, 0, 1):
+> +       case IP_VERSION(11, 0, 4):
+>                 /* Don't enable it by default yet.
+>                  */
+>                 if (amdgpu_tmz < 1) {
+> --
+> 2.25.1
+>
