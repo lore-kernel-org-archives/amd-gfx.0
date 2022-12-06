@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18BB8C4708E
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 00:36:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C337C4708E
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 00:37:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A28810E30F;
-	Tue,  6 Dec 2022 00:35:36 +0000 (UTC)
-Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
- [IPv6:2607:f8b0:4864:20::d29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE27010E2D4;
- Tue,  6 Dec 2022 00:35:15 +0000 (UTC)
-Received: by mail-io1-xd29.google.com with SMTP id q190so3649521iod.10;
- Mon, 05 Dec 2022 16:35:15 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCF5910E308;
+	Tue,  6 Dec 2022 00:35:33 +0000 (UTC)
+Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
+ [IPv6:2607:f8b0:4864:20::d2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60B9310E2DB;
+ Tue,  6 Dec 2022 00:35:11 +0000 (UTC)
+Received: by mail-io1-xd2c.google.com with SMTP id i83so2365968ioa.11;
+ Mon, 05 Dec 2022 16:35:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=c37Q/3APLWW6xBx5+RAUFPKVzvBaq0UZM8cuJI12nq8=;
- b=fInW/fz/NZURKWbXeJO4WygWi9zc+v8xHEsZjvIP1SGX514xYTeqgtjqqpSlVAHLCH
- TOJXYAtWtI2082hr0ma2lLIzcf379a/JYBgzu6B/lJ+wjBSlxer8yArYF3H/dozIyzfg
- qb96XdJM85Jt+Glc0bZ198ysyMkjql93sgM5zeQ3GypV2tMs2TtEuMe0FNGMp8xE5yew
- X4cAxpspZo3X33yCXvP1Vfz3AM3xs26WltlDY4EWn9LIfCJMSJ0klz8PD8RRiq3HRaa4
- zTzB4eiK8GX9BsqTZx5/Ko70VK4Kekcjsa/rorQNZsmPQmEvgk9MRPloodr0SqHexgHB
- gDNg==
+ bh=Dhgn9wX8VnoKy4gzdEAPvv/+WdYNfhhNGem4xWUo+54=;
+ b=cFjT5uBYIfbwjn+ZYskaH0i9/7ogEYuVuZP+PF9wO1tDwTZn2NY6q3tcELecZeDsOZ
+ VhfUVTL1zEHCFF34UEGr17MYKK/GCq3rjL8KrLVSpUuORuCV2lxsdXUJICDQu9Odwq4u
+ x8lhsRupAN+pUzghCYZtaekjHz15L1SFI4VKPoZ2TXiSJQdXojgaOpY8rPlafl9obLgQ
+ zUUidFrJdbJR6Hwt8NYCRizAFopS3vBpAex2augWlW9eu3efXR9QtnJGD1+FSbTYsvw3
+ f3coPez/qgNUkvfvISWWzsnxOj08VAx0m0sdpXQgIbo3eQ2yw3L8iUzUqodpM3IBPSCa
+ PABQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=c37Q/3APLWW6xBx5+RAUFPKVzvBaq0UZM8cuJI12nq8=;
- b=ucU6X736sYboMFUzdwyRWC+WjpC0K0A2gzMrBDrip1eoYnQEREXOBvrL0gTG1t16jP
- Tkc7fgmvFamwIHZ8r8OSzTVQqQmNO3MrfxbQSC5/2r8ppCwHHpxP0hyGG+3Ar0W36Mhz
- T5OWEzcuYkhCRbp1jd9WrSYY5zw705UpUu0yD6NPuYkCPyPiaMa8TES/f3qnfk3fItLU
- NOUNAVh9xDAyJNEa0WyQA/kuGWqtMUQVDyHhkUincb9UafVe4lsbfyraonmkAzazsNxQ
- YzW3qpUZu850PyfQOvUqv1AsqzbIm6o9C/Hi5eUb2b8gwrOOzU65enY+e9IJsw5GjGX/
- IaEQ==
-X-Gm-Message-State: ANoB5pkPjTtn14KbalkXdhOQVABefGhuVZ6e+o1y998Pqd9QPRifhfO5
- OfXvij9rl9yh5f32VO51hZQ=
-X-Google-Smtp-Source: AA0mqf7oyQ/Ut5DBcMYLlfxOUOfqpUsnujlkz7rGYAqP0T3E8L8IvpBEe5J4iFJB/BCF5L0cIJsM/g==
-X-Received: by 2002:a02:84c3:0:b0:38a:1e93:c32f with SMTP id
- f61-20020a0284c3000000b0038a1e93c32fmr6858176jai.212.1670286915005; 
- Mon, 05 Dec 2022 16:35:15 -0800 (PST)
+ bh=Dhgn9wX8VnoKy4gzdEAPvv/+WdYNfhhNGem4xWUo+54=;
+ b=GUvaShebnt8gSc5l2MEKY/ZHVnNEkMzRPYimwH6no0xTuAJy3anjbGvQYEPMI1/AFl
+ uowJrr3uRrMIoRSiGe9B4vufG7xshW2549FWIf4UgnJn3xlrNF7P+QKi1HUQg7mEUVcd
+ 0UnHbf54g8IIe7lMUtMDySjoc1JxlGWo1iicryG+wFsetGHA2bDam+t/YcFIXy9nCVxJ
+ fehjuzEdsWVIVhqtC1Vfhh1HKpZjTRNKngqr6E7FPZgeuvWTIDqN3d1K6B9RqjUe4H7o
+ HnWQGwBrPABy7Q0KEjk3o/iGH+T4XL3kuKl3E4JvdWWqu9sxxMSPoHyER3TR7UvCVnMG
+ 8twg==
+X-Gm-Message-State: ANoB5pkkHqVYAaQicQOwNQrqedNbg90QtKAqFyaoXW4efg6upN2jD83R
+ mc7+G7kuAN9fyoWUy4mWsCs=
+X-Google-Smtp-Source: AA0mqf4UrGwrWW8ayZpYFUogOfCrj+KdhRKQlLYKVBdzN70o9Io7J3UShL/h1FTcWu9T3atRD0XnnA==
+X-Received: by 2002:a6b:fd17:0:b0:6df:eed3:42c3 with SMTP id
+ c23-20020a6bfd17000000b006dfeed342c3mr6238175ioi.63.1670286910901; 
+ Mon, 05 Dec 2022 16:35:10 -0800 (PST)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- x3-20020a056602160300b006bba42f7822sm6408213iow.52.2022.12.05.16.35.14
+ x3-20020a056602160300b006bba42f7822sm6408213iow.52.2022.12.05.16.35.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Dec 2022 16:35:14 -0800 (PST)
+ Mon, 05 Dec 2022 16:35:10 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [RFC PATCH 15/17] dyndbg: ddebug_sanity()
-Date: Mon,  5 Dec 2022 17:34:22 -0700
-Message-Id: <20221206003424.592078-16-jim.cromie@gmail.com>
+Subject: [RFC PATCH 12/17] dyndbg-API: DYNDBG_CLASSMAP_DEFINE() improvements
+Date: Mon,  5 Dec 2022 17:34:19 -0700
+Message-Id: <20221206003424.592078-13-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221206003424.592078-1-jim.cromie@gmail.com>
 References: <20221206003424.592078-1-jim.cromie@gmail.com>
@@ -78,235 +78,287 @@ Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch, jbaron@akamai.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It appears that, at least for builtin drm,i915 loadable amdgpu, data
-in the class_refs section is not properly linked, this works partway
-towards isolating the problem.
+patch 1 in this series fixed a CLASSMAP usage error, this improves the
+api so that misuse is less likely.
 
-The "NO CLI" name test is failing.
- This version of the report fails with a non-canonical address:
- // v2pr_info("NO CLI name on: %s\n", cli->map->mod_name);
+changes here:
 
-[    0.109299] dyndbg: add-module: main 6 sites 1.3
-[    0.109595] general protection fault, probably for non-canonical address 0x7265766972640000: 0000
+0- Add William Swanson's public domain map macro:
+   https://github.com/swansontec/map-macro/blob/master/map.h
+   this makes 1 possible.
 
-fwiw:
-  $ perl -e ' $a = pack "H8", "7265766972640000"; print "a:<$a>\n"'
-  a:<revi>
+1- classnames were formerly specified as strings: "DRM_UT_CORE"
+   now they are the actual enum const symbols:     DRM_UT_CORE
+   direct use of symbols is tighter, more comprehensible by tools, grep
 
-These records are added to __dyndbg_class_refs section by
-DYNDBG_CLASSMAP_USE
+2- drop _base arg.
+   _base was the value of the 1st classname
+   that is now available due to 1, no need to require it 2x
 
-This patch adds ddebug_sanity(), and calls it 3 times to characterize
-what goes wrong and when.  It turns out that its contents are wrong
-immediately, in 1st step of dynamic_debug_init().
+So take _base out of the API/kdoc.  Note that the macro impl keeps the
+_base arg so that it can be used to set classmap.base, but reuses it
+in the MAP-stringify _base, __VA_ARGS__ expression.
 
-[    0.107327] dyndbg: classes
-[    0.107537] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
-[    0.107592] dyndbg: class-refs
-[    0.107823] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e35e nm:0000000000000000 nm:(null)
-[    0.108554] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe86 nm:ffffffff834fc4c8 nm:
-[    0.108590] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785aa nm:ffffffff834fc4c8 nm:
+Also cleanup the API usage comment in test_dynamic_debug.c, and since
+comments in test-code might not be noticed, restate that here.
 
-Those maps are wrong:
+Using the CLASSMAP api:
 
-class-refs should all ref the same map, ie class[0]: module:drm.
-the nm:s should also show module names of 3 builtin clients of drm.
-So things must end poorly.
+  - class-specifications are enum consts/symbols,
+    like DRM_UT_CORE, DRM_UT_KMS, etc.
+    their values define bit positions to drm.debug (as before)
 
-modprobing the loadable module does better:
+  - they are stringified and accepted at >control
+    echo class DRM_UT_CORE +p >control
 
-bash-5.2# modprobe amdgpu
-[ 6645.212706] AMD-Vi: AMD IOMMUv2 functionality not available on this system - This is not a bug.
-[ 6645.653124] dyndbg: add-module: amdgpu 4425 sites 0.1
-[ 6645.653582] dyndbg: classes
-[ 6645.653830] dyndbg: class-refs
-[ 6645.654124] dyndbg: class-ref[0]: cli:ffffffffc0a31b90 map:ffffffff834fc4c8 nm:ffffffffc08bc176 nm:amdgpu
-[ 6645.654936] dyndbg: classes
-[ 6645.655188] dyndbg: class-refs
-[ 6645.655450] dyndbg: class-ref[0]: cli:ffffffffc0a31b90 map:ffffffff834fc4c8 nm:ffffffffc08bc176 nm:amdgpu
-[ 6645.656246] dyndbg: class_ref[0] amdgpu -> drm
-[ 6645.656613] dyndbg: amdgpu needs drm, 0x0
-[ 6645.656953] dyndbg: apply bitmap: 0x0 to: 0x0
-[ 6645.657322] dyndbg: break on 0/1
-[ 6645.657592] dyndbg: 4425 debug prints in module amdgpu
+  - multiple class-maps must share the per-module: 0-62 class_id space
+    (by setting initial enum values to non-overlapping subranges)
 
-Here, the maps are correct; they ref the class[0] module:drm above.
-That said, apply bitmap is wrong.
+todo: fixup the 'i' prefix, a quick/dirty avoidance of MAP.
+
+NOTE: test_dynamic_debug.c also has this helper macro to wire a
+classmap to a drm.debug style parameter; its easier to just use it as
+a model/template as needed, rather than try to make it general enough
+to be an official API helper.
+
+ define DD_SYS_WRAP(_model, _flags)					\
+	static unsigned long bits_##_model;				\
+	static struct ddebug_class_param _flags##_model = {		\
+		.bits = &bits_##_model,					\
+		.flags = #_flags,					\
+		.map = &map_##_model,					\
+	};								\
+	module_param_cb(_flags##_##_model, &param_ops_dyndbg_classes, &_flags##_model, 0600)
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-
 ---
+ drivers/gpu/drm/drm_print.c   | 22 +++++++-------
+ include/drm/drm_print.h       |  1 +
+ include/linux/dynamic_debug.h | 17 ++++++-----
+ include/linux/map.h           | 54 +++++++++++++++++++++++++++++++++++
+ lib/test_dynamic_debug.c      | 43 ++++++++++++++--------------
+ 5 files changed, 95 insertions(+), 42 deletions(-)
+ create mode 100644 include/linux/map.h
 
-[    1.210094] dyndbg: add-module: drm 302 sites 1.3
-[    1.210496] dyndbg: classes
-[    1.210674] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
-[    1.211290] dyndbg: class-refs
-[    1.211548] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
-[    1.211674] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
-[    1.212464] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
-[    1.212675] dyndbg: classes start: class[0]: module:drm base:0 len:10 ty:0
-[    1.213257] dyndbg: builtin class: module:drm base:0 len:10 ty:0
-[    1.213675] dyndbg: controlling kp: drm.drm.debug
-[    1.214087] dyndbg: module:drm attached 1 classes
-[    1.214490] dyndbg: classes
-[    1.214674] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
-[    1.215291] dyndbg: class-refs
-[    1.215552] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
-[    1.215674] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
-[    1.216430] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
-[    1.216674] dyndbg: NO CLI ffffffff8293e376 7265766972640000
-[    1.217149] dyndbg: 302 debug prints in module drm
-[    1.217549] dyndbg: add-module: drm_kms_helper 95 sites 1.3
-[    1.217674] dyndbg: classes
-[    1.217913] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
-[    1.218525] dyndbg: class-refs
-[    1.218674] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
-[    1.219486] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
-[    1.219674] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
-[    1.220469] dyndbg: classes
-[    1.220674] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
-[    1.221324] dyndbg: class-refs
-[    1.221606] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
-[    1.221674] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
-[    1.222472] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
-[    1.222674] dyndbg: NO CLI ffffffff8293e376 7265766972640000
-[    1.223173] dyndbg:  95 debug prints in module drm_kms_helper
-[    1.223675] dyndbg: add-module: drm_display_helper 150 sites 1.3
-[    1.224223] dyndbg: classes
-[    1.224484] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
-[    1.224676] dyndbg: class-refs
-[    1.224954] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
-[    1.225674] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
-[    1.226498] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
-[    1.226674] dyndbg: classes
-[    1.226931] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
-[    1.227577] dyndbg: class-refs
-[    1.227674] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
-[    1.228501] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
-[    1.228674] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
-[    1.229443] dyndbg: NO CLI ffffffff8293e376 7265766972640000
-[    1.229674] dyndbg: 150 debug prints in module drm_display_helper
-[    1.230195] dyndbg: add-module: ttm 2 sites 1.3
-[    1.230581] dyndbg: classes
-[    1.230674] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
-[    1.231291] dyndbg: class-refs
-[    1.231559] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
-[    1.231674] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
-[    1.232439] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
-[    1.232674] dyndbg: classes
-[    1.232915] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
-[    1.233535] dyndbg: class-refs
-[    1.233674] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
-[    1.234470] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
-[    1.234674] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
-[    1.235427] dyndbg: NO CLI ffffffff8293e376 7265766972640000
-[    1.235674] dyndbg:   2 debug prints in module ttm
-[    1.236079] dyndbg: add-module: i915 1657 sites 1.3
-[    1.236490] dyndbg: classes
-[    1.236674] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
-[    1.237283] dyndbg: class-refs
-[    1.237545] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
-[    1.237674] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
-[    1.238431] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
-[    1.238674] dyndbg: classes
-[    1.238911] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
-[    1.239519] dyndbg: class-refs
-[    1.239674] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
-[    1.240467] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
-[    1.240674] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
-[    1.241478] dyndbg: NO CLI ffffffff8293e376 7265766972640000
-[    1.241674] dyndbg: 1657 debug prints in module i915
----
- include/linux/dynamic_debug.h |  4 ++--
- lib/dynamic_debug.c           | 32 +++++++++++++++++++++++++++++++-
- 2 files changed, 33 insertions(+), 3 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index 4b697e18238d..07c25241e8cc 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -56,17 +56,17 @@ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug cat
+ module_param_named(debug, __drm_debug, ulong, 0600);
+ #else
+ /* classnames must match vals of enum drm_debug_category */
+-DYNDBG_CLASSMAP_DEFINE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+-			"DRM_UT_CORE",
+-			"DRM_UT_DRIVER",
+-			"DRM_UT_KMS",
+-			"DRM_UT_PRIME",
+-			"DRM_UT_ATOMIC",
+-			"DRM_UT_VBL",
+-			"DRM_UT_STATE",
+-			"DRM_UT_LEASE",
+-			"DRM_UT_DP",
+-			"DRM_UT_DRMRES");
++DYNDBG_CLASSMAP_DEFINE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS,
++		       DRM_UT_CORE,
++		       DRM_UT_DRIVER,
++		       DRM_UT_KMS,
++		       DRM_UT_PRIME,
++		       DRM_UT_ATOMIC,
++		       DRM_UT_VBL,
++		       DRM_UT_STATE,
++		       DRM_UT_LEASE,
++		       DRM_UT_DP,
++		       DRM_UT_DRMRES);
+ 
+ static struct ddebug_class_param drm_debug_bitmap = {
+ 	.bits = &__drm_debug,
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index a44fb7ef257f..6a27e8f26770 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -333,6 +333,7 @@ static inline bool drm_debug_enabled_raw(enum drm_debug_category category)
+ 	})
+ 
+ #if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
++//extern struct ddebug_class_map drm_debug_classes[];
+ /*
+  * the drm.debug API uses dyndbg, so each drm_*dbg macro/callsite gets
+  * a descriptor, and only enabled callsites are reachable.  They use
 diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 6f53a687cb32..2a1199aadab6 100644
+index 0088fc354c98..6f53a687cb32 100644
 --- a/include/linux/dynamic_debug.h
 +++ b/include/linux/dynamic_debug.h
-@@ -115,8 +115,8 @@ struct ddebug_class_map {
- 	EXPORT_SYMBOL(_var)
+@@ -7,6 +7,7 @@
+ #endif
  
- struct ddebug_class_user {
--	char *user_mod_name;
--	struct ddebug_class_map *map;
-+	const char *user_mod_name;
-+	const struct ddebug_class_map *map;
- };
- /**
-  * DYNDBG_CLASSMAP_USE - refer to a classmap, DEFINEd elsewhere.
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 02f36c553835..46684aa7284d 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -1301,7 +1301,8 @@ static void ddebug_attach_client_module_classes(struct ddebug_table *dt, struct
- 			continue;
- 		}
- 		if (!cli->user_mod_name) {
--			v2pr_info("NO CLI name\n");
-+			v2pr_info("NO CLI name %px %px\n", cli->map, cli->map->mod_name);
-+			// v2pr_info("NO CLI name on: %s\n", cli->map->mod_name);
- 			continue;
- 		}
+ #include <linux/build_bug.h>
++#include <linux/map.h>
  
-@@ -1325,6 +1326,29 @@ static void ddebug_attach_client_module_classes(struct ddebug_table *dt, struct
- 	}
- }
- 
-+static void ddebug_sanity(struct _ddebug_info *di)
-+{
-+	struct ddebug_class_map *cm;
-+	struct ddebug_class_user *cli;
-+	int i;
-+
-+	if (di->num_classes)
-+		v2pr_info("classes\n");
-+
-+	for (i = 0, cm = di->classes; i < di->num_classes; i++, cm++) {
-+		v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d cm:%px\n",
-+			  i, cm->mod_name, cm->base, cm->length, cm->map_type, cm);
-+	}
-+	if (di->num_class_refs)
-+		v2pr_info("class-refs\n");
-+
-+	for (i = 0, cli = di->class_refs; i < di->num_class_refs; i++, cli++) {
-+		// cli->map->mod_name will segv
-+		v2pr_info("class-ref[%d]: cli:%px map:%px nm:%px nm:%s\n", i, cli,
-+			  cli->map, cli->user_mod_name, cli->user_mod_name);
-+	}
-+}
-+
  /*
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
-@@ -1357,6 +1381,8 @@ int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+  * An instance of this structure is created in a special
+@@ -92,18 +93,16 @@ struct ddebug_class_map {
+ };
  
- 	INIT_LIST_HEAD(&dt->link);
- 
-+	ddebug_sanity(di);
+ /**
+- * DYNDBG_CLASSMAP_DEFINE - define debug-classes used by a module.
+- * @_var:   name of the classmap, exported for other modules coordinated use.
+- * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
+- * @_base:  offset of 1st class-name. splits .class_id space
+- * @classes: enum-map - symbol names are "classnames", vals are .class_ids
++ * DYNDBG_CLASSMAP_DEFINE - define the debug classes used in this module.
++ * This tells dyndbg what debug classes it should control for the client.
+  *
+- * @classes vals are _ddebug.class_ids used in the module, the symbol
+- * names are stringified; they authorize "class FOO" to >control.
+- * Connection to a kernel-param is done separately.
++ * @_var:    struct ddebug_class_map, as passed to module_param_cb
++ * @_type:   enum ddebug_class_map_type, chooses bits/verbose, numeric/symbolic
++ * @classes: enum class values used in module, such as: DRM_UT_*
+  */
+ #define DYNDBG_CLASSMAP_DEFINE(_var, _maptype, _base, ...)		\
+-	const char *_var##_classnames[] = { __VA_ARGS__ };		\
++	const char *_var##_classnames[] = {				\
++		iMAP_LIST(__stringify, _base, __VA_ARGS__) };		\
+ 	struct ddebug_class_map __aligned(8) __used			\
+ 		__section("__dyndbg_classes") _var = {			\
+ 		.mod = THIS_MODULE,					\
+diff --git a/include/linux/map.h b/include/linux/map.h
+new file mode 100644
+index 000000000000..4348313a596f
+--- /dev/null
++++ b/include/linux/map.h
+@@ -0,0 +1,54 @@
++/*
++ * Created by William Swanson in 2012.
++ *
++ * I, William Swanson, dedicate this work to the public domain.
++ * I waive all rights to the work worldwide under copyright law,
++ * including all related and neighboring rights,
++ * to the extent allowed by law.
++ *
++ * You can copy, modify, distribute and perform the work,
++ * even for commercial purposes, all without asking permission.
++ */
 +
- 	if (di->num_classes)
- 		ddebug_attach_module_classes(dt, di);
- 
-@@ -1364,6 +1390,8 @@ int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- 	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
- 
-+	ddebug_sanity(di);
++#ifndef MAP_H_INCLUDED
++#define MAP_H_INCLUDED
 +
- 	if (di->num_class_refs)
- 		ddebug_attach_client_module_classes(dt, di);
- 
-@@ -1493,6 +1521,8 @@ static int __init dynamic_debug_init(void)
- 		.num_class_refs = __stop___dyndbg_class_refs - __start___dyndbg_class_refs,
- 	};
- 
-+	ddebug_sanity(&di);
++#define iEVAL0(...) __VA_ARGS__
++#define iEVAL1(...) iEVAL0(iEVAL0(iEVAL0(__VA_ARGS__)))
++#define iEVAL2(...) iEVAL1(iEVAL1(iEVAL1(__VA_ARGS__)))
++#define iEVAL3(...) iEVAL2(iEVAL2(iEVAL2(__VA_ARGS__)))
++#define iEVAL4(...) iEVAL3(iEVAL3(iEVAL3(__VA_ARGS__)))
++#define iEVAL(...)  iEVAL4(iEVAL4(iEVAL4(__VA_ARGS__)))
 +
- 	if (&__start___dyndbg == &__stop___dyndbg) {
- 		if (IS_ENABLED(CONFIG_DYNAMIC_DEBUG)) {
- 			pr_warn("_ddebug table is empty in a CONFIG_DYNAMIC_DEBUG build\n");
++#define iMAP_END(...)
++#define iMAP_OUT
++#define iMAP_COMMA ,
++
++#define iMAP_GET_END2() 0, iMAP_END
++#define iMAP_GET_END1(...) iMAP_GET_END2
++#define iMAP_GET_END(...) iMAP_GET_END1
++#define iMAP_NEXT0(test, next, ...) next iMAP_OUT
++#define iMAP_NEXT1(test, next) iMAP_NEXT0(test, next, 0)
++#define iMAP_NEXT(test, next)  iMAP_NEXT1(iMAP_GET_END test, next)
++
++#define iMAP0(f, x, peek, ...) f(x) iMAP_NEXT(peek, iMAP1)(f, peek, __VA_ARGS__)
++#define iMAP1(f, x, peek, ...) f(x) iMAP_NEXT(peek, iMAP0)(f, peek, __VA_ARGS__)
++
++#define iMAP_LIST_NEXT1(test, next) iMAP_NEXT0(test, iMAP_COMMA next, 0)
++#define iMAP_LIST_NEXT(test, next)  iMAP_LIST_NEXT1(iMAP_GET_END test, next)
++
++#define iMAP_LIST0(f, x, peek, ...) f(x) iMAP_LIST_NEXT(peek, iMAP_LIST1)(f, peek, __VA_ARGS__)
++#define iMAP_LIST1(f, x, peek, ...) f(x) iMAP_LIST_NEXT(peek, iMAP_LIST0)(f, peek, __VA_ARGS__)
++
++/**
++ * Applies the function macro `f` to each of the remaining parameters.
++ */
++#define iMAP(f, ...) iEVAL(iMAP1(f, __VA_ARGS__, ()()(), ()()(), ()()(), 0))
++
++/**
++ * Applies the function macro `f` to each of the remaining parameters and
++ * inserts commas between the results.
++ */
++#define iMAP_LIST(f, ...) iEVAL(iMAP_LIST1(f, __VA_ARGS__, ()()(), ()()(), ()()(), 0))
++
++#endif
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index 4ae01f7fa920..f471737fdfc3 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -33,11 +33,10 @@ module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
+ 
+ /*
+  * Using the CLASSMAP api:
+- * - classmaps must have corresponding enum
+- * - enum symbols must match/correlate with class-name strings in the map.
+- * - base must equal enum's 1st value
+- * - multiple maps must set their base to share the 0-30 class_id space !!
+- *   (build-bug-on tips welcome)
++ * - class-names are enum consts/symbols, like DRM_UT_CORE, DRM_UT_KMS, etc
++ * - those names are accepted at >control interface
++ * - multiple class-maps must share the per-module: 0-62 class_id space
++ *   (by setting initial enum values to non-overlapping subranges)
+  * Additionally, here:
+  * - tie together sysname, mapname, bitsname, flagsname
+  */
+@@ -62,38 +61,38 @@ enum cat_disjoint_bits {
+ 	D2_LEASE,
+ 	D2_DP,
+ 	D2_DRMRES };
+-DYNDBG_CLASSMAP_DEFINE(map_disjoint_bits, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+-		       "D2_CORE",
+-		       "D2_DRIVER",
+-		       "D2_KMS",
+-		       "D2_PRIME",
+-		       "D2_ATOMIC",
+-		       "D2_VBL",
+-		       "D2_STATE",
+-		       "D2_LEASE",
+-		       "D2_DP",
+-		       "D2_DRMRES");
++DYNDBG_CLASSMAP_DEFINE(map_disjoint_bits, DD_CLASS_TYPE_DISJOINT_BITS,
++		       D2_CORE,
++		       D2_DRIVER,
++		       D2_KMS,
++		       D2_PRIME,
++		       D2_ATOMIC,
++		       D2_VBL,
++		       D2_STATE,
++		       D2_LEASE,
++		       D2_DP,
++		       D2_DRMRES);
+ DD_SYS_WRAP(disjoint_bits, p);
+ DD_SYS_WRAP(disjoint_bits, T);
+ 
+ /* symbolic input, independent bits */
+ enum cat_disjoint_names { LOW = 10, MID, HI };
+-DYNDBG_CLASSMAP_DEFINE(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES, 10,
+-		       "LOW", "MID", "HI");
++DYNDBG_CLASSMAP_DEFINE(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES,
++		       LOW, MID, HI);
+ DD_SYS_WRAP(disjoint_names, p);
+ DD_SYS_WRAP(disjoint_names, T);
+ 
+ /* numeric verbosity, V2 > V1 related */
+ enum cat_level_num { V0 = 14, V1, V2, V3, V4, V5, V6, V7 };
+-DYNDBG_CLASSMAP_DEFINE(map_level_num, DD_CLASS_TYPE_LEVEL_NUM, 14,
+-		       "V0", "V1", "V2", "V3", "V4", "V5", "V6", "V7");
++DYNDBG_CLASSMAP_DEFINE(map_level_num, DD_CLASS_TYPE_LEVEL_NUM,
++		       V0, V1, V2, V3, V4, V5, V6, V7);
+ DD_SYS_WRAP(level_num, p);
+ DD_SYS_WRAP(level_num, T);
+ 
+ /* symbolic verbosity */
+ enum cat_level_names { L0 = 22, L1, L2, L3, L4, L5, L6, L7 };
+-DYNDBG_CLASSMAP_DEFINE(map_level_names, DD_CLASS_TYPE_LEVEL_NAMES, 22,
+-		       "L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7");
++DYNDBG_CLASSMAP_DEFINE(map_level_names, DD_CLASS_TYPE_LEVEL_NAMES,
++		       L0, L1, L2, L3, L4, L5, L6, L7);
+ DD_SYS_WRAP(level_names, p);
+ DD_SYS_WRAP(level_names, T);
+ 
 -- 
 2.38.1
 
