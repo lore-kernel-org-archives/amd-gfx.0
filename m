@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAC85C4708C
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 00:36:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18BB8C4708E
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 00:36:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FF2110E2F2;
-	Tue,  6 Dec 2022 00:35:30 +0000 (UTC)
-Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
- [IPv6:2607:f8b0:4864:20::d2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E82710E2D4;
- Tue,  6 Dec 2022 00:35:08 +0000 (UTC)
-Received: by mail-io1-xd2e.google.com with SMTP id h6so2988255iof.9;
- Mon, 05 Dec 2022 16:35:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A28810E30F;
+	Tue,  6 Dec 2022 00:35:36 +0000 (UTC)
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
+ [IPv6:2607:f8b0:4864:20::d29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE27010E2D4;
+ Tue,  6 Dec 2022 00:35:15 +0000 (UTC)
+Received: by mail-io1-xd29.google.com with SMTP id q190so3649521iod.10;
+ Mon, 05 Dec 2022 16:35:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SAAKFjB1VNTzR6Sh5xG3GSn+/WNGfps5BORZPudnIXg=;
- b=drc0sSwo/bo8bZGj6roOSN2Ge80cj0T5RLkyGnsrroeW+JeJBWxfrV+2Uf1wDBtrMb
- keQiYLGhbGiahnXRqjIxFXjX9nHN/PeTYd8TTO14XqgvWzfexLgglRIkKyFaq05KW5aB
- 1yT/dIkaBf7KkzRAGKunHlrZ1VJzRy4LHepVUiPbcYje52lZrkW35V2i0Lfn3kgsTfiN
- tNpyoEwfHXptAANRkuttvg73fGxajymodYuAwnfeUagSf9/HQjLPtaD0W2ehaXbItqLY
- BXaR5nXKK62okdS7khfvgiuL07j2dRHSsimeCoEkHEx6vIZQBwjniT66kpWIaBpIGXSr
- JDKQ==
+ bh=c37Q/3APLWW6xBx5+RAUFPKVzvBaq0UZM8cuJI12nq8=;
+ b=fInW/fz/NZURKWbXeJO4WygWi9zc+v8xHEsZjvIP1SGX514xYTeqgtjqqpSlVAHLCH
+ TOJXYAtWtI2082hr0ma2lLIzcf379a/JYBgzu6B/lJ+wjBSlxer8yArYF3H/dozIyzfg
+ qb96XdJM85Jt+Glc0bZ198ysyMkjql93sgM5zeQ3GypV2tMs2TtEuMe0FNGMp8xE5yew
+ X4cAxpspZo3X33yCXvP1Vfz3AM3xs26WltlDY4EWn9LIfCJMSJ0klz8PD8RRiq3HRaa4
+ zTzB4eiK8GX9BsqTZx5/Ko70VK4Kekcjsa/rorQNZsmPQmEvgk9MRPloodr0SqHexgHB
+ gDNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=SAAKFjB1VNTzR6Sh5xG3GSn+/WNGfps5BORZPudnIXg=;
- b=XhIp5uqLK8oecbFqEK38NnAskQ0XAoVTedr788ymLNaqAJ05Pj6VUI6PfznNWLtARR
- 1vAm1kMENU14DFgOiKlfhR45Xu9A9PYzW62XWB15DmEzJEfg8pPzr8sOCEAhNv04Hs5I
- N6G8/PX5YnYJmMEPMncnKLHq8WAlwfU2fsImkkCAY0W6viu/s+32uK0kfDTbKqvLks/F
- yukCoMrLRv13EXgfNOmGXfmIDTetLyQ3VcBdmTzQiBtgwqkUQQTlclVeZ+3dWinQQNOb
- 2nWX4z/EcXN5L2zL98/B8Qo1fK1DHqOONv+hVFiXSnaoXJFzOjeyV7NHA3Bpg+sknrez
- N6xw==
-X-Gm-Message-State: ANoB5pn+aAO6aXpURKe/IQYqBjAPPuts8ISU+G2G4AzLVjV41xcFz9RV
- 2Um9h7Ci81SP/uQwXDnG5M4=
-X-Google-Smtp-Source: AA0mqf4byq9ON4UsZ7YAL8HebV+cIzzK30DoCiYN/5PpTUJOKeD+AyLH7gYA7zMTCT8Ofvk1oM2pzg==
-X-Received: by 2002:a5e:c64a:0:b0:6cc:e295:7bde with SMTP id
- s10-20020a5ec64a000000b006cce2957bdemr290273ioo.183.1670286907728; 
- Mon, 05 Dec 2022 16:35:07 -0800 (PST)
+ bh=c37Q/3APLWW6xBx5+RAUFPKVzvBaq0UZM8cuJI12nq8=;
+ b=ucU6X736sYboMFUzdwyRWC+WjpC0K0A2gzMrBDrip1eoYnQEREXOBvrL0gTG1t16jP
+ Tkc7fgmvFamwIHZ8r8OSzTVQqQmNO3MrfxbQSC5/2r8ppCwHHpxP0hyGG+3Ar0W36Mhz
+ T5OWEzcuYkhCRbp1jd9WrSYY5zw705UpUu0yD6NPuYkCPyPiaMa8TES/f3qnfk3fItLU
+ NOUNAVh9xDAyJNEa0WyQA/kuGWqtMUQVDyHhkUincb9UafVe4lsbfyraonmkAzazsNxQ
+ YzW3qpUZu850PyfQOvUqv1AsqzbIm6o9C/Hi5eUb2b8gwrOOzU65enY+e9IJsw5GjGX/
+ IaEQ==
+X-Gm-Message-State: ANoB5pkPjTtn14KbalkXdhOQVABefGhuVZ6e+o1y998Pqd9QPRifhfO5
+ OfXvij9rl9yh5f32VO51hZQ=
+X-Google-Smtp-Source: AA0mqf7oyQ/Ut5DBcMYLlfxOUOfqpUsnujlkz7rGYAqP0T3E8L8IvpBEe5J4iFJB/BCF5L0cIJsM/g==
+X-Received: by 2002:a02:84c3:0:b0:38a:1e93:c32f with SMTP id
+ f61-20020a0284c3000000b0038a1e93c32fmr6858176jai.212.1670286915005; 
+ Mon, 05 Dec 2022 16:35:15 -0800 (PST)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- x3-20020a056602160300b006bba42f7822sm6408213iow.52.2022.12.05.16.35.06
+ x3-20020a056602160300b006bba42f7822sm6408213iow.52.2022.12.05.16.35.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Dec 2022 16:35:07 -0800 (PST)
+ Mon, 05 Dec 2022 16:35:14 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [RFC PATCH 10/17] dyndbg-API: specialize DYNDBG_CLASSMAP_(DEFINE|USE)
-Date: Mon,  5 Dec 2022 17:34:17 -0700
-Message-Id: <20221206003424.592078-11-jim.cromie@gmail.com>
+Subject: [RFC PATCH 15/17] dyndbg: ddebug_sanity()
+Date: Mon,  5 Dec 2022 17:34:22 -0700
+Message-Id: <20221206003424.592078-16-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221206003424.592078-1-jim.cromie@gmail.com>
 References: <20221206003424.592078-1-jim.cromie@gmail.com>
@@ -78,457 +78,235 @@ Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch, jbaron@akamai.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that the DECLARE_DYNDBG_CLASSMAP macro has been split into
-DYNDBG_CLASSMAP_DEFINE and DYNDBG_CLASSMAP_USE variants, lets
-differentiate them according to their separate jobs.
+It appears that, at least for builtin drm,i915 loadable amdgpu, data
+in the class_refs section is not properly linked, this works partway
+towards isolating the problem.
 
-Dyndbg's existing __dyndbg_classes[] section does:
+The "NO CLI" name test is failing.
+ This version of the report fails with a non-canonical address:
+ // v2pr_info("NO CLI name on: %s\n", cli->map->mod_name);
 
-. catalogs the classmaps defined by the module (or builtin modules)
-. authorizes dyndbg to >control those class'd prdbgs for the module.
+[    0.109299] dyndbg: add-module: main 6 sites 1.3
+[    0.109595] general protection fault, probably for non-canonical address 0x7265766972640000: 0000
 
-This patch adds __dyndbg_class_refs[] section:
+fwiw:
+  $ perl -e ' $a = pack "H8", "7265766972640000"; print "a:<$a>\n"'
+  a:<revi>
 
-. catalogs references/uses of the above classmap definitions.
-. authorizes dyndbg to >control those class'd prdbgs in ref'g module.
-. maps the client module to classmap definitions
-  this allows dyndbg to propagate drm.debug to the client module.
+These records are added to __dyndbg_class_refs section by
+DYNDBG_CLASSMAP_USE
 
-The distinction of the 2 roles yields 2 gains:
+This patch adds ddebug_sanity(), and calls it 3 times to characterize
+what goes wrong and when.  It turns out that its contents are wrong
+immediately, in 1st step of dynamic_debug_init().
 
-It follows the define-once-declare-elsewhere pattern that K&R gave us,
-dumping the weird coordinated-changes-by-identical-classmaps API.
+[    0.107327] dyndbg: classes
+[    0.107537] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
+[    0.107592] dyndbg: class-refs
+[    0.107823] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e35e nm:0000000000000000 nm:(null)
+[    0.108554] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe86 nm:ffffffff834fc4c8 nm:
+[    0.108590] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785aa nm:ffffffff834fc4c8 nm:
 
-It should help solve the chicken-egg problem that drm.debug-on-dyndbg
-has; the _USEr module must propagate the drm.debug setting once the
-using module has loaded.
+Those maps are wrong:
 
-The new DYNDBG_CLASSMAP macros add records to the sections:
+class-refs should all ref the same map, ie class[0]: module:drm.
+the nm:s should also show module names of 3 builtin clients of drm.
+So things must end poorly.
 
-DYNDBG_CLASSMAP_DEFINE:
-  invoked by drm_print, just once per sub-system.
-  defines the classmap, names "DRM_UT_*", maps to class_id's
-  authorizes dyndbg to exert >control
-  populates __dyndbg_classes[] "section", __used.
-  exports the classmap.
+modprobing the loadable module does better:
 
-DYNDBG_CLASSMAP_USE:
-  invoked by modules using classmaps defined & exported elsewhere
-  populates __dyndbg_class_refs[] "section", __used.
-  maps client-module name to the extern'd classmap.
-  no client-name yet, but will need it.
+bash-5.2# modprobe amdgpu
+[ 6645.212706] AMD-Vi: AMD IOMMUv2 functionality not available on this system - This is not a bug.
+[ 6645.653124] dyndbg: add-module: amdgpu 4425 sites 0.1
+[ 6645.653582] dyndbg: classes
+[ 6645.653830] dyndbg: class-refs
+[ 6645.654124] dyndbg: class-ref[0]: cli:ffffffffc0a31b90 map:ffffffff834fc4c8 nm:ffffffffc08bc176 nm:amdgpu
+[ 6645.654936] dyndbg: classes
+[ 6645.655188] dyndbg: class-refs
+[ 6645.655450] dyndbg: class-ref[0]: cli:ffffffffc0a31b90 map:ffffffff834fc4c8 nm:ffffffffc08bc176 nm:amdgpu
+[ 6645.656246] dyndbg: class_ref[0] amdgpu -> drm
+[ 6645.656613] dyndbg: amdgpu needs drm, 0x0
+[ 6645.656953] dyndbg: apply bitmap: 0x0 to: 0x0
+[ 6645.657322] dyndbg: break on 0/1
+[ 6645.657592] dyndbg: 4425 debug prints in module amdgpu
 
-also:
-
-struct ddebug_info gets 2 new fields to encapsulate the new section:
-  class_refs, num_class_refs.
-  set by dynamic_debug_init() for builtins.
-  or by kernel/module/main:load_info() for loadable modules.
-
-. struct ddebug_class_user
-  contains: user-module-name, ref to classmap-defn
-  dyndbg finds drm-driver's use of a classmap, gets/applies its settings
-
-. struct ddebug_class_map gets .knob ptr to ddebug_class_param.
-  compiled null, init'd under ddebug_add_module()
-  allows finding drm.debug setting.
-
-. vmlinux.lds.h additions: linker symbols, KEEP for new section
-
-dynamic_debug.c:
-
-ddebug_attach_module_classes():
-  as before
-  foreach __dyndbg_classes: ddebug_find_kparam(classmap*)
-
-ddebug_attach_client_module_classes():
-  foreach __dyndbg_class_refs: ddebug_param_load_dependent_class(classmap*)
-  called after list-add to ddebug-tables.
-
-ddebug_load_dependent_class():
-
-This applies >controls to the module, it needs the module to be
-present in the ddebug-tables list so that ddebug_change can apply the
-changes to it.  So in ddebug_add_module, call 2nd fn *after* adding
-the ddebug_table to the list.
-
-ddebug_find_kparam(classmap*):
-
-Finds the kernel-param / sysfs-node that controls the classmap, by
-verifying that dyndbg's kparam-ops are used by the kparam.  The found
-kparams arg is our ddebug_class_param, and has a ref to the state-var
-under the sysfs-node.
-
-ddebug_match_attach_kparam():
-
-tests that kparam.ops == dyndbg's, then casts arg to
-ddebug_class_param, and tests modnames for equality.
-
-ddebug_param_load_dependent_class(struct ddebug_class_user*):
-
-Called on class_refs entries, these classmaps have already been seen
-by ddebug_find_kparam() which has wired the classmap.knob to the kparam.
-So this fn just calls ddebug_apply_class_bitmap() on the state-var.
-
-ddebug_find_valid_class():
-
-This helps ddebug_change(), doing the search over classmaps, looking
-for the class given to >control.  So now it searches over
-__dyndbg_class_refs[] after __dyndbg_classes[].
-
-Thats the theory anyway.  things are still broken (differently) for
-both builtins and loadables.  For loadables, the >control is applied,
-but doesnt alter any callsites.
+Here, the maps are correct; they ref the class[0] module:drm above.
+That said, apply bitmap is wrong.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- include/asm-generic/vmlinux.lds.h |   3 +
- include/linux/dynamic_debug.h     |  41 ++++++---
- kernel/module/main.c              |   2 +
- lib/dynamic_debug.c               | 137 +++++++++++++++++++++++++++---
- 4 files changed, 157 insertions(+), 26 deletions(-)
 
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index 3dc5824141cd..7100701fb68c 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -363,6 +363,9 @@
- 	__start___dyndbg_classes = .;					\
- 	KEEP(*(__dyndbg_classes))					\
- 	__stop___dyndbg_classes = .;					\
-+	__start___dyndbg_class_refs = .;				\
-+	KEEP(*(__dyndbg_class_refs))					\
-+	__stop___dyndbg_class_refs = .;					\
- 	__start___dyndbg = .;						\
- 	KEEP(*(__dyndbg))						\
- 	__stop___dyndbg = .;						\
+---
+
+[    1.210094] dyndbg: add-module: drm 302 sites 1.3
+[    1.210496] dyndbg: classes
+[    1.210674] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
+[    1.211290] dyndbg: class-refs
+[    1.211548] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
+[    1.211674] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
+[    1.212464] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
+[    1.212675] dyndbg: classes start: class[0]: module:drm base:0 len:10 ty:0
+[    1.213257] dyndbg: builtin class: module:drm base:0 len:10 ty:0
+[    1.213675] dyndbg: controlling kp: drm.drm.debug
+[    1.214087] dyndbg: module:drm attached 1 classes
+[    1.214490] dyndbg: classes
+[    1.214674] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
+[    1.215291] dyndbg: class-refs
+[    1.215552] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
+[    1.215674] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
+[    1.216430] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
+[    1.216674] dyndbg: NO CLI ffffffff8293e376 7265766972640000
+[    1.217149] dyndbg: 302 debug prints in module drm
+[    1.217549] dyndbg: add-module: drm_kms_helper 95 sites 1.3
+[    1.217674] dyndbg: classes
+[    1.217913] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
+[    1.218525] dyndbg: class-refs
+[    1.218674] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
+[    1.219486] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
+[    1.219674] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
+[    1.220469] dyndbg: classes
+[    1.220674] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
+[    1.221324] dyndbg: class-refs
+[    1.221606] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
+[    1.221674] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
+[    1.222472] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
+[    1.222674] dyndbg: NO CLI ffffffff8293e376 7265766972640000
+[    1.223173] dyndbg:  95 debug prints in module drm_kms_helper
+[    1.223675] dyndbg: add-module: drm_display_helper 150 sites 1.3
+[    1.224223] dyndbg: classes
+[    1.224484] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
+[    1.224676] dyndbg: class-refs
+[    1.224954] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
+[    1.225674] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
+[    1.226498] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
+[    1.226674] dyndbg: classes
+[    1.226931] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
+[    1.227577] dyndbg: class-refs
+[    1.227674] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
+[    1.228501] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
+[    1.228674] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
+[    1.229443] dyndbg: NO CLI ffffffff8293e376 7265766972640000
+[    1.229674] dyndbg: 150 debug prints in module drm_display_helper
+[    1.230195] dyndbg: add-module: ttm 2 sites 1.3
+[    1.230581] dyndbg: classes
+[    1.230674] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
+[    1.231291] dyndbg: class-refs
+[    1.231559] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
+[    1.231674] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
+[    1.232439] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
+[    1.232674] dyndbg: classes
+[    1.232915] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
+[    1.233535] dyndbg: class-refs
+[    1.233674] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
+[    1.234470] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
+[    1.234674] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
+[    1.235427] dyndbg: NO CLI ffffffff8293e376 7265766972640000
+[    1.235674] dyndbg:   2 debug prints in module ttm
+[    1.236079] dyndbg: add-module: i915 1657 sites 1.3
+[    1.236490] dyndbg: classes
+[    1.236674] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
+[    1.237283] dyndbg: class-refs
+[    1.237545] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
+[    1.237674] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
+[    1.238431] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
+[    1.238674] dyndbg: classes
+[    1.238911] dyndbg: class[0]: module:drm base:0 len:10 ty:0 cm:ffffffff834fc4c8
+[    1.239519] dyndbg: class-refs
+[    1.239674] dyndbg: class-ref[0]: cli:ffffffff834fc508 map:ffffffff8293e376 nm:0000000000000000 nm:(null)
+[    1.240467] dyndbg: class-ref[1]: cli:ffffffff834fc518 map:ffffffff8293fe9e nm:ffffffff834fc4c8 nm:
+[    1.240674] dyndbg: class-ref[2]: cli:ffffffff834fc528 map:ffffffff829785c2 nm:ffffffff834fc4c8 nm:
+[    1.241478] dyndbg: NO CLI ffffffff8293e376 7265766972640000
+[    1.241674] dyndbg: 1657 debug prints in module i915
+---
+ include/linux/dynamic_debug.h |  4 ++--
+ lib/dynamic_debug.c           | 32 +++++++++++++++++++++++++++++++-
+ 2 files changed, 33 insertions(+), 3 deletions(-)
+
 diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 1cdfd62fd2e4..dabbe1a9180c 100644
+index 6f53a687cb32..2a1199aadab6 100644
 --- a/include/linux/dynamic_debug.h
 +++ b/include/linux/dynamic_debug.h
-@@ -81,8 +81,10 @@ enum ddebug_class_map_type {
+@@ -115,8 +115,8 @@ struct ddebug_class_map {
+ 	EXPORT_SYMBOL(_var)
+ 
+ struct ddebug_class_user {
+-	char *user_mod_name;
+-	struct ddebug_class_map *map;
++	const char *user_mod_name;
++	const struct ddebug_class_map *map;
  };
- 
- struct ddebug_class_map {
--	struct module *mod;
--	const char *mod_name;	/* needed for builtins */
-+	struct list_head link;
-+	struct module *mod;			/* NULL for builtins */
-+	const char *mod_name;
-+	struct ddebug_class_param *dc_parm;	/* controlling sysfs node */
- 	const char **class_names;
- 	const int length;
- 	const int base;		/* index of 1st .class_id, allows split/shared space */
-@@ -99,8 +101,8 @@ struct ddebug_class_map {
-  * @classes: class-names used to control class'd prdbgs
-  */
- #define DYNDBG_CLASSMAP_DEFINE(_var, _maptype, _base, ...)		\
--	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
--	static struct ddebug_class_map __aligned(8) __used		\
-+	const char *_var##_classnames[] = { __VA_ARGS__ };		\
-+	struct ddebug_class_map __aligned(8) __used			\
- 		__section("__dyndbg_classes") _var = {			\
- 		.mod = THIS_MODULE,					\
- 		.mod_name = KBUILD_MODNAME,				\
-@@ -108,24 +110,37 @@ struct ddebug_class_map {
- 		.map_type = _maptype,					\
- 		.length = ARRAY_SIZE(_var##_classnames),		\
- 		.class_names = _var##_classnames,			\
--	}
-+	};								\
-+	EXPORT_SYMBOL(_var)
- 
--/*
-- * refer to the classmap instantiated once, by the macro above.  This
-- * distinguishes the multiple users of drm.debug from the single
-- * definition, allowing them to specialize.  ATM its a pass-thru, but
-- * it should help regularize the admittedly wierd sharing by identical
-- * definitions.
-+struct ddebug_class_user {
-+	char *user_mod_name;
-+	struct ddebug_class_map *map;
-+};
-+/**
-+ * DYNDBG_CLASSMAP_USE - Use a classmap DEFINEd in another module.
-+ * This lets dyndbg initialize the dependent module's prdbgs from the
-+ * other module's controlling sysfs node.
-  */
--#define DYNDBG_CLASSMAP_USE(_var, _maptype, _base, ...)		\
--	DYNDBG_CLASSMAP_DEFINE(_var, _maptype, _base, __VA_ARGS__)
-+#define DYNDBG_CLASSMAP_USE(_var, ...)					\
-+	DYNDBG_CLASSMAP_USE_(_var, __UNIQUE_ID(ddebug_class_user),	\
-+			     __VA_ARGS__)
-+#define DYNDBG_CLASSMAP_USE_(_var, _uname, ...)				\
-+	extern struct ddebug_class_map _var[];				\
-+	static struct ddebug_class_user __used				\
-+	__section("__dyndbg_class_refs") _uname = {			\
-+		.user_mod_name = KBUILD_MODNAME,			\
-+		.map = _var,						\
-+	}
- 
- /* encapsulate linker provided built-in (or module) dyndbg data */
- struct _ddebug_info {
- 	struct _ddebug *descs;
- 	struct ddebug_class_map *classes;
-+	struct ddebug_class_user *class_refs;
- 	unsigned int num_descs;
- 	unsigned int num_classes;
-+	unsigned int num_class_refs;
- };
- 
- struct ddebug_class_param {
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index d02d39c7174e..ee4f85a3b8f0 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -2111,6 +2111,8 @@ static int find_module_sections(struct module *mod, struct load_info *info)
- 					sizeof(*info->dyndbg.descs), &info->dyndbg.num_descs);
- 	info->dyndbg.classes = section_objs(info, "__dyndbg_classes",
- 					sizeof(*info->dyndbg.classes), &info->dyndbg.num_classes);
-+	info->dyndbg.class_refs = section_objs(info, "__dyndbg_class_refs",
-+					sizeof(*info->dyndbg.class_refs), &info->dyndbg.num_class_refs);
- 
- 	return 0;
- }
+ /**
+  * DYNDBG_CLASSMAP_USE - refer to a classmap, DEFINEd elsewhere.
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 445f25ef2461..45b8414fa130 100644
+index 02f36c553835..46684aa7284d 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -43,13 +43,16 @@ extern struct _ddebug __start___dyndbg[];
- extern struct _ddebug __stop___dyndbg[];
- extern struct ddebug_class_map __start___dyndbg_classes[];
- extern struct ddebug_class_map __stop___dyndbg_classes[];
-+extern struct ddebug_class_user __start___dyndbg_class_refs[];
-+extern struct ddebug_class_user __stop___dyndbg_class_refs[];
- 
- struct ddebug_table {
- 	struct list_head link;
- 	const char *mod_name;
- 	struct _ddebug *ddebugs;
- 	struct ddebug_class_map *classes;
--	unsigned int num_ddebugs, num_classes;
-+	struct ddebug_class_user *class_refs;
-+	unsigned int num_ddebugs, num_classes, num_class_refs;
- };
- 
- struct ddebug_query {
-@@ -153,15 +156,23 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
- 							__outvar int *class_id)
- {
- 	struct ddebug_class_map *map;
-+	struct ddebug_class_user *cli;
- 	int i, idx;
- 
--	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
-+	for (i = 0, map = dt->classes; i < dt->num_classes; i++, map++) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
- 			return map;
+@@ -1301,7 +1301,8 @@ static void ddebug_attach_client_module_classes(struct ddebug_table *dt, struct
+ 			continue;
  		}
+ 		if (!cli->user_mod_name) {
+-			v2pr_info("NO CLI name\n");
++			v2pr_info("NO CLI name %px %px\n", cli->map, cli->map->mod_name);
++			// v2pr_info("NO CLI name on: %s\n", cli->map->mod_name);
+ 			continue;
+ 		}
+ 
+@@ -1325,6 +1326,29 @@ static void ddebug_attach_client_module_classes(struct ddebug_table *dt, struct
  	}
-+	for (i = 0, cli = dt->class_refs; i < dt->num_class_refs; i++, cli++) {
-+		idx = match_string(cli->map->class_names, cli->map->length, class_string);
-+		if (idx >= 0) {
-+			*class_id = idx + map->base;
-+			return map;
-+		}
-+	}
- 	*class_id = -ENOENT;
- 	return NULL;
  }
-@@ -603,7 +614,7 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 	int matches = 0;
- 	int bi, ct;
  
--	v2pr_info("apply: 0x%lx to: 0x%lx\n", *new_bits, *old_bits);
-+	v2pr_info("apply bitmap: 0x%lx to: 0x%lx\n", *new_bits, *old_bits);
- 
- 	for (bi = 0; bi < map->length; bi++) {
- 		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
-@@ -1106,13 +1117,19 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
- 
- static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
- {
--	struct ddebug_class_map *map = iter->table->classes;
--	int i, nc = iter->table->num_classes;
-+	struct ddebug_table *dt = iter->table;
-+	struct ddebug_class_map *map;
++static void ddebug_sanity(struct _ddebug_info *di)
++{
++	struct ddebug_class_map *cm;
 +	struct ddebug_class_user *cli;
 +	int i;
- 
--	for (i = 0; i < nc; i++, map++)
-+	for (i = 0, map = dt->classes; i < dt->num_classes; i++, map++)
- 		if (class_in_range(dp->class_id, map))
- 			return map->class_names[dp->class_id - map->base];
- 
-+	for (i = 0, cli = dt->class_refs; i < dt->num_class_refs; i++, cli++)
-+		if (class_in_range(dp->class_id, cli->map))
-+			return cli->map->class_names[dp->class_id - map->base];
 +
- 	return NULL;
- }
- 
-@@ -1193,6 +1210,54 @@ static const struct proc_ops proc_fops = {
- 	.proc_write = ddebug_proc_write
- };
- 
-+static void ddebug_match_attach_kparam(const struct kernel_param *kp,
-+				       struct ddebug_class_map *cm)
-+{
-+	struct ddebug_class_param *dcp;
++	if (di->num_classes)
++		v2pr_info("classes\n");
 +
-+	if (kp->ops != &param_ops_dyndbg_classes)
-+		return;
-+	dcp = (struct ddebug_class_param *)kp->arg;
-+
-+	if (!strncmp(cm->mod_name, dcp->map->mod_name, strlen(cm->mod_name))) {
-+		cm->dc_parm = dcp;
-+		v2pr_info("controlling kp: %s.%s\n", cm->mod_name, kp->name);
-+	} else
-+		v2pr_info("not this: %s %s\n", cm->mod_name, kp->name);
-+}
-+
-+static void ddebug_find_kparam(struct ddebug_class_map *cm)
-+{
-+	const struct kernel_param *kp;
-+	int i;
-+
-+	if (cm->mod) {
-+		v2pr_info("loaded class: module:%s base:%d len:%d ty:%d\n",
-+			  cm->mod_name, cm->base, cm->length, cm->map_type);
-+
-+		for (i = 0, kp = cm->mod->kp; i < cm->mod->num_kp; i++, kp++)
-+			ddebug_match_attach_kparam(kp, cm);
-+	} else {
-+		v2pr_info("builtin class: module:%s base:%d len:%d ty:%d\n",
-+			  cm->mod_name, cm->base, cm->length, cm->map_type);
-+
-+		for (kp = __start___param; kp < __stop___param; kp++)
-+			ddebug_match_attach_kparam(kp, cm);
-+	}
-+}
-+
-+static void ddebug_param_load_dependent_class(const struct ddebug_class_user *cli)
-+{
-+	unsigned long new_bits, old_bits = 0;
-+
-+	new_bits = *cli->map->dc_parm->bits;
-+
-+	vpr_info("%s needs %s, 0x%lx\n", cli->user_mod_name,
-+		 cli->map->mod_name, new_bits);
-+
-+	ddebug_apply_class_bitmap(cli->map->dc_parm, &new_bits, &old_bits, cli->user_mod_name);
-+}
-+
- static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
- {
- 	struct ddebug_class_map *cm;
-@@ -1203,20 +1268,60 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- 	 * the builtin/modular classmap vector/section.  Save the start
- 	 * and length of the subrange at its edges.
- 	 */
--	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
 +	for (i = 0, cm = di->classes; i < di->num_classes; i++, cm++) {
- 
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
- 			if (!nc) {
--				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
--					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
- 				dt->classes = cm;
-+				v2pr_info("classes start: class[%d]: module:%s base:%d len:%d ty:%d\n",
-+					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
- 			}
-+			ddebug_find_kparam(cm);
- 			nc++;
- 		}
- 	}
--	if (nc) {
--		dt->num_classes = nc;
-+	dt->num_classes = nc;
-+	if (nc)
- 		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
-+}
-+
-+static void ddebug_attach_client_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
-+{
-+	struct ddebug_class_user *cli;
-+	int i;
++		v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d cm:%px\n",
++			  i, cm->mod_name, cm->base, cm->length, cm->map_type, cm);
++	}
++	if (di->num_class_refs)
++		v2pr_info("class-refs\n");
 +
 +	for (i = 0, cli = di->class_refs; i < di->num_class_refs; i++, cli++) {
++		// cli->map->mod_name will segv
++		v2pr_info("class-ref[%d]: cli:%px map:%px nm:%px nm:%s\n", i, cli,
++			  cli->map, cli->user_mod_name, cli->user_mod_name);
++	}
++}
 +
-+		if (!cli) {
-+			v2pr_info("NO CLI\n");
-+			continue;
-+		}
-+		if (!cli->map) {
-+			v2pr_info("NO CLI map\n");
-+			continue;
-+		}
-+		if (!cli->user_mod_name) {
-+			v2pr_info("NO CLI name\n");
-+			continue;
-+		}
-+
-+		if (!strcmp(cli->user_mod_name, dt->mod_name)) {
-+
-+			v2pr_info("class_ref[%d] %s -> %s\n", i,
-+				  cli->user_mod_name, cli->map->mod_name);
-+
-+			ddebug_param_load_dependent_class(cli);
-+
-+			dt->class_refs = cli;
-+			/*
-+			 * allow only 1 ref right now, see if that
-+			 * works.  dont want to deal with vector,len
-+			 * now, maybe inadequate anyway.
-+			 */
-+			v2pr_info("break on %d/%d\n", i, di->num_class_refs);
-+			dt->num_class_refs = 1;
-+			break;
-+		}
- 	}
- }
- 
-@@ -1229,7 +1334,8 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- {
- 	struct ddebug_table *dt;
- 
--	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
-+	v3pr_info("add-module: %s %d sites %d.%d\n", modname, di->num_descs,
-+		  di->num_classes, di->num_class_refs);
- 	if (!di->num_descs) {
- 		v3pr_info(" skip %s\n", modname);
- 		return 0;
-@@ -1252,13 +1358,16 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
+ /*
+  * Allocate a new ddebug_table for the given module
+  * and add it to the global list.
+@@ -1357,6 +1381,8 @@ int ddebug_add_module(struct _ddebug_info *di, const char *modname)
  
  	INIT_LIST_HEAD(&dt->link);
  
--	if (di->classes && di->num_classes)
-+	if (di->num_classes)
++	ddebug_sanity(di);
++
+ 	if (di->num_classes)
  		ddebug_attach_module_classes(dt, di);
  
- 	mutex_lock(&ddebug_lock);
+@@ -1364,6 +1390,8 @@ int ddebug_add_module(struct _ddebug_info *di, const char *modname)
  	list_add_tail(&dt->link, &ddebug_tables);
  	mutex_unlock(&ddebug_lock);
  
-+	if (di->num_class_refs)
-+		ddebug_attach_client_module_classes(dt, di);
++	ddebug_sanity(di);
 +
- 	vpr_info("%3u debug prints in module %s\n", di->num_descs, modname);
- 	return 0;
- }
-@@ -1384,8 +1493,10 @@ static int __init dynamic_debug_init(void)
- 	struct _ddebug_info di = {
- 		.descs = __start___dyndbg,
- 		.classes = __start___dyndbg_classes,
-+		.class_refs = __start___dyndbg_class_refs,
- 		.num_descs = __stop___dyndbg - __start___dyndbg,
- 		.num_classes = __stop___dyndbg_classes - __start___dyndbg_classes,
-+		.num_class_refs = __stop___dyndbg_class_refs - __start___dyndbg_class_refs,
+ 	if (di->num_class_refs)
+ 		ddebug_attach_client_module_classes(dt, di);
+ 
+@@ -1493,6 +1521,8 @@ static int __init dynamic_debug_init(void)
+ 		.num_class_refs = __stop___dyndbg_class_refs - __start___dyndbg_class_refs,
  	};
  
++	ddebug_sanity(&di);
++
  	if (&__start___dyndbg == &__stop___dyndbg) {
+ 		if (IS_ENABLED(CONFIG_DYNAMIC_DEBUG)) {
+ 			pr_warn("_ddebug table is empty in a CONFIG_DYNAMIC_DEBUG build\n");
 -- 
 2.38.1
 
