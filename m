@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 650A7C4708C
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 00:36:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D325C4708E
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 00:36:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC3B210E2D7;
-	Tue,  6 Dec 2022 00:35:18 +0000 (UTC)
-Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
- [IPv6:2607:f8b0:4864:20::d2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92BB510E2D8;
- Tue,  6 Dec 2022 00:35:06 +0000 (UTC)
-Received: by mail-io1-xd2e.google.com with SMTP id h6so2988198iof.9;
- Mon, 05 Dec 2022 16:35:06 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 343DA10E2ED;
+	Tue,  6 Dec 2022 00:35:21 +0000 (UTC)
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC7B110E2D1;
+ Tue,  6 Dec 2022 00:35:05 +0000 (UTC)
+Received: by mail-io1-xd31.google.com with SMTP id c7so8742061iof.13;
+ Mon, 05 Dec 2022 16:35:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=E6tS42wKzHwFWcgmodnkZoyUX7n80tfZY9XLsxmA1Do=;
- b=k2iyRQqqWCIOrdGtkc621KTyw3Yr8i4hemurWthxx+uElc9rkOjhMkhs8AHFngTMCQ
- DfWICT9igcSRKiks8MRkStVkTnEnGVu8IxKxsxNdkh7fB8EFo0lqFMdEvIYom1OMEEnx
- X98+fIRvMweLWdzFtpDrqbHud15fbqJi2R5Ci4rcKWQaCrrXzysQ+fuzTLPkR8iP1ml2
- SPL/NVz0SSKg07HMy0YXbUs2Depj0h78qD79bjRgnT3SWAMB4HB/PdHCph86NMCeejN0
- Ru43E2K5KIKsm228N/Bmu/VimgR5R8oZhSxxyp+ltMAge/2LFzWVG9zNMN8qahivx0js
- z1Wg==
+ bh=77rO+gPzClLni+3S5wfokMLSj7yae/3fTCmXDN7kWCE=;
+ b=TiaBDG/iwkW4nY50qzQnYVCQM+GXllb6LQZYIA7LYfsxyDMurUi+DF7P9LOM7eczHc
+ 6s8rUgW1vKR9OZFRQnfW/xDUycFjqLYYsAyh6TNhFRpJaODTYncz3lKMVyk44d9S3Pjk
+ hIgdalI84wRexsne7FwvA05UuLiHmhBaASndNT1beSnAuBVLIasGvBJpmY/WNOr6rBEh
+ B+LP8a29IKSDqL5UW48mZMZA1uN8qdcvIalZHPwkSlu/qvyiB1HzB2E4ggufmj6ojKTB
+ oeo93CLxcHAMwAVjQYkkI5rg5shWbDhvS+IzkqCrX/la772AlLyWRsEoJyzUn9+aVMqY
+ yrVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=E6tS42wKzHwFWcgmodnkZoyUX7n80tfZY9XLsxmA1Do=;
- b=NremqCZCd44osY77W+rQCWd2LexgZ6baAF+BiTocOauxbxFjHk57ilgzpLzHKpOCzn
- RALdH3ERFODpdn5fNqfWS/H5hP/M4YHpa+zISRAluqEoY2x6qQBkjOttU/Da+I0Czqkq
- N2gO/S3u6hsZ+zhCtURJLIlSM7xVdX1PgqjpMAqCUow/AwxATXK9TsnrQUMbWY8eHqoX
- 20/dLE6lzT3G05C84jzEBGY2aklAci+6Z2lv2PIwghVKp8T5/xlhaExjma6ljpnXziTU
- 3rD5Ahpb0FhECYAMtxonKc6S/6CasTE/HNvWhBv0Ldy6nbuge+0udwknn8/RGngEmUjo
- KX0g==
-X-Gm-Message-State: ANoB5pleTpMuiyXJqyP+UX1yct/WEZf9QWaur6LNlXhuwRGo2paeGled
- jv2DpEmySIqCWMKGBuEh4/Q=
-X-Google-Smtp-Source: AA0mqf5SSiea/v3tuOJJOGljXEUfXKu8GfsiFh446yniBR0E8M7koAgABT3b+7L6x+ynzdBVfki9mg==
-X-Received: by 2002:a05:6638:3e87:b0:363:798f:a924 with SMTP id
- ch7-20020a0566383e8700b00363798fa924mr39236651jab.172.1670286905378; 
- Mon, 05 Dec 2022 16:35:05 -0800 (PST)
+ bh=77rO+gPzClLni+3S5wfokMLSj7yae/3fTCmXDN7kWCE=;
+ b=CYQbK4ERM2b6oRZqWBNxEs9VlDrO9ZF4gp6uocTIJc30TZJL9gDVgNu3y5GULSFINl
+ LXxdXhaEeeBcYrAviIvTnWxdkozkpZ1MENCJk7z9k7EMQ3n1MX89EEasRKmzx5e9UDwW
+ HltOGDR2D/FRsUbLgkkBEoKDgSfeyXq0DrmEbhJcWGKdggHDSyQuJo1qQC8rDIOyMILj
+ R25AGmJTkKPhi/f3spSQ+6bL/z3G0NYfNf0CVuXYkNSwFqTCViLr0L6+aOrYWnRyji7S
+ eZ0TE99RKeo2TxKqdwn8bHELtnA7D7Df4a0e0Pb+r6FAq9zDM6wa45+qHWAgJkYp2WRc
+ /9xA==
+X-Gm-Message-State: ANoB5plwZp/bdf14aKQejOEmpsAlySYVs8r815fOStZGncwrXnScU2bN
+ OVZBxtca38UYLutUSshZ5gQ=
+X-Google-Smtp-Source: AA0mqf5X5c52RfvyVr/F0IB3pmeSK4ljjXvIHrXrVjgx32GMoi2rAfWpN8Jv8DYtXrWxb28qPa/muw==
+X-Received: by 2002:a6b:fd0e:0:b0:6df:5e6c:f5c7 with SMTP id
+ c14-20020a6bfd0e000000b006df5e6cf5c7mr20213554ioi.207.1670286903282; 
+ Mon, 05 Dec 2022 16:35:03 -0800 (PST)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- x3-20020a056602160300b006bba42f7822sm6408213iow.52.2022.12.05.16.35.04
+ x3-20020a056602160300b006bba42f7822sm6408213iow.52.2022.12.05.16.35.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Dec 2022 16:35:05 -0800 (PST)
+ Mon, 05 Dec 2022 16:35:02 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [RFC PATCH 08/17] dyndbg: reduce verbose/debug clutter
-Date: Mon,  5 Dec 2022 17:34:15 -0700
-Message-Id: <20221206003424.592078-9-jim.cromie@gmail.com>
+Subject: [RFC PATCH 06/17] dyndbg: dynamic_debug_init - use pointer inequality,
+ not strcmp
+Date: Mon,  5 Dec 2022 17:34:13 -0700
+Message-Id: <20221206003424.592078-7-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221206003424.592078-1-jim.cromie@gmail.com>
 References: <20221206003424.592078-1-jim.cromie@gmail.com>
@@ -78,57 +79,30 @@ Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch, jbaron@akamai.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-currently, for verbose=3, this is logged:
+dynamic_debug_init() currently uses strcmp to find the module
+boundaries in the builtin _ddebug[] table.
 
-[ 3832.333424] dyndbg: parsed: func="" file="" module="amdgpu" format="" lineno=0-0 class=DRM_UT_PRIME
-[ 3832.333888] dyndbg: no matches for query
-[ 3832.334093] dyndbg: no-match: func="" file="" module="amdgpu" format="" lineno=0-0 class=DRM_UT_PRIME
-[ 3832.334570] dyndbg: processed 1 queries, with 0 matches, 0 errs
-
-This patch removes 2nd & 3rd lines;
- 3 differs from 1 only by status
- 2 is just status, retold in 4, with more info.
+The table is filled by the linker; for its content, pointer inequality
+works, is faster, and communicates the data properties more tightly.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index a0dc681cd215..445f25ef2461 100644
+index 5d609ff0d559..a0dc681cd215 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -265,9 +265,6 @@ static int ddebug_change(const struct ddebug_query *query,
- 	}
- 	mutex_unlock(&ddebug_lock);
+@@ -1410,7 +1410,7 @@ static int __init dynamic_debug_init(void)
  
--	if (!nfound && verbose)
--		pr_info("no matches for query\n");
--
- 	return nfound;
- }
+ 	for (; iter < __stop___dyndbg; iter++, i++, mod_sites++) {
  
-@@ -536,7 +533,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 	struct flag_settings modifiers = {};
- 	struct ddebug_query query = {};
- #define MAXWORDS 9
--	int nwords, nfound;
-+	int nwords;
- 	char *words[MAXWORDS];
- 
- 	nwords = ddebug_tokenize(query_string, words, MAXWORDS);
-@@ -554,10 +551,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 		return -EINVAL;
- 	}
- 	/* actually go and implement the change */
--	nfound = ddebug_change(&query, &modifiers);
--	vpr_info_dq(&query, nfound ? "applied" : "no-match");
--
--	return nfound;
-+	return ddebug_change(&query, &modifiers);
- }
- 
- /* handle multiple queries in query string, continue on error, return
+-		if (strcmp(modname, iter->modname)) {
++		if (modname != iter->modname) {
+ 			mod_ct++;
+ 			di.num_descs = mod_sites;
+ 			di.descs = iter_mod_start;
 -- 
 2.38.1
 
