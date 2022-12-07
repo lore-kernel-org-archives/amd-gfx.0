@@ -4,61 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D477C63703
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Dec 2022 16:21:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69372C4708E
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Dec 2022 16:22:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 992D910E3F0;
-	Wed,  7 Dec 2022 16:21:19 +0000 (UTC)
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
- [IPv6:2001:4860:4864:20::2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A34010E3F0;
- Wed,  7 Dec 2022 16:21:16 +0000 (UTC)
-Received: by mail-oa1-x2e.google.com with SMTP id
- 586e51a60fabf-1322d768ba7so21866251fac.5; 
- Wed, 07 Dec 2022 08:21:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ISgEZ79pT/w46zigfPwoQ9W7P3gsvlg/BJ5lcBN+KDk=;
- b=mj3CqUzLokhm6y4VoNRencz1gvfNxOVPtll5zUV8f23HOF4OsNfFLaE5xRNDergZcu
- nMYfyZHIPD236RB4yvdMN73/uAY7sQ4bfzZroQAIaFkMmrjdw8dwqmb+LAS6nPGYEDw7
- wOQySwHtOxblLJRSzn2QNvcMoRe9vBiacnU3VNMIsVyIBG8YSoCAJs65G5f2MVUT/twU
- +wprgxPeAqC5JdlgGmlbaJUrrpQRi6Vx6NU4Nubvmz4zvBbf20ebTw8cFiCx8Tv1U7jI
- PfdwYH2iv+QQf/ZTx5sPKTecwjOsWlFHETLLYW/lXa+hiSCmuFofzZGlsqQpFDnVyFV/
- HtUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ISgEZ79pT/w46zigfPwoQ9W7P3gsvlg/BJ5lcBN+KDk=;
- b=WY22IDwj8M2J9YvDrKrBvG82tY8E9UPaJqU8KR9NP+Mrsx76O8Pdz/RpNSSgcGsiMy
- GpgQg+TIDs75fbJl421CF6YnHmqR6Gfn+bSagsjzAhz0uQ1MDHFg11f//szMLI9RrNYI
- w82Fqd05u1cGklA31zuTfNhDSw37D90t9W7hGUEweh7aVrtU14VO/BeV+LzVgy5O+ovu
- 5v9KkOhExGaaEi5b3nLYd1ElnfJv8L+zBemaVToPHhCN4mBXYvgb2Gf1GBacucV2P+Bc
- Xbw1EfkTwGBnBRwUjeJsUyzTGoa512rmOY1RxhkEC6Rk3r/8yld0pKFHTFRVMW8JOcOP
- DZnA==
-X-Gm-Message-State: ANoB5plb+vTW2JnFeH7+wjzwbHYAyV1d/6Y1mkZ2zmKsEIUFcPcPrV7w
- ph9ywTzKIijJqIWnQvihONfIZvptKtzrLIjsVVxKUCxt
-X-Google-Smtp-Source: AA0mqf4LvyA+goz9rF6i+rHvuaVG1YTbuDnnCB6f08LU6ra6+pA1qwaIoo3o0IfHQut9dc2ILVFkkKk8ywr4IsH6cxQ=
-X-Received: by 2002:a05:6870:7a0c:b0:143:8a81:116c with SMTP id
- hf12-20020a0568707a0c00b001438a81116cmr28894609oab.96.1670430075661; Wed, 07
- Dec 2022 08:21:15 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B785510E3F1;
+	Wed,  7 Dec 2022 16:22:11 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20629.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1930510E3F1
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Dec 2022 16:22:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GcXoESTl/1mgsOv8kexywmIU8k9wPlujDBDnCObwIq1UpqZuybesq3miO1BwBS/v8o0aLqsff5qoyOtNwVsJ95IOv5vSXUSylaDd9wpNiLDTY27CtHjKaIZIxHtYd0esH8aa17ICPq67YgOYr18SJyaVpVdodA42jlryvdBAc5nczH3zQ7DLQiAK1syJ6RHCk8h4N+lIfYFn485BlXz1V5jLBW/QgqFGmUGPxAmpUOZUwYzwG2C3/gReVmAcalNGeYXvKBaoxVrFIP+TtUKtwHt8aMxHVKXqngfadJiEggwqXQWuqjeumcOvrzXtumcwnsGHvP8BvZoOESN8LJTk0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z0h5VutrSH9nLlCqDs3FM7HzYobgoiU0thJGYD8di1U=;
+ b=mHl/r6G11OvOUtmK0cCo83vZDL+o6oJHb3qEKIGX/amO4sPRswGni/y9+wYFxnLxTCRqopMLzmCOGnsJXQAuoqFdIiTqJhF5kYulu8kCX/u/OW54b+8PyklRAweih34w/bxNSjeNGMbIX/8x77Nba2kmTmkeo/BwkqIIVKk+kXxQtuNOxxTUbw++OULdXn4JYQAtJuIq6nQ6/PddjQ7y62na0Ye3C33Qz/VPc4phloqrGjBXSIYcgYFq9NnC4vn/na0V9QqyTnDbibMpMMxbHk3LkTnral2tm73F/7BoYyIt3jTdTpTZsLR0XG5eDWzlzCYFEVoWkG5f/yzm9AyGQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z0h5VutrSH9nLlCqDs3FM7HzYobgoiU0thJGYD8di1U=;
+ b=JxCRZEG4KhNqE5eI7Yb1hZfFNZEV70XIRDxGMXd1JF632Dg7w29kpaN7Q+ozM87Jy8UQvYnmHpSMsYjM3K1cJfBAPIHTJXc0qTRoo/BxHtkHFYs4MzxeAoqNcPV2TSYow3JpdlalUg2jW7TbX/Qq7bgGg1qbXNMh2i6y+iM58as=
+Received: from DM6PR06CA0009.namprd06.prod.outlook.com (2603:10b6:5:120::22)
+ by PH7PR12MB7307.namprd12.prod.outlook.com (2603:10b6:510:20b::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Wed, 7 Dec
+ 2022 16:22:04 +0000
+Received: from DS1PEPF0000E653.namprd02.prod.outlook.com
+ (2603:10b6:5:120:cafe::f3) by DM6PR06CA0009.outlook.office365.com
+ (2603:10b6:5:120::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14 via Frontend
+ Transport; Wed, 7 Dec 2022 16:22:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0000E653.mail.protection.outlook.com (10.167.18.9) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5880.8 via Frontend Transport; Wed, 7 Dec 2022 16:22:03 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 7 Dec
+ 2022 10:22:02 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: make display pinning more flexible (v2)
+Date: Wed, 7 Dec 2022 11:21:35 -0500
+Message-ID: <20221207162135.3290795-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-References: <DM4PR12MB51524585CEC4E2B4B8370874E31A9@DM4PR12MB5152.namprd12.prod.outlook.com>
- <CADnq5_NWr9SAzcQ=x-UVXWHDBci6f_pg-sRj3AD8q5GWYbBJOw@mail.gmail.com>
- <4e415872-3fcf-27b9-dc74-b3e86f171e1c@gmail.com>
- <CADnq5_PShNRZUwvnsTawW1OaCOjK73rdKTxxQhA=Znf2gqbJ=Q@mail.gmail.com>
- <ce75ecb5-1d07-d8a6-2722-59da84c22c10@gmail.com>
- <CADnq5_Mo_hmc7SCYJxQHc-TgdzXS7+YD-SUt9aF-Gx2AovriRw@mail.gmail.com>
- <581403d1-f5f3-72a6-5447-6deef4405d47@gmail.com>
-In-Reply-To: <581403d1-f5f3-72a6-5447-6deef4405d47@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 7 Dec 2022 11:21:03 -0500
-Message-ID: <CADnq5_OtFeSYKKjniNXuXUmX4WgXw1+hN-3YoRpBh-Ytjosv5g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: try allowed domain when pin framebuffer failed
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: multipart/mixed; boundary="00000000000048516605ef3f4fc7"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E653:EE_|PH7PR12MB7307:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c8291ba-b010-4114-40b3-08dad86f2d42
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: mnEJ1c6qKcyTq9l64S8Mze1kPdJtxQaFYuJrUepARQqlEFOti1k3sMfDI9nONABu3hu8ajy4SNK/R3H2Kccr000ASYmS7X/lQ9Q2qEbxKqAPM8cQ+7uFntO/D6e1lUQcmNEtYiIrqMzV94EuOMZeg1hd64tE+kGAtmroYPRzKPesm2YOSIwiYDvqXbc19173BMzeAA/KH3M6mAPOsAvx8C04LWCZe4v7Z0VHIMS2DuQJWvO8bieYPeDCM7AfmmToQNXsi+6VKWquyCBRgTLXcbfY7ogJZ0CI7yLw/2dwUduOYGt0YaAuyOk3Vi6Wwy7BH8poqLp9RT4HdeRnq/nuAA7xI7kBpklN988yqjCnM8M6DC0WqdpCuqPv0KshF6XBspO4U3gdKomF+LGmx6PrmwBWXPvVkPj6mUExsb9zaWJvX9jPAWjP/tIPEwjMPRFYecEJQABJqmLrvRIwrdado1XQiVTZ5xaDBkGVM2Kwk8wmJ4mA3QoPb9GinSw2GqPtDnueYes2tOHabmG/u5OfWu4ou5YEWi6cLN1XIYoA40yYwYOU2dMuChU7fVjfe1MuZeIujBi8+XFM7BUMzFZLrpQtYZXxLZsr3MfWgYUiuAUAy8xjaz5Z19wu1gcM3LudBTwx5jn+KxuGtIv0clNNBXw3OtmDfBvbJQpOp050F92H8ONfRKPTRzSlJTlmZQQ/A3pGPpmtwZTwYD5UHIgg0GqbI8RybwoVj3ICFH2fOr0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(376002)(39860400002)(136003)(346002)(451199015)(36840700001)(40470700004)(46966006)(36860700001)(478600001)(6666004)(2906002)(86362001)(40480700001)(36756003)(40460700003)(82740400003)(82310400005)(81166007)(16526019)(83380400001)(356005)(47076005)(426003)(1076003)(2616005)(336012)(41300700001)(316002)(8676002)(70206006)(70586007)(4326008)(26005)(6916009)(7696005)(186003)(5660300002)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2022 16:22:03.7851 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c8291ba-b010-4114-40b3-08dad86f2d42
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E653.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7307
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,210 +98,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhang, Yifan" <Yifan1.Zhang@amd.com>,
- amd-gfx <amd-gfx-bounces@lists.freedesktop.org>, "Paneer Selvam,
- Arunpravin" <Arunpravin.PaneerSelvam@amd.com>, "Zhang,
- Jesse\(Jie\)" <Jesse.Zhang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000048516605ef3f4fc7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Only apply the static threshold for Stoney and Carrizo.
+This hardware has certain requirements that don't allow
+mixing of GTT and VRAM.  Newer asics do not have these
+requirements so we should be able to be more flexible
+with where buffers end up.
 
-On Wed, Dec 7, 2022 at 11:10 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
->
->
-> Am 07.12.22 um 17:08 schrieb Alex Deucher:
-> > On Wed, Dec 7, 2022 at 10:52 AM Christian K=C3=B6nig
-> > <ckoenig.leichtzumerken@gmail.com> wrote:
-> >> Am 07.12.22 um 16:38 schrieb Alex Deucher:
-> >>> On Wed, Dec 7, 2022 at 10:23 AM Christian K=C3=B6nig
-> >>> <ckoenig.leichtzumerken@gmail.com> wrote:
-> >>>> I would go a step further and just allow GTT domain on ASICs !=3D CA=
-RRIZO
-> >>>> | STONEY.
-> >>>>
-> >>>> I can't see a good reason we should still have any limitation here, =
-VRAM
-> >>>> doesn't have any advantage any more as far as I know.
-> >>> Well, if VRAM is available we want to make sure someone uses it
-> >>> otherwise it's just wasted.
-> >> Well it still gets used when it's free. So now problem at all here.
-> >>
-> >> We should just not force anything into VRAM or GTT any more if it's
-> >> technically not necessary.
-> > So just this?
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > index 919bbea2e3ac..8e8f07fa7a93 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > @@ -1506,7 +1506,7 @@ u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_b=
-o *bo)
-> >   uint32_t amdgpu_bo_get_preferred_domain(struct amdgpu_device *adev,
-> >                                              uint32_t domain)
-> >   {
-> > -       if (domain =3D=3D (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_G=
-TT)) {
->
-> We still need to keep this check to avoid trying to adjust VRAM only
-> allocations (the cursor still needs this IIRC).
->
-> Apart from that I think that should work.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Attached.  Thanks,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 919bbea2e3ac..2df55cc7e07f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1506,7 +1506,8 @@ u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo)
+ uint32_t amdgpu_bo_get_preferred_domain(struct amdgpu_device *adev,
+ 					    uint32_t domain)
+ {
+-	if (domain == (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) {
++	if ((domain == (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) &&
++	    ((adev->asic_type == CHIP_CARRIZO) || (adev->asic_type == CHIP_STONEY))) {
+ 		domain = AMDGPU_GEM_DOMAIN_VRAM;
+ 		if (adev->gmc.real_vram_size <= AMDGPU_SG_THRESHOLD)
+ 			domain = AMDGPU_GEM_DOMAIN_GTT;
+-- 
+2.38.1
 
-Alex
-
->
-> Christian.
->
-> > +       if ((adev->asic_type =3D=3D CHIP_CARRIZO) || (adev->asic_type =
-=3D=3D
-> > CHIP_STONEY)) {
-> >                  domain =3D AMDGPU_GEM_DOMAIN_VRAM;
-> >                  if (adev->gmc.real_vram_size <=3D AMDGPU_SG_THRESHOLD)
-> >                          domain =3D AMDGPU_GEM_DOMAIN_GTT;
-> >
-> >
-> >
-> >> Christian.
-> >>
-> >>> Alex
-> >>>
-> >>>
-> >>>> Christian.
-> >>>>
-> >>>> Am 07.12.22 um 16:10 schrieb Alex Deucher:
-> >>>>> Does this patch fix the problem?
-> >>>>>
-> >>>>> Alex
-> >>>>>
-> >>>>> On Wed, Dec 7, 2022 at 2:27 AM Zhang, Jesse(Jie) <Jesse.Zhang@amd.c=
-om> wrote:
-> >>>>>> [AMD Official Use Only - General]
-> >>>>>>
-> >>>>>>
-> >>>>>>        drm/amdgpu: try allowed domain when pin framebuffer failed.
-> >>>>>>
-> >>>>>>
-> >>>>>>
-> >>>>>>        [WHY&HOW]
-> >>>>>>
-> >>>>>>
-> >>>>>>
-> >>>>>>        in some scenarios, the allocate memory often failed. such a=
-s do hot plug or play games.
-> >>>>>>
-> >>>>>>        so we can try allowed domain, if the preferred domain canno=
-t allocate memory.
-> >>>>>>
-> >>>>>>
-> >>>>>>
-> >>>>>>        Signed-off-by: jie1zhan jesse.zhang@amd.com
-> >>>>>>
-> >>>>>>        Change-Id: I4b62e2ff072d02c515f901000a5789339d481273
-> >>>>>>
-> >>>>>>
-> >>>>>>
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/=
-gpu/drm/amd/amdgpu/amdgpu_object.c
-> >>>>>>
-> >>>>>> index 1ae0c8723348..05fcaf7f9d92 100644
-> >>>>>>
-> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> >>>>>>
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> >>>>>>
-> >>>>>> @@ -39,6 +39,7 @@
-> >>>>>>
-> >>>>>> #include "amdgpu.h"
-> >>>>>>
-> >>>>>> #include "amdgpu_trace.h"
-> >>>>>>
-> >>>>>> #include "amdgpu_amdkfd.h"
-> >>>>>>
-> >>>>>> +#include "amdgpu_display.h"
-> >>>>>>
-> >>>>>>
-> >>>>>>
-> >>>>>> /**
-> >>>>>>
-> >>>>>>      * DOC: amdgpu_object
-> >>>>>>
-> >>>>>> @@ -942,8 +943,14 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo=
- *bo, u32 domain,
-> >>>>>>
-> >>>>>>                            bo->placements[i].lpfn =3D lpfn;
-> >>>>>>
-> >>>>>>            }
-> >>>>>>
-> >>>>>>
-> >>>>>>
-> >>>>>> +       retry:
-> >>>>>>
-> >>>>>>            r =3D ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
-> >>>>>>
-> >>>>>>            if (unlikely(r)) {
-> >>>>>>
-> >>>>>> +               //try allowed domain when pin failed. just a worka=
-round.
-> >>>>>>
-> >>>>>> +               if (unlikely(r =3D=3D -ENOMEM) && domain !=3D bo->=
-allowed_domains) {
-> >>>>>>
-> >>>>>> +                       amdgpu_bo_placement_from_domain(bo, bo->al=
-lowed_domains);
-> >>>>>>
-> >>>>>> +                       goto retry;
-> >>>>>>
-> >>>>>> +               }
-> >>>>>>
-> >>>>>>                    dev_err(adev->dev, "%p pin failed\n", bo);
-> >>>>>>
-> >>>>>>                    goto error;
-> >>>>>>
-> >>>>>>            }
->
-
---00000000000048516605ef3f4fc7
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-drm-amdgpu-make-display-pinning-more-flexible-v2.patch"
-Content-Disposition: attachment; 
-	filename="0001-drm-amdgpu-make-display-pinning-more-flexible-v2.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_lbduxcwt0>
-X-Attachment-Id: f_lbduxcwt0
-
-RnJvbSA4Zjc4MjcwNzE4Mjk4NTFiZGVhNjZmMTE3OWMwYzU2OGM5Mzk4NGQ3IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
-b20+CkRhdGU6IFdlZCwgNyBEZWMgMjAyMiAxMTowODo1MyAtMDUwMApTdWJqZWN0OiBbUEFUQ0hd
-IGRybS9hbWRncHU6IG1ha2UgZGlzcGxheSBwaW5uaW5nIG1vcmUgZmxleGlibGUgKHYyKQoKT25s
-eSBhcHBseSB0aGUgc3RhdGljIHRocmVzaG9sZCBmb3IgU3RvbmV5IGFuZCBDYXJyaXpvLgpUaGlz
-IGhhcmR3YXJlIGhhcyBjZXJ0YWluIHJlcXVpcmVtZW50cyB0aGF0IGRvbid0IGFsbG93Cm1peGlu
-ZyBvZiBHVFQgYW5kIFZSQU0uICBOZXdlciBhc2ljcyBkbyBub3QgaGF2ZSB0aGVzZQpyZXF1aXJl
-bWVudHMgc28gd2Ugc2hvdWxkIGJlIGFibGUgdG8gYmUgbW9yZSBmbGV4aWJsZQp3aXRoIHdoZXJl
-IGJ1ZmZlcnMgZW5kIHVwLgoKU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
-ZGV1Y2hlckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9v
-YmplY3QuYyB8IDMgKystCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0
-aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29i
-amVjdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCmluZGV4
-IDkxOWJiZWEyZTNhYy4uMmRmNTVjYzdlMDdmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X29iamVjdC5jCkBAIC0xNTA2LDcgKzE1MDYsOCBAQCB1NjQgYW1kZ3B1X2JvX2dw
-dV9vZmZzZXRfbm9fY2hlY2soc3RydWN0IGFtZGdwdV9ibyAqYm8pCiB1aW50MzJfdCBhbWRncHVf
-Ym9fZ2V0X3ByZWZlcnJlZF9kb21haW4oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCQkJ
-CSAgICB1aW50MzJfdCBkb21haW4pCiB7Ci0JaWYgKGRvbWFpbiA9PSAoQU1ER1BVX0dFTV9ET01B
-SU5fVlJBTSB8IEFNREdQVV9HRU1fRE9NQUlOX0dUVCkpIHsKKwlpZiAoKGRvbWFpbiA9PSAoQU1E
-R1BVX0dFTV9ET01BSU5fVlJBTSB8IEFNREdQVV9HRU1fRE9NQUlOX0dUVCkpICYmCisJICAgICgo
-YWRldi0+YXNpY190eXBlID09IENISVBfQ0FSUklaTykgfHwgKGFkZXYtPmFzaWNfdHlwZSA9PSBD
-SElQX1NUT05FWSkpKSB7CiAJCWRvbWFpbiA9IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU07CiAJCWlm
-IChhZGV2LT5nbWMucmVhbF92cmFtX3NpemUgPD0gQU1ER1BVX1NHX1RIUkVTSE9MRCkKIAkJCWRv
-bWFpbiA9IEFNREdQVV9HRU1fRE9NQUlOX0dUVDsKLS0gCjIuMzguMQoK
---00000000000048516605ef3f4fc7--
