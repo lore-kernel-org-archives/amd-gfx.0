@@ -4,57 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37522C352A1
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Dec 2022 15:21:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F14DAC352A1
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Dec 2022 15:23:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5D810E3CA;
-	Wed,  7 Dec 2022 15:20:59 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AC7210E3CA
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Dec 2022 15:20:54 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-1443a16b71cso18147380fac.13
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Dec 2022 07:20:54 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E16110E3CB;
+	Wed,  7 Dec 2022 15:23:32 +0000 (UTC)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A63010E3CB;
+ Wed,  7 Dec 2022 15:23:28 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ p13-20020a05600c468d00b003cf8859ed1bso1314608wmo.1; 
+ Wed, 07 Dec 2022 07:23:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2V7JVeqfiJ/FYYwT8To4f+ufYN26iNvN8iiLfH/dtow=;
- b=NgnTLCjZajOXN2koWeCG/IQANr2h4iPTbFu3RpnlfklQTxtinhwWy1hWG5qCKlPnRG
- QVR0CXACVMiykgVBWtuCMZJmUX56UIICG5VdUTA1mbr+U6wfQEoeikB0jgpo3Fe/w/X8
- XfN2xgDZnZ+LqsUYEg1Zk+q9j8W/AKoEB4+7v8G0LDe6yno+P5LOqs+P9N1L0fXQ2zEc
- XuDRYZZkDyHacEufqn0ABLoUUQQXVObN+5xzuKXhOji3qQx7b/I+5lWyAxT7JjsPMxy0
- P+ck0a1rFQ5WGRp7nwou/KQymhX/c5elK9e8Mpkhcj1hgrpartkbQ1LmhveFCH3gxJPy
- YRag==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=6lfX2espe1pbe0zK7LfbYp7zz5fE9qT+Xo+bUOcdecc=;
+ b=nCV7pIGbyhHwjZE8iTUIWZsq+uU6zeZif5rXDWflrwM+Onp1EtmiS3FlXGJ4UU+Mls
+ wYqh2Ljs3Ghjc05XsiKDo9kpKvMrX+NV7cYOOJ3na07rFP8DJQzFL0d8S9Yhdym6O+BY
+ uMb7HrTlnMC097/3KVl7u4SU00CGVGERhkl8ZwZ30XFB2h52/vXvV+oh2qmc8h/Rh4yX
+ XMToMkad9OVALf4d/IIffHy9c850ZXbY5ofKYMAC9YhrANLIyWaGyG/pHYAno4rNt07x
+ nXtECo5T4PeubYrchvFgZUmDmyz0OqZBaicmnXB5N1WUkwxIPXrXQ5HLXUnpfTy4F3W3
+ e33g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=2V7JVeqfiJ/FYYwT8To4f+ufYN26iNvN8iiLfH/dtow=;
- b=7FFR/Wei5W+9F2jgF35El490wqHfDq2aYgv/aw0/8Gn6ThbUtVsc6vYKhADihjk4pa
- YpmNFe7QopVjO0Kt7NWY9X1eJjtHpxBGvTFEkAUnoBnSVoG4pnjp+fiBnQ7oUfd1fLn9
- ZDSgK8vwjtwMOqlZDzPBA9Sd/fqWnoG8MRao2uXlycsa2ZVDni4URWH0riP8S6KjY0US
- Xldkqka2lcs2VfE/81gU1yANuHmy30ENhT3zQXqWXrf39S9FlHKPyV0EaC7KUJF+LXvN
- j/crnXlx/mWcsph7MTCZZO2FzxE1FX1VyJgVHhpi+ClDgO4utubpWdQaRTyVf3a8tqeF
- RUDg==
-X-Gm-Message-State: ANoB5pnbMqPxBG2rDoVQ7nH14i5vdsZf+l/q3xWTKpP0Sv7pqy3iHxYQ
- 8fk8TlzN0Z+dPMUfwfjgdbNcZ/mSA+hxf5CrbSE=
-X-Google-Smtp-Source: AA0mqf7D9a59cgTuRSxYODfvaPpsFSGrpwgx5eUhIBphsdZvurzKBPbtYEOZeHmc87WQE3TEQk2M5Dyy0MT1jrfW5JA=
-X-Received: by 2002:a05:6870:7a0c:b0:143:8a81:116c with SMTP id
- hf12-20020a0568707a0c00b001438a81116cmr28773865oab.96.1670426453659; Wed, 07
- Dec 2022 07:20:53 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=6lfX2espe1pbe0zK7LfbYp7zz5fE9qT+Xo+bUOcdecc=;
+ b=Tr+D6bWrbq0fgvZduXvkAWUn9mr1B6xahRbDfB5z0cHP7ZH08+8t7BWHxtjPTk7XSv
+ GQ+IuAWtlYAEs3zjLlrwzbvjX8ygBuc7+NSrULoe5ZOiYhw2htegWXUnhDLggCNbw9a2
+ d/a2By5mDGxILEfEDBW/YCK4L5IPjfrAcX9lXfqN/qCOxhe67IwOpIQ9m9hUFD0GqMQZ
+ hIS7g2IUJMWllyWCnjRCfTw8GtJlhH4ZIo6YXTr0SvER2Zqj16WWk2R15GDsjumJ2s0f
+ JUssg6NPSFRAT9dGrsjD4tJ7KiSPdh9kBkvMQDSbaSFOL9dvyTJIuzfHTmQMTSRMRZ1x
+ lJ6A==
+X-Gm-Message-State: ANoB5pkxEO/OqTun5qg97X1SazHhO98dDbqz39Di/ePChP3LOm1phhem
+ CVP4V9U18kolodCJlZPnKOk=
+X-Google-Smtp-Source: AA0mqf6BTcK38C5ZIWnbGezst0tEHtZt/OvyiArc/t+C/XK8tbhe2Y84wh82vQAKcgPg+3SdZecehQ==
+X-Received: by 2002:a1c:2b81:0:b0:3b4:88ba:a74c with SMTP id
+ r123-20020a1c2b81000000b003b488baa74cmr53562589wmr.77.1670426607012; 
+ Wed, 07 Dec 2022 07:23:27 -0800 (PST)
+Received: from ?IPV6:2a02:908:1256:79a0:1690:3794:61d2:e9e1?
+ ([2a02:908:1256:79a0:1690:3794:61d2:e9e1])
+ by smtp.gmail.com with ESMTPSA id
+ z12-20020a5d44cc000000b002362f6fcaf5sm19779843wrr.48.2022.12.07.07.23.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Dec 2022 07:23:26 -0800 (PST)
+Message-ID: <4e415872-3fcf-27b9-dc74-b3e86f171e1c@gmail.com>
+Date: Wed, 7 Dec 2022 16:23:25 +0100
 MIME-Version: 1.0
-References: <20221207074936.1347543-1-christian.koenig@amd.com>
-In-Reply-To: <20221207074936.1347543-1-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 7 Dec 2022 10:20:42 -0500
-Message-ID: <CADnq5_O5S8_UTCiUbm8sxmhTpO2TsdqaGUg05neOqCojBLZJGg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fixx NULL pointer deref in gmc_v9_0_get_vm_pte
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH] drm/amdgpu: try allowed domain when pin framebuffer failed
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>,
+ "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+References: <DM4PR12MB51524585CEC4E2B4B8370874E31A9@DM4PR12MB5152.namprd12.prod.outlook.com>
+ <CADnq5_NWr9SAzcQ=x-UVXWHDBci6f_pg-sRj3AD8q5GWYbBJOw@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CADnq5_NWr9SAzcQ=x-UVXWHDBci6f_pg-sRj3AD8q5GWYbBJOw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,51 +77,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Kenny.Ho@amd.com, vprosyak@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: "Zhang, Yifan" <Yifan1.Zhang@amd.com>,
+ amd-gfx <amd-gfx-bounces@lists.freedesktop.org>, "Paneer Selvam,
+ Arunpravin" <Arunpravin.PaneerSelvam@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 7, 2022 at 2:49 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> We not only need to make sure that we have a BO, but also that the BO
-> has some backing store.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+I would go a step further and just allow GTT domain on ASICs != CARRIZO 
+| STONEY.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+I can't see a good reason we should still have any limitation here, VRAM 
+doesn't have any advantage any more as far as I know.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+Christian.
+
+Am 07.12.22 um 16:10 schrieb Alex Deucher:
+> Does this patch fix the problem?
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v9_0.c
-> index 50386eb2eec8..afc0cfed5065 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1185,6 +1185,8 @@ static void gmc_v9_0_get_vm_pte(struct amdgpu_devic=
-e *adev,
->                                 struct amdgpu_bo_va_mapping *mapping,
->                                 uint64_t *flags)
->  {
-> +       struct amdgpu_bo *bo =3D mapping->bo_va->base.bo;
-> +
->         *flags &=3D ~AMDGPU_PTE_EXECUTABLE;
->         *flags |=3D mapping->flags & AMDGPU_PTE_EXECUTABLE;
+> Alex
 >
-> @@ -1196,7 +1198,7 @@ static void gmc_v9_0_get_vm_pte(struct amdgpu_devic=
-e *adev,
->                 *flags &=3D ~AMDGPU_PTE_VALID;
->         }
->
-> -       if (mapping->bo_va->base.bo)
-> +       if (bo && bo->resource)
->                 gmc_v9_0_get_coherence_flags(adev, mapping->bo_va->base.b=
-o,
->                                              mapping, flags);
->  }
-> --
-> 2.34.1
->
+> On Wed, Dec 7, 2022 at 2:27 AM Zhang, Jesse(Jie) <Jesse.Zhang@amd.com> wrote:
+>> [AMD Official Use Only - General]
+>>
+>>
+>>      drm/amdgpu: try allowed domain when pin framebuffer failed.
+>>
+>>
+>>
+>>      [WHY&HOW]
+>>
+>>
+>>
+>>      in some scenarios, the allocate memory often failed. such as do hot plug or play games.
+>>
+>>      so we can try allowed domain, if the preferred domain cannot allocate memory.
+>>
+>>
+>>
+>>      Signed-off-by: jie1zhan jesse.zhang@amd.com
+>>
+>>      Change-Id: I4b62e2ff072d02c515f901000a5789339d481273
+>>
+>>
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>
+>> index 1ae0c8723348..05fcaf7f9d92 100644
+>>
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>
+>> @@ -39,6 +39,7 @@
+>>
+>> #include "amdgpu.h"
+>>
+>> #include "amdgpu_trace.h"
+>>
+>> #include "amdgpu_amdkfd.h"
+>>
+>> +#include "amdgpu_display.h"
+>>
+>>
+>>
+>> /**
+>>
+>>    * DOC: amdgpu_object
+>>
+>> @@ -942,8 +943,14 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+>>
+>>                          bo->placements[i].lpfn = lpfn;
+>>
+>>          }
+>>
+>>
+>>
+>> +       retry:
+>>
+>>          r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+>>
+>>          if (unlikely(r)) {
+>>
+>> +               //try allowed domain when pin failed. just a workaround.
+>>
+>> +               if (unlikely(r == -ENOMEM) && domain != bo->allowed_domains) {
+>>
+>> +                       amdgpu_bo_placement_from_domain(bo, bo->allowed_domains);
+>>
+>> +                       goto retry;
+>>
+>> +               }
+>>
+>>                  dev_err(adev->dev, "%p pin failed\n", bo);
+>>
+>>                  goto error;
+>>
+>>          }
+
