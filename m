@@ -4,92 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A6FCC47089
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Dec 2022 19:32:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EE1AC63709
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Dec 2022 20:43:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BAF110E417;
-	Wed,  7 Dec 2022 19:32:14 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 920FE10E415
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Dec 2022 19:32:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UPbG+F7HhHA0dIpRGgXbM5xSp5rNnvBSeU+Tq3fHrHZxtogikwxdSOHwq9KhF/KsyvyqJsOnPlKbJSOesWh7tGBemcbuyuCP096DzfECFlYs72Vjj62CVgsseXAE8joS3X3FRJCtwIG1DYi/j6MNJKIMJMMc6RdrUNr2cxU+G7cn3MfTK7brnB29Yi7zRoBe1ubysOxYl+6mpBujcNNXyfAY9257KcGA/Tpl/nlYhZKxj8zqFBLPjtmnCzB7O5am8+miAlOE8MLA0pE0xT5UIaSRlVfhP/XY/rxevqJdxJeYKyV2GbGpP11DZI5h+IH7pzPURfhHMbr8MCE1/wDg+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6aocV6TuwUZFloBrc3oz2m9I9npUQ51Pe8QlrLnbtLE=;
- b=cnmsHwCfa8lF1toAQX1nV2YgJnstp/xG/y/J0kO+h3afrVkdMyzzm1f4/iITGDWLNAMXw1iQLszWc6qViAJJnmm2x5uamtvS3tmj9IeqqdS12Wyo1lw2dCihKW8r21aE2G9ov0CGv4Pnlu5vmJc2h0+Gd71UDzUghuonxEOfF/2RLaU4DaqKwN8Rpbrni2XwDZGnNenLwEo++n0NXfEln2rpGNWBiG0knCxz/Rz9R4XnleTQ62lrQUkgIQREptdQNDGG85g4hhepyH5qC38HavVC/zCMK+r5Ez1+ySUUY8t4F4SCS6U35tFu5eQFoPWqJ3DRbV04IqwbEL1N7tFIJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6aocV6TuwUZFloBrc3oz2m9I9npUQ51Pe8QlrLnbtLE=;
- b=xMIcVo17VsK2Dc3IWH6zJBivdM5cNGjjt/nNot9EdrgcBvbc57mcl3DcpDJG/UkXEcr2BvK1lmKoPqFDtYqHKudN9cZ4WBuAxceJe1neT8fTVuEcvRU0/nd5I0KHmD3Ztm1axI3hvWWmsxJYhzqVElvA94riGsl5iutxMEFTdTE=
-Received: from MW4PR03CA0190.namprd03.prod.outlook.com (2603:10b6:303:b8::15)
- by MW4PR12MB6951.namprd12.prod.outlook.com (2603:10b6:303:207::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Wed, 7 Dec
- 2022 19:32:06 +0000
-Received: from CO1NAM11FT070.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b8:cafe::5f) by MW4PR03CA0190.outlook.office365.com
- (2603:10b6:303:b8::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14 via Frontend
- Transport; Wed, 7 Dec 2022 19:32:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT070.mail.protection.outlook.com (10.13.175.20) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5901.16 via Frontend Transport; Wed, 7 Dec 2022 19:32:06 +0000
-Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 7 Dec
- 2022 13:32:04 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: Hans de Goede <hdegoede@redhat.com>, "Rafael J . Wysocki"
- <rafael@kernel.org>, Alexander Deucher <Alexander.Deucher@amd.com>
-Subject: [PATCH 2/2] drm/amd/display: Report to ACPI video if no panels were
- found
-Date: Wed, 7 Dec 2022 13:31:34 -0600
-Message-ID: <20221207193134.763-3-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221207193134.763-1-mario.limonciello@amd.com>
-References: <20221207193134.763-1-mario.limonciello@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A798910E128;
+	Wed,  7 Dec 2022 20:43:36 +0000 (UTC)
+Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
+ [IPv6:2607:f8b0:4864:20::736])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 987AA10E128
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Dec 2022 20:43:33 +0000 (UTC)
+Received: by mail-qk1-x736.google.com with SMTP id p18so10899778qkg.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 Dec 2022 12:43:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=ScTS5EO4RI+wHQaEvVboJSOll8Yj4SEKFZieyaf6tWM=;
+ b=e6ANsgu5T0XqCmy1fAbvkQsz9evIICWg3HYWWncqhGVnSttp8J0Qn7vY4ApMhD9nps
+ a8nTugv/WofZaRxX808GbjL53jTARCYb6hIjTWzfPU4xuJ4oDFLqoYXoSdaqQvcYLGdT
+ XKBZBntLkvu4SBCNiCNUXWeaCfTYkPi9TaG3nG9ENz1cCjBjqkxl4qnzjEJQ20keZYty
+ VVXULQyuzpINeNKDKMjfVuRBpU3Y3UPpBGIX3w1NOyab/q3jAIqo2jSECH4P6gaQ1tGA
+ pkzGp2TstL4J7RFS1ouAoBFmtaKpaFo/Eun/O+9IsyVoSsPbQEVqZph7B/K//Tr0E6Ig
+ ia3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ScTS5EO4RI+wHQaEvVboJSOll8Yj4SEKFZieyaf6tWM=;
+ b=yBlX94Ioi39207Y6msWGqm4gVG+LtW+IvFm8bSLLgp1aQyE6xad/h1x7ncw3UpzVgP
+ IDcA+1mli5i3yNf6AeWAlfJY8GWNndNCbtLtPwgXWDxbwJA/1j7r/ZnXMy7UwYZJFbfL
+ AT5jYtSb8j8KV4T5IQNe2jo36aHtbNY6dBAyJ1q2kHjMFMUGBP/NqrvIa4BWgU2kY/sh
+ 0zsmCseLXw5RWjfu87YbGBBBZbapjsMPM7FFMgKi8LMVwC45LMQe4mxSzU55Me4ZwR9k
+ RrlCeoW/n4r7SC1r3QJpuU0H/KPi9nj2dW0WXxwy/I6HvLqCIfNMsUaik6kzm6yciMgn
+ qTiA==
+X-Gm-Message-State: ANoB5pmpYYbX+fTt/3NMjKIHjQ+9t+hgUDpi/vepVGRp1J3KwEcAe2S7
+ 6Inz8dN7iBuNm9P2xXYVLe1b27FnKm0Qtsd5+8U=
+X-Google-Smtp-Source: AA0mqf41KBH8kikVVv7h2I82XVSoxRADSwaOZypzDTrQXR8UrvQ5A7z4V1/OngOzRTi5sJGxUQuBih7uDLCnutJ5Dc4=
+X-Received: by 2002:a05:620a:215c:b0:6fa:937f:61d4 with SMTP id
+ m28-20020a05620a215c00b006fa937f61d4mr65715000qkm.280.1670445812137; Wed, 07
+ Dec 2022 12:43:32 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT070:EE_|MW4PR12MB6951:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82067bca-e163-465c-ed52-08dad889b9e9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZIzxVNgF3Ojjf8NBx6IgrdeZAbQiZ1caPO4tYCy1IdM31XDvSGaIz5wbLej/vMlhNxV3Ze+kSNWH3ZnQc4vSNIqNyDBVebsTBl9nt7+/S6NjZY5zvgfecIiWz7MMLoVl2IrXN3FPlM4QmWajNb05E+onHb3JkKJg0/PWYmTui2SIhDQrDqVMWtNXUOGUmSTwj3WaDUrBqmU+OeZxOyc20C0L5XDPOHdE8LVKOgWCHN0FqgLwt2ABgc2VzkmtJEmwKgcer3JQ9dmsSDZcLb5ackLOj8bOAFYcVMbnLcnBqdyR4xbeL5trxK3xtlkdNVjZkQsCfoiEWPqIBIM3YH2o04rKoqCWbt3Y+6F1wEpjF5ExDZps8i5vWevjJFi+OYOzLy1VHa3M1A9YzMHqzRNA47k2oSoWLqA25Q5P2wAnSLVxBD62TR8N1YVVdDAcVj/5fYmtHaio1tqmiHmvnkBmKTNqrOjhdBLFkDpXllATOClN4P+mQ9b08mccJiROGqNtk+HL1RCupFEwX3hyAmGcDtj6t6VbD6R7i3vAGTEalQBpDzoOSUHFuQerKzmeo3E5duNz2aui0Rsc7YdLZzg9F/jy8AW5LuoCvzBDXd56+iD35ZVxfV0ogLrkW3aADCheJzXbC2xbwDM7tKkesxEAuY9oQzPpH2v7+vqrgy2NAI58GNCpPefLxxbK5ZoMpjyRnUeq2m2K720eg6XFhtaznk1Sv2hLervd1ksHpPqiZ49l2ZTXB3kFUcmkVu7XSs2+iOdw0XgSjxwyv98cuQHnEA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(396003)(39860400002)(346002)(136003)(451199015)(36840700001)(46966006)(40470700004)(1076003)(2906002)(16526019)(110136005)(2616005)(81166007)(356005)(8676002)(41300700001)(40480700001)(4326008)(70206006)(186003)(70586007)(26005)(82740400003)(7696005)(82310400005)(36756003)(44832011)(36860700001)(54906003)(8936002)(40460700003)(316002)(5660300002)(6636002)(83380400001)(478600001)(966005)(47076005)(86362001)(336012)(426003)(6666004)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2022 19:32:06.6175 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82067bca-e163-465c-ed52-08dad889b9e9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT070.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6951
+References: <CABXGCsM7jMMomy_=oNN236LfLJzMJbcNR=YWWJ74TgNO_16PWQ@mail.gmail.com>
+ <CADnq5_PUCRGZoUu3RHrbD6+Dr_RHWdqkJKDBD2cWenWhQQiyKw@mail.gmail.com>
+In-Reply-To: <CADnq5_PUCRGZoUu3RHrbD6+Dr_RHWdqkJKDBD2cWenWhQQiyKw@mail.gmail.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Thu, 8 Dec 2022 01:43:21 +0500
+Message-ID: <CABXGCsO-GLzahLgNtbzsM-HiPk7cZvHu56ckSMLD7XeUvf28hw@mail.gmail.com>
+Subject: Re: [bug][vaapi][h264] The commit
+ 7cbe08a930a132d84b4cf79953b00b074ec7a2a7
+ on certain video files leads to problems with VAAPI hardware decoding.
+To: Alex Deucher <alexdeucher@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,44 +66,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-acpi@vger.kernel.org, Mario
- Limonciello <mario.limonciello@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, James.Zhu@amd.com,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Chen,
+ Guchun" <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On desktop APUs amdgpu doesn't create a native backlight device
-as no eDP panels are found.  However if the BIOS has reported
-backlight control methods in the ACPI tables then an acpi_video0
-backlight device will be made 8 seconds after boot.
+On Wed, Dec 7, 2022 at 7:58 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+>
+> What GPU do you have and what entries do you have in
+> sys/class/drm/card0/device/ip_discovery/die/0/UVD for the device?
 
-This has manifested in a power slider on a number of desktop APUs
-ranging from Ryzen 5000 through Ryzen 7000 on various motherboard
-manufacturers. To avoid this, report to the acpi video detection
-that the system does not have any panel connected in the native
-driver.
+I bisected the issue on the Radeon 6800M.
 
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=1783786
-Reported-by: Hans de Goede <hdegoede@redhat.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Parent commit for 7cbe08a930a132d84b4cf79953b00b074ec7a2a7 is
+46dd2965bdd1c5a4f6499c73ff32e636fa8f9769.
+For both commits ip_discovery is absent.
+# ls /sys/class/drm/card0/device/ | grep ip
+# ls /sys/class/drm/card1/device/ | grep ip
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 512c32327eb1..b73f61ac5dd5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4371,6 +4371,10 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 		amdgpu_set_panel_orientation(&aconnector->base);
- 	}
- 
-+	/* If we didn't find a panel, notify the acpi video detection */
-+	if (dm->adev->flags & AMD_IS_APU && dm->num_of_edps == 0)
-+		acpi_video_report_nolcd();
-+
- 	/* Software is initialized. Now we can register interrupt handlers. */
- 	switch (adev->asic_type) {
- #if defined(CONFIG_DRM_AMD_DC_SI)
+But from verbose info I see that player for
+7cbe08a930a132d84b4cf79953b00b074ec7a2a7 use acceleration:
+$ vlc -v Downloads/test_sample_480_2.mp4
+VLC media player 3.0.18 Vetinari (revision )
+[0000561f72097520] main libvlc: Running vlc with the default
+interface. Use 'cvlc' to use vlc without interface.
+[00007fa224001190] mp4 demux warning: elst box found
+[00007fa224001190] mp4 demux warning: STTS table of 1 entries
+[00007fa224001190] mp4 demux warning: CTTS table of 78 entries
+[00007fa224001190] mp4 demux warning: elst box found
+[00007fa224001190] mp4 demux warning: STTS table of 1 entries
+[00007fa224001190] mp4 demux warning: elst old=0 new=1
+[00007fa224d19010] faad decoder warning: decoded zero sample
+[00007fa224001190] mp4 demux warning: elst old=0 new=1
+[00007fa214007030] gl gl: Initialized libplacebo v4.208.0 (API v208)
+libva info: VA-API version 1.16.0
+libva error: vaGetDriverNameByIndex() failed with unknown libva error,
+driver_name = (null)
+[00007fa214007030] glconv_vaapi_x11 gl error: vaInitialize: unknown libva error
+libva info: VA-API version 1.16.0
+libva info: Trying to open /usr/lib64/dri/radeonsi_drv_video.so
+libva info: Found init function __vaDriverInit_1_16
+libva info: va_openDriver() returns 0
+[00007fa224c0b3a0] avcodec decoder: Using Mesa Gallium driver
+23.0.0-devel for AMD Radeon RX 6800M (navi22, LLVM 15.0.4, DRM 3.42,
+5.14.0-rc4-14-7cbe08a930a132d84b4cf79953b00b074ec7a2a7+) for hardware
+decoding
+[h264 @ 0x7fa224c3fa40] Using deprecated struct vaapi_context in decode.
+[0000561f72174de0] pulse audio output warning: starting late (-9724 us)
+
+And for 46dd2965bdd1c5a4f6499c73ff32e636fa8f9769 commit did not use
+acceleration:
+$ vlc -v Downloads/test_sample_480_2.mp4
+VLC media player 3.0.18 Vetinari (revision )
+[000055f61ad35520] main libvlc: Running vlc with the default
+interface. Use 'cvlc' to use vlc without interface.
+[00007fc7e8001190] mp4 demux warning: elst box found
+[00007fc7e8001190] mp4 demux warning: STTS table of 1 entries
+[00007fc7e8001190] mp4 demux warning: CTTS table of 78 entries
+[00007fc7e8001190] mp4 demux warning: elst box found
+[00007fc7e8001190] mp4 demux warning: STTS table of 1 entries
+[00007fc7e8001190] mp4 demux warning: elst old=0 new=1
+[00007fc7e8d19010] faad decoder warning: decoded zero sample
+[00007fc7e8001190] mp4 demux warning: elst old=0 new=1
+[00007fc7d8007030] gl gl: Initialized libplacebo v4.208.0 (API v208)
+libva info: VA-API version 1.16.0
+libva error: vaGetDriverNameByIndex() failed with unknown libva error,
+driver_name = (null)
+[00007fc7d8007030] glconv_vaapi_x11 gl error: vaInitialize: unknown libva error
+libva info: VA-API version 1.16.0
+libva info: Trying to open /usr/lib64/dri/radeonsi_drv_video.so
+libva info: Found init function __vaDriverInit_1_16
+libva info: va_openDriver() returns 0
+[00007fc7d40b3260] vaapi generic error: profile(7) is not supported
+[00007fc7d8a089c0] gl gl: Initialized libplacebo v4.208.0 (API v208)
+Failed to open VDPAU backend libvdpau_nvidia.so: cannot open shared
+object file: No such file or directory
+Failed to open VDPAU backend libvdpau_nvidia.so: cannot open shared
+object file: No such file or directory
+[00007fc7d89e4f80] gl gl: Initialized libplacebo v4.208.0 (API v208)
+[000055f61ae12de0] pulse audio output warning: starting late (-13537 us)
+
+So my bisect didn't make sense :(
+Anyway can you reproduce the issue with the attached sample file and
+vlc on fresh kernel (6.1-rc8)?
+
+Thanks!
+
 -- 
-2.34.1
-
+Best Regards,
+Mike Gavrilov.
