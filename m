@@ -4,60 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88834C63705
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Dec 2022 20:54:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08DDBC4708D
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Dec 2022 21:04:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2B4D10E41A;
-	Wed,  7 Dec 2022 20:54:17 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7714810E41A
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Dec 2022 20:54:14 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-12c8312131fso22798635fac.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Dec 2022 12:54:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=kjrcM99rD1bwiPFWIWxejNzvatvUoeiOyAYoYpF19vc=;
- b=VayCt2oByyl43/gTQwHtmFnQIaQjl/yLu8/5qlAtm1O7xhp4JQVrCAx9/BEqXmjjcn
- 1SAKG7AY/NJH3y2FTyde9B9XdwVufGZgvK5ATKFFUgss7OZCcplw0SKAmqpNbP50Dxsk
- ahpvIGo5WVRKh/+FBqPVsYm+rC+stPmT0fpLGfrpOTnFGg1dLDFeRHJzu+XRIv1GdGGs
- SD76OG0cOlHtyiMSbNaXfx9esyv6TzVXqMs7gnIkIeA4FqoZiAk/K62JyIpsUUYrO/n2
- iHPZyejsH/uLbqUYo2NntSp+bjukMXcHU5svO5BQbjRKRYy8xNjOMvMeqEkNIRC3PMlf
- c6pA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10EE510E0CC;
+	Wed,  7 Dec 2022 21:04:41 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A018A10E41F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Dec 2022 21:04:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1670447056;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ICL77EMVyedbML0m5xv9i/c+I7QKSRC/1mCTbM2cZbw=;
+ b=awObiKlwWn+SpOj2RNHvUSTE5mMpygspGwVFSx1MPltXykDSlGTM5IeF8nFKlLu1ri7fHY
+ 6xvXDIsNbTz0dCxO+0zc9Qhw9GrVcBqySeYqWZqkeW7a00yJemXCOb2bO8JgbM2HG624wc
+ QUtZhBG9QqkNq7ugH84BUPbBF5fg44o=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-132-ZMpEZRUZOVGHN_Y5bbst1A-1; Wed, 07 Dec 2022 16:04:15 -0500
+X-MC-Unique: ZMpEZRUZOVGHN_Y5bbst1A-1
+Received: by mail-ed1-f70.google.com with SMTP id
+ z4-20020a05640240c400b0046c51875c17so8192152edb.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 Dec 2022 13:04:15 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=kjrcM99rD1bwiPFWIWxejNzvatvUoeiOyAYoYpF19vc=;
- b=gyC9d73e3i1yPejz0zpP7FlUPkzYOV59nKJ15yFea2gJn88gfSA7j5Br02Nl369eC6
- 2qqjC56XKGTVcQP+X9WAfReRLjlFtMawiFOxmf11TTbuVA628DiRV897CRlyirK8IwnL
- NAi1kcSwVUWSBaT64oT4v71iOjjNy8axh/zeUgHimYl3MPYuoEzvOSEkBt86lBUYzUmj
- s5LNDGN/OIzH68v9nLhY29zr8GYz+o2/8K3FVj1m/av8h3D4EayFvBjsIRF7Tfw793xn
- xG5dSbu+YMGOSj/s/4WMhRVjD7BvE7xLf4G8U2juRfewDR6jtTBF/JpN6lDxn5FzIQBl
- nCdA==
-X-Gm-Message-State: ANoB5pnxGMgyDDbLrDZZtR2q6DaVEdjnsw+HorZjOsYrGkvj6nVOAeey
- 80HWmJlhFcRwWdE2iYcDuoNX9YgXZqYwNVC20ww=
-X-Google-Smtp-Source: AA0mqf46MOOoAV+1nDklHeG7l8qQrMOzBMHUXEmpgjjI9o/cdtUZyqm/KvTTAsRCTC2hsCd6Lbmd90Iu4sS3uXhjtN8=
-X-Received: by 2002:a05:6870:7a0c:b0:143:8a81:116c with SMTP id
- hf12-20020a0568707a0c00b001438a81116cmr29364844oab.96.1670446453735; Wed, 07
- Dec 2022 12:54:13 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ICL77EMVyedbML0m5xv9i/c+I7QKSRC/1mCTbM2cZbw=;
+ b=F6utnOvUhcJuJ3MuBPckDV1HQaepNT9xygX5F3MyKI0L2iOsuhlek/VqrAj2OWl6Sv
+ bTIUc5Z0ANbKcuHhRWrv7X82AUeVK6LOxyV60G8Rb16I5YbS26krfBakdVBRwr+c/TB/
+ AoDuFD855/NR8+v1RhYuU3jhzCB+WRi8IW944yDb9tlu7PRTK9wYQalGux5iUHEt65A5
+ wqvnE1zIfWx9D1L0R8SgiwhCpMgFMZ5permx+5gWwM+G4Is8ipJlLIxbBgsqNEhLyHEq
+ EGwNMx+bwEL+PnM5tIzn4IqpAbM73zmb8kcoW10NnqAIyR1wEicM2dzPQqQXeuqa5S8e
+ MVUQ==
+X-Gm-Message-State: ANoB5pkbw/73OZ8V5ugP2CxLI4Ay2T5kMPMuR5Ia2FY0VaHrjzhpORMb
+ w1xikOZTEgQDG6RpKMM+s0HkRZcXlK02u8moVSMEa16JXpisGkuVRiYtXv75gNUmm2l6U5QEiWT
+ 68ILNzb7uJ0YzSNWSOBONrO8rog==
+X-Received: by 2002:a17:907:a4c3:b0:7c0:7c22:d70d with SMTP id
+ vq3-20020a170907a4c300b007c07c22d70dmr37137698ejc.707.1670447053706; 
+ Wed, 07 Dec 2022 13:04:13 -0800 (PST)
+X-Google-Smtp-Source: AA0mqf6FLXOABs3DbicSh2WH52mHLSQSSF7YdH3zersomdo0yD6fTXHGxj747T8coOeOx5NCuWVrtw==
+X-Received: by 2002:a17:907:a4c3:b0:7c0:7c22:d70d with SMTP id
+ vq3-20020a170907a4c300b007c07c22d70dmr37137691ejc.707.1670447053505; 
+ Wed, 07 Dec 2022 13:04:13 -0800 (PST)
+Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
+ (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
+ by smtp.gmail.com with ESMTPSA id
+ ta17-20020a1709078c1100b007ae035374a0sm9044212ejc.214.2022.12.07.13.04.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Dec 2022 13:04:12 -0800 (PST)
+Message-ID: <58ca6ed3-527e-8eed-0c50-64689e464fb4@redhat.com>
+Date: Wed, 7 Dec 2022 22:04:12 +0100
 MIME-Version: 1.0
-References: <CABXGCsM7jMMomy_=oNN236LfLJzMJbcNR=YWWJ74TgNO_16PWQ@mail.gmail.com>
- <CADnq5_PUCRGZoUu3RHrbD6+Dr_RHWdqkJKDBD2cWenWhQQiyKw@mail.gmail.com>
- <CABXGCsO-GLzahLgNtbzsM-HiPk7cZvHu56ckSMLD7XeUvf28hw@mail.gmail.com>
-In-Reply-To: <CABXGCsO-GLzahLgNtbzsM-HiPk7cZvHu56ckSMLD7XeUvf28hw@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 7 Dec 2022 15:54:01 -0500
-Message-ID: <CADnq5_NMuc=moNDgL1bx9riUtkfuPvj4sLM-i3Qmf-rtAHV+=Q@mail.gmail.com>
-Subject: Re: [bug][vaapi][h264] The commit
- 7cbe08a930a132d84b4cf79953b00b074ec7a2a7
- on certain video files leads to problems with VAAPI hardware decoding.
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>, Leo Liu <leo.liu@amd.com>,
- Thong Thai <thong.thai@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: [PATCH 0/2] Avoid creating acpi_video0 on desktop APUs
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Alexander Deucher <Alexander.Deucher@amd.com>
+References: <20221207193134.763-1-mario.limonciello@amd.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <20221207193134.763-1-mario.limonciello@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, nl
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 07 Dec 2022 21:04:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,99 +89,146 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, James.Zhu@amd.com,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Chen,
- Guchun" <guchun.chen@amd.com>
+Cc: linux-acpi@vger.kernel.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ Leo, Thong
+Hi All,
 
-On Wed, Dec 7, 2022 at 3:43 PM Mikhail Gavrilov
-<mikhail.v.gavrilov@gmail.com> wrote:
->
-> On Wed, Dec 7, 2022 at 7:58 PM Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> >
-> > What GPU do you have and what entries do you have in
-> > sys/class/drm/card0/device/ip_discovery/die/0/UVD for the device?
->
-> I bisected the issue on the Radeon 6800M.
->
-> Parent commit for 7cbe08a930a132d84b4cf79953b00b074ec7a2a7 is
-> 46dd2965bdd1c5a4f6499c73ff32e636fa8f9769.
-> For both commits ip_discovery is absent.
-> # ls /sys/class/drm/card0/device/ | grep ip
-> # ls /sys/class/drm/card1/device/ | grep ip
->
-> But from verbose info I see that player for
-> 7cbe08a930a132d84b4cf79953b00b074ec7a2a7 use acceleration:
-> $ vlc -v Downloads/test_sample_480_2.mp4
-> VLC media player 3.0.18 Vetinari (revision )
-> [0000561f72097520] main libvlc: Running vlc with the default
-> interface. Use 'cvlc' to use vlc without interface.
-> [00007fa224001190] mp4 demux warning: elst box found
-> [00007fa224001190] mp4 demux warning: STTS table of 1 entries
-> [00007fa224001190] mp4 demux warning: CTTS table of 78 entries
-> [00007fa224001190] mp4 demux warning: elst box found
-> [00007fa224001190] mp4 demux warning: STTS table of 1 entries
-> [00007fa224001190] mp4 demux warning: elst old=0 new=1
-> [00007fa224d19010] faad decoder warning: decoded zero sample
-> [00007fa224001190] mp4 demux warning: elst old=0 new=1
-> [00007fa214007030] gl gl: Initialized libplacebo v4.208.0 (API v208)
-> libva info: VA-API version 1.16.0
-> libva error: vaGetDriverNameByIndex() failed with unknown libva error,
-> driver_name = (null)
-> [00007fa214007030] glconv_vaapi_x11 gl error: vaInitialize: unknown libva error
-> libva info: VA-API version 1.16.0
-> libva info: Trying to open /usr/lib64/dri/radeonsi_drv_video.so
-> libva info: Found init function __vaDriverInit_1_16
-> libva info: va_openDriver() returns 0
-> [00007fa224c0b3a0] avcodec decoder: Using Mesa Gallium driver
-> 23.0.0-devel for AMD Radeon RX 6800M (navi22, LLVM 15.0.4, DRM 3.42,
-> 5.14.0-rc4-14-7cbe08a930a132d84b4cf79953b00b074ec7a2a7+) for hardware
-> decoding
-> [h264 @ 0x7fa224c3fa40] Using deprecated struct vaapi_context in decode.
-> [0000561f72174de0] pulse audio output warning: starting late (-9724 us)
->
-> And for 46dd2965bdd1c5a4f6499c73ff32e636fa8f9769 commit did not use
-> acceleration:
-> $ vlc -v Downloads/test_sample_480_2.mp4
-> VLC media player 3.0.18 Vetinari (revision )
-> [000055f61ad35520] main libvlc: Running vlc with the default
-> interface. Use 'cvlc' to use vlc without interface.
-> [00007fc7e8001190] mp4 demux warning: elst box found
-> [00007fc7e8001190] mp4 demux warning: STTS table of 1 entries
-> [00007fc7e8001190] mp4 demux warning: CTTS table of 78 entries
-> [00007fc7e8001190] mp4 demux warning: elst box found
-> [00007fc7e8001190] mp4 demux warning: STTS table of 1 entries
-> [00007fc7e8001190] mp4 demux warning: elst old=0 new=1
-> [00007fc7e8d19010] faad decoder warning: decoded zero sample
-> [00007fc7e8001190] mp4 demux warning: elst old=0 new=1
-> [00007fc7d8007030] gl gl: Initialized libplacebo v4.208.0 (API v208)
-> libva info: VA-API version 1.16.0
-> libva error: vaGetDriverNameByIndex() failed with unknown libva error,
-> driver_name = (null)
-> [00007fc7d8007030] glconv_vaapi_x11 gl error: vaInitialize: unknown libva error
-> libva info: VA-API version 1.16.0
-> libva info: Trying to open /usr/lib64/dri/radeonsi_drv_video.so
-> libva info: Found init function __vaDriverInit_1_16
-> libva info: va_openDriver() returns 0
-> [00007fc7d40b3260] vaapi generic error: profile(7) is not supported
-> [00007fc7d8a089c0] gl gl: Initialized libplacebo v4.208.0 (API v208)
-> Failed to open VDPAU backend libvdpau_nvidia.so: cannot open shared
-> object file: No such file or directory
-> Failed to open VDPAU backend libvdpau_nvidia.so: cannot open shared
-> object file: No such file or directory
-> [00007fc7d89e4f80] gl gl: Initialized libplacebo v4.208.0 (API v208)
-> [000055f61ae12de0] pulse audio output warning: starting late (-13537 us)
->
-> So my bisect didn't make sense :(
-> Anyway can you reproduce the issue with the attached sample file and
-> vlc on fresh kernel (6.1-rc8)?
->
-> Thanks!
->
-> --
-> Best Regards,
-> Mike Gavrilov.
+Mario, thank you for working on this.
+
+On 12/7/22 20:31, Mario Limonciello wrote:
+> In kernel 6.1 the backlight registration code was overhauled so that
+> at most one backlight device got registered. As part of this change
+> there was code added to cover the "nomodeset" case to still allow
+> making an acpi_video0 device if the BIOS contained backlight control
+> methods.
+> 
+> This fallback logic however is failing on the BIOS from a number of
+> motherboard manufacturers supporting Ryzen APUs.  What happens is
+> the amdgpu driver finishes registration and as expected doesn't
+> create a backlight control device since no eDP panels are connected
+> to a desktop.
+> 
+> Then 8 seconds later the ACPI video detection code creates an
+> acpi_video0 device that is non-operational. GNOME then creates a
+> backlight slider.
+
+Note that the problem of the creating a non functional acpi_video0
+device happened before the overhaul too.
+
+The difference is that now we have the in kernel GPU drivers
+all call acpi_video_register_backlight() when they detect an
+internal-panel for which they don't provide native-backlight
+control themselves (to avoid the acpi_video0 backlight registering
+before the native backlight gets a chance to register).
+
+The timeout is only there in case no drivers ever call
+acpi_video_register_backlight(). nomodeset is one case, but
+loosing backlight control in the nomodeset case would be fine
+IMHO. The bigger worry why we have the timeout is because of
+the nvidia binary driver, for devices which use that driver +
+rely on apci_video# for backlight control.
+
+Back to the issue at hand of the unwanted (non functional)
+apci_video# on various AMD APU using desktops.
+
+The native drivers now all calling acpi_video_register_backlight()
+gives us a chance to actually do something about it, so in that
+sense the 6.1 backlight refactor is relevant.
+
+> To avoid this situation from happening add support for video drivers
+> to notify the ACPI video detection code that no panel was detected.
+> 
+> To reduce the risk of regressions on multi-GPU systems:
+> * only use this logic when the system is reported as a desktop enclosure.
+> * in the amdgpu code only report into this for APUs.
+
+I'm afraid that there still is a potential issue for dual
+GPU machines. The chassistype is not 100% reliable.
+
+Lets say we have a machine with the wrong chassis-type with
+an AMD APU + nvidia GPU which relies on acpi_video0 for
+backlight control.
+
+Then if the LCD is connected to the nvidia GPU only, the
+amdgpu code will call the new acpi_video_report_nolcd()
+function.
+
+And then even if the nvidia binary driver is patched
+by nvidia to call the new  acpi_video_register_backlight()
+when it does see a panel, then acpi_video_should_register_backlight()
+will still return false.
+
+Basically the problem is that we only want to not try
+and register the acpi_video0 backlight on dual GPU
+machines if the output detection on *both* GPUs has not
+found any builtin LCD panel.
+
+But this series disables acpi_video0 backlight registration
+as soon as *one* of the *two* GPUs has not found an internal
+LCD panel.
+
+As discussed above, after the backlight refactor,
+GPU(KMS) drivers are expected to call
+acpi_video_register_backlight() when necessary for any
+internal panels connected to the GPU they are driving.
+
+This mostly fixes the issue of having an acpi_video0 on
+desktop APUs, except that the timeout thingie which was
+added to avoid regressions still causes the acpi_video0
+backlight to get registered.
+
+Note that this timeout is already configurable through
+the register_backlight_delay module option; and setting
+that option to 0 disables the timeout based fallback
+completely.
+
+So another fix for this might be to just change the
+default value of register_backlight_delay to 0 for
+kernel 6.2 .  This is a change which I want to make
+eventually anyways; so we might just as well do this
+now to fix the spurious acpi_video0 on desktop APUs
+issue.   And if this does cause issues for nvidia
+binary driver users, they can easily work around this
+by setting the module option.
+
+Or alternatively we could go with this series,
+reworked so that calling acpi_video_report_nolcd()
+only cancels the timeout.  This way drivers for another
+GPU can still get the acpi_video0 if necessary by
+explicitly calling acpi_video_register_backlight().
+
+Personally I have a small preference for just changing
+the default of register_backlight_delay to 0, disabling
+the timeout based fallback starting with 6.2 .
+
+I did not do this for 6.1 because there were already
+many other backlight changes in 6.1, so I wanted to
+have the fallback behavior there as a safeguard
+against things not working as planned.
+
+Regards,
+
+Hans
+
+
+
+
+
+
+
+
+
+
+> 
+> Mario Limonciello (2):
+>   ACPI: video: Allow GPU drivers to report no panels
+>   drm/amd/display: Report to ACPI video if no panels were found
+> 
+>  drivers/acpi/acpi_video.c                         | 12 ++++++++++++
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 ++++
+>  include/acpi/video.h                              |  1 +
+>  3 files changed, 17 insertions(+)
+> 
+
