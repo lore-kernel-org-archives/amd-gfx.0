@@ -4,115 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F00E5C4708E
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Dec 2022 15:53:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C94DCC352A1
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Dec 2022 16:08:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28BD210E3D4;
-	Wed,  7 Dec 2022 15:53:06 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2088.outbound.protection.outlook.com [40.107.212.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C28B210E3D4
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Dec 2022 15:53:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lPoU8cafoO2rwiA7cnIYJTiXPedGD6c+RQqNtgz1Ly7ISxHLX/DYXQemflUc2uebRjsinRNA+ieQX0Y/J6xQc7lxtEAQ5jG+bdez/X9ER+BECkg2TmXhv+XbIzZG027QfBZJ/zNn0Q//EtMsYdLW7Tupx/wl69O2OeSAH6bz9rm535iclE/LtFBo42I5/da6JAVCU/Hk+A3dxNAxsVrV33UUuL/B/zV5FEaA7qw7kJj+C/CGcbyQd9UuGWZGR+gcY6/+dZAxH0yOCxJ2Y4dRAIN0xbYN8fpPBuIe3/QMfXzLOeX8OysHiMZLTtZh9CrObobnVOQ9mQiivuoUb8umuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4qo/2QRPzLtMHiKfvlYOzFoLPF4qrGC0OiWZ9o2/Qbw=;
- b=UO2ymfCg58nkSGVYQbc6L8h1nalYCPd64huKc8TVQ4PUWU0rfJd0FxrrfLLBh0bTSE0Ti5gHjCGScM0DYd/UxynBU8D5GfS4hFQx6wTFdosdSWAKkV30t66G1a8EysZQERJE60bJ6iUFd2Dv+idBOoROjv4yYRU348UIf9zoHkRmC+hlv5d6HgadZ5oCbrHcM1cHTaS/oB/txDvn4XiRm6+4RJ9ctSO/0D779WWNibaaP+j4Cv09ixY7zG3qUe5ipyeOnBL+DN+Bkk0dnyBaDDpqyWKIpAGL+nUQDIdwL9eYIBd4bb1Oh7mlRKxlBWyQ+FvANZhDOwj24oMsoGBfKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4qo/2QRPzLtMHiKfvlYOzFoLPF4qrGC0OiWZ9o2/Qbw=;
- b=nm5iXKAnzk86HZN01Py4G434wOnqkWkeZdBp1eRsK7FJt+nD+Mu7RvxL5xD4eHuniy5K18SyvIu7MV1VXY5b/cYn27164x1V39bW5zGXQqPDPDg3+ThKFzJXL0j47aZvY3i0yKAnUXMqAO5E7/PTJkUjIB5AKPApvWYXT6u/p1A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- BY5PR12MB5015.namprd12.prod.outlook.com (2603:10b6:a03:1db::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Wed, 7 Dec
- 2022 15:53:01 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178%3]) with mapi id 15.20.5880.014; Wed, 7 Dec 2022
- 15:53:01 +0000
-Message-ID: <132ba5ca-2040-81c3-691c-40508a584189@amd.com>
-Date: Wed, 7 Dec 2022 10:52:58 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [PATCH] drm/amdgpu: fixx NULL pointer deref in gmc_v9_0_get_vm_pte
-Content-Language: en-CA
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- vprosyak@amd.com, Kenny.Ho@amd.com, Alexander.Deucher@amd.com
-References: <20221207074936.1347543-1-christian.koenig@amd.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <20221207074936.1347543-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0084.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::23) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A17A10E3DE;
+	Wed,  7 Dec 2022 16:08:47 +0000 (UTC)
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EFFC10E3DE;
+ Wed,  7 Dec 2022 16:08:44 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id h132so21223890oif.2;
+ Wed, 07 Dec 2022 08:08:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8PPFbcQH3k2p6Ol7n3wtGili7wuwfw0fcoU2H/NtXps=;
+ b=kGObYCicg2kWvsoq4B4ABBnY5XmfDMBecisweKvmW6RdS9hZW4CwxxWnPc/MTdH2kr
+ CQHB3cOQeW+tp7tyrmkWk88BddbHHfN6fYmnbUkgMTM1R+vWzDAPpQW9vwr8UOVmdUoE
+ f2i8M8naS3EFUUJEis5S2vjhBzQx8vKa5Q/AtEWBfGYN21hV4SX6+r7HdYf3NcORRxJd
+ dWyIkRgj3yH9nVoOS5U7bHE8QsZIflm3VEPAvOwj7A38MC7G9tjcIEaOlaIBrz+xrvGc
+ ICjlo/Vny1lDSg8mrefo/j7kwm650EbJmfVyN2u5/qYHhYtST41++TsNEgQ59eBsiePz
+ ygIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=8PPFbcQH3k2p6Ol7n3wtGili7wuwfw0fcoU2H/NtXps=;
+ b=48dSeGjjiMf+J1Bo0quriS56xClv7/F2SmDG8yAS9SA0avwEn13McQW9OXjBY+cJEx
+ HnNmk9Hq1pGLVGCYfYZZwpZ+wqjywSc18Dsa4JVYcf0uwPLCNvoGAZBhrLKSibmqIuRA
+ 6GnU3k2rQw3T9R47jPDmjgIo+oyELKMYIxvkqoPoTJxUT+KQWOaFg/Bfa//ubIyHCUCY
+ T9+cGByZrQTTu1WiH3X0qDRZ1Xh8x3j7NaRaao4QEnzvpA3zuxUcWPdERXie830QsmfU
+ Fr78OP3UrWpKgmJwNQICaB42q0BdBlvS7exfhKc4Ok2ghtO3RNQnPXPK5qt4NEBXw3y3
+ FKvg==
+X-Gm-Message-State: ANoB5pl9RYeehg872vn82S/ud+1GSK5ZQWbPJzLDkcZor0i+Lhh7+OTu
+ 5VMnbE3XRp5RNLMMnDVi974RLPbgefsXXct42NfvNOZzaGA=
+X-Google-Smtp-Source: AA0mqf6ss62lhGgR53OLEK2l1HiddU/zgwKT3P2Y8Yt7qS3geLVK//F/xRR2zQENVqrjI9pT1MOGMqHbVbRpe6cIrhU=
+X-Received: by 2002:aca:1913:0:b0:35b:f5f7:3ed0 with SMTP id
+ l19-20020aca1913000000b0035bf5f73ed0mr10976036oii.46.1670429323587; Wed, 07
+ Dec 2022 08:08:43 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|BY5PR12MB5015:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9bc34c8-2313-4ce4-7d64-08dad86b1e66
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pRqj04yRx42/lIEiSgLSluaotOSCZ66WKuqblCgY/d7jrNRs7PQ5kn6oUfd3WxOIjkgCgU5MgpOSHINVHZAXfcfWY5pGWBEE90z6gGDXQuKuwlFH+u9H/lsrcLMFIhL1pXh6snfFzq8KsM39DZM7gdaFhtXuD1afmpg7V3l0MnUb6KtfW9SGvHzaya0WY9Le0Vt1GmczLLo0p3zA6sOkoCRiWV1S5gXtiBlyioo6AAbCsWNOSBtWlcMSWqX3OXNnB4iE0uw41OmzOCBsy+1QBb8VNCh+pEx521o7idcBX88XHrKM7g1X4Ozk78Pig4aRRwpejj0izC1KgkdA65u8hC15kgcLN4orCUFnJGrqilubD8PCOKiP0Ijvnuj26K7n0DOZUT0A4aeEm9F0d9UdjANTyNyWYusgdjxN+dE3HNYp59s16Pd6+Y6YLv4Uai/b6VYke4Mcq9nQAliXE9o+NssLK54YMTH+wKn4mku7OynfLyfUbVydDxL8NNp2SwI9vK8LhXZa3//53SjjI/1WaSR3BCLjHL4ELTN3Eqn4iA+DcDHtLBNwmhCm/Sdz95KyFzqBCjj175TE9Hct07CSS9EA+l5VimUlnBnQSNn9siFKNaL7Uc/OLNRmS8me3lOEKa9H2dg0CkKbAG/FMtsBMHzH4Xy+YinVRLY++FHgjGq4xeXivXIDuaTAlXYBQowmeaiMpoQZKSGkBcUzxy9X9OiLAAQp8VlKREFHB1PX5q8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(366004)(376002)(346002)(39860400002)(396003)(451199015)(83380400001)(8676002)(66556008)(86362001)(31696002)(38100700002)(5660300002)(44832011)(2906002)(66574015)(66476007)(41300700001)(4326008)(8936002)(6506007)(6512007)(6666004)(186003)(53546011)(26005)(316002)(2616005)(6636002)(6486002)(66946007)(31686004)(478600001)(36756003)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eHgxdU03RXg1V0x4ak9jV3dLK2FKaVlES0lIcUFGck1DZEdHRE94NGxzcUZq?=
- =?utf-8?B?R0hwa244d01MS1hFOHF5ZWoxT0RiczN1ZHU1ZXNPRGVhL1NRSS8vd1loRmhS?=
- =?utf-8?B?Z1dWa2F6VmdYVHBCNnZvV2lmVTJKMTNOaGszL1pnU3JsU3VYMUNDbWJVU1Y5?=
- =?utf-8?B?TVkvNm9OR3U2K2RzY05BbTNVd2lVeTl5cC9lVk9mUWRQZVJDcURWUWs3Q3Mz?=
- =?utf-8?B?T3lCdXI3MUNQWTNTVEFaSDZaWGk0QVU0QnB6OTloTGpxNFg4d2dzZ01SMHBt?=
- =?utf-8?B?amVKWnQ0RkVrQkhpaU9KS2NWUURBNFVxM2szYmlPVnFpL3llN0JQRSswakhl?=
- =?utf-8?B?MVRkbzdNVzdQdU83WVc2bC9oem84V0xpakNYZll5Z1E1dWY0MEZlWGhYaUln?=
- =?utf-8?B?R3hNTzZFamlvZEJ3Ny9rRkcySnkyQ0RwMXd0VnppY2hzeHZEb1lURndCM014?=
- =?utf-8?B?RUxRVEtuZWVMQ3hvSUNPT1BSMFFkR0Z5U0JjYjJ5Mm42YWJjdHl2a05mdnRR?=
- =?utf-8?B?QzRjd0RyMDI0QjZuS05NaEdLS2dSczZjcEowNTYyZDNzWk83QWEwSHFPYkc1?=
- =?utf-8?B?c3dDcTNmWHliRnFlZjdOTVBSbWNFZ1k0c2s4MDBMNlJTVWN1RjJnQ3IyYTZh?=
- =?utf-8?B?QXpPUWpkM29YaWFHWW5jeEJUL3JaNUFUY3BIMG42MGNKelk4UGZDcE9BYk45?=
- =?utf-8?B?MHlJb3BuV3doMVRvS2x3MkQwTEZ1b3ZyYVJLWUlzMExRZHhiZm9qcktzTWJV?=
- =?utf-8?B?WHd2SFJuTGFKeDkvYUx4dUVzR3RKWXJhV0xKRHlseGxZR3BUL29vRXB3M3lh?=
- =?utf-8?B?ZnBGSmQ1OUwrRUFJS2dRQVZCaFdHMnJNQ2diNnpCN3lqajV0WlBKWmFoWkhP?=
- =?utf-8?B?U2FSNGFCekZxdmpmVDVhY0tSSkthd2U4TFBaOVFLMG0wVW5aeXg5eUQ3YmFV?=
- =?utf-8?B?dU9FVnVKanpSNlk5a09Tc2tHS2pIbFJybW14c2F5Sm9kbG5teU5FTjZIcWJW?=
- =?utf-8?B?ZW1SUW5jTWpWWHd4OW45TUVmTXN3L2JHK1hFdU5heHNTVTRFZlJiMjhFdlVE?=
- =?utf-8?B?OVB2dkdGTDBzN2E5ZGZNTE15TFFHT1BpWDFycXM5YTZnVThndHlIMHZ6aFlZ?=
- =?utf-8?B?b1o4c2ZiNm9BRlMxUHdWcWVsemdSc0szZTB0VUVVdDZ1a0tWUzNYV2ZMN1hy?=
- =?utf-8?B?UWJyaXF4WkxabWJ1YVIrKzljdlZpUHB4c0ZJTVJyb0ZIWng2MzludXhKVnp2?=
- =?utf-8?B?eCsrY1ZDYzVRanNSM0JJMkxZZm03OTR3TXo4OFVrS0xOL1ZMZnBBVzF4YUxx?=
- =?utf-8?B?SExaVU5YT2lpaERTS3R4UFRKUUpaRGJ2Mnl5NG9ITmhBc0pBOUx2YTVVdmZT?=
- =?utf-8?B?THRPUHNKTmtNOEZJenI1UXh1L25xUG96Y1NTWFRoZngzdGdtVHJMTnc4S0s0?=
- =?utf-8?B?N2o2aFBhT0Y5aXUxSG5pTEtTTEFCVVFnaERxNzVUT2dmdm5NTVY0TWVRVkxC?=
- =?utf-8?B?NTR1dW1kdTVpVk11bzRTK1JqdTlQZnZxZWpRaWtPUjZaQytnaEw2R2xobFJq?=
- =?utf-8?B?SmxBa01EUHBZZ0d0NzFVTWNSWnczand6Y3d1d2trYUt0Q1ZMNlJmbDZBcnV4?=
- =?utf-8?B?UENicXUwS0grY1F1KytiY1JZSVRlb3hRT3FLK3dVQWl5TkV3NWJaNVNVYTB0?=
- =?utf-8?B?K0pNRjVjcWNLSGRqVGxKaWdmVC9zYW1KUTJ0VmxnNU96WktFa0UxaHRpcDdP?=
- =?utf-8?B?cWx1bTdkU2ZmamlKZ0VJcUNWWkdiS0EyRTFNQy9BZXF5M1hLTnRoUUdnSHVr?=
- =?utf-8?B?clkrMEZQa25IZ1Q4eUdmQ1k1eENCTHlucmRIajl4ZG5hN1ZQN0pFZGRjNVB4?=
- =?utf-8?B?NER2TEpGZWduc1dja1NTWEVWb0d6OWVibGxDb0lXYy9nMjVCc1pwdW5Scmg1?=
- =?utf-8?B?WWlqWkVENjdlUENGSFZIMEYyRXRUUmdZTjAvNEI2eHFzUGdicFpBbm5JbW0y?=
- =?utf-8?B?VGRsTWowcVR3bGNoY2pVOFlYWExNSi9ob3dROTFhbGdtZTR6dlNlMi9yRFEr?=
- =?utf-8?B?Z2tXRnFwYkpZd3A0NW1uR2hNb2IzTlpoQzNIeTFsUHR1YTRYSk1xaCtETlpG?=
- =?utf-8?Q?rB0rQhC72L67RJJt6LNSZIEB/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9bc34c8-2313-4ce4-7d64-08dad86b1e66
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2022 15:53:01.1979 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vYfQDxbsqK5rw4U5yXOWO1ybUY1TxkQvx3aQFZo4nPMGiOFTgSslpRTo96Chi8ng
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5015
+References: <DM4PR12MB51524585CEC4E2B4B8370874E31A9@DM4PR12MB5152.namprd12.prod.outlook.com>
+ <CADnq5_NWr9SAzcQ=x-UVXWHDBci6f_pg-sRj3AD8q5GWYbBJOw@mail.gmail.com>
+ <4e415872-3fcf-27b9-dc74-b3e86f171e1c@gmail.com>
+ <CADnq5_PShNRZUwvnsTawW1OaCOjK73rdKTxxQhA=Znf2gqbJ=Q@mail.gmail.com>
+ <ce75ecb5-1d07-d8a6-2722-59da84c22c10@gmail.com>
+In-Reply-To: <ce75ecb5-1d07-d8a6-2722-59da84c22c10@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 7 Dec 2022 11:08:32 -0500
+Message-ID: <CADnq5_Mo_hmc7SCYJxQHc-TgdzXS7+YD-SUt9aF-Gx2AovriRw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: try allowed domain when pin framebuffer failed
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,47 +69,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: "Zhang, Yifan" <Yifan1.Zhang@amd.com>,
+ amd-gfx <amd-gfx-bounces@lists.freedesktop.org>, "Paneer Selvam,
+ Arunpravin" <Arunpravin.PaneerSelvam@amd.com>, "Zhang,
+ Jesse\(Jie\)" <Jesse.Zhang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Right--I just double checked with the koops and it is exactly the "resource" pointer
-in the tbo which is NULL.
+On Wed, Dec 7, 2022 at 10:52 AM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Am 07.12.22 um 16:38 schrieb Alex Deucher:
+> > On Wed, Dec 7, 2022 at 10:23 AM Christian K=C3=B6nig
+> > <ckoenig.leichtzumerken@gmail.com> wrote:
+> >> I would go a step further and just allow GTT domain on ASICs !=3D CARR=
+IZO
+> >> | STONEY.
+> >>
+> >> I can't see a good reason we should still have any limitation here, VR=
+AM
+> >> doesn't have any advantage any more as far as I know.
+> > Well, if VRAM is available we want to make sure someone uses it
+> > otherwise it's just wasted.
+>
+> Well it still gets used when it's free. So now problem at all here.
+>
+> We should just not force anything into VRAM or GTT any more if it's
+> technically not necessary.
 
-Reviewed-by:Luben Tuikov <luben.tuikov@amd.com>
+So just this?
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 919bbea2e3ac..8e8f07fa7a93 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1506,7 +1506,7 @@ u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *b=
+o)
+ uint32_t amdgpu_bo_get_preferred_domain(struct amdgpu_device *adev,
+                                            uint32_t domain)
+ {
+-       if (domain =3D=3D (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT))=
+ {
++       if ((adev->asic_type =3D=3D CHIP_CARRIZO) || (adev->asic_type =3D=
+=3D
+CHIP_STONEY)) {
+                domain =3D AMDGPU_GEM_DOMAIN_VRAM;
+                if (adev->gmc.real_vram_size <=3D AMDGPU_SG_THRESHOLD)
+                        domain =3D AMDGPU_GEM_DOMAIN_GTT;
 
-Regards,
-Luben
 
-On 2022-12-07 02:49, Christian König wrote:
-> We not only need to make sure that we have a BO, but also that the BO
-> has some backing store.
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 50386eb2eec8..afc0cfed5065 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1185,6 +1185,8 @@ static void gmc_v9_0_get_vm_pte(struct amdgpu_device *adev,
->  				struct amdgpu_bo_va_mapping *mapping,
->  				uint64_t *flags)
->  {
-> +	struct amdgpu_bo *bo = mapping->bo_va->base.bo;
-> +
->  	*flags &= ~AMDGPU_PTE_EXECUTABLE;
->  	*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
->  
-> @@ -1196,7 +1198,7 @@ static void gmc_v9_0_get_vm_pte(struct amdgpu_device *adev,
->  		*flags &= ~AMDGPU_PTE_VALID;
->  	}
->  
-> -	if (mapping->bo_va->base.bo)
-> +	if (bo && bo->resource)
->  		gmc_v9_0_get_coherence_flags(adev, mapping->bo_va->base.bo,
->  					     mapping, flags);
->  }
 
+>
+> Christian.
+>
+> >
+> > Alex
+> >
+> >
+> >> Christian.
+> >>
+> >> Am 07.12.22 um 16:10 schrieb Alex Deucher:
+> >>> Does this patch fix the problem?
+> >>>
+> >>> Alex
+> >>>
+> >>> On Wed, Dec 7, 2022 at 2:27 AM Zhang, Jesse(Jie) <Jesse.Zhang@amd.com=
+> wrote:
+> >>>> [AMD Official Use Only - General]
+> >>>>
+> >>>>
+> >>>>       drm/amdgpu: try allowed domain when pin framebuffer failed.
+> >>>>
+> >>>>
+> >>>>
+> >>>>       [WHY&HOW]
+> >>>>
+> >>>>
+> >>>>
+> >>>>       in some scenarios, the allocate memory often failed. such as d=
+o hot plug or play games.
+> >>>>
+> >>>>       so we can try allowed domain, if the preferred domain cannot a=
+llocate memory.
+> >>>>
+> >>>>
+> >>>>
+> >>>>       Signed-off-by: jie1zhan jesse.zhang@amd.com
+> >>>>
+> >>>>       Change-Id: I4b62e2ff072d02c515f901000a5789339d481273
+> >>>>
+> >>>>
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_object.c
+> >>>>
+> >>>> index 1ae0c8723348..05fcaf7f9d92 100644
+> >>>>
+> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> >>>>
+> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> >>>>
+> >>>> @@ -39,6 +39,7 @@
+> >>>>
+> >>>> #include "amdgpu.h"
+> >>>>
+> >>>> #include "amdgpu_trace.h"
+> >>>>
+> >>>> #include "amdgpu_amdkfd.h"
+> >>>>
+> >>>> +#include "amdgpu_display.h"
+> >>>>
+> >>>>
+> >>>>
+> >>>> /**
+> >>>>
+> >>>>     * DOC: amdgpu_object
+> >>>>
+> >>>> @@ -942,8 +943,14 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *=
+bo, u32 domain,
+> >>>>
+> >>>>                           bo->placements[i].lpfn =3D lpfn;
+> >>>>
+> >>>>           }
+> >>>>
+> >>>>
+> >>>>
+> >>>> +       retry:
+> >>>>
+> >>>>           r =3D ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+> >>>>
+> >>>>           if (unlikely(r)) {
+> >>>>
+> >>>> +               //try allowed domain when pin failed. just a workaro=
+und.
+> >>>>
+> >>>> +               if (unlikely(r =3D=3D -ENOMEM) && domain !=3D bo->al=
+lowed_domains) {
+> >>>>
+> >>>> +                       amdgpu_bo_placement_from_domain(bo, bo->allo=
+wed_domains);
+> >>>>
+> >>>> +                       goto retry;
+> >>>>
+> >>>> +               }
+> >>>>
+> >>>>                   dev_err(adev->dev, "%p pin failed\n", bo);
+> >>>>
+> >>>>                   goto error;
+> >>>>
+> >>>>           }
+>
