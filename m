@@ -4,65 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCF58C3A5A7
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 07:15:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08327C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 07:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36E6D10E464;
-	Thu,  8 Dec 2022 07:15:54 +0000 (UTC)
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F33910E464
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Dec 2022 07:15:51 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id z92so942068ede.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Dec 2022 23:15:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=re8Tfwq7hNxxMbsmrcdFmskJP7a0KUq37homQVC4VgM=;
- b=ZCacS/DS9I3xnlHFM4ybEeLGmCrppM5kQHvP/n/XAHMLcnlzrRN8tiDvs5CcGmy5u9
- HE43ZUuAu4cLW3WtkuPKj1j4K9KnG61PomiNrkya8LABEQ6IXtKGFeFC3NPzyQXn142u
- ODqXy4nz2FWHmd0kEh5FgS3uMFZNZQ3IxlJmS+iT0n77CwoL0fQjW104reBy472FYoye
- T7EqMooCROjVfzEmya1uRxkOQLK31iGHYb9I5JfCWylFIJi0i4sodTw2p6NUFH5rvb04
- KsBA+6FJ2nYTCni6wMogcJoNVRe8xbdeX3YrL18rrNI9vlVWbGnUR4E8FW3Zv+hvknwh
- g/yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=re8Tfwq7hNxxMbsmrcdFmskJP7a0KUq37homQVC4VgM=;
- b=tRAoxPm3+iPQYG0p1mJLfL+ZzHkNJbenaI9TKAGjbR60FPnnutmmV70Jdz0AewgEZ+
- XQ356G3820YPYjFz1ciMO4+D53mTyxfZeHi4p91Ztq+zAAHOesD4Yjv8IWZ0ghbU+Ij5
- uKKMs+JVDW3Q4Ob/+bR57UqH6dXesda1UvsuJu8ZJTV/4nY7TeV1E9PfB0gS2lnM4d7B
- ecE282k+pP911zBgbBb5XzlbL2kmWjb5+c1R+HF5Lg1bLpt1pqksGiKqsZOygpzN+CR3
- mK3NYYaopXhumSMf4CoCsHs7vRxb/WWeLR+upOhrNQKR0Nx4AMtyALuOQZisK0PswKVw
- 6fGw==
-X-Gm-Message-State: ANoB5plIUJ0phiyCf3OFft1st9veD717I5qgM/03WjvINd6ORFXoRcqY
- D8xytaUB45RgpU/qpWCDpcs=
-X-Google-Smtp-Source: AA0mqf66UQ/cPzm/scpei0ZADYxPk+i3Qn/No/6UkC2jCIlcsceXtouj3Bjet2g2w1EWeJOYYUDNMw==
-X-Received: by 2002:aa7:d314:0:b0:46c:fc3f:cf8a with SMTP id
- p20-20020aa7d314000000b0046cfc3fcf8amr9930299edq.386.1670483749509; 
- Wed, 07 Dec 2022 23:15:49 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:172d:b6f5:d270:8dd2?
- ([2a02:908:1256:79a0:172d:b6f5:d270:8dd2])
- by smtp.gmail.com with ESMTPSA id
- 6-20020a170906310600b00738795e7d9bsm9344018ejx.2.2022.12.07.23.15.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Dec 2022 23:15:48 -0800 (PST)
-Message-ID: <cde12875-4708-3729-f673-5fd086811552@gmail.com>
-Date: Thu, 8 Dec 2022 08:15:49 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA11E10E465;
+	Thu,  8 Dec 2022 07:51:42 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2079.outbound.protection.outlook.com [40.107.96.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD60610E465
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Dec 2022 07:51:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DhrSLRZ1sIZ+s5Hz/N0DMjK/PrTG/Xrw9qt81aEMErSvQbfT0+J5gxFNKR6+UjZCUaigjsYcy/h80lLpfk5W4FAMpgl0i25J+RaDFBa6fFSew4VJ9G4S3cEueidHzHjhJYlu3IDcrw7JRMGRqojGQkAa9/c3EDnUP68q3E5pKHXK9MLn65WdhQnNBjvxXfngTduTnY12m1JDdre7d1fKSe3fewRrhihP9WjDZ2fTaszOc9Eq3Y280WmmIUlq4iXgss5xpIfNwbSsD+EnkqLo1GtK9tOnXPJ60c8m5qyc+yI7hK2m2qEvQCMI2iS7aFslFBlcUYUgMl0h3yn3J54few==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qm8Cekp3zXx62CvQ1O6gpGIu48FnWMIWcFVgg2ioSJ8=;
+ b=cEF1lzPyrn+ZifAum3LPjFBv6HCHOMT7+3Pjqs7fL52qRIj0Co5LResx90TRqenlWCOVC0OvldFDbgDGc3Uec6nFXaXOKUYTp2uVb8TVtmvwFQ9zZOWITs4IOoe2pUapgvMguC695TvMWQQWsRIOPGbto0YT0rDQfzFZ5fx9/JaigxQhy9IPRF6Nnsyz9LM1d1TUXEnLfGyqYeCYncvKssOJANvYTr4E4QTLL0Bj9Si/PjMPhJsgDJWveVS9PHqpkD2qz9eX3cDhq2xidOIrBISyFwBFS1bdM/PNAwQFIGH7z2/d2HlbhS8kRTtrUUt5O3VNjZzCmyChB9KcFLqAQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qm8Cekp3zXx62CvQ1O6gpGIu48FnWMIWcFVgg2ioSJ8=;
+ b=4ERubx9ty2W6LVYZB724+TvvNQaXYJCwQogSydRrGkDjpG/4pvToaADjhRG+bHki24ng4qmQWGBKP1VjnCPhb+q4VGQBeFIAdTz27F6rueZ+RklZvKpzCQhiNyNkzNhmYjVs6wR+Il9w6X6iXXwnj8hJ8Zvy8GJaWdSTh/Fi8MM=
+Received: from MW4PR03CA0302.namprd03.prod.outlook.com (2603:10b6:303:dd::7)
+ by SN7PR12MB8146.namprd12.prod.outlook.com (2603:10b6:806:323::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Thu, 8 Dec
+ 2022 07:51:35 +0000
+Received: from CO1NAM11FT098.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:dd:cafe::14) by MW4PR03CA0302.outlook.office365.com
+ (2603:10b6:303:dd::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14 via Frontend
+ Transport; Thu, 8 Dec 2022 07:51:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT098.mail.protection.outlook.com (10.13.174.207) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5901.16 via Frontend Transport; Thu, 8 Dec 2022 07:51:34 +0000
+Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 8 Dec
+ 2022 01:51:31 -0600
+From: Tao Zhou <tao.zhou1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
+ <stanley.yang@amd.com>, <Gavin.Wan@amd.com>, <Vignesh.Chander@amd.com>,
+ <david.yu@amd.com>
+Subject: [PATCH 1/7] drm/amdgpu: add RAS poison consumption handler for AI
+ SRIOV
+Date: Thu, 8 Dec 2022 15:51:16 +0800
+Message-ID: <20221208075122.28702-1-tao.zhou1@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH] drm/amdgpu: make display pinning more flexible (v2)
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221207162135.3290795-1-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20221207162135.3290795-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT098:EE_|SN7PR12MB8146:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b09d4cf-9652-4c0d-4466-08dad8f1074e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: /u++NDZMkGVArzDgB4xMh7Mr7JZjlwcJHpezP+Ft9ZiFK3+npQhU/PI6Ipvy9AXoZ9kPCgkISZKxs1+ozVjHy3r7iPoVHNbyYrlOIja3K9Fpg6YwmugWhDaLxJNxCUG7LL179pYV3/mwFOAPDIg003asyWi3yd6UT6oFRsl5wZ7ONNUSTv1LLNwhnxxMTMKe99wrULfnQlcwg/ZTMs1tqUM2aWI5S7S2AstQglobAtlKC4gAZTfM6Q4eeU+wYW0o/cP9sM3S2JgVV8Mu4NW6V5BUkf5Ynwao4f90KhnH/7BL836ndBBT0kvLk54DoCfxD3EvDe5oRyW4XZdO/AdGP2bK2MW4jNH6qTyI2TFDQqe/ijpheAyXHwzck+w3FcQs3ECxkbxPj7vGzQc4xihXoapV2x3KGmJdWeUc8oCg1rETxD/654dqeab5ZTo8Q9ifaqzQntXWqIHTu7wznKagoNYV5TkPvV77v7Hp65C7sy4lbK6/Aol+7/ceaQEX+EDSw/LU4zqKM9TuVDcBfz5/D37fLawbP5DqjfU4Kov26/CrYZ9b86+qdK+6Axnk2+wQeU/97g+Eyn070ofmmCJm6W9reQbvz2c5Fml5EQGlF+esyIPKSCyJ76Zn9XhJxGR4pzo5txaHfD3BdODObZDVjvssf4D1/2uVYexfVD70H6TWzTZM7JBsO0WroAXPFgvN5oGlJpAhxftJ/phj0JVPR5rRjMO7oICgKUDV7DN6nDk=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(346002)(376002)(396003)(39860400002)(451199015)(40470700004)(46966006)(36840700001)(2906002)(36756003)(86362001)(70206006)(83380400001)(47076005)(426003)(70586007)(41300700001)(6636002)(8676002)(316002)(110136005)(4326008)(82740400003)(82310400005)(478600001)(6666004)(7696005)(5660300002)(186003)(8936002)(26005)(40480700001)(336012)(16526019)(356005)(81166007)(40460700003)(1076003)(2616005)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2022 07:51:34.5915 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b09d4cf-9652-4c0d-4466-08dad8f1074e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT098.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8146
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,36 +100,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Tao Zhou <tao.zhou1@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 07.12.22 um 17:21 schrieb Alex Deucher:
-> Only apply the static threshold for Stoney and Carrizo.
-> This hardware has certain requirements that don't allow
-> mixing of GTT and VRAM.  Newer asics do not have these
-> requirements so we should be able to be more flexible
-> with where buffers end up.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Send message to host and host will handle it.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+v2: split it into two parts, one for mxgpu ai and another one for common
+poison consumption handler.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 919bbea2e3ac..2df55cc7e07f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1506,7 +1506,8 @@ u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo)
->   uint32_t amdgpu_bo_get_preferred_domain(struct amdgpu_device *adev,
->   					    uint32_t domain)
->   {
-> -	if (domain == (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) {
-> +	if ((domain == (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) &&
-> +	    ((adev->asic_type == CHIP_CARRIZO) || (adev->asic_type == CHIP_STONEY))) {
->   		domain = AMDGPU_GEM_DOMAIN_VRAM;
->   		if (adev->gmc.real_vram_size <= AMDGPU_SG_THRESHOLD)
->   			domain = AMDGPU_GEM_DOMAIN_GTT;
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 1 +
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c    | 6 ++++++
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h    | 1 +
+ 3 files changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index 2b9d806e23af..b9e9480448af 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -88,6 +88,7 @@ struct amdgpu_virt_ops {
+ 	int (*wait_reset)(struct amdgpu_device *adev);
+ 	void (*trans_msg)(struct amdgpu_device *adev, enum idh_request req,
+ 			  u32 data1, u32 data2, u32 data3);
++	void (*ras_poison_handler)(struct amdgpu_device *adev);
+ };
+ 
+ /*
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+index 12906ba74462..63725b2ebc03 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+@@ -404,6 +404,11 @@ static int xgpu_ai_request_init_data(struct amdgpu_device *adev)
+ 	return xgpu_ai_send_access_requests(adev, IDH_REQ_GPU_INIT_DATA);
+ }
+ 
++static void xgpu_ai_ras_poison_handler(struct amdgpu_device *adev)
++{
++	xgpu_ai_send_access_requests(adev, IDH_RAS_POISON);
++}
++
+ const struct amdgpu_virt_ops xgpu_ai_virt_ops = {
+ 	.req_full_gpu	= xgpu_ai_request_full_gpu_access,
+ 	.rel_full_gpu	= xgpu_ai_release_full_gpu_access,
+@@ -411,4 +416,5 @@ const struct amdgpu_virt_ops xgpu_ai_virt_ops = {
+ 	.wait_reset = NULL,
+ 	.trans_msg = xgpu_ai_mailbox_trans_msg,
+ 	.req_init_data  = xgpu_ai_request_init_data,
++	.ras_poison_handler = xgpu_ai_ras_poison_handler,
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
+index fa7e13e0459e..af1a784696bd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
+@@ -39,6 +39,7 @@ enum idh_request {
+ 
+ 	IDH_LOG_VF_ERROR       = 200,
+ 	IDH_READY_TO_RESET 	= 201,
++	IDH_RAS_POISON  = 202,
+ };
+ 
+ enum idh_event {
+-- 
+2.35.1
 
