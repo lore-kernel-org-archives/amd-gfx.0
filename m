@@ -4,88 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC380C3A5A7
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 04:14:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F492C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 04:19:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9998210E454;
-	Thu,  8 Dec 2022 04:14:32 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2051.outbound.protection.outlook.com [40.107.244.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B2ED10E453
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Dec 2022 04:14:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RdiB4wYPaNHjSzzKO+WqA0ftuJi2lkDTep0vn/IYMK7mZ1IUXYVpt2vtgNmkVpvSFBWDkGqZicz5Ctltr3Dk8Zju0HgPtZ9apgj1XT3zR+pYDDKRiFEdgnyoX6m7Xv3nh5xSWNOHv1XU1+Kj3LOjGu66PyBdNpMQMGnt9MR9juZQd3NoL7RPOTUPTwfSM0BrrQB7Bg9X52N0UezAP5sdU/47sUQleWOYQZq1hWwD0PCye8QJ+XWAV/SIdqdlk4scJcGjosfYr6rSEvoqN1D59R834gyGUC/7KO7nHLXs/GjN13nXtR2gRr0gB4k6r1qiMIC8sVZL/o6X9ep5VxJROQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TZJIH4AoNOfgnaWCHyT6PwybNh6UI4quf/sdtMdAZ7A=;
- b=Fel5TSoVa4ZM0t5VohfMPoTL2+itFfCeu8Ys9YFKWLMfGyUxLFlR2isdrwpu3niLk7ItHhWPNIU3MWVhBZO+vh1d2kCGfcM1FcC6RLZe8zZA4k7VrODgBxTPHifNGdHEsoqtBVwZBhI1WoBXVMPnOB89CjpEAMIv4iSFxsyVYvcuHWBV/qA4GL8JBAinM+tMZNX0AcHRMgDnEzG1ymUbpawtcCzXy5xhc79f5FH/aT1MsNQ7ukHCw/WtTqIbIyemmsvz0DXK9aTivG3rmZ+KVz4fy8F15Lk04VsRzv++aBlsndPk6J40YYs6vHLJKMXtVMe0jPmJVVpn+TKAQhmOTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TZJIH4AoNOfgnaWCHyT6PwybNh6UI4quf/sdtMdAZ7A=;
- b=jlF1DGrpEGmakkjbBmTLjoX5MFgRWQDX/2tuQ5uE6RlHVV492LCL2oc7rC0VrAvZ/H9KDRjWUVFEIdwVCq00AYIZBhjNvZaz4Cj6VX3ntWhIrQJKEqRGx1CEFiqTvGN1e1ljkrhVUrzJDqKrmzMyqW1rcmcjwry16HIyv2dVAQ8=
-Received: from BN0PR04CA0115.namprd04.prod.outlook.com (2603:10b6:408:ec::30)
- by DM6PR12MB4236.namprd12.prod.outlook.com (2603:10b6:5:212::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.13; Thu, 8 Dec
- 2022 04:14:27 +0000
-Received: from BN8NAM11FT094.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ec:cafe::25) by BN0PR04CA0115.outlook.office365.com
- (2603:10b6:408:ec::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14 via Frontend
- Transport; Thu, 8 Dec 2022 04:14:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT094.mail.protection.outlook.com (10.13.176.131) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5901.16 via Frontend Transport; Thu, 8 Dec 2022 04:14:27 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 7 Dec
- 2022 22:14:24 -0600
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: Add DCN314 display SG Support
-Date: Thu, 8 Dec 2022 12:14:05 +0800
-Message-ID: <20221208041405.3992585-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.37.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9137188C11;
+	Thu,  8 Dec 2022 04:19:14 +0000 (UTC)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B988288C11;
+ Thu,  8 Dec 2022 04:19:09 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ t19-20020a9d7753000000b0066d77a3d474so225779otl.10; 
+ Wed, 07 Dec 2022 20:19:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=lefKWbpJdOt9FY9MkAnJ7ZElgDXl2IDLX1F4fCYXcfY=;
+ b=GzHs/dlF9UT9oMAdLKX6GO3y5/aJqAJqi9Ix7btJoSRRhUCwQ9JikkQIeVyXoAIotf
+ 8FHou+hzWhZJXqwg8x24mZEnubYTGdWuRAh/+BGSgNfWKAWwey1NLWs2XTwM/RJSKPXW
+ +1Hc5F5rml0sMzz0XXuQ1PpczFHfhS8PbTdVbOH/HTaPZqL/OrW32SWJnhD66t1RXgMN
+ L/S2h6TsTtsQfaplhzAqFKJWZZ6tLsYqbwGniI/LpVCvwFi3kSH6YR3boKa4dQllSnyB
+ 5e2iaT4epldl4QIQg1k7Ed2bVCmado+WDWiiVzOwrNiRVhp8tRcCUbjiUeT9lOqytgiZ
+ ugbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=lefKWbpJdOt9FY9MkAnJ7ZElgDXl2IDLX1F4fCYXcfY=;
+ b=hThZrj1KcDGA13a87KE3U6jFh3G7HWmXEPVmosW4QBkTyNdddTCRvFJ3iFbnA5dAQ1
+ Gv2k+7Y4g5GbVbPg3Vsqr/qhwoOrZ731byutWzj1Tq0WW8+ec/3l9bKWTCed6/qjjo55
+ 3nueuwPNBjlJMRJ2Cvplo6f+oCxybYgUqndtEWrEa9Y/+/ow8S0l2Q81qenKtmNK83/P
+ nOiS3G/doFUe2T/J44Nm4nONaAINo1ibKAPVh/z4tLOwld14x7QmOvaLPFIkzOmEdJPh
+ dYiyrbD9lcb7dVkdVY99VDNjwjfV4CrhLVBPkFul+OLl3S7hI35wmyPuCg29C25HKeh9
+ zQRQ==
+X-Gm-Message-State: ANoB5pk23hCMzpYfa9ePBwHfGnyPjKK3a8G4hFsXxvDnW/42vlgF4g/N
+ bNI6k2Wa18lRS0L5UON+Ey14g/1TJIrhy7zrUR0=
+X-Google-Smtp-Source: AA0mqf6DOG4uvt/t5k9Ab+TzSmeFw7taZvXaore3wj6z3rMQOQKfvhyk7+WgoXNmkcijUxL6bGBPfetE8KqvOExbUjk=
+X-Received: by 2002:a05:6830:1b62:b0:66c:7982:2d45 with SMTP id
+ d2-20020a0568301b6200b0066c79822d45mr36596982ote.123.1670473148998; Wed, 07
+ Dec 2022 20:19:08 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT094:EE_|DM6PR12MB4236:EE_
-X-MS-Office365-Filtering-Correlation-Id: 007a4926-adb8-40db-7b2f-08dad8d2b23c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GU7Ywd8oI+Dm8CLoLiDLWoO3e6vkPWO6I/+4tZjgHOnklpTA9nkopCRe4FVTMlgqfoBic4G5wjN7VsvES3lSjXEHpU1+xPwpRCE9GNBj7+h1JjZ6o9DBH/yByZSJUuR94Funwl6q372obx9BliJDZUZVFiRf6DAoNN1GPYd8SwO0EtC+A7Pid/9lbZt+N7Tgl0sZhdeBbuh1uhGqr6IsxJC5bAHnQ5/20ftx9TZClU7w/kJbflULD3bQbO7Ir+wdi8EqmzyOvil3ygcyU/mKjKAqI22zfnVUh0nkPJUGGPMDhPbgV5ukik4ZWNLRIqrqBZYpQGSiFVcntQ+XFmMqWYur7GN1bwuGFJKqQ8WCtp24RgqifKJLVqoxx34kagPt1RvR9FJdeeB37aidCVnR9GPNEey6UHEmx4k4xGrD8CVb34nd1/H2MIzquJWXS3/LaRHnIQdpShZELW3+cHpwVb2p6kUckkdBaEf9CZoewQTuMGALIkSzdB8NliS8pKeqBEwA5t5I+ONmcej7ZOj2L70I7MqrETS0j06vINpkfFlOso7d8/VLLcrcKYpWDnU2MTIpTyksQaRfamC2m6pngcwQGsLrayTO0bXOzHnCPF/NNnsEwkwbOqbIyjhYm2Z85z+3QTm3ooOxXkzhzDkNYtfiogUNOYQcO2TMarQNERSHV/moVuoQbhrUmG+4sRxjmkFxQI0fput60eddweOoZRV1NK9GWWDsGqhZ0CGmY+w=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(136003)(39860400002)(376002)(396003)(451199015)(36840700001)(46966006)(40470700004)(82310400005)(36756003)(40480700001)(8676002)(1076003)(26005)(6916009)(47076005)(54906003)(7696005)(6666004)(70206006)(2906002)(336012)(86362001)(426003)(70586007)(36860700001)(4326008)(316002)(186003)(81166007)(4744005)(40460700003)(2616005)(8936002)(478600001)(82740400003)(41300700001)(356005)(5660300002)(16526019)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2022 04:14:27.0917 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 007a4926-adb8-40db-7b2f-08dad8d2b23c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT094.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4236
+References: <DM4PR12MB51524585CEC4E2B4B8370874E31A9@DM4PR12MB5152.namprd12.prod.outlook.com>
+ <CADnq5_NWr9SAzcQ=x-UVXWHDBci6f_pg-sRj3AD8q5GWYbBJOw@mail.gmail.com>
+ <4e415872-3fcf-27b9-dc74-b3e86f171e1c@gmail.com>
+ <CADnq5_PShNRZUwvnsTawW1OaCOjK73rdKTxxQhA=Znf2gqbJ=Q@mail.gmail.com>
+ <ce75ecb5-1d07-d8a6-2722-59da84c22c10@gmail.com>
+ <CADnq5_Mo_hmc7SCYJxQHc-TgdzXS7+YD-SUt9aF-Gx2AovriRw@mail.gmail.com>
+ <581403d1-f5f3-72a6-5447-6deef4405d47@gmail.com>
+ <CADnq5_OtFeSYKKjniNXuXUmX4WgXw1+hN-3YoRpBh-Ytjosv5g@mail.gmail.com>
+ <CY5PR12MB6369519F1EABAE9A86957850C11D9@CY5PR12MB6369.namprd12.prod.outlook.com>
+In-Reply-To: <CY5PR12MB6369519F1EABAE9A86957850C11D9@CY5PR12MB6369.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 7 Dec 2022 23:18:57 -0500
+Message-ID: <CADnq5_PR+7s=FPY71j3XqUA4C62j8zE8FRKq+Oty=nNjSN=Rzw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: try allowed domain when pin framebuffer failed
+To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,30 +74,202 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Yifan Zhang <yifan1.zhang@amd.com>,
- Harry.Wentland@amd.com, Roman.Li@amd.com
+Cc: amd-gfx <amd-gfx-bounces@lists.freedesktop.org>, "Paneer Selvam,
+ Arunpravin" <Arunpravin.PaneerSelvam@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, "Zhang,
+ Jesse\(Jie\)" <Jesse.Zhang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add display SG support for DCN 3.1.4.
+On Wed, Dec 7, 2022 at 11:10 PM Zhang, Yifan <Yifan1.Zhang@amd.com> wrote:
+>
+> [AMD Official Use Only - General]
+>
+> Hi Alex,
+>
+> We need to adjust the AMDGPU_SG_THRESHOLD as well since recent APUs are c=
+onfigured w/ 512MB VRAM. Pls check attached patch.
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
- 1 file changed, 1 insertion(+)
+Why do we need to increase this threshold?  The condition only applies
+to CZ and ST, not more recent APUs.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 0f391a147354..6f1e5f787af6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1504,6 +1504,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 		case IP_VERSION(3, 0, 1):
- 		case IP_VERSION(3, 1, 2):
- 		case IP_VERSION(3, 1, 3):
-+		case IP_VERSION(3, 1, 4):
- 		case IP_VERSION(3, 1, 5):
- 		case IP_VERSION(3, 1, 6):
- 			init_data.flags.gpu_vm_support = true;
--- 
-2.37.3
+Alex
 
+>
+> Best Regards,
+> Yifan
+>
+> -----Original Message-----
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: Thursday, December 8, 2022 12:21 AM
+> To: Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>
+> Cc: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; Zhang, Yifan <Yifan1.Zhang@a=
+md.com>; amd-gfx <amd-gfx-bounces@lists.freedesktop.org>; Paneer Selvam, Ar=
+unpravin <Arunpravin.PaneerSelvam@amd.com>; amd-gfx@lists.freedesktop.org; =
+Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christia=
+n.Koenig@amd.com>
+> Subject: Re: [PATCH] drm/amdgpu: try allowed domain when pin framebuffer =
+failed
+>
+> On Wed, Dec 7, 2022 at 11:10 AM Christian K=C3=B6nig <ckoenig.leichtzumer=
+ken@gmail.com> wrote:
+> >
+> >
+> >
+> > Am 07.12.22 um 17:08 schrieb Alex Deucher:
+> > > On Wed, Dec 7, 2022 at 10:52 AM Christian K=C3=B6nig
+> > > <ckoenig.leichtzumerken@gmail.com> wrote:
+> > >> Am 07.12.22 um 16:38 schrieb Alex Deucher:
+> > >>> On Wed, Dec 7, 2022 at 10:23 AM Christian K=C3=B6nig
+> > >>> <ckoenig.leichtzumerken@gmail.com> wrote:
+> > >>>> I would go a step further and just allow GTT domain on ASICs !=3D
+> > >>>> CARRIZO
+> > >>>> | STONEY.
+> > >>>>
+> > >>>> I can't see a good reason we should still have any limitation
+> > >>>> here, VRAM doesn't have any advantage any more as far as I know.
+> > >>> Well, if VRAM is available we want to make sure someone uses it
+> > >>> otherwise it's just wasted.
+> > >> Well it still gets used when it's free. So now problem at all here.
+> > >>
+> > >> We should just not force anything into VRAM or GTT any more if it's
+> > >> technically not necessary.
+> > > So just this?
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > > index 919bbea2e3ac..8e8f07fa7a93 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > > @@ -1506,7 +1506,7 @@ u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu=
+_bo *bo)
+> > >   uint32_t amdgpu_bo_get_preferred_domain(struct amdgpu_device *adev,
+> > >                                              uint32_t domain)
+> > >   {
+> > > -       if (domain =3D=3D (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN=
+_GTT)) {
+> >
+> > We still need to keep this check to avoid trying to adjust VRAM only
+> > allocations (the cursor still needs this IIRC).
+> >
+> > Apart from that I think that should work.
+>
+> Attached.  Thanks,
+>
+> Alex
+>
+> >
+> > Christian.
+> >
+> > > +       if ((adev->asic_type =3D=3D CHIP_CARRIZO) || (adev->asic_type=
+ =3D=3D
+> > > CHIP_STONEY)) {
+> > >                  domain =3D AMDGPU_GEM_DOMAIN_VRAM;
+> > >                  if (adev->gmc.real_vram_size <=3D AMDGPU_SG_THRESHOL=
+D)
+> > >                          domain =3D AMDGPU_GEM_DOMAIN_GTT;
+> > >
+> > >
+> > >
+> > >> Christian.
+> > >>
+> > >>> Alex
+> > >>>
+> > >>>
+> > >>>> Christian.
+> > >>>>
+> > >>>> Am 07.12.22 um 16:10 schrieb Alex Deucher:
+> > >>>>> Does this patch fix the problem?
+> > >>>>>
+> > >>>>> Alex
+> > >>>>>
+> > >>>>> On Wed, Dec 7, 2022 at 2:27 AM Zhang, Jesse(Jie) <Jesse.Zhang@amd=
+.com> wrote:
+> > >>>>>> [AMD Official Use Only - General]
+> > >>>>>>
+> > >>>>>>
+> > >>>>>>        drm/amdgpu: try allowed domain when pin framebuffer faile=
+d.
+> > >>>>>>
+> > >>>>>>
+> > >>>>>>
+> > >>>>>>        [WHY&HOW]
+> > >>>>>>
+> > >>>>>>
+> > >>>>>>
+> > >>>>>>        in some scenarios, the allocate memory often failed. such=
+ as do hot plug or play games.
+> > >>>>>>
+> > >>>>>>        so we can try allowed domain, if the preferred domain can=
+not allocate memory.
+> > >>>>>>
+> > >>>>>>
+> > >>>>>>
+> > >>>>>>        Signed-off-by: jie1zhan jesse.zhang@amd.com
+> > >>>>>>
+> > >>>>>>        Change-Id: I4b62e2ff072d02c515f901000a5789339d481273
+> > >>>>>>
+> > >>>>>>
+> > >>>>>>
+> > >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > >>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > >>>>>>
+> > >>>>>> index 1ae0c8723348..05fcaf7f9d92 100644
+> > >>>>>>
+> > >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > >>>>>>
+> > >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > >>>>>>
+> > >>>>>> @@ -39,6 +39,7 @@
+> > >>>>>>
+> > >>>>>> #include "amdgpu.h"
+> > >>>>>>
+> > >>>>>> #include "amdgpu_trace.h"
+> > >>>>>>
+> > >>>>>> #include "amdgpu_amdkfd.h"
+> > >>>>>>
+> > >>>>>> +#include "amdgpu_display.h"
+> > >>>>>>
+> > >>>>>>
+> > >>>>>>
+> > >>>>>> /**
+> > >>>>>>
+> > >>>>>>      * DOC: amdgpu_object
+> > >>>>>>
+> > >>>>>> @@ -942,8 +943,14 @@ int amdgpu_bo_pin_restricted(struct
+> > >>>>>> amdgpu_bo *bo, u32 domain,
+> > >>>>>>
+> > >>>>>>                            bo->placements[i].lpfn =3D lpfn;
+> > >>>>>>
+> > >>>>>>            }
+> > >>>>>>
+> > >>>>>>
+> > >>>>>>
+> > >>>>>> +       retry:
+> > >>>>>>
+> > >>>>>>            r =3D ttm_bo_validate(&bo->tbo, &bo->placement, &ctx)=
+;
+> > >>>>>>
+> > >>>>>>            if (unlikely(r)) {
+> > >>>>>>
+> > >>>>>> +               //try allowed domain when pin failed. just a wor=
+karound.
+> > >>>>>>
+> > >>>>>> +               if (unlikely(r =3D=3D -ENOMEM) && domain !=3D
+> > >>>>>> + bo->allowed_domains) {
+> > >>>>>>
+> > >>>>>> +                       amdgpu_bo_placement_from_domain(bo,
+> > >>>>>> + bo->allowed_domains);
+> > >>>>>>
+> > >>>>>> +                       goto retry;
+> > >>>>>>
+> > >>>>>> +               }
+> > >>>>>>
+> > >>>>>>                    dev_err(adev->dev, "%p pin failed\n", bo);
+> > >>>>>>
+> > >>>>>>                    goto error;
+> > >>>>>>
+> > >>>>>>            }
+> >
