@@ -4,65 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8AA5C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 04:40:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09630C3A5A7
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 04:54:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CF8E10E457;
-	Thu,  8 Dec 2022 04:40:32 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 653C710E457;
- Thu,  8 Dec 2022 04:40:28 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-1443a16b71cso590642fac.13; 
- Wed, 07 Dec 2022 20:40:28 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EBC610E45B;
+	Thu,  8 Dec 2022 04:54:02 +0000 (UTC)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14EE510E45B;
+ Thu,  8 Dec 2022 04:53:58 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ s30-20020a056830439e00b0067052c70922so255322otv.11; 
+ Wed, 07 Dec 2022 20:53:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ h=content-transfer-encoding:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6g5Iyg8YmwM/2PoxgQIXgdImRDano0Ot1250cdgn/zY=;
- b=hZEMrpYJ+anp8TyD5zJrxl3S3G9vwImPPBHiOzT6co1MFcQh5fx2Tc6qG8L9LTefCu
- 8tEG7LEKswCq1a7LdDUpY2Ot8b3rzFodwRjjZYdGH7j+yC1g8bvbqcyZZTW0xHc3Tqku
- l+glKKEEjYNGE4bPOBZFZKREgm3dQ4WJ2z7i/LkzjeT8OSh+KnGMhtrJVg0cIJRQkCHe
- SPXYBuEztueietMnQuCLYNXGsWBeFRchj4YCgJ4oftAH6NrMGdbVBNn9cYKWa/JEvPJX
- rCbLtnsIxa514ItVyTvWBRGTHurL+4lmssfKkBWIoWse0YbpDY1eqtrgd9Cg5CLNzWR4
- V2/A==
+ bh=6r5U+c8a2HRGVF4kDYEWa6as4axWeEDvF7hATtPweKE=;
+ b=GQQK7FJIOYKstw5rEsJw6bJITih9tsKG3OmvmGGrTwPveaK/i9o+k7UPZGDOhPK/Tg
+ qHzOCtMeFTHBEWSZcDu0cCoevvmXXCnm8gV/074SrT3XIkkqV5YMvJf+7bkxhGwFm1A9
+ UfLc73+Lpp1MTOL4W85ns4vDa4sBeUBEUFfEt4rV4L3/93Nv9pdgmAbKNWu6wJkb3mz1
+ Fcr9v21FlIsbKxUqYMDKL1Vvcy41t4ldPHvtWfnkmmYGcEkSmWyLb5mgG6mXLacg8xg4
+ TkK/WbU9pguo7SdaiGAdcjh4jP87BhlTcFk6O4W8uamcjp5Y8iPaIySO1ExyJfsOEUXy
+ 8zuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ h=content-transfer-encoding:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=6g5Iyg8YmwM/2PoxgQIXgdImRDano0Ot1250cdgn/zY=;
- b=JBvSpEQO42w+KhDbLJHBj+xjwrPVFdY06TLhB2TCBThnRNkxv8Vv1IK+Jv0Jhl+rHm
- qQSFMpcmP0FRbNZTi7LmcCBvVeDZFMz9CXcmgwMrUtE4EEq2MD68Ad+xH4E1Ht80i5dk
- DH+2ZJhvzrpXR1bVsGI/eyTQ9oTgyRc7r2k9nxQFJsXmS65mlIJlyGqD4qtjXg3482sY
- rF+pdTQzbKEoJPcbclaPpFMGqp3kOPr4pINZvPXkmbjNjaO6KdbOpB4VQOCLkfe33bSk
- OvAg6IWOl6Tz4ke0mvIryezZdcAF0+hOy9KaRWA6mzf4C9N05Wk6IdoyVLkbp6xV6Ymo
- +Pzg==
-X-Gm-Message-State: ANoB5pmUrGL7I3YSPxLBHkdBLaALGUtoYU/gk3BJHk1PVJPTO/pmOh2i
- YSYol3ZwPC/mnPhBs1P8eiK8tVEpzECVD1p6v8o=
-X-Google-Smtp-Source: AA0mqf4PNsaT2aFc29MSGkYgmK+7XMIp7l/EXkt4E8nGj6a06To5eAA9VJS8cqM5GI8W6P4l5cmONFVWXehY+XOXrpI=
-X-Received: by 2002:a05:6870:2b05:b0:12d:58c1:33f9 with SMTP id
- ld5-20020a0568702b0500b0012d58c133f9mr43099986oab.46.1670474427606; Wed, 07
- Dec 2022 20:40:27 -0800 (PST)
+ bh=6r5U+c8a2HRGVF4kDYEWa6as4axWeEDvF7hATtPweKE=;
+ b=Q7kyM5yxESLCMbUrQv+2JrtjPhesfzmWnEPz8G1LD8jVnSH9487tZoTE8uLG6zlVNq
+ WbMNGFOCcnu9i3rgMC+Z/+16nbrASecEGsWeqe5Bue3r+NIFad/hpigNxReQv7ZMALZa
+ d5jg1SuaNwwUgrdZIWVKZDRuqcyslv4e9fUqJOB8hrc0OrQNXSuQvUmKQ+Ge5YQSLeNt
+ PZMjht3X+6c+SBpIWzSzbfU5PpVavSP3CBF1MdDTg2W37XjnukhCYQmr2f1mrJiyJgv9
+ /tk1i+1jwZnjEZMTZ9hEANscoJzGHgNiYQ3ODhgrPR1NF6yuQkzYhdbteeCWkIpAfChp
+ K2Jg==
+X-Gm-Message-State: ANoB5plEOYtmMS4DFDtdy2NBysc3iaeKWVcYyWEaud1eTvsMbcQGlhSt
+ zeC40ipBcEb7/fRz8zXFNZhHGxYQotdKvnhhRYaPt1/YM6w=
+X-Google-Smtp-Source: AA0mqf7eIrFrMW71QBI8nysQ1uGOR7bY3uCSg9v+rprkDzHuPkiNCk/RpiUAh4Gjqsr34LKD/0sRDohIBDEAjTNzjHo=
+X-Received: by 2002:a05:6830:1b62:b0:66c:7982:2d45 with SMTP id
+ d2-20020a0568301b6200b0066c79822d45mr36615910ote.123.1670475237250; Wed, 07
+ Dec 2022 20:53:57 -0800 (PST)
 MIME-Version: 1.0
-References: <DM4PR12MB51524585CEC4E2B4B8370874E31A9@DM4PR12MB5152.namprd12.prod.outlook.com>
- <CADnq5_NWr9SAzcQ=x-UVXWHDBci6f_pg-sRj3AD8q5GWYbBJOw@mail.gmail.com>
- <4e415872-3fcf-27b9-dc74-b3e86f171e1c@gmail.com>
- <CADnq5_PShNRZUwvnsTawW1OaCOjK73rdKTxxQhA=Znf2gqbJ=Q@mail.gmail.com>
- <ce75ecb5-1d07-d8a6-2722-59da84c22c10@gmail.com>
- <CADnq5_Mo_hmc7SCYJxQHc-TgdzXS7+YD-SUt9aF-Gx2AovriRw@mail.gmail.com>
- <581403d1-f5f3-72a6-5447-6deef4405d47@gmail.com>
- <CADnq5_OtFeSYKKjniNXuXUmX4WgXw1+hN-3YoRpBh-Ytjosv5g@mail.gmail.com>
- <CY5PR12MB6369519F1EABAE9A86957850C11D9@CY5PR12MB6369.namprd12.prod.outlook.com>
- <CADnq5_PR+7s=FPY71j3XqUA4C62j8zE8FRKq+Oty=nNjSN=Rzw@mail.gmail.com>
- <CY5PR12MB63699C93015F77F4C6AD5BDBC11D9@CY5PR12MB6369.namprd12.prod.outlook.com>
-In-Reply-To: <CY5PR12MB63699C93015F77F4C6AD5BDBC11D9@CY5PR12MB6369.namprd12.prod.outlook.com>
+References: <20221125175203.52481-1-andrealmeid@igalia.com>
+ <Y4c6arwh4NAxbeTv@phenom.ffwll.local>
+In-Reply-To: <Y4c6arwh4NAxbeTv@phenom.ffwll.local>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 7 Dec 2022 23:40:16 -0500
-Message-ID: <CADnq5_P0YmG0y-0NCufcx8-d6Y2CuHxf+TH2xDVY7QDhG+=C4w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: try allowed domain when pin framebuffer failed
-To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
+Date: Wed, 7 Dec 2022 23:53:45 -0500
+Message-ID: <CADnq5_NWzWj3vUA2FS7=MKXJ0Wmv4Lu1rBk0ynqWBQZqAz4JLA@mail.gmail.com>
+Subject: Re: [PATCH v3 0/2] drm: Add GPU reset sysfs
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, kernel-dev@igalia.com, 
+ alexander.deucher@amd.com, contactshashanksharma@gmail.com, 
+ amaranath.somalapuram@amd.com, christian.koenig@amd.com, 
+ pierre-eric.pelloux-prayer@amd.com, Simon Ser <contact@emersion.fr>, 
+ Rob Clark <robdclark@gmail.com>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>, Daniel Stone <daniel@fooishbar.org>, 
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>, 
+ Dave Airlie <airlied@gmail.com>, 
+ "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,264 +77,170 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx <amd-gfx-bounces@lists.freedesktop.org>, "Paneer Selvam,
- Arunpravin" <Arunpravin.PaneerSelvam@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, "Zhang,
- Jesse\(Jie\)" <Jesse.Zhang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 7, 2022 at 11:35 PM Zhang, Yifan <Yifan1.Zhang@amd.com> wrote:
+On Wed, Nov 30, 2022 at 6:11 AM Daniel Vetter <daniel@ffwll.ch> wrote:
 >
-> [AMD Official Use Only - General]
+> On Fri, Nov 25, 2022 at 02:52:01PM -0300, Andr=C3=A9 Almeida wrote:
+> > This patchset adds a udev event for DRM device's resets.
+> >
+> > Userspace apps can trigger GPU resets by misuse of graphical APIs or dr=
+iver
+> > bugs. Either way, the GPU reset might lead the system to a broken state=
+[1], that
+> > might be recovered if user has access to a tty or a remote shell. Argua=
+bly, this
+> > recovery could happen automatically by the system itself, thus this is =
+the goal
+> > of this patchset.
+> >
+> > For debugging and report purposes, device coredump support was already =
+added
+> > for amdgpu[2], but it's not suitable for programmatic usage like this o=
+ne given
+> > the uAPI not being stable and the need for parsing.
+> >
+> > GL/VK is out of scope for this use, giving that we are dealing with dev=
+ice
+> > resets regardless of API.
+> >
+> > A basic userspace daemon is provided at [3] showing how the interface i=
+s used
+> > to recovery from resets.
+> >
+> > [1] A search for "reset" in DRM/AMD issue tracker shows reports of rese=
+ts
+> > making the system unusable:
+> > https://gitlab.freedesktop.org/drm/amd/-/issues/?search=3Dreset
+> >
+> > [2] https://lore.kernel.org/amd-gfx/20220602081538.1652842-2-Amaranath.=
+Somalapuram@amd.com/
+> >
+> > [3] https://gitlab.freedesktop.org/andrealmeid/gpu-resetd
+> >
+> > v2: https://lore.kernel.org/dri-devel/20220308180403.75566-1-contactsha=
+shanksharma@gmail.com/
+> >
+> > Andr=C3=A9 Almeida (1):
+> >   drm/amdgpu: Add work function for GPU reset event
+> >
+> > Shashank Sharma (1):
+> >   drm: Add GPU reset sysfs event
 >
-> We encountered some issues in recent APUs when tried to pin a large frame=
-buffer (e.g. 64MB w/ dual 4K display), switch to display SG could resolve s=
-uch issue.  Actually we received various kinds of VRAM shortage issues rece=
-ntly, there is more and more pressure on APU 512MB VRAM as FWs reserve more=
- memory, buddy system in 5.19 creates more fragment and multiple 4k display=
- scenario is used  more often.. Since there is no difference b/w access VRA=
-M and System memory in APUs from HW perspective, I think we can switch some=
- of framebuffers to system memory to mitigate VRAM pressure.
+> This seems a bit much amd specific, and a bit much like an ad-hoc stopgap=
+.
 >
-> [   52.798705] [TTM] Failed to find memory space for buffer 0x00000000833=
-a4c59 eviction
-> [   52.798707] [TTM]  No space for 00000000833a4c59 (16470 pages, 65880K,=
- 64M)
-> [   52.798788] amdgpu 0000:e2:00.0: amdgpu: 000000003dbf313e pin failed
-> [   52.798790] [drm:dm_plane_helper_prepare_fb [amdgpu]] *ERROR* Failed t=
-o pin framebuffer with error -12
+> On the amd specific piece:
+>
+> - amd's gpus suck the most for gpu hangs, because aside from the shader
+>   unblock, there's only device reset, which thrashes vram and display and
+>   absolutely everything. Which is terrible. Everyone else has engine only
+>   reset since years (i.e. doesn't thrash display or vram), and very often
+>   even just context reset (i.e. unless the driver is busted somehow or hw
+>   bug, malicious userspace will _only_ ever impact itself).
+>
+> - robustness extensions for gl/vk already have very clear specifications
+>   of all cases of reset, and this work here just ignores that. Yes on amd
+>   you only have device reset, but this is drm infra, so you need to be
+>   able to cope with ctx reset or reset which only affected a limited set
+>   of context. If this is for compute and compute apis lack robustness
+>   extensions, then those apis need to be fixed to fill that gap.
+>
+> - the entire deamon thing feels a bit like overkill and I'm not sure why
+>   it exists. I think for a start it would be much simpler if we just have
+>   a (per-device maybe) sysfs knob to enable automatic killing of process
+>   that die and which don't have arb robustness enabled (for gl case, for
+>   vk case the assumption is that _every_ app supports VK_DEVICE_LOST and
+>   can recover).
 
-But from the patch:
--    if (domain =3D=3D (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) {
-+    if ((domain =3D=3D (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) &=
-&
-+        ((adev->asic_type =3D=3D CHIP_CARRIZO) || (adev->asic_type =3D=3D
-CHIP_STONEY))) {
-         domain =3D AMDGPU_GEM_DOMAIN_VRAM;
-         if (adev->gmc.real_vram_size <=3D AMDGPU_SG_THRESHOLD)
-             domain =3D AMDGPU_GEM_DOMAIN_GTT;
-
-AMDGPU_SG_THRESHOLD is only used in this one place which only applies
-to CZ and ST.  There are not likely to be new CZ or ST boards any time
-soon so I don't think it matters for newer APUs if we change
-AMDGPU_SG_THRESHOLD.
-
-Does the patch fix the issues you are seeing?
+Thinking about this a bit more, I think there are useful cases for the
+GPU reset event and a daemon.  When I refer to a daemon here, it could
+be a standalone thing or integrated into the desktop manager like
+logind or whatever.
+1. For APIs that don't have robustness support (e.g., video
+encode/decode APIs).  This one I could kind of go either way on since,
+it probably makes sense to just kill the app if it there is no
+robustness mechanism in the API.
+2. Telemetry collection.  It would be useful to have a central place
+to collect telemetry information about what apps seem to be
+problematic, etc.
+3. A policy manager in userspace.  If you want to make some decision
+about what to do about repeat offenders or apps that claim to support
+robustness, but really don't.
+4. Apps that don't use a UMD.  E.g., unit tests and IGT.  If they
+don't use a UMD, who kills them?
+5. Server use cases where you have multiple GPU apps running in
+containers and you want some sort of policy control or a hand in what
+to do when the app causes a hang.
 
 Alex
 
 >
-> Best Regards,
-> Yifan
+> Now onto the ad-hoc part:
 >
-> -----Original Message-----
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Thursday, December 8, 2022 12:19 PM
-> To: Zhang, Yifan <Yifan1.Zhang@amd.com>
-> Cc: Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>; Zhang, Jesse=
-(Jie) <Jesse.Zhang@amd.com>; amd-gfx <amd-gfx-bounces@lists.freedesktop.org=
->; Paneer Selvam, Arunpravin <Arunpravin.PaneerSelvam@amd.com>; amd-gfx@lis=
-ts.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig,=
- Christian <Christian.Koenig@amd.com>
-> Subject: Re: [PATCH] drm/amdgpu: try allowed domain when pin framebuffer =
-failed
->
-> On Wed, Dec 7, 2022 at 11:10 PM Zhang, Yifan <Yifan1.Zhang@amd.com> wrote=
-:
-> >
-> > [AMD Official Use Only - General]
-> >
-> > Hi Alex,
-> >
-> > We need to adjust the AMDGPU_SG_THRESHOLD as well since recent APUs are=
- configured w/ 512MB VRAM. Pls check attached patch.
->
-> Why do we need to increase this threshold?  The condition only applies to=
- CZ and ST, not more recent APUs.
->
-> Alex
->
-> >
-> > Best Regards,
-> > Yifan
-> >
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Thursday, December 8, 2022 12:21 AM
-> > To: Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>
-> > Cc: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; Zhang, Yifan
-> > <Yifan1.Zhang@amd.com>; amd-gfx
-> > <amd-gfx-bounces@lists.freedesktop.org>; Paneer Selvam, Arunpravin
-> > <Arunpravin.PaneerSelvam@amd.com>; amd-gfx@lists.freedesktop.org;
-> > Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> > <Christian.Koenig@amd.com>
-> > Subject: Re: [PATCH] drm/amdgpu: try allowed domain when pin
-> > framebuffer failed
-> >
-> > On Wed, Dec 7, 2022 at 11:10 AM Christian K=C3=B6nig <ckoenig.leichtzum=
-erken@gmail.com> wrote:
-> > >
-> > >
-> > >
-> > > Am 07.12.22 um 17:08 schrieb Alex Deucher:
-> > > > On Wed, Dec 7, 2022 at 10:52 AM Christian K=C3=B6nig
-> > > > <ckoenig.leichtzumerken@gmail.com> wrote:
-> > > >> Am 07.12.22 um 16:38 schrieb Alex Deucher:
-> > > >>> On Wed, Dec 7, 2022 at 10:23 AM Christian K=C3=B6nig
-> > > >>> <ckoenig.leichtzumerken@gmail.com> wrote:
-> > > >>>> I would go a step further and just allow GTT domain on ASICs !=
-=3D
-> > > >>>> CARRIZO
-> > > >>>> | STONEY.
-> > > >>>>
-> > > >>>> I can't see a good reason we should still have any limitation
-> > > >>>> here, VRAM doesn't have any advantage any more as far as I know.
-> > > >>> Well, if VRAM is available we want to make sure someone uses it
-> > > >>> otherwise it's just wasted.
-> > > >> Well it still gets used when it's free. So now problem at all here=
+> - Everyone hand-rolls ad-hoc gpu context structures and how to associate
+>   them with a pid. I think we need to stop doing that, because it's just
+>   endless pain and prevents us from building useful management stuff like
+>   cgroups for drivers that work across drivers (and driver/vendor specifi=
+c
+>   cgroup wont be accepted by upstream cgroup maintainers). Or gpu reset
+>   events and dumps like here. This is going to be some work unforutnately=
 .
-> > > >>
-> > > >> We should just not force anything into VRAM or GTT any more if
-> > > >> it's technically not necessary.
-> > > > So just this?
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > > > index 919bbea2e3ac..8e8f07fa7a93 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > > > @@ -1506,7 +1506,7 @@ u64 amdgpu_bo_gpu_offset_no_check(struct amdg=
-pu_bo *bo)
-> > > >   uint32_t amdgpu_bo_get_preferred_domain(struct amdgpu_device *ade=
-v,
-> > > >                                              uint32_t domain)
-> > > >   {
-> > > > -       if (domain =3D=3D (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMA=
-IN_GTT)) {
-> > >
-> > > We still need to keep this check to avoid trying to adjust VRAM only
-> > > allocations (the cursor still needs this IIRC).
-> > >
-> > > Apart from that I think that should work.
+>
+> - I think the best starting point is the context structure drm/scheduler
+>   already has, but it needs some work:
+>   * untangling it from the scheduler part, so it can be used also for
+>     compute context that are directly scheduled by hw
+>   * (amd specific) moving amdkfd over to that context structure, at least
+>     internally
+>   * tracking the pid in there
+>
+> - I think the error dump facility should also be integrated into this.
+>   Userspace needs to know which dump is associated with which reset event=
+,
+>   so that remote crash reporting works correctly.
+>
+> - ideally this framework can keep track of impacted context so that
+>   drivers don't have to reinvent the "which context are impacted"
+>   robustness ioctl book-keeping all on their own. For amd gpus it's kinda
+>   easy, since the impact is "everything", but for other gpus the impact
+>   can be all the way from "only one context" to "only contexts actively
+>   running on $set_of_engines" to "all the context actively running" to "w=
+e
+>   thrashed vram, everything is gone"
+>
+> - i915 has a bunch of this already, but I have honestly no idea whether
+>   it's any use because i915-gem is terminally not switching over to
+>   drm/scheduler (it needs a full rewrite, which is happening somewhere).
+>   So might only be useful to look at to make sure we're not building
+>   something which only works for full device reset gpus and nothing else.
+>   Over the various generations i915 has pretty much every possible gpu
+>   reset options you can think of, with resulting different reporting
+>   requirements to make sure robustness extensions work correctly.
+>
+> - pid isn't enough once you have engine/context reset, you need pid (well
+>   drm_file really, but I guess we can bind those to pid somehow) and gpu
+>   ctx id. Both gl and vk allow you to allocate limitless gpu context on
+>   the same device, and so this matters.
+>
+> - igt for this stuff. Probably needs some work to generalize the i915
+>   infra for endless batchbuffers so that you can make very controlled gpu
+>   hangs.
+>
+> Cheers, Daniel
+>
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  4 +++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 30 ++++++++++++++++++++++
+> >  drivers/gpu/drm/drm_sysfs.c                | 26 +++++++++++++++++++
+> >  include/drm/drm_sysfs.h                    | 13 ++++++++++
+> >  4 files changed, 73 insertions(+)
 > >
-> > Attached.  Thanks,
+> > --
+> > 2.38.1
 > >
-> > Alex
-> >
-> > >
-> > > Christian.
-> > >
-> > > > +       if ((adev->asic_type =3D=3D CHIP_CARRIZO) || (adev->asic_ty=
-pe
-> > > > + =3D=3D
-> > > > CHIP_STONEY)) {
-> > > >                  domain =3D AMDGPU_GEM_DOMAIN_VRAM;
-> > > >                  if (adev->gmc.real_vram_size <=3D AMDGPU_SG_THRESH=
-OLD)
-> > > >                          domain =3D AMDGPU_GEM_DOMAIN_GTT;
-> > > >
-> > > >
-> > > >
-> > > >> Christian.
-> > > >>
-> > > >>> Alex
-> > > >>>
-> > > >>>
-> > > >>>> Christian.
-> > > >>>>
-> > > >>>> Am 07.12.22 um 16:10 schrieb Alex Deucher:
-> > > >>>>> Does this patch fix the problem?
-> > > >>>>>
-> > > >>>>> Alex
-> > > >>>>>
-> > > >>>>> On Wed, Dec 7, 2022 at 2:27 AM Zhang, Jesse(Jie) <Jesse.Zhang@a=
-md.com> wrote:
-> > > >>>>>> [AMD Official Use Only - General]
-> > > >>>>>>
-> > > >>>>>>
-> > > >>>>>>        drm/amdgpu: try allowed domain when pin framebuffer fai=
-led.
-> > > >>>>>>
-> > > >>>>>>
-> > > >>>>>>
-> > > >>>>>>        [WHY&HOW]
-> > > >>>>>>
-> > > >>>>>>
-> > > >>>>>>
-> > > >>>>>>        in some scenarios, the allocate memory often failed. su=
-ch as do hot plug or play games.
-> > > >>>>>>
-> > > >>>>>>        so we can try allowed domain, if the preferred domain c=
-annot allocate memory.
-> > > >>>>>>
-> > > >>>>>>
-> > > >>>>>>
-> > > >>>>>>        Signed-off-by: jie1zhan jesse.zhang@amd.com
-> > > >>>>>>
-> > > >>>>>>        Change-Id: I4b62e2ff072d02c515f901000a5789339d481273
-> > > >>>>>>
-> > > >>>>>>
-> > > >>>>>>
-> > > >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > > >>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > > >>>>>>
-> > > >>>>>> index 1ae0c8723348..05fcaf7f9d92 100644
-> > > >>>>>>
-> > > >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > > >>>>>>
-> > > >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > > >>>>>>
-> > > >>>>>> @@ -39,6 +39,7 @@
-> > > >>>>>>
-> > > >>>>>> #include "amdgpu.h"
-> > > >>>>>>
-> > > >>>>>> #include "amdgpu_trace.h"
-> > > >>>>>>
-> > > >>>>>> #include "amdgpu_amdkfd.h"
-> > > >>>>>>
-> > > >>>>>> +#include "amdgpu_display.h"
-> > > >>>>>>
-> > > >>>>>>
-> > > >>>>>>
-> > > >>>>>> /**
-> > > >>>>>>
-> > > >>>>>>      * DOC: amdgpu_object
-> > > >>>>>>
-> > > >>>>>> @@ -942,8 +943,14 @@ int amdgpu_bo_pin_restricted(struct
-> > > >>>>>> amdgpu_bo *bo, u32 domain,
-> > > >>>>>>
-> > > >>>>>>                            bo->placements[i].lpfn =3D lpfn;
-> > > >>>>>>
-> > > >>>>>>            }
-> > > >>>>>>
-> > > >>>>>>
-> > > >>>>>>
-> > > >>>>>> +       retry:
-> > > >>>>>>
-> > > >>>>>>            r =3D ttm_bo_validate(&bo->tbo, &bo->placement,
-> > > >>>>>> &ctx);
-> > > >>>>>>
-> > > >>>>>>            if (unlikely(r)) {
-> > > >>>>>>
-> > > >>>>>> +               //try allowed domain when pin failed. just a w=
-orkaround.
-> > > >>>>>>
-> > > >>>>>> +               if (unlikely(r =3D=3D -ENOMEM) && domain !=3D
-> > > >>>>>> + bo->allowed_domains) {
-> > > >>>>>>
-> > > >>>>>> +                       amdgpu_bo_placement_from_domain(bo,
-> > > >>>>>> + bo->allowed_domains);
-> > > >>>>>>
-> > > >>>>>> +                       goto retry;
-> > > >>>>>>
-> > > >>>>>> +               }
-> > > >>>>>>
-> > > >>>>>>                    dev_err(adev->dev, "%p pin failed\n", bo);
-> > > >>>>>>
-> > > >>>>>>                    goto error;
-> > > >>>>>>
-> > > >>>>>>            }
-> > >
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
