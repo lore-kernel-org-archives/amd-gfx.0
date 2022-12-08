@@ -4,68 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09630C3A5A7
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 04:54:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64619C6370A
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 07:04:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EBC610E45B;
-	Thu,  8 Dec 2022 04:54:02 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14EE510E45B;
- Thu,  8 Dec 2022 04:53:58 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- s30-20020a056830439e00b0067052c70922so255322otv.11; 
- Wed, 07 Dec 2022 20:53:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6r5U+c8a2HRGVF4kDYEWa6as4axWeEDvF7hATtPweKE=;
- b=GQQK7FJIOYKstw5rEsJw6bJITih9tsKG3OmvmGGrTwPveaK/i9o+k7UPZGDOhPK/Tg
- qHzOCtMeFTHBEWSZcDu0cCoevvmXXCnm8gV/074SrT3XIkkqV5YMvJf+7bkxhGwFm1A9
- UfLc73+Lpp1MTOL4W85ns4vDa4sBeUBEUFfEt4rV4L3/93Nv9pdgmAbKNWu6wJkb3mz1
- Fcr9v21FlIsbKxUqYMDKL1Vvcy41t4ldPHvtWfnkmmYGcEkSmWyLb5mgG6mXLacg8xg4
- TkK/WbU9pguo7SdaiGAdcjh4jP87BhlTcFk6O4W8uamcjp5Y8iPaIySO1ExyJfsOEUXy
- 8zuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6r5U+c8a2HRGVF4kDYEWa6as4axWeEDvF7hATtPweKE=;
- b=Q7kyM5yxESLCMbUrQv+2JrtjPhesfzmWnEPz8G1LD8jVnSH9487tZoTE8uLG6zlVNq
- WbMNGFOCcnu9i3rgMC+Z/+16nbrASecEGsWeqe5Bue3r+NIFad/hpigNxReQv7ZMALZa
- d5jg1SuaNwwUgrdZIWVKZDRuqcyslv4e9fUqJOB8hrc0OrQNXSuQvUmKQ+Ge5YQSLeNt
- PZMjht3X+6c+SBpIWzSzbfU5PpVavSP3CBF1MdDTg2W37XjnukhCYQmr2f1mrJiyJgv9
- /tk1i+1jwZnjEZMTZ9hEANscoJzGHgNiYQ3ODhgrPR1NF6yuQkzYhdbteeCWkIpAfChp
- K2Jg==
-X-Gm-Message-State: ANoB5plEOYtmMS4DFDtdy2NBysc3iaeKWVcYyWEaud1eTvsMbcQGlhSt
- zeC40ipBcEb7/fRz8zXFNZhHGxYQotdKvnhhRYaPt1/YM6w=
-X-Google-Smtp-Source: AA0mqf7eIrFrMW71QBI8nysQ1uGOR7bY3uCSg9v+rprkDzHuPkiNCk/RpiUAh4Gjqsr34LKD/0sRDohIBDEAjTNzjHo=
-X-Received: by 2002:a05:6830:1b62:b0:66c:7982:2d45 with SMTP id
- d2-20020a0568301b6200b0066c79822d45mr36615910ote.123.1670475237250; Wed, 07
- Dec 2022 20:53:57 -0800 (PST)
-MIME-Version: 1.0
-References: <20221125175203.52481-1-andrealmeid@igalia.com>
- <Y4c6arwh4NAxbeTv@phenom.ffwll.local>
-In-Reply-To: <Y4c6arwh4NAxbeTv@phenom.ffwll.local>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 7 Dec 2022 23:53:45 -0500
-Message-ID: <CADnq5_NWzWj3vUA2FS7=MKXJ0Wmv4Lu1rBk0ynqWBQZqAz4JLA@mail.gmail.com>
-Subject: Re: [PATCH v3 0/2] drm: Add GPU reset sysfs
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com, 
- alexander.deucher@amd.com, contactshashanksharma@gmail.com, 
- amaranath.somalapuram@amd.com, christian.koenig@amd.com, 
- pierre-eric.pelloux-prayer@amd.com, Simon Ser <contact@emersion.fr>, 
- Rob Clark <robdclark@gmail.com>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, Daniel Stone <daniel@fooishbar.org>, 
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>, 
- Dave Airlie <airlied@gmail.com>, 
- "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87D4D10E463;
+	Thu,  8 Dec 2022 07:04:00 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2054.outbound.protection.outlook.com [40.107.94.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E42910E463
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Dec 2022 07:03:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Bf6M+vfvf0qucoxRHpkHwWze7arBF+kERCXIiu2SdwaJ4A7h5LI2WIjBWLnFmSPpwWp4pWjHnUH+ssg/Z5eDPaLa/G0/eNTLDLzxYUGbqMdSI1JvszDFObyrT4L+RRMUoNd9FhCySZhBOOt28xs66OUfM0KZaeWb+JIfwSDDDpgj9pH6oKCSb3BQ1kA0W6Ju+8ta/tIdG042RyZmlkYiqTtuycBrppac1m05jcZrfIM+beLn8rLPXk4dTqXxL3mlx8KQ+8sEQOc8r707qHPqQ4z7gxvbbv1FKIMxS2+WXeF+FvlPcMRNff+3OtVjU/VYhyeBfYxQerQ7PHdKSjUgBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9pdKalG8OXxBlMAnSVKNXN+p06slF6/wzuncBNsdsp8=;
+ b=ccOn8dUo0t9S+KwHgZGdpD+25e08Tm4Ylu+qqqtdQ5AwYLLXrSBSgTCGasFAebuxCndgLx3E570DPkYn9BRoavD18kiH9WwY/ag1f6Y+OX/+0Gd1ziyY2Ie2C8l80ZK91faiYQAbfxFE5bqDgbtgQfywLmy2s58Cg0S96VvLmYvcJQG2ce2vvL3ln67RX6zh1kW2uFWy/9gOH5uw2HGl6aoipVBd1RWxuI1eOB2AdUAumx5+RuL+PxRrCGT9v3AL6fa4i5TBzkLRlZmIbLsXbik/gOPIXqun4XmDiFQF85XeF6EWhaGiCXmMgUpbHw8X94N0lqTsrfeaVY1lil6aug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9pdKalG8OXxBlMAnSVKNXN+p06slF6/wzuncBNsdsp8=;
+ b=A0Qn142d8uieRl9oFNxDKfvnUklcc0L8+LyKCdDugau4oS8Fpdr9t2yc4Z96DROc/Cjmz0N0c6jX1Hf16EfG0/maXZoAQ0rRA9bAXx5gX6w6HvEBJs+DWHeJB3GLRwyQcAWBIJqPyPBNmhxi/LFmJGEix6zs7BrXaeMkQwpEMg4=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ MW4PR12MB7000.namprd12.prod.outlook.com (2603:10b6:303:20a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Thu, 8 Dec
+ 2022 07:03:54 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::9440:1b9b:2878:832a]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::9440:1b9b:2878:832a%3]) with mapi id 15.20.5880.014; Thu, 8 Dec 2022
+ 07:03:54 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: handle polaris10/11 overlap asics (v2)
+Thread-Topic: [PATCH] drm/amdgpu: handle polaris10/11 overlap asics (v2)
+Thread-Index: AQHZCl5QN6wOS2KsWkOhc4aN8VM8Z65jkQFQ
+Date: Thu, 8 Dec 2022 07:03:54 +0000
+Message-ID: <DM6PR12MB2619A052415BBCEC810525ABE41D9@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20221207170629.3291883-1-alexander.deucher@amd.com>
+In-Reply-To: <20221207170629.3291883-1-alexander.deucher@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-12-08T07:03:52Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=3317e348-4edd-454d-90fa-b6a139854b4c;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB2619:EE_|MW4PR12MB7000:EE_
+x-ms-office365-filtering-correlation-id: 4a6d8d8a-c68b-418d-4e0f-08dad8ea5e70
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ICZcQWeO708ydvRdJBZT0Zi3OnGGUWtAIvX1zNBYnaaO+C4vuKpjxXkQL/mXwbiQlxFyc+SNeSh3BtjGrD1S61nkg82r6whJWKWY5vjmXZIyBRhXVHl6IgO0KSlF27icibRT2f4ZZyGmMoPmKV1nnbIw01WYHedv0P6HFXiDCip7ssjgAX2NH97WfLcjbylptv11DoomF1kiB7WKAUGZSu5Ld8FiKQlba//aPSdwLhfUgYFzG4pqVsAwZy4w7/rkmqL+quIx/KHkQvfI/B8qojNjyPqz9Bz6zPc6iQ5tvnIvmW4n5Z1uxlvoKJ3ylpzPS7Qf2VuWA/SPVUXT2NHiVPbD70g4aQyCvrQ7JqKks3g1fNtOA1FNtrkpY754Jon6nFP6xTO+UP5Hzaa448UekLM//4PIPiZLC7zN1Wmitp+CTExNZUV5M5qliYDP5kMfbCpi6WAxN2s/piJQNg0PTRoYxMpZqm9XMz0pq2SfpUjYU8jNDFh7+OIlDXxKNcNHDWL4p9Ynw7ImzRBMa1VJ4eVnjoipaHovZl/h55qDdZ6yGYDXKfQzx69fZk+KP3z3wTx2HkiEkvF4882bNMyOylsVRB4XsAsvY6GJX+OnQAJ8eo80HHix/ZiHs+RLIyPebRN6McNFZRiIyca08rH9AdLHwDSIhHhIZUl4K90DKSAxd0fp/kUBbqGK00SPl/v7XHDNXwUxukoVQEJJmCFTmA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(396003)(136003)(346002)(366004)(39860400002)(451199015)(122000001)(41300700001)(186003)(83380400001)(38070700005)(5660300002)(52536014)(8936002)(2906002)(7696005)(6506007)(53546011)(71200400001)(38100700002)(478600001)(76116006)(86362001)(8676002)(64756008)(66476007)(4326008)(66556008)(66946007)(66446008)(9686003)(26005)(33656002)(316002)(55016003)(110136005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?YS//+SLDlMjvIN0TOHckdSH+zVh+ZqVuLUTXQ+VGSGk3yeSwPPjpRYyiReV3?=
+ =?us-ascii?Q?7y2cXSPDDcANAMHaClIkytjdezmMXor9kVmn4hU3X18ruBuBprkeukQNCHHq?=
+ =?us-ascii?Q?v1X08iLvzStw3vb7+k8qch3psAA+5BEdv+svatxEgO9KTRZ4CSn+fbaoNfYB?=
+ =?us-ascii?Q?sPx0LstQtwSUuxovzcrcpGc15G261rtrdomuGDNxNSHf7Q57uCS4BUd88n5a?=
+ =?us-ascii?Q?4hk7Cew0VOBHi+ODeGw2CgF15qx8ksyZRK7rgteydqpxMs4B3YDsuEgjKLcz?=
+ =?us-ascii?Q?N0RrVcYUN778+fhtgvfn1lQp1sTBRMfrjDlspAjpFECgD5u9Ga8OELKvNY7o?=
+ =?us-ascii?Q?EHlvRAIoIGPZ8Ob1e0kq78OfOQQJ/eDfSwE8xatvSC9fLYWPt9VZ1+3A5fto?=
+ =?us-ascii?Q?nhsXWL6fr25J0LD3g5p03jwjZuNrifPtRHQejFeAPbOif8o3yjN5XY96Bml2?=
+ =?us-ascii?Q?LIZr8OBLIuQ/DKWZ+nCW+TQv3jDa9S9CdbOcxu/DgVyjL/D0ab2L8WhPbgKj?=
+ =?us-ascii?Q?SoN2YFs6QtXp4JqHvqKWCjHrEi8818C/UTMEC705M0Rsdy+tqSdIfhXtQufK?=
+ =?us-ascii?Q?lGcoVOAe5tMaAoxFh8Efkohsj7EMknnRmkW6DtEKPmLcyAU3KrExsKqtkjoL?=
+ =?us-ascii?Q?O7Ecj155fWHbX/rKs5d8Vsi0gOD5Ms/dkgUAlBcEc7c6wT1zKeyhF6ahaSzF?=
+ =?us-ascii?Q?AVDY4z8HbVTP48nBUW/PLiVWcMdviyrNGGnWH1sHnlYSO4MdubII8EvHCYCt?=
+ =?us-ascii?Q?RuOgsBVTPxi9i+Ce/ZTbSZG0DCMfqnWPYDcUxhF1HkC0s8db+YySmFWJ3JAz?=
+ =?us-ascii?Q?EcVZD8IylovwX+HvdhJ6dFViJZKcmRNpaciZ2UCkd7UaERKwjRDc3pffz692?=
+ =?us-ascii?Q?2XQHQeqCsKXH5qCJLzCjIfzVQ/rgzGtfEh5+PkIB2gjJJFxqwjAvmcl63/65?=
+ =?us-ascii?Q?mW3ZAYffb8wny5l2Xh3dQtIUG0X4PmIg8LVJc79GW5lsXx9hvlZXA4gelQa5?=
+ =?us-ascii?Q?fE0OWDmhkhUvtlujQk3/aerGDTscLj9jltzbq3bppSsXBREvntfNTICvKVHT?=
+ =?us-ascii?Q?PgjqWhb9rWsPPYBm/zQN7E63Sdo/ZKp9zHEk9YSwMMg+lvYHjkZWo3QwKN/k?=
+ =?us-ascii?Q?UPdtTBlrWkRnIiTza36tMlfTezHw3UA4UN3Zh1XJlJVYO8G46oW3OJ00P2Fx?=
+ =?us-ascii?Q?11Ts0dXQ4OWP460aBc8MrTcn9X8QiwPjWETypTfXHuMB/vXy8SaJffxCLPEo?=
+ =?us-ascii?Q?e/zvI02hdMIhd0QTTSgyw9Qyma4HPQZevBEt+KCeptpT3UbdCB2y7x8uClkW?=
+ =?us-ascii?Q?3//wEf1sa2WxPjkMSbtBMuBUf9QDzA18BSuYLNJHaVXgnqkVa7k2BOCxQ0I2?=
+ =?us-ascii?Q?sidvzt8ESZGYaA30kC1IOTv6BKqDsFKpI+JaLDscXwcIYwy6ApEuZbQTOZYv?=
+ =?us-ascii?Q?GUUa13j1AcS6jAA0mwwQ95aQCtpo5P5HuERh6uFT+lWJz6zitJFqvVbdxPcg?=
+ =?us-ascii?Q?uTiV+aIDfQrCTCuL2HdGdgwdoJfuZDS7h5YtFU7psPHtnM52qB1e0TaXN7TL?=
+ =?us-ascii?Q?HEDJrKR9pA+k+7ju2PM=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a6d8d8a-c68b-418d-4e0f-08dad8ea5e70
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Dec 2022 07:03:54.4243 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gP9KqGIPCorYjzZH6E7p1+Bt1Ol9yk/4V6cuRxAKKcfAb+PamhpOSY0qPtaSmF0P
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,170 +122,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 30, 2022 at 6:11 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Fri, Nov 25, 2022 at 02:52:01PM -0300, Andr=C3=A9 Almeida wrote:
-> > This patchset adds a udev event for DRM device's resets.
-> >
-> > Userspace apps can trigger GPU resets by misuse of graphical APIs or dr=
-iver
-> > bugs. Either way, the GPU reset might lead the system to a broken state=
-[1], that
-> > might be recovered if user has access to a tty or a remote shell. Argua=
-bly, this
-> > recovery could happen automatically by the system itself, thus this is =
-the goal
-> > of this patchset.
-> >
-> > For debugging and report purposes, device coredump support was already =
-added
-> > for amdgpu[2], but it's not suitable for programmatic usage like this o=
-ne given
-> > the uAPI not being stable and the need for parsing.
-> >
-> > GL/VK is out of scope for this use, giving that we are dealing with dev=
-ice
-> > resets regardless of API.
-> >
-> > A basic userspace daemon is provided at [3] showing how the interface i=
-s used
-> > to recovery from resets.
-> >
-> > [1] A search for "reset" in DRM/AMD issue tracker shows reports of rese=
-ts
-> > making the system unusable:
-> > https://gitlab.freedesktop.org/drm/amd/-/issues/?search=3Dreset
-> >
-> > [2] https://lore.kernel.org/amd-gfx/20220602081538.1652842-2-Amaranath.=
-Somalapuram@amd.com/
-> >
-> > [3] https://gitlab.freedesktop.org/andrealmeid/gpu-resetd
-> >
-> > v2: https://lore.kernel.org/dri-devel/20220308180403.75566-1-contactsha=
-shanksharma@gmail.com/
-> >
-> > Andr=C3=A9 Almeida (1):
-> >   drm/amdgpu: Add work function for GPU reset event
-> >
-> > Shashank Sharma (1):
-> >   drm: Add GPU reset sysfs event
->
-> This seems a bit much amd specific, and a bit much like an ad-hoc stopgap=
-.
->
-> On the amd specific piece:
->
-> - amd's gpus suck the most for gpu hangs, because aside from the shader
->   unblock, there's only device reset, which thrashes vram and display and
->   absolutely everything. Which is terrible. Everyone else has engine only
->   reset since years (i.e. doesn't thrash display or vram), and very often
->   even just context reset (i.e. unless the driver is busted somehow or hw
->   bug, malicious userspace will _only_ ever impact itself).
->
-> - robustness extensions for gl/vk already have very clear specifications
->   of all cases of reset, and this work here just ignores that. Yes on amd
->   you only have device reset, but this is drm infra, so you need to be
->   able to cope with ctx reset or reset which only affected a limited set
->   of context. If this is for compute and compute apis lack robustness
->   extensions, then those apis need to be fixed to fill that gap.
->
-> - the entire deamon thing feels a bit like overkill and I'm not sure why
->   it exists. I think for a start it would be much simpler if we just have
->   a (per-device maybe) sysfs knob to enable automatic killing of process
->   that die and which don't have arb robustness enabled (for gl case, for
->   vk case the assumption is that _every_ app supports VK_DEVICE_LOST and
->   can recover).
+[AMD Official Use Only - General]
 
-Thinking about this a bit more, I think there are useful cases for the
-GPU reset event and a daemon.  When I refer to a daemon here, it could
-be a standalone thing or integrated into the desktop manager like
-logind or whatever.
-1. For APIs that don't have robustness support (e.g., video
-encode/decode APIs).  This one I could kind of go either way on since,
-it probably makes sense to just kill the app if it there is no
-robustness mechanism in the API.
-2. Telemetry collection.  It would be useful to have a central place
-to collect telemetry information about what apps seem to be
-problematic, etc.
-3. A policy manager in userspace.  If you want to make some decision
-about what to do about repeat offenders or apps that claim to support
-robustness, but really don't.
-4. Apps that don't use a UMD.  E.g., unit tests and IGT.  If they
-don't use a UMD, who kills them?
-5. Server use cases where you have multiple GPU apps running in
-containers and you want some sort of policy control or a hand in what
-to do when the app causes a hang.
+I wonder how this is observed. Any bug report related with this?
 
-Alex
-
->
-> Now onto the ad-hoc part:
->
-> - Everyone hand-rolls ad-hoc gpu context structures and how to associate
->   them with a pid. I think we need to stop doing that, because it's just
->   endless pain and prevents us from building useful management stuff like
->   cgroups for drivers that work across drivers (and driver/vendor specifi=
-c
->   cgroup wont be accepted by upstream cgroup maintainers). Or gpu reset
->   events and dumps like here. This is going to be some work unforutnately=
-.
->
-> - I think the best starting point is the context structure drm/scheduler
->   already has, but it needs some work:
->   * untangling it from the scheduler part, so it can be used also for
->     compute context that are directly scheduled by hw
->   * (amd specific) moving amdkfd over to that context structure, at least
->     internally
->   * tracking the pid in there
->
-> - I think the error dump facility should also be integrated into this.
->   Userspace needs to know which dump is associated with which reset event=
-,
->   so that remote crash reporting works correctly.
->
-> - ideally this framework can keep track of impacted context so that
->   drivers don't have to reinvent the "which context are impacted"
->   robustness ioctl book-keeping all on their own. For amd gpus it's kinda
->   easy, since the impact is "everything", but for other gpus the impact
->   can be all the way from "only one context" to "only contexts actively
->   running on $set_of_engines" to "all the context actively running" to "w=
-e
->   thrashed vram, everything is gone"
->
-> - i915 has a bunch of this already, but I have honestly no idea whether
->   it's any use because i915-gem is terminally not switching over to
->   drm/scheduler (it needs a full rewrite, which is happening somewhere).
->   So might only be useful to look at to make sure we're not building
->   something which only works for full device reset gpus and nothing else.
->   Over the various generations i915 has pretty much every possible gpu
->   reset options you can think of, with resulting different reporting
->   requirements to make sure robustness extensions work correctly.
->
-> - pid isn't enough once you have engine/context reset, you need pid (well
->   drm_file really, but I guess we can bind those to pid somehow) and gpu
->   ctx id. Both gl and vk allow you to allocate limitless gpu context on
->   the same device, and so this matters.
->
-> - igt for this stuff. Probably needs some work to generalize the i915
->   infra for endless batchbuffers so that you can make very controlled gpu
->   hangs.
->
-> Cheers, Daniel
->
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  4 +++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 30 ++++++++++++++++++++++
-> >  drivers/gpu/drm/drm_sysfs.c                | 26 +++++++++++++++++++
-> >  include/drm/drm_sysfs.h                    | 13 ++++++++++
-> >  4 files changed, 73 insertions(+)
-> >
-> > --
-> > 2.38.1
-> >
->
+Evan
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+> Deucher
+> Sent: Thursday, December 8, 2022 1:06 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH] drm/amdgpu: handle polaris10/11 overlap asics (v2)
+>=20
+> Some special polaris 10 chips overlap with the polaris11
+> DID range.  Handle this properly in the driver.
+>=20
+> v2: use local flags for other function calls.
+>=20
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 7383272c6a3a..b4f2d61ea0d5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2039,6 +2039,15 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+>  			 "See modparam exp_hw_support\n");
+>  		return -ENODEV;
+>  	}
+> +	/* differentiate between P10 and P11 asics with the same DID */
+> +	if (pdev->device =3D=3D 0x67FF &&
+> +	    (pdev->revision =3D=3D 0xE3 ||
+> +	     pdev->revision =3D=3D 0xE7 ||
+> +	     pdev->revision =3D=3D 0xF3 ||
+> +	     pdev->revision =3D=3D 0xF7)) {
+> +		flags &=3D ~AMD_ASIC_MASK;
+> +		flags |=3D CHIP_POLARIS10;
+> +	}
+>=20
+>  	/* Due to hardware bugs, S/G Display on raven requires a 1:1
+> IOMMU mapping,
+>  	 * however, SME requires an indirect IOMMU mapping because the
+> encryption
+> @@ -2108,12 +2117,12 @@ static int amdgpu_pci_probe(struct pci_dev
+> *pdev,
+>=20
+>  	pci_set_drvdata(pdev, ddev);
+>=20
+> -	ret =3D amdgpu_driver_load_kms(adev, ent->driver_data);
+> +	ret =3D amdgpu_driver_load_kms(adev, flags);
+>  	if (ret)
+>  		goto err_pci;
+>=20
+>  retry_init:
+> -	ret =3D drm_dev_register(ddev, ent->driver_data);
+> +	ret =3D drm_dev_register(ddev, flags);
+>  	if (ret =3D=3D -EAGAIN && ++retry <=3D 3) {
+>  		DRM_INFO("retry init %d\n", retry);
+>  		/* Don't request EX mode too frequently which is attacking
+> */
 > --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+> 2.38.1
