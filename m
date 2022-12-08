@@ -4,92 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BB87C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 07:52:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E61EBC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 08:19:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 362B910E468;
-	Thu,  8 Dec 2022 07:52:11 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2085.outbound.protection.outlook.com [40.107.223.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDA0610E468
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Dec 2022 07:52:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kl9uVmG6oK/bCZl21QIg89eooxeE7edTicNKWZ8yY2XoCIhXHrTHdCbXGtqu6B+R1pB0rPlsLz1KnZr9Fab+h2RpKzRDSpjYV1ZY/J02aDGfUsOaPx5j4yrW77MtwDXD/CWRlTFB9xavjysh7IMsqNWM7DvkJxzCVeeB7E9T+u6Hr2RIZtU4EdiRjiDyzXb28wgkumKbvSuT+ItbENY78s1gS4vhK6Zsun2Pt7KrIh1NJ9bETHWJ2CD+XWhV7fFwf/HZ2+k76Qqadb3ubJBvufHNQQcS290L5/9HcdKu/5VHiAzUOa5izNsLO3ZZqzVMYHUH4XENiY7+oK01LepsQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0lbQd9T5DktqiPX6hBl3CDQRO9P7/0LFpjYbtKGXO3Q=;
- b=PcYhrCD9NgA18TEG9U02tsy81cqc+IZRgOoSNd72w58IfxFlPfM4wkYQyS2pOyno3GqJQXsWUETvIhLnaU6UEyGT0yhBCDF1wfQkOjpvCiVDHIfNInp4wiiRHwr8yWUbvXfQz8DpwydEAFauzqRZG+SjMmAE2KXx8oNGe215mxSsTXncJSYaGuPuC02e5o6Nt63A95bH5N+PBydLZlmR0JF7bQ3+MnG+l5Hv7+R8m7JoRN8PeO/zSfPes4q+xxH7P08P4Wo1jpza3r2KSZWl+P9ocvs/H2M11l0OitK22cF6JvUWkzmujzvjxY/fhIOH5Xz1h+Tc0S3hBRRWnuoulA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0lbQd9T5DktqiPX6hBl3CDQRO9P7/0LFpjYbtKGXO3Q=;
- b=aVzgOAHaxntjlCYXOdBJ2Ni6jt7EMcF1nR8X3LkF1xruZpUYPmQxh5S5kpm6yZRh6KrsehEz3+4CQW4f58J/TBR2AOfT2p+xfl21RAFiDeqMg0pK3dTk4QT5ipienjPL3J38e98NviHzeV9TX/7W4R+Dua1hLaWR5EET56CiDq4=
-Received: from MW4PR04CA0383.namprd04.prod.outlook.com (2603:10b6:303:81::28)
- by CH3PR12MB7547.namprd12.prod.outlook.com (2603:10b6:610:147::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.13; Thu, 8 Dec
- 2022 07:51:59 +0000
-Received: from CO1NAM11FT061.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:81:cafe::fc) by MW4PR04CA0383.outlook.office365.com
- (2603:10b6:303:81::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14 via Frontend
- Transport; Thu, 8 Dec 2022 07:51:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT061.mail.protection.outlook.com (10.13.175.200) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5901.15 via Frontend Transport; Thu, 8 Dec 2022 07:51:58 +0000
-Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 8 Dec
- 2022 01:51:56 -0600
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
- <stanley.yang@amd.com>, <Gavin.Wan@amd.com>, <Vignesh.Chander@amd.com>,
- <david.yu@amd.com>
-Subject: [PATCH 7/7] drm/amdgpu: define RAS poison mode query function
-Date: Thu, 8 Dec 2022 15:51:22 +0800
-Message-ID: <20221208075122.28702-7-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221208075122.28702-1-tao.zhou1@amd.com>
-References: <20221208075122.28702-1-tao.zhou1@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59E4D10E46F;
+	Thu,  8 Dec 2022 08:19:09 +0000 (UTC)
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2231510E46F;
+ Thu,  8 Dec 2022 08:19:06 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id e13so1085141edj.7;
+ Thu, 08 Dec 2022 00:19:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=T1AFEAYMaBU8xgrytg9PkmlBf90Hjr7hbMHiO+fxfko=;
+ b=nG85WdhQ0p+FQgAf+ZqF4QNU8P5BkL6V9likRtLGq2HFsjmlOb2GXH538YVQp1SRYf
+ 0Y9xgD/SCjfrFateDN8EyxIP9s7yrggT4P8A3S0XyQ/EMXvaOmOD0DbdRxw3hsL/9b+b
+ N1rhwZXo6m83PZF7VIRD1U2HrI3xqBceSgLRfPWc4OcRYscB3dy2XIkFyuWPdj1xjU7t
+ CtvvO+8eOO2RSLxmzqdGQj2ypPR3Y1FXE4OkJVH+gI6dKgurPBcwxdbnwANVG8Kg7q2N
+ ChfSGgD6izMATDHtsGKFGm4c72fCYPuq4UiZOOQhn9+/5XTcYsczACzYrFnBh9VagURb
+ qRqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=T1AFEAYMaBU8xgrytg9PkmlBf90Hjr7hbMHiO+fxfko=;
+ b=hAlJAyJYv1hktGYbVj5pTL7klTUd6IHVLa9Scp8a+o2U9EQ3m3dMADyVvkHABDQMVv
+ 3JMNC7n7xPz01T4cAq9/3Oq299Qk6B85g478pP6WUYpqCS8RyVX0XfhdGo+dc37feX26
+ IG01sIr/YfvUIpRZiSZxC/0Tz+3k5JmO2866yyPItzFwUydFZdFhkZ+E95HTA2k7eMAS
+ DKjHqCRpRRnBr/uYUKM/Ct5pl0nzmW57agkdw5GmuVhY0mO7spUh6OKFo/nqk7GcKBtw
+ DKA00LVYWw2uA3e7ws5bfBBqUmgoWQcxkOG0nBB6+Ac2bnbKqlQg+tKYErjvAuyyyys0
+ 1wJw==
+X-Gm-Message-State: ANoB5plOBmsToWa3zSkpVhI+NFWgBuHFPUae8esyGcUcE8wznhTj0ije
+ DuD6wSo9GSXGuFIJf3nXryM=
+X-Google-Smtp-Source: AA0mqf4nDyoDWXw+55cOGyTyJqvNgngbhSYjDduJyjpKRcRhYoL2hHblUnHRde6EylSnmbNp5R3Fxw==
+X-Received: by 2002:a05:6402:1c1a:b0:46c:74f0:c064 with SMTP id
+ ck26-20020a0564021c1a00b0046c74f0c064mr16959224edb.85.1670487544567; 
+ Thu, 08 Dec 2022 00:19:04 -0800 (PST)
+Received: from ?IPV6:2a02:908:1256:79a0:172d:b6f5:d270:8dd2?
+ ([2a02:908:1256:79a0:172d:b6f5:d270:8dd2])
+ by smtp.gmail.com with ESMTPSA id
+ v24-20020a056402175800b0046182b3ad46sm3084203edx.20.2022.12.08.00.19.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 08 Dec 2022 00:19:03 -0800 (PST)
+Message-ID: <17c03574-363a-d4e9-edc1-48ad4c493de2@gmail.com>
+Date: Thu, 8 Dec 2022 09:19:02 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH] drm/amdgpu: try allowed domain when pin framebuffer failed
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>, "Zhang, Yifan" <Yifan1.Zhang@amd.com>
+References: <DM4PR12MB51524585CEC4E2B4B8370874E31A9@DM4PR12MB5152.namprd12.prod.outlook.com>
+ <CADnq5_NWr9SAzcQ=x-UVXWHDBci6f_pg-sRj3AD8q5GWYbBJOw@mail.gmail.com>
+ <4e415872-3fcf-27b9-dc74-b3e86f171e1c@gmail.com>
+ <CADnq5_PShNRZUwvnsTawW1OaCOjK73rdKTxxQhA=Znf2gqbJ=Q@mail.gmail.com>
+ <ce75ecb5-1d07-d8a6-2722-59da84c22c10@gmail.com>
+ <CADnq5_Mo_hmc7SCYJxQHc-TgdzXS7+YD-SUt9aF-Gx2AovriRw@mail.gmail.com>
+ <581403d1-f5f3-72a6-5447-6deef4405d47@gmail.com>
+ <CADnq5_OtFeSYKKjniNXuXUmX4WgXw1+hN-3YoRpBh-Ytjosv5g@mail.gmail.com>
+ <CY5PR12MB6369519F1EABAE9A86957850C11D9@CY5PR12MB6369.namprd12.prod.outlook.com>
+ <CADnq5_PR+7s=FPY71j3XqUA4C62j8zE8FRKq+Oty=nNjSN=Rzw@mail.gmail.com>
+ <CY5PR12MB63699C93015F77F4C6AD5BDBC11D9@CY5PR12MB6369.namprd12.prod.outlook.com>
+ <CADnq5_P0YmG0y-0NCufcx8-d6Y2CuHxf+TH2xDVY7QDhG+=C4w@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CADnq5_P0YmG0y-0NCufcx8-d6Y2CuHxf+TH2xDVY7QDhG+=C4w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT061:EE_|CH3PR12MB7547:EE_
-X-MS-Office365-Filtering-Correlation-Id: d0aa4e47-269b-4305-fe60-08dad8f11599
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ed29vSDJ7UnGcBPmVVUM+A75yre/bMfZ0W/wegs9GRDGbVsuvTzSDL/aMtQaCBvGdFPg4A4m7qbTa+FBtuoKZAEVF2x6L5g+QmFNceUFh1DwJEhovDRNHnixC58JCckLgoHKcBS8aBazXe81RDPQRixDGawNZg8eZYqy99STUSCiTGDkFyV4mpYclx+3N4KbJmcIU4y3Lv6pdJ0KkJjQKxvJ3LCwIPB7Kdc9MpLy8aoeRc9pW6TmoMMj+8oiFDxRmYE3CIi2B4O6ZJjkihKfUkemaX6LUQu1Nl+55D3bXqnoztDLZgSCoIBm9oCuglJjf7bUeBSDgfXXkoWJ5vTrKfRBQrJMgvkhySFJhWxYg5vY+Ej5o81tGDqlfGrBV1DL05Rrb53AMhVLqY2lDhTyu+w6jPTUdgUJ/i5X7GqzMDqZ1Gm21Hz4G2nQU8eIP1fjkSRadGy8rQxuucv7oLxH8TnE4MHIGnNxgGkYfMWMGEajwNe2v5Ah1g5ZXJjDrBw4ON0HHrz27fnBU8vf/oxr6I55AoC9Sehz21W+npZ4kxXPcf0EMJ0+P4m6xsb1t8E6eAMpzeD7VTp0++rLvBoHpZapKeVWzC9Uhm5VdY7HFnkEqYg8ePpbGoKuif7wf4K4uXf+axKvtSZPds8k0ae9VW2u2QsT1dVd1UKB/M0E6C+CCx0oKP+21tpf/akVPk6rrzaFAp90WKjMKfa0aoVuvhOJTPM0eLYFffyMjQU9IpI=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(39860400002)(376002)(396003)(136003)(451199015)(46966006)(40470700004)(36840700001)(2906002)(110136005)(186003)(6666004)(1076003)(6636002)(26005)(86362001)(426003)(47076005)(2616005)(70586007)(16526019)(82740400003)(356005)(478600001)(40460700003)(81166007)(8936002)(41300700001)(5660300002)(4326008)(8676002)(70206006)(36860700001)(336012)(83380400001)(316002)(36756003)(82310400005)(7696005)(40480700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2022 07:51:58.6071 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0aa4e47-269b-4305-fe60-08dad8f11599
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT061.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7547
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,96 +85,232 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>
+Cc: amd-gfx <amd-gfx-bounces@lists.freedesktop.org>, "Paneer Selvam,
+ Arunpravin" <Arunpravin.PaneerSelvam@amd.com>, "Zhang,
+ Jesse\(Jie\)" <Jesse.Zhang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-1. no need to query poison mode on SRIOV guest side, host can handle it.
-2. define the function to simplify code.
+Am 08.12.22 um 05:40 schrieb Alex Deucher:
+> On Wed, Dec 7, 2022 at 11:35 PM Zhang, Yifan <Yifan1.Zhang@amd.com> wrote:
+>> [AMD Official Use Only - General]
+>>
+>> We encountered some issues in recent APUs when tried to pin a large framebuffer (e.g. 64MB w/ dual 4K display), switch to display SG could resolve such issue.  Actually we received various kinds of VRAM shortage issues recently, there is more and more pressure on APU 512MB VRAM as FWs reserve more memory, buddy system in 5.19 creates more fragment and multiple 4k display scenario is used  more often.. Since there is no difference b/w access VRAM and System memory in APUs from HW perspective, I think we can switch some of framebuffers to system memory to mitigate VRAM pressure.
+>>
+>> [   52.798705] [TTM] Failed to find memory space for buffer 0x00000000833a4c59 eviction
+>> [   52.798707] [TTM]  No space for 00000000833a4c59 (16470 pages, 65880K, 64M)
+>> [   52.798788] amdgpu 0000:e2:00.0: amdgpu: 000000003dbf313e pin failed
+>> [   52.798790] [drm:dm_plane_helper_prepare_fb [amdgpu]] *ERROR* Failed to pin framebuffer with error -12
+> But from the patch:
+> -    if (domain == (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) {
+> +    if ((domain == (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) &&
+> +        ((adev->asic_type == CHIP_CARRIZO) || (adev->asic_type ==
+> CHIP_STONEY))) {
+>           domain = AMDGPU_GEM_DOMAIN_VRAM;
+>           if (adev->gmc.real_vram_size <= AMDGPU_SG_THRESHOLD)
+>               domain = AMDGPU_GEM_DOMAIN_GTT;
+>
+> AMDGPU_SG_THRESHOLD is only used in this one place which only applies
+> to CZ and ST.  There are not likely to be new CZ or ST boards any time
+> soon so I don't think it matters for newer APUs if we change
+> AMDGPU_SG_THRESHOLD.
 
-v2: rename amdgpu_ras_poison_mode_query to amdgpu_ras_query_poison_mode.
+Yeah, agree completely. We shouldn't change the threshold because of the 
+hw limitations on CZ/ST.
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 54 +++++++++++++++----------
- 1 file changed, 33 insertions(+), 21 deletions(-)
+Maybe we should even force the BOs into GTT on those boards to avoid 
+using both VRAM and GTT at the same time, but not sure about that.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 56d2c581f545..0735dfd72c99 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2411,11 +2411,42 @@ static void amdgpu_ras_counte_dw(struct work_struct *work)
- 	pm_runtime_put_autosuspend(dev->dev);
- }
- 
-+static void amdgpu_ras_query_poison_mode(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-+	bool df_poison, umc_poison;
-+
-+	/* poison setting is useless on SRIOV guest */
-+	if (amdgpu_sriov_vf(adev) || !con)
-+		return;
-+
-+	/* Init poison supported flag, the default value is false */
-+	if (adev->gmc.xgmi.connected_to_cpu) {
-+		/* enabled by default when GPU is connected to CPU */
-+		con->poison_supported = true;
-+	} else if (adev->df.funcs &&
-+	    adev->df.funcs->query_ras_poison_mode &&
-+	    adev->umc.ras &&
-+	    adev->umc.ras->query_ras_poison_mode) {
-+		df_poison =
-+			adev->df.funcs->query_ras_poison_mode(adev);
-+		umc_poison =
-+			adev->umc.ras->query_ras_poison_mode(adev);
-+
-+		/* Only poison is set in both DF and UMC, we can support it */
-+		if (df_poison && umc_poison)
-+			con->poison_supported = true;
-+		else if (df_poison != umc_poison)
-+			dev_warn(adev->dev,
-+				"Poison setting is inconsistent in DF/UMC(%d:%d)!\n",
-+				df_poison, umc_poison);
-+	}
-+}
-+
- int amdgpu_ras_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 	int r;
--	bool df_poison, umc_poison;
- 
- 	if (con)
- 		return 0;
-@@ -2490,26 +2521,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
- 			goto release_con;
- 	}
- 
--	/* Init poison supported flag, the default value is false */
--	if (adev->gmc.xgmi.connected_to_cpu) {
--		/* enabled by default when GPU is connected to CPU */
--		con->poison_supported = true;
--	}
--	else if (adev->df.funcs &&
--	    adev->df.funcs->query_ras_poison_mode &&
--	    adev->umc.ras &&
--	    adev->umc.ras->query_ras_poison_mode) {
--		df_poison =
--			adev->df.funcs->query_ras_poison_mode(adev);
--		umc_poison =
--			adev->umc.ras->query_ras_poison_mode(adev);
--		/* Only poison is set in both DF and UMC, we can support it */
--		if (df_poison && umc_poison)
--			con->poison_supported = true;
--		else if (df_poison != umc_poison)
--			dev_warn(adev->dev, "Poison setting is inconsistent in DF/UMC(%d:%d)!\n",
--					df_poison, umc_poison);
--	}
-+	amdgpu_ras_query_poison_mode(adev);
- 
- 	if (amdgpu_ras_fs_init(adev)) {
- 		r = -EINVAL;
--- 
-2.35.1
+Regards,
+Christian.
+
+>
+> Does the patch fix the issues you are seeing?
+>
+> Alex
+>
+>> Best Regards,
+>> Yifan
+>>
+>> -----Original Message-----
+>> From: Alex Deucher <alexdeucher@gmail.com>
+>> Sent: Thursday, December 8, 2022 12:19 PM
+>> To: Zhang, Yifan <Yifan1.Zhang@amd.com>
+>> Cc: Christian König <ckoenig.leichtzumerken@gmail.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; amd-gfx <amd-gfx-bounces@lists.freedesktop.org>; Paneer Selvam, Arunpravin <Arunpravin.PaneerSelvam@amd.com>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+>> Subject: Re: [PATCH] drm/amdgpu: try allowed domain when pin framebuffer failed
+>>
+>> On Wed, Dec 7, 2022 at 11:10 PM Zhang, Yifan <Yifan1.Zhang@amd.com> wrote:
+>>> [AMD Official Use Only - General]
+>>>
+>>> Hi Alex,
+>>>
+>>> We need to adjust the AMDGPU_SG_THRESHOLD as well since recent APUs are configured w/ 512MB VRAM. Pls check attached patch.
+>> Why do we need to increase this threshold?  The condition only applies to CZ and ST, not more recent APUs.
+>>
+>> Alex
+>>
+>>> Best Regards,
+>>> Yifan
+>>>
+>>> -----Original Message-----
+>>> From: Alex Deucher <alexdeucher@gmail.com>
+>>> Sent: Thursday, December 8, 2022 12:21 AM
+>>> To: Christian König <ckoenig.leichtzumerken@gmail.com>
+>>> Cc: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; Zhang, Yifan
+>>> <Yifan1.Zhang@amd.com>; amd-gfx
+>>> <amd-gfx-bounces@lists.freedesktop.org>; Paneer Selvam, Arunpravin
+>>> <Arunpravin.PaneerSelvam@amd.com>; amd-gfx@lists.freedesktop.org;
+>>> Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+>>> <Christian.Koenig@amd.com>
+>>> Subject: Re: [PATCH] drm/amdgpu: try allowed domain when pin
+>>> framebuffer failed
+>>>
+>>> On Wed, Dec 7, 2022 at 11:10 AM Christian König <ckoenig.leichtzumerken@gmail.com> wrote:
+>>>>
+>>>>
+>>>> Am 07.12.22 um 17:08 schrieb Alex Deucher:
+>>>>> On Wed, Dec 7, 2022 at 10:52 AM Christian König
+>>>>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>>>>> Am 07.12.22 um 16:38 schrieb Alex Deucher:
+>>>>>>> On Wed, Dec 7, 2022 at 10:23 AM Christian König
+>>>>>>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>>>>>>> I would go a step further and just allow GTT domain on ASICs !=
+>>>>>>>> CARRIZO
+>>>>>>>> | STONEY.
+>>>>>>>>
+>>>>>>>> I can't see a good reason we should still have any limitation
+>>>>>>>> here, VRAM doesn't have any advantage any more as far as I know.
+>>>>>>> Well, if VRAM is available we want to make sure someone uses it
+>>>>>>> otherwise it's just wasted.
+>>>>>> Well it still gets used when it's free. So now problem at all here.
+>>>>>>
+>>>>>> We should just not force anything into VRAM or GTT any more if
+>>>>>> it's technically not necessary.
+>>>>> So just this?
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>> index 919bbea2e3ac..8e8f07fa7a93 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>> @@ -1506,7 +1506,7 @@ u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo)
+>>>>>    uint32_t amdgpu_bo_get_preferred_domain(struct amdgpu_device *adev,
+>>>>>                                               uint32_t domain)
+>>>>>    {
+>>>>> -       if (domain == (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) {
+>>>> We still need to keep this check to avoid trying to adjust VRAM only
+>>>> allocations (the cursor still needs this IIRC).
+>>>>
+>>>> Apart from that I think that should work.
+>>> Attached.  Thanks,
+>>>
+>>> Alex
+>>>
+>>>> Christian.
+>>>>
+>>>>> +       if ((adev->asic_type == CHIP_CARRIZO) || (adev->asic_type
+>>>>> + ==
+>>>>> CHIP_STONEY)) {
+>>>>>                   domain = AMDGPU_GEM_DOMAIN_VRAM;
+>>>>>                   if (adev->gmc.real_vram_size <= AMDGPU_SG_THRESHOLD)
+>>>>>                           domain = AMDGPU_GEM_DOMAIN_GTT;
+>>>>>
+>>>>>
+>>>>>
+>>>>>> Christian.
+>>>>>>
+>>>>>>> Alex
+>>>>>>>
+>>>>>>>
+>>>>>>>> Christian.
+>>>>>>>>
+>>>>>>>> Am 07.12.22 um 16:10 schrieb Alex Deucher:
+>>>>>>>>> Does this patch fix the problem?
+>>>>>>>>>
+>>>>>>>>> Alex
+>>>>>>>>>
+>>>>>>>>> On Wed, Dec 7, 2022 at 2:27 AM Zhang, Jesse(Jie) <Jesse.Zhang@amd.com> wrote:
+>>>>>>>>>> [AMD Official Use Only - General]
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>>         drm/amdgpu: try allowed domain when pin framebuffer failed.
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>>         [WHY&HOW]
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>>         in some scenarios, the allocate memory often failed. such as do hot plug or play games.
+>>>>>>>>>>
+>>>>>>>>>>         so we can try allowed domain, if the preferred domain cannot allocate memory.
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>>         Signed-off-by: jie1zhan jesse.zhang@amd.com
+>>>>>>>>>>
+>>>>>>>>>>         Change-Id: I4b62e2ff072d02c515f901000a5789339d481273
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>>>>>>>
+>>>>>>>>>> index 1ae0c8723348..05fcaf7f9d92 100644
+>>>>>>>>>>
+>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>>>>>>>
+>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>>>>>>>
+>>>>>>>>>> @@ -39,6 +39,7 @@
+>>>>>>>>>>
+>>>>>>>>>> #include "amdgpu.h"
+>>>>>>>>>>
+>>>>>>>>>> #include "amdgpu_trace.h"
+>>>>>>>>>>
+>>>>>>>>>> #include "amdgpu_amdkfd.h"
+>>>>>>>>>>
+>>>>>>>>>> +#include "amdgpu_display.h"
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>> /**
+>>>>>>>>>>
+>>>>>>>>>>       * DOC: amdgpu_object
+>>>>>>>>>>
+>>>>>>>>>> @@ -942,8 +943,14 @@ int amdgpu_bo_pin_restricted(struct
+>>>>>>>>>> amdgpu_bo *bo, u32 domain,
+>>>>>>>>>>
+>>>>>>>>>>                             bo->placements[i].lpfn = lpfn;
+>>>>>>>>>>
+>>>>>>>>>>             }
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>> +       retry:
+>>>>>>>>>>
+>>>>>>>>>>             r = ttm_bo_validate(&bo->tbo, &bo->placement,
+>>>>>>>>>> &ctx);
+>>>>>>>>>>
+>>>>>>>>>>             if (unlikely(r)) {
+>>>>>>>>>>
+>>>>>>>>>> +               //try allowed domain when pin failed. just a workaround.
+>>>>>>>>>>
+>>>>>>>>>> +               if (unlikely(r == -ENOMEM) && domain !=
+>>>>>>>>>> + bo->allowed_domains) {
+>>>>>>>>>>
+>>>>>>>>>> +                       amdgpu_bo_placement_from_domain(bo,
+>>>>>>>>>> + bo->allowed_domains);
+>>>>>>>>>>
+>>>>>>>>>> +                       goto retry;
+>>>>>>>>>>
+>>>>>>>>>> +               }
+>>>>>>>>>>
+>>>>>>>>>>                     dev_err(adev->dev, "%p pin failed\n", bo);
+>>>>>>>>>>
+>>>>>>>>>>                     goto error;
+>>>>>>>>>>
+>>>>>>>>>>             }
 
