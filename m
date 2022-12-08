@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CE20C63703
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Dec 2022 23:25:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DFF2C63703
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 01:09:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A96710E177;
-	Wed,  7 Dec 2022 23:25:05 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2081.outbound.protection.outlook.com [40.107.101.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E37510E149;
- Wed,  7 Dec 2022 23:24:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08DE210E140;
+	Thu,  8 Dec 2022 01:09:31 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2062.outbound.protection.outlook.com [40.107.102.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EAFA10E140
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Dec 2022 01:09:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Lm/ctnXwn0xhqwo38QstQEvPWj3z1+lDFkBuBT5fmV4PVyNbRa4/i0rbfeI8MjHC59q7g9cPbukwK/WBTKfqw+m5hjsytyS7vIUQNu5wzoYj3S9SUflEKdJKeAN14L532YTI4Omy0Kp7Xx8KHQMvrBO3KbfVOZ3o9UPxcyBTUEZmpReE/mxtx/SaHDntE22Zhum0zJhk73+A6wF6GUIzQA5xeFPRQYijB6ngy+OkjV4Sl7AGVeQWLr624yI4GOYsQpeuHT/hBqcPC+fhpCXps22OISJ0P1ksgWEDaRz0zu0nG/eN6fcjzgHlDtiZmCdBUvXDs1e1JjzlvQoItRqrYQ==
+ b=k5EXDSFqtSTcLu8LX7FdJn7EZDKBhJUqsd4MQz5Mb6FJM9egDbdBpobSEv570E/vEUNeiFmdPmLgmVHrqKu7+faHO+fmvwI9ZUYJzL6eU4tezMe7+Hrhinc2r1S6PocjBr5H8gi3th83XQWa1UN9j6/Vdk90PqDg68jatCjtS28cHAOAQ6mBGmW1CLFSFgp7ugV5i31P/79Dv+0HFbQ39FwWXlvxQJjJkBbzJAo4JXGLgTroEVaGYSANoSgKQouXMUzrajkKxCiCAXF72asxXET4DJiwzsbb6s1MNK8h07ZNpPSjaIMG9itK5cCR8+tM4z4CQlyE6W4tQ4CheJ58vQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5ctFebFm0X0Dr8hDN7Qgz8nac+ON6DHNJktE7sbVDlI=;
- b=VK/70d7Sfpt63fznV4vDhWPxWaqcIDmrQnfEuLe1oj79pvimOa068IIr/k9pcq1U//8b/MetMmRrw8yt9jHsQm3CwPowBsZHKRAiiT84wIYHrlfwqxjQjTJJQ+8ToOKfpmfYgLZFM/ltSwDmWfW0zGRALKvrMoIlh/82T3qWjXn7JysFnsPLyG/JFZ9u1ddBuoGCssB/Ot4pTQrc6syE1tFytwA3mMUzsp1uV5X+USS7mDF6KLVCRd5pu1hhXxILlruXSanBDPLI9b+sptCxtlAz+jOyrHFHHNe5cknAvEATtLamkbBwN1d1FBKKcJ4gKzwUFatUTg9/NH9xtkQkpg==
+ bh=vrAMD4pga7pS6VzHUhgAk+gPyuEseriCGOsv6uRsocU=;
+ b=TPyvJpMRadlsdrPKsXCzBfFeGYjgtUuXT6Jxpi1xnvOWlCNTwlbV05jrJvBVOymiKwdRK7W7OQcKZHkx/qv7UEyJ9LhWUjU+PpI2iKK8GYblf6g5PLH/k6dT4eetXxMfOwQGeiRc6XlqIFdEKZpyAd4krqIZQWLS38fwEs/I3aXBwwc53rmE759r+Av6yKUdTuxOEj1KEE3ynEWbesgNflm/Vev352+pN5HCVs2TQRi/qoQcQPc72vHCYrpM6Rbof6OzDCOBjgi7tbcJcSl4EN12Exij/gPOWBIg727DZFf3M0HckdO6DvqQ8WamRA5hVuqweRvupC4vIuwCawwrWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5ctFebFm0X0Dr8hDN7Qgz8nac+ON6DHNJktE7sbVDlI=;
- b=j8hRNaQoaOyUkqoF08cK8gfPlXwyxXqU3AHjf0YzPY6NNJLVIbdD3h5CcvoVoF0ZavTimYfik9ZwdMGHz9HyhXA0rE6IaJIgl/Ow2/Cn3ya36fMuwMA7N1lSq15zG2tZvL3XnEMwZTeS7WPkPxV6qW3bIW3APyZ3SlC2OCKaDIg=
-Received: from BN9P223CA0004.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::9)
- by IA1PR12MB6259.namprd12.prod.outlook.com (2603:10b6:208:3e5::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Wed, 7 Dec
- 2022 23:24:58 +0000
-Received: from BN8NAM11FT061.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10b:cafe::60) by BN9P223CA0004.outlook.office365.com
- (2603:10b6:408:10b::9) with Microsoft SMTP Server (version=TLS1_2,
+ bh=vrAMD4pga7pS6VzHUhgAk+gPyuEseriCGOsv6uRsocU=;
+ b=VHxGjFhHte1X25GCizv1Uab6r4RbvCGD4qUnMiJLs8tNlpjbz1ThsAWqmlpS2deM1hQU92CQPH0CjpOM/TaLegQJUk+IawpXgpphrCZxmn80NfEzEf+a/XrlLuQenEy5bkFZd8eTTAlnelhWnUIa4kvn5IPIn8fiSpYJtBJh5T4=
+Received: from MW4PR02CA0027.namprd02.prod.outlook.com (2603:10b6:303:16d::32)
+ by MN0PR12MB6125.namprd12.prod.outlook.com (2603:10b6:208:3c7::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Thu, 8 Dec
+ 2022 01:09:24 +0000
+Received: from CO1NAM11FT109.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:16d:cafe::c2) by MW4PR02CA0027.outlook.office365.com
+ (2603:10b6:303:16d::32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14 via Frontend
- Transport; Wed, 7 Dec 2022 23:24:58 +0000
+ Transport; Thu, 8 Dec 2022 01:09:24 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,48 +45,48 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT061.mail.protection.outlook.com (10.13.177.144) with Microsoft SMTP
+ CO1NAM11FT109.mail.protection.outlook.com (10.13.174.176) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5901.16 via Frontend Transport; Wed, 7 Dec 2022 23:24:57 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.5901.15 via Frontend Transport; Thu, 8 Dec 2022 01:09:24 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 7 Dec
- 2022 17:24:56 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu drm-next-6.2
-Date: Wed, 7 Dec 2022 18:24:39 -0500
-Message-ID: <20221207232439.5908-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.38.1
+ 2022 19:09:22 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>, Alexander Deucher
+ <Alexander.Deucher@amd.com>, Hans de Goede <hdegoede@redhat.com>
+Subject: [PATCH v2 0/3] Adjust ACPI video detection fallback path
+Date: Wed, 7 Dec 2022 19:09:07 -0600
+Message-ID: <20221208010910.7621-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT061:EE_|IA1PR12MB6259:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2b7f17e5-215e-4834-8cba-08dad8aa4127
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT109:EE_|MN0PR12MB6125:EE_
+X-MS-Office365-Filtering-Correlation-Id: 374d1d87-48a4-4b04-fcbb-08dad8b8d85d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xIx0FiFAmMUOP39ae0lhegHg+LYIzyhs4mbP6Zz/2Hd0aUiHaIu97VRb5HdU7vmaJtCtKdCjDH8RkkE+bUaSNfbBkAsl/gSM8+mmj6clnboadN5aXPEWKqLYgS7u8gzfc1LqfPIrCX0QhiiKBmLO72QNzgIIKQTDGU0oV4dm0IbynFUqUQEqdzu4nzWr5Nx4N1ES1GWx+5Pyee+M7vbu/oUagiRz410PIuum0BklYB19+TOC/WL54idtVhZHgoL6wHh4cpGSL4JR/pV8CIDG3ZOev7/dF+hT/AZyRKCooe8SNUKSlR0aIdSd0GXjI9KDOHaAsypIhmJDRcpNYVepDmG/0xs8JhZZ8mxMXM4ZGy8D9A9H3ynldO8zgACWR4kyL/G8pKnxWby09cbhbrqUuAo4Wbi/Fxa7RZwJpIqlU2qlI95lYF/KVWwi5n8th3/Tjd6z/1cWEPhK1iSgv7iBCM4dXVhJgHk6lNNG7izU1OLhZ9gOWPSFfyyBjmtkRpa+2rEfaZtL4KSEYYQoN7GH6zpR1cTI8NnSCgL+V0E3V4AVJNtMDtKQjE6PLYQxgOr3SJ2g7LfKNm/Kznxxz/+nDTUJygwlzXODijgadR5jTbInXvY2pbRiLpI3Hb2n9+gYDnGvb1XpxuIwbEaA1EmQqOw/+9dCVzC9nOflhAWvJ3IrZw6E+/NJz5NyMOS+xOSE
+X-Microsoft-Antispam-Message-Info: WMLhywaSTe7MGVF5PzGwsOI+jEd/c6DvrEIsiR3HcamNW/lxRQxfGY+dC/R/8veIrA9Pd9DosPejlPKvl3Y5seHP/GB7eCA4j27tw2u21UlLpGRdVtTpjFeKZkRvyC7TqUICntUKNtpbQo/461oZ52S8Mrd3hchL9OVs8NA9ToXW2I+FzwvgX8Q1LOSrpv3EeyIEzDArIPvSTQ5snJJXpdMtAFAeg1cQJFgekz/hiw3jpAPPuKTDwpNbELqZrahuQtH/RKmK9LbCMmglarCBFyfsdviY8hfN6UgsXrIr8KTDaoldvONZ+uXmrpsNLrfaDJW20QY1/akZ6lqcICLSo+9VA+T7YQ9NV5w9PhHw/RE3bnvEDr/Va7EbAvQC1yff6UduHjUsb4KK/Iz95m/CILuFDA2iB91mKRY8e7w2bdlLh55mKbqtLQ7E4dn7JNoQclzyWTmEmTQdVCZEDEf/I5+HFo7IC7mqRCCmrhQwc7caELJ9IIqWWMaI/BAqAT9C4aZQNeTxKMsNnL/k98hdxnaOuZeuirJ0R2xnduYWm2T5Q6AL/w8A6UMmSRVgJjHDh3cEjjOWP7O3a0Slcg+p3QkdBpc9Qq3lO4qXtN4RBdIgf95mhgEfICZiBvacnmiYu0aX5jbR0DkE1MgNalFUOOkwARIL182UasCIceVAexe0BFkTXWQVlUOqmb0Plw3QJ/Th389r0i3ROhzLzJ+Mlbiz7+zr32axgdJCKSU/Y6Q=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(39860400002)(136003)(346002)(376002)(451199015)(40470700004)(46966006)(36840700001)(36756003)(36860700001)(16526019)(82740400003)(70206006)(4326008)(8676002)(186003)(70586007)(1076003)(336012)(2616005)(426003)(83380400001)(26005)(40460700003)(6666004)(7696005)(316002)(478600001)(966005)(86362001)(110136005)(82310400005)(47076005)(66574015)(2906002)(40480700001)(356005)(81166007)(41300700001)(8936002)(5660300002)(36900700001);
+ SFS:(13230022)(4636009)(346002)(39860400002)(376002)(396003)(136003)(451199015)(40470700004)(46966006)(36840700001)(26005)(7696005)(186003)(54906003)(316002)(70206006)(8676002)(6666004)(478600001)(70586007)(110136005)(2616005)(4326008)(1076003)(83380400001)(336012)(47076005)(44832011)(36860700001)(426003)(16526019)(41300700001)(8936002)(5660300002)(2906002)(356005)(81166007)(82740400003)(40460700003)(36756003)(86362001)(40480700001)(82310400005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2022 23:24:57.5184 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b7f17e5-215e-4834-8cba-08dad8aa4127
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2022 01:09:24.0248 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 374d1d87-48a4-4b04-fcbb-08dad8b8d85d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT061.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT109.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6259
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6125
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,129 +98,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: linux-acpi@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Dadap <ddadap@nvidia.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+In kernel 6.1 the backlight registration code was overhauled so that
+at most one backlight device got registered. As part of this change
+there was code added to still allow making an acpi_video0 device if the
+BIOS contained backlight control methods but no native or vendor drivers
+registered.
 
-Fixes for 6.2.
+Even after the overhaul this fallback logic is failing on the BIOS from
+a number of motherboard manufacturers supporting Ryzen APUs.
+What happens is the amdgpu driver finishes registration and as expected
+doesn't create a backlight control device since no eDP panels are connected
+to a desktop.
 
-The following changes since commit 4670ac706ff9b3d0adb766ef9e93cc36d9dda474:
+Then 8 seconds later the ACPI video detection code creates an
+acpi_video0 device that is non-operational. GNOME then creates a
+backlight slider.
 
-  drm/amdgpu: expand on GPUVM documentation (2022-12-02 10:06:00 -0500)
+To avoid this situation from happening make two sets of changes:
 
-are available in the Git repository at:
+Prevent desktop problems w/ fallback logic
+------------------------------------------
+1) Add support for the video detect code to let native drivers cancel the
+fallback logic if they didn't find a panel.
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.2-2022-12-07
+This is done this way so that if another driver decides that the ACPI
+mechanism is still needed it can instead directly call the registration
+function.
 
-for you to fetch changes up to 347fafe0eb46df941965c355c77ce480e4d49f1f:
+2) Add code to amdgpu to notify the ACPI video detection code that no panel
+was detected on an APU.
 
-  drm/amdgpu: fix mmhub register base coding error (2022-12-06 10:18:18 -0500)
+Disable fallback logic by default
+---------------------------------
+This fallback logic was introduced to prevent regressions in the backlight
+overhaul.  As it has been deemed unnecessary by Hans explicitly disable the
+timeout.  If this turns out to be mistake and this part is reverted, the
+other patches for preventing desktop problems will avoid regressions on
+desktops.
 
-----------------------------------------------------------------
-amd-drm-next-6.2-2022-12-07:
+Mario Limonciello (3):
+  ACPI: video: Allow GPU drivers to report no panels
+  drm/amd/display: Report to ACPI video if no panels were found
+  ACPI: video: Don't enable fallback path for creating ACPI backlight by
+    default
 
-amdgpu:
-- DSC fixes for DCN 2.1
-- HDMI PCON fixes
-- PSR fixes
-- DC DML fixes
-- Properly throttle on BO allocation
-- GFX 11.0.4 fixes
-- MMHUB fix
-- Make some functions static
+ drivers/acpi/acpi_video.c                       | 17 ++++++++++++-----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   |  4 ++++
+ include/acpi/video.h                            |  1 +
+ 3 files changed, 17 insertions(+), 5 deletions(-)
 
-----------------------------------------------------------------
-Alvin Lee (1):
-      drm/amd/display: Ensure commit_streams returns the DC return code
+-- 
+2.34.1
 
-Aric Cyr (1):
-      drm/amd/display: 3.2.215
-
-Aurabindo Pillai (2):
-      drm/amd/display: trigger timing sync only if TG is running
-      drm/amd/display: fix array index out of bound error in DCN32 DML
-
-Charlene Liu (1):
-      drm/amd/display: correct static_screen_event_mask
-
-Chris Park (1):
-      drm/amd/display: Remove DTB DTO on CLK update
-
-Christian König (1):
-      drm/amdgpu: generally allow over-commit during BO allocation
-
-David Galiffi (1):
-      drm/amd/display: Enable dp_hdmi21_pcon support
-
-Dillon Varone (3):
-      drm/amd/display: Disable uclk pstate for subvp pipes
-      drm/amd/display: Bypass DET swath fill check for max clocks
-      drm/amd/display: set optimized required for comp buf changes
-
-Dmytro Laktyushkin (1):
-      drm/amd/display: prevent seamless boot on displays that don't have the preferred dig
-
-Jiadong Zhu (1):
-      drm/amdgpu: Make amdgpu_ring_mux functions as static
-
-Michael Strauss (1):
-      drm/amd/display: Fix DCN2.1 default DSC clocks
-
-Nicholas Kazlauskas (1):
-      drm/amd/display: Add debug option to skip PSR CRTC disable
-
-Paul Hsieh (1):
-      drm/amd/display: read invalid ddc pin status cause engine busy
-
-Tim Huang (4):
-      drm/amdgpu: enable GFX IP v11.0.4 CG support
-      drm/amdgpu: enable GFX Power Gating for GC IP v11.0.4
-      drm/amdgpu: enable GFX Clock Gating control for GC IP v11.0.4
-      drm/amdgpu: add tmz support for GC IP v11.0.4
-
-Yang Wang (1):
-      drm/amdgpu: fix mmhub register base coding error
-
-Zhongwei (1):
-      drm/amd/display: correct DML calc error of UrgentLatency
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            | 16 ++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |  6 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c       |  8 ++---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  3 ++
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c            |  2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c            |  2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c            |  2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c          |  2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c          |  2 +-
- drivers/gpu/drm/amd/amdgpu/soc21.c                 | 18 +++++++++-
- .../amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c   | 37 --------------------
- drivers/gpu/drm/amd/display/dc/core/dc.c           |  5 ++-
- drivers/gpu/drm/amd/display/dc/core/dc_link.c      |  2 +-
- drivers/gpu/drm/amd/display/dc/dc.h                |  3 +-
- .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  |  6 ++++
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c |  7 ++--
- .../drm/amd/display/dc/dcn301/dcn301_resource.c    |  2 ++
- .../drm/amd/display/dc/dcn302/dcn302_resource.c    |  2 ++
- .../drm/amd/display/dc/dcn303/dcn303_resource.c    |  2 ++
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c | 40 ++++++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.h |  4 +++
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c  |  4 +--
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_optc.c  | 29 +++++++++++++++-
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_optc.h  |  5 ++-
- .../gpu/drm/amd/display/dc/dcn314/dcn314_init.c    |  4 +--
- .../gpu/drm/amd/display/dc/dcn314/dcn314_optc.c    |  2 +-
- .../drm/amd/display/dc/dcn314/dcn314_resource.c    |  1 +
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c | 10 +++---
- .../drm/amd/display/dc/dcn321/dcn321_resource.c    |  2 +-
- .../gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c   |  6 ++--
- .../amd/display/dc/dml/dcn30/display_mode_vba_30.c |  2 +-
- .../amd/display/dc/dml/dcn31/display_mode_vba_31.c |  2 +-
- .../display/dc/dml/dcn314/display_mode_vba_314.c   |  2 +-
- .../amd/display/dc/dml/dcn32/display_mode_vba_32.c |  3 +-
- .../gpu/drm/amd/display/dc/dml/display_mode_vba.h  |  2 +-
- .../amd/display/dc/gpio/dcn32/hw_factory_dcn32.c   |  4 +--
- 37 files changed, 156 insertions(+), 94 deletions(-)
