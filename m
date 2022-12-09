@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F335BC4332F
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Dec 2022 16:37:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60630C4167B
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Dec 2022 16:37:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07CD010E55D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9928A10E56B;
 	Fri,  9 Dec 2022 16:37:49 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2053.outbound.protection.outlook.com [40.107.244.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA7FB10E565
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Dec 2022 16:37:36 +0000 (UTC)
+ (mail-mw2nam12on2063.outbound.protection.outlook.com [40.107.244.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D90EE10E558
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Dec 2022 16:37:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ja7kn5pjGOhHic5DA5LOE6jBA7dS3PmIDxELCpVo5hJbqaCmN1mBQXd9TQ/1yNVjWq5pQasXWEUHf3nsyu1jhicqpmmft/pPsz2ma1KiY7LmcpNe8DOfXXBnKn9I7jq3KfTqBJoS8jfADZEN1vlJg+OxLh+dAjQqBvP8sUMWJTJcVkGnlwp7P6eADlg244NE4HK2KCN8renr6KIFZ3AyICyc0ugtBv9JrXEfG1t9jSOr4UKtWYYcmwb2HgUF6aSTvZwqo1CY33GRzqzNEWLrJogVmRhinvsFzQTAQHcOhcNWRD9SWSDiMzrVdCkJh7BnhgoW8PwwbPynsUwUuFZCFw==
+ b=NGKa7pu7pZ83NTpQD03/dvJ1WIZGT876uDlIh6VlkbtA2NUJ5T7AVmXdfUxxtNlmpDm/uWq7UWxdCFHjtP7oDXWDPXcst4HXyWdafkRHUmNKlovidlWVdYVpmNPzbarKKeFJAEoisrZxHZg4+/MblqowEXx4DejNzE4ux56fPVk0wrgMw31ERFI3tNIkEfx30Nb7VBwo0c/ZHDB39psrKu88/uWhd2vMUM4FEdeAgw7QzqGkATOLiGXHYNdeuFUAEUd/PLSSErrulzZBLE1KPW4eFuAHM9UupzzqoVgZZrSHgXPCwnonT27tno30v9/MOCgqQqNUZCp9Ak2ncYCFnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=78H8g5cfnEi8LhLz92f88Z1ID5Dj75JnGfM3yYTw+oQ=;
- b=IKF0AdJzFQeMigt8187D/pYrVzRYSSSuny9s8fD5vjxWIa2/anq2vqFAthWi2uIC6Ept0rHQ4rLTfpzGNmHcUkMOVw4qhKnSUSa8YjD/yi5u65nqybJ5n5raGpHFAd0EDDvhApQgfz81YftpRfT/gtyerxEmJhCyhmXXQ0natWHTeQ5lCCOx2Ntz3Cp0P1Bh6radpbNSFtiwYyaDq3oX499RwS/ZRdjsrtvwx2W8SjTVm2A5GKpI+88upSjCennCF7R4olyeixqxzJ/YBunDZRirjkgkLske2h/yS+i9RbKADRipZX2UD9bwz/53h47u3SdcjTwVCGqtnRxpgn1C8Q==
+ bh=0LyEyNvqHNq8XIyBhNKbISUASc4qXqFvMvz5/8sBvDc=;
+ b=Ydh1jlMuXMZNd+mep/EZkhiwfTxGv4NupO9DWZniYJFCVptMCjAElIljgudMfZV3wcgqdX20L9jo/Z6+gWS42SIHZo8qDbyJZCXGHAXquKwPSkKXnjvgSfYMwwJEDkrCdNMHiAXkXv5brG+ytYcoQYnzpkCXQ74xGlGg9Hxujom8smse4TA2P4+25oVcflGKytKqy+0AvKbt7YaWfJWkMBxkcf27P/kCMu7HXF761WPDNZR4YZJYyv7V/A9JnKijAO5cqptGZPnJ2jG//vis90ZVYD2xcJUzNtyG3Q+16FJfSm9aYIDb4a11jYzeYCcsCaNFbnWsHXVcT2BQ7EHBpQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=78H8g5cfnEi8LhLz92f88Z1ID5Dj75JnGfM3yYTw+oQ=;
- b=l5cF//xnoBvZr+OFulLT8HII7HoR2odyIfdFkflvcEAJZ7jZq6XlwV/et1a9Bma6/M0YL1LUpbDkkokKxlRLbGxVig/LCWpRkknJM6wOWGJEybqvW+EvoHZcYZdgt7BTKY2YF7Reb9pJGr0uhpbgOsD7ahjLwkLo6XJbndrg0Ok=
-Received: from MW2PR16CA0051.namprd16.prod.outlook.com (2603:10b6:907:1::28)
- by PH7PR12MB7916.namprd12.prod.outlook.com (2603:10b6:510:26a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.18; Fri, 9 Dec
- 2022 16:37:34 +0000
-Received: from CO1NAM11FT056.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:1:cafe::a1) by MW2PR16CA0051.outlook.office365.com
- (2603:10b6:907:1::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.10 via Frontend
- Transport; Fri, 9 Dec 2022 16:37:34 +0000
+ bh=0LyEyNvqHNq8XIyBhNKbISUASc4qXqFvMvz5/8sBvDc=;
+ b=H2QIs559uuL6OkLTBQS4bYltVTn/VceeA2CdQS12Qlj5ziaenKCi0C2AVcCIuHD0H++l06Dd9i9yHgEAcJgojkUcQ+f3yH49cZGmP5Ps1QWdlKS4Y0k4keGmk/r4xVfdFQvwuddWIYt3l80jU4XE0SpkVUvRDZss37pFlGJUvX4=
+Received: from MW4PR04CA0098.namprd04.prod.outlook.com (2603:10b6:303:83::13)
+ by CY5PR12MB6177.namprd12.prod.outlook.com (2603:10b6:930:26::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.16; Fri, 9 Dec
+ 2022 16:37:21 +0000
+Received: from CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:83:cafe::14) by MW4PR04CA0098.outlook.office365.com
+ (2603:10b6:303:83::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.18 via Frontend
+ Transport; Fri, 9 Dec 2022 16:37:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT056.mail.protection.outlook.com (10.13.175.107) with Microsoft SMTP
+ CO1NAM11FT025.mail.protection.outlook.com (10.13.175.232) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5901.14 via Frontend Transport; Fri, 9 Dec 2022 16:37:33 +0000
+ 15.20.5901.17 via Frontend Transport; Fri, 9 Dec 2022 16:37:21 +0000
 Received: from jasdeep-System-Product-Name.phub.net.cable.rogers.com
  (10.180.168.240) by SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Fri, 9 Dec 2022 10:37:30 -0600
+ 15.1.2375.34; Fri, 9 Dec 2022 10:37:18 -0600
 From: jdhillon <jdhillon@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 15/23] drm/amd/display: add support for three new square
- pattern variants from DP2.1 specs
-Date: Fri, 9 Dec 2022 11:36:39 -0500
-Message-ID: <20221209163647.25704-16-jdhillon@amd.com>
+Subject: [PATCH 04/23] drm/amd/display: Fix when disabling secure_display
+Date: Fri, 9 Dec 2022 11:36:28 -0500
+Message-ID: <20221209163647.25704-5-jdhillon@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221209163647.25704-1-jdhillon@amd.com>
 References: <20221209163647.25704-1-jdhillon@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT056:EE_|PH7PR12MB7916:EE_
-X-MS-Office365-Filtering-Correlation-Id: 070e0a54-7742-4277-7a53-08dada03ac62
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT025:EE_|CY5PR12MB6177:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1a61f281-2f98-456c-5faa-08dada03a506
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JDVMywprn8Ij9UvFGhS4T8qCKT63KtbyN7EqirfcIVrKoddWBY6lbCQIysbbVvprzEbrIJM1QObedzbF6cfziqGBw6BTUd1GWH6qBMJNeE93w6bHgPtkmMkt8Bh554PQv7CzACwoVAleS0wTUWOAWpgrFwj7lm6pBGqgX3YFqSpIZ7QiHkzjRCfN1LgX5db9XC+1uz6WipSk7QxGjeel+bTTPvNO7nnCzgL/mj0IlRL5DFMsKXsZkRiqcjhshskPnQ/GFjxAPEWEFmeQeOQG4FDi7UIjtdE5gtvosJDPtkWZ3XvuTHAmxgy2wZP6KmzhvIx9w4PzEdHYHPS57a4fRCnDFNCkq+E/e+G1JZ1gRVF0n7un1WaHGVuQUpEYcKYKuAIqXykOMD6GBzUW5ztCOS7LBPtCZqdd/Cul0sGNshPdUV5EdOrGGtoEDOoY83k+pwRJr+J1U+1IEJMzhtIoztRBcX4rXp9HKhXL6RCnnxvCvptel1PQPFmFnAVUBmD+jEJdfUhVmr0lHSMATF/fK0MuTDHookOW+k9216jqIzRtlVZcjzu0bOGxbB8UB6va0y2df4uNtsz4SHpt0a1+RNYDGon9jaZx3xBWLYwwjXy59/bOsLqdEUla2iTwj3gCel//AhAxcMb+xJ17QSkf9Ip39diC3Qp4OSNHH2+zlU7rPcZ/RjnH6RJl9DAk9LK26yyreNhec0kDS3yXKG+Xbvkg/GAfHwwGvtZCCQ5H9Nw=
+X-Microsoft-Antispam-Message-Info: bJX+HujmldEnQ6vLkm+Z5g8u53R8/O4QFl6qM9clnPa+adWY+wnne3trlFm5o5bniOSoROfFjsgcqI6UafgGRj1vYrtcNDzORCVsjNJzfjCsyrUlIfzUEAbhQ9XvqrlB1fFz1s/YZ7/I58RudPXdkQdFRcXMbSt+nAakmLBIgybmTuGZUoHkJBsKQfjedAoMkYvUl9PMYKvvBw+aVj1o9U/L6L3BzYq7NW4FxdfX+T7z701xnYjHC1ZF3irZhykEypz8eBiuVOjw/qnkj4eYeVwLmda/OPlpyp02d8qGn6PrSnS8axWoV9mehq561mzkYhdOyQQq+B595uDozq6G8HTsbbtUXA9YqOVfSiDfedK4vnb6tPBpI8tyeE5YnokUGL8RUi3zhi51rnLsjWDyjuqcSSWmIS0C9KAJZdLChyYW7ymbR9PNVBoOwfoj0/wCB8nMDeU/VPcEctK7pHHL4uNFyj286G+bAJ0av67vp/iXdWdGOuKxm2HgakkWSf/FzsCfRH2gonFehOL1XJ1gdbPsoBIagwmo7dfGPCKO9d6bBRqCIUmrhzjcgoaA5zqqoe93RbYHmv3ZvprnFgeowlvNJnej4sCm49CrsKv1S6vqHAbA1ppZBk4Edc2DkQDD0rU7uemgQ7xLK2ZWXwO6q7o73Vk21PqtV/xENyprQurWpTuehUabC9TPeP7kxqoiT5P3UCh3UD6Ql7vxokqdq/JM+hvYPocOm5LHHbCiIZA=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(39860400002)(396003)(376002)(346002)(451199015)(46966006)(40470700004)(36840700001)(4326008)(70206006)(70586007)(426003)(47076005)(5660300002)(41300700001)(83380400001)(54906003)(316002)(2906002)(16526019)(40480700001)(6916009)(82740400003)(336012)(36756003)(1076003)(2616005)(186003)(26005)(8676002)(478600001)(82310400005)(81166007)(8936002)(40460700003)(356005)(36860700001)(36900700001);
+ SFS:(13230022)(4636009)(39860400002)(376002)(346002)(396003)(136003)(451199015)(46966006)(40470700004)(36840700001)(26005)(4326008)(8676002)(82310400005)(1076003)(83380400001)(8936002)(41300700001)(70206006)(16526019)(70586007)(2616005)(186003)(82740400003)(336012)(478600001)(426003)(356005)(54906003)(81166007)(6916009)(36860700001)(40480700001)(5660300002)(40460700003)(36756003)(2906002)(6666004)(47076005)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2022 16:37:33.6832 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 070e0a54-7742-4277-7a53-08dada03ac62
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2022 16:37:21.3355 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a61f281-2f98-456c-5faa-08dada03a506
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT056.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7916
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6177
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,205 +99,132 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, George Shen <George.Shen@amd.com>,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, Wenjing Liu <wenjing.liu@amd.com>,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Jasdeep Dhillon <jdhillon@amd.com>, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Alan Liu <HaoPing.Liu@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Jasdeep Dhillon <jdhillon@amd.com>, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Wayne Lin <Wayne.Lin@amd.com>,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Alan Liu <HaoPing.Liu@amd.com>
 
-[why]
-DP2.1 specs has brought 3 new variants of sqaure patterns with different
-pre-shoot and de-emphasis equalization requirements. The commit adds
-logic to identify these variants and apply corresponding eqaulization
-requirements into hardware lane settings.
+[Why]
+Fix problems when we disable secure_display.
 
-Reviewed-by: George Shen <George.Shen@amd.com>
+[How]
+- Reset secure display context after disabled
+- A secure_display_context is dedicate to a crtc, so we set the crtc for
+it when we create the context.
+
+Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
 Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Alan Liu <HaoPing.Liu@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 48 +++++++++++++++----
- drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |  3 ++
- .../dc/dcn31/dcn31_hpo_dp_link_encoder.c      |  5 +-
- .../gpu/drm/amd/display/include/dpcd_defs.h   |  5 +-
- .../amd/display/include/link_service_types.h  |  7 ++-
- 5 files changed, 56 insertions(+), 12 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 28 +++++++++++--------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h |  5 ++--
+ 3 files changed, 20 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index dedd1246ce58..909434faf039 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -4094,6 +4094,12 @@ static void dp_test_send_link_training(struct dc_link *link)
- 	dp_retrain_link_dp_test(link, &link_settings, false);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 4c2a99fbcd70..bbacd764bf0f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1642,7 +1642,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	}
+ #endif
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+-	adev->dm.secure_display_ctxs = amdgpu_dm_crtc_secure_display_create_contexts(adev->dm.dc->caps.max_links);
++	adev->dm.secure_display_ctxs = amdgpu_dm_crtc_secure_display_create_contexts(adev);
+ #endif
+ 	if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
+ 		init_completion(&adev->dm.dmub_aux_transfer_done);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+index 6453abcf5f4b..733041a55ed1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+@@ -214,14 +214,12 @@ int amdgpu_dm_crtc_configure_crc_source(struct drm_crtc *crtc,
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+ 		/* Disable secure_display if it was enabled */
+ 		if (!enable) {
+-			if (adev->dm.secure_display_ctxs) {
+-				for (i = 0; i < adev->mode_info.num_crtc; i++) {
+-					if (adev->dm.secure_display_ctxs[i].crtc == crtc) {
+-						/* stop ROI update on this crtc */
+-						flush_work(&adev->dm.secure_display_ctxs[i].notify_ta_work);
+-						dc_stream_forward_crc_window(stream_state, NULL, true);
+-						adev->dm.secure_display_ctxs[i].crtc = NULL;
+-					}
++			for (i = 0; i < adev->dm.dc->caps.max_links; i++) {
++				if (adev->dm.secure_display_ctxs[i].crtc == crtc) {
++					/* stop ROI update on this crtc */
++					flush_work(&adev->dm.secure_display_ctxs[i].notify_ta_work);
++					flush_work(&adev->dm.secure_display_ctxs[i].forward_roi_work);
++					dc_stream_forward_crc_window(stream_state, NULL, true);
+ 				}
+ 			}
+ 		}
+@@ -496,7 +494,12 @@ void amdgpu_dm_crtc_handle_crc_window_irq(struct drm_crtc *crtc)
+ 	}
+ 
+ 	secure_display_ctx = &adev->dm.secure_display_ctxs[acrtc->crtc_id];
+-	secure_display_ctx->crtc = crtc;
++	if (WARN_ON(secure_display_ctx->crtc != crtc)) {
++		/* We have set the crtc when creating secure_display_context,
++		 * don't expect it to be changed here.
++		 */
++		secure_display_ctx->crtc = crtc;
++	}
+ 
+ 	if (acrtc->dm_irq_params.window_param.update_win) {
+ 		/* prepare work for dmub to update ROI */
+@@ -527,19 +530,20 @@ void amdgpu_dm_crtc_handle_crc_window_irq(struct drm_crtc *crtc)
  }
  
-+static bool is_dp_phy_sqaure_pattern(enum dp_test_pattern test_pattern)
-+{
-+	return (DP_TEST_PATTERN_SQUARE_BEGIN <= test_pattern &&
-+			test_pattern <= DP_TEST_PATTERN_SQUARE_END);
-+}
-+
- /* TODO Raven hbr2 compliance eye output is unstable
-  * (toggling on and off) with debugger break
-  * This caueses intermittent PHY automation failure
-@@ -4111,6 +4117,8 @@ static void dp_test_send_phy_test_pattern(struct dc_link *link)
- 	union lane_adjust dpcd_lane_adjust;
- 	unsigned int lane;
- 	struct link_training_settings link_training_settings;
-+	unsigned char no_preshoot = 0;
-+	unsigned char no_deemphasis = 0;
+ struct secure_display_context *
+-amdgpu_dm_crtc_secure_display_create_contexts(int num_crtc)
++amdgpu_dm_crtc_secure_display_create_contexts(struct amdgpu_device *adev)
+ {
+ 	struct secure_display_context *secure_display_ctxs = NULL;
+ 	int i;
  
- 	dpcd_test_pattern.raw = 0;
- 	memset(dpcd_lane_adjustment, 0, sizeof(dpcd_lane_adjustment));
-@@ -4204,8 +4212,21 @@ static void dp_test_send_phy_test_pattern(struct dc_link *link)
- 	case PHY_TEST_PATTERN_264BIT_CUSTOM:
- 		test_pattern = DP_TEST_PATTERN_264BIT_CUSTOM;
- 		break;
--	case PHY_TEST_PATTERN_SQUARE_PULSE:
--		test_pattern = DP_TEST_PATTERN_SQUARE_PULSE;
-+	case PHY_TEST_PATTERN_SQUARE:
-+		test_pattern = DP_TEST_PATTERN_SQUARE;
-+		break;
-+	case PHY_TEST_PATTERN_SQUARE_PRESHOOT_DISABLED:
-+		test_pattern = DP_TEST_PATTERN_SQUARE_PRESHOOT_DISABLED;
-+		no_preshoot = 1;
-+		break;
-+	case PHY_TEST_PATTERN_SQUARE_DEEMPHASIS_DISABLED:
-+		test_pattern = DP_TEST_PATTERN_SQUARE_DEEMPHASIS_DISABLED;
-+		no_deemphasis = 1;
-+		break;
-+	case PHY_TEST_PATTERN_SQUARE_PRESHOOT_DEEMPHASIS_DISABLED:
-+		test_pattern = DP_TEST_PATTERN_SQUARE_PRESHOOT_DEEMPHASIS_DISABLED;
-+		no_preshoot = 1;
-+		no_deemphasis = 1;
- 		break;
- 	default:
- 		test_pattern = DP_TEST_PATTERN_VIDEO_MODE;
-@@ -4222,7 +4243,7 @@ static void dp_test_send_phy_test_pattern(struct dc_link *link)
- 				test_pattern_size);
+-	secure_display_ctxs = kcalloc(num_crtc, sizeof(struct secure_display_context), GFP_KERNEL);
++	secure_display_ctxs = kcalloc(AMDGPU_MAX_CRTCS, sizeof(struct secure_display_context), GFP_KERNEL);
+ 
+ 	if (!secure_display_ctxs)
+ 		return NULL;
+ 
+-	for (i = 0; i < num_crtc; i++) {
++	for (i = 0; i < adev->dm.dc->caps.max_links; i++) {
+ 		INIT_WORK(&secure_display_ctxs[i].forward_roi_work, amdgpu_dm_forward_crc_window);
+ 		INIT_WORK(&secure_display_ctxs[i].notify_ta_work, amdgpu_dm_crtc_notify_ta_to_read);
++		secure_display_ctxs[i].crtc = &adev->mode_info.crtcs[i]->base;
  	}
  
--	if (test_pattern == DP_TEST_PATTERN_SQUARE_PULSE) {
-+	if (is_dp_phy_sqaure_pattern(test_pattern)) {
- 		test_pattern_size = 1; // Square pattern data is 1 byte (DP spec)
- 		core_link_read_dpcd(
- 				link,
-@@ -4259,8 +4280,10 @@ static void dp_test_send_phy_test_pattern(struct dc_link *link)
- 				((dpcd_post_cursor_2_adjustment >> (lane * 2)) & 0x03);
- 		} else if (dp_get_link_encoding_format(&link->cur_link_settings) ==
- 				DP_128b_132b_ENCODING) {
--			link_training_settings.hw_lane_settings[lane].FFE_PRESET.raw =
-+			link_training_settings.hw_lane_settings[lane].FFE_PRESET.settings.level =
- 					dpcd_lane_adjust.tx_ffe.PRESET_VALUE;
-+			link_training_settings.hw_lane_settings[lane].FFE_PRESET.settings.no_preshoot = no_preshoot;
-+			link_training_settings.hw_lane_settings[lane].FFE_PRESET.settings.no_deemphasis = no_deemphasis;
- 		}
- 	}
- 
-@@ -6178,8 +6201,17 @@ bool dc_link_dp_set_test_pattern(
- 		case DP_TEST_PATTERN_264BIT_CUSTOM:
- 			pattern = PHY_TEST_PATTERN_264BIT_CUSTOM;
- 			break;
--		case DP_TEST_PATTERN_SQUARE_PULSE:
--			pattern = PHY_TEST_PATTERN_SQUARE_PULSE;
-+		case DP_TEST_PATTERN_SQUARE:
-+			pattern = PHY_TEST_PATTERN_SQUARE;
-+			break;
-+		case DP_TEST_PATTERN_SQUARE_PRESHOOT_DISABLED:
-+			pattern = PHY_TEST_PATTERN_SQUARE_PRESHOOT_DISABLED;
-+			break;
-+		case DP_TEST_PATTERN_SQUARE_DEEMPHASIS_DISABLED:
-+			pattern = PHY_TEST_PATTERN_SQUARE_DEEMPHASIS_DISABLED;
-+			break;
-+		case DP_TEST_PATTERN_SQUARE_PRESHOOT_DEEMPHASIS_DISABLED:
-+			pattern = PHY_TEST_PATTERN_SQUARE_PRESHOOT_DEEMPHASIS_DISABLED;
- 			break;
- 		default:
- 			return false;
-@@ -6190,14 +6222,12 @@ bool dc_link_dp_set_test_pattern(
- 			return false;
- 
- 		if (link->dpcd_caps.dpcd_rev.raw >= DPCD_REV_12) {
--#if defined(CONFIG_DRM_AMD_DC_DCN)
--			if (test_pattern == DP_TEST_PATTERN_SQUARE_PULSE)
-+			if (is_dp_phy_sqaure_pattern(test_pattern))
- 				core_link_write_dpcd(link,
- 						DP_LINK_SQUARE_PATTERN,
- 						p_custom_pattern,
- 						1);
- 
--#endif
- 			/* tell receiver that we are sending qualification
- 			 * pattern DP 1.2 or later - DP receiver's link quality
- 			 * pattern is set using DPCD LINK_QUAL_LANEx_SET
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-index 2c54b6e0498b..b4eddd83b330 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-@@ -926,6 +926,9 @@ struct dpcd_usb4_dp_tunneling_info {
- #ifndef DP_128b_132b_TRAINING_AUX_RD_INTERVAL
- #define DP_128b_132b_TRAINING_AUX_RD_INTERVAL		0x2216
- #endif
-+#ifndef DP_LINK_SQUARE_PATTERN
-+#define DP_LINK_SQUARE_PATTERN				0x10F
-+#endif
- #ifndef DP_CABLE_ATTRIBUTES_UPDATED_BY_DPRX
- #define DP_CABLE_ATTRIBUTES_UPDATED_BY_DPRX		0x2217
- #endif
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.c
-index 80dfaa4d4d81..0b317ed31f91 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_link_encoder.c
-@@ -242,7 +242,10 @@ void dcn31_hpo_dp_link_enc_set_link_test_pattern(
- 		REG_UPDATE(DP_DPHY_SYM32_CONTROL,
- 				MODE, DP2_TEST_PATTERN);
- 		break;
--	case DP_TEST_PATTERN_SQUARE_PULSE:
-+	case DP_TEST_PATTERN_SQUARE:
-+	case DP_TEST_PATTERN_SQUARE_PRESHOOT_DISABLED:
-+	case DP_TEST_PATTERN_SQUARE_DEEMPHASIS_DISABLED:
-+	case DP_TEST_PATTERN_SQUARE_PRESHOOT_DEEMPHASIS_DISABLED:
- 		REG_SET(DP_DPHY_SYM32_TP_SQ_PULSE, 0,
- 				TP_SQ_PULSE_WIDTH, tp_params->custom_pattern[0]);
- 
-diff --git a/drivers/gpu/drm/amd/display/include/dpcd_defs.h b/drivers/gpu/drm/amd/display/include/dpcd_defs.h
-index b2df07f9e91c..c062a44db078 100644
---- a/drivers/gpu/drm/amd/display/include/dpcd_defs.h
-+++ b/drivers/gpu/drm/amd/display/include/dpcd_defs.h
-@@ -88,7 +88,10 @@ enum dpcd_phy_test_patterns {
- 	PHY_TEST_PATTERN_PRBS23 = 0x30,
- 	PHY_TEST_PATTERN_PRBS31 = 0x38,
- 	PHY_TEST_PATTERN_264BIT_CUSTOM = 0x40,
--	PHY_TEST_PATTERN_SQUARE_PULSE = 0x48,
-+	PHY_TEST_PATTERN_SQUARE = 0x48,
-+	PHY_TEST_PATTERN_SQUARE_PRESHOOT_DISABLED = 0x49,
-+	PHY_TEST_PATTERN_SQUARE_DEEMPHASIS_DISABLED = 0x4A,
-+	PHY_TEST_PATTERN_SQUARE_PRESHOOT_DEEMPHASIS_DISABLED = 0x4B,
+ 	return secure_display_ctxs;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
+index 4323f723c0de..935adca6f048 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
+@@ -54,7 +54,7 @@ struct crc_window_param {
  };
  
- enum dpcd_test_dyn_range {
-diff --git a/drivers/gpu/drm/amd/display/include/link_service_types.h b/drivers/gpu/drm/amd/display/include/link_service_types.h
-index d1e91d31d151..18b9173d5a96 100644
---- a/drivers/gpu/drm/amd/display/include/link_service_types.h
-+++ b/drivers/gpu/drm/amd/display/include/link_service_types.h
-@@ -165,7 +165,12 @@ enum dp_test_pattern {
- 	DP_TEST_PATTERN_PRBS23,
- 	DP_TEST_PATTERN_PRBS31,
- 	DP_TEST_PATTERN_264BIT_CUSTOM,
--	DP_TEST_PATTERN_SQUARE_PULSE,
-+	DP_TEST_PATTERN_SQUARE_BEGIN,
-+	DP_TEST_PATTERN_SQUARE = DP_TEST_PATTERN_SQUARE_BEGIN,
-+	DP_TEST_PATTERN_SQUARE_PRESHOOT_DISABLED,
-+	DP_TEST_PATTERN_SQUARE_DEEMPHASIS_DISABLED,
-+	DP_TEST_PATTERN_SQUARE_PRESHOOT_DEEMPHASIS_DISABLED,
-+	DP_TEST_PATTERN_SQUARE_END = DP_TEST_PATTERN_SQUARE_PRESHOOT_DEEMPHASIS_DISABLED,
+ struct secure_display_context {
+-	/* work to notify PSP TA to transmit CRC over I2C */
++	/* work to notify PSP TA*/
+ 	struct work_struct notify_ta_work;
  
- 	/* Link Training Patterns */
- 	DP_TEST_PATTERN_TRAINING_PATTERN1,
+ 	/* work to forward ROI to dmcu/dmub */
+@@ -95,7 +95,8 @@ void amdgpu_dm_crtc_handle_crc_irq(struct drm_crtc *crtc);
+ #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
+ bool amdgpu_dm_crc_window_is_activated(struct drm_crtc *crtc);
+ void amdgpu_dm_crtc_handle_crc_window_irq(struct drm_crtc *crtc);
+-struct secure_display_context *amdgpu_dm_crtc_secure_display_create_contexts(int num_crtc);
++struct secure_display_context *amdgpu_dm_crtc_secure_display_create_contexts(
++						struct amdgpu_device *adev);
+ #else
+ #define amdgpu_dm_crc_window_is_activated(x)
+ #define amdgpu_dm_crtc_handle_crc_window_irq(x)
 -- 
 2.34.1
 
