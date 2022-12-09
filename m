@@ -4,121 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E909C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Dec 2022 14:37:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EF3EC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Dec 2022 16:37:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E338310E002;
-	Fri,  9 Dec 2022 14:37:20 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2083.outbound.protection.outlook.com [40.107.223.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D69410E002
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Dec 2022 14:37:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AF4C10E55C;
+	Fri,  9 Dec 2022 16:37:23 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2085.outbound.protection.outlook.com [40.107.243.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6ACF210E558
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Dec 2022 16:37:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D9W+kX2KJiyRJIVVEe0Oo1DCGaMmZ92bZTWQwe5JeNOxtyzNqIiExPaMXjzUeX9ybeM8E9C9/sydmHW95ecBUxrQIt5xiSt+PW3gIvYppLwVLpJBLFjGeRSIDrNpzLt5Z9lLlBcJLolE7brwTfNIuoqDD8xVIr0k/02rbxYWpJ6HmnBRHdrEaBqDmGp6Fyov29Kz9e1LR0hFf6LsAKAMQ0sObN+CPoulF6L/odhYjPmrtGuYDjIjW0jVMnl56GRSUqrAjC2lTaLLjCrveDvgHcbdqEXbTAWnSoZ2Fl1GExnTFZj6VqzgxeN8La/9LjjBiyVe4X79S2SNGbovMHVUAQ==
+ b=AHcfKisSUbLqLRXrAEeE9oqJw+QiZN3ZImSQIQQGNDfcpjWyxERQleZoScrwAt0UynebKRDrWnVzxVQ7DGLEXGQpnrSZhfQGGaTQkbLRfOjAHZj2aW+R4Fv2y93/bGJ4VzBMitRTHxWkQrhO6MKGKUBvvOVh1P8e7eBIj+kwB2s9b0VLXOz7wAP3f6R0ghNEv13PwodJP/pD2ocF0qNz4v+K6phOmE+CPz0cUybCzc7Wcijy2sBpWaMfHRgbJJWao5TITiMRX5dRo4LuqSTZIQK9U6hSrlXpXt2eiIA6UromYCxtNwm/VE8Ec2FShJWOOdPHXAjbCq06CnHDtW9xhw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zk5rPpM4o1VLpiV4RIE0qdnbI403zkaOpPOrNDUXzUg=;
- b=WoBMdJgTAt3eNtzOYo/wnbwuK36OKSyrGDHlekVrtL5Yc/36yHqru0ihv4InR4QyGg3KWZffacSo3HGqZF+xY4agOigx8ka2uqvuhLT6a1SAudYv5t3eEi8zEmLsXvywBSG1CegirCUVW46d/8JZ5C8HhGPQF+fAiu0o/Smw7WieAdlz4IxpWBQlN0R5jaMwnMgdoK7eN9ker/ngFB7J7+5uMOrYRNx3tlNhLx73xC59Bitm8/XhyjcHhqmaivsVZ5YjFTb4TApIVZNOc8QLpTnuTrzvk91grVqqM8zDJBtCdr6acnp5Pd86brBXZwXRXdwYN2kVWUmpsOWDNXSqDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=/RzREG5aKFpWhD4tOMZAP2SOdnPXEzOc37TlZla0fAE=;
+ b=SSyDR+22za6osK0OT60Ti1OKCk6EA4Rnd2LNxguxhmOL0/+/XKPEuFZBYsNfKI4BWlca7f1nhGXAcHFmwK+tLXTEjtG1fZSL/7fI5mPY1w7OZOVd8zbUijScsRNJpbU7OWyyBSROQ446SEnmtbG8Hx8yPL01ucpvw/l+KHsSvHV5zmshc9Lp2paLAQ4AWRouB1AwKZPhd7pwyHoDF5R8WXziWbEOuTzbKyAKlF0KKF0ylapdnRE7HvBxkmDd1APkUI8tN3/7zEFb5jeFwdyC7d3ofor+xfOMJly2XUhSx2X6v6cOzbWEkJk/5EcQ0qtOJRql2gPDxlUbuCC8QVDTng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zk5rPpM4o1VLpiV4RIE0qdnbI403zkaOpPOrNDUXzUg=;
- b=wCC3lJB4wsUPdPUJBNvsLArjzpKRGoXGeM/7ZCh6bKi8DZ3OgDLMZb7IIuThGIVqqx3Ix2JCgqUmAfT3cfJXkS0D7KSLGZdEnrSfVtne/7KkQuMFFXs1GX8hIIEWBqRdvxH8qLmWTBAnVdPOVWHo0TozjDFGYAybOrZ+pVD8m7g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) by
- IA1PR12MB6257.namprd12.prod.outlook.com (2603:10b6:208:3e7::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Fri, 9 Dec
- 2022 14:37:13 +0000
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::3abd:f044:1e8e:4261]) by DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::3abd:f044:1e8e:4261%8]) with mapi id 15.20.5880.014; Fri, 9 Dec 2022
- 14:37:13 +0000
-Message-ID: <c79dcbb5-5c8c-2620-1b92-15b643fb5530@amd.com>
-Date: Fri, 9 Dec 2022 09:37:10 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [bug][vaapi][h264] The commit
- 7cbe08a930a132d84b4cf79953b00b074ec7a2a7 on certain video files leads to
- problems with VAAPI hardware decoding.
-To: Alex Deucher <alexdeucher@gmail.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Thong Thai <thong.thai@amd.com>
-References: <CABXGCsM7jMMomy_=oNN236LfLJzMJbcNR=YWWJ74TgNO_16PWQ@mail.gmail.com>
- <CADnq5_PUCRGZoUu3RHrbD6+Dr_RHWdqkJKDBD2cWenWhQQiyKw@mail.gmail.com>
- <CABXGCsO-GLzahLgNtbzsM-HiPk7cZvHu56ckSMLD7XeUvf28hw@mail.gmail.com>
- <CADnq5_NMuc=moNDgL1bx9riUtkfuPvj4sLM-i3Qmf-rtAHV+=Q@mail.gmail.com>
-Content-Language: en-US
-From: Leo Liu <leo.liu@amd.com>
-In-Reply-To: <CADnq5_NMuc=moNDgL1bx9riUtkfuPvj4sLM-i3Qmf-rtAHV+=Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0156.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::35) To DM8PR12MB5399.namprd12.prod.outlook.com
- (2603:10b6:8:34::5)
+ bh=/RzREG5aKFpWhD4tOMZAP2SOdnPXEzOc37TlZla0fAE=;
+ b=Y0K8dfyjXuZyBWUeRJOhFdxuHjIjyfjdUY4YHYjA6/g3zzNzy+Ljm8kYLLipwJtpVg0nHpa6DO36zRkVfbMtOcuE4zHAXD9QAfRE3FSBibMw9zRRhgtArikW1UbFreUo5ssGg4enaK9GYLIDlV00CqFJbjRdIc/S3CNJn94xQTI=
+Received: from MW4PR04CA0112.namprd04.prod.outlook.com (2603:10b6:303:83::27)
+ by CH3PR12MB7546.namprd12.prod.outlook.com (2603:10b6:610:149::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.13; Fri, 9 Dec
+ 2022 16:37:16 +0000
+Received: from CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:83:cafe::cc) by MW4PR04CA0112.outlook.office365.com
+ (2603:10b6:303:83::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.18 via Frontend
+ Transport; Fri, 9 Dec 2022 16:37:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT025.mail.protection.outlook.com (10.13.175.232) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5901.17 via Frontend Transport; Fri, 9 Dec 2022 16:37:16 +0000
+Received: from jasdeep-System-Product-Name.phub.net.cable.rogers.com
+ (10.180.168.240) by SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Fri, 9 Dec 2022 10:37:14 -0600
+From: jdhillon <jdhillon@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 00/23] DC Patches December 12 2022
+Date: Fri, 9 Dec 2022 11:36:24 -0500
+Message-ID: <20221209163647.25704-1-jdhillon@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM8PR12MB5399:EE_|IA1PR12MB6257:EE_
-X-MS-Office365-Filtering-Correlation-Id: e30ba6df-cf0d-4457-be94-08dad9f2dc0b
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT025:EE_|CH3PR12MB7546:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd2ddc20-ace1-4d8a-a3e0-08dada03a212
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kCTPRuMXPYTg5q1ft37nDMUuW/Z6bfwiCj3OTUByNi8IsjXxKf5b39awSy17KcY3+DGWYuMKnFvfcN16j3hkIv3P0ILVC5bdr8FjzYIwNsVBBMiqHxoTX2RcAawipVRXcjJykzlXnkqT78yfYKbMDkxmNba+dknK5s8VuTPbS8eEsS06RXvdMXeTDYsLa952ArBXgypZXFXrof6uNObUVDzF5IjHyOdGvO4X1p7vfsrNwzP/xdxPsdMwyg1fnnFZv5Vl4fN9GYRbhxr3YzJYRYOkUcmhsCJFtpqpagzlvYkUwbrxbO4N5uIx+LHAOxf+vZ25V2hDfCmxquOLkdiWhmowGmohWiJ4xuzvnGdnKxNgIa/IFhZ5duHi4oRG169l9r19prNGJ/hubyJARDk0Aw9ZvODhP/PGULbTmMdMhJGpEUBrfm0C2731XHl2gHkEw0HsVFYTRCNRUzq3Gn8hJRxA8wNSjF1QQDJc6OF9fyiZhjmWAfaeYBKh60dBopBwxSNqOwTCfwhhQJYLwvcM8PHTg7DrVj9V6T28N9Z1zwNdeDvn1bbwiEjrvYZxY5xb+dnUBUvmCAKDKtEbrMb97lv512pdW8pYDQNqTh2ET7f2Rmeo9whDn3mvZeTTwWEFuVdmEy4l62sURdngePW6tkxlhEF+HQFbFBMR8YOs+HGmj9Tpf/A3TEhFsvAk47tn
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR12MB5399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(136003)(39860400002)(346002)(376002)(396003)(451199015)(2616005)(66946007)(36756003)(5660300002)(66476007)(41300700001)(4326008)(26005)(86362001)(186003)(66556008)(19627235002)(110136005)(6486002)(31696002)(6636002)(316002)(6506007)(54906003)(53546011)(6512007)(8676002)(478600001)(966005)(83380400001)(2906002)(38100700002)(31686004)(44832011)(8936002)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: HC1ncrUzgmd3Tl0Uqf4GNTM/fDwkA8lGJ+PmLdUUf2MIYVjX3VPJEp43brgl8DtEugN1k0EIDZ5zuZO3QlMdPgMirV/X9Ig0ik/AdsF5YXB9/J8KN0qf2NYY4hOgu2/5Adz1LonyuysoCXVmPfG+2BSZwX50qu/nLMXnBIwkZEOBA82EIM4D1EQkVHHYQSKRlAl00cChPCFdONmQagfImMvYCoIY3HeOv4fDFIOZq/4172NcbUSjf9gteL554mSPi5TsZKlmx+HaUz2tksJTvI9t/UzB2Hl+HnO3c1CGQeKLKxoQ7NFrY0ZceNycqxCVoq8QvlKmXCMI4QcYfVdM3xhN2sImfaOj/u4qSFbi1xFVunMRHRvrdSid2L/VMwjgbyVg3IoZjqpsFJIqMClnhCZ3jsYgZq/35lRfKDFScjMypMJQXA8Yg6gTkuLhK0H+bdxNJtkXYBeEE8iqEd+m8VrqDYrwQQsbahPsj5CnVm/4fqyJkI5FKIO9FvGEaDujlkxCceE4YXqssYiJfPKaG6VuwADAdzoGP6UalRe294LrmEeXJsRVSLSWLabebv+sQcJTgKgdDp6C+fIJmurnKuC1YM8rrb3PBw3axJAljekgc8ceM6mZAK2s1QfAi0Mf5SQM7+FiTgh2Mtww+GFXSp8+V/1lFVjOSHWMLIOZ466231e8S83UUQGcXPlCc0roy8rgarzXhsut30u9EExZyMyl9mHREqhgVQr6t1Gl4V0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(376002)(39860400002)(346002)(396003)(451199015)(40470700004)(46966006)(36840700001)(36756003)(82310400005)(40480700001)(6666004)(1076003)(186003)(426003)(47076005)(26005)(2906002)(8676002)(70206006)(36860700001)(4326008)(316002)(336012)(2616005)(6916009)(83380400001)(16526019)(478600001)(40460700003)(70586007)(54906003)(8936002)(81166007)(82740400003)(5660300002)(41300700001)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0RJTEZMSnU3bU05ZDhBS0h0ZGhZMnFmNkZ5bVNqc0Erc0VJMzUyYXlRdnNW?=
- =?utf-8?B?VnBOajM4YUNhd29GYTI0aFE5NTRBd0J4S243NjhaQ2hYYlF6ZUxJVmU3SEVU?=
- =?utf-8?B?QkVoejFxK1hQZVcvVVJYNk4zdEZmK3daOHdVamRtUVdKU3dhNDZkdnZNZlZQ?=
- =?utf-8?B?TlpEY2k4NE9ScGpsRVN1dlBJdk1uN0hyMkE2VEVhL2RqeWZYVm5ZNjVzd1ZN?=
- =?utf-8?B?dmV3ZFZVVUdoaDJ0YUFtMnQ1eXlGRTNLVnhpcHI2ZUtlcXJESVBjLy9ndkRD?=
- =?utf-8?B?dkZMTzk0TmdjRkFTTDhlaEZYYk9CYWFkbC9qRXo1aHVNeVBydEJsNnVqYmxq?=
- =?utf-8?B?M3pkbGw4U3FRTTFXRnJBYi9iQ3FmSjJZM0JLYXFkdWNoTnIyM1p4Yjhyd1pN?=
- =?utf-8?B?QlBhb3ZmN25NTmROZFdkOWU0dnFtTVU3QTBod0JYZ1l3bEo1NTBOSDM0NHIz?=
- =?utf-8?B?OWh4V0Iyb3NCQU1NbWh4VW83bzFuT29hVmJtdVZlV2NPK2NoWmRnZWxKYzlO?=
- =?utf-8?B?QXFRM0ZyeHROWS9IN1F0djRWcmpFL1FhbWFnOHRTSE5RdEw0ekQ3LzJMblJF?=
- =?utf-8?B?TGpURnNvSUZ1RWFZNkxlZlFQWWtUUnVoQjhTb3FPYzZ0QTQ0TW04dnM2YXVV?=
- =?utf-8?B?c2ZEV25GWkprZ0U2KzBIQXdLQVhjT3J6US81TloyTWdHdm1NcnVQZ3Y3UmhD?=
- =?utf-8?B?UDFEdzdqcDh0U1lQbnNZUGxzcVdCQjZCNnE2ZzNKWTZ4SXR5SHl5ZThYOU9J?=
- =?utf-8?B?c2dTd041TjA5V2REL3JNU2plQkVxTTh2aDJPRit4aUpxZVBXK3R0b2J1QWZX?=
- =?utf-8?B?YnZwOU9iQWZGcHFHamJRR25XZUhRejJ2bFdzZFZXNy9BWUM4emwzREl5QTZ2?=
- =?utf-8?B?eDVnaHVkbGdvUlBtdks2Z2xobk45d01ha3hQbE9SUnNoaXBZM3ZOa1A1UkVH?=
- =?utf-8?B?T0JyYXBjNjZ2ZHpZZk96cktCY0tZaXRSbzV2OWUwa2dwVnpScXFFWHRVdUtj?=
- =?utf-8?B?WHRFTXdLZExxSHFkWjFMd2RFTWJkTkEvZTNwaVRDd2d0azJDSlU5VmlVUWZ3?=
- =?utf-8?B?Q1BsNGlQQWJaSkhFeG5GdjlMNS85UXlXUVRTRXF6cDg3NEhrNmR0Z0dYVUtq?=
- =?utf-8?B?Ni8yK3FWaGtadU9tNEJDdUhNeEFtZ0piL200K3FuODJJTUlUbUNIdlFkejRI?=
- =?utf-8?B?OG1JN1BXR1cxeG9sTTVpSjdIc2ZSUXovekcwMDlMU1BYQmE2ZGJNS0MySmpp?=
- =?utf-8?B?TjlXb1FKM2I2cFdxQTNIVEZFaWxFQVEydlUwTmtxMWlZeUVzQVV5ZUZ5MnpW?=
- =?utf-8?B?azBIWTBqdmJqMFNvQmRWUit4NmNMU1VUUjRYdHFQL29vcUk0SnNIT0hGOStS?=
- =?utf-8?B?dkI3K1FTbjdwQVRjenRTY3NWSmpRYmlTempOSnoxb1NUR1plN05TMUp4NHFx?=
- =?utf-8?B?TzBwM2dhR3E0ajBqNmdsZFVXcGhBRFFxRlBEMWdlem5Nbi95Wml5aFpnenYr?=
- =?utf-8?B?KzFSRW1yUmxCVzgxazRWRW9Bbkd5NndjYm5vN2ZIQkJzRU11eUtTbzhHMGpa?=
- =?utf-8?B?TXQvTXArcjBEeFh4dVYxb1NXdUdVRGtKRms1K3VXNlhidzdobDNmRm9reVMw?=
- =?utf-8?B?MGp5QTB2Q2FKVjZDdllHUktkU2lFWHdWQVNwdTNKTkR1eWxXQ0Z1L0NkZlNY?=
- =?utf-8?B?Q29vWTRZNE1WSlNHNXJ6eGd2TVBjR2lhOVArdktnQTJlcmZ4dno3QklGZVVu?=
- =?utf-8?B?U0lxcnhpV1g4L2ptenk4Tm1pUFZrQnB0VnZURkpmazhHbjV1dGRMbG15Nmk2?=
- =?utf-8?B?TjVjcGVQcUg1WU9RODZCNUUxMENtS1hvcWU1YUtYSHlrWkI4UE9HL3ZwNkc2?=
- =?utf-8?B?WVREdTRaZTY3aUUwWnZOWnpQU1VJVUJDZkpLT0xSMExyRTJkRHdoRHpmdUlM?=
- =?utf-8?B?N2liN042eko0T0ErVkFIUkovRFNGSW1UcFBIYmcxR1NVNUpWZUhwa3JQaFJT?=
- =?utf-8?B?QzJYMWlaUjNJY3llamc5YWpHa3VJd3d6aXgwcjhJQ3ZvcVNkZkcveXhPYW5J?=
- =?utf-8?B?MEhkeXVuMmVKbmJDSmh0dW1wa0R3QWdIcER1ZUxPN2lDSjJuZnJ3VndKdkEr?=
- =?utf-8?Q?gEMU=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e30ba6df-cf0d-4457-be94-08dad9f2dc0b
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5399.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2022 14:37:12.5916 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2022 16:37:16.3827 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd2ddc20-ace1-4d8a-a3e0-08dada03a212
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iBTutv/Q+IN8bFsJNjfouNFLsiYiHkOdVjwZ5uHQaWiKC7PfiIR1/lZjv23rsWy3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6257
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7546
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,101 +97,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, James.Zhu@amd.com,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Chen,
- Guchun" <guchun.chen@amd.com>
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, jdhillon <jdhillon@amd.com>, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Aurabindo.Pillai@amd.com,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Please try the latest AMDGPU driver:
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
-https://gitlab.freedesktop.org/agd5f/linux/-/commits/amd-staging-drm-next/
+* Fix array index out of bound error
+* Speed up DML fast vadlaite   
+* Implement multiple secure display 
+* MST HDCP for multiple display 
+* Add DPIA notification 
+* Add support for three new square pattern variant
 
-On 2022-12-07 15:54, Alex Deucher wrote:
-> + Leo, Thong
->
-> On Wed, Dec 7, 2022 at 3:43 PM Mikhail Gavrilov
-> <mikhail.v.gavrilov@gmail.com> wrote:
->> On Wed, Dec 7, 2022 at 7:58 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->>>
->>> What GPU do you have and what entries do you have in
->>> sys/class/drm/card0/device/ip_discovery/die/0/UVD for the device?
->> I bisected the issue on the Radeon 6800M.
->>
->> Parent commit for 7cbe08a930a132d84b4cf79953b00b074ec7a2a7 is
->> 46dd2965bdd1c5a4f6499c73ff32e636fa8f9769.
->> For both commits ip_discovery is absent.
->> # ls /sys/class/drm/card0/device/ | grep ip
->> # ls /sys/class/drm/card1/device/ | grep ip
->>
->> But from verbose info I see that player for
->> 7cbe08a930a132d84b4cf79953b00b074ec7a2a7 use acceleration:
->> $ vlc -v Downloads/test_sample_480_2.mp4
->> VLC media player 3.0.18 Vetinari (revision )
->> [0000561f72097520] main libvlc: Running vlc with the default
->> interface. Use 'cvlc' to use vlc without interface.
->> [00007fa224001190] mp4 demux warning: elst box found
->> [00007fa224001190] mp4 demux warning: STTS table of 1 entries
->> [00007fa224001190] mp4 demux warning: CTTS table of 78 entries
->> [00007fa224001190] mp4 demux warning: elst box found
->> [00007fa224001190] mp4 demux warning: STTS table of 1 entries
->> [00007fa224001190] mp4 demux warning: elst old=0 new=1
->> [00007fa224d19010] faad decoder warning: decoded zero sample
->> [00007fa224001190] mp4 demux warning: elst old=0 new=1
->> [00007fa214007030] gl gl: Initialized libplacebo v4.208.0 (API v208)
->> libva info: VA-API version 1.16.0
->> libva error: vaGetDriverNameByIndex() failed with unknown libva error,
->> driver_name = (null)
->> [00007fa214007030] glconv_vaapi_x11 gl error: vaInitialize: unknown libva error
->> libva info: VA-API version 1.16.0
->> libva info: Trying to open /usr/lib64/dri/radeonsi_drv_video.so
->> libva info: Found init function __vaDriverInit_1_16
->> libva info: va_openDriver() returns 0
->> [00007fa224c0b3a0] avcodec decoder: Using Mesa Gallium driver
->> 23.0.0-devel for AMD Radeon RX 6800M (navi22, LLVM 15.0.4, DRM 3.42,
->> 5.14.0-rc4-14-7cbe08a930a132d84b4cf79953b00b074ec7a2a7+) for hardware
->> decoding
->> [h264 @ 0x7fa224c3fa40] Using deprecated struct vaapi_context in decode.
->> [0000561f72174de0] pulse audio output warning: starting late (-9724 us)
->>
->> And for 46dd2965bdd1c5a4f6499c73ff32e636fa8f9769 commit did not use
->> acceleration:
->> $ vlc -v Downloads/test_sample_480_2.mp4
->> VLC media player 3.0.18 Vetinari (revision )
->> [000055f61ad35520] main libvlc: Running vlc with the default
->> interface. Use 'cvlc' to use vlc without interface.
->> [00007fc7e8001190] mp4 demux warning: elst box found
->> [00007fc7e8001190] mp4 demux warning: STTS table of 1 entries
->> [00007fc7e8001190] mp4 demux warning: CTTS table of 78 entries
->> [00007fc7e8001190] mp4 demux warning: elst box found
->> [00007fc7e8001190] mp4 demux warning: STTS table of 1 entries
->> [00007fc7e8001190] mp4 demux warning: elst old=0 new=1
->> [00007fc7e8d19010] faad decoder warning: decoded zero sample
->> [00007fc7e8001190] mp4 demux warning: elst old=0 new=1
->> [00007fc7d8007030] gl gl: Initialized libplacebo v4.208.0 (API v208)
->> libva info: VA-API version 1.16.0
->> libva error: vaGetDriverNameByIndex() failed with unknown libva error,
->> driver_name = (null)
->> [00007fc7d8007030] glconv_vaapi_x11 gl error: vaInitialize: unknown libva error
->> libva info: VA-API version 1.16.0
->> libva info: Trying to open /usr/lib64/dri/radeonsi_drv_video.so
->> libva info: Found init function __vaDriverInit_1_16
->> libva info: va_openDriver() returns 0
->> [00007fc7d40b3260] vaapi generic error: profile(7) is not supported
->> [00007fc7d8a089c0] gl gl: Initialized libplacebo v4.208.0 (API v208)
->> Failed to open VDPAU backend libvdpau_nvidia.so: cannot open shared
->> object file: No such file or directory
->> Failed to open VDPAU backend libvdpau_nvidia.so: cannot open shared
->> object file: No such file or directory
->> [00007fc7d89e4f80] gl gl: Initialized libplacebo v4.208.0 (API v208)
->> [000055f61ae12de0] pulse audio output warning: starting late (-13537 us)
->>
->> So my bisect didn't make sense :(
->> Anyway can you reproduce the issue with the attached sample file and
->> vlc on fresh kernel (6.1-rc8)?
->>
->> Thanks!
->>
->> --
->> Best Regards,
->> Mike Gavrilov.
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+
+
+
+Alan Liu (2):
+  drm/amd/display: Implement multiple secure display
+  drm/amd/display: Fix when disabling secure_display
+
+Alvin Lee (3):
+  drm/amd/display: Block FPO / SubVP (DRR) on HDMI VRR configs
+  drm/amd/display: Clear link res when merging a pipe split
+  drm/amd/display: Block subvp if center timing is in use
+
+Aric Cyr (1):
+  drm/amd/display: 3.2.216
+
+Dillon Varone (3):
+  drm/amd/display: Add debug bit to disable unbounded requesting
+  drm/amd/display: run subvp validation with supported vlevel
+  drm/amd/display: Reduce expected sdp bandwidth for dcn321
+
+Fangzhi Zuo (1):
+  drm/amd/display: Demote Error Level When ODM Transition Supported
+
+Hamza Mahfooz (1):
+  drm/amd/display: fix warning in amdgpu_dm_crtc_configure_crc_source()
+
+Ian Chen (1):
+  drm/amd/display: Revert Reduce delay when sink device not able to ACK
+    00340h write
+
+Ilya Bakoulin (1):
+  drm/amd/display: Speed up DML fast_validate path
+
+Leo (Hanghong) Ma (1):
+  drm/amd/display: Revert Scaler HCBlank issue workaround
+
+Mustapha Ghaddar (1):
+  drm/amd/display: Add DPIA NOTIFICATION logic
+
+Roman Li (2):
+  drm/amd/display: Fix potential null-deref in dm_resume
+  drm/amd/display: Clear MST topology if it fails to resume
+
+Samson Tam (1):
+  drm/amd/display: Check for PSR in no memory request case
+
+Wenjing Liu (2):
+  drm/amd/display: add support for three new square pattern variants
+    from DP2.1 specs
+  drm/amd/display: use encoder type independent hwss instead of
+    accessing enc directly
+
+hersen wu (3):
+  drm/amd/display: phase2 enable mst hdcp multiple displays
+  drm/amd/display: save restore hdcp desired for disp unplug plug from
+    mst hub
+  drm/amd/display: phase3 mst hdcp for multiple displays
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 252 ++++++++++++++----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   7 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 153 ++++++-----
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h |  26 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  38 +--
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    | 160 ++++++++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.h    |  17 +-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  25 ++
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |   5 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |   6 -
+ .../gpu/drm/amd/display/dc/core/dc_link_ddc.c |   1 -
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  |  80 +++---
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  15 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_stat.c |   1 +
+ drivers/gpu/drm/amd/display/dc/dc.h           |   3 +-
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |   4 +-
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |   3 +-
+ .../dc/dcn31/dcn31_hpo_dp_link_encoder.c      |   5 +-
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |   3 +-
+ .../drm/amd/display/dc/dcn32/dcn32_resource.c |   1 +
+ .../drm/amd/display/dc/dcn32/dcn32_resource.h |   1 +
+ .../display/dc/dcn32/dcn32_resource_helpers.c |  16 +-
+ .../amd/display/dc/dcn321/dcn321_resource.c   |   1 +
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  25 +-
+ .../dc/dml/dcn32/display_mode_vba_32.c        |  37 +--
+ .../amd/display/dc/dml/dcn321/dcn321_fpu.c    |   2 +-
+ .../drm/amd/display/dc/dml/display_mode_lib.h |   1 +
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |   3 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  83 ++++++
+ .../drm/amd/display/dmub/src/dmub_srv_stat.c  |  21 ++
+ .../gpu/drm/amd/display/include/dpcd_defs.h   |   5 +-
+ .../amd/display/include/link_service_types.h  |   7 +-
+ 32 files changed, 711 insertions(+), 296 deletions(-)
+
+-- 
+2.34.1
+
