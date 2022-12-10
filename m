@@ -4,118 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B5BDC4332F
-	for <amd-gfx@archiver.kernel.org>; Sat, 10 Dec 2022 06:15:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 356D7C4332F
+	for <amd-gfx@archiver.kernel.org>; Sat, 10 Dec 2022 09:24:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 344A310E09F;
-	Sat, 10 Dec 2022 06:15:41 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2058.outbound.protection.outlook.com [40.107.223.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEB1510E09B;
- Sat, 10 Dec 2022 06:15:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 728BD10E0B9;
+	Sat, 10 Dec 2022 09:24:39 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2071.outbound.protection.outlook.com [40.107.94.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 071DD10E0B9
+ for <amd-gfx@lists.freedesktop.org>; Sat, 10 Dec 2022 09:24:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WtglVTHkX5arf1YTPtmLoiqX3HERCeBXwWjbYxur7Fmtm5bIBX93RlRnJpVmeYlay7BbV4cJR/I8wlq416G1XxeW3gn7xLm3z4aENe/uQdXtpijt2bW/VHY/YATI52JfBA7aA5f5GIkkYB5O4Hm68iZbiKtDyICuM+FYGHAcZuLnbGUWDj9T8Um78MzBLOzgxGAedKtxdVjaIEPsFOQS6M+K1Q8SEGgSw7cbdq0K3Emd6NxZTyK/idIQctIpLmbdbbelrsp+rMvbbt2xrENX4fxB2UmW0F93/yTSdqTvshjryirLN6hpFlnoDK//7e/OXFy7tNUQNgbhAryiHW5vEw==
+ b=hmA9RXjXuZg/dAz9sXBATOR84f4RH3chvfjZSrQR2ZTFHqhJweLPRYpihXrMGUKFR8bqDDj9ydojEPZHTnTPPl5F+JoTudWQTKxbb+MA/zF/y2RstAhGgxn8XEKEBvN6ApzwJqsXNh8WmrsQldqs8of6w8z3JYhKADsP+YgM2zaYPXDZxVQBK6nC8+o0sFbPhyjyL83wjqPQkqWUNlCfJNke98VWtVwAIsMR2MhAquQ+tUCwFYyVBwXFEm4emqha48Z907txlRWouJzANVNlfHP1eU2z88GdvBIMMXVTD5jyny4LgzHhRi/lF6l/2WbUNYNkGOu3sYqblA2v8n1QfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h07vdaGr6Rds7U0Z4nUL2e0T6wTIrfse5dJY0sjJK4Q=;
- b=KSCcJY1Eb/X5qeQDJZk/5PR2blpxL85nxAPPYyJQt5KwQOEcmfOUT4QJ7Gj3NTK0iOW3VvsaCB9GtHE4O9P7i/KmWvxJjzHlVIvVTavwZJTvTBk7nfNN9PAYIWxnFqFA+OEQV8Cqx0txWYXNChYWL8upzEnVstaPofnzFGszEutHCEalbeclUuGhojViAdTZAijy0r0mN5JAOTVjAoeGtqGX0iPKMdxUoDjG7mBlTy7wczxwj2lI/PioorIw68XJEBYrYSk4jlQlTj/aCoDBpLCIWIEmsE3kdH95HvDDSXPTUITJLprKxvG3ZTIynLGs2t8gFQyENcyDzYUHZD/gGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=fujZf65/6k9HwsmbuUjV/yjc+4umssuL8cua9j5HjKE=;
+ b=gbzyZLHRkI/Lpzzu7LDYj6oDHbKUiDJxWzkoxBu5eroordQW3ta4nXC0rKMkNah0dnSVF6z71Fvg+q8poSTbECl6otfuuvBB6BsB0UeFCLFPINVpSOHQpu5BuPdSAnme/7GSIDfnatzQci2JumHqK5P0iPcnKy60ZMiNTaW15nye3SQNSvrlkRxY03WrRiDdcLoarzmQ2HoijdqRKlf9wjA9j3wVemcK/QNn3Q7NEumDMKpsZYN/18Mw0GZ+PIv8rjTUIPGQZVbo8YqOI3LHoE171sVJRmSAnGswCu7YZgCUjX+FHqy2CGNjA/AqczMpusYypSVdDmVxspHtnQMdZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h07vdaGr6Rds7U0Z4nUL2e0T6wTIrfse5dJY0sjJK4Q=;
- b=ztXndxusY7uYZs+I13CyuVWPgqzq36CkKv1EBqitc2Ke9czjcMMA/qS4eRfD4zDQd8WtQFbI4yWaHGYS5NJ/5y4XajVpRdDQ9lT0eqm0G9+WkGc/RXlv9+WfN7VdSLCudldNiD7tKDOEM9Mz1sNjCuEu/DkTVICF/tcHjTlsM5A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CY8PR12MB7515.namprd12.prod.outlook.com (2603:10b6:930:93::6) with
+ bh=fujZf65/6k9HwsmbuUjV/yjc+4umssuL8cua9j5HjKE=;
+ b=LKoj3tIoeliMUmGpELrhi4jeqsxDOINX19zJnwkdtZMWP+QlSyA3s0Lm/W0tE77FdCGnipnqgJdx3oQi0Y1sR3LHO7U2G+DJa4IzXTvjYSC66JGuiIwML0kwagfclsE6WmJO4pdLXnaisBpo66sfvSJOGZJAXZ7l/b/DS/0VAno=
+Received: from MW4PR02CA0026.namprd02.prod.outlook.com (2603:10b6:303:16d::25)
+ by DM4PR12MB7527.namprd12.prod.outlook.com (2603:10b6:8:111::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Sat, 10 Dec
- 2022 06:15:33 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::5d8:f3f2:d940:5350]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::5d8:f3f2:d940:5350%3]) with mapi id 15.20.5880.019; Sat, 10 Dec 2022
- 06:15:29 +0000
-Message-ID: <5ad09c47-1f50-07ce-7b8b-f8e4195f2256@amd.com>
-Date: Sat, 10 Dec 2022 01:15:26 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 1/9] drm/amdgpu: generally allow over-commit during BO
- allocation
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20221125102137.1801-1-christian.koenig@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20221125102137.1801-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0148.namprd13.prod.outlook.com
- (2603:10b6:208:2bb::33) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Sat, 10 Dec
+ 2022 09:24:32 +0000
+Received: from CO1NAM11FT097.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:16d:cafe::f2) by MW4PR02CA0026.outlook.office365.com
+ (2603:10b6:303:16d::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19 via Frontend
+ Transport; Sat, 10 Dec 2022 09:24:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT097.mail.protection.outlook.com (10.13.175.185) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5901.17 via Frontend Transport; Sat, 10 Dec 2022 09:24:32 +0000
+Received: from localhost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sat, 10 Dec
+ 2022 03:24:30 -0600
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: AMD Graphics <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Fix an oops with GTT | VRAM allocation
+Date: Sat, 10 Dec 2022 04:24:19 -0500
+Message-ID: <20221210092419.16548-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.39.0.rc2
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+X-check-string-leak: v1.0
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CY8PR12MB7515:EE_
-X-MS-Office365-Filtering-Correlation-Id: edde0b68-6e43-4050-de7f-08dada75eeed
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT097:EE_|DM4PR12MB7527:EE_
+X-MS-Office365-Filtering-Correlation-Id: c4f48bfe-6c71-4da5-de3d-08dada9058a8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wbzTXcTT5owMsaJtRJpNldivtZAQlYa1aNZWI1EZFezZYxefHNrHovgaw4GBLPa27rdZoXdfFqEMt9wcB0spko+8dL5bf/UHI0aijb/SC7Y5h5YUA0NXlervLzg7h2/GAC5aYPV4NdnOcM04VW2pR3eRVR7+0DbL6sv+xLmzHhS2aT/1TOqQL9PfYns+qHrHizbTSjmG1tLSE5y+bG3XjfxrYEvriP682TYOZbgqiIx+JE1DpDH2lVN4fvE978kH17vbvXcILqyRzhM/xIxoIeAOQaUH+27Zu4RlABGvIb2IPLrS+UBVt8rVp2RoLcF+Rj+BnANhCtm5D0dFttvP7rGF+vIAZMJ7i1qXxOHE3EKKom2DeYphxlZ0EWAX1bLuNZxSi68GecnJdlG/vkv3YCfmRoS6R4YN9Y9WWWTZFSNAMgignzB2fJIPZ+4WZ+9cXRNzQGzGcYTRoSMa/rRqZPNXAfDemBk7AT/+pnWIPvB4uWjvrBjyfdmLnHguO460QavtailZGRyeOKrvojHOoTAhgBZdrilu9oUwIcBa3p3LYrfGr+zbQbGrBnpHIuzopKPbYGPCwSI7i05JF44p7lkEg1kDiMdceDbW5Z19S8Y43tqLrmok6vAHnb1W554dEl+dqWm2tyI5iHe8zfjKNRXS4+h596xC8RzRjVt77FLiQVckk0RuQFmiCfdJ9+ZVi60HxHqW2akqnlA/PMO9bjoyFo8qcrFs1NvNADp0DcI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(376002)(346002)(136003)(396003)(366004)(451199015)(36916002)(6486002)(478600001)(8936002)(41300700001)(5660300002)(44832011)(66946007)(8676002)(4001150100001)(66476007)(36756003)(66556008)(2906002)(31696002)(86362001)(316002)(110136005)(66574015)(2616005)(31686004)(186003)(83380400001)(6666004)(6506007)(6512007)(53546011)(38100700002)(26005)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: EjaZBGCccM/GzkUIXO3OCMOJkHu88XlzkwUqpLh1M+ZFFgN2RFqXwLbNcRM+fIdZDcgTgygsVBgntrm9WA7obqbv/QzC7I8CHaoq1i+2tX7AAuNZcMrcyXjaiRQ3Vc4wpyJvuLY3QCWiSAasDg67SBSFcz9o4mzu4+uoPCnlkwjv4G7iDNhZyQ58mESzTqPu/MLl7sY2t99E+cG3U06lqSv8io7ka+fe2OJXN08dhnti6IY2ssQvJqc2Rsc3CJzqFmdpLYvMOYOwRSE+ZznqTCxy8hkYUKm2La/mNK9AWBUb7rGODOiFWx4LXhhSuFjBdxjDtydVOvWTbYu9U1Bksg45RWhBA1zrN7MsNyfAU6FfG5eBET4x+BUZzqaTFQm5NNS/l5XewfxosKIhQFjJ6f/dumyOnGRQvgwpHT/6Yrybs1Rgaj2VN9PFOTmmQ2/S9b3l8JPlZDh/A0pEvSbMkNsHvAMsVZLZ1NiyT/SBst590B0v92SSB6CIr4gAqOePTRNqPz4P3KqSmF4GXFXUt18e/SbOixFZ71VZ9+3Qd2HiLsgdyJLaFb+CDV4lLQfxacCMO/+6Bcj+XQoEi1+/lvS4DuKeHEUEwg2Fv8oclMnau78IEZkm6slKn8KxSHIgnWHW+tPjPYYzDJkXDniG1/QOqL1MUN7eE9o3BGMgAg6UIV7wDSyN3tu5fQ4SM0cPLHtVgcVw/Z2wSJNmyJt9lDxoqhAN/B0uOd9tH8bcau4=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(39860400002)(396003)(136003)(346002)(451199015)(40470700004)(46966006)(36840700001)(478600001)(7696005)(2906002)(6666004)(426003)(66574015)(47076005)(82310400005)(36756003)(86362001)(40460700003)(26005)(44832011)(186003)(8936002)(5660300002)(40480700001)(356005)(81166007)(1076003)(82740400003)(2616005)(4326008)(36860700001)(41300700001)(336012)(83380400001)(54906003)(16526019)(70206006)(8676002)(6916009)(316002)(70586007)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MllFVGQyd1JKb0hBdE12RXc2TU1lc1UxckIwQ0hWbitmTDBxVW5zaGpFc2x5?=
- =?utf-8?B?RlltWThpS1dlSW9KY2lnSWRvUmI3YXpFZ3N5OTBhRjU2eGJUcjdQQUthb2Np?=
- =?utf-8?B?RDhCUzF0c0FXNWhNN3U5L0QyTkxLd1ZPbWpCQTg4VXgwT1NqVU1WandTYnZ2?=
- =?utf-8?B?aFhpYUVIRUphTHUzOXVpWTVua1cvVEV2RkUyek8xWFE4SUlEeGliaS8zYllh?=
- =?utf-8?B?dk5VbVh2OTRpTWJYNW9RS2RCRUNhQlZjWTRydWZtZm1yajQra1dYYjRhTEV0?=
- =?utf-8?B?NjQzWnljSDJtVWx1OEFGT29tT09QU2IvaXB5ZVJvWDg5d0w3ZmpkNkRiaVF4?=
- =?utf-8?B?eDNFWU9teDZackZZVjVVN1JFdmhwWGYzRWY4YllmN0JnWVpxbVNrQWxOMHZk?=
- =?utf-8?B?WitER1dFeUdRdmhLUU9PRFc2SHJKeHV4TXNTZDBMNjNxTW82U3AxRjI3dzBq?=
- =?utf-8?B?WG1ZMVhhWDFaUVA1WTRuQ1NUcDdmTGo0bytVMFlxVFE0SzZORFU3cG5oNjg3?=
- =?utf-8?B?NXVjNXBqT1N3WnNjNHpwbGU2OWFMUFJxVlVXNlBrcVZZNWcrclV5MFNaYWln?=
- =?utf-8?B?Q1BuNVVmRnV6RnRSY1RkU0VkNnlSejZpdU5adUxrTjUreTRyZVI5OVhPaXJ2?=
- =?utf-8?B?OHRuWmJVV0hpL1lLR1NxRHo0bUZmUEJFc3FrWDN2WDlaVWtpVnZVRE5iYW9i?=
- =?utf-8?B?aXlhVXpjcmNHL3Y0dUJkUXpxUFFud08wUkhWQitMZnhDN2xwamNsZitqNWNZ?=
- =?utf-8?B?VndMNlhHWHlxeENtck01KzUySG9BREdSYXRXbDlEUnVuNHVrdDc1YXVrMDdr?=
- =?utf-8?B?RSt2Z1Q2QitqUC9HS0JiN29VVnhKeXBWZE9rdzFFOGk1c0R1RThnWHNUV3ZC?=
- =?utf-8?B?UDZpQ3EwUEs2cVZPY1N4bWp0US9iVE82TG15cXI1aHdjWE0zWFhQTy84K3NZ?=
- =?utf-8?B?cm1vN0lacFRBWjhxcithQ3pyTkhORmgraG1jZm1MNnpFeEg1LzJxbXd1T3FK?=
- =?utf-8?B?WllFcngya0N2V0tSM0JnS0N6VS82YzBTZk83M3prY3YwSCtPVWdBZUJGd2dm?=
- =?utf-8?B?KytaanI0UTNKU1paUVNYMHBzdW8rSFI2cEVkelQ0M0hmdXpkb09Va1p6Ukhl?=
- =?utf-8?B?YW9vVUZNM0lpcklLLzRSZTBlVmRNOE1TcXB0bk9QNDZZNVd4N0FXR2dCSDF5?=
- =?utf-8?B?Y3dHdC9SaytORUdhODY3L016WjJhYjdWdW91K1hvT0hQNVRnanNaLzB1WFRB?=
- =?utf-8?B?TThaTW03bVdyR0NjUUlFTHRuTm1MY0p0WnNkWDVZM0h2akV1TFJ4bFRxc3Z1?=
- =?utf-8?B?b0lJM2UvNitHODY5M21VVXRYelhUVnlWREZTTEhYZCtqWGlIMTJXZXoySlg5?=
- =?utf-8?B?ZDJPeTYyZ3BOWGkvRGJLbm1qcWFla2lORGxseWxReU10S1BvSVFYQVA4U2pM?=
- =?utf-8?B?ajhjQUdURG93OVJwM29CWFNLSy9tdGhpMnBJQ3FibXMwZDJJelB5ZitGWVpO?=
- =?utf-8?B?WDd1R2FVSXMvaHlyQ0RFakRoTGIrV2VLUzRTT2F0NFJRbXJzYUQ3bzVBUHdn?=
- =?utf-8?B?ME9iVGlsYjFoc1hVR09lUmNjNXVIaC9hNFBzVVNpM1lGcnRqMnV6TWJtb2R5?=
- =?utf-8?B?NFVSMGI3YWxTclpUczNiNnpRdEV5Mlc2RDNBelRhRFhuaDdGWGFxeTB2eTRB?=
- =?utf-8?B?bkU1ampCSitDVGZOUjN0eHhkVkdyQ09LelZQcTVpdXNXcSszN2pHcjlCY0RP?=
- =?utf-8?B?M2g4M0h3blB2WTVBSjVTS3BhTndKQkhBd1JKOWtuenRPUForUnpvNHdEQ2Z0?=
- =?utf-8?B?V1FTeGRONU4vT2drWHNuZzNOdjh6L1g0cVNNYmVoaWdHbDQxUHNKUHFwcGpm?=
- =?utf-8?B?UUZ0SHNFQXE3WGFpSmxTKzVkc2hyREkra1d3cGd5cXNKaTFQV3dtM1kyaHV4?=
- =?utf-8?B?bjlxd0FCSkVreHF0MnRGQmVMYzNzZWdCc253MExYT2ZEam9pcHFCTHR6WENC?=
- =?utf-8?B?YmkxcURuNm51ZmF5V3d6bko0NEJTK0pJNjJDS0FUd3ZpZWkzM2JYK0p0U2J5?=
- =?utf-8?B?VUJ4RUdUT0s1YUdaYXl4NFJVS05mZ3hFMVB6WHk2UEdpWlVrd2R2QjlSalV5?=
- =?utf-8?Q?TOOeGB7FSRmU7bMOLgM4gpxbe?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: edde0b68-6e43-4050-de7f-08dada75eeed
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2022 06:15:29.2358 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2022 09:24:32.2391 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4f48bfe-6c71-4da5-de3d-08dada9058a8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: H3Ty9NaUYRyKSbXp0bBcNfBpVot0/rY4dS+y9vhdvDmtSjX6tcoV3GdaXPmqGPv7fkMqy1Yr5PEmymY7DbKDkQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7515
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT097.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7527
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,106 +98,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-11-25 05:21, Christian König wrote:
-> We already fallback to a dummy BO with no backing store when we
-> allocate GDS,GWS and OA resources and to GTT when we allocate VRAM.
->
-> Drop all those workarounds and generalize this for GTT as well. This
-> fixes ENOMEM issues with runaway applications which try to allocate/free
-> GTT in a loop and are otherwise only limited by the CPU speed.
->
-> The CS will wait for the cleanup of freed up BOs to satisfy the
-> various domain specific limits and so effectively throttle those
-> buggy applications down to a sane allocation behavior again.
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
+Fix a kernel oops in amdgpu_bo_validate_size() when we allow allocation with
+GTT | VRAM domains set. The problem is that we try to dereference a non-existing
+TTM resource manager of the wanted type, GTT. In this allocation both GTT and
+VRAM are set. The call takes place in amdgpu_ttm_reserve_tmr() at line 1716.
 
-This patch causes some regressions in KFDTest. KFDMemoryTest.MMBench 
-sees a huge VRAM allocation slow-down. And 
-KFDMemoryTest.LargestVramBufferTest can only allocate half the available 
-memory.
+Dec 10 01:12:41 localhost.localdomain kernel: RIP: 0010:amdgpu_bo_create+0x8c/0x4b0 [amdgpu]
+Dec 10 01:12:41 localhost.localdomain kernel: Code: c7 44 24 34 00 00 00 00 a8 30 0f 84 e6 01 00 00 49 63 f5 49 c1 e4 0c 48 89 34 24 a8 02 0f 84 ad 01 00 00 48 8b 85 d0 55 00 00 <4c> 3b 60 10 0f 83 b5 01 00 00 81 7b 0c 87 02 00 00 0f 86 61 03 00
+Dec 10 01:12:41 localhost.localdomain kernel: RSP: 0018:ffffc3b580ba7980 EFLAGS: 00010202
+Dec 10 01:12:41 localhost.localdomain kernel: RAX: 0000000000000000 RBX: ffffc3b580ba7a00 RCX: 0000000000000001
+Dec 10 01:12:41 localhost.localdomain kernel: RDX: ffff9fa481586200 RSI: ffffc3b580ba7a00 RDI: ffff9fa481580000
+Dec 10 01:12:41 localhost.localdomain kernel: RBP: ffff9fa481580000 R08: ffff9fa481586210 R09: 0000000000000000
+Dec 10 01:12:41 localhost.localdomain kernel: R10: 0000000000000001 R11: 0000000000000000 R12: 0000000000010000
+Dec 10 01:12:41 localhost.localdomain kernel: R13: 0000000000000001 R14: ffff9fa481586210 R15: ffff9fa481586210
+Dec 10 01:12:41 localhost.localdomain kernel: FS:  00007fc2505fbb40(0000) GS:ffff9fab4ed00000(0000) knlGS:0000000000000000
+Dec 10 01:12:41 localhost.localdomain kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+Dec 10 01:12:41 localhost.localdomain kernel: CR2: 0000000000000010 CR3: 0000000128934000 CR4: 00000000003506e0
+Dec 10 01:12:41 localhost.localdomain kernel: Call Trace:
+Dec 10 01:12:41 localhost.localdomain kernel:  <TASK>
+Dec 10 01:12:41 localhost.localdomain kernel:  amdgpu_bo_create_reserved+0x15d/0x1b0 [amdgpu]
+Dec 10 01:12:41 localhost.localdomain kernel:  amdgpu_bo_create_kernel_at+0x54/0x1c0 [amdgpu]
+Dec 10 01:12:41 localhost.localdomain kernel:  amdgpu_ttm_init+0x1ad/0x470 [amdgpu]
+...
 
-This seems to be caused by initially validating VRAM BOs in the CPU 
-domain, which allocates a ttm_tt. A subsequent validation in the VRAM 
-domain involves a copy from GTT to VRAM.
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 19 +++++++------------
+ 1 file changed, 7 insertions(+), 12 deletions(-)
 
-After that, freeing of BOs can get delayed by the ghost object of a 
-previous migration, which delays calling release notifiers and causes 
-problems for KFDs available memory accounting.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index fd3ab4b5e5bb1f..e0f103f0ec2178 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -448,31 +448,26 @@ static bool amdgpu_bo_validate_size(struct amdgpu_device *adev,
+ 
+ 	/*
+ 	 * If GTT is part of requested domains the check must succeed to
+-	 * allow fall back to GTT
++	 * allow fall back to GTT.
++	 *
++	 * Note that allocations can request from either domain. For
++	 * this reason, check either in non-exclusive way, and if
++	 * neither satisfies, fail the validation.
+ 	 */
+ 	if (domain & AMDGPU_GEM_DOMAIN_GTT) {
+ 		man = ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
+-
+-		if (size < man->size)
++		if (man && size < man->size)
+ 			return true;
+-		else
+-			goto fail;
+ 	}
+ 
+ 	if (domain & AMDGPU_GEM_DOMAIN_VRAM) {
+ 		man = ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
+-
+-		if (size < man->size)
++		if (man && size < man->size)
+ 			return true;
+-		else
+-			goto fail;
+ 	}
+ 
+-
+ 	/* TODO add more domains checks, such as AMDGPU_GEM_DOMAIN_CPU */
+-	return true;
+ 
+-fail:
+ 	DRM_DEBUG("BO size %lu > total memory in domain: %llu\n", size,
+ 		  man->size);
+ 	return false;
 
-I experimented with a workaround that validates BOs immediately after 
-allocation, but that only moves around the delays and doesn't solve the 
-problem. During those experiments I may also have stumbled over a bug in 
-ttm_buffer_object_transfer: It calls ttm_bo_set_bulk_move before 
-initializing and locking fbo->base.base._resv. This results in a flood 
-of warnings because ttm_bo_set_bulk_move expects the reservation to be 
-locked.
+base-commit: 3c4ee2dc869cba283b0c667708090aefbc09aacf
+prerequisite-patch-id: 3d9ce4e1252cf76ced92d755740a8df4f073d440
+prerequisite-patch-id: c37f8050f6b285983085f62cd65f99fce034a0fb
+prerequisite-patch-id: eff248bd978d8510bab4c51b960b71dd6a542138
+prerequisite-patch-id: 539ef7082989c2fe194803c5b8041b931009397c
+-- 
+2.39.0.rc2
 
-Right now I'd like to remove the bp.domain = initial_domain | 
-AMDGPU_GEM_DOMAIN_CPU change in amdgpu_gem_object_create to fix this.
-
-Regards,
-   Felix
-
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 16 +++-------------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  6 +-----
->   2 files changed, 4 insertions(+), 18 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index a0780a4e3e61..62e98f1ad770 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -113,7 +113,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
->   	bp.resv = resv;
->   	bp.preferred_domain = initial_domain;
->   	bp.flags = flags;
-> -	bp.domain = initial_domain;
-> +	bp.domain = initial_domain | AMDGPU_GEM_DOMAIN_CPU;
->   	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
->   
->   	r = amdgpu_bo_create_user(adev, &bp, &ubo);
-> @@ -332,20 +332,10 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
->   	}
->   
->   	initial_domain = (u32)(0xffffffff & args->in.domains);
-> -retry:
->   	r = amdgpu_gem_object_create(adev, size, args->in.alignment,
-> -				     initial_domain,
-> -				     flags, ttm_bo_type_device, resv, &gobj);
-> +				     initial_domain, flags, ttm_bo_type_device,
-> +				     resv, &gobj);
->   	if (r && r != -ERESTARTSYS) {
-> -		if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
-> -			flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-> -			goto retry;
-> -		}
-> -
-> -		if (initial_domain == AMDGPU_GEM_DOMAIN_VRAM) {
-> -			initial_domain |= AMDGPU_GEM_DOMAIN_GTT;
-> -			goto retry;
-> -		}
->   		DRM_DEBUG("Failed to allocate GEM object (%llu, %d, %llu, %d)\n",
->   				size, initial_domain, args->in.alignment, r);
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 974e85d8b6cc..919bbea2e3ac 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -581,11 +581,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->   		bo->flags |= AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
->   
->   	bo->tbo.bdev = &adev->mman.bdev;
-> -	if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA |
-> -			  AMDGPU_GEM_DOMAIN_GDS))
-> -		amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU);
-> -	else
-> -		amdgpu_bo_placement_from_domain(bo, bp->domain);
-> +	amdgpu_bo_placement_from_domain(bo, bp->domain);
->   	if (bp->type == ttm_bo_type_kernel)
->   		bo->tbo.priority = 1;
->   
