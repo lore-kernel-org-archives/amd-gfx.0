@@ -4,32 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83803C4332F
-	for <amd-gfx@archiver.kernel.org>; Sat, 10 Dec 2022 13:47:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85971C4332F
+	for <amd-gfx@archiver.kernel.org>; Sat, 10 Dec 2022 15:33:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9082010E0E4;
-	Sat, 10 Dec 2022 13:47:16 +0000 (UTC)
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4920C10E0E4
- for <amd-gfx@lists.freedesktop.org>; Sat, 10 Dec 2022 13:47:11 +0000 (UTC)
-Received: from [192.168.1.137] ([188.62.80.205])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202212101447073578; Sat, 10 Dec 2022 14:47:07 +0100
-Message-ID: <b8949540-eed7-8272-0dd8-2610de143252@daenzer.net>
-Date: Sat, 10 Dec 2022 14:47:06 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9555010E0FA;
+	Sat, 10 Dec 2022 15:33:25 +0000 (UTC)
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B7E610E0FA;
+ Sat, 10 Dec 2022 15:33:23 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id qk9so18090127ejc.3;
+ Sat, 10 Dec 2022 07:33:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=wcYtQgPyVe5cOQnfMYQ81tOcEt5K+C9MLDszC4So/5g=;
+ b=FC9k2XdX7NDaV5C9yTvU0av0Zb/Lh6Tl3msyQ2oo2sugBNRFpps4/e+0VeJ8DDtGWy
+ 9hQ7Yts3GQIXVjz6wm8th2s0fYdggpW+J0be6scKnUsFj4Q9VraULaTVze100LITPjTi
+ qPaQyPOyMp2xD775lE4fcyU4WZLFw6haF+FoYCvp65NA6ZHUHLDXllfji2EMuh+8EAxG
+ 17lJoJvy/RfKVsSeUMjaoLl9MYaQGb9UNeGVtTrIsDB699r5WQ4yx9PXqVIk6suFJw98
+ XaBri6hHr3CS1tFFtRFDpon7fe/yt87Z4XSy65pxMZ7nBrXsf7lbue7mFkzG1QNzhDXn
+ 8o5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=wcYtQgPyVe5cOQnfMYQ81tOcEt5K+C9MLDszC4So/5g=;
+ b=bTiF3KSJ1koXaOWAf7lblBpR9YGHNskthYfaHstyVW0Xsk0uMZvhplBkyqX/BGyfX6
+ pfkNPHUr6puwqnocMw6+DWHQLffpWiTQezisR4f8YiOF0BOoIlCY7CXcgICGfs2B7Hwc
+ l/BqzgJGn2SOiwc/uhcnHGxOl9VZWk63ZxdhucGTzgtDi1RZ6YoXB4AmC1zoGmPZKBV9
+ CuxJ9J4zyBlxghl/t2qGM86MVx0gLMf4A/Y0vM1yPwhsVRJ5QlEFiRVizqjx/d4Ti/b3
+ KnOSUd7r89GUzEPp6OHIKpSe0ZhgSNDdri5FYLmwDqy5GED78kSrejHbZPGL0H3DVBAx
+ lEHA==
+X-Gm-Message-State: ANoB5pkdnMSyle05XvB+/rr0OSqCZvvf7bh+ePhNTlTXJ8kaEwYs8VJ3
+ RMk1zeu9/j0bSPxRXnEpWRzwQKMMrpk=
+X-Google-Smtp-Source: AA0mqf6DjReJEf5aBMTb4P0KvZZcxV6I+aEcrAMvT+kU3mpy5iZ8xOTgxBOkgI1Ok1IOFkGrnSmSFg==
+X-Received: by 2002:a05:6402:4006:b0:46c:d5e8:30e4 with SMTP id
+ d6-20020a056402400600b0046cd5e830e4mr9989433eda.23.1670681548132; 
+ Sat, 10 Dec 2022 06:12:28 -0800 (PST)
+Received: from ?IPV6:2a02:908:1256:79a0:9e54:3ab5:354f:e689?
+ ([2a02:908:1256:79a0:9e54:3ab5:354f:e689])
+ by smtp.gmail.com with ESMTPSA id
+ ov4-20020a170906fc0400b007c0dacbe00bsm1023863ejb.115.2022.12.10.06.12.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 10 Dec 2022 06:12:27 -0800 (PST)
+Message-ID: <c9243d99-2a02-2e95-82f6-c70db9a08641@gmail.com>
+Date: Sat, 10 Dec 2022 15:12:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-To: jiadong.zhu@amd.com, amd-gfx@lists.freedesktop.org
-References: <20221129071037.531124-1-jiadong.zhu@amd.com>
-Content-Language: de-CH-frami, en-CA
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [PATCH 1/4] drm/amdgpu: Introduce gfx software ring (v9)
-In-Reply-To: <20221129071037.531124-1-jiadong.zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8
+ Thunderbird/102.4.2
+Subject: Re: [PATCH 1/9] drm/amdgpu: generally allow over-commit during BO
+ allocation
+Content-Language: en-US
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20221125102137.1801-1-christian.koenig@amd.com>
+ <5ad09c47-1f50-07ce-7b8b-f8e4195f2256@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <5ad09c47-1f50-07ce-7b8b-f8e4195f2256@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CTCH: RefID="str=0001.0A782F24.63948DDD.0017,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
- Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,40 +78,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Huang Rui <ray.huang@amd.com>, Christian Koenig <Christian.Koenig@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/29/22 08:10, jiadong.zhu@amd.com wrote:
-> From: "Jiadong.Zhu" <Jiadong.Zhu@amd.com>
-> 
-> The software ring is created to support priority context while there is only
-> one hardware queue for gfx.
-> 
-> Every software ring has its fence driver and could be used as an ordinary ring
-> for the GPU scheduler.
-> Multiple software rings are bound to a real ring with the ring muxer. The
-> packages committed on the software ring are copied to the real ring.
-> 
-> v2: Use array to store software ring entry.
-> v3: Remove unnecessary prints.
-> v4: Remove amdgpu_ring_sw_init/fini functions,
-> using gtt for sw ring buffer for later dma copy
-> optimization.
-> v5: Allocate ring entry dynamically in the muxer.
-> v6: Update comments for the ring muxer.
-> v7: Modify for function naming.
-> v8: Combine software ring functions into amdgpu_ring_mux.c
-> v9: Use kernel-doc comment on the get_rptr function.
+Am 10.12.22 um 07:15 schrieb Felix Kuehling:
+> On 2022-11-25 05:21, Christian König wrote:
+>> We already fallback to a dummy BO with no backing store when we
+>> allocate GDS,GWS and OA resources and to GTT when we allocate VRAM.
+>>
+>> Drop all those workarounds and generalize this for GTT as well. This
+>> fixes ENOMEM issues with runaway applications which try to allocate/free
+>> GTT in a loop and are otherwise only limited by the CPU speed.
+>>
+>> The CS will wait for the cleanup of freed up BOs to satisfy the
+>> various domain specific limits and so effectively throttle those
+>> buggy applications down to a sane allocation behavior again.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>
+> This patch causes some regressions in KFDTest. KFDMemoryTest.MMBench 
+> sees a huge VRAM allocation slow-down. And 
+> KFDMemoryTest.LargestVramBufferTest can only allocate half the 
+> available memory.
 
-The series is
+Mhm, I wasn't expecting that we use this for the KFD as well.
 
-Tested-by: Michel Dänzer <mdaenzer@redhat.com>
+>
+> This seems to be caused by initially validating VRAM BOs in the CPU 
+> domain, which allocates a ttm_tt. A subsequent validation in the VRAM 
+> domain involves a copy from GTT to VRAM.
 
+The idea was to initially create the BOs without any backing store.
 
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+>
+> After that, freeing of BOs can get delayed by the ghost object of a 
+> previous migration, which delays calling release notifiers and causes 
+> problems for KFDs available memory accounting.
+>
+> I experimented with a workaround that validates BOs immediately after 
+> allocation, but that only moves around the delays and doesn't solve 
+> the problem. During those experiments I may also have stumbled over a 
+> bug in ttm_buffer_object_transfer: It calls ttm_bo_set_bulk_move 
+> before initializing and locking fbo->base.base._resv. This results in 
+> a flood of warnings because ttm_bo_set_bulk_move expects the 
+> reservation to be locked.
+>
+> Right now I'd like to remove the bp.domain = initial_domain | 
+> AMDGPU_GEM_DOMAIN_CPU change in amdgpu_gem_object_create to fix this.
+
+Yeah, let's revert and investigate this first.
+
+Thanks,
+Christian.
+
+>
+> Regards,
+>   Felix
+>
+>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 16 +++-------------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  6 +-----
+>>   2 files changed, 4 insertions(+), 18 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> index a0780a4e3e61..62e98f1ad770 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> @@ -113,7 +113,7 @@ int amdgpu_gem_object_create(struct amdgpu_device 
+>> *adev, unsigned long size,
+>>       bp.resv = resv;
+>>       bp.preferred_domain = initial_domain;
+>>       bp.flags = flags;
+>> -    bp.domain = initial_domain;
+>> +    bp.domain = initial_domain | AMDGPU_GEM_DOMAIN_CPU;
+>>       bp.bo_ptr_size = sizeof(struct amdgpu_bo);
+>>         r = amdgpu_bo_create_user(adev, &bp, &ubo);
+>> @@ -332,20 +332,10 @@ int amdgpu_gem_create_ioctl(struct drm_device 
+>> *dev, void *data,
+>>       }
+>>         initial_domain = (u32)(0xffffffff & args->in.domains);
+>> -retry:
+>>       r = amdgpu_gem_object_create(adev, size, args->in.alignment,
+>> -                     initial_domain,
+>> -                     flags, ttm_bo_type_device, resv, &gobj);
+>> +                     initial_domain, flags, ttm_bo_type_device,
+>> +                     resv, &gobj);
+>>       if (r && r != -ERESTARTSYS) {
+>> -        if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
+>> -            flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+>> -            goto retry;
+>> -        }
+>> -
+>> -        if (initial_domain == AMDGPU_GEM_DOMAIN_VRAM) {
+>> -            initial_domain |= AMDGPU_GEM_DOMAIN_GTT;
+>> -            goto retry;
+>> -        }
+>>           DRM_DEBUG("Failed to allocate GEM object (%llu, %d, %llu, 
+>> %d)\n",
+>>                   size, initial_domain, args->in.alignment, r);
+>>       }
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> index 974e85d8b6cc..919bbea2e3ac 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> @@ -581,11 +581,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+>>           bo->flags |= AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
+>>         bo->tbo.bdev = &adev->mman.bdev;
+>> -    if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA |
+>> -              AMDGPU_GEM_DOMAIN_GDS))
+>> -        amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU);
+>> -    else
+>> -        amdgpu_bo_placement_from_domain(bo, bp->domain);
+>> +    amdgpu_bo_placement_from_domain(bo, bp->domain);
+>>       if (bp->type == ttm_bo_type_kernel)
+>>           bo->tbo.priority = 1;
 
