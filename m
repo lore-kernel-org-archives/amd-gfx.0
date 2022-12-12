@@ -4,62 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C5F6C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 16:34:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5907C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 16:53:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97B8410E0BD;
-	Mon, 12 Dec 2022 16:34:09 +0000 (UTC)
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B76810E0BD
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Dec 2022 16:34:03 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id gh17so29491175ejb.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Dec 2022 08:34:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=1bE1AVv7EHrUCdJHHq0gRBOQM75CLZqYXCPDCbeRyh0=;
- b=OpfNfPOBayDi1YwxD1rhmMmEH+wDHiX3J/J8icxsGx17l97GbmobrGipzFpB7E67O9
- 1NMM6zFav/9ki0l43oDMqCF0NKNoSM2uOVklL/UA1HZ57d372MBx5ifyztuWE4RXD6XV
- LFtoDCFG/CMOPdZthVELWb8Awd7RIb4fKBRCdgeS1UwRqJZC4mT0oWHH8wVAmt+6zSFR
- ylx6NDFVyoT7WtBw3DkRMceIPMyNMGKj176h9PUJXpCBvUiUMOK4fi9m1qe2nDpHG1PG
- HL2CR8S12VeBi5b1A5wuHCsIwSo7EGkHvbEayjh5FjuNeueiP82IKt5+9FZQ8fcj/3Un
- ERHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=1bE1AVv7EHrUCdJHHq0gRBOQM75CLZqYXCPDCbeRyh0=;
- b=fUGxRQuVadr9nuLPnaW6dYiLjMy4Dl+JDgpUFqivD9eRCiYMCORxOZz7wI6rqShH62
- NBqvY0k/B+o1QqdEGLq3l/utv6GVPLoBlijlTRd6Vy1kasc7qHNubIwvM+YE3cAUjSxw
- pvcPDiSXAZ0GUFHBIROcwChGFTOIlfuBH9dReZsSnvMYUyfHANWQ1P1im9VDpQbA9Ojp
- F/Tv5zhymx/pLzv/v+/V3+LSmV3EXWYJGfVpKE7o8kZlmF7TMG8yiLn8JkCkRxhpccp0
- h7hi4oIOCxlf5iATwzuHkDGjS17LIiDxZgLd79ALSKuEEuz27fuaUi0VLI1uafX2kSwM
- K7tA==
-X-Gm-Message-State: ANoB5plO2kNc3/uNgWQJLLvcy3Ejcr8rZ1Lq9mqCx51I2Pxfugf0C1bZ
- t0wHUC/pBWhg570XW3c423LRfiqERyU=
-X-Google-Smtp-Source: AA0mqf6Gf1Owd0w2/YCPH8m/0HfNctp/Jm6pup/cYzYD+G6O/MIaZGAzQ62qY8pVaEhZYV09lG2QAw==
-X-Received: by 2002:a17:906:1614:b0:7aa:8f6c:334d with SMTP id
- m20-20020a170906161400b007aa8f6c334dmr18705829ejd.50.1670862841805; 
- Mon, 12 Dec 2022 08:34:01 -0800 (PST)
-Received: from able.fritz.box (p5b0ea229.dip0.t-ipconnect.de. [91.14.162.41])
- by smtp.gmail.com with ESMTPSA id
- 1-20020a170906310100b0078128c89439sm3527419ejx.6.2022.12.12.08.34.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Dec 2022 08:34:01 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: revert "generally allow over-commit during BO
- allocation"
-Date: Mon, 12 Dec 2022 17:33:59 +0100
-Message-Id: <20221212163359.3251969-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id EED7110E12F;
+	Mon, 12 Dec 2022 16:53:47 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2042.outbound.protection.outlook.com [40.107.102.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1694310E0FE;
+ Mon, 12 Dec 2022 16:53:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=h0Wf5Uy9CCRWljXJ7G1roTY06Uw8/OE7rFeh824eNIKdvMLecYpU7+EDKWCLAvZMnWfQ82IyACPxBMioy4onA/iC28bvIY2SIkQZkxmLfhrgOP9gWfb8UvT58QOx0R/nktX0vglxIPkRihaIC2vEFVbeNkSR46tieV1cFpjbl50kjXmOzaIVRXTdggzGgKFr5fmPqX9E1R2Hl5xpmmj+Zy7zl9w112Tbo3a0ekXYB/LbMEs3WluWm763eb73yIuDzujGmi6EEhYTJiYGbQdNv1F8AUqY2gsI7VbiSIQB/FwXWD+mrFdOJf0pdK/G+FxeZstIqpW+/ycQKaGCG+vT5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Og7PpXcuEWZIia8/JU8TQXK4kA1HlcTT3z+g3VHxYSs=;
+ b=YCWxsKUw7+vmlaG3xtRmulxn8hoGPy0dDfI6iPyKo2nPX5qe5HXnO4QhXAUFHWHQSUitaoVgyim6771vsAIoHNU7jLGYdT+18YoVzWF0PYXiI87A2xax+UymIkSuoNV2iNxynHM31Vf1ZGZV9TmFOXcn7PdELzVFuHg9pN1zMQlsfNMonn7KqtrZBq5YJ59ExKEtMFDV2dmQQPXCE4L76L+JdN3CcaHVu7gIKHAf7wXc4wjPOWtYT3xtSOh17tK4CgSQzrayNVmAuAzcqTajfUgRHm+js1cTy43kL2C0qTDaX7Ha7Jz324UG1rEnJ+o9aF/a+KMIa+74gRsDniaUnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Og7PpXcuEWZIia8/JU8TQXK4kA1HlcTT3z+g3VHxYSs=;
+ b=mD4GcsjQoxNVZkAuGkYmzp11Aw5hcKa23AT6NhL1/nY42JxsHwVCIVSYhiErQTroLRedAYUIXgHGkks+BNHuOfL1erQVRwgdpbLwieUKZbHnXJocR3a0QYaehWE5cOJTaW58rgKfIAjxfRvJFVkPxaemHW5IBv7JTvVa/jF8JgM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by SJ2PR12MB8157.namprd12.prod.outlook.com (2603:10b6:a03:4fa::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Mon, 12 Dec
+ 2022 16:53:40 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::2d6a:70d0:eb90:9dca]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::2d6a:70d0:eb90:9dca%9]) with mapi id 15.20.5880.019; Mon, 12 Dec 2022
+ 16:53:40 +0000
+Message-ID: <926aa687-e99f-1e4d-a133-22ab884e60b6@amd.com>
+Date: Mon, 12 Dec 2022 11:53:33 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [PATCH v2] drm/display: Add missing Adaptive Sync DPCD definitions
+Content-Language: en-US
+To: Sung Joon Kim <Sungjoon.Kim@amd.com>, rodrigo.siqueira@amd.com,
+ alexander.deucher@amd.com
+References: <20221209220021.4413-1-Sungjoon.Kim@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20221209220021.4413-1-Sungjoon.Kim@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQXPR0101CA0042.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:14::19) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SJ2PR12MB8157:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1500fe05-3aca-45ba-7d2c-08dadc616a09
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: rWUGtUpvj+f1I/9yBE9Jj1uIXu7j1QsgZn9mSszmwlAnYIzZ+1eRpCedL3h1YNSqho8Qif/me9C9fXzR0DG7151xn+l0xU/V5jfNdtBCis9jPJhuOTP/GBKw0he5xXS8JHHBOKcJ7ITCmftGuvXQRoIQYgvgEiZvGaP1gTsmHrmGALYXl8f0ZuV01kM9s8Ey7UGynNuM2uzg6LyMGEAsRxlrWVPv5lVHbBN2MYquYCqLqjRgEW2Pn7qt2yrG9/g/lKGlIHMZ8k2fjzpUJxL1U/Sx7OApBYH2xxxmugZa9LpDCKo8GODdWKiZVq95VLhu2lrO5mUvKwwFY59MvGVx0hxIMPbwbu5L/Cjgn/f7ISO5EoMCVjYzoF/2SYakwQoLdQgr+nSKewbfUXUpA+S7+q2cF6S0EwHJI9Q0cpW1m1OmpzSBmBhClQK/tD7ybM/FS83WieYQIbqq2AhBjs2wjSIa0RCQR0wvFQHLjHocM8Unh6y7TN11uXHsk6OVnVoZXapabD2QlS/xgR6OKERV/MwJmI2R0uHspotwkMQwNKVz6si0lMw4/XOLI2sYqcqJjeLiMZyr7BW1a8lQJBR1Rxx6coS9jmU4WL5EaD4M5sX19+AoDA1Ee1R7aNqs5vtyzgPyhyHlzBypuosFiCXHMAk0mcnYan4qLQQJLo7riTUfcaeRRx3aCGIOKJRwc/h6qAY2dKMLa4eKMLfyGFZjDO09Wc9yw/9SWKaCXSf3UZ8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(136003)(366004)(346002)(376002)(396003)(451199015)(6506007)(31696002)(53546011)(86362001)(36756003)(6486002)(26005)(44832011)(6666004)(66476007)(8676002)(66556008)(2906002)(4326008)(8936002)(316002)(450100002)(66946007)(5660300002)(6636002)(186003)(38100700002)(41300700001)(2616005)(478600001)(6512007)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGdyVFJLWUtzcjFTVmtPc2RGcUU5eEZ5cTVibW5ybEhkNEVrdE1TSnlKeVph?=
+ =?utf-8?B?UWtVWE5zS0pHYjB1bTNpMG84Z3BtNE1NR3U3RGpYY2kwWWI4ZmcyYU1pTFo3?=
+ =?utf-8?B?U1lrUXZlOTU2UWJBdklBZDd6R1lwSlVqbmYxU0k4S0h5TVdjbGk2TXRQd0xz?=
+ =?utf-8?B?ZzJ6ZElUMUM2dWRodUpHeXN0MFZLY2Nxbk5NOE12Vm1wRkdVazdoYmRTcTdP?=
+ =?utf-8?B?Yk1yUkZCV3lKck9yK3ZkeFF5K204Si9wOVE2ZDZGTktmYnhWOWRYZTNkejZw?=
+ =?utf-8?B?Ym1obWdXOFZwSVJBenoxQllOZ29qWnFWV1ZYTnJwdEhueTgxU2ZQR1RmSG9x?=
+ =?utf-8?B?OUNoeENKb1hXN2hRTitBNEUvNFpPd21US1hkRElNdEQxVS9wUU82OHBLTjJz?=
+ =?utf-8?B?bDBTY29TS0NEeWt3UE1uQ1YzNERjNWJud3B3TDRBRjlJQ1NoeHlSODU4NW4y?=
+ =?utf-8?B?dTZiNGNWOFNVV0dseGRlRW5PdThQMUZwWVJycUlIK25DNW0weXJoL1dzL1JE?=
+ =?utf-8?B?YlBSbmE2Y1hvQnUvWlpvREZTZDRVa1lZcE9HOG1TTE1FaUdSeW1RS2YwR3Ay?=
+ =?utf-8?B?YmZzOGhpTTUwMzk3ZG82aSt6T0xPWWs5TEo4aXk5L1NqQ1BsTWJDc0RWRGY1?=
+ =?utf-8?B?ZURrcVRCTHRBalQ0cndYcDFGc2JvNys5ODVvSzZzSSt3WHBsS1MvM0FhRzNi?=
+ =?utf-8?B?dWw1cmgrRGYwZVdsSG5GMFFSbEtyNDViMHdoQkpwMlJ4SHJEQm44UnFZUjNP?=
+ =?utf-8?B?ckVxZnkrWFQvc3d3cjVtTWd4K0YwTm04MlBTMmcwVmZMd2lGd1RJL2ZNS1ZB?=
+ =?utf-8?B?OWpQZ3NRcDRlejltS1RBK2o2akpyVWtUaWZ1dFNxeFJlakNlc0kyekVORmlT?=
+ =?utf-8?B?T2FKYkZ0eTJkVElGUnM0ZFVhVkpiampaVW5leWcxK1N4cTlDYkpGYjFCU3NM?=
+ =?utf-8?B?L1ZnNnA3ak9oQjV1VVRsUlVKQkdiVzJpUXcwZ2tkbXV3M2RBRmY4b1Y1NmxP?=
+ =?utf-8?B?bDkzeEtLSTZOc0gwakw5elQzYnJ6V3d4a3JCRVg4R1FGYnlTOWUxT2Y3MzBL?=
+ =?utf-8?B?OGlZSWRqWHdVdm5aYktSbDhldy9FNEhWWDBrYVA4c05YWjBoNHFvNFEzWHBZ?=
+ =?utf-8?B?NjNvNks4N1FtUUVnUjRqYlF2TmJTMTdodS82MVNEaTlneWRnYUN5dTFlakNQ?=
+ =?utf-8?B?Smo4LzByYVVQSG1WSTV6bDUrY2U0dS9nMkNSSW1SZnNFMHJVS0R1My9jVU9R?=
+ =?utf-8?B?Zml2aUxNQ0ZzQWp5L09IU3VodnJEWmttbytkRGhMUExMaWJTdGpHNVNidVJx?=
+ =?utf-8?B?dVFBU3JXOHlzRnRRVGJtL05UWm9nckxzYXRxTzU3akdhU2NtQ21ZUXpVd3Ux?=
+ =?utf-8?B?dGY4djFMVXNOdm5mK2RWNk5ROHFjYWFldlhOOENsQ3B4OHhPcXNKQ3NUYlpj?=
+ =?utf-8?B?VHNCK01nbUw5ZmpmSW9xQk9qeGRuU0l0SDRkRHRKOEZ4d2I1bTlpUHovbnQx?=
+ =?utf-8?B?SHZ1VEtjbkU2cjJSWjI5eCt6YU1xVTVSSjQ5dE53RTFjci9WNmZCT2UzUWEy?=
+ =?utf-8?B?Wi93djVRTjQzSUtMRndpR3hQbUJkZSswZiszaENxVXB6bHo4c1VOY3FJeVU1?=
+ =?utf-8?B?bnFaNis2QlM5TEVJcUUxOE5RdjRKNFo1MjI3Mmc2WTA5MkRhQ21FbmV1d3Yv?=
+ =?utf-8?B?RjdwTGRITlN4d3pCcU1UNU9iTzVScDJMMXJzNS95Qzg0Ry9FTDFzWDdqOEN4?=
+ =?utf-8?B?ZnRqcTNlYzRURCt0blpkaHU3cWUwanJCTVFoa3NveExRd3NaTTR3Tzh2K2U4?=
+ =?utf-8?B?YXRuZUR0YWVYZTRSSUg0dHJmN3JjeU1zbXpiTVFieUUyZjNtQy8rRStoZWpP?=
+ =?utf-8?B?VlZ0aXRjcHRtUzBnN0JJTVdYYzNQTVNwc1UwMlhUaGNpejhUYmlkVDVyVEUw?=
+ =?utf-8?B?akozRTVtY0xFNEtJK0prT1dNMXRIU1hLb3pRRXIxRk1PUkhYSHZ3UmYwNFpH?=
+ =?utf-8?B?V29NWVpDcldqNjJ3ekFRVHoza0F2aE0ybU5ENURYYU1TWEo2YWVUL21oSnMw?=
+ =?utf-8?B?QXZ2V0ZGYklsSGx4WEhPOVAzM2RnN3ZTcHlZRG83WVZSOU9CUFd3NHFhcll5?=
+ =?utf-8?Q?QhksYRDiJK4wSvQFUSQCAq11W?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1500fe05-3aca-45ba-7d2c-08dadc616a09
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2022 16:53:40.4029 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BTB/uys/J4/LFYWWZSaWlSZeIEqr0HHSowopW70SnwuVMSul6Slbv3DSnP5LuXGDjDuMxxf0JDKtYycMLdM6ww==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8157
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,75 +124,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: felix.kuehling@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ nikola.cornij@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 4ec11490081bcbc4b90d20622cd211c6eba8d6fc.
 
-This causes problem for KFD because when we overcommit we accidentially
-bind the BO to GTT for moving it into VRAM. We also need to make sure
-that this is done only as fallback after trying to evict first.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 16 +++++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  6 +++++-
- 2 files changed, 18 insertions(+), 4 deletions(-)
+On 12/9/22 17:00, Sung Joon Kim wrote:
+> The missing DPCD defintions from DP2.0 spec is as follows:
+> 
+> DOWNSPREAD_CTRL (107h):
+> 	FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE (bit 6)
+> 		For sink devices that support Adaptive-Sync operation
+> 		and Panel Replay
+> 
+> DPRX_FEATURE_ENUMERATION_LIST_CONT_1 (2214h):
+> 	ADAPTIVE_SYNC_SDP_SUPPORTED (bit 0)
+> 		Bit to check sink device has Adaptive-Sync capability
+> 	AS_SDP_FIRST_HALF_LINE_OR_3840_PIXEL_CYCLE_WINDOW_NOT_SUPPORTED (bit 1)
+> 		A sink device that clears this bit will generate VSync pulse
+> 		leading edge of the HDMI output on the line count at which
+> 		Adaptive-Sync SDP is received as long as source device transmits
+> 		Adaptive-Sync SDP either in first line or first 3840 pixel cycles
+> 		of the line whichever occurs first.
+> 	VSC_EXT_SDP_FRAMEWORK_VERSION_1_SUPPORTED (bit 4)
+> 		Bit to check sink device has SDP framework version 1 capability
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 62e98f1ad770..a0780a4e3e61 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -113,7 +113,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
- 	bp.resv = resv;
- 	bp.preferred_domain = initial_domain;
- 	bp.flags = flags;
--	bp.domain = initial_domain | AMDGPU_GEM_DOMAIN_CPU;
-+	bp.domain = initial_domain;
- 	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
- 
- 	r = amdgpu_bo_create_user(adev, &bp, &ubo);
-@@ -332,10 +332,20 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 	}
- 
- 	initial_domain = (u32)(0xffffffff & args->in.domains);
-+retry:
- 	r = amdgpu_gem_object_create(adev, size, args->in.alignment,
--				     initial_domain, flags, ttm_bo_type_device,
--				     resv, &gobj);
-+				     initial_domain,
-+				     flags, ttm_bo_type_device, resv, &gobj);
- 	if (r && r != -ERESTARTSYS) {
-+		if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
-+			flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-+			goto retry;
-+		}
-+
-+		if (initial_domain == AMDGPU_GEM_DOMAIN_VRAM) {
-+			initial_domain |= AMDGPU_GEM_DOMAIN_GTT;
-+			goto retry;
-+		}
- 		DRM_DEBUG("Failed to allocate GEM object (%llu, %d, %llu, %d)\n",
- 				size, initial_domain, args->in.alignment, r);
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index fd3ab4b5e5bb..871f7c136de5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -582,7 +582,11 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
- 		bo->flags |= AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
- 
- 	bo->tbo.bdev = &adev->mman.bdev;
--	amdgpu_bo_placement_from_domain(bo, bp->domain);
-+	if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA |
-+			  AMDGPU_GEM_DOMAIN_GDS))
-+		amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU);
-+	else
-+		amdgpu_bo_placement_from_domain(bo, bp->domain);
- 	if (bp->type == ttm_bo_type_kernel)
- 		bo->tbo.priority = 1;
- 
--- 
-2.34.1
+You're missing your Signed-off-by. Make sure to add it before pushing.
+
+With that fixed this is:
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
+> ---
+>  include/drm/display/drm_dp.h | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+> index 4d0abe4c7ea9..1bd6f9af0b46 100644
+> --- a/include/drm/display/drm_dp.h
+> +++ b/include/drm/display/drm_dp.h
+> @@ -603,6 +603,7 @@
+>  
+>  #define DP_DOWNSPREAD_CTRL		    0x107
+>  # define DP_SPREAD_AMP_0_5		    (1 << 4)
+> +# define DP_FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE  (1 << 6)
+>  # define DP_MSA_TIMING_PAR_IGNORE_EN	    (1 << 7) /* eDP */
+>  
+>  #define DP_MAIN_LINK_CHANNEL_CODING_SET	    0x108
+> @@ -1105,6 +1106,11 @@
+>  # define DP_VSC_EXT_CEA_SDP_SUPPORTED			(1 << 6)  /* DP 1.4 */
+>  # define DP_VSC_EXT_CEA_SDP_CHAINING_SUPPORTED		(1 << 7)  /* DP 1.4 */
+>  
+> +#define DP_DPRX_FEATURE_ENUMERATION_LIST_CONT_1         0x2214 /* 2.0 E11 */
+> +# define DP_ADAPTIVE_SYNC_SDP_SUPPORTED    (1 << 0)
+> +# define DP_AS_SDP_FIRST_HALF_LINE_OR_3840_PIXEL_CYCLE_WINDOW_NOT_SUPPORTED (1 << 1)
+> +# define DP_VSC_EXT_SDP_FRAMEWORK_VERSION_1_SUPPORTED  (1 << 4)
+> +
+>  #define DP_128B132B_SUPPORTED_LINK_RATES       0x2215 /* 2.0 */
+>  # define DP_UHBR10                             (1 << 0)
+>  # define DP_UHBR20                             (1 << 1)
 
