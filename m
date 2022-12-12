@@ -4,90 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2FD3C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 18:22:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C830C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 18:22:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C91CF10E24F;
-	Mon, 12 Dec 2022 18:22:12 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2082.outbound.protection.outlook.com [40.107.220.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B17A410E24D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1A0C10E259;
+	Mon, 12 Dec 2022 18:22:13 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2051.outbound.protection.outlook.com [40.107.243.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8E5A10E24F;
  Mon, 12 Dec 2022 18:22:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JL7vrj49984kFH9u8HoEjXYr42Twr8OLQug5fpM8l6IX8uqzymYeCvQd2ijQqPAv9vs8kkD02ROKW0QeEUTmzuYO/ci8jNYYisdtFquaP1yADzhK2tP7CUBTIulDCQJPe8OarNgb6chQQCqcTJPLpezdtPkSCL1myQKCYRd36wYknE2CltUkDI6OrgWPk5NVjEoBYz4NXqgr1Eh9hdZ7Zz1rs2xfGrWDabBowEhrdGpvuMzgwoW3ppTwUMDR6a6WMiZDffmKcoss+/MYQ0vlyl8WiEFbpvMdA58moRGR04pOuGbKqzRMHQ/buyW/ebBPM6AAz9tfaTNUHgjV/APCrg==
+ b=kH0Kj0BRvBupkhGzzHbw9HJNWJoQoNf1FBSuJrxc1iS2SyyBGPGTUANhTmUOCH6wb2QBatoWiZu4Pjz3mN+OzSNFOGPIZ3vKwEOQyMDlIZN6ltIZOdn/MIa35Axsi5oDVhKkT5lIdTURopW/3ngIkGIjDMYrmYf8IvvLAQQ77y1ejd9Q7vUW0wrjNT/HBaib9zD0M3SmBE2SDDBmnO04vtVfmcHmhYwMTveP6FIFTWnspxQ5hJ0CuLeCQqg/5WylQdVFiOi/JIi9zoU/VWdoOLQG1rP+6wHxfSZJLnEfTc3M+69ARSqx7fcNJLE8/nKPf14P+c7e6TIwJ5NhiyxMYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JTWKeSe4qe1+T8w6tUhAOTq4ROQ1dXNNzsXiU5otyRA=;
- b=Jmmi4kEN/Cx1WORwQyVY758GiJ8RFrLuDSuRbkMZZjdVSFDD+AS3BUzpLBxAizrk1JRL2bW38C/c/Cf7R58hENwGPj21cGIhS2I6zK9t7fX3eGy4mwGljyreZ+Bp2y/eR9XuQzwhjKU4NnxBJQg7x0pwydQQKu2GgThMc8A/JxVfamqFz6jIOejL/q6mIT176ZdXdKmbPx0EzTQqkMtlT74O4mknRjS3KjZMFeFPC6JMB0VILYVW0CvhxOjtCs6/8CiO4GiY7pn4D4TDA9wSBHj+7nYlOPv5QMpe2HBRE46wa3/S9aPrqQJk/Gy57UWZn3SRYT4+G19K0DKT4ru1Ng==
+ bh=Ek5OvmwN/ue/6vZJOyT37vtJlRrImrf/xyNj57Cg3oE=;
+ b=E/6auG8XHS9+POoZxTMbC3Ly0mosLn9RbtnPRyncPQi0cuuUeN4v8d0WpHjzyxwCZsb2DfFQy9rE9sktDnqh+MPfmhXQ3kmcFWuD8mSWaaorlYTSUyPsCVz4CBQ++ZH6wwU0a0u3sWqMmHSRWVQSZHY8ZRU9DpByYWpxcq0fhq4CHrQ0VoVFTXkX6rh7gNltrqBd/JSvNZ6sVZZZihGxt6wpsS6NMJUSdmBnIWE3gA5sLI78HddiPi/ULzErCvVLRzFMRAT5fWV6vLtfN1A93ikwnDqUxagYlVNKj/SlJzfXr+RbjjXP4Cl15e6hdUejdVDpPXRu6bInwVRKadAfzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JTWKeSe4qe1+T8w6tUhAOTq4ROQ1dXNNzsXiU5otyRA=;
- b=L6yudXo+/zlkJXBJN0JZ92qOSdJBqsuSkKawd3gfajesXWGt+S+lB480iWKq/NnFWv0DjbhQTCKt6dNcpM2bEjE7DvwSWp/6xnIrqm1T9P3MUWFnopFlzPyDGtNi3Xo9vu+Dbq9TDtQqzTFqmJP3NwxwNjJSfk4qzIci5k1DxrY=
-Received: from BN0PR04CA0098.namprd04.prod.outlook.com (2603:10b6:408:ec::13)
- by SA0PR12MB4366.namprd12.prod.outlook.com (2603:10b6:806:72::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Mon, 12 Dec
- 2022 18:22:06 +0000
-Received: from BN8NAM11FT103.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ec:cafe::64) by BN0PR04CA0098.outlook.office365.com
- (2603:10b6:408:ec::13) with Microsoft SMTP Server (version=TLS1_2,
+ bh=Ek5OvmwN/ue/6vZJOyT37vtJlRrImrf/xyNj57Cg3oE=;
+ b=c0TvAVbvVN+aGBYgZMHlPGPS2NOpFWxGOMfwkledfQSXlQhJBI1Y/YsJCZmOneSxX1OJPQ0jw9n84wsTA+vzuocUIPvmkh07uu9m2k307K96M//IjrDypqG63tibdAg/1G1n+pyQNXA/Kk+f0Cb1b8ghsiLCIfRA5UKTQURQ7bI=
+Received: from DS7PR03CA0005.namprd03.prod.outlook.com (2603:10b6:5:3b8::10)
+ by IA1PR12MB6331.namprd12.prod.outlook.com (2603:10b6:208:3e3::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.21; Mon, 12 Dec
+ 2022 18:22:05 +0000
+Received: from DM6NAM11FT092.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b8:cafe::ca) by DS7PR03CA0005.outlook.office365.com
+ (2603:10b6:5:3b8::10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19 via Frontend
- Transport; Mon, 12 Dec 2022 18:22:06 +0000
+ Transport; Mon, 12 Dec 2022 18:22:05 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT103.mail.protection.outlook.com (10.13.176.181) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT092.mail.protection.outlook.com (10.13.173.44) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5901.21 via Frontend Transport; Mon, 12 Dec 2022 18:22:06 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5901.21 via Frontend Transport; Mon, 12 Dec 2022 18:22:04 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 12 Dec
- 2022 12:22:05 -0600
+ 2022 12:22:02 -0600
 Received: from hwentlanryzen.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Mon, 12 Dec 2022 12:22:04 -0600
+ Transport; Mon, 12 Dec 2022 12:22:02 -0600
 From: Harry Wentland <harry.wentland@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 02/16] drm/connector: print max_requested_bpc in state debugfs
-Date: Mon, 12 Dec 2022 13:21:23 -0500
-Message-ID: <20221212182137.374625-3-harry.wentland@amd.com>
+Subject: [PATCH 00/16] Enable Colorspace connector property in amdgpu
+Date: Mon, 12 Dec 2022 13:21:21 -0500
+Message-ID: <20221212182137.374625-1-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221212182137.374625-1-harry.wentland@amd.com>
-References: <20221212182137.374625-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT103:EE_|SA0PR12MB4366:EE_
-X-MS-Office365-Filtering-Correlation-Id: f664788f-b7ff-4d44-3a57-08dadc6dc65e
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT092:EE_|IA1PR12MB6331:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b466fa1-f475-4aa2-787d-08dadc6dc5a6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QVHehbTVe0RnEfCs0rwHPU6J+B59b8W/vELG68PLaBOuO4l/CCQCJFoDY7PdwM8A1jY2dMUDCcetXBSCMjY3m/jBQ0NP16PRm77+NJNrSIoxBTDlMe/z9W2qfKrhaPDWriMI8+ZqQstsMlMlqbozBsF28NseP3vddKp25VZx08wEOdcpvf7Qq/1dX4pGv3N9c0r63YadbO75JzDxjnyQ2uvzvOsKx6PtuxnZTd2aRwJmbDu7gZdJ23rsjDLu2AeHCRcxLH0ElGFYQTJmAHyRVpi2BABYbi9YQTyJm3d3t1q+U/yU7WOcbTLS14q3S7CM9Jl4Dd32HqhcGcCGDtXML+RGDYB8txVQAhGvRY1XBhaWm4rnoWSp3+MCWQs209uo18uDzmuH2U4nrO6RB9n/iPceBk5rkdxSr3Ql6XvzYbrvat/lKeKYcMxRmkpNvNy4koLWwEqxAZulXoZvooolxSkk42w2Lb8teM5Mi7zQYmfnrXrWMY7VB4PVjaYxEWDoYmD50AyEX2b+cEmM4kVL45K3v0U67Kh1ZNvho5cvq2xb70XvS0binU/eUY6Y4X8A5w6obMS11No+8UICKp0q3XNcTEpMvMIdIOs/81mkort05YLwlvLWQeRKIubpzB9Hr8mgFCbrWMVZarF08dkmnllGKtXis5sgqQV60kvcZXXRmS8E90Eafuf9XSYsRpjN+aXScTwxc3oxmJwRSHklHfsZgwe8aq885ppWAmLlpDQ=
+X-Microsoft-Antispam-Message-Info: pJ+PKHv2AieZdb7WpCv361dJXfHi4HH9uiwyBlkr66C3Pcjbc1r5GKu3EBfdsNF+sbKX9W33v5T6wc0gncRaXpuktliviSNmTCEmLfXgeRCaWIL3cZyKvu3BqvQTNcHwFWww7/E4hyLUlgDzjT4gT4hVljkRJ/Ao0RoZtxVZc0WzJpO1d2LrScvsNxstRVhn6+NC9BYTZTGhkaoX2dJFwCwskd6Qaae0l8daLE64mXLjfuZOqR+b++x/kSkx6EOB429OtQufIhwYwuuku1BnZeXhDGXBzG/P+5ycZR7eK+z3cIj06iWmXwWfg+ymeT6y3h+LRY4KUlPOp7oSzbvNFgwbmSV8RMbdVZzC6FGRUqxB24p2fqnXV0cClxlAFqDoC8L08cXoaXtlnf4+z82KOroACMod+V9skoiO8Zuc5P2MU3gVJtQGVOpzbjl4QFeV+2PvgYQMTwMELr4R3bvZPoyzSVzmgQ4eIMPFxb1j/CblWA7JHaqpb4sVLn48HyC4oJi0rY536MyYdoTm3fO/GmrzwRrRp3FKg/c98kaSusTwe8bHs2FOaFQ9vGicKOzp9k3CQ5iEiqhTbdR7TTRVs5F8/oN8Vz5nszZnWNEb6+6vQBFde1W+AfNOmkaWZj5fNlHeE4gZgmfSCNKBR9v7UFOg28KyY6b9hFVTFFX1s2zqXtb+ovMuuWE8h962dQ03
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:CA; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(376002)(39860400002)(346002)(396003)(451199015)(36840700001)(40470700004)(46966006)(70206006)(70586007)(8936002)(336012)(4326008)(2616005)(40460700003)(8676002)(1076003)(81166007)(41300700001)(316002)(47076005)(186003)(66574015)(26005)(356005)(36756003)(426003)(83380400001)(36860700001)(110136005)(82740400003)(54906003)(2906002)(86362001)(44832011)(40480700001)(5660300002)(6666004)(478600001)(7696005)(82310400005)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(346002)(376002)(396003)(39860400002)(451199015)(46966006)(36840700001)(40470700004)(81166007)(2616005)(40480700001)(66899015)(1076003)(82310400005)(6666004)(83380400001)(966005)(7696005)(316002)(66574015)(186003)(47076005)(44832011)(5660300002)(86362001)(36756003)(26005)(2906002)(8936002)(336012)(70206006)(41300700001)(36860700001)(8676002)(110136005)(40460700003)(478600001)(356005)(426003)(54906003)(4326008)(82740400003)(70586007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2022 18:22:06.1925 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f664788f-b7ff-4d44-3a57-08dadc6dc65e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2022 18:22:04.9570 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b466fa1-f475-4aa2-787d-08dadc6dc5a6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT103.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT092.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4366
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6331
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,10 +105,35 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is useful to understand the bpc defaults and
-support of a driver.
+This patchset enables the DP and HDMI infoframe properties
+in amdgpu.
 
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+The first two patches are not completely related to the rest. The
+first patch allows for HDR_OUTPUT_METADATA with EOTFs that are
+unknown in the kernel.
+
+The second one prints a connector's max_bpc as part of the atomic
+state debugfs print.
+
+The following patches rework the connector colorspace code to
+1) allow for easy printing of the colorspace in the drm_atomic
+   state debugfs, and
+2) allow drivers to specify the supported colorspaces on a
+   connector.
+
+The rest of the patches deal with the Colorspace enablement
+in amdgpu.
+
+Since the Colorspace property didn't have an IGT test I added
+one to kms_hdr. The relevant patchset can be found on the IGT
+mailing list or on
+https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/hdr-colorimetry
+
+Since I don't have a DP and HDMI analyzer I could not test this
+end-to-end but someone will test it in the coming days. We'll
+refrain from merging this until we can confirm the DP/HDMI analyzer
+shows the correct infoframe.
+
 Cc: Pekka Paalanen <ppaalanen@gmail.com>
 Cc: Sebastian Wick <sebastian.wick@redhat.com>
 Cc: Vitaly.Prosyak@amd.com
@@ -119,22 +142,38 @@ Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Cc: Joshua Ashton <joshua@froggi.es>
 Cc: dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org
----
- drivers/gpu/drm/drm_atomic.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index f197f59f6d99..c0dc5858a723 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1070,6 +1070,7 @@ static void drm_atomic_connector_print_state(struct drm_printer *p,
- 	drm_printf(p, "connector[%u]: %s\n", connector->base.id, connector->name);
- 	drm_printf(p, "\tcrtc=%s\n", state->crtc ? state->crtc->name : "(null)");
- 	drm_printf(p, "\tself_refresh_aware=%d\n", state->self_refresh_aware);
-+	drm_printf(p, "\tmax_requested_bpc=%d\n", state->max_requested_bpc);
- 
- 	if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
- 		if (state->writeback_job && state->writeback_job->fb)
--- 
+Harry Wentland (15):
+  drm/display: Don't block HDR_OUTPUT_METADATA on unknown EOTF
+  drm/connector: print max_requested_bpc in state debugfs
+  drm/connector: Drop COLORIMETRY_NO_DATA
+  drm/connector: Convert DRM_MODE_COLORIMETRY to enum
+  drm/connector: Pull out common create_colorspace_property code
+  drm/connector: Allow drivers to pass list of supported colorspaces
+  drm/connector: Print connector colorspace in state debugfs
+  drm/amd/display: Always pass connector_state to stream validation
+  drm/amd/display: Register Colorspace property for DP and HDMI
+  drm/amd/display: Set colorspace for HDMI infoframe
+  drm/amd/display: Send correct DP colorspace infopacket
+  drm/amd/display: Add support for explicit BT601_YCC
+  drm/amd/display: Add debugfs for testing output colorspace
+  drm/amd/display: Add default case for output_color_space switch
+  drm/amd/display: Don't restrict bpc to 8 bpc
+
+Joshua Ashton (1):
+  drm/amd/display: Always set crtcinfo from create_stream_for_sink
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  86 ++++++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  57 ++++++
+ drivers/gpu/drm/display/drm_hdmi_helper.c     |   8 +-
+ drivers/gpu/drm/drm_atomic.c                  |   2 +
+ drivers/gpu/drm/drm_connector.c               | 181 ++++++++++--------
+ .../gpu/drm/i915/display/intel_connector.c    |   4 +-
+ drivers/gpu/drm/vc4/vc4_hdmi.c                |   2 +-
+ include/drm/display/drm_dp.h                  |   2 +-
+ include/drm/drm_connector.h                   |  57 +++---
+ 9 files changed, 261 insertions(+), 138 deletions(-)
+
+--
 2.38.1
 
