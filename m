@@ -4,91 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98F99C00145
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 18:23:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD939C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 19:20:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BF3010E279;
-	Mon, 12 Dec 2022 18:23:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77BF810E19E;
+	Mon, 12 Dec 2022 19:20:04 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2075.outbound.protection.outlook.com [40.107.244.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F5FF10E26B;
- Mon, 12 Dec 2022 18:22:36 +0000 (UTC)
+ (mail-mw2nam12on2057.outbound.protection.outlook.com [40.107.244.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E348610E19E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Dec 2022 19:19:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j33mNkiYqKF9J2rE8JglHpoG5DZ/EuARLqIgkAYi1hQDXcMeGPeVP+l2ayyZj+qKSN24eev2Br9MryfI1HI/boPPyBiNPixF8Sy8e74bokiSXdNXjOtMxvxpE5kq/EfA8A0prjnKPFhSYC2mn4Sul2iBeMJL5KLNzWnz+J/GlyC0yieBPj/yI75QX73T/CcYpzdGtYEupzSpx8XOHW/MZoUOFxTY9cA1kDNZwhgKT9sL4SOXbY/+G0/MK9O8gabkdJHGEroTnwwPv3d8Dl9oPr7DBzZVM6sKLlMa4c4pKcTFQHkZORG6pz5zfv8+q8J2iFkjhqWkISoqblF2hn910Q==
+ b=W5QJVYUGa9DuD0rflR+g70lShS4u/5bVFYOSUJTY3L3r5ejzEVz7eGkAOaQBUTwJX9tUEsv0T8b5DSK71h5ZofcUXfeEDCwe4HTIQtO4FnYyRzcN/p2/JBM34jJztDImvfaTZNGNiYcVVJXZ8ebIPb1KP7Sr0Y3sycI424WYZLcB3U6NTrbUc2qkR/cQI6+sBVaA87zrDOQ0bTy/5hFk+TLkQjJiEMW+S9UjSgqUtxKQO1g9psB1tnc7KRZW0+QZli74PkfiGsKzUMssf5nwPR/KSg3io21jsXKsFT92n/2Y0QpA3Ddp4VYN5r61+TZyuPMzA/Z9QMPQARlS8ZcYJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PKyOzJvoKGL8tZNe/xR2f6QSMNcaK9V3/V2qg52fle4=;
- b=oQOf+VxWPXGB3bbOm8aWvcwCqCTcZOpHLCOTV7mBtnQz+ak2cjTz1HGEIGRKaKyksikXRar4kP0c2NKc6k94yR+DFD7jqQ6Lml+ZSNCo0g8/jlbAIObeE4hEnnz5DMLzwML0D3AEc91wul6p+kyJVt+f2trnbedWkLLhinRtTqxooRTWbIegG44rgwFawi1lGDulpSlHCoevRemLMgGnLnvOv0Hv3+QtEKWACoYJAibTee/hihk2zBeHVee8VOI1HS3cw7bKFYu2/6az8cr+O9F0iu8bmgmL6GSCB/jiYMf8i9+5JDMIzf6Un0kRpxzt1VLvPMcz1rB64do56l0cLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=NH3HWthgXyDK9X+wyQt14ER9UgW0c8ulUjUHVbxE1Cg=;
+ b=ALmUlH8cz5i8Mm8UImHaiWAu80aMCSACRFICMBjw0+PY20DMDULuYJMknI/MNoBWNnNAuqXj+3yuFcJv36I9eJ1ljGHpTfIFvEZ5gPG7/WOQ3Vewu+6LSusjIg/ethmbJFXPuCS63wv/EFkhqGNha6cuaJNQJsU/hZJn1oc7p+hBLhgKGdhwIjUSedXllMWtOthX7x1bRtiAW4WJup3v0RdyCLw+8WxYqRStI9+o1G7IbOTXNvHLDRNHAMhEMVtlY66me0eO8azWzwKjoxJDM/njjniO3Xb57SvEou6UK8MwWRx1n9DkoVGQ93QQPMIHhvJeYjXXlzicisuNC6PICg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PKyOzJvoKGL8tZNe/xR2f6QSMNcaK9V3/V2qg52fle4=;
- b=ZfMyFCxOme0+AXKX8O/ZlugzvtcaI+WlTaugPWBhs6mJlxpjIzz8Bcm5dZ8QgoWCv0XmWW31r9UGFqmyece6boCup1RtiNCaNaiQDAQyJd3EGN/hj1APri+w13J+2lddAZqAFn5GWtwDIgBA07iKbFUEp1zha9Qavp0kLm8KUR8=
-Received: from BN9PR03CA0512.namprd03.prod.outlook.com (2603:10b6:408:131::7)
- by SJ1PR12MB6195.namprd12.prod.outlook.com (2603:10b6:a03:457::12)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=NH3HWthgXyDK9X+wyQt14ER9UgW0c8ulUjUHVbxE1Cg=;
+ b=sHRnWEc/ccBUQWXZEEo9uVDwPREi3jRuLei7Wh7Uo/u/Xq5W6sYjs6vGCSqFEIsSZtVEMwK2NvOHRUO6h9mHMg4DR6HxbGs7DRO7lmPOr1xuhF39IvJaN4SQLauVMIEpKX1esZc91lLrGn3Rr8ZD6VaoCYHfUbed0LUkuXzU6DA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by CO6PR12MB5426.namprd12.prod.outlook.com (2603:10b6:5:35d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Mon, 12 Dec
- 2022 18:22:34 +0000
-Received: from BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:131:cafe::87) by BN9PR03CA0512.outlook.office365.com
- (2603:10b6:408:131::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19 via Frontend
- Transport; Mon, 12 Dec 2022 18:22:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT013.mail.protection.outlook.com (10.13.176.182) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5901.21 via Frontend Transport; Mon, 12 Dec 2022 18:22:33 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 12 Dec
- 2022 12:22:29 -0600
-Received: from hwentlanryzen.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Mon, 12 Dec 2022 12:22:28 -0600
-From: Harry Wentland <harry.wentland@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 15/16] drm/amd/display: Add default case for
- output_color_space switch
-Date: Mon, 12 Dec 2022 13:21:36 -0500
-Message-ID: <20221212182137.374625-16-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221212182137.374625-1-harry.wentland@amd.com>
-References: <20221212182137.374625-1-harry.wentland@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+ 2022 19:19:57 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::7d43:3f30:4caf:7421]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::7d43:3f30:4caf:7421%7]) with mapi id 15.20.5880.019; Mon, 12 Dec 2022
+ 19:19:57 +0000
+Message-ID: <802b6283-d015-eb67-18fd-cba6fb03c96a@amd.com>
+Date: Mon, 12 Dec 2022 20:19:52 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH v2] drm/amdgpu: Fix size validation for non-exclusive
+ domains
+Content-Language: en-US
+To: Luben Tuikov <luben.tuikov@amd.com>,
+ AMD Graphics <amd-gfx@lists.freedesktop.org>
+References: <20221210092419.16548-1-luben.tuikov@amd.com>
+ <20221212174834.36544-1-luben.tuikov@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20221212174834.36544-1-luben.tuikov@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR3P281CA0205.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a5::17) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT013:EE_|SJ1PR12MB6195:EE_
-X-MS-Office365-Filtering-Correlation-Id: 602d8cb8-c292-4fc3-91bb-08dadc6dd6b8
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|CO6PR12MB5426:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9f94821-a7ff-4669-5075-08dadc75dad4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4JbrA/mg1vIL1FLu5ekalTiq2MSTRMFwBW7zzeGpgguD5wvamiEi7qm/xMgwekBbdQE/mcW+Y43ioSu8wtDaPsS4+WUY6JZj0P34cNoueWnAc2XhcahbsJ0pwA9Y1lPdi3gsYfhBSV9sh475APgD/AE3Nh+tYVJSEE3NyboZ7xhoz3g83detWn48sf8lReALvGgU6AWrT5zdR8aoX1Se3cZ0swOIpV5sD8lMj0MZnTMsyM02BkI2C/iqdnVGGWid3HBdaar29dWN+WcBCjW2Aqkq1Ij2ZLoV/TaCKgdEh7h+Uk/xrq1tsLrwmLW9FUjU41NxhT8aDuyIsz1ik4L62rzAkYPlPZYMy8ap6vY/D3QoKYmKO4Yybd3/vI6/UuboaCZOXqCoIlEcJJlXC/jkBcS9rQW3K1rs90v4MEHQv1oNxAPr1O9iSHMgDYlWDuCuiE+b9eM+Hc1l747k7qYXvCCNQX7r7IOeiCZ3LopPgqw9JL0BJdk6W2HhYZfzXno+rL7MqT2TnPgM7/xn0dJwgASXqxwOecaIIfBRnwUh6/NZ3Fr9+U4oAWQ69qPNvgisWm004AxMWc2iLjTp+HIYn9bfWzeifY3vt7r0KgbjrwbbhUwkB+dZXeStAhxnY6M8oKQrAUHGCTWGBa5HtpMI9vR9LQ1/A64fuOv++rvRyaH9cgvO2DSOieLBkmw/m0lgZr2q73DyBdec1dMNOhB80mUk42kyE25u9Ps1lTi/Q4g=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:CA; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199015)(46966006)(40470700004)(36840700001)(36756003)(40460700003)(86362001)(478600001)(54906003)(110136005)(316002)(82740400003)(356005)(82310400005)(81166007)(40480700001)(26005)(186003)(6666004)(7696005)(2616005)(1076003)(70586007)(41300700001)(44832011)(5660300002)(8936002)(2906002)(336012)(47076005)(426003)(36860700001)(8676002)(83380400001)(4326008)(70206006)(36900700001);
+X-Microsoft-Antispam-Message-Info: yZqADNfwDTSPNyQ6DV03NJzdKLy8Bt1sgsHnKDogHyMfRz7WzT8ublXrch3rAzffiJRm09QhW3RBQWdfcE/9Npd08sczh946g3L1LCgmTG8rxhIYYzkpjMqiRAOeSfaN++izBlgZ5xVAZf8LJ+k/TSsdWvDgv8AoeegNaUxO87RKMVZgIQjh7PLnpAdFdGeTblv4lKassmVf9Q3TMRSEJKPnqG6VLuXVNa0kADQR7+toj4Hv4eppwWoEF9lfRgucy+kVRiSJI5DxMn/NfnC0URsd2EzdlA5aSMHIih9zXzcRmdZmVF5YeWKRw4oLVLXPCshS6gkSDRJrLcRPpRtB/g0ZSKdRYbP4NeW1KYNXxzyIGKKfiQx3Cr9IG5b+LeqjIZ+OqqgYuEquCpgyLy4WCTFv438s/RIFDKVClBJRmXnt0GZdSvThvu+JdhVTOVhVepZtx1X524QaqFHDBF0P9tY3TI8jqwZF1K0l9AgBY5bgd4cjdU+w4fVTJJ5hApoUaXLmv6u/KsKbQoFy2KZE/bTTVB5E6jk7Us2o/FEV1zfA0CP3mWYwuLclIO7ulN6zUQGOxUzTjjvBXHicmLwMUqRe+u1dGn47abs2A6+a3AEbFGzFK2Kk+t2GdEcfZjcAlXUvhu4xhrejIShFN5lSLGK1z1P32C7TeHIcxVo6uNy7rme2uHVHcIwZHqb3a3rlxFQ68QZ+EjUMW/Hsl7KP5yhBIsqs5KWuxHkYQ5EABmM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(396003)(136003)(39860400002)(366004)(346002)(451199015)(31686004)(31696002)(2906002)(83380400001)(2616005)(86362001)(66946007)(36756003)(5660300002)(8936002)(38100700002)(41300700001)(316002)(66556008)(4326008)(66476007)(8676002)(66574015)(6666004)(110136005)(186003)(6506007)(478600001)(6512007)(6486002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RU9iQWluMHJmcG9SempYeitSL3NMQlhvald1d0dGRjAyWWJmeU9tUmlkd2dx?=
+ =?utf-8?B?ekptZkNabU4zMVp1VVZwbUh5RHdMTVZhZHhYRDVwS240V3NlcVQ2TWsxb0dP?=
+ =?utf-8?B?R3MzZk54bVlzcDc3cEhqbVkrZVI4UUJoVVdCTHJrdzc3S1RSODB4VElxN3Rz?=
+ =?utf-8?B?bllMOTc5NnYzMDdvNjdPbzI2c2JLZmhTbWlHR1VwNk0vLzBzYTV1NEErUFFO?=
+ =?utf-8?B?bXdkV2huNnprZ0dZa09LR0pDWW9XM3VNNE4zbnVnTVNPUS9Qb3Z1aHJZTksv?=
+ =?utf-8?B?akJJQXU0ak5ZRVFzQXZmbSs2QVBIbURIN0NtcU55YStmNUZJNDFabjIyT05J?=
+ =?utf-8?B?SXlBUE5VNGlRajFGVjloNTFKQ2dWRE5sSm9laG8rb2g4UUhGVHM1OUhYRHNy?=
+ =?utf-8?B?OXVsTWhiWGZPNWlRb1V3dVoxSDY0ckozalBMRTdYRGRFUWV6NVAxdStXU3ZD?=
+ =?utf-8?B?aXRPNGQzOGZUck5neTlPc1ZFMmFCaUhPalNUUDNnUUJWTlUwVFlEMG5UMU9H?=
+ =?utf-8?B?R0lqcW9rcDRkWmVjczdpZDVGU20xVE04S24xN2czTXhOMC9HN1dsaHlzdGdr?=
+ =?utf-8?B?eEVDZUJiQlhqcmI5alpNMjBZaFk2NERqcE95ZHVwRkUydWFpZVhMNGY1QVBx?=
+ =?utf-8?B?Q3Z2SW5XZ0FoMnczTXdtL3pjUXdaWUVtcHM1bVFSUURTUTcvc1I0TmJOZDdt?=
+ =?utf-8?B?NkhONGRSdGV3ZWJzOGtyUkVva1Q3UnNTSGRhZnEycmtWMVhHL3ZjakpPTmRI?=
+ =?utf-8?B?NjhsTFp5NDM1VStJaUhyN0pVY0JDbzFzbkFIYW55cFN6OVloQ2dqWVd5Y3FQ?=
+ =?utf-8?B?aVM1K3BRN08wZHJoeXVYSzFsWm5BTmd2MnFpWUd4VDduYW1LRktOSmsxREEv?=
+ =?utf-8?B?amRTb1d4Ry9aOVhYRU84Qkg3VHY2OHc4QjZzbFErSUJQcHRhbndKT0tUYy9y?=
+ =?utf-8?B?UGh1VFl4ZlFBK1JzTFNnbjNOczZLMlo0OG1ENlMvTzUwWUtDSVZzSlBiRCs4?=
+ =?utf-8?B?MzVlV2FHZXlLdDJQN1A2dUpreE4vcHc4WHNGbkN1bmtlTXhoYVllQVc0MW1U?=
+ =?utf-8?B?OXNWcE9Ia3R5VndiQmF6eHJoQmhDZkNzSXRJdkpuTG5DS1g3bXhUV2h1SWor?=
+ =?utf-8?B?OVR3Qjcza2VKSTFCRm1KMGUyUjY0NHFVRDNJaUxkUmppSHpFdTU4UzVwZzJK?=
+ =?utf-8?B?RHFMazJUdlA2clVvNlU5U3RpbXlvbHI4aUZSZUNHdUk4VVV3ZGNYQ3JQOUZW?=
+ =?utf-8?B?NFN1b1MvZTREWVBiNis5cXJnY0NNL2NOdWhFRisyK2FreW03OVg3cDVxOFVv?=
+ =?utf-8?B?elBvNnhkaUVqbExneGxFL1ZDdWJHSzUrdXliNWFvSHpGakxVMHZmSXZVS3Iw?=
+ =?utf-8?B?UGUyZzlsa0dBc2V3TXl1LzJ3YWhZdUI1d0xROHhLOVpoRnBuMXBnMWp5L0Vl?=
+ =?utf-8?B?WWdDaG92dGJtSkllWS93YkFxb2JabDdZQUtmMmYrY3U1M2xqNkxaWFJTbENP?=
+ =?utf-8?B?UEUxRDhBS3ZUNnJVTCtjUVNQMU1VNlFmTCtrRjcvUG9WdHA4S1dTajJUSUpu?=
+ =?utf-8?B?OUtHWisxb2NrelF6NGJvM2FjYWFMWHBvK1hWRXdFNHIzUlJ2QmthS1JKVFda?=
+ =?utf-8?B?RFgxWlplWXI3eXRaQ2VnUnUrQlFDdGo2cU45SUlQQXFzcGZXZFpxd3d6cW54?=
+ =?utf-8?B?R2E2MzNkVTBhWE9zVk1tSnpLdmxqbXgvQWRCUmRVR1NZSUhTQ3dYelpTVjJi?=
+ =?utf-8?B?dVVtQTE4dTNMSmNOQ1JRUCtabWVwbTIzbkxyRHpYelRqdG1ReFg0SFpud0Ez?=
+ =?utf-8?B?QWhOaml1eHYwcDZYMkptSmRvaVZ4TExFYjAyN2ErRTgrNWZ0d1diS01kRnFq?=
+ =?utf-8?B?TmgvZjNabG01bXUxZ0pIb1F0RXVzWjBkRFZsRzQrOTBJTTRobXVaRE5zWHli?=
+ =?utf-8?B?QTJvMzMyb3FCRVJVWUducVpZMG1VZGZVRUtWVWN0SDR6Qm9JejVzdWpxMHNq?=
+ =?utf-8?B?YkRORGU1Nlp6WDBxbktiZWlUaHowczVHWGEzOTZiUHo5dzR2M0JLYmdHRUF4?=
+ =?utf-8?B?bThPQWtvOXlPZlA1T2FPYkJOdWlmQnVlRFdPWDVMdmZ2OXo3dDhvS0x5Zm9G?=
+ =?utf-8?B?cHdvNERHYVExVVlEbzFJa09YL0cyOVoyczc4UDBMWWRoeGMwcXpueUNHREdK?=
+ =?utf-8?Q?QoFq3m0rPgm2lRsR6HZMw/YuR9cybH45dYAtgkt3chME?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2022 18:22:33.7843 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 602d8cb8-c292-4fc3-91bb-08dadc6dd6b8
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9f94821-a7ff-4669-5075-08dadc75dad4
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2022 19:19:56.9165 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6195
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tULzR8U/6++C53v8giQsI7KFF18LXjTQpMVINtjneWXzPCkTqBbBZ9B7YPmjEYnu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5426
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,89 +127,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
- Vitaly.Prosyak@amd.com, Joshua Ashton <joshua@froggi.es>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Cc: Pekka Paalanen <ppaalanen@gmail.com>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>
-Cc: Vitaly.Prosyak@amd.com
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Joshua Ashton <joshua@froggi.es>
-Cc: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 43 ++++++++++---------
- 1 file changed, 22 insertions(+), 21 deletions(-)
+Am 12.12.22 um 18:48 schrieb Luben Tuikov:
+> Fix amdgpu_bo_validate_size() to check whether the TTM domain manager for the
+> requested memory exists, and to allow for non-exclusive domain allocations, as
+> there would be if the domain is a mask, e.g. AMDGPU_GEM_DOMAIN_VRAM |
+> AMDGPU_GEM_DOMAIN_GTT.
+>
+> Cc: Alex Deucher <Alexander.Deucher@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 19 +++++++------------
+>   1 file changed, 7 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index fd3ab4b5e5bb1f..e0f103f0ec2178 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -448,31 +448,26 @@ static bool amdgpu_bo_validate_size(struct amdgpu_device *adev,
+>   
+>   	/*
+>   	 * If GTT is part of requested domains the check must succeed to
+> -	 * allow fall back to GTT
+> +	 * allow fall back to GTT.
+> +	 *
+> +	 * Note that allocations can request from either domain. For
+> +	 * this reason, check either in non-exclusive way, and if
+> +	 * neither satisfies, fail the validation.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 768c0c8fada1..d0c071000a5d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5153,7 +5153,29 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
- 	enum dc_color_space color_space = COLOR_SPACE_SRGB;
- 
- 	switch (connector_state->colorspace) {
-+	case DRM_MODE_COLORIMETRY_BT601_YCC:
-+		if (dc_crtc_timing->flags.Y_ONLY)
-+			color_space = COLOR_SPACE_YCBCR601_LIMITED;
-+		else
-+			color_space = COLOR_SPACE_YCBCR601;
-+		break;
-+	case DRM_MODE_COLORIMETRY_BT709_YCC:
-+		if (dc_crtc_timing->flags.Y_ONLY)
-+			color_space = COLOR_SPACE_YCBCR709_LIMITED;
-+		else
-+			color_space = COLOR_SPACE_YCBCR709;
-+		break;
-+	case DRM_MODE_COLORIMETRY_OPRGB:
-+		color_space = COLOR_SPACE_ADOBERGB;
-+		break;
-+	case DRM_MODE_COLORIMETRY_BT2020_RGB:
-+		color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
-+		break;
-+	case DRM_MODE_COLORIMETRY_BT2020_YCC:
-+		color_space = COLOR_SPACE_2020_YCBCR;
-+		break;
- 	case DRM_MODE_COLORIMETRY_DEFAULT: // ITU601
-+	default:
- 		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB) {
- 			color_space = COLOR_SPACE_SRGB;
- 		/*
-@@ -5175,27 +5197,6 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
- 				color_space = COLOR_SPACE_YCBCR601;
- 		}
- 		break;
--	case DRM_MODE_COLORIMETRY_BT601_YCC:
--		if (dc_crtc_timing->flags.Y_ONLY)
--			color_space = COLOR_SPACE_YCBCR601_LIMITED;
--		else
--			color_space = COLOR_SPACE_YCBCR601;
--		break;
--	case DRM_MODE_COLORIMETRY_BT709_YCC:
--		if (dc_crtc_timing->flags.Y_ONLY)
--			color_space = COLOR_SPACE_YCBCR709_LIMITED;
--		else
--			color_space = COLOR_SPACE_YCBCR709;
--		break;
--	case DRM_MODE_COLORIMETRY_OPRGB:
--		color_space = COLOR_SPACE_ADOBERGB;
--		break;
--	case DRM_MODE_COLORIMETRY_BT2020_RGB:
--		color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
--		break;
--	case DRM_MODE_COLORIMETRY_BT2020_YCC:
--		color_space = COLOR_SPACE_2020_YCBCR;
--		break;
- 	}
- 
- 	return color_space;
--- 
-2.38.1
+That's not correct, the original logic was completely intentional.
+
+If both VRAM and GTT are specified it's valid if the size fits only into 
+GTT.
+
+Regards,
+Christian.
+
+>   	 */
+>   	if (domain & AMDGPU_GEM_DOMAIN_GTT) {
+>   		man = ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
+> -
+> -		if (size < man->size)
+> +		if (man && size < man->size)
+>   			return true;
+> -		else
+> -			goto fail;
+>   	}
+>   
+>   	if (domain & AMDGPU_GEM_DOMAIN_VRAM) {
+>   		man = ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
+> -
+> -		if (size < man->size)
+> +		if (man && size < man->size)
+>   			return true;
+> -		else
+> -			goto fail;
+>   	}
+>   
+> -
+>   	/* TODO add more domains checks, such as AMDGPU_GEM_DOMAIN_CPU */
+> -	return true;
+>   
+> -fail:
+>   	DRM_DEBUG("BO size %lu > total memory in domain: %llu\n", size,
+>   		  man->size);
+>   	return false;
+>
+> base-commit: 20e03e7f6e8efd42168db6d3fe044b804e0ede8f
 
