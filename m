@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33596C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Dec 2022 10:24:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67EDEC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Dec 2022 10:34:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EABE310E2FB;
-	Tue, 13 Dec 2022 10:23:51 +0000 (UTC)
-Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com
- [IPv6:2a00:1450:4864:20::142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9788810E2F7;
- Tue, 13 Dec 2022 10:23:48 +0000 (UTC)
-Received: by mail-lf1-x142.google.com with SMTP id j4so4228305lfk.0;
- Tue, 13 Dec 2022 02:23:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8130B10E2F8;
+	Tue, 13 Dec 2022 10:34:12 +0000 (UTC)
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
+ [IPv6:2a00:1450:4864:20::141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DD7B10E2F9;
+ Tue, 13 Dec 2022 10:34:06 +0000 (UTC)
+Received: by mail-lf1-x141.google.com with SMTP id q6so4154653lfm.10;
+ Tue, 13 Dec 2022 02:34:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=NvbL2YYnz/CC11farnlOokoblWgU/4wTQmv24wS84to=;
- b=YNEam+iTWQsp02SdikSUzJtWKjWxCYLznOJnuxwquFZgMXDWWpQ3Fmj6hvbyw0p8mM
- kAB1s2ragMm33DBm3W3FpWkAxda5BJtjFO5AFePq3nV6gqU1K87JV6i/TlYlvkqul2A1
- bdGyDVeQktW5KJLMSPNYfB7bEskBcZedcr/H1Od04ZGt5CQ9+kLHfor9iYf/YZT7ylIg
- Leh+nSRj2cXqi84S48yDudJChyCBPEg+Ai8QWEM9vESmTVo7lnPpeYTMmCjSEW73duar
- VFfOLUYz6wPH6v8Os/1n8Gr2ihtgwXCluSq6gLPMrAt7ZPIpb2gI32kVdBYjQXHWZ91Q
- BKKA==
+ bh=eZeFZl+vmGmZoy9vpWUlc8qdgT7b0ZlO3m0ZiE9P2SI=;
+ b=FVtdxrZQ6YfNKoOZUx6B6nTv4EiDX4yspqwVHpFd852boHOAjIBjaL/pVL8cBZhkw1
+ QTgzc3+QTq+EeCxuFG+bCC6UHf2oS0xp9Hce1To1YDM/PZCtgujVwQpgsJdRZ895+68N
+ gzFGEImUVbcfUTpMM3JBRx/N8BFaTE6iSLCXi4QTNNb0+CP/mmg3gqoQlQwITEm2DEdl
+ BsVKB6K18Z8R0cCD9hyBtZe08htpXpiR4YKldkEVj0xnV1ap48apdWr7fJpe8mFU5Fiw
+ pMPI8Byx1rOfJ2XMrXwLyRHJrprdbfknIDhXd+2fEThreH2nOBYgrjzmn/OYqv7A1itY
+ 5A9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NvbL2YYnz/CC11farnlOokoblWgU/4wTQmv24wS84to=;
- b=QYo2zUAC7OuWdHEGVsf3C5CaQ1K619+R/YjZhlwV6vZL6VDXIOKMylKQ5gxFTIwnYU
- hSGsMqL2Ib94pjF+MLDiJpj2i04CYzubDTtV3KWcBlHdFwEwYdb2wtqrKpUHhbh5xqV+
- l0GB2aSuxbKbI5Od4eIM+xmnFDIuVNxxhPVJzqVSUib/y6y3c7IxpCOXN89EcpdogSAf
- x4UyGO6jtYKbZwViq/LqPHYYER3dFw3SG3+9r8GL9NfD0/IA5b3lKdpllei5YOS/R9NH
- KhyDcMj1yIJ9/g/HPg80jjyKR08mKXTbPhKCi8VvbyrYZeJH83fHA+pZf90YfslEAC18
- oebQ==
-X-Gm-Message-State: ANoB5pnKVre6YEy3wGdfXLTpVWFqE3tsLlWhdmTUdQTANxnZZQO6SAxb
- 6Y5CIPC/SCqIrfeArShThZg=
-X-Google-Smtp-Source: AA0mqf4Ulih/woN7wkFoRUIa0raNduGIQNM4MA6u6wfSMbBRXdVkTUeZWNFzUI0Mzu1Nini1MTGGtg==
-X-Received: by 2002:a05:6512:a92:b0:4b5:1b4a:efb7 with SMTP id
- m18-20020a0565120a9200b004b51b4aefb7mr6399012lfu.61.1670927026630; 
- Tue, 13 Dec 2022 02:23:46 -0800 (PST)
+ bh=eZeFZl+vmGmZoy9vpWUlc8qdgT7b0ZlO3m0ZiE9P2SI=;
+ b=qiAVoXG/X+aLr9ZCKs5QBoKQoZ78GYQsuvIjW1uYaiMZLdNVI82Lal+8Wm/wr+Nm0p
+ tiAXKTcwUK5+o1Ef/u8R1CYktEKhdvhwCP1Yv9hmaZdJvhK9wDlFcFUpoH0vIHf4Jg8G
+ dS/TkLy4Y0at64nyFUCPNh9TMYnH3lr9l34CywwT+aMRvyM35+O4xZpig46K1FZ0G+I7
+ psSslmJ3oRm2VlSWkHc6r9RyvA3Xx6RP4IMkxR8haZ3Qo2XPrl7wCcRC5gOhchuWPSeG
+ COJe4LpNAp72+gfUNqQBILRGcNL9N8dsIQqqEy4gMGHF9U57N2y2bq1DAiD//XwGIk9c
+ EsUA==
+X-Gm-Message-State: ANoB5pkh7vnEkOKj4Ocihve75VKJvJzFDWX8UHSf/fvmM62XhQAJz0Bj
+ 33J8AKdexyPNYLd5aL8XCMY=
+X-Google-Smtp-Source: AA0mqf6s2ckHnE+p9uitq/kaiOQr/fVjbPCuFtf6TeCGHlqDzxckJDAgkYGsHld9CSfauLwF8BaCDQ==
+X-Received: by 2002:a19:7b03:0:b0:4a4:68b8:f4d0 with SMTP id
+ w3-20020a197b03000000b004a468b8f4d0mr5629402lfc.22.1670927644850; 
+ Tue, 13 Dec 2022 02:34:04 -0800 (PST)
 Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- y28-20020a19915c000000b00492dba3c85asm303158lfj.220.2022.12.13.02.23.45
+ d28-20020a194f1c000000b00498fbec3f8asm313565lfb.129.2022.12.13.02.34.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Dec 2022 02:23:45 -0800 (PST)
-Date: Tue, 13 Dec 2022 12:23:42 +0200
+ Tue, 13 Dec 2022 02:34:04 -0800 (PST)
+Date: Tue, 13 Dec 2022 12:34:00 +0200
 From: Pekka Paalanen <ppaalanen@gmail.com>
 To: Harry Wentland <harry.wentland@amd.com>
 Subject: Re: [PATCH 06/16] drm/connector: Allow drivers to pass list of
  supported colorspaces
-Message-ID: <20221213122342.548631bf@eldfell>
+Message-ID: <20221213123400.2c46df00@eldfell>
 In-Reply-To: <20221212182137.374625-7-harry.wentland@amd.com>
 References: <20221212182137.374625-1-harry.wentland@amd.com>
  <20221212182137.374625-7-harry.wentland@amd.com>
 X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/FTVaDld26.p.TXzh3KAz7gp";
+Content-Type: multipart/signed; boundary="Sig_/ov05sbRGd14hHbeFD_3F=Tf";
  protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,9 +78,13 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/FTVaDld26.p.TXzh3KAz7gp
+--Sig_/ov05sbRGd14hHbeFD_3F=Tf
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+
+Sorry, hand slipped on keyboard and sent out a draft of this email too
+early.
+
 
 On Mon, 12 Dec 2022 13:21:27 -0500
 Harry Wentland <harry.wentland@amd.com> wrote:
@@ -97,17 +101,31 @@ Hi Harry,
 
 what is there for drivers to support? Isn't this just infoframe data
 that shall be sent down to the sink as-is with no other effect?
+The kerneldoc for "Colorspace" says it has no other effect.
 
 Is the driver confusing colorimetry with color-representation (the
 RGB-YCbCr conversion)? Or is this property defining both?
 
 I feel that the documentation of "Colorspace" KMS connector property
 needs clarification, and a list of potentially available values with
-explanations, more than just a reference to CTA-816-H which it does not
+explanations, more than just a reference to CTA-861-H which it does not
 even do yet.
 
-Perhaps a table, where for each enum drm_colorspace entry has a row explain=
-ing:
+Perhaps a table, where for each enum drm_colorspace entry has a row
+explaining the expectations of the sink:
+- primaries and white point
+- transfer characteristic
+- YCbCr-RGB or similar conversion to/from some RGB
+
+Each cell can be a reference to a spec like BT.709 or BT.601 (525 line).
+
+I think this belongs in the kernel doc more than in color-and-hdr.
+
+CTA-861-H does not give all the information but refers to things like
+xvYCC601 which you then need to figure out from Wikipedia or whatever
+which is annoying and raises questions about its correctness. Would be
+better if someone who actually has access to the authoritative specs
+would review the table.
 
 
 Thanks,
@@ -410,25 +428,25 @@ or,
 > =20
 
 
---Sig_/FTVaDld26.p.TXzh3KAz7gp
+--Sig_/ov05sbRGd14hHbeFD_3F=Tf
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmOYUq4ACgkQI1/ltBGq
-qqemKBAAky0ol0I51eLvShIcbIwTQbQEls9xIbBZh+KGqKCkGvxvBN/g4UwXnHCD
-gA6omhk5NQr81wdn3LXXnTf0HDWwxdu7ngX7KHg2Gq+uaVR1ktKD6bxSs96XLoub
-7tJhnIgcFDyg3Q8iX7/vamPVdyZTKpCwkkgWUiF6pyOoPta+g+Fsj9ZqkLSfS75u
-AAFtaM9z8OWSo5JN050rPbZor0vrHpKNPMuoMckusc+vn4xodzWVr2CPrrQepysc
-uZjJfiG8rVAR0UFExy/AsFL2V1JlrfsyEB5YGgz972N7FidNfHmLCpERLxXtIFA4
-bKHRk4yhgHPpRO8dX7gDW28bBIMgDZ5pkTgzPkUlddAZb0Yx8KSVForYfIy/uDTM
-wh8SPeU1PyAY7qyu66LT1rUbWVk/lFitk0QtHg5xmJ8m1qVJRrp+F6UOK+JZ0lmD
-vVD9svhBegYVagX+fvlz2KuGortEkjMzpF0vWUQq75Giv6i1TQkIFtleySYEJ1XP
-ebbfmxlDPGyhLx/kG4CtsIxGJqGBJC4kT2XXeFtyMd4mbdgtmlvI/7DoaWqakKU4
-7dDzmBbJakTIPdUoYeDaONc6zEmN1/o8cROQPZtPaOsPUGyqPH8vNrVCb0mW3r5a
-EIaFYr8yFQWxEPRxCPJ0Fd6xwuBWdtd6TxuVJ0FN9X2WwQI3ZQg=
-=QWYY
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmOYVRgACgkQI1/ltBGq
+qqceXA/9Fra9AQS4R1de0YRMiC3KgxdmwaHwqzcYLt+oAdjpHuWpLQiozdrc60JA
+CWDSz17HQweJJGO6BwJyW/xU8tvtEXBtxyeJe++G6wtXVvFh1vt00tpzEmxlHt4P
+S+YmPVdQvt3E8V/z6UQjL6o5a8feOeQ4W91e7hbu3/tQFE+7UDeDRIHiUbCmZU7K
+fRCCK5Ed9Dl0/4udtqgTci0PKQzrSLp7NeiILt9I6BzogNsGMUDH3l4d1L6VWXaQ
+954orfh6P1Cujz7aaZNp3sdG6QQtmI5bxc92C2JOz5Ql8ZRALvFlsNpgT+lPX+us
+KYBlkG/c+/+M2EXigwWAMmTOpNNDXilfKhZKZSDLcL6HiO8s2TChz0BrTMM/RCFf
+yuFN8bN+qXeRZ4lZ8bYXP49V3ly+XGsFy0b6eQEzUQ7j/yOaxv2zkKRqfXO+1GIb
+m4XgL+WBsGfq/aw2yu1DfiwOQS0RBMyfombEP+gA68eRlGnnaBnjHE0FKhTnp2QN
+aW41nBi4mvml+md0u5Pv2HRmoQF+U+N0N42VoK0VrcyN6YJWM2MdTLJH0clBiEuW
+mvTZ1UnTXPIgTI526pOD+rzabS4KUiOHD22Ey/zZTk0cyPPSnT+s26K5y9QTi+FH
+6ihdGeFbq5BHF/ocywFjN1zd1g+ybU+65IwAZZzPUdal3rFOK0c=
+=ptRv
 -----END PGP SIGNATURE-----
 
---Sig_/FTVaDld26.p.TXzh3KAz7gp--
+--Sig_/ov05sbRGd14hHbeFD_3F=Tf--
