@@ -4,117 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42BD9C10F1B
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Dec 2022 17:58:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AD19C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Dec 2022 18:29:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F28D10E1C4;
-	Tue, 13 Dec 2022 17:58:33 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2071.outbound.protection.outlook.com [40.107.95.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1637B10E1C4
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Dec 2022 17:58:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SVisfIsm1fhpPWKeGsliX4564shW/Jng0LtIKg79jnGuLz5aqcM71V8GSD8Yjx6vG64ZDNzRF2+aBrrfMN0YBeW4V/Gyb7v0bW+MfjKQ4zAfShAkgm2f23Q2XZFVHWP3tw//CvCYuI9bqNxSqUBX+U1wCdvPV8ORHbnBCb1VUKNG4btcoDpAs6aerD2hIETkhEzGn3XqPIe+s+1pjpRQHOxyEVc6ecH6Bj+SfXzGyMAP+FkjQCzF0HaFpLcRHO34xSj457or+HBHMMBoCMX0kFn21wwHfhOb6alctMAmzynuHc4pJWWEJ0MQq43s/lcWx1qlpX/hTqV2+h1COV40GA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fui2eAxzVvCVO2USIUEtMsN4d9J4jqh/exuROrOjQ4U=;
- b=QnK4jawKTlaUOJvJlTW3SJwjke6wBbu6DnlY3CFJMJ1MBde77doFS5pfwV+YGhV2a5x1ihs4TIv/yy+sB1N/KJga+L/WTGI7yTP8GwwLoa4+v3vzb+MQKBeQVHgXLm+7gA6gTYZmraEx1O0HD11xIT86AyQ7ngXx9Qb/Esz7zN6rrJk8hTf7SPajbvRNr+zZJThhwriAoWESaari/CF6UFd/XK8+ur/7B2mqRX5BxkqZJ//AJQ22UfYG1hCn3eccw99eHpmSIFUnpa2jmf/8EmG+vJCwrrxyqENYjKciQlfGyv8YSnVTNzt6c1YYOzEGOyicLKOmzFlcndhiqseWVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fui2eAxzVvCVO2USIUEtMsN4d9J4jqh/exuROrOjQ4U=;
- b=yXzzKALMaXiZYeeCnB/DxzzD+OfiuX+db7WTe3fgln7AZ21ONhluDEqsjezVMFpNAILJcAI2UhbR/y4t82PL+iPJn6UfalfxzqP7bxIfMZKDBm/mTrc8dzS/Ew8GgTFh6VcXUovN1V/jx8BBtRkuhTUIenccJUBVI7WU6aLzrk4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CH3PR12MB7642.namprd12.prod.outlook.com (2603:10b6:610:14a::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Tue, 13 Dec
- 2022 17:58:25 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::5d8:f3f2:d940:5350]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::5d8:f3f2:d940:5350%3]) with mapi id 15.20.5880.019; Tue, 13 Dec 2022
- 17:58:25 +0000
-Message-ID: <ebac34f8-50be-82eb-85e1-c097d57f9991@amd.com>
-Date: Tue, 13 Dec 2022 12:58:24 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 1/1] drm/amdgpu: Fix double release KFD pasid
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221213154910.705-1-Philip.Yang@amd.com>
- <ddd80a3a-b393-41c2-c259-e4f9ec8facb5@gmail.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <ddd80a3a-b393-41c2-c259-e4f9ec8facb5@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0042.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2e::11) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B71D410E1C9;
+	Tue, 13 Dec 2022 18:29:27 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9214310E1C9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Dec 2022 18:29:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1670956162; x=1702492162;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=4QPyqb1pvMS81Vaf94Si1tAEYfCAa6LBQX4nMxoXvDU=;
+ b=fblDVHrs8d00dwnWC+708+IXf39IazFulRiiVNwey2IwwrsgIa/QHU51
+ 1C0C94AYulw+pincAzC1q0ohP01rg01+i3mylADC9Arotc+dokkEHh0jR
+ 1VhvGZVS1iNJjzo86cQEl7wa0+yJdAGCJ5i5DGT7qcO09F60sywPJQLfi
+ 4fbhrxxM4KtXby6QYVI5dL4Q8Mzqli8ZQ/cErDfSfgaXmC3GT4cJf26sp
+ ugfpj2FKL0RDm7P7T4hrthsWGczgKXiJXhw5n1cA5KXrIT+HgxLc4dyC1
+ XjvCw01blt9DtvApZOmY9psuDyf86kkIvsl55wzqLsL+fYpnW6Q/mDt8X w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10560"; a="315843087"
+X-IronPort-AV: E=Sophos;i="5.96,242,1665471600"; d="scan'208";a="315843087"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Dec 2022 10:29:22 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10560"; a="893997924"
+X-IronPort-AV: E=Sophos;i="5.96,242,1665471600"; d="scan'208";a="893997924"
+Received: from lkp-server01.sh.intel.com (HELO b5d47979f3ad) ([10.239.97.150])
+ by fmsmga006.fm.intel.com with ESMTP; 13 Dec 2022 10:29:19 -0800
+Received: from kbuild by b5d47979f3ad with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1p5A1m-0004el-1S;
+ Tue, 13 Dec 2022 18:29:18 +0000
+Date: Wed, 14 Dec 2022 02:28:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 39ab32797f072eaf86b1faa7384ac73450684110
+Message-ID: <6398c457.hhPKRJ7/7EGjTQb/%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH3PR12MB7642:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a16c716-6438-459d-4afd-08dadd33a1d3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IX3mxtDXxD9/CkCqTpFUvRH998WTpTvpqQTlh97Y+uE2mFf5tmETy3JEPyO4yZr8y4B/JUd6xuXVpIW7OedXL+imNke/j0JIj7Bsy/xcD0MJACLzaQ8lxrqtrgAAzZmhu4YlhbFZ/aaABRldHf0xNRkwUew4ut4h6SH39d4N0Ol/FRtrd2hhK9W0moHfnyxSPF6rSI/HUCyECRfs6qQNP0w9kxsOXxrYcMLNPmErtt7qEMGHmcuLKq81j3T9yyO6uYqV13VBgc1LiZRQYkpmY1Rox8EfCNxINstNJmwukCBMdPBGbC+E9lDDMsqdY+95V2M7WYXPrUmIjXrv0NL/IjYClQTrSeTUjAkGWJS+FO45ClqxI3d7djbA1JRtk2Gg5lJqgn3Bl04VdcRWl8KKU8TazTFz9eYbMPrXa0NCZPcJapgqUU50YN8m+nD5Ozi8PLSPwDy00mkfFn/RvA0qCmotfsG1h+Djve2UkcAP1mAyvYczwfIPnhNAOPIIuavwSLMozNiuydNpFtup6zUmxHYB2jhxJ58ePLZ1n7jl3rS0J065pqC9udoJnKLaqsG2ljyvw6DnqL7MjY8AQefKhjefQExRUVi3dnF59rFM/DMKE/a22Whf6/k85V5yAmeH+4pHHi8UdaCrMfZ8uf+vnzZXuL1ustCm1TPfyFRWx2HagehdlsO9oA0JxUUzUwKQlECHdfp1kkgn7KS3p5rhKuZ9bQ1Zh5Yx97GJB3ig8+Y=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(366004)(346002)(396003)(39860400002)(376002)(451199015)(2616005)(36756003)(44832011)(66946007)(2906002)(86362001)(4001150100001)(83380400001)(31696002)(110136005)(66574015)(6486002)(36916002)(6506007)(53546011)(478600001)(26005)(6512007)(186003)(5660300002)(38100700002)(4326008)(41300700001)(8676002)(66556008)(66476007)(8936002)(316002)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OGtlSDQ1cWNzU0JoZXYrcllSNGs3UHJ3TnU1VGFtRGhLQWxZQ0pkYlNzUDRB?=
- =?utf-8?B?b1J4Y3JFM0FyNHd0czR6cktGZWRuSTRNMytJdHB0OVpIaFRzeERrak1XeFpw?=
- =?utf-8?B?WXVxbFYxbEp1V3VGdGFDb09UZzQ5ZmtOSDNHeVlDV3JjQUVWZkZxeDN6elF2?=
- =?utf-8?B?RGM4QnRlckdtVkpnYjJ5YU9yT3dRUmNETHU4Qk54VEsyZjRGcjNOK2ErWVNv?=
- =?utf-8?B?QUw0Q2QyNDJzOFdCYndLVkxpQVczTXh0amFHa0M3Qytza2MyYzdybCsvWE5p?=
- =?utf-8?B?RkIzNnk1UzVqbEFYUW9VTVRQa283SHlGVzBHSCtkQ2UzV2dqNldNZERSOEgr?=
- =?utf-8?B?cDJ3bFRmZi9UY2ZTL2JWazZ5NzVmckRybTd1MWc4c1M2YjJnRm1vVjZhTHNZ?=
- =?utf-8?B?aWJHV0NzQW1MTVU3Mk0xZElMb1BIQkNKSGRzeWFQczBQL3BjSk5jUE92eG9F?=
- =?utf-8?B?RjRLNWJ3YUsrSzhUaEhNR0FISzZkdmsvNVAvS2pmQnl5QlZRcy9DYW54YlRY?=
- =?utf-8?B?SUw3L09vVlFqRXZ4Ukt4SmtQZkdIQys5UExLNDNqUnozTnphcFBDU0o2MUMy?=
- =?utf-8?B?SEFIOFljc08rb3hXaWJhY2VCblV5Zzl4N0tiWElNdm5UM2tYaG1xZ1phdGVo?=
- =?utf-8?B?UEYrMjVGQlFXbEdMa3JQL0x1NXd0SXNrQUlVQUJvUGJrUUtkR1VLSnBkN2Mw?=
- =?utf-8?B?Y1JVZDNYMUxYR3Z0RmR4Vk40TDNaRWJYUzhVOVZRbkN1Z0NWYW5lR292Z0NV?=
- =?utf-8?B?cHl2aGxNYTJkaDVxdkpIbHZ6enRmbnVKVlQ5eTVrNXlPcGtNM1ByWHBvZHVG?=
- =?utf-8?B?L0Z6SWhSSUdtZ0I5cVJTZzd5OVo1MkVFQjlSM0xMVHNQSC9VcDRxUXdvaGFS?=
- =?utf-8?B?VExmaEp3YWxqdFJIRTRvbnZ5Q2NieEZoYVp3K1dhbXFrS2tMand6bmJNOTNL?=
- =?utf-8?B?aTNXU3RuamhRZ3dSMjRRb2dLbTUvNXBobnZZamY3TUVLRjQ0Nzcxc3ozQlFv?=
- =?utf-8?B?M1RHcXhLU0krbGZSdjZlcUkwMjJyVXZRQklGeGo3bXVuNzZ0SzVsYnA4alB4?=
- =?utf-8?B?MUJjamdKM0NNRldudzVvWUZuZklUT2hSNmJJRHd0QzRYTkd2NEcrYjFGbUxE?=
- =?utf-8?B?UXQ5VEZzK05zM0J3dW5nNU1Tb2loTE1Uci9Pd2d6QWZ0RnF4M1IrUzlUQzZx?=
- =?utf-8?B?U1NQNFYxV1VURXA4VHJVdkRPUTdsSktuYzVoaEY4UXlSWE9RQit2MFFjSDNQ?=
- =?utf-8?B?MlljaGlYTDU4ZlJRcGpxbklmNG1rcHA0dVlPYzA0S1dpUTFqclVSVitmUTcr?=
- =?utf-8?B?UDZHN0gxV2Evd2pGemhMWVgzOU10RDRNd0x5ZDF0QUE5TzZhc2VncVk5c0t4?=
- =?utf-8?B?QnJOSGFhVktpS3FyN0NSb2pBVTNNQnlwT3ZLTFVoTFZkU243c0tCSE9mVkFX?=
- =?utf-8?B?cERjNlEwNzNTS01oaGZRc1lEeG5yZVZwRVhrelpONk5hQmlFZGFEaDE0aGxW?=
- =?utf-8?B?ZEpnZytKaUlHR3BuRi9SQ3N4VGVOMVF6Mzc1Rm1EeXNQaDJpTDJSVVlaMTRt?=
- =?utf-8?B?QzhmeG00MzFJczh3enIreE9FaHZSbTMvam1JQy9IeUozRmhmSVppbFFpMWZO?=
- =?utf-8?B?Sm5EYjBZaE1KN2hhdzQxbnhiRE9aQ2lpODVjaUxwUGEvUlh5bGVGWlErbHdu?=
- =?utf-8?B?OXV3MElKVUlmQkNYdk5ZdnVaZVRkdDJ2NEV4aFVUSGl5MFF3UXhHd2UwcStK?=
- =?utf-8?B?UFd0LzBKdXdZWHVUb3ZnRTJXR09IRm1obXEzNFZWZ0NVSkk2YzNORG9vN1Ay?=
- =?utf-8?B?UFhSRmh6U096dmZra0dTTkNWc0RtUVZrYktFQ2tQdTE3bE9kWUlFeWNrYlFn?=
- =?utf-8?B?TjkrOGVQcDh3NjlFQ0VsOFZmRm16MzduVTVaYkJ2UGFuSzVoeEhsTlAvRHI1?=
- =?utf-8?B?S0lYNGdoOEI2b2N0Y2lWZ2pvM0p3SzJlU1NpWERtOXFOcDN6dnhXVk93ZSs0?=
- =?utf-8?B?d2FnZnlmZWgyL2hiZDFRdkV5V0lZR3dmek9OcEhCT0traTVKbXc5UjVQSEY5?=
- =?utf-8?B?YS9UZW1OZ3J3U1ZkWXJBc0p1dktrQW9QYnF1c3hXZjhXaGJVazR2aTdzaXJs?=
- =?utf-8?Q?LxIYMLFrh7QCL+IWSIykgiDKx?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a16c716-6438-459d-4afd-08dadd33a1d3
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2022 17:58:25.5958 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pfeQdfRgNSWjgDq/F+Eb3EckjtxTtOwiQG5xnZQu3dnSeBrU6k2IApImifcTkTkD/cInaSzTRFm91ZxwdKUtBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7642
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,97 +58,194 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kent.russell@amd.com
+Cc: linux-xfs@vger.kernel.org, ntfs3@lists.linux.dev, linux-iio@vger.kernel.org,
+ netdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ lvs-devel@vger.kernel.org, Linux Memory Management List <linux-mm@kvack.org>,
+ linux-arm-msm@vger.kernel.org, linux-omap@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-12-13 10:57, Christian König wrote:
-> Am 13.12.22 um 16:49 schrieb Philip Yang:
->> If amdgpu_amdkfd_gpuvm_acquire_process_vm returns failed after vm is
->> converted to KFD vm and vm->pasid set to KFD pasid, KFD will not
->> take pdd->drm_file reference, as a result, drm close file handler maybe
->> called to release the KFD pasid before KFD process destroy to release
->> the same pasid and set vm->pasid to zero, this generates below WARNING
->> backtrace and NULL pointer access.
->
-> Well NAK. If you fail after making the VM a compute VM the correct 
-> approach would be to drop this in the error handling again.
->
-> Since we don't need to reallocate anything that should also never fail.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 39ab32797f072eaf86b1faa7384ac73450684110  Add linux-next specific files for 20221213
 
-I don't understand this comment.
+Error/Warning reports:
 
-The fundamental issue, as I understand it, is that compute VMs don't own 
-their PASID. Multiple compute VMs on different GPUs share the same 
-PASID. Therefore, freeing the PASID when the compute VM is destroyed is 
-wrong. The PASID is freed by KFD when its process structure is destroyed.
+https://lore.kernel.org/oe-kbuild-all/202211142244.sGkXbWO2-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211150003.LkfYS4HE-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211242120.MzZVGULn-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211282102.QUr7HHrW-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211301634.cejLlTJP-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202212020520.0OkMIno3-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202212040713.rVney9e8-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202212051759.cEv6fyHy-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202212111423.XqZdM0Kt-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202212132047.wvOyEPMA-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202212132110.CvE3HjB8-lkp@intel.com
 
-Regards,
-   Felix
+Error/Warning: (recently discovered and may have been fixed)
 
+Documentation/networking/devlink/etas_es58x.rst: WARNING: document isn't included in any toctree
+arch/powerpc/kernel/kvm_emul.o: warning: objtool: kvm_template_end(): can't find starting instruction
+arch/powerpc/kernel/optprobes_head.o: warning: objtool: optprobe_template_end(): can't find starting instruction
+drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:139:43: warning: unused variable 'dmub_outbox_irq_info_funcs' [-Wunused-const-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:40:20: warning: no previous prototype for 'to_dal_irq_source_dcn201' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:40:20: warning: no previous prototype for function 'to_dal_irq_source_dcn201' [-Wmissing-prototypes]
+drivers/regulator/tps65219-regulator.c:310:32: warning: parameter 'dev' set but not used [-Wunused-but-set-parameter]
+drivers/regulator/tps65219-regulator.c:310:60: warning: parameter 'dev' set but not used [-Wunused-but-set-parameter]
+drivers/regulator/tps65219-regulator.c:370:26: sparse:    int
+drivers/regulator/tps65219-regulator.c:370:26: sparse:    struct regulator_dev *[assigned] rdev
+drivers/regulator/tps65219-regulator.c:370:26: warning: ordered comparison of pointer with integer zero [-Wextra]
+include/linux/compiler_types.h:357:45: error: call to '__compiletime_assert_270' declared with attribute error: BUILD_BUG_ON failed: sizeof(priv_tbl->probs) % 16
+net/netfilter/ipvs/ip_vs_est.c:688:17: sparse:    signed long long *
+net/netfilter/ipvs/ip_vs_est.c:688:17: sparse:    unsigned long long [usertype] *
 
->
-> Christian.
->
->>
->> For compute process, KFD manage pasid and drm close file handler should
->> not release KFD pasid to avoid double release.
->>
->>   amdgpu: Failed to create process VM object
->>
->>   ida_free called for id=32770 which is not allocated.
->>   WARNING: CPU: 57 PID: 72542 at ../lib/idr.c:522 ida_free+0x96/0x140
->>   RIP: 0010:ida_free+0x96/0x140
->>   Call Trace:
->>    amdgpu_pasid_free_delayed+0xe1/0x2a0 [amdgpu]
->>    amdgpu_driver_postclose_kms+0x2d8/0x340 [amdgpu]
->>    drm_file_free.part.13+0x216/0x270 [drm]
->>    drm_close_helper.isra.14+0x60/0x70 [drm]
->>    drm_release+0x6e/0xf0 [drm]
->>    __fput+0xcc/0x280
->>    ____fput+0xe/0x20
->>    task_work_run+0x96/0xc0
->>    do_exit+0x3d0/0xc10
->>
->>   BUG: kernel NULL pointer dereference, address: 0000000000000000
->>   RIP: 0010:ida_free+0x76/0x140
->>   Call Trace:
->>    amdgpu_pasid_free_delayed+0xe1/0x2a0 [amdgpu]
->>    amdgpu_driver_postclose_kms+0x2d8/0x340 [amdgpu]
->>    drm_file_free.part.13+0x216/0x270 [drm]
->>    drm_close_helper.isra.14+0x60/0x70 [drm]
->>    drm_release+0x6e/0xf0 [drm]
->>    __fput+0xcc/0x280
->>    ____fput+0xe/0x20
->>    task_work_run+0x96/0xc0
->>    do_exit+0x3d0/0xc10
->>
->> Suggested-by: Felix Kuehling <Felix.Kuehling@amd.com>
->> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 8 +++++++-
->>   1 file changed, 7 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> index efc0a13e9aea..bf444c3f6656 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> @@ -1244,8 +1244,14 @@ void amdgpu_driver_postclose_kms(struct 
->> drm_device *dev,
->>           amdgpu_bo_unreserve(adev->virt.csa_obj);
->>       }
->>   -    pasid = fpriv->vm.pasid;
->> +    if (fpriv->vm.is_compute_context)
->> +        /* pasid managed by KFD is released when process is 
->> destroyed */
->> +        pasid = 0;
->> +    else
->> +        pasid = fpriv->vm.pasid;
->> +
->>       pd = amdgpu_bo_ref(fpriv->vm.root.bo);
->> +
->>       if (!WARN_ON(amdgpu_bo_reserve(pd, true))) {
->>           amdgpu_vm_bo_del(adev, fpriv->prt_va);
->>           amdgpu_bo_unreserve(pd);
->
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+drivers/i2c/busses/i2c-qcom-geni.c:1028:28: sparse: sparse: symbol 'i2c_master_hub' was not declared. Should it be static?
+drivers/iio/adc/twl6030-gpadc.c:955:16-23: duplicated argument to & or |
+drivers/iio/light/tsl2563.c:768:8-33: WARNING: Threaded IRQ with no primary handler requested without IRQF_ONESHOT (unless it is nested IRQ)
+fs/xfs/xfs_iomap.c:86:29: sparse: sparse: symbol 'xfs_iomap_page_ops' was not declared. Should it be static?
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- arm-randconfig-s032-20221213
+|   `-- include-linux-compiler_types.h:error:call-to-__compiletime_assert_NNN-declared-with-attribute-error:BUILD_BUG_ON-failed:sizeof(priv_tbl-probs)
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- i386-randconfig-s002
+|   `-- fs-xfs-xfs_iomap.c:sparse:sparse:symbol-xfs_iomap_page_ops-was-not-declared.-Should-it-be-static
+|-- ia64-buildonly-randconfig-r001-20221213
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|-- ia64-randconfig-c034-20221213
+|   `-- drivers-iio-light-tsl2563.c:WARNING:Threaded-IRQ-with-no-primary-handler-requested-without-IRQF_ONESHOT-(unless-it-is-nested-IRQ)
+|-- ia64-randconfig-s043-20221213
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   `-- fs-xfs-xfs_iomap.c:sparse:sparse:symbol-xfs_iomap_page_ops-was-not-declared.-Should-it-be-static
+|-- loongarch-buildonly-randconfig-r005-20221213
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- m68k-allmodconfig
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- m68k-allyesconfig
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- m68k-randconfig-r004-20221213
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- microblaze-randconfig-c043-20221213
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|-- microblaze-randconfig-s052-20221213
+|   `-- fs-xfs-xfs_iomap.c:sparse:sparse:symbol-xfs_iomap_page_ops-was-not-declared.-Should-it-be-static
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
+|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
+clang_recent_errors
+|-- arm64-randconfig-r023-20221213
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-function-to_dal_irq_source_dcn201
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:unused-variable-dmub_outbox_irq_info_funcs
+|-- hexagon-randconfig-r002-20221213
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+|-- i386-allmodconfig
+|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
+`-- powerpc-randconfig-r026-20221213
+    |-- arch-powerpc-kernel-kvm_emul.o:warning:objtool:kvm_template_end():can-t-find-starting-instruction
+    |-- arch-powerpc-kernel-optprobes_head.o:warning:objtool:optprobe_template_end():can-t-find-starting-instruction
+    `-- arch-powerpc-kernel-prom_init.o:warning:objtool:prom_init:unannotated-intra-function-call
+
+elapsed time: 738m
+
+configs tested: 64
+configs skipped: 7
+
+gcc tested configs:
+um                             i386_defconfig
+um                           x86_64_defconfig
+powerpc                           allnoconfig
+x86_64                            allnoconfig
+x86_64                              defconfig
+x86_64                           allyesconfig
+m68k                          sun3x_defconfig
+sh                             espt_defconfig
+x86_64                               rhel-8.3
+x86_64                           rhel-8.3-bpf
+m68k                       m5275evb_defconfig
+x86_64                           rhel-8.3-syz
+arc                  randconfig-r043-20221213
+x86_64                         rhel-8.3-kunit
+x86_64                           rhel-8.3-kvm
+arm                  randconfig-r046-20221213
+powerpc                     rainier_defconfig
+i386                          randconfig-c001
+i386                          randconfig-a001
+i386                          randconfig-a003
+i386                          randconfig-a014
+arm                          iop32x_defconfig
+i386                          randconfig-a012
+i386                          randconfig-a016
+powerpc                        cell_defconfig
+i386                          randconfig-a005
+sh                               j2_defconfig
+sh                          sdk7780_defconfig
+sh                      rts7751r2d1_defconfig
+sh                           se7712_defconfig
+mips                         bigsur_defconfig
+sh                               allmodconfig
+mips                             allyesconfig
+i386                                defconfig
+powerpc                          allmodconfig
+x86_64                          rhel-8.3-rust
+x86_64                          rhel-8.3-func
+x86_64                    rhel-8.3-kselftests
+arm                                 defconfig
+m68k                             allyesconfig
+m68k                             allmodconfig
+i386                             allyesconfig
+arc                              allyesconfig
+alpha                            allyesconfig
+arm64                            allyesconfig
+arm                              allyesconfig
+
+clang tested configs:
+arm                       mainstone_defconfig
+mips                           ip28_defconfig
+hexagon              randconfig-r041-20221213
+riscv                randconfig-r042-20221213
+powerpc                     kilauea_defconfig
+arm                   milbeaut_m10v_defconfig
+hexagon              randconfig-r045-20221213
+s390                 randconfig-r044-20221213
+powerpc                     mpc512x_defconfig
+i386                          randconfig-a013
+i386                          randconfig-a002
+i386                          randconfig-a004
+mips                     cu1830-neo_defconfig
+i386                          randconfig-a015
+i386                          randconfig-a011
+powerpc                     tqm8560_defconfig
+i386                          randconfig-a006
+arm                       netwinder_defconfig
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
