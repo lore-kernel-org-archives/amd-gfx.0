@@ -4,61 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37BA7C001B2
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Dec 2022 09:01:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 346CDC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Dec 2022 09:06:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0051310E22E;
-	Wed, 14 Dec 2022 09:01:43 +0000 (UTC)
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E7CB10E15B;
- Wed, 14 Dec 2022 09:01:35 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id b3so9352805lfv.2;
- Wed, 14 Dec 2022 01:01:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=axemcD0/ZzXi83xWF5go2Zfd1SFZy70eYQy/3mpCTb0=;
- b=a+2OimxkIUTvTo7ddGvGse2gSXlhrNT8fc02ehpO+WdWKfiCiBoifRN6YTfOhjvFYB
- D2UDmd226e66X92obp0loMnSQMj/z0f2b+4IQp4zpi+EZxdXDLVA9x1NW8TSoIJeEMQD
- g7iP/LMo8tt1jbDlJLUgXfr4l1vta+8ieFEU4pImRteLeWT4CXAGb9rhptuZuvtq3X+E
- 5UOJB3XDu5NqGtjifl2OSu+9GNK2b8gE5zRl1OJJLym222vmvuvQe+oUnzauvdyyBwMb
- 3QplK3aWTp5uzcsLQgy5oRowr17qKDtWRAWJ0u0+iRawvA63kBQQsBIHh54uzOb/YrEl
- KhcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=axemcD0/ZzXi83xWF5go2Zfd1SFZy70eYQy/3mpCTb0=;
- b=WbavtcDdkRHfxkk11nvqJdKVRo7yMyV0DEeVcBpSZG0/WZw21FWXIMoj/KkhC6INFf
- 7QrAuPopOzyMAfumtMZgwp4MsbAgPhPDEQaubxQUL5A6QpZNJahoRxvgyFTmk4WYF6c2
- 48Far0J1Wi9ZPMWK2ay+orlL264fNLP9PHRP6grgJ4qdXxnUtclw9ok18uYX3iY3ElsA
- y3Q4+B/tk5aPGoZDqbrcVbVRlpnwStr+BrNxQphnHCbyRY/NKyzzaTgnUzyTq0mtMgae
- PfL8HQb1IYnFscLr6Y9yoJR/nZe9oj0Jo4cmBPO4D3AHP0AjlFO3vSHW0IrJAksorjva
- S3mA==
-X-Gm-Message-State: ANoB5pkqDZipz7A9HVVkm53rAuHrQTsPajkPNmSj1lUwzJw/CUxSeD2p
- KA3ajOe1ya2eSkTJigBYDts=
-X-Google-Smtp-Source: AA0mqf6QBYCZpobxzGNY3aMt6/yrQPJLJhq6J+7gdnUtbcCRSliR28isCCaS4zb+HORGlfVkSGh2LQ==
-X-Received: by 2002:a05:6512:b81:b0:4a4:68b9:66bf with SMTP id
- b1-20020a0565120b8100b004a468b966bfmr8950772lfv.10.1671008493494; 
- Wed, 14 Dec 2022 01:01:33 -0800 (PST)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- x14-20020ac25dce000000b004b5825fffb0sm726335lfq.88.2022.12.14.01.01.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Dec 2022 01:01:32 -0800 (PST)
-Date: Wed, 14 Dec 2022 11:01:28 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
-Subject: Re: [PATCH 16/16] drm/amd/display: Don't restrict bpc to 8 bpc
-Message-ID: <20221214110128.1cd58dea@eldfell>
-In-Reply-To: <114c2e02-41c8-8576-f88d-1c50f41deb9e@mailbox.org>
-References: <20221212182137.374625-1-harry.wentland@amd.com>
- <20221212182137.374625-17-harry.wentland@amd.com>
- <114c2e02-41c8-8576-f88d-1c50f41deb9e@mailbox.org>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E87E10E394;
+	Wed, 14 Dec 2022 09:06:22 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2049.outbound.protection.outlook.com [40.107.96.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A8D810E394
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Dec 2022 09:06:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=g7U4LPrYd7cWD/x4xRA6IBHmV3HA5YFxonMnbL3gqf16Rgfk2XJMAZjVwTmjn2NGWMgM4H3Ql80lPvoNS/4cr5wGY+NdrM8tpS+Wdj2KRZ+aqxiKPDJPqtHwBCr5uSSOobYmoOcR11dD1C6bi3I2V+5ItDlX68sB9ETc/WMzZf8GtpiGMy40IS9M4maGbsSjKUfZXU8chEgyYCJlRgoujOEii6gEuFBm8boHq4VNXuwDir433rphGBS3NLx607J6LbrxqgMfR3RWeL6S5X5/uNsPNkBAZCgzjtEQ+gW2gJR4ayU7W7F/4irJGAqN+chNFqY2CGIiW1a+BNDo2aX1fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E5xjTkyIIfrgNG/Gsi0fSk85STsDicQwqj1uSLiWjns=;
+ b=KfnCyqn8afi267naa4zLFk6BIp8IPTuVVDD0gt8u289stU8Jlao7nmB95YoI1kzCv7nSFMTZHh7mae9OwkzwA+FoJAcQdRmo8U+kkluggQcjcu/bJN121rrtWJ6/4nmB93MHp9GB55rQaE3+HxDvQz9VaVzBbXW+S1SAhorjJ6x/Ch8pKiSc+bDQ0fuWZthjCEMRMRF3sY+YnvOk2ywqO0zrge+NrH51jfrLZy96qzQxJABTdW7os0ns0V6MKhtaa+ltJwQ2E547YjXiRGI7BVZdopYflsA9aE/smQW/qRP7t5wnDEbkYEsSP7q4WP9qquCUQ+miL+Fe7Is3/Zxu+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E5xjTkyIIfrgNG/Gsi0fSk85STsDicQwqj1uSLiWjns=;
+ b=3CX6sRUYGZQKVUHhRVq/wu91TO9fw3oZkndYy2zjUzk1Qu0k0V43OmV5XQD8o9js8iEblOthF4YJdY0OwYBKuLiSYf8Mt8HJSivOLO4HghCo4F93N47zlrdDaBJiqrCAVnfFDhjBPRpas4PTkSUh/qAAaw1AFBH4dXXn7W3jjZg=
+Received: from DS7PR03CA0064.namprd03.prod.outlook.com (2603:10b6:5:3bb::9) by
+ SJ1PR12MB6362.namprd12.prod.outlook.com (2603:10b6:a03:454::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Wed, 14 Dec
+ 2022 09:06:15 +0000
+Received: from DM6NAM11FT004.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3bb:cafe::56) by DS7PR03CA0064.outlook.office365.com
+ (2603:10b6:5:3bb::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.11 via Frontend
+ Transport; Wed, 14 Dec 2022 09:06:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT004.mail.protection.outlook.com (10.13.172.217) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5924.11 via Frontend Transport; Wed, 14 Dec 2022 09:06:14 +0000
+Received: from localhost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 14 Dec
+ 2022 03:06:12 -0600
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: AMD Graphics <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Remove unnecessary domain argument
+Date: Wed, 14 Dec 2022 04:05:24 -0500
+Message-ID: <20221214090524.126956-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/XXRmJDE0L.gkhAtwppp4yLO";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: text/plain; charset="UTF-8"
+X-check-string-leak: v1.0
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT004:EE_|SJ1PR12MB6362:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e712b43-7e1b-4dce-6970-08daddb27426
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: /N8gc0hYxWt+zQghuP2HGRzLxuadN23OWbESXFmc2LPf2O8pBP6HNkNKJXnEAveXj4edsonKSczeJGuaVchfkUL8bBz5XRznnZXHktDaj0KYOJ674hvGNScNdLrd2fjNiDJDF1svHG7xbnDjetshKzCc6U/q9N3j3/KyWBN6L8rxVMQObecszkJ+VGLSMjiAzmJBbfC9ODR1R7kfBTJGabn+MVfarMMHbr7lxOVOJn+WaB7ripS+Yx3y4poQNfiZuTsI/Vflk1/M7VwjNTQl3qjB9mJe1ZI0Vff9wXrXcYLBN/sIxTi+D4GYIx0FLpY7ICB7fglmsn/yjUexyyZao8Z0cTl6gQpEUS0TjMW1enIrmZLjCI98dexmqAN8nj3Zc/kGdQ/nGQ6D3qxSU1gBzIbkHQtTxKbLlhvbt7jpsOa+v6gmfqIeBHMjckyiiKjp/505X5GUmi3o32HLo59Qm06R/FiHJ1adJ7kYCWQUyWmffcYk2OqsMAOD/lcarjszmMYSiNZsu4XovAHmJ6akSEAxJ8ckMkHVhH3U3iQTPdN3LDz6QM9A82QbnqMX4wxbbyOnPIBJ+QN8vO5aTDdggiVOgehRTOJiNQFoHycFbr8Ug2OB/UJrZYHwHQ2rBClNDpYRMJ+5SwtAEWXyugS9B4nAAcyNGAetPiVgUtFvCSitSOMbK4O2X/lNLfchkBjHtv0hjPgIsqJHUDMu+d9cb9XC0iznJOM47SewXWbOvM8=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:CA; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(376002)(346002)(39860400002)(136003)(451199015)(46966006)(36840700001)(40470700004)(82310400005)(86362001)(36756003)(5660300002)(40460700003)(7696005)(426003)(2906002)(6666004)(47076005)(41300700001)(4326008)(70586007)(36860700001)(83380400001)(8676002)(16526019)(316002)(54906003)(6916009)(70206006)(40480700001)(336012)(186003)(26005)(356005)(1076003)(2616005)(81166007)(8936002)(82740400003)(44832011)(478600001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2022 09:06:14.8156 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e712b43-7e1b-4dce-6970-08daddb27426
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT004.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6362
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,102 +98,149 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
- Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Joshua Ashton <joshua@froggi.es>,
- Vitaly.Prosyak@amd.com
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/XXRmJDE0L.gkhAtwppp4yLO
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Remove the "domain" argument to amdgpu_bo_create_kernel_at() since this
+function takes an "offset" argument which is the offset off of VRAM, and as
+such allocation always takes place in VRAM. Thus, the "domain" argument is
+unnecessary.
 
-On Tue, 13 Dec 2022 18:20:59 +0100
-Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: AMD Graphics <amd-gfx@lists.freedesktop.org>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 10 +++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  7 -------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   |  1 -
+ 4 files changed, 6 insertions(+), 14 deletions(-)
 
-> On 12/12/22 19:21, Harry Wentland wrote:
-> > This will let us pass kms_hdr.bpc_switch.
-> >=20
-> > I don't see any good reasons why we still need to
-> > limit bpc to 8 bpc and doing so is problematic when
-> > we enable HDR.
-> >=20
-> > If I remember correctly there might have been some
-> > displays out there where the advertised link bandwidth
-> > was not large enough to drive the default timing at
-> > max bpc. This would leave to an atomic commit/check
-> > failure which should really be handled in compositors
-> > with some sort of fallback mechanism.
-> >=20
-> > If this somehow turns out to still be an issue I
-> > suggest we add a module parameter to allow users to
-> > limit the max_bpc to a desired value. =20
->=20
-> While leaving the fallback for user space to handle makes some sense
-> in theory, in practice most KMS display servers likely won't handle
-> it.
->=20
-> Another issue is that if mode validation is based on the maximum bpc
-> value, it may reject modes which would work with lower bpc.
->=20
->=20
-> What Ville (CC'd) suggested before instead (and what i915 seems to be
-> doing already) is that the driver should do mode validation based on
-> the *minimum* bpc, and automatically make the effective bpc lower
-> than the maximum as needed to make the rest of the atomic state work.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index fd3ab4b5e5bb1f..72b7429e63ab20 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -346,17 +346,16 @@ int amdgpu_bo_create_kernel(struct amdgpu_device *adev,
+  * @adev: amdgpu device object
+  * @offset: offset of the BO
+  * @size: size of the BO
+- * @domain: where to place it
+  * @bo_ptr:  used to initialize BOs in structures
+  * @cpu_addr: optional CPU address mapping
+  *
+- * Creates a kernel BO at a specific offset in the address space of the domain.
++ * Creates a kernel BO at a specific offset in VRAM.
+  *
+  * Returns:
+  * 0 on success, negative error code otherwise.
+  */
+ int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
+-			       uint64_t offset, uint64_t size, uint32_t domain,
++			       uint64_t offset, uint64_t size,
+ 			       struct amdgpu_bo **bo_ptr, void **cpu_addr)
+ {
+ 	struct ttm_operation_ctx ctx = { false, false };
+@@ -366,8 +365,9 @@ int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
+ 	offset &= PAGE_MASK;
+ 	size = ALIGN(size, PAGE_SIZE);
+ 
+-	r = amdgpu_bo_create_reserved(adev, size, PAGE_SIZE, domain, bo_ptr,
+-				      NULL, cpu_addr);
++	r = amdgpu_bo_create_reserved(adev, size, PAGE_SIZE,
++				      AMDGPU_GEM_DOMAIN_VRAM, bo_ptr, NULL,
++				      cpu_addr);
+ 	if (r)
+ 		return r;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index 147b79c10cbb6b..93207badf83f39 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -284,7 +284,7 @@ int amdgpu_bo_create_kernel(struct amdgpu_device *adev,
+ 			    u32 domain, struct amdgpu_bo **bo_ptr,
+ 			    u64 *gpu_addr, void **cpu_addr);
+ int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
+-			       uint64_t offset, uint64_t size, uint32_t domain,
++			       uint64_t offset, uint64_t size,
+ 			       struct amdgpu_bo **bo_ptr, void **cpu_addr);
+ int amdgpu_bo_create_user(struct amdgpu_device *adev,
+ 			  struct amdgpu_bo_param *bp,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 5c6fabaa444494..74b3e824807f71 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1601,7 +1601,6 @@ static int amdgpu_ttm_fw_reserve_vram_init(struct amdgpu_device *adev)
+ 	return amdgpu_bo_create_kernel_at(adev,
+ 					  adev->mman.fw_vram_usage_start_offset,
+ 					  adev->mman.fw_vram_usage_size,
+-					  AMDGPU_GEM_DOMAIN_VRAM,
+ 					  &adev->mman.fw_vram_usage_reserved_bo,
+ 					  &adev->mman.fw_vram_usage_va);
+ }
+@@ -1627,7 +1626,6 @@ static int amdgpu_ttm_drv_reserve_vram_init(struct amdgpu_device *adev)
+ 	return amdgpu_bo_create_kernel_at(adev,
+ 					  adev->mman.drv_vram_usage_start_offset,
+ 					  adev->mman.drv_vram_usage_size,
+-					  AMDGPU_GEM_DOMAIN_VRAM,
+ 					  &adev->mman.drv_vram_usage_reserved_bo,
+ 					  &adev->mman.drv_vram_usage_va);
+ }
+@@ -1708,7 +1706,6 @@ static int amdgpu_ttm_reserve_tmr(struct amdgpu_device *adev)
+ 		ret = amdgpu_bo_create_kernel_at(adev,
+ 					 ctx->c2p_train_data_offset,
+ 					 ctx->train_data_size,
+-					 AMDGPU_GEM_DOMAIN_VRAM,
+ 					 &ctx->c2p_bo,
+ 					 NULL);
+ 		if (ret) {
+@@ -1722,7 +1719,6 @@ static int amdgpu_ttm_reserve_tmr(struct amdgpu_device *adev)
+ 	ret = amdgpu_bo_create_kernel_at(adev,
+ 				adev->gmc.real_vram_size - adev->mman.discovery_tmr_size,
+ 				adev->mman.discovery_tmr_size,
+-				AMDGPU_GEM_DOMAIN_VRAM,
+ 				&adev->mman.discovery_memory,
+ 				NULL);
+ 	if (ret) {
+@@ -1823,21 +1819,18 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 	 * avoid display artifacts while transitioning between pre-OS
+ 	 * and driver.  */
+ 	r = amdgpu_bo_create_kernel_at(adev, 0, adev->mman.stolen_vga_size,
+-				       AMDGPU_GEM_DOMAIN_VRAM,
+ 				       &adev->mman.stolen_vga_memory,
+ 				       NULL);
+ 	if (r)
+ 		return r;
+ 	r = amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_vga_size,
+ 				       adev->mman.stolen_extended_size,
+-				       AMDGPU_GEM_DOMAIN_VRAM,
+ 				       &adev->mman.stolen_extended_memory,
+ 				       NULL);
+ 	if (r)
+ 		return r;
+ 	r = amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_reserved_offset,
+ 				       adev->mman.stolen_reserved_size,
+-				       AMDGPU_GEM_DOMAIN_VRAM,
+ 				       &adev->mman.stolen_reserved_memory,
+ 				       NULL);
+ 	if (r)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 15544f262ec15b..2994b9db196ffd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -395,7 +395,6 @@ static void amdgpu_virt_ras_reserve_bps(struct amdgpu_device *adev)
+ 		 */
+ 		if (amdgpu_bo_create_kernel_at(adev, bp << AMDGPU_GPU_PAGE_SHIFT,
+ 					       AMDGPU_GPU_PAGE_SIZE,
+-					       AMDGPU_GEM_DOMAIN_VRAM,
+ 					       &bo, NULL))
+ 			DRM_DEBUG("RAS WARN: reserve vram for retired page %llx fail\n", bp);
+ 
 
-A driver is always allowed to choose a bpc lower than max_bpc, so it
-very well should do so when necessary due to *known* hardware etc.
-limitations.
+base-commit: 84abaa3a855571ebd4e57a7249b867a2fa3763da
+-- 
+2.39.0
 
-So things like mode validation cannot just look at a single max or min
-bpc, but it needs to figure out if there is any usable bpc value that
-makes the mode work.
-
-The max_bpc knob exists only for the cases where the sink undetectably
-malfunctions unless the bpc is artificially limited more than seems
-necessary. That malfunction requires a human to detect, and reconfigure
-their system as we don't have a quirk database for this I think.
-
-The question of userspace wanting a specific bpc is a different matter
-and an unsolved one. It also ties to userspace wanting to use the
-current mode to avoid a mode switch between e.g. hand-off from firmware
-boot splash to proper userspace. That's also unsolved AFAIK.
-
-OTOH, we have the discussion that concluded as
-https://gitlab.freedesktop.org/wayland/weston/-/issues/612#note_1359898
-which really puts userspace in charge of max_bpc, so the driver-chosen
-default value does not have much impact as long as it makes the
-firmware-chosen video mode to continue, as requested in
-https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/995
-given that userspace cannot know what the actual bpc currently is nor
-set the exact bpc to keep it the same.
-
-
-Thanks,
-pq
-
---Sig_/XXRmJDE0L.gkhAtwppp4yLO
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmOZkOgACgkQI1/ltBGq
-qqfH7Q//TVzfxBlcj2GhxbPlLOxC5I2y03D2UkWZdGwJ5I06LBwByYWG7iPDo608
-e5wUK5dtUmvAYQVR5e2TmtJLLAGKyrMUd/3prA+ADgljvCgYisAuUHwVR0moxSef
-2QAGED0ug64EgQ9rf5SE9FCHkZnWP7EJt/K3OQLXFqc9epeejKn5OEALQheas3os
-dtg/eRN3bsHgpKF2j7XSSc4fuMsLlUPybiCMPEg3mPqmipya1JNK74DK6sIJlDZH
-cekJZP+fS8RoehZU9IEoZNQpeLjfdvC27MRag/GASJkqzi06dJrzBJ0wV44Kqu2w
-tPAx0VDf9xn2rvyxr9jAR48cpcmuuLLYrCZxNor3pJcAUsawD9iKdyQiTttO86SF
-fMbGJUtm0bov3zCqAE+1YMojIKIPwkCdzh0b2T/djhEe1yPtmudkx+TEhISMzvZY
-nf4rv8r5Ug25HUwoS92UfMDmMV/qqXsA3JNJacwwAL5jcC5wOm0SgDug2tJ3vKuc
-Wpu8EvGHY7gPupXUl/vmFRVcDx1tJwvsaKSYpZmjAkzaG+kTi41fZTBIa4DPCdsD
-HeiXcj5lhXZqom3715QuE8J6u956jbN4e5ycPUlcAQ5X5Y4SVIxY+ET51P5C4aXE
-/U8kLzHTDkh8wITJj5akzvFruWVgBSjhtnRwE1SvAbwsgerKIIg=
-=1C7k
------END PGP SIGNATURE-----
-
---Sig_/XXRmJDE0L.gkhAtwppp4yLO--
