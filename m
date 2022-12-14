@@ -4,62 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A076C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Dec 2022 19:38:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E282EC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Dec 2022 20:21:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFE7210E45C;
-	Wed, 14 Dec 2022 19:38:11 +0000 (UTC)
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA6610E45C;
- Wed, 14 Dec 2022 19:38:08 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-1433ef3b61fso17980302fac.10; 
- Wed, 14 Dec 2022 11:38:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VsgpUu524THLa4pjgkZ1KxwG+fWN6a7YV9owx/i+9+s=;
- b=AlqSWOqYKJPZvFPYre8csHfLNt0SMEFSX7e+P0eg3OffNY/tqIGTKFjTewkkebrZCb
- Bm/eGBlRs+07IBTzPykTJ63RgHp54AIInV2Yl/+dqAni63iuQidRBhR9EmiFpKlqhZvD
- vdz2s/orTf2wljYAZZO6V9I2rieh/YDf5NVYNuEJTgPrOHcOuR95AWpLTGlyzt6pTO/K
- /jB6zkzEXnHkzp5QfPQ7McIJ5AE7xAlyyrn3ZN9I/XCPsiWnpX8A/5M89KzgSsSlwsZ/
- BwayPUT2p0g7H8jkipFt7zYqN+fweh7WVxtZWhjc937hQqDFJModpKqMIIdUpNwKnOsL
- Qtsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VsgpUu524THLa4pjgkZ1KxwG+fWN6a7YV9owx/i+9+s=;
- b=mWnhy7bqm/S6UAF+yCPCm7UtDkz91MRwSVYXNX+QE/TJ5iddYSD1NXWptgf6/IerSF
- tWqkc6nKLLrtUBjL1gR6W/hQoPhw8e6nlpJoLvWf0p2ZC5LowKjwYvIdwkQ0QJgZI5qd
- XNZc+F66LRph61pytIjtjzO+Fq91TXv7AaslHEaf/amHJwkHm5+AwR36K1yQHiLVxPH4
- 2h05yAe8/J4PXL4PPqL2Ihp9E1163jMtTa5GdfLNTGNEooLJzRGRa6SFZ3RH6L6nTiDF
- IGGHdL9TZPzsZsmbwABY2ZLUlWM526qCpUj9qCeUQAIARi6ac/j6MSSex4k/mB48md49
- lRpQ==
-X-Gm-Message-State: AFqh2kqaQq1Lm0S7Jb7KmyBZf1PJaQ2vD1GjbledugnVVG3qmaLAkU8N
- 6XbxSs2xo4jCYSKbldpxInJY8BJwTFeNvQYPhn6VL/wZ8aU=
-X-Google-Smtp-Source: AA0mqf4MwA81CIhaLht+F3aNY4XUeXkh0xYSjWk1ugIXjfupxe+evY6LzblXWU/2eb7CsuZJJekpvOwMFwP8Z3Y643o=
-X-Received: by 2002:a05:6870:41cd:b0:148:3c8f:15ab with SMTP id
- z13-20020a05687041cd00b001483c8f15abmr443340oac.46.1671046687186; Wed, 14 Dec
- 2022 11:38:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3027810E050;
+	Wed, 14 Dec 2022 20:21:52 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2052.outbound.protection.outlook.com [40.107.93.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 491AD10E050
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Dec 2022 20:21:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HyUhi493MLqqaiGX3yraz7Iore9b4O67+KV8Sgj+tSFYNboGs3l8rokuFXjxC5o0hqUB8tF0fU86ro8/uPnh5DiB4QrZSbNUheEqHX8L8f/XhqCPeiA3htR4vvHT7+FgLMRSyyOIP9M8JaOUa3q6sDknBYpZyzlqnXb0nZbCEo6S1Nirgq8/hv+lhRBjuQISjlr9uhdsBuUQ0fBxwBj5PZAwxbNsh3D7MiwsadQPm0TVfQ2PVXpj9BZmxH3ae++yCI08IaXo0b7Wcq5hz//JpyT2F03vfU7bq+TPhNPEjXzxN1dz4n4CnD3gR8EM3AhLCMjpQllixKxUawLFN0BGYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Zzr5cSeDsNd+EQsEFBvXeDxEEJMqSjWZfcKKuebsdgU=;
+ b=Mb2+azmtxeH0cWOPWCUkeOTK9kfTpL2ypfyH5eBVqVOB6XBnZUBaf/vjhbyJ15RqhORDDA+pkRLEqNzKkOVQ2HqtJOCzLmWbD+R5BW0x9Rvb9BrUWlO03BUyTHpbZkdUc3BLGvcq3lWvC399d66Kxt9RUw25xZpbybmqkrH7UfFeaR4Eok/PZ/1IyacBO+faMbUOBEbPySLrylxQj90Vcybu6sTwW3Gd7mqvhSVFe+fh771jCZ8xMJmNv/izWMXUeznUrxAsY4bHKkbO8y+6tU7uhBFfUKXqCcXUEwJu7Acu8f+GhMRprK5wb3MY6V2PyTyvJtsib/LG+QoHFl/qYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zzr5cSeDsNd+EQsEFBvXeDxEEJMqSjWZfcKKuebsdgU=;
+ b=VxewhgBfFt6Jx6rvmbLsyDiwn/yRlNje08PSsu+cmmI5WGi8LFEWiBv8PO5MopCKwTDADZ0WrCLZjjqjI81xv/BfUbPbRQqhftAviIXj+Zt4tKarZ9qvfx7UO3qKhpk4rLZw6XkSAqqRdiBWvcQ7SlNOYtf/+SDJdhvsZ3rW3CY=
+Received: from MW4PR03CA0184.namprd03.prod.outlook.com (2603:10b6:303:b8::9)
+ by CY8PR12MB7633.namprd12.prod.outlook.com (2603:10b6:930:9c::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Wed, 14 Dec
+ 2022 20:21:44 +0000
+Received: from CO1NAM11FT030.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b8:cafe::59) by MW4PR03CA0184.outlook.office365.com
+ (2603:10b6:303:b8::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.11 via Frontend
+ Transport; Wed, 14 Dec 2022 20:21:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT030.mail.protection.outlook.com (10.13.174.125) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5924.11 via Frontend Transport; Wed, 14 Dec 2022 20:21:44 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 14 Dec
+ 2022 14:21:43 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 14 Dec
+ 2022 12:21:42 -0800
+Received: from aaurabin-elitedesk-arch.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Wed, 14 Dec 2022 14:21:42 -0600
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 00/18] DC Patches for Dec 19, 2022
+Date: Wed, 14 Dec 2022 15:21:23 -0500
+Message-ID: <20221214202141.1721178-1-aurabindo.pillai@amd.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-References: <20221212182137.374625-1-harry.wentland@amd.com>
- <20221212182137.374625-7-harry.wentland@amd.com>
- <20221213122342.548631bf@eldfell>
- <25da5107-9bdf-abc9-adf8-98778d87dafc@amd.com>
- <20221214105556.63a9296e@eldfell>
-In-Reply-To: <20221214105556.63a9296e@eldfell>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 14 Dec 2022 14:37:55 -0500
-Message-ID: <CADnq5_MSnsq7TKO+A4wwnYZ6Lt8gu2gA+uu_DTK3ZRUAY249tg@mail.gmail.com>
-Subject: Re: [PATCH 06/16] drm/connector: Allow drivers to pass list of
- supported colorspaces
-To: Pekka Paalanen <ppaalanen@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT030:EE_|CY8PR12MB7633:EE_
+X-MS-Office365-Filtering-Correlation-Id: c16010d8-8cb4-4314-1914-08dade10d192
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: kXIbLL98C/ekrmhlrkI6uZS1vIUziZ7iidwAt5iKgVBEfRbu2HDkqvEg6GndBuK56SrNR2RHu+5xVGv+7xnOl0UqMMfjsuPFdO0eJJLLvwixhaVGB6ofev59Ob1ULxhFstfD/U+W4Ij6iTNaGFudEn5XogZaSwJpPdJ38QWTAqcSNSVKc4krZxQzLkZamUYGbQTNeKSFs1dHeXM9t3bXpyUHawFyDn+tz9852mqB+RfK8XILC3HdxzpHCcMvgNNyj92UQRsBLSo8a+WjIeIcc81bw53jzjFxFdEo1zZ7V4lIr6GnVeo67b96HCQD0bZZa9Vbrn75mCrqNL16I3FagOPk3E3E4RjJQBBxskeMFd4tH74AAVqUEcz01bA2LEPjpbQH56hpL/pMn870zKs5fNNN73fzsFF3a0eiqw8BaGpDgG5EQjD0KZ1dMiXl0P0eP7oDatQnAAFA6yIMmu9XtkullwH0ZSRoaoXAtnbWQYcKRJmCeWdyDdJ3DrrPmqYGhdJZFuS9l7E41dw+OTqU5SFP+/pn/lu+f7DGCrhTa2y3K9jTk5L7AYJhgUg0wT6X/eQO5fy/PFY7KZNQINAc8hrnIcbgKRimmi74VkeH7l2tmreTRie+yt+aRjxuy/nDSqahItgV3F1pKmLOspEVBB0t3khJsQ5uo/nmDY0hctQkK8DFOK5lbrsUB5vBQsZHWiVIysJcYiLQfrQL1+EWWEUTcXet9WmfuOgjqSzQ6Dc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:CA; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(396003)(39860400002)(346002)(136003)(451199015)(40470700004)(46966006)(36840700001)(6666004)(7696005)(316002)(6916009)(54906003)(478600001)(336012)(2906002)(47076005)(70586007)(186003)(70206006)(4326008)(1076003)(8676002)(41300700001)(2616005)(426003)(83380400001)(5660300002)(44832011)(8936002)(40480700001)(82310400005)(36860700001)(26005)(86362001)(82740400003)(36756003)(40460700003)(81166007)(356005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2022 20:21:44.1639 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c16010d8-8cb4-4314-1914-08dade10d192
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT030.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7633
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,134 +101,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Uma Shankar <uma.shankar@intel.com>, dri-devel@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Joshua Ashton <joshua@froggi.es>,
- Vitaly.Prosyak@amd.com
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 14, 2022 at 3:56 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
->
-> On Tue, 13 Dec 2022 11:32:01 -0500
-> Harry Wentland <harry.wentland@amd.com> wrote:
->
-> > On 12/13/22 05:23, Pekka Paalanen wrote:
-> > > On Mon, 12 Dec 2022 13:21:27 -0500
-> > > Harry Wentland <harry.wentland@amd.com> wrote:
-> > >
-> > >> Drivers might not support all colorspaces defined in
-> > >> dp_colorspaces and hdmi_colorspaces. This results in
-> > >> undefined behavior when userspace is setting an
-> > >> unsupported colorspace.
-> > >>
-> > >> Allow drivers to pass the list of supported colorspaces
-> > >> when creating the colorspace property.
-> > >
-> > > Hi Harry,
-> > >
-> > > what is there for drivers to support? Isn't this just infoframe data
-> > > that shall be sent down to the sink as-is with no other effect?
-> > >
-> >
-> > You have a good point.
-> >
-> > Right now the supported colorspaces de-facto depend on driver implement=
-ations
-> > as you can see in [1] for i915 and [2] for amdgpu. The amdgpu driver wi=
-ll
-> > also program the MSA [3] for DP connections, and a bunch of other thing=
-s which
-> > are deeper in the driver.
-> >
-> > [1] https://gitlab.freedesktop.org/hwentland/linux/-/blob/hdr-colorimet=
-ry/drivers/gpu/drm/i915/display/intel_dp.c#L1741
-> > [2] https://gitlab.freedesktop.org/hwentland/linux/-/blob/hdr-colorimet=
-ry/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L5155
-> > [3] https://gitlab.freedesktop.org/hwentland/linux/-/blob/hdr-colorimet=
-ry/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c#L368
-> >
-> > I don't know why the DP VSC stuff needs to be in drivers. It should be
-> > common. The MSA packing would likely have to be driver specific since t=
-he
-> > mechanism of packing it is HW specific.
->
-> What's MSA?
+This DC patchset brings improvements in multiple areas. In summary, we have:
 
-I think it's Main Stream Attribute data.  Part of DP.  See slide 31 of
-this document:
-https://www.vesa.org/wp-content/uploads/2011/01/ICCE-Presentation-on-VESA-D=
-isplayPort.pdf
+* Fixes for various features like SubVP, ABM, HDCP, Secure display
+* Fix a stability issue when running IGT test suite
+* Improvements for eDP panels
 
-Alex
+-----
 
->
-> I don't see it in
-> https://www.kernel.org/doc/html/latest/gpu/amdgpu/display/dc-glossary.htm=
-l
-> or anywhere under Documentation/gpu or in CTA-861-H.
->
-> > I'll have a closer look and see if we can eliminate the "driver support=
-ed"
-> > bit. If we can't we'll probably need to describe the reasoning better.
->
-> That would be nice, thanks!
->
-> > Will it be a problem if the list of supported colorspaces differs betwe=
-en
-> > drivers?
->
-> I do not think so. It's just normal KMS UAPI that one must always
-> inspect an enumeration to see what values are possible. Userspace
-> cannot use a header with pre-defined numerical values, they always need
-> to be introspected first like everything else about KMS properties.
->
-> I know there were some opinions about hard-coding enum numerical values
-> in headers, but I think in the end everyone agreed to the introspection
-> even if it didn't seem useful at the time.
->
-> Besides, if a driver never supported a given value but misbehaved or
-> refused, I don't think that counts as a kernel regression?
->
->
-> Thanks,
-> pq
->
-> >
-> > Harry
-> >
-> > > Is the driver confusing colorimetry with color-representation (the
-> > > RGB-YCbCr conversion)? Or is this property defining both?
-> > >
-> > > I feel that the documentation of "Colorspace" KMS connector property
-> > > needs clarification, and a list of potentially available values with
-> > > explanations, more than just a reference to CTA-816-H which it does n=
-ot
-> > > even do yet.
-> > >
-> > > Perhaps a table, where for each enum drm_colorspace entry has a row e=
-xplaining:
-> > >
-> > >
-> > > Thanks,
-> > > pq
-> > >
-> > >
-> > >> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> > >> Cc: Pekka Paalanen <ppaalanen@gmail.com>
-> > >> Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> > >> Cc: Vitaly.Prosyak@amd.com
-> > >> Cc: Uma Shankar <uma.shankar@intel.com>
-> > >> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> > >> Cc: Joshua Ashton <joshua@froggi.es>
-> > >> Cc: dri-devel@lists.freedesktop.org
-> > >> Cc: amd-gfx@lists.freedesktop.org
-> > >> ---
-> > >>  drivers/gpu/drm/drm_connector.c               | 140 +++++++++------=
----
-> > >>  .../gpu/drm/i915/display/intel_connector.c    |   4 +-
-> > >>  drivers/gpu/drm/vc4/vc4_hdmi.c                |   2 +-
-> > >>  include/drm/drm_connector.h                   |   8 +-
-> > >>  4 files changed, 83 insertions(+), 71 deletions(-)
-> > >>
+Alan Liu (1):
+  drm/amd/display: Improvements in secure display
+
+Alex Hung (1):
+  drm/amd/display: Use mdelay to avoid crashes
+
+Aric Cyr (2):
+  drm/amd/display: Reorder dc_state fields to optimize clearing the
+    struct
+  drm/amd/display: 3.2.217
+
+Aurabindo Pillai (1):
+  drm/amd/display: set ignore msa parameter only if freesync is enabled
+
+Dmytro Laktyushkin (1):
+  drm/amd/display: fix dc_get_edp_link_panel_inst to only consider links
+    with panels
+
+Lee, Alvin (1):
+  drm/amd/display: Turn on phantom OTG before disabling phantom pipe
+
+Leo Chen (1):
+  drm/amd/display: Adding braces to prepare for future changes to
+    behavior of if block
+
+Leon Huang (2):
+  drm/amd/display: Refactor ABM code flow
+  drm/amd/display: Fix crash when setting ABM pipe/backlight
+
+Nicholas Kazlauskas (1):
+  drm/amd/display: Defer DIG FIFO disable after VID stream enable
+
+Samson Tam (1):
+  drm/amd/display: Uninitialized variables causing 4k60 UCLK to stay at
+    DPM1 and not DPM0
+
+Swapnil Patel (1):
+  drm/amd/display: patch cases with unknown plane state to prevent
+    warning
+
+Wenjing Liu (3):
+  drm/amd/display: move dccg programming from link hwss hpo dp to hwss
+  drm/amd/display: update pixel rate div in enable stream
+  drm/amd/display: allow hpo and dio encoder switching during dp retrain
+    test
+
+hersen wu (2):
+  drm/amd/display: save restore hdcp state when display is unplugged
+    from mst hub
+  drm/amd/display: phase3 mst hdcp for multiple displays
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 219 ++++++++++++---
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |   6 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.h    |  14 +
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  26 ++
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  61 ++---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |   3 -
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  |  64 ++---
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  39 +++
+ drivers/gpu/drm/amd/display/dc/dc.h           |   6 +-
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |  15 +-
+ drivers/gpu/drm/amd/display/dc/dce/Makefile   |   3 +-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c | 249 +++++++----------
+ .../gpu/drm/amd/display/dc/dce/dmub_abm_lcd.c | 259 ++++++++++++++++++
+ .../gpu/drm/amd/display/dc/dce/dmub_abm_lcd.h |  45 +++
+ .../display/dc/dce110/dce110_hw_sequencer.c   |  15 +-
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  86 ++++++
+ .../drm/amd/display/dc/dcn21/dcn21_hwseq.c    |  69 +++--
+ .../amd/display/dc/dcn301/dcn301_resource.c   |   3 +-
+ .../dc/dcn314/dcn314_dio_stream_encoder.c     |   6 +-
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |  36 +++
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.h    |   2 +
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |   1 +
+ .../dc/dml/dcn32/display_mode_vba_util_32.c   |   6 +-
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  18 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/abm.h   |   6 +
+ .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |   1 +
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |   9 +
+ .../amd/display/dc/link/link_hwss_hpo_dp.c    |  37 ---
+ 28 files changed, 946 insertions(+), 358 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dce/dmub_abm_lcd.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dce/dmub_abm_lcd.h
+
+-- 
+2.39.0
+
