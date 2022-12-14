@@ -4,119 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93707C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Dec 2022 07:12:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11EF5C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Dec 2022 08:56:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC64810E21C;
-	Wed, 14 Dec 2022 07:12:47 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2065.outbound.protection.outlook.com [40.107.223.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3FF310E21C
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Dec 2022 07:12:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KBUtexNTBtPgoxnnWmU9oaONKynedz3Ai2UPQX0KF/tmoo9vW+U8pYp+AQ2xo6hVrrjLoxrWNDazdOn97cJnJJahD3Kgi0VMDaZ8C6ajtHNWHPK1fSetTtOhOLWwqEaPUoO2B2HRHegLKaK6wxbHV9HxqghJvdC1ajHl8cs0OH4ibzvZaeSW741jUpjShxrhbMeCK66OU1yQRQvfDk6EjgBPg58g4e/Js7VsN9R2lVBxtb1pPfX6ddtof64Zcw30N9o0LiTqyeD8w6L3+qB2oxm5cHmPH4AVEHarroPnv9ehbw86vwqvR5wfwnPw8AkruVzID4qRMeMqT19OwZVC1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oxwjQwWOvc86WPxceCtKNUfD/8/wHD20hVQ5Vvtv9XI=;
- b=XrSxadHO5574n/GfqqSJyEpZX1979xAFLPvTPA/8WAxkrOIXa69EYD3Pz3ADWuGAJvn4DQ38RxhCeyWZyg0S99fOWx4Sng+9+iReIRZxMuLSb8ykAQmUApCnyVXVfss5QTlBxS9hrso66tzluCRHzfzlCY1IDuvE2bI+0h3r+VKxfvUiHKb84WJ5i88zX1N/MowYHIZk9T9kXMFLCJJ5lP1v0amZfGXew+fUi8exLG0mJQ+OINXPumJd/dT8dUONGHVRMUUnNXNOIkVy1kDgI5LG7YWJgpI7ipk0JJoiEd+BZr9Nyorh2y9M0zHAbhWFJ7mFlBeOUOUfx3VnjyVSXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oxwjQwWOvc86WPxceCtKNUfD/8/wHD20hVQ5Vvtv9XI=;
- b=jyFnr2b3jXj07iADPPXpSPQLUHu5sdN6MxZly+Nn1zVUivU8Fmr2ZLOrb+Tyr4OsMb/qAO4ob1OwXdGsnk0bES4zRuIx3SqcQPRgVswwuHLG/rYh+7Gd9AL0CfWPInCcJkuxrBPgRNQSGzxPduszaJw+ey/pbII6S0JDGToFAYs=
-Received: from CY5PR12MB6369.namprd12.prod.outlook.com (2603:10b6:930:21::10)
- by BL1PR12MB5754.namprd12.prod.outlook.com (2603:10b6:208:391::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Wed, 14 Dec
- 2022 07:12:40 +0000
-Received: from CY5PR12MB6369.namprd12.prod.outlook.com
- ([fe80::4f83:ee28:88d3:e58f]) by CY5PR12MB6369.namprd12.prod.outlook.com
- ([fe80::4f83:ee28:88d3:e58f%7]) with mapi id 15.20.5924.011; Wed, 14 Dec 2022
- 07:12:30 +0000
-From: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/display: fix the crtc array out of bound issue.
-Thread-Topic: [PATCH] drm/amd/display: fix the crtc array out of bound issue.
-Thread-Index: AQHZDib1PBU9i6JGVEO4/QNTo47vr65s9s7A
-Date: Wed, 14 Dec 2022 07:12:30 +0000
-Message-ID: <CY5PR12MB63694EF4C3CE03DBA36D8CE8C1E09@CY5PR12MB6369.namprd12.prod.outlook.com>
-References: <20221212124027.4113533-1-yifan1.zhang@amd.com>
-In-Reply-To: <20221212124027.4113533-1-yifan1.zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-12-14T07:12:27Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=3c791bb2-d465-4e1c-be4f-c731d61d13e6;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2022-12-14T07:12:27Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: d1c422b4-05fb-4b85-bd9c-cd47c8a1e226
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6369:EE_|BL1PR12MB5754:EE_
-x-ms-office365-filtering-correlation-id: ec5933d3-f559-4e76-6e31-08dadda29082
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: S0BKzUCaiWHTbqWzX4TV3Q/nWQ2dsPx03A6d+WUviz2prw9DpvziQLitfr9BFLnrfenwU+okGzR6lYWbW5LhukYY0vX/MEOUA2Xx3NwvB2VR4WwYfBJCTSMkcoDuCHFHU7DGWr3K64BrOIJxf8EIMy7sB7am6P9CTIGQFhXFIXa6DJTfq/1tkGEJlTzOYsJzxuxTNTmjhGmPBSw1ndUp/AxIN0r21wjdbrDrRv/C7ub+AL2E98aEPksh7khAR8+kpkYwBMPAA1AP4KvzPpzlk8aWsGkpOLwSWyrVaXTyHc8aIc7PkD7lO68MPkHp1kkv5CSJvThWMWmXWPzYoSOhJ8BmL/m6QAHhN8OGaL+khcnTIvDEI3vTS4p1AYaPF2lPi0Q5bfsiPPe7UZQV6ljtn8ct0QKomdj3c8Lzso4iJdVe8LLD0vB1rf/wzy4E9Ihzg4oCAgwqlINBvo0LT65bEkXEjI0sKjwoculanzdkv2+zVrdRZUyV2CkWySYUJusDU7B2Kc29/WjzFPt+PK8rQRoO4l+cxu5Jda8lN1oUdBVJ92W3Frc4ArvZdJgu+zrHIbdqa6DHGBE6FXhWCBsaM3GA28Dl+hFFV0MLwcH1Tf0A5cqV22WiVg9c4fFa63B3d85U1+TxVGVbk4L2wqLE6l3Rh0PivTrBHlI0We5afcmk8lSOPoiz5CW451lpa+8cJPPOCGci8fryi2hrzVA25A==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6369.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(396003)(366004)(376002)(136003)(39860400002)(451199015)(76116006)(66446008)(66946007)(122000001)(8936002)(52536014)(66476007)(66556008)(64756008)(4326008)(41300700001)(8676002)(2906002)(316002)(6916009)(55016003)(5660300002)(54906003)(83380400001)(26005)(38100700002)(38070700005)(33656002)(71200400001)(186003)(86362001)(478600001)(53546011)(9686003)(7696005)(6506007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DDbeT1OAezBRpiz4qbJd0Dt/bU8wusRU1XPre2YJfaPCab6TJyjgWj1oSmCB?=
- =?us-ascii?Q?PTNI8s5p26DTG18Y65hqsv3+jpQrNzQcb6wQ5b5poHwmNoGj23U+52t2xeUQ?=
- =?us-ascii?Q?0lyCMIEnmqFcNdM6l4cSDqEUNJEVoZvtVFcTru1iuC3cxLYGuVIQieSRBxB9?=
- =?us-ascii?Q?2Mk9HUeUdpXlVmP3YXfTAX7y+Bgfu8twGFACBA7IoDh1rrl288BTCoLbOqcp?=
- =?us-ascii?Q?8NtcEaRhof9pubaK0E3n9sKM8e56jAwbp2UuaZ0trO38//ieI9syQCdyEADD?=
- =?us-ascii?Q?2FN0NGnnSvjRGD3JSOs2ahJg37DbmlzKO8PXvxL2VK6H5DkXrmKKT1KmSbbv?=
- =?us-ascii?Q?iA3jLMuUH56MkG34Rmx4L1xYp4ZEhb5YK94vt/jNOSgGfniSLkOp9Rm7OBlw?=
- =?us-ascii?Q?8dDIiEYAYWb69BYdWUCxPNWV1ZAAp3AJLg8q/Gq1+1T+Js9lt9A0JWViSojK?=
- =?us-ascii?Q?T3RcAlIP0vehyX09NSKBBeLEf1bRK92zuIQUdIsBdsmwlh70qM9C9oV687nH?=
- =?us-ascii?Q?2P7sw+4BwMuiVsBDScaJYlj4fawkyVYXt/9/uhRStRE8dvgJC5fKoO4khDHS?=
- =?us-ascii?Q?xEtno0COWFyUu/a6hqtINKJRib7M4M/TpZmza37AhXH4uEiDRxbE/o6v8k8j?=
- =?us-ascii?Q?7v4AToM3ZT1KSK8Uo29ZSIQwI9A7T3gD6GrLLewx2mOyWXwGnXAFrooNMHWU?=
- =?us-ascii?Q?BnVO98SCmOHlyqNPEGNR3leB6azenXpD9jEwZ69cRVAKP6cYgFagRoh+khug?=
- =?us-ascii?Q?b7KZr9r10lXG0Mwc1lvy7PSU3/gf+QKGYT/r8cqPNhSeiyggX3yn1ubksW9U?=
- =?us-ascii?Q?MPPGGrrkJx4v49wjEqSyt2ZRBL+nirqWQ0SgYmoEbVduvMAwP0Lah8oq/YY2?=
- =?us-ascii?Q?uOT2vs66yjeSbzMgwl5JduyfcppXbpX33j4d+MWC3xIjRQcWaoWLtzuaZyJG?=
- =?us-ascii?Q?jgXOEg8vOZ1LyAW71Rf4U6+JcD55NbfvsYrPd3pxjwD1iG/CY/WoLX8KkRfZ?=
- =?us-ascii?Q?roPpkQY0bCKkOnHdX54rnmUjStmXr1LUpW0sDHOzHMh/aXYA32r5fipFq8YO?=
- =?us-ascii?Q?p6LSjYnMi4M54YKkmqzzRpuCOHzTr6e8xyWCUNHFp8m+WJAe5CjRL73483XV?=
- =?us-ascii?Q?hqpDMkEaKv5k2ZlDbmbyvNLWlxdAD8OrbZlFq0EbhK2qpH/fa7Uol5Q3s1o3?=
- =?us-ascii?Q?xYxVs6Wdm09z44AiwYrAb8uhrYOD5VTZKbrq4juRkT6yxxsUZM8H9LSZVYzv?=
- =?us-ascii?Q?82wzrjXopDH9t8gGyjJEK7Ok2lUrt9PF7XrfAlyrwKkIaJHK+Eto/QmRpk/t?=
- =?us-ascii?Q?RnxDM6EO2FD+qfDde8wSrqH37L/+a8d/wjTO1DmTsJsy8V6p76NE/jX15IkS?=
- =?us-ascii?Q?7c0vfdS1SIX+rWLWsZxyXS3v2H+KVxN8xC6QBwatkti5ksvTim+Hm/5JdB/O?=
- =?us-ascii?Q?0dqyEwWhfPtrfHLmtuCCcTt+sk7uZKRD73QghybX4nEURQqF6ueAltQwN7+g?=
- =?us-ascii?Q?YDERng9DPOD8Cswft8ZaWF/zqn4naw1rLa0nTQXkoph/LIqIttxz+9A3JhWU?=
- =?us-ascii?Q?fWskVE1QJCFfUeMUXqo=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id D817C89EAC;
+	Wed, 14 Dec 2022 08:56:06 +0000 (UTC)
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D609E89EAC;
+ Wed, 14 Dec 2022 08:56:01 +0000 (UTC)
+Received: by mail-lj1-x241.google.com with SMTP id z4so5977528ljq.6;
+ Wed, 14 Dec 2022 00:56:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=jEkf8aHujPThgFhfHhjsPQUbLPyAxaZBtHCvt+qqZHE=;
+ b=JxZVVPD2kA+0ZOb4wIghIP6/6Jd2H4d5YTk+MijO0y/YGB9SzMoVjxX8WLBTEqCWBE
+ exMWL06cMTzYyHdlRM7PvX+MWID5i37IG/0E2hwFWjv2+K/61u8naE2UzLQ5ilcZSwIH
+ +gaZiElz3QTPiYHw17PKjiGsxeZkdnZBmPn/W+mdC5oDotcqce6H4BkIHR7wuTwgIy9o
+ PbNRGzJtQM5RG4s71Y4fislkefSiaYaXC9edPo+03Cu8k/3ymmHO5Rdk7YAhgEoQf5B9
+ JSTMQExTNFGzUNMOrXbScu3TWsUC8sNM60lh+ljYriESx3jqzk20E7hl9g33FDCF179a
+ K98A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=jEkf8aHujPThgFhfHhjsPQUbLPyAxaZBtHCvt+qqZHE=;
+ b=z/aBbi2m39KPz9mbFmWVAKsHobSgSZgZZ4YNKgiR6Kawl9+roclF1xKBMzE553asaA
+ 9kWRJ4pWQWfjVrj7Gx5hwn+viQUcV6cR3whz4bspN3Abc1Idjj/wMX9chXChPoQotXow
+ FXIbio249oMQKHtG7Fl+1EDdGtFsl0z3LU+ulM1AVg+u0L4le3ezgoEXkI0FAE6zDEuz
+ mSjOogwRp1JkBBXGQcIwdLE1OAgyrzMdm4WCuKZyRsiLNxdimCOXDnqlmQbTL6iUzq4g
+ PudPjPdup3OiySDAtB/PJb2BPbAMNOtjS+uY226sCw8SJYL/syKeT+Ibn/fw32Miqxzi
+ HvZA==
+X-Gm-Message-State: ANoB5pnneBAA/GOjQUB05XVZqjgDuqQu2MUyAsMaFO6e2m3Ixbw3ajrh
+ sSv64Tk6Oq8MnEv5NJoB4a0=
+X-Google-Smtp-Source: AA0mqf5uDNliBDiBHv4lIGGGafUO+NLN/WjP1XrzcHUSpmeu+zje40nKOwcqJNbipZEycDHXfBzWCA==
+X-Received: by 2002:a2e:be1f:0:b0:26f:db35:7e42 with SMTP id
+ z31-20020a2ebe1f000000b0026fdb357e42mr7585549ljq.17.1671008160104; 
+ Wed, 14 Dec 2022 00:56:00 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ q23-20020a2e9697000000b0026bf0d71b1esm541585lji.93.2022.12.14.00.55.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Dec 2022 00:55:59 -0800 (PST)
+Date: Wed, 14 Dec 2022 10:55:56 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH 06/16] drm/connector: Allow drivers to pass list of
+ supported colorspaces
+Message-ID: <20221214105556.63a9296e@eldfell>
+In-Reply-To: <25da5107-9bdf-abc9-adf8-98778d87dafc@amd.com>
+References: <20221212182137.374625-1-harry.wentland@amd.com>
+ <20221212182137.374625-7-harry.wentland@amd.com>
+ <20221213122342.548631bf@eldfell>
+ <25da5107-9bdf-abc9-adf8-98778d87dafc@amd.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6369.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec5933d3-f559-4e76-6e31-08dadda29082
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Dec 2022 07:12:30.4629 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BVkaqqSHCR5TnjhKTGHL40tuXNIjBBqRVVNxVeFq4Cowfl2OODHdjzu7UU3UHlf5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5754
+Content-Type: multipart/signed; boundary="Sig_/OOUJNJZSbRzwizT4zIw54Mn";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,69 +72,144 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liu, HaoPing \(Alan\)" <HaoPing.Liu@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
+ Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
+ Joshua Ashton <joshua@froggi.es>,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+--Sig_/OOUJNJZSbRzwizT4zIw54Mn
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Ping
+On Tue, 13 Dec 2022 11:32:01 -0500
+Harry Wentland <harry.wentland@amd.com> wrote:
 
-Best Regards,
-Yifan
+> On 12/13/22 05:23, Pekka Paalanen wrote:
+> > On Mon, 12 Dec 2022 13:21:27 -0500
+> > Harry Wentland <harry.wentland@amd.com> wrote:
+> >  =20
+> >> Drivers might not support all colorspaces defined in
+> >> dp_colorspaces and hdmi_colorspaces. This results in
+> >> undefined behavior when userspace is setting an
+> >> unsupported colorspace.
+> >>
+> >> Allow drivers to pass the list of supported colorspaces
+> >> when creating the colorspace property. =20
+> >=20
+> > Hi Harry,
+> >=20
+> > what is there for drivers to support? Isn't this just infoframe data
+> > that shall be sent down to the sink as-is with no other effect?
+> >  =20
+>=20
+> You have a good point.
+>=20
+> Right now the supported colorspaces de-facto depend on driver implementat=
+ions
+> as you can see in [1] for i915 and [2] for amdgpu. The amdgpu driver will
+> also program the MSA [3] for DP connections, and a bunch of other things =
+which
+> are deeper in the driver.
+>=20
+> [1] https://gitlab.freedesktop.org/hwentland/linux/-/blob/hdr-colorimetry=
+/drivers/gpu/drm/i915/display/intel_dp.c#L1741
+> [2] https://gitlab.freedesktop.org/hwentland/linux/-/blob/hdr-colorimetry=
+/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L5155
+> [3] https://gitlab.freedesktop.org/hwentland/linux/-/blob/hdr-colorimetry=
+/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c#L368
+>=20
+> I don't know why the DP VSC stuff needs to be in drivers. It should be
+> common. The MSA packing would likely have to be driver specific since the
+> mechanism of packing it is HW specific.
 
------Original Message-----
-From: Zhang, Yifan <Yifan1.Zhang@amd.com>=20
-Sent: Monday, December 12, 2022 8:40 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Liu, HaoPing (Alan) <HaoPing.=
-Liu@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>
-Subject: [PATCH] drm/amd/display: fix the crtc array out of bound issue.
+What's MSA?
 
-adev->dm.dc->caps.max_links could be larger than AMDGPU_MAX_CRTCS,
-change the iteration upper limit to AMDGPU_MAX_CRTCS to fix the issue.
+I don't see it in
+https://www.kernel.org/doc/html/latest/gpu/amdgpu/display/dc-glossary.html
+or anywhere under Documentation/gpu or in CTA-861-H.
 
-[  276.069644] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[  276.069652] UBSAN: array-index-out-of-bounds in drivers/gpu/drm/amd/amdg=
-pu/../display/amdgpu_dm/amdgpu_dm_crc.c:550:55
-[  276.069660] index 6 is out of range for type 'amdgpu_crtc *[6]'
-[  276.069665] CPU: 11 PID: 1092 Comm: modprobe Tainted: G           OE    =
- 5.19.0+ #15
+> I'll have a closer look and see if we can eliminate the "driver supported"
+> bit. If we can't we'll probably need to describe the reasoning better.
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+That would be nice, thanks!
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/driver=
-s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-index 8bf33fa4abd9..af2230797be9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-@@ -217,7 +217,7 @@ int amdgpu_dm_crtc_configure_crc_source(struct drm_crtc=
- *crtc,  #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
- 		/* Disable secure_display if it was enabled */
- 		if (!enable) {
--			for (i =3D 0; i < adev->dm.dc->caps.max_links; i++) {
-+			for (i =3D 0; i < AMDGPU_MAX_CRTCS; i++) {
- 				if (adev->dm.secure_display_ctxs[i].crtc =3D=3D crtc) {
- 					/* stop ROI update on this crtc */
- 					flush_work(&adev->dm.secure_display_ctxs[i].notify_ta_work);
-@@ -543,7 +543,7 @@ amdgpu_dm_crtc_secure_display_create_contexts(struct am=
-dgpu_device *adev)
- 	if (!secure_display_ctxs)
- 		return NULL;
-=20
--	for (i =3D 0; i < adev->dm.dc->caps.max_links; i++) {
-+	for (i =3D 0; i < AMDGPU_MAX_CRTCS; i++) {
- 		INIT_WORK(&secure_display_ctxs[i].forward_roi_work, amdgpu_dm_forward_cr=
-c_window);
- 		INIT_WORK(&secure_display_ctxs[i].notify_ta_work, amdgpu_dm_crtc_notify_=
-ta_to_read);
- 		secure_display_ctxs[i].crtc =3D &adev->mode_info.crtcs[i]->base;
---
-2.37.3
+> Will it be a problem if the list of supported colorspaces differs between
+> drivers?
+
+I do not think so. It's just normal KMS UAPI that one must always
+inspect an enumeration to see what values are possible. Userspace
+cannot use a header with pre-defined numerical values, they always need
+to be introspected first like everything else about KMS properties.
+
+I know there were some opinions about hard-coding enum numerical values
+in headers, but I think in the end everyone agreed to the introspection
+even if it didn't seem useful at the time.
+
+Besides, if a driver never supported a given value but misbehaved or
+refused, I don't think that counts as a kernel regression?
+
+
+Thanks,
+pq
+
+>=20
+> Harry
+>=20
+> > Is the driver confusing colorimetry with color-representation (the
+> > RGB-YCbCr conversion)? Or is this property defining both?
+> >=20
+> > I feel that the documentation of "Colorspace" KMS connector property
+> > needs clarification, and a list of potentially available values with
+> > explanations, more than just a reference to CTA-816-H which it does not
+> > even do yet.
+> >=20
+> > Perhaps a table, where for each enum drm_colorspace entry has a row exp=
+laining:
+> >=20
+> >=20
+> > Thanks,
+> > pq
+> >=20
+> >  =20
+> >> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> >> Cc: Pekka Paalanen <ppaalanen@gmail.com>
+> >> Cc: Sebastian Wick <sebastian.wick@redhat.com>
+> >> Cc: Vitaly.Prosyak@amd.com
+> >> Cc: Uma Shankar <uma.shankar@intel.com>
+> >> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> >> Cc: Joshua Ashton <joshua@froggi.es>
+> >> Cc: dri-devel@lists.freedesktop.org
+> >> Cc: amd-gfx@lists.freedesktop.org
+> >> ---
+> >>  drivers/gpu/drm/drm_connector.c               | 140 +++++++++---------
+> >>  .../gpu/drm/i915/display/intel_connector.c    |   4 +-
+> >>  drivers/gpu/drm/vc4/vc4_hdmi.c                |   2 +-
+> >>  include/drm/drm_connector.h                   |   8 +-
+> >>  4 files changed, 83 insertions(+), 71 deletions(-)
+> >>
+
+--Sig_/OOUJNJZSbRzwizT4zIw54Mn
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmOZj5wACgkQI1/ltBGq
+qqe8hQ//f+X190eG8XTRkBcgzNabBUgyLz0s4bIr0c6YOz0S82rSTykflosNNG16
+a1BJxmEeSg5EKr3VsMBxN1ptkaeQiebcs6oaHYiXSqt4P75GRjfOZfJlbQHioRMf
+qO9JbAd6vdjGWH+YJ2a+ASbEkIJ43Qhc6PY0bLCb9xJac507kG107aeB4War4vRp
+mhJ6KtKGXeRF/j3mANCX1cxj9OkuGNpxBjWkl+6jP0mn2bmJhARA9Dq9kvIwgG22
+N0+WbxWO66oks48fBKOm6tuV2agXB2ACEe/tYJ0MPsNjexJJSzvMuW24NdRRpZWH
+bR/UOGjkt6ouIzowjablRVyrZDUR2g7XxlRuh7m74tYCsFSSDYWFLbhpSCLQ2PRn
+2+LjpWKBgV26TBPi4jn/t+RYgro7KwAxFgQysb+5Lke6ZGHmTx+k+ZKUDQAsxACT
+0n4IUyQoMtNqo+dhZsECY66NahBbBhCD39aPb3ytW24YSjny5LkTbeGpa+KhdzQo
+RdxxjFzLco+iDC/4L0foJZRMvxh63nPMUYBBGQvpg1CupdxcwsggR10CqBZ2bvHi
+RxLNMWLSCt2Vy5HC6idviSVWaIf8OsKW//q8eXjD6FNknPQMbOgzqYj/IcRkTPUG
+ubWOnJm5ct/4KNAU5q4iz1XyAS1KreM1ZXbdDcnaxuffu7bh288=
+=cz91
+-----END PGP SIGNATURE-----
+
+--Sig_/OOUJNJZSbRzwizT4zIw54Mn--
