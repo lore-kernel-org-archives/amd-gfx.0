@@ -4,90 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79E5CC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Dec 2022 15:43:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3D72C001B2
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Dec 2022 15:47:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9CC310E424;
-	Wed, 14 Dec 2022 15:43:30 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2055.outbound.protection.outlook.com [40.107.220.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3012A10E424
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Dec 2022 15:43:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QSUcjpPt4BjB7u9oXp3q8rO/osoaknp/qEw+So04jNENTIh3coBWynyIfQVBeK37ExkeyQhRU072aP8S67edmzd7e+r+xjY+FGI7wqCd3w6D6O2lQH3QT83BbJ57wMHEFNM6Qkwyi6lqLbkqbmLJKdLQeihLGrlBxkrArDgZL+v+eGMWBtSY+D2MksEayaKYmS8g9vzU7Mn1KARahGXiVZKS7xz8zu7ZBSguNiITCZnMmfd4WlvCaGZeV+t0SPx1ht4+hqn+NgHJTYGbQ2hj9V279BqRl726LdpyUnLFNUtMNnPnug4r+o5zpmSP38XVT6zdPOFmPJiBD2iUdO2gSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZfZ5qiIRPyf+J9DnsilFKGsHIUfwmh+6gl9XhGWVsD4=;
- b=mzNKWSmtUOAnQ8QLfp0MiKDY7v+RrJXrkrSim015DZqKA1WyiewiYbtkXjV7IusQ+uvtF05kN3UY3BkR9a3yVo+boAMffQvkp8eRlBPTQoC2WiB2OY9eFA9YdsoOYstNGnlNd+e8Gvf+TScjrQM2zBqNFvkVqSkWhoFJHzrFi+gCn7qOYvySj6Jz9cYC6fBt7QkoYUfPcUeoomFoBxKdTi/7rs0fremmLl55LVeggL37bDBDRAcyAdSIiQOx6GhJnS/bUuk2dAn6NlUhRmr8qtAw8s4IJcCktNrW6xlmXmMuGesLMaxGNi112N8wdmRV42Cgw5yXcyfTyahLXK/mqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZfZ5qiIRPyf+J9DnsilFKGsHIUfwmh+6gl9XhGWVsD4=;
- b=Mfim0uEaE9JAL9+/GhRt44DbuQM7qYqouc+KRkffsN51DR7L7Y9N4hcsXSqNc6nPIoEUORxrU7APzBQECrdn8EiX5kxSSP2D4UHtA1egtMta0yJVWkPtxoVneVkfaTwta/9RGcGiyXnn3grtLT7F5EsYD19RBOaIr1DnXefy7/Y=
-Received: from DM6PR10CA0004.namprd10.prod.outlook.com (2603:10b6:5:60::17) by
- DM4PR12MB6541.namprd12.prod.outlook.com (2603:10b6:8:88::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5924.11; Wed, 14 Dec 2022 15:43:26 +0000
-Received: from DM6NAM11FT025.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:60:cafe::ab) by DM6PR10CA0004.outlook.office365.com
- (2603:10b6:5:60::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19 via Frontend
- Transport; Wed, 14 Dec 2022 15:43:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT025.mail.protection.outlook.com (10.13.172.197) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5924.11 via Frontend Transport; Wed, 14 Dec 2022 15:43:26 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 14 Dec
- 2022 09:43:25 -0600
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdkfd: Fix double release compute pasid
-Date: Wed, 14 Dec 2022 10:42:49 -0500
-Message-ID: <20221214154249.2981-2-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221214154249.2981-1-Philip.Yang@amd.com>
-References: <20221214154249.2981-1-Philip.Yang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15DDC10E420;
+	Wed, 14 Dec 2022 15:47:12 +0000 (UTC)
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16C8910E420;
+ Wed, 14 Dec 2022 15:47:08 +0000 (UTC)
+Received: by mail-oi1-x234.google.com with SMTP id m204so2919656oib.6;
+ Wed, 14 Dec 2022 07:47:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=IXbXkKCg8NhDpqcHKjXQ2T0FgVAjfIuVdT7Hi979NGI=;
+ b=iB/iiBAgVmOsM0PcustLZ06esD89Ay9TwVNGb64ImCmrBF3jk+gllY7FvF6tZN/b9a
+ zi0o6nfvblkQIk24iJF6kb/TTGtVywPkcXH6oRQS7H4rS4DXRlypUIDNzgecvllcpnNW
+ nAgrk3AfKqOEFSM4w6ynp+8dcs/TRZOttTXm9Khc7I95Bds1UrogMpg+iwJYySRSGBpQ
+ CZGaw00M5K8kPIPvtJKEJ7YrlQF0VJKTdsKnwmxnqr+9UsYOlfpYvfrgB8XJy3fDkZNa
+ wsKAiVrXOxmtXCqk9HgsUZet2obD3/3UHh8rq1gZFILbIjzSMOtC1Qp+PN/s3GOn8vn7
+ sUOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=IXbXkKCg8NhDpqcHKjXQ2T0FgVAjfIuVdT7Hi979NGI=;
+ b=NcUiNev8HhuL5EMpvQ3F2FZGLnE1CFEpLUNQm00b05rw5875yPuD055FrC/ouDhGP/
+ /NKOVJFeR6fx7YDbGV6jINQIXd1wqANgjqCzvBKIl8fpFLGfSgie9+pQEqkba7RUCq9w
+ PEiFaIrVAelga+bjt6vxlKKLtK8pLCNDCh6spelXHRF4IgT5HaKgyhsHf9WZ/Oeo6NCB
+ VLLo4rSneWsJ9C0XisxiMCQA7UgpWfddFwY9Vkum/zo4SiBHO3OYHGZoffMjJ3eCO7dS
+ jJQmuqef0yqb2AViVMzqJfL1B3WnA/wRJCDnssDVohL0n/xrVTQcZuH8dPe4Nj/Q9zqI
+ ftTg==
+X-Gm-Message-State: ANoB5pnXPGaA+lJp0m9GJfcV8f+C02JqYLJokD3J2OCtJiE8sLAZnjA3
+ EIND2gDgA+x3RhP8a3zar2KLPpKyjzl158Ka5n6PoGQ4
+X-Google-Smtp-Source: AA0mqf5XgTyHQPWefyM5LdlzE+aHVXguDmcSd1SpgOiochmV3H9pfXgBB+4jvSAKTPQUeD6xPjA9AoogyMp8uKHwHtI=
+X-Received: by 2002:a05:6808:1cd:b0:35b:f5f7:3ed0 with SMTP id
+ x13-20020a05680801cd00b0035bf5f73ed0mr190876oic.46.1671032827275; Wed, 14 Dec
+ 2022 07:47:07 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT025:EE_|DM4PR12MB6541:EE_
-X-MS-Office365-Filtering-Correlation-Id: 629cb33e-dc86-4faa-63d7-08dadde9f0ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: skviqaifF9oVSlemPgWNFn9xcEsVYcLWTRyrrv4cPu2GmWWTwCP/cNkl3fzDdy8hXC9D3GX86iFDAyB9+IJR8jIJwgofk7hILsCZh+Rz+nQX3rQgNerHIEJ6zrHGogvtSGrQKDkWwNwctKmhPhwB9RSjpswc7u6FbND3XUDIVCyL2ENEvNeNwmkhFsWqxPmFd54Cv8bA1D1adIynOYp+ASsZ7wQohiWh36TQg6rX6gIjPL8KicrMFmsISm1wOevETFUuD2CuuSeSf3Chr8xhcI1fzFwxcDlRPdXuQ9YdyEYYLWU8c2BIhSCp+tztQSERWaILuJfx1erXmplSW322yd7ErCnuGzemuo8LOfjrfM6wXX4SHppX5X3Nife0lkcwm+SKy/C0uQVtatw5GMULnVCiWqdO/bZDxBithb/Nyy3gIzciMVkD8s1zOvGAHGImktnYHkVJXFdRJmmcloZf1W0txMT+vJOYwkIsHMBrTOV98CpRxUrvNAeoqmaBRIlfuwLBeFF+JfoPGSANhdZyKVHWR/ROmyoRxOYp2jmpoU5pTTrVXAUK1WfUbrPygSKQ5/4Kxa0BtVtll+nciREsIIGN+e7g/99eovbl5iA77cNPqTF7QV5ctFH1Zhjlm3kX4TWHkn7Le7fMP6P2B8sAWXejv/i41xbj67z9w84mNNqMTXSKCFGgCq9GWflaSnQQJBZMMzFVRsktJQRWGB5uSZ6nyUkwSA5W4ekL239bLqE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:CA; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(346002)(136003)(396003)(376002)(451199015)(36840700001)(40470700004)(46966006)(2616005)(1076003)(86362001)(82740400003)(83380400001)(426003)(47076005)(81166007)(356005)(2906002)(8936002)(336012)(36860700001)(40460700003)(5660300002)(40480700001)(82310400005)(26005)(41300700001)(16526019)(6666004)(70586007)(70206006)(478600001)(8676002)(4326008)(7696005)(186003)(316002)(6916009)(54906003)(36756003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2022 15:43:26.0447 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 629cb33e-dc86-4faa-63d7-08dadde9f0ab
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT025.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6541
+References: <20221212182137.374625-1-harry.wentland@amd.com>
+ <20221212182137.374625-17-harry.wentland@amd.com>
+ <114c2e02-41c8-8576-f88d-1c50f41deb9e@mailbox.org>
+ <20221214110128.1cd58dea@eldfell>
+In-Reply-To: <20221214110128.1cd58dea@eldfell>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 14 Dec 2022 10:46:55 -0500
+Message-ID: <CADnq5_M8Z2QRze60AFtmF6jTw8zpTpM-MPPmgejoUCb7Rv1ZrA@mail.gmail.com>
+Subject: Re: [PATCH 16/16] drm/amd/display: Don't restrict bpc to 8 bpc
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,178 +68,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
- christian.koenig@amd.com
+Cc: Sebastian Wick <sebastian.wick@redhat.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ amd-gfx@lists.freedesktop.org, Uma Shankar <uma.shankar@intel.com>,
+ dri-devel@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If kfd_process_device_init_vm returns failure after vm is converted to
-compute vm and vm->pasid set to compute pasid, KFD will not take
-pdd->drm_file reference. As a result, drm close file handler maybe
-called to release the compute pasid before KFD process destroy worker to
-release the same pasid and set vm->pasid to zero, this generates below
-WARNING backtrace and NULL pointer access.
+On Wed, Dec 14, 2022 at 4:01 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+>
+> On Tue, 13 Dec 2022 18:20:59 +0100
+> Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
+>
+> > On 12/12/22 19:21, Harry Wentland wrote:
+> > > This will let us pass kms_hdr.bpc_switch.
+> > >
+> > > I don't see any good reasons why we still need to
+> > > limit bpc to 8 bpc and doing so is problematic when
+> > > we enable HDR.
+> > >
+> > > If I remember correctly there might have been some
+> > > displays out there where the advertised link bandwidth
+> > > was not large enough to drive the default timing at
+> > > max bpc. This would leave to an atomic commit/check
+> > > failure which should really be handled in compositors
+> > > with some sort of fallback mechanism.
+> > >
+> > > If this somehow turns out to still be an issue I
+> > > suggest we add a module parameter to allow users to
+> > > limit the max_bpc to a desired value.
+> >
+> > While leaving the fallback for user space to handle makes some sense
+> > in theory, in practice most KMS display servers likely won't handle
+> > it.
+> >
+> > Another issue is that if mode validation is based on the maximum bpc
+> > value, it may reject modes which would work with lower bpc.
+> >
+> >
+> > What Ville (CC'd) suggested before instead (and what i915 seems to be
+> > doing already) is that the driver should do mode validation based on
+> > the *minimum* bpc, and automatically make the effective bpc lower
+> > than the maximum as needed to make the rest of the atomic state work.
+>
+> A driver is always allowed to choose a bpc lower than max_bpc, so it
+> very well should do so when necessary due to *known* hardware etc.
+> limitations.
+>
 
-Add helper amdgpu_amdkfd_gpuvm_set_vm_pasid and call it at the last step
-of kfd_process_device_init_vm, to ensure vm pasid is the original pasid
-if acquiring vm failed or is the compute pasid with pdd->drm_file
-reference taken to avoid double release same pasid.
+In the amdgpu case, it's more of a preference thing.  The driver would
+enable higher bpcs at the expense of refresh rate and it seemed most
+users want higher refresh rates than higher bpc.  I guess the driver
+can select a lower bpc at its discretion to produce what it thinks is
+the best default, but what about users that don't want the default?
 
- amdgpu: Failed to create process VM object
- ida_free called for id=32770 which is not allocated.
- WARNING: CPU: 57 PID: 72542 at ../lib/idr.c:522 ida_free+0x96/0x140
- RIP: 0010:ida_free+0x96/0x140
- Call Trace:
-  amdgpu_pasid_free_delayed+0xe1/0x2a0 [amdgpu]
-  amdgpu_driver_postclose_kms+0x2d8/0x340 [amdgpu]
-  drm_file_free.part.13+0x216/0x270 [drm]
-  drm_close_helper.isra.14+0x60/0x70 [drm]
-  drm_release+0x6e/0xf0 [drm]
-  __fput+0xcc/0x280
-  ____fput+0xe/0x20
-  task_work_run+0x96/0xc0
-  do_exit+0x3d0/0xc10
+Alex
 
- BUG: kernel NULL pointer dereference, address: 0000000000000000
- RIP: 0010:ida_free+0x76/0x140
- Call Trace:
-  amdgpu_pasid_free_delayed+0xe1/0x2a0 [amdgpu]
-  amdgpu_driver_postclose_kms+0x2d8/0x340 [amdgpu]
-  drm_file_free.part.13+0x216/0x270 [drm]
-  drm_close_helper.isra.14+0x60/0x70 [drm]
-  drm_release+0x6e/0xf0 [drm]
-  __fput+0xcc/0x280
-  ____fput+0xe/0x20
-  task_work_run+0x96/0xc0
-  do_exit+0x3d0/0xc10
 
-Suggested-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  4 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 39 +++++++++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 12 ++++--
- 3 files changed, 40 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 589939631ed4..0040deaf8a83 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -270,8 +270,10 @@ int amdgpu_amdkfd_get_pcie_bandwidth_mbytes(struct amdgpu_device *adev, bool is_
- 	(&((struct amdgpu_fpriv *)					\
- 		((struct drm_file *)(drm_priv))->driver_priv)->vm)
- 
-+int amdgpu_amdkfd_gpuvm_set_vm_pasid(struct amdgpu_device *adev,
-+				     struct file *filp, u32 pasid);
- int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
--					struct file *filp, u32 pasid,
-+					struct file *filp,
- 					void **process_info,
- 					struct dma_fence **ef);
- void amdgpu_amdkfd_gpuvm_release_process_vm(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 0a854bb8b47e..b15091d8310d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1429,10 +1429,9 @@ static void amdgpu_amdkfd_gpuvm_unpin_bo(struct amdgpu_bo *bo)
- 	amdgpu_bo_unreserve(bo);
- }
- 
--int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
--					   struct file *filp, u32 pasid,
--					   void **process_info,
--					   struct dma_fence **ef)
-+int amdgpu_amdkfd_gpuvm_set_vm_pasid(struct amdgpu_device *adev,
-+				     struct file *filp, u32 pasid)
-+
- {
- 	struct amdgpu_fpriv *drv_priv;
- 	struct amdgpu_vm *avm;
-@@ -1443,10 +1442,6 @@ int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
- 		return ret;
- 	avm = &drv_priv->vm;
- 
--	/* Already a compute VM? */
--	if (avm->process_info)
--		return -EINVAL;
--
- 	/* Free the original amdgpu allocated pasid,
- 	 * will be replaced with kfd allocated pasid.
- 	 */
-@@ -1455,14 +1450,36 @@ int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
- 		amdgpu_vm_set_pasid(adev, avm, 0);
- 	}
- 
--	/* Convert VM into a compute VM */
--	ret = amdgpu_vm_make_compute(adev, avm);
-+	ret = amdgpu_vm_set_pasid(adev, avm, pasid);
- 	if (ret)
- 		return ret;
- 
--	ret = amdgpu_vm_set_pasid(adev, avm, pasid);
-+	return 0;
-+}
-+
-+int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
-+					   struct file *filp,
-+					   void **process_info,
-+					   struct dma_fence **ef)
-+{
-+	struct amdgpu_fpriv *drv_priv;
-+	struct amdgpu_vm *avm;
-+	int ret;
-+
-+	ret = amdgpu_file_to_fpriv(filp, &drv_priv);
- 	if (ret)
- 		return ret;
-+	avm = &drv_priv->vm;
-+
-+	/* Already a compute VM? */
-+	if (avm->process_info)
-+		return -EINVAL;
-+
-+	/* Convert VM into a compute VM */
-+	ret = amdgpu_vm_make_compute(adev, avm);
-+	if (ret)
-+		return ret;
-+
- 	/* Initialize KFD part of the VM and process info */
- 	ret = init_kfd_vm(avm, process_info, ef);
- 	if (ret)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 6caa9dd57ff1..51b1683ac5c1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1576,9 +1576,9 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
- 	p = pdd->process;
- 	dev = pdd->dev;
- 
--	ret = amdgpu_amdkfd_gpuvm_acquire_process_vm(
--		dev->adev, drm_file, p->pasid,
--		&p->kgd_process_info, &p->ef);
-+	ret = amdgpu_amdkfd_gpuvm_acquire_process_vm(dev->adev, drm_file,
-+						     &p->kgd_process_info,
-+						     &p->ef);
- 	if (ret) {
- 		pr_err("Failed to create process VM object\n");
- 		return ret;
-@@ -1593,10 +1593,16 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
- 	if (ret)
- 		goto err_init_cwsr;
- 
-+	ret = amdgpu_amdkfd_gpuvm_set_vm_pasid(dev->adev, drm_file, p->pasid);
-+	if (ret)
-+		goto err_set_pasid;
-+
- 	pdd->drm_file = drm_file;
- 
- 	return 0;
- 
-+err_set_pasid:
-+	kfd_process_device_destroy_cwsr_dgpu(pdd);
- err_init_cwsr:
- 	kfd_process_device_destroy_ib_mem(pdd);
- err_reserve_ib_mem:
--- 
-2.35.1
-
+> So things like mode validation cannot just look at a single max or min
+> bpc, but it needs to figure out if there is any usable bpc value that
+> makes the mode work.
+>
+> The max_bpc knob exists only for the cases where the sink undetectably
+> malfunctions unless the bpc is artificially limited more than seems
+> necessary. That malfunction requires a human to detect, and reconfigure
+> their system as we don't have a quirk database for this I think.
+>
+> The question of userspace wanting a specific bpc is a different matter
+> and an unsolved one. It also ties to userspace wanting to use the
+> current mode to avoid a mode switch between e.g. hand-off from firmware
+> boot splash to proper userspace. That's also unsolved AFAIK.
+>
+> OTOH, we have the discussion that concluded as
+> https://gitlab.freedesktop.org/wayland/weston/-/issues/612#note_1359898
+> which really puts userspace in charge of max_bpc, so the driver-chosen
+> default value does not have much impact as long as it makes the
+> firmware-chosen video mode to continue, as requested in
+> https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/995
+> given that userspace cannot know what the actual bpc currently is nor
+> set the exact bpc to keep it the same.
+>
+>
+> Thanks,
+> pq
