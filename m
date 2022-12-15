@@ -4,37 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24F7FC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 03:02:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3211DC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 03:02:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1640D10E4E2;
-	Thu, 15 Dec 2022 03:02:31 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1E18710E4C0;
- Wed, 14 Dec 2022 23:08:56 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7BA22FEC;
- Wed, 14 Dec 2022 15:09:36 -0800 (PST)
-Received: from [10.57.88.237] (unknown [10.57.88.237])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D82263F5A1;
- Wed, 14 Dec 2022 15:08:54 -0800 (PST)
-Message-ID: <5b5a731b-0208-58a9-cb6f-2614efadbab2@arm.com>
-Date: Wed, 14 Dec 2022 23:08:43 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 817F510E4E6;
+	Thu, 15 Dec 2022 03:02:39 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2058.outbound.protection.outlook.com [40.107.101.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA74410E4E2;
+ Thu, 15 Dec 2022 03:02:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EjvdOive1yXsnP3HcdJN8Y4SkgZsS3F+UJBC+H5oEHIQMqH9j7v9LDQQujM7kUCCLcCHKbRutrIrRqRYhLclhfsfOJFTh54NqdacpRElXcUdH9Pbx7JPq5jAn2jR6CS9LCdA5KHb18qftf6RCy+6Nya27M+dqqyoVR/hKBnpkbYYykh7j/Ozs5fjw+ibcfYQdOEmkzAWOcNNoEWP5yvhJkArsj30xT+6DZsoqkln/Nmi6ymI3F2IwMzJExZIICiqOXeYeWFmLGZCNdavvgYqJa25FShceOVtF10q2kRz/I85RrdwqCqBxfDX3wVHdG3TBEQ71k656cPOrf5f/Uw7cA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tlyRAEDXpTA6omtt17Y0RY0gn2v2KwxhejVniC3qMi0=;
+ b=oCeCXm2/M0/737YYBKZe05ildiAQdv5+QqNY4LpYavd1rexvZVlwd9/T43x8nl8Idd/uA30f7MaRSyqJpbx0K9bCgafgl3pOHD98kjdus3iPNacDwwPHQWK+ZqVW+UULgWEpu6FnH7Q4dvUoUHIBXclWdNy0qKln3Q92RegxjErp/yRKh5eOO0UiemA7GR7FtFar2ZSdbbNx7VRn9WS/3rRcBy0kguKpM4DgTfuLCMZ3IHUaU3H6eVm+zxLXJE+xD51TDjhRVxmAxGQBfegRHB7M4YFMFY4sDW3Vy1D1HPD165nreKBWXDs+QwnJ90SLREff/sq1P6qj4LDY3YRpmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tlyRAEDXpTA6omtt17Y0RY0gn2v2KwxhejVniC3qMi0=;
+ b=KFkq4230N+CDbKYTJGunRw0lCICJNtkLjluwwo3uM+Ynvxm4k/U5dq47mxIWYXtDfSpqCvkXtOgeoVyvd5XN6M3YOuzzqPCrMsob0r5HDc0KGu1tPVZ+SxPf0cx0yA3gqEy7OoXcRLmYYkORCkV5bSpJZZ+Y226xPej+clb+fMI=
+Received: from BN9PR03CA0603.namprd03.prod.outlook.com (2603:10b6:408:106::8)
+ by SN7PR12MB7348.namprd12.prod.outlook.com (2603:10b6:806:29b::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Thu, 15 Dec
+ 2022 03:02:26 +0000
+Received: from BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:106:cafe::b4) by BN9PR03CA0603.outlook.office365.com
+ (2603:10b6:408:106::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.11 via Frontend
+ Transport; Thu, 15 Dec 2022 03:02:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT017.mail.protection.outlook.com (10.13.177.93) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5924.12 via Frontend Transport; Thu, 15 Dec 2022 03:02:25 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 14 Dec
+ 2022 21:02:24 -0600
+From: Ma Jun <majun@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <daniel.vetter@ffwll.ch>
+Subject: [RESEND PATCH] drm/plane-helper: Add the missing declaration of
+ drm_atomic_state
+Date: Thu, 15 Dec 2022 11:01:46 +0800
+Message-ID: <20221215030146.1142523-1-majun@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [PATCH] drm/radeon: Fix screen corruption (v2)
-Content-Language: en-GB
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20221211114226.57398-1-luben.tuikov@amd.com>
- <20221212020821.8248-1-luben.tuikov@amd.com>
- <a02c2cc9-f265-16ff-da44-9e44381c486c@arm.com>
- <CADnq5_MoD7oEXGivWPqO0m3XpqqAhg2k=X+zXcNPePYGpq0keQ@mail.gmail.com>
-From: Robin Murphy <robin.murphy@arm.com>
-In-Reply-To: <CADnq5_MoD7oEXGivWPqO0m3XpqqAhg2k=X+zXcNPePYGpq0keQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 15 Dec 2022 03:02:27 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT017:EE_|SN7PR12MB7348:EE_
+X-MS-Office365-Filtering-Correlation-Id: b2850a3b-9f72-4084-5a21-08dade48cb6c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: D4bQ/1HK9tpNxaEkiX6ZKPJtrJrT2HDmNlHPFBQ7KmhYFcvnt3DsSED7ileCRil7y7HCMFOVnEvlY37+JWRPV+tf+biIAxfTTpNjmKdAgeNxw6Rl/WidpPfTIyHHws6ei17XWPzFXMHVZtZa9Cwn0tE/f8k3qaOWYAF77UHX6uq6FCkm+wX2ZibWgTWGFbrRkF/dcDrrrLO8GKGzNWGpd3Qm+jrx5WyZZGy0G5uB0G/Tzh6li0C8SUgsq9joltTSxx8cDqGJE3PhYajNSqeLz8L04kXEYLOFwxSc7ebpr8WPIY6G9Zm+zaw5LQeyUopbcGaHEgXN2joe2jB8TcOM2dPvWYPeKRkFaKi3+ATnyXQxqvBVLIFPLegKTIIznOp/fiZ33VszzpBbhT4m+NjBxA0vcYHZGCS1oBoiRX8Y4wi9MTT/zyHJgiOhuTXj87QzkCp5PRLmjBAQsAYwV+WNBltn9a4Dbv8iuzARyjKB02yBhzkD7+CdFq1gGXy10eiNa//wR2EKBkY/bX6ibHA6pcUjXwtKXD/tZ9E4GK/CTEWG5zkfKRfDhK6tDSfCULIo1JvIfQwgsLwLgPna6+pDEXa8jI8Z+DG67r7MTYJnkX8GDYMUnkGz3IFHr7RxCsuP0FAHerGBqLyHLqSIkhzzVpoexYGxFb8o2M633Vmbf4gw3b9ZTO4x0Fo7x44mRu8LCneX8atLDzDBIWkhfIssE8gndnWH3ZDxd1/klTjUtJN8J5J2HRqwe7WeXpSGRcAl
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:CA; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(346002)(39860400002)(376002)(396003)(451199015)(40470700004)(36840700001)(46966006)(478600001)(16526019)(41300700001)(5660300002)(8676002)(4326008)(6666004)(316002)(2906002)(110136005)(47076005)(81166007)(82310400005)(1076003)(4744005)(8936002)(70586007)(26005)(2616005)(40460700003)(70206006)(40480700001)(7696005)(356005)(426003)(336012)(82740400003)(36756003)(186003)(83380400001)(36860700001)(2101003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2022 03:02:25.7921 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2850a3b-9f72-4084-5a21-08dade48cb6c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7348
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,62 +99,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>,
- Mikhail Krylov <sqarert@gmail.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Direct Rendering Infrastructure - Development
- <dri-devel@lists.freedesktop.org>,
- AMD Graphics <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-12-14 22:02, Alex Deucher wrote:
-> On Wed, Dec 14, 2022 at 4:54 PM Robin Murphy <robin.murphy@arm.com> wrote:
->>
->> On 2022-12-12 02:08, Luben Tuikov wrote:
->>> Fix screen corruption on older 32-bit systems using AGP chips.
->>>
->>> On older systems with little memory, for instance 1.5 GiB, using an AGP chip,
->>> the device's DMA mask is 0xFFFFFFFF, but the memory mask is 0x7FFFFFF, and
->>> subsequently dma_addressing_limited() returns 0xFFFFFFFF < 0x7FFFFFFF,
->>> false. As such the result of this static inline isn't suitable for the last
->>> argument to ttm_device_init()--it simply needs to now whether to use GFP_DMA32
->>> when allocating DMA buffers.
->>
->> This sounds wrong to me. If the issues happen on systems without PAE it
->> clearly can't have anything to with the actual DMA address size. Not to
->> mention that AFAICS 32-bit x86 doesn't even have ZONE_DMA32, so
->> GFP_DMA32 would be functionally meaningless anyway. Although the
->> reported symptoms initially sounded like they could be caused by DMA
->> going to the wrong place, that is also equally consistent with a loss of
->> cache coherency.
->>
->> My (limited) understanding of AGP is that the GART can effectively alias
->> memory to a second physical address, so I could well believe that
->> something somewhere in the driver stack needs to perform some cache
->> maintenance to avoid coherency issues, and that in these particular
->> setups whatever that is might be assuming the memory is direct-mapped
->> and thus going wrong for highmem pages.
->>
->> So as I said before, I really think this is not about using GFP_DMA32 at
->> all, but about *not* using GFP_HIGHUSER.
-> 
-> One of the wonderful features of AGP is that it has to be used with
-> uncached memory.  The aperture basically just provides a remapping of
-> physical pages into a linear aperture that you point the GPU at.  TTM
-> has to jump through quite a few hoops to get uncached memory in the
-> first place, so it's likely that that somehow isn't compatible with
-> HIGHMEM.  Can you get uncached HIGHMEM?
+Add the missing declaration of struct drm_atomic_state to fix the
+compile error below:
 
-I guess in principle yes, if you're careful not to use regular 
-kmap()/kmap_atomic(), and always use pgprot_noncached() for 
-userspace/vmalloc mappings, but clearly that leaves lots of scope for 
-slipping up.
+error: 'struct drm_atomic_state' declared inside parameter
+list will not be visible outside of this definition or declaration [-Werror]
 
-Working backwards from primitives like set_memory_uc(), I see various 
-paths in TTM where manipulating the caching state is skipped for highmem 
-pages, but I wouldn't even know where to start looking for whether the 
-right state is propagated to all the places where they might eventually 
-be mapped somewhere.
+Signed-off-by: Ma Jun <majun@amd.com>
+---
+ include/drm/drm_plane_helper.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Cheers,
-Robin.
+diff --git a/include/drm/drm_plane_helper.h b/include/drm/drm_plane_helper.h
+index b00ad36cf5b6..530f88176db4 100644
+--- a/include/drm/drm_plane_helper.h
++++ b/include/drm/drm_plane_helper.h
+@@ -30,6 +30,7 @@ struct drm_crtc;
+ struct drm_framebuffer;
+ struct drm_modeset_acquire_ctx;
+ struct drm_plane;
++struct drm_atomic_state;
+ 
+ int drm_plane_helper_update_primary(struct drm_plane *plane, struct drm_crtc *crtc,
+ 				    struct drm_framebuffer *fb,
+-- 
+2.25.1
+
