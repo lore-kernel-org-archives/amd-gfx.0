@@ -4,45 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71976C4167B
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 19:38:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E307DC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 20:09:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D408A10E527;
-	Thu, 15 Dec 2022 19:38:18 +0000 (UTC)
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com
- [209.85.219.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D4A110E533
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Dec 2022 19:38:15 +0000 (UTC)
-Received: by mail-qv1-f41.google.com with SMTP id u10so102298qvp.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Dec 2022 11:38:15 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7388A10E10B;
+	Thu, 15 Dec 2022 20:09:32 +0000 (UTC)
+Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
+ [IPv6:2607:f8b0:4864:20::834])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 916D110E0DC;
+ Thu, 15 Dec 2022 20:09:25 +0000 (UTC)
+Received: by mail-qt1-x834.google.com with SMTP id cg5so471826qtb.12;
+ Thu, 15 Dec 2022 12:09:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bIJwwX6o/b6aPEH4Ez3gITDnx0EFzLpqpuWyT53Asbg=;
+ b=B9tVSL/8z7idokQLakcvklafcX+bg3mJwv5O1ke3l6U/5vzf0a5/l8/tpwqftvZoSu
+ wZJ8CxDlEMFQW8lhcwT8czbx8iAnBuu5UIklvWnBIJKcMok7zCD/cb6IoGtMFFcLd+fN
+ UzucgMACEX0bnFfyqOnXhMcH6LjMvrXtZyDgOvFAEebBaJVqzqKWToL1EF/PHe81jmgK
+ LlKGAt87uiOLhekchUs7Pl8rptO5ZwdtgyAXSHXbngxnANNvvb6XrXJyN0E4ce+cMCU9
+ eZUgOuIrin2i7fx02YoyFkTOgxCK/p2Vn+Oo2DrVn9sRoIyxcM0aRnwgjNtcj7p63H8Z
+ RHEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=aCo5fHS/msARJvD6FMrxNCEmeCv0inrfXrJpjQuhCMw=;
- b=DB2rBTnEPMtqUKpuVWJgZTNaSorA9AK+Vf/BgRWweePt55aamC8O5WmWd5+kqcRIsz
- f4zBd3WRfKKXblVGIwcNvRNi7IZho2TCvN818f2cVPVLn9ee5goVmJSKRrnRT7JHgUa8
- 9R6pwhLoLyaRD8GlZK02YyW7prY/CKOPqmfCWS+MsyEzh+Q+qmiKUL5Ha6I3Ng07x3ph
- mJZ9bNuw4W2II2jLwBK3XER0JgRUqZOnordZAuv7HfW10BZwstMJkYxnH5euFBZ2NtYI
- nsDCfsHskjIVQ2PTSaxmz8DqDrO0w5TDchU0MerCCVBOQwuZA/w/Mn6uRhael9MqGk2W
- r3oA==
-X-Gm-Message-State: ANoB5pnUIXoVPZ8EZu8xtVMLxl84LfjBmWDt9JNeBq6RN/d5blm9muDT
- 3T2WBXE+wCa7SV9mzFDsK56neWSwNgyKuIyOemo=
-X-Google-Smtp-Source: AA0mqf7AdSAPqm+Rm/jIw/Y0XeGDJqKbVJTE1m/sfpcH1vOPVW7DK7mkqwaQKrN3oZtPkNTVgdrXiuouoqbHmBThyl8=
-X-Received: by 2002:ad4:534b:0:b0:4b1:8429:a8a7 with SMTP id
- v11-20020ad4534b000000b004b18429a8a7mr70255020qvs.52.1671133094531; Thu, 15
- Dec 2022 11:38:14 -0800 (PST)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=bIJwwX6o/b6aPEH4Ez3gITDnx0EFzLpqpuWyT53Asbg=;
+ b=Bl09mx4wLCQUaHii6mzHP4qaw6j6Kw6WlJyzygbamke/JXcA+WCTksACJvgj1dEqkQ
+ /N/+ecro0oVNzZHXAXeJOGfkvPNarcWMWVgv8ENMyPyDAG0fatV18iuTAPNOUDTWTobZ
+ JZ0PvPM5Gx0KYjYRtsEHXDWoPdOGqX/bjN9rhTnUvg61Lr9dYiQxdtP28yIwNEPjsomS
+ KCJsLultNiV/YO9Quv7N8n1i/ttI3RYxIEGg6VOSQZBwSSKWt8RE41Th5E3LjfLQZzH1
+ ejjM++Vkq52hUx3Og1aHGTciRpEEu6HTERwFcL0oLtR1SbjDqo20dOumzyz2z/9HXSqk
+ MNRg==
+X-Gm-Message-State: ANoB5plyNN81OzLPIgKgdnDqLfFQhXMmOQ7Ug1/haCo9DQbUgQRgWGxR
+ c0tkv8mpFW90sHJ6Ophs5B8EhpHqqtmg0s3OFKjH+7Dt
+X-Google-Smtp-Source: AA0mqf49s40gUJGEaE3LaBjQEIjJZF78JlQPSk1bJ+Mu+iSbCIyQGWAF38vhUQc1tApd1SUnRW0783hYr7K1Jhd9dMg=
+X-Received: by 2002:ac8:544c:0:b0:3a8:93f:53aa with SMTP id
+ d12-20020ac8544c000000b003a8093f53aamr1099142qtq.447.1671134964625; Thu, 15
+ Dec 2022 12:09:24 -0800 (PST)
 MIME-Version: 1.0
-References: <20221208164207.13518-1-mario.limonciello@amd.com>
- <MN0PR12MB61014F8D6D5B04B90997480DE2E19@MN0PR12MB6101.namprd12.prod.outlook.com>
-In-Reply-To: <MN0PR12MB61014F8D6D5B04B90997480DE2E19@MN0PR12MB6101.namprd12.prod.outlook.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Thu, 15 Dec 2022 20:38:03 +0100
-Message-ID: <CAJZ5v0hm00E4xNC6r9MieOTFtdchQHj9k8a34fk-0Oi6UzwLQA@mail.gmail.com>
-Subject: Re: [PATCH v3 0/3] Adjust ACPI video detection fallback path
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>
+References: <20221125102137.1801-1-christian.koenig@amd.com>
+ <20221125102137.1801-6-christian.koenig@amd.com>
+ <0169e3dd-c705-175d-9045-2baf0cbabb78@gmail.com>
+In-Reply-To: <0169e3dd-c705-175d-9045-2baf0cbabb78@gmail.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Fri, 16 Dec 2022 06:09:13 +1000
+Message-ID: <CAPM=9tx2=M3DO+nP60WfEpeF4XvSfA+4wqsNmvSVHuq=bdQWqg@mail.gmail.com>
+Subject: Re: [PATCH 6/9] drm/qxl: stop using ttm_bo_wait
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,88 +67,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Dadap <ddadap@nvidia.com>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Hans de Goede <hdegoede@redhat.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@redhat.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 15, 2022 at 8:20 PM Limonciello, Mario
-<Mario.Limonciello@amd.com> wrote:
->
-> [Public]
->
-> > -----Original Message-----
-> > From: Limonciello, Mario <Mario.Limonciello@amd.com>
-> > Sent: Thursday, December 8, 2022 10:42
-> > To: Rafael J . Wysocki <rafael@kernel.org>; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; Hans de Goede
-> > <hdegoede@redhat.com>
-> > Cc: amd-gfx@lists.freedesktop.org; linux-acpi@vger.kernel.org; Daniel
-> > Dadap <ddadap@nvidia.com>; Limonciello, Mario
-> > <Mario.Limonciello@amd.com>
-> > Subject: [PATCH v3 0/3] Adjust ACPI video detection fallback path
-> >
-> > In kernel 6.1 the backlight registration code was overhauled so that
-> > at most one backlight device got registered. As part of this change
-> > there was code added to still allow making an acpi_video0 device if the
-> > BIOS contained backlight control methods but no native or vendor drivers
-> > registered.
-> >
-> > Even after the overhaul this fallback logic is failing on the BIOS from
-> > a number of motherboard manufacturers supporting Ryzen APUs.
-> > What happens is the amdgpu driver finishes registration and as expected
-> > doesn't create a backlight control device since no eDP panels are connected
-> > to a desktop.
-> >
-> > Then 8 seconds later the ACPI video detection code creates an
-> > acpi_video0 device that is non-operational. GNOME then creates a
-> > backlight slider.
-> >
-> > To avoid this situation from happening make two sets of changes:
-> >
-> > Prevent desktop problems w/ fallback logic
-> > ------------------------------------------
-> > 1) Add support for the video detect code to let native drivers cancel the
-> > fallback logic if they didn't find a panel.
-> >
-> > This is done this way so that if another driver decides that the ACPI
-> > mechanism is still needed it can instead directly call the registration
-> > function.
-> >
-> > 2) Add code to amdgpu to notify the ACPI video detection code that no panel
-> > was detected on an APU.
-> >
-> > Disable fallback logic by default
-> > ---------------------------------
-> > This fallback logic was introduced to prevent regressions in the backlight
-> > overhaul.  As it has been deemed unnecessary by Hans explicitly disable the
-> > timeout.  If this turns out to be mistake and this part is reverted, the
-> > other patches for preventing desktop problems will avoid regressions on
-> > desktops.
-> >
-> > Mario Limonciello (3):
-> >   ACPI: video: Allow GPU drivers to report no panels
-> >   drm/amd/display: Report to ACPI video if no panels were found
-> >   ACPI: video: Don't enable fallback path for creating ACPI backlight by
-> >     default
-> >
-> >  drivers/acpi/acpi_video.c                       | 17 ++++++++++++-----
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   |  4 ++++
-> >  include/acpi/video.h                            |  2 ++
-> >  3 files changed, 18 insertions(+), 5 deletions(-)
-> >
-> > --
-> > 2.34.1
->
-> FYI, besides me, this series also tested successfully by one of the
-> reporters to the Red Hat bugzilla.
->
-> https://bugzilla.redhat.com/show_bug.cgi?id=1783786#c8
+Acked-by: Dave Airlie <airlied@redhat.com>
 
-Thanks for letting me know!
-
-I'll queue it up for 6.2-rc next week.
+On Fri, 16 Dec 2022 at 00:20, Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Am 25.11.22 um 11:21 schrieb Christian K=C3=B6nig:
+> > TTM is just wrapping core DMA functionality here, remove the mid-layer.
+> > No functional change.
+>
+> Any objections to this guys?
+>
+> I'm basically just following a suggestion from Daniel here and it
+> already triggered a discussion about the timeout for i915.
+>
+> Thanks,
+> Christian.
+>
+> >
+> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > ---
+> >   drivers/gpu/drm/qxl/qxl_cmd.c | 16 ++++++++++++++--
+> >   1 file changed, 14 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/qxl/qxl_cmd.c b/drivers/gpu/drm/qxl/qxl_cm=
+d.c
+> > index 63aa96a69752..281edab518cd 100644
+> > --- a/drivers/gpu/drm/qxl/qxl_cmd.c
+> > +++ b/drivers/gpu/drm/qxl/qxl_cmd.c
+> > @@ -579,7 +579,7 @@ void qxl_surface_evict(struct qxl_device *qdev, str=
+uct qxl_bo *surf, bool do_upd
+> >
+> >   static int qxl_reap_surf(struct qxl_device *qdev, struct qxl_bo *surf=
+, bool stall)
+> >   {
+> > -     int ret;
+> > +     long ret;
+> >
+> >       ret =3D qxl_bo_reserve(surf);
+> >       if (ret)
+> > @@ -588,7 +588,19 @@ static int qxl_reap_surf(struct qxl_device *qdev, =
+struct qxl_bo *surf, bool stal
+> >       if (stall)
+> >               mutex_unlock(&qdev->surf_evict_mutex);
+> >
+> > -     ret =3D ttm_bo_wait(&surf->tbo, true, !stall);
+> > +     if (stall) {
+> > +             ret =3D dma_resv_wait_timeout(surf->tbo.base.resv,
+> > +                                         DMA_RESV_USAGE_BOOKKEEP, true=
+,
+> > +                                         15 * HZ);
+> > +             if (ret > 0)
+> > +                     ret =3D 0;
+> > +             else if (ret =3D=3D 0)
+> > +                     ret =3D -EBUSY;
+> > +     } else {
+> > +             ret =3D dma_resv_test_signaled(surf->tbo.base.resv,
+> > +                                          DMA_RESV_USAGE_BOOKKEEP);
+> > +             ret =3D ret ? -EBUSY : 0;
+> > +     }
+> >
+> >       if (stall)
+> >               mutex_lock(&qdev->surf_evict_mutex);
+>
