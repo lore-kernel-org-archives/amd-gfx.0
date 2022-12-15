@@ -4,63 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBD62C00145
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 09:17:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ECA0C4167B
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 09:46:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA8310E50A;
-	Thu, 15 Dec 2022 09:17:46 +0000 (UTC)
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4254C10E509;
- Thu, 15 Dec 2022 09:17:43 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id s10so9324174ljg.1;
- Thu, 15 Dec 2022 01:17:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04C7810E0A9;
+	Thu, 15 Dec 2022 09:46:21 +0000 (UTC)
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D808010E0A7;
+ Thu, 15 Dec 2022 09:46:15 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id b2so50922625eja.7;
+ Thu, 15 Dec 2022 01:46:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=CZa1tQeal7WxUPbkZznUJr94JvZw1/WR/slI556+nZo=;
- b=Mv29BTqC3MeaL1e5F86OYaM77bnehrzUJjrj1r/nGLN8jiEKIYZQjzI021hCuy3nrW
- 9yDgpTGbi4DYoN/C6w3HU4c3wvlq4b71NPj8ywQy53lf6TnR9rNGuZmyIGQCJYERQXNr
- Wl5Bz2D9Wk0sD6oyLeqK3Z43xBcxlGgFbmx0JGgaVPdv2Credpkk/0j/t34mx5Wsb+Cz
- q5dlkGLsu2p8OTiCrdFaQFeenyho6W8HliO/8kzAMq91O82KwnVGX21ztXCV02+W4Ps4
- sJlJ0EAYU0Db0cNgrNaDzd3OwY6kYBWsagAanP+zJciYt9qPdSZiT+ptqjXjXtwcx5lF
- 0uNQ==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=nSuPUvnkHfisy+0Wgn+yBJ2C5burqMUBeQ+wDBWToTw=;
+ b=aQpYR25ooZFwwdc71GPfLa9g8CQXV1ShFGzUJLStDmjfOc3PvLEEiu4yp6bV81/aZv
+ olSWp4VIs5lysVnWoLMpngLluS8ZvGcL+2HN5kx/DKjgqp9EcJ1BvCo6SyMVQpjNsFE6
+ gqomVLsxjlrLLVNL2GcEvJGyJr6sZWMdLDVMUBlsSxTVgn6X+rkjib8pgIjkM9larZmb
+ zZdPpDocrbEyfe+9McOgfs8YoYcNHB8HdZoP+pfTgbYPatMlaR4bSr6hd5XkbWO3MDsf
+ Sjbjrd8cbd0FlzO/GOm/G8/2kHgpe1R4Bq4h71IdVK+DEQDAk6uFEUXt0yRb1eDKDhQv
+ Ek4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=CZa1tQeal7WxUPbkZznUJr94JvZw1/WR/slI556+nZo=;
- b=m137ce1AeKQ1Eaz14LpU+kDnPe4qaoJdyrHyY70eotdRTzIEJi1de/8hK+LjApJ11i
- jgX8thDesnAoOTbeCU/8O2DrEO7NF9Mo0vudcCa4/j+qjylHPR9/LMdg6jjkxGjtwK99
- pwNuHRYL0e77GKiv7iVV4imGUfN3W5CRV99h5sWH/6slGM2cad51hbCQONqxrb4XU+va
- at7EiLchibZ1zVS8PxSK1w1Vp3Ooj0pCiO6W7V6F11wnPjdLg2wWtCKrAtGsyaYM5GER
- DVRgIg4kSEuitR5gXCAgykdK6ULbwvFJw4vCAg0oH1lN8HBx9HlLy0hRc+mpEzWgJjMC
- VBrQ==
-X-Gm-Message-State: ANoB5pkVypqU+74QV2ktCQ3wLlkTotK9zwD1Ar3eaEZZyyfWNa4NxZuv
- EE77lxzAni44waxdvZz273A=
-X-Google-Smtp-Source: AA0mqf6bmeSfEW1dQxlzn3Zvb1qqOci1aXuqfAR7c3qVWfYNIKYQVeIbeMIaO+Fv/No2oPlbTyScxA==
-X-Received: by 2002:a2e:a90f:0:b0:277:3cb2:da16 with SMTP id
- j15-20020a2ea90f000000b002773cb2da16mr6919740ljq.38.1671095861366; 
- Thu, 15 Dec 2022 01:17:41 -0800 (PST)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- t25-20020a05651c205900b0027a17f86998sm786551ljo.127.2022.12.15.01.17.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Dec 2022 01:17:40 -0800 (PST)
-Date: Thu, 15 Dec 2022 11:17:29 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 16/16] drm/amd/display: Don't restrict bpc to 8 bpc
-Message-ID: <20221215111729.50ee7808@eldfell>
-In-Reply-To: <CADnq5_M8Z2QRze60AFtmF6jTw8zpTpM-MPPmgejoUCb7Rv1ZrA@mail.gmail.com>
-References: <20221212182137.374625-1-harry.wentland@amd.com>
- <20221212182137.374625-17-harry.wentland@amd.com>
- <114c2e02-41c8-8576-f88d-1c50f41deb9e@mailbox.org>
- <20221214110128.1cd58dea@eldfell>
- <CADnq5_M8Z2QRze60AFtmF6jTw8zpTpM-MPPmgejoUCb7Rv1ZrA@mail.gmail.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=nSuPUvnkHfisy+0Wgn+yBJ2C5burqMUBeQ+wDBWToTw=;
+ b=aSp9Ym2SIFTKdyc2zVM3hheZVx+RpyGwievs2ilhi49aXEBksw43scyk0BS6kGb3++
+ lFj1SX4MpmOGD1CdFA/73LYW2dlOCyHFhLWQUACeEnGrWHbPB8HvGzJ4f435wA/P9YcB
+ mt8YpBGCf4+FBZg3CL+9xLPTLitzl5DL3rD1++nhRqe+6YvFR1ureNfIhB7yQ5/EJTm8
+ 5bQLGj3PHzfCc1bbW1d9IVAswGR7CMzuDZCbTJqUW2BlZH7s2tTE/i4mpbk5ABdA122d
+ iMrfofafvH553hCVTej+d85cHJNtbkAxBkoUxR81AO4g2l+Rzz/pEuK14WlAvdVZziBU
+ gm5w==
+X-Gm-Message-State: ANoB5pkf+b/lQAb2v7AIWbqspiqXQSRjgYzJ/z+AsOkXF/q8FPUxWvdR
+ I9aVzVtNBModumhpc+AyowErkh+4LGA=
+X-Google-Smtp-Source: AA0mqf6aGaFFy1OaCi3Z6OmzF0bhZ+9yog9XFVrcezEGX4EQV7vLucNoVVOpjXsuGBrLA8IMqqwvJw==
+X-Received: by 2002:a17:906:3e41:b0:7ad:e67d:f15c with SMTP id
+ t1-20020a1709063e4100b007ade67df15cmr25176246eji.48.1671097574313; 
+ Thu, 15 Dec 2022 01:46:14 -0800 (PST)
+Received: from [192.168.178.21] (p5b0ea2e7.dip0.t-ipconnect.de.
+ [91.14.162.231]) by smtp.gmail.com with ESMTPSA id
+ 1-20020a170906200100b0073d71792c8dsm6871001ejo.180.2022.12.15.01.46.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 Dec 2022 01:46:13 -0800 (PST)
+Message-ID: <02c45581-f988-2c10-17c8-dca6836acb00@gmail.com>
+Date: Thu, 15 Dec 2022 10:46:12 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/Q3Y9sJryo4WH73qHCcO18k1";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH] drm/radeon: Fix screen corruption (v2)
+Content-Language: en-US
+To: Luben Tuikov <luben.tuikov@amd.com>, Robin Murphy <robin.murphy@arm.com>, 
+ Alex Deucher <alexdeucher@gmail.com>
+References: <20221211114226.57398-1-luben.tuikov@amd.com>
+ <20221212020821.8248-1-luben.tuikov@amd.com>
+ <a02c2cc9-f265-16ff-da44-9e44381c486c@arm.com>
+ <CADnq5_MoD7oEXGivWPqO0m3XpqqAhg2k=X+zXcNPePYGpq0keQ@mail.gmail.com>
+ <5b5a731b-0208-58a9-cb6f-2614efadbab2@arm.com>
+ <9f18f970-98c5-649a-5f2c-dc4bc26db1e7@gmail.com>
+ <466c4ce0-9a13-7d99-768e-43f7027f4933@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <466c4ce0-9a13-7d99-768e-43f7027f4933@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,170 +80,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
- amd-gfx@lists.freedesktop.org, Uma Shankar <uma.shankar@intel.com>,
- dri-devel@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
- Vitaly.Prosyak@amd.com
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ Mikhail Krylov <sqarert@gmail.com>,
+ AMD Graphics <amd-gfx@lists.freedesktop.org>,
+ Direct Rendering Infrastructure - Development
+ <dri-devel@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/Q3Y9sJryo4WH73qHCcO18k1
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Am 15.12.22 um 10:08 schrieb Luben Tuikov:
+> On 2022-12-15 03:07, Christian König wrote:
+>> Am 15.12.22 um 00:08 schrieb Robin Murphy:
+>>> On 2022-12-14 22:02, Alex Deucher wrote:
+>>>> On Wed, Dec 14, 2022 at 4:54 PM Robin Murphy <robin.murphy@arm.com>
+>>>> wrote:
+>>>>> On 2022-12-12 02:08, Luben Tuikov wrote:
+>>>>>> Fix screen corruption on older 32-bit systems using AGP chips.
+>>>>>>
+>>>>>> On older systems with little memory, for instance 1.5 GiB, using an
+>>>>>> AGP chip,
+>>>>>> the device's DMA mask is 0xFFFFFFFF, but the memory mask is
+>>>>>> 0x7FFFFFF, and
+>>>>>> subsequently dma_addressing_limited() returns 0xFFFFFFFF < 0x7FFFFFFF,
+>>>>>> false. As such the result of this static inline isn't suitable for
+>>>>>> the last
+>>>>>> argument to ttm_device_init()--it simply needs to now whether to
+>>>>>> use GFP_DMA32
+>>>>>> when allocating DMA buffers.
+>>>>> This sounds wrong to me. If the issues happen on systems without PAE it
+>>>>> clearly can't have anything to with the actual DMA address size. Not to
+>>>>> mention that AFAICS 32-bit x86 doesn't even have ZONE_DMA32, so
+>>>>> GFP_DMA32 would be functionally meaningless anyway. Although the
+>>>>> reported symptoms initially sounded like they could be caused by DMA
+>>>>> going to the wrong place, that is also equally consistent with a
+>>>>> loss of
+>>>>> cache coherency.
+>>>>>
+>>>>> My (limited) understanding of AGP is that the GART can effectively
+>>>>> alias
+>>>>> memory to a second physical address, so I could well believe that
+>>>>> something somewhere in the driver stack needs to perform some cache
+>>>>> maintenance to avoid coherency issues, and that in these particular
+>>>>> setups whatever that is might be assuming the memory is direct-mapped
+>>>>> and thus going wrong for highmem pages.
+>>>>>
+>>>>> So as I said before, I really think this is not about using
+>>>>> GFP_DMA32 at
+>>>>> all, but about *not* using GFP_HIGHUSER.
+>>>> One of the wonderful features of AGP is that it has to be used with
+>>>> uncached memory.  The aperture basically just provides a remapping of
+>>>> physical pages into a linear aperture that you point the GPU at.  TTM
+>>>> has to jump through quite a few hoops to get uncached memory in the
+>>>> first place, so it's likely that that somehow isn't compatible with
+>>>> HIGHMEM.  Can you get uncached HIGHMEM?
+>>> I guess in principle yes, if you're careful not to use regular
+>>> kmap()/kmap_atomic(), and always use pgprot_noncached() for
+>>> userspace/vmalloc mappings, but clearly that leaves lots of scope for
+>>> slipping up.
+>> I theory we should do exactly that in TTM, but we have very few users
+>> who actually still exercise that functionality.
+>>
+>>> Working backwards from primitives like set_memory_uc(), I see various
+>>> paths in TTM where manipulating the caching state is skipped for
+>>> highmem pages, but I wouldn't even know where to start looking for
+>>> whether the right state is propagated to all the places where they
+>>> might eventually be mapped somewhere.
+>> The tt object has the caching state for the pages and
+>> ttm_prot_from_caching() then uses pgprot_noncached() and co for the
+>> userspace/vmalloc mappings.
+>>
+> The point of this patch is that dma_addressing_limited() is unsuitable as
+> the last parameter to ttm_pool_init(), since if it is "false"--as it is in this
+> particular case--then TTM ends up using HIGHUSER, and we get the screen corruption.
+> (gfp_flags |= GFP_HIGHUSER in in ttm_pool_alloc())
 
-On Wed, 14 Dec 2022 10:46:55 -0500
-Alex Deucher <alexdeucher@gmail.com> wrote:
+Well I would rather say that dma_addressing_limited() works, but the 
+default value from dma_get_required_mask() is broken.
 
-> On Wed, Dec 14, 2022 at 4:01 AM Pekka Paalanen <ppaalanen@gmail.com> wrot=
-e:
-> >
-> > On Tue, 13 Dec 2022 18:20:59 +0100
-> > Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
-> > =20
-> > > On 12/12/22 19:21, Harry Wentland wrote: =20
-> > > > This will let us pass kms_hdr.bpc_switch.
-> > > >
-> > > > I don't see any good reasons why we still need to
-> > > > limit bpc to 8 bpc and doing so is problematic when
-> > > > we enable HDR.
-> > > >
-> > > > If I remember correctly there might have been some
-> > > > displays out there where the advertised link bandwidth
-> > > > was not large enough to drive the default timing at
-> > > > max bpc. This would leave to an atomic commit/check
-> > > > failure which should really be handled in compositors
-> > > > with some sort of fallback mechanism.
-> > > >
-> > > > If this somehow turns out to still be an issue I
-> > > > suggest we add a module parameter to allow users to
-> > > > limit the max_bpc to a desired value. =20
-> > >
-> > > While leaving the fallback for user space to handle makes some sense
-> > > in theory, in practice most KMS display servers likely won't handle
-> > > it.
-> > >
-> > > Another issue is that if mode validation is based on the maximum bpc
-> > > value, it may reject modes which would work with lower bpc.
-> > >
-> > >
-> > > What Ville (CC'd) suggested before instead (and what i915 seems to be
-> > > doing already) is that the driver should do mode validation based on
-> > > the *minimum* bpc, and automatically make the effective bpc lower
-> > > than the maximum as needed to make the rest of the atomic state work.=
- =20
-> >
-> > A driver is always allowed to choose a bpc lower than max_bpc, so it
-> > very well should do so when necessary due to *known* hardware etc.
-> > limitations.
-> > =20
->=20
-> In the amdgpu case, it's more of a preference thing.  The driver would
-> enable higher bpcs at the expense of refresh rate and it seemed most
-> users want higher refresh rates than higher bpc.
+32 bits only work with bounce buffers and we can't use those on graphics 
+hardware.
 
-Hi Alex,
+> Is there an objection to this patch, if it fixes the screen corruption?
 
-we already have userspace in explicit control of the refresh rate.
-Userspace picks the refresh rate first, then the driver silently checks
-what bpc is possible. Userspace preference wins, so bpc is chosen to
-produce the desired refresh rate.
+Not from my side, but fixing the underlying issues would be better I think.
 
-In what cases does the driver really pick a refresh rate on its own?
+> Or does TTM need fixing, in that what we really need is to specify whether
+> caching is desired and/or DMA32 when we allocate a TTM pool (ttm_pool_init(),
+> called from ttm_device_init(), called from radeon_ttm_init.c)?
 
-Or is this about display latency more than throughput, to send a full
-frame in shorter time while not actually increasing refresh rate?
+Could be, but it's more likely that the problem is in the DMA layer 
+because we fail to recognize that the device can't access all of the memory.
 
-Even for VRR, userspace already explicitly chooses the max refresh
-rate, I believe.
+Regards,
+Christian.
 
-I suppose optimising power consumption by choosing a lower bpc than
-what would work is a use case, but that's a bit awkward currently
-because there is no way for userspace to opt-out of that. OTOH,
-userspace can already opt-in for that by lowering max_bpc.
+>
+> Regards,
+> Luben
+>
 
->  I guess the driver
-> can select a lower bpc at its discretion to produce what it thinks is
-> the best default, but what about users that don't want the default?
-
-That's what we need explicit bpc control KMS properties for, e.g.
-min_bpc to complement max_bpc (I recall old discussions about this).
-Only userspace could know what a particular end user wants.
-
-To ask this differently: in what cases would max_bpc become the wanted
-bpc in a way that it overrides the explicitly set video mode (refresh
-rate), or would cause a modeset to fail if a lower bpc would make the
-modeset succeed?
-
-The very definition of max_bpc is that it's the upper limit, and not the
-desired bpc. The UAPI documentation says:
-
-max bpc:
-
-    This range property is used by userspace to limit the bit depth.
-    When used the driver would limit the bpc in accordance with the
-    valid range supported by the hardware and sink. Drivers to use the
-    function drm_connector_attach_max_bpc_property() to create and
-    attach the property to the connector during initialization.
-
-Git archaeology revealed that this property was first intended to work
-around broken sinks and not for user preferences.
-
-
-Thanks,
-pq
-
->=20
-> Alex
->=20
->=20
-> > So things like mode validation cannot just look at a single max or min
-> > bpc, but it needs to figure out if there is any usable bpc value that
-> > makes the mode work.
-> >
-> > The max_bpc knob exists only for the cases where the sink undetectably
-> > malfunctions unless the bpc is artificially limited more than seems
-> > necessary. That malfunction requires a human to detect, and reconfigure
-> > their system as we don't have a quirk database for this I think.
-> >
-> > The question of userspace wanting a specific bpc is a different matter
-> > and an unsolved one. It also ties to userspace wanting to use the
-> > current mode to avoid a mode switch between e.g. hand-off from firmware
-> > boot splash to proper userspace. That's also unsolved AFAIK.
-> >
-> > OTOH, we have the discussion that concluded as
-> > https://gitlab.freedesktop.org/wayland/weston/-/issues/612#note_1359898
-> > which really puts userspace in charge of max_bpc, so the driver-chosen
-> > default value does not have much impact as long as it makes the
-> > firmware-chosen video mode to continue, as requested in
-> > https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/995
-> > given that userspace cannot know what the actual bpc currently is nor
-> > set the exact bpc to keep it the same.
-> >
-> >
-> > Thanks,
-> > pq =20
-
-
---Sig_/Q3Y9sJryo4WH73qHCcO18k1
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmOa5ikACgkQI1/ltBGq
-qqeOlQ/+LoXfe8getXKELBMZTw9Cfhf9QLHpGEjQSCs7Up9RHUS2M3gIKiSYRZY3
-y3bn4Q2yU2VNUawXPhphCe5h+TYgiHPZOsc6Mv+SFeNp0/xFPJaSguSUZ6Wkgb3g
-RW1qSmMWG0SuM9mGMhhslryBoqGAsGUaf/l2LH+LylaO0+gOp34Xc+2niDifJz/V
-9pu2CzWJmkcUJRgB5wmDqlfCA3GrVHb5aGRal8vnAJQ7SnEgwhnN3Vz+roICnVh9
-p1fMxYtdhDH7n6/0UtZ2WEOy4UhgAfX2w73l7z7Q1SXkkFp6vbnZ517k//s//BHR
-FK7b/pBv1yX3bksj28P6mzx0eoE95Ah2nwx1aj2CaJUaRewCMFn3iuJF6o8FTiax
-gZv7I4+2+5b0M1dwriAceSqqMwOxmJHQ3cM6oBPnVH2cFszdN03N+Hdc5FLRxMkr
-BOwQVFXa+ckwufzVW5ozlFp/YZD4HtxZiHZyX2c2plC34npSIO/ctHuymh+5gXQi
-nTCyCvvoQO4p95kgbA9iG37MgzfmMZyJNPwxi5HkWv1giwtYLjjYB4aaJbpWAWK1
-9HoifgpakZLe0jN0NB+Wlpa4ItGtfAdHyLcu9o5ZQj6JBs/p60Zg0hEYeP2/nGqx
-RUYmSx5+M9A5ELmJu5N0WSggbSfepQIMLizuFg0pDCu5+OSXTTg=
-=GyaW
------END PGP SIGNATURE-----
-
---Sig_/Q3Y9sJryo4WH73qHCcO18k1--
