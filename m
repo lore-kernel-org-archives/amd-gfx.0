@@ -4,41 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B49EC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 16:46:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DE2CC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 17:30:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81A3410E0CF;
-	Thu, 15 Dec 2022 16:46:12 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 740B210E0CF;
- Thu, 15 Dec 2022 16:46:06 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 414C2B81BA1;
- Thu, 15 Dec 2022 16:46:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23C28C433D2;
- Thu, 15 Dec 2022 16:45:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671122761;
- bh=aNi+MDukcWClJUpGNHicqsKzCYbsXQMr0xrEnMsi1Ts=;
- h=From:To:Cc:Subject:Date:From;
- b=p32bcg5JZOWdcq6LRNSuomdYw4Xuu/fO3b8cx0vILTMUqsLZ0+QxZ8LyZ2b6qk/sU
- DK4rjWufN/ywpUM5+ZWqONZd7yoLfU8kU9nXeaYiaisv2wfkPnwdREpGoJTIrqXtHw
- cFlF8rOWX2Aash/2xiNLlbfGvAVpBnrnuc7aH7XHBMpC42XA28xwfdnAp9N/9esM6/
- 5SVW03nnnN2i76DAIcn51k6Jx/HBAxw9FNAzyx0oTAjy8VJsTnQ8ykug9OdDqi3TmA
- v2XGRdQocpyrZLX9dlNLn237Ady1yssU7TP9RXW1oWA3A7RslJ/dLqZS/CxE8wO/wk
- T0NKYJuTSyUKQ==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH] drm/amd/display: fix duplicate assignments
-Date: Thu, 15 Dec 2022 17:45:25 +0100
-Message-Id: <20221215164537.1126692-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B71210E401;
+	Thu, 15 Dec 2022 17:30:57 +0000 (UTC)
+Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
+ [IPv6:2001:4860:4864:20::35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D527F10E401;
+ Thu, 15 Dec 2022 17:30:54 +0000 (UTC)
+Received: by mail-oa1-x35.google.com with SMTP id
+ 586e51a60fabf-143ffc8c2b2so159131fac.2; 
+ Thu, 15 Dec 2022 09:30:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LBYglHLeZPJlQ/c59d7S7j/ILPAtaoUZXSkNu4AjQqk=;
+ b=o1tPEFg57Ajfz7POwUhqZPsNTvlo3Bs815L0LLV6cJzqO3p+D2rwnYFcn1sXwnZP4+
+ I5Hui9j2ZsWhErLAF+C6vORkDYC+7BYOjtCP5yi/X5ACw62vkBuEmrxbpd+pTkIRbKrV
+ puwnse4w+PPYsQwUdnczal/tX1eiNh8/JaKBDYSLEew0lVn8rHzV+X4hzv+0ZKRMbbLA
+ JYyAVRkDDRcTpUWe6F4hIvMCzC1zNd89a8MuKawQrMwyVTUn9pyD+5vSojvKni3RHrxm
+ CPO3t8HKtqZ8jGhpnhyEZ4ng2LsdOA32t+nC9Wzok9wTW4Or8ui9tj+1LTTUzdUEv7vo
+ PWQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LBYglHLeZPJlQ/c59d7S7j/ILPAtaoUZXSkNu4AjQqk=;
+ b=qnO9KfsbUyw6o15zZowNJXcGpYN0+McV/sg95MBH0VcSdRclm3voKB9SXoopNAO3g1
+ cZJeZOQAJUBzCn7freA1wmOCbK/VaVVmSFEgUIBk2FrGXatw+FuIv49133hg+On4GRDl
+ u7+yhh45HpQ9QynLWPWpoDOHJQc5NNZLuIOSFkeXmECTePi2Q5d72UEWDcHPL/2UX85v
+ JJyp15xtKJqSIpaX3vNovfXQZDJvAM3T2aFFLtL3+j2BAlJQXLuex8XO3VSYMJnw48IO
+ rKjiVypA39Jd9uaHGWTAKNA5WnMPp7UEI4X7IB/FXb5V4WKf0rxqwxPucV4pL0M6DQVs
+ rDSQ==
+X-Gm-Message-State: AFqh2kohhgWe8O8CAtP6MNUxCvsQvvUQ6HIvFqinuFLRoc8PPqQRV78A
+ xeIsDC/1lOwYCTApxMayBgXP4pM9qqmDINbCExY=
+X-Google-Smtp-Source: AMrXdXslPumyL68vwChsFlSTn4bge8AlJJ2Y9CiaNp/mn8hRJ8SlQhWsbiqXh3QMc7DV1fDgxWJW51DB7TSRPGLebbc=
+X-Received: by 2002:a05:6870:4687:b0:143:8a81:116c with SMTP id
+ a7-20020a056870468700b001438a81116cmr749551oap.96.1671125454019; Thu, 15 Dec
+ 2022 09:30:54 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20221212182137.374625-1-harry.wentland@amd.com>
+ <20221212182137.374625-17-harry.wentland@amd.com>
+ <114c2e02-41c8-8576-f88d-1c50f41deb9e@mailbox.org>
+ <20221214110128.1cd58dea@eldfell>
+ <CADnq5_M8Z2QRze60AFtmF6jTw8zpTpM-MPPmgejoUCb7Rv1ZrA@mail.gmail.com>
+ <57d2c440-a622-bcff-c3b5-e22404ef7eb6@mailbox.org>
+In-Reply-To: <57d2c440-a622-bcff-c3b5-e22404ef7eb6@mailbox.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 15 Dec 2022 12:30:42 -0500
+Message-ID: <CADnq5_OLLe6FSY6eL=o7Ws=6VzvX4e7eagJnMB+e7Bysyc0DiQ@mail.gmail.com>
+Subject: Re: [PATCH 16/16] drm/amd/display: Don't restrict bpc to 8 bpc
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,48 +71,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Charlene Liu <Charlene.Liu@amd.com>, Arnd Bergmann <arnd@arndb.de>,
- Alex Hung <alex.hung@amd.com>, linux-kernel@vger.kernel.org, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Roman Li <roman.li@amd.com>,
- amd-gfx@lists.freedesktop.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Michael Strauss <michael.strauss@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Duncan Ma <duncan.ma@amd.com>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
+ amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+On Thu, Dec 15, 2022 at 4:07 AM Michel D=C3=A4nzer
+<michel.daenzer@mailbox.org> wrote:
+>
+> On 12/14/22 16:46, Alex Deucher wrote:
+> > On Wed, Dec 14, 2022 at 4:01 AM Pekka Paalanen <ppaalanen@gmail.com> wr=
+ote:
+> >> On Tue, 13 Dec 2022 18:20:59 +0100
+> >> Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
+> >>> On 12/12/22 19:21, Harry Wentland wrote:
+> >>>> This will let us pass kms_hdr.bpc_switch.
+> >>>>
+> >>>> I don't see any good reasons why we still need to
+> >>>> limit bpc to 8 bpc and doing so is problematic when
+> >>>> we enable HDR.
+> >>>>
+> >>>> If I remember correctly there might have been some
+> >>>> displays out there where the advertised link bandwidth
+> >>>> was not large enough to drive the default timing at
+> >>>> max bpc. This would leave to an atomic commit/check
+> >>>> failure which should really be handled in compositors
+> >>>> with some sort of fallback mechanism.
+> >>>>
+> >>>> If this somehow turns out to still be an issue I
+> >>>> suggest we add a module parameter to allow users to
+> >>>> limit the max_bpc to a desired value.
+> >>>
+> >>> While leaving the fallback for user space to handle makes some sense
+> >>> in theory, in practice most KMS display servers likely won't handle
+> >>> it.
+> >>>
+> >>> Another issue is that if mode validation is based on the maximum bpc
+> >>> value, it may reject modes which would work with lower bpc.
+> >>>
+> >>>
+> >>> What Ville (CC'd) suggested before instead (and what i915 seems to be
+> >>> doing already) is that the driver should do mode validation based on
+> >>> the *minimum* bpc, and automatically make the effective bpc lower
+> >>> than the maximum as needed to make the rest of the atomic state work.
+> >>
+> >> A driver is always allowed to choose a bpc lower than max_bpc, so it
+> >> very well should do so when necessary due to *known* hardware etc.
+> >> limitations.
+> >>
+> >
+> > In the amdgpu case, it's more of a preference thing.  The driver would
+> > enable higher bpcs at the expense of refresh rate and it seemed most
+> > users want higher refresh rates than higher bpc.
+>
+> I wrote the above because I thought that this patch might result in some =
+modes getting pruned because they can't work with the max bpc. However, I s=
+ee now that cbd14ae7ea93 ("drm/amd/display: Fix incorrectly pruned modes wi=
+th deep color") should prevent that AFAICT.
+>
 
-The .set_odm_combine callback pointer was added twice, causing
-a harmless -Wextra warning:
+Yeah, maybe that has been fixed now.  IIRC, the max bpc hack was added
+a long time ago.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn314/dcn314_optc.c:258:36: error: initialized field overwritten [-Werror=override-init]
-  258 |                 .set_odm_combine = optc314_set_odm_combine,
-      |                                    ^~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn314/dcn314_optc.c:258:36: note: (near initialization for 'dcn314_tg_funcs.set_odm_combine')
+Alex
 
-Fixes: 5ade1b951dec ("drm/amd/display: Add OTG/ODM functions")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
-index f246aab23050..0086cafb0f7a 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
-@@ -241,7 +241,6 @@ static struct timing_generator_funcs dcn314_tg_funcs = {
- 		.set_dsc_config = optc3_set_dsc_config,
- 		.get_dsc_status = optc2_get_dsc_status,
- 		.set_dwb_source = NULL,
--		.set_odm_combine = optc314_set_odm_combine,
- 		.get_optc_source = optc2_get_optc_source,
- 		.set_out_mux = optc3_set_out_mux,
- 		.set_drr_trigger_window = optc3_set_drr_trigger_window,
--- 
-2.35.1
-
+> The question then is: What happens if user space tries to use a mode whic=
+h doesn't work with the max bpc? Does the driver automatically lower the ef=
+fective bpc as needed, or does the atomic commit (check) fail? The latter w=
+ould seem bad.
+>
+>
+> > I guess the driver can select a lower bpc at its discretion to produce
+> > what it thinks is the best default, but what about users that don't wan=
+t
+> > the default?
+>
+> They can choose the lower refresh rate?
+>
+>
+> --
+> Earthling Michel D=C3=A4nzer            |                  https://redhat=
+.com
+> Libre software enthusiast          |         Mesa and Xwayland developer
+>
