@@ -4,122 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EDAEC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 10:20:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42B1AC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 10:30:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CE8710E511;
-	Thu, 15 Dec 2022 10:19:54 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2069.outbound.protection.outlook.com [40.107.220.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B865210E50F;
- Thu, 15 Dec 2022 10:19:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ABi946mElyFv/oJGXqGTBY+WR0cKaOOkzm8XPxPUl82QdW4IKffuB1lLsYyE9zcS+WKh2uVIlLfZrrolTU6iVr0kGnvfgZipeA7wBb59xiGdrD/6yVcygW+iacspGQYh9KvkWuiYw6+4ShB5M5l5nEeZ60iOhI01tdgG+BRC5WkzXEa4mZX8AE4kjzwb/INmu3EXWDzweLbcfaexmUsIraoqwFSaFDzyk2U4VU7DieTLOV5iTEnYRcDmWCrDR8+T+UmLEgY5rkts21/eP2FoC+MbiPfMEoSnSxGtUJkPXhD5F3eJn3maKK5X6VnDrryuErxxnznz60mMWFFOirSl0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Uvf+jwMIWpzmvWDoqbBN+ME/iXKT8iAJnutI70FkYIY=;
- b=NGWPvWbESgv8K9cEbhfsL0kPG5w+bm9Z7Obr763Ai2mIRxAiTJpY3cFJYYnSWFmEhf1FpHjYalvdypKAnfw40EKFXpjF2QtB36/Sf613YFPt10V/96XEc9sbpe5uPJVkfen0+zj0o5m8AOnU5x+VA/gt8bh48NP5nJyYBrpy9Vw0zUsE1L92pI/3P1P1ao6R/InGEEqkhEDvu5EokLQHNIoZIrOAvp1jGHIl6vfEoi70ati4ZRiuSH6QUvxbJXpFJMhgIlFOayIWH4pvf6x/8D9SxBAebxJQSye0Y2Chc38Esk0dHQ5SnFg2LqQq0nDXJ4qGFlEZpY6Il6HlzcLXtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uvf+jwMIWpzmvWDoqbBN+ME/iXKT8iAJnutI70FkYIY=;
- b=kQBbAa8LY0Ma/HoPLbHPbHwnsUzmkQKhG7qoqwP0fILT9VlZuutI8vwb94/K8L0krbTGcYjeaTgbZ2Ew3YWVCP2vLobuvrcypaCoTIJq0zRcCiSo4Oiy5ST9mvxgCDHcUsg4tlIFy3vvJf3mZwvl05+HtXd19coY5fv7l87BCAg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- PH7PR12MB7796.namprd12.prod.outlook.com (2603:10b6:510:275::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.11; Thu, 15 Dec
- 2022 10:19:46 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178%3]) with mapi id 15.20.5880.019; Thu, 15 Dec 2022
- 10:19:46 +0000
-Message-ID: <de9bf189-c204-f499-f027-1320e2faaa20@amd.com>
-Date: Thu, 15 Dec 2022 05:19:43 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Content-Language: en-CA
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>, Alex Deucher <alexdeucher@gmail.com>
-References: <20221211114226.57398-1-luben.tuikov@amd.com>
- <20221212020821.8248-1-luben.tuikov@amd.com>
- <a02c2cc9-f265-16ff-da44-9e44381c486c@arm.com>
- <CADnq5_MoD7oEXGivWPqO0m3XpqqAhg2k=X+zXcNPePYGpq0keQ@mail.gmail.com>
- <5b5a731b-0208-58a9-cb6f-2614efadbab2@arm.com>
- <9f18f970-98c5-649a-5f2c-dc4bc26db1e7@gmail.com>
- <466c4ce0-9a13-7d99-768e-43f7027f4933@amd.com>
- <02c45581-f988-2c10-17c8-dca6836acb00@gmail.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-Subject: Re: [PATCH] drm/radeon: Fix screen corruption (v2)
-In-Reply-To: <02c45581-f988-2c10-17c8-dca6836acb00@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 796AA10E517;
+	Thu, 15 Dec 2022 10:30:28 +0000 (UTC)
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25BFF10E517
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Dec 2022 10:30:25 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4NXpQ53618z9sf4;
+ Thu, 15 Dec 2022 11:29:49 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1671100189;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=w0PYd1t7yf0K+aJZMGkprpdY9ve8z54wBXceE/DMGO0=;
+ b=a8cJzoWCQdOeYvyPi/bTsIvF2L3ALqhry2lfnTdAcJLT9Hu2rm2Z6v2uZviYBQbIj/JjJk
+ XY/PjyflgBpQzeB5krhl8jW82AjzR3tNtd6TK+MiH8j08TyvqNXwZZphZAOMrab7rPc9r2
+ HvvEYqrh3hUkPuhfvnPqw/kU+jGCd8Xj14GqAZnY2ghTbwLInIZ4cbibqE5oCWlXL5A/Dz
+ V1eHXko4YeOmbT4INhTMgcruczrCYjqXTNOFtFgv76s6b0byVaT3u3S5G1DZr5WVIbpY/0
+ +jmhfoh3f9wECszSug1WlLUNpMXCXjKr1FXuWV4ztsm8sAwcfhFAhoEOfhzjuw==
+Message-ID: <e8801420-3212-702a-93dd-1b3f323bfd87@mailbox.org>
+Date: Thu, 15 Dec 2022 11:29:42 +0100
+MIME-Version: 1.0
+Subject: Re: [PATCH 05/18] drm/amd/display: Use mdelay to avoid crashes
+Content-Language: de-CH-frami
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Alex Deucher <alexdeucher@gmail.com>
+References: <20221214202141.1721178-1-aurabindo.pillai@amd.com>
+ <20221214202141.1721178-6-aurabindo.pillai@amd.com>
+ <CADnq5_PKy2+2-5X+zn4Ax2wp1iuiZ7E-r-bQ3cSHifE34FYfRA@mail.gmail.com>
+ <2938ab78-3224-4097-f5d1-f64c354e5eb6@amd.com>
+ <CADnq5_P83EkSqXxe29diJZ2eJH8-8v308jLRZxJ4f8e7FnEOmw@mail.gmail.com>
+ <12eed813-c250-4b14-7497-afbd6a41cf2b@amd.com>
+ <CADnq5_OzcwSgC3a5MwX=tdLNAxuSeQiAjei9b6CYq84rhA6ncQ@mail.gmail.com>
+ <fb472bf8-0478-0acb-a730-19802277dfdc@amd.com>
+ <CADnq5_Pz=JDUaGW3HE17sL0rnkOB9KSVKeNc5u5zn-8QNTNPrQ@mail.gmail.com>
+ <7a976873-033c-461e-c6de-4df01051ec24@amd.com>
+ <e2337d02-594e-9c69-d8a4-b046fc9c221f@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <e2337d02-594e-9c69-d8a4-b046fc9c221f@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0111.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:1::11) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|PH7PR12MB7796:EE_
-X-MS-Office365-Filtering-Correlation-Id: 16ac0a25-4b82-412e-52c5-08dade85e3f8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CFBaD/eLOn6TXh07KFXjEV5X0iOXKsqQCYR44+f25sX9n50gCBVEhyHmOdsFC7oJYv76AHZYR/b59ebGkkTPU/UvMw371eTorZoTn2JtBkztmIqk5M67iXPhgCTRAsHUs5P/KjduH7F3W15QEc+xi65x4NsoMrrN/X2h2QOsniRnaxKlqDYldyO9bsb8GwfMfQA4zYcZXuB6GsWu9X6KQqoQ/mE5zEKVbEylmHkXzP7C9vdl5d3+jbC+CqNNZfaYy3ZhSIa+odQ+xR8XUQr3C3jxerdUMzuJk0pNpCKzJHMnGieW/Zx+BKXD84jT9mCJ0LgLiwhbPGOP7RU6mClyhxl+oYF6uc5SbBiLA6TBVVWKA0mLiSjfN63sTQ4u984VQ7g4QeM8/rp+cABkmm4m3WLbc3TmzmiA0PHNoyMs0For6YCedppLIqYT89ZqYYvto16QIm5ORiKBeE3XgJgroEdJ7eyOCBNT9F6YtxcrirgqUJg6UHRz0yYilxEbeydw42Jp3Rxzg4598RtXX2BLHmPcybAAUKpUVm1bq9p8aUVQ4rdiAzDyoy365tN8cckHByVXmLUBOexksY1Jgu0S2V768w5pxzaFkpgWAd5rIchZllph9MgE3vmB4pqPqYB+7fj0tyolFeOzTVb2JM09ym2lybzTa5qQa/4qIp3MCTUtYCdm4A745zaxlKVvLCyFhbp8Eh4msW8zNxJIeP5a2bIWd6pJLFaCdH5SCs9jNM0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(366004)(346002)(396003)(39860400002)(376002)(451199015)(44832011)(31696002)(2906002)(86362001)(4001150100001)(26005)(6486002)(6666004)(53546011)(2616005)(478600001)(6506007)(66574015)(8676002)(66556008)(6512007)(66476007)(4326008)(66946007)(83380400001)(41300700001)(5660300002)(8936002)(38100700002)(316002)(110136005)(54906003)(31686004)(66899015)(186003)(36756003)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGpSTVZOcGpZYkNOMVY3aGVobExXQVVWVldXQ01yWGl0Um5SSUJveHFiSnY1?=
- =?utf-8?B?QzlQUjFBamZJMFA1Um42Tms3ajIvRS9TdVVrclU4eFpuLzMvWTRwRWl4akhJ?=
- =?utf-8?B?cEkvQ2RDem0zTVowaG41NkFkQUYvRTJCSTJQV2owODI3WDdpa1NMSGMzL0Zy?=
- =?utf-8?B?dlZEdVRYRmNPZUVIbW8reXNPeWVQS21ZcTlaVWpSOVlVNS85bks2UXBOdnM5?=
- =?utf-8?B?OGR3UlRaSzhDUkhKYklwci9IRU05OG1BcmlsVFNCdHRReUx0UUN1bzFiNFNX?=
- =?utf-8?B?YnJNei9LUzBDTzhkUm5OQ05MMFNxdk1OdUlRaURtWXJDZk1uQnJDdndKbXZN?=
- =?utf-8?B?KzBsdTF1RjB4K2FOVklYbXoveEZ1TS9yU2ZDWlZmMi9PK2dRNTJOZFhlRnA4?=
- =?utf-8?B?YndtM2V0VHJCRi9PWEV0RWhkUVRKa1R6c0lGQlpoeWMxb0loakQ3YStHN2Jw?=
- =?utf-8?B?cFp0TlpzTjRoV1V1dlVnVGlLT1JjdmgvNUJnZ2dyUTJvYzdTNC9ranlOanYr?=
- =?utf-8?B?Wk5TWGhKeTFwK2pPSENSZHJBV2ErVnVoamVTbkdVdVY2MGtXeHp4RzQyK3VN?=
- =?utf-8?B?dlF5Q0RtdTZJOVlZd2wxWFZ5dGJVVldJWThJUVhFSDhlUnBQdC9FMWlldnZr?=
- =?utf-8?B?NmdJcloxNjVKdXAyUVYveGtXYXJOaU0reGQyb0pBZnZtU2lmYk1QM0FTRXpE?=
- =?utf-8?B?OUxyVXMvZ2RMbXRiK3pPaXN6cVpzU3Y3TFFmTUdNdjVLT2I4aGVWRWF2cytE?=
- =?utf-8?B?RnF4Q0s2aDdSYnV1MkozUzJ2cTFLb0U2Z0RVNDZ2eXBJS2VTUE1sdUZDQk1n?=
- =?utf-8?B?Z0lsa042UFYySlEzbnVVUWlVWmdxOHhWTVFEUXJQdkFhaTdRUkRkSkpyQnN4?=
- =?utf-8?B?am1USUoxQzgwY1Q1RERmL3VUMEM5UW9pSTdjWmRSZDhNQXJzVTk4S0NyZXdn?=
- =?utf-8?B?N0IrcVZOYlNJL1QyNitIZ2x0bnp5L1NnRnNqb3p0THc1c2xSNlNVVG1xMHBl?=
- =?utf-8?B?N3VHcHB1WXhnVy9NeW9FeVd4a2diL3RDazV4WE9DZURLaDdpemNUNWFtVHRw?=
- =?utf-8?B?d2V4c1NWZnBCYTlnK1krMU84Rk1sQ0U2aGhIeFhjNTd5aW1EMG5rb3Y5RC9y?=
- =?utf-8?B?UHhoQ1QreENkMVhPS2dyL0JlY2F2TXplQkhDNU1yNW9IWEFrNXh2YUg2a2JX?=
- =?utf-8?B?ZTBQejhQQnE1OGQ3akZ4cEw0YTBkMklaTmh6cGlheWVrbHNQK0pZYllCRWh6?=
- =?utf-8?B?dEZNbUtPcVVPWFk2SU5qeEFSeVZ3WnVPalJvRVozTHdZUUZXNE5OZWoxSnFr?=
- =?utf-8?B?RGdzMWt3TEpvWFNwdHpnajJGdTB3RWdOdXlmWGxIY1VHeXRLUFdHSGFpMC93?=
- =?utf-8?B?TTFwSGxjWFFOYkVDQW9EZk1kMXRnNzRiRHF6QSs2SEtzZ0hKZmRETVpGK3hl?=
- =?utf-8?B?eHhPT3hmRFdtSXJidW05R08zK1VaYzVySjl3UUhSaTRqdXRLdklDSXRsSE9P?=
- =?utf-8?B?R1U5MUl4SUF2aUJyc2x6Y1BaR05oOEdQN3M5OXB6NnBsTXBZck0vdkxnSS92?=
- =?utf-8?B?aHNvQjBVdmpJYmpObmlkUlJ1OVpNQllTZCtPRHErd1RzVGlJZHp0QUhVaHNJ?=
- =?utf-8?B?Q2VMNDZGNnFCelFvazJHbE9ybS80cGFRRWxpQVNqYnJ4WUsrRU9panh4RWEr?=
- =?utf-8?B?d3BHdmViQm0rS3lYeldMMTVKRTRZbUJlWHVXRjJMcXFpeEVSZkxiVm9YeFpn?=
- =?utf-8?B?T2RoTDkwVGlSMlFvd3Niclc3V2owTXRjM09ObmJERGx0bU1PeGZ4TWdvUlZ4?=
- =?utf-8?B?R0U0T1BZWmZtVmVKc2huZmlWTGlSVFAxR04xcThpdkEzSE9vV3pMYitLRERN?=
- =?utf-8?B?SHJTc25vRVZuNVdoMTR1VzBJbkt1MlZWTEpMOEhQNHB0cmZCeVdZeXFXeUxV?=
- =?utf-8?B?UDdRZEd2a1dISlVpN3JyNVJYVXpKTEplc0h1cVl1U0JoM3JmSXprMnp0WXVU?=
- =?utf-8?B?c1RITEF4ZDJwalBnaEhxd29lN3hreUFJZTdwZ2FOSlBDd3p5SDlpd1Rpbzdp?=
- =?utf-8?B?bjdjYVVEci9qMWcxb0pkbVYrWGg3V0xmTVpoeEVRaWdGY0dYVmhXSEVHNGNZ?=
- =?utf-8?Q?57yND8VZO4KSuT7yHgZlx9x4/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16ac0a25-4b82-412e-52c5-08dade85e3f8
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2022 10:19:46.4627 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5WUfL5mgjdxMHdZP62B/8Ob+A21rbTHEldE8UvgPNu/K7yBgn89+VlvwmIPiH91o
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7796
+X-MBO-RS-META: srugthiztfd39q6pxii8871s5up35q34
+X-MBO-RS-ID: 634695db2b79c8098da
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,113 +65,115 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>,
- Mikhail Krylov <sqarert@gmail.com>,
- AMD Graphics <amd-gfx@lists.freedesktop.org>,
- Direct Rendering Infrastructure - Development
- <dri-devel@lists.freedesktop.org>
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ amd-gfx@lists.freedesktop.org, solomon.chiu@amd.com,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, wayne.lin@amd.com,
+ Harry.Wentland@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-12-15 04:46, Christian König wrote:
-> Am 15.12.22 um 10:08 schrieb Luben Tuikov:
->> On 2022-12-15 03:07, Christian König wrote:
->>> Am 15.12.22 um 00:08 schrieb Robin Murphy:
->>>> On 2022-12-14 22:02, Alex Deucher wrote:
->>>>> On Wed, Dec 14, 2022 at 4:54 PM Robin Murphy <robin.murphy@arm.com>
->>>>> wrote:
->>>>>> On 2022-12-12 02:08, Luben Tuikov wrote:
->>>>>>> Fix screen corruption on older 32-bit systems using AGP chips.
+On 12/15/22 09:09, Christian König wrote:
+> Am 15.12.22 um 00:33 schrieb Alex Hung:
+>> On 2022-12-14 16:06, Alex Deucher wrote:
+>>> On Wed, Dec 14, 2022 at 5:56 PM Alex Hung <alex.hung@amd.com> wrote:
+>>>> On 2022-12-14 15:35, Alex Deucher wrote:
+>>>>> On Wed, Dec 14, 2022 at 5:25 PM Alex Hung <alex.hung@amd.com> wrote:
+>>>>>> On 2022-12-14 14:54, Alex Deucher wrote:
+>>>>>>> On Wed, Dec 14, 2022 at 4:50 PM Alex Hung <alex.hung@amd.com> wrote:
+>>>>>>>> On 2022-12-14 13:48, Alex Deucher wrote:
+>>>>>>>>> On Wed, Dec 14, 2022 at 3:22 PM Aurabindo Pillai
+>>>>>>>>> <aurabindo.pillai@amd.com> wrote:
+>>>>>>>>>>
+>>>>>>>>>> From: Alex Hung <alex.hung@amd.com>
+>>>>>>>>>>
+>>>>>>>>>> [Why]
+>>>>>>>>>> When running IGT kms_bw test with DP monitor, some systems crash from
+>>>>>>>>>> msleep no matter how long or short the time is.
+>>>>>>>>>>
+>>>>>>>>>> [How]
+>>>>>>>>>> To replace msleep with mdelay.
+>>>>>>>>>
+>>>>>>>>> Can you provide a bit more info about the crash?  A lot of platforms
+>>>>>>>>> don't support delay larger than 2-4ms so this change will generate
+>>>>>>>>> errors on ARM and possibly other platforms.
+>>>>>>>>>
+>>>>>>>>> Alex
+>>>>>>>>
+>>>>>>>> The msleep was introduced in eec3303de3378 for non-compliant display
+>>>>>>>> port monitors but IGT's kms_bw test can cause a recent h/w to hang at
+>>>>>>>> msleep(60) when calling "igt_remove_fb" in IGT
+>>>>>>>> (https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Figt-gpu-tools%2F-%2Fblob%2Fmaster%2Ftests%2Fkms_bw.c%23L197&amp;data=05%7C01%7Calex.hung%40amd.com%7C81664450189542a7bbc408dade27d0e9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638066559844526853%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=M%2BF4H2qddXItPoUZRVyhlc5N8UF1%2FHIh8PpfT%2BCmdZ4%3D&amp;reserved=0)
+>>>>>>>>
+>>>>>>>> It is possible to workaround this by reversing order of
+>>>>>>>> igt_remove_fb(&buffer[i]), as the following example:
+>>>>>>>>
+>>>>>>>>       igt_create_color_fb with the order buffer[0], buffer[1], buffer[2]
+>>>>>>>>
+>>>>>>>> Hangs:
+>>>>>>>>       igt_remove_fb with the order buffer[0], buffer[1], buffer[2]
+>>>>>>>>
+>>>>>>>> No hangs:
+>>>>>>>>       igt_remove_fb with the reversed order buffer[2], buffer[1], buffer[0]
+>>>>>>>>
+>>>>>>>> However, IGT simply exposes the problem and it makes more sense to stop
+>>>>>>>> the hang from occurring.
+>>>>>>>>
+>>>>>>>> I also tried to remove the msleep completely and it also work, but I
+>>>>>>>> didn't want to break the fix for the original problematic hardware
+>>>>>>>> configuration.
 >>>>>>>
->>>>>>> On older systems with little memory, for instance 1.5 GiB, using an
->>>>>>> AGP chip,
->>>>>>> the device's DMA mask is 0xFFFFFFFF, but the memory mask is
->>>>>>> 0x7FFFFFF, and
->>>>>>> subsequently dma_addressing_limited() returns 0xFFFFFFFF < 0x7FFFFFFF,
->>>>>>> false. As such the result of this static inline isn't suitable for
->>>>>>> the last
->>>>>>> argument to ttm_device_init()--it simply needs to now whether to
->>>>>>> use GFP_DMA32
->>>>>>> when allocating DMA buffers.
->>>>>> This sounds wrong to me. If the issues happen on systems without PAE it
->>>>>> clearly can't have anything to with the actual DMA address size. Not to
->>>>>> mention that AFAICS 32-bit x86 doesn't even have ZONE_DMA32, so
->>>>>> GFP_DMA32 would be functionally meaningless anyway. Although the
->>>>>> reported symptoms initially sounded like they could be caused by DMA
->>>>>> going to the wrong place, that is also equally consistent with a
->>>>>> loss of
->>>>>> cache coherency.
+>>>>>>> Why does sleep vs delay make a difference?  Is there some race that we
+>>>>>>> are not locking against?
+>>>>>>>
+>>>>>>> Alex
+>>>>>>>
 >>>>>>
->>>>>> My (limited) understanding of AGP is that the GART can effectively
->>>>>> alias
->>>>>> memory to a second physical address, so I could well believe that
->>>>>> something somewhere in the driver stack needs to perform some cache
->>>>>> maintenance to avoid coherency issues, and that in these particular
->>>>>> setups whatever that is might be assuming the memory is direct-mapped
->>>>>> and thus going wrong for highmem pages.
+>>>>>> That was my original thought but I did not find any previously. I will
+>>>>>> investigate it again.
 >>>>>>
->>>>>> So as I said before, I really think this is not about using
->>>>>> GFP_DMA32 at
->>>>>> all, but about *not* using GFP_HIGHUSER.
->>>>> One of the wonderful features of AGP is that it has to be used with
->>>>> uncached memory.  The aperture basically just provides a remapping of
->>>>> physical pages into a linear aperture that you point the GPU at.  TTM
->>>>> has to jump through quite a few hoops to get uncached memory in the
->>>>> first place, so it's likely that that somehow isn't compatible with
->>>>> HIGHMEM.  Can you get uncached HIGHMEM?
->>>> I guess in principle yes, if you're careful not to use regular
->>>> kmap()/kmap_atomic(), and always use pgprot_noncached() for
->>>> userspace/vmalloc mappings, but clearly that leaves lots of scope for
->>>> slipping up.
->>> I theory we should do exactly that in TTM, but we have very few users
->>> who actually still exercise that functionality.
+>>>>>> If mdelay(>4) isn't usable on other platforms, is it an option to use
+>>>>>> mdelay on x86_64 only and keep msleep on other platforms or just remove
+>>>>>> the msleep for other platforms, something like
+>>>>>>
+>>>>>> -                       msleep(60);
+>>>>>> +#ifdef CONFIG_X86_64
+>>>>>> +                       mdelay(60);
+>>>>>> +#endif
+>>>>>
+>>>>> That's pretty ugly.  I'd rather try and resolve the root cause.  How
+>>>>> important is the IGT test?  What does it do?  Is the test itself
+>>>>> correct?
+>>>>>
+>>>>
+>>>> Agreed, and I didn't want to add conditions around the mdelay for the
+>>>> same reason. I will assume this is not an option now.
+>>>>
+>>>> As in the previous comment, IGT can be modified to avoid the crash by
+>>>> reversing the order fb is removed - though I suspect I will receive
+>>>> questions why this is not fixed in kernel.
+>>>>
+>>>> I wanted to fix this in kernel because nothing stops other user-space
+>>>> applications to use the same way to crash kernel, so fixing IGT is the
+>>>> second option.
+>>>>
+>>>> Apparently causing problems on other platforms isn't an option at all so
+>>>> I will try to figure out an non-mdelay solution, and then maybe an IGT
+>>>> solution instead.
 >>>
->>>> Working backwards from primitives like set_memory_uc(), I see various
->>>> paths in TTM where manipulating the caching state is skipped for
->>>> highmem pages, but I wouldn't even know where to start looking for
->>>> whether the right state is propagated to all the places where they
->>>> might eventually be mapped somewhere.
->>> The tt object has the caching state for the pages and
->>> ttm_prot_from_caching() then uses pgprot_noncached() and co for the
->>> userspace/vmalloc mappings.
->>>
->> The point of this patch is that dma_addressing_limited() is unsuitable as
->> the last parameter to ttm_pool_init(), since if it is "false"--as it is in this
->> particular case--then TTM ends up using HIGHUSER, and we get the screen corruption.
->> (gfp_flags |= GFP_HIGHUSER in in ttm_pool_alloc())
+>>> What hangs?  The test or the kernel or the hardware?
+>>
+>> The system becomes completely unresponsive - no keyboard, mouse nor remote accesses.
 > 
-> Well I would rather say that dma_addressing_limited() works, but the 
-> default value from dma_get_required_mask() is broken.
+> I agree with Alex that changing this is extremely questionable and not justified at all.
 > 
-
-dma_get_required_mask() for his setup of 1.5 GiB of memory returns 0x7FFFFFF.
-While the dma mask is 0xFFFFFFFF, as set in radeon_device.c in radeon_device_init().
-
-> 32 bits only work with bounce buffers and we can't use those on graphics 
-> hardware.
+> My educated guess is that by using mdelay() instead of msleep() we keep the CPU core busy and preventing something from happening at the same time as something else.
 > 
->> Is there an objection to this patch, if it fixes the screen corruption?
-> 
-> Not from my side, but fixing the underlying issues would be better I think.
-> 
+> This clearly points to missing locking or similar to protect concurrent execution of things.
+Might another possibility be that this code gets called from an atomic context which can't sleep?
 
-Have they been identified?
 
->> Or does TTM need fixing, in that what we really need is to specify whether
->> caching is desired and/or DMA32 when we allocate a TTM pool (ttm_pool_init(),
->> called from ttm_device_init(), called from radeon_ttm_init.c)?
-> 
-> Could be, but it's more likely that the problem is in the DMA layer 
-> because we fail to recognize that the device can't access all of the memory.
-> 
-
-Right, I agree. Ideally, setting dev->{dma_mask, coherent_dma_mask, bus_dma_limit},
-should be sufficient to tell the DMA layer what kind of memory the device
-can handle.
-
-But this patch doesn't change non-local behaviour and as such is local and safe
-to apply.
-
-Regards,
-Luben
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
