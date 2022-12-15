@@ -4,66 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 323D3C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 07:45:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3590CC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 08:07:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5063A10E09C;
-	Thu, 15 Dec 2022 07:45:31 +0000 (UTC)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94A4710E09C
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Dec 2022 07:45:26 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id b2so50258174eja.7
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Dec 2022 23:45:26 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D0B610E4F1;
+	Thu, 15 Dec 2022 08:07:32 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF34810E4EF;
+ Thu, 15 Dec 2022 08:07:24 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id tz12so27736156ejc.9;
+ Thu, 15 Dec 2022 00:07:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=2wGB1nsfeyH8prjWCXDGUjy6bZyvdb3w29/AVsKNDVQ=;
- b=X+EDy4jhzAtTgNheE+KClDAvscMn5W6Wh0agfyCk8+adCQpf1n5QDtZtfz06/JZtYF
- jX1cp+A3bjPXeQDzEZ6L6ho9PlfRBTlX2K3t2Haukan1UOyMyKld2H/GNxdnXoBBmim9
- KWpY3YKvNBF/GuQJvYv1IuVhy4TUdtuaU/i5WDh5CfDuUM/LCa50uKiNa83xCLdNOjS2
- mBmVpi4PztoJn2UiHUfW8+7xmleRFqft1zlrMFewkb2Sy7rDNOccYbLw7RMNOc45M2KL
- u5DpM+2Obn6bcpNmW30x9nG92gPzl9VwkoUjMsxJVBeG+MnzhHSOCaPNITRrhe2FA9FF
- FFMw==
+ bh=IumG94NWekH4RGw/rERdEz2xSSqm2nwseAlzAQdNaJw=;
+ b=D7v1bpDFRn8J8AakrPaTYKIZeTe2U/IIvqOqROlO+5ZhXkobO9ULJmsprlaLNMXw6x
+ xvaXkzXYMjJcMNP+q2Z9rr7myK+k7OpAj+ZhO1+aJ15xDpgR4c8hnY1gKC+Zo/EMxYYO
+ Ny/wKOl950gWem7QZkwCDeBnsIEaI+1xQsiKuPbvvBbM8S/ZHAvavSOUvcp72FqYDt8V
+ 0PD3cw/vvDNUh1qh9gGiM5yvLYmVPowiPIhyy7ffrBAQaVXtwns6NXD8v8gLXubzRd4G
+ JYsZctx5eB8b6ORwaWY6ztf3jeSSQQP7ugXlvrMdmiT2QcHuzYHqA8ChFyxlt3m+gzi+
+ IJZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2wGB1nsfeyH8prjWCXDGUjy6bZyvdb3w29/AVsKNDVQ=;
- b=ZXsSNUs+TD4PYq2MlzzHz2zm4lcZYQFzO+jjC+THgrAiwKNEZzU+poN+vhs3lyFbDi
- w4FooxvfFbIWvaX2lhVXz5c1Id9M3yDFF2fZk2XbBvxztEXmm++lgvkxpvX6SslbMC2Y
- DB/ykp+9xv6j2w1UKEVMWqWC39N8ZM8Bs0bmN8Xt5KU+FLghdj+LW8eNTh+vOg46oxYU
- fzc6lptRXsCgBOYNHVIPOvZb+buJOtKqUJC0nldUe3ivu1/dBGTLwRu2raYBAuw6gE5L
- YsB2JSO2d1Mx8Kl4140ZqBaP+Jyv95DmVhJCctIlpuItedFvm4IIjvUNkcCldEypNjaa
- u+iQ==
-X-Gm-Message-State: ANoB5plTUZBppQEp9FTxZ0nDfwrrlWYqIVQZtdYqaB6e9t9/gT8Mz249
- otCuEMPkzlcmuVsvYLOhQNg=
-X-Google-Smtp-Source: AA0mqf5HGcPXHRHQxrVcZK2hzvI2aHTvnCYfOH8sCoJ462ZkzRSOs8yOcK/mkBw4G64pyxE8YW7kpg==
-X-Received: by 2002:a17:906:e256:b0:7c0:edb6:e55f with SMTP id
- gq22-20020a170906e25600b007c0edb6e55fmr21709723ejb.37.1671090324738; 
- Wed, 14 Dec 2022 23:45:24 -0800 (PST)
+ bh=IumG94NWekH4RGw/rERdEz2xSSqm2nwseAlzAQdNaJw=;
+ b=QF3s/hJ8Fmbxp97f/oT+59ZZeZnFizW6OHmc07+TJcpahEKt6lzDc1v2pcj3A4mMfY
+ DVZARPZ/Sgz93go1Z7RxBm58Da4jQEhjwR799Sy1NPi3DLLgPFaN4aOWjFj5u9PVZGVx
+ doNNYJPG1Uhka72T+bsuo9oIbzX6cfvUPyiLvHt/JVZOHIjsvgRVSFT6KvWNQSdNTiQ8
+ 5a5hCse3yZoTy+qXs4FyikgtYMmt8tpMC5mb8CDmhPi8S8X6jpsuH26p9MVXwg75BHE6
+ aaUntq2PYYZJzlJTf5nRK4fSnzfXxNp2KJ9O9DUXb9PDbvJjc1poun5Zxy4PkISKyT1M
+ R7eA==
+X-Gm-Message-State: ANoB5pldpRWZfUuAZSITB27zAkYd6AjkfWVkCawYJ+QMusWS/+/RENN2
+ /kOpl8fWi/7x3egDg2RrRgc=
+X-Google-Smtp-Source: AA0mqf5VX6kzl18xNuW34V6+GMxcOPbn8JSzTWHKIbAeEvBw7z98p52APeGmgNWWWHsJN/LbmnDDsg==
+X-Received: by 2002:a17:907:c688:b0:7bb:af66:f38c with SMTP id
+ ue8-20020a170907c68800b007bbaf66f38cmr22899403ejc.10.1671091642076; 
+ Thu, 15 Dec 2022 00:07:22 -0800 (PST)
 Received: from [192.168.178.21] (p5b0ea2e7.dip0.t-ipconnect.de.
  [91.14.162.231]) by smtp.gmail.com with ESMTPSA id
- pk14-20020a170906d7ae00b0077016f4c6d4sm6766499ejb.55.2022.12.14.23.45.23
+ i15-20020a50fd0f000000b0046b4e0fae75sm7088076eds.40.2022.12.15.00.07.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Dec 2022 23:45:24 -0800 (PST)
-Message-ID: <83ccb403-5c69-e191-41d9-0e5870baf40d@gmail.com>
-Date: Thu, 15 Dec 2022 08:45:22 +0100
+ Thu, 15 Dec 2022 00:07:21 -0800 (PST)
+Message-ID: <9f18f970-98c5-649a-5f2c-dc4bc26db1e7@gmail.com>
+Date: Thu, 15 Dec 2022 09:07:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH 1/7] drm/amdgpu/gmc9: don't touch gfxhub registers during
- S0ix
+Subject: Re: [PATCH] drm/radeon: Fix screen corruption (v2)
 Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221214221654.1625194-1-alexander.deucher@amd.com>
- <20221214221654.1625194-2-alexander.deucher@amd.com>
+To: Robin Murphy <robin.murphy@arm.com>, Alex Deucher <alexdeucher@gmail.com>
+References: <20221211114226.57398-1-luben.tuikov@amd.com>
+ <20221212020821.8248-1-luben.tuikov@amd.com>
+ <a02c2cc9-f265-16ff-da44-9e44381c486c@arm.com>
+ <CADnq5_MoD7oEXGivWPqO0m3XpqqAhg2k=X+zXcNPePYGpq0keQ@mail.gmail.com>
+ <5b5a731b-0208-58a9-cb6f-2614efadbab2@arm.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20221214221654.1625194-2-alexander.deucher@amd.com>
+In-Reply-To: <5b5a731b-0208-58a9-cb6f-2614efadbab2@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,90 +77,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ Mikhail Krylov <sqarert@gmail.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ AMD Graphics <amd-gfx@lists.freedesktop.org>,
+ Direct Rendering Infrastructure - Development
+ <dri-devel@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 14.12.22 um 23:16 schrieb Alex Deucher:
-> gfxhub registers are part of gfx IP and should not need to be
-> changed.  Doing so without disabling gfxoff can hang the gfx IP.
+Am 15.12.22 um 00:08 schrieb Robin Murphy:
+> On 2022-12-14 22:02, Alex Deucher wrote:
+>> On Wed, Dec 14, 2022 at 4:54 PM Robin Murphy <robin.murphy@arm.com> 
+>> wrote:
+>>>
+>>> On 2022-12-12 02:08, Luben Tuikov wrote:
+>>>> Fix screen corruption on older 32-bit systems using AGP chips.
+>>>>
+>>>> On older systems with little memory, for instance 1.5 GiB, using an 
+>>>> AGP chip,
+>>>> the device's DMA mask is 0xFFFFFFFF, but the memory mask is 
+>>>> 0x7FFFFFF, and
+>>>> subsequently dma_addressing_limited() returns 0xFFFFFFFF < 0x7FFFFFFF,
+>>>> false. As such the result of this static inline isn't suitable for 
+>>>> the last
+>>>> argument to ttm_device_init()--it simply needs to now whether to 
+>>>> use GFP_DMA32
+>>>> when allocating DMA buffers.
+>>>
+>>> This sounds wrong to me. If the issues happen on systems without PAE it
+>>> clearly can't have anything to with the actual DMA address size. Not to
+>>> mention that AFAICS 32-bit x86 doesn't even have ZONE_DMA32, so
+>>> GFP_DMA32 would be functionally meaningless anyway. Although the
+>>> reported symptoms initially sounded like they could be caused by DMA
+>>> going to the wrong place, that is also equally consistent with a 
+>>> loss of
+>>> cache coherency.
+>>>
+>>> My (limited) understanding of AGP is that the GART can effectively 
+>>> alias
+>>> memory to a second physical address, so I could well believe that
+>>> something somewhere in the driver stack needs to perform some cache
+>>> maintenance to avoid coherency issues, and that in these particular
+>>> setups whatever that is might be assuming the memory is direct-mapped
+>>> and thus going wrong for highmem pages.
+>>>
+>>> So as I said before, I really think this is not about using 
+>>> GFP_DMA32 at
+>>> all, but about *not* using GFP_HIGHUSER.
+>>
+>> One of the wonderful features of AGP is that it has to be used with
+>> uncached memory.  The aperture basically just provides a remapping of
+>> physical pages into a linear aperture that you point the GPU at.  TTM
+>> has to jump through quite a few hoops to get uncached memory in the
+>> first place, so it's likely that that somehow isn't compatible with
+>> HIGHMEM.  Can you get uncached HIGHMEM?
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 26 ++++++++++++++++++++------
->   1 file changed, 20 insertions(+), 6 deletions(-)
+> I guess in principle yes, if you're careful not to use regular 
+> kmap()/kmap_atomic(), and always use pgprot_noncached() for 
+> userspace/vmalloc mappings, but clearly that leaves lots of scope for 
+> slipping up.
+
+I theory we should do exactly that in TTM, but we have very few users 
+who actually still exercise that functionality.
+
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 08d6cf79fb15..5f07c85bf729 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -484,6 +484,9 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
->   			for (i = 0; i < 16; i++) {
->   				reg = hub->vm_context0_cntl + i;
->   
-> +				if (adev->in_s0ix && (j == AMDGPU_GFXHUB_0))
-> +					continue;
-> +
+> Working backwards from primitives like set_memory_uc(), I see various 
+> paths in TTM where manipulating the caching state is skipped for 
+> highmem pages, but I wouldn't even know where to start looking for 
+> whether the right state is propagated to all the places where they 
+> might eventually be mapped somewhere.
 
-I'm not sure we can do this because the higher layer will then have an 
-incorrect impression of the interrupt state here.
+The tt object has the caching state for the pages and 
+ttm_prot_from_caching() then uses pgprot_noncached() and co for the 
+userspace/vmalloc mappings.
 
+Regards,
 Christian.
 
->   				if (j == AMDGPU_GFXHUB_0)
->   					tmp = RREG32_SOC15_IP(GC, reg);
->   				else
-> @@ -504,6 +507,9 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
->   			for (i = 0; i < 16; i++) {
->   				reg = hub->vm_context0_cntl + i;
->   
-> +				if (adev->in_s0ix && (j == AMDGPU_GFXHUB_0))
-> +					continue;
-> +
->   				if (j == AMDGPU_GFXHUB_0)
->   					tmp = RREG32_SOC15_IP(GC, reg);
->   				else
-> @@ -1862,9 +1868,12 @@ static int gmc_v9_0_gart_enable(struct amdgpu_device *adev)
->   	}
->   
->   	amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
-> -	r = adev->gfxhub.funcs->gart_enable(adev);
-> -	if (r)
-> -		return r;
-> +
-> +	if (!adev->in_s0ix) {
-> +		r = adev->gfxhub.funcs->gart_enable(adev);
-> +		if (r)
-> +			return r;
-> +	}
->   
->   	r = adev->mmhub.funcs->gart_enable(adev);
->   	if (r)
-> @@ -1911,11 +1920,15 @@ static int gmc_v9_0_hw_init(void *handle)
->   		value = true;
->   
->   	if (!amdgpu_sriov_vf(adev)) {
-> -		adev->gfxhub.funcs->set_fault_enable_default(adev, value);
-> +		if (!adev->in_s0ix)
-> +			adev->gfxhub.funcs->set_fault_enable_default(adev, value);
->   		adev->mmhub.funcs->set_fault_enable_default(adev, value);
->   	}
-> -	for (i = 0; i < adev->num_vmhubs; ++i)
-> +	for (i = 0; i < adev->num_vmhubs; ++i) {
-> +		if (adev->in_s0ix && (i == AMDGPU_GFXHUB_0))
-> +			continue;
->   		gmc_v9_0_flush_gpu_tlb(adev, 0, i, 0);
-> +	}
->   
->   	if (adev->umc.funcs && adev->umc.funcs->init_registers)
->   		adev->umc.funcs->init_registers(adev);
-> @@ -1939,7 +1952,8 @@ static int gmc_v9_0_hw_init(void *handle)
->    */
->   static void gmc_v9_0_gart_disable(struct amdgpu_device *adev)
->   {
-> -	adev->gfxhub.funcs->gart_disable(adev);
-> +	if (!adev->in_s0ix)
-> +		adev->gfxhub.funcs->gart_disable(adev);
->   	adev->mmhub.funcs->gart_disable(adev);
->   }
->   
+>
+> Cheers,
+> Robin.
 
