@@ -4,120 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 074DEC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 19:20:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 541D8C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 19:38:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A8D910E513;
-	Thu, 15 Dec 2022 19:20:39 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DAB010E51C
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Dec 2022 19:20:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F75B10E52E;
+	Thu, 15 Dec 2022 19:38:10 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2085.outbound.protection.outlook.com [40.107.223.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71CF910E52D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Dec 2022 19:38:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PNv2nxPvw81LyZDf3eD69N6vT52zQhppxuErnTtOV/PFycezIycVgBDgu/BRViTsapxvTkaNv+4XzF1Xo1lrtbYVikwU4O0XaR07vrYCoDAfSEeMXGXSoZHZxDEocxdEuG67I7RrLoNd76S12L1dHLGaIuEnmSrwdMsSOf0XWzdoiwEdJx2KWMnMxGI6bGPrW//pYILeM1lYSlB80kXDUfizol78gRwW3FOvvrIv3+Kdr/5LPSGKfMKKVEbDdwmZywx9e5FTo0boz6WKg+LjpGwEI8r2uvBGKIiW8vVZZt4hEPlvRVVHh9nNY9/qxfevee+BNdr2Ki8xrSXnVXSp1Q==
+ b=JBiFCMiUSKHsWfT4cFOnIALqjXqa7LdKMYmYbH1INBMb4WY0IFtj1wsAZoBzEf5JsSrXV/0t/0DAVUiOZegtmNK1UotMJpW0TM29244SG6Go+05HLuoNgu6WbZEjDKSrmolubt7k2cZ748PiJoeBf9ge8IrHKCyg/UaN8sDpB+HLa+egs2IEpyC01Sr+KDGxlIZdexwENyXhU8uCTpDNsjClNqygUZOrhk3BUEQeNRsW58M9Z2bhBXUoE/UFn3J9Hww6FlYSvDur/+VfUcUo0fqaCfVDv2CXK6w3yjowLFEnJclIGZEjK/cYwI6+H4N97RcjwjSN4pvLylzplomxiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ICvKOJu0dDevNVMYBpThUgAJlT7YxvkCBtb5sv8peA0=;
- b=hFWA0BS/hbu/OECCELMjcGzzPyU+zPB0EJJ3ZZjbAlP9CLTcg1zzc4CUkJuihgOC4mfOf0JLW8QzGbVyDpUd8UuAfCIZ6lmKPQ76LTy3+XnLPuVL5JMFu1fRy3gS810JIPgzp5BpHcJUkhBEfL741y7jELQ2nOfVh4hLsmz/BwqiHEPvNhKEvvBpu5szKrOTuIAAIMXyIm9hg0QFuh6zqeo9gqDqTvbaPqUjBEnHQQpsCgohKPRveKk+aC6mldS6psZ0rbcxUNw7vgAHZCgZB7sapUo2WhDK5EPzPTEaK0JJidfjdMZYCubOZiV9Dny5fXsmiFfqC1PUPojq/aRIsA==
+ bh=4zVvflKDiFXVx8S+Xs9M+95kHkayofnnMO+7crhEqBo=;
+ b=WR4Y5a+bGmReQASb6ELKodPwtYyBmgu7jqB7qu4FpEHccqzQ6Hl9RRt/8xUxxsDaf34xJKYOVq8u/LVqAekI/bCczJCNxBnyknYCCuQkpLLW22TQMRNGIXHf+zU977bBwQHYraXdoHfHR4/t+glg4rvrfwP/NnLqsVU6kuIZVPQXyPc2cWzdlVOd5b4q+SEEVc4SwBEBD2vqaoCh+6Ln8/5kaUGYXlYEbd06mE3Fgx4pNP03mFYCMsAXYZFPoidQphFcd3kYv7I/sR8zFMfXfQsSapv0QOXp8IuQmtpcVm90mrrgYWAPF9yh6FAcvt8Uie46TrESzlYRlDS9T33IuQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ICvKOJu0dDevNVMYBpThUgAJlT7YxvkCBtb5sv8peA0=;
- b=UmiMYKtuJ0+acACv9WgvxEb1RrMMvMkiXPv3Hd8vDROUVFAneJ915ZaALA+euSfyOMgt/mf7oCAUulYHgNN8uuVWF2iibuRAGGOUdYsyy38RgYszKVEKAGXuJ0LAzcChuHul/u/U1hEfddUbX/rRE/w21fjq4YaMx0Hd2Qa5C3Q=
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by IA0PR12MB7676.namprd12.prod.outlook.com (2603:10b6:208:432::5)
+ bh=4zVvflKDiFXVx8S+Xs9M+95kHkayofnnMO+7crhEqBo=;
+ b=hIj5yflAwQwTn5TMf9X3TCfzEJKXk8cxCTFjZ8QFLAl2XSZyF+8xCbW4A4Zww4HUPEA3pZ7j2/57myIsZjibuOU/96PZq4YsU3ZWld8SCgyEqNVoxA1UuJOq3seqNVnsS0x1Q1ZsyWt3/d95tY97EgB0+AiUxb6lo8ntZ2/2l20=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by SN7PR12MB7201.namprd12.prod.outlook.com (2603:10b6:806:2a8::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Thu, 15 Dec
- 2022 19:20:31 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::ff3c:2d37:75f3:442a]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::ff3c:2d37:75f3:442a%4]) with mapi id 15.20.5880.019; Thu, 15 Dec 2022
- 19:20:30 +0000
-From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, Hans de Goede <hdegoede@redhat.com>
-Subject: RE: [PATCH v3 0/3] Adjust ACPI video detection fallback path
-Thread-Topic: [PATCH v3 0/3] Adjust ACPI video detection fallback path
-Thread-Index: AQHZCyQP+qdcODd6TUGTAuHMnqQfMq5vXaGQ
-Date: Thu, 15 Dec 2022 19:20:30 +0000
-Message-ID: <MN0PR12MB61014F8D6D5B04B90997480DE2E19@MN0PR12MB6101.namprd12.prod.outlook.com>
-References: <20221208164207.13518-1-mario.limonciello@amd.com>
-In-Reply-To: <20221208164207.13518-1-mario.limonciello@amd.com>
-Accept-Language: en-US
+ 2022 19:38:02 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::c700:72b0:6c23:f781]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::c700:72b0:6c23:f781%2]) with mapi id 15.20.5924.012; Thu, 15 Dec 2022
+ 19:38:01 +0000
+Content-Type: multipart/alternative;
+ boundary="------------KRXK8YlmnytoA6Utt0jQqysH"
+Message-ID: <e72b3c1f-08f0-68f8-4aad-69c16966fb99@amd.com>
+Date: Thu, 15 Dec 2022 14:38:00 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [PATCH 05/18] drm/amd/display: Use mdelay to avoid crashes
+To: Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Alex Deucher <alexdeucher@gmail.com>
+References: <20221214202141.1721178-1-aurabindo.pillai@amd.com>
+ <20221214202141.1721178-6-aurabindo.pillai@amd.com>
+ <CADnq5_PKy2+2-5X+zn4Ax2wp1iuiZ7E-r-bQ3cSHifE34FYfRA@mail.gmail.com>
+ <2938ab78-3224-4097-f5d1-f64c354e5eb6@amd.com>
+ <CADnq5_P83EkSqXxe29diJZ2eJH8-8v308jLRZxJ4f8e7FnEOmw@mail.gmail.com>
+ <12eed813-c250-4b14-7497-afbd6a41cf2b@amd.com>
+ <CADnq5_OzcwSgC3a5MwX=tdLNAxuSeQiAjei9b6CYq84rhA6ncQ@mail.gmail.com>
+ <fb472bf8-0478-0acb-a730-19802277dfdc@amd.com>
+ <CADnq5_Pz=JDUaGW3HE17sL0rnkOB9KSVKeNc5u5zn-8QNTNPrQ@mail.gmail.com>
+ <7a976873-033c-461e-c6de-4df01051ec24@amd.com>
+ <e2337d02-594e-9c69-d8a4-b046fc9c221f@amd.com>
+ <e8801420-3212-702a-93dd-1b3f323bfd87@mailbox.org>
+ <636f4287-803f-4cb9-dec0-2ffcc0f072d4@amd.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-12-15T19:18:07Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=94bf7e13-3f69-4914-bb49-f494aceff07a;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2022-12-15T19:20:29Z
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 15461c5a-86b9-470c-af22-c107b8621d87
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN0PR12MB6101:EE_|IA0PR12MB7676:EE_
-x-ms-office365-filtering-correlation-id: 769f1552-00c5-4cce-ccc5-08daded16e7b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Dl7VyFGHrYdax47dkWQqNvPA87c/tlaYO1wYwWuV+YGgd36oD+3RXYnCJVggo+0YVXyTJbu2m19vxpOSQ7R0OWXS5MM0vRXSAjVa36M9ngfnjYRZcTp4ul3Huh73GKiOejP1v7TaHVSbTeviOjUK9xUsW/KO4ZBwYzl1wY39jZiODUJzOHq5WEnPK7vG1mIqOoyHgkgs4axWlvNs8r14/YQtJKJWAOVi/+Qpv6M+oYWJj7nixajcW4arTm8U2QaT4p+R+e5GjA3UZtAcSO/1kkVEvZPEYCk7/PZe3lzbwHon9+MRlpZbggbcn7OcL8b7Gb3dFrMC84Qs6CBiuIHTZvuyUPqA6Fw7J/YuHMSdzq/tcS2JvOkDnCzfVo/I99P/bjRHmsGUZzFEZCdHEfaMivI8liDSNRnDE6O+Xw0aor5UZ3uBAkCmAIa//l/bdjFVQw6GibRgWGdfSXkLBm78bgWf5D9TMfSdteZFFoS/wLaOfQTjdOa6zsMawkWyRJAYZX04y5PlJuITjSE9DtSRzRm7XGwrPV6tjN+M70736UVwlocmKDTLOe4EGYkpJmCH1E/wNBiB+o51bXnkV8Up0T6F52SmSDDOmx6k8q1znko5b8hNMjpB6LAPuPLwovoSvi6VrSpaSNWgARZxk0lP0t4wceMHcB4ELqCeZmXEcA7AfxEcQiFMZ8DLBt44KgO53QA8xS5URr0l7VpsnpuRrUjvgmPeuZj+16YlrQD8IoY=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(346002)(39860400002)(366004)(376002)(136003)(451199015)(41300700001)(2906002)(52536014)(8936002)(83380400001)(9686003)(26005)(5660300002)(4326008)(186003)(122000001)(53546011)(38100700002)(6506007)(7696005)(38070700005)(66556008)(66946007)(66476007)(64756008)(66446008)(76116006)(8676002)(54906003)(316002)(110136005)(86362001)(33656002)(478600001)(71200400001)(55016003)(966005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?F4PFKjO/QWV8iX6YYXjOs/plIfIr9YAAfdpB5zxG6pE1ibd/CXxd2PFyayyc?=
- =?us-ascii?Q?ZxIR4NbSpjLMJ4sRdR21xlHf2YYwmhO64sAjCoFyDZTLRErxefBtT/1NRBL3?=
- =?us-ascii?Q?WX+I1NdaZgIohPCqqR0fb13lgXVPANU7e4eANSJoHopG4RdlDTtCrP7LHFTu?=
- =?us-ascii?Q?58AJLuwHoZYcnXb68GghwiIvZrxWfHB+4xgjOwD8hHn7v1ob288InTtrb/pH?=
- =?us-ascii?Q?7PfACNkch1DPi57Mt5PtUfG7hbwfAaIM109cBQtHeLpgtp/GAWcpgXdNEp1w?=
- =?us-ascii?Q?eoGe1ZYo4ndiECKTdHAKJ2D0E0FObFB7mWsMk/3Ujm5DiFY88N36lCGDcyXc?=
- =?us-ascii?Q?IX5MmPpp1rGIINNqmvyieZEmXl/P5s7bkWw0Rp4ggt0J0a84VcKLuC2V7P8Y?=
- =?us-ascii?Q?yG5rLPDszHT+hCasSmUayqK1Vwb4o5M0WS0H57djf1Anz7zkOOvW7qyO8B61?=
- =?us-ascii?Q?9Z/tDVXJVJizsOLg52qBclMJRPrReo63ocqFL2ABMBxNABUGV4SVL4v/ik8H?=
- =?us-ascii?Q?nqrmgSYcBQiRrkpEj7FC4nlsNkzBPxIbjDTBpoT65tWWWDir9vqzMdfQldTR?=
- =?us-ascii?Q?xqz4KhOQxza4IyB2x5nlupPW97mv7qMnWFbD0UboAnqlzSgJeae6PtG3GCl6?=
- =?us-ascii?Q?xjd8UsyCM34ShBquyFzdJKxuO6t35+Q1GG28QXd9Iogq4cNvhduGHo64ChGf?=
- =?us-ascii?Q?DaRWjVF/r6+CfXuiAO2X9609UKrrc4Zz/V/u4vFPzeHBVORryJBjlw0eRl0D?=
- =?us-ascii?Q?lqUXCFhCtZjvqXyj8EJsLqKiw/SSzn6uykndwD5BsG2L3tBvwDzOer9uWowl?=
- =?us-ascii?Q?4Xtkk+9oZ/uB0g/1qBM0htSbBNilsM2FJgvi4JFopX/iAMQ7bnYYbK660O1h?=
- =?us-ascii?Q?J7HcnZ3xP92tvtIEyhBQWxRhkQRS1ZnM746HQOzeapFqKXrW5NpX1EXf5AyR?=
- =?us-ascii?Q?fbxX4GSVDpiD6Yu1pXEG9lCb3xcmzww7LR3FTMqv4F5XXz3ca5qYZ22rQd40?=
- =?us-ascii?Q?+VWnp2QuxFE+Hik0pgh0A3+XjKe/9dtmIfwV4zTuGlzC0jJ0w9ixmGnQRzI1?=
- =?us-ascii?Q?3mXBdC+CXN/PfKvIu8I2um33svoGFUr4iDJ/jiOtP9JTN36YaZNYA3Jl4D7P?=
- =?us-ascii?Q?KLMotbN1z95W0Cmnyvxps+ZkNJ+fmwnlSp0tJsMQJzk7vwLrWE5iCbSR/YTE?=
- =?us-ascii?Q?KZqNzzo/tObIPXT05fIES+f6g173n4MFocuAg2Z3c63ytCCmLZT5sJ3fH2Ow?=
- =?us-ascii?Q?4zLiNhnm7aZuAy+qTigd+dugrrZXu1P3jcuSbYFcSYRfM7Gtu6HUJoZGwr76?=
- =?us-ascii?Q?Q0cg9K6mkJ2D90bPu5HXGZH5KByjoYV6r9aihOQAfl61aI4u94gB0adhbxfM?=
- =?us-ascii?Q?LVhCa8yCXTLcpQ15OUrLpnY0tK+ikQ8Mf/KJZmFPiXkQ/UJ6EALz7zv4Aes+?=
- =?us-ascii?Q?nsR8ennxZQw9HQKeyMMncDYyqFSTq6/KNWASfxGBQlzSO6v1UY+Pa1g8uH1Y?=
- =?us-ascii?Q?ojncTPoWh3ipbd4qzOXWerRmh34QuTE4AARdx7Mz5vAqHDqEquClCjtqRvoK?=
- =?us-ascii?Q?IYC9RtXmC3ZCJWe1zhc=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+In-Reply-To: <636f4287-803f-4cb9-dec0-2ffcc0f072d4@amd.com>
+X-ClientProxiedBy: YT4P288CA0088.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d0::21) To CH0PR12MB5284.namprd12.prod.outlook.com
+ (2603:10b6:610:d7::13)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5284:EE_|SN7PR12MB7201:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7af86b8e-f4b5-4f9c-7cb0-08daded3e0c0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: nin6y1VfG2r71sJlO3OYO5WLGkEloGI4CR5dJhog6vJPho27VDSylIZ32rlRvdev1sUkMpz4kMuU9CUhfCMlTMIdg65tX/vIH2pPja+Ed3hxHMYDpgtoj68XgKQ0qtLWuHXdGk7SsvwmEBax+pVQHjSlVV0OgIkH5QJYar9xCxL5hSiJ1hxCaPCGJ6a4ZIaZe/w7tOF6jXog9WuNzXhHji0GvETIdwVHBRalSfcng97jMbZqGi+gbwPzp1pFLZDtUHZHFfoM2gkfOVn3BjM/gdh6lz66hmYJU+RvV9Rkmi1idjet0UQ7DTrzDqt4Ft+P5qlBme4ZicabYlq7iTitmlrJs5ndRxDm8XNcI35eB20ZuT1HyCIyqFcE6yjZ2J0NPcGCsrlQd5WzdfAPloY1juwbGrpy8o2qFV9Gpb+rL8l5PzdxNYHiLQMF33aHHrBNZG97MQJNJkkzenrYd3+QHShpiGw39k0g1586CgXqFbhjxdEOXnzUCdFG1xbrZKVYu7YPNAWpnYj2bQ6t+/szoCjQgto3WYEtV5j9cfyMldc/1QSFyUL0Ae8R5hqxUCi/aSXUJ5vYEUVVqoz8dylJXq2ejTnlWeNsAvampayuxEuHaUD/5a1Z0TAbnN+B/zIT/TwSw5Gj7+ebdCc2tPaQwtrn/uEuXDNJG4n69TUOgNI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(376002)(346002)(39860400002)(366004)(136003)(451199015)(38100700002)(44832011)(478600001)(5660300002)(2906002)(166002)(53546011)(31696002)(86362001)(41300700001)(6486002)(4001150100001)(8676002)(66556008)(33964004)(66574015)(4326008)(186003)(8936002)(6506007)(83380400001)(6512007)(110136005)(316002)(66946007)(31686004)(2616005)(26005)(66476007)(36756003)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dGZQeWd4K1hOUEVSa2dQOUdKNHU0b2Z5VXFGV011V05IaEprSWphTTdQUnFo?=
+ =?utf-8?B?OTEvdHlPa0FyOFhGSHpDNGo3eW9xZnRSYUx0aTk5Vk5jbk05My9wM3M5Um9K?=
+ =?utf-8?B?YUkyT2JVajBpZzdsWUN2Vk5tUGUxUGU0NlVQR3FPdnljY1hYS0JLRXpvV1BG?=
+ =?utf-8?B?bWl0MjdLOFIvTVZWUE5QMS9odHhkeFVxT1hmSGI1cFJzR2k1b253TStRMEph?=
+ =?utf-8?B?U0w2UGhmVzNkU2RPcmtZMXV5Qm0xWFBoZitvWXFXTUQ0R2I5dWMvVUtiZ0J6?=
+ =?utf-8?B?WEl5QlJvODAwdmdPakpmVllCNFYvLzBiQmVyR2prZE95aXN2d1o2eTBIbE40?=
+ =?utf-8?B?ZUcxeVBBZXdnRW5vbHdJN1BjTGRmWWRDQ1o2dEhCTFlGZlVHYjZ2RTlrL1VX?=
+ =?utf-8?B?N1VnWFJCUUF6SWNkdkprdzhWcWpMdXZiNEdkenFvakcvRGJhT0U1RWVQaWNn?=
+ =?utf-8?B?Mm5BZ010bmc3QTVnQXpsdldpZlFJOW9pcXpoN05TcUhZZkZ4RU1GdmxPM1Vl?=
+ =?utf-8?B?bkYvYUU4U28xT1lXSUxQbnpGcklWYU1SMDlOOWIvTkZmeHgxbWVjcHhCRW5I?=
+ =?utf-8?B?TG94cERJMFc3OW0rVlozWkdJY2plWjFmSzArak9BYXR4RU5vN1RTL2hpWmpU?=
+ =?utf-8?B?NTUyNGx3MDFDaDdnQi9zMnlUdzkzVkd0THlCSlJkRjRzYzNMUGE3WnV6Q1ZT?=
+ =?utf-8?B?VXl3QmFpZ3lIei9jTjRNZnd2dUMxR29TTHhWR3U1alE5UUtucm1kTXRpZUpw?=
+ =?utf-8?B?YldLWWhWM3drak0vd1NIUWdrSWRKSG81VXg5RTZlMjlsT0NoYmJibTMvU2Rr?=
+ =?utf-8?B?SjBWZk1vZG04RDhUcldmdUtOaXIveWhOdWV5MU5yalczZjdObm96djhWZkJk?=
+ =?utf-8?B?OXlMTENOc2lRVnU5R3RBUFA2cVdRc0RVL1BCNE9OT3hzSlQ4RGcyNXhMZ1JL?=
+ =?utf-8?B?bVh6a0JuZll2L0p4RFFuU3BRbzNmTDVNbXczQXcyaUU4bEhJM3U5VDNCZGNB?=
+ =?utf-8?B?QXN0UWZXdlpQVFozWmlnMFpuVS9tVENwbzYzVVJUWWIvdHQrdXl2WHpUblBW?=
+ =?utf-8?B?UE1tZndabHBMOUtVMS9qQWJRM05oNVQvQmw5d1c2ditZTUkxKzk3OGZIN2Ux?=
+ =?utf-8?B?V3JFRnZHaHVvRVhLMzFVUzZvS05XV0pjM2R2YVYzSCtDQUp2bnVTcDM5T3Zs?=
+ =?utf-8?B?L0xCTCt3VnZYcklRN2FKWnJEK2l6aVJyMmoxK3NzSkJWeGEyWEFQMDVYZldL?=
+ =?utf-8?B?MW9HVHlaRDdvODFNbGh5ZFlsU2FGeXV6ZmtCMmlTbm1GN3BlTTN2OFZNSzFm?=
+ =?utf-8?B?WmNZdHkwQUxubVE3MDRIcUFYRWtJMktHaTltZnFENzlneER6K3dRbXhCNVpp?=
+ =?utf-8?B?UXE0bGQ1aW9ZRnVlNUYyMk5zYkZ5TlJLbXhaS1N2dWJuM3pnT29rcGJvV0da?=
+ =?utf-8?B?S1UzdVVqWGpjV2NBR2ZrcFlhZDlXV29HR3hCS0FIa1Z2a3hTbzNqR3djRnFl?=
+ =?utf-8?B?ckY3bHhUdklvaitsL1JqU2hpL1Y4aTk3TmcyM29MeUQ4b3B4Zm5DMVpYcnJz?=
+ =?utf-8?B?U2VXTWdpSE03cEhmM3YwdXJ2WG5qdlYvbThLdnYwSjlnck5iMWFucGVoTHRr?=
+ =?utf-8?B?UFdNWVpJa09XUXh1UHRYenVsSDVGajJ1S2twTzdyWElHKzQ2bi9yQzdnVjcz?=
+ =?utf-8?B?TjUzVm9xZWhud2F3ODMyeE5UMmJTU010cHhsZUlKODhndzRyWUdyRnpzWTBJ?=
+ =?utf-8?B?NzQvNnBTTnVSZkJhSGtPalppQjNMdkVCb1NoUkU3bVB3Ti80aW54Q1FwUGhC?=
+ =?utf-8?B?QTY5d1E3WFhTRmVFd1l3Ukhxb2pRS1owQmlvQ0wxTDdSelV0VGp2SjhxU1E5?=
+ =?utf-8?B?QU5kYW1BZXhnc1dLNTZaSEdlT3Y0RnJwY0ZBWVl5YVhiaXpPRUduOXRiY3FC?=
+ =?utf-8?B?TmJXeWRUSzlYK3ZRcXhQeE95eDh0QXRpQzAxMW15L290ZlB0YmJ2NU5qV0RQ?=
+ =?utf-8?B?eTA5MU5JUTNSTFlRVWl4NWJoTlV3TjM4ckZBZGZLVjduSlN3dGZPbnpBR3ZR?=
+ =?utf-8?B?MGdGZEVpTE5oSlNPMmtUNVNzK1d2UEg5OXdMdFo2Tmp2NGJJd1BTVFhKZEhZ?=
+ =?utf-8?Q?NjvN8RKld9ltYUQli91Z5/R+f?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7af86b8e-f4b5-4f9c-7cb0-08daded3e0c0
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 769f1552-00c5-4cce-ccc5-08daded16e7b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Dec 2022 19:20:30.9016 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: B1y70D+hPUR51/ZPg9xtISbdZjJJbrRaFN7ZDk+VSzzqbUapmCc4D1eNfJKBQ5hP3HwtwP2HYZCrr3g48FvPGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7676
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2022 19:38:01.8398 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7R9/fF7F+ugOBUkVRmbYeTcRVL/8PuiISCt4OfPXMYYfDCvwRyy0ZZrJjq3lxwKZVaO9Ibu8cq4AxdXSSqOcOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7201
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,82 +138,304 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Daniel Dadap <ddadap@nvidia.com>
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, amd-gfx@lists.freedesktop.org,
+ solomon.chiu@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+--------------KRXK8YlmnytoA6Utt0jQqysH
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> -----Original Message-----
-> From: Limonciello, Mario <Mario.Limonciello@amd.com>
-> Sent: Thursday, December 8, 2022 10:42
-> To: Rafael J . Wysocki <rafael@kernel.org>; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Hans de Goede
-> <hdegoede@redhat.com>
-> Cc: amd-gfx@lists.freedesktop.org; linux-acpi@vger.kernel.org; Daniel
-> Dadap <ddadap@nvidia.com>; Limonciello, Mario
-> <Mario.Limonciello@amd.com>
-> Subject: [PATCH v3 0/3] Adjust ACPI video detection fallback path
->=20
-> In kernel 6.1 the backlight registration code was overhauled so that
-> at most one backlight device got registered. As part of this change
-> there was code added to still allow making an acpi_video0 device if the
-> BIOS contained backlight control methods but no native or vendor drivers
-> registered.
->=20
-> Even after the overhaul this fallback logic is failing on the BIOS from
-> a number of motherboard manufacturers supporting Ryzen APUs.
-> What happens is the amdgpu driver finishes registration and as expected
-> doesn't create a backlight control device since no eDP panels are connect=
-ed
-> to a desktop.
->=20
-> Then 8 seconds later the ACPI video detection code creates an
-> acpi_video0 device that is non-operational. GNOME then creates a
-> backlight slider.
->=20
-> To avoid this situation from happening make two sets of changes:
->=20
-> Prevent desktop problems w/ fallback logic
-> ------------------------------------------
-> 1) Add support for the video detect code to let native drivers cancel the
-> fallback logic if they didn't find a panel.
->=20
-> This is done this way so that if another driver decides that the ACPI
-> mechanism is still needed it can instead directly call the registration
-> function.
->=20
-> 2) Add code to amdgpu to notify the ACPI video detection code that no pan=
-el
-> was detected on an APU.
->=20
-> Disable fallback logic by default
-> ---------------------------------
-> This fallback logic was introduced to prevent regressions in the backligh=
-t
-> overhaul.  As it has been deemed unnecessary by Hans explicitly disable t=
-he
-> timeout.  If this turns out to be mistake and this part is reverted, the
-> other patches for preventing desktop problems will avoid regressions on
-> desktops.
->=20
-> Mario Limonciello (3):
->   ACPI: video: Allow GPU drivers to report no panels
->   drm/amd/display: Report to ACPI video if no panels were found
->   ACPI: video: Don't enable fallback path for creating ACPI backlight by
->     default
->=20
->  drivers/acpi/acpi_video.c                       | 17 ++++++++++++-----
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   |  4 ++++
->  include/acpi/video.h                            |  2 ++
->  3 files changed, 18 insertions(+), 5 deletions(-)
->=20
-> --
-> 2.34.1
 
-FYI, besides me, this series also tested successfully by one of the
-reporters to the Red Hat bugzilla.
+On 12/15/22 10:17, Harry Wentland wrote:
+>
+> On 12/15/22 05:29, Michel Dänzer wrote:
+>> On 12/15/22 09:09, Christian König wrote:
+>>> Am 15.12.22 um 00:33 schrieb Alex Hung:
+>>>> On 2022-12-14 16:06, Alex Deucher wrote:
+>>>>> On Wed, Dec 14, 2022 at 5:56 PM Alex Hung<alex.hung@amd.com>  wrote:
+>>>>>> On 2022-12-14 15:35, Alex Deucher wrote:
+>>>>>>> On Wed, Dec 14, 2022 at 5:25 PM Alex Hung<alex.hung@amd.com>  wrote:
+>>>>>>>> On 2022-12-14 14:54, Alex Deucher wrote:
+>>>>>>>>> On Wed, Dec 14, 2022 at 4:50 PM Alex Hung<alex.hung@amd.com>  wrote:
+>>>>>>>>>> On 2022-12-14 13:48, Alex Deucher wrote:
+>>>>>>>>>>> On Wed, Dec 14, 2022 at 3:22 PM Aurabindo Pillai
+>>>>>>>>>>> <aurabindo.pillai@amd.com>  wrote:
+>>>>>>>>>>>> From: Alex Hung<alex.hung@amd.com>
+>>>>>>>>>>>>
+>>>>>>>>>>>> [Why]
+>>>>>>>>>>>> When running IGT kms_bw test with DP monitor, some systems crash from
+>>>>>>>>>>>> msleep no matter how long or short the time is.
+>>>>>>>>>>>>
+>>>>>>>>>>>> [How]
+>>>>>>>>>>>> To replace msleep with mdelay.
+>>>>>>>>>>> Can you provide a bit more info about the crash?  A lot of platforms
+>>>>>>>>>>> don't support delay larger than 2-4ms so this change will generate
+>>>>>>>>>>> errors on ARM and possibly other platforms.
+>>>>>>>>>>>
+>>>>>>>>>>> Alex
+>>>>>>>>>> The msleep was introduced in eec3303de3378 for non-compliant display
+>>>>>>>>>> port monitors but IGT's kms_bw test can cause a recent h/w to hang at
+>>>>>>>>>> msleep(60) when calling "igt_remove_fb" in IGT
+>>>>>>>>>> (https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tests/kms_bw.c#L197>>>>>>>>>>
+>>>>>>>>>> It is possible to workaround this by reversing order of
+>>>>>>>>>> igt_remove_fb(&buffer[i]), as the following example:
+>>>>>>>>>>
+>>>>>>>>>>        igt_create_color_fb with the order buffer[0], buffer[1], buffer[2]
+>>>>>>>>>>
+>>>>>>>>>> Hangs:
+>>>>>>>>>>        igt_remove_fb with the order buffer[0], buffer[1], buffer[2]
+>>>>>>>>>>
+>>>>>>>>>> No hangs:
+>>>>>>>>>>        igt_remove_fb with the reversed order buffer[2], buffer[1], buffer[0]
+>>>>>>>>>>
+>>>>>>>>>> However, IGT simply exposes the problem and it makes more sense to stop
+>>>>>>>>>> the hang from occurring.
+>>>>>>>>>>
+>>>>>>>>>> I also tried to remove the msleep completely and it also work, but I
+>>>>>>>>>> didn't want to break the fix for the original problematic hardware
+>>>>>>>>>> configuration.
+>>>>>>>>> Why does sleep vs delay make a difference?  Is there some race that we
+>>>>>>>>> are not locking against?
+>>>>>>>>>
+>>>>>>>>> Alex
+>>>>>>>>>
+>>>>>>>> That was my original thought but I did not find any previously. I will
+>>>>>>>> investigate it again.
+>>>>>>>>
+>>>>>>>> If mdelay(>4) isn't usable on other platforms, is it an option to use
+>>>>>>>> mdelay on x86_64 only and keep msleep on other platforms or just remove
+>>>>>>>> the msleep for other platforms, something like
+>>>>>>>>
+>>>>>>>> -                       msleep(60);
+>>>>>>>> +#ifdef CONFIG_X86_64
+>>>>>>>> +                       mdelay(60);
+>>>>>>>> +#endif
+>>>>>>> That's pretty ugly.  I'd rather try and resolve the root cause.  How
+>>>>>>> important is the IGT test?  What does it do?  Is the test itself
+>>>>>>> correct?
+>>>>>>>
+>>>>>> Agreed, and I didn't want to add conditions around the mdelay for the
+>>>>>> same reason. I will assume this is not an option now.
+>>>>>>
+>>>>>> As in the previous comment, IGT can be modified to avoid the crash by
+>>>>>> reversing the order fb is removed - though I suspect I will receive
+>>>>>> questions why this is not fixed in kernel.
+>>>>>>
+>>>>>> I wanted to fix this in kernel because nothing stops other user-space
+>>>>>> applications to use the same way to crash kernel, so fixing IGT is the
+>>>>>> second option.
+>>>>>>
+>>>>>> Apparently causing problems on other platforms isn't an option at all so
+>>>>>> I will try to figure out an non-mdelay solution, and then maybe an IGT
+>>>>>> solution instead.
+>>>>> What hangs?  The test or the kernel or the hardware?
+>>>> The system becomes completely unresponsive - no keyboard, mouse nor remote accesses.
+>>> I agree with Alex that changing this is extremely questionable and not justified at all.
+>>>
+>>> My educated guess is that by using mdelay() instead of msleep() we keep the CPU core busy and preventing something from happening at the same time as something else.
+>>>
+>>> This clearly points to missing locking or similar to protect concurrent execution of things.
+>> Might another possibility be that this code gets called from an atomic context which can't sleep?
+>>
+>>
+> It can come through handle_hpd_rx_irq but we're using a workqueue
+> to queue interrupt handling so this shouldn't come from an atomic
+> context. I currently don't see where else it might be used in an
+> atomic context. Alex Hung, can you do a dump_stack() in this function
+> to see where the problematic call is coming from?
+>
+> Fixing IGT will only mask the issue. Userspace should never be able
+> to put the system in a state where it stops responding entirely. This
+> will need some sort of fix in the kernel.
+>
+> Harry
+>
+>
+I will drop this patch from the series.
+--------------KRXK8YlmnytoA6Utt0jQqysH
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-https://bugzilla.redhat.com/show_bug.cgi?id=3D1783786#c8
+<html data-lt-installed="true"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body style="padding-bottom: 1px;">
+    <p><font face="monospace"><br>
+      </font></p>
+    <div class="moz-cite-prefix"><font face="monospace">On 12/15/22
+        10:17, Harry Wentland wrote:<br>
+      </font></div>
+    <blockquote type="cite" cite="mid:636f4287-803f-4cb9-dec0-2ffcc0f072d4@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+
+On 12/15/22 05:29, Michel Dänzer wrote:
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">On 12/15/22 09:09, Christian König wrote:
+</pre>
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">Am 15.12.22 um 00:33 schrieb Alex Hung:
+</pre>
+          <blockquote type="cite">
+            <pre class="moz-quote-pre" wrap="">On 2022-12-14 16:06, Alex Deucher wrote:
+</pre>
+            <blockquote type="cite">
+              <pre class="moz-quote-pre" wrap="">On Wed, Dec 14, 2022 at 5:56 PM Alex Hung <a class="moz-txt-link-rfc2396E" href="mailto:alex.hung@amd.com">&lt;alex.hung@amd.com&gt;</a> wrote:
+</pre>
+              <blockquote type="cite">
+                <pre class="moz-quote-pre" wrap="">On 2022-12-14 15:35, Alex Deucher wrote:
+</pre>
+                <blockquote type="cite">
+                  <pre class="moz-quote-pre" wrap="">On Wed, Dec 14, 2022 at 5:25 PM Alex Hung <a class="moz-txt-link-rfc2396E" href="mailto:alex.hung@amd.com">&lt;alex.hung@amd.com&gt;</a> wrote:
+</pre>
+                  <blockquote type="cite">
+                    <pre class="moz-quote-pre" wrap="">On 2022-12-14 14:54, Alex Deucher wrote:
+</pre>
+                    <blockquote type="cite">
+                      <pre class="moz-quote-pre" wrap="">On Wed, Dec 14, 2022 at 4:50 PM Alex Hung <a class="moz-txt-link-rfc2396E" href="mailto:alex.hung@amd.com">&lt;alex.hung@amd.com&gt;</a> wrote:
+</pre>
+                      <blockquote type="cite">
+                        <pre class="moz-quote-pre" wrap="">On 2022-12-14 13:48, Alex Deucher wrote:
+</pre>
+                        <blockquote type="cite">
+                          <pre class="moz-quote-pre" wrap="">On Wed, Dec 14, 2022 at 3:22 PM Aurabindo Pillai
+<a class="moz-txt-link-rfc2396E" href="mailto:aurabindo.pillai@amd.com">&lt;aurabindo.pillai@amd.com&gt;</a> wrote:
+</pre>
+                          <blockquote type="cite">
+                            <pre class="moz-quote-pre" wrap="">
+From: Alex Hung <a class="moz-txt-link-rfc2396E" href="mailto:alex.hung@amd.com">&lt;alex.hung@amd.com&gt;</a>
+
+[Why]
+When running IGT kms_bw test with DP monitor, some systems crash from
+msleep no matter how long or short the time is.
+
+[How]
+To replace msleep with mdelay.
+</pre>
+                          </blockquote>
+                          <pre class="moz-quote-pre" wrap="">
+Can you provide a bit more info about the crash?&nbsp; A lot of platforms
+don't support delay larger than 2-4ms so this change will generate
+errors on ARM and possibly other platforms.
+
+Alex
+</pre>
+                        </blockquote>
+                        <pre class="moz-quote-pre" wrap="">
+The msleep was introduced in eec3303de3378 for non-compliant display
+port monitors but IGT's kms_bw test can cause a recent h/w to hang at
+msleep(60) when calling &quot;igt_remove_fb&quot; in IGT
+(<a class="moz-txt-link-freetext" href="https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tests/kms_bw.c#L197">https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tests/kms_bw.c#L197</a>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+It is possible to workaround this by reversing order of
+igt_remove_fb(&amp;buffer[i]), as the following example:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; igt_create_color_fb with the order buffer[0], buffer[1], buffer[2]
+
+Hangs:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; igt_remove_fb with the order buffer[0], buffer[1], buffer[2]
+
+No hangs:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; igt_remove_fb with the reversed order buffer[2], buffer[1], buffer[0]
+
+However, IGT simply exposes the problem and it makes more sense to stop
+the hang from occurring.
+
+I also tried to remove the msleep completely and it also work, but I
+didn't want to break the fix for the original problematic hardware
+configuration.
+</pre>
+                      </blockquote>
+                      <pre class="moz-quote-pre" wrap="">
+Why does sleep vs delay make a difference?&nbsp; Is there some race that we
+are not locking against?
+
+Alex
+
+</pre>
+                    </blockquote>
+                    <pre class="moz-quote-pre" wrap="">
+That was my original thought but I did not find any previously. I will
+investigate it again.
+
+If mdelay(&gt;4) isn't usable on other platforms, is it an option to use
+mdelay on x86_64 only and keep msleep on other platforms or just remove
+the msleep for other platforms, something like
+
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; msleep(60);
++#ifdef CONFIG_X86_64
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mdelay(60);
++#endif
+</pre>
+                  </blockquote>
+                  <pre class="moz-quote-pre" wrap="">
+That's pretty ugly.&nbsp; I'd rather try and resolve the root cause.&nbsp; How
+important is the IGT test?&nbsp; What does it do?&nbsp; Is the test itself
+correct?
+
+</pre>
+                </blockquote>
+                <pre class="moz-quote-pre" wrap="">
+Agreed, and I didn't want to add conditions around the mdelay for the
+same reason. I will assume this is not an option now.
+
+As in the previous comment, IGT can be modified to avoid the crash by
+reversing the order fb is removed - though I suspect I will receive
+questions why this is not fixed in kernel.
+
+I wanted to fix this in kernel because nothing stops other user-space
+applications to use the same way to crash kernel, so fixing IGT is the
+second option.
+
+Apparently causing problems on other platforms isn't an option at all so
+I will try to figure out an non-mdelay solution, and then maybe an IGT
+solution instead.
+</pre>
+              </blockquote>
+              <pre class="moz-quote-pre" wrap="">
+What hangs?&nbsp; The test or the kernel or the hardware?
+</pre>
+            </blockquote>
+            <pre class="moz-quote-pre" wrap="">
+The system becomes completely unresponsive - no keyboard, mouse nor remote accesses.
+</pre>
+          </blockquote>
+          <pre class="moz-quote-pre" wrap="">
+I agree with Alex that changing this is extremely questionable and not justified at all.
+
+My educated guess is that by using mdelay() instead of msleep() we keep the CPU core busy and preventing something from happening at the same time as something else.
+
+This clearly points to missing locking or similar to protect concurrent execution of things.
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">Might another possibility be that this code gets called from an atomic context which can't sleep?
+
+
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+It can come through handle_hpd_rx_irq but we're using a workqueue
+to queue interrupt handling so this shouldn't come from an atomic
+context. I currently don't see where else it might be used in an
+atomic context. Alex Hung, can you do a dump_stack() in this function
+to see where the problematic call is coming from?
+
+Fixing IGT will only mask the issue. Userspace should never be able
+to put the system in a state where it stops responding entirely. This
+will need some sort of fix in the kernel.
+
+Harry
+
+
+</pre>
+    </blockquote>
+    <font face="monospace">I will drop this patch from the series.<br>
+    </font>
+  </body>
+  <lt-container></lt-container>
+</html>
+
+--------------KRXK8YlmnytoA6Utt0jQqysH--
