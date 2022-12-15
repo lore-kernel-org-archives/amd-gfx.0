@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01CB5C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 18:45:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF556C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 18:47:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDF4410E4DC;
-	Thu, 15 Dec 2022 18:45:35 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EADF10E4D3;
- Thu, 15 Dec 2022 18:45:29 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-14449b7814bso422932fac.3; 
- Thu, 15 Dec 2022 10:45:29 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B065510E507;
+	Thu, 15 Dec 2022 18:47:20 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 130BE10E512;
+ Thu, 15 Dec 2022 18:47:15 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id s187so6054118oie.10;
+ Thu, 15 Dec 2022 10:47:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=WEfPevdP7TJjnOIQtPsy+AcNppPJSiCKzyrt/O+WxJM=;
- b=j6kGh3ykV4NImJgI7b18PBsKNjvgGeK3aR+cZp5W/GhzrtxBO4uxn9oFBS+5IJn7hC
- wDNGjiaLz1b7Rb9LOEtYldzbpWAwEENBtSkknMRlSYdwkgZ547nKZtuDweUyNOMNtYAx
- TFfkpCycfKp9sikmP2gSadcGfBzp4dsBms2+HZ/AM1FiG7hrZLZt4olXVuDyM8uFh2Z5
- h7jkjX7L52UMfE2UCBQjC7vZfi66ulCitQ2yl1EoFvWj4xJe/06p1QRLzMXpbtfUUY2R
- psSQf5Kw5OQcgvWLswPDD+wUZNb4Oia5qqHjFN97IZuH2BOjDKQdtAXynDfNmD8oxxry
- Usww==
+ bh=CsTgnx/vUhdK+gz2CNEy5Z7hFYOJSlBzwtF5agxWOL8=;
+ b=oJ/RLh3LE65rNsavJKHaY98DljooO1VSJWFUTr1wmqLEJMXIOe0CN8Q6agEtH9pvrl
+ G0829Arhxti8Lxq/OboQdCGpM+BSSMy0u5YyANB0ogTqs7q29XR3OscSrV7QugBmLFVT
+ 5965GQ0r+20cquOxy7daSlbU9JSNv206QtP6u11wF0wmcfrZ2k5db2HoY18AnFjQ1QrN
+ 1Z8lML5DrGwyC4pgMHY3nFGGbRkvE3y7el4uYo4JlJQRjIR6yP0cTpl8w84fUt39z8Qb
+ h7zgh8ztAeAa62eIxcm6VpzgPY7BiuaWyhLBvFCoLkcXVDABUvDH2EW3pASKTqCR/MTg
+ 7yjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=WEfPevdP7TJjnOIQtPsy+AcNppPJSiCKzyrt/O+WxJM=;
- b=5qiMEjAkM3gwy/giux6cQn2KW/kjBToT+A0qYT/W77dhdZriB0hHTzreP3C3bOkCEV
- 450vkTZswscchxbBkNehBNeohXxyF97ifsgE5hQB/POEguZtxQVn2NCWO3qy3jhqOrVT
- ekbCOyHAGpxgn84/1C0LF5z5JU5MnqP5rgAVmxTu5ZX34tn1+BMUgmorSh8gBKuIb7EJ
- HEtXAtrn0TexS24DO+tdFOZIdyNASEY8MH4Lq19wURz8r2mHrgdh8lkGdTYygEczvZIr
- cB2hVkzNsYWeDJd32q6wgohWJw22PG9SO8DHqHzvVLmSfNNBTPGjGnBsvb+dUZdEZ/zA
- EDvw==
-X-Gm-Message-State: AFqh2kpiD19YcbkRPr9Ny9gddnOI4D1TOIZ1KqTB3fF1pACmxbxisKX5
- 5rxGeY+u5EnfsEpNhWrQcCPtgcmHMDqOAhyCjMEFFboO
-X-Google-Smtp-Source: AMrXdXv8rSwR8qAQ1zJL/wkH8q0sS2srKc8zr4Ipi/FlQ13g+Lo7yphFOfIVlXGX86Y1SMSSxP5pUbKDL4g4sLXPdFA=
-X-Received: by 2002:a05:6870:8091:b0:148:3c8f:15ab with SMTP id
- q17-20020a056870809100b001483c8f15abmr360847oab.46.1671129928331; Thu, 15 Dec
- 2022 10:45:28 -0800 (PST)
+ bh=CsTgnx/vUhdK+gz2CNEy5Z7hFYOJSlBzwtF5agxWOL8=;
+ b=lPKkZXPkOPuoGzPBaDDlhfBKDY0MjtmL3oQ0h0PflcJHC/4rhtEHbIgfeXe7zirNpy
+ xYVVD7KWh8zaON2YrvMuzNbs9/bm0WobnlR4LwO8vLmyXYG5RnnzDMUs9NjJcn1gJLbH
+ EIGY2xtBHwRzvCAY+zhxFmQFHykycSKNyVohIqLfGrE/xqoUabDDmlyCG5gGDioW5hAx
+ EED+kq1RzCR20xeXKF7roBoWXw3Q07Bo5rTlvBtARoa63o/V3mVxDm9C1jzMBfdwgFT0
+ IgPBPZ0ZEKWKO1lBYdmLkVifNafcbjM3AB4szL+4tiKihwMSSI3xcH/3s3jNcQK8IvpZ
+ yE6w==
+X-Gm-Message-State: ANoB5pldtzXvwp/mXV/rhoT4Txc8tL0rrcDpcVbd2cyX3UvzGwtcIkgG
+ FRMORJMMeB5wn3vQ3Nls2SZcYlfFQX4X5ZLgS4AMKhgk
+X-Google-Smtp-Source: AA0mqf6sYeW3AlVu8sndUu1dAS9K8n4qGS3TdVKb977xhfSHkDUXzaWLTbMPA09k52WEWKWPUGEt6dskSiK1BWnMQhs=
+X-Received: by 2002:a05:6808:1cd:b0:35b:f5f7:3ed0 with SMTP id
+ x13-20020a05680801cd00b0035bf5f73ed0mr464102oic.46.1671130034322; Thu, 15 Dec
+ 2022 10:47:14 -0800 (PST)
 MIME-Version: 1.0
-References: <20221215163649.386750-1-arnd@kernel.org>
-In-Reply-To: <20221215163649.386750-1-arnd@kernel.org>
+References: <20221215164537.1126692-1-arnd@kernel.org>
+In-Reply-To: <20221215164537.1126692-1-arnd@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 15 Dec 2022 13:45:16 -0500
-Message-ID: <CADnq5_P0M5fYCbqt+PwLSGzdeMy3YCvkaRW9sm+z7rC0Ra8_mw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: avoid large variable on kernel stack
+Date: Thu, 15 Dec 2022 13:47:02 -0500
+Message-ID: <CADnq5_MxnmXaMW+D-F6fDLafwWPojHr2YuwX1mY8VM5a3S_Yjw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix duplicate assignments
 To: Arnd Bergmann <arnd@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -64,15 +63,18 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, Arnd Bergmann <arnd@arndb.de>,
- Yang Wang <KevinYang.Wang@amd.com>, Tom Rix <trix@redhat.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Hawking Zhang <Hawking.Zhang@amd.com>, Nathan Chancellor <nathan@kernel.org>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Evan Quan <evan.quan@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+Cc: Charlene Liu <Charlene.Liu@amd.com>, Arnd Bergmann <arnd@arndb.de>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Chengming Gui <Jack.Gui@amd.com>
+ Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Roman Li <roman.li@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Michael Strauss <michael.strauss@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Duncan Ma <duncan.ma@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
@@ -80,84 +82,36 @@ Applied.  Thanks!
 
 Alex
 
-On Thu, Dec 15, 2022 at 11:37 AM Arnd Bergmann <arnd@kernel.org> wrote:
+On Thu, Dec 15, 2022 at 11:46 AM Arnd Bergmann <arnd@kernel.org> wrote:
 >
 > From: Arnd Bergmann <arnd@arndb.de>
 >
-> The activity_monitor_external[] array is too big to fit on the
-> kernel stack, resulting in this warning with clang:
+> The .set_odm_combine callback pointer was added twice, causing
+> a harmless -Wextra warning:
 >
-> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_7_ppt.c:1438:12: error: stack frame size (1040) exceeds limit (1024) in 'smu_v13_0_7_get_power_profile_mode' [-Werror,-Wframe-larger-than]
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn314/dcn314_optc.c:258:36: error: initialized field overwritten [-Werror=override-init]
+>   258 |                 .set_odm_combine = optc314_set_odm_combine,
+>       |                                    ^~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn314/dcn314_optc.c:258:36: note: (near initialization for 'dcn314_tg_funcs.set_odm_combine')
 >
-> Use dynamic allocation instead. It should also be possible to
-> have single element here instead of the array, but this seems
-> easier.
->
-> Fixes: 334682ae8151 ("drm/amd/pm: enable workload type change on smu_v13_0_7")
+> Fixes: 5ade1b951dec ("drm/amd/display: Add OTG/ODM functions")
 > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 > ---
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 21 ++++++++++++++-----
->  1 file changed, 16 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c | 1 -
+>  1 file changed, 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> index c270f94a1b86..7eba854e09ec 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> @@ -1439,7 +1439,7 @@ static int smu_v13_0_7_get_power_limit(struct smu_context *smu,
->
->  static int smu_v13_0_7_get_power_profile_mode(struct smu_context *smu, char *buf)
->  {
-> -       DpmActivityMonitorCoeffIntExternal_t activity_monitor_external[PP_SMC_POWER_PROFILE_COUNT];
-> +       DpmActivityMonitorCoeffIntExternal_t *activity_monitor_external;
->         uint32_t i, j, size = 0;
->         int16_t workload_type = 0;
->         int result = 0;
-> @@ -1447,6 +1447,12 @@ static int smu_v13_0_7_get_power_profile_mode(struct smu_context *smu, char *buf
->         if (!buf)
->                 return -EINVAL;
->
-> +       activity_monitor_external = kcalloc(sizeof(activity_monitor_external),
-> +                                           PP_SMC_POWER_PROFILE_COUNT,
-> +                                           GFP_KERNEL);
-> +       if (!activity_monitor_external)
-> +               return -ENOMEM;
-> +
->         size += sysfs_emit_at(buf, size, "                              ");
->         for (i = 0; i <= PP_SMC_POWER_PROFILE_WINDOW3D; i++)
->                 size += sysfs_emit_at(buf, size, "%-14s%s", amdgpu_pp_profile_name[i],
-> @@ -1459,15 +1465,17 @@ static int smu_v13_0_7_get_power_profile_mode(struct smu_context *smu, char *buf
->                 workload_type = smu_cmn_to_asic_specific_index(smu,
->                                                                CMN2ASIC_MAPPING_WORKLOAD,
->                                                                i);
-> -               if (workload_type < 0)
-> -                       return -EINVAL;
-> +               if (workload_type < 0) {
-> +                       result = -EINVAL;
-> +                       goto out;
-> +               }
->
->                 result = smu_cmn_update_table(smu,
->                                           SMU_TABLE_ACTIVITY_MONITOR_COEFF, workload_type,
->                                           (void *)(&activity_monitor_external[i]), false);
->                 if (result) {
->                         dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
-> -                       return result;
-> +                       goto out;
->                 }
->         }
->
-> @@ -1495,7 +1503,10 @@ do {                                                                                                     \
->         PRINT_DPM_MONITOR(Fclk_BoosterFreq);
->  #undef PRINT_DPM_MONITOR
->
-> -       return size;
-> +       result = size;
-> +out:
-> +       kfree(activity_monitor_external);
-> +       return result;
->  }
->
->  static int smu_v13_0_7_set_power_profile_mode(struct smu_context *smu, long *input, uint32_t size)
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
+> index f246aab23050..0086cafb0f7a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_optc.c
+> @@ -241,7 +241,6 @@ static struct timing_generator_funcs dcn314_tg_funcs = {
+>                 .set_dsc_config = optc3_set_dsc_config,
+>                 .get_dsc_status = optc2_get_dsc_status,
+>                 .set_dwb_source = NULL,
+> -               .set_odm_combine = optc314_set_odm_combine,
+>                 .get_optc_source = optc2_get_optc_source,
+>                 .set_out_mux = optc3_set_out_mux,
+>                 .set_drr_trigger_window = optc3_set_drr_trigger_window,
 > --
 > 2.35.1
 >
