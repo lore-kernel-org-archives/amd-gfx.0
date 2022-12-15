@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90709C4167B
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 22:11:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58983C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 22:50:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8524410E589;
-	Thu, 15 Dec 2022 22:11:39 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2048.outbound.protection.outlook.com [40.107.243.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BCE010E581
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Dec 2022 22:11:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28A6410E0E6;
+	Thu, 15 Dec 2022 22:50:08 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2083.outbound.protection.outlook.com [40.107.223.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0230210E591;
+ Thu, 15 Dec 2022 22:50:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VTRffnfc0mVjk98E18K6v5hxmox1myJJsqPk0TZYjCBkoMc2g74EF/WGfJV7tjwowJ3LqAmwTDvCp4M+8sDQXLc5BA6nEBnZxm1QGrfSeps3oh/LU4A4M2CgbxIllRC9r52aYlsxU2v7QTs2UE9DUQPJ+ikKnYfEOGrzRoqtnWTsOGyDJWyJeuaRT/68tkeMco4iDsr9PMxntxmHa/PV+GPG9ijtz7Gn5L5MyLTrJv9g1UvBBAgK3pZAkTIpFl0NxsbHXRT8wTKTv7eMMtWXYnYwFDJ3w/PZxa69s9FPq20PnnAqDBZRvphoOHg7b9mlBB2NMRamhOOLOt9K81eD5A==
+ b=E8VjCNBkVg00mtC/i+7seug/dGNBhvfBV/UMzFp9QteJLDjwkNsIU5BEOui4XbsHysa5oRjEAmeleZrBoPp2Hf7IdPlpQG9Ku4MceQRInfPUxMEcEfTUuZrxiWbCf6cdxm+p80UlF8aWUUnCNILmWk2ZCikjG/+lj18zL9aOHFu6MurT/Xowo8YGQ2gcF6dX0vrxzsaCow6Z2cj7iUJLWjellJ6j/nfKFabs8iSUGhYyTRuJX6WzdxEWsFErVpxY9UCMQFEp/l+IwLDEEh0e4PSZfIgFz5NKZJBiSkVxq/7N7cuymkKk6Qd18vls1K/WjZndtLle6D9H5qlpew8oLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/g3ZD+va75tdyGZvpRUQrvViovRdwTlNp6syFqdCUyM=;
- b=FKZTtrDPHtk8uKUPsjutIRaeVsS03K0hQ3SMd91aEJhGsb/BXoTEz0D8q1F1VKgGgkP7oKKqInxZyPqinqd7a6+4KQ6rocz6BkmEwoOkgO74lcSBaDJMLuVAaRdJ2FowvikQDHWr72wsH/6keBXIDAzJVNZ1kNEO4EhV++SvNZEGiEeTqdyWdChK5CpgNhHDABBHnp2LxTtQjfaA4ZpyspU5XkN6tw10KMDuRmtbLnbfxDVbHJqZRzYNj7LEl3fG/FmTSQ9DNLYpVjmmg3l/x72g8b04ZQ7K0wOd46LEP+OrfPC0nxHkTyiAZvwTPqBOHxPwtioW1diaTYMH69h7DQ==
+ bh=9y6vF97aNNlB86Hjcc9zoO6NlMf5v7H8mPuxdDqDTrw=;
+ b=FY4QA+gfc6Fmknfah2qVpFIsq3mnYBBJ1iatx0W0lPHBBwHpRKfa5Ij4T6T2ndjthUZ0dy6JQ5h1IgPtNlQTnwQgvZn44lTCNbiYoszm6yUSIjl1PYsQolgRT5H2xO7AxoF9ngAfoUncuQUOjhhI854foFF9QBOR5TwJqf1NKp8AJlln8PpfDhgd685zJ7tAqZ538OP1IAbf6b5wqoMR1CR/PUFtI95GFl0lalb1AO9uAklbMYiZcodVo8TDkdGWpuJzx34fKORcu2hAFfk6LGTT6D3KKspazRrWbJqeufJvY1jyvwOqVvUdLuy9AsjWIglRaTD1RitB1itm64M4Wg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/g3ZD+va75tdyGZvpRUQrvViovRdwTlNp6syFqdCUyM=;
- b=Zma4u1yKr0oKzPUu2s+BD0Fj4v0vWU/JUfdyzoOQn78tngYO70uTftJstbJU5FRmF12byJMS0mtd+E3YNToyBwPyofgiMurKpUuj6XTp2eQtjCiDsZTwntX5xrGd3PCOttNj8XYLiwhFOpUtOYg3TbWzE3vfHb7fMiEqUtth4zQ=
-Received: from BL1PR13CA0322.namprd13.prod.outlook.com (2603:10b6:208:2c1::27)
- by SA1PR12MB8164.namprd12.prod.outlook.com (2603:10b6:806:338::9)
+ bh=9y6vF97aNNlB86Hjcc9zoO6NlMf5v7H8mPuxdDqDTrw=;
+ b=iKopvXKuKVHdOGMusxpGEUb7892HMqUotw47FDejJKsuujUb81w2VjUzOFQ3DPxit6/toID2DLZ/JpZAE4nBCXVdCrBdmi9Pr/tUmK4z0iOttSF4IsNy77JxhTRw664wZWFG17Ds8XyqCXFl+JK5ncTwJuWAcXWjz7QK3ArjvkM=
+Received: from BN9PR03CA0680.namprd03.prod.outlook.com (2603:10b6:408:10e::25)
+ by MN2PR12MB4272.namprd12.prod.outlook.com (2603:10b6:208:1de::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.11; Thu, 15 Dec
- 2022 22:11:18 +0000
-Received: from BL02EPF00010209.namprd05.prod.outlook.com
- (2603:10b6:208:2c1:cafe::dc) by BL1PR13CA0322.outlook.office365.com
- (2603:10b6:208:2c1::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Thu, 15 Dec
+ 2022 22:49:55 +0000
+Received: from BN8NAM11FT014.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10e:cafe::5b) by BN9PR03CA0680.outlook.office365.com
+ (2603:10b6:408:10e::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12 via Frontend
- Transport; Thu, 15 Dec 2022 22:11:18 +0000
+ Transport; Thu, 15 Dec 2022 22:49:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,50 +45,48 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF00010209.mail.protection.outlook.com (10.167.241.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5924.10 via Frontend Transport; Thu, 15 Dec 2022 22:11:18 +0000
+ BN8NAM11FT014.mail.protection.outlook.com (10.13.177.142) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5924.15 via Frontend Transport; Thu, 15 Dec 2022 22:49:54 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 15 Dec
- 2022 16:11:16 -0600
+ 2022 16:49:53 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 6/7] Revert "drm/amdgpu: disallow gfxoff until GC IP blocks
- complete s2idle resume"
-Date: Thu, 15 Dec 2022 17:10:58 -0500
-Message-ID: <20221215221059.509565-7-alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu drm-fixes-6.2
+Date: Thu, 15 Dec 2022 17:49:36 -0500
+Message-ID: <20221215224936.6438-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221215221059.509565-1-alexander.deucher@amd.com>
-References: <20221215221059.509565-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00010209:EE_|SA1PR12MB8164:EE_
-X-MS-Office365-Filtering-Correlation-Id: bf6eb265-19e0-4fbb-bac8-08dadee94a41
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT014:EE_|MN2PR12MB4272:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7680f3f3-2ee2-4736-dea0-08dadeeeaf1d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kr8QRH2oI2d9+KCD04F14S+mDhQTRa/q2E797fdVNkAgK958l+PSoDrEh9RaLhq+jdmraiOaQPf9144/aCHNgTxNB5AJRjUFoudC+0nNdCEpl9hRp0xMj7VIcdABY3YPDxjg+QsYwzK7T+v3j3wEnSNcwVDjiDZ3bnr1E6a8l0TIVNEjsd6GOcaA4FWHU04kKRMhG9nIfzrXW7M+eOiIFC8s04J1THx+odwHGV8xyrAyLfJyUF72CTmW7uGKW6aqOD9ZuU0SLOZwUcJ4AluBuylfiP72zwEUZ3Doa8elBjgw2aLtaQCbDjqwbhm0ENCdpVNchD6Ec5ZFaWhIVHQSXb9ggB3OFI2pzaHVuhXyctIoEk2aSOJYUgE8uh1s8AySiqLn8pl2tzxWyNmwTuWdCOzK/IGTG49FZ7ibaeNcvvU+F3DXL6C298GHhCsRyn0SxwGKtPdU7N2mm5Zj4oB+f7Zm3t3DX4PYgWAvm6lWYLClL0m+mkPG7eSuAiGXFLrJVcl8DuLCpQrSnBvHafdVtc/jUHHrIEhMGfCOA9Nw5Z++1xX7kdlvq5RejmKLwL3XWlDY85J2v0dijkttkbzpRrMteAqtTs+UKV8lCd53lxd0q92bjSui0QOIizg4BXSt2VClqmWKg17bhZRr007wk3BytwOsOGiQfXYsPvkCbcfwK4cozj5wGmtFsGQJFYUDAvLheLzDgRSNo7fCuVSfWD4uuKcQjv4JRKMrfUFC3zk=
+X-Microsoft-Antispam-Message-Info: rx5BC3bILENnExz6WBYcOaeDxLcwbF+T9ZzXeQJzcM4g0Qov8VDEzXwQ1SApkfC64TOdfvclaQOG5PBaxWHyp2zxiyu4aSAszOViiXgmNZhbeuPsWjdaxh6qkh+sX0lyFkjAJo0CSYl8fsV8bSGXsNAVWU6CySRar30lfFNQdZ9jS5d3yZ2Q+E0kuf6F3RsN2XWNMzx76kV+0izXkB/7DaOLw98kpbQWd7q7129LBf6wDVdF1+mBNC5sablHYZBV/2E4tL/+qG1hRnigi8+mxqp4p8YM8upxp/qar73E3neeIoyGUo+HzkDn9jupTRRnR8iKgd6XnSlttvM1DYIUitTJgkbMSL0EoJIzNvmo+FKC1R2MpCjcQCw1upHCcUjvt/f24unV9nyXanKrYkVgLezXinPgYM7ZFWGE2ZTbCY22rirpJSeu8o9Jg2DGF0TFEGFHYct79zhBTz1C/7+t0fi6ZHCr0LXFnm3Bjy5Uj9D4Oz1oOkUcz0pXZmMY6CBNU7JW1isBtN+rejLLUBvRzRM7h5gZW/eYyMG9z5yxUWO7Q38Xm2ePES/7zuO8PnAchNxmkuPrLljgmlX+SvCXOmWqNF4rIG8zRphR0Yiae5AgDlVrtPvvr2o9AbqX2T/KGZZeycCXSwsOpfHdCjapc5QFH1HcpvdEIxWzc3KSIL5KO9mfBoLNwuS2yrivek5T
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:CA; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(39860400002)(136003)(396003)(376002)(451199015)(36840700001)(40470700004)(46966006)(40480700001)(41300700001)(86362001)(4326008)(70586007)(186003)(16526019)(8676002)(26005)(1076003)(70206006)(2616005)(478600001)(336012)(316002)(6916009)(7696005)(6666004)(82740400003)(81166007)(356005)(36860700001)(47076005)(5660300002)(8936002)(83380400001)(40460700003)(2906002)(426003)(36756003)(82310400005)(36900700001);
+ SFS:(13230022)(4636009)(39860400002)(136003)(346002)(396003)(376002)(451199015)(36840700001)(46966006)(40470700004)(86362001)(478600001)(47076005)(7696005)(40480700001)(2616005)(4326008)(40460700003)(966005)(8676002)(70586007)(4001150100001)(8936002)(110136005)(70206006)(316002)(2906002)(82310400005)(5660300002)(41300700001)(66574015)(6666004)(186003)(26005)(82740400003)(336012)(1076003)(426003)(36756003)(356005)(36860700001)(81166007)(16526019)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2022 22:11:18.0445 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf6eb265-19e0-4fbb-bac8-08dadee94a41
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2022 22:49:54.7430 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7680f3f3-2ee2-4736-dea0-08dadeeeaf1d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00010209.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT014.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8164
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4272
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,49 +102,108 @@ Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit f543d28687480fad06b708bc6e0b0b6ec953b078.
+Hi Dave, Daniel,
 
-This is no longer needed since we no longer touch SDMA 5.x for s0i3.
+Fixes for 6.2.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 16 ----------------
- 1 file changed, 16 deletions(-)
+The following changes since commit 66efff515a6500d4b4976fbab3bee8b92a1137fb:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 5c0719c03c37..582a80a9850e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3234,15 +3234,6 @@ static int amdgpu_device_ip_resume_phase2(struct amdgpu_device *adev)
- 			return r;
- 		}
- 		adev->ip_blocks[i].status.hw = true;
--
--		if (adev->in_s0ix && adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SMC) {
--			/* disable gfxoff for IP resume. The gfxoff will be re-enabled in
--			 * amdgpu_device_resume() after IP resume.
--			 */
--			amdgpu_gfx_off_ctrl(adev, false);
--			DRM_DEBUG("will disable gfxoff for re-initializing other blocks\n");
--		}
--
- 	}
- 
- 	return 0;
-@@ -4230,13 +4221,6 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
- 	/* Make sure IB tests flushed */
- 	flush_delayed_work(&adev->delayed_init_work);
- 
--	if (adev->in_s0ix) {
--		/* re-enable gfxoff after IP resume. This re-enables gfxoff after
--		 * it was disabled for IP resume in amdgpu_device_ip_resume_phase2().
--		 */
--		amdgpu_gfx_off_ctrl(adev, true);
--		DRM_DEBUG("will enable gfxoff for the mission mode\n");
--	}
- 	if (fbcon)
- 		drm_fb_helper_set_suspend_unlocked(adev_to_drm(adev)->fb_helper, false);
- 
--- 
-2.38.1
+  Merge tag 'amd-drm-next-6.2-2022-12-07' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2022-12-09 12:08:33 +1000)
 
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.2-2022-12-15
+
+for you to fetch changes up to 7a18e089eff02f17eaee49fc18641f5d16a8284b:
+
+  drm/amd/pm: update SMU13.0.0 reported maximum shader clock (2022-12-15 12:18:08 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.2-2022-12-15:
+
+amdgpu:
+- Spelling fix
+- BO pin fix
+- Properly handle polaris 10/11 overlap asics
+- GMC9 fix
+- SR-IOV suspend fix
+- DCN 3.1.4 fix
+- KFD userptr locking fix
+- SMU13.x fixes
+- GDS/GWS/OA handling fix
+- Reserved VMID handling fixes
+- FRU EEPROM fix
+- BO validation fixes
+
+----------------------------------------------------------------
+Alex Deucher (2):
+      drm/amdgpu: make display pinning more flexible (v2)
+      drm/amdgpu: handle polaris10/11 overlap asics (v2)
+
+Christian König (7):
+      drm/amdgpu: fixx NULL pointer deref in gmc_v9_0_get_vm_pte
+      drm/amdgpu: WARN when freeing kernel memory during suspend
+      drm/amdgpu: fix GDS/GWS/OA switch handling
+      drm/amdgpu: cleanup SPM support a bit
+      drm/amdgpu: stop waiting for the VM during unreserve
+      drm/amdgpu: rework reserved VMID handling
+      drm/amdgpu: revert "generally allow over-commit during BO allocation"
+
+Colin Ian King (1):
+      drm/amd/display: Fix spelling mistake: "dram_clk_chanage" -> "dram_clk_change"
+
+Evan Quan (6):
+      drm/amd/pm: add missing SMU13.0.0 mm_dpm feature mapping
+      drm/amd/pm: add missing SMU13.0.7 mm_dpm feature mapping
+      drm/amd/pm: enable GPO dynamic control support for SMU13.0.0
+      drm/amd/pm: enable GPO dynamic control support for SMU13.0.7
+      drm/amd/pm: correct SMU13.0.0 pstate profiling clock settings
+      drm/amd/pm: update SMU13.0.0 reported maximum shader clock
+
+Felix Kuehling (1):
+      drm/amdgpu: Add notifier lock for KFD userptrs
+
+Luben Tuikov (3):
+      drm/amdgpu: Check if fru_addr is not NULL (v2)
+      drm/amdgpu: Fix size validation for non-exclusive domains (v4)
+      drm/amdgpu: Remove unnecessary domain argument
+
+Shikang Fan (1):
+      drm/amdgpu: Add an extra evict_resource call during device_suspend.
+
+Yifan Zhang (1):
+      drm/amd/display: Add DCN314 display SG Support
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h         |  13 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   | 212 ++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   5 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  13 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c     |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |  16 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c            |  12 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h            |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c            |  88 +++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h            |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h            |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |  40 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h         |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  24 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h            |   6 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  79 +++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |   6 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |   4 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   1 +
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c    |   8 +-
+ .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  |   2 +-
+ .../display/dc/dcn10/dcn10_hw_sequencer_debug.c    |   4 +-
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c    |   8 +-
+ .../gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c    |   8 +-
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_hubbub.c    |   8 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h   |   2 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |   3 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h       |   3 +
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c     |  15 ++
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  96 +++++++++-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |   4 +
+ 32 files changed, 449 insertions(+), 248 deletions(-)
