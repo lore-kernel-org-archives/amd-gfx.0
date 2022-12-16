@@ -4,90 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B05AC4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 03:06:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6211C001B2
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 08:26:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3B9810E5AA;
-	Fri, 16 Dec 2022 03:06:09 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2069.outbound.protection.outlook.com [40.107.94.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6047210E5A5;
- Fri, 16 Dec 2022 03:06:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oLWiOtXrZaoWqPaH6M3fFyywSlyak8ltyL9kXci+a/OsZ9443T1q/pctfPg2qm2c5U4YsoVQCeOm7TK+DExHqn+YsJEVFBgSWEU7WmZ/t84w6TtO/k4uMOyUX3NVgj7IFH6lvJ34j0lXJHFeh02ppybP/UJ5EEDfmU/qU6JCsHU2bqZKR4dcD4kvH7jCW47+eTFXZ7v04M+q8hA4WX6FEytxhz/HUWqiB5ik/q35NqBNMnAGqYAYYtzpqveHo6spM5F2Vvt0v3suid+o0gcM3INOpfMfXaST/tSePwIjNVNns7Sy6TqOvNa8Lk5uVYuPOErMzXi9fXB4RSYfNjzbgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MY7PY0bALJERvgdvJGz12ilOSfoTKk+06tDrXJ36hvw=;
- b=PkCTXp7RG7+pj/UxQ5qEIOfDHmdCa9pWVIyVmvFb0u5+nP2uMoi/qnG+VAcVnk5XCHQg3sTeP7m4RoaMP9jpC0u3aE261+SG7t7tKdaLmwQzvV3g8boZgffaCNIEcvynSV3uZD2a4DesVsqDDh00HhIVGUkp4ekJoqr75TO8PQ36BwuiKEsTt3o5CIeUtC8c38YLDpSO1Roj9+cEXiNGUBRONO+UNpVF7AhUIwpL2VIjGr/V/kVsWMTqoUQZcrL40W52UrYQv8T0M8teZBGxqaQQ+Dj4nICFcLuEwSHQA/S5ZBcHedKGpNkIf9Mmfk4k/zI+OROHuMOrtpPNp3lVHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MY7PY0bALJERvgdvJGz12ilOSfoTKk+06tDrXJ36hvw=;
- b=C4eeZwriLO979c5sIVtZMaonPXQ6TKKSqmy9YOaAwEqzFPA5qlNCw/QPemhwLQGEZWowc83Jbo2fHl8xiBsahcVZ3YIdH+EspdEyN/XW8iBwm7wbQxa2J8RqMcpu+kXYBTuqiJyVfmY6mBJu8kqsUExgsc1XQvLbN3nBY7H1ilQ=
-Received: from CY5PR17CA0032.namprd17.prod.outlook.com (2603:10b6:930:12::28)
- by CY8PR12MB8412.namprd12.prod.outlook.com (2603:10b6:930:6f::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.11; Fri, 16 Dec
- 2022 03:06:00 +0000
-Received: from CY4PEPF0000B8EC.namprd05.prod.outlook.com
- (2603:10b6:930:12:cafe::6d) by CY5PR17CA0032.outlook.office365.com
- (2603:10b6:930:12::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12 via Frontend
- Transport; Fri, 16 Dec 2022 03:06:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000B8EC.mail.protection.outlook.com (10.167.241.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5813.11 via Frontend Transport; Fri, 16 Dec 2022 03:06:00 +0000
-Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 15 Dec
- 2022 21:05:58 -0600
-From: Ma Jun <majun@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <daniel.vetter@ffwll.ch>, <tzimmermann@suse.de>
-Subject: [PATCH V2] drm/plane-helper: Add the missing declaration of
- drm_atomic_state
-Date: Fri, 16 Dec 2022 11:05:26 +0800
-Message-ID: <20221216030526.1335609-1-majun@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C96ED10E0C3;
+	Fri, 16 Dec 2022 08:26:24 +0000 (UTC)
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [IPv6:2607:f8b0:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1390410E033
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Dec 2022 04:37:31 +0000 (UTC)
+Received: by mail-pf1-x435.google.com with SMTP id 65so997313pfx.9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Dec 2022 20:37:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=XLygs21yUm+BsQ9K/jaILqjtoVN7cCv+GmldKd5jCoY=;
+ b=atuW7kj1tICjX6XOEoGlMKRElIbgy8WI/deoKifcFx1519QZRpDCOoxmKj7EgE2l4w
+ PKzJI7L2ZbVuy2LOhWOolJwT0c6HGC5z3GYIC7j6xM/AunIUu1/hMOhZv9S06C7VFhC1
+ 4Q2nDbmd0YUF9RndxPqP2p/GdMMZ3K4yhoxZk3FVJ0hYXbi4IN4jZVfHJrGPnQoXbTYJ
+ YAB5z7iNwRy7E4EGbWHbVIEyT9ICXQ8iqfiE3z4SLn1NrJW7NLywpAeLKJB/g9wvfmaM
+ r5jcdkMrnO+dY5EbBAyyZATVFCQYX6igkBalPuLJ6BkhstYEmOV58RsJNRueXOX7Ax8G
+ 6CbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XLygs21yUm+BsQ9K/jaILqjtoVN7cCv+GmldKd5jCoY=;
+ b=usV4zW3WFwf4fTDLgN46ApNmgBuNOnwiHDmj/Gaj4Z4C3tLqGvggxEonOZ9WCYvLPX
+ DyQN8/XPvMh8VQF1GLj/SNc69FUJyTBAbE1rM0lWzeokJQOiDumIkiOHKBBUPK1J1hki
+ gyvQ/krxJUrQAdG+KIkcwwwsw8RiTpgouwroh70ASCTyans0nrWMrMH45jEcR5xpMCHh
+ blX0xBLApoY9zR3DX6moqyIoLEe1EntS3DbnFX0gUlhan8PiilLNsR95K2jh6bl0Re6w
+ NCfdpWVUvoeKnQTmK893+RaCURo+oigG2xvpE9zlbT5ad8V8jB8WmUfMiqaNjWvRNdOP
+ h/YA==
+X-Gm-Message-State: AFqh2kqMwdlST7qUjtLcnMFKUH8lG+NQFroPYt4u89ZXFa89U6rnulLM
+ VfU/Vjbf4XZn3YRK2ycExNCXanEjIUP0J4ETCeI=
+X-Google-Smtp-Source: AMrXdXt5JWumad1PiboheGKsXmVaNjeH8snNXdAqZ+Iojn+pij8j6t8nwEgKCk6P8kauAlDPnokzu+Szv1Dew2bD4rM=
+X-Received: by 2002:a63:584c:0:b0:484:2672:2c6a with SMTP id
+ i12-20020a63584c000000b0048426722c6amr142358pgm.535.1671165451321; Thu, 15
+ Dec 2022 20:37:31 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000B8EC:EE_|CY8PR12MB8412:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d70cada-2db0-4a7e-ce4d-08dadf1275f8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TddPIskACfVoafQD+e0vQzu0XO7PzmSVz8rDuww+2MedFeEodgrijw+4NTk9EA7YJ6IYS1iTc+fXByFDE3Q8wEXTHgGfpYGTQBI9I9N9YeIzgYACAI/ATAjlmlzlncVOqD4nNil0gEGMA8iEEh0c7ecm3wiizdADpNdONW1fChF6sOI7pze192bRAZesL7Pg5goqmTYWXmMSaoJt7EIvupro1f1kuIoRE2QJdPNgkbiOrL1LN+f0EzDx5g8fYRs5cxcTzypNc9FVlgerb83IjZknguSDZG1D+f8VC59wqCHgf6xI4Pd6woQIYWp9MuUAxeeq1MZrnLbzCRcTEnQzCEapxQyZshyViwcbWt4VxoRAEJFgjt1X5FFqLMzIPio5nqwfs5EMBb+cOUH1KwrLQw4H/Z66m0+UYBEWskaAYrI3CJ5+KatQM33T8zjk0EvYv4LrPvOK4qtYTX8EQXA75HlcIoMhUgjdC2Sijk6eSy2+h0HPvp6md2X3yGwHcq4lyfFPhEJis2DKnS2IFT8E38lfWzkFSUnY5UxVOazLdUKz0Cl/WPsZwkFE0IcEkYl98qV2UFNyDetJuy6MuKSTCsV1aIbM9P63nvD1Ji+nenKChVfZrdMDV/5IM5E+qqOfLy/EmXrvnf7YaOIqbJxjMz+q3Igkq7eMjfmsXqBBRy7miLPeqVBlNmAeuZ88HAzhfyHtfSDRpV/ffavwTvQ+dafF+UV0RELLsHtgyxZ/JkI2DonsH2b6IwP92zSRq9qt
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(346002)(376002)(136003)(396003)(451199015)(40470700004)(36840700001)(46966006)(82740400003)(5660300002)(8676002)(356005)(2906002)(40480700001)(4744005)(4326008)(70586007)(41300700001)(81166007)(70206006)(82310400005)(186003)(47076005)(6666004)(7696005)(110136005)(16526019)(426003)(2616005)(316002)(1076003)(26005)(336012)(40460700003)(478600001)(8936002)(36860700001)(36756003)(36900700001)(2101003);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2022 03:06:00.6898 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d70cada-2db0-4a7e-ce4d-08dadf1275f8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000B8EC.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8412
+References: <639b23c8.DdUNqMCLdxZ7gLv2%lkp@intel.com>
+In-Reply-To: <639b23c8.DdUNqMCLdxZ7gLv2%lkp@intel.com>
+From: Vincent Mailhol <vincent.mailhol@gmail.com>
+Date: Fri, 16 Dec 2022 13:37:20 +0900
+Message-ID: <CAMZ6RqJ7-GTPe7tNdhTYCF6OrnagfNL_7EXrhn5HD=YB8dtCGw@mail.gmail.com>
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 459c73db4069c27c1d4a0e20d055b837396364b8
+To: kernel test robot <lkp@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Fri, 16 Dec 2022 08:26:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,32 +65,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: kvm@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-can@vger.kernel.org, linux-xfs@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>, loongarch@lists.linux.dev,
+ Andrew Morton <akpm@linux-foundation.org>, linux-omap@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the missing declaration of struct drm_atomic_state to fix the
-compile error below:
+On Tue. 15 Dec. 2022 at 22:57, kernel test robot <lkp@intel.com> wrote:
+> tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> branch HEAD: 459c73db4069c27c1d4a0e20d055b837396364b8  Add linux-next specific files for 20221215
+>
+> Error/Warning reports:
 
-error: 'struct drm_atomic_state' declared inside parameter
-list will not be visible outside of this definition or declaration [-Werror]
+(...)
 
-Signed-off-by: Ma Jun <majun@amd.com>
----
- include/drm/drm_plane_helper.h | 1 +
- 1 file changed, 1 insertion(+)
+> Documentation/networking/devlink/etas_es58x.rst: WARNING: document isn't included in any toctree
 
-diff --git a/include/drm/drm_plane_helper.h b/include/drm/drm_plane_helper.h
-index b00ad36cf5b6..90156e13ac11 100644
---- a/include/drm/drm_plane_helper.h
-+++ b/include/drm/drm_plane_helper.h
-@@ -26,6 +26,7 @@
- 
- #include <linux/types.h>
- 
-+struct drm_atomic_state;
- struct drm_crtc;
- struct drm_framebuffer;
- struct drm_modeset_acquire_ctx;
--- 
-2.25.1
+A patch for this warning is on its way:
+  https://lore.kernel.org/linux-next/20221213051136.721887-1-mailhol.vincent@wanadoo.fr/T/#u
 
+(...)
+
+Yours sincerely,
+Vincent Mailhol
