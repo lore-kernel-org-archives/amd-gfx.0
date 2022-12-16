@@ -4,49 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC1C6C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 15:18:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14D05C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 16:44:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECC6810E5D9;
-	Fri, 16 Dec 2022 15:18:40 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A0DB10E5D5
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Dec 2022 15:18:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671203917; x=1702739917;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=02QCuar4dYfcGk8X71Ps6oFW/ok7pF7lniU7WvO+y+o=;
- b=ZipIDMVoqOS0+ImdM2jzS1A4KQS2BkClU7P2JROSQICvfnrREjFo0Ukd
- g9Gw1FTiltMuOlYSHd36wtFnA1zhog3VLnlmgbKhdYVth8CLEc84Nsfql
- 9gBA00pZidwBQkLecautY4jly2E4oOpWDObWKEcOMOlQumdzve6ygnn6m
- prRYkoiUyR4evXF37O1IjhR3QS9SznWskYRUDma7MUhHnPTLt1vhMmv8L
- sU6m2KZrx8vHIdVP/je2EyagwcytKxmhVQJ0MYU6B5+4barIx9Sc+aPAG
- 9Beql5KJzYu7m4xHf2zrU/RXeMHv2Ya6APeQvUmluDIj3/N6cpPH2aqyy A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="383319604"
-X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="383319604"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2022 07:18:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="756782958"
-X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="756782958"
-Received: from lkp-server01.sh.intel.com (HELO b5d47979f3ad) ([10.239.97.150])
- by fmsmga002.fm.intel.com with ESMTP; 16 Dec 2022 07:18:33 -0800
-Received: from kbuild by b5d47979f3ad with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1p6CTo-0007EQ-1R;
- Fri, 16 Dec 2022 15:18:32 +0000
-Date: Fri, 16 Dec 2022 23:18:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- ca39c4daa6f7f770b1329ffb46f1e4a6bcc3f291
-Message-ID: <639c8c39./q+QZSDrWluXOpoJ%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4693510E0F3;
+	Fri, 16 Dec 2022 16:44:53 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2044.outbound.protection.outlook.com [40.107.94.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E29B010E0F3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Dec 2022 16:44:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Kul7cBNnq0hBrDB8Z361ostgXIb6nl1fEGGKrKibdafBIH79xSvcmsfFS1/runppD9RU8iMlK2BDxqO3gKY2sVJEE99IOmUk8DB8nJbgfe8YGaNB/rOLYdn2ncCC7/Qf2nrUTyF/p8p8/UzzoWnwlFlNdIZX0ulRZHd1nv7+SXoRI/+76Eekka7s1XLe2gXLdoMAh8JXfvNpvN4r3iY4mIzarf0WJ8uUA5thGfYVFDA3Ri6LXrcbAeuyi7SLQdRNMQWYFiGJnxyY02b65f67cqmije4AMf9q6FJGfZDih4SoeOpoCxC0+LG5lzsE90Oib5LakyokrZ97kxwbEEZe5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=10Yt5gB7wCiN+ReSuyymUpDluQKTYiXn1TInkyma5wc=;
+ b=l2Uk0eBMMoMUvHriCmJIkJz0+BL54GjOqdymbM1xBuO6JgR5jN8oN06hHROKLX0/jbrkRjqD3lf22QtaxJ2ZB9QdD+VEfewnfOBqiTGFumP6ntWYnrAQQHE/daCyy1flrAQLtovHXnR68F+pgTazRjlrNTKA6TBrclFBrBJkRLHYverq0m+AtpIHf7O85ner3fTsp98x9YauqTbJG6G6lkh62RaF8IcTMa/r4DpwwpuRD5z4IFgyT1/vx1YtP4RNergXkMgtLJ+56Bk447IVu8uu2SK36fEopJHbWeDGzIPaPPHcYd2IJ+2UWHfV7sXFJIWT0cYZ0yxvvFVMICcD9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=10Yt5gB7wCiN+ReSuyymUpDluQKTYiXn1TInkyma5wc=;
+ b=irun1GJ1lo1ADzjzybjNVllJWGVxK/obcqaQ1XA6FJn9ZayNp9jOYzENYPOlfMQCZ6o5KQgF9Y3FCcEm17AbhvL7th6ONLUYtpCtDUUwpO5MMPpasYRXyULaOwOLorZGgnzMJg0zdsvKoYbI+GVaL1CuGKRqKQr34Pjetzzbrfw=
+Received: from MN2PR05CA0047.namprd05.prod.outlook.com (2603:10b6:208:236::16)
+ by SJ1PR12MB6339.namprd12.prod.outlook.com (2603:10b6:a03:454::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Fri, 16 Dec
+ 2022 16:44:46 +0000
+Received: from BL02EPF0000C409.namprd05.prod.outlook.com
+ (2603:10b6:208:236:cafe::50) by MN2PR05CA0047.outlook.office365.com
+ (2603:10b6:208:236::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.5 via Frontend
+ Transport; Fri, 16 Dec 2022 16:44:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000C409.mail.protection.outlook.com (10.167.241.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5924.9 via Frontend Transport; Fri, 16 Dec 2022 16:44:45 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 16 Dec
+ 2022 10:44:44 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: skip MES for S0ix as well since it's part of GFX
+Date: Fri, 16 Dec 2022 11:44:30 -0500
+Message-ID: <20221216164430.42642-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0000C409:EE_|SJ1PR12MB6339:EE_
+X-MS-Office365-Filtering-Correlation-Id: 379567a4-f2ea-4b47-6bd5-08dadf84d6e6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: /xuR/OvoifiZqlNs00iahLwr8R0pfk/+OMTCQauatqibEaxvn26Wz45AglVr9U6MIErhpufsB4geXIJjfFRx8iDGerWs+2lJwPqwnYp5NublM+jbJSN0WHF2PWj8MDGrg0aUHtsbNyaSuVp3VMPkDaSaxFanitWxGe8mY/1qDD1DQYhoD/IqDzISufkNxCNk9FWxupEKpT124eadhEkrekIo28XVvwcYlt7bceRW2oqBIwHBoNFRycd2c6sHxlKGaSOuUFxw73WwGJ8/m9LqxD7xoI+IlgeHGBSkUYjytRU9aKog5M7yHgAKydqCCcJJDPm7sQzPuZWud8C15o774xR+LQnHWp3hFdRoe22MLKCwcI+EjdZeA8cepxzCAM0qLLvWtW0wN3AYsMtpILfmysRNWU5gXrM8fH+pRpeYDbWMo26GwAEObKe6vekDFHWYlQpfT+1ttCH5+85ZSh2UegSmg/DhFWmdso++5oE5jzkcBNLdxFMeb1T3LVY9Vm2McZeFpqIkMOaOvPf1hJ+LytOzgmGUbbe753cFm1OZ8i8h14QTv+On4BPH9QEDINyeoIGdNeragQmqihMlt3Y1QfC8jP66TY740C7XLMMvhR42jq3DieJuHD8U2/x8T8TXARoP21qdyjRt5krKfpb3mKi8LIS/t14F9upuMhSGWTOx+BtiyKb84oc7vn+agSVLcLorzQJ/ti+50i+d6f1I10cq1GpvSqaR5kHwqCH3OzHH3ntZLwsvOmCgypigtyPQ
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199015)(40470700004)(46966006)(36840700001)(82310400005)(82740400003)(36860700001)(86362001)(83380400001)(356005)(81166007)(26005)(36756003)(2906002)(40480700001)(336012)(16526019)(5660300002)(6666004)(186003)(41300700001)(8936002)(1076003)(2616005)(47076005)(426003)(8676002)(4326008)(478600001)(7696005)(6916009)(40460700003)(316002)(70206006)(70586007)(32563001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2022 16:44:45.9980 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 379567a4-f2ea-4b47-6bd5-08dadf84d6e6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000C409.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6339
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,213 +97,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-usb@vger.kernel.org, speakup@linux-speakup.org,
- amd-gfx@lists.freedesktop.org, linux-can@vger.kernel.org,
- linux-xfs@vger.kernel.org, Linux Memory Management List <linux-mm@kvack.org>,
- linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-media@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: ca39c4daa6f7f770b1329ffb46f1e4a6bcc3f291  Add linux-next specific files for 20221216
+It's also part of gfxoff.
 
-Error/Warning reports:
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-https://lore.kernel.org/oe-kbuild-all/202211180516.dtOWIlEo-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211180955.UiXgTkeu-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211190207.Rf66o1j0-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202211242120.MzZVGULn-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202212020520.0OkMIno3-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202212051759.cEv6fyHy-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202212142121.vendKsOc-lkp@intel.com
-
-Error/Warning: (recently discovered and may have been fixed)
-
-Documentation/gpu/drm-internals:179: ./include/drm/drm_file.h:411: WARNING: undefined label: drm_accel_node (if the link has no caption the label must precede a section header)
-Documentation/networking/devlink/etas_es58x.rst: WARNING: document isn't included in any toctree
-Warning: tools/power/cpupower/man/cpupower-powercap-info.1 references a file that doesn't exist: Documentation/power/powercap/powercap.txt
-arch/powerpc/kernel/kvm_emul.o: warning: objtool: kvm_template_end(): can't find starting instruction
-arch/powerpc/kernel/optprobes_head.o: warning: objtool: optprobe_template_end(): can't find starting instruction
-drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:40:20: warning: no previous prototype for 'to_dal_irq_source_dcn201' [-Wmissing-prototypes]
-drivers/regulator/tps65219-regulator.c:310:32: warning: parameter 'dev' set but not used [-Wunused-but-set-parameter]
-drivers/regulator/tps65219-regulator.c:310:60: warning: parameter 'dev' set but not used [-Wunused-but-set-parameter]
-drivers/regulator/tps65219-regulator.c:370:26: sparse:    int
-drivers/regulator/tps65219-regulator.c:370:26: sparse:    struct regulator_dev *[assigned] rdev
-drivers/regulator/tps65219-regulator.c:370:26: warning: ordered comparison of pointer with integer zero [-Wextra]
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/accessibility/speakup/main.c:1290:26: sparse: sparse: obsolete array initializer, use C99 syntax
-drivers/i2c/busses/i2c-qcom-geni.c:1028:28: sparse: sparse: symbol 'i2c_master_hub' was not declared. Should it be static?
-drivers/media/platform/ti/davinci/vpif.c:483:20: sparse: sparse: cast from non-scalar
-drivers/media/platform/ti/davinci/vpif.c:483:20: sparse: sparse: cast to non-scalar
-drivers/media/test-drivers/visl/visl-video.c:690:22: sparse: sparse: symbol 'visl_qops' was not declared. Should it be static?
-drivers/usb/misc/sisusbvga/sisusbvga.c:528:9: sparse: sparse: incorrect type in assignment (different base types)
-fs/xfs/xfs_iomap.c:86:29: sparse: sparse: symbol 'xfs_iomap_page_ops' was not declared. Should it be static?
-hidma.c:(.text+0x46): undefined reference to `devm_ioremap_resource'
-mm/hugetlb.c:6897 hugetlb_reserve_pages() error: uninitialized symbol 'chg'.
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
-|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
-|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
-|-- arc-randconfig-s053-20221216
-|   |-- drivers-i2c-busses-i2c-qcom-geni.c:sparse:sparse:symbol-i2c_master_hub-was-not-declared.-Should-it-be-static
-|   `-- drivers-media-test-drivers-visl-visl-video.c:sparse:sparse:symbol-visl_qops-was-not-declared.-Should-it-be-static
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
-|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
-|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
-|-- arm64-buildonly-randconfig-r006-20221215
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|-- arm64-randconfig-s051-20221216
-|   |-- drivers-i2c-busses-i2c-qcom-geni.c:sparse:sparse:symbol-i2c_master_hub-was-not-declared.-Should-it-be-static
-|   |-- drivers-regulator-tps65219-regulator.c:sparse:int
-|   |-- drivers-regulator-tps65219-regulator.c:sparse:sparse:incompatible-types-for-operation-(-):
-|   |-- drivers-regulator-tps65219-regulator.c:sparse:struct-regulator_dev-assigned-rdev
-|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
-|   |-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
-|   `-- fs-xfs-xfs_iomap.c:sparse:sparse:symbol-xfs_iomap_page_ops-was-not-declared.-Should-it-be-static
-|-- i386-allyesconfig
-|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
-|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
-|-- i386-randconfig-s002
-|   `-- fs-xfs-xfs_iomap.c:sparse:sparse:symbol-xfs_iomap_page_ops-was-not-declared.-Should-it-be-static
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-irq-dcn201-irq_service_dcn201.c:warning:no-previous-prototype-for-to_dal_irq_source_dcn201
-|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
-|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
-|-- m68k-allmodconfig
-|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
-|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
-|-- m68k-allyesconfig
-|   |-- drivers-regulator-tps65219-regulator.c:warning:ordered-comparison-of-pointer-with-integer-zero
-|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
-|-- m68k-randconfig-s041-20221216
-|   |-- drivers-media-platform-ti-davinci-vpif.c:sparse:sparse:cast-from-non-scalar
-|   `-- drivers-media-platform-ti-davinci-vpif.c:sparse:sparse:cast-to-non-scalar
-|-- m68k-randconfig-s043-20221216
-|   |-- drivers-accessibility-speakup-main.c:sparse:sparse:obsolete-array-initializer-use-C99-syntax
-|   |-- drivers-usb-misc-sisusbvga-sisusbvga.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-unsigned-int-usertype-address-got-restricted-__le32-usertype
-clang_recent_errors
-|-- hexagon-allyesconfig
-|   `-- drivers-regulator-tps65219-regulator.c:warning:parameter-dev-set-but-not-used
-|-- riscv-randconfig-r023-20221215
-|   |-- ld.lld:error:too-many-errors-emitted-stopping-now-(use-error-limit-to-see-all-errors)
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_lookup_name:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_seqs_of_names
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_lookup_names:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_num_syms
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_lookup_names:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_seqs_of_names
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_on_each_match_symbol:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_offsets
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_on_each_match_symbol:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_relative_base
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_on_each_match_symbol:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_seqs_of_names
-|   |-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_sym_address:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_offsets
-|   `-- ld.lld:error:vmlinux.a(kernel-kallsyms.o):(function-kallsyms_sym_address:.text):relocation-R_RISCV_PCREL_HI20-out-of-range:is-not-in-references-kallsyms_relative_base
-`-- s390-randconfig-r022-20221215
-    `-- hidma.c:(.text):undefined-reference-to-devm_ioremap_resource
-
-elapsed time: 731m
-
-configs tested: 81
-configs skipped: 2
-
-gcc tested configs:
-arc                                 defconfig
-alpha                               defconfig
-um                           x86_64_defconfig
-um                             i386_defconfig
-x86_64                              defconfig
-x86_64                        randconfig-a013
-x86_64                        randconfig-a011
-x86_64                               rhel-8.3
-arm                                 defconfig
-ia64                             allmodconfig
-x86_64                           rhel-8.3-bpf
-m68k                             allyesconfig
-x86_64                           allyesconfig
-m68k                             allmodconfig
-x86_64                           rhel-8.3-syz
-x86_64                         rhel-8.3-kunit
-arc                  randconfig-r043-20221215
-x86_64                        randconfig-a015
-i386                          randconfig-a001
-x86_64                          rhel-8.3-func
-i386                          randconfig-a003
-s390                             allmodconfig
-x86_64                    rhel-8.3-kselftests
-x86_64                           rhel-8.3-kvm
-s390                             allyesconfig
-s390                                defconfig
-x86_64                            allnoconfig
-x86_64                        randconfig-a004
-arm                  randconfig-r046-20221215
-arm64                            allyesconfig
-i386                          randconfig-a005
-arc                              allyesconfig
-i386                                defconfig
-powerpc                           allnoconfig
-x86_64                        randconfig-a002
-arm                              allyesconfig
-i386                          randconfig-a014
-alpha                            allyesconfig
-powerpc                          allmodconfig
-i386                          randconfig-a012
-x86_64                        randconfig-a006
-i386                          randconfig-a016
-sh                               allmodconfig
-mips                             allyesconfig
-mips                           xway_defconfig
-arc                              alldefconfig
-sh                            shmin_defconfig
-i386                             allyesconfig
-sh                          r7785rp_defconfig
-sparc                            alldefconfig
-sh                         ecovec24_defconfig
-i386                          randconfig-c001
-sh                         apsh4a3a_defconfig
-sh                        sh7757lcr_defconfig
-m68k                        m5307c3_defconfig
-arc                               allnoconfig
-arm                        clps711x_defconfig
-sh                            titan_defconfig
-
-clang tested configs:
-x86_64                        randconfig-a012
-x86_64                        randconfig-a014
-x86_64                          rhel-8.3-rust
-i386                          randconfig-a013
-x86_64                        randconfig-a016
-i386                          randconfig-a002
-i386                          randconfig-a015
-i386                          randconfig-a006
-hexagon              randconfig-r041-20221215
-i386                          randconfig-a004
-hexagon              randconfig-r045-20221215
-x86_64                        randconfig-a005
-i386                          randconfig-a011
-x86_64                        randconfig-a001
-riscv                randconfig-r042-20221215
-s390                 randconfig-r044-20221215
-x86_64                        randconfig-a003
-mips                        qi_lb60_defconfig
-arm                             mxs_defconfig
-arm                         palmz72_defconfig
-arm                         hackkit_defconfig
-arm                          ixp4xx_defconfig
-arm                        vexpress_defconfig
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 582a80a9850e..e4609b8d574c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3018,14 +3018,15 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
+ 			continue;
+ 		}
+ 
+-		/* skip suspend of gfx and psp for S0ix
++		/* skip suspend of gfx/mes and psp for S0ix
+ 		 * gfx is in gfxoff state, so on resume it will exit gfxoff just
+ 		 * like at runtime. PSP is also part of the always on hardware
+ 		 * so no need to suspend it.
+ 		 */
+ 		if (adev->in_s0ix &&
+ 		    (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_PSP ||
+-		     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GFX))
++		     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GFX ||
++		     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_MES))
+ 			continue;
+ 
+ 		/* SDMA 5.x+ is part of GFX power domain so it's covered by GFXOFF */
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.38.1
+
