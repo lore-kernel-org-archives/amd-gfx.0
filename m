@@ -4,66 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A43EC4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 08:50:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8832BC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 10:36:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C364110E0A5;
-	Fri, 16 Dec 2022 08:50:02 +0000 (UTC)
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53B6710E0A5
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Dec 2022 08:49:56 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id u19so4513165ejm.8
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Dec 2022 00:49:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=lEwFdkbtvEaDLJgWa1Adj/FcYd4AKD61eRdwcky2uEo=;
- b=CwxC35ype1LayzYNZRCjlr2GtZwphZDoLaL6K6I6TcZm+2/+jLy8zLEqSMixgqfV19
- 1Z4gXeGGiNfTeCrkQVj0z99sS5nZuWz243DIFfYLtAL6P/OdKNB5cTI3aB//c6nffuf1
- EwVlXqZw3RqhT+LGhRQmlcMp/snemyAJ8BrLafnVD/lnk/ALFudkeeYUCri68Qalbj5m
- DxJgROBeuNg1VCUaHBF/m2/7Frb4hnEf/j1HHQJemJY0pHGAu4teqK93MRb5E7RtRf4D
- 7L6EDa/9UZlxBubYoOepH5f/Vr00hUhsEGWNrHT7e8rq7phSVYqFZEeB/L0fi50yxk/g
- VzzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=lEwFdkbtvEaDLJgWa1Adj/FcYd4AKD61eRdwcky2uEo=;
- b=HcAKSbejAjSKhS1XN4yC6I128EHQ88MyQRbr8PHYnsLHYHs8TKNa1XkZXqvOerziZ9
- HE362HV94qhNRwfDUUEpeok7lSp8ZAMYQLLhW2u3agGXeeFeRRVOIrUQX82cqHd1jW/1
- awdmvzlWIektu7UAT7EOZWuW58TjpHazoS+kBJHCs/kqy4iOj8fq+htmeRqZtAII4zFD
- 8EicOM5bge6Vf4fUjJv98v0pOAj4sIeIvL/rtyEX7JgCzWRkH0HSAGx42ggwhvZs0+qZ
- Ape0/vzlyfo0sgHZ4N6gK41iWPKG21Ecx3KTQjmvWyHzymD72Pg0D/7OIFeSetaajQUW
- R8qw==
-X-Gm-Message-State: ANoB5pm1W2Qxou7/5bcHSJLLHasd++u3sGFr8JNMbdCENyoqW6imt7oT
- Z0aGFdZ99pJtKbA8Le0E42c=
-X-Google-Smtp-Source: AA0mqf4Md86Bez9vnnXWnVUGISkOK20KN27aazCYV1UrG9NIQSSz+VcGuund4Yasym6byae35BNGCA==
-X-Received: by 2002:a17:906:3a18:b0:7ba:5085:869 with SMTP id
- z24-20020a1709063a1800b007ba50850869mr26604776eje.9.1671180594759; 
- Fri, 16 Dec 2022 00:49:54 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:90a2:619d:95d:a3f3?
- ([2a02:908:1256:79a0:90a2:619d:95d:a3f3])
- by smtp.gmail.com with ESMTPSA id
- z8-20020a170906240800b007c14d4c9633sm600663eja.99.2022.12.16.00.49.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 Dec 2022 00:49:54 -0800 (PST)
-Message-ID: <4cb9ed9d-310b-b226-895a-a7346c0cf67a@gmail.com>
-Date: Fri, 16 Dec 2022 09:49:52 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD24010E145;
+	Fri, 16 Dec 2022 10:36:13 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2058.outbound.protection.outlook.com [40.107.243.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FEC110E145
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Dec 2022 10:36:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iw/TM0ni21gy7qvm8I3PshRHz0WwOPLGIBb6G0i3dMSF9MUQLRz1OArarflVfbIVbcaEr8KCIBo8mAehTV6rwS5GrQ9to/kF2/jO+0i4bxIYuLw/rRWZFQOjgxAMjpumxA+LQbSvT99We0k9YAmNnCJTH2WIHWHFSSrlmplubh4KrSpAZB+v9n/hRU3M2bV0oWKvcCEB7piAgLpXiDYxqVV02lC7hjkHYa4m1+WcX1NtGzN7KU/UJeb09I+JsS2nc8ZNF9Y8ZhOMT/hXc2y2zYDOLpojNUZH/GxGFTFCJJfDr1YEo1nTkXyLnT06fX34sIB8brd8WbX0y/wJ07BE0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2FxgnC/zBxldYI3Qx9+Ju1JAD+lzEOj3nDTM0Rtrpn0=;
+ b=SW0EH1eCWFJzFp5oJ5x8Da4WFE42irbmW7alMcWU9ORvHtlaws2jvtenebHNfebmr1ostzOhHKZcQUYVqYtc8l7QZCfeby4/J4wDlMioijQDJ0ykPLW/pLYiz/fSTwNuCE3AYZ7Un+LT1efXYn+0xAg0GJv+8eoaoYIdgeVgt2mRiEjKKLE2FigKNLSsErcLxGN7JfVvK/a2/EtxEzSB2dP4JFCOBwrUF9vTw5uWIOpupy7+ZxuMbtaEmd0njBOoYefGbYYK3OooM+YxK2QdRN46i0qDMIbDVGqT9VlMlKIvnrmVfdZJbdgFttR8GkeXrRZRUQ9umEde76qOIUByMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2FxgnC/zBxldYI3Qx9+Ju1JAD+lzEOj3nDTM0Rtrpn0=;
+ b=mGbSHECkrs7ZcQPBwHxuSu7mNDb49D/XOShre37HBMOtsi0gPrxzVGPFT60ch3LKGS9B0WMSjs9fBm+FBjxCY0LcN2l91L6oxDk9W7ysRrpGFOkCfy358LFbpT048AhBeu+8wVxgcVa4PnzLh3Tfu7L1NvZdwThkxrJhJ+ewBt4=
+Received: from DM6PR07CA0081.namprd07.prod.outlook.com (2603:10b6:5:337::14)
+ by MW4PR12MB6780.namprd12.prod.outlook.com (2603:10b6:303:20e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12; Fri, 16 Dec
+ 2022 10:36:10 +0000
+Received: from CY4PEPF0000C967.namprd02.prod.outlook.com
+ (2603:10b6:5:337:cafe::8c) by DM6PR07CA0081.outlook.office365.com
+ (2603:10b6:5:337::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16 via Frontend
+ Transport; Fri, 16 Dec 2022 10:36:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000C967.mail.protection.outlook.com (10.167.241.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5924.8 via Frontend Transport; Fri, 16 Dec 2022 10:36:09 +0000
+Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 16 Dec
+ 2022 04:36:07 -0600
+From: Evan Quan <evan.quan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: correct the fan speed retrieving in PWM for some
+ SMU13 asics
+Date: Fri, 16 Dec 2022 18:35:50 +0800
+Message-ID: <20221216103550.2063886-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH] drm/amdgpu: Fixed bug on error when uninstalling amdgpu
-Content-Language: en-US
-To: YiPeng Chai <YiPeng.Chai@amd.com>, amd-gfx@lists.freedesktop.org,
- "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>
-References: <20221216025621.176460-1-YiPeng.Chai@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20221216025621.176460-1-YiPeng.Chai@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C967:EE_|MW4PR12MB6780:EE_
+X-MS-Office365-Filtering-Correlation-Id: 428c8d90-748a-4c81-05c5-08dadf515866
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ujrQCaEysJaT9HflHipUq85+GNPBFKbf2OeckZvnY6taIZ+xYi59jVnIxjCK2D7G/7G1yh+K6N/dkGE1A0zUeH8+TDLpaYM8aTJ+1pjY8SIIXNPYVTFhx2xewgqp2hGqo74E8RUDjS1MxCvuyzLS97zEZCJxpxDFZgsDpugn7wrhfev1xG5rH/OlKDq/jOz1kyd9JtjxXr5RTCAgFVVDBg3jxV5aOllTu3I+2qCmOL2ha09+63OOLZ1+r9+t6t1tsB8+h96AKmFJvAfAGMsVYHJ5oR5klRaOJHdmbieYVInc9FZ08U518Ugae0wmacs5/uDA5K5VsnNNOfr+6xHae/m5usA+Wn+F8wuaGQu0Fytn875C+RzvQxlM/gBpQyqM9zqtz+M3NOcBKBsVqzFktbz/XiJpMX4c5NedmDTSBsEMOJ33UmcqeeW78yEWVdILuGPcwLKoSZoznZgbqKmAuLzVym6Y9XPk7CNmDWqscXsSo4XG7+0dCwjEPxc/Y3hyZoM0T304yW/MIjD+j+8vqplpbrTy5Y3J6lZpq3iQNkPp6FSoLjk9FBQ8s3rCG3ZAcz3Rbq1EvcBu7BfmBwkM549cSpMOq/6+aM30jYNg3E2f4vTsdtwqqM3BHjNIFVgFsbetFy57SOi791rVCfkvnq06/cmj31flkRN/8rI/aC92/eWLYqLI83VsMZP7UnHfgQCCAjgf0wx4KpBfXLepAduvUSdcdM6SyrKRI3XOJns=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(376002)(396003)(346002)(136003)(451199015)(36840700001)(46966006)(40470700004)(2906002)(5660300002)(8936002)(356005)(316002)(426003)(8676002)(47076005)(41300700001)(70586007)(70206006)(36756003)(6916009)(40480700001)(81166007)(4326008)(82740400003)(54906003)(7696005)(6666004)(478600001)(26005)(44832011)(186003)(2616005)(336012)(36860700001)(82310400005)(1076003)(16526019)(86362001)(40460700003)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2022 10:36:09.3679 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 428c8d90-748a-4c81-05c5-08dadf515866
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C967.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6780
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,75 +98,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: yipechai@amd.com, Tao.Zhou1@amd.com, Hawking.Zhang@amd.com
+Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 16.12.22 um 03:56 schrieb YiPeng Chai:
-> Fixed bug on error when uninstalling amdgpu.
-> The error message is as follows:
-> [  304.852489] kernel BUG at drivers/gpu/drm/drm_buddy.c:278!
-> [  304.852503] invalid opcode: 0000 [#1] PREEMPT SMP NOPTI
-> [  304.852510] CPU: 2 PID: 4192 Comm: modprobe Tainted: G        W IOE     5.19.0-thomas #1
-> [  304.852519] Hardware name: ASUS System Product Name/PRIME Z390-A, BIOS 2004 11/02/2021
-> [  304.852526] RIP: 0010:drm_buddy_free_block+0x26/0x30 [drm_buddy]
-> [  304.852535] Code: 00 00 00 90 0f 1f 44 00 00 48 8b 0e 89 c8 25 00 0c 00 00 3d 00 04 00 00 75 10 48 8b 47 18 48 d3 e0 48 01 47 28 e9 fa fe ff ff <0f> 0b 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 41 54 55 48 89 f5 53
-> [  304.852549] RSP: 0018:ffff9afac17bbcb8 EFLAGS: 00010287
-> [  304.852556] RAX: 0000000000000000 RBX: ffff8dacd37fd778 RCX: 0000000000000000
-> [  304.852563] RDX: ffff8dacd37fd7a0 RSI: ffff8dacd37fd3b8 RDI: ffff8dac672a5f80
-> [  304.852570] RBP: ffff8dacd37fd3a0 R08: 0000000000000001 R09: 0000000000000000
-> [  304.852577] R10: ffff8dac68185500 R11: ffff9afac17bbd00 R12: ffff8dac672a5f80
-> [  304.852584] R13: ffff8dac672a5fe0 R14: ffff8dacd37fd380 R15: ffff8dac672a5f80
-> [  304.852590] FS:  00007f0fa9b30c40(0000) GS:ffff8dadb6480000(0000) knlGS:0000000000000000
-> [  304.852598] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  304.852604] CR2: 00007f4bf1a1ba50 CR3: 0000000108c58004 CR4: 00000000003706e0
-> [  304.852611] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-> [  304.852618] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-> [  304.852625] Call Trace:
-> [  304.852629]  <TASK>
-> [  304.852632]  drm_buddy_free_list+0x2a/0x60 [drm_buddy]
-> [  304.852639]  amdgpu_vram_mgr_fini+0xea/0x180 [amdgpu]
-> [  304.852827]  amdgpu_ttm_fini+0x1f9/0x280 [amdgpu]
-> [  304.852925]  amdgpu_bo_fini+0x22/0x90 [amdgpu]
-> [  304.853022]  gmc_v11_0_sw_fini+0x26/0x30 [amdgpu]
-> [  304.853132]  amdgpu_device_fini_sw+0xc5/0x3b0 [amdgpu]
-> [  304.853229]  amdgpu_driver_release_kms+0x12/0x30 [amdgpu]
-> [  304.853327]  drm_dev_release+0x20/0x40 [drm]
-> [  304.853352]  release_nodes+0x35/0xb0
-> [  304.853359]  devres_release_all+0x8b/0xc0
-> [  304.853364]  device_unbind_cleanup+0xe/0x70
-> [  304.853370]  device_release_driver_internal+0xee/0x160
-> [  304.853377]  driver_detach+0x44/0x90
-> [  304.853382]  bus_remove_driver+0x55/0xe0
-> [  304.853387]  pci_unregister_driver+0x3b/0x90
-> [  304.853393]  amdgpu_exit+0x11/0x69 [amdgpu]
-> [  304.853540]  __x64_sys_delete_module+0x142/0x260
-> [  304.853548]  ? exit_to_user_mode_prepare+0x3e/0x190
-> [  304.853555]  do_syscall_64+0x38/0x90
-> [  304.853562]  entry_SYSCALL_64_after_hwframe+0x63/0xcd
->
-> Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+For SMU 13.0.0 and 13.0.7, the output from PMFW is in percent. Driver
+need to convert that into correct PMW(255) based.
 
-The subject line should probably read "when unloading amdgpu", but apart 
-from that good catch.
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Change-Id: I7bbeae3c0d81c6cf6e0033aa28ca6d26f5b6d178
+---
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 15 ++++++++++++---
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 15 ++++++++++++---
+ 2 files changed, 24 insertions(+), 6 deletions(-)
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index 0b598b510bd8..eb63324c30d2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -829,7 +829,7 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
->   		kfree(rsv);
->   
->   	list_for_each_entry_safe(rsv, temp, &mgr->reserved_pages, blocks) {
-> -		drm_buddy_free_list(&mgr->mm, &rsv->blocks);
-> +		drm_buddy_free_list(&mgr->mm, &rsv->allocated);
->   		kfree(rsv);
->   	}
->   	drm_buddy_fini(&mgr->mm);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 636cb561fea9..283cf7cf95ab 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -1445,12 +1445,21 @@ static void smu_v13_0_0_get_unique_id(struct smu_context *smu)
+ static int smu_v13_0_0_get_fan_speed_pwm(struct smu_context *smu,
+ 					 uint32_t *speed)
+ {
++	int ret = 0;
++
+ 	if (!speed)
+ 		return -EINVAL;
+ 
+-	return smu_v13_0_0_get_smu_metrics_data(smu,
+-						METRICS_CURR_FANPWM,
+-						speed);
++	ret = smu_v13_0_0_get_smu_metrics_data(smu,
++					       METRICS_CURR_FANPWM,
++					       speed);
++	if (ret)
++		return ret;
++
++	/* Convert the PMFW output which is in percent to pwm(255) based */
++	*speed = MIN(*speed * 255 / 100, 255);
++
++	return 0;
+ }
+ 
+ static int smu_v13_0_0_get_fan_speed_rpm(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index 5e937e4efb51..f207f102ed7e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -1365,12 +1365,21 @@ static int smu_v13_0_7_populate_umd_state_clk(struct smu_context *smu)
+ static int smu_v13_0_7_get_fan_speed_pwm(struct smu_context *smu,
+ 					 uint32_t *speed)
+ {
++	int ret = 0;
++
+ 	if (!speed)
+ 		return -EINVAL;
+ 
+-	return smu_v13_0_7_get_smu_metrics_data(smu,
+-						METRICS_CURR_FANPWM,
+-						speed);
++	ret = smu_v13_0_7_get_smu_metrics_data(smu,
++					       METRICS_CURR_FANPWM,
++					       speed);
++	if (ret)
++		return ret;
++
++	/* Convert the PMFW output which is in percent to pwm(255) based */
++	*speed = MIN(*speed * 255 / 100, 255);
++
++	return 0;
+ }
+ 
+ static int smu_v13_0_7_get_fan_speed_rpm(struct smu_context *smu,
+-- 
+2.34.1
 
