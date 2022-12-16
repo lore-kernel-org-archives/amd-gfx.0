@@ -4,115 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E70F8C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 17:12:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A9E6C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 18:24:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3824110E606;
-	Fri, 16 Dec 2022 17:12:13 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2066.outbound.protection.outlook.com [40.107.244.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FC8810E602
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Dec 2022 17:12:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Yx52mzI7fNZXJZlBSvTQknQZ9dhjbAMtw4LdCNzhdt7FJcVRDP7Bqo3eMWGid4eTR0fmYeiY9kkX3x7bvz+CyJtMDtWHC++ipCL/gDSUHY/S/W+jPjOkr5cYcn85uLuDcKgfxYE/8M3X8v4Ykv/fmuuH8uMhX7sJkNB/oQ54PMhYKK4eOAlARZuFRuYieoII0c0DSmXbHlzKBtYD8WZa9+Wa/53d2UeuazDXSW74nKXFpjagTIP4xJkxDLuzM5F0xIXuwykNb/jlsAMKlji3REV1Nxh13qcGQ+hkCm2nGBaIiRVbdXp7Oakg/5ff+klZPjXDY+bSC3h7ZDNq+kByew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sew1cvWr0lTY/yjwjN3KRanLFA/euyC+VWVtBMYymDM=;
- b=njjvVmg5sM0BjEMDwPVQ18jHK4siBUQ7wDbKYt+xCBH9SjVK7HcP1xM54JCDrtP7L2G4BIVwJjmZuPl++YO6nFK0s8hHW0QoshXPnV5bBVxLy4U/9WhDW/rIRqjXLO33djpYEcefWywizcU+Io+rrZtoeiyQscZfQx+GtIA7lg+/2NK0z0hSTLgjBHZ9iuiVCow/54Lwhg1rzIoZoqbFxgalJLN6HDN2pbdIzGOyVq0Tr1GU1t1BiEBWrATcExGNce6sZYe4NFGexhF3d0pdJEGNkF4TS5y3vlG6IFpdFuuQXJXKfRl0EW7Du44zfDXge6EL9pJvc7YZNUmoScj4AQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sew1cvWr0lTY/yjwjN3KRanLFA/euyC+VWVtBMYymDM=;
- b=ozz2TfJxmLAAwaLwaX3CzIFV+8UY8jl3YfpB2EbPoiQTxykxtgppVJbQYzpX8tF7i59S0IuFKnP4e7e7084qh3ZtB3Cp1ITGXrh7tM98jMxZFrtQ8eRX5oxYo60efHOvudvjaoQVFyovmN+V8Ei7NwbPgxZEhaZ7aHx5P1+bdbU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by MW4PR12MB7310.namprd12.prod.outlook.com (2603:10b6:303:22c::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.15; Fri, 16 Dec
- 2022 17:12:01 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::ff3c:2d37:75f3:442a]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::ff3c:2d37:75f3:442a%4]) with mapi id 15.20.5880.019; Fri, 16 Dec 2022
- 17:12:01 +0000
-Message-ID: <5e9376e1-7605-c165-9d0d-79d6879f3974@amd.com>
-Date: Fri, 16 Dec 2022 11:11:58 -0600
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: drm/amdgpu: skip MES for S0ix as well since it's part of GFX
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- "Huang, Tim" <Tim.Huang@amd.com>
-References: <20221216164430.42642-1-alexander.deucher@amd.com>
-Content-Language: en-US
-From: "Limonciello, Mario" <mario.limonciello@amd.com>
-In-Reply-To: <20221216164430.42642-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DS7PR03CA0051.namprd03.prod.outlook.com
- (2603:10b6:5:3b5::26) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F85210E124;
+	Fri, 16 Dec 2022 18:24:18 +0000 (UTC)
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B28810E124;
+ Fri, 16 Dec 2022 18:24:14 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id v70so2659121oie.3;
+ Fri, 16 Dec 2022 10:24:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Y8F1yiR6lbpJjInCB9/CxhKV9jlFTUAfAcv8pt/ju+0=;
+ b=qgA12b6POC3qq6xA9bJIX5wo/E/B6brjr2Bh9b+hGc8V2CWi1AkhJWk6i/WVgoafX8
+ T2NMHHxcAyy395VF/56KYw4uSLq8Vt+dMmjDn8JpfVoqfFC2Yhu4U/I/Qnc+oGwWPglE
+ nlOB3IeC4OOWT6vxAI8vCr03Iy3b72UaDeIi7HXXS/DEn9Pkne5QY+Czcz+4o8oEqlt7
+ sG1xDz/5Gow72SqK0I0rXByugFqou8XthJxdX7uCxMxlisXzauiS5GDnBzJv4eTu9kbf
+ Ck3O/f5Kw+UOwESFvhjy2N/6N87e+sxsIDCW///jB2UK9qaZl24c8DxRHp45s25D3fCc
+ jFqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Y8F1yiR6lbpJjInCB9/CxhKV9jlFTUAfAcv8pt/ju+0=;
+ b=ruSkLSH31ejG85QYyV8i1uQEeU7qvdR/Q0sbDJSqpy0cImNJg92p8Xgmu8KohqWjTg
+ twYCUhuu4kuBYmwEzBREgRhefftpeLPfLkKx+7GsRCfYAee5A+fBV9mce6usQqryMH3Q
+ ABXm6h4u6A2xvdvs7ovGhV3Cp6jsl//a505GmGvmHld/qLzdBFFY7rRjF3J8R2wn8EZT
+ jZTuLfaHv4Zzj6rwhR5V2l7xstXEJATkvj/lhBzYaasdudLe2Ghm+aY8i19cLl1jDIEO
+ X8mA6gGwZTP4nHYEZlcN1oDZzwgbdAW0wrD5UFYxfFMs0cK810DVhZrb8ua3KXZeIte6
+ VFgw==
+X-Gm-Message-State: ANoB5pkrFsFoLvKCSBa+ZxYImp9adLad7sgw/m+3/rmZ3cBJAj2p/4J1
+ ykxr1fyolYRkR88dXzsA8Og6+r2lq6Rrfv5cgpo=
+X-Google-Smtp-Source: AA0mqf4Od9NmlpFxwLGh8Uy2yTkLVvDl4ih1XROITad87wWS01aMbvPO/A7SdL/po2HjTCPhcbbf8bBIC7E6G7UPs9Q=
+X-Received: by 2002:a05:6808:1cd:b0:35b:f5f7:3ed0 with SMTP id
+ x13-20020a05680801cd00b0035bf5f73ed0mr711993oic.46.1671215053261; Fri, 16 Dec
+ 2022 10:24:13 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|MW4PR12MB7310:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe3a8487-897c-4141-322c-08dadf88a544
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: piHB0mQ4NnCubslFVSqLtiqieLLwRApoENadTvBtApQNEKvETO0dRH7IpUd1RBkx5dEWIyzTCqxgVWu4HNucc379kesCWqSy/qzTLqcv2WFxQh/elTncbPiMJHLRLpVnUMba80ZDczKnmaN/Y6eKiF9kxK7F7nHbd0XFiWW/rPEP8I4xD4vBds1tP39LjFUwWFYd/LrHsJW9ED0iD0L+RQnNNHjy62+uvMxvUISSM6dpFvxXAePltxBIHD7JAnt339b6BzPrIWCmn3u9TvssdWg0X9lIAWUwZMMzJw0ldQxXyU+nBjh/9BGcQYOH+snpYdXgkcHOOUCzTTxQJLQcGZU2tyoj6bVwHnV1GiIX/ywUfW5rItcxR0EqTNWo6+1DrDM8BUJOJ9IVWpGyh/fRfmEE83Gl9QnTjPtsk/nVVZkj4l6MM5EIaHMziY3Y0tpP581Sfkit4thAuJyYIVRuoFUes6pmE3ei8Ln2WNg3YwBbCf+CylpXEWl5eCiFX5JQ7LxyYNSzYNf5nknPWjgZzoCu4jFuxaGUQWSdA1s9lEuh2U7XgSWtIBnTFgMvV1mPpDXPopB5XWu5bhFimGENZbjJM3loxl0RQkmANu8LWyZyz/N8kdzgJkIm6Q87sVPJmrBwqbYI5YKbla75dC+0BSxUQ2W+muKcKtOQ0VUfpQM86O0R47Si9JnhR7hAL1ph+ECNo2xViylWXJ+NdQvnY8t6J+dNulZR398qU765xKHboR4L11RZzJugFDOtGjR5
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(396003)(136003)(346002)(366004)(376002)(451199015)(36756003)(41300700001)(2616005)(66946007)(66556008)(8676002)(8936002)(5660300002)(83380400001)(478600001)(53546011)(6506007)(6486002)(6666004)(110136005)(66476007)(6636002)(316002)(6512007)(186003)(26005)(31696002)(86362001)(2906002)(38100700002)(31686004)(32563001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VUxLWjl6aVFaSGtjY3g4emI4aW5zV1ZST216eG1YVWI2aEl4dVhyRzFyK1Nt?=
- =?utf-8?B?NVpXcGx1aHZVTi9EMk9Ta1JGTURpWC9DMFNkeHFKTWc0cDJKNGtWdWZ5VkhO?=
- =?utf-8?B?aHBxSWUySFNqU0l0cnJHc0JyekNuWGR4a01GK2Y2VnZycjY5OGVwTkYzb2hU?=
- =?utf-8?B?MjlvRWFVQWpYUkl6cXQ3VFdtRkJRWENqNExZMWZ0V0hhVWFLcldoUjVlY3N2?=
- =?utf-8?B?dlRES1FMYnZGU3lmVEZBcUVaL3pONnkybnJ0aldrQ3RybFlHMHdYcEFjQzB2?=
- =?utf-8?B?UU5SbFFZWjE4a2tuUks4U0dGVFpVV1IzcXVXWHFDZ0dnR1lMZWZZZ1cyaGV5?=
- =?utf-8?B?N2xtMlJoTzJMWlRvVUVBTWFObDFrZkxnY0ltMDVEbklFWkFZYm9BaklIUTRY?=
- =?utf-8?B?M3ZuN3JveFJiRmtLb3ByNDhIWndrSm9IaWdWZkd5UWhMbVhCNkwwTENwdi82?=
- =?utf-8?B?MVZQOStVNDZWNTVuZE00SWZPOFh3Umh6N0pibU9CZXBmUTJZS3ZJM0Z2NCtW?=
- =?utf-8?B?WjEwck4yVm4xcTVUSEdnL3pZWEk2OW1wVGJUYnloQ0loSUxUaDFhc3BXWklK?=
- =?utf-8?B?NldIQnVvYmNEaWZhMUhsR0dEdTdGa1NOWHByUSsxeGxzMzVHVk4ycHdXNE9K?=
- =?utf-8?B?dnRMRnVjeFh4aFlQL2RPVmw3ZGdJQk84M2VNaTd5TW1OQ2dlYm44UXdJMS9J?=
- =?utf-8?B?aVhNQURrc0IzZGYwcGtITStrdkZyeE5RdDAvR3dJaTZ4L2FmVDNlVkZlY3dQ?=
- =?utf-8?B?Z2RLYVZKME9YbWhUQVdvQWtGMkNXeGhVSjR0MGxDdHoyczJrUnZrUjJOR2NS?=
- =?utf-8?B?WE0vWkFXV2E1ZjFJOTlJYXBxQTNjcXVScmNUQy9jWk9nVENkZGVUNUJjVzlx?=
- =?utf-8?B?WUNlUTJLSzdjTGdSV3g0THppZ3paK2tteUYvYXNudzN0Ky9xNFhkU3A2bW5w?=
- =?utf-8?B?YVZ2cjBjK2dvdE9jK2NvY0pkOFhXVmlVT3JMcVFrajZjbU5IRG9YQUx5dWtr?=
- =?utf-8?B?TjhrNmo5L2VlbWc0V1VlYUNGQ2VGS1VxTmdWU1JXS290RnlHdW95SVVSbERO?=
- =?utf-8?B?Wml3NlMwWWxCcDNEWldlb0xMbUFkZzJDSjk2NzRkSFRlOUk5eG9qekFvamYw?=
- =?utf-8?B?TXg4MldVWmJFMkhnMnBieVlQclArRUhacmoyTStsMnM5YyttSUsvUWxjTVAw?=
- =?utf-8?B?WHBsMTBJMEJKOEY1cXFWNlhJYk40MUxGc1k0c3hNazNFc2lBemdmQmxIY21I?=
- =?utf-8?B?ZkVSb2MxQzJKRG4xZnUwVGVuMHI0ZloyOE9LZStDVzUrVlZEclNxSzZqb2s4?=
- =?utf-8?B?Y1AvZFdXVjZkOXVtdjRmbklMYStYaEdhTzIreE1Tbzkxd3RCUnVOdWN2ZUNj?=
- =?utf-8?B?V3NMVStCcEJPbldpY3dlV2JMYWJkaHFSUW5oUHBhMm9vY2VOUWREOWlDY05j?=
- =?utf-8?B?bDdMTWxjanpXSkpNWGVzUWgrM1V1dDZUQklSdXJLWnptUDBVWGtvWnlTQ2pa?=
- =?utf-8?B?SEUyODhIWkFPcXhWUU5XbjJMQTdlRHk0ZzZhL29yWE5sVFlScWh5dElYM1Yr?=
- =?utf-8?B?K0ZWbmZaeWo1ejF3clRxRFprS01PV0czL1NSNXlvTTNqVWJSVE1YcnpISHN6?=
- =?utf-8?B?YXhqYXZqb2lCZEd2NjNjZkh1YUd1TzRDa2ZPVUVObUxxVnJXT21sNFJ6Y0Zh?=
- =?utf-8?B?TTRrY0doQzNpTjZJVmRUZk1aekZIamRIM2ZpeCtHenExUEJxOVFYejRMVTNn?=
- =?utf-8?B?ZCtOOFFJQXRrMjhIbWpxaTlaZHFPcG1PMlVtaGJscE9tM05wQXhweG9kRzdy?=
- =?utf-8?B?SXZ0ODdxaThtdFpJVnN4RHY3eGVwY2NwV3dzZ2x4Wmg3b0ZQMjVkWEwxblJh?=
- =?utf-8?B?Mng3bUR5YTRMa3ZUQWREeGJoaHNLYWxOMDZlTVhkSHE2NkNwbGJZcE9SRGZI?=
- =?utf-8?B?RjBlMFJTR09aS0E1UGNoSXJMbzM2Q2RLeTJIdWFoVXMwT04zMzUwN0kxczhV?=
- =?utf-8?B?a1doQzZjUnRBdHJlYWJ5UGJMT2ZaY3Zlc3Q1aC9GaDM3YVJRWlFDM0ZndlNq?=
- =?utf-8?B?bVhmWk5LT0h4SFFiV3d6NEZCY0gxTENIS3R0dHAzeFp1dlUzc0p2QnkvQVZp?=
- =?utf-8?Q?NyMXaGoOJVb1fnZw3SkPhHsWQ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe3a8487-897c-4141-322c-08dadf88a544
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2022 17:12:00.9946 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DeGoJplNlGS/rw/UfGh+ZEPaxhy8JeVQHSYrQwpgwjTB9AM7GTvpS1PWthY5G8mDS0RP22GhujwwZcD+sGY7Yw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7310
+References: <20221215163649.386750-1-arnd@kernel.org>
+ <bca79bc1-9e7c-b145-0b0b-0ce725d58821@wanadoo.fr>
+In-Reply-To: <bca79bc1-9e7c-b145-0b0b-0ce725d58821@wanadoo.fr>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 16 Dec 2022 13:24:01 -0500
+Message-ID: <CADnq5_P29pHvKPgqvpSMqryOOq6N15=+74vzcDhh47an_ibv2g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: avoid large variable on kernel stack
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,46 +66,130 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: arnd@kernel.org, llvm@lists.linux.dev, Jack.Gui@amd.com,
+ KevinYang.Wang@amd.com, trix@redhat.com, Xinhui.Pan@amd.com,
+ ndesaulniers@google.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, nathan@kernel.org, arnd@arndb.de,
+ dri-devel@lists.freedesktop.org, alexander.deucher@amd.com, evan.quan@amd.com,
+ kenneth.feng@amd.com, christian.koenig@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/16/2022 10:44, Alex Deucher wrote:
-> It's also part of gfxoff.
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+On Thu, Dec 15, 2022 at 2:46 PM Christophe JAILLET
+<christophe.jaillet@wanadoo.fr> wrote:
+>
+> Le 15/12/2022 =C3=A0 17:36, Arnd Bergmann a =C3=A9crit :
+> > From: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
+> >
+> > The activity_monitor_external[] array is too big to fit on the
+> > kernel stack, resulting in this warning with clang:
+> >
+> > drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_7_ppt.c:1438:12:=
+ error: stack frame size (1040) exceeds limit (1024) in 'smu_v13_0_7_get_po=
+wer_profile_mode' [-Werror,-Wframe-larger-than]
+> >
+> > Use dynamic allocation instead. It should also be possible to
+> > have single element here instead of the array, but this seems
+> > easier.
+> >
+> > Fixes: 334682ae8151 ("drm/amd/pm: enable workload type change on smu_v1=
+3_0_7")
+> > Signed-off-by: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
+> > ---
+> >   .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 21 ++++++++++++++----=
+-
+> >   1 file changed, 16 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/dri=
+vers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > index c270f94a1b86..7eba854e09ec 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > @@ -1439,7 +1439,7 @@ static int smu_v13_0_7_get_power_limit(struct smu=
+_context *smu,
+> >
+> >   static int smu_v13_0_7_get_power_profile_mode(struct smu_context *smu=
+, char *buf)
+> >   {
+> > -     DpmActivityMonitorCoeffIntExternal_t activity_monitor_external[PP=
+_SMC_POWER_PROFILE_COUNT];
+> > +     DpmActivityMonitorCoeffIntExternal_t *activity_monitor_external;
+> >       uint32_t i, j, size =3D 0;
+> >       int16_t workload_type =3D 0;
+> >       int result =3D 0;
+> > @@ -1447,6 +1447,12 @@ static int smu_v13_0_7_get_power_profile_mode(st=
+ruct smu_context *smu, char *buf
+> >       if (!buf)
+> >               return -EINVAL;
+> >
+> > +     activity_monitor_external =3D kcalloc(sizeof(activity_monitor_ext=
+ernal),
+>
+> Hi,
+>
+> Before, 'activity_monitor_external' was not initialized.
+> Maybe kcalloc() is enough?
+>
+> sizeof(*activity_monitor_external)?
+>       ~~~~
 
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+I've fixed this up when applying.
 
-Even without the other series this alone has been shown
-to improve things for the affected ASIC, so it should
-probably go to stable.
+Alex
 
-Cc: stable@vger.kernel.org # 6.0, 6.1
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 582a80a9850e..e4609b8d574c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3018,14 +3018,15 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
->   			continue;
->   		}
->   
-> -		/* skip suspend of gfx and psp for S0ix
-> +		/* skip suspend of gfx/mes and psp for S0ix
->   		 * gfx is in gfxoff state, so on resume it will exit gfxoff just
->   		 * like at runtime. PSP is also part of the always on hardware
->   		 * so no need to suspend it.
->   		 */
->   		if (adev->in_s0ix &&
->   		    (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_PSP ||
-> -		     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GFX))
-> +		     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GFX ||
-> +		     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_MES))
->   			continue;
->   
->   		/* SDMA 5.x+ is part of GFX power domain so it's covered by GFXOFF */
-
+>
+> > +                                         PP_SMC_POWER_PROFILE_COUNT,
+> > +                                         GFP_KERNEL);
+> > +     if (!activity_monitor_external)
+> > +             return -ENOMEM;
+> > +
+> >       size +=3D sysfs_emit_at(buf, size, "                             =
+ ");
+> >       for (i =3D 0; i <=3D PP_SMC_POWER_PROFILE_WINDOW3D; i++)
+>
+> Unrelated, but wouldn't it be more straightforward with "<
+> PP_SMC_POWER_PROFILE_COUNT"?
+>
+> >               size +=3D sysfs_emit_at(buf, size, "%-14s%s", amdgpu_pp_p=
+rofile_name[i],
+> > @@ -1459,15 +1465,17 @@ static int smu_v13_0_7_get_power_profile_mode(s=
+truct smu_context *smu, char *buf
+> >               workload_type =3D smu_cmn_to_asic_specific_index(smu,
+> >                                                              CMN2ASIC_M=
+APPING_WORKLOAD,
+> >                                                              i);
+> > -             if (workload_type < 0)
+> > -                     return -EINVAL;
+> > +             if (workload_type < 0) {
+> > +                     result =3D -EINVAL;
+> > +                     goto out;
+> > +             }
+> >
+> >               result =3D smu_cmn_update_table(smu,
+> >                                         SMU_TABLE_ACTIVITY_MONITOR_COEF=
+F, workload_type,
+> >                                         (void *)(&activity_monitor_exte=
+rnal[i]), false);
+> >               if (result) {
+> >                       dev_err(smu->adev->dev, "[%s] Failed to get activ=
+ity monitor!", __func__);
+> > -                     return result;
+> > +                     goto out;
+> >               }
+> >       }
+> >
+> > @@ -1495,7 +1503,10 @@ do {                                            =
+                                                       \
+> >       PRINT_DPM_MONITOR(Fclk_BoosterFreq);
+> >   #undef PRINT_DPM_MONITOR
+> >
+> > -     return size;
+> > +     result =3D size;
+> > +out:
+> > +     kfree(activity_monitor_external);
+> > +     return result;
+> >   }
+> >
+> >   static int smu_v13_0_7_set_power_profile_mode(struct smu_context *smu=
+, long *input, uint32_t size)
+>
