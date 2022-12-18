@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75ECAC10F1E
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:04:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD907C10F1E
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:05:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31C9210E1E3;
-	Sun, 18 Dec 2022 16:04:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2163C10E1EC;
+	Sun, 18 Dec 2022 16:05:24 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA0710E1DE;
- Sun, 18 Dec 2022 16:04:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8057810E1EC;
+ Sun, 18 Dec 2022 16:05:19 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 25A7960DC8;
- Sun, 18 Dec 2022 16:04:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF7BC433D2;
- Sun, 18 Dec 2022 16:04:10 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id F3AC660DD6;
+ Sun, 18 Dec 2022 16:04:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D289C433D2;
+ Sun, 18 Dec 2022 16:04:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671379452;
- bh=zd+4XcInxVMqeLCkW2Lh9Qq7tWs7IhVLFiv/rgH/KEU=;
+ s=k20201202; t=1671379487;
+ bh=umouLSA0PCSKowQjJ7kX+BkOJw7cBp2o3XmBEK7W//o=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jbEZmCVuNZ9i3C0H0cs98JdgxGamGH3atDninv58+3mdH4Ir4PUIQNkpoc73PBXfg
- yFh3Y8mNn491gdF2r39um2cEuExpqpl635HQ5n+ZYm0SDas7XFSLugW4NgJlTCCZvf
- soi8ujlHoM7DHT/780ig/aC58qtVMgRFTijPTeUN6mrdYnBzmAQ2fEIEAYKSUrFE5I
- UOGUovThYpHxtNlusUvmcwkTs0cElN3FYNwLSFCdqjc6ZY2iy4Q4ixDcO7SdGUc1eK
- AuWGtKDTSh3OqdaBMNZgX7nw5qVoiBaZrNdcM7AcCgZMm+pmJxfewx2SZmy3o+O6RJ
- v6gdgxv1o3ARQ==
+ b=WTBn0xvbbJ+SnHQjg0aJmYvB8iMckSCmFzdrp5y4/ODn37Jvv46Dk/59K1fNNuy0F
+ NMZla2HWCyplfmX7P462cS9kytZcAvFFIUDXfPsTpLP9OE49n46cSNcxaEdg6QN83q
+ VRFZAUv/CEtlh0FW+W2MhXW0/FB5hrYfDSgHK7nYxRr1/ThJjCiiqBLLHw3D7Ud4QO
+ 7S2Glm9iteFvDcihxef/ZwHOZmSddrA/AvDtNxsWQY9pUMIBbuHKhro3mVo55+GI08
+ 2H7X2lNZoSW++3Jvjma2pmrYoiNUUSkbX9x4Z2XPkqje9M8uTOKCCBQh6Dv0s/wp1V
+ CpBWs0rrLPHkg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 37/85] drm/amd/display: Disable DRR actions during
- state commit
-Date: Sun, 18 Dec 2022 11:00:54 -0500
-Message-Id: <20221218160142.925394-37-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 46/85] drm/amd/display: fix array index out of
+ bound error in bios parser
+Date: Sun, 18 Dec 2022 11:01:03 -0500
+Message-Id: <20221218160142.925394-46-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221218160142.925394-1-sashal@kernel.org>
 References: <20221218160142.925394-1-sashal@kernel.org>
@@ -54,53 +54,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: felipe.clark@amd.com, aric.cyr@amd.com, dri-devel@lists.freedesktop.org,
- jaraftab@amd.com, Jun Lei <Jun.Lei@amd.com>, airlied@gmail.com,
- Sasha Levin <sashal@kernel.org>, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, alex.hung@amd.com, aurabindo.pillai@amd.com,
- Alvin.Lee2@amd.com, harry.wentland@amd.com, Alan Liu <HaoPing.Liu@amd.com>,
- Jingwen.Zhu@amd.com, sunpeng.li@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Wesley Chalmers <Wesley.Chalmers@amd.com>, Xinhui.Pan@amd.com,
- Roman.Li@amd.com, daniel@ffwll.ch, wayne.lin@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com,
+ tales.aparecida@gmail.com, Tom Chung <chiahsuan.chung@amd.com>,
+ wayne.lin@amd.com, sunpeng.li@amd.com, airlied@gmail.com, sancchen@amd.com,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
+ wenjing.liu@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Martin Leung <Martin.Leung@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wesley Chalmers <Wesley.Chalmers@amd.com>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-[ Upstream commit de020e5fa9ebc6fc32e82ae6ccb0282451ed937c ]
+[ Upstream commit 4fc1ba4aa589ca267468ad23fedef37562227d32 ]
 
-[WHY]
-Committing a state while performing DRR actions can cause underflow.
+[Why&How]
+Firmware headers dictate that gpio_pin array only has a size of 8. The
+count returned from vbios however is greater than 8.
 
-[HOW]
-Disabled features performing DRR actions during state commit.
-Need to follow-up on why DRR actions affect state commit.
+Fix this by not using array indexing but incrementing the pointer since
+gpio_pin definition in atomfirmware.h is hardcoded to size 8
 
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
-Acked-by: Alan Liu <HaoPing.Liu@amd.com>
-Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
+Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+Acked-by: Tom Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 3 ---
- 1 file changed, 3 deletions(-)
+ .../gpu/drm/amd/display/dc/bios/bios_parser2.c   | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-index 8c5045711264..c20e9f76f021 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-@@ -992,8 +992,5 @@ void dcn30_prepare_bandwidth(struct dc *dc,
- 			dc->clk_mgr->funcs->set_max_memclk(dc->clk_mgr, dc->clk_mgr->bw_params->clk_table.entries[dc->clk_mgr->bw_params->clk_table.num_entries - 1].memclk_mhz);
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index e0c8d6f09bb4..074e70a5c458 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -462,6 +462,7 @@ static enum bp_result get_gpio_i2c_info(
+ 	uint32_t count = 0;
+ 	unsigned int table_index = 0;
+ 	bool find_valid = false;
++	struct atom_gpio_pin_assignment *pin;
  
- 	dcn20_prepare_bandwidth(dc, context);
--
--	dc_dmub_srv_p_state_delegate(dc,
--		context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching, context);
- }
+ 	if (!info)
+ 		return BP_RESULT_BADINPUT;
+@@ -489,20 +490,17 @@ static enum bp_result get_gpio_i2c_info(
+ 			- sizeof(struct atom_common_table_header))
+ 				/ sizeof(struct atom_gpio_pin_assignment);
  
++	pin = (struct atom_gpio_pin_assignment *) header->gpio_pin;
++
+ 	for (table_index = 0; table_index < count; table_index++) {
+-		if (((record->i2c_id & I2C_HW_CAP) == (
+-		header->gpio_pin[table_index].gpio_id &
+-						I2C_HW_CAP)) &&
+-		((record->i2c_id & I2C_HW_ENGINE_ID_MASK)  ==
+-		(header->gpio_pin[table_index].gpio_id &
+-					I2C_HW_ENGINE_ID_MASK)) &&
+-		((record->i2c_id & I2C_HW_LANE_MUX) ==
+-		(header->gpio_pin[table_index].gpio_id &
+-						I2C_HW_LANE_MUX))) {
++		if (((record->i2c_id & I2C_HW_CAP) 				== (pin->gpio_id & I2C_HW_CAP)) &&
++		    ((record->i2c_id & I2C_HW_ENGINE_ID_MASK)	== (pin->gpio_id & I2C_HW_ENGINE_ID_MASK)) &&
++		    ((record->i2c_id & I2C_HW_LANE_MUX) 		== (pin->gpio_id & I2C_HW_LANE_MUX))) {
+ 			/* still valid */
+ 			find_valid = true;
+ 			break;
+ 		}
++		pin = (struct atom_gpio_pin_assignment *)((uint8_t *)pin + sizeof(struct atom_gpio_pin_assignment));
+ 	}
+ 
+ 	/* If we don't find the entry that we are looking for then
 -- 
 2.35.1
 
