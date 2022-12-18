@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE951C4332F
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:17:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C2D3C4167B
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:21:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 140A710E269;
-	Sun, 18 Dec 2022 16:17:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A314510E26B;
+	Sun, 18 Dec 2022 16:20:59 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D44FA10E268;
- Sun, 18 Dec 2022 16:17:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07A5410E26B;
+ Sun, 18 Dec 2022 16:20:55 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8533FB80BD9;
- Sun, 18 Dec 2022 16:17:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F082C433D2;
- Sun, 18 Dec 2022 16:17:32 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B1596B80B43;
+ Sun, 18 Dec 2022 16:20:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61D0FC433D2;
+ Sun, 18 Dec 2022 16:20:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671380254;
- bh=xFRUKXf8zJ06rIVt1mya4gNo6gCbDNxsXQS9kxIiydU=;
+ s=k20201202; t=1671380452;
+ bh=ciWqltye9673vZ2TCbjkc6ke2FXihzxbx3SbSDO+ijM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OrDLImXX/oj1CMSzvHIk4aQv7CNDSH39EAmlEzvEO/3IAgjOwotwNfo+7HWHlKZuX
- 2zIvgPNZiIzc1HL1styt9+dROOtvfo36DE6jWIfvdpuRD23SIIhmJTT2r3RGM4ZxEg
- N8tIBjiHtxRJragj6HCnDivO1F9i09xJ2tTDvNeo3nU2Dvs0dF0VLUi7PqsCHaHVhc
- KvlbuswwRyMe+2/2EzhQMsRhMi02Gf3/OT2euNEj0DmE+gCga+LZDbFWDR2K+vfr5k
- 6L131ommZP2Ws9XGBTlaKOFMzF2nzisiRiUmAH5UHMcOgWsBIo0mJhOznVYsmLXWRU
- NCO3KtKGnV8EQ==
+ b=PuMS0GfZekGj/up0jqMdse2eCZ24O1DYFnGHTIag/Y76C+rQEBM6W59VFNFm8v0B+
+ 53fHtPPGCZhvRNCaVzxM3cgds09CJX8FA/+BMu2BFANiGwqd9psDpwbS6leEMEN+NG
+ Aa4vsFLyj8Bk718kQMf/C7wfS1AMBZ7haaFBUxdliS5Vwy6j+Yp1l6U8NWNVpUwOqe
+ 2guL9vzIaRgHCyckvhgblFn1qinxoIZXDNhum0mnjZGkYgPIN/BZWPeV4qNwSUOKdt
+ rhDNSCGO3M7eU1N99JZHJwR3RG7QNo6Frd51mOeq6n1b6dM610hvJwHVeuR0yUzzVN
+ hkSuz2f2COnhQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 24/39] drm/amd/display: fix array index out of
- bound error in bios parser
-Date: Sun, 18 Dec 2022 11:15:44 -0500
-Message-Id: <20221218161559.932604-24-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 10/26] drm/amdgpu: Fix type of second parameter
+ in trans_msg() callback
+Date: Sun, 18 Dec 2022 11:20:00 -0500
+Message-Id: <20221218162016.934280-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221218161559.932604-1-sashal@kernel.org>
-References: <20221218161559.932604-1-sashal@kernel.org>
+In-Reply-To: <20221218162016.934280-1-sashal@kernel.org>
+References: <20221218162016.934280-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -55,78 +55,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com,
- tales.aparecida@gmail.com, Tom Chung <chiahsuan.chung@amd.com>,
- jaehyun.chung@amd.com, sunpeng.li@amd.com, airlied@gmail.com, sancchen@amd.com,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Martin Leung <Martin.Leung@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
- christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, llvm@lists.linux.dev, lijo.lazar@amd.com,
+ Kees Cook <keescook@chromium.org>, dri-devel@lists.freedesktop.org,
+ horace.chen@amd.com, Xinhui.Pan@amd.com, ndesaulniers@google.com,
+ amd-gfx@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>,
+ Victor.Zhao@amd.com, danijel.slivka@amd.com,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Alex Deucher <alexander.deucher@amd.com>, daniel@ffwll.ch,
+ victor.skvortsov@amd.com, airlied@gmail.com, christian.koenig@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+From: Nathan Chancellor <nathan@kernel.org>
 
-[ Upstream commit 4fc1ba4aa589ca267468ad23fedef37562227d32 ]
+[ Upstream commit f0d0f1087333714ee683cc134a95afe331d7ddd9 ]
 
-[Why&How]
-Firmware headers dictate that gpio_pin array only has a size of 8. The
-count returned from vbios however is greater than 8.
+With clang's kernel control flow integrity (kCFI, CONFIG_CFI_CLANG),
+indirect call targets are validated against the expected function
+pointer prototype to make sure the call target is valid to help mitigate
+ROP attacks. If they are not identical, there is a failure at run time,
+which manifests as either a kernel panic or thread getting killed. A
+proposed warning in clang aims to catch these at compile time, which
+reveals:
 
-Fix this by not using array indexing but incrementing the pointer since
-gpio_pin definition in atomfirmware.h is hardcoded to size 8
+  drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c:412:15: error: incompatible function pointer types initializing 'void (*)(struct amdgpu_device *, u32, u32, u32, u32)' (aka 'void (*)(struct amdgpu_device *, unsigned int, unsigned int, unsigned int, unsigned int)') with an expression of type 'void (struct amdgpu_device *, enum idh_request, u32, u32, u32)' (aka 'void (struct amdgpu_device *, enum idh_request, unsigned int, unsigned int, unsigned int)') [-Werror,-Wincompatible-function-pointer-types-strict]
+          .trans_msg = xgpu_ai_mailbox_trans_msg,
+                      ^~~~~~~~~~~~~~~~~~~~~~~~~
+  1 error generated.
 
-Reviewed-by: Martin Leung <Martin.Leung@amd.com>
-Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+  drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c:435:15: error: incompatible function pointer types initializing 'void (*)(struct amdgpu_device *, u32, u32, u32, u32)' (aka 'void (*)(struct amdgpu_device *, unsigned int, unsigned int, unsigned int, unsigned int)') with an expression of type 'void (struct amdgpu_device *, enum idh_request, u32, u32, u32)' (aka 'void (struct amdgpu_device *, enum idh_request, unsigned int, unsigned int, unsigned int)') [-Werror,-Wincompatible-function-pointer-types-strict]
+          .trans_msg = xgpu_nv_mailbox_trans_msg,
+                      ^~~~~~~~~~~~~~~~~~~~~~~~~
+  1 error generated.
+
+The type of the second parameter in the prototype should be 'enum
+idh_request' instead of 'u32'. Update it to clear up the warnings.
+
+Link: https://github.com/ClangBuiltLinux/linux/issues/1750
+Reported-by: Sami Tolvanen <samitolvanen@google.com>
+Reviewed-by: Kees Cook <keescook@chromium.org>
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/dc/bios/bios_parser2.c   | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index 29d64e7e304f..930d2b7d3448 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -352,6 +352,7 @@ static enum bp_result get_gpio_i2c_info(
- 	uint32_t count = 0;
- 	unsigned int table_index = 0;
- 	bool find_valid = false;
-+	struct atom_gpio_pin_assignment *pin;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index 880ac113a3a9..d26b6e36be02 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -48,6 +48,8 @@ struct amdgpu_vf_error_buffer {
+ 	uint64_t data[AMDGPU_VF_ERROR_ENTRY_SIZE];
+ };
  
- 	if (!info)
- 		return BP_RESULT_BADINPUT;
-@@ -379,20 +380,17 @@ static enum bp_result get_gpio_i2c_info(
- 			- sizeof(struct atom_common_table_header))
- 				/ sizeof(struct atom_gpio_pin_assignment);
- 
-+	pin = (struct atom_gpio_pin_assignment *) header->gpio_pin;
++enum idh_request;
 +
- 	for (table_index = 0; table_index < count; table_index++) {
--		if (((record->i2c_id & I2C_HW_CAP) == (
--		header->gpio_pin[table_index].gpio_id &
--						I2C_HW_CAP)) &&
--		((record->i2c_id & I2C_HW_ENGINE_ID_MASK)  ==
--		(header->gpio_pin[table_index].gpio_id &
--					I2C_HW_ENGINE_ID_MASK)) &&
--		((record->i2c_id & I2C_HW_LANE_MUX) ==
--		(header->gpio_pin[table_index].gpio_id &
--						I2C_HW_LANE_MUX))) {
-+		if (((record->i2c_id & I2C_HW_CAP) 				== (pin->gpio_id & I2C_HW_CAP)) &&
-+		    ((record->i2c_id & I2C_HW_ENGINE_ID_MASK)	== (pin->gpio_id & I2C_HW_ENGINE_ID_MASK)) &&
-+		    ((record->i2c_id & I2C_HW_LANE_MUX) 		== (pin->gpio_id & I2C_HW_LANE_MUX))) {
- 			/* still valid */
- 			find_valid = true;
- 			break;
- 		}
-+		pin = (struct atom_gpio_pin_assignment *)((uint8_t *)pin + sizeof(struct atom_gpio_pin_assignment));
- 	}
+ /**
+  * struct amdgpu_virt_ops - amdgpu device virt operations
+  */
+@@ -56,7 +58,8 @@ struct amdgpu_virt_ops {
+ 	int (*rel_full_gpu)(struct amdgpu_device *adev, bool init);
+ 	int (*reset_gpu)(struct amdgpu_device *adev);
+ 	int (*wait_reset)(struct amdgpu_device *adev);
+-	void (*trans_msg)(struct amdgpu_device *adev, u32 req, u32 data1, u32 data2, u32 data3);
++	void (*trans_msg)(struct amdgpu_device *adev, enum idh_request req,
++			  u32 data1, u32 data2, u32 data3);
+ };
  
- 	/* If we don't find the entry that we are looking for then
+ /*
 -- 
 2.35.1
 
