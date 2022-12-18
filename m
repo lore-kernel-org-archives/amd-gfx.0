@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57612C4332F
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:14:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60BC6C4332F
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:15:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 920B310E257;
-	Sun, 18 Dec 2022 16:14:40 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C809310E257;
- Sun, 18 Dec 2022 16:14:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCB9D10E25E;
+	Sun, 18 Dec 2022 16:15:16 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E508A10E25E;
+ Sun, 18 Dec 2022 16:15:12 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 47D3160DD7;
- Sun, 18 Dec 2022 16:14:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79A10C433F0;
- Sun, 18 Dec 2022 16:14:04 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id CC4C4CE0BA6;
+ Sun, 18 Dec 2022 16:14:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8AC1C433EF;
+ Sun, 18 Dec 2022 16:14:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671380046;
- bh=2GkK5YJnqS2K8+x4XjShdS4yf6xmc9uTVGnxYH8807A=;
+ s=k20201202; t=1671380076;
+ bh=CzY02WCh5DsVTwERCpDuE7NiLkEVuSwPkbiLhSwNV78=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dawR3EhkG0EznPUgT4O68/GM9dNsMT1yeeGOXbbZrEVYnTCyvrHvs3hks1SrG7Cim
- wEiKbgnZ+GJlhauKPyp0chtZfD3lhNKtMNpcy3IUsiP80vUMBOyMrcRyZASYFXCfIh
- 28jt0SdnathGPwAiGgIMZDwwUPFsBSkyvaVZ0bkE+FKdlk6KQ1wHsldJdNdLGOXtE4
- EG0kNHZ1azaq8Ms6eeC76+i6l68UBoW35uIbwr8f7cuwsPmVTO7ETyRswC6txSBwKN
- 3aJlUaJMOotA4p47XVWqUVBWzQRgigSy20IR0N+Iqp7RGMktMq32dNlK3sbyNW5mL/
- mUHaGzJXH36Ng==
+ b=IcXf9nFkhS1kB4cVn+s+kVw2WrqIWt5r3pbVN6nGQtqhccoytieBRWrQd1tUKF/au
+ ZQFoCZl5jampqhd+PrS05q9TCZ7vhORwN8E0y+BYFOZauuROT7NJ19Gkei9iTY9/m0
+ trW4sc6wn+WIkdMrmRmzeFjRQ2Ac4EEOMasxRRltX82E8L89e9hA5acZmsyJWC3cgG
+ rdSkbilsKbaeo/9I3u54pd9bsD7X3aDJwkp77HPgUjoWTuCaL1XVepsn5kKPHCyHvg
+ cjBP5ZjyhUs9WBwvDgDS1oZJGdtuZflhLvHY6C9R+JVcOYjgPWvnU2VUOxTvEaJivX
+ InBKo369bSI5g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 17/46] drm/amdgpu: Fix type of second parameter
- in odn_edit_dpm_table() callback
-Date: Sun, 18 Dec 2022 11:12:15 -0500
-Message-Id: <20221218161244.930785-17-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 27/46] drm/amd/display: fix array index out of
+ bound error in bios parser
+Date: Sun, 18 Dec 2022 11:12:25 -0500
+Message-Id: <20221218161244.930785-27-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221218161244.930785-1-sashal@kernel.org>
 References: <20221218161244.930785-1-sashal@kernel.org>
@@ -54,86 +54,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, llvm@lists.linux.dev, lijo.lazar@amd.com,
- Kees Cook <keescook@chromium.org>, kevinyang.wang@amd.com,
- kenneth.feng@amd.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
- ndesaulniers@google.com, amd-gfx@lists.freedesktop.org,
- Nathan Chancellor <nathan@kernel.org>, li.ma@amd.com,
- Sami Tolvanen <samitolvanen@google.com>, darren.powell@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, daniel@ffwll.ch, evan.quan@amd.com,
- airlied@gmail.com, christian.koenig@amd.com, floridsleeves@gmail.com
+Cc: Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com, george.shen@amd.com,
+ Tom Chung <chiahsuan.chung@amd.com>, jaehyun.chung@amd.com, sunpeng.li@amd.com,
+ airlied@gmail.com, sancchen@amd.com, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, jerry.zuo@amd.com, amd-gfx@lists.freedesktop.org,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Martin Leung <Martin.Leung@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, tales.aparecida@gmail.com,
+ harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nathan Chancellor <nathan@kernel.org>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-[ Upstream commit e4d0ef752081e7aa6ffb7ccac11c499c732a2e05 ]
+[ Upstream commit 4fc1ba4aa589ca267468ad23fedef37562227d32 ]
 
-With clang's kernel control flow integrity (kCFI, CONFIG_CFI_CLANG),
-indirect call targets are validated against the expected function
-pointer prototype to make sure the call target is valid to help mitigate
-ROP attacks. If they are not identical, there is a failure at run time,
-which manifests as either a kernel panic or thread getting killed. A
-proposed warning in clang aims to catch these at compile time, which
-reveals:
+[Why&How]
+Firmware headers dictate that gpio_pin array only has a size of 8. The
+count returned from vbios however is greater than 8.
 
-  drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:3008:29: error: incompatible function pointer types initializing 'int (*)(void *, uint32_t, long *, uint32_t)' (aka 'int (*)(void *, unsigned int, long *, unsigned int)') with an expression of type 'int (void *, enum PP_OD_DPM_TABLE_COMMAND, long *, uint32_t)' (aka 'int (void *, enum PP_OD_DPM_TABLE_COMMAND, long *, unsigned int)') [-Werror,-Wincompatible-function-pointer-types-strict]
-          .odn_edit_dpm_table      = smu_od_edit_dpm_table,
-                                     ^~~~~~~~~~~~~~~~~~~~~
-  1 error generated.
+Fix this by not using array indexing but incrementing the pointer since
+gpio_pin definition in atomfirmware.h is hardcoded to size 8
 
-There are only two implementations of ->odn_edit_dpm_table() in 'struct
-amd_pm_funcs': smu_od_edit_dpm_table() and pp_odn_edit_dpm_table(). One
-has a second parameter type of 'enum PP_OD_DPM_TABLE_COMMAND' and the
-other uses 'u32'. Ultimately, smu_od_edit_dpm_table() calls
-->od_edit_dpm_table() from 'struct pptable_funcs' and
-pp_odn_edit_dpm_table() calls ->odn_edit_dpm_table() from 'struct
-pp_hwmgr_func', which both have a second parameter type of 'enum
-PP_OD_DPM_TABLE_COMMAND'.
-
-Update the type parameter in both the prototype in 'struct amd_pm_funcs'
-and pp_odn_edit_dpm_table() to 'enum PP_OD_DPM_TABLE_COMMAND', which
-cleans up the warning.
-
-Link: https://github.com/ClangBuiltLinux/linux/issues/1750
-Reported-by: Sami Tolvanen <samitolvanen@google.com>
-Reviewed-by: Kees Cook <keescook@chromium.org>
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+Acked-by: Tom Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/include/kgd_pp_interface.h   | 3 ++-
- drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/dc/bios/bios_parser2.c   | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-index bac15c466733..6e27c8b16391 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -341,7 +341,8 @@ struct amd_pm_funcs {
- 	int (*get_power_profile_mode)(void *handle, char *buf);
- 	int (*set_power_profile_mode)(void *handle, long *input, uint32_t size);
- 	int (*set_fine_grain_clk_vol)(void *handle, uint32_t type, long *input, uint32_t size);
--	int (*odn_edit_dpm_table)(void *handle, uint32_t type, long *input, uint32_t size);
-+	int (*odn_edit_dpm_table)(void *handle, enum PP_OD_DPM_TABLE_COMMAND type,
-+				  long *input, uint32_t size);
- 	int (*set_mp1_state)(void *handle, enum pp_mp1_state mp1_state);
- 	int (*smu_i2c_bus_access)(void *handle, bool acquire);
- 	int (*gfx_state_change_set)(void *handle, uint32_t state);
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index 321215003643..0f5930e797bd 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -924,7 +924,8 @@ static int pp_set_fine_grain_clk_vol(void *handle, uint32_t type, long *input, u
- 	return hwmgr->hwmgr_func->set_fine_grain_clk_vol(hwmgr, type, input, size);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index 6dbde74c1e06..1d86fd5610c0 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -352,6 +352,7 @@ static enum bp_result get_gpio_i2c_info(
+ 	uint32_t count = 0;
+ 	unsigned int table_index = 0;
+ 	bool find_valid = false;
++	struct atom_gpio_pin_assignment *pin;
  
--static int pp_odn_edit_dpm_table(void *handle, uint32_t type, long *input, uint32_t size)
-+static int pp_odn_edit_dpm_table(void *handle, enum PP_OD_DPM_TABLE_COMMAND type,
-+				 long *input, uint32_t size)
- {
- 	struct pp_hwmgr *hwmgr = handle;
+ 	if (!info)
+ 		return BP_RESULT_BADINPUT;
+@@ -379,20 +380,17 @@ static enum bp_result get_gpio_i2c_info(
+ 			- sizeof(struct atom_common_table_header))
+ 				/ sizeof(struct atom_gpio_pin_assignment);
  
++	pin = (struct atom_gpio_pin_assignment *) header->gpio_pin;
++
+ 	for (table_index = 0; table_index < count; table_index++) {
+-		if (((record->i2c_id & I2C_HW_CAP) == (
+-		header->gpio_pin[table_index].gpio_id &
+-						I2C_HW_CAP)) &&
+-		((record->i2c_id & I2C_HW_ENGINE_ID_MASK)  ==
+-		(header->gpio_pin[table_index].gpio_id &
+-					I2C_HW_ENGINE_ID_MASK)) &&
+-		((record->i2c_id & I2C_HW_LANE_MUX) ==
+-		(header->gpio_pin[table_index].gpio_id &
+-						I2C_HW_LANE_MUX))) {
++		if (((record->i2c_id & I2C_HW_CAP) 				== (pin->gpio_id & I2C_HW_CAP)) &&
++		    ((record->i2c_id & I2C_HW_ENGINE_ID_MASK)	== (pin->gpio_id & I2C_HW_ENGINE_ID_MASK)) &&
++		    ((record->i2c_id & I2C_HW_LANE_MUX) 		== (pin->gpio_id & I2C_HW_LANE_MUX))) {
+ 			/* still valid */
+ 			find_valid = true;
+ 			break;
+ 		}
++		pin = (struct atom_gpio_pin_assignment *)((uint8_t *)pin + sizeof(struct atom_gpio_pin_assignment));
+ 	}
+ 
+ 	/* If we don't find the entry that we are looking for then
 -- 
 2.35.1
 
