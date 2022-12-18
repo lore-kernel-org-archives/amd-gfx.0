@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F545C10F1E
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:04:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 242A4C4332F
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:04:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4656F10E1D6;
-	Sun, 18 Dec 2022 16:04:14 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E7D410E1D5;
- Sun, 18 Dec 2022 16:04:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5659410E1D9;
+	Sun, 18 Dec 2022 16:04:20 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92EE210E1D9;
+ Sun, 18 Dec 2022 16:04:15 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8FEACB80B4D;
- Sun, 18 Dec 2022 16:04:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19CD6C433EF;
- Sun, 18 Dec 2022 16:04:04 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0E2B160DD6;
+ Sun, 18 Dec 2022 16:03:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA37FC433F1;
+ Sun, 18 Dec 2022 16:03:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671379446;
- bh=EZjwXYvx3KOeOXy/eNhBJp6KRhkMY+TyQaIDydyG8GM=;
+ s=k20201202; t=1671379423;
+ bh=aUaNdeCDNjxXbiUNjQciyDQdOEDWKmEgRFQfJ/YA+bw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ErNvxrbTY3wDSXnS4deeTwIM2WP3nX0tI40adg6XxQ54w8Hm2yNtBAPinMBVKvklG
- Gx0miWPANvzT4UviY02Alz+jdmG9cN3U0j4J0NzvxfL7uP3IZ+Bg3GFps5afoVpS/y
- nTz5yiSYwL4yPjjmbGm+1mEYP0qicIU7Ao2FDAVYdR6F4DmnPWc1HEkQX2/EJMzUCc
- zgOzsz0wHBJ4tHrxpet8QzFCncntx8eQ0+QwCINvLRnbYOQk73wECT19CDMmIiHVG6
- aKrUV66jx7JF/mxP60TvAwg4841lg7Nfq5AmEGBjLnrt6I51nb2mewt22ydKuryiYT
- a0jijCHNLgUyQ==
+ b=S08IOkEe3xGPcixxmmhGVaI47IDBwfb5eq4w7KbvbHUzPvGpskzaPGqr8XcvrHMWt
+ xPKeIxozelhlbonH6oYhKmcOnBpsUWR5uLMXLtLd0UEQ8i4WzQc01t03IZZdG4YWQ6
+ AjoXrrjqbvAbQnQN0pDP1zNjSKFXqFfZcgzD34MpaInAOf+bTWre9Sa2YYaYfADzgo
+ zuDU4W385W+e8IgPM3CqL+kiTWmQbNjh8Atyc7zbqPv5bNcRvDAAoo5VfI//2v7JwJ
+ 0YKEdeuAUmUHGyHQyvNCHDP9xF0zi1epKlR2NaD5ybHIyednRkrGqe3hwbC903Tkbm
+ rE3Q02oGdxFMQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 36/85] drm/amd/display: Use min transition for
- SubVP into MPO
-Date: Sun, 18 Dec 2022 11:00:53 -0500
-Message-Id: <20221218160142.925394-36-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 31/85] drm/amdgpu: Fix type of second parameter in
+ trans_msg() callback
+Date: Sun, 18 Dec 2022 11:00:48 -0500
+Message-Id: <20221218160142.925394-31-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221218160142.925394-1-sashal@kernel.org>
 References: <20221218160142.925394-1-sashal@kernel.org>
@@ -55,137 +54,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Liu <HaoPing.Liu@amd.com>, Sasha Levin <sashal@kernel.org>,
- Aric Cyr <Aric.Cyr@amd.com>, Dillon.Varone@amd.com,
- amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com, airlied@gmail.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- Samson.Tam@amd.com, wenjing.liu@amd.com, meenakshikumar.somasundaram@amd.com,
- alex.hung@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
- Alvin Lee <Alvin.Lee2@amd.com>, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, Jun.Lei@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, llvm@lists.linux.dev, lijo.lazar@amd.com,
+ Kees Cook <keescook@chromium.org>, dri-devel@lists.freedesktop.org,
+ horace.chen@amd.com, Xinhui.Pan@amd.com, ndesaulniers@google.com,
+ amd-gfx@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>,
+ Victor.Zhao@amd.com, danijel.slivka@amd.com,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Alex Deucher <alexander.deucher@amd.com>, daniel@ffwll.ch,
+ victor.skvortsov@amd.com, airlied@gmail.com, christian.koenig@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Nathan Chancellor <nathan@kernel.org>
 
-[ Upstream commit 9e7d03e8b046c84e1b2973a29cd800495a5a2f09 ]
+[ Upstream commit f0d0f1087333714ee683cc134a95afe331d7ddd9 ]
 
-[Description]
-- For SubVP transitioning into MPO, we want to
-  use a minimal transition to prevent transient
-  underflow
-- Transitioning a phantom pipe directly into a
-  "real" pipe can result in underflow due to the
-  HUBP still having it's "phantom" programming
-  when HUBP is unblanked (have to wait for next
-  VUPDATE of the new OTG)
-- Also ensure subvp pipe lock is acquired early
-  enough for programming in dc_commit_state_no_check
-- When disabling phantom planes, enable phantom OTG
-  first so the disable gets the double buffer update
+With clang's kernel control flow integrity (kCFI, CONFIG_CFI_CLANG),
+indirect call targets are validated against the expected function
+pointer prototype to make sure the call target is valid to help mitigate
+ROP attacks. If they are not identical, there is a failure at run time,
+which manifests as either a kernel panic or thread getting killed. A
+proposed warning in clang aims to catch these at compile time, which
+reveals:
 
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
-Acked-by: Alan Liu <HaoPing.Liu@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+  drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c:412:15: error: incompatible function pointer types initializing 'void (*)(struct amdgpu_device *, u32, u32, u32, u32)' (aka 'void (*)(struct amdgpu_device *, unsigned int, unsigned int, unsigned int, unsigned int)') with an expression of type 'void (struct amdgpu_device *, enum idh_request, u32, u32, u32)' (aka 'void (struct amdgpu_device *, enum idh_request, unsigned int, unsigned int, unsigned int)') [-Werror,-Wincompatible-function-pointer-types-strict]
+          .trans_msg = xgpu_ai_mailbox_trans_msg,
+                      ^~~~~~~~~~~~~~~~~~~~~~~~~
+  1 error generated.
+
+  drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c:435:15: error: incompatible function pointer types initializing 'void (*)(struct amdgpu_device *, u32, u32, u32, u32)' (aka 'void (*)(struct amdgpu_device *, unsigned int, unsigned int, unsigned int, unsigned int)') with an expression of type 'void (struct amdgpu_device *, enum idh_request, u32, u32, u32)' (aka 'void (struct amdgpu_device *, enum idh_request, unsigned int, unsigned int, unsigned int)') [-Werror,-Wincompatible-function-pointer-types-strict]
+          .trans_msg = xgpu_nv_mailbox_trans_msg,
+                      ^~~~~~~~~~~~~~~~~~~~~~~~~
+  1 error generated.
+
+The type of the second parameter in the prototype should be 'enum
+idh_request' instead of 'u32'. Update it to clear up the warnings.
+
+Link: https://github.com/ClangBuiltLinux/linux/issues/1750
+Reported-by: Sami Tolvanen <samitolvanen@google.com>
+Reviewed-by: Kees Cook <keescook@chromium.org>
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 43 +++++++++++-------------
- 1 file changed, 20 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 5c00907099c1..5260ad6de803 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1070,6 +1070,7 @@ static void disable_dangling_plane(struct dc *dc, struct dc_state *context)
- 	int i, j;
- 	struct dc_state *dangling_context = dc_create_state(dc);
- 	struct dc_state *current_ctx;
-+	struct pipe_ctx *pipe;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index 49c4347d154c..2b9d806e23af 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -75,6 +75,8 @@ struct amdgpu_vf_error_buffer {
+ 	uint64_t data[AMDGPU_VF_ERROR_ENTRY_SIZE];
+ };
  
- 	if (dangling_context == NULL)
- 		return;
-@@ -1112,6 +1113,16 @@ static void disable_dangling_plane(struct dc *dc, struct dc_state *context)
- 		}
- 
- 		if (should_disable && old_stream) {
-+			pipe = &dc->current_state->res_ctx.pipe_ctx[i];
-+			/* When disabling plane for a phantom pipe, we must turn on the
-+			 * phantom OTG so the disable programming gets the double buffer
-+			 * update. Otherwise the pipe will be left in a partially disabled
-+			 * state that can result in underflow or hang when enabling it
-+			 * again for different use.
-+			 */
-+			if (old_stream->mall_stream_config.type == SUBVP_PHANTOM) {
-+				pipe->stream_res.tg->funcs->enable_crtc(pipe->stream_res.tg);
-+			}
- 			dc_rem_all_planes_for_stream(dc, old_stream, dangling_context);
- 			disable_all_writeback_pipes_for_stream(dc, old_stream, dangling_context);
- 
-@@ -1760,6 +1771,12 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 		context->stream_count == 0)
- 		dc->hwss.prepare_bandwidth(dc, context);
- 
-+	/* When SubVP is active, all HW programming must be done while
-+	 * SubVP lock is acquired
-+	 */
-+	if (dc->hwss.subvp_pipe_control_lock)
-+		dc->hwss.subvp_pipe_control_lock(dc, context, true, true, NULL, subvp_prev_use);
++enum idh_request;
 +
- 	if (dc->debug.enable_double_buffered_dsc_pg_support)
- 		dc->hwss.update_dsc_pg(dc, context, false);
+ /**
+  * struct amdgpu_virt_ops - amdgpu device virt operations
+  */
+@@ -84,7 +86,8 @@ struct amdgpu_virt_ops {
+ 	int (*req_init_data)(struct amdgpu_device *adev);
+ 	int (*reset_gpu)(struct amdgpu_device *adev);
+ 	int (*wait_reset)(struct amdgpu_device *adev);
+-	void (*trans_msg)(struct amdgpu_device *adev, u32 req, u32 data1, u32 data2, u32 data3);
++	void (*trans_msg)(struct amdgpu_device *adev, enum idh_request req,
++			  u32 data1, u32 data2, u32 data3);
+ };
  
-@@ -1787,9 +1804,6 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 		dc->hwss.wait_for_mpcc_disconnect(dc, dc->res_pool, pipe);
- 	}
- 
--	if (dc->hwss.subvp_pipe_control_lock)
--		dc->hwss.subvp_pipe_control_lock(dc, context, true, true, NULL, subvp_prev_use);
--
- 	result = dc->hwss.apply_ctx_to_hw(dc, context);
- 
- 	if (result != DC_OK) {
-@@ -3576,7 +3590,6 @@ static bool could_mpcc_tree_change_for_active_pipes(struct dc *dc,
- 
- 	struct dc_stream_status *cur_stream_status = stream_get_status(dc->current_state, stream);
- 	bool force_minimal_pipe_splitting = false;
--	uint32_t i;
- 
- 	*is_plane_addition = false;
- 
-@@ -3608,27 +3621,11 @@ static bool could_mpcc_tree_change_for_active_pipes(struct dc *dc,
- 		}
- 	}
- 
--	/* For SubVP pipe split case when adding MPO video
--	 * we need to add a minimal transition. In this case
--	 * there will be 2 streams (1 main stream, 1 phantom
--	 * stream).
-+	/* For SubVP when adding MPO video we need to add a minimal transition.
- 	 */
--	if (cur_stream_status &&
--			dc->current_state->stream_count == 2 &&
--			stream->mall_stream_config.type == SUBVP_MAIN) {
--		bool is_pipe_split = false;
--
--		for (i = 0; i < dc->res_pool->pipe_count; i++) {
--			if (dc->current_state->res_ctx.pipe_ctx[i].stream == stream &&
--					(dc->current_state->res_ctx.pipe_ctx[i].bottom_pipe ||
--					dc->current_state->res_ctx.pipe_ctx[i].next_odm_pipe)) {
--				is_pipe_split = true;
--				break;
--			}
--		}
--
-+	if (cur_stream_status && stream->mall_stream_config.type == SUBVP_MAIN) {
- 		/* determine if minimal transition is required due to SubVP*/
--		if (surface_count > 0 && is_pipe_split) {
-+		if (surface_count > 0) {
- 			if (cur_stream_status->plane_count > surface_count) {
- 				force_minimal_pipe_splitting = true;
- 			} else if (cur_stream_status->plane_count < surface_count) {
+ /*
 -- 
 2.35.1
 
