@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A733CC4332F
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:06:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C0C1C10F1E
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:07:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC98010E214;
-	Sun, 18 Dec 2022 16:06:49 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE75D10E20B;
- Sun, 18 Dec 2022 16:06:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A48210E211;
+	Sun, 18 Dec 2022 16:07:01 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5708010E20D;
+ Sun, 18 Dec 2022 16:06:56 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5489060DCA;
- Sun, 18 Dec 2022 16:06:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9BBFC433D2;
- Sun, 18 Dec 2022 16:06:11 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D4DB1B803F1;
+ Sun, 18 Dec 2022 16:06:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A68EC433EF;
+ Sun, 18 Dec 2022 16:06:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671379573;
- bh=1aIuIkEBkra234fdZs9njiL/A7ZhiKe0gzh1gZzzi3g=;
+ s=k20201202; t=1671379613;
+ bh=cZNNScqHcCN606hosHGQCZoKIh6e63Zn9gRo+mJaMdU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GZ2aGppMPLLMRzkfWNB/JvBvNbNxChjYU1GzLHZvoHvLEo4Ja4ogcwWkdx9aH1LT/
- XJVQM57ghIqlr9qgffF1KCbt8rxmHvEElGTOtLeyOrYwwPH7PjTBTyT+qdQKOQZ+lj
- 8LA+a1Wu5fBJ/0xVXu1vTgpFUThTaIDvTSzvMgBDOvHQEzxGm9OvLSHIB9ryajxcLk
- r2t8NPnIS3g16gAywn3eWNOtYGCvnUPw1ru2OqNPpFbUM+4c3n9l0HBne1Bp/fDXds
- vMGpDl6iKGHHtv8X+TiSw7+Dr4Vo8/g1lpBvOyZ5qQRn9ddQcdmcXLwIauKCu6TfeJ
- SUHfYt9IBN4MQ==
+ b=iK3Lj6SLR3PY50+/ilB2We/cOiLuMeArA4Ha57ISz1WSnCR74cca1MggHTsEOVUDu
+ h5cNFbmr+Kl7lprHMq33WWS6iH6rCJJgAtTks0/wKi+od85/nc2k/Hqn/04cGgNv92
+ ZCzRf0GnkFVRWYJ5uyD3DNT+ebPXwMg3ahguaHmCy2QrZiYiRj1meK7OvlTpB9f6ab
+ gZMJuv+Ypp7m6R+YyEmsPymaPJRIgdXPE7d0pcjt7loTMp7IXHogmOotieTWEy88nQ
+ uCtwmWLMuzGc6c1EABLLG/8OBfjw9scTHCQl4MpFPk8l8iZBganXE6P8aCp3X7fu2X
+ bFd0Y9HNIvOUg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 64/85] drm/amdgpu: Fix potential double free and
- null pointer dereference
-Date: Sun, 18 Dec 2022 11:01:21 -0500
-Message-Id: <20221218160142.925394-64-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 66/85] drm/amd/display: Fix DTBCLK disable
+ requests and SRC_SEL programming
+Date: Sun, 18 Dec 2022 11:01:23 -0500
+Message-Id: <20221218160142.925394-66-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221218160142.925394-1-sashal@kernel.org>
 References: <20221218160142.925394-1-sashal@kernel.org>
@@ -54,72 +55,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, andrey.grodzovsky@amd.com,
- Amaranath.Somalapuram@amd.com, airlied@gmail.com, Xinhui.Pan@amd.com,
- tao.zhou1@amd.com, amd-gfx@lists.freedesktop.org, YiPeng.Chai@amd.com,
- shaoyun.liu@amd.com, Luben Tuikov <luben.tuikov@amd.com>,
- yang.lee@linux.alibaba.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Bokun.Zhang@amd.com, Alex Deucher <alexander.deucher@amd.com>,
- evan.quan@amd.com, Liang He <windhl@126.com>, christian.koenig@amd.com,
- Hawking.Zhang@amd.com
+Cc: dri-devel@lists.freedesktop.org, jun.lei@amd.com, airlied@gmail.com,
+ Sasha Levin <sashal@kernel.org>, Brian.Chang@amd.com, Rodrigo.Siqueira@amd.com,
+ Syed.Hassan@amd.com, amd-gfx@lists.freedesktop.org, aurabindo.pillai@amd.com,
+ eric.bernstein@amd.com, Alvin Lee <Alvin.Lee2@amd.com>, george.shen@amd.com,
+ harry.wentland@amd.com, jiapeng.chong@linux.alibaba.com, sunpeng.li@amd.com,
+ Jasdeep Dhillon <jdhillon@amd.com>, samson.tam@amd.com,
+ Dillon Varone <Dillon.Varone@amd.com>, Xinhui.Pan@amd.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Liang He <windhl@126.com>
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[ Upstream commit dfd0287bd3920e132a8dae2a0ec3d92eaff5f2dd ]
+[ Upstream commit f6015da7f2410109bd2ccd2e2828f26185aeb81d ]
 
-In amdgpu_get_xgmi_hive(), we should not call kfree() after
-kobject_put() as the PUT will call kfree().
+[Description]
+- When transitioning FRL / DP2 is not required, we will always request
+  DTBCLK = 0Mhz, but PMFW returns the min freq
+- This causes us to make DTBCLK requests every time we call optimize
+  after transitioning from FRL to non-FRL
+- If DTBCLK is not required, request the min instead (then we only need
+  to make 1 extra request at boot time)
+- Also when programming PIPE_DTO_SRC_SEL, don't programming for DP
+  first, just programming once for the required selection (programming
+  DP on an HDMI connection then switching back causes corruption)
 
-In amdgpu_device_ip_init(), we need to check the returned *hive*
-which can be NULL before we dereference it.
-
-Signed-off-by: Liang He <windhl@126.com>
-Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
+Reviewed-by: Dillon Varone <Dillon.Varone@amd.com>
+Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   | 2 --
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c    | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c           | 6 +-----
+ 2 files changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index f1e9663b4051..00976e15b698 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2462,6 +2462,11 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 			if (!amdgpu_sriov_vf(adev)) {
- 				struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev);
- 
-+				if (WARN_ON(!hive)) {
-+					r = -ENOENT;
-+					goto init_failed;
-+				}
-+
- 				if (!hive->reset_domain ||
- 				    !amdgpu_reset_get_reset_domain(hive->reset_domain)) {
- 					r = -ENOENT;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 47159e9a0884..4b9e7b050ccd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -386,7 +386,6 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
- 	if (ret) {
- 		dev_err(adev->dev, "XGMI: failed initializing kobject for xgmi hive\n");
- 		kobject_put(&hive->kobj);
--		kfree(hive);
- 		hive = NULL;
- 		goto pro_end;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+index 6f77d8e538ab..9eb9fe5b8d2c 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+@@ -438,7 +438,7 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
  	}
-@@ -410,7 +409,6 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
- 				dev_err(adev->dev, "XGMI: failed initializing reset domain for xgmi hive\n");
- 				ret = -ENOMEM;
- 				kobject_put(&hive->kobj);
--				kfree(hive);
- 				hive = NULL;
- 				goto pro_end;
- 			}
+ 
+ 	if (!new_clocks->dtbclk_en) {
+-		new_clocks->ref_dtbclk_khz = 0;
++		new_clocks->ref_dtbclk_khz = clk_mgr_base->bw_params->clk_table.entries[0].dtbclk_mhz * 1000;
+ 	}
+ 
+ 	/* clock limits are received with MHz precision, divide by 1000 to prevent setting clocks at every call */
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c
+index df4f25119142..e4472c6be6c3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c
+@@ -225,11 +225,7 @@ static void dccg32_set_dtbclk_dto(
+ 	} else {
+ 		REG_UPDATE_2(OTG_PIXEL_RATE_CNTL[params->otg_inst],
+ 				DTBCLK_DTO_ENABLE[params->otg_inst], 0,
+-				PIPE_DTO_SRC_SEL[params->otg_inst], 1);
+-		if (params->is_hdmi)
+-			REG_UPDATE(OTG_PIXEL_RATE_CNTL[params->otg_inst],
+-				PIPE_DTO_SRC_SEL[params->otg_inst], 0);
+-
++				PIPE_DTO_SRC_SEL[params->otg_inst], params->is_hdmi ? 0 : 1);
+ 		REG_WRITE(DTBCLK_DTO_MODULO[params->otg_inst], 0);
+ 		REG_WRITE(DTBCLK_DTO_PHASE[params->otg_inst], 0);
+ 	}
 -- 
 2.35.1
 
