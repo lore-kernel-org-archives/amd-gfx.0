@@ -4,37 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3BC0C4332F
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:02:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ABB7C4332F
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:03:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 344C510E1BE;
-	Sun, 18 Dec 2022 16:02:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A095810E1C1;
+	Sun, 18 Dec 2022 16:03:00 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D809C10E1BE;
- Sun, 18 Dec 2022 16:02:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F91610E1C1;
+ Sun, 18 Dec 2022 16:02:57 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5FD5E60DCC;
- Sun, 18 Dec 2022 16:02:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CB8BC433D2;
- Sun, 18 Dec 2022 16:02:47 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0B7E360C58;
+ Sun, 18 Dec 2022 16:02:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB11C433EF;
+ Sun, 18 Dec 2022 16:02:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671379368;
- bh=mjBAZQAoIFRCA8kFTE+Z9mTUJWFLiwAtDPkEr+hzzTc=;
+ s=k20201202; t=1671379376;
+ bh=cKcs5UaNh9wdeK8ZKEnxZS5PGWlb87e1zZzIcQ7tstg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=AfndCJ2PmBpcMNmDFGzqGeGp+wGyRWKzpHP+x9vuM8HUaKHPjAre/ohLQDt0Iacku
- WhuaNCfDx0GvnFS1g+ewO1DTkDnqp/f2PD1ZBTCPJ495abuBpE959E8dOEIVAn/smZ
- 87t1vcrGmj1Eqy9ZK0MR1q6FZbSwl5OMmz+bo3WrHwiP0sLTqLYDw/TazkwKY+h1v7
- p26gwv4EYZ5Wdmic7q0rjSRoDyOe97zfWlG0CVw4sUuG/dqZWNMTtvY4zXT30wxEfE
- ZCKM/PNnbnWjhZldf6wK7EE/C8FUxkmrIuzvfnaypkrMKYR8O7oBuu9e4Ftl6cORbz
- MW3nKWfZxPw8Q==
+ b=jGLZYr0OnJ6j5+InjrzcV8oRH7aX2lZO8pG/Phd8ajxADlhOYGGiExoMz6p+Vvoi5
+ UBwZi7a6dH7GgXQmH8SjnKtYSQFen81CHav5Gh+J8GyYqRbgC9kj4ypkCOs7c9NEDu
+ ssSmU6vPvOkashwIoHIQBPfe/W6BAgDfgS34/MXZ/QEwKJ1wpa1rsN5GVcNCtoVlXQ
+ 8FenuR4oCcP6gmssaBuzNgLyzwJRT6vPt8p0tKcsmLFWsC6b2bOHL8EaxbiZHLRifQ
+ tY2DWLlpCJV2K7kLhvuNF7uK3T+u3hbR4yZiFHRGlYZ92Gj9q38IfTxHMhKNG2Ulq7
+ k+GqVgkYCvTEg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 13/85] drm/amd/display: prevent memory leak
-Date: Sun, 18 Dec 2022 11:00:30 -0500
-Message-Id: <20221218160142.925394-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 15/85] Revert "drm/amd/display: Limit max DSC
+ target bpp for specific monitors"
+Date: Sun, 18 Dec 2022 11:00:32 -0500
+Message-Id: <20221218160142.925394-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221218160142.925394-1-sashal@kernel.org>
 References: <20221218160142.925394-1-sashal@kernel.org>
@@ -53,80 +54,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, HaoPing.Liu@amd.com, sunpeng.li@amd.com,
- harry.wentland@amd.com, Xinhui.Pan@amd.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- alex.hung@amd.com, aurabindo.pillai@amd.com, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- gehao <gehao@kylinos.cn>, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, ian.chen@amd.com, sunpeng.li@amd.com,
+ airlied@gmail.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, Jerry.Zuo@amd.com,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, daniel@ffwll.ch, Wayne.Lin@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, christian.koenig@amd.com,
+ colin.i.king@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: gehao <gehao@kylinos.cn>
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 
-[ Upstream commit d232afb1f3417ae8194ccf19ad3a8360e70e104e ]
+[ Upstream commit 6803dfd3a69ccb318772463a86e40929fd4fbac7 ]
 
-In dce6(0,1,4)_create_resource_pool and dce80_create_resource_pool
-the allocated memory should be released if construct pool fails.
+This reverts commit 55eea8ef98641f6e1e1c202bd3a49a57c1dd4059.
 
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: gehao <gehao@kylinos.cn>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+This quirk is now handled in the DRM core, so we can drop all of
+the internal code that was added to handle it.
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c | 3 +++
- drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c | 2 ++
- 2 files changed, 5 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 35 -------------------
+ 1 file changed, 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-index fc6aa098bda0..8db9f7514466 100644
---- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-@@ -1128,6 +1128,7 @@ struct resource_pool *dce60_create_resource_pool(
- 	if (dce60_construct(num_virtual_links, dc, pool))
- 		return &pool->base;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index f0b01c8dc4a6..f72c013d3a5b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -42,39 +42,6 @@
+ #include "dm_helpers.h"
+ #include "ddc_service_types.h"
  
-+	kfree(pool);
- 	BREAK_TO_DEBUGGER();
- 	return NULL;
- }
-@@ -1325,6 +1326,7 @@ struct resource_pool *dce61_create_resource_pool(
- 	if (dce61_construct(num_virtual_links, dc, pool))
- 		return &pool->base;
+-struct monitor_patch_info {
+-	unsigned int manufacturer_id;
+-	unsigned int product_id;
+-	void (*patch_func)(struct dc_edid_caps *edid_caps, unsigned int param);
+-	unsigned int patch_param;
+-};
+-static void set_max_dsc_bpp_limit(struct dc_edid_caps *edid_caps, unsigned int param);
+-
+-static const struct monitor_patch_info monitor_patch_table[] = {
+-{0x6D1E, 0x5BBF, set_max_dsc_bpp_limit, 15},
+-{0x6D1E, 0x5B9A, set_max_dsc_bpp_limit, 15},
+-};
+-
+-static void set_max_dsc_bpp_limit(struct dc_edid_caps *edid_caps, unsigned int param)
+-{
+-	if (edid_caps)
+-		edid_caps->panel_patch.max_dsc_target_bpp_limit = param;
+-}
+-
+-static int amdgpu_dm_patch_edid_caps(struct dc_edid_caps *edid_caps)
+-{
+-	int i, ret = 0;
+-
+-	for (i = 0; i < ARRAY_SIZE(monitor_patch_table); i++)
+-		if ((edid_caps->manufacturer_id == monitor_patch_table[i].manufacturer_id)
+-			&&  (edid_caps->product_id == monitor_patch_table[i].product_id)) {
+-			monitor_patch_table[i].patch_func(edid_caps, monitor_patch_table[i].patch_param);
+-			ret++;
+-		}
+-
+-	return ret;
+-}
+-
+ /* dm_helpers_parse_edid_caps
+  *
+  * Parse edid caps
+@@ -149,8 +116,6 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 	kfree(sads);
+ 	kfree(sadb);
  
-+	kfree(pool);
- 	BREAK_TO_DEBUGGER();
- 	return NULL;
+-	amdgpu_dm_patch_edid_caps(edid_caps);
+-
+ 	return result;
  }
-@@ -1518,6 +1520,7 @@ struct resource_pool *dce64_create_resource_pool(
- 	if (dce64_construct(num_virtual_links, dc, pool))
- 		return &pool->base;
  
-+	kfree(pool);
- 	BREAK_TO_DEBUGGER();
- 	return NULL;
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-index b28025960050..5825e6f412bd 100644
---- a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-@@ -1137,6 +1137,7 @@ struct resource_pool *dce80_create_resource_pool(
- 	if (dce80_construct(num_virtual_links, dc, pool))
- 		return &pool->base;
- 
-+	kfree(pool);
- 	BREAK_TO_DEBUGGER();
- 	return NULL;
- }
-@@ -1336,6 +1337,7 @@ struct resource_pool *dce81_create_resource_pool(
- 	if (dce81_construct(num_virtual_links, dc, pool))
- 		return &pool->base;
- 
-+	kfree(pool);
- 	BREAK_TO_DEBUGGER();
- 	return NULL;
- }
 -- 
 2.35.1
 
