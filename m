@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3A13C4332F
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:05:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BF11C4332F
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:06:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3ADB10E1DF;
-	Sun, 18 Dec 2022 16:05:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D56B10E208;
+	Sun, 18 Dec 2022 16:06:30 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C362510E1E9;
- Sun, 18 Dec 2022 16:05:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA22010E1FB;
+ Sun, 18 Dec 2022 16:06:25 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4663E60DCA;
- Sun, 18 Dec 2022 16:05:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524D9C433A7;
- Sun, 18 Dec 2022 16:05:17 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 509A560DCB;
+ Sun, 18 Dec 2022 16:06:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF2B2C433D2;
+ Sun, 18 Dec 2022 16:06:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671379519;
- bh=+wPILuLBCbghQ1iyYlen45uCRSTuLfYQ5KIGVelLKwk=;
+ s=k20201202; t=1671379584;
+ bh=JHm/6dzc4r6whOycWrF1yhKD4XfQCnsH8/sRMi1k5sU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KX2ZN5WJzGd+vv7UxCshk0s8vxv8gTNHDxfwuvLWm51gFuIY1TgNCFtlwF6A3UEq1
- AuqKsk66TfbyZNoMpqoFdSV85I/bB7hRGPa657VZHdk/x13OR7D4GUvJdMOE+5NdPL
- Ki4R68b4zwg4ibbsx49fv9S0hd0ZiSLzoRTbxOg4HqiN+YW4G5jQwdudrQMBGqZXOP
- 3SVRVcvHvwV0cg/LWgioPqxMVgMdOakDHfxL/HL6ExqH9WrJxv96MTG2VFiBm/jcaI
- cYFI/pUI0eKv2MG2WiCaT7ad4yvCbe+AhNOyXAIkXqLqFvJrnSiP22vtWS1XwWErP2
- /0x1wUTgmlssQ==
+ b=eTY4yftnIu3iGW/Z0FnYgNObu4p8CFy9yihUIxxAdqPnhuMr99sZROu2s98AMHQJE
+ fbo/AEERyfRdlOim/WmvpEN+NrXpX1ySySP7ymdxjAdtWqwqA1m+lwwayjmVfFDxEp
+ rlp5nahXnd64XSO4j7uKoVd3pBcrOtcSlNCfpEuHhxSMLifRf9z3ILiPcMyYvYlEAT
+ TgcYENN7ni95kebB5AHBWPvd/6HUITU3GjyfzIT5yHlXL8gQiSa0d6CTDl61XjUfrw
+ LBKhtSGRq4GJRAJyBYaM6pxn2B1NGrowWHk0ZB+d7O4PXtMd+qzOwcCJUVMBrqDlAM
+ nVi+LwvEepbDw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 54/85] drm/amd/display: Fix display corruption w/
- VSR enable
-Date: Sun, 18 Dec 2022 11:01:11 -0500
-Message-Id: <20221218160142.925394-54-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 65/85] drm/amd/display: Use the largest
+ vready_offset in pipe group
+Date: Sun, 18 Dec 2022 11:01:22 -0500
+Message-Id: <20221218160142.925394-65-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221218160142.925394-1-sashal@kernel.org>
 References: <20221218160142.925394-1-sashal@kernel.org>
@@ -54,50 +54,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ilya Bakoulin <Ilya.Bakoulin@amd.com>, Brian Chang <Brian.Chang@amd.com>,
- Dillon Varone <Dillon.Varone@amd.com>, Sasha Levin <sashal@kernel.org>,
- sunpeng.li@amd.com, airlied@gmail.com, dri-devel@lists.freedesktop.org,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
- Daniel Wheeler <daniel.wheeler@amd.com>, aurabindo.pillai@amd.com,
- Alvin.Lee2@amd.com, daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- jun.lei@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
+Cc: aric.cyr@amd.com, wenjing.liu@amd.com, dri-devel@lists.freedesktop.org,
+ Jun.Lei@amd.com, airlied@gmail.com, Sasha Levin <sashal@kernel.org>,
+ jiapeng.chong@linux.alibaba.com, Anthony.Koo@amd.com, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, alex.hung@amd.com, aurabindo.pillai@amd.com,
+ Alvin.Lee2@amd.com, Jasdeep Dhillon <jdhillon@amd.com>, harry.wentland@amd.com,
+ martin.tsai@amd.com, sunpeng.li@amd.com, mwen@igalia.com, hanghong.ma@amd.com,
+ Dillon Varone <Dillon.Varone@amd.com>, dingchen.zhang@amd.com,
+ Wesley Chalmers <Wesley.Chalmers@amd.com>, Xinhui.Pan@amd.com,
+ Roman.Li@amd.com, Max.Tseng@amd.com, daniel@ffwll.ch, wayne.lin@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
+From: Wesley Chalmers <Wesley.Chalmers@amd.com>
 
-[ Upstream commit e643cd384270fd3a4b66f65f15dafc8db0607adc ]
+[ Upstream commit 5842abd985b792a3b13a89b6dae4869b56656c92 ]
 
-[Why]
-Brief corruption is observed on hotplug/unplug with certain display
-configurations when VSR is enabled.
+[WHY]
+Corruption can occur in LB if vready_offset is not large enough.
+DML calculates vready_offset for each pipe, but we currently select the
+top pipe's vready_offset, which is not necessarily enough for all pipes
+in the group.
 
-[How]
-Work around the issue by avoiding 2to1 ODM when stream plane_count is 0.
+[HOW]
+Wherever program_global_sync is currently called, iterate through the
+entire pipe group and find the highest vready_offset.
 
 Reviewed-by: Dillon Varone <Dillon.Varone@amd.com>
-Acked-by: Brian Chang <Brian.Chang@amd.com>
-Signed-off-by: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
+Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 30 +++++++++++++++++--
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 29 ++++++++++++++++--
+ 2 files changed, 55 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-index d1598e3131f6..33ab6fdc3617 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-@@ -1901,7 +1901,7 @@ int dcn32_populate_dml_pipes_from_context(
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 11e4c4e46947..c06538c37a11 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -867,6 +867,32 @@ static void false_optc_underflow_wa(
+ 		tg->funcs->clear_optc_underflow(tg);
+ }
  
- 		pipes[pipe_cnt].pipe.dest.odm_combine_policy = dm_odm_combine_policy_dal;
- 		if (context->stream_count == 1 &&
--				context->stream_status[0].plane_count <= 1 &&
-+				context->stream_status[0].plane_count == 1 &&
- 				!dc_is_hdmi_signal(res_ctx->pipe_ctx[i].stream->signal) &&
- 				is_h_timing_divisible_by_2(res_ctx->pipe_ctx[i].stream) &&
- 				pipe->stream->timing.pix_clk_100hz * 100 > DCN3_2_VMIN_DISPCLK_HZ &&
++static int calculate_vready_offset_for_group(struct pipe_ctx *pipe)
++{
++	struct pipe_ctx *other_pipe;
++	int vready_offset = pipe->pipe_dlg_param.vready_offset;
++
++	/* Always use the largest vready_offset of all connected pipes */
++	for (other_pipe = pipe->bottom_pipe; other_pipe != NULL; other_pipe = other_pipe->bottom_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++	for (other_pipe = pipe->top_pipe; other_pipe != NULL; other_pipe = other_pipe->top_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++	for (other_pipe = pipe->next_odm_pipe; other_pipe != NULL; other_pipe = other_pipe->next_odm_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++	for (other_pipe = pipe->prev_odm_pipe; other_pipe != NULL; other_pipe = other_pipe->prev_odm_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++
++	return vready_offset;
++}
++
+ enum dc_status dcn10_enable_stream_timing(
+ 		struct pipe_ctx *pipe_ctx,
+ 		struct dc_state *context,
+@@ -910,7 +936,7 @@ enum dc_status dcn10_enable_stream_timing(
+ 	pipe_ctx->stream_res.tg->funcs->program_timing(
+ 			pipe_ctx->stream_res.tg,
+ 			&stream->timing,
+-			pipe_ctx->pipe_dlg_param.vready_offset,
++			calculate_vready_offset_for_group(pipe_ctx),
+ 			pipe_ctx->pipe_dlg_param.vstartup_start,
+ 			pipe_ctx->pipe_dlg_param.vupdate_offset,
+ 			pipe_ctx->pipe_dlg_param.vupdate_width,
+@@ -2900,7 +2926,7 @@ void dcn10_program_pipe(
+ 
+ 		pipe_ctx->stream_res.tg->funcs->program_global_sync(
+ 				pipe_ctx->stream_res.tg,
+-				pipe_ctx->pipe_dlg_param.vready_offset,
++				calculate_vready_offset_for_group(pipe_ctx),
+ 				pipe_ctx->pipe_dlg_param.vstartup_start,
+ 				pipe_ctx->pipe_dlg_param.vupdate_offset,
+ 				pipe_ctx->pipe_dlg_param.vupdate_width);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index a7e0001a8f46..de6a57f3ca02 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1616,6 +1616,31 @@ static void dcn20_update_dchubp_dpp(
+ 		hubp->funcs->phantom_hubp_post_enable(hubp);
+ }
+ 
++static int calculate_vready_offset_for_group(struct pipe_ctx *pipe)
++{
++	struct pipe_ctx *other_pipe;
++	int vready_offset = pipe->pipe_dlg_param.vready_offset;
++
++	/* Always use the largest vready_offset of all connected pipes */
++	for (other_pipe = pipe->bottom_pipe; other_pipe != NULL; other_pipe = other_pipe->bottom_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++	for (other_pipe = pipe->top_pipe; other_pipe != NULL; other_pipe = other_pipe->top_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++	for (other_pipe = pipe->next_odm_pipe; other_pipe != NULL; other_pipe = other_pipe->next_odm_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++	for (other_pipe = pipe->prev_odm_pipe; other_pipe != NULL; other_pipe = other_pipe->prev_odm_pipe) {
++		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
++			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
++	}
++
++	return vready_offset;
++}
+ 
+ static void dcn20_program_pipe(
+ 		struct dc *dc,
+@@ -1634,7 +1659,7 @@ static void dcn20_program_pipe(
+ 			&& !pipe_ctx->prev_odm_pipe) {
+ 		pipe_ctx->stream_res.tg->funcs->program_global_sync(
+ 				pipe_ctx->stream_res.tg,
+-				pipe_ctx->pipe_dlg_param.vready_offset,
++				calculate_vready_offset_for_group(pipe_ctx),
+ 				pipe_ctx->pipe_dlg_param.vstartup_start,
+ 				pipe_ctx->pipe_dlg_param.vupdate_offset,
+ 				pipe_ctx->pipe_dlg_param.vupdate_width);
+@@ -2037,7 +2062,7 @@ bool dcn20_update_bandwidth(
+ 
+ 			pipe_ctx->stream_res.tg->funcs->program_global_sync(
+ 					pipe_ctx->stream_res.tg,
+-					pipe_ctx->pipe_dlg_param.vready_offset,
++					calculate_vready_offset_for_group(pipe_ctx),
+ 					pipe_ctx->pipe_dlg_param.vstartup_start,
+ 					pipe_ctx->pipe_dlg_param.vupdate_offset,
+ 					pipe_ctx->pipe_dlg_param.vupdate_width);
 -- 
 2.35.1
 
