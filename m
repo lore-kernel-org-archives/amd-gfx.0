@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B692FC4167B
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:15:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9623EC4332F
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:16:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9E9D10E25F;
-	Sun, 18 Dec 2022 16:15:48 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE40310E1E5;
- Sun, 18 Dec 2022 16:15:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0729510E260;
+	Sun, 18 Dec 2022 16:16:36 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E82110E25D;
+ Sun, 18 Dec 2022 16:16:32 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 96687CE0BAE;
- Sun, 18 Dec 2022 16:15:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0046FC433EF;
- Sun, 18 Dec 2022 16:15:36 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C784BB803F1;
+ Sun, 18 Dec 2022 16:16:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B196C433F0;
+ Sun, 18 Dec 2022 16:16:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671380139;
- bh=bGDsxwRMuhHdwn4tRIuRcfyfJm46g2xSTZ3EKUTpDM0=;
+ s=k20201202; t=1671380189;
+ bh=NCUk6bB7VPH3vQWVQfzyYHYNWWpQAY1rTqiNAogsDkw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qC9i7nM88uV6seoc+vlIi6ZNR9j0LizimXhPddp7o42TdabW07cXpeSRhDshf1Fx1
- m3h6Wze3ttdwhgFpfMUL7C+4ChZtHsUjKb3pzpOh+GDvCmQZbj5c9Y1Pw1iR7AddsW
- OKRI0G1Fl52IPVoPBMGKJZmuxRWxZ4r4Mq7Nl6o4BgyScMvF5XDHGSzNEP7kpuBOi6
- fk7mVMLwE+BVmmFmW3gWrHP4DZHeeDXXygIUpsqtsd76xCCGBeAe2DpQJmI9bhRi98
- k9Yx1QhGE+bChLBcYJGXMv+1n5zAOUYnCWePEvnPZsl/ZeG+5zRFdw8WJFB1zAUpfl
- mq2hs3xm9h/LA==
+ b=c1R/f8G4t8PCOU67by1N+CkZ/yq2f7tjB9pIwUKjYfoejL1ZIxvTRk9yjekFjWVTA
+ HtvZkncTGbattX448dOnDiJImyFtpgrY6Hef6oMxpNGD19MaP/B/BUt/jhMji6nGdN
+ arsBQhcD87x0J4k54h0pZkp4Dm784JQVBundj2fI9YhoqrZjSGPwZG6MyX1FHyJBFd
+ TPJRz/ZqoJT5lhXFIfkL/R6FxKuJOnh8tMNvI1TPHGvHAMtOgoq+P3aXgGBHklsFnY
+ dn9A555gsXMEh2Q9A5ZmcYCZeaqecSlk8al9gbiigVewkGJDVBmc2viUgCHwxUIlc7
+ +/tuu0XfO5LBw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 38/46] drm/amd/display: Use the largest
- vready_offset in pipe group
-Date: Sun, 18 Dec 2022 11:12:36 -0500
-Message-Id: <20221218161244.930785-38-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 07/39] drm/amd/display: prevent memory leak
+Date: Sun, 18 Dec 2022 11:15:27 -0500
+Message-Id: <20221218161559.932604-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221218161244.930785-1-sashal@kernel.org>
-References: <20221218161244.930785-1-sashal@kernel.org>
+In-Reply-To: <20221218161559.932604-1-sashal@kernel.org>
+References: <20221218161559.932604-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -54,152 +53,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: aric.cyr@amd.com, wenjing.liu@amd.com, dri-devel@lists.freedesktop.org,
- Jun.Lei@amd.com, airlied@gmail.com, Sasha Levin <sashal@kernel.org>,
- jiapeng.chong@linux.alibaba.com, Anthony.Koo@amd.com, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, alex.hung@amd.com, aurabindo.pillai@amd.com,
- Alvin.Lee2@amd.com, Jasdeep Dhillon <jdhillon@amd.com>, harry.wentland@amd.com,
- martin.tsai@amd.com, sunpeng.li@amd.com, mwen@igalia.com, hanghong.ma@amd.com,
- Dillon Varone <Dillon.Varone@amd.com>, dingchen.zhang@amd.com,
- Wesley Chalmers <Wesley.Chalmers@amd.com>, Xinhui.Pan@amd.com,
- Roman.Li@amd.com, Max.Tseng@amd.com, daniel@ffwll.ch, wayne.lin@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, HaoPing.Liu@amd.com, sunpeng.li@amd.com,
+ harry.wentland@amd.com, Xinhui.Pan@amd.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ alex.hung@amd.com, aurabindo.pillai@amd.com, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ gehao <gehao@kylinos.cn>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wesley Chalmers <Wesley.Chalmers@amd.com>
+From: gehao <gehao@kylinos.cn>
 
-[ Upstream commit 5842abd985b792a3b13a89b6dae4869b56656c92 ]
+[ Upstream commit d232afb1f3417ae8194ccf19ad3a8360e70e104e ]
 
-[WHY]
-Corruption can occur in LB if vready_offset is not large enough.
-DML calculates vready_offset for each pipe, but we currently select the
-top pipe's vready_offset, which is not necessarily enough for all pipes
-in the group.
+In dce6(0,1,4)_create_resource_pool and dce80_create_resource_pool
+the allocated memory should be released if construct pool fails.
 
-[HOW]
-Wherever program_global_sync is currently called, iterate through the
-entire pipe group and find the highest vready_offset.
-
-Reviewed-by: Dillon Varone <Dillon.Varone@amd.com>
-Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
-Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
+Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: gehao <gehao@kylinos.cn>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 30 +++++++++++++++++--
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 29 ++++++++++++++++--
- 2 files changed, 55 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c | 3 +++
+ drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c | 2 ++
+ 2 files changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index 91ab4dbbe1a6..c655d03ef754 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -804,6 +804,32 @@ static void false_optc_underflow_wa(
- 		tg->funcs->clear_optc_underflow(tg);
+diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
+index 5a5a9cb77acb..bcdd8a958fc0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
+@@ -1132,6 +1132,7 @@ struct resource_pool *dce60_create_resource_pool(
+ 	if (dce60_construct(num_virtual_links, dc, pool))
+ 		return &pool->base;
+ 
++	kfree(pool);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
  }
+@@ -1329,6 +1330,7 @@ struct resource_pool *dce61_create_resource_pool(
+ 	if (dce61_construct(num_virtual_links, dc, pool))
+ 		return &pool->base;
  
-+static int calculate_vready_offset_for_group(struct pipe_ctx *pipe)
-+{
-+	struct pipe_ctx *other_pipe;
-+	int vready_offset = pipe->pipe_dlg_param.vready_offset;
-+
-+	/* Always use the largest vready_offset of all connected pipes */
-+	for (other_pipe = pipe->bottom_pipe; other_pipe != NULL; other_pipe = other_pipe->bottom_pipe) {
-+		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
-+			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
-+	}
-+	for (other_pipe = pipe->top_pipe; other_pipe != NULL; other_pipe = other_pipe->top_pipe) {
-+		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
-+			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
-+	}
-+	for (other_pipe = pipe->next_odm_pipe; other_pipe != NULL; other_pipe = other_pipe->next_odm_pipe) {
-+		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
-+			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
-+	}
-+	for (other_pipe = pipe->prev_odm_pipe; other_pipe != NULL; other_pipe = other_pipe->prev_odm_pipe) {
-+		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
-+			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
-+	}
-+
-+	return vready_offset;
-+}
-+
- enum dc_status dcn10_enable_stream_timing(
- 		struct pipe_ctx *pipe_ctx,
- 		struct dc_state *context,
-@@ -838,7 +864,7 @@ enum dc_status dcn10_enable_stream_timing(
- 	pipe_ctx->stream_res.tg->funcs->program_timing(
- 			pipe_ctx->stream_res.tg,
- 			&stream->timing,
--			pipe_ctx->pipe_dlg_param.vready_offset,
-+			calculate_vready_offset_for_group(pipe_ctx),
- 			pipe_ctx->pipe_dlg_param.vstartup_start,
- 			pipe_ctx->pipe_dlg_param.vupdate_offset,
- 			pipe_ctx->pipe_dlg_param.vupdate_width,
-@@ -2776,7 +2802,7 @@ void dcn10_program_pipe(
- 
- 		pipe_ctx->stream_res.tg->funcs->program_global_sync(
- 				pipe_ctx->stream_res.tg,
--				pipe_ctx->pipe_dlg_param.vready_offset,
-+				calculate_vready_offset_for_group(pipe_ctx),
- 				pipe_ctx->pipe_dlg_param.vstartup_start,
- 				pipe_ctx->pipe_dlg_param.vupdate_offset,
- 				pipe_ctx->pipe_dlg_param.vupdate_width);
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index 58eea3aa3bfc..bf2a8f53694b 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -1564,6 +1564,31 @@ static void dcn20_update_dchubp_dpp(
- 		hubp->funcs->set_blank(hubp, false);
++	kfree(pool);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
  }
+@@ -1522,6 +1524,7 @@ struct resource_pool *dce64_create_resource_pool(
+ 	if (dce64_construct(num_virtual_links, dc, pool))
+ 		return &pool->base;
  
-+static int calculate_vready_offset_for_group(struct pipe_ctx *pipe)
-+{
-+	struct pipe_ctx *other_pipe;
-+	int vready_offset = pipe->pipe_dlg_param.vready_offset;
-+
-+	/* Always use the largest vready_offset of all connected pipes */
-+	for (other_pipe = pipe->bottom_pipe; other_pipe != NULL; other_pipe = other_pipe->bottom_pipe) {
-+		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
-+			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
-+	}
-+	for (other_pipe = pipe->top_pipe; other_pipe != NULL; other_pipe = other_pipe->top_pipe) {
-+		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
-+			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
-+	}
-+	for (other_pipe = pipe->next_odm_pipe; other_pipe != NULL; other_pipe = other_pipe->next_odm_pipe) {
-+		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
-+			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
-+	}
-+	for (other_pipe = pipe->prev_odm_pipe; other_pipe != NULL; other_pipe = other_pipe->prev_odm_pipe) {
-+		if (other_pipe->pipe_dlg_param.vready_offset > vready_offset)
-+			vready_offset = other_pipe->pipe_dlg_param.vready_offset;
-+	}
-+
-+	return vready_offset;
-+}
++	kfree(pool);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
+index a19be9de2df7..2eefa07762ae 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
+@@ -1141,6 +1141,7 @@ struct resource_pool *dce80_create_resource_pool(
+ 	if (dce80_construct(num_virtual_links, dc, pool))
+ 		return &pool->base;
  
- static void dcn20_program_pipe(
- 		struct dc *dc,
-@@ -1582,7 +1607,7 @@ static void dcn20_program_pipe(
++	kfree(pool);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+@@ -1338,6 +1339,7 @@ struct resource_pool *dce81_create_resource_pool(
+ 	if (dce81_construct(num_virtual_links, dc, pool))
+ 		return &pool->base;
  
- 		pipe_ctx->stream_res.tg->funcs->program_global_sync(
- 				pipe_ctx->stream_res.tg,
--				pipe_ctx->pipe_dlg_param.vready_offset,
-+				calculate_vready_offset_for_group(pipe_ctx),
- 				pipe_ctx->pipe_dlg_param.vstartup_start,
- 				pipe_ctx->pipe_dlg_param.vupdate_offset,
- 				pipe_ctx->pipe_dlg_param.vupdate_width);
-@@ -1875,7 +1900,7 @@ bool dcn20_update_bandwidth(
- 
- 			pipe_ctx->stream_res.tg->funcs->program_global_sync(
- 					pipe_ctx->stream_res.tg,
--					pipe_ctx->pipe_dlg_param.vready_offset,
-+					calculate_vready_offset_for_group(pipe_ctx),
- 					pipe_ctx->pipe_dlg_param.vstartup_start,
- 					pipe_ctx->pipe_dlg_param.vupdate_offset,
- 					pipe_ctx->pipe_dlg_param.vupdate_width);
++	kfree(pool);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
 -- 
 2.35.1
 
