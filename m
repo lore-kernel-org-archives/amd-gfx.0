@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 797AEC4332F
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:12:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3379FC3DA7B
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Dec 2022 16:13:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8E4B10E24B;
-	Sun, 18 Dec 2022 16:12:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DD3010E24E;
+	Sun, 18 Dec 2022 16:13:30 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BD5310E23D;
- Sun, 18 Dec 2022 16:11:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD72E10E24E;
+ Sun, 18 Dec 2022 16:13:27 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A135AB80B43;
- Sun, 18 Dec 2022 16:11:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548D1C433D2;
- Sun, 18 Dec 2022 16:11:54 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 58F31B80BA6;
+ Sun, 18 Dec 2022 16:13:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46B4BC433EF;
+ Sun, 18 Dec 2022 16:13:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671379916;
- bh=AmB2MwSLienkqebbxknN/fIW6Ra4Dau+j0MHNDTFaX4=;
+ s=k20201202; t=1671380005;
+ bh=d1v8U2axErALdvkTQ4tfoR54pNwtFOawkjZl0P7vDXk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=k2CFrU27E3R4DW5QN4WUrlUI3gtC0A4IXiDDPZCnwkQtFt4rYver+80KMJvuT95Qh
- KOZrMOcqpn3dhUaP72Gc07bAzjOS2n9gWxBoGOuDFa3ohu88PCRmBYEa685MIt+sW9
- jxbv3sZXRsoGNKuR6BzAb8Rc6gJ1unL2LYVRXMan2BP8kx5rhAKWYhUA37BBYbSFqI
- B11yVJShvj3O5j3zYvY2ZovPXSeiDfq35vlKeANThJhZvQHYEFgkyJ3F3iklyKfSta
- M4MdOc0c8G9T5T8pfIsn18oBFiSmjXPX2oZ6+ktzzfsqSnsoV4ZXL8UWAD2LhrPX04
- fNJzchRq+n3Kw==
+ b=aIXlyk+KVJB97UujxuvyQGcF+ybHEzfl0bOLJ2V63o2MUkZwwEs/huAVmAmoZeWrd
+ FOKGVduPNk4eGNqrs1n7/YQdh8BtUCqvGTvOtDurfPCRXn42AxOp67hGO0GY8u6n5e
+ ry5yFgHX2lInFXlVi1T5TCjmN2EPABLCNmtTYFE5tHU1zSWeRoYWjJ3kV18np2PcnV
+ v3wRsP53vFDR0zLfxnqjp3TxQt5oEA+erNlJiTBA9dmjfNPu0HABRwdi+elUGuRYP9
+ 3PjRywkLLUPhUv71DmEeUT+FMrgF2fjY/Q7V3Tw9hspatMwyalyS9rhEcqoyZL/d+C
+ sOg9RhU1qwkmQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 56/73] drm/amd/display: Fix DTBCLK disable
- requests and SRC_SEL programming
-Date: Sun, 18 Dec 2022 11:07:24 -0500
-Message-Id: <20221218160741.927862-56-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 09/46] Revert "drm/amd/display: Limit max DSC
+ target bpp for specific monitors"
+Date: Sun, 18 Dec 2022 11:12:07 -0500
+Message-Id: <20221218161244.930785-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221218160741.927862-1-sashal@kernel.org>
-References: <20221218160741.927862-1-sashal@kernel.org>
+In-Reply-To: <20221218161244.930785-1-sashal@kernel.org>
+References: <20221218161244.930785-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -54,73 +54,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, jiapeng.chong@linux.alibaba.com,
- Dillon Varone <Dillon.Varone@amd.com>, george.shen@amd.com, sunpeng.li@amd.com,
+Cc: Sasha Levin <sashal@kernel.org>, ian.chen@amd.com, sunpeng.li@amd.com,
  airlied@gmail.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, Syed.Hassan@amd.com, samson.tam@amd.com,
- aurabindo.pillai@amd.com, eric.bernstein@amd.com,
- Alvin Lee <Alvin.Lee2@amd.com>, daniel@ffwll.ch,
- Jasdeep Dhillon <jdhillon@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx@lists.freedesktop.org, harry.wentland@amd.com,
- christian.koenig@amd.com
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, Jerry.Zuo@amd.com,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, daniel@ffwll.ch, Wayne.Lin@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, christian.koenig@amd.com,
+ colin.i.king@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 
-[ Upstream commit f6015da7f2410109bd2ccd2e2828f26185aeb81d ]
+[ Upstream commit 6803dfd3a69ccb318772463a86e40929fd4fbac7 ]
 
-[Description]
-- When transitioning FRL / DP2 is not required, we will always request
-  DTBCLK = 0Mhz, but PMFW returns the min freq
-- This causes us to make DTBCLK requests every time we call optimize
-  after transitioning from FRL to non-FRL
-- If DTBCLK is not required, request the min instead (then we only need
-  to make 1 extra request at boot time)
-- Also when programming PIPE_DTO_SRC_SEL, don't programming for DP
-  first, just programming once for the required selection (programming
-  DP on an HDMI connection then switching back causes corruption)
+This reverts commit 55eea8ef98641f6e1e1c202bd3a49a57c1dd4059.
 
-Reviewed-by: Dillon Varone <Dillon.Varone@amd.com>
-Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+This quirk is now handled in the DRM core, so we can drop all of
+the internal code that was added to handle it.
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c    | 2 +-
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c           | 6 +-----
- 2 files changed, 2 insertions(+), 6 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 35 -------------------
+ 1 file changed, 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index e7f1d5f8166f..59a29c32f66a 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -436,7 +436,7 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
- 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index d793eec69d61..6fee12c91ef5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -40,39 +40,6 @@
  
- 	if (!new_clocks->dtbclk_en) {
--		new_clocks->ref_dtbclk_khz = 0;
-+		new_clocks->ref_dtbclk_khz = clk_mgr_base->bw_params->clk_table.entries[0].dtbclk_mhz * 1000;
- 	}
+ #include "dm_helpers.h"
  
- 	/* clock limits are received with MHz precision, divide by 1000 to prevent setting clocks at every call */
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c
-index 6dd8dadd68a5..6f160f65c8fa 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c
-@@ -225,11 +225,7 @@ void dccg32_set_dtbclk_dto(
- 	} else {
- 		REG_UPDATE_2(OTG_PIXEL_RATE_CNTL[params->otg_inst],
- 				DTBCLK_DTO_ENABLE[params->otg_inst], 0,
--				PIPE_DTO_SRC_SEL[params->otg_inst], 1);
--		if (params->is_hdmi)
--			REG_UPDATE(OTG_PIXEL_RATE_CNTL[params->otg_inst],
--				PIPE_DTO_SRC_SEL[params->otg_inst], 0);
+-struct monitor_patch_info {
+-	unsigned int manufacturer_id;
+-	unsigned int product_id;
+-	void (*patch_func)(struct dc_edid_caps *edid_caps, unsigned int param);
+-	unsigned int patch_param;
+-};
+-static void set_max_dsc_bpp_limit(struct dc_edid_caps *edid_caps, unsigned int param);
 -
-+				PIPE_DTO_SRC_SEL[params->otg_inst], params->is_hdmi ? 0 : 1);
- 		REG_WRITE(DTBCLK_DTO_MODULO[params->otg_inst], 0);
- 		REG_WRITE(DTBCLK_DTO_PHASE[params->otg_inst], 0);
- 	}
+-static const struct monitor_patch_info monitor_patch_table[] = {
+-{0x6D1E, 0x5BBF, set_max_dsc_bpp_limit, 15},
+-{0x6D1E, 0x5B9A, set_max_dsc_bpp_limit, 15},
+-};
+-
+-static void set_max_dsc_bpp_limit(struct dc_edid_caps *edid_caps, unsigned int param)
+-{
+-	if (edid_caps)
+-		edid_caps->panel_patch.max_dsc_target_bpp_limit = param;
+-}
+-
+-static int amdgpu_dm_patch_edid_caps(struct dc_edid_caps *edid_caps)
+-{
+-	int i, ret = 0;
+-
+-	for (i = 0; i < ARRAY_SIZE(monitor_patch_table); i++)
+-		if ((edid_caps->manufacturer_id == monitor_patch_table[i].manufacturer_id)
+-			&&  (edid_caps->product_id == monitor_patch_table[i].product_id)) {
+-			monitor_patch_table[i].patch_func(edid_caps, monitor_patch_table[i].patch_param);
+-			ret++;
+-		}
+-
+-	return ret;
+-}
+-
+ /* dm_helpers_parse_edid_caps
+  *
+  * Parse edid caps
+@@ -158,8 +125,6 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 	kfree(sads);
+ 	kfree(sadb);
+ 
+-	amdgpu_dm_patch_edid_caps(edid_caps);
+-
+ 	return result;
+ }
+ 
 -- 
 2.35.1
 
