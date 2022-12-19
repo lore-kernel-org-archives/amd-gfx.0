@@ -4,58 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 520E1C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:06:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCD4FC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:07:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8605E10E2CA;
-	Mon, 19 Dec 2022 16:05:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A5F210E2B7;
+	Mon, 19 Dec 2022 16:05:57 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD03210E2B0;
- Mon, 19 Dec 2022 16:05:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD93710E2B7;
+ Mon, 19 Dec 2022 16:05:49 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 38E023814A;
- Mon, 19 Dec 2022 16:05:21 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8296C38144;
+ Mon, 19 Dec 2022 16:05:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1671465921; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=RqquY0vRF4j2TZClbWT3UuEK0xCY+Dj3YMKH6n7ha14=;
- b=1oqZO6f7Z/UK84n1HDTBt6BQhym72ZyWuk2ESMExKZbV8MO0N7rtVzJ880pZ0h6s477vjm
- f9tqz07CfPWKgPKXZ9ychqFwzTUaKY2zhWShDBXxPZ836suqvL/KOpUsA00a2nmsiIu5Ql
- xeA4F2VVY2hIft7Hu7z5lm10b9phdhM=
+ t=1671465918; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Zi9DGAHO0BaQvyNUt7EaCCw0VNS9QAUwHpcrOeBGrvY=;
+ b=ij+rxhcqW3W6+MWS3kO8nMtHYN3oDHlgFX/aDSZKOujL11P5YyA5Yp7J4PX+Ti5tiGaxVx
+ xHeFpGDS6Y790wnabdtJDtShIYRUJWofvBsZb2l3zrBeJHBo1xpeMSqN/+iClmeP6Oep6Y
+ 0kAs05m6gO/Z7fZltjIngJrkka93pjc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1671465921;
+ s=susede2_ed25519; t=1671465918;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=RqquY0vRF4j2TZClbWT3UuEK0xCY+Dj3YMKH6n7ha14=;
- b=1ANZjnO6UjrMzIpnHT3KrA22LyztidJt0BlWk2ZQ5LJVf4lyUGmVU4NfBdvaaZnfa8RMRW
- 0zl4uWZWKK6zEKAA==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Zi9DGAHO0BaQvyNUt7EaCCw0VNS9QAUwHpcrOeBGrvY=;
+ b=0p4gfUQSsxWvjADe+QY4pLfQhm4JPPLDWnJRyBCavXTyEkQMup1ME/v44uJTj5reo8Uvsk
+ RFnYZJeqyymWAzCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 025F113910;
- Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 487F613910;
+ Mon, 19 Dec 2022 16:05:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id CCZGO8CLoGPeZwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:20 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id TWe9EL6LoGPeZwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:18 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch,
 	airlied@gmail.com,
 	deller@gmx.de,
 	javierm@redhat.com
-Subject: [PATCH 11/18] fbdev/efifb: Do not use struct fb_info.apertures
-Date: Mon, 19 Dec 2022 17:05:09 +0100
-Message-Id: <20221219160516.23436-12-tzimmermann@suse.de>
+Subject: [PATCH 00/18] drm,
+ fbdev: Remove apertures structure and FBINFO_MISC_FIRMWARE
+Date: Mon, 19 Dec 2022 17:04:58 +0100
+Message-Id: <20221219160516.23436-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20221219160516.23436-1-tzimmermann@suse.de>
-References: <20221219160516.23436-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,93 +71,83 @@ Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acquire ownership of the firmware scanout buffer by calling Linux'
-aperture helpers. Remove the use of struct fb_info.apertures and do
-not set FBINFO_MISC_FIRMWARE; both of which previously configured
-buffer ownership.
+Remove struct fb_info.apertures and FBINFO_MISC_FIRMWARE from fbdev
+and handle the aperture ownership without involving the fbdev core.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/video/fbdev/efifb.c | 24 ++++++++++++++----------
- 1 file changed, 14 insertions(+), 10 deletions(-)
+The apertures field in struct fb_info is a remnant from earlier
+ownership management for framebuffer apertures. When fbdev core code
+still handled ownership of the framebuffer among fbdev device drivers,
+generic drivers set the aperture ranges to claim the firmware scanout
+buffer for themselves.
 
-diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
-index 694013f62781..a5779fb453a2 100644
---- a/drivers/video/fbdev/efifb.c
-+++ b/drivers/video/fbdev/efifb.c
-@@ -7,6 +7,7 @@
-  *
-  */
- 
-+#include <linux/aperture.h>
- #include <linux/kernel.h>
- #include <linux/efi.h>
- #include <linux/efi-bgrt.h>
-@@ -51,6 +52,8 @@ static struct pci_dev *efifb_pci_dev;	/* dev with BAR covering the efifb */
- 
- struct efifb_par {
- 	u32 pseudo_palette[16];
-+	resource_size_t base;
-+	resource_size_t size;
- };
- 
- static struct fb_var_screeninfo efifb_defined = {
-@@ -253,6 +256,8 @@ static inline void efifb_show_boot_graphics(struct fb_info *info) {}
-  */
- static void efifb_destroy(struct fb_info *info)
- {
-+	struct efifb_par *par = info->par;
-+
- 	if (efifb_pci_dev)
- 		pm_runtime_put(&efifb_pci_dev->dev);
- 
-@@ -264,8 +269,7 @@ static void efifb_destroy(struct fb_info *info)
- 	}
- 
- 	if (request_mem_succeeded)
--		release_mem_region(info->apertures->ranges[0].base,
--				   info->apertures->ranges[0].size);
-+		release_mem_region(par->base, par->size);
- 	fb_dealloc_cmap(&info->cmap);
- 
- 	framebuffer_release(info);
-@@ -461,13 +465,8 @@ static int efifb_probe(struct platform_device *dev)
- 	par = info->par;
- 	info->pseudo_palette = par->pseudo_palette;
- 
--	info->apertures = alloc_apertures(1);
--	if (!info->apertures) {
--		err = -ENOMEM;
--		goto err_release_fb;
--	}
--	info->apertures->ranges[0].base = efifb_fix.smem_start;
--	info->apertures->ranges[0].size = size_remap;
-+	par->base = efifb_fix.smem_start;
-+	par->size = size_remap;
- 
- 	if (efi_enabled(EFI_MEMMAP) &&
- 	    !efi_mem_desc_lookup(efifb_fix.smem_start, &md)) {
-@@ -556,7 +555,7 @@ static int efifb_probe(struct platform_device *dev)
- 	info->fbops = &efifb_ops;
- 	info->var = efifb_defined;
- 	info->fix = efifb_fix;
--	info->flags = FBINFO_FLAG_DEFAULT | FBINFO_MISC_FIRMWARE;
-+	info->flags = FBINFO_FLAG_DEFAULT;
- 
- 	orientation = drm_get_panel_orientation_quirk(efifb_defined.xres,
- 						      efifb_defined.yres);
-@@ -589,6 +588,11 @@ static int efifb_probe(struct platform_device *dev)
- 	if (efifb_pci_dev)
- 		WARN_ON(pm_runtime_get_sync(&efifb_pci_dev->dev) < 0);
- 
-+	err = devm_aperture_acquire_for_platform_device(dev, par->base, par->size);
-+	if (err) {
-+		pr_err("efifb: cannot acquire aperture\n");
-+		goto err_put_rpm_ref;
-+	}
- 	err = register_framebuffer(info);
- 	if (err < 0) {
- 		pr_err("efifb: cannot register framebuffer\n");
+Now that we have a module with helpers that manage aperture and
+framebuffer ownership among drivers, the aperture field is not needed
+any longer. In fact, several drivers set this field, even though they
+are not generic fbdev drivers. Only drivers that set FBINFO_MISC_FIRMWARE
+can use apertures in a meaningful way.
+
+To remove FBINFO_MISC_FIRMWARE, patches 1 and 2 remove it from fbcon. It
+was used to work around issues with font loading. That is now all handled
+in userspace.
+
+Patches 3 to 9 remove aperture setup from all non-generic drivers. These
+drivers are not for firmware graphics and do not have to set the values.
+For DRM, we do not need to allocate the apertures field any longer.
+
+Patches 10 to 17 update all generic fbdev drivers to manage aperture
+ownership by themselves by called Linux aperture helpers. The setup of
+the apertures field and setting FBINFO_MISC_FIRMWARE is being removed as
+a result of that.
+
+With all of its users gone, patch 18 removes FBINFO_MISC_FIRMWARE, struct
+fb_info.apertures and the fbdev core's aperture code.
+
+Tested with handover combinations of efifb, simpledrm and radeon.
+
+Thomas Zimmermann (18):
+  fbcon: Remove trailing whitespaces
+  Revert "fbcon: don't lose the console font across generic->chip driver
+    switch"
+  drm/gma500: Do not set struct fb_info.apertures
+  drm/i915: Do not set struct fb_info.apertures
+  drm/radeon: Do not set struct fb_info.apertures
+  drm/fb-helper: Do not allocate unused apertures structure
+  fbdev/clps711x-fb: Do not set struct fb_info.apertures
+  fbdev/hyperv-fb: Do not set struct fb_info.apertures
+  vfio-mdev/mdpy-fb: Do not set struct fb_info.apertures
+  fbdev/efifb: Add struct efifb_par for driver data
+  fbdev/efifb: Do not use struct fb_info.apertures
+  fbdev/offb: Allocate struct offb_par with framebuffer_alloc()
+  fbdev/offb: Do not use struct fb_info.apertures
+  fbdev/simplefb: Do not use struct fb_info.apertures
+  fbdev/vesafb: Remove trailing whitespaces
+  fbdev/vesafb: Do not use struct fb_info.apertures
+  fbdev/vga16fb: Do not use struct fb_info.apertures
+  drm/fbdev: Remove aperture handling and FBINFO_MISC_FIRMWARE
+
+ drivers/gpu/drm/drm_fb_helper.c            | 20 ++---------
+ drivers/gpu/drm/gma500/framebuffer.c       |  5 ---
+ drivers/gpu/drm/i915/display/intel_fbdev.c |  7 ----
+ drivers/gpu/drm/radeon/radeon_fb.c         |  4 ---
+ drivers/video/fbdev/clps711x-fb.c          | 10 +-----
+ drivers/video/fbdev/core/fbcon.c           | 41 ++++++++++------------
+ drivers/video/fbdev/core/fbmem.c           | 33 -----------------
+ drivers/video/fbdev/core/fbsysfs.c         |  1 -
+ drivers/video/fbdev/efifb.c                | 35 +++++++++++-------
+ drivers/video/fbdev/hyperv_fb.c            | 17 ++++-----
+ drivers/video/fbdev/offb.c                 | 33 +++++++++--------
+ drivers/video/fbdev/simplefb.c             | 19 +++++-----
+ drivers/video/fbdev/vesafb.c               | 37 ++++++++++---------
+ drivers/video/fbdev/vga16fb.c              | 15 +++-----
+ include/linux/fb.h                         | 22 ------------
+ samples/vfio-mdev/mdpy-fb.c                |  8 -----
+ 16 files changed, 99 insertions(+), 208 deletions(-)
+
+
+base-commit: d322881f7e33af24901ee8ccaec3beef82f21203
+prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: 3f204510fcbf9530d6540bd8e6128cce598988b6
 -- 
 2.39.0
 
