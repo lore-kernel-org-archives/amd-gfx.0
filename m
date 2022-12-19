@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33A1BC10F1B
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:07:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98C3DC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:07:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C1E110E2D1;
-	Mon, 19 Dec 2022 16:06:04 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DBA410E2C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5442410E2D3;
+	Mon, 19 Dec 2022 16:06:05 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B89C10E2B7;
  Mon, 19 Dec 2022 16:05:52 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 27ADF6106E;
- Mon, 19 Dec 2022 16:05:22 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id F2E2738149;
+ Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1671465922; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1671465921; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Hk5EKSUL389KsnsC/G3K1wHJayEh/SOXo4ItcALV1Ag=;
- b=QmXXYlFXdG0dSdHbUVlQ1pBn85w1xRlIeCKDPeIEgqjXvs9YOQpLfBrcpQai8KNTcUgWWE
- PhIZo4ftOUK/WV/kScRCmMUM/wzhlqRxZSS0oh9/O6QLc4EoED4y2IwV5NvvdrWTzneA+p
- zWJeSck1MA+ahx+UzXdP+LnA8VopBMg=
+ bh=obTd6Vm1en8QYigHEu9RhDcL5tb/CmpPkDgnKAoQ5jE=;
+ b=b4K4FAar1WgYMZX5pfZnzCVcF80GxF/BuZdANPvIPGZthi5DRao3/arOXSSrCzmw+/YfIu
+ DkFh6mfpuAErsioiYMFs06ZKz2+V2DVmkQA/tHWYwslk5m/ZgqIWKw4b6LELWED4hBlVJq
+ 1O/aqwBiAkBpVH844qCWXsHTJU1MG4w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1671465922;
+ s=susede2_ed25519; t=1671465921;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Hk5EKSUL389KsnsC/G3K1wHJayEh/SOXo4ItcALV1Ag=;
- b=mqL6Vjk4YynhjeMTYPsc0SkyQ4Rtk3Ol/IUTDWJgY23ZYs3AxewUZ0B4rQn6Omkf8Dyedl
- Ch6EJrXpKWzqEsBQ==
+ bh=obTd6Vm1en8QYigHEu9RhDcL5tb/CmpPkDgnKAoQ5jE=;
+ b=472H4JvHPod2/eeTkuU93yA7QE5pwbZ5rhmYSoL7HgEUeRiKO1eB//pWB5b5OYjMvvrDAE
+ xRpEqrP5VJVl4uAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E89FB13911;
- Mon, 19 Dec 2022 16:05:21 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B7D6213911;
+ Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MDD0N8GLoGPeZwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:21 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id SMr4K8CLoGPeZwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:20 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch,
 	airlied@gmail.com,
 	deller@gmx.de,
 	javierm@redhat.com
-Subject: [PATCH 15/18] fbdev/vesafb: Remove trailing whitespaces
-Date: Mon, 19 Dec 2022 17:05:13 +0100
-Message-Id: <20221219160516.23436-16-tzimmermann@suse.de>
+Subject: [PATCH 10/18] fbdev/efifb: Add struct efifb_par for driver data
+Date: Mon, 19 Dec 2022 17:05:08 +0100
+Message-Id: <20221219160516.23436-11-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20221219160516.23436-1-tzimmermann@suse.de>
 References: <20221219160516.23436-1-tzimmermann@suse.de>
@@ -76,52 +76,55 @@ Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix coding style. No functional changes.
+The efifb_par structure holds the palette for efifb. It will also
+be useful for storing the device's aperture range.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/video/fbdev/vesafb.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/video/fbdev/efifb.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/video/fbdev/vesafb.c b/drivers/video/fbdev/vesafb.c
-index 929d4775cb4b..47ce244e4bb8 100644
---- a/drivers/video/fbdev/vesafb.c
-+++ b/drivers/video/fbdev/vesafb.c
-@@ -140,7 +140,7 @@ static int vesafb_setcolreg(unsigned regno, unsigned red, unsigned green,
- 	 *  (according to the entries in the `var' structure). Return
- 	 *  != 0 for invalid regno.
- 	 */
--	
-+
- 	if (regno >= info->cmap.len)
- 		return 1;
+diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
+index 16c1aaae9afa..694013f62781 100644
+--- a/drivers/video/fbdev/efifb.c
++++ b/drivers/video/fbdev/efifb.c
+@@ -49,6 +49,10 @@ static u64 mem_flags = EFI_MEMORY_WC | EFI_MEMORY_UC;
  
-@@ -209,13 +209,13 @@ static struct fb_ops vesafb_ops = {
- static int vesafb_setup(char *options)
+ static struct pci_dev *efifb_pci_dev;	/* dev with BAR covering the efifb */
+ 
++struct efifb_par {
++	u32 pseudo_palette[16];
++};
++
+ static struct fb_var_screeninfo efifb_defined = {
+ 	.activate		= FB_ACTIVATE_NOW,
+ 	.height			= -1,
+@@ -351,6 +355,7 @@ static u64 bar_offset;
+ static int efifb_probe(struct platform_device *dev)
  {
- 	char *this_opt;
--	
-+
- 	if (!options || !*options)
- 		return 0;
--	
-+
- 	while ((this_opt = strsep(&options, ",")) != NULL) {
- 		if (!*this_opt) continue;
--		
-+
- 		if (! strcmp(this_opt, "inverse"))
- 			inverse=1;
- 		else if (! strcmp(this_opt, "redraw"))
-@@ -381,7 +381,7 @@ static int vesafb_probe(struct platform_device *dev)
- 	vesafb_defined.pixclock     = 10000000 / vesafb_defined.xres * 1000 / vesafb_defined.yres;
- 	vesafb_defined.left_margin  = (vesafb_defined.xres / 8) & 0xf8;
- 	vesafb_defined.hsync_len    = (vesafb_defined.xres / 8) & 0xf8;
--	
-+
- 	vesafb_defined.red.offset    = screen_info.red_pos;
- 	vesafb_defined.red.length    = screen_info.red_size;
- 	vesafb_defined.green.offset  = screen_info.green_pos;
+ 	struct fb_info *info;
++	struct efifb_par *par;
+ 	int err, orientation;
+ 	unsigned int size_vmode;
+ 	unsigned int size_remap;
+@@ -447,14 +452,14 @@ static int efifb_probe(struct platform_device *dev)
+ 			efifb_fix.smem_start);
+ 	}
+ 
+-	info = framebuffer_alloc(sizeof(u32) * 16, &dev->dev);
++	info = framebuffer_alloc(sizeof(*par), &dev->dev);
+ 	if (!info) {
+ 		err = -ENOMEM;
+ 		goto err_release_mem;
+ 	}
+ 	platform_set_drvdata(dev, info);
+-	info->pseudo_palette = info->par;
+-	info->par = NULL;
++	par = info->par;
++	info->pseudo_palette = par->pseudo_palette;
+ 
+ 	info->apertures = alloc_apertures(1);
+ 	if (!info->apertures) {
 -- 
 2.39.0
 
