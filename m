@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0AEAC4167B
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:08:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07F10C10F1B
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFFD610E2D2;
-	Mon, 19 Dec 2022 16:06:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E56DF10E2CD;
+	Mon, 19 Dec 2022 16:06:09 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C760A10E2C6;
- Mon, 19 Dec 2022 16:05:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97FCF10E2B8;
+ Mon, 19 Dec 2022 16:05:51 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 74E9F6106C;
- Mon, 19 Dec 2022 16:05:21 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3D0B261069;
+ Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1671465921; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1671465920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kaoy/wsHmACEkNUPQDwCodxxk7bv39KwEjjtHvnuLPY=;
- b=zwnnLeVgu/s3egNObkVdpEXh77/XY3MobzVV5GJI1gttTfIxX9W8Q+m9TprcXlLjjw5+zk
- eYu4mOF+QvFS83FmGpyu69FfHB3eEEm8yYax1itCD+SjBRqew7QTnHV/9t85tFIVD0Q/VT
- APbe3gfOruEA6qOqZIn72uYlYQfIdv8=
+ bh=kw4PCYbRKyTYm5bvhnSq7yK73tS8WkU4oVIsN0XjlAs=;
+ b=XRpD+7A47u27mhj9WIia4vQucs01xOEb7OZFcFYLFJ9+KLVhlOUuXr1Tg2PJLCXczohGR+
+ zXm+8yvSYixyCtX51jHwKURm8vZOio5HfRT8cd8lM4HAXFVRMwX432qVslkrgFWhOT4EjB
+ e0KX4gzDcSdrUCrWk0AE8wedxLHnZhU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1671465921;
+ s=susede2_ed25519; t=1671465920;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kaoy/wsHmACEkNUPQDwCodxxk7bv39KwEjjtHvnuLPY=;
- b=kus+BY2vnPzmJQDjGCUVRzdQvBFM+NEu81vfD1mSWOqYl5qrrmEPyKieCOyRumTRUCMg+9
- UvJt4LdI4sHWxXDQ==
+ bh=kw4PCYbRKyTYm5bvhnSq7yK73tS8WkU4oVIsN0XjlAs=;
+ b=WN4Coft+2mZbZl0Hz4sAfWdk5nLpNgDT4S3LPKv+Xj+Mt38OALgt+G6TR+6aArpZSLuOtJ
+ dsT5xh7OZtEC8UDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3DD7913910;
- Mon, 19 Dec 2022 16:05:21 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0624A13910;
+ Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id SH0nDsGLoGPeZwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:21 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id kH15AMCLoGPeZwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:20 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch,
 	airlied@gmail.com,
 	deller@gmx.de,
 	javierm@redhat.com
-Subject: [PATCH 12/18] fbdev/offb: Allocate struct offb_par with
- framebuffer_alloc()
-Date: Mon, 19 Dec 2022 17:05:10 +0100
-Message-Id: <20221219160516.23436-13-tzimmermann@suse.de>
+Subject: [PATCH 07/18] fbdev/clps711x-fb: Do not set struct fb_info.apertures
+Date: Mon, 19 Dec 2022 17:05:05 +0100
+Message-Id: <20221219160516.23436-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20221219160516.23436-1-tzimmermann@suse.de>
 References: <20221219160516.23436-1-tzimmermann@suse.de>
@@ -77,72 +76,45 @@ Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move the palette array into struct offb_par and allocate both via
-framebuffer_alloc(), as intended by fbdev. No functional changes.
+Generic fbdev drivers use the apertures field in struct fb_info to
+control ownership of the framebuffer memory and graphics device. Do
+not set the values in clps711x-fb.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/video/fbdev/offb.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ drivers/video/fbdev/clps711x-fb.c | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
-diff --git a/drivers/video/fbdev/offb.c b/drivers/video/fbdev/offb.c
-index 91001990e351..a298adcee2d9 100644
---- a/drivers/video/fbdev/offb.c
-+++ b/drivers/video/fbdev/offb.c
-@@ -53,10 +53,9 @@ struct offb_par {
- 	volatile void __iomem *cmap_data;
- 	int cmap_type;
- 	int blanked;
-+	u32 pseudo_palette[16];
- };
- 
--struct offb_par default_par;
--
- #ifdef CONFIG_PPC32
- extern boot_infos_t *boot_infos;
- #endif
-@@ -393,11 +392,11 @@ static void offb_init_fb(struct platform_device *parent, const char *name,
- 			 int foreign_endian, struct device_node *dp)
- {
- 	unsigned long res_size = pitch * height;
--	struct offb_par *par = &default_par;
- 	unsigned long res_start = address;
- 	struct fb_fix_screeninfo *fix;
- 	struct fb_var_screeninfo *var;
- 	struct fb_info *info;
-+	struct offb_par *par;
- 
- 	if (!request_mem_region(res_start, res_size, "offb"))
- 		return;
-@@ -411,17 +410,15 @@ static void offb_init_fb(struct platform_device *parent, const char *name,
- 		return;
+diff --git a/drivers/video/fbdev/clps711x-fb.c b/drivers/video/fbdev/clps711x-fb.c
+index a1061c2f1640..45c75ff01eca 100644
+--- a/drivers/video/fbdev/clps711x-fb.c
++++ b/drivers/video/fbdev/clps711x-fb.c
+@@ -251,16 +251,8 @@ static int clps711x_fb_probe(struct platform_device *pdev)
+ 		goto out_fb_release;
  	}
  
--	info = framebuffer_alloc(sizeof(u32) * 16, &parent->dev);
+-	info->apertures = alloc_apertures(1);
+-	if (!info->apertures) {
+-		ret = -ENOMEM;
+-		goto out_fb_release;
+-	}
 -
-+	info = framebuffer_alloc(sizeof(*par), &parent->dev);
- 	if (!info) {
- 		release_mem_region(res_start, res_size);
- 		return;
- 	}
- 	platform_set_drvdata(parent, info);
--
-+	par = info->par;
- 	fix = &info->fix;
- 	var = &info->var;
--	info->par = par;
+ 	cfb->buffsize = resource_size(res);
+ 	info->fix.smem_start = res->start;
+-	info->apertures->ranges[0].base = info->fix.smem_start;
+-	info->apertures->ranges[0].size = cfb->buffsize;
  
- 	if (name) {
- 		strcpy(fix->id, "OFfb ");
-@@ -515,7 +512,7 @@ static void offb_init_fb(struct platform_device *parent, const char *name,
+ 	cfb->clk = devm_clk_get(dev, NULL);
+ 	if (IS_ERR(cfb->clk)) {
+@@ -345,7 +337,7 @@ static int clps711x_fb_probe(struct platform_device *pdev)
+ 				       &clps711x_lcd_ops);
+ 	if (!IS_ERR(lcd))
+ 		return 0;
+-	
++
+ 	ret = PTR_ERR(lcd);
+ 	unregister_framebuffer(info);
  
- 	info->fbops = &offb_ops;
- 	info->screen_base = ioremap(address, fix->smem_len);
--	info->pseudo_palette = (void *) (info + 1);
-+	info->pseudo_palette = par->pseudo_palette;
- 	info->flags = FBINFO_DEFAULT | FBINFO_MISC_FIRMWARE | foreign_endian;
- 
- 	fb_alloc_cmap(&info->cmap, 256, 0);
 -- 
 2.39.0
 
