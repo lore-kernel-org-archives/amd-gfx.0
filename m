@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D85DC4167B
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:07:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 660B2C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:07:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0779110E2C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB23310E2CB;
 	Mon, 19 Dec 2022 16:05:58 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A14610E2B7;
- Mon, 19 Dec 2022 16:05:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2033B10E2B8;
+ Mon, 19 Dec 2022 16:05:50 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0149F61068;
- Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BFC7C60F21;
+ Mon, 19 Dec 2022 16:05:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1671465920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1671465918; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=MkPYodRrthK0KDBelPZoq1tuzpwIojBeCxchBxVgzPA=;
- b=ro9yZlUCx8QuAlERVeZyPJN9g9OhhaxO5d7ESIL3UsPNdGw0kCGUMtPWMIquXrs5/Zq79Y
- snMbSHLsZdDUKR3/Yw5wwcbpWOxxWa4CtqtesA/JV3XokIgEgYifcVD3rqy8eVC7PnKaNx
- hvtF/0cl83XF+s6EmjoBs7VoRyTwGpo=
+ bh=0aR/7zFFg6opL9Sswet7ilYlrwEicNIovKojH/nmoWY=;
+ b=bGEDJKn4Nwf6TsCbG2/dCdacpEPM1FAG+frz2BSnI0hzyfybAerHTKemiCgf9kfdtlZIM1
+ rnX4VyKXFRrqi33on7Ci/RbaKdebTLAtjrIpsf0bAXKZwNS18VSKcLo3XcqpwumY/sESoY
+ ETmo/ogos0cAGYArM4ar9DBb0ic8N8I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1671465920;
+ s=susede2_ed25519; t=1671465918;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=MkPYodRrthK0KDBelPZoq1tuzpwIojBeCxchBxVgzPA=;
- b=vUSQsDsmtdQiPYQA2ZMfMetE64EB+Un8y/dDtLEtxzGoK5WR+iCn+CoewFEIt08C57Q47e
- HHuEGJuPHO/LWTDg==
+ bh=0aR/7zFFg6opL9Sswet7ilYlrwEicNIovKojH/nmoWY=;
+ b=hLadcWTjfhJunbRRm9pANWRI7ofUt7yf9j+g+bFlaED6UhkD3EaREXKJiv1PajaAbRL4ac
+ Y6/HVNbxpcwj+OBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BEA2713910;
- Mon, 19 Dec 2022 16:05:19 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 87D8F13911;
+ Mon, 19 Dec 2022 16:05:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UCusLb+LoGPeZwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:19 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id qGT7H76LoGPeZwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:18 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch,
 	airlied@gmail.com,
 	deller@gmx.de,
 	javierm@redhat.com
-Subject: [PATCH 06/18] drm/fb-helper: Do not allocate unused apertures
- structure
-Date: Mon, 19 Dec 2022 17:05:04 +0100
-Message-Id: <20221219160516.23436-7-tzimmermann@suse.de>
+Subject: [PATCH 01/18] fbcon: Remove trailing whitespaces
+Date: Mon, 19 Dec 2022 17:04:59 +0100
+Message-Id: <20221219160516.23436-2-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20221219160516.23436-1-tzimmermann@suse.de>
 References: <20221219160516.23436-1-tzimmermann@suse.de>
@@ -77,57 +76,120 @@ Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The apertures field in struct fb_info is not used by DRM drivers. Do
-not allocate it.
+Fix coding style. No functional changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/drm_fb_helper.c | 20 ++------------------
- 1 file changed, 2 insertions(+), 18 deletions(-)
+ drivers/video/fbdev/core/fbcon.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index b3a731b9170a..e8a7e8be91d9 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -473,8 +473,8 @@ EXPORT_SYMBOL(drm_fb_helper_init);
-  * drm_fb_helper_alloc_info - allocate fb_info and some of its members
-  * @fb_helper: driver-allocated fbdev helper
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index c0143d38df83..500b26d652f6 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -26,7 +26,7 @@
   *
-- * A helper to alloc fb_info and the members cmap and apertures. Called
-- * by the driver within the fb_probe fb_helper callback function. Drivers do not
-+ * A helper to alloc fb_info and the member cmap. Called by the driver
-+ * within the fb_probe fb_helper callback function. Drivers do not
-  * need to release the allocated fb_info structure themselves, this is
-  * automatically done when calling drm_fb_helper_fini().
+  *  Hardware cursor support added by Emmanuel Marty (core@ggi-project.org)
+  *  Smart redraw scrolling, arbitrary font width support, 512char font support
+- *  and software scrollback added by 
++ *  and software scrollback added by
+  *                         Jakub Jelinek (jj@ultra.linux.cz)
   *
-@@ -496,27 +496,11 @@ struct fb_info *drm_fb_helper_alloc_info(struct drm_fb_helper *fb_helper)
- 	if (ret)
- 		goto err_release;
+  *  Random hacking by Martin Mares <mj@ucw.cz>
+@@ -127,7 +127,7 @@ static int logo_shown = FBCON_LOGO_CANSHOW;
+ /* console mappings */
+ static unsigned int first_fb_vc;
+ static unsigned int last_fb_vc = MAX_NR_CONSOLES - 1;
+-static int fbcon_is_default = 1; 
++static int fbcon_is_default = 1;
+ static int primary_device = -1;
+ static int fbcon_has_console_bind;
  
--	/*
--	 * TODO: We really should be smarter here and alloc an aperture
--	 * for each IORESOURCE_MEM resource helper->dev->dev has and also
--	 * init the ranges of the appertures based on the resources.
--	 * Note some drivers currently count on there being only 1 empty
--	 * aperture and fill this themselves, these will need to be dealt
--	 * with somehow when fixing this.
--	 */
--	info->apertures = alloc_apertures(1);
--	if (!info->apertures) {
--		ret = -ENOMEM;
--		goto err_free_cmap;
--	}
--
- 	fb_helper->info = info;
- 	info->skip_vt_switch = true;
+@@ -415,12 +415,12 @@ static int __init fb_console_setup(char *this_opt)
+ 			strscpy(fontname, options + 5, sizeof(fontname));
+ 			continue;
+ 		}
+-		
++
+ 		if (!strncmp(options, "scrollback:", 11)) {
+ 			pr_warn("Ignoring scrollback size option\n");
+ 			continue;
+ 		}
+-		
++
+ 		if (!strncmp(options, "map:", 4)) {
+ 			options += 4;
+ 			if (*options) {
+@@ -446,7 +446,7 @@ static int __init fb_console_setup(char *this_opt)
+ 				last_fb_vc = simple_strtoul(options, &options, 10) - 1;
+ 			if (last_fb_vc < first_fb_vc || last_fb_vc >= MAX_NR_CONSOLES)
+ 				last_fb_vc = MAX_NR_CONSOLES - 1;
+-			fbcon_is_default = 0; 
++			fbcon_is_default = 0;
+ 			continue;
+ 		}
  
- 	return info;
+@@ -940,7 +940,7 @@ static const char *fbcon_startup(void)
+ 	info = fbcon_registered_fb[info_idx];
+ 	if (!info)
+ 		return NULL;
+-	
++
+ 	if (fbcon_open(info))
+ 		return NULL;
  
--err_free_cmap:
--	fb_dealloc_cmap(&info->cmap);
- err_release:
- 	framebuffer_release(info);
- 	return ERR_PTR(ret);
+@@ -1999,7 +1999,7 @@ static void updatescrollmode(struct fbcon_display *p,
+ #define PITCH(w) (((w) + 7) >> 3)
+ #define CALC_FONTSZ(h, p, c) ((h) * (p) * (c)) /* size = height * pitch * charcount */
+ 
+-static int fbcon_resize(struct vc_data *vc, unsigned int width, 
++static int fbcon_resize(struct vc_data *vc, unsigned int width,
+ 			unsigned int height, unsigned int user)
+ {
+ 	struct fb_info *info = fbcon_info_from_console(vc->vc_num);
+@@ -2174,7 +2174,7 @@ static int fbcon_switch(struct vc_data *vc)
+ 	    ops->update_start(info);
+ 	}
+ 
+-	fbcon_set_palette(vc, color_table); 	
++	fbcon_set_palette(vc, color_table);
+ 	fbcon_clear_margins(vc, 0);
+ 
+ 	if (logo_shown == FBCON_LOGO_DRAW) {
+@@ -2343,7 +2343,7 @@ static void set_vc_hi_font(struct vc_data *vc, bool set)
+ 			vc->vc_complement_mask >>= 1;
+ 			vc->vc_s_complement_mask >>= 1;
+ 		}
+-			
++
+ 		/* ++Edmund: reorder the attribute bits */
+ 		if (vc->vc_can_do_color) {
+ 			unsigned short *cp =
+@@ -2366,7 +2366,7 @@ static void set_vc_hi_font(struct vc_data *vc, bool set)
+ 			vc->vc_complement_mask <<= 1;
+ 			vc->vc_s_complement_mask <<= 1;
+ 		}
+-			
++
+ 		/* ++Edmund: reorder the attribute bits */
+ 		{
+ 			unsigned short *cp =
+@@ -2527,7 +2527,7 @@ static int fbcon_set_font(struct vc_data *vc, struct console_font *font,
+ 	/* Check if the same font is on some other console already */
+ 	for (i = first_fb_vc; i <= last_fb_vc; i++) {
+ 		struct vc_data *tmp = vc_cons[i].d;
+-		
++
+ 		if (fb_display[i].userfont &&
+ 		    fb_display[i].fontdata &&
+ 		    FNTSUM(fb_display[i].fontdata) == csum &&
+@@ -3435,5 +3435,5 @@ void __exit fb_console_exit(void)
+ 
+ 	do_unregister_con_driver(&fb_con);
+ 	console_unlock();
+-}	
++}
+ #endif
 -- 
 2.39.0
 
