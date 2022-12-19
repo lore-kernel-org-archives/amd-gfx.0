@@ -4,64 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE691C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 08:38:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D9A5C10F1B
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 08:49:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DB8E10E202;
-	Mon, 19 Dec 2022 08:37:51 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F06B410E209;
- Mon, 19 Dec 2022 08:37:43 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id h11so7801592wrw.13;
- Mon, 19 Dec 2022 00:37:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=d4PUWpDCc5OCB6Ld0BBIMnycdruf1PmlxbuZjGzJaNI=;
- b=jEjbWPy3wl7ITLr6+vKM2O1zBwRTG+Cfcc/X5DlmiSBitzlS/LzwgnImKPhv/5D6ED
- BH/znKkATw3mwgY8kioKuh6GmSRHT0rXCP0dFs+Kg5rAPJT/rRpuB/TZk4rmltnpADqO
- nitrydB3ZiDPtrY1g7PuvJG10i2LmF1ZeS+cek8jn32aayFBGJ0SIyeTmSWLMlx7kvOy
- l+gL6LB3sqdo39ElbKft1MMy9yqN9wZLrgPeu2s5qsNemG+M+hA2A3Eb96jVfB4G8Vn3
- pC1KfVRrp82KsdyUXz3L7Z8LrGyIbVtsjjDJoF3rL2hZfVNfDkbU7SwliRRAfPitUU7Q
- R8VA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 488D810E20E;
+	Mon, 19 Dec 2022 08:49:38 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 263D210E1F9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Dec 2022 08:49:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1671439766;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=3IktmGi/GH9m87qz738gkFkEcXhvUHauf4KIOhOQpfo=;
+ b=fIbrYh59zgsbCBtm8OeWulT+FZOT4giMOdyKg6hktkHbd1KyKekULc5v/EPdvJniurbERi
+ uOzqoGWZSDYBxdmBvAiHbg84cACMKWD/Jvfse8jU+lN/I03mdv84y9MfWZLsKrqkZpX6dq
+ Z8Fe7pXKt5g7pcH26XTuRrhIn1A5ODY=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-150-k3jRqu0yMM2ON0bKgBZEFQ-1; Mon, 19 Dec 2022 03:49:24 -0500
+X-MC-Unique: k3jRqu0yMM2ON0bKgBZEFQ-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ bi19-20020a05600c3d9300b003cf9d6c4016so6331513wmb.8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Dec 2022 00:49:24 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=d4PUWpDCc5OCB6Ld0BBIMnycdruf1PmlxbuZjGzJaNI=;
- b=zEFUT6+IG2MuIH2Ag8eGM0T5RBxiMZ84reMda86TNHLKzU6+VoPZQHkYxyDBKxx/Kd
- GQ3KbDuW6sLfI4Ni53BsnxBKjL711QuKTne1If0wpaRCZjEzhnhIpebwB52mnqYKPYnN
- OBpy+lVxTSstMIlH4YT2hkjXJsVNMsKQ7NxgPfXdtAyDNmdmxLd1TiAUCpnRfC0df7l+
- 8Ukp/GE5/RNlpC8DaLTVLEWsvATc/eOYE0gxU6T6lgcVchIpLc5vJCi4R4DKHi55w8C4
- 4cT8f2ZWqb73bj0KtraVYVx6ADg3m9Tsp56pGFBHPoEVV2cnHguCCCMSYnzrbBEn8gG3
- 1hVA==
-X-Gm-Message-State: ANoB5pmDLV/zGPiWDmPZOQJGC9TwpuBkQWlKW0cgko0pRWDkF21qw2gv
- htu1NZfxp1MICVRc9prQ6CM=
-X-Google-Smtp-Source: AA0mqf4wyPidEccC0M5VF4p936r5kX1uhUcQHMLls8ZiooP3dZ4udmDJHm0BIgHEVPnEnYWqyGCr9Q==
-X-Received: by 2002:a5d:6091:0:b0:242:2088:1546 with SMTP id
- w17-20020a5d6091000000b0024220881546mr32222857wrt.61.1671439062329; 
- Mon, 19 Dec 2022 00:37:42 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:83d7:3937:b31e:d44c?
- ([2a02:908:1256:79a0:83d7:3937:b31e:d44c])
- by smtp.gmail.com with ESMTPSA id
- d7-20020a5d5387000000b00241e4bff85asm9285780wrv.100.2022.12.19.00.37.41
+ bh=3IktmGi/GH9m87qz738gkFkEcXhvUHauf4KIOhOQpfo=;
+ b=jRcGuUbT5SL934Nh9eb5iQATE65B5xwHIXHPpBFQO49QLO4rTYgsAOYHodrVlXonQa
+ zetBQlmVSNAltGVg3FXxABQkCW+cqI9ewpuWdArExCacgELQSyc+SokeuA6CoYBw+Ki5
+ 9XIbp3IWsi5N6SHFdGAD+nkfb4OlDyZikpSP7CJ1LJCQoUE73hp0WMwaUKCHITjnDHxu
+ AGZgZ3UJePhHDFiBFSpWUIixAQsQaZz3Nua/qL5WQMwgytcl3uTyNw77KPykiVVN4YYn
+ aZ7GRhCTST+kFY5C6M2H+PKnATHqI+rJTymA2n39m8Sv4I9Ddj9Zu40W+bDf/RO5Fyy9
+ /8lQ==
+X-Gm-Message-State: ANoB5pnMpht2PkvA4OgPrIXXeViTLLa+v+By5LhO/pbei6g5b5vL4U7c
+ gPjBtpBfov+Ut65+qPHJ5CllicTKtu5qbrsSuCgAL/XTw6MvICOBj5VLraLmD7oqxh1HLbGh+ox
+ rpmfbaTkcv8dBqH6MwFp+yHWdSw==
+X-Received: by 2002:a1c:6a01:0:b0:3cf:d365:1e86 with SMTP id
+ f1-20020a1c6a01000000b003cfd3651e86mr42747699wmc.31.1671439763823; 
+ Mon, 19 Dec 2022 00:49:23 -0800 (PST)
+X-Google-Smtp-Source: AA0mqf5mBzP19fZOdLBEJmJRVSsZifpUbMwbq1/5C+qMXTEcf81BL0BpsCtpT5x/OuE2fmd/lVCHFg==
+X-Received: by 2002:a1c:6a01:0:b0:3cf:d365:1e86 with SMTP id
+ f1-20020a1c6a01000000b003cfd3651e86mr42747667wmc.31.1671439763587; 
+ Mon, 19 Dec 2022 00:49:23 -0800 (PST)
+Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ n15-20020a1c720f000000b003cf4ec90938sm11399798wmc.21.2022.12.19.00.49.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Dec 2022 00:37:41 -0800 (PST)
-Message-ID: <9e886927-df5a-e264-8d8d-c83045bac732@gmail.com>
-Date: Mon, 19 Dec 2022 09:37:44 +0100
+ Mon, 19 Dec 2022 00:49:23 -0800 (PST)
+Message-ID: <c1f358fc-5784-b3b2-2d9e-bc896b8036ff@redhat.com>
+Date: Mon, 19 Dec 2022 09:49:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH v6] drm: Optimise for continuous memory allocation
+ Thunderbird/102.5.0
+Subject: Re: [PATCH v3] drm: Only select I2C_ALGOBIT for drivers that actually
+ need it
+To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Dave Airlie <airlied@redhat.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
+ John Stultz <jstultz@google.com>, Xinwei Kong
+ <kong.kongxinwei@hisilicon.com>, Chen Feng <puck.chen@hisilicon.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Karol Herbst <kherbst@redhat.com>,
+ Lyude Paul <lyude@redhat.com>
+References: <20221219083627.1401627-1-u.kleine-koenig@pengutronix.de>
+From: Javier Martinez Canillas <javierm@redhat.com>
+In-Reply-To: <20221219083627.1401627-1-u.kleine-koenig@pengutronix.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-To: xinhui pan <xinhui.pan@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221218065708.93332-1-xinhui.pan@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20221218065708.93332-1-xinhui.pan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,234 +100,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: arunpravin.paneerselvam@amd.com, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- matthew.auld@intel.com, daniel@ffwll.ch, christian.koenig@amd.com
+Cc: kernel@pengutronix.de, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.12.22 um 07:57 schrieb xinhui pan:
-> Optimise a little when continuous memory request fails.
->
-> There are memory holes and continuous memory request usually fails when
-> order is too big.
-> Currently buddy only look for exactly order memory for such request.
-> Now we can try again to look for several smaller continuous memory on
-> failure.
+Hello Uwe,
 
-I'm still pretty sure that this is illegal.
-
-See the order is not only the minimum we need for linear allocation, but 
-also the minimum alignment we need.
-
-So if you look at some block combination like 010 when searching for an 
-order 2 allocation you satisfy the contiguous constrain, but not the 
-alignment constrain and that's illegal.
-
-Additional to that we have a huge additional CPU overhead for contiguous 
-allocations with that.
-
-Regards,
-Christian.
-
->
-> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+On 12/19/22 09:36, Uwe Kleine-König wrote:
+> While working on a drm driver that doesn't need the i2c algobit stuff I
+> noticed that DRM selects this code even though only 8 drivers actually use
+> it. While also only some drivers use i2c, keep the select for I2C for the
+> next cleanup patch. Still prepare this already by also selecting I2C for
+> the individual drivers.
+> 
+> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 > ---
-> change from v5:
-> reworked
-> ---
->   drivers/gpu/drm/drm_buddy.c | 161 ++++++++++++++++++++++++++++++++++--
->   1 file changed, 154 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index 11bb59399471..6c795e1b3247 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -386,6 +386,140 @@ alloc_range_bias(struct drm_buddy *mm,
->   	return ERR_PTR(err);
->   }
->   
-> +static void __continuous_block_in_tree(struct drm_buddy_block *top_block,
-> +				       struct list_head *fbl,
-> +				       int left,
-> +				       int min_order)
-> +{
-> +	/*
-> +	 * Look for continuous memory of
-> +	 * [top_block) when left is true or (top_block] when left is false.
-> +	 * The list of fbl looks like (top_block1][free_block][...][top_blockX).
-> +	 * Memory offset is in ascending order.
-> +	 */
-> +	while (top_block) {
-> +		struct drm_buddy_block *block = top_block;
-> +		int order;
-> +
-> +		while (drm_buddy_block_is_split(block))
-> +			block = left ? block->left : block->right;
-> +
-> +		order = drm_buddy_block_order(block);
-> +		if (order < min_order || !drm_buddy_block_is_free(block))
-> +			return;
-> +
-> +		if (left)
-> +			list_add_tail(&block->tmp_link, fbl);
-> +		else
-> +			list_add(&block->tmp_link, fbl);
-> +
-> +		if (order == min_order)
-> +			return;
-> +		top_block = __get_buddy(block);
-> +	}
-> +}
-> +
-> +static bool __free_block_in_order(struct list_head *fbl,
-> +				  struct drm_buddy_block *cur,
-> +				  int order,
-> +				  struct drm_buddy_block **first,
-> +				  struct drm_buddy_block **last)
-> +{
-> +	struct drm_buddy_block *fb = cur, *lb = list_next_entry(cur, tmp_link);
-> +	u64 pages = BIT(order);
-> +	u64 cur_pages = 0;
-> +
-> +	/*
-> +	 * Look for continuous memory which satisfy requested order.
-> +	 * Memory in list fbl are already in below order.
-> +	 * 1) Memory offset are in ascending order.
-> +	 * 2) Memory size are in ascending order from left to middle and
-> +	 * descending order from middle to right.
-> +	 * So walk through the list of fbl from middle to both sides to
-> +	 * choose the bigger memory.
-> +	 * This is because one memory with order X are composed with 2 of order X-1
-> +	 * or 1 of order X-1 and 2 of order X-2, etc. Looks like below.
-> +	 *      n
-> +	 *    {∑(X - y)} + {2 * (X-n-1))}
-> +	 *      1
-> +	 * And the last 2 memory of order (X-n-1) are at the two sides of list.
-> +	 */
-> +	list_for_each_entry_from_reverse(fb, fbl, tmp_link) {
-> +		int prev_order = drm_buddy_block_order(fb);
-> +
-> +		list_for_each_entry_from(lb, fbl, tmp_link) {
-> +			int next_order = drm_buddy_block_order(lb);
-> +
-> +			if (prev_order <= next_order)
-> +				cur_pages += BIT(next_order);
-> +			else
-> +				break;
-> +		}
-> +
-> +		cur_pages += BIT(prev_order);
-> +		if (pages == cur_pages) {
-> +			*first = fb;
-> +			*last = list_prev_entry(lb, tmp_link);
-> +			return true;
-> +		}
-> +		BUG_ON(pages < cur_pages);
-> +	}
-> +
-> +	*first = *last = NULL;
-> +	return false;
-> +}
-> +
-> +static struct drm_buddy_block *
-> +find_continuous_blocks(struct drm_buddy *mm,
-> +		       int order,
-> +		       unsigned long flags,
-> +		       struct drm_buddy_block **lb)
-> +{
-> +	struct list_head *head = &mm->free_list[order - 1];
-> +	struct drm_buddy_block *free_block, *first = NULL, *last = NULL;
-> +
-> +	/*
-> +	 * Look for continuous free memory in buddy and buddy-in-law.
-> +	 * IOW, the most left blocks at right of free block and the most right
-> +	 * blocks at left of free block.
-> +	 */
-> +
-> +	list_for_each_entry(free_block, head, link) {
-> +		struct drm_buddy_block *buddy, *parent, *block;
-> +		int left, min_order = 0;
-> +		LIST_HEAD(fbl);
-> +
-> +		parent = free_block->parent;
-> +		if (!parent)
-> +			continue;
-> +
-> +		left = parent->left == free_block;
-> +		list_add(&free_block->tmp_link, &fbl);
-> +		buddy = __get_buddy(free_block);
-> +		__continuous_block_in_tree(buddy, &fbl, left, min_order);
-> +
-> +		while (parent && !((parent->left == block) ^ left)) {
-> +			block = parent;
-> +			parent = parent->parent;
-> +		}
-> +
-> +		if (!parent)
-> +			continue;
-> +
-> +		buddy = __get_buddy(block);
-> +		__continuous_block_in_tree(buddy, &fbl, !left, min_order);
-> +
-> +		/* list head of fbl is invalid outside.
-> +		 * Walk through list from first fo last only.
-> +		 */
-> +		if (__free_block_in_order(&fbl, free_block, order, &first, &last))
-> +			break;
-> +	}
-> +
-> +	*lb = last;
-> +	return first;
-> +}
-> +
->   static struct drm_buddy_block *
->   get_maxblock(struct list_head *head)
->   {
-> @@ -637,7 +771,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   			   struct list_head *blocks,
->   			   unsigned long flags)
->   {
-> -	struct drm_buddy_block *block = NULL;
-> +	struct drm_buddy_block *block = NULL, *last_block = NULL;
->   	unsigned int min_order, order;
->   	unsigned long pages;
->   	LIST_HEAD(allocated);
-> @@ -689,17 +823,30 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   				break;
->   
->   			if (order-- == min_order) {
-> +				if (!(flags & DRM_BUDDY_RANGE_ALLOCATION) &&
-> +				    min_order != 0 && pages == BIT(min_order)) {
-> +					block = find_continuous_blocks(mm,
-> +								       min_order,
-> +								       flags,
-> +								       &last_block);
-> +					if (block)
-> +						break;
-> +				}
->   				err = -ENOSPC;
->   				goto err_free;
->   			}
->   		} while (1);
->   
-> -		mark_allocated(block);
-> -		mm->avail -= drm_buddy_block_size(mm, block);
-> -		kmemleak_update_trace(block);
-> -		list_add_tail(&block->link, &allocated);
-> -
-> -		pages -= BIT(order);
-> +		do {
-> +			mark_allocated(block);
-> +			mm->avail -= drm_buddy_block_size(mm, block);
-> +			kmemleak_update_trace(block);
-> +			list_add_tail(&block->link, &allocated);
-> +			pages -= BIT(drm_buddy_block_order(block));
-> +			if (block == last_block || !last_block)
-> +				break;
-> +			block = list_next_entry(block, tmp_link);
-> +		} while (block);
->   
->   		if (!pages)
->   			break;
+
+Thanks for sending a v3 of this.
+
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
