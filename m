@@ -4,60 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D89BC4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:08:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B14EC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 20:01:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA31410E2D8;
-	Mon, 19 Dec 2022 16:06:41 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECA4110E035;
- Mon, 19 Dec 2022 16:06:22 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9A86561070;
- Mon, 19 Dec 2022 16:05:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1671465922; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=tODQtTMeTfmKegWRuyf0irbV/Qbn+oauEz8jBZiC7ks=;
- b=XpXjQRx/afBB9uzeaqHmLbQZsK0h0uK8PfVRDOwPtHMSnlzEzAXsh8+2aZmFXzLlZgRfi4
- LkiEm+eKrL7VSjXepbfTzWk7RikH1cmcfbSyzYQZpoRgH1lOK2D4DDdsbQEC7FAqf8FOXi
- WlKFj+y5xs6yqC43EiAaoWjsF3G2iFc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1671465922;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=tODQtTMeTfmKegWRuyf0irbV/Qbn+oauEz8jBZiC7ks=;
- b=w/EFAXWRWb+AjGEDlRJ7PJ13k1pIXyqXpAJi+uiD2/Eat9uBrrFWupWfUTlsKR17J2ZpVR
- UNulA9cvw7oIpjBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 65D0313911;
- Mon, 19 Dec 2022 16:05:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oAgDGMKLoGPeZwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:22 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: daniel@ffwll.ch,
-	airlied@gmail.com,
-	deller@gmx.de,
-	javierm@redhat.com
-Subject: [PATCH 17/18] fbdev/vga16fb: Do not use struct fb_info.apertures
-Date: Mon, 19 Dec 2022 17:05:15 +0100
-Message-Id: <20221219160516.23436-18-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20221219160516.23436-1-tzimmermann@suse.de>
-References: <20221219160516.23436-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA26A10E2EC;
+	Mon, 19 Dec 2022 20:01:13 +0000 (UTC)
+Received: from out30-1.freemail.mail.aliyun.com
+ (out30-1.freemail.mail.aliyun.com [115.124.30.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A93210E2A7;
+ Mon, 19 Dec 2022 14:22:08 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R201e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046056;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
+ TI=SMTPD_---0VXi.T.D_1671459712; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0VXi.T.D_1671459712) by smtp.aliyun-inc.com;
+ Mon, 19 Dec 2022 22:22:01 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/amd/display: Remove the unused function
+ dmub_outbox_irq_info_funcs
+Date: Mon, 19 Dec 2022 22:21:50 +0800
+Message-Id: <20221219142150.56654-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 19 Dec 2022 20:01:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,70 +41,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-hyperv@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-arm-kernel@lists.infradead.org
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Xinhui.Pan@amd.com,
+ Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acquire ownership of the firmware scanout buffer by calling Linux'
-aperture helpers. Remove the use of struct fb_info.apertures and do
-not set FBINFO_MISC_FIRMWARE; both of which previously configured
-buffer ownership.
+The function dmub_outbox_irq_info_funcs is defined in the
+irq_service_dcn201.c file, but not called elsewhere, so remove this
+unused function.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:139:43: warning: unused variable 'dmub_outbox_irq_info_funcs'.
+
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3520
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/video/fbdev/vga16fb.c | 15 +++++----------
- 1 file changed, 5 insertions(+), 10 deletions(-)
+ .../gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c   | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/drivers/video/fbdev/vga16fb.c b/drivers/video/fbdev/vga16fb.c
-index af47f8217095..1a8ffdb2be26 100644
---- a/drivers/video/fbdev/vga16fb.c
-+++ b/drivers/video/fbdev/vga16fb.c
-@@ -10,6 +10,7 @@
-  * archive for more details.
-  */
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c b/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
+index 5f4f6dd79511..27dc8c9955f4 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
+@@ -136,11 +136,6 @@ static const struct irq_source_info_funcs vupdate_no_lock_irq_info_funcs = {
+ 	.ack = NULL
+ };
  
-+#include <linux/aperture.h>
- #include <linux/module.h>
- #include <linux/kernel.h>
- #include <linux/errno.h>
-@@ -1324,11 +1325,6 @@ static int vga16fb_probe(struct platform_device *dev)
- 		ret = -ENOMEM;
- 		goto err_fb_alloc;
- 	}
--	info->apertures = alloc_apertures(1);
--	if (!info->apertures) {
--		ret = -ENOMEM;
--		goto err_ioremap;
--	}
- 
- 	/* XXX share VGA_FB_PHYS_BASE and I/O region with vgacon and others */
- 	info->screen_base = (void __iomem *)VGA_MAP_MEM(VGA_FB_PHYS_BASE, 0);
-@@ -1363,8 +1359,7 @@ static int vga16fb_probe(struct platform_device *dev)
- 	info->fix = vga16fb_fix;
- 	/* supports rectangles with widths of multiples of 8 */
- 	info->pixmap.blit_x = 1 << 7 | 1 << 15 | 1 << 23 | 1 << 31;
--	info->flags = FBINFO_FLAG_DEFAULT | FBINFO_MISC_FIRMWARE |
--		FBINFO_HWACCEL_YPAN;
-+	info->flags = FBINFO_FLAG_DEFAULT | FBINFO_HWACCEL_YPAN;
- 
- 	i = (info->var.bits_per_pixel == 8) ? 256 : 16;
- 	ret = fb_alloc_cmap(&info->cmap, i, 0);
-@@ -1382,9 +1377,9 @@ static int vga16fb_probe(struct platform_device *dev)
- 
- 	vga16fb_update_fix(info);
- 
--	info->apertures->ranges[0].base = VGA_FB_PHYS_BASE;
--	info->apertures->ranges[0].size = VGA_FB_PHYS_SIZE;
+-static const struct irq_source_info_funcs dmub_outbox_irq_info_funcs = {
+-	.set = NULL,
+-	.ack = NULL
+-};
 -
-+	ret = devm_aperture_acquire_for_platform_device(dev, VGA_FB_PHYS_BASE, VGA_FB_PHYS_SIZE);
-+	if (ret)
-+		goto err_check_var;
- 	if (register_framebuffer(info) < 0) {
- 		printk(KERN_ERR "vga16fb: unable to register framebuffer\n");
- 		ret = -EINVAL;
+ #undef BASE_INNER
+ #define BASE_INNER(seg) DMU_BASE__INST0_SEG ## seg
+ 
 -- 
-2.39.0
+2.20.1.7.g153144c
 
