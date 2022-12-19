@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D10AC4167B
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:08:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A03ADC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:08:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4C8C10E2E1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5ADA10E2DF;
 	Mon, 19 Dec 2022 16:06:10 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31B7510E2C2;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 217F210E2BA;
  Mon, 19 Dec 2022 16:05:52 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 62A4D6106B;
- Mon, 19 Dec 2022 16:05:22 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B36CB6089B;
+ Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1671465922; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1671465920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TA3a5UCvu+T6cGVUv2fP+uAA75vjFZc4XwLIqHS7zss=;
- b=FNwQicw5ASnAz1j2lbGQUHsL358NMsllfeHdZm5DLNhxsOLY9lu9Stw1PHBh0VJEbxCH1Q
- nxik6kB49QPVBopQkOiTnZRRAtP+zVFL95RKZjlqvpGDbpGdOYoMCMzR8ySAhy14H0L4Ee
- /J0OXjgcfHGKJYvXOvi43e3h8hTsqbQ=
+ bh=lVYvLsFG6f+exAHX9YV2exCISsylgNZMOA5W08XvPSQ=;
+ b=WDWo93d+J2PYNjBpbcWDD3AL8nfm2we1M6PNPvbJFxhIjK1TbLS+wJRRCLoSGIgT7jjL0q
+ 5+iemEoD93yfLjOoycJUnrNs4iF1NUfDrs2VAHOfs9H3zg648rJKWhktVvEmKweAj5YHIM
+ SrHlgeZZTrHu84SnOlEaP7pQr2HGb54=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1671465922;
+ s=susede2_ed25519; t=1671465920;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TA3a5UCvu+T6cGVUv2fP+uAA75vjFZc4XwLIqHS7zss=;
- b=2GyFGQ6UIYjZ/0fswPwJCnbqyO1wiWiMMEIGx6DNWI5pWAT1nZ+lopSVkSzPsJF0sPeBYi
- 5hx2jNvDMjFsEyDw==
+ bh=lVYvLsFG6f+exAHX9YV2exCISsylgNZMOA5W08XvPSQ=;
+ b=+xrS6xZIUrSmCMlgO66EWNJJ3CEPP+VBlznk8HddOxqlBDznZvrjsXBPed+3YaY1zpA5oU
+ H04kQ+iuTDU1GcDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2BD7913910;
- Mon, 19 Dec 2022 16:05:22 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7E2D713910;
+ Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id sJrdCcKLoGPeZwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:22 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id OEPfHcCLoGPeZwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:20 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch,
 	airlied@gmail.com,
 	deller@gmx.de,
 	javierm@redhat.com
-Subject: [PATCH 16/18] fbdev/vesafb: Do not use struct fb_info.apertures
-Date: Mon, 19 Dec 2022 17:05:14 +0100
-Message-Id: <20221219160516.23436-17-tzimmermann@suse.de>
+Subject: [PATCH 09/18] vfio-mdev/mdpy-fb: Do not set struct fb_info.apertures
+Date: Mon, 19 Dec 2022 17:05:07 +0100
+Message-Id: <20221219160516.23436-10-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20221219160516.23436-1-tzimmermann@suse.de>
 References: <20221219160516.23436-1-tzimmermann@suse.de>
@@ -76,98 +76,34 @@ Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acquire ownership of the firmware scanout buffer by calling Linux'
-aperture helpers. Remove the use of struct fb_info.apertures and do
-not set FBINFO_MISC_FIRMWARE; both of which previously configured
-buffer ownership.
+Generic fbdev drivers use the apertures field in struct fb_info to
+control ownership of the framebuffer memory and graphics device. Do
+not set the values in mdpy-fb.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/video/fbdev/vesafb.c | 27 +++++++++++++--------------
- 1 file changed, 13 insertions(+), 14 deletions(-)
+ samples/vfio-mdev/mdpy-fb.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-diff --git a/drivers/video/fbdev/vesafb.c b/drivers/video/fbdev/vesafb.c
-index 47ce244e4bb8..3f8bdfcf51f0 100644
---- a/drivers/video/fbdev/vesafb.c
-+++ b/drivers/video/fbdev/vesafb.c
-@@ -9,6 +9,7 @@
-  *
-  */
+diff --git a/samples/vfio-mdev/mdpy-fb.c b/samples/vfio-mdev/mdpy-fb.c
+index 9ec93d90e8a5..1de5801cd2e8 100644
+--- a/samples/vfio-mdev/mdpy-fb.c
++++ b/samples/vfio-mdev/mdpy-fb.c
+@@ -161,14 +161,6 @@ static int mdpy_fb_probe(struct pci_dev *pdev,
+ 		goto err_release_fb;
+ 	}
  
-+#include <linux/aperture.h>
- #include <linux/module.h>
- #include <linux/kernel.h>
- #include <linux/errno.h>
-@@ -31,6 +32,8 @@
- 
- struct vesafb_par {
- 	u32 pseudo_palette[256];
-+	resource_size_t base;
-+	resource_size_t size;
- 	int wc_cookie;
- 	struct resource *region;
- };
-@@ -191,7 +194,7 @@ static void vesafb_destroy(struct fb_info *info)
- 	arch_phys_wc_del(par->wc_cookie);
- 	if (info->screen_base)
- 		iounmap(info->screen_base);
--	release_mem_region(info->apertures->ranges[0].base, info->apertures->ranges[0].size);
-+	release_mem_region(par->base, par->size);
- 
- 	framebuffer_release(info);
- }
-@@ -316,14 +319,8 @@ static int vesafb_probe(struct platform_device *dev)
- 	par = info->par;
- 	info->pseudo_palette = par->pseudo_palette;
- 
--	/* set vesafb aperture size for generic probing */
 -	info->apertures = alloc_apertures(1);
 -	if (!info->apertures) {
--		err = -ENOMEM;
--		goto err;
+-		ret = -ENOMEM;
+-		goto err_unmap;
 -	}
--	info->apertures->ranges[0].base = screen_info.lfb_base;
--	info->apertures->ranges[0].size = size_total;
-+	par->base = screen_info.lfb_base;
-+	par->size = size_total;
- 
- 	printk(KERN_INFO "vesafb: mode is %dx%dx%d, linelength=%d, pages=%d\n",
- 	       vesafb_defined.xres, vesafb_defined.yres, vesafb_defined.bits_per_pixel, vesafb_fix.line_length, screen_info.pages);
-@@ -460,27 +457,29 @@ static int vesafb_probe(struct platform_device *dev)
- 	info->fbops = &vesafb_ops;
- 	info->var = vesafb_defined;
- 	info->fix = vesafb_fix;
--	info->flags = FBINFO_FLAG_DEFAULT | FBINFO_MISC_FIRMWARE |
--		(ypan ? FBINFO_HWACCEL_YPAN : 0);
-+	info->flags = FBINFO_FLAG_DEFAULT | (ypan ? FBINFO_HWACCEL_YPAN : 0);
- 
- 	if (fb_alloc_cmap(&info->cmap, 256, 0) < 0) {
- 		err = -ENOMEM;
- 		goto err_release_region;
- 	}
-+	err = devm_aperture_acquire_for_platform_device(dev, par->base, par->size);
-+	if (err)
-+		goto err_fb_dealloc_cmap;
- 	if (register_framebuffer(info)<0) {
- 		err = -EINVAL;
--		fb_dealloc_cmap(&info->cmap);
--		goto err_release_region;
-+		goto err_fb_dealloc_cmap;
- 	}
- 	fb_info(info, "%s frame buffer device\n", info->fix.id);
- 	return 0;
-+err_fb_dealloc_cmap:
-+	fb_dealloc_cmap(&info->cmap);
- err_release_region:
- 	arch_phys_wc_del(par->wc_cookie);
- 	if (info->screen_base)
- 		iounmap(info->screen_base);
- 	if (par->region)
- 		release_region(0x3c0, 32);
--err:
- 	framebuffer_release(info);
- 	release_mem_region(vesafb_fix.smem_start, size_total);
- 	return err;
+-	info->apertures->ranges[0].base = info->fix.smem_start;
+-	info->apertures->ranges[0].size = info->fix.smem_len;
+-
+ 	info->fbops = &mdpy_fb_ops;
+ 	info->flags = FBINFO_DEFAULT;
+ 	info->pseudo_palette = par->palette;
 -- 
 2.39.0
 
