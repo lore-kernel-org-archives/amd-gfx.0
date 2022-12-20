@@ -4,74 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F4D4C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 20:01:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DED4CC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 02:31:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BCE010E2F1;
-	Mon, 19 Dec 2022 20:01:20 +0000 (UTC)
-X-Greylist: delayed 1309 seconds by postgrey-1.36 at gabe;
- Mon, 19 Dec 2022 09:01:45 UTC
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4322910E1F9
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Dec 2022 09:01:45 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1p7BdX-00055t-G9; Mon, 19 Dec 2022 09:36:39 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1p7BdS-000I7t-UR; Mon, 19 Dec 2022 09:36:34 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1p7BdS-006GXR-8z; Mon, 19 Dec 2022 09:36:34 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Dave Airlie <airlied@redhat.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
- John Stultz <jstultz@google.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Chen Feng <puck.chen@hisilicon.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Ben Skeggs <bskeggs@redhat.com>, Karol Herbst <kherbst@redhat.com>,
- Lyude Paul <lyude@redhat.com>,
- Javier Martinez Canillas <javierm@redhat.com>
-Subject: [PATCH v3] drm: Only select I2C_ALGOBIT for drivers that actually
- need it
-Date: Mon, 19 Dec 2022 09:36:27 +0100
-Message-Id: <20221219083627.1401627-1-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.38.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF85110E335;
+	Tue, 20 Dec 2022 02:31:54 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2051.outbound.protection.outlook.com [40.107.243.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73CF010E335
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 02:31:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TywzaOgkOTaxQsKgwubxyOe92PDsCagakEG+lb38BnfwfO7nY9GHGveeV6VYjFf496t/ubyB++MO7yItybmxvsHkA3+pRHTl6rlfYU6PRoDSio50X1ekvNUutqvI1ktk9NO0ad1nXqACvt+r3jLu7JqqV9kihJI3etdAB6Cak5CmEu163r3vVIK2sMCLBJ9xGgTrHr7maKwsKOYD3yKu4Ic7GLU4xwipzcX24dAkLGnzEWMCg0lBAe9ntA4HGIyhLYYkqTIKV8JR16i14OGCMePR3aZTwj1l+Ce99AcdCHg5TOrUJu4vy5DTzo2Ip/TMjsltXYhwB7nvs5WBejIdZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6hdCdufXMXsQZ5ISXDeym2ZB8iNAAXs/vCkVRPosZdg=;
+ b=UAXNMBQht6LyqwH+dZszzRuMOPeswDP1AMwlEAEmicOWbc6wdNbdDmYYCK7Nn+rMexXLI+EOHS9BxLVcW92qY0stC6Kkpu/Ex52O6As2UPN5beGAN93DNqy3aMJBufq6IiWcj2/PG9s77RpaGW+xsNMbEeNLzT147WDeYyYnYlnnnQxHsUY9olfFceurMZEysR/oFrrgGLql0ZFA2hzsnJI2BpAacFJyCIC129Lyf5a//Mv6xFFQ6GUSPayEP++2j7n8kJecuWeG6TP41HG7nOCPb3Lp3KvlVpsZAK0GsDcrw8dWdo2K/7J028btf8uAVVI0TL6zfZ6BZAG0YWq2pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6hdCdufXMXsQZ5ISXDeym2ZB8iNAAXs/vCkVRPosZdg=;
+ b=cR6MgvUKf/X6sYNQDDweL2b8T/mnQ+4KwXkyWJSa2ljMP0ra+lG0HwL62OUngufzl25FEi1hodVMLC+dm7hu1uYbKc0VWxZOOqwVMnot3USNrTV67n56CqXxdJ38cdwTWYEvi0MOK6QKYMWLF9kLtf/irbAjqSkAUQg8lS6WbGY=
+Received: from BL0PR02CA0001.namprd02.prod.outlook.com (2603:10b6:207:3c::14)
+ by PH8PR12MB7256.namprd12.prod.outlook.com (2603:10b6:510:223::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Tue, 20 Dec
+ 2022 02:31:44 +0000
+Received: from BL02EPF0000C408.namprd05.prod.outlook.com
+ (2603:10b6:207:3c:cafe::f4) by BL0PR02CA0001.outlook.office365.com
+ (2603:10b6:207:3c::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.20 via Frontend
+ Transport; Tue, 20 Dec 2022 02:31:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000C408.mail.protection.outlook.com (10.167.241.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5944.8 via Frontend Transport; Tue, 20 Dec 2022 02:31:44 +0000
+Received: from ldev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 19 Dec
+ 2022 20:31:41 -0600
+From: Tim Huang <tim.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdgpu: skip mes self test after s0i3 resume for MES
+ IP v11.0
+Date: Tue, 20 Dec 2022 10:30:55 +0800
+Message-ID: <20221220023055.2602689-1-tim.huang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5224;
- i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=ZqfFbvgJpMyKVKFmiZCYnPmobkFNQjvPehywec6oyBE=;
- b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBjoCKHEJAtYyv1GKjnjBFZ0ZCBl4J5k3935lB4hMVw
- 9i3WuFyJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCY6AihwAKCRDB/BR4rcrsCcixB/
- 9hHo0+rNOd9s5KE7RHOsnO3muEbuMyw3QJhVVfVboODKLwdKCmjvBrrjRCG61slD4Xm5T6TnhZ0rHY
- gEaIra20QAEkhbb1rDBig3igiMCvo3TOSg07DiOfbJAQivllRgTvvYZ5Sta55/ipBt58svNiQpdkd3
- 7hvV5XzAXzK6RNL6H1tg71K2M2RI0AFI4rdJf2ACrubw/fAc/lHKxy8CxO0GjqhRvGrsG0TAfiQdYA
- /ghQjMcj3J4H4XapZ8XwJJSJlhSHIxh/VU1kzB6AEuA4U8z03CU829UClkJGz6lASW97FQXMzKoZJ+
- rwf5wKvKN0Jn6M68TphEMosYDhGEHP
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: amd-gfx@lists.freedesktop.org
-X-Mailman-Approved-At: Mon, 19 Dec 2022 20:01:12 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0000C408:EE_|PH8PR12MB7256:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29887df6-11d0-4522-783b-08dae23255bb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: x6zwPfy4c+RboDrTI6k/QcoelPD7WZ6AmYCv3+ajkUU//mbVPoMb6CND9/3jsV5AX2eAc86lKlfdZdBuNe1/QluEdz52k4J+tYVvq37qOWkdHjux3yl2rVdvnx/rT6TiaubB4zHDSpfRfADg3o+t1Jxg4MXZDrEObXPKgc8shL/GwqEfJqpdEK2SdIftIwQ5RxHF0gnD4mUdmMD4E1qnJdpxY06SvqQCYhOd//v33N1kPyiQw52sdpqJaosylUCnEID0aFr2/drpTLWsYPxn/FFb+QTA4u0NS1s+HwuOEnB99pqm1KVu9dM9Y5I0uZYssgvlrk4WD8lfOPRYYIcCbzjcHXIQAsGoZksnl6B3KTKQXHs4NJkl88fRlCK3IY6/C6H8bgpSu8Il3IX/fZbdzQEMozfBMXVxEpaQWQQj+NMxIwLovp2SLKQf8uD1j2wD/mxxZ+d3toeVSRWWODs22yQmdQ6jBUqMnEW668hOnLfTPdvPT5GwVxR2VoyVGduNtTTjYdw4ry7xemR5baUrNsuJmvpuj65iHjfHjWc+0/mLUqOdImJEMEkPhQhvrWhu76FLnS1SORhCPBat76wsAaXXxi4UjSGgo6t7ZKuwXZBdbIjMzsyJv+CwaHau8kzSKIvEb3PTES9CqqSqSk/Roymc+EuZ9gQtUlySzoQhgRjChCK+9lEnjj/867xe7pWFL7xpIa9m/y9/OPniYg0l3DawOwW+5Ldx9adhiacTxHY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(39860400002)(396003)(376002)(346002)(451199015)(40470700004)(46966006)(36840700001)(6666004)(478600001)(7696005)(70586007)(186003)(70206006)(2616005)(40480700001)(26005)(16526019)(86362001)(6916009)(316002)(54906003)(336012)(1076003)(82740400003)(8676002)(41300700001)(4326008)(83380400001)(81166007)(82310400005)(8936002)(2906002)(44832011)(426003)(356005)(36756003)(36860700001)(5660300002)(47076005)(40460700003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2022 02:31:44.0469 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29887df6-11d0-4522-783b-08dae23255bb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000C408.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,149 +98,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel@pengutronix.de, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: Yifan1.zhang@amd.com, Xiaojian.Du@amd.com, Tim
+ Huang <tim.huang@amd.com>, li.ma@amd.com, Alexander.Deucher@amd.com,
+ mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-While working on a drm driver that doesn't need the i2c algobit stuff I
-noticed that DRM selects this code even though only 8 drivers actually use
-it. While also only some drivers use i2c, keep the select for I2C for the
-next cleanup patch. Still prepare this already by also selecting I2C for
-the individual drivers.
+MES is part of gfxoff and MES suspend and resume are skipped for S0i3.
+But the mes_self_test call path is still in the amdgpu_device_ip_late_init.
+it's should also be skipped for s0ix as no hardware re-initialization
+happened.
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Besides, mes_self_test will free the BO that triggers a lot of warning
+messages while in the suspend state.
+
+[   81.656085] WARNING: CPU: 2 PID: 1550 at drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:425 amdgpu_bo_free_kernel+0xfc/0x110 [amdgpu]
+[   81.679435] Call Trace:
+[   81.679726]  <TASK>
+[   81.679981]  amdgpu_mes_remove_hw_queue+0x17a/0x230 [amdgpu]
+[   81.680857]  amdgpu_mes_self_test+0x390/0x430 [amdgpu]
+[   81.681665]  mes_v11_0_late_init+0x37/0x50 [amdgpu]
+[   81.682423]  amdgpu_device_ip_late_init+0x53/0x280 [amdgpu]
+[   81.683257]  amdgpu_device_resume+0xae/0x2a0 [amdgpu]
+[   81.684043]  amdgpu_pmops_resume+0x37/0x70 [amdgpu]
+[   81.684818]  pci_pm_resume+0x5c/0xa0
+[   81.685247]  ? pci_pm_thaw+0x90/0x90
+[   81.685658]  dpm_run_callback+0x4e/0x160
+[   81.686110]  device_resume+0xad/0x210
+[   81.686529]  async_resume+0x1e/0x40
+[   81.686931]  async_run_entry_fn+0x33/0x120
+[   81.687405]  process_one_work+0x21d/0x3f0
+[   81.687869]  worker_thread+0x4a/0x3c0
+[   81.688293]  ? process_one_work+0x3f0/0x3f0
+[   81.688777]  kthread+0xff/0x130
+[   81.689157]  ? kthread_complete_and_exit+0x20/0x20
+[   81.689707]  ret_from_fork+0x22/0x30
+[   81.690118]  </TASK>
+[   81.690380] ---[ end trace 0000000000000000 ]---
+
+Signed-off-by: Tim Huang <tim.huang@amd.com>
+
+v2: make the comment clean and use adev->in_s0ix instead of
+adev->suspend
 ---
- drivers/gpu/drm/Kconfig                 | 1 -
- drivers/gpu/drm/amd/amdgpu/Kconfig      | 2 ++
- drivers/gpu/drm/ast/Kconfig             | 2 ++
- drivers/gpu/drm/gma500/Kconfig          | 2 ++
- drivers/gpu/drm/hisilicon/hibmc/Kconfig | 2 ++
- drivers/gpu/drm/i915/Kconfig            | 2 ++
- drivers/gpu/drm/mgag200/Kconfig         | 2 ++
- drivers/gpu/drm/nouveau/Kconfig         | 2 ++
- drivers/gpu/drm/radeon/Kconfig          | 2 ++
- 9 files changed, 16 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 315cbdf61979..93c732a8f870 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -12,7 +12,6 @@ menuconfig DRM
- 	select HDMI
- 	select FB_CMDLINE
- 	select I2C
--	select I2C_ALGOBIT
- 	select DMA_SHARED_BUFFER
- 	select SYNC_FILE
- # gallium uses SYS_kcmp for os_same_file_description() to de-duplicate
-diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
-index 5fcd510f1abb..5341b6b242c3 100644
---- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-+++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-@@ -13,6 +13,8 @@ config DRM_AMDGPU
- 	select DRM_TTM_HELPER
- 	select POWER_SUPPLY
- 	select HWMON
-+	select I2C
-+	select I2C_ALGOBIT
- 	select BACKLIGHT_CLASS_DEVICE
- 	select INTERVAL_TREE
- 	select DRM_BUDDY
-diff --git a/drivers/gpu/drm/ast/Kconfig b/drivers/gpu/drm/ast/Kconfig
-index d367a90cd3de..563fa7a3b546 100644
---- a/drivers/gpu/drm/ast/Kconfig
-+++ b/drivers/gpu/drm/ast/Kconfig
-@@ -4,6 +4,8 @@ config DRM_AST
- 	depends on DRM && PCI && MMU
- 	select DRM_GEM_SHMEM_HELPER
- 	select DRM_KMS_HELPER
-+	select I2C
-+	select I2C_ALGOBIT
- 	help
- 	 Say yes for experimental AST GPU driver. Do not enable
- 	 this driver without having a working -modesetting,
-diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
-index 807b989e3c77..2efc0eb41c64 100644
---- a/drivers/gpu/drm/gma500/Kconfig
-+++ b/drivers/gpu/drm/gma500/Kconfig
-@@ -3,6 +3,8 @@ config DRM_GMA500
- 	tristate "Intel GMA500/600/3600/3650 KMS Framebuffer"
- 	depends on DRM && PCI && X86 && MMU
- 	select DRM_KMS_HELPER
-+	select I2C
-+	select I2C_ALGOBIT
- 	# GMA500 depends on ACPI_VIDEO when ACPI is enabled, just like i915
- 	select ACPI_VIDEO if ACPI
- 	select BACKLIGHT_CLASS_DEVICE if ACPI
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/Kconfig b/drivers/gpu/drm/hisilicon/hibmc/Kconfig
-index 4e41c144a290..126504318a4f 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/Kconfig
-+++ b/drivers/gpu/drm/hisilicon/hibmc/Kconfig
-@@ -7,6 +7,8 @@ config DRM_HISI_HIBMC
- 	select DRM_VRAM_HELPER
- 	select DRM_TTM
- 	select DRM_TTM_HELPER
-+	select I2C
-+	select I2C_ALGOBIT
- 	help
- 	  Choose this option if you have a Hisilicon Hibmc soc chipset.
- 	  If M is selected the module will be called hibmc-drm.
-diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-index 3efce05d7b57..c6e3792622f2 100644
---- a/drivers/gpu/drm/i915/Kconfig
-+++ b/drivers/gpu/drm/i915/Kconfig
-@@ -18,6 +18,8 @@ config DRM_I915
- 	select DRM_PANEL
- 	select DRM_MIPI_DSI
- 	select RELAY
-+	select I2C
-+	select I2C_ALGOBIT
- 	select IRQ_WORK
- 	# i915 depends on ACPI_VIDEO when ACPI is enabled
- 	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
-diff --git a/drivers/gpu/drm/mgag200/Kconfig b/drivers/gpu/drm/mgag200/Kconfig
-index eec59658a938..b28c5e4828f4 100644
---- a/drivers/gpu/drm/mgag200/Kconfig
-+++ b/drivers/gpu/drm/mgag200/Kconfig
-@@ -4,6 +4,8 @@ config DRM_MGAG200
- 	depends on DRM && PCI && MMU
- 	select DRM_GEM_SHMEM_HELPER
- 	select DRM_KMS_HELPER
-+	select I2C
-+	select I2C_ALGOBIT
- 	help
- 	 This is a KMS driver for Matrox G200 chips. It supports the original
- 	 MGA G200 desktop chips and the server variants. It requires 0.3.0
-diff --git a/drivers/gpu/drm/nouveau/Kconfig b/drivers/gpu/drm/nouveau/Kconfig
-index 03d12caf9e26..a0bb3987bf63 100644
---- a/drivers/gpu/drm/nouveau/Kconfig
-+++ b/drivers/gpu/drm/nouveau/Kconfig
-@@ -10,6 +10,8 @@ config DRM_NOUVEAU
- 	select DRM_KMS_HELPER
- 	select DRM_TTM
- 	select DRM_TTM_HELPER
-+	select I2C
-+	select I2C_ALGOBIT
- 	select BACKLIGHT_CLASS_DEVICE if DRM_NOUVEAU_BACKLIGHT
- 	select X86_PLATFORM_DEVICES if ACPI && X86
- 	select ACPI_WMI if ACPI && X86
-diff --git a/drivers/gpu/drm/radeon/Kconfig b/drivers/gpu/drm/radeon/Kconfig
-index 97a277f9a25e..62a596d3a891 100644
---- a/drivers/gpu/drm/radeon/Kconfig
-+++ b/drivers/gpu/drm/radeon/Kconfig
-@@ -15,6 +15,8 @@ config DRM_RADEON
- 	select HWMON
- 	select BACKLIGHT_CLASS_DEVICE
- 	select INTERVAL_TREE
-+	select I2C
-+	select I2C_ALGOBIT
- 	# radeon depends on ACPI_VIDEO when ACPI is enabled, for select to work
- 	# ACPI_VIDEO's dependencies must also be selected.
- 	select INPUT if ACPI
-
-base-commit: ca39c4daa6f7f770b1329ffb46f1e4a6bcc3f291
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index 5459366f49ff..970b066b37bb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -1342,7 +1342,8 @@ static int mes_v11_0_late_init(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+-	if (!amdgpu_in_reset(adev) &&
++	/* it's only intended for use in mes_self_test case, not for s0ix and reset */
++	if (!amdgpu_in_reset(adev) && !adev->in_s0ix &&
+ 	    (adev->ip_versions[GC_HWIP][0] != IP_VERSION(11, 0, 3)))
+ 		amdgpu_mes_self_test(adev);
+ 
 -- 
-2.38.1
+2.25.1
 
