@@ -4,73 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C736AC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 09:37:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5E37C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 09:38:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0058A10E35F;
-	Tue, 20 Dec 2022 09:37:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B426610E367;
+	Tue, 20 Dec 2022 09:38:49 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B4CB10E35E
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 09:37:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 360BE10E367
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 09:38:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1671529057;
+ s=mimecast20190719; t=1671529127;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4bHxLfE6qRmbmJ9vfsWvWUlnwpkYhHXJKMmhBNnZCVw=;
- b=gqLwjS+0HFrY6dwz4cyw57xPjgD+5ztn3YeeOHMopE7Jp9cQ35lr1XSjNOsQQok4vhZa/z
- tw9FfdugHbB0JCfbh8J/EvzH1AKg2uJPauiiQYtMeYhIc++YdIw5vTGP9SSz1NlheEfj8m
- guESQCRgiYsG9jJYWnHHWCF9aX9LQvw=
+ bh=1J4eLv+5To8BjnLItTbs6pq8g5LjZHk9PMjLEQIi8Lo=;
+ b=Ib6Q8VoT8WxT3qwYus5iweZRKoFB+NY3ErkFXs636JFMVczDr2ZyRjdVtOX3vVTv7CvoL1
+ okTNh/0sR/XNIx957+Yw/y83IiBg/m0QLzhJb32Q23TJ7IN8qVe+fwTlZ7huXiET+8RI5y
+ NMOiNOldKCA0TuEKBhXZU3NQ5URN/6E=
 Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
  [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-56--Ld7Sy-1P3qH4DrF5rLX8g-1; Tue, 20 Dec 2022 04:37:36 -0500
-X-MC-Unique: -Ld7Sy-1P3qH4DrF5rLX8g-1
+ us-mta-526-6HkQr0xOPaO-0GQor-Ticw-1; Tue, 20 Dec 2022 04:38:46 -0500
+X-MC-Unique: 6HkQr0xOPaO-0GQor-Ticw-1
 Received: by mail-wm1-f71.google.com with SMTP id
- c1-20020a7bc001000000b003cfe40fca79so2403111wmb.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 01:37:35 -0800 (PST)
+ bg25-20020a05600c3c9900b003cf3ed7e27bso6309570wmb.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 01:38:46 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=4bHxLfE6qRmbmJ9vfsWvWUlnwpkYhHXJKMmhBNnZCVw=;
- b=K2Dejntj5GpwvWzZchMM68pcm3gAfOTmKfErcg8/0u/fvQDSL9BkSkaRNGo2mcAx1l
- EOHGiAVlOShP6qdsPvhbg/kr+CB0UBp2ETfmtxzL70Ny5sqBODxIEv83owdrM0v/4v1p
- f+GgEdbXnnQATamO1VNTEhk7xJg5jM0lgpDELmnCdb7WwYtZGPNTJBwRVDtdJo7vKr7/
- rR36WlfXYPnDI+FoQTn72aKTd4LQ55Z0WylTXdLKmL1vzhS346b75pjVNbwdpb5YOQXh
- Xt+YtsAtM3xgZPG8KhNDaxyLVZkEzxuusp9/lTFijEPADwqjX/BZn7t2A3nqNhP3+0tV
- R1nQ==
-X-Gm-Message-State: ANoB5pkkUy3VTAJ44rQFQdIxKhwLvCTAZgFzlcLBCESrpCWfk5VzFEyA
- ZEK31occVm8Crmw2ZogFqKzbMDDFiM3dihrpRkC5OjPo0ZiO6yQEhXuVoa69zeDIjgdZjbPl7Nd
- Erlb8zo+EsNi5Er6/kGhRpaNmNg==
-X-Received: by 2002:a5d:6f11:0:b0:242:70f0:9196 with SMTP id
- ay17-20020a5d6f11000000b0024270f09196mr33065565wrb.45.1671529055089; 
- Tue, 20 Dec 2022 01:37:35 -0800 (PST)
-X-Google-Smtp-Source: AA0mqf5A94U6u6cGzamMmT1GgT+wuXQtFEvsTtiTSWk5LQnUafJiCwGKhccUzi3oD1XqGmcmR4z97A==
-X-Received: by 2002:a5d:6f11:0:b0:242:70f0:9196 with SMTP id
- ay17-20020a5d6f11000000b0024270f09196mr33065558wrb.45.1671529054902; 
- Tue, 20 Dec 2022 01:37:34 -0800 (PST)
+ bh=1J4eLv+5To8BjnLItTbs6pq8g5LjZHk9PMjLEQIi8Lo=;
+ b=EwCKGQ2KaomOF9MHKqP9oKOQg6ey0KBGpy0nr/0M/ijTRl3gT+pWfom3bnHXmKNMbb
+ nXU4r+xijjsD+e1Up0qBE0+rf6CdDZuuC5HaoNh6pwiDXNqNT3qaECdXznrwEydFVqO7
+ RzyX508y0zJMWxgKjpARCyMqhALgm4CLrbwxS7c3CWONEyIwiuQ2IySruB522cmzmN7/
+ q712Ws1aUrxe0dPCJt/scad0DBdqN+kTv6nyt4XEkn9/+Qg8qewkEMprfcN6TRmEasGl
+ iEtJDAzr7NaC03fLu5opGPtW/jcV/0ih6hQ6+ezLRuFzyCEAWmuXUJrD9xiVL24xnz1s
+ 6wSQ==
+X-Gm-Message-State: AFqh2kqDa+C1mpDkwf1x6zyaSwnFMIm710kiu3jrmVaki9VJth1c9Nrc
+ so9rZpKO9hoTl/odeF5bsr+NziuELaF9bD/AgBEtIqjzj/RpIiio+GZUvqrwzGA2TU09wDSqGFr
+ FoID/yoCI+UU/M8G+y6z7Aqz6DQ==
+X-Received: by 2002:a05:600c:1d89:b0:3d5:64bf:ccc2 with SMTP id
+ p9-20020a05600c1d8900b003d564bfccc2mr972467wms.32.1671529125273; 
+ Tue, 20 Dec 2022 01:38:45 -0800 (PST)
+X-Google-Smtp-Source: AMrXdXslpFNWgJA7+1mAYcupIJ/r6e/d06O54fNaPmM/ERkGUAWuMMiWYBSHcxiARgbY+lIJOxnk0g==
+X-Received: by 2002:a05:600c:1d89:b0:3d5:64bf:ccc2 with SMTP id
+ p9-20020a05600c1d8900b003d564bfccc2mr972452wms.32.1671529125099; 
+ Tue, 20 Dec 2022 01:38:45 -0800 (PST)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- az17-20020adfe191000000b00241bd7a7165sm12231930wrb.82.2022.12.20.01.37.34
+ i27-20020a05600c4b1b00b003d220ef3232sm14481191wmp.34.2022.12.20.01.38.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Dec 2022 01:37:34 -0800 (PST)
-Message-ID: <6a6e3bfb-d320-8ccf-f047-55999552c8fc@redhat.com>
-Date: Tue, 20 Dec 2022 10:37:33 +0100
+ Tue, 20 Dec 2022 01:38:44 -0800 (PST)
+Message-ID: <bc75ba60-9fb4-dec9-c7fd-23e50942f7f0@redhat.com>
+Date: Tue, 20 Dec 2022 10:38:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
-Subject: Re: [PATCH 12/18] fbdev/offb: Allocate struct offb_par with
- framebuffer_alloc()
+Subject: Re: [PATCH 13/18] fbdev/offb: Do not use struct fb_info.apertures
 To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
  airlied@gmail.com, deller@gmx.de
 References: <20221219160516.23436-1-tzimmermann@suse.de>
- <20221219160516.23436-13-tzimmermann@suse.de>
+ <20221219160516.23436-14-tzimmermann@suse.de>
 From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221219160516.23436-13-tzimmermann@suse.de>
+In-Reply-To: <20221219160516.23436-14-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
@@ -94,8 +93,10 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 12/19/22 17:05, Thomas Zimmermann wrote:
-> Move the palette array into struct offb_par and allocate both via
-> framebuffer_alloc(), as intended by fbdev. No functional changes.
+> Acquire ownership of the firmware scanout buffer by calling Linux'
+> aperture helpers. Remove the use of struct fb_info.apertures and do
+> not set FBINFO_MISC_FIRMWARE; both of which previously configured
+> buffer ownership.
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
