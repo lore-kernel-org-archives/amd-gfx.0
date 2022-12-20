@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1C00C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 09:44:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DFD2C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 09:45:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECADB10E36C;
-	Tue, 20 Dec 2022 09:44:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F376C10E369;
+	Tue, 20 Dec 2022 09:44:59 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31BE710E36C
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 09:43:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 103D510E36E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 09:44:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1671529437;
+ s=mimecast20190719; t=1671529495;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
  bh=1J4eLv+5To8BjnLItTbs6pq8g5LjZHk9PMjLEQIi8Lo=;
- b=bMNfBpnQ0R4k+ZK8hL0B6FvdIHuE2a82b6uq5TwyVbtjv66Bs6gClwvEX1W6Fp3/8xwXD2
- dqhZCRE0PLbY6sGXEU4B8doc9gx/9iHlNxoiEiwYCKyUlTRJCUDkQO3LpaklI1gpIPUkiz
- d8HmCBKJ4wvs+IM57SvO4ncgFUGRrYA=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ b=IZZrmHibyrYGzbc/bU10800R+I6pK/iRTyKA0MpxvinXsS58o+UrLK8m9SphxKR12AU6oq
+ Xs2h2vpLfx5YJQv7VkdEtOxqLT3u3pr3Tyx34RQcOxUPpikXQY6PR9K36uYgA3sL5N/j5Z
+ a32sjiOiakbDQc13cPGbd7iCSusdX94=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-633-3NxKRgZRMrWqwwfiedDowQ-1; Tue, 20 Dec 2022 04:43:56 -0500
-X-MC-Unique: 3NxKRgZRMrWqwwfiedDowQ-1
-Received: by mail-wm1-f72.google.com with SMTP id
- c1-20020a7bc001000000b003cfe40fca79so2409376wmb.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 01:43:56 -0800 (PST)
+ us-mta-595-ok-B8hZBN1ykurkOZ0MFRA-1; Tue, 20 Dec 2022 04:44:54 -0500
+X-MC-Unique: ok-B8hZBN1ykurkOZ0MFRA-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ n8-20020a05600c294800b003d1cc68889dso2406485wmd.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 01:44:53 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
  bh=1J4eLv+5To8BjnLItTbs6pq8g5LjZHk9PMjLEQIi8Lo=;
- b=63gZOcIbu90JT7XdR6wCytB8wiBbj0JjTOBX6cuEa/1xwlkSL5bZEfBOswoUfN+R1o
- GRKXVb6fr9yEdtTOAV0SErZIMrTaRxw5IpJYs+Tpc188SVrP3IlGWLoU4acp63xsVZcF
- 8W5ZPF0QC+ZLwsbLmMib98pBzmWbwk1M9gcC7IZcziRWmtNqsw9yBHLS5yo9h3ziTq5b
- VabweZklYiMXTl/0vcq5exSSOKXa+JJCkuFzh+jJz8/PVN7xSuj5C2KhD452vzVj4r60
- rRop3HsKkBa9yC4j+r1PU87i8ReANsPsrOFLkTj9Kgb1JB3gGBQhnG/j6Q+nsLgFWlBZ
- C0WA==
-X-Gm-Message-State: AFqh2krZMWEAy/9PEqR6agUyfmOrqhvQHRQPwoPpvybpIosy3NCK586i
- yAVprDhRusroDLkfb6DkazC8nUWYo75F1TQZmMLL5jAjYwDxBgJR3tg77r8ccSKuyi97BEissSo
- WkyGbvZSt8J1yL7rftjEh+dsvSQ==
-X-Received: by 2002:a05:600c:4311:b0:3d2:3e75:7bb9 with SMTP id
- p17-20020a05600c431100b003d23e757bb9mr994925wme.34.1671529435451; 
- Tue, 20 Dec 2022 01:43:55 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXvfI2fbHCkuQqRJ76jLZpFV0pKFd9I/EWHnHADcWJc2WmgvjMGHFvYEzSGe6w+l7QXDUqu6sg==
-X-Received: by 2002:a05:600c:4311:b0:3d2:3e75:7bb9 with SMTP id
- p17-20020a05600c431100b003d23e757bb9mr994914wme.34.1671529435238; 
- Tue, 20 Dec 2022 01:43:55 -0800 (PST)
+ b=iw7knId0TD15ZGNN+Wnn5aZfmdG/3M7EjhE7pBmprDjFS0HE+MJEXa48dzdOa+o0iz
+ MzWGrZWOqz9hoNLmZKOPAIH+rJfbXcYfenX5a/df5qZbUkFAZNwpbZdz+G4WzQEEjUY7
+ HTSRsUI+KSPlRSiuLDtSMl1WBbGtwRg6CGW3J3cImYBgaUoCr/kjElc5GNO9g2eFNvxW
+ dAsBJerSenfn1ZL1CtxA1aXIZ3WJFOZpNAKwBu5PSjhfmXg/KosSeooTGioxG4+iF717
+ rZuyojZExzP8eS0stF6HqqxJIWctW5rv73y7dejLakT/g4q+lXs7druPUCzIUWkV8Kzq
+ 4S1g==
+X-Gm-Message-State: ANoB5pkjXy3iYf4YXkya/km5AO4ZJ0++H9iHNtJeGhdwHsTUVz2sS7oR
+ 2DfQnp45FzTReAZZYycgNO/jxfNcvzhCC6s2jkm/AA68sUjkE3cdzoEjAnKsp5w9IxWThA9xNp7
+ mDBoV6Wl2nYtsySlzelGmpmNqZw==
+X-Received: by 2002:a05:600c:3508:b0:3cf:b73f:bf8f with SMTP id
+ h8-20020a05600c350800b003cfb73fbf8fmr34866243wmq.7.1671529492811; 
+ Tue, 20 Dec 2022 01:44:52 -0800 (PST)
+X-Google-Smtp-Source: AA0mqf74M8Sm1ZUMeD1MRSt8ye6pyF2JALOeT/hhACXzocPTXyP3LI6efvyoi2Xa1weHvEDgcZ0pkQ==
+X-Received: by 2002:a05:600c:3508:b0:3cf:b73f:bf8f with SMTP id
+ h8-20020a05600c350800b003cfb73fbf8fmr34866233wmq.7.1671529492648; 
+ Tue, 20 Dec 2022 01:44:52 -0800 (PST)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- y7-20020a05600c364700b003d33ab317dasm17144094wmq.14.2022.12.20.01.43.54
+ t16-20020a1c7710000000b003c6f3f6675bsm21680659wmi.26.2022.12.20.01.44.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Dec 2022 01:43:54 -0800 (PST)
-Message-ID: <c9a34fd2-3dc5-18d7-20b4-b5c9e69ad039@redhat.com>
-Date: Tue, 20 Dec 2022 10:43:48 +0100
+ Tue, 20 Dec 2022 01:44:52 -0800 (PST)
+Message-ID: <cb8af91b-4d5a-6d0a-6604-d99fc4a0f0e9@redhat.com>
+Date: Tue, 20 Dec 2022 10:44:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
-Subject: Re: [PATCH 16/18] fbdev/vesafb: Do not use struct fb_info.apertures
+Subject: Re: [PATCH 17/18] fbdev/vga16fb: Do not use struct fb_info.apertures
 To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
  airlied@gmail.com, deller@gmx.de
 References: <20221219160516.23436-1-tzimmermann@suse.de>
- <20221219160516.23436-17-tzimmermann@suse.de>
+ <20221219160516.23436-18-tzimmermann@suse.de>
 From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221219160516.23436-17-tzimmermann@suse.de>
+In-Reply-To: <20221219160516.23436-18-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
