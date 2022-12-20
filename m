@@ -4,115 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DF60C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 23:16:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1557EC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 23:27:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB7610E3F5;
-	Tue, 20 Dec 2022 23:15:56 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF92F10E3FD
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 23:15:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D74D10E3E7;
+	Tue, 20 Dec 2022 23:27:25 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2063.outbound.protection.outlook.com [40.107.223.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6201010E3E7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 23:27:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HwdPClOhBUc4LXI54pBEmAfBKOqPLiWKZn9NuBGp6bYcKpqauc1AlOzFNLEQzSCoUwjDzSkldUdjWL0bMRfAEga8CUjA1+igQvIuXjoiCSZwL6vcg675WbuIYrZFnodolnsu/knkMCYQN3/2yd9FYVaW4TneevFAxnssH3Dn1NrLObf4IKpBoYd7dJBM2ToScbdBn6ae+KBAiW6m6yuft6Ut70taCoqp/Fv0n8QyYGbc/5o/PhsQi9NLyhGl0dZh4GMr/Y+SBqnNpoG9ZLpsfp6IcntXV1+QAN6wbkrk5B4sDel7o7Hag4OThTW8xC3q/IN7o6Hb3CmJNDXvj6+XrQ==
+ b=d8xWaYHw+eaTV1T/sOHOkhxaBhC8cb21/aWlKfoFOLftW0qewV1TMer3B9++4JgzoK5Nb5Dx7F/kKqAsjB5/GHI5iYYW16f1Wur4czQ3al813i8PtQmdmkIsRXKwaoExLw5MKCQV3GT6D3Bix/6+PAIt0rNGPyxN/0Nf3Qa0HaCQ3PdDoCk5e/gKWPcS1mNQ3fb2XVAksOuvVZS0B6HI17MFy81UrjJMZcn1b0Hgw8tgjwZVk56ng+n7Wx2LXCIzIQujJRkQ+Qa2kjiIx/rj4ThBPr4fS4ZsQF69Qi3e8GUW+XXASzYwIOszK9gjhkdQZGEuoEIwT6VXw1qbfymXwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1MQAhQUXXxpKAkVTkHlaNmQSbsQ9AQjqtxtRr9zChSs=;
- b=YC6k7f9ErSJKVIPzzCWzxGCXH282Wh9FVvQ+fK7YZAjAeq8njgq1CatVzt2wZTpNdljO5x8QsCNTn/0aKcTX3E5QV2/pghPn9z4aFfwnSDxXUl+4aPYQsyqhwDd839TLSCNZgHhNYhrFJNHMI2mpdfUbwef+nnv2Zev/TFdWwfiZKnGzSIBB/N0/QHZpEUoYEjSh68Xag3Be2VIV9+xshS118y7f87kqQKPOLwxwFWqCA/ptbwQUoWoQYIFZ1ycTa3VA82IVzctwzESHJNt5Ow5++klfFJWNc1kjhIHzzJqnOkSfmTHhEkjx6utv8K8029fHW8svPq0Tvd3SjmpoiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=9AkuT0Dv3LaPEvrKxnQpze3TZ11O0URw7DWZ9wt1vk4=;
+ b=EtHcnyBoxOtowLJ/yY/0OpObPNEdzTkBiNIH7Ecg7mJV/2A/Zdl07VccAXV1s51tPGbEoyMaK1pxCtzeIakTe+eCiYGOcRInQ7/Dz4QHN0EKtvDiqubHFklKjSv0H2lMc6nAYREzH3a4A9RrbLZz7Phsm63Pt18lZsfESmvYbYB5M5EowZuTL10w+pjwYcSmHSobGnjCOPeB5gOc9g5ZSUkWV32ouUgDtFQC9DYFm7HfmoJmsB3WISxq8DYrL6YZom6/R8JG1fdd3TuZJaFuzeNAGcb/WlINvmVX1kbZJHTobP1S6fqwSqEW2/GU+VVQxtMo1rnRtyYzdB/MqmE2Dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1MQAhQUXXxpKAkVTkHlaNmQSbsQ9AQjqtxtRr9zChSs=;
- b=xJsEYSC9Gah1VOaCB6UYIJ78kzf4CfrTKut5BheLghjCst/HWk8LPnuAkwa55wMOf31s3u+0kgWKndmYedJBilzJVvJ19xe7lc1YGaKgcgQJRwbQjGXZSsEYjBdZN9IX7wnI8Vh6rEMEE2lPEV4pqwMpncWCEeD5GOCiOvZQ2ZE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
+ bh=9AkuT0Dv3LaPEvrKxnQpze3TZ11O0URw7DWZ9wt1vk4=;
+ b=x8bRwzW/nDousegGMjYRWGzsdqo0gtMROptUGIG+6nzGV9rxrtaSNs68xMDHkOKIP+Mb5Wkw5UWlq36kRsctv6TkvpoQ37FZk2T6CJPQ+lhSFiIq2ub32NBGr3DxKW2DFR9pRKbFJoXS2ZKUtLcd4leRJiZVgb/fHxofmLyHtqA=
+Received: from SJ0PR03CA0167.namprd03.prod.outlook.com (2603:10b6:a03:338::22)
+ by BY5PR12MB4321.namprd12.prod.outlook.com (2603:10b6:a03:204::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Tue, 20 Dec
- 2022 23:15:45 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::5d8:f3f2:d940:5350]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::5d8:f3f2:d940:5350%4]) with mapi id 15.20.5924.016; Tue, 20 Dec 2022
- 23:15:45 +0000
-Message-ID: <3d09d354-4c2b-54db-fbbf-d56f277ec364@amd.com>
-Date: Tue, 20 Dec 2022 18:15:43 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH] drm/amdkfd: Fix kernel warning during topology setup
-Content-Language: en-US
-To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20221220225031.2182712-1-mukul.joshi@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20221220225031.2182712-1-mukul.joshi@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4P288CA0028.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d3::14) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ 2022 23:27:20 +0000
+Received: from CO1PEPF00001A61.namprd05.prod.outlook.com
+ (2603:10b6:a03:338:cafe::11) by SJ0PR03CA0167.outlook.office365.com
+ (2603:10b6:a03:338::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.21 via Frontend
+ Transport; Tue, 20 Dec 2022 23:27:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF00001A61.mail.protection.outlook.com (10.167.241.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5944.8 via Frontend Transport; Tue, 20 Dec 2022 23:27:20 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 20 Dec
+ 2022 17:27:19 -0600
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [RFC PATCH 1/3] drm/amdgpu: Add vm->notifier_lock
+Date: Tue, 20 Dec 2022 18:27:02 -0500
+Message-ID: <20221220232704.3394112-1-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BL1PR12MB5112:EE_
-X-MS-Office365-Filtering-Correlation-Id: 73d9854d-db08-4082-1a3e-08dae2e01f6d
+X-MS-TrafficTypeDiagnostic: CO1PEPF00001A61:EE_|BY5PR12MB4321:EE_
+X-MS-Office365-Filtering-Correlation-Id: 256da04e-24bb-4558-3c21-08dae2e1bdb2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8Uc0ZjMZNhK0BS++DnE9u+DbXMDIjWJ7r6u70PTROzOYhyZrcPp0ByohnE05S0ISOHmlm1yzcg3DChFoNKRPGc09hPx8/dYquTh8sPjTCf/D0Dq69kz7viS1OmKXCUOZHTYXsen3NZVzL2ILBZwgpy4I/58x9iuMoA+jJfuirGRnvfEzMElCVZGRezvXOErOWnvmyE65k8KKHtq4nh6jKv0tjZ00/pYgpbw3sSuO1p3a9PpxFFDE811/prrTGcokZRxKWUWUYC+K+4OdMfrwyj/qTKjFcoIfeGyHeDDTq8FHx6TG+ZndQqJtYvWcPdnFKsZKWTtO9sIZxFeTbfx10TuwZ5v2BzG8LHjYZM9ueoeQMtLn+yIGn3+BI3dbnQ5sRM0goyz+sR3Tv8vgNYgZrxu/Uqzxi8vI5UTUPZ3zX54UkIHxnyWUsiNvNfFjssmClas+UUXWTHUDQe5CWQB3Y/9ESTRZxgVEoHYIhm3ThyKJb3+24+DGra2AF6SoijMbH5AnXhopD7oL3Y8P9VNwkcKGDxJlj3jgdwOSF2OrBSrS3xieIHlXc3ExwFl0MGwWCdffIWGyVM+29aWdD7P53gfdyNFCh8r4ZX34JmxeGWYu8Pflm12hkChLGEVNcVLDMCjhxsqVHfrF22qpZE8Gq3cVfxf2y1rda213AxXC8zi+qDZzCg4g1YwpDby+xcSJE4aCdvhOpgw74OJLRWlJLpuNPXxob3L6mImsWBFxkB4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(376002)(346002)(366004)(136003)(39860400002)(451199015)(31686004)(2616005)(66556008)(66946007)(38100700002)(66476007)(4001150100001)(41300700001)(8936002)(8676002)(2906002)(86362001)(31696002)(53546011)(5660300002)(478600001)(36756003)(316002)(6486002)(83380400001)(44832011)(6506007)(6512007)(186003)(26005)(36916002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: pvhGnmu3BhIMkaMOC0xgYSGpu98jS/8xzoGiUMddLoEVEz/s28asIuyBVCdLCg7JOioiU884nzzM1bjjzvRL0JP7klU7qYF179/ixoG06QQ6K49N8Izwka+/rtQ6JwsSw0LKfVfRRFAWDqVD2+T57UL6wZi1bHruAYTcQxgFjQ4t1Qjk0uFC/Y28+f/klM2R2X/FRKsyl0oMeTPRTg/vrsjbzZld6A60pkF/7GDKt7HtVrDkEGvcXMNTlGlUAC/DOi6lQmYIWwJ5FvbDw8J9w14urv05EQi3eQMjik17Lw1sTLwuwOhWpKPaRwYfVkruVMKr5xQr0eAZD4ocJ+EFC6lSwG03tIvPcJ6KR4mo+rLBAkhIppX08H7U0cE45cT4vhT36u9AFnlEI6fIDDqBb+ygAWMKLBnkN2ok6mfrLMB9QNBQPJ1d3wyOb10ajfkUpTxAs/3pPPa1hn5qz/RfWjU0JrLkTkqIw5nVuKBDEFR1C68fROJvz84zIWCsoWFI3KxWWxEqL1hjO3Bb3OkfMK/Y/f8RDI2ubxDdOLzkkMg19MZv8QBcGAz8csyy4SJA2GkjEs91KOklpLnWmB9OUqHRlKvR9vE7XeoD0H574zpZ890yfrJjGbDLYTs5vbbvNLZCd691AXiA7JhoBvphb7SXy6wnoR3adWQY/iQ09mdA0E0flfk/qiS+7GfvOuyC58aUquwNZLSMAwc89osES/hmR0+YrFInqvYDMKPuDzA=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(39860400002)(136003)(396003)(376002)(451199015)(46966006)(40470700004)(36840700001)(7696005)(82310400005)(81166007)(41300700001)(186003)(336012)(478600001)(40460700003)(16526019)(26005)(86362001)(4326008)(2616005)(8676002)(70586007)(36756003)(70206006)(82740400003)(1076003)(2906002)(316002)(40480700001)(54906003)(6666004)(5660300002)(36860700001)(47076005)(356005)(83380400001)(426003)(6916009)(8936002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SERUL21kVDZjdDJ1TUpRYmxyVE8ra0pnOXptY1NlTHZKQTI0SytzRHR4dWJM?=
- =?utf-8?B?ZmdCdjhHNzJQR0I2K21Ga3krZVVwdFNhS0VPd3U5UEp1bng0TjMwZnZHUzdK?=
- =?utf-8?B?YmthQ2hIOGlMdG1Ca3FVYXQzaXF3T1duNHVRWTFqYnk1bW8vekV0b3hLQTVT?=
- =?utf-8?B?QVB2NG4xdS8wV0U4VkdURkk5b1k0L2prRzhaNDZ3WnVKb2thVTdCR01WeUpj?=
- =?utf-8?B?SlVxeWJxaXFuM21xWk44SVhaSVFmT3RMVy8wZy9CM3ZDM2xSYnBkK1lQZjdy?=
- =?utf-8?B?dGxZWUt0K3pHWGFkWjh1MkZzM1VEUGt1L0Z0bjNiUklVLzRPOXZ5YmZEdmdF?=
- =?utf-8?B?cVMzVDhTNSszbGhFQ1F5SUF1WVpmeHdRZXFvN0ExaDlLaTFGRE1yMnBZSnIx?=
- =?utf-8?B?VkFWY2wvaFJVRVFMZVlOb3d3dFIvTWxaZ054VjhLOHZCd1U1M21zTjZidFV2?=
- =?utf-8?B?Mk4zb2g3cU4yUzdSSE5mdEVCN2Q3N1FvTkM4T001TC9TQy9CWDNuMUxSZkx5?=
- =?utf-8?B?bWwrSUpIZnJsWitkdmJCVS81ejVSZ0kyOENkMFA5QWlBMHpRejVDaWU0dHQy?=
- =?utf-8?B?TjJ2RWRRZkxaNjR2bnFpMkNJQk9vczloQ0oxTW9ZZ3ZGRjBMVS96Ym45dTZm?=
- =?utf-8?B?SzE3TG5NcldmYTVzMmtkKzc5dVMrd0xBZHdmRFVoMG1KU3k4SnBldit1Zjg4?=
- =?utf-8?B?K1VNZlFUNExSeWJXMjF2b3JRdGhDM1lyMXFrQS9iVnQ1b1ZRTFZ5bUJ0bXhr?=
- =?utf-8?B?VEdRajV5NkhDRlc0WXFpUkZFQXJPV0Fkbmh6Zm1qeWEweE9SYS96Uld3cENt?=
- =?utf-8?B?c2EyYytWdktLRzMrYURUdWZYWVFhT0p5WjJLdzNLZlNxTnRTUkZ1UVpqMTha?=
- =?utf-8?B?KzJ4eXlwQ2FKaGcxTWJDTnVrVU1CTHpLKy9nYXRQN21KaDFJZWhlS3JQaE4v?=
- =?utf-8?B?YzlSV0poQm43Vlk1MzM5K3pJb0JyODFSRC8vQkcxakJPckwvMnE1MTRETkU4?=
- =?utf-8?B?MXZmRlB6RVRweEFwQUgzanVWZk5mT2JIMk90M0RTUWErUFg2Qk1XMnJIMUhi?=
- =?utf-8?B?WHY1c2t5akYrbXVReXMvc1RuOFZWQkRialQ2NUlVcXl1c09yL0Q2TTZJZzRs?=
- =?utf-8?B?YXNKZnk3ODd2ZGliNDExRk5NRnVmM3lseXZlUnBNclFrVC9sZDBVb2EvcWVr?=
- =?utf-8?B?UlZZY2V5WlRUbFg2N204WUJYQXJFdkplQnFHRTlrendCNTVjR2JIQjNyWjRq?=
- =?utf-8?B?VHVtWC8rODF5YmxhQkFwZFVQVXJOSy9vRHNMVXl4blJrN0FWelpyUlhrdjc1?=
- =?utf-8?B?MXhLcFNtVU02elRYTXZiMU9hL2ZOWW43bHVwOFVWQzVOVkt3SWg0KzNVb05V?=
- =?utf-8?B?ZFRHbXZSbDBpai9VNkVLd0NMaEkxQndPWXFHYlY1SWZjbVJSY0dpNlVGVklN?=
- =?utf-8?B?REpzWTVpam5WMGQwQ2s1aDlNdEFmbHFIWURBVTQxWWsyUFllbUJhM3hGaFRH?=
- =?utf-8?B?cXg2NjQ5Q29wQTMyc2NCY09tKzZDbDdIa3ZHaHZqZkQ4enRDTnBWNDBYdXlZ?=
- =?utf-8?B?M1BZazB3dE5pTTQ2TEJVclhpd1FqV1JBeFAwZU4yc0VDOUhRc3NTOHZUREpT?=
- =?utf-8?B?WGhRUlhOMDZxaWVkZEMyTHpJWFEyYXFjdWc1SFhTMXBmaU5SUmE2QVFjRURn?=
- =?utf-8?B?bU94cElWWC9PbnBLL2VyVUpzd1lmN3lXbzd4SWJKMktOY1lmZjh3WWFSU0dh?=
- =?utf-8?B?WXJrWmxJb21ENEw1VTZKQkV4endyOFB6dnB0MzBNakZnb1BwbXRmQm1hdkJS?=
- =?utf-8?B?cVdCdFdsVDZwNnpBQkJ1MGZxSWtwMGE4ejI1RkV4eVJvbFAyKzM4eHJ2MU0z?=
- =?utf-8?B?bHIxNUhFZDZjaHlsZm9xYkhDM0NhWncwdHhBRE53Z3pUWThoYmNpVUsvQzV3?=
- =?utf-8?B?c0pIVGNKdHB5TTB0ZS9xaGFyWlpocFNIaWRoSmx6R2RucHRvV1pCdlBJTE5V?=
- =?utf-8?B?ODYvaVFkSnBXQXMrMUk3Y1RPNVA0bVM5TUhXT0VHVm1oTGFMSXZkZE1CZmkz?=
- =?utf-8?B?aitBZnFHN2pwaGFHMllJbmt1M0NHdE1HaGJ0UVNwd0hHZGc4Q0J2d3FPaDBD?=
- =?utf-8?Q?urAKRwA3Th6JRKeqR721Dv9aK?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73d9854d-db08-4082-1a3e-08dae2e01f6d
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2022 23:15:45.6330 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2022 23:27:20.3034 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 256da04e-24bb-4558-3c21-08dae2e1bdb2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Qle3rtg+YWYBAHKceKEotAxcVft4hiRA3Nj2T3fANq3bSH2kk3uhmZRfqQRTZYpLVmhXDa45rhY6fiVkthWtVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5112
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00001A61.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4321
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,67 +97,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: philip.yang@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-12-20 17:50, Mukul Joshi wrote:
-> This patch fixes the following kernel warning seen during
-> driver load by correctly initializing the p2plink attr before
-> creating the sysfs file:
->
-> [  +0.002865] ------------[ cut here ]------------
-> [  +0.002327] kobject: '(null)' (0000000056260cfb): is not initialized, yet kobject_put() is being called.
-> [  +0.004780] WARNING: CPU: 32 PID: 1006 at lib/kobject.c:718 kobject_put+0xaa/0x1c0
-> [  +0.001361] Call Trace:
-> [  +0.001234]  <TASK>
-> [  +0.001067]  kfd_remove_sysfs_node_entry+0x24a/0x2d0 [amdgpu]
-> [  +0.003147]  kfd_topology_update_sysfs+0x3d/0x750 [amdgpu]
-> [  +0.002890]  kfd_topology_add_device+0xbd7/0xc70 [amdgpu]
-> [  +0.002844]  ? lock_release+0x13c/0x2e0
-> [  +0.001936]  ? smu_cmn_send_smc_msg_with_param+0x1e8/0x2d0 [amdgpu]
-> [  +0.003313]  ? amdgpu_dpm_get_mclk+0x54/0x60 [amdgpu]
-> [  +0.002703]  kgd2kfd_device_init.cold+0x39f/0x4ed [amdgpu]
-> [  +0.002930]  amdgpu_amdkfd_device_init+0x13d/0x1f0 [amdgpu]
-> [  +0.002944]  amdgpu_device_init.cold+0x1464/0x17b4 [amdgpu]
-> [  +0.002970]  ? pci_bus_read_config_word+0x43/0x80
-> [  +0.002380]  amdgpu_driver_load_kms+0x15/0x100 [amdgpu]
-> [  +0.002744]  amdgpu_pci_probe+0x147/0x370 [amdgpu]
-> [  +0.002522]  local_pci_probe+0x40/0x80
-> [  +0.001896]  work_for_cpu_fn+0x10/0x20
-> [  +0.001892]  process_one_work+0x26e/0x5a0
-> [  +0.002029]  worker_thread+0x1fd/0x3e0
-> [  +0.001890]  ? process_one_work+0x5a0/0x5a0
-> [  +0.002115]  kthread+0xea/0x110
-> [  +0.001618]  ? kthread_complete_and_exit+0x20/0x20
-> [  +0.002422]  ret_from_fork+0x1f/0x30
-> [  +0.001808]  </TASK>
-> [  +0.001103] irq event stamp: 59837
-> [  +0.001718] hardirqs last  enabled at (59849): [<ffffffffb30fab12>] __up_console_sem+0x52/0x60
-> [  +0.004414] hardirqs last disabled at (59860): [<ffffffffb30faaf7>] __up_console_sem+0x37/0x60
-> [  +0.004414] softirqs last  enabled at (59654): [<ffffffffb307d9c7>] irq_exit_rcu+0xd7/0x130
-> [  +0.004205] softirqs last disabled at (59649): [<ffffffffb307d9c7>] irq_exit_rcu+0xd7/0x130
-> [  +0.004203] ---[ end trace 0000000000000000 ]---
->
-> Fixes: 0f28cca87e9a ("drm/amdkfd: Extend KFD device topology to surface peer-to-peer links")
-> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+This points to a mutex to serialize with MMU notifiers during page table
+updates. For graphics contexts, the notifier lock is per adev. For compute
+contexts the lock is per process.
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h           | 3 +++
+ 3 files changed, 7 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index b15091d8310d..7aaa844a8284 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1325,9 +1325,12 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,
+ 
+ 		*process_info = info;
+ 		*ef = dma_fence_get(&info->eviction_fence->base);
++	} else {
++		info = *process_info;
+ 	}
+ 
+ 	vm->process_info = *process_info;
++	vm->notifier_lock = &info->notifier_lock;
+ 
+ 	/* Validate page directory and attach eviction fence */
+ 	ret = amdgpu_bo_reserve(vm->root.bo, true);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index dc379dc22c77..a04f7aef4ca9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2075,6 +2075,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 
+ 	mutex_init(&vm->eviction_lock);
+ 	vm->evicting = false;
++	vm->notifier_lock = &adev->notifier_lock;
+ 
+ 	r = amdgpu_vm_pt_create(adev, vm, adev->vm_manager.root_level,
+ 				false, &root);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 094bb4807303..07af80df812b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -251,6 +251,9 @@ struct amdgpu_vm {
+ 	bool			evicting;
+ 	unsigned int		saved_flags;
+ 
++	/* Pointer to notifier lock used when updating PTEs */
++	struct mutex		*notifier_lock;
++
+ 	/* Lock to protect vm_bo add/del/move on all lists of vm */
+ 	spinlock_t		status_lock;
+ 
+-- 
+2.32.0
 
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> index bceb1a5b2518..3fdaba56be6f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -801,7 +801,7 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
->   
->   		p2plink->attr.name = "properties";
->   		p2plink->attr.mode = KFD_SYSFS_FILE_MODE;
-> -		sysfs_attr_init(&iolink->attr);
-> +		sysfs_attr_init(&p2plink->attr);
->   		ret = sysfs_create_file(p2plink->kobj, &p2plink->attr);
->   		if (ret < 0)
->   			return ret;
