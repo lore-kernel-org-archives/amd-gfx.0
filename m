@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78A18C10F1E
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 09:40:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A9C8C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 09:41:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6295810E362;
-	Tue, 20 Dec 2022 09:40:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40CA610E368;
+	Tue, 20 Dec 2022 09:41:13 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D203E10E362
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 09:40:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF17210E368
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 09:41:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1671529233;
+ s=mimecast20190719; t=1671529262;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=1J4eLv+5To8BjnLItTbs6pq8g5LjZHk9PMjLEQIi8Lo=;
- b=DhiHk/HyImR4HtOMcFN2LQsGDLUfzWRwh3sFdcTSOXC1iJq7ca4jlIQNnXv1idjBWtUnKP
- IOOySZuIBlswiIhQ7Zj5LMjCwJEspwvGbdp4Q6uBkUk9hverLhJ51jx3ipewVNL1569JWy
- BztCJxnbz4qb3FNgdCDwlF4NWX9JRBM=
+ bh=LveyBWJYAPbiyv73TUAfukc6OJNlBtbiuo6YSIh6FLQ=;
+ b=Q7jkLfxfQyiVWjzUv3393IF/8mCrQ9TZ9s6dwDLyZ99VDb/GAZq6bIz8xyEPDG3NfOk4zs
+ 6/tDcV8bymcDeSxlbBstDpqqalm+ZXDxIn2xET0fmscdXAXR2+BokOLmmIS0oUTHYV6ac2
+ guSt9PWz6+DI0yefZJgGvsWaldavAaw=
 Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
  [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-338-0hBUb8yOMyG1iDBXbKHf8g-1; Tue, 20 Dec 2022 04:40:32 -0500
-X-MC-Unique: 0hBUb8yOMyG1iDBXbKHf8g-1
+ us-mta-204-Q2nb6BdEOMGvkuX3pS7PnA-1; Tue, 20 Dec 2022 04:40:58 -0500
+X-MC-Unique: Q2nb6BdEOMGvkuX3pS7PnA-1
 Received: by mail-wm1-f72.google.com with SMTP id
- n8-20020a05600c294800b003d1cc68889dso2402236wmd.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 01:40:31 -0800 (PST)
+ v188-20020a1cacc5000000b003cf76c4ae66so7798654wme.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 01:40:58 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1J4eLv+5To8BjnLItTbs6pq8g5LjZHk9PMjLEQIi8Lo=;
- b=uv1T8gjKJR3/jnvxwmcWb0ao6GZKcPN378guSzc0vfqgJHs9wC6hHQQCr9o5nrTabU
- C6Vi14GqQrtA8Mnb/QX1Po06r63LfnqDHl97K5MTfN6R6fJgqqTpf2jQvQlsjtLDE/ZE
- EoSKI0e9pw9HdlfijZMyhpkD5XtNhajEQv4cqXKay7e53TlqzY1LK3/+1d4EYBsq3J1l
- C4SyFlZqS6/FR/+VY8NYAybSq0O/HzM7DHlIsWp4ckRDbXOA2CbO+YAsaw6wkyuV7g8Z
- /rcAnvmNurv356FPxLy0eWrGjyr9aOFCGFvkAB+wECvsIsVMgX0qcfCbh5J1SN57PO1r
- Fmbw==
-X-Gm-Message-State: ANoB5pkbIJ+mEN1aJXiZWmrtHG7ZMVwJTGR+aize6sfmlMCR9AlYAVG6
- SeoW7Vx73ENuvClXDQbzaSI4Dkgh/Cb120zH3WsCjKuyq2DcRGPW8II8rR0oYhQHU35rPWNMihI
- sLDjuz/UgFmIr+8WZs/GvKIMLAg==
-X-Received: by 2002:a05:600c:1c14:b0:3d0:965f:63ed with SMTP id
- j20-20020a05600c1c1400b003d0965f63edmr33960392wms.23.1671529231163; 
- Tue, 20 Dec 2022 01:40:31 -0800 (PST)
-X-Google-Smtp-Source: AA0mqf71wOlxFtTuSNW/9jMXBnVwUZwb2b/kuKlWfvoG3RUuoMrRINee90ZtVa/GrwK8ITxjbcPFuQ==
-X-Received: by 2002:a05:600c:1c14:b0:3d0:965f:63ed with SMTP id
- j20-20020a05600c1c1400b003d0965f63edmr33960383wms.23.1671529230999; 
- Tue, 20 Dec 2022 01:40:30 -0800 (PST)
+ bh=LveyBWJYAPbiyv73TUAfukc6OJNlBtbiuo6YSIh6FLQ=;
+ b=BbxOGbKNAxjxhAyoMfO3kCzfd+nCUa73nsZ4Uy8x6/vxou6bInK7zmLfvJg3QPYtrD
+ 6hcfm2itkkOxovTJosfnpQsPju/wW06tU4Zba9I/uaN+F5iaOzb+adDq9lGstxmcxMuJ
+ 7PjLvPAYMxlbSVNBNEnmE4KJb9hGeAWCAv48rlUeTm+fk/VmJuzLHc7zxQd2Kf5aRrmQ
+ TEoDpk80nJo5mNF6nXbEcl9DNqu0qrrmkphg6NEdAZ6vRRYH4QODQ5wQtim+5byPvRgO
+ RMPHDizORqkVuovCKsekCFJ/enknwupWn2YraVyeE1r/Hvi2TswoaXlgGJ7bn/byzrfk
+ U94g==
+X-Gm-Message-State: ANoB5pmDrFXqc+OZX+8Q10eQcd21Mivjdfjrcr4Ff0UfICGKs1+l7M2u
+ FA/yl9Z61EPvDwkaFtLA/TqYe+xhWmc2Kf4gBJQUQTNdbcL6mr3bs2qqcg/wJb1pCTxpz33fzgH
+ pF11f4P0JNko46hMRN21RPQwHMw==
+X-Received: by 2002:a05:600c:1c23:b0:3d2:3376:6f2e with SMTP id
+ j35-20020a05600c1c2300b003d233766f2emr22381405wms.9.1671529257842; 
+ Tue, 20 Dec 2022 01:40:57 -0800 (PST)
+X-Google-Smtp-Source: AA0mqf7eSfSzTvRvhDpxH502Pk0KEhQEu8qDdlhID/m63O9KppBhxg3tASNRV4SrXUiQOLpYrNpaag==
+X-Received: by 2002:a05:600c:1c23:b0:3d2:3376:6f2e with SMTP id
+ j35-20020a05600c1c2300b003d233766f2emr22381388wms.9.1671529257649; 
+ Tue, 20 Dec 2022 01:40:57 -0800 (PST)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- p2-20020a05600c358200b003d1f2c3e571sm24392373wmq.33.2022.12.20.01.40.30
+ by3-20020a056000098300b002366c3eefccsm12187201wrb.109.2022.12.20.01.40.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Dec 2022 01:40:30 -0800 (PST)
-Message-ID: <1dd11b16-bf9d-4b86-14c7-095804a2f66d@redhat.com>
-Date: Tue, 20 Dec 2022 10:40:29 +0100
+ Tue, 20 Dec 2022 01:40:57 -0800 (PST)
+Message-ID: <6b3825fc-e149-9096-0438-0fb2c717f3d6@redhat.com>
+Date: Tue, 20 Dec 2022 10:40:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
-Subject: Re: [PATCH 14/18] fbdev/simplefb: Do not use struct fb_info.apertures
+Subject: Re: [PATCH 15/18] fbdev/vesafb: Remove trailing whitespaces
 To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
  airlied@gmail.com, deller@gmx.de
 References: <20221219160516.23436-1-tzimmermann@suse.de>
- <20221219160516.23436-15-tzimmermann@suse.de>
+ <20221219160516.23436-16-tzimmermann@suse.de>
 From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221219160516.23436-15-tzimmermann@suse.de>
+In-Reply-To: <20221219160516.23436-16-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
@@ -93,10 +93,7 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 12/19/22 17:05, Thomas Zimmermann wrote:
-> Acquire ownership of the firmware scanout buffer by calling Linux'
-> aperture helpers. Remove the use of struct fb_info.apertures and do
-> not set FBINFO_MISC_FIRMWARE; both of which previously configured
-> buffer ownership.
+> Fix coding style. No functional changes.
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
