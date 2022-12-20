@@ -4,78 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBBDAC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 09:46:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A32F3C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 10:33:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0132D10E36E;
-	Tue, 20 Dec 2022 09:46:45 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA86D10E36B
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 09:46:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1671529599;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ykdKuygOSTPkcM25esQW4i241lwYH2V5lSGsmvsr/ls=;
- b=gCuf+TYmqs899gY3Z/Oreyd0KYIY0DmbgF84SxgL4fK8gHs6rM+m4KMKh3W8ZuretoEyfs
- 3mR18buTB6Pw7lrccI31YEKwjFJ2MW2Jbccl9uxljMrNmCuv7x0q20GuZSp95/cQS6epi5
- hb1g0hL5vDbxBQS1TNFLmZcx5FN3l80=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-59-r42lqJLUNOqNN2oOxGPvNA-1; Tue, 20 Dec 2022 04:46:38 -0500
-X-MC-Unique: r42lqJLUNOqNN2oOxGPvNA-1
-Received: by mail-wm1-f70.google.com with SMTP id
- i132-20020a1c3b8a000000b003d0f49bc21bso7812479wma.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 01:46:37 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ykdKuygOSTPkcM25esQW4i241lwYH2V5lSGsmvsr/ls=;
- b=e94PuuR6+N6xe6byJqsxN9cWk9A0QDyVP61EP8ezZ4wM+nPYmc9/7Qqoa246VL9in7
- 147gvnY/Ih+YKaKbC6Eka6+bbHczk9o5tO/H/ZMMKv6aD2QyKnSKGuh2j5b6vn+HbEGY
- 5bmOQxYeRO9hNQ4GJ1qAt/G5NQgUPdFw7+skQoXmMUECfFEwa4rd0hdPPZ2xkAKfMUpc
- lhy3PjYlj411S1QToeRzj3X4/atlFDrcPn79wgf0p+lkBjTkSEyiX2Q8WTs7WBFTgpYf
- nidgL5rU8I2ujH+PxW0Tk5UoPFDAXmA8GaR5sCmSHF3OGgj1/9+Tj583jGcIlg4gBdlu
- agrQ==
-X-Gm-Message-State: AFqh2kpu9F0hMiYXYTbBkj+jiKt8XugRFgn9EYmoc7gGjqjYPZziGXZx
- hnjDU1a8AJZdCxETWyxOnNOpcrzN1hqmznJf6a/ipxsgVsIy3csw6JdOzoPawx4Rt1kv6JW41th
- KmFSgtoc77BnMmueoQPOnK7FM/w==
-X-Received: by 2002:a05:6000:718:b0:256:ce1b:74ac with SMTP id
- bs24-20020a056000071800b00256ce1b74acmr19147669wrb.29.1671529596403; 
- Tue, 20 Dec 2022 01:46:36 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXvJLK/eM71NU46wbs2aboKoDtpTCvPv8+GeJSh+yzufeE4NK5CbBNZkmGr9N2Pg6bIDfe3F3Q==
-X-Received: by 2002:a05:6000:718:b0:256:ce1b:74ac with SMTP id
- bs24-20020a056000071800b00256ce1b74acmr19147664wrb.29.1671529596230; 
- Tue, 20 Dec 2022 01:46:36 -0800 (PST)
-Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- c16-20020adffb50000000b002365254ea42sm12325758wrs.1.2022.12.20.01.46.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Dec 2022 01:46:35 -0800 (PST)
-Message-ID: <978cd907-65ce-2a89-e046-17a75c0ab832@redhat.com>
-Date: Tue, 20 Dec 2022 10:46:35 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECC4110E37B;
+	Tue, 20 Dec 2022 10:33:31 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2079.outbound.protection.outlook.com [40.107.237.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DA7110E37B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 10:33:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SIQE/A7pauMY+tZKkH6/+fuFWN91H2vLrTLkfE/IJVLB5LW2lDX76cpDrWGcllaAVjsePHecBgnfTwS/+gNyMjxIXfPC7+Neo30zgE7jfyHtjMbvKIxi1dvBGObwEpc6aZninp9nFugNVjFvSTCXTrKwR+Ktyz7SU6r3R/gOkL2PGWQ62Xr3jM0JKAluVclSbZ71E3fp1CaiwaY+F9oObbqCxh9qYuWbQXYNGUUrZ0TXGrlNkh4u7xK0rxUkLi7gGax46Vut+y4JRzNCj62eFcyKqMrlR/pR8mIkR/NTm9/FNtfMYwqCLl68dzHIpMp5xLnDxR+GAKLn3p/kKPotOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=U2kJjrnXgdQkrtZ4C1GjeX+R6acDBWqrAZsQowe2Hu0=;
+ b=OrKybQCXR+QdPqJ2Vbe5pR3WzSAiskrJ2Su8Hsg8bpLe9F43OP+9sJEh/5POq09HA5XS9FMOpwAzzJiwsU5qTAGYnQca/x8c1nagyMhBGEq+ri3tbOWbctgaFXUuvVCqsOprBBR/lgpWcthMP6XE0KKsq2pER8+u732Iq1nwEQuIke9Or4kb7h3cyZDTEfjGhXw4NbyDbirTj5ubST9TKlvnUBkl7uykVIfMcV0SMweIsuPXQXv6g5Xp9xj7i24kdNaxXOP/ohNnQCWPLOPXT43fvyF2d19zs7lylE4tY9CALyg6m3RFH1cJ3cZRfdRIgdSEo2uP1cPBVdCGyCVYwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=U2kJjrnXgdQkrtZ4C1GjeX+R6acDBWqrAZsQowe2Hu0=;
+ b=z2BL+3sMi6jj9V3hZh1Wtr0siB1T1ZSMhwgFUKqlr4xTpep4jGq7moUO9h1+yohS8wnV6aGzsO3HuLW5LaJt56n8jwx0LyG0VNfevWJuEyFOE9xu+1s2HxvVqTcSvz3aXQZtF2vGEqN2gNMdTS2oqr1taBcAFDxQcyfeUUYDs0k=
+Received: from BN9PR03CA0802.namprd03.prod.outlook.com (2603:10b6:408:13f::27)
+ by CH2PR12MB4325.namprd12.prod.outlook.com (2603:10b6:610:a9::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Tue, 20 Dec
+ 2022 10:33:24 +0000
+Received: from BN8NAM11FT077.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13f:cafe::15) by BN9PR03CA0802.outlook.office365.com
+ (2603:10b6:408:13f::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.21 via Frontend
+ Transport; Tue, 20 Dec 2022 10:33:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT077.mail.protection.outlook.com (10.13.177.232) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5944.6 via Frontend Transport; Tue, 20 Dec 2022 10:33:23 +0000
+Received: from x570-ryzen9-5900x.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Tue, 20 Dec 2022 04:33:21 -0600
+From: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
+To: <saleemkhan.jamadar@amd.com>, <leo.liu@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <veerabadhran.gopalakrishnan@amd.com>,
+ <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: enable VCN DPG for GC IP v11.0.4
+Date: Tue, 20 Dec 2022 16:02:21 +0530
+Message-ID: <20221220103221.1775621-1-saleemkhan.jamadar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH 18/18] drm/fbdev: Remove aperture handling and
- FBINFO_MISC_FIRMWARE
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, deller@gmx.de
-References: <20221219160516.23436-1-tzimmermann@suse.de>
- <20221219160516.23436-19-tzimmermann@suse.de>
-From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221219160516.23436-19-tzimmermann@suse.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT077:EE_|CH2PR12MB4325:EE_
+X-MS-Office365-Filtering-Correlation-Id: d06a5439-ca24-41b4-5ef2-08dae2759f4c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: saLUnAkGFqQTNJjejWfIW9lbo8s2/nfhF73HkEfPZNwLEsf10CKdOU7H5Gh2xJTpX3aw974wINXpAbYxyx8B6ugkneWzWKWb+9ggwPmgDKfilOYhSQzyO4VQAZmG6iGbJUr0zqi7Ott73aRji5ycPvCjXWszLLmOgb+5FLD8seip18KuphVvGliMbFOmyQ4qkVT39X8zap61SCmf7Xyow1P8BsHWY528XFGKCNbtQH5J/5UPHg9EaBtoZG1YQ3n0h1WziILAO5lbiordCFRNGm7fjKUcGOY9pbhqQYEeHmbEGa74GRbbSbonnlR6poL8pcZikes/3Vw8jjACOiu+tutydN46ZFkYhMxH+7BGLOJHiiymm8Q42fEM0bQn3IDmiy1NxeSeN317+fjqDUKjJqYr5UuSy6J84eC6EVtYvVz2ne3XMPB5QrblFqa3BqoRvfHCA71E5iMVg7uVW1TXSm9NsqKleNxiqRRas1Nhe+zHq8MMZ/k2eqbTSvvvBbKh5EFuzb7gp+ljPZVOw+9AmyBtk5Q3gv5Hmj4OXbTO1Cg6A7csxpS2yNy1/f4zAfl1jFHpkcjzlwpopZRVdatx7mhw7O3Wd4RNi2M7cjL+HxbEhJAMIbMSjG7Y5Qb7IaqpcKA1OP4YXmN9nTmdgALijMDEBP/pcVbxVB2a8rP1+BIP+NBsk/fFmf7pX6B/kbfKzKgi2X/92RYxLGXEKoyI6cyBhI7d/e5tWImoSHRmFQE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(346002)(136003)(396003)(376002)(451199015)(36840700001)(46966006)(40470700004)(36860700001)(86362001)(82740400003)(2616005)(26005)(2906002)(186003)(336012)(40460700003)(16526019)(81166007)(40480700001)(110136005)(7696005)(36756003)(478600001)(8936002)(6636002)(44832011)(316002)(356005)(8676002)(70206006)(41300700001)(82310400005)(1076003)(426003)(47076005)(4744005)(70586007)(5660300002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2022 10:33:23.7667 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d06a5439-ca24-41b4-5ef2-08dae2759f4c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT077.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4325
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,33 +99,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-hyperv@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/19/22 17:05, Thomas Zimmermann wrote:
-> There are no users left of struct fb_info.apertures and the flag
-> FBINFO_MISC_FIRMWARE. Remove both and the aperture-ownership code
-> in the fbdev core. All code for aperture ownership is now located
-> in the fbdev drivers.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  drivers/video/fbdev/core/fbmem.c   | 33 ------------------------------
->  drivers/video/fbdev/core/fbsysfs.c |  1 -
->  include/linux/fb.h                 | 22 --------------------
->  3 files changed, 56 deletions(-)
+Enable VCN Dynamic Power Gating control for GC IP v11.0.4.
 
-Nice patch!
+Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
+Reviewed-by: Veerabadhran Gopalakrishnan <veerabadhran.gopalakrishnan@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/soc21.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index 7d5fdf450d0c..5562670b7b52 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -666,6 +666,7 @@ static int soc21_common_early_init(void *handle)
+ 			AMD_CG_SUPPORT_VCN_MGCG |
+ 			AMD_CG_SUPPORT_JPEG_MGCG;
+ 		adev->pg_flags = AMD_PG_SUPPORT_VCN |
++			AMD_PG_SUPPORT_VCN_DPG |
+ 			AMD_PG_SUPPORT_GFX_PG |
+ 			AMD_PG_SUPPORT_JPEG;
+ 		adev->external_rev_id = adev->rev_id + 0x1;
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+2.25.1
 
