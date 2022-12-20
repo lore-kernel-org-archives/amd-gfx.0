@@ -4,73 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC100C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 09:24:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEEFEC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 09:25:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AE5410E0BA;
-	Tue, 20 Dec 2022 09:24:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A95F410E359;
+	Tue, 20 Dec 2022 09:25:15 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83EF610E09B
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 09:24:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CACB010E356
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 09:25:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1671528252;
+ s=mimecast20190719; t=1671528303;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=hYMKnwowgCZbmQLyZb+O1xPkwcQc1vWKiI5mpSCZQTU=;
- b=NqHjdVkyXrabLYecQ7zyu+04hEaQxoKC6HHkvgz88Xvwo9w5ffLD+xcZuXN4crYA2Ca6gG
- A/RCWXSzpGbEsJVInkrFXZAqaIHSS7Nn1nYC0CI3+0M3/4/aqXvq4Gy5qaO4NwbvNaCNgX
- xaOOPs1HkzGQtV5J0ReFRA7K/x10oNU=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=hMFhZOuihLodO313fEA5R64i9CUhN9/n0ds4HavllAs=;
+ b=gngBIQ7zUBhzzIIqKucjHvclR7o4PWQ3/726DmDRWDGZOM6mk2/YSoILD8ocMM7imtg8G6
+ 2CnBMyzNXJZHANGz9VzfIyhL8lgXQvWOtZiVLVz9KNl4SCR7WHloqevFWouugcH7bP5CSG
+ W/In6c1pl2Eg44MnVu7mZjRSpxeojgQ=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-192-ihg-WtZYN2OoogXP5uED3w-1; Tue, 20 Dec 2022 04:24:09 -0500
-X-MC-Unique: ihg-WtZYN2OoogXP5uED3w-1
-Received: by mail-wm1-f71.google.com with SMTP id
- c7-20020a1c3507000000b003d355c13ba8so2675720wma.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 01:24:08 -0800 (PST)
+ us-mta-314-g7ZAPPf0PfWcXUJthU-Nrw-1; Tue, 20 Dec 2022 04:25:01 -0500
+X-MC-Unique: g7ZAPPf0PfWcXUJthU-Nrw-1
+Received: by mail-wr1-f72.google.com with SMTP id
+ e19-20020adfa453000000b0024209415034so2071742wra.18
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 01:25:01 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hYMKnwowgCZbmQLyZb+O1xPkwcQc1vWKiI5mpSCZQTU=;
- b=h6JaD89EPbkZ11ZHbJrVOxOG4TEvsWxET4WNeU2aU+kQrq0rOLmBtPwdYLrwYzYXkv
- ejKH5agn/PxxxwtPJvwPfbru19Ap2pObORLmJyECso9R8pTN8wA8g30fjrJKCFniK3Bk
- affOfEyZJtH9QZUZPnv4vqdzYP5ny0TN2xKO/EJ7HzoV50hwAxjprB9ltyzHWIqRpPy7
- 5n75TiaASe1buU/q/oqxhvtDiMK04wwIWouSiC0I+AIhHU6tnxFJxZsUvgaP9QXEpKIa
- XpTaOGG0Kfvo6taaDO0M4EBT2OF+n1OAe/25TD9Aej/MfVsiAYSUI64/xdnDf7dL+WBC
- EcLA==
-X-Gm-Message-State: ANoB5pklEF4T5eaiuArhn+S8ZnmEeMeK8nJ3Ej80+v/PT4izao/14ang
- mJUC6wuoL1plgjRMUeUONZhcedVSTq3qlZtWNlLi7ejHdBqmB9r6xZBDWobDs3f3d8WcUqmhbQ+
- VLta7Jj16g9e+15hNmYx3V4EwdA==
-X-Received: by 2002:a05:600c:3592:b0:3d1:bc32:2447 with SMTP id
- p18-20020a05600c359200b003d1bc322447mr34442424wmq.21.1671528248082; 
- Tue, 20 Dec 2022 01:24:08 -0800 (PST)
-X-Google-Smtp-Source: AA0mqf63KxuIxT0M/bl3iLHanyFrnj5hgoC/KBz3bLt1CmA/PA7eDrziJ0q3Lz1WCcHGowxEUJxpPQ==
-X-Received: by 2002:a05:600c:3592:b0:3d1:bc32:2447 with SMTP id
- p18-20020a05600c359200b003d1bc322447mr34442411wmq.21.1671528247925; 
- Tue, 20 Dec 2022 01:24:07 -0800 (PST)
+ bh=hMFhZOuihLodO313fEA5R64i9CUhN9/n0ds4HavllAs=;
+ b=I72DJU5NtiFTxjFuJEGPbfa0YzuFuKpLv9Qmblxv/MZD5HSTMndd0RpD0wYTjPG0Hv
+ xW2Lnpu8OQGIBzDBNrvp4PobM5eKhFcmV0Te/KEHF5U1a7KKj1mlMLhlUgB5J4F9ilZ+
+ 9RY3pgaY5B7mGljiz0Seas0sYga0UOlQDdXCVd1Nu5lzgShgwQbGOD2puh5jh6RtN1i1
+ DJgsDIygBuM/ZzCKFcxAfw7xn8w/cnQ/Lr1gcfUy4K+LQerPx+nceA+kb3N7Ps4Ae1tT
+ n/sIfn/PMR4GkVFrO+IpGskEhE9Y+8F9FnobMGe385LEbIi2EBU6sPOPZAjgHsiuNAPe
+ BCWw==
+X-Gm-Message-State: ANoB5pmnox/iMEnh+RKofkpy32aZ+KL2oLNnMM41UQaADrzmHTajG5+S
+ E5sWES0Rc11P4jnBeJgt0dtkR4EKy9hBXv/2C6H+orF6TIHn4es0TytwVBQUAyKqJg7uJq2MpZw
+ WEb/ydRkwu9RH6SrkqpbYSSP3lw==
+X-Received: by 2002:a05:600c:1d27:b0:3d2:27ba:dde0 with SMTP id
+ l39-20020a05600c1d2700b003d227badde0mr25905735wms.33.1671528300461; 
+ Tue, 20 Dec 2022 01:25:00 -0800 (PST)
+X-Google-Smtp-Source: AA0mqf6s+ju9wPrh/cxmy7d4OakLICIinEdQttdoLSS+PoembSG//ZlaMVN/BK9U8/HRYjVObQWlOA==
+X-Received: by 2002:a05:600c:1d27:b0:3d2:27ba:dde0 with SMTP id
+ l39-20020a05600c1d2700b003d227badde0mr25905720wms.33.1671528300274; 
+ Tue, 20 Dec 2022 01:25:00 -0800 (PST)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- k18-20020a05600c1c9200b003a84375d0d1sm24663667wms.44.2022.12.20.01.24.07
+ i27-20020a05600c4b1b00b003d220ef3232sm14440188wmp.34.2022.12.20.01.24.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Dec 2022 01:24:07 -0800 (PST)
-Message-ID: <e807855d-cfaa-ebab-8aff-7a3e78b1967d@redhat.com>
-Date: Tue, 20 Dec 2022 10:24:06 +0100
+ Tue, 20 Dec 2022 01:24:59 -0800 (PST)
+Message-ID: <cc578fa7-31f0-8cfa-4cdd-981d7303412e@redhat.com>
+Date: Tue, 20 Dec 2022 10:24:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
-Subject: Re: [PATCH 07/18] fbdev/clps711x-fb: Do not set struct
- fb_info.apertures
+Subject: Re: [PATCH 08/18] fbdev/hyperv-fb: Do not set struct fb_info.apertures
 To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
  airlied@gmail.com, deller@gmx.de
 References: <20221219160516.23436-1-tzimmermann@suse.de>
- <20221219160516.23436-8-tzimmermann@suse.de>
+ <20221219160516.23436-9-tzimmermann@suse.de>
 From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221219160516.23436-8-tzimmermann@suse.de>
+In-Reply-To: <20221219160516.23436-9-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
@@ -96,7 +95,7 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On 12/19/22 17:05, Thomas Zimmermann wrote:
 > Generic fbdev drivers use the apertures field in struct fb_info to
 > control ownership of the framebuffer memory and graphics device. Do
-> not set the values in clps711x-fb.
+> not set the values in hyperv-fb.
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
