@@ -4,34 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68CEBC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 15:24:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1AC6C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 15:34:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 030FD10E036;
-	Wed, 21 Dec 2022 15:24:23 +0000 (UTC)
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C85110E036
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Dec 2022 15:24:20 +0000 (UTC)
-Received: from kaveri ([188.62.80.205])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202212211624141997; Wed, 21 Dec 2022 16:24:14 +0100
-Received: from daenzer by kaveri with local (Exim 4.96)
- (envelope-from <michel@daenzer.net>) id 1p80x3-003hoi-1J;
- Wed, 21 Dec 2022 16:24:13 +0100
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Solomon Chiu <solomon.chiu@amd.com>
-Subject: [PATCH] Revert "drm/amd/display: Enable Freesync Video Mode by
- default"
-Date: Wed, 21 Dec 2022 16:24:13 +0100
-Message-Id: <20221221152413.883409-1-michel@daenzer.net>
-X-Mailer: git-send-email 2.38.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F16110E45C;
+	Wed, 21 Dec 2022 15:34:50 +0000 (UTC)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84E3E10E45E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Dec 2022 15:34:42 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id h7so15321869wrs.6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Dec 2022 07:34:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7ax2INJHwiJVoIr9zFGv2EiVYN31bjNFzaJOqys+aSQ=;
+ b=CFy/U8iQfgD7rzqUDrIwPHcPIyxAy8W4uMVbZuHIcS9LofL/ZE+Sv3R28FarYoffZc
+ pOWOm+1ghdew3FIDsIrIum97EoPILjmjH8KdYzcBUZ5vU6gsaYZdqyAO3Mj6JFcHMRrd
+ D1x0CFc0afZVtEAhwPMM6ic1qLi85xq6LmUQdfB2xARAUwkpCYLSRSXGyi8LYqq3OEOA
+ Bx6fKW9BpbwYXGmAjlIui2B1B9DAO//LeqFh5vkjubg6pdVuBo51W9OuDQQTeF/1/VA7
+ 0kKxC6F3q5gx6ur0EPiXUfHNWiLpjZlbhLaOoFQW91xNNJK7xiZIVvYucpFKq2Sck7Sk
+ qqng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=7ax2INJHwiJVoIr9zFGv2EiVYN31bjNFzaJOqys+aSQ=;
+ b=GDLwXH9KUnvBSMPAtIbyDpxE/7oIcIIAGziRVdG7+2FmCNZxHQiAztr+RXsndyKNXp
+ h7EppBdLqX4JrFgo0huccQNYfPTgHiqns7IF55eAXnVAdoW7GUYrEag2JBMeSnRhUwuW
+ VYKvJVs9ugTNW/3VLEeDuMotLtR9NXHFxrPum6RO4Go7cXpq/B5f6r1dl0L2Z6wiN1vD
+ MCv0/cZCP6/Cl2bjAc+zHFXYHg1Purme/uETZu6BfS9Iqv13XDW7SOVlDCVF84zrMX1E
+ RavydKIFZ3JTsfKdYGPU/AAnBiaHqR4OJSujRryEr2hqZyX2OP15yycMlC77UVmgM3GH
+ Axrw==
+X-Gm-Message-State: AFqh2koxzTXqz8fRCsKHG2sYUAeSex/rVZi7AHp9bvmbRsKXVeFcWgjh
+ /DOEu+G4rxKymUoVb+4Rb86h3HW7FSUjfRP1uEjGNw==
+X-Google-Smtp-Source: AMrXdXvj738RMH6E7KNCYYS3Y5QSpjAU/07woDMeXre2i4pPUgapz4zrA3muoZSanwbhMAbztZaf0NCs9GflV4ADGVs=
+X-Received: by 2002:adf:e8d1:0:b0:242:7f51:b59b with SMTP id
+ k17-20020adfe8d1000000b002427f51b59bmr94116wrn.280.1671636880470; Wed, 21 Dec
+ 2022 07:34:40 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CTCH: RefID="str=0001.0A782F1B.63A3251F.000C,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
- Spam="Unknown"; VOD="Unknown"
+References: <20221014084641.128280-1-christian.koenig@amd.com>
+ <20221014084641.128280-11-christian.koenig@amd.com>
+In-Reply-To: <20221014084641.128280-11-christian.koenig@amd.com>
+From: Mike Lothian <mike@fireburn.co.uk>
+Date: Wed, 21 Dec 2022 15:34:29 +0000
+Message-ID: <CAHbf0-GPVQ4tRgtOLUkP8TW4T9+XGuQQQ70h-DoW9GhspWCa=w@mail.gmail.com>
+Subject: Re: [PATCH 10/13] drm/amdgpu: use scheduler depenencies for CS
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,134 +67,253 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: luben.tuikov@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michel Dänzer <mdaenzer@redhat.com>
+On Fri, 14 Oct 2022 at 09:47, Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Entirely remove the sync obj in the job.
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  | 21 ++++++++++-----------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h  |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c |  9 +--------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h |  1 -
+>  4 files changed, 13 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_cs.c
+> index d45b86bcf7fa..0528c2b1db6e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -426,7 +426,7 @@ static int amdgpu_cs_p2_dependencies(struct amdgpu_cs=
+_parser *p,
+>                         dma_fence_put(old);
+>                 }
+>
+> -               r =3D amdgpu_sync_fence(&p->gang_leader->sync, fence);
+> +               r =3D amdgpu_sync_fence(&p->sync, fence);
+>                 dma_fence_put(fence);
+>                 if (r)
+>                         return r;
+> @@ -448,7 +448,7 @@ static int amdgpu_syncobj_lookup_and_add(struct amdgp=
+u_cs_parser *p,
+>                 return r;
+>         }
+>
+> -       r =3D amdgpu_sync_fence(&p->gang_leader->sync, fence);
+> +       r =3D amdgpu_sync_fence(&p->sync, fence);
+>         if (r)
+>                 goto error;
+>
+> @@ -1108,7 +1108,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_p=
+arser *p)
+>         if (r)
+>                 return r;
+>
+> -       r =3D amdgpu_sync_fence(&job->sync, fpriv->prt_va->last_pt_update=
+);
+> +       r =3D amdgpu_sync_fence(&p->sync, fpriv->prt_va->last_pt_update);
+>         if (r)
+>                 return r;
+>
+> @@ -1119,7 +1119,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_p=
+arser *p)
+>                 if (r)
+>                         return r;
+>
+> -               r =3D amdgpu_sync_fence(&job->sync, bo_va->last_pt_update=
+);
+> +               r =3D amdgpu_sync_fence(&p->sync, bo_va->last_pt_update);
+>                 if (r)
+>                         return r;
+>         }
+> @@ -1138,7 +1138,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_p=
+arser *p)
+>                 if (r)
+>                         return r;
+>
+> -               r =3D amdgpu_sync_fence(&job->sync, bo_va->last_pt_update=
+);
+> +               r =3D amdgpu_sync_fence(&p->sync, bo_va->last_pt_update);
+>                 if (r)
+>                         return r;
+>         }
+> @@ -1151,7 +1151,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_p=
+arser *p)
+>         if (r)
+>                 return r;
+>
+> -       r =3D amdgpu_sync_fence(&job->sync, vm->last_update);
+> +       r =3D amdgpu_sync_fence(&p->sync, vm->last_update);
+>         if (r)
+>                 return r;
+>
+> @@ -1183,7 +1183,6 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_p=
+arser *p)
+>  static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
+>  {
+>         struct amdgpu_fpriv *fpriv =3D p->filp->driver_priv;
+> -       struct amdgpu_job *leader =3D p->gang_leader;
+>         struct amdgpu_bo_list_entry *e;
+>         unsigned int i;
+>         int r;
+> @@ -1195,14 +1194,14 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_=
+parser *p)
+>
+>                 sync_mode =3D amdgpu_bo_explicit_sync(bo) ?
+>                         AMDGPU_SYNC_EXPLICIT : AMDGPU_SYNC_NE_OWNER;
+> -               r =3D amdgpu_sync_resv(p->adev, &leader->sync, resv, sync=
+_mode,
+> +               r =3D amdgpu_sync_resv(p->adev, &p->sync, resv, sync_mode=
+,
+>                                      &fpriv->vm);
+>                 if (r)
+>                         return r;
+>         }
+>
+> -       for (i =3D 0; i < p->gang_size - 1; ++i) {
+> -               r =3D amdgpu_sync_clone(&leader->sync, &p->jobs[i]->sync)=
+;
+> +       for (i =3D 0; i < p->gang_size; ++i) {
+> +               r =3D amdgpu_sync_push_to_job(&p->sync, p->jobs[i]);
+>                 if (r)
+>                         return r;
+>         }
+> @@ -1248,7 +1247,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser=
+ *p,
+>                 struct dma_fence *fence;
+>
+>                 fence =3D &p->jobs[i]->base.s_fence->scheduled;
+> -               r =3D amdgpu_sync_fence(&leader->sync, fence);
+> +               r =3D drm_sched_job_add_dependency(&leader->base, fence);
+>                 if (r)
+>                         goto error_cleanup;
+>         }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_cs.h
+> index cbaa19b2b8a3..207e801c24ed 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
+> @@ -75,6 +75,8 @@ struct amdgpu_cs_parser {
+>
+>         unsigned                        num_post_deps;
+>         struct amdgpu_cs_post_dep       *post_deps;
+> +
+> +       struct amdgpu_sync              sync;
+>  };
+>
+>  int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_job.c
+> index ba98d65835b4..b8494c3b3b8a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -106,7 +106,6 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, stru=
+ct amdgpu_vm *vm,
+>         (*job)->base.sched =3D &adev->rings[0]->sched;
+>         (*job)->vm =3D vm;
+>
+> -       amdgpu_sync_create(&(*job)->sync);
+>         amdgpu_sync_create(&(*job)->explicit_sync);
+>         (*job)->vram_lost_counter =3D atomic_read(&adev->vram_lost_counte=
+r);
+>         (*job)->vm_pd_addr =3D AMDGPU_BO_INVALID_OFFSET;
+> @@ -174,9 +173,7 @@ static void amdgpu_job_free_cb(struct drm_sched_job *=
+s_job)
+>
+>         drm_sched_job_cleanup(s_job);
+>
+> -       amdgpu_sync_free(&job->sync);
+>         amdgpu_sync_free(&job->explicit_sync);
+> -
+>         dma_fence_put(&job->hw_fence);
+>  }
+>
+> @@ -202,7 +199,6 @@ void amdgpu_job_free(struct amdgpu_job *job)
+>                 drm_sched_job_cleanup(&job->base);
+>
+>         amdgpu_job_free_resources(job);
+> -       amdgpu_sync_free(&job->sync);
+>         amdgpu_sync_free(&job->explicit_sync);
+>         if (job->gang_submit !=3D &job->base.s_fence->scheduled)
+>                 dma_fence_put(job->gang_submit);
+> @@ -246,10 +242,9 @@ amdgpu_job_dependency(struct drm_sched_job *sched_jo=
+b,
+>  {
+>         struct amdgpu_ring *ring =3D to_amdgpu_ring(s_entity->rq->sched);
+>         struct amdgpu_job *job =3D to_amdgpu_job(sched_job);
+> -       struct dma_fence *fence;
+> +       struct dma_fence *fence =3D NULL;
+>         int r;
+>
+> -       fence =3D amdgpu_sync_get_fence(&job->sync);
+>         while (fence =3D=3D NULL && job->vm && !job->vmid) {
+>                 r =3D amdgpu_vmid_grab(job->vm, ring, job, &fence);
+>                 if (r)
+> @@ -273,8 +268,6 @@ static struct dma_fence *amdgpu_job_run(struct drm_sc=
+hed_job *sched_job)
+>         job =3D to_amdgpu_job(sched_job);
+>         finished =3D &job->base.s_fence->finished;
+>
+> -       BUG_ON(amdgpu_sync_peek_fence(&job->sync, NULL));
+> -
+>         trace_amdgpu_sched_run_job(job);
+>
+>         /* Skip job if VRAM is lost and never resubmit gangs */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_job.h
+> index 9c10b9bd0084..6558839fda03 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> @@ -47,7 +47,6 @@ enum amdgpu_ib_pool_type;
+>  struct amdgpu_job {
+>         struct drm_sched_job    base;
+>         struct amdgpu_vm        *vm;
+> -       struct amdgpu_sync      sync;
+>         struct amdgpu_sync      explicit_sync;
+>         struct dma_fence        hw_fence;
+>         struct dma_fence        *gang_submit;
+> --
+> 2.25.1
+>
 
-This reverts commit de05abe6b9d0fe08f65d744f7f75a4cba4df27ad.
+Hi, I've been testing the Mesh shader benchmark in GravityMark and
+I've bisected my laptop freezing up and rebooting, to this commit
 
-The bug referenced below was bisected to this commit. There has been no
-activity toward fixing it in 3 months, so let's revert for now.
+1728baa7e4e60054bf13dd9b1212d133cbd53b3f is the first bad commit
+commit 1728baa7e4e60054bf13dd9b1212d133cbd53b3f
+Author: Christian K=C3=B6nig <christian.koenig@amd.com>
+Date:   Thu Sep 29 14:04:01 2022 +0200
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2162
-Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 27 +++++++++++++++++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++----
- 3 files changed, 35 insertions(+), 5 deletions(-)
+   drm/amdgpu: use scheduler dependencies for CS
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 6b74df446694..e3e2e6e3b485 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -195,6 +195,7 @@ extern int amdgpu_emu_mode;
- extern uint amdgpu_smu_memory_pool_size;
- extern int amdgpu_smu_pptable_id;
- extern uint amdgpu_dc_feature_mask;
-+extern uint amdgpu_freesync_vid_mode;
- extern uint amdgpu_dc_debug_mask;
- extern uint amdgpu_dc_visual_confirm;
- extern uint amdgpu_dm_abm_level;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index b4f2d61ea0d5..1353ffd08988 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -181,6 +181,7 @@ int amdgpu_mes_kiq;
- int amdgpu_noretry = -1;
- int amdgpu_force_asic_type = -1;
- int amdgpu_tmz = -1; /* auto */
-+uint amdgpu_freesync_vid_mode;
- int amdgpu_reset_method = -1; /* auto */
- int amdgpu_num_kcq = -1;
- int amdgpu_smartshift_bias;
-@@ -879,6 +880,32 @@ module_param_named(backlight, amdgpu_backlight, bint, 0444);
- MODULE_PARM_DESC(tmz, "Enable TMZ feature (-1 = auto (default), 0 = off, 1 = on)");
- module_param_named(tmz, amdgpu_tmz, int, 0444);
- 
-+/**
-+ * DOC: freesync_video (uint)
-+ * Enable the optimization to adjust front porch timing to achieve seamless
-+ * mode change experience when setting a freesync supported mode for which full
-+ * modeset is not needed.
-+ *
-+ * The Display Core will add a set of modes derived from the base FreeSync
-+ * video mode into the corresponding connector's mode list based on commonly
-+ * used refresh rates and VRR range of the connected display, when users enable
-+ * this feature. From the userspace perspective, they can see a seamless mode
-+ * change experience when the change between different refresh rates under the
-+ * same resolution. Additionally, userspace applications such as Video playback
-+ * can read this modeset list and change the refresh rate based on the video
-+ * frame rate. Finally, the userspace can also derive an appropriate mode for a
-+ * particular refresh rate based on the FreeSync Mode and add it to the
-+ * connector's mode list.
-+ *
-+ * Note: This is an experimental feature.
-+ *
-+ * The default value: 0 (off).
-+ */
-+MODULE_PARM_DESC(
-+	freesync_video,
-+	"Enable freesync modesetting optimization feature (0 = off (default), 1 = on)");
-+module_param_named(freesync_video, amdgpu_freesync_vid_mode, uint, 0444);
-+
- /**
-  * DOC: reset_method (int)
-  * GPU reset method (-1 = auto (default), 0 = legacy, 1 = mode0, 2 = mode1, 3 = mode2, 4 = baco)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 50c783e19f5a..c9dff07127d9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5831,7 +5831,8 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
- 		 */
- 		DRM_DEBUG_DRIVER("No preferred mode found\n");
- 	} else {
--		recalculate_timing = is_freesync_video_mode(&mode, aconnector);
-+		recalculate_timing = amdgpu_freesync_vid_mode &&
-+				 is_freesync_video_mode(&mode, aconnector);
- 		if (recalculate_timing) {
- 			freesync_mode = get_highest_refresh_rate_mode(aconnector, false);
- 			drm_mode_copy(&saved_mode, &mode);
-@@ -6982,7 +6983,7 @@ static void amdgpu_dm_connector_add_freesync_modes(struct drm_connector *connect
- 	struct amdgpu_dm_connector *amdgpu_dm_connector =
- 		to_amdgpu_dm_connector(connector);
- 
--	if (!edid)
-+	if (!(amdgpu_freesync_vid_mode && edid))
- 		return;
- 
- 	if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
-@@ -8846,7 +8847,8 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- 		 * TODO: Refactor this function to allow this check to work
- 		 * in all conditions.
- 		 */
--		if (dm_new_crtc_state->stream &&
-+		if (amdgpu_freesync_vid_mode &&
-+		    dm_new_crtc_state->stream &&
- 		    is_timing_unchanged_for_freesync(new_crtc_state, old_crtc_state))
- 			goto skip_modeset;
- 
-@@ -8881,7 +8883,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- 		if (!dm_old_crtc_state->stream)
- 			goto skip_modeset;
- 
--		if (dm_new_crtc_state->stream &&
-+		if (amdgpu_freesync_vid_mode && dm_new_crtc_state->stream &&
- 		    is_timing_unchanged_for_freesync(new_crtc_state,
- 						     old_crtc_state)) {
- 			new_crtc_state->mode_changed = false;
-@@ -8893,7 +8895,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- 			set_freesync_fixed_config(dm_new_crtc_state);
- 
- 			goto skip_modeset;
--		} else if (aconnector &&
-+		} else if (amdgpu_freesync_vid_mode && aconnector &&
- 			   is_freesync_video_mode(&new_crtc_state->mode,
- 						  aconnector)) {
- 			struct drm_display_mode *high_mode;
--- 
-2.38.1
+   Entirely remove the sync obj in the job.
 
+   Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+   Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
+   Link: https://patchwork.freedesktop.org/patch/msgid/20221014084641.12828=
+0-11-christian.koenig@amd.com
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  | 21 ++++++++++-----------
+drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h  |  2 ++
+drivers/gpu/drm/amd/amdgpu/amdgpu_job.c |  9 +--------
+drivers/gpu/drm/amd/amdgpu/amdgpu_job.h |  1 -
+4 files changed, 13 insertions(+), 20 deletions(-)
+
+This is on a prime system 6800M with the latest mesa
+
+I tried reverting this patch however it didn't revert cleanly, and my
+attempt doesn't work and only partially freezes up the system
+
+Would you like me to open a bug for this on
+https://gitlab.freedesktop.org/drm/amd/-/issues ?
+
+Cheers
+
+Mike
