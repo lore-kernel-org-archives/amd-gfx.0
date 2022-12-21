@@ -4,60 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D398C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 15:55:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E105C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 18:44:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D252510E463;
-	Wed, 21 Dec 2022 15:55:34 +0000 (UTC)
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9351C10E466
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Dec 2022 15:55:33 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id f18so15386885wrj.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Dec 2022 07:55:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GQXcJi4lFuVdvkG8GJesKSBdUdWpqlLbj1CN8vNjEno=;
- b=xfEM6Olr+SSxQlNGMyL7DxFJiD1u2w2+VOdh4noyVdYb68wZqV9HSTVJGjR0vSjtTH
- aB8iPYrLxgffTwrxswYsMgcgsqi6i6uwRMwzn47dYSF/ghl/y0bdnSzgmC326itmR9LA
- 7rmpzLoWYwztVnu4hqvgCt7SktGAMu2G61t/iShj5y1KdWD9bMEARY8SxJT7L6O0rhWL
- bRVA6GoKKycRLRzVDPCEhTCywBtyJ35DPzP1bsKpq6VZdBTg8hCo0r+ESmYdvy6vdbrK
- QTsozswPdjzE88zvyRXSqcASxhHXTtoQypclxo8ATdlk2w3IuPNaUVP6ucEsaNf5NA7S
- zX0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=GQXcJi4lFuVdvkG8GJesKSBdUdWpqlLbj1CN8vNjEno=;
- b=zTJr7/ozgq2ABT9NSGxB3c90oDOBa/FjFb93O4mhdyR83uwLf8b0RXpdjZhu7G47X0
- c0+4/FuDzNSUCNHIgUxDoJwSO28JxkGXPmV1P6fy4OX8FuBAVRzY2mOpT74qbcU837hH
- SoFIn2Dendd/Vd/oAWJfHURz/Z5l1rHHpmCmN647O81OtiCmDHgjJktzpDpFiGr+mPK9
- TQvGDwmoPjhWed2Qxqb/pqkR2CKDeTNawJAAOB1tqrRJtNEajSweEW4RIAR1o8yl0jPI
- YUzRKC//+M4VcoJ85oqeWPzHVaDe7AuvntLQenAuht0BW5G/Mw9JDL4hyUj0h1zK/8xP
- nCbA==
-X-Gm-Message-State: AFqh2krUwlhS2E/6Tk2PRwEiJYFwqVFFWK6aGH5ydqX8PnWhdBPx+5Ew
- R18v+BMm8usXZr1UWn3eRrBsfy+IIZkpin8krQX5hQ==
-X-Google-Smtp-Source: AMrXdXsZCwpxMPUYq3UAJVMpHlh7ffGSdZNV21H3A6yjEe0cJkVy+HtTsHPpPIGtjwyf7jDEtF6nRPmJEezy+aUaWjY=
-X-Received: by 2002:a5d:500d:0:b0:242:49b:5bb1 with SMTP id
- e13-20020a5d500d000000b00242049b5bb1mr112540wrt.337.1671638131854; Wed, 21
- Dec 2022 07:55:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D870689D39;
+	Wed, 21 Dec 2022 18:44:09 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 230C589D39
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Dec 2022 18:44:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IPoMDlUl2S+nPMe5HdYruTjsxIJbs+geUw+J58upWYUzOiJ7Tl2IKbXxs24vqUgl1NkKncdwEyvIzGVgfIvpTKHOR6+tYHiTt9VY3iTzixaDHvbP9EYUQejNzYq93o3ZKFbpjvcH8DTTKtQTDQHXi/ZrYRUCwFqCTsMqjdClcXniFKlWa/P6ieYP/APmPegFlaMc8PEtcfevizxwunOU3qtsSkk9gu7f0/ZcWe6hxwPzchKFT9Uf9eOQmff1Z22jjwTJdYk9d3ZBek/SeE+WE9MB5vtoGKuR+t+CDhMEzGu78/pVH2/4OHYa0hQeujky1xNglNcB19WNolZZXVOZ4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/r33cVV5VEdXLB/NkUK75WmCdWXj+VKxPY/Eply56e0=;
+ b=iyFW/U5MFIsKttS4vfWcq0Z5UOUJ9LuPRkT/+5sOjiWhUKHgEtdpe/+E58hjOacr2jtARLEiNKHQADHzVSYb1ENSd1XCRxNLqKnSmZauGTJlIoRc0faeNam9hZpZq6d7IMCNK+INBC/sZ/dJJCWYM7vBjH47+5dQ3WQasMEEsRZA/+edXebWmC2Z/D6w6ADqRX4DqhNXxF1vwlbmYMUI+SRRstajq7bNLNfIHkSidBwjIpTy2doPU8ULSJU69ppgERJkoZB0uOrMdz3716WpF5nMBnR8tK5S+J3R/ax/cCnsvMQF0Rat765fMOJQls5Zp4wzo2vmxcdxikYNYGBOzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/r33cVV5VEdXLB/NkUK75WmCdWXj+VKxPY/Eply56e0=;
+ b=p6CCXljt6/BxU/ePyhUquGtvF47wJIk/4o5HzSFgesk+T+eRhzjLKW4SLnli/9F2gz093R1/C6d9b+dq8Ilhj+At7CkJtRYeIH7MrkFFiEKYPUiNWJ7KqhS+e5+4dw1Q1wECVN+WbLVVif8o+ERAAiU6cWC/W1Kj2Zjuc7lTgCo=
+Received: from BN0PR04CA0134.namprd04.prod.outlook.com (2603:10b6:408:ed::19)
+ by SJ2PR12MB7866.namprd12.prod.outlook.com (2603:10b6:a03:4cc::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Wed, 21 Dec
+ 2022 18:44:03 +0000
+Received: from BN8NAM11FT113.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ed:cafe::8b) by BN0PR04CA0134.outlook.office365.com
+ (2603:10b6:408:ed::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.21 via Frontend
+ Transport; Wed, 21 Dec 2022 18:44:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT113.mail.protection.outlook.com (10.13.176.163) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5944.10 via Frontend Transport; Wed, 21 Dec 2022 18:44:03 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 21 Dec
+ 2022 12:44:02 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 21 Dec
+ 2022 12:44:02 -0600
+Received: from blakha.ht.home (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Wed, 21 Dec 2022 12:44:02 -0600
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+To: <praful.swarnakar@amd.com>, <hersenxs.wu@amd.com>,
+ <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amd/display: Fix dsc mismatch of acquire and validationn
+ of dsc engine
+Date: Wed, 21 Dec 2022 13:43:59 -0500
+Message-ID: <20221221184359.546013-1-Bhawanpreet.Lakha@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20221014084641.128280-1-christian.koenig@amd.com>
- <20221014084641.128280-11-christian.koenig@amd.com>
- <CAHbf0-GPVQ4tRgtOLUkP8TW4T9+XGuQQQ70h-DoW9GhspWCa=w@mail.gmail.com>
- <2ce4ce81-d345-4e6d-edf4-d3133aece267@amd.com>
-In-Reply-To: <2ce4ce81-d345-4e6d-edf4-d3133aece267@amd.com>
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Wed, 21 Dec 2022 15:55:20 +0000
-Message-ID: <CAHbf0-HD1odtG0tW2RseWxzoAPFec0fRmtv+JKRgdUj8Vm4Pqg@mail.gmail.com>
-Subject: Re: [PATCH 10/13] drm/amdgpu: use scheduler depenencies for CS
-To: Luben Tuikov <luben.tuikov@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT113:EE_|SJ2PR12MB7866:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81aa0fde-dff5-4a5f-0e20-08dae38354e1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6V9M60+U1XE2OdizEPOfdFu58S/YEZJmGThj2R267u99Ldg2MOPXmn7T7WwsiP7hBltrM+jOrdovyjlUT/QtdKWNQDAmE9+RJG8GwRbU6nUzn6To6T9xmnP4pERGi/24W5Qx799/eo3d4lk7Gw6tVp1CzS5I3xLeecx5FbDv8r75km+SSFSLe8DMHx+sP80fL4DH+Wu6l2xAN9dSuLKtBLYj+0uHogscwnEhlHLEpQYaD6Zrg55rFqmgZfAgfOxD116oXiDhXKPnwMGDFOGlvbX9qxWQJbc/zaMho2FUE5ypJ2ylU4vTJduoMZ44oqTdhUUdQ4mrtpwq/7OXGbaurE0iCi/qm+8pJzCEbTybFhLknq4l6g9bnaTWUoqPbi0i69FnUPqNRS5CYyiOpxrg+d90bneFk0FU+d11vtshMWqJhLhrnc0BZlwgUosmkGYptOPZfuKW529jQl0D9XvV5Wn+4QH7k9HvuXz3FWeDmmURFHb4tIRiTl4jGLuHRkNgrnEBXoZ/Qu2rN8N2TjfyqiKUpdNGSSLSRV5ZKbMhdVBVEVxz87id/RhqeHOViFm/UveyDR82TnBvYQxK+GiARcoQIs7GpH4Sri9ccd1339eElxO+w5sj1q2mWcyI27qoRTWqPJLP7wEIZgyw3AthoaqBVTHCHOcKOTXozy7Xu+HgzDZ/x/vUUU192+c+ZXHvqf/tT13mhv1W99GcCoX73s6CzbRfR7EboHzztEUPVS8=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(39860400002)(396003)(376002)(346002)(451199015)(46966006)(40470700004)(36840700001)(336012)(1076003)(8936002)(82740400003)(2616005)(82310400005)(83380400001)(6666004)(36860700001)(26005)(40460700003)(186003)(36756003)(478600001)(47076005)(426003)(4326008)(40480700001)(5660300002)(8676002)(41300700001)(356005)(86362001)(316002)(110136005)(54906003)(81166007)(2906002)(70586007)(6636002)(70206006)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2022 18:44:03.0134 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81aa0fde-dff5-4a5f-0e20-08dae38354e1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT113.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7866
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,282 +103,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Wenjing Liu <Wenjing.Liu@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 21 Dec 2022 at 15:52, Luben Tuikov <luben.tuikov@amd.com> wrote:
->
-> On 2022-12-21 10:34, Mike Lothian wrote:
-> > On Fri, 14 Oct 2022 at 09:47, Christian K=C3=B6nig
-> > <ckoenig.leichtzumerken@gmail.com> wrote:
-> >>
-> >> Entirely remove the sync obj in the job.
-> >>
-> >> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >> ---
-> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  | 21 ++++++++++-----------
-> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h  |  2 ++
-> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c |  9 +--------
-> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h |  1 -
-> >>  4 files changed, 13 insertions(+), 20 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_cs.c
-> >> index d45b86bcf7fa..0528c2b1db6e 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> >> @@ -426,7 +426,7 @@ static int amdgpu_cs_p2_dependencies(struct amdgpu=
-_cs_parser *p,
-> >>                         dma_fence_put(old);
-> >>                 }
-> >>
-> >> -               r =3D amdgpu_sync_fence(&p->gang_leader->sync, fence);
-> >> +               r =3D amdgpu_sync_fence(&p->sync, fence);
-> >>                 dma_fence_put(fence);
-> >>                 if (r)
-> >>                         return r;
-> >> @@ -448,7 +448,7 @@ static int amdgpu_syncobj_lookup_and_add(struct am=
-dgpu_cs_parser *p,
-> >>                 return r;
-> >>         }
-> >>
-> >> -       r =3D amdgpu_sync_fence(&p->gang_leader->sync, fence);
-> >> +       r =3D amdgpu_sync_fence(&p->sync, fence);
-> >>         if (r)
-> >>                 goto error;
-> >>
-> >> @@ -1108,7 +1108,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_c=
-s_parser *p)
-> >>         if (r)
-> >>                 return r;
-> >>
-> >> -       r =3D amdgpu_sync_fence(&job->sync, fpriv->prt_va->last_pt_upd=
-ate);
-> >> +       r =3D amdgpu_sync_fence(&p->sync, fpriv->prt_va->last_pt_updat=
-e);
-> >>         if (r)
-> >>                 return r;
-> >>
-> >> @@ -1119,7 +1119,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_c=
-s_parser *p)
-> >>                 if (r)
-> >>                         return r;
-> >>
-> >> -               r =3D amdgpu_sync_fence(&job->sync, bo_va->last_pt_upd=
-ate);
-> >> +               r =3D amdgpu_sync_fence(&p->sync, bo_va->last_pt_updat=
-e);
-> >>                 if (r)
-> >>                         return r;
-> >>         }
-> >> @@ -1138,7 +1138,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_c=
-s_parser *p)
-> >>                 if (r)
-> >>                         return r;
-> >>
-> >> -               r =3D amdgpu_sync_fence(&job->sync, bo_va->last_pt_upd=
-ate);
-> >> +               r =3D amdgpu_sync_fence(&p->sync, bo_va->last_pt_updat=
-e);
-> >>                 if (r)
-> >>                         return r;
-> >>         }
-> >> @@ -1151,7 +1151,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_c=
-s_parser *p)
-> >>         if (r)
-> >>                 return r;
-> >>
-> >> -       r =3D amdgpu_sync_fence(&job->sync, vm->last_update);
-> >> +       r =3D amdgpu_sync_fence(&p->sync, vm->last_update);
-> >>         if (r)
-> >>                 return r;
-> >>
-> >> @@ -1183,7 +1183,6 @@ static int amdgpu_cs_vm_handling(struct amdgpu_c=
-s_parser *p)
-> >>  static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
-> >>  {
-> >>         struct amdgpu_fpriv *fpriv =3D p->filp->driver_priv;
-> >> -       struct amdgpu_job *leader =3D p->gang_leader;
-> >>         struct amdgpu_bo_list_entry *e;
-> >>         unsigned int i;
-> >>         int r;
-> >> @@ -1195,14 +1194,14 @@ static int amdgpu_cs_sync_rings(struct amdgpu_=
-cs_parser *p)
-> >>
-> >>                 sync_mode =3D amdgpu_bo_explicit_sync(bo) ?
-> >>                         AMDGPU_SYNC_EXPLICIT : AMDGPU_SYNC_NE_OWNER;
-> >> -               r =3D amdgpu_sync_resv(p->adev, &leader->sync, resv, s=
-ync_mode,
-> >> +               r =3D amdgpu_sync_resv(p->adev, &p->sync, resv, sync_m=
-ode,
-> >>                                      &fpriv->vm);
-> >>                 if (r)
-> >>                         return r;
-> >>         }
-> >>
-> >> -       for (i =3D 0; i < p->gang_size - 1; ++i) {
-> >> -               r =3D amdgpu_sync_clone(&leader->sync, &p->jobs[i]->sy=
-nc);
-> >> +       for (i =3D 0; i < p->gang_size; ++i) {
-> >> +               r =3D amdgpu_sync_push_to_job(&p->sync, p->jobs[i]);
-> >>                 if (r)
-> >>                         return r;
-> >>         }
-> >> @@ -1248,7 +1247,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_par=
-ser *p,
-> >>                 struct dma_fence *fence;
-> >>
-> >>                 fence =3D &p->jobs[i]->base.s_fence->scheduled;
-> >> -               r =3D amdgpu_sync_fence(&leader->sync, fence);
-> >> +               r =3D drm_sched_job_add_dependency(&leader->base, fenc=
-e);
-> >>                 if (r)
-> >>                         goto error_cleanup;
-> >>         }
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_cs.h
-> >> index cbaa19b2b8a3..207e801c24ed 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
-> >> @@ -75,6 +75,8 @@ struct amdgpu_cs_parser {
-> >>
-> >>         unsigned                        num_post_deps;
-> >>         struct amdgpu_cs_post_dep       *post_deps;
-> >> +
-> >> +       struct amdgpu_sync              sync;
-> >>  };
-> >>
-> >>  int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser,
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_job.c
-> >> index ba98d65835b4..b8494c3b3b8a 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >> @@ -106,7 +106,6 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, s=
-truct amdgpu_vm *vm,
-> >>         (*job)->base.sched =3D &adev->rings[0]->sched;
-> >>         (*job)->vm =3D vm;
-> >>
-> >> -       amdgpu_sync_create(&(*job)->sync);
-> >>         amdgpu_sync_create(&(*job)->explicit_sync);
-> >>         (*job)->vram_lost_counter =3D atomic_read(&adev->vram_lost_cou=
-nter);
-> >>         (*job)->vm_pd_addr =3D AMDGPU_BO_INVALID_OFFSET;
-> >> @@ -174,9 +173,7 @@ static void amdgpu_job_free_cb(struct drm_sched_jo=
-b *s_job)
-> >>
-> >>         drm_sched_job_cleanup(s_job);
-> >>
-> >> -       amdgpu_sync_free(&job->sync);
-> >>         amdgpu_sync_free(&job->explicit_sync);
-> >> -
-> >>         dma_fence_put(&job->hw_fence);
-> >>  }
-> >>
-> >> @@ -202,7 +199,6 @@ void amdgpu_job_free(struct amdgpu_job *job)
-> >>                 drm_sched_job_cleanup(&job->base);
-> >>
-> >>         amdgpu_job_free_resources(job);
-> >> -       amdgpu_sync_free(&job->sync);
-> >>         amdgpu_sync_free(&job->explicit_sync);
-> >>         if (job->gang_submit !=3D &job->base.s_fence->scheduled)
-> >>                 dma_fence_put(job->gang_submit);
-> >> @@ -246,10 +242,9 @@ amdgpu_job_dependency(struct drm_sched_job *sched=
-_job,
-> >>  {
-> >>         struct amdgpu_ring *ring =3D to_amdgpu_ring(s_entity->rq->sche=
-d);
-> >>         struct amdgpu_job *job =3D to_amdgpu_job(sched_job);
-> >> -       struct dma_fence *fence;
-> >> +       struct dma_fence *fence =3D NULL;
-> >>         int r;
-> >>
-> >> -       fence =3D amdgpu_sync_get_fence(&job->sync);
-> >>         while (fence =3D=3D NULL && job->vm && !job->vmid) {
-> >>                 r =3D amdgpu_vmid_grab(job->vm, ring, job, &fence);
-> >>                 if (r)
-> >> @@ -273,8 +268,6 @@ static struct dma_fence *amdgpu_job_run(struct drm=
-_sched_job *sched_job)
-> >>         job =3D to_amdgpu_job(sched_job);
-> >>         finished =3D &job->base.s_fence->finished;
-> >>
-> >> -       BUG_ON(amdgpu_sync_peek_fence(&job->sync, NULL));
-> >> -
-> >>         trace_amdgpu_sched_run_job(job);
-> >>
-> >>         /* Skip job if VRAM is lost and never resubmit gangs */
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_job.h
-> >> index 9c10b9bd0084..6558839fda03 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> >> @@ -47,7 +47,6 @@ enum amdgpu_ib_pool_type;
-> >>  struct amdgpu_job {
-> >>         struct drm_sched_job    base;
-> >>         struct amdgpu_vm        *vm;
-> >> -       struct amdgpu_sync      sync;
-> >>         struct amdgpu_sync      explicit_sync;
-> >>         struct dma_fence        hw_fence;
-> >>         struct dma_fence        *gang_submit;
-> >> --
-> >> 2.25.1
-> >>
-> >
-> > Hi, I've been testing the Mesh shader benchmark in GravityMark and
-> > I've bisected my laptop freezing up and rebooting, to this commit
-> >
-> > 1728baa7e4e60054bf13dd9b1212d133cbd53b3f is the first bad commit
-> > commit 1728baa7e4e60054bf13dd9b1212d133cbd53b3f
-> > Author: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Date:   Thu Sep 29 14:04:01 2022 +0200
-> >
-> >    drm/amdgpu: use scheduler dependencies for CS
-> >
-> >    Entirely remove the sync obj in the job.
-> >
-> >    Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >    Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
-> >    Link: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A=
-%2F%2Fpatchwork.freedesktop.org%2Fpatch%2Fmsgid%2F20221014084641.128280-11-=
-christian.koenig%40amd.com&data=3D05%7C01%7Cluben.tuikov%40amd.com%7C89490e=
-3fad4843fd789308dae368e10a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638=
-072336848708258%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzI=
-iLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=3DyinQfgx3pcqZjCzafxT=
-ysYlhb4RUwJN8t8cb2VjOOes%3D&reserved=3D0
-> >
-> > drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  | 21 ++++++++++-----------
-> > drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h  |  2 ++
-> > drivers/gpu/drm/amd/amdgpu/amdgpu_job.c |  9 +--------
-> > drivers/gpu/drm/amd/amdgpu/amdgpu_job.h |  1 -
-> > 4 files changed, 13 insertions(+), 20 deletions(-)
-> >
-> > This is on a prime system 6800M with the latest mesa
-> >
-> > I tried reverting this patch however it didn't revert cleanly, and my
-> > attempt doesn't work and only partially freezes up the system
-> >
-> > Would you like me to open a bug for this on
-> > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgit=
-lab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues&data=3D05%7C01%7Cluben.tuikov%=
-40amd.com%7C89490e3fad4843fd789308dae368e10a%7C3dd8961fe4884e608e11a82d994e=
-183d%7C0%7C0%7C638072336848708258%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwM=
-DAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=3DM=
-8d6vBXgByuQCRm9844a9jYtIDfuDy7efv3NM03Bmho%3D&reserved=3D0 ?
-> >
->
-> Hi Mike,
->
-> Could you try this patch:
->
-> https://lore.kernel.org/all/20221219104718.21677-1-christian.koenig@amd.c=
-om/
->
-> Regards,
-> Luben
->
->
+[Why]
+We skip dsc_validation on pipes that are underlays, but in the
+acquire_dsc code we don't have this check.
 
-I still see the same issue with this patch
+In certain conditions (when underlay pipe index is lower) we will assign
+the dsc resource to the underlay pipe and skip the base pipe.
+
+Now during dsc_validation we will skip the underlay pipe (this has the
+dsc resource) but try to validate the base pipe(this doesn't have a dsc
+resource) due to this mismatch we hit a NULLPTR
+
+[How]
+In the acquire_dsc add a check for underlay pipe so we
+don't acquire a dsc resource for this pipe. This will match the
+acquire/validation conditions.
+
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index d0199ec045cb..f97d8ff16e71 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -1382,6 +1382,9 @@ enum dc_status dcn20_add_dsc_to_stream_resource(struct dc *dc,
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+ 		struct pipe_ctx *pipe_ctx = &dc_ctx->res_ctx.pipe_ctx[i];
+ 
++		if (pipe_ctx->top_pipe)
++			continue;
++
+ 		if (pipe_ctx->stream != dc_stream)
+ 			continue;
+ 
+-- 
+2.25.1
+
