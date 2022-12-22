@@ -4,58 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ACD5C001B2
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 14:51:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18DF4C001B2
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 16:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D899010E51E;
-	Thu, 22 Dec 2022 14:51:41 +0000 (UTC)
-X-Greylist: delayed 462 seconds by postgrey-1.36 at gabe;
- Wed, 21 Dec 2022 21:25:32 UTC
-Received: from mout.web.de (mout.web.de [217.72.192.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7DFD10E4CC
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Dec 2022 21:25:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
- t=1671657931; bh=q2in+e1HLWnE1wGQk4VVgOzOUGY5RAyE7lsE5OxGVE0=;
- h=X-UI-Sender-Class:Subject:From:To:Cc:Date;
- b=PntF1jupEOzYzMgFA2yqnnJ4j1xzJkK18xtrePwafbyv+ooX6wDtOmp6Bf/MtT78X
- gwKpxTCcYY5XxpLCa6rIJpRADATeQDWRYvFmBgFjHo1jwQlts3nc7mcRVD1tbft56v
- lREVXJILLCHmUO7WJZprVWqlqkR1r1MwMKI/JuIyUfvCleAEU3d0e/fzpAPFshQJMa
- 05+Z8iyjmyWjEPOQjNWodAxBxa1ycsvnvGZFtxtVDs8/dwuYRqs/9yzWXHP6ZkoTZY
- 6buDHs/c/ROrnT8bgG5TU9fKKPKm0TsUdpNNXryJwjziasVcKSVByXECWRrggB56r4
- SuhumSoYgrrXg==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.0.101] ([176.198.191.160]) by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MPrPV-1pTBls0BwR-00MjjD; Wed, 21
- Dec 2022 22:12:31 +0100
-Message-ID: <a2525c9d1dbfe478f0969439febe55da3e150b60.camel@web.de>
-Subject: [PATCH 10/13] drm/amdgpu: use scheduler depenencies for CS
-From: Bert Karwatzki <spasswolf@web.de>
-To: amd-gfx@lists.freedesktop.org
-Date: Wed, 21 Dec 2022 22:12:30 +0100
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.2-1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id E577A10E548;
+	Thu, 22 Dec 2022 16:42:54 +0000 (UTC)
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com
+ [209.85.219.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62C7810E548
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Dec 2022 16:42:52 +0000 (UTC)
+Received: by mail-qv1-f48.google.com with SMTP id i12so1585414qvs.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Dec 2022 08:42:52 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=fSG4zYUj7P9Kgd+tx/TGwxdJYqamamppxaq2ATrBM24=;
+ b=tskY0afMqyoAlQp8pAnMs6HHKmix9s1o0eOdbvjCHz/ytQqA1f5RFu532kn+i+UQHZ
+ L3XrHDehDYTxRI9EqhGVSK7p8GHFndqE9iAhtSf6WsxEi/4Hzqg/rghMQfbApzFx8hmu
+ lK8U4Wknlzl2tDrxaDNJABemIfq4kxm5IFL+DvjbeoMiJqOivYDpSl9jRXXPRZWDoGpy
+ 3pkKBmiOhquH16cN2Etks+AfSb5ATGRmon0+UgGomWlIF41UQm95iluqwu3E//o3zuGH
+ BOxoAYJt1Zw2SMXD/LyUxoE3irdiviayOyyjgFxsmHCfAqAvOIsrNW9pQFeDDsyv3pdk
+ Kt6g==
+X-Gm-Message-State: AFqh2koEmYRbEPwBEorE+satvO5fqqvD9PkrtnVTTnBWdBUSSZB74yPZ
+ /rA3utrElRN1Rd+2GghUQsoAnvNtI70WCQvsVxQ=
+X-Google-Smtp-Source: AMrXdXsZFdpO33sUccLBgM5DQFt0F7BiKU2fEqrR0SD5IJsittclD8nA5IuXCdJ3dQ7XhNJeW4xjYbPfDTTeKPBigjQ=
+X-Received: by 2002:a0c:c345:0:b0:4c7:27cf:dfca with SMTP id
+ j5-20020a0cc345000000b004c727cfdfcamr270636qvi.3.1671727371530; Thu, 22 Dec
+ 2022 08:42:51 -0800 (PST)
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:q8OBdEt5Lv1RwwPt2GwsOIOZqpfQx1YrkRqPx9ioxohZTA/XghF
- Z7zuYrMKq7VMSbIUSKrCX1908Zjo7fWVPE6qcSxn9NX6IXNPZg4d8lMIHaQRyWf+sXOe2fe
- TfK5z5klQlqehN2axruiFxL8r4YVah70Yt9259XoQIbnd59oeUybSKDqM1dap+aiOMIZNGZ
- xmXqd2IKk7KEOpCoPtujw==
-UI-OutboundReport: notjunk:1;M01:P0:7BsTWBJvxSM=;NOt80auQN1S5pUlPMqxaUkM/7Ah
- qzlQxa0C39ksrkBtQm26C6enPK2Mco60ooqsTC7Vb/W5EuHWh3Ml0fwdyQ3syEUQ8YrWcHE68
- J7UoruIkiVM4iFomaBnfXo7HK47vwpOHRfyJiY16M2/uipm/oIR7kbceN1zEw2Ys8qnrQOTll
- PJQ+NSN5SpQUJoRA1db8rkcSCypO+rBfng4Yv/yyBCk5WRJLCINIf0D/cG0sYQtMSRyZ0bmls
- OuUhLufOo8XprolRC4XiYFFU6cqL/f3eqse9wPm3EgChzrLCQc9dZp/hE/fNGwGUDpbVcm1Wq
- 5txxpKqTRu/g44I67hI/yCARxROgSJCX0bvPlSgFoqNXdunPbARyQcIoxAPKDHdDJCo3bDsyj
- phcUfKk65KC4ROSqx/AaYy2JWAZ6JuD+OVely1fLwU35CGmHjc0YDIe8ats+FJ0W1HKSy/SsH
- EtnqK5v0kkTxCv2PniV4O+WF6K+L5Bz+eC1frDRO5P04H6IVGLCMJkY8FyXb+TLIQkilaxz3N
- 4fAr/0jgxxl1Ttt4Z6fpXF64F9QB/fOKDTPqhn42qzdmitTxyu8VelJXPyE9ynqSBpZUjYa5z
- 1R4MLGhWvLv0A9v3oSXZkoF2Z877EgCzsdsKWbeBgNDdvpe1y18qhu/9mdX3Fnb7mwABJ4UTf
- wkUX1i2T8AvrVRJlFrU4S2AODwMCoHfexdn0+hG/Lhcxp9TSWtGG8S5uMkUd4k5rDqCBQZoNs
- d7/tRlx2G9L7gGuH6hzirnI9XsOvaxIiX41W5F4Uibj9PzMQrXsx4OK37QSb3gMa/0zCTAwB3
- po4HCnbmMI5Ai0eDWvkqDeHbrqWsO43eh2Fj/5tBIKPNC04LalWLIVPLKADQ9Vz2vd90EPVWb
- 0Vlx98SLNF6HonV1oemAKHiZRm3zfuR+a4MOjjipztmVFfPzaG2CYL5elIs8ryWwc7Y7k4vZf
- EjCVeXbiKhCkVoLBrmhfBTRkOC0=
-X-Mailman-Approved-At: Thu, 22 Dec 2022 14:51:39 +0000
+References: <20221208164207.13518-1-mario.limonciello@amd.com>
+ <MN0PR12MB61014F8D6D5B04B90997480DE2E19@MN0PR12MB6101.namprd12.prod.outlook.com>
+ <CAJZ5v0hm00E4xNC6r9MieOTFtdchQHj9k8a34fk-0Oi6UzwLQA@mail.gmail.com>
+In-Reply-To: <CAJZ5v0hm00E4xNC6r9MieOTFtdchQHj9k8a34fk-0Oi6UzwLQA@mail.gmail.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Thu, 22 Dec 2022 17:42:40 +0100
+Message-ID: <CAJZ5v0g8eF5B1D0qUGMXeSuMBenCJ4NixHALPpxS_xc+B5z89w@mail.gmail.com>
+Subject: Re: [PATCH v3 0/3] Adjust ACPI video detection fallback path
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,37 +55,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mike Lothian <mike@fireburn.co.uk>
+Cc: Daniel Dadap <ddadap@nvidia.com>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Hans de Goede <hdegoede@redhat.com>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Can you test if this solves the freezes:
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 919bbea2e3ac..4e684c2afc70 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -1506,7 +1509,8 @@ u64 amdgpu_bo_gpu_offset_no_check(struct
-amdgpu_bo *bo)
- uint32_t amdgpu_bo_get_preferred_domain(struct amdgpu_device *adev,
- 					    uint32_t domain)
- {
--	if (domain =3D=3D (AMDGPU_GEM_DOMAIN_VRAM |
-AMDGPU_GEM_DOMAIN_GTT)) {
-+	if ((domain =3D=3D (AMDGPU_GEM_DOMAIN_VRAM |
-AMDGPU_GEM_DOMAIN_GTT)) &&
-+	    ((adev->asic_type =3D=3D CHIP_CARRIZO) || (adev->asic_type =3D=3D
-CHIP_STONEY))) {
- 		domain =3D AMDGPU_GEM_DOMAIN_VRAM;
- 		if (adev->gmc.real_vram_size <=3D AMDGPU_SG_THRESHOLD)
- 			domain =3D AMDGPU_GEM_DOMAIN_GTT;
-=20
+On Thu, Dec 15, 2022 at 8:38 PM Rafael J. Wysocki <rafael@kernel.org> wrote:
+>
+> On Thu, Dec 15, 2022 at 8:20 PM Limonciello, Mario
+> <Mario.Limonciello@amd.com> wrote:
+> >
+> > [Public]
+> >
+> > > -----Original Message-----
+> > > From: Limonciello, Mario <Mario.Limonciello@amd.com>
+> > > Sent: Thursday, December 8, 2022 10:42
+> > > To: Rafael J . Wysocki <rafael@kernel.org>; Deucher, Alexander
+> > > <Alexander.Deucher@amd.com>; Hans de Goede
+> > > <hdegoede@redhat.com>
+> > > Cc: amd-gfx@lists.freedesktop.org; linux-acpi@vger.kernel.org; Daniel
+> > > Dadap <ddadap@nvidia.com>; Limonciello, Mario
+> > > <Mario.Limonciello@amd.com>
+> > > Subject: [PATCH v3 0/3] Adjust ACPI video detection fallback path
+> > >
+> > > In kernel 6.1 the backlight registration code was overhauled so that
+> > > at most one backlight device got registered. As part of this change
+> > > there was code added to still allow making an acpi_video0 device if the
+> > > BIOS contained backlight control methods but no native or vendor drivers
+> > > registered.
+> > >
+> > > Even after the overhaul this fallback logic is failing on the BIOS from
+> > > a number of motherboard manufacturers supporting Ryzen APUs.
+> > > What happens is the amdgpu driver finishes registration and as expected
+> > > doesn't create a backlight control device since no eDP panels are connected
+> > > to a desktop.
+> > >
+> > > Then 8 seconds later the ACPI video detection code creates an
+> > > acpi_video0 device that is non-operational. GNOME then creates a
+> > > backlight slider.
+> > >
+> > > To avoid this situation from happening make two sets of changes:
+> > >
+> > > Prevent desktop problems w/ fallback logic
+> > > ------------------------------------------
+> > > 1) Add support for the video detect code to let native drivers cancel the
+> > > fallback logic if they didn't find a panel.
+> > >
+> > > This is done this way so that if another driver decides that the ACPI
+> > > mechanism is still needed it can instead directly call the registration
+> > > function.
+> > >
+> > > 2) Add code to amdgpu to notify the ACPI video detection code that no panel
+> > > was detected on an APU.
+> > >
+> > > Disable fallback logic by default
+> > > ---------------------------------
+> > > This fallback logic was introduced to prevent regressions in the backlight
+> > > overhaul.  As it has been deemed unnecessary by Hans explicitly disable the
+> > > timeout.  If this turns out to be mistake and this part is reverted, the
+> > > other patches for preventing desktop problems will avoid regressions on
+> > > desktops.
+> > >
+> > > Mario Limonciello (3):
+> > >   ACPI: video: Allow GPU drivers to report no panels
+> > >   drm/amd/display: Report to ACPI video if no panels were found
+> > >   ACPI: video: Don't enable fallback path for creating ACPI backlight by
+> > >     default
+> > >
+> > >  drivers/acpi/acpi_video.c                       | 17 ++++++++++++-----
+> > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   |  4 ++++
+> > >  include/acpi/video.h                            |  2 ++
+> > >  3 files changed, 18 insertions(+), 5 deletions(-)
+> > >
+> > > --
+> > > 2.34.1
+> >
+> > FYI, besides me, this series also tested successfully by one of the
+> > reporters to the Red Hat bugzilla.
+> >
+> > https://bugzilla.redhat.com/show_bug.cgi?id=1783786#c8
+>
+> Thanks for letting me know!
+>
+> I'll queue it up for 6.2-rc next week.
 
-This solves a lot of seemingly unrelated errors:
-https://gitlab.freedesktop.org/drm/amd/-/issues/2255
-https://gitlab.freedesktop.org/drm/amd/-/issues/2270
-https://gitlab.freedesktop.org/drm/amd/-/issues/2281
-https://gitlab.freedesktop.org/drm/amd/-/issues/2282
-https://gitlab.freedesktop.org/drm/amd/-/issues/2291
-
-Bert Karwatzki
+Done now, thanks!
