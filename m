@@ -4,61 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1FC3C4332F
-	for <amd-gfx@archiver.kernel.org>; Sat, 24 Dec 2022 09:34:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A43C6C4332F
+	for <amd-gfx@archiver.kernel.org>; Sat, 24 Dec 2022 18:20:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13A2510E197;
-	Sat, 24 Dec 2022 09:34:43 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3698510E197;
- Sat, 24 Dec 2022 09:34:41 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A88C710E22D;
+	Sat, 24 Dec 2022 18:20:15 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58A9910E22D
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 Dec 2022 18:20:13 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B578E343B2;
- Sat, 24 Dec 2022 09:34:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1671874471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=eE/z5WCQh56VYMVihL9wEIrUZUiMYWxUT4Dnqk8RnNY=;
- b=BIYDuvQNxxtJKMiynn1Tn5AFkiCbJ9vSdZ2bncGSxlRyiXHK9zdJlzpmDhamfEjfKejxHx
- Ay0gCbExsjrQY0aLvaRFom1Vs24OEtD3eNL3qZSL86UO2sf/GHdfzEWAIXhWM9eJxSQLcc
- jP5LqYdXExsMc+XXR1kaZGpllV9LqrM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1671874471;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=eE/z5WCQh56VYMVihL9wEIrUZUiMYWxUT4Dnqk8RnNY=;
- b=rGcff8MX9/EVUW9sQ1k/N2cL2PUGavK2QCP/Po47peLQ0QMesoZRxYy7oH8yDkOxDrFTvI
- cD63AiYNgsejGNAg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 622A113918;
- Sat, 24 Dec 2022 09:34:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id RsGdFqfHpmOhbQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Sat, 24 Dec 2022 09:34:31 +0000
-Message-ID: <2761b1e1-508d-2c2c-f2d8-6f1be536723e@suse.de>
-Date: Sat, 24 Dec 2022 10:34:30 +0100
+ by ams.source.kernel.org (Postfix) with ESMTPS id 30F7AB8016A
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 Dec 2022 18:20:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E63FFC433D2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 Dec 2022 18:20:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1671906006;
+ bh=1wHMfgeo+mA4vs8PetkAMKOWF7aysjnWZVjB1mEA2Kw=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=kTQO7fmP+g68MKhDYUvhhE1ihLWfGATz2fE19xGuyHi5AodD0zsvkWYoAQ2jcuQcg
+ qYxl0+8lWTXvdnXiYcweAODI+E+4M5lRuVKkKTc1+F1rIP0Iq2xKw5QwyG4MjNHzFY
+ XjUJKN25sG3f1XZgUg/I4lG1kybxV+IHvNk7i+2yZVSa2CNpSHIC8vH5fKMoJFI3yX
+ SpHJR4W+mXw1ZuIBuLL0lELluFkkE+4qG7STXlk0ASn57fAzO5/78sFeWWz2RINn5U
+ J+jvAVFGKgyeTPwfDbCld/OPs+KhHsL5N9vP45z6tvEqw7aV1uIlc5utHQLcWs1xEr
+ qfdI/5fQN8sRw==
+Received: by mail-yb1-f177.google.com with SMTP id i186so8256392ybc.9
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 Dec 2022 10:20:06 -0800 (PST)
+X-Gm-Message-State: AFqh2ko+JmXM3bUvhoXfoYwWA1n4ThsbMh5m1ISKgcV6PCTAKrIYLyw9
+ grySAXT0hODnZ+yElqnpoGrnbzEV0uQDT59TWAc=
+X-Google-Smtp-Source: AMrXdXvSmVippjMlrTqYwEZNFssuYDv4ilYjms7DA5oCGY6PEalDlp3kzuv+0c+8F5xoL6W+W3DXJWdnhxBkHqCGego=
+X-Received: by 2002:a25:c843:0:b0:754:e501:8b51 with SMTP id
+ y64-20020a25c843000000b00754e5018b51mr1528595ybf.197.1671906005907; Sat, 24
+ Dec 2022 10:20:05 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH 0/2] Recover from failure to probe GPU
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>, linux-efi@vger.kernel.org
-References: <20221222183012.1046-1-mario.limonciello@amd.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <20221222183012.1046-1-mario.limonciello@amd.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------EBfSh5xZlvVk5oLicG0xRk3V"
+References: <20221223193655.1972-1-shashank.sharma@amd.com>
+ <20221223193655.1972-3-shashank.sharma@amd.com>
+In-Reply-To: <20221223193655.1972-3-shashank.sharma@amd.com>
+From: Oded Gabbay <ogabbay@kernel.org>
+Date: Sat, 24 Dec 2022 20:19:39 +0200
+X-Gmail-Original-Message-ID: <CAFCwf12zTZuQAYnxik26BaWtxJxgtB4wSuZNr7=NtU+KQetpiA@mail.gmail.com>
+Message-ID: <CAFCwf12zTZuQAYnxik26BaWtxJxgtB4wSuZNr7=NtU+KQetpiA@mail.gmail.com>
+Subject: Re: [RFC 2/7] drm/amdgpu: Add usermode queue for gfx work
+To: Shashank Sharma <shashank.sharma@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,192 +59,342 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Carlos Soriano Sanchez <csoriano@redhat.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, arvind.yadav@amd.com,
+ Christian Koenig <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org,
+ arunpravin.paneerselvam@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------EBfSh5xZlvVk5oLicG0xRk3V
-Content-Type: multipart/mixed; boundary="------------IoFDFfc1IeNs80OXfId1EPOG";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>, linux-efi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Carlos Soriano Sanchez <csoriano@redhat.com>,
- christian.koenig@amd.com
-Message-ID: <2761b1e1-508d-2c2c-f2d8-6f1be536723e@suse.de>
-Subject: Re: [PATCH 0/2] Recover from failure to probe GPU
-References: <20221222183012.1046-1-mario.limonciello@amd.com>
-In-Reply-To: <20221222183012.1046-1-mario.limonciello@amd.com>
+On Fri, Dec 23, 2022 at 9:37 PM Shashank Sharma <shashank.sharma@amd.com> wrote:
+>
+> This patch adds skeleton code for usermode queue creation. It
+> typically contains:
+> - A new structure to keep all the user queue data in one place.
+> - An IOCTL function to create/free a usermode queue.
+> - A function to generate unique index for the queue.
+> - A global ptr in amdgpu_dev
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   6 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h       |   1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 187 ++++++++++++++++++
+>  .../drm/amd/include/amdgpu_usermode_queue.h   |  50 +++++
+>  5 files changed, 246 insertions(+)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+>  create mode 100644 drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index 6ad39cf71bdd..e2a34ee57bfb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -209,6 +209,8 @@ amdgpu-y += \
+>  # add amdkfd interfaces
+>  amdgpu-y += amdgpu_amdkfd.o
+>
+> +# add usermode queue
+> +amdgpu-y += amdgpu_userqueue.o
+>
+>  ifneq ($(CONFIG_HSA_AMD),)
+>  AMDKFD_PATH := ../amdkfd
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 8639a4f9c6e8..4b566fcfca18 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -749,6 +749,11 @@ struct amdgpu_mqd {
+>                         struct amdgpu_mqd_prop *p);
+>  };
+>
+> +struct amdgpu_userq_globals {
+> +       struct ida ida;
+> +       struct mutex userq_mutex;
+> +};
+> +
+>  #define AMDGPU_RESET_MAGIC_NUM 64
+>  #define AMDGPU_MAX_DF_PERFMONS 4
+>  #define AMDGPU_PRODUCT_NAME_LEN 64
+> @@ -955,6 +960,7 @@ struct amdgpu_device {
+>         bool                            enable_mes_kiq;
+>         struct amdgpu_mes               mes;
+>         struct amdgpu_mqd               mqds[AMDGPU_HW_IP_NUM];
+> +       struct amdgpu_userq_globals     userq;
+>
+>         /* df */
+>         struct amdgpu_df                df;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+> index 0fa0e56daf67..f7413859b14f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+> @@ -57,6 +57,7 @@ struct amdgpu_ctx {
+>         unsigned long                   ras_counter_ce;
+>         unsigned long                   ras_counter_ue;
+>         uint32_t                        stable_pstate;
+> +       struct amdgpu_usermode_queue    *userq;
+>  };
+>
+>  struct amdgpu_ctx_mgr {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> new file mode 100644
+> index 000000000000..3b6e8f75495c
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> @@ -0,0 +1,187 @@
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#include "amdgpu.h"
+> +#include "amdgpu_vm.h"
+> +#include "amdgpu_mes.h"
+> +#include "amdgpu_usermode_queue.h"
+> +#include "soc15_common.h"
+> +
+> +#define CHECK_ACCESS(a) (access_ok((const void __user *)a, sizeof(__u64)))
+> +
+> +static int
+> +amdgpu_userqueue_index(struct amdgpu_device *adev)
+> +{
+> +    int index;
+> +    struct amdgpu_userq_globals *uqg = &adev->userq;
+> +
+> +    index = ida_simple_get(&uqg->ida, 2, AMDGPU_MAX_USERQ, GFP_KERNEL);
+> +    return index;
+> +}
+> +
+> +static void
+> +amdgpu_userqueue_remove_index(struct amdgpu_device *adev, struct amdgpu_usermode_queue *queue)
+> +{
+> +    struct amdgpu_userq_globals *uqg = &adev->userq;
+> +
+> +    ida_simple_remove(&uqg->ida, queue->queue_id);
+> +}
+> +
+> +static int
+> +amdgpu_userqueue_validate_input(struct amdgpu_device *adev, struct drm_amdgpu_userq_mqd *mqd_in)
+> +{
+> +    if (mqd_in->queue_va == 0 || mqd_in->doorbell_handle == 0 || mqd_in->doorbell_offset == 0) {
+> +        DRM_ERROR("Invalid queue object address\n");
+> +        return -EINVAL;
+> +    }
+> +
+> +    if (mqd_in->queue_size == 0 || mqd_in->rptr_va == 0 || mqd_in->wptr_va == 0) {
+> +        DRM_ERROR("Invalid queue object value\n");
+> +        return -EINVAL;
+> +    }
+> +
+> +    if (mqd_in->ip_type < AMDGPU_HW_IP_GFX || mqd_in->ip_type >= AMDGPU_HW_IP_NUM) {
+> +        DRM_ERROR("Invalid HW IP type 0x%x\n", mqd_in->ip_type);
+> +        return -EINVAL;
+> +    }
+> +
+> +    if (!CHECK_ACCESS(mqd_in->queue_va) || !CHECK_ACCESS(mqd_in->rptr_va) ||
+> +        !CHECK_ACCESS(mqd_in->wptr_va)) {
+> +            DRM_ERROR("Invalid mapping of queue ptrs, access error\n");
+> +            return -EINVAL;
+> +    }
+> +
+> +    DRM_DEBUG_DRIVER("Input parameters to create queue are valid\n");
+> +    return 0;
+> +}
+> +
+> +int amdgpu_userqueue_create(struct amdgpu_device *adev, struct drm_file *filp,
+> +                            union drm_amdgpu_userq *args)
+> +{
+> +    int r, pasid;
+> +    struct amdgpu_usermode_queue *queue;
+> +    struct amdgpu_fpriv *fpriv = filp->driver_priv;
+> +    struct amdgpu_vm *vm = &fpriv->vm;
+> +    struct amdgpu_ctx *ctx = amdgpu_ctx_get(fpriv, args->in.ctx_id);
+> +    struct drm_amdgpu_userq_mqd *mqd_in = &args->in.mqd;
+> +
+> +    if (!ctx) {
+> +        DRM_ERROR("Invalid GPU context\n");
+> +        return -EINVAL;
+> +    }
+> +
+> +    if (vm->pasid < 0) {
+> +        DRM_WARN("No PASID info found\n");
+> +        pasid = 0;
+> +    }
+> +
+> +    mutex_lock(&adev->userq.userq_mutex);
+> +
+> +    queue = kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNEL);
+> +    if (!queue) {
+> +        DRM_ERROR("Failed to allocate memory for queue\n");
+> +        mutex_unlock(&adev->userq.userq_mutex);
+> +        return -ENOMEM;
+> +    }
+> +
+> +    r = amdgpu_userqueue_validate_input(adev, mqd_in);
+> +    if (r < 0) {
+> +        DRM_ERROR("Invalid input to create queue\n");
+> +        goto free_queue;
+> +    }
+> +
+> +    queue->vm = vm;
+> +    queue->pasid = pasid;
+> +    queue->wptr_gpu_addr = mqd_in->wptr_va;
+> +    queue->rptr_gpu_addr = mqd_in->rptr_va;
+> +    queue->queue_size = mqd_in->queue_size;
+> +    queue->queue_type = mqd_in->ip_type;
+> +    queue->paging = false;
+> +    queue->flags = mqd_in->flags;
+> +    queue->queue_id = amdgpu_userqueue_index(adev);
+> +
+> +    ctx->userq = queue;
+It looks like you have a single userq per context, and here you simply
+override the userq pointer.
+Maybe I've missed it, but where do you protect against a user
+accidentally creating two user queues ? It will cause a memory leak as
+you don't release the previous q.
+I would imagine you should reject the user from creating another userq
+until it frees the current userq.
 
---------------IoFDFfc1IeNs80OXfId1EPOG
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Oded
 
-SGkNCg0KQW0gMjIuMTIuMjIgdW0gMTk6MzAgc2NocmllYiBNYXJpbyBMaW1vbmNpZWxsbzoN
-Cj4gT25lIG9mIHRoZSBmaXJzdCB0aGluZyB0aGF0IEtNUyBkcml2ZXJzIGRvIGR1cmluZyBp
-bml0aWFsaXphdGlvbiBpcw0KPiBkZXN0cm95IHRoZSBzeXN0ZW0gZmlybXdhcmUgZnJhbWVi
-dWZmZXIgYnkgbWVhbnMgb2YNCj4gYGRybV9hcGVydHVyZV9yZW1vdmVfY29uZmxpY3Rpbmdf
-cGNpX2ZyYW1lYnVmZmVyc2ANCj4gDQo+IFRoaXMgbWVhbnMgdGhhdCBpZiBmb3IgYW55IHJl
-YXNvbiB0aGUgR1BVIGZhaWxlZCB0byBwcm9iZSB0aGUgdXNlcg0KPiB3aWxsIGJlIHN0dWNr
-IHdpdGggYXQgYmVzdCBhIHNjcmVlbiBmcm96ZW4gYXQgdGhlIGxhc3QgdGhpbmcgdGhhdA0K
-PiB3YXMgc2hvd24gYmVmb3JlIHRoZSBLTVMgZHJpdmVyIGNvbnRpbnVlZCBpdCdzIHByb2Jl
-Lg0KPiANCj4gVGhlIHByb2JsZW0gaXMgbW9zdCBwcm9ub3VuY2VkIHdoZW4gbmV3IEdQVSBz
-dXBwb3J0IGlzIGludHJvZHVjZWQNCj4gYmVjYXVzZSB1c2VycyB3aWxsIG5lZWQgdG8gaGF2
-ZSBhIHJlY2VudCBsaW51eC1maXJtd2FyZSBzbmFwc2hvdA0KPiBvbiB0aGVpciBzeXN0ZW0g
-d2hlbiB0aGV5IGJvb3QgYSBrZXJuZWwgd2l0aCBtYXRjaGluZyBzdXBwb3J0Lg0KPiANCj4g
-SG93ZXZlciB0aGUgcHJvYmxlbSBpcyBmdXJ0aGVyIGV4YWdnZXJhdGVkIGluIHRoZSBjYXNl
-IG9mIGFtZGdwdSBiZWNhdXNlDQo+IGl0IGhhcyBtaWdyYXRlZCB0byAiSVAgZGlzY292ZXJ5
-IiB3aGVyZSBhbWRncHUgd2lsbCBhdHRlbXB0IHRvIGxvYWQNCj4gb24gIkFMTCIgQU1EIEdQ
-VXMgZXZlbiBpZiB0aGUgZHJpdmVyIGlzIG1pc3Npbmcgc3VwcG9ydCBmb3IgSVAgYmxvY2tz
-DQo+IGNvbnRhaW5lZCBpbiB0aGF0IEdQVS4NCj4gDQo+IElQIGRpc2NvdmVyeSByZXF1aXJl
-cyBzb21lIHByb2JpbmcgYW5kIGlzbid0IHJ1biB1bnRpbCBhZnRlciB0aGUNCj4gZnJhbWVi
-dWZmZXIgaGFzIGJlZW4gZGVzdHJveWVkLg0KPiANCj4gVGhpcyBtZWFucyBhIHNpdHVhdGlv
-biBjYW4gb2NjdXIgd2hlcmUgYSB1c2VyIHB1cmNoYXNlcyBhIG5ldyBHUFUgbm90DQo+IHll
-dCBzdXBwb3J0ZWQgYnkgYSBkaXN0cmlidXRpb24gYW5kIHdoZW4gYm9vdGluZyB0aGUgaW5z
-dGFsbGVyIGl0IHdpbGwNCj4gImZyZWV6ZSIgZXZlbiBpZiB0aGUgZGlzdHJpYnV0aW9uIGRv
-ZXNuJ3QgaGF2ZSB0aGUgbWF0Y2hpbmcga2VybmVsIHN1cHBvcnQNCj4gZm9yIHRob3NlIElQ
-IGJsb2Nrcy4NCj4gDQo+IFRoZSBwZXJmZWN0IGV4YW1wbGUgb2YgdGhpcyBpcyBVYnVudHUg
-MjEuMTAgYW5kIHRoZSBuZXcgZEdQVXMganVzdA0KPiBsYXVuY2hlZCBieSBBTUQuICBUaGUg
-aW5zdGFsbGF0aW9uIG1lZGlhIHNoaXBzIHdpdGgga2VybmVsIDUuMTkgKHdoaWNoDQo+IGhh
-cyBJUCBkaXNjb3ZlcnkpIGJ1dCB0aGUgYW1kZ3B1IHN1cHBvcnQgZm9yIHRob3NlIElQIGJs
-b2NrcyBsYW5kZWQgaW4NCj4ga2VybmVsIDYuMC4gVGhlIG1hdGNoaW5nIGxpbnV4LWZpcm13
-YXJlIHdhcyByZWxlYXNlZCBhZnRlciAyMS4xMCdzIGxhdW5jaC4NCj4gVGhlIHNjcmVlbiB3
-aWxsIGZyZWV6ZSB3aXRob3V0IG5vbW9kZXNldC4gRXZlbiBpZiBhIHVzZXIgbWFuYWdlcyB0
-byBpbnN0YWxsDQo+IGFuZCB0aGVuIHVwZ3JhZGVzIHRvIGtlcm5lbCA2LjAgYWZ0ZXIgaW5z
-dGFsbCB0aGV5J2xsIHN0aWxsIGhhdmUgdGhlDQo+IHByb2JsZW0gb2YgbWlzc2luZyBmaXJt
-d2FyZSwgYW5kIHRoZSBzYW1lIGV4cGVyaWVuY2UuDQo+IA0KPiBUaGlzIGlzIHF1aXRlIGph
-cnJpbmcgZm9yIHVzZXJzLCBwYXJ0aWN1bGFybHkgaWYgdGhleSBkb24ndCBrbm93DQo+IHRo
-YXQgdGhleSBoYXZlIHRvIHVzZSAibm9tb2Rlc2V0IiB0byBpbnN0YWxsLg0KPiANCj4gVG8g
-aGVscCB0aGUgc2l0dWF0aW9uLCBhbGxvdyBkcml2ZXJzIHRvIHJlLXJ1biB0aGUgaW5pdCBw
-cm9jZXNzIGZvciB0aGUNCj4gZmlybXdhcmUgZnJhbWVidWZmZXIgZHVyaW5nIGEgZmFpbGVk
-IHByb2JlLiBBcyB0aGlzIHByb2JsZW0gaXMgbW9zdA0KPiBwcm9ub3VuY2VkIHdpdGggYW1k
-Z3B1LCB0aGlzIGlzIHRoZSBvbmx5IGRyaXZlciBjaGFuZ2VkLg0KPiANCj4gQnV0IGlmIHRo
-aXMgbWFrZXMgc2Vuc2UgbW9yZSBnZW5lcmFsbHkgZm9yIG90aGVyIEtNUyBkcml2ZXJzLCB0
-aGUgY2FsbA0KPiBjYW4gYmUgYWRkZWQgdG8gdGhlIGNsZWFudXAgcm91dGluZSBmb3IgdGhv
-c2UgdG9vLg0KDQpKdXN0IGEgcXVpY2sgZHJpdmUtYnkgY29tbWVudDogYXMgSmF2aWVyIG5v
-dGVkLCBhdCBzb21lIHBvaW50IHdoaWxlIA0KcHJvYmluZywgeW91ciBkcml2ZXIgaGFzIGNo
-YW5nZWQgdGhlIGRldmljZScgc3RhdGUgYW5kIHRoZSBzeXN0ZW0gRkIgDQp3aWxsIGJlIGdv
-bmUuIHlvdSBjYW5ub3QgcmVlc3RhYmxpc2ggdGhlIHN5c2ZiIGFmdGVyIHRoYXQuDQoNCllv
-dSBhcmUsIGhvd2V2ZXIgZnJlZSB0byByZWFkIGRldmljZSBzdGF0ZSBhdCBhbnkgdGltZSwg
-YXMgbG9uZyBhcyBpdCANCmhhcyBubyBzaWRlIGVmZmVjdHMuDQoNClNvIHdoeSBub3QganVz
-dCBtb3ZlIHRoZSBjYWxsIHRvIA0KZHJtX2FwZXJ0dXJlX3JlbW92ZV9jb25mbGljdGluZ19w
-Y2lfZnJhbWVidWZmZXJzKCkgdG8gYSBsYXRlciBwb2ludCB3aGVuIA0KeW91IGtub3cgdGhh
-dCB5b3VyIGRyaXZlciBzdXBwb3J0cyB0aGUgaGFyZHdhcmU/IFRoYXQncyB0aGUgc29sdXRp
-b24gd2UgDQphbHdheXMgcHJvcG9zZWQgdG8gdGhpcyBraW5kIG9mIHByb2JsZW0uIEl0J3Mg
-c2FmZSBhbmQgd29uJ3QgcmVxdWlyZSBhbnkgDQpjaGFuZ2VzIHRvIHRoZSBhcGVydHVyZSBo
-ZWxwZXJzLg0KDQpCZXN0IHJlZ2FyZHMNClRob21hcw0KDQo+IA0KPiBIZXJlIGlzIGEgc2Ft
-cGxlIG9mIHdoYXQgaGFwcGVucyB3aXRoIG1pc3NpbmcgR1BVIGZpcm13YXJlIGFuZCB0aGlz
-DQo+IHNlcmllczoNCj4gDQo+IFsgICAgNS45NTAwNTZdIGFtZGdwdSAwMDAwOjYzOjAwLjA6
-IHZnYWFyYjogZGVhY3RpdmF0ZSB2Z2EgY29uc29sZQ0KPiBbICAgIDUuOTUwMTE0XSBhbWRn
-cHUgMDAwMDo2MzowMC4wOiBlbmFibGluZyBkZXZpY2UgKDAwMDYgLT4gMDAwNykNCj4gWyAg
-ICA1Ljk1MDg4M10gW2RybV0gaW5pdGlhbGl6aW5nIGtlcm5lbCBtb2Rlc2V0dGluZyAoWUVM
-TE9XX0NBUlAgMHgxMDAyOjB4MTY4MSAweDE3QUE6MHgyMkYxIDB4RDIpLg0KPiBbICAgIDUu
-OTUyOTU0XSBbZHJtXSByZWdpc3RlciBtbWlvIGJhc2U6IDB4QjBBMDAwMDANCj4gWyAgICA1
-Ljk1Mjk1OF0gW2RybV0gcmVnaXN0ZXIgbW1pbyBzaXplOiA1MjQyODgNCj4gWyAgICA1Ljk1
-NDYzM10gW2RybV0gYWRkIGlwIGJsb2NrIG51bWJlciAwIDxudl9jb21tb24+DQo+IFsgICAg
-NS45NTQ2MzZdIFtkcm1dIGFkZCBpcCBibG9jayBudW1iZXIgMSA8Z21jX3YxMF8wPg0KPiBb
-ICAgIDUuOTU0NjM3XSBbZHJtXSBhZGQgaXAgYmxvY2sgbnVtYmVyIDIgPG5hdmkxMF9paD4N
-Cj4gWyAgICA1Ljk1NDYzOF0gW2RybV0gYWRkIGlwIGJsb2NrIG51bWJlciAzIDxwc3A+DQo+
-IFsgICAgNS45NTQ2MzldIFtkcm1dIGFkZCBpcCBibG9jayBudW1iZXIgNCA8c211Pg0KPiBb
-ICAgIDUuOTU0NjQxXSBbZHJtXSBhZGQgaXAgYmxvY2sgbnVtYmVyIDUgPGRtPg0KPiBbICAg
-IDUuOTU0NjQyXSBbZHJtXSBhZGQgaXAgYmxvY2sgbnVtYmVyIDYgPGdmeF92MTBfMD4NCj4g
-WyAgICA1Ljk1NDY0M10gW2RybV0gYWRkIGlwIGJsb2NrIG51bWJlciA3IDxzZG1hX3Y1XzI+
-DQo+IFsgICAgNS45NTQ2NDRdIFtkcm1dIGFkZCBpcCBibG9jayBudW1iZXIgOCA8dmNuX3Yz
-XzA+DQo+IFsgICAgNS45NTQ2NDVdIFtkcm1dIGFkZCBpcCBibG9jayBudW1iZXIgOSA8anBl
-Z192M18wPg0KPiBbICAgIDUuOTU0NjYzXSBhbWRncHUgMDAwMDo2MzowMC4wOiBhbWRncHU6
-IEZldGNoZWQgVkJJT1MgZnJvbSBWRkNUDQo+IFsgICAgNS45NTQ2NjZdIGFtZGdwdTogQVRP
-TSBCSU9TOiAxMTMtUkVNQlJBTkRULVgzNw0KPiBbICAgIDUuOTU0Njc3XSBbZHJtXSBWQ04o
-MCkgZGVjb2RlIGlzIGVuYWJsZWQgaW4gVk0gbW9kZQ0KPiBbICAgIDUuOTU0Njc4XSBbZHJt
-XSBWQ04oMCkgZW5jb2RlIGlzIGVuYWJsZWQgaW4gVk0gbW9kZQ0KPiBbICAgIDUuOTU0Njgw
-XSBbZHJtXSBKUEVHIGRlY29kZSBpcyBlbmFibGVkIGluIFZNIG1vZGUNCj4gWyAgICA1Ljk1
-NDY4MV0gYW1kZ3B1IDAwMDA6NjM6MDAuMDogYW1kZ3B1OiBUcnVzdGVkIE1lbW9yeSBab25l
-IChUTVopIGZlYXR1cmUgZGlzYWJsZWQgYXMgZXhwZXJpbWVudGFsIChkZWZhdWx0KQ0KPiBb
-ICAgIDUuOTU0NjgzXSBhbWRncHUgMDAwMDo2MzowMC4wOiBhbWRncHU6IFBDSUUgYXRvbWlj
-IG9wcyBpcyBub3Qgc3VwcG9ydGVkDQo+IFsgICAgNS45NTQ3MjRdIFtkcm1dIHZtIHNpemUg
-aXMgMjYyMTQ0IEdCLCA0IGxldmVscywgYmxvY2sgc2l6ZSBpcyA5LWJpdCwgZnJhZ21lbnQg
-c2l6ZSBpcyA5LWJpdA0KPiBbICAgIDUuOTU0NzMyXSBhbWRncHUgMDAwMDo2MzowMC4wOiBh
-bWRncHU6IFZSQU06IDUxMk0gMHgwMDAwMDBGNDAwMDAwMDAwIC0gMHgwMDAwMDBGNDFGRkZG
-RkZGICg1MTJNIHVzZWQpDQo+IFsgICAgNS45NTQ3MzVdIGFtZGdwdSAwMDAwOjYzOjAwLjA6
-IGFtZGdwdTogR0FSVDogMTAyNE0gMHgwMDAwMDAwMDAwMDAwMDAwIC0gMHgwMDAwMDAwMDNG
-RkZGRkZGDQo+IFsgICAgNS45NTQ3MzhdIGFtZGdwdSAwMDAwOjYzOjAwLjA6IGFtZGdwdTog
-QUdQOiAyNjc0MTk2NDhNIDB4MDAwMDAwRjgwMDAwMDAwMCAtIDB4MDAwMEZGRkZGRkZGRkZG
-Rg0KPiBbICAgIDUuOTU0NzQ3XSBbZHJtXSBEZXRlY3RlZCBWUkFNIFJBTT01MTJNLCBCQVI9
-NTEyTQ0KPiBbICAgIDUuOTU0NzUwXSBbZHJtXSBSQU0gd2lkdGggMjU2Yml0cyBMUEREUjUN
-Cj4gWyAgICA1Ljk1NDgzNF0gW2RybV0gYW1kZ3B1OiA1MTJNIG9mIFZSQU0gbWVtb3J5IHJl
-YWR5DQo+IFsgICAgNS45NTQ4MzhdIFtkcm1dIGFtZGdwdTogMTU2ODBNIG9mIEdUVCBtZW1v
-cnkgcmVhZHkuDQo+IFsgICAgNS45NTQ4NzNdIFtkcm1dIEdBUlQ6IG51bSBjcHUgcGFnZXMg
-MjYyMTQ0LCBudW0gZ3B1IHBhZ2VzIDI2MjE0NA0KPiBbICAgIDUuOTU1MzMzXSBbZHJtXSBQ
-Q0lFIEdBUlQgb2YgMTAyNE0gZW5hYmxlZCAodGFibGUgYXQgMHgwMDAwMDBGNDFGQzAwMDAw
-KS4NCj4gWyAgICA1Ljk1NTUwMl0gYW1kZ3B1IDAwMDA6NjM6MDAuMDogRGlyZWN0IGZpcm13
-YXJlIGxvYWQgZm9yIGFtZGdwdS95ZWxsb3dfY2FycF90b2MuYmluIGZhaWxlZCB3aXRoIGVy
-cm9yIC0yDQo+IFsgICAgNS45NTU1MDVdIGFtZGdwdSAwMDAwOjYzOjAwLjA6IGFtZGdwdTog
-ZmFpbCB0byByZXF1ZXN0L3ZhbGlkYXRlIHRvYyBtaWNyb2NvZGUNCj4gWyAgICA1Ljk1NTUx
-MF0gW2RybTpwc3Bfc3dfaW5pdCBbYW1kZ3B1XV0gKkVSUk9SKiBGYWlsZWQgdG8gbG9hZCBw
-c3AgZmlybXdhcmUhDQo+IFsgICAgNS45NTU3MjVdIFtkcm06YW1kZ3B1X2RldmljZV9pbml0
-LmNvbGQgW2FtZGdwdV1dICpFUlJPUiogc3dfaW5pdCBvZiBJUCBibG9jayA8cHNwPiBmYWls
-ZWQgLTINCj4gWyAgICA1Ljk1NTk1Ml0gYW1kZ3B1IDAwMDA6NjM6MDAuMDogYW1kZ3B1OiBh
-bWRncHVfZGV2aWNlX2lwX2luaXQgZmFpbGVkDQo+IFsgICAgNS45NTU5NTRdIGFtZGdwdSAw
-MDAwOjYzOjAwLjA6IGFtZGdwdTogRmF0YWwgZXJyb3IgZHVyaW5nIEdQVSBpbml0DQo+IFsg
-ICAgNS45NTU5NTddIGFtZGdwdSAwMDAwOjYzOjAwLjA6IGFtZGdwdTogYW1kZ3B1OiBmaW5p
-c2hpbmcgZGV2aWNlLg0KPiBbICAgIDUuOTcxMTYyXSBlZmlmYjogcHJvYmluZyBmb3IgZWZp
-ZmINCj4gWyAgICA1Ljk3MTI4MV0gZWZpZmI6IHNob3dpbmcgYm9vdCBncmFwaGljcw0KPiBb
-ICAgIDUuOTc0ODAzXSBlZmlmYjogZnJhbWVidWZmZXIgYXQgMHg5MTAwMDAwMDAsIHVzaW5n
-IDIwMjUyaywgdG90YWwgMjAyNTBrDQo+IFsgICAgNS45NzQ4MDVdIGVmaWZiOiBtb2RlIGlz
-IDI4ODB4MTgwMHgzMiwgbGluZWxlbmd0aD0xMTUyMCwgcGFnZXM9MQ0KPiBbICAgIDUuOTc0
-ODA3XSBlZmlmYjogc2Nyb2xsaW5nOiByZWRyYXcNCj4gWyAgICA1Ljk3NDgwN10gZWZpZmI6
-IFRydWVjb2xvcjogc2l6ZT04Ojg6ODo4LCBzaGlmdD0yNDoxNjo4OjANCj4gWyAgICA1Ljk3
-NDk3NF0gQ29uc29sZTogc3dpdGNoaW5nIHRvIGNvbG91ciBmcmFtZSBidWZmZXIgZGV2aWNl
-IDE4MHg1Ng0KPiBbICAgIDUuOTc4MTgxXSBmYjA6IEVGSSBWR0EgZnJhbWUgYnVmZmVyIGRl
-dmljZQ0KPiBbICAgIDUuOTc4MTk5XSBhbWRncHU6IHByb2JlIG9mIDAwMDA6NjM6MDAuMCBm
-YWlsZWQgd2l0aCBlcnJvciAtMg0KPiBbICAgIDUuOTc4Mjg1XSBbZHJtXSBhbWRncHU6IHR0
-bSBmaW5hbGl6ZWQNCj4gDQo+IE5vdyBpZiB0aGUgdXNlciBsb2FkcyB0aGUgZmlybXdhcmUg
-aW50byB0aGUgc3lzdGVtIHRoZXkgY2FuIHJlLWxvYWQgdGhlDQo+IGRyaXZlciBvciByZS1h
-dHRhY2ggdXNpbmcgc3lzZnMgYW5kIGl0IGdyYWNlZnVsbHkgcmVjb3ZlcnMuDQo+IA0KPiBb
-ICA2NjUuMDgwNDgwXSBbZHJtXSBJbml0aWFsaXplZCBhbWRncHUgMy40OS4wIDIwMTUwMTAx
-IGZvciAwMDAwOjYzOjAwLjAgb24gbWlub3IgMA0KPiBbICA2NjUuMDkwMDc1XSBmYmNvbjog
-YW1kZ3B1ZHJtZmIgKGZiMCkgaXMgcHJpbWFyeSBkZXZpY2UNCj4gWyAgNjY1LjA5MDI0OF0g
-W2RybV0gRFNDIHByZWNvbXB1dGUgaXMgbm90IG5lZWRlZC4NCj4gDQo+IE1hcmlvIExpbW9u
-Y2llbGxvICgyKToNCj4gICAgZmlybXdhcmU6IHN5c2ZiOiBBbGxvdyByZS1jcmVhdGluZyBz
-eXN0ZW0gZnJhbWVidWZmZXIgYWZ0ZXIgaW5pdA0KPiAgICBkcm0vYW1kOiBSZS1jcmVhdGUg
-ZmlybXdhcmUgZnJhbWVidWZmZXIgb24gZmFpbHVyZSB0byBwcm9iZQ0KPiANCj4gICBkcml2
-ZXJzL2Zpcm13YXJlL2VmaS9zeXNmYl9lZmkuYyAgICAgICAgfCAgNiArKystLS0NCj4gICBk
-cml2ZXJzL2Zpcm13YXJlL3N5c2ZiLmMgICAgICAgICAgICAgICAgfCAxNSArKysrKysrKysr
-KysrKy0NCj4gICBkcml2ZXJzL2Zpcm13YXJlL3N5c2ZiX3NpbXBsZWZiLmMgICAgICAgfCAg
-NCArKy0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIHwg
-IDIgKysNCj4gICBpbmNsdWRlL2xpbnV4L3N5c2ZiLmggICAgICAgICAgICAgICAgICAgfCAg
-NSArKysrKw0KPiAgIDUgZmlsZXMgY2hhbmdlZCwgMjYgaW5zZXJ0aW9ucygrKSwgNiBkZWxl
-dGlvbnMoLSkNCj4gDQo+IA0KPiBiYXNlLWNvbW1pdDogODMwYjNjNjhjMWZiMWU5MTc2MDI4
-ZDAyZWY4NmYzY2Y3NmFhMjQ3Ng0KDQotLSANClRob21hcyBaaW1tZXJtYW5uDQpHcmFwaGlj
-cyBEcml2ZXIgRGV2ZWxvcGVyDQpTVVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdt
-YkgNCk1heGZlbGRzdHIuIDUsIDkwNDA5IE7DvHJuYmVyZywgR2VybWFueQ0KKEhSQiAzNjgw
-OSwgQUcgTsO8cm5iZXJnKQ0KR2VzY2jDpGZ0c2bDvGhyZXI6IEl2byBUb3Rldg0K
-
---------------IoFDFfc1IeNs80OXfId1EPOG--
-
---------------EBfSh5xZlvVk5oLicG0xRk3V
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmOmx6YFAwAAAAAACgkQlh/E3EQov+DL
-zA//U3jSF1Bwn/4YzveKhiHzqWGivgSyMsFLXoqHLHi8QBWFhO23B54gCuD4nDAMnxanos0QJAaA
-b51Xa+qjQ7/ujEhWg57g2SrS/UdxE/Oxipr4PUVF9bvbXnSgi4kHvySDQIs41dESLwGrf6zURkcb
-r42GIQUhCE5alc00ON0ENACcRLWY1d/Zaix32PfYPFyREyZOUBs1mxeBEM3iu2z0hOqDJBB2yuKf
-yObCB3qRTYUZAfddGIKFkKjx+ucXgpbFgPu2hGaBXk1w9Q38PTBuQJz9CLRV3Cz0kem2xhIve5ot
-wRktx5hCjSH9hChfo3reC0Ew40ixJ5OM8wbt5aB5/XcWenPoZEiqsYEpaHBGZjPFbhDw8L0BMOwf
-JiHXzjrc6IEzJtLxj7nCdOkcYmA7U6TuuMDng3Qji74WDmQWgHxQlLthhvy8FbRc2de9V+94SnFd
-9iGu/bDi3ovClgyRVuIWXb1n1oVFpQ+n/j76rVaZHN+n/SHJi5CZJ7wa4WtG+p1w2GD53O3g4ofN
-gokpgRBvEIMgTx0xmZjEbZftiJdx8IDux+Ag84/jIPjXFAh4P61NYKoFMpZuLsLEkFzyTS7AueX5
-DVUwHFCN8w1lEfzPSPyJGwohFqzIlVqdItRAUy4Ugv9r+xvF4sCbW3wBNmEfTOi+BMB64obFqJj6
-1Fs=
-=kQXN
------END PGP SIGNATURE-----
-
---------------EBfSh5xZlvVk5oLicG0xRk3V--
+> +    args->out.q_id = queue->queue_id;
+> +    args->out.flags = 0;
+> +    mutex_unlock(&adev->userq.userq_mutex);
+> +    return 0;
+> +
+> +free_queue:
+> +    amdgpu_userqueue_remove_index(adev, queue);
+> +    mutex_unlock(&adev->userq.userq_mutex);
+> +    kfree(queue);
+> +    return r;
+> +}
+> +
+> +void amdgpu_userqueue_destroy(struct amdgpu_device *adev, struct drm_file *filp,
+> +                              union drm_amdgpu_userq *args)
+> +{
+> +    struct amdgpu_fpriv *fpriv = filp->driver_priv;
+> +    struct amdgpu_ctx *ctx = amdgpu_ctx_get(fpriv, args->in.ctx_id);
+> +    struct amdgpu_usermode_queue *queue = ctx->userq;
+> +
+> +    mutex_lock(&adev->userq.userq_mutex);
+> +    amdgpu_userqueue_remove_index(adev, queue);
+> +    ctx->userq = NULL;
+> +    mutex_unlock(&adev->userq.userq_mutex);
+> +    kfree(queue);
+> +}
+> +
+> +int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+> +                      struct drm_file *filp)
+> +{
+> +    union drm_amdgpu_userq *args = data;
+> +    struct amdgpu_device *adev = drm_to_adev(dev);
+> +    int r = 0;
+> +
+> +    switch (args->in.op) {
+> +    case AMDGPU_USERQ_OP_CREATE:
+> +        r = amdgpu_userqueue_create(adev, filp, args);
+> +        if (r)
+> +            DRM_ERROR("Failed to create usermode queue\n");
+> +        break;
+> +
+> +    case AMDGPU_USERQ_OP_FREE:
+> +        amdgpu_userqueue_destroy(adev, filp, args);
+> +        break;
+> +
+> +    default:
+> +        DRM_ERROR("Invalid user queue op specified: %d\n", args->in.op);
+> +        return -EINVAL;
+> +    }
+> +
+> +    return r;
+> +}
+> +
+> +int amdgpu_userqueue_init(struct amdgpu_device *adev)
+> +{
+> +    struct amdgpu_userq_globals *uqg = &adev->userq;
+> +
+> +    mutex_init(&uqg->userq_mutex);
+> +    return 0;
+> +}
+> +
+> +void amdgpu_userqueue_fini(struct amdgpu_device *adev)
+> +{
+> +
+> +}
+> diff --git a/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h b/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h
+> new file mode 100644
+> index 000000000000..c1fe39ffaf72
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h
+> @@ -0,0 +1,50 @@
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#ifndef AMDGPU_USERMODE_QUEUE_H_
+> +#define AMDGPU_USERMODE_QUEUE_H_
+> +
+> +#define AMDGPU_MAX_USERQ 512
+> +
+> +struct amdgpu_usermode_queue {
+> +       int             queue_id;
+> +       int             queue_type;
+> +       int             queue_size;
+> +       int             paging;
+> +       int             pasid;
+> +       int             use_doorbell;
+> +       int             doorbell_index;
+> +
+> +       uint64_t        mqd_gpu_addr;
+> +       uint64_t        wptr_gpu_addr;
+> +       uint64_t        rptr_gpu_addr;
+> +       uint64_t        queue_gpu_addr;
+> +       uint64_t        flags;
+> +       void            *mqd_cpu_ptr;
+> +
+> +       struct amdgpu_bo        *mqd_obj;
+> +       struct amdgpu_vm        *vm;
+> +       struct list_head        list;
+> +};
+> +
+> +#endif
+> --
+> 2.34.1
+>
