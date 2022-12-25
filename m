@@ -4,100 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C847DC3DA79
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Dec 2022 13:19:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DC73C3DA7D
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Dec 2022 13:19:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B503810E02F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDFEA10E04E;
 	Mon, 26 Dec 2022 13:19:01 +0000 (UTC)
-Received: from IND01-MAX-obe.outbound.protection.outlook.com
- (mail-maxind01olkn2057.outbound.protection.outlook.com [40.92.102.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B8C310E0C3
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Dec 2022 10:44:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MKhOcL492b+RpA2fp1tjLE9VPZa+5/AnQCWXtpvIvsLnHG2BOVkm63HqZt3+T1RX7CD9cZ68ahXeuajNawH8JO3BVa2n+RkGK6hTiiB4jkSZGZkxZkLhkOAP8B3So//aOtxCi8ZxyMBT0p+nKQ5px1cc4UjV2aBFET3FzixKi//AfChy47v6PIlsNqyhc7hqQHRgON/m5bmsVNpCkI4R955j2b23ZmQWyW3JVEnR/tvoaJQNzWPeXBSmZZSPjEBtQlaLTs9YCFR3Fgagb3fCGfRewS7+fbyb7c/jRoN++2TsIItDSP8stGac2ai8r+VPJ4rvKREdOWerB9O6AUI4yQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S5G14hAMWL2l8vJlHnIAEggwYcDvwjxuu29qluLNh+Y=;
- b=cADrOXhRzBliUp3j4e8oQBp0/rYwg7Gaa3MJ3Jo9QV6arkJIulmfeBFrYha4pI30aGtSC5BEAr4nzoDNo6mb7FHtrwIjQIDwu86N3aawcf7GNMJKgVKyBp7I0Z0mPuL0LkRQCYJRbEQ0p0AP+1+jRh1IbZeLgfJiKWuhShFhcmhk6I1lAheEVUtSql/pRSm58gLP8IJN/a0bJdZFoEs/iu3eqoSEO7Isa/HSaD4ic09mAWDG7X/UyF7zHENkcK2+zUQBN3SAwAbAXDRHnzyG3Nei6Atdn7vxWO/XBsAJuqRQRVKL9PZRd+Wf3pUkKYCBTjLZpg1CymUz/a9jKLvc7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=live.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S5G14hAMWL2l8vJlHnIAEggwYcDvwjxuu29qluLNh+Y=;
- b=me+AFyRlmDYmPaBz0Rc1ytmaYjyL9kSmvh88O3cATdq9ttQ5USiCI24WKKuqi0b8yOiKeoFZQ7PfqcTzhiPLoC5hH3zXj/1ctRFbgJ1taebmnqwsCO48ROfxs+IXy13Hkycx+XNlvcP2s7awHlAnNy7FbHmb5mpk5cvB9y7p7zLOMfHocByM+S4SKQuVblsFfHc9enrABKt7mEi80gdBOrQ81EjiRYV+58s4ooWCpy32MyKoLmNqI1D8Hbr+5CQFoOHPiR9Pk0h0Bv9wl3Xo4eAuUCLig7SoAkq0xaxodZLR7lWEkV2MVvw5eeeE45NoE8g0te1iIJHzYm7c2qni0w==
-Received: from BM1PR01MB0931.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:2::9) by
- MAZPR01MB9031.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a01:109::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5944.14; Mon, 26 Dec 2022 10:44:06 +0000
-Received: from BM1PR01MB0931.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::f90e:46bc:7a0f:23bc]) by BM1PR01MB0931.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::f90e:46bc:7a0f:23bc%7]) with mapi id 15.20.5944.016; Mon, 26 Dec 2022
- 10:44:06 +0000
-From: Aditya Garg <gargaditya08@live.com>
-To: "harry.wentland@amd.com" <harry.wentland@amd.com>, "sunpeng.li@amd.com"
- <sunpeng.li@amd.com>, "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>, "Xinhui.Pan@amd.com"
- <Xinhui.Pan@amd.com>
-Subject: [BUG] AMD Radeon Pro 5600M with 8GB of HBM2 memory shows blank screen
- on Linux
-Thread-Topic: [BUG] AMD Radeon Pro 5600M with 8GB of HBM2 memory shows blank
- screen on Linux
-Thread-Index: AQHZGRb6uT6dJkmogkGgN01AW6oP/Q==
-Date: Mon, 26 Dec 2022 10:44:06 +0000
-Message-ID: <3AFB9142-2BD0-46F9-AEA9-C9C5D13E68E6@live.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-tmn: [kj23VZFuMBM2FvmDMyhskQxrkm4NtyeFnMbm84NrUPdU7jg3UjX4Y6zVkQFX5rBx]
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BM1PR01MB0931:EE_|MAZPR01MB9031:EE_
-x-ms-office365-filtering-correlation-id: 1ad4c993-3a7d-483d-e66d-08dae72e1ce5
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ccaQsBw/oy+8/iIYhraDSprL0KH/PkM3Z4sq4zZRsd0SwblAFfJnQY8/CaZBPOYR2N9a1bBPb/x06HuWlb2qECkO+OXrfJwVQyZa2FaYzNXTELuIQ+XdPpFlABWG/NL8Q0Bl/w/VXhLN0wAKvHNlojP0zo5Itr6eQFPsChJdep0zVe4jm6Wf7B6ez9Nn4nR5MZO1n/Z2SuYRJxDKSMhYaP8pHOzkdIagpcEYZyJEp7Z+lmZsojFXuBICt7jfnIsfsTCEj8yEC1gQW3O6iEFc28XVXeAkboG+FGl4umLEPZbWYM7l4fzbzvqWTNWQwJR2MGUpfCBSTTiVhCokI0u8lnDkNawc0MxefbSgUzWUiudJ45DT5ryJZVKtWaUiQghzRj5IRttzSomH/IFihtlp7ZujLWVmzXtQ9wIuj+h4xZ6ZnSnAHXw9THBE//N4o0+m13ceobWdflHNMJSufhYqc2DKxrCJ6Npvw9B5L/QLh1XXFPWlGq8h45LYZynA0hwolirJ4WFR6mbJngOZo2e5aw8vdkY8HA9gdjk3iuiyLvEv7BZAwnk/w9U5amxIQxyiisx7DA9qERmcvQClSGWe3A==
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?TfKh3mA2Y4vgCJYuPZqPaaxJZlv7Xfteyegp4P7jF+MEhRkW4lRlMfyJyYKx?=
- =?us-ascii?Q?xUSevaKUd/KM8w143u9XHnQfRSWbfI1+MKTuYMBlOgOgovCvzdvcPhvpHvOm?=
- =?us-ascii?Q?pAh7SH9Q9w4UP5dlAvgzfp/e5hDR46F2nYIPx+UKgUxhzQ29sNTEEwopDyIg?=
- =?us-ascii?Q?pNKOWznPjLyYX1RZi1GQgIRjqeU0gfGSpnG7dLhUJP2k582znuF1FJmRMtOJ?=
- =?us-ascii?Q?FExBxn17SHaFVl5JBvVUo5plEvhJanMcQuFnMOtbhsau6j7CibibSSPuuCja?=
- =?us-ascii?Q?oOJ3WLR3d7eu26AoB92sFOb5mVxqs+kEiLumClvQP5krY8YH15i5mP7oHYUv?=
- =?us-ascii?Q?YI8x/Ewe1WWO95LvK4v9DYFWSGwFSWe35jYPzfHd7QleAYAeRFaC78QuVId2?=
- =?us-ascii?Q?SaRWpyuWfm8bKmjAcbaiEywZ4Urth1Q68Mo7bqgbF1p163/s70m/INd4x2N0?=
- =?us-ascii?Q?lNHj1/6LIl1c50ts45CHef/nskvt6AApRVMkc0XzmACpY1j8ubRQsO5P98P2?=
- =?us-ascii?Q?O4I9CzMMuowbmNh/pilHW9JUK7uZIol969mssAV/sHYwABxFExqkiK12R7H/?=
- =?us-ascii?Q?v7SC6LPISeHoUzBH5u6jjY9aymsDbbevdWw0iFqij4nO1BWfclmZsTDguSkJ?=
- =?us-ascii?Q?JMrK8a6S1UXUXUe/LcXbHWsRKtRaWtIRbxhvT0VtJfwHfM1lEJ7VBBqLlgJB?=
- =?us-ascii?Q?SgQPCUPREGFVvjT3NB1VXfoag0bOFQ/xS6XTHaw/EqIVhDo9IDt+hq+YjhTt?=
- =?us-ascii?Q?MRvWE1g6FLdzndNYr+g43gAMJQzCsE3hefPGEI46aK2oy/4e/ga8dqgoHv2k?=
- =?us-ascii?Q?/3mwXrGhy5c2DVf9hDz76N+QP+2YIwTIblWrSoAIzRKK/l18U5bxOjcDw2rd?=
- =?us-ascii?Q?T/REdeLU4KrrQACD62/VqWs8Ko/2br+1iMBb+0VrrD3c3YmSHDb0xfQzrrBA?=
- =?us-ascii?Q?nAWUTKtEBQ541SMrj6mas1C+vugU+M+gTvrWj9GFoh0cMCuRuy/z99G4mRpy?=
- =?us-ascii?Q?OqnOf5y7nQ4FFO6eiIWNyohyuFbpctSuEuA15mDySpfL7vam8yn5NQ4Yrug0?=
- =?us-ascii?Q?ndwXIuykz4v06ueUDpilcmW04BRx8WXNxpRJROySLGoNzndSeKPhysmIUGhP?=
- =?us-ascii?Q?DcKE+SkWWdD+J4CHfXIpQHJcbk7DHrgzl/PyKDjSvsquprZHhEpXwCV3NWYt?=
- =?us-ascii?Q?fHOeR4X9w3dncA+TbbRs6g6CWUT3/zHc/8b6g72KR9o4mt/NrEqyIs3HbdLT?=
- =?us-ascii?Q?nLFwVLDIwXJ4mZa/EBwyn4J1h/nnQ3k6OdzjevBtOxo34uZex0QTx9fpz9QR?=
- =?us-ascii?Q?iq0WX7Kkr/k08F+OjKGii9T/l9jQ2xYO3NKlCn0VunxujQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <C28F09EFFC574F4DAC417D7AF0A24A60@INDPRD01.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: quoted-printable
+X-Greylist: delayed 368 seconds by postgrey-1.36 at gabe;
+ Sun, 25 Dec 2022 15:18:45 UTC
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com
+ [162.62.57.252])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A6E110E009;
+ Sun, 25 Dec 2022 15:18:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1671981521;
+ bh=4gyYfY5apDGW/eosN7O7fVTHYhGTtevXrZrItFuw+RY=;
+ h=From:To:Cc:Subject:Date;
+ b=slD+X7CmTZJerovdRIaw4zh8bl7seh3SyPh1tOjQgEH8Kn6ppCva35TwB9w1ghHRM
+ /Q5Waa+/f+WTDB4PjI7ISBLJKRvHtzEyX9JyHfKKJzRxXBLsxRNUOFBW4mYhv+RrFN
+ hamlQ/A46mR4o8Gn12iHlKFUGZBYPwq9CQQUi3+g=
+Received: from wen-VirtualBox.lan ([222.182.118.62])
+ by newxmesmtplogicsvrszc2-0.qq.com (NewEsmtp) with SMTP
+ id 2CC05057; Sun, 25 Dec 2022 23:11:12 +0800
+X-QQ-mid: xmsmtpt1671981072toki2hhed
+Message-ID: <tencent_13506618BF90E7B2AA796A9920DC49BEF407@qq.com>
+X-QQ-XMAILINFO: MR/iVh5QLeie/LjKgMA5F+5e/BGMMcXVUrtcQ09uXcIXZnVQf2Y9PHof42Hm7R
+ q+XXsqJsIHOfpYJo0o4QBA5TKF3Uc2f68G9HY9qzQRS3RzjoDHtdthbpx8rG1dDCGG1B3R/WV9hY
+ zldUkH98qcXF84DEoj23T9yQthTbJcEiN40XmEuBnnjr3xXNqjJE5LcgmH/uSYRGlbJ3W3qqn5nk
+ u+706JgKWAODSz1tTRWoyxMQJeRUtkpey58LQ+Iw+iP3D8iDNTXU00EaYrp99nGMOsbDtolcQieT
+ l/phISKm6/qxu+Yv1vcxRl8IZPwMtyrsklf+EMJp5AIPN0d2+0TCV+r9vY7ckVehWLLSzGs4IyJR
+ DIXN5XVDTHOTQYFNRE6wzP8nAAbIOts9HJja6YST1Yo+vEypZrUaEhgZ6p+i+d29YhNBpinchcp4
+ XiCssglylaikQStP+FpxAYxgKwQO3B0s43R+q2Z/IfpZYJzMQIc8EIPRQgXnZfZUWy+a14xPBaIN
+ +epWLj/ugm5rl9a9C8KRVL2h07+/XXdU3mhHzcPFhd+PK7ZrOAc3F3m1VcYWganATKyx2b2N+Wo/
+ bTVEB0LpySwjsue1liZ2WJl8k1jLaGnBeUth8PDJOhEmtqNxmNmd64UmQG9UIdxetHKHPfPwnjEe
+ nQ9I8JJXYJJrOdx+RvawZ6U05ywm0UgUlKZSFaPnpY1fkQaQwslH8t77Wq0czQNkHLA/AvZkaGZo
+ nTfk8CNqaw1M2nsg4X4Q7G5KG74xdBypNO459NmlSnqZoSxGHjgfLjmrLEckGuBHHFJj20Ua9XFh
+ 4HQWNvGUjHnZzE7cu7bX/kxJ8Ef3Mf+OqtY+ZsHzRPDe4viliLz/Ps1BHmEIXDe1wc8/TNnSEM5x
+ mkjtVLii37EdkmSf+7FlkHswi4WiaF1xY9BqB0xzfOE9Sr0nmOc0kLBDEvNweIDrKZXNCOc2DWiD
+ Sad9Y6pZHJmrw2CubzocZDW0VkTkrhUsW1djvqn+MSrCWrHTdOi/keu3MqbCbqLyDzvN3WcSo=
+From: wenyang.linux@foxmail.com
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>
+Subject: [PATCH] =?UTF-8?q?drm/amd/display:=C2=A0fix=C2=A0array-bounds?=
+ =?UTF-8?q?=C2=A0errors=C2=A0in=20dc=5Fstream=5Fremove=5Fwriteback()?=
+Date: Sun, 25 Dec 2022 23:10:58 +0800
+X-OQ-MSGID: <20221225151058.749344-1-wenyang.linux@foxmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-42ed3.templateTenant
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BM1PR01MB0931.INDPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ad4c993-3a7d-483d-e66d-08dae72e1ce5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Dec 2022 10:44:06.5530 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAZPR01MB9031
-X-Mailman-Approved-At: Mon, 26 Dec 2022 13:18:58 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 26 Dec 2022 13:18:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,23 +65,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Orlando Chamberlain <redecorating@protonmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Wen Yang <wenyang.linux@foxmail.com>,
+ =?UTF-8?q?Leo=C2=A0Li=C2=A0?= <sunpeng.li@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Harry=C2=A0Wentland=C2=A0?= <harry.wentland@amd.com>,
+ Guenter Roeck <linux@roeck-us.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The AMD Radeon Pro 5600M with 8GB of HBM2 memory GPU is found in MacBook Pr=
-o 16 inch, 2019 (MacBookPro16,4).
+From: Wen Yang <wenyang.linux@foxmail.com>
 
-The GPU fails to work on Linux, thus a blank black screen gets displayed on=
- boot.
+The following errors occurred when using gcc 7.5.0-3ubuntu1~18.04:
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c: In function ‘dc_stream_remove_writeback’:
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stream.c:543:55: warning: array subscript is above array bounds [-Warray-bounds]
+     stream->writeback_info[j] = stream->writeback_info[i];
+                                 ~~~~~~~~~~~~~~~~~~~~~~^~~
+Add a check to make sure that num_wb_info won't overflowing the writeback_info buffer.
 
-If nomodeset is added as a kernel parameter, we are able to access Linux ea=
-sily.
+Fixes: 6fbefb84a98e ("drm/amd/display: Add DC core changes for DCN2")
 
-The link below contains the journalctl of the failed boot :-
-https://gist.github.com/AdityaGarg8/dfe1a1c23bf2b92b640dad89f55b73c7
+Signed-off-by: Wen Yang <wenyang.linux@foxmail.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Cc: Guenter Roeck <linux@roeck-us.net>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-Thanks
-Aditya=
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+index 20e534f73513..9825c30f2ca0 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -481,6 +481,7 @@ bool dc_stream_add_writeback(struct dc *dc,
+ 	}
+ 
+ 	if (!isDrc) {
++		ASSERT(stream->num_wb_info + 1 <= MAX_DWB_PIPES);
+ 		stream->writeback_info[stream->num_wb_info++] = *wb_info;
+ 	}
+ 
+@@ -526,6 +527,11 @@ bool dc_stream_remove_writeback(struct dc *dc,
+ 		return false;
+ 	}
+ 
++	if (stream->num_wb_info > MAX_DWB_PIPES) {
++		dm_error("DC: num_wb_info is invalid!\n");
++		return false;
++	}
++
+ //	stream->writeback_info[dwb_pipe_inst].wb_enabled = false;
+ 	for (i = 0; i < stream->num_wb_info; i++) {
+ 		/*dynamic update*/
+@@ -540,7 +546,8 @@ bool dc_stream_remove_writeback(struct dc *dc,
+ 		if (stream->writeback_info[i].wb_enabled) {
+ 			if (j < i)
+ 				/* trim the array */
+-				stream->writeback_info[j] = stream->writeback_info[i];
++				memcpy(&stream->writeback_info[j], &stream->writeback_info[i],
++						sizeof(struct dc_writeback_info));
+ 			j++;
+ 		}
+ 	}
+-- 
+2.25.1
+
