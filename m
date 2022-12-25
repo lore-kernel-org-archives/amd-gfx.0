@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1C10C3DA7A
-	for <amd-gfx@archiver.kernel.org>; Sun, 25 Dec 2022 19:33:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDE3DC3DA7A
+	for <amd-gfx@archiver.kernel.org>; Sun, 25 Dec 2022 19:40:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F32010E066;
-	Sun, 25 Dec 2022 19:33:06 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5509C10E066
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Dec 2022 19:33:04 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id h16so8703945wrz.12
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Dec 2022 11:33:04 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CB2610E0EA;
+	Sun, 25 Dec 2022 19:40:14 +0000 (UTC)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A322F10E0EA
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Dec 2022 19:40:12 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id ay40so6665925wmb.2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Dec 2022 11:40:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:to:subject:message-id:date:from
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=K3q1nDWw2MIkVlDP7eFVxgjXe5mZwWBIMFGG4eqi/oM=;
- b=X4lZ/GNMgJ1AgbFgSsk1RCIEDejUfEVjfVv+l1Yk/ljALOsqvnqpWob0oP2lnpE9Cb
- lHMF3SjHJt7tixBgq+eEZNDpR6fubjAeLTgyNYKr+5lalkhKCL3rZlfPupJENeZK7Ufu
- k994lPjGXCGAkfEJvQVE+o1+IeNelt/YDbUh2uHFSUkuNlc7lRy/SOqzUQCp4h1k50Qk
- 6RhiZf6FmoMdA2yvOxqv5Chrl+9Vymv3+bBKdt3L8FEm+QrlpDf82UoHKS0cO+E0GYuv
- e7jzEbWM1EBbsNJqdQUO18ZKFggDh+aLwmo/sxggtkQLwCztGqMpq/zfaN9sO3FzHzYT
- anxg==
+ bh=81Qzt56uqUTTYiN7XGZEL0FZZ5igsYkPCbcExt0OB1M=;
+ b=bFzu1W/Eo380jsp6DX9iPIaM6ZcNbLRdVuIe2xAJfxyuA2yKvLjdDHjq2j7ji5nP2G
+ eOx3DDR2SHRAm8S41BtnwOrQmY1sxK0U25Ecd89HRMtvH9su6zGzDVTLFszle8xDdwJ2
+ khmR3CRfBTUdMvm8jjVXZ8NAhxgZNEwRokoJZnotdfJgM3IUged1abMAWlWX2rynn8x4
+ j5+SGaFRymoDVElgGhworGdvjru15iSomHL10vWCDKfhaOk38/SgSBEjrTtotCjn4VHH
+ PBEOFcsFRC9s+WCUMC0bXZRs3KY9+pbgDKUKN21QgariCGVhWi9yCXzbqfMEjaENoo0x
+ 4T0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:to:subject:message-id:date:from
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=K3q1nDWw2MIkVlDP7eFVxgjXe5mZwWBIMFGG4eqi/oM=;
- b=cxbCYAkIr3fLR9aciBkMEyA7P+2Zo5okvpqJZ7GSJBpa2u0yDUpMDvBKRxFmCLw/yO
- tuRMT6qlSB2uOGfzD3cUUKvDlMVs512fUrL0TNeOWmrMKbUfebkEEJmozomSNOWr3Xya
- PHh232+xHrchmLPIYVv+xE2NUnE9o5mkvjexJzFBlp2r4YXSbTY/S6YQSBEkUY+v5Ulo
- y1AGYpxxN5xh/10lZ2mpeBhdCgdzQm9ASMlrXprqVFv+0+bVL24mOe28vVVMn5oiG5uC
- NagZQdBP7oBxK/MY045miQqFyToE5gMN33hT/Mslzc4n6x50aB61owo0EoSVKbyhTd9X
- AzFQ==
-X-Gm-Message-State: AFqh2kpqF6alKJivzj61bMGrZStaLbzjOcEt8sHmKtn/XG4RAO/29G5b
- Jp4n9iJPSJDeXg/ysWZSDl0zvCdJxuRyr9ULjT0=
-X-Google-Smtp-Source: AMrXdXvvdeb0Sh8xwGr2J4VfS40Vi/0bxcV3shfN9QQvEMs7XFh5SFAvhMPEwj06xDnyouRWYetmX+KpRnjKSxhRIZ4=
-X-Received: by 2002:adf:fcc6:0:b0:277:7243:5ce4 with SMTP id
- f6-20020adffcc6000000b0027772435ce4mr211019wrs.412.1671996782744; Sun, 25 Dec
- 2022 11:33:02 -0800 (PST)
+ bh=81Qzt56uqUTTYiN7XGZEL0FZZ5igsYkPCbcExt0OB1M=;
+ b=kpe/B807+tCNUp8ICrF/sIf6HVS4jxtzhC2WA6mRRShQIYoSm5gXtqRfavVpRQ9nUE
+ WGvIGYN0KE70durb6XSMnJfQ2zvrNjVGTAyQ00IKDJP5HZSySEFow3vsGnmIxSACLqYk
+ 0ygLsgWUZThIvMm/isGAm73qyRkK6HGvlRsvGkEvxUeAHFsSV9W/ov+y9ZRKoEeLGfGf
+ O3pFEdBGy1vmg76Twk/ga5NHSN+2ZJH3eG6/bfByCX+27f5Ku2EIGeYVpjDsdog2LVvd
+ leFKyhZPzgtpEIweR1n8HVLQnHx8OJXHYm7+hCmCWopedEFYtgLNhRafq0rujrR1j3w7
+ 4kWA==
+X-Gm-Message-State: AFqh2krBHwtSdUZ6dNUgGQtw8WYR2fFhFqBIl3Aa4JGAQ+XTvMhuhPtK
+ V3oypyh5G5QY02reF4GXO2yqYXaBb2f/8zoaIN4=
+X-Google-Smtp-Source: AMrXdXtmvvKmNhGE7TQbRUiVmpwy7tyz+Ow0BlgMnKvBJZibTmnUQOgJsTiuIkMmaITnTNYhkGeM3HfQZlsMdOw5duM=
+X-Received: by 2002:a05:600c:1c27:b0:3d1:eea7:e13d with SMTP id
+ j39-20020a05600c1c2700b003d1eea7e13dmr985448wms.74.1671997210952; Sun, 25 Dec
+ 2022 11:40:10 -0800 (PST)
 MIME-Version: 1.0
 From: =?UTF-8?B?THXDrXMgTWVuZGVz?= <luis.p.mendes@gmail.com>
-Date: Sun, 25 Dec 2022 19:32:51 +0000
-Message-ID: <CAEzXK1rm6uPkeiiU_MqzCd=bgDO2Ci83XShwKOROz9Mrnng1UA@mail.gmail.com>
+Date: Sun, 25 Dec 2022 19:39:59 +0000
+Message-ID: <CAEzXK1oghXAB_KpKpm=-CviDQbNaH0qfgYTSSjZgvvyj4U78AA@mail.gmail.com>
 Subject: [PATCH] [RFC] drm/drm_buddy fails to initialize on 32-bit
  architectures
 To: akpm@linux-foundation.org,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>, lkml@vger.kernel.org
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,6 +69,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Re-sending with the correct  linux-kernel mailing list email address.
+Sorry for the inconvenience.
+
 The proposed patch fixes the issue and allows amdgpu to work again on
 armhf with a AMD RX 550 card, however it may not be the best solution
 for the issue, as detailed below.
@@ -82,7 +86,8 @@ One option is to modify rounddown_pow_of_two(...) to detect if the
 variable takes 32 bits or less and call __rounddown_pow_of_two_u32(u32
 n) or if the variable takes more space than 32 bits, then call
 __rounddown_pow_of_two_u64(u64 n). This would imply renaming
-__rounddown_pow_of_two(unsigned long n) to
+__rounddown_pow_of_two(unsigne
+d long n) to
 __rounddown_pow_of_two_u32(u32 n) and add a new function
 __rounddown_pow_of_two_u64(u64 n). This would be the most transparent
 solution, however there a few complications, and they are:
