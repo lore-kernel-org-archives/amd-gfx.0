@@ -4,98 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85A07C10F1B
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Dec 2022 17:05:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEA8EC4167B
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Dec 2022 17:05:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E331D10E0AA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38C2710E05D;
 	Tue, 27 Dec 2022 17:05:31 +0000 (UTC)
-Received: from IND01-MAX-obe.outbound.protection.outlook.com
- (mail-maxind01olkn2089.outbound.protection.outlook.com [40.92.102.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D010910E15C
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Dec 2022 16:15:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FL1NDXCeNb6Pj0vVd8XynkNroGsZwMDDB6clLrs5jwEQ67SZMxvGDxzlE1/POHF3XWyf5FGF7nAtLwZEsMEC96uaJHbzbT7kqDHiyL4rXFe/ZK9PSHaxVF9ZAHnqGBkCMM8hJ3Sc2dNB4J/02NeBDvL+Aip8hF91gFRJsqTEzIY7jfW6DB2YeOrEg7yvXsSzxGsQ+9mprfnTEEkTDlGISvNN+KWrk6vvoWCFhv7mzhYazp4MwTJz3YcvfKlwxjouGCXqowfGC8JhTiGbXz+5Qhr9hqD/OY0TudcU0NRhwLhEwzzPiW5EXzS2o04KlVPEJ7W75wHvj0EzFYWR4J/N9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ch/8saabiqztRNfU0DJmTYSWgrPfXf1rFDJ8hLMsEMI=;
- b=FQvU2hafkMJEzPZ6NG7wS1vFRl7+ElVTjpmoFWt+AzeO7rL3o/XDaojpVWVOVzRkG+n5bop7UAZehIpd3r4GVfRS9vIg5zcFcR4GwYW2tqKHFy7a5DdzaHWZKQEvch/aKFPNhBDuA2Y5zrfUeUj/72cPyCtRX+2mBf6YTndD20cs20hkcvBAPU4FOUq74cjmX5cq2pWQW9Xxy0Zv9VN6NMSHlg+oqPRuJjHBH602xS2gJ09jdTI7L8S1+I2hrOBIuFuylrnJNo4UX92CJWsgCaCgxSbfcD9eolFqrFElx93A5f8+E48vp3YOUszHeldHxijZsCh87VPWX8ZALsGGWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=live.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ch/8saabiqztRNfU0DJmTYSWgrPfXf1rFDJ8hLMsEMI=;
- b=kLsHqgGlzBbTDBjDaGFD1Q8ZgpsW+feaS6gfYBWiV1ctYr/kxq562EA+U1+PMpHtPP1/tFrxzZgDkD/N2T2+qIpk8btc1xv++zbuXXwc3Ac1v7Hx+p4pLea3KxtSGL4GzJRe9umqhpxs9rL5b9wBFztQIgLFIG/OnUOfnn7t8OnDjUpw/kOl+kOy2DKFNzzgLFl/MjzfPzikr0i7eHcuQBtjiAm3fZVTVkPpxfoCcivLVJIGaiIhobjMIOLS6UYq5jgXQxyqlU6AAaTjCFtAsdMBl41etHZ9HN0MW4WnpagyxhSxbjg8zDUODZI6psmItu7R4fpD6FJ1y5bMofgtkQ==
-Received: from BM1PR01MB0931.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:2::9) by
- PN0PR01MB9023.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:161::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.16; Tue, 27 Dec
- 2022 16:15:33 +0000
-Received: from BM1PR01MB0931.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::f90e:46bc:7a0f:23bc]) by BM1PR01MB0931.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::f90e:46bc:7a0f:23bc%7]) with mapi id 15.20.5944.016; Tue, 27 Dec 2022
- 16:15:33 +0000
-From: Aditya Garg <gargaditya08@live.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [BUG] AMD Radeon Pro 5600M with 8GB of HBM2 memory shows blank
- screen on Linux
-Thread-Topic: [BUG] AMD Radeon Pro 5600M with 8GB of HBM2 memory shows blank
- screen on Linux
-Thread-Index: AQHZGRb6yHJ4kgfUzkiN2hv0kLVX366B5SuAgAAFeIA=
-Date: Tue, 27 Dec 2022 16:15:33 +0000
-Message-ID: <CA3D493A-3695-46ED-A78A-D6C6709FDBF1@live.com>
-References: <3AFB9142-2BD0-46F9-AEA9-C9C5D13E68E6@live.com>
- <CADnq5_NiDE7a5dmhhuLntQe88DS5JmiZTGqQ6ongXuWyh1A4wg@mail.gmail.com>
-In-Reply-To: <CADnq5_NiDE7a5dmhhuLntQe88DS5JmiZTGqQ6ongXuWyh1A4wg@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-tmn: [eVqTPu8KSWUbnc7CWJOzSNjGj9jIjhJLHiqtUQI4dqf5S8CXeBViSRnN+E3eI84Z]
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BM1PR01MB0931:EE_|PN0PR01MB9023:EE_
-x-ms-office365-filtering-correlation-id: a3b5ff3b-61d0-4841-3de3-08dae82594ab
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: CY9ctoMPo86sJm5HzuGez0OwTUxb0BEuSJqeFyJ5obk9xrkJorBCWchzOxki8iGtwM1vGyMnot+Sxc7B7dytgUqm3r4pD7ud1fpLsrNz+lgJHyXCAwLTzi/bVsJSMprAKtcVQw5AMms8uFn7IroKgZ9oueleQuNlGtSe+Xf2FML/8Uy6OQyWa3TVBIvPZ3Ji9T6o542YROLnq8GZoUS5SUJbm3VtE37y+BQCqZDAUim7RM88uQStT/05xc1ZTXAtD2TVMuC/PBSbcUp/xoY6lzjla9IJqk3yCYK3cIv5K3xH55ymjUvXozg74UVyim7+qu3xjk50ed+NkcZexXOU3bGm5K3jMgdAOLLpSMM1TAB8hRKbYSv9JeEy4R5Nv6FeyBdVHqvN26n02ysSSspfRJnqAmyHmeDhZy2mxMYRZVfa2WqJMZu6mMzHMZN9skkFe1+ykhNKdWx0j3FR+ttfWck134HU27otOolSUzECRYSZo5o+7ba4n6/+36xr+HLQulQpBvmp1+0U+1boz0uYVQTHXhygyI765jerrFF9ad67o07clRXVTMrYGIIvKeq6hHj3jmaBbF4481osZlIiT2XK+lGI31xIdSCh+0biPhY=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?82PR6Flf5UFc6libtbZU2uH8lK4RK+dgGqlWOfStpwYZnL0aHyG4y3+9tB5L?=
- =?us-ascii?Q?sPn9VhBa5jHpSpqAEayZFB5B4n4JgyoCUkXfgIEAnG3TP5LvCND3Yw8T4MTI?=
- =?us-ascii?Q?HPdlhJ/jfWKhll7i0H2OwZu5LM6+7Fevud2SSJ4MXtYhwYDVGBP80qT0QRer?=
- =?us-ascii?Q?TSuyYyiYHcu9lMIE1zFjMnr687VcAyJFzNVhQxoN4DnkYH6sPPIuPFPNZrRG?=
- =?us-ascii?Q?Sa3bfQmaIK91AAFAQe++xGSvMiU+8u1V4N7oM5RFAPnA3quSBEHv010xAOD3?=
- =?us-ascii?Q?C+nC4QhyPXk2K+roAudjLT0SGwtGD7wcz+KT3yMSa55C7OKWV7vNj4wodKua?=
- =?us-ascii?Q?jiGAdugX2VkNG3MmXjhnJ6gjtL6OoBI3zl1CNqG5pDvKj7vr1CQ63zYiE6ZJ?=
- =?us-ascii?Q?huTwGR0gl+EodjCQVtHiAvcMl3NNEOWhZOjXhOgKqOIFj18argILhsf/KI7f?=
- =?us-ascii?Q?S8LGJ1vWPA9DkwYUNrukdr7c6Wq+0r5z/3VKnV4B/+Z9AEygb6hgYcZjbFgl?=
- =?us-ascii?Q?bLjELMLb7yEn7uM7AAPkQ0gAuJk+beBWR5ArdD+zkb/DwhrJ6IR3iJXuv7/x?=
- =?us-ascii?Q?1SJFs2DVWPTXci4VKScuyBWlF6MjN/UCxbZGTy2zRTHjY/iER+oRqh7xxI7q?=
- =?us-ascii?Q?eWZd8l8WEODe443Bir+LiHRdLcP1/rrKbRUX5a9OLJzkLsKnkjkYMDjibGYw?=
- =?us-ascii?Q?4DYw5IzPCLYYhBRlQp5GBag35FaqQ3TdQXlkNQN1Ht3NhqlvG/8St0/hGCpO?=
- =?us-ascii?Q?SQMkGPmE+bt5GHLbTm29V+gomjKNQabFpyDnmTUgklRPjmsxl8KA69Ksafeq?=
- =?us-ascii?Q?NRHboPqHH5+fuTl8ZJu5vavFXDpqyGTcqrXeXnMtMsHwaeXJ2WSuQuX2D9G8?=
- =?us-ascii?Q?3xEZYzSrMBaofpP1qBipMwKMR8kCTJbla+BxbR3dAtWKMJJauAQX77m4+Hnx?=
- =?us-ascii?Q?cdrUjMczx3AkzNqN5VGvjIVWQNnGswtdi6gOEpuLHRz0ox5SzBerQyAodg6L?=
- =?us-ascii?Q?NbgfPZ9MXu6056y9gVn2P7BOx708trj3II+WgmJMrlYpPIq+NjQBx0N1FFbI?=
- =?us-ascii?Q?YSNvo9JMhZwaeO9q8EQoSkfqT4ZoHFvUU2EGSMAU9nJ2Fx8Ry9PIDnKirQf3?=
- =?us-ascii?Q?utmwlghqMULd5HOHmoIUHj1ApBXOZJVDpYqT1wjnYPpkmiJgvvTpihhoqD9p?=
- =?us-ascii?Q?SMHGaxhskNZfNvgNmaoxItg67PvRyP5kayJJ6/RLFunnR2Bp7qZ1LqkwRC/m?=
- =?us-ascii?Q?gdLPBye4NlIoLo9LXAx4M0GcGZMt0ahE8NzZNX12QTaR4xkL981uAUch+RKv?=
- =?us-ascii?Q?BD91o0bqesqquTKCJS0aKITV3Rz+3JfAXBHoa4p3oZ5q1g=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <708A828935568A4786CD6872AE50C6C8@INDPRD01.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A231410E15D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Dec 2022 17:04:42 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id g13so20363483lfv.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Dec 2022 09:04:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bell-sw-com.20210112.gappssmtp.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ivb/DkY93Aog9U4yxwMe4hUkXXEZzyc9VEnmd3oUMqc=;
+ b=7J1IvD/0DcGkmp6OLLooUcVHWxxHnLsIRphRAVW9dZ3b3TOvHBW6SgSpHDL8NInmya
+ c3le/Uv94MTb11n+igIRqylE7C50XabbhO92/KFNu82cWjJOdXpiqnz5SgPdQsrkD2YL
+ T1aSMpeNJo5uc/deBiC1NmhhVj3ZHBXPEzucMgjkn60rF/qJspTatGgbz+HBRJvGhhSK
+ P7v9Si5f/TkcpUrq/+PnstL7/b3VK3F8bNqht2Gi1Hiu9Yo1YuErBrdq/uovO10b10O4
+ IMMfvsiZYRBPpRp8BKs8M14j2nQSyWo5dLmvfHd03wrq0S74hfVQH0eV6IoJp894RTsJ
+ 8mRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Ivb/DkY93Aog9U4yxwMe4hUkXXEZzyc9VEnmd3oUMqc=;
+ b=3odJ8Y8wMKMnokeFrn9fBz5GfA7W8AcKvVJGkn1YTB077JEIZsqhS0ZQ9m9Yx3w+Mu
+ cipHxDbxhvoHtn0JSVu8x99klT2cxKeZnGprBKug7Hsj4COdmVv98vJIAIRipb0ySeML
+ HcJ+OXGUu+/qvpcj7aSwJpEmWb9NgSmxr2blkZvAe80fz8urwsIklEmpMX8Lm/a76Yte
+ Z/WteVyFVV4fYqDWTytcADOWco6L1rf1assK3k9GQ37mFAG41wWBzIiv2bg1SfZnyRNC
+ v5tvspzsX2968SuraFXyZF/sSYGOOo2yuSZG6kEhgTJsOTXPn6VQaMvyjIa6MVVW04M7
+ zRbg==
+X-Gm-Message-State: AFqh2ko/Wr5XHC30oonnHkDkb2/v47+tyFFFbgqFbsK6Z4wExT5Hj8o4
+ Unca8pVUdVOIKcYaw/ZZSyjiTTuHp/gXgBg=
+X-Google-Smtp-Source: AMrXdXtF63rUZJ8onZPpnR1C7FG1+Erz2+9B7+BE05wFGYWgkREo4SbGeGQijtk4zZ35LP2vBP4N2g==
+X-Received: by 2002:a19:f705:0:b0:4be:a4cb:be37 with SMTP id
+ z5-20020a19f705000000b004bea4cbbe37mr6003307lfe.15.1672160680616; 
+ Tue, 27 Dec 2022 09:04:40 -0800 (PST)
+Received: from localhost.localdomain ([95.161.223.113])
+ by smtp.gmail.com with ESMTPSA id
+ n4-20020ac242c4000000b004b0a1e77cb2sm2331052lfl.137.2022.12.27.09.04.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Dec 2022 09:04:39 -0800 (PST)
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: drop unnecessary NULL checks in debugfs
+Date: Tue, 27 Dec 2022 20:04:15 +0300
+Message-Id: <20221227170415.209904-1-aleksei.kodanev@bell-sw.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-42ed3.templateTenant
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BM1PR01MB0931.INDPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3b5ff3b-61d0-4841-3de3-08dae82594ab
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Dec 2022 16:15:33.1562 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN0PR01MB9023
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 27 Dec 2022 17:05:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,35 +69,228 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Orlando Chamberlain <redecorating@protonmail.com>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
- "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
- "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>
+Cc: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
->=20
-> Can you file a bug report:
-> https://gitlab.freedesktop.org/drm/amd/-/issues/
+pipe_ctx pointer cannot be NULL when getting the address of
+an element of the pipe_ctx array. Moreover, the MAX_PIPES is
+defined as 6, so pipe_ctx is not NULL after the loop either.
 
-https://gitlab.freedesktop.org/drm/amd/-/issues/2318
+Detected using the static analysis tool - Svace.
+Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 72 +++++--------------
+ 1 file changed, 16 insertions(+), 56 deletions(-)
 
->=20
-> What sort of monitor are you using?  It looks to be failing mode validati=
-on:
-> [drm] Mode Validation Warning: Urgent latency failed validation.
->=20
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 461037a3dd75..cec16eaf2fb0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -1375,16 +1375,11 @@ static ssize_t dp_dsc_clock_en_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-		if (pipe_ctx && pipe_ctx->stream &&
++		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link)
+ 			break;
+ 	}
+ 
+-	if (!pipe_ctx) {
+-		kfree(rd_buf);
+-		return -ENXIO;
+-	}
+-
+ 	dsc = pipe_ctx->stream_res.dsc;
+ 	if (dsc)
+ 		dsc->funcs->dsc_read_state(dsc, &dsc_state);
+@@ -1481,12 +1476,12 @@ static ssize_t dp_dsc_clock_en_write(struct file *f, const char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-		if (pipe_ctx && pipe_ctx->stream &&
++		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link)
+ 			break;
+ 	}
+ 
+-	if (!pipe_ctx || !pipe_ctx->stream)
++	if (!pipe_ctx->stream)
+ 		goto done;
+ 
+ 	// Get CRTC state
+@@ -1566,16 +1561,11 @@ static ssize_t dp_dsc_slice_width_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-		if (pipe_ctx && pipe_ctx->stream &&
++		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link)
+ 			break;
+ 	}
+ 
+-	if (!pipe_ctx) {
+-		kfree(rd_buf);
+-		return -ENXIO;
+-	}
+-
+ 	dsc = pipe_ctx->stream_res.dsc;
+ 	if (dsc)
+ 		dsc->funcs->dsc_read_state(dsc, &dsc_state);
+@@ -1670,12 +1660,12 @@ static ssize_t dp_dsc_slice_width_write(struct file *f, const char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-		if (pipe_ctx && pipe_ctx->stream &&
++		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link)
+ 			break;
+ 	}
+ 
+-	if (!pipe_ctx || !pipe_ctx->stream)
++	if (!pipe_ctx->stream)
+ 		goto done;
+ 
+ 	// Safely get CRTC state
+@@ -1755,16 +1745,11 @@ static ssize_t dp_dsc_slice_height_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-		if (pipe_ctx && pipe_ctx->stream &&
++		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link)
+ 			break;
+ 	}
+ 
+-	if (!pipe_ctx) {
+-		kfree(rd_buf);
+-		return -ENXIO;
+-	}
+-
+ 	dsc = pipe_ctx->stream_res.dsc;
+ 	if (dsc)
+ 		dsc->funcs->dsc_read_state(dsc, &dsc_state);
+@@ -1859,12 +1844,12 @@ static ssize_t dp_dsc_slice_height_write(struct file *f, const char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-		if (pipe_ctx && pipe_ctx->stream &&
++		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link)
+ 			break;
+ 	}
+ 
+-	if (!pipe_ctx || !pipe_ctx->stream)
++	if (!pipe_ctx->stream)
+ 		goto done;
+ 
+ 	// Get CRTC state
+@@ -1940,16 +1925,11 @@ static ssize_t dp_dsc_bits_per_pixel_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-		if (pipe_ctx && pipe_ctx->stream &&
++		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link)
+ 			break;
+ 	}
+ 
+-	if (!pipe_ctx) {
+-		kfree(rd_buf);
+-		return -ENXIO;
+-	}
+-
+ 	dsc = pipe_ctx->stream_res.dsc;
+ 	if (dsc)
+ 		dsc->funcs->dsc_read_state(dsc, &dsc_state);
+@@ -2041,12 +2021,12 @@ static ssize_t dp_dsc_bits_per_pixel_write(struct file *f, const char __user *bu
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-		if (pipe_ctx && pipe_ctx->stream &&
++		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link)
+ 			break;
+ 	}
+ 
+-	if (!pipe_ctx || !pipe_ctx->stream)
++	if (!pipe_ctx->stream)
+ 		goto done;
+ 
+ 	// Get CRTC state
+@@ -2120,16 +2100,11 @@ static ssize_t dp_dsc_pic_width_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-		if (pipe_ctx && pipe_ctx->stream &&
++		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link)
+ 			break;
+ 	}
+ 
+-	if (!pipe_ctx) {
+-		kfree(rd_buf);
+-		return -ENXIO;
+-	}
+-
+ 	dsc = pipe_ctx->stream_res.dsc;
+ 	if (dsc)
+ 		dsc->funcs->dsc_read_state(dsc, &dsc_state);
+@@ -2181,16 +2156,11 @@ static ssize_t dp_dsc_pic_height_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-		if (pipe_ctx && pipe_ctx->stream &&
++		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link)
+ 			break;
+ 	}
+ 
+-	if (!pipe_ctx) {
+-		kfree(rd_buf);
+-		return -ENXIO;
+-	}
+-
+ 	dsc = pipe_ctx->stream_res.dsc;
+ 	if (dsc)
+ 		dsc->funcs->dsc_read_state(dsc, &dsc_state);
+@@ -2257,16 +2227,11 @@ static ssize_t dp_dsc_chunk_size_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-		if (pipe_ctx && pipe_ctx->stream &&
++		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link)
+ 			break;
+ 	}
+ 
+-	if (!pipe_ctx) {
+-		kfree(rd_buf);
+-		return -ENXIO;
+-	}
+-
+ 	dsc = pipe_ctx->stream_res.dsc;
+ 	if (dsc)
+ 		dsc->funcs->dsc_read_state(dsc, &dsc_state);
+@@ -2333,16 +2298,11 @@ static ssize_t dp_dsc_slice_bpg_offset_read(struct file *f, char __user *buf,
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+-		if (pipe_ctx && pipe_ctx->stream &&
++		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link)
+ 			break;
+ 	}
+ 
+-	if (!pipe_ctx) {
+-		kfree(rd_buf);
+-		return -ENXIO;
+-	}
+-
+ 	dsc = pipe_ctx->stream_res.dsc;
+ 	if (dsc)
+ 		dsc->funcs->dsc_read_state(dsc, &dsc_state);
+-- 
+2.25.1
 
-Well its Apple's 16 inch built in Retina display.
-
-The same is used in models with :-
-1. AMD Radeon Pro 5300M with 4GB of GDDR6 memory
-2. AMD Radeon Pro 5500M with 4GB of GDDR6 memory
-3. AMD Radeon Pro 5500M with 8GB of GDDR6 memory
-
-But these models work perfectly with AMD GPU enabled.=
