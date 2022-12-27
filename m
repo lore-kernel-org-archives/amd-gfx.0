@@ -4,59 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97518C4167B
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Dec 2022 17:04:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85A07C10F1B
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Dec 2022 17:05:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FF1710E0E3;
-	Tue, 27 Dec 2022 17:04:39 +0000 (UTC)
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFC3910E0E3;
- Tue, 27 Dec 2022 17:04:37 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id r130so12911524oih.2;
- Tue, 27 Dec 2022 09:04:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cgoC62GHvEIMBNJM+s+sVmcwJZA/l2ktr3Y+mPUSGLk=;
- b=D/s9eZ1u28y/MYzi4qIDcYTkxw6XE5Cij5znEItdRjUkgHMCR+FFrQrYnD493vMnoH
- Z7+0Q3wOSZUOWaFE7Vu9lPh+mYQpZTp5Hfwl74cISQmJGqEbFT7MwVJWMQJFQwDAjM0u
- WrDtEP17iQpnGxv4gdJc5rZp777yWMYt44O/BBuaqqe6VdWDIJRbowmMqm1BOwmWYDE/
- nYKtzDrGuj5JvcBBnzUxB085kzjTtrrkzTayd1Zygo6Xe/rTg4szUNaCoEcQ+JTmxdNg
- ikvllEehcvVXbG56DRzoJZSYI89lFzs73XJYT70dsEoS2Q1FIYnZbsRmdRetRFdebdM9
- i47A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cgoC62GHvEIMBNJM+s+sVmcwJZA/l2ktr3Y+mPUSGLk=;
- b=RTXEcNPU5gOkGrEg0pAU4uZzvutmvbGT5xMA+MLvXhXjiQz6F1ldbhqVUSHdLE8yXb
- UH4wIWDwtjwiXm8skLf4a5n6vUPrx1dTdUDn1gjBcKzZaLyYlaFkm7COCX4vemi2f0fX
- WViowFZIaAAj5rPvKPxnFix6ynSyl116QKT6ons6tEymziggdayxlBtLH+/cAEwb/0is
- adcYr2fo0I3gqLD5r9RWgQZNwe1UqsJCmlb16+TeQppz+pp+E7vALmxAFC39LomoHS36
- l75IF2pLnbSIQw28JlAdjJoNfSH2oLMWlDFfGDOBOlkGsMCO1GY09hZmZ8vWNaAVihgG
- gH5Q==
-X-Gm-Message-State: AFqh2kqgQwOKmCBVnOM7/GSsBLQpDNdiEc5mgnp6eYUGsS8NKjkN6KUF
- bgemh7XAWqbwfPm5csqefXD6lR7RDrGj31ZB27k=
-X-Google-Smtp-Source: AMrXdXsgonfvlbVyG3VFA0NgVj6GOiuGvjvIhcjGxeZxa28G/D3+MuTjZgu69O1aImPtHvf3kWOlguAQbOv2To24Ljc=
-X-Received: by 2002:a05:6808:2001:b0:35b:d93f:cbc4 with SMTP id
- q1-20020a056808200100b0035bd93fcbc4mr1413974oiw.96.1672160676913; Tue, 27 Dec
- 2022 09:04:36 -0800 (PST)
-MIME-Version: 1.0
-References: <20221222183012.1046-1-mario.limonciello@amd.com>
- <2761b1e1-508d-2c2c-f2d8-6f1be536723e@suse.de>
- <f9b40837-ee2b-76fb-0ec1-d7dfda4ffb7e@amd.com>
- <CADnq5_M42GQhVquw5BM+P-6NKmdZ6yj8czq=s5iXVAmVOexAkw@mail.gmail.com>
-In-Reply-To: <CADnq5_M42GQhVquw5BM+P-6NKmdZ6yj8czq=s5iXVAmVOexAkw@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 27 Dec 2022 12:04:25 -0500
-Message-ID: <CADnq5_OLf3VhFZm7=riDm9ezVT9j9nQ5Fwei3budnqPt5C4t9Q@mail.gmail.com>
-Subject: Re: [PATCH 0/2] Recover from failure to probe GPU
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E331D10E0AA;
+	Tue, 27 Dec 2022 17:05:31 +0000 (UTC)
+Received: from IND01-MAX-obe.outbound.protection.outlook.com
+ (mail-maxind01olkn2089.outbound.protection.outlook.com [40.92.102.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D010910E15C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Dec 2022 16:15:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FL1NDXCeNb6Pj0vVd8XynkNroGsZwMDDB6clLrs5jwEQ67SZMxvGDxzlE1/POHF3XWyf5FGF7nAtLwZEsMEC96uaJHbzbT7kqDHiyL4rXFe/ZK9PSHaxVF9ZAHnqGBkCMM8hJ3Sc2dNB4J/02NeBDvL+Aip8hF91gFRJsqTEzIY7jfW6DB2YeOrEg7yvXsSzxGsQ+9mprfnTEEkTDlGISvNN+KWrk6vvoWCFhv7mzhYazp4MwTJz3YcvfKlwxjouGCXqowfGC8JhTiGbXz+5Qhr9hqD/OY0TudcU0NRhwLhEwzzPiW5EXzS2o04KlVPEJ7W75wHvj0EzFYWR4J/N9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ch/8saabiqztRNfU0DJmTYSWgrPfXf1rFDJ8hLMsEMI=;
+ b=FQvU2hafkMJEzPZ6NG7wS1vFRl7+ElVTjpmoFWt+AzeO7rL3o/XDaojpVWVOVzRkG+n5bop7UAZehIpd3r4GVfRS9vIg5zcFcR4GwYW2tqKHFy7a5DdzaHWZKQEvch/aKFPNhBDuA2Y5zrfUeUj/72cPyCtRX+2mBf6YTndD20cs20hkcvBAPU4FOUq74cjmX5cq2pWQW9Xxy0Zv9VN6NMSHlg+oqPRuJjHBH602xS2gJ09jdTI7L8S1+I2hrOBIuFuylrnJNo4UX92CJWsgCaCgxSbfcD9eolFqrFElx93A5f8+E48vp3YOUszHeldHxijZsCh87VPWX8ZALsGGWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=live.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ch/8saabiqztRNfU0DJmTYSWgrPfXf1rFDJ8hLMsEMI=;
+ b=kLsHqgGlzBbTDBjDaGFD1Q8ZgpsW+feaS6gfYBWiV1ctYr/kxq562EA+U1+PMpHtPP1/tFrxzZgDkD/N2T2+qIpk8btc1xv++zbuXXwc3Ac1v7Hx+p4pLea3KxtSGL4GzJRe9umqhpxs9rL5b9wBFztQIgLFIG/OnUOfnn7t8OnDjUpw/kOl+kOy2DKFNzzgLFl/MjzfPzikr0i7eHcuQBtjiAm3fZVTVkPpxfoCcivLVJIGaiIhobjMIOLS6UYq5jgXQxyqlU6AAaTjCFtAsdMBl41etHZ9HN0MW4WnpagyxhSxbjg8zDUODZI6psmItu7R4fpD6FJ1y5bMofgtkQ==
+Received: from BM1PR01MB0931.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:2::9) by
+ PN0PR01MB9023.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:161::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.16; Tue, 27 Dec
+ 2022 16:15:33 +0000
+Received: from BM1PR01MB0931.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::f90e:46bc:7a0f:23bc]) by BM1PR01MB0931.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::f90e:46bc:7a0f:23bc%7]) with mapi id 15.20.5944.016; Tue, 27 Dec 2022
+ 16:15:33 +0000
+From: Aditya Garg <gargaditya08@live.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [BUG] AMD Radeon Pro 5600M with 8GB of HBM2 memory shows blank
+ screen on Linux
+Thread-Topic: [BUG] AMD Radeon Pro 5600M with 8GB of HBM2 memory shows blank
+ screen on Linux
+Thread-Index: AQHZGRb6yHJ4kgfUzkiN2hv0kLVX366B5SuAgAAFeIA=
+Date: Tue, 27 Dec 2022 16:15:33 +0000
+Message-ID: <CA3D493A-3695-46ED-A78A-D6C6709FDBF1@live.com>
+References: <3AFB9142-2BD0-46F9-AEA9-C9C5D13E68E6@live.com>
+ <CADnq5_NiDE7a5dmhhuLntQe88DS5JmiZTGqQ6ongXuWyh1A4wg@mail.gmail.com>
+In-Reply-To: <CADnq5_NiDE7a5dmhhuLntQe88DS5JmiZTGqQ6ongXuWyh1A4wg@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-tmn: [eVqTPu8KSWUbnc7CWJOzSNjGj9jIjhJLHiqtUQI4dqf5S8CXeBViSRnN+E3eI84Z]
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BM1PR01MB0931:EE_|PN0PR01MB9023:EE_
+x-ms-office365-filtering-correlation-id: a3b5ff3b-61d0-4841-3de3-08dae82594ab
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: CY9ctoMPo86sJm5HzuGez0OwTUxb0BEuSJqeFyJ5obk9xrkJorBCWchzOxki8iGtwM1vGyMnot+Sxc7B7dytgUqm3r4pD7ud1fpLsrNz+lgJHyXCAwLTzi/bVsJSMprAKtcVQw5AMms8uFn7IroKgZ9oueleQuNlGtSe+Xf2FML/8Uy6OQyWa3TVBIvPZ3Ji9T6o542YROLnq8GZoUS5SUJbm3VtE37y+BQCqZDAUim7RM88uQStT/05xc1ZTXAtD2TVMuC/PBSbcUp/xoY6lzjla9IJqk3yCYK3cIv5K3xH55ymjUvXozg74UVyim7+qu3xjk50ed+NkcZexXOU3bGm5K3jMgdAOLLpSMM1TAB8hRKbYSv9JeEy4R5Nv6FeyBdVHqvN26n02ysSSspfRJnqAmyHmeDhZy2mxMYRZVfa2WqJMZu6mMzHMZN9skkFe1+ykhNKdWx0j3FR+ttfWck134HU27otOolSUzECRYSZo5o+7ba4n6/+36xr+HLQulQpBvmp1+0U+1boz0uYVQTHXhygyI765jerrFF9ad67o07clRXVTMrYGIIvKeq6hHj3jmaBbF4481osZlIiT2XK+lGI31xIdSCh+0biPhY=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?82PR6Flf5UFc6libtbZU2uH8lK4RK+dgGqlWOfStpwYZnL0aHyG4y3+9tB5L?=
+ =?us-ascii?Q?sPn9VhBa5jHpSpqAEayZFB5B4n4JgyoCUkXfgIEAnG3TP5LvCND3Yw8T4MTI?=
+ =?us-ascii?Q?HPdlhJ/jfWKhll7i0H2OwZu5LM6+7Fevud2SSJ4MXtYhwYDVGBP80qT0QRer?=
+ =?us-ascii?Q?TSuyYyiYHcu9lMIE1zFjMnr687VcAyJFzNVhQxoN4DnkYH6sPPIuPFPNZrRG?=
+ =?us-ascii?Q?Sa3bfQmaIK91AAFAQe++xGSvMiU+8u1V4N7oM5RFAPnA3quSBEHv010xAOD3?=
+ =?us-ascii?Q?C+nC4QhyPXk2K+roAudjLT0SGwtGD7wcz+KT3yMSa55C7OKWV7vNj4wodKua?=
+ =?us-ascii?Q?jiGAdugX2VkNG3MmXjhnJ6gjtL6OoBI3zl1CNqG5pDvKj7vr1CQ63zYiE6ZJ?=
+ =?us-ascii?Q?huTwGR0gl+EodjCQVtHiAvcMl3NNEOWhZOjXhOgKqOIFj18argILhsf/KI7f?=
+ =?us-ascii?Q?S8LGJ1vWPA9DkwYUNrukdr7c6Wq+0r5z/3VKnV4B/+Z9AEygb6hgYcZjbFgl?=
+ =?us-ascii?Q?bLjELMLb7yEn7uM7AAPkQ0gAuJk+beBWR5ArdD+zkb/DwhrJ6IR3iJXuv7/x?=
+ =?us-ascii?Q?1SJFs2DVWPTXci4VKScuyBWlF6MjN/UCxbZGTy2zRTHjY/iER+oRqh7xxI7q?=
+ =?us-ascii?Q?eWZd8l8WEODe443Bir+LiHRdLcP1/rrKbRUX5a9OLJzkLsKnkjkYMDjibGYw?=
+ =?us-ascii?Q?4DYw5IzPCLYYhBRlQp5GBag35FaqQ3TdQXlkNQN1Ht3NhqlvG/8St0/hGCpO?=
+ =?us-ascii?Q?SQMkGPmE+bt5GHLbTm29V+gomjKNQabFpyDnmTUgklRPjmsxl8KA69Ksafeq?=
+ =?us-ascii?Q?NRHboPqHH5+fuTl8ZJu5vavFXDpqyGTcqrXeXnMtMsHwaeXJ2WSuQuX2D9G8?=
+ =?us-ascii?Q?3xEZYzSrMBaofpP1qBipMwKMR8kCTJbla+BxbR3dAtWKMJJauAQX77m4+Hnx?=
+ =?us-ascii?Q?cdrUjMczx3AkzNqN5VGvjIVWQNnGswtdi6gOEpuLHRz0ox5SzBerQyAodg6L?=
+ =?us-ascii?Q?NbgfPZ9MXu6056y9gVn2P7BOx708trj3II+WgmJMrlYpPIq+NjQBx0N1FFbI?=
+ =?us-ascii?Q?YSNvo9JMhZwaeO9q8EQoSkfqT4ZoHFvUU2EGSMAU9nJ2Fx8Ry9PIDnKirQf3?=
+ =?us-ascii?Q?utmwlghqMULd5HOHmoIUHj1ApBXOZJVDpYqT1wjnYPpkmiJgvvTpihhoqD9p?=
+ =?us-ascii?Q?SMHGaxhskNZfNvgNmaoxItg67PvRyP5kayJJ6/RLFunnR2Bp7qZ1LqkwRC/m?=
+ =?us-ascii?Q?gdLPBye4NlIoLo9LXAx4M0GcGZMt0ahE8NzZNX12QTaR4xkL981uAUch+RKv?=
+ =?us-ascii?Q?BD91o0bqesqquTKCJS0aKITV3Rz+3JfAXBHoa4p3oZ5q1g=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <708A828935568A4786CD6872AE50C6C8@INDPRD01.PROD.OUTLOOK.COM>
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-42ed3.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BM1PR01MB0931.INDPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3b5ff3b-61d0-4841-3de3-08dae82594ab
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Dec 2022 16:15:33.1562 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN0PR01MB9023
+X-Mailman-Approved-At: Tue, 27 Dec 2022 17:05:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,261 +108,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-efi@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Carlos Soriano Sanchez <csoriano@redhat.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: Orlando Chamberlain <redecorating@protonmail.com>,
+ "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
+ "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
+ "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 27, 2022 at 10:40 AM Alex Deucher <alexdeucher@gmail.com> wrote=
-:
->
-> On Sun, Dec 25, 2022 at 10:31 AM Christian K=C3=B6nig
-> <christian.koenig@amd.com> wrote:
-> >
-> > Am 24.12.22 um 10:34 schrieb Thomas Zimmermann:
-> > > Hi
-> > >
-> > > Am 22.12.22 um 19:30 schrieb Mario Limonciello:
-> > >> One of the first thing that KMS drivers do during initialization is
-> > >> destroy the system firmware framebuffer by means of
-> > >> `drm_aperture_remove_conflicting_pci_framebuffers`
-> > >>
-> > >> This means that if for any reason the GPU failed to probe the user
-> > >> will be stuck with at best a screen frozen at the last thing that
-> > >> was shown before the KMS driver continued it's probe.
-> > >>
-> > >> The problem is most pronounced when new GPU support is introduced
-> > >> because users will need to have a recent linux-firmware snapshot
-> > >> on their system when they boot a kernel with matching support.
-> > >>
-> > >> However the problem is further exaggerated in the case of amdgpu bec=
-ause
-> > >> it has migrated to "IP discovery" where amdgpu will attempt to load
-> > >> on "ALL" AMD GPUs even if the driver is missing support for IP block=
-s
-> > >> contained in that GPU.
-> > >>
-> > >> IP discovery requires some probing and isn't run until after the
-> > >> framebuffer has been destroyed.
-> > >>
-> > >> This means a situation can occur where a user purchases a new GPU no=
-t
-> > >> yet supported by a distribution and when booting the installer it wi=
-ll
-> > >> "freeze" even if the distribution doesn't have the matching kernel
-> > >> support
-> > >> for those IP blocks.
-> > >>
-> > >> The perfect example of this is Ubuntu 21.10 and the new dGPUs just
-> > >> launched by AMD.  The installation media ships with kernel 5.19 (whi=
-ch
-> > >> has IP discovery) but the amdgpu support for those IP blocks landed =
-in
-> > >> kernel 6.0. The matching linux-firmware was released after 21.10's
-> > >> launch.
-> > >> The screen will freeze without nomodeset. Even if a user manages to
-> > >> install
-> > >> and then upgrades to kernel 6.0 after install they'll still have the
-> > >> problem of missing firmware, and the same experience.
-> > >>
-> > >> This is quite jarring for users, particularly if they don't know
-> > >> that they have to use "nomodeset" to install.
-> > >>
-> > >> To help the situation, allow drivers to re-run the init process for =
-the
-> > >> firmware framebuffer during a failed probe. As this problem is most
-> > >> pronounced with amdgpu, this is the only driver changed.
-> > >>
-> > >> But if this makes sense more generally for other KMS drivers, the ca=
-ll
-> > >> can be added to the cleanup routine for those too.
-> > >
-> > > Just a quick drive-by comment: as Javier noted, at some point while
-> > > probing, your driver has changed the device' state and the system FB
-> > > will be gone. you cannot reestablish the sysfb after that.
-> >
-> > I was about to note exactly that as well. This effort here is
-> > unfortunately pretty pointless.
-> >
-> > >
-> > > You are, however free to read device state at any time, as long as it
-> > > has no side effects.
-> > >
-> > > So why not just move the call to
-> > > drm_aperture_remove_conflicting_pci_framebuffers() to a later point
-> > > when you know that your driver supports the hardware? That's the
-> > > solution we always proposed to this kind of problem. It's safe and
-> > > won't require any changes to the aperture helpers.
-> >
-> > if I'm not completely mistaken that's a little bit tricky. Currently
-> > it's not possible to read the discovery table before disabling the VGA
-> > and/or current framebuffer.
-> >
-> > We might be able to do this, but it's probably not easy.
->
->
-> It should be possible.  It's populated by the PSP/VBIOS at power up,
-> so all you need to do is read the right offset in vram.  For
-> firmwares, we currently read them from the filesystem from the
-> relevant IP code, but we could also just read it in amdgpu_discovery.c
-> when we walk the IP discovery table.
+>=20
+> Can you file a bug report:
+> https://gitlab.freedesktop.org/drm/amd/-/issues/
 
-I think something like this would do the trick:
+https://gitlab.freedesktop.org/drm/amd/-/issues/2318
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 2017b3466612..45aee27ab6b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2141,6 +2141,11 @@ static int amdgpu_device_ip_early_init(struct
-amdgpu_device *adev)
-                break;
-        }
+>=20
+> What sort of monitor are you using?  It looks to be failing mode validati=
+on:
+> [drm] Mode Validation Warning: Urgent latency failed validation.
+>=20
 
-+       /* Get rid of things like offb */
-+       r =3D drm_aperture_remove_conflicting_pci_framebuffers(pdev,
-&amdgpu_kms_driver);
-+       if (r)
-+               return r;
-+
-        if (amdgpu_has_atpx() &&
-            (amdgpu_is_atpx_hybrid() ||
-             amdgpu_has_atpx_dgpu_power_cntl()) &&
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index b8cfa48fb296..4e74d7abc3c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2123,11 +2123,6 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
-        }
- #endif
+Well its Apple's 16 inch built in Retina display.
 
--       /* Get rid of things like offb */
--       ret =3D drm_aperture_remove_conflicting_pci_framebuffers(pdev,
-&amdgpu_kms_driver);
--       if (ret)
--               return ret;
--
-        adev =3D devm_drm_dev_alloc(&pdev->dev, &amdgpu_kms_driver,
-typeof(*adev), ddev);
-        if (IS_ERR(adev))
-                return PTR_ERR(adev);
+The same is used in models with :-
+1. AMD Radeon Pro 5300M with 4GB of GDDR6 memory
+2. AMD Radeon Pro 5500M with 4GB of GDDR6 memory
+3. AMD Radeon Pro 5500M with 8GB of GDDR6 memory
 
-
->
-> Alex
->
->
-> >
-> > Regards,
-> > Christian.
-> >
-> >
-> > >
-> > > Best regards
-> > > Thomas
-> > >
-> > >>
-> > >> Here is a sample of what happens with missing GPU firmware and this
-> > >> series:
-> > >>
-> > >> [    5.950056] amdgpu 0000:63:00.0: vgaarb: deactivate vga console
-> > >> [    5.950114] amdgpu 0000:63:00.0: enabling device (0006 -> 0007)
-> > >> [    5.950883] [drm] initializing kernel modesetting (YELLOW_CARP
-> > >> 0x1002:0x1681 0x17AA:0x22F1 0xD2).
-> > >> [    5.952954] [drm] register mmio base: 0xB0A00000
-> > >> [    5.952958] [drm] register mmio size: 524288
-> > >> [    5.954633] [drm] add ip block number 0 <nv_common>
-> > >> [    5.954636] [drm] add ip block number 1 <gmc_v10_0>
-> > >> [    5.954637] [drm] add ip block number 2 <navi10_ih>
-> > >> [    5.954638] [drm] add ip block number 3 <psp>
-> > >> [    5.954639] [drm] add ip block number 4 <smu>
-> > >> [    5.954641] [drm] add ip block number 5 <dm>
-> > >> [    5.954642] [drm] add ip block number 6 <gfx_v10_0>
-> > >> [    5.954643] [drm] add ip block number 7 <sdma_v5_2>
-> > >> [    5.954644] [drm] add ip block number 8 <vcn_v3_0>
-> > >> [    5.954645] [drm] add ip block number 9 <jpeg_v3_0>
-> > >> [    5.954663] amdgpu 0000:63:00.0: amdgpu: Fetched VBIOS from VFCT
-> > >> [    5.954666] amdgpu: ATOM BIOS: 113-REMBRANDT-X37
-> > >> [    5.954677] [drm] VCN(0) decode is enabled in VM mode
-> > >> [    5.954678] [drm] VCN(0) encode is enabled in VM mode
-> > >> [    5.954680] [drm] JPEG decode is enabled in VM mode
-> > >> [    5.954681] amdgpu 0000:63:00.0: amdgpu: Trusted Memory Zone (TMZ=
-)
-> > >> feature disabled as experimental (default)
-> > >> [    5.954683] amdgpu 0000:63:00.0: amdgpu: PCIE atomic ops is not
-> > >> supported
-> > >> [    5.954724] [drm] vm size is 262144 GB, 4 levels, block size is
-> > >> 9-bit, fragment size is 9-bit
-> > >> [    5.954732] amdgpu 0000:63:00.0: amdgpu: VRAM: 512M
-> > >> 0x000000F400000000 - 0x000000F41FFFFFFF (512M used)
-> > >> [    5.954735] amdgpu 0000:63:00.0: amdgpu: GART: 1024M
-> > >> 0x0000000000000000 - 0x000000003FFFFFFF
-> > >> [    5.954738] amdgpu 0000:63:00.0: amdgpu: AGP: 267419648M
-> > >> 0x000000F800000000 - 0x0000FFFFFFFFFFFF
-> > >> [    5.954747] [drm] Detected VRAM RAM=3D512M, BAR=3D512M
-> > >> [    5.954750] [drm] RAM width 256bits LPDDR5
-> > >> [    5.954834] [drm] amdgpu: 512M of VRAM memory ready
-> > >> [    5.954838] [drm] amdgpu: 15680M of GTT memory ready.
-> > >> [    5.954873] [drm] GART: num cpu pages 262144, num gpu pages 26214=
-4
-> > >> [    5.955333] [drm] PCIE GART of 1024M enabled (table at
-> > >> 0x000000F41FC00000).
-> > >> [    5.955502] amdgpu 0000:63:00.0: Direct firmware load for
-> > >> amdgpu/yellow_carp_toc.bin failed with error -2
-> > >> [    5.955505] amdgpu 0000:63:00.0: amdgpu: fail to request/validate
-> > >> toc microcode
-> > >> [    5.955510] [drm:psp_sw_init [amdgpu]] *ERROR* Failed to load psp
-> > >> firmware!
-> > >> [    5.955725] [drm:amdgpu_device_init.cold [amdgpu]] *ERROR* sw_ini=
-t
-> > >> of IP block <psp> failed -2
-> > >> [    5.955952] amdgpu 0000:63:00.0: amdgpu: amdgpu_device_ip_init fa=
-iled
-> > >> [    5.955954] amdgpu 0000:63:00.0: amdgpu: Fatal error during GPU i=
-nit
-> > >> [    5.955957] amdgpu 0000:63:00.0: amdgpu: amdgpu: finishing device=
-.
-> > >> [    5.971162] efifb: probing for efifb
-> > >> [    5.971281] efifb: showing boot graphics
-> > >> [    5.974803] efifb: framebuffer at 0x910000000, using 20252k, tota=
-l
-> > >> 20250k
-> > >> [    5.974805] efifb: mode is 2880x1800x32, linelength=3D11520, page=
-s=3D1
-> > >> [    5.974807] efifb: scrolling: redraw
-> > >> [    5.974807] efifb: Truecolor: size=3D8:8:8:8, shift=3D24:16:8:0
-> > >> [    5.974974] Console: switching to colour frame buffer device 180x=
-56
-> > >> [    5.978181] fb0: EFI VGA frame buffer device
-> > >> [    5.978199] amdgpu: probe of 0000:63:00.0 failed with error -2
-> > >> [    5.978285] [drm] amdgpu: ttm finalized
-> > >>
-> > >> Now if the user loads the firmware into the system they can re-load =
-the
-> > >> driver or re-attach using sysfs and it gracefully recovers.
-> > >>
-> > >> [  665.080480] [drm] Initialized amdgpu 3.49.0 20150101 for
-> > >> 0000:63:00.0 on minor 0
-> > >> [  665.090075] fbcon: amdgpudrmfb (fb0) is primary device
-> > >> [  665.090248] [drm] DSC precompute is not needed.
-> > >>
-> > >> Mario Limonciello (2):
-> > >>    firmware: sysfb: Allow re-creating system framebuffer after init
-> > >>    drm/amd: Re-create firmware framebuffer on failure to probe
-> > >>
-> > >>   drivers/firmware/efi/sysfb_efi.c        |  6 +++---
-> > >>   drivers/firmware/sysfb.c                | 15 ++++++++++++++-
-> > >>   drivers/firmware/sysfb_simplefb.c       |  4 ++--
-> > >>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  2 ++
-> > >>   include/linux/sysfb.h                   |  5 +++++
-> > >>   5 files changed, 26 insertions(+), 6 deletions(-)
-> > >>
-> > >>
-> > >> base-commit: 830b3c68c1fb1e9176028d02ef86f3cf76aa2476
-> > >
-> >
+But these models work perfectly with AMD GPU enabled.=
