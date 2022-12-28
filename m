@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2551C4167B
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Dec 2022 16:31:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB8CCC4167B
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Dec 2022 16:31:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D5FA10E3BB;
-	Wed, 28 Dec 2022 16:31:22 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2076.outbound.protection.outlook.com [40.107.96.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D570110E3BA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09CC910E3C2;
+	Wed, 28 Dec 2022 16:31:24 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2066.outbound.protection.outlook.com [40.107.93.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2731710E3B9;
  Wed, 28 Dec 2022 16:31:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OX907+Z3Z1ugjzJL8eXPnP/LO8rX+8+ZoMrN+Lb/k9HkGsAwZVmyqdf23pGFAc6bEjtunSELcT1y0Vk43KA1qMr4noXR+8WJwDDBA4zRTpvksBsNs4d+ZP5pZ7wsDQnq6NFhBayjA3mIdt6JKBNmeJCtlsNEG7JkzlNmbUOSqvghUl0ss4lj/c4Gn02Z4QjqVkPabksexq1IEXPT92hDjRIUB+6pSevP+2gMLnyZBSYKONmovJHEqKYJQTnwoYIueLN+6p8cvtkfvZp3XG+z2N7d8VyvEf76GtoZVZg8JKSXr7DDitiffrsmTFIDnGszfqRoCftTB63OlBtLXxEoqw==
+ b=bxjDnbTMap5aA8TIuKZlMMlJmKo6nI65gk0BP6IvhsnopTsN8SMOsabUg9qxWBK1/aec+YJIcE5jXLhtaqursB4IHL4u86qIPJc2FrSkmP0kqqYocvEEeAuS6Cd5NEJYmfLOSmJAEQY2jQRj0pYDk6AjjSrflhfepiNg83yMZDFMvuO4VwK2RyHdRpu22ngMwLsj0Cjdtxwxcfgh4SjTfJDI30lhhLaYC4tn9UpJOVpWsLof4gF/GhiObD4dISA94WbCYO6RtpCeOF+3V2npjp3CsPCpK6ltp/z7zRNd/4vMRGKNKUQkybJWNZan5fXoFWwn43bVQsfK5rwtLBL/Ow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PqzjHR50u8col4Qg0Tv77O/+5WqAjV7+m5KHlYTwwXI=;
- b=mgR0J7BxLGXhGrCJ0xA5iFVAFCEVcs7mG7ukKQCC05E789PzzjhOs6aWtIu+6f6w5RRs8LAmicybHQ3MQlpq8poDP+GIwzuoOpu1mbwMWNUbAi6Rwap0K4a3sIFH0B10dgkq9R2xSeizbcyBnPACMxzmGjf4n1I7/0+qG2vEFYUDulAZ21Ea64FdY98S7CJOWlrV5rDzAnWK6NiUhc+yBJElxTNnexFjogz38reCzQNedTWtYd2Pg4wEKu5E/AlAI9ZfW5GOloNTsaGQLLKQ/cnIVxWhSNYLracD8VTV2VCk54i6gvLJh4c34bUS0Ja0OEE0sQJkvcsO+jgevCjUiw==
+ bh=w0YS+81BdYxXITmvX9vPnTZjDwH1JVA4Tpy72EtpMGo=;
+ b=YjLXjUqK2b7hxfq4UaboeO8UBArNSkWJ2c4tHmNMHFXKzis8PdExz+W7xZd/XW//F/JoxP1eZ73gv0RkUQgZYaA6TSXF0qwFLN/RT6ZZK3bgQdgqChfIf9IddVF5u+2Fctl1WzWwNCC6G6W3Ujecpt1aNrMxOWY+5lLvky/J0UjgHfWBD6FoRaK0ASEmfLk3vFYfrlgUve+WT3Huo1VhPa0Hy5LTEUfFVEOz2WxHJpU1gAG8TwsGoI7TLJtPbh6Hll4TXBMDiGdwJcAlPi9MtieEjKXcbKUqq3Hm1Z7pD9aLge/Qv6xoqCxLw87CysYvBtsdJIkK0VwTLa7jTOgk/w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PqzjHR50u8col4Qg0Tv77O/+5WqAjV7+m5KHlYTwwXI=;
- b=acals505G0iqFj6iKZcXK9g31v6+UH6UOTDex+QKSKrq/hXMQjxgJ2qXkPz/UxANQoIrWsytMY/UCV9yAi9gXbBxSXooIq2oepcgOOpO99tTJl0kKgPQRBYJ3uHdk55MpLN9AS1uSEKOHRO7dhMbfE8ocbilXrzlfiMShbwJT1Q=
-Received: from MW4PR03CA0311.namprd03.prod.outlook.com (2603:10b6:303:dd::16)
- by BN9PR12MB5163.namprd12.prod.outlook.com (2603:10b6:408:11c::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.16; Wed, 28 Dec
- 2022 16:31:18 +0000
-Received: from CO1NAM11FT032.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:dd:cafe::c5) by MW4PR03CA0311.outlook.office365.com
- (2603:10b6:303:dd::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.17 via Frontend
- Transport; Wed, 28 Dec 2022 16:31:18 +0000
+ bh=w0YS+81BdYxXITmvX9vPnTZjDwH1JVA4Tpy72EtpMGo=;
+ b=wRNXJ1qE7xUV7IHjJLSwplB1sbVioY2YL5pn84KCDhbMfdMMIABMrrjoj1daZqWTWgLPA683Tky8i3RqBGqiSDFf31MKyBDXE6odoUPUeQynsVWOc0gbcPv5e/Tzp6rElU4d6fT/G2TbpGcnuUGcf8LeU8+T/8P0EN9nGzFv4ek=
+Received: from MW4PR03CA0088.namprd03.prod.outlook.com (2603:10b6:303:b6::33)
+ by DS7PR12MB6070.namprd12.prod.outlook.com (2603:10b6:8:9e::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.13; Wed, 28 Dec
+ 2022 16:31:15 +0000
+Received: from CO1NAM11FT089.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b6:cafe::33) by MW4PR03CA0088.outlook.office365.com
+ (2603:10b6:303:b6::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.16 via Frontend
+ Transport; Wed, 28 Dec 2022 16:31:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,23 +45,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT032.mail.protection.outlook.com (10.13.174.218) with Microsoft SMTP
+ CO1NAM11FT089.mail.protection.outlook.com (10.13.175.179) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5966.17 via Frontend Transport; Wed, 28 Dec 2022 16:31:17 +0000
+ 15.20.5966.18 via Frontend Transport; Wed, 28 Dec 2022 16:31:14 +0000
 Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 28 Dec
- 2022 10:31:16 -0600
+ 2022 10:31:13 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: Javier Martinez Canillas <javierm@redhat.com>, Alex Deucher
- <alexander.deucher@amd.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 03/11] drm/amd: Convert SMUv11 microcode init to use
- `amdgpu_ucode_ip_version_decode`
-Date: Wed, 28 Dec 2022 10:30:50 -0600
-Message-ID: <20221228163102.468-4-mario.limonciello@amd.com>
+ <alexander.deucher@amd.com>
+Subject: [PATCH v2 00/11] Recover from failure to probe GPU
+Date: Wed, 28 Dec 2022 10:30:47 -0600
+Message-ID: <20221228163102.468-1-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221228163102.468-1-mario.limonciello@amd.com>
-References: <20221228163102.468-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -70,26 +67,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT032:EE_|BN9PR12MB5163:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2807ebe4-8dd4-4dd2-cc06-08dae8f0f243
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT089:EE_|DS7PR12MB6070:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98f06102-51c7-4916-5374-08dae8f0f058
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TMQffrBDMJCv3B+F9u5Ai2bGKsY4dHokw7s1XH+ByeyNnEVF4x8cneA3P3DvHUVCaDyVg83dhaKWV9XUpZpFUt5DIGIgUUjbzIyco+HietG/7zSns1R0ih/UYSC+Wn7hUkEmR+91peKwnxsxcu2gF93mi6n1c5af2TosmTHMpX+IxNENz2J8MDvAnCCxJe6hxEqkSLaTWdLQK6RgsMBVEo/H7DMXmrbSOfbSEVwITwar8T8UA5dEQwTmOSMgI8husxrLN8YKZq9/ytJShd9xUmNI5oQSiOWeGu7Jdi+o9fpUjrWvfvu+KjIok1oYQjoGEqWS8BfM2b661NP7MUBUN6a6tNwsQbIYYUB+0uBcSemxPp8UV4El0UEhl2ASZv22zSGPmHyAMNCQHSawZoVP9+hgTXCVoyyzeLpqZOfGmzHTBE0Pm+TPNwDFQRtq4S9gFRcskOJdale5c3IVM7O7j5fdebuISc5JwCZ8rmtJgigpgkP0wfcCcuzBcjmRhUadkitHJhbFnWE8e2K9CWOH3wQpakrZ6HVkScyo8ARjqaFFuJWfHbMK686OUOsdf65e4VYQ2wFOCGjtY1GZ2hmpsGJR5/fgDaVTCHk7CLLxrUMUfeWG7EqWw9LUwt6tj3S8zZfrLO7x4gdmBS2ko4MH6p3oqF4lWsOzGWDllUrhHJty/ZNJNob2xkHW8dSzFCJON9jFvsFSAo62wh4i5OPsR8HH8PQlZtViZbns74NIP3RXyWsNXPQBvzEDP2bzCt8uYG8RxLuQTmn/vi0zJnFmRw==
+X-Microsoft-Antispam-Message-Info: AAl2GqjMTguQlUPVmLfhW7IzQ+sVK7wZl6Mdm4RjEzjw4aGkIScjFHtGp1a+VeEf4tKhWVInq8LRo33BPhaAVdutqmuUIfhO7QQhf09vcQ/NMTJYmzhgmHVHQnmuqbmuimTBIhovXEW9k1UN1ds7PLoD8snB4kOzQhVDobnS28KiAr1+xQeZClcRH9XhUvb7fYEcnk1Fjlcz1724lPn3o8a0EEkTF2by6UoyPdYYmrB4BeucUedQYzq2PX4splKIVSlXRye13rsSlf5k5sgCGir9rLO3EINL7bqKwVCXVdFn7T8fVN+lBJ4O36qefJ7klJZF/8YaluJ25hN4uBoQhCuZj92zW/jQZZgtQ3JFFYozIgzkTcYQKy0NRnj0Bm0FAjvb5pfOmlebrTyuSqOqAI7KOzBgEX3WylK8oiIfQylFmJTXOLIzRdZNOsLg+EsOQoS5jOT4apnvjCrLf3lCVUQI5HRrcyKkALcnkLXO357XRv7e25J0tJkGF4zR6bJy8cBJ56NkhGeY18ip4OisapCmT8coeqhzQIZA9zfmzZfELVki308Sq7K1o8mgd/rtBiCYoK0UUqx82+DEnvPq5eywz0zitTsiyyTAHDshWiqEyc72k4WlziooAJ5n+SWfqm3MN4q4SJSOlXKzdXLdSZD7YCzRdBRnDxgn6YfBNrpU9TZILec3B0hLJ9IuR8e1bAjhviwVmKRdQ4xW7EfjLBHfUKj7zJ41FExWoz3SE5o=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(396003)(376002)(346002)(39860400002)(451199015)(40470700004)(46966006)(36840700001)(2906002)(70206006)(44832011)(8936002)(186003)(4326008)(70586007)(8676002)(41300700001)(54906003)(316002)(110136005)(356005)(16526019)(7696005)(478600001)(6666004)(82310400005)(40480700001)(336012)(2616005)(83380400001)(36756003)(1076003)(426003)(47076005)(5660300002)(81166007)(82740400003)(26005)(40460700003)(86362001)(36860700001)(81973001)(36900700001);
+ SFS:(13230022)(4636009)(396003)(346002)(136003)(376002)(39860400002)(451199015)(36840700001)(46966006)(40470700004)(16526019)(26005)(186003)(82310400005)(36756003)(110136005)(6666004)(81166007)(356005)(82740400003)(7696005)(86362001)(40480700001)(40460700003)(54906003)(2616005)(83380400001)(1076003)(336012)(47076005)(36860700001)(44832011)(426003)(5660300002)(8936002)(2906002)(70206006)(4326008)(478600001)(70586007)(6636002)(316002)(8676002)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Dec 2022 16:31:17.8952 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2807ebe4-8dd4-4dd2-cc06-08dae8f0f243
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Dec 2022 16:31:14.6743 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98f06102-51c7-4916-5374-08dae8f0f058
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT032.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT089.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5163
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6070
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,76 +98,114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, dri-devel@lists.freedesktop.org,
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Carlos Soriano Sanchez <csoriano@redhat.com>, Evan Quan <evan.quan@amd.com>,
- David Airlie <airlied@gmail.com>, christian.koenig@amd.com,
+ Carlos Soriano Sanchez <csoriano@redhat.com>, David
+ Airlie <airlied@gmail.com>, christian.koenig@amd.com,
  Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the special casing from SMU v11 code. No intended functional
-changes.
+One of the first thing that KMS drivers do during initialization is
+destroy the system firmware framebuffer by means of
+`drm_aperture_remove_conflicting_pci_framebuffers`
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 35 ++-----------------
- 1 file changed, 3 insertions(+), 32 deletions(-)
+This means that if for any reason the GPU failed to probe the user
+will be stuck with at best a screen frozen at the last thing that
+was shown before the KMS driver continued it's probe.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index ad66d57aa102..d4756bd30830 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -93,7 +93,7 @@ static void smu_v11_0_poll_baco_exit(struct smu_context *smu)
- int smu_v11_0_init_microcode(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
--	const char *chip_name;
-+	char ucode_prefix[30];
- 	char fw_name[SMU_FW_NAME_LEN];
- 	int err = 0;
- 	const struct smc_firmware_header_v1_0 *hdr;
-@@ -105,38 +105,9 @@ int smu_v11_0_init_microcode(struct smu_context *smu)
- 	     (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(11, 0, 7))))
- 		return 0;
- 
--	switch (adev->ip_versions[MP1_HWIP][0]) {
--	case IP_VERSION(11, 0, 0):
--		chip_name = "navi10";
--		break;
--	case IP_VERSION(11, 0, 5):
--		chip_name = "navi14";
--		break;
--	case IP_VERSION(11, 0, 9):
--		chip_name = "navi12";
--		break;
--	case IP_VERSION(11, 0, 7):
--		chip_name = "sienna_cichlid";
--		break;
--	case IP_VERSION(11, 0, 11):
--		chip_name = "navy_flounder";
--		break;
--	case IP_VERSION(11, 0, 12):
--		chip_name = "dimgrey_cavefish";
--		break;
--	case IP_VERSION(11, 0, 13):
--		chip_name = "beige_goby";
--		break;
--	case IP_VERSION(11, 0, 2):
--		chip_name = "arcturus";
--		break;
--	default:
--		dev_err(adev->dev, "Unsupported IP version 0x%x\n",
--			adev->ip_versions[MP1_HWIP][0]);
--		return -EINVAL;
--	}
-+	amdgpu_ucode_ip_version_decode(adev, MP1_HWIP, ucode_prefix, sizeof(ucode_prefix));
- 
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_smc.bin", chip_name);
-+	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
- 
- 	err = request_firmware(&adev->pm.fw, fw_name, adev->dev);
- 	if (err)
+The problem is most pronounced when new GPU support is introduced
+because users will need to have a recent linux-firmware snapshot
+on their system when they boot a kernel with matching support.
+
+However the problem is further exaggerated in the case of amdgpu because
+it has migrated to "IP discovery" where amdgpu will attempt to load
+on "ALL" AMD GPUs even if the driver is missing support for IP blocks
+contained in that GPU.
+
+IP discovery requires some probing and isn't run until after the
+framebuffer has been destroyed.
+
+This means a situation can occur where a user purchases a new GPU not
+yet supported by a distribution and when booting the installer it will
+"freeze" even if the distribution doesn't have the matching kernel support
+for those IP blocks.
+
+The perfect example of this is Ubuntu 22.10 and the new dGPUs just
+launched by AMD.  The installation media ships with kernel 5.19 (which
+has IP discovery) but the amdgpu support for those IP blocks landed in
+kernel 6.0. The matching linux-firmware was released after 22.10's launch.
+The screen will freeze without nomodeset. Even if a user manages to install
+and then upgrades to kernel 6.0 after install they'll still have the
+problem of missing firmware, and the same experience.
+
+This is quite jarring for users, particularly if they don't know
+that they have to use "nomodeset" to install.
+
+To help the situation make changes to GPU discovery:
+1) Delay releasing the firmware framebuffer until after IP discovery has
+completed.  This will help the situation of an older kernel that doesn't
+yet support the IP blocks probing a new GPU.
+2) Request loading all PSP, VCN, SDMA, MES and GC microcode into memory
+during IP discovery. This will help the situation of new enough kernel for
+the IP discovery phase to otherwise pass but missing microcode from
+linux-firmware.git.
+
+Not all requested firmware will be loaded during IP discovery as some of it
+will require larger driver architecture changes. For example SMU firmware
+isn't loaded on certain products, but that's not known until later on when
+the early_init phase of the SMU load occurs.
+
+v1->v2:
+ * Take the suggestion from v1 thread to delay the framebuffer release until
+   ip discovery is done. This patch is CC to stable to that older stable
+   kernels with IP discovery won't try to probe unknown IP.
+ * Drop changes to drm aperature.
+ * Fetch SDMA, VCN, MES, GC and PSP microcode during IP discovery.
+
+Mario Limonciello (11):
+  drm/amd: Delay removal of the firmware framebuffer
+  drm/amd: Add a legacy mapping to "amdgpu_ucode_ip_version_decode"
+  drm/amd: Convert SMUv11 microcode init to use
+    `amdgpu_ucode_ip_version_decode`
+  drm/amd: Convert SMU v13 to use `amdgpu_ucode_ip_version_decode`
+  drm/amd: Request SDMA microcode during IP discovery
+  drm/amd: Request VCN microcode during IP discovery
+  drm/amd: Request MES microcode during IP discovery
+  drm/amd: Request GFX9 microcode during IP discovery
+  drm/amd: Request GFX10 microcode during IP discovery
+  drm/amd: Request GFX11 microcode during IP discovery
+  drm/amd: Request PSP microcode during IP discovery
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   8 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 590 +++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   6 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c      |   9 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 208 ++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |  85 +--
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 180 +-----
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  64 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         | 143 +----
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.c        |  28 -
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  25 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v10_0.c        | 106 +---
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c        | 165 +----
+ drivers/gpu/drm/amd/amdgpu/psp_v12_0.c        | 102 +--
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c        |  82 ---
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c      |  36 --
+ drivers/gpu/drm/amd/amdgpu/psp_v3_1.c         |  36 --
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |  61 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |  42 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |  65 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |  30 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  35 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  12 +-
+ 25 files changed, 919 insertions(+), 1203 deletions(-)
+
+
+base-commit: de9a71e391a92841582ca3008e7b127a0b8ccf41
 -- 
 2.34.1
 
