@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB8CCC4167B
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Dec 2022 16:31:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1533CC4167B
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Dec 2022 16:31:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09CC910E3C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EC4710E3BF;
 	Wed, 28 Dec 2022 16:31:24 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2066.outbound.protection.outlook.com [40.107.93.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2731710E3B9;
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2049.outbound.protection.outlook.com [40.107.212.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F08F10E3BB;
  Wed, 28 Dec 2022 16:31:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bxjDnbTMap5aA8TIuKZlMMlJmKo6nI65gk0BP6IvhsnopTsN8SMOsabUg9qxWBK1/aec+YJIcE5jXLhtaqursB4IHL4u86qIPJc2FrSkmP0kqqYocvEEeAuS6Cd5NEJYmfLOSmJAEQY2jQRj0pYDk6AjjSrflhfepiNg83yMZDFMvuO4VwK2RyHdRpu22ngMwLsj0Cjdtxwxcfgh4SjTfJDI30lhhLaYC4tn9UpJOVpWsLof4gF/GhiObD4dISA94WbCYO6RtpCeOF+3V2npjp3CsPCpK6ltp/z7zRNd/4vMRGKNKUQkybJWNZan5fXoFWwn43bVQsfK5rwtLBL/Ow==
+ b=ChdHcUOAZPQqfAvaO2cLTNoU1FghvAgbJoZodc5Vm3Jp5yIB9uO6/AVOMU0mjzxz/0xNTQgJaF423pAuWfKPWZlOc3PxA/eun50Z94JMSy7TRGvpBYMmu9X6KJFsMO5Uiyyury6WJ0DhemNZBghI4HZC1u8F16fdb/Rujn3pT2SDzSLekd8myV2Tg7VExLUIzo3nSveZcBtHdTUrmpkiOcYRqm5UlSfw1Qi3Ig/GdRrjrAdQ6Hun2L3uL1aGgzZ377HlINtFeVJIEO0jOUwKbCevWD0vfxgGPtt6qveF8N9XJRtHHuHzyfPqpgehCTgdivuGWdL54OnLOwI/0ZgY+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w0YS+81BdYxXITmvX9vPnTZjDwH1JVA4Tpy72EtpMGo=;
- b=YjLXjUqK2b7hxfq4UaboeO8UBArNSkWJ2c4tHmNMHFXKzis8PdExz+W7xZd/XW//F/JoxP1eZ73gv0RkUQgZYaA6TSXF0qwFLN/RT6ZZK3bgQdgqChfIf9IddVF5u+2Fctl1WzWwNCC6G6W3Ujecpt1aNrMxOWY+5lLvky/J0UjgHfWBD6FoRaK0ASEmfLk3vFYfrlgUve+WT3Huo1VhPa0Hy5LTEUfFVEOz2WxHJpU1gAG8TwsGoI7TLJtPbh6Hll4TXBMDiGdwJcAlPi9MtieEjKXcbKUqq3Hm1Z7pD9aLge/Qv6xoqCxLw87CysYvBtsdJIkK0VwTLa7jTOgk/w==
+ bh=EAcXvEZP2+uIyy/W1PQlQJTFN/DyTURf7lYcFW1XoEA=;
+ b=Q80PBk8CaJjDzcCtmsPaDN9u4TWsB90iNbmhwjuqaJ1+TiPNTJ+PFM9F2Er0FFBooiZUQoqXM/z8iwbcPRu8WDYC45DZtjdMU64H3SEIX/Qtl/J4Of7vdYnt6yhYauwBg8pIFM8Ra/T+zUFY6dRrZbHUngQZoX7DYqeTTsEuAVIGfoxBue5BAkFlVHusv2R+98mqup05h+4rUsTp25xwPHezMF5gflHtafuF0XHIZNPAMzWq0OCHUzHneb8M3HZi8PFdDjseMX39Ko6TXiE7GHWVRSbHWciWeVYECmJUKVTIY6nIqEn9DvmT05umUQK5mPG+jkv34m0IPWN2Lw0vTA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w0YS+81BdYxXITmvX9vPnTZjDwH1JVA4Tpy72EtpMGo=;
- b=wRNXJ1qE7xUV7IHjJLSwplB1sbVioY2YL5pn84KCDhbMfdMMIABMrrjoj1daZqWTWgLPA683Tky8i3RqBGqiSDFf31MKyBDXE6odoUPUeQynsVWOc0gbcPv5e/Tzp6rElU4d6fT/G2TbpGcnuUGcf8LeU8+T/8P0EN9nGzFv4ek=
-Received: from MW4PR03CA0088.namprd03.prod.outlook.com (2603:10b6:303:b6::33)
- by DS7PR12MB6070.namprd12.prod.outlook.com (2603:10b6:8:9e::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.13; Wed, 28 Dec
- 2022 16:31:15 +0000
-Received: from CO1NAM11FT089.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b6:cafe::33) by MW4PR03CA0088.outlook.office365.com
- (2603:10b6:303:b6::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.16 via Frontend
- Transport; Wed, 28 Dec 2022 16:31:14 +0000
+ bh=EAcXvEZP2+uIyy/W1PQlQJTFN/DyTURf7lYcFW1XoEA=;
+ b=4dr6Yol1vIW/clZ0c+55kBaGtf9rXPiSmQuwn9qKUA+ML33uD8Ofs9qWOL78Pk4hhRBruoOSpz7JS7NUXZBGc5DG/As/Kl5s4k18Ej6BxV0yzIb44S/feEz7ugXsxJhmSPNWRvOo4lDANFL4AKy5/pY103B9D31Bv9eJENKq/eQ=
+Received: from MW4PR03CA0306.namprd03.prod.outlook.com (2603:10b6:303:dd::11)
+ by PH7PR12MB6719.namprd12.prod.outlook.com (2603:10b6:510:1b2::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.16; Wed, 28 Dec
+ 2022 16:31:17 +0000
+Received: from CO1NAM11FT032.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:dd:cafe::3e) by MW4PR03CA0306.outlook.office365.com
+ (2603:10b6:303:dd::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5966.17 via Frontend
+ Transport; Wed, 28 Dec 2022 16:31:17 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,20 +45,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT089.mail.protection.outlook.com (10.13.175.179) with Microsoft SMTP
+ CO1NAM11FT032.mail.protection.outlook.com (10.13.174.218) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5966.18 via Frontend Transport; Wed, 28 Dec 2022 16:31:14 +0000
+ 15.20.5966.17 via Frontend Transport; Wed, 28 Dec 2022 16:31:16 +0000
 Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 28 Dec
- 2022 10:31:13 -0600
+ 2022 10:31:15 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: Javier Martinez Canillas <javierm@redhat.com>, Alex Deucher
- <alexander.deucher@amd.com>
-Subject: [PATCH v2 00/11] Recover from failure to probe GPU
-Date: Wed, 28 Dec 2022 10:30:47 -0600
-Message-ID: <20221228163102.468-1-mario.limonciello@amd.com>
+ <alexander.deucher@amd.com>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2 02/11] drm/amd: Add a legacy mapping to
+ "amdgpu_ucode_ip_version_decode"
+Date: Wed, 28 Dec 2022 10:30:49 -0600
+Message-ID: <20221228163102.468-3-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221228163102.468-1-mario.limonciello@amd.com>
+References: <20221228163102.468-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -67,26 +70,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT089:EE_|DS7PR12MB6070:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98f06102-51c7-4916-5374-08dae8f0f058
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT032:EE_|PH7PR12MB6719:EE_
+X-MS-Office365-Filtering-Correlation-Id: bcc5944f-d3c1-4998-c15e-08dae8f0f1b4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AAl2GqjMTguQlUPVmLfhW7IzQ+sVK7wZl6Mdm4RjEzjw4aGkIScjFHtGp1a+VeEf4tKhWVInq8LRo33BPhaAVdutqmuUIfhO7QQhf09vcQ/NMTJYmzhgmHVHQnmuqbmuimTBIhovXEW9k1UN1ds7PLoD8snB4kOzQhVDobnS28KiAr1+xQeZClcRH9XhUvb7fYEcnk1Fjlcz1724lPn3o8a0EEkTF2by6UoyPdYYmrB4BeucUedQYzq2PX4splKIVSlXRye13rsSlf5k5sgCGir9rLO3EINL7bqKwVCXVdFn7T8fVN+lBJ4O36qefJ7klJZF/8YaluJ25hN4uBoQhCuZj92zW/jQZZgtQ3JFFYozIgzkTcYQKy0NRnj0Bm0FAjvb5pfOmlebrTyuSqOqAI7KOzBgEX3WylK8oiIfQylFmJTXOLIzRdZNOsLg+EsOQoS5jOT4apnvjCrLf3lCVUQI5HRrcyKkALcnkLXO357XRv7e25J0tJkGF4zR6bJy8cBJ56NkhGeY18ip4OisapCmT8coeqhzQIZA9zfmzZfELVki308Sq7K1o8mgd/rtBiCYoK0UUqx82+DEnvPq5eywz0zitTsiyyTAHDshWiqEyc72k4WlziooAJ5n+SWfqm3MN4q4SJSOlXKzdXLdSZD7YCzRdBRnDxgn6YfBNrpU9TZILec3B0hLJ9IuR8e1bAjhviwVmKRdQ4xW7EfjLBHfUKj7zJ41FExWoz3SE5o=
+X-Microsoft-Antispam-Message-Info: snMjEir5QHSuv0kUu4x9wT1G8lz2MIXDlOQeWHmGz6MR97pqHAYBRaoJBDDWjW/JpDvICo6J2jfleXUGjuOeQ6h2A2OCud0j7q5t2t0LvgK1MjzsQ6kqPk277T/1DoCtfpxFBtFLsrMsmJcyAE5HS9OLe+Vz0El3JBzpb9+JpAS7mDVcCeB9u2Yb88JtphESUMxrgVJ13UqkG0T10CLHOsei6bjzYxQjI1OT9e3uo5J+XDk8D4HlUoLoV3Ijn7pvrYqDOh2rInZ+ITiYaODGS/UILKYddlfn90TQb65yVJSaolkw9pt8n4E1FIKmfSn/ROcoDz2GZPWV8P4wBHj9ufasLiVdeYqK+VAhiNWtLnPnv5m0EM/XS3WN/VhGCGKX8MpmWA8oaQP0PN914i4mRWS5fF/gaHmTC7fkKO7UeX4QYhVzWMO4xmtAI4QJ+wB7RIV5FrwvwKhJGkAPIQ2pAKqlv7nqBiVxwg+RGgp14YnkB1RMaDiirl9WIqVFDj2PGInI1yEOIs2FmTol2aXyGOJJiqSi2JrO+bzCEa5lXWksjoTet5BcwY3zqbwcK10rtD5WC4ituv8zMzuxybBF4fHKhXcx/Dfk9jE1xs8ivxjOzvJZ+d/pM/xtVCel/63Ead+4Jx4Wy0/cC31lFwXF99te24d/Nfydx7WFGS4TVF+qPJIFoYt1l8StAiSS5B/k/5mMzVW+yuZHEphlmAmUJ67nFVfo8W//a5A5rea1kSU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(346002)(136003)(376002)(39860400002)(451199015)(36840700001)(46966006)(40470700004)(16526019)(26005)(186003)(82310400005)(36756003)(110136005)(6666004)(81166007)(356005)(82740400003)(7696005)(86362001)(40480700001)(40460700003)(54906003)(2616005)(83380400001)(1076003)(336012)(47076005)(36860700001)(44832011)(426003)(5660300002)(8936002)(2906002)(70206006)(4326008)(478600001)(70586007)(6636002)(316002)(8676002)(41300700001)(36900700001);
+ SFS:(13230022)(4636009)(39860400002)(376002)(346002)(136003)(396003)(451199015)(46966006)(36840700001)(40470700004)(316002)(41300700001)(36860700001)(82310400005)(336012)(54906003)(47076005)(6666004)(2906002)(81166007)(36756003)(82740400003)(478600001)(426003)(110136005)(2616005)(1076003)(8936002)(44832011)(356005)(83380400001)(26005)(186003)(5660300002)(86362001)(8676002)(40480700001)(40460700003)(4326008)(70206006)(70586007)(7696005)(16526019)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Dec 2022 16:31:14.6743 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98f06102-51c7-4916-5374-08dae8f0f058
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Dec 2022 16:31:16.9577 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bcc5944f-d3c1-4998-c15e-08dae8f0f1b4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT089.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT032.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6070
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6719
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,7 +101,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
  Carlos Soriano Sanchez <csoriano@redhat.com>, David
  Airlie <airlied@gmail.com>, christian.koenig@amd.com,
@@ -106,106 +109,240 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-One of the first thing that KMS drivers do during initialization is
-destroy the system firmware framebuffer by means of
-`drm_aperture_remove_conflicting_pci_framebuffers`
+This will allow other parts of the driver that currently special
+case firmware file names to before IP version style naming to just
+have a single call to `amdgpu_ucode_ip_version_decode`.
 
-This means that if for any reason the GPU failed to probe the user
-will be stuck with at best a screen frozen at the last thing that
-was shown before the KMS driver continued it's probe.
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 208 ++++++++++++++++++++++
+ 1 file changed, 208 insertions(+)
 
-The problem is most pronounced when new GPU support is introduced
-because users will need to have a recent linux-firmware snapshot
-on their system when they boot a kernel with matching support.
-
-However the problem is further exaggerated in the case of amdgpu because
-it has migrated to "IP discovery" where amdgpu will attempt to load
-on "ALL" AMD GPUs even if the driver is missing support for IP blocks
-contained in that GPU.
-
-IP discovery requires some probing and isn't run until after the
-framebuffer has been destroyed.
-
-This means a situation can occur where a user purchases a new GPU not
-yet supported by a distribution and when booting the installer it will
-"freeze" even if the distribution doesn't have the matching kernel support
-for those IP blocks.
-
-The perfect example of this is Ubuntu 22.10 and the new dGPUs just
-launched by AMD.  The installation media ships with kernel 5.19 (which
-has IP discovery) but the amdgpu support for those IP blocks landed in
-kernel 6.0. The matching linux-firmware was released after 22.10's launch.
-The screen will freeze without nomodeset. Even if a user manages to install
-and then upgrades to kernel 6.0 after install they'll still have the
-problem of missing firmware, and the same experience.
-
-This is quite jarring for users, particularly if they don't know
-that they have to use "nomodeset" to install.
-
-To help the situation make changes to GPU discovery:
-1) Delay releasing the firmware framebuffer until after IP discovery has
-completed.  This will help the situation of an older kernel that doesn't
-yet support the IP blocks probing a new GPU.
-2) Request loading all PSP, VCN, SDMA, MES and GC microcode into memory
-during IP discovery. This will help the situation of new enough kernel for
-the IP discovery phase to otherwise pass but missing microcode from
-linux-firmware.git.
-
-Not all requested firmware will be loaded during IP discovery as some of it
-will require larger driver architecture changes. For example SMU firmware
-isn't loaded on certain products, but that's not known until later on when
-the early_init phase of the SMU load occurs.
-
-v1->v2:
- * Take the suggestion from v1 thread to delay the framebuffer release until
-   ip discovery is done. This patch is CC to stable to that older stable
-   kernels with IP discovery won't try to probe unknown IP.
- * Drop changes to drm aperature.
- * Fetch SDMA, VCN, MES, GC and PSP microcode during IP discovery.
-
-Mario Limonciello (11):
-  drm/amd: Delay removal of the firmware framebuffer
-  drm/amd: Add a legacy mapping to "amdgpu_ucode_ip_version_decode"
-  drm/amd: Convert SMUv11 microcode init to use
-    `amdgpu_ucode_ip_version_decode`
-  drm/amd: Convert SMU v13 to use `amdgpu_ucode_ip_version_decode`
-  drm/amd: Request SDMA microcode during IP discovery
-  drm/amd: Request VCN microcode during IP discovery
-  drm/amd: Request MES microcode during IP discovery
-  drm/amd: Request GFX9 microcode during IP discovery
-  drm/amd: Request GFX10 microcode during IP discovery
-  drm/amd: Request GFX11 microcode during IP discovery
-  drm/amd: Request PSP microcode during IP discovery
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   8 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 590 +++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   6 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |   2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c      |   9 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 208 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |  85 +--
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 180 +-----
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  64 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         | 143 +----
- drivers/gpu/drm/amd/amdgpu/mes_v10_1.c        |  28 -
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  25 +-
- drivers/gpu/drm/amd/amdgpu/psp_v10_0.c        | 106 +---
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c        | 165 +----
- drivers/gpu/drm/amd/amdgpu/psp_v12_0.c        | 102 +--
- drivers/gpu/drm/amd/amdgpu/psp_v13_0.c        |  82 ---
- drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c      |  36 --
- drivers/gpu/drm/amd/amdgpu/psp_v3_1.c         |  36 --
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |  61 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |  42 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |  65 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |  30 +-
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  35 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  12 +-
- 25 files changed, 919 insertions(+), 1203 deletions(-)
-
-
-base-commit: de9a71e391a92841582ca3008e7b127a0b8ccf41
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+index 5cb62e6249c2..5392c1fe434b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -1059,12 +1059,220 @@ int amdgpu_ucode_init_bo(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
++static const char *amdgpu_ucode_legacy_naming(struct amdgpu_device *adev, int block_type)
++{
++	if (block_type == MP0_HWIP) {
++		switch (adev->ip_versions[MP0_HWIP][0]) {
++		case IP_VERSION(9, 0, 0):
++			switch (adev->asic_type) {
++			case CHIP_VEGA10:
++				return "vega10";
++			case CHIP_VEGA12:
++				return "vega12";
++			default:
++				return NULL;
++			}
++			break;
++		case IP_VERSION(10, 0, 0):
++		case IP_VERSION(10, 0, 1):
++			if (adev->asic_type == CHIP_RAVEN) {
++				if (adev->apu_flags & AMD_APU_IS_RAVEN2)
++					return "raven2";
++				else if (adev->apu_flags & AMD_APU_IS_PICASSO)
++					return "picasso";
++				else
++					return "raven";
++			}
++			break;
++		case IP_VERSION(11, 0, 0):
++			return "navi10";
++		case IP_VERSION(11, 0, 2):
++			return "vega20";
++		case IP_VERSION(11, 0, 4):
++			return "arcturus";
++		case IP_VERSION(11, 0, 5):
++			return "navi14";
++		case IP_VERSION(11, 0, 7):
++			return "sienna_cichlid";
++		case IP_VERSION(11, 0, 9):
++			return "navi12";
++		case IP_VERSION(11, 0, 11):
++			return "navy_flounder";
++		case IP_VERSION(11, 0, 12):
++			return "dimgrey_cavefish";
++		case IP_VERSION(11, 0, 13):
++			return "beige_goby";
++		case IP_VERSION(11, 5, 0):
++			return "vangogh";
++		case IP_VERSION(12, 0, 1):
++			if (adev->asic_type == CHIP_RENOIR) {
++				if (adev->apu_flags & AMD_APU_IS_RENOIR)
++					return "renoir";
++				else
++					return "green_sardine";
++			}
++			break;
++		case IP_VERSION(13, 0, 2):
++			return "aldebaran";
++		case IP_VERSION(13, 0, 1):
++		case IP_VERSION(13, 0, 3):
++			return "yellow_carp";
++		}
++	} else if (block_type == MP1_HWIP) {
++		switch (adev->ip_versions[MP1_HWIP][0]) {
++		case IP_VERSION(9, 0, 0):
++		case IP_VERSION(10, 0, 0):
++		case IP_VERSION(10, 0, 1):
++		case IP_VERSION(11, 0, 2):
++			if (adev->asic_type == CHIP_ARCTURUS)
++				return "arcturus_smc";
++			return NULL;
++		case IP_VERSION(11, 0, 0):
++			return "navi10_smc";
++		case IP_VERSION(11, 0, 5):
++			return "navi14_smc";
++		case IP_VERSION(11, 0, 9):
++			return "navi12_smc";
++		case IP_VERSION(11, 0, 7):
++			return "sienna_cichlid_smc";
++		case IP_VERSION(11, 0, 11):
++			return "navy_flounder_smc";
++		case IP_VERSION(11, 0, 12):
++			return "dimgrey_cavefish_smc";
++		case IP_VERSION(11, 0, 13):
++			return "beige_goby_smc";
++		case IP_VERSION(13, 0, 2):
++			return "aldebaran_smc";
++		}
++	} else if (block_type == SDMA0_HWIP) {
++		switch (adev->ip_versions[SDMA0_HWIP][0]) {
++		case IP_VERSION(4, 0, 0):
++			return "vega10";
++		case IP_VERSION(4, 0, 1):
++			return "vega12";
++		case IP_VERSION(4, 1, 0):
++		case IP_VERSION(4, 1, 1):
++			if (adev->apu_flags & AMD_APU_IS_RAVEN2)
++				return "raven2";
++			else if (adev->apu_flags & AMD_APU_IS_PICASSO)
++				return "picasso";
++			else
++				return "raven";
++		case IP_VERSION(4, 1, 2):
++			if (adev->apu_flags & AMD_APU_IS_RENOIR)
++				return "renoir";
++			else
++				return "green_sardine";
++		case IP_VERSION(4, 2, 0):
++			return "vega20";
++		case IP_VERSION(4, 2, 2):
++			return "arcturus";
++		case IP_VERSION(4, 4, 0):
++			return "aldebaran";
++		case IP_VERSION(5, 0, 0):
++			return "navi10";
++		case IP_VERSION(5, 0, 1):
++			return "cyan_skillfish2";
++		case IP_VERSION(5, 0, 2):
++			return "navi14";
++		case IP_VERSION(5, 0, 5):
++			return "navi12";
++		case IP_VERSION(5, 2, 0):
++			return "sienna_cichlid_sdma";
++		case IP_VERSION(5, 2, 2):
++			return "navy_flounder_sdma";
++		case IP_VERSION(5, 2, 4):
++			return "dimgrey_cavefish_sdma";
++		case IP_VERSION(5, 2, 5):
++			return "beige_goby_sdma";
++		case IP_VERSION(5, 2, 3):
++			return "yellow_carp_sdma";
++		case IP_VERSION(5, 2, 1):
++			return "vangogh_sdma";
++		}
++	} else if (block_type == UVD_HWIP) {
++		switch (adev->ip_versions[UVD_HWIP][0]) {
++		case IP_VERSION(1, 0, 0):
++		case IP_VERSION(1, 0, 1):
++			if (adev->apu_flags & AMD_APU_IS_RAVEN2)
++				return "raven2_vcn";
++			else if (adev->apu_flags & AMD_APU_IS_PICASSO)
++				return "picasso_vcn";
++			else
++				return "raven_vcn";
++			break;
++		case IP_VERSION(2, 5, 0):
++			return "arcturus_vcn";
++		case IP_VERSION(2, 2, 0):
++			if (adev->apu_flags & AMD_APU_IS_RENOIR)
++				return "renoir_vcn";
++			return "green_sardine_vcn";
++		case IP_VERSION(2, 6, 0):
++			return "aldebaran_vcn";
++		case IP_VERSION(2, 0, 0):
++			return "navi10_vcn";
++		case IP_VERSION(2, 0, 2):
++			if (adev->asic_type == CHIP_NAVI12)
++				return "navi12_vcn";
++			else
++				return "navi14_vcn";
++		case IP_VERSION(3, 0, 0):
++		case IP_VERSION(3, 0, 64):
++		case IP_VERSION(3, 0, 192):
++			if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 3, 0))
++				return "sienna_cichlid_vcn";
++			else
++				return "navy_flounder_vcn";
++		case IP_VERSION(3, 0, 2):
++			return "vangogh_vcn";
++		case IP_VERSION(3, 0, 16):
++			return "dimgrey_cavefish_vcn";
++		case IP_VERSION(3, 0, 33):
++			return "beige_goby_vcn";
++		case IP_VERSION(3, 1, 1):
++			return "yellow_carp_vcn";
++		}
++	} else if (block_type == GC_HWIP) {
++		switch (adev->ip_versions[GC_HWIP][0]) {
++		case IP_VERSION(10, 1, 10):
++			return "navi10";
++		case IP_VERSION(10, 1, 1):
++			return "navi14";
++		case IP_VERSION(10, 1, 2):
++			return "navi12";
++		case IP_VERSION(10, 3, 0):
++			return "sienna_cichlid";
++		case IP_VERSION(10, 3, 2):
++			return "navy_flounder";
++		case IP_VERSION(10, 3, 1):
++			return "vangogh";
++		case IP_VERSION(10, 3, 4):
++			return "dimgrey_cavefish";
++		case IP_VERSION(10, 3, 5):
++			return "beige_goby";
++		case IP_VERSION(10, 3, 3):
++			return "yellow_carp";
++		case IP_VERSION(10, 1, 3):
++		case IP_VERSION(10, 1, 4):
++			return "cyan_skillfish2";
++		}
++	}
++	return NULL;
++}
++
+ void amdgpu_ucode_ip_version_decode(struct amdgpu_device *adev, int block_type, char *ucode_prefix, int len)
+ {
+ 	int maj, min, rev;
+ 	char *ip_name;
++	const char *legacy;
+ 	uint32_t version = adev->ip_versions[block_type][0];
+ 
++	legacy = amdgpu_ucode_legacy_naming(adev, block_type);
++	if (legacy) {
++		snprintf(ucode_prefix, len, "%s", legacy);
++		return;
++	}
++
+ 	switch (block_type) {
+ 	case GC_HWIP:
+ 		ip_name = "gc";
 -- 
 2.34.1
 
