@@ -4,68 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FA2BC46467
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Dec 2022 16:27:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EE8FC4167B
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Dec 2022 16:31:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D341B10E3B4;
-	Wed, 28 Dec 2022 16:27:40 +0000 (UTC)
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E95D110E3AF;
- Wed, 28 Dec 2022 16:27:37 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-1442977d77dso19028296fac.6; 
- Wed, 28 Dec 2022 08:27:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0ZhQClWFIcBl0ygmc/QauHM+cjqjyHocrS0cIBaenjQ=;
- b=mzYFFz+0Tgrs80jQw2Rjkv+2EIcYy3QlRXFCE9OM2cUIQDp3TFJp7/owmXfDLXyRFX
- XUTCK1vVnVO3nN7ZzcD72dGOweUVZg6H72G+IlVryj9fKwkbMJMjOvBWN8g4a78X3MUp
- h25c3OroIVhlqtrP2bAzFleubhJjgFjc+193sAGlHxEkerwsV5CkPz6kmO4+16+9olrZ
- ATituJeh/KX0KQyunioLMN6O3I9JAZTAkdE75lxZ3xmONwatr2lr3xTbyneiwry8D3iX
- +PnPU/TVst0IDgU2eB6O0qujgCObaDUdzNiLLAN7RLP/9PH4kmSW+bOQjrm3RknoaoHk
- JC6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=0ZhQClWFIcBl0ygmc/QauHM+cjqjyHocrS0cIBaenjQ=;
- b=0+X0TmrW9yeKyZdaPBLpK5+TxlLxfkpC5JT945SF391/Pui53t9Om/23F7zYSrbJX9
- z2jlMcyMpiBayGasaQEYtvyCkPTfQ5FYBkCMhBbjwnNTqD2xLWnbLhoPXd1+rIQDUh9V
- SoTHeWNM3Q+m5oAmh2IvvsNyzPmSWCZ5xO5W1QGlL6k19nzE69jThb0kbRxezedi7wOY
- dpCbE3Wa7T0v60CLnGFEEDKquPaEbZFPaAFsWZ11OnLj5/SG2tRyzBi/NlbVJQh35DQ6
- Qajp3BFPe489c038H2wJyZhGTWQkyOd8Q9+EcXi+xEtIhVqlaSRELO3UjP6iwedjB5G/
- Bgmw==
-X-Gm-Message-State: AFqh2koGoqzdV/55gaz38YYPbwFTTTTGOI5FJEIdylc7zlZdkFl8LaX/
- Vz3uEd8Svd/yOqy2zBkff7HzPtJ8Jrq72b7K4to=
-X-Google-Smtp-Source: AMrXdXvaXmtJs/5ybExFr2Ig26hmNQ0Hlf+GkXaM5ru6XDLWYtd++30HLB7OHeUwSh+Lb1CU7+Cf/apGkAW0y5Vk1qw=
-X-Received: by 2002:a05:6870:513:b0:13d:51fe:3404 with SMTP id
- j19-20020a056870051300b0013d51fe3404mr1500722oao.183.1672244857038; Wed, 28
- Dec 2022 08:27:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 079C210E3BA;
+	Wed, 28 Dec 2022 16:31:22 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2043.outbound.protection.outlook.com [40.107.92.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53BDF10E3BA;
+ Wed, 28 Dec 2022 16:31:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HRvKj2Y2xU80pP2N8FX2Brxkw/nFtJXlQANdePCo8O4f+SscPCdQKF6mrPm3fQrBmIUsJNZ+uQolX+AZBM8o/tYdDjhsOkjZb/9GUFkP6A8H6wzniVlMpG8M9lGDT0gSsMWv6WZfYPXTmG1SYS11cBvJA7aWnRvxYKHQTHnJUnxoqbN8vDFtOGzwYapV/ObfOm7HiPcx7hrQ+PqhCtn3hUcKJcZeMjHWHopjBgSwCN8DhpNVf1qZCLNeJbMYtxcvDDMGou8FEGraBSsUSxxjYWKAUdwH8OLinLsIcKIll+qalIpw0nKb7CgiNU1hL78eLqwM3k9qHNXYHRL9qKf8qg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3TZHV2AKS8NtkzB2OMhyt5+RyFvGI1SgBVmjItlq+D0=;
+ b=Q/OxzqGMokUsZA8JkE720eAilQ5FA+PWyfpU8fxxlH1LFklUnIXZX3Il+AdJS+UpOntmaTx0S9H7mxUtz7QbQRgV4FPonrqMwKCKKApn8v/EFRE5pG6pXszMzOHF6am51EE+GTfdNSKdk2tSKV3MDIQDqPJ6XJHtjhUWXeB50U2aieuJtrE6wevVOZwoCWLkYh/QcEfSpY98sEs9hgrl12u32nONfIqzkMhGRVmWmeegDaoDd4eVtiprf2m2Tyv7Qtnfm+bV7eqcHX1YCXHyInaurXlijY5eOD4BxC1UKwgO2wPYU9lePHdk1/SeyyvwxSQ1jVp2T6Uygjttq7IUvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3TZHV2AKS8NtkzB2OMhyt5+RyFvGI1SgBVmjItlq+D0=;
+ b=gyzKeqi8lCrN5FXRDZRPEKT1j47dV5j8xZ4wmxvWYledlRuI9WCGUbFLYdi4Mx/sBMpkhfu+wf6TvGUX9SKUqofq2Z+NSDsgor2XwoftipP5wCMAU6M00kqcVmxfjwzgYdlIOwUuHkvyjPmk3tgRPC5iJdW2dfx4qp7P/B9G/kI=
+Received: from MW4PR03CA0073.namprd03.prod.outlook.com (2603:10b6:303:b6::18)
+ by SJ1PR12MB6193.namprd12.prod.outlook.com (2603:10b6:a03:459::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.14; Wed, 28 Dec
+ 2022 16:31:15 +0000
+Received: from CO1NAM11FT089.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b6:cafe::50) by MW4PR03CA0073.outlook.office365.com
+ (2603:10b6:303:b6::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5966.17 via Frontend
+ Transport; Wed, 28 Dec 2022 16:31:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT089.mail.protection.outlook.com (10.13.175.179) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5966.18 via Frontend Transport; Wed, 28 Dec 2022 16:31:15 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 28 Dec
+ 2022 10:31:14 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: Javier Martinez Canillas <javierm@redhat.com>, Alex Deucher
+ <alexander.deucher@amd.com>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2 01/11] drm/amd: Delay removal of the firmware framebuffer
+Date: Wed, 28 Dec 2022 10:30:48 -0600
+Message-ID: <20221228163102.468-2-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221228163102.468-1-mario.limonciello@amd.com>
+References: <20221228163102.468-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
-References: <20221014084641.128280-1-christian.koenig@amd.com>
- <20221014084641.128280-13-christian.koenig@amd.com>
- <1b1fae07-a5c3-e982-94a2-c35ab26f0e91@collabora.com>
- <da420e53-cafd-b46f-90df-ed54e6de09a3@amd.com>
- <9722032c-f1b3-37ff-91d2-6ed965300047@collabora.com>
- <ef732036-895b-0f5c-d06b-d7e4a739541a@gmail.com>
- <74d74689-9c8e-1691-a232-c18271974f37@collabora.com>
- <126a8c1e-69ec-5068-1aad-30f5e7c3ef21@collabora.com>
- <4f5766ab-d31f-d0c8-6b1e-0c7e0fbabfed@amd.com>
- <50308598-324f-f628-a4f1-55da3935a2f5@collabora.com>
- <067ffcf2-5d46-fd37-3df8-0de1714573e4@amd.com>
- <647e876a-9710-c6bd-9cf3-a513d879c36a@collabora.com>
-In-Reply-To: <647e876a-9710-c6bd-9cf3-a513d879c36a@collabora.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 28 Dec 2022 08:27:26 -0800
-Message-ID: <CAF6AEGtKsN=KX3Y7bBCrKBD_GsTnXMG67CxoS8jbM6pqgmY9CA@mail.gmail.com>
-Subject: Re: [PATCH 12/13] drm/scheduler: rework entity flush, kill and fini
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT089:EE_|SJ1PR12MB6193:EE_
+X-MS-Office365-Filtering-Correlation-Id: 09b82481-d060-4c61-4d46-08dae8f0f0b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: E1DAYOdMvQv6rAFpJ6eej7/g5KU7yLa7ZjvMeXYuV3kwjg6ZubJa78tsYLWB8/RfDNBasw1poPCQSoQLELUqgzfcUlSZxQQ3o2IXC5T1GpI6bwE+DYQz2YWXErjk5pfwT5YGUPyQBLjpPL+/mUHd+D9YGTWU4SJoC3TQdy+VQS/C7/+qAlnq495Wtz9mEn9sf/a4ue0GDJWh9EGZ/kxeqHA31031xgFEDf+H/A3EGw2LVUfbyoyIsPNVDfwpgQvCkMm52cQ+hkofqgtKW7TBRn0Cc4qCUwqyCd1s/8eu0U8KfurdfWL0RM73WNEc97bmc2fiIcYP9cz05boRZs4N94ExhsUeXhwkxItYFpJ0o8ikkgz0eQQu3XGrHYMgkeI6yJUATtBdnJYuq/NoBsHTmzw+fGmPC3p7nVUDX3xjeKbUF/Pr2Fs2Ld5Yjch8kx7IChOure7n6bhBEBUO3wAx5U/cP/sJyyM7qshzTV7HsoL2D1x017Ak4TFNrBOvlu2YhFgaQ1MS91s88wJ8qdHecdaY1zYYSdIWsq+wwnz96C3TgCWQnvZbPc4IUmQ8ZKzk5lno9SV/KSD2jF56+q4MzV5UZh76Ckdrl3nwLY5OFoop6df3fG0CNcR1hpsST7aHMZMLri2NRTa22zD9Fk4rUlX9ze/XI+cgtN7HXJ+QhLavA6Nicg3Yli2odXcXMgabEx/7BWE6YrE85/kVnrMUGNz0boE5kWUnY0W0KahrYws=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(346002)(396003)(376002)(39860400002)(451199015)(36840700001)(46966006)(40470700004)(2906002)(54906003)(83380400001)(110136005)(40460700003)(6666004)(44832011)(36756003)(316002)(26005)(1076003)(2616005)(7696005)(478600001)(82740400003)(186003)(356005)(16526019)(81166007)(336012)(82310400005)(47076005)(426003)(36860700001)(86362001)(4326008)(8676002)(8936002)(41300700001)(40480700001)(70206006)(5660300002)(70586007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Dec 2022 16:31:15.2836 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09b82481-d060-4c61-4d46-08dae8f0f0b5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT089.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6193
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,49 +100,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan <jonathan@marek.ca>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org, luben.tuikov@amd.com,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alex.deucher@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Carlos Soriano Sanchez <csoriano@redhat.com>,
+ stable@vger.kernel.org, David
+ Airlie <airlied@gmail.com>, christian.koenig@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 17, 2022 at 7:12 AM Dmitry Osipenko
-<dmitry.osipenko@collabora.com> wrote:
->
-> On 11/17/22 18:09, Christian K=C3=B6nig wrote:
-> > Am 17.11.22 um 15:41 schrieb Dmitry Osipenko:
-> >> [SNIP]
-> >>> drm_sched_entity_flush() should be called from the flush callback fro=
-m
-> >>> the file_operations structure of panfrost. See amdgpu_flush() and
-> >>> amdgpu_ctx_mgr_entity_flush(). This makes sure that we wait for all
-> >>> entities of the process/file descriptor to be flushed out.
-> >>>
-> >>> drm_sched_entity_fini() must be called before you free the memory the
-> >>> entity structure or otherwise we would run into an use after free.
-> >> Right, drm_sched_entity_destroy() invokes these two functions and
-> >> Panfrost uses drm_sched_entity_destroy().
-> >
-> > Than I have no idea what's going wrong here.
-> >
-> > The scheduler should trivially finish with the entity and call
-> > complete(&entity->entity_idle) in it's main loop. No idea why this
-> > doesn't happen. Can you investigate?
->
-> I'll take a closer look. Hoped you may have a quick idea of what's wrong =
-:)
->
+Removing the firmware framebuffer from the driver means that even
+if the driver doesn't support the IP blocks in a GPU it will no
+longer be functional after the driver fails to initialize.
 
-As Jonathan mentioned, the same thing is happening on msm.  I can
-reproduce this by adding an assert in mesa (in this case, triggered
-after 100 draws) and running an app under gdb.  After the assert is
-hit, if I try to exit mesa, it hangs.
+This change will ensure that unsupported IP blocks at least cause
+the driver to work with the EFI framebuffer.
 
-The problem is that we somehow call drm_sched_entity_kill() twice.
-The first time completes, but now the entity_idle completion is no
-longer done, so the second call hangs forever.
+Cc: stable@vger.kernel.org
+Suggested-by: Alex Deucher <alex.deucher@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 6 ------
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
-BR,
--R
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 9a1a5c2864a0..84d83be2087c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -37,6 +37,7 @@
+ #include <linux/pci-p2pdma.h>
+ 
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_aperture.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/amdgpu_drm.h>
+ #include <linux/vgaarb.h>
+@@ -89,6 +90,8 @@ MODULE_FIRMWARE("amdgpu/navi12_gpu_info.bin");
+ #define AMDGPU_MAX_RETRY_LIMIT		2
+ #define AMDGPU_RETRY_SRIOV_RESET(r) ((r) == -EBUSY || (r) == -ETIMEDOUT || (r) == -EINVAL)
+ 
++static const struct drm_driver amdgpu_kms_driver;
++
+ const char *amdgpu_asic_name[] = {
+ 	"TAHITI",
+ 	"PITCAIRN",
+@@ -2140,6 +2143,11 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ 		break;
+ 	}
+ 
++	/* Get rid of things like offb */
++	r = drm_aperture_remove_conflicting_pci_framebuffers(adev->pdev, &amdgpu_kms_driver);
++	if (r)
++		return r;
++
+ 	if (amdgpu_has_atpx() &&
+ 	    (amdgpu_is_atpx_hybrid() ||
+ 	     amdgpu_has_atpx_dgpu_power_cntl()) &&
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index db7e34eacc35..b9f14ec9edb2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -23,7 +23,6 @@
+  */
+ 
+ #include <drm/amdgpu_drm.h>
+-#include <drm/drm_aperture.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_gem.h>
+ #include <drm/drm_vblank.h>
+@@ -2096,11 +2095,6 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ 	}
+ #endif
+ 
+-	/* Get rid of things like offb */
+-	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &amdgpu_kms_driver);
+-	if (ret)
+-		return ret;
+-
+ 	adev = devm_drm_dev_alloc(&pdev->dev, &amdgpu_kms_driver, typeof(*adev), ddev);
+ 	if (IS_ERR(adev))
+ 		return PTR_ERR(adev);
+-- 
+2.34.1
+
