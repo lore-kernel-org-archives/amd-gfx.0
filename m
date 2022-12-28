@@ -4,69 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF31EC4167B
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Dec 2022 16:52:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67BFFC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Dec 2022 22:47:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66F0310E3CF;
-	Wed, 28 Dec 2022 16:52:31 +0000 (UTC)
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDE3C10E1BF;
- Wed, 28 Dec 2022 16:52:28 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- l8-20020a056830054800b006705fd35eceso10133277otb.12; 
- Wed, 28 Dec 2022 08:52:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rcJgDms0q5Mau7rSrXM4H9/ZdrlCbuV2AGO7FUdmI/s=;
- b=RpcOYZwN2T1cO2HJHO5uySGSfcM5qyB6fNRAhCm5aOlBSUH00l70mjCSYXTmCoJWpq
- hUPjw2rbcqpiVI8FONDMjObsKuMB3yiItExMj6zHCor2GpllnOruQpY0RsPROqP5hije
- Cd2AbJK48uh3JBHv/L5KHQS98RwoHSqOzEMoCLRK1CP0NJ8AtxFZco+kc1bis7/WqiwU
- gdNTBTh7tZ3IMCjVO6B/JkFP9+1500KyixHjSviLlkjg8FildhsTQIGSNb3PM4cZBH/9
- PmXsUsFXkH35PowtmPIt3qDzbZjUKJXA+SXHJyGU3P+zuRAerG6T4SQCNfw5x7QlpnQa
- AtnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rcJgDms0q5Mau7rSrXM4H9/ZdrlCbuV2AGO7FUdmI/s=;
- b=wqp2wL9G9KiPTm4cUFpj97I5E/IWGKo6d8Dyfy5Ft/uiamgAT+3dA4MuH5sIFES6ds
- j/cIXtDlBEOrs3injPSceJiNwf/fPqVWYWf3Da2MTLbTgaYQ74ILfkVOZICNVUHFAhZo
- bYpwPF/N52iwXYiYf35v8aHXi3WG7JWidiglMje76kQzVplP+dJUyBucV/HOB50nw7wN
- 4sxudmcDIP4N25qeJul70Q2+HpQ35wsnksLQPLzljfFZIEK6vVe47vVSWznEutlHU1Sg
- ThhN5I0cqc0DvfV61Du/E4o8KC59Zm9cK4v1qBz1mX/0AI23a6Gh6mD29Mq4XoVQYZfL
- epfQ==
-X-Gm-Message-State: AFqh2kpAh6YWWzAmN9CdUVmpRiA1fRJDL9JNe7mEU5kZpqIY1jVRSrb0
- 9/jdZWwTGd0KZgaxDB++yhSHhEMEPc18n6gw3z4=
-X-Google-Smtp-Source: AMrXdXs6ftjwNiEZ583NZ2hb+q4ufv8ybKdnCpcJZbmHS5rOXLIsZU0ue7YE4NFGn5sVhTsegXJQYdL9fiQeL1vBB3Q=
-X-Received: by 2002:a9d:7310:0:b0:678:272b:41e1 with SMTP id
- e16-20020a9d7310000000b00678272b41e1mr1337722otk.328.1672246343957; Wed, 28
- Dec 2022 08:52:23 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A13C10E237;
+	Wed, 28 Dec 2022 22:47:22 +0000 (UTC)
+Received: from mail-41103.protonmail.ch (mail-41103.protonmail.ch
+ [185.70.41.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94EF610E383
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Dec 2022 08:28:01 +0000 (UTC)
+Date: Wed, 28 Dec 2022 08:27:50 +0000
+Authentication-Results: mail-41103.protonmail.ch;
+ dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com
+ header.b="RL82hTzW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1672216073; x=1672475273;
+ bh=+uicGGm0rVG9mzz/n12xPS2vmSjzqNkzmFdxb9rQ2LI=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=RL82hTzWGuigd1S5CdU1vgaxGRQpSGB2L5NKWl4+YVucFrYYsHpePNBv/Iv/fLAz3
+ sMBZ9APhZk/d+caMYHJWJP/x5uSQyoeHFEU/IJPZ/eVvZoelHRtq8qXheIjOY+Qrzg
+ yfKErvo4FSpHSmNYvev7p0TZfH6vemnYx1zNTtXJ8ECH7QzXg51gIDIgogew1pnIxj
+ Bs9BogVEuwJIWv7gjWTDr0GaGnghAQo22egSPFuPPrPgGWMyZTBEzPbZ193rcVr/Ru
+ DTvbzMvXTbh5kQ4WIgY76GehyUulgEXN9K4XTxKLeTpjry7LKZTd3UVbl0ZQO1ASrh
+ 62Djuueaq7Smg==
+To: Aditya Garg <gargaditya08@live.com>
+From: Orlando Chamberlain <redecorating@protonmail.com>
+Subject: Re: [BUG] AMD Radeon Pro 5600M with 8GB of HBM2 memory shows blank
+ screen on Linux
+Message-ID: <20221228192740.1ec44a3d@localhost>
+In-Reply-To: <3AFB9142-2BD0-46F9-AEA9-C9C5D13E68E6@live.com>
+References: <3AFB9142-2BD0-46F9-AEA9-C9C5D13E68E6@live.com>
+Feedback-ID: 28131841:user:proton
 MIME-Version: 1.0
-References: <20221014084641.128280-1-christian.koenig@amd.com>
- <20221014084641.128280-13-christian.koenig@amd.com>
- <1b1fae07-a5c3-e982-94a2-c35ab26f0e91@collabora.com>
- <da420e53-cafd-b46f-90df-ed54e6de09a3@amd.com>
- <9722032c-f1b3-37ff-91d2-6ed965300047@collabora.com>
- <ef732036-895b-0f5c-d06b-d7e4a739541a@gmail.com>
- <74d74689-9c8e-1691-a232-c18271974f37@collabora.com>
- <126a8c1e-69ec-5068-1aad-30f5e7c3ef21@collabora.com>
- <4f5766ab-d31f-d0c8-6b1e-0c7e0fbabfed@amd.com>
- <50308598-324f-f628-a4f1-55da3935a2f5@collabora.com>
- <067ffcf2-5d46-fd37-3df8-0de1714573e4@amd.com>
- <647e876a-9710-c6bd-9cf3-a513d879c36a@collabora.com>
- <CAF6AEGtKsN=KX3Y7bBCrKBD_GsTnXMG67CxoS8jbM6pqgmY9CA@mail.gmail.com>
-In-Reply-To: <CAF6AEGtKsN=KX3Y7bBCrKBD_GsTnXMG67CxoS8jbM6pqgmY9CA@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 28 Dec 2022 08:52:13 -0800
-Message-ID: <CAF6AEGv=GJm5Hyea7a0oDgWDYXw72HwTB4sreeppYVEKCsw0Ew@mail.gmail.com>
-Subject: Re: [PATCH 12/13] drm/scheduler: rework entity flush, kill and fini
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 28 Dec 2022 22:47:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,91 +52,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan <jonathan@marek.ca>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org, luben.tuikov@amd.com,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
+ "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
+ "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 28, 2022 at 8:27 AM Rob Clark <robdclark@gmail.com> wrote:
->
-> On Thu, Nov 17, 2022 at 7:12 AM Dmitry Osipenko
-> <dmitry.osipenko@collabora.com> wrote:
-> >
-> > On 11/17/22 18:09, Christian K=C3=B6nig wrote:
-> > > Am 17.11.22 um 15:41 schrieb Dmitry Osipenko:
-> > >> [SNIP]
-> > >>> drm_sched_entity_flush() should be called from the flush callback f=
-rom
-> > >>> the file_operations structure of panfrost. See amdgpu_flush() and
-> > >>> amdgpu_ctx_mgr_entity_flush(). This makes sure that we wait for all
-> > >>> entities of the process/file descriptor to be flushed out.
-> > >>>
-> > >>> drm_sched_entity_fini() must be called before you free the memory t=
-he
-> > >>> entity structure or otherwise we would run into an use after free.
-> > >> Right, drm_sched_entity_destroy() invokes these two functions and
-> > >> Panfrost uses drm_sched_entity_destroy().
-> > >
-> > > Than I have no idea what's going wrong here.
-> > >
-> > > The scheduler should trivially finish with the entity and call
-> > > complete(&entity->entity_idle) in it's main loop. No idea why this
-> > > doesn't happen. Can you investigate?
-> >
-> > I'll take a closer look. Hoped you may have a quick idea of what's wron=
-g :)
-> >
->
-> As Jonathan mentioned, the same thing is happening on msm.  I can
-> reproduce this by adding an assert in mesa (in this case, triggered
-> after 100 draws) and running an app under gdb.  After the assert is
-> hit, if I try to exit mesa, it hangs.
->
-> The problem is that we somehow call drm_sched_entity_kill() twice.
-> The first time completes, but now the entity_idle completion is no
-> longer done, so the second call hangs forever.
+On Mon, 26 Dec 2022 21:44:06 +1100
+"Aditya Garg" <gargaditya08@live.com> wrote:
 
-Maybe we should:
+> The AMD Radeon Pro 5600M with 8GB of HBM2 memory GPU is found in
+> MacBook Pro 16 inch, 2019 (MacBookPro16,4).
+>=20
+> The GPU fails to work on Linux, thus a blank black screen gets
+> displayed on boot.
+>=20
+> If nomodeset is added as a kernel parameter, we are able to access
+> Linux easily.
+>=20
+> The link below contains the journalctl of the failed boot :-
+> https://gist.github.com/AdityaGarg8/dfe1a1c23bf2b92b640dad89f55b73c7
+>=20
+> Thanks
+> Aditya
 
-------
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
-b/drivers/gpu/drm/scheduler/sched_entity.c
-index fe09e5be79bd..3d7c671d05e3 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -222,7 +226,6 @@ static void drm_sched_entity_kill(struct
-drm_sched_entity *entity)
- long drm_sched_entity_flush(struct drm_sched_entity *entity, long timeout)
- {
-        struct drm_gpu_scheduler *sched;
--       struct task_struct *last_user;
-        long ret =3D timeout;
+I'm not sure if it was an unrelated issue, but on older versions
+including 5.17.1, psp_v11_0_bootloader_load_sysdrv would timeout and
+return -ETIME. I'm not sure when it started having Mode Validation
+Warnings instead, but these errors are what it previously had:
 
-        if (!entity->rq)
-@@ -244,12 +247,6 @@ long drm_sched_entity_flush(struct
-drm_sched_entity *entity, long timeout)
-                                    drm_sched_entity_is_idle(entity));
-        }
+[    5.136077] [drm:psp_hw_start [amdgpu]] *ERROR* PSP load sys drv failed!
+[    5.136233] [drm:psp_hw_init [amdgpu]] *ERROR* PSP firmware loading fail=
+ed
+[    5.136351] [drm:amdgpu_device_fw_loading [amdgpu]] *ERROR* hw_init of I=
+P block <psp> failed -22
+[    5.136458] amdgpu 0000:03:00.0: amdgpu: amdgpu_device_ip_init failed
+[    5.136477] amdgpu 0000:03:00.0: amdgpu: Fatal error during GPU init
+[    5.136540] amdgpu 0000:03:00.0: amdgpu: amdgpu: finishing device.
+[    5.137815] amdgpu: probe of 0000:03:00.0 failed with error -22
 
--       /* For killed process disable any more IBs enqueue right now */
--       last_user =3D cmpxchg(&entity->last_user, current->group_leader, NU=
-LL);
--       if ((!last_user || last_user =3D=3D current->group_leader) &&
--           (current->flags & PF_EXITING) && (current->exit_code =3D=3D SIG=
-KILL))
--               drm_sched_entity_kill(entity);
--
-        return ret;
- }
- EXPORT_SYMBOL(drm_sched_entity_flush);
-----
+The patch used to test this and the kernel log I received from someone
+using that patch are on this page:
+https://gist.github.com/Redecorating/645a62eec4fb06e03f384396f483fa37
 
-Maybe there is a better fix, but special handling for SIGKILL seems
-dubious to me (vs just relying on the drm device fd close path).  I
-wonder if that code path was tested at all?
 
-BR,
--R
