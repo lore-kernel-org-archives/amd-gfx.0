@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17DBDC53210
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Dec 2022 16:32:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A9B8C46467
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Dec 2022 16:32:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9F2D10E3CC;
-	Wed, 28 Dec 2022 16:31:38 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2054.outbound.protection.outlook.com [40.107.94.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F0C910E3CE;
- Wed, 28 Dec 2022 16:31:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AF0510E3D2;
+	Wed, 28 Dec 2022 16:31:41 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2075.outbound.protection.outlook.com [40.107.244.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CE7910E3CC;
+ Wed, 28 Dec 2022 16:31:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ePAxLWS4FAV2AkbSVY8vtomx3ia6Ju5Etqn6UJrb3QAB5lOwyPCzyjNONhAmvNe2pakS2K/rEl3VWJ2dKnQA/HSZBglvW/3A9WgFKiY6+w2KO5bWTtC1behrtBNtHioUQpdnCShHHBGeLikbfveWo/JUY7iRsogvcVnIXLiKhYbFbsBmgrdLMJio6F0EeN4NkbYohDc8WgVIbWtgMo8ha6CT9rtdPs/FOXn4WJkjGBVeeN1mRBEWyQgJdY8WwAuNHAAhY/5AUYMORp7d9+U5enbZvI8HwB2NIIt87Zoxha8PbZuheScdLAzCIUOe5LOr7kP/dbT159BjPBMtoyCTjQ==
+ b=hhJy+XqAKejb5Vfn5y48fvkN8BG65wgYysY8papc5tBfZzqt3bA9xNU5z3xZdMCPBwtFg8hgQYevIrzaxY1WRmoqc/Onh7Uo1D8qJGI1oRSqaBwGjZa8irGzkQVbsNTQemP3i86z6SNqaXigODLsk7r9Ad9mY2MysJ9SvTbOG290UzuHt0B21J3+jwoYjdL8HUEUvFQu6B7qHXNIOjpcxhWPNzg70+2QOv1ZujzgJf52PhM0OYYqQgjyIDjsNzIJO1hkrKFuYSZrY6uAbgn65TF6CZblzKnby+TXBeTtOHQhysPc0rV7Kcb8eU7WdVIS2hhQV6Z5FBmW7YtQhYdGjw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sxUcyHn5B4I03aplh1VL3nE9O/uV93+hQyTDV/TjVSo=;
- b=nTR5oYbCqzF0QIM6DaD5nvNxQzQIzTP2gIbXd8RFlvCUVTX5OvIl2ZPldd2Bh5CdHpvbYnqcFaj98Owuitz/ercwFL/VZ8DX/TbmvdEqoj69FlmLn87G/qofDVphIucQtZ1JhQkI8NjBGwtqtbbYllv5xGLwYtVEsUujkjlFiX6QmVJ3kRzVgbGNmZumMqh37jhyslf9GyihTgzQGqqRP5gbu8O5ENHN/OWzGvGjD1uVo3A/gmyg7VHKnCQnb/9aQeEsYU2/91StlJ3P5yPGdfR/dGkcQE0G8ZCf7UQt4Ygeyf9cydOVntWCnOW+CjrQHaYEzwukdwV1oBI150VRDA==
+ bh=ZR2EGiit3uNYTgAHY4aHEt00NwVCWEzM/b7GAfj7ODQ=;
+ b=clRaizi3UrdxL1V3T+tAiiVOZGe3xdNkCToDMc67GtqfOuVbKFSzdJ43QM9pQuiU2/+vKnLLk89xxvrb9chQ8RjCch2J3KqCxlxaCop8SkPzDT4Ck3oKQ1AGOl3OSVG6YLFH5Uh45qQ98+hXUmHPZFw+gzGpOoX4agTHtmS8gYYfFN+PS0mDMJtcJsxAv2Y/FdpbvPSO7tqOKCxxCjysnyWVSDQgEYDmWGSNcQ7bCTjywLOLhnxVaGPG60QPLLE5WKff4bKw5rMSI38Km3sTi2EFTxFYA8AamKu6qoeubhh31sllFG9M5KiWyoUxyQnrY07rjd6rK4wL3ro6/trpcA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sxUcyHn5B4I03aplh1VL3nE9O/uV93+hQyTDV/TjVSo=;
- b=taFvX/e+oggNlxNB7UrRl0h9KkP1gEhvGjg57OYRASB9HZpnzj73M3q+GEeDittxS/ANK5IPb4jqMmZSvNhE6vffsiaGhaX38ublsUxhHq84t1emT0KnB6YJN8YMm6p6p9wOl9+ki0ABUErvqG4xswE6ntxARxVuQ7GW8xeA3ck=
-Received: from MW2PR2101CA0019.namprd21.prod.outlook.com (2603:10b6:302:1::32)
- by PH7PR12MB7428.namprd12.prod.outlook.com (2603:10b6:510:203::9)
+ bh=ZR2EGiit3uNYTgAHY4aHEt00NwVCWEzM/b7GAfj7ODQ=;
+ b=1ouBzeEJNXeUBIktsK2gPFfZBQhih+CZO1RF32LomA9FS9EBXdWPyp1KDGfmbjMhVklhUcSqSSgdQMzOpmPT8q6jkxO/AHM4VnppvwNoBNwDtb0vUek4D5BIbikzwD5uvHmAL4qbUXZ6eyVq5rSkwAPXVSabZAFXSz4TYG+X74g=
+Received: from MW2PR2101CA0036.namprd21.prod.outlook.com (2603:10b6:302:1::49)
+ by IA1PR12MB6089.namprd12.prod.outlook.com (2603:10b6:208:3ef::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.16; Wed, 28 Dec
- 2022 16:31:28 +0000
+ 2022 16:31:23 +0000
 Received: from CO1NAM11FT076.eop-nam11.prod.protection.outlook.com
- (2603:10b6:302:1:cafe::76) by MW2PR2101CA0019.outlook.office365.com
- (2603:10b6:302:1::32) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:302:1:cafe::13) by MW2PR2101CA0036.outlook.office365.com
+ (2603:10b6:302:1::49) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.7 via Frontend
- Transport; Wed, 28 Dec 2022 16:31:28 +0000
+ Transport; Wed, 28 Dec 2022 16:31:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT076.mail.protection.outlook.com (10.13.174.152) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5944.16 via Frontend Transport; Wed, 28 Dec 2022 16:31:28 +0000
+ 15.20.5944.16 via Frontend Transport; Wed, 28 Dec 2022 16:31:22 +0000
 Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 28 Dec
- 2022 10:31:27 -0600
+ 2022 10:31:20 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: Javier Martinez Canillas <javierm@redhat.com>, Alex Deucher
  <alexander.deucher@amd.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 11/11] drm/amd: Request PSP microcode during IP discovery
-Date: Wed, 28 Dec 2022 10:30:58 -0600
-Message-ID: <20221228163102.468-12-mario.limonciello@amd.com>
+Subject: [PATCH v2 06/11] drm/amd: Request VCN microcode during IP discovery
+Date: Wed, 28 Dec 2022 10:30:53 -0600
+Message-ID: <20221228163102.468-7-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221228163102.468-1-mario.limonciello@amd.com>
 References: <20221228163102.468-1-mario.limonciello@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT076:EE_|PH7PR12MB7428:EE_
-X-MS-Office365-Filtering-Correlation-Id: d91ce792-67ac-4235-0112-08dae8f0f8a2
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT076:EE_|IA1PR12MB6089:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ae692b8-f308-47ca-21e4-08dae8f0f52b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3S2lFyt+KNzzrM8p342GU1r0Z5YWLtH8GEq2iuwJ2fwHubWxdbsgW82V6pboT9+g55rctvVzYgcEtddFoEzoRDxcB4/oRUtqcsFQvyF8bxMy8Sue3yunX+IZ4U1Wyq4YLE02hg7XqwGlD+uju2oWKflqRvNmKU31NCMYnG5dwPUH23ytcsG/oY8R3npDXnSt2rxiwd+ZGsIE4XG12jDypcpvROU5B6+Y/GCjXMLRiTuxdu/x4XBfExxXL0smkEDs5leSrNNfTvNoxH2RgNH9gwJC151QSHMgx2ozlvosQ6JxHjg0dso87cAooMBCLWWiigl2yTmyc5bEoc0poM3z+kDaFsYgLcuM/P/V3mq8efzXGqoviFFQ1m6IstM2vhhDw/jdz+ylEPUjroXTu7hLQ1pmeZhP6TnDFcugavjQ7+Xk259qMdJN3tlVq55shfjfkV9RcB3DJgleZN7PyHrbs5QZt33rfHKunTqaDxS/nejKb5hq61Cz9PIJcZsCkRWhaMv5JUCfPu6hR6Y66ZgMvOUvmPRWN5BdILL3hXuUcVMuQADqTSpSr1kj9FNmmwDPTBbLap6aqX3F7aRnU0ABHsHmTKVKV7rzjQNGKxAuDhG5Vh9z+I+EMFcEtQ52AcKrHkTlx27mYjSMe0W4PNX6MeGjBShhXFeFsLkXsv1gO3XJjhtgSwzAWZGockvqDiQVW9bKMSscgQCBg/OGZ6owicNJ9+6zO0krH5dk3OBCfdg=
+X-Microsoft-Antispam-Message-Info: NF1iLRpY2mCi6iyBsXUVveP0f3QXVYQAqv41X/n5jM+y6+jjuFERcDKa43iltVUwqOPeJmYNozllhbGX8peRmIJAbdeFWxNFS2kNkoWWYadO2TQoRb1LizuaJCPaalR+rNJWYU6sc5hapx3grzBvepmcQbFdyhncTo/s3uou4qYoAz6ArfHzIqRLPIogOC7fhJ7qqlV6CqZiH6Wz5eiHNPC/cwJ+Wqa2URG5Slk7WrpdNDlOXN+LBeohvPe73ullqjYBkbVhzsnpGig8heblUTUDmBfLTUVWJ7yW1lQfT9QeL/bsNtmNgvp/l9TQNVX2iWTI+TIgfj13l9rzg+luLSP9pLYdm4TlhJR9rXFVVj5hELZRpVScKzWGna1iAg+vsqMkoB9D0qljseQtmBMrZyuDmvag16kJSU/JNiIJxM0H1kHAA34jT0V+qIRRYCA7rEU0M71XBYXx0wjyf2ileC+gZYXBeX6crCgEHZwsl17K8oPL3PyxvPV3SBYWFF6t9ePpJ84+FwCGALHqr0aYp6UHVcGdiqv9fot7F56LZRZdrfKIBIaGq2MUo0I2M5T1xz+qHzfPTy+X2tenhj8tzGUyw+xcZyOl9QTSBe4WF0sm2AsbNocG34EmS1eNnX1REBsvN8ptU4gkKBxEyOgsbQ89VN0pMDSesY9jD0Zbnz3D1KdR38Gfwu4asH2XYIDyeWrcAgQ4GQ80LTFSZU+d4f/Pd+e1+PQjCk9O7R5zV50=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(376002)(396003)(346002)(39860400002)(451199015)(40470700004)(36840700001)(46966006)(4326008)(8676002)(86362001)(70206006)(2906002)(41300700001)(70586007)(8936002)(44832011)(5660300002)(30864003)(40480700001)(83380400001)(478600001)(1076003)(2616005)(26005)(16526019)(6666004)(47076005)(426003)(186003)(40460700003)(7696005)(82740400003)(81166007)(336012)(356005)(110136005)(316002)(54906003)(36860700001)(82310400005)(36756003)(36900700001);
+ SFS:(13230022)(4636009)(346002)(39860400002)(376002)(136003)(396003)(451199015)(40470700004)(46966006)(36840700001)(40480700001)(356005)(36756003)(40460700003)(110136005)(316002)(86362001)(54906003)(81166007)(6666004)(2616005)(478600001)(8936002)(5660300002)(2906002)(44832011)(4326008)(70586007)(8676002)(70206006)(41300700001)(36860700001)(336012)(47076005)(82740400003)(1076003)(7696005)(186003)(26005)(426003)(16526019)(82310400005)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Dec 2022 16:31:28.5789 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d91ce792-67ac-4235-0112-08dae8f0f8a2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Dec 2022 16:31:22.7667 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ae692b8-f308-47ca-21e4-08dae8f0f52b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT076.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7428
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6089
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,879 +108,272 @@ Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, dri-devel@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If PSP microcode is required but not available during early init, the
-firmware framebuffer will have already been released and the screen will
+If VCN microcode is not available during early init, the microcode
+framebuffer will have already been released and the screen will
 freeze.
 
-Move the request for PSP microcode into the IP discovery phase
+Move the request for VCN microcode into the IP discovery phase
 so that if it's not available, IP discovery will fail.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 120 ++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |   2 -
- drivers/gpu/drm/amd/amdgpu/psp_v10_0.c        | 106 +++--------
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c        | 165 ++++--------------
- drivers/gpu/drm/amd/amdgpu/psp_v12_0.c        | 102 +++--------
- drivers/gpu/drm/amd/amdgpu/psp_v13_0.c        |  82 ---------
- drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c      |  36 ----
- drivers/gpu/drm/amd/amdgpu/psp_v3_1.c         |  36 ----
- 8 files changed, 202 insertions(+), 447 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 41 ++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       | 85 +------------------
+ 2 files changed, 41 insertions(+), 85 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index c8c538a768fe..6199ab078bc7 100644
+index f51ff86293b3..1c26a3a60394 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -158,6 +158,40 @@ MODULE_FIRMWARE("amdgpu/gc_11_0_2_mes1.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes1.bin");
+@@ -124,6 +124,27 @@ MODULE_FIRMWARE("amdgpu/sdma_6_0_1.bin");
+ MODULE_FIRMWARE("amdgpu/sdma_6_0_2.bin");
+ MODULE_FIRMWARE("amdgpu/sdma_6_0_3.bin");
  
-+MODULE_FIRMWARE("amdgpu/aldebaran_sos.bin");
-+MODULE_FIRMWARE("amdgpu/aldebaran_ta.bin");
-+MODULE_FIRMWARE("amdgpu/aldebaran_cap.bin");
-+MODULE_FIRMWARE("amdgpu/green_sardine_asd.bin");
-+MODULE_FIRMWARE("amdgpu/green_sardine_ta.bin");
-+MODULE_FIRMWARE("amdgpu/raven_asd.bin");
-+MODULE_FIRMWARE("amdgpu/picasso_asd.bin");
-+MODULE_FIRMWARE("amdgpu/raven2_asd.bin");
-+MODULE_FIRMWARE("amdgpu/picasso_ta.bin");
-+MODULE_FIRMWARE("amdgpu/raven2_ta.bin");
-+MODULE_FIRMWARE("amdgpu/raven_ta.bin");
-+MODULE_FIRMWARE("amdgpu/renoir_asd.bin");
-+MODULE_FIRMWARE("amdgpu/renoir_ta.bin");
-+MODULE_FIRMWARE("amdgpu/yellow_carp_toc.bin");
-+MODULE_FIRMWARE("amdgpu/yellow_carp_ta.bin");
-+MODULE_FIRMWARE("amdgpu/vega10_sos.bin");
-+MODULE_FIRMWARE("amdgpu/vega10_asd.bin");
-+MODULE_FIRMWARE("amdgpu/vega10_cap.bin");
-+MODULE_FIRMWARE("amdgpu/vega12_sos.bin");
-+MODULE_FIRMWARE("amdgpu/vega12_asd.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_5_toc.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_5_ta.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_8_toc.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_8_ta.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_0_sos.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_0_ta.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_7_sos.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_7_ta.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_10_sos.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_10_ta.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_4_toc.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_4_ta.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_11_toc.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_11_ta.bin");
++MODULE_FIRMWARE("amdgpu/raven_vcn.bin");
++MODULE_FIRMWARE("amdgpu/picasso_vcn.bin");
++MODULE_FIRMWARE("amdgpu/raven2_vcn.bin");
++MODULE_FIRMWARE("amdgpu/arcturus_vcn.bin");
++MODULE_FIRMWARE("amdgpu/renoir_vcn.bin");
++MODULE_FIRMWARE("amdgpu/green_sardine_vcn.bin");
++MODULE_FIRMWARE("amdgpu/aldebaran_vcn.bin");
++MODULE_FIRMWARE("amdgpu/navi10_vcn.bin");
++MODULE_FIRMWARE("amdgpu/navi14_vcn.bin");
++MODULE_FIRMWARE("amdgpu/navi12_vcn.bin");
++MODULE_FIRMWARE("amdgpu/sienna_cichlid_vcn.bin");
++MODULE_FIRMWARE("amdgpu/navy_flounder_vcn.bin");
++MODULE_FIRMWARE("amdgpu/vangogh_vcn.bin");
++MODULE_FIRMWARE("amdgpu/dimgrey_cavefish_vcn.bin");
++MODULE_FIRMWARE("amdgpu/beige_goby_vcn.bin");
++MODULE_FIRMWARE("amdgpu/yellow_carp_vcn.bin");
++MODULE_FIRMWARE("amdgpu/vcn_3_1_2.bin");
++MODULE_FIRMWARE("amdgpu/vcn_4_0_0.bin");
++MODULE_FIRMWARE("amdgpu/vcn_4_0_2.bin");
++MODULE_FIRMWARE("amdgpu/vcn_4_0_4.bin");
++
+ static const char *hw_id_names[HW_ID_MAX] = {
+ 	[MP1_HWID]		= "MP1",
+ 	[MP2_HWID]		= "MP2",
+@@ -1922,8 +1943,23 @@ static int amdgpu_discovery_set_sdma_ip_blocks(struct amdgpu_device *adev)
+ 	return 0;
+ }
  
- /* gfx9 */
- MODULE_FIRMWARE("amdgpu/vega10_ce.bin");
-@@ -1858,12 +1892,30 @@ static int amdgpu_discovery_set_ih_ip_blocks(struct amdgpu_device *adev)
- 
- static int amdgpu_discovery_set_psp_ip_blocks(struct amdgpu_device *adev)
++static int amdgpu_discovery_load_vcn_fw(struct amdgpu_device *adev,
++					char *fname)
++{
++	char fw_name[40];
++
++	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", fname);
++
++	return request_firmware(&adev->vcn.fw, fw_name, adev->dev);
++}
++
+ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
  {
 +	char ucode_prefix[30];
-+	int r;
++	int r = 0;
 +
-+	amdgpu_ucode_ip_version_decode(adev, MP0_HWIP, ucode_prefix, sizeof(ucode_prefix));
-+	adev->psp.adev = adev;
++	amdgpu_ucode_ip_version_decode(adev, UVD_HWIP, ucode_prefix, sizeof(ucode_prefix));
 +
- 	switch (adev->ip_versions[MP0_HWIP][0]) {
- 	case IP_VERSION(9, 0, 0):
-+		r = psp_init_sos_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		r = psp_init_asd_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
- 		amdgpu_device_ip_block_add(adev, &psp_v3_1_ip_block);
+ 	if (adev->ip_versions[VCE_HWIP][0]) {
+ 		switch (adev->ip_versions[UVD_HWIP][0]) {
+ 		case IP_VERSION(7, 0, 0):
+@@ -2001,7 +2037,10 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
+ 			return -EINVAL;
+ 		}
+ 	}
+-	return 0;
++	if (*ucode_prefix)
++		r = amdgpu_discovery_load_vcn_fw(adev, ucode_prefix);
++	return r;
++}
+ }
+ 
+ static int amdgpu_discovery_set_mes_ip_blocks(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index a23e26b272b4..370c9644a3b3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -35,55 +35,11 @@
+ #include "amdgpu_vcn.h"
+ #include "soc15d.h"
+ 
+-/* Firmware Names */
+-#define FIRMWARE_RAVEN		"amdgpu/raven_vcn.bin"
+-#define FIRMWARE_PICASSO	"amdgpu/picasso_vcn.bin"
+-#define FIRMWARE_RAVEN2		"amdgpu/raven2_vcn.bin"
+-#define FIRMWARE_ARCTURUS	"amdgpu/arcturus_vcn.bin"
+-#define FIRMWARE_RENOIR		"amdgpu/renoir_vcn.bin"
+-#define FIRMWARE_GREEN_SARDINE	"amdgpu/green_sardine_vcn.bin"
+-#define FIRMWARE_NAVI10		"amdgpu/navi10_vcn.bin"
+-#define FIRMWARE_NAVI14		"amdgpu/navi14_vcn.bin"
+-#define FIRMWARE_NAVI12		"amdgpu/navi12_vcn.bin"
+-#define FIRMWARE_SIENNA_CICHLID	"amdgpu/sienna_cichlid_vcn.bin"
+-#define FIRMWARE_NAVY_FLOUNDER	"amdgpu/navy_flounder_vcn.bin"
+-#define FIRMWARE_VANGOGH	"amdgpu/vangogh_vcn.bin"
+-#define FIRMWARE_DIMGREY_CAVEFISH	"amdgpu/dimgrey_cavefish_vcn.bin"
+-#define FIRMWARE_ALDEBARAN	"amdgpu/aldebaran_vcn.bin"
+-#define FIRMWARE_BEIGE_GOBY	"amdgpu/beige_goby_vcn.bin"
+-#define FIRMWARE_YELLOW_CARP	"amdgpu/yellow_carp_vcn.bin"
+-#define FIRMWARE_VCN_3_1_2	"amdgpu/vcn_3_1_2.bin"
+-#define FIRMWARE_VCN4_0_0	"amdgpu/vcn_4_0_0.bin"
+-#define FIRMWARE_VCN4_0_2	"amdgpu/vcn_4_0_2.bin"
+-#define FIRMWARE_VCN4_0_4      "amdgpu/vcn_4_0_4.bin"
+-
+-MODULE_FIRMWARE(FIRMWARE_RAVEN);
+-MODULE_FIRMWARE(FIRMWARE_PICASSO);
+-MODULE_FIRMWARE(FIRMWARE_RAVEN2);
+-MODULE_FIRMWARE(FIRMWARE_ARCTURUS);
+-MODULE_FIRMWARE(FIRMWARE_RENOIR);
+-MODULE_FIRMWARE(FIRMWARE_GREEN_SARDINE);
+-MODULE_FIRMWARE(FIRMWARE_ALDEBARAN);
+-MODULE_FIRMWARE(FIRMWARE_NAVI10);
+-MODULE_FIRMWARE(FIRMWARE_NAVI14);
+-MODULE_FIRMWARE(FIRMWARE_NAVI12);
+-MODULE_FIRMWARE(FIRMWARE_SIENNA_CICHLID);
+-MODULE_FIRMWARE(FIRMWARE_NAVY_FLOUNDER);
+-MODULE_FIRMWARE(FIRMWARE_VANGOGH);
+-MODULE_FIRMWARE(FIRMWARE_DIMGREY_CAVEFISH);
+-MODULE_FIRMWARE(FIRMWARE_BEIGE_GOBY);
+-MODULE_FIRMWARE(FIRMWARE_YELLOW_CARP);
+-MODULE_FIRMWARE(FIRMWARE_VCN_3_1_2);
+-MODULE_FIRMWARE(FIRMWARE_VCN4_0_0);
+-MODULE_FIRMWARE(FIRMWARE_VCN4_0_2);
+-MODULE_FIRMWARE(FIRMWARE_VCN4_0_4);
+-
+ static void amdgpu_vcn_idle_work_handler(struct work_struct *work);
+ 
+ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ {
+ 	unsigned long bo_size;
+-	const char *fw_name;
+ 	const struct common_firmware_header *hdr;
+ 	unsigned char fw_check;
+ 	unsigned int fw_shared_size, log_offset;
+@@ -99,46 +55,27 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 	switch (adev->ip_versions[UVD_HWIP][0]) {
+ 	case IP_VERSION(1, 0, 0):
+ 	case IP_VERSION(1, 0, 1):
+-		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
+-			fw_name = FIRMWARE_RAVEN2;
+-		else if (adev->apu_flags & AMD_APU_IS_PICASSO)
+-			fw_name = FIRMWARE_PICASSO;
+-		else
+-			fw_name = FIRMWARE_RAVEN;
+-		break;
+ 	case IP_VERSION(2, 5, 0):
+-		fw_name = FIRMWARE_ARCTURUS;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
  		break;
- 	case IP_VERSION(10, 0, 0):
- 	case IP_VERSION(10, 0, 1):
-+		r = psp_init_asd_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		r = psp_init_ta_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
- 		amdgpu_device_ip_block_add(adev, &psp_v10_0_ip_block);
+ 	case IP_VERSION(2, 2, 0):
+-		if (adev->apu_flags & AMD_APU_IS_RENOIR)
+-			fw_name = FIRMWARE_RENOIR;
+-		else
+-			fw_name = FIRMWARE_GREEN_SARDINE;
+-
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
  		break;
- 	case IP_VERSION(11, 0, 0):
-@@ -1871,11 +1923,34 @@ static int amdgpu_discovery_set_psp_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(11, 0, 4):
- 	case IP_VERSION(11, 0, 5):
- 	case IP_VERSION(11, 0, 9):
-+		r = psp_init_sos_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		r = psp_init_asd_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		r = psp_init_ta_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		break;
- 	case IP_VERSION(11, 0, 7):
- 	case IP_VERSION(11, 0, 11):
- 	case IP_VERSION(11, 0, 12):
- 	case IP_VERSION(11, 0, 13):
-+		r = psp_init_sos_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		r = psp_init_ta_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		break;
- 	case IP_VERSION(11, 5, 0):
-+		r = psp_init_asd_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		r = psp_init_toc_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
- 		amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+ 	case IP_VERSION(2, 6, 0):
+-		fw_name = FIRMWARE_ALDEBARAN;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
  		break;
- 	case IP_VERSION(11, 0, 8):
-@@ -1883,20 +1958,57 @@ static int amdgpu_discovery_set_psp_ip_blocks(struct amdgpu_device *adev)
+ 	case IP_VERSION(2, 0, 0):
+-		fw_name = FIRMWARE_NAVI10;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
  		break;
- 	case IP_VERSION(11, 0, 3):
- 	case IP_VERSION(12, 0, 1):
-+		r = psp_init_asd_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		r = psp_init_ta_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
- 		amdgpu_device_ip_block_add(adev, &psp_v12_0_ip_block);
+ 	case IP_VERSION(2, 0, 2):
+-		if (adev->asic_type == CHIP_NAVI12)
+-			fw_name = FIRMWARE_NAVI12;
+-		else
+-			fw_name = FIRMWARE_NAVI14;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+@@ -146,58 +83,46 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 	case IP_VERSION(3, 0, 0):
+ 	case IP_VERSION(3, 0, 64):
+ 	case IP_VERSION(3, 0, 192):
+-		if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 3, 0))
+-			fw_name = FIRMWARE_SIENNA_CICHLID;
+-		else
+-			fw_name = FIRMWARE_NAVY_FLOUNDER;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
  		break;
--	case IP_VERSION(13, 0, 0):
--	case IP_VERSION(13, 0, 1):
- 	case IP_VERSION(13, 0, 2):
-+		r = psp_init_sos_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		/* It's not necessary to load ras ta on Guest side */
-+		if (!amdgpu_sriov_vf(adev)) {
-+			r = psp_init_ta_microcode(&adev->psp, ucode_prefix);
-+			if (r)
-+				return r;
-+		}
-+		amdgpu_device_ip_block_add(adev, &psp_v13_0_ip_block);
-+		break;
-+	case IP_VERSION(13, 0, 1):
- 	case IP_VERSION(13, 0, 3):
- 	case IP_VERSION(13, 0, 5):
--	case IP_VERSION(13, 0, 7):
- 	case IP_VERSION(13, 0, 8):
--	case IP_VERSION(13, 0, 10):
- 	case IP_VERSION(13, 0, 11):
-+		r = psp_init_toc_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		r = psp_init_ta_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		amdgpu_device_ip_block_add(adev, &psp_v13_0_ip_block);
-+		break;
-+	case IP_VERSION(13, 0, 0):
-+	case IP_VERSION(13, 0, 7):
-+	case IP_VERSION(13, 0, 10):
-+		r = psp_init_sos_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		r = psp_init_ta_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
- 		amdgpu_device_ip_block_add(adev, &psp_v13_0_ip_block);
+ 	case IP_VERSION(3, 0, 2):
+-		fw_name = FIRMWARE_VANGOGH;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
  		break;
- 	case IP_VERSION(13, 0, 4):
-+		r = psp_init_toc_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
-+		r = psp_init_ta_microcode(&adev->psp, ucode_prefix);
-+		if (r)
-+			return r;
- 		amdgpu_device_ip_block_add(adev, &psp_v13_0_4_ip_block);
+ 	case IP_VERSION(3, 0, 16):
+-		fw_name = FIRMWARE_DIMGREY_CAVEFISH;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
  		break;
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 7a2fc920739b..f7103b3354c6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -188,8 +188,6 @@ static int psp_early_init(void *handle)
+ 	case IP_VERSION(3, 0, 33):
+-		fw_name = FIRMWARE_BEIGE_GOBY;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(3, 1, 1):
+-		fw_name = FIRMWARE_YELLOW_CARP;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(3, 1, 2):
+-		fw_name = FIRMWARE_VCN_3_1_2;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(4, 0, 0):
+-		fw_name = FIRMWARE_VCN4_0_0;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(4, 0, 2):
+-		fw_name = FIRMWARE_VCN4_0_2;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(4, 0, 4):
+-		fw_name = FIRMWARE_VCN4_0_4;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+@@ -206,17 +131,9 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
  		return -EINVAL;
  	}
  
--	psp->adev = adev;
--
- 	psp_check_pmfw_centralized_cstate_management(psp);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
-index 9de46fa8f46c..710445d39df1 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
-@@ -37,93 +37,37 @@
- #include "gc/gc_9_1_offset.h"
- #include "sdma0/sdma0_4_1_offset.h"
- 
--MODULE_FIRMWARE("amdgpu/raven_asd.bin");
--MODULE_FIRMWARE("amdgpu/picasso_asd.bin");
--MODULE_FIRMWARE("amdgpu/raven2_asd.bin");
--MODULE_FIRMWARE("amdgpu/picasso_ta.bin");
--MODULE_FIRMWARE("amdgpu/raven2_ta.bin");
--MODULE_FIRMWARE("amdgpu/raven_ta.bin");
--
- static int psp_v10_0_init_microcode(struct psp_context *psp)
- {
- 	struct amdgpu_device *adev = psp->adev;
--	const char *chip_name;
--	char fw_name[30];
--	int err = 0;
- 	const struct ta_firmware_header_v1_0 *ta_hdr;
--	DRM_DEBUG("\n");
--
--	switch (adev->asic_type) {
--	case CHIP_RAVEN:
--		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
--			chip_name = "raven2";
--		else if (adev->apu_flags & AMD_APU_IS_PICASSO)
--			chip_name = "picasso";
--		else
--			chip_name = "raven";
--		break;
--	default: BUG();
--	}
--
--	err = psp_init_asd_microcode(psp, chip_name);
--	if (err)
--		goto out;
--
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", chip_name);
--	err = request_firmware(&adev->psp.ta_fw, fw_name, adev->dev);
--	if (err) {
--		release_firmware(adev->psp.ta_fw);
--		adev->psp.ta_fw = NULL;
--		dev_info(adev->dev,
--			 "psp v10.0: Failed to load firmware \"%s\"\n",
--			 fw_name);
--	} else {
--		err = amdgpu_ucode_validate(adev->psp.ta_fw);
--		if (err)
--			goto out2;
--
--		ta_hdr = (const struct ta_firmware_header_v1_0 *)
--				 adev->psp.ta_fw->data;
--		adev->psp.hdcp_context.context.bin_desc.fw_version =
--			le32_to_cpu(ta_hdr->hdcp.fw_version);
--		adev->psp.hdcp_context.context.bin_desc.size_bytes =
--			le32_to_cpu(ta_hdr->hdcp.size_bytes);
--		adev->psp.hdcp_context.context.bin_desc.start_addr =
--			(uint8_t *)ta_hdr +
--			le32_to_cpu(ta_hdr->header.ucode_array_offset_bytes);
--
--		adev->psp.dtm_context.context.bin_desc.fw_version =
--			le32_to_cpu(ta_hdr->dtm.fw_version);
--		adev->psp.dtm_context.context.bin_desc.size_bytes =
--			le32_to_cpu(ta_hdr->dtm.size_bytes);
--		adev->psp.dtm_context.context.bin_desc.start_addr =
--			(uint8_t *)adev->psp.hdcp_context.context.bin_desc.start_addr +
--			le32_to_cpu(ta_hdr->dtm.offset_bytes);
--
--		adev->psp.securedisplay_context.context.bin_desc.fw_version =
--			le32_to_cpu(ta_hdr->securedisplay.fw_version);
--		adev->psp.securedisplay_context.context.bin_desc.size_bytes =
--			le32_to_cpu(ta_hdr->securedisplay.size_bytes);
--		adev->psp.securedisplay_context.context.bin_desc.start_addr =
--			(uint8_t *)adev->psp.hdcp_context.context.bin_desc.start_addr +
--			le32_to_cpu(ta_hdr->securedisplay.offset_bytes);
--
--		adev->psp.ta_fw_version = le32_to_cpu(ta_hdr->header.ucode_version);
--	}
- 
--	return 0;
-+	ta_hdr = (const struct ta_firmware_header_v1_0 *)
-+			 adev->psp.ta_fw->data;
-+	adev->psp.hdcp_context.context.bin_desc.fw_version =
-+		le32_to_cpu(ta_hdr->hdcp.fw_version);
-+	adev->psp.hdcp_context.context.bin_desc.size_bytes =
-+		le32_to_cpu(ta_hdr->hdcp.size_bytes);
-+	adev->psp.hdcp_context.context.bin_desc.start_addr =
-+		(uint8_t *)ta_hdr +
-+		le32_to_cpu(ta_hdr->header.ucode_array_offset_bytes);
-+	adev->psp.dtm_context.context.bin_desc.fw_version =
-+		le32_to_cpu(ta_hdr->dtm.fw_version);
-+	adev->psp.dtm_context.context.bin_desc.size_bytes =
-+		le32_to_cpu(ta_hdr->dtm.size_bytes);
-+	adev->psp.dtm_context.context.bin_desc.start_addr =
-+		(uint8_t *)adev->psp.hdcp_context.context.bin_desc.start_addr +
-+		le32_to_cpu(ta_hdr->dtm.offset_bytes);
-+	adev->psp.securedisplay_context.context.bin_desc.fw_version =
-+		le32_to_cpu(ta_hdr->securedisplay.fw_version);
-+	adev->psp.securedisplay_context.context.bin_desc.size_bytes =
-+		le32_to_cpu(ta_hdr->securedisplay.size_bytes);
-+	adev->psp.securedisplay_context.context.bin_desc.start_addr =
-+		(uint8_t *)adev->psp.hdcp_context.context.bin_desc.start_addr +
-+		le32_to_cpu(ta_hdr->securedisplay.offset_bytes);
-+	adev->psp.ta_fw_version = le32_to_cpu(ta_hdr->header.ucode_version);
- 
--out2:
--	release_firmware(adev->psp.ta_fw);
--	adev->psp.ta_fw = NULL;
--out:
--	if (err) {
--		dev_err(adev->dev,
--			"psp v10.0: Failed to load firmware \"%s\"\n",
+-	r = request_firmware(&adev->vcn.fw, fw_name, adev->dev);
+-	if (r) {
+-		dev_err(adev->dev, "amdgpu_vcn: Can't load firmware \"%s\"\n",
 -			fw_name);
+-		return r;
 -	}
 -
--	return err;
-+	return 0;
- }
- 
- static int psp_v10_0_ring_create(struct psp_context *psp,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index bd3e3e23a939..880fd90311e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -88,160 +88,63 @@ MODULE_FIRMWARE("amdgpu/beige_goby_ta.bin");
- static int psp_v11_0_init_microcode(struct psp_context *psp)
- {
- 	struct amdgpu_device *adev = psp->adev;
--	const char *chip_name;
--	char fw_name[PSP_FW_NAME_LEN];
--	int err = 0;
- 	const struct ta_firmware_header_v1_0 *ta_hdr;
- 
- 	DRM_DEBUG("\n");
- 
--	switch (adev->ip_versions[MP0_HWIP][0]) {
--	case IP_VERSION(11, 0, 2):
--		chip_name = "vega20";
--		break;
--	case IP_VERSION(11, 0, 0):
--		chip_name = "navi10";
--		break;
--	case IP_VERSION(11, 0, 5):
--		chip_name = "navi14";
--		break;
--	case IP_VERSION(11, 0, 9):
--		chip_name = "navi12";
--		break;
--	case IP_VERSION(11, 0, 4):
--		chip_name = "arcturus";
--		break;
--	case IP_VERSION(11, 0, 7):
--		chip_name = "sienna_cichlid";
--		break;
--	case IP_VERSION(11, 0, 11):
--		chip_name = "navy_flounder";
--		break;
--	case IP_VERSION(11, 5, 0):
--		chip_name = "vangogh";
--		break;
--	case IP_VERSION(11, 0, 12):
--		chip_name = "dimgrey_cavefish";
--		break;
--	case IP_VERSION(11, 0, 13):
--		chip_name = "beige_goby";
--		break;
--	default:
--		BUG();
--	}
--
--
- 	switch (adev->ip_versions[MP0_HWIP][0]) {
- 	case IP_VERSION(11, 0, 2):
- 	case IP_VERSION(11, 0, 4):
--		err = psp_init_sos_microcode(psp, chip_name);
--		if (err)
--			return err;
--		err = psp_init_asd_microcode(psp, chip_name);
--		if (err)
--			return err;
--		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", chip_name);
--		err = request_firmware(&adev->psp.ta_fw, fw_name, adev->dev);
--		if (err) {
--			release_firmware(adev->psp.ta_fw);
--			adev->psp.ta_fw = NULL;
--			dev_info(adev->dev,
--				 "psp v11.0: Failed to load firmware \"%s\"\n", fw_name);
--		} else {
--			err = amdgpu_ucode_validate(adev->psp.ta_fw);
--			if (err)
--				goto out2;
--
--			ta_hdr = (const struct ta_firmware_header_v1_0 *)adev->psp.ta_fw->data;
--			adev->psp.xgmi_context.context.bin_desc.fw_version =
--				le32_to_cpu(ta_hdr->xgmi.fw_version);
--			adev->psp.xgmi_context.context.bin_desc.size_bytes =
--				le32_to_cpu(ta_hdr->xgmi.size_bytes);
--			adev->psp.xgmi_context.context.bin_desc.start_addr =
--				(uint8_t *)ta_hdr +
--				le32_to_cpu(ta_hdr->header.ucode_array_offset_bytes);
--			adev->psp.ta_fw_version = le32_to_cpu(ta_hdr->header.ucode_version);
--			adev->psp.ras_context.context.bin_desc.fw_version =
--				le32_to_cpu(ta_hdr->ras.fw_version);
--			adev->psp.ras_context.context.bin_desc.size_bytes =
--				le32_to_cpu(ta_hdr->ras.size_bytes);
--			adev->psp.ras_context.context.bin_desc.start_addr =
--				(uint8_t *)adev->psp.xgmi_context.context.bin_desc.start_addr +
--				le32_to_cpu(ta_hdr->ras.offset_bytes);
--		}
-+		ta_hdr = (const struct ta_firmware_header_v1_0 *)adev->psp.ta_fw->data;
-+		adev->psp.xgmi_context.context.bin_desc.fw_version =
-+			le32_to_cpu(ta_hdr->xgmi.fw_version);
-+		adev->psp.xgmi_context.context.bin_desc.size_bytes =
-+			le32_to_cpu(ta_hdr->xgmi.size_bytes);
-+		adev->psp.xgmi_context.context.bin_desc.start_addr =
-+			(uint8_t *)ta_hdr +
-+			le32_to_cpu(ta_hdr->header.ucode_array_offset_bytes);
-+		adev->psp.ta_fw_version = le32_to_cpu(ta_hdr->header.ucode_version);
-+		adev->psp.ras_context.context.bin_desc.fw_version =
-+			le32_to_cpu(ta_hdr->ras.fw_version);
-+		adev->psp.ras_context.context.bin_desc.size_bytes =
-+			le32_to_cpu(ta_hdr->ras.size_bytes);
-+		adev->psp.ras_context.context.bin_desc.start_addr =
-+			(uint8_t *)adev->psp.xgmi_context.context.bin_desc.start_addr +
-+			le32_to_cpu(ta_hdr->ras.offset_bytes);
- 		break;
- 	case IP_VERSION(11, 0, 0):
- 	case IP_VERSION(11, 0, 5):
- 	case IP_VERSION(11, 0, 9):
--		err = psp_init_sos_microcode(psp, chip_name);
--		if (err)
--			return err;
--		err = psp_init_asd_microcode(psp, chip_name);
--		if (err)
--			return err;
--		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", chip_name);
--		err = request_firmware(&adev->psp.ta_fw, fw_name, adev->dev);
--		if (err) {
--			release_firmware(adev->psp.ta_fw);
--			adev->psp.ta_fw = NULL;
--			dev_info(adev->dev,
--				 "psp v11.0: Failed to load firmware \"%s\"\n", fw_name);
--		} else {
--			err = amdgpu_ucode_validate(adev->psp.ta_fw);
--			if (err)
--				goto out2;
--
--			ta_hdr = (const struct ta_firmware_header_v1_0 *)adev->psp.ta_fw->data;
--			adev->psp.hdcp_context.context.bin_desc.fw_version =
--				le32_to_cpu(ta_hdr->hdcp.fw_version);
--			adev->psp.hdcp_context.context.bin_desc.size_bytes =
--				le32_to_cpu(ta_hdr->hdcp.size_bytes);
--			adev->psp.hdcp_context.context.bin_desc.start_addr =
--				(uint8_t *)ta_hdr +
--				le32_to_cpu(
--					ta_hdr->header.ucode_array_offset_bytes);
--
--			adev->psp.ta_fw_version = le32_to_cpu(ta_hdr->header.ucode_version);
--
--			adev->psp.dtm_context.context.bin_desc.fw_version =
--				le32_to_cpu(ta_hdr->dtm.fw_version);
--			adev->psp.dtm_context.context.bin_desc.size_bytes =
--				le32_to_cpu(ta_hdr->dtm.size_bytes);
--			adev->psp.dtm_context.context.bin_desc.start_addr =
--				(uint8_t *)adev->psp.hdcp_context.context
--					.bin_desc.start_addr +
--				le32_to_cpu(ta_hdr->dtm.offset_bytes);
--		}
-+		ta_hdr = (const struct ta_firmware_header_v1_0 *)adev->psp.ta_fw->data;
-+		adev->psp.hdcp_context.context.bin_desc.fw_version =
-+			le32_to_cpu(ta_hdr->hdcp.fw_version);
-+		adev->psp.hdcp_context.context.bin_desc.size_bytes =
-+			le32_to_cpu(ta_hdr->hdcp.size_bytes);
-+		adev->psp.hdcp_context.context.bin_desc.start_addr =
-+			(uint8_t *)ta_hdr +
-+			le32_to_cpu(
-+				ta_hdr->header.ucode_array_offset_bytes);
-+		adev->psp.ta_fw_version = le32_to_cpu(ta_hdr->header.ucode_version);
-+		adev->psp.dtm_context.context.bin_desc.fw_version =
-+			le32_to_cpu(ta_hdr->dtm.fw_version);
-+		adev->psp.dtm_context.context.bin_desc.size_bytes =
-+			le32_to_cpu(ta_hdr->dtm.size_bytes);
-+		adev->psp.dtm_context.context.bin_desc.start_addr =
-+			(uint8_t *)adev->psp.hdcp_context.context
-+				.bin_desc.start_addr +
-+			le32_to_cpu(ta_hdr->dtm.offset_bytes);
- 		break;
- 	case IP_VERSION(11, 0, 7):
- 	case IP_VERSION(11, 0, 11):
- 	case IP_VERSION(11, 0, 12):
- 	case IP_VERSION(11, 0, 13):
--		err = psp_init_sos_microcode(psp, chip_name);
--		if (err)
--			return err;
--		err = psp_init_ta_microcode(psp, chip_name);
--		if (err)
--			return err;
--		break;
- 	case IP_VERSION(11, 5, 0):
--		err = psp_init_asd_microcode(psp, chip_name);
--		if (err)
--			return err;
--		err = psp_init_toc_microcode(psp, chip_name);
--		if (err)
--			return err;
- 		break;
- 	default:
- 		BUG();
- 	}
- 
- 	return 0;
--
--out2:
--	release_firmware(adev->psp.ta_fw);
--	adev->psp.ta_fw = NULL;
--	return err;
- }
- 
- static int psp_v11_0_wait_for_bootloader(struct psp_context *psp)
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-index 8ed2281b6557..0b5d63735f39 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-@@ -37,94 +37,46 @@
- #include "oss/osssys_4_0_offset.h"
- #include "oss/osssys_4_0_sh_mask.h"
- 
--MODULE_FIRMWARE("amdgpu/renoir_asd.bin");
--MODULE_FIRMWARE("amdgpu/renoir_ta.bin");
--MODULE_FIRMWARE("amdgpu/green_sardine_asd.bin");
--MODULE_FIRMWARE("amdgpu/green_sardine_ta.bin");
--
- /* address block */
- #define smnMP1_FIRMWARE_FLAGS		0x3010024
- 
- static int psp_v12_0_init_microcode(struct psp_context *psp)
- {
- 	struct amdgpu_device *adev = psp->adev;
--	const char *chip_name;
--	char fw_name[30];
--	int err = 0;
- 	const struct ta_firmware_header_v1_0 *ta_hdr;
- 	DRM_DEBUG("\n");
- 
--	switch (adev->asic_type) {
--	case CHIP_RENOIR:
--		if (adev->apu_flags & AMD_APU_IS_RENOIR)
--			chip_name = "renoir";
--		else
--			chip_name = "green_sardine";
--		break;
--	default:
--		BUG();
--	}
--
--	err = psp_init_asd_microcode(psp, chip_name);
--	if (err)
--		return err;
--
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", chip_name);
--	err = request_firmware(&adev->psp.ta_fw, fw_name, adev->dev);
--	if (err) {
--		release_firmware(adev->psp.ta_fw);
--		adev->psp.ta_fw = NULL;
--		dev_info(adev->dev,
--			 "psp v12.0: Failed to load firmware \"%s\"\n",
--			 fw_name);
--	} else {
--		err = amdgpu_ucode_validate(adev->psp.ta_fw);
--		if (err)
--			goto out;
--
--		ta_hdr = (const struct ta_firmware_header_v1_0 *)
--				 adev->psp.ta_fw->data;
--		adev->psp.hdcp_context.context.bin_desc.fw_version =
--			le32_to_cpu(ta_hdr->hdcp.fw_version);
--		adev->psp.hdcp_context.context.bin_desc.size_bytes =
--			le32_to_cpu(ta_hdr->hdcp.size_bytes);
--		adev->psp.hdcp_context.context.bin_desc.start_addr =
--			(uint8_t *)ta_hdr +
--			le32_to_cpu(ta_hdr->header.ucode_array_offset_bytes);
--
--		adev->psp.ta_fw_version = le32_to_cpu(ta_hdr->header.ucode_version);
--
--		adev->psp.dtm_context.context.bin_desc.fw_version =
--			le32_to_cpu(ta_hdr->dtm.fw_version);
--		adev->psp.dtm_context.context.bin_desc.size_bytes =
--			le32_to_cpu(ta_hdr->dtm.size_bytes);
--		adev->psp.dtm_context.context.bin_desc.start_addr =
-+	ta_hdr = (const struct ta_firmware_header_v1_0 *)
-+				adev->psp.ta_fw->data;
-+	adev->psp.hdcp_context.context.bin_desc.fw_version =
-+		le32_to_cpu(ta_hdr->hdcp.fw_version);
-+	adev->psp.hdcp_context.context.bin_desc.size_bytes =
-+		le32_to_cpu(ta_hdr->hdcp.size_bytes);
-+	adev->psp.hdcp_context.context.bin_desc.start_addr =
-+		(uint8_t *)ta_hdr +
-+		le32_to_cpu(ta_hdr->header.ucode_array_offset_bytes);
-+
-+	adev->psp.ta_fw_version = le32_to_cpu(ta_hdr->header.ucode_version);
-+
-+	adev->psp.dtm_context.context.bin_desc.fw_version =
-+		le32_to_cpu(ta_hdr->dtm.fw_version);
-+	adev->psp.dtm_context.context.bin_desc.size_bytes =
-+		le32_to_cpu(ta_hdr->dtm.size_bytes);
-+	adev->psp.dtm_context.context.bin_desc.start_addr =
-+		(uint8_t *)adev->psp.hdcp_context.context.bin_desc.start_addr +
-+		le32_to_cpu(ta_hdr->dtm.offset_bytes);
-+
-+	if (adev->apu_flags & AMD_APU_IS_RENOIR) {
-+		adev->psp.securedisplay_context.context.bin_desc.fw_version =
-+			le32_to_cpu(ta_hdr->securedisplay.fw_version);
-+		adev->psp.securedisplay_context.context.bin_desc.size_bytes =
-+			le32_to_cpu(ta_hdr->securedisplay.size_bytes);
-+		adev->psp.securedisplay_context.context.bin_desc.start_addr =
- 			(uint8_t *)adev->psp.hdcp_context.context.bin_desc.start_addr +
--			le32_to_cpu(ta_hdr->dtm.offset_bytes);
--
--		if (adev->apu_flags & AMD_APU_IS_RENOIR) {
--			adev->psp.securedisplay_context.context.bin_desc.fw_version =
--				le32_to_cpu(ta_hdr->securedisplay.fw_version);
--			adev->psp.securedisplay_context.context.bin_desc.size_bytes =
--				le32_to_cpu(ta_hdr->securedisplay.size_bytes);
--			adev->psp.securedisplay_context.context.bin_desc.start_addr =
--				(uint8_t *)adev->psp.hdcp_context.context.bin_desc.start_addr +
--				le32_to_cpu(ta_hdr->securedisplay.offset_bytes);
--		}
-+			le32_to_cpu(ta_hdr->securedisplay.offset_bytes);
- 	}
- 
- 	return 0;
--
--out:
--	release_firmware(adev->psp.ta_fw);
--	adev->psp.ta_fw = NULL;
--	if (err) {
--		dev_err(adev->dev,
--			"psp v12.0: Failed to load firmware \"%s\"\n",
+ 	r = amdgpu_ucode_validate(adev->vcn.fw);
+ 	if (r) {
+-		dev_err(adev->dev, "amdgpu_vcn: Can't validate firmware \"%s\"\n",
 -			fw_name);
--	}
--
--	return err;
- }
- 
- static int psp_v12_0_bootloader_load_sysdrv(struct psp_context *psp)
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-index e6a26a7e5e5e..2228994ef096 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-@@ -31,24 +31,6 @@
- #include "mp/mp_13_0_2_offset.h"
- #include "mp/mp_13_0_2_sh_mask.h"
- 
--MODULE_FIRMWARE("amdgpu/aldebaran_sos.bin");
--MODULE_FIRMWARE("amdgpu/aldebaran_ta.bin");
--MODULE_FIRMWARE("amdgpu/aldebaran_cap.bin");
--MODULE_FIRMWARE("amdgpu/yellow_carp_toc.bin");
--MODULE_FIRMWARE("amdgpu/yellow_carp_ta.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_5_toc.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_5_ta.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_8_toc.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_8_ta.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_0_sos.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_0_ta.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_7_sos.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_7_ta.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_10_sos.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_10_ta.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_11_toc.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_11_ta.bin");
--
- /* For large FW files the time to complete can be very long */
- #define USBC_PD_POLLING_LIMIT_S 240
- 
-@@ -67,69 +49,6 @@ MODULE_FIRMWARE("amdgpu/psp_13_0_11_ta.bin");
- /* memory training timeout define */
- #define MEM_TRAIN_SEND_MSG_TIMEOUT_US	3000000
- 
--static int psp_v13_0_init_microcode(struct psp_context *psp)
--{
--	struct amdgpu_device *adev = psp->adev;
--	const char *chip_name;
--	char ucode_prefix[30];
--	int err = 0;
--
--	switch (adev->ip_versions[MP0_HWIP][0]) {
--	case IP_VERSION(13, 0, 2):
--		chip_name = "aldebaran";
--		break;
--	case IP_VERSION(13, 0, 1):
--	case IP_VERSION(13, 0, 3):
--		chip_name = "yellow_carp";
--		break;
--	default:
--		amdgpu_ucode_ip_version_decode(adev, MP0_HWIP, ucode_prefix, sizeof(ucode_prefix));
--		chip_name = ucode_prefix;
--		break;
--	}
--
--	switch (adev->ip_versions[MP0_HWIP][0]) {
--	case IP_VERSION(13, 0, 2):
--		err = psp_init_sos_microcode(psp, chip_name);
--		if (err)
--			return err;
--		/* It's not necessary to load ras ta on Guest side */
--		if (!amdgpu_sriov_vf(adev)) {
--			err = psp_init_ta_microcode(&adev->psp, chip_name);
--			if (err)
--				return err;
--		}
--		break;
--	case IP_VERSION(13, 0, 1):
--	case IP_VERSION(13, 0, 3):
--	case IP_VERSION(13, 0, 5):
--	case IP_VERSION(13, 0, 8):
--	case IP_VERSION(13, 0, 11):
--		err = psp_init_toc_microcode(psp, chip_name);
--		if (err)
--			return err;
--		err = psp_init_ta_microcode(psp, chip_name);
--		if (err)
--			return err;
--		break;
--	case IP_VERSION(13, 0, 0):
--	case IP_VERSION(13, 0, 7):
--	case IP_VERSION(13, 0, 10):
--		err = psp_init_sos_microcode(psp, chip_name);
--		if (err)
--			return err;
--		/* It's not necessary to load ras ta on Guest side */
--		err = psp_init_ta_microcode(psp, chip_name);
--		if (err)
--			return err;
--		break;
--	default:
--		BUG();
--	}
--
--	return 0;
--}
--
- static bool psp_v13_0_is_sos_alive(struct psp_context *psp)
- {
- 	struct amdgpu_device *adev = psp->adev;
-@@ -697,7 +616,6 @@ static int psp_v13_0_vbflash_status(struct psp_context *psp)
- }
- 
- static const struct psp_funcs psp_v13_0_funcs = {
--	.init_microcode = psp_v13_0_init_microcode,
- 	.bootloader_load_kdb = psp_v13_0_bootloader_load_kdb,
- 	.bootloader_load_spl = psp_v13_0_bootloader_load_spl,
- 	.bootloader_load_sysdrv = psp_v13_0_bootloader_load_sysdrv,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c
-index 9d4e24e518e8..9e34c7ee9304 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c
-@@ -29,41 +29,6 @@
- #include "mp/mp_13_0_4_offset.h"
- #include "mp/mp_13_0_4_sh_mask.h"
- 
--MODULE_FIRMWARE("amdgpu/psp_13_0_4_toc.bin");
--MODULE_FIRMWARE("amdgpu/psp_13_0_4_ta.bin");
--
--static int psp_v13_0_4_init_microcode(struct psp_context *psp)
--{
--	struct amdgpu_device *adev = psp->adev;
--	const char *chip_name;
--	char ucode_prefix[30];
--	int err = 0;
--
--	switch (adev->ip_versions[MP0_HWIP][0]) {
--	case IP_VERSION(13, 0, 4):
--		amdgpu_ucode_ip_version_decode(adev, MP0_HWIP, ucode_prefix, sizeof(ucode_prefix));
--		chip_name = ucode_prefix;
--		break;
--	default:
--		BUG();
--	}
--
--	switch (adev->ip_versions[MP0_HWIP][0]) {
--	case IP_VERSION(13, 0, 4):
--		err = psp_init_toc_microcode(psp, chip_name);
--		if (err)
--			return err;
--		err = psp_init_ta_microcode(psp, chip_name);
--		if (err)
--			return err;
--		break;
--	default:
--		BUG();
--	}
--
--	return 0;
--}
--
- static bool psp_v13_0_4_is_sos_alive(struct psp_context *psp)
- {
- 	struct amdgpu_device *adev = psp->adev;
-@@ -339,7 +304,6 @@ static void psp_v13_0_4_ring_set_wptr(struct psp_context *psp, uint32_t value)
- }
- 
- static const struct psp_funcs psp_v13_0_4_funcs = {
--	.init_microcode = psp_v13_0_4_init_microcode,
- 	.bootloader_load_kdb = psp_v13_0_4_bootloader_load_kdb,
- 	.bootloader_load_spl = psp_v13_0_4_bootloader_load_spl,
- 	.bootloader_load_sysdrv = psp_v13_0_4_bootloader_load_sysdrv,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-index 157147c6c94e..a04ca4cdf211 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-@@ -42,46 +42,11 @@
- #include "oss/osssys_4_0_offset.h"
- #include "oss/osssys_4_0_sh_mask.h"
- 
--MODULE_FIRMWARE("amdgpu/vega10_sos.bin");
--MODULE_FIRMWARE("amdgpu/vega10_asd.bin");
--MODULE_FIRMWARE("amdgpu/vega10_cap.bin");
--MODULE_FIRMWARE("amdgpu/vega12_sos.bin");
--MODULE_FIRMWARE("amdgpu/vega12_asd.bin");
--
--
- #define smnMP1_FIRMWARE_FLAGS 0x3010028
- 
- static int psp_v3_1_ring_stop(struct psp_context *psp,
- 			      enum psp_ring_type ring_type);
- 
--static int psp_v3_1_init_microcode(struct psp_context *psp)
--{
--	struct amdgpu_device *adev = psp->adev;
--	const char *chip_name;
--	int err = 0;
--
--	DRM_DEBUG("\n");
--
--	switch (adev->asic_type) {
--	case CHIP_VEGA10:
--		chip_name = "vega10";
--		break;
--	case CHIP_VEGA12:
--		chip_name = "vega12";
--		break;
--	default: BUG();
--	}
--
--	err = psp_init_sos_microcode(psp, chip_name);
--	if (err)
--		return err;
--
--	err = psp_init_asd_microcode(psp, chip_name);
--	if (err)
--		return err;
--
--	return 0;
--}
- 
- static int psp_v3_1_bootloader_load_sysdrv(struct psp_context *psp)
- {
-@@ -372,7 +337,6 @@ static void psp_v3_1_ring_set_wptr(struct psp_context *psp, uint32_t value)
- }
- 
- static const struct psp_funcs psp_v3_1_funcs = {
--	.init_microcode = psp_v3_1_init_microcode,
- 	.bootloader_load_sysdrv = psp_v3_1_bootloader_load_sysdrv,
- 	.bootloader_load_sos = psp_v3_1_bootloader_load_sos,
- 	.ring_create = psp_v3_1_ring_create,
++		dev_err(adev->dev, "amdgpu_vcn: Can't validate firmware\n");
+ 		release_firmware(adev->vcn.fw);
+ 		adev->vcn.fw = NULL;
+ 		return r;
 -- 
 2.34.1
 
