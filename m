@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 174D0C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Dec 2022 17:52:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF588C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Dec 2022 17:54:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD8910E408;
-	Thu, 29 Dec 2022 17:52:12 +0000 (UTC)
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA85210E408
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Dec 2022 17:52:09 +0000 (UTC)
-Received: by mail-ot1-x333.google.com with SMTP id
- p17-20020a9d6951000000b00678306ceb94so11848687oto.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Dec 2022 09:52:09 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA0A38994A;
+	Thu, 29 Dec 2022 17:54:20 +0000 (UTC)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A1A88994A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Dec 2022 17:54:17 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-1447c7aa004so22408143fac.11
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Dec 2022 09:54:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=8FknS0GoLe7nYqXJs7/j+fxLyrWPfRTTm5njnzYNztg=;
- b=QfB7AHrXnx9EsYol7kztC8KZajH1f/pYcYbq7N+k32eGaIjQW6D/PhK80Bubf09sQX
- AdCBY3F9efkJEUDUUXWM1XOS8aidxKqf1716WfQnFPf+q0fs/kzIRXkWzvXnl4h03sWN
- D6coVxfTESr2LMIykYVziEYRFkzfCOvnBuUsSWTcBv0aG/qTAtEk6tLu4sxxfGVE69pu
- u8ZDTL5t4kShEMju2tXzFw8g19YniI+sUqcqjhI6uIjgYyZoQKKP34Xf2eJma3p6fyTn
- WflWXlR2OpgPs5VnAeN7N3+zfOnhvwFXCqO5Ox3SxcvNtx3Ljg1/PndxYZCfqGmhYJc4
- iAUw==
+ bh=XHlzEXJhyZZ0tI9HRD0UitTdBrnY+Dw0ik7xx37s3+c=;
+ b=GcWMMAeee98cncsf1TfRm1/AsppHiZ+lGrf43k0JvmB3hAj50CUtGAghi5k8KAwhcq
+ NxDbxxyJ6vhQnCok0hccS5H5kuWiiDltPsa1F/YirJLobzSma0j8NUGjjgxA4JBFcW7t
+ mRxe/N0JoeSoFhEVzcyEvz6YNLmkx6wKndWCY1Af+j3wG5PmvxkxMhZdPjk4fvzKnhx7
+ Mu+hhkmCJKqaLmtBkovpW6u+Xyr4UgeBax+OcpIFGOh8FI4rVLDblDqdr+hbm7FZWDpT
+ kI8+PfsxoaDNnby0U/CduuhLhCMoNrcd725chnOMuglLFK8xOG2IMmM42Wr1ip4t4lIQ
+ vWnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=8FknS0GoLe7nYqXJs7/j+fxLyrWPfRTTm5njnzYNztg=;
- b=XZ2T86SfluOaT7lOAf8wWsFGo73w+I6pdgYZxwLCMIyAmarlsbQ2aytxXMDbUt4+Jo
- DIxTtOmXqaq3pg1zJZKoJGve7hP2JwBb4qkF1LgqrB3UTkdBKVQe12NtyG3HRiWU6oWb
- kBlnrLy6PRQ+xUlXVOd67CTRPqrbncVtrJuv+gtbGJCuNbKso50s3nSaDu5+PMA/vYmJ
- MXnrSqVq9gSQsXpEs92GSsOpBuEUm3stx04eETtpzsFLDLZlCKkNi63vNp2h674zSiYq
- 7eLNHQyPXdnMeGpsZoZ3Mn8PZ9/ArtHCDIczaX048ohCIt7InZR+mkJAQj7IBM1LKU3T
- Roxg==
-X-Gm-Message-State: AFqh2koW+XKQaqbdpKYan3WYFU8o9kf0BtkQguF6/ohN4zOM8oM6oPoo
- WS7qQ+G1GLkRwjXVBxIFgfywxmWb5WJWOXarGOg=
-X-Google-Smtp-Source: AMrXdXuLZHk1UW3ERQ3+rC+uUw/w17Md8+FTNuZlJ5+j7NYKWT5WEG2pw3yOtemMGSX4sXIGfVbHVzyLK2Y6UBs5bec=
-X-Received: by 2002:a9d:62d1:0:b0:675:cde9:90b9 with SMTP id
- z17-20020a9d62d1000000b00675cde990b9mr1950999otk.123.1672336329157; Thu, 29
- Dec 2022 09:52:09 -0800 (PST)
+ bh=XHlzEXJhyZZ0tI9HRD0UitTdBrnY+Dw0ik7xx37s3+c=;
+ b=qsmFIhTbasJ3dg1ecM617SpXZpDT+PsVg0cPAWG0mQU3JcvQqa0RiIsQEPT2SbOPhx
+ 8olyxc8usabISs9R/9q0HHIItdXgX3Xf9oyRA4zRF3f0juxDLMhtZljEyfyWLHjmEw1Q
+ SPfHdUcIddJqXLHBQ6fN0wfOa54zREpSKyzV6BFDs5mmLkiyZgFqJN1TfjZFt5TEAaYB
+ ZsoCW04ZmDpyrFFS1ogLqsTJJJJMN76mbCfEFKiCtRFH8oARsv6phUxwHX/VRm6NOG2W
+ 0V2HpiTj63+ILpQdijM+66yTRQtlBsSJ3ptho8MDaDNZ+91sfTZTm2EyhFV+FFbs58Ne
+ aeYA==
+X-Gm-Message-State: AFqh2krAUU9QqcPByNnHduwYP5tHppg93X+rPgTnC8EOwElP/43uDWFr
+ faT98/As85eB+ozfEZRe5WcMZiC7QKCeZkXTXZU5Z2Dz
+X-Google-Smtp-Source: AMrXdXsQnDzFywV7bs31bYkO5ySSC5BD1ctDRANJkJfn5i3nKiZs5WapajHnnU9QDCYr8ZABIwL2mGPZY4NRTKMR3/M=
+X-Received: by 2002:a05:6870:970e:b0:148:3c8f:15ab with SMTP id
+ n14-20020a056870970e00b001483c8f15abmr2463576oaq.46.1672336456884; Thu, 29
+ Dec 2022 09:54:16 -0800 (PST)
 MIME-Version: 1.0
 References: <20221223193655.1972-1-shashank.sharma@amd.com>
- <20221223193655.1972-7-shashank.sharma@amd.com>
-In-Reply-To: <20221223193655.1972-7-shashank.sharma@amd.com>
+ <20221223193655.1972-6-shashank.sharma@amd.com>
+In-Reply-To: <20221223193655.1972-6-shashank.sharma@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Dec 2022 12:51:58 -0500
-Message-ID: <CADnq5_MSrURbaNCN9+cjPAqoFoOPtLBXZPcP7hM_UFWJKKDyFw@mail.gmail.com>
-Subject: Re: [RFC 6/7] drm/amdgpu: Map userqueue into HW
+Date: Thu, 29 Dec 2022 12:54:04 -0500
+Message-ID: <CADnq5_Nz6Q-RrO47G_fMYFUSLC-J9DpZhR_5Lbs=heMcXfSG1A@mail.gmail.com>
+Subject: Re: [RFC 5/7] drm/amdgpu: Create context for usermode queue
 To: Shashank Sharma <shashank.sharma@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -73,14 +73,15 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Fri, Dec 23, 2022 at 2:37 PM Shashank Sharma <shashank.sharma@amd.com> wrote:
 >
-> This patch add the function to map/unmap the usermode queue into the HW,
-> using the prepared MQD and other objects. After this mapping, the queue
-> will be ready to accept the workload.
+> The FW expects us to allocate atleast one page as process
+> context space, and one for gang context space. This patch adds some
+> object for the same.
 
-This should also be a callback into IP specific code.  It will be
-different for each IP type and version.
+This should be handled in the IP specific code for the MQD creation.
+Each IP may have different requirements for MQD related metadata.
 
 Alex
+
 
 >
 > Cc: Alex Deucher <alexander.deucher@amd.com>
@@ -88,111 +89,118 @@ Alex
 >
 > Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 71 +++++++++++++++++++
->  1 file changed, 71 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 57 +++++++++++++++++++
+>  .../drm/amd/include/amdgpu_usermode_queue.h   |  8 +++
+>  2 files changed, 65 insertions(+)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> index 2a854a5e2f70..b164e24247ca 100644
+> index b566ce4cb7f0..2a854a5e2f70 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> @@ -50,6 +50,67 @@ amdgpu_userqueue_remove_index(struct amdgpu_device *adev, struct amdgpu_usermode
->      ida_simple_remove(&uqg->ida, queue->queue_id);
+> @@ -69,6 +69,56 @@ amdgpu_userqueue_get_doorbell(struct amdgpu_device *adev,
+>      return 0;
 >  }
 >
-> +static int amdgpu_userqueue_map(struct amdgpu_device *adev,
-> +                    struct amdgpu_usermode_queue *queue)
+> +static int
+> +amdgpu_userqueue_create_context(struct amdgpu_device *adev, struct amdgpu_usermode_queue *queue)
 > +{
 > +    int r;
-> +    struct mes_add_queue_input queue_input;
-> +
-> +    memset(&queue_input, 0x0, sizeof(struct mes_add_queue_input));
-> +
-> +    queue_input.process_va_start = 0;
-> +    queue_input.process_va_end = adev->vm_manager.max_pfn - 1;
-> +    queue_input.process_quantum = 100000; /* 10ms */
-> +    queue_input.gang_quantum = 10000; /* 1ms */
-> +    queue_input.paging = false;
-> +
-> +    queue_input.gang_context_addr = queue->gang_ctx.gpu_addr;
-> +    queue_input.process_context_addr = queue->proc_ctx.gpu_addr;
-> +    queue_input.inprocess_gang_priority = AMDGPU_MES_PRIORITY_LEVEL_NORMAL;
-> +    queue_input.gang_global_priority_level = AMDGPU_MES_PRIORITY_LEVEL_NORMAL;
-> +
-> +    queue_input.process_id = queue->pasid;
-> +    queue_input.queue_type = queue->queue_type;
-> +    queue_input.mqd_addr = queue->mqd_gpu_addr;
-> +    queue_input.wptr_addr = queue->wptr_gpu_addr;
-> +    queue_input.queue_size = queue->queue_size >> 2;
-> +    queue_input.doorbell_offset = queue->doorbell_index;
-> +    queue_input.page_table_base_addr =  queue->vm->pd_phys_addr;
-> +
-> +    amdgpu_mes_lock(&adev->mes);
-> +    r = adev->mes.funcs->add_hw_queue(&adev->mes, &queue_input);
-> +    amdgpu_mes_unlock(&adev->mes);
+> +    struct amdgpu_userq_ctx *pctx = &queue->proc_ctx;
+> +    struct amdgpu_userq_ctx *gctx = &queue->gang_ctx;
+> +    /*
+> +     * The FW expects atleast one page space allocated for
+> +     * process context related work, and one for gang context.
+> +     */
+> +    r = amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
+> +                                AMDGPU_GEM_DOMAIN_VRAM,
+> +                                &pctx->obj,
+> +                                &pctx->gpu_addr,
+> +                                &pctx->cpu_ptr);
 > +    if (r) {
-> +        DRM_ERROR("Failed to map queue in HW, err (%d)\n", r);
+> +        DRM_ERROR("Failed to allocate proc bo for userqueue (%d)", r);
 > +        return r;
 > +    }
 > +
-> +    DRM_DEBUG_DRIVER("Queue %d mapped successfully\n", queue->queue_id);
+> +    r = amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
+> +                                AMDGPU_GEM_DOMAIN_VRAM,
+> +                                &gctx->obj,
+> +                                &gctx->gpu_addr,
+> +                                &gctx->cpu_ptr);
+> +    if (r) {
+> +        DRM_ERROR("Failed to allocate proc bo for userqueue (%d)", r);
+> +        amdgpu_bo_free_kernel(&pctx->obj,
+> +                              &pctx->gpu_addr,
+> +                              &pctx->cpu_ptr);
+> +        return r;
+> +    }
+> +
 > +    return 0;
 > +}
 > +
-> +static void amdgpu_userqueue_unmap(struct amdgpu_device *adev,
-> +                    struct amdgpu_usermode_queue *queue)
+> +static void
+> +amdgpu_userqueue_free_context(struct amdgpu_device *adev, struct amdgpu_usermode_queue *queue)
 > +{
-> +    int r;
-> +    struct mes_remove_queue_input queue_input;
+> +    struct amdgpu_userq_ctx *pctx = &queue->proc_ctx;
+> +    struct amdgpu_userq_ctx *gctx = &queue->gang_ctx;
 > +
-> +    memset(&queue_input, 0x0, sizeof(struct mes_remove_queue_input));
-> +    queue_input.doorbell_offset = queue->doorbell_index;
-> +    queue_input.gang_context_addr = queue->gang_ctx.gpu_addr;
-> +
-> +    amdgpu_mes_lock(&adev->mes);
-> +    r = adev->mes.funcs->remove_hw_queue(&adev->mes, &queue_input);
-> +    amdgpu_mes_unlock(&adev->mes);
-> +
-> +    if (r) {
-> +        DRM_ERROR("Failed to unmap usermode queue %d\n", queue->queue_id);
-> +        return;
-> +    }
-> +
-> +    DRM_DEBUG_DRIVER("Usermode queue %d unmapped\n", queue->queue_id);
+> +    amdgpu_bo_free_kernel(&pctx->obj,
+> +                          &pctx->gpu_addr,
+> +                          &pctx->cpu_ptr);
+> +    amdgpu_bo_free_kernel(&pctx->obj,
+> +                          &gctx->gpu_addr,
+> +                          &gctx->cpu_ptr);
 > +}
 > +
->  static int
->  amdgpu_userqueue_get_doorbell(struct amdgpu_device *adev,
->                      struct amdgpu_usermode_queue *queue)
-> @@ -338,12 +399,21 @@ int amdgpu_userqueue_create(struct amdgpu_device *adev, struct drm_file *filp,
+>  static void
+>  amdgpu_userqueue_setup_mqd(struct amdgpu_device *adev, struct amdgpu_usermode_queue *queue)
+>  {
+> @@ -282,6 +332,12 @@ int amdgpu_userqueue_create(struct amdgpu_device *adev, struct drm_file *filp,
 >          goto free_mqd;
 >      }
 >
-> +    r = amdgpu_userqueue_map(adev, queue);
+> +    r = amdgpu_userqueue_create_context(adev, queue);
 > +    if (r < 0) {
-> +        DRM_ERROR("Failed to map queue\n");
-> +        goto free_ctx;
+> +        DRM_ERROR("Failed to create context for queue\n");
+> +        goto free_mqd;
 > +    }
 > +
 >      ctx->userq = queue;
 >      args->out.q_id = queue->queue_id;
 >      args->out.flags = 0;
->      mutex_unlock(&adev->userq.userq_mutex);
->      return 0;
->
-> +free_ctx:
-> +    amdgpu_userqueue_free_context(adev, queue);
-> +
->  free_mqd:
->      amdgpu_userqueue_destroy_mqd(queue);
->
-> @@ -362,6 +432,7 @@ void amdgpu_userqueue_destroy(struct amdgpu_device *adev, struct drm_file *filp,
+> @@ -306,6 +362,7 @@ void amdgpu_userqueue_destroy(struct amdgpu_device *adev, struct drm_file *filp,
 >      struct amdgpu_usermode_queue *queue = ctx->userq;
 >
 >      mutex_lock(&adev->userq.userq_mutex);
-> +    amdgpu_userqueue_unmap(adev, queue);
->      amdgpu_userqueue_free_context(adev, queue);
+> +    amdgpu_userqueue_free_context(adev, queue);
 >      amdgpu_userqueue_destroy_mqd(queue);
 >      amdgpu_userqueue_remove_index(adev, queue);
+>      ctx->userq = NULL;
+> diff --git a/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h b/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h
+> index c1fe39ffaf72..8bf3c0be6937 100644
+> --- a/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h
+> +++ b/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h
+> @@ -26,6 +26,12 @@
+>
+>  #define AMDGPU_MAX_USERQ 512
+>
+> +struct amdgpu_userq_ctx {
+> +       struct amdgpu_bo *obj;
+> +       uint64_t gpu_addr;
+> +       void    *cpu_ptr;
+> +};
+> +
+>  struct amdgpu_usermode_queue {
+>         int             queue_id;
+>         int             queue_type;
+> @@ -44,6 +50,8 @@ struct amdgpu_usermode_queue {
+>
+>         struct amdgpu_bo        *mqd_obj;
+>         struct amdgpu_vm        *vm;
+> +       struct amdgpu_userq_ctx proc_ctx;
+> +       struct amdgpu_userq_ctx gang_ctx;
+>         struct list_head        list;
+>  };
+>
 > --
 > 2.34.1
 >
