@@ -4,78 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81CFBC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Dec 2022 14:35:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EADFAC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Dec 2022 16:37:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 106EF89F31;
-	Thu, 29 Dec 2022 14:35:20 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3043E8989E
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Dec 2022 14:35:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1672324517;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KePM8LGAehS8PxVf3em7bkMvOyCCyGkD1QJPFzoXjoY=;
- b=CIRadfUdkEOIDqd1qQcLdqhj+Lfaxkn4yKhueuPRnaHWwLn6Ww4zIUp8/VTGfTu+LtEqGK
- 1PCI54y1IE6ky7ZxGxp+fU/jT+BajAyRP5jbhUsc5Pa4zJi3jIHBpBZdL5hve2NS3uD+P/
- qqpjzzeNAiUc7BcSi4bIhRinX2h0K5w=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-498-ojiHMd-8PBiR2NbGPgSb3g-1; Thu, 29 Dec 2022 09:35:15 -0500
-X-MC-Unique: ojiHMd-8PBiR2NbGPgSb3g-1
-Received: by mail-wm1-f70.google.com with SMTP id
- fm25-20020a05600c0c1900b003d9702a11e5so8168416wmb.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Dec 2022 06:35:15 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KePM8LGAehS8PxVf3em7bkMvOyCCyGkD1QJPFzoXjoY=;
- b=H0GI78BZRRpDCWwn2dDhtyNYpNWRB3/14CxJoUGeWmWY8yX4Rg8PasIxaXQ+hSObH9
- vgajinapI6EH4F5V06G6gyk8XlzGw9z6MZkOAHPNUe3xtPlWYZaRi3R0CnH8nvye/s29
- r3y+0X4siORgekSvasl1vZBDROXhMM/xHkaKjY5f9M2Hk3rSs5geToupjgGoxzoTODZv
- FSJbUglUNnlyk42jMU17qwo3huaFtvyTib0OLuA+9qtvRd2ECQW0I9oF4v3fs3Pd/zUA
- xhNoJTHjGc3GIiWHI0KgfGlryLNXpGyvKtJhcvB+O5ZGd+W1PHrv7lQVeBxZWJBdGAnN
- hPnw==
-X-Gm-Message-State: AFqh2kpi7cAaW8K6wGukqTvFBNKWKwovUlWvXa1F8cIZ8uY40vxwhAcV
- pR6gX7rPSI8g5fRIW1cB/A4xCRMzH/1R4y4g2irABwnhvD2ENrHpUPm+mz5dtn1xYeP8YRyVMyI
- 35HuM1LBSBCue/fKR7Lb5+9poKg==
-X-Received: by 2002:a5d:460d:0:b0:242:69f4:cb6a with SMTP id
- t13-20020a5d460d000000b0024269f4cb6amr16459188wrq.9.1672324514804; 
- Thu, 29 Dec 2022 06:35:14 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXuhgKP5nEJxUo1DwVlnSvFu/L2yowvsm+jGS3h9joQUDWOjQmxTMQckkrXQ+uhe+DCqYeOJDQ==
-X-Received: by 2002:a5d:460d:0:b0:242:69f4:cb6a with SMTP id
- t13-20020a5d460d000000b0024269f4cb6amr16459171wrq.9.1672324514569; 
- Thu, 29 Dec 2022 06:35:14 -0800 (PST)
-Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- p13-20020a05600c358d00b003d1f2c3e571sm32813393wmq.33.2022.12.29.06.35.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Dec 2022 06:35:14 -0800 (PST)
-Message-ID: <21fe5a6c-06f9-a902-6621-19c4a2a451ad@redhat.com>
-Date: Thu, 29 Dec 2022 15:35:12 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B90510E3F6;
+	Thu, 29 Dec 2022 16:37:08 +0000 (UTC)
+X-Greylist: delayed 1430 seconds by postgrey-1.36 at gabe;
+ Thu, 29 Dec 2022 01:27:05 UTC
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18EBE10E15E;
+ Thu, 29 Dec 2022 01:27:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:In-Reply-To:References;
+ bh=neOorG1ELpQLrTAY1AQ78oFCGRV3rTRmNpiDswYp1jY=; b=rkq4YJiOUBp77g6pZ2GKL/KDa1
+ gnSEUWkJq5yu4RQT3Sa9gaT7uPzYF3vFvDbG5aP6V8iXJLxXxaI58m0SgheKehGBnboStecRc9PvU
+ /4mkxE98noUe54MUIsy7iQwc/fYnQo/otZlQeWVBeTwkDQBQaaQrUIEWozlpjZuXE+J/xIxCSJAmC
+ GaRuiHBtnbiyzDuVGnddnlqYx9bE+OZ3wjGaD5Ct/6Dy3BiU4wrPov8j50ASEoRawLr685abJu/BZ
+ TbmgKiHsfIo6FITC4dmVg5qQ5BpXuNTxTYNijJyxzg+MRaZRuCHvrmVeoPaESdjYxl+BP6Zidpiv/
+ qkRFtxHA==;
+Received: from [2601:1c2:d80:3110::a2e7] (helo=casper.infradead.org)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1pAhIB-009XL4-LR; Thu, 29 Dec 2022 01:01:08 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm: amd: display: fix dc/core/dc.c kernel-doc
+Date: Wed, 28 Dec 2022 17:00:51 -0800
+Message-Id: <20221229010051.5397-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH v2 01/11] drm/amd: Delay removal of the firmware
- framebuffer
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org
-References: <20221228163102.468-1-mario.limonciello@amd.com>
- <20221228163102.468-2-mario.limonciello@amd.com>
-From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221228163102.468-2-mario.limonciello@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 29 Dec 2022 16:37:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,39 +48,164 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alex.deucher@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Carlos Soriano Sanchez <csoriano@redhat.com>,
- stable@vger.kernel.org, David Airlie <airlied@gmail.com>,
- christian.koenig@amd.com
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, kernel test robot <lkp@intel.com>,
+ Leo Li <sunpeng.li@amd.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Mario,
+Fix all kernel-doc warnings in dc/core/dc.c:
 
-On 12/28/22 17:30, Mario Limonciello wrote:
-> Removing the firmware framebuffer from the driver means that even
-> if the driver doesn't support the IP blocks in a GPU it will no
-> longer be functional after the driver fails to initialize.
-> 
-> This change will ensure that unsupported IP blocks at least cause
-> the driver to work with the EFI framebuffer.
->
-> Cc: stable@vger.kernel.org
-> Suggested-by: Alex Deucher <alex.deucher@amd.com>
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
+dc.c:385: warning: missing initial short description on line:
+ *  dc_stream_adjust_vmin_vmax:
+dc.c:392: warning: contents before sections
+dc.c:399: warning: No description found for return value of 'dc_stream_adjust_vmin_vmax'
+dc.c:434: warning: Excess function parameter 'adjust' description in 'dc_stream_get_last_used_drr_vtotal'
+dc.c:434: warning: No description found for return value of 'dc_stream_get_last_used_drr_vtotal'
+dc.c:574: warning: No description found for return value of 'dc_stream_configure_crc'
+dc.c:1746: warning: No description found for return value of 'dc_commit_state_no_check'
+dc.c:4991: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ * dc_extended_blank_supported 0 Decide whether extended blank is supported
+dc.c:4991: warning: missing initial short description on line:
+ * dc_extended_blank_supported 0 Decide whether extended blank is supported
+dc.c:4723: warning: Function parameter or member 'dc' not described in 'dc_enable_dmub_outbox'
+dc.c:4926: warning: Function parameter or member 'dc' not described in 'dc_process_dmub_dpia_hpd_int_enable'
+dc.c:4926: warning: Function parameter or member 'hpd_int_enable' not described in 'dc_process_dmub_dpia_hpd_int_enable'
+12 warnings
 
-As mentioned, I'm not familiar with this driver but the change looks
-good to me. Delaying the firmware-provided framebuffer removal is the
-correct thing to do IMO.
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+---
+Based on linux-next-20221226 but also applies to mainline.
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+ drivers/gpu/drm/amd/display/dc/core/dc.c |   40 +++++++++++++--------
+ 1 file changed, 25 insertions(+), 15 deletions(-)
 
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+diff -- a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -382,16 +382,18 @@ static void dc_perf_trace_destroy(struct
+ }
+ 
+ /**
+- *  dc_stream_adjust_vmin_vmax:
++ *  dc_stream_adjust_vmin_vmax - look up pipe context & update parts of DRR
++ *  @dc:     dc reference
++ *  @stream: Initial dc stream state
++ *  @adjust: Updated parameters for vertical_total_min and vertical_total_max
+  *
+  *  Looks up the pipe context of dc_stream_state and updates the
+  *  vertical_total_min and vertical_total_max of the DRR, Dynamic Refresh
+  *  Rate, which is a power-saving feature that targets reducing panel
+  *  refresh rate while the screen is static
+  *
+- *  @dc:     dc reference
+- *  @stream: Initial dc stream state
+- *  @adjust: Updated parameters for vertical_total_min and vertical_total_max
++ *  Return: %true if the pipe context is found and adjusted;
++ *          %false if the pipe context is not found.
+  */
+ bool dc_stream_adjust_vmin_vmax(struct dc *dc,
+ 		struct dc_stream_state *stream,
+@@ -419,14 +421,17 @@ bool dc_stream_adjust_vmin_vmax(struct d
+ }
+ 
+ /**
+- * dc_stream_get_last_used_drr_vtotal - dc_stream_get_last_vrr_vtotal
++ * dc_stream_get_last_used_drr_vtotal - Looks up the pipe context of
++ * dc_stream_state and gets the last VTOTAL used by DRR (Dynamic Refresh Rate)
+  *
+  * @dc: [in] dc reference
+  * @stream: [in] Initial dc stream state
+- * @adjust: [in] Updated parameters for vertical_total_min and
++ * @refresh_rate: [in] new refresh_rate
+  *
+- * Looks up the pipe context of dc_stream_state and gets the last VTOTAL used
+- * by DRR (Dynamic Refresh Rate)
++ * Return: %true if the pipe context is found and there is an associated
++ *         timing_generator for the DC;
++ *         %false if the pipe context is not found or there is no
++ *         timing_generator for the DC.
+  */
+ bool dc_stream_get_last_used_drr_vtotal(struct dc *dc,
+ 		struct dc_stream_state *stream,
+@@ -567,7 +572,10 @@ dc_stream_forward_crc_window(struct dc_s
+  *              once.
+  *
+  * By default, only CRC0 is configured, and the entire frame is used to
+- * calculate the crc.
++ * calculate the CRC.
++ *
++ * Return: %false if the stream is not found or CRC capture is not supported;
++ *         %true if the stream has been configured.
+  */
+ bool dc_stream_configure_crc(struct dc *dc, struct dc_stream_state *stream,
+ 			     struct crc_params *crc_window, bool enable, bool continuous)
+@@ -636,7 +644,7 @@ bool dc_stream_configure_crc(struct dc *
+  * dc_stream_configure_crc needs to be called beforehand to enable CRCs.
+  *
+  * Return:
+- * false if stream is not found, or if CRCs are not enabled.
++ * %false if stream is not found, or if CRCs are not enabled.
+  */
+ bool dc_stream_get_crc(struct dc *dc, struct dc_stream_state *stream,
+ 		       uint32_t *r_cr, uint32_t *g_y, uint32_t *b_cb)
+@@ -1741,6 +1749,8 @@ void dc_z10_save_init(struct dc *dc)
+  *
+  * Applies given context to the hardware and copy it into current context.
+  * It's up to the user to release the src context afterwards.
++ *
++ * Return: an enum dc_status result code for the operation
+  */
+ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *context)
+ {
+@@ -4705,7 +4715,7 @@ bool dc_enable_dmub_notifications(struct
+ /**
+  * dc_enable_dmub_outbox - Enables DMUB unsolicited notification
+  *
+- * dc: [in] dc structure
++ * @dc: [in] dc structure
+  *
+  * Enables DMUB unsolicited notifications to x86 via outbox.
+  */
+@@ -4906,8 +4916,8 @@ enum dc_status dc_process_dmub_set_mst_s
+ /**
+  * dc_process_dmub_dpia_hpd_int_enable - Submits DPIA DPD interruption
+  *
+- * @dc [in]: dc structure
+- * @hpd_int_enable [in]: 1 for hpd int enable, 0 to disable
++ * @dc: [in] dc structure
++ * @hpd_int_enable: [in] 1 for hpd int enable, 0 to disable
+  *
+  * Submits dpia hpd int enable command to dmub via inbox message
+  */
+@@ -4988,7 +4998,7 @@ void dc_notify_vsync_int_state(struct dc
+ }
+ 
+ /**
+- * dc_extended_blank_supported 0 Decide whether extended blank is supported
++ * dc_extended_blank_supported - Decide whether extended blank is supported
+  *
+  * @dc: [in] Current DC state
+  *
+@@ -4997,7 +5007,7 @@ void dc_notify_vsync_int_state(struct dc
+  * ability to enter z9/z10.
+  *
+  * Return:
+- * Indicate whether extended blank is supported (true or false)
++ * Indicate whether extended blank is supported (%true or %false)
+  */
+ bool dc_extended_blank_supported(struct dc *dc)
+ {
