@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25E2AC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Dec 2022 16:42:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54280C3DA79
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Dec 2022 17:31:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BBFB10E3FA;
-	Thu, 29 Dec 2022 16:42:49 +0000 (UTC)
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
- [IPv6:2607:f8b0:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1D8A10E3FA
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Dec 2022 16:42:47 +0000 (UTC)
-Received: by mail-ot1-x329.google.com with SMTP id
- m7-20020a9d73c7000000b00683e2f36c18so6719693otk.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Dec 2022 08:42:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2F0610E3F0;
+	Thu, 29 Dec 2022 17:31:18 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C8CB10E27B;
+ Thu, 29 Dec 2022 17:31:16 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id r11so17607247oie.13;
+ Thu, 29 Dec 2022 09:31:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=XIvm70LkQ0CoIBJttPmIJN6T0aTQeFPqoab/sv2/Y/Q=;
- b=RpbCVwWkg6y2HFXbLkdAMBEjzk1nGRpiL3JNiid7F86P98QOUxAExYfy5Nt3XXW8Qj
- QhxSYdgLBA6u3ddxnLXHT3Npm+mw6TDGiL8FVK5WU07CTtpGLIsYzY8UuX3E/thZBoxT
- XmbhBwROvAj3ti7Y56c+9CnVye/Zc0iWb91udaRj0dtV18cXzKNsW9c0ULtyPTF3QCgN
- 6kX84x+AzKfM51A5t9UPjOmmJCBDLQdwfFzuMZCuLickpcd5RB1hCdgXN3bWUZIWQi3K
- hRN7dlTa4bNW3ZSGKL6LyEia7+coFika2MDDUj5KaNrjrPfIMioZ+57XIkwEgg/z7FY6
- g80g==
+ bh=NJCXUXY/M8fTwQQAdzuC6CJTX/+lXiGdvSWxvK5G6oA=;
+ b=WKZIfZNz9UKJkJ+ocpI1xexXH07sw2P3f7WU9Ir50CBc32zAlHh+SkNDRzlF9SSgWo
+ RlN0i7HCiy+GdOL58Zxc1c5OuyPStHLJYsJFFJkPqkLkISnxpuoHhydccPpMCpkeVL2J
+ pXK48VH6n5Sug61DnBSQ71+CkC0/IxZxXaNuBuNkb0hSTwIkBqKolyI307YYSGOe2hhb
+ yluu9wuElKnfK7LrBejgiPIo9J7BT5bFB/FHkAGOKeDmfeoqUacKeUNV3Tc//2R02IGv
+ 6StasNqLXd2xih4D/ujoXAAJw7F1DH23xr81arzoDispPWa9w2PFZODJETqFZnWt5xU9
+ sK6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=XIvm70LkQ0CoIBJttPmIJN6T0aTQeFPqoab/sv2/Y/Q=;
- b=PcRSSc1zUrjyKldusbrAsBbvWWK7kXXgOZbXNZ4fPWFfN/ZTeLt8RaTtlQzpU64dLp
- nU02x4sBUaDBV1j8HmypVMR5WZe3rllCV37KF6nBxr6HY/UmKGvHB30+ItBe2KULpRhq
- q9bpdqqCBGgdAA6MPIVO+NOaiWHjbjUflqQthk04FoLkWoa0ePf5JBk56+QXbFt1osd5
- Qj0RpMXxDi8L54/AQ/ZJIuGgh8sIpIKMX4LMZvU4+hnCcrFPYjldiPx40VipI/H+cWnk
- /PB1tHhXrmwpfHAoXaDsXRElnW5tUOMtgBPgYIiHRYgpU01b1lzPLYGT1Lg9ur7KgkpT
- UDsA==
-X-Gm-Message-State: AFqh2kqb9YoTzBfU+lEHr1TTH2xUTwBeM0MKBpO1JlYijzdcD/PRBPIS
- Dv+wGqSk2rssTYFQBqu9rjmBqRUFC9+D8IAYZFU=
-X-Google-Smtp-Source: AMrXdXtBCmcxjk+Vd0518fLYPGkHLDRkfku4pPSrg7+B3ww44bFQhxGhRTH25O0a6nz9t5OpFouimGJA/o8GyL1o848=
-X-Received: by 2002:a9d:6ac6:0:b0:671:cacb:681f with SMTP id
- m6-20020a9d6ac6000000b00671cacb681fmr1850314otq.233.1672332167193; Thu, 29
- Dec 2022 08:42:47 -0800 (PST)
+ bh=NJCXUXY/M8fTwQQAdzuC6CJTX/+lXiGdvSWxvK5G6oA=;
+ b=FBu6UqwPc9VdyvzDBWZKLqvSlPJpJOo7aupkHzpIyRW8Clyx8TCIRs5t2tobJl/9S/
+ C+T0OGhKL/EUOxJPVeP+xhGWcemLyB/u79IR8X5Y6QL+PJJRjSG5xit+/0uRVIa55KL2
+ s3hilSl1rvGUJee851Ol493hWWYC3wHcGCXfuEl8vRAfzIFQbRALngHfMAz1dAmJinti
+ hSgrX14p5Rcrw8B0PwACQWEyNuCFJZPNa4XmzcS0l5T5Ih9YTMZ6WS5lk6ZmyP+zgAoO
+ 7pJkvEuSuL02NKeko3nBhHNGLpQXb8Gu0idJFSjj/ng4UWgphmIeshp7DXuhWUrTEz2A
+ unkw==
+X-Gm-Message-State: AFqh2krjKV9vjS5qV1iw+tyUOTiieO/Z6Tht5ncEfu7J4tLpb+ixlvxC
+ mOF3sx4t/9tY56rE+A7spPlSIP/H2dt1ncR7pwBWgfd4
+X-Google-Smtp-Source: AMrXdXvp283pf5WoH/3pj/+GlGfkAIOh/nwYkfc/HL9Vkid6wsHr7LAhQ9viUtuYtqwqumkJIaO5Tdp8p1Rq2NVDPGY=
+X-Received: by 2002:a05:6808:2994:b0:35b:f5f7:3ed0 with SMTP id
+ ex20-20020a056808299400b0035bf5f73ed0mr1888175oib.46.1672335075214; Thu, 29
+ Dec 2022 09:31:15 -0800 (PST)
 MIME-Version: 1.0
-References: <3AFB9142-2BD0-46F9-AEA9-C9C5D13E68E6@live.com>
- <20221228192740.1ec44a3d@localhost>
-In-Reply-To: <20221228192740.1ec44a3d@localhost>
+References: <20221228163102.468-1-mario.limonciello@amd.com>
+In-Reply-To: <20221228163102.468-1-mario.limonciello@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Dec 2022 11:42:35 -0500
-Message-ID: <CADnq5_OXLuhSJwN-bKg47YjurUze6wj0kZhzsqszfV93uzok_w@mail.gmail.com>
-Subject: Re: [BUG] AMD Radeon Pro 5600M with 8GB of HBM2 memory shows blank
- screen on Linux
-To: Orlando Chamberlain <redecorating@protonmail.com>
+Date: Thu, 29 Dec 2022 12:31:03 -0500
+Message-ID: <CADnq5_NpLB5Nr_C5UN5UkJEo7E9=MBExmbhcTJHdjEuRSU8ccw@mail.gmail.com>
+Subject: Re: [PATCH v2 00/11] Recover from failure to probe GPU
+To: Mario Limonciello <mario.limonciello@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,60 +63,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
- "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
- "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Aditya Garg <gargaditya08@live.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Carlos Soriano Sanchez <csoriano@redhat.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 28, 2022 at 5:47 PM Orlando Chamberlain
-<redecorating@protonmail.com> wrote:
->
-> On Mon, 26 Dec 2022 21:44:06 +1100
-> "Aditya Garg" <gargaditya08@live.com> wrote:
->
-> > The AMD Radeon Pro 5600M with 8GB of HBM2 memory GPU is found in
-> > MacBook Pro 16 inch, 2019 (MacBookPro16,4).
-> >
-> > The GPU fails to work on Linux, thus a blank black screen gets
-> > displayed on boot.
-> >
-> > If nomodeset is added as a kernel parameter, we are able to access
-> > Linux easily.
-> >
-> > The link below contains the journalctl of the failed boot :-
-> > https://gist.github.com/AdityaGarg8/dfe1a1c23bf2b92b640dad89f55b73c7
-> >
-> > Thanks
-> > Aditya
->
-> I'm not sure if it was an unrelated issue, but on older versions
-> including 5.17.1, psp_v11_0_bootloader_load_sysdrv would timeout and
-> return -ETIME. I'm not sure when it started having Mode Validation
-> Warnings instead, but these errors are what it previously had:
->
-> [    5.136077] [drm:psp_hw_start [amdgpu]] *ERROR* PSP load sys drv failed!
-> [    5.136233] [drm:psp_hw_init [amdgpu]] *ERROR* PSP firmware loading failed
-> [    5.136351] [drm:amdgpu_device_fw_loading [amdgpu]] *ERROR* hw_init of IP block <psp> failed -22
-> [    5.136458] amdgpu 0000:03:00.0: amdgpu: amdgpu_device_ip_init failed
-> [    5.136477] amdgpu 0000:03:00.0: amdgpu: Fatal error during GPU init
-> [    5.136540] amdgpu 0000:03:00.0: amdgpu: amdgpu: finishing device.
-> [    5.137815] amdgpu: probe of 0000:03:00.0 failed with error -22
+Patches 1-10 are:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-
-It's not likely that the two are related.
-
+On Wed, Dec 28, 2022 at 11:31 AM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
 >
-> The patch used to test this and the kernel log I received from someone
-> using that patch are on this page:
-> https://gist.github.com/Redecorating/645a62eec4fb06e03f384396f483fa37
-
-What was this patch for?
-
-Alex
+> One of the first thing that KMS drivers do during initialization is
+> destroy the system firmware framebuffer by means of
+> `drm_aperture_remove_conflicting_pci_framebuffers`
+>
+> This means that if for any reason the GPU failed to probe the user
+> will be stuck with at best a screen frozen at the last thing that
+> was shown before the KMS driver continued it's probe.
+>
+> The problem is most pronounced when new GPU support is introduced
+> because users will need to have a recent linux-firmware snapshot
+> on their system when they boot a kernel with matching support.
+>
+> However the problem is further exaggerated in the case of amdgpu because
+> it has migrated to "IP discovery" where amdgpu will attempt to load
+> on "ALL" AMD GPUs even if the driver is missing support for IP blocks
+> contained in that GPU.
+>
+> IP discovery requires some probing and isn't run until after the
+> framebuffer has been destroyed.
+>
+> This means a situation can occur where a user purchases a new GPU not
+> yet supported by a distribution and when booting the installer it will
+> "freeze" even if the distribution doesn't have the matching kernel support
+> for those IP blocks.
+>
+> The perfect example of this is Ubuntu 22.10 and the new dGPUs just
+> launched by AMD.  The installation media ships with kernel 5.19 (which
+> has IP discovery) but the amdgpu support for those IP blocks landed in
+> kernel 6.0. The matching linux-firmware was released after 22.10's launch.
+> The screen will freeze without nomodeset. Even if a user manages to install
+> and then upgrades to kernel 6.0 after install they'll still have the
+> problem of missing firmware, and the same experience.
+>
+> This is quite jarring for users, particularly if they don't know
+> that they have to use "nomodeset" to install.
+>
+> To help the situation make changes to GPU discovery:
+> 1) Delay releasing the firmware framebuffer until after IP discovery has
+> completed.  This will help the situation of an older kernel that doesn't
+> yet support the IP blocks probing a new GPU.
+> 2) Request loading all PSP, VCN, SDMA, MES and GC microcode into memory
+> during IP discovery. This will help the situation of new enough kernel for
+> the IP discovery phase to otherwise pass but missing microcode from
+> linux-firmware.git.
+>
+> Not all requested firmware will be loaded during IP discovery as some of it
+> will require larger driver architecture changes. For example SMU firmware
+> isn't loaded on certain products, but that's not known until later on when
+> the early_init phase of the SMU load occurs.
+>
+> v1->v2:
+>  * Take the suggestion from v1 thread to delay the framebuffer release until
+>    ip discovery is done. This patch is CC to stable to that older stable
+>    kernels with IP discovery won't try to probe unknown IP.
+>  * Drop changes to drm aperature.
+>  * Fetch SDMA, VCN, MES, GC and PSP microcode during IP discovery.
+>
+> Mario Limonciello (11):
+>   drm/amd: Delay removal of the firmware framebuffer
+>   drm/amd: Add a legacy mapping to "amdgpu_ucode_ip_version_decode"
+>   drm/amd: Convert SMUv11 microcode init to use
+>     `amdgpu_ucode_ip_version_decode`
+>   drm/amd: Convert SMU v13 to use `amdgpu_ucode_ip_version_decode`
+>   drm/amd: Request SDMA microcode during IP discovery
+>   drm/amd: Request VCN microcode during IP discovery
+>   drm/amd: Request MES microcode during IP discovery
+>   drm/amd: Request GFX9 microcode during IP discovery
+>   drm/amd: Request GFX10 microcode during IP discovery
+>   drm/amd: Request GFX11 microcode during IP discovery
+>   drm/amd: Request PSP microcode during IP discovery
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   8 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 590 +++++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   6 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |   2 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c      |   9 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 208 ++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |  85 +--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 180 +-----
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  64 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         | 143 +----
+>  drivers/gpu/drm/amd/amdgpu/mes_v10_1.c        |  28 -
+>  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  25 +-
+>  drivers/gpu/drm/amd/amdgpu/psp_v10_0.c        | 106 +---
+>  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c        | 165 +----
+>  drivers/gpu/drm/amd/amdgpu/psp_v12_0.c        | 102 +--
+>  drivers/gpu/drm/amd/amdgpu/psp_v13_0.c        |  82 ---
+>  drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c      |  36 --
+>  drivers/gpu/drm/amd/amdgpu/psp_v3_1.c         |  36 --
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |  61 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |  42 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |  65 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |  30 +-
+>  .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  35 +-
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  12 +-
+>  25 files changed, 919 insertions(+), 1203 deletions(-)
+>
+>
+> base-commit: de9a71e391a92841582ca3008e7b127a0b8ccf41
+> --
+> 2.34.1
+>
