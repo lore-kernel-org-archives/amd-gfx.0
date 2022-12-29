@@ -4,118 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C71AC3DA79
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Dec 2022 16:37:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8438C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Dec 2022 16:37:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C4F010E3F7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA5C710E3F9;
 	Thu, 29 Dec 2022 16:37:10 +0000 (UTC)
-Received: from CO1PR02CU002-vft-obe.outbound.protection.outlook.com
- (mail-westus2azon11020026.outbound.protection.outlook.com [52.101.46.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACA7F10E3EF;
- Thu, 29 Dec 2022 15:57:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a7qz9zPeLPdUlV/MxmDppT0AGJ6/ozH9hFpC8oFQsSnPtHaoKPpgiu0SKFGw1Qmsv4UumKQJNQhlcvIdZrVr9/y4PnLXYbTMHiIatoEeOGk4PbjZM3EbWKdVvvHLz3Dj3thSDNIhgvnN7ORkqjgc9cVIk+cDvl2TZD38rvqZHXp5sORGKEt6aHZj/TPs25xpLlBnhgAU8RFHErzZ2yT53PVVBq+E/l7ZHB87J1ryohm9vEDWtPYh3DXINM0CJPRmBH6h1gB7uEGQryEtGM0nAPby003//LiiYVnl7J39TfgH3vWINJTLTLWYOCTGoQxkfCgs/h6jCFyTP9M6qI8wJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dMqbUgvhPnFSaq8qaAp8g+oUSRhCQxu0K/dKsQTzQEw=;
- b=XC9CQxtsFh7fdWMnoIzdXR12gVRX+NodwP105f7jXrVr//8yTWr01tNdfHTH+ztkNGTn/vhI7NcFqdDSywi0LnHJUFqHfPc5lElnB7TMKWvT3ErRpW3PsHiIpglwjyE2LX87t8kmT0ak/AMgt0gJOF+mQrANNySP6CFP/y8aLnOv7ovWIOZM8eqv8qS9dE1u098Jqmt1UI1A9LxQAKN5sRCszRhj53BlQFpP5DdZS+9sst9vswzWw0fyQQ0kDKOUa13DNFlkw3/6PQRODUaW+EyTarXmDlMrFaJfBkdXJwHYl7y7nA0kMgGD0UasFTx8g2eRwZbacEaUHYOhgDcf8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dMqbUgvhPnFSaq8qaAp8g+oUSRhCQxu0K/dKsQTzQEw=;
- b=aQgC7jgwO+SsBf7gWpeGAsMNQvQyL4st4lkNbQMzW+pDnSCW1SaGTWGTVDDJXYUhI88hAeBaJlKF4PkrlGIiVwxF+Pa1Q77OcW0RcyXcMkwWQa77M/DLbf/enQuZA40AauIjEb3DmryKuV5pa5xRpTnLu1J5YMvCm3Dh48Dep0M=
-Received: from BYAPR21MB1688.namprd21.prod.outlook.com (2603:10b6:a02:bf::26)
- by BY5PR21MB1410.namprd21.prod.outlook.com (2603:10b6:a03:232::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.9; Thu, 29 Dec
- 2022 15:57:36 +0000
-Received: from BYAPR21MB1688.namprd21.prod.outlook.com
- ([fe80::db1a:4e71:c688:b7b1]) by BYAPR21MB1688.namprd21.prod.outlook.com
- ([fe80::db1a:4e71:c688:b7b1%7]) with mapi id 15.20.5986.007; Thu, 29 Dec 2022
- 15:57:36 +0000
-From: "Michael Kelley (LINUX)" <mikelley@microsoft.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, "daniel@ffwll.ch"
- <daniel@ffwll.ch>, "airlied@gmail.com" <airlied@gmail.com>, "deller@gmx.de"
- <deller@gmx.de>, "javierm@redhat.com" <javierm@redhat.com>
-Subject: RE: [PATCH 08/18] fbdev/hyperv-fb: Do not set struct fb_info.apertures
-Thread-Topic: [PATCH 08/18] fbdev/hyperv-fb: Do not set struct
- fb_info.apertures
-Thread-Index: AQHZE8PKXOCI5g/V+0Kur/EU/q61Ta6FFFsQ
-Date: Thu, 29 Dec 2022 15:57:35 +0000
-Message-ID: <BYAPR21MB16883E1B4E7A685EE4CC5142D7F39@BYAPR21MB1688.namprd21.prod.outlook.com>
-References: <20221219160516.23436-1-tzimmermann@suse.de>
- <20221219160516.23436-9-tzimmermann@suse.de>
-In-Reply-To: <20221219160516.23436-9-tzimmermann@suse.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=b26a9e3f-2fc8-4dd1-8189-e3d8a093c2d8;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2022-12-29T15:55:16Z;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BYAPR21MB1688:EE_|BY5PR21MB1410:EE_
-x-ms-office365-filtering-correlation-id: 412a947a-202f-4500-4d9b-08dae9b5675c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: e9QbZIagjV8AmBo6Ovk10TuliXsP/cqWZ5t8N6SK5eYVdk8jia0DDFNNf1K4sUt84UNbbbpbXEoZ44ojtHJeKUqpOG9i8qwxQucHPEfPomFfxnFgX0WIFXo4DieBGOtm1TJqkOJHtmP5m6MVHS+s67NRecPV3RDefbsLK3dposcXgwXh0oyGrPRk2809q5cGfWl8jkCfcbgiWobgESqbAJAzykgVVgq+HS6lOLKoF9TL/vEmjv5MSYQuKRfnLFmUgDb3dYGPpKsGQ/KCUTvCrHIV/5osRJtBeOPQtAzHGU1djlfW4CKqI/6g/cnZz2MrMnU68uKAAsyheBh9jlHiASRvXfhB4gxqD65HVYZXitxRptYuobFflxg0tgXKeGMmEeAJZhtLwoLubAV2MGSP8DWaY2jT5Ji+Fj0M6mdtqq/S/xBb9Qc5PsW4696K4ii+keejw6wtTxP+CrQ86zVt1pr3J6pdX3KBBkQVZ5/k01wEhSGo0c+T6TcSJ4Jc0eL7ptilQo/07ECIF00ZkCNyqLxihs5qWtJ1MstOnh+xGMfw/upYvwSYrobAfDQda0vlg0f/sO7eqEtp9cImXhO0/Xg4pLDVYPXpNtRxA3yiLcHlXD7hHcnwDEgeVfqDm4raVKU315ykgRg0HVUD6/47EJlY/mylOo4InLjZy9wCSFOcQegD/Wta2WSjjseOWohBaNsh8gZpWIuHfB3GN6ZB6p9LvpgoxsNEkpNbZ1U6qmcgEEdJOPX/bH3NY7fbSM+O
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR21MB1688.namprd21.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(346002)(136003)(376002)(39860400002)(396003)(451199015)(38100700002)(82960400001)(82950400001)(122000001)(10290500003)(33656002)(86362001)(38070700005)(64756008)(76116006)(66446008)(66946007)(8676002)(66476007)(4326008)(66556008)(41300700001)(110136005)(54906003)(316002)(55016003)(8990500004)(2906002)(7416002)(5660300002)(52536014)(9686003)(8936002)(83380400001)(478600001)(7696005)(71200400001)(186003)(26005)(6506007);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?B9fzLlubny1ymtAfsPyZt+pXsQq0gidCuVvnNL883dteKtt6fdX61Nod0Wx8?=
- =?us-ascii?Q?dP7JqnnWf0wC9GHHjesuqP64QA0MW5uuOWAV5InBNDy3DuNgbEsmNH0OL5tu?=
- =?us-ascii?Q?ke6ChYmZ0VifJnrv67qmzSWO0YSEhbJwE3Wu7jIv9bpmfT95/SdxTkL43kQ0?=
- =?us-ascii?Q?2gdeFXvW5cy0ycU+c5K4UpwJW67/TSun+CFOsvLkdvf/664D1eWD4BONVaRK?=
- =?us-ascii?Q?wj5qITR74Sl1pJF/dL6rJcBhMxSNLrgv9lFb95vUK35ICfKcQAo/2NVCV7lL?=
- =?us-ascii?Q?CyFduSBQfzEpvygrrn2sXaLaiNa9YKSlv6OJld6X6ucKvkktOeCva52RO8xG?=
- =?us-ascii?Q?fTxBd8I7ZhZymx+b1fCMyvuNNK4FRvaLEhexRE6IseqvLqUo0Gl/BL9KpHSA?=
- =?us-ascii?Q?wIt0DvgHcb7BfmeU1stoKhxSGw1R6AawEvigztOOwAEyiCQPPDhlH98WtuHp?=
- =?us-ascii?Q?iHsO48+fDvE4XXpn2z3oDhaZ2ec9DAPT1tjzHk0eI5F3SA7ti4SA7j2+ifHx?=
- =?us-ascii?Q?W0/MttJT7vxi0IzDrsj1VDBFcfjxKTvgIEvZYCyPgV9P8XwjFf/+GIkRpmvq?=
- =?us-ascii?Q?4Akm0EpsBMHbwgoTb2NXq7zgECtXrME3PdOz/tDYSDN3snfJ6ZOUJRDNpdis?=
- =?us-ascii?Q?pxr3bdDGvXeyXo4S7NZT+9aGJcq//8WXbxKeOGlCoKY1Kn+l8XvF3K6oXOzg?=
- =?us-ascii?Q?ELQHEmmKVz6Gi8C/w9HFtbMypEj4pE7WfVyI+eyDta4rFUE9CxYQwsQMW9WV?=
- =?us-ascii?Q?k7efBKvdAKFCNuLjoYkrdz2567VB6Rq+3XqJR2eS6y+Hq3MnJ8t5iwhDQ8p7?=
- =?us-ascii?Q?KXTSPT/pFasGVBACaTCW2NVuwXqH61lCfHuW1czQLoidKqIFiS4pJjTK9prN?=
- =?us-ascii?Q?e0siA1f5bcrcCiYvo2b+KSSXuBXVSpsYFtCRnrpq1H8BQdHtNHoaZWTcm+fh?=
- =?us-ascii?Q?crs+YJ9dS4CXY2pAvflSDPRNwRe0NYVW8h7rfAIJLqM/hEOv5puLMih3jV2+?=
- =?us-ascii?Q?R+PCpZw0o8obsf7NVdGJ9P7NlXq1h6VfvMm4bBJXJJfW53kkXZt8DFyTRh4Q?=
- =?us-ascii?Q?wuaHh9tSrz6/2epCfkq3YpbfxcNxYP4GsyVlBoitzcVoT6fmmjFZk8kRfTgt?=
- =?us-ascii?Q?hFEqLvnKPOpiu4IjR5oXn8b/v5K/OxLsLxeFnDeVfOcP8ZrFcgRfwlVkWHds?=
- =?us-ascii?Q?9N6j+8IGzcm9Z79En6pda+nO8zEq87VJ1+ZZ0xYzbqua4A2ooBglZRLI9Qwb?=
- =?us-ascii?Q?Ah3OrKPL+Qz5DuTcPruBP62I8WgF+BGulSAYWkzfy5KBzFZ7Io9pjH49jPpy?=
- =?us-ascii?Q?D2foC4nht4AG0xzTIgT02gtbUpKa0zgjep67/ZU7AElMS18OF2rKK/rgxzyZ?=
- =?us-ascii?Q?jkGf31QSFy21DNuz2y6z9LtT4fC5k7XW6Q4yqYFhIzalXcfzQVqyxDBDut18?=
- =?us-ascii?Q?jH0VrnwQ5EmA/QMRdoZ+jd4dxWDiVFKg0b+0cuTDf7aVqhQ5Jf0Un3JJMZfb?=
- =?us-ascii?Q?Bmy2AbgVbObPv8Kcqb9RbZ7pTU7c5USo8Ar+QAGsNctI0a990m7+ml0aG5WT?=
- =?us-ascii?Q?Um3wKL+vfqATGUtjDXqlkDHtcbjUTpLDfr7M5dCmvcoxYTbVhxb14g7ho3V6?=
- =?us-ascii?Q?uw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-il1-f198.google.com (mail-il1-f198.google.com
+ [209.85.166.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 473E610E1EB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Dec 2022 06:26:37 +0000 (UTC)
+Received: by mail-il1-f198.google.com with SMTP id
+ g3-20020a056e021a2300b00305e3da9585so11394663ile.16
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Dec 2022 22:26:37 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=to:from:subject:message-id:in-reply-to:date:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=BhbflDOV2k1KLyHwZs0cA13pq6md2aueXIcWzsW7/xQ=;
+ b=p9XQGMRy24Ok0RG9ycaYjno1gwZImGqaDpb3EmQ5aQI2RGDzgp/GOAkOwi2M0CTZeb
+ URRr0BpblF0vmUYnp+1OegbAvu5H2BH2LCBL1WR4AOM+aIIG9L6A0XRAz7CRO1ZIO1hn
+ vOVZr9uGqU1MzQ85n+3Y4MaklhHU9Qcg36rILKPNO7nZpm/J8qDBne0mrTDGVAoa+owR
+ bZCY9b7SgjDqu1tYZKpBOlI1Ycn37oHg8Z1HKNf7qM2JmM5YFxBQaM1OcXrqzO8TzfD6
+ 5s3QYPKIwQAsk6apyh3J7ch2YnkHlilx5Ur3MpRJ+VN0VWrpJRfq/ai/IuBXX067nMAG
+ t01Q==
+X-Gm-Message-State: AFqh2krun1r/gWTRfMoPlsTDFnl0nuugtO2Nk2sQ8JEw+5YAv/Flyb0p
+ cPO54JwmAymmE/6CvuXcVW/WD9re4eUx4UpPjxQsVeHBjFis
+X-Google-Smtp-Source: AMrXdXtEXNg77rqsguWCrJD35UlA6mDxsEdnkiJQx9de80ndRMBTEEGwG/IbtoSUP4YA+jNL5E5JiryM/qq7CbLOIJW1ese8qpQL
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR21MB1688.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 412a947a-202f-4500-4d9b-08dae9b5675c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Dec 2022 15:57:35.8176 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lLrt+wI0JeYtfgEXm4279hc77Hr8/VZ5NfqMjcK6d1ffvUUqB7kwTZA1Q+HFp5l2vSTmaJZXZfp1eYZqJqu0ynWT70okGcDKG53xXbZJIsA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR21MB1410
+X-Received: by 2002:a05:6e02:803:b0:304:c661:f53 with SMTP id
+ u3-20020a056e02080300b00304c6610f53mr2292911ilm.155.1672295196843; Wed, 28
+ Dec 2022 22:26:36 -0800 (PST)
+Date: Wed, 28 Dec 2022 22:26:36 -0800
+In-Reply-To: <00000000000033a0120588fac894@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <0000000000002ae67f05f0f191aa@google.com>
+Subject: Re: [syzbot] WARNING: locking bug in inet_autobind
+From: syzbot <syzbot+94cc2a66fc228b23f360@syzkaller.appspotmail.com>
+To: Alexander.Deucher@amd.com, Christian.Koenig@amd.com, David1.Zhou@amd.com, 
+ Evan.Quan@amd.com, Felix.Kuehling@amd.com, Harry.Wentland@amd.com, 
+ Oak.Zeng@amd.com, Ray.Huang@amd.com, Yong.Zhao@amd.com, airlied@linux.ie, 
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, ast@kernel.org, 
+ boqun.feng@gmail.com, bpf@vger.kernel.org, christian.koenig@amd.com, 
+ daniel@ffwll.ch, daniel@iogearbox.net, davem@davemloft.net, 
+ david1.zhou@amd.com, dri-devel@lists.freedesktop.org, dsahern@kernel.org, 
+ edumazet@google.com, evan.quan@amd.com, felix.kuehling@amd.com, 
+ gautammenghani201@gmail.com, harry.wentland@amd.com, jakub@cloudflare.com, 
+ kafai@fb.com, kuba@kernel.org, kuznet@ms2.inr.ac.ru, 
+ linux-kernel@vger.kernel.org, longman@redhat.com, mingo@redhat.com, 
+ netdev@vger.kernel.org, ozeng@amd.com, pabeni@redhat.com, 
+ penguin-kernel@I-love.SAKURA.ne.jp, penguin-kernel@i-love.sakura.ne.jp, 
+ peterz@infradead.org, ray.huang@amd.com, rex.zhu@amd.com, 
+ songliubraving@fb.com, syzkaller-bugs@googlegroups.com, will@kernel.org, 
+ yhs@fb.com, yong.zhao@amd.com, yoshfuji@linux-ipv6.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 29 Dec 2022 16:37:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -128,88 +70,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Thomas Zimmermann <tzimmermann@suse.de> Sent: Monday, December 19, 20=
-22 8:05 AM
->=20
-> Generic fbdev drivers use the apertures field in struct fb_info to
-> control ownership of the framebuffer memory and graphics device. Do
-> not set the values in hyperv-fb.
->=20
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  drivers/video/fbdev/hyperv_fb.c | 17 ++++++-----------
->  1 file changed, 6 insertions(+), 11 deletions(-)
->=20
-> diff --git a/drivers/video/fbdev/hyperv_fb.c b/drivers/video/fbdev/hyperv=
-_fb.c
-> index d8edb5635f77..1c7d6ff5a6c0 100644
-> --- a/drivers/video/fbdev/hyperv_fb.c
-> +++ b/drivers/video/fbdev/hyperv_fb.c
-> @@ -988,13 +988,10 @@ static int hvfb_getmem(struct hv_device *hdev, stru=
-ct fb_info *info)
->  	struct pci_dev *pdev  =3D NULL;
->  	void __iomem *fb_virt;
->  	int gen2vm =3D efi_enabled(EFI_BOOT);
-> +	resource_size_t base, size;
->  	phys_addr_t paddr;
->  	int ret;
->=20
-> -	info->apertures =3D alloc_apertures(1);
-> -	if (!info->apertures)
-> -		return -ENOMEM;
-> -
->  	if (!gen2vm) {
->  		pdev =3D pci_get_device(PCI_VENDOR_ID_MICROSOFT,
->  			PCI_DEVICE_ID_HYPERV_VIDEO, NULL);
-> @@ -1003,8 +1000,8 @@ static int hvfb_getmem(struct hv_device *hdev, stru=
-ct fb_info *info)
->  			return -ENODEV;
->  		}
->=20
-> -		info->apertures->ranges[0].base =3D pci_resource_start(pdev, 0);
-> -		info->apertures->ranges[0].size =3D pci_resource_len(pdev, 0);
-> +		base =3D pci_resource_start(pdev, 0);
-> +		size =3D pci_resource_len(pdev, 0);
->=20
->  		/*
->  		 * For Gen 1 VM, we can directly use the contiguous memory
-> @@ -1027,8 +1024,8 @@ static int hvfb_getmem(struct hv_device *hdev, stru=
-ct fb_info *info)
->  		}
->  		pr_info("Unable to allocate enough contiguous physical memory on Gen 1=
- VM. Using MMIO instead.\n");
->  	} else {
-> -		info->apertures->ranges[0].base =3D screen_info.lfb_base;
-> -		info->apertures->ranges[0].size =3D screen_info.lfb_size;
-> +		base =3D screen_info.lfb_base;
-> +		size =3D screen_info.lfb_size;
->  	}
->=20
->  	/*
-> @@ -1070,9 +1067,7 @@ static int hvfb_getmem(struct hv_device *hdev, stru=
-ct fb_info *info)
->  	info->screen_size =3D dio_fb_size;
->=20
->  getmem_done:
-> -	aperture_remove_conflicting_devices(info->apertures->ranges[0].base,
-> -					    info->apertures->ranges[0].size,
-> -					    false, KBUILD_MODNAME);
-> +	aperture_remove_conflicting_devices(base, size, false, KBUILD_MODNAME);
->=20
->  	if (gen2vm) {
->  		/* framebuffer is reallocated, clear screen_info to avoid misuse from =
-kexec */
-> --
-> 2.39.0
+syzbot has found a reproducer for the following issue on:
 
-Reviewed-by: Michael Kelley <mikelley@microsoft.com>
+HEAD commit:    1b929c02afd3 Linux 6.2-rc1
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=145c6a68480000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=2651619a26b4d687
+dashboard link: https://syzkaller.appspot.com/bug?extid=94cc2a66fc228b23f360
+compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13e13e32480000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13790f08480000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/d1849f1ca322/disk-1b929c02.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/924cb8aa4ada/vmlinux-1b929c02.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/8c7330dae0a0/bzImage-1b929c02.xz
+
+The issue was bisected to:
+
+commit c0d9271ecbd891cdeb0fad1edcdd99ee717a655f
+Author: Yong Zhao <Yong.Zhao@amd.com>
+Date:   Fri Feb 1 23:36:21 2019 +0000
+
+    drm/amdgpu: Delete user queue doorbell variables
+
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=1433ece4a00000
+final oops:     https://syzkaller.appspot.com/x/report.txt?x=1633ece4a00000
+console output: https://syzkaller.appspot.com/x/log.txt?x=1233ece4a00000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+94cc2a66fc228b23f360@syzkaller.appspotmail.com
+Fixes: c0d9271ecbd8 ("drm/amdgpu: Delete user queue doorbell variables")
+
+------------[ cut here ]------------
+Looking for class "l2tp_sock" with key l2tp_socket_class, but found a different class "slock-AF_INET6" with the same key
+WARNING: CPU: 0 PID: 7280 at kernel/locking/lockdep.c:937 look_up_lock_class+0x97/0x110 kernel/locking/lockdep.c:937
+Modules linked in:
+CPU: 0 PID: 7280 Comm: syz-executor835 Not tainted 6.2.0-rc1-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
+RIP: 0010:look_up_lock_class+0x97/0x110 kernel/locking/lockdep.c:937
+Code: 17 48 81 fa e0 e5 f6 8f 74 59 80 3d 5d bc 57 04 00 75 50 48 c7 c7 00 4d 4c 8a 48 89 04 24 c6 05 49 bc 57 04 01 e8 a9 42 b9 ff <0f> 0b 48 8b 04 24 eb 31 9c 5a 80 e6 02 74 95 e8 45 38 02 fa 85 c0
+RSP: 0018:ffffc9000b5378b8 EFLAGS: 00010082
+RAX: 0000000000000000 RBX: ffffffff91c06a00 RCX: 0000000000000000
+RDX: ffff8880292d0000 RSI: ffffffff8166721c RDI: fffff520016a6f09
+RBP: 0000000000000000 R08: 0000000000000005 R09: 0000000000000000
+R10: 0000000080000201 R11: 20676e696b6f6f4c R12: 0000000000000000
+R13: ffff88802a5820b0 R14: 0000000000000000 R15: 0000000000000000
+FS:  00007f1fd7a97700(0000) GS:ffff8880b9800000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000020000100 CR3: 0000000078ab4000 CR4: 00000000003506f0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+Call Trace:
+ <TASK>
+ register_lock_class+0xbe/0x1120 kernel/locking/lockdep.c:1289
+ __lock_acquire+0x109/0x56d0 kernel/locking/lockdep.c:4934
+ lock_acquire kernel/locking/lockdep.c:5668 [inline]
+ lock_acquire+0x1e3/0x630 kernel/locking/lockdep.c:5633
+ __raw_spin_lock_bh include/linux/spinlock_api_smp.h:126 [inline]
+ _raw_spin_lock_bh+0x33/0x40 kernel/locking/spinlock.c:178
+ spin_lock_bh include/linux/spinlock.h:355 [inline]
+ lock_sock_nested+0x5f/0xf0 net/core/sock.c:3473
+ lock_sock include/net/sock.h:1725 [inline]
+ inet_autobind+0x1a/0x190 net/ipv4/af_inet.c:177
+ inet_send_prepare net/ipv4/af_inet.c:813 [inline]
+ inet_send_prepare+0x325/0x4e0 net/ipv4/af_inet.c:807
+ inet6_sendmsg+0x43/0xe0 net/ipv6/af_inet6.c:655
+ sock_sendmsg_nosec net/socket.c:714 [inline]
+ sock_sendmsg+0xd3/0x120 net/socket.c:734
+ __sys_sendto+0x23a/0x340 net/socket.c:2117
+ __do_sys_sendto net/socket.c:2129 [inline]
+ __se_sys_sendto net/socket.c:2125 [inline]
+ __x64_sys_sendto+0xe1/0x1b0 net/socket.c:2125
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x63/0xcd
+RIP: 0033:0x7f1fd78538b9
+Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 e1 15 00 00 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f1fd7a971f8 EFLAGS: 00000212 ORIG_RAX: 000000000000002c
+RAX: ffffffffffffffda RBX: 00007f1fd78f0038 RCX: 00007f1fd78538b9
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000004
+RBP: 00007f1fd78f0030 R08: 0000000020000100 R09: 000000000000001c
+R10: 0000000004008000 R11: 0000000000000212 R12: 00007f1fd78f003c
+R13: 00007f1fd79ffc8f R14: 00007f1fd7a97300 R15: 0000000000022000
+ </TASK>
 
