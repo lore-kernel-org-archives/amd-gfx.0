@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF588C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Dec 2022 17:54:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86221C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Dec 2022 18:03:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA0A38994A;
-	Thu, 29 Dec 2022 17:54:20 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A1A88994A
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Dec 2022 17:54:17 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-1447c7aa004so22408143fac.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Dec 2022 09:54:17 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB3DB10E029;
+	Thu, 29 Dec 2022 18:03:14 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2635B10E029
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Dec 2022 18:03:10 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-1441d7d40c6so22453736fac.8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Dec 2022 10:03:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=XHlzEXJhyZZ0tI9HRD0UitTdBrnY+Dw0ik7xx37s3+c=;
- b=GcWMMAeee98cncsf1TfRm1/AsppHiZ+lGrf43k0JvmB3hAj50CUtGAghi5k8KAwhcq
- NxDbxxyJ6vhQnCok0hccS5H5kuWiiDltPsa1F/YirJLobzSma0j8NUGjjgxA4JBFcW7t
- mRxe/N0JoeSoFhEVzcyEvz6YNLmkx6wKndWCY1Af+j3wG5PmvxkxMhZdPjk4fvzKnhx7
- Mu+hhkmCJKqaLmtBkovpW6u+Xyr4UgeBax+OcpIFGOh8FI4rVLDblDqdr+hbm7FZWDpT
- kI8+PfsxoaDNnby0U/CduuhLhCMoNrcd725chnOMuglLFK8xOG2IMmM42Wr1ip4t4lIQ
- vWnQ==
+ bh=+TgF11nJtwD7ikruReryrlXm1ZsvypKS5yQMpgCjtE4=;
+ b=Co/4sXOoad5SIE2lMLGLNLo6quXbScITTsowFYbdQCscbnOenWyBlKbjmq+r1QKeAO
+ izHRswTPPX3T4Pj+5hJ5blKu1Ksfa4WtA2FUg0mAiUYcCcxxW5muEYgCXX0yq3H+TgBX
+ isFRY0sBPPzPPXqBhWBancw3kiWKzp9bqyXEcWIyP3RP8xuX+rc9xPuI+pkyLc9s9Udy
+ fTad2SDsJrs0aK7R7iItOAhlARppztodeu/eNA+ua5Xf1uSgk6lYngi5pDZdZFWdd4cb
+ UGUtPD4PvwSTWB4Inzxv3SVFeW4P9rklSAilrpVkFnaSCJJJoKmbJusaSxL7jRfRCKgx
+ T6og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=XHlzEXJhyZZ0tI9HRD0UitTdBrnY+Dw0ik7xx37s3+c=;
- b=qsmFIhTbasJ3dg1ecM617SpXZpDT+PsVg0cPAWG0mQU3JcvQqa0RiIsQEPT2SbOPhx
- 8olyxc8usabISs9R/9q0HHIItdXgX3Xf9oyRA4zRF3f0juxDLMhtZljEyfyWLHjmEw1Q
- SPfHdUcIddJqXLHBQ6fN0wfOa54zREpSKyzV6BFDs5mmLkiyZgFqJN1TfjZFt5TEAaYB
- ZsoCW04ZmDpyrFFS1ogLqsTJJJJMN76mbCfEFKiCtRFH8oARsv6phUxwHX/VRm6NOG2W
- 0V2HpiTj63+ILpQdijM+66yTRQtlBsSJ3ptho8MDaDNZ+91sfTZTm2EyhFV+FFbs58Ne
- aeYA==
-X-Gm-Message-State: AFqh2krAUU9QqcPByNnHduwYP5tHppg93X+rPgTnC8EOwElP/43uDWFr
- faT98/As85eB+ozfEZRe5WcMZiC7QKCeZkXTXZU5Z2Dz
-X-Google-Smtp-Source: AMrXdXsQnDzFywV7bs31bYkO5ySSC5BD1ctDRANJkJfn5i3nKiZs5WapajHnnU9QDCYr8ZABIwL2mGPZY4NRTKMR3/M=
+ bh=+TgF11nJtwD7ikruReryrlXm1ZsvypKS5yQMpgCjtE4=;
+ b=rCFqSWmlptGV8zexbkpPRkA+Sz63tBmB19rEZwBa3zI50PtK/qa7MGiYQkAD1G7dOX
+ YUk6g5YsjqaXBYY9Kr6N+XirJ0bgQz6FM0uyRTEtUw/JXaRkrONnViifUu6ziFyxIb0i
+ LFBj0Wuumv/vNc5lt3wf0yBnhouEXpdjRnWhZonukSlaX+gzj7c1PfhJtSRz2PnAKRJK
+ AdXJD7VUjk7+Iqt9ITuQHNUpnLqTNib9zxRzHHjCut16OSCalG6xnAXJ7rZYgt1sbI9X
+ qYYrwpLSKqT2r86r6dHW0RXXTl7du1YaWxQKDwznxVhSUzKgqbj+viGqQ7apG90xC9rd
+ H/Vw==
+X-Gm-Message-State: AFqh2koWkLQqwsmm9e7YcodzRuSjSDPsBrnZntmj3WonCD7scr1WW7kI
+ liv8NR3+PK/kzp7IsHygaLEn41Gas/jIux0IIYTmRdV2
+X-Google-Smtp-Source: AMrXdXsAnLKzz+EQBznjanDkxsEV9OGMxhOJwiFtbhGdCnOzMwr7oa0/4IH1XpCN7jPQJPz0ifO8LRw4ryG6WhUD7X0=
 X-Received: by 2002:a05:6870:970e:b0:148:3c8f:15ab with SMTP id
- n14-20020a056870970e00b001483c8f15abmr2463576oaq.46.1672336456884; Thu, 29
- Dec 2022 09:54:16 -0800 (PST)
+ n14-20020a056870970e00b001483c8f15abmr2465671oaq.46.1672336989831; Thu, 29
+ Dec 2022 10:03:09 -0800 (PST)
 MIME-Version: 1.0
 References: <20221223193655.1972-1-shashank.sharma@amd.com>
- <20221223193655.1972-6-shashank.sharma@amd.com>
-In-Reply-To: <20221223193655.1972-6-shashank.sharma@amd.com>
+In-Reply-To: <20221223193655.1972-1-shashank.sharma@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Dec 2022 12:54:04 -0500
-Message-ID: <CADnq5_Nz6Q-RrO47G_fMYFUSLC-J9DpZhR_5Lbs=heMcXfSG1A@mail.gmail.com>
-Subject: Re: [RFC 5/7] drm/amdgpu: Create context for usermode queue
+Date: Thu, 29 Dec 2022 13:02:58 -0500
+Message-ID: <CADnq5_MuJdXE3CjuibmiW72bPFfAN1YCr20tUpayf9fnn+DXZQ@mail.gmail.com>
+Subject: Re: [RFC 0/7] RFC: Usermode queue for AMDGPU driver
 To: Shashank Sharma <shashank.sharma@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -73,133 +72,59 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Fri, Dec 23, 2022 at 2:37 PM Shashank Sharma <shashank.sharma@amd.com> wrote:
 >
-> The FW expects us to allocate atleast one page as process
-> context space, and one for gang context space. This patch adds some
-> object for the same.
+> This is a RFC series to implement usermode graphics queues for AMDGPU
+> driver (Navi 3X and above). The idea of usermode graphics queue is to
+> allow direct workload submission from a userspace graphics process who
+> has amdgpu graphics context.
+>
+> Once we have some initial feedback on the design, we will publish a
+> follow up V1 series with a libdrm consumer test.
 
-This should be handled in the IP specific code for the MQD creation.
-Each IP may have different requirements for MQD related metadata.
+I think this should look more like the following:
+1. Convert doorbells to full fledged GEM objects just like vram.  Then
+update the GEM IOCTL to allow allocation of doorbell BOs.
+2. Store MQD data per amdgpu_ctx.
+3. Create secure semaphore pool and map RO into each GPUVM.
+4. Add callbacks to each IP type that supports user mode queues.
+These callbacks should handle the IP specific MQD initialization and
+mapping/unmapping details including allocation of BOs for the MQD
+itself and any relevant metadata.  The USERQ IOCTL handler will look
+up the callback based on the IP type specified in the IOCTL.
 
 Alex
-
 
 >
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Christian Koenig <christian.koenig@amd.com>
 >
-> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 57 +++++++++++++++++++
->  .../drm/amd/include/amdgpu_usermode_queue.h   |  8 +++
->  2 files changed, 65 insertions(+)
+> Alex Deucher (1):
+>   drm/amdgpu: UAPI for user queue management
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> index b566ce4cb7f0..2a854a5e2f70 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> @@ -69,6 +69,56 @@ amdgpu_userqueue_get_doorbell(struct amdgpu_device *adev,
->      return 0;
->  }
+> Arunpravin Paneer Selvam (1):
+>   drm/amdgpu: Secure semaphore for usermode queue
 >
-> +static int
-> +amdgpu_userqueue_create_context(struct amdgpu_device *adev, struct amdgpu_usermode_queue *queue)
-> +{
-> +    int r;
-> +    struct amdgpu_userq_ctx *pctx = &queue->proc_ctx;
-> +    struct amdgpu_userq_ctx *gctx = &queue->gang_ctx;
-> +    /*
-> +     * The FW expects atleast one page space allocated for
-> +     * process context related work, and one for gang context.
-> +     */
-> +    r = amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
-> +                                AMDGPU_GEM_DOMAIN_VRAM,
-> +                                &pctx->obj,
-> +                                &pctx->gpu_addr,
-> +                                &pctx->cpu_ptr);
-> +    if (r) {
-> +        DRM_ERROR("Failed to allocate proc bo for userqueue (%d)", r);
-> +        return r;
-> +    }
-> +
-> +    r = amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
-> +                                AMDGPU_GEM_DOMAIN_VRAM,
-> +                                &gctx->obj,
-> +                                &gctx->gpu_addr,
-> +                                &gctx->cpu_ptr);
-> +    if (r) {
-> +        DRM_ERROR("Failed to allocate proc bo for userqueue (%d)", r);
-> +        amdgpu_bo_free_kernel(&pctx->obj,
-> +                              &pctx->gpu_addr,
-> +                              &pctx->cpu_ptr);
-> +        return r;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +static void
-> +amdgpu_userqueue_free_context(struct amdgpu_device *adev, struct amdgpu_usermode_queue *queue)
-> +{
-> +    struct amdgpu_userq_ctx *pctx = &queue->proc_ctx;
-> +    struct amdgpu_userq_ctx *gctx = &queue->gang_ctx;
-> +
-> +    amdgpu_bo_free_kernel(&pctx->obj,
-> +                          &pctx->gpu_addr,
-> +                          &pctx->cpu_ptr);
-> +    amdgpu_bo_free_kernel(&pctx->obj,
-> +                          &gctx->gpu_addr,
-> +                          &gctx->cpu_ptr);
-> +}
-> +
->  static void
->  amdgpu_userqueue_setup_mqd(struct amdgpu_device *adev, struct amdgpu_usermode_queue *queue)
->  {
-> @@ -282,6 +332,12 @@ int amdgpu_userqueue_create(struct amdgpu_device *adev, struct drm_file *filp,
->          goto free_mqd;
->      }
+> Arvind Yadav (1):
+>   drm/amdgpu: Create MQD for userspace queue
 >
-> +    r = amdgpu_userqueue_create_context(adev, queue);
-> +    if (r < 0) {
-> +        DRM_ERROR("Failed to create context for queue\n");
-> +        goto free_mqd;
-> +    }
-> +
->      ctx->userq = queue;
->      args->out.q_id = queue->queue_id;
->      args->out.flags = 0;
-> @@ -306,6 +362,7 @@ void amdgpu_userqueue_destroy(struct amdgpu_device *adev, struct drm_file *filp,
->      struct amdgpu_usermode_queue *queue = ctx->userq;
+> Shashank Sharma (4):
+>   drm/amdgpu: Add usermode queue for gfx work
+>   drm/amdgpu: Allocate doorbell slot for user queue
+>   drm/amdgpu: Create context for usermode queue
+>   drm/amdgpu: Map userqueue into HW
 >
->      mutex_lock(&adev->userq.userq_mutex);
-> +    amdgpu_userqueue_free_context(adev, queue);
->      amdgpu_userqueue_destroy_mqd(queue);
->      amdgpu_userqueue_remove_index(adev, queue);
->      ctx->userq = NULL;
-> diff --git a/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h b/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h
-> index c1fe39ffaf72..8bf3c0be6937 100644
-> --- a/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h
-> +++ b/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h
-> @@ -26,6 +26,12 @@
->
->  #define AMDGPU_MAX_USERQ 512
->
-> +struct amdgpu_userq_ctx {
-> +       struct amdgpu_bo *obj;
-> +       uint64_t gpu_addr;
-> +       void    *cpu_ptr;
-> +};
-> +
->  struct amdgpu_usermode_queue {
->         int             queue_id;
->         int             queue_type;
-> @@ -44,6 +50,8 @@ struct amdgpu_usermode_queue {
->
->         struct amdgpu_bo        *mqd_obj;
->         struct amdgpu_vm        *vm;
-> +       struct amdgpu_userq_ctx proc_ctx;
-> +       struct amdgpu_userq_ctx gang_ctx;
->         struct list_head        list;
->  };
+>  drivers/gpu/drm/amd/amdgpu/Makefile           |   3 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  14 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h       |   1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 486 ++++++++++++++++
+>  .../amd/amdgpu/amdgpu_userqueue_secure_sem.c  | 245 ++++++++
+>  .../drm/amd/include/amdgpu_usermode_queue.h   |  68 +++
+>  .../amd/include/amdgpu_usermode_queue_mqd.h   | 544 ++++++++++++++++++
+>  include/uapi/drm/amdgpu_drm.h                 |  52 ++
+>  8 files changed, 1413 insertions(+)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue_secure_sem.c
+>  create mode 100644 drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h
+>  create mode 100644 drivers/gpu/drm/amd/include/amdgpu_usermode_queue_mqd.h
 >
 > --
 > 2.34.1
