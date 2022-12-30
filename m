@@ -4,114 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E796DC4167B
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Dec 2022 19:32:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3217CC4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Dec 2022 22:07:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1028410E090;
-	Fri, 30 Dec 2022 19:32:51 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2072.outbound.protection.outlook.com [40.107.94.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 492C910E073;
- Fri, 30 Dec 2022 19:32:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Blz/MNdgMpW8PczZYzLKQMtddcigFvBi6NQviny6x81v6OxHNgx2hjP4yqDIW0gaFXDGjNGIXvllkwNwRWGAbl8xzBhGH1lhGvgB9XnjzJdwWKdu2pJaYiPV7hvzTiIwVr6oyPs4FYlV6p7Z+PwrhN+wSEVzOtAJiaa1yejPr1Is/VJoWZra8b5RBL/udGD9Fm4luMtcuvyRSPaE79Hk73vZUwbNl/7AxRhw65QGESUxn6kQq4bOYBamcUHP4ou9iai51cx6CHIy264oIdNH5IanUPGGYdAZMFfwPpUxWhY4vd5NQZryycnifF4gKNb4aTqrqjtOCpZy0Vdau3fIBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zsjVeAK8lWNIqjqKJYsX3dxC78CH4xfI20+vI3fdeWA=;
- b=TyJH2qLFAG/M44y3gwisb6tLCNaSd7gqBUDfCkkqMJbnUw4fUSDU/6gN1ugof4W6/xeO3OsFo/vB91ud2MJSVqCQcBdYTmgY0dd+zsJRkFSIF5gr/pJ8IiE63l8aGkmeffSSSZQ2qvAaUfmeBzG/QrfUv/k9ZaiLj2Qu+xZmZn4OsKUSpliW1/8p9NDCnHxb/JEQQSTzKUlS9YYEKemX3jgJrVfnAsLYFDe/j2RU4Vfd1M/r/wPeyX1AQjrOhWWDQ9JpCLSgxFXuauKy/uccvvPVdrbtVBz3+V9dEkgISv4mEG7MN+WKlWZiS+zbXrYwilphu0QLeuwxQxdgozqmAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zsjVeAK8lWNIqjqKJYsX3dxC78CH4xfI20+vI3fdeWA=;
- b=HegFqSoFYVFsHJ6FccgReALT3bbFrQRvMX2mmB7pO2eoX3TQeLyvGZFJRRiHYMwbcIyJ+L1XY5+OGcuLMq+9IXVKGVVy0ZsjMBdVIVekF9ig/KZkxfihaEj1OGSVSWN2SagsfYm8vJmrT9UyyEAVxA4fL9EfAQuS65sKlH1U3Cc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- SA0PR12MB4494.namprd12.prod.outlook.com (2603:10b6:806:94::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5944.16; Fri, 30 Dec 2022 19:32:43 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::5935:7d8d:e955:6298]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::5935:7d8d:e955:6298%7]) with mapi id 15.20.5944.016; Fri, 30 Dec 2022
- 19:32:43 +0000
-Message-ID: <bc7c869b-3de5-b113-6064-79024c04c388@amd.com>
-Date: Fri, 30 Dec 2022 14:33:32 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [PATCH] drm: amd: display: fix dc/core/dc.c kernel-doc
-To: Randy Dunlap <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org
-References: <20221229010051.5397-1-rdunlap@infradead.org>
-Content-Language: en-US
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <20221229010051.5397-1-rdunlap@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YTBP288CA0015.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::28) To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F61F10E0F6;
+	Fri, 30 Dec 2022 22:07:54 +0000 (UTC)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9193010E0F6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Dec 2022 22:07:51 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id fc4so53686011ejc.12
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Dec 2022 14:07:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=Tf9wHz9LIX7DhchpdK3x/gnSm+Z1o3ftUsHqNbpCsp8=;
+ b=WcPQsvx8ad43srUWQEAE+kF7FH6rlnOmrzSTEWDaQnIdYvBmuSFc8kEYy1oRFoYMpT
+ fSvtroPWjHMkFgMF2F1I0bxqonItxJzejUcYL6fZxvL6lwdOlYz1BT2xLsk0UiJktSmZ
+ DoBZTFRkcOMJ8xgHV0MN8Azuqw8HN/GhBabFg7I6xxVR0v046ulQptPBRx97Nhz3HFFg
+ HKY+F3G7HpqCzZCa6030h6nOsfaX7TafBY2mzZ+gTUaMcW4psIrKYNCAU43gNBGXNiez
+ QLh2AnN98wIPwGAAEUTzE1eaSzTPOkJiWBYaaLeoZzTorqWp/fyPUtuZbkeo8tSiTM0V
+ Q/Dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Tf9wHz9LIX7DhchpdK3x/gnSm+Z1o3ftUsHqNbpCsp8=;
+ b=8QDEDqinUwGCidZ8tQKmGHUzovIpj8qJKFWvdHOigS5hMHn+05AxWParKIMKncNDqB
+ MUXbVL4nYo35CM/JX8Z1Z/wVjvjuA2O0Xnj9N7BB7HbKVrDfmuX6xFyr0ttSPiiUEEL1
+ Gs8CnkkwUAEHc8J2M5J23MPDqqmbwsaEji6vekq/pKjlLXklPg8Ddr+OjPmTRIfCZKdA
+ 3rXX58+38pSU2xfrqP7PON4Rb1zvlu4M4fSxidEnyATIUUbqjKv9BJRiqUI68qFqDFTq
+ jW9tzNYoj3mawEyMOuXUpqCHr9PfYyoyt1+GzuDlsc8ybt5ylOjXjrR0dFGOyVQAGY93
+ omYQ==
+X-Gm-Message-State: AFqh2kok7PZeYDztEKhnWZ62gxej23hX8IWtVgfypuKJkb130KmhJzn2
+ Fq2c+zAko02ZJOpjIwG9SY/inVWMZTAi1UfytiGnAKa5rUY=
+X-Google-Smtp-Source: AMrXdXuCWzD/G6tYHa201QEF59dgODG13fF1XMjR9Eppaic7CgurifMKqCt68H8NleTPnUXDIB/mbz+Yqtx658y+NFg=
+X-Received: by 2002:a17:906:40cf:b0:7c1:ff6:615b with SMTP id
+ a15-20020a17090640cf00b007c10ff6615bmr1877389ejk.118.1672438069636; Fri, 30
+ Dec 2022 14:07:49 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|SA0PR12MB4494:EE_
-X-MS-Office365-Filtering-Correlation-Id: e58d2729-2197-4539-2a25-08daea9c9ed2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gbihoPKUoxezt050T6J4Qv/IkC1iYMN4JmWABnAJ16JiJ2i/Gx+uFIUYRRO/3IlEW3C1c/pPTa4HZ+Hva46VSmJeJS2S+T1hVkGEZrBC8/Fk+MQAdvv1SsnMjljkBiDROPm6shnY+Kjqj+WywFbYQC6HtSP1GgejpAMTrkgEMxdsiqQ+TrQix0KHI+AeCnWt7Xnn7+5YeAnhV6OvPuPKj0QV6DOVDzhMdjIay3aa0oTB9DDMEV6N+zUnyR/T/1C5RAJABZiVofoQ/3D1af1A4yxWFLefmPhClUsx8hkutO2x7uBMJpe5zoCsiEgLT4nBwg9BcrO0yOo9oj2JKrIpJfYoo5CkN/Rvn/gReOefKP5QnPe/LJeQqKtg1jGhcTcOaE87Ir9YD6kyqCcGd5uJrxvj0SmONewYCfo0v2dShGC07eLfRZMJyO904WhkMTy1rqMJMcJVqgaMvqEEzI9tvrAkWb7whIOUTwqFBGUKNyQycAqQ/nAa78Wb9jPAOl1ElrrxhTLJJnkpJa6y2uUazHZ2BWw9kpSEn01U4dQFY6iUitaxZuc7YveJ85tPPCnPQVk9LowPO0nMZSK/OWUAJGs31Ea9NhpmYiUhQbiuE1CEUjZ0hYCTQ8I4sloGXl+LwQjhSMA1qai4rrMM1nDpIATUvy3pFJHpSN0xdBDWHyI7pqE3QeK7l/vgnlW/vBHm1b+E2q85jfM7AUliH9/XWxFYny8x1mc+IcxjNWmUaL0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(376002)(39860400002)(346002)(136003)(366004)(451199015)(31686004)(6512007)(5660300002)(41300700001)(66476007)(4326008)(66946007)(8676002)(8936002)(66556008)(26005)(44832011)(54906003)(2906002)(36756003)(186003)(316002)(66574015)(478600001)(6486002)(53546011)(31696002)(86362001)(6666004)(2616005)(6506007)(83380400001)(38100700002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1BrUE1RR1d5TVJBSFUvQS92ZmJ6L2g4clZONVpoenB6Y0VoTUFIUVBKdzRV?=
- =?utf-8?B?dXkwRC8vVHdHcE1XZUZ0QkFpWmFRd2RlelBaQitsM2UzbjlacjJDV2d4RUw4?=
- =?utf-8?B?dmZ0VVltMGNKL1FaWGFDQW1la241Y1dqaXlvVS96dzBUK3lmUlcybXlESXFZ?=
- =?utf-8?B?MmFZRmJJZk9zMk1DMjVneElLdWx0RTBJbDNiU3lFR2NRYnJHSjdDRGVQRjF4?=
- =?utf-8?B?SFQ3THk2clhBRXJheVd3YkQxK3dicFJyZXd6c2dXM3BaaDhoNUdIU1F2eGxv?=
- =?utf-8?B?QWMxMk9rVnBhd3dGZC9vTWwyUEpSdmhYR3NFZzlTNWJiZHhGMXJuSm4rR3hC?=
- =?utf-8?B?OStkaURlYWYxSFhXQ0ErdUVVSzB0NHpuUHZ5SjBuU2hEZWpXR0lLWHJ3TlBt?=
- =?utf-8?B?bldkT2lmOWFCTmljY3Q1aXNIeWc4d09QMGJaVWlOSm9oODJrSkp2MkZNRTY0?=
- =?utf-8?B?d3RxdEZ2MGpCaW8vSFE2UEt6QUdtdmdPdGdTZzVWTi9pT0dTbUljTStaT3Ro?=
- =?utf-8?B?L2lrbld6bjlZUDJQVzlMMFhEODR6VVFHTFZ5Mnh4Q1kyVHczcisrcy80aHNh?=
- =?utf-8?B?Szk4VzRBd1NtVHliT3VsTkxkMjU2RUZ3SGRWOGRHQjcwNm0wTVNEMi9DL3R3?=
- =?utf-8?B?dS9wMk5NSWFEQUpqOG5QQ3prT1p1VjdGMklDRzJWUnZ5RSs3OEw5TERaNVpR?=
- =?utf-8?B?L0tibVpjQnNTNjd6TXcxMWR0eHIvbCt1bk5DcWtxREloSUxud0hld2RMY3dh?=
- =?utf-8?B?c1RiZHphVWhIanJiakFLd0ZJNGtWVU9kMnNUVmtsYVhmM2UvbklKNEVuVEN3?=
- =?utf-8?B?VHdBY2NEWGRKTTMxQ2YrY1FZQmRyN2V1NXYwVnVYS2d2Ti9sNjI0T1psZm1O?=
- =?utf-8?B?MURscDZzejVoV0R2UGt6bGJlbkZwbU1Ma0RlTmYwZlBCSm41UUlZdUFqak1P?=
- =?utf-8?B?UlM4NnRSREsvWjZzUmxFcWMwQzhlcFRoTVA2TGRCckNpMEZMeUxPMnRPMUt5?=
- =?utf-8?B?RVVCcXljb1E0aUduV1hQcUV1SmNXRDZYa0Q2RHB4UlBEVlNQTjFUZWRBYjNF?=
- =?utf-8?B?TStiYTRnUzU0NXVqU2crcEpISVpoY3RqUnBETGY5SkJlMk5EaHM1c0J5b1Bk?=
- =?utf-8?B?ek5WVXNrYlhSVEloR3puS0tpOEFLN0xuOTBkTmlZUVB3SHNYMGxsSG0zMnU5?=
- =?utf-8?B?TUpTcU1LTXI5bmZKcHJuajRWZnlKZGw1ekdKQmYwQXB0a3BIbjBMdVlYOEI1?=
- =?utf-8?B?VEVnNE1mTHhXWWFFYmJqSTdyd0xkaFZBTUFoRWljaWUxWWZFU25KREY5Um5F?=
- =?utf-8?B?azhRTURYa2tzYkwva0Z0WWduQm9XaTNVZGdVdWprcktTckMzL1VTNktOL0Rp?=
- =?utf-8?B?YVNPS2t4ckZ0d05rT0RVbDF6d3loOExaMUxLMVYwVVpiNzVGOTFNYjJDamo4?=
- =?utf-8?B?cmF3V1RBbVQ0K213cmswN3hFMHpsajdlaUxFWkJPOE1Ienp0d1dBRTdEYWx0?=
- =?utf-8?B?Y2hQMWVFMllKd3MvZFhtTVcwS2RuajlmN0prVDBJY2NQVks0LythcWhtZnN4?=
- =?utf-8?B?Y0lnMWhPM3VXYnhFMnJuMTZJWUIvMEFvSDcvdFBJMWRMblJSSUNkaEVJazY5?=
- =?utf-8?B?dDhGQ1hhOUx2K1BrOHRqeWFPMHM5N0Y5RnpsRDFUQ0tkMEFGdHBKU2s4K20z?=
- =?utf-8?B?ak1RUXlGTWZRQmRPM2NSaEZpMU12WFl3ZnNmaGNVZU04ZndhMXJIdjd5aWN5?=
- =?utf-8?B?b2F5RE1CUkJaZTFNY1RCR1JTSElHamZyMWdLMDIyMEVxSWNUTi9iWTEwQTVT?=
- =?utf-8?B?M2pNVzEyOUp1RTFhQS9XeGNqYmxpV1Q1NjBLRVgvTHpwQjROY25tL3NKVjFE?=
- =?utf-8?B?cU1tM2hBUGZWREVkWmlFakJpSHhLSGo4QzZjSWVHcDVPQmJ1MktBNk5JSzJM?=
- =?utf-8?B?SmY0b2N0am1KdGZ3VW9FUWRST01aYzN0T0lHR0pJQ0NZNDJ6UnIzaFRQT3lu?=
- =?utf-8?B?akErVllaVmNYY1FYNDgvUS8xQlVqVFRoTWgwOW5TbzJVL3NDSG9xSzlvanhs?=
- =?utf-8?B?TDBRWFhqdGRXSXNCSDlQWFcvWmMyR0JxVE80Rklqajlkenl6Y2tpWWI5bkRp?=
- =?utf-8?Q?W+I6JZf88tgLgA9eCraV9Qgql?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e58d2729-2197-4539-2a25-08daea9c9ed2
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Dec 2022 19:32:42.8436 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: a1m/tYBPAlQVJlMa3/JGNzoBn4ZfTrcWMH58Gb4ItsB0duzScICH1PJtD/7GhMm/ThrLT1q4wZKm2Zz+Orab8Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4494
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Fri, 30 Dec 2022 17:07:13 -0500
+Message-ID: <CAAxE2A720cJguG5b+0zbP=G4TxTjpqKBvOqDXXAP0LWHZEuj0A@mail.gmail.com>
+Subject: [PATCH 1/2] drm/amdgpu: return the PCIe gen and lanes from the INFO
+To: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="0000000000000cfadb05f112d5f7"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,170 +60,130 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, Leo Li <sunpeng.li@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/28/22 20:00, Randy Dunlap wrote:
-> Fix all kernel-doc warnings in dc/core/dc.c:
-> 
-> dc.c:385: warning: missing initial short description on line:
->   *  dc_stream_adjust_vmin_vmax:
-> dc.c:392: warning: contents before sections
-> dc.c:399: warning: No description found for return value of 'dc_stream_adjust_vmin_vmax'
-> dc.c:434: warning: Excess function parameter 'adjust' description in 'dc_stream_get_last_used_drr_vtotal'
-> dc.c:434: warning: No description found for return value of 'dc_stream_get_last_used_drr_vtotal'
-> dc.c:574: warning: No description found for return value of 'dc_stream_configure_crc'
-> dc.c:1746: warning: No description found for return value of 'dc_commit_state_no_check'
-> dc.c:4991: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
->   * dc_extended_blank_supported 0 Decide whether extended blank is supported
-> dc.c:4991: warning: missing initial short description on line:
->   * dc_extended_blank_supported 0 Decide whether extended blank is supported
-> dc.c:4723: warning: Function parameter or member 'dc' not described in 'dc_enable_dmub_outbox'
-> dc.c:4926: warning: Function parameter or member 'dc' not described in 'dc_process_dmub_dpia_hpd_int_enable'
-> dc.c:4926: warning: Function parameter or member 'hpd_int_enable' not described in 'dc_process_dmub_dpia_hpd_int_enable'
-> 12 warnings
-> 
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Leo Li <sunpeng.li@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
+--0000000000000cfadb05f112d5f7
+Content-Type: multipart/alternative; boundary="0000000000000cfad805f112d5f5"
 
-Applied, thanks!
+--0000000000000cfad805f112d5f5
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> ---
-> Based on linux-next-20221226 but also applies to mainline.
-> 
->   drivers/gpu/drm/amd/display/dc/core/dc.c |   40 +++++++++++++--------
->   1 file changed, 25 insertions(+), 15 deletions(-)
-> 
-> diff -- a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -382,16 +382,18 @@ static void dc_perf_trace_destroy(struct
->   }
->   
->   /**
-> - *  dc_stream_adjust_vmin_vmax:
-> + *  dc_stream_adjust_vmin_vmax - look up pipe context & update parts of DRR
-> + *  @dc:     dc reference
-> + *  @stream: Initial dc stream state
-> + *  @adjust: Updated parameters for vertical_total_min and vertical_total_max
->    *
->    *  Looks up the pipe context of dc_stream_state and updates the
->    *  vertical_total_min and vertical_total_max of the DRR, Dynamic Refresh
->    *  Rate, which is a power-saving feature that targets reducing panel
->    *  refresh rate while the screen is static
->    *
-> - *  @dc:     dc reference
-> - *  @stream: Initial dc stream state
-> - *  @adjust: Updated parameters for vertical_total_min and vertical_total_max
-> + *  Return: %true if the pipe context is found and adjusted;
-> + *          %false if the pipe context is not found.
->    */
->   bool dc_stream_adjust_vmin_vmax(struct dc *dc,
->   		struct dc_stream_state *stream,
-> @@ -419,14 +421,17 @@ bool dc_stream_adjust_vmin_vmax(struct d
->   }
->   
->   /**
-> - * dc_stream_get_last_used_drr_vtotal - dc_stream_get_last_vrr_vtotal
-> + * dc_stream_get_last_used_drr_vtotal - Looks up the pipe context of
-> + * dc_stream_state and gets the last VTOTAL used by DRR (Dynamic Refresh Rate)
->    *
->    * @dc: [in] dc reference
->    * @stream: [in] Initial dc stream state
-> - * @adjust: [in] Updated parameters for vertical_total_min and
-> + * @refresh_rate: [in] new refresh_rate
->    *
-> - * Looks up the pipe context of dc_stream_state and gets the last VTOTAL used
-> - * by DRR (Dynamic Refresh Rate)
-> + * Return: %true if the pipe context is found and there is an associated
-> + *         timing_generator for the DC;
-> + *         %false if the pipe context is not found or there is no
-> + *         timing_generator for the DC.
->    */
->   bool dc_stream_get_last_used_drr_vtotal(struct dc *dc,
->   		struct dc_stream_state *stream,
-> @@ -567,7 +572,10 @@ dc_stream_forward_crc_window(struct dc_s
->    *              once.
->    *
->    * By default, only CRC0 is configured, and the entire frame is used to
-> - * calculate the crc.
-> + * calculate the CRC.
-> + *
-> + * Return: %false if the stream is not found or CRC capture is not supported;
-> + *         %true if the stream has been configured.
->    */
->   bool dc_stream_configure_crc(struct dc *dc, struct dc_stream_state *stream,
->   			     struct crc_params *crc_window, bool enable, bool continuous)
-> @@ -636,7 +644,7 @@ bool dc_stream_configure_crc(struct dc *
->    * dc_stream_configure_crc needs to be called beforehand to enable CRCs.
->    *
->    * Return:
-> - * false if stream is not found, or if CRCs are not enabled.
-> + * %false if stream is not found, or if CRCs are not enabled.
->    */
->   bool dc_stream_get_crc(struct dc *dc, struct dc_stream_state *stream,
->   		       uint32_t *r_cr, uint32_t *g_y, uint32_t *b_cb)
-> @@ -1741,6 +1749,8 @@ void dc_z10_save_init(struct dc *dc)
->    *
->    * Applies given context to the hardware and copy it into current context.
->    * It's up to the user to release the src context afterwards.
-> + *
-> + * Return: an enum dc_status result code for the operation
->    */
->   static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *context)
->   {
-> @@ -4705,7 +4715,7 @@ bool dc_enable_dmub_notifications(struct
->   /**
->    * dc_enable_dmub_outbox - Enables DMUB unsolicited notification
->    *
-> - * dc: [in] dc structure
-> + * @dc: [in] dc structure
->    *
->    * Enables DMUB unsolicited notifications to x86 via outbox.
->    */
-> @@ -4906,8 +4916,8 @@ enum dc_status dc_process_dmub_set_mst_s
->   /**
->    * dc_process_dmub_dpia_hpd_int_enable - Submits DPIA DPD interruption
->    *
-> - * @dc [in]: dc structure
-> - * @hpd_int_enable [in]: 1 for hpd int enable, 0 to disable
-> + * @dc: [in] dc structure
-> + * @hpd_int_enable: [in] 1 for hpd int enable, 0 to disable
->    *
->    * Submits dpia hpd int enable command to dmub via inbox message
->    */
-> @@ -4988,7 +4998,7 @@ void dc_notify_vsync_int_state(struct dc
->   }
->   
->   /**
-> - * dc_extended_blank_supported 0 Decide whether extended blank is supported
-> + * dc_extended_blank_supported - Decide whether extended blank is supported
->    *
->    * @dc: [in] Current DC state
->    *
-> @@ -4997,7 +5007,7 @@ void dc_notify_vsync_int_state(struct dc
->    * ability to enter z9/z10.
->    *
->    * Return:
-> - * Indicate whether extended blank is supported (true or false)
-> + * Indicate whether extended blank is supported (%true or %false)
->    */
->   bool dc_extended_blank_supported(struct dc *dc)
->   {
+For computing PCIe bandwidth in userspace and troubleshooting PCIe
+bandwidth issues.
 
--- 
-Hamza
+For example, my Navi21 has been limited to PCIe gen 1 and this is
+the first time I noticed it after 2 years.
 
+Note that this intentionally fills a hole and padding
+in drm_amdgpu_info_device.
+
+Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
+
+The patch is attached.
+
+Marek
+
+--0000000000000cfad805f112d5f5
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">For computing PCIe bandwidth in userspace and troubleshoot=
+ing PCIe<br>bandwidth issues.<br><br>For example, my Navi21 has been limite=
+d to PCIe gen 1 and this is<br>the first time I noticed it after 2 years.<b=
+r><br>Note that this intentionally fills a hole and padding<br>in drm_amdgp=
+u_info_device.<br><br><div>Signed-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=
+=3D"mailto:marek.olsak@amd.com">marek.olsak@amd.com</a>&gt;</div><div><br><=
+/div><div>The patch is attached.</div><div><br></div><div>Marek<br></div><b=
+r></div>
+
+--0000000000000cfad805f112d5f5--
+
+--0000000000000cfadb05f112d5f7
+Content-Type: text/x-patch; charset="UTF-8"; 
+	name="0001-drm-amdgpu-return-the-PCIe-gen-and-lanes-from-the-IN.patch"
+Content-Disposition: attachment; 
+	filename="0001-drm-amdgpu-return-the-PCIe-gen-and-lanes-from-the-IN.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_lcb2e0850>
+X-Attachment-Id: f_lcb2e0850
+
+RnJvbSA1YzVmNWI3MDczMjdiMDMwYTIyODI3Nzc3NGYwZjljOWQyNGIwNzg3IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiA9P1VURi04P3E/TWFyZWs9MjBPbD1DNT1BMT1DMz1BMWs/PSA8
+bWFyZWsub2xzYWtAYW1kLmNvbT4KRGF0ZTogU2F0LCAyNCBEZWMgMjAyMiAxNzo0NDoyNiAtMDUw
+MApTdWJqZWN0OiBbUEFUQ0ggMS8yXSBkcm0vYW1kZ3B1OiByZXR1cm4gdGhlIFBDSWUgZ2VuIGFu
+ZCBsYW5lcyBmcm9tIHRoZSBJTkZPCiBpb2N0bApNSU1FLVZlcnNpb246IDEuMApDb250ZW50LVR5
+cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9VVRGLTgKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzog
+OGJpdAoKRm9yIGNvbXB1dGluZyBQQ0llIGJhbmR3aWR0aCBpbiB1c2Vyc3BhY2UgYW5kIHRyb3Vi
+bGVzaG9vdGluZyBQQ0llCmJhbmR3aWR0aCBpc3N1ZXMuCgpGb3IgZXhhbXBsZSwgbXkgTmF2aTIx
+IGhhcyBiZWVuIGxpbWl0ZWQgdG8gUENJZSBnZW4gMSBhbmQgdGhpcyBpcwp0aGUgZmlyc3QgdGlt
+ZSBJIG5vdGljZWQgaXQgYWZ0ZXIgMiB5ZWFycy4KCk5vdGUgdGhhdCB0aGlzIGludGVudGlvbmFs
+bHkgZmlsbHMgYSBob2xlIGFuZCBwYWRkaW5nCmluIGRybV9hbWRncHVfaW5mb19kZXZpY2UuCgpT
+aWduZWQtb2ZmLWJ5OiBNYXJlayBPbMWhw6FrIDxtYXJlay5vbHNha0BhbWQuY29tPgotLS0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyB8ICAzICsrLQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jIHwgMTQgKysrKysrKysrKysrKy0KIGluY2x1
+ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oICAgICAgICAgICB8ICAzICsrLQogMyBmaWxlcyBjaGFu
+Z2VkLCAxNyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kcnYuYwppbmRleCBiOGNmYTQ4ZmIyOTYuLjE1NWY5MDViMDBjOSAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwpAQCAtMTA3LDkgKzEwNywxMCBA
+QAogICogLSAzLjQ5LjAgLSBBZGQgZ2FuZyBzdWJtaXQgaW50byBDUyBJT0NUTAogICogLSAzLjUw
+LjAgLSBVcGRhdGUgQU1ER1BVX0lORk9fREVWX0lORk8gSU9DVEwgZm9yIG1pbmltdW0gZW5naW5l
+IGFuZCBtZW1vcnkgY2xvY2sKICAqICAgICAgICAgICAgVXBkYXRlIEFNREdQVV9JTkZPX1NFTlNP
+UiBJT0NUTCBmb3IgUEVBS19QU1RBVEUgZW5naW5lIGFuZCBtZW1vcnkgY2xvY2sKKyAqICAgMy41
+MS4wIC0gUmV0dXJuIHRoZSBQQ0llIGdlbiBhbmQgbGFuZXMgZnJvbSB0aGUgSU5GTyBpb2N0bAog
+ICovCiAjZGVmaW5lIEtNU19EUklWRVJfTUFKT1IJMwotI2RlZmluZSBLTVNfRFJJVkVSX01JTk9S
+CTUwCisjZGVmaW5lIEtNU19EUklWRVJfTUlOT1IJNTEKICNkZWZpbmUgS01TX0RSSVZFUl9QQVRD
+SExFVkVMCTAKIAogdW5zaWduZWQgaW50IGFtZGdwdV92cmFtX2xpbWl0ID0gVUlOVF9NQVg7CmRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKaW5kZXggOTAzZTg3NzBlMjc1Li5m
+YmEzMDZlMGVmODcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9rbXMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKQEAg
+LTQyLDYgKzQyLDcgQEAKICNpbmNsdWRlICJhbWRncHVfZ2VtLmgiCiAjaW5jbHVkZSAiYW1kZ3B1
+X2Rpc3BsYXkuaCIKICNpbmNsdWRlICJhbWRncHVfcmFzLmgiCisjaW5jbHVkZSAiYW1kX3BjaWUu
+aCIKIAogdm9pZCBhbWRncHVfdW5yZWdpc3Rlcl9ncHVfaW5zdGFuY2Uoc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYpCiB7CkBAIC03NjYsNiArNzY3LDcgQEAgaW50IGFtZGdwdV9pbmZvX2lvY3Rs
+KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsIHN0cnVjdCBkcm1fZmlsZSAqZmls
+cCkKIAljYXNlIEFNREdQVV9JTkZPX0RFVl9JTkZPOiB7CiAJCXN0cnVjdCBkcm1fYW1kZ3B1X2lu
+Zm9fZGV2aWNlICpkZXZfaW5mbzsKIAkJdWludDY0X3Qgdm1fc2l6ZTsKKwkJdWludDMyX3QgcGNp
+ZV9nZW5fbWFzazsKIAkJaW50IHJldDsKIAogCQlkZXZfaW5mbyA9IGt6YWxsb2Moc2l6ZW9mKCpk
+ZXZfaW5mbyksIEdGUF9LRVJORUwpOwpAQCAtNzk4LDcgKzgwMCw2IEBAIGludCBhbWRncHVfaW5m
+b19pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2Zp
+bGUgKmZpbHApCiAJCWRldl9pbmZvLT5udW1fcmJfcGlwZXMgPSBhZGV2LT5nZnguY29uZmlnLm1h
+eF9iYWNrZW5kc19wZXJfc2UgKgogCQkJYWRldi0+Z2Z4LmNvbmZpZy5tYXhfc2hhZGVyX2VuZ2lu
+ZXM7CiAJCWRldl9pbmZvLT5udW1faHdfZ2Z4X2NvbnRleHRzID0gYWRldi0+Z2Z4LmNvbmZpZy5t
+YXhfaHdfY29udGV4dHM7Ci0JCWRldl9pbmZvLT5fcGFkID0gMDsKIAkJZGV2X2luZm8tPmlkc19m
+bGFncyA9IDA7CiAJCWlmIChhZGV2LT5mbGFncyAmIEFNRF9JU19BUFUpCiAJCQlkZXZfaW5mby0+
+aWRzX2ZsYWdzIHw9IEFNREdQVV9JRFNfRkxBR1NfRlVTSU9OOwpAQCAtODUyLDYgKzg1MywxNyBA
+QCBpbnQgYW1kZ3B1X2luZm9faW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0
+YSwgc3RydWN0IGRybV9maWxlICpmaWxwKQogCiAJCWRldl9pbmZvLT50Y2NfZGlzYWJsZWRfbWFz
+ayA9IGFkZXYtPmdmeC5jb25maWcudGNjX2Rpc2FibGVkX21hc2s7CiAKKwkJLyogQ29tYmluZSB0
+aGUgY2hpcCBnZW4gbWFzayB3aXRoIHRoZSBwbGF0Zm9ybSAoQ1BVL21vYm8pIG1hc2suICovCisJ
+CXBjaWVfZ2VuX21hc2sgPSBhZGV2LT5wbS5wY2llX2dlbl9tYXNrICYgKGFkZXYtPnBtLnBjaWVf
+Z2VuX21hc2sgPj4gMTYpOworCQlkZXZfaW5mby0+cGNpZV9nZW4gPSBmbHMocGNpZV9nZW5fbWFz
+ayk7CisJCWRldl9pbmZvLT5wY2llX251bV9sYW5lcyA9CisJCQlhZGV2LT5wbS5wY2llX21sd19t
+YXNrICYgQ0FJTF9QQ0lFX0xJTktfV0lEVEhfU1VQUE9SVF9YMzIgPyAzMiA6CisJCQlhZGV2LT5w
+bS5wY2llX21sd19tYXNrICYgQ0FJTF9QQ0lFX0xJTktfV0lEVEhfU1VQUE9SVF9YMTYgPyAxNiA6
+CisJCQlhZGV2LT5wbS5wY2llX21sd19tYXNrICYgQ0FJTF9QQ0lFX0xJTktfV0lEVEhfU1VQUE9S
+VF9YMTIgPyAxMiA6CisJCQlhZGV2LT5wbS5wY2llX21sd19tYXNrICYgQ0FJTF9QQ0lFX0xJTktf
+V0lEVEhfU1VQUE9SVF9YOCA/IDggOgorCQkJYWRldi0+cG0ucGNpZV9tbHdfbWFzayAmIENBSUxf
+UENJRV9MSU5LX1dJRFRIX1NVUFBPUlRfWDQgPyA0IDoKKwkJCWFkZXYtPnBtLnBjaWVfbWx3X21h
+c2sgJiBDQUlMX1BDSUVfTElOS19XSURUSF9TVVBQT1JUX1gyID8gMiA6IDE7CisKIAkJcmV0ID0g
+Y29weV90b191c2VyKG91dCwgZGV2X2luZm8sCiAJCQkJICAgbWluKChzaXplX3Qpc2l6ZSwgc2l6
+ZW9mKCpkZXZfaW5mbykpKSA/IC1FRkFVTFQgOiAwOwogCQlrZnJlZShkZXZfaW5mbyk7CmRpZmYg
+LS1naXQgYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCBiL2luY2x1ZGUvdWFwaS9kcm0v
+YW1kZ3B1X2RybS5oCmluZGV4IGZlN2Y4NzFlMzA4MC4uZjdmYzczMjVmMTdmIDEwMDY0NAotLS0g
+YS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaAorKysgYi9pbmNsdWRlL3VhcGkvZHJtL2Ft
+ZGdwdV9kcm0uaApAQCAtMTA1Myw3ICsxMDUzLDcgQEAgc3RydWN0IGRybV9hbWRncHVfaW5mb19k
+ZXZpY2UgewogCV9fdTMyIGVuYWJsZWRfcmJfcGlwZXNfbWFzazsKIAlfX3UzMiBudW1fcmJfcGlw
+ZXM7CiAJX191MzIgbnVtX2h3X2dmeF9jb250ZXh0czsKLQlfX3UzMiBfcGFkOworCV9fdTMyIHBj
+aWVfZ2VuOwogCV9fdTY0IGlkc19mbGFnczsKIAkvKiogU3RhcnRpbmcgdmlydHVhbCBhZGRyZXNz
+IGZvciBVTURzLiAqLwogCV9fdTY0IHZpcnR1YWxfYWRkcmVzc19vZmZzZXQ7CkBAIC0xMTA5LDYg
+KzExMDksNyBAQCBzdHJ1Y3QgZHJtX2FtZGdwdV9pbmZvX2RldmljZSB7CiAJX191NjQgaGlnaF92
+YV9tYXg7CiAJLyogZ2Z4MTAgcGFfc2NfdGlsZV9zdGVlcmluZ19vdmVycmlkZSAqLwogCV9fdTMy
+IHBhX3NjX3RpbGVfc3RlZXJpbmdfb3ZlcnJpZGU7CisJX191MzIgcGNpZV9udW1fbGFuZXM7CiAJ
+LyogZGlzYWJsZWQgVENDcyAqLwogCV9fdTY0IHRjY19kaXNhYmxlZF9tYXNrOwogCV9fdTY0IG1p
+bl9lbmdpbmVfY2xvY2s7Ci0tIAoyLjI1LjEKCg==
+--0000000000000cfadb05f112d5f7--
