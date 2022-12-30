@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9B74C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Dec 2022 05:22:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0996C10F1B
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Dec 2022 05:22:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2021E10E0D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ABA510E0E5;
 	Fri, 30 Dec 2022 05:21:50 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2050.outbound.protection.outlook.com [40.107.94.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A57010E068;
- Fri, 30 Dec 2022 05:21:46 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3E2510E0A3;
+ Fri, 30 Dec 2022 05:21:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KezzRisulhMHm7QcJHUvmkaTezli810r73+IJ+qptQyzMHarGR9SpQbqg1BQCQchkX3rf+B09fE99V+NUJda39498nIa1h3eOk+IZbO7uzxtrgTP0Q8T277AuG9NSORVp/1hVCRkxvg983thR4mncEuBSzY9XdQhpwiVZGyD1aDFxghRTfy06x3Fo2VWl8kOJXEY8L27nA5yWRgFs9/JKaliuauOs5qhRL4nFejyMc3n8Qe2aVswOBb5eFpXtQmNFg4F/kEW1y8r5B5oGlrIzVYrTkg2AiocJhr9pm3r2of+sURx5Zz30TquXlxvbnrldAw8aZYn8qcX+rdOVVlEhA==
+ b=Bliu5uHmUwPEWuKPayPXhizJCZ7hZCkYMeuuXsvIQ7NLolAd7V0dvErvshCNZxVJZvTlLVUVL3ZL4MzDHhqCA7Q3e65qLa+ch0ZCcoahFMeZEAjVWwttjJCFm57U/ZxTlNRhjb1DO7OBv0IIsYVBoptJUaW6SqsB/u22O7vBWzx6k+T8hhBCO6U4KtQM4h4idvL4GNg99ZF1jkXjU4yetuA1Zj8h0Z6ccDhMUV55mFv/Om+pc2qXYnm7ZH6itm+xzqA9pqi4Q7A+B2sWim4+tOloxIcHbHKvdROfGDJdVKXmpU1wpIEVYsnlbervpSBq21Cup+DpmPvOuVghgOAPQA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PqzjHR50u8col4Qg0Tv77O/+5WqAjV7+m5KHlYTwwXI=;
- b=VUuSwqc93apaXeCwpantbEeSuBW8WJbtLA5xpZFVDULTBPpMPwW1N4wlpSA/kZf9XL30pZ/c3yPDeWNkMfZuOaZGMv/l49Irc5SYJlbGuVKLX/X2KFbRfGLYkMEv1xHuy4ic4wUzZocq2Cng6yovR4RozC6H+css5Icq87dL5PRtqe/82DURa+v+q+9wOmOiK6odXt+tsTmsJdhKHGxnqprDJ3TaoY3OVNrom/Q0SvE8O6wq2AjJQO5JozwzXCsJos2MYqKpBFU3ORqOrZz1g6MlWTgRAGyLiuurv8kmKEcQOX8251TVsDqCQt/AiIpyj06pTEPilxa7GTyim40/Og==
+ bh=MaRbNW14irpdV8ochGNqUlpR22kwnoTJ/fvNJWPVZB0=;
+ b=XloiiQ/dBmi8GT8tF42t5ZJbocSqKPKob5EUe4cubv+Lt5wPsRPXGKNhcCNXYeEKKSCpga33Z4Knn67MzNTiLZ9oetfS/Il2is7GTlMt5uTz7UlxqPsf9TfTp5Nd2SqPepjYTOsRWcbuKyP62ZkkUhLoGgXVi4WD0j+E8crgMbd8T6TjZdwZzy1zfw10QEuL5YFikAni9PEm0xvvRPNvxn2pnSjtrbMZEOz1wxqpjNvEHYXck6s1CFPNFRZCpkuSfOZssBPOKXqT5JROwXa6Wkk58PYP24xCkNsxa3kJzvwv0w8k/1YPiUTC+a/b1vfx9EceHZsZk4USVseGwBQxvw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PqzjHR50u8col4Qg0Tv77O/+5WqAjV7+m5KHlYTwwXI=;
- b=dsgzT/UZVx0oKKFrYNWhOPsSyF0KS9ykG9guT4GDDoMlW3HNOOA8imVyU3HGt685Wb3S0o8jgOfRfyyAMgMvOU9dnCk0YJCf5slbz6/0+WsBaLPJZc+ICC7gzxQfzqSdIyyChW+mcOp3Att15QzIDiJo546ix1ooSypOR/cEjgE=
-Received: from MW4PR04CA0292.namprd04.prod.outlook.com (2603:10b6:303:89::27)
- by CH3PR12MB7596.namprd12.prod.outlook.com (2603:10b6:610:14b::5)
+ bh=MaRbNW14irpdV8ochGNqUlpR22kwnoTJ/fvNJWPVZB0=;
+ b=TPcByWjbUwSefOWnifTHB1ok76yKDXmzKhrjeMuqJjHeLn1g22KgM7QZSA5RIN+blLKsIwR1j0hCvBK8mhvBY9xpIbGNIaRcANwgbhyd/DWCg0KMle1owJtxMgqxrA1WbrUMmIACpIyj8pJPwCZROJZD0xafI0eeCpOxT5g5B/I=
+Received: from MW4PR03CA0345.namprd03.prod.outlook.com (2603:10b6:303:dc::20)
+ by BL1PR12MB5253.namprd12.prod.outlook.com (2603:10b6:208:30b::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.16; Fri, 30 Dec
- 2022 05:21:42 +0000
-Received: from CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:89:cafe::1) by MW4PR04CA0292.outlook.office365.com
- (2603:10b6:303:89::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.17 via Frontend
- Transport; Fri, 30 Dec 2022 05:21:41 +0000
+ 2022 05:21:46 +0000
+Received: from CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:dc:cafe::8a) by MW4PR03CA0345.outlook.office365.com
+ (2603:10b6:303:dc::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5966.18 via Frontend
+ Transport; Fri, 30 Dec 2022 05:21:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT043.mail.protection.outlook.com (10.13.174.193) with Microsoft SMTP
+ CO1NAM11FT055.mail.protection.outlook.com (10.13.175.129) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5944.6 via Frontend Transport; Fri, 30 Dec 2022 05:21:41 +0000
+ 15.20.5966.18 via Frontend Transport; Fri, 30 Dec 2022 05:21:45 +0000
 Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 29 Dec
- 2022 23:21:39 -0600
+ 2022 23:21:44 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 03/11] drm/amd: Convert SMUv11 microcode init to use
- `amdgpu_ucode_ip_version_decode`
-Date: Thu, 29 Dec 2022 23:21:07 -0600
-Message-ID: <20221230052119.15096-4-mario.limonciello@amd.com>
+Subject: [PATCH v3 07/11] drm/amd: Request MES microcode during IP discovery
+Date: Thu, 29 Dec 2022 23:21:11 -0600
+Message-ID: <20221230052119.15096-8-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221230052119.15096-1-mario.limonciello@amd.com>
 References: <20221230052119.15096-1-mario.limonciello@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT043:EE_|CH3PR12MB7596:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4eb3d77-078e-4097-1d89-08daea25bc38
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT055:EE_|BL1PR12MB5253:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66e4eb00-936e-4b6d-2e30-08daea25beb1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LwtjTsAkTOfBoApqNi4OaumOPNIXHJt/KFOAD0eIdAhppJk4wi4yVb6mIZMNZjBSzMyVLL70SEPLWYJ/FsZzgQZaNHT+J7oRZBGflNHNFS1rUFB/NZwh4zFYu3bp/PqFvAAIMG0/G0Trx1gnvC7AabXEhb3x3zOnI2agXAKGhUQV8Wd/H2QJba4r9q+eygl1cgotHpjNZSwNbTZ0pTVoN4AnIxq6tYhY7S5RNHgnKzMyIxOVAYUYuqPvJTjOVXPI4/43S/+qcmKaiMwlOp+SAHBlElk300PelrshlZtyavnD65ck1mjmwlsD3oMcFCD0zJQPADviTVKBtI52aj0ToRKKnFB/rgjC0EX19p0JJAj4fJc9vhG91DeCW5yKo/G06/S6YFZQDbHbX7P2UPSiCpGTZXQYv01CZ/5SLayvoYZBNzLEYFvVFHRrLJrvG+gU25xQScNZFQc7YuugUop0o+5Uqde4Z4flZDU9iXGCE7hd4274Y6s8a3JK4L6xAcGiJy+hOC9j8Cd3GMQfpkK3grTxG+qe2w9ufNVLYXIQZsn14fd6tXZjyLEfRXJR7FfXA6pPB4AoyXamikPTcDLlMQwcC96qM+avKixcACqPul5QnnzTWt/70atop+xDN1yIS6F1SF/UM+gt+FYC6krPPBbSTQcOxayYRmLn32S3z6UNUGKYpaxnc4ISyhTqbbku3AgyS5PM9sVQU4c+Z8NmWZfLTNf3nyWvgm/9DL1Wj7/G7GH91Iw0dq2Th527InwUv4tz0LIYp5Fe6z5wd18ZwA==
+X-Microsoft-Antispam-Message-Info: SBI524RAhzE218OZ/fBDsyONZmUNadtNCDP1s8PweaQqPa1wQdNpyqO8XABogv5z34CNCKtEq0xgIuKzy0nHZvood1uOl6NO5gPx1xwHtWQmaiTmmRfFdPNe1cA4AquO2gx4S+4prG+/v6NURQ69jK5yRtYiXWfLH9o6O79XMRR3cX4fDdVxxN3bEoVonab0fE/erkPAaAHVPeOTMVSrfm294mf/wFkdJlYk6rHoy5p9S39F064pYib2vrZMxTu8/yJ1kON2sCtAi0J+9bvVD27PHF+OX4+lXxbEQ4AeENA4gPTVGJLx9TENxoux0HIniAnfyuMPcrLOz4KU0e1LCWsLZH/rvqJZgA3A1seAvXhXsujNVVnFSbz0nN6rcJtj7INV+8ardv4iUMjPDhGQEWiIIL5CLGN2Vkn7QEC3+u0hLIyWqHCIklvzt2wv1rR3R1pbumQ/GzwngEnPrx13++UhUF6dqNc7TKvcVf7z9M86r1QeFJmV7emPQ0Lr6OXttHAkpOSOKXMEnIDEnh8xN1hMs50s7aaHwsdX2WPgIjW8Qn8UspM1z9HLu30VcdTM7ElYeBL3VavBSAXaght5yipPvvlS6F03++mASrWuAnAOZ8wAg6zmVbqjhtQFGYRuavn6SewKjVRnlO+LZs/ZQvvFlegZqvWDMiwvjnjFtWeqGurNwvpA10r5stsr1lHp2ibf8+gS4RWgML3iqFbsJghsNGb3q4K1QepvpM4FcUY=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(136003)(346002)(396003)(376002)(451199015)(36840700001)(46966006)(40470700004)(36860700001)(426003)(83380400001)(47076005)(86362001)(44832011)(8936002)(5660300002)(41300700001)(82740400003)(40480700001)(40460700003)(6666004)(82310400005)(478600001)(186003)(316002)(1076003)(336012)(16526019)(26005)(2616005)(8676002)(4326008)(7696005)(81166007)(110136005)(54906003)(70586007)(356005)(2906002)(70206006)(36756003)(81973001)(36900700001);
+ SFS:(13230022)(4636009)(396003)(376002)(136003)(39860400002)(346002)(451199015)(36840700001)(40470700004)(46966006)(70586007)(5660300002)(4326008)(70206006)(8676002)(16526019)(41300700001)(44832011)(8936002)(26005)(426003)(186003)(2616005)(36756003)(356005)(2906002)(110136005)(54906003)(40460700003)(478600001)(316002)(86362001)(6666004)(40480700001)(336012)(1076003)(7696005)(47076005)(81166007)(82740400003)(82310400005)(83380400001)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Dec 2022 05:21:41.7424 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4eb3d77-078e-4097-1d89-08daea25bc38
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Dec 2022 05:21:45.8756 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66e4eb00-936e-4b6d-2e30-08daea25beb1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7596
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5253
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,73 +103,195 @@ Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, Daniel
  Vetter <daniel@ffwll.ch>, Carlos Soriano Sanchez <csoriano@redhat.com>,
- Evan Quan <evan.quan@amd.com>, David Airlie <airlied@gmail.com>,
- christian.koenig@amd.com, Mario Limonciello <mario.limonciello@amd.com>
+ David Airlie <airlied@gmail.com>, christian.koenig@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the special casing from SMU v11 code. No intended functional
-changes.
+If MES microcode is required but not available during early init, the
+firmware framebuffer will have already been released and the screen will
+freeze.
 
+Move the request for MES microcode into the IP discovery phase
+so that if it's not available, IP discovery will fail.
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 35 ++-----------------
- 1 file changed, 3 insertions(+), 32 deletions(-)
+v2->v3:
+ * Add a missing newline
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 40 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.c        | 28 -------------
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        | 25 +-----------
+ 3 files changed, 41 insertions(+), 52 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index ad66d57aa102..d4756bd30830 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -93,7 +93,7 @@ static void smu_v11_0_poll_baco_exit(struct smu_context *smu)
- int smu_v11_0_init_microcode(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
--	const char *chip_name;
-+	char ucode_prefix[30];
- 	char fw_name[SMU_FW_NAME_LEN];
- 	int err = 0;
- 	const struct smc_firmware_header_v1_0 *hdr;
-@@ -105,38 +105,9 @@ int smu_v11_0_init_microcode(struct smu_context *smu)
- 	     (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(11, 0, 7))))
- 		return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 07c05782a0e3..edaeec35c39f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -145,6 +145,19 @@ MODULE_FIRMWARE("amdgpu/vcn_4_0_0.bin");
+ MODULE_FIRMWARE("amdgpu/vcn_4_0_2.bin");
+ MODULE_FIRMWARE("amdgpu/vcn_4_0_4.bin");
  
--	switch (adev->ip_versions[MP1_HWIP][0]) {
--	case IP_VERSION(11, 0, 0):
++MODULE_FIRMWARE("amdgpu/navi10_mes.bin");
++MODULE_FIRMWARE("amdgpu/sienna_cichlid_mes.bin");
++MODULE_FIRMWARE("amdgpu/sienna_cichlid_mes1.bin");
++
++MODULE_FIRMWARE("amdgpu/gc_11_0_0_mes.bin");
++MODULE_FIRMWARE("amdgpu/gc_11_0_0_mes1.bin");
++MODULE_FIRMWARE("amdgpu/gc_11_0_1_mes.bin");
++MODULE_FIRMWARE("amdgpu/gc_11_0_1_mes1.bin");
++MODULE_FIRMWARE("amdgpu/gc_11_0_2_mes.bin");
++MODULE_FIRMWARE("amdgpu/gc_11_0_2_mes1.bin");
++MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes.bin");
++MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes1.bin");
++
+ static const char *hw_id_names[HW_ID_MAX] = {
+ 	[MP1_HWID]		= "MP1",
+ 	[MP2_HWID]		= "MP2",
+@@ -2041,10 +2054,30 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
+ 		r = amdgpu_discovery_load_vcn_fw(adev, ucode_prefix);
+ 	return r;
+ }
++
++static int amdgpu_discovery_load_mes_fw(struct amdgpu_device *adev,
++					enum admgpu_mes_pipe pipe,
++					const char *ucode_prefix)
++{
++	char fw_name[40];
++
++	if (pipe == AMDGPU_MES_SCHED_PIPE)
++		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes.bin",
++			 ucode_prefix);
++	else
++		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes1.bin",
++			 ucode_prefix);
++
++	return request_firmware(&adev->mes.fw[pipe], fw_name, adev->dev);
+ }
+ 
+ static int amdgpu_discovery_set_mes_ip_blocks(struct amdgpu_device *adev)
+ {
++	char ucode_prefix[30];
++	int pipe, r;
++
++	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
++
+ 	switch (adev->ip_versions[GC_HWIP][0]) {
+ 	case IP_VERSION(10, 1, 10):
+ 	case IP_VERSION(10, 1, 1):
+@@ -2077,6 +2110,13 @@ static int amdgpu_discovery_set_mes_ip_blocks(struct amdgpu_device *adev)
+ 	default:
+ 		break;
+ 	}
++	if (adev->enable_mes) {
++		for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
++			r = amdgpu_discovery_load_mes_fw(adev, pipe, ucode_prefix);
++			if (r)
++				return r;
++		}
++	}
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+index 614394118a53..9faa9867b3c9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+@@ -37,10 +37,6 @@
+ #define mmRLC_CP_SCHEDULERS_Sienna_Cichlid		0x4ca1
+ #define mmRLC_CP_SCHEDULERS_Sienna_Cichlid_BASE_IDX	1
+ 
+-MODULE_FIRMWARE("amdgpu/navi10_mes.bin");
+-MODULE_FIRMWARE("amdgpu/sienna_cichlid_mes.bin");
+-MODULE_FIRMWARE("amdgpu/sienna_cichlid_mes1.bin");
+-
+ static int mes_v10_1_hw_fini(void *handle);
+ static int mes_v10_1_kiq_hw_init(struct amdgpu_device *adev);
+ 
+@@ -382,34 +378,10 @@ static const struct amdgpu_mes_funcs mes_v10_1_funcs = {
+ static int mes_v10_1_init_microcode(struct amdgpu_device *adev,
+ 				    enum admgpu_mes_pipe pipe)
+ {
+-	const char *chip_name;
+-	char fw_name[30];
+ 	int err;
+ 	const struct mes_firmware_header_v1_0 *mes_hdr;
+ 	struct amdgpu_firmware_info *info;
+ 
+-	switch (adev->ip_versions[GC_HWIP][0]) {
+-	case IP_VERSION(10, 1, 10):
 -		chip_name = "navi10";
 -		break;
--	case IP_VERSION(11, 0, 5):
--		chip_name = "navi14";
--		break;
--	case IP_VERSION(11, 0, 9):
--		chip_name = "navi12";
--		break;
--	case IP_VERSION(11, 0, 7):
+-	case IP_VERSION(10, 3, 0):
 -		chip_name = "sienna_cichlid";
 -		break;
--	case IP_VERSION(11, 0, 11):
--		chip_name = "navy_flounder";
--		break;
--	case IP_VERSION(11, 0, 12):
--		chip_name = "dimgrey_cavefish";
--		break;
--	case IP_VERSION(11, 0, 13):
--		chip_name = "beige_goby";
--		break;
--	case IP_VERSION(11, 0, 2):
--		chip_name = "arcturus";
--		break;
 -	default:
--		dev_err(adev->dev, "Unsupported IP version 0x%x\n",
--			adev->ip_versions[MP1_HWIP][0]);
--		return -EINVAL;
+-		BUG();
 -	}
-+	amdgpu_ucode_ip_version_decode(adev, MP1_HWIP, ucode_prefix, sizeof(ucode_prefix));
+-
+-	if (pipe == AMDGPU_MES_SCHED_PIPE)
+-		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes.bin",
+-			 chip_name);
+-	else
+-		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes1.bin",
+-			 chip_name);
+-
+-	err = request_firmware(&adev->mes.fw[pipe], fw_name, adev->dev);
+-	if (err)
+-		return err;
+-
+ 	err = amdgpu_ucode_validate(adev->mes.fw[pipe]);
+ 	if (err) {
+ 		release_firmware(adev->mes.fw[pipe]);
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index 970b066b37bb..27176a1259ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -32,15 +32,6 @@
+ #include "v11_structs.h"
+ #include "mes_v11_api_def.h"
  
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_smc.bin", chip_name);
-+	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
+-MODULE_FIRMWARE("amdgpu/gc_11_0_0_mes.bin");
+-MODULE_FIRMWARE("amdgpu/gc_11_0_0_mes1.bin");
+-MODULE_FIRMWARE("amdgpu/gc_11_0_1_mes.bin");
+-MODULE_FIRMWARE("amdgpu/gc_11_0_1_mes1.bin");
+-MODULE_FIRMWARE("amdgpu/gc_11_0_2_mes.bin");
+-MODULE_FIRMWARE("amdgpu/gc_11_0_2_mes1.bin");
+-MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes.bin");
+-MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes1.bin");
+-
+ static int mes_v11_0_hw_fini(void *handle);
+ static int mes_v11_0_kiq_hw_init(struct amdgpu_device *adev);
+ static int mes_v11_0_kiq_hw_fini(struct amdgpu_device *adev);
+@@ -462,25 +453,11 @@ static const struct amdgpu_mes_funcs mes_v11_0_funcs = {
+ static int mes_v11_0_init_microcode(struct amdgpu_device *adev,
+ 				    enum admgpu_mes_pipe pipe)
+ {
+-	char fw_name[30];
+-	char ucode_prefix[30];
++
+ 	int err;
+ 	const struct mes_firmware_header_v1_0 *mes_hdr;
+ 	struct amdgpu_firmware_info *info;
  
- 	err = request_firmware(&adev->pm.fw, fw_name, adev->dev);
- 	if (err)
+-	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
+-
+-	if (pipe == AMDGPU_MES_SCHED_PIPE)
+-		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes.bin",
+-			 ucode_prefix);
+-	else
+-		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes1.bin",
+-			 ucode_prefix);
+-
+-	err = request_firmware(&adev->mes.fw[pipe], fw_name, adev->dev);
+-	if (err)
+-		return err;
+-
+ 	err = amdgpu_ucode_validate(adev->mes.fw[pipe]);
+ 	if (err) {
+ 		release_firmware(adev->mes.fw[pipe]);
 -- 
 2.34.1
 
