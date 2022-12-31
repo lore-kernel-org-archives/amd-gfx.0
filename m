@@ -4,53 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FFF7C10F1B
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Dec 2022 22:11:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B4ECC53210
+	for <amd-gfx@archiver.kernel.org>; Sat, 31 Dec 2022 20:05:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F87C10E096;
-	Fri, 30 Dec 2022 22:11:32 +0000 (UTC)
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7159F10E096
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Dec 2022 22:11:30 +0000 (UTC)
-Received: by mail-ej1-x632.google.com with SMTP id x22so53723441ejs.11
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Dec 2022 14:11:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=to:subject:message-id:date:from:in-reply-to:references:mime-version
- :from:to:cc:subject:date:message-id:reply-to;
- bh=9vBJtP91j1cOEwUuEAN2FIQufHLE1qmKMmY03dyor8w=;
- b=cUERzc5xsDEEWKWKJIp9AhdIjj1Fgq29DRHCEPNz4BNI1mvcr+aLv0egPV1PidBGhJ
- VbmQMouAqK4zGd3yyzUsJ576Aj0Z8JZX57scxvKYImnBXLXaYYhEDkHAQuRDfO0qam+A
- 7yC2QZpLt/cKpaMVcXDt+Nctxq95gSha3nWvAtaPtHWWqkdGfOA4435dmxV8oSQVSMt2
- 6Vakdtu5MZwqaV4psHybPIIQdnckfzSk8dxN1ntwP3zHWWxYGFFjx1Nz3IWRI8itjpcd
- lRtgeTb3ehliY6NorZaU5wTTOLucAC3IrGADqeXAVil4sTSdeutjQiTTLi6PM2pS3q8A
- oEtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:subject:message-id:date:from:in-reply-to:references:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9vBJtP91j1cOEwUuEAN2FIQufHLE1qmKMmY03dyor8w=;
- b=KyC1PVWY6WDvm6HzGSFfqrUqlfXmAYUhrLO8+mokOsmxFdb1FBjQV3ffkgL5IQbscg
- 8oK8Is+ihoLx/alOXvoqSiA0YShqRoZX19tfFsqm3zZKsIUj076bc0YDQoKCjOoQqpXx
- NOaXUPL7YpyVNGfsrnZ04NiZuqF6bh3TcJP/icgs+ms0+M09c68YlQQtMdmB/O85+QPF
- 9XNNwvF10Ab78WlNfjOeqfFLr+KG+XoIvru+WMBWC+1xmlpdHUa/SzTueSOUwj29IhnN
- l+EMeO5+tDQoU2h22w4Am/JQKf++/6j/Qst77+LHyvlqKCZN58h11ubHGQ9VTMXXap9t
- 0gvQ==
-X-Gm-Message-State: AFqh2kpNjvpf5zLRRLB4VfWDNImJVWNzOQN99G07VLeEaE5D/JbVoTa/
- mDz6xTLdAPKflSOEt+SwHuuV6PdG+vQehakKL/fx+05t
-X-Google-Smtp-Source: AMrXdXt2udnoL1bfohpbN3NFiCFGZ/0rEtyyXm+/+NbaXpSabpYZZ9pVRy4cKPlcyMU1dCsbnyqJ75qL0EfUhkRnOpM=
-X-Received: by 2002:a17:906:d973:b0:7ad:d411:30af with SMTP id
- rp19-20020a170906d97300b007add41130afmr1987015ejb.636.1672438288806; Fri, 30
- Dec 2022 14:11:28 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1936710E12E;
+	Sat, 31 Dec 2022 20:05:05 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57E9910E0F1;
+ Sat, 31 Dec 2022 20:05:01 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0F39460C39;
+ Sat, 31 Dec 2022 20:05:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A748CC433EF;
+ Sat, 31 Dec 2022 20:04:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1672517099;
+ bh=2au/8bzdU54fuOLPavMaj3vnB5+dwzQQIVuc7L2p3uk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=pDo1oCeaNcl2NM5ByF245qZ/9pm94NXGH4eH0Y8hDOMQqQXdXv33nHmZxG+QUhDM8
+ 20ul14F1onfDx0g/LvH0BONk/JePHcmqfFA6LyXqwZMqVED57fQ87VIuj5UD5/BF3f
+ 2fIUVl/6lVmcJ8uZ31t9PcM74sAkZAS2V2nfz5kF6O1hhDYv3IorKoYsPEd5GGvs5+
+ SM/Sc8WeHUpG5rMBvDEp6Dn6vrj3xhcDrb09YxOBEWgkizTxGy2sZQRELuWXyHBMhW
+ 3XRlCgjjljhvFgqphI9O0GJNfk0rQnZPmH/oorUVUl5pl98DQw9EA/nXWGbD0P7auB
+ MXT+lcDsytyxg==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.1 6/7] drm/amdkfd: Fix kfd_process_device_init_vm
+ error handling
+Date: Sat, 31 Dec 2022 15:04:38 -0500
+Message-Id: <20221231200439.1748686-6-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20221231200439.1748686-1-sashal@kernel.org>
+References: <20221231200439.1748686-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <CAAxE2A5su09qWsCekUX4ZzTMAX+9m-BemDxqL2Hh9328Z1WDqw@mail.gmail.com>
-In-Reply-To: <CAAxE2A5su09qWsCekUX4ZzTMAX+9m-BemDxqL2Hh9328Z1WDqw@mail.gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Fri, 30 Dec 2022 17:10:52 -0500
-Message-ID: <CAAxE2A5tp_Tk1-a_oK-z+zz3Q3vUVjArSL+YJMCeO1Mmhb-apQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: add AMDGPU_INFO_VM_STAT to return GPU VM
-To: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/alternative; boundary="0000000000001cf5f705f112e20c"
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,47 +55,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Sasha Levin <sashal@kernel.org>, Philip Yang <Philip.Yang@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000001cf5f705f112e20c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: Philip Yang <Philip.Yang@amd.com>
 
-FYI, I've fixed the mixed tabs/spaces in amdgpu_drm.h locally.
+[ Upstream commit 29d48b87db64b6697ddad007548e51d032081c59 ]
 
-Marek
+Should only destroy the ib_mem and let process cleanup worker to free
+the outstanding BOs. Reset the pointer in pdd->qpd structure, to avoid
+NULL pointer access in process destroy worker.
 
-On Fri, Dec 30, 2022 at 5:07 PM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> wr=
-ote:
+ BUG: kernel NULL pointer dereference, address: 0000000000000010
+ Call Trace:
+  amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel+0x46/0xb0 [amdgpu]
+  kfd_process_device_destroy_cwsr_dgpu+0x40/0x70 [amdgpu]
+  kfd_process_destroy_pdds+0x71/0x190 [amdgpu]
+  kfd_process_wq_release+0x2a2/0x3b0 [amdgpu]
+  process_one_work+0x2a1/0x600
+  worker_thread+0x39/0x3d0
 
-> To give userspace a detailed view about its GPU memory usage and eviction=
-s.
-> This will help performance investigations.
->
-> Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
->
-> The patch is attached.
->
-> Marek
->
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
---0000000000001cf5f705f112e20c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 951b63677248..9821fa9268d3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -689,13 +689,13 @@ void kfd_process_destroy_wq(void)
+ }
+ 
+ static void kfd_process_free_gpuvm(struct kgd_mem *mem,
+-			struct kfd_process_device *pdd, void *kptr)
++			struct kfd_process_device *pdd, void **kptr)
+ {
+ 	struct kfd_dev *dev = pdd->dev;
+ 
+-	if (kptr) {
++	if (kptr && *kptr) {
+ 		amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(mem);
+-		kptr = NULL;
++		*kptr = NULL;
+ 	}
+ 
+ 	amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(dev->adev, mem, pdd->drm_priv);
+@@ -795,7 +795,7 @@ static void kfd_process_device_destroy_ib_mem(struct kfd_process_device *pdd)
+ 	if (!qpd->ib_kaddr || !qpd->ib_base)
+ 		return;
+ 
+-	kfd_process_free_gpuvm(qpd->ib_mem, pdd, qpd->ib_kaddr);
++	kfd_process_free_gpuvm(qpd->ib_mem, pdd, &qpd->ib_kaddr);
+ }
+ 
+ struct kfd_process *kfd_create_process(struct file *filep)
+@@ -1277,7 +1277,7 @@ static void kfd_process_device_destroy_cwsr_dgpu(struct kfd_process_device *pdd)
+ 	if (!dev->cwsr_enabled || !qpd->cwsr_kaddr || !qpd->cwsr_base)
+ 		return;
+ 
+-	kfd_process_free_gpuvm(qpd->cwsr_mem, pdd, qpd->cwsr_kaddr);
++	kfd_process_free_gpuvm(qpd->cwsr_mem, pdd, &qpd->cwsr_kaddr);
+ }
+ 
+ void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
+@@ -1598,8 +1598,8 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
+ 	return 0;
+ 
+ err_init_cwsr:
++	kfd_process_device_destroy_ib_mem(pdd);
+ err_reserve_ib_mem:
+-	kfd_process_device_free_bos(pdd);
+ 	pdd->drm_priv = NULL;
+ 
+ 	return ret;
+-- 
+2.35.1
 
-<div dir=3D"ltr"><div>FYI, I&#39;ve fixed the mixed tabs/spaces in amdgpu_d=
-rm.h locally.</div><div><br></div><div>Marek<br></div></div><br><div class=
-=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Dec 30, 2022=
- at 5:07 PM Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:maraeo@gmail.com">m=
-araeo@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
-ding-left:1ex"><div dir=3D"ltr">To give userspace a detailed view about its=
- GPU memory usage and evictions.<br>This will help performance investigatio=
-ns.<br><br><div>Signed-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:=
-marek.olsak@amd.com" target=3D"_blank">marek.olsak@amd.com</a>&gt;</div><di=
-v><br></div><div>The patch is attached.</div><div><br></div><div>Marek<br><=
-/div></div>
-</blockquote></div>
-
---0000000000001cf5f705f112e20c--
