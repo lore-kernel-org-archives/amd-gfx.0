@@ -4,45 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C677FC4167B
-	for <amd-gfx@archiver.kernel.org>; Sat, 31 Dec 2022 20:05:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 341E0C4167B
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Jan 2023 18:45:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D9D210E2A1;
-	Sat, 31 Dec 2022 20:05:51 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EB3710E297;
- Sat, 31 Dec 2022 20:05:45 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6D3A760C21;
- Sat, 31 Dec 2022 20:05:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CBD6C433F0;
- Sat, 31 Dec 2022 20:05:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672517143;
- bh=J4Yvml4YGKR2Q2uiSv1+yCLV/vM6oeB1H4tq+8nLbV4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=A2gUMjsX6TqspqtMeCOrRJiJSiYT3DwAZG0FJ0EotjmbOuVSZFUe3N9dPJ3ptTElY
- 06Q0V3WZfoDO4mHmcYXygrB4fTZLZKTkF/MEmG7mz9mflnNXiM1s7Pkx/Y4zjB6Ct+
- 0fm+4yG/gYTVLqsLZhBEjofWQ9tSexUaFYL0dNzWl+PtPJ/doyOVSfmDn+g4w38WUV
- VimW43KQFJf0DudQV/vfjTpbLH0m3UF6F1F5Qlme9fiqvvkNDVmq3A4x26Dqoz2SPA
- syo7hbcvaUk5d/aDz/5QXvqoTnAOWEKcbxcx0mFi6U6VFC4TysjD7zqQdccQ4dVlkH
- 7T+ZUi2qx3cbQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 7/7] drm/amdkfd: Fix double release compute pasid
-Date: Sat, 31 Dec 2022 15:05:02 -0500
-Message-Id: <20221231200502.1748784-7-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221231200502.1748784-1-sashal@kernel.org>
-References: <20221231200502.1748784-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F0D410E05D;
+	Sun,  1 Jan 2023 18:45:01 +0000 (UTC)
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3AA110E04D;
+ Sun,  1 Jan 2023 18:29:39 +0000 (UTC)
+Received: by mail-pj1-x102a.google.com with SMTP id p4so27928455pjk.2;
+ Sun, 01 Jan 2023 10:29:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SYT/VHSXBwe4cHOdr34H+ecaXKxhJH5amYlLg+BefpI=;
+ b=KWF+O3vWomeAIdDzKeZHx3RBhco/fHa/hWqcWsohgjlAuP/qv5smNVZ1WVJKvbXMAO
+ JnLlK+Et7QoH6c1c6SuGKjeeWsf+H7BstrDwv0EaskyLQ5VmWPRbU96hDvilO8tthjvY
+ 8wJb80/GRa2ltR8BZdC3Fj5qcxHu006I8OQKEkYDkSaTZmCvu5RMLf0+whdYg6GcPD/R
+ ThCAVnP2Se9i8MIyhhgildQgq7s4RHekTrTNQ1lh3SZykR2HfnIhKIVZFmLWz12csEBX
+ 4dF0SpiwAVnJ5AD745QXFegquNzUG5sN/egI4eyoLfwXcwneOrFNWvSOZckytPQUxcRO
+ 70hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=SYT/VHSXBwe4cHOdr34H+ecaXKxhJH5amYlLg+BefpI=;
+ b=e8KYyLI91NFGN/0m6csxf+yfYf7BS5F2zE91/6zG7EBq6cCluggxxUEdX6eK7z7y0A
+ SEfdM2iaWYuO/UJH+1QBjzaqb3G8WHMfAvO+mmsFvPTUjx14zWJ61wlunSonASzQdthQ
+ H032DGfRT5yzUZ0zTnCfV35M/rxrlm82wMbJto9QFoGB78zEQJkJgtNjXY0BBTmR+FG9
+ Biufn6PufGYjpmt679T7D2AqojVeq/Q2fJJ2tf/c9IiU7Tp+Ts3+aQh8jnDCBtqpDteC
+ KWTe1pNB8HYkjG127K7UiXwxMwrh04k1Ir6DHM9uhY5kea+HWnAUM1JS3EJ1+jot8Kao
+ 160Q==
+X-Gm-Message-State: AFqh2kpvawklRHEXxeZFod5pMFDpXngpL13DTLYchBhxqbui7mar1uo6
+ jbOp9BdYHJy1HlNayMJRjjI=
+X-Google-Smtp-Source: AMrXdXuaueNFSatXy0BX7BE+nWzKpnZ7GpAB5JnJ8J8+8QhKzhI1nCqNMKxTcjhOd0UZ4HotW8cAIg==
+X-Received: by 2002:a17:903:3284:b0:188:82fc:e277 with SMTP id
+ jh4-20020a170903328400b0018882fce277mr45477382plb.12.1672597779150; 
+ Sun, 01 Jan 2023 10:29:39 -0800 (PST)
+Received: from localhost.localdomain ([173.82.232.27])
+ by smtp.gmail.com with ESMTPSA id
+ k13-20020a170902d58d00b0017f48a9e2d6sm3362787plh.292.2023.01.01.10.29.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 01 Jan 2023 10:29:38 -0800 (PST)
+From: youling257 <youling257@gmail.com>
+To: robdclark@gmail.com
+Subject: Re: [PATCH 12/13] drm/scheduler: rework entity flush, kill and fini
+Date: Mon,  2 Jan 2023 02:29:07 +0800
+Message-Id: <20230101182907.1662-1-youling257@gmail.com>
+X-Mailer: git-send-email 2.37.2
+In-Reply-To: <CAF6AEGv=GJm5Hyea7a0oDgWDYXw72HwTB4sreeppYVEKCsw0Ew@mail.gmail.com>
+References: <CAF6AEGv=GJm5Hyea7a0oDgWDYXw72HwTB4sreeppYVEKCsw0Ew@mail.gmail.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 01 Jan 2023 18:44:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,188 +71,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Philip Yang <Philip.Yang@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, sumit.semwal@linaro.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- christian.koenig@amd.com, linux-media@vger.kernel.org
+Cc: jonathan@marek.ca, ckoenig.leichtzumerken@gmail.com,
+ dri-devel@lists.freedesktop.org, luben.tuikov@amd.com,
+ amd-gfx@lists.freedesktop.org, dmitry.osipenko@collabora.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+Linux 6.2-rc1 has memory leak on amdgpu, git bisect bad commit is "drm/scheduler: rework entity flush, kill and fini".
+git bisect start
+# status: waiting for both good and bad commits
+# good: [eb7081409f94a9a8608593d0fb63a1aa3d6f95d8] Linux 6.1-rc6
+git bisect good eb7081409f94a9a8608593d0fb63a1aa3d6f95d8
+# status: waiting for bad commit, 1 good commit known
+# bad: [66efff515a6500d4b4976fbab3bee8b92a1137fb] Merge tag 'amd-drm-next-6.2-2022-12-07' of https://gitlab.freedesktop.org/agd5f/linux into drm-next
+git bisect bad 66efff515a6500d4b4976fbab3bee8b92a1137fb
+# good: [49e8e6343df688d68b12c2af50791ca37520f0b7] Merge tag 'amd-drm-next-6.2-2022-11-04' of https://gitlab.freedesktop.org/agd5f/linux into drm-next
+git bisect good 49e8e6343df688d68b12c2af50791ca37520f0b7
+# bad: [fc58764bbf602b65a6f63c53e5fd6feae76c510c] Merge tag 'amd-drm-next-6.2-2022-11-18' of https://gitlab.freedesktop.org/agd5f/linux into drm-next
+git bisect bad fc58764bbf602b65a6f63c53e5fd6feae76c510c
+# bad: [4e291f2f585313efa5200cce655e17c94906e50a] Merge tag 'drm-misc-next-2022-11-10-1' of git://anongit.freedesktop.org/drm/drm-misc into drm-next
+git bisect bad 4e291f2f585313efa5200cce655e17c94906e50a
+# good: [78a43c7e3b2ff5aed1809f93b4f87a418355789e] drm/nouveau/gr/gf100-: make global attrib_cb actually global
+git bisect good 78a43c7e3b2ff5aed1809f93b4f87a418355789e
+# bad: [611fc22c9e5e13276c819a7f7a7d19b794bbed1a] drm/arm/hdlcd: remove calls to drm_mode_config_cleanup()
+git bisect bad 611fc22c9e5e13276c819a7f7a7d19b794bbed1a
+# bad: [a8d9621b9fc67957b3de334cc1b5f47570fb90a0] drm/ingenic: Don't set struct drm_driver.output_poll_changed
+git bisect bad a8d9621b9fc67957b3de334cc1b5f47570fb90a0
+# good: [2cf9886e281678ae9ee57e24a656749071d543bb] drm/scheduler: remove drm_sched_dependency_optimized
+git bisect good 2cf9886e281678ae9ee57e24a656749071d543bb
+# bad: [8e4e4c2f53ffcb0ef746dc3b87ce1a57c5c94c7d] Merge drm/drm-next into drm-misc-next
+git bisect bad 8e4e4c2f53ffcb0ef746dc3b87ce1a57c5c94c7d
+# bad: [47078311b8efebdefd5b3b2f87e2b02b14f49c66] drm/ingenic: Fix missing platform_driver_unregister() call in ingenic_drm_init()
+git bisect bad 47078311b8efebdefd5b3b2f87e2b02b14f49c66
+# bad: [a82f30b04c6aaefe62cbbfd297e1bb23435b6b3a] drm/scheduler: rename dependency callback into prepare_job
+git bisect bad a82f30b04c6aaefe62cbbfd297e1bb23435b6b3a
+# bad: [2fdb8a8f07c2f1353770a324fd19b8114e4329ac] drm/scheduler: rework entity flush, kill and fini
+git bisect bad 2fdb8a8f07c2f1353770a324fd19b8114e4329ac
+# first bad commit: [2fdb8a8f07c2f1353770a324fd19b8114e4329ac] drm/scheduler: rework entity flush, kill and fini
 
-[ Upstream commit 1a799c4c190ea9f0e81028e3eb3037ed0ab17ff5 ]
-
-If kfd_process_device_init_vm returns failure after vm is converted to
-compute vm and vm->pasid set to compute pasid, KFD will not take
-pdd->drm_file reference. As a result, drm close file handler maybe
-called to release the compute pasid before KFD process destroy worker to
-release the same pasid and set vm->pasid to zero, this generates below
-WARNING backtrace and NULL pointer access.
-
-Add helper amdgpu_amdkfd_gpuvm_set_vm_pasid and call it at the last step
-of kfd_process_device_init_vm, to ensure vm pasid is the original pasid
-if acquiring vm failed or is the compute pasid with pdd->drm_file
-reference taken to avoid double release same pasid.
-
- amdgpu: Failed to create process VM object
- ida_free called for id=32770 which is not allocated.
- WARNING: CPU: 57 PID: 72542 at ../lib/idr.c:522 ida_free+0x96/0x140
- RIP: 0010:ida_free+0x96/0x140
- Call Trace:
-  amdgpu_pasid_free_delayed+0xe1/0x2a0 [amdgpu]
-  amdgpu_driver_postclose_kms+0x2d8/0x340 [amdgpu]
-  drm_file_free.part.13+0x216/0x270 [drm]
-  drm_close_helper.isra.14+0x60/0x70 [drm]
-  drm_release+0x6e/0xf0 [drm]
-  __fput+0xcc/0x280
-  ____fput+0xe/0x20
-  task_work_run+0x96/0xc0
-  do_exit+0x3d0/0xc10
-
- BUG: kernel NULL pointer dereference, address: 0000000000000000
- RIP: 0010:ida_free+0x76/0x140
- Call Trace:
-  amdgpu_pasid_free_delayed+0xe1/0x2a0 [amdgpu]
-  amdgpu_driver_postclose_kms+0x2d8/0x340 [amdgpu]
-  drm_file_free.part.13+0x216/0x270 [drm]
-  drm_close_helper.isra.14+0x60/0x70 [drm]
-  drm_release+0x6e/0xf0 [drm]
-  __fput+0xcc/0x280
-  ____fput+0xe/0x20
-  task_work_run+0x96/0xc0
-  do_exit+0x3d0/0xc10
-
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  4 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 39 +++++++++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 12 ++++--
- 3 files changed, 40 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 647220a8762d..30f145dc8724 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -265,8 +265,10 @@ int amdgpu_amdkfd_get_pcie_bandwidth_mbytes(struct amdgpu_device *adev, bool is_
- 	(&((struct amdgpu_fpriv *)					\
- 		((struct drm_file *)(drm_priv))->driver_priv)->vm)
- 
-+int amdgpu_amdkfd_gpuvm_set_vm_pasid(struct amdgpu_device *adev,
-+				     struct file *filp, u32 pasid);
- int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
--					struct file *filp, u32 pasid,
-+					struct file *filp,
- 					void **process_info,
- 					struct dma_fence **ef);
- void amdgpu_amdkfd_gpuvm_release_process_vm(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 5e184952ec98..f86a132bb761 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1471,10 +1471,9 @@ static void amdgpu_amdkfd_gpuvm_unpin_bo(struct amdgpu_bo *bo)
- 	amdgpu_bo_unreserve(bo);
- }
- 
--int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
--					   struct file *filp, u32 pasid,
--					   void **process_info,
--					   struct dma_fence **ef)
-+int amdgpu_amdkfd_gpuvm_set_vm_pasid(struct amdgpu_device *adev,
-+				     struct file *filp, u32 pasid)
-+
- {
- 	struct amdgpu_fpriv *drv_priv;
- 	struct amdgpu_vm *avm;
-@@ -1485,10 +1484,6 @@ int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
- 		return ret;
- 	avm = &drv_priv->vm;
- 
--	/* Already a compute VM? */
--	if (avm->process_info)
--		return -EINVAL;
--
- 	/* Free the original amdgpu allocated pasid,
- 	 * will be replaced with kfd allocated pasid.
- 	 */
-@@ -1497,14 +1492,36 @@ int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
- 		amdgpu_vm_set_pasid(adev, avm, 0);
- 	}
- 
--	/* Convert VM into a compute VM */
--	ret = amdgpu_vm_make_compute(adev, avm);
-+	ret = amdgpu_vm_set_pasid(adev, avm, pasid);
- 	if (ret)
- 		return ret;
- 
--	ret = amdgpu_vm_set_pasid(adev, avm, pasid);
-+	return 0;
-+}
-+
-+int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
-+					   struct file *filp,
-+					   void **process_info,
-+					   struct dma_fence **ef)
-+{
-+	struct amdgpu_fpriv *drv_priv;
-+	struct amdgpu_vm *avm;
-+	int ret;
-+
-+	ret = amdgpu_file_to_fpriv(filp, &drv_priv);
- 	if (ret)
- 		return ret;
-+	avm = &drv_priv->vm;
-+
-+	/* Already a compute VM? */
-+	if (avm->process_info)
-+		return -EINVAL;
-+
-+	/* Convert VM into a compute VM */
-+	ret = amdgpu_vm_make_compute(adev, avm);
-+	if (ret)
-+		return ret;
-+
- 	/* Initialize KFD part of the VM and process info */
- 	ret = init_kfd_vm(avm, process_info, ef);
- 	if (ret)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 04678f9e214b..febf0e9f7af1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1581,9 +1581,9 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
- 	p = pdd->process;
- 	dev = pdd->dev;
- 
--	ret = amdgpu_amdkfd_gpuvm_acquire_process_vm(
--		dev->adev, drm_file, p->pasid,
--		&p->kgd_process_info, &p->ef);
-+	ret = amdgpu_amdkfd_gpuvm_acquire_process_vm(dev->adev, drm_file,
-+						     &p->kgd_process_info,
-+						     &p->ef);
- 	if (ret) {
- 		pr_err("Failed to create process VM object\n");
- 		return ret;
-@@ -1598,10 +1598,16 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
- 	if (ret)
- 		goto err_init_cwsr;
- 
-+	ret = amdgpu_amdkfd_gpuvm_set_vm_pasid(dev->adev, drm_file, p->pasid);
-+	if (ret)
-+		goto err_set_pasid;
-+
- 	pdd->drm_file = drm_file;
- 
- 	return 0;
- 
-+err_set_pasid:
-+	kfd_process_device_destroy_cwsr_dgpu(pdd);
- err_init_cwsr:
- 	kfd_process_device_destroy_ib_mem(pdd);
- err_reserve_ib_mem:
--- 
-2.35.1
-
+@Rob Clark, i test your patch fixed my problem.
