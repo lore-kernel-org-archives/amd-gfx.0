@@ -4,68 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFB18C4708E
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Jan 2023 13:53:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52604C3DA7A
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Jan 2023 15:46:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49A4710E30C;
-	Mon,  2 Jan 2023 13:53:06 +0000 (UTC)
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3E2810E30C
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Jan 2023 13:53:03 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id l26so18812997wme.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Jan 2023 05:53:03 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B37DE10E355;
+	Mon,  2 Jan 2023 15:46:34 +0000 (UTC)
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A666410E355;
+ Mon,  2 Jan 2023 15:46:32 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id
+ k22-20020a05600c1c9600b003d1ee3a6289so20877869wms.2; 
+ Mon, 02 Jan 2023 07:46:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=hrGrEOXn9okg1djxdHq06S0HndlakEECDEtZYqGzHnk=;
- b=oHPyEZHsIYeYwBnUjBVcWNHS9ufPPnT1YjbMSYZyUA3idTo+H/GCQYOmzTuGCRb34C
- t3O2DXCumkiAakN3mNntKXgMxkGCCC1sKDhDC6mMZebttGSo2zUpBu5+r6OlqEGfRNY7
- A3H/M9S+Ear1NQ7Se4I/zIF/hxWLFAmDIaijNBrk9JxJePhINDym2kpU2sf0JXJHFd+x
- DroodxEPwcxosMzDnV0Py1+Zbn7up+6+4PrjFAwb373AiGhjh+UNWTLm2hyyv6cDnAwK
- 4iEbakU0wvKiVSNcHAPpQXssweTeRmRgbUdoe9v9HopfI+J10wnH2iNuUeiuSaMDUE/K
- 6nHw==
+ bh=KV4l1PZvtI/O0whJ9bApwDMsPvefMK+G8FG3GsRq98o=;
+ b=M60Q3/0uBdWA0S+Tn70fRisxEI7FsEe7EbJbu06TKVycKn3MmDmRhd7+x75BA70GyI
+ Et1m+gk9GxwSC2LmSGkINcuQ250VnvmobG9oCJJfqXrtyi1gfX5lkjqqZaHtA9Plcr4/
+ DNsExlRZfSt3v+C1Q5SatTqOXRcMKkvO8Bq9pfvSETf9RcHSX+6DKaeXk/4PBp7kqcXZ
+ bSlOGjpCnCA9t26zBO6cXE5HZ2C8h1aupHFezw0FiDIV13d9dxicTs/AP9ohcCPM5Iv2
+ DoYDVx7sA8NxDUJksUm7M8LCA+NMjOKbFPI0XZtQXMtOntvC98KMgB/gy5twSYH/BdZh
+ cD/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hrGrEOXn9okg1djxdHq06S0HndlakEECDEtZYqGzHnk=;
- b=0ky2IvECdDSIuYezptoC/+7Ol6LxThtAWSCF5RTZ9X/AEP5f/ZlB2dbzBY+Qq7pYPq
- C7veWSMA0jgabmJkPlRNK9KqzcYi6medFdgzak2oGEw/RjXc+ssdZAhZXlS7eXhvwJB/
- DYqJ8d6NeJzlUSlmrp0lx9+nkqUrnTgX8JVIM93ILrZy8BJ4axdVzuxdiUQBh/Ngoxpd
- hwZRAtkzmtaR9DuFo1lvmSYEhMvGPlYjSHX1RpztXHWdtbu+Yv6hb/8ZTu7WDpA0zhsx
- mSvi67557rYcsUnxGdETByKOjyrtlsDGqS3to7Tmisn0PnK0R6e61CdAEeqqKt9vVzHs
- dgoQ==
-X-Gm-Message-State: AFqh2kohvUGHCvuLEKtFAFOLG2r5XXDYuwDqOjOJitQvgsPP5/TcB30J
- WbLGzZO6ObhUK3gyDlepmxs=
-X-Google-Smtp-Source: AMrXdXtzyDGjjLmOPiMyZgBjagHmjXAbr5FEbqvVd2G2CFoJGze5eDiDdzmbU27ghwOPP66ZYhogmw==
-X-Received: by 2002:a05:600c:5008:b0:3cf:6f4d:c25d with SMTP id
- n8-20020a05600c500800b003cf6f4dc25dmr28652893wmr.21.1672667582214; 
- Mon, 02 Jan 2023 05:53:02 -0800 (PST)
+ bh=KV4l1PZvtI/O0whJ9bApwDMsPvefMK+G8FG3GsRq98o=;
+ b=OS745W4aU18l/car4AcMxyDANYx3R/6qo7ybQCKWQLE6+oAb0A6+0kDtZ/SY2jl9cC
+ NBTq5oBhRJmQvIuGAWJX0/G8ZLv0jt3ctQvCuOKIJEHAl++JH9ZVP01ptD45EMeqn8FE
+ 3coi1xM08KLB27BrxtQ2NgqJI+pysQAl3Ijkyd2+yGRLJBrNt7hoQkKInkDlyWC/7GFv
+ oaAxdYsN0lCRJLXWhgMtKgA60jazwyz0dz0ygOh2hQFqgWtUJnnycezNV24aniNKGUjQ
+ 78JVr+B01QDeorjWrBgenuRAEhXgmYLeTbPl4s6P/sUyCqahL4akJYnpB+Rwi4J25Wmg
+ hKjg==
+X-Gm-Message-State: AFqh2koMUT3eLl7ndTcAFCBYDyMTJ1dZd6cEuU9JC+m9NimDBpa3AeSz
+ IOkF7A4A4YaneOHyqm3QxW0=
+X-Google-Smtp-Source: AMrXdXsQ81BRul2q2Jf6iyqzFnhMK8415HhqzggvxHDLMLgqrT92MfTHQSvlBcOjoZVmVxqJkGJk2w==
+X-Received: by 2002:a05:600c:54c2:b0:3d3:3c74:dbd0 with SMTP id
+ iw2-20020a05600c54c200b003d33c74dbd0mr29031123wmb.13.1672674390957; 
+ Mon, 02 Jan 2023 07:46:30 -0800 (PST)
 Received: from ?IPV6:2a02:908:1256:79a0:8d77:4e27:bb99:9a97?
  ([2a02:908:1256:79a0:8d77:4e27:bb99:9a97])
  by smtp.gmail.com with ESMTPSA id
- o27-20020a05600c511b00b003c6f8d30e40sm47029400wms.31.2023.01.02.05.53.01
+ n20-20020a05600c4f9400b003d9b351de26sm6282138wmq.9.2023.01.02.07.46.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jan 2023 05:53:01 -0800 (PST)
-Message-ID: <d8c6e95d-0e81-83e7-5956-8086091d94aa@gmail.com>
-Date: Mon, 2 Jan 2023 14:53:00 +0100
+ Mon, 02 Jan 2023 07:46:30 -0800 (PST)
+Message-ID: <748c7a8f-38e1-53de-27f4-7550cc8c8e4d@gmail.com>
+Date: Mon, 2 Jan 2023 16:46:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [RFC 2/7] drm/amdgpu: Add usermode queue for gfx work
+Subject: Re: [PATCH v3 05/11] drm/amd: Request SDMA microcode during IP
+ discovery
 Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>,
- Shashank Sharma <shashank.sharma@amd.com>
-References: <20221223193655.1972-1-shashank.sharma@amd.com>
- <20221223193655.1972-3-shashank.sharma@amd.com>
- <CADnq5_Pyk5AnsW7C2YX2uR1Y0hWRFW6774iAvmihFznpAvt1fg@mail.gmail.com>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org
+References: <20221230052119.15096-1-mario.limonciello@amd.com>
+ <20221230052119.15096-6-mario.limonciello@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CADnq5_Pyk5AnsW7C2YX2uR1Y0hWRFW6774iAvmihFznpAvt1fg@mail.gmail.com>
+In-Reply-To: <20221230052119.15096-6-mario.limonciello@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,347 +78,479 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>, arvind.yadav@amd.com,
- arunpravin.paneerselvam@amd.com
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Carlos Soriano Sanchez <csoriano@redhat.com>, David Airlie <airlied@gmail.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 29.12.22 um 18:41 schrieb Alex Deucher:
-> On Fri, Dec 23, 2022 at 2:37 PM Shashank Sharma <shashank.sharma@amd.com> wrote:
->> This patch adds skeleton code for usermode queue creation. It
->> typically contains:
->> - A new structure to keep all the user queue data in one place.
->> - An IOCTL function to create/free a usermode queue.
->> - A function to generate unique index for the queue.
->> - A global ptr in amdgpu_dev
->>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Christian Koenig <christian.koenig@amd.com>
->> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   6 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h       |   1 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 187 ++++++++++++++++++
->>   .../drm/amd/include/amdgpu_usermode_queue.h   |  50 +++++
->>   5 files changed, 246 insertions(+)
->>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
->>   create mode 100644 drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
->> index 6ad39cf71bdd..e2a34ee57bfb 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
->> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
->> @@ -209,6 +209,8 @@ amdgpu-y += \
->>   # add amdkfd interfaces
->>   amdgpu-y += amdgpu_amdkfd.o
->>
->> +# add usermode queue
->> +amdgpu-y += amdgpu_userqueue.o
->>
->>   ifneq ($(CONFIG_HSA_AMD),)
->>   AMDKFD_PATH := ../amdkfd
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> index 8639a4f9c6e8..4b566fcfca18 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> @@ -749,6 +749,11 @@ struct amdgpu_mqd {
->>                          struct amdgpu_mqd_prop *p);
->>   };
->>
->> +struct amdgpu_userq_globals {
->> +       struct ida ida;
->> +       struct mutex userq_mutex;
->> +};
->> +
->>   #define AMDGPU_RESET_MAGIC_NUM 64
->>   #define AMDGPU_MAX_DF_PERFMONS 4
->>   #define AMDGPU_PRODUCT_NAME_LEN 64
->> @@ -955,6 +960,7 @@ struct amdgpu_device {
->>          bool                            enable_mes_kiq;
->>          struct amdgpu_mes               mes;
->>          struct amdgpu_mqd               mqds[AMDGPU_HW_IP_NUM];
->> +       struct amdgpu_userq_globals     userq;
->>
->>          /* df */
->>          struct amdgpu_df                df;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->> index 0fa0e56daf67..f7413859b14f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->> @@ -57,6 +57,7 @@ struct amdgpu_ctx {
->>          unsigned long                   ras_counter_ce;
->>          unsigned long                   ras_counter_ue;
->>          uint32_t                        stable_pstate;
->> +       struct amdgpu_usermode_queue    *userq;
-> There can be multiple queues per context.  We should make this a list.
+
+
+Am 30.12.22 um 06:21 schrieb Mario Limonciello:
+> If SDMA microcode is not available during early init, the firmware
+> framebuffer will have already been released and the screen will
+> freeze.
 >
->>   };
->>
->>   struct amdgpu_ctx_mgr {
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
->> new file mode 100644
->> index 000000000000..3b6e8f75495c
->> --- /dev/null
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
->> @@ -0,0 +1,187 @@
->> +/*
->> + * Copyright 2022 Advanced Micro Devices, Inc.
->> + *
->> + * Permission is hereby granted, free of charge, to any person obtaining a
->> + * copy of this software and associated documentation files (the "Software"),
->> + * to deal in the Software without restriction, including without limitation
->> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
->> + * and/or sell copies of the Software, and to permit persons to whom the
->> + * Software is furnished to do so, subject to the following conditions:
->> + *
->> + * The above copyright notice and this permission notice shall be included in
->> + * all copies or substantial portions of the Software.
->> + *
->> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
->> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
->> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
->> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
->> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
->> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
->> + * OTHER DEALINGS IN THE SOFTWARE.
->> + *
->> + */
->> +
->> +#include "amdgpu.h"
->> +#include "amdgpu_vm.h"
->> +#include "amdgpu_mes.h"
->> +#include "amdgpu_usermode_queue.h"
->> +#include "soc15_common.h"
->> +
->> +#define CHECK_ACCESS(a) (access_ok((const void __user *)a, sizeof(__u64)))
+> Move the request from SDMA microcode into the IP discovery phase
+> so that if it's not available, IP discovery will fail.
+>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+> v2->v3:
+>   * Fix dGPU naming scheme
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 57 ++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c      |  9 +--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        | 61 +----------------
+>   drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        | 42 +-----------
+>   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        | 65 +------------------
+>   drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        | 30 +--------
+>   7 files changed, 66 insertions(+), 200 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index b719852daa07..24d54ab0963a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -90,6 +90,40 @@ MODULE_FIRMWARE(FIRMWARE_IP_DISCOVERY);
+>   #define mmMM_INDEX_HI		0x6
+>   #define mmMM_DATA		0x1
+>   
+> +MODULE_FIRMWARE("amdgpu/navi10_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/navi10_sdma1.bin");
+> +MODULE_FIRMWARE("amdgpu/navi14_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/navi14_sdma1.bin");
+> +MODULE_FIRMWARE("amdgpu/navi12_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/navi12_sdma1.bin");
+> +MODULE_FIRMWARE("amdgpu/cyan_skillfish2_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/cyan_skillfish2_sdma1.bin");
+> +MODULE_FIRMWARE("amdgpu/vega10_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/vega10_sdma1.bin");
+> +MODULE_FIRMWARE("amdgpu/vega12_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/vega12_sdma1.bin");
+> +MODULE_FIRMWARE("amdgpu/vega20_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/vega20_sdma1.bin");
+> +MODULE_FIRMWARE("amdgpu/raven_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/picasso_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/raven2_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/arcturus_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/renoir_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/green_sardine_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/aldebaran_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/sienna_cichlid_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/navy_flounder_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/dimgrey_cavefish_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/beige_goby_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/vangogh_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/yellow_carp_sdma.bin");
+> +MODULE_FIRMWARE("amdgpu/sdma_5_2_6.bin");
+> +MODULE_FIRMWARE("amdgpu/sdma_5_2_7.bin");
+> +MODULE_FIRMWARE("amdgpu/sdma_6_0_0.bin");
+> +MODULE_FIRMWARE("amdgpu/sdma_6_0_1.bin");
+> +MODULE_FIRMWARE("amdgpu/sdma_6_0_2.bin");
+> +MODULE_FIRMWARE("amdgpu/sdma_6_0_3.bin");
 
-You seem to have a very very big misunderstanding here.
+If we centralize the MODULE_FIRMWARE() requests I think we should rather 
+move that to amdgpu_ucode.c instead.
 
-access_ok() is used for CPU pointer validation, but this here are 
-pointers into the GPUVM address space. This is something completely 
-different!
+One minor problem is that we considered adding support for disabling 
+some hw generations during compilation, but since this never 
+materialized we are probably never going to need it.
+
+With the MODULE_FIRMWARE() requests moved feel free to add an Acked-by: 
+Christian König <christian.koenig@amd.com> to the series.
 
 Regards,
 Christian.
 
->> +
->> +static int
->> +amdgpu_userqueue_index(struct amdgpu_device *adev)
->> +{
->> +    int index;
->> +    struct amdgpu_userq_globals *uqg = &adev->userq;
->> +
->> +    index = ida_simple_get(&uqg->ida, 2, AMDGPU_MAX_USERQ, GFP_KERNEL);
->> +    return index;
->> +}
->> +
->> +static void
->> +amdgpu_userqueue_remove_index(struct amdgpu_device *adev, struct amdgpu_usermode_queue *queue)
->> +{
->> +    struct amdgpu_userq_globals *uqg = &adev->userq;
->> +
->> +    ida_simple_remove(&uqg->ida, queue->queue_id);
->> +}
->> +
->> +static int
->> +amdgpu_userqueue_validate_input(struct amdgpu_device *adev, struct drm_amdgpu_userq_mqd *mqd_in)
->> +{
->> +    if (mqd_in->queue_va == 0 || mqd_in->doorbell_handle == 0 || mqd_in->doorbell_offset == 0) {
->> +        DRM_ERROR("Invalid queue object address\n");
->> +        return -EINVAL;
->> +    }
->> +
->> +    if (mqd_in->queue_size == 0 || mqd_in->rptr_va == 0 || mqd_in->wptr_va == 0) {
->> +        DRM_ERROR("Invalid queue object value\n");
->> +        return -EINVAL;
->> +    }
->> +
->> +    if (mqd_in->ip_type < AMDGPU_HW_IP_GFX || mqd_in->ip_type >= AMDGPU_HW_IP_NUM) {
->> +        DRM_ERROR("Invalid HW IP type 0x%x\n", mqd_in->ip_type);
->> +        return -EINVAL;
->> +    }
->> +
->> +    if (!CHECK_ACCESS(mqd_in->queue_va) || !CHECK_ACCESS(mqd_in->rptr_va) ||
->> +        !CHECK_ACCESS(mqd_in->wptr_va)) {
->> +            DRM_ERROR("Invalid mapping of queue ptrs, access error\n");
->> +            return -EINVAL;
->> +    }
-> Need to check the flags as well.
->
->> +
->> +    DRM_DEBUG_DRIVER("Input parameters to create queue are valid\n");
->> +    return 0;
->> +}
->> +
->> +int amdgpu_userqueue_create(struct amdgpu_device *adev, struct drm_file *filp,
->> +                            union drm_amdgpu_userq *args)
->> +{
->> +    int r, pasid;
->> +    struct amdgpu_usermode_queue *queue;
->> +    struct amdgpu_fpriv *fpriv = filp->driver_priv;
->> +    struct amdgpu_vm *vm = &fpriv->vm;
->> +    struct amdgpu_ctx *ctx = amdgpu_ctx_get(fpriv, args->in.ctx_id);
->> +    struct drm_amdgpu_userq_mqd *mqd_in = &args->in.mqd;
->> +
->> +    if (!ctx) {
->> +        DRM_ERROR("Invalid GPU context\n");
->> +        return -EINVAL;
->> +    }
->> +
->> +    if (vm->pasid < 0) {
->> +        DRM_WARN("No PASID info found\n");
->> +        pasid = 0;
->> +    }
->> +
->> +    mutex_lock(&adev->userq.userq_mutex);
->> +
->> +    queue = kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNEL);
->> +    if (!queue) {
->> +        DRM_ERROR("Failed to allocate memory for queue\n");
->> +        mutex_unlock(&adev->userq.userq_mutex);
->> +        return -ENOMEM;
->> +    }
->> +
->> +    r = amdgpu_userqueue_validate_input(adev, mqd_in);
->> +    if (r < 0) {
->> +        DRM_ERROR("Invalid input to create queue\n");
->> +        goto free_queue;
->> +    }
->> +
->> +    queue->vm = vm;
->> +    queue->pasid = pasid;
->> +    queue->wptr_gpu_addr = mqd_in->wptr_va;
->> +    queue->rptr_gpu_addr = mqd_in->rptr_va;
->> +    queue->queue_size = mqd_in->queue_size;
->> +    queue->queue_type = mqd_in->ip_type;
->> +    queue->paging = false;
->> +    queue->flags = mqd_in->flags;
->> +    queue->queue_id = amdgpu_userqueue_index(adev);
->> +
->> +    ctx->userq = queue;
->> +    args->out.q_id = queue->queue_id;
->> +    args->out.flags = 0;
->> +    mutex_unlock(&adev->userq.userq_mutex);
->> +    return 0;
->> +
->> +free_queue:
->> +    amdgpu_userqueue_remove_index(adev, queue);
->> +    mutex_unlock(&adev->userq.userq_mutex);
->> +    kfree(queue);
->> +    return r;
->> +}
->> +
->> +void amdgpu_userqueue_destroy(struct amdgpu_device *adev, struct drm_file *filp,
->> +                              union drm_amdgpu_userq *args)
->> +{
->> +    struct amdgpu_fpriv *fpriv = filp->driver_priv;
->> +    struct amdgpu_ctx *ctx = amdgpu_ctx_get(fpriv, args->in.ctx_id);
->> +    struct amdgpu_usermode_queue *queue = ctx->userq;
->> +
->> +    mutex_lock(&adev->userq.userq_mutex);
->> +    amdgpu_userqueue_remove_index(adev, queue);
->> +    ctx->userq = NULL;
->> +    mutex_unlock(&adev->userq.userq_mutex);
->> +    kfree(queue);
->> +}
->> +
->> +int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
->> +                      struct drm_file *filp)
->> +{
->> +    union drm_amdgpu_userq *args = data;
->> +    struct amdgpu_device *adev = drm_to_adev(dev);
->> +    int r = 0;
->> +
->> +    switch (args->in.op) {
->> +    case AMDGPU_USERQ_OP_CREATE:
->> +        r = amdgpu_userqueue_create(adev, filp, args);
->> +        if (r)
->> +            DRM_ERROR("Failed to create usermode queue\n");
->> +        break;
->> +
->> +    case AMDGPU_USERQ_OP_FREE:
->> +        amdgpu_userqueue_destroy(adev, filp, args);
->> +        break;
->> +
->> +    default:
->> +        DRM_ERROR("Invalid user queue op specified: %d\n", args->in.op);
->> +        return -EINVAL;
->> +    }
->> +
->> +    return r;
->> +}
->> +
->> +int amdgpu_userqueue_init(struct amdgpu_device *adev)
->> +{
->> +    struct amdgpu_userq_globals *uqg = &adev->userq;
->> +
->> +    mutex_init(&uqg->userq_mutex);
->> +    return 0;
->> +}
->> +
->> +void amdgpu_userqueue_fini(struct amdgpu_device *adev)
->> +{
->> +
->> +}
->> diff --git a/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h b/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h
->> new file mode 100644
->> index 000000000000..c1fe39ffaf72
->> --- /dev/null
->> +++ b/drivers/gpu/drm/amd/include/amdgpu_usermode_queue.h
->> @@ -0,0 +1,50 @@
->> +/*
->> + * Copyright 2022 Advanced Micro Devices, Inc.
->> + *
->> + * Permission is hereby granted, free of charge, to any person obtaining a
->> + * copy of this software and associated documentation files (the "Software"),
->> + * to deal in the Software without restriction, including without limitation
->> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
->> + * and/or sell copies of the Software, and to permit persons to whom the
->> + * Software is furnished to do so, subject to the following conditions:
->> + *
->> + * The above copyright notice and this permission notice shall be included in
->> + * all copies or substantial portions of the Software.
->> + *
->> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
->> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
->> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
->> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
->> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
->> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
->> + * OTHER DEALINGS IN THE SOFTWARE.
->> + *
->> + */
->> +
->> +#ifndef AMDGPU_USERMODE_QUEUE_H_
->> +#define AMDGPU_USERMODE_QUEUE_H_
->> +
->> +#define AMDGPU_MAX_USERQ 512
->> +
->> +struct amdgpu_usermode_queue {
->> +       int             queue_id;
->> +       int             queue_type;
->> +       int             queue_size;
->> +       int             paging;
->> +       int             pasid;
->> +       int             use_doorbell;
->> +       int             doorbell_index;
->> +
->> +       uint64_t        mqd_gpu_addr;
->> +       uint64_t        wptr_gpu_addr;
->> +       uint64_t        rptr_gpu_addr;
->> +       uint64_t        queue_gpu_addr;
->> +       uint64_t        flags;
->> +       void            *mqd_cpu_ptr;
->> +
->> +       struct amdgpu_bo        *mqd_obj;
->> +       struct amdgpu_vm        *vm;
->> +       struct list_head        list;
->> +};
->> +
->> +#endif
->> --
->> 2.34.1
->>
+> +
+>   static const char *hw_id_names[HW_ID_MAX] = {
+>   	[MP1_HWID]		= "MP1",
+>   	[MP2_HWID]		= "MP2",
+> @@ -1821,8 +1855,26 @@ static int amdgpu_discovery_set_gc_ip_blocks(struct amdgpu_device *adev)
+>   	return 0;
+>   }
+>   
+> +static int amdgpu_discovery_load_sdma_fw(struct amdgpu_device *adev, u32 instance,
+> +					 const char *chip_name)
+> +{
+> +	char fw_name[40];
+> +
+> +	if (instance == 0)
+> +		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", chip_name);
+> +	else
+> +		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s1.bin", chip_name);
+> +
+> +	return request_firmware(&adev->sdma.instance[instance].fw, fw_name, adev->dev);
+> +}
+> +
+>   static int amdgpu_discovery_set_sdma_ip_blocks(struct amdgpu_device *adev)
+>   {
+> +	char ucode_prefix[30];
+> +	int i, r;
+> +
+> +	amdgpu_ucode_ip_version_decode(adev, SDMA0_HWIP, ucode_prefix, sizeof(ucode_prefix));
+> +
+>   	switch (adev->ip_versions[SDMA0_HWIP][0]) {
+>   	case IP_VERSION(4, 0, 0):
+>   	case IP_VERSION(4, 0, 1):
+> @@ -1862,6 +1914,11 @@ static int amdgpu_discovery_set_sdma_ip_blocks(struct amdgpu_device *adev)
+>   			adev->ip_versions[SDMA0_HWIP][0]);
+>   		return -EINVAL;
+>   	}
+> +	for (i = 0; i < adev->sdma.num_instances; i++) {
+> +		r = amdgpu_discovery_load_sdma_fw(adev, i, ucode_prefix);
+> +		if (r)
+> +			return r;
+> +	}
+>   	return 0;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> index ea5278f094c0..9e46d8034c03 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> @@ -205,8 +205,7 @@ void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
+>   }
+>   
+>   int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
+> -			       char *fw_name, u32 instance,
+> -			       bool duplicate)
+> +			       u32 instance, bool duplicate)
+>   {
+>   	struct amdgpu_firmware_info *info = NULL;
+>   	const struct common_firmware_header *header = NULL;
+> @@ -214,10 +213,6 @@ int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
+>   	const struct sdma_firmware_header_v2_0 *sdma_hdr;
+>   	uint16_t version_major;
+>   
+> -	err = request_firmware(&adev->sdma.instance[instance].fw, fw_name, adev->dev);
+> -	if (err)
+> -		goto out;
+> -
+>   	header = (const struct common_firmware_header *)
+>   		adev->sdma.instance[instance].fw->data;
+>   	version_major = le16_to_cpu(header->header_version_major);
+> @@ -280,7 +275,7 @@ int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
+>   
+>   out:
+>   	if (err) {
+> -		DRM_ERROR("SDMA: Failed to init firmware \"%s\"\n", fw_name);
+> +		DRM_ERROR("SDMA: Failed to init sdma firmware\n");
+>   		amdgpu_sdma_destroy_inst_ctx(adev, duplicate);
+>   	}
+>   	return err;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> index 7d99205c2e01..07b375e89e83 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> @@ -125,7 +125,7 @@ int amdgpu_sdma_process_ecc_irq(struct amdgpu_device *adev,
+>   				      struct amdgpu_irq_src *source,
+>   				      struct amdgpu_iv_entry *entry);
+>   int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
+> -        char *fw_name, u32 instance, bool duplicate);
+> +	u32 instance, bool duplicate);
+>   void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
+>           bool duplicate);
+>   void amdgpu_sdma_unset_buffer_funcs_helper(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> index 4d780e4430e7..bbaee1cfc92d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> @@ -58,20 +58,6 @@
+>   #include "amdgpu_ras.h"
+>   #include "sdma_v4_4.h"
+>   
+> -MODULE_FIRMWARE("amdgpu/vega10_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/vega10_sdma1.bin");
+> -MODULE_FIRMWARE("amdgpu/vega12_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/vega12_sdma1.bin");
+> -MODULE_FIRMWARE("amdgpu/vega20_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/vega20_sdma1.bin");
+> -MODULE_FIRMWARE("amdgpu/raven_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/picasso_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/raven2_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/arcturus_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/renoir_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/green_sardine_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/aldebaran_sdma.bin");
+> -
+>   #define SDMA0_POWER_CNTL__ON_OFF_CONDITION_HOLD_TIME_MASK  0x000000F8L
+>   #define SDMA0_POWER_CNTL__ON_OFF_STATUS_DURATION_TIME_MASK 0xFC000000L
+>   
+> @@ -575,60 +561,17 @@ static void sdma_v4_0_setup_ulv(struct amdgpu_device *adev)
+>   // vega10 real chip need to use PSP to load firmware
+>   static int sdma_v4_0_init_microcode(struct amdgpu_device *adev)
+>   {
+> -	const char *chip_name;
+> -	char fw_name[30];
+>   	int ret, i;
+>   
+> -	DRM_DEBUG("\n");
+> -
+> -	switch (adev->ip_versions[SDMA0_HWIP][0]) {
+> -	case IP_VERSION(4, 0, 0):
+> -		chip_name = "vega10";
+> -		break;
+> -	case IP_VERSION(4, 0, 1):
+> -		chip_name = "vega12";
+> -		break;
+> -	case IP_VERSION(4, 2, 0):
+> -		chip_name = "vega20";
+> -		break;
+> -	case IP_VERSION(4, 1, 0):
+> -	case IP_VERSION(4, 1, 1):
+> -		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
+> -			chip_name = "raven2";
+> -		else if (adev->apu_flags & AMD_APU_IS_PICASSO)
+> -			chip_name = "picasso";
+> -		else
+> -			chip_name = "raven";
+> -		break;
+> -	case IP_VERSION(4, 2, 2):
+> -		chip_name = "arcturus";
+> -		break;
+> -	case IP_VERSION(4, 1, 2):
+> -		if (adev->apu_flags & AMD_APU_IS_RENOIR)
+> -			chip_name = "renoir";
+> -		else
+> -			chip_name = "green_sardine";
+> -		break;
+> -	case IP_VERSION(4, 4, 0):
+> -		chip_name = "aldebaran";
+> -		break;
+> -	default:
+> -		BUG();
+> -	}
+> -
+>   	for (i = 0; i < adev->sdma.num_instances; i++) {
+> -		if (i == 0)
+> -			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma.bin", chip_name);
+> -		else
+> -			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma%d.bin", chip_name, i);
+>   		if (adev->ip_versions[SDMA0_HWIP][0] == IP_VERSION(4, 2, 2) ||
+>                       adev->ip_versions[SDMA0_HWIP][0] == IP_VERSION(4, 4, 0)) {
+>   			/* Acturus & Aldebaran will leverage the same FW memory
+>   			   for every SDMA instance */
+> -			ret = amdgpu_sdma_init_microcode(adev, fw_name, 0, true);
+> +			ret = amdgpu_sdma_init_microcode(adev, 0, true);
+>   			break;
+>   		} else {
+> -			ret = amdgpu_sdma_init_microcode(adev, fw_name, i, false);
+> +			ret = amdgpu_sdma_init_microcode(adev, i, false);
+>   			if (ret)
+>   				return ret;
+>   		}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> index d4d9f196db83..4154b511ae94 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> @@ -42,18 +42,6 @@
+>   #include "sdma_common.h"
+>   #include "sdma_v5_0.h"
+>   
+> -MODULE_FIRMWARE("amdgpu/navi10_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/navi10_sdma1.bin");
+> -
+> -MODULE_FIRMWARE("amdgpu/navi14_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/navi14_sdma1.bin");
+> -
+> -MODULE_FIRMWARE("amdgpu/navi12_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/navi12_sdma1.bin");
+> -
+> -MODULE_FIRMWARE("amdgpu/cyan_skillfish2_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/cyan_skillfish2_sdma1.bin");
+> -
+>   #define SDMA1_REG_OFFSET 0x600
+>   #define SDMA0_HYP_DEC_REG_START 0x5880
+>   #define SDMA0_HYP_DEC_REG_END 0x5893
+> @@ -237,39 +225,13 @@ static void sdma_v5_0_init_golden_registers(struct amdgpu_device *adev)
+>   // emulation only, won't work on real chip
+>   // navi10 real chip need to use PSP to load firmware
+>   static int sdma_v5_0_init_microcode(struct amdgpu_device *adev)
+> -{
+> -	const char *chip_name;
+> -	char fw_name[40];
+> -	int ret, i;
+> +{	int ret, i;
+>   
+>   	if (amdgpu_sriov_vf(adev) && (adev->ip_versions[SDMA0_HWIP][0] == IP_VERSION(5, 0, 5)))
+>   		return 0;
+>   
+> -	DRM_DEBUG("\n");
+> -
+> -	switch (adev->ip_versions[SDMA0_HWIP][0]) {
+> -	case IP_VERSION(5, 0, 0):
+> -		chip_name = "navi10";
+> -		break;
+> -	case IP_VERSION(5, 0, 2):
+> -		chip_name = "navi14";
+> -		break;
+> -	case IP_VERSION(5, 0, 5):
+> -		chip_name = "navi12";
+> -		break;
+> -	case IP_VERSION(5, 0, 1):
+> -		chip_name = "cyan_skillfish2";
+> -		break;
+> -	default:
+> -		BUG();
+> -	}
+> -
+>   	for (i = 0; i < adev->sdma.num_instances; i++) {
+> -		if (i == 0)
+> -			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma.bin", chip_name);
+> -		else
+> -			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma1.bin", chip_name);
+> -		ret = amdgpu_sdma_init_microcode(adev, fw_name, i, false);
+> +		ret = amdgpu_sdma_init_microcode(adev, i, false);
+>   		if (ret)
+>   			return ret;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> index 65e7a710298d..4757c119cdfe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> @@ -44,16 +44,6 @@
+>   #include "sdma_common.h"
+>   #include "sdma_v5_2.h"
+>   
+> -MODULE_FIRMWARE("amdgpu/sienna_cichlid_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/navy_flounder_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/dimgrey_cavefish_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/beige_goby_sdma.bin");
+> -
+> -MODULE_FIRMWARE("amdgpu/vangogh_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/yellow_carp_sdma.bin");
+> -MODULE_FIRMWARE("amdgpu/sdma_5_2_6.bin");
+> -MODULE_FIRMWARE("amdgpu/sdma_5_2_7.bin");
+> -
+>   #define SDMA1_REG_OFFSET 0x600
+>   #define SDMA3_REG_OFFSET 0x400
+>   #define SDMA0_HYP_DEC_REG_START 0x5880
+> @@ -89,59 +79,6 @@ static u32 sdma_v5_2_get_reg_offset(struct amdgpu_device *adev, u32 instance, u3
+>   	return base + internal_offset;
+>   }
+>   
+> -/**
+> - * sdma_v5_2_init_microcode - load ucode images from disk
+> - *
+> - * @adev: amdgpu_device pointer
+> - *
+> - * Use the firmware interface to load the ucode images into
+> - * the driver (not loaded into hw).
+> - * Returns 0 on success, error on failure.
+> - */
+> -
+> -// emulation only, won't work on real chip
+> -// navi10 real chip need to use PSP to load firmware
+> -static int sdma_v5_2_init_microcode(struct amdgpu_device *adev)
+> -{
+> -	const char *chip_name;
+> -	char fw_name[40];
+> -
+> -	DRM_DEBUG("\n");
+> -
+> -	switch (adev->ip_versions[SDMA0_HWIP][0]) {
+> -	case IP_VERSION(5, 2, 0):
+> -		chip_name = "sienna_cichlid_sdma";
+> -		break;
+> -	case IP_VERSION(5, 2, 2):
+> -		chip_name = "navy_flounder_sdma";
+> -		break;
+> -	case IP_VERSION(5, 2, 1):
+> -		chip_name = "vangogh_sdma";
+> -		break;
+> -	case IP_VERSION(5, 2, 4):
+> -		chip_name = "dimgrey_cavefish_sdma";
+> -		break;
+> -	case IP_VERSION(5, 2, 5):
+> -		chip_name = "beige_goby_sdma";
+> -		break;
+> -	case IP_VERSION(5, 2, 3):
+> -		chip_name = "yellow_carp_sdma";
+> -		break;
+> -	case IP_VERSION(5, 2, 6):
+> -		chip_name = "sdma_5_2_6";
+> -		break;
+> -	case IP_VERSION(5, 2, 7):
+> -		chip_name = "sdma_5_2_7";
+> -		break;
+> -	default:
+> -		BUG();
+> -	}
+> -
+> -	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", chip_name);
+> -
+> -	return amdgpu_sdma_init_microcode(adev, fw_name, 0, true);
+> -}
+> -
+>   static unsigned sdma_v5_2_ring_init_cond_exec(struct amdgpu_ring *ring)
+>   {
+>   	unsigned ret;
+> @@ -1288,7 +1225,7 @@ static int sdma_v5_2_sw_init(void *handle)
+>   			return r;
+>   	}
+>   
+> -	r = sdma_v5_2_init_microcode(adev);
+> +	r = amdgpu_sdma_init_microcode(adev, 0, true);
+>   	if (r) {
+>   		DRM_ERROR("Failed to load sdma firmware!\n");
+>   		return r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> index 049c26a45d85..9c65e2f98d44 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> @@ -44,11 +44,6 @@
+>   #include "sdma_v6_0.h"
+>   #include "v11_structs.h"
+>   
+> -MODULE_FIRMWARE("amdgpu/sdma_6_0_0.bin");
+> -MODULE_FIRMWARE("amdgpu/sdma_6_0_1.bin");
+> -MODULE_FIRMWARE("amdgpu/sdma_6_0_2.bin");
+> -MODULE_FIRMWARE("amdgpu/sdma_6_0_3.bin");
+> -
+>   #define SDMA1_REG_OFFSET 0x600
+>   #define SDMA0_HYP_DEC_REG_START 0x5880
+>   #define SDMA0_HYP_DEC_REG_END 0x589a
+> @@ -78,29 +73,6 @@ static u32 sdma_v6_0_get_reg_offset(struct amdgpu_device *adev, u32 instance, u3
+>   	return base + internal_offset;
+>   }
+>   
+> -/**
+> - * sdma_v6_0_init_microcode - load ucode images from disk
+> - *
+> - * @adev: amdgpu_device pointer
+> - *
+> - * Use the firmware interface to load the ucode images into
+> - * the driver (not loaded into hw).
+> - * Returns 0 on success, error on failure.
+> - */
+> -static int sdma_v6_0_init_microcode(struct amdgpu_device *adev)
+> -{
+> -	char fw_name[30];
+> -	char ucode_prefix[30];
+> -
+> -	DRM_DEBUG("\n");
+> -
+> -	amdgpu_ucode_ip_version_decode(adev, SDMA0_HWIP, ucode_prefix, sizeof(ucode_prefix));
+> -
+> -	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
+> -
+> -	return amdgpu_sdma_init_microcode(adev, fw_name, 0, true);
+> -}
+> -
+>   static unsigned sdma_v6_0_ring_init_cond_exec(struct amdgpu_ring *ring)
+>   {
+>   	unsigned ret;
+> @@ -1260,7 +1232,7 @@ static int sdma_v6_0_sw_init(void *handle)
+>   	if (r)
+>   		return r;
+>   
+> -	r = sdma_v6_0_init_microcode(adev);
+> +	r = amdgpu_sdma_init_microcode(adev, 0, true);
+>   	if (r) {
+>   		DRM_ERROR("Failed to load sdma firmware!\n");
+>   		return r;
 
