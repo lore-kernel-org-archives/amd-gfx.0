@@ -4,66 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AC79C3DA7A
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Jan 2023 15:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15B4FC3DA7A
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Jan 2023 15:56:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A748610E359;
-	Mon,  2 Jan 2023 15:54:24 +0000 (UTC)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05D5910E359
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Jan 2023 15:54:23 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id vm8so60476662ejc.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Jan 2023 07:54:22 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EAB010E35F;
+	Mon,  2 Jan 2023 15:56:06 +0000 (UTC)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E8E110E35F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Jan 2023 15:56:05 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id tz12so67406119ejc.9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Jan 2023 07:56:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=in-reply-to:from:references:to:content-language:subject:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=9L5v0OGjSPodzGxivUzDgssGf/a7z3B1aqWeDgMIJ7k=;
- b=F/jX9mIpKavazyyABThI0mLgqkunJYnJz3EcRkJu+0i/i6cbmiKp57IJ5C29BwxVsE
- MgotWnoH6nQ5osr20Zu8HC6EFGBr8t4VxYuTD1Rd8cl2LdVesL+1+ucaqVk8akLYiu7a
- BxLRZjAiLFHPy5eQ/xN78tJWUOrxPibZxHCmxJppK2WsYTIpphnD0Rd64ceuviQEgykS
- a/lg2epJQWbmhJe2BbMXL95lD56RUykczXTvIgcJBEzpQpcheXr5jaYf8z0UwBM6YkoT
- z2NsLTIwy5iSRZdJ8ZFzof4DycGjsOMH9XtdR0AfCegvdKOJz+2kZXE9jBm08Yo3WhVY
- mPcA==
+ :reply-to; bh=wNNKCH1WKlNf691TNsXdg/f1VvQZG85M2UH4KYxabnQ=;
+ b=jEQsaQVIPtRDeyQ15zkX+1q0IU0+NTNcbouv75oHVY93W7vlwex7m+HBEteInQSh+Z
+ seMDtanNrIikbIw3c9mDUWXtRHzpAPIRurtpfntLGApSzxnIQ+l0BusAg9W2t5QqhY/6
+ PQY7ceY7v4OXJwR7HHBI70CJNJmSk8JSXKG7ssFuwkjuNYaPXTaJ0kJyMrSJ9eK0PbYn
+ Jgh0qJKzVdPT+nUJJA1ZsOT6azopWEIH/DOqlRcx0gKRW21Q9i05R5wLS+Wb5MFDMjdM
+ LE1RCkfndvCjDRLafXCORjPIF1K3GHhgJ7v7eNlePSVR4Dm9oi8DY6G5wbU8/B+/fXI9
+ Y60Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:from:references:to:content-language:subject:user-agent
  :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to;
- bh=9L5v0OGjSPodzGxivUzDgssGf/a7z3B1aqWeDgMIJ7k=;
- b=Rzphc4Xl7MzTFPSjP/MNr0me26YgbRl3uOftPsZrPPDfK6yacShhD7Bqf07Fv+AoNX
- 98C3jgU5cipwjNqNj1iwXQMfXvEn+sBAPdr96yFyNKLY8Y66Lg0ZyDYGoOPnwHSlsjxm
- hCXbXkymfWb/UzL60JVtHf1A+8CHH4b3/eD0xqZ4c3VjlZm0ozCZ7nvdAfMMY4kDHy/J
- B/BmzH9hFoY5P5fBKJmHGQXkQ0wmNys+01hCHs2WWeymCMx76uA5VF1eSF1IvWTysaCy
- T+o7JdXRPAdWOrWQSw3vGNw6zK+zaIiL7pocPuWZ44Kd3CrYI2CUeEggCmnU76h+YnFi
- wOBA==
-X-Gm-Message-State: AFqh2kopzxuqsJiMZv40g6bvEMkUF/kxtZlWvvqkVjsVNqIXQPllIn3q
- H1/Faig59AueLgh/ozvUrBG9HYH5jCg=
-X-Google-Smtp-Source: AMrXdXskabmeI2qxI11R/AtfKchUViiA/H/UdS0ggnGiVIk4IYZZ09MevzmLO2d5BEibz9R/Yb3FCw==
-X-Received: by 2002:a17:906:7e55:b0:7c1:7442:8b70 with SMTP id
- z21-20020a1709067e5500b007c174428b70mr40370579ejr.75.1672674861442; 
- Mon, 02 Jan 2023 07:54:21 -0800 (PST)
+ bh=wNNKCH1WKlNf691TNsXdg/f1VvQZG85M2UH4KYxabnQ=;
+ b=TuEoiendGLWgKrRX9rSVHpADMHo+wBziREQm6P3osAsTzNLGLqvcYZM7ThtXERJJnU
+ yNk728j7flITTKYXh7gno/dcG3RNWA473vzy7/VWSuRqOwuOnRKjEPeEFu5glmWi66TD
+ K1z80SKttfgorMSPgcdC7CTw0NstQUi8KGq8QO15CtVa2Mxpk74IUsRn/68UDg7SI7o4
+ sN1mZvjWvPQ7LAia0wOUOr2NK1iMSt/g4+r/y5f3ouU9X45oe0TsjsTUmfvpXh3rbGRY
+ XSC3ynQFLeuAEy8rksUCKdCzHHSLiLs8EX/SQ1pW2zhQ2wbx4spMzUh0dciFP++ExC+R
+ Knsg==
+X-Gm-Message-State: AFqh2kqZdM7zCMgTD7/CVdvUI0mfSRlxKuJHzCRaSr+fy1BEZddGO8Ll
+ VXZZhVtqqdwR3m4JnyNcH+MUVhc1KsE=
+X-Google-Smtp-Source: AMrXdXsK3vSMuEVbnv/ZluFmNKUlrLntpNg1xOzL2Ms2miKozRwbkXi3MACiYiODM4GYl51SslyQ8g==
+X-Received: by 2002:a17:907:7f04:b0:7c1:36:9002 with SMTP id
+ qf4-20020a1709077f0400b007c100369002mr44457808ejc.67.1672674964090; 
+ Mon, 02 Jan 2023 07:56:04 -0800 (PST)
 Received: from ?IPV6:2a02:908:1256:79a0:8d77:4e27:bb99:9a97?
  ([2a02:908:1256:79a0:8d77:4e27:bb99:9a97])
  by smtp.gmail.com with ESMTPSA id
- v18-20020a170906181200b0077f324979absm12989416eje.67.2023.01.02.07.54.20
+ gf3-20020a170906e20300b007bff9fb211fsm13116019ejb.57.2023.01.02.07.56.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jan 2023 07:54:20 -0800 (PST)
+ Mon, 02 Jan 2023 07:56:03 -0800 (PST)
 Content-Type: multipart/alternative;
- boundary="------------No71k01nEPlGgYLGLAZ3m02g"
-Message-ID: <0931a762-c3a3-16c3-33a5-88e83fca4bcb@gmail.com>
-Date: Mon, 2 Jan 2023 16:54:20 +0100
+ boundary="------------yMNUedVwgQPzJ09sXEAm02Yz"
+Message-ID: <355bab4f-2ca8-3dd2-4cbc-264931fe9d7a@gmail.com>
+Date: Mon, 2 Jan 2023 16:56:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and lanes from the
- INFO
+Subject: Re: [PATCH 2/2] drm/amdgpu: add AMDGPU_INFO_VM_STAT to return GPU VM
 Content-Language: en-US
 To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
  amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-References: <CAAxE2A720cJguG5b+0zbP=G4TxTjpqKBvOqDXXAP0LWHZEuj0A@mail.gmail.com>
+References: <CAAxE2A5su09qWsCekUX4ZzTMAX+9m-BemDxqL2Hh9328Z1WDqw@mail.gmail.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAAxE2A720cJguG5b+0zbP=G4TxTjpqKBvOqDXXAP0LWHZEuj0A@mail.gmail.com>
+In-Reply-To: <CAAxE2A5su09qWsCekUX4ZzTMAX+9m-BemDxqL2Hh9328Z1WDqw@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,35 +78,29 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 This is a multi-part message in MIME format.
---------------No71k01nEPlGgYLGLAZ3m02g
+--------------yMNUedVwgQPzJ09sXEAm02Yz
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-That stuff is already available as current_link_speed and 
-current_link_width in sysfs.
+Well first of all don't mess with the VM internals outside of the VM code.
 
-I'm a bit reluctant duplicating this information in the IOCTL interface.
+Then why would we want to expose this through the IOCTL interface? We 
+already have this in the fdinfo.
 
 Christian.
 
 Am 30.12.22 um 23:07 schrieb Marek Olšák:
-> For computing PCIe bandwidth in userspace and troubleshooting PCIe
-> bandwidth issues.
->
-> For example, my Navi21 has been limited to PCIe gen 1 and this is
-> the first time I noticed it after 2 years.
->
-> Note that this intentionally fills a hole and padding
-> in drm_amdgpu_info_device.
+> To give userspace a detailed view about its GPU memory usage and 
+> evictions.
+> This will help performance investigations.
 >
 > Signed-off-by: Marek Olšák <marek.olsak@amd.com>
 >
 > The patch is attached.
 >
 > Marek
->
 
---------------No71k01nEPlGgYLGLAZ3m02g
+--------------yMNUedVwgQPzJ09sXEAm02Yz
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -116,30 +109,23 @@ Content-Transfer-Encoding: 8bit
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   </head>
   <body>
-    That stuff is already available as current_link_speed and
-    current_link_width in sysfs.<br>
+    Well first of all don't mess with the VM internals outside of the VM
+    code.<br>
     <br>
-    I'm a bit reluctant duplicating this information in the IOCTL
-    interface.<br>
+    Then why would we want to expose this through the IOCTL interface?
+    We already have this in the fdinfo.<br>
     <br>
-    Christian. <br>
+    Christian.<br>
     <br>
     <div class="moz-cite-prefix">Am 30.12.22 um 23:07 schrieb Marek
       Olšák:<br>
     </div>
     <blockquote type="cite"
-cite="mid:CAAxE2A720cJguG5b+0zbP=G4TxTjpqKBvOqDXXAP0LWHZEuj0A@mail.gmail.com">
+cite="mid:CAAxE2A5su09qWsCekUX4ZzTMAX+9m-BemDxqL2Hh9328Z1WDqw@mail.gmail.com">
       <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div dir="ltr">For computing PCIe bandwidth in userspace and
-        troubleshooting PCIe<br>
-        bandwidth issues.<br>
-        <br>
-        For example, my Navi21 has been limited to PCIe gen 1 and this
-        is<br>
-        the first time I noticed it after 2 years.<br>
-        <br>
-        Note that this intentionally fills a hole and padding<br>
-        in drm_amdgpu_info_device.<br>
+      <div dir="ltr">To give userspace a detailed view about its GPU
+        memory usage and evictions.<br>
+        This will help performance investigations.<br>
         <br>
         <div>Signed-off-by: Marek Olšák &lt;<a
             href="mailto:marek.olsak@amd.com" moz-do-not-send="true"
@@ -151,11 +137,10 @@ cite="mid:CAAxE2A720cJguG5b+0zbP=G4TxTjpqKBvOqDXXAP0LWHZEuj0A@mail.gmail.com">
         </div>
         <div>Marek<br>
         </div>
-        <br>
       </div>
     </blockquote>
     <br>
   </body>
 </html>
 
---------------No71k01nEPlGgYLGLAZ3m02g--
+--------------yMNUedVwgQPzJ09sXEAm02Yz--
