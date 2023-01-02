@@ -4,69 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29DA3C46467
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 08:31:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C34DC3DA7D
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 08:32:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEC3710E3A0;
-	Tue,  3 Jan 2023 08:31:30 +0000 (UTC)
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD06410E3A0
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jan 2023 08:31:28 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id
- fm16-20020a05600c0c1000b003d96fb976efso20383516wmb.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Jan 2023 00:31:28 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D20410E3AC;
+	Tue,  3 Jan 2023 08:32:35 +0000 (UTC)
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F51510E347;
+ Mon,  2 Jan 2023 14:17:09 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id q2so29164069ljp.6;
+ Mon, 02 Jan 2023 06:17:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eS7oSs5UaHu4Oi5d3bocmiLSbqCNW4u4bW3c+byimv4=;
- b=hxoVP9GcXhh1QrMjbgNzd2a8kEKlgJeT/Cl6wm5kI4ZL7xST6G+pa1BGpSWtczQvQp
- s2tEGtv+rL0V8F4R/OMrwgE/tM4zURB9e1O/cKB7UMW3uQZq99kwDCE4MS/WYathve3S
- O0yIt2R3S/SAvR0B9YDQwSx5ThfwdPW9BxVGXSFAE/YJSocZzoZ+3h8Lo2iW5RwzegGR
- Sp660PWQHBW5IIWVVP3UN78YRmYLoLxYkyoWrINkxJgBqc2GT7h/fVZrpMVbAIZkxpz5
- X4/lH0JjFbvLjMwA4CP0+nKG5+o1F3FVub79Ok7+al1ngQl0q8QP02WPBIiFkf3f5ycW
- aA8Q==
+ h=cc:to:subject:message-id:date:from:references:in-reply-to
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=5eDCfRWak7WjzcJrVJ87WGs9sC09qEtPHBY0lhigWsk=;
+ b=bzt/zVqcL4dO0+9oAWHk71070RmkWBKqqYkEVqyQpVelltbUmmN5g1vA8pyM1elWhd
+ krPdCxHzKPjrWSqVyR5ZgI1dase2Uz0MF90YK8UPesJ3YjcS5lg8pe446zO6Cfv9ynEN
+ oUYfjRjGfV74uTTk9xNtE024DQfiChn3lWEKSeHlqevkfZLcRKZUfVnpDsAem2aD/qKW
+ Hz+oxiLpw57vFe2D+jfGjQCDNI0CN1kVqqu9/gy8i8mMiYz0Lt0JwZScw1CxjACf7ixx
+ HeqJ/Fxp4KrqoWNTGYJrT9IOVWDoOsyH+swpt2rCeC03IopusOBaKeTxDM3B5clNOpNS
+ Ch4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=eS7oSs5UaHu4Oi5d3bocmiLSbqCNW4u4bW3c+byimv4=;
- b=aS81GFFtwLH3RNSZIgSPQK9soU5Iq3olCbylzc+RBB29uCSUMTz0YWxg0JjSi+NQPK
- wqqWkRzskDIvmN37M9ioiNV7sPvqnEMDR/l7LQ2q7nWpGs2muvfUt/uE+5xBMsk+duzg
- LFCttI2DkqndRsuPBhMdbhIms4N5pV8/7osACsfsvss7rxUEqEXaIHFX6WdchXPPF+Zx
- OaG/dGqokJ9+Z8pve6flVjxq5CAubD1rmKjwIKCI5gC8Ff8vS8yqleff6siOes9f3ib4
- YbYydeJ8UsHP4YMOS0uwmUEYZmf+Tp/nP//xxQ3XZcMgcogsGg4rF6QaeHgnyujLCwPu
- U5WQ==
-X-Gm-Message-State: AFqh2kqHxxGs0D6j862r9ozrlav6OCfvJzYE4sF/a/J3OFRy5uoSrVfh
- KeUANmCzUnJ+vbye/i8H8G4=
-X-Google-Smtp-Source: AMrXdXsMchkXIO/Ts709Gm0JHJO0uBWdaaGMPgVht0sQQ7AmU/1Dj5ROweUQjTp5R56FuGtJhOgJaw==
-X-Received: by 2002:a7b:c3d6:0:b0:3d3:5ccc:4442 with SMTP id
- t22-20020a7bc3d6000000b003d35ccc4442mr30471667wmj.26.1672734687460; 
- Tue, 03 Jan 2023 00:31:27 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:91f2:4ffb:eef9:7882?
- ([2a02:908:1256:79a0:91f2:4ffb:eef9:7882])
- by smtp.gmail.com with ESMTPSA id
- v2-20020a05600c214200b003b492753826sm41015547wml.43.2023.01.03.00.31.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Jan 2023 00:31:26 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------8rQSwnVgCQluSh3NS9E0emfZ"
-Message-ID: <35304b1e-98a7-d342-9f1b-50f07b45cf98@gmail.com>
-Date: Tue, 3 Jan 2023 09:31:26 +0100
+ h=cc:to:subject:message-id:date:from:references:in-reply-to
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5eDCfRWak7WjzcJrVJ87WGs9sC09qEtPHBY0lhigWsk=;
+ b=OcC4sE/ErVUIRp8JEo1ODoymzrBrhu+YiSIIwvOa1AJk/PCKKIHE24fKGaOSZVmxK1
+ WX5OuFQYbq4y7rE5BlBAAoLyQS9F0BuRgPDYx/2oQ00+uZwUpqSFx1HVemnrS50yfZwR
+ Z15eIF5FfeG4QBR0O8B5Qp0UzlCqo8JhL1HRY4xzXc+cdNuGLan9dLBE6i4/0Sp2i4xK
+ PsCbqFPbN6S92Tuf5VWxLTuszRAp1ZwEtOWSqJYmI4hvPLQUcTTAn/zJ0JYm3f5JskuX
+ 1f/O4okerp2oRnilst9Smcxkfdi9paLz5mUvgwRriiTNfoCgx2jV4Qwr0/H6tSIdubzz
+ Mp9w==
+X-Gm-Message-State: AFqh2kqBHzGNUUeYqxJZeZLk6B+y1WlXCV0vghCJFw1LH0Q99LYaQ15T
+ oX7WOnhqW0PhbjiJlqJ+m2teMPKjDptitWFCaToBBSm8
+X-Google-Smtp-Source: AMrXdXsJ9eNbKvYJgTW6iP7SGuBqn3GMKNN0GLu35vqPA8KncHYCg+7KJBerz1Sdow9jSzMMoEkFmygGq9veb9S/2YM=
+X-Received: by 2002:a2e:7e05:0:b0:27f:bf18:e5f2 with SMTP id
+ z5-20020a2e7e05000000b0027fbf18e5f2mr1521788ljc.476.1672669027454; Mon, 02
+ Jan 2023 06:17:07 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and lanes from the
- INFO
-Content-Language: en-US
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-References: <CAAxE2A720cJguG5b+0zbP=G4TxTjpqKBvOqDXXAP0LWHZEuj0A@mail.gmail.com>
- <0931a762-c3a3-16c3-33a5-88e83fca4bcb@gmail.com>
- <CAAxE2A5pBqOkny15tSRCWn_UW8=TTE=zYPChBZofZCrHZoQbww@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAAxE2A5pBqOkny15tSRCWn_UW8=TTE=zYPChBZofZCrHZoQbww@mail.gmail.com>
+Received: by 2002:ab3:7791:0:b0:203:5a56:d66a with HTTP; Mon, 2 Jan 2023
+ 06:17:06 -0800 (PST)
+In-Reply-To: <6ef84968-2874-49b0-9fbc-bdc897382b0e@collabora.com>
+References: <CAF6AEGv=GJm5Hyea7a0oDgWDYXw72HwTB4sreeppYVEKCsw0Ew@mail.gmail.com>
+ <20230101182907.1662-1-youling257@gmail.com>
+ <6ef84968-2874-49b0-9fbc-bdc897382b0e@collabora.com>
+From: youling 257 <youling257@gmail.com>
+Date: Mon, 2 Jan 2023 22:17:06 +0800
+Message-ID: <CAOzgRda9JCguwJa6UT+q7hJ7pzcfxhJU5rxjTmoCb79DtWMqOw@mail.gmail.com>
+Subject: Re: [PATCH 12/13] drm/scheduler: rework entity flush, kill and fini
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Tue, 03 Jan 2023 08:32:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,136 +68,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: jonathan@marek.ca, ckoenig.leichtzumerken@gmail.com,
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com, luben.tuikov@amd.com,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------8rQSwnVgCQluSh3NS9E0emfZ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+which patch?
 
-Sure they can, those files are accessible to everyone.
-
-The massive advantage is that this is standard for all PCIe devices, so 
-it should work vendor independent.
-
-Christian.
-
-Am 02.01.23 um 18:55 schrieb Marek Olšák:
-> Userspace drivers can't access sysfs.
->
-> Marek
->
-> On Mon, Jan 2, 2023, 10:54 Christian König 
-> <ckoenig.leichtzumerken@gmail.com> wrote:
->
->     That stuff is already available as current_link_speed and
->     current_link_width in sysfs.
->
->     I'm a bit reluctant duplicating this information in the IOCTL
->     interface.
->
->     Christian.
->
->     Am 30.12.22 um 23:07 schrieb Marek Olšák:
->>     For computing PCIe bandwidth in userspace and troubleshooting PCIe
->>     bandwidth issues.
+2023-01-02 17:24 GMT+08:00, Dmitry Osipenko <dmitry.osipenko@collabora.com>:
+> On 1/1/23 21:29, youling257 wrote:
+>> Linux 6.2-rc1 has memory leak on amdgpu, git bisect bad commit is
+>> "drm/scheduler: rework entity flush, kill and fini".
+>> git bisect start
+>> # status: waiting for both good and bad commits
+>> # good: [eb7081409f94a9a8608593d0fb63a1aa3d6f95d8] Linux 6.1-rc6
+>> git bisect good eb7081409f94a9a8608593d0fb63a1aa3d6f95d8
+>> # status: waiting for bad commit, 1 good commit known
+>> # bad: [66efff515a6500d4b4976fbab3bee8b92a1137fb] Merge tag
+>> 'amd-drm-next-6.2-2022-12-07' of
+>> https://gitlab.freedesktop.org/agd5f/linux into drm-next
+>> git bisect bad 66efff515a6500d4b4976fbab3bee8b92a1137fb
+>> # good: [49e8e6343df688d68b12c2af50791ca37520f0b7] Merge tag
+>> 'amd-drm-next-6.2-2022-11-04' of
+>> https://gitlab.freedesktop.org/agd5f/linux into drm-next
+>> git bisect good 49e8e6343df688d68b12c2af50791ca37520f0b7
+>> # bad: [fc58764bbf602b65a6f63c53e5fd6feae76c510c] Merge tag
+>> 'amd-drm-next-6.2-2022-11-18' of
+>> https://gitlab.freedesktop.org/agd5f/linux into drm-next
+>> git bisect bad fc58764bbf602b65a6f63c53e5fd6feae76c510c
+>> # bad: [4e291f2f585313efa5200cce655e17c94906e50a] Merge tag
+>> 'drm-misc-next-2022-11-10-1' of git://anongit.freedesktop.org/drm/drm-misc
+>> into drm-next
+>> git bisect bad 4e291f2f585313efa5200cce655e17c94906e50a
+>> # good: [78a43c7e3b2ff5aed1809f93b4f87a418355789e] drm/nouveau/gr/gf100-:
+>> make global attrib_cb actually global
+>> git bisect good 78a43c7e3b2ff5aed1809f93b4f87a418355789e
+>> # bad: [611fc22c9e5e13276c819a7f7a7d19b794bbed1a] drm/arm/hdlcd: remove
+>> calls to drm_mode_config_cleanup()
+>> git bisect bad 611fc22c9e5e13276c819a7f7a7d19b794bbed1a
+>> # bad: [a8d9621b9fc67957b3de334cc1b5f47570fb90a0] drm/ingenic: Don't set
+>> struct drm_driver.output_poll_changed
+>> git bisect bad a8d9621b9fc67957b3de334cc1b5f47570fb90a0
+>> # good: [2cf9886e281678ae9ee57e24a656749071d543bb] drm/scheduler: remove
+>> drm_sched_dependency_optimized
+>> git bisect good 2cf9886e281678ae9ee57e24a656749071d543bb
+>> # bad: [8e4e4c2f53ffcb0ef746dc3b87ce1a57c5c94c7d] Merge drm/drm-next into
+>> drm-misc-next
+>> git bisect bad 8e4e4c2f53ffcb0ef746dc3b87ce1a57c5c94c7d
+>> # bad: [47078311b8efebdefd5b3b2f87e2b02b14f49c66] drm/ingenic: Fix missing
+>> platform_driver_unregister() call in ingenic_drm_init()
+>> git bisect bad 47078311b8efebdefd5b3b2f87e2b02b14f49c66
+>> # bad: [a82f30b04c6aaefe62cbbfd297e1bb23435b6b3a] drm/scheduler: rename
+>> dependency callback into prepare_job
+>> git bisect bad a82f30b04c6aaefe62cbbfd297e1bb23435b6b3a
+>> # bad: [2fdb8a8f07c2f1353770a324fd19b8114e4329ac] drm/scheduler: rework
+>> entity flush, kill and fini
+>> git bisect bad 2fdb8a8f07c2f1353770a324fd19b8114e4329ac
+>> # first bad commit: [2fdb8a8f07c2f1353770a324fd19b8114e4329ac]
+>> drm/scheduler: rework entity flush, kill and fini
 >>
->>     For example, my Navi21 has been limited to PCIe gen 1 and this is
->>     the first time I noticed it after 2 years.
->>
->>     Note that this intentionally fills a hole and padding
->>     in drm_amdgpu_info_device.
->>
->>     Signed-off-by: Marek Olšák <marek.olsak@amd.com>
->>
->>     The patch is attached.
->>
->>     Marek
->>
+>> @Rob Clark, i test your patch fixed my problem.
 >
-
---------------8rQSwnVgCQluSh3NS9E0emfZ
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Sure they can, those files are accessible to everyone.<br>
-    <br>
-    The massive advantage is that this is standard for all PCIe devices,
-    so it should work vendor independent.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 02.01.23 um 18:55 schrieb Marek
-      Olšák:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAAxE2A5pBqOkny15tSRCWn_UW8=TTE=zYPChBZofZCrHZoQbww@mail.gmail.com">
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div dir="auto">Userspace drivers can't access sysfs.
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">Marek</div>
-      </div>
-      <br>
-      <div class="gmail_quote">
-        <div dir="ltr" class="gmail_attr">On Mon, Jan 2, 2023, 10:54
-          Christian König &lt;<a
-            href="mailto:ckoenig.leichtzumerken@gmail.com"
-            moz-do-not-send="true" class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class="gmail_quote" style="margin:0 0 0
-          .8ex;border-left:1px #ccc solid;padding-left:1ex">
-          <div> That stuff is already available as current_link_speed
-            and current_link_width in sysfs.<br>
-            <br>
-            I'm a bit reluctant duplicating this information in the
-            IOCTL interface.<br>
-            <br>
-            Christian. <br>
-            <br>
-            <div>Am 30.12.22 um 23:07 schrieb Marek Olšák:<br>
-            </div>
-            <blockquote type="cite">
-              <div dir="ltr">For computing PCIe bandwidth in userspace
-                and troubleshooting PCIe<br>
-                bandwidth issues.<br>
-                <br>
-                For example, my Navi21 has been limited to PCIe gen 1
-                and this is<br>
-                the first time I noticed it after 2 years.<br>
-                <br>
-                Note that this intentionally fills a hole and padding<br>
-                in drm_amdgpu_info_device.<br>
-                <br>
-                <div>Signed-off-by: Marek Olšák &lt;<a
-                    href="mailto:marek.olsak@amd.com" target="_blank"
-                    rel="noreferrer" moz-do-not-send="true"
-                    class="moz-txt-link-freetext">marek.olsak@amd.com</a>&gt;</div>
-                <div><br>
-                </div>
-                <div>The patch is attached.</div>
-                <div><br>
-                </div>
-                <div>Marek<br>
-                </div>
-                <br>
-              </div>
-            </blockquote>
-            <br>
-          </div>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------8rQSwnVgCQluSh3NS9E0emfZ--
+> The linux-next already carried the fix for a couple weeks. It will land
+> to 6.2-rc once drm-fixes branch will be synced with the 6.2.
+>
+> --
+> Best regards,
+> Dmitry
+>
+>
