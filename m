@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59B71C3DA7D
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 08:33:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 045DEC46467
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 08:34:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D27DA10E3AE;
-	Tue,  3 Jan 2023 08:33:12 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38C3D10E3AE
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jan 2023 08:33:10 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id j17so23325489wrr.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Jan 2023 00:33:10 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68EF810E3AF;
+	Tue,  3 Jan 2023 08:34:18 +0000 (UTC)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 708F710E3AF
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jan 2023 08:34:16 +0000 (UTC)
+Received: by mail-wm1-x32c.google.com with SMTP id l26so20537247wme.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Jan 2023 00:34:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=d7kiahq3dJHrk7yNoIrzAdgmHp8t5bL1gN+YCkOpaoY=;
- b=n8NStT+wJPfqanwNCaEZyAwxR8Lbt/f9E3NW64ixBjq43bh6nOut6ZkhtfmcBthX3S
- 7lUlDUKNsPwjIv1C5aBQCm9hNyjyfD6Us/X/KrGAPRPpebffPaFTQ6hRzrT9Bite3aY7
- jO3eAz5bJcs0yb0U8D2PuUF7EkghuA7+cAwlQDrglk4hH2I31GycDOPlFV53ockehM3G
- 2nAaBChGMvsEIUiyo6qinWJAPYIhxZHxmIQZZNTrx9OC4eWkAyPJtDSgUUzo3m36w33A
- 6jXSyyvPPLEuW89AB5OF6CT50AlBM5pUeKRxcZ1xgCUmL9jvUHc32tpvguTPSubfbOOV
- wp0g==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=0izzhhrNWdFVx/zCcb3G0H1KZC0DlC5pPS44RRkZIJI=;
+ b=QPnhwYm8UDRKA+tnTfSy1s3tF4YxHTDgJbNYwdsNmglLN/nj/KDGdGMonVBUGcePdP
+ 4kfaiSW3FYJUuJRfMG4yV3/luyejLJFCo/1RssL+paw894Fp8tCIz5RdkDh0UgPU4Ela
+ ccCiKchEDE5LR/oRxbZD43P8yvH2rZn/ow4FRi8C8D1RegS75xpnvA8lgRDxwEgBGnQt
+ 2qB6kpSX47G8cXnYro2qYAW54zldeNt8pv39IpRsaUziqxmqiJxH6RXyowIJP31EjLez
+ 7izHivLl38bc+IuebVSoxNggwnubkI7L/7UNh+NwZoQYXL6Kwg8gJuw4/wPGwRwsMcTV
+ aP4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=d7kiahq3dJHrk7yNoIrzAdgmHp8t5bL1gN+YCkOpaoY=;
- b=HAAeeGwEgaCSSOYm+QeWeo72cJPy82L3hk/ueqnVqzJ2OZcIT8GJFegLHYBTMpOvDw
- WCeIH8vHvCtyUKtCDKU+tLyplyGN/8h4KbgKqyB5zQCyx/hIDzgUJy3imx9R9h1O+k1W
- 8iEl8Apx5C6J8qwIJRJLkPmhbyya4trBWfgaxabGTAR9l5qDNXaEQl+T3dRIEbizyOu7
- pvyK040/YPMV6D2I9L1vCQmevSUxIWBiq2Shl6ooNr0eOF++2Xe0mzhKa4/mDyzcBEo+
- B1sbPHeUjOI56yxkW224EXbTJEM074SuS1/HAkaHIXeqtcRG08jx7y7XqYQxvJ6pHvmd
- vzLQ==
-X-Gm-Message-State: AFqh2kp5dU6wEHQB/3cNVsawc/ntGPCuqpZ1HcYQgBMg16TrF87tSHb8
- NDuHzyTHjW8xvIUBE2GXaDI=
-X-Google-Smtp-Source: AMrXdXtIQ306W2bul2gK9s7i48FSJjmFHmjQZBsRFgV90ED+YtR2DDCHTU/53UwQUcHknWrq3E2EnA==
-X-Received: by 2002:adf:d851:0:b0:242:1522:24a0 with SMTP id
- k17-20020adfd851000000b00242152224a0mr25567964wrl.47.1672734788654; 
- Tue, 03 Jan 2023 00:33:08 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=0izzhhrNWdFVx/zCcb3G0H1KZC0DlC5pPS44RRkZIJI=;
+ b=mwVHWNSNHSNtSe5OkJyV9jn7lsARnpCGQGKk3BlioJs/fjVdZ/RCL+17WyKB+rCz0I
+ J3xddJw0wi/UxJ6CHNEdUCXmzKAlXZ34tG+VBtIP6x7Qi5wwZY08aDKknsIWe5qNYv+/
+ 4QtIb3DCyB+wwaLTnV+sxWaukgDV7c5PEOqmjIOCY/6uN2hY5bXvwKa9Yi2RLgAttRyO
+ ukr1OEjgjfWuWsJHUIoxO+FYoY9LYXsuOB28v0nCZAE+JBJMpCYIQxClZIupd7CHJ8O1
+ QgLRMtJXe59/QMjAM8PugOtfVnfkVW9WWSgxHNHzBmyGTazNzHq+rtboMPnkt2bfgPfG
+ U6zA==
+X-Gm-Message-State: AFqh2koM0uoHT6FonCJe2g3FcIn4YDDk0DAdXIEv+WXpYa9KgmtQl771
+ Cc+zKP6qqgFZPV8nUl7GOx8=
+X-Google-Smtp-Source: AMrXdXufoTEmA3R8mVipWkwBM/iDQjbrNpkN2CCsMOuIMnn8S+A6ek52J0Nlkt3V7Zip2qwavhGxgA==
+X-Received: by 2002:a05:600c:17c6:b0:3d2:20ec:24be with SMTP id
+ y6-20020a05600c17c600b003d220ec24bemr31525545wmo.38.1672734855002; 
+ Tue, 03 Jan 2023 00:34:15 -0800 (PST)
 Received: from ?IPV6:2a02:908:1256:79a0:91f2:4ffb:eef9:7882?
  ([2a02:908:1256:79a0:91f2:4ffb:eef9:7882])
  by smtp.gmail.com with ESMTPSA id
- h6-20020adffa86000000b0024246991121sm31445135wrr.116.2023.01.03.00.33.07
+ i17-20020a05600c355100b003d9980c5e7asm22135882wmq.21.2023.01.03.00.34.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Jan 2023 00:33:08 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------lRcVO7J3CJgraqGpvFaEHatO"
-Message-ID: <1d0ddc01-b315-a5ff-f4cc-30b8aedfeb57@gmail.com>
-Date: Tue, 3 Jan 2023 09:33:07 +0100
+ Tue, 03 Jan 2023 00:34:14 -0800 (PST)
+Message-ID: <7275efdb-4d22-eb76-cea3-333391472853@gmail.com>
+Date: Tue, 3 Jan 2023 09:34:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH 2/2] drm/amdgpu: add AMDGPU_INFO_VM_STAT to return GPU VM
+Subject: Re: [PATCH] drm/amdgpu: grab extra fence reference for
+ drm_sched_job_add_dependency
 Content-Language: en-US
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-References: <CAAxE2A5su09qWsCekUX4ZzTMAX+9m-BemDxqL2Hh9328Z1WDqw@mail.gmail.com>
- <355bab4f-2ca8-3dd2-4cbc-264931fe9d7a@gmail.com>
- <CAAxE2A487Ra9ropymBGZpXSt=Zz81cjf56p_7wq+tK4cDfn1sA@mail.gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>, Borislav Petkov <bp@alien8.de>
+References: <20221219104718.21677-1-christian.koenig@amd.com>
+ <Y6BuZ2jv8n9dEVxS@zn.tnic>
+ <CADnq5_M+TgiYw84meQNRJKnKYmr9V4v-scWZRAeFtG1o=aEeCw@mail.gmail.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAAxE2A487Ra9ropymBGZpXSt=Zz81cjf56p_7wq+tK4cDfn1sA@mail.gmail.com>
+In-Reply-To: <CADnq5_M+TgiYw84meQNRJKnKYmr9V4v-scWZRAeFtG1o=aEeCw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,124 +77,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: mikhail.v.gavrilov@gmail.com, michel@daenzer.net,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------lRcVO7J3CJgraqGpvFaEHatO
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+I assume that this was already upstreamed while I was on sick leave?
 
-Take a look at /proc/self/fdinfo/$fd.
-
-The Intel guys made that vendor agnostic and are using it within their 
-IGT gpu top tool.
-
+Thanks,
 Christian.
 
-Am 02.01.23 um 18:57 schrieb Marek Olšák:
-> What are you talking about? Is fdinfo in sysfs? Userspace drivers 
-> can't access sysfs.
+Am 21.12.22 um 22:10 schrieb Alex Deucher:
+> Applied.  Thanks!
 >
-> Marek
+> Alex
 >
-> On Mon, Jan 2, 2023, 10:56 Christian König 
-> <ckoenig.leichtzumerken@gmail.com> wrote:
->
->     Well first of all don't mess with the VM internals outside of the
->     VM code.
->
->     Then why would we want to expose this through the IOCTL interface?
->     We already have this in the fdinfo.
->
->     Christian.
->
->     Am 30.12.22 um 23:07 schrieb Marek Olšák:
->>     To give userspace a detailed view about its GPU memory usage and
->>     evictions.
->>     This will help performance investigations.
+> On Mon, Dec 19, 2022 at 3:01 PM Borislav Petkov <bp@alien8.de> wrote:
+>> On Mon, Dec 19, 2022 at 11:47:18AM +0100, Christian König wrote:
+>>> That function consumes the reference.
+>>>
+>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>>> Fixes: aab9cf7b6954 ("drm/amdgpu: use scheduler dependencies for VM updates")
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 2 ++
+>>>   1 file changed, 2 insertions(+)
+>> Thanks, that fixes it.
 >>
->>     Signed-off-by: Marek Olšák <marek.olsak@amd.com>
+>> Reported-by: Borislav Petkov (AMD) <bp@alien8.de>
+>> Tested-by: Borislav Petkov (AMD) <bp@alien8.de>
 >>
->>     The patch is attached.
+>> --
+>> Regards/Gruss,
+>>      Boris.
 >>
->>     Marek
->
+>> https://people.kernel.org/tglx/notes-about-netiquette
 
---------------lRcVO7J3CJgraqGpvFaEHatO
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Take a look at /proc/self/fdinfo/$fd.<br>
-    <br>
-    The Intel guys made that vendor agnostic and are using it within
-    their IGT gpu top tool.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 02.01.23 um 18:57 schrieb Marek
-      Olšák:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAAxE2A487Ra9ropymBGZpXSt=Zz81cjf56p_7wq+tK4cDfn1sA@mail.gmail.com">
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div dir="auto">What are you talking about? Is fdinfo in sysfs?
-        Userspace drivers can't access sysfs.
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">Marek</div>
-      </div>
-      <br>
-      <div class="gmail_quote">
-        <div dir="ltr" class="gmail_attr">On Mon, Jan 2, 2023, 10:56
-          Christian König &lt;<a
-            href="mailto:ckoenig.leichtzumerken@gmail.com"
-            moz-do-not-send="true" class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class="gmail_quote" style="margin:0 0 0
-          .8ex;border-left:1px #ccc solid;padding-left:1ex">
-          <div> Well first of all don't mess with the VM internals
-            outside of the VM code.<br>
-            <br>
-            Then why would we want to expose this through the IOCTL
-            interface? We already have this in the fdinfo.<br>
-            <br>
-            Christian.<br>
-            <br>
-            <div>Am 30.12.22 um 23:07 schrieb Marek Olšák:<br>
-            </div>
-            <blockquote type="cite">
-              <div dir="ltr">To give userspace a detailed view about its
-                GPU memory usage and evictions.<br>
-                This will help performance investigations.<br>
-                <br>
-                <div>Signed-off-by: Marek Olšák &lt;<a
-                    href="mailto:marek.olsak@amd.com" target="_blank"
-                    rel="noreferrer" moz-do-not-send="true"
-                    class="moz-txt-link-freetext">marek.olsak@amd.com</a>&gt;</div>
-                <div><br>
-                </div>
-                <div>The patch is attached.</div>
-                <div><br>
-                </div>
-                <div>Marek<br>
-                </div>
-              </div>
-            </blockquote>
-            <br>
-          </div>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------lRcVO7J3CJgraqGpvFaEHatO--
