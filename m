@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A204AC3DA7D
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 22:20:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23934C4708E
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 22:20:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A11110E411;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7036B10E4D4;
 	Tue,  3 Jan 2023 22:19:52 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67F1410E294;
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2046.outbound.protection.outlook.com [40.107.237.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 202AD10E40C;
  Tue,  3 Jan 2023 22:19:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JDfDZlCYfToefKpGyVRo8fbNW8zK20otaT/EXSgHGU476TPFU1VucNuPezd4cQK4CQG96emzYW9GRY4fV7SLY30D0bXw6ot6eFgTzn/0145GWgEnl9/UeAhOoraC0APhgEsX8oKaW928OZ88xyGjWsQY3tOPkGRZt4WCdajdk2iY+G9AyJGAJIcQ+ivm+36lqBodQ2KJPxqieNhpCOl4PwqErLyZnEu5QOuWw4MCNqYgGqe4LxLAA07ujc4BbCesqlHBfNojFZ721pwM7wFpoPyoGXzJbjLmaH0Sx2rHcbj3S2WlIH0lbdu9S0tgEsM+XxYoh431AMcQ6zUjXTK9Og==
+ b=jEXCyjFs7Kde0kZ6+gZC72iBMBdgAvccjKoGmK9VVdxmhcLgcwkX3JrgIN0T44+n7+wKSE8MTnext0f8GIjjMAhrl2bJeZwHAeTOtzZ3rLnma8Gt6E97gY020DCI2dGHJ51tlOwTe+d3Px3w+wL8c55s8oq5sRSikkaCW7DI1oG3ae1qp5DZ037eWxNAT9V/566yH2cpqQIjd+EbBV/B6/jid+oWsIjHFDMs5/uGSn86jBQ4V+wDkp10IAKk0zxPlaEMOixeo54qeIW1Uz94bipdxQr/8H6CGHKShxURKrINK9roLhMgl6W53TrymsqtIo9gW3y9jpRneIe0qOzIXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fQzzWQTICRxoHs2IynlMSZNEQ3a9JsIDKjffnX20rQQ=;
- b=MaVOc0v9BjDuvbBvDQEok8b+Ly+RqT0A+ygG3tSKUGVCLS1fTAdoiv6QIMrkVLWW3xlZzigqn2KiAkimXV2zwCddtZQp1Kvf/ktAyaKgfEqfPs2/ZTkp78a7uQ7m9pAiddIILGRDM02HrkADlXBDY+Gj38Fy7UTycNdh/QG1rrt2mu66UjLQnjCL/qu+x5IOZ3Jlw4hCIcMSaxjfaQQbDa8etvl9M9bI2HshXth+OQo9a4vNI473DmaKeUNAQsjXM/AYMYgXzCgkPQmrmVciLnMFpvmZ5FrGlt1eM6glyoIkNSCz5mNMX6OGUuXw1jVz51aEurIe6KybdCbBuPq3YQ==
+ bh=9Y2sP3PlD3eGIiSQvNh632gBhes1ynqhUIRWZGZ9J2g=;
+ b=CHpn6v9qRgYOldaS38qjqURFkeW8bqXINfTVfNAkMYwCDF9px7dzyhEk6HeVuTsjPpjOUcmDUPSJA3KaA3OFYsQPwOJO2s2KdzL4LrjIe8/Ae2zzFwiDKJEBM0HfCZeFNu/s4ZugoI+ONMWXCSTBFYLdiqtTxHM8B4bGLhuXWoEwHfUpW6cLwKC5q2qeDPnxUOk3bABj0iPe7lgugxfa29Og+Kw51a2MI/s6XRZwU8wAWMumYQsCK1ahtqbHv6sx6UVkYv4BoRNtt9l6hpW+xeW6Z5o4Q6AkSol0yo7a8vk7zgpTI2F5bUo/I3owoGXFew50qjxz7BQwaXnvC+5tLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fQzzWQTICRxoHs2IynlMSZNEQ3a9JsIDKjffnX20rQQ=;
- b=ezH4BgibAONEqoepfLKLi2lGh01FrT/UggVzYhqYFVYe2NvH09VJJhe49507vfbyb1a6B0EmXBoxHxrRltD2JMOCipDbmbc9TTy8MYYXgN1XKBs24LfTIzQIZneQYozFS8BO6dDmNAO0C998VL/FdeYKchl4BVR4/iWY0mytMmE=
-Received: from DM6PR10CA0027.namprd10.prod.outlook.com (2603:10b6:5:60::40) by
- CY8PR12MB7585.namprd12.prod.outlook.com (2603:10b6:930:98::7) with
+ bh=9Y2sP3PlD3eGIiSQvNh632gBhes1ynqhUIRWZGZ9J2g=;
+ b=xF550u3gdtJxA30Ns+wiNRAyxW4jDSQdwP/t1ja+2vdRIrPu4zFz0jBwpPe0y+uLqZrg5hZKVBMr37LQbqZHN5/ls8K4nQgwMXuJ4XKsxp/CdsW53pJ3CAFsYhRYI4Xq58gkhpDDE0wILtzBVqolDcSqhsT7njHLRmjvKX+6M1M=
+Received: from DM6PR10CA0011.namprd10.prod.outlook.com (2603:10b6:5:60::24) by
+ CY5PR12MB6432.namprd12.prod.outlook.com (2603:10b6:930:38::8) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5944.19; Tue, 3 Jan 2023 22:19:45 +0000
+ 15.20.5944.19; Tue, 3 Jan 2023 22:19:43 +0000
 Received: from DS1PEPF0000E654.namprd02.prod.outlook.com
- (2603:10b6:5:60:cafe::f4) by DM6PR10CA0027.outlook.office365.com
- (2603:10b6:5:60::40) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5966.20 via Frontend
- Transport; Tue, 3 Jan 2023 22:19:45 +0000
+ (2603:10b6:5:60:cafe::8a) by DM6PR10CA0011.outlook.office365.com
+ (2603:10b6:5:60::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5966.19 via Frontend
+ Transport; Tue, 3 Jan 2023 22:19:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DS1PEPF0000E654.mail.protection.outlook.com (10.167.18.10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5944.8 via Frontend Transport; Tue, 3 Jan 2023 22:19:45 +0000
+ 15.20.5944.8 via Frontend Transport; Tue, 3 Jan 2023 22:19:42 +0000
 Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 3 Jan
- 2023 16:19:44 -0600
+ 2023 16:19:41 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v4 15/27] drm/amd: Load GFX9 microcode during early_init
-Date: Tue, 3 Jan 2023 16:18:34 -0600
-Message-ID: <20230103221852.22813-16-mario.limonciello@amd.com>
+Subject: [PATCH v4 13/27] drm/amd: Remove superfluous assignment for
+ `adev->mes.adev`
+Date: Tue, 3 Jan 2023 16:18:32 -0600
+Message-ID: <20230103221852.22813-14-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230103221852.22813-1-mario.limonciello@amd.com>
 References: <20230103221852.22813-1-mario.limonciello@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000E654:EE_|CY8PR12MB7585:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09f0ac7d-c47c-4044-0354-08daedd89e6f
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E654:EE_|CY5PR12MB6432:EE_
+X-MS-Office365-Filtering-Correlation-Id: b72f0a2f-5192-4aad-c5db-08daedd89d0b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /9uULEQZD9x2JDYfei/akhbDv1JHyhWKljBcOaUVfmoLw7M1qdq1J7FUSZeq3VFOHpxDrmgCEPg9RwR03EJ60LhYYbCzUZeN5joHF1mRtN/WQ+HeJXJ7xY7uOcj/kmXb9CqANpkPVjzm9J3vpunqBCk0qpvlmRLRlkZEtioRz7fizSSwhPJCMPYYyyfZVPBNq379gEH+daxr459MsPkDlgkAxIKhdSTJ7M/e1+KKKqCKIJjH3rYTSgjl9zkkOJ60/R17bsD+YhYzb4nqGBKRzlhpAkhYFJloa9KlfMdC4TAbQfxfzEYZtspo8Rjltw+VLuRPhzbZeDVZbB0zvxRA0MxMovzgPF9oiD7/aSL4c8mxsqhaDQMkRH61CCB+BAIdcXjot/D5ueyQL1NnKhYvgd7TfAvdRJOVaC3HMoweYnkDgjoIZuKY8m8CSEcf04aypcNct/E1DgEZqZMh24fLJ/SxNAX9Ck+HBQsaQRXxhRMJ+IRqoX+7BXfFIwru7gKbH8vhBiRsrIjaAYw6zB8iSaRACX+gpF2x+2InEhiG/DfgInk6rCFNgF+G6+hQmK1X9J4qUf3FC6RaQOkuEKvuyzumkmViYGfmX2h5gs/tpbeesNwsHODxjhSC6QOPTzSpYbRt98FoQK5ktrzQST7/MaiE1LPSAwTzd36yXfb0gw5PQsJO4VpLJIICVheZTLcKKVRFYcr6jP7XnDF4gsplaMMFtTw6KS4iTVTwphwO3PvDKg/tJ8+sjPxSV1OKnB5G
+X-Microsoft-Antispam-Message-Info: cGHA8LOnQruHbdbUtbopH1ydqrSgrAd6JYz/K8VYVlRvJyK2mQcDj7SpgTsjGpPts/N/OYMtOmSPuadYD5ni7s6OJHxFOu2cppo+MOmgKzmjri3h4G3gsF6r2zN5evXARmis1Q+WWhD/PbxoDPLIAo5VD17c4RSRUdxy0B3fE8DZpcD1eRZm+6+Hzk/MajXva4I0wt8x8p6vYT4Bn9wmwBBAwrraVDh0Ltl8ZAYLtDdjWI6zuCYGqaXmZqPr+KAPcSqWlxbdCmvLhd97Mh9sRgBf3a06YG6GibMjDrQL14u5xGc9VaDbG27MZPidxWB0Mqwhox8Z4+M2/+Exv7EUIxKdfr7TlGLFiXOxXudgTmrQM6Dd29F1NXqNkN7qh3+SWOjbDKKbBgbUj3mBn2Z3XaaTqNJsqSrFaEeuBJAo6icSv8mrUfh0jz0zq27TsMX6JYYV2A+CZ5NCca1JwO9U4qn8SiCZoxGpFG5T+P0B7ESDz0J/PqY6x78dKD0fwCd8Z+1zTbydzfBYiwzs1t5ZNe2PKydA8T3T4fYjrPWZtKNqp6dDAq4cd97O4ePqpYwpampJvhNbRy0CUzwKDfcZf80C4Pwy9766dmWBoDIm7GuoCyFK85CchjtpVl8Iaqj11/YgAXEKUAFqy2oh1xObDLlunrCN9yKDNgJ5WdDsU8V20ILqoPk0Jw69OK9qL4LD+fhYxqa85tg4le+hLh2gPJ4em2UzUIar5HQQ9jRfglGY05fXM3dmwD6dkPBO+HWN3sOOBE6IDDh8EBpSwHYrtBFl/HnRSEPJm3pDvqZFgVc=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(39860400002)(396003)(376002)(136003)(451199015)(46966006)(40470700004)(36840700001)(186003)(16526019)(7696005)(26005)(54906003)(81166007)(316002)(478600001)(110136005)(4326008)(1076003)(8676002)(6666004)(70206006)(336012)(2616005)(70586007)(82740400003)(47076005)(8936002)(44832011)(5660300002)(83380400001)(426003)(2906002)(41300700001)(356005)(36860700001)(36756003)(40460700003)(82310400005)(86362001)(40480700001)(22166009)(36900700001);
+ SFS:(13230022)(4636009)(376002)(396003)(39860400002)(346002)(136003)(451199015)(40470700004)(36840700001)(46966006)(5660300002)(2906002)(44832011)(4326008)(8676002)(41300700001)(8936002)(70586007)(70206006)(316002)(54906003)(110136005)(478600001)(1076003)(336012)(2616005)(26005)(186003)(16526019)(82310400005)(83380400001)(40480700001)(7696005)(6666004)(47076005)(426003)(82740400003)(81166007)(356005)(40460700003)(86362001)(36756003)(36860700001)(22166009)(81973001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2023 22:19:45.2203 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09f0ac7d-c47c-4044-0354-08daedd89e6f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2023 22:19:42.9079 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b72f0a2f-5192-4aad-c5db-08daedd89d0b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E654.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7585
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6432
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,138 +109,42 @@ Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Lazar Lijo <Lijo.Lazar@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If GFX9 microcode is required but not available during early init, the
-firmware framebuffer will have already been released and the screen will
-freeze.
+`amdgpu_mes_init` already sets `adev->mes.adev`, so there is no need
+to also set it in the IP specific versions.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
-v3->v4:
- * Move microcode load phase to early init
-v2->v3:
- * Fix issues found on real hardware where num_gfx_rings not set during
-   discovery
+v4:
+ * New patch
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 58 +++++----------------------
- 1 file changed, 9 insertions(+), 49 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.c | 1 -
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 1 -
+ 2 files changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 27040821d764..4e9c230e42ca 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -1251,7 +1251,7 @@ static void gfx_v9_0_check_if_need_gfxoff(struct amdgpu_device *adev)
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+index 9c5ff8b7c202..f58debf2783c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+@@ -931,7 +931,6 @@ static int mes_v10_1_sw_init(void *handle)
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int pipe, r;
  
- static int gfx_v9_0_init_cp_gfx_microcode(struct amdgpu_device *adev,
--					  const char *chip_name)
-+					  char *chip_name)
- {
- 	char fw_name[30];
- 	int err;
-@@ -1287,7 +1287,7 @@ static int gfx_v9_0_init_cp_gfx_microcode(struct amdgpu_device *adev,
- }
+-	adev->mes.adev = adev;
+ 	adev->mes.funcs = &mes_v10_1_funcs;
+ 	adev->mes.kiq_hw_init = &mes_v10_1_kiq_hw_init;
  
- static int gfx_v9_0_init_rlc_microcode(struct amdgpu_device *adev,
--					  const char *chip_name)
-+				       char *chip_name)
- {
- 	char fw_name[30];
- 	int err;
-@@ -1344,7 +1344,7 @@ static bool gfx_v9_0_load_mec2_fw_bin_support(struct amdgpu_device *adev)
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index 3af77a32baac..c8bdee9a66c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -1020,7 +1020,6 @@ static int mes_v11_0_sw_init(void *handle)
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int pipe, r;
  
- static int gfx_v9_0_init_cp_compute_microcode(struct amdgpu_device *adev,
--					  const char *chip_name)
-+					      char *chip_name)
- {
- 	char fw_name[30];
- 	int err;
-@@ -1392,58 +1392,24 @@ static int gfx_v9_0_init_cp_compute_microcode(struct amdgpu_device *adev,
- 
- static int gfx_v9_0_init_microcode(struct amdgpu_device *adev)
- {
--	const char *chip_name;
-+	char ucode_prefix[30];
- 	int r;
- 
- 	DRM_DEBUG("\n");
--
--	switch (adev->ip_versions[GC_HWIP][0]) {
--	case IP_VERSION(9, 0, 1):
--		chip_name = "vega10";
--		break;
--	case IP_VERSION(9, 2, 1):
--		chip_name = "vega12";
--		break;
--	case IP_VERSION(9, 4, 0):
--		chip_name = "vega20";
--		break;
--	case IP_VERSION(9, 2, 2):
--	case IP_VERSION(9, 1, 0):
--		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
--			chip_name = "raven2";
--		else if (adev->apu_flags & AMD_APU_IS_PICASSO)
--			chip_name = "picasso";
--		else
--			chip_name = "raven";
--		break;
--	case IP_VERSION(9, 4, 1):
--		chip_name = "arcturus";
--		break;
--	case IP_VERSION(9, 3, 0):
--		if (adev->apu_flags & AMD_APU_IS_RENOIR)
--			chip_name = "renoir";
--		else
--			chip_name = "green_sardine";
--		break;
--	case IP_VERSION(9, 4, 2):
--		chip_name = "aldebaran";
--		break;
--	default:
--		BUG();
--	}
-+	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
- 
- 	/* No CPG in Arcturus */
- 	if (adev->gfx.num_gfx_rings) {
--		r = gfx_v9_0_init_cp_gfx_microcode(adev, chip_name);
-+		r = gfx_v9_0_init_cp_gfx_microcode(adev, ucode_prefix);
- 		if (r)
- 			return r;
- 	}
- 
--	r = gfx_v9_0_init_rlc_microcode(adev, chip_name);
-+	r = gfx_v9_0_init_rlc_microcode(adev, ucode_prefix);
- 	if (r)
- 		return r;
- 
--	r = gfx_v9_0_init_cp_compute_microcode(adev, chip_name);
-+	r = gfx_v9_0_init_cp_compute_microcode(adev, ucode_prefix);
- 	if (r)
- 		return r;
- 
-@@ -2131,12 +2097,6 @@ static int gfx_v9_0_sw_init(void *handle)
- 
- 	adev->gfx.gfx_current_status = AMDGPU_GFX_NORMAL_MODE;
- 
--	r = gfx_v9_0_init_microcode(adev);
--	if (r) {
--		DRM_ERROR("Failed to load gfx firmware!\n");
--		return r;
--	}
--
- 	if (adev->gfx.rlc.funcs) {
- 		if (adev->gfx.rlc.funcs->init) {
- 			r = adev->gfx.rlc.funcs->init(adev);
-@@ -4578,7 +4538,7 @@ static int gfx_v9_0_early_init(void *handle)
- 	/* init rlcg reg access ctrl */
- 	gfx_v9_0_init_rlcg_reg_access_ctrl(adev);
- 
--	return 0;
-+	return gfx_v9_0_init_microcode(adev);
- }
- 
- static int gfx_v9_0_ecc_late_init(void *handle)
+-	adev->mes.adev = adev;
+ 	adev->mes.funcs = &mes_v11_0_funcs;
+ 	adev->mes.kiq_hw_init = &mes_v11_0_kiq_hw_init;
+ 	adev->mes.kiq_hw_fini = &mes_v11_0_kiq_hw_fini;
 -- 
 2.34.1
 
