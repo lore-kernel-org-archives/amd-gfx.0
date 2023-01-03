@@ -4,56 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E993CC5479D
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 20:36:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4136EC3DA7D
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 22:19:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6578C10E217;
-	Tue,  3 Jan 2023 20:36:41 +0000 (UTC)
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [IPv6:2001:4860:4864:20::2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B18210E213;
- Tue,  3 Jan 2023 20:36:39 +0000 (UTC)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-15027746720so23074177fac.13; 
- Tue, 03 Jan 2023 12:36:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=DARbbfB1cfRcx5Xv304q3gLYQigPtkLndWCjgoqKBlg=;
- b=MUULpzXODVj3KSyV6X/V9xXUjl2K1nJvW09EiPp6TSKi5ViAQFht20z9FgxFwvuQ49
- tiBFeW9/ElPsVGytdRsLGglK1TXEADxOs+pzuLW/dC5Mn4kc6QEqPS1FNAMjP72N+mb7
- zYDAtsXokUKChBjlD7Nt0TxtxlxgqBwtUhWycx5gS0fzU7nmlYCkeGzEyEivjwOwbW09
- ySI9Ued1GZrgsV+08ofxWwZuMEOlXppxUZYq887F3p+linfLDP2keAyiV+dHZfvheuxl
- zLJZR4yNLBdN9DR0FqIOCNEeL+m6MddwMQY5pTu+HD1+btdhSZxLFqpb+KoBy4L1IXic
- hR1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DARbbfB1cfRcx5Xv304q3gLYQigPtkLndWCjgoqKBlg=;
- b=G49uueWPnjHfowC/BtgWziduRlKMOpcYEPhIyU4RmWIneo1vA8VEUWxq5mwwGbdWko
- MFuzvh1giBHugrnfWyKsQ4pgzqc9CYwXcSLRVq1WrYt9qyC5h3g+2Y0YN1yFl/2c+G2y
- Xni4CaK8a5snu1yWB2gOyJJIYSrVnqZ0PbHb4MQ2H4UYLoxUGhxCsXSe6CobAgiSt8JQ
- VO111cEU+RHDMtHntT8MFA9zHCQvCnzVP6BEbmi9kmJ/yDWVPnrnTYmvlyrgbUeScl+k
- tkDnFsX+NAC8tSbLfnq+31N8rh8Ak5ZpT/U0CLWCRUBxwJMINTSkmPSf1r4zPy50c3y4
- Q+vQ==
-X-Gm-Message-State: AFqh2krZ32r6j9KVLg7QnBK+dpbRrbfW8TFP/t/cZ0rb7fCwAUIr6HTz
- lBAxGtoIdrdhWxg+o/uMlvfE/FckGuTtbo9MOmQ=
-X-Google-Smtp-Source: AMrXdXuI5mtIULbEh6oZUp3W7INMKGCNm6pDPu92qrpaEtFTnRCtG2DBLRzmvSH/FSHCfZi6Uzq7LDG4/a5reDzoFPc=
-X-Received: by 2002:a05:6870:970e:b0:148:3c8f:15ab with SMTP id
- n14-20020a056870970e00b001483c8f15abmr3723607oaq.46.1672778198192; Tue, 03
- Jan 2023 12:36:38 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6D3B10E284;
+	Tue,  3 Jan 2023 22:19:31 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2041.outbound.protection.outlook.com [40.107.92.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 250E710E234;
+ Tue,  3 Jan 2023 22:19:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Zxobp6WLOIcwE/f24eVU7di3NGgmfH/9MAxtnhEXW9kbSGsZ7yLv+EJkVJwvLS6UzFQoKQvdaieKY555/8LhePHTTzfNL0w6xgY1aaHvrYbcgYYf2ovATGZTVbyEKOojpmxDzWDZLdCy3Y6IDbfUOT9R8uooKruzNZr09nP3hJqpiDkI8hLQzeH7DqiXyEvMATwTkpqNXZ5Qe6IkiZZknmjNlpN0uwNFlwV3sdML8k9nsf220T9iFPrsioFXdFWz2RbSZgzfwpUET9KpGDNjBiN5caHOeXzl8ZEnisMzjdb6r6um5W188EoXiiALdxafx92+Up9mw7CKwCkozupRJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WqXSe+AJMrkOBoL4uVjA4IC+WOUOOfRA8zklLZZR1Dw=;
+ b=USBmF0lm9xBQDOmVOo2Eqt7CKJ6/oNRuo9Tg9FVxQdSPngjdEokYhhkn1uXODmd7AIquYR6zOCg2zJffZjTM87OuVg7nqu0nJ9MgkNOhwSrq3dRsMnSi+pp9bP7rKeq/9NGUW/1/Kfe1zvJ05EyCquiisI9DOO0ErBq0wlCdkU+Cvjqln5KDCmrfukyh+k7UsHMZDssxVT4uWfSM3BepTjWGOCgDFfmgSBPX3A6g3t2lRRGAwbkJ39UVL+nmKtyCI8oluww6+vf42BjZ1/LqdsQ7FbcPhGzdNuSoW+K3q6WNqrKhggA0tLtJYxbKKcDGt86MyP3K/oZc17qIHLp/xQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WqXSe+AJMrkOBoL4uVjA4IC+WOUOOfRA8zklLZZR1Dw=;
+ b=gLPwk9WDvrTZHisNd3yOjYX3xHKgX3pSwvAjgn1dV7XXRS4LBcwEyMgETb9bZbLtuWxTXsD2XxMAGa+UEgrZCsHFiDKndVZZ0tiHsDjQq+oEHfJfBaTr9eqeslqsnlh6L1VEYbfpt4GlgHQb4C1FBSfliUY6FUdQ3OrRa4IGxhY=
+Received: from DS7PR05CA0105.namprd05.prod.outlook.com (2603:10b6:8:56::19) by
+ MN2PR12MB4319.namprd12.prod.outlook.com (2603:10b6:208:1dc::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.18; Tue, 3 Jan
+ 2023 22:19:26 +0000
+Received: from DS1PEPF0000E652.namprd02.prod.outlook.com
+ (2603:10b6:8:56:cafe::67) by DS7PR05CA0105.outlook.office365.com
+ (2603:10b6:8:56::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.14 via Frontend
+ Transport; Tue, 3 Jan 2023 22:19:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0000E652.mail.protection.outlook.com (10.167.18.8) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5944.8 via Frontend Transport; Tue, 3 Jan 2023 22:19:26 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 3 Jan
+ 2023 16:19:25 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH v4 00/27] Recover from failure to probe GPU
+Date: Tue, 3 Jan 2023 16:18:19 -0600
+Message-ID: <20230103221852.22813-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20221223092858.1830944-1-xurui@kylinos.cn>
-In-Reply-To: <20221223092858.1830944-1-xurui@kylinos.cn>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 3 Jan 2023 15:36:26 -0500
-Message-ID: <CADnq5_PBr4u+7AE8aW6+0n0sru80ktfoGTCSzqgpDr4RD=QM2Q@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: Retry DDC probing on DVI on failure if we
- got an HPD interrupt
-To: xurui <xurui@kylinos.cn>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E652:EE_|MN2PR12MB4319:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9a3aaed-1354-4942-cdb2-08daedd89361
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 1vPGplQuXwe4/QCxca+UfPS4+C1E7YP4FKr7U6DwOWq8cKyV7TY+KaopeXPaAMwXG3NIn9BamJfyXS2lww9HpRZqAM/FknJgHsMVIn2E1m8Lu/IWRlpEXtSHweqL8AEoyk55BLMwemNz6/IznSAmoPWGNRId2IIMaoHfagksZY1K6GLrZAnaramSsDD7p639mjDIUqfwifWXxTpoaiyq9fiOanUpE21TjpN9c1JwQOHj+0wCR38A6t489s0MHDy/FMnnyx8BdSYKrArN2UxJdYSxvXah5k+gSuBmXPO2ikBonno7CeGeJBT9p4lFJnpKBz0RDAqaAgWBBaoejLcISMAPCrH6jV3iYcD3jGXSHDX21fan8oQfpXTDN4uJIQ8JenVBBwN3/i5BTe78LFqaip4djM+iw3zgwQC1F2m02srUyvV623kQo01OczZK8LzDU+HDFnmFD8ydRqTzC5/l/h4FzqOztKtHpG9vjsV4RwWpSeM0M3dJC16e0OdlGKoiiEptZ161EmaK4wtHe6OhaNGAzY+ieubPLY41kY7/MAKqeC8yF5JEMM+e617YrQMDUEo1GJIJjucREhWWRnRjSm+ghiKAppNDegk91lsC0AoKT8/seVxeYdOiZh7R/w8KwLcsp4gVGnh+kR7D9gfmBwS0a2CWii7LUZBf8rbrywPvOSisYv57+oJ24Ce9GUkxIlFLOnp6DmLMseAg6u/3cA5riOM409d51g27FqFjPQkHatT2FLChI6jR65z2R+4YuFefgEcC/eij2DDVW89iVA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(396003)(376002)(346002)(136003)(451199015)(36840700001)(46966006)(40470700004)(6666004)(36860700001)(40480700001)(7696005)(478600001)(16526019)(82740400003)(36756003)(82310400005)(356005)(81166007)(26005)(186003)(2906002)(336012)(37006003)(2616005)(6636002)(54906003)(40460700003)(316002)(1076003)(44832011)(70206006)(8676002)(70586007)(6862004)(8936002)(83380400001)(5660300002)(47076005)(86362001)(426003)(41300700001)(4326008)(22166009)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2023 22:19:26.6944 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9a3aaed-1354-4942-cdb2-08daedd89361
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E652.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4319
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,246 +97,146 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- airlied@gmail.com, christian.koenig@amd.com
+Cc: Lazar Lijo <Lijo.Lazar@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Daniel
+ Vetter <daniel@ffwll.ch>, Carlos Soriano Sanchez <csoriano@redhat.com>,
+ David Airlie <airlied@gmail.com>, christian.koenig@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 23, 2022 at 9:23 AM xurui <xurui@kylinos.cn> wrote:
->
-> HPD signals on DVI ports can be fired off before the pins required for
-> DDC probing actually make contact, due to the pins for HPD making
-> contact first. This results in a HPD signal being asserted but DDC
-> probing failing, resulting in hotplugging occasionally failing.
->
-> Rescheduling the hotplug work for a second when we run into an HPD
-> signal with a failing DDC probe usually gives enough time for the rest
-> of the connector's pins to make contact, and fixes this issue.
->
-> Signed-off-by: xurui <xurui@kylinos.cn>
-> Reported-by: kernel test robot<lkp@intel.com>
+One of the first thing that KMS drivers do during initialization is
+destroy the system firmware framebuffer by means of
+`drm_aperture_remove_conflicting_pci_framebuffers`
 
-Applied.  Thanks!
+This means that if for any reason the GPU failed to probe the user
+will be stuck with at best a screen frozen at the last thing that
+was shown before the KMS driver continued it's probe.
 
-Alex
+The problem is most pronounced when new GPU support is introduced
+because users will need to have a recent linux-firmware snapshot
+on their system when they boot a kernel with matching support.
 
+However the problem is further exaggerated in the case of amdgpu because
+it has migrated to "IP discovery" where amdgpu will attempt to load
+on "ALL" AMD GPUs even if the driver is missing support for IP blocks
+contained in that GPU.
 
-> ---
-> V1 -> V2: Fixed a compilation error
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  2 +-
->  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 22 ++++++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  1 +
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  6 ++---
->  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  6 ++---
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  6 ++---
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  6 ++---
->  8 files changed, 36 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 6b74df446694..b1d901fe578e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -870,7 +870,7 @@ struct amdgpu_device {
->         struct amdgpu_vkms_output       *amdgpu_vkms_output;
->         struct amdgpu_mode_info         mode_info;
->         /* For pre-DCE11. DCE11 and later are in "struct amdgpu_device->dm" */
-> -       struct work_struct              hotplug_work;
-> +       struct delayed_work         hotplug_work;
->         struct amdgpu_irq_src           crtc_irq;
->         struct amdgpu_irq_src           vline0_irq;
->         struct amdgpu_irq_src           vupdate_irq;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> index 2ebbc6382a06..d2abd334b1b5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> @@ -996,13 +996,33 @@ amdgpu_connector_dvi_detect(struct drm_connector *connector, bool force)
->                 }
->         }
->
-> +       if (amdgpu_connector->detected_hpd_without_ddc) {
-> +               force = true;
-> +               amdgpu_connector->detected_hpd_without_ddc = false;
-> +       }
-> +
->         if (!force && amdgpu_connector_check_hpd_status_unchanged(connector)) {
->                 ret = connector->status;
->                 goto exit;
->         }
->
-> -       if (amdgpu_connector->ddc_bus)
-> +       if (amdgpu_connector->ddc_bus) {
->                 dret = amdgpu_display_ddc_probe(amdgpu_connector, false);
-> +
-> +               /* Sometimes the pins required for the DDC probe on DVI
-> +                * connectors don't make contact at the same time that the ones
-> +                * for HPD do. If the DDC probe fails even though we had an HPD
-> +                * signal, try again later
-> +                */
-> +               if (!dret && !force &&
-> +                   amdgpu_display_hpd_sense(adev, amdgpu_connector->hpd.hpd)) {
-> +                       DRM_DEBUG_KMS("hpd detected without ddc, retrying in 1 second\n");
-> +                       amdgpu_connector->detected_hpd_without_ddc = true;
-> +                       schedule_delayed_work(&adev->hotplug_work,
-> +                                             msecs_to_jiffies(1000));
-> +                       goto exit;
-> +               }
-> +       }
->         if (dret) {
->                 amdgpu_connector->detected_by_load = false;
->                 amdgpu_connector_free_edid(connector);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index b22471b3bd63..a876648e3d7a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -63,7 +63,7 @@
->  void amdgpu_display_hotplug_work_func(struct work_struct *work)
->  {
->         struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
-> -                                                 hotplug_work);
-> +                                                 hotplug_work.work);
->         struct drm_device *dev = adev_to_drm(adev);
->         struct drm_mode_config *mode_config = &dev->mode_config;
->         struct drm_connector *connector;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> index 8a39300b1a84..93c73faa5714 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> @@ -534,6 +534,7 @@ struct amdgpu_connector {
->         void *con_priv;
->         bool dac_load_detect;
->         bool detected_by_load; /* if the connection status was determined by load */
-> +       bool detected_hpd_without_ddc; /* if an HPD signal was detected on DVI, but ddc probing failed */
->         uint16_t connector_object_id;
->         struct amdgpu_hpd hpd;
->         struct amdgpu_router router;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> index 248f1a4e915f..e85e57933cc4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> @@ -2837,7 +2837,7 @@ static int dce_v10_0_sw_init(void *handle)
->         if (r)
->                 return r;
->
-> -       INIT_WORK(&adev->hotplug_work,
-> +       INIT_DELAYED_WORK(&adev->hotplug_work,
->                   amdgpu_display_hotplug_work_func);
->
->         drm_kms_helper_poll_init(adev_to_drm(adev));
-> @@ -2902,7 +2902,7 @@ static int dce_v10_0_hw_fini(void *handle)
->
->         dce_v10_0_pageflip_interrupt_fini(adev);
->
-> -       flush_work(&adev->hotplug_work);
-> +       flush_delayed_work(&adev->hotplug_work);
->
->         return 0;
->  }
-> @@ -3302,7 +3302,7 @@ static int dce_v10_0_hpd_irq(struct amdgpu_device *adev,
->
->         if (disp_int & mask) {
->                 dce_v10_0_hpd_int_ack(adev, hpd);
-> -               schedule_work(&adev->hotplug_work);
-> +               schedule_delayed_work(&adev->hotplug_work, 0);
->                 DRM_DEBUG("IH: HPD%d\n", hpd + 1);
->         }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> index cd9c19060d89..6b406bb7f3f3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> @@ -2956,7 +2956,7 @@ static int dce_v11_0_sw_init(void *handle)
->         if (r)
->                 return r;
->
-> -       INIT_WORK(&adev->hotplug_work,
-> +       INIT_DELAYED_WORK(&adev->hotplug_work,
->                   amdgpu_display_hotplug_work_func);
->
->         drm_kms_helper_poll_init(adev_to_drm(adev));
-> @@ -3032,7 +3032,7 @@ static int dce_v11_0_hw_fini(void *handle)
->
->         dce_v11_0_pageflip_interrupt_fini(adev);
->
-> -       flush_work(&adev->hotplug_work);
-> +       flush_delayed_work(&adev->hotplug_work);
->
->         return 0;
->  }
-> @@ -3426,7 +3426,7 @@ static int dce_v11_0_hpd_irq(struct amdgpu_device *adev,
->
->         if (disp_int & mask) {
->                 dce_v11_0_hpd_int_ack(adev, hpd);
-> -               schedule_work(&adev->hotplug_work);
-> +               schedule_delayed_work(&adev->hotplug_work, 0);
->                 DRM_DEBUG("IH: HPD%d\n", hpd + 1);
->         }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> index 76323deecc58..2aa21eec0e06 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -2715,7 +2715,7 @@ static int dce_v6_0_sw_init(void *handle)
->                 return r;
->
->         /* Pre-DCE11 */
-> -       INIT_WORK(&adev->hotplug_work,
-> +       INIT_DELAYED_WORK(&adev->hotplug_work,
->                   amdgpu_display_hotplug_work_func);
->
->         drm_kms_helper_poll_init(adev_to_drm(adev));
-> @@ -2776,7 +2776,7 @@ static int dce_v6_0_hw_fini(void *handle)
->
->         dce_v6_0_pageflip_interrupt_fini(adev);
->
-> -       flush_work(&adev->hotplug_work);
-> +       flush_delayed_work(&adev->hotplug_work);
->
->         return 0;
->  }
-> @@ -3103,7 +3103,7 @@ static int dce_v6_0_hpd_irq(struct amdgpu_device *adev,
->                 tmp = RREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd]);
->                 tmp |= DC_HPD1_INT_CONTROL__DC_HPD1_INT_ACK_MASK;
->                 WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd], tmp);
-> -               schedule_work(&adev->hotplug_work);
-> +               schedule_delayed_work(&adev->hotplug_work, 0);
->                 DRM_DEBUG("IH: HPD%d\n", hpd + 1);
->         }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> index 01cf3ab111cb..9da338889d36 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> @@ -2739,7 +2739,7 @@ static int dce_v8_0_sw_init(void *handle)
->                 return r;
->
->         /* Pre-DCE11 */
-> -       INIT_WORK(&adev->hotplug_work,
-> +       INIT_DELAYED_WORK(&adev->hotplug_work,
->                   amdgpu_display_hotplug_work_func);
->
->         drm_kms_helper_poll_init(adev_to_drm(adev));
-> @@ -2802,7 +2802,7 @@ static int dce_v8_0_hw_fini(void *handle)
->
->         dce_v8_0_pageflip_interrupt_fini(adev);
->
-> -       flush_work(&adev->hotplug_work);
-> +       flush_delayed_work(&adev->hotplug_work);
->
->         return 0;
->  }
-> @@ -3195,7 +3195,7 @@ static int dce_v8_0_hpd_irq(struct amdgpu_device *adev,
->                 tmp = RREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd]);
->                 tmp |= DC_HPD1_INT_CONTROL__DC_HPD1_INT_ACK_MASK;
->                 WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd], tmp);
-> -               schedule_work(&adev->hotplug_work);
-> +               schedule_delayed_work(&adev->hotplug_work, 0);
->                 DRM_DEBUG("IH: HPD%d\n", hpd + 1);
->         }
->
-> --
-> 2.25.1
->
+IP discovery requires some probing and isn't run until after the
+framebuffer has been destroyed.
+
+This means a situation can occur where a user purchases a new GPU not
+yet supported by a distribution and when booting the installer it will
+"freeze" even if the distribution doesn't have the matching kernel support
+for those IP blocks.
+
+The perfect example of this is Ubuntu 22.10 and the new dGPUs just
+launched by AMD.  The installation media ships with kernel 5.19 (which
+has IP discovery) but the amdgpu support for those IP blocks landed in
+kernel 6.0. The matching linux-firmware was released after 22.10's launch.
+The screen will freeze without nomodeset. Even if a user manages to install
+and then upgrades to kernel 6.0 after install they'll still have the
+problem of missing firmware, and the same experience.
+
+This is quite jarring for users, particularly if they don't know
+that they have to use "nomodeset" to install.
+
+To help the situation make changes to GPU discovery:
+1) Delay releasing the firmware framebuffer until after early_init
+completed.  This will help the situation of an older kernel that doesn't
+yet support the IP blocks probing a new GPU. IP discovery will have failed.
+2) Request loading all PSP, VCN, SDMA, SMU, DMCUB, MES and GC microcode
+into memory during early_init. This will help the situation of new enough
+kernel for the IP discovery phase to otherwise pass but missing microcode
+from linux-firmware.git.
+
+v3->v4:
+ * Rework to delay framebuffer release until early_init is done
+ * Make individual IPs load microcode during early init phase
+ * Add SMU and DMCUB cases for early_init loading
+ * Add some new helper code for wrapping request_firmware calls (needed for
+   early_init to return something besides -ENOENT)
+v2->v3:
+ * Pick up tags for patches 1-10
+ * Rework patch 11 to not validate during discovery
+ * Fix bugs with GFX9 due to gfx.num_gfx_rings not being set during discovery
+ * Fix naming scheme for SDMA on dGPUs
+v1->v2:
+ * Take the suggestion from v1 thread to delay the framebuffer release until
+   ip discovery is done. This patch is CC to stable to that older stable
+   kernels with IP discovery won't try to probe unknown IP.
+ * Drop changes to drm aperature.
+ * Fetch SDMA, VCN, MES, GC and PSP microcode during IP discovery.
+Mario Limonciello (27):
+  drm/amd: Delay removal of the firmware framebuffer
+  drm/amd: Add a legacy mapping to "amdgpu_ucode_ip_version_decode"
+  drm/amd: Convert SMUv11 microcode to use
+    `amdgpu_ucode_ip_version_decode`
+  drm/amd: Convert SMUv13 microcode to use
+    `amdgpu_ucode_ip_version_decode`
+  drm/amd: Add a new helper for loading/validating microcode
+  drm/amd: Use `amdgpu_ucode_load` helper for SDMA
+  drm/amd: Convert SDMA to use `amdgpu_ucode_ip_version_decode`
+  drm/amd: Make SDMA firmware load failures less noisy.
+  drm/amd: Use `amdgpu_ucode_load` helper for VCN
+  drm/amd: Load VCN microcode during early_init
+  drm/amd: Load MES microcode during early_init
+  drm/amd: Use `amdgpu_ucode_load` helper for MES
+  drm/amd: Remove superfluous assignment for `adev->mes.adev`
+  drm/amd: Use `amdgpu_ucode_load` helper for GFX9
+  drm/amd: Load GFX9 microcode during early_init
+  drm/amd: Use `amdgpu_ucode_load` helper for GFX10
+  drm/amd: Load GFX10 microcode during early_init
+  drm/amd: Use `amdgpu_ucode_load` helper for GFX11
+  drm/amd: Load GFX11 microcode during early_init
+  drm/amd: Parse both v1 and v2 TA microcode headers using same function
+  drm/amd: Avoid BUG() for case of SRIOV missing IP version
+  drm/amd: Load PSP microcode during early_init
+  drm/amd: Use `amdgpu_ucode_load` helper for PSP
+  drm/amd/display: Load DMUB microcode during early_init
+  drm/amd: Use `amdgpu_ucode_load` helper for SMU
+  drm/amd: Load SMU microcode during early_init
+  drm/amd: Optimize SRIOV switch/case for PSP microcode load
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   8 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   6 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       |  60 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 276 +++++++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |  15 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c      |  18 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 245 ++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h     |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       | 103 +++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h       |   1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 117 ++------
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 101 +++----
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         | 101 ++-----
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.c        |  98 ++-----
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  89 ++----
+ drivers/gpu/drm/amd/amdgpu/psp_v10_0.c        |  80 +----
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c        | 129 +-------
+ drivers/gpu/drm/amd/amdgpu/psp_v12_0.c        |  75 +----
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c        |  27 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c      |  14 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v3_1.c         |  16 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |  47 +--
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |  30 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |  55 +---
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |  25 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |   5 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |   5 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |   5 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |   5 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         |   5 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  89 ++++--
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  12 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  40 +--
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  17 +-
+ 36 files changed, 751 insertions(+), 1174 deletions(-)
+
+-- 
+2.34.1
+
