@@ -4,116 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01259C3DA7D
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 10:10:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5B44C46467
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 12:39:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83294892A1;
-	Tue,  3 Jan 2023 10:10:46 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2080.outbound.protection.outlook.com [40.107.93.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04F0C8905A;
- Tue,  3 Jan 2023 10:10:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oSX6VPGjDkRQXY3U3bdlUU7u+Ja95LoLF6DA6h/RSGA8dnP6WErYR2QesKOGSGoovHuHA5xB/uZCeP9LG0VdkKdhUqQIuOFU0iS12641xQ1nhSBYtFPq/vIwT+hFzwHaKi/kAVX3jYabCsG8D98jwiubzilVNcZoXTCG0O6AIqCobj0uTkeBc9niKEiW/sK+Mh9EuMXGnwMNOJjm8rRqL52d9kWVOCdkZjTCIIM+gd7rMhBAwkxmq521cDeI6tRBwqI35M8O4f4XegWeXk8nsCTn8sQ38wUT5mB9PeUYQBpGxu1WMemg4w3MrcRy8uE9/753DZqd56THxeEbKhoy6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3esy2On/CN2+fHTgCZ5joqXP5Qq1DVDPGPxOI1pMwks=;
- b=ZGAl0IiiBCkSSMcnisXeeNee/XqxSeYM7OFfKs/0cXV+xZRI9BGSDaY8/kw25MMaMue4QLkEA/UxS+yCtMZ+7sPse+/neavujFGHR+okNo1Ll4mDudaRsPrVPvxX3YU01k3aJGT/ZSMK/vsyLMk6DXGmi0+3WoN4QC9gN0AtSrsqcbmlVvK6o3qcShAk47jelKOo0mhj3MXC1D/IITHMKSsbzkxjE+pzYQCTKQ1rW/kdNk1biS45XJvJv7mQmmVIZr3La+ydaRliFRDUUK0PZpQ8qSFeOLStjVDIHx2u9R+xmGeEr31cF9wJSJUthkrlnXjowhme1AQY8ERxaPXqPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3esy2On/CN2+fHTgCZ5joqXP5Qq1DVDPGPxOI1pMwks=;
- b=J5WTtdGLsC16kYl3gZBQ4HQYwx5WVkSUyBmODqsUfnUuEoiJfdymVtO4HzfMCl4oXYP2jga4ps1qOrZQWZqS0N/SAwxm6mUkX+N7jprDYlbKWMtpAXlJgrlx3IcdC9XWsRrMu531eMWIuoBqOWgx0ZiQ/TvFvIzTSTTelEIWEf0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by DS7PR12MB6214.namprd12.prod.outlook.com (2603:10b6:8:96::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Tue, 3 Jan
- 2023 10:10:41 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::457b:5c58:8ad2:40fa]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::457b:5c58:8ad2:40fa%6]) with mapi id 15.20.5944.019; Tue, 3 Jan 2023
- 10:10:41 +0000
-Message-ID: <de34e018-679d-893e-683e-5c10cbc9c5b2@amd.com>
-Date: Tue, 3 Jan 2023 15:40:26 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH v2 00/11] Recover from failure to probe GPU
-Content-Language: en-US
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20221228163102.468-1-mario.limonciello@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20221228163102.468-1-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0026.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25::31) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CD1D10E25A;
+	Tue,  3 Jan 2023 12:39:03 +0000 (UTC)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A009610E259;
+ Tue,  3 Jan 2023 12:39:01 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id m3so13656820wmq.0;
+ Tue, 03 Jan 2023 04:39:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=TqFoaWiA4MgdyFrgK49/jFKMyDheMheehYDZRY4TeIs=;
+ b=PpweDless7o07+umGSyS7T0VFtSAUQOdEEoYt7m3Oeb/MZsJWJiWNnJpomzt5GeipV
+ eKD0/slueIsFbf1QilfsbSfJrcJ+ai1ehyxS4ju7jz/wv/ztJLJIQnnMaGG7f0/DQaf9
+ QdT2yEYxCoBH+sdGgVdew4OfiS6imOE1cGuJTivKAcpnleO0wLExZP2hZGDCADjorWlV
+ lH5M1s/PO2F+05qlJfMZupdQjJ2fr/POJ2/c2amot6DJGkXQ9B/oRTMLBFN7zBOE+UlL
+ Vnn5AEMKX9+MFgzcDevyBRMZFIkY+z7PMHlTsjrUJcK5Hr4Io+/VDLGJ99fmeWv/lt2F
+ 0xtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TqFoaWiA4MgdyFrgK49/jFKMyDheMheehYDZRY4TeIs=;
+ b=c3TpOEviJgTY/N6/HDq6cV18ESUtgfmWLsks2G4NRgUEO0QHDZztF9xD+x5Wd4xflQ
+ gBgU/IxS2wCGXRybMiYj0wDRyomJg/l+aF7nMG332dqvQ5MdthlkSOeoHg6S0rOC1TLq
+ msJouCkp6GglE6BJwM9K5fvW1Y/YMd/XtkSdoCAbEsSx6YRTfV708VpAZORZjzGQdgaW
+ hfzqxW8qfTaGCrvS7lxRPws5RP1c4rzJv1xINa+GZy3L9t0wZq1Mid+rPvprP0J2cXY+
+ 7TNaQf6Uf6IIvxRPdMXauqDU1LzKbJguUKO1d8Qt0U3SLXGZ7IybPtlt1CtvH2oFP6BH
+ R4yA==
+X-Gm-Message-State: AFqh2kqlwOUj94LnbtAMoxCMSQm9nJpI5KC+GlS0ZzJ7e8iEuhSgzFC+
+ AGjNQo4ihXJLzlMxCBXZWA4CMp0iE3v6h3Ik8Uo=
+X-Google-Smtp-Source: AMrXdXsthaO0LF9xH1/xM9gViQG8+IYe/f7FggJYIUYbzr+ps+Gpn+PkP+pKE0V5uoDpRSySV3+hcB98GUL/s3GkeW8=
+X-Received: by 2002:a1c:a442:0:b0:3d0:2c5c:e483 with SMTP id
+ n63-20020a1ca442000000b003d02c5ce483mr2106113wme.141.1672749539959; Tue, 03
+ Jan 2023 04:38:59 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|DS7PR12MB6214:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe3742e8-f67b-4f32-ae65-08daed72c49a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zTUBHuOJFE2Tc1F9qvXhjKuKTEJN49fpyHfPz9UKnhgoH5wb6Lsvnlqs92KQfr1XrIcWDexdWrep9epTvU6P0Un7U1kzG4K1aMvhuh8jDNgab/6eZ5Zcn7ZZdUCwZTN35FBYnPksUWNW45E2IUvCgT7UAN7HmxwzkLCR9b9WnD/TYm8pf1pY/9ViIuNnL9LJNKMUSvcDfpgOagwsFRE7xBtQiMxj/6/2+m5bIWgwGbdKiYDO6v/V/V9eKhvdy3QSgDNkCRvESDO6Wd7EVcWJCgYZBbOAKbjZUV46L1Ha9qrP+GuUVTcc/oUsGqTvyVGTC1xsyCJS1UTE0xTuH9/txopZU0Mb4dj6SgTko5zmMX2sCZi2h8+UIXSYGN0QZ7FBDLtsKZEBHhX1efYwFDjL9YCtw+q7I+dRiiJtwiSfpVvCFhXWa8gwRwKB4HHiyhyojGi9ZeBOwMJeRBsL+NcjZdIJomK9iAIevLvdhUzUX9t3rBLTVKqZN4k2t3ttl0u2DLJQWR19/LCG70OY2yJUzQB9cukob1bUxcD3yvHxbiaJtaGClRSMVygvcCeFk6fTVMgc2auWD+O97+oa817xdDxFwtyKpIiS7zFr45jxfxdw+YUN3BLFnRXCY5rkpR+gaMe880shpbmo+1Tz6kHn2OBoCQKjXB9LmAnLVRfjYtWGTLuEQlx0IdWifbfb/wVbDxCu9iehNLzJYGhu3YkD2/DIXqO0XhzGstjC9cx006EkG24Nowp0YYaoKmvhbm79
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(396003)(136003)(366004)(39860400002)(346002)(451199015)(6506007)(6666004)(53546011)(36756003)(110136005)(478600001)(86362001)(38100700002)(31696002)(6512007)(26005)(186003)(83380400001)(6486002)(2616005)(5660300002)(31686004)(8676002)(66476007)(4326008)(66556008)(8936002)(66946007)(41300700001)(316002)(6636002)(54906003)(2906002)(22166006)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ckpyejFaZm9CTlZHZkgvMEZzVHoyOGpmbzRXNHpIcS9UZUwrZkRac2VIejVY?=
- =?utf-8?B?QzRmaFNJNUo4UWxTVWN2NFBzbURwaXJWUmV5bHFQYWJ0MEgrTU1xVDVNYit6?=
- =?utf-8?B?SUhYdjMzUG4xeUlXTW93WUt3TU9LSjJiMWc4Qk9NampSQU5OL0ZuMU9JRUVS?=
- =?utf-8?B?d0NZbkNTQnovY3plSnp2aENYTXM4WTFiOFc4dlViTHkrZ1hDRGw0V2tpd2p2?=
- =?utf-8?B?TXVTQVdsL2VPdlFPaGNnMU92c1h6NGpZaDVlOGo2OXkrZTdFRlUwck95QU5H?=
- =?utf-8?B?VW5kTWxWOHFNSEk0a1FiV2pKZnd1WjE3MmMrVGRFc0Exc3g2Y09hWm9lb2xC?=
- =?utf-8?B?eVFZcHJONnVGQW5sVXJ0RThQOVE0VG9UcHVzMHE4SmcwYzhBWFduTFZSb2gz?=
- =?utf-8?B?UDliQkhnVzJ1eWhnU295V1VTTGFtM3Q1MTA2a1ZxZG5EVUx6ZHNPNFpqQ1p0?=
- =?utf-8?B?YVkrRXYySW9LUU45eU5NbWlKRTNGTG16YjUwYWZFMmVqUkhoVXd0SnRFR2pX?=
- =?utf-8?B?UHdCN3YwZm1Pemd1N1lCRTFNcG1McDYyNVJvRGNjZU03cExHQlR2cXpNc0cv?=
- =?utf-8?B?UndSRE1qeEpIVUJFNStJcDc3UWF0ZXF4bVFBVWVsWE82SkZ4TWlWZFlTTkVV?=
- =?utf-8?B?T0UzUWFYK3AwcHUwU2NLbmFvNWw3VzhnQ0xXYWFaN0xUaHRXNVZyeHMzRk1I?=
- =?utf-8?B?NWVDcHFzaG9EZWJ6VHpjcWhGaE9iczNSOXVrSDV6b1JWU3VIWnpYbW9BNFN1?=
- =?utf-8?B?M2dSZ0REODFESnI4T2xpTXNEa0NRdEtGSDRZY1B5aEg3ajlsZVBYNVpSUTBt?=
- =?utf-8?B?UTV1UGg3ck13cE01VGQvZGFTZE9CUHVWbmhKYnFxOXIzeVBOLytNeDB0Tk1u?=
- =?utf-8?B?WklDbWdPRjM4d3VaYTJ6N1E3OU1IMkM4WkVJU0lUM2t2T2ZYN29OL01wS1pN?=
- =?utf-8?B?QmpDbGszb0dhdXBKOFlLV1dUSTZYSlBBSFVNajlMQU1naFM2dmFjejBVZVBR?=
- =?utf-8?B?Q0FVeUhpZHFyUE1DLytjelFOOUlZNEpkT0ZQTzFaOVdueGNmK0hVM1BGK1lN?=
- =?utf-8?B?UmhHbVVFWjVIY0hWcjkwWXZnQVFuNGVKTkF4alBlNVJIbG44TzREZTFLSkUv?=
- =?utf-8?B?MjB4QXVZdUFycjJYdlp3M1FGaEIvUUx6NkJmeEJFd05DcW45THpWWmxDampm?=
- =?utf-8?B?cm1WZHFCZ0tuUE9wQUk0RzIwSmV1Sm5FMm82ZlROOUJKMTVtWkVJb29Nb2Jn?=
- =?utf-8?B?Wks1QzlRaExVdlE1ditmUVp5c25IUzBMOG8rM0JnR2tnd2JJTG4wRU91QTZw?=
- =?utf-8?B?enpkamUrY2trVVhKWFQ5QndvZDZJc1dWV25WWGUwMUpXZ3c4KzRpZDh1MFFD?=
- =?utf-8?B?UE45Qllac05RakNEa1FPR2ljU2VQUHJVRnZmQUNKNHMyWS9EUTdmYWF4Z1h6?=
- =?utf-8?B?cTVVRm5ndmhpUnd6SUFPaDJtZVJiTEFRbE42ZEVPeWk4bm92YS9xQUFIYW5I?=
- =?utf-8?B?U1o5SE41VmRjcjVYN0hQanNIYnQ4RVVXYU8wQkZDeGQxY0gyZVlReEs1bE1X?=
- =?utf-8?B?bTVvK0RzVnQyaUxNTjJxNHpTbWpmdllxY3R0QlZhK2ltTXp5L2RuN2xrS0w2?=
- =?utf-8?B?ZVJ0LytobGpINWQzeEtmTHJkZFVhazlQVFFoUzlKTlU4UmtRWmZUb1JZcjln?=
- =?utf-8?B?YnVwREhIQzRrL3cyZCttNy9zM1d3bC9HSUU2OGRMaUJSUFNoZ0VITm1LYllt?=
- =?utf-8?B?VktHMGxIcFpEd0xDcW9IVWpETjZFWXhkRGIrY2ZlOUR2SGZtbVFUZEFFUGZ6?=
- =?utf-8?B?SkcxcXA5Z2V4VVc5QlIvOGFhNVFzdmRoTXJaK2VpdFVDanEvZWRSeTdDRzZt?=
- =?utf-8?B?TzUvRXp5QklNK3p2SXIwczhNOWlBRmc0YTV6WlN2RXFoZzJvWVRESWxscUpD?=
- =?utf-8?B?L0FkcStiQ1U5cTNwR0RkeFM5c01lWmhNTnNOaTRDa2s3V2hNd0FMMmJJTnBG?=
- =?utf-8?B?ajZRbVVZcno0Z2VyM0QvekdyMG9udUFGU1NZYUg3dzJMQWJMV3N5Sy9PUGsz?=
- =?utf-8?B?UXJoajI0bVF1dUZWSE9LajNxYlhXRUphcWRzKzE3U0pHdU1JV3BaNTJSNlQ4?=
- =?utf-8?Q?hrtp/EBDSxnjJqBrYkk9d+tHM?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe3742e8-f67b-4f32-ae65-08daed72c49a
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2023 10:10:41.0934 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: czT3iqq+7/MDy5WMWK2Uk+AM8ThUOaIUDPeiShJkHZuOMU3jn9dlaumshT5d3fSs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6214
+References: <20221119021352.1774592-1-sashal@kernel.org>
+ <20221119021352.1774592-24-sashal@kernel.org>
+In-Reply-To: <20221119021352.1774592-24-sashal@kernel.org>
+From: Yury Zhuravlev <stalkerg@gmail.com>
+Date: Tue, 3 Jan 2023 21:38:48 +0900
+Message-ID: <CANiD2e9w=--0E1mbd_zZV6Gs0yUOVOMXBezkxJ=ZQte5NNSqHQ@mail.gmail.com>
+Subject: Re: [PATCH AUTOSEL 5.15 24/27] Revert "drm/amdgpu: Revert
+ "drm/amdgpu: getting fan speed pwm for vega10 properly""
+To: Sasha Levin <sashal@kernel.org>
+Content-Type: multipart/alternative; boundary="00000000000020a7e605f15b5a5b"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,123 +65,189 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Carlos Soriano Sanchez <csoriano@redhat.com>, David Airlie <airlied@gmail.com>,
- christian.koenig@amd.com
+Cc: Guchun Chen <guchun.chen@amd.com>, dri-devel@lists.freedesktop.org,
+ Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Asher Song <Asher.Song@amd.com>, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--00000000000020a7e605f15b5a5b
+Content-Type: text/plain; charset="UTF-8"
 
+Hello!
 
-On 12/28/2022 10:00 PM, Mario Limonciello wrote:
-> One of the first thing that KMS drivers do during initialization is
-> destroy the system firmware framebuffer by means of
-> `drm_aperture_remove_conflicting_pci_framebuffers`
-> 
-> This means that if for any reason the GPU failed to probe the user
-> will be stuck with at best a screen frozen at the last thing that
-> was shown before the KMS driver continued it's probe.
-> 
-> The problem is most pronounced when new GPU support is introduced
-> because users will need to have a recent linux-firmware snapshot
-> on their system when they boot a kernel with matching support.
-> 
-> However the problem is further exaggerated in the case of amdgpu because
-> it has migrated to "IP discovery" where amdgpu will attempt to load
-> on "ALL" AMD GPUs even if the driver is missing support for IP blocks
-> contained in that GPU.
-> 
-> IP discovery requires some probing and isn't run until after the
-> framebuffer has been destroyed.
-> 
-> This means a situation can occur where a user purchases a new GPU not
-> yet supported by a distribution and when booting the installer it will
-> "freeze" even if the distribution doesn't have the matching kernel support
-> for those IP blocks.
-> 
-> The perfect example of this is Ubuntu 22.10 and the new dGPUs just
-> launched by AMD.  The installation media ships with kernel 5.19 (which
-> has IP discovery) but the amdgpu support for those IP blocks landed in
-> kernel 6.0. The matching linux-firmware was released after 22.10's launch.
-> The screen will freeze without nomodeset. Even if a user manages to install
-> and then upgrades to kernel 6.0 after install they'll still have the
-> problem of missing firmware, and the same experience.
-> 
-> This is quite jarring for users, particularly if they don't know
-> that they have to use "nomodeset" to install.
-> 
-> To help the situation make changes to GPU discovery:
-> 1) Delay releasing the firmware framebuffer until after IP discovery has
-> completed.  This will help the situation of an older kernel that doesn't
-> yet support the IP blocks probing a new GPU.
-> 2) Request loading all PSP, VCN, SDMA, MES and GC microcode into memory
-> during IP discovery. This will help the situation of new enough kernel for
-> the IP discovery phase to otherwise pass but missing microcode from
-> linux-firmware.git.
-> 
-> Not all requested firmware will be loaded during IP discovery as some of it
-> will require larger driver architecture changes. For example SMU firmware
-> isn't loaded on certain products, but that's not known until later on when
-> the early_init phase of the SMU load occurs.
-> 
-> v1->v2:
->   * Take the suggestion from v1 thread to delay the framebuffer release until
->     ip discovery is done. This patch is CC to stable to that older stable
->     kernels with IP discovery won't try to probe unknown IP.
->   * Drop changes to drm aperature.
->   * Fetch SDMA, VCN, MES, GC and PSP microcode during IP discovery.
-> 
+Why is this revert for revert coming for 6.1 but reverted again for 6.1.2?
+My GPU is not working correctly again!
+https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.1.2
 
-What is the gain here in just checking if firmware files are available? 
-It can fail anywhere during sw_init and it's the same situation.
+It seems like somebody made a mistake and pick up the wrong patch for the
+stable channel.
 
-Restricting IP FWs to IP specific files looks better to me than 
-centralizing and creating interdependencies.
+Regards!
 
-Thanks,
-Lijo
+On Sat, Nov 19, 2022 at 11:14 AM Sasha Levin <sashal@kernel.org> wrote:
 
-> Mario Limonciello (11):
->    drm/amd: Delay removal of the firmware framebuffer
->    drm/amd: Add a legacy mapping to "amdgpu_ucode_ip_version_decode"
->    drm/amd: Convert SMUv11 microcode init to use
->      `amdgpu_ucode_ip_version_decode`
->    drm/amd: Convert SMU v13 to use `amdgpu_ucode_ip_version_decode`
->    drm/amd: Request SDMA microcode during IP discovery
->    drm/amd: Request VCN microcode during IP discovery
->    drm/amd: Request MES microcode during IP discovery
->    drm/amd: Request GFX9 microcode during IP discovery
->    drm/amd: Request GFX10 microcode during IP discovery
->    drm/amd: Request GFX11 microcode during IP discovery
->    drm/amd: Request PSP microcode during IP discovery
-> 
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   8 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 590 +++++++++++++++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   6 -
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |   2 -
->   drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c      |   9 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      |   2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 208 ++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |  85 +--
->   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 180 +-----
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  64 +-
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         | 143 +----
->   drivers/gpu/drm/amd/amdgpu/mes_v10_1.c        |  28 -
->   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  25 +-
->   drivers/gpu/drm/amd/amdgpu/psp_v10_0.c        | 106 +---
->   drivers/gpu/drm/amd/amdgpu/psp_v11_0.c        | 165 +----
->   drivers/gpu/drm/amd/amdgpu/psp_v12_0.c        | 102 +--
->   drivers/gpu/drm/amd/amdgpu/psp_v13_0.c        |  82 ---
->   drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c      |  36 --
->   drivers/gpu/drm/amd/amdgpu/psp_v3_1.c         |  36 --
->   drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |  61 +-
->   drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |  42 +-
->   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |  65 +-
->   drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |  30 +-
->   .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  35 +-
->   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  12 +-
->   25 files changed, 919 insertions(+), 1203 deletions(-)
-> 
-> 
-> base-commit: de9a71e391a92841582ca3008e7b127a0b8ccf41
+> From: Asher Song <Asher.Song@amd.com>
+>
+> [ Upstream commit 30b8e7b8ee3be003e0df85c857c5cd0e0bd58b82 ]
+>
+> This reverts commit 4545ae2ed3f2f7c3f615a53399c9c8460ee5bca7.
+>
+> The origin patch "drm/amdgpu: getting fan speed pwm for vega10 properly"
+> works fine.
+> Test failure is caused by test case self.
+>
+> Signed-off-by: Asher Song <Asher.Song@amd.com>
+> Reviewed-by: Guchun Chen <guchun.chen@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  .../amd/pm/powerplay/hwmgr/vega10_thermal.c   | 25 +++++++++----------
+>  1 file changed, 12 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> index dad3e3741a4e..190af79f3236 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+> @@ -67,22 +67,21 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr
+> *hwmgr,
+>  int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,
+>                 uint32_t *speed)
+>  {
+> -       uint32_t current_rpm;
+> -       uint32_t percent = 0;
+> -
+> -       if (hwmgr->thermal_controller.fanInfo.bNoFan)
+> -               return 0;
+> +       struct amdgpu_device *adev = hwmgr->adev;
+> +       uint32_t duty100, duty;
+> +       uint64_t tmp64;
+>
+> -       if (vega10_get_current_rpm(hwmgr, &current_rpm))
+> -               return -1;
+> +       duty100 = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL1),
+> +                               CG_FDO_CTRL1, FMAX_DUTY100);
+> +       duty = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_THERMAL_STATUS),
+> +                               CG_THERMAL_STATUS, FDO_PWM_DUTY);
+>
+> -       if (hwmgr->thermal_controller.
+> -                       advanceFanControlParameters.usMaxFanRPM != 0)
+> -               percent = current_rpm * 255 /
+> -                       hwmgr->thermal_controller.
+> -                       advanceFanControlParameters.usMaxFanRPM;
+> +       if (!duty100)
+> +               return -EINVAL;
+>
+> -       *speed = MIN(percent, 255);
+> +       tmp64 = (uint64_t)duty * 255;
+> +       do_div(tmp64, duty100);
+> +       *speed = MIN((uint32_t)tmp64, 255);
+>
+>         return 0;
+>  }
+> --
+> 2.35.1
+>
+>
+
+--00000000000020a7e605f15b5a5b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hello!</div><div><br></div><div>Why is this revert fo=
+r revert coming for 6.1 but reverted again for 6.1.2? My GPU is not working=
+ correctly again!</div><div><a href=3D"https://cdn.kernel.org/pub/linux/ker=
+nel/v6.x/ChangeLog-6.1.2">https://cdn.kernel.org/pub/linux/kernel/v6.x/Chan=
+geLog-6.1.2</a></div><div><br></div><div>It seems like somebody made a mist=
+ake and pick up the wrong patch for the stable channel. <br></div><div><br>=
+</div><div>Regards!<br></div></div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Sat, Nov 19, 2022 at 11:14 AM Sasha Levin =
+&lt;<a href=3D"mailto:sashal@kernel.org">sashal@kernel.org</a>&gt; wrote:<b=
+r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex">From: Asher Song =
+&lt;<a href=3D"mailto:Asher.Song@amd.com" target=3D"_blank">Asher.Song@amd.=
+com</a>&gt;<br>
+<br>
+[ Upstream commit 30b8e7b8ee3be003e0df85c857c5cd0e0bd58b82 ]<br>
+<br>
+This reverts commit 4545ae2ed3f2f7c3f615a53399c9c8460ee5bca7.<br>
+<br>
+The origin patch &quot;drm/amdgpu: getting fan speed pwm for vega10 properl=
+y&quot; works fine.<br>
+Test failure is caused by test case self.<br>
+<br>
+Signed-off-by: Asher Song &lt;<a href=3D"mailto:Asher.Song@amd.com" target=
+=3D"_blank">Asher.Song@amd.com</a>&gt;<br>
+Reviewed-by: Guchun Chen &lt;<a href=3D"mailto:guchun.chen@amd.com" target=
+=3D"_blank">guchun.chen@amd.com</a>&gt;<br>
+Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com=
+" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
+Signed-off-by: Sasha Levin &lt;<a href=3D"mailto:sashal@kernel.org" target=
+=3D"_blank">sashal@kernel.org</a>&gt;<br>
+---<br>
+=C2=A0.../amd/pm/powerplay/hwmgr/vega10_thermal.c=C2=A0 =C2=A0| 25 ++++++++=
++----------<br>
+=C2=A01 file changed, 12 insertions(+), 13 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/driv=
+ers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c<br>
+index dad3e3741a4e..190af79f3236 100644<br>
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c<br>
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c<br>
+@@ -67,22 +67,21 @@ int vega10_fan_ctrl_get_fan_speed_info(struct pp_hwmgr =
+*hwmgr,<br>
+=C2=A0int vega10_fan_ctrl_get_fan_speed_pwm(struct pp_hwmgr *hwmgr,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t *speed)<br=
+>
+=C2=A0{<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t current_rpm;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t percent =3D 0;<br>
+-<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0if (hwmgr-&gt;thermal_controller.fanInfo.bNoFan=
+)<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =3D hwmgr-&gt;adev;<=
+br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t duty100, duty;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t tmp64;<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0if (vega10_get_current_rpm(hwmgr, &amp;current_=
+rpm))<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -1;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0duty100 =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, =
+mmCG_FDO_CTRL1),<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0CG_FDO_CTRL1, FMAX_DUTY100);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0duty =3D REG_GET_FIELD(RREG32_SOC15(THM, 0, mmC=
+G_THERMAL_STATUS),<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0CG_THERMAL_STATUS, FDO_PWM_DUTY);<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0if (hwmgr-&gt;thermal_controller.<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0advanceFanControlParameters.usMaxFanRPM !=3D 0)<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0percent =3D current=
+_rpm * 255 /<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0hwmgr-&gt;thermal_controller.<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0advanceFanControlParameters.usMaxFanRPM;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!duty100)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0*speed =3D MIN(percent, 255);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0tmp64 =3D (uint64_t)duty * 255;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0do_div(tmp64, duty100);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0*speed =3D MIN((uint32_t)tmp64, 255);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
+=C2=A0}<br>
+-- <br>
+2.35.1<br>
+<br>
+</blockquote></div>
+
+--00000000000020a7e605f15b5a5b--
