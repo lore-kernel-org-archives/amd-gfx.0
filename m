@@ -4,69 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87832C4708E
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 20:28:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E993CC5479D
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 20:36:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DDB510E201;
-	Tue,  3 Jan 2023 20:28:12 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB95810E1FE
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jan 2023 16:05:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1672761958;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/ZZuD56MEBx1Uz4wsJ7mk8SY27ZT7sFQ6kli2wOYT18=;
- b=HdHz4/7lScRS0nQPCitaNsigA5nrbgJJ5N7HGKFN41BoLy9jqJc4VEKMAuJ866g8i8S3FD
- K/djoTBWtRSizQTMqDPf9+dX5MBlgBrWtV8MNc/TY+/eJ155AIVv/V/u1n6HPKnvR7yxHV
- qfoUfEcu3dLoVUeqi/HeS5VrOubD6Es=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-657-88FOvGZZMFSoFQwVWZ_PGQ-1; Tue, 03 Jan 2023 11:05:56 -0500
-X-MC-Unique: 88FOvGZZMFSoFQwVWZ_PGQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8BCDF18F0244;
- Tue,  3 Jan 2023 16:05:53 +0000 (UTC)
-Received: from [10.22.34.65] (unknown [10.22.34.65])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 02E5F4014EBE;
- Tue,  3 Jan 2023 16:05:50 +0000 (UTC)
-Message-ID: <3e531d65-72a7-a82a-3d18-004aeab9144b@redhat.com>
-Date: Tue, 3 Jan 2023 11:05:50 -0500
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6578C10E217;
+	Tue,  3 Jan 2023 20:36:41 +0000 (UTC)
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [IPv6:2001:4860:4864:20::2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B18210E213;
+ Tue,  3 Jan 2023 20:36:39 +0000 (UTC)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-15027746720so23074177fac.13; 
+ Tue, 03 Jan 2023 12:36:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=DARbbfB1cfRcx5Xv304q3gLYQigPtkLndWCjgoqKBlg=;
+ b=MUULpzXODVj3KSyV6X/V9xXUjl2K1nJvW09EiPp6TSKi5ViAQFht20z9FgxFwvuQ49
+ tiBFeW9/ElPsVGytdRsLGglK1TXEADxOs+pzuLW/dC5Mn4kc6QEqPS1FNAMjP72N+mb7
+ zYDAtsXokUKChBjlD7Nt0TxtxlxgqBwtUhWycx5gS0fzU7nmlYCkeGzEyEivjwOwbW09
+ ySI9Ued1GZrgsV+08ofxWwZuMEOlXppxUZYq887F3p+linfLDP2keAyiV+dHZfvheuxl
+ zLJZR4yNLBdN9DR0FqIOCNEeL+m6MddwMQY5pTu+HD1+btdhSZxLFqpb+KoBy4L1IXic
+ hR1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=DARbbfB1cfRcx5Xv304q3gLYQigPtkLndWCjgoqKBlg=;
+ b=G49uueWPnjHfowC/BtgWziduRlKMOpcYEPhIyU4RmWIneo1vA8VEUWxq5mwwGbdWko
+ MFuzvh1giBHugrnfWyKsQ4pgzqc9CYwXcSLRVq1WrYt9qyC5h3g+2Y0YN1yFl/2c+G2y
+ Xni4CaK8a5snu1yWB2gOyJJIYSrVnqZ0PbHb4MQ2H4UYLoxUGhxCsXSe6CobAgiSt8JQ
+ VO111cEU+RHDMtHntT8MFA9zHCQvCnzVP6BEbmi9kmJ/yDWVPnrnTYmvlyrgbUeScl+k
+ tkDnFsX+NAC8tSbLfnq+31N8rh8Ak5ZpT/U0CLWCRUBxwJMINTSkmPSf1r4zPy50c3y4
+ Q+vQ==
+X-Gm-Message-State: AFqh2krZ32r6j9KVLg7QnBK+dpbRrbfW8TFP/t/cZ0rb7fCwAUIr6HTz
+ lBAxGtoIdrdhWxg+o/uMlvfE/FckGuTtbo9MOmQ=
+X-Google-Smtp-Source: AMrXdXuI5mtIULbEh6oZUp3W7INMKGCNm6pDPu92qrpaEtFTnRCtG2DBLRzmvSH/FSHCfZi6Uzq7LDG4/a5reDzoFPc=
+X-Received: by 2002:a05:6870:970e:b0:148:3c8f:15ab with SMTP id
+ n14-20020a056870970e00b001483c8f15abmr3723607oaq.46.1672778198192; Tue, 03
+ Jan 2023 12:36:38 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: [syzbot] WARNING: locking bug in inet_autobind
-Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>,
- syzbot <syzbot+94cc2a66fc228b23f360@syzkaller.appspotmail.com>,
- Alexander.Deucher@amd.com, Christian.Koenig@amd.com, David1.Zhou@amd.com,
- Evan.Quan@amd.com, Harry.Wentland@amd.com, Oak.Zeng@amd.com,
- Ray.Huang@amd.com, Yong.Zhao@amd.com, airlied@linux.ie,
- amd-gfx@lists.freedesktop.org, ast@kernel.org, boqun.feng@gmail.com,
- bpf@vger.kernel.org, daniel@ffwll.ch, daniel@iogearbox.net,
- davem@davemloft.net, dri-devel@lists.freedesktop.org, dsahern@kernel.org,
- edumazet@google.com, gautammenghani201@gmail.com, jakub@cloudflare.com,
- kafai@fb.com, kuba@kernel.org, kuznet@ms2.inr.ac.ru,
- linux-kernel@vger.kernel.org, mingo@redhat.com, netdev@vger.kernel.org,
- ozeng@amd.com, pabeni@redhat.com, penguin-kernel@I-love.SAKURA.ne.jp,
- peterz@infradead.org, rex.zhu@amd.com, songliubraving@fb.com,
- syzkaller-bugs@googlegroups.com, will@kernel.org, yhs@fb.com,
- yoshfuji@linux-ipv6.org
-References: <0000000000002ae67f05f0f191aa@google.com>
- <ea9c2977-f05f-3acd-ee3e-2443229b7b55@amd.com>
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <ea9c2977-f05f-3acd-ee3e-2443229b7b55@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-X-Mailman-Approved-At: Tue, 03 Jan 2023 20:28:10 +0000
+References: <20221223092858.1830944-1-xurui@kylinos.cn>
+In-Reply-To: <20221223092858.1830944-1-xurui@kylinos.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 3 Jan 2023 15:36:26 -0500
+Message-ID: <CADnq5_PBr4u+7AE8aW6+0n0sru80ktfoGTCSzqgpDr4RD=QM2Q@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Retry DDC probing on DVI on failure if we
+ got an HPD interrupt
+To: xurui <xurui@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,128 +65,246 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: kernel test robot <lkp@intel.com>, Xinhui.Pan@amd.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/3/23 10:39, Felix Kuehling wrote:
-> The regression point doesn't make sense. The kernel config doesn't 
-> enable CONFIG_DRM_AMDGPU, so there is no way that a change in AMDGPU 
-> could have caused this regression.
+On Fri, Dec 23, 2022 at 9:23 AM xurui <xurui@kylinos.cn> wrote:
 >
-I agree. It is likely a pre-existing problem or caused by another commit 
-that got triggered because of the change in cacheline alignment caused 
-by commit c0d9271ecbd ("drm/amdgpu: Delete user queue doorbell variable").
-
-Cheers,
-Longman
-
-
-> Regards,
->   Felix
+> HPD signals on DVI ports can be fired off before the pins required for
+> DDC probing actually make contact, due to the pins for HPD making
+> contact first. This results in a HPD signal being asserted but DDC
+> probing failing, resulting in hotplugging occasionally failing.
 >
+> Rescheduling the hotplug work for a second when we run into an HPD
+> signal with a failing DDC probe usually gives enough time for the rest
+> of the connector's pins to make contact, and fixes this issue.
 >
-> Am 2022-12-29 um 01:26 schrieb syzbot:
->> syzbot has found a reproducer for the following issue on:
->>
->> HEAD commit:    1b929c02afd3 Linux 6.2-rc1
->> git tree:       upstream
->> console output: https://syzkaller.appspot.com/x/log.txt?x=145c6a68480000
->> kernel config: 
->> https://syzkaller.appspot.com/x/.config?x=2651619a26b4d687
->> dashboard link: 
->> https://syzkaller.appspot.com/bug?extid=94cc2a66fc228b23f360
->> compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU 
->> Binutils for Debian) 2.35.2
->> syz repro: https://syzkaller.appspot.com/x/repro.syz?x=13e13e32480000
->> C reproducer: https://syzkaller.appspot.com/x/repro.c?x=13790f08480000
->>
->> Downloadable assets:
->> disk image: 
->> https://storage.googleapis.com/syzbot-assets/d1849f1ca322/disk-1b929c02.raw.xz
->> vmlinux: 
->> https://storage.googleapis.com/syzbot-assets/924cb8aa4ada/vmlinux-1b929c02.xz
->> kernel image: 
->> https://storage.googleapis.com/syzbot-assets/8c7330dae0a0/bzImage-1b929c02.xz
->>
->> The issue was bisected to:
->>
->> commit c0d9271ecbd891cdeb0fad1edcdd99ee717a655f
->> Author: Yong Zhao <Yong.Zhao@amd.com>
->> Date:   Fri Feb 1 23:36:21 2019 +0000
->>
->>      drm/amdgpu: Delete user queue doorbell variables
->>
->> bisection log: 
->> https://syzkaller.appspot.com/x/bisect.txt?x=1433ece4a00000
->> final oops: https://syzkaller.appspot.com/x/report.txt?x=1633ece4a00000
->> console output: https://syzkaller.appspot.com/x/log.txt?x=1233ece4a00000
->>
->> IMPORTANT: if you fix the issue, please add the following tag to the 
->> commit:
->> Reported-by: syzbot+94cc2a66fc228b23f360@syzkaller.appspotmail.com
->> Fixes: c0d9271ecbd8 ("drm/amdgpu: Delete user queue doorbell variables")
->>
->> ------------[ cut here ]------------
->> Looking for class "l2tp_sock" with key l2tp_socket_class, but found a 
->> different class "slock-AF_INET6" with the same key
->> WARNING: CPU: 0 PID: 7280 at kernel/locking/lockdep.c:937 
->> look_up_lock_class+0x97/0x110 kernel/locking/lockdep.c:937
->> Modules linked in:
->> CPU: 0 PID: 7280 Comm: syz-executor835 Not tainted 
->> 6.2.0-rc1-syzkaller #0
->> Hardware name: Google Google Compute Engine/Google Compute Engine, 
->> BIOS Google 10/26/2022
->> RIP: 0010:look_up_lock_class+0x97/0x110 kernel/locking/lockdep.c:937
->> Code: 17 48 81 fa e0 e5 f6 8f 74 59 80 3d 5d bc 57 04 00 75 50 48 c7 
->> c7 00 4d 4c 8a 48 89 04 24 c6 05 49 bc 57 04 01 e8 a9 42 b9 ff <0f> 
->> 0b 48 8b 04 24 eb 31 9c 5a 80 e6 02 74 95 e8 45 38 02 fa 85 c0
->> RSP: 0018:ffffc9000b5378b8 EFLAGS: 00010082
->> RAX: 0000000000000000 RBX: ffffffff91c06a00 RCX: 0000000000000000
->> RDX: ffff8880292d0000 RSI: ffffffff8166721c RDI: fffff520016a6f09
->> RBP: 0000000000000000 R08: 0000000000000005 R09: 0000000000000000
->> R10: 0000000080000201 R11: 20676e696b6f6f4c R12: 0000000000000000
->> R13: ffff88802a5820b0 R14: 0000000000000000 R15: 0000000000000000
->> FS:  00007f1fd7a97700(0000) GS:ffff8880b9800000(0000) 
->> knlGS:0000000000000000
->> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> CR2: 0000000020000100 CR3: 0000000078ab4000 CR4: 00000000003506f0
->> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
->> DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
->> Call Trace:
->>   <TASK>
->>   register_lock_class+0xbe/0x1120 kernel/locking/lockdep.c:1289
->>   __lock_acquire+0x109/0x56d0 kernel/locking/lockdep.c:4934
->>   lock_acquire kernel/locking/lockdep.c:5668 [inline]
->>   lock_acquire+0x1e3/0x630 kernel/locking/lockdep.c:5633
->>   __raw_spin_lock_bh include/linux/spinlock_api_smp.h:126 [inline]
->>   _raw_spin_lock_bh+0x33/0x40 kernel/locking/spinlock.c:178
->>   spin_lock_bh include/linux/spinlock.h:355 [inline]
->>   lock_sock_nested+0x5f/0xf0 net/core/sock.c:3473
->>   lock_sock include/net/sock.h:1725 [inline]
->>   inet_autobind+0x1a/0x190 net/ipv4/af_inet.c:177
->>   inet_send_prepare net/ipv4/af_inet.c:813 [inline]
->>   inet_send_prepare+0x325/0x4e0 net/ipv4/af_inet.c:807
->>   inet6_sendmsg+0x43/0xe0 net/ipv6/af_inet6.c:655
->>   sock_sendmsg_nosec net/socket.c:714 [inline]
->>   sock_sendmsg+0xd3/0x120 net/socket.c:734
->>   __sys_sendto+0x23a/0x340 net/socket.c:2117
->>   __do_sys_sendto net/socket.c:2129 [inline]
->>   __se_sys_sendto net/socket.c:2125 [inline]
->>   __x64_sys_sendto+0xe1/0x1b0 net/socket.c:2125
->>   do_syscall_x64 arch/x86/entry/common.c:50 [inline]
->>   do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
->>   entry_SYSCALL_64_after_hwframe+0x63/0xcd
->> RIP: 0033:0x7f1fd78538b9
->> Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 e1 15 00 00 90 48 89 f8 48 
->> 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 
->> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
->> RSP: 002b:00007f1fd7a971f8 EFLAGS: 00000212 ORIG_RAX: 000000000000002c
->> RAX: ffffffffffffffda RBX: 00007f1fd78f0038 RCX: 00007f1fd78538b9
->> RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000004
->> RBP: 00007f1fd78f0030 R08: 0000000020000100 R09: 000000000000001c
->> R10: 0000000004008000 R11: 0000000000000212 R12: 00007f1fd78f003c
->> R13: 00007f1fd79ffc8f R14: 00007f1fd7a97300 R15: 0000000000022000
->>   </TASK>
->>
->
+> Signed-off-by: xurui <xurui@kylinos.cn>
+> Reported-by: kernel test robot<lkp@intel.com>
 
+Applied.  Thanks!
+
+Alex
+
+
+> ---
+> V1 -> V2: Fixed a compilation error
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  2 +-
+>  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 22 ++++++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  1 +
+>  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  6 ++---
+>  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  6 ++---
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  6 ++---
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  6 ++---
+>  8 files changed, 36 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 6b74df446694..b1d901fe578e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -870,7 +870,7 @@ struct amdgpu_device {
+>         struct amdgpu_vkms_output       *amdgpu_vkms_output;
+>         struct amdgpu_mode_info         mode_info;
+>         /* For pre-DCE11. DCE11 and later are in "struct amdgpu_device->dm" */
+> -       struct work_struct              hotplug_work;
+> +       struct delayed_work         hotplug_work;
+>         struct amdgpu_irq_src           crtc_irq;
+>         struct amdgpu_irq_src           vline0_irq;
+>         struct amdgpu_irq_src           vupdate_irq;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> index 2ebbc6382a06..d2abd334b1b5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> @@ -996,13 +996,33 @@ amdgpu_connector_dvi_detect(struct drm_connector *connector, bool force)
+>                 }
+>         }
+>
+> +       if (amdgpu_connector->detected_hpd_without_ddc) {
+> +               force = true;
+> +               amdgpu_connector->detected_hpd_without_ddc = false;
+> +       }
+> +
+>         if (!force && amdgpu_connector_check_hpd_status_unchanged(connector)) {
+>                 ret = connector->status;
+>                 goto exit;
+>         }
+>
+> -       if (amdgpu_connector->ddc_bus)
+> +       if (amdgpu_connector->ddc_bus) {
+>                 dret = amdgpu_display_ddc_probe(amdgpu_connector, false);
+> +
+> +               /* Sometimes the pins required for the DDC probe on DVI
+> +                * connectors don't make contact at the same time that the ones
+> +                * for HPD do. If the DDC probe fails even though we had an HPD
+> +                * signal, try again later
+> +                */
+> +               if (!dret && !force &&
+> +                   amdgpu_display_hpd_sense(adev, amdgpu_connector->hpd.hpd)) {
+> +                       DRM_DEBUG_KMS("hpd detected without ddc, retrying in 1 second\n");
+> +                       amdgpu_connector->detected_hpd_without_ddc = true;
+> +                       schedule_delayed_work(&adev->hotplug_work,
+> +                                             msecs_to_jiffies(1000));
+> +                       goto exit;
+> +               }
+> +       }
+>         if (dret) {
+>                 amdgpu_connector->detected_by_load = false;
+>                 amdgpu_connector_free_edid(connector);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index b22471b3bd63..a876648e3d7a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -63,7 +63,7 @@
+>  void amdgpu_display_hotplug_work_func(struct work_struct *work)
+>  {
+>         struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
+> -                                                 hotplug_work);
+> +                                                 hotplug_work.work);
+>         struct drm_device *dev = adev_to_drm(adev);
+>         struct drm_mode_config *mode_config = &dev->mode_config;
+>         struct drm_connector *connector;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> index 8a39300b1a84..93c73faa5714 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> @@ -534,6 +534,7 @@ struct amdgpu_connector {
+>         void *con_priv;
+>         bool dac_load_detect;
+>         bool detected_by_load; /* if the connection status was determined by load */
+> +       bool detected_hpd_without_ddc; /* if an HPD signal was detected on DVI, but ddc probing failed */
+>         uint16_t connector_object_id;
+>         struct amdgpu_hpd hpd;
+>         struct amdgpu_router router;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> index 248f1a4e915f..e85e57933cc4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> @@ -2837,7 +2837,7 @@ static int dce_v10_0_sw_init(void *handle)
+>         if (r)
+>                 return r;
+>
+> -       INIT_WORK(&adev->hotplug_work,
+> +       INIT_DELAYED_WORK(&adev->hotplug_work,
+>                   amdgpu_display_hotplug_work_func);
+>
+>         drm_kms_helper_poll_init(adev_to_drm(adev));
+> @@ -2902,7 +2902,7 @@ static int dce_v10_0_hw_fini(void *handle)
+>
+>         dce_v10_0_pageflip_interrupt_fini(adev);
+>
+> -       flush_work(&adev->hotplug_work);
+> +       flush_delayed_work(&adev->hotplug_work);
+>
+>         return 0;
+>  }
+> @@ -3302,7 +3302,7 @@ static int dce_v10_0_hpd_irq(struct amdgpu_device *adev,
+>
+>         if (disp_int & mask) {
+>                 dce_v10_0_hpd_int_ack(adev, hpd);
+> -               schedule_work(&adev->hotplug_work);
+> +               schedule_delayed_work(&adev->hotplug_work, 0);
+>                 DRM_DEBUG("IH: HPD%d\n", hpd + 1);
+>         }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> index cd9c19060d89..6b406bb7f3f3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> @@ -2956,7 +2956,7 @@ static int dce_v11_0_sw_init(void *handle)
+>         if (r)
+>                 return r;
+>
+> -       INIT_WORK(&adev->hotplug_work,
+> +       INIT_DELAYED_WORK(&adev->hotplug_work,
+>                   amdgpu_display_hotplug_work_func);
+>
+>         drm_kms_helper_poll_init(adev_to_drm(adev));
+> @@ -3032,7 +3032,7 @@ static int dce_v11_0_hw_fini(void *handle)
+>
+>         dce_v11_0_pageflip_interrupt_fini(adev);
+>
+> -       flush_work(&adev->hotplug_work);
+> +       flush_delayed_work(&adev->hotplug_work);
+>
+>         return 0;
+>  }
+> @@ -3426,7 +3426,7 @@ static int dce_v11_0_hpd_irq(struct amdgpu_device *adev,
+>
+>         if (disp_int & mask) {
+>                 dce_v11_0_hpd_int_ack(adev, hpd);
+> -               schedule_work(&adev->hotplug_work);
+> +               schedule_delayed_work(&adev->hotplug_work, 0);
+>                 DRM_DEBUG("IH: HPD%d\n", hpd + 1);
+>         }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> index 76323deecc58..2aa21eec0e06 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -2715,7 +2715,7 @@ static int dce_v6_0_sw_init(void *handle)
+>                 return r;
+>
+>         /* Pre-DCE11 */
+> -       INIT_WORK(&adev->hotplug_work,
+> +       INIT_DELAYED_WORK(&adev->hotplug_work,
+>                   amdgpu_display_hotplug_work_func);
+>
+>         drm_kms_helper_poll_init(adev_to_drm(adev));
+> @@ -2776,7 +2776,7 @@ static int dce_v6_0_hw_fini(void *handle)
+>
+>         dce_v6_0_pageflip_interrupt_fini(adev);
+>
+> -       flush_work(&adev->hotplug_work);
+> +       flush_delayed_work(&adev->hotplug_work);
+>
+>         return 0;
+>  }
+> @@ -3103,7 +3103,7 @@ static int dce_v6_0_hpd_irq(struct amdgpu_device *adev,
+>                 tmp = RREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd]);
+>                 tmp |= DC_HPD1_INT_CONTROL__DC_HPD1_INT_ACK_MASK;
+>                 WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd], tmp);
+> -               schedule_work(&adev->hotplug_work);
+> +               schedule_delayed_work(&adev->hotplug_work, 0);
+>                 DRM_DEBUG("IH: HPD%d\n", hpd + 1);
+>         }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> index 01cf3ab111cb..9da338889d36 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> @@ -2739,7 +2739,7 @@ static int dce_v8_0_sw_init(void *handle)
+>                 return r;
+>
+>         /* Pre-DCE11 */
+> -       INIT_WORK(&adev->hotplug_work,
+> +       INIT_DELAYED_WORK(&adev->hotplug_work,
+>                   amdgpu_display_hotplug_work_func);
+>
+>         drm_kms_helper_poll_init(adev_to_drm(adev));
+> @@ -2802,7 +2802,7 @@ static int dce_v8_0_hw_fini(void *handle)
+>
+>         dce_v8_0_pageflip_interrupt_fini(adev);
+>
+> -       flush_work(&adev->hotplug_work);
+> +       flush_delayed_work(&adev->hotplug_work);
+>
+>         return 0;
+>  }
+> @@ -3195,7 +3195,7 @@ static int dce_v8_0_hpd_irq(struct amdgpu_device *adev,
+>                 tmp = RREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd]);
+>                 tmp |= DC_HPD1_INT_CONTROL__DC_HPD1_INT_ACK_MASK;
+>                 WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd], tmp);
+> -               schedule_work(&adev->hotplug_work);
+> +               schedule_delayed_work(&adev->hotplug_work, 0);
+>                 DRM_DEBUG("IH: HPD%d\n", hpd + 1);
+>         }
+>
+> --
+> 2.25.1
+>
