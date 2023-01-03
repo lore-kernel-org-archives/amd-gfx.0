@@ -4,130 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA602C3DA7D
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 16:20:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89231C46467
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Jan 2023 16:27:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A65610E266;
-	Tue,  3 Jan 2023 16:20:16 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2082.outbound.protection.outlook.com [40.107.237.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3D3C10E3EC;
- Tue,  3 Jan 2023 16:20:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1B4910E262;
+	Tue,  3 Jan 2023 16:27:14 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2059.outbound.protection.outlook.com [40.107.223.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C7A710E26D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Jan 2023 16:27:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m0VxiybEPKhg+Q+GlqLwHGFxsbecYt2xxY3hE9fg7kzpgLaaJ+TvBFbyoqZk2MdmhTklHOS6sndRIPHOqEsxbpOeokl5KeDa0Fj9kzNoIRQFwhFHG/YeDkTax61jVZnWxpJNyHAAEQOgVO1n4LJKdzDF8o301wRKZpPpun+peA2YQ9vyhscNPZ5gNnvc15+QVVc3mFZsBdfbucn5NTZRToeHuNzGAcYJKzQnfak2SSj9UBr5ayOwvvb1HysgXGPh/DighbKFE6B8o7G57eSOVhKTvXUrECvPj5d6ISIgLgLBrGksbXbajnyQ+wozW4+VPg8sCEfYZ5NwzPYv7wZAog==
+ b=T67EsVfB7DChR4OukkT5t3rhewR1qCKQmi4gJWECjfalUQCKq4aDcHYO6SvTK56GPq6j3yGzUuzjv3nCunI907hCmEUJBx2bmj4gZ5780Xr2BKjaD8Ftz1tCvC4AiGory46WxVmnNBjeLX3vMHuCSWd+cpT5A7J/aV+4pWDa9/K8jK3lRC+pCsM0zZTspM56v4LfP9m4+AYgrOFJ0R+xi8G9976TNl51jdrJ374IRdxiJslRmTdUa6+Mueq94JKp1CAkIQ7qluAsCZo/KoTaqU6Gmxe5GOoFE7gaIEiAPxzgid0u8+b/iJ5u3oYiyXYvxm2JRRbI1flIzlIB3tLpBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9rnYhDXPwmDaZg14MhVpGy/iNv6jZQpJtRlI+6hZXhw=;
- b=baemeL7euCSXsLPYAUCRXzcAneoN1X7B8JjfBmtRSQxwy/7sbwfUW/FIHK+yaf4qnuHhmsWQ/4BV0SzaJeJ7enGaQd2xW+C93EC64L3E+8aImUtBMrAI56KlHZ2hvN9RL9L2Y3QtnqN0ZQRs5pzEqM7mDaiBWEpKgYC4AGMrPcMrrzDN2mwBj0um18VGIYCF25OGRWIM7Wrez+om/f2MYxWYNGnjKg8oLXAA3bdFI3JiUHgU8V7hDl4PFqV46GOwL/nUJXt75rH7nCyKHzPteuRT86icHBOjHuv3PPj4K2H2e620ddkrWykDH11musTj5rt8odIXqFeXHRFK3Y5uSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=794uk+bq7qWofYaf8I4V7LJx6mBw9g1kdZZvwiWLgho=;
+ b=e9yuru22E7fOSg3IEwCyKpzR5AlwlOfqgebgzYOqbx26K4u3G6ZfuIYbCkJb+OPh8LMR/aTOU0urQb1ann0ShGWa/CODW81gZD5wp63M59KvmfKUT0zr4k3AHYQMdtymzo8VeK70eJIl9oxRrfVmfTQHh/k5GAhIiUhPo7DRCtSQ29WycN4zgPo0VT35ke35knXlFRWm7nTl0Osxy0ib5vvlj8r7y91i0tI7zxaNo4YvuM6FMGnLblRLo8w8ZSlX1dGtGgFQ87KtfCZ3UQnh8ZCpvT9fQsRrJYFBdF4hrt1yw4Pw+CGWkry662s2xGdT/wdSTPXmLs3rlM8BVsW64Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9rnYhDXPwmDaZg14MhVpGy/iNv6jZQpJtRlI+6hZXhw=;
- b=SG3Fds/eRlct2yQ0mIGVbZQQtUpXlDoaPdvxmPmopqf+m7Nn+a7MiwnJLKq9a3lM0VlmDNIEL0uwwXS9y7ChEHiLWYd9ZSBr7KdzIQRQAFKw8lx2OmjXFhhYynYbUB3pZo6ETIaFlaYD5ZEALNDF9p+x1WNeWzcfoDX0MrX0F/A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=794uk+bq7qWofYaf8I4V7LJx6mBw9g1kdZZvwiWLgho=;
+ b=5UUjDwrRyF1iBT/PcEMVcGhvR0Q0/OcJB99NmsOh0Sve6BqTgiyAPxQVUS+d7ERIOcQzP8vXNinAbtFcV3BVYEO9ILiPvwakVQGq0tWDFzIzsk4tR68CGNyyKUE6jotTCHLDa5EqYzvTFnFmYxEFLFDQUVeI7l1fzwSl5lerBw4=
+Received: from DS7PR03CA0014.namprd03.prod.outlook.com (2603:10b6:5:3b8::19)
+ by MN0PR12MB6054.namprd12.prod.outlook.com (2603:10b6:208:3ce::20) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Tue, 3 Jan
- 2023 16:20:04 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::c3f5:aede:fa4d:5411]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::c3f5:aede:fa4d:5411%4]) with mapi id 15.20.5944.019; Tue, 3 Jan 2023
- 16:20:04 +0000
-Message-ID: <a47b840f-b2b8-95d7-ddc0-c9d5dde3c28c@amd.com>
-Date: Tue, 3 Jan 2023 11:20:01 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [syzbot] WARNING: locking bug in inet_autobind
-Content-Language: en-US
-To: Waiman Long <longman@redhat.com>,
- syzbot <syzbot+94cc2a66fc228b23f360@syzkaller.appspotmail.com>,
- Alexander.Deucher@amd.com, Christian.Koenig@amd.com, David1.Zhou@amd.com,
- Evan.Quan@amd.com, Harry.Wentland@amd.com, Oak.Zeng@amd.com,
- Ray.Huang@amd.com, Yong.Zhao@amd.com, airlied@linux.ie,
- amd-gfx@lists.freedesktop.org, ast@kernel.org, boqun.feng@gmail.com,
- bpf@vger.kernel.org, daniel@ffwll.ch, daniel@iogearbox.net,
- davem@davemloft.net, dri-devel@lists.freedesktop.org, dsahern@kernel.org,
- edumazet@google.com, gautammenghani201@gmail.com, jakub@cloudflare.com,
- kafai@fb.com, kuba@kernel.org, kuznet@ms2.inr.ac.ru,
- linux-kernel@vger.kernel.org, mingo@redhat.com, netdev@vger.kernel.org,
- ozeng@amd.com, pabeni@redhat.com, penguin-kernel@I-love.SAKURA.ne.jp,
- peterz@infradead.org, rex.zhu@amd.com, songliubraving@fb.com,
- syzkaller-bugs@googlegroups.com, will@kernel.org, yhs@fb.com,
- yoshfuji@linux-ipv6.org
-References: <0000000000002ae67f05f0f191aa@google.com>
- <ea9c2977-f05f-3acd-ee3e-2443229b7b55@amd.com>
- <3e531d65-72a7-a82a-3d18-004aeab9144b@redhat.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <3e531d65-72a7-a82a-3d18-004aeab9144b@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0118.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::27) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ 2023 16:27:08 +0000
+Received: from DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b8:cafe::e6) by DS7PR03CA0014.outlook.office365.com
+ (2603:10b6:5:3b8::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5966.19 via Frontend
+ Transport; Tue, 3 Jan 2023 16:27:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT008.mail.protection.outlook.com (10.13.172.85) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5966.18 via Frontend Transport; Tue, 3 Jan 2023 16:27:07 +0000
+Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Tue, 3 Jan 2023 10:27:05 -0600
+From: Hawking Zhang <Hawking.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, Tao Zhou <tao.zhou1@amd.com>, "Stanley
+ Yang" <Stanley.Yang@amd.com>, Candice Li <Candice.Li@amd.com>, Thomas Chai
+ <YiPeng.Chai@amd.com>
+Subject: [PATCH] drm/amdgpu: allow query error counters for specific IP block
+Date: Wed, 4 Jan 2023 00:24:47 +0800
+Message-ID: <20230103162447.30017-1-Hawking.Zhang@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CY8PR12MB7099:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31ff2f31-e497-4d18-d166-08daeda65f46
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT008:EE_|MN0PR12MB6054:EE_
+X-MS-Office365-Filtering-Correlation-Id: e0daf0f3-245c-4bf4-ed0e-08daeda75b73
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dq2Tp+gHBUfFNxfGe0itwc/f10k22qm8n499VPSOVnhBErBu9XTTfb4bm/hdjEoGMS2h+nSIt7ZCUOAkQftpIXuABu4uZ7aWQ8NqyPeZBrxePFK2BB9V5EPzgzlfPEaOArBUjwLTTEoMIEf4vhi6xfkePzRJjUoUchANIHM2p5v4ZBeebeNyGMg4wVAcbC+ievUxfaf45rL5KGtUB0jJ5KPXCW5oPBT4pOefWeVQPHOHdTgNNj3pcoSkG5u9KEIpmv8Fay5qzy8sIT3UU4np2LZ3pDEVJGY4at6vPnshNyTv/hh1gSlK5hozjCgBKTZBgiqFB1i/IUB7lE5OrqmU8Hh7UkkNB6K+ps/dYfX6kebZIn0VB13HiQ9QdtTaHxMzqVXsvrayZNGV8uNGfmFetfmpXB96KRGUZ04lZYzoB+wnGsNR97UUWsd9jK5vPXUE2IxvIF5Eum/UOtZ6HrcL/IU2pIULTRpXqer9ZheeOB/zNy3a23cCkyYdilCJjyUiDGOLazbM/7UszYzHMjZLPWy1QzZXqBp6vJ9140+Z2LwhpqyuAUdOtENHV5i6O8NXDcr83o+Gca125/EnHs2zUIxQGBHe5nKOknoTHO3vltoeRqqk7+PZp0eWGaLlKvaWyA7OlcOvYMJE8VplDo3luEmEXi8jVgN23Hb4qXh3LYR9WCxV23TnVmohKSAb1wIJloigpVkrAiQsEKlDqGBfob2x0L5gYH4ADyMGPtrJaGCCC+y9w9Vbgdeqk184urga5Kt5LuchlGp/AYg0qD8JEctlGSxvMqdMbgvtp70eRgKGWAxInIxFsoD1fzHPPWaN5jti8oNKOQ8slSDf/lc4udSTkl3Y3SsWcRbMxBozGNQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(396003)(376002)(366004)(39860400002)(346002)(451199015)(41300700001)(8936002)(66946007)(8676002)(5660300002)(7416002)(110136005)(31686004)(316002)(4001150100001)(2906002)(6486002)(53546011)(45080400002)(6506007)(966005)(6666004)(66476007)(478600001)(66556008)(44832011)(31696002)(86362001)(186003)(26005)(6512007)(2616005)(83380400001)(38100700002)(36756003)(921005)(22166006)(99710200001)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: xFGhv0rjATvZWo2T8/pxD2B+G71QPa1kn1731fvYkoSoTOvnWDhvB71M0zX0JH9i5L6Ub52xvvhSKr6nHtN/CFFdn2O2E+cPbBoabL1VDpfW+coyZTbi8BFl41PDxme1M6bOHYG7L2bX+4Y2JOYUmeNFWL6NwraciKtd1KWaeRUNprImb9HATIUVJoU17SQYn+A3PqkYiHrPrQq8h5oQhbTw4OcZvbVTYaa+F+8F2YczdnTNKa92c3/rQCAfZc3Gt0nY8GQv22uFuIou5g00BDdDgKRTc1xebiRZZag21RKeVR6hS/ZE+tJi5YSz47oiQ7UEBuskpJhvK3Rik3tP9fw2hrlRrCJQ+0aBmYDYHLRGd7bAVCTGykwukRzdYXbLAoo8taAPe5N9qsS7kbCbaHdDv09dcDRffoRAfJQfnbwpTJZ5JxPGC47KRvODiB4GnEu+AzdBTzektI9abpRgokoFU6vlpbKN1lc4AC5eR3xrDfK6TdoH78nW5Ax94Rup3PgQt9JIEzVVbpDB4C8oG6ReN6hedcyil1aw4M9HlTj3e4W1uB3mu9eu98LAcesJgaHge3N7mQc3Q5SajLGB94n9DzE50F507KRMgEdgcvRjYfvuVyv6EVJ6sIVsoTKBMVMTquDp6C5ogk5qlnZVwXc8ARvOl/8uU8sZnv8GqpEDxD/jt6hc/XWNg6e9X9IAxNU/yiScGuh3p85Upf1VNhaotFxNEk2Nk+EpMSxu3QJHPNyJ011l1O6eBVbxOEoPSjU6aETub9nCRKniXbjsXA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(136003)(376002)(346002)(39860400002)(451199015)(40470700004)(46966006)(36840700001)(6666004)(70206006)(186003)(1076003)(110136005)(26005)(70586007)(2616005)(16526019)(4326008)(426003)(478600001)(41300700001)(47076005)(5660300002)(83380400001)(8936002)(8676002)(336012)(2906002)(36860700001)(356005)(81166007)(40480700001)(6636002)(7696005)(316002)(40460700003)(36756003)(82740400003)(82310400005)(86362001)(22166006)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YzdhL3VLdnFuK2pCakQ1SG95MW1jLzh5RndRNHk3K2hWSUs2aHhWdUFESnUy?=
- =?utf-8?B?Y2dOc0IwOXBsN2ZrTXBaVm1EekdSaElpNDR5V3VIK3RJaURUOVJ5aWZ1ZEZH?=
- =?utf-8?B?OERvQzlmeStVRlN5NnBxQm5jMUN1ZmpSZElNbmp5WFltZ0d3R1VpNXFzRDN0?=
- =?utf-8?B?V2k0OEg5NTBMQ3IvTm5hRVlGdXJXNDM3S2FkYmVqbU12R2tHK293dWZuTmJp?=
- =?utf-8?B?OW9tOUhFejlHRW1KcUlCTC9saVlnUmlzb1FKMHdCWUZMUmFueE9heXAxRjdG?=
- =?utf-8?B?bVhldFNmTVdKQ01KUWpocXpMSVpFVmdqellhUlE4UXc3dHlqUHNPc3QzTlNL?=
- =?utf-8?B?N1ZKTmVUbXJHQ0lUSzB0YW1LWGdFSHJoNUtOZGt5eTFTTnFPNnRsZGkvUEJV?=
- =?utf-8?B?T0I1YlNIUjlMSzN6MkRNQWt5MHIrem1XYjhNak52b3Y0RVROWC9WM3hFOGw4?=
- =?utf-8?B?M3pNb3pUTnMydWRhaU40eGZzd0NpMzY0QWRUQVh1S3g5M2x4ZDMva0pmKzUv?=
- =?utf-8?B?VjBNK1NBMU1FdDFlaWRLU2k5eUxOU25kczN1Yi9pSXJneTcrZmorY0d3Nmp3?=
- =?utf-8?B?UW93Z2daRFAxWXNUVjRXYWhzcnZaamExZVpQS3hmTjdmS0pOQmRlNGxuZ013?=
- =?utf-8?B?elNMMkRXbWp0WXMvZnhidGl6ZGlkekk5b2lNKzR3WjJGSndNYjVKSWRUM29E?=
- =?utf-8?B?aXdpenYxNXIzMHVLdzBTOVdCdkNIVUw3ck9DZEhpSGNKUlBZdFJkaGxFRnNl?=
- =?utf-8?B?Y2c4ZWp4czNod1lZOWtOaW15b3NPOGoybFdmU2tIQUY0V3VwTUd2c1lJb1Rj?=
- =?utf-8?B?TldJUmpEMi9TQ0xUWFJWWkRLdHdwdnhrTFBCb2VXV2tLdTVNWk04dXBjaEI2?=
- =?utf-8?B?VGYyOWFsRitHTzlxNGw2U1lEelpOQkFRWW9FSVFKeHVHVGI1QkZoMktoeGFa?=
- =?utf-8?B?OFhIbFBtOE5RRHVURVV0bkhUMzdSSy9GYk9pd05HYlVxenhmZHNkSCtzN1dE?=
- =?utf-8?B?VW83SGtCNlFBWktGU0llNVRveWoydjBtVTlub3laT241bDFObHJTekdCY21D?=
- =?utf-8?B?M3dtbmZGWnVZclJNdENCaEpwd1JtNE9Zc1U2cVY5RGlQVWQ2N1cyaWszaVY0?=
- =?utf-8?B?a2dvWVA3bUJJYlpOUmo3SzRrUkdUenRkNUdKajlLQWRJamp4MnBBSTI4UHFR?=
- =?utf-8?B?Y0Z0bHl5RU9TenNyMzVyYXJNTlZpT0MwWWFJbkxlc3B5ZmIzVGQ1YUF4NGZh?=
- =?utf-8?B?dC9hZjNmV1Nja1YzWVltRWNYYWUrK01oeGNxU3R4THNNakVUU3JrRjRvZCtU?=
- =?utf-8?B?WGhyR2tnTW5WcUU3Qm1GNWUvUEptWjNaWGNkaTRqV3ppUzBQSS9nazFER2Ft?=
- =?utf-8?B?N1ZZcnJvUzlIVzBsaEJrUWtiOUxEQnZVSGtDMUVtYWVXb3RKNGI1YmNiRlZt?=
- =?utf-8?B?RTlJNm84YnpXUVBZMTlxV3drd0tkcVBrVkJFME81d3hMai83UVJGRzVWTXov?=
- =?utf-8?B?RWZsVTUyMTFzaEdNQ2hEb1lLRjRKbHR1UGowOVpKSURVa0JFdXArSXNFZTVQ?=
- =?utf-8?B?d2ViUEN0elZUUFVVOExUZHNNQ0VDZkJpNDArQTFWeTFkcXVpV1JkcUM5SDc1?=
- =?utf-8?B?UW1VSEQyYVVnYnVLWFAxNlVsR3lLOUdVaUM0U3ZNWXNPRGkzNGNlWVE3Y2ls?=
- =?utf-8?B?R05TYU5TYUsxL055bG85c0c3NnFxaFoyNC9jd0hIWmU4UTVoZlhScEk5TlJI?=
- =?utf-8?B?MnhtQzR4bTZGb0o0MVJBY25hdWpDYVl6dkkvN1ZWNXBtUkZZT2x3dS82MVJx?=
- =?utf-8?B?TnI3Z3ZuT0NvSlBIT0NlUlNnU0tzSGVEcklaaklTRWVFdjJYTVh0SStJcnF1?=
- =?utf-8?B?bUJVRVpSTllEMkZ5T1BlazBYVDgyMzA4UHcrQUc5dkcrYkhYOVFaYjB3TldC?=
- =?utf-8?B?c205YXRsSmZoYmpXenQ4MGdoaFFBU1dRa3NxQmJDVmZMcEhicjVDeWswNTRU?=
- =?utf-8?B?Q21UcjUvU1BJS0oyYy9pNEttV25CMGpvL1lOVU5VazArek4rUUN2MVZiTDlB?=
- =?utf-8?B?TG5zbjh4L0NHUnV1V0d5bGRmQmdoQS9Rdm16b3RKVDZ1bThQZDFkbVVMbkt2?=
- =?utf-8?Q?I+2+gyqF7C8wGCGJb+V0rAMPd?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31ff2f31-e497-4d18-d166-08daeda65f46
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2023 16:20:04.7365 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2023 16:27:07.5210 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0daf0f3-245c-4bf4-ed0e-08daeda75b73
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rd7Jgb0GF73DkK0L/7u33+dPWdFmagCq7jRIPRqE4nptV1K7ZGDUsOquvsS+/RJue05+5xzooYJS1QUxbzb3EA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7099
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6054
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,147 +98,205 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+amdgpu_ras_block_late_init will be invoked in IP
+specific ras_late_init call as a common helper for
+all the IP blocks.
 
-Am 2023-01-03 um 11:05 schrieb Waiman Long:
-> On 1/3/23 10:39, Felix Kuehling wrote:
->> The regression point doesn't make sense. The kernel config doesn't 
->> enable CONFIG_DRM_AMDGPU, so there is no way that a change in AMDGPU 
->> could have caused this regression.
->>
-> I agree. It is likely a pre-existing problem or caused by another 
-> commit that got triggered because of the change in cacheline alignment 
-> caused by commit c0d9271ecbd ("drm/amdgpu: Delete user queue doorbell 
-> variable").
-I don't think the change can affect cache line alignment. The entire 
-amdgpu driver doesn't even get compiled in the kernel config that was 
-used, and the change doesn't touch any files outside 
-drivers/gpu/drm/amd/amdgpu:
+However, when amdgpu_ras_block_late_init call
+amdgpu_ras_query_error_count to query ras error
+counters, amdgpu_ras_query_error_count queries
+all the IP blocks that support ras query interface.
 
-# CONFIG_DRM_AMDGPU is not set
+This results to wrong error counters cached in
+software copies when there are ras errors detected
+at time zero or warm reset procedure. i.e., in
+sdma_ras_late_init phase, it counts on sdma/mmhub
+errors, while, in mmhub_ras_late_init phase, it
+still counts on sdma/mmhub errors.
 
-My guess would be that it's an intermittent bug that is confusing bisect.
+The change updates amdgpu_ras_query_error_count
+interface to allow query specific ip error counter.
+It introduces a new input parameter: query_info. if
+query_info is NULL,  it means query all the IP blocks,
+otherwise, only query the ip block specified by
+query_info.
 
-Regards,
-   Felix
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 89 +++++++++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  3 +-
+ 2 files changed, 71 insertions(+), 21 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 35b9f2ed2838..7fed63dc09bf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1130,11 +1130,54 @@ int amdgpu_ras_error_inject(struct amdgpu_device *adev,
+ }
+ 
+ /**
+- * amdgpu_ras_query_error_count -- Get error counts of all IPs
++ * amdgpu_ras_query_error_count_helper -- Get error counter for specific IP
++ * @adev: pointer to AMD GPU device
++ * @ce_count: pointer to an integer to be set to the count of correctible errors.
++ * @ue_count: pointer to an integer to be set to the count of uncorrectible errors.
++ * @query_info: pointer to ras_query_if
++ *
++ * Return 0 for query success or do nothing, otherwise return an error
++ * on failures
++ */
++static int amdgpu_ras_query_error_count_helper(struct amdgpu_device *adev,
++					       unsigned long *ce_count,
++					       unsigned long *ue_count,
++					       struct ras_query_if *query_info)
++{
++	int ret;
++
++	if (!query_info)
++		/* do nothing if query_info is not specified */
++		return 0;
++
++	ret = amdgpu_ras_query_error_status(adev, query_info);
++	if (ret)
++		return ret;
++
++	*ce_count += query_info->ce_count;
++	*ue_count += query_info->ue_count;
++
++	/* some hardware/IP supports read to clear
++	 * no need to explictly reset the err status after the query call */
++	if (adev->ip_versions[MP0_HWIP][0] != IP_VERSION(11, 0, 2) &&
++	    adev->ip_versions[MP0_HWIP][0] != IP_VERSION(11, 0, 4)) {
++		if (amdgpu_ras_reset_error_status(adev, query_info->head.block))
++			dev_warn(adev->dev,
++				 "Failed to reset error counter and error status\n");
++	}
++
++	return 0;
++}
++
++/**
++ * amdgpu_ras_query_error_count -- Get error counts of all IPs or specific IP
+  * @adev: pointer to AMD GPU device
+  * @ce_count: pointer to an integer to be set to the count of correctible errors.
+  * @ue_count: pointer to an integer to be set to the count of uncorrectible
+  * errors.
++ * @query_info: pointer to ras_query_if if the query request is only for
++ * specific ip block; if info is NULL, then the qurey request is for
++ * all the ip blocks that support query ras error counters/status
+  *
+  * If set, @ce_count or @ue_count, count and return the corresponding
+  * error counts in those integer pointers. Return 0 if the device
+@@ -1142,11 +1185,13 @@ int amdgpu_ras_error_inject(struct amdgpu_device *adev,
+  */
+ int amdgpu_ras_query_error_count(struct amdgpu_device *adev,
+ 				 unsigned long *ce_count,
+-				 unsigned long *ue_count)
++				 unsigned long *ue_count,
++				 struct ras_query_if *query_info)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct ras_manager *obj;
+ 	unsigned long ce, ue;
++	int ret;
+ 
+ 	if (!adev->ras_enabled || !con)
+ 		return -EOPNOTSUPP;
+@@ -1158,26 +1203,23 @@ int amdgpu_ras_query_error_count(struct amdgpu_device *adev,
+ 
+ 	ce = 0;
+ 	ue = 0;
+-	list_for_each_entry(obj, &con->head, node) {
+-		struct ras_query_if info = {
+-			.head = obj->head,
+-		};
+-		int res;
+-
+-		res = amdgpu_ras_query_error_status(adev, &info);
+-		if (res)
+-			return res;
++	if (!query_info) {
++		/* query all the ip blocks that support ras query interface */
++		list_for_each_entry(obj, &con->head, node) {
++			struct ras_query_if info = {
++				.head = obj->head,
++			};
+ 
+-		if (adev->ip_versions[MP0_HWIP][0] != IP_VERSION(11, 0, 2) &&
+-		    adev->ip_versions[MP0_HWIP][0] != IP_VERSION(11, 0, 4)) {
+-			if (amdgpu_ras_reset_error_status(adev, info.head.block))
+-				dev_warn(adev->dev, "Failed to reset error counter and error status");
++			ret = amdgpu_ras_query_error_count_helper(adev, &ce, &ue, &info);
+ 		}
+-
+-		ce += info.ce_count;
+-		ue += info.ue_count;
++	} else {
++		/* query specific ip block */
++		ret = amdgpu_ras_query_error_count_helper(adev, &ce, &ue, query_info);
+ 	}
+ 
++	if (ret)
++		return ret;
++
+ 	if (ce_count)
+ 		*ce_count = ce;
+ 
+@@ -2408,7 +2450,7 @@ static void amdgpu_ras_counte_dw(struct work_struct *work)
+ 
+ 	/* Cache new values.
+ 	 */
+-	if (amdgpu_ras_query_error_count(adev, &ce_count, &ue_count) == 0) {
++	if (amdgpu_ras_query_error_count(adev, &ce_count, &ue_count, NULL) == 0) {
+ 		atomic_set(&con->ras_ce_count, ce_count);
+ 		atomic_set(&con->ras_ue_count, ue_count);
+ 	}
+@@ -2589,6 +2631,7 @@ int amdgpu_ras_block_late_init(struct amdgpu_device *adev,
+ {
+ 	struct amdgpu_ras_block_object *ras_obj = NULL;
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++	struct ras_query_if *query_info;
+ 	unsigned long ue_count, ce_count;
+ 	int r;
+ 
+@@ -2630,11 +2673,17 @@ int amdgpu_ras_block_late_init(struct amdgpu_device *adev,
+ 
+ 	/* Those are the cached values at init.
+ 	 */
+-	if (amdgpu_ras_query_error_count(adev, &ce_count, &ue_count) == 0) {
++	query_info = kzalloc(sizeof(struct ras_query_if), GFP_KERNEL);
++	if (!query_info)
++		return -ENOMEM;
++	memcpy(&query_info->head, ras_block, sizeof(struct ras_common_if));
++
++	if (amdgpu_ras_query_error_count(adev, &ce_count, &ue_count, query_info) == 0) {
+ 		atomic_set(&con->ras_ce_count, ce_count);
+ 		atomic_set(&con->ras_ue_count, ue_count);
+ 	}
+ 
++	kfree(query_info);
+ 	return 0;
+ 
+ interrupt:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index bf5a95104ec1..f2ad999993f6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -540,7 +540,8 @@ void amdgpu_ras_suspend(struct amdgpu_device *adev);
+ 
+ int amdgpu_ras_query_error_count(struct amdgpu_device *adev,
+ 				 unsigned long *ce_count,
+-				 unsigned long *ue_count);
++				 unsigned long *ue_count,
++				 struct ras_query_if *query_info);
+ 
+ /* error handling functions */
+ int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
+-- 
+2.17.1
 
->
-> Cheers,
-> Longman
->
->
->> Regards,
->>   Felix
->>
->>
->> Am 2022-12-29 um 01:26 schrieb syzbot:
->>> syzbot has found a reproducer for the following issue on:
->>>
->>> HEAD commit:    1b929c02afd3 Linux 6.2-rc1
->>> git tree:       upstream
->>> console output: 
->>> https://syzkaller.appspot.com/x/log.txt?x=145c6a68480000
->>> kernel config: 
->>> https://syzkaller.appspot.com/x/.config?x=2651619a26b4d687
->>> dashboard link: 
->>> https://syzkaller.appspot.com/bug?extid=94cc2a66fc228b23f360
->>> compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU 
->>> Binutils for Debian) 2.35.2
->>> syz repro: https://syzkaller.appspot.com/x/repro.syz?x=13e13e32480000
->>> C reproducer: https://syzkaller.appspot.com/x/repro.c?x=13790f08480000
->>>
->>> Downloadable assets:
->>> disk image: 
->>> https://storage.googleapis.com/syzbot-assets/d1849f1ca322/disk-1b929c02.raw.xz
->>> vmlinux: 
->>> https://storage.googleapis.com/syzbot-assets/924cb8aa4ada/vmlinux-1b929c02.xz
->>> kernel image: 
->>> https://storage.googleapis.com/syzbot-assets/8c7330dae0a0/bzImage-1b929c02.xz
->>>
->>> The issue was bisected to:
->>>
->>> commit c0d9271ecbd891cdeb0fad1edcdd99ee717a655f
->>> Author: Yong Zhao <Yong.Zhao@amd.com>
->>> Date:   Fri Feb 1 23:36:21 2019 +0000
->>>
->>>      drm/amdgpu: Delete user queue doorbell variables
->>>
->>> bisection log: 
->>> https://syzkaller.appspot.com/x/bisect.txt?x=1433ece4a00000
->>> final oops: https://syzkaller.appspot.com/x/report.txt?x=1633ece4a00000
->>> console output: 
->>> https://syzkaller.appspot.com/x/log.txt?x=1233ece4a00000
->>>
->>> IMPORTANT: if you fix the issue, please add the following tag to the 
->>> commit:
->>> Reported-by: syzbot+94cc2a66fc228b23f360@syzkaller.appspotmail.com
->>> Fixes: c0d9271ecbd8 ("drm/amdgpu: Delete user queue doorbell 
->>> variables")
->>>
->>> ------------[ cut here ]------------
->>> Looking for class "l2tp_sock" with key l2tp_socket_class, but found 
->>> a different class "slock-AF_INET6" with the same key
->>> WARNING: CPU: 0 PID: 7280 at kernel/locking/lockdep.c:937 
->>> look_up_lock_class+0x97/0x110 kernel/locking/lockdep.c:937
->>> Modules linked in:
->>> CPU: 0 PID: 7280 Comm: syz-executor835 Not tainted 
->>> 6.2.0-rc1-syzkaller #0
->>> Hardware name: Google Google Compute Engine/Google Compute Engine, 
->>> BIOS Google 10/26/2022
->>> RIP: 0010:look_up_lock_class+0x97/0x110 kernel/locking/lockdep.c:937
->>> Code: 17 48 81 fa e0 e5 f6 8f 74 59 80 3d 5d bc 57 04 00 75 50 48 c7 
->>> c7 00 4d 4c 8a 48 89 04 24 c6 05 49 bc 57 04 01 e8 a9 42 b9 ff <0f> 
->>> 0b 48 8b 04 24 eb 31 9c 5a 80 e6 02 74 95 e8 45 38 02 fa 85 c0
->>> RSP: 0018:ffffc9000b5378b8 EFLAGS: 00010082
->>> RAX: 0000000000000000 RBX: ffffffff91c06a00 RCX: 0000000000000000
->>> RDX: ffff8880292d0000 RSI: ffffffff8166721c RDI: fffff520016a6f09
->>> RBP: 0000000000000000 R08: 0000000000000005 R09: 0000000000000000
->>> R10: 0000000080000201 R11: 20676e696b6f6f4c R12: 0000000000000000
->>> R13: ffff88802a5820b0 R14: 0000000000000000 R15: 0000000000000000
->>> FS:  00007f1fd7a97700(0000) GS:ffff8880b9800000(0000) 
->>> knlGS:0000000000000000
->>> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->>> CR2: 0000000020000100 CR3: 0000000078ab4000 CR4: 00000000003506f0
->>> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
->>> DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
->>> Call Trace:
->>>   <TASK>
->>>   register_lock_class+0xbe/0x1120 kernel/locking/lockdep.c:1289
->>>   __lock_acquire+0x109/0x56d0 kernel/locking/lockdep.c:4934
->>>   lock_acquire kernel/locking/lockdep.c:5668 [inline]
->>>   lock_acquire+0x1e3/0x630 kernel/locking/lockdep.c:5633
->>>   __raw_spin_lock_bh include/linux/spinlock_api_smp.h:126 [inline]
->>>   _raw_spin_lock_bh+0x33/0x40 kernel/locking/spinlock.c:178
->>>   spin_lock_bh include/linux/spinlock.h:355 [inline]
->>>   lock_sock_nested+0x5f/0xf0 net/core/sock.c:3473
->>>   lock_sock include/net/sock.h:1725 [inline]
->>>   inet_autobind+0x1a/0x190 net/ipv4/af_inet.c:177
->>>   inet_send_prepare net/ipv4/af_inet.c:813 [inline]
->>>   inet_send_prepare+0x325/0x4e0 net/ipv4/af_inet.c:807
->>>   inet6_sendmsg+0x43/0xe0 net/ipv6/af_inet6.c:655
->>>   sock_sendmsg_nosec net/socket.c:714 [inline]
->>>   sock_sendmsg+0xd3/0x120 net/socket.c:734
->>>   __sys_sendto+0x23a/0x340 net/socket.c:2117
->>>   __do_sys_sendto net/socket.c:2129 [inline]
->>>   __se_sys_sendto net/socket.c:2125 [inline]
->>>   __x64_sys_sendto+0xe1/0x1b0 net/socket.c:2125
->>>   do_syscall_x64 arch/x86/entry/common.c:50 [inline]
->>>   do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
->>>   entry_SYSCALL_64_after_hwframe+0x63/0xcd
->>> RIP: 0033:0x7f1fd78538b9
->>> Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 e1 15 00 00 90 48 89 f8 48 
->>> 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 
->>> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
->>> RSP: 002b:00007f1fd7a971f8 EFLAGS: 00000212 ORIG_RAX: 000000000000002c
->>> RAX: ffffffffffffffda RBX: 00007f1fd78f0038 RCX: 00007f1fd78538b9
->>> RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000004
->>> RBP: 00007f1fd78f0030 R08: 0000000020000100 R09: 000000000000001c
->>> R10: 0000000004008000 R11: 0000000000000212 R12: 00007f1fd78f003c
->>> R13: 00007f1fd79ffc8f R14: 00007f1fd7a97300 R15: 0000000000022000
->>>   </TASK>
->>>
->>
->
