@@ -4,69 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49633C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 09:37:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E131C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 11:23:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E353410E11B;
-	Wed,  4 Jan 2023 09:37:39 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5524910E093;
- Wed,  4 Jan 2023 09:37:36 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id bs20so30241668wrb.3;
- Wed, 04 Jan 2023 01:37:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=TnVvBp5CvE66t59orsQS+M89VsfZfBWG2ITuei4MwH4=;
- b=p022zXGl7ys+VouK511OJhJu3no9rVMMieW8eJHrFxf2Z3tYJyBf7LKext5MgWIkjT
- LUHcOGdYze9CNWtax3Q+27HGwn9DEWEdyOHCb8sggooOavU5CRsjJqnp/xyqLec0IUOw
- 0iw/k0X9iD5zSR1Sv+TMSCwwby/aLF15xrVM5o2hK1fdtMFEliSvtRIc+EuuufhAISuI
- uAAXnwracH9HTxBWGb2ovPwfzUmEdCOHd9L+rSHD88TTQBd28+4lC3b/BfvKKxfQPRv3
- XzaWNtP0IT9h9FImutfBoqAvcC9pFQ0mQyhEVmEzSRSejt1zBalgpkzdh9jkPgWOEKS6
- scbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TnVvBp5CvE66t59orsQS+M89VsfZfBWG2ITuei4MwH4=;
- b=ny+3IWbsYe221pOGB96UiJ13b7NmGzLP5S3BnZdKIvpzHktyRrvMqorDoNiTFSD9fm
- cdLTO79+Lp+D0Bo2im0jzCUwrxKbTuE0PU3AiX9AQylnE5r0HRb/GwjzZVgq3DKYSYx4
- /FzSIrVj87GM3Dm8cw+yr52+7yj648QjImH+nJwZoxkMm7NR+gjHk8bPZxIO50Ev48Ro
- TupBvL4oZN5Cn9C4EMqL3884fmLlex/aAQ9sjIBaFbIN7tjByOQg79TG5PG60i0sr+Hk
- A5f90aD9RcrbVbn2icCM9F0Tj2iGxXpCLjYUiXV5upVyebSl/ckKODZprTYzNdL9XCUf
- pftQ==
-X-Gm-Message-State: AFqh2kp7H5RwjbtFxh38+y8lc980zrYuCxUOSpvlsRQ6klQSPycGGwaV
- AIdBSWSjyYVTdeWBt6JvwQY=
-X-Google-Smtp-Source: AMrXdXvU/enDDNHVuc8zxYqzqJ57ugDBT89W+Gset7WCKuRiRY6jIh5WsIW7wCb5Z9zmhCX6Ed1AAA==
-X-Received: by 2002:a5d:6808:0:b0:272:3a86:29c1 with SMTP id
- w8-20020a5d6808000000b002723a8629c1mr26678451wru.16.1672825054733; 
- Wed, 04 Jan 2023 01:37:34 -0800 (PST)
-Received: from [192.168.178.21] (p5b0ea2e7.dip0.t-ipconnect.de.
- [91.14.162.231]) by smtp.gmail.com with ESMTPSA id
- f14-20020adfe90e000000b002365730eae8sm33500867wrm.55.2023.01.04.01.37.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jan 2023 01:37:34 -0800 (PST)
-Message-ID: <a8ed4887-e4f9-7e5e-3fe7-430d3814cc2b@gmail.com>
-Date: Wed, 4 Jan 2023 10:37:31 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 004E710E573;
+	Wed,  4 Jan 2023 11:23:12 +0000 (UTC)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E0CC10E09C;
+ Wed,  4 Jan 2023 11:23:08 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4Nn6fJ1rJrz9scg;
+ Wed,  4 Jan 2023 12:23:04 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1672831384;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=avM8OdydVoo4qB2SWSNzMfKXSEXlrv924E6rdRgKqaI=;
+ b=Vgocnz6HikW5cnFjt8tLwKto5OnEUmqkWPYN6i51DvriXTCVxlaQ+F58wnSbIPs5JIe9c9
+ J0aMujcDIQOhjwMBy83uF2xdEWCQQN4JTstnPrHLycfXTA9rqdwyHKW57JiKIpOK6SVPNl
+ Dy1hE40t+2ecAtYSZUjZuEj2KoCCHsVQDjxYxQkSCbzmetk3WbIJrzHnYUY77O2xXMM/m4
+ 24B6asT6D2Q7SY0+nqRAw4Nn73nHlnOKQ/zGW6l33UOEOsF22MHv+cEhmcPE9dYsZqr/7E
+ CBHDphddG5+EzWLXsZz80Q8WzSOVh6DoSk48cckHmxv86hYf8sqQ3mRl6khTmg==
+Message-ID: <a9964b71-d517-9cbc-2129-8f88320bb7f9@mailbox.org>
+Date: Wed, 4 Jan 2023 12:23:00 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH v4 05/27] drm/amd: Add a new helper for loading/validating
- microcode
-Content-Language: en-US
-To: "Lazar, Lijo" <lijo.lazar@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org
-References: <20230103221852.22813-1-mario.limonciello@amd.com>
- <20230103221852.22813-6-mario.limonciello@amd.com>
- <151bb1ab-8b2b-afaf-2976-5f60b756c4ca@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <151bb1ab-8b2b-afaf-2976-5f60b756c4ca@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH 16/16] drm/amd/display: Don't restrict bpc to 8 bpc
+Content-Language: en-CA
+To: Harry Wentland <harry.wentland@amd.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>
+References: <20221212182137.374625-1-harry.wentland@amd.com>
+ <20221212182137.374625-17-harry.wentland@amd.com>
+ <114c2e02-41c8-8576-f88d-1c50f41deb9e@mailbox.org>
+ <20221214110128.1cd58dea@eldfell>
+ <b53b1d6e-e81c-98d0-7a7f-a6d5fede90fc@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <b53b1d6e-e81c-98d0-7a7f-a6d5fede90fc@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: grmxdtytzkrhihb6cfn4fogirmq839rq
+X-MBO-RS-ID: a476da60ef3b16e3a0a
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,102 +60,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Carlos Soriano Sanchez <csoriano@redhat.com>, David Airlie <airlied@gmail.com>,
- christian.koenig@amd.com
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Uma Shankar <uma.shankar@intel.com>, dri-devel@lists.freedesktop.org,
+ Joshua Ashton <joshua@froggi.es>, Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 04.01.23 um 05:53 schrieb Lazar, Lijo:
->
->
-> On 1/4/2023 3:48 AM, Mario Limonciello wrote:
->> All microcode runs a basic validation after it's been loaded. Each
->> IP block as part of init will run both.
+On 12/23/22 20:10, Harry Wentland wrote:
+> On 12/14/22 04:01, Pekka Paalanen wrote:
+>> On Tue, 13 Dec 2022 18:20:59 +0100
+>> Michel Dänzer <michel.daenzer@mailbox.org> wrote:
+>>> On 12/12/22 19:21, Harry Wentland wrote:
+>>>> This will let us pass kms_hdr.bpc_switch.
+>>>>
+>>>> I don't see any good reasons why we still need to
+>>>> limit bpc to 8 bpc and doing so is problematic when
+>>>> we enable HDR.
+>>>>
+>>>> If I remember correctly there might have been some
+>>>> displays out there where the advertised link bandwidth
+>>>> was not large enough to drive the default timing at
+>>>> max bpc. This would leave to an atomic commit/check
+>>>> failure which should really be handled in compositors
+>>>> with some sort of fallback mechanism.
+>>>>
+>>>> If this somehow turns out to still be an issue I
+>>>> suggest we add a module parameter to allow users to
+>>>> limit the max_bpc to a desired value.  
+>>>
+>>> While leaving the fallback for user space to handle makes some sense
+>>> in theory, in practice most KMS display servers likely won't handle
+>>> it.
+>>>
+>>> Another issue is that if mode validation is based on the maximum bpc
+>>> value, it may reject modes which would work with lower bpc.
+>>>
+>>>
+>>> What Ville (CC'd) suggested before instead (and what i915 seems to be
+>>> doing already) is that the driver should do mode validation based on
+>>> the *minimum* bpc, and automatically make the effective bpc lower
+>>> than the maximum as needed to make the rest of the atomic state work.
 >>
->> Introduce a wrapper for request_firmware and amdgpu_ucode_validate.
->> This wrapper will also remap any error codes from request_firmware
->> to -ENODEV.  This is so that early_init will fail if firmware couldn't
->> be loaded instead of the IP block being disabled.
+>> A driver is always allowed to choose a bpc lower than max_bpc, so it
+>> very well should do so when necessary due to *known* hardware etc.
+>> limitations.
 >>
->> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->> ---
->> v3-v4:
->>   * New patch
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 24 +++++++++++++++++++++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h |  1 +
->>   2 files changed, 25 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
->> index eafcddce58d3..8c4a7b09e344 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
->> @@ -1312,3 +1312,27 @@ void amdgpu_ucode_ip_version_decode(struct 
->> amdgpu_device *adev, int block_type,
->>         snprintf(ucode_prefix, len, "%s_%d_%d_%d", ip_name, maj, min, 
->> rev);
->>   }
->> +
->> +/*
->> + * amdgpu_ucode_load - Load and validate amdgpu microcode
->> + *
->> + * @adev: amdgpu device
->> + * @fw: pointer to load firmware to
->> + * @fw_name: firmware to load
->> + *
->> + * This is a helper that will use request_firmware and 
->> amdgpu_ucode_validate
->> + * to load and run basic validation on firmware. If the load fails, 
->> remap
->> + * the error code to -ENODEV, so that early_init functions will fail 
->> to load.
->> + */
->> +int amdgpu_ucode_load(struct amdgpu_device *adev, const struct 
->> firmware **fw, char *fw_name)
->
-> 'load' also takes a different meaning of loading firmware to ASIC. 
-> Maybe keep it as 'get' and keep another corresponding common 'put' for 
-> release_firmware?
+> 
+> I spent a bunch of time to figure out how this actually pans out in
+> amdgpu and it looks like we're doing the right thing, i.e. if bandwidth
+> limitations require it we'll downgrade bpc appropriately. These changes
+> happened over the last couple years or so. So while raising the default
+> max_bpc wasn't safe in amdgpu years ago it is completely fine now.
+> 
+> As for the relevant code it's mostly handled in create_validate_stream_for_sink
+> in amdgpu_dm.c where we iterate over a stream's mode validation with
+> decreasing bpc if it fails (down to a bpc of 6).
+> 
+> For HDMI we also have a separate adjust_colour_depth_from_display_info
+> function that downgrades bpc in order to fit within the max_tmds_clock.
+> 
+> So, in short, this change should not lead to displays not lighting up
+> because we no longer force a given bpc.
 
-get/put are usually used for reference counting, how about sticking with 
-request/release instead? That's used by the underlying functionality as 
-well IIRC.
+Thanks for double-checking! This patch is
 
-Christian.
+Reviewed-by: Michel Dänzer <mdaenzer@redhat.com>
 
->
-> Thanks,
-> Lijo
->
->> +{
->> +    int err = request_firmware(fw, fw_name, adev->dev);
->> +
->> +    if (err)
->> +        return -ENODEV;
->> +    err = amdgpu_ucode_validate(*fw);
->> +    if (err)
->> +        dev_dbg(adev->dev, "\"%s\" failed to validate\n", fw_name);
->> +
->> +    return err;
->> +}
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
->> index 552e06929229..b9139fb44506 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
->> @@ -544,6 +544,7 @@ void amdgpu_ucode_print_sdma_hdr(const struct 
->> common_firmware_header *hdr);
->>   void amdgpu_ucode_print_psp_hdr(const struct common_firmware_header 
->> *hdr);
->>   void amdgpu_ucode_print_gpu_info_hdr(const struct 
->> common_firmware_header *hdr);
->>   int amdgpu_ucode_validate(const struct firmware *fw);
->> +int amdgpu_ucode_load(struct amdgpu_device *adev, const struct 
->> firmware **fw, char *fw_name);
->>   bool amdgpu_ucode_hdr_version(union amdgpu_firmware_header *hdr,
->>                   uint16_t hdr_major, uint16_t hdr_minor);
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
