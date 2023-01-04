@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83692C4708D
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 16:44:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96B6FC46467
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 16:44:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67BE110E59B;
-	Wed,  4 Jan 2023 16:44:37 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2083.outbound.protection.outlook.com [40.107.92.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1D2310E58C;
- Wed,  4 Jan 2023 16:44:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FFCE10E595;
+	Wed,  4 Jan 2023 16:44:42 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2081.outbound.protection.outlook.com [40.107.220.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74A4B10E58C;
+ Wed,  4 Jan 2023 16:44:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HFD5vkwIKcq7SszBRvwAAGN7B2TfA4HpiVkwpjta0D9UFgVuKDqurkWo5BZZeuJ7arhkBNZvhuSp+6KglyM9Z+0mRB9yQnYAINsTTXCnkWjEB9tIWFVl3HwHUl0O3TRHO6X/w/BMWaJ/swRNcsl3ALXJBGd/OwXH1U+/ClyF44Hp+v2DscHyvSJc+71s2gDLYjEF3Fb1Q8TH08XvbstIBnZrSLlelHjpXTkesCggbo5ukzcS/bUL4R96SMe0WnJpTjYlEi+hTUiivcpOur0L+zcoA4CCvJTMigQm0DEGr450vf3xlR/WGEhOuUaLIUM4dopvN/K6xDWT25DLXe8DTg==
+ b=IlSLfhKA4mDIu7s1ucjEQamH7ldRppjLowscETtf/x8Ml2SaOgJkx7Sehv/WTPJneYlOInjr7whr4FslWlJRD9Gds2a+7xdgIfhOHd4yPL7m+N3oN1rFE/fGpbc3Rh5RYOjX96i4Ral/WNt+YvItwuYFr951t6DsIlA1xe+WmC0P+ahWPyi55cH1cVehvmhLLWPTr7Tlb2AhgiUNGIF6pceXOO35Ks+PaZy5OkLhWWUHshkvLdthNc92PGMM0hhqfy2ow79hqOPZ5walnUngglQiElyif0v48qvB96fulFzdESyLIw1dNzKtiZFtH7qFFATDzdzT/gWaHOQIhPBvHg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LcFaQ6tiACY+u/8gC6lqi/OSCcd2YkehJs+D36wu3gQ=;
- b=PSXEc3O2W+xISb7heJatIlZcfpry4twatkjLsNwMz2jnB0kZMJ1cf+UopU4U/DYMyzaBaSxknYFEzoMEamfIL7F7ZKyEh7urpyiYTFxMGTX9HsGHRomvPA3mecVXTKGhbXQySSuTtV852WLsVdMXibQdymHoNwPBI8wuL9M/ZtgUeBGVx+fDpUTK2hbehBGoSl3Oks9abZ9jlbBEUg5zrjNlhm1stYH72+5fCgJb2cnzB0nbLQordodxw1Wk1CrlHOWGXEjIdB7WKTVZMDBaOKD302/YZqGJloGG6p9nOM755yb/D9qO/6NNcjJVjdRziWc5P33oLj5oOZfNR5lqwQ==
+ bh=BsrW767LczqfNIt4VUnmmB/NRtKKiXdowhEelPGWIBY=;
+ b=AN7MNL73MoK0/NGl7WMA91lUJm0QowEsQS3EogFk3BMJgYttthpXL+BMgmPNpTKP7fgK1QL4aGRUTRNljIYPn02c/IdxEJtu8eQrWShVl/Mb3kYnkFJfl+R2bScsaYZSEKYhLlZb8P4emdWXgzMNaxiQmQIJcOJBNbJZ6wUx3+3/8GF69/Lq2nEQl/yx7bXXp2ClVk/DNuXwNSWjoXtvNnoEOJAfr18PONLl9Esq31Z8anLFkSSLHVkGjdo0hMcTTLHvYSkHqB1Rn869bxYEy9uAqIgcPJGpIbz0Kg5rTppoyjC9PwIF/iU6OgGmONCvSdTfk8iu8AOdLYuZj70A/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LcFaQ6tiACY+u/8gC6lqi/OSCcd2YkehJs+D36wu3gQ=;
- b=Ir7SZK6GlNO8bZPcA6K1AMMdbjr9cvY05caxDQ9HSLpLVmWUCeNwQ0Fn3x5f2gCUJBXBjwQcCqskjPrAx9Wrdwt4jeqAddcklFQ8kmcGz7cdG7gu+rnDOdNDAQRKzPtRiF5ra+Qlf/Dxy7/urR6D6M5RjtbTqzazSZxG1uNhVNA=
-Received: from BN8PR15CA0020.namprd15.prod.outlook.com (2603:10b6:408:c0::33)
- by SJ0PR12MB6734.namprd12.prod.outlook.com (2603:10b6:a03:478::16)
+ bh=BsrW767LczqfNIt4VUnmmB/NRtKKiXdowhEelPGWIBY=;
+ b=FJ6vzIlNHhrxMhvrOsZkIDYYG9EyeOAyaNoXUnLQWlxsYp5muQBqjwCBSHUYhpfEOgeeloTzpa+i2YnhIIff6GOFFqtgVevAxo2MpqN7AEKgYdhdvKDzHoKr8flWJHGTiRFsVTeYg0MvsDyZe2yTOCDoE4cX6oaE1m6dzC0jnz4=
+Received: from BN8PR15CA0010.namprd15.prod.outlook.com (2603:10b6:408:c0::23)
+ by CH0PR12MB8551.namprd12.prod.outlook.com (2603:10b6:610:186::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Wed, 4 Jan
- 2023 16:44:31 +0000
+ 2023 16:44:27 +0000
 Received: from BL02EPF00010209.namprd05.prod.outlook.com
- (2603:10b6:408:c0:cafe::c1) by BN8PR15CA0020.outlook.office365.com
- (2603:10b6:408:c0::33) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:c0:cafe::97) by BN8PR15CA0010.outlook.office365.com
+ (2603:10b6:408:c0::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5966.20 via Frontend
- Transport; Wed, 4 Jan 2023 16:44:31 +0000
+ Transport; Wed, 4 Jan 2023 16:44:27 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL02EPF00010209.mail.protection.outlook.com (10.167.241.198) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5944.8 via Frontend Transport; Wed, 4 Jan 2023 16:44:31 +0000
+ 15.20.5944.8 via Frontend Transport; Wed, 4 Jan 2023 16:44:27 +0000
 Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 4 Jan
- 2023 10:44:30 -0600
+ 2023 10:43:48 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v5 36/45] drm/amd: Use `amdgpu_ucode_*` helpers for SDMA3.0
-Date: Wed, 4 Jan 2023 10:40:25 -0600
-Message-ID: <20230104164042.30271-37-mario.limonciello@amd.com>
+Subject: [PATCH v5 31/45] drm/amd: Use `amdgpu_ucode_*` helpers for GFX8
+Date: Wed, 4 Jan 2023 10:40:20 -0600
+Message-ID: <20230104164042.30271-32-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230104164042.30271-1-mario.limonciello@amd.com>
 References: <20230104164042.30271-1-mario.limonciello@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00010209:EE_|SJ0PR12MB6734:EE_
-X-MS-Office365-Filtering-Correlation-Id: f789f3d8-5390-4e33-2ef5-08daee72f3f3
+X-MS-TrafficTypeDiagnostic: BL02EPF00010209:EE_|CH0PR12MB8551:EE_
+X-MS-Office365-Filtering-Correlation-Id: bbca1ab5-664d-4598-bed2-08daee72f19c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IXrONkGLS5F3cXiBZWNxGGcA/qeN3sXgSZc3K+kAc4S8ts6uYKQZ+2fZgdcX5Af32PO1NKGCcjjiKJugOgxB3fUxCYisMRhQxPLVVu4Hxsm/k94fa7DNVtzym4JxvQ5IF5XAMt9UtGrLzjfJmuwPO/SrGrdz+nA0V5+nq8Et15qFgXGceRBGsM96DoHNcglwt3fPMVikf1IdnywiB6oPwYTtiFQTh16DrlfZaM166DMHz5wpqGrW9jzYdK0Yj2RUbrN3XEmDv8ceWbIsMqKpRSIhQU4ZydhRY4LPLmnyx6/TTIii62higLnOAXSRtwqtNEz8V0zqZJm+3aDZyPL0gq/Y/rGt9oRAJIvvOvPeZUBAjXJjYkguGELmQYoAjAYsMMB2kpJL1AB4EVPwtCGG7dRnzRHCesTRXNtX3HaqmfS8zN9gTfBLWf4No2eN7yW0hWuC66HHyP41/gxi+alCKd504M+l29DheGJnaFjyRglv+SQ+T1ZX59I4fOjja8c9pGG3cECxBwCbNnZKclrZV/Xin6l/5hBEFM8+lYy2bUQ0tH4PsnrB92FF5q879WqyJsJTD2fY0IDjSwgi/T6MEjgcRUZvv4I0K475mDlgjpuzO7ME8D5tyqOVaHbnYY6vr6YhM4MjD5DR27DtpigjRzVzXbrPqjHdlBwmw1YTKCi3ZBaTQmfhqxfUdu9dvKyBjYURddmo3jr7GO8XRhMDw9d1vjEPDdJFgaqBQaeeiHpy7/gMLGrRhZTKT6WsKtbz
+X-Microsoft-Antispam-Message-Info: lipZ9UoWjZxkjAU8BMbwZ2HXu26FZopnqRdiSMX9ARFX+KVwvzW+C+HrMZwYg1M7BmJB03xIf+2/lXbuUitB/Ka8th1WiakC+APz4JMm1lEfdJTZZguGv/6sSeXXTFLdQUh+H4wz1UZ2FcjqjkEaDgkp+/UuUQ4RslVvLHj0baLlWKEMJg7KKqT8y/VzXWWlOYAnPiLmn9uW+uvm5DXs53ecCmXy9EGYNzcTR+9F0R5nmD2l43qK6Q6Q1H5/JGuk/OPiH9NC8O96dR/0H+lJDn8daeUft8+S5fxgdugZ8+QCZRe1lNBO9mUzb+f9whYkK2JRhN9TYi3hQ9cQDq5mBzz+aLFuk8X1E1Kr2lUPRSKyZKDcLzIfvGidufOQKb4Dylr5rMtyFb9nh0xr0K8xaOuqPBcNVg2RYw/k2XX1+EXo2mS28H5hVh9F6c5KqUa88H5f02tE3Kc9T8tcI3H5vvMbW4T5Qvk+wysWegahPeabbVs45ZLApJqco1Bk4ogVyVFMj+SeJRS7q81w+SuRWx2op+mGcpBhGLgv7h9g9/gSliJsikg7rjTcwCtIDGwzRjsjm88QAnBCkhHFF1K8lQyrLDvarq6ioe9CDDvS/15/1AAN5oSaxmrcpcovECZYg1pXRxADuhAmjuLi1L+AhlJTFZ81Tpygco9taNf0lsF3FhkLraNqhZr1/KCEo4dPo0ytG7hlKbcOl9XbuPI9Aegcfq09Q6a9GRwShS0e6GTK7rWbAOINDi1NrLqCmHI4CgPie3d6xKGygd8O8XSvlA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(346002)(396003)(39860400002)(136003)(451199015)(36840700001)(40470700004)(46966006)(36860700001)(426003)(83380400001)(86362001)(82740400003)(356005)(47076005)(2906002)(8936002)(41300700001)(5660300002)(44832011)(40480700001)(316002)(40460700003)(478600001)(82310400005)(6666004)(26005)(336012)(1076003)(186003)(8676002)(4326008)(2616005)(7696005)(16526019)(110136005)(70206006)(54906003)(81166007)(70586007)(36756003)(81973001)(36900700001);
+ SFS:(13230022)(4636009)(39860400002)(346002)(396003)(376002)(136003)(451199015)(40470700004)(36840700001)(46966006)(70206006)(4326008)(2616005)(1076003)(36756003)(8676002)(40460700003)(70586007)(81166007)(336012)(41300700001)(426003)(316002)(54906003)(47076005)(2906002)(86362001)(356005)(5660300002)(82740400003)(36860700001)(82310400005)(110136005)(40480700001)(8936002)(16526019)(478600001)(44832011)(186003)(6666004)(83380400001)(26005)(7696005)(81973001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 16:44:31.2360 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f789f3d8-5390-4e33-2ef5-08daee72f3f3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 16:44:27.3141 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bbca1ab5-664d-4598-bed2-08daee72f19c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00010209.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6734
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8551
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,49 +115,190 @@ The `amdgpu_ucode_release` helper is for symmetry on unloading.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 18 ++++++------------
- 1 file changed, 6 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 94 ++++++++++-----------------
+ 1 file changed, 33 insertions(+), 61 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-index 486d9b5c1b9e..337e348d5ae4 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-@@ -250,10 +250,9 @@ static void sdma_v3_0_init_golden_registers(struct amdgpu_device *adev)
- static void sdma_v3_0_free_microcode(struct amdgpu_device *adev)
- {
- 	int i;
--	for (i = 0; i < adev->sdma.num_instances; i++) {
--		release_firmware(adev->sdma.instance[i].fw);
--		adev->sdma.instance[i].fw = NULL;
--	}
-+
-+	for (i = 0; i < adev->sdma.num_instances; i++)
-+		amdgpu_ucode_release(adev->sdma.instance[i].fw);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index d47135606e3e..7197b342944c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -924,20 +924,14 @@ static int gfx_v8_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
  
- /**
-@@ -309,10 +308,7 @@ static int sdma_v3_0_init_microcode(struct amdgpu_device *adev)
- 			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma.bin", chip_name);
- 		else
- 			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma1.bin", chip_name);
--		err = request_firmware(&adev->sdma.instance[i].fw, fw_name, adev->dev);
--		if (err)
--			goto out;
--		err = amdgpu_ucode_validate(adev->sdma.instance[i].fw);
-+		err = amdgpu_ucode_request(adev, &adev->sdma.instance[i].fw, fw_name);
- 		if (err)
- 			goto out;
- 		hdr = (const struct sdma_firmware_header_v1_0 *)adev->sdma.instance[i].fw->data;
-@@ -332,10 +328,8 @@ static int sdma_v3_0_init_microcode(struct amdgpu_device *adev)
- out:
- 	if (err) {
- 		pr_err("sdma_v3_0: Failed to load firmware \"%s\"\n", fw_name);
--		for (i = 0; i < adev->sdma.num_instances; i++) {
--			release_firmware(adev->sdma.instance[i].fw);
--			adev->sdma.instance[i].fw = NULL;
--		}
-+		for (i = 0; i < adev->sdma.num_instances; i++)
-+			amdgpu_ucode_release(adev->sdma.instance[i].fw);
+ static void gfx_v8_0_free_microcode(struct amdgpu_device *adev)
+ {
+-	release_firmware(adev->gfx.pfp_fw);
+-	adev->gfx.pfp_fw = NULL;
+-	release_firmware(adev->gfx.me_fw);
+-	adev->gfx.me_fw = NULL;
+-	release_firmware(adev->gfx.ce_fw);
+-	adev->gfx.ce_fw = NULL;
+-	release_firmware(adev->gfx.rlc_fw);
+-	adev->gfx.rlc_fw = NULL;
+-	release_firmware(adev->gfx.mec_fw);
+-	adev->gfx.mec_fw = NULL;
++	amdgpu_ucode_release(adev->gfx.pfp_fw);
++	amdgpu_ucode_release(adev->gfx.me_fw);
++	amdgpu_ucode_release(adev->gfx.ce_fw);
++	amdgpu_ucode_release(adev->gfx.rlc_fw);
++	amdgpu_ucode_release(adev->gfx.mec_fw);
+ 	if ((adev->asic_type != CHIP_STONEY) &&
+ 	    (adev->asic_type != CHIP_TOPAZ))
+-		release_firmware(adev->gfx.mec2_fw);
+-	adev->gfx.mec2_fw = NULL;
++		amdgpu_ucode_release(adev->gfx.mec2_fw);
+ 
+ 	kfree(adev->gfx.rlc.register_list_format);
+ }
+@@ -989,18 +983,15 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
+ 
+ 	if (adev->asic_type >= CHIP_POLARIS10 && adev->asic_type <= CHIP_POLARIS12) {
+ 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_pfp_2.bin", chip_name);
+-		err = request_firmware(&adev->gfx.pfp_fw, fw_name, adev->dev);
+-		if (err == -ENOENT) {
++		err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw, fw_name);
++		if (err == -ENODEV) {
+ 			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_pfp.bin", chip_name);
+-			err = request_firmware(&adev->gfx.pfp_fw, fw_name, adev->dev);
++			err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw, fw_name);
+ 		}
+ 	} else {
+ 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_pfp.bin", chip_name);
+-		err = request_firmware(&adev->gfx.pfp_fw, fw_name, adev->dev);
++		err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw, fw_name);
+ 	}
+-	if (err)
+-		goto out;
+-	err = amdgpu_ucode_validate(adev->gfx.pfp_fw);
+ 	if (err)
+ 		goto out;
+ 	cp_hdr = (const struct gfx_firmware_header_v1_0 *)adev->gfx.pfp_fw->data;
+@@ -1009,18 +1000,15 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
+ 
+ 	if (adev->asic_type >= CHIP_POLARIS10 && adev->asic_type <= CHIP_POLARIS12) {
+ 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me_2.bin", chip_name);
+-		err = request_firmware(&adev->gfx.me_fw, fw_name, adev->dev);
+-		if (err == -ENOENT) {
++		err = amdgpu_ucode_request(adev, &adev->gfx.me_fw, fw_name);
++		if (err == -ENODEV) {
+ 			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me.bin", chip_name);
+-			err = request_firmware(&adev->gfx.me_fw, fw_name, adev->dev);
++		err = amdgpu_ucode_request(adev, &adev->gfx.me_fw, fw_name);
+ 		}
+ 	} else {
+ 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me.bin", chip_name);
+-		err = request_firmware(&adev->gfx.me_fw, fw_name, adev->dev);
++		err = amdgpu_ucode_request(adev, &adev->gfx.me_fw, fw_name);
+ 	}
+-	if (err)
+-		goto out;
+-	err = amdgpu_ucode_validate(adev->gfx.me_fw);
+ 	if (err)
+ 		goto out;
+ 	cp_hdr = (const struct gfx_firmware_header_v1_0 *)adev->gfx.me_fw->data;
+@@ -1030,18 +1018,15 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
+ 
+ 	if (adev->asic_type >= CHIP_POLARIS10 && adev->asic_type <= CHIP_POLARIS12) {
+ 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ce_2.bin", chip_name);
+-		err = request_firmware(&adev->gfx.ce_fw, fw_name, adev->dev);
+-		if (err == -ENOENT) {
++		err = amdgpu_ucode_request(adev, &adev->gfx.ce_fw, fw_name);
++		if (err == -ENODEV) {
+ 			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ce.bin", chip_name);
+-			err = request_firmware(&adev->gfx.ce_fw, fw_name, adev->dev);
++			err = amdgpu_ucode_request(adev, &adev->gfx.ce_fw, fw_name);
+ 		}
+ 	} else {
+ 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ce.bin", chip_name);
+-		err = request_firmware(&adev->gfx.ce_fw, fw_name, adev->dev);
++		err = amdgpu_ucode_request(adev, &adev->gfx.ce_fw, fw_name);
+ 	}
+-	if (err)
+-		goto out;
+-	err = amdgpu_ucode_validate(adev->gfx.ce_fw);
+ 	if (err)
+ 		goto out;
+ 	cp_hdr = (const struct gfx_firmware_header_v1_0 *)adev->gfx.ce_fw->data;
+@@ -1060,10 +1045,9 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
+ 		adev->virt.chained_ib_support = false;
+ 
+ 	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_rlc.bin", chip_name);
+-	err = request_firmware(&adev->gfx.rlc_fw, fw_name, adev->dev);
++	err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw, fw_name);
+ 	if (err)
+ 		goto out;
+-	err = amdgpu_ucode_validate(adev->gfx.rlc_fw);
+ 	rlc_hdr = (const struct rlc_firmware_header_v2_0 *)adev->gfx.rlc_fw->data;
+ 	adev->gfx.rlc_fw_version = le32_to_cpu(rlc_hdr->header.ucode_version);
+ 	adev->gfx.rlc_feature_version = le32_to_cpu(rlc_hdr->ucode_feature_version);
+@@ -1110,18 +1094,15 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
+ 
+ 	if (adev->asic_type >= CHIP_POLARIS10 && adev->asic_type <= CHIP_POLARIS12) {
+ 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec_2.bin", chip_name);
+-		err = request_firmware(&adev->gfx.mec_fw, fw_name, adev->dev);
+-		if (err == -ENOENT) {
++		err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw, fw_name);
++		if (err == -ENODEV) {
+ 			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec.bin", chip_name);
+-			err = request_firmware(&adev->gfx.mec_fw, fw_name, adev->dev);
++			err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw, fw_name);
+ 		}
+ 	} else {
+ 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec.bin", chip_name);
+-		err = request_firmware(&adev->gfx.mec_fw, fw_name, adev->dev);
++		err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw, fw_name);
+ 	}
+-	if (err)
+-		goto out;
+-	err = amdgpu_ucode_validate(adev->gfx.mec_fw);
+ 	if (err)
+ 		goto out;
+ 	cp_hdr = (const struct gfx_firmware_header_v1_0 *)adev->gfx.mec_fw->data;
+@@ -1132,19 +1113,16 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
+ 	    (adev->asic_type != CHIP_TOPAZ)) {
+ 		if (adev->asic_type >= CHIP_POLARIS10 && adev->asic_type <= CHIP_POLARIS12) {
+ 			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec2_2.bin", chip_name);
+-			err = request_firmware(&adev->gfx.mec2_fw, fw_name, adev->dev);
+-			if (err == -ENOENT) {
++			err = amdgpu_ucode_request(adev, &adev->gfx.mec2_fw, fw_name);
++			if (err == -ENODEV) {
+ 				snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec2.bin", chip_name);
+-				err = request_firmware(&adev->gfx.mec2_fw, fw_name, adev->dev);
++				err = amdgpu_ucode_request(adev, &adev->gfx.mec2_fw, fw_name);
+ 			}
+ 		} else {
+ 			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec2.bin", chip_name);
+-			err = request_firmware(&adev->gfx.mec2_fw, fw_name, adev->dev);
++			err = amdgpu_ucode_request(adev, &adev->gfx.mec2_fw, fw_name);
+ 		}
+ 		if (!err) {
+-			err = amdgpu_ucode_validate(adev->gfx.mec2_fw);
+-			if (err)
+-				goto out;
+ 			cp_hdr = (const struct gfx_firmware_header_v1_0 *)
+ 				adev->gfx.mec2_fw->data;
+ 			adev->gfx.mec2_fw_version =
+@@ -1219,18 +1197,12 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
+ 		dev_err(adev->dev,
+ 			"gfx8: Failed to load firmware \"%s\"\n",
+ 			fw_name);
+-		release_firmware(adev->gfx.pfp_fw);
+-		adev->gfx.pfp_fw = NULL;
+-		release_firmware(adev->gfx.me_fw);
+-		adev->gfx.me_fw = NULL;
+-		release_firmware(adev->gfx.ce_fw);
+-		adev->gfx.ce_fw = NULL;
+-		release_firmware(adev->gfx.rlc_fw);
+-		adev->gfx.rlc_fw = NULL;
+-		release_firmware(adev->gfx.mec_fw);
+-		adev->gfx.mec_fw = NULL;
+-		release_firmware(adev->gfx.mec2_fw);
+-		adev->gfx.mec2_fw = NULL;
++		amdgpu_ucode_release(adev->gfx.pfp_fw);
++		amdgpu_ucode_release(adev->gfx.me_fw);
++		amdgpu_ucode_release(adev->gfx.ce_fw);
++		amdgpu_ucode_release(adev->gfx.rlc_fw);
++		amdgpu_ucode_release(adev->gfx.mec_fw);
++		amdgpu_ucode_release(adev->gfx.mec2_fw);
  	}
  	return err;
  }
