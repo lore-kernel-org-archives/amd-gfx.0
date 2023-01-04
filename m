@@ -4,117 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1941FC46467
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 15:53:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB9F1C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 16:41:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66F5410E1BC;
-	Wed,  4 Jan 2023 15:53:02 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2046.outbound.protection.outlook.com [40.107.102.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97F4810E1BC;
- Wed,  4 Jan 2023 15:53:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F258E10E141;
+	Wed,  4 Jan 2023 16:41:54 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2042.outbound.protection.outlook.com [40.107.93.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAA4F10E058;
+ Wed,  4 Jan 2023 16:41:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L3uYNk3sgoAMx3imbnSBdMRRctsY+lciqp46BACe732lx3PU6XDSObC8W8pthfPsGH090sqVf4wXl7LG4m/RhV2JNykuyRz3rrt++V2TswT/2eVu+yP0zbezzwUWAOqY6GRSrAU9sU2PMVV44ENfwTjPUn7CaCYH2MjmvsVXJykf8yyzW2oMaoB9SiuQ3IKvG451UBGFocqDXUo7himo0/Es9+5O19Jr+/91OuINLsQ4pzRy9fh5c427Iu/3IHlPBgX2XePYTALNknec2Ave+wYMQXIJjhXChtfyiBVrbx4vwrxVYotrhtaGoGNXkCt48ejI6Jo4EaOMTptgL8rHQw==
+ b=V7HnRoHLHlHjIuTamPrxNMbKji06o5QTNi3IGPqrTiWWlhokDXzL+wbE9Xo8ibB0COEvtew8wfM6HRkY/imV0nD6dqI99Kkhn3LXseAPIoqyZn/b+QUfAnl3bxO8I6PDd2CZHVRxqWSBugO6UVtgdOfTBU9mkAFd16FpBRzoMlmB7/UFgY6i/MWqP8pRc7rvDkp6c3TCbaj1vl69FSiA5ayfY35WgrO+cSPnWg2ERuM7Ii9M9CatO3vpyn3POsHJ2+x4QqJDRfmT29PEddvoBK77D+7iwLLr3cHuQa5R2qffxVn2996s9OWHZJEGGnGsRy/zcucNz1v5EBt3ssto+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=irpxQpr9tgwxh2EFZV72+6GGBRdKOEhnZH2NSIu/7+I=;
- b=RV4y0aY7jK/LYKbz6N7wdmMKikwU0anF1V+QHcVvDTshe6S2GKWErvIiabMdH/eCdwh3zFfWM1G5AdN4krJCMPIfFgh7XGaGtf3Ks/pjaUoFcRaSUdRBUXyFfV57USJOBnxc/qPzWjP1lzJXh3sggkotS16xrgM7hKAGNLrBSgU7mcmbNZSDMUrEJMLu+1OuH6LDgiOJAztoeFwceZIBIMYGHrSJgPp9ik6w9n80eFIQKShgXUSacty1HmVkAkA5yIffl3Xn5Py2IkC2iabO2IyjFgwJC40GmPL/JGYq3Z/5JJK6ItRJDKxyY2yskkTyu3TGEutpb/QSOpFZJuEPOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=y9ZtlSJ2RDl4RaZPuyDSnQ8cLW4qaEDtGGUikYmvbhc=;
+ b=OYGpEMZKdm4IGfReol84evmG9awU9ZQUv/GfuE5njzWC8cFcXr5Il85sJYSSg26B99UJjmUAM7RTslCWrupkYpyoCMx+0FVj4vT1wcC/PWoUyglx+ma4BtTmZoUNlPmW5onrR7NiXxTwTp05ASmL9OMSilTYNuPB6Cv8GeTUfwIHEki1pRhI2qlODOmiK5T5k3YgexjI+6+pJZSDfP6XD2/n/TM8fPSFtMtiX93p8KzP5XAerGrFkwIEZaMDzlPPGxYo0iUhvU51Bw+GbmjhpQPkRw1bvgSclEV4xkFrnv1Q9u2h/cOdzqYp2GCP0gogGt/+138LX721S86EETnIFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=irpxQpr9tgwxh2EFZV72+6GGBRdKOEhnZH2NSIu/7+I=;
- b=GzSOEhzhS5VvDUI0GlNip/xqvAo2DuCz/9/tTSyLsmfzumXvkknw6zAdx/Nk6n5Nn+U14emMz4m3kAiw5z7iT79so/2yIA+h6IIrwN1qH0OJU1f2dUWkfvrY+bEUIrvQ2ln/DYpsrbPMCJ2YJstUIL6UmJNPo/KDNm+JwH689bc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by PH7PR12MB6612.namprd12.prod.outlook.com (2603:10b6:510:210::14) with
+ bh=y9ZtlSJ2RDl4RaZPuyDSnQ8cLW4qaEDtGGUikYmvbhc=;
+ b=M+6V87bEl6VJyZ3SfpM7LBfMRU0c1dIDvpbjKRJdaxYex2AP5IoPztXA+xQDNh63Ah8juRPDsl/eDovvtUfRfdxrg9zwcCK2WeGbNEhYfyP3MbpfJRCP6W6Dby4Xu3d1RyhkeZfeV3j5aBoatpiqB7lcjxUHtLyNUfBB9su6His=
+Received: from DS7PR03CA0314.namprd03.prod.outlook.com (2603:10b6:8:2b::26) by
+ PH7PR12MB7137.namprd12.prod.outlook.com (2603:10b6:510:1ed::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Wed, 4 Jan
- 2023 15:52:57 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::152b:e615:3d60:2bf0]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::152b:e615:3d60:2bf0%4]) with mapi id 15.20.5944.019; Wed, 4 Jan 2023
- 15:52:56 +0000
-Message-ID: <4d87ae7c-457e-ffce-cc3c-d586e0513698@amd.com>
-Date: Wed, 4 Jan 2023 10:52:52 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v4 24/27] drm/amd/display: Load DMUB microcode during
- early_init
-Content-Language: en-US
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org
-References: <20230103221852.22813-1-mario.limonciello@amd.com>
- <20230103221852.22813-25-mario.limonciello@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20230103221852.22813-25-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0354.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6b::11) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+ 2023 16:41:49 +0000
+Received: from DS1PEPF0000E644.namprd02.prod.outlook.com
+ (2603:10b6:8:2b:cafe::3e) by DS7PR03CA0314.outlook.office365.com
+ (2603:10b6:8:2b::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.14 via Frontend
+ Transport; Wed, 4 Jan 2023 16:41:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0000E644.mail.protection.outlook.com (10.167.17.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5944.8 via Frontend Transport; Wed, 4 Jan 2023 16:41:48 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 4 Jan
+ 2023 10:41:43 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH v5 00/45] Recover from failure to probe GPU
+Date: Wed, 4 Jan 2023 10:39:49 -0600
+Message-ID: <20230104164042.30271-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|PH7PR12MB6612:EE_
-X-MS-Office365-Filtering-Correlation-Id: c235d916-4cb2-4fc4-0842-08daee6bbf63
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E644:EE_|PH7PR12MB7137:EE_
+X-MS-Office365-Filtering-Correlation-Id: 424e506a-59de-47c4-2939-08daee72931f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HeYTaf88TNl/1+JvSE42uUuh/WqAKFTJ0JDGRtFUj2g6FreSfROmkmE0Js5hveqciJd6v0pOCMTUQhKefwH3fkml5/CZXzF2kz1S2wh4mvK+zh1N/9Ns5DWSdjvdogkUSbNj7wPLa0JJfK0kbrSJgYmRyTSQdCDt6V3A4M2eiryU6M7AzlCEw5MNHa4AbO7951NV0EQJF71ep5qrp4AzoGJhAHuL3NQ5tauBBvwaoczSu9XxHXjP6h8439mLZ+5CDb1JKKINKO2AQKEgm8l63MoegtJndvGSNzPfVbgvrOpBFRoXZFsj0WtAX4BI+PeMC6AjKCuZ5fi+QqM1XoMZbPvJ2/dV1hiWaxsJAOlkg1VMUJgMQiQ+KdOoTQQBVe0SdwJw7xk7Lraq4OE9M/jH5LTI7pdpjoCJm0pT/vpGlLNPbyqKKOBkmQ9j1/oy8DGKAyNt6RCF/PDOA6OFg1YIkhPGbWI4Zr9SLeO/Mw21jADkgsIb9SqlD/HgxrI5NxapHsfPTiqjsC65VeH3gQj1wg8rDryQA3gW2hBiznwg/QbD6WNM1hGWsac+Il4hxpp8Awv3ipOkCc1LcK0kCejut2akzCAbiOongKZbhCBWJmKWHmeYpJLPRrwt0/0JeqnmBizVG/y6sT0Yu+mZJz8HTDGnTjKY6+lvU5ujCEqqHQrqPN/yflOFyXlLsY8EIUUkg0itL4Mj9OggBmwZy/ii+GumKZMQUKvdh7Q7TdKMXnc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(136003)(396003)(346002)(39860400002)(366004)(451199015)(44832011)(41300700001)(8676002)(66946007)(66556008)(4326008)(8936002)(110136005)(54906003)(2906002)(66476007)(316002)(6506007)(6512007)(31686004)(6486002)(478600001)(186003)(53546011)(26005)(5660300002)(6666004)(86362001)(31696002)(83380400001)(2616005)(38100700002)(36756003)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: aMqKpPoN4otKvPz5OP/+wKVa516QUXpZTOW2H2+YuqiUe8mww3zhdLdbZBPlbTYHZOXybDxczdYPPsDT2Hy5NcKT2sNU5HQwWoXu5j/VgtUOp6fHVg3XQZNkifhOXX8kofmCf3PxcNC5ZEyeg2It1xTFWITgKqfLtUoBL3j5z9o79Xig+29CEkZRJVJID5HWBsH2AF1Br0UciAGN8H/xwxAojRoT19AKlnoW+eGCjXvHCbOtemSty5XUedsZqEF0rskBpMshMDNronwtUPXtZF3kFCAqA/t+3hj790JJwuJCoBn9cKi4T7KSYk+G2k1ad08UKhjvCO8/VBYmZTYeB0Yx4uBOKITZ3Tnt/ftOfzjfGQdoW+377JOSe3g/NW9/XClrrbh04mf6JW6L2o8YADqcmZN2hJGFKLVctDP//886Bk98TyNMJ7ucLPliXVVyEByi65D9OW83R2u8ll7pKYcxLSDO/AO2YaeUEralRwcQcl3zATMWaFu9Ao3VGfFlI2lXpm8eL5kL7eU7FOBeePHmddhoo0YEmzLmXUZHo4tZDDAJCwn3TCUJb4EPmGnaMAn9+FGzQS2m+fkrzt7vBigRuArWS9vuDgaA0dG6HeB61GBdf5qMSDXzFF0HQCeGiuXFi9744ACOngsaX2oHlCvrxZcoUN/PMjl2uo9ZwHsUN0mgzNoO9Joe44YVhGtcxgQtv8nw074NhxjWYF/j+qUsS2MX0KPcxXgybzCeyqQ=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(136003)(376002)(346002)(396003)(451199015)(36840700001)(46966006)(40470700004)(54906003)(26005)(186003)(478600001)(1076003)(70206006)(2616005)(16526019)(4326008)(83380400001)(336012)(426003)(8936002)(8676002)(5660300002)(44832011)(47076005)(6862004)(41300700001)(2906002)(316002)(70586007)(36860700001)(37006003)(82740400003)(40480700001)(356005)(81166007)(40460700003)(86362001)(6636002)(7696005)(36756003)(82310400005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bUNNbmZzR2hFOHh4QUtEMG9uTUJqdWx5UlFzcFJJY0tYY0JUMTB5VC9Nb0pT?=
- =?utf-8?B?cTNqM2lsTWV1YTNlRHdNTWZFUjN3NjFGbGEyb0ppUWNURzF4QWNnZ0h1Nnp6?=
- =?utf-8?B?ZkZjVWZiZHg5ZkovWm5zaWR3V0tselJuSUxGWldSYzhIUUhnVkhkdnNQSmxT?=
- =?utf-8?B?OHVmV2NEdzFzWDZxZTR4UlJJNEthNWNuWmpXSzlvZktvZThMckJua0NUbzU2?=
- =?utf-8?B?M1ZKU05VdzFndElUVGNSbjJNQTg3MW9HNGJDQ0pZVUdrcFdQdUg2bXprVEJD?=
- =?utf-8?B?eC9iVjE2WkprYUlscnU0VVUwbEg1d2JZOEJhbDRKcEZQOGRTWHJZcFFuQVZ5?=
- =?utf-8?B?VXN2VU1WbEVUWXJmU2pTVVlTWXhPRU1BNnMwMXZselhhbzF5THNkSUVrY3hy?=
- =?utf-8?B?dkErdmEzWm94NDMvYXNnSDdMSmUzaEt3MjBWaVVLbFdvVzhJVTBEK2hIWTNM?=
- =?utf-8?B?NDg3Y2U0V3l6Q3ZtRlNWRXRmNEQzVFhyZlFjbWJaU2tiQkRjUklPeEtwT0FE?=
- =?utf-8?B?R25aTTd6V2JJNTRzQ2l4YXhJVWkwRzB1Yit6YjBVOGpvUTJpVWtiMXdZNWwx?=
- =?utf-8?B?MUhaWEhkQUNVTDlhOUFEc3pYV1FqNnkrNUJUU0xFWTBRWFB4M0ZiTjhER2Zz?=
- =?utf-8?B?c1Y0N3hhaFgyUy9nZFJaZWJ6Q0tJWlNnWXRqM2krQVZsakhXWkxnSUhOMlhi?=
- =?utf-8?B?bjJuOXUydkNGbVZkZjRrK3Y5U0M4ZDFnaFNTRGkxQTl0aFpUL2FBbXNTSGNi?=
- =?utf-8?B?R2NxdlV3NHJWZmU4MHU2V2ZsOU1IaDJNS3I0ejZvTDFrQmdSUUJhTzZiVFBY?=
- =?utf-8?B?VVRraGY2bmxjMmI2SlVoRlcxbWFFUjhPYjB2a0Q4U2d6UjBqRG5SRUpZZUxQ?=
- =?utf-8?B?Zk41enZ2UkJUZkdWYXg0alg0bUxmTGttVGZFOVRsTjFvSVFYeTkvNEdiVnlo?=
- =?utf-8?B?c1c4WWRFazlHVDh5dVJQTmNSMHlqQUtlVmFoK09lVzZ4VSs0UXVUaU5hQzRh?=
- =?utf-8?B?eklieC8xdzdYZENxczhBQ2VWaWxiRkxvK2RyYldrT2tnTVBCNVl6TWxFa2ov?=
- =?utf-8?B?SGMwQmk4OStPbitDV1Y1SVpVbUVEdmVDUDJJTmNLalpCUG9JWTJlb09rVVgx?=
- =?utf-8?B?VjdwOCtjWVN3LzlRWERHR2ZkdEcyZEdaK2J6Y3cyamltU053WXdMMmtsZVRZ?=
- =?utf-8?B?WEFLWTJRdGtpYkNTWEZ6d28ySCtzczZnNnBlaWNwTFFKcDdDdW9jb3VNZXZs?=
- =?utf-8?B?T2N2Qm1QZ1RBejR6NTFwTGtYR0VLS3NPcWt3ZW4veXR0SGRrZVl0UTdLSzdn?=
- =?utf-8?B?Sk9palZEUzRvSEgyWTh3bHVUWjMxenpBVTF4UWhqY1BuejRhSjFZTVNDaWVJ?=
- =?utf-8?B?ejhYOXRUSFAxOEx3dTRRRm05dU9rZGJNbEpNbXgrazB2bmlQMmx1a1JTelVN?=
- =?utf-8?B?TEViVS9LTEhYbUtpTnAyMDAvdnZmSXZYRGNZMU15L3VheERqRDBzZit3RFc2?=
- =?utf-8?B?M3VBOXBUdmJkWGJDSGRScTUyUlF4MGZmNmdCeGxleDJCUFdWZTJZdGxDZDJQ?=
- =?utf-8?B?S0xWMllFTHdVeVYrS29PRktPclJ4aG4vOHZlWTY1YnV1My9KeklCTEZvY0xK?=
- =?utf-8?B?aUFRWU92MXdqcDVOL1BaV1JZakpiZVB1NDZTNVNzdVpCM2ZWMDFZN1N0cm43?=
- =?utf-8?B?Q2ZRbjh1ZFBOMjJTcURyWTNMRTBzQWhCejJkRXZma3BtaE1oZkx5QVBEUWZu?=
- =?utf-8?B?UGFwZ2IwWTNQeEVFUU1EbmgrUjl2L2JrNDNjSE5vNTFiUXgxbmZ2WFkyRjR0?=
- =?utf-8?B?NXNBV3R5RGtVVUVrcVptdTNyTkhnclo3cVhIaE45elNjMWc0dUtBRGtyVUZh?=
- =?utf-8?B?TU5jbmdzYXU2bFljbm9Mdmcvc1ozNUk4aHREZ2F4d0o5U250c0g3emp0THlP?=
- =?utf-8?B?VHk0R3lWMUtaZ0tpMkhXZytRQjFWN3UvVnZUUmdKNWMrSG9GOVNBT1Q3Sm5v?=
- =?utf-8?B?S3lPR25QNWpuelp3UTdnUldoenZoRXYyTTlhVk9mK2YvTGZ4Vm5uMDFFcjNK?=
- =?utf-8?B?bGJWRFAvZjlzTGlzclhGRWhKVm1SQUl3UzNuQVRhbGQrN3JpKzVSYktpbE1Q?=
- =?utf-8?Q?hZZP0JiMdgeU3PtFbjzBTHe6p?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c235d916-4cb2-4fc4-0842-08daee6bbf63
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 15:52:56.8227 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 16:41:48.7384 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 424e506a-59de-47c4-2939-08daee72931f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: owodwMU6fRuZecd5zKMEhHEGATSqbN7RW/aEpSfhTrkKb8rtUrCG9fWox9NFHNvxzZE5LOgBE/hQKOTcviYZYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6612
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E644.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7137
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,196 +97,187 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Lazar Lijo <Lijo.Lazar@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+Cc: Lazar Lijo <Lijo.Lazar@amd.com>,
  Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Carlos Soriano Sanchez <csoriano@redhat.com>, David Airlie <airlied@gmail.com>,
- christian.koenig@amd.com
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Daniel
+ Vetter <daniel@ffwll.ch>, Carlos Soriano Sanchez <csoriano@redhat.com>,
+ David Airlie <airlied@gmail.com>, christian.koenig@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/3/23 17:18, Mario Limonciello wrote:
-> If DMUB is required for an ASIC, ensure that the microcode is available
-> and validates during early_init.
-> 
-> Any failures will cause the driver to fail to probe before the firmware
-> framebuffer has been removed.
-> 
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+One of the first thing that KMS drivers do during initialization is
+destroy the system firmware framebuffer by means of
+`drm_aperture_remove_conflicting_pci_framebuffers`
 
-In addition to changing the FW load order this also changes
-request_firmware_direct to request_firmware but this seems to
-be the correct thing here anyways, since DMUB is not optional.
+This means that if for any reason the GPU failed to probe the user
+will be stuck with at best a screen frozen at the last thing that
+was shown before the KMS driver continued it's probe.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+The problem is most pronounced when new GPU support is introduced
+because users will need to have a recent linux-firmware snapshot
+on their system when they boot a kernel with matching support.
 
-Harry
+However the problem is further exaggerated in the case of amdgpu because
+it has migrated to "IP discovery" where amdgpu will attempt to load
+on "ALL" AMD GPUs even if the driver is missing support for IP blocks
+contained in that GPU.
 
-> ---
-> v3->v4:
->  * New patch
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 89 ++++++++++++-------
->  1 file changed, 58 insertions(+), 31 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 4829b5431e4c..eeccc8af0320 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1945,7 +1945,6 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
->  	struct dmub_srv_fb_info *fb_info;
->  	struct dmub_srv *dmub_srv;
->  	const struct dmcub_firmware_header_v1_0 *hdr;
-> -	const char *fw_name_dmub;
->  	enum dmub_asic dmub_asic;
->  	enum dmub_status status;
->  	int r;
-> @@ -1953,73 +1952,46 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
->  	switch (adev->ip_versions[DCE_HWIP][0]) {
->  	case IP_VERSION(2, 1, 0):
->  		dmub_asic = DMUB_ASIC_DCN21;
-> -		fw_name_dmub = FIRMWARE_RENOIR_DMUB;
-> -		if (ASICREV_IS_GREEN_SARDINE(adev->external_rev_id))
-> -			fw_name_dmub = FIRMWARE_GREEN_SARDINE_DMUB;
->  		break;
->  	case IP_VERSION(3, 0, 0):
-> -		if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 3, 0)) {
-> +		if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 3, 0))
->  			dmub_asic = DMUB_ASIC_DCN30;
-> -			fw_name_dmub = FIRMWARE_SIENNA_CICHLID_DMUB;
-> -		} else {
-> +		else
->  			dmub_asic = DMUB_ASIC_DCN30;
-> -			fw_name_dmub = FIRMWARE_NAVY_FLOUNDER_DMUB;
-> -		}
->  		break;
->  	case IP_VERSION(3, 0, 1):
->  		dmub_asic = DMUB_ASIC_DCN301;
-> -		fw_name_dmub = FIRMWARE_VANGOGH_DMUB;
->  		break;
->  	case IP_VERSION(3, 0, 2):
->  		dmub_asic = DMUB_ASIC_DCN302;
-> -		fw_name_dmub = FIRMWARE_DIMGREY_CAVEFISH_DMUB;
->  		break;
->  	case IP_VERSION(3, 0, 3):
->  		dmub_asic = DMUB_ASIC_DCN303;
-> -		fw_name_dmub = FIRMWARE_BEIGE_GOBY_DMUB;
->  		break;
->  	case IP_VERSION(3, 1, 2):
->  	case IP_VERSION(3, 1, 3):
->  		dmub_asic = (adev->external_rev_id == YELLOW_CARP_B0) ? DMUB_ASIC_DCN31B : DMUB_ASIC_DCN31;
-> -		fw_name_dmub = FIRMWARE_YELLOW_CARP_DMUB;
->  		break;
->  	case IP_VERSION(3, 1, 4):
->  		dmub_asic = DMUB_ASIC_DCN314;
-> -		fw_name_dmub = FIRMWARE_DCN_314_DMUB;
->  		break;
->  	case IP_VERSION(3, 1, 5):
->  		dmub_asic = DMUB_ASIC_DCN315;
-> -		fw_name_dmub = FIRMWARE_DCN_315_DMUB;
->  		break;
->  	case IP_VERSION(3, 1, 6):
->  		dmub_asic = DMUB_ASIC_DCN316;
-> -		fw_name_dmub = FIRMWARE_DCN316_DMUB;
->  		break;
->  	case IP_VERSION(3, 2, 0):
->  		dmub_asic = DMUB_ASIC_DCN32;
-> -		fw_name_dmub = FIRMWARE_DCN_V3_2_0_DMCUB;
->  		break;
->  	case IP_VERSION(3, 2, 1):
->  		dmub_asic = DMUB_ASIC_DCN321;
-> -		fw_name_dmub = FIRMWARE_DCN_V3_2_1_DMCUB;
->  		break;
->  	default:
->  		/* ASIC doesn't support DMUB. */
->  		return 0;
->  	}
->  
-> -	r = request_firmware_direct(&adev->dm.dmub_fw, fw_name_dmub, adev->dev);
-> -	if (r) {
-> -		DRM_ERROR("DMUB firmware loading failed: %d\n", r);
-> -		return 0;
-> -	}
-> -
-> -	r = amdgpu_ucode_validate(adev->dm.dmub_fw);
-> -	if (r) {
-> -		DRM_ERROR("Couldn't validate DMUB firmware: %d\n", r);
-> -		return 0;
-> -	}
-> -
->  	hdr = (const struct dmcub_firmware_header_v1_0 *)adev->dm.dmub_fw->data;
->  	adev->dm.dmcub_fw_version = le32_to_cpu(hdr->header.ucode_version);
->  
-> @@ -4513,6 +4485,61 @@ DEVICE_ATTR_WO(s3_debug);
->  
->  #endif
->  
-> +static int dm_init_microcode(struct amdgpu_device *adev)
-> +{
-> +	char *fw_name_dmub;
-> +	int r;
-> +
-> +	switch (adev->ip_versions[DCE_HWIP][0]) {
-> +	case IP_VERSION(2, 1, 0):
-> +		fw_name_dmub = FIRMWARE_RENOIR_DMUB;
-> +		if (ASICREV_IS_GREEN_SARDINE(adev->external_rev_id))
-> +			fw_name_dmub = FIRMWARE_GREEN_SARDINE_DMUB;
-> +		break;
-> +	case IP_VERSION(3, 0, 0):
-> +		if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 3, 0))
-> +			fw_name_dmub = FIRMWARE_SIENNA_CICHLID_DMUB;
-> +		else
-> +			fw_name_dmub = FIRMWARE_NAVY_FLOUNDER_DMUB;
-> +		break;
-> +	case IP_VERSION(3, 0, 1):
-> +		fw_name_dmub = FIRMWARE_VANGOGH_DMUB;
-> +		break;
-> +	case IP_VERSION(3, 0, 2):
-> +		fw_name_dmub = FIRMWARE_DIMGREY_CAVEFISH_DMUB;
-> +		break;
-> +	case IP_VERSION(3, 0, 3):
-> +		fw_name_dmub = FIRMWARE_BEIGE_GOBY_DMUB;
-> +		break;
-> +	case IP_VERSION(3, 1, 2):
-> +	case IP_VERSION(3, 1, 3):
-> +		fw_name_dmub = FIRMWARE_YELLOW_CARP_DMUB;
-> +		break;
-> +	case IP_VERSION(3, 1, 4):
-> +		fw_name_dmub = FIRMWARE_DCN_314_DMUB;
-> +		break;
-> +	case IP_VERSION(3, 1, 5):
-> +		fw_name_dmub = FIRMWARE_DCN_315_DMUB;
-> +		break;
-> +	case IP_VERSION(3, 1, 6):
-> +		fw_name_dmub = FIRMWARE_DCN316_DMUB;
-> +		break;
-> +	case IP_VERSION(3, 2, 0):
-> +		fw_name_dmub = FIRMWARE_DCN_V3_2_0_DMCUB;
-> +		break;
-> +	case IP_VERSION(3, 2, 1):
-> +		fw_name_dmub = FIRMWARE_DCN_V3_2_1_DMCUB;
-> +		break;
-> +	default:
-> +		/* ASIC doesn't support DMUB. */
-> +		return 0;
-> +	}
-> +	r = amdgpu_ucode_load(adev, &adev->dm.dmub_fw, fw_name_dmub);
-> +	if (r)
-> +		DRM_ERROR("DMUB firmware loading failed: %d\n", r);
-> +	return r;
-> +}
-> +
->  static int dm_early_init(void *handle)
->  {
->  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-> @@ -4645,7 +4672,7 @@ static int dm_early_init(void *handle)
->  #endif
->  	adev->dc_enabled = true;
->  
-> -	return 0;
-> +	return dm_init_microcode(adev);
->  }
->  
->  static bool modereset_required(struct drm_crtc_state *crtc_state)
+IP discovery requires some probing and isn't run until after the
+framebuffer has been destroyed.
+
+This means a situation can occur where a user purchases a new GPU not
+yet supported by a distribution and when booting the installer it will
+"freeze" even if the distribution doesn't have the matching kernel support
+for those IP blocks.
+
+The perfect example of this is Ubuntu 22.10 and the new dGPUs just
+launched by AMD.  The installation media ships with kernel 5.19 (which
+has IP discovery) but the amdgpu support for those IP blocks landed in
+kernel 6.0. The matching linux-firmware was released after 22.10's launch.
+The screen will freeze without nomodeset. Even if a user manages to install
+and then upgrades to kernel 6.0 after install they'll still have the
+problem of missing firmware, and the same experience.
+
+This is quite jarring for users, particularly if they don't know
+that they have to use "nomodeset" to install.
+
+To help the situation make changes to GPU discovery:
+1) Delay releasing the firmware framebuffer until after early_init
+completed.  This will help the situation of an older kernel that doesn't
+yet support the IP blocks probing a new GPU. IP discovery will have failed.
+2) Request loading all PSP, VCN, SDMA, SMU, DMCUB, MES and GC microcode
+into memory during early_init. This will help the situation of new enough
+kernel for the IP discovery phase to otherwise pass but missing microcode
+from linux-firmware.git.
+
+v4->v5:
+ * Rename amdgpu_ucode_load to amdgpu_ucode_request
+ * Add and utilize amdgpu_ucode_release throughout existing patches
+ * Update all amdgpu code to stop using request_firmware and
+   release_firmware for microcode
+ * Drop export of amdgpu_ucode_validate outside of amdgpu_ucode.c
+ * Pick up relevant tags for some patches
+v3->v4:
+ * Rework to delay framebuffer release until early_init is done
+ * Make IP load microcode during early init phase
+ * Add SMU and DMCUB checks for early_init loading
+ * Add some new helper code for wrapping request_firmware calls (needed for
+   early_init to return something besides -ENOENT)
+v2->v3:
+ * Pick up tags for patches 1-10
+ * Rework patch 11 to not validate during discovery
+ * Fix bugs with GFX9 due to gfx.num_gfx_rings not being set during
+   discovery
+ * Fix naming scheme for SDMA on dGPUs
+v1->v2:
+ * Take the suggestion from v1 thread to delay the framebuffer release
+   until ip discovery is done. This patch is CC to stable to that older
+   stable kernels with IP discovery won't try to probe unknown IP.
+ * Drop changes to drm aperature.
+ * Fetch SDMA, VCN, MES, GC and PSP microcode during IP discovery.
+
+Mario Limonciello (27):
+  drm/amd: Delay removal of the firmware framebuffer
+  drm/amd: Add a legacy mapping to "amdgpu_ucode_ip_version_decode"
+  drm/amd: Convert SMUv11 microcode to use
+    `amdgpu_ucode_ip_version_decode`
+  drm/amd: Convert SMUv13 microcode to use
+    `amdgpu_ucode_ip_version_decode`
+  drm/amd: Add a new helper for loading/validating microcode
+  drm/amd: Use `amdgpu_ucode_request` helper for SDMA
+  drm/amd: Convert SDMA to use `amdgpu_ucode_ip_version_decode`
+  drm/amd: Make SDMA firmware load failures less noisy.
+  drm/amd: Use `amdgpu_ucode_*` helpers for VCN
+  drm/amd: Load VCN microcode during early_init
+  drm/amd: Load MES microcode during early_init
+  drm/amd: Use `amdgpu_ucode_*` helpers for MES
+  drm/amd: Remove superfluous assignment for `adev->mes.adev`
+  drm/amd: Use `amdgpu_ucode_*` helpers for GFX9
+  drm/amd: Load GFX9 microcode during early_init
+  drm/amd: Use `amdgpu_ucode_*` helpers for GFX10
+  drm/amd: Load GFX10 microcode during early_init
+  drm/amd: Use `amdgpu_ucode_*` helpers for GFX11
+  drm/amd: Load GFX11 microcode during early_init
+  drm/amd: Parse both v1 and v2 TA microcode headers using same function
+  drm/amd: Avoid BUG() for case of SRIOV missing IP version
+  drm/amd: Load PSP microcode during early_init
+  drm/amd: Use `amdgpu_ucode_*` helpers for PSP
+  drm/amd/display: Load DMUB microcode during early_init
+  drm/amd: Use `amdgpu_ucode_release` helper for DMUB
+  drm/amd: Use `amdgpu_ucode_*` helpers for SMU
+  drm/amd: Load SMU microcode during early_init
+  drm/amd: Optimize SRIOV switch/case for PSP microcode load
+  drm/amd: Use `amdgpu_ucode_*` helpers for GFX6
+  drm/amd: Use `amdgpu_ucode_*` helpers for GFX7
+  drm/amd: Use `amdgpu_ucode_*` helpers for GFX8
+  drm/amd: Use `amdgpu_ucode_*` helpers for GMC6
+  drm/amd: Use `amdgpu_ucode_*` helpers for GMC7
+  drm/amd: Use `amdgpu_ucode_*` helpers for GMC8
+  drm/amd: Use `amdgpu_ucode_*` helpers for SDMA2.4
+  drm/amd: Use `amdgpu_ucode_*` helpers for SDMA3.0
+  drm/amd: Use `amdgpu_ucode_*` helpers for SDMA on CIK
+  drm/amd: Use `amdgpu_ucode_*` helpers for UVD
+  drm/amd: Use `amdgpu_ucode_*` helpers for VCE
+  drm/amd: Use `amdgpu_ucode_*` helpers for CGS
+  drm/amd: Use `amdgpu_ucode_*` helpers for GPU info bin
+  drm/amd: Use `amdgpu_ucode_*` helpers for DMCU
+  drm/amd: Use `amdgpu_ucode_release` helper for powerplay
+  drm/amd: Use `amdgpu_ucode_release` helper for si
+  drm/amd: make amdgpu_ucode_validate static
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c       |  11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  22 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   6 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       |  59 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 296 +++++++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c      |  25 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 259 ++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h     |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c       |  14 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c       |  14 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       | 103 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h       |   1 +
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |  16 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 155 +++------
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 124 +++-----
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         |  30 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         |  68 +---
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         |  94 ++----
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         | 140 ++-------
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |  14 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  13 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |  13 +-
+ drivers/gpu/drm/amd/amdgpu/imu_v11_0.c        |   7 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.c        | 108 ++-----
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  99 ++----
+ drivers/gpu/drm/amd/amdgpu/psp_v10_0.c        |  80 +----
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c        | 129 +-------
+ drivers/gpu/drm/amd/amdgpu/psp_v12_0.c        |  75 +----
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c        |  27 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c      |  14 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v3_1.c         |  16 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        |  18 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        |  18 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |  47 +--
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |  30 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |  55 +---
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |  25 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |   5 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |   5 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |   5 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |   5 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         |   5 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 110 ++++---
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  11 +-
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |   3 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  12 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  51 +--
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  28 +-
+ 50 files changed, 913 insertions(+), 1561 deletions(-)
+
+-- 
+2.34.1
 
