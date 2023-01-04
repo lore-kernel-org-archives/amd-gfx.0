@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50E95C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 16:42:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA7EFC4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 16:42:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D4C210E52C;
-	Wed,  4 Jan 2023 16:42:04 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2087.outbound.protection.outlook.com [40.107.102.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D0B310E455;
- Wed,  4 Jan 2023 16:42:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89E2610E56E;
+	Wed,  4 Jan 2023 16:42:06 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2071.outbound.protection.outlook.com [40.107.237.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C576510E455;
+ Wed,  4 Jan 2023 16:41:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SdxhpXmQ9K8ws2+Kjbrjb8R8BjbboV3GcfWfg+cmdf04vRKaXemsT+j+R4CvlznFYWB7YFNFYyr8Y/aEESq6yvjUnJAQAyQNP/d1dX/RLSg4G+qkycM9eGU7R+TQ10ZV6ONoJdSuqE7PPnI4oKgwH7eiGM73vQLldGu0HbuyYLqBt1G+eW2lQ0WmdLDAs/9ywB5mu21E3a4zxYqnaqZMBupVMF4l3ZjoNPY2hDb3Rwb6RqlBfV7TDta5l4uYeybfnsDNc7dogQkbUlqt8O8K01qFVsvhBs+uEFz8z8fDjAWZJxJiKqwFBiCnvPGCjAC9VSsZ+8Cr6gEngh4jGSqtzw==
+ b=aS0EXOY1v2ASJnk2SkCJnwXRFRKVzlDe2Zk2spTCX6TSplXWs++CzqGa7XeG64tJIbEW+dbRp+CEqw1AL6f38JxcaMYBj0487kaQcUckFPYVKapjasJzMeYzdIXBgG76uUt6CpZsNoMb+7DglVPz1QXTjCALmazmbLF19tzr4EVi1giwWz1piAR39isorzA3XeZcJz1T41vD1SZQv0nhue0TPKL+M1wyW+hjwNX5y5cx9C2fMk4t3KD9WMEXEueaEr+l7dj0rdvkzDtj+QpM/ep6O08983XBTmfHlGV91XqMk5FKGzF53DI0lMwnRUnGexmOELQoKwcSCEQzZAve9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9onkh3T7I6BUCh1NaGBPv9JEp1AEd9+jZQNQUZTAMpw=;
- b=d74aMubyZC2o5RltL+3vbtMqtvUs9sjr8I2B9Iibf5xQpC0ttgwfU8dbUYRNUAQQQS74l+7ZHndylLWEzfarm0q1+vSpFPFNdE5pMuNYkJ1/tGr692+ZEfJZV6dILdN0LPxm+jfLEHSmKYouOny+92WwxFtsBiIqgxvFgOqlZ6D2Svf5qSsrCNI42r/pn/w2hQg7PvDqEKShiBFAVxmAWQ9MN+i0jrGPxzUAjQ7Ll+5l2yOAgGL9Kk9vkOMK8el+nRRigqjW0/BQw+lagpvZDaUyAuXFcJ2OKpU6pADANoNhFqAHt6Pj0tvmVLwa+n6x1Ekvf6TTUgOYkqvSdUpeKA==
+ bh=3Q1UUJY5AJruN8oGu2kMpYduRktDi5GDRRcUEkcMqk4=;
+ b=WTpxrlQXV1Q9shvd1PkmFBLncXn/7PlA/+ixveo67Ih3gB3Z111yqKmPZWh/xQEeVFomHuiuIwDx8j7qiFg53576ayRip+slodupkqAnWZYaNdVw2SRI2TIfLj88B6N4mOczCnBd2osyy1/HKQcEO+ff7l/KJXf70us7EgZP2kJyISWb3aa5a82bVvdN4hBvTftjlXPasUtNuicz+mkn9ZSw2FJiJgt8yZmHgyq74CvMmEUV9inIiGNRgFmMNGlTwEIiU35eKzJ5j4zYv6hrQ2BQ0oi+VXwMApTj9RXxt4IN729N+J78IfJySSuoBX7CP2MN5B71ezMFCsOu9WyW+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9onkh3T7I6BUCh1NaGBPv9JEp1AEd9+jZQNQUZTAMpw=;
- b=VuKAFKEZADQm9oQZiuRHJFojyB1/0poyMNqb5Iai5VvQIr2ITWCzPcTDpCNNTMtha7jHOM4iVqs6g1eaDCWX1YXDNkgToZDV1AQKdUiLKKqE+2a8RLkLLbVQwzH17orGLCKdpTyBP/gWk9TtfYdAy3oEB3Brbuji9TRMI4zuInc=
-Received: from MN2PR16CA0038.namprd16.prod.outlook.com (2603:10b6:208:234::7)
- by MW3PR12MB4396.namprd12.prod.outlook.com (2603:10b6:303:59::17)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=3Q1UUJY5AJruN8oGu2kMpYduRktDi5GDRRcUEkcMqk4=;
+ b=woeH2hFRM2keief/MEUde2OYNQMCSkod8bKIJcPQ1AP3B/3RpPxntO+5Fz8m0+LI3yT4FDLqz+z0Y/uQRu7FSmW9d27g1MgnRxE0kIT4zv8dRUROokwTHZy4qPhGoyi/1fxisGnGB5R70fwapxORjQGoDD8jaWeH/FKQRJYJgVw=
+Received: from DS7PR03CA0302.namprd03.prod.outlook.com (2603:10b6:8:2b::11) by
+ BL1PR12MB5142.namprd12.prod.outlook.com (2603:10b6:208:312::22) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Wed, 4 Jan
- 2023 16:41:56 +0000
-Received: from BL02EPF00010206.namprd05.prod.outlook.com
- (2603:10b6:208:234:cafe::60) by MN2PR16CA0038.outlook.office365.com
- (2603:10b6:208:234::7) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 16:41:54 +0000
+Received: from DS1PEPF0000E644.namprd02.prod.outlook.com
+ (2603:10b6:8:2b:cafe::a5) by DS7PR03CA0302.outlook.office365.com
+ (2603:10b6:8:2b::11) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.14 via Frontend
- Transport; Wed, 4 Jan 2023 16:41:56 +0000
+ Transport; Wed, 4 Jan 2023 16:41:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF00010206.mail.protection.outlook.com (10.167.241.196) with Microsoft
+ DS1PEPF0000E644.mail.protection.outlook.com (10.167.17.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5944.8 via Frontend Transport; Wed, 4 Jan 2023 16:41:56 +0000
+ 15.20.5944.8 via Frontend Transport; Wed, 4 Jan 2023 16:41:54 +0000
 Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 4 Jan
- 2023 10:41:54 -0600
+ 2023 10:41:52 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v5 08/45] drm/amd: Make SDMA firmware load failures less noisy.
-Date: Wed, 4 Jan 2023 10:39:57 -0600
-Message-ID: <20230104164042.30271-9-mario.limonciello@amd.com>
+Subject: [PATCH v5 06/45] drm/amd: Use `amdgpu_ucode_request` helper for SDMA
+Date: Wed, 4 Jan 2023 10:39:55 -0600
+Message-ID: <20230104164042.30271-7-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230104164042.30271-1-mario.limonciello@amd.com>
 References: <20230104164042.30271-1-mario.limonciello@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00010206:EE_|MW3PR12MB4396:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68544ddb-3e05-4e73-464b-08daee7297ce
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E644:EE_|BL1PR12MB5142:EE_
+X-MS-Office365-Filtering-Correlation-Id: 543baaca-7912-40cb-0236-08daee729664
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pDX3mlN7x8hPJFWWuHjJcAiu46eknhvw80OgHqHiC67Vk6+KVKgQzPw8UEjSYN0Cm/NZc1U8g9EOwzJx92DIVkeEQdVv9iWqM4A8I3ko63+cnwSad1MA8UmN0RZvqugrjM7UroqhydukXKhgMNATBEdXucHAL5kIaBPYKLM0rMaOkokoZkKUk2oAV+4+pmz4+jflLzmeMpPKI/0Os0dvXAjiGjhB/0QOJSmGB3ORhUeKRIF0u0dqKW1YaiMudufPTpZssBhHvLJ1WpGGNzdsfi7nV/aHw8q0gTuSsxm99NqNuhDpPZQYWrbPc070Tnmz4MnM0hsR/bnL6TZ2L/HoWj4f23C7aIjzDwoGgRS//DcGWbeH2KSHTp1w7qvg3j79Dr7TItYmEkBkJLkz5v+BpQeF/sGh0IDQVLgsBdyhTssy66Wmlp3hTkEb4P8wc3ELH2uEtmk3zsYv0D+z3AfjJ3MKjV1dhZuB0lBuWDh8tlPm7X4tYxY8945cPWESBXfYOPAcv9jyK4GWhTOe49VHmME2TxWj9F4czrnphCz2g8HGz1XHVIK17/hycNijWoy1LZGZlgMQYwqzGr3aU4KGEe7eTSvK/YJrkptoHagdCbcmqc8asT9MRpfcGxGPvVhMPdLwJUpQN6PkXBY2WaznlWMUdjCHVpW7MaUNA4rsxmE8M0WmlJHRzrLWuXnPGB6euQn9hHuLK2lJQie9oTxuSrPt8jlrHipOo8wN4hqjZf0=
+X-Microsoft-Antispam-Message-Info: xCT+8D7/Ez8PJ0/VUOYKN/gsioArufonwHDCJGgxILA3/k43Ydik+Yvi3FfIN8qNnEx3sch9xU5gwGxE4BKjTcfSxKIg6sAU3MiwwqZG2PTksbdU+1D/seB41PAzD9Wi0dltCNTJhA1nqGz3tseQGNcgiIBi8/+gcokahV95VD7EjofycMh1RF2tBn5pkt+bQYZsqJbsO/RPbCk8s1aXHmSPzp/bpXLabLAgzUP0/W/OY1IAfJuOj+5XfdcC5R5S8KpLvQAt0yL9ozZtdGAOmDxcWmyERuVd5twhtBsOoIV+OJJhFldX5qHQkm5fM0QH/mmvoPgnXCH1ZkD+XzjmpxrbJmTd3kKTUfJmbexafHGQZ2o1AolmICLRRi9QOg3V6F7n4KvhDdXN6P7VuBhtjbG2Y7GeO/LMhi/QB78QhHrcO3BM6BJJyeK8aKC0NzsoFSlMz9PjxPDZPYvF8y7m/v4i6phP8E6PyLqmaXSkqDCuvcr/ZJhjjwDhkw28p+RnoCOpUwARRNmlwVF/IiCY23C1K031KBtM+AnWMBpCkDitLaf6VpRJf3HHqLwIKPjEBibas4D7LiSIAe9TTDH4ZrQDOKqzNtL4y/BL7Nbfi3nuzYlxQ9dwbYqghZMfwTALoys5Gm+wjlulvNmUTHZ1mDGw3wb93QoJtpoQsXONMb4m+qCOUcKj84c8T6CBHxOh7U16+0vZozeKG3jH5jDDU25ajNQujFEowgnWWQ2dXYZQwuzrQj2Zyj+QPgVjktflYwMFQsgJnY6557NdrctSqA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(136003)(346002)(39860400002)(396003)(451199015)(36840700001)(46966006)(40470700004)(2906002)(5660300002)(8936002)(44832011)(8676002)(41300700001)(4326008)(110136005)(316002)(70206006)(70586007)(54906003)(478600001)(2616005)(186003)(16526019)(82310400005)(26005)(40480700001)(7696005)(83380400001)(426003)(47076005)(336012)(82740400003)(81166007)(356005)(1076003)(86362001)(40460700003)(36756003)(36860700001)(36900700001);
+ SFS:(13230022)(4636009)(396003)(346002)(39860400002)(376002)(136003)(451199015)(46966006)(36840700001)(40470700004)(5660300002)(2906002)(8936002)(44832011)(4326008)(41300700001)(8676002)(70586007)(70206006)(110136005)(54906003)(478600001)(316002)(26005)(186003)(16526019)(82310400005)(336012)(40480700001)(7696005)(83380400001)(47076005)(426003)(1076003)(356005)(81166007)(82740400003)(2616005)(86362001)(40460700003)(36756003)(36860700001)(81973001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 16:41:56.6438 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68544ddb-3e05-4e73-464b-08daee7297ce
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 16:41:54.2384 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 543baaca-7912-40cb-0236-08daee729664
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00010206.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E644.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4396
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5142
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,35 +108,52 @@ Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Lazar Lijo <Lijo.Lazar@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When firmware is missing we get failures at every step.
-```
-[    3.855086] amdgpu 0000:04:00.0: Direct firmware load for amdgpu/green_sardine_sdma.bin failed with error -2
-[    3.855087] [drm:amdgpu_sdma_init_microcode [amdgpu]] *ERROR* SDMA: Failed to init firmware "amdgpu/green_sardine_sdma.bin"
-[    3.855398] [drm:sdma_v4_0_early_init [amdgpu]] *ERROR* Failed to load sdma firmware!
-```
-Realistically we don't need all of these, a user can tell from the first one
-that request_firmware emitted what happened. Drop the others.
+The `amdgpu_ucode_request` helper will ensure that the return code for
+missing firmware is -ENODEV so that early_init can fail.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-index f8e4a52ab67a..35b79eeb5f09 100644
+index ea5278f094c0..1668360bc699 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-@@ -280,10 +280,8 @@ int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
- 	}
+@@ -154,16 +154,11 @@ int amdgpu_sdma_process_ecc_irq(struct amdgpu_device *adev,
  
- out:
--	if (err) {
--		DRM_ERROR("SDMA: Failed to init firmware \"%s\"\n", fw_name);
-+	if (err)
- 		amdgpu_sdma_destroy_inst_ctx(adev, duplicate);
--	}
- 	return err;
- }
+ static int amdgpu_sdma_init_inst_ctx(struct amdgpu_sdma_instance *sdma_inst)
+ {
+-	int err = 0;
+ 	uint16_t version_major;
+ 	const struct common_firmware_header *header = NULL;
+ 	const struct sdma_firmware_header_v1_0 *hdr;
+ 	const struct sdma_firmware_header_v2_0 *hdr_v2;
+ 
+-	err = amdgpu_ucode_validate(sdma_inst->fw);
+-	if (err)
+-		return err;
+-
+ 	header = (const struct common_firmware_header *)
+ 		sdma_inst->fw->data;
+ 	version_major = le16_to_cpu(header->header_version_major);
+@@ -195,7 +190,7 @@ void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
+ 	int i;
+ 
+ 	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		release_firmware(adev->sdma.instance[i].fw);
++		amdgpu_ucode_release(adev->sdma.instance[i].fw);
+ 		if (duplicate)
+ 			break;
+ 	}
+@@ -214,7 +209,7 @@ int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
+ 	const struct sdma_firmware_header_v2_0 *sdma_hdr;
+ 	uint16_t version_major;
+ 
+-	err = request_firmware(&adev->sdma.instance[instance].fw, fw_name, adev->dev);
++	err = amdgpu_ucode_request(adev, &adev->sdma.instance[instance].fw, fw_name);
+ 	if (err)
+ 		goto out;
  
 -- 
 2.34.1
