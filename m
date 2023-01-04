@@ -4,39 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E21CEC46467
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 14:18:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C036C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 14:18:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 699B310E1FB;
-	Wed,  4 Jan 2023 14:18:54 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F38D810E085;
- Wed,  4 Jan 2023 12:38:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B55F10E20D;
+	Wed,  4 Jan 2023 14:18:56 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C75B410E082;
+ Wed,  4 Jan 2023 12:41:26 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 45DB961259;
- Wed,  4 Jan 2023 12:38:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EF75C433D2;
- Wed,  4 Jan 2023 12:38:07 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 532DA6141C;
+ Wed,  4 Jan 2023 12:41:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32396C433D2;
+ Wed,  4 Jan 2023 12:41:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1672835887;
- bh=mZ1yQV6qgagBCn4KzMBLklPWpB3lKrVvtA6CvGf8SBM=;
+ s=korg; t=1672836085;
+ bh=TOXTQ60NVRt1UUZ7zJB1nKXUtQdnqTmRrybEAGs47wA=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=naslG5MxxmqKLIV+Z1H4AwcExPULYIym7Tj3pANslk7YZhnjKN/uFiFBP2jYgQeTe
- FK6XHtkX4T7ZMaBYh7pInU/Ulfg/1y4PoXx9aAHVzjf+CBzOzdzrLV60H37eZR8XvW
- bbOlmwUOqCqrX0tzT8U/8Pl6t8KNohme6DjLXg2o=
-Date: Wed, 4 Jan 2023 13:38:04 +0100
+ b=eRG5aar/3NtyK6sTqpmMnnO4GuWi0LCInUB6dkAtQXjlLDWjw9LKhNFakYC1j6lTI
+ pUnuDZ1JtTo5R1G93Kb4FbbrqLXbLJFmwzj4eKv1kplm1h8E0pR5vkRAy58xli7oPv
+ H356a3QfNzlrx9nlcPS+2Sr+njyBTFzdwO94oaus=
+Date: Wed, 4 Jan 2023 13:41:22 +0100
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Dragos-Marian Panait <dragos.panait@windriver.com>
-Subject: Re: [PATCH 4.19 0/1] drm/amdkfd: Check for null pointer after
+Subject: Re: [PATCH 4.19 1/1] drm/amdkfd: Check for null pointer after
  calling kmemdup
-Message-ID: <Y7VzLI/GhGtne+78@kroah.com>
+Message-ID: <Y7Vz8mm0X+1h844b@kroah.com>
 References: <20230103184308.511448-1-dragos.panait@windriver.com>
+ <20230103184308.511448-2-dragos.panait@windriver.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230103184308.511448-1-dragos.panait@windriver.com>
+In-Reply-To: <20230103184308.511448-2-dragos.panait@windriver.com>
 X-Mailman-Approved-At: Wed, 04 Jan 2023 14:18:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,11 +60,34 @@ Cc: Oded Gabbay <oded.gabbay@gmail.com>, David Zhou <David1.Zhou@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 03, 2023 at 08:43:07PM +0200, Dragos-Marian Panait wrote:
-> The following commit is needed to fix CVE-2022-3108:
+On Tue, Jan 03, 2023 at 08:43:08PM +0200, Dragos-Marian Panait wrote:
+> From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+> 
+> [ Upstream commit abfaf0eee97925905e742aa3b0b72e04a918fa9e ]
+> 
+> As the possible failure of the allocation, kmemdup() may return NULL
+> pointer.
+> Therefore, it should be better to check the 'props2' in order to prevent
+> the dereference of NULL pointer.
+> 
+> Fixes: 3a87177eb141 ("drm/amdkfd: Add topology support for dGPUs")
+> Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Dragos-Marian Panait <dragos.panait@windriver.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 3 +++
+>  1 file changed, 3 insertions(+)
 
-That's a funny cve, given that you can not ever trigger it in a system,
-right?  Why was a CVE allocated for that?
+For obvious reasons, I can't take a patch for 4.19.y and not newer
+kernel releases, right?
 
-{sigh}
+Please provide backports for all kernels if you really need to see this
+merged.  And note, it's not a real bug at all, and given that a CVE was
+allocated for it that makes me want to even more reject it to show the
+whole folly of that mess.
 
+thanks,
+
+greg k-h
