@@ -4,69 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F19E4C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 14:51:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB275C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 15:10:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7538A10E220;
-	Wed,  4 Jan 2023 14:51:24 +0000 (UTC)
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EAFF10E220
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jan 2023 14:51:22 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id l26so24158591wme.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Jan 2023 06:51:22 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E32C210E454;
+	Wed,  4 Jan 2023 15:10:40 +0000 (UTC)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F173F10E454
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jan 2023 15:10:38 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id fc4so83216978ejc.12
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Jan 2023 07:10:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=M30DJGRfisa7IBOYwdL1FLX0Z+zw/y5/AM4xc20F0bI=;
- b=a8/lFYTlKR2D+5QlysSLclInfZoAfg3I+vJw/eqfNWEs5gUA2e+mQd8M6gwD5Sg1JK
- fq55OSWbXuewOmW+1ijiqiwf3TszlPNthc7ZMsnOuDi+uiLVAfXtach1Zu2sjPCJMoYc
- HGHQO5SqhpVcgj/+qjwN2y5ghDAOk2UolDO7T2rLLIHkFPDmIg835UzT1fnEFWcxtsn/
- etDyucJ2ekWmVaAwxXk30VzCFeer5hWHcyzSrpSK6UrYq6HUhP9s1LyXwnMSEdsRq8IA
- M+BhEWaxPXsKSnp25au18y34w4ETj4Fpe+9xU3lWovEUiKepn6XVnpReFnoq4rgwQDbE
- tdww==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=3QTYNahCtH6IEx6fyWkiwwKXR0QkFzC7zwnL9p4qczc=;
+ b=UYsInzVLb5sJG12tnwAPZQIXBN5Czt8Wuvs/BcpaOksxNR5Xg5+i4jASTk6S7ERD6E
+ K86Jqh/ZA3AaGspkXdvBP+LTeKdiWvD2oYYhucEGWK7Vk3M5uAt1BXEGf+MWxopDHmOa
+ xf9o1qfl88ti6sbVdezozPkSPUDtCBGZdUe4NdKVB99osapznDrK2fzB06dzv6q8E1+i
+ I6fICxdfDXqfW6qZ/gGhcuVAM9W8lmujcXCKk86bnDHUFWiZJR872uI7ntth5pvGgT1j
+ +GDxVH9nDG/tBwDxHiA/A//NqldFMDf+xQKxlnqKWH+aW6k9u1YoHeT720PznA1o3xQc
+ WMMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=M30DJGRfisa7IBOYwdL1FLX0Z+zw/y5/AM4xc20F0bI=;
- b=BVeWmhXhB85TW5P3Bi9dLnmxdUuNT3JbR1p7EgkMli3+DZu1u6lNCUZPU9OqolaAEO
- pxfe3v327Ol8j9jrr0lVxtBxtPJuC+SxyHH76SgWUQ7rW8Pqr2H67xBBSpQGiOeVoyAV
- oX3okXh0fEnA13zxdDRD2szmut3OldhBQjkVkFShc3iTA58OvpG6SqH5vVix10OeCyhP
- ETxTlmMlc1UYKGqW8OtT9uPZwDN6McHDFa7VvfiQecD17xQ0k0wlu9EhWEEYkZ88f5c6
- 3HhANxvHkgKCw8WlSalL1s5Pz6Vn8BdECAPL4sTHQR4KjudbdjKbTZxl084sgQmQyckR
- vOBg==
-X-Gm-Message-State: AFqh2kp2LD8msYuVSXgf5Ac8+cNCfOPbDOQswQnOgJYmZOnbdIBw0BUP
- qkUeX7x0N0thVcsE5LJ7D0s=
-X-Google-Smtp-Source: AMrXdXvpFCj0tCh8xQQ4aOfS5BSZDfc6vjS0HqEKtOOrdFuodsC0TcC+rRm10VtsRbtMT6yuz0WDdA==
-X-Received: by 2002:a05:600c:1d0e:b0:3cf:8957:a441 with SMTP id
- l14-20020a05600c1d0e00b003cf8957a441mr60167wms.12.1672843880642; 
- Wed, 04 Jan 2023 06:51:20 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:8d9b:539b:3481:f5bc?
- ([2a02:908:1256:79a0:8d9b:539b:3481:f5bc])
- by smtp.gmail.com with ESMTPSA id
- i25-20020a1c5419000000b003c6c182bef9sm59930408wmb.36.2023.01.04.06.51.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jan 2023 06:51:19 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------YC9e4pPZt3LyJOxuxYLvBJX1"
-Message-ID: <d1463910-1eab-2dac-a633-812ada011cc4@gmail.com>
-Date: Wed, 4 Jan 2023 15:51:18 +0100
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3QTYNahCtH6IEx6fyWkiwwKXR0QkFzC7zwnL9p4qczc=;
+ b=ao8Wf824vbDcz1laBHFmA6M2jI5hM5jAcYt6qsaV9OwfbmcYHIosptGc/CjUAlEX6P
+ A7O4UdllwozeTsxOr80fkx5JwJYLqwuI+D5AmAe11rQY595gupl2zfFvtbEJGLX9+jw8
+ MuLqG7eNLU/YaGYybL5k5cgIb9D274FCX+HAtccXB5vfhkbH6R0h+Lma05bDNWZ05jB6
+ WXFO41eTRQLRXL/jASebqDBKpMvAJxslqd9Ismrw4g2k9gzfX0iDDDIsmuX8BLlEj/DZ
+ RPQZFx0gfkMoRe7nJocvIyitWOi1cthMOvXCOcS9zMO/ZoJphEooapdrmLEBTob/g9uD
+ v8Ng==
+X-Gm-Message-State: AFqh2kpShMKP1/J1UqBgsVpBzsFAd4rp/amOL/ZieQ+A0EhQWTv4f4EQ
+ 1KJ8xWY5sD2uH0g8bXQtZny2vtDxgMuvmUUmc2BchmrkdrA=
+X-Google-Smtp-Source: AMrXdXs8ExB/HhXHZehwT9HcoiaWe1Dikf7sprmtBGQtuAp0s0Zg4W4y2vg5vzbNl8qEazh84DuI45xZoonQO1dzc54=
+X-Received: by 2002:a17:906:1407:b0:7c1:7226:c935 with SMTP id
+ p7-20020a170906140700b007c17226c935mr5566391ejc.338.1672845037482; Wed, 04
+ Jan 2023 07:10:37 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 2/2] drm/amdgpu: add AMDGPU_INFO_VM_STAT to return GPU VM
-Content-Language: en-US
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-References: <CAAxE2A5su09qWsCekUX4ZzTMAX+9m-BemDxqL2Hh9328Z1WDqw@mail.gmail.com>
- <355bab4f-2ca8-3dd2-4cbc-264931fe9d7a@gmail.com>
- <CAAxE2A487Ra9ropymBGZpXSt=Zz81cjf56p_7wq+tK4cDfn1sA@mail.gmail.com>
- <1d0ddc01-b315-a5ff-f4cc-30b8aedfeb57@gmail.com>
- <CAAxE2A69e+rHQJP+wHYOxywB0+B4Vp4XsO429euoGE=H-VRsPw@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAAxE2A69e+rHQJP+wHYOxywB0+B4Vp4XsO429euoGE=H-VRsPw@mail.gmail.com>
+References: <CAAxE2A720cJguG5b+0zbP=G4TxTjpqKBvOqDXXAP0LWHZEuj0A@mail.gmail.com>
+ <0931a762-c3a3-16c3-33a5-88e83fca4bcb@gmail.com>
+ <CAAxE2A5pBqOkny15tSRCWn_UW8=TTE=zYPChBZofZCrHZoQbww@mail.gmail.com>
+ <35304b1e-98a7-d342-9f1b-50f07b45cf98@gmail.com>
+ <CAAxE2A6KJWPJ3eqKoaiJZUJCNqRpx+WYwoGEZKxX2Kf_auLUWg@mail.gmail.com>
+ <a90b0e8e-dd02-031f-0432-1c5f6f02e949@amd.com>
+ <CAAxE2A7PJdiPORP-X+7kFmix9pCo63PqeamP20BZJx4GDfJdEQ@mail.gmail.com>
+ <8ec2b238-fa8b-a693-b9d9-3a590cc05664@amd.com>
+In-Reply-To: <8ec2b238-fa8b-a693-b9d9-3a590cc05664@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Wed, 4 Jan 2023 10:10:00 -0500
+Message-ID: <CAAxE2A7G_gjvuGNNtZ6J-4R25Ykx8ziz1B2f0Dc3KuC4KeYdzA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and lanes from the
+ INFO
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Content-Type: multipart/alternative; boundary="00000000000039382605f1719651"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,272 +71,272 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------YC9e4pPZt3LyJOxuxYLvBJX1
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--00000000000039382605f1719651
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Am 04.01.23 um 00:08 schrieb Marek Olšák:
-> I see about the access now, but did you even look at the patch?
-
-I did look at the patch, but I haven't fully understood yet what you are 
-trying to do here.
-
-> Because what the patch does isn't even exposed to common drm code, 
-> such as the preferred domain and visible VRAM placement, so it can't 
-> be in fdinfo right now.
->
-> Or do you even know what fdinfo contains? Because it contains nothing 
-> useful. It only has VRAM and GTT usage, which we already have in the 
-> INFO ioctl, so it has nothing that we need. We mainly need the 
-> eviction information and visible VRAM information now. Everything else 
-> is a bonus.
-
-Well the main question is what are you trying to get from that 
-information? The eviction list for example is completely meaningless to 
-userspace, that stuff is only temporary and will be cleared on the next 
-CS again.
-
-What we could expose is the VRAM over-commit value, e.g. how much BOs 
-which where supposed to be in VRAM are in GTT now. I think that's what 
-you are looking for here, right?
-
-> Also, it's undesirable to open and parse a text file if we can just 
-> call an ioctl.
-
-Well I see the reasoning for that, but I also see why other drivers do a 
-lot of the stuff we have as IOCTL as separate files in sysfs, fdinfo or 
-debugfs.
-
-Especially repeating all the static information which were already 
-available under sysfs in the INFO IOCTL was a design mistake as far as I 
-can see. Just compare what AMDGPU and the KFD code is doing to what for 
-example i915 is doing.
-
-Same for things like debug information about a process. The fdinfo stuff 
-can be queried from external tools (gdb, gputop, umr etc...) as well 
-which makes that interface more preferred.
+On Wed, Jan 4, 2023 at 9:19 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
 
 >
-> So do you want me to move it into amdgpu_vm.c? Because you could have 
-> just said: Let's move it into amdgpu_vm.c. :)
 >
-> Thanks,
-> Marek
+> On 1/4/2023 7:43 PM, Marek Ol=C5=A1=C3=A1k wrote:
+> > On Wed, Jan 4, 2023 at 6:50 AM Lazar, Lijo <lijo.lazar@amd.com
+> > <mailto:lijo.lazar@amd.com>> wrote:
+> >
+> >
+> >
+> >     On 1/4/2023 4:11 AM, Marek Ol=C5=A1=C3=A1k wrote:
+> >      > I see. Well, those sysfs files are not usable, and I don't think
+> it
+> >      > would be important even if they were usable, but for completenes=
+s:
+> >      >
+> >      > The ioctl returns:
+> >      >      pcie_gen =3D 1
+> >      >      pcie_num_lanes =3D 16
+> >      >
+> >      > Theoretical bandwidth from those values: 4.0 GB/s
+> >      > My DMA test shows this write bandwidth: 3.5 GB/s
+> >      > It matches the expectation.
+> >      >
+> >      > Let's see the devices (there is only 1 GPU Navi21 in the system)=
+:
+> >      > $ lspci |egrep '(PCI|VGA).*Navi'
+> >      > 0a:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI] Navi
+> >     10 XL
+> >      > Upstream Port of PCI Express Switch (rev c3)
+> >      > 0b:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI] Navi
+> >     10 XL
+> >      > Downstream Port of PCI Express Switch
+> >      > 0c:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
+> >      > [AMD/ATI] Navi 21 [Radeon RX 6800/6800 XT / 6900 XT] (rev c3)
+> >      >
+> >      > Let's read sysfs:
+> >      >
+> >      > $ cat /sys/bus/pci/devices/0000:0a:00.0/current_link_width
+> >      > 16
+> >      > $ cat /sys/bus/pci/devices/0000:0b:00.0/current_link_width
+> >      > 16
+> >      > $ cat /sys/bus/pci/devices/0000:0c:00.0/current_link_width
+> >      > 16
+> >      > $ cat /sys/bus/pci/devices/0000:0a:00.0/current_link_speed
+> >      > 2.5 GT/s PCIe
+> >      > $ cat /sys/bus/pci/devices/0000:0b:00.0/current_link_speed
+> >      > 16.0 GT/s PCIe
+> >      > $ cat /sys/bus/pci/devices/0000:0c:00.0/current_link_speed
+> >      > 16.0 GT/s PCIe
+> >      >
+> >      > Problem 1: None of the speed numbers match 4 GB/s.
+> >
+> >     US bridge =3D 2.5GT/s means operating at PCIe Gen 1 speed. Total
+> >     theoretical bandwidth is then derived based on encoding and total
+> >     number
+> >     of lanes.
+> >
+> >      > Problem 2: Userspace doesn't know the bus index of the bridges,
+> >     and it's
+> >      > not clear which bridge should be used.
+> >
+> >     In general, modern ones have this arch=3D US->DS->EP. US is the one
+> >     connected to physical link.
+> >
+> >      > Problem 3: The PCIe gen number is missing.
+> >
+> >     Current link speed is based on whether it's Gen1/2/3/4/5.
+> >
+> >     BTW, your patch makes use of capabilities flags which gives the
+> maximum
+> >     supported speed/width by the device. It may not necessarily reflect
+> the
+> >     current speed/width negotiated. I guess in NV, this info is already
+> >     obtained from PMFW and made available through metrics table.
+> >
+> >
+> > It computes the minimum of the device PCIe gen and the motherboard/slot
+> > PCIe gen to get the final value. These 2 lines do that. The low 16 bits
+> > of the mask contain the device PCIe gen mask. The high 16 bits of the
+> > mask contain the slot PCIe gen mask.
+> > + pcie_gen_mask =3D adev->pm.pcie_gen_mask & (adev->pm.pcie_gen_mask >>
+> 16);
+> > + dev_info->pcie_gen =3D fls(pcie_gen_mask);
+> >
 >
-> On Tue, Jan 3, 2023 at 3:33 AM Christian König 
-> <ckoenig.leichtzumerken@gmail.com> wrote:
->
->     Take a look at /proc/self/fdinfo/$fd.
->
->     The Intel guys made that vendor agnostic and are using it within
->     their IGT gpu top tool.
->
->     Christian.
->
->     Am 02.01.23 um 18:57 schrieb Marek Olšák:
->>     What are you talking about? Is fdinfo in sysfs? Userspace drivers
->>     can't access sysfs.
->>
->>     Marek
->>
->>     On Mon, Jan 2, 2023, 10:56 Christian König
->>     <ckoenig.leichtzumerken@gmail.com> wrote:
->>
->>         Well first of all don't mess with the VM internals outside of
->>         the VM code.
->>
->>         Then why would we want to expose this through the IOCTL
->>         interface? We already have this in the fdinfo.
->>
->>         Christian.
->>
->>         Am 30.12.22 um 23:07 schrieb Marek Olšák:
->>>         To give userspace a detailed view about its GPU memory usage
->>>         and evictions.
->>>         This will help performance investigations.
->>>
->>>         Signed-off-by: Marek Olšák <marek.olsak@amd.com>
->>>
->>>         The patch is attached.
->>>
->>>         Marek
->>
+> With DPM in place on some ASICs, how much does this static info help for
+> upper level apps?
 >
 
---------------YC9e4pPZt3LyJOxuxYLvBJX1
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+It helps UMDs make better decisions if they know the maximum achievable
+bandwidth. UMDs also compute the maximum memory bandwidth and compute
+performance (FLOPS). Right now it's printed by Mesa to give users detailed
+information about their GPU. For example:
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Am 04.01.23 um 00:08 schrieb Marek Olšák:<br>
-    <blockquote type="cite"
-cite="mid:CAAxE2A69e+rHQJP+wHYOxywB0+B4Vp4XsO429euoGE=H-VRsPw@mail.gmail.com">
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div dir="ltr">
-        <div>I see about the access now, but did you even look at the
-          patch?</div>
-      </div>
-    </blockquote>
-    <br>
-    I did look at the patch, but I haven't fully understood yet what you
-    are trying to do here.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CAAxE2A69e+rHQJP+wHYOxywB0+B4Vp4XsO429euoGE=H-VRsPw@mail.gmail.com">
-      <div dir="ltr">
-        <div> Because what the patch does isn't even exposed to common
-          drm code, such as the preferred domain and visible VRAM
-          placement, so it can't be in fdinfo right now.<br>
-        </div>
-        <div><br>
-        </div>
-        <div>Or do you even know what fdinfo contains? Because it
-          contains nothing useful. It only has VRAM and GTT usage, which
-          we already have in the INFO ioctl, so it has nothing that we
-          need. We mainly need the eviction information and visible VRAM
-          information now. Everything else is a bonus.<br>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-    Well the main question is what are you trying to get from that
-    information? The eviction list for example is completely meaningless
-    to userspace, that stuff is only temporary and will be cleared on
-    the next CS again.<br>
-    <br>
-    What we could expose is the VRAM over-commit value, e.g. how much
-    BOs which where supposed to be in VRAM are in GTT now. I think
-    that's what you are looking for here, right?<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CAAxE2A69e+rHQJP+wHYOxywB0+B4Vp4XsO429euoGE=H-VRsPw@mail.gmail.com">
-      <div dir="ltr">
-        <div>
-          <div>Also, it's undesirable to open and parse a text file if
-            we can just call an ioctl.</div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-    Well I see the reasoning for that, but I also see why other drivers
-    do a lot of the stuff we have as IOCTL as separate files in sysfs,
-    fdinfo or debugfs.<br>
-    <br>
-    Especially repeating all the static information which were already
-    available under sysfs in the INFO IOCTL was a design mistake as far
-    as I can see. Just compare what AMDGPU and the KFD code is doing to
-    what for example i915 is doing.<br>
-    <br>
-    Same for things like debug information about a process. The fdinfo
-    stuff can be queried from external tools (gdb, gputop, umr etc...)
-    as well which makes that interface more preferred.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CAAxE2A69e+rHQJP+wHYOxywB0+B4Vp4XsO429euoGE=H-VRsPw@mail.gmail.com">
-      <div dir="ltr">
-        <div>
-          <div><br>
-          </div>
-          <div>So do you want me to move it into amdgpu_vm.c? Because
-            you could have just said: Let's move it into amdgpu_vm.c. :)<br>
-          </div>
-          <div><br>
-          </div>
-          <div>Thanks,<br>
-          </div>
-          <div>Marek<br>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="gmail_quote">
-        <div dir="ltr" class="gmail_attr">On Tue, Jan 3, 2023 at 3:33 AM
-          Christian König &lt;<a
-            href="mailto:ckoenig.leichtzumerken@gmail.com"
-            target="_blank" moz-do-not-send="true"
-            class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class="gmail_quote" style="margin:0px 0px 0px
-          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-          <div> Take a look at /proc/self/fdinfo/$fd.<br>
-            <br>
-            The Intel guys made that vendor agnostic and are using it
-            within their IGT gpu top tool.<br>
-            <br>
-            Christian.<br>
-            <br>
-            <div>Am 02.01.23 um 18:57 schrieb Marek Olšák:<br>
-            </div>
-            <blockquote type="cite">
-              <div dir="auto">What are you talking about? Is fdinfo in
-                sysfs? Userspace drivers can't access sysfs.
-                <div dir="auto"><br>
-                </div>
-                <div dir="auto">Marek</div>
-              </div>
-              <br>
-              <div class="gmail_quote">
-                <div dir="ltr" class="gmail_attr">On Mon, Jan 2, 2023,
-                  10:56 Christian König &lt;<a
-                    href="mailto:ckoenig.leichtzumerken@gmail.com"
-                    target="_blank" moz-do-not-send="true"
-                    class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
-                  wrote:<br>
-                </div>
-                <blockquote class="gmail_quote" style="margin:0px 0px
-                  0px 0.8ex;border-left:1px solid
-                  rgb(204,204,204);padding-left:1ex">
-                  <div> Well first of all don't mess with the VM
-                    internals outside of the VM code.<br>
-                    <br>
-                    Then why would we want to expose this through the
-                    IOCTL interface? We already have this in the fdinfo.<br>
-                    <br>
-                    Christian.<br>
-                    <br>
-                    <div>Am 30.12.22 um 23:07 schrieb Marek Olšák:<br>
-                    </div>
-                    <blockquote type="cite">
-                      <div dir="ltr">To give userspace a detailed view
-                        about its GPU memory usage and evictions.<br>
-                        This will help performance investigations.<br>
-                        <br>
-                        <div>Signed-off-by: Marek Olšák &lt;<a
-                            href="mailto:marek.olsak@amd.com"
-                            rel="noreferrer" target="_blank"
-                            moz-do-not-send="true"
-                            class="moz-txt-link-freetext">marek.olsak@amd.com</a>&gt;</div>
-                        <div><br>
-                        </div>
-                        <div>The patch is attached.</div>
-                        <div><br>
-                        </div>
-                        <div>Marek<br>
-                        </div>
-                      </div>
-                    </blockquote>
-                    <br>
-                  </div>
-                </blockquote>
-              </div>
-            </blockquote>
-            <br>
-          </div>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
+$ AMD_DEBUG=3Dinfo glxgears
+Device info:
+    name =3D NAVI21
+    marketing_name =3D AMD Radeon RX 6800
+    num_se =3D 3
+    num_rb =3D 12
+    num_cu =3D 60
+    max_gpu_freq =3D 2475 MHz
+    max_gflops =3D 19008 GFLOPS
+    l0_cache_size =3D 16 KB
+    l1_cache_size =3D 128 KB
+    l2_cache_size =3D 4096 KB
+    l3_cache_size =3D 128 MB
+    memory_channels =3D 16 (TCC blocks)
+    memory_size =3D 16 GB (16384 MB)
+    memory_freq =3D 16 GHz
+    memory_bus_width =3D 256 bits
+    memory_bandwidth =3D 512 GB/s
+    pcie_gen =3D 1
+    pcie_num_lanes =3D 16
+    pcie_bandwidth =3D 4.0 GB/s
 
---------------YC9e4pPZt3LyJOxuxYLvBJX1--
+Marek
+
+--00000000000039382605f1719651
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
+_attr">On Wed, Jan 4, 2023 at 9:19 AM Lazar, Lijo &lt;<a href=3D"mailto:lij=
+o.lazar@amd.com">lijo.lazar@amd.com</a>&gt; wrote:<br></div><blockquote cla=
+ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
+rgb(204,204,204);padding-left:1ex"><br>
+<br>
+On 1/4/2023 7:43 PM, Marek Ol=C5=A1=C3=A1k wrote:<br>
+&gt; On Wed, Jan 4, 2023 at 6:50 AM Lazar, Lijo &lt;<a href=3D"mailto:lijo.=
+lazar@amd.com" target=3D"_blank">lijo.lazar@amd.com</a> <br>
+&gt; &lt;mailto:<a href=3D"mailto:lijo.lazar@amd.com" target=3D"_blank">lij=
+o.lazar@amd.com</a>&gt;&gt; wrote:<br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0On 1/4/2023 4:11 AM, Marek Ol=C5=A1=C3=A1k wrote:<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; I see. Well, those sysfs files are not usable=
+, and I don&#39;t think it<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; would be important even if they were usable, =
+but for completeness:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; The ioctl returns:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 pcie_gen =3D 1<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 pcie_num_lanes =3D 16<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Theoretical bandwidth from those values: 4.0 =
+GB/s<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; My DMA test shows this write bandwidth: 3.5 G=
+B/s<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; It matches the expectation.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Let&#39;s see the devices (there is only 1 GP=
+U Navi21 in the system):<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ lspci |egrep &#39;(PCI|VGA).*Navi&#39;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; 0a:00.0 PCI bridge: Advanced Micro Devices, I=
+nc. [AMD/ATI] Navi<br>
+&gt;=C2=A0 =C2=A0 =C2=A010 XL<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Upstream Port of PCI Express Switch (rev c3)<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; 0b:00.0 PCI bridge: Advanced Micro Devices, I=
+nc. [AMD/ATI] Navi<br>
+&gt;=C2=A0 =C2=A0 =C2=A010 XL<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Downstream Port of PCI Express Switch<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; 0c:00.0 VGA compatible controller: Advanced M=
+icro Devices, Inc.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; [AMD/ATI] Navi 21 [Radeon RX 6800/6800 XT / 6=
+900 XT] (rev c3)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Let&#39;s read sysfs:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ cat /sys/bus/pci/devices/0000:0a:00.0/curre=
+nt_link_width<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; 16<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ cat /sys/bus/pci/devices/0000:0b:00.0/curre=
+nt_link_width<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; 16<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ cat /sys/bus/pci/devices/0000:0c:00.0/curre=
+nt_link_width<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; 16<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ cat /sys/bus/pci/devices/0000:0a:00.0/curre=
+nt_link_speed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; 2.5 GT/s PCIe<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ cat /sys/bus/pci/devices/0000:0b:00.0/curre=
+nt_link_speed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; 16.0 GT/s PCIe<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ cat /sys/bus/pci/devices/0000:0c:00.0/curre=
+nt_link_speed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; 16.0 GT/s PCIe<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Problem 1: None of the speed numbers match 4 =
+GB/s.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0US bridge =3D 2.5GT/s means operating at PCIe Gen 1=
+ speed. Total<br>
+&gt;=C2=A0 =C2=A0 =C2=A0theoretical bandwidth is then derived based on enco=
+ding and total<br>
+&gt;=C2=A0 =C2=A0 =C2=A0number<br>
+&gt;=C2=A0 =C2=A0 =C2=A0of lanes.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Problem 2: Userspace doesn&#39;t know the bus=
+ index of the bridges,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0and it&#39;s<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; not clear which bridge should be used.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0In general, modern ones have this arch=3D US-&gt;DS=
+-&gt;EP. US is the one<br>
+&gt;=C2=A0 =C2=A0 =C2=A0connected to physical link.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Problem 3: The PCIe gen number is missing.<br=
+>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Current link speed is based on whether it&#39;s Gen=
+1/2/3/4/5.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0BTW, your patch makes use of capabilities flags whi=
+ch gives the maximum<br>
+&gt;=C2=A0 =C2=A0 =C2=A0supported speed/width by the device. It may not nec=
+essarily reflect the<br>
+&gt;=C2=A0 =C2=A0 =C2=A0current speed/width negotiated. I guess in NV, this=
+ info is already<br>
+&gt;=C2=A0 =C2=A0 =C2=A0obtained from PMFW and made available through metri=
+cs table.<br>
+&gt; <br>
+&gt; <br>
+&gt; It computes the minimum of the device PCIe gen and the motherboard/slo=
+t <br>
+&gt; PCIe gen to get the final value. These 2 lines do that. The low 16 bit=
+s <br>
+&gt; of the mask contain the device PCIe gen mask. The high 16 bits of the =
+<br>
+&gt; mask contain the slot PCIe gen mask.<br>
+&gt; + pcie_gen_mask =3D adev-&gt;pm.pcie_gen_mask &amp; (adev-&gt;pm.pcie_=
+gen_mask &gt;&gt; 16);<br>
+&gt; + dev_info-&gt;pcie_gen =3D fls(pcie_gen_mask);<br>
+&gt; <br>
+<br>
+With DPM in place on some ASICs, how much does this static info help for <b=
+r>
+upper level apps?<br></blockquote><div><br></div>It helps UMDs make better =
+decisions if they know the maximum achievable bandwidth. UMDs also compute =
+the maximum memory bandwidth and compute performance (FLOPS). Right now it&=
+#39;s printed by Mesa to give users detailed information about their GPU. F=
+or example:<br></div><div class=3D"gmail_quote"><br></div><div class=3D"gma=
+il_quote">$ AMD_DEBUG=3Dinfo glxgears<br>Device info:<br>=C2=A0 =C2=A0 name=
+ =3D NAVI21<br>=C2=A0 =C2=A0 marketing_name =3D AMD Radeon RX 6800<br>=C2=
+=A0 =C2=A0 num_se =3D 3<br>=C2=A0 =C2=A0 num_rb =3D 12<br>=C2=A0 =C2=A0 num=
+_cu =3D 60<br>=C2=A0 =C2=A0 max_gpu_freq =3D 2475 MHz<br>=C2=A0 =C2=A0 max_=
+gflops =3D 19008 GFLOPS<br>=C2=A0 =C2=A0 l0_cache_size =3D 16 KB<br>=C2=A0 =
+=C2=A0 l1_cache_size =3D 128 KB<br>=C2=A0 =C2=A0 l2_cache_size =3D 4096 KB<=
+br>=C2=A0 =C2=A0 l3_cache_size =3D 128 MB<br>=C2=A0 =C2=A0 memory_channels =
+=3D 16 (TCC blocks)<br>=C2=A0 =C2=A0 memory_size =3D 16 GB (16384 MB)<br>=
+=C2=A0 =C2=A0 memory_freq =3D 16 GHz<br>=C2=A0 =C2=A0 memory_bus_width =3D =
+256 bits<br>=C2=A0 =C2=A0 memory_bandwidth =3D 512 GB/s<br>=C2=A0 =C2=A0 pc=
+ie_gen =3D 1<br>=C2=A0 =C2=A0 pcie_num_lanes =3D 16<br>=C2=A0 =C2=A0 pcie_b=
+andwidth =3D 4.0 GB/s</div><div class=3D"gmail_quote"><br></div><div class=
+=3D"gmail_quote">Marek<br></div></div>
+
+--00000000000039382605f1719651--
