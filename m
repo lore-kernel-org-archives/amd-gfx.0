@@ -4,117 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 230A1C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 04:54:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80D58C46467
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 06:21:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6472810E42E;
-	Wed,  4 Jan 2023 04:54:24 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2046.outbound.protection.outlook.com [40.107.94.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70B4C10E42D;
- Wed,  4 Jan 2023 04:54:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC56910E061;
+	Wed,  4 Jan 2023 06:21:49 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD0B910E061
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Jan 2023 06:21:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fvzTVFX0/fhe9Qcplggef+vvj/vwnTRLVMXgoLDee/3zyagP/w/XY08iWDQIrVPEsNeF+1wmey4+u1Gq8HSqBuD0XIc0xEUwcrcxWQ1zkfwKxFxzKY/9iAx16zgoafLForXUTc7nwQuzZ/QdNXHd/5xPCDeXvfyasjGieqUWqS807vQXhzfSaTwwcC6NmnF2UEQvRmp4PMg0OOtD2Tq8B1RcshMtdra0dDqe826DwSKq/YvdL737/8IUsvB48Y1fh3jvP8sJemsnRjEX5wZMlOWYCkKh1icZL/v+QS1BuL6vK/8YwnYTsSNE/pd1HSpaph/ix8WiDyNgdA/I1xDq3g==
+ b=FiWoc+/ZFw8dLZ66YxEerT9qDtG8YC8O6PbuH4rLGJ66bcly99pQdGuxFCa3zrCpZGRVLtKIxteQ40ZG5p6dqxgaW6Qev/pCV89ejRHfMROaLcRX4FaG4XH/LZA7K4+5z5CXXOJp+MUo+iAGuF0lkYYTwVPOeL2MohCuh+3AvgJ75XGRaHnPv9yjPbpdxE4b4LoiYzOu6g95LjBbhyyIOwX2o9VvaECS+7uVkhe1l8jsNMVwNI+txdAxDorMy09Qw10k6zgc9Uc7hBaQwXfqVGzGRpsNLBVGrh7U0/dSr5lXMrIZUD3BrNMa0UfOc1t7DxTNPWqJ1lBn3CmZfR9aNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/4JKnDa7MQ614h3kffnYcTvxyg34AZwTr0wxrerG+eI=;
- b=ObQvicm3RBneav3AETV5Nq8c+IgsqBXjDrgOJ2WD3QqNLY5kI1NAC3rKp8RmQWS0sJ7ho8aEa8JIW9Zr3GfASaGOpF+XBsIrJpFBiUNXyLVOWBvbKkjj5oAQu2C43C4r+HF/GlqA9Lh1icU4Ju8DXMbyNd1ZUtMxi0J/gGllDSx9+/6bHfedc1O8EYiiPTZMTzM5fP8vv22UsqoEUH7cM8D9Fz1pbSoEhKjkht1ZL7aWEZqfF8Z987rJ25/mJkRMNhJtpruoSrbswe2IIC80LQkNE8g6J2H0Mc1tnNcDQy0eHyvpK2l9BooCivhmNYqt3v8ULIih9xwGJAwB1yqxlA==
+ bh=0IJVMbgJ8xqTfY13Wmc/yUEaoTkFs27LrZkWBdGXJhk=;
+ b=UZ9148d6l52qNCHUOfJVJ2LZa0a/W/rJZjT6PTxFse+gDvOYWQiyNled7utvdgSwQyUkIZPj+MlpDMLLpYNg20L41jQTsLlmZLrik9YZHvQVls5N+5brrirnFJko7RYuoi2nbVYlqdT/MydYtsSy9yuWDbao/fkURbP6CO1Pdb9djtNwbsbtlxrEOpZPiXdTLrDTU5Ny70/024wDXzJCW5D0JwZflOd8Jrr1KM67jUiMZ6iKrN3ZTXRsUdAND1B9IjWHPKd3IQvOSp/J73iwmSyqLa0MGasjQl91T8lYDPuOaE/mEPRiMSYQ04UzhAK1R5MV/YxEyDv2G8OdVFdf6Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/4JKnDa7MQ614h3kffnYcTvxyg34AZwTr0wxrerG+eI=;
- b=bhknZlXUjIIddg2+J5Za1JxoWRPeymZAMt9wSvMwp1k+Pfx/jErOHNNlnb4HneSL1v2WVlO2sDHBVaYYzxz5f4HKdyn+c9Xy/4h5Zgci07JIdPXI+CGQsgcEBG3OKQTYxGrGyhYBCx87Gb4Z3uhW2w+Be2Mr77DfXFx2u1jox2o=
+ bh=0IJVMbgJ8xqTfY13Wmc/yUEaoTkFs27LrZkWBdGXJhk=;
+ b=s5+uqAwb3iHSmUvf3ipu94den5GXU0hEZq1hpiyDvyyZnpWDjc9T83GUQtCaVA62snZdIt9Kj0yUROl9x2yVYFNkgRMcfc9+NxrYZnduvnb8ngbvtJMmyiCTltutdySGxTucFVvpM1kyp7xBeIGNO5D1Q8apQC3XbP1Z+5TuvaM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by MN0PR12MB5858.namprd12.prod.outlook.com (2603:10b6:208:379::8)
- with Microsoft SMTP Server (version=TLS1_2,
+Received: from PH7PR12MB6000.namprd12.prod.outlook.com (2603:10b6:510:1dc::15)
+ by DS0PR12MB6487.namprd12.prod.outlook.com (2603:10b6:8:c4::18) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Wed, 4 Jan
- 2023 04:54:20 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::457b:5c58:8ad2:40fa]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::457b:5c58:8ad2:40fa%6]) with mapi id 15.20.5944.019; Wed, 4 Jan 2023
- 04:54:20 +0000
-Message-ID: <59ab4749-8fb9-c0d5-1f7e-d5fceda85063@amd.com>
-Date: Wed, 4 Jan 2023 10:24:07 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH v4 07/27] drm/amd: Convert SDMA to use
- `amdgpu_ucode_ip_version_decode`
+ 2023 06:21:44 +0000
+Received: from PH7PR12MB6000.namprd12.prod.outlook.com
+ ([fe80::d197:9c96:338d:c848]) by PH7PR12MB6000.namprd12.prod.outlook.com
+ ([fe80::d197:9c96:338d:c848%7]) with mapi id 15.20.5944.019; Wed, 4 Jan 2023
+ 06:21:44 +0000
+Message-ID: <a75feb71-1121-63cd-5292-503588ee9c88@amd.com>
+Date: Wed, 4 Jan 2023 11:51:25 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.1
+Subject: Re: [RFC 3/7] drm/amdgpu: Create MQD for userspace queue
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <20221223193655.1972-1-shashank.sharma@amd.com>
+ <20221223193655.1972-4-shashank.sharma@amd.com>
+ <CADnq5_NONiTu2oEEV1+epbuaH985QBbqMKuM9ZDYEn7Ar5a2pw@mail.gmail.com>
+ <d19ada1d-86c1-7278-9bf2-a7571c2830e1@amd.com>
+ <a71ce770-7e36-0589-2c47-b0381566541c@amd.com>
 Content-Language: en-US
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org
-References: <20230103221852.22813-1-mario.limonciello@amd.com>
- <20230103221852.22813-8-mario.limonciello@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20230103221852.22813-8-mario.limonciello@amd.com>
+From: "Yadav, Arvind" <arvyadav@amd.com>
+In-Reply-To: <a71ce770-7e36-0589-2c47-b0381566541c@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0195.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:be::23) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0129.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:bf::8) To PH7PR12MB6000.namprd12.prod.outlook.com
+ (2603:10b6:510:1dc::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|MN0PR12MB5858:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01364e6d-8c8b-446b-8b74-08daee0fbd7c
+X-MS-TrafficTypeDiagnostic: PH7PR12MB6000:EE_|DS0PR12MB6487:EE_
+X-MS-Office365-Filtering-Correlation-Id: 966b33f0-819b-4145-6771-08daee1bf32c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: y1f4lcrMiavs+XxSEpJZhW3o3eVw7UjCgLVHq3T9Ntg1z4VJ9oW9GcIiCDbLIqjv4mrquEtMXzTpFEdGa0SqM0f41CA9XoP4Ip7d5oC/WSuBnXwAPfkb4qvx0PrRk/06g0fsNIcHQI0bG9EqeJOUxpK8h+ZneSDvuvXUEMJewo5ZDlmqNvNaWa4t62vrS8xGH31mFPZycUxQCEo2AQixXK6qWCcNW8QPWms3NSzusXjP/3AIRgLOm116DotqM67d8rQRDxgYLsS+MH3nkvcRvnWOU3T28q8AWbPHhOkZPtY2CHxpqoGHFme11IfzuEVQp7hDkdec+SeFjLSpXTMILZ7QmYk6voQnKdjc19fJSsWx+8kF5T5SN9QbnCvAQKtx21nzXVydh2rSDHTpfNvA6Y5LyBJerawOZ+K39QapbdhMmFQ2LT1VYf5DoDUHatuQ9QFMBUMTyGvtNu/eCrvzwctxtyd/ODNenKPMzNbQ+nw98/Yqe10YdxaFmG6t/WmDy8Wc+5387412El2UfRVuHKM51oVrnAW0Wq3K5gwOsvnpiIkftfmGjBFB0FRT1QQxR8CK8wklkBBVVK1jqPMbySSwXZmihJib82GsLqjltpt6jFtSbq81F9BrCf5jrlB13lAbY9PuJVsiBfVjwqors+XtN1dsiH3dbEJs0YxQx4fm7IQqb9fv7JCuWQqvatjC4BmnrYC8NGvovazsI3xZdoRL0+yd7PXCPej54SjUku0bULSdZ/DMlIMr7T0aHJpE
+X-Microsoft-Antispam-Message-Info: w6ch01BNKauclru7PL5+JOFe3LMyHhJTGN3MnGKxmAPGBcTBMCX5UjRWJr0t13TbmomSbLv8iXnSmnPuuemVT96TFTNiyw2rJG/iCpvEw1q6VUFrbIl2XBKavW6/Wc1z3CQ8XlD1d8hzdwonsjoBl8Ik37QwAEresabzZHUjnyVRvRMy3wBjUDwj+ScGuflOuHz30lJwTT1JuWu/8SoKH806RaitFSdduw8cWfKvDZwh7esg3bHkGwAa3s4Eoj69fQHSHbDDtoGOe0xyxCetEHbGeF8EiR7isxm/UKFftP65WXAk8ZVrsSx/6bRxhazUvdItcO7isn6TnEENNCOfymqD5OwFexY+sAKu7qCpSznS9Mxdd/2J0du1h8AWMV5c9UGgjUOSoDTArWfe2i3zKgzEFSaPqm0FiL5793M/iQphq6i+1WpQZUuwxkhUGIm4tsTFMgbzQMKtyJHUQ+kD29KHMaK3YSXqMS/gYbtDkqw5M2mYcsdntqphZ/oNq4bVGTWYAKmujuP7hENFB6VRbZSjy3XSgYYLZVMolVjJbiQHsxgZN+zgOg49atubdqs1JuY+vMAJEMopYTCJYtjySWXeHFk5cJZEmV1K49dC0iDvQHZNYC2ppUSQervQhrFTzEUqKcWQYQ4nbpdqSEkZIsMn7qIdHbeO82cpURyOAroI5y+5S8WG37WV3pnwmzBg9MKPFojrHtyzx9Iuk7SVOApkGLrgRNau9W+3pt7QHOM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(136003)(396003)(376002)(39860400002)(366004)(451199015)(83380400001)(2616005)(31696002)(86362001)(36756003)(38100700002)(66556008)(8676002)(8936002)(66476007)(4326008)(5660300002)(110136005)(2906002)(316002)(54906003)(66946007)(6506007)(186003)(53546011)(31686004)(6512007)(6666004)(41300700001)(26005)(478600001)(6486002)(81973001)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB6000.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(396003)(39860400002)(136003)(366004)(346002)(451199015)(31696002)(8936002)(2906002)(38100700002)(5660300002)(41300700001)(66476007)(6506007)(53546011)(4326008)(2616005)(316002)(186003)(6512007)(26005)(6666004)(478600001)(55236004)(8676002)(66556008)(54906003)(110136005)(6486002)(66946007)(31686004)(36756003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WlowdXFqbVVCMFU1a3hjdm43Nkxqcm5zY2dDSVdXZE0vNzFwZ2JKUUdIMi9u?=
- =?utf-8?B?WGdPU2g0c2U2S3FhZXZVTGVqUjY1UDZxamVIRmNhRWZpcTdZVlVXMEs3Q2Zt?=
- =?utf-8?B?NkJIaFcxRHFhekgwZmFMcUNDVFR6ODZvRXNjNFdvckNYWVZxTDdlS2wzZG1O?=
- =?utf-8?B?RkRIemxOVzE3YXZiYzRVRG93TlFWeWJNclN1Ymo4NWlodmlKRVRsaUlrNlVW?=
- =?utf-8?B?cnBtMTMvWnlWVkdRMjdZa1JZV1pTeW83U2lqVUlteVRRMmM3QjU1aTAzaXFi?=
- =?utf-8?B?NVRSWHJSTlBlZFhtQ01SL2RjNERzK0NwMXVIVVYvSUt3RHRTRnk3VnBTQmUx?=
- =?utf-8?B?U3UrTGJ5T0k1S3BtRzZkbGExMk9MOThsUFNHZ3JIZHhTMjMrS3RabWtiWitD?=
- =?utf-8?B?WmFzdWt1Qnlvd3A5cXhvRE5ndFh0a1FPVXgzY0NuRnZpeTQ1dWJqb2JwMzhE?=
- =?utf-8?B?MGFBaDU5Q0hFd2hobVVNRXZTanpBQ1FYcHFxZ0ovalNhQVFER0p2UjQybnNO?=
- =?utf-8?B?MTZKOCtSU3d0cHZ5OHVtT0NvSUVxOHNEeUNhSEhFY2ZYQzNqMS8yOFdQNzRk?=
- =?utf-8?B?cmdWRWt6SmZUMkxkck5acHpOUk1PZ2haU0t6TC9MelJWaUhsN1B4Nkd6dkg3?=
- =?utf-8?B?UE5JMlUwUzZDemFXWG9WZFdYV2xwNnlhbWoxd2UzNlFvL2NaalcxQUNiRjdO?=
- =?utf-8?B?Zm5ocXgwbGpWVVlXcU1aQlh0cFdkejRqMGhXNThZdmtMSWVuWjRBMzcvWEFF?=
- =?utf-8?B?TEd5N1hUdzBSNkVVbUZDNkViOEZxUEFqL1o1Q3pCOG5RY2tIWHlaTEYzQ3Zh?=
- =?utf-8?B?M2s5dVE0aVlQekllR09udUFBK3pIRHNneFVPU3NPaHNMTkNvRnpVZHhpTkF1?=
- =?utf-8?B?SDZnTXVJYkdwOTNzT2Z2K3RYc0NnbExrUXYzR0luT2dZanl1Y2FyMFhhOE0w?=
- =?utf-8?B?dGsvUFpNekJaV2ZsdjlmYmZCZzdOOHZaT2REMVZMY1ZqbkRQQjRSSGt3UFhW?=
- =?utf-8?B?VzZ5VzQ3Q3dDbVdrV1lXbEt5RmpybE40UmF6aDd3ckM5anN4NndlMi9mbTNn?=
- =?utf-8?B?Zm5NSloxV0xiK2ppY1pSVXZyMktIQ3RPWk43UjNGZ1E2NkpWSzlKYzlBT04z?=
- =?utf-8?B?WWR3cGJkR2krMmxuLzFSZkd2TzlDbVZnWEJ4YjZSWnBJbzRVQVRudXVDQ3E4?=
- =?utf-8?B?Q08veXRURlZGMkc3MkxxVHpYeVNCYWRHTnZZZEVwemViSEZLYjFBa0NQMGpY?=
- =?utf-8?B?ejBzdGg5M3lIR215MFhxSUVvSG1IemIzVlBQZ29aZXc0dHNyTVFObVlidGNa?=
- =?utf-8?B?R3VxRjNGdjZWd3RyQUVuaWJxaTlpeXk4aGtoMzFSQkVxanZOdHVTUVFpUHpF?=
- =?utf-8?B?ZWx0WE4vUzh2WmlXVDhaNTVwUTFDNmJSUnhVTTYzc0lhQVUwSGNTM0JmdnV6?=
- =?utf-8?B?ZUhkL3pLV25Jc2NQRW15d0kwU0ZUaXFhcmVqc0pnOVl6ZGFUR3N2SVY5dEZq?=
- =?utf-8?B?WWxKU1lzLzR3VGZ2WERvUEh1MnF5ZnFVdld5SjBRcTE4Y0MrU0duMUt1VXBV?=
- =?utf-8?B?eW5UM3FXYmlqeXpzcDNXdjJ4eGVocHdYNVd5eGxLbUI0TlVwL0VHbHpJTE9Y?=
- =?utf-8?B?SU14MGhzcDZxdHYzREU0eWNvQlFqWi85b1VrcGRYNFRpRE5YekpxSlBpb2Nh?=
- =?utf-8?B?R3cxY3J3MFhEVm5Scks0MUg3TDZVV0x6TDdYWUNCYXpnd2JCL1AwUTZJd1c1?=
- =?utf-8?B?WUF6cTBGUHRPUnJuVThPc2RIYTR1UzhvVFowZGtKU0ZnTFJBOUVhOVdxWDBK?=
- =?utf-8?B?aDAyem81RFd3Mk1Oa0lhQTZVckdZeHpGbVVuT2VaZ3hxZkQ4clV6a2xDdXUy?=
- =?utf-8?B?d24xczlNUjFTa05MbkJHckZCa1JmbEtJb3hMTWg4Wm5JNG1acW9mZlU0OTht?=
- =?utf-8?B?eEpqTjI1N2hiZCt1QlNHWWFaaU1nRTRkbTBPTkh4UDJ5K01XNHo1d1I4Ty9X?=
- =?utf-8?B?Qjd5MFc5TXErL3g0THVMZnM5Z3pIL3FlQ3B0MnE5ZFhaalhwQ1I1VVJvQXVP?=
- =?utf-8?B?eFBwUS9qV3U3c1hwTHFXdFNndC9jMnNUaWx2ek1qMlhOTlQvOTRCVVFsSzJR?=
- =?utf-8?Q?So42JlONN/1ezzQGV5pGSJFXa?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K3pDSEhaSGJ3Tk5Uc0dxUDhhblY2UE9JV2wyYUg1WlpoNFFZdll2NTRaa2hS?=
+ =?utf-8?B?T3hSdVQzb25USDRLaU1xTGF2ZkNJNkVUMGlUS25DT2FrNVMxWll1Y1RjdVpj?=
+ =?utf-8?B?ZlV6TUFBeHVhQ2NOV1RtdWxDbG1nM1dlZXF1N1k0TTNHeVhPK1o3MlM1RzBq?=
+ =?utf-8?B?WU14a0hocVplOXRMVStnYU1Qd1FlL204K3JtZVU2b2srNjlnN0VxaFZyU3hF?=
+ =?utf-8?B?azNmOFU1ZnJDNlh4YVJrbkpwKzd6Yk5QTHBVU3hKRTZqTjdjeTBscnVqVEd4?=
+ =?utf-8?B?MWozWnpoUWcreGFOM3hVYTRuVXNiYWFObzZLRUZINTFKNHphcVhlZ01BSGZG?=
+ =?utf-8?B?MEczSjdkVjV4M25admY2cmtxQ0w5UzBEbVc0UWFMTis5cHpMWlV3bnVXKzZ0?=
+ =?utf-8?B?ZjIzbnJOUDZZOGtEOTRpSkt0V2crUW9iKzZOOEwweVZ4Y0JEQnZsRndhSmhU?=
+ =?utf-8?B?TzFRaGtIQU1wNjBjNFVhY1V4aXZ1NmFiQ3RZWjlCQ2tIcWs1SDNZSTdSSWdx?=
+ =?utf-8?B?V2VjZDhGWW5vK1h1Wnh5aVNsT0x6M00wMGhyeGxKYzNLTVU0a3ZNZXlQRzk3?=
+ =?utf-8?B?YnZzSEpueVpqK1djbnZRelN6b29qQVJrWUVRZlB6aGtZRnVsekpKdC9DcFpN?=
+ =?utf-8?B?ZUQ0TVlZSEhMU1RaTXNuYmlaYVdUUnRBaGwyekNUWkVvb2MyN2ZGNEVIaHZ2?=
+ =?utf-8?B?MHIxUEVIUXdSODFQOHp5eGdOcWhXT3VFd2FGUjR0c0U0ZSs5YTM4ZVBIYUdu?=
+ =?utf-8?B?N29YR0l1d3RGdWJQaG10MWZOb1BLM1lvT0tqZm1IdWc0ZWFMWFdCMTE3K3la?=
+ =?utf-8?B?SFIrWkREdFdXUUVMTlJPVWJZOFBIRVVwYXY0OC96OG1GSHlsNjZsVW9rZ0NE?=
+ =?utf-8?B?bjlybXk1bXlmMDhJR0VDYjg4dzZjN2hlQ3ozRUU0YnVCK0R5RUhFWXExT3Y0?=
+ =?utf-8?B?SjlVazNpNmU2aHJodWc5cTliT0FYdWNya05rcmNIbGpXZHl5ZllOUGhYUTZL?=
+ =?utf-8?B?Ky9YZ2NmSWNxOXBWQWpSQ01TS3l1T3BrVWVTbkpBZHdxMlkxOWhDVERLbWJX?=
+ =?utf-8?B?UEV0dkYxSXdRclZCYWVQRm9zZFk3Y09tZEU0R2pGUzU5VHI5SHZ3eWVGb3hv?=
+ =?utf-8?B?QWhCcWxYK2w5NXhwUXVaUlM5cVl6elJCYXVSVW1LVkxKbHZpWnJVZVBKc3Iy?=
+ =?utf-8?B?YVRMTElYekhaSFJQK3hYSkdmVGZsZWo5WTg1YXYxbFYwbkd4QzczMkZXZklO?=
+ =?utf-8?B?ZytOS3BwaVZ6SVZyZVlPeElOWnN2d0VSTXRmR1VKWjJPY25KMGpwM1I2WGg3?=
+ =?utf-8?B?ZmJ5bVZIcSs1UFZWUGlLUThYK3dic0FtaFBuZHM3aTlwWWtaUXoxV0JBSFM2?=
+ =?utf-8?B?ZytDN01RMlNtSHRndDZjZTZFVWpQRCt3dFdDR1JBUU1zTEJhUkQ1SEsxaW00?=
+ =?utf-8?B?WEdYalpoTEV2cHBZUzNSMHZjMkRIWWFEc2pqRmh1cFJEUVJuUTEyUStpMHJE?=
+ =?utf-8?B?YkhacmRnS2I5MGlVRXFaRkV1TU1QQ0dzUXVZSVpnWE05cGFXL21iZDVCQ2dH?=
+ =?utf-8?B?cUhkMmlQendSajlWSVNQRXZqbk5BK2E4ajBhRi96NGtFNWNzR2tlVkUwYVpF?=
+ =?utf-8?B?eVRZcDZHSnZGelBSK21nSnNEaHlQTG00Z21lM1ZQWHpVenNBTUcyMDFrTDhM?=
+ =?utf-8?B?UXY1MGkzNThpcFJ6RGtZaFcwNSszRTlsNTJOQzZ6ZEJBYmRaVUIrejgzMWlF?=
+ =?utf-8?B?bjREV2ZzZGxZdzVUSTlTWktUOVp6bEdvdVVwYll2cTBwVmd6YXhvY1g2OG5K?=
+ =?utf-8?B?eUNBUEVncHJYWWdlekJlc2hJaDJYb3hpWWVyeERkdWlKbVF1TW1hb2x0ZnQz?=
+ =?utf-8?B?VDEreEtiMnFHRFd2V1BYd2kveGhHWnMrRFZOVGFnWEdlTWNjdEZ6QlUzdmVt?=
+ =?utf-8?B?czRNQmwwdjB5U1BtQzlsaDNPMEdHZ3VyTFJMSTJyaThRNHJFeWFqaFRGeFlj?=
+ =?utf-8?B?VHl6N3BJS1F1OVNaaU1tUjdQanczMXVXbTFFUWNhUUJPNGEvR0RmdW5HVWV5?=
+ =?utf-8?B?dXZJWmtjcWdGZjVpZ2VDeFlKYTNiRDV0dmx3SDFpbmxzSldyVHdOa0VVVHU5?=
+ =?utf-8?Q?dS38Z5ZLIA1ADWmvjmldrBr/2?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01364e6d-8c8b-446b-8b74-08daee0fbd7c
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 966b33f0-819b-4145-6771-08daee1bf32c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6000.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 04:54:20.0447 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 06:21:44.1240 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HTZi0O2YsH1ix6/SawAqcRUQcA+TqTw1iQNvSqbJxAO5S3WxOQI81JByHXkeLnof
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5858
+X-MS-Exchange-CrossTenant-UserPrincipalName: l1+WDeYZy62izzEGTcnPNaz9UNM3ltXMMlbAHEKdLgiHq1SxhmsHC9ofP7cwXQQZFDyI16A+hTzvpyiocIIUow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6487
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,308 +129,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Carlos Soriano Sanchez <csoriano@redhat.com>, David Airlie <airlied@gmail.com>,
- christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>, arvind.yadav@amd.com,
+ arunpravin.paneerselvam@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+On 1/4/2023 12:07 AM, Felix Kuehling wrote:
+> Am 2023-01-03 um 04:36 schrieb Shashank Sharma:
+>>>> /*MQD struct for usermode Queue*/
+>>>> +struct amdgpu_usermode_queue_mqd
+>>> This is specific to GC 11.  Every IP and version will have its own MQD
+>>> format.  That should live in the IP specific code, not the generic
+>>> code.  We already have the generic MQD parameters that we need from
+>>> the userq IOCTL.
+>>
+>> Noted, we can separate out the generic parameters from gen specific 
+>> parameter, and will try to wrap it around the generic structure.
+>>
+>> - Shashank
+>
+> Is there a reason why you can't use "struct v11_compute_mqd" from 
+> v11_structs.h?
 
-On 1/4/2023 3:48 AM, Mario Limonciello wrote:
-> Simplifies the code so that all SDMA versions will get the firmware
-> name from `amdgpu_ucode_ip_version_decode`.
-> 
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
-> v3->v4:
->   * Move out of IP discovery and instead simplify early_init
-> v2->v3:
->   * Fix dGPU naming scheme
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c |  7 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  4 +-
->   drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   | 47 +-------------------
->   drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 30 +------------
->   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 55 +-----------------------
->   drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   | 25 +----------
->   6 files changed, 13 insertions(+), 155 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> index 9e85a078d918..83e8f0dae647 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> @@ -200,15 +200,18 @@ void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
->   }
->   
->   int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
-> -			       char *fw_name, u32 instance,
-> -			       bool duplicate)
-> +			       u32 instance, bool duplicate)
->   {
->   	struct amdgpu_firmware_info *info = NULL;
->   	const struct common_firmware_header *header = NULL;
->   	int err = 0, i;
->   	const struct sdma_firmware_header_v2_0 *sdma_hdr;
->   	uint16_t version_major;
-> +	char ucode_prefix[30];
-> +	char fw_name[40];
->   
-> +	amdgpu_ucode_ip_version_decode(adev, SDMA0_HWIP, ucode_prefix, sizeof(ucode_prefix));
-> +	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s%s.bin", ucode_prefix, !instance ? "" : "1");
+Hi Felix,
 
-It is safer to keep the original logic with instance number as suffix 
-rather than hardcoding to 1.
+Yes,  V11_compute_mqd does not have these below member which is needed 
+for usermode queue.
 
-Thanks,
-Lijo
+     uint32_t shadow_base_lo; // offset: 0  (0x0)
+     uint32_t shadow_base_hi; // offset: 1  (0x1)
+     uint32_t gds_bkup_base_lo ; // offset: 2  (0x2)
+     uint32_t gds_bkup_base_hi ; // offset: 3  (0x3)
+     uint32_t fw_work_area_base_lo; // offset: 4  (0x4)
+     uint32_t fw_work_area_base_hi; // offset: 5  (0x5)
+     uint32_t shadow_initialized; // offset: 6  (0x6)
+     uint32_t ib_vmid; // offset: 7  (0x7)
 
->   	err = amdgpu_ucode_load(adev, &adev->sdma.instance[instance].fw, fw_name);
->   	if (err)
->   		goto out;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-> index 7d99205c2e01..2d16e6d36728 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-> @@ -124,8 +124,8 @@ int amdgpu_sdma_process_ras_data_cb(struct amdgpu_device *adev,
->   int amdgpu_sdma_process_ecc_irq(struct amdgpu_device *adev,
->   				      struct amdgpu_irq_src *source,
->   				      struct amdgpu_iv_entry *entry);
-> -int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
-> -        char *fw_name, u32 instance, bool duplicate);
-> +int amdgpu_sdma_init_microcode(struct amdgpu_device *adev, u32 instance,
-> +			       bool duplicate);
->   void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
->           bool duplicate);
->   void amdgpu_sdma_unset_buffer_funcs_helper(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> index 4d780e4430e7..017ae298558e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> @@ -575,60 +575,17 @@ static void sdma_v4_0_setup_ulv(struct amdgpu_device *adev)
->   // vega10 real chip need to use PSP to load firmware
->   static int sdma_v4_0_init_microcode(struct amdgpu_device *adev)
->   {
-> -	const char *chip_name;
-> -	char fw_name[30];
->   	int ret, i;
->   
-> -	DRM_DEBUG("\n");
-> -
-> -	switch (adev->ip_versions[SDMA0_HWIP][0]) {
-> -	case IP_VERSION(4, 0, 0):
-> -		chip_name = "vega10";
-> -		break;
-> -	case IP_VERSION(4, 0, 1):
-> -		chip_name = "vega12";
-> -		break;
-> -	case IP_VERSION(4, 2, 0):
-> -		chip_name = "vega20";
-> -		break;
-> -	case IP_VERSION(4, 1, 0):
-> -	case IP_VERSION(4, 1, 1):
-> -		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
-> -			chip_name = "raven2";
-> -		else if (adev->apu_flags & AMD_APU_IS_PICASSO)
-> -			chip_name = "picasso";
-> -		else
-> -			chip_name = "raven";
-> -		break;
-> -	case IP_VERSION(4, 2, 2):
-> -		chip_name = "arcturus";
-> -		break;
-> -	case IP_VERSION(4, 1, 2):
-> -		if (adev->apu_flags & AMD_APU_IS_RENOIR)
-> -			chip_name = "renoir";
-> -		else
-> -			chip_name = "green_sardine";
-> -		break;
-> -	case IP_VERSION(4, 4, 0):
-> -		chip_name = "aldebaran";
-> -		break;
-> -	default:
-> -		BUG();
-> -	}
-> -
->   	for (i = 0; i < adev->sdma.num_instances; i++) {
-> -		if (i == 0)
-> -			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma.bin", chip_name);
-> -		else
-> -			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma%d.bin", chip_name, i);
->   		if (adev->ip_versions[SDMA0_HWIP][0] == IP_VERSION(4, 2, 2) ||
->                       adev->ip_versions[SDMA0_HWIP][0] == IP_VERSION(4, 4, 0)) {
->   			/* Acturus & Aldebaran will leverage the same FW memory
->   			   for every SDMA instance */
-> -			ret = amdgpu_sdma_init_microcode(adev, fw_name, 0, true);
-> +			ret = amdgpu_sdma_init_microcode(adev, 0, true);
->   			break;
->   		} else {
-> -			ret = amdgpu_sdma_init_microcode(adev, fw_name, i, false);
-> +			ret = amdgpu_sdma_init_microcode(adev, i, false);
->   			if (ret)
->   				return ret;
->   		}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-> index d4d9f196db83..1941b3b7c5d9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-> @@ -237,39 +237,13 @@ static void sdma_v5_0_init_golden_registers(struct amdgpu_device *adev)
->   // emulation only, won't work on real chip
->   // navi10 real chip need to use PSP to load firmware
->   static int sdma_v5_0_init_microcode(struct amdgpu_device *adev)
-> -{
-> -	const char *chip_name;
-> -	char fw_name[40];
-> -	int ret, i;
-> +{	int ret, i;
->   
->   	if (amdgpu_sriov_vf(adev) && (adev->ip_versions[SDMA0_HWIP][0] == IP_VERSION(5, 0, 5)))
->   		return 0;
->   
-> -	DRM_DEBUG("\n");
-> -
-> -	switch (adev->ip_versions[SDMA0_HWIP][0]) {
-> -	case IP_VERSION(5, 0, 0):
-> -		chip_name = "navi10";
-> -		break;
-> -	case IP_VERSION(5, 0, 2):
-> -		chip_name = "navi14";
-> -		break;
-> -	case IP_VERSION(5, 0, 5):
-> -		chip_name = "navi12";
-> -		break;
-> -	case IP_VERSION(5, 0, 1):
-> -		chip_name = "cyan_skillfish2";
-> -		break;
-> -	default:
-> -		BUG();
-> -	}
-> -
->   	for (i = 0; i < adev->sdma.num_instances; i++) {
-> -		if (i == 0)
-> -			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma.bin", chip_name);
-> -		else
-> -			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma1.bin", chip_name);
-> -		ret = amdgpu_sdma_init_microcode(adev, fw_name, i, false);
-> +		ret = amdgpu_sdma_init_microcode(adev, i, false);
->   		if (ret)
->   			return ret;
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> index 65e7a710298d..8e445eb9dd49 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> @@ -89,59 +89,6 @@ static u32 sdma_v5_2_get_reg_offset(struct amdgpu_device *adev, u32 instance, u3
->   	return base + internal_offset;
->   }
->   
-> -/**
-> - * sdma_v5_2_init_microcode - load ucode images from disk
-> - *
-> - * @adev: amdgpu_device pointer
-> - *
-> - * Use the firmware interface to load the ucode images into
-> - * the driver (not loaded into hw).
-> - * Returns 0 on success, error on failure.
-> - */
-> -
-> -// emulation only, won't work on real chip
-> -// navi10 real chip need to use PSP to load firmware
-> -static int sdma_v5_2_init_microcode(struct amdgpu_device *adev)
-> -{
-> -	const char *chip_name;
-> -	char fw_name[40];
-> -
-> -	DRM_DEBUG("\n");
-> -
-> -	switch (adev->ip_versions[SDMA0_HWIP][0]) {
-> -	case IP_VERSION(5, 2, 0):
-> -		chip_name = "sienna_cichlid_sdma";
-> -		break;
-> -	case IP_VERSION(5, 2, 2):
-> -		chip_name = "navy_flounder_sdma";
-> -		break;
-> -	case IP_VERSION(5, 2, 1):
-> -		chip_name = "vangogh_sdma";
-> -		break;
-> -	case IP_VERSION(5, 2, 4):
-> -		chip_name = "dimgrey_cavefish_sdma";
-> -		break;
-> -	case IP_VERSION(5, 2, 5):
-> -		chip_name = "beige_goby_sdma";
-> -		break;
-> -	case IP_VERSION(5, 2, 3):
-> -		chip_name = "yellow_carp_sdma";
-> -		break;
-> -	case IP_VERSION(5, 2, 6):
-> -		chip_name = "sdma_5_2_6";
-> -		break;
-> -	case IP_VERSION(5, 2, 7):
-> -		chip_name = "sdma_5_2_7";
-> -		break;
-> -	default:
-> -		BUG();
-> -	}
-> -
-> -	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", chip_name);
-> -
-> -	return amdgpu_sdma_init_microcode(adev, fw_name, 0, true);
-> -}
-> -
->   static unsigned sdma_v5_2_ring_init_cond_exec(struct amdgpu_ring *ring)
->   {
->   	unsigned ret;
-> @@ -1288,7 +1235,7 @@ static int sdma_v5_2_sw_init(void *handle)
->   			return r;
->   	}
->   
-> -	r = sdma_v5_2_init_microcode(adev);
-> +	r = amdgpu_sdma_init_microcode(adev, 0, true);
->   	if (r) {
->   		DRM_ERROR("Failed to load sdma firmware!\n");
->   		return r;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> index 049c26a45d85..bf1fa5e8d2f9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> @@ -78,29 +78,6 @@ static u32 sdma_v6_0_get_reg_offset(struct amdgpu_device *adev, u32 instance, u3
->   	return base + internal_offset;
->   }
->   
-> -/**
-> - * sdma_v6_0_init_microcode - load ucode images from disk
-> - *
-> - * @adev: amdgpu_device pointer
-> - *
-> - * Use the firmware interface to load the ucode images into
-> - * the driver (not loaded into hw).
-> - * Returns 0 on success, error on failure.
-> - */
-> -static int sdma_v6_0_init_microcode(struct amdgpu_device *adev)
-> -{
-> -	char fw_name[30];
-> -	char ucode_prefix[30];
-> -
-> -	DRM_DEBUG("\n");
-> -
-> -	amdgpu_ucode_ip_version_decode(adev, SDMA0_HWIP, ucode_prefix, sizeof(ucode_prefix));
-> -
-> -	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
-> -
-> -	return amdgpu_sdma_init_microcode(adev, fw_name, 0, true);
-> -}
-> -
->   static unsigned sdma_v6_0_ring_init_cond_exec(struct amdgpu_ring *ring)
->   {
->   	unsigned ret;
-> @@ -1260,7 +1237,7 @@ static int sdma_v6_0_sw_init(void *handle)
->   	if (r)
->   		return r;
->   
-> -	r = sdma_v6_0_init_microcode(adev);
-> +	r = amdgpu_sdma_init_microcode(adev, 0, true);
->   	if (r) {
->   		DRM_ERROR("Failed to load sdma firmware!\n");
->   		return r;
+So we had to add new MQD structs.
+
+thanks
+
+~arvind
+
+>
+> Regards,
+>   Felix
+>
