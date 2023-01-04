@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA7EFC4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 16:42:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47BA5C46467
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 16:42:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89E2610E56E;
-	Wed,  4 Jan 2023 16:42:06 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2071.outbound.protection.outlook.com [40.107.237.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C576510E455;
- Wed,  4 Jan 2023 16:41:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D5E810E583;
+	Wed,  4 Jan 2023 16:42:07 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2060.outbound.protection.outlook.com [40.107.101.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A05D10E457;
+ Wed,  4 Jan 2023 16:42:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aS0EXOY1v2ASJnk2SkCJnwXRFRKVzlDe2Zk2spTCX6TSplXWs++CzqGa7XeG64tJIbEW+dbRp+CEqw1AL6f38JxcaMYBj0487kaQcUckFPYVKapjasJzMeYzdIXBgG76uUt6CpZsNoMb+7DglVPz1QXTjCALmazmbLF19tzr4EVi1giwWz1piAR39isorzA3XeZcJz1T41vD1SZQv0nhue0TPKL+M1wyW+hjwNX5y5cx9C2fMk4t3KD9WMEXEueaEr+l7dj0rdvkzDtj+QpM/ep6O08983XBTmfHlGV91XqMk5FKGzF53DI0lMwnRUnGexmOELQoKwcSCEQzZAve9w==
+ b=LaEhBEBdDHKvuFkxK6ukZUMNuLdzxan4kXEgaezPaHSdIVv5llPibn3vFOZlOIq1fYGSrInPVkeBugcpLtEZQzwl+Wes20jeDiruDTrp57cCG+do91rKf27+vMJD+Xx+dqhQNpQ1I1i6fvgRBh4szthvQxPU5paHpyBKjhvgmnn4JwNkVfJziNobAuhQijOHgHOnlTigdOb2wFRMNDHwoE/doIQTm7en3O9BwtRGZdOzn3Q/HKHpRm0UirTmAiCDHjHGSCCLLU7fV6VZkxN8i7j+YNbbCRrWEd5TedOAeOTBE3b04d6hadfW1xvb5bhvisg/P70jB5oZDKiienYqFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3Q1UUJY5AJruN8oGu2kMpYduRktDi5GDRRcUEkcMqk4=;
- b=WTpxrlQXV1Q9shvd1PkmFBLncXn/7PlA/+ixveo67Ih3gB3Z111yqKmPZWh/xQEeVFomHuiuIwDx8j7qiFg53576ayRip+slodupkqAnWZYaNdVw2SRI2TIfLj88B6N4mOczCnBd2osyy1/HKQcEO+ff7l/KJXf70us7EgZP2kJyISWb3aa5a82bVvdN4hBvTftjlXPasUtNuicz+mkn9ZSw2FJiJgt8yZmHgyq74CvMmEUV9inIiGNRgFmMNGlTwEIiU35eKzJ5j4zYv6hrQ2BQ0oi+VXwMApTj9RXxt4IN729N+J78IfJySSuoBX7CP2MN5B71ezMFCsOu9WyW+w==
+ bh=FYEI94OHZJD5rujfGunzioO+qt2jPdpcF4T44tMN5Pg=;
+ b=c6yh3H+wGvZZvVBTNYTMambvzb40or5KmHcuIKdLc6C1byUljWcCb3VcF9Dg+whXaEqKH7wps7325huV/5i+k3fhLOffiF4iyXNDuG7LNm2TfjbMNsB99Kewx6fq5Bl86KnM8tphHIXOtPmuVLGsVqXaF73hNgzsYZTiBxFgXhneriVRCpm2az+k+3MTr/CgemF8bEPohBFtZybi5lpxpkSbZA024rsR0madv+WKtJQC3m5Rfp2cx5THSsRPAy9+PhB8IPvNS5g9heFqayQwd1RDAcg0S1pDrDGnNJQ/pMjQ8JpvoaxYZw1J2e+Fox0fXyiDmmVgfPr+MXtEEpZkSg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Q1UUJY5AJruN8oGu2kMpYduRktDi5GDRRcUEkcMqk4=;
- b=woeH2hFRM2keief/MEUde2OYNQMCSkod8bKIJcPQ1AP3B/3RpPxntO+5Fz8m0+LI3yT4FDLqz+z0Y/uQRu7FSmW9d27g1MgnRxE0kIT4zv8dRUROokwTHZy4qPhGoyi/1fxisGnGB5R70fwapxORjQGoDD8jaWeH/FKQRJYJgVw=
-Received: from DS7PR03CA0302.namprd03.prod.outlook.com (2603:10b6:8:2b::11) by
- BL1PR12MB5142.namprd12.prod.outlook.com (2603:10b6:208:312::22) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=FYEI94OHZJD5rujfGunzioO+qt2jPdpcF4T44tMN5Pg=;
+ b=dkrpMf5RoCOy5po1032K45x2FZjI6vRJQDQ0kXL9CwS7pVC/bnU/yqkKkXj60cQqmYMIqtyDqcnAgZrjOTnRszsVCvOTXPaTecvEYVeWHBLUNKVNSI9kXWy0pl/uV66JOsYxjkyLvmZxfGcFVxNLmUdVKrpCFWxxdRSpjpxuMfg=
+Received: from MN2PR16CA0045.namprd16.prod.outlook.com (2603:10b6:208:234::14)
+ by BN9PR12MB5049.namprd12.prod.outlook.com (2603:10b6:408:132::16)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Wed, 4 Jan
- 2023 16:41:54 +0000
-Received: from DS1PEPF0000E644.namprd02.prod.outlook.com
- (2603:10b6:8:2b:cafe::a5) by DS7PR03CA0302.outlook.office365.com
- (2603:10b6:8:2b::11) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 16:41:57 +0000
+Received: from BL02EPF00010206.namprd05.prod.outlook.com
+ (2603:10b6:208:234:cafe::bd) by MN2PR16CA0045.outlook.office365.com
+ (2603:10b6:208:234::14) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.14 via Frontend
- Transport; Wed, 4 Jan 2023 16:41:54 +0000
+ Transport; Wed, 4 Jan 2023 16:41:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0000E644.mail.protection.outlook.com (10.167.17.200) with Microsoft
+ BL02EPF00010206.mail.protection.outlook.com (10.167.241.196) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5944.8 via Frontend Transport; Wed, 4 Jan 2023 16:41:54 +0000
+ 15.20.5944.8 via Frontend Transport; Wed, 4 Jan 2023 16:41:57 +0000
 Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 4 Jan
- 2023 10:41:52 -0600
+ 2023 10:41:55 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v5 06/45] drm/amd: Use `amdgpu_ucode_request` helper for SDMA
-Date: Wed, 4 Jan 2023 10:39:55 -0600
-Message-ID: <20230104164042.30271-7-mario.limonciello@amd.com>
+Subject: [PATCH v5 09/45] drm/amd: Use `amdgpu_ucode_*` helpers for VCN
+Date: Wed, 4 Jan 2023 10:39:58 -0600
+Message-ID: <20230104164042.30271-10-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230104164042.30271-1-mario.limonciello@amd.com>
 References: <20230104164042.30271-1-mario.limonciello@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000E644:EE_|BL1PR12MB5142:EE_
-X-MS-Office365-Filtering-Correlation-Id: 543baaca-7912-40cb-0236-08daee729664
+X-MS-TrafficTypeDiagnostic: BL02EPF00010206:EE_|BN9PR12MB5049:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28ef1c81-1395-4595-1b64-08daee729824
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xCT+8D7/Ez8PJ0/VUOYKN/gsioArufonwHDCJGgxILA3/k43Ydik+Yvi3FfIN8qNnEx3sch9xU5gwGxE4BKjTcfSxKIg6sAU3MiwwqZG2PTksbdU+1D/seB41PAzD9Wi0dltCNTJhA1nqGz3tseQGNcgiIBi8/+gcokahV95VD7EjofycMh1RF2tBn5pkt+bQYZsqJbsO/RPbCk8s1aXHmSPzp/bpXLabLAgzUP0/W/OY1IAfJuOj+5XfdcC5R5S8KpLvQAt0yL9ozZtdGAOmDxcWmyERuVd5twhtBsOoIV+OJJhFldX5qHQkm5fM0QH/mmvoPgnXCH1ZkD+XzjmpxrbJmTd3kKTUfJmbexafHGQZ2o1AolmICLRRi9QOg3V6F7n4KvhDdXN6P7VuBhtjbG2Y7GeO/LMhi/QB78QhHrcO3BM6BJJyeK8aKC0NzsoFSlMz9PjxPDZPYvF8y7m/v4i6phP8E6PyLqmaXSkqDCuvcr/ZJhjjwDhkw28p+RnoCOpUwARRNmlwVF/IiCY23C1K031KBtM+AnWMBpCkDitLaf6VpRJf3HHqLwIKPjEBibas4D7LiSIAe9TTDH4ZrQDOKqzNtL4y/BL7Nbfi3nuzYlxQ9dwbYqghZMfwTALoys5Gm+wjlulvNmUTHZ1mDGw3wb93QoJtpoQsXONMb4m+qCOUcKj84c8T6CBHxOh7U16+0vZozeKG3jH5jDDU25ajNQujFEowgnWWQ2dXYZQwuzrQj2Zyj+QPgVjktflYwMFQsgJnY6557NdrctSqA==
+X-Microsoft-Antispam-Message-Info: GTb7gCKjqqTCvumJ60IyjnldWxytkyMnm8hTgRb2B4/TrHqj1GA62RbaLSpKYhI0jR8giAPKzLO+I2muujUyRn+eqMpqFe0Pv4nyjDRreM/+ysSIafHIf5w7fkhCwhccQB8wGbx9vsW/uSgrUSXdcENXvWiP+qUcOtAUDxkLTHZpnB2FIMwuA3cKFqvbdnv3JJWu53F/YPLTaDNgqkxBtsTqEMunoDLOcoPFOM/thqfNe/o6a5hMR3TFsgKR4feg0xuuVclsZqb/6BPjr3IeTFnDdltylPwIJWQeYHppI+9XTdqET/EOigLpUegtrOcLajJRS4yOoiV4ZzxJvjGBXw6OjPZUQa6Soa3pXyPkOSCEJ07E2b1WaelSNW1eFWpvJTpUmyw8gI4HxznBdvJub7w7sU+7ClXS5bRbvDSTgG0zjj/YcN0GjaCBBoN10vLKmdK337xo0ZAwFDFsYsaM++FsEUxGTZuGOcPlTYdrhfmwlb9uXdJTKI+QjJesuDykvYBGzYsWoI9NqLEE2BzDf7mUHKIVPpS4ruXBXza8tQ5H2QLuN4a6WFFzjeSF/F1t9r2OeY2AqPpboRdOxTOAaZWpZgJw9We5L0mGFtMAmgoAezIXMiWYLY5EGhFCZf2SWhD58mdAtg6fTkrE/x3nVxTxeW7w6KDe7nWFFTaZ5IC5f8sUJzT5z9GZY7cQaTUaOQTgywCBCXjla9ZrdBptWMBuy59Rlpo8HM+YAf1H7/Wkh+7rLhEnT53w+mddVIhi0wa49M8vaRnK+k+NtPZIJw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(346002)(39860400002)(376002)(136003)(451199015)(46966006)(36840700001)(40470700004)(5660300002)(2906002)(8936002)(44832011)(4326008)(41300700001)(8676002)(70586007)(70206006)(110136005)(54906003)(478600001)(316002)(26005)(186003)(16526019)(82310400005)(336012)(40480700001)(7696005)(83380400001)(47076005)(426003)(1076003)(356005)(81166007)(82740400003)(2616005)(86362001)(40460700003)(36756003)(36860700001)(81973001)(36900700001);
+ SFS:(13230022)(4636009)(136003)(376002)(346002)(39860400002)(396003)(451199015)(46966006)(40470700004)(36840700001)(426003)(1076003)(2616005)(336012)(83380400001)(47076005)(16526019)(186003)(82310400005)(40460700003)(81166007)(26005)(356005)(82740400003)(40480700001)(86362001)(36860700001)(36756003)(54906003)(316002)(110136005)(44832011)(2906002)(5660300002)(70586007)(70206006)(8676002)(4326008)(8936002)(41300700001)(7696005)(478600001)(81973001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 16:41:54.2384 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 543baaca-7912-40cb-0236-08daee729664
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 16:41:57.2219 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28ef1c81-1395-4595-1b64-08daee729824
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E644.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00010206.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5142
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5049
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,49 +111,47 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 The `amdgpu_ucode_request` helper will ensure that the return code for
 missing firmware is -ENODEV so that early_init can fail.
 
+The `amdgpu_ucode_release` helper is for symmetry.
+
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 16 +++-------------
+ 1 file changed, 3 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-index ea5278f094c0..1668360bc699 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-@@ -154,16 +154,11 @@ int amdgpu_sdma_process_ecc_irq(struct amdgpu_device *adev,
- 
- static int amdgpu_sdma_init_inst_ctx(struct amdgpu_sdma_instance *sdma_inst)
- {
--	int err = 0;
- 	uint16_t version_major;
- 	const struct common_firmware_header *header = NULL;
- 	const struct sdma_firmware_header_v1_0 *hdr;
- 	const struct sdma_firmware_header_v2_0 *hdr_v2;
- 
--	err = amdgpu_ucode_validate(sdma_inst->fw);
--	if (err)
--		return err;
--
- 	header = (const struct common_firmware_header *)
- 		sdma_inst->fw->data;
- 	version_major = le16_to_cpu(header->header_version_major);
-@@ -195,7 +190,7 @@ void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
- 	int i;
- 
- 	for (i = 0; i < adev->sdma.num_instances; i++) {
--		release_firmware(adev->sdma.instance[i].fw);
-+		amdgpu_ucode_release(adev->sdma.instance[i].fw);
- 		if (duplicate)
- 			break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index a23e26b272b4..b5692f825589 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -206,19 +206,9 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 		return -EINVAL;
  	}
-@@ -214,7 +209,7 @@ int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
- 	const struct sdma_firmware_header_v2_0 *sdma_hdr;
- 	uint16_t version_major;
  
--	err = request_firmware(&adev->sdma.instance[instance].fw, fw_name, adev->dev);
-+	err = amdgpu_ucode_request(adev, &adev->sdma.instance[instance].fw, fw_name);
- 	if (err)
- 		goto out;
+-	r = request_firmware(&adev->vcn.fw, fw_name, adev->dev);
++	r = amdgpu_ucode_request(adev, &adev->vcn.fw, fw_name);
+ 	if (r) {
+-		dev_err(adev->dev, "amdgpu_vcn: Can't load firmware \"%s\"\n",
+-			fw_name);
+-		return r;
+-	}
+-
+-	r = amdgpu_ucode_validate(adev->vcn.fw);
+-	if (r) {
+-		dev_err(adev->dev, "amdgpu_vcn: Can't validate firmware \"%s\"\n",
+-			fw_name);
+-		release_firmware(adev->vcn.fw);
+-		adev->vcn.fw = NULL;
++		amdgpu_ucode_release(adev->vcn.fw);
+ 		return r;
+ 	}
+ 
+@@ -333,7 +323,7 @@ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev)
+ 			amdgpu_ring_fini(&adev->vcn.inst[j].ring_enc[i]);
+ 	}
+ 
+-	release_firmware(adev->vcn.fw);
++	amdgpu_ucode_release(adev->vcn.fw);
+ 	mutex_destroy(&adev->vcn.vcn1_jpeg1_workaround);
+ 	mutex_destroy(&adev->vcn.vcn_pg_lock);
  
 -- 
 2.34.1
