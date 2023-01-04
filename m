@@ -4,131 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E686C46467
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 18:27:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01170C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 19:54:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA5B710E46E;
-	Wed,  4 Jan 2023 18:27:14 +0000 (UTC)
-X-Greylist: delayed 1797 seconds by postgrey-1.36 at gabe;
- Wed, 04 Jan 2023 18:22:19 UTC
-Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com
- [205.220.166.238])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B91110E463;
- Wed,  4 Jan 2023 18:22:19 +0000 (UTC)
-Received: from pps.filterd (m0250810.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 304HbV6q024499; Wed, 4 Jan 2023 09:52:15 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references :
- content-transfer-encoding : content-type : mime-version; s=PPS06212021;
- bh=l3e6I94k/ZqWPDWhBXjDOWDqowM6L6nKdKizhP2ZwLM=;
- b=ciSWUKFS/I2ixoyv+/b8K7k1QeFQemyzPYvQdDzCh+wkYJcZAlTfTX0Oe/pzoUc50XtN
- cNPqZT6+RKysrl5PVxw6cmE5K5O7SgvKKg+kWXIcjHfGbjIMvnVOtoll3OzJE0GJJB1A
- jKF6D/sqaZrdImjke2flB/sVAFTSUyHxmrCFyUHGZxExNfa7fdeFr7BhVsY+QOwU4sDK
- NzcwdaEa/JV/Tm2ZXzD2sC11HLDNhmlkTOV3Menjm4nqxAHLgy14CXEpk43j1WURCuYq
- iwWGdFRfp9XnnNBILwU/hCH7EgrAOZtUfZRjXPOgiJDQ1d8nfWNLT64mlO4UG7cyeu5B MA== 
-Received: from nam12-bn8-obe.outbound.protection.outlook.com
- (mail-bn8nam12lp2172.outbound.protection.outlook.com [104.47.55.172])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 3mth87tj0g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Jan 2023 09:52:15 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d3oodw0PJOJyCw0xHzbW85dGVjlwsEwhQrD75hXhYI5aiKhO36JZdy4Pg4pJ4YYS9gIWdwQxUI+Y4p1et5H2hPx584MptP7a9qNKCsOjIg0Xm+gP3djAVjqzIfvsFCy0INZChOGiI0hvezzy9TJ1jbL3sbhjaw+W2EtWz90oTVrMo/XSYW533a05ees40k3BdGfXkTm8f40E29fqqwC/Ldbet5x+V5uFXGuSUM8358bT9K8ClpvkwolKfXNba2eOqomG/DcrhtTjEPBjzvjUnyse50YWwldlpmwE1tXDPUXPHLsmzl9hE5Ldt83dhUJZRbug+Q+8gjSeTEJL0PuWXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l3e6I94k/ZqWPDWhBXjDOWDqowM6L6nKdKizhP2ZwLM=;
- b=UmjOsZkyLEvmpiLfB2AgoCFXz2CtpbsXptH/dCpyKnpBTJIl9FEDvNoRmj3X/CGSKbwGnzbdYfRd2n+pWNH5p8izlIFAKXNM3ZB5ld0OZ4lUWLtfVF3i23MsspcC8zFF09DSesNTQ9fMkw79toHW0h29pWU2xNSHkNbOBNWHUsXLX+bE4yHoD84lWLx81kGST1y2VauEoKn1MwgWaqGGq6QzAXtWdsItI6N0IkepU2DmOQVZ9he+7uNdMWSnrRjYCO1peePhkJrGnpZyZB1L8TrjpfrsDqMyeXh9us2jXHCQjcYn+bDSE4H8AZghJAE/hkfQz7UgYRqbV2vZzJ6uwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=windriver.com; dmarc=pass action=none
- header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
-Received: from PH0PR11MB4952.namprd11.prod.outlook.com (2603:10b6:510:40::15)
- by IA1PR11MB8223.namprd11.prod.outlook.com (2603:10b6:208:450::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Wed, 4 Jan
- 2023 17:52:13 +0000
-Received: from PH0PR11MB4952.namprd11.prod.outlook.com
- ([fe80::52f4:f398:b983:2380]) by PH0PR11MB4952.namprd11.prod.outlook.com
- ([fe80::52f4:f398:b983:2380%7]) with mapi id 15.20.5944.019; Wed, 4 Jan 2023
- 17:52:13 +0000
-From: Dragos-Marian Panait <dragos.panait@windriver.com>
-To: stable@vger.kernel.org
-Subject: [PATCH 5.4 1/1] drm/amdkfd: Check for null pointer after calling
- kmemdup
-Date: Wed,  4 Jan 2023 19:51:55 +0200
-Message-Id: <20230104175155.1415258-2-dragos.panait@windriver.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230104175155.1415258-1-dragos.panait@windriver.com>
-References: <20230104175155.1415258-1-dragos.panait@windriver.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: VI1PR09CA0133.eurprd09.prod.outlook.com
- (2603:10a6:803:12c::17) To PH0PR11MB4952.namprd11.prod.outlook.com
- (2603:10b6:510:40::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3752410E073;
+	Wed,  4 Jan 2023 19:54:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3132F10E073;
+ Wed,  4 Jan 2023 19:54:55 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 70657617F3;
+ Wed,  4 Jan 2023 19:54:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 310B3C433D2;
+ Wed,  4 Jan 2023 19:54:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1672862093;
+ bh=L+MNyD4+J2gyZIniEp1jnrEedIiPMHOYlb+OJsuTqoA=;
+ h=From:Subject:Date:To:Cc:From;
+ b=Bltnvl8eBa4iWRprtH8bhHBNd74MinRaprS5FPLE+O5X6NBm8prVFG4+kC5eqetEg
+ VNS7V9184Yyke96GgYZlNYf3pkuCgFEGExspz1qbRiA33+TFMSTZ9OIcrUBDYP/RJU
+ lCJ08b+WRoNrRYMGRmzI76Xv4lbPY+TMDAvIns8E7OiO2gppVFzRlnJ2i/6B/VZ0lc
+ JeVhbZwEdi7VcDsLeeyfvwITTem2fW09O5wf3FU+jPNQmhV+adDUqnYxZ8HuEf5Onv
+ zScIVPQjZpVQ+X7an9Vh4Pd6wqSAbA08PJOq8xe5gaCZaU8j8GfaTM1rwJHCovACyQ
+ EIyet6WRohvsg==
+From: Nathan Chancellor <nathan@kernel.org>
+Subject: [PATCH 00/14] Remove clang's -Qunused-arguments from KBUILD_CPPFLAGS
+Date: Wed, 04 Jan 2023 12:54:18 -0700
+Message-Id: <20221228-drop-qunused-arguments-v1-0-658cbc8fc592@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB4952:EE_|IA1PR11MB8223:EE_
-X-MS-Office365-Filtering-Correlation-Id: 36b90077-4c79-41b9-a364-08daee7c6926
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1B7XktFUfAN92HRmfWh5hix/hCrbRdoFE+Drruky55/5HoSzn48HdoVwqZrDgmKNMlMCcgR2gHTq1eUVT1bMl/5zus+YH+gWKlnh3eAou28WdSLpbbS0JEseuZog6QODT6X9Nn7ClRnG8ym2xWy8jUcXoPitakpeGIMQDR7TWdEZwkhPkS6+AcL58ENCHw0Ec7eqYStM4URSI4lCXsR4J4QRIjnlnLqUC8v8gObs4gxmcmo5MYLmELmqJ35zr5iL/VbT6iHjQhmWGmtPrMIJdNC06DfgD/h9K8Q+coYP3d3zUZhBNtccq5OB2idsRZWerZC3saCwqKpPK/Ah+mqH6v5wrcf/EZDmQVUftG5v1EdtJ+oQyFcUJlS9aiX1Bb5/EjLVQAm+KnpljN8NRqm5MTWTv+x6A/UtLfNz+xDNcmpd33OuwGwltugPWVwXPiikRHDSQ8nt+t22IBVT1hSVGxnJ116KPAmLM94S0xMdJ9bjHgd27CqQAb2rthPqiJ9q+6MSZyUT6n+A+R9lySVsUH3der/6y5BMZujBpP+COo1kLPXR8FPTZIg8u6SKnb8OpewtcUHxu2W0wnSrVdRqEkYlBFKJrzLSkdFXvis3tT1vbk04HNL1Qh8s+IGk9AfTh3WbRTJAdx7+Z00BRbcW8i2zy4LLcfvG0MBt3jgatizt6t4WiKsYForCg2BdWBFR
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB4952.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(136003)(346002)(396003)(366004)(39850400004)(451199015)(38100700002)(38350700002)(36756003)(86362001)(1076003)(66556008)(6916009)(6666004)(6506007)(2616005)(66476007)(478600001)(6512007)(6486002)(186003)(26005)(316002)(52116002)(54906003)(8676002)(2906002)(66946007)(41300700001)(4326008)(8936002)(83380400001)(5660300002)(7416002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?lm78rsaq7+SFoiKqGoxiuGhTjRbtS6U1pnE2U/EByzzgJDQjADf/6SShPmsT?=
- =?us-ascii?Q?FY+YqcDNKjuv14HwfgdJ6ShzQfrllp8NQ7p8i5oN0gydGB6mf05huLGbOUe4?=
- =?us-ascii?Q?WstvtXvjxIZUcsjHu8MxHbpRajtYsazNVUDj9GcdluqJkOCIwaN4ZDo2uYoA?=
- =?us-ascii?Q?9MePfuEnG1OfSiRYNiqjUKT+eB2uZcbvszg3SK2h1ur7f6EMQ9Ru2WxKEwJK?=
- =?us-ascii?Q?uvDU0JMH+RrhDlYhkel5xl17423mZp4IeocFyQluUJe5noT93nHtL1PRw61Z?=
- =?us-ascii?Q?4c1tWUxRJu+LG65e2VbrV5qmpNw2wW3Evi94fgDORRDuDhXsIBRs0PBwMqS8?=
- =?us-ascii?Q?iChqvn0D8HUPHLD3sTXW2HhbUhACtlWQMoe71YsBrhNC2gNINQkVFWpJfW9g?=
- =?us-ascii?Q?zg25TjwYVW8tPRhMrQx6F8xeVg5rS4Mwyk7P1w3NDxpghB+OTcQ8LBhHA4TI?=
- =?us-ascii?Q?Ch3fDdDMXo116H4CLHbMntasKmg7MehSw0/BADUl2sqr5M0HyC7WLOldWsEO?=
- =?us-ascii?Q?hc7CYeaYAXRz4GgG2UlNed24ekiiJ9ehOFZqB+F/rfY6ajxgVm4/Uj0Vu1aM?=
- =?us-ascii?Q?FfyQ/Ed/VbzKtLjk3az4+EUZRbEy15RWpq4+RPm0n/cYhFET2g0gKG0B5KOO?=
- =?us-ascii?Q?kCPGP/oHsTDfniEzfFYmSA4k4sDmYIORGIlHS3d40v2mun7BUPoPoMSLvuJW?=
- =?us-ascii?Q?RHj8c0riprIsMV2VabLCYg+/bGFnCEWPwcuyOK9e6Ib/GHzce9wZjH6naEQD?=
- =?us-ascii?Q?Cw8RoWOP1YKmk6wMB0rzZJaqPOFANPZkZNeWtBKhNNNe73aUhwar5CDvXj4A?=
- =?us-ascii?Q?tFebBBac16IjQA8LV3rPB25P9E+3ha05p5vIAwpBdTg/fbe2jPj07k6WCXLx?=
- =?us-ascii?Q?y1ftv9ow9cWOVSitD967XFmgi+dDQDuSxcZyKM8AfioonATIlmhBAh73A/IT?=
- =?us-ascii?Q?QnUKZlAxo+T8OLhXXjyxASlPp4Jt5Gnq2VI67s/C6NCXqc8MrPFnJZOK3IOB?=
- =?us-ascii?Q?/vqgviwfUUpXo6tGeKLmoiQvGvj6BcTt9QO/HLggQYKwuvJaXT4162svgNx3?=
- =?us-ascii?Q?KLRFnUq31H2FeXLDv4NkwVvM2NZa4BLFWd5p6IvMQyRw2JA3B7T5n+lZawLh?=
- =?us-ascii?Q?cQVqtXo0NeBxxdS9iJeL9CLcF7nglVdI26ug5wT9kVy/oZ2PQ0jsbzDmg64p?=
- =?us-ascii?Q?m/Q3FXu7F2kdIgN4laXQlPSXTQroWUfWC5GGx1CVadksc4apjz75vqMa/zZZ?=
- =?us-ascii?Q?N6cp+tvmalYF9wSc8OTehsA5cxnA3s0eUxf4kPQCGczWv/uctcPSA3QROsU6?=
- =?us-ascii?Q?n8c6DvZ1/hpO2IY0w49gCWpH0MfNW0+y9ctGgoAxXhYJ1vwILUTl1CbuyeZi?=
- =?us-ascii?Q?olOQJFaIgeeoOAvnnDAMHT4FX1mi5C/gw7i+CsJRlPIMdUBxCZ6bM9FiVu1B?=
- =?us-ascii?Q?XKV4MrkHEi0FrZVVx2g1COpQcWqeA0atPyxQfUFVLZkE1FygHsZEVal/py25?=
- =?us-ascii?Q?RFM+zr8qC/i85y5+ll3EiS6ogl9Qcem0+Fl5WwNCDQLT43opXzHkFESthM2d?=
- =?us-ascii?Q?r1o5m6B6WkX1Ppjy1sKY+eaij81MUfOrQyYZv7VOpAD9AD5mLC9zzCZe///G?=
- =?us-ascii?Q?ag=3D=3D?=
-X-OriginatorOrg: windriver.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36b90077-4c79-41b9-a364-08daee7c6926
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB4952.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 17:52:13.7766 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aWoAkdxrKeqDVkDlgycBZQbRr+ZBjEmlg9sPaESrOC6eWobF0A7/Xs1lh57HTq/lRS/6agKdZVOlUUYFrkwyj4Ha7Hrvhpxu6GZViqeGY7M=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB8223
-X-Proofpoint-ORIG-GUID: pikKZc6x6uWbdP5WagCRtQiUoIRpmNcG
-X-Proofpoint-GUID: pikKZc6x6uWbdP5WagCRtQiUoIRpmNcG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2023-01-04_07,2023-01-04_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0
- malwarescore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
- priorityscore=1501 clxscore=1015 mlxscore=0 suspectscore=0 phishscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301040149
-X-Mailman-Approved-At: Wed, 04 Jan 2023 18:27:13 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGvZtWMC/x2NQQqDQAwAvyI5N6BLpaVfKT1kd6PmYLSJWwri3
+ 7v2OAzD7OBswg6PZgfjj7gsWqG7NJAm0pFRcmUIbQhdCHfMtqz4LlqcM5KNZWbdHNvUp1sm7q9D
+ hBpHcsZopGk685l8YzvFajzI9398vo7jB9ivTEOBAAAA
+To: masahiroy@kernel.org, ndesaulniers@google.com
+X-Mailer: b4 0.11.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4767; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=L+MNyD4+J2gyZIniEp1jnrEedIiPMHOYlb+OJsuTqoA=;
+ b=owGbwMvMwCEmm602sfCA1DTG02pJDMlbb3ZW1WS5GXp9rDnt/6hu/3G7mYecz4f8sPovxa91XotL
+ 2e5CRykLgxgHg6yYIkv1Y9XjhoZzzjLeODUJZg4rE8gQBi5OAZhI9wdGhsttn4qEr1577ln566Myr/
+ BNt4db9/dNrVRYwLP66qbc7LkM/z28WKNDG/Vum/jOz8p4fvzjYZvp+1xdA27LmtopzX7qzwgA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,50 +59,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Oded Gabbay <oded.gabbay@gmail.com>, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Ben Goz <ben.goz@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Kent Russell <kent.russell@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: trix@redhat.com, dave.hansen@linux.intel.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ agordeev@linux.ibm.com, linux-s390@vger.kernel.org,
+ kernel test robot <lkp@intel.com>, mpe@ellerman.id.au, x86@kernel.org,
+ Rodrigo.Siqueira@amd.com, christophe.leroy@csgroup.eu, mingo@redhat.com,
+ borntraeger@linux.ibm.com, harry.wentland@amd.com, llvm@lists.linux.dev,
+ nicolas@fjasle.eu, gor@linux.ibm.com, linux-kbuild@vger.kernel.org,
+ sunpeng.li@amd.com, hca@linux.ibm.com, npiggin@gmail.com,
+ Nathan Chancellor <nathan@kernel.org>, bp@alien8.de, tglx@linutronix.de,
+ tsbogend@alpha.franken.de, Xinhui.Pan@amd.com, linux-mips@vger.kernel.org,
+ svens@linux.ibm.com, alexander.deucher@amd.com, linuxppc-dev@lists.ozlabs.org,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+Hi all,
 
-[ Upstream commit abfaf0eee97925905e742aa3b0b72e04a918fa9e ]
+Clang can emit a few different warnings when it encounters a flag that it
+recognizes but does not support internally. These warnings are elevated to
+errors within {as,cc}-option via -Werror to catch unsupported flags that should
+not be added to KBUILD_{A,C}FLAGS; see commit c3f0d0bc5b01 ("kbuild, LLVMLinux:
+Add -Werror to cc-option to support clang").
 
-As the possible failure of the allocation, kmemdup() may return NULL
-pointer.
-Therefore, it should be better to check the 'props2' in order to prevent
-the dereference of NULL pointer.
+If an unsupported flag is unconditionally to KBUILD_{A,C}FLAGS, all subsequent
+{as,cc}-option will always fail, preventing supported and even potentially
+necessary flags from getting adding to the tool flags.
 
-Fixes: 3a87177eb141 ("drm/amdkfd: Add topology support for dGPUs")
-Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Dragos-Marian Panait <dragos.panait@windriver.com>
+One would expect these warnings to be visible in the kernel build logs since
+they are added to KBUILD_{A,C}FLAGS but unfortunately, these warnings are
+hidden with clang's -Qunused-arguments flag, which is added to KBUILD_CPPFLAGS
+and used for both compiling and assembling files.
+
+Patches 1-4 address the internal inconsistencies of invoking the assembler
+within kbuild by using KBUILD_AFLAGS consistently and using '-x
+assembler-with-cpp' over '-x assembler'. This matches how assembly files are
+built across the kernel and helps avoid problems in situations where macro
+definitions or warning flags are present in KBUILD_AFLAGS, which cause
+instances of -Wunused-command-line-argument when the preprocessor is not called
+to consume them. There were a couple of places in architecture code where this
+change would break things so those are fixed first.
+
+Patches 5-12 clean up warnings that will show up when -Qunused-argument is
+dropped. I hope none of these are controversial.
+
+Patch 13 turns two warnings into errors so that the presence of unused flags
+cannot be easily ignored.
+
+Patch 14 drops -Qunused-argument. This is done last so that it can be easily
+reverted if need be.
+
+This series has seen my personal test framework, which tests several different
+configurations and architectures, with LLVM tip of tree (16.0.0). I have done
+defconfig, allmodconfig, and allnoconfig builds for arm, arm64, i386, mips,
+powerpc, riscv, s390, and x86_64 with GCC 12.2.0 as well but I am hoping the
+rest of the test infrastructure will catch any lurking problems.
+
+I would like this series to stay together so that there is no opportunity for
+breakage so please consider giving acks so that this can be carried via the
+kbuild tree.
+
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 3 +++
- 1 file changed, 3 insertions(+)
+Nathan Chancellor (12):
+      MIPS: Always use -Wa,-msoft-float and eliminate GAS_HAS_SET_HARDFLOAT
+      MIPS: Prefer cc-option for additions to cflags
+      powerpc: Remove linker flag from KBUILD_AFLAGS
+      powerpc/vdso: Remove unused '-s' flag from ASFLAGS
+      powerpc/vdso: Improve linker flags
+      powerpc/vdso: Remove an unsupported flag from vgettimeofday-32.o with clang
+      s390/vdso: Drop unused '-s' flag from KBUILD_AFLAGS_64
+      s390/vdso: Drop '-shared' from KBUILD_CFLAGS_64
+      s390/purgatory: Remove unused '-MD' and unnecessary '-c' flags
+      drm/amd/display: Do not add '-mhard-float' to dml_ccflags for clang
+      kbuild: Turn a couple more of clang's unused option warnings into errors
+      kbuild: Stop using '-Qunused-arguments' with clang
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 3685e89415d5..6066cd7a9d8c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -407,6 +407,9 @@ static int kfd_parse_subtype_iolink(struct crat_subtype_iolink *iolink,
- 			return -ENODEV;
- 		/* same everything but the other direction */
- 		props2 = kmemdup(props, sizeof(*props2), GFP_KERNEL);
-+		if (!props2)
-+			return -ENOMEM;
-+
- 		props2->node_from = id_to;
- 		props2->node_to = id_from;
- 		props2->kobj = NULL;
+Nick Desaulniers (2):
+      x86/boot/compressed: prefer cc-option for CFLAGS additions
+      kbuild: Update assembler calls to use proper flags and language target
+
+ Makefile                                    |  1 -
+ arch/mips/Makefile                          | 13 ++-------
+ arch/mips/include/asm/asmmacro-32.h         |  4 +--
+ arch/mips/include/asm/asmmacro.h            | 42 ++++++++++++++---------------
+ arch/mips/include/asm/fpregdef.h            | 14 ----------
+ arch/mips/include/asm/mipsregs.h            | 20 +++-----------
+ arch/mips/kernel/genex.S                    |  2 +-
+ arch/mips/kernel/r2300_fpu.S                |  4 +--
+ arch/mips/kernel/r4k_fpu.S                  | 12 ++++-----
+ arch/mips/kvm/fpu.S                         |  6 ++---
+ arch/mips/loongson2ef/Platform              |  2 +-
+ arch/powerpc/Makefile                       |  2 +-
+ arch/powerpc/kernel/vdso/Makefile           | 25 +++++++++++------
+ arch/s390/kernel/vdso64/Makefile            |  4 +--
+ arch/s390/purgatory/Makefile                |  2 +-
+ arch/x86/boot/compressed/Makefile           |  2 +-
+ drivers/gpu/drm/amd/display/dc/dml/Makefile |  3 ++-
+ scripts/Kconfig.include                     |  2 +-
+ scripts/Makefile.clang                      |  2 ++
+ scripts/Makefile.compiler                   |  8 +++---
+ scripts/as-version.sh                       |  2 +-
+ 21 files changed, 74 insertions(+), 98 deletions(-)
+---
+base-commit: 88603b6dc419445847923fcb7fe5080067a30f98
+change-id: 20221228-drop-qunused-arguments-0c5c7dae54fb
+
+Best regards,
 -- 
-2.38.1
-
+Nathan Chancellor <nathan@kernel.org>
