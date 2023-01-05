@@ -4,58 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9809C3DA7A
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jan 2023 16:58:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD9ADC3DA7A
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jan 2023 17:02:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDE6910E761;
-	Thu,  5 Jan 2023 16:58:41 +0000 (UTC)
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 835B110E761
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Jan 2023 16:58:39 +0000 (UTC)
-Received: by mail-pj1-x102d.google.com with SMTP id
- n65-20020a17090a2cc700b0021bc5ef7a14so2634749pjd.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Jan 2023 08:58:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=C28Vu9xfz/pUMaILk2HgB57u0ZMAPVpPod7tgpaG7Po=;
- b=XWzPujB2kcAQ1TRVT3BpXHws4nH7Jp2f9ePxrw08uomXJslRxU6VEqB7NqnX+xlRHa
- cf748crr/kl5TI4cZ+PgVphkG2lTW3q3B8vXaVG2ofNL9E70oTWbwnbUVQ16V7+MJrBz
- wo2XhvTKg22qC/Z8oraxWJPAM3qKub6W+8TCtuMxZWxR4qaqbGyE05D+w7BMFREZPrZB
- x0ODSU9HoyltxmibIG3nuiW+6gHvvYAir/fD6GePGZp0M8aNWoG+x2kwwJWdg668kuhF
- 5VhubgIUYOXqwlU4redjJYEMgjxApXCGJc9VEfXatQn9rGzrkAkSr8W48EnDPijg5mpf
- RF8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=C28Vu9xfz/pUMaILk2HgB57u0ZMAPVpPod7tgpaG7Po=;
- b=bnczR17lU3ZVvOXcKkqJl1WA50XLHDwJ0aZb8qR0HKLEsJcAx5KJbiR4RKxs0USNVe
- haoYt02dKP8udayM9LfXoC3a9uO/AfYfRiT+7cu0sZ4oEaTxeuyAS1vo9TI1xXn8FvgY
- p5wrM4yAweTWNQa9tNLZN+heibB6RBNca+XH+XUAVLyqpnbo9HvUhc1ynWTd39RW54k4
- SIRaloruoK5GJzqORqfxXiKK4ubV3sJ/Kz/tYCyt73lgusKINaFMHLMr2uGZvUfqES6f
- /2hBTsC2ENlgyKGlCsZDcVoiN0IYv0DVJiEVQCxYYTleZ6visBcelNMEyiiTSwGUwO5H
- WMbA==
-X-Gm-Message-State: AFqh2kpMPDG5xdauYE2snlsbcxNVr19jCFD72S/5zE+Y9ZFrjNZQjdY6
- NiTvX5eek947HLZRTz/F1RySLsrm3Mag3O1kkRn3qheS
-X-Google-Smtp-Source: AMrXdXukp5pbG/YUhaagqEn5bbT695az5Q3RborYBTyCMu41hbDpqaGGA38ZFh6hagv4jKgxMie/820Nyick5E5qx7w=
-X-Received: by 2002:a05:6870:c59c:b0:150:d9aa:4011 with SMTP id
- ba28-20020a056870c59c00b00150d9aa4011mr810762oab.96.1672937437188; Thu, 05
- Jan 2023 08:50:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D86410E08D;
+	Thu,  5 Jan 2023 17:02:01 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8EDC10E08D;
+ Thu,  5 Jan 2023 17:01:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WwSfTK1vxeli12B7AXB6oWmryAv6UxmTQ5PKcglwV9bb8nXHz8/jOWFadIstzbhWQgPeI8QpOI1vn6AIhp8+Tpac2ftmMaaEOVT6sl5O8L4IMZlymXCXT/iYZhNliDavn+CqimwEYJ+o+FjVDaeWGFRWxeIXrfm0i51SDHioPahJS0dWVsCC1gPzB28lB4CF6hUg72P5AOHpl0YhBE1wGhxWpCR5iwgd7r7I6/yYONTs2UhqsOldIhVXynT/vEfw0jsZ8v/vqEsLH7iROHpP6ZJqwO6zICmrFEOGHRvWDROrgCOtHWo1WhCAa8Jz5gH6oZANlaZK+48GGFNdr3Cq+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FTLNGpVA0h+SXLS+KiTeOahDLsAlGKgmtm5t+7ygJjY=;
+ b=C3GRD2hzPeCaFb4AxIg/kTO6hcccCrTdUxTsKaUmAmUcoP7U6O9CNitWB4zSUkmnT21lYCivF09tLx1Pulf245sxuyvLWm/XaFE/JIHoY9v0b1UOtFk6F6NKq6RdUIjxd4vMTSzIFlH6pCAPHIcRvAy3Bn/X7FS9qF+4p3tu303hF6pc8d1kNpaJ6eoDz9+Sm4BmLicA4zI2OJtpOJMBvu350YLNQw/vFNs6xG91jv5aOHLj7kLD9nfRgVKYUA1kdr5ptCz1a7VdUGtOgAI9ww1DwlqV5IqzwHWiCKz6dM3tZGVlU98yfyMkhT5CnAPTiRU98/6oZoGLgHIcHWySvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FTLNGpVA0h+SXLS+KiTeOahDLsAlGKgmtm5t+7ygJjY=;
+ b=V4DZ20VnXrRVxnhwkiamPcViKOfukekj8tNOOqFki5LkFPL7/5r93Kjz1KGVXcAmEtZuMvwVY+hXwKPEAgK1LuCYbWTjGQuat4MlBfBl+/cGSdp5WUONwRmUQHzW8nDEH5A3vljZf/48qb2PGe2Nd6riQusM2ZFgtuxJNc7na/U=
+Received: from BN0PR02CA0009.namprd02.prod.outlook.com (2603:10b6:408:e4::14)
+ by MW3PR12MB4412.namprd12.prod.outlook.com (2603:10b6:303:58::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Thu, 5 Jan
+ 2023 17:01:57 +0000
+Received: from BN8NAM11FT107.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e4:cafe::53) by BN0PR02CA0009.outlook.office365.com
+ (2603:10b6:408:e4::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.15 via Frontend
+ Transport; Thu, 5 Jan 2023 17:01:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT107.mail.protection.outlook.com (10.13.176.149) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5966.18 via Frontend Transport; Thu, 5 Jan 2023 17:01:56 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 5 Jan
+ 2023 11:01:55 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v7 01/45] drm/amd: Delay removal of the firmware framebuffer
+Date: Thu, 5 Jan 2023 11:00:47 -0600
+Message-ID: <20230105170138.717-2-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230105170138.717-1-mario.limonciello@amd.com>
+References: <20230105170138.717-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
-References: <20230105111703.52695-1-christian.koenig@amd.com>
- <20230105111703.52695-2-christian.koenig@amd.com>
-In-Reply-To: <20230105111703.52695-2-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 5 Jan 2023 11:50:25 -0500
-Message-ID: <CADnq5_OdokG3VZxp0FE-zbvBoLiZcWQkxhcHCwa7ZMCvx2FkOw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: fix missing dma_fence_put in error path
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT107:EE_|MW3PR12MB4412:EE_
+X-MS-Office365-Filtering-Correlation-Id: 226e5475-d060-4965-ccea-08daef3e8d88
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: QiNXOZsYrjQ+g2q5FC5H6zhhLmcHy7ywfsaHxWx6IF7HL/vNMoJ+LnPqSOK6ZcPMwpobPFVG2Ng4PQpB8aMi1F6jJmPg9MXjjCN7baOT6FojWEw2/EJ3rYHodQLi7hhVZ/xDhblhVZzbDOCbhY7QaVqIdwD4L4z+/5N+xKHhJWHfCSwk4c0j3GczRlVf5pgx/gbxAV9Bt3R7FJVLcy4e4I2LqcHCpUlEKCzfu/lUflmssbKNYCL4tPRM9+pAZSuCEy9uH7iQ75WW7CWlXK56n6bksUdCI9bN79/ZECRPJXI4obuCpAVo8m5tuIFJddERklJq1fHt2c7wgTPndqYqk9yunYIxSR5n3N9SvCNvq9HW6SEShne43LT7n4mMAdKYRxoF0YK8A9QsKemfv8q0IDMlNdr0AeS1WQ/k00unK1dCly3TzCVtm22Z27Z8KFhPrPOnfzUIPnCwAFMPNGnFgFDU6C2jbX35+SZy0GaQrliVHhgcUGW9Db8bNdkKztY+8YfshxcoiCMkc1DfyjLkrfEt19Ua5FuB/suCG904ntfnuk9vlmJ4yOOGpazbJVPGIG1nb83ehDE5Q4v81N3KxS/i91a7K83YldF99Sn4U+8EvgysCtEcDcvPizWVi9M44tZwLaz6CfSanNHMORjNWyL5+ac5vtCWEzO0O7RBi9RP8rP0v+l3vW/6nWpOKUUWS4d9PowN//PlswSujdC2uQwadQNH2jzvPbPVBJOrvBU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(346002)(396003)(376002)(136003)(451199015)(36840700001)(46966006)(40470700004)(44832011)(2616005)(36860700001)(47076005)(336012)(83380400001)(426003)(40480700001)(86362001)(81166007)(82310400005)(40460700003)(82740400003)(1076003)(356005)(36756003)(54906003)(2906002)(110136005)(70206006)(316002)(41300700001)(8936002)(70586007)(8676002)(5660300002)(4326008)(186003)(26005)(6666004)(16526019)(7696005)(478600001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2023 17:01:56.7597 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 226e5475-d060-4965-ccea-08daef3e8d88
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT107.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4412
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,46 +99,89 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Lijo Lazar <lijo.lazar@amd.com>, Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Daniel
+ Vetter <daniel@ffwll.ch>, Carlos Soriano Sanchez <csoriano@redhat.com>,
+ stable@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ christian.koenig@amd.com, Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 5, 2023 at 6:17 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> When the fence can't be added we need to drop the reference.
->
-> Suggested-by: Bert Karwatzki <spasswolf@web.de>
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Removing the firmware framebuffer from the driver means that even
+if the driver doesn't support the IP blocks in a GPU it will no
+longer be functional after the driver fails to initialize.
 
-please add:
-Cc: stable@vger.kernel.org # 6.1.x
-When you push this series.
+This change will ensure that unsupported IP blocks at least cause
+the driver to work with the EFI framebuffer.
 
-Alex
+Cc: stable@vger.kernel.org
+Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 6 ------
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_sync.c
-> index bac7976975bd..dcd8c066bc1f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> @@ -391,8 +391,10 @@ int amdgpu_sync_push_to_job(struct amdgpu_sync *sync=
-, struct amdgpu_job *job)
->
->                 dma_fence_get(f);
->                 r =3D drm_sched_job_add_dependency(&job->base, f);
-> -               if (r)
-> +               if (r) {
-> +                       dma_fence_put(f);
->                         return r;
-> +               }
->         }
->         return 0;
->  }
-> --
-> 2.34.1
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 9a1a5c2864a0..cdb681398a99 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -37,6 +37,7 @@
+ #include <linux/pci-p2pdma.h>
+ 
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_aperture.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/amdgpu_drm.h>
+ #include <linux/vgaarb.h>
+@@ -89,6 +90,8 @@ MODULE_FIRMWARE("amdgpu/navi12_gpu_info.bin");
+ #define AMDGPU_MAX_RETRY_LIMIT		2
+ #define AMDGPU_RETRY_SRIOV_RESET(r) ((r) == -EBUSY || (r) == -ETIMEDOUT || (r) == -EINVAL)
+ 
++static const struct drm_driver amdgpu_kms_driver;
++
+ const char *amdgpu_asic_name[] = {
+ 	"TAHITI",
+ 	"PITCAIRN",
+@@ -3685,6 +3688,11 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	if (r)
+ 		return r;
+ 
++	/* Get rid of things like offb */
++	r = drm_aperture_remove_conflicting_pci_framebuffers(adev->pdev, &amdgpu_kms_driver);
++	if (r)
++		return r;
++
+ 	/* Enable TMZ based on IP_VERSION */
+ 	amdgpu_gmc_tmz_set(adev);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index db7e34eacc35..b9f14ec9edb2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -23,7 +23,6 @@
+  */
+ 
+ #include <drm/amdgpu_drm.h>
+-#include <drm/drm_aperture.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_gem.h>
+ #include <drm/drm_vblank.h>
+@@ -2096,11 +2095,6 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ 	}
+ #endif
+ 
+-	/* Get rid of things like offb */
+-	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &amdgpu_kms_driver);
+-	if (ret)
+-		return ret;
+-
+ 	adev = devm_drm_dev_alloc(&pdev->dev, &amdgpu_kms_driver, typeof(*adev), ddev);
+ 	if (IS_ERR(adev))
+ 		return PTR_ERR(adev);
+-- 
+2.34.1
+
