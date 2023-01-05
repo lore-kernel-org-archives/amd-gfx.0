@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ECCAC4708D
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jan 2023 03:44:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE977C4708D
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jan 2023 03:44:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DC8410E64C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E21D210E64E;
 	Thu,  5 Jan 2023 03:44:17 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2051.outbound.protection.outlook.com [40.107.94.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A27FF10E644;
- Thu,  5 Jan 2023 03:44:11 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2045.outbound.protection.outlook.com [40.107.244.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C79A110E641;
+ Thu,  5 Jan 2023 03:44:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GVYcjNWAaBpTWh/57kM3pAmp1iWKRX0mC3j4E4N2aSH0fgs/LQLyXTj/F4fd+akQwIW80ikgxlXBLVql9d8nvYPnfx6uRk4pN2mLkkHoCsFJQDjjagrtPFpS5duUP1Jg6UAQchzcQ3+8UtOqE6A7d2H0OwDpe5z9+uwo6l/+QhTqysHO75chz3d7T23xzIn95t5yO7o8aRGfFjK2fE8lY040P0Ln/GaJQdAdoM5wKrIA3xllz7BpGgjgG6dtnRKEvQq88FiP/azQuBKxW1Jksh+hE5ieEESASz96tg8yfuYrOKIeNHSrIN2UJIHmPmeHFfo+T5QKd2lnM287gykDBA==
+ b=G++5PejB2StgAbT+v9L9xF+pz+HP6jvo0+z3L+s918osbldhNXAYGrfWmhPBdDLfcscatd7cb9Ti3ls67/6+x80vxDIWOZuB/sgd6dEO/sp+THWeZmYyaUH3Xj9Xp4eVl8crp0TYPZCr6hGuLbRN4BTikyo68wcfsAQCRGLprwPvj5dyc/73+1bwOETFJTJohHeyo5OlT6xxc+cgyEqawQQDyW0ITgctlSmDLYu5sH63q9wlQCy786cnjapoSYyWNtXRIF6P9xsxJf8euDIIGrIW7FgrgL07HhjolndnO4vcPh1yr33VHH764z40TJQ0zuA0M1XZ/assOAUuUB6edA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z5c5VN0cEhE6u2pbKtros1yQ52WSWseHU6hP1fFPZj0=;
- b=PCgejrUCJBnqWnLn8O32dB8somba8CsUqIRtePLGB/m9rS8A12s3Xp7a5O6ifUh+XKqhKcVe4vOSxtH3p1Ixc2AIOb4YBaGDxb4/ZMdfF1BJXmQuDPHsMMAk9AIJO3G1QGn9+xQqx9zsq32shKseMse7sjOtkKkSXGG4bpqe3uDYI3mDQNPq2W2EkWu/MBvndphz2YS6jAJ9ZbOCZBmg2ahlr6ein/e0Hv7qkw10uwmrmMFB7zU3Fjj1+L7S0Cw0bLT6mjLvK4fsv8GRaGhzCu0gLMFI+0c/IRhc5dGbc3QP42oSU4S8SQ6l55fSo11Ds4yWer2U4TwLbnmlKB9YhQ==
+ bh=oGNl0bQjNdxCWyrGklBESgCarjug1oYy0XlvG0E1d6g=;
+ b=je4tm96nm1y5f/Wi21bvKOh48Wg8KBXSFakFZcKj7tierpRPy9Q+Ib4huBHB8ib9xfICIpEvJX5w/8CV9vjYO2mTt1dIeMoEWSWaJE2+KrJ/AOHx3gdy6fC0t0OjDSHn3+XNv6ZUrl8QfvYK1Y1hLdhXXpxwzD9yKvCg1YmGE9Y6O5MWmGANhFaqR6UHWF6WkqYv784rpeg1aL3w6b4yitI4PkHQLEaREz2hK9C6A0omv0eMr2h7mPUA2MtgVug+nBstv8MndCkrxkcybyc3Vz8J3P+M+24jGzRVGsUZj0kBBGGl8W0RqvuVgJKPT2w2jEe2+Jb0dPhv1iDbI8vgcQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z5c5VN0cEhE6u2pbKtros1yQ52WSWseHU6hP1fFPZj0=;
- b=BrjSWpUjcnQJhKO/te56xoX+5N6rghT8hGLgawgOLosdzFyekDfOxzXZzKSt7YmiW2s7otOgmy7w8ln92vz54qHf33iB9O+23MQWZm3UX10wNo9c2ggHmSYowq1InoF9C4Jbsq1DJBMCDP/mTqc0B4N1Xm8bFhrd3Y+FS0Ik3uY=
-Received: from BN0PR04CA0050.namprd04.prod.outlook.com (2603:10b6:408:e8::25)
- by SJ0PR12MB8113.namprd12.prod.outlook.com (2603:10b6:a03:4e0::20)
+ bh=oGNl0bQjNdxCWyrGklBESgCarjug1oYy0XlvG0E1d6g=;
+ b=YbrIKJc6YPsFTj88cG921i4hG/mk517g9SWgdciH4vUB9KpilwCUT6DL3JSa8h5HqvzCIAC3wEPptvRsOnghORI6STLmjqkQOAG0jInSNNbMU+C3gwlRksqc9FlxnPIPasQ25U6Ol82oIZe0jrIUl6PhIGHACuzW061TQdPyD4M=
+Received: from BN0PR04CA0039.namprd04.prod.outlook.com (2603:10b6:408:e8::14)
+ by IA0PR12MB7652.namprd12.prod.outlook.com (2603:10b6:208:434::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Thu, 5 Jan
- 2023 03:44:07 +0000
+ 2023 03:44:12 +0000
 Received: from BN8NAM11FT109.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e8:cafe::4c) by BN0PR04CA0050.outlook.office365.com
- (2603:10b6:408:e8::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.15 via Frontend
- Transport; Thu, 5 Jan 2023 03:44:06 +0000
+ (2603:10b6:408:e8:cafe::94) by BN0PR04CA0039.outlook.office365.com
+ (2603:10b6:408:e8::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.14 via Frontend
+ Transport; Thu, 5 Jan 2023 03:44:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT109.mail.protection.outlook.com (10.13.176.221) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5966.18 via Frontend Transport; Thu, 5 Jan 2023 03:44:06 +0000
+ 15.20.5966.18 via Frontend Transport; Thu, 5 Jan 2023 03:44:12 +0000
 Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 4 Jan
- 2023 21:44:02 -0600
+ 2023 21:44:08 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v6 07/45] drm/amd: Convert SDMA to use
- `amdgpu_ucode_ip_version_decode`
-Date: Wed, 4 Jan 2023 21:42:41 -0600
-Message-ID: <20230105034327.1439-8-mario.limonciello@amd.com>
+Subject: [PATCH v6 10/45] drm/amd: Load VCN microcode during early_init
+Date: Wed, 4 Jan 2023 21:42:44 -0600
+Message-ID: <20230105034327.1439-11-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230105034327.1439-1-mario.limonciello@amd.com>
 References: <20230105034327.1439-1-mario.limonciello@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT109:EE_|SJ0PR12MB8113:EE_
-X-MS-Office365-Filtering-Correlation-Id: ed55664e-a1b6-4b76-0ddd-08daeecf18db
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT109:EE_|IA0PR12MB7652:EE_
+X-MS-Office365-Filtering-Correlation-Id: abd4b61b-8249-4f30-afd7-08daeecf1c18
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6ig/wr9EwO4hu2mUv7PxQBfOX93tVytdzas5gwU2IWe9Aa6ye1sMqSMomSrIq/LUqr5LNSNym5UOWujmRYNLpAb0+DdZRmqO2c20taVSyJARJANlt9250RzElOZeBWtO0Io9JRbjNFOHsOISOY5z++edtaHB+OlnbYM8fZpD6H8Nz5azIuFwf7fiDM+EB9MaQYaWZEjIzm4MDLq8TMN/bymDUKzRYSUfJR5wdh7XXW8PpJIg0SGq3Vc7Vfv/+T9MPmYJBMPs8fgeZ7q0++UciXk/2nZvZURRU/dTShujFeSZ2JZM32N12Pvk+DiCWgeOwdpznNEwLinkvma0aaHp9nVydhuyKt/Ni4bfy92q2BqOWORHT6dNvgnS+Gn1uD1+lxmrprCNxGnq2SMIxQvjv9fivf+4ulytCezDWKqV8yH8Qo5vwkZZ9Ti4xG+c//DNCl2iRJEDRyz1okvKFN8LOtjEm794gEZ+40mkb8TU4SH8kwBR4FUI4KG7YQKOgLom1/uEfrzudqwGtF7/R+nvO5Vkz0K1agiIWvH5v8mRWeAqZXjxd74zZwl+RLC/gNlOeFzi7WxYa7qwM+OF4+Ziu8/Bc0Zs1vzsJLe7jlXdaDuc/AYCuD7X6c791UZdYOZPLWzEMzSQaMImjD/0fX0WsJ9MuDhrjpFo5MbnBE8mqXn4dbk3EcBK017ylaZjFG4oFmQ0VgWzl+Mi2pLvKx6uzIOF8BwQqPOJg6Xo9O+6yZ9UN1mQAUt+gV1OgGwpuDYz
+X-Microsoft-Antispam-Message-Info: F2WCgZ4J5V5Z8IJnhRyLBprISpNZL+kX5I7EN6TpX6aQwbA6KzYLEIWdHvImKkf36Q2GHTb4Te1cnYMXF/MmFwmKTGXEz7R0I7dswjVcI+6mLgttF6f3EYAa9FStJQWCU/tMTHCeaJcjl7zcR3aaLXLRAhfV9fDV+XK841j4MsoKhDuuLYPIHP4+mbZyTFIwIW+qp8XPBfLWk1/fMQ8ju2pGhkUFSACOR2ylnMZPJ7ILRc0Hl26+JQd5NQ5gWZAhuibMN/KLOlVjyrI+1KCyT22LRdDyFB8/uYP6rRQNANBkW+hw0c0Y2zF/HqJtM29pz+qQZdCI7umbGFPsmbHr4vHs/WHpmOBlh1+jCfBFJ9GSgun2SV53DoB8GbnBx8r665+emQcjDd0hcl1osaUQ9w0g0A/oJPmnRmIKOOiAxvh/LV8hS4WURexPDBmK7axevNKv9n6rHjX3qGYqGt+BTL8OpFmvVV7ODJJQoa+r4ePpt6TaGrNHk8opUhOMoy3J4aKGTI3SEFIyDFSG/Qr140UfCFNctATB6Vs+7V+5GbnrbyzW+Uw6MFGI0HbFeAsysbtDtbi0mV2tNo0CQktTomCUV0Wi6mfTV7nuG8F577mF1wexCgamaxfTuvEHCHpLHP+OdqIZUDwX4NcLaPmPOQVDTK+8O6QQwHO0RbCREkpXGwc5PJYy4DYWBvxbZceTMKoY2r9UWBZHW138w+i/NQTlhrvx+eo1wpC85CGxc+Mb62CyUw9oaQoo2wA+7PAxXKDdKmU+S3Z+iWJCBpZFbpv++eIVC3Qy7bKlU7Zw2hI=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(376002)(39860400002)(346002)(136003)(451199015)(36840700001)(40470700004)(46966006)(5660300002)(2906002)(44832011)(8676002)(41300700001)(4326008)(70586007)(8936002)(70206006)(316002)(54906003)(110136005)(478600001)(1076003)(2616005)(186003)(82310400005)(16526019)(336012)(83380400001)(40480700001)(26005)(7696005)(6666004)(47076005)(426003)(82740400003)(356005)(81166007)(40460700003)(86362001)(36756003)(36860700001)(81973001)(36900700001);
+ SFS:(13230022)(4636009)(376002)(396003)(346002)(136003)(39860400002)(451199015)(46966006)(40470700004)(36840700001)(83380400001)(6666004)(36756003)(36860700001)(478600001)(82310400005)(16526019)(40460700003)(86362001)(81166007)(82740400003)(356005)(40480700001)(47076005)(1076003)(426003)(186003)(26005)(2616005)(7696005)(110136005)(336012)(5660300002)(30864003)(44832011)(70586007)(8676002)(4326008)(70206006)(8936002)(41300700001)(54906003)(2906002)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2023 03:44:06.8527 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed55664e-a1b6-4b76-0ddd-08daeecf18db
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2023 03:44:12.2898 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: abd4b61b-8249-4f30-afd7-08daeecf1c18
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT109.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8113
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7652
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,293 +108,321 @@ Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Lazar Lijo <Lijo.Lazar@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Simplifies the code so that all SDMA versions will get the firmware
-name from `amdgpu_ucode_ip_version_decode`.
+Simplifies the code so that all VCN versions will get the firmware
+name from `amdgpu_ucode_ip_version_decode` and then use this filename
+to load microcode as part of the early_init process.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 12 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  4 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   | 47 +-------------------
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 30 +------------
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 55 +-----------------------
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   | 25 +----------
- 6 files changed, 17 insertions(+), 156 deletions(-)
+v5->v6:
+ * Fix whitespace problem in firmware file names
+ * Adjust for amdgpu_ucode_release argument change
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 53 +++++++------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   |  5 ++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   |  5 ++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   |  5 ++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   |  5 ++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   |  5 ++-
+ 7 files changed, 31 insertions(+), 48 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-index a6a491569022..95e9450f3348 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-@@ -200,15 +200,21 @@ void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index b37400107a37..0fb9a6d23065 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -80,10 +80,24 @@ MODULE_FIRMWARE(FIRMWARE_VCN4_0_4);
  
- int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
--			       char *fw_name, u32 instance,
--			       bool duplicate)
-+			       u32 instance, bool duplicate)
- {
- 	struct amdgpu_firmware_info *info = NULL;
- 	const struct common_firmware_header *header = NULL;
- 	int err = 0, i;
- 	const struct sdma_firmware_header_v2_0 *sdma_hdr;
- 	uint16_t version_major;
--
+ static void amdgpu_vcn_idle_work_handler(struct work_struct *work);
+ 
++int amdgpu_vcn_early_init(struct amdgpu_device *adev)
++{
 +	char ucode_prefix[30];
 +	char fw_name[40];
++	int r;
 +
-+	amdgpu_ucode_ip_version_decode(adev, SDMA0_HWIP, ucode_prefix, sizeof(ucode_prefix));
-+	if (instance == 0)
-+		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
-+	else
-+		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s%d.bin", ucode_prefix, i);
- 	err = amdgpu_ucode_request(adev, &adev->sdma.instance[instance].fw, fw_name);
- 	if (err)
- 		goto out;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-index 7d99205c2e01..2d16e6d36728 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-@@ -124,8 +124,8 @@ int amdgpu_sdma_process_ras_data_cb(struct amdgpu_device *adev,
- int amdgpu_sdma_process_ecc_irq(struct amdgpu_device *adev,
- 				      struct amdgpu_irq_src *source,
- 				      struct amdgpu_iv_entry *entry);
--int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
--        char *fw_name, u32 instance, bool duplicate);
-+int amdgpu_sdma_init_microcode(struct amdgpu_device *adev, u32 instance,
-+			       bool duplicate);
- void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
-         bool duplicate);
- void amdgpu_sdma_unset_buffer_funcs_helper(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index 4d780e4430e7..017ae298558e 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -575,60 +575,17 @@ static void sdma_v4_0_setup_ulv(struct amdgpu_device *adev)
- // vega10 real chip need to use PSP to load firmware
- static int sdma_v4_0_init_microcode(struct amdgpu_device *adev)
++	amdgpu_ucode_ip_version_decode(adev, UVD_HWIP, ucode_prefix, sizeof(ucode_prefix));
++	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
++	r = amdgpu_ucode_request(adev, &adev->vcn.fw, fw_name);
++	if (r)
++		amdgpu_ucode_release(&adev->vcn.fw);
++
++	return r;
++}
++
+ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
  {
--	const char *chip_name;
--	char fw_name[30];
- 	int ret, i;
- 
--	DRM_DEBUG("\n");
--
--	switch (adev->ip_versions[SDMA0_HWIP][0]) {
--	case IP_VERSION(4, 0, 0):
--		chip_name = "vega10";
--		break;
--	case IP_VERSION(4, 0, 1):
--		chip_name = "vega12";
--		break;
--	case IP_VERSION(4, 2, 0):
--		chip_name = "vega20";
--		break;
--	case IP_VERSION(4, 1, 0):
--	case IP_VERSION(4, 1, 1):
+ 	unsigned long bo_size;
+-	const char *fw_name;
+ 	const struct common_firmware_header *hdr;
+ 	unsigned char fw_check;
+ 	unsigned int fw_shared_size, log_offset;
+@@ -99,46 +113,27 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 	switch (adev->ip_versions[UVD_HWIP][0]) {
+ 	case IP_VERSION(1, 0, 0):
+ 	case IP_VERSION(1, 0, 1):
 -		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
--			chip_name = "raven2";
+-			fw_name = FIRMWARE_RAVEN2;
 -		else if (adev->apu_flags & AMD_APU_IS_PICASSO)
--			chip_name = "picasso";
+-			fw_name = FIRMWARE_PICASSO;
 -		else
--			chip_name = "raven";
+-			fw_name = FIRMWARE_RAVEN;
 -		break;
--	case IP_VERSION(4, 2, 2):
--		chip_name = "arcturus";
--		break;
--	case IP_VERSION(4, 1, 2):
+ 	case IP_VERSION(2, 5, 0):
+-		fw_name = FIRMWARE_ARCTURUS;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(2, 2, 0):
 -		if (adev->apu_flags & AMD_APU_IS_RENOIR)
--			chip_name = "renoir";
+-			fw_name = FIRMWARE_RENOIR;
 -		else
--			chip_name = "green_sardine";
--		break;
--	case IP_VERSION(4, 4, 0):
--		chip_name = "aldebaran";
--		break;
--	default:
--		BUG();
--	}
+-			fw_name = FIRMWARE_GREEN_SARDINE;
 -
- 	for (i = 0; i < adev->sdma.num_instances; i++) {
--		if (i == 0)
--			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma.bin", chip_name);
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(2, 6, 0):
+-		fw_name = FIRMWARE_ALDEBARAN;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(2, 0, 0):
+-		fw_name = FIRMWARE_NAVI10;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(2, 0, 2):
+-		if (adev->asic_type == CHIP_NAVI12)
+-			fw_name = FIRMWARE_NAVI12;
 -		else
--			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma%d.bin", chip_name, i);
- 		if (adev->ip_versions[SDMA0_HWIP][0] == IP_VERSION(4, 2, 2) ||
-                     adev->ip_versions[SDMA0_HWIP][0] == IP_VERSION(4, 4, 0)) {
- 			/* Acturus & Aldebaran will leverage the same FW memory
- 			   for every SDMA instance */
--			ret = amdgpu_sdma_init_microcode(adev, fw_name, 0, true);
-+			ret = amdgpu_sdma_init_microcode(adev, 0, true);
- 			break;
- 		} else {
--			ret = amdgpu_sdma_init_microcode(adev, fw_name, i, false);
-+			ret = amdgpu_sdma_init_microcode(adev, i, false);
- 			if (ret)
- 				return ret;
- 		}
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index d4d9f196db83..1941b3b7c5d9 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -237,39 +237,13 @@ static void sdma_v5_0_init_golden_registers(struct amdgpu_device *adev)
- // emulation only, won't work on real chip
- // navi10 real chip need to use PSP to load firmware
- static int sdma_v5_0_init_microcode(struct amdgpu_device *adev)
--{
--	const char *chip_name;
--	char fw_name[40];
--	int ret, i;
-+{	int ret, i;
- 
- 	if (amdgpu_sriov_vf(adev) && (adev->ip_versions[SDMA0_HWIP][0] == IP_VERSION(5, 0, 5)))
- 		return 0;
- 
--	DRM_DEBUG("\n");
--
--	switch (adev->ip_versions[SDMA0_HWIP][0]) {
--	case IP_VERSION(5, 0, 0):
--		chip_name = "navi10";
--		break;
--	case IP_VERSION(5, 0, 2):
--		chip_name = "navi14";
--		break;
--	case IP_VERSION(5, 0, 5):
--		chip_name = "navi12";
--		break;
--	case IP_VERSION(5, 0, 1):
--		chip_name = "cyan_skillfish2";
--		break;
--	default:
--		BUG();
--	}
--
- 	for (i = 0; i < adev->sdma.num_instances; i++) {
--		if (i == 0)
--			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma.bin", chip_name);
+-			fw_name = FIRMWARE_NAVI14;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+@@ -146,58 +141,46 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 	case IP_VERSION(3, 0, 0):
+ 	case IP_VERSION(3, 0, 64):
+ 	case IP_VERSION(3, 0, 192):
+-		if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 3, 0))
+-			fw_name = FIRMWARE_SIENNA_CICHLID;
 -		else
--			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sdma1.bin", chip_name);
--		ret = amdgpu_sdma_init_microcode(adev, fw_name, i, false);
-+		ret = amdgpu_sdma_init_microcode(adev, i, false);
- 		if (ret)
- 			return ret;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 65e7a710298d..8e445eb9dd49 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -89,59 +89,6 @@ static u32 sdma_v5_2_get_reg_offset(struct amdgpu_device *adev, u32 instance, u3
- 	return base + internal_offset;
- }
- 
--/**
-- * sdma_v5_2_init_microcode - load ucode images from disk
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Use the firmware interface to load the ucode images into
-- * the driver (not loaded into hw).
-- * Returns 0 on success, error on failure.
-- */
--
--// emulation only, won't work on real chip
--// navi10 real chip need to use PSP to load firmware
--static int sdma_v5_2_init_microcode(struct amdgpu_device *adev)
--{
--	const char *chip_name;
--	char fw_name[40];
--
--	DRM_DEBUG("\n");
--
--	switch (adev->ip_versions[SDMA0_HWIP][0]) {
--	case IP_VERSION(5, 2, 0):
--		chip_name = "sienna_cichlid_sdma";
--		break;
--	case IP_VERSION(5, 2, 2):
--		chip_name = "navy_flounder_sdma";
--		break;
--	case IP_VERSION(5, 2, 1):
--		chip_name = "vangogh_sdma";
--		break;
--	case IP_VERSION(5, 2, 4):
--		chip_name = "dimgrey_cavefish_sdma";
--		break;
--	case IP_VERSION(5, 2, 5):
--		chip_name = "beige_goby_sdma";
--		break;
--	case IP_VERSION(5, 2, 3):
--		chip_name = "yellow_carp_sdma";
--		break;
--	case IP_VERSION(5, 2, 6):
--		chip_name = "sdma_5_2_6";
--		break;
--	case IP_VERSION(5, 2, 7):
--		chip_name = "sdma_5_2_7";
--		break;
--	default:
--		BUG();
--	}
--
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", chip_name);
--
--	return amdgpu_sdma_init_microcode(adev, fw_name, 0, true);
--}
--
- static unsigned sdma_v5_2_ring_init_cond_exec(struct amdgpu_ring *ring)
- {
- 	unsigned ret;
-@@ -1288,7 +1235,7 @@ static int sdma_v5_2_sw_init(void *handle)
- 			return r;
+-			fw_name = FIRMWARE_NAVY_FLOUNDER;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(3, 0, 2):
+-		fw_name = FIRMWARE_VANGOGH;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(3, 0, 16):
+-		fw_name = FIRMWARE_DIMGREY_CAVEFISH;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(3, 0, 33):
+-		fw_name = FIRMWARE_BEIGE_GOBY;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(3, 1, 1):
+-		fw_name = FIRMWARE_YELLOW_CARP;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(3, 1, 2):
+-		fw_name = FIRMWARE_VCN_3_1_2;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(4, 0, 0):
+-		fw_name = FIRMWARE_VCN4_0_0;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(4, 0, 2):
+-		fw_name = FIRMWARE_VCN4_0_2;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	case IP_VERSION(4, 0, 4):
+-		fw_name = FIRMWARE_VCN4_0_4;
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+@@ -206,12 +189,6 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 		return -EINVAL;
  	}
  
--	r = sdma_v5_2_init_microcode(adev);
-+	r = amdgpu_sdma_init_microcode(adev, 0, true);
- 	if (r) {
- 		DRM_ERROR("Failed to load sdma firmware!\n");
- 		return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-index 049c26a45d85..bf1fa5e8d2f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -78,29 +78,6 @@ static u32 sdma_v6_0_get_reg_offset(struct amdgpu_device *adev, u32 instance, u3
- 	return base + internal_offset;
+-	r = amdgpu_ucode_request(adev, &adev->vcn.fw, fw_name);
+-	if (r) {
+-		amdgpu_ucode_release(&adev->vcn.fw);
+-		return r;
+-	}
+-
+ 	hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
+ 	adev->vcn.fw_version = le32_to_cpu(hdr->ucode_version);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+index dbb8d68a30c6..d3e2af902907 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+@@ -369,6 +369,7 @@ enum vcn_ring_type {
+ 	VCN_UNIFIED_RING,
+ };
+ 
++int amdgpu_vcn_early_init(struct amdgpu_device *adev);
+ int amdgpu_vcn_sw_init(struct amdgpu_device *adev);
+ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev);
+ int amdgpu_vcn_suspend(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+index f0fbcda76f5e..c305b2cb8490 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -57,11 +57,12 @@ static void vcn_v1_0_idle_work_handler(struct work_struct *work);
+ static void vcn_v1_0_ring_begin_use(struct amdgpu_ring *ring);
+ 
+ /**
+- * vcn_v1_0_early_init - set function pointers
++ * vcn_v1_0_early_init - set function pointers and load microcode
+  *
+  * @handle: amdgpu_device pointer
+  *
+  * Set ring and irq function pointers
++ * Load microcode from filesystem
+  */
+ static int vcn_v1_0_early_init(void *handle)
+ {
+@@ -75,7 +76,7 @@ static int vcn_v1_0_early_init(void *handle)
+ 
+ 	jpeg_v1_0_early_init(handle);
+ 
+-	return 0;
++	return amdgpu_vcn_early_init(adev);
  }
  
--/**
-- * sdma_v6_0_init_microcode - load ucode images from disk
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Use the firmware interface to load the ucode images into
-- * the driver (not loaded into hw).
-- * Returns 0 on success, error on failure.
-- */
--static int sdma_v6_0_init_microcode(struct amdgpu_device *adev)
--{
--	char fw_name[30];
--	char ucode_prefix[30];
--
--	DRM_DEBUG("\n");
--
--	amdgpu_ucode_ip_version_decode(adev, SDMA0_HWIP, ucode_prefix, sizeof(ucode_prefix));
--
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
--
--	return amdgpu_sdma_init_microcode(adev, fw_name, 0, true);
--}
--
- static unsigned sdma_v6_0_ring_init_cond_exec(struct amdgpu_ring *ring)
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index 08871bad9994..4b4cd88414e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -62,11 +62,12 @@ static int vcn_v2_0_pause_dpg_mode(struct amdgpu_device *adev,
+ 				int inst_idx, struct dpg_pause_state *new_state);
+ static int vcn_v2_0_start_sriov(struct amdgpu_device *adev);
+ /**
+- * vcn_v2_0_early_init - set function pointers
++ * vcn_v2_0_early_init - set function pointers and load microcode
+  *
+  * @handle: amdgpu_device pointer
+  *
+  * Set ring and irq function pointers
++ * Load microcode from filesystem
+  */
+ static int vcn_v2_0_early_init(void *handle)
  {
- 	unsigned ret;
-@@ -1260,7 +1237,7 @@ static int sdma_v6_0_sw_init(void *handle)
- 	if (r)
- 		return r;
+@@ -81,7 +82,7 @@ static int vcn_v2_0_early_init(void *handle)
+ 	vcn_v2_0_set_enc_ring_funcs(adev);
+ 	vcn_v2_0_set_irq_funcs(adev);
  
--	r = sdma_v6_0_init_microcode(adev);
-+	r = amdgpu_sdma_init_microcode(adev, 0, true);
- 	if (r) {
- 		DRM_ERROR("Failed to load sdma firmware!\n");
- 		return r;
+-	return 0;
++	return amdgpu_vcn_early_init(adev);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index ec87b00f2e05..b0b0e69c6a94 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -71,11 +71,12 @@ static int amdgpu_ih_clientid_vcns[] = {
+ };
+ 
+ /**
+- * vcn_v2_5_early_init - set function pointers
++ * vcn_v2_5_early_init - set function pointers and load microcode
+  *
+  * @handle: amdgpu_device pointer
+  *
+  * Set ring and irq function pointers
++ * Load microcode from filesystem
+  */
+ static int vcn_v2_5_early_init(void *handle)
+ {
+@@ -107,7 +108,7 @@ static int vcn_v2_5_early_init(void *handle)
+ 	vcn_v2_5_set_irq_funcs(adev);
+ 	vcn_v2_5_set_ras_funcs(adev);
+ 
+-	return 0;
++	return amdgpu_vcn_early_init(adev);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 9c8b5fd99037..bd228512424a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -78,11 +78,12 @@ static void vcn_v3_0_dec_ring_set_wptr(struct amdgpu_ring *ring);
+ static void vcn_v3_0_enc_ring_set_wptr(struct amdgpu_ring *ring);
+ 
+ /**
+- * vcn_v3_0_early_init - set function pointers
++ * vcn_v3_0_early_init - set function pointers and load microcode
+  *
+  * @handle: amdgpu_device pointer
+  *
+  * Set ring and irq function pointers
++ * Load microcode from filesystem
+  */
+ static int vcn_v3_0_early_init(void *handle)
+ {
+@@ -109,7 +110,7 @@ static int vcn_v3_0_early_init(void *handle)
+ 	vcn_v3_0_set_enc_ring_funcs(adev);
+ 	vcn_v3_0_set_irq_funcs(adev);
+ 
+-	return 0;
++	return amdgpu_vcn_early_init(adev);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 1e2b22299975..a79b6088374b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -68,11 +68,12 @@ static void vcn_v4_0_unified_ring_set_wptr(struct amdgpu_ring *ring);
+ static void vcn_v4_0_set_ras_funcs(struct amdgpu_device *adev);
+ 
+ /**
+- * vcn_v4_0_early_init - set function pointers
++ * vcn_v4_0_early_init - set function pointers and load microcode
+  *
+  * @handle: amdgpu_device pointer
+  *
+  * Set ring and irq function pointers
++ * Load microcode from filesystem
+  */
+ static int vcn_v4_0_early_init(void *handle)
+ {
+@@ -88,7 +89,7 @@ static int vcn_v4_0_early_init(void *handle)
+ 	vcn_v4_0_set_irq_funcs(adev);
+ 	vcn_v4_0_set_ras_funcs(adev);
+ 
+-	return 0;
++	return amdgpu_vcn_early_init(adev);
+ }
+ 
+ /**
 -- 
 2.34.1
 
