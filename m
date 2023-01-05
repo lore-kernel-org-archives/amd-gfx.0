@@ -4,47 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A1ECC3DA7D
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jan 2023 08:44:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CDAEC3DA7A
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jan 2023 09:16:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD96B10E49C;
-	Thu,  5 Jan 2023 08:44:00 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11DDA10E6BE;
- Thu,  5 Jan 2023 08:01:36 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 296C1B81A0C;
- Thu,  5 Jan 2023 08:01:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 642C0C433D2;
- Thu,  5 Jan 2023 08:01:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1672905693;
- bh=LVyg+cyK1Nc4wdQGz1UH28N+2JKAjcGMMQTRSam2CZc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RdxU6w79YsogRTknVUR0WvT/1ZXI3HgeJ9+xsx/kuqWWYbqR13bKZ/aFCwdMi4hW+
- bosdR/Envtwv+qzgqmbsrCdoL1KI9WFwXKutMu9JO0rQz+VA9R9a9KqV+UOV9SROjv
- YaA1ytlYVWQwpCSjgvFjjQnIBXP9DqRHyB2xyWwk=
-Date: Thu, 5 Jan 2023 09:01:31 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Dragos-Marian Panait <dragos.panait@windriver.com>
-Subject: Re: [PATCH 4.19 1/1] drm/amdkfd: Check for null pointer after
- calling kmemdup
-Message-ID: <Y7aD2zJq6jBWUxbO@kroah.com>
-References: <20230103184308.511448-1-dragos.panait@windriver.com>
- <20230103184308.511448-2-dragos.panait@windriver.com>
- <Y7Vz8mm0X+1h844b@kroah.com>
- <a8c6859f-5876-08cf-5949-ecf88e6bb528@amd.com>
- <CADnq5_Ons+yMyGxcSaFaOb5uNXooHgH_4N=ThHOGYaW9Pb_Q8A@mail.gmail.com>
- <Y7WRq7MaFaIJ2uGF@kroah.com>
- <7c0cb998-d714-235e-8c2b-efe0315eed7f@windriver.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03DE210E6CB;
+	Thu,  5 Jan 2023 09:16:00 +0000 (UTC)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3FE910E6CB
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Jan 2023 09:15:57 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id tz12so88679392ejc.9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 05 Jan 2023 01:15:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=qbB7/088ma6mMC2coEsYUQsXmJmtGet10yfGywYQz3c=;
+ b=jrNKjbIQVb/I5FnziUTcw0h5QhrUOzgycqO/2Upx5jKynmn5zR3HO3JdCVuAeOE323
+ 7DklP5FwAWvvnrQ456O9mN7exrJQ9AutV/ZRQ/RDutfNib7h6IYoB2+lfcoeyVPy98aU
+ UJsL+2xYWSPS46jYazLlYskB/vx0hW0jEL8KzGIltJaGdpEtNAzEc4lKuW0XvJM88BFC
+ 7PMbY774cd6PH3VmSwFh/Anye+eH9SQ3Vsf8sZ8wEtQgFu4iIpcAKqDx+F3UGBEH6TGd
+ mR/+8LDIvlOl8mGFon5gqkyoy8GogCe98K2XpAG3j92EDyy5unYPBiCFUTgUGaCR+v9o
+ tiow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=qbB7/088ma6mMC2coEsYUQsXmJmtGet10yfGywYQz3c=;
+ b=mR3SOiTTlMHOL1/NU4QZmqjHk0kKtX6h1jGrDNRpwNTj38rZG4EGb2f2fEVXGMxI3f
+ yNnZyuQL1RwfFgI0AyCHEw9+cwZLcSh9/RccR5byOxWRXzaPQw9GDLSlgu7sVM8N3UX+
+ p1cRS3TeTbmy2EIqUN8ZCWPKpm1qfoheXYYHMDAjUcCAbbN6bepUsG3aM9Rtda/wp77b
+ Dfuma9GRFx5SmyrBOgx2Iu2OlRVjR5gXa0N3tQSYMj3HeSflMiZmEupdJP8GetGnbIQD
+ 3qDdCpa+oEVItGMFJTkdrcKTxmopj/yk3p+5EqzW3KG19M13BoV9Tewlkinf/xBoQie8
+ aJcQ==
+X-Gm-Message-State: AFqh2kpcCmFBEyhHf6r0lrRXByPkQvDxvyZBORan/1VX96N6+XTkPPA2
+ rk9fpF6yTqCg+zg6SRabhy4=
+X-Google-Smtp-Source: AMrXdXtWRZT6yEZ8/0Cn4KQVmQkxcV2SGRJjGZnIz/q0qjZiucceC4L28a4lMKEJPLoPplVfE0Klog==
+X-Received: by 2002:a17:907:c68a:b0:84c:e9c4:5751 with SMTP id
+ ue10-20020a170907c68a00b0084ce9c45751mr8248149ejc.74.1672910156077; 
+ Thu, 05 Jan 2023 01:15:56 -0800 (PST)
+Received: from [192.168.178.21] (p5b0ea2e7.dip0.t-ipconnect.de.
+ [91.14.162.231]) by smtp.gmail.com with ESMTPSA id
+ hb4-20020a170906b88400b008143bfe8429sm16325125ejb.73.2023.01.05.01.15.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Jan 2023 01:15:55 -0800 (PST)
+Message-ID: <f5d462fd-ff8f-8634-2b24-18a6374da2fb@gmail.com>
+Date: Thu, 5 Jan 2023 10:15:53 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH] drm/amdgpu: Fix potential NULL dereference
+Content-Language: en-US
+To: Luben Tuikov <luben.tuikov@amd.com>,
+ AMD Graphics <amd-gfx@lists.freedesktop.org>
+References: <202212300020.CFmsapaG-lkp@intel.com>
+ <20230104221935.113400-1-luben.tuikov@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230104221935.113400-1-luben.tuikov@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7c0cb998-d714-235e-8c2b-efe0315eed7f@windriver.com>
-X-Mailman-Approved-At: Thu, 05 Jan 2023 08:43:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,71 +75,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Oded Gabbay <oded.gabbay@gmail.com>, David Zhou <David1.Zhou@amd.com>,
- dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
- Alex Deucher <alexdeucher@gmail.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>, Dan Carpenter <error27@gmail.com>,
+ kernel test robot <lkp@intel.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 04, 2023 at 08:05:57PM +0200, Dragos-Marian Panait wrote:
-> 
-> On 04.01.2023 16:48, Greg KH wrote:
-> > On Wed, Jan 04, 2023 at 09:35:03AM -0500, Alex Deucher wrote:
-> > > On Wed, Jan 4, 2023 at 8:23 AM Christian K�nig <christian.koenig@amd.com> wrote:
-> > > > Am 04.01.23 um 13:41 schrieb Greg KH:
-> > > > > On Tue, Jan 03, 2023 at 08:43:08PM +0200, Dragos-Marian Panait wrote:
-> > > > > > From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-> > > > > > 
-> > > > > > [ Upstream commit abfaf0eee97925905e742aa3b0b72e04a918fa9e ]
-> > > > > > 
-> > > > > > As the possible failure of the allocation, kmemdup() may return NULL
-> > > > > > pointer.
-> > > > > > Therefore, it should be better to check the 'props2' in order to prevent
-> > > > > > the dereference of NULL pointer.
-> > > > > > 
-> > > > > > Fixes: 3a87177eb141 ("drm/amdkfd: Add topology support for dGPUs")
-> > > > > > Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-> > > > > > Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> > > > > > Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> > > > > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > > > > Signed-off-by: Dragos-Marian Panait <dragos.panait@windriver.com>
-> > > > > > ---
-> > > > > >    drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 3 +++
-> > > > > >    1 file changed, 3 insertions(+)
-> > > > > For obvious reasons, I can't take a patch for 4.19.y and not newer
-> > > > > kernel releases, right?
-> > > > > 
-> > > > > Please provide backports for all kernels if you really need to see this
-> > > > > merged.  And note, it's not a real bug at all, and given that a CVE was
-> > > > > allocated for it that makes me want to even more reject it to show the
-> > > > > whole folly of that mess.
-> > > > Well as far as I can see this is nonsense to back port.
-> > > > 
-> > > > The code in question is only used only once during driver load and then
-> > > > never again, that exactly this allocation fails while tons of other are
-> > > > made before and after is extremely unlikely.
-> > > > 
-> > > > It's nice to have it fixed in newer kernels, but not worth a backport
-> > > > and certainly not stuff for a CVE.
-> > > It's already fixed in Linus' tree:
-> > > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=abfaf0eee97925905e742aa3b0b72e04a918fa9e
-> > Yes, that's what the above commit shows...
-> > 
-> > confused,
-> > 
-> > greg k-h
-> Just for completeness, I also sent out patches for 5.4 and 5.10 stable
-> branches.
-> 5.15 stable branch already has this change: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=linux-5.15.y&id=5609b7803947eea1711516dd8659c7ed39f5a868
+Am 04.01.23 um 23:19 schrieb Luben Tuikov:
+> Fix potential NULL dereference, in the case when "man", the resource manager
+> might be NULL, when/if we print debug information.
+>
+> Cc: Alex Deucher <Alexander.Deucher@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: AMD Graphics <amd-gfx@lists.freedesktop.org>
+> Cc: Dan Carpenter <error27@gmail.com>
+> Cc: kernel test robot <lkp@intel.com>
+> Fixes: 7554886daa31ea ("drm/amdgpu: Fix size validation for non-exclusive domains (v4)")
+> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 
-Again, this is not a real bug and someone needs to go and invalidate
-that CVE so you don't have to worry about it anymore.  I suggest that
-you do that if your company cares about tracking CVEs.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-thanks,
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index af716afad9a59a..d1c90015651ba5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -470,8 +470,9 @@ static bool amdgpu_bo_validate_size(struct amdgpu_device *adev,
+>   	return true;
+>   
+>   fail:
+> -	DRM_DEBUG("BO size %lu > total memory in domain: %llu\n", size,
+> -		  man->size);
+> +	if (man)
+> +		DRM_DEBUG("BO size %lu > total memory in domain: %llu\n", size,
+> +			  man->size);
+>   	return false;
+>   }
+>   
+>
+> base-commit: b45d1c2754f5080acf2096ffcb17bcfeee7f5c2f
 
-greg k-h
