@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95EA2C46467
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jan 2023 01:04:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60EBBC46467
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jan 2023 01:04:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F97010E488;
-	Thu,  5 Jan 2023 01:04:35 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2592410E488
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Jan 2023 01:04:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6727810E48A;
+	Thu,  5 Jan 2023 01:04:39 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2082.outbound.protection.outlook.com [40.107.223.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD07610E48A
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Jan 2023 01:04:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EC1Jlm00f4z2X0IwfKht3e6aFVpsm+8batB6Xw/c2pJMBR/nHq325DS/Hy/PwBiQj2csipDwvleRQgkxmkwvC25Wx04XeGNVTS6SMUE9dz5EC1pgSQxSmCBiiLv0lnW8UkxQflMY4NvIjz2q3ZptTZR4yOaFsahVWkucPyfhrvwqvGGYoZe2boWhLxpR38U9GiG5zQ4atnq55ZOAIadMuL5OCTgwjiybUUKWBp4S5ieiE/8N+5x0kp2+3nbscrp9nytqeJ20nISrGk7RA5db2jXUetnyKllfh44LjdJi21LD6St0ZW6c+S1wVcv9K8oyef6S3kSDLgKqy0tdXD+VmQ==
+ b=iTniUmGLiQWQyUJHchDAhW7Gyej/pPTeb1CK7Y9NL1bz2ysDk8u2eZmQAY86ROc/Y837GW/r+j9SRycgSvAO54kEpRsRtQ4ff7d4MPHQBTWakdREzXgfGZ4Su2qcuAwMrvULxfgFNlLhTkzFnC9rP9fVZhEbSt/2GXncjV0RJxC0bXQGkRJsoHdFK2/Ysfk9mVcZzfJcWi9Oi+vrFOcjnCeHvIzNhGnnYJPyDpHT2IdsuzdUqYAdFsBBQS+xU2wZT6bfXaoFXzmPrr4UupC+IyvzYXMHsbRqE007jj5FiWrWhwfrYJk3JjA5iNJpZ2NhCeWRIf+cldGKyExplaJbIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o9rmzy7FGgz//Ddb4BqJKP70q0XQ1/9swzRcr5vsAx0=;
- b=LcLFmQTfA7a+MbtHu8SfU0vfXIOARJ8ejqI06lHhX3tKH74bZCzzgBNrFtAgShrn3nF2VVY3WHapQWOB9HCb6PZW8dxQewFKmoZSqBI2nimFcKlppwl3jnJJLri1h5oObtCVlOokFCVdv2tyUNDBzkciYIntEZ5sVPyk0spKr9eswpwQwTFv/swm0T2bpMNHWXb7hHIyaRvwNr4e5DW2UX8gN9Q2rLmODXFFiY6T4elTmM5hYo1dDKoHndOZc+cHzd1eoaFGYneZx7YeVAPz71SSjM11BM6TCqcLBbejkc30aoY6rlSmt1/TnLn2naFneZSy+OT8n4/6UR2MRXelvg==
+ bh=OLRIe28/dTnHHhu+z92PAdEVwR/Uir9nyVPLXfwReE8=;
+ b=R26gLwMCqhH2BYAufik/c3IfAqx9+lm3+PFCk/edbsW6cn4R12lkDxiF8TJ5Gv3YbLl32gwJLiFPAofWlOCQpsXx5cMQkk8yKST0+qpN2kq3ZY0q5Qu8/chNA3sLlZ51AY0D/JmSDeNFGfmjJGzdMBESKlrgJzOZpvm2Md0i43EplMNdd+ngmLkWL36ELaPPkfaLEVeejNMSCyexT2MbyRYcQqIbKN1R7T68tdg+MrWeK1Vu98KQJ9X94dffpnZUtBXbjFKCnBi3gBkzYY+VVc9kI1wQbT5XtQFQX7R4yMlsaMsxf26Fjpdv+6lXEki/pAGegLkx31f+GwkzRc4xGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o9rmzy7FGgz//Ddb4BqJKP70q0XQ1/9swzRcr5vsAx0=;
- b=JBO+UtL1fHM9OaHFMw1otlbc1Us/PyLuOBwyUy5larQmoi/Zy/Nt+9TdcqDuUeL5qYty2XuOWGjBpkJqTxZ4UTW0EKJ4LRCqMJ7jxNWFtjBQsbWFHTt3H9K+tj1KB3XRoUPF0cTUxkoCsDPT3nKX2IwMRk6kryEiMFSQY8FeUhY=
-Received: from MW4PR04CA0275.namprd04.prod.outlook.com (2603:10b6:303:89::10)
- by IA1PR12MB8080.namprd12.prod.outlook.com (2603:10b6:208:3fd::6)
+ bh=OLRIe28/dTnHHhu+z92PAdEVwR/Uir9nyVPLXfwReE8=;
+ b=3u+ZBcoyQTGLgmX8a9M1B74wkfsjzElqhqGWczQvwZo+lncio0FSgJ6Z2M/uPG25I92JLAyfLMQOdQPLUAXOgC7dc7wcsGX5TiSPBoumgTLBlL6mgtohyL//VRJJGurNg8UvVr5X+CngVydb4JBhN6KKp7D+73mvKWvgWKpi5yQ=
+Received: from MW4PR03CA0288.namprd03.prod.outlook.com (2603:10b6:303:b5::23)
+ by BY5PR12MB4919.namprd12.prod.outlook.com (2603:10b6:a03:1d6::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Thu, 5 Jan
- 2023 01:04:30 +0000
-Received: from CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:89:cafe::57) by MW4PR04CA0275.outlook.office365.com
- (2603:10b6:303:89::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.14 via Frontend
- Transport; Thu, 5 Jan 2023 01:04:30 +0000
+ 2023 01:04:32 +0000
+Received: from CO1NAM11FT100.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b5:cafe::7) by MW4PR03CA0288.outlook.office365.com
+ (2603:10b6:303:b5::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5966.20 via Frontend
+ Transport; Thu, 5 Jan 2023 01:04:31 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT048.mail.protection.outlook.com (10.13.175.148) with Microsoft SMTP
+ CO1NAM11FT100.mail.protection.outlook.com (10.13.175.133) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5944.6 via Frontend Transport; Thu, 5 Jan 2023 01:04:29 +0000
+ 15.20.5944.17 via Frontend Transport; Thu, 5 Jan 2023 01:04:31 +0000
 Received: from aaliu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 4 Jan
- 2023 19:04:27 -0600
+ 2023 19:04:29 -0600
 From: Aaron Liu <aaron.liu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amdgpu: update ta_secureDisplay_if.h to v27.00.00.08
-Date: Thu, 5 Jan 2023 09:04:00 +0800
-Message-ID: <20230105010401.2216819-1-aaron.liu@amd.com>
+Subject: [PATCH 2/2] drm/amd: update securedisplay_cmd to ta_securedisplay_cmd
+Date: Thu, 5 Jan 2023 09:04:01 +0800
+Message-ID: <20230105010401.2216819-2-aaron.liu@amd.com>
 X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230105010401.2216819-1-aaron.liu@amd.com>
+References: <20230105010401.2216819-1-aaron.liu@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT048:EE_|IA1PR12MB8080:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8fe662b4-98f1-4367-2564-08daeeb8cca0
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT100:EE_|BY5PR12MB4919:EE_
+X-MS-Office365-Filtering-Correlation-Id: ceee448f-1b05-46b7-cfe2-08daeeb8cd97
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Z53k2lJeqS6pKgGV1aIFpW8SD6qFUJGkH3lD0NYi3kFtvurOQIf7nojGZMsxdpQXokoMXkTr+cDJSz7H0vRphrnpL31xZVRW+3BSX9zmRgAGXcWAp7BvWLNMskcAkK3m0W8Epf5SqLa1pCnUO9HYdpg7k/oyyNV25MoUjN8F7nRR3Q3lJ7oGvNZnLeURCPgtZIc4AHgcGUJW0Kx0SZhEDUQQNLLQy4at5oBgnGACQws9lI7B5BLG01Jtn59YqKXtyhkWasqbRpf/ESWEx1K4bzH4u4IOC7JDK9p9jh3auc917q3IAjsT0b9SaRxzD3kXnONCO1RcP68G90rG1/2N9DyQmKJ0MV75RdLII57ypkzKfb1NSA1MoRm8LMZbYg4XWCOHXFA0BJiekQaDGxk4yKFayTwzcKR671qT56DVJMERHbho6qd3XtlRPICNdX/2hl4jDXPaCenDOqBIs1OwhR+WuiW8PqGAbA9AUs3hKlt93UfET5wu6SGghTev+KxgAUgFuaDA1OigDZIpW9pcGTPfO6HZ87Wd+G0A3dl7PgsS1NKKpu2FozqHEO1WV+YpjTUrZARHOJdfooL0Xk+fsltTQNmV/2LInNzF+HPjy1koEvDtEjLEkc92ufYxuBJMayGsgv7k/hlHLgnnFsSDmfkp6HAiM6ud24bMFZ/fbmpyh0/d3Km2Qijd2FamopVymbl94ypcYcGnA2Nc0vvow2yKCaO4CGi0QM6LpUoT29Y=
+X-Microsoft-Antispam-Message-Info: l+yejAZ4dIlcF5646asF0E9YEgTtbydx+vDCjzvgzp4lTN4rmSE+2RqHjp1o5A2j6HaOZLSNsNcr+hGQYE+HZZUHhvwiCoclAVfiS8XXmzKVK2/zQtqWeT0tWwdnxSTIkS6uT2dDtiVwj2rw0gEclFl+M1cldsZiDC/pDHKM2xVMvTvKfD2tZ7ueUBwaK8CX0wwBaIuUMfmryN+VmYXEOH5a6Fr9E8febbEzgv3tlaw8ddUGPEyzgItIQhjnKpRxaNGGrne9GvWkwPLioK/bQo2USJoXN6Pj3UNmqW00lKuZquHSk8rk9gORe/n4Fi2jrXW41bxY8btD/nGw8Nh60/06Skyx5ae7gJt3Vyu8G+la6j8jftABSxQ0xe49Jp0Qao1B2C98nS6Eme6yAr4EXMizN2YA9vDAFHQ4pvnNqOEfjKRG0eLTflsOoi9Fhu+m5vXSU/ezvHr20DLJKsJuMuvtsw5n7FO77TB+PKVd47NMDMjfzCraefNXvwtquYMlvtLMCb8O/33Ee+5obf2xiiJK7dnFuLa/MTOUAG5GMifv0lW479XdxHwvg5dp/Got8LASMGhDQ8usG82W50TQhtshuhip5Zq16HabzyrsleU/d/8TmKHWZ0AvzkxMd/mCeMa7eMBY7S4tWlzDXV3sBqYPP2pc+DwV85x+CiBLZUL0KUnWJRdZZbbH5MT5GtjUVJSTjVTziz+Eq00dVkaga01s7jixZ7xV2Sxxv0huTCU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(376002)(136003)(396003)(346002)(451199015)(36840700001)(40470700004)(46966006)(36860700001)(16526019)(44832011)(478600001)(82740400003)(40480700001)(5660300002)(36756003)(40460700003)(2616005)(1076003)(8936002)(47076005)(70206006)(41300700001)(70586007)(4326008)(426003)(356005)(8676002)(336012)(6666004)(83380400001)(82310400005)(7696005)(81166007)(6916009)(316002)(26005)(54906003)(186003)(86362001)(2906002)(36900700001);
+ SFS:(13230022)(4636009)(376002)(39860400002)(136003)(396003)(346002)(451199015)(36840700001)(46966006)(40470700004)(70586007)(316002)(6916009)(186003)(70206006)(2906002)(4326008)(54906003)(5660300002)(44832011)(478600001)(26005)(41300700001)(16526019)(6666004)(7696005)(426003)(40480700001)(86362001)(36860700001)(83380400001)(336012)(2616005)(82740400003)(81166007)(1076003)(8676002)(40460700003)(36756003)(8936002)(356005)(47076005)(15650500001)(82310400005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2023 01:04:29.9068 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fe662b4-98f1-4367-2564-08daeeb8cca0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2023 01:04:31.5455 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ceee448f-1b05-46b7-cfe2-08daeeb8cd97
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT100.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8080
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4919
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,59 +104,84 @@ Cc: haoping.liu@amd.com, Alexander.Deucher@amd.com, shane.xiao@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-1. Rename securedisplay_cmd to ta_securedisplay_cmd.
-2. Rename ta_securedisplay_max_phy to ta_securedisplay_phy_ID.
+This patch updates securedisplay_cmd to ta_securedisplay_cmd
+starting from amd-ta_securedisplay-v27.00.00.08.
 
 Signed-off-by: Aaron Liu <aaron.liu@amd.com>
-Signed-off-by: Shane Xiao <shane.xiao@amd.com>
 ---
- .../gpu/drm/amd/amdgpu/ta_secureDisplay_if.h  | 24 +++++++++----------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c               | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c     | 8 ++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.h     | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 2 +-
+ 4 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/ta_secureDisplay_if.h b/drivers/gpu/drm/amd/amdgpu/ta_secureDisplay_if.h
-index cf8ff064dc72..00d8bdb8254f 100644
---- a/drivers/gpu/drm/amd/amdgpu/ta_secureDisplay_if.h
-+++ b/drivers/gpu/drm/amd/amdgpu/ta_secureDisplay_if.h
-@@ -55,10 +55,10 @@ enum ta_securedisplay_status {
- 	TA_SECUREDISPLAY_STATUS__MAX                     = 0x7FFFFFFF,/* Maximum Value for status*/
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 0706afb11577..2bebda7de604 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -1907,7 +1907,7 @@ int psp_rap_invoke(struct psp_context *psp, uint32_t ta_cmd_id, enum ta_rap_stat
+ static int psp_securedisplay_initialize(struct psp_context *psp)
+ {
+ 	int ret;
+-	struct securedisplay_cmd *securedisplay_cmd;
++	struct ta_securedisplay_cmd *securedisplay_cmd;
  
--/** @enum ta_securedisplay_max_phy
-+/** @enum ta_securedisplay_phy_ID
-  *    Physical ID number to use for reading corresponding DIO Scratch register for ROI
-  */
--enum  ta_securedisplay_max_phy {
-+enum  ta_securedisplay_phy_ID {
- 	TA_SECUREDISPLAY_PHY0                           = 0,
- 	TA_SECUREDISPLAY_PHY1                           = 1,
- 	TA_SECUREDISPLAY_PHY2                           = 2,
-@@ -139,16 +139,16 @@ union ta_securedisplay_cmd_output {
- 	uint32_t                                           reserved[4];
- };
+ 	/*
+ 	 * TODO: bypass the initialize in sriov for now
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
+index 2c1d82fc4c34..8ed0e073656f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
+@@ -77,11 +77,11 @@ void psp_securedisplay_parse_resp_status(struct psp_context *psp,
+ 	}
+ }
  
--/** @struct securedisplay_cmd
-- *    Secure Display Command which is shared buffer memory
-- */
--struct securedisplay_cmd {
--	uint32_t                             cmd_id;                    /* +0  Bytes Command ID */
--	enum ta_securedisplay_status         status;     /* +4  Bytes Status of Secure Display TA */
--	uint32_t                             reserved[2];               /* +8  Bytes Reserved */
--	union ta_securedisplay_cmd_input     securedisplay_in_message;  /* +16 Bytes Input Buffer */
--	union ta_securedisplay_cmd_output    securedisplay_out_message;/* +32 Bytes Output Buffer */
--	/**@note Total 48 Bytes */
-+/** @struct ta_securedisplay_cmd
-+*    Secure display command which is shared buffer memory
-+*/
-+struct ta_securedisplay_cmd {
-+    uint32_t                                           cmd_id;                         /**< +0  Bytes Command ID */
-+    enum ta_securedisplay_status                       status;                         /**< +4  Bytes Status code returned by the secure display TA */
-+    uint32_t                                           reserved[2];                    /**< +8  Bytes Reserved */
-+    union ta_securedisplay_cmd_input                   securedisplay_in_message;       /**< +16 Bytes Command input buffer */
-+    union ta_securedisplay_cmd_output                  securedisplay_out_message;      /**< +32 Bytes Command output buffer */
-+    /**@note Total 48 Bytes */
- };
+-void psp_prep_securedisplay_cmd_buf(struct psp_context *psp, struct securedisplay_cmd **cmd,
++void psp_prep_securedisplay_cmd_buf(struct psp_context *psp, struct ta_securedisplay_cmd **cmd,
+ 	enum ta_securedisplay_command command_id)
+ {
+-	*cmd = (struct securedisplay_cmd *)psp->securedisplay_context.context.mem_context.shared_buf;
+-	memset(*cmd, 0, sizeof(struct securedisplay_cmd));
++	*cmd = (struct ta_securedisplay_cmd *)psp->securedisplay_context.context.mem_context.shared_buf;
++	memset(*cmd, 0, sizeof(struct ta_securedisplay_cmd));
+ 	(*cmd)->status = TA_SECUREDISPLAY_STATUS__GENERIC_FAILURE;
+ 	(*cmd)->cmd_id = command_id;
+ }
+@@ -93,7 +93,7 @@ static ssize_t amdgpu_securedisplay_debugfs_write(struct file *f, const char __u
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
+ 	struct psp_context *psp = &adev->psp;
+-	struct securedisplay_cmd *securedisplay_cmd;
++	struct ta_securedisplay_cmd *securedisplay_cmd;
+ 	struct drm_device *dev = adev_to_drm(adev);
+ 	uint32_t phy_id;
+ 	uint32_t op;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.h
+index fe98574748f4..456ad68ed4b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.h
+@@ -30,7 +30,7 @@
+ void amdgpu_securedisplay_debugfs_init(struct amdgpu_device *adev);
+ void psp_securedisplay_parse_resp_status(struct psp_context *psp,
+ 		enum ta_securedisplay_status status);
+-void psp_prep_securedisplay_cmd_buf(struct psp_context *psp, struct securedisplay_cmd **cmd,
++void psp_prep_securedisplay_cmd_buf(struct psp_context *psp, struct ta_securedisplay_cmd **cmd,
+ 		enum ta_securedisplay_command command_id);
  
- #endif   //_TA_SECUREDISPLAY_IF_H
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+index ad73e5855580..8841c447d0e2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+@@ -103,7 +103,7 @@ static void amdgpu_dm_crtc_notify_ta_to_read(struct work_struct *work)
+ {
+ 	struct secure_display_context *secure_display_ctx;
+ 	struct psp_context *psp;
+-	struct securedisplay_cmd *securedisplay_cmd;
++	struct ta_securedisplay_cmd *securedisplay_cmd;
+ 	struct drm_crtc *crtc;
+ 	struct dc_stream_state *stream;
+ 	uint8_t phy_inst;
 -- 
 2.39.0
 
