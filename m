@@ -4,121 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 975EEC3DA7D
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jan 2023 05:37:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEA91C3DA7D
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Jan 2023 08:44:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A658710E6AD;
-	Thu,  5 Jan 2023 05:37:42 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35D6310E6AC;
- Thu,  5 Jan 2023 05:37:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i8h0Jch7DyPl0xQJt14maV15L3VVQ/udaT1+OSAjlJrzJCK+912lFwurWTmtpMTIdjEkh8xICWfJwV1xVz50gAMlIlAmGoS8BIBQX7xz2OqbJCYjFnenneOoAxxqU/+kTRH0CzXOAkQ0an0O21Nqjh8Udr3KRls4Z5xZpERYNuwBdTdtesymoLGAdYU2SKqX7X4NMlm6Z3bmqvu6LLOTnWe96uYtgieSHVXozXQti7eyPcumoLy6FezaCv8IKJ2kHy+FUiP5ayx6Qwo+erGaPntTBvXxH0xyYMWCBFM5qS6pTumcoFvpch/8ZZyIt2y1HpW754reDxwhcVbLa2/DOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ql8TlC9oYwRY5ikeD/kPYPQJBq4QNt3v3yivASV7fuk=;
- b=U2wXK7W6HCGcThK22xA6xUy21M9WfMC1d7M2pyVHUhbqvm4diBS44vA3+2MwmeTfozE0Thjf7vJjcPtNKZnPOR5pcmK+KKV1UaogePwcDbOm2oRIMtWaL623yXf9N+QMnUznMCMF9kjsq1PR80PUI7QmY/xYj1/zeXO8xHV/AbAxkgJeqZeadGvjJUKU1rB+9V6fqW1Pz3rfum/zIywsXAusqpqBs0DF/arDPIzW5mMP5NdRPefuov01TEL7eLn24XJqhU3YAQjaoiOkYYA+SMYzBaW34KvrR4po2xJwsppZXhRvAzBWAYEf9O4RLahzTvohZLuZfh2EZGpqQ5pHjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ql8TlC9oYwRY5ikeD/kPYPQJBq4QNt3v3yivASV7fuk=;
- b=Mvx5kF0yQfkEGnKBSuts9P0wc9Gu1EnedEWQ8KyHljokA70IPkCf1cj6popTLjNo2dkBNkMgCoxa/baKxvLbtmH3/She3xpLqLuDyouJuJ83g97CgcOLxIyScuA24C53nPPzKoZVGRO0QyaHVRuChZkmbML5UfBgF+wDQbbapSM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by BL3PR12MB6619.namprd12.prod.outlook.com (2603:10b6:208:38e::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Thu, 5 Jan
- 2023 05:37:38 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::ff3c:2d37:75f3:442a]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::ff3c:2d37:75f3:442a%6]) with mapi id 15.20.5944.019; Thu, 5 Jan 2023
- 05:37:38 +0000
-Message-ID: <1cc650c7-3bdb-6571-ee79-3bcd7affafc5@amd.com>
-Date: Wed, 4 Jan 2023 23:37:35 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [PATCH v6 05/45] drm/amd: Add a new helper for loading/validating
- microcode
-To: "Lazar, Lijo" <lijo.lazar@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org
-References: <20230105034327.1439-1-mario.limonciello@amd.com>
- <20230105034327.1439-6-mario.limonciello@amd.com>
- <804491f0-6e83-dae5-f108-f80950838a52@amd.com>
- <b3304913-e6f4-3f87-e4f9-b31374682d2a@amd.com>
- <d227e106-1766-c51e-397d-209c1f880a65@amd.com>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <d227e106-1766-c51e-397d-209c1f880a65@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN7PR04CA0081.namprd04.prod.outlook.com
- (2603:10b6:806:121::26) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24EC610E47F;
+	Thu,  5 Jan 2023 08:44:00 +0000 (UTC)
+X-Greylist: delayed 1962 seconds by postgrey-1.36 at gabe;
+ Thu, 05 Jan 2023 08:33:35 UTC
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB3F410E12B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Jan 2023 08:33:35 +0000 (UTC)
+Received: from pps.filterd (m0187473.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3057m6nE036979; Thu, 5 Jan 2023 08:00:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=date : from : to : cc :
+ subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=pp1; bh=5zKaQOA6IGKVjD/e3CeInd78n2sD2CM5QMQ3/3xpoGk=;
+ b=EW9DXA6n2b01/pIeafCvQxNtyVXERMmUKUcexO4zlYK5qRyuT9us8zoLA1/5lQbJ5qy1
+ /ynaFOc6HqsRRtM5cMcTDaEcpaDP3cNwOJZOuVePS8htJeyrPbhJ8rQ2ZgmFJgwv1kp7
+ +ie99xvIvOusHkzPu9qCmrCY0hSNGXBHH83tQloT802o/xA3CQsVRQahUm92P4+4x1py
+ ZpGD0hOq3cQHnX10/yPwafM6UobAeQxrhuzUBtCNnb/PdsaDsxNCVkeQxgeb5EEozmRK
+ fI3YcoD3kZG7G9vDTutVltfhiRsvVrWe3mOPf6qZd93S/XvTZt8+Zab06nqszpW27rnA dw== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3mwtfm06tp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Jan 2023 08:00:14 +0000
+Received: from m0187473.ppops.net (m0187473.ppops.net [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 3057mKYR037398;
+ Thu, 5 Jan 2023 08:00:13 GMT
+Received: from ppma03fra.de.ibm.com (6b.4a.5195.ip4.static.sl-reverse.com
+ [149.81.74.107])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3mwtfm06qu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Jan 2023 08:00:13 +0000
+Received: from pps.filterd (ppma03fra.de.ibm.com [127.0.0.1])
+ by ppma03fra.de.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 3051RcWN000986;
+ Thu, 5 Jan 2023 08:00:10 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+ by ppma03fra.de.ibm.com (PPS) with ESMTPS id 3mtcq6mpf0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Jan 2023 08:00:10 +0000
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com
+ [10.20.54.106])
+ by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 305806Vv45351190
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 5 Jan 2023 08:00:06 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 69A8E2005A;
+ Thu,  5 Jan 2023 08:00:06 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A2D7920043;
+ Thu,  5 Jan 2023 08:00:04 +0000 (GMT)
+Received: from osiris (unknown [9.171.68.186])
+ by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Thu,  5 Jan 2023 08:00:04 +0000 (GMT)
+Date: Thu, 5 Jan 2023 09:00:03 +0100
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Nathan Chancellor <nathan@kernel.org>
+Subject: Re: [PATCH 00/14] Remove clang's -Qunused-arguments from
+ KBUILD_CPPFLAGS
+Message-ID: <Y7aDg5BqjRDZrOR/@osiris>
+References: <20221228-drop-qunused-arguments-v1-0-658cbc8fc592@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|BL3PR12MB6619:EE_
-X-MS-Office365-Filtering-Correlation-Id: cefd26ef-d6b9-481f-364f-08daeedef490
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vfJzrp2VNHTMGkWDW2rrEU913jCCTLKL1XYnNLl43L+duQcTOjULMeDhejlAArKM2C/CQUyAzZtWJH7um+TEchmofEoAeeY9oUqeYFCWYdXR4R9pBSe4e4dKlN8mFbOapgKzmNmL4dsBtzV8z/hS/sx/RKkafLwjfdo7EY8rF9ogxmo89N6f/+QGuw2F8SvmDMwtED/X+zOsCXhE6QUvlx8ob/OIN/D7LKuD0Q3bzvcDlJ/7bBgOLE3XmBOkCdlQ59zOGIi8XIkHwEBYe+u8g/YXNyIAuJDvCPi0xxxCJeP2QMUQC/mBwnGdM5NxvBGUVx3Uaa7nNQ0pQw/SgJ3FTNOkmtHdaTHpSjOxHgWSOWioawzMBnffl0t7b9BRNnPyo2jhn6aXbUf+iJY3Yp50h3PVfkjvjpTO+y5YZNlM5XG66EnoG4t3q6NBDgxENo1MqD2YsF/N0o4GQwsUmuBNodTlNuyBEj/LCF0Ke7ts1N8nzscji1pnM4fxNnsYCOzqi0i9iKf9U0ZsDp2P7I9w4xEXFSubwxvkzd7fpe4DZpAzS0Jf8VNGCnp6xASuVsenAH0d15u7T/sEf7QKSd3w80VgyZRPxwdDXmdqGJhr0ThAkjbOBcSDRBvlUR1eXqNb8+ef7cerVd4LxaVdC1uvv4e37SjaU8imvlnbnegaslySiw9rDl0i/hmD0a/MC/sDYlK0IgbylAgt3mHdeTsuxjnp0uTV7U2GsNeBEV2/bypiWlMElvA6wPfIvW4PBCQ3
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(396003)(376002)(346002)(39860400002)(136003)(451199015)(6512007)(54906003)(6666004)(53546011)(316002)(110136005)(8676002)(186003)(478600001)(66946007)(2616005)(66556008)(66476007)(4326008)(38100700002)(31686004)(6486002)(6506007)(41300700001)(8936002)(83380400001)(5660300002)(44832011)(2906002)(86362001)(36756003)(31696002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OEVKR0JSMWtUNjg4eDNVdXcxVHgyUmw3Y1ZyeTdtWGY5ZnlUK3pCeVdjWjE1?=
- =?utf-8?B?UkxRUWtYcWFObldJSWhiZmtVQnN4YXpNREIvZ2FlSW9rSEU0eXRpbEIwYkJm?=
- =?utf-8?B?clZ3cTdMSXBIYmxrcGE1ZU04bzNDM2MvYXc0TzVqSUdGWVpTT21EdFJRM1Yw?=
- =?utf-8?B?cTVxYVhtVTdHL0poQ2xLREZTRjMweGFwUFdaUlJCUW9OMGZmdHRNL2FGMkhm?=
- =?utf-8?B?aHF1bnUvcW9JYjIwR3ZQWUpQZXZ4Uzc2YUV4MU1UckZGbjVwUnF1eDF0T1JW?=
- =?utf-8?B?MzJNR0VtbzNSWXFOZ2thaHhrWmZFdGhGUFIzdHVjeXUyb2lQazQySnhXLzNx?=
- =?utf-8?B?Wm0xaWUwU2VMNGl3Z1ZiSmFDQWt3aW9zSzlOY0ppUlpzb3dUODFTTzAzbm1x?=
- =?utf-8?B?KzFhcU96RzN5M3VISkZRMnB2QnVzNlhBME5uaUVqK09sZ3Zxb3U2aWNzVVBk?=
- =?utf-8?B?aVl4am5sQms0M2JlUWFFZFZLbzltZ3N3VGIrMEdWQlBhcWZIcXhUTTN2blNP?=
- =?utf-8?B?eUE0NWhQaDdQR3RJSmt3NEFRT2pxeUNUaTFPb2ZCMHdzUHJzNUhlLzJTTk9p?=
- =?utf-8?B?NkZRWHdobzgrMG5GUHpZRUZsekI1NExCcGtKMjdOdjB4R20wQTJMd0VCb3cw?=
- =?utf-8?B?aWR5QnB5L1ZHRGFOTU5GM0pINUpNejkwSGFxUFc0OXFBaCsxTENyRnlhZTNQ?=
- =?utf-8?B?L3duNHhJSU1LbUdwY2ROVUljT0F1b0xFb2cyZEw0b0NBejYvaHplU1JaTVRp?=
- =?utf-8?B?bVBsVG01dDBvNTJZTGMrSk9pVit3ZU8xTS8xMmZ2SWRiTVFXOTBMMGtQVXJT?=
- =?utf-8?B?YndxS3ZDaXdWSGJUaGR4Um0yRk95VFo2WUZ4ekc4T3pCVmUvUXRvR1h0Z3BS?=
- =?utf-8?B?SVgrQzdyUUdxWS9PeFdoNVRqc2l5SHplQ3hQOVJrY01sT2FxMldWTlNFalU4?=
- =?utf-8?B?aGluelNsRWlXQW96cW1LSzkzdnRUcE5XUWZIanVrc25ZQW1TL01UN3VmeWZC?=
- =?utf-8?B?SFdZYVJBNXVCR29TZGtkaktmTHNJNUhBbEZYeE5CTEpCRzJNbkJnakF4Z1VO?=
- =?utf-8?B?M21qcUp4c3Nxc256Q1FpUWlDT1ExZWpaZ1FIY1o3U0h1MU9ZZ1IwbXBTWTZx?=
- =?utf-8?B?SG1TeW00djBzb2NLM1BjeW0xLytoTkJmTGNTQVNsL3ZESmJkYVAvNlEvbVFk?=
- =?utf-8?B?dEpLY0tvdlFwYVp0VWRnTUNhTGFwT0dpbytoZWhpM1ZpamJvQ0orcVU4aFVr?=
- =?utf-8?B?Q0RqQXVsWVpGNStQQVhRUTdpMlp0SndjWHNuc2thZmpxa2FHc0d1bHRaQ3ZQ?=
- =?utf-8?B?N2hPa3RQYWI2cEdnMVM1ZmVMamdPaVYvTWtIbXFyb21UZ1g3RkJtVVF2b2tL?=
- =?utf-8?B?SitoQ2lTRXhMMEFnaHFPY1JZQ2ZjSzdRcmtPNnlBRGZuOW5SNFZ5M2ZrTXRx?=
- =?utf-8?B?K0VrOFdzZVZ1bFJ2dk5pR3lQUm1aMDhEVmN3ZEFYY21XSnEycmN6NzdPVmNG?=
- =?utf-8?B?RExWd1hYSWNJTkJTdXdLWUg3K3pWMGNzM0d1TmtrLzNlYk1ueW9OK2R2VEx4?=
- =?utf-8?B?L2cwZ1ZqNUF0YWNrNCtwS1EzRks5ZjZNUjd6NUt1cjRLSlBoYkliTzRMVUFx?=
- =?utf-8?B?TWUyNkM4c1pvbkZIbm5OdWFCREtaUW9uYWNDU2JYUVdUcGpkdXRGdU5VUTFl?=
- =?utf-8?B?bS9DZWU5QVl4c3VlTlcvUStMVGl4S2htNjVGSHFrOHJmMXRaTGluUXhnOEJk?=
- =?utf-8?B?S3NxZENpanEzTnl4elYzNFAxZkRma3N5Wmx6NWsvQlJnTDJERWI1anFkMm5m?=
- =?utf-8?B?OVdLZ3hJZ3E5OHczeXh3bGs2WG1CaStzdkZYZE8vUkp1Ky9ESWFjaUJjOUp1?=
- =?utf-8?B?MHFPQ25wNmtySFhhT05HRkpjREY2L2hGWlZhM29tMDhFTWlFZng1dDRyQXlk?=
- =?utf-8?B?NmhpVmVrQVdHU2IvNk5oeU9DTlpGRUhYSTFUb3lxdVhYNHlTT2JxUkNsVGFJ?=
- =?utf-8?B?cFlUWHl1OTBuUEx1RXNuOXRHbW9JQXdVWjQ3M1dNMnl6QWJqeHZNaVlMV1FX?=
- =?utf-8?B?K1BZVTI2N0hKSkZxQlkzRDNPZGFIaHAxd2Q2S29uMmc1NUc1N2VJVE1DQVdw?=
- =?utf-8?B?ODhMNm5Oc3R2Rlh0djdyZENyLzl4R3hRcXdvZVVHY1JRaGh5aERscXdQM3hq?=
- =?utf-8?Q?OBg3kbVp0vFiHK0BbFEYI6F4ukpoF4COUuaOj5aoK0xp?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cefd26ef-d6b9-481f-364f-08daeedef490
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2023 05:37:38.0838 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hCRrnC94Yx8DjrVbKwhyphtm6tfsucJtzgtk6LQ17ebFTsbnoqfWq4AUeNPqdhvJ+tFqoQeUnDMQP0llfC8xzg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6619
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221228-drop-qunused-arguments-v1-0-658cbc8fc592@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: HN0SRG90u-IN-eEqiy_9QPgOJjfvpn1A
+X-Proofpoint-ORIG-GUID: AWGhRIIBoEln5sOF-oxHHjt5w7QDkV0-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2023-01-05_02,2023-01-04_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ priorityscore=1501 adultscore=0 bulkscore=0 malwarescore=0 mlxlogscore=670
+ mlxscore=0 suspectscore=0 phishscore=0 impostorscore=0 clxscore=1011
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301050062
+X-Mailman-Approved-At: Thu, 05 Jan 2023 08:43:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,132 +96,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Carlos Soriano Sanchez <csoriano@redhat.com>, David Airlie <airlied@gmail.com>,
+Cc: trix@redhat.com, dave.hansen@linux.intel.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ agordeev@linux.ibm.com, linux-s390@vger.kernel.org,
+ kernel test robot <lkp@intel.com>, mpe@ellerman.id.au, masahiroy@kernel.org,
+ x86@kernel.org, Rodrigo.Siqueira@amd.com, christophe.leroy@csgroup.eu,
+ mingo@redhat.com, borntraeger@linux.ibm.com, harry.wentland@amd.com,
+ llvm@lists.linux.dev, nicolas@fjasle.eu, gor@linux.ibm.com,
+ linux-kbuild@vger.kernel.org, sunpeng.li@amd.com, npiggin@gmail.com,
+ bp@alien8.de, tglx@linutronix.de, tsbogend@alpha.franken.de,
+ Xinhui.Pan@amd.com, ndesaulniers@google.com, linux-mips@vger.kernel.org,
+ svens@linux.ibm.com, alexander.deucher@amd.com, linuxppc-dev@lists.ozlabs.org,
  christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/4/23 23:29, Lazar, Lijo wrote:
+On Wed, Jan 04, 2023 at 12:54:18PM -0700, Nathan Chancellor wrote:
+> Hi all,
+...
+> This series has seen my personal test framework, which tests several different
+> configurations and architectures, with LLVM tip of tree (16.0.0). I have done
+> defconfig, allmodconfig, and allnoconfig builds for arm, arm64, i386, mips,
+> powerpc, riscv, s390, and x86_64 with GCC 12.2.0 as well but I am hoping the
+> rest of the test infrastructure will catch any lurking problems.
 > 
-> 
-> On 1/5/2023 10:53 AM, Mario Limonciello wrote:
->> On 1/4/23 23:07, Lazar, Lijo wrote:
->>>
->>>
->>> On 1/5/2023 9:12 AM, Mario Limonciello wrote:
->>>> All microcode runs a basic validation after it's been loaded. Each
->>>> IP block as part of init will run both.
->>>>
->>>> Introduce a wrapper for request_firmware and amdgpu_ucode_validate.
->>>> This wrapper will also remap any error codes from request_firmware
->>>> to -ENODEV.  This is so that early_init will fail if firmware couldn't
->>>> be loaded instead of the IP block being disabled.
->>>>
->>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>>> ---
->>>> v5->v6:
->>>>   * Fix argument to be ** not *
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 36 
->>>> +++++++++++++++++++++++
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h |  3 ++
->>>>   2 files changed, 39 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
->>>> index eafcddce58d3..8ebfec12da87 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
->>>> @@ -1312,3 +1312,39 @@ void amdgpu_ucode_ip_version_decode(struct 
->>>> amdgpu_device *adev, int block_type,
->>>>       snprintf(ucode_prefix, len, "%s_%d_%d_%d", ip_name, maj, min, 
->>>> rev);
->>>>   }
->>>> +
->>>> +/*
->>>> + * amdgpu_ucode_request - Fetch and validate amdgpu microcode
->>>> + *
->>>> + * @adev: amdgpu device
->>>> + * @fw: pointer to load firmware to
->>>> + * @fw_name: firmware to load
->>>> + *
->>>> + * This is a helper that will use request_firmware and 
->>>> amdgpu_ucode_validate
->>>> + * to load and run basic validation on firmware. If the load fails, 
->>>> remap
->>>> + * the error code to -ENODEV, so that early_init functions will 
->>>> fail to load.
->>>> + */
->>>> +int amdgpu_ucode_request(struct amdgpu_device *adev, const struct 
->>>> firmware **fw,
->>>> +             const char *fw_name)
->>>> +{
->>>> +    int err = request_firmware(fw, fw_name, adev->dev);
->>>> +
->>>> +    if (err)
->>>> +        return -ENODEV;
->>>> +    err = amdgpu_ucode_validate(*fw);
->>>> +    if (err)
->>>> +        dev_dbg(adev->dev, "\"%s\" failed to validate\n", fw_name);
->>>> +
->>>
->>> Missed this earlier. If validate fails, shouldn't this undo the 
->>> request operation by calling release?
->>
->> Actually that was original design, but there is one place in the 
->> codebase that expects that ucode validation can fail, and so leave the 
->> evaluate of error code and cleanup outside of helper.
->>
-> 
-> I see. Does request_firmware assure that fw pointer be always NULL if it 
-> fails? Or should that be done here if request_ fails? In subsequent 
-> patches, I see clients calling release without checking what caused the 
-> failure.
+> I would like this series to stay together so that there is no opportunity for
+> breakage so please consider giving acks so that this can be carried via the
+> kbuild tree.
+...
+>       s390/vdso: Drop unused '-s' flag from KBUILD_AFLAGS_64
+>       s390/vdso: Drop '-shared' from KBUILD_CFLAGS_64
+>       s390/purgatory: Remove unused '-MD' and unnecessary '-c' flags
+...
+>  arch/s390/kernel/vdso64/Makefile            |  4 +--
+>  arch/s390/purgatory/Makefile                |  2 +-
 
-Yes, according to docs 
-(https://docs.kernel.org/next/driver-api/firmware/request_firmware.html#request-firmware-api-expected-driver-use)
-
-> 
-> Thanks,
-> Lijo
-> 
->>>
->>> Thanks,
->>> Lijo
->>>
->>>> +    return err;
->>>> +}
->>>> +
->>>> +/*
->>>> + * amdgpu_ucode_release - Release firmware microcode
->>>> + *
->>>> + * @fw: pointer to firmware to release
->>>> + */
->>>> +void amdgpu_ucode_release(const struct firmware **fw)
->>>> +{
->>>> +    release_firmware(*fw);
->>>> +    *fw = NULL;
->>>> +}
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
->>>> index 552e06929229..848579d4988b 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
->>>> @@ -544,6 +544,9 @@ void amdgpu_ucode_print_sdma_hdr(const struct 
->>>> common_firmware_header *hdr);
->>>>   void amdgpu_ucode_print_psp_hdr(const struct 
->>>> common_firmware_header *hdr);
->>>>   void amdgpu_ucode_print_gpu_info_hdr(const struct 
->>>> common_firmware_header *hdr);
->>>>   int amdgpu_ucode_validate(const struct firmware *fw);
->>>> +int amdgpu_ucode_request(struct amdgpu_device *adev, const struct 
->>>> firmware **fw,
->>>> +             const char *fw_name);
->>>> +void amdgpu_ucode_release(const struct firmware **fw);
->>>>   bool amdgpu_ucode_hdr_version(union amdgpu_firmware_header *hdr,
->>>>                   uint16_t hdr_major, uint16_t hdr_minor);
->>
-
+For the s390 bits:
+Acked-by: Heiko Carstens <hca@linux.ibm.com>
