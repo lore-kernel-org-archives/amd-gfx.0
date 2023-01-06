@@ -4,62 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2464FC5479D
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jan 2023 15:22:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2C22C5479D
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jan 2023 15:27:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC7B510E86C;
-	Fri,  6 Jan 2023 15:22:37 +0000 (UTC)
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
- [209.85.128.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83D0E10E049
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Jan 2023 15:18:01 +0000 (UTC)
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-4c186ff0506so26621087b3.6
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 Jan 2023 07:18:01 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2556B10E04C;
+	Fri,  6 Jan 2023 15:27:56 +0000 (UTC)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64AAE10E049
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Jan 2023 15:27:54 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id gh17so4188051ejb.6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Jan 2023 07:27:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=D/at81Ea7UHlmLqxhR/oF/gmCtaBDzvwl6qyvGSMyOE=;
+ b=I0XSgTicO7P1guxBgd/zB8Q85NKVFw5OY84AJurYnxYxjKI7gEGI/OEsn8XVb3MUhB
+ SlrH6YENsA+Vf58qBl3Y71Us4s3bzoTtz82GNcRA9sLqNHzUc0IU4ru0PBNJDGkwlDUG
+ aP2SXhAm+kcO7uXydCvBvuyX01oYWx0jYoHKuiCmoiUEwmnY7SUOk1WkkKD7wnKwX8PC
+ WQRkmo5GZGH0reoRsK+gi3BTVHKhhdtWNnOMiwD62TQCj1raRKMj600UFzga1QBG4QSs
+ lBwU7pKVdypv/B5QiVfu0HOD+iACc3tSP7ittTeyOdjqSJ7DAfGve6JvIs1IhQVKkiam
+ JHFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Alz05ZcNgoaQdFl2lti3Hdp2W/onZPDBRRL7a7nm+Vw=;
- b=Dk+/I3ytlHywCajvGXfCTLx4z8XKFvZhA3gHl7II9DQGORCfqFWVWcV9rRQ4huxMVR
- xWlvO1bWas2CzttXFNrNaNwZjtTVosR9AW6hDQPtnGVKIxUgtQYoGwZlpDDBExnhngsG
- 4YWOPirk7O8nXw3eZ/SyQGr1j2AmSjL1wIcdlOIkpELIUSUAcL2E/ueP5HGufiVz+yG0
- FcxnpQie7UUU1IG6CVw0Ypj43JbYroBPteS8QSlFVp/7Jpw/B1MbS3ieQOOv1DcJT3l6
- 34SjxQC+tH8EWa6r+gBi9m9nEBscv3ITMDCmlf6SUH3jeMbRjX7sUuFNFeyXv/PJ3GD9
- bhZw==
-X-Gm-Message-State: AFqh2kquWzFV6Edl2dYrrT2H+nGiXrYHfEx1JnX6NVNpQUzH5VJz9OxL
- XO1OysSnOVPVNsash7r8s5T2feZu50wsBQ==
-X-Google-Smtp-Source: AMrXdXsX7lVhxndHexjRO/faZKlj6tedFIRJ7Oa59pu2KJPW1zcMWVODIL8REuetR1jbOJUm7w3hWA==
-X-Received: by 2002:a81:83c6:0:b0:480:c479:c501 with SMTP id
- t189-20020a8183c6000000b00480c479c501mr33190365ywf.15.1673018280320; 
- Fri, 06 Jan 2023 07:18:00 -0800 (PST)
-Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com.
- [209.85.219.174]) by smtp.gmail.com with ESMTPSA id
- q5-20020a05620a0d8500b006eee3a09ff3sm651567qkl.69.2023.01.06.07.17.59
- for <amd-gfx@lists.freedesktop.org>
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=D/at81Ea7UHlmLqxhR/oF/gmCtaBDzvwl6qyvGSMyOE=;
+ b=NvN2zACK/0iMU+2/gWGrciqOCSBGsXj4aMTkJ8KAITkHdxI3P9GIhuIUfgKcgxxQ7l
+ JiT41d/j6YUtpOFja2KVbDTGHhxTRBa2APA6bNddmvH6T/blERL/aTuqlLQlBKjisDSZ
+ xKIKvOL5ucD7aJ8hTNKXDq+XfcXEFS6cGjUDYAF3w0DF2FUAZyvE9lJjkVqy0WGZyA1H
+ F5p9foq03CmASurpM0wcNepQ4gW7kit4C6dt9alx9nw4vj3WXa7Ob+TRnl2Em5JhfwBs
+ B08ds0FbARuY+l12VZo0VKpo5qfXH2OTxURp7ASNVLJSiLDoer6CBjwY7CWrhocA3Mpn
+ wLLA==
+X-Gm-Message-State: AFqh2koaaNLgM9A13gn7GEZKDc2PvroKQPTr4+M4lxCq/frwAvqgV3dF
+ WjElmvYjkmL0a93dbFSgf/I=
+X-Google-Smtp-Source: AMrXdXs0xzEW0DKUg2wqZSePvhjFNksQJVvsiyfPN7ONKqY/A6cTvJMxVBE6nu51u5K6DdFPqGsVVg==
+X-Received: by 2002:a17:906:36c5:b0:829:594c:8ec8 with SMTP id
+ b5-20020a17090636c500b00829594c8ec8mr43407022ejc.29.1673018872879; 
+ Fri, 06 Jan 2023 07:27:52 -0800 (PST)
+Received: from ?IPV6:2a02:908:1256:79a0:9acd:ebc4:b6ac:3425?
+ ([2a02:908:1256:79a0:9acd:ebc4:b6ac:3425])
+ by smtp.gmail.com with ESMTPSA id
+ o11-20020a170906768b00b0084d242d07ffsm274970ejm.8.2023.01.06.07.27.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Jan 2023 07:17:59 -0800 (PST)
-Received: by mail-yb1-f174.google.com with SMTP id j206so2198836ybj.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 Jan 2023 07:17:59 -0800 (PST)
-X-Received: by 2002:a25:d84e:0:b0:7b4:6a33:d89f with SMTP id
- p75-20020a25d84e000000b007b46a33d89fmr557375ybg.543.1673018279290; Fri, 06
- Jan 2023 07:17:59 -0800 (PST)
+ Fri, 06 Jan 2023 07:27:52 -0800 (PST)
+Message-ID: <f4c965d9-d985-0030-7411-6d8d0f750058@gmail.com>
+Date: Fri, 6 Jan 2023 16:27:50 +0100
 MIME-Version: 1.0
-References: <CAHk-=wgf929uGOVpiWALPyC7pv_9KbwB2EAvQ3C4woshZZ5zqQ@mail.gmail.com>
- <20221227082932.798359-1-geert@linux-m68k.org>
- <alpine.DEB.2.22.394.2212270933530.311423@ramsan.of.borg>
- <c05bee5d-0d69-289b-fe4b-98f4cd31a4f5@physik.fu-berlin.de>
-In-Reply-To: <c05bee5d-0d69-289b-fe4b-98f4cd31a4f5@physik.fu-berlin.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 6 Jan 2023 16:17:47 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXNJveXHeS=g-aHbnxtyACxq1wCeaTg8LbpYqJTCqk86g@mail.gmail.com>
-Message-ID: <CAMuHMdXNJveXHeS=g-aHbnxtyACxq1wCeaTg8LbpYqJTCqk86g@mail.gmail.com>
-Subject: Re: Build regressions/improvements in v6.2-rc1
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 06 Jan 2023 15:22:35 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH] drm/amdgpu: grab extra fence reference for
+ drm_sched_job_add_dependency
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+References: <20221219104718.21677-1-christian.koenig@amd.com>
+ <Y6BuZ2jv8n9dEVxS@zn.tnic>
+ <CADnq5_M+TgiYw84meQNRJKnKYmr9V4v-scWZRAeFtG1o=aEeCw@mail.gmail.com>
+ <7275efdb-4d22-eb76-cea3-333391472853@gmail.com>
+ <CADnq5_NxbAgF6sXF6HuGzgcOoY8QOHU-0d9ghuKarx0jpt3Vog@mail.gmail.com>
+ <CABXGCsOmtfo=7YWUv0QmGGrCat1Md59oz7UWw9-7MPn7f6AAdA@mail.gmail.com>
+ <e6b6a599-8fdd-a4fc-a2bb-d0750e6d477d@gmail.com>
+ <CABXGCsOL2SVg=FSOfhzo3wFHB9DqU=B34x+grCxQMhJsmTCMnw@mail.gmail.com>
+ <CADnq5_P0Nq-y1U5X4EgYyPSKXOdVsjxX+UOCmzZKnX8FfHC86w@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CADnq5_P0Nq-y1U5X4EgYyPSKXOdVsjxX+UOCmzZKnX8FfHC86w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,73 +84,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-xtensa@linux-xtensa.org, linux-sh@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-mips@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-f2fs-devel@lists.sourceforge.net,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
+Cc: michel@daenzer.net, Borislav Petkov <bp@alien8.de>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi John,
-
-On Fri, Jan 6, 2023 at 4:10 PM John Paul Adrian Glaubitz
-<glaubitz@physik.fu-berlin.de> wrote:
-> On 12/27/22 09:35, Geert Uytterhoeven wrote:
-> >    + /kisskb/src/include/linux/compiler_types.h: error: call to '__comp=
-iletime_assert_262' declared with attribute error: Unsupported access size =
-for {READ,WRITE}_ONCE().:  =3D> 358:45
-> >    + /kisskb/src/include/linux/compiler_types.h: error: call to '__comp=
-iletime_assert_263' declared with attribute error: Unsupported access size =
-for {READ,WRITE}_ONCE().:  =3D> 358:45
-> >
-> > In function 'follow_pmd_mask',
-> >      inlined from 'follow_pud_mask' at /kisskb/src/mm/gup.c:735:9,
-> >      inlined from 'follow_p4d_mask' at /kisskb/src/mm/gup.c:752:9,
-> >      inlined from 'follow_page_mask' at /kisskb/src/mm/gup.c:809:9:
-> >
-> > sh4-gcc11/sh-defconfig (G=C3=BCnter wondered if pmd_t should use union)
+Am 06.01.23 um 15:24 schrieb Alex Deucher:
+> On Fri, Jan 6, 2023 at 8:00 AM Mikhail Gavrilov
+> <mikhail.v.gavrilov@gmail.com> wrote:
+>> On Thu, Jan 5, 2023 at 3:03 PM Christian König
+>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>> That one should be fixed by:
+>>>
+>>> commit 9f1ecfc5dcb47a7ca37be47b0eaca0f37f1ae93d
+>>> Author: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>>> Date:   Wed Nov 23 03:13:03 2022 +0300
+>>>
+>> Christian,
+>> This patch was written Nov. 23, 2022, but still not submitted in 6.2!
+> It is in drm-misc-fixes and will be in 6.2 soon:
+> https://cgit.freedesktop.org/drm/drm-misc/commit/?h=drm-misc-fixes&id=69555549cfa42e10f2fdd2699ed4e34d9d4f392b
 >
-> I'm seeing this, too. Also for sh7785lcr_defconfig.
+>> Why?
+> Patch review and end of year holidays.
+
+And it looks like Dmitry submitted it initially to the wrong branch.
+
+Because of this it wasn't scheduled as fix for 6.2, but rather queued up 
+as new feature for 6.3.
+
+This is fixed by now and the patch should show up in the next -rc.
+
+Regards,
+Christian.
+
 >
-> > sh4-gcc11/sh-allmodconfig (ICE =3D internal compiler error)
+> Alex
 >
-> I'm not seeing this one, but I am getting this one instead:
->
-> In file included from ./arch/sh/include/asm/hw_irq.h:6,
->                   from ./include/linux/irq.h:596,
->                   from ./include/asm-generic/hardirq.h:17,
->                   from ./arch/sh/include/asm/hardirq.h:9,
->                   from ./include/linux/hardirq.h:11,
->                   from ./include/linux/interrupt.h:11,
->                   from ./include/linux/serial_core.h:13,
->                   from ./include/linux/serial_sci.h:6,
->                   from arch/sh/kernel/cpu/sh2/setup-sh7619.c:11:
-> ./include/linux/sh_intc.h:100:63: error: division 'sizeof (void *) / size=
-of (void)' does not compute the number of array elements [-Werror=3Dsizeof-=
-pointer-div]
->    100 | #define _INTC_ARRAY(a) a, __same_type(a, NULL) ? 0 : sizeof(a)/s=
-izeof(*a)
->        |                                                               ^
-> ./include/linux/sh_intc.h:105:31: note: in expansion of macro '_INTC_ARRA=
-Y'
->    105 |         _INTC_ARRAY(vectors), _INTC_ARRAY(groups),      \
->        |                               ^~~~~~~~~~~
+>> It will close my questions about amdgpu right now.
+>>
+>> Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+>>
+>> --
+>> Best Regards,
+>> Mike Gavrilov.
 
-The easiest fix for the latter is to disable CONFIG_WERROR.
-Unfortunately I don't know a simple solution to get rid of the warning.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
