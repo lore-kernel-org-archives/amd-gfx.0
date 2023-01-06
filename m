@@ -4,75 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2C22C5479D
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jan 2023 15:27:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18617C4708D
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jan 2023 15:28:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2556B10E04C;
-	Fri,  6 Jan 2023 15:27:56 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64AAE10E049
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Jan 2023 15:27:54 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id gh17so4188051ejb.6
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 Jan 2023 07:27:54 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7C9E10E86D;
+	Fri,  6 Jan 2023 15:28:23 +0000 (UTC)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D89C710E049;
+ Fri,  6 Jan 2023 15:28:20 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id r11so1282458oie.13;
+ Fri, 06 Jan 2023 07:28:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=D/at81Ea7UHlmLqxhR/oF/gmCtaBDzvwl6qyvGSMyOE=;
- b=I0XSgTicO7P1guxBgd/zB8Q85NKVFw5OY84AJurYnxYxjKI7gEGI/OEsn8XVb3MUhB
- SlrH6YENsA+Vf58qBl3Y71Us4s3bzoTtz82GNcRA9sLqNHzUc0IU4ru0PBNJDGkwlDUG
- aP2SXhAm+kcO7uXydCvBvuyX01oYWx0jYoHKuiCmoiUEwmnY7SUOk1WkkKD7wnKwX8PC
- WQRkmo5GZGH0reoRsK+gi3BTVHKhhdtWNnOMiwD62TQCj1raRKMj600UFzga1QBG4QSs
- lBwU7pKVdypv/B5QiVfu0HOD+iACc3tSP7ittTeyOdjqSJ7DAfGve6JvIs1IhQVKkiam
- JHFw==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=ab3tdx57EQZ6xsAca1KbY5FPLARshJ6+T7eu3+BdUuU=;
+ b=R+nbt7DkHgGcPeOelWU5aKN10vnIzExJ73cYyrBcZxDumkoPwVyZ/LBRIBi1dFqYEO
+ HmMMo5aKtfNiebY/OmMpDt6rcED3/51Yw4d3ylCuH3xxhyjpkGMMD09mfgx7o99FTFIG
+ 91Etl5cKDGMMG8ny63WurR6tOfI6w3Ilc/Tlj7dEILx0ZkBH8Gdm2wQVR3+OlAKBZ3CM
+ 16UZK3RKtAHlAy00yvJvNl4puQNR3KJg+4jrdYoSmuWXcnk31joQLUlc20h5D8G+aCix
+ ENOz8Cr3k1JuVzer9pBDUWCtmquWIk5ZgYlBuLQs3+uOlo2Hjhj3V9+Wal6NTeA/a2qJ
+ YcLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=D/at81Ea7UHlmLqxhR/oF/gmCtaBDzvwl6qyvGSMyOE=;
- b=NvN2zACK/0iMU+2/gWGrciqOCSBGsXj4aMTkJ8KAITkHdxI3P9GIhuIUfgKcgxxQ7l
- JiT41d/j6YUtpOFja2KVbDTGHhxTRBa2APA6bNddmvH6T/blERL/aTuqlLQlBKjisDSZ
- xKIKvOL5ucD7aJ8hTNKXDq+XfcXEFS6cGjUDYAF3w0DF2FUAZyvE9lJjkVqy0WGZyA1H
- F5p9foq03CmASurpM0wcNepQ4gW7kit4C6dt9alx9nw4vj3WXa7Ob+TRnl2Em5JhfwBs
- B08ds0FbARuY+l12VZo0VKpo5qfXH2OTxURp7ASNVLJSiLDoer6CBjwY7CWrhocA3Mpn
- wLLA==
-X-Gm-Message-State: AFqh2koaaNLgM9A13gn7GEZKDc2PvroKQPTr4+M4lxCq/frwAvqgV3dF
- WjElmvYjkmL0a93dbFSgf/I=
-X-Google-Smtp-Source: AMrXdXs0xzEW0DKUg2wqZSePvhjFNksQJVvsiyfPN7ONKqY/A6cTvJMxVBE6nu51u5K6DdFPqGsVVg==
-X-Received: by 2002:a17:906:36c5:b0:829:594c:8ec8 with SMTP id
- b5-20020a17090636c500b00829594c8ec8mr43407022ejc.29.1673018872879; 
- Fri, 06 Jan 2023 07:27:52 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:9acd:ebc4:b6ac:3425?
- ([2a02:908:1256:79a0:9acd:ebc4:b6ac:3425])
- by smtp.gmail.com with ESMTPSA id
- o11-20020a170906768b00b0084d242d07ffsm274970ejm.8.2023.01.06.07.27.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Jan 2023 07:27:52 -0800 (PST)
-Message-ID: <f4c965d9-d985-0030-7411-6d8d0f750058@gmail.com>
-Date: Fri, 6 Jan 2023 16:27:50 +0100
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ab3tdx57EQZ6xsAca1KbY5FPLARshJ6+T7eu3+BdUuU=;
+ b=gVY/qcNNj473Y5VAIQJRKL2FwplJRnHfZkAW0o6TzImCtqYvAYOCiqOIES7c2X9qfh
+ LmuS1urSO2UXh1p/CWQvWiz8fO/FUtOL/KnDDRoi22vA0TbMtD+f7YcLZrlkQbkQZ5/W
+ s7iOvQTtKT/rmoReUiEetFCvL7zg8uHt0K8i2D+MglTwE/ldvw+ZgSjWTQIN2AECCuUG
+ 0YfstWD929DeBmQy8tFJ5ae1OPGMQ9ScUh9JDdVdTWciVcp/0dd2+BTKgzu/vPC1KFrr
+ 6mX5XMsdTIccwR6XBS8MEKLIo4SA4uhy8ZC3Eojg/UxkV7LkgbhPqsyc6Nu8GYveJRh1
+ TXug==
+X-Gm-Message-State: AFqh2kp0XjP2p78jJn+qQvMNgvlEfcwqJT7Xa87mbCQWgDLEUa+5oIYh
+ A6fAYERlK2hilsnjLo3fo1mLEgF7F9bl3GXQY2E=
+X-Google-Smtp-Source: AMrXdXtx7HHwv0ey5DyiNGweYMdW6oOsD+E2y4Q6TM710E8YDheUwUZMhk1px3V3gTzzPJTgZlNl81T9mmE12ZAEiFs=
+X-Received: by 2002:a05:6808:2994:b0:35b:f5f7:3ed0 with SMTP id
+ ex20-20020a056808299400b0035bf5f73ed0mr3738323oib.46.1673018900122; Fri, 06
+ Jan 2023 07:28:20 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH] drm/amdgpu: grab extra fence reference for
- drm_sched_job_add_dependency
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-References: <20221219104718.21677-1-christian.koenig@amd.com>
- <Y6BuZ2jv8n9dEVxS@zn.tnic>
- <CADnq5_M+TgiYw84meQNRJKnKYmr9V4v-scWZRAeFtG1o=aEeCw@mail.gmail.com>
- <7275efdb-4d22-eb76-cea3-333391472853@gmail.com>
- <CADnq5_NxbAgF6sXF6HuGzgcOoY8QOHU-0d9ghuKarx0jpt3Vog@mail.gmail.com>
- <CABXGCsOmtfo=7YWUv0QmGGrCat1Md59oz7UWw9-7MPn7f6AAdA@mail.gmail.com>
- <e6b6a599-8fdd-a4fc-a2bb-d0750e6d477d@gmail.com>
- <CABXGCsOL2SVg=FSOfhzo3wFHB9DqU=B34x+grCxQMhJsmTCMnw@mail.gmail.com>
- <CADnq5_P0Nq-y1U5X4EgYyPSKXOdVsjxX+UOCmzZKnX8FfHC86w@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CADnq5_P0Nq-y1U5X4EgYyPSKXOdVsjxX+UOCmzZKnX8FfHC86w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20221216102318.197994-1-yiyang13@huawei.com>
+ <1800775a-5788-b60b-87cb-9b09c7e7c177@amd.com>
+In-Reply-To: <1800775a-5788-b60b-87cb-9b09c7e7c177@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 6 Jan 2023 10:28:07 -0500
+Message-ID: <CADnq5_N5hpnu27Q_XgJ2D-ZnVMFsvX3fzapH3yU7R8ynSdZ2vA@mail.gmail.com>
+Subject: Re: [PATCH -next] drm/amd/display: Remove redundant assignment to
+ variable dc
+To: Harry Wentland <harry.wentland@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,48 +65,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: michel@daenzer.net, Borislav Petkov <bp@alien8.de>,
- amd-gfx@lists.freedesktop.org
+Cc: Yi Yang <yiyang13@huawei.com>, sunpeng.li@amd.com, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 06.01.23 um 15:24 schrieb Alex Deucher:
-> On Fri, Jan 6, 2023 at 8:00 AM Mikhail Gavrilov
-> <mikhail.v.gavrilov@gmail.com> wrote:
->> On Thu, Jan 5, 2023 at 3:03 PM Christian König
->> <ckoenig.leichtzumerken@gmail.com> wrote:
->>> That one should be fixed by:
->>>
->>> commit 9f1ecfc5dcb47a7ca37be47b0eaca0f37f1ae93d
->>> Author: Dmitry Osipenko <dmitry.osipenko@collabora.com>
->>> Date:   Wed Nov 23 03:13:03 2022 +0300
->>>
->> Christian,
->> This patch was written Nov. 23, 2022, but still not submitted in 6.2!
-> It is in drm-misc-fixes and will be in 6.2 soon:
-> https://cgit.freedesktop.org/drm/drm-misc/commit/?h=drm-misc-fixes&id=69555549cfa42e10f2fdd2699ed4e34d9d4f392b
+Applied.  Thanks!
+
+Alex
+
+On Thu, Jan 5, 2023 at 2:20 PM Harry Wentland <harry.wentland@amd.com> wrote:
 >
->> Why?
-> Patch review and end of year holidays.
-
-And it looks like Dmitry submitted it initially to the wrong branch.
-
-Because of this it wasn't scheduled as fix for 6.2, but rather queued up 
-as new feature for 6.3.
-
-This is fixed by now and the patch should show up in the next -rc.
-
-Regards,
-Christian.
-
+> On 12/16/22 05:23, Yi Yang wrote:
+> > Smatch report warning as follows:
+> >
+> > Line 53679: drivers/gpu/drm/amd/display/dc/core/dc_stream.c:402
+> > dc_stream_set_cursor_position() warn: variable dereferenced before
+> > check 'stream'
+> >
+> > The value of 'dc' has been assigned after check whether 'stream' is
+> > NULL. Fix it by remove redundant assignment.
+> >
+> > Signed-off-by: Yi Yang <yiyang13@huawei.com>
 >
-> Alex
+> If this didn't blow up until now we might not even need
+> the NULL check below, but either way this is correct and
 >
->> It will close my questions about amdgpu right now.
->>
->> Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
->>
->> --
->> Best Regards,
->> Mike Gavrilov.
-
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>
+> Harry
+>
+> > ---
+> >  drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> > index 20e534f73513..78d31bb875d1 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> > @@ -408,7 +408,7 @@ bool dc_stream_set_cursor_position(
+> >       struct dc_stream_state *stream,
+> >       const struct dc_cursor_position *position)
+> >  {
+> > -     struct dc  *dc = stream->ctx->dc;
+> > +     struct dc *dc;
+> >       bool reset_idle_optimizations = false;
+> >
+> >       if (NULL == stream) {
+>
