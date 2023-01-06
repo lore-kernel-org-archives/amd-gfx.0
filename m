@@ -4,130 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73497C3DA7A
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jan 2023 10:00:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 776F4C5479D
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jan 2023 10:01:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6510410E84F;
-	Fri,  6 Jan 2023 10:00:28 +0000 (UTC)
-X-Greylist: delayed 746 seconds by postgrey-1.36 at gabe;
- Fri, 06 Jan 2023 10:00:24 UTC
-Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com
- [205.220.178.238])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5B6710E84D;
- Fri,  6 Jan 2023 10:00:24 +0000 (UTC)
-Received: from pps.filterd (m0250811.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3069NBnY018760; Fri, 6 Jan 2023 09:47:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
- h=from : to : cc :
- subject : date : message-id : content-transfer-encoding : content-type :
- mime-version; s=PPS06212021;
- bh=StBAQ2csT3huPdM09ImnjC5PkfbWObJ/g+5XLfSz2M0=;
- b=RMQ69IcTdS1JqB3yD3dVBjvW18DSk8mjjGHxfV99zfueE/0/3T2WLu4AGFkjZvkPYde0
- K4MTgQuDx7vJeBupgWwzjCUigEKqXGHkU/Cyqs3cTFD2qsoAePqo6e0n2UMf0CtbO/80
- sDBM5xS7fGQixuDTtEFx8s2Rvc95L6z5PD/4nzkD1Bk+A0l+CPti8ryphaGDQMydfRZj
- BRWF9TeIFqQzdvjDpIuY09+yg/JL/4FHV3MfH9h0NekyN83NfojPobamhmZ/5wC1Merg
- oVapB16LXgHy3M46y6j4F4Wh5MLJhUckbAm4IvNaDrSFOhr5QSsalOua7+fNk2b6cd1u ng== 
-Received: from nam11-co1-obe.outbound.protection.outlook.com
- (mail-co1nam11lp2176.outbound.protection.outlook.com [104.47.56.176])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 3mxa050746-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Jan 2023 09:47:55 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id D545110E850;
+	Fri,  6 Jan 2023 10:01:43 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2082.outbound.protection.outlook.com [40.107.93.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B93AF10E84E
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Jan 2023 10:01:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fHsMYdHSOF2V68cw2HjDwvGKSQdCYXbtaIvi974LmHzKbN3NOTld4IE4kE8NMDFJgpk50NhiFrLlJnSKAAR7ogBRTZffCjKGe9oCTgfxyLUhR44yNf4EzWPWyYPJC4RDgfPmP5kl5smZrFM3/w68rpZ/2Ut9TTOLG7Vc7rSGMrJ855u1Uht77Tp0b1fVWCkuDKXBmC0pXjI7v5Q/DXhyoA2HpQgpenV6QKNNwWZk7Oa78H6AswDBjW1HRA6SD5L2d/iPehu4zw/ecMi5Xp5pMlsfBr9t+E9CGRBs4lIpLgQV9dZnr7jfFVLFgqwxguU2kTcdbzBrx8FGt2uM4EyJKw==
+ b=UGECJFhP6tAvLcETECLEM9o5ZJNtj2QsnDxEObS8SS+V9BjQeTlB3ZZyd3YAxrlYhtmYtJw6EXyH85qpgP3NxM1PW85PksYm6QU+pS/Gqdfkh3R0nUZqs4BpQ51IKnqBFDFFsI1gKf3DnmoPpbYgpzQ3jYZcQ5ozBbkz0Z4kGVgA/zPinSB536lVYG6wtu/pD8Tfvf1ZQ9oGFiTRbfwwy6N9dGO4lErbzmMRQwkZC4yX8up5Y+Rk1nln0/+JRXCOLAcqLbKK06m7GhiJ8TtJznXZ4l4jUsEcmDlhcDH2DHPF/21j/N2oBEPrigzvy15yhT2XUhtjxOrfM5bzOe5cwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=StBAQ2csT3huPdM09ImnjC5PkfbWObJ/g+5XLfSz2M0=;
- b=J7gA1cGQKZGFTGGibm5X7PVwqdkUGGcx7Sd+UMr/IZRwVzGxm5R08bU2wPIr1EKqQY30yQUAANtc2FeQ+6nVOUgtXpnOhKrpX85Ggzokm01yy/yzkCS0fLwg/NTlPuFu1vPuLEdgakpiAJZjcCNzZcD4+C849BW25X/7w76CJiMOtIO3RmK3f5IKn4kTto94JUqu1gllh7QH9d3syAZ43Gkka8rRDfWcTiOmmXU3hdVft4r2QWcxS2wE2Psr2YK8emYprARWTUj47Ny4CAQeF4LwdnNYs2GIFKcZ5fhSbw2IoGxjHLkvc5x7BW4eQw5zv2YZ5XzCPkNUW89IiiJuQQ==
+ bh=V5u2/DD61OzqToy3l5cL9e8qEEiPpAodzTixeDtkBrE=;
+ b=IWuXwCnrI8KLjuWhmk8Ml4GMlZMjdKS4mtOrnmPj4o6D09+UOyUoUXEiXM54NAMvQRfQa94hQM+SHiYh70pHvRmnAktmrc7cw7Qy1svH4pEdK7peo/fmyHjKisYRCU+BDs8ROwgxWzDk37rKTw/OrXb8TBXHP3i/8isxpmNUe2rj77NvP6+7bIMKodI6OrAZLALe8s1NE5384TEXBtaAjbXWVjLngCouh2TgirEtszPz/Y7zr0C+5jv3XDBnkcGT5iUQ9D5WaT+atvTSZ4EKiIVerYSSxLkpIIw+yvGELom20yWwFphi/9p3YLde+eukeNx0AcU/gnYsMl9OOeVrGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=windriver.com; dmarc=pass action=none
- header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
-Received: from CH0PR11MB5348.namprd11.prod.outlook.com (2603:10b6:610:bb::16)
- by DS0PR11MB7850.namprd11.prod.outlook.com (2603:10b6:8:fe::14) with
- Microsoft SMTP Server (version=TLS1_2,
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V5u2/DD61OzqToy3l5cL9e8qEEiPpAodzTixeDtkBrE=;
+ b=SKmhBww/SEexKWKdHQ6KGxf8J7ZG88UWp+HiTNDU/bQILYhYwYGR87NK01Y6u1SKsVMKRlUChymF6PoMwADyaw0z2gjhgry2AMaLDmtRJh3Hh8rrZ+5ukI+ssCoJ8Pz5XzUalgZZUcQc5wPejO2ExATJr6ZuHfawiU6gvEljWwI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by IA1PR12MB8311.namprd12.prod.outlook.com (2603:10b6:208:3fa::12)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Fri, 6 Jan
- 2023 09:47:50 +0000
-Received: from CH0PR11MB5348.namprd11.prod.outlook.com
- ([fe80::6d23:75af:8df4:216f]) by CH0PR11MB5348.namprd11.prod.outlook.com
- ([fe80::6d23:75af:8df4:216f%5]) with mapi id 15.20.5944.019; Fri, 6 Jan 2023
- 09:47:50 +0000
-From: Liwei Song <liwei.song@windriver.com>
-To: AlexDeucher <alexander.deucher@amd.com>,
- =?UTF-8?q?ChristianK=C3=B6nig?= <christian.koenig@amd.com>,
- PanXinhui <Xinhui.Pan@amd.com>, DavidAirlie <airlied@gmail.com>,
- DanielVetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/radeon: free iio for atombios when driver shutdown
-Date: Fri,  6 Jan 2023 17:47:29 +0800
-Message-Id: <20230106094729.38598-1-liwei.song@windriver.com>
-X-Mailer: git-send-email 2.33.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SGBP274CA0007.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b0::19)
- To CH0PR11MB5348.namprd11.prod.outlook.com
- (2603:10b6:610:bb::16)
+ 2023 10:01:38 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::457b:5c58:8ad2:40fa]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::457b:5c58:8ad2:40fa%6]) with mapi id 15.20.5944.019; Fri, 6 Jan 2023
+ 10:01:37 +0000
+Message-ID: <0c23d7cc-4985-ac01-72a6-5cc0832ce96b@amd.com>
+Date: Fri, 6 Jan 2023 15:31:26 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH 2/8] drm/amd/pm: refine the checks for sysfs interfaces
+ support
+Content-Language: en-US
+To: "Quan, Evan" <Evan.Quan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20230105032259.2032789-1-evan.quan@amd.com>
+ <20230105032259.2032789-2-evan.quan@amd.com>
+ <e505ace7-4606-e048-9ded-ce7f6ffa023e@amd.com>
+ <DM6PR12MB2619E5A0C6A0DA9B6A036945E4FB9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <c6464af2-285b-adbc-bcee-d713400a34cd@amd.com>
+ <DM6PR12MB261939E92BC8DAFF8905653AE4FB9@DM6PR12MB2619.namprd12.prod.outlook.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <DM6PR12MB261939E92BC8DAFF8905653AE4FB9@DM6PR12MB2619.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0157.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:c8::19) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR11MB5348:EE_|DS0PR11MB7850:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e47c395-c5e3-4944-b6dc-08daefcb1319
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|IA1PR12MB8311:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac7474c8-ef28-4c1c-a784-08daefccffc6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1O7Zo4ZCnerBhjbtGjlkpL+g6StOlWmv+adEF/qR0mGyFA1Uw/C/FwcXwF/EJVmOQjCu3G3BnWx2Jp5YuUykkp7f2g+RHasIE5q+JzwnRwdQLIyefRHg9eieNakIIW9gRiqJ9wwY9JjU2dRFbKK8qiSSMSFcCNY8/dUx5qFXrFx0fLbYjcB5fUXzL1hLJGOLFW8vONxNqX+TPRlPDBI7mJdPiERGwMBzEtmkRfTcqb1GmXmj0jqLMhV9AptK8ZZKM8QUYcN5OaroX1ZZqfRs4ZqBteCPLoUm8/O1yuI4eaBGmGXXayrGb4QILiYyjGTO1iUB+tO9hSpNrgzX1/P/55pt4uZO265nSwuj+klvDnWk7JNjbCl6QWeX2U07wIA2QkWnqHM+2NARZsOuDf8XqqzFIGgVHBThItbbUHV0AJMfXLXrPurRC70w2cefxVefcboL717BJ3iecDcODXmlojBOwWiiYe598Ehs0dS9Rfdwubhzxgqvu+Vt4jjMGLXRDc+H9blJwYwuuHDYWqslRPBn0GEsxhoPyzx/2jte05dIzRcVR7F5L24miNBquXGZeRmY037AKvI2N4n4QTLy0vt8kfkjI0y7s9eHU54zqK1K28lh1H0//e1KwGN/BeKMZf2dVMS5EuqNUcpXAK54laB/dUW8SsMhfn5UGYUsEmKGWC91gwMBa3W0SmGH3I+KsOsrN0FEUDbeJV78ROJpMcyw+X8oWg6rej1Et2R14Wo=
+X-Microsoft-Antispam-Message-Info: /GcmCJ3yLWpqTO4607ie84lvOLyAkoc58lQWXqHXC0Cz7fOWM0P4X2zTSRuFP8PbgkZ1lg+MxvnH5QIDGHYnP0Ro/Z6Y6T1Vkiw4b4EADZWwvcf912kDZhhSHVEZGlpOqJbo82D0knxUlfKh9CqI1eucEfQYI9HYtIfGagSePXSHE1RqSdKfQHjNAZklFJkqGCur9JeJBMNQhVbxabEW7fhDDMYSaHfixigHO/Hkr1FvL9wFK/q38sV42SZRmjCZiY4jy+oqLFMh2cO1Owdc4oOaga+4mazZ1++MtgEOPIJ5MmYhTCSH7tpjRq6LgmrMvKntbJ3F2YxoSToFeSaUMOqq0e9I3/VK/0ymzZOPWzzvve/1ORfmiUzXvQM2MtvNvaaNuW2+uxhJcgbdgUTq/Zro8GT/3TECTr6sB2hwTHCy284JhKyu4CAY7iaCf3yCl0ocKdeRa/ORPO38rKVSh3ivzfvHga57ed4vnCaV07+r141owaYjasjsGIr4IXp3ZffxHsMhZUMLZjzFZtiVtoi0mPwRwMhHhPr0wBlUsWliDza1V+MAzwiCxlwZQ355WLMa+dHB3Ckoi8p0eFhpyvdbQ4L1YBAPbwKL0lR2Rq9FNJx2xx7pRFmaZ7ljB2aI6AUuali5rxDthKOlDs/K4pmd4uWUtNn97INHidCEdukoc3a3nmQzsFuV+0cgX3dbgxdetWBAMooxoJs25jg/5+msHbNkxGrAVLm0f/Smiog=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR11MB5348.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39850400004)(396003)(366004)(346002)(136003)(451199015)(2906002)(86362001)(5660300002)(38100700002)(8936002)(38350700002)(44832011)(41300700001)(6666004)(66476007)(2616005)(6512007)(41320700001)(26005)(478600001)(186003)(4326008)(1076003)(8676002)(316002)(107886003)(6486002)(52116002)(66946007)(110136005)(6506007)(66556008)(36756003)(505234007);
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(346002)(376002)(396003)(39860400002)(366004)(451199015)(6666004)(6512007)(26005)(186003)(31686004)(6486002)(478600001)(2616005)(6506007)(53546011)(110136005)(8676002)(66556008)(4326008)(66946007)(8936002)(41300700001)(66476007)(30864003)(83380400001)(5660300002)(2906002)(38100700002)(86362001)(31696002)(316002)(36756003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?BFPh19migVdJRW6yzpCR8FqWtgn5qwDNuZeisyYkjplB2DF089WczIYbCuPZ?=
- =?us-ascii?Q?EQFfqn0QXtCLNQCapP2MVcfmWPnk+PhHQMkLN4mD4+ZvRnFn0H81vEQGhex0?=
- =?us-ascii?Q?ddPUx2x8lbP/ZHXq2DiPIFOXkXNSpGl4tZFQ6bDu5bCm0MxNcZQ5hrZht2o/?=
- =?us-ascii?Q?0PvDbsomskZoY+3prFLq9eR8cfl6rtq5nJe/+8WKrnGeiptdVahsDL078cuW?=
- =?us-ascii?Q?EWR3darWsLAjmpFdCn5Zp+B+zXkP2c7XoOjD6AF1UGSdrZiR1CUx3C5ENJ1i?=
- =?us-ascii?Q?j1AaCRatEEtOQAjF2itbz92DTVTUkWf1IYySQm7dmTottUIsIu9bZrqMx3TC?=
- =?us-ascii?Q?Iq2KnHU1aqEVb67ykL864gEI2GmLnRzcPeBA5gEQT3+BfCI6Boe+oNEfQcGL?=
- =?us-ascii?Q?O9QpDNYbUhQOxYH4DuZ9tEE2GI+c/t5kMFUVRbRwKLDTrDdlbkxaJzmlZkdm?=
- =?us-ascii?Q?TK4pQDceItfJbZ8h4f9TZREAT+DBZh9gWTh17KPU+zK8W9VHHIST5gwJLGnH?=
- =?us-ascii?Q?10Q/Sg1IEB/9HNtRWzNnSJNOaWHIjMdOtvwOcxs8iojE0vNeuYPc3cARGh/o?=
- =?us-ascii?Q?aWswD6Nuy0/IOpalq5ODUrRCS1qaX8+a8p8DmOUXNesy7oOdaPZYVfoqYX06?=
- =?us-ascii?Q?LWY7937oolDS44jeDoJCJdr/eZXRom9X+LSDfCiQAPfH0IqX3MgHw9POl1As?=
- =?us-ascii?Q?iixQe6/OHVkmXh+lXKAqfUGHFQBy+dMUl58h6L1eHlxSqOXsy3hmkAqJv8w3?=
- =?us-ascii?Q?v9yNQINpsNbG04IKfC1cmusvwZlnd2Z5g60+4uzN0xa/k0OZaHHmsDFi4ssu?=
- =?us-ascii?Q?b9+WZZXwrvgH3tbTWkCH7x3AYOOnDyiR9vz9pBYRr74dwYH1i8CGkvgcZlxG?=
- =?us-ascii?Q?5F9qEx6D1iDkluBaUGv4Nuv0Y+DBxCCezD1rGl0tNGrRe0jp5FmZCj5jPw1U?=
- =?us-ascii?Q?ULqbdbz62cqs8yfEE1GgAYctaoLZSymvGF+Vu7isEE1n+Qz0hC6lUl5LidBy?=
- =?us-ascii?Q?n+bqKHqGyVeWdC+wIXQBi8zgwc9Y3Zn8UmSkiLjhf6JeH9GHeCxdUCesd8VS?=
- =?us-ascii?Q?hTsRd0H0bLft5m6tj8nIiBTwHxHOhmg5DrmjHUmHw1B3wB3zK90AMYz7frux?=
- =?us-ascii?Q?lk/GnwPg5o3r1Q6A9pC1jTgN7argz00Kf1GLYeVGXHahI+3ysoxXRfaQ6U1t?=
- =?us-ascii?Q?ZJliJ2pTAoheZvJJXpwhAHk6o7aApHMEpq6Rc8mjOH0ca0VSeTc9D1T97Un8?=
- =?us-ascii?Q?hU/8uMGbd9P4orj1prgWg4jrhPomIgNbyQ1SvJ29iNgzcav7W92ai7AfnWsw?=
- =?us-ascii?Q?sCKvk1Kx+fsBTlmbtcFEWwiely4FLtHkPH8KjrYaUAXs/IjmnAS2r7P5luTo?=
- =?us-ascii?Q?8nDjT9XjZTUWoNYYRTciSE3Q/hzG1tkr1alUTWVKiL7w18myGYoDbSfNGccC?=
- =?us-ascii?Q?RikOMiH18u59WNFGiPutvgonK/l1e2qXTTYE4yzIdoaRgHYSdUkztzu4qOGc?=
- =?us-ascii?Q?lrDJ8FEqF21e9ca/Dhd8Wf5BT917C+GCQaISpdbaLKzaQXds5eEyXw1LMElO?=
- =?us-ascii?Q?XlOULsdvUk884BX1BTwb5W2p2hFPJ03Hhr0QH4sSUMhvygLXNHnz1wyjKoD8?=
- =?us-ascii?Q?0Q=3D=3D?=
-X-OriginatorOrg: windriver.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e47c395-c5e3-4944-b6dc-08daefcb1319
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5348.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnZmTTU5bWZRWXpCbExkWjkzemdoNXBQcnZyNTY3SElsMVFkMDlRSGpZQ2Vo?=
+ =?utf-8?B?bjNCa3BkMUh1eVQ2bXQxWW1WMis2aFdoSDlQWHdTMEhEdzVnRE1OWEs4enhH?=
+ =?utf-8?B?WGVoM0VtUkh6M1FNdUNXaWFwRzJTc1cvb3ZLUTl2bWtMVU1KTUlaOEFtb0ZH?=
+ =?utf-8?B?TWRoUGR2MFE0Ukt6WWlEb3ZTdGgxVUZmVmF1MGM0eFhLVVhnVmxJTnhZMGpl?=
+ =?utf-8?B?T28rNm9XT1ZZY0J2V1l4WGFhOXhNaFdVekwrU0tJR3B1UXRyOFcrREJHeDh4?=
+ =?utf-8?B?SW40VGkzc1B4eXNuYU9hVnNTaVhxenkwNHlHYVZxenhSbVFmbmQ1U25FSTcr?=
+ =?utf-8?B?Vlc5VklGUm5ZNTQySG8xaitnN253YjdLSWcvUnl4SlVDQzVJNVBMS3lzbjdn?=
+ =?utf-8?B?V3NTNzZYQ0ZnbFVnNkpESnF4Nm8wWnF2MUg1SHd1NnBOaEFENlZNU2lieXBQ?=
+ =?utf-8?B?YmNuVHdXUUVIRU55UmRyeEh6V1NQeDlmMk5MaE4rT25WckpyYWsvQUd2b0E1?=
+ =?utf-8?B?Wmw1WGFHblVidzdLZk5yRzJtU2wvQVdRZFUrRDdmRWhBTWpJSC9JdHhBcmt3?=
+ =?utf-8?B?S2lhNC9FdjJUeTBneXZtWVVwVGtqUDJrbXVlcFd4TzdtbGN0WEI5NGhYZytY?=
+ =?utf-8?B?VUh4REJOWlBsQ1pBSTE1UEhSWXQwNUQ3TEJnbHV1Nm50UWZ5Y3Z2RCtOUFFY?=
+ =?utf-8?B?Z1hHVDBMTjliZ0w3cVl5aTNDQURHeGd4eWUva3NhM01ETWVOSFlBL3pKVHBM?=
+ =?utf-8?B?ZThJcTZlTzNnaE00dmpleEVmYm5PdzI2WUZ4MXRQQU5pb1U2VWFWTGtaYlp1?=
+ =?utf-8?B?Nk9NY1M4c09CbXZVNDFWbTVHTFFjaGswaUNHZ2xGN3drbFltZWpGVDlKTHFv?=
+ =?utf-8?B?SUJCRjlWd1pQS0RRZUNmTk96djEwNm5LVnZ1M0I5UzJnQUJacnFTcXVmek1B?=
+ =?utf-8?B?MW5zVTR5cHJkY1VtemYrOVlQZExGcE1FQmFSeWdOUFZMRzZrakRsWVMwcUoy?=
+ =?utf-8?B?NFJ2elRDWnpBVFhnZ0VkbnNKRWR6VkMrbUxmcHE0R0t0dDhFTXhnQXVyUHJa?=
+ =?utf-8?B?a0tiV09EdHMycmdiUU1CN1Z0YnRXVjRwMWRiaUllTFFBb3piOWdEaXk3cm44?=
+ =?utf-8?B?b1g0Q2d0Yys3Z0UrUmFUOGdwVWkyNXl2YnZ4RlNUdG1GT0lVSUtkQ0JkeUlP?=
+ =?utf-8?B?TlJrOGFueGVpMHpQZmEzaE96Sm85aDdKYURXME9wdVpVeVNhb2VEZGhid284?=
+ =?utf-8?B?bWhwNGNvRGpIZytXRHdsajFGdnpySDlFTVRSV2dwVkh5VjJ0bVViTm5GUS8v?=
+ =?utf-8?B?WHg5VmtyRzl5dnV0ZHFhY01LNkZ2SVBWM08rNzNJb05yZzA4M2FDWWRyWXVn?=
+ =?utf-8?B?SHJyaFNHb3EybjZjakRLQytLL09ZUWVHUEFWZHc2eU5lRkdZa0xpd1FXMUlZ?=
+ =?utf-8?B?bzV6NUcxT1U0N3p2NElkMWdjelNFM2FVMERReTlJa0hkekNBaFRhVVlxVUlH?=
+ =?utf-8?B?enZsM2M0aUpTb2NTT2ZENkQ3a1QyWFhxb0dZcnJHUkRrdWVXSk1TZ05GSDJY?=
+ =?utf-8?B?Z29JVk9EblIvaEZJWUpKTDFtSGdRbG1MOGI5MlFUVVd5ZzhlOGFPYncwWlNp?=
+ =?utf-8?B?VTkydnh0UTFWaVlOOVhVWElWTXhIT3AvTWFseC9OWHYyTU80NkxCQ2tPSjZh?=
+ =?utf-8?B?M21YcUZYa1c2U2RjaG1jQncybk9qMFYrMDRHbjRzcTZHUHoyS1JlNXFvQW5O?=
+ =?utf-8?B?M1JMQWI1bkk0dEU1UXFPM3dvQXJMSTZHdkR0Q0kwSkpiN3hINEx4cEcvQlNO?=
+ =?utf-8?B?eXdabnNlZmEwejhEL1pOZG52ckdSNnlSYmwxdEw3WXpQU2hpRUxWZm53Y3Vr?=
+ =?utf-8?B?eGNqQUwySURnRnNRbTVOU2xvbS9hUTliZzU4OU90dEhET1hYZTB4RTIzRUh5?=
+ =?utf-8?B?dStWMXhjR2JRMjlJRmpSZHc4MXJ2bVBubTROK2szTE1ZRzJ2WUV5T2c3cmUx?=
+ =?utf-8?B?YnFneHhjdzJhaDA1M1UvSENzYm5GcDNvMGUzdmtZd3E5TVFqeklnQVh1bTdC?=
+ =?utf-8?B?djllM1RLTnJ5QkFPSWVNNEpITTlndzRlS0VhNk9hV3c1U0wycnc2aWpMR3BY?=
+ =?utf-8?Q?rHRgmZIDlieWhev0LvwYhzxyr?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac7474c8-ef28-4c1c-a784-08daefccffc6
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2023 09:47:50.5916 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2023 10:01:37.3828 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bq2TNa5ib0FLW64gB8ZDbVAW5Eio9ar46KCPc0/W4c1HjAdk7xf94rHePjasEFocLJw/26sjw9Yk+hizfsxqkIDluXZZX9XB/S5RTfj1cLw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7850
-X-Proofpoint-ORIG-GUID: u5Ss8DMAsqRCEZXdzHssshWPOZr7o9Y3
-X-Proofpoint-GUID: u5Ss8DMAsqRCEZXdzHssshWPOZr7o9Y3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2023-01-06_05,2023-01-05_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 mlxscore=0
- bulkscore=0 clxscore=1011 spamscore=0 suspectscore=0 malwarescore=0
- impostorscore=0 adultscore=0 lowpriorityscore=0 mlxlogscore=999
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301060077
+X-MS-Exchange-CrossTenant-UserPrincipalName: B2b3l70SrAEnMLPEDvcz8qsF8qYZJHb9gd0HpwucHkRjJDpcwQ8I3TvEd3JYMzlF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8311
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,57 +130,393 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: liwei.song@windriver.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix below kmemleak when unload radeon driver:
 
-unreferenced object 0xffff9f8608ede200 (size 512):
-  comm "systemd-udevd", pid 326, jiffies 4294682822 (age 716.338s)
-  hex dump (first 32 bytes):
-    00 00 00 00 c4 aa ec aa 14 ab 00 00 00 00 00 00  ................
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace:
-    [<0000000062fadebe>] kmem_cache_alloc_trace+0x2f1/0x500
-    [<00000000b6883cea>] atom_parse+0x117/0x230 [radeon]
-    [<00000000158c23fd>] radeon_atombios_init+0xab/0x170 [radeon]
-    [<00000000683f672e>] si_init+0x57/0x750 [radeon]
-    [<00000000566cc31f>] radeon_device_init+0x559/0x9c0 [radeon]
-    [<0000000046efabb3>] radeon_driver_load_kms+0xc1/0x1a0 [radeon]
-    [<00000000b5155064>] drm_dev_register+0xdd/0x1d0
-    [<0000000045fec835>] radeon_pci_probe+0xbd/0x100 [radeon]
-    [<00000000e69ecca3>] pci_device_probe+0xe1/0x160
-    [<0000000019484b76>] really_probe.part.0+0xc1/0x2c0
-    [<000000003f2649da>] __driver_probe_device+0x96/0x130
-    [<00000000231c5bb1>] driver_probe_device+0x24/0xf0
-    [<0000000000a42377>] __driver_attach+0x77/0x190
-    [<00000000d7574da6>] bus_for_each_dev+0x7f/0xd0
-    [<00000000633166d2>] driver_attach+0x1e/0x30
-    [<00000000313b05b8>] bus_add_driver+0x12c/0x1e0
 
-iio was allocated in atom_index_iio() called by atom_parse(),
-but it doesn't got released when the dirver is shutdown.
-Fix this kmemleak by free it in radeon_atombios_fini().
+On 1/6/2023 2:14 PM, Quan, Evan wrote:
+> [AMD Official Use Only - General]
+> 
+> 
+> 
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: Friday, January 6, 2023 11:55 AM
+>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+>> Subject: Re: [PATCH 2/8] drm/amd/pm: refine the checks for sysfs interfaces
+>> support
+>>
+>>
+>>
+>> On 1/6/2023 7:34 AM, Quan, Evan wrote:
+>>> [AMD Official Use Only - General]
+>>>
+>>>
+>>>
+>>>> -----Original Message-----
+>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>>>> Sent: Thursday, January 5, 2023 9:58 PM
+>>>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+>>>> Subject: Re: [PATCH 2/8] drm/amd/pm: refine the checks for sysfs
+>>>> interfaces support
+>>>>
+>>>>
+>>>>
+>>>> On 1/5/2023 8:52 AM, Evan Quan wrote:
+>>>>> Make the code more clean and readable with no real logics change.
+>>>>>
+>>>>> Signed-off-by: Evan Quan <evan.quan@amd.com>
+>>>>> Change-Id: I21c879fa9abad9f6da3b5289adf3124950d2f4eb
+>>>>> ---
+>>>>>     drivers/gpu/drm/amd/pm/amdgpu_pm.c | 200 ++++++++++++++------
+>> ---
+>>>> ------
+>>>>>     1 file changed, 98 insertions(+), 102 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>>>>> b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>>>>> index fb6a7d45693a..c69db29eea24 100644
+>>>>> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>>>>> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>>>>> @@ -2006,9 +2006,6 @@ static int default_attr_update(struct
+>>>> amdgpu_device *adev, struct amdgpu_device_
+>>>>>     			       uint32_t mask, enum amdgpu_device_attr_states
+>>>> *states)
+>>>>>     {
+>>>>>     	struct device_attribute *dev_attr = &attr->dev_attr;
+>>>>> -	uint32_t mp1_ver = adev->ip_versions[MP1_HWIP][0];
+>>>>> -	uint32_t gc_ver = adev->ip_versions[GC_HWIP][0];
+>>>>> -	const char *attr_name = dev_attr->attr.name;
+>>>>>
+>>>>>     	if (!(attr->flags & mask) ||
+>>>>>     	      !(AMD_SYSFS_IF_BITMASK(attr->if_bit) &
+>>>>> adev->pm.sysfs_if_supported))  { @@ -2016,112 +2013,14 @@ static int
+>>>> default_attr_update(struct amdgpu_device *adev, struct
+>> amdgpu_device_
+>>>>>     		return 0;
+>>>>>     	}
+>>>>>
+>>>>> -#define DEVICE_ATTR_IS(_name)	(!strcmp(attr_name, #_name))
+>>>>> -
+>>>>> -	if (DEVICE_ATTR_IS(pp_dpm_socclk)) {
+>>>>> -		if (gc_ver < IP_VERSION(9, 0, 0))
+>>>>> -			*states = ATTR_STATE_UNSUPPORTED;
+>>>>> -	} else if (DEVICE_ATTR_IS(pp_dpm_dcefclk)) {
+>>>>> -		if (gc_ver < IP_VERSION(9, 0, 0) ||
+>>>>> -		    gc_ver == IP_VERSION(9, 4, 1) ||
+>>>>> -		    gc_ver == IP_VERSION(9, 4, 2))
+>>>>> -			*states = ATTR_STATE_UNSUPPORTED;
+>>>>> -	} else if (DEVICE_ATTR_IS(pp_dpm_fclk)) {
+>>>>> -		if (mp1_ver < IP_VERSION(10, 0, 0))
+>>>>> -			*states = ATTR_STATE_UNSUPPORTED;
+>>>>> -	} else if (DEVICE_ATTR_IS(pp_od_clk_voltage)) {
+>>>>> -		*states = ATTR_STATE_UNSUPPORTED;
+>>>>> -		if (amdgpu_dpm_is_overdrive_supported(adev))
+>>>>> -			*states = ATTR_STATE_SUPPORTED;
+>>>>> -	} else if (DEVICE_ATTR_IS(mem_busy_percent)) {
+>>>>> -		if (adev->flags & AMD_IS_APU || gc_ver == IP_VERSION(9, 0,
+>>>> 1))
+>>>>> -			*states = ATTR_STATE_UNSUPPORTED;
+>>>>> -	} else if (DEVICE_ATTR_IS(pcie_bw)) {
+>>>>> -		/* PCIe Perf counters won't work on APU nodes */
+>>>>> -		if (adev->flags & AMD_IS_APU)
+>>>>> -			*states = ATTR_STATE_UNSUPPORTED;
+>>>>> -	} else if (DEVICE_ATTR_IS(unique_id)) {
+>>>>> -		switch (gc_ver) {
+>>>>> -		case IP_VERSION(9, 0, 1):
+>>>>> -		case IP_VERSION(9, 4, 0):
+>>>>> -		case IP_VERSION(9, 4, 1):
+>>>>> -		case IP_VERSION(9, 4, 2):
+>>>>> -		case IP_VERSION(10, 3, 0):
+>>>>> -		case IP_VERSION(11, 0, 0):
+>>>>> -			*states = ATTR_STATE_SUPPORTED;
+>>>>> -			break;
+>>>>> -		default:
+>>>>> -			*states = ATTR_STATE_UNSUPPORTED;
+>>>>> -		}
+>>>>> -	} else if (DEVICE_ATTR_IS(pp_features)) {
+>>>>> -		if (adev->flags & AMD_IS_APU || gc_ver < IP_VERSION(9, 0,
+>>>> 0))
+>>>>> -			*states = ATTR_STATE_UNSUPPORTED;
+>>>>> -	} else if (DEVICE_ATTR_IS(gpu_metrics)) {
+>>>>> -		if (gc_ver < IP_VERSION(9, 1, 0))
+>>>>> -			*states = ATTR_STATE_UNSUPPORTED;
+>>>>> -	} else if (DEVICE_ATTR_IS(pp_dpm_vclk)) {
+>>>>> -		if (!(gc_ver == IP_VERSION(10, 3, 1) ||
+>>>>> -		      gc_ver == IP_VERSION(10, 3, 0) ||
+>>>>> -		      gc_ver == IP_VERSION(10, 1, 2) ||
+>>>>> -		      gc_ver == IP_VERSION(11, 0, 0) ||
+>>>>> -		      gc_ver == IP_VERSION(11, 0, 2)))
+>>>>> -			*states = ATTR_STATE_UNSUPPORTED;
+>>>>> -	} else if (DEVICE_ATTR_IS(pp_dpm_dclk)) {
+>>>>> -		if (!(gc_ver == IP_VERSION(10, 3, 1) ||
+>>>>> -		      gc_ver == IP_VERSION(10, 3, 0) ||
+>>>>> -		      gc_ver == IP_VERSION(10, 1, 2) ||
+>>>>> -		      gc_ver == IP_VERSION(11, 0, 0) ||
+>>>>> -		      gc_ver == IP_VERSION(11, 0, 2)))
+>>>>> -			*states = ATTR_STATE_UNSUPPORTED;
+>>>>> -	} else if (DEVICE_ATTR_IS(pp_power_profile_mode)) {
+>>>>> -		if (amdgpu_dpm_get_power_profile_mode(adev, NULL) ==
+>>>> -EOPNOTSUPP)
+>>>>> -			*states = ATTR_STATE_UNSUPPORTED;
+>>>>> -		else if (gc_ver == IP_VERSION(10, 3, 0) &&
+>>>> amdgpu_sriov_vf(adev))
+>>>>> -			*states = ATTR_STATE_UNSUPPORTED;
+>>>>> -	}
+>>>>> -
+>>>>> -	switch (gc_ver) {
+>>>>> -	case IP_VERSION(9, 4, 1):
+>>>>> -	case IP_VERSION(9, 4, 2):
+>>>>> -		/* the Mi series card does not support standalone
+>>>> mclk/socclk/fclk level setting */
+>>>>> -		if (DEVICE_ATTR_IS(pp_dpm_mclk) ||
+>>>>> -		    DEVICE_ATTR_IS(pp_dpm_socclk) ||
+>>>>> -		    DEVICE_ATTR_IS(pp_dpm_fclk)) {
+>>>>> -			dev_attr->attr.mode &= ~S_IWUGO;
+>>>>> -			dev_attr->store = NULL;
+>>>>> -		}
+>>>>> -		break;
+>>>>> -	case IP_VERSION(10, 3, 0):
+>>>>> -		if (DEVICE_ATTR_IS(power_dpm_force_performance_level)
+>>>> &&
+>>>>> -		    amdgpu_sriov_vf(adev)) {
+>>>>> -			dev_attr->attr.mode &= ~0222;
+>>>>> -			dev_attr->store = NULL;
+>>>>> -		}
+>>>>> -		break;
+>>>>> -	default:
+>>>>> -		break;
+>>>>> -	}
+>>>>> -
+>>>>> -	if (DEVICE_ATTR_IS(pp_dpm_dcefclk)) {
+>>>>> -		/* SMU MP1 does not support dcefclk level setting */
+>>>>> -		if (gc_ver >= IP_VERSION(10, 0, 0)) {
+>>>>> -			dev_attr->attr.mode &= ~S_IWUGO;
+>>>>> -			dev_attr->store = NULL;
+>>>>> -		}
+>>>>> -	}
+>>>>> -
+>>>>> -	/* setting should not be allowed from VF if not in one VF mode */
+>>>>> -	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
+>>>> {
+>>>>> +	if (!(adev->pm.sysfs_if_attr_mode[attr->if_bit] & S_IWUGO)) {
+>>>>>     		dev_attr->attr.mode &= ~S_IWUGO;
+>>>>>     		dev_attr->store = NULL;
+>>>>>     	}
+>>>>>
+>>>>> -#undef DEVICE_ATTR_IS
+>>>>> -
+>>>>>     	return 0;
+>>>>>     }
+>>>>>
+>>>>> -
+>>>>>     static int amdgpu_device_attr_create(struct amdgpu_device *adev,
+>>>>>     				     struct amdgpu_device_attr *attr,
+>>>>>     				     uint32_t mask, struct list_head *attr_list)
+>>>> @@ -3411,6
+>>>>> +3310,101 @@ static const struct attribute_group *hwmon_groups[] = {
+>>>>>     	NULL
+>>>>>     };
+>>>>>
+>>>>> +static void amdgpu_sysfs_if_support_check(struct amdgpu_device
+>>>>> +*adev) {
+>>>>> +	uint64_t *sysfs_if_supported = &adev->pm.sysfs_if_supported;
+>>>>> +	umode_t *sysfs_if_attr_mode = adev->pm.sysfs_if_attr_mode;
+>>>>> +	uint32_t mp1_ver = adev->ip_versions[MP1_HWIP][0];
+>>>>> +	uint32_t gc_ver = adev->ip_versions[GC_HWIP][0];
+>>>>> +	int i;
+>>>>> +
+>>>>> +	/* All but those specific ASICs support these */
+>>>>> +	*sysfs_if_supported &= ~BIT_ULL(AMD_SYSFS_IF_UNIQUE_ID_BIT);
+>>>>> +	*sysfs_if_supported &=
+>>>> ~(BIT_ULL(AMD_SYSFS_IF_PP_DPM_VCLK_BIT) |
+>>>>> +
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_DPM_DCLK_BIT));
+>>>>> +
+>>>>> +	if (gc_ver < IP_VERSION(9, 1, 0)) {
+>>>>> +		*sysfs_if_supported &=
+>>>> ~BIT_ULL(AMD_SYSFS_IF_GPU_METRICS_BIT);
+>>>>> +
+>>>>> +		if (gc_ver == IP_VERSION(9, 0, 1)) {
+>>>>> +			*sysfs_if_supported &=
+>>>> ~BIT_ULL(AMD_SYSFS_IF_MEM_BUSY_PERCENT_BIT);
+>>>>> +			*sysfs_if_supported |=
+>>>> BIT_ULL(AMD_SYSFS_IF_UNIQUE_ID_BIT);
+>>>>> +		}
+>>>>> +
+>>>>> +		if (gc_ver < IP_VERSION(9, 0, 0))
+>>>>> +			*sysfs_if_supported &=
+>>>> ~(BIT_ULL(AMD_SYSFS_IF_PP_DPM_SOCCLK_BIT) |
+>>>>> +
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_DPM_DCEFCLK_BIT) |
+>>>>> +
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_FEATURES_BIT));
+>>>>> +	} else {
+>>>>> +		switch (gc_ver) {
+>>>>> +		case IP_VERSION(9, 4, 0):
+>>>>> +			*sysfs_if_supported |=
+>>>> BIT_ULL(AMD_SYSFS_IF_UNIQUE_ID_BIT);
+>>>>> +			break;
+>>>>> +		case IP_VERSION(9, 4, 1):
+>>>>> +		case IP_VERSION(9, 4, 2):
+>>>>> +			*sysfs_if_supported &=
+>>>> ~BIT_ULL(AMD_SYSFS_IF_PP_DPM_DCEFCLK_BIT);
+>>>>> +			*sysfs_if_supported |=
+>>>> BIT_ULL(AMD_SYSFS_IF_UNIQUE_ID_BIT);
+>>>>> +			/* the Mi series card does not support standalone
+>>>> mclk/socclk/fclk level setting */
+>>>>> +
+>>>> 	sysfs_if_attr_mode[AMD_SYSFS_IF_PP_DPM_MCLK_BIT] &=
+>> ~S_IWUGO;
+>>>>> +
+>>>> 	sysfs_if_attr_mode[AMD_SYSFS_IF_PP_DPM_SOCCLK_BIT] &=
+>> ~S_IWUGO;
+>>>>> +
+>>>> 	sysfs_if_attr_mode[AMD_SYSFS_IF_PP_DPM_FCLK_BIT] &=
+>> ~S_IWUGO;
+>>>>> +			break;
+>>>>> +		case IP_VERSION(10, 1, 2):
+>>>>> +			*sysfs_if_supported |=
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_DPM_VCLK_BIT) |
+>>>>> +
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_DPM_DCLK_BIT);
+>>>>> +			break;
+>>>>> +		case IP_VERSION(10, 3, 0):
+>>>>> +			*sysfs_if_supported |=
+>>>> BIT_ULL(AMD_SYSFS_IF_UNIQUE_ID_BIT);
+>>>>> +			*sysfs_if_supported |=
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_DPM_VCLK_BIT) |
+>>>>> +
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_DPM_DCLK_BIT);
+>>>>> +			if (amdgpu_sriov_vf(adev)) {
+>>>>> +				*sysfs_if_supported &=
+>>>> ~BIT_ULL(AMD_SYSFS_IF_PP_POWER_PROFILE_MODE_BIT);
+>>>>> +
+>>>> 	sysfs_if_attr_mode[AMD_SYSFS_IF_POWER_DPM_FORCE_PERFOR
+>>>> MANCE_LEVEL_BIT] &= ~S_IWUGO;
+>>>>> +			}
+>>>>> +			break;
+>>>>> +		case IP_VERSION(10, 3, 1):
+>>>>> +			*sysfs_if_supported |=
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_DPM_VCLK_BIT) |
+>>>>> +
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_DPM_DCLK_BIT);
+>>>>> +			break;
+>>>>> +		case IP_VERSION(11, 0, 0):
+>>>>> +			*sysfs_if_supported |=
+>>>> BIT_ULL(AMD_SYSFS_IF_UNIQUE_ID_BIT);
+>>>>> +			*sysfs_if_supported |=
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_DPM_VCLK_BIT) |
+>>>>> +
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_DPM_DCLK_BIT);
+>>>>> +			break;
+>>>>> +		case IP_VERSION(11, 0, 2):
+>>>>> +			*sysfs_if_supported |=
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_DPM_VCLK_BIT) |
+>>>>> +
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_DPM_DCLK_BIT);
+>>>>> +			break;
+>>>>> +		default:
+>>>>> +			break;
+>>>>> +		}
+>>>>> +	}
+>>>>> +
+>>>>> +	if (mp1_ver < IP_VERSION(10, 0, 0))
+>>>>> +		*sysfs_if_supported &=
+>>>> ~BIT_ULL(AMD_SYSFS_IF_PP_DPM_FCLK_BIT);
+>>>>> +
+>>>>
+>>>> With this change, the IP version based checks need to be moved to
+>>>> respective smu_v* checks so that each IP version decides what is
+>>>> supported at which level (R/W) rather than consolidating it here.
+>>>> Only generic checks like amdgpu_sriov_is_pp_one_vf may be maintained
+>> here.
+>>>> That way it really helps.
+>>> [Quan, Evan] For some of them, they could be moved to respective
+>> smu_v* or gfx_v* checks.
+>>> But for some of them, it will be difficult. For example, for "mp1_ver <
+>> IP_VERSION(10, 0, 0)" or " gc_ver >= IP_VERSION(10, 0, 0)", you need to
+>> figure out which asics it refers to first and then apply the same change to
+>> every of them. That seems more error prone.
+>>> So, my thought is just left these old chunks as they were. And we just need
+>> to take care of the future/new asics. How do you think?
+>>>
+>> My preference is to clean up this as much as possible. Also, you may be able
+>> to set some of them generically based on FEAT_DPM bits in
+>> swsmu/powerplay.
+> I see. But I would expect the future ASICs take the way used in patch3(more straightforward instead of implicit checking for some APIs or DPM features).
+> That's also the reason why I do not want to cleanup those old chunks. As I do not expect them to serve for future ASICs.
+> Then it's not worth to take the efforts(and risk) to do the cleanup. Thoughts?
+> 
 
-Signed-off-by: Liwei Song <liwei.song@windriver.com>
----
- drivers/gpu/drm/radeon/radeon_device.c | 1 +
- 1 file changed, 1 insertion(+)
+It's to make sure consistency. I don't think leaving two options to do 
+the same thing is a good idea. Otherwise older will continue and cause 
+confusion. Changing to newer one for all is the preferred method and 
+handling common things in smu_common/powerplay is better rather than 
+having to do everything in individual versions.
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 92905ebb7b45..1c005e0ddd38 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1022,6 +1022,7 @@ void radeon_atombios_fini(struct radeon_device *rdev)
- {
- 	if (rdev->mode_info.atom_context) {
- 		kfree(rdev->mode_info.atom_context->scratch);
-+		kfree(rdev->mode_info.atom_context->iio);
- 	}
- 	kfree(rdev->mode_info.atom_context);
- 	rdev->mode_info.atom_context = NULL;
--- 
-2.33.1
+Thanks,
+Lijo
 
+> BR
+> Evan
+>>
+>> Thanks,
+>> Lijo
+>>
+>>> Evan
+>>>>
+>>>> Thanks,
+>>>> Lijo
+>>>>
+>>>>> +	if (adev->flags & AMD_IS_APU)
+>>>>> +		*sysfs_if_supported &=
+>>>> ~(BIT_ULL(AMD_SYSFS_IF_MEM_BUSY_PERCENT_BIT) |
+>>>>> +
+>>>> BIT_ULL(AMD_SYSFS_IF_PCIE_BW_BIT) |
+>>>>> +
+>>>> BIT_ULL(AMD_SYSFS_IF_PP_FEATURES_BIT));
+>>>>> +
+>>>>> +	if (!amdgpu_dpm_is_overdrive_supported(adev))
+>>>>> +		*sysfs_if_supported &=
+>>>>> +~BIT_ULL(AMD_SYSFS_IF_PP_OD_CLK_VOLTAGE_BIT);
+>>>>> +
+>>>>> +	if (amdgpu_dpm_get_power_profile_mode(adev, NULL) == -
+>>>> EOPNOTSUPP)
+>>>>> +		*sysfs_if_supported &=
+>>>>> +~BIT_ULL(AMD_SYSFS_IF_PP_POWER_PROFILE_MODE_BIT);
+>>>>> +
+>>>>> +	if (gc_ver >= IP_VERSION(10, 0, 0))
+>>>>> +		sysfs_if_attr_mode[AMD_SYSFS_IF_PP_DPM_DCEFCLK_BIT]
+>>>> &= ~S_IWUGO;
+>>>>> +
+>>>>> +	/* setting should not be allowed from VF if not in one VF mode */
+>>>>> +	if (amdgpu_sriov_vf(adev) &&
+>>>>> +	    !amdgpu_sriov_is_pp_one_vf(adev)) {
+>>>>> +		for (i = 0; i <
+>>>> AMD_MAX_NUMBER_OF_SYSFS_IF_SUPPORTED; i++)
+>>>>> +			sysfs_if_attr_mode[i] &= ~S_IWUGO;
+>>>>> +	}
+>>>>> +}
+>>>>> +
+>>>>>     int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
+>>>>>     {
+>>>>>     	int ret;
+>>>>> @@ -3424,6 +3418,8 @@ int amdgpu_pm_sysfs_init(struct
+>> amdgpu_device
+>>>> *adev)
+>>>>>     	if (adev->pm.dpm_enabled == 0)
+>>>>>     		return 0;
+>>>>>
+>>>>> +	amdgpu_sysfs_if_support_check(adev);
+>>>>> +
+>>>>>     	adev->pm.int_hwmon_dev =
+>>>> hwmon_device_register_with_groups(adev->dev,
+>>>>>
+>>>> DRIVER_NAME, adev,
+>>>>>
+>>>> hwmon_groups);
