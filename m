@@ -4,61 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2E42C5479D
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jan 2023 15:39:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF598C54EBD
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jan 2023 18:52:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B00B10E2B9;
-	Fri,  6 Jan 2023 15:39:17 +0000 (UTC)
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A63B910E2B9
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Jan 2023 15:39:15 +0000 (UTC)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-1442977d77dso1879727fac.6
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 Jan 2023 07:39:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nOU74MfLltUT+h+F/CrT1EH2iRW8ZoWBGIJbj4ikcZg=;
- b=kCHCa/r/NH7je4QvL7iXn+mGinMO0F8rBjuPT2QnoR6UCmONeCpDaIl710U7xlpmT6
- ikc1XvbZrH2G6v6Ld0fca1JWE5cOEg+kijfMUaFDYx835qxVEn/NO4CRdNIV1hXhLi6O
- rrlxk+4D9lTSqnIgV2F/N+SXbUbcjK/Jzijiqx247t8iDkut1B0x8qPdt36ZE01G1QZW
- /5R0EoDpcDbcFNpofc0nZGeQSzfXDpRT+ZaQn6YmnNmhgSospP8Ca2nKXFCRIl9L06qc
- 0O0Hf1tAT1axF1D8RPs/Aprow4ZU5Du+LmsxjuIoYb/wQtuBG8ejJ4PRaBaX6KY3PrTK
- u6vQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEFEC10E8BA;
+	Fri,  6 Jan 2023 18:52:55 +0000 (UTC)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6F3310E8B6
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Jan 2023 18:52:52 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id bs20so2117971wrb.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Jan 2023 10:52:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zFR7Wmf9ELtFjlJq04xcru9S2eGwAWVDYFWePjOvsWE=;
+ b=JOtgCNHTFmz8jD2kcDh2BY8qEJFDafRE6HT4cApEbKPvQgifmAp92UAzXqcRzxOeqi
+ VNfYJ15XEzqvwg77AERdY08BX56pUOkxv9Y78wPLj72Tw7JAoQXQAVfbDJxoLtuGZpeY
+ AiqGCU/nqHkttNptiLn7PFFH6buLt9DYx/Veo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nOU74MfLltUT+h+F/CrT1EH2iRW8ZoWBGIJbj4ikcZg=;
- b=DGyKMyz0lb7GsG/6TjydfcCWCHwLmyKytxiBPNmZcatb+aYgxmPWBTcZldqBzSrplJ
- I3npwER22jNEpJcK7lH65S87ZfH62lvvMvQqSxlbaS6TOdw469rq+k1odf6Yl0rnIGrw
- noe4eWkCUCA1sDDXIz4JAdZ5gb2eXr7pOtd9T84kNd01h9VOXBWfu4wRj7cnowU/yqGH
- BlMQkCpx/samogKOIP2TgM2EKz/bcbG7MfklG3TJgOpqNbMrMWDe/INzooI/DSLFSIkR
- vnquNVjxwb/lzq/2XIInQyS3jwKIfOh+8Tv7V4A8uoZgGf6p7rItxTLejP6kvT3BvKmB
- cT9A==
-X-Gm-Message-State: AFqh2koKBhea3+5C4Vfr+KjMroBdbkawNN5ka34yViIr6ETsTtEOkq2l
- Yt5H8eq57BAyAAPrcRVtBZr9Fz2wWqsvMKGX8tyj4N1H
-X-Google-Smtp-Source: AMrXdXt0/0Yzb/5d06C0pGHF7OeoMwC1Beik/HhdgRVorPYXTJ/t6Z10/P3fO3icF9eUsmYUsIHQhJSZPSADJk9q0Qw=
-X-Received: by 2002:a05:6870:c59c:b0:150:d9aa:4011 with SMTP id
- ba28-20020a056870c59c00b00150d9aa4011mr1145315oab.96.1673019554943; Fri, 06
- Jan 2023 07:39:14 -0800 (PST)
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=zFR7Wmf9ELtFjlJq04xcru9S2eGwAWVDYFWePjOvsWE=;
+ b=2lLRi4NvCghAy+FFXNKh9zqz8QqgnKmQj3Z+BDhsXBpWytWzL/Cidk6K+G120oidr3
+ a8lrJHFwNj8cqKqfhEpG71/zIOElWwp5YBH2b5ZwiAxf/JIP94rQsfjrK81jxdStkBaP
+ RaaVlpGerRgpVAM4ECrVZ1JUqTOnPTKboNu8aR8ptqoNUfJc/Yln3IIRqkR9FV63OXdZ
+ 3Xm+WJw/YCovQ5lv7wwRlnL5+KQx1WAFkFeNPSpF3iGXCt8yyKR8f/pXFR72BSi24gG8
+ MZzPh9Kaono8+jY0j+PBVF+IDsx0Tkd3r78iIYTkX6htcZIEo44nw09ob56KnzsPKXA4
+ /kWw==
+X-Gm-Message-State: AFqh2ko7ZH+cEE8HJNQU5IhrwdG808usuDxPiN/pTmRq9CKdYoHQaxOF
+ pCr1OaRAGRz22grY9tqD7P1b2g==
+X-Google-Smtp-Source: AMrXdXuChnuE6AXI+/EZeqKTU0XPuoALftuNLu4VCEg1NN6I1L5JLRtfk0jqNteHsg3uijYuLmPnnQ==
+X-Received: by 2002:a5d:46d0:0:b0:294:381e:1c7d with SMTP id
+ g16-20020a5d46d0000000b00294381e1c7dmr13187714wrs.8.1673031171103; 
+ Fri, 06 Jan 2023 10:52:51 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ m5-20020adfdc45000000b002428c4fb16asm1966950wrj.10.2023.01.06.10.52.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Jan 2023 10:52:50 -0800 (PST)
+Date: Fri, 6 Jan 2023 19:52:47 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/radeon: free iio for atombios when driver shutdown
+Message-ID: <Y7ht/7gujgsrQt3Z@phenom.ffwll.local>
+Mail-Followup-To: Alex Deucher <alexdeucher@gmail.com>,
+ Liwei Song <liwei.song@windriver.com>,
+ AlexDeucher <alexander.deucher@amd.com>,
+ =?iso-8859-1?Q?ChristianK=F6nig?= <christian.koenig@amd.com>,
+ PanXinhui <Xinhui.Pan@amd.com>, DavidAirlie <airlied@gmail.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+References: <20230106094729.38598-1-liwei.song@windriver.com>
+ <CADnq5_Mu-9_HoH9PULANvWS39D0Sra+nxodwFspH-TXX_3GJKA@mail.gmail.com>
 MIME-Version: 1.0
-References: <CAHk-=wgf929uGOVpiWALPyC7pv_9KbwB2EAvQ3C4woshZZ5zqQ@mail.gmail.com>
- <20221227082932.798359-1-geert@linux-m68k.org>
- <alpine.DEB.2.22.394.2212270933530.311423@ramsan.of.borg>
-In-Reply-To: <alpine.DEB.2.22.394.2212270933530.311423@ramsan.of.borg>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 6 Jan 2023 10:39:03 -0500
-Message-ID: <CADnq5_PtJ2JxAH7vaQsMHomUmiAxhiOqn4suf1SAQkaqt=sg+g@mail.gmail.com>
-Subject: Re: Build regressions/improvements in v6.2-rc1
-To: Geert Uytterhoeven <geert@linux-m68k.org>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, 
- "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CADnq5_Mu-9_HoH9PULANvWS39D0Sra+nxodwFspH-TXX_3GJKA@mail.gmail.com>
+X-Operating-System: Linux phenom 5.19.0-2-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,131 +76,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-xtensa@linux-xtensa.org, linux-sh@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-mips@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-f2fs-devel@lists.sourceforge.net,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
+Cc: Liwei Song <liwei.song@windriver.com>, PanXinhui <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, DanielVetter <daniel@ffwll.ch>,
+ AlexDeucher <alexander.deucher@amd.com>, DavidAirlie <airlied@gmail.com>,
+ =?iso-8859-1?Q?ChristianK=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 27, 2022 at 10:34 AM Geert Uytterhoeven
-<geert@linux-m68k.org> wrote:
->
-> On Tue, 27 Dec 2022, Geert Uytterhoeven wrote:
-> > Below is the list of build error/warning regressions/improvements in
-> > v6.2-rc1[1] compared to v6.1[2].
+Just a quick drive-by. For these simple cases where we just need to make
+sure that memory is freed using drmm_kmalloc and friends should help
+simplify things. Probably not worth it for radeon, but figured I'll throw
+it out there.
+
+For more functional code switching to drmm is harder because you need the
+right order. But for these all that matters is that stuff gets freed so
+there's no leak, and drmm can take care of that without ordering
+constraints.
+-Daniel
+
+On Fri, Jan 06, 2023 at 10:36:53AM -0500, Alex Deucher wrote:
+> Applied.  Thanks!
+> 
+> Alex
+> 
+> On Fri, Jan 6, 2023 at 5:00 AM Liwei Song <liwei.song@windriver.com> wrote:
 > >
-> > Summarized:
-> >  - build errors: +11/-13
->
-> amd-gfx@lists.freedesktop.org
-> linux-arm-kernel@lists.infradead.org
-> linux-media@vger.kernel.org
-> linux-wireless@vger.kernel.org
-> linux-mips@vger.kernel.org
-> linux-sh@vger.kernel.org
-> linux-f2fs-devel@lists.sourceforge.net
-> linuxppc-dev@lists.ozlabs.org
-> kasan-dev@googlegroups.com
-> linux-xtensa@linux-xtensa.org
->
->    + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/displ=
-ay_mode_vba_31.c: error: the frame size of 2224 bytes is larger than 2048 b=
-ytes [-Werror=3Dframe-larger-than=3D]:  =3D> 7082:1
->    + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/disp=
-lay_mode_vba_314.c: error: the frame size of 2208 bytes is larger than 2048=
- bytes [-Werror=3Dframe-larger-than=3D]:  =3D> 7127:1
->
+> > Fix below kmemleak when unload radeon driver:
+> >
+> > unreferenced object 0xffff9f8608ede200 (size 512):
+> >   comm "systemd-udevd", pid 326, jiffies 4294682822 (age 716.338s)
+> >   hex dump (first 32 bytes):
+> >     00 00 00 00 c4 aa ec aa 14 ab 00 00 00 00 00 00  ................
+> >     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+> >   backtrace:
+> >     [<0000000062fadebe>] kmem_cache_alloc_trace+0x2f1/0x500
+> >     [<00000000b6883cea>] atom_parse+0x117/0x230 [radeon]
+> >     [<00000000158c23fd>] radeon_atombios_init+0xab/0x170 [radeon]
+> >     [<00000000683f672e>] si_init+0x57/0x750 [radeon]
+> >     [<00000000566cc31f>] radeon_device_init+0x559/0x9c0 [radeon]
+> >     [<0000000046efabb3>] radeon_driver_load_kms+0xc1/0x1a0 [radeon]
+> >     [<00000000b5155064>] drm_dev_register+0xdd/0x1d0
+> >     [<0000000045fec835>] radeon_pci_probe+0xbd/0x100 [radeon]
+> >     [<00000000e69ecca3>] pci_device_probe+0xe1/0x160
+> >     [<0000000019484b76>] really_probe.part.0+0xc1/0x2c0
+> >     [<000000003f2649da>] __driver_probe_device+0x96/0x130
+> >     [<00000000231c5bb1>] driver_probe_device+0x24/0xf0
+> >     [<0000000000a42377>] __driver_attach+0x77/0x190
+> >     [<00000000d7574da6>] bus_for_each_dev+0x7f/0xd0
+> >     [<00000000633166d2>] driver_attach+0x1e/0x30
+> >     [<00000000313b05b8>] bus_add_driver+0x12c/0x1e0
+> >
+> > iio was allocated in atom_index_iio() called by atom_parse(),
+> > but it doesn't got released when the dirver is shutdown.
+> > Fix this kmemleak by free it in radeon_atombios_fini().
+> >
+> > Signed-off-by: Liwei Song <liwei.song@windriver.com>
+> > ---
+> >  drivers/gpu/drm/radeon/radeon_device.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+> > index 92905ebb7b45..1c005e0ddd38 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_device.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_device.c
+> > @@ -1022,6 +1022,7 @@ void radeon_atombios_fini(struct radeon_device *rdev)
+> >  {
+> >         if (rdev->mode_info.atom_context) {
+> >                 kfree(rdev->mode_info.atom_context->scratch);
+> > +               kfree(rdev->mode_info.atom_context->iio);
+> >         }
+> >         kfree(rdev->mode_info.atom_context);
+> >         rdev->mode_info.atom_context = NULL;
+> > --
+> > 2.33.1
+> >
 
-@Siqueira, Rodrigo @Mahfooz, Hamza
-
-Can you take a look at fixing the DML stack size here up?
-
-Alex
-
-
-> arm64-gcc5/arm64-allmodconfig
->
->    + /kisskb/src/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c: error: a=
-rray subscript 2 is above array bounds of 'u32[2]' {aka 'unsigned int[2]'} =
-[-Werror=3Darray-bounds]:  =3D> 641:28
->    + /kisskb/src/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c: error: a=
-rray subscript 3 is above array bounds of 'u32[2]' {aka 'unsigned int[2]'} =
-[-Werror=3Darray-bounds]:  =3D> 641:28
->
-> m68k-gcc8/m68k-allmodconfig
-> See also https://lore.kernel.org/all/CAMuHMdWpPX2mpqFEWjjbjsQvDBQOXyjjdpK=
-nQu9qURAuVZXmMw@mail.gmail.com
->
->    + /kisskb/src/include/linux/bitfield.h: error: call to '__field_overfl=
-ow' declared with attribute error: value doesn't fit into mask:  =3D> 151:3
->
-> In function 'u32_encode_bits',
->      inlined from 'ieee80211_mlo_multicast_tx' at /kisskb/src/net/mac8021=
-1/tx.c:4435:17,
->      inlined from 'ieee80211_subif_start_xmit' at /kisskb/src/net/mac8021=
-1/tx.c:4483:3:
->
-> mipsel-gcc5/mips-allmodconfig
->
->    + /kisskb/src/include/linux/compiler_types.h: error: call to '__compil=
-etime_assert_262' declared with attribute error: Unsupported access size fo=
-r {READ,WRITE}_ONCE().:  =3D> 358:45
->    + /kisskb/src/include/linux/compiler_types.h: error: call to '__compil=
-etime_assert_263' declared with attribute error: Unsupported access size fo=
-r {READ,WRITE}_ONCE().:  =3D> 358:45
->
-> In function 'follow_pmd_mask',
->      inlined from 'follow_pud_mask' at /kisskb/src/mm/gup.c:735:9,
->      inlined from 'follow_p4d_mask' at /kisskb/src/mm/gup.c:752:9,
->      inlined from 'follow_page_mask' at /kisskb/src/mm/gup.c:809:9:
->
-> sh4-gcc11/sh-defconfig (G=C3=BCnter wondered if pmd_t should use union)
->
->    + /kisskb/src/include/linux/fortify-string.h: error: '__builtin_memcpy=
-' offset [0, 127] is out of the bounds [0, 0] [-Werror=3Darray-bounds]:  =
-=3D> 57:33
->
-> /kisskb/src/arch/s390/kernel/setup.c: In function 'setup_lowcore_dat_on':
-> s390x-gcc11/s390-all{mod,yes}config
->
->    + /kisskb/src/include/linux/fortify-string.h: error: '__builtin_memset=
-' pointer overflow between offset [28, 898293814] and size [-898293787, -1]=
- [-Werror=3Darray-bounds]:  =3D> 59:33
->
-> /kisskb/src/fs/f2fs/inline.c: In function 'f2fs_move_inline_dirents':
->
-> powerpc-gcc11/ppc64_book3e_allmodconfig
-> powerpc-gcc11/powerpc-all{mod,yes}config
->
->    + /kisskb/src/kernel/kcsan/kcsan_test.c: error: the frame size of 1680=
- bytes is larger than 1536 bytes [-Werror=3Dframe-larger-than=3D]:  =3D> 25=
-7:1
->
-> xtensa-gcc11/xtensa-allmodconfig (patch available)
->
->    + {standard input}: Error: unknown pseudo-op: `.cfi_def_c':  =3D> 1718
->
-> sh4-gcc11/sh-allmodconfig (ICE =3D internal compiler error)
->
-> > [1] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/1b929c02afd37=
-871d5afb9d498426f83432e71c2/ (all 152 configs)
-> > [2] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/830b3c68c1fb1=
-e9176028d02ef86f3cf76aa2476/ (all 152 configs)
->
-> Gr{oetje,eeting}s,
->
->                                                 Geert
->
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
-8k.org
->
-> In personal conversations with technical people, I call myself a hacker. =
-But
-> when I'm talking to journalists I just say "programmer" or something like=
- that.
->                                                             -- Linus Torv=
-alds
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
