@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A60D5C3DA7A
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jan 2023 15:22:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2464FC5479D
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Jan 2023 15:22:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22BAA10E2BD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC7B510E86C;
 	Fri,  6 Jan 2023 15:22:37 +0000 (UTC)
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
- [209.85.160.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53B3A10E2B9
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Jan 2023 15:18:40 +0000 (UTC)
-Received: by mail-qt1-f175.google.com with SMTP id a16so2198628qtw.10
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 Jan 2023 07:18:40 -0800 (PST)
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
+ [209.85.128.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83D0E10E049
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Jan 2023 15:18:01 +0000 (UTC)
+Received: by mail-yw1-f182.google.com with SMTP id
+ 00721157ae682-4c186ff0506so26621087b3.6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Jan 2023 07:18:01 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oLTT10Q08SvcCsbZuYubvWn2TjFc+1wP3y0ZN/T09Wc=;
- b=vl3W3LIDKDhMNwkpL1Fs01qMc/0529PG4JbN34KROF6eO0y2tF4LH7tPAI6W2Q0Mm3
- NqCAd6QN8AQHp0p8QGUKCrimUqipZlkLtXyZTudzC9vzYsFS0jj6kRJZTjriN1MazWTB
- cDEi1Fkwi+asuS1WU5+ooSuMpaoMebo3C4B1suf8ya4He7QqKnlMp62xtOfjckcPspFp
- PXCiw34n53L88smJAG5RaIMx3/q7wqDITI8sMNYusZCJ8HDi6mK3qpG+OLSvE+qZbtwK
- os4ilTUeKBGIpPOVVSpge4TQXVmTtnVyfD4xSVmRFXSOIUEOKZJuaVKCPAz6aWZnnmJY
- UGAw==
-X-Gm-Message-State: AFqh2kpecjMqHMZFZ5KXYZkOLwUQbF9NgjPPdlc1Bb8EZ1HpNc6piXvr
- EdWDzq+fCrgcMO3BaohJzcqcBvmqgSGrQg==
-X-Google-Smtp-Source: AMrXdXtz05pkkYhTD8HQ8dTgJZY5caKswDVuWnQYTzIYEf71V3Gpu7Ot7E0fSnEU9dvY5CH8u6qEvw==
-X-Received: by 2002:a05:622a:4d47:b0:3a7:f183:7f66 with SMTP id
- fe7-20020a05622a4d4700b003a7f1837f66mr84149038qtb.22.1673018319249; 
- Fri, 06 Jan 2023 07:18:39 -0800 (PST)
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com.
- [209.85.128.178]) by smtp.gmail.com with ESMTPSA id
- fz18-20020a05622a5a9200b003a591194221sm634574qtb.7.2023.01.06.07.18.38
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Alz05ZcNgoaQdFl2lti3Hdp2W/onZPDBRRL7a7nm+Vw=;
+ b=Dk+/I3ytlHywCajvGXfCTLx4z8XKFvZhA3gHl7II9DQGORCfqFWVWcV9rRQ4huxMVR
+ xWlvO1bWas2CzttXFNrNaNwZjtTVosR9AW6hDQPtnGVKIxUgtQYoGwZlpDDBExnhngsG
+ 4YWOPirk7O8nXw3eZ/SyQGr1j2AmSjL1wIcdlOIkpELIUSUAcL2E/ueP5HGufiVz+yG0
+ FcxnpQie7UUU1IG6CVw0Ypj43JbYroBPteS8QSlFVp/7Jpw/B1MbS3ieQOOv1DcJT3l6
+ 34SjxQC+tH8EWa6r+gBi9m9nEBscv3ITMDCmlf6SUH3jeMbRjX7sUuFNFeyXv/PJ3GD9
+ bhZw==
+X-Gm-Message-State: AFqh2kquWzFV6Edl2dYrrT2H+nGiXrYHfEx1JnX6NVNpQUzH5VJz9OxL
+ XO1OysSnOVPVNsash7r8s5T2feZu50wsBQ==
+X-Google-Smtp-Source: AMrXdXsX7lVhxndHexjRO/faZKlj6tedFIRJ7Oa59pu2KJPW1zcMWVODIL8REuetR1jbOJUm7w3hWA==
+X-Received: by 2002:a81:83c6:0:b0:480:c479:c501 with SMTP id
+ t189-20020a8183c6000000b00480c479c501mr33190365ywf.15.1673018280320; 
+ Fri, 06 Jan 2023 07:18:00 -0800 (PST)
+Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com.
+ [209.85.219.174]) by smtp.gmail.com with ESMTPSA id
+ q5-20020a05620a0d8500b006eee3a09ff3sm651567qkl.69.2023.01.06.07.17.59
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Jan 2023 07:18:38 -0800 (PST)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-4b6255ce5baso26158887b3.11
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 Jan 2023 07:18:38 -0800 (PST)
-X-Received: by 2002:a81:17ca:0:b0:46f:bd6:957d with SMTP id
- 193-20020a8117ca000000b0046f0bd6957dmr4281773ywx.383.1673018318622; Fri, 06
- Jan 2023 07:18:38 -0800 (PST)
+ Fri, 06 Jan 2023 07:17:59 -0800 (PST)
+Received: by mail-yb1-f174.google.com with SMTP id j206so2198836ybj.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Jan 2023 07:17:59 -0800 (PST)
+X-Received: by 2002:a25:d84e:0:b0:7b4:6a33:d89f with SMTP id
+ p75-20020a25d84e000000b007b46a33d89fmr557375ybg.543.1673018279290; Fri, 06
+ Jan 2023 07:17:59 -0800 (PST)
 MIME-Version: 1.0
 References: <CAHk-=wgf929uGOVpiWALPyC7pv_9KbwB2EAvQ3C4woshZZ5zqQ@mail.gmail.com>
  <20221227082932.798359-1-geert@linux-m68k.org>
  <alpine.DEB.2.22.394.2212270933530.311423@ramsan.of.borg>
  <c05bee5d-0d69-289b-fe4b-98f4cd31a4f5@physik.fu-berlin.de>
- <CAMuHMdXNJveXHeS=g-aHbnxtyACxq1wCeaTg8LbpYqJTCqk86g@mail.gmail.com>
-In-Reply-To: <CAMuHMdXNJveXHeS=g-aHbnxtyACxq1wCeaTg8LbpYqJTCqk86g@mail.gmail.com>
+In-Reply-To: <c05bee5d-0d69-289b-fe4b-98f4cd31a4f5@physik.fu-berlin.de>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 6 Jan 2023 16:18:27 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdU8AKSdujbr=nwaBUy4q4z_R=MERnb5CBPPv=A63BVFXA@mail.gmail.com>
-Message-ID: <CAMuHMdU8AKSdujbr=nwaBUy4q4z_R=MERnb5CBPPv=A63BVFXA@mail.gmail.com>
+Date: Fri, 6 Jan 2023 16:17:47 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXNJveXHeS=g-aHbnxtyACxq1wCeaTg8LbpYqJTCqk86g@mail.gmail.com>
+Message-ID: <CAMuHMdXNJveXHeS=g-aHbnxtyACxq1wCeaTg8LbpYqJTCqk86g@mail.gmail.com>
 Subject: Re: Build regressions/improvements in v6.2-rc1
 To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 06 Jan 2023 15:22:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,19 +80,64 @@ Cc: linux-xtensa@linux-xtensa.org, linux-sh@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 6, 2023 at 4:17 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
->
-> Hi John,
+Hi John,
 
-Bummer, "Hi Adrian", ofc ;-)
+On Fri, Jan 6, 2023 at 4:10 PM John Paul Adrian Glaubitz
+<glaubitz@physik.fu-berlin.de> wrote:
+> On 12/27/22 09:35, Geert Uytterhoeven wrote:
+> >    + /kisskb/src/include/linux/compiler_types.h: error: call to '__comp=
+iletime_assert_262' declared with attribute error: Unsupported access size =
+for {READ,WRITE}_ONCE().:  =3D> 358:45
+> >    + /kisskb/src/include/linux/compiler_types.h: error: call to '__comp=
+iletime_assert_263' declared with attribute error: Unsupported access size =
+for {READ,WRITE}_ONCE().:  =3D> 358:45
+> >
+> > In function 'follow_pmd_mask',
+> >      inlined from 'follow_pud_mask' at /kisskb/src/mm/gup.c:735:9,
+> >      inlined from 'follow_p4d_mask' at /kisskb/src/mm/gup.c:752:9,
+> >      inlined from 'follow_page_mask' at /kisskb/src/mm/gup.c:809:9:
+> >
+> > sh4-gcc11/sh-defconfig (G=C3=BCnter wondered if pmd_t should use union)
+>
+> I'm seeing this, too. Also for sh7785lcr_defconfig.
+>
+> > sh4-gcc11/sh-allmodconfig (ICE =3D internal compiler error)
+>
+> I'm not seeing this one, but I am getting this one instead:
+>
+> In file included from ./arch/sh/include/asm/hw_irq.h:6,
+>                   from ./include/linux/irq.h:596,
+>                   from ./include/asm-generic/hardirq.h:17,
+>                   from ./arch/sh/include/asm/hardirq.h:9,
+>                   from ./include/linux/hardirq.h:11,
+>                   from ./include/linux/interrupt.h:11,
+>                   from ./include/linux/serial_core.h:13,
+>                   from ./include/linux/serial_sci.h:6,
+>                   from arch/sh/kernel/cpu/sh2/setup-sh7619.c:11:
+> ./include/linux/sh_intc.h:100:63: error: division 'sizeof (void *) / size=
+of (void)' does not compute the number of array elements [-Werror=3Dsizeof-=
+pointer-div]
+>    100 | #define _INTC_ARRAY(a) a, __same_type(a, NULL) ? 0 : sizeof(a)/s=
+izeof(*a)
+>        |                                                               ^
+> ./include/linux/sh_intc.h:105:31: note: in expansion of macro '_INTC_ARRA=
+Y'
+>    105 |         _INTC_ARRAY(vectors), _INTC_ARRAY(groups),      \
+>        |                               ^~~~~~~~~~~
+
+The easiest fix for the latter is to disable CONFIG_WERROR.
+Unfortunately I don't know a simple solution to get rid of the warning.
 
 Gr{oetje,eeting}s,
 
                         Geert
 
 --
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
                                 -- Linus Torvalds
