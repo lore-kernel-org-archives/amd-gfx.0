@@ -4,56 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 136FBC5479D
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jan 2023 14:19:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 652C2C54EBD
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jan 2023 14:44:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90DE289D4D;
-	Mon,  9 Jan 2023 14:19:56 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA45089D4D
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Jan 2023 14:19:54 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id c133so7214399oif.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Jan 2023 06:19:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LAFmiXxXpTd2DVZ1qFqzt2ULhZG8IhtLoMduAviIhCM=;
- b=pg+aS0M7+Nway2LbLnS/pBMA9pZ0XgmAq4ebDNrLGunpsPHihQ+QOSmrRsVDvmlmnV
- tKwk/eZIq17C7yYZLtgf4JhwsnYFmSsLOqSnzFQT75Fx00wXZ/5rtGsyzhzBTYFOBpiM
- 2Yg6tI4N6Q+UFIJX7hkwuHf91SDCeiIrGnU4M2eFKYEuo6BmdJ+zw95JSy3ve6WmIVfM
- F8rJa2bb4Y7Bf+5w7I8psq+fYMG28IwsUfxMj0VIOJGeywAdWNfrIGFGf1An+bmvPm0H
- Ag/r60YZ77e7zfYicpKtLGWWid3RyAw/TzaGvGWtBvpiLK6tLHxiJ1wc8LkgThpfamAW
- 1ULw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LAFmiXxXpTd2DVZ1qFqzt2ULhZG8IhtLoMduAviIhCM=;
- b=p65L2+yTK8urtKWufL/d0f32u+MIoNv1/GRffr8jDhKNtXyOJ23l4s47kdznDNn6O4
- IVkHKC8kTGZv+pJjFa7KOoHZomoLXQAm8ePlnIRYkI+v62NKj/I+kDKjDTyhPbr0jPRD
- f2sQpgFMNbslUaT5knev8ZTx99QZOI2LhNq/Wrm+h4gBn7E39fMnXUEnrug9ODnGZI7F
- ZEKlvEXX8l76em5sCodzV5SPTvIEO/x0h0ITvp0CLAiT/imPcJzAljPwyCgA/y4sObjM
- tKjVTe3VRKEF7alzfYHwUbv5SNIEoDZ0VYYQlo+P3GY/1d1CfIdMzm3gs8ox2zYOKy8Z
- SaZw==
-X-Gm-Message-State: AFqh2kqSUxWKusGIb5u4i06UyvUQm0r3/MP8P+gQ7WULYc93wfbW+xlH
- oKf7iw7F2m7tnof/slab3pHNM57IcqBktpeWE6XUeTdz
-X-Google-Smtp-Source: AMrXdXvwXqnZ1zFDchtb/ldZnkjUzpuT/6kvuqXjthF8+hNtqMzrruR2wfHOyAe+YP5alLzIB27WoCD1+GqWjAcZeLA=
-X-Received: by 2002:a05:6808:2001:b0:35b:d93f:cbc4 with SMTP id
- q1-20020a056808200100b0035bd93fcbc4mr4282560oiw.96.1673273993947; Mon, 09 Jan
- 2023 06:19:53 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA13710E1E0;
+	Mon,  9 Jan 2023 14:44:02 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D14C10E0A7;
+ Mon,  9 Jan 2023 14:44:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=d8WDzN1sPI7Yo9TbrkKJVaN1hyvZR2akXJ2pfczfTE8=; b=hTAdZjrI/aOh34LmKzXARSWZWe
+ 8/q6V6zyFHLlU5sFinbN1j2Gx0LuJC1KRFznCSB8bELo68h1s96DfsRaEpgf80VMVcHepe/ay3IAh
+ mhVnlqq4tnm0hNuyrmmPr1T6gLOUbwmxOrAbh0wgtp+EU/BcaUk6wnb7363aUetEOLkYkCqkvqX/R
+ SyN/S66ygNwCjo8aFZZsge8bBYfqQXQKjq42uGLSIkd5XlKXsdjL5H2oXr89+g7gECwhjtVPXiFnM
+ RrDLSQxd/3a1pZc4KlOnBL4q7xWuOLjXGOUaUBarecfZgOb+ZgxFkZS425N48tFC3hn7MqXMJulnS
+ KFTzkTbg==;
+Received: from [41.74.137.107] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1pEtNH-003TyM-6i; Mon, 09 Jan 2023 15:43:43 +0100
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ daniel@ffwll.ch, harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, Rodrigo.Siqueira@amd.com, sunpeng.li@amd.com,
+ tzimmermann@suse.de, Xinhui.Pan@amd.com
+Subject: [RFC PATCH v2 00/18] Add DRM CRTC 3D LUT interface
+Date: Mon,  9 Jan 2023 13:38:28 -0100
+Message-Id: <20230109143846.1966301-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <20230109130120.73389-1-christian.koenig@amd.com>
-In-Reply-To: <20230109130120.73389-1-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 9 Jan 2023 09:19:42 -0500
-Message-ID: <CADnq5_P90Xb+8jfKE73HxnoKjOAJAo_JD4+iRHbgs4xWRs_=SA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix pipeline sync v2
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,136 +51,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: luben.tuikov@amd.com, amd-gfx@lists.freedesktop.org
+Cc: laurent.pinchart+renesas@ideasonboard.com,
+ Shashank Sharma <shashank.sharma@amd.com>, alex.hung@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Melissa Wen <mwen@igalia.com>,
+ seanpaul@chromium.org, ville.syrjala@linux.intel.com, kernel-dev@igalia.com,
+ bhawanpreet.lakha@amd.com, nicholas.kazlauskas@amd.com,
+ Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 9, 2023 at 8:01 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> This fixes a potential memory leak of dma_fence objects in the CS code
-> as well as glitches in firefox because of missing pipeline sync.
->
-> v2: use the scheduler instead of the fence context for the test
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2323
-> Fixes: 1b2d5eda5ad7 ("drm/amdgpu: move explicit sync check into the CS")
-> Tested-by: Michal Kubecek <mkubecek@suse.cz>
+Hi,
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+After collecting comments in different places, here is a second version
+of the work on adding DRM CRTC 3D LUT support to the current DRM color
+mgmt interface. In comparison to previous proposals [1][2][3], here we
+add 3D LUT before gamma 1D LUT, but also a shaper 1D LUT before 3D LUT,
+that means the following DRM CRTC color correction pipeline:
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 46 +++++++++++++++++---------
->  1 file changed, 30 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_cs.c
-> index 47763ac0d14a..7b5ce00f0602 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -61,6 +61,8 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parse=
-r *p,
->                 amdgpu_ctx_put(p->ctx);
->                 return -ECANCELED;
->         }
-> +
-> +       amdgpu_sync_create(&p->sync);
->         return 0;
->  }
->
-> @@ -452,18 +454,6 @@ static int amdgpu_syncobj_lookup_and_add(struct amdg=
-pu_cs_parser *p,
->         }
->
->         r =3D amdgpu_sync_fence(&p->sync, fence);
-> -       if (r)
-> -               goto error;
-> -
-> -       /*
-> -        * When we have an explicit dependency it might be necessary to i=
-nsert a
-> -        * pipeline sync to make sure that all caches etc are flushed and=
- the
-> -        * next job actually sees the results from the previous one.
-> -        */
-> -       if (fence->context =3D=3D p->gang_leader->base.entity->fence_cont=
-ext)
-> -               r =3D amdgpu_sync_fence(&p->gang_leader->explicit_sync, f=
-ence);
-> -
-> -error:
->         dma_fence_put(fence);
->         return r;
->  }
-> @@ -1188,10 +1178,19 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs=
-_parser *p)
->  static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
->  {
->         struct amdgpu_fpriv *fpriv =3D p->filp->driver_priv;
-> +       struct drm_gpu_scheduler *sched;
->         struct amdgpu_bo_list_entry *e;
-> +       struct dma_fence *fence;
->         unsigned int i;
->         int r;
->
-> +       r =3D amdgpu_ctx_wait_prev_fence(p->ctx, p->entities[p->gang_lead=
-er_idx]);
-> +       if (r) {
-> +               if (r !=3D -ERESTARTSYS)
-> +                       DRM_ERROR("amdgpu_ctx_wait_prev_fence failed.\n")=
-;
-> +               return r;
-> +       }
-> +
->         list_for_each_entry(e, &p->validated, tv.head) {
->                 struct amdgpu_bo *bo =3D ttm_to_amdgpu_bo(e->tv.bo);
->                 struct dma_resv *resv =3D bo->tbo.base.resv;
-> @@ -1211,10 +1210,24 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_=
-parser *p)
->                         return r;
->         }
->
-> -       r =3D amdgpu_ctx_wait_prev_fence(p->ctx, p->entities[p->gang_lead=
-er_idx]);
-> -       if (r && r !=3D -ERESTARTSYS)
-> -               DRM_ERROR("amdgpu_ctx_wait_prev_fence failed.\n");
-> -       return r;
-> +       sched =3D p->gang_leader->base.entity->rq->sched;
-> +       while ((fence =3D amdgpu_sync_get_fence(&p->sync))) {
-> +               struct drm_sched_fence *s_fence =3D to_drm_sched_fence(fe=
-nce);
-> +
-> +               /*
-> +                * When we have an dependency it might be necessary to in=
-sert a
-> +                * pipeline sync to make sure that all caches etc are flu=
-shed and the
-> +                * next job actually sees the results from the previous o=
-ne
-> +                * before we start executing on the same scheduler ring.
-> +                */
-> +               if (!s_fence || s_fence->sched !=3D sched)
-> +                       continue;
-> +
-> +               r =3D amdgpu_sync_fence(&p->gang_leader->explicit_sync, f=
-ence);
-> +               if (r)
-> +                       return r;
-> +       }
-> +       return 0;
->  }
->
->  static void amdgpu_cs_post_dependencies(struct amdgpu_cs_parser *p)
-> @@ -1347,6 +1360,7 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_=
-parser *parser)
->  {
->         unsigned i;
->
-> +       amdgpu_sync_free(&parser->sync);
->         for (i =3D 0; i < parser->num_post_deps; i++) {
->                 drm_syncobj_put(parser->post_deps[i].syncobj);
->                 kfree(parser->post_deps[i].chain);
-> --
-> 2.34.1
->
+Blend -> Degamma 1D LUT -> CTM -> Shaper 1D LUT -> 3D LUT -> Gamma 1D LUT
+
+and we also add a DRM CRTC LUT3D_MODE property, based on Alex Hung
+proposal for pre-blending 3D LUT [4] (Thanks!), instead of just a
+LUT3D_SIZE, that allows userspace to use different supported settings of
+3D LUT, fitting VA-API and new color API better. In this sense, I
+adjusted the pre-blending proposal for post-blending usage.
+
+Patches 1-6 targets the addition of shaper LUT and 3D LUT properties to
+the current DRM CRTC color mgmt pipeline. Patch 6 can be considered an
+extra/optional patch to define a default value for LUT3D_MODE, inspired
+by what we do for the plane blend mode property (pre-multiplied).
+
+Patches 7-18 targets AMD display code to enable shaper and 3D LUT usage
+on DCN 301 (our HW case). Patches 7-9 performs code cleanups on current
+AMD DM colors code, patch 10 updates AMD stream in case of user 3D LUT
+changes, patch 11/12 rework AMD MPC 3D LUT resource handling by context
+for DCN 301 (easily extendible to other DCN families). Finally, from
+13-18, we wire up SHAPER LUT, LUT3D and LUT3D MODE to AMD display
+driver, exposing modes supported by HW and programming user shaper and
+3D LUT accordingly.
+
+Our target userspace is Gamescope/SteamOS.
+
+Basic IGT tests were based on [5][6] and are available here (in-progress):
+https://gitlab.freedesktop.org/mwen/igt-gpu-tools/-/commits/crtc-lut3d-api
+
+[1] https://lore.kernel.org/all/20201221015730.28333-1-laurent.pinchart+renesas@ideasonboard.com/
+[2] https://github.com/vsyrjala/linux/commit/4d28e8ddf2a076f30f9e5bdc17cbb4656fe23e69
+[3] https://lore.kernel.org/amd-gfx/20220619223104.667413-1-mwen@igalia.com/
+[4] https://lore.kernel.org/dri-devel/20221004211451.1475215-1-alex.hung@amd.com/
+[5] https://patchwork.freedesktop.org/series/90165/
+[6] https://patchwork.freedesktop.org/series/109402/
+[VA_API] http://intel.github.io/libva/structVAProcFilterParameterBuffer3DLUT.html
+[KMS_pipe_API] https://gitlab.freedesktop.org/pq/color-and-hdr/-/issues/11
+
+Let me know your thoughts.
+
+Thanks,
+
+Melissa
+
+Alex Hung (2):
+  drm: Add 3D LUT mode and its attributes
+  drm/amd/display: Define 3D LUT struct for HDR planes
+
+Melissa Wen (16):
+  drm/drm_color_mgmt: add shaper LUT to color mgmt properties
+  drm/drm_color_mgmt: add 3D LUT props to DRM color mgmt
+  drm/drm_color_mgmt: add function to create 3D LUT modes supported
+  drm/drm_color_mgmt: add function to attach 3D LUT props
+  drm/drm_color_mgmt: set first lut3d mode as default
+  drm/amd/display: remove unused regamma condition
+  drm/amd/display: add comments to describe DM crtc color mgmt behavior
+  drm/amd/display: encapsulate atomic regamma operation
+  drm/amd/display: update lut3d and shaper lut to stream
+  drm/amd/display: handle MPC 3D LUT resources for a given context
+  drm/amd/display: acquire/release 3D LUT resources for ctx on DCN301
+  drm/amd/display: expand array of supported 3D LUT modes
+  drm/amd/display: enable 3D-LUT DRM properties if supported
+  drm/amd/display: add user 3D LUT support to the amdgpu_dm color
+    pipeline
+  drm/amd/display: decouple steps to reuse in shaper LUT support
+  drm/amd/display: add user shaper LUT support to amdgpu_dm color
+    pipeline
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   6 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 370 ++++++++++++++++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   2 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  49 ++-
+ drivers/gpu/drm/amd/display/dc/dc.h           |   8 +
+ .../amd/display/dc/dcn301/dcn301_resource.c   |  47 ++-
+ .../amd/display/modules/color/color_gamma.h   |  43 ++
+ drivers/gpu/drm/drm_atomic_state_helper.c     |   7 +
+ drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
+ drivers/gpu/drm/drm_color_mgmt.c              | 127 ++++++
+ drivers/gpu/drm/drm_fb_helper.c               |   5 +
+ drivers/gpu/drm/drm_mode_config.c             |  21 +
+ include/drm/drm_color_mgmt.h                  |   8 +
+ include/drm/drm_crtc.h                        |  32 +-
+ include/drm/drm_mode_config.h                 |  25 ++
+ include/drm/drm_mode_object.h                 |   2 +-
+ include/uapi/drm/drm_mode.h                   |  17 +
+ 18 files changed, 757 insertions(+), 39 deletions(-)
+
+-- 
+2.35.1
+
