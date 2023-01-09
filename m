@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A97FC54EBD
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jan 2023 14:45:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7FEEC54EBD
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jan 2023 14:45:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7866910E453;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A516610E49A;
 	Mon,  9 Jan 2023 14:44:46 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ECC010E438;
- Mon,  9 Jan 2023 14:44:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB8110E439;
+ Mon,  9 Jan 2023 14:44:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,24 +19,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=nDAiETVpEvUgb7mqS6Y9TlEIy67mC7r1XqqTtdFTtiY=; b=kHyTtVGwbnVzhzXBtMOs71gktY
- Ie73QRlCKbRBdTSjXoGo/ArajaRk41KPu+1YdmWbhgvc2qKOFPK3gQsrtSiqOq1cgPsTp4WZmJO+4
- 0qcBRxvxrKMYIFzdGx6gGfLUUWZ/VHDF31/5SBXqVADhdo2hxhQmfl3CNbOkWWSn9PZ7QQR2hwamb
- 6AP2zQ3IHyOs7SBrkeEms8rtNK1ot7SfTdo2gaYYKAzEH6YviSli630lSGSoOaQlohu2svXmQN141
- reDGPodRElCD2SUYzfrqxPWeOJVzTOJZ/NnrOCoq8D8DKiSRZzHoGbNAoHMAUC4lCYx8WMhunx3lb
- yDsf57Yg==;
+ bh=TnpDW0+fbBbPza9wMiMd8HlnPnuskPiG6Rgbq1iBi8g=; b=TWlBIDGPLku7ghz50n9qdn+SRR
+ rSsoJ5irFxQwjH15eFYk2IYJNrqpRurnCYXnxw8WGxnaWVqs7UDlgQyYIBvLG24rYFugu5wijcoZv
+ D0f6aZZUucwt2K6Z8czdhtetq5QjYHLt51W5IrZuwDpY0zWIa8YnszsUXY/aF8qtWcguCFcJ+L14a
+ X89hvd3/m7fir50TxzHQv1WUOJfvo4JiUrZMeQt9uNvQf6xeUrKn9r+fuIGn43F4m6BQRYWY1LPoa
+ 45WaPqH8IRnEpNo9jpedCoIFIWWrEiWODP/gUFrutpPMPqb06Dt/vkFD/F0gu1cjz6kCdboGFe/fX
+ xiBK5j1w==;
 Received: from [41.74.137.107] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pEtNm-003TyM-TO; Mon, 09 Jan 2023 15:44:15 +0100
+ id 1pEtNx-003TyM-HA; Mon, 09 Jan 2023 15:44:25 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, daniel@ffwll.ch
-Subject: [RFC PATCH v2 10/18] drm/amd/display: update lut3d and shaper lut to
- stream
-Date: Mon,  9 Jan 2023 13:38:38 -0100
-Message-Id: <20230109143846.1966301-11-mwen@igalia.com>
+Subject: [RFC PATCH v2 14/18] drm/amd/display: expand array of supported 3D
+ LUT modes
+Date: Mon,  9 Jan 2023 13:38:42 -0100
+Message-Id: <20230109143846.1966301-15-mwen@igalia.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20230109143846.1966301-1-mwen@igalia.com>
 References: <20230109143846.1966301-1-mwen@igalia.com>
@@ -65,44 +65,56 @@ Cc: laurent.pinchart+renesas@ideasonboard.com, kernel-dev@igalia.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It follows the same path of out_transfer_func for stream updates, since
-shaper LUT and 3D LUT is programmed in funcs.set_output_transfer_func()
-and this function is called in the atomic commit_tail when
-update_flags.bits.out_tf is set.
+AMD MPC block support 3D LUTs of dimensions 17 and 9, and also bit
+depth 12 and 10, therefore, advertise them to the userspace.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ .../amd/display/modules/color/color_gamma.h   | 31 +++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 2c18c8527079..88f1130c3b83 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2562,7 +2562,7 @@ static enum surface_update_type check_update_surfaces_for_stream(
- 			stream_update->integer_scaling_update)
- 			su_flags->bits.scaling = 1;
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.h b/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
+index 8e159b1eb9c6..69b9a1aa6dd4 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
+@@ -47,6 +47,37 @@ static const struct drm_mode_lut3d_mode lut3d_mode_17_12bit = {
+ 	.flags = 0,
+ };
  
--		if (stream_update->out_transfer_func)
-+		if (stream_update->out_transfer_func || stream_update->lut3d_func)
- 			su_flags->bits.out_tf = 1;
- 
- 		if (stream_update->abm_level)
-@@ -2911,6 +2911,14 @@ static void copy_stream_update_to_stream(struct dc *dc,
- 		       sizeof(struct dc_transfer_func_distributed_points));
- 	}
- 
-+	if (update->func_shaper &&
-+	    stream->func_shaper != update->func_shaper)
-+		stream->func_shaper = update->func_shaper;
++static const struct drm_mode_lut3d_mode amdgpu_lut3d_modes[] = {
++	{
++		.lut_size = 17,
++		.lut_stride = {17, 17, 18},
++		.bit_depth = 12,
++		.color_format = DRM_FORMAT_XRGB16161616,
++		.flags = 0,
++	},
++	{
++		.lut_size = 17,
++		.lut_stride = {17, 17, 18},
++		.bit_depth = 10,
++		.color_format = DRM_FORMAT_XRGB16161616,
++		.flags = 0,
++	},
++	{
++		.lut_size = 9,
++		.lut_stride = {9, 9, 10},
++		.bit_depth = 12,
++		.color_format = DRM_FORMAT_XRGB16161616,
++		.flags = 0,
++	},
++	{
++		.lut_size = 9,
++		.lut_stride = {9, 9, 10},
++		.bit_depth = 10,
++		.color_format = DRM_FORMAT_XRGB16161616,
++		.flags = 0,
++	},
++};
 +
-+	if (update->lut3d_func &&
-+	    stream->lut3d_func != update->lut3d_func)
-+		stream->lut3d_func = update->lut3d_func;
-+
- 	if (update->hdr_static_metadata)
- 		stream->hdr_static_metadata = *update->hdr_static_metadata;
- 
+ /* For SetRegamma ADL interface support
+  * Must match escape type
+  */
 -- 
 2.35.1
 
