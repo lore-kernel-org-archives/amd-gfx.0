@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AF61C54EBD
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jan 2023 14:44:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 681B5C5479D
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jan 2023 14:44:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D123710E435;
-	Mon,  9 Jan 2023 14:44:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFA5710E436;
+	Mon,  9 Jan 2023 14:44:34 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A16BF10E432;
- Mon,  9 Jan 2023 14:44:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E62710E436;
+ Mon,  9 Jan 2023 14:44:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,24 +19,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=Dv8TSHDNAro72IZgP4TBGST9tD70PdSgMAoaPaXFYjA=; b=dMseIfbldn976aWH7M42s84hjC
- e/k/kalfXPDw9ej+Ie0mXfYT7p+QWyIG3OK5iNBnnTFZeMj+/Ux/pSceAd7QiJWyTCFIG65houhAm
- znB5K2uIJkvZZxFV2LhaGj4LEc5OKtofnFuI8IU7JXbveSk7bPGgmtt3WOs3YyzD1teQbdGVHWpE6
- sqq6G/LyZE6kWa6Uc+kGlaZEbMN5fW6BgFzsBycjV7xZCxU1HtxP62hNeN0hjT82DPNHYMU7DDc0S
- 755Wku2S7ww5JOdcfmh/QA9bD237HYOU6uX2LB3u8z1GuHAeJ0vsqv+bG4uiJUx+HmERR9OMDzLXB
- u3mEW2kQ==;
+ bh=JvdJXnslHHYsgYx1+6dyB2NO+WCy/ybpW/Ce1OI2Y1Y=; b=oFeG4//hpK2jBA7q7YDjh9O3MP
+ MrTl+XG5rT7dFkVcuflFVAxGYcHkBStWwZEn1I+g1hKW44inrZscTIF89dliIBAmFAp9Yht9FBzCZ
+ yK0OGg9D8EjtcmRb9ofCB3z12mqk7T8cVO645dW7vr8E886R+/0VMdLhkJ5S94PrlFBXVwTkBiX46
+ +FjtlTsZze7KVLJivFkCIIzlqKFebegFw6to/HBPRPCFveVo1kTYCqXTDjyWFZ0yeD8m/h22MWLvq
+ If3wd1EvsviA/NSTlQhIkXMQXfoKVzQ+BqM/+nYHaaqXPUX6snH1qwqjaOF55XJbpJYqQxwTkbG68
+ Ka8ZgSmg==;
 Received: from [41.74.137.107] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pEtNk-003TyM-1d; Mon, 09 Jan 2023 15:44:12 +0100
+ id 1pEtNp-003TyM-JJ; Mon, 09 Jan 2023 15:44:17 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, daniel@ffwll.ch
-Subject: [RFC PATCH v2 09/18] drm/amd/display: encapsulate atomic regamma
- operation
-Date: Mon,  9 Jan 2023 13:38:37 -0100
-Message-Id: <20230109143846.1966301-10-mwen@igalia.com>
+Subject: [RFC PATCH v2 11/18] drm/amd/display: handle MPC 3D LUT resources for
+ a given context
+Date: Mon,  9 Jan 2023 13:38:39 -0100
+Message-Id: <20230109143846.1966301-12-mwen@igalia.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20230109143846.1966301-1-mwen@igalia.com>
 References: <20230109143846.1966301-1-mwen@igalia.com>
@@ -65,91 +65,87 @@ Cc: laurent.pinchart+renesas@ideasonboard.com, kernel-dev@igalia.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We are introducing DRM 3D LUT property to DM color pipeline in the next
-patch, but so far, only for atomic interface. By checking
-.set_output_transfer_func in DC drivers with MPC 3D LUT support, we can
-verify that regamma is only programmed when 3D LUT programming fails. As
-a groundwork to introduce 3D LUT programming and better understand each
-step, detach atomic regamma programming from the crtc colocr updating
-code.
+In the original dc_acquire_release_mpc_3dlut(), only current ctx is
+considered, which doesn't fit the steps for atomic checking new ctx.
+Therefore, create a function to handle 3D LUT resource for a given
+context, so that we can check resources availability in atomic_check
+time and handle failures properly.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 52 ++++++++++++-------
- 1 file changed, 33 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 39 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dc.h      |  8 +++++
+ 2 files changed, 47 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index b54ef1392895..54d95745f0f0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -291,6 +291,36 @@ static int __set_output_tf(struct dc_transfer_func *func,
- 	return res ? 0 : -ENOMEM;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 88f1130c3b83..76270d21286a 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2085,6 +2085,45 @@ bool dc_acquire_release_mpc_3dlut(
+ 	return ret;
  }
  
-+static int amdgpu_dm_set_atomic_regamma(struct dc_stream_state *stream,
-+					const struct drm_color_lut *regamma_lut,
-+					uint32_t regamma_size)
++bool
++dc_acquire_release_mpc_3dlut_for_ctx(struct dc *dc,
++				     bool acquire,
++				     struct dc_state *state,
++				     struct dc_stream_state *stream,
++				     struct dc_3dlut **lut,
++				     struct dc_transfer_func **shaper)
 +{
-+	int ret = 0;
++	int pipe_idx;
++	bool ret = false;
++	bool found_pipe_idx = false;
++	const struct resource_pool *pool = dc->res_pool;
++	struct resource_context *res_ctx = &state->res_ctx;
++	int mpcc_id = 0;
 +
-+	if (regamma_size) {
-+		/* CRTC RGM goes into RGM LUT.
-+		 *
-+		 * Note: here there is no implicit sRGB regamma. We are using
-+		 * degamma calculation from color module to calculate the curve
-+		 * from a linear base.
-+		 */
-+		stream->out_transfer_func->type = TF_TYPE_DISTRIBUTED_POINTS;
-+		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
++	if (pool && res_ctx) {
++		if (acquire) {
++			/*find pipe idx for the given stream*/
++			for (pipe_idx = 0; pipe_idx < pool->pipe_count; pipe_idx++) {
++				if (res_ctx->pipe_ctx[pipe_idx].stream == stream) {
++					found_pipe_idx = true;
++					mpcc_id = res_ctx->pipe_ctx[pipe_idx].plane_res.hubp->inst;
++					break;
++				}
++			}
++		} else
++			found_pipe_idx = true;/*for release pipe_idx is not required*/
 +
-+		ret = __set_output_tf(stream->out_transfer_func, regamma_lut,
-+				      regamma_size);
-+	} else {
-+		/*
-+		 * No CRTC RGM means we can just put the block into bypass
-+		 * since we don't have any plane level adjustments using it.
-+		 */
-+		stream->out_transfer_func->type = TF_TYPE_BYPASS;
-+		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
++		if (found_pipe_idx) {
++			if (acquire && pool->funcs->acquire_post_bldn_3dlut)
++				ret = pool->funcs->acquire_post_bldn_3dlut(res_ctx, pool, mpcc_id, lut, shaper);
++			else if (!acquire && pool->funcs->release_post_bldn_3dlut)
++				ret = pool->funcs->release_post_bldn_3dlut(res_ctx, pool, lut, shaper);
++		}
 +	}
-+
 +	return ret;
 +}
 +
- /**
-  * __set_input_tf - calculates the input transfer function based on expected
-  * input space.
-@@ -438,27 +468,11 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
- 				    regamma_size, has_rom);
- 		if (r)
- 			return r;
--	} else if (has_regamma) {
--		/* CRTC RGM goes into RGM LUT.
--		 *
--		 * Note: here there is no implicit sRGB regamma. We are using
--		 * degamma calculation from color module to calculate the curve
--		 * from a linear base.
--		 */
--		stream->out_transfer_func->type = TF_TYPE_DISTRIBUTED_POINTS;
--		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
--
--		r = __set_output_tf(stream->out_transfer_func, regamma_lut,
--				    regamma_size);
-+	} else {
-+		regamma_size = has_regamma ? regamma_size : 0;
-+		r = amdgpu_dm_set_atomic_regamma(stream, regamma_lut, regamma_size);
- 		if (r)
- 			return r;
--	} else {
--		/*
--		 * No CRTC RGM means we can just put the block into bypass
--		 * since we don't have any plane level adjustments using it.
--		 */
--		stream->out_transfer_func->type = TF_TYPE_BYPASS;
--		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
- 	}
++
+ static bool is_flip_pending_in_pipes(struct dc *dc, struct dc_state *context)
+ {
+ 	int i;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 72963617553e..a5abf7f308c3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -1345,6 +1345,14 @@ bool dc_acquire_release_mpc_3dlut(
+ 		struct dc_3dlut **lut,
+ 		struct dc_transfer_func **shaper);
  
- 	/*
++bool
++dc_acquire_release_mpc_3dlut_for_ctx(struct dc *dc,
++				     bool acquire,
++				     struct dc_state *state,
++				     struct dc_stream_state *stream,
++				     struct dc_3dlut **lut,
++				     struct dc_transfer_func **shaper);
++
+ void dc_resource_state_copy_construct(
+ 		const struct dc_state *src_ctx,
+ 		struct dc_state *dst_ctx);
 -- 
 2.35.1
 
